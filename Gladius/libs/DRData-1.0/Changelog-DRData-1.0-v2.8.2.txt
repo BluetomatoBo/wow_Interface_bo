@@ -1,0 +1,18 @@
+tag v2.8.2
+54ce58f54055048d41870eed2702e4241f70fe42
+Adirelle <adirelle@gmail.com>
+2012-10-08 18:53:16 +0200
+
+Tagging as v2.8.2.
+
+
+--------------------
+
+Adirelle:
+	- Added Sleep (Metamorphosis).
+Cybeloras:
+	- Added treants' bash, mass entanglement, and narrow escape
+	- Commented out Sting (Wasp) and Holy Word: Chastise, since their status is currently unknown. They definitely aren't in ctrlstun anymore, though.
+	- Did a complete pass of every single spell, manually verifying the spellID of the debuff in-game. Also added a few that were missing.
+	- Apologies, forgot to bump the minor version
+	- Fixed many incorrect spellIDs for stuns Added some missing stuns

@@ -1,0 +1,10 @@
+## Interface: 50100
+## Title: |cff1784d1ElvUI |rRaidCooldown
+## Author: Sortokk
+## Version: 2.0
+## RequiredDeps: ElvUI
+## DefaultState: Enabled
+## LoadOnDemand: 0
+
+libs\load_libs.xml
+load_raidcooldown.xml

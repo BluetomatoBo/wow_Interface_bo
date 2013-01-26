@@ -1,0 +1,9 @@
+## Interface: 50100
+## DefaultState: Enabled
+## Title: |cff1784d1ElvUI |rMeter Overlay [|c56FFFFFFRecount|r]
+## Author: Cecile
+## Dependencies: ElvUI,ElvUI_MeterOverlay,Recount
+## Version: 1.2b
+## Notes: Display recount as overlay in an ElvUI data text
+
+ElvUI_MeterOverlay_Recount.lua

@@ -1,0 +1,9 @@
+## Interface: 50100
+## DefaultState: Enabled
+## Title: |cff1784d1ElvUI |rMeter Overlay
+## Author: Cecile
+## Dependencies: ElvUI
+## Version: 1.6b
+## Notes: Display your damage meter as overlay in an ElvUI data text
+
+ElvUI_MeterOverlay.lua

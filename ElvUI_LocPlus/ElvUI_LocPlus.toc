@@ -1,0 +1,16 @@
+﻿## Interface: 50100
+## Author: Benik
+## Version: 1.75
+## Title: |cff1784d1ElvUI|r Location Plus Plugin
+## Notes: Location Plus Plugin for ElvUI 5+
+## RequiredDeps: ElvUI
+## OptionalDeps: LibTourist-3.0
+## DefaultState: Enabled
+## X-Curse-Packaged-Version: 1.74
+## X-Curse-Project-Name: ElvUI Location Plus
+## X-Curse-Project-ID: elvui-location-plus
+## X-Curse-Repository-ID: wow/elvui-location-plus/mainline
+
+libs\load_libs.xml
+locales\load_locales.xml
+init.xml

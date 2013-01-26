@@ -1,0 +1,88 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\..\FrameXML\UI.xsd">
+
+  <Frame name="BattlePetTabTemplate" enableMouse="true" virtual="true">
+    <Size x="42" y="50"/>
+    <Anchors>
+      <Anchor point="TOPLEFT" x="0" y="0"/>
+    </Anchors>
+    <Layers>
+      <Layer level="BACKGROUND">
+        <Texture file="Interface\GuildBankFrame\UI-GuildBankFrame-Tab">
+          <Size x="64" y="64"/>
+          <Anchors>
+            <Anchor point="TOPLEFT"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Frames>
+      <CheckButton name="$parentButton">
+        <Size x="36" y="34"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" x="2" y="-8"/>
+        </Anchors>
+        <Layers>
+          <Layer level="BORDER">
+            <Texture name="$parentIconTexture"/>
+            <FontString name="$parentCount" inherits="NumberFontNormal" justifyH="RIGHT" hidden="true">
+              <Anchors>
+                <Anchor point="BOTTOMRIGHT" x="-5" y="2"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+          <Layer level="ARTWORK">
+            <Texture name="$parentSearchOverlay" parentKey="searchOverlay" setAllPoints="true" hidden="true" textureSubLevel="4">
+              <Color r="0" g="0" b="0" a="0.8"/>
+            </Texture>
+          </Layer>
+        </Layers>
+        <Scripts>
+          <OnLoad>
+            self:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+            self:RegisterForDrag("LeftButton")
+            self:SetMotionScriptsWhileDisabled(true)
+          </OnLoad>
+          <OnClick>
+            BattlePetTab_OnClick(self, button, self:GetParent():GetID())
+          </OnClick>
+          <OnDragStart>
+            BattlePetTab_OnDrag(self, button, self:GetParent():GetID())
+          </OnDragStart>
+          <OnEnter>
+            if self.tooltip or self.tooltip2 then
+              GameTooltip:SetOwner(self, "ANCHOR_LEFT")
+              GameTooltip:ClearLines()
+              if type(self.tooltip2 or self.tooltip) == "table" then
+                for _, line in ipairs(self.tooltip2 or self.tooltip) do
+                  GameTooltip:AddLine(line)
+                end
+              else
+                GameTooltip:AddLine(self.tooltip2 or self.tooltip)
+              end
+              if not self.tooltip2 and not self.newTeam then
+                GameTooltip:AddLine("|cff999999Right-click to delete.|r")
+                GameTooltip:AddLine("|cff999999Right-click with modifier to rename.|r")
+                GameTooltip:AddLine("|cff999999Drag to pickup macro.|r")
+              end
+              GameTooltip:Show()
+            end
+          </OnEnter>
+          <OnLeave>
+            GameTooltip:Hide()
+          </OnLeave>
+        </Scripts>
+        <NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+          <Size x="60" y="60"/>
+          <Anchors>
+            <Anchor point="CENTER" x="0" y="-1"/>
+          </Anchors>
+        </NormalTexture>
+        <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+        <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+        <CheckedTexture alphaMode="ADD" file="Interface\Buttons\CheckButtonHilight"/>
+      </CheckButton>
+    </Frames>
+  </Frame>
+
+</Ui>

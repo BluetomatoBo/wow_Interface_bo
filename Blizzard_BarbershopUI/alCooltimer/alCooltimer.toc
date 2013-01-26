@@ -1,0 +1,8 @@
+## Interface: 40300
+## Title: |cff777777al|rCooltimer
+## Notes: Cooldown count for everything
+## Author: Allez
+## Version: 40300.1
+## Credits: Tuller, Tukz
+
+alCooltimer.lua

@@ -1,0 +1,19 @@
+## Interface: 40300
+## Title: |cff777777al|rBrokerPanel
+## Author: Allez
+## Version: 40300.1
+## Notes: Panel with some data broker plugins
+## Credits: Funkydude, p3lim
+## OptionalDeps: alInterface 
+## SavedVariablesPerCharacter: Broker_EquipmentDB
+
+lib\LibStub.lua
+lib\CallbackHandler-1.0.lua
+lib\LibDataBroker-1.1.lua
+lib\LibCargoShip-2.1.lua
+
+elements\Broker_Durability.lua
+elements\Broker_Equipment.lua
+elements\Broker_Spec.lua
+
+layout.lua

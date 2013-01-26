@@ -1,0 +1,14 @@
+## Interface: 50001
+## X-Curse-Packaged-Version: r36
+## X-Curse-Project-Name: TooltipItemInfo
+## X-Curse-Project-ID: tooltip-item-info
+## X-Curse-Repository-ID: wow/tooltip-item-info/mainline
+
+## Title: Tooltip Item Info
+## Notes: Shows Item Level and Stack Size in tooltips
+## Notes-esES: Muestra el Nivel del Objeto y el Tamanyo de la Pila en los tooltips
+
+## Author: Ammo
+## X-Credits: Tuller for SellFish tooltip hooking code
+
+TooltipItemInfo.lua

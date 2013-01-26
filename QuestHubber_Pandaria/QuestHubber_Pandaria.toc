@@ -1,0 +1,13 @@
+## Interface: 50100
+## Title: QuestHubber_Pandaria
+## Author: pigmonkey
+## Dependencies: QuestHubber
+## Notes: QuestHubber data for Pandaria zones
+## X-Curse-Packaged-Version: v12
+## X-Curse-Project-Name: QuestHubber
+## X-Curse-Project-ID: questhubber
+## X-Curse-Repository-ID: wow/questhubber/mainline
+
+Data_Pandaria_Alliance.lua
+Data_Pandaria_Horde.lua
+Data_Pandaria_Neutral.lua

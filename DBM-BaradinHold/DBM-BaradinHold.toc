@@ -1,0 +1,28 @@
+﻿## Interface: 50100
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r Baradin Hold
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r 巴拉丁监狱
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r 巴拉丁堡
+## Notes-zhCN: |cff00ff00DBM-BaradinHold|r
+## Notes-zhTW: |cff00ff00DBM-BaradinHold|r
+## Author: Nitram/Tandanu
+## LoadOnDemand: 1
+## X-Revision: BigFoot
+## RequiredDeps: DBM-Core
+## SavedVariablesPerCharacter: DBMBaradinHold_SavedVars, DBMBaradinHold_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Category: CATA
+## X-DBM-Mod-Has-Heroic-Mode: 0
+## X-DBM-Mod-Name: Baradin Hold
+## X-DBM-Mod-Name-zhTW: 巴拉丁堡
+## X-DBM-Mod-Name-zhCN: 巴拉丁监狱
+## X-DBM-Mod-Sort: 102
+## X-DBM-Mod-LoadZoneID: 752
+
+localization.en.lua
+localization.tw.lua
+localization.cn.lua
+
+MapSizes.lua
+Argaloth.lua
+Occuthar.lua
+Alizabal.lua

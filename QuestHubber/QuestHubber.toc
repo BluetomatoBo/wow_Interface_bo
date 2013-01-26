@@ -1,0 +1,39 @@
+## Interface: 50100
+## Title: QuestHubber
+## Author: pigmonkey
+## Notes: Pins on the World Map for quests you have not completed yet
+## Title-zhTW: QuestHubber [任務探索]
+## Notes-zhTW: 在世界地圖上，標記你尚未完成的任務。
+## Title-zhCN: QuestHubber [任务探索]
+## Notes-zhCN: 在世界地图上，标记你尚未完成的任务。
+## SavedVariables: QuestHubberDB
+## X-Curse-Packaged-Version: v12
+## X-Curse-Project-Name: QuestHubber
+## X-Curse-Project-ID: questhubber
+## X-Curse-Repository-ID: wow/questhubber/mainline
+
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\AceAddon-3.0\AceAddon-3.0.xml
+Libs\AceEvent-3.0\AceEvent-3.0.xml
+Libs\AceDB-3.0\AceDB-3.0.xml
+Libs\AceConsole-3.0\AceConsole-3.0.xml
+Libs\AceLocale-3.0\AceLocale-3.0.xml
+Libs\AceTimer-3.0\AceTimer-3.0.xml
+Libs\AceHook-3.0\AceHook-3.0.xml
+Libs\AceGUI-3.0\AceGUI-3.0.xml
+Libs\AceConfig-3.0\AceConfig-3.0.xml
+Libs\LibGratuity-3.0\lib.xml
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+
+Locale\enUS.lua
+Locale\deDE.lua
+Locale\esES.lua
+Locale\esMX.lua
+Locale\frFR.lua
+Locale\koKR.lua
+Locale\ruRU.lua
+Locale\zhCN.lua
+Locale\zhTW.lua
+
+QuestHubber.lua

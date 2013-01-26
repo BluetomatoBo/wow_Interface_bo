@@ -1,0 +1,33 @@
+﻿## Interface: 50100
+## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r Dragon Soul
+## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r 巨龙之魂
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r 巨龍之魂
+## Notes-zhCN: |cff00ff00DBM-DragonSoul|r
+## Notes-zhTW: |cff00ff00DBM-DragonSoul|r
+## Author: Nitram/Tandanu
+## LoadOnDemand: 1
+## X-Revision: BigFoot
+## RequiredDeps: DBM-Core
+## SavedVariablesPerCharacter: DBMDragonSoul_SavedVars, DBMDragonSoul_SavedStats
+## X-DBM-Mod: 1
+## X-DBM-Mod-Category: CATA
+## X-DBM-Mod-Name: Dragon Soul
+## X-DBM-Mod-Name-zhTW: 巨龍之魂
+## X-DBM-Mod-Name-zhCN: 巨龙之魂
+## X-DBM-Mod-Sort: 100
+## X-DBM-Mod-LoadZoneID: 824
+
+localization.en.lua
+localization.cn.lua
+localization.tw.lua
+
+MapSizes.lua
+Morchok.lua
+Zonozz.lua
+Yorsahj.lua
+Hagara.lua
+Ultraxion.lua
+Blackhorn.lua
+SpineDeathwing.lua
+MadnessDeathwing.lua
+DSTrash.lua

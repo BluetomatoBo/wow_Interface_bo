@@ -1,0 +1,16 @@
+## Interface: 50001
+## Title: Battle Pet - Quality Notifier
+## Author: Neutronic
+## Dependencies: 
+## OptionalDeps: LibPetJournal-2.0
+## SavedVariables: BattlePetQualityNotifier
+
+
+## Version: 1.3.0
+
+## Notes: Displays quality at the start of a wild pet battle
+
+LibPetJournal-2.0\LibStub.lua
+LibPetJournal-2.0\CallbackHandler-1.0.lua
+LibPetJournal-2.0\LibPetJournal-2.0.lua
+BattlePetQualityNotifier.lua

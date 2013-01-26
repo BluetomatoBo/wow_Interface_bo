@@ -1,0 +1,13 @@
+## Interface: 50000
+## Title: oUF Shadow Orbs Bar
+## Notes: Display Priest Shadow Orbs.
+## Author: Tukz
+## Version: 1.03
+## X-Category: oUF
+## Dependencies: oUF
+## X-Curse-Packaged-Version: 3.36
+## X-Curse-Project-Name: ElvUI Hud
+## X-Curse-Project-ID: elvui-hud
+## X-Curse-Repository-ID: wow/elvui-hud/mainline
+
+oUF_ShadowOrbsBar.lua

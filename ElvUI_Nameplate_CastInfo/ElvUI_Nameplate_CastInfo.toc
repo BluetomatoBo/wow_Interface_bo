@@ -1,0 +1,8 @@
+## Interface: 50001
+## Title: |cff1784d1ElvUI |rNameplate CastInfo
+## Notes: Shows info about casts and heals on the nameplates
+## Author: Catok
+## Version: 1.0.2
+## OptionalDeps: ElvUI
+
+core.lua

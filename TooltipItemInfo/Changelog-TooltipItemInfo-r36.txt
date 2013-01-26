@@ -1,0 +1,15 @@
+------------------------------------------------------------------------
+r36 | stanzilla | 2012-08-31 17:34:04 +0000 (Fri, 31 Aug 2012) | 2 lines
+Changed paths:
+   M /trunk/TooltipItemInfo.lua
+
+API update
+
+------------------------------------------------------------------------
+r35 | stanzilla | 2012-08-30 13:01:48 +0000 (Thu, 30 Aug 2012) | 1 line
+Changed paths:
+   M /trunk/TooltipItemInfo.lua
+   M /trunk/TooltipItemInfo.toc
+
+update for 5.0.4
+------------------------------------------------------------------------

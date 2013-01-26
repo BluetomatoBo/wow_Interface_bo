@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>LootList</title>
+</head>
+<body>
+	<h2>
+		Synopsis
+	</h2>
+	<p>
+		LootList allows the player to build loot/gear lists. Each list can have up to three
+		sets of metrics that can be assigned to each item, including optional integration
+		with <a href="http://wow.curse.com/downloads/wow-addons/details/pawn.aspx">Pawn</a>
+		scales. Finally, LootList provides optional notifcation (message and/or sound) when
+		it detects a loot/gear item. For more information see the <a href="#FAQ">FAQ</a>.
+	</p>
+	<h3>
+		Features
+	</h3>
+	<ul>
+		<li>A note can be maintained for each item in a list.</li>
+		<li>Items can be 'checked off' as won/obsolete while viewing a list, preventing subsequent
+			detection of the item. No more editing lists to remove items you won.</li>
+		<li>Item lists can now be imported using the WoW item id, or the URL formats for items
+			on Allakhazam, the Armory, Thottbot and Wowhead.</li>
+		<li>Lists can now be exported using the item id format.</li>
+		<li>Any number of lists, within which you can order the loot/gear according to say importance.</li>
+		<li>A list can have up to three metrics, which can represent some measurement of the
+			item. By default, the only metric is Manual.</li>
+		<li>A metric consists of a base value, a 'proc' value (for example a proc on a weapon),
+			and a total value.</li>
+		<li><i>Optional</i> integration with <a href="http://wow.curse.com/downloads/wow-addons/details/pawn.aspx">
+			Pawn</a>. A <b>visible</b> Pawn scale can be assigned to each metric. By default,
+			LootList will use the calculated Pawn value for that metric's base value.</li>
+		<li>Override any metric's base value, including Pawn values.</li>
+		<li>Manual entry of a metric's proc value.</li>
+		<li>An active metric can be made to appear blank, along with color coding to represent
+			a Pawn value (<span style="color: #1eff00;">green</span>), a Pawn value override
+			(<span style="color: #ff0000;">red</span>), or Manual value (<span style="color: #0070dd;">blue</span>).
+			A <span style="color: #999999;">grey</span> value indicates an error occured with
+			the Pawn value calculation.</li>
+		<li>Options to provide message and/or sound notification when LootList detects a loot/gear
+			item in a group loot roll window, a loot window, chat from the Master Looter, party/raid
+			leader chat, and/or raid warning chat.</li>
+		<li>Export loot/gear lists in plain text, Blizzard link format text, HTML list or BBC
+			list.</li>
+	</ul>
+	<h2>
+		Bug Reporting
+	</h2>
+	<p>
+		Please use a good error catcher like <a href="http://wow.curse.com/downloads/wow-addons/details/bug-grabber.aspx">
+			Bugsack</a> (requires <a href="http://wow.curse.com/downloads/wow-addons/details/bug-grabber.aspx">
+				!BugGrabber</a>), and provide the entire error text with as much information
+		on how to recreate the problem. Report the problem via the <a href="http://wow.curseforge.com/projects/lootlist/tickets/">
+			CurseForge ticket system</a> to ease tracking.
+	</p>
+	<h2>
+		Slash Commands
+	</h2>
+	<ul>
+		<li><b>/ll</b> - display LootList help</li>
+		<li><b>/ll show</b> - show the main LootList window</li>
+		<li><b>/ll hide</b> - hide the main LootList window</li>
+		<li><b>/ll resetui</b> - reset the position of LootList windows</li>
+	</ul>
+	<h2>
+		Language Support
+	</h2>
+	<p>
+		LootList should be able to work in any language, though the prompts and messages
+		are in English. If you would like to contribute a translation for this addon, let
+		me know via private message on this site. You will be given credit for the translation.
+	</p>
+	<h2>
+		Installation
+	</h2>
+	<p>
+		Unzip into <code><i>&lt;WoW&nbsp;Directory&gt;</i>\Interface\Addons</code>.</p>
+	<h2>
+		User Interface
+	</h2>
+	<p>
+		The user interface is used to perform all functions, and call be toggled (shown/hidden)
+		through two methods:
+	</p>
+	<ol style="list-style-type: decimal">
+		<li>Using the command line via the <code>/lootlist</code> or <code>/ll</code> command;</li>
+		<li>Using the minimap button that can be used to toggle the user interface.</li>
+	</ol>
+	<p>
+		To reset the window positions if they are dragged offscreen, use the command line
+		<code>/ll resetui</code> to reset their positions.
+	</p>
+	<p>
+		The user interface can be moved anywhere on the screen via dragging the LootList
+		window.
+	</p>
+	<h2>
+		Recent Version History
+	</h2>
+	<h3>
+		Version 1.3.2 - 12/03/12
+	</h3>
+	<ul>
+		<li>Fixed LUA error @ 483 when loot window opens</li>
+	</ul>
+	<h3>
+		Version 1.3.1 - 10/03/12
+	</h3>
+	<ul>
+		<li>Fixed LUA error @ 481 when loot window opens</li>
+	</ul>
+	<h3>
+		Version 1.3.0 - 09/13/12
+	</h3>
+	<ul>
+		<li>Ported for the WoW Mists of Pandaria 5.0.4 patch</li>
+	</ul>
+	<h3>
+		Version 1.2.5 - 11/29/11
+	</h3>
+	<ul>
+		<li>Fixed possible taint issues</li>
+		<li>Updated ToC for 4.3.0 patch</li>
+	</ul>
+	<h3>
+		Version 1.2.4 - 07/06/11
+	</h3>
+	<ul>
+		<li>Fixed taint issue via chat</li>
+	</ul>
+	<h3>
+		Version 1.2.3 - 06/28/11
+	</h3>
+	<ul>
+		<li>Updated ToC for 4.2.0 patch</li>
+	</ul>
+	<h3>
+		Version 1.2.2 - 04/26/11
+	</h3>
+	<ul>
+		<li>Updated ToC for 4.1.0 patch</li>
+	</ul>
+	<h3>
+		Version 1.2.1 - 01/30/11
+	</h3>
+	<ul>
+		<li>Fixed LUA error @ 2095 when a list has a pre-expansion non-cached item</li>
+		<li>Fixed Pawn messages when a list utilises a Pawn scale that no longer exists</li>
+	</ul>
+	<h3>
+		Version 1.2.0 - 10/12/10
+	</h3>
+	<ul>
+		<li>Released</li>
+	</ul>
+	<h3>
+		Version 1.2.Beta1 - 10/8/10
+	</h3>
+	<ul>
+		<li>Added ability to set a note for each item in a list</li>
+		<li>Ported for the WoW Cataclysm 4.0.1 patch</li>
+	</ul>
+	<h3>
+		Version 1.1.2 - 06/22/10
+	</h3>
+	<ul>
+		<li>Fixed LUA error @ 416 when shift-clicking links</li>
+	</ul>
+	<h3>
+		Version 1.1.1 - 05/17/10
+	</h3>
+	<ul>
+		<li>Fixed LUA error @ 2550 when trying to Insert/Append an empty item link</li>
+	</ul>
+	<h3>
+		Version 1.1.0 - 05/08/10
+	</h3>
+	<ul>
+		<li>Added ability to checkoff items as won/obsolete while viewing a list</li>
+		<li>Added additional export of item lists using WoW item ids</li>
+		<li>Added import of item lists using WoW item ids, or Allakhazam, Armory, Thottbot or
+			Wowhead item URLs</li>
+		<li>Fixed confusing ability to change list selection while editing a list</li>
+	</ul>
+	<ul>
+		<li>Initial beta release</li>
+	</ul>
+	<h3>
+		Complete Version History
+	</h3>
+	<p>
+		See the <a href="versions.htm">version history</a> document for a complete version
+		history of LootList.
+	</p>
+	<h2>
+		Known Issues
+	</h2>
+	<p>
+		None currently known.
+	</p>
+	<h2>
+		Future Versions
+	</h2>
+	<p>
+		Nothing planned at this time.
+	</p>
+	<h2>
+		License
+	</h2>
+	<p>
+		<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">
+			<img alt="Creative Commons License" style="border-width: 0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/us/88x31.png" /></a><br />
+		<span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/Text"
+			property="dc:title" rel="dc:type">LootList 1.x.x+</span> by <span xmlns:cc="http://creativecommons.org/ns#"
+				property="cc:attributionName">Mackenz</span> is licensed under a <a rel="license"
+					href="http://creativecommons.org/licenses/by-nc-nd/3.0/us/">Creative Commons Attribution-Noncommercial-No
+					Derivative Works 3.0 United States License</a>.
+	</p>
+	<h2>
+		<a id="FAQ">FAQ</a>
+	</h2>
+	<p>
+		Since reading a user guide would be like watching paint dry, I have written a FAQ
+		to try to narrow the discussion. I will be adding to the FAQ as questions are raised
+		in the commentary.</p>
+	<ol style="list-style-type: decimal">
+		<li><a href="#Colors">How do I enable the color coding of a metric?</a></li>
+		<li><a href="#Notice">When will an item be detected?</a></li>
+		<li><a href="#RedRum">What does it mean when a link is red?</a></li>
+		<li><a href="#Import">What are item ids and how do I use them to import lists?</a></li>
+	</ol>
+	<hr />
+	<ol style="list-style-type: decimal">
+		<li><a id="Colors">How do I enable the color coding of a metric?</a>
+			<p>
+				When you are creating/modifying a list, the user interface will show an editing
+				box for each enabled metric. Color coding is enabled by the value entered for the
+				metric's base value:
+			</p>
+			<ol style="list-style-type: lower-alpha">
+				<li><span style="color: #1eff00;">Green</span> - Enter a -1 value when using a Pawn
+					scale;</li>
+				<li><span style="color: #ff0000;">Red</span> - Enter a positive value when using a Pawn
+					scale;</li>
+				<li><span style="color: #0070dd;">Blue</span> - Enter a positive value when using the
+					Manual scale;</li>
+				<li>Blank - Enter a zero value when using any scale;</li>
+			</ol>
+			<p>
+				Note that a <span style="color: #999999;">grey</span> color will be shown only when
+				a Pawn scale fails to calculate a value for the item.
+			</p>
+			<br />
+		</li>
+		<li><a id="Notice">When will an item be detected?</a>
+			<p>
+				If enabled in the options, LootList will attempt to detect a loot/gear item in the
+				following cases:
+			</p>
+			<ol style="list-style-type: lower-alpha">
+				<li>When the item appears in the group loot roll window (a la Need/Greed/DE);</li>
+				<li>When the item appears in the loot window when looting a corpse (et al);</li>
+				<li>When the item is linked into chat by the Master Looter;</li>
+				<li>When the item is linked into Party/Raid Leader chat;</li>
+				<li>When the item is linked into Raid Warning chat.</li>
+			</ol>
+			<br />
+		</li>
+		<li><a id="RedRum">What does it mean when a link is red?</a>
+			<p>
+				A red link in the item list means that you have not yet 'seen' the item in-game,
+				and it is therefore not in your item 'cache'. Such links are regarded as 'unsafe'.
+				Blizzard builds a cache of all items you have seen in-game, where 'seen' means an
+				item:
+			</p>
+			<ol style="list-style-type: disc">
+				<li>On your character;</li>
+				<li>In your bags;</li>
+				<li>In your bank vault;</li>
+				<li>Linked into chat text;</li>
+				<li>Viewed in your guild bank vault;</li>
+				<li>Viewed in an Auction House listing;</li>
+				<li>Viewed via inspection of another player.</li>
+			</ol>
+			<p>
+				These links are regarded as unsafe because attempting to get the item information
+				<i>may</i> result in a disconnect. <i>Generally</i>, you can get the information
+				for these links (by right-clicking the link in the LootList item list) reliably
+				every one or two seconds when on the <b>live</b> version of WoW, although there
+				is still a chance you might be disconnected - in which case, slow down the right-clicking.
+				You <i>should</i> be more cautious on the PTR (Public Testing Realm) of WoW, with
+				right-clicking every few seconds as a starting point.
+			</p>
+			<p>
+				The reason for this behaviour is to prevent addons from 'sniffing' for new items
+				so that they can be added to the various WoW information web sites. This is why
+				a PTR is much more sensitive since it will be a source of new content and new items.
+			</p>
+			<p>
+				Note that your item cache will be empty (of course) after installation (of the live
+				or PTR version of WoW). The item cache <i>may</i> also be cleared after a patch,
+				and you may be directed to delete you Cache directory when troubleshooting. Be cautious
+				if you see red links in your lists when logging in!
+			</p>
+			<br />
+		</li>
+		<li><a id="Import">What are item ids and how do I use them to import lists?</a>
+			<p>
+				Blizzard identifies all items in game with a single master item identifier. For
+				example, a <a href="http://www.wowhead.com/item=36927"><span style="color: #0070dd;">
+					[Twilight Opal]</span></a> has an item id of 36927. For more information on
+				item ids and item strings, head to <a href="http://www.wowwiki.com/ItemString">WoWWiki
+					Item Strings</a>.
+			</p>
+			<p>
+				You can import a loot list by using the Import function when editing a list. Each
+				line of the import text takes the form:
+			</p>
+			<p>
+				<code><i>itemid</i>[=<i>text</i>]</code>
+			</p>
+			<p>
+				where the <code>=<i>text</i></code> portion is optional, though useful in identifying
+				the item if the <code><i>itemid</i></code> is mistyped. You can source the item
+				id from any number of WoW information sites, along with class loot web sites. Generally,
+				the URL of the item will include the item id. For the <a href="http://www.wowhead.com/item=36927">
+					<span style="color: #0070dd;">[Twilight Opal]</span></a> example above, the
+				URL appears as <a href="http://www.wowhead.com/item=36927">http://www.wowhead.com/item=36927</a>.
+			</p>
+			<br />
+		</li>
+	</ol>
+</body>
+</html>

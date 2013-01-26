@@ -1,0 +1,4 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Include file="LibGroupInSpecT-1.0\lib.xml"/>	
+	<Include file="LibCandyBar-3.0\lib.xml"/>
+</Ui>

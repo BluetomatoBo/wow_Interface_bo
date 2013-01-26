@@ -1,0 +1,17 @@
+## Interface: 50100
+## Title: QuestHubber_Daily
+## Author: pigmonkey
+## Dependencies: QuestHubber
+## Notes: QuestHubber data for all daily quests
+## Title-zhTW: QuestHubber [每日任務]
+## Notes-zhTW: QuestHubber 每日任務資料庫。
+## Title-zhCN: QuestHubber [日常任务]
+## Notes-zhCN: QuestHubber 日常任务数据库。
+## X-Curse-Packaged-Version: v12
+## X-Curse-Project-Name: QuestHubber
+## X-Curse-Project-ID: questhubber
+## X-Curse-Repository-ID: wow/questhubber/mainline
+
+Data_Daily_Alliance.lua
+Data_Daily_Horde.lua
+Data_Daily_Neutral.lua

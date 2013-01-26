@@ -1,0 +1,17 @@
+## Interface: 50100
+## Title: QuestHubber_Azeroth
+## Author: pigmonkey
+## Dependencies: QuestHubber
+## Notes: QuestHubber data for 1-60 Azeroth zones
+## Title-zhTW: QuestHubber [艾澤拉斯]
+## Notes-zhTW: QuestHubber 1-60 艾澤拉斯區域任務資料庫。
+## Title-zhCN: QuestHubber [艾泽拉斯]
+## Notes-zhCN: QuestHubber 1-60 艾泽拉斯区域任务数据库。
+## X-Curse-Packaged-Version: v12
+## X-Curse-Project-Name: QuestHubber
+## X-Curse-Project-ID: questhubber
+## X-Curse-Repository-ID: wow/questhubber/mainline
+
+Data_Azeroth_Alliance.lua
+Data_Azeroth_Horde.lua
+Data_Azeroth_Neutral.lua

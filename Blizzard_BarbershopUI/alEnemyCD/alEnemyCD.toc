@@ -1,0 +1,8 @@
+## Interface: 40300
+## Author: Allez
+## Title: |cff777777al|rEnemyCD
+## Version: 40300.1
+## Notes: Enemy cooldown monitor
+## OptionalDeps: alInterface
+
+alEnemyCD.lua

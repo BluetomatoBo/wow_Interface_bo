@@ -1,0 +1,17 @@
+## Interface: 50100
+## Title: QuestHubber_Cataclysm
+## Author: pigmonkey
+## Dependencies: QuestHubber
+## Notes: QuestHubber data for zones added in Cataclysm
+## Title-zhTW: QuestHubber [浩劫與重生]
+## Notes-zhTW: QuestHubber 浩劫與重生區域任務資料庫。
+## Title-zhCN: QuestHubber [大灾难]
+## Notes-zhCN: QuestHubber 大灾难区域任务数据库。
+## X-Curse-Packaged-Version: v12
+## X-Curse-Project-Name: QuestHubber
+## X-Curse-Project-ID: questhubber
+## X-Curse-Repository-ID: wow/questhubber/mainline
+
+Data_Cataclysm_Alliance.lua
+Data_Cataclysm_Horde.lua
+Data_Cataclysm_Neutral.lua

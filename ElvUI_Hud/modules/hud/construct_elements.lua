@@ -1,0 +1,484 @@
+local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
+local H = E:GetModule('HUD');
+local UF = E:GetModule('UnitFrames');
+local LSM = LibStub("LibSharedMedia-3.0");
+
+-- Health for all units
+function H:ConstructHealth(frame)
+    self:AddElement(frame,'health')
+	-- Health Bar
+    local health = self:ConfigureStatusBar(frame,'health')
+    health:SetOrientation("VERTICAL")
+    health:SetFrameLevel(frame:GetFrameLevel() + 5)
+    health:Point("LEFT",frame,"LEFT")
+	health.value = self:ConfigureFontString(frame,'health',health)		
+	health.PostUpdate = H.PostUpdateHealth
+    health.frequentUpdates = true
+
+    health.colorSmooth = false
+    --health.colorDisconnected = false
+    --health.colorTapping = true	
+
+    return health
+end
+
+-- Power for units it is enabled on
+function H:ConstructPower(frame)
+    self:AddElement(frame,'power')
+    
+    local power = self:ConfigureStatusBar(frame,'power')
+    power:SetOrientation("VERTICAL")
+    power:SetFrameLevel(frame:GetFrameLevel()+1)
+
+    power.value = self:ConfigureFontString(frame,'power',power)               
+    
+    power.PreUpdate = H.PreUpdatePowerHud
+    power.PostUpdate = H.PostUpdatePowerHud
+
+    -- Update the Power bar Frequently
+    power.frequentUpdates = true
+
+    power.colorTapping = true   
+    power.colorPower = true
+    power.colorReaction = true
+    power.colorDisconnected = true      
+
+    return power
+end 
+
+-- Castbar for units it is enabled on
+-- For player/target castbar can be (and defaults) to horizontal mode.
+-- For pet/targettarget/pettarget castbar is always vertical overlaid on the power bar.
+-- Note in this version the castbar is no longer anchored to the power bar, so each
+-- element can be disabled indepdently
+function H:ConstructCastbar(frame)
+    self:AddElement(frame,'castbar')
+    local castbar = self:ConfigureStatusBar(frame,'castbar')
+
+    if not E.db.hud.horizCastbar or (frame.unit ~= "player" and frame.unit ~= "target") then
+        castbar.PostCastStart = H.PostCastStart
+        castbar.PostChannelStart = H.PostChannelStart
+        castbar.OnUpdate = H.CastbarUpdate
+        --castbar.PostCastInterruptible = H.PostCastInterruptible
+        --castbar.PostCastNotInterruptible = H.PostCastNotInterruptible
+        castbar:SetOrientation("VERTICAL")
+        castbar:SetFrameStrata(frame.Power:GetFrameStrata())
+        castbar:SetFrameLevel(frame.Power:GetFrameLevel()+2)
+    
+        castbar.Time = self:ConfigureFontString(frame,'castbar',castbar,'time')
+        castbar.Time:Point("BOTTOM", castbar, "TOP", 0, 4)
+        castbar.Time:SetTextColor(0.84, 0.75, 0.65)
+        castbar.Time:SetJustifyH("RIGHT")
+        
+        castbar.Text = self:ConfigureFontString(frame,'castbar',castbar,'text')
+        castbar.Text:SetPoint("TOP", castbar, "BOTTOM", 0, -4)
+        castbar.Text:SetTextColor(0.84, 0.75, 0.65)
+        
+        castbar.Spark = castbar:CreateTexture(nil, 'OVERLAY')
+        castbar.Spark:Height(12)
+        castbar.Spark:SetBlendMode('ADD')
+        castbar.Spark:SetVertexColor(1, 1, 1)
+
+        --Set to castbar.SafeZone
+        castbar.LatencyTexture = self:ConfigureTexture(frame,'castbar',castbar,'latency')
+        castbar.LatencyTexture:SetVertexColor(0.69, 0.31, 0.31, 0.75)   
+        castbar.SafeZone = castbar.LatencyTexture
+        
+        local button = CreateFrame("Frame", nil, castbar)
+        button:SetTemplate("Default")
+        
+        button:Point("BOTTOM", castbar, "BOTTOM", 0, 0)
+        
+        local icon = button:CreateTexture(nil, "ARTWORK")
+        icon:Point("TOPLEFT", button, 2, -2)
+        icon:Point("BOTTOMRIGHT", button, -2, 2)
+        icon:SetTexCoord(0.08, 0.92, 0.08, .92)
+        icon.bg = button
+        
+        --Set to castbar.Icon
+        castbar.ButtonIcon = icon
+    else
+        castbar:SetFrameLevel(6)
+
+        castbar.CustomTimeText = H.CustomCastTimeText
+        castbar.CustomDelayText = H.CustomCastDelayText
+        if frame.unit ~= 'player' then
+            castbar.PostCastStart = H.CheckCast
+            castbar.PostChannelStart = H.CheckCast
+        else
+            castbar.PostCastStart = UF.PostCastStart
+            castbar.PostChannelStart = UF.PostCastStart
+            castbar.PostCastStop = UF.PostCastStop
+            castbar.PostChannelStop = UF.PostCastStop
+            castbar.PostChannelUpdate = UF.PostChannelUpdate
+            castbar.PostCastInterruptible = UF.PostCastInterruptible
+            castbar.PostCastNotInterruptible = UF.PostCastNotInterruptible
+        end
+
+        castbar.Time = self:ConfigureFontString(frame,'castbar',castbar,'time')
+        castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, 0)
+        castbar.Time:SetTextColor(0.84, 0.75, 0.65)
+        castbar.Time:SetJustifyH("RIGHT")
+        
+        castbar.button = CreateFrame("Frame", nil, castbar)
+        castbar.button:Size(26)
+        castbar.button:SetTemplate("Default")
+        castbar.button:CreateShadow("Default")
+
+        castbar.Spark = castbar:CreateTexture(nil, 'OVERLAY')
+        castbar.Spark:SetBlendMode('ADD')
+        castbar.Spark:SetVertexColor(1, 1, 1)
+        castbar.Spark:Width(12)
+
+        castbar.Text = self:ConfigureFontString(frame,'castbar',castbar,'text')
+        castbar.Text:SetTextColor(0.84, 0.75, 0.65)
+        castbar.Text:SetPoint("LEFT", castbar.button, "RIGHT", 4, 0)
+
+        castbar.Icon = castbar.button:CreateTexture(nil, "ARTWORK")
+        castbar.Icon:Point("TOPLEFT", castbar.button, 2, -2)
+        castbar.Icon:Point("BOTTOMRIGHT", castbar.button, -2, 2)
+        castbar.Icon:SetTexCoord(0.08, 0.92, 0.08, .92)
+    
+        castbar.button:SetPoint("LEFT")
+    
+        --Set to castbar.SafeZone
+        castbar.LatencyTexture = self:ConfigureTexture(frame,'castbar',castbar,'latency')
+        castbar.LatencyTexture:SetVertexColor(0.69, 0.31, 0.31, 0.75)   
+        castbar.SafeZone = castbar.LatencyTexture
+    end
+
+    if frame.unit ~= 'target' then
+        castbar:HookScript("OnShow", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
+        castbar:HookScript("OnHide", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+    end
+    
+    return castbar
+end
+
+-- Name element
+function H:ConstructName(frame)
+    self:AddElement(frame,'name')
+    local name = self:ConfigureFontString(frame,'name')
+    return name
+end
+
+-- Eclipse Bar for druids
+function H:ConstructEclipseBar(frame)
+    self:AddElement(frame,'classbars')
+
+    local eclipseBar = self:ConfigureFrame(frame,'classbars', true)
+    eclipseBar:SetFrameStrata("MEDIUM")
+    eclipseBar:SetTemplate("Default")
+    eclipseBar:SetFrameLevel(8)
+    eclipseBar:SetBackdropBorderColor(0,0,0,0)
+                    
+    local lunarBar = self:ConfigureStatusBar(frame,'classbars',eclipseBar,'lunarbar',true)
+    lunarBar:SetPoint('BOTTOM', eclipseBar)
+    lunarBar:SetOrientation('VERTICAL')
+    eclipseBar.LunarBar = lunarBar
+
+    local solarBar = self:ConfigureStatusBar(frame,'classbars',eclipseBar,'solarbar',true)
+    solarBar:SetPoint('BOTTOM', lunarBar:GetStatusBarTexture(), 'TOP')
+    solarBar:SetStatusBarColor(.30, .52, .90)
+    solarBar:SetOrientation('VERTICAL')
+    eclipseBar.SolarBar = solarBar
+    
+    local eclipseBarText = self:ConfigureFontString(frame,'classbars',eclipseBar,'text')
+    eclipseBarText:SetPoint("LEFT", eclipseBar, "RIGHT", E:Scale(10), 0)
+    
+    eclipseBar.PostUpdatePower = UF.EclipseDirection
+    eclipseBar.Text = eclipseBarText
+
+    return eclipseBar
+end
+
+function H:ConstructSubBars(frame,element,name,num)
+    self:AddElement(frame,element)
+
+    local bars = self:ConfigureFrame(frame,element,true)
+    bars:SetFrameLevel(frame:GetFrameLevel() + 30)
+    bars:SetTemplate("Default")
+    bars:SetBackdropBorderColor(0,0,0,0)
+
+    for i = 1, num do
+        bars[i] = self:ConfigureStatusBar(frame,element,frame,name..i)
+        bars[i]:SetFrameStrata("MEDIUM")
+        bars[i]:SetFrameLevel(frame:GetFrameLevel() + 35)
+
+        if i == 1 then
+            bars[i]:SetPoint("BOTTOM", bars)
+        else
+            bars[i]:SetPoint("BOTTOM", bars[i-1], "TOP", 0, E:Scale(1))
+        end
+     
+        bars[i]:SetOrientation('VERTICAL')
+    end
+
+    if element == 'classbars' then
+        bars.value = self:ConfigureFontString(frame,element,frame)                
+        bars.value:Hide()
+    end
+
+    return bars
+end
+
+-- Wild Mushroom Bar for Druids
+function H:ConstructWildMushroomBar(frame)
+    return self:ConstructSubBars(frame,'mushroom','wildmushroom',3)
+end
+
+-- Warlock spec bars
+function H:ConstructWarlockSpecBars(frame)
+    return self:ConstructSubBars(frame,'classbars','warlockspecbar',4)
+end
+
+-- Construct holy power for paladins
+function H:ConstructHolyPower(frame)
+    return self:ConstructSubBars(frame,'classbars','holypower',5)
+end
+
+-- Runes for death knights
+function H:ConstructRunes(frame)
+    return self:ConstructSubBars(frame,'classbars','rune',6)
+end
+
+-- Totems for shamans
+function H:ConstructTotems(frame)
+    return self:ConstructSubBars(frame,'classbars','totem',4)
+end
+
+-- Construct harmony bar for monks
+function H:ConstructHarmony(frame)
+   return self:ConstructSubBars(frame,'classbars','harmony',5)
+end
+ 
+-- Construct shadow orb bar for priests
+function H:ConstructShadowOrbBar(frame)
+    return self:ConstructSubBars(frame,'classbars','shadoworb',3)
+end
+
+-- Construct arcane bar for mages
+function H:ConstructArcaneBar(frame)
+    return self:ConstructSubBars(frame,'classbars','arcanecharge',6) 
+end
+
+-- Combo points for rogues and druids
+function H:ConstructComboPoints(frame)
+    local bars = self:ConstructSubBars(frame,'cpoints','combopoint',5)
+    
+    bars[1]:SetStatusBarColor(0.69, 0.31, 0.31)     
+    bars[2]:SetStatusBarColor(0.69, 0.31, 0.31)
+    bars[3]:SetStatusBarColor(0.65, 0.63, 0.35)
+    bars[4]:SetStatusBarColor(0.65, 0.63, 0.35)
+    bars[5]:SetStatusBarColor(0.33, 0.59, 0.33)
+    
+    bars.Override = H.ComboDisplay
+    
+    frame:RegisterEvent("UNIT_DISPLAYPOWER", H.ComboDisplay)
+    return bars
+end
+
+function H:ConstructAuraBars()
+    local config = E.db.hud.units.player['aurabars']
+    local media = config.media
+    local size = config.size
+    local bar = self.statusBar
+    
+    self:SetTemplate('Default')
+
+    bar:Size(size.width,size.height)
+    local textureSetting = 'units.player.aurabars.media.texture'
+    local fontSetting = 'units.player.aurabars.media.font'
+    if not H:IsDefault(textureSetting) then
+        bar:SetStatusBarTexture(LSM:Fetch("statusbar", media.texture.statusbar))
+    else
+        bar:SetStatusBarTexture(LSM:Fetch("statusbar", E.db.hud.statusbar))
+    end
+    
+    if not H:IsDefault(fontSetting) then
+        bar.spelltime:FontTemplate(LSM:Fetch("font", media.font.font), media.font.fontsize, "THINOUTLINE")
+        bar.spellname:FontTemplate(LSM:Fetch("font", media.font.font), media.font.fontsize, "THINOUTLINE")
+    else
+        bar.spelltime:FontTemplate(LSM:Fetch("font", E.db.hud.font), E.db.hud.fontsize, "THINOUTLINE")
+        bar.spellname:FontTemplate(LSM:Fetch("font", E.db.hud.font), E.db.hud.fontsize, "THINOUTLINE")
+    end
+    
+    bar.spellname:ClearAllPoints()
+    bar.spellname:SetPoint('LEFT', bar, 'LEFT', 2, 0)
+    
+    bar.iconHolder:SetTemplate('Default')
+    bar.icon:SetInside(bar.iconHolder)
+    bar.icon:SetDrawLayer('OVERLAY')
+    
+    
+    bar.iconHolder:HookScript('OnEnter', function(self)
+        GameTooltip.auraBarLine = true;
+    end)    
+    
+    bar.iconHolder:HookScript('OnLeave', function(self)
+        GameTooltip.auraBarLine = nil;
+        GameTooltip.numLines = nil
+    end)
+
+    bar.iconHolder:RegisterForClicks('RightButtonUp')
+    bar.iconHolder:SetScript('OnClick', function(self)
+        if not IsShiftKeyDown() then return; end
+        local auraName = self:GetParent().aura.name
+        
+        if auraName then
+            E:Print(string.format(L['The spell "%s" has been added to the Blacklist unitframe aura filter.'], auraName))
+            E.global['unitframe']['aurafilters']['Blacklist']['spells'][auraName] = {
+                ['enable'] = true,
+                ['priority'] = 0,           
+            }
+            UF:Update_AllFrames()
+        end
+    end)
+end
+
+function H:ConstructAuraBarHeader(frame)
+    self:AddElement(frame,'aurabars')
+    local auraBar = self:ConfigureFrame(frame,'aurabars')
+    auraBar.PostCreateBar = H.ConstructAuraBars
+    auraBar.PostUpdate = UF.ColorizeAuraBars
+    auraBar.gap = 1
+    auraBar.spacing = 1
+    auraBar.spark = true
+    auraBar.sort = true
+    auraBar.debuffColor = {0.8, 0.1, 0.1}
+    auraBar.filter = self.AuraBarFilter
+    
+    local healthColor = UF.db.colors.health
+
+    auraBar.friendlyAuraType = 'HELPFUL'
+    auraBar.enemyAuraType = 'HARMFUL'
+    auraBar.buffColor = {healthColor.r, healthColor.b, healthColor.g}
+    auraBar.down = true
+    
+    return auraBar
+end
+
+function H:ConstructRaidIcon(frame)
+    self:AddElement(frame,'raidicon')
+    local f = CreateFrame('Frame', nil, frame)
+    f:SetFrameLevel(20)
+    
+    local tex = f:CreateTexture(nil, "OVERLAY")
+    tex:SetTexture([[Interface\TargetingFrame\UI-RaidTargetingIcons]])
+    tex:Size(12)
+
+    return tex
+end
+
+function H:ConstructRestingIndicator(frame)
+    self:AddElement(frame,'resting')
+    local resting = frame:CreateTexture(nil, "OVERLAY")
+    resting:Size(16)
+    
+    return resting
+end
+
+function H:ConstructCombatIndicator(frame)
+    self:AddElement(frame,'combat')
+    local combat = frame:CreateTexture(nil, "OVERLAY")
+    combat:Size(13)
+    combat:SetVertexColor(0.69, 0.31, 0.31)
+    
+    return combat
+end
+
+function H:ConstructPvPIndicator(frame)
+    self:AddElement(frame,'pvp')
+    local pvp = self:ConfigureFontString(frame,'pvp')
+    pvp:SetTextColor(0.69, 0.31, 0.31)
+    
+    return pvp
+end
+
+function H:ConstructHealComm(frame)
+    self:AddElement(frame,'healcomm')
+    local mhpb = self:ConfigureStatusBar(frame,'healcomm',frame,'mybar')
+    mhpb:SetStatusBarColor(0, 1, 0.5, 0.25)
+    mhpb:SetFrameLevel(frame.Health:GetFrameLevel() - 2)
+    mhpb:Hide()
+    
+    local ohpb = self:ConfigureStatusBar(frame,'healcomm',frame,'otherbar')
+    ohpb:SetStatusBarColor(0, 1, 0, 0.25)
+    mhpb:SetFrameLevel(mhpb:GetFrameLevel())    
+    ohpb:Hide()
+    
+    if frame.Health then
+        ohpb:SetParent(frame.Health)
+        mhpb:SetParent(frame.Health)
+    end
+    
+    return {
+        myBar = mhpb,
+        otherBar = ohpb,
+        maxOverflow = 1,
+        PostUpdate = function(self)
+            if self.myBar:GetValue() == 0 then self.myBar:SetAlpha(0) else self.myBar:SetAlpha(1) end
+            if self.otherBar:GetValue() == 0 then self.otherBar:SetAlpha(0) else self.otherBar:SetAlpha(1) end
+        end
+    }
+end
+
+function H:ConstructGCD(frame)
+    self:AddElement(frame,'gcd')
+    local GCD = self:ConfigureStatusBar(frame,'gcd')
+    GCD:SetStatusBarColor(.8,.8,.8,0)
+    GCD:SetAlpha(1)
+    GCD:SetOrientation('VERTICAL')
+    GCD:SetFrameStrata(frame.Power:GetFrameStrata())
+    GCD:SetFrameLevel(frame.Power:GetFrameLevel()+2)
+    
+    GCD.Spark = GCD:CreateTexture(frame:GetName().."_GCDSpark", "OVERLAY")
+    GCD.Spark:SetTexture("Interface\\CastingBar\\UI-CastingBar-Spark")
+    GCD.Spark:SetVertexColor(1,1,1)
+    GCD.Spark:Height(12)
+    GCD.Spark:Point('CENTER',GCD:GetStatusBarTexture(),'TOP')
+    GCD.Spark:SetBlendMode("ADD")
+
+    return GCD
+end
+
+function H:ConstructDebuffs(frame)
+    self:AddElement(frame,'debuffs')
+    local debuffs = self:ConfigureFrame(frame,'debuffs')
+
+    debuffs.size = 26
+    debuffs.num = 36
+
+    debuffs.spacing = 2
+    debuffs.initialAnchor = "TOPRIGHT"
+    debuffs["growth-y"] = "UP"
+    debuffs["growth-x"] = "LEFT"
+    debuffs.PostCreateIcon = self.PostCreateAura
+    debuffs.PostUpdateIcon = self.PostUpdateAura       
+    debuffs.CustomFilter = self.AuraFilter
+    debuffs.type = 'debuffs'
+
+    -- an option to show only our debuffs on target
+    --[[if unit == "target" then
+        debuffs.onlyShowPlayer = C.unitframes.onlyselfdebuffs
+    end]]
+    return debuffs
+end
+
+function H:ConstructBuffs(frame)
+    self:AddElement(frame,'buffs')
+    local buffs = self:ConfigureFrame(frame,'buffs')
+                        
+    buffs.size = 26
+    buffs.num = 36
+    buffs.numRow = 9
+                            
+    buffs.spacing = 2
+    buffs.initialAnchor = "TOPLEFT"
+    buffs.PostCreateIcon = H.PostCreateAura
+    buffs.PostUpdateIcon = H.PostUpdateAura
+    buffs.CustomFilter = self.AuraFilter
+    buffs.type = 'buffs'
+
+    return buffs
+end 

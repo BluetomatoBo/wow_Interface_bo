@@ -1,0 +1,5 @@
+<Bindings>
+	<Binding name="LOOTLIST_TOGGLE" description="LOOTLIST_TOGGLE_DESC" header="LOOTLIST">
+		LootList_Toggle();
+	</Binding>
+</Bindings>
