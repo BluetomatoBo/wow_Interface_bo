@@ -1,0 +1,19 @@
+## Interface: 50100
+## Title: PlayerScore / GearScore
+## Author: Arxkanite
+## Version: 5.00.04.00
+## Notes: GearScore is now PlayerScore! 
+## eMail: kevin@tentonhammer.com
+## URL: http://www.playerscore.com
+## DefaultState: Enabled
+## LoadOnDemand: 0
+## SavedVariables: TenTonHammer_Settings,TenTonHammer_Database, TenTonHammer_Elite, TenTonHammer_OnlineDatabase, TTHD, TenTonHammer_News
+
+frames.xml
+bindings.xml
+scripts.lua
+data\us.lua
+data\eu.lua
+
+
+

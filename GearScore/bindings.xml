@@ -1,0 +1,5 @@
+<Bindings>
+	<Binding name="PlayerScore Inspect" description="Inspects your current target, or yourself with the PlayerScore inspect." header="PLAYERSCORE_INSPECT">
+		TenTonHammer:CommandControl();
+	</Binding>
+</Bindings>
