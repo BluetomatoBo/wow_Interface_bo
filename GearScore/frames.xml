@@ -1038,6 +1038,7 @@
 						Button.Hyperlink = ButtonArray[i][2] or "";
 						Button:SetScript("OnClick", ButtonArray[i][3] or nil);
 						if ( i > 4 ) then Button:Hide(); end;
+						Button:SetFrameLevel(Button:GetFrameLevel() + 1); -- this fixes a problem with the button's texture being behind the backdrop of the parent; but this only happens sometimes for some reason		
 					end;
 					
 					_G[Name.."_MainButton5"]:SetPoint("TOPLEFT", _G[Name.."_MainButton4"], 0,0);

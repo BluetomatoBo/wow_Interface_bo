@@ -43,7 +43,7 @@ f.PlayerName = UnitName("player");
 f.ScanQue = {};
 f.AIL_Info = {};
 f.data = {
-	["Version"] = 50007,
+	["Version"] = 50008,
 	["Beta"] = false,
 	["TemplateVersion"] = 100,
 	["EquipmentOrder"] = {1,2,3,15,5,9,10,6,7,8,11,12,13,14,16,17},
@@ -621,6 +621,25 @@ local function DebugTable(Item, Table)
 		print(i,v);
 	end;
 end;
+
+-- general purpose utility functions
+
+-- convert from a string escape code color to the rgba values
+local function hexColorToRGB(hex)
+	if type(hex) ~= "string" or hex:sub(1, 2) ~= "|c" then
+		return 0, 0, 0, 1
+	end
+	local a, r, g, b = hex:sub(3, 4), hex:sub(5, 6), hex:sub(7, 8), hex:sub(9, 10)
+	return tonumber(r, 16) / 255 or 1,
+		tonumber(g, 16) / 255 or 1,
+		tonumber(b, 16) / 255 or 1,
+		tonumber(a, 16) / 255 or 1
+end
+
+local function rgbColorToHex(r, g, b, a)
+	return ("|c%02X%02X%02X%02X"):format(a or 0xFF, r * 255, g * 255, b * 255)
+end
+
 
 do
 	local itemLevelByUpgradeId = {
@@ -1966,12 +1985,12 @@ function f:Scan(unit, shouldtargetplayer, hidewait, litemode)
 
 							TotalEquipment = TotalEquipment + 1;
 							local r, g, b, hex = GetItemQualityColor(ItemQuality);
-							--PTR HACK, Please remove the following (1) line once wow 4.2 is released.
-							if not ( string.replace ) then hex = "|c"..hex; end;
-							NameString:SetText(hex..ItemName);
+							NameString:SetTextColor(r, g, b);
+							NameString:SetText(ItemName);
 							ItemIcon:SetBackdrop({ bgFile = ItemTexture });
 							ItemIcon.Hyperlink = ItemLink;
-							LevelString:SetText(hex..ItemLevel);
+							LevelString:SetTextColor(r, g, b);
+							LevelString:SetText(ItemLevel);
 							local GemCount, Gems, MissingGemCount, MissingGems = f:GetGemInfo(ItemLink);
 							TotalMissingGems = TotalMissingGems + MissingGemCount;
 							for j = 1,GemCount do
@@ -2007,7 +2026,7 @@ function f:Scan(unit, shouldtargetplayer, hidewait, litemode)
 									EnchantIcon:SetBackdrop({ bgFile = "Interface\\Icons\\Spell_ChargePositive"});
 									ItemScore = ItemScore * 1.03;
 									PVPItemScore = PVPItemScore * 1.03;
-									EnchantIcon.Hyperlink = {hex..ItemName, SlotName, EnchantInfo};
+									EnchantIcon.Hyperlink = {rgbColorToHex(r, g, b) .. ItemName, SlotName, EnchantInfo};
 									EnchantIcon.EnchantName = EnchantInfo;
 								if ( TenTonHammer_Elite[SpecID] ) and ( TenTonHammer_Elite[SpecID]["ENCHANTS"][EnchantInfo] ) then
 									EnchantIcon:SetBackdrop({ bgFile = "Interface\\Icons\\Spell_ChargeNegative" });
@@ -2017,7 +2036,7 @@ function f:Scan(unit, shouldtargetplayer, hidewait, litemode)
 
 								elseif ( f.data.ItemTypes[ItemEquipSlot]["Enchantable"] ~= 2 ) then
 									EnchantIcon:SetBackdrop({ bgFile = "Interface\\Icons\\Spell_ChargeNegative" });
-									EnchantIcon.Hyperlink = {hex..ItemName, SlotName, "|cffff0000"..L["Missing Enchantment!"]};
+									EnchantIcon.Hyperlink = {rgbColorToHex(r, g, b)..ItemName, SlotName, "|cffff0000"..L["Missing Enchantment!"]};
 									TotalMissingEnchants = TotalMissingEnchants + 1;
 								end;
 							end;
@@ -2028,11 +2047,11 @@ function f:Scan(unit, shouldtargetplayer, hidewait, litemode)
 									PVPItemScore = PVPItemScore * 1.03;
 									ItemScore = ItemScore * 1.03;
 									EnchantIcon:SetBackdrop({ bgFile = "Interface\\Icons\\INV_Belt_36"});
-									EnchantIcon.Hyperlink = {hex..ItemName, SlotName, L["Belt Buckle Detected"]};
+									EnchantIcon.Hyperlink = {rgbColorToHex(r, g, b)..ItemName, SlotName, L["Belt Buckle Detected"]};
 									tinsert(PositiveArray, {L["Belt Buckle"], string.format(L["This player has used a Belt buckle to add a gem socket to their %s."], hex..ItemName)});
 								else
 									EnchantIcon:SetBackdrop({ bgFile = "Interface\\Icons\\Spell_ChargeNegative" });
-									EnchantIcon.Hyperlink = {hex..ItemName, SlotName, "|cffff0000"..L["Missing Belt Buckle"]};
+									EnchantIcon.Hyperlink = {rgbColorToHex(r, g, b)..ItemName, SlotName, "|cffff0000"..L["Missing Belt Buckle"]};
 									tinsert(NegativeArray, {L["Missing Belt Buckle"], L["This player has not applied a Belt Buckle to their belt."]});
 									BeltBuckle = false;
 								end;
@@ -2056,8 +2075,8 @@ function f:Scan(unit, shouldtargetplayer, hidewait, litemode)
 							end;
 							-- Attempt to Fix Warrior AIL bug --
 							--ItemCount = ItemCount + 1;
-
-							GearString:SetText(ItemColor..ItemScore);
+							GearString:SetTextColor(hexColorToRGB(ItemColor));
+							GearString:SetText(ItemScore);
 							GearScore = GearScore + ItemScore;
 							pvpGearScore = pvpGearScore + PVPItemScore;
 
@@ -2078,10 +2097,13 @@ function f:Scan(unit, shouldtargetplayer, hidewait, litemode)
 					local ScoreArray = { GearScore, RaidScore, PVEScore, PVPScore }
 					for i = 1,4 do
 						local r,g,b,hex = f:GetColor(ScoreArray[i]);
-						_G[fName.."_Frame1_Info"..1+i]:SetText(nil, hex..ScoreArray[i]);
+						_G[fName.."_Frame1_Info"..1+i]:SetColor(r, g, b);
+						_G[fName.."_Frame1_Info"..1+i]:SetText(nil, ScoreArray[i]);
 						if ( i == 1 ) then
-							TenTonHammer_Frame2_Total:SetText(nil, hex..ScoreArray[i]);
-							TenTonHammer_Frame2_AIL:SetText(nil, hex..AverageItemLevel);
+							TenTonHammer_Frame2_Total:SetColor(r, g, b);
+							TenTonHammer_Frame2_AIL:SetColor(r, g, b);
+							TenTonHammer_Frame2_Total:SetText(nil, ScoreArray[i]);
+							TenTonHammer_Frame2_AIL:SetText(nil, AverageItemLevel);
 						end;
 					end;
 
