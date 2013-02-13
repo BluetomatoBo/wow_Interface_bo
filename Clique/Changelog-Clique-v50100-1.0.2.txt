@@ -1,0 +1,12 @@
+tag v50100-1.0.2
+bb269cf9e7bef71a8d46151275553d94d4d1491f
+James Whitehead II <jnwhiteh@gmail.com>
+2013-02-13 07:22:40 +0100
+
+Tagging v50100-1.0.2
+
+
+--------------------
+
+James Whitehead II:
+	- Make Clique PTR/Live compatible

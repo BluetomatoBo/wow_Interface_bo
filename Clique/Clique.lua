@@ -271,6 +271,12 @@ function addon:Enable()
     CliqueSpellTab.tooltip = L["Clique binding configuration"]
 end
 
+local build = select(2, GetBuildInfo())
+local menuType = 'menu'
+if tonumber(build) >= 16562 then
+	menuType = 'togglemenu'
+end
+
 -- A new profile is being created in the db, called 'profile'
 function addon:OnNewProfile(event, db, profile)
     table.insert(db.profile.bindings, {
@@ -281,9 +287,10 @@ function addon:OnNewProfile(event, db, profile)
             default = true
         },
     })
+
     table.insert(db.profile.bindings, {
         key = "BUTTON2",
-        type = "menu",
+        type = menuType,
         sets = {
             default = true
         },
