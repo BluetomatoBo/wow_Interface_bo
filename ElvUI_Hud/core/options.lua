@@ -70,12 +70,12 @@ E.Options.args.hud = {
                     name = L["Flash"],
                     desc = L["Flash health/power when the low threshold is reached"],
                 },
-                --[[screenflash = {
+                screenflash = {
                     type = "toggle",
                     order = 16,
                     name = L["Screen Flash"],
                     desc = L["Flash the screen border red when the low threshold is reached"],
-                },]]
+                },
                 warningText = {
                     type = "toggle",
                     order = 16,

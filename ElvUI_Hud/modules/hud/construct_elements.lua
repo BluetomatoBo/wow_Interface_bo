@@ -6,6 +6,7 @@ local LSM = LibStub("LibSharedMedia-3.0");
 -- Health for all units
 function H:ConstructHealth(frame)
     self:AddElement(frame,'health')
+
 	-- Health Bar
     local health = self:ConfigureStatusBar(frame,'health')
     health:SetOrientation("VERTICAL")
@@ -50,7 +51,7 @@ end
 -- For player/target castbar can be (and defaults) to horizontal mode.
 -- For pet/targettarget/pettarget castbar is always vertical overlaid on the power bar.
 -- Note in this version the castbar is no longer anchored to the power bar, so each
--- element can be disabled indepdently
+-- element can be disabled independently
 function H:ConstructCastbar(frame)
     self:AddElement(frame,'castbar')
     local castbar = self:ConfigureStatusBar(frame,'castbar')
@@ -171,13 +172,37 @@ function H:ConstructEclipseBar(frame)
     eclipseBar:SetTemplate("Default")
     eclipseBar:SetFrameLevel(8)
     eclipseBar:SetBackdropBorderColor(0,0,0,0)
+
+    local function ConfigureEclipseBar(name)
+        local element = 'classbars'
+        if name == nil then name = "statusbar" end
+        local sbname = frame.unit..'_hud_classbars_'..name
+
+        -- Create the status bar
+        local sb = CreateFrame('StatusBar', sbname, eclipseBar)
+
+        -- Dummy texture so we can set colors
+        sb:SetStatusBarTexture(E['media'].blankTex)
+        sb:GetStatusBarTexture():SetHorizTile(false)
+     
+        -- Frame strata/level
+        sb:SetFrameStrata(eclipseBar:GetFrameStrata())
+        sb:SetFrameLevel(eclipseBar:GetFrameLevel() + 5)
+
+        if not self.units[frame.unit][element].statusbars then
+            self.units[frame.unit][element].statusbars =  { }
+        end
+
+        self.units[frame.unit][element].statusbars[name] = sb
+        return sb
+    end
                     
-    local lunarBar = self:ConfigureStatusBar(frame,'classbars',eclipseBar,'lunarbar',true)
+    local lunarBar = ConfigureEclipseBar('lunarbar')
     lunarBar:SetPoint('BOTTOM', eclipseBar)
     lunarBar:SetOrientation('VERTICAL')
     eclipseBar.LunarBar = lunarBar
 
-    local solarBar = self:ConfigureStatusBar(frame,'classbars',eclipseBar,'solarbar',true)
+    local solarBar = ConfigureEclipseBar('solarbar')
     solarBar:SetPoint('BOTTOM', lunarBar:GetStatusBarTexture(), 'TOP')
     solarBar:SetStatusBarColor(.30, .52, .90)
     solarBar:SetOrientation('VERTICAL')

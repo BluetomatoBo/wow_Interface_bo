@@ -4,9 +4,5 @@
 ## Author: Hungtar
 ## Version: 0.0.2
 ## OptionalDeps: oUF
-## X-Curse-Packaged-Version: 3.36
-## X-Curse-Project-Name: ElvUI Hud
-## X-Curse-Project-ID: elvui-hud
-## X-Curse-Repository-ID: wow/elvui-hud/mainline
 
 oUF_GCD.lua

@@ -166,6 +166,8 @@ function H:Enable()
             end
         end
     end
+    self.lowHealthFlash:Show()
+    self.lowHealthFlash:SetAlpha(0)
 end
 
 function H:UpdateMouseSetting()
@@ -225,7 +227,7 @@ function H:Initialize()
     local f = CreateFrame('Frame', nil, UIParent); 
     f:SetAllPoints();
     f.t = f:CreateTexture(nil, 'ARTWORK'); 
-    f.t:SetTexture([[Interface\FullScreenTextures\LowHealth]]); 
+    f.t:SetTexture("Interface\\FullScreenTextures\\LowHealth"); 
     f.t:SetBlendMode("ADD")
     self.lowHealthFlash = f
 

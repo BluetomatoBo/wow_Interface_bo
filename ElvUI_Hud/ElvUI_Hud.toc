@@ -1,14 +1,10 @@
 ## Interface: 50100
 ## Title: |cff1784d1ElvUI |rHud
 ## Author: Sortokk
-## Version: 3.36
+## Version: 3.37
 ## Notes: Hud frames for ElvUI
 ## RequiredDeps: ElvUI
 ## X-oUF: ElvUF
-## X-Curse-Packaged-Version: 3.36
-## X-Curse-Project-Name: ElvUI Hud
-## X-Curse-Project-ID: elvui-hud
-## X-Curse-Repository-ID: wow/elvui-hud/mainline
 
 locales\load_locales.xml
 core\load_core.xml

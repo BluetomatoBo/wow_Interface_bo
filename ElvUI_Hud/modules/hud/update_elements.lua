@@ -13,38 +13,19 @@ function H:UpdateClassBar(frame,element)
 	if not self.db.units[frame.unit] then return end
 	local config = self.db.units[frame.unit][element]
 	local size = config['size']
-	
+	local numPoints, maxPoints, curPoints
 	local spaced = config.spaced
 	if element == 'mushroom' then
-		local numPoints = 3
-		local totalspacing = (config['spacesettings'].offset * 2) + (config['spacesettings'].spacing * numPoints) - numPoints
-		for i = 1, numPoints do
-			frame.WildMushroom[i]:Size(size.width,(size.height - (spaced and totalspacing or 2))/3)
-		end
-		if spaced then
-			frame.WildMushroom:SetAlpha(0)
-		else
-			frame.WildMushroom:SetAlpha(1)
-		end
+		numPoints = 3
+		maxPoints = 3
 	end
 
 	if element == "cpoints" then
-		local numPoints = 5
-		local totalspacing = (config['spacesettings'].offset * 2) + (config['spacesettings'].spacing * numPoints) - numPoints
-		for i = 1, numPoints do
-			frame.CPoints[i]:Size(size.width,(size.height - (spaced and totalspacing or 4))/5)
-		end
-		if spaced then
-			frame.CPoints:SetAlpha(0)
-		else
-			frame.CPoints:SetAlpha(1)
-		end
+		numPoints = 5
+		maxPoints = 5
 	end
 
 	if element == 'classbars' then
-		local numPoints
-		local maxPoints
-		local curPoints
 		if E.myclass == "DRUID" then
 			frame.EclipseBar.LunarBar:SetMinMaxValues(0, 0)
 			frame.EclipseBar.SolarBar:SetMinMaxValues(0, 0)
@@ -123,34 +104,36 @@ function H:UpdateClassBar(frame,element)
 			numPoints = 6
 			maxPoints = 6
 		end
+	end
 
-		local totalspacing = (config['spacesettings'].offset * 2) + (config['spacesettings'].spacing * numPoints) - numPoints
-		local e = H:GetElement(element)
-		if not frame[e] then return end
-		if spaced then
-			frame[e]:SetAlpha(0)
-		else
-			frame[e]:SetAlpha(1)
-		end
-		for i = 1, maxPoints do
-			frame[e][i]:Size(size.width,(size.height - (spaced and totalspacing or 2)) / numPoints)
-			if not frame[e][i].SetAlpha_ then frame[e][i].SetAlpha_ = frame[e][i].SetAlpha; frame[e][i].SetAlpha = function(self,alpha) self:SetAlpha_(self.enabled and alpha or self.alpha) end end
-			if config['enabled'] and i <= numPoints then
-				frame[e][i].enabled = true
-				frame[e][i].alpha = 1
+	local totalspacing = (config['spacesettings'].offset * 2) + (config['spacesettings'].spacing * numPoints) - numPoints
+	local e = H:GetElement(element)
+	if not frame[e] then return end
+	if spaced then
+		frame[e]:SetAlpha(0)
+	else
+		frame[e]:SetAlpha(1)
+	end
+	if not maxPoints then maxPoints = numPoints end
+	if not curPoints then curPoints = 0 end
+	for i = 1, maxPoints do
+		frame[e][i]:Size(size.width,(size.height - (spaced and totalspacing or 2)) / numPoints)
+		if not frame[e][i].SetAlpha_ then frame[e][i].SetAlpha_ = frame[e][i].SetAlpha; frame[e][i].SetAlpha = function(self,alpha) self:SetAlpha_(self.enabled and alpha or self.alpha) end end
+		if config['enabled'] and i <= numPoints then
+			frame[e][i].enabled = true
+			frame[e][i].alpha = 1
+			frame[e][i]:SetAlpha(i <= curPoints and 1 or .2)
+			if spaced then
 				frame[e][i]:SetAlpha(i <= curPoints and 1 or .2)
-				if spaced then
-					frame[e][i]:SetAlpha(i <= curPoints and 1 or .2)
-					frame[e][i].backdrop:Show()
-				else
-					frame[e][i].backdrop:Hide()
-				end
+				frame[e][i].backdrop:Show()
 			else
-				frame[e][i].enabled = false
 				frame[e][i].backdrop:Hide()
-				frame[e][i].alpha = 0
-				frame[e][i]:SetAlpha(0)
 			end
+		else
+			frame[e][i].enabled = false
+			frame[e][i].backdrop:Hide()
+			frame[e][i].alpha = 0
+			frame[e][i]:SetAlpha(0)
 		end
 	end
 end
@@ -310,6 +293,11 @@ function H:UpdateElement(frame,element)
 				if media.color and element ~= "castbar" then
 					statusbar.defaultColor = media.color
 					statusbar:SetStatusBarColor(media.color)
+				end
+				if element == "health" then
+					local color = UF.db.colors.health
+					statusbar.defaultColor = color
+					statusbar:SetStatusBarColor(color)
 				end
 			end
 		end
@@ -504,7 +492,7 @@ end
 function H.PostUpdateHealth(health, unit, min, max)
 	if not E.db.hud.units[unit] then return end
     if E.db.hud.colorHealthByValue then
-		local dc = E.db.hud.units[unit].health.media.color
+		local dc = UF.db.colors.health
 		local r = dc.r
 		local g = dc.g
 		local b = dc.b
@@ -527,12 +515,13 @@ function H.PostUpdateHealth(health, unit, min, max)
 		if unit == "player" and E.db.hud.screenflash then
 			local f = H.lowHealthFlash
 			if not f then return end
-			f.t:Show()
+			f:SetAlpha(1)
+			H.Flash(f, 0.6)
 		end
 	else
 		local f = H.lowHealthFlash
 		if not f then return end
-		f.t:Hide()
+		f:SetAlpha(0)
 	end
 end
 

@@ -214,9 +214,9 @@ function H:ConstructHudFrame(frame,unit)
 				self:SetAlpha(0)
 			end
 		end)
-		frame:HookScript("OnEnter",function(self) if E.db.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then frame:SetAlpha(E.db.hud.alpha) end end)
-	    frame:HookScript("OnLeave",function(self) if E.db.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then frame:SetAlpha(E.db.hud.alphaOOC) end end)
-	    frame:HookScript("OnShow",function(self) if E.db.hud.hideOOC and not InCombatLockdown() then frame:SetAlpha(E.db.hud.alphaOOC) end end)
+		frame:HookScript("OnEnter",function(self) if E.db.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
+	    frame:HookScript("OnLeave",function(self) if E.db.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+	    frame:HookScript("OnShow",function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
 	end
 	frame.menu = UF.SpawnMenu
 	frame.db = self.db.units[unit]
@@ -313,39 +313,35 @@ function H:ConfigureStatusBar(frame,element,parent,name,t)
 
 	-- Create the status bar
 	local sb = CreateFrame('StatusBar', sbname, parent)
-	if not t then
-		sb:SetTemplate("Default")
-		sb:CreateBackdrop("Default")
-	end
+	sb:SetTemplate("Default")
+	sb:CreateBackdrop("Default")
 
 	-- Dummy texture so we can set colors
 	sb:SetStatusBarTexture(E['media'].blankTex)
 	sb:GetStatusBarTexture():SetHorizTile(false)
  
 	-- Frame strata/level
-	if not t then
-		sb:SetFrameStrata(parent:GetFrameStrata())
-		sb:SetFrameLevel(parent:GetFrameLevel() + 5)
+	sb:SetFrameStrata(parent:GetFrameStrata())
+	sb:SetFrameLevel(parent:GetFrameLevel() + 5)
 
-		-- Create the status bar background
-	    local bg = sb:CreateTexture(nil, 'BORDER')
-	    bg:SetAllPoints()
-	    bg:SetTexture(E['media'].blankTex)
-	    bg:SetTexture(.1, .1, .1)
-	    bg:SetAlpha(.2)
-	    bg.multiplier = 0.3 
-	    sb.bg = bg
+	-- Create the status bar background
+    local bg = sb:CreateTexture(nil, 'BORDER')
+    bg:SetAllPoints()
+    bg:SetTexture(E['media'].blankTex)
+    bg:SetTexture(.1, .1, .1)
+    bg:SetAlpha(.2)
+    bg.multiplier = 0.3 
+    sb.bg = bg
 
-	    -- statusbar frame border
-	    local mult = E.PixelMode and 1 or 2
-		local sbframe = CreateFrame("Frame", nil, sb)
-		sbframe:SetPoint("TOPLEFT", sb, "TOPLEFT", E:Scale(-mult), E:Scale(mult))
-		sbframe:SetPoint("BOTTOMRIGHT", sb, "BOTTOMRIGHT", E:Scale(mult), E:Scale(-mult))
-		sbframe:SetFrameLevel(frame:GetFrameLevel() + 4)
+    -- statusbar frame border
+    local mult = E.PixelMode and 1 or 2
+	local sbframe = CreateFrame("Frame", nil, sb)
+	sbframe:SetPoint("TOPLEFT", sb, "TOPLEFT", E:Scale(-mult), E:Scale(mult))
+	sbframe:SetPoint("BOTTOMRIGHT", sb, "BOTTOMRIGHT", E:Scale(mult), E:Scale(-mult))
+	sbframe:SetFrameLevel(frame:GetFrameLevel() + 4)
 
-		sbframe:SetTemplate("Default")
-		sb.FrameBorder = sbframe
-	end
+	sbframe:SetTemplate("Default")
+	sb.FrameBorder = sbframe
 
 	if not self.units[frame.unit][element].statusbars then
 		self.units[frame.unit][element].statusbars =  { }
