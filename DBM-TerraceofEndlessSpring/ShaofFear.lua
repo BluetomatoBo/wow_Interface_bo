@@ -20,7 +20,9 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED",
 	"UNIT_DIED",
 	"SPELL_DAMAGE",
-	"SPELL_MISSED"
+	"SPELL_MISSED",
+	"SWING_DAMAGE",
+	"SWING_MISSED"
 )
 
 local warnThrash						= mod:NewSpellAnnounce(131996, 4, nil, mod:IsTank() or mod:IsHealer())
@@ -98,11 +100,14 @@ local warnedBreath = false
 local kbpscount = 0
 local kjzz = 0
 local kjzznow = 0
+local infowjzz = 0
 
 local huddle = 0
 local spout = 0
 local strike = 0
 local wjcount = 0
+
+local swingcount = 0
 
 local wsIcon = 7
 
@@ -117,7 +122,8 @@ local playkbpsound = false
 DBM.ShaOfFearAssistEnabled = true
 DBM.ShaAssistStarModeChosed = nil
 
-mod:AddBoolOption("InfoFrame")
+mod:AddBoolOption("InfoFrame", true, "sound")
+mod:AddBoolOption("InfoFrameTankMode", mod:IsTank(), "sound")
 mod:AddBoolOption("SetIconOnWS", true)
 mod:AddBoolOption("pscount", true, "sound")
 mod:AddBoolOption("ShaAssist", true, "sound")
@@ -253,6 +259,7 @@ function mod:OnCombatStart(delay)
 	strike = 0
 	wsIcon = 7
 	wjcount = 0
+	swingcount = 0
 	warnedBreath = false
 	prewarnedPhase2 = false
 	table.wipe(waterspoutTargets)
@@ -282,7 +289,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
-	if self.Options.InfoFrame then
+	if self.Options.InfoFrame or self.Options.InfoFrameTankMode then
 		DBM.InfoFrame:Hide()
 	end
 end
@@ -344,6 +351,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_llj.mp3")--六連擊
 		end
 		ThrashCount = 0
+		swingcount = -1
 		timerThrashCD:Start()
 		warnDreadThrash:Show()
 		specWarnDreadThrash:Show()
@@ -372,6 +380,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		self:UnscheduleMethod("CheckPlatformLeaved")
 		self:LeavePlatform()
 	elseif args:IsSpellID(131996) and not onPlatform then
+		swingcount = -1
 		warnThrash:Show()
 		specWarnThrash:Show()
 		if not mod:IsDps() then
@@ -393,10 +402,12 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(120519) then --水魄
 		waterspoutTargets[#waterspoutTargets + 1] = args.destName
 		if args:IsPlayer() then
-			DBM.Flash:Show(1, 0, 0)
 			specWarnshuipoYou:Show()
 			yellshuipo:Yell()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runout.mp3")
+			if not UnitBuff("player", GetSpellInfo(120268)) then
+				DBM.Flash:Show(1, 0, 0)
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runout.mp3")
+			end
 		end
 		self:Unschedule(warnWaterspoutTargets)
 		self:Schedule(0.3, warnWaterspoutTargets)
@@ -551,12 +562,13 @@ function mod:SPELL_CAST_START(args)
 		kjzznow = math.modf(yinmoCount/2) + 1
 		wjcount = wjcount + 1
 		specWarnfuxian:Show(kjzznow, wjcount)
+		infowjzz = wjcount
 		if (kjzznow == 1) or (wjcount == 2) then
 			wjcount = 0
 		end
 		kjzz = kjzz + kjzznow
 		if mod.Options.InfoFrame then
-			DBM.InfoFrame:SetHeader(GetSpellInfo(120629).."  ["..EJ_GetSectionInfo(6107)..": "..kjzz.."]")
+			DBM.InfoFrame:SetHeader(EJ_GetSectionInfo(6107).."["..kjzznow.."-"..infowjzz.."]: "..kjzz)
 		end
 	elseif args:IsSpellID(120672) then
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\shockwave.mp3") --震懾波
@@ -564,6 +576,11 @@ function mod:SPELL_CAST_START(args)
 		specWarnImplacableStrike:Show()
 		strike = 1
 		spectimestart()
+	elseif args:IsSpellID(120394) and self:AntiSpam(5, 1) then
+		if UnitBuff("player", GetSpellInfo(120268)) then
+			DBM.Flash:Show(1, 0, 0)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\stilldanger.mp3")
+		end
 	end
 end
 
@@ -629,7 +646,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_kdkjzz.mp3") --快打恐懼之子
 			end
 		end
-	elseif spellId == 114936 then--Heroic Phase 2
+	elseif spellId == 114936 and self:AntiSpam(5, 6) then
 		self:UnregisterShortTermEvents()
 		self:UnscheduleMethod("CheckPlatformLeaved")
 		phase = 2
@@ -643,8 +660,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		berserkTimer:Cancel()
 		berserkTimer:Start()
 		timeryinmo:Start(16)
-		if mod.Options.InfoFrame then
-			DBM.InfoFrame:SetHeader(GetSpellInfo(120629))
+		if mod.Options.InfoFrame and (not mod.Options.InfoFrameTankMode) then
+			DBM.InfoFrame:SetHeader(EJ_GetSectionInfo(6107))
 			DBM.InfoFrame:Show(10, "playerbaddebuff", 120629)
 		end
 		if DBM.BossHealth:IsShown() then
@@ -652,9 +669,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			DBM.BossHealth:RemoveBoss(61042)
 			DBM.BossHealth:RemoveBoss(61046)
 		end
-		if self:AntiSpam(5, 6) then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\phasechange.mp3") --階段轉換
-		end
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\phasechange.mp3") --階段轉換
 		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_tenkj.mp3")
 		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
 		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")
@@ -680,7 +695,7 @@ function mod:UNIT_DIED(args)
 	elseif cid == 61003 then
 		kjzz = kjzz - 1
 		if mod.Options.InfoFrame then
-			DBM.InfoFrame:SetHeader(GetSpellInfo(120629).."  ["..EJ_GetSectionInfo(6107)..": "..kjzz.."]")
+			DBM.InfoFrame:SetHeader(EJ_GetSectionInfo(6107).."["..kjzznow.."-"..infowjzz.."]: "..kjzz)
 		end
 	end
 end
@@ -716,3 +731,33 @@ function mod:OnSync(msg)
 		end
 	end
 end
+
+function mod:SWING_DAMAGE(sourceGUID)
+	local cid = self:GetCIDFromGUID(sourceGUID)
+	if cid == 60999 and self:AntiSpam(1, 11) then
+		swingcount = swingcount + 1
+		if mod.Options.InfoFrameTankMode then
+			if phase == 1 then
+				DBM.InfoFrame:SetHeader(GetSpellInfo(135088))
+			end
+			if phase == 2 then
+				if swingcount == 0 then
+					if ThrashCount == 0 then
+						DBM.InfoFrame:Show(1, "other", "", GetSpellInfo(7389)..": "..L.liulian)
+					else
+						DBM.InfoFrame:Show(1, "other", L.sanlian..": "..ThrashCount, GetSpellInfo(7389)..": "..L.sanlian)
+					end
+				else
+					DBM.InfoFrame:Show(1, "other", L.sanlian..": "..ThrashCount, GetSpellInfo(7389)..": "..swingcount)
+				end
+			else
+				if swingcount == 0 then
+					DBM.InfoFrame:Show(1, "other", "", GetSpellInfo(7389)..": "..L.sanlian)
+				else
+					DBM.InfoFrame:Show(1, "other", "", GetSpellInfo(7389)..": "..swingcount)
+				end
+			end
+		end
+	end
+end
+mod.SWING_MISSED = mod.SWING_DAMAGE

@@ -108,3 +108,8 @@ L:SetOptionLocalization ({
 	SoundDD = "voice warning: $spell:131996",
 	SoundWOP = "voice warning: important skills"
 })
+
+L:SetMiscLocalization({
+	sanlian				= "Thrash",
+	liulian				= "DreadThrash"
+})

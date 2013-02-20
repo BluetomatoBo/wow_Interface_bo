@@ -176,10 +176,11 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	SoundDD				= "语音警告：$spell:131996",
 	SoundWOP			= "语音警告：重要技能",
+	InfoFrameTankMode	= "信息框显示首领攻击计数器取代$spell:120629",
 	RangeFrame			= "距离监视（2码）：应对$spell:119519",
 	pscount				= "语音警告：为恐怖喷散报数",
 	HudMAP				= "高级定位监视(HUD)：$spell:120519",
-	InfoFrame			= "信息框：$spell:120629",
+	InfoFrame			= "信息框：$spell:120629和$journal:6107数量",
 	timerSpecialCD		= "计时器：下一次P2特殊技能",
 	specWarnyinmo		= "特殊警告：$spell:120455",
 	specWarnfuxian		= "特殊警告：$spell:120458",
@@ -195,4 +196,9 @@ L:SetOptionLocalization({
 	timerSpoStrCD		= "计时器：$spell:120519或$spell:120672",
 	timerHudStrCD		= "计时器：$spell:120629或$spell:120672",
 	SetIconOnWS			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(120629)
+})
+
+L:SetMiscLocalization({
+	sanlian				= "三连",
+	liulian				= "六连"
 })
