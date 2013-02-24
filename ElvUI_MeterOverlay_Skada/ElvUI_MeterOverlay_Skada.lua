@@ -14,8 +14,6 @@ ConvertDataSet[OVERALL_DATA] = "Overall Data"
 ConvertDataSet[CURRENT_DATA]= "Current Fight"
 ConvertDataSet[LAST_DATA] = "Last Fight"	
 
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
-
 local EMO = _G.EMO
 
 local Skada = _G.Skada		
@@ -85,58 +83,6 @@ function skadaGetSumtable(tablename, mode)
 	
 	return sumtable, totalsum, totalpersec
 end		
-	
-function skadaGetRaidValuePerSecond(tablename, mode)
-
-	local mydps = 0		
-	local totalpersec=0
-	
-	if(tablename==CURRENT_DATA) then
-		report_set = Skada.current
-	elseif(tablename==LAST_DATA) then
-		report_set = Skada.last
-	elseif(tablename==OVERALL_DATA) then
-		report_set = Skada.total
-	else
-		report_set = nil
-	end
-			
-	if(report_set) then		
-					
-		-- For each item in dataset
-		for i, player in ipairs(report_set.players) do
-			if player.id then			
-												
-				local totaltime = Skada:PlayerActiveTime(report_set, player)
-				local dps = 0
-				local hps = 0
-				
-				if (mode==TYPE_DPS) then
-					if (player.damage>0) then
-						dps = player.damage / math.max(1,totaltime)
-					end						
-					totalpersec = totalpersec + dps			
-				else
-					local realhealing = player.healing --+ player.totalabsorbs
-					
-					if (realhealing>0) then
-						hps = realhealing / math.max(1,totaltime)
-					end															
-					totalpersec = totalpersec + hps			
-				end																						
-				if E.myname == player.name then	
-					if (mode==TYPE_DPS) then					
-						mydps = dps
-					else
-						mydps = hps
-					end
-				end					
-			end
-		end		
-	end				
-	
-	return totalpersec,mydps
-end	
 
 function skadaGetSegmentName(tablename)
 
@@ -167,7 +113,6 @@ function skadaGetSegmentName(tablename)
 end
 
 EMO.desc = "Skada Overlay"
-EMO.toggle = skadaToggle	
-EMO.getRaidValuePerSecond = skadaGetRaidValuePerSecond
+EMO.toggle = skadaToggle
 EMO.getSumtable = skadaGetSumtable
 EMO.getSegmentName = skadaGetSegmentName

@@ -39,33 +39,8 @@ function matchUnitGUID(unitname, guid)
 	return false
 end		
 
-function recountGetRaidValuePerSecond(tablename, mode)
-	local mydps,dps, curdps, data = 0, 0, nil		
-	for _,data in pairs(Recount.db2.combatants) do
-		if data.Fights and data.Fights[tablename] and (data.type=="Self" or data.type=="Grouped" or data.type=="Pet" or data.type=="Ungrouped") then
-			if mode == TYPE_DPS then
-				_,curdps = Recount:MergedPetDamageDPS(data,tablename)
-			elseif mode == TYPE_HEAL then
-				_,curdps = Recount:MergedPetHealingDPS(data,tablename)
-			end
-			
-			if curdps==nil then
-				curdps=0
-			end
-			
-			if data.type ~= "Pet" or (not Recount.db.profile.MergePets and data.Owner and (Recount.db2.combatants[data.Owner].type=="Self" or Recount.db2.combatants[data.Owner].type=="Grouped" or Recount.db2.combatants[data.Owner].type=="Ungrouped")) or (not Recount.db.profile.MergePets and data.Name and data.GUID and self:matchUnitGUID(Recount,data.Name, data.GUID)) then
-				dps = dps + 10 * curdps
-				if(data.type=="Self") then
-					mydps = curdps*10
-				end
-				
-			end
-		end
-	end
-	return math.floor(dps + 0.5)/10,math.floor(mydps + 0.5)/10
-end	
-
 function recountGetSumtable(tablename, mode)
+	
 	local data, fullname, totalsum, totalpersec, cursum, curpersec = nil, "", 0, 0, 0, 0
 	local temptable = {}
 	local sumtable = {}
@@ -128,7 +103,6 @@ function recountSegmentName(tablename)
 end
 
 EMO.desc = "Recount Overlay"
-EMO.toggle = recountToggle	
-EMO.getRaidValuePerSecond = recountGetRaidValuePerSecond
+EMO.toggle = recountToggle
 EMO.getSumtable = recountGetSumtable
-EMO.getSegmentName = recountSegmentName	
+EMO.getSegmentName = recountSegmentName

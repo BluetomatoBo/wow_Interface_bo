@@ -28,6 +28,8 @@ local FORMAT_RAID_HPS			= "FORMAT_RAID_HPS"
 local FORMAT_OWN_DPS_OWN_HPS	= "FORMAT_OWN_DPS_OWN_HPS"
 local FORMAT_RAID_DPS_OWN_DPS	= "FORMAT_RAID_DPS_OWN_DPS"
 local FORMAT_RAID_HPS_OWN_HPS	= "FORMAT_RAID_HPS_OWN_HPS"
+local FORMAT_RAID_HPS_OWN_DPS	= "FORMAT_RAID_HPS_OWN_DPS"
+local FORMAT_RAID_DPS_OWN_HPS	= "FORMAT_RAID_DPS_OWN_HPS"
 
 local FORMAT_OWN_DPS_TXT			= "Own DPS"
 local FORMAT_OWN_HPS_TXT			= "Own HPS"
@@ -36,6 +38,8 @@ local FORMAT_RAID_HPS_TXT			= "Raid HPS"
 local FORMAT_OWN_DPS_OWN_HPS_TXT	= "Own DPS / Own HPS"
 local FORMAT_RAID_DPS_OWN_DPS_TXT	= "Raid DPS / Own DPS"
 local FORMAT_RAID_HPS_OWN_HPS_TXT	= "Raid HPS / Own HPS"
+local FORMAT_RAID_HPS_OWN_DPS_TXT	= "Raid HPS / Own DPS"
+local FORMAT_RAID_DPS_OWN_HPS_TXT	= "Raid DPS / Own HPS"
 
 local DISPLAY_LABELS_TXT = "Display labels"
 
@@ -47,6 +51,7 @@ EMO = {
 		type= TYPE_DPS,
 		format = FORMAT_OWN_DPS,
 		labels = true,
+		interval = 1,
 	},
 	init = false
 }
@@ -87,13 +92,41 @@ local function OnEvent(self, event, ...)
 				type = TYPE_DPS,
 				format = FORMAT_OWN_DPS,
 				labels = true,
+				interval = 1,
 			}
 			specdb = E.db.MeterOverlay[spec]
 		end								
 
 		EMO.config = specdb
+		
+		if (EMO.config.interval == nil) then
+			EMO.config.interval = 1
+		end
 		EMO.init = true		
 	end
+end
+
+
+
+function getRaidValuePerSecond(tablename, mode)		
+	local persec,StatsTable,totalsum,totalpersec=0,nil,0,0
+	
+	StatsTable,totalsum,totalpersec = EMO.getSumtable(tablename, mode)
+	
+	local numofcombatants = #StatsTable
+	
+	for i = 1, numofcombatants do
+		if StatsTable[i].name == E.myname then
+			if mode == TYPE_DPS then
+				persec = StatsTable[i].dps
+			else
+				persec = StatsTable[i].hps
+			end
+			break
+		end
+	end
+
+	return totalpersec,persec
 end
 
 local DTRMenu = CreateFrame("Frame", "DTRMenu", E.UIParent, "UIDropDownMenuTemplate")
@@ -111,7 +144,7 @@ local function OnUpdate(self, t)
 
 	local now = time()
 
-	if now - lastSegment > 1 then
+	if now - lastSegment > EMO.config.interval then
 
 		local dataset = OVERALL_DATA
 
@@ -125,7 +158,7 @@ local function OnUpdate(self, t)
 						
 		if (EMO.config.format == FORMAT_OWN_DPS ) then
 		
-			rdps,mydps = EMO.getRaidValuePerSecond(dataset, TYPE_DPS)
+			rdps,mydps = getRaidValuePerSecond(dataset, TYPE_DPS)
 			if EMO.config.labels then
 				self.text:SetFormattedText(displayString, "DPS: ", mydps/1000)
 			else
@@ -134,7 +167,7 @@ local function OnUpdate(self, t)
 			
 		elseif (EMO.config.format == FORMAT_OWN_HPS ) then
 		
-			rhps,myhps = EMO.getRaidValuePerSecond(dataset, TYPE_HPS)
+			rhps,myhps = getRaidValuePerSecond(dataset, TYPE_HEAL)
 			if EMO.config.labels then
 				self.text:SetFormattedText(displayString, "HPS: ", myhps/1000)
 			else
@@ -143,7 +176,7 @@ local function OnUpdate(self, t)
 			
 		elseif (EMO.config.format == FORMAT_RAID_DPS ) then
 		
-			rdps,mydps = EMO.getRaidValuePerSecond(dataset, TYPE_DPS)
+			rdps,mydps = getRaidValuePerSecond(dataset, TYPE_DPS)
 			if EMO.config.labels then
 				self.text:SetFormattedText(displayString, "RDPS: ", rdps/1000)
 			else
@@ -152,7 +185,7 @@ local function OnUpdate(self, t)
 			
 		elseif (EMO.config.format == FORMAT_RAID_HPS ) then
 		
-			rhps,myhps = EMO.getRaidValuePerSecond(dataset, TYPE_HPS)
+			rhps,myhps = getRaidValuePerSecond(dataset, TYPE_HEAL)
 			
 			if EMO.config.labels then
 				self.text:SetFormattedText(displayString, "RHPS: ", rhps/1000)
@@ -162,8 +195,8 @@ local function OnUpdate(self, t)
 			
 		elseif (EMO.config.format == FORMAT_OWN_DPS_OWN_HPS ) then
 		
-			rdps,mydps = EMO.getRaidValuePerSecond(dataset, TYPE_DPS)
-			rhps,myhps = EMO.getRaidValuePerSecond(dataset, TYPE_HPS)
+			rdps,mydps = getRaidValuePerSecond(dataset, TYPE_DPS)
+			rhps,myhps = getRaidValuePerSecond(dataset, TYPE_HEAL)
 			
 			if EMO.config.labels then
 				self.text:SetText(string.join(displayString:format("DPS: ",mydps/1000)," ",displayString:format(" HPS: ",myhps/1000)))			
@@ -173,7 +206,7 @@ local function OnUpdate(self, t)
 			
 		elseif (EMO.config.format == FORMAT_RAID_DPS_OWN_DPS ) then
 		
-			rdps,mydps = EMO.getRaidValuePerSecond(dataset, TYPE_DPS)
+			rdps,mydps = getRaidValuePerSecond(dataset, TYPE_DPS)
 		
 			if EMO.config.labels then
 				self.text:SetText(string.join(displayString:format("RDPS: ",rdps/1000)," ",displayString:format(" DPS: ",mydps/1000)))			
@@ -183,13 +216,36 @@ local function OnUpdate(self, t)
 			
 		elseif (EMO.config.format == FORMAT_RAID_HPS_OWN_HPS ) then
 		
-			rhps,myhps = EMO.getRaidValuePerSecond(dataset, TYPE_HPS)
+			rhps,myhps = getRaidValuePerSecond(dataset, TYPE_HEAL)
 			
 			if EMO.config.labels then
 				self.text:SetText(string.join(displayString:format("RHPS: ",rhps/1000)," ",displayString:format(" HPS: ",myhps/1000)))			
 			else
 				self.text:SetText(string.join(displayString:format("",rhps/1000)," ",displayString:format("-",myhps/1000)))			
 			end
+			
+		elseif (EMO.config.format == FORMAT_RAID_HPS_OWN_DPS ) then
+		
+			rdps,mydps = getRaidValuePerSecond(dataset, TYPE_DPS)
+			rhps,myhps = getRaidValuePerSecond(dataset, TYPE_HEAL)					
+			
+			if EMO.config.labels then
+				self.text:SetText(string.join(displayString:format("RHPS: ",rhps/1000)," ",displayString:format(" DPS: ",mydps/1000)))			
+			else
+				self.text:SetText(string.join(displayString:format("",rhps/1000)," ",displayString:format("-",mydps/1000)))			
+			end		
+			
+		elseif (EMO.config.format == FORMAT_RAID_DPS_OWN_HPS ) then
+		
+			rdps,mydps = getRaidValuePerSecond(dataset, TYPE_DPS)
+			rhps,myhps = getRaidValuePerSecond(dataset, TYPE_HEAL)					
+			
+			if EMO.config.labels then
+				self.text:SetText(string.join(displayString:format("RDPS: ",rdps/1000)," ",displayString:format(" HPS: ",myhps/1000)))			
+			else
+				self.text:SetText(string.join(displayString:format("",rdps/1000)," ",displayString:format("-",myhps/1000)))			
+			end	
+			
 		end
 		
 		lastSegment = now
@@ -241,7 +297,6 @@ function FormatNumber(number)
 	end
 end
 
-
 function DisplayTable(mode,repotType,amount)
 
 	StatsTable,totalsum, totalpersec = EMO.getSumtable(mode, repotType)
@@ -250,15 +305,15 @@ function DisplayTable(mode,repotType,amount)
 	name = EMO.getSegmentName(mode)		
 	
 	if repotType == TYPE_DPS then
-		GameTooltip:AddDoubleLine("Damage Done",name,tdamage.r,tdamage.g,tdamage.b,tthead.r,tthead.g,tthead.b)
+		DT.tooltip:AddDoubleLine("Damage Done",name,tdamage.r,tdamage.g,tdamage.b,tthead.r,tthead.g,tthead.b)
 	elseif repotType == TYPE_HEAL then
-		GameTooltip:AddDoubleLine("Healing Done",name,theal.r,theal.g,theal.b,tthead.r,tthead.g,tthead.b)
+		DT.tooltip:AddDoubleLine("Healing Done",name,theal.r,theal.g,theal.b,tthead.r,tthead.g,tthead.b)
 	end
 
 	local numofcombatants = #StatsTable
 
 	if numofcombatants == 0 then
-		GameTooltip:AddLine("No data to display")
+		DT.tooltip:AddLine("No data to display")
 	else
 		if numofcombatants > amount then
 			numofcombatants = amount
@@ -268,7 +323,7 @@ function DisplayTable(mode,repotType,amount)
 		local vps = FormatNumber(totalpersec)
 		local percent = 100
 
-		GameTooltip:AddDoubleLine("Total",format("%s (%s) 100.0%%",value,vps))
+		DT.tooltip:AddDoubleLine("Total",format("%s (%s) 100.0%%",value,vps))
 
 		for i = 1, numofcombatants do
 
@@ -288,7 +343,7 @@ function DisplayTable(mode,repotType,amount)
 				percent = math.floor(1000*StatsTable[i].healing/totalsum)/10
 			end
 
-			GameTooltip:AddDoubleLine(StatsTable[i].name,format("%s (%s) %.1f%%",value,vps,percent),classc.r,classc.g,classc.b,classc.r,classc.g,classc.b)
+			DT.tooltip:AddDoubleLine(StatsTable[i].name,format("%s (%s) %.1f%%",value,vps,percent),classc.r,classc.g,classc.b,classc.r,classc.g,classc.b)
 
 		end
 	end
@@ -343,19 +398,30 @@ local function changeLabels (self,arg1)
 	
 end
 
+local function changeInterval (self,arg1)
+
+	EMO.config.interval = arg1
+
+	CloseDropDownMenus()
+
+	lastSegment=0
+end
 
 menuList = {
 	{ text = "Meter Overlay", isTitle = true, notCheckable=true},
-	{ text = "Segment", hasArrow = true, notCheckable=true,
+	{ text = "Data Segment", hasArrow = true, notCheckable=true,
 		menuList = {}
 	},
 	{ text = "Overlay Type", hasArrow = true, notCheckable=true,
 		menuList = {}
 	},
+	{ text = "Overlay Lines", hasArrow = true, notCheckable=true,
+		menuList = {}
+	},	
 	{ text = "Datatext Format", hasArrow = true, notCheckable=true,
 		menuList = {}
 	},	
-	{ text = "Lines", hasArrow = true, notCheckable=true,
+	{ text = "Datatext Update Frequency", hasArrow = true, notCheckable=true,
 		menuList = {}
 	}
 }
@@ -396,78 +462,8 @@ local function CreateMenu(self)
 			}
 	end
 
-	
-	if(EMO.config.format==FORMAT_OWN_DPS) then
-		menuList[4].menuList = {
-				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
-				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},
-			}
-	elseif (EMO.config.format==FORMAT_OWN_HPS) then
-		menuList[4].menuList = {
-				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
-				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},				
-			}
-	elseif (EMO.config.format==FORMAT_RAID_DPS) then
-		menuList[4].menuList = {
-				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_RAID_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
-				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},				
-			}			
-	elseif (EMO.config.format==FORMAT_OWN_DPS_OWN_HPS) then
-		menuList[4].menuList = {
-				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
-				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},				
-			}
-	elseif (EMO.config.format==FORMAT_RAID_DPS_OWN_DPS) then
-		menuList[4].menuList = {
-				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
-				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},				
-			}
-	elseif (EMO.config.format==FORMAT_RAID_HPS_OWN_HPS) then
-		menuList[4].menuList = {
-				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
-				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
-				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
-				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},
-					
-			}			
-	end	
-	
-	if(EMO.config.labels==true) then
-		menuList[4].menuList[8]={notCheckable=false,checked=true,isNotRadio=true,text = DISPLAY_LABELS_TXT,func = changeLabels, arg1=false}
-	else
-		menuList[4].menuList[8]={notCheckable=false,checked=false,isNotRadio=true,text = DISPLAY_LABELS_TXT,func = changeLabels, arg1=true}
-	end
-	
 	if(EMO.config.lines==5) then
-		menuList[5].menuList = {
+		menuList[4].menuList = {
 				{ notCheckable=false,text = "5",checked=true,func = changeAmount, arg1=5},
 				{ notCheckable=false,text = "10",func = changeAmount, arg1=10},
 				{ notCheckable=false,text = "15",func = changeAmount, arg1=15},
@@ -475,7 +471,7 @@ local function CreateMenu(self)
 				{ notCheckable=false,text = "25",func = changeAmount, arg1=25},
 			}
 	elseif (EMO.config.lines==10) then
-		menuList[5].menuList = {
+		menuList[4].menuList = {
 				{ notCheckable=false,text = "5",func = changeAmount, arg1=5},
 				{ notCheckable=false,text = "10",checked=true,func = changeAmount, arg1=10},
 				{ notCheckable=false,text = "15",func = changeAmount, arg1=15},
@@ -483,7 +479,7 @@ local function CreateMenu(self)
 				{ notCheckable=false,text = "25",func = changeAmount, arg1=25},
 			}
 	elseif (EMO.config.lines==15) then
-		menuList[5].menuList = {
+		menuList[4].menuList = {
 				{ notCheckable=false,text = "5",func = changeAmount, arg1=5},
 				{ notCheckable=false,text = "10",func = changeAmount, arg1=10},
 				{ notCheckable=false,text = "15",checked=true,func = changeAmount, arg1=15},
@@ -491,7 +487,7 @@ local function CreateMenu(self)
 				{ notCheckable=false,text = "25",func = changeAmount, arg1=25},
 			}
 	elseif (EMO.config.lines==20) then
-		menuList[5].menuList = {
+		menuList[4].menuList = {
 				{ notCheckable=false,text = "5",func = changeAmount, arg1=5},
 				{ notCheckable=false,text = "10",func = changeAmount, arg1=10},
 				{ notCheckable=false,text = "15",func = changeAmount, arg1=15},
@@ -499,21 +495,168 @@ local function CreateMenu(self)
 				{ notCheckable=false,text = "25",func = changeAmount, arg1=25},
 			}
 	else
-		menuList[5].menuList = {
+		menuList[4].menuList = {
 				{ notCheckable=false,text = "5",func = changeAmount, arg1=5},
 				{ notCheckable=false,text = "10",func = changeAmount, arg1=10},
 				{ notCheckable=false,text = "15",func = changeAmount, arg1=15},
 				{ notCheckable=false,text = "20",func = changeAmount, arg1=20},
 				{ notCheckable=false,text = "25",checked=true,func = changeAmount, arg1=25},
 			}
+	end	
+	
+	if(EMO.config.format==FORMAT_OWN_DPS) then
+		menuList[5].menuList = {
+				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
+				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_HPS},
+			}
+	elseif (EMO.config.format==FORMAT_OWN_HPS) then
+		menuList[5].menuList = {
+				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
+				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},		
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_HPS},				
+			}
+	elseif (EMO.config.format==FORMAT_RAID_DPS) then
+		menuList[5].menuList = {
+				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_RAID_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
+				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},				
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_HPS},				
+			}			
+	elseif (EMO.config.format==FORMAT_OWN_DPS_OWN_HPS) then
+		menuList[5].menuList = {
+				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
+				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},	
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_HPS},
+			}
+	elseif (EMO.config.format==FORMAT_RAID_DPS_OWN_DPS) then
+		menuList[5].menuList = {
+				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
+				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},	
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_HPS},				
+			}
+	elseif (EMO.config.format==FORMAT_RAID_HPS_OWN_HPS) then
+		menuList[5].menuList = {
+				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
+				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_HPS},
+			}		
+	elseif (EMO.config.format==FORMAT_RAID_HPS_OWN_DPS) then
+		menuList[5].menuList = {
+				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
+				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_DPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_HPS},
+			}
+	elseif (EMO.config.format==FORMAT_RAID_DPS_OWN_HPS) then
+		menuList[5].menuList = {
+				{ notCheckable=false,text = FORMAT_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS},
+				{ notCheckable=false,text = FORMAT_OWN_DPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_OWN_DPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_HPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_HPS},
+				{ notCheckable=false,text = FORMAT_RAID_HPS_OWN_DPS_TXT,func = changeFormat, arg1=FORMAT_RAID_HPS_OWN_DPS},
+				{ notCheckable=false,text = FORMAT_RAID_DPS_OWN_HPS_TXT,checked=true,func = changeFormat, arg1=FORMAT_RAID_DPS_OWN_HPS},
+			}			
+	end	
+	
+	if(EMO.config.labels==true) then
+		menuList[5].menuList[10]={notCheckable=false,checked=true,isNotRadio=true,text = DISPLAY_LABELS_TXT,func = changeLabels, arg1=false}
+	else
+		menuList[5].menuList[10]={notCheckable=false,checked=false,isNotRadio=true,text = DISPLAY_LABELS_TXT,func = changeLabels, arg1=true}
 	end
+	
+	if(EMO.config.interval==1) then
+		menuList[6].menuList = {
+				{ notCheckable=false,text = "1 sec",checked=true,func = changeInterval, arg1=1},
+				{ notCheckable=false,text = "5 sec",func = changeInterval, arg1=5},
+				{ notCheckable=false,text = "10 sec",func = changeInterval, arg1=10},
+				{ notCheckable=false,text = "15 sec",func = changeInterval, arg1=15},
+				{ notCheckable=false,text = "30 sec",func = changeInterval, arg1=30},
+			}
+	elseif (EMO.config.interval==2) then
+		menuList[6].menuList = {
+				{ notCheckable=false,text = "1 sec",func = changeInterval, arg1=1},
+				{ notCheckable=false,text = "5 sec",checked=true,func = changeInterval, arg1=5},
+				{ notCheckable=false,text = "10 sec",func = changeInterval, arg1=10},
+				{ notCheckable=false,text = "15 sec",func = changeInterval, arg1=15},
+				{ notCheckable=false,text = "30 sec",func = changeInterval, arg1=30},
+			}
+	elseif (EMO.config.interval==5) then
+		menuList[6].menuList = {
+				{ notCheckable=false,text = "1 sec",func = changeInterval, arg1=1},
+				{ notCheckable=false,text = "5 sec",func = changeInterval, arg1=5},
+				{ notCheckable=false,text = "10 sec",checked=true,func = changeInterval, arg1=10},
+				{ notCheckable=false,text = "15 sec",func = changeInterval, arg1=15},
+				{ notCheckable=false,text = "30 sec",func = changeInterval, arg1=30},
+			}
+	elseif (EMO.config.interval==10) then
+		menuList[6].menuList = {
+				{ notCheckable=false,text = "1 sec",func = changeInterval, arg1=1},
+				{ notCheckable=false,text = "5 sec",func = changeInterval, arg1=5},
+				{ notCheckable=false,text = "10 sec",func = changeInterval, arg1=10},
+				{ notCheckable=false,text = "15 sec",checked=true,func = changeInterval, arg1=15},
+				{ notCheckable=false,text = "30 sec",func = changeInterval, arg1=30},
+			}
+	else
+		menuList[6].menuList = {
+				{ notCheckable=false,text = "1 sec",func = changeInterval, arg1=1},
+				{ notCheckable=false,text = "5 sec",func = changeInterval, arg1=5},
+				{ notCheckable=false,text = "10 sec",func = changeInterval, arg1=10},
+				{ notCheckable=false,text = "15 sec",func = changeInterval, arg1=15},
+				{ notCheckable=false,text = "30 sec",checked=true,func = changeInterval, arg1=30},
+			}
+	end	
 end
 
 local function OnEnter(self)
 	DT:SetupTooltip(self)
 
-	GameTooltip:AddLine(EMO.desc,tthead.r,tthead.g,tthead.b)
-	GameTooltip:AddLine(" ")
+	DT.tooltip:AddLine(EMO.desc,tthead.r,tthead.g,tthead.b)
+	DT.tooltip:AddLine(" ")
 
 	local dataset = OVERALL_DATA
 
@@ -528,7 +671,7 @@ local function OnEnter(self)
 	if EMO.config.type==TYPE_BOTH then
 		DisplayTable(dataset, TYPE_DPS,EMO.config.lines)
 
-		GameTooltip:AddLine(" ")
+		DT.tooltip:AddLine(" ")
 
 		DisplayTable(dataset, TYPE_HEAL,EMO.config.lines)		
 	else
@@ -536,17 +679,17 @@ local function OnEnter(self)
 
 	end
 
-	GameTooltip:Show()
+	DT.tooltip:Show()
 	DTRMenu:Hide()
 end
 
 function OnLeave(self)
-	GameTooltip:Hide()
+	DT.tooltip:Hide();
 	DTRMenu:Hide()
 end
 local function OnClick(self,btn)
 	if btn == "RightButton" then
-		GameTooltip:Hide()
+		DT.tooltip:Hide()
 		CreateMenu()
 		EasyMenu(menuList, DTRMenu, "cursor", 0, 0, "MENU",2)
 	else
