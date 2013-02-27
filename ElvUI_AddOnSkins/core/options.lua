@@ -194,6 +194,9 @@ local Skins = {
 	["PetBattleTeamsSkin"] = {
 		["addon"] = "PetBattleTeams",
 	},
+	["PetTrackerSkin"] = {
+		["addon"] = "PetTracker",
+	},
 	["PoMTrackerSkin"] = {
 		["addon"] = "PoMTracker",
 	},
@@ -216,6 +219,9 @@ local Skins = {
 	["RaidBuffStatusSkin"] = {
 		["buttonText"] = "Raid Buff Status",
 		["addon"] = "RaidBuffStatus",
+	},
+	["RavenSkin"] = {
+		["addon"] = "Raven",
 	},
 	["RecountSkin"] = {
 		["addon"] = "Recount",
@@ -363,7 +369,7 @@ function AS:GenerateOptions()
 		args = {
 			desc = {
 				type = 'description',
-				name = 'AddOn Skins by Sortokk (based on work by Azilroka) - v'..self.Version,
+				name = 'AddOn Skins by Sortokk (based on work by Azilroka) - v'..AS.Version,
 				order = 1
 			},
 			misc = {
@@ -406,11 +412,17 @@ function AS:GenerateOptions()
 						name = 'Settings to control addons embedded in right chat panel',
 						order = 1
 					},
+					EmbedRight = {
+						type = 'toggle',
+						name = 'Embed to Right Chat Panel',
+						desc = 'Embed to right chat panel, otherwise left chat panel',
+						order = 2
+					},
 					EmbedRecount = {
 						type = 'toggle',
 						name = 'Recount',
 						desc = L['TOGGLESKIN_DESC'],
-						order = 2,
+						order = 3,
 						disabled = function() return not IsAddOnLoaded("Recount") end,
 					},
 					EmbedSkada = {
@@ -474,7 +486,10 @@ function AS:GenerateOptions()
 
 	local order = 2
 	for skinName,_ in pairsByKeys(Skins) do
-		E.Options.args.skins.args.addons.args[skinName] = self:GenerateOptionTable(skinName,order)
+		if not V.skins.addons[skinName] == nil then
+			print("No default option for", skinName)
+		end
+		E.Options.args.skins.args.addons.args[skinName] = AS:GenerateOptionTable(skinName,order)
 		order = order + 1
 	end
 end
