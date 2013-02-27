@@ -1,10 +1,12 @@
 --------------------------------------------------------
 -- System Settable Variables --
 --------------------------------------------------------
+local addon, ns = ...
 local E, L, V, P, G =  unpack(ElvUI);
 local RC = E:GetModule('RaidCooldown')
 local LGIST=LibStub:GetLibrary("LibGroupInSpecT-1.0")
 local CB = LibStub("LibCandyBar-3.0")
+local EP = LibStub("LibElvUIPlugin-1.0")
 local curr = {}
 local tmp = {}
 local frame_cache = {}
@@ -437,7 +439,8 @@ function RC:Initialize()
     		RC.CreateCooldown(index, cooldown);
     		curr[cooldown['spellID']] = {}
         end
-	end    
+	end
+	EP:RegisterPlugin(addon, RC.GetOptions)
     count = 1
 end
 --------------------------------------------------------

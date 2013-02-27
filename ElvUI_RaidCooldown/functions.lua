@@ -99,7 +99,7 @@ RC.cooldowns = {
 		spellID = 20484,
 		succ = "SPELL_CAST_START",
 		name = "R",
-		cd = 600,
+		CD = 600,
 		class = "DRUID",
 	},
 	{ -- Innervate
@@ -175,7 +175,7 @@ RC.cooldowns = {
 		spellID = 20707,
 		succ = "SPELL_CAST_START",
 		name = "SR",
-		CD = 900,
+		CD = 600,
 		class = "WARLOCK",
 	},
 	
