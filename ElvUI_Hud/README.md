@@ -9,3 +9,10 @@ Configuration for the HUD is done in-game through the standard ElvUI configurati
 Credits to:  Tukz, Elv, Hydrazine, Boradan
 
 Thanks to Sgt.Hydra and others in the Tukui community for inspiration
+
+Version 4 plans:
+
+  * Hook into LibSortUI-1.0 to manage option tables and other various metadata
+  * Fix profiles so hud works with dual profile system
+  * Rearrange to remove huge files
+  * Add focus frame

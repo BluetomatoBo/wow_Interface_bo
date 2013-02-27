@@ -5,6 +5,7 @@ local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, Globa
 local H = E:NewModule('HUD','AceTimer-3.0','AceEvent-3.0');
 local UF = E:GetModule('UnitFrames');
 local LSM = LibStub("LibSharedMedia-3.0");
+local EP = LibStub("LibElvUIPlugin-1.0")
 H.frames = {}
 
 
@@ -217,7 +218,7 @@ function H:Initialize()
     end
 
     if sl then self:simpleLayout() end
-    self:GenerateOptionTables()
+    EP:RegisterPlugin(addon, H.GenerateOptions)
     self:UpdateAllFrames()
     self:UpdateMouseSetting()
     self:UpdateHideSetting()

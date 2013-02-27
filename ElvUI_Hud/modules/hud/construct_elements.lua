@@ -345,20 +345,8 @@ function H:ConstructAuraBars()
         GameTooltip.numLines = nil
     end)
 
-    bar.iconHolder:RegisterForClicks('RightButtonUp')
-    bar.iconHolder:SetScript('OnClick', function(self)
-        if not IsShiftKeyDown() then return; end
-        local auraName = self:GetParent().aura.name
-        
-        if auraName then
-            E:Print(string.format(L['The spell "%s" has been added to the Blacklist unitframe aura filter.'], auraName))
-            E.global['unitframe']['aurafilters']['Blacklist']['spells'][auraName] = {
-                ['enable'] = true,
-                ['priority'] = 0,           
-            }
-            UF:Update_AllFrames()
-        end
-    end)
+    bar.bg = bar:CreateTexture(nil, 'BORDER')
+    bar.bg:Hide()
 end
 
 function H:ConstructAuraBarHeader(frame)

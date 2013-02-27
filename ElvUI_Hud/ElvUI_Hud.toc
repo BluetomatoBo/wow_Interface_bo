@@ -1,12 +1,13 @@
-## Interface: 50100
+## Interface: 50200
 ## Title: |cff1784d1ElvUI |rHud
 ## Author: Sortokk
-## Version: 3.37
+## Version: 3.38
 ## Notes: Hud frames for ElvUI
 ## RequiredDeps: ElvUI
 ## X-oUF: ElvUF
 
 locales\load_locales.xml
+libs\LibElvUIPlugin-1.0\LibElvUIPlugin-1.0.lua
 core\load_core.xml
 libs\load_libs.xml
 config\load_config.xml

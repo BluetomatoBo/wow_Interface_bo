@@ -277,6 +277,7 @@ function H:UpdateAllElements(frame)
 end
 
 function H:UpdateAllElementAnchors(frame)
+	if not frame then return end
 	local elements = self.units[frame.unit]
 	local seenClassbars = false
 
