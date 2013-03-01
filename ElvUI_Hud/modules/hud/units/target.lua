@@ -14,7 +14,8 @@ function H:ConstructTargetFrame(frame,unit)
     
     frame.Buffs = self:ConstructBuffs(frame)
     frame.Debuffs = self:ConstructDebuffs(frame)
-    frame.AuraBars = self:ConstructAuraBarHeader(frame)
+    frame.DummyAuraBars = self:ConstructAuraBarHeader(frame)
+    frame:DisableElement('AuraBars') -- disable it until its configured
 
     if E.myclass == "DRUID" or E.myclass == "ROGUE" then
         frame.CPoints = self:ConstructComboPoints(frame)
@@ -24,6 +25,6 @@ function H:ConstructTargetFrame(frame,unit)
     
     frame:SetAlpha(self.db.alpha)
     H:HideOOC(frame)
-    frame:Point("RIGHT", E.UIParent, "CENTER", 275, 0) --Set to default position 
+    frame:Point("RIGHT", E.UIParent, "CENTER", 275, 0) --Set to default position
     E:CreateMover(frame, frame:GetName()..'Mover', 'Target Hud Frame', nil, nil, nil, 'ALL,SOLO')
 end

@@ -45,8 +45,15 @@ function H:GenerateOptions()
                         order = 3,
                         name = L['Simple Layout'],
                         desc = L['Use the simple layout from 2.0'],
-                        func = function() H:SimpleLayout(); H:UpdateAllFrames(); end,
-                    }
+                        func = function() H:SimpleLayout(); H:Enable(); H:UpdateHideSetting(); H:UpdateAllFrames(); H:UpdateMouseSetting(); end,
+                    },
+                    comboLayout = {
+                        type = 'execute',
+                        order = 4,
+                        name = L['Combo Layout'],
+                        desc = L["Use a layout designed to work with ElvUI unitframes"],
+                        func = function() H:ComboLayout(); H:Enable(); H:UpdateHideSetting(); H:UpdateAllFrames(); H:UpdateMouseSetting(); end,
+                    },
                 },
             },
             hudOptions = {
@@ -63,7 +70,7 @@ function H:GenerateOptions()
                         name = L["Hide ElvUI Unitframes"],
                         desc = L["Hide the ElvUI Unitframes when the Hud is enabled"],
                         get = function(info) return E.db.hud[ info[#info] ] end,   
-                        set = function(info, value) E.db.hud[ info[#info] ] = value; H:UpdateElvUFSetting(false) end,
+                        set = function(info, value) E.db.hud[ info[#info] ] = value; H:UpdateElvUFSetting() end,
                     },
                     flash = {
                         type = "toggle",
@@ -104,14 +111,6 @@ function H:GenerateOptions()
                         desc = L["Enable the mouse to interface with the hud (this option has no effect if ElvUI Unitframes are hidden)"],
                         get = function(info) return E.db.hud[ info[#info] ] end,   
                         set = function(info, value) E.db.hud[ info[#info] ] = value; H:UpdateMouseSetting() end,
-                    },
-                    horizCastbar = {
-                        type = "toggle",
-                        order = 20,
-                        name = L["Horizontal Castbar"],
-                        desc = L["Use a horizontal castbar"],
-                        get = function(info) return E.db.hud[info[#info]] end,
-                        set = function(info,value) E.db.hud[info[#info]] = value; E:StaticPopup_Show("CONFIG_RL"); end,
                     },
                     font = {
                         type = "select", dialogControl = 'LSM30_Font',

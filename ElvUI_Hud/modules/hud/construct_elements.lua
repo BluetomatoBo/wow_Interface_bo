@@ -53,107 +53,117 @@ end
 -- Note in this version the castbar is no longer anchored to the power bar, so each
 -- element can be disabled independently
 function H:ConstructCastbar(frame)
+    self:AddElement(frame,'hcastbar')
+    self:AddElement(frame,'vcastbar')
     self:AddElement(frame,'castbar')
-    local castbar = self:ConfigureStatusBar(frame,'castbar')
+    local hcastbar = self:ConfigureStatusBar(frame,'hcastbar')
+    local vcastbar = self:ConfigureStatusBar(frame,'vcastbar')
 
-    if not E.db.hud.horizCastbar or (frame.unit ~= "player" and frame.unit ~= "target") then
-        castbar.PostCastStart = H.PostCastStart
-        castbar.PostChannelStart = H.PostChannelStart
-        castbar.OnUpdate = H.CastbarUpdate
-        --castbar.PostCastInterruptible = H.PostCastInterruptible
-        --castbar.PostCastNotInterruptible = H.PostCastNotInterruptible
-        castbar:SetOrientation("VERTICAL")
-        castbar:SetFrameStrata(frame.Power:GetFrameStrata())
-        castbar:SetFrameLevel(frame.Power:GetFrameLevel()+2)
+    vcastbar.PostCastStart = H.PostCastStart
+    vcastbar.PostChannelStart = H.PostChannelStart
+    vcastbar.OnUpdate = H.CastbarUpdate
+    --vcastbar.PostCastInterruptible = H.PostCastInterruptible
+    --vcastbar.PostCastNotInterruptible = H.PostCastNotInterruptible
+    vcastbar:SetOrientation("VERTICAL")
+    vcastbar:SetFrameStrata(frame.Power:GetFrameStrata())
+    vcastbar:SetFrameLevel(frame.Power:GetFrameLevel()+2)
+
+    vcastbar.Time = self:ConfigureFontString(frame,'vcastbar',vcastbar,'time')
+    vcastbar.Time:Point("BOTTOM", vcastbar, "TOP", 0, 4)
+    vcastbar.Time:SetTextColor(0.84, 0.75, 0.65)
+    vcastbar.Time:SetJustifyH("RIGHT")
     
-        castbar.Time = self:ConfigureFontString(frame,'castbar',castbar,'time')
-        castbar.Time:Point("BOTTOM", castbar, "TOP", 0, 4)
-        castbar.Time:SetTextColor(0.84, 0.75, 0.65)
-        castbar.Time:SetJustifyH("RIGHT")
-        
-        castbar.Text = self:ConfigureFontString(frame,'castbar',castbar,'text')
-        castbar.Text:SetPoint("TOP", castbar, "BOTTOM", 0, -4)
-        castbar.Text:SetTextColor(0.84, 0.75, 0.65)
-        
-        castbar.Spark = castbar:CreateTexture(nil, 'OVERLAY')
-        castbar.Spark:Height(12)
-        castbar.Spark:SetBlendMode('ADD')
-        castbar.Spark:SetVertexColor(1, 1, 1)
+    vcastbar.Text = self:ConfigureFontString(frame,'vcastbar',vcastbar,'text')
+    vcastbar.Text:SetPoint("TOP", vcastbar, "BOTTOM", 0, -4)
+    vcastbar.Text:SetTextColor(0.84, 0.75, 0.65)
+    
+    vcastbar.Spark = vcastbar:CreateTexture(nil, 'OVERLAY')
+    vcastbar.Spark:Height(12)
+    vcastbar.Spark:SetBlendMode('ADD')
+    vcastbar.Spark:SetVertexColor(1, 1, 1)
 
-        --Set to castbar.SafeZone
-        castbar.LatencyTexture = self:ConfigureTexture(frame,'castbar',castbar,'latency')
-        castbar.LatencyTexture:SetVertexColor(0.69, 0.31, 0.31, 0.75)   
-        castbar.SafeZone = castbar.LatencyTexture
-        
-        local button = CreateFrame("Frame", nil, castbar)
-        button:SetTemplate("Default")
-        
-        button:Point("BOTTOM", castbar, "BOTTOM", 0, 0)
-        
-        local icon = button:CreateTexture(nil, "ARTWORK")
-        icon:Point("TOPLEFT", button, 2, -2)
-        icon:Point("BOTTOMRIGHT", button, -2, 2)
-        icon:SetTexCoord(0.08, 0.92, 0.08, .92)
-        icon.bg = button
-        
-        --Set to castbar.Icon
-        castbar.ButtonIcon = icon
+    --Set to vcastbar.SafeZone
+    vcastbar.LatencyTexture = self:ConfigureTexture(frame,'vcastbar',vcastbar,'latency')
+    vcastbar.LatencyTexture:SetVertexColor(0.69, 0.31, 0.31, 0.75)   
+    vcastbar.SafeZone = vcastbar.LatencyTexture
+    
+    local button = CreateFrame("Frame", nil, vcastbar)
+    button:SetTemplate("Default")
+    
+    button:Point("BOTTOM", vcastbar, "BOTTOM", 0, 0)
+    
+    local icon = button:CreateTexture(nil, "ARTWORK")
+    icon:Point("TOPLEFT", button, 2, -2)
+    icon:Point("BOTTOMRIGHT", button, -2, 2)
+    icon:SetTexCoord(0.08, 0.92, 0.08, .92)
+    icon.bg = button
+    
+    --Set to castbar.Icon
+    vcastbar.ButtonIcon = icon
+    frame.VertCastbar = vcastbar
+    hcastbar:SetFrameLevel(6)
+
+    hcastbar.CustomTimeText = H.CustomCastTimeText
+    hcastbar.CustomDelayText = H.CustomCastDelayText
+    if frame.unit ~= 'player' then
+        hcastbar.PostCastStart = H.CheckCast
+        hcastbar.PostChannelStart = H.CheckCast
+        hcastbar.PostCastInterruptible = UF.PostCastInterruptible
+        hcastbar.PostCastNotInterruptible = UF.PostCastNotInterruptible
     else
-        castbar:SetFrameLevel(6)
-
-        castbar.CustomTimeText = H.CustomCastTimeText
-        castbar.CustomDelayText = H.CustomCastDelayText
-        if frame.unit ~= 'player' then
-            castbar.PostCastStart = H.CheckCast
-            castbar.PostChannelStart = H.CheckCast
-        else
-            castbar.PostCastStart = UF.PostCastStart
-            castbar.PostChannelStart = UF.PostCastStart
-            castbar.PostCastStop = UF.PostCastStop
-            castbar.PostChannelStop = UF.PostCastStop
-            castbar.PostChannelUpdate = UF.PostChannelUpdate
-            castbar.PostCastInterruptible = UF.PostCastInterruptible
-            castbar.PostCastNotInterruptible = UF.PostCastNotInterruptible
-        end
-
-        castbar.Time = self:ConfigureFontString(frame,'castbar',castbar,'time')
-        castbar.Time:SetPoint("RIGHT", castbar, "RIGHT", -4, 0)
-        castbar.Time:SetTextColor(0.84, 0.75, 0.65)
-        castbar.Time:SetJustifyH("RIGHT")
-        
-        castbar.button = CreateFrame("Frame", nil, castbar)
-        castbar.button:Size(26)
-        castbar.button:SetTemplate("Default")
-        castbar.button:CreateShadow("Default")
-
-        castbar.Spark = castbar:CreateTexture(nil, 'OVERLAY')
-        castbar.Spark:SetBlendMode('ADD')
-        castbar.Spark:SetVertexColor(1, 1, 1)
-        castbar.Spark:Width(12)
-
-        castbar.Text = self:ConfigureFontString(frame,'castbar',castbar,'text')
-        castbar.Text:SetTextColor(0.84, 0.75, 0.65)
-        castbar.Text:SetPoint("LEFT", castbar.button, "RIGHT", 4, 0)
-
-        castbar.Icon = castbar.button:CreateTexture(nil, "ARTWORK")
-        castbar.Icon:Point("TOPLEFT", castbar.button, 2, -2)
-        castbar.Icon:Point("BOTTOMRIGHT", castbar.button, -2, 2)
-        castbar.Icon:SetTexCoord(0.08, 0.92, 0.08, .92)
-    
-        castbar.button:SetPoint("LEFT")
-    
-        --Set to castbar.SafeZone
-        castbar.LatencyTexture = self:ConfigureTexture(frame,'castbar',castbar,'latency')
-        castbar.LatencyTexture:SetVertexColor(0.69, 0.31, 0.31, 0.75)   
-        castbar.SafeZone = castbar.LatencyTexture
+        hcastbar.PostCastStart = UF.PostCastStart
+        hcastbar.PostChannelStart = UF.PostCastStart
+        hcastbar.PostCastStop = UF.PostCastStop
+        hcastbar.PostChannelStop = UF.PostCastStop
+        hcastbar.PostChannelUpdate = UF.PostChannelUpdate
+        hcastbar.PostCastInterruptible = UF.PostCastInterruptible
+        hcastbar.PostCastNotInterruptible = UF.PostCastNotInterruptible
     end
+
+    hcastbar.Time = self:ConfigureFontString(frame,'hcastbar',hcastbar,'time')
+    hcastbar.Time:SetPoint("RIGHT", hcastbar, "RIGHT", -4, 0)
+    hcastbar.Time:SetTextColor(0.84, 0.75, 0.65)
+    hcastbar.Time:SetJustifyH("RIGHT")
+    
+    hcastbar.button = CreateFrame("Frame", nil, hcastbar)
+    hcastbar.button:Size(26)
+    hcastbar.button:SetTemplate("Default")
+    hcastbar.button:CreateShadow("Default")
+
+    hcastbar.Spark = hcastbar:CreateTexture(nil, 'OVERLAY')
+    hcastbar.Spark:SetBlendMode('ADD')
+    hcastbar.Spark:SetVertexColor(1, 1, 1)
+    hcastbar.Spark:Width(12)
+
+    hcastbar.Text = self:ConfigureFontString(frame,'hcastbar',hcastbar,'text')
+    hcastbar.Text:SetTextColor(0.84, 0.75, 0.65)
+    hcastbar.Text:SetPoint("LEFT", hcastbar.button, "RIGHT", 4, 0)
+
+    hcastbar.Icon = hcastbar.button:CreateTexture(nil, "ARTWORK")
+    hcastbar.Icon:Point("TOPLEFT", hcastbar.button, 2, -2)
+    hcastbar.Icon:Point("BOTTOMRIGHT", hcastbar.button, -2, 2)
+    hcastbar.Icon:SetTexCoord(0.08, 0.92, 0.08, .92)
+
+    hcastbar.button:SetPoint("LEFT")
+
+    --Set to castbar.SafeZone
+    hcastbar.LatencyTexture = self:ConfigureTexture(frame,'hcastbar',hcastbar,'latency')
+    hcastbar.LatencyTexture:SetVertexColor(0.69, 0.31, 0.31, 0.75)   
+    hcastbar.SafeZone = hcastbar.LatencyTexture
+    frame.HorizCastbar = hcastbar
 
     if frame.unit ~= 'target' then
-        castbar:HookScript("OnShow", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
-        castbar:HookScript("OnHide", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+        hcastbar:HookScript("OnShow", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
+        hcastbar:HookScript("OnHide", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+        vcastbar:HookScript("OnShow", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
+        vcastbar:HookScript("OnHide", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
     end
     
-    return castbar
+    if (frame.unit ~= 'player' and frame.unit ~= 'target') or not self.db.units[frame.unit].horizCastbar then
+        return vcastbar
+    else
+        return hcastbar
+    end
 end
 
 -- Name element
@@ -303,8 +313,8 @@ function H:ConstructComboPoints(frame)
     return bars
 end
 
-function H:ConstructAuraBars()
-    local config = E.db.hud.units.player['aurabars']
+function H.ConstructAuraBars(self,unit)
+    local config = E.db.hud.units[unit]['aurabars']
     local media = config.media
     local size = config.size
     local bar = self.statusBar
@@ -312,8 +322,8 @@ function H:ConstructAuraBars()
     self:SetTemplate('Default')
 
     bar:Size(size.width,size.height)
-    local textureSetting = 'units.player.aurabars.media.texture'
-    local fontSetting = 'units.player.aurabars.media.font'
+    local textureSetting = 'units.'..unit..'.aurabars.media.texture'
+    local fontSetting = 'units.'..unit..'.aurabars.media.font'
     if not H:IsDefault(textureSetting) then
         bar:SetStatusBarTexture(LSM:Fetch("statusbar", media.texture.statusbar))
     else
@@ -349,10 +359,23 @@ function H:ConstructAuraBars()
     bar.bg:Hide()
 end
 
+function H:ConstructPlayerAuraBars()
+    H.ConstructAuraBars(self,"player")
+end
+
+function H:ConstructTargetAuraBars()
+    H.ConstructAuraBars(self,"target")
+end
+
 function H:ConstructAuraBarHeader(frame)
     self:AddElement(frame,'aurabars')
     local auraBar = self:ConfigureFrame(frame,'aurabars')
-    auraBar.PostCreateBar = H.ConstructAuraBars
+
+    if frame.unit == "player" then
+        auraBar.PostCreateBar = H.ConstructPlayerAuraBars
+    else
+        auraBar.PostCreateBar = H.ConstructTargetAuraBars
+    end
     auraBar.PostUpdate = UF.ColorizeAuraBars
     auraBar.gap = 1
     auraBar.spacing = 1

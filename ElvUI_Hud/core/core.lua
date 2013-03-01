@@ -8,7 +8,8 @@ local LSM = LibStub("LibSharedMedia-3.0");
 local EP = LibStub("LibElvUIPlugin-1.0")
 H.frames = {}
 
-
+-- wonder if this is related
+E.db.hud = {}
 E.Hud = H
 
 function H:updateAllElements(frame)
@@ -91,7 +92,7 @@ function H:UpdateHideSetting()
     else
         for _,f in pairs(frames) do
             self:EnableHide(f)
-            local alpha = self.db[InCombatLockdown() and 'alpha' or 'alphaOOC']
+            local alpha = self.db[InCombatLockdown() and 'alpha' or 'alphaOOC'] or P.hud[InCombatLockdown() and 'alpha' or 'alphaOOC']
             f:SetAlpha(alpha)
         end
     end
@@ -111,10 +112,10 @@ function H:EnableFrame(f,a,m)
     f:SetAlpha(a)
 end
 
-local elv_units = { 'player', 'target', 'pet', 'pettarget', 'targettarget' }
+local elv_units = { 'player', 'target', 'pet', 'pettarget', 'targettarget', 'focus', 'focustarget' }
 local old_settings = {}
 
-function H:UpdateElvUFSetting(enableChanged,init)
+function H:UpdateElvUFSetting()
     local value
     if E.db.hud.enabled then value = not E.db.hud.hideElv else value = true end
     for _,unit in pairs(elv_units) do
@@ -151,6 +152,12 @@ function H:DisableHide(frame)
     hider:SetScript("OnEvent", nil)
 end
 
+function H:AuraBarsSuck()
+    H.enableAuraBars = true
+    H:UpdateAllFrames()
+    H.enableAuraBars = false
+end
+
 function H:Enable()
     self:UpdateElvUFSetting(true)
     for _,f in pairs(frames) do
@@ -169,6 +176,7 @@ function H:Enable()
     end
     self.lowHealthFlash:Show()
     self.lowHealthFlash:SetAlpha(0)
+    H:ScheduleTimer('AuraBarsSuck',3)
 end
 
 function H:UpdateMouseSetting()
@@ -181,34 +189,26 @@ function H:UpdateMouseSetting()
     end
 end
 
-function H:ResetSettings()
-    local oldSettings = {}
-    local sl = self.db.simpleLayout
-    E:CopyTable(oldSettings,self.db)
-    E:CopyTable(self.db,P.hud)
-    for k,_ in pairs(oldSettings) do
-        if self.db[k] then
-            self.db[k] = oldSettings[k]
-        end
-    end
-    self.db['install_complete'] = 3
-    return sl
+function H:UpdateAll()
+    self.db = E.db.hud
+
+    self:UpdateAllFrames()
+    self:UpdateMouseSetting()
+    self:UpdateHideSetting()
+    if UnitAffectingCombat("player") then self:RegisterEvent("PLAYER_REGEN_ENABLED") else self:Enable() end
 end
 
 function H:Initialize()
-    if self.db then return end;
     self.db = E.db.hud
 
     self:CreateWarningFrame()
-    local sl = false 
-    if not self.db['install_complete'] or self.db['install_complete'] and self.db['install_complete'] < 3 then sl = self:ResetSettings() end
-
+    
     oUF:RegisterStyle('ElvUI_Hud',function(frame,unit)
         H:ConstructHudFrame(frame,unit)
     end)
 
     oUF:SetActiveStyle('ElvUI_Hud')
-    local units = { 'player', 'target', 'pet', 'targettarget', 'pettarget' }
+    local units = { 'player', 'target', 'pet', 'targettarget', 'pettarget', 'focus', 'focustarget' }
     for _,unit in pairs(units) do
         local stringTitle = E:StringTitle(unit)
         if stringTitle:find('target') then
@@ -217,13 +217,14 @@ function H:Initialize()
         oUF:Spawn(unit, "ElvUF_"..stringTitle.."Hud")
     end
 
-    if sl then self:simpleLayout() end
     EP:RegisterPlugin(addon, H.GenerateOptions)
     self:UpdateAllFrames()
     self:UpdateMouseSetting()
     self:UpdateHideSetting()
 
-    hooksecurefunc(UF,"Update_AllFrames",function(self) H:UpdateAllFrames() end)
+    -- Why did I need this?
+    --hooksecurefunc(UF,"Update_AllFrames",function(self) H:UpdateAllFrames() end)
+    hooksecurefunc(E,"UpdateAll",function(self,ignoreInstall) H:UpdateAll() end)
 
     local f = CreateFrame('Frame', nil, UIParent); 
     f:SetAllPoints();

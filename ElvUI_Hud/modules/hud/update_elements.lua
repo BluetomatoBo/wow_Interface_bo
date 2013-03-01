@@ -7,6 +7,21 @@ local UF = E:GetModule('UnitFrames');
 
 local warningTextShown = false;
 
+function H:GetCastbar(frame)
+	local hc = self.units[frame.unit].hcastbar
+	local vc = self.units[frame.unit].vcastbar
+	frame:DisableElement('Castbar')
+	if (frame.unit ~= 'player' and frame.unit ~= 'target') or not self.db.units[frame.unit].horizCastbar then
+		self.units[frame.unit].castbar = vc
+		frame.Castbar = frame.VertCastbar
+	else
+		self.units[frame.unit].castbar = hc
+		frame.Castbar = frame.HorizCastbar
+	end
+	frame:EnableElement('Castbar')
+	if frame.Castbar.ForceUpdate then frame.Castbar:ForceUpdate() end
+end
+
 -- This function is only responsible for updating bar sizes for class bar children
 -- textures work normally as does parent size
 function H:UpdateClassBar(frame,element)
@@ -241,6 +256,10 @@ function H:UpdateClassBarAnchors(frame,element)
 end
 
 function H:UpdateElement(frame,element)
+	if element == 'castbar' then
+		self:GetCastbar(frame)
+	end
+	
 	local config = self.db.units[frame.unit][element]
 	local size = config['size']
 	local media = config['media']
@@ -251,7 +270,7 @@ function H:UpdateElement(frame,element)
 	if size then
 		if e.statusbars then
 			if element == 'castbar' and size['vertical'] ~= nil then
-				if not self.db.horizCastbar then
+				if not self.db.units[frame.unit].horizCastbar then
 					size = size['vertical']
 				else
 					size = size['horizontal']
@@ -262,7 +281,7 @@ function H:UpdateElement(frame,element)
 				statusbar:Size(size.width,size.height)
 			end			
 			if element == 'castbar' then
-				if not self.db.horizCastbar or (frame.unit ~= 'player' and frame.unit ~= 'target') then
+				if (frame.unit ~= 'player' and frame.unit ~= 'target') or not self.db.units[frame.unit].horizCastbar then
 					frame.Castbar.Spark:Width(frame.Castbar:GetWidth()*2)
 				else
 					frame.Castbar.Spark:Height(frame.Castbar:GetHeight()*2)
@@ -330,10 +349,13 @@ function H:UpdateElement(frame,element)
 	end
 end
 
+H.enableAuraBars = false
+
 function H:UpdateElementAnchor(frame,element)
 	local e = H:GetElement(element)
 	local config = self.db.units[frame.unit][element]
 	local enabled = config['enabled']
+	local enableAuraBars = H.enableAuraBars
 	if element == 'healcomm' then
 		if enabled then
 			frame:EnableElement(e)
@@ -383,7 +405,7 @@ function H:UpdateElementAnchor(frame,element)
 	local hasAnchor = anchor ~= nil
 	if element == 'castbar' then
 		if frame.unit == 'player' or frame.unit == 'target' then
-			if self.db.horizCastbar then
+			if self.db.units[frame.unit].horizCastbar then
 				hasAnchor = false
 			end
 		end
@@ -432,7 +454,9 @@ function H:UpdateElementAnchor(frame,element)
 		    		holder:Point("CENTER", E.UIParent, "CENTER", 0, -200)
 		    	end
 		    end
-		    f:SetPoint("TOP", holder, "TOP", 0, 0)
+		    f:ClearAllPoints()
+		    f:SetPoint("TOPLEFT", holder, "BOTTOMLEFT", 0, 0)
+		    f:SetPoint("TOPRIGHT", holder, "BOTTOMRIGHT", 0, 0)
 		    f.Holder = holder
 
 		    E:CreateMover(f.Holder, string.format(moverFormat,frame:GetName()), name, nil, nil, nil, 'ALL,SOLO')
@@ -462,7 +486,7 @@ function H:UpdateElementAnchor(frame,element)
 	end
 
 	if enabled then
-		frame:EnableElement(e)
+		if element ~= 'aurabars' or enableAuraBars then frame:EnableElement(e) end
 		frame[e]:SetAlpha(1)
 		if config['value'] and frame[e].value then
 			if config['value']['enabled'] then
@@ -472,7 +496,7 @@ function H:UpdateElementAnchor(frame,element)
 			end
 		end
 		if element ~= 'raidicon' then frame[e]:Show() end
-		if frame[e].ForceUpdate then frame[e]:ForceUpdate() end
+		if frame[e].ForceUpdate and (element ~= 'aurabars') then frame[e]:ForceUpdate() end
 	else
 		frame:DisableElement(e)
 		frame[e]:SetAlpha(0)

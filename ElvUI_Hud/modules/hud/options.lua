@@ -579,6 +579,14 @@ local nameMap = {
         ['name'] = 'Pet Target Hud',
         ['mover'] = 'Pet Target Hud Frame'
     },
+    ['focus'] = {
+        ['name'] = 'Focus Hud',
+        ['mover'] = 'Focus Hud Frame'
+    },
+    ['focustarget'] = {
+        ['name'] = 'Focus Target Hud',
+        ['mover'] = 'Focus Target Hud Frame'
+    },
     ['playeraurabar'] = {
         ['mover'] = 'Player Hud AuraBar Header'
     },
@@ -664,6 +672,16 @@ function H:GenerateUnitOptionTable(unit,name,order,mover,elements)
             },
         }
     }
+    if unit == 'player' or unit == 'target' then
+        options.args.horizCastbar = {
+            type = "toggle",
+            order = 20,
+            name = L["Horizontal Castbar"],
+            desc = L["Use a horizontal castbar"],
+            get = function(info) return E.db.hud.units[unit][ info[#info] ] end,
+            set = function(info,value) E.db.hud.units[unit][ info[#info] ] = value; H:UpdateAllFrames() end,
+        }
+    end
     for element,_ in pairs(elements) do
         if self:GetElement(element) then
             options.args[element] = elementOptions[element](unit)

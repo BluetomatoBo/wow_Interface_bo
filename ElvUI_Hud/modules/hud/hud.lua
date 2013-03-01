@@ -209,7 +209,7 @@ function H:ConstructHudFrame(frame,unit)
 	frame:SetScript('OnLeave', UnitFrame_OnLeave)	
 	if frame.unit ~= 'target' then
 		frame:HookScript("OnHide",function(self)
-			if E.db.hud.enabled and E.db.hud.hideOOC and not InCombatLockdown() then
+			if E.db.hud.enabled and E.db.hud.hideOOC and not InCombatLockdown() and E.db.hud.units[frame.unit].enabled then
 				self:Show()
 				self:SetAlpha(0)
 			end
@@ -238,8 +238,8 @@ function H:UpdateFrame(unit)
 	_G[frame:GetName()..'Mover']:Size(frame:GetSize())
 
 	if E.db.hud.enabled and self.db.units[frame.unit].enabled then
-		frame:Enable()
 		frame:EnableMouse(self.db.hideElv or self.db.enableMouse)
+		frame:Enable()
 		frame:SetAlpha(self.db.alpha)
 		local event
 		if InCombatLockdown() then
@@ -248,6 +248,7 @@ function H:UpdateFrame(unit)
 			event = "PLAYER_REGEN_ENABLED"
 		end
 		if self.db.hideOOC then H:Hide(frame, event) end
+		if not frame.AuraBars then frame.AuraBars = frame.DummyAuraBars end
 		self:UpdateAllElements(frame)
 		self:UpdateAllElementAnchors(frame)
 
@@ -255,8 +256,24 @@ function H:UpdateFrame(unit)
 			local spec = GetSpecialization()
 			self:CheckHealthValue(frame,spec==1)
 		end
+		if not frame then return end -- don't know, fuck this shit
+
+		if H.enableAuraBars then
+			frame:UpdateAllElements()
+		end
 	else
+		if frame:IsVisible() then frame:Hide() end
+		frame:SetAlpha(0)
 		frame:Disable()
+		H:ScheduleTimer('DisableThisShit',1)
+	end
+end
+
+function H:DisableThisShit()
+	for _,f in pairs(self.frames) do
+		if(not self.db.units[frame.unit].enabled) then
+			f:Disable()
+		end
 	end
 end
 
@@ -408,7 +425,7 @@ function H:UpdateElementSizes(unit,isWidth,newSize)
 		if size then
 			local config = true
 			if element == 'castbar' and (unit == 'player' or unit == 'target') then 
-				if self.db.horizCastbar then
+				if self.db.units[unit].horizCastbar then
 					config = false
 				else
 					size = size['vertical']
@@ -435,4 +452,35 @@ function H:SimpleLayout()
 	self.db.units.player.power.anchor.xOffset = 550
 	self.db.units.player.classbars.enabled = true
 	self.db.units.player.cpoints.enabled = true
+	self.db.units.player.castbar.enabled = true
+end
+
+function H:ComboLayout()
+	self.db.hideElv = false
+	self.db.hideOOC = true
+	self.db.enableMouse = false
+	self.db.units.targettarget.enabled = false
+	self.db.units.pet.enabled = false
+	self.db.units.pettarget.enabled = false
+	for element,_ in pairs(self.db.units.player) do
+		if self:GetElement(element) then
+			self.db.units.player[element].enabled = false
+		end
+	end
+	for element,_ in pairs(self.db.units.target) do
+		if self:GetElement(element) then
+			self.db.units.target[element].enabled = false
+		end
+	end
+	self.db.units.player.health.enabled = true
+	self.db.units.player.castbar.enabled = true
+	self.db.units.target.health.enabled = true
+	self.db.units.target.name.enabled = true
+	self.db.units.target.raidicon.enabled = true
+	self.db.player.horizCastbar = true
+	self.db.target.horizCastbar = true
+	--self.db['units'][unit].castbar.enable
+	UF.db['units'].player.castbar.enable = false
+	UF.db['units'].target.castbar.enable = false
+	UF:Update_AllFrames()
 end

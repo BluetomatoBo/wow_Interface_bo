@@ -13,7 +13,8 @@ function H:ConstructPlayerFrame(frame,unit)
 
 	frame.Name = self:ConstructName(frame)
 		
-	frame.AuraBars = self:ConstructAuraBarHeader(frame)
+	frame.DummyAuraBars = self:ConstructAuraBarHeader(frame)
+	frame:DisableElement('AuraBars') -- disable it until its configured
 
 	if E.myclass == "DRUID" then
 		frame.EclipseBar = self:ConstructEclipseBar(frame)

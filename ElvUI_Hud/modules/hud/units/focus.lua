@@ -1,7 +1,7 @@
 local E, L, V, P, G = unpack(ElvUI); --Inport: Engine, Locales, ProfileDB, GlobalDB
 local H = E:GetModule('HUD');
 
-function H:ConstructPetFrame(frame,unit)
+function H:ConstructFocusFrame(frame,unit)
     frame.unit = unit
     frame.Health = self:ConstructHealth(frame)
 
@@ -18,6 +18,6 @@ function H:ConstructPetFrame(frame,unit)
     
     frame:SetAlpha(self.db.alpha)
     H:HideOOC(frame)
-    frame:Point("BOTTOMRIGHT", ElvUF_PlayerHud, "BOTTOMLEFT", -110, 0)
-    E:CreateMover(frame, frame:GetName()..'Mover', 'Pet Hud Frame', nil, nil, nil, 'ALL,SOLO')
+    frame:Point("BOTTOMLEFT", ElvUF_TargetTargetHud, "BOTTOMRIGHT", 110, 0)
+    E:CreateMover(frame, frame:GetName()..'Mover', 'Focus Hud Frame', nil, nil, nil, 'ALL,SOLO')
 end

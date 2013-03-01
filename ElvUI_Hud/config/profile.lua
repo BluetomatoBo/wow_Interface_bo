@@ -4,7 +4,6 @@ P['hud'] = {
     ['enabled'] = true,
     ['install_complete'] = 0,
     ['hideElv'] = true,
-    ['horizCastbar'] = true,
     ['unicolor'] = true,
     ['flash'] = true,
     ['screenflash'] = true,
@@ -43,6 +42,7 @@ P['hud']['units'] = {
         ['enabled'] = true,
         ['height'] = 150,
         ['width'] = 39,
+        ['horizCastbar'] = true,
         ['health'] = {
             ['enabled'] = true,
             ['size'] = {
@@ -385,6 +385,7 @@ P['hud']['units'] = {
         ['enabled'] = true,
         ['height'] = 150,
         ['width'] = 27,
+        ['horizCastbar'] = true,
         ['health'] = {
             ['enabled'] = true,
             ['size'] = {
@@ -709,6 +710,34 @@ P['hud']['units'] = {
                 ['yOffset'] = 0
             }
         },
+        ['buffs'] = {
+            ['enabled'] = true,
+            ['anchor'] = {
+                ['pointFrom'] = 'BOTTOM',
+                ['attachTo'] = 'health',
+                ['pointTo'] = 'TOP',
+                ['xOffset'] = 9,
+                ['yOffset'] = 40,
+            },
+            ['size'] = {
+                ['height'] = 26,
+                ['width'] = 252,
+            },
+        },
+        ['debuffs'] = {
+            ['enabled'] = false,
+            ['anchor'] = {
+                ['pointFrom'] = 'TOP',
+                ['attachTo'] = 'buffs',
+                ['pointTo'] = 'BOTTOM',
+                ['xOffset'] = 9,
+                ['yOffset'] = 6,
+            },
+            ['size'] = {
+                ['height'] = 26,
+                ['width'] = 252,
+            },
+        },
     },
     ['targettarget'] = {
         ['enabled'] = true,
@@ -874,6 +903,286 @@ P['hud']['units'] = {
                     ['attachTo'] = 'power',
                     ['pointTo'] = 'RIGHT',
                     ['xOffset'] = 4,
+                    ['yOffset'] = 0,
+                },
+                ['tag'] = '[powercolor][power:current-percent]'
+            },
+            ['buffs'] = {
+            ['enabled'] = true,
+            ['anchor'] = {
+                ['pointFrom'] = 'BOTTOM',
+                ['attachTo'] = 'health',
+                ['pointTo'] = 'TOP',
+                ['xOffset'] = 9,
+                ['yOffset'] = 40,
+            },
+            ['size'] = {
+                ['height'] = 26,
+                ['width'] = 252,
+            },
+        },
+        ['debuffs'] = {
+            ['enabled'] = false,
+            ['anchor'] = {
+                ['pointFrom'] = 'TOP',
+                ['attachTo'] = 'buffs',
+                ['pointTo'] = 'BOTTOM',
+                ['xOffset'] = 9,
+                ['yOffset'] = 6,
+            },
+            ['size'] = {
+                ['height'] = 26,
+                ['width'] = 252,
+            },
+        },
+        },
+        ['name'] = {
+            ['enabled'] = true,
+            ['tag'] = '[namecolor][name:medium]',
+            ['anchor'] = {
+                ['pointFrom'] = 'BOTTOM',
+                ['attachTo'] = 'health',
+                ['pointTo'] = 'TOP',
+                ['xOffset'] = 0,
+                ['yOffset'] = 15,
+            },
+            ['media'] = {
+                ['font'] = {
+                    ['override'] = false,
+                    ['font'] = "ElvUI Font",
+                    ['fontsize'] = 12,
+                },
+            }
+        },
+        ['raidicon'] = {
+            ['enabled'] = true,
+            ['anchor'] = {
+                ['pointFrom'] = 'CENTER',
+                ['attachTo'] = 'health',
+                ['pointTo'] = 'CENTER',
+                ['xOffset'] = 0,
+                ['yOffset'] = 0
+            }
+        },
+    },
+    ['focus'] = {
+        ['enabled'] = true,
+        ['height'] = 113,
+        ['width'] = 27,
+        ['health'] = {
+            ['enabled'] = true,
+            ['size'] = {
+                ['height'] = 112,
+                ['width'] = 15,
+            },
+            ['media'] = {
+                ['texture'] = {
+                    ['overide'] = false,
+                    ['statusbar'] = "Minimalist",
+                },
+                ['font'] = {
+                    ['override'] = false,
+                    ['font'] = "ElvUI Font",
+                    ['fontsize'] = 12,
+                },
+                ['color'] = { r = 0.05, g = 0.05, b = 0.05 }
+            },
+            ['value'] = {
+                ['enabled'] = true,
+                ['anchor'] = {
+                    ['pointFrom'] = 'RIGHT',
+                    ['attachTo'] = 'health',
+                    ['pointTo'] = 'LEFT',
+                    ['xOffset'] = -4,
+                    ['yOffset'] = 0,
+                },
+                ['tag'] = '[healthcolor][health:current-percent]'
+            },
+        },
+        ['power'] = {
+            ['enabled'] = true,
+            ['anchor'] = {
+                ['pointFrom'] = 'LEFT',
+                ['attachTo'] = 'health',
+                ['pointTo'] = 'RIGHT',
+                ['xOffset'] = 0,
+                ['yOffset'] = 0,
+            },
+            ['size'] = {
+                ['height'] = 112,
+                ['width'] = 10,
+            },
+            ['media'] = {
+                ['texture'] = {
+                    ['overide'] = false,
+                    ['statusbar'] = "Minimalist",
+                },
+                ['font'] = {
+                    ['override'] = false,
+                    ['font'] = "ElvUI Font",
+                    ['fontsize'] = 12,
+                },
+            },
+            ['value'] = {
+                ['enabled'] = true,
+                ['anchor'] = {
+                    ['pointFrom'] = 'LEFT',
+                    ['attachTo'] = 'power',
+                    ['pointTo'] = 'RIGHT',
+                    ['xOffset'] = 4,
+                    ['yOffset'] = 0,
+                },
+                ['tag'] = '[powercolor][power:current-percent]'
+            },
+        },
+        ['castbar'] = {
+            ['enabled'] = true,
+            ['anchor'] = {
+                ['pointFrom'] = 'BOTTOM',
+                ['attachTo'] = 'power',
+                ['pointTo'] = 'BOTTOM',
+                ['xOffset'] = 0,
+                ['yOffset'] = 0,
+            },
+            ['size'] = {
+                ['height'] = 112,
+                ['width'] = 10,
+            },
+            ['media'] = {
+                ['texture'] = {
+                    ['overide'] = false,
+                    ['statusbar'] = "Minimalist",
+                },
+                ['font'] = {
+                    ['override'] = false,
+                    ['font'] = "ElvUI Font",
+                    ['fontsize'] = 12,
+                },
+            },
+            
+        },
+        ['name'] = {
+            ['enabled'] = true,
+            ['tag'] = '[namecolor][name:medium]',
+            ['anchor'] = {
+                ['pointFrom'] = 'BOTTOM',
+                ['attachTo'] = 'health',
+                ['pointTo'] = 'TOP',
+                ['xOffset'] = 0,
+                ['yOffset'] = 15,
+            },
+            ['media'] = {
+                ['font'] = {
+                    ['override'] = false,
+                    ['font'] = "ElvUI Font",
+                    ['fontsize'] = 12,
+                },
+            }
+        },
+        ['raidicon'] = {
+            ['enabled'] = true,
+            ['anchor'] = {
+                ['pointFrom'] = 'CENTER',
+                ['attachTo'] = 'health',
+                ['pointTo'] = 'CENTER',
+                ['xOffset'] = 0,
+                ['yOffset'] = 0
+            }
+        },
+        ['buffs'] = {
+            ['enabled'] = true,
+            ['anchor'] = {
+                ['pointFrom'] = 'BOTTOM',
+                ['attachTo'] = 'health',
+                ['pointTo'] = 'TOP',
+                ['xOffset'] = 9,
+                ['yOffset'] = 40,
+            },
+            ['size'] = {
+                ['height'] = 26,
+                ['width'] = 252,
+            },
+        },
+        ['debuffs'] = {
+            ['enabled'] = false,
+            ['anchor'] = {
+                ['pointFrom'] = 'TOP',
+                ['attachTo'] = 'buffs',
+                ['pointTo'] = 'BOTTOM',
+                ['xOffset'] = 9,
+                ['yOffset'] = 6,
+            },
+            ['size'] = {
+                ['height'] = 26,
+                ['width'] = 252,
+            },
+        },
+    },
+    ['focustarget'] = {
+        ['enabled'] = false,
+        ['height'] = 113,
+        ['width'] = 27,
+        ['health'] = {
+            ['enabled'] = true,
+            ['size'] = {
+                ['height'] = 112,
+                ['width'] = 15,
+            },
+            ['media'] = {
+                ['texture'] = {
+                    ['overide'] = false,
+                    ['statusbar'] = "Minimalist",
+                },
+                ['font'] = {
+                    ['override'] = false,
+                    ['font'] = "ElvUI Font",
+                    ['fontsize'] = 12,
+                },
+                ['color'] = { r = 0.05, g = 0.05, b = 0.05 }
+            },
+            ['value'] = {
+                ['enabled'] = true,
+                ['anchor'] = {
+                    ['pointFrom'] = 'LEFT',
+                    ['attachTo'] = 'health',
+                    ['pointTo'] = 'RIGHT',
+                    ['xOffset'] = 6,
+                    ['yOffset'] = 0,
+                },
+                ['tag'] = '[healthcolor][health:current-percent]'
+            },
+        },
+        ['power'] = {
+            ['enabled'] = true,
+            ['anchor'] = {
+                ['pointFrom'] = 'RIGHT',
+                ['attachTo'] = 'health',
+                ['pointTo'] = 'LEFT',
+                ['xOffset'] = 0,
+                ['yOffset'] = 0,
+            },
+            ['size'] = {
+                ['height'] = 112,
+                ['width'] = 10,
+            },
+            ['media'] = {
+                ['texture'] = {
+                    ['overide'] = false,
+                    ['statusbar'] = "Minimalist",
+                },
+                ['font'] = {
+                    ['override'] = false,
+                    ['font'] = "ElvUI Font",
+                    ['fontsize'] = 12,
+                },
+            },
+            ['value'] = {
+                ['enabled'] = true,
+                ['anchor'] = {
+                    ['pointFrom'] = 'RIGHT',
+                    ['attachTo'] = 'power',
+                    ['pointTo'] = 'LEFT',
+                    ['xOffset'] = -4,
                     ['yOffset'] = 0,
                 },
                 ['tag'] = '[powercolor][power:current-percent]'

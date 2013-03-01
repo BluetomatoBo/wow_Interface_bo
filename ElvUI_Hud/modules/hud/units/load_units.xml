@@ -4,4 +4,6 @@
     <Script file="pet.lua"/>
     <Script file="targettarget.lua"/>
     <Script file="pettarget.lua"/>
+    <Script file="focus.lua"/>
+    <Script file="focustarget.lua"/>
 </Ui>

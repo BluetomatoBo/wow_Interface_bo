@@ -1,10 +1,11 @@
 if not ElvUI then return end
 
-local MAJOR, MINOR = "LibElvUIPlugin-1.0", 3
+local MAJOR, MINOR = "LibElvUIPlugin-1.0", 6
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 
 if not lib then return end
 lib.plugins = {}
+lib.index = 0
 --
 -- GLOBALS:
 --
@@ -56,30 +57,31 @@ function lib:RegisterPlugin(name,callback)
 	end
 
 	lib:SetupVersionCheck(plugin)
+	lib.index = lib.index + 1
 	
 	return plugin
 end
 
 function lib:SetupVersionCheck(plugin)
-	local prefix = "ElvUIPlugin"..plugin.name.."VC"
+	local prefix = "EPVC"..lib.index
 	E["Send"..plugin.name.."VersionCheck"] = function()
 		local _, instanceType = IsInInstance()
 		if IsInRaid() then
-			SendAddonMessage(prefix, E.version, (not IsInRaid(LE_PARTY_CATEGORY_HOME) and IsInRaid(LE_PARTY_CATEGORY_INSTANCE)) and "INSTANCE_CHAT" or "RAID")
+			SendAddonMessage(prefix, plugin.version, (not IsInRaid(LE_PARTY_CATEGORY_HOME) and IsInRaid(LE_PARTY_CATEGORY_INSTANCE)) and "INSTANCE_CHAT" or "RAID")
 		elseif IsInGroup() then
-			SendAddonMessage(prefix, E.version, (not IsInGroup(LE_PARTY_CATEGORY_HOME) and IsInGroup(LE_PARTY_CATEGORY_INSTANCE)) and "INSTANCE_CHAT" or "PARTY")
+			SendAddonMessage(prefix, plugin.version, (not IsInGroup(LE_PARTY_CATEGORY_HOME) and IsInGroup(LE_PARTY_CATEGORY_INSTANCE)) and "INSTANCE_CHAT" or "PARTY")
 		end
 		
 		if E["Send"..plugin.name.."MSGTimer"] then
-			self:CancelTimer(E["Send"..plugin.name.."MSGTimer"])
+			E:CancelTimer(E["Send"..plugin.name.."MSGTimer"])
 			E["Send"..plugin.name.."MSGTimer"] = nil
 		end
 	end
 	RegisterAddonMessagePrefix(prefix)
-	local function SendRecieve(self, event, prefix, message, channel, sender)
+	local function SendRecieve(self, event, mprefix, message, channel, sender)
 		if event == "CHAT_MSG_ADDON" then
-			if sender == E.myname then return end
-
+			if sender == E.myname or not sender or mprefix ~= prefix then return end
+			
 			if not E[plugin.name.."recievedOutOfDateMessage"] then
 				if plugin.version ~= 'BETA' and tonumber(message) ~= nil and tonumber(message) > tonumber(plugin.version) then
 					E:Print("Your version of " .. plugin.name .. " is out of date. You can download the latest version from http://www.tukui.org")
