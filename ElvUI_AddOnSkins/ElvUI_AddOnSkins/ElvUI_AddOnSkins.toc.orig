@@ -9,3 +9,6 @@ libs\load_libs.xml
 config\load_config.xml
 core\load_core.xml
 skins\load_skins.xml
+
+## X-Tukui-ProjectID: 128
+## X-Tukui-ProjectFolders: ElvUI_AddOnSkins
