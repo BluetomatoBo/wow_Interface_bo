@@ -15,6 +15,8 @@ function H:ConstructFocusFrame(frame,unit)
 
     frame.Buffs = self:ConstructBuffs(frame)
     frame.Debuffs = self:ConstructDebuffs(frame)
+
+    frame.HealPrediction = self:ConstructHealComm(frame)
     
     frame:SetAlpha(self.db.alpha)
     H:HideOOC(frame)

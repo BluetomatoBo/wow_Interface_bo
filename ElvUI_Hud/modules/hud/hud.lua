@@ -35,13 +35,13 @@ end
 
 function H:IsDefault(settingstring)
 	local settings = { string.split('.',settingstring) }
-	local options,profile = self.db,P.hud
+	local options,profile = self.db,P.unitframe.hud
 	for _,setting in pairs(settings) do
 		options = options[setting]
 		profile = profile[setting]
 		if not profile then -- this only happens for customTexts
 			profile = {}
-			E:CopyTable(profile,P.hud.customtext)
+			E:CopyTable(profile,P.unitframe.hud.customtext)
 		end
 	end
 	return IsDefaultHelper(options,profile)
@@ -126,11 +126,11 @@ function H:AddCustomText(unit,name)
 		self.Elements[name] = real_name
 	end
 	frame[real_name] = self:ConfigureFontString(frame,name)
-	if not E.db.hud.units[unit][name] then
-		E.db.hud.units[unit][name] = {}
-		E:CopyTable(E.db.hud.units[unit][name],P.hud.customtext)
-		if not E.db.hud.units[unit].customTexts then E.db.hud.units[unit].customTexts = {} end
-		E.db.hud.units[unit].customTexts[name] = true
+	if not E.db.unitframe.hud.units[unit][name] then
+		E.db.unitframe.hud.units[unit][name] = {}
+		E:CopyTable(E.db.unitframe.hud.units[unit][name],P.unitframe.hud.customtext)
+		if not E.db.unitframe.hud.units[unit].customTexts then E.db.unitframe.hud.units[unit].customTexts = {} end
+		E.db.unitframe.hud.units[unit].customTexts[name] = true
 	end
 	if E.Options.args.hud.args[unit] then
 		E.Options.args.hud.args[unit].args[name] = H:GenerateElementOptionTable(unit,name,4000,E:StringTitle(name),true,false,false,true,false,false,true,false)
@@ -139,8 +139,8 @@ function H:AddCustomText(unit,name)
 			order = 1,
 			name = DELETE,
 			func = function() 
-				E.db.hud.units[unit].customTexts[name] = nil;
-				E.db.hud.units[unit][name] = nil;
+				E.db.unitframe.hud.units[unit].customTexts[name] = nil;
+				E.db.unitframe.hud.units[unit][name] = nil;
 				E.Options.args.hud.args[unit].args[name] = nil;
 				frame:Tag(frame[real_name],'')
 				frame[real_name]:Hide()
@@ -153,9 +153,9 @@ end
 
 function H:SetUpCustomTexts(frame)
 	local unit = frame.unit
-	if not E.db.hud.units[unit] then return end
-	if E.db.hud.units[unit].customTexts then
-		for textName,_ in pairs(E.db.hud.units[unit].customTexts) do
+	if not E.db.unitframe.hud.units[unit] then return end
+	if E.db.unitframe.hud.units[unit].customTexts then
+		for textName,_ in pairs(E.db.unitframe.hud.units[unit].customTexts) do
 			self:AddCustomText(unit,textName)
 		end
 	end
@@ -209,14 +209,14 @@ function H:ConstructHudFrame(frame,unit)
 	frame:SetScript('OnLeave', UnitFrame_OnLeave)	
 	if frame.unit ~= 'target' then
 		frame:HookScript("OnHide",function(self)
-			if E.db.hud.enabled and E.db.hud.hideOOC and not InCombatLockdown() and E.db.hud.units[frame.unit].enabled then
+			if E.db.unitframe.hud.enabled and E.db.unitframe.hud.hideOOC and not InCombatLockdown() and E.db.unitframe.hud.units[frame.unit].enabled then
 				self:Show()
 				self:SetAlpha(0)
 			end
 		end)
-		frame:HookScript("OnEnter",function(self) if E.db.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
-	    frame:HookScript("OnLeave",function(self) if E.db.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
-	    frame:HookScript("OnShow",function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+		frame:HookScript("OnEnter",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
+	    frame:HookScript("OnLeave",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+	    frame:HookScript("OnShow",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
 	end
 	frame.menu = UF.SpawnMenu
 	frame.db = self.db.units[unit]
@@ -232,12 +232,12 @@ end
 
 function H:UpdateFrame(unit)
 	frame = self.units[unit]
-	if not self.db or not self.db.units then self.db = E.db.hud end
+	if not self.db or not self.db.units then self.db = E.db.unitframe.hud end
 	if not self.db.units[frame.unit] then return end
 	frame:Size(self.db.units[frame.unit].width,self.db.units[frame.unit].height)
 	_G[frame:GetName()..'Mover']:Size(frame:GetSize())
 
-	if E.db.hud.enabled and self.db.units[frame.unit].enabled then
+	if E.db.unitframe.hud.enabled and self.db.units[frame.unit].enabled then
 		frame:EnableMouse(self.db.hideElv or self.db.enableMouse)
 		frame:Enable()
 		frame:SetAlpha(self.db.alpha)
@@ -278,6 +278,7 @@ function H:DisableThisShit()
 end
 
 function H:UpdateAllFrames()
+	if not self.db then return end
 	for unit,_ in pairs(self.units) do
 		self:UpdateFrame(unit)
 	end
@@ -412,7 +413,7 @@ end
 function H:ResetUnitSettings(unit)
 	local frame = self.units[unit]
 	if not frame then return end
-	E:CopyTable(self.db.units[unit],P.hud.units[unit])
+	E:CopyTable(self.db.units[unit],P.unitframe.hud.units[unit])
     self:UpdateAllFrames()
 end
 
@@ -459,9 +460,13 @@ function H:ComboLayout()
 	self.db.hideElv = false
 	self.db.hideOOC = true
 	self.db.enableMouse = false
+	self.db.units.focus.enabled = false
+	self.db.units.focustarget.enabled = false
 	self.db.units.targettarget.enabled = false
-	self.db.units.pet.enabled = false
 	self.db.units.pettarget.enabled = false
+	self.db.units.player.enabled = true
+	self.db.units.target.enabled = true
+	self.db.units.pet.enabled = true
 	for element,_ in pairs(self.db.units.player) do
 		if self:GetElement(element) then
 			self.db.units.player[element].enabled = false
@@ -472,15 +477,26 @@ function H:ComboLayout()
 			self.db.units.target[element].enabled = false
 		end
 	end
+	for element,_ in pairs(self.db.units.pet) do
+		if self:GetElement(element) then
+			self.db.units.pet[element].enabled = false
+		end
+	end
 	self.db.units.player.health.enabled = true
 	self.db.units.player.castbar.enabled = true
+	self.db.units.player.aurabars.enabled = true
 	self.db.units.target.health.enabled = true
 	self.db.units.target.name.enabled = true
 	self.db.units.target.raidicon.enabled = true
-	self.db.player.horizCastbar = true
-	self.db.target.horizCastbar = true
-	--self.db['units'][unit].castbar.enable
-	UF.db['units'].player.castbar.enable = false
-	UF.db['units'].target.castbar.enable = false
+	self.db.units.target.aurabars.enabled = true
+	self.db.units.target.castbar.enabled = true
+	self.db.units.pet.health.enabled = true
+	self.db.units.player.horizCastbar = true
+	self.db.units.target.horizCastbar = true
+	local db = E.db['unitframe']['units']
+	db.player.castbar.enable = false
+	db.target.castbar.enable = false
+	db.player.aurabar.enable = false
+	db.target.aurabar.enable = false
 	UF:Update_AllFrames()
 end

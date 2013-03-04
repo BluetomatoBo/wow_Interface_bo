@@ -153,10 +153,10 @@ function H:ConstructCastbar(frame)
     frame.HorizCastbar = hcastbar
 
     if frame.unit ~= 'target' then
-        hcastbar:HookScript("OnShow", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
-        hcastbar:HookScript("OnHide", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
-        vcastbar:HookScript("OnShow", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
-        vcastbar:HookScript("OnHide", function(self) if E.db.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+        hcastbar:HookScript("OnShow", function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
+        hcastbar:HookScript("OnHide", function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+        vcastbar:HookScript("OnShow", function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
+        vcastbar:HookScript("OnHide", function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
     end
     
     if (frame.unit ~= 'player' and frame.unit ~= 'target') or not self.db.units[frame.unit].horizCastbar then
@@ -314,7 +314,7 @@ function H:ConstructComboPoints(frame)
 end
 
 function H.ConstructAuraBars(self,unit)
-    local config = E.db.hud.units[unit]['aurabars']
+    local config = E.db.unitframe.hud.units[unit]['aurabars']
     local media = config.media
     local size = config.size
     local bar = self.statusBar
@@ -324,20 +324,11 @@ function H.ConstructAuraBars(self,unit)
     bar:Size(size.width,size.height)
     local textureSetting = 'units.'..unit..'.aurabars.media.texture'
     local fontSetting = 'units.'..unit..'.aurabars.media.font'
-    if not H:IsDefault(textureSetting) then
-        bar:SetStatusBarTexture(LSM:Fetch("statusbar", media.texture.statusbar))
-    else
-        bar:SetStatusBarTexture(LSM:Fetch("statusbar", E.db.hud.statusbar))
-    end
+    bar:SetStatusBarTexture(LSM:Fetch("statusbar", UF.db.statusbar))
     
-    if not H:IsDefault(fontSetting) then
-        bar.spelltime:FontTemplate(LSM:Fetch("font", media.font.font), media.font.fontsize, "THINOUTLINE")
-        bar.spellname:FontTemplate(LSM:Fetch("font", media.font.font), media.font.fontsize, "THINOUTLINE")
-    else
-        bar.spelltime:FontTemplate(LSM:Fetch("font", E.db.hud.font), E.db.hud.fontsize, "THINOUTLINE")
-        bar.spellname:FontTemplate(LSM:Fetch("font", E.db.hud.font), E.db.hud.fontsize, "THINOUTLINE")
-    end
-    
+    bar.spelltime:FontTemplate(LSM:Fetch("font", UF.db.font), UF.db.fontSize, "THINOUTLINE")
+    bar.spellname:FontTemplate(LSM:Fetch("font", UF.db.font), UF.db.fontSize, "THINOUTLINE")
+
     bar.spellname:ClearAllPoints()
     bar.spellname:SetPoint('LEFT', bar, 'LEFT', 2, 0)
     

@@ -255,6 +255,8 @@ function H:UpdateClassBarAnchors(frame,element)
 	end
 end
 
+local he = { ["castbar"] = true, ["aurabars"] = true }
+
 function H:UpdateElement(frame,element)
 	if element == 'castbar' then
 		self:GetCastbar(frame)
@@ -299,44 +301,26 @@ function H:UpdateElement(frame,element)
 			end
 		end
 	end
-	if media then
-		local textureSetting = string.format('units.%s.%s.media.texture',frame.unit,element)
-		local fontSetting = string.format('units.%s.%s.media.font',frame.unit,element)
-		if e.statusbars then
-			for _,statusbar in pairs(e.statusbars) do
-				if media.texture.override or not self:IsDefault(textureSetting) then
-					statusbar:SetStatusBarTexture(LSM:Fetch("statusbar", media.texture.statusbar))
-				else
-					statusbar:SetStatusBarTexture(LSM:Fetch("statusbar", self.db.statusbar))
-				end
-				if media.color and element ~= "castbar" then
-					statusbar.defaultColor = media.color
-					statusbar:SetStatusBarColor(media.color)
-				end
-				if element == "health" then
-					local color = UF.db.colors.health
-					statusbar.defaultColor = color
-					statusbar:SetStatusBarColor(color)
-				end
-			end
+	local texture
+	if he[element] and (element ~= "castbar" or (element == "castbar" and self.db.units[frame.unit].horizCastbar)) then
+		texture = LSM:Fetch("statusbar",UF.db.statusbar)
+	else
+		texture = LSM:Fetch("statusbar",UF.db.vertstatusbar)
+	end
+	local font = LSM:Fetch("font",UF.db.font)
+	if e.statusbars then
+		for _,statusbar in pairs(e.statusbars) do
+			statusbar:SetStatusBarTexture(texture)
 		end
-		if e.textures then
-			for _,texture in pairs(e.textures) do
-				if media.texture.override or not self:IsDefault(textureSetting) then
-					texture:SetTexture(LSM:Fetch("statusbar", media.texture.statusbar))
-				else
-					texture:SetTexture(LSM:Fetch("statusbar", self.db.statusbar))
-				end
-			end
+	end
+	if e.textures then
+		for _,texture in pairs(e.textures) do
+			texture:SetTexture(E["media"].blankTex)
 		end
-		if e.fontstrings then
-			for n,fs in pairs(e.fontstrings) do
-				if media.font.override or not self:IsDefault(fontSetting) then
-					fs:FontTemplate(LSM:Fetch("font", media.font.font), media.font.fontsize, "THINOUTLINE")
-				else
-					fs:FontTemplate(LSM:Fetch("font", self.db.font), self.db.fontsize, "THINOUTLINE")
-				end
-			end
+	end
+	if e.fontstrings then
+		for n,fs in pairs(e.fontstrings) do
+			fs:FontTemplate(font, UF.db.fontSize, "THINOUTLINE")
 		end
 	end
 	if element == 'aurabars' then
@@ -375,7 +359,7 @@ function H:UpdateElementAnchor(frame,element)
 		local WMFrame = CreateFrame('Frame',nil,frame)
 		WMFrame:RegisterEvent('PLAYER_TALENT_UPDATE')
 		WMFrame:SetScript('OnEvent',function(self,event)
-			local config = E.db.hud.units[frame.unit]['mushroom']
+			local config = E.db.unitframe.hud.units[frame.unit]['mushroom']
 			local anchor = config['anchor']
 			local eclipse
 			local spec = GetSpecialization()
@@ -514,8 +498,8 @@ function H:UpdateElementAnchor(frame,element)
 end
 
 function H.PostUpdateHealth(health, unit, min, max)
-	if not E.db.hud.units[unit] then return end
-    if E.db.hud.colorHealthByValue then
+	if not E.db.unitframe.hud.units[unit] then return end
+    if UF.db.colors.colorhealthbyvalue then
 		local dc = UF.db.colors.health
 		local r = dc.r
 		local g = dc.g
@@ -527,16 +511,16 @@ function H.PostUpdateHealth(health, unit, min, max)
 
     -- Flash health below threshold %
     if max == 0 then return end
-	if (min / max * 100) < (E.db.hud.lowThreshold) then
+	if (min / max * 100) < (E.db.unitframe.hud.lowThreshold) then
 		H.Flash(health, 0.6)
-		if (not warningTextShown and unit == "player") and E.db.hud.warningText then
+		if (not warningTextShown and unit == "player") and E.db.unitframe.hud.warningText then
 			ElvUIHudWarning:AddMessage("|cffff0000LOW HEALTH")
 			warningTextShown = true
 		else
 			ElvUIHudWarning:Clear()
 			warningTextShown = false
 		end
-		if unit == "player" and E.db.hud.screenflash then
+		if unit == "player" and E.db.unitframe.hud.screenflash then
 			local f = H.lowHealthFlash
 			if not f then return end
 			f:SetAlpha(1)
@@ -552,7 +536,7 @@ end
 local ticks = {}
 hooksecurefunc(UF,'SetCastTicks',function(self,frame,numTicks,extraTickRatio)
 	extraTickRatio = extraTickRatio or 0
-	local color = E.db.hud.units.player['castbar']['tickcolor']
+	local color = E.db.unitframe.hud.units.player['castbar']['tickcolor']
 	UF:HideTicks()
 	if numTicks and numTicks > 0 then
 		local d = frame:GetWidth() / (numTicks + extraTickRatio)
@@ -574,13 +558,12 @@ end)
 -- used to check if a spell is interruptable
 function H:CheckInterrupt(unit)
 	if unit == "vehicle" then unit = "player" end
-	local config = E.db.hud.units[unit]['castbar']
 	if self.interrupt and UnitCanAttack("player", unit) then
-		local c = config.interruptcolor
+		local c = E.db.unitframe.colors.castColor
 		if not c then return end
 		self:SetStatusBarColor(c.r,c.g,c.b)	
 	else
-		local c = config.color
+		local c = E.db.unitframe.colors.castNoInterrupt
 		if not c then return end
 		self:SetStatusBarColor(c.r,c.g,c.b)	
 	end
@@ -615,7 +598,7 @@ function H.PostUpdatePowerHud(power, unit, min, max)
 
 	-- Flash mana below threshold %
 	local powerMana, _ = UnitPowerType(unit)
-	if (min / max * 100) < (E.db.hud.lowThreshold) and (powerMana == SPELL_POWER_MANA) and self.db.flash then
+	if (min / max * 100) < (E.db.unitframe.hud.lowThreshold) and (powerMana == SPELL_POWER_MANA) and self.db.flash then
 		H.Flash(power, 0.4)
 		if self.db.warningText then
 			if not warningTextShown and unit == "player" then

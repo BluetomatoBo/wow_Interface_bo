@@ -45,13 +45,13 @@ function H:GenerateValidAnchors(unit,element,value)
     return anchors
 end
 
-function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,hasTexture,hasFont,hasColor,hasValue,hasTag,hasSpacing)
+function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,hasValue,hasTag,hasSpacing)
     local options = {
 		order = order,
 		type = 'group',
 		name = L[name],
-		get = function(info) return E.db.hud.units[unit][element][ info[#info] ] end,
-		set = function(info,value)  E.db.hud.units[unit][element][ info[#info] ] = value; H:UpdateAllFrames() end,
+		get = function(info) return E.db.unitframe.hud.units[unit][element][ info[#info] ] end,
+		set = function(info,value)  E.db.unitframe.hud.units[unit][element][ info[#info] ] = value; H:UpdateAllFrames() end,
 		args = {
 			enabled = {
                 type = 'toggle',
@@ -67,8 +67,8 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
 	            type = "group",
 	            name = L["Anchor"],
 	            guiInline = true,
-	            get = function(info) return E.db.hud.units[unit][element].anchor[ info[#info] ] end,
-	            set = function(info,value) E.db.hud.units[unit][element].anchor[ info[#info] ] = value; H:UpdateAllFrames() end,
+	            get = function(info) return E.db.unitframe.hud.units[unit][element].anchor[ info[#info] ] end,
+	            set = function(info,value) E.db.unitframe.hud.units[unit][element].anchor[ info[#info] ] = value; H:UpdateAllFrames() end,
 	            args = {
 	                attachTo = {
 	                    type = 'select',
@@ -97,16 +97,16 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
                 type = "group",
                 name = L["Anchor"],
                 guiInline = true,
-                get = function(info) return E.db.hud.units[unit][element].anchor[ info[#info] ] end,
-                set = function(info,value) E.db.hud.units[unit][element].anchor[ info[#info] ] = value; H:UpdateAllFrames() end,
+                get = function(info) return E.db.unitframe.hud.units[unit][element].anchor[ info[#info] ] end,
+                set = function(info,value) E.db.unitframe.hud.units[unit][element].anchor[ info[#info] ] = value; H:UpdateAllFrames() end,
                 args = {
                     default = {
                         order = 2,
                         type = "group",
                         name = L["Default"],
                         guiInline = true,
-                        get = function(info) return E.db.hud.units[unit][element].anchor.default[ info[#info] ] end,
-                        set = function(info,value) E.db.hud.units[unit][element].anchor.default[ info[#info] ] = value; H:UpdateAllFrames() end,
+                        get = function(info) return E.db.unitframe.hud.units[unit][element].anchor.default[ info[#info] ] end,
+                        set = function(info,value) E.db.unitframe.hud.units[unit][element].anchor.default[ info[#info] ] = value; H:UpdateAllFrames() end,
                         args = {
                             attachTo = {
                                 type = 'select',
@@ -134,8 +134,8 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
                         type = "group",
                         name = L["Eclipse"],
                         guiInline = true,
-                        get = function(info) return E.db.hud.units[unit][element].anchor.eclipse[ info[#info] ] end,
-                        set = function(info,value) E.db.hud.units[unit][element].anchor.eclipse[ info[#info] ] = value; H:UpdateAllFrames() end,
+                        get = function(info) return E.db.unitframe.hud.units[unit][element].anchor.eclipse[ info[#info] ] end,
+                        set = function(info,value) E.db.unitframe.hud.units[unit][element].anchor.eclipse[ info[#info] ] = value; H:UpdateAllFrames() end,
                         args = {
                             attachTo = {
                                 type = 'select',
@@ -170,8 +170,8 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
     	            type = 'group',
     	            name = L['Size'],
     	            guiInline = true,
-    	            get = function(info) return E.db.hud.units[unit][element].size[ info[#info] ] end,
-    	            set = function(info,value) E.db.hud.units[unit][element].size[ info[#info] ] = value; H:UpdateAllFrames() end,
+    	            get = function(info) return E.db.unitframe.hud.units[unit][element].size[ info[#info] ] end,
+    	            set = function(info,value) E.db.unitframe.hud.units[unit][element].size[ info[#info] ] = value; H:UpdateAllFrames() end,
     	            args = {
     	                width = {
     	                    order = 4,
@@ -193,8 +193,8 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
                     type = 'group',
                     name = L['Size'],
                     guiInline = true,
-                    get = function(info) return E.db.hud.units[unit][element].size[ info[#info] ] end,
-                    set = function(info,value) E.db.hud.units[unit][element].size[ info[#info] ] = value; H:UpdateAllFrames() end,
+                    get = function(info) return E.db.unitframe.hud.units[unit][element].size[ info[#info] ] end,
+                    set = function(info,value) E.db.unitframe.hud.units[unit][element].size[ info[#info] ] = value; H:UpdateAllFrames() end,
                     args = {
                         width = {
                             order = 4,
@@ -217,16 +217,16 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
                 type = 'group',
                 name = L['Size'],
                 guiInline = true,
-                get = function(info) return E.db.hud.units[unit][element].size[ info[#info] ] end,
-                set = function(info,value) E.db.hud.units[unit][element].size[ info[#info] ] = value; H:UpdateAllFrames() end,
+                get = function(info) return E.db.unitframe.hud.units[unit][element].size[ info[#info] ] end,
+                set = function(info,value) E.db.unitframe.hud.units[unit][element].size[ info[#info] ] = value; H:UpdateAllFrames() end,
                 args = {
                     horizontal = {
                         order = 3,
                         type = 'group',
                         name = L['Horizontal'],
                         guiInline = true,
-                        get = function(info) return E.db.hud.units[unit][element].size.horizontal[ info[#info] ] end,
-                        set = function(info,value) E.db.hud.units[unit][element].size.horizontal[ info[#info] ] = value; H:UpdateAllFrames() end,
+                        get = function(info) return E.db.unitframe.hud.units[unit][element].size.horizontal[ info[#info] ] end,
+                        set = function(info,value) E.db.unitframe.hud.units[unit][element].size.horizontal[ info[#info] ] = value; H:UpdateAllFrames() end,
                         args = {
                             width = {
                                 order = 4,
@@ -247,8 +247,8 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
                         type = 'group',
                         name = L['Vertical'],
                         guiInline = true,
-                        get = function(info) return E.db.hud.units[unit][element].size.vertical[ info[#info] ] end,
-                        set = function(info,value) E.db.hud.units[unit][element].size.vertical[ info[#info] ] = value; H:UpdateAllFrames() end,
+                        get = function(info) return E.db.unitframe.hud.units[unit][element].size.vertical[ info[#info] ] end,
+                        set = function(info,value) E.db.unitframe.hud.units[unit][element].size.vertical[ info[#info] ] = value; H:UpdateAllFrames() end,
                         args = {
                             width = {
                                 order = 4,
@@ -268,151 +268,15 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
             }
         end
 	end
-	if hasTexture or hasFont or hasColor then
-		options.args.media = {
-			order = 4,
-            type = 'group',
-            name = L['Media'],
-            guiInline = true,
-            args = { }
-		}
-		if hasTexture then
-			options.args.media.args.texture = {
-				type = 'group',
-                name = L['Texture'],
-                order = 1,
-                guiInline = true,
-                get = function(info) return E.db.hud.units[unit][element].media.texture[ info[#info] ] end,
-                set = function(info,value) E.db.hud.units[unit][element].media.texture[ info[#info] ] = value; H:UpdateAllFrames() end,
-                args = {
-                    override = {
-                        type = "toggle",
-                        order = 1,
-                        name = L["Override"],
-                        desc = L["Override the texture for this element"],
-                    },
-                    statusbar = {
-                        type = "select", dialogControl = 'LSM30_Statusbar',
-                        order = 2,
-                        name = L["StatusBar Texture"],
-                        desc = L["The texture that will be used for statusbars on this element."],
-                        values = AceGUIWidgetLSMlists.statusbar,
-                    },
-                }
-			}
-		end
-		if hasFont then
-			options.args.media.args.font = {
-                type = 'group',
-                name = L['Font'],
-                order = 2,
-                guiInline = true,
-                get = function(info) return E.db.hud.units[unit][element].media.font[ info[#info] ] end,
-                set = function(info,value) E.db.hud.units[unit][element].media.font[ info[#info] ] = value; H:UpdateAllFrames() end,
-                args = {
-                    override = {
-                        type = "toggle",
-                        order = 1,
-                        name = L["Override"],
-                        desc = L["Override the font for this element"],
-                    },
-                    font = {
-                        type = "select", dialogControl = 'LSM30_Font',
-                        order = 1,
-                        name = L["Default Font"],
-                        desc = L["Set the font for this element"],
-                        values = AceGUIWidgetLSMlists.font, 
-                    },
-                    fontsize = {
-                        type = "range",
-                        order = 5,
-                        name = L["Font Size"],
-                        desc = L["Set the font size for this element"],
-                        min = 10, max = 30, step = 1,   
-                    }, 
-                }
-            }
-		end
-		if hasColor then
-			if element ~= 'castbar' then
-				options.args.media.args.color = {
-                    order = 10,
-                    type = 'color',
-                    name = L['Color'],
-                    get = function(info)
-                        local t = E.db.hud.units[unit][element].media[ info[#info] ]
-                        return t.r, t.g, t.b, t.a
-                    end,
-                    set = function(info, r, g, b)
-                        local t = E.db.hud.units[unit][element].media[ info[#info] ]
-                        t.r, t.g, t.b = r, g, b
-                        E.db.hud.units[unit][element][ info[#info] ] = t
-                    end,
-                }
-	        else
-	        	options.args.media.args.color = {
-                    order = 10,
-                    type = 'color',
-                    name = L['Color'],
-                    get = function(info)
-                        local t = E.db.hud.units[unit][element][ info[#info] ]
-                        return t.r, t.g, t.b, t.a
-                    end,
-                    set = function(info, r, g, b)
-                        local t = E.db.hud.units[unit][element][ info[#info] ]
-                        t.r, t.g, t.b = r, g, b
-                        E.db.hud.units[unit][element][ info[#info] ] = t
-                    end,
-                }
-                options.args.media.args.interruptcolor = {
-                    order = 11,
-                    type = 'color',
-                    name = L['Interrupt Color'],
-                    get = function(info)
-                        local t = E.db.hud.units[unit][element][ info[#info] ]
-                        return t.r, t.g, t.b, t.a
-                    end,
-                    set = function(info, r, g, b)
-                        local t = E.db.hud.units[unit][element][ info[#info] ]
-                        t.r, t.g, t.b = r, g, b
-                        E.db.hud.units[unit][element][ info[#info] ] = t
-                    end,
-                }
-                if unit == "player" then
-                    options.args.media.args.ticks = {
-                        order = 12,
-                        type = 'toggle',
-                        name = L['Ticks'],
-                        desc = L['Display tick marks on the castbar for channelled spells. This will adjust automatically for spells like Drain Soul and add additional ticks based on haste.'],
-                        get = function(info) return E.db.hud.units[unit][element][ info[#info] ] end,
-                        set = function(info,value) E.db.hud.units[unit][element][ info[#info] ] = value end
-                    }
-                    options.args.media.args.tickcolor = {
-                        order = 11,
-                        type = 'color',
-                        name = L['Tick Color'],
-                        get = function(info)
-                            local t = E.db.hud.units[unit][element][ info[#info] ]
-                            return t.r, t.g, t.b, t.a
-                        end,
-                        set = function(info, r, g, b)
-                            local t = E.db.hud.units[unit][element][ info[#info] ]
-                            t.r, t.g, t.b = r, g, b
-                            E.db.hud.units[unit][element][ info[#info] ] = t
-                        end,
-                    }
-                end
-	        end
-        end
-	end
+	
 	if hasValue then
 		options.args.value = {
             order = 10,
             type = "group",
             name = L["Value"],
             guiInline = true,
-            get = function(info) return E.db.hud.units[unit][element].value[ info[#info] ] end,
-            set = function(info,value) E.db.hud.units[unit][element].value[ info[#info] ] = value; H:UpdateAllFrames() end,
+            get = function(info) return E.db.unitframe.hud.units[unit][element].value[ info[#info] ] end,
+            set = function(info,value) E.db.unitframe.hud.units[unit][element].value[ info[#info] ] = value; H:UpdateAllFrames() end,
             args = {
                 enabled = {
                     type = 'toggle',
@@ -424,8 +288,8 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
                     type = "group",
                     name = L["Anchor"],
                     guiInline = true,
-                    get = function(info) return E.db.hud.units[unit][element].value.anchor[ info[#info] ] end,
-                    set = function(info,value) E.db.hud.units[unit][element].value.anchor[ info[#info] ] = value; H:UpdateAllFrames() end,
+                    get = function(info) return E.db.unitframe.hud.units[unit][element].value.anchor[ info[#info] ] end,
+                    set = function(info,value) E.db.unitframe.hud.units[unit][element].value.anchor[ info[#info] ] = value; H:UpdateAllFrames() end,
                     args = {
                         attachTo = {
                             type = 'select',
@@ -489,8 +353,8 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
                     type = "group",
                     name = L["Anchor"],
                     guiInline = true,
-                    get = function(info) return E.db.hud.units[unit][element].spacesettings[ info[#info] ] end,
-                    set = function(info,value) E.db.hud.units[unit][element].spacesettings[ info[#info] ] = value; H:UpdateAllFrames() end,
+                    get = function(info) return E.db.unitframe.hud.units[unit][element].spacesettings[ info[#info] ] end,
+                    set = function(info,value) E.db.unitframe.hud.units[unit][element].spacesettings[ info[#info] ] = value; H:UpdateAllFrames() end,
                     args = {
                         offset = {
                             order = 5,
@@ -521,23 +385,23 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
 
     return options
 end
-
-local function healthOptions(unit) return H:GenerateElementOptionTable(unit,'health',100,'Health',false,true,true,true,true,true,true,false) end
-local function powerOptions(unit) return H:GenerateElementOptionTable(unit,'power',200,'Power',true,true,true,true,false,true,true,false) end
-local function castbarOptions(unit) return H:GenerateElementOptionTable(unit,'castbar',300,'Castbar',true,true,true,true,true,false,false,false) end
-local function nameOptions(unit) return H:GenerateElementOptionTable(unit,'name',400,'Name',true,false,false,true,false,false,true,false) end
-local function classbarOptions(unit) return H:GenerateElementOptionTable(unit,'classbars',500,'Classbar',true,true,true,true,false,true,true,true) end
-local function cpointOptions(unit) return H:GenerateElementOptionTable(unit,'cpoints',600,'Combobar',true,true,true,false,false,false,false,true) end
-local function aurabarOptions(unit) return H:GenerateElementOptionTable(unit,'aurabars',700,'Aura Bars',false,true,true,true,false,false,false,false) end
-local function raidIconOptions(unit) return H:GenerateElementOptionTable(unit,'raidicon',800,'Raid Icon',true,false,false,false,false,false,false,false) end
-local function restingOptions(unit) return H:GenerateElementOptionTable(unit,'resting',900,'Rest Icon',true,false,false,false,false,false,false,false) end
-local function combatOptions(unit) return H:GenerateElementOptionTable(unit,'combat',1000,'Combat Indicator',true,false,false,false,false,false,false,false) end
-local function pvpOptions(unit) return H:GenerateElementOptionTable(unit,'pvp',1100,'PVP Text',true,false,false,true,false,false,true,false) end
-local function healcommOptions(unit) return H:GenerateElementOptionTable(unit,'healcomm',1200,'Heal Prediction',false,false,true,false,false,false,false,false) end
-local function mushroomOptions(unit) return H:GenerateElementOptionTable(unit,'mushroom',550,'Wild Mushroom Tracker',true,true,true,false,false,false,false,true) end
-local function gcdOptions(unit) return H:GenerateElementOptionTable(unit,'gcd',1300,'GCD Spark',true,true,false,false,false,false,false,false) end
-local function buffOptions(unit) return H:GenerateElementOptionTable(unit,'buffs',725,'Buffs',true,true,false,false,false,false,false,false) end
-local function debuffOptions(unit) return H:GenerateElementOptionTable(unit,'debuffs',750,'Debuffs',true,true,false,false,false,false,false) end
+--H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,hasValue,hasTag,hasSpacing)
+local function healthOptions(unit) return H:GenerateElementOptionTable(unit,'health',100,'Health',false,true,true,true,false) end
+local function powerOptions(unit) return H:GenerateElementOptionTable(unit,'power',200,'Power',true,true,true,true,false) end
+local function castbarOptions(unit) return H:GenerateElementOptionTable(unit,'castbar',300,'Castbar',true,true,false,false,false) end
+local function nameOptions(unit) return H:GenerateElementOptionTable(unit,'name',400,'Name',true,false,false,true,false) end
+local function classbarOptions(unit) return H:GenerateElementOptionTable(unit,'classbars',500,'Classbar',true,true,true,true,true) end
+local function cpointOptions(unit) return H:GenerateElementOptionTable(unit,'cpoints',600,'Combobar',true,true,false,false,true) end
+local function aurabarOptions(unit) return H:GenerateElementOptionTable(unit,'aurabars',700,'Aura Bars',false,true,false,false,false) end
+local function raidIconOptions(unit) return H:GenerateElementOptionTable(unit,'raidicon',800,'Raid Icon',true,false,false,false,false) end
+local function restingOptions(unit) return H:GenerateElementOptionTable(unit,'resting',900,'Rest Icon',true,false,false,false,false) end
+local function combatOptions(unit) return H:GenerateElementOptionTable(unit,'combat',1000,'Combat Indicator',true,false,false,false,false) end
+local function pvpOptions(unit) return H:GenerateElementOptionTable(unit,'pvp',1100,'PVP Text',true,false,false,true,false) end
+local function healcommOptions(unit) return H:GenerateElementOptionTable(unit,'healcomm',1200,'Heal Prediction',false,false,false,false,false) end
+local function mushroomOptions(unit) return H:GenerateElementOptionTable(unit,'mushroom',550,'Wild Mushroom Tracker',true,true,false,false,true) end
+local function gcdOptions(unit) return H:GenerateElementOptionTable(unit,'gcd',1300,'GCD Spark',true,true,false,false,false) end
+local function buffOptions(unit) return H:GenerateElementOptionTable(unit,'buffs',725,'Buffs',true,true,false,false,false) end
+local function debuffOptions(unit) return H:GenerateElementOptionTable(unit,'debuffs',750,'Debuffs',true,true,false,false,false) end
 
 local elementOptions = {
 	['health'] = healthOptions,
@@ -607,8 +471,8 @@ function H:GenerateUnitOptionTable(unit,name,order,mover,elements)
         type = 'group',
         order = order,
         childGroups = "select",
-        get = function(info) return E.db.hud.units[unit][ info[#info] ] end,
-        set = function(info, value) E.db.hud.units[unit][ info[#info] ] = value; H:UpdateAllFrames(); end,
+        get = function(info) return E.db.unitframe.hud.units[unit][ info[#info] ] end,
+        set = function(info, value) E.db.unitframe.hud.units[unit][ info[#info] ] = value; H:UpdateAllFrames(); end,
         args = {
             enabled = {
                 type = 'toggle',
@@ -633,9 +497,9 @@ function H:GenerateUnitOptionTable(unit,name,order,mover,elements)
                 name = L['Width'],
                 type = 'range',
                 min = 7, max = 50, step = 1,
-                get = function(info) return E.db.hud.units[unit][ info[#info] ] end,
+                get = function(info) return E.db.unitframe.hud.units[unit][ info[#info] ] end,
                 set = function(info,value)
-                    E.db.hud.units['player'][ info[#info] ] = value;
+                    E.db.unitframe.hud.units['player'][ info[#info] ] = value;
                     H:UpdateElementSizes('player',true,value)
                     H:UpdateAllFrames() 
                 end
@@ -645,9 +509,9 @@ function H:GenerateUnitOptionTable(unit,name,order,mover,elements)
                 name = L['Height'],
                 type = 'range',
                 min = 20, max = 600, step = 1,
-                get = function(info) return E.db.hud.units[unit][ info[#info] ] end,
+                get = function(info) return E.db.unitframe.hud.units[unit][ info[#info] ] end,
                 set = function(info,value) 
-                    E.db.hud.units['player'][ info[#info] ] = value; 
+                    E.db.unitframe.hud.units['player'][ info[#info] ] = value; 
                     H:UpdateElementSizes('player',false,value)
                     H:UpdateAllFrames() 
                 end
@@ -660,7 +524,7 @@ function H:GenerateUnitOptionTable(unit,name,order,mover,elements)
                 desc = L['Create a custom fontstring. Once you enter a name you will be able to select it from the elements dropdown list.'],
                 get = function() return '' end,
                 set = function(info, textName)
-                    for object, _ in pairs(E.db.hud.units[unit]) do
+                    for object, _ in pairs(E.db.unitframe.hud.units[unit]) do
                         if object:lower() == textName:lower() then
                             E:Print(L['The name you have selected is already in use by another element.'])
                             return
@@ -678,8 +542,8 @@ function H:GenerateUnitOptionTable(unit,name,order,mover,elements)
             order = 20,
             name = L["Horizontal Castbar"],
             desc = L["Use a horizontal castbar"],
-            get = function(info) return E.db.hud.units[unit][ info[#info] ] end,
-            set = function(info,value) E.db.hud.units[unit][ info[#info] ] = value; H:UpdateAllFrames() end,
+            get = function(info) return E.db.unitframe.hud.units[unit][ info[#info] ] end,
+            set = function(info,value) E.db.unitframe.hud.units[unit][ info[#info] ] = value; H:UpdateAllFrames() end,
         }
     end
     for element,_ in pairs(elements) do
@@ -695,7 +559,7 @@ function H:GenerateOptionTables()
     local order = 200
     local step = 200
     for unit,_ in pairs(self.units) do
-        E.Options.args.hud.args[unit] = self:GenerateUnitOptionTable(unit,nameMap[unit].name,order,nameMap[unit].mover,self.units[unit])
+        E.Options.args.unitframe.args.hud.args[unit] = self:GenerateUnitOptionTable(unit,nameMap[unit].name,order,nameMap[unit].mover,self.units[unit])
         self:SetUpCustomTexts(self.units[unit])
         order = order + step
     end

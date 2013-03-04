@@ -9,6 +9,8 @@ function H:ConstructPetTargetFrame(frame,unit)
 
     frame.Power = self:ConstructPower(frame)
 	frame.RaidIcon = self:ConstructRaidIcon(frame)
+
+	frame.HealPrediction = self:ConstructHealComm(frame)
     
     frame:SetAlpha(self.db.alpha)
     H:HideOOC(frame)
