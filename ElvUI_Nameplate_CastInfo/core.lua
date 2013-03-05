@@ -56,9 +56,8 @@ function NPCI:SearchNameplateByName(sourceName)
 	if not sourceName then return; end
 	local SearchFor = strsplit("-", sourceName)
 	for frame, _ in pairs(NP.Handled) do
-		frame = _G[frame]
-		--print(frame.isPlayer)
-		if frame and frame:IsShown() and frame.hp.name:GetText() == SearchFor --[[and frame.isPlayer]] then
+		frame = _G[frame]:GetChildren()
+		if frame and frame:IsVisible() and frame.hp.name:GetText() == SearchFor then --and frame.isPlayer then
 			return frame
 		end
 	end
@@ -76,10 +75,10 @@ function NPCI:WEvent(...)
 			-- Only searching by name atm
 			guid, name = targetGUID, targetName
 		end
-
+		
 		--guid, name = UnitGUID('target'), GetUnitName('target')
-
 		local frame = NPCI:SearchNameplateByName(name)
+		
 		if frame then
 			local spName, spSch = select(13, ...)
 
@@ -137,8 +136,13 @@ function NP:CreateWarning(frame)
 		frame.CW.ag:SetScript('OnPlay', function(self)
 			self:GetParent():Show()
 		end)
+		
+		frame:HookScript('OnHide', function(self)
+			self.CW:SetText("")
+		end)
 
 		frame.CW.ag:SetScript('OnFinished', function(self)
+			self:Stop()
 			self:GetParent():Hide()
 		end)
 
