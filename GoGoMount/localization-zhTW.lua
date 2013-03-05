@@ -28,6 +28,8 @@
 		DruidOptions = "德魯伊選項",
 		DruidSingleClick = "單擊後從變身形態轉換為旅行形態",
 		EnableAutoDismount = "啟用自動解除坐騎",
+		ExtraPassengerMounts = "Extra Passenger Mounts", -- Requires localization
+		ExtraPassengerMountsDescription = "This list of passenger mounts is used to add passenger mounts to the random selection only when the Passenger Mount button is pressed.  This will allow you to set preferred mount lists excluding passenger mounts but still have them available when using the Passenger Mount button.  These mounts will not be used if they are marked as excluded mounts globally or for the current zone you are in.", -- Requires localization
 		Favorites = "偏好",
 		GlobalExclusions = "全區例外", -- Needs review
 		GlobalExclusionsDescription = "這些坐騎會被忽略。即使這些坐騎在你的最愛清單裡面，他們仍然不會被使用", -- Needs review

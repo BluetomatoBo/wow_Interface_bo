@@ -29,6 +29,8 @@ if GetLocale() == "ptBR" then
 		DruidOptions = "Druid Options", -- Requires localization
 		DruidSingleClick = "Único clique para mudar de forma em forma de viagens", -- Needs review
 		EnableAutoDismount = "Permitir desmontar automático", -- Needs review
+		ExtraPassengerMounts = "Extra Passenger Mounts", -- Requires localization
+		ExtraPassengerMountsDescription = "This list of passenger mounts is used to add passenger mounts to the random selection only when the Passenger Mount button is pressed.  This will allow you to set preferred mount lists excluding passenger mounts but still have them available when using the Passenger Mount button.  These mounts will not be used if they are marked as excluded mounts globally or for the current zone you are in.", -- Requires localization
 		Favorites = "Favorites", -- Requires localization
 		GlobalExclusions = "Global Exclusions", -- Requires localization
 		GlobalExclusionsDescription = "Mounts will always be ignored.  Even if mounts selected here are set as favorites, they will not be used.", -- Requires localization
