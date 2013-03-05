@@ -67,7 +67,6 @@ L["Show Status"] = "Show Status" -- Requires localization
 L["Show zone Dungeons"] = "Show zone Dungeons" -- Requires localization
 L["Toggle Datatexts"] = "Toggle Datatexts" -- Requires localization
 L["Toggle WorldMap"] = "Toggle WorldMap" -- Requires localization
-L["Transparent"] = "Transparent" -- Requires localization
 L["Use Custom Location Color"] = "Use Custom Location Color" -- Requires localization
 L["Zone : "] = "Zone : " -- Requires localization
 L["Zone and Subzone"] = "Zone and Subzone" -- Requires localization

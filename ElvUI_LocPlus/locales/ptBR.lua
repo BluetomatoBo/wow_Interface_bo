@@ -66,7 +66,6 @@ L["Show Status"] = "Show Status"
 L["Show zone Dungeons"] = "Show zone Dungeons"
 L["Toggle Datatexts"] = "Alternar Textos Informativos"
 L["Toggle WorldMap"] = "Alternar Mapa Mundial"
-L["Transparent"] = "Transparente"
 L["Use Custom Location Color"] = "Use Custom Location Color" -- Requires localization
 L["Zone : "] = "Zona"
 L["Zone and Subzone"] = "Zona e Subzona"

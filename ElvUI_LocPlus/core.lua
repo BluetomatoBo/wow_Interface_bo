@@ -217,6 +217,15 @@ local function LocFishing(minFish)
 
 end
 
+-- Zone level range
+local function LocLevelRange(zoneText)
+	local low, high = tourist:GetLevel(zoneText)
+	if low >= 1 and high >= 1 then
+		local r, g, b = tourist:GetLevelColor(zoneText)
+		return string.format("|cff%02x%02x%02x (%d-%d)|r", r*255, g*255, b*255, low, high)
+	end
+end
+
 function LocUpdateTooltip()
 	
 	local mapID = GetCurrentMapAreaID()
@@ -238,14 +247,10 @@ function LocUpdateTooltip()
 	if E.db.locplus.ttst then
 		GameTooltip:AddDoubleLine(STATUS.." :", LocStatus(statusText), 1, 1, 1)
 	end
-
+	
     -- Zone level range
 	if E.db.locplus.ttlvl then
-		local low, high = tourist:GetLevel(zoneText)
-		if low >= 1 and high >= 1 then
-			local r, g, b = tourist:GetLevelColor(zoneText)
-			GameTooltip:AddDoubleLine(LEVEL_RANGE.." : ", low == high and low or string.format("%d-%d", low, high), 1, 1, 1, r, g, b)
-		end
+		GameTooltip:AddDoubleLine(LEVEL_RANGE.." : ", LocLevelRange(zoneText), 1, 1, 1, r, g, b)
 	end
 	
 	-- Fishing
@@ -313,7 +318,7 @@ end
 
 -- mouse over the location panel
 local function LocPanel_OnEnter(self,...)
-	GameTooltip:SetOwner(self, "ANCHOR_BOTTOM", 0, -8)
+	GameTooltip:SetOwner(self, "ANCHOR_BOTTOM", 0, -4)
 	GameTooltip:ClearAllPoints()
 	GameTooltip:SetPoint("BOTTOM", self, "BOTTOM", 0, 0)
 	LocUpdateTooltip()
@@ -400,17 +405,28 @@ function LPB:CreateMainLocPanel()
 	loc_panel:SetScript("OnUpdate", function(self,event,...)
 		local subZoneText = GetMinimapZoneText() or ""
 		local zoneText = GetRealZoneText() or UNKNOWN;
+		local displaylvl = LocLevelRange(zoneText) or ""
 		local displayLine
 		
-		-- zone and subzone
+		-- zone, subzone and level range
 		if E.db.locplus.both then
 			if (subZoneText ~= "") and (subZoneText ~= zoneText) then
 				displayLine = zoneText .. ": " .. subZoneText
+				if E.db.locplus.displayLevel then
+					if displaylvl ~= "" then
+						displayLine = displayLine..displaylvl
+					end
+				end
 			else
 				displayLine = subZoneText
 			end
 		else
 			displayLine = subZoneText
+			if E.db.locplus.displayLevel then
+				if displaylvl ~= "" then
+					displayLine = displayLine..displaylvl
+				end
+			end
 		end
 		
 		if displayLine ~= "" then
@@ -455,14 +471,22 @@ function LPB:CreateMainLocPanel()
 			UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 			self.fadeInfo.finishedFunc = LocPanelOnFade
 		elseif event == "PET_BATTLE_CLOSE" then
-			UIFrameFadeIn(self, 0.2, self:GetAlpha(), E.db.locplus.malpha)
+			if E.db.locplus.mouseover then
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), E.db.locplus.malpha)
+			else
+				UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+			end
 			self:Show()
 		elseif E.db.locplus.combat then
 			if event == "PLAYER_REGEN_DISABLED" then
 				UIFrameFadeOut(self, 0.2, self:GetAlpha(), 0)
 				self.fadeInfo.finishedFunc = LocPanelOnFade
 			elseif event == "PLAYER_REGEN_ENABLED" then
-				UIFrameFadeIn(self, 0.2, self:GetAlpha(), E.db.locplus.malpha)
+				if E.db.locplus.mouseover then
+					UIFrameFadeIn(self, 0.2, self:GetAlpha(), E.db.locplus.malpha)
+				else
+					UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
+				end
 				self:Show()
 			end
 		end

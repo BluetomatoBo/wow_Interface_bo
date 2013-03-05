@@ -66,7 +66,6 @@ L["Show Status"] = "Montrer le statut"
 L["Show zone Dungeons"] = "Montrer les donjons de la zone"
 L["Toggle Datatexts"] = "Afficher les Textes d'informations"
 L["Toggle WorldMap"] = "Basculer sur la Carte du Monde"
-L["Transparent"] = "Transparence"
 L["Truncates the text rather than auto enlarge the location panel when the text is bigger than the panel."] = "Truncates the text rather than auto enlarge the location panel when the text is bigger than the panel." -- Requires localization
 L["Truncate text"] = "Truncate text" -- Requires localization
 L["Use Custom Location Color"] = "Utilise la couleur des emplacement personnalisé"

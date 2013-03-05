@@ -1,3 +1,11 @@
+[b]1.76[/b]
+*Ready for patch 5.2
+*Added optional area level range in the location panel (user request)
+*Toggling transparency works without a reloadui.
+*Fixed panel appearance after pet combat, while mouseover is disabled.
+*Followed Elv's fix for Monochrome font flag.
+*Removed a locale string (thanks Darth).
+
 [b]1.75[/b]
 *All new additions now have a sign in the options.
 *Added mouseovered panels option (user request).
