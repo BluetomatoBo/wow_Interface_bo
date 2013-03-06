@@ -1,11 +1,11 @@
 ------------------------------------------------------------------------
-r348 | mitch0 | 2012-11-30 08:48:28 +0000 (Fri, 30 Nov 2012) | 1 line
+r350 | mitch0 | 2013-03-06 08:54:56 +0000 (Wed, 06 Mar 2013) | 1 line
 Changed paths:
-   A /tags/v4.1.2 (from /trunk:347)
+   A /tags/v4.1.3 (from /trunk:349)
 
-Tagging as v4.1.2
+Tagging as v4.1.3
 ------------------------------------------------------------------------
-r347 | mitch0 | 2012-11-30 08:26:28 +0000 (Fri, 30 Nov 2012) | 1 line
+r349 | mitch0 | 2013-03-06 08:14:31 +0000 (Wed, 06 Mar 2013) | 1 line
 Changed paths:
    M /trunk/RangeDisplay.toc
    M /trunk/RangeDisplay_Options/RangeDisplay_Options.toc
