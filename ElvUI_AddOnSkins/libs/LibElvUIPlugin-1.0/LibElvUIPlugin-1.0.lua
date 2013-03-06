@@ -1,7 +1,8 @@
 if not ElvUI then return end
 
-local MAJOR, MINOR = "LibElvUIPlugin-1.0", 7
+local MAJOR, MINOR = "LibElvUIPlugin-1.0", 9
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
+
 
 if not lib then return end
 lib.plugins = {}
@@ -11,6 +12,7 @@ lib.index = 0
 --
 
 local E = ElvUI[1]
+local L = ElvUI[2]
 local _
 
 --
@@ -33,7 +35,8 @@ function lib:RegisterPlugin(name,callback)
 	plugin.callback = callback
 	lib.plugins[name] = plugin
 	local enabled, loadable = select(4,GetAddOnInfo("ElvUI_Config"))
-	if enabled and loadable then
+	local loaded = IsAddOnLoaded("ElvUI_Config")
+	if enabled and loadable and not loaded then
 		if not lib.ConfigFrame then
 			local configFrame = CreateFrame("Frame")
 			configFrame:RegisterEvent("ADDON_LOADED")
@@ -80,13 +83,14 @@ function lib:SetupVersionCheck(plugin)
 	RegisterAddonMessagePrefix(prefix)
 	local function SendRecieve(self, event, mprefix, message, channel, sender)
 		if event == "CHAT_MSG_ADDON" then
-			if sender == E.myname or not sender or mprefix ~= prefix then return end
+			if sender == E.myname or not sender or mprefix ~= prefix  or plugin.name == MAJOR then return end
 			
 			if not E[plugin.name.."recievedOutOfDateMessage"] then
 				if plugin.version ~= 'BETA' and tonumber(message) ~= nil and tonumber(message) > tonumber(plugin.version) then
 					plugin.old = true
 					plugin.newversion = tonumber(message)
-					E:Print("Your version of " .. plugin.name .. " is out of date. You can download the latest version from http://www.tukui.org")
+					local Pname = GetAddOnMetadata(plugin.name, "Title")
+					E:Print(L["Your version of "] .. Pname .. L[" is out of date. You can download the latest version from http://www.tukui.org"])
 					E[plugin.name.."recievedOutOfDateMessage"] = true
 				end
 			end
@@ -105,13 +109,13 @@ function lib:GetPluginOptions()
 	E.Options.args.plugins = {
         order = 10000,
         type = "group",
-        name = "Plugins",
+        name = L["Plugins"],
         guiInline = false,
         args = {
             pluginheader = {
                 order = 1,
                 type = "header",
-                name = "LibElvUIPlugin-1.0."..MINOR.." - Plugins Loaded  (Green means you have current version, Red means out of date)",
+                name = "LibElvUIPlugin-1.0."..MINOR..L[" - Plugins Loaded  (Green means you have current version, Red means out of date)"],
             },
             plugins = {
                 order = 2,
@@ -128,13 +132,15 @@ function lib:GeneratePluginList()
 	for _, plugin in pairs(lib.plugins) do
 		if plugin.name ~= MAJOR then
 			local author = GetAddOnMetadata(plugin.name, "Author")
+			local Pname = GetAddOnMetadata(plugin.name, "Title")
 			local color = plugin.old and E:RGBToHex(1,0,0) or E:RGBToHex(0,1,0)
-			list = list .. color .. plugin.name .. " Version " .. plugin.version
+			list = list .. Pname 
 			if author then
-			  list = list .. " by " .. author
+			  list = list .. " "..L["by"].." " .. author
 			end
+			list = list .. color .. " - " ..L["Version"].." " .. plugin.version
 			if plugin.old then
-			  list = list .. " (Newest: " .. plugin.newversion .. ")"
+			  list = list .. L[" (Newest: "] .. plugin.newversion .. ")"
 			end
 			list = list .. "|r\n"
 		end
