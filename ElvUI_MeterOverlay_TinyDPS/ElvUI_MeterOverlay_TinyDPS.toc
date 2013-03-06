@@ -1,9 +1,9 @@
-## Interface: 50100
+## Interface: 50200
 ## DefaultState: Enabled
 ## Title: |cff1784d1ElvUI |rMeter Overlay [|c56FFFFFFTinyDPS|r]
 ## Author: Cecile
 ## Dependencies: ElvUI,ElvUI_MeterOverlay,TinyDPS
-## Version: 1.0
+## Version: 1.1
 ## Notes: Display TinyDPS as overlay in an ElvUI data text
 
 ElvUI_MeterOverlay_TinyDPS.lua

@@ -1,3 +1,6 @@
+V 1.9
+- Update toc for 5.2
+
 V 1.8b
 - Change Tooltip code for changes in ElvUI 5.26
 
