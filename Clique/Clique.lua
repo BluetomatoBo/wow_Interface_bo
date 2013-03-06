@@ -271,12 +271,6 @@ function addon:Enable()
     CliqueSpellTab.tooltip = L["Clique binding configuration"]
 end
 
-local build = select(2, GetBuildInfo())
-local menuType = 'menu'
-if tonumber(build) >= 16562 then
-	menuType = 'togglemenu'
-end
-
 -- A new profile is being created in the db, called 'profile'
 function addon:OnNewProfile(event, db, profile)
     table.insert(db.profile.bindings, {
@@ -290,7 +284,7 @@ function addon:OnNewProfile(event, db, profile)
 
     table.insert(db.profile.bindings, {
         key = "BUTTON2",
-        type = menuType,
+        type = "menu",
         sets = {
             default = true
         },
@@ -503,8 +497,11 @@ function addon:GetClickAttributes(global)
             end
 
             -- Build any needed SetAttribute() calls
-            if entry.type == "target" or entry.type == "menu" then
+            if entry.type == "target" then
                 bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, entry.type)
+                rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
+            elseif entry.type == "menu" then
+                bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, "togglemenu")
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
 			elseif entry.type == "spell" and self.settings.stopcastingfix then
 				-- Implement the 'stop casting'f ix

@@ -1,0 +1,12 @@
+tag v50200-1.0.3
+4a0f4dff71fb7f744862a5fd2bb98ee24c597fa8
+James Whitehead II <jnwhiteh@gmail.com>
+2013-03-06 03:34:59 +0000
+
+Tagging v50200-1.0.3
+
+
+--------------------
+
+James Whitehead II:
+	- Fixing menu bindings
