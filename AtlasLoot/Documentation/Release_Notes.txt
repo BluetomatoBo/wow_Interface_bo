@@ -5,6 +5,23 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 -Hegarol
 
 Patch Notes
+v7.05.00 (Mar 06, 2013)
+Compatible with Patch 5.2.
+Compatible with Atlas 1.24.00.
+Added Tier 15 Raid Set.
+Added PvP Season 13 Set.
+Added loot for Throne of Thunder.
+Added loot for Nalak, The Storm Lord.
+Added loot for Oondasta.
+Added faction - Kirin Tor Offensive.
+Added faction - Sunreaver Onslaught.
+Added faction - Shado-Pan Assault (Valor items).
+Added new companions.
+New feature: Bonus Roll information.
+Updated several professions with new recipes.
+Updated Midsummer Fire Festival loot.
+Minor fixes, additions and translations.
+
 v7.04.02 (Jan 25, 2013)
 Added Operation: Shieldwall Justice and Valor items.
 Added Dominance Offensive Justice and Valor items.

@@ -1,4 +1,4 @@
-﻿-- $Id: constants.es.lua 3993 2012-11-22 08:39:14Z celellach $
+﻿-- $Id: constants.es.lua 4089 2013-02-20 15:53:11Z dynaletik $
 --[[
 constants.es.lua --- Traduction ES por maqjav
 This file defines an AceLocale table for all the various text strings needed
@@ -406,7 +406,6 @@ if AL then
 	AL["Drums, Bags and Misc."] = "Tambores, Bolsas y Misc.";
 
 	--Tailoring
-	AL["Cloth Armor"] = "Armadura de tela";
 	AL["Shirts"] = "Camisas";
 	AL["Bags"] = "Bolsas";
 

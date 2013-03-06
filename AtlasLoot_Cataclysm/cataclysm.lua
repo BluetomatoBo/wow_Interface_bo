@@ -1,4 +1,4 @@
--- $Id: cataclysm.lua 3959 2012-11-14 16:33:22Z celellach $
+-- $Id: cataclysm.lua 4069 2013-02-09 21:34:59Z lag123 $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -1765,22 +1765,22 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["BHArgaloth"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 60285, "", "=q4=Stormrider's Gloves", "=ds=#s9#, #a2#", ""};
 				{ 3, 60283, "", "=q4=Stormrider's Leggings", "=ds=#s11#, #a2#", ""};
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 60290, "", "=q4=Stormrider's Grips", "=ds=#s9#, #a2#", ""};
 				{ 7, 60288, "", "=q4=Stormrider's Legguards", "=ds=#s11#, #a2#", ""};
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 60280, "", "=q4=Stormrider's Handwraps", "=ds=#s9#, #a2#", ""};
 				{ 11, 60278, "", "=q4=Stormrider's Legwraps", "=ds=#s11#, #a2#", ""};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 60453, "", "=q4=Vicious Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#", ""};
 				{ 18, 60455, "", "=q4=Vicious Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#", ""};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 60443, "", "=q4=Vicious Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#", ""};
 				{ 22, 60445, "", "=q4=Vicious Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#", ""};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 60448, "", "=q4=Vicious Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#", ""};
 				{ 26, 60450, "", "=q4=Vicious Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#", ""};
 			};
@@ -1811,27 +1811,27 @@ local moduleName = "AtlasLootCataclysm"
 				{ 30, 60480, "", "=q4=Vicious Gladiator's Felweave Trousers", "=ds=#s11#, #a1#", ""};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 60363, "", "=q4=Reinforced Sapphirium Gloves", "=ds=#s9#, #a4#", ""};
 				{ 3, 60361, "", "=q4=Reinforced Sapphirium Greaves", "=ds=#s11#, #a4#", ""};
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 60355, "", "=q4=Reinforced Sapphirium Handguards", "=ds=#s9#, #a4#", ""};
 				{ 7, 60357, "", "=q4=Reinforced Sapphirium Legguards", "=ds=#s11#, #a4#", ""};
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 60355, "", "=q4=Reinforced Sapphirium Handguards", "=ds=#s9#, #a4#", ""};
 				{ 11, 60357, "", "=q4=Reinforced Sapphirium Legguards", "=ds=#s11#, #a4#", ""};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 60602, "", "=q4=Vicious Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#", ""};
 				{ 18, 60604, "", "=q4=Vicious Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#", ""};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 60414, "", "=q4=Vicious Gladiator's Scaled Gauntlets", "=ds=#s9#, #a4#", ""};
 				{ 22, 60416, "", "=q4=Vicious Gladiator's Scaled Legguards", "=ds=#s11#, #a4#", ""};
 			};
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 60275, "", "=q4=Mercurial Handwraps", "=ds=#s9#, #a1#", ""};
 				{ 3, 60261, "", "=q4=Mercurial Legwraps", "=ds=#s11#, #a1#", ""};
-				{ 5, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 5, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 6, 60257, "", "=q4=Mercurial Gloves", "=ds=#s9#, #a1#", ""};
 				{ 7, 60255, "", "=q4=Mercurial Leggings", "=ds=#s11#, #a1#", ""};
 				{ 16, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"]};
@@ -1842,22 +1842,22 @@ local moduleName = "AtlasLootCataclysm"
 				{ 22, 60475, "", "=q4=Vicious Gladiator's Satin Leggings", "=ds="};
 			};
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 2, 60314, "", "=q4=Gloves of the Raging Elements", "=ds=#s9#, #a3#", ""};
 				{ 3, 60316, "", "=q4=Kilt of the Raging Elements", "=ds=#s11#, #a3#", ""};
-				{ 5, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 5, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 6, 60319, "", "=q4=Grips of the Raging Elements", "=ds=#s9#, #a3#", ""};
 				{ 7, 60321, "", "=q4=Legguards of the Raging Elements", "=ds=#s11#, #a3#", ""};
-				{ 9, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 60312, "", "=q4=Handwraps of the Raging Elements", "=ds=#s9#, #a3#", ""};
 				{ 11, 60310, "", "=q4=Legwraps of the Raging Elements", "=ds=#s11#, #a3#", ""};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 17, 60439, "", "=q4=Vicious Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#", ""};
 				{ 18, 60441, "", "=q4=Vicious Gladiator's Mail Leggings", "=ds=#s11#, #a3#", ""};
-				{ 20, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 20, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 21, 60434, "", "=q4=Vicious Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#", ""};
 				{ 22, 60436, "", "=q4=Vicious Gladiator's Linked Leggings", "=ds=#s11#, #a3#", ""};
-				{ 24, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 60429, "", "=q4=Vicious Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#", ""};
 				{ 26, 60431, "", "=q4=Vicious Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#", ""};
 			};
@@ -1871,7 +1871,7 @@ local moduleName = "AtlasLootCataclysm"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 60326, "", "=q4=Earthen Gauntlets", "=ds=#s9#, #a4#", ""};
 				{ 11, 60324, "", "=q4=Earthen Legplates", "=ds=#s11#, #a4#", ""};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 60332, "", "=q4=Earthen Handguards", "=ds=#s9#, #a4#", ""};
 				{ 15, 60330, "", "=q4=Earthen Legguards", "=ds=#s11#, #a4#", ""};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -1986,22 +1986,22 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["BHOccuthar"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 71107, "", "=q4=Obsidian Arborweave Gloves", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 3, 71109, "", "=q4=Obsidian Arborweave Leggings", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 71097, "", "=q4=Obsidian Arborweave Grips", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 7, 71099, "", "=q4=Obsidian Arborweave Legguards", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 71102, "", "=q4=Obsidian Arborweave Handwraps", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 11, 71104, "", "=q4=Obsidian Arborweave Legwraps", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 70289, "", "=q4=Ruthless Gladiator's Wyrmhide Gloves", "=ds=", "#HONOR:1650#"};
 				{ 18, 70291, "", "=q4=Ruthless Gladiator's Wyrmhide Legguards", "=ds=", "#HONOR:2200#"};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 70279, "", "=q4=Ruthless Gladiator's Dragonhide Gloves", "=ds=", "#HONOR:1650#"};
 				{ 22, 70281, "", "=q4=Ruthless Gladiator's Dragonhide Legguards", "=ds=", "#HONOR:2200#"};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 70284, "", "=q4=Ruthless Gladiator's Kodohide Gloves", "=ds=", "#HONOR:1650#"};
 				{ 26, 70286, "", "=q4=Ruthless Gladiator's Kodohide Legguards", "=ds=", "#HONOR:2200#"};
 			};
@@ -2032,27 +2032,27 @@ local moduleName = "AtlasLootCataclysm"
 				{ 30, 70316, "", "=q4=Ruthless Gladiator's Felweave Trousers", "=ds=", "#HONOR:2200#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 71092, "", "=q4=Immolation Gloves", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 3, 71094, "", "=q4=Immolation Greaves", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 71064, "", "=q4=Immolation Gauntlets", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 7, 71066, "", "=q4=Immolation Legplates", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 70949, "", "=q4=Immolation Handguards", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 11, 70947, "", "=q4=Immolation Legguards", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 70354, "", "=q4=Ruthless Gladiator's Ornamented Gloves", "=ds=", "#HONOR:1650#"};
 				{ 18, 70356, "", "=q4=Ruthless Gladiator's Ornamented Legplates", "=ds=", "#HONOR:2200#"};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 70250, "", "=q4=Ruthless Gladiator's Scaled Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 22, 70252, "", "=q4=Ruthless Gladiator's Scaled Legguards", "=ds=", "#HONOR:2200#"};
 			};
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 71271, "", "=q4=Handwraps of the Cleansing Flame", "=ds=#s9#, #a1#", "#JUSTICE:1650#"};
 				{ 3, 71273, "", "=q4=Legwraps of the Cleansing Flame", "=ds=#s11#, #a1#", "#JUSTICE:2200#"};
-				{ 5, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 5, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 6, 71276, "", "=q4=Gloves of the Cleansing Flame", "=ds=#s9#, #a1#", "#JUSTICE:1650#"};
 				{ 7, 71278, "", "=q4=Leggings of the Cleansing Flame", "=ds=#s11#, #a1#", "#JUSTICE:2200#"};
 				{ 16, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"]};
@@ -2063,22 +2063,22 @@ local moduleName = "AtlasLootCataclysm"
 				{ 22, 70311, "", "=q4=Ruthless Gladiator's Satin Leggings", "=ds=", "#HONOR:2200#"};
 			};
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 2, 71292, "", "=q4=Erupting Volcanic Gloves", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 3, 71294, "", "=q4=Erupting Volcanic Kilt", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 5, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 5, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 6, 71302, "", "=q4=Erupting Volcanic Grips", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 7, 71304, "", "=q4=Erupting Volcanic Legguards", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 9, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 71297, "", "=q4=Erupting Volcanic Handwraps", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 11, 71299, "", "=q4=Erupting Volcanic Legwraps", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 17, 70275, "", "=q4=Ruthless Gladiator's Mail Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 18, 70277, "", "=q4=Ruthless Gladiator's Mail Leggings", "=ds=", "#HONOR:2200#"};
-				{ 20, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 20, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 21, 70270, "", "=q4=Ruthless Gladiator's Linked Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 22, 70272, "", "=q4=Ruthless Gladiator's Linked Leggings", "=ds=", "#HONOR:2200#"};
-				{ 24, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 70265, "", "=q4=Ruthless Gladiator's Ringmail Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 26, 70267, "", "=q4=Ruthless Gladiator's Ringmail Leggings", "=ds=", "#HONOR:2200#"};
 			};
@@ -2092,7 +2092,7 @@ local moduleName = "AtlasLootCataclysm"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 71069, "", "=q4=Gauntlets of the Molten Giant", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 11, 71071, "", "=q4=Legplates of the Molten Giant", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 70943, "", "=q4=Handguards of the Molten Giant", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 15, 70942, "", "=q4=Legguards of the Molten Giant", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -2207,22 +2207,22 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["BHAlizabal"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 77018, "", "=q4=Deep Earth Gloves", "=ds=#s9#, #a2#"};
 				{ 3, 77020, "", "=q4=Deep Earth Leggings", "=ds=#s11#, #a2#"};
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 77014, "", "=q4=Deep Earth Grips", "=ds=#s9#, #a2#"};
 				{ 7, 77016, "", "=q4=Deep Earth Legguards", "=ds=#s11#, #a2#"};
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 76749, "", "=q4=Deep Earth Handwraps", "=ds=#s9#, #a2#"};
 				{ 11, 76751, "", "=q4=Deep Earth Legwraps", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 73599, "", "=q4=Cataclysmic Gladiator's Wyrmhide Gloves", "=ds=", "#HONOR:1650#"};
 				{ 18, 73597, "", "=q4=Cataclysmic Gladiator's Wyrmhide Legguards", "=ds=", "#HONOR:2200#"};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 73615, "", "=q4=Cataclysmic Gladiator's Dragonhide Gloves", "=ds=", "#HONOR:1650#"};
 				{ 22, 73613, "", "=q4=Cataclysmic Gladiator's Dragonhide Legguards", "=ds=", "#HONOR:2200#"};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 73607, "", "=q4=Cataclysmic Gladiator's Kodohide Gloves", "=ds=", "#HONOR:1650#"};
 				{ 26, 73605, "", "=q4=Cataclysmic Gladiator's Kodohide Legguards", "=ds=", "#HONOR:2200#"};
 			};
@@ -2253,27 +2253,27 @@ local moduleName = "AtlasLootCataclysm"
 				{ 30, 73485, "", "=q4=Cataclysmic Gladiator's Felweave Trousers", "=ds=", "#HONOR:2200#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 76766, "", "=q4=Gloves of Radiant Glory", "=ds=#s9#, #a4#"};
 				{ 3, 76768, "", "=q4=Greaves of Radiant Glory", "=ds=#s11#, #a4#"};
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 76875, "", "=q4=Gauntlets of Radiant Glory", "=ds=#s9#, #a4#"};
 				{ 7, 76877, "", "=q4=Legplates of Radiant Glory", "=ds=#s11#, #a4#"};
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 77004, "", "=q4=Handguards of Radiant Glory", "=ds=#s9#, #a4#"};
 				{ 11, 77006, "", "=q4=Legguards of Radiant Glory", "=ds=#s11#, #a4#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 73559, "", "=q4=Cataclysmic Gladiator's Ornamented Gloves", "=ds=", "#HONOR:1650#"};
 				{ 18, 73557, "", "=q4=Cataclysmic Gladiator's Ornamented Legplates", "=ds=", "#HONOR:2200#"};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 73570, "", "=q4=Cataclysmic Gladiator's Scaled Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 22, 73568, "", "=q4=Cataclysmic Gladiator's Scaled Legguards", "=ds=", "#HONOR:2200#"};
 			};
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 76357, "", "=q4=Handwraps of Dying Light", "=ds=#s9#, #a1#"};
 				{ 3, 76359, "", "=q4=Legwraps of Dying Light", "=ds=#s11#, #a1#"};
-				{ 5, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 5, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 6, 76348, "", "=q4=Gloves of Dying Light", "=ds=#s9#, #a1#"};
 				{ 7, 76346, "", "=q4=Leggings of Dying Light", "=ds=#s11#, #a1#"};
 				{ 16, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"]};
@@ -2284,22 +2284,22 @@ local moduleName = "AtlasLootCataclysm"
 				{ 22, 73542, "", "=q4=Cataclysmic Gladiator's Satin Leggings", "=ds=", "#HONOR:2200#"};
 			};
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 2, 77038, "", "=q4=Spiritwalker's Gloves", "=ds=#s9#, #a3#"};
 				{ 3, 77036, "", "=q4=Spiritwalker's Kilt", "=ds=#s11#, #a3#"};
-				{ 5, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 5, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 6, 77041, "", "=q4=Spiritwalker's Grips", "=ds=#s9#, #a3#"};
 				{ 7, 77043, "", "=q4=Spiritwalker's Legguards", "=ds=#s11#, #a3#"};
-				{ 9, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 76757, "", "=q4=Spiritwalker's Handwraps", "=ds=#s9#, #a3#"};
 				{ 11, 76759, "", "=q4=Spiritwalker's Legwraps", "=ds=#s11#, #a3#"};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 17, 73505, "", "=q4=Cataclysmic Gladiator's Mail Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 18, 73503, "", "=q4=Cataclysmic Gladiator's Mail Leggings", "=ds=", "#HONOR:2200#"};
-				{ 20, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 20, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 21, 73511, "", "=q4=Cataclysmic Gladiator's Linked Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 22, 73509, "", "=q4=Cataclysmic Gladiator's Linked Leggings", "=ds=", "#HONOR:2200#"};
-				{ 24, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 73516, "", "=q4=Cataclysmic Gladiator's Ringmail Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 26, 73514, "", "=q4=Cataclysmic Gladiator's Ringmail Leggings", "=ds=", "#HONOR:2200#"};
 			};
@@ -2313,7 +2313,7 @@ local moduleName = "AtlasLootCataclysm"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 76985, "", "=q4=Colossal Dragonplate Gauntlets", "=ds=#s9#, #a4#"};
 				{ 11, 76986, "", "=q4=Colossal Dragonplate Legplates", "=ds=#s11#, #a4#"};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 76989, "", "=q4=Colossal Dragonplate Handguards", "=ds=#s9#, #a4#"};
 				{ 15, 76991, "", "=q4=Colossal Dragonplate Legguards", "=ds=#s11#, #a4#"};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -4005,7 +4005,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 		info = {
 			name = BabbleFaction["Avengers of Hyjal"],
-			module = moduleName, menu = "REPMENU",
+			module = moduleName, menu = "REPMENU_CATACLYSM",
 		};
 	}
 
@@ -4055,7 +4055,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 		info = {
 			name = BabbleFaction["Baradin's Wardens"],
-			module = moduleName, menu = "REPMENU",
+			module = moduleName, menu = "REPMENU_CATACLYSM",
 		};
 	}
 
@@ -4087,7 +4087,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 		info = {
 			name = BabbleFaction["Dragonmaw Clan"],
-			module = moduleName, menu = "REPMENU",
+			module = moduleName, menu = "REPMENU_CATACLYSM",
 		};
 	}
 
@@ -4137,7 +4137,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 		info = {
 			name = BabbleFaction["Hellscream's Reach"],
-			module = moduleName, menu = "REPMENU",
+			module = moduleName, menu = "REPMENU_CATACLYSM",
 		};
 	}
 
@@ -4171,7 +4171,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 		info = {
 			name = BabbleFaction["Ramkahen"],
-			module = moduleName, menu = "REPMENU",
+			module = moduleName, menu = "REPMENU_CATACLYSM",
 		};
 	}
 
@@ -4203,7 +4203,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 		info = {
 			name = BabbleFaction["The Earthen Ring"],
-			module = moduleName, menu = "REPMENU",
+			module = moduleName, menu = "REPMENU_CATACLYSM",
 		};
 	}
 
@@ -4235,7 +4235,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 		info = {
 			name = BabbleFaction["Guardians of Hyjal"],
-			module = moduleName, menu = "REPMENU",
+			module = moduleName, menu = "REPMENU_CATACLYSM",
 		};
 	}
 
@@ -4267,7 +4267,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 		info = {
 			name = BabbleFaction["Therazane"],
-			module = moduleName, menu = "REPMENU",
+			module = moduleName, menu = "REPMENU_CATACLYSM",
 		};
 	}
 
@@ -4299,7 +4299,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 		info = {
 			name = BabbleFaction["Wildhammer Clan"],
-			module = moduleName, menu = "REPMENU",
+			module = moduleName, menu = "REPMENU_CATACLYSM",
 		};
 	}
 
@@ -4314,19 +4314,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85DeathKnight"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_deathknight_classicon", "=q6=#arenas10#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "spell_deathknight_classicon", "=q6=#arenas10#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73618, "", "=q4=Cataclysmic Gladiator's Dreadplate Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73616, "", "=q4=Cataclysmic Gladiator's Dreadplate Shoulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73620, "", "=q4=Cataclysmic Gladiator's Dreadplate Chestpiece", "=ds=", "#HONOR:2200#"};
 				{ 5, 73619, "", "=q4=Cataclysmic Gladiator's Dreadplate Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 6, 73617, "", "=q4=Cataclysmic Gladiator's Dreadplate Legguards", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "spell_deathknight_classicon", "=q6=#arenas10#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "spell_deathknight_classicon", "=q6=#arenas10#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70246, "", "=q4=Ruthless Gladiator's Dreadplate Helm", "=ds="};
 				{ 10, 70248, "", "=q4=Ruthless Gladiator's Dreadplate Shoulders", "=ds="};
 				{ 11, 70244, "", "=q4=Ruthless Gladiator's Dreadplate Chestpiece", "=ds="};
 				{ 12, 70245, "", "=q4=Ruthless Gladiator's Dreadplate Gauntlets", "=ds="};
 				{ 13, 70247, "", "=q4=Ruthless Gladiator's Dreadplate Legguards", "=ds="};
-				{ 16, 0, "spell_deathknight_classicon", "=q6=#arenas10#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "spell_deathknight_classicon", "=q6=#arenas10#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60410, "", "=q4=Vicious Gladiator's Dreadplate Helm", "=ds="};
 				{ 18, 60412, "", "=q4=Vicious Gladiator's Dreadplate Shoulders", "=ds="};
 				{ 19, 60408, "", "=q4=Vicious Gladiator's Dreadplate Chestpiece", "=ds="};
@@ -4343,19 +4343,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85DruidBalance"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6=#arenas1_2#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "spell_nature_starfall", "=q6=#arenas1_2#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73598, "", "=q4=Cataclysmic Gladiator's Wyrmhide Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73595, "", "=q4=Cataclysmic Gladiator's Wyrmhide Spaulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73596, "", "=q4=Cataclysmic Gladiator's Wyrmhide Robes", "=ds=", "#HONOR:2200#"};
 				{ 5, 73599, "", "=q4=Cataclysmic Gladiator's Wyrmhide Gloves", "=ds=", "#HONOR:1650#"};
 				{ 6, 73597, "", "=q4=Cataclysmic Gladiator's Wyrmhide Legguards", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "spell_nature_starfall", "=q6=#arenas1_2#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "spell_nature_starfall", "=q6=#arenas1_2#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70290, "", "=q4=Ruthless Gladiator's Wyrmhide Helm", "=ds="};
 				{ 10, 70293, "", "=q4=Ruthless Gladiator's Wyrmhide Spaulders", "=ds="};
 				{ 11, 70292, "", "=q4=Ruthless Gladiator's Wyrmhide Robes", "=ds="};
 				{ 12, 70289, "", "=q4=Ruthless Gladiator's Wyrmhide Gloves", "=ds="};
 				{ 13, 70291, "", "=q4=Ruthless Gladiator's Wyrmhide Legguards", "=ds="};
-				{ 16, 0, "spell_nature_starfall", "=q6=#arenas1_2#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "spell_nature_starfall", "=q6=#arenas1_2#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60454, "", "=q4=Vicious Gladiator's Wyrmhide Helm", "=ds="};
 				{ 18, 60457, "", "=q4=Vicious Gladiator's Wyrmhide Spaulders", "=ds="};
 				{ 19, 60456, "", "=q4=Vicious Gladiator's Wyrmhide Robes", "=ds="};
@@ -4364,7 +4364,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
 			module = moduleName, menu = "PVP85SET",
 		};
 	}
@@ -4372,19 +4372,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85DruidFeral"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_druid_catform", "=q6=#arenas1_1#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "ability_druid_catform", "=q6=#arenas1_1#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73614, "", "=q4=Cataclysmic Gladiator's Dragonhide Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73611, "", "=q4=Cataclysmic Gladiator's Dragonhide Spaulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73612, "", "=q4=Cataclysmic Gladiator's Dragonhide Robes", "=ds=", "#HONOR:2200#"};
 				{ 5, 73615, "", "=q4=Cataclysmic Gladiator's Dragonhide Gloves", "=ds=", "#HONOR:1650#"};
 				{ 6, 73613, "", "=q4=Cataclysmic Gladiator's Dragonhide Legguards", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "ability_druid_catform", "=q6=#arenas1_1#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "ability_druid_catform", "=q6=#arenas1_1#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70280, "", "=q4=Ruthless Gladiator's Dragonhide Helm", "=ds="};
 				{ 10, 70283, "", "=q4=Ruthless Gladiator's Dragonhide Spaulders", "=ds="};
 				{ 11, 70282, "", "=q4=Ruthless Gladiator's Dragonhide Robes", "=ds="};
 				{ 12, 70279, "", "=q4=Ruthless Gladiator's Dragonhide Gloves", "=ds="};
 				{ 13, 70281, "", "=q4=Ruthless Gladiator's Dragonhide Legguards", "=ds="};
-				{ 16, 0, "ability_druid_catform", "=q6=#arenas1_1#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "ability_druid_catform", "=q6=#arenas1_1#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60444, "", "=q4=Vicious Gladiator's Dragonhide Helm", "=ds="};
 				{ 18, 60447, "", "=q4=Vicious Gladiator's Dragonhide Spaulders", "=ds="};
 				{ 19, 60446, "", "=q4=Vicious Gladiator's Dragonhide Robes", "=ds="};
@@ -4393,7 +4393,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
 			module = moduleName, menu = "PVP85SET",
 		};
 	}
@@ -4401,19 +4401,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85DruidRestoration"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_healingtouch", "=q6=#arenas1_3#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "spell_nature_healingtouch", "=q6=#arenas1_3#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73606, "", "=q4=Cataclysmic Gladiator's Kodohide Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73603, "", "=q4=Cataclysmic Gladiator's Kodohide Spaulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73604, "", "=q4=Cataclysmic Gladiator's Kodohide Robes", "=ds=", "#HONOR:2200#"};
 				{ 5, 73607, "", "=q4=Cataclysmic Gladiator's Kodohide Gloves", "=ds=", "#HONOR:1650#"};
 				{ 6, 73605, "", "=q4=Cataclysmic Gladiator's Kodohide Legguards", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "spell_nature_healingtouch", "=q6=#arenas1_3#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "spell_nature_healingtouch", "=q6=#arenas1_3#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70285, "", "=q4=Ruthless Gladiator's Kodohide Helm", "=ds="};
 				{ 10, 70288, "", "=q4=Ruthless Gladiator's Kodohide Spaulders", "=ds="};
 				{ 11, 70287, "", "=q4=Ruthless Gladiator's Kodohide Robes", "=ds="};
 				{ 12, 70284, "", "=q4=Ruthless Gladiator's Kodohide Gloves", "=ds="};
 				{ 13, 70286, "", "=q4=Ruthless Gladiator's Kodohide Legguards", "=ds="};
-				{ 16, 0, "spell_nature_healingtouch", "=q6=#arenas1_3#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "spell_nature_healingtouch", "=q6=#arenas1_3#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60449, "", "=q4=Vicious Gladiator's Kodohide Helm", "=ds="};
 				{ 18, 60452, "", "=q4=Vicious Gladiator's Kodohide Spaulders", "=ds="};
 				{ 19, 60451, "", "=q4=Vicious Gladiator's Kodohide Robes", "=ds="};
@@ -4422,7 +4422,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "PVP85SET",
 		};
 	}
@@ -4430,19 +4430,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85Hunter"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_weapon_bow_07", "=q6=#arenas2#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "inv_weapon_bow_07", "=q6=#arenas2#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73582, "", "=q4=Cataclysmic Gladiator's Chain Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73580, "", "=q4=Cataclysmic Gladiator's Chain Spaulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73584, "", "=q4=Cataclysmic Gladiator's Chain Armor", "=ds=", "#HONOR:2200#"};
 				{ 5, 73583, "", "=q4=Cataclysmic Gladiator's Chain Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 6, 73581, "", "=q4=Cataclysmic Gladiator's Chain Leggings", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "inv_weapon_bow_07", "=q6=#arenas2#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "inv_weapon_bow_07", "=q6=#arenas2#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70261, "", "=q4=Ruthless Gladiator's Chain Helm", "=ds="};
 				{ 10, 70263, "", "=q4=Ruthless Gladiator's Chain Spaulders", "=ds="};
 				{ 11, 70259, "", "=q4=Ruthless Gladiator's Chain Armor", "=ds="};
 				{ 12, 70260, "", "=q4=Ruthless Gladiator's Chain Gauntlets", "=ds="};
 				{ 13, 70262, "", "=q4=Ruthless Gladiator's Chain Leggings", "=ds="};
-				{ 16, 0, "inv_weapon_bow_07", "=q6=#arenas2#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "inv_weapon_bow_07", "=q6=#arenas2#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60425, "", "=q4=Vicious Gladiator's Chain Helm", "=ds="};
 				{ 18, 60427, "", "=q4=Vicious Gladiator's Chain Spaulders", "=ds="};
 				{ 19, 60423, "", "=q4=Vicious Gladiator's Chain Armor", "=ds="};
@@ -4459,19 +4459,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85Mage"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_staff_13", "=q6=#arenas3#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "inv_staff_13", "=q6=#arenas3#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73575, "", "=q4=Cataclysmic Gladiator's Silk Cowl", "=ds=", "#HONOR:2200#"};
 				{ 3, 73572, "", "=q4=Cataclysmic Gladiator's Silk Amice", "=ds=", "#HONOR:1650#"};
 				{ 4, 73573, "", "=q4=Cataclysmic Gladiator's Silk Robe", "=ds=", "#HONOR:2200#"};
 				{ 5, 73576, "", "=q4=Cataclysmic Gladiator's Silk Handguards", "=ds=", "#HONOR:1650#"};
 				{ 6, 73574, "", "=q4=Cataclysmic Gladiator's Silk Trousers", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "inv_staff_13", "=q6=#arenas3#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "inv_staff_13", "=q6=#arenas3#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70300, "", "=q4=Ruthless Gladiator's Silk Cowl", "=ds="};
 				{ 10, 70303, "", "=q4=Ruthless Gladiator's Silk Amice", "=ds="};
 				{ 11, 70302, "", "=q4=Ruthless Gladiator's Silk Robe", "=ds="};
 				{ 12, 70299, "", "=q4=Ruthless Gladiator's Silk Handguards", "=ds="};
 				{ 13, 70301, "", "=q4=Ruthless Gladiator's Silk Trousers", "=ds="};
-				{ 16, 0, "inv_staff_13", "=q6=#arenas3#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "inv_staff_13", "=q6=#arenas3#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60464, "", "=q4=Vicious Gladiator's Silk Cowl", "=ds="};
 				{ 18, 60467, "", "=q4=Vicious Gladiator's Silk Amice", "=ds="};
 				{ 19, 60466, "", "=q4=Vicious Gladiator's Silk Robe", "=ds="};
@@ -4488,19 +4488,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85PaladinRetribution"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#arenas4_2#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#arenas4_2#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73569, "", "=q4=Cataclysmic Gladiator's Scaled Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73567, "", "=q4=Cataclysmic Gladiator's Scaled Shoulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73571, "", "=q4=Cataclysmic Gladiator's Scaled Chestpiece", "=ds=", "#HONOR:2200#"};
 				{ 5, 73570, "", "=q4=Cataclysmic Gladiator's Scaled Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 6, 73568, "", "=q4=Cataclysmic Gladiator's Scaled Legguards", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#arenas4_2#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#arenas4_2#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70251, "", "=q4=Ruthless Gladiator's Scaled Helm", "=ds="};
 				{ 10, 70253, "", "=q4=Ruthless Gladiator's Scaled Shoulders", "=ds="};
 				{ 11, 70249, "", "=q4=Ruthless Gladiator's Scaled Chestpiece", "=ds="};
 				{ 12, 70250, "", "=q4=Ruthless Gladiator's Scaled Gauntlets", "=ds="};
 				{ 13, 70252, "", "=q4=Ruthless Gladiator's Scaled Legguards", "=ds="};
-				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#arenas4_2#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#arenas4_2#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60415, "", "=q4=Vicious Gladiator's Scaled Helm", "=ds="};
 				{ 18, 60417, "", "=q4=Vicious Gladiator's Scaled Shoulders", "=ds="};
 				{ 19, 60413, "", "=q4=Vicious Gladiator's Scaled Chestpiece", "=ds="};
@@ -4509,7 +4509,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
 			module = moduleName, menu = "PVP85SET",
 		};
 	}
@@ -4517,19 +4517,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85PaladinHoly"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#arenas4_3#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#arenas4_3#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73558, "", "=q4=Cataclysmic Gladiator's Ornamented Headcover", "=ds=", "#HONOR:2200#"};
 				{ 3, 73556, "", "=q4=Cataclysmic Gladiator's Ornamented Spaulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73560, "", "=q4=Cataclysmic Gladiator's Ornamented Chestguard", "=ds=", "#HONOR:2200#"};
 				{ 5, 73559, "", "=q4=Cataclysmic Gladiator's Ornamented Gloves", "=ds=", "#HONOR:1650#"};
 				{ 6, 73557, "", "=q4=Cataclysmic Gladiator's Ornamented Legplates", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#arenas4_3#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#arenas4_3#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70355, "", "=q4=Ruthless Gladiator's Ornamented Headcover", "=ds="};
 				{ 10, 70357, "", "=q4=Ruthless Gladiator's Ornamented Spaulders", "=ds="};
 				{ 11, 70353, "", "=q4=Ruthless Gladiator's Ornamented Chestguard", "=ds="};
 				{ 12, 70354, "", "=q4=Ruthless Gladiator's Ornamented Gloves", "=ds="};
 				{ 13, 70356, "", "=q4=Ruthless Gladiator's Ornamented Legplates", "=ds="};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#arenas4_3#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#arenas4_3#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60603, "", "=q4=Vicious Gladiator's Ornamented Headcover", "=ds="};
 				{ 18, 60605, "", "=q4=Vicious Gladiator's Ornamented Spaulders", "=ds="};
 				{ 19, 60601, "", "=q4=Vicious Gladiator's Ornamented Chestguard", "=ds="};
@@ -4538,7 +4538,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "PVP85SET",
 		};
 	}
@@ -4546,19 +4546,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85PriestShadow"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#arenas5_1#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#arenas5_1#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73543, "", "=q4=Cataclysmic Gladiator's Satin Hood", "=ds=", "#HONOR:2200#"};
 				{ 3, 73540, "", "=q4=Cataclysmic Gladiator's Satin Mantle", "=ds=", "#HONOR:1650#"};
 				{ 4, 73541, "", "=q4=Cataclysmic Gladiator's Satin Robe", "=ds=", "#HONOR:2200#"};
 				{ 5, 73544, "", "=q4=Cataclysmic Gladiator's Satin Gloves", "=ds=", "#HONOR:1650#"};
 				{ 6, 73542, "", "=q4=Cataclysmic Gladiator's Satin Leggings", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#arenas5_1#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#arenas5_1#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70310, "", "=q4=Ruthless Gladiator's Satin Hood", "=ds="};
 				{ 10, 70313, "", "=q4=Ruthless Gladiator's Satin Mantle", "=ds="};
 				{ 11, 70312, "", "=q4=Ruthless Gladiator's Satin Robe", "=ds="};
 				{ 12, 70309, "", "=q4=Ruthless Gladiator's Satin Gloves", "=ds="};
 				{ 13, 70311, "", "=q4=Ruthless Gladiator's Satin Leggings", "=ds="};
-				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#arenas5_1#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#arenas5_1#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60474, "", "=q4=Vicious Gladiator's Satin Hood", "=ds="};
 				{ 18, 60477, "", "=q4=Vicious Gladiator's Satin Mantle", "=ds="};
 				{ 19, 60473, "", "=q4=Vicious Gladiator's Satin Robe", "=ds="};
@@ -4575,19 +4575,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85PriestHoly"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_holy_powerwordshield", "=q6=#arenas5_2#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "spell_holy_powerwordshield", "=q6=#arenas5_2#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73548, "", "=q4=Cataclysmic Gladiator's Mooncloth Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73545, "", "=q4=Cataclysmic Gladiator's Mooncloth Mantle", "=ds=", "#HONOR:1650#"};
 				{ 4, 73546, "", "=q4=Cataclysmic Gladiator's Mooncloth Robe", "=ds=", "#HONOR:2200#"};
 				{ 5, 73549, "", "=q4=Cataclysmic Gladiator's Mooncloth Gloves", "=ds=", "#HONOR:1650#"};
 				{ 6, 73547, "", "=q4=Cataclysmic Gladiator's Mooncloth Leggings", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "spell_holy_powerwordshield", "=q6=#arenas5_2#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "spell_holy_powerwordshield", "=q6=#arenas5_2#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70305, "", "=q4=Ruthless Gladiator's Mooncloth Helm", "=ds="};
 				{ 10, 70308, "", "=q4=Ruthless Gladiator's Mooncloth Mantle", "=ds="};
 				{ 11, 70307, "", "=q4=Ruthless Gladiator's Mooncloth Robe", "=ds="};
 				{ 12, 70304, "", "=q4=Ruthless Gladiator's Mooncloth Gloves", "=ds="};
 				{ 13, 70306, "", "=q4=Ruthless Gladiator's Mooncloth Leggings", "=ds="};
-				{ 16, 0, "spell_holy_powerwordshield", "=q6=#arenas5_2#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "spell_holy_powerwordshield", "=q6=#arenas5_2#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60469, "", "=q4=Vicious Gladiator's Mooncloth Helm", "=ds="};
 				{ 18, 60472, "", "=q4=Vicious Gladiator's Mooncloth Mantle", "=ds="};
 				{ 19, 60471, "", "=q4=Vicious Gladiator's Mooncloth Robe", "=ds="};
@@ -4604,19 +4604,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85Rogue"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_throwingknife_04", "=q6=#arenas6#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "inv_throwingknife_04", "=q6=#arenas6#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73525, "", "=q4=Cataclysmic Gladiator's Leather Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73523, "", "=q4=Cataclysmic Gladiator's Leather Spaulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73527, "", "=q4=Cataclysmic Gladiator's Leather Tunic", "=ds=", "#HONOR:2200#"};
 				{ 5, 73526, "", "=q4=Cataclysmic Gladiator's Leather Gloves", "=ds=", "#HONOR:1650#"};
 				{ 6, 73524, "", "=q4=Cataclysmic Gladiator's Leather Legguards", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "inv_throwingknife_04", "=q6=#arenas6#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "inv_throwingknife_04", "=q6=#arenas6#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70296, "", "=q4=Ruthless Gladiator's Leather Helm", "=ds="};
 				{ 10, 70298, "", "=q4=Ruthless Gladiator's Leather Spaulders", "=ds="};
 				{ 11, 70294, "", "=q4=Ruthless Gladiator's Leather Tunic", "=ds="};
 				{ 12, 70295, "", "=q4=Ruthless Gladiator's Leather Gloves", "=ds="};
 				{ 13, 70297, "", "=q4=Ruthless Gladiator's Leather Legguards", "=ds="};
-				{ 16, 0, "inv_throwingknife_04", "=q6=#arenas6#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "inv_throwingknife_04", "=q6=#arenas6#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60460, "", "=q4=Vicious Gladiator's Leather Helm", "=ds="};
 				{ 18, 60462, "", "=q4=Vicious Gladiator's Leather Spaulders", "=ds="};
 				{ 19, 60458, "", "=q4=Vicious Gladiator's Leather Tunic", "=ds="};
@@ -4633,19 +4633,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85ShamanElemental"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6=#arenas7_2#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6=#arenas7_2#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73504, "", "=q4=Cataclysmic Gladiator's Mail Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73502, "", "=q4=Cataclysmic Gladiator's Mail Spaulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73506, "", "=q4=Cataclysmic Gladiator's Mail Armor", "=ds=", "#HONOR:2200#"};
 				{ 5, 73505, "", "=q4=Cataclysmic Gladiator's Mail Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 6, 73503, "", "=q4=Cataclysmic Gladiator's Mail Leggings", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "Spell_Nature_Lightning", "=q6=#arenas7_2#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "Spell_Nature_Lightning", "=q6=#arenas7_2#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70276, "", "=q4=Ruthless Gladiator's Mail Helm", "=ds="};
 				{ 10, 70278, "", "=q4=Ruthless Gladiator's Mail Spaulders", "=ds="};
 				{ 11, 70274, "", "=q4=Ruthless Gladiator's Mail Armor", "=ds="};
 				{ 12, 70275, "", "=q4=Ruthless Gladiator's Mail Gauntlets", "=ds="};
 				{ 13, 70277, "", "=q4=Ruthless Gladiator's Mail Leggings", "=ds="};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6=#arenas7_2#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6=#arenas7_2#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60440, "", "=q4=Vicious Gladiator's Mail Helm", "=ds="};
 				{ 18, 60442, "", "=q4=Vicious Gladiator's Mail Spaulders", "=ds="};
 				{ 19, 60438, "", "=q4=Vicious Gladiator's Mail Armor", "=ds="};
@@ -4654,7 +4654,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
 			module = moduleName, menu = "PVP85SET",
 		};
 	}
@@ -4662,19 +4662,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85ShamanEnhancement"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_lightningshield", "=q6=#arenas7_1#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "spell_nature_lightningshield", "=q6=#arenas7_1#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73510, "", "=q4=Cataclysmic Gladiator's Linked Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73508, "", "=q4=Cataclysmic Gladiator's Linked Spaulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73512, "", "=q4=Cataclysmic Gladiator's Linked Armor", "=ds=", "#HONOR:2200#"};
 				{ 5, 73511, "", "=q4=Cataclysmic Gladiator's Linked Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 6, 73509, "", "=q4=Cataclysmic Gladiator's Linked Leggings", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "spell_nature_lightningshield", "=q6=#arenas7_1#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "spell_nature_lightningshield", "=q6=#arenas7_1#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70271, "", "=q4=Ruthless Gladiator's Linked Helm", "=ds="};
 				{ 10, 70273, "", "=q4=Ruthless Gladiator's Linked Spaulders", "=ds="};
 				{ 11, 70269, "", "=q4=Ruthless Gladiator's Linked Armor", "=ds="};
 				{ 12, 70270, "", "=q4=Ruthless Gladiator's Linked Gauntlets", "=ds="};
 				{ 13, 70272, "", "=q4=Ruthless Gladiator's Linked Leggings", "=ds="};
-				{ 16, 0, "spell_nature_lightningshield", "=q6=#arenas7_1#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "spell_nature_lightningshield", "=q6=#arenas7_1#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60435, "", "=q4=Vicious Gladiator's Linked Helm", "=ds="};
 				{ 18, 60437, "", "=q4=Vicious Gladiator's Linked Spaulders", "=ds="};
 				{ 19, 60433, "", "=q4=Vicious Gladiator's Linked Armor", "=ds="};
@@ -4683,7 +4683,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
 			module = moduleName, menu = "PVP85SET",
 		};
 	}
@@ -4691,19 +4691,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85ShamanRestoration"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_magicimmunity", "=q6=#arenas7_3#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "spell_nature_magicimmunity", "=q6=#arenas7_3#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73515, "", "=q4=Cataclysmic Gladiator's Ringmail Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73513, "", "=q4=Cataclysmic Gladiator's Ringmail Spaulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73517, "", "=q4=Cataclysmic Gladiator's Ringmail Armor", "=ds=", "#HONOR:2200#"};
 				{ 5, 73516, "", "=q4=Cataclysmic Gladiator's Ringmail Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 6, 73514, "", "=q4=Cataclysmic Gladiator's Ringmail Leggings", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "spell_nature_magicimmunity", "=q6=#arenas7_3#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "spell_nature_magicimmunity", "=q6=#arenas7_3#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70266, "", "=q4=Ruthless Gladiator's Ringmail Helm", "=ds="};
 				{ 10, 70268, "", "=q4=Ruthless Gladiator's Ringmail Spaulders", "=ds="};
 				{ 11, 70264, "", "=q4=Ruthless Gladiator's Ringmail Armor", "=ds="};
 				{ 12, 70265, "", "=q4=Ruthless Gladiator's Ringmail Gauntlets", "=ds="};
 				{ 13, 70267, "", "=q4=Ruthless Gladiator's Ringmail Leggings", "=ds="};
-				{ 16, 0, "spell_nature_magicimmunity", "=q6=#arenas7_3#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "spell_nature_magicimmunity", "=q6=#arenas7_3#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60430, "", "=q4=Vicious Gladiator's Ringmail Helm", "=ds="};
 				{ 18, 60432, "", "=q4=Vicious Gladiator's Ringmail Spaulders", "=ds="};
 				{ 19, 60428, "", "=q4=Vicious Gladiator's Ringmail Armor", "=ds="};
@@ -4712,7 +4712,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "PVP85SET",
 		};
 	}
@@ -4720,19 +4720,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85Warlock"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_drowsy", "=q6=#arenas8_2#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "spell_nature_drowsy", "=q6=#arenas8_2#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73486, "", "=q4=Cataclysmic Gladiator's Felweave Cowl", "=ds=", "#HONOR:2200#"};
 				{ 3, 73483, "", "=q4=Cataclysmic Gladiator's Felweave Amice", "=ds=", "#HONOR:1650#"};
 				{ 4, 73484, "", "=q4=Cataclysmic Gladiator's Felweave Raiment", "=ds=", "#HONOR:2200#"};
 				{ 5, 73487, "", "=q4=Cataclysmic Gladiator's Felweave Handguards", "=ds=", "#HONOR:1650#"};
 				{ 6, 73485, "", "=q4=Cataclysmic Gladiator's Felweave Trousers", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "spell_nature_drowsy", "=q6=#arenas8_2#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "spell_nature_drowsy", "=q6=#arenas8_2#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70315, "", "=q4=Ruthless Gladiator's Felweave Cowl", "=ds="};
 				{ 10, 70318, "", "=q4=Ruthless Gladiator's Felweave Amice", "=ds="};
 				{ 11, 70317, "", "=q4=Ruthless Gladiator's Felweave Raiment", "=ds="};
 				{ 12, 70314, "", "=q4=Ruthless Gladiator's Felweave Handguards", "=ds="};
 				{ 13, 70316, "", "=q4=Ruthless Gladiator's Felweave Trousers", "=ds="};
-				{ 16, 0, "spell_nature_drowsy", "=q6=#arenas8_2#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "spell_nature_drowsy", "=q6=#arenas8_2#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60479, "", "=q4=Vicious Gladiator's Felweave Cowl", "=ds="};
 				{ 18, 60482, "", "=q4=Vicious Gladiator's Felweave Amice", "=ds="};
 				{ 19, 60481, "", "=q4=Vicious Gladiator's Felweave Raiment", "=ds="};
@@ -4749,19 +4749,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["PVP85Warrior"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_warrior_savageblow", "=q6=#arenas9#", "=q5="..AL["Season 11"]..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
+				{ 1, 0, "ability_warrior_savageblow", "=q6=#arenas9#", "=q5="..string.format(AL["Season %d"], 11)..", "..AtlasLoot:EJ_GetBossName("Alizabal, Mistress of Hate", 339)};
 				{ 2, 73480, "", "=q4=Cataclysmic Gladiator's Plate Helm", "=ds=", "#HONOR:2200#"};
 				{ 3, 73478, "", "=q4=Cataclysmic Gladiator's Plate Shoulders", "=ds=", "#HONOR:1650#"};
 				{ 4, 73482, "", "=q4=Cataclysmic Gladiator's Plate Chestpiece", "=ds=", "#HONOR:2200#"};
 				{ 5, 73481, "", "=q4=Cataclysmic Gladiator's Plate Gauntlets", "=ds=", "#HONOR:1650#"};
 				{ 6, 73479, "", "=q4=Cataclysmic Gladiator's Plate Legguards", "=ds=", "#HONOR:2200#"};
-				{ 8, 0, "ability_warrior_savageblow", "=q6=#arenas9#", "=q5="..AL["Season 10"]..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
+				{ 8, 0, "ability_warrior_savageblow", "=q6=#arenas9#", "=q5="..string.format(AL["Season %d"], 10)..", "..AtlasLoot:EJ_GetBossName("Occu'thar", 140)};
 				{ 9, 70256, "", "=q4=Ruthless Gladiator's Plate Helm", "=ds="};
 				{ 10, 70258, "", "=q4=Ruthless Gladiator's Plate Shoulders", "=ds="};
 				{ 11, 70254, "", "=q4=Ruthless Gladiator's Plate Chestpiece", "=ds="};
 				{ 12, 70255, "", "=q4=Ruthless Gladiator's Plate Gauntlets", "=ds="};
 				{ 13, 70257, "", "=q4=Ruthless Gladiator's Plate Legguards", "=ds="};
-				{ 16, 0, "ability_warrior_savageblow", "=q6=#arenas9#", "=q5="..AL["Season 9"]..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
+				{ 16, 0, "ability_warrior_savageblow", "=q6=#arenas9#", "=q5="..string.format(AL["Season %d"], 9)..", "..AtlasLoot:EJ_GetBossName("Argaloth", 139)};
 				{ 17, 60420, "", "=q4=Vicious Gladiator's Plate Helm", "=ds="};
 				{ 18, 60422, "", "=q4=Vicious Gladiator's Plate Shoulders", "=ds="};
 				{ 19, 60418, "", "=q4=Vicious Gladiator's Plate Chestpiece", "=ds="};
@@ -4998,25 +4998,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112DeathKnightDPS"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t11s10_1#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t11s10_1#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60341, "", "=q4=Magma Plated Helmet", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60343, "", "=q4=Magma Plated Pauldrons", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60339, "", "=q4=Magma Plated Battleplate", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 5, 60340, "", "=q4=Magma Plated Gauntlets", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 6, 60342, "", "=q4=Magma Plated Legplates", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t11s10_1#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t11s10_1#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65181, "", "=q4=Magma Plated Helmet", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65183, "", "=q4=Magma Plated Pauldrons", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65179, "", "=q4=Magma Plated Battleplate", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65180, "", "=q4=Magma Plated Gauntlets", "=ds=#s9#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65182, "", "=q4=Magma Plated Legplates", "=ds=#s11#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t12s10_1#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t12s10_1#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71060, "", "=q4=Elementium Deathplate Helmet", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71062, "", "=q4=Elementium Deathplate Pauldrons", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71058, "", "=q4=Elementium Deathplate Breastplate", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 20, 71059, "", "=q4=Elementium Deathplate Gauntlets", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 21, 71061, "", "=q4=Elementium Deathplate Greaves", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 23, 0, "spell_deathknight_frostpresence", "=q6=#t12s10_1#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "spell_deathknight_frostpresence", "=q6=#t12s10_1#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71478, "", "=q4=Elementium Deathplate Helmet", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71480, "", "=q4=Elementium Deathplate Pauldrons", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71476, "", "=q4=Elementium Deathplate Breastplate", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5033,25 +5033,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112DeathKnightTank"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t11s10_2#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t11s10_2#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60351, "", "=q4=Magma Plated Faceguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60353, "", "=q4=Magma Plated Shoulderguards", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60349, "", "=q4=Magma Plated Chestguard", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 5, 60350, "", "=q4=Magma Plated Handguards", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 6, 60352, "", "=q4=Magma Plated Legguards", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t11s10_2#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t11s10_2#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65186, "", "=q4=Magma Plated Faceguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65188, "", "=q4=Magma Plated Shoulderguards", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65184, "", "=q4=Magma Plated Chestguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65185, "", "=q4=Magma Plated Handguards", "=ds=#s9#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65187, "", "=q4=Magma Plated Legguards", "=ds=#s11#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t12s10_1#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t12s10_1#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 70954, "", "=q4=Elementium Deathplate Faceguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 70951, "", "=q4=Elementium Deathplate Shouldergards", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 70955, "", "=q4=Elementium Deathplate Chestguard", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 20, 70953, "", "=q4=Elementium Deathplate Handguards", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 21, 70952, "", "=q4=Elementium Deathplate Legguards", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 23, 0, "spell_deathknight_frostpresence", "=q6=#t12s10_1#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "spell_deathknight_frostpresence", "=q6=#t12s10_1#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71483, "", "=q4=Elementium Deathplate Faceguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71485, "", "=q4=Elementium Deathplate Shouldergards", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71481, "", "=q4=Elementium Deathplate Chestguard", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5068,25 +5068,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112DruidRestoration"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_healingtouch", "=q6=#t11s1_1#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "spell_nature_healingtouch", "=q6=#t11s1_1#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60277, "", "=q4=Stormrider's Helm", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60279, "", "=q4=Stormrider's Mantle", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60276, "", "=q4=Stormrider's Robes", "=ds=#s5#, #a2#", "#JUSTICE:2200#"};
 				{ 5, 60280, "", "=q4=Stormrider's Handwraps", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 6, 60278, "", "=q4=Stormrider's Legwraps", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 8, 0, "spell_nature_healingtouch", "=q6=#t11s1_1#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "spell_nature_healingtouch", "=q6=#t11s1_1#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65195, "", "=q4=Stormrider's Helm", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65198, "", "=q4=Stormrider's Mantle", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65197, "", "=q4=Stormrider's Robes", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65194, "", "=q4=Stormrider's Handwraps", "=ds=#s9#, #a2#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65196, "", "=q4=Stormrider's Legwraps", "=ds=#s11#, #a2#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "spell_nature_healingtouch", "=q6=#t12s1_1#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "spell_nature_healingtouch", "=q6=#t12s1_1#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71103, "", "=q4=Obsidian Arborweave Helm", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71106, "", "=q4=Obsidian Arborweave Mantle", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71105, "", "=q4=Obsidian Arborweave Robes", "=ds=#s5#, #a2#", "#JUSTICE:2200#"};
 				{ 20, 71102, "", "=q4=Obsidian Arborweave Handwraps", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 21, 71104, "", "=q4=Obsidian Arborweave Legwraps", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 23, 0, "spell_nature_healingtouch", "=q6=#t12s1_1#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "spell_nature_healingtouch", "=q6=#t12s1_1#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71492, "", "=q4=Obsidian Arborweave Helm", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71495, "", "=q4=Obsidian Arborweave Mantle", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71494, "", "=q4=Obsidian Arborweave Robes", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5095,7 +5095,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5103,25 +5103,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112DruidFeral"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_druid_catform", "=q6=#t11s1_2#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "ability_druid_catform", "=q6=#t11s1_2#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60286, "", "=q4=Stormrider's Headpiece", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60289, "", "=q4=Stormrider's Spaulders", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60287, "", "=q4=Stormrider's Raiment", "=ds=#s5#, #a2#", "#JUSTICE:2200#"};
 				{ 5, 60290, "", "=q4=Stormrider's Grips", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 6, 60288, "", "=q4=Stormrider's Legguards", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 8, 0, "ability_druid_catform", "=q6=#t11s1_2#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "ability_druid_catform", "=q6=#t11s1_2#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65190, "", "=q4=Stormrider's Headpiece", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65193, "", "=q4=Stormrider's Spaulders", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65192, "", "=q4=Stormrider's Raiment", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65189, "", "=q4=Stormrider's Grips", "=ds=#s9#, #a2#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65191, "", "=q4=Stormrider's Legguards", "=ds=#s11#, #a2#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "ability_druid_catform", "=q6=#t12s1_2#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "ability_druid_catform", "=q6=#t12s1_2#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71098, "", "=q4=Obsidian Arborweave Headpiece", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71101, "", "=q4=Obsidian Arborweave Spaulders", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71100, "", "=q4=Obsidian Arborweave Raiment", "=ds=#s5#, #a2#", "#JUSTICE:2200#"};
 				{ 20, 71097, "", "=q4=Obsidian Arborweave Grips", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 21, 71099, "", "=q4=Obsidian Arborweave Legguards", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 23, 0, "ability_druid_catform", "=q6=#t12s1_2#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "ability_druid_catform", "=q6=#t12s1_2#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71488, "", "=q4=Obsidian Arborweave Headpiece", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71490, "", "=q4=Obsidian Arborweave Spaulders", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71486, "", "=q4=Obsidian Arborweave Raiment", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5130,7 +5130,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5138,25 +5138,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112DruidBalance"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6=#t11s1_3#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "spell_nature_starfall", "=q6=#t11s1_3#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60282, "", "=q4=Stormrider's Cover", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60284, "", "=q4=Stormrider's Shoulderwraps", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60281, "", "=q4=Stormrider's Vestment", "=ds=#s5#, #a2#", "#JUSTICE:2200#"};
 				{ 5, 60285, "", "=q4=Stormrider's Gloves", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 6, 60283, "", "=q4=Stormrider's Leggings", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 8, 0, "spell_nature_starfall", "=q6=#t11s1_3#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "spell_nature_starfall", "=q6=#t11s1_3#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65200, "", "=q4=Stormrider's Cover", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65203, "", "=q4=Stormrider's Shoulderwraps", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65202, "", "=q4=Stormrider's Vestment", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65199, "", "=q4=Stormrider's Gloves", "=ds=#s9#, #a2#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65201, "", "=q4=Stormrider's Leggings", "=ds=#s11#, #a2#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "spell_nature_starfall", "=q6=#t12s1_3#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "spell_nature_starfall", "=q6=#t12s1_3#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71108, "", "=q4=Obsidian Arborweave Cover", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71111, "", "=q4=Obsidian Arborweave Shoulderwraps", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71110, "", "=q4=Obsidian Arborweave Vestment", "=ds=#s5#, #a2#", "#JUSTICE:2200#"};
 				{ 20, 71107, "", "=q4=Obsidian Arborweave Gloves", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 21, 71109, "", "=q4=Obsidian Arborweave Leggings", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 23, 0, "spell_nature_starfall", "=q6=#t12s1_3#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "spell_nature_starfall", "=q6=#t12s1_3#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71497, "", "=q4=Obsidian Arborweave Cover", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71500, "", "=q4=Obsidian Arborweave Shoulderwraps", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71499, "", "=q4=Obsidian Arborweave Vestment", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5165,7 +5165,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5173,25 +5173,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112Hunter"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_weapon_bow_07", "=q6=#t11s2#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "inv_weapon_bow_07", "=q6=#t11s2#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60303, "", "=q4=Lightning-Charged Headguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60306, "", "=q4=Lightning-Charged Spaulders", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60304, "", "=q4=Lightning-Charged Tunic", "=ds=#s5#, #a3#", "#JUSTICE:2200#"};
 				{ 5, 60307, "", "=q4=Lightning-Charged Gloves", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 6, 60305, "", "=q4=Lightning-Charged Legguards", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 8, 0, "inv_weapon_bow_07", "=q6=#t11s2#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "inv_weapon_bow_07", "=q6=#t11s2#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65206, "", "=q4=Lightning-Charged Headguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65208, "", "=q4=Lightning-Charged Spaulders", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65204, "", "=q4=Lightning-Charged Tunic", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65205, "", "=q4=Lightning-Charged Gloves", "=ds=#s9#, #a3#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65207, "", "=q4=Lightning-Charged Legguards", "=ds=#s11#, #a3#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "inv_weapon_bow_07", "=q6=#t12s2#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "inv_weapon_bow_07", "=q6=#t12s2#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71051, "", "=q4=Flamewaker's Headguard", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71053, "", "=q4=Flamewaker's Spaulders", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71054, "", "=q4=Flamewaker's Tunic", "=ds=#s5#, #a3#", "#JUSTICE:2200#"};
 				{ 20, 71050, "", "=q4=Flamewaker's Gloves", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 21, 71052, "", "=q4=Flamewaker's Legguards", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 23, 0, "inv_weapon_bow_07", "=q6=#t12s2#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "inv_weapon_bow_07", "=q6=#t12s2#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71503, "", "=q4=Flamewaker's Headguard", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71505, "", "=q4=Flamewaker's Spaulders", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71501, "", "=q4=Flamewaker's Tunic", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5208,25 +5208,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112Mage"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_staff_13", "=q6=#t11s3#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "inv_staff_13", "=q6=#t11s3#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60243, "", "=q4=Firelord's Hood", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60246, "", "=q4=Firelord's Mantle", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60244, "", "=q4=Firelord's Robes", "=ds=#s5#, #a1#", "#JUSTICE:2200#"};
 				{ 5, 60247, "", "=q4=Firelord's Gloves", "=ds=#s9#, #a1#", "#JUSTICE:1650#"};
 				{ 6, 60245, "", "=q4=Firelord's Leggings", "=ds=#s11#, #a1#", "#JUSTICE:2200#"};
-				{ 8, 0, "inv_staff_13", "=q6=#t11s3#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "inv_staff_13", "=q6=#t11s3#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65210, "", "=q4=Firelord's Hood", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65213, "", "=q4=Firelord's Mantle", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65212, "", "=q4=Firelord's Robes", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65209, "", "=q4=Firelord's Gloves", "=ds=#s9#, #a1#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65211, "", "=q4=Firelord's Leggings", "=ds=#s11#, #a1#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "inv_staff_13", "=q6=#t12s3#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "inv_staff_13", "=q6=#t12s3#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71287, "", "=q4=Firehawk Hood", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71290, "", "=q4=Firehawk Mantle", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71289, "", "=q4=Firehawk Robes", "=ds=#s5#, #a1#", "#JUSTICE:2200#"};
 				{ 20, 71286, "", "=q4=Firehawk Gloves", "=ds=#s9#, #a1#", "#JUSTICE:1650#"};
 				{ 21, 71288, "", "=q4=Firehawk Leggings", "=ds=#s11#, #a1#", "#JUSTICE:2200#"};
-				{ 23, 0, "inv_staff_13", "=q6=#t12s3#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "inv_staff_13", "=q6=#t12s3#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71508, "", "=q4=Firehawk Hood", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71511, "", "=q4=Firehawk Mantle", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71510, "", "=q4=Firehawk Robes", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5243,25 +5243,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112PaladinHoly"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t11s4_1#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t11s4_1#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60359, "", "=q4=Reinforced Sapphirium Headguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60362, "", "=q4=Reinforced Sapphirium Mantle", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60360, "", "=q4=Reinforced Sapphirium Breastplate", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 5, 60363, "", "=q4=Reinforced Sapphirium Gloves", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 6, 60361, "", "=q4=Reinforced Sapphirium Greaves", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t11s4_1#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t11s4_1#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65221, "", "=q4=Reinforced Sapphirium Headguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65223, "", "=q4=Reinforced Sapphirium Mantle", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65219, "", "=q4=Reinforced Sapphirium Breastplate", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65220, "", "=q4=Reinforced Sapphirium Gloves", "=ds=#s9#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65222, "", "=q4=Reinforced Sapphirium Greaves", "=ds=#s11#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t12s4_1#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t12s4_1#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71093, "", "=q4=Immolation Headguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71095, "", "=q4=Immolation Mantle", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71091, "", "=q4=Immolation Breastplate", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 20, 71092, "", "=q4=Immolation Gloves", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 21, 71094, "", "=q4=Immolation Greaves", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 23, 0, "Spell_Holy_HolyBolt", "=q6=#t12s4_1#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "Spell_Holy_HolyBolt", "=q6=#t12s4_1#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71519, "", "=q4=Immolation Headguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71521, "", "=q4=Immolation Mantle", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71517, "", "=q4=Immolation Breastplate", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5270,7 +5270,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5278,25 +5278,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112PaladinProtection"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_holy_devotionaura", "=q6=#t11s4_2#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "spell_holy_devotionaura", "=q6=#t11s4_2#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60356, "", "=q4=Reinforced Sapphirium Faceguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60358, "", "=q4=Reinforced Sapphirium Shoulderguards", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60354, "", "=q4=Reinforced Sapphirium Chestguard", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 5, 60355, "", "=q4=Reinforced Sapphirium Handguards", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 6, 60357, "", "=q4=Reinforced Sapphirium Legguards", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 8, 0, "spell_holy_devotionaura", "=q6=#t11s4_2#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "spell_holy_devotionaura", "=q6=#t11s4_2#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65226, "", "=q4=Reinforced Sapphirium Faceguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65228, "", "=q4=Reinforced Sapphirium Shoulderguards", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65224, "", "=q4=Reinforced Sapphirium Chestguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65225, "", "=q4=Reinforced Sapphirium Handguards", "=ds=#s9#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65227, "", "=q4=Reinforced Sapphirium Legguards", "=ds=#s11#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "spell_holy_devotionaura", "=q6=#t12s4_2#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "spell_holy_devotionaura", "=q6=#t12s4_2#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 70948, "", "=q4=Immolation Faceguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 70946, "", "=q4=Immolation Shoulderguards", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 70950, "", "=q4=Immolation Chestguard", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 20, 70949, "", "=q4=Immolation Handguards", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 21, 70947, "", "=q4=Immolation Legguards", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 23, 0, "spell_holy_devotionaura", "=q6=#t12s4_2#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "spell_holy_devotionaura", "=q6=#t12s4_2#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71524, "", "=q4=Immolation Faceguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71526, "", "=q4=Immolation Shoulderguards", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71522, "", "=q4=Immolation Chestguard", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5305,7 +5305,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5313,25 +5313,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112PaladinRetribution"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t11s4_3#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t11s4_3#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60346, "", "=q4=Reinforced Sapphirium Helmet", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60348, "", "=q4=Reinforced Sapphirium Pauldrons", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60344, "", "=q4=Reinforced Sapphirium Battleplate", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 5, 60345, "", "=q4=Reinforced Sapphirium Gauntlets", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 6, 60347, "", "=q4=Reinforced Sapphirium Legplates", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t11s4_3#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t11s4_3#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65216, "", "=q4=Reinforced Sapphirium Helmet", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65218, "", "=q4=Reinforced Sapphirium Pauldrons", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65214, "", "=q4=Reinforced Sapphirium Battleplate", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65215, "", "=q4=Reinforced Sapphirium Gauntlets", "=ds=#s9#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65217, "", "=q4=Reinforced Sapphirium Legplates", "=ds=#s11#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t12s4_3#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t12s4_3#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71065, "", "=q4=Immolation Helmet", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71067, "", "=q4=Immolation Pauldrons", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71063, "", "=q4=Immolation Battleplate", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 20, 71064, "", "=q4=Immolation Gauntlets", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 21, 71066, "", "=q4=Immolation Legplates", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 23, 0, "Spell_Holy_AuraOfLight", "=q6=#t12s4_3#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "Spell_Holy_AuraOfLight", "=q6=#t12s4_3#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71514, "", "=q4=Immolation Helmet", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71516, "", "=q4=Immolation Pauldrons", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71512, "", "=q4=Immolation Battleplate", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5340,7 +5340,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5348,25 +5348,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112PriestShadow"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t11s5_1#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t11s5_1#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60256, "", "=q4=Mercurial Hood", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60253, "", "=q4=Mercurial Shoulderwraps", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60254, "", "=q4=Mercurial Vestment", "=ds=#s5#, #a1#", "#JUSTICE:2200#"};
 				{ 5, 60257, "", "=q4=Mercurial Gloves", "=ds=#s9#, #a1#", "#JUSTICE:1650#"};
 				{ 6, 60255, "", "=q4=Mercurial Leggings", "=ds=#s11#, #a1#", "#JUSTICE:2200#"};
-				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t11s5_1#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t11s5_1#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65235, "", "=q4=Mercurial Hood", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65238, "", "=q4=Mercurial Shoulderwraps", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65237, "", "=q4=Mercurial Vestment", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65234, "", "=q4=Mercurial Gloves", "=ds=#s9#, #a1#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65236, "", "=q4=Mercurial Leggings", "=ds=#s11#, #a1#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t12s5_1#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t12s5_1#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71277, "", "=q4=Hood of the Cleansing Flame", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71280, "", "=q4=Shoulderwraps of the Cleansing Flame", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71279, "", "=q4=Vestment of the Cleansing Flame", "=ds=#s5#, #a1#", "#JUSTICE:2200#"};
 				{ 20, 71276, "", "=q4=Gloves of the Cleansing Flame", "=ds=#s9#, #a1#", "#JUSTICE:1650#"};
 				{ 21, 71278, "", "=q4=Leggings of the Cleansing Flame", "=ds=#s11#, #a1#", "#JUSTICE:2200#"};
-				{ 23, 0, "spell_shadow_shadowwordpain", "=q6=#t12s5_1#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "spell_shadow_shadowwordpain", "=q6=#t12s5_1#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71533, "", "=q4=Hood of the Cleansing Flame", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71536, "", "=q4=Shoulderwraps of the Cleansing Flame", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71535, "", "=q4=Vestment of the Cleansing Flame", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5375,7 +5375,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Shadow"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Shadow"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5383,25 +5383,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112PriestHoly"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t11s5_2#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t11s5_2#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60258, "", "=q4=Mercurial Cowl", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60262, "", "=q4=Mercurial Mantle", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60259, "", "=q4=Mercurial Robes", "=ds=#s5#, #a1#", "#JUSTICE:2200#"};
 				{ 5, 60275, "", "=q4=Mercurial Handwraps", "=ds=#s9#, #a1#", "#JUSTICE:1650#"};
 				{ 6, 60261, "", "=q4=Mercurial Legwraps", "=ds=#s11#, #a1#", "#JUSTICE:2200#"};
-				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t11s5_2#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t11s5_2#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65230, "", "=q4=Mercurial Cowl", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65233, "", "=q4=Mercurial Mantle", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65232, "", "=q4=Mercurial Robes", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65229, "", "=q4=Mercurial Handwraps", "=ds=#s9#, #a1#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65231, "", "=q4=Mercurial Legwraps", "=ds=#s11#, #a1#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t12s5_2#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t12s5_2#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71272, "", "=q4=Cowl of the Cleansing Flame", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71275, "", "=q4=Mantle of the Cleansing Flame", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71274, "", "=q4=Robes of the Cleansing Flame", "=ds=#s5#, #a1#", "#JUSTICE:2200#"};
 				{ 20, 71271, "", "=q4=Handwraps of the Cleansing Flame", "=ds=#s9#, #a1#", "#JUSTICE:1650#"};
 				{ 21, 71273, "", "=q4=Legwraps of the Cleansing Flame", "=ds=#s11#, #a1#", "#JUSTICE:2200#"};
-				{ 23, 0, "spell_holy_guardianspirit", "=q6=#t12s5_2#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "spell_holy_guardianspirit", "=q6=#t12s5_2#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71528, "", "=q4=Cowl of the Cleansing Flame", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71531, "", "=q4=Mantle of the Cleansing Flame", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71530, "", "=q4=Robes of the Cleansing Flame", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5410,7 +5410,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5418,25 +5418,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112Rogue"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_throwingknife_04", "=q6=#t11s6#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "inv_throwingknife_04", "=q6=#t11s6#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60299, "", "=q4=Wind Dancer's Helmet", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60302, "", "=q4=Wind Dancer's Spaulders", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60301, "", "=q4=Wind Dancer's Tunic", "=ds=#s5#, #a2#", "#JUSTICE:2200#"};
 				{ 5, 60298, "", "=q4=Wind Dancer's Gloves", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 6, 60300, "", "=q4=Wind Dancer's Legguards", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 8, 0, "inv_throwingknife_04", "=q6=#t11s6#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "inv_throwingknife_04", "=q6=#t11s6#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65241, "", "=q4=Wind Dancer's Helmet", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65243, "", "=q4=Wind Dancer's Spaulders", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65239, "", "=q4=Wind Dancer's Tunic", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65240, "", "=q4=Wind Dancer's Gloves", "=ds=#s9#, #a2#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65242, "", "=q4=Wind Dancer's Legguards", "=ds=#s11#, #a2#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "inv_throwingknife_04", "=q6=#t12s6#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "inv_throwingknife_04", "=q6=#t12s6#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71047, "", "=q4=Dark Phoenix Helmet", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71049, "", "=q4=Dark Phoenix Spaulders", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71045, "", "=q4=Dark Phoenix Tunic", "=ds=#s5#, #a2#", "#JUSTICE:2200#"};
 				{ 20, 71046, "", "=q4=Dark Phoenix Gloves", "=ds=#s9#, #a2#", "#JUSTICE:1650#"};
 				{ 21, 71048, "", "=q4=Dark Phoenix Legguards", "=ds=#s11#, #a2#", "#JUSTICE:2200#"};
-				{ 23, 0, "inv_throwingknife_04", "=q6=#t12s6#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "inv_throwingknife_04", "=q6=#t12s6#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71539, "", "=q4=Dark Phoenix Helmet", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71541, "", "=q4=Dark Phoenix Spaulders", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71537, "", "=q4=Dark Phoenix Tunic", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5453,25 +5453,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112ShamanElemental"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t11s7_3#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t11s7_3#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60315, "", "=q4=Headpiece of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60317, "", "=q4=Shoulderwraps of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60313, "", "=q4=Hauberk of the Raging Elements", "=ds=#s5#, #a3#", "#JUSTICE:2200#"};
 				{ 5, 60314, "", "=q4=Gloves of the Raging Elements", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 6, 60316, "", "=q4=Kilt of the Raging Elements", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t11s7_3#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t11s7_3#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65256, "", "=q4=Headpiece of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65258, "", "=q4=Shoulderwraps of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65254, "", "=q4=Hauberk of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65255, "", "=q4=Gloves of the Raging Elements", "=ds=#s9#, #a3#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65257, "", "=q4=Kilt of the Raging Elements", "=ds=#s11#, #a3#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t12s7_3#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t12s7_3#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71293, "", "=q4=Erupting Volcanic Headpiece", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71295, "", "=q4=Erupting Volcanic Shoulderwraps", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71294, "", "=q4=Erupting Volcanic Hauberk", "=ds=#s5#, #a3#", "#JUSTICE:2200#"};
 				{ 20, 71292, "", "=q4=Erupting Volcanic Gloves", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 21, 71291, "", "=q4=Erupting Volcanic Kilt", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 23, 0, "Spell_Nature_Lightning", "=q6=#t12s7_3#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "Spell_Nature_Lightning", "=q6=#t12s7_3#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71554, "", "=q4=Erupting Volcanic Headpiece", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71556, "", "=q4=Erupting Volcanic Shoulderwraps", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71552, "", "=q4=Erupting Volcanic Hauberk", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5480,7 +5480,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5488,25 +5488,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112ShamanEnhancement"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_lightningshield", "=q6=#t11s7_2#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "spell_nature_lightningshield", "=q6=#t11s7_2#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60320, "", "=q4=Helmet of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60322, "", "=q4=Spaulders of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60318, "", "=q4=Culrass of the Raging Elements", "=ds=#s5#, #a3#", "#JUSTICE:2200#"};
 				{ 5, 60319, "", "=q4=Grips of the Raging Elements", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 6, 60321, "", "=q4=Legguards of the Raging Elements", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 8, 0, "spell_nature_lightningshield", "=q6=#t11s7_2#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "spell_nature_lightningshield", "=q6=#t11s7_2#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65251, "", "=q4=Helmet of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65253, "", "=q4=Spaulders of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65249, "", "=q4=Culrass of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65250, "", "=q4=Grips of the Raging Elements", "=ds=#s9#, #a3#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65252, "", "=q4=Legguards of the Raging Elements", "=ds=#s11#, #a3#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "spell_nature_lightningshield", "=q6=#t12s7_2#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "spell_nature_lightningshield", "=q6=#t12s7_2#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71303, "", "=q4=Erupting Volcanic Helmet", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71305, "", "=q4=Erupting Volcanic Spaulders", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71301, "", "=q4=Erupting Volcanic Cuirass", "=ds=#s5#, #a3#", "#JUSTICE:2200#"};
 				{ 20, 71302, "", "=q4=Erupting Volcanic Grips", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 21, 71304, "", "=q4=Erupting Volcanic Legguards", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 23, 0, "spell_nature_lightningshield", "=q6=#t12s7_2#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "spell_nature_lightningshield", "=q6=#t12s7_2#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71549, "", "=q4=Erupting Volcanic Helmet", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71551, "", "=q4=Erupting Volcanic Spaulders", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71547, "", "=q4=Erupting Volcanic Cuirass", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5515,7 +5515,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5523,25 +5523,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112ShamanRestoration"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t11s7_1#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t11s7_1#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60308, "", "=q4=Faceguard of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60311, "", "=q4=Mantle of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60309, "", "=q4=Tunic of the Raging Elements", "=ds=#s5#, #a3#", "#JUSTICE:2200#"};
 				{ 5, 60312, "", "=q4=Handwraps of the Raging Elements", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 6, 60310, "", "=q4=Legwraps of the Raging Elements", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t11s7_1#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t11s7_1#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65246, "", "=q4=Faceguard of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65248, "", "=q4=Mantle of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65244, "", "=q4=Tunic of the Raging Elements", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65245, "", "=q4=Handwraps of the Raging Elements", "=ds=#s9#, #a3#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65247, "", "=q4=Legwraps of the Raging Elements", "=ds=#s11#, #a3#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t12s7_1#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t12s7_1#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71298, "", "=q4=Erupting Volcanic Faceguard", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71300, "", "=q4=Erupting Volcanic Mantle", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71296, "", "=q4=Erupting Volcanic Tunic", "=ds=#s5#, #a3#", "#JUSTICE:2200#"};
 				{ 20, 71297, "", "=q4=Erupting Volcanic Handwraps", "=ds=#s9#, #a3#", "#JUSTICE:1650#"};
 				{ 21, 71299, "", "=q4=Erupting Volcanic Legwraps", "=ds=#s11#, #a3#", "#JUSTICE:2200#"};
-				{ 23, 0, "spell_nature_magicimmunity", "=q6=#t12s7_1#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "spell_nature_magicimmunity", "=q6=#t12s7_1#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71544, "", "=q4=Erupting Volcanic Faceguard", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71546, "", "=q4=Erupting Volcanic Mantle", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71542, "", "=q4=Erupting Volcanic Tunic", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5550,7 +5550,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5558,25 +5558,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112Warlock"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_drowsy", "=q6=#t11s8#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "spell_nature_drowsy", "=q6=#t11s8#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60249, "", "=q4=Shadowflame Hood", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60252, "", "=q4=Shadowflame Mantle", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60251, "", "=q4=Shadowflame Robes", "=ds=#s5#, #a1#", "#JUSTICE:2200#"};
 				{ 5, 60248, "", "=q4=Shadowflame Handwraps", "=ds=#s9#, #a1#", "#JUSTICE:1650#"};
 				{ 6, 60250, "", "=q4=Shadowflame Leggings", "=ds=#s11#, #a1#", "#JUSTICE:2200#"};
-				{ 8, 0, "spell_nature_drowsy", "=q6=#t11s8#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "spell_nature_drowsy", "=q6=#t11s8#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65260, "", "=q4=Shadowflame Hood", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65263, "", "=q4=Shadowflame Mantle", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65262, "", "=q4=Shadowflame Robes", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65259, "", "=q4=Shadowflame Handwraps", "=ds=#s9#, #a1#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65261, "", "=q4=Shadowflame Leggings", "=ds=#s11#, #a1#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "spell_nature_drowsy", "=q6=#t12s8#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "spell_nature_drowsy", "=q6=#t12s8#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71282, "", "=q4=Balespider's Hood", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71285, "", "=q4=Balespider's Mantle", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71284, "", "=q4=Balespider's Robes", "=ds=#s5#, #a1#", "#JUSTICE:2200#"};
 				{ 20, 71281, "", "=q4=Balespider's Handwraps", "=ds=#s9#, #a1#", "#JUSTICE:1650#"};
 				{ 21, 71283, "", "=q4=Balespider's Leggings", "=ds=#s11#, #a1#", "#JUSTICE:2200#"};
-				{ 23, 0, "spell_nature_drowsy", "=q6=#t12s8#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "spell_nature_drowsy", "=q6=#t12s8#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71595, "", "=q4=Balespider's Hood", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71598, "", "=q4=Balespider's Mantle", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71597, "", "=q4=Balespider's Robes", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5593,25 +5593,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112WarriorFury"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_warrior_innerrage", "=q6=#t11s9_1#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "ability_warrior_innerrage", "=q6=#t11s9_1#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60325, "", "=q4=Earthen Helmet", "=ds=#s1#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60327, "", "=q4=Earthen Pauldrons", "=ds=#s3#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60323, "", "=q4=Earthen Battleplate", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 5, 60326, "", "=q4=Earthen Gauntlets", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 6, 60324, "", "=q4=Earthen Legplates", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 8, 0, "ability_warrior_innerrage", "=q6=#t11s9_1#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "ability_warrior_innerrage", "=q6=#t11s9_1#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65266, "", "=q4=Earthen Helmet", "", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 10, 65268, "", "=q4=Earthen Pauldrons", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65264, "", "=q4=Earthen Battleplate", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65265, "", "=q4=Earthen Gauntlets", "=ds=#s9#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65267, "", "=q4=Earthen Legplates", "=ds=#s11#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "ability_warrior_innerrage", "=q6=#t12s9_1#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "ability_warrior_innerrage", "=q6=#t12s9_1#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 71070, "", "=q4=Helmet of the Molten Giant", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 71072, "", "=q4=Pauldrons of the Molten Giant", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 71068, "", "=q4=Battleplate of the Molten Giant", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 20, 71069, "", "=q4=Gauntlets of the Molten Giant", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 21, 71071, "", "=q4=Legplates of the Molten Giant", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 23, 0, "ability_warrior_innerrage", "=q6=#t12s9_1#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "ability_warrior_innerrage", "=q6=#t12s9_1#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71599, "", "=q4=Helmet of the Molten Giant", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71603, "", "=q4=Pauldrons of the Molten Giant", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71600, "", "=q4=Battleplate of the Molten Giant", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5628,25 +5628,25 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T1112WarriorProtection"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t11s9_2#", "=q5="..AL["Tier 11"]};
+				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t11s9_2#", "=q5="..string.format(AL["Tier %d"], 11)};
 				{ 2, 60328, "", "=q4=Earthen Faceguard", "=ds=#s1#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174)};
 				{ 3, 60331, "", "=q4=Earthen Shoulderguards", "=ds=#s3#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 4, 60329, "", "=q4=Earthen Chestguard", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 5, 60332, "", "=q4=Earthen Handguards", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 6, 60330, "", "=q4=Earthen Legguards", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t11s9_2#", "=q5="..AL["Tier 11"].." - "..AL["Heroic"]};
+				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t11s9_2#", "=q5="..string.format(AL["Tier %d"], 11).." - "..AL["Heroic"]};
 				{ 9, 65271, "", "=q4=Earthen Faceguard", "=ds="..AtlasLoot:EJ_GetBossName("Nefarian's End", 174), ""};
 				{ 10, 65273, "", "=q4=Earthen Shoulderguards", "", "=ds="..AtlasLoot:EJ_GetBossName("Cho'gall", 167)};
 				{ 11, 65269, "", "=q4=Earthen Chestguard", "", "=ds="..AtlasLoot:EJ_GetBossName("Halfus Wyrmbreaker", 156)};
 				{ 12, 65270, "", "=q4=Earthen Handguards", "=ds=#s9#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Magmaw", 170)};
 				{ 13, 65272, "", "=q4=Earthen Legguards", "=ds=#s11#, #a4#", "=ds="..AtlasLoot:EJ_GetBossName("Maloriak", 173)};
-				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t12s9_2#", "=q5="..AL["Tier 12"]};
+				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t12s9_2#", "=q5="..string.format(AL["Tier %d"], 12)};
 				{ 17, 70944, "", "=q4=Faceguard of the Molten Giant", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 18, 70941, "", "=q4=Shoulderguards of the Molten Giant", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 19, 70945, "", "=q4=Chestguard of the Molten Giant", "=ds=#s5#, #a4#", "#JUSTICE:2200#"};
 				{ 20, 70943, "", "=q4=Handguards of the Molten Giant", "=ds=#s9#, #a4#", "#JUSTICE:1650#"};
 				{ 21, 70942, "", "=q4=Legguards of the Molten Giant", "=ds=#s11#, #a4#", "#JUSTICE:2200#"};
-				{ 23, 0, "ability_warrior_defensivestance", "=q6=#t12s9_2#", "=q5="..AL["Tier 12"].." - "..AL["Heroic"]};
+				{ 23, 0, "ability_warrior_defensivestance", "=q6=#t12s9_2#", "=q5="..string.format(AL["Tier %d"], 12).." - "..AL["Heroic"]};
 				{ 24, 71606, "", "=q4=Faceguard of the Molten Giant", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Ragnaros", 198)};
 				{ 25, 71608, "", "=q4=Shoulderguards of the Molten Giant", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Majordomo Staghelm", 197)};
 				{ 26, 71604, "", "=q4=Chestguard of the Molten Giant", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Alysrazor", 194)};
@@ -5655,7 +5655,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T1112SET",
 		};
 	}
@@ -5667,19 +5667,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13DeathKnightDPS"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t13s10_1#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t13s10_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78782, "", "=q4=Necrotic Boneplate Helmet", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78831, "", "=q4=Necrotic Boneplate Pauldrons", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78754, "", "=q4=Necrotic Boneplate Breastplate", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78765, "", "=q4=Necrotic Boneplate Gauntlets", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78802, "", "=q4=Necrotic Boneplate Greaves", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t13s10_1#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t13s10_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76976, "", "=q4=Necrotic Boneplate Helmet", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76978, "", "=q4=Necrotic Boneplate Pauldrons", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76974, "", "=q4=Necrotic Boneplate Breastplate", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76975, "", "=q4=Necrotic Boneplate Gauntlets", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76977, "", "=q4=Necrotic Boneplate Greaves", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t13s10_1#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t13s10_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78687, "", "=q4=Necrotic Boneplate Helmet", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78736, "", "=q4=Necrotic Boneplate Pauldrons", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78659, "", "=q4=Necrotic Boneplate Breastplate", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5696,19 +5696,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13DeathKnightTank"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t13s10_2#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t13s10_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78792, "", "=q4=Necrotic Boneplate Faceguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78846, "", "=q4=Necrotic Boneplate Shoulderguards", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78758, "", "=q4=Necrotic Boneplate Chestguard", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78773, "", "=q4=Necrotic Boneplate Handguards", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78811, "", "=q4=Necrotic Boneplate Legguards", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t13s10_2#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t13s10_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 77010, "", "=q4=Necrotic Boneplate Faceguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 77012, "", "=q4=Necrotic Boneplate Shoulderguards", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 77008, "", "=q4=Necrotic Boneplate Chestguard", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 77009, "", "=q4=Necrotic Boneplate Handguards", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 77011, "", "=q4=Necrotic Boneplate Legguards", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "spell_deathknight_bloodpresence", "=q6=#t13s10_2#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "spell_deathknight_bloodpresence", "=q6=#t13s10_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78697, "", "=q4=Necrotic Boneplate Faceguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78751, "", "=q4=Necrotic Boneplate Shoulderguards", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78663, "", "=q4=Necrotic Boneplate Chestguard", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5725,19 +5725,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13DruidRestoration"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_healingtouch", "=q6=#t13s1_1#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "spell_nature_healingtouch", "=q6=#t13s1_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78785, "", "=q4=Deep Earth Helm", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78835, "", "=q4=Deep Earth Mantle", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78755, "", "=q4=Deep Earth Robes", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78775, "", "=q4=Deep Earth Handwraps", "=ds=#s9#, #a2#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78805, "", "=q4=Deep Earth Legwraps", "=ds=#s11#, #a2#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "spell_nature_healingtouch", "=q6=#t13s1_1#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "spell_nature_healingtouch", "=q6=#t13s1_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76750, "", "=q4=Deep Earth Helm", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76753, "", "=q4=Deep Earth Mantle", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76752, "", "=q4=Deep Earth Robes", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76749, "", "=q4=Deep Earth Handwraps", "=ds=#s9#, #a2#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76751, "", "=q4=Deep Earth Legwraps", "=ds=#s11#, #a2#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "spell_nature_healingtouch", "=q6=#t13s1_1#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "spell_nature_healingtouch", "=q6=#t13s1_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78690, "", "=q4=Deep Earth Helm", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78740, "", "=q4=Deep Earth Mantle", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78660, "", "=q4=Deep Earth Robes", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5746,7 +5746,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -5754,19 +5754,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13DruidFeral"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_druid_catform", "=q6=#t13s1_2#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "ability_druid_catform", "=q6=#t13s1_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78789, "", "=q4=Deep Earth Headpiece", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78838, "", "=q4=Deep Earth Spaulders", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78760, "", "=q4=Deep Earth Raiment", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78779, "", "=q4=Deep Earth Grips", "=ds=#s9#, #a2#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78808, "", "=q4=Deep Earth Legguards", "=ds=#s11#, #a2#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "ability_druid_catform", "=q6=#t13s1_2#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "ability_druid_catform", "=q6=#t13s1_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 77015, "", "=q4=Deep Earth Headpiece", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 77017, "", "=q4=Deep Earth Spaulders", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 77013, "", "=q4=Deep Earth Raiment", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 77014, "", "=q4=Deep Earth Grips", "=ds=#s9#, #a2#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 77016, "", "=q4=Deep Earth Legguards", "=ds=#s11#, #a2#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "ability_druid_catform", "=q6=#t13s1_2#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "ability_druid_catform", "=q6=#t13s1_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78694, "", "=q4=Deep Earth Headpiece", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78743, "", "=q4=Deep Earth Spaulders", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78665, "", "=q4=Deep Earth Raiment", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5775,7 +5775,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -5783,19 +5783,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13DruidBalance"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6=#t13s1_3#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "spell_nature_starfall", "=q6=#t13s1_3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78791, "", "=q4=Deep Earth Cover", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78839, "", "=q4=Deep Earth Shoulderwraps", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78757, "", "=q4=Deep Earth Vestment", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78771, "", "=q4=Deep Earth Gloves", "=ds=#s9#, #a2#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78809, "", "=q4=Deep Earth Leggings", "=ds=#s11#, #a2#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "spell_nature_starfall", "=q6=#t13s1_3#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "spell_nature_starfall", "=q6=#t13s1_3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 77019, "", "=q4=Deep Earth Cover", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 77022, "", "=q4=Deep Earth Shoulderwraps", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 77021, "", "=q4=Deep Earth Vestment", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 77018, "", "=q4=Deep Earth Gloves", "=ds=#s9#, #a2#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 77020, "", "=q4=Deep Earth Leggings", "=ds=#s11#, #a2#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "spell_nature_starfall", "=q6=#t13s1_3#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "spell_nature_starfall", "=q6=#t13s1_3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78696, "", "=q4=Deep Earth Cover", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78744, "", "=q4=Deep Earth Shoulderwraps", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78662, "", "=q4=Deep Earth Vestment", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5804,7 +5804,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -5812,19 +5812,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13Hunter"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_weapon_bow_07", "=q6=#t13s2#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "inv_weapon_bow_07", "=q6=#t13s2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78793, "", "=q4=Wyrmstalker's Headguard", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78832, "", "=q4=Wyrmstalker's Spaulders", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78756, "", "=q4=Wyrmstalker's Tunic", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78769, "", "=q4=Wyrmstalker's Gloves", "=ds=#s9#, #a3#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78804, "", "=q4=Wyrmstalker's Legguards", "=ds=#s11#, #a3#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "inv_weapon_bow_07", "=q6=#t13s2#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "inv_weapon_bow_07", "=q6=#t13s2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 77030, "", "=q4=Wyrmstalker's Headguard", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 77032, "", "=q4=Wyrmstalker's Spaulders", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 77028, "", "=q4=Wyrmstalker's Tunic", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 77029, "", "=q4=Wyrmstalker's Gloves", "=ds=#s9#, #a3#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 77031, "", "=q4=Wyrmstalker's Legguards", "=ds=#s11#, #a3#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "inv_weapon_bow_07", "=q6=#t13s2#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "inv_weapon_bow_07", "=q6=#t13s2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78698, "", "=q4=Wyrmstalker's Headguard", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78737, "", "=q4=Wyrmstalker's Spaulders", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78661, "", "=q4=Wyrmstalker's Tunic", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5841,19 +5841,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13Mage"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_staff_13", "=q6=#t13s3#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "inv_staff_13", "=q6=#t13s3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78796, "", "=q4=Time Lord's Hood", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78843, "", "=q4=Time Lord's Mantle", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78824, "", "=q4=Time Lord's Robes", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78766, "", "=q4=Time Lord's Gloves", "=ds=#s9#, #a1#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78815, "", "=q4=Time Lord's Leggings", "=ds=#s11#, #a1#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "inv_staff_13", "=q6=#t13s3#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "inv_staff_13", "=q6=#t13s3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76213, "", "=q4=Time Lord's Hood", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76216, "", "=q4=Time Lord's Mantle", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76215, "", "=q4=Time Lord's Robes", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76212, "", "=q4=Time Lord's Gloves", "=ds=#s9#, #a1#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76214, "", "=q4=Time Lord's Leggings", "=ds=#s11#, #a1#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "inv_staff_13", "=q6=#t13s3#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "inv_staff_13", "=q6=#t13s3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78701, "", "=q4=Time Lord's Hood", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78748, "", "=q4=Time Lord's Mantle", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78729, "", "=q4=Time Lord's Robes", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5870,19 +5870,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13PaladinHoly"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t13s4_1#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t13s4_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78787, "", "=q4=Headguard of Radiant Glory", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78841, "", "=q4=Mantle of Radiant Glory", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78821, "", "=q4=Breastplate of Radiant Glory", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78768, "", "=q4=Gloves of Radiant Glory", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78812, "", "=q4=Greaves of Radiant Glory", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t13s4_1#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t13s4_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76767, "", "=q4=Headguard of Radiant Glory", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76769, "", "=q4=Mantle of Radiant Glory", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76765, "", "=q4=Breastplate of Radiant Glory", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76766, "", "=q4=Gloves of Radiant Glory", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76768, "", "=q4=Greaves of Radiant Glory", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t13s4_1#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t13s4_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78692, "", "=q4=Headguard of Radiant Glory", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78746, "", "=q4=Mantle of Radiant Glory", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78726, "", "=q4=Breastplate of Radiant Glory", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5891,7 +5891,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -5899,19 +5899,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13PaladinProtection"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_holy_devotionaura", "=q6=#t13s4_2#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "spell_holy_devotionaura", "=q6=#t13s4_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78790, "", "=q4=Faceguard of Radiant Glory", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78840, "", "=q4=Shoulderguards of Radiant Glory", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78827, "", "=q4=Chestguard of Radiant Glory", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78772, "", "=q4=Handguards of Radiant Glory", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78810, "", "=q4=Legguards of Radiant Glory", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "spell_holy_devotionaura", "=q6=#t13s4_2#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "spell_holy_devotionaura", "=q6=#t13s4_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 77005, "", "=q4=Faceguard of Radiant Glory", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 77007, "", "=q4=Shoulderguards of Radiant Glory", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 77003, "", "=q4=Chestguard of Radiant Glory", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 77004, "", "=q4=Handguards of Radiant Glory", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 77006, "", "=q4=Legguards of Radiant Glory", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "spell_holy_devotionaura", "=q6=#t13s4_2#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "spell_holy_devotionaura", "=q6=#t13s4_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78695, "", "=q4=Faceguard of Radiant Glory", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78745, "", "=q4=Shoulderguards of Radiant Glory", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78732, "", "=q4=Chestguard of Radiant Glory", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5920,7 +5920,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -5928,19 +5928,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13PaladinRetribution"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t13s4_3#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t13s4_3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78788, "", "=q4=Helmet of Radiant Glory", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78837, "", "=q4=Pauldrons of Radiant Glory", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78822, "", "=q4=Battleplate of Radiant Glory", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78770, "", "=q4=Gauntlets of Radiant Glory", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78807, "", "=q4=Legplates of Radiant Glory", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t13s4_3#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t13s4_3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76876, "", "=q4=Helmet of Radiant Glory", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76878, "", "=q4=Pauldrons of Radiant Glory", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76874, "", "=q4=Battleplate of Radiant Glory", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76875, "", "=q4=Gauntlets of Radiant Glory", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76877, "", "=q4=Legplates of Radiant Glory", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t13s4_3#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t13s4_3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78693, "", "=q4=Helmet of Radiant Glory", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78742, "", "=q4=Pauldrons of Radiant Glory", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78727, "", "=q4=Battleplate of Radiant Glory", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5949,7 +5949,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -5957,19 +5957,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13PriestShadow"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t13s5_1#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t13s5_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78798, "", "=q4=Hood of Dying Light", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78845, "", "=q4=Mantle of Dying Light", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78826, "", "=q4=Robes of Dying Light", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78777, "", "=q4=Gloves of Dying Light", "=ds=#s9#, #a1#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78817, "", "=q4=Leggings of Dying Light", "=ds=#s11#, #a1#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t13s5_1#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t13s5_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76347, "", "=q4=Hood of Dying Light", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76344, "", "=q4=Mantle of Dying Light", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76345, "", "=q4=Robes of Dying Light", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76348, "", "=q4=Gloves of Dying Light", "=ds=#s9#, #a1#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76346, "", "=q4=Leggings of Dying Light", "=ds=#s11#, #a1#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t13s5_1#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t13s5_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78703, "", "=q4=Hood of Dying Light", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78750, "", "=q4=Mantle of Dying Light", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78731, "", "=q4=Robes of Dying Light", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -5978,7 +5978,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Shadow"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Shadow"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -5986,19 +5986,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13PriestHoly"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t13s5_2#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t13s5_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78795, "", "=q4=Cowl of Dying Light", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78842, "", "=q4=Mantle of Dying Light", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78823, "", "=q4=Robes of Dying Light", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78778, "", "=q4=Handwraps of Dying Light", "=ds=#s9#, #a1#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78814, "", "=q4=Legwraps of Dying Light", "=ds=#s11#, #a1#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t13s5_2#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t13s5_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76358, "", "=q4=Cowl of Dying Light", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76361, "", "=q4=Mantle of Dying Light", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76360, "", "=q4=Robes of Dying Light", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76357, "", "=q4=Handwraps of Dying Light", "=ds=#s9#, #a1#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76359, "", "=q4=Legwraps of Dying Light", "=ds=#s11#, #a1#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t13s5_2#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t13s5_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78700, "", "=q4=Cowl of Dying Light", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78747, "", "=q4=Mantle of Dying Light", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78728, "", "=q4=Robes of Dying Light", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -6007,7 +6007,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -6015,19 +6015,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13Rogue"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_throwingknife_04", "=q6=#t13s6#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "inv_throwingknife_04", "=q6=#t13s6#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78794, "", "=q4=Blackfang Battleweave Helmet", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78833, "", "=q4=Blackfang Battleweave Spaulders", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78759, "", "=q4=Blackfang Battleweave Tunic", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78774, "", "=q4=Blackfang Battleweave Gloves", "=ds=#s9#, #a2#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78803, "", "=q4=Blackfang Battleweave Legguards", "=ds=#s11#, #a2#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "inv_throwingknife_04", "=q6=#t13s6#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "inv_throwingknife_04", "=q6=#t13s6#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 77025, "", "=q4=Blackfang Battleweave Helmet", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 77027, "", "=q4=Blackfang Battleweave Spaulders", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 77023, "", "=q4=Blackfang Battleweave Tunic", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 77024, "", "=q4=Blackfang Battleweave Gloves", "=ds=#s9#, #a2#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 77026, "", "=q4=Blackfang Battleweave Legguards", "=ds=#s11#, #a2#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "inv_throwingknife_04", "=q6=#t13s6#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "inv_throwingknife_04", "=q6=#t13s6#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78699, "", "=q4=Blackfang Battleweave Helmet", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78738, "", "=q4=Blackfang Battleweave Spaulders", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78664, "", "=q4=Blackfang Battleweave Tunic", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -6044,19 +6044,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13ShamanElemental"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t13s7_3#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t13s7_3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78780, "", "=q4=Spiritwalker's Headpiece", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78836, "", "=q4=Spiritwalker's Shoulderwraps", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78818, "", "=q4=Spiritwalker's Hauberk", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78761, "", "=q4=Spiritwalker's Gloves", "=ds=#s9#, #a3#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78806, "", "=q4=Spiritwalker's Kilt", "=ds=#s11#, #a3#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t13s7_3#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t13s7_3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 77037, "", "=q4=Spiritwalker's Headpiece", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 77035, "", "=q4=Spiritwalker's Shoulderwraps", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 77039, "", "=q4=Spiritwalker's Hauberk", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 77038, "", "=q4=Spiritwalker's Gloves", "=ds=#s9#, #a3#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 77036, "", "=q4=Spiritwalker's Kilt", "=ds=#s11#, #a3#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t13s7_3#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t13s7_3#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78685, "", "=q4=Spiritwalker's Headpiece", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78741, "", "=q4=Spiritwalker's Shoulderwraps", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78723, "", "=q4=Spiritwalker's Hauberk", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -6065,7 +6065,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -6073,19 +6073,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13ShamanEnhancement"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_lightningshield", "=q6=#t13s7_2#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "spell_nature_lightningshield", "=q6=#t13s7_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78781, "", "=q4=Spiritwalker's Helmet", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78828, "", "=q4=Spiritwalker's Spaulders", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78819, "", "=q4=Spiritwalker's Cuirass", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78762, "", "=q4=Spiritwalker's Grips", "=ds=#s9#, #a3#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78799, "", "=q4=Spiritwalker's Legguards", "=ds=#s11#, #a3#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "spell_nature_lightningshield", "=q6=#t13s7_2#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "spell_nature_lightningshield", "=q6=#t13s7_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 77042, "", "=q4=Spiritwalker's Helmet", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 77044, "", "=q4=Spiritwalker's Spaulders", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 77040, "", "=q4=Spiritwalker's Cuirass", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 77041, "", "=q4=Spiritwalker's Grips", "=ds=#s9#, #a3#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 77043, "", "=q4=Spiritwalker's Legguards", "=ds=#s11#, #a3#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "spell_nature_lightningshield", "=q6=#t13s7_2#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "spell_nature_lightningshield", "=q6=#t13s7_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78686, "", "=q4=Spiritwalker's Helmet", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78733, "", "=q4=Spiritwalker's Spaulders", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78724, "", "=q4=Spiritwalker's Cuirass", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -6094,7 +6094,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -6102,19 +6102,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13ShamanRestoration"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t13s7_1#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t13s7_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78786, "", "=q4=Spiritwalker's Faceguard", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78834, "", "=q4=Spiritwalker's Mantle", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78820, "", "=q4=Spiritwalker's Tunic", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78767, "", "=q4=Spiritwalker's Handwraps", "=ds=#s9#, #a3#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78813, "", "=q4=Spiritwalker's Legwraps", "=ds=#s11#, #a3#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t13s7_1#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t13s7_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76758, "", "=q4=Spiritwalker's Faceguard", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76760, "", "=q4=Spiritwalker's Mantle", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76756, "", "=q4=Spiritwalker's Tunic", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76757, "", "=q4=Spiritwalker's Handwraps", "=ds=#s9#, #a3#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76759, "", "=q4=Spiritwalker's Legwraps", "=ds=#s11#, #a3#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t13s7_1#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t13s7_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78691, "", "=q4=Spiritwalker's Faceguard", "=ds=#s1#, #a3#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78739, "", "=q4=Spiritwalker's Mantle", "=ds=#s3#, #a3#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78725, "", "=q4=Spiritwalker's Tunic", "=ds=#s5#, #a3#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -6123,7 +6123,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T13SET",
 		};
 	}
@@ -6131,19 +6131,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13Warlock"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_drowsy", "=q6=#t13s8#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "spell_nature_drowsy", "=q6=#t13s8#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78797, "", "=q4=Hood of the Faceless Shroud", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78844, "", "=q4=Mantle of the Faceless Shroud", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78825, "", "=q4=Robes of the Faceless Shroud", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78776, "", "=q4=Gloves of the Faceless Shroud", "=ds=#s9#, #a1#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78816, "", "=q4=Leggings of the Faceless Shroud", "=ds=#s11#, #a1#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "spell_nature_drowsy", "=q6=#t13s8#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "spell_nature_drowsy", "=q6=#t13s8#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76342, "", "=q4=Hood of the Faceless Shroud", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76339, "", "=q4=Mantle of the Faceless Shroud", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76340, "", "=q4=Robes of the Faceless Shroud", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76343, "", "=q4=Gloves of the Faceless Shroud", "=ds=#s9#, #a1#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76341, "", "=q4=Leggings of the Faceless Shroud", "=ds=#s11#, #a1#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "spell_nature_drowsy", "=q6=#t13s8#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "spell_nature_drowsy", "=q6=#t13s8#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78702, "", "=q4=Hood of the Faceless Shroud", "=ds=#s1#, #a1#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78749, "", "=q4=Mantle of the Faceless Shroud", "=ds=#s3#, #a1#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78730, "", "=q4=Robes of the Faceless Shroud", "=ds=#s5#, #a1#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -6160,19 +6160,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13WarriorFury"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_warrior_innerrage", "=q6=#t13s9_1#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "ability_warrior_innerrage", "=q6=#t13s9_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78783, "", "=q4=Colossal Dragonplate Helmet", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78830, "", "=q4=Colossal Dragonplate Pauldrons", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78752, "", "=q4=Colossal Dragonplate Battleplate", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78763, "", "=q4=Colossal Dragonplate Gauntlets", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78801, "", "=q4=Colossal Dragonplate Legplates", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "ability_warrior_innerrage", "=q6=#t13s9_1#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "ability_warrior_innerrage", "=q6=#t13s9_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76983, "", "=q4=Colossal Dragonplate Helmet", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76987, "", "=q4=Colossal Dragonplate Pauldrons", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76984, "", "=q4=Colossal Dragonplate Battleplate", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76985, "", "=q4=Colossal Dragonplate Gauntlets", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76986, "", "=q4=Colossal Dragonplate Legplates", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "ability_warrior_innerrage", "=q6=#t13s9_1#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "ability_warrior_innerrage", "=q6=#t13s9_1#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78688, "", "=q4=Colossal Dragonplate Helmet", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78735, "", "=q4=Colossal Dragonplate Pauldrons", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78657, "", "=q4=Colossal Dragonplate Battleplate", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -6189,19 +6189,19 @@ local moduleName = "AtlasLootCataclysm"
 	AtlasLoot_Data["T13WarriorProtection"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_warrior_innerrage", "=q6=#t13s9_2#", "=q5="..AL["Tier 13"].." - "..AL["Raid Finder"]};
+				{ 1, 0, "ability_warrior_innerrage", "=q6=#t13s9_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Raid Finder"]};
 				{ 2, 78784, "", "=q4=Colossal Dragonplate Faceguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 3, 78829, "", "=q4=Colossal Dragonplate Shoulderguards", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 4, 78753, "", "=q4=Colossal Dragonplate Chestguards", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 5, 78764, "", "=q4=Colossal Dragonplate Handguards", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 6, 78800, "", "=q4=Colossal Dragonplate Legguards", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 8, 0, "ability_warrior_innerrage", "=q6=#t13s9_2#", "=q5="..AL["Tier 13"].." - "..AL["Normal"]};
+				{ 8, 0, "ability_warrior_innerrage", "=q6=#t13s9_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Normal"]};
 				{ 9, 76990, "", "=q4=Colossal Dragonplate Faceguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 10, 76992, "", "=q4=Colossal Dragonplate Shoulderguards", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 11, 76988, "", "=q4=Colossal Dragonplate Chestguard", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
 				{ 12, 76989, "", "=q4=Colossal Dragonplate Handguards", "=ds=#s9#, #a4#", AtlasLoot:EJ_GetBossName("Warlord Zon'ozz", 324)};
 				{ 13, 76991, "", "=q4=Colossal Dragonplate Legguards", "=ds=#s11#, #a4#", AtlasLoot:EJ_GetBossName("Yor'sahj the Unsleeping", 325)};
-				{ 16, 0, "ability_warrior_innerrage", "=q6=#t13s9_2#", "=q5="..AL["Tier 13"].." - "..AL["Heroic"]};
+				{ 16, 0, "ability_warrior_innerrage", "=q6=#t13s9_2#", "=q5="..string.format(AL["Tier %d"], 13).." - "..AL["Heroic"]};
 				{ 17, 78689, "", "=q4=Colossal Dragonplate Faceguard", "=ds=#s1#, #a4#", AtlasLoot:EJ_GetBossName("Warmaster Blackhorn", 332)};
 				{ 18, 78734, "", "=q4=Colossal Dragonplate Shoulderguards", "=ds=#s3#, #a4#", AtlasLoot:EJ_GetBossName("Hagara the Stormbinder", 317)};
 				{ 19, 78658, "", "=q4=Colossal Dragonplate Chestguards", "=ds=#s5#, #a4#", AtlasLoot:EJ_GetBossName("Ultraxion", 331)};
@@ -6210,7 +6210,7 @@ local moduleName = "AtlasLootCataclysm"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T13SET",
 		};
 	}

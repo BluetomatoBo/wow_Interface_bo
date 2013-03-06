@@ -1,4 +1,4 @@
--- $Id: TextParsing.lua 4032 2012-12-05 16:13:54Z celellach $
+-- $Id: TextParsing.lua 4069 2013-02-09 21:34:59Z lag123 $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -132,6 +132,7 @@ AtlasLoot_TextParsing = {
 	--{ "#e29#", BabbleInventory["Aquatic Mount"] }, -- Saved for later
 	{ "#e30#", BabbleInventory["Meat"] },
 	{ "#e31#", AL["Vegetables"] },
+	{ "#e32#", BabbleInventory["Meta"] },
 
 	-- Labels for Loot Descriptions
 	{ "#m1#", AL["Classes:"] },
@@ -143,22 +144,23 @@ AtlasLoot_TextParsing = {
 	{ "#m7#", BabbleFaction["Alliance"] },
 	{ "#m17#", AL["Currency"] },
 	{ "#m20#", AL["Misc"] },
-	{ "#m21#", AL["Tier 4"] },
-	{ "#m22#", AL["Tier 5"] },
-	{ "#m23#", AL["Tier 6"] },
+	{ "#m21#", string.format(AL["Tier %d"], 4) },
+	{ "#m22#", string.format(AL["Tier %d"], 5) },
+	{ "#m23#", string.format(AL["Tier %d"], 6) },
 	{ "#m24#", AL["Card Game Item"] },
 	{ "#m27#", AL["Used to summon boss"] },
 	{ "#m29#", AL["Tradable for sunmote + item above"] },
-	{ "#m30#", AL["Tier 1"] },
-	{ "#m31#", AL["Tier 2"] },
+	{ "#m30#", string.format(AL["Tier %d"], 1) },
+	{ "#m31#", string.format(AL["Tier %d"], 2) },
 	{ "#m32#", AL["Achievement Reward"] },
 	{ "#m34#", AL["Old Quest Reward"] },
-	{ "#m35#", AL["Tier 3"] },
+	{ "#m35#", string.format(AL["Tier %d"], 3) },
 	{ "#m36#", AL["No Longer Available"]},
-	{ "#m37#", AL["Tier 11"] },
-	{ "#m38#", AL["Tier 12"] },
-	{ "#m39#", AL["Tier 13"] },
-	{ "#m40#", AL["Tier 14"] },
+	{ "#m37#", string.format(AL["Tier %d"], 11) },
+	{ "#m38#", string.format(AL["Tier %d"], 12) },
+	{ "#m39#", string.format(AL["Tier %d"], 13) },
+	{ "#m40#", string.format(AL["Tier %d"], 14) },
+	{ "#m41#", string.format(AL["Tier %d"], 15) },
 
 	-- Misc
 	{ "#j1#", AL["Normal Mode"] },
@@ -646,6 +648,31 @@ AtlasLoot_TextParsing = {
 	{ "#t14s11_2#", BabbleItemSet["Battlegear of the Red Crane"] },
 	{ "#t14s11_3#", BabbleItemSet["Vestments of the Red Crane"] },
 
+	-- Tier 15 Sets
+	{ "#t15s1_1#", BabbleItemSet["Vestments of the Haunted Forest"] },
+	{ "#t15s1_2#", BabbleItemSet["Battlegear of the Haunted Forest"] },
+	{ "#t15s1_3#", BabbleItemSet["Regalia of the Haunted Forest"] },
+	{ "#t15s1_4#", BabbleItemSet["Armor of the Haunted Forest"] },
+	{ "#t15s2#", BabbleItemSet["Battlegear of the Saurok Stalker"] },
+	{ "#t15s3#", BabbleItemSet["Regalia of the Chromatic Hydra"] },
+	{ "#t15s4_1#", BabbleItemSet["Vestments of the Lightning Emperor"] },
+	{ "#t15s4_2#", BabbleItemSet["Plate of the Lightning Emperor"] },
+	{ "#t15s4_3#", BabbleItemSet["Battlegear of the Lightning Emperor"] },
+	{ "#t15s5_1#", BabbleItemSet["Regalia of the Exorcist"] },
+	{ "#t15s5_2#", BabbleItemSet["Vestments of the Exorcist"] },
+	{ "#t15s6#", BabbleItemSet["Nine-Tail Battlegear"] },
+	{ "#t15s7_1#", BabbleItemSet["Vestments of the Spiritbreaker"] },
+	{ "#t15s7_2#", BabbleItemSet["Battlegear of the Spiritbreaker"] },
+	{ "#t15s7_3#", BabbleItemSet["Regalia of the Spiritbreaker"] },
+	{ "#t15s8#", BabbleItemSet["Regalia of the Thousand Hells"] },
+	{ "#t15s9_1#", BabbleItemSet["Battleplate of the Last Mogu"] },
+	{ "#t15s9_2#", BabbleItemSet["Plate of the Last Mogu"] },
+	{ "#t15s10_1#", BabbleItemSet["Battleplate of the All-Consuming Maw"] },
+	{ "#t15s10_2#", BabbleItemSet["Plate of the All-Consuming Maw"] },
+	{ "#t15s11_1#", BabbleItemSet["Fire-Charm Armor"] },
+	{ "#t15s11_2#", BabbleItemSet["Fire-Charm Battlegear"] },
+	{ "#t15s11_3#", BabbleItemSet["Fire-Charm Vestments"] },
+
 	-- Arathi Basin Sets - Alliance
 	{ "#absa1#", BabbleItemSet["The Highlander's Intent"] },
 	{ "#absa2#", BabbleItemSet["The Highlander's Purpose"] },
@@ -768,18 +795,18 @@ AtlasLoot_TextParsing = {
 	{ "=ds=", "|cffFFd200" },	-- Yellow
 
 	-- Months
-	{ "#month1#", AL["January"] },
-	{ "#month2#", AL["February"] },
-	{ "#month3#", AL["March"] },
-	{ "#month4#", AL["April"] },
-	{ "#month5#", AL["May"] },
-	{ "#month6#", AL["June"] },
-	{ "#month7#", AL["July"] },
-	{ "#month8#", AL["August"] },
-	{ "#month9#", AL["September"] },
-	{ "#month10#", AL["October"] },
-	{ "#month11#", AL["November"] },
-	{ "#month12#", AL["December"] },
+	{ "#month1#", AtlasLoot_IngameLocales["January"] },
+	{ "#month2#", AtlasLoot_IngameLocales["February"] },
+	{ "#month3#", AtlasLoot_IngameLocales["March"] },
+	{ "#month4#", AtlasLoot_IngameLocales["April"] },
+	{ "#month5#", AtlasLoot_IngameLocales["May"] },
+	{ "#month6#", AtlasLoot_IngameLocales["June"] },
+	{ "#month7#", AtlasLoot_IngameLocales["July"] },
+	{ "#month8#", AtlasLoot_IngameLocales["August"] },
+	{ "#month9#", AtlasLoot_IngameLocales["September"] },
+	{ "#month10#", AtlasLoot_IngameLocales["October"] },
+	{ "#month11#", AtlasLoot_IngameLocales["November"] },
+	{ "#month12#", AtlasLoot_IngameLocales["December"] },
 
 	-- Currency Icons
 	{ "#gold#", "|TInterface\\AddOns\\AtlasLoot\\Images\\gold:0|t" },

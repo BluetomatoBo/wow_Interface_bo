@@ -1,4 +1,4 @@
--- $Id: Filter.lua 4015 2012-11-28 13:54:41Z lag123 $
+-- $Id: Filter.lua 4075 2013-02-12 20:43:06Z lag123 $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -421,6 +421,12 @@ function Filter:OnEnable()
 			end
 		end)
 		AtlasLoot.ItemFrame.Filter:SetScript("OnClick", Filter.FilterButtonOnClick)	
+		AtlasLoot.ItemFrame.Filter:SetScript("OnEnter", function(self)
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:AddLine(AL["|cffFF0000Shift+Click: |cffFFFFFFOpen filter configuration"])
+			GameTooltip:Show()
+		end)
+		AtlasLoot.ItemFrame.Filter:SetScript("OnLeave", function() GameTooltip:Hide() end)
 		AtlasLoot.ItemFrame.Filter:Show()
 	end
 end

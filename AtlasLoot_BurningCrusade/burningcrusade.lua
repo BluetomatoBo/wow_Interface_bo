@@ -1,4 +1,4 @@
--- $Id: burningcrusade.lua 4023 2012-12-02 09:27:48Z celellach $
+-- $Id: burningcrusade.lua 4069 2013-02-09 21:34:59Z lag123 $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -4623,7 +4623,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4658,7 +4658,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4693,7 +4693,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4798,7 +4798,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4833,7 +4833,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4868,7 +4868,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4903,7 +4903,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Shadow"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Shadow"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4938,7 +4938,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Discipline"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Discipline"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5008,7 +5008,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"].." - "..AL["Demonology"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"].." - "..AtlasLoot_IngameLocales["Demonology"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5043,7 +5043,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"].." - "..AL["Destruction"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"].." - "..AtlasLoot_IngameLocales["Destruction"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5078,7 +5078,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5113,7 +5113,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5148,7 +5148,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5527,7 +5527,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5559,7 +5559,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5591,7 +5591,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5687,7 +5687,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5719,7 +5719,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5751,7 +5751,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5783,7 +5783,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5815,7 +5815,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Shadow"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Shadow"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5879,7 +5879,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5911,7 +5911,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5943,7 +5943,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -6007,7 +6007,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T456SET",
 		};
 	}

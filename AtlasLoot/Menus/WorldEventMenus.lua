@@ -1,4 +1,4 @@
--- $Id: WorldEventMenus.lua 4030 2012-12-04 16:44:04Z celellach $
+-- $Id: WorldEventMenus.lua 4069 2013-02-09 21:34:59Z lag123 $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
@@ -10,22 +10,22 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 		["Normal"] = {
 			{
 				{ 1, "ARGENTMENU", "Ability_Paladin_ArtofWar", "=ds="..AL["Argent Tournament"], "=q5="..AtlasLoot:GetMapNameByID(492)};
-				{ 3, "BREWFESTMENU", "achievement_worldevent_brewmaster", "=ds="..AL["Brewfest"], "=q5="..AL["September"].." - "..AL["October"]};
-				{ 4, "DayoftheDead", "inv_misc_bone_humanskull_02", "=ds="..AL["Day of the Dead"], "=q5="..AL["November"]};
-				{ 5, "HALLOWSENDMENU", "achievement_halloween_witch_01", "=ds="..AL["Hallow's End"], "=q5="..AL["October"]};
-				{ 6, "LOEVISINTHEAIRMENU", "achievement_worldevent_valentine", "=ds="..AL["Love is in the Air"], "=q5="..AL["February"]};
-				{ 7, "MidsummerFestival", "inv_summerfest_symbol_high", "=ds="..AL["Midsummer Fire Festival"], "=q5="..AL["June"].." - "..AL["July"]};
-				{ 8, "PilgrimsBounty", "inv_thanksgiving_turkey", "=ds="..AL["Pilgrim's Bounty"], "=q5="..AL["November"]};
+				{ 3, "BREWFESTMENU", "achievement_worldevent_brewmaster", "=ds="..AL["Brewfest"], "=q5="..AtlasLoot_IngameLocales["September"].." - "..AtlasLoot_IngameLocales["October"]};
+				{ 4, "DayoftheDead", "inv_misc_bone_humanskull_02", "=ds="..AL["Day of the Dead"], "=q5="..AtlasLoot_IngameLocales["November"]};
+				{ 5, "HALLOWSENDMENU", "achievement_halloween_witch_01", "=ds="..AL["Hallow's End"], "=q5="..AtlasLoot_IngameLocales["October"]};
+				{ 6, "LOEVISINTHEAIRMENU", "achievement_worldevent_valentine", "=ds="..AL["Love is in the Air"], "=q5="..AtlasLoot_IngameLocales["February"]};
+				{ 7, "MidsummerFestival", "inv_summerfest_symbol_high", "=ds="..AL["Midsummer Fire Festival"], "=q5="..AtlasLoot_IngameLocales["June"].." - "..AtlasLoot_IngameLocales["July"]};
+				{ 8, "PilgrimsBounty", "inv_thanksgiving_turkey", "=ds="..AL["Pilgrim's Bounty"], "=q5="..AtlasLoot_IngameLocales["November"]};
 				{ 10, "BashirLanding", "INV_Trinket_Naxxramas02", "=ds="..AL["Bash'ir Landing Skyguard Raid"], "=q5="..AtlasLoot:GetMapNameByID(475)};
 				{ 11, "GurubashiArena", "inv_misc_armorkit_04", "=ds="..AL["Gurubashi Arena Booty Run"], "=q5="..BabbleZone["Stranglethorn Vale"]};
 				{ 13, "ABYSSALMENU", "INV_Staff_13", "=ds="..AL["Abyssal Council"], "=q5="..AtlasLoot:GetMapNameByID(261)};
 				{ 14, "SKETTISMENU", "Spell_Nature_NaturesWrath", "=ds="..AL["Skettis"], "=q5="..AtlasLoot:GetMapNameByID(478)};
 				{ 16, "DARKMOONMENU", "INV_Misc_Ticket_Tarot_Madness", "=ds="..BabbleFaction["Darkmoon Faire"], "=q5="..BabbleZone["Darkmoon Island"]};
-				{ 18, "ChildrensWeek", "inv_misc_toy_04", "=ds="..AL["Children's Week"], "=q5="..AL["April"].." - "..AL["May"]};
-				{ 19, "WINTERVIELMENU", "achievement_worldevent_merrymaker", "=ds="..AL["Feast of Winter Veil"], "=q5="..AL["December"].." - "..AL["January"]};
-				{ 20, "HarvestFestival", "INV_Misc_Food_33", "=ds="..AL["Harvest Festival"], "=q5="..AL["September"].." - "..AL["October"]};
-				{ 21, "LUNARFESTIVALMENU", "achievement_worldevent_lunar", "=ds="..AL["Lunar Festival"], "=q5="..AL["January"].." - "..AL["February"]};
-				{ 22, "Noblegarden", "inv_egg_09", "=ds="..AL["Noblegarden"], "=q5="..AL["March"].." - "..AL["April"]};
+				{ 18, "ChildrensWeek", "inv_misc_toy_04", "=ds="..AL["Children's Week"], "=q5="..AtlasLoot_IngameLocales["April"].." - "..AtlasLoot_IngameLocales["May"]};
+				{ 19, "WINTERVIELMENU", "achievement_worldevent_merrymaker", "=ds="..AL["Feast of Winter Veil"], "=q5="..AtlasLoot_IngameLocales["December"].." - "..AtlasLoot_IngameLocales["January"]};
+				{ 20, "HarvestFestival", "INV_Misc_Food_33", "=ds="..AL["Harvest Festival"], "=q5="..AtlasLoot_IngameLocales["September"].." - "..AtlasLoot_IngameLocales["October"]};
+				{ 21, "LUNARFESTIVALMENU", "achievement_worldevent_lunar", "=ds="..AL["Lunar Festival"], "=q5="..AtlasLoot_IngameLocales["January"].." - "..AtlasLoot_IngameLocales["February"]};
+				{ 22, "Noblegarden", "inv_egg_09", "=ds="..AL["Noblegarden"], "=q5="..AtlasLoot_IngameLocales["March"].." - "..AtlasLoot_IngameLocales["April"]};
 				{ 25, "FishingExtravaganza", "inv_misc_fish_06", "=ds="..AL["Fishing Contests"], "=q5="..BabbleZone["Stranglethorn Vale"].." / "..BabbleZone["Northrend"]};
 				{ 28, "ETHEREUMMENU", "INV_Misc_PunchCards_Prismatic", "=ds="..AL["Ethereum Prison"], "=q5="..AtlasLoot:GetMapNameByID(479)};
 			};

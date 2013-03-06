@@ -1,4 +1,4 @@
--- $Id: RepMenus.lua 4053 2013-01-07 03:15:24Z Dynaletik $
+-- $Id: RepMenus.lua 4061 2013-02-06 18:36:50Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -10,23 +10,26 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 				{ 1, "REPMENU_RACEFACTIONS", "INV_Helmet_66", "=ds=Race Factions (temp name)", ""};
 				{ 2, "REPMENU_ORIGINALWOW", "INV_Helmet_66", "=ds="..AL["Classic WoW"], ""};
 				{ 3, "REPMENU_WOTLK", "achievement_reputation_kirintor", "=ds="..AL["Wrath of the Lich King"], ""};
-				{ 5, "OperationShieldwall", "pvpcurrency-honor-alliance", "=ds="..BabbleFaction["Operation: Shieldwall"], "=q5="..AtlasLoot:GetMapNameByID(857)};
-				{ 6, "LionsLanding", "pvpcurrency-conquest-alliance", "=ds=Lion's Landing", "=q5="..AtlasLoot:GetMapNameByID(857)};
-				{ 7, "BizmosBrawlpubBrawlgarArena", "inv_misc_head_clockworkgnome_01", "=ds="..BabbleFaction["Bizmo's Brawlpub"], "=q5="..AtlasLoot:GetMapNameByID(922)};
-				{ 9, "Anglers", "achievement_faction_anglers", "=ds="..BabbleFaction["The Anglers"], "=q5="..AtlasLoot:GetMapNameByID(857)};
-				{ 10, "GoldenLotus", "achievement_faction_goldenlotus", "=ds="..BabbleFaction["Golden Lotus"], "=q5="..AtlasLoot:GetMapNameByID(811)};
-				{ 11, "Lorewalkers", "achievement_faction_lorewalkers", "=ds="..BabbleFaction["The Lorewalkers"], "=q5="..AtlasLoot:GetMapNameByID(811)};
-				{ 12, "ShadoPan", "achievement_faction_shadopan", "=ds="..BabbleFaction["Shado-Pan"], "=q5="..AtlasLoot:GetMapNameByID(810)};
+				{ 5, "KirinTorOffensive", "achievement_reputation_kirintor_offensive", "=ds=Kirin Tor Offensive", "=q5="..AtlasLoot:GetMapNameByID(928)};
+				{ 6, "OperationShieldwall", "pvpcurrency-honor-alliance", "=ds="..BabbleFaction["Operation: Shieldwall"], "=q5="..AtlasLoot:GetMapNameByID(857)};
+				{ 7, "LionsLanding", "pvpcurrency-conquest-alliance", "=ds=Lion's Landing", "=q5="..AtlasLoot:GetMapNameByID(857)};
+				{ 8, "BizmosBrawlpubBrawlgarArena", "inv_misc_head_clockworkgnome_01", "=ds="..BabbleFaction["Bizmo's Brawlpub"], "=q5="..AtlasLoot:GetMapNameByID(922)};
+				{ 10, "Anglers", "achievement_faction_anglers", "=ds="..BabbleFaction["The Anglers"], "=q5="..AtlasLoot:GetMapNameByID(857)};
+				{ 11, "GoldenLotus", "achievement_faction_goldenlotus", "=ds="..BabbleFaction["Golden Lotus"], "=q5="..AtlasLoot:GetMapNameByID(811)};
+				{ 12, "Lorewalkers", "achievement_faction_lorewalkers", "=ds="..BabbleFaction["The Lorewalkers"], "=q5="..AtlasLoot:GetMapNameByID(811)};
+				{ 13, "ShadoPan", "achievement_faction_shadopan", "=ds="..BabbleFaction["Shado-Pan"], "=q5="..AtlasLoot:GetMapNameByID(810)};
 				{ 15, "VPMOPMENU", "pvecurrency-valor", "=ds="..AL["Valor Points"].." "..AL["Rewards"], "=q5="..AL["Mists of Pandaria"]};
 				{ 17, "REPMENU_BURNINGCRUSADE", "INV_Misc_Ribbon_01", "=ds="..AL["Burning Crusade"], ""};
 				{ 18, "REPMENU_CATACLYSM", "inv_neck_hyjaldaily_04", "=ds="..AL["Cataclysm"], ""};
-				{ 20, "DominanceOffensive", "pvpcurrency-honor-horde", "=ds="..BabbleFaction["Dominance Offensive"], "=q5="..AtlasLoot:GetMapNameByID(857)};
-				{ 21, "DominationPoint", "pvpcurrency-conquest-horde", "=ds=Domination Point", "=q5="..AtlasLoot:GetMapNameByID(857)};
-				{ 22, "BizmosBrawlpubBrawlgarArena", "inv_misc_head_clockworkgnome_01", "=ds="..BabbleFaction["Brawl'gar Arena"], "=q5="..AtlasLoot:GetMapNameByID(925)};
-				{ 24, "AugustCelestials", "achievement_faction_celestials", "=ds="..BabbleFaction["The August Celestials"], "=q5="..AtlasLoot:GetMapNameByID(811)};
-				{ 25, "Klaxxi", "achievement_faction_klaxxi", "=ds="..BabbleFaction["The Klaxxi"], "=q5="..AtlasLoot:GetMapNameByID(858)};
-				{ 26, "OrderCloudSerpent", "achievement_faction_serpentriders", "=ds="..BabbleFaction["Order of the Cloud Serpent"], "=q5="..AtlasLoot:GetMapNameByID(806)};
-				{ 27, "Tillers", "achievement_faction_tillers", "=ds="..BabbleFaction["The Tillers"], "=q5="..AtlasLoot:GetMapNameByID(807)};
+				{ 20, "SunreaverOnslaught", "achievement_faction_sunreaveronslaught", "=ds=Sunreaver Onslaught", "=q5="..AtlasLoot:GetMapNameByID(928)};
+				{ 21, "DominanceOffensive", "pvpcurrency-honor-horde", "=ds="..BabbleFaction["Dominance Offensive"], "=q5="..AtlasLoot:GetMapNameByID(857)};
+				{ 22, "DominationPoint", "pvpcurrency-conquest-horde", "=ds=Domination Point", "=q5="..AtlasLoot:GetMapNameByID(857)};
+				{ 23, "BizmosBrawlpubBrawlgarArena", "inv_misc_head_clockworkgnome_01", "=ds="..BabbleFaction["Brawl'gar Arena"], "=q5="..AtlasLoot:GetMapNameByID(925)};
+				{ 25, "AugustCelestials", "achievement_faction_celestials", "=ds="..BabbleFaction["The August Celestials"], "=q5="..AtlasLoot:GetMapNameByID(811)};
+				{ 26, "Klaxxi", "achievement_faction_klaxxi", "=ds="..BabbleFaction["The Klaxxi"], "=q5="..AtlasLoot:GetMapNameByID(858)};
+				{ 27, "OrderCloudSerpent", "achievement_faction_serpentriders", "=ds="..BabbleFaction["Order of the Cloud Serpent"], "=q5="..AtlasLoot:GetMapNameByID(806)};
+				{ 28, "ShadoPanAssault", "achievement_faction_shadopan", "=ds=Shado-Pan Assault", "=q5="..AtlasLoot:GetMapNameByID(930)};
+				{ 29, "Tillers", "achievement_faction_tillers", "=ds="..BabbleFaction["The Tillers"], "=q5="..AtlasLoot:GetMapNameByID(807)};
 			};
 		};
 		info = {

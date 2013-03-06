@@ -1,4 +1,4 @@
-﻿-- $Id: constants.kr.lua 3993 2012-11-22 08:39:14Z celellach $
+﻿-- $Id: constants.kr.lua 4089 2013-02-20 15:53:11Z dynaletik $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -413,7 +413,6 @@ if AL then
 	AL["Drums, Bags and Misc."] = true;
 
 	-- Tailoring
-	AL["Cloth Armor"] = true;
 	AL["Shirts"] = true;
 	AL["Bags"] = true;
 

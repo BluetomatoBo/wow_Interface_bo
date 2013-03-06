@@ -1,4 +1,4 @@
-﻿-- $Id: CompareFrame.lua 3757 2012-09-17 12:37:34Z lag123 $
+﻿-- $Id: CompareFrame.lua 4108 2013-02-26 20:34:27Z lag123 $
 local _
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
@@ -1807,7 +1807,13 @@ function AtlasLoot:CompareFrame_Create()
 	Frame.Filter:SetScript("OnClick", function(self, button)
 		AtlasLoot.FilterButtonOnClick(self, button)
 		AtlasLoot:CompareFrame_UpdateItemListScrollFrame(nil, true)
-	end)	
+	end)
+	Frame.Filter:SetScript("OnEnter", function(self)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:AddLine(AL["|cffFF0000Shift+Click: |cffFFFFFFOpen filter configuration"])
+		GameTooltip:Show()
+	end)
+	Frame.Filter:SetScript("OnLeave", function() GameTooltip:Hide() end)	
 	Frame.Filter:Show()
 
 	-- Filter

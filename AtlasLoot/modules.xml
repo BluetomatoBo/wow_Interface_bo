@@ -7,6 +7,7 @@
 <Script file="LootTableModules\WrathoftheLichKing\wrathofthelichking.lua"/>
 <Script file="LootTableModules\Cataclysm\cataclysm.lua"/>
 <Script file="LootTableModules\MistsofPandaria\mistsofpandaria.lua"/>
+<Script file="LootTableModules\MistsofPandaria\BonusRollInfo.lua"/>
 <Script file="LootTableModules\Crafting\crafting.lua"/>
 <Script file="LootTableModules\WorldEvents\worldevents.lua"/>
 @end-debug@-->

@@ -1,4 +1,4 @@
--- $Id: wrathofthelichking.lua 3993 2012-11-22 08:39:14Z celellach $
+-- $Id: wrathofthelichking.lua 4116 2013-03-02 18:36:56Z lag123 $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
@@ -244,7 +244,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = AtlasLoot:EJ_GetBossName("Frozen Commander", 617),
+			name = AtlasLoot:EJ_GetBossName("Commander Kolurg", 833).." & "..AtlasLoot:EJ_GetBossName("Commander Stoutbeard", 617),
 			module = moduleName, instance = "TheNexus",
 		};
 	};
@@ -1472,27 +1472,27 @@ local moduleName = "AtlasLootWotLK"
 				{ 19, 40841, "", "=q4=Hateful Gladiator's Dreadplate Legguards", "=ds=#s11#, #a4#"};
 			};
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 39547, "", "=q4=Heroes' Dreamwalker Vestments", "=ds=#s5#, #a2#"};
 				{ 3, 39544, "", "=q4=Heroes' Dreamwalker Gloves", "=ds=#s9#, #a2#"};
 				{ 4, 39546, "", "=q4=Heroes' Dreamwalker Trousers", "=ds=#s11#, #a2#"};
-				{ 6, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 6, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 7, 39554, "", "=q4=Heroes' Dreamwalker Raiments", "=ds=#s5#, #a2#"};
 				{ 8, 39557, "", "=q4=Heroes' Dreamwalker Handgrips", "=ds=#s9#, #a2#"};
 				{ 9, 39555, "", "=q4=Heroes' Dreamwalker Legguards", "=ds=#s11#, #a2#"};
-				{ 11, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 11, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 12, 39538, "", "=q4=Heroes' Dreamwalker Robe", "=ds=#s5#, #a2#"};
 				{ 13, 39543, "", "=q4=Heroes' Dreamwalker Handguards", "=ds=#s9#, #a2#"};
 				{ 14, 39539, "", "=q4=Heroes' Dreamwalker Leggings", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 41314, "", "=q4=Hateful Gladiator's Wyrmhide Robes", "=ds=#s5#, #a2#"};
 				{ 18, 41291, "", "=q4=Hateful Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#"};
 				{ 19, 41302, "", "=q4=Hateful Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#"};
-				{ 21, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 21, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 22, 41659, "", "=q4=Hateful Gladiator's Dragonhide Robes", "=ds=#s5#, #a2#"};
 				{ 23, 41771, "", "=q4=Hateful Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#"};
 				{ 24, 41665, "", "=q4=Hateful Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#"};
-				{ 26, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 26, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 27, 41308, "", "=q4=Hateful Gladiator's Kodohide Robes", "=ds=#s5#, #a2#"};
 				{ 28, 41284, "", "=q4=Hateful Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#"};
 				{ 29, 41296, "", "=q4=Hateful Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#"};
@@ -1524,67 +1524,67 @@ local moduleName = "AtlasLootWotLK"
 				{ 29, 41653, "", "=q4=Hateful Gladiator's Leather Legguards", "=ds=#s11#, #a2#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 39629, "", "=q4=Heroes' Redemption Tunic", "=ds=#s5#, #a4#"};
 				{ 3, 39632, "", "=q4=Heroes' Redemption Gloves", "=ds=#s9#, #a4#"};
 				{ 4, 39630, "", "=q4=Heroes' Redemption Greaves", "=ds=#s11#, #a4#"};
-				{ 6, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 6, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 7, 39633, "", "=q4=Heroes' Redemption Chestpiece", "=ds=#s5#, #a4#"};
 				{ 8, 39634, "", "=q4=Heroes' Redemption Gauntlets", "=ds=#s9#, #a4#"};
 				{ 9, 39636, "", "=q4=Heroes' Redemption Legplates", "=ds=#s11#, #a4#"};
-				{ 11, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 11, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 12, 39638, "", "=q4=Heroes' Redemption Breastplate", "=ds=#s5#, #a4#"};
 				{ 13, 39639, "", "=q4=Heroes' Redemption Handguards", "=ds=#s9#, #a4#"};
 				{ 14, 39641, "", "=q4=Heroes' Redemption Legguards", "=ds=#s11#, #a4#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 40904, "", "=q4=Hateful Gladiator's Ornamented Chestguard", "=ds=#s5#, #a4#"};
 				{ 18, 40925, "", "=q4=Hateful Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#"};
 				{ 19, 40937, "", "=q4=Hateful Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#"}; 
-				{ 21, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 21, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 22, 40782, "", "=q4=Hateful Gladiator's Scaled Chestpiece", "=ds=#s5#, #a4#"};
 				{ 23, 40802, "", "=q4=Hateful Gladiator's Scaled Gauntlets", "=ds=#s11#, #a4#"};
 				{ 24, 40842, "", "=q4=Hateful Gladiator's Scaled Legguards", "=ds=#s11#, #a4#"};
 			};
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 39515, "", "=q4=Heroes' Robe of Faith", "=ds=#s5#, #a1#"};
 				{ 3, 39519, "", "=q4=Heroes' Gloves of Faith", "=ds=#s9#, #a1#"};
 				{ 4, 39517, "", "=q4=Heroes' Leggings of Faith", "=ds=#s11#, #a1#"};
-				{ 6, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 6, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 7, 39523, "", "=q4=Heroes' Raiments of Faith", "=ds=#s5#, #a1#"};
 				{ 8, 39530, "", "=q4=Heroes' Handwraps of Faith", "=ds=#s9#, #a1#"};
 				{ 9, 39528, "", "=q4=Heroes' Pants of Faith", "=ds=#s11#, #a1#"};
-				{ 16, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Discipline"]};
+				{ 16, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
 				{ 17, 41857, "", "=q4=Hateful Gladiator's Mooncloth Robe", "=ds=#s5#, #a1#"};
 				{ 18, 41872, "", "=q4=Hateful Gladiator's Mooncloth Gloves", "=ds=#s9#, #a1#"};
 				{ 19, 41862, "", "=q4=Hateful Gladiator's Mooncloth Leggings", "=ds=#s11#, #a1#"};
-				{ 21, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 21, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 22, 41919, "", "=q4=Hateful Gladiator's Satin Robe", "=ds=#s5#, #a1#"};
 				{ 23, 41938, "", "=q4=Hateful Gladiator's Satin Gloves", "=ds=#s9#, #a1#"};
 				{ 24, 41925, "", "=q4=Hateful Gladiator's Satin Leggings", "=ds=#s11#, #a1#"};
 			};
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 2, 39592, "", "=q4=Heroes' Earthshatter Hauberk", "=ds=#s5#, #a3#"};
 				{ 3, 39593, "", "=q4=Heroes' Earthshatter Gloves", "=ds=#s9#, #a3#"};
 				{ 4, 39595, "", "=q4=Heroes' Earthshatter Kilt", "=ds=#s11#, #a3#"};
-				{ 6, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 6, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 7, 39597, "", "=q4=Heroes' Earthshatter Chestguard", "=ds=#s5#, #a3#"};
 				{ 8, 39601, "", "=q4=Heroes' Earthshatter Grips", "=ds=#s9#, #a3#"};
 				{ 9, 39603, "", "=q4=Heroes' Earthshatter War-Kilt", "=ds=#s11#, #a3#"};
-				{ 11, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 11, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 12, 39588, "", "=q4=Heroes' Earthshatter Tunic", "=ds=#s5#, #a3#"};
 				{ 13, 39591, "", "=q4=Heroes' Earthshatter Handguards", "=ds=#s9#, #a3#"};
 				{ 14, 39589, "", "=q4=Heroes' Earthshatter Legguards", "=ds=#s11#, #a3#"};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 17, 40989, "", "=q4=Hateful Gladiator's Mail Armor", "=ds=#s5#, #a3#"};
 				{ 18, 41005, "", "=q4=Hateful Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 19, 41031, "", "=q4=Hateful Gladiator's Mail Leggings", "=ds=#s11#, #a3#"};
-				{ 21, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 21, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 22, 41079, "", "=q4=Hateful Gladiator's Linked Armor", "=ds=#s5#, #a3#"};
 				{ 23, 41135, "", "=q4=Hateful Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#"};
 				{ 24, 41162, "", "=q4=Hateful Gladiator's Linked Leggings", "=ds=#s11#, #a3#"};
-				{ 26, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 26, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 27, 40988, "", "=q4=Hateful Gladiator's Ringmail Armor", "=ds=#s5#, #a3#"};
 				{ 28, 40999, "", "=q4=Hateful Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 29, 41025, "", "=q4=Hateful Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#"};
@@ -1598,7 +1598,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 7, 39606, "", "=q4=Heroes' Dreadnaught Battleplate", "=ds=#s5#, #a4#"};
 				{ 8, 39609, "", "=q4=Heroes' Dreadnaught Gauntlets", "=ds=#s9#, #a4#"};
 				{ 9, 39607, "", "=q4=Heroes' Dreadnaught Legplates", "=ds=#s11#, #a4#"};
-				{ 11, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 11, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 12, 39611, "", "=q4=Heroes' Dreadnaught Breastplate", "=ds=#s5#, #a4#"};
 				{ 13, 39622, "", "=q4=Heroes' Dreadnaught Handguards", "=ds=#s9#, #a4#"};
 				{ 14, 39612, "", "=q4=Heroes' Dreadnaught Legguards", "=ds=#s11#, #a4#"};
@@ -1628,27 +1628,27 @@ local moduleName = "AtlasLootWotLK"
 				{ 19, 40845, "", "=q4=Deadly Gladiator's Dreadplate Legguards", "=ds=#s11#, #a4#"};
 			};
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 40469, "", "=q4=Valorous Dreamwalker Vestments", "=ds=#s5#, #a2#"};
 				{ 3, 40466, "", "=q4=Valorous Dreamwalker Gloves", "=ds=#s9#, #a2#"};
 				{ 4, 40468, "", "=q4=Valorous Dreamwalker Trousers", "=ds=#s11#, #a2#"};
-				{ 6, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 6, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 7, 40471, "", "=q4=Valorous Dreamwalker Raiments", "=ds=#s5#, #a2#"};
 				{ 8, 40472, "", "=q4=Valorous Dreamwalker Handgrips", "=ds=#s9#, #a2#"};
 				{ 9, 40493, "", "=q4=Valorous Dreamwalker Legguards", "=ds=#s11#, #a2#"};
-				{ 11, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 11, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 12, 40463, "", "=q4=Valorous Dreamwalker Robe", "=ds=#s5#, #a2#"};
 				{ 13, 40460, "", "=q4=Valorous Dreamwalker Handguards", "=ds=#s9#, #a2#"};
 				{ 14, 40462, "", "=q4=Valorous Dreamwalker Leggings", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 41315, "", "=q4=Deadly Gladiator's Wyrmhide Robes", "=ds=#s5#, #a2#"};
 				{ 18, 41292, "", "=q4=Deadly Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#"};
 				{ 19, 41303, "", "=q4=Deadly Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#"};
-				{ 21, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 21, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 22, 41660, "", "=q4=Deadly Gladiator's Dragonhide Robes", "=ds=#s5#, #a2#"};
 				{ 23, 41772, "", "=q4=Deadly Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#"};
 				{ 24, 41666, "", "=q4=Deadly Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#"};
-				{ 26, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 26, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 27, 41309, "", "=q4=Deadly Gladiator's Kodohide Robes", "=ds=#s5#, #a2#"};
 				{ 28, 41286, "", "=q4=Deadly Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#"};
 				{ 29, 41297, "", "=q4=Deadly Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#"};
@@ -1681,67 +1681,67 @@ local moduleName = "AtlasLootWotLK"
 
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 40569, "", "=q4=Valorous Redemption Tunic", "=ds=#s5#, #a4#"};
 				{ 3, 40570, "", "=q4=Valorous Redemption Gloves", "=ds=#s9#, #a4#"};
 				{ 4, 40572, "", "=q4=Valorous Redemption Greaves", "=ds=#s11#, #a4#"};
-				{ 6, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 6, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 7, 40574, "", "=q4=Valorous Redemption Chestpiece", "=ds=#s5#, #a4#"};
 				{ 8, 40575, "", "=q4=Valorous Redemption Gauntlets", "=ds=#s9#, #a4#"};
 				{ 9, 40577, "", "=q4=Valorous Redemption Legplates", "=ds=#s11#, #a4#"};
-				{ 11, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 11, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 12, 40579, "", "=q4=Valorous Redemption Breastplate", "=ds=#s5#, #a4#"};
 				{ 13, 40580, "", "=q4=Valorous Redemption Handguards", "=ds=#s9#, #a4#"};
 				{ 14, 40583, "", "=q4=Valorous Redemption Legguards", "=ds=#s11#, #a4#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 40905, "", "=q4=Deadly Gladiator's Ornamented Chestguard", "=ds=#s5#, #a4#"};
 				{ 18, 40926, "", "=q4=Deadly Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#"};
 				{ 19, 40938, "", "=q4=Deadly Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#"};
-				{ 21, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 21, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 22, 40785, "", "=q4=Deadly Gladiator's Scaled Chestpiece", "=ds=#s5#, #a4#"};
 				{ 23, 40805, "", "=q4=Deadly Gladiator's Scaled Gauntlets", "=ds=#s9#, #a4#"};
 				{ 24, 40846, "", "=q4=Deadly Gladiator's Scaled Legguards", "=ds=#s11#, #a4#"};
 			};
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 40449, "", "=q4=Valorous Robe of Faith", "=ds=#s5#, #a1#"};
 				{ 3, 40445, "", "=q4=Valorous Gloves of Faith", "=ds=#s9#, #a1#"};
 				{ 4, 40448, "", "=q4=Valorous Leggings of Faith", "=ds=#s11#, #a1#"};
-				{ 6, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 6, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 7, 40458, "", "=q4=Valorous Raiments of Faith", "=ds=#s5#, #a1#"};
 				{ 8, 40454, "", "=q4=Valorous Handwraps of Faith", "=ds=#s9#, #a1#"};
 				{ 9, 40457, "", "=q4=Valorous Pants of Faith", "=ds=#s11#, #a1#"};
-				{ 16, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Discipline"]};
+				{ 16, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
 				{ 17, 41858, "", "=q4=Deadly Gladiator's Mooncloth Robe", "=ds=#s5#, #a1#"};
 				{ 18, 41873, "", "=q4=Deadly Gladiator's Mooncloth Gloves", "=ds=#s9#, #a1#"};
 				{ 19, 41863, "", "=q4=Deadly Gladiator's Mooncloth Leggings", "=ds=#s11#, #a1#"};
-				{ 21, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 21, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 22, 41920, "", "=q4=Deadly Gladiator's Satin Robe", "=ds=#s5#, #a1#"};
 				{ 23, 41939, "", "=q4=Deadly Gladiator's Satin Gloves", "=ds=#s9#, #a1#"};
 				{ 24, 41926, "", "=q4=Deadly Gladiator's Satin Leggings", "=ds=#s11#, #a1#"};
 			};
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 2, 40514, "", "=q4=Valorous Earthshatter Hauberk", "=ds=#s5#, #a3#"};
 				{ 3, 40515, "", "=q4=Valorous Earthshatter Gloves", "=ds=#s9#, #a3#"};
 				{ 4, 40517, "", "=q4=Valorous Earthshatter Kilt", "=ds=#s11#, #a3#"};
-				{ 6, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 6, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 7, 40523, "", "=q4=Valorous Earthshatter Chestguard", "=ds=#s5#, #a3#"};
 				{ 8, 40520, "", "=q4=Valorous Earthshatter Grips", "=ds=#s9#, #a3#"};
 				{ 9, 40522, "", "=q4=Valorous Earthshatter War-Kilt", "=ds=#s11#, #a3#"};
-				{ 11, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 11, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 12, 40508, "", "=q4=Valorous Earthshatter Tunic", "=ds=#s5#, #a3#"};
 				{ 13, 40509, "", "=q4=Valorous Earthshatter Handguards", "=ds=#s9#, #a3#"};
 				{ 14, 40512, "", "=q4=Valorous Earthshatter Legguards", "=ds=#s11#, #a3#"};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 17, 40991, "", "=q4=Deadly Gladiator's Mail Armor", "=ds=#s5#, #a3#"};
 				{ 18, 41006, "", "=q4=Deadly Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 19, 41032, "", "=q4=Deadly Gladiator's Mail Leggings", "=ds=#s11#, #a3#"};
-				{ 21, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 21, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 22, 41080, "", "=q4=Deadly Gladiator's Linked Armor", "=ds=#s5#, #a3#"};
 				{ 23, 41136, "", "=q4=Deadly Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#"};
 				{ 24, 41198, "", "=q4=Deadly Gladiator's Linked Leggings", "=ds=#s11#, #a3#"};
-				{ 26, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 26, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 27, 40990, "", "=q4=Deadly Gladiator's Ringmail Armor", "=ds=#s5#, #a3#"};
 				{ 28, 41000, "", "=q4=Deadly Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 29, 41026, "", "=q4=Deadly Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#"};
@@ -1755,7 +1755,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 7, 40525, "", "=q4=Valorous Dreadnaught Battleplate", "=ds=#s5#, #a4#"};
 				{ 8, 40527, "", "=q4=Valorous Dreadnaught Gauntlets", "=ds=#s9#, #a4#"};
 				{ 9, 40529, "", "=q4=Valorous Dreadnaught Legplates", "=ds=#s11#, #a4#"};
-				{ 11, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 11, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 12, 40544, "", "=q4=Valorous Dreadnaught Breastplate", "=ds=#s5#, #a4#"};
 				{ 13, 40545, "", "=q4=Valorous Dreadnaught Handguards", "=ds=#s9#, #a4#"};
 				{ 14, 40547, "", "=q4=Valorous Dreadnaught Legguards", "=ds=#s11#, #a4#"};
@@ -1781,10 +1781,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 2, 46131, "", "=q4=Valorous Kirin Tor Gauntlets", "=ds=#s9#, #a1#"};
 				{ 3, 45367, "", "=q4=Valorous Kirin Tor Leggings", "=ds=#s11#, #a1#"};
-				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 6, 45387, "", "=q4=Valorous Gloves of Sanctification", "=ds=#s9#, #a1#"};
 				{ 7, 45388, "", "=q4=Valorous Leggings of Sanctification", "=ds=#s11#, #a1#"};
-				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 10, 45392, "", "=q4=Valorous Handwraps of Sanctification", "=ds=#s9#, #a1#"};
 				{ 11, 45394, "", "=q4=Valorous Pants of Sanctification", "=ds=#s11#, #a1#"};
 				{ 13, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -1793,10 +1793,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 16, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 17, 41970, "", "=q4=Deadly Gladiator's Silk Handguards", "=ds=#s9#, #a1#"};
 				{ 18, 41958, "", "=q4=Deadly Gladiator's Silk Trousers", "=ds=#s11#, #a1#"};
-				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Discipline"]};
+				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
 				{ 21, 41873, "", "=q4=Deadly Gladiator's Mooncloth Gloves", "=ds=#s9#, #a1#"};
 				{ 22, 41863, "", "=q4=Deadly Gladiator's Mooncloth Leggings", "=ds=#s11#, #a1#"};
-				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 25, 41939, "", "=q4=Deadly Gladiator's Satin Gloves", "=ds=#s9#, #a1#"};
 				{ 26, 41926, "", "=q4=Deadly Gladiator's Satin Leggings", "=ds=#s11#, #a1#"};
 				{ 28, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -1804,25 +1804,25 @@ local moduleName = "AtlasLootWotLK"
 				{ 30, 42004, "", "=q4=Deadly Gladiator's Felweave Trousers", "=ds=#s11#, #a1#"};
 			};
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 45351, "", "=q4=Valorous Nightsong Gloves", "=ds=#s9#, #a2#"};
 				{ 3, 45353, "", "=q4=Valorous Nightsong Trousers", "=ds=#s11#, #a2#"};
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 45355, "", "=q4=Valorous Nightsong Handgrips", "=ds=#s9#, #a2#"};
 				{ 7, 45357, "", "=q4=Valorous Nightsong Legguards", "=ds=#s11#, #a2#"};
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 45345, "", "=q4=Valorous Nightsong Handguards", "=ds=#s9#, #a2#"};
 				{ 11, 45347, "", "=q4=Valorous Nightsong Leggings", "=ds=#s11#, #a2#"};
 				{ 13, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
 				{ 14, 45397, "", "=q4=Valorous Terrorblade Gauntlets", "=ds=#s9#, #a2#"};
 				{ 15, 45399, "", "=q4=Valorous Terrorblade Legplates", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 41292, "", "=q4=Deadly Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#"};
 				{ 18, 41303, "", "=q4=Deadly Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#"};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 41772, "", "=q4=Deadly Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#"};
 				{ 22, 41666, "", "=q4=Deadly Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#"};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 41286, "", "=q4=Deadly Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#"};
 				{ 26, 41297, "", "=q4=Deadly Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#"};
 				{ 28, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
@@ -1833,42 +1833,42 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 2, 45360, "", "=q4=Valorous Scourgestalker Handguards", "=ds=#s9#, #a3#"};
 				{ 3, 45362, "", "=q4=Valorous Scourgestalker Legguards", "=ds=#s11#, #a3#"};
-				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 6, 45406, "", "=q4=Valorous Worldbreaker Gloves", "=ds=#s9#, #a3#"};
 				{ 7, 45409, "", "=q4=Valorous Worldbreaker Kilt", "=ds=#s11#, #a3#"};
-				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 10, 45414, "", "=q4=Valorous Worldbreaker Grips", "=ds=#s9#, #a3#"};
 				{ 11, 45416, "", "=q4=Valorous Worldbreaker War-Kilt", "=ds=#s11#, #a3#"};
-				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 14, 45401, "", "=q4=Valorous Worldbreaker Handguards", "=ds=#s9#, #a3#"};
 				{ 15, 45403, "", "=q4=Valorous Worldbreaker Legguards", "=ds=#s11#, #a3#"};
 				{ 16, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 17, 41142, "", "=q4=Deadly Gladiator's Chain Gauntlets", "=ds=#s9#, #a3#"};
 				{ 18, 41204, "", "=q4=Deadly Gladiator's Chain Leggings", "=ds=#s11#, #a3#"};
-				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 21, 41006, "", "=q4=Deadly Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 22, 41032, "", "=q4=Deadly Gladiator's Mail Leggings", "=ds=#s11#, #a3#"};
-				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 25, 41136, "", "=q4=Deadly Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#"};
 				{ 26, 41198, "", "=q4=Deadly Gladiator's Linked Leggings", "=ds=#s11#, #a3#"};
-				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 29, 41000, "", "=q4=Deadly Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 30, 41026, "", "=q4=Deadly Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 45370, "", "=q4=Valorous Aegis Gloves", "=ds=#s9#, #a4#"};
 				{ 3, 45371, "", "=q4=Valorous Aegis Greaves", "=ds=#s11#, #a4#"};
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 45376, "", "=q4=Valorous Aegis Gauntlets", "=ds=#s9#, #a4#"};
 				{ 7, 45379, "", "=q4=Valorous Aegis Legplates", "=ds=#s11#, #a4#"};
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 45383, "", "=q4=Valorous Aegis Handguards", "=ds=#s9#, #a4#"};
 				{ 11, 45384, "", "=q4=Valorous Aegis Legguards", "=ds=#s11#, #a4#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 40926, "", "=q4=Deadly Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#"};
 				{ 18, 40938, "", "=q4=Deadly Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#"};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 40805, "", "=q4=Deadly Gladiator's Scaled Gauntlets", "=ds=#s9#, #a4#"};
 				{ 22, 40846, "", "=q4=Deadly Gladiator's Scaled Legguards", "=ds=#s11#, #a4#"};
 			};
@@ -1882,7 +1882,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 45430, "", "=q4=Valorous Siegebreaker Gauntlets", "=ds=#s9#, #a4#"};
 				{ 11, 45432, "", "=q4=Valorous Siegebreaker Legplates", "=ds=#s11#, #a4#"};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 45426, "", "=q4=Valorous Siegebreaker Handguards", "=ds=#s9#, #a4#"};
 				{ 15, 45427, "", "=q4=Valorous Siegebreaker Legguards", "=ds=#s11#, #a4#"};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -1957,10 +1957,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 2, 46132, "", "=q4=Conqueror's Kirin Tor Gauntlets", "=ds=#s9#, #a1#"};
 				{ 3, 46133, "", "=q4=Conqueror's Kirin Tor Leggings", "=ds=#s11#, #a1#"};
-				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 6, 46188, "", "=q4=Conqueror's Gloves of Sanctification", "=ds=#s9#, #a1#"};
 				{ 7, 46195, "", "=q4=Conqueror's Leggings of Sanctification", "=ds=#s11#, #a1#"};
-				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 10, 46163, "", "=q4=Conqueror's Handwraps of Sanctification", "=ds=#s9#, #a1#"};
 				{ 11, 46170, "", "=q4=Conqueror's Pants of Sanctification", "=ds=#s11#, #a1#"};
 				{ 13, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -1969,10 +1969,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 16, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 17, 41971, "", "=q4=Furious Gladiator's Silk Handguards", "=ds=#s9#, #a1#"};
 				{ 18, 41959, "", "=q4=Furious Gladiator's Silk Trousers", "=ds=#s11#, #a1#"};
-				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Discipline"]};
+				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
 				{ 21, 41874, "", "=q4=Furious Gladiator's Mooncloth Gloves", "=ds=#s9#, #a1#"};
 				{ 22, 41864, "", "=q4=Furious Gladiator's Mooncloth Leggings", "=ds=#s11#, #a1#"};
-				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 25, 41940, "", "=q4=Furious Gladiator's Satin Gloves", "=ds=#s9#, #a1#"};
 				{ 26, 41927, "", "=q4=Furious Gladiator's Satin Leggings", "=ds=#s11#, #a1#"};
 				{ 28, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -1980,25 +1980,25 @@ local moduleName = "AtlasLootWotLK"
 				{ 30, 42005, "", "=q4=Furious Gladiator's Felweave Trousers", "=ds=#s11#, #a1#"};
 			};
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 46189, "", "=q4=Conqueror's Nightsong Gloves", "=ds=#s9#, #a2#"};
 				{ 3, 46192, "", "=q4=Conqueror's Nightsong Trousers", "=ds=#s11#, #a2#"};
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 46158, "", "=q4=Conqueror's Nightsong Handgrips", "=ds=#s9#, #a2#"};
 				{ 7, 46160, "", "=q4=Conqueror's Nightsong Legguards", "=ds=#s11#, #a2#"};
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 46183, "", "=q4=Conqueror's Nightsong Handguards", "=ds=#s9#, #a2#"};
 				{ 11, 46185, "", "=q4=Conqueror's Nightsong Leggings", "=ds=#s11#, #a2#"};
 				{ 13, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
 				{ 14, 46124, "", "=q4=Conqueror's Terrorblade Gauntlets", "=ds=#s9#, #a2#"};
 				{ 15, 46126, "", "=q4=Conqueror's Terrorblade Legplates", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 41293, "", "=q4=Furious Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#"};
 				{ 18, 41304, "", "=q4=Furious Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#"};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 41773, "", "=q4=Furious Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#"};
 				{ 22, 41667, "", "=q4=Furious Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#"};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 41287, "", "=q4=Furious Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#"};
 				{ 26, 41298, "", "=q4=Furious Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#"};
 				{ 28, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
@@ -2009,42 +2009,42 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 2, 46142, "", "=q4=Conqueror's Scourgestalker Handguards", "=ds=#s9#, #a3#"};
 				{ 3, 46144, "", "=q4=Conqueror's Scourgestalker Legguards", "=ds=#s11#, #a3#"};
-				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 6, 46207, "", "=q4=Conqueror's Worldbreaker Gloves", "=ds=#s9#, #a3#"};
 				{ 7, 46210, "", "=q4=Conqueror's Worldbreaker Kilt", "=ds=#s11#, #a3#"};
-				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 10, 46200, "", "=q4=Conqueror's Worldbreaker Grips", "=ds=#s9#, #a3#"};
 				{ 11, 46208, "", "=q4=Conqueror's Worldbreaker War-Kilt", "=ds=#s11#, #a3#"};
-				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 14, 46199, "", "=q4=Conqueror's Worldbreaker Handguards", "=ds=#s9#, #a3#"};
 				{ 15, 46202, "", "=q4=Conqueror's Worldbreaker Legguards", "=ds=#s11#, #a3#"};
 				{ 16, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 17, 41143, "", "=q4=Furious Gladiator's Chain Gauntlets", "=ds=#s9#, #a3#"};
 				{ 18, 41205, "", "=q4=Furious Gladiator's Chain Leggings", "=ds=#s11#, #a3#"};
-				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 21, 41007, "", "=q4=Furious Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 22, 41033, "", "=q4=Furious Gladiator's Mail Leggings", "=ds=#s11#, #a3#"};
-				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 25, 41137, "", "=q4=Furious Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#"};
 				{ 26, 41199, "", "=q4=Furious Gladiator's Linked Leggings", "=ds=#s11#, #a3#"};
-				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 29, 41001, "", "=q4=Furious Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 30, 41027, "", "=q4=Furious Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 46179, "", "=q4=Conqueror's Aegis Gloves", "=ds=#s9#, #a4#"};
 				{ 3, 46181, "", "=q4=Conqueror's Aegis Greaves", "=ds=#s11#, #a4#"};
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 46155, "", "=q4=Conqueror's Aegis Gauntlets", "=ds=#s9#, #a4#"};
 				{ 7, 46153, "", "=q4=Conqueror's Aegis Legplates", "=ds=#s11#, #a4#"};
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 46174, "", "=q4=Conqueror's Aegis Handguards", "=ds=#s9#, #a4#"};
 				{ 11, 46176, "", "=q4=Conqueror's Aegis Legguards", "=ds=#s11#, #a4#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 40927, "", "=q4=Furious Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#"};
 				{ 18, 40939, "", "=q4=Furious Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#"};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 40808, "", "=q4=Furious Gladiator's Scaled Gauntlets", "=ds=#s9#, #a4#"};
 				{ 22, 40849, "", "=q4=Furious Gladiator's Scaled Legguards", "=ds=#s11#, #a4#"};
 			};
@@ -2058,7 +2058,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 46148, "", "=q4=Conqueror's Siegebreaker Gauntlets", "=ds=#s9#, #a4#"};
 				{ 11, 46150, "", "=q4=Conqueror's Siegebreaker Legplates", "=ds=#s11#, #a4#"};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 46164, "", "=q4=Conqueror's Siegebreaker Handguards", "=ds=#s9#, #a4#"};
 				{ 15, 46169, "", "=q4=Conqueror's Siegebreaker Legguards", "=ds=#s11#, #a4#"};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -2141,10 +2141,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 2, 47752, "", "=q4=Khadgar's Gauntlets of Conquest", "=ds=#s9#, #a1#"};
 				{ 3, 47750, "", "=q4=Khadgar's Leggings of Conquest", "=ds=#s11#, #a1#"};
-				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 6, 47982, "", "=q4=Velen's Gloves of Conquest", "=ds=#s9#, #a1#"};
 				{ 7, 47980, "", "=q4=Velen's Leggings of Conquest", "=ds=#s11#, #a1#"};
-				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 10, 48072, "", "=q4=Velen's Handwraps of Conquest", "=ds=#s9#, #a1#"};
 				{ 11, 48074, "", "=q4=Velen's Pants of Conquest", "=ds=#s11#, #a1#"};
 				{ 13, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -2153,10 +2153,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 16, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 17, 41971, "", "=q4=Furious Gladiator's Silk Handguards", "=ds=#s9#, #a1#"};
 				{ 18, 41959, "", "=q4=Furious Gladiator's Silk Trousers", "=ds=#s11#, #a1#"};
-				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Discipline"]};
+				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
 				{ 21, 41874, "", "=q4=Furious Gladiator's Mooncloth Gloves", "=ds=#s9#, #a1#"};
 				{ 22, 41864, "", "=q4=Furious Gladiator's Mooncloth Leggings", "=ds=#s11#, #a1#"};
-				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 25, 41940, "", "=q4=Furious Gladiator's Satin Gloves", "=ds=#s9#, #a1#"};
 				{ 26, 41927, "", "=q4=Furious Gladiator's Satin Leggings", "=ds=#s11#, #a1#"};
 				{ 28, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -2164,25 +2164,25 @@ local moduleName = "AtlasLootWotLK"
 				{ 30, 42005, "", "=q4=Furious Gladiator's Felweave Trousers", "=ds=#s11#, #a1#"};
 			};	
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 48162, "", "=q4=Stormrage's Gloves of Conquest", "=ds=#s9#, #a2#"};
 				{ 3, 48160, "", "=q4=Stormrage's Trousers of Conquest", "=ds=#s11#, #a2#"};
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 48213, "", "=q4=Stormrage's Handgrips of Conquest", "=ds=#s9#, #a2#"};
 				{ 7, 48215, "", "=q4=Stormrage's Legguards of Conquest", "=ds=#s11#, #a2#"};
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 48132, "", "=q4=Stormrage's Handguards of Conquest", "=ds=#s9#, #a2#"};
 				{ 11, 48130, "", "=q4=Stormrage's Leggings of Conquest", "=ds=#s11#, #a2#"};
 				{ 13, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
 				{ 14, 48222, "", "=q4=VanCleef's Gauntlets of Conquest", "=ds=#s9#, #a2#"};
 				{ 15, 48220, "", "=q4=VanCleef's Legplates of Conquest", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 41293, "", "=q4=Furious Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#"};
 				{ 18, 41304, "", "=q4=Furious Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#"};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 41773, "", "=q4=Furious Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#"};
 				{ 22, 41667, "", "=q4=Furious Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#"};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 41287, "", "=q4=Furious Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#"};
 				{ 26, 41298, "", "=q4=Furious Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#"};
 				{ 28, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
@@ -2193,42 +2193,42 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 2, 48254, "", "=q4=Windrunner's Handguards of Conquest", "=ds=#s9#, #a3#"};
 				{ 3, 48252, "", "=q4=Windrunner's Legguards of Conquest", "=ds=#s11#, #a3#"};
-				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 6, 48312, "", "=q4=Nobundo's Gloves of Conquest", "=ds=#s9#, #a3#"};
 				{ 7, 48314, "", "=q4=Nobundo's Kilt of Conquest", "=ds=#s11#, #a3#"};
-				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 10, 48342, "", "=q4=Nobundo's Grips of Conquest", "=ds=#s9#, #a3#"};
 				{ 11, 48344, "", "=q4=Nobundo's War-Kilt of Conquest", "=ds=#s11#, #a3#"};
-				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 14, 48284, "", "=q4=Nobundo's Handguards of Conquest", "=ds=#s9#, #a3#"};
 				{ 15, 48282, "", "=q4=Nobundo's Legguards of Conquest", "=ds=#s11#, #a3#"};
 				{ 16, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 17, 41143, "", "=q4=Furious Gladiator's Chain Gauntlets", "=ds=#s9#, #a3#"};
 				{ 18, 41205, "", "=q4=Furious Gladiator's Chain Leggings", "=ds=#s11#, #a3#"};
-				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 21, 41007, "", "=q4=Furious Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 22, 41033, "", "=q4=Furious Gladiator's Mail Leggings", "=ds=#s11#, #a3#"};
-				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 25, 41137, "", "=q4=Furious Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#"};
 				{ 26, 41199, "", "=q4=Furious Gladiator's Linked Leggings", "=ds=#s11#, #a3#"};
-				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 29, 41001, "", "=q4=Furious Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 30, 41027, "", "=q4=Furious Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 48574, "", "=q4=Turalyon's Gloves of Conquest", "=ds=#s9#, #a4#"};
 				{ 3, 48568, "", "=q4=Turalyon's Greaves of Conquest", "=ds=#s11#, #a4#"};
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 48603, "", "=q4=Turalyon's Gauntlets of Conquest", "=ds=#s9#, #a4#"};
 				{ 7, 48605, "", "=q4=Turalyon's Legplates of Conquest", "=ds=#s11#, #a4#"};
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 48633, "", "=q4=Turalyon's Handguards of Conquest", "=ds=#s9#, #a4#"};
 				{ 11, 48635, "", "=q4=Turalyon's Legguards of Conquest","=ds=#s11#, #a4#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 40927, "", "=q4=Furious Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#"};
 				{ 18, 40939, "", "=q4=Furious Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#"};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 40808, "", "=q4=Furious Gladiator's Scaled Gauntlets", "=ds=#s9#, #a4#"};
 				{ 22, 40849, "", "=q4=Furious Gladiator's Scaled Legguards", "=ds=#s11#, #a4#"};
 			};
@@ -2242,7 +2242,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 48375, "", "=q4=Wrynn's Gauntlets of Conquest", "=ds=#s9#, #a4#"};
 				{ 11, 48373, "", "=q4=Wrynn's Legplates of Conquest", "=ds=#s11#, #a4#"};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 48449, "", "=q4=Wrynn's Handguards of Conquest", "=ds=#s9#, #a4#"};
 				{ 15, 48445, "", "=q4=Wrynn's Legguards of Conquest", "=ds=#s11#, #a4#"};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -2318,10 +2318,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 2, 47753, "", "=q4=Khadgar's Gauntlets of Triumph", "=ds=#s9#, #a1#"};
 				{ 3, 47755, "", "=q4=Khadgar's Leggings of Triumph", "=ds=#s11#, #a1#"};
-				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 6, 47983, "", "=q4=Velen's Gloves of Triumph", "=ds=#s9#, #a1#"};
 				{ 7, 47985, "", "=q4=Velen's Leggings of Triumph", "=ds=#s11#, #a1#"};
-				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 10, 48077, "", "=q4=Velen's Handwraps of Triumph", "=ds=#s9#, #a1#"};
 				{ 11, 48079, "", "=q4=Velen's Pants of Triumph", "=ds=#s11#, #a1#"};
 				{ 13, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -2330,10 +2330,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 16, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 17, 41972, "", "=q4=Relentless Gladiator's Silk Handguards", "=ds=#s9#, #a1#"};
 				{ 18, 41960, "", "=q4=Relentless Gladiator's Silk Trousers", "=ds=#s11#, #a1#"};
-				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Discipline"]};
+				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
 				{ 21, 41875, "", "=q4=Relentless Gladiator's Mooncloth Gloves", "=ds=#s9#, #a1#"};
 				{ 22, 41865, "", "=q4=Relentless Gladiator's Mooncloth Leggings", "=ds=#s11#, #a1#"};
-				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 25, 41941, "", "=q4=Relentless Gladiator's Satin Gloves", "=ds=#s9#, #a1#"};
 				{ 26, 41928, "", "=q4=Relentless Gladiator's Satin Leggings", "=ds=#s11#, #a1#"};
 				{ 28, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -2341,25 +2341,25 @@ local moduleName = "AtlasLootWotLK"
 				{ 30, 42006, "", "=q4=Relentless Gladiator's Felweave Trousers", "=ds=#s11#, #a1#"};
 			};
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 48163, "", "=q4=Stormrage's Gloves of Triumph", "=ds=#s9#, #a2#"};
 				{ 3, 48165, "", "=q4=Stormrage's Trousers of Triumph", "=ds=#s11#, #a2#"};
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 48212, "", "=q4=Stormrage's Handgrips of Triumph", "=ds=#s9#, #a2#"};
 				{ 7, 48210, "", "=q4=Stormrage's Legguards of Triumph", "=ds=#s11#, #a2#"};
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 48133, "", "=q4=Stormrage's Handguards of Triumph", "=ds=#s9#, #a2#"};
 				{ 11, 48135, "", "=q4=Stormrage's Leggings of Triumph", "=ds=#s11#, #a2#"};
 				{ 13, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
 				{ 14, 48224, "", "=q4=VanCleef's Gauntlets of Triumph", "=ds=#s9#, #a2#"};
 				{ 15, 48226, "", "=q4=VanCleef's Legplates of Triumph", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 41294, "", "=q4=Relentless Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#"};
 				{ 18, 41305, "", "=q4=Relentless Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#"};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 41774, "", "=q4=Relentless Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#"};
 				{ 22, 41668, "", "=q4=Relentless Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#"};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 41288, "", "=q4=Relentless Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#"};
 				{ 26, 41299, "", "=q4=Relentless Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#"};
 				{ 28, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
@@ -2370,42 +2370,42 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 2, 48256, "", "=q4=Windrunner's Handguards of Triumph", "=ds=#s9#, #a3#"};
 				{ 3, 48258, "", "=q4=Windrunner's Legguards of Triumph", "=ds=#s11#, #a3#"};
-				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 6, 48317, "", "=q4=Nobundo's Gloves of Triumph", "=ds=#s9#, #a3#"};
 				{ 7, 48319, "", "=q4=Nobundo's Kilt of Triumph", "=ds=#s11#, #a3#"};
-				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 10, 48347, "", "=q4=Nobundo's Grips of Triumph", "=ds=#s9#, #a3#"};
 				{ 11, 48349, "", "=q4=Nobundo's War-Kilt of Triumph", "=ds=#s11#, #a3#"};
-				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 14, 48286, "", "=q4=Nobundo's Handguards of Triumph", "=ds=#s9#, #a3#"};
 				{ 15, 48288, "", "=q4=Nobundo's Legguards of Triumph", "=ds=#s11#, #a3#"};
 				{ 16, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 17, 41144, "", "=q4=Relentless Gladiator's Chain Gauntlets", "=ds=#s9#, #a3#"};
 				{ 18, 41206, "", "=q4=Relentless Gladiator's Chain Leggings", "=ds=#s11#, #a3#"};
-				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 21, 41008, "", "=q4=Relentless Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 22, 41034, "", "=q4=Relentless Gladiator's Mail Leggings", "=ds=#s11#, #a3#"};
-				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 25, 41138, "", "=q4=Relentless Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#"};
 				{ 26, 41200, "", "=q4=Relentless Gladiator's Linked Leggings", "=ds=#s11#, #a3#"};
-				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 29, 41002, "", "=q4=Relentless Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 30, 41028, "", "=q4=Relentless Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 48576, "", "=q4=Turalyon's Gloves of Triumph", "=ds=#s9#, #a4#"};
 				{ 3, 48578, "", "=q4=Turalyon's Greaves of Triumph", "=ds=#s11#, #a4#"};
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 48608, "", "=q4=Turalyon's Gauntlets of Triumph", "=ds=#s9#, #a4#"};
 				{ 7, 48610, "", "=q4=Turalyon's Legplates of Triumph", "=ds=#s11#, #a4#"};
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 48640, "", "=q4=Turalyon's Handguards of Triumph", "=ds=#s9#, #a4#"};
 				{ 11, 48638, "", "=q4=Turalyon's Legguards of Triumph", "=ds=#s11#, #a4#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 40928, "", "=q4=Relentless Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#"};
 				{ 18, 40940, "", "=q4=Relentless Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#"};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 40812, "", "=q4=Relentless Gladiator's Scaled Gauntlets", "=ds=#s9#, #a4#"};
 				{ 22, 40852, "", "=q4=Relentless Gladiator's Scaled Legguards", "=ds=#s11#, #a4#"};
 			};
@@ -2419,7 +2419,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 48377, "", "=q4=Wrynn's Gauntlets of Triumph", "=ds=#s9#, #a4#"};
 				{ 11, 48379, "", "=q4=Wrynn's Legplates of Triumph", "=ds=#s11#, #a4#"};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 48452, "", "=q4=Wrynn's Handguards of Triumph", "=ds=#s9#, #a4#"};
 				{ 15, 48446, "", "=q4=Wrynn's Legguards of Triumph", "=ds=#s11#, #a4#"};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -2498,10 +2498,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 2, 47773, "", "=q4=Sunstrider's Gauntlets of Conquest", "=ds=#s9#, #a1#"};
 				{ 3, 47775, "", "=q4=Sunstrider's Leggings of Conquest", "=ds=#s11#, #a1#"};
-				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 6, 48067, "", "=q4=Zabra's Gloves of Conquest", "=ds=#s9#, #a1#"};
 				{ 7, 48069, "", "=q4=Zabra's Leggings of Conquest", "=ds=#s11#, #a1#"};
-				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 10, 48097, "", "=q4=Zabra's Handwraps of Conquest", "=ds=#s9#, #a1#"};
 				{ 11, 48099, "", "=q4=Zabra's Pants of Conquest", "=ds=#s11#, #a1#"};
 				{ 13, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -2510,10 +2510,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 16, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 17, 41971, "", "=q4=Furious Gladiator's Silk Handguards", "=ds=#s9#, #a1#"};
 				{ 18, 41959, "", "=q4=Furious Gladiator's Silk Trousers", "=ds=#s11#, #a1#"};
-				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Discipline"]};
+				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
 				{ 21, 41874, "", "=q4=Furious Gladiator's Mooncloth Gloves", "=ds=#s9#, #a1#"};
 				{ 22, 41864, "", "=q4=Furious Gladiator's Mooncloth Leggings", "=ds=#s11#, #a1#"};
-				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 25, 41940, "", "=q4=Furious Gladiator's Satin Gloves", "=ds=#s9#, #a1#"};
 				{ 26, 41927, "", "=q4=Furious Gladiator's Satin Leggings", "=ds=#s11#, #a1#"};
 				{ 28, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -2521,25 +2521,25 @@ local moduleName = "AtlasLootWotLK"
 				{ 30, 42005, "", "=q4=Furious Gladiator's Felweave Trousers", "=ds=#s11#, #a1#"};
 			};
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 48183, "", "=q4=Runetotem's Gloves of Conquest", "=ds=#s9#, #a2#"};
 				{ 3, 48185, "", "=q4=Runetotem's Trousers of Conquest", "=ds=#s11#, #a2#"};
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 48192, "", "=q4=Runetotem's Handgrips of Conquest", "=ds=#s9#, #a2#"};
 				{ 7, 48190, "", "=q4=Runetotem's Legguards of Conquest", "=ds=#s11#, #a2#"};
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 48153, "", "=q4=Runetotem's Handguards of Conquest", "=ds=#s9#, #a2#"};
 				{ 11, 48155, "", "=q4=Runetotem's Leggings of Conquest", "=ds=#s11#, #a2#"};
 				{ 13, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
 				{ 14, 48244, "", "=q4=Garona's Gauntlets of Conquest", "=ds=#s9#, #a2#"};
 				{ 15, 48246, "", "=q4=Garona's Legplates of Conquest", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 41293, "", "=q4=Furious Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#"};
 				{ 18, 41304, "", "=q4=Furious Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#"};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 41773, "", "=q4=Furious Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#"};
 				{ 22, 41667, "", "=q4=Furious Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#"};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 41287, "", "=q4=Furious Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#"};
 				{ 26, 41298, "", "=q4=Furious Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#"};
 				{ 28, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
@@ -2550,42 +2550,42 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 2, 48276, "", "=q4=Windrunner's Handguards of Conquest", "=ds=#s9#, #a3#"};
 				{ 3, 48278, "", "=q4=Windrunner's Legguards of Conquest", "=ds=#s11#, #a3#"};
-				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 6, 48337, "", "=q4=Thrall's Gloves of Conquest", "=ds=#s9#, #a3#"};
 				{ 7, 48339, "", "=q4=Thrall's Kilt of Conquest", "=ds=#s11#, #a3#"};
-				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 10, 48367, "", "=q4=Thrall's Grips of Conquest", "=ds=#s9#, #a3#"};
 				{ 11, 48369, "", "=q4=Thrall's War-Kilt of Conquest", "=ds=#s11#, #a3#"};
-				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 14, 48296, "", "=q4=Thrall's Handguards of Conquest", "=ds=#s9#, #a3#"};
 				{ 15, 48298, "", "=q4=Thrall's Legguards of Conquest", "=ds=#s11#, #a3#"};
 				{ 16, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 17, 41143, "", "=q4=Furious Gladiator's Chain Gauntlets", "=ds=#s9#, #a3#"};
 				{ 18, 41205, "", "=q4=Furious Gladiator's Chain Leggings", "=ds=#s11#, #a3#"};
-				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 21, 41007, "", "=q4=Furious Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 22, 41033, "", "=q4=Furious Gladiator's Mail Leggings", "=ds=#s11#, #a3#"};
-				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 25, 41137, "", "=q4=Furious Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#"};
 				{ 26, 41199, "", "=q4=Furious Gladiator's Linked Leggings", "=ds=#s11#, #a3#"};
-				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 29, 41001, "", "=q4=Furious Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 30, 41027, "", "=q4=Furious Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 48598, "", "=q4=Liadrin's Gloves of Conquest", "=ds=#s9#, #a4#"};
 				{ 3, 48596, "", "=q4=Liadrin's Greaves of Conquest", "=ds=#s11#, #a4#"};
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 48630, "", "=q4=Liadrin's Gauntlets of Conquest", "=ds=#s9#, #a4#"};
 				{ 7, 48628, "", "=q4=Liadrin's Legplates of Conquest", "=ds=#s11#, #a4#"};
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 48653, "", "=q4=Liadrin's Handguards of Conquest", "=ds=#s9#, #a4#"};
 				{ 11, 48655, "", "=q4=Liadrin's Legguards of Conquest", "=ds=#s11#, #a4#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 40927, "", "=q4=Furious Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#"};
 				{ 18, 40939, "", "=q4=Furious Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#"};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 40808, "", "=q4=Furious Gladiator's Scaled Gauntlets", "=ds=#s9#, #a4#"};
 				{ 21, 40849, "", "=q4=Furious Gladiator's Scaled Legguards", "=ds=#s11#, #a4#"};
 			};
@@ -2599,7 +2599,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 48387, "", "=q4=Hellscream's Gauntlets of Conquest", "=ds=#s9#, #a4#"};
 				{ 11, 48389, "", "=q4=Hellscream's Legplates of Conquest", "=ds=#s11#, #a4#"};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 48457, "", "=q4=Hellscream's Handguards of Conquest", "=ds=#s9#, #a4#"};
 				{ 15, 48459, "", "=q4=Hellscream's Legguards of Conquest", "=ds=#s11#, #a4#"};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -2675,10 +2675,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 2, 47772, "", "=q4=Sunstrider's Gauntlets of Triumph", "=ds=#s9#, #a1#"};
 				{ 3, 47770, "", "=q4=Sunstrider's Leggings of Triumph", "=ds=#s11#, #a1#"};
-				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 6, 48066, "", "=q4=Zabra's Gloves of Triumph", "=ds=#s9#, #a1#"};
 				{ 7, 48064, "", "=q4=Zabra's Leggings of Triumph", "=ds=#s11#, #a1#"};
-				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 10, 48096, "", "=q4=Zabra's Handwraps of Triumph", "=ds=#s9#, #a1#"};
 				{ 11, 48094, "", "=q4=Zabra's Pants of Triumph", "=ds=#s11#, #a1#"};
 				{ 13, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -2687,10 +2687,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 16, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 17, 41972, "", "=q4=Relentless Gladiator's Silk Handguards", "=ds=#s9#, #a1#"};
 				{ 18, 41960, "", "=q4=Relentless Gladiator's Silk Trousers", "=ds=#s11#, #a1#"};
-				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Discipline"]};
+				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
 				{ 21, 41875, "", "=q4=Relentless Gladiator's Mooncloth Gloves", "=ds=#s9#, #a1#"};
 				{ 22, 41865, "", "=q4=Relentless Gladiator's Mooncloth Leggings", "=ds=#s11#, #a1#"};
-				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 25, 41941, "", "=q4=Relentless Gladiator's Satin Gloves", "=ds=#s9#, #a1#"};
 				{ 26, 41928, "", "=q4=Relentless Gladiator's Satin Leggings", "=ds=#s11#, #a1#"};
 				{ 28, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -2698,25 +2698,25 @@ local moduleName = "AtlasLootWotLK"
 				{ 30, 42006, "", "=q4=Relentless Gladiator's Felweave Trousers", "=ds=#s11#, #a1#"};	
 			};
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 48182, "", "=q4=Runetotem's Gloves of Triumph", "=ds=#s9#, #a2#"};
 				{ 3, 48180, "", "=q4=Runetotem's Trousers of Triumph", "=ds=#s11#, #a2#"};
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 48193, "", "=q4=Runetotem's Handgrips of Triumph", "=ds=#s9#, #a2#"};
 				{ 7, 48195, "", "=q4=Runetotem's Legguards of Triumph", "=ds=#s11#, #a2#"};
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 48152, "", "=q4=Runetotem's Handguards of Triumph", "=ds=#s9#, #a2#"};
 				{ 11, 48150, "", "=q4=Runetotem's Leggings of Triumph", "=ds=#s11#, #a2#"};
 				{ 13, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
 				{ 14, 48241, "", "=q4=Garona's Gauntlets of Triumph", "=ds=#s9#, #a2#"};
 				{ 15, 48239, "", "=q4=Garona's Legplates of Triumph", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 41294, "", "=q4=Relentless Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#"};
 				{ 18, 41305, "", "=q4=Relentless Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#"};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 41774, "", "=q4=Relentless Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#"};
 				{ 22, 41668, "", "=q4=Relentless Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#"};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 41288, "", "=q4=Relentless Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#"};
 				{ 26, 41299, "", "=q4=Relentless Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#"};
 				{ 28, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
@@ -2727,42 +2727,42 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 2, 48273, "", "=q4=Windrunner's Handguards of Triumph", "=ds=#s9#, #a3#"};
 				{ 3, 48271, "", "=q4=Windrunner's Legguards of Triumph", "=ds=#s11#, #a3#"};
-				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 6, 48334, "", "=q4=Thrall's Gloves of Triumph", "=ds=#s9#, #a3#"};
 				{ 7, 48332, "", "=q4=Thrall's Kilt of Triumph", "=ds=#s11#, #a3#"};
-				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 10, 48364, "", "=q4=Thrall's Grips of Triumph", "=ds=#s9#, #a3#"};
 				{ 11, 48362, "", "=q4=Thrall's War-Kilt of Triumph", "=ds=#s11#, #a3#"};
-				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 14, 48301, "", "=q4=Thrall's Handguards of Triumph", "=ds=#s9#, #a3#"};
 				{ 15, 48303, "", "=q4=Thrall's Legguards of Triumph", "=ds=#s11#, #a3#"};
 				{ 16, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 17, 41144, "", "=q4=Relentless Gladiator's Chain Gauntlets", "=ds=#s9#, #a3#"};
 				{ 18, 41206, "", "=q4=Relentless Gladiator's Chain Leggings", "=ds=#s11#, #a3#"};
-				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 21, 41008, "", "=q4=Relentless Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 22, 41034, "", "=q4=Relentless Gladiator's Mail Leggings", "=ds=#s11#, #a3#"};
-				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 25, 41138, "", "=q4=Relentless Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#"};
 				{ 26, 41200, "", "=q4=Relentless Gladiator's Linked Leggings", "=ds=#s11#, #a3#"};
-				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 29, 41002, "", "=q4=Relentless Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 30, 41028, "", "=q4=Relentless Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 48593, "", "=q4=Liadrin's Gloves of Triumph", "=ds=#s9#, #a4#"};
 				{ 3, 48591, "", "=q4=Liadrin's Greaves of Triumph", "=ds=#s11#, #a4#"};
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 48625, "", "=q4=Liadrin's Gauntlets of Triumph", "=ds=#s9#, #a4#"};
 				{ 7, 48623, "", "=q4=Liadrin's Legplates of Triumph", "=ds=#s11#, #a4#"};
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 48658, "", "=q4=Liadrin's Handguards of Triumph", "=ds=#s9#, #a4#"};
 				{ 11, 48660, "", "=q4=Liadrin's Legguards of Triumph", "=ds=#s11#, #a4#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 40928, "", "=q4=Relentless Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#"};
 				{ 18, 40940, "", "=q4=Relentless Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#"};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 40812, "", "=q4=Relentless Gladiator's Scaled Gauntlets", "=ds=#s9#, #a4#"};
 				{ 22, 40852, "", "=q4=Relentless Gladiator's Scaled Legguards", "=ds=#s11#, #a4#"};
 			};
@@ -2776,7 +2776,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 48392, "", "=q4=Hellscream's Gauntlets of Triumph", "=ds=#s9#, #a4#"};
 				{ 11, 48394, "", "=q4=Hellscream's Legplates of Triumph", "=ds=#s11#, #a4#"};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 48462, "", "=q4=Hellscream's Handguards of Triumph", "=ds=#s9#, #a4#"};
 				{ 15, 48464, "", "=q4=Hellscream's Legguards of Triumph", "=ds=#s11#, #a4#"};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -2862,10 +2862,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 2, 50275, "", "=q4=Bloodmage Gloves", "=ds=#s9#, #a1#"};
 				{ 3, 50277, "", "=q4=Bloodmage Leggings", "=ds=#s11#, #a1#"};
-				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 6, 50766, "", "=q4=Crimson Acolyte Gloves", "=ds=#s9#, #a1#"};
 				{ 7, 50769, "", "=q4=Crimson Acolyte Leggings", "=ds=#s11#, #a1#"};
-				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 10, 50391, "", "=q4=Crimson Acolyte Handwraps", "=ds=#s9#, #a1#"};
 				{ 11, 50393, "", "=q4=Crimson Acolyte Pants", "=ds=#s11#, #a1#"};
 				{ 13, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -2874,10 +2874,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 16, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 17, 41972, "", "=q4=Relentless Gladiator's Silk Handguards", "=ds=#s9#, #a1#"};
 				{ 18, 41960, "", "=q4=Relentless Gladiator's Silk Trousers", "=ds=#s11#, #a1#"};
-				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Discipline"]};
+				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
 				{ 21, 41875, "", "=q4=Relentless Gladiator's Mooncloth Gloves", "=ds=#s9#, #a1#"};
 				{ 22, 41865, "", "=q4=Relentless Gladiator's Mooncloth Leggings", "=ds=#s11#, #a1#"};
-				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 25, 41941, "", "=q4=Relentless Gladiator's Satin Gloves", "=ds=#s9#, #a1#"};
 				{ 26, 41928, "", "=q4=Relentless Gladiator's Satin Leggings", "=ds=#s11#, #a1#"};
 				{ 28, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -2885,25 +2885,25 @@ local moduleName = "AtlasLootWotLK"
 				{ 30, 42006, "", "=q4=Relentless Gladiator's Felweave Trousers", "=ds=#s11#, #a1#"};
 			};
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 50822, "", "=q4=Lasherweave's Gloves", "=ds=#s9#, #a2#"};
 				{ 3, 50820, "", "=q4=Lasherweave's Trousers", "=ds=#s11#, #a2#"};
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 50827, "", "=q4=Lasherweave's Handgrips", "=ds=#s9#, #a2#"};
 				{ 7, 50825, "", "=q4=Lasherweave's Legguards", "=ds=#s11#, #a2#"};
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 50107, "", "=q4=Lasherweave's Gauntlets", "=ds=#s9#, #a2#" };
 				{ 11, 50109, "", "=q4=Lasherweave's Legplates", "=ds=#s11#, #a2#"};
 				{ 13, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
 				{ 14, 50088, "", "=q4=Shadowblade Gauntlets", "=ds=#s9#, #a2#"};
 				{ 15, 50090, "", "=q4=Shadowblade Legplates", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 41294, "", "=q4=Relentless Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#"};
 				{ 18, 41305, "", "=q4=Relentless Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#"};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 41774, "", "=q4=Relentless Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#"};
 				{ 22, 41668, "", "=q4=Relentless Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#"};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 41288, "", "=q4=Relentless Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#"};
 				{ 26, 41299, "", "=q4=Relentless Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#"};
 				{ 28, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
@@ -2914,42 +2914,42 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 2, 50114, "", "=q4=Ahn'Kahar Blood Hunter's Handguards", "=ds=#s9#, #a3#"};
 				{ 3, 50116, "", "=q4=Ahn'Kahar Blood Hunter's Legguards", "=ds=#s11#, #a3#"};
-				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 6, 50842, "", "=q4=Frost Witch's Gloves", "=ds=#s9#, #a3#"};
 				{ 7, 50844, "", "=q4=Frost Witch's Kilt", "=ds=#s11#, #a3#"};
-				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 10, 50831, "", "=q4=Frost Witch's Grips", "=ds=#s9#, #a3#"};
 				{ 11, 50833, "", "=q4=Frost Witch's War-Kilt", "=ds=#s11#, #a3#"};
-				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 14, 50836, "", "=q4=Frost Witch's Handguards", "=ds=#s9#, #a3#"};
 				{ 15, 50838, "", "=q4=Frost Witch's Legguards", "=ds=#s11#, #a3#"};
 				{ 16, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 17, 41144, "", "=q4=Relentless Gladiator's Chain Gauntlets", "=ds=#s9#, #a3#"};
 				{ 18, 41206, "", "=q4=Relentless Gladiator's Chain Leggings", "=ds=#s11#, #a3#"};
-				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 21, 41008, "", "=q4=Relentless Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 22, 41034, "", "=q4=Relentless Gladiator's Mail Leggings", "=ds=#s11#, #a3#"};
-				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 25, 41138, "", "=q4=Relentless Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#"};
 				{ 26, 41200, "", "=q4=Relentless Gladiator's Linked Leggings", "=ds=#s11#, #a3#"};
-				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 29, 41002, "", "=q4=Relentless Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 30, 41028, "", "=q4=Relentless Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 50868, "", "=q4=Lightsworn Gloves", "=ds=#s9#, #a4#"};
 				{ 3, 50866, "", "=q4=Lightsworn Greaves", "=ds=#s11#, #a4#"};
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 50327, "", "=q4=Lightsworn Gauntlets", "=ds=#s9#, #a4#"};
 				{ 7, 50325, "", "=q4=Lightsworn Legplates", "=ds=#s11#, #a4#"};
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 50863, "", "=q4=Lightsworn Handguards", "=ds=#s9#, #a4#"};
 				{ 11, 50861, "", "=q4=Lightsworn Legguards", "=ds=#s11#, #a4#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 40928, "", "=q4=Relentless Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#"};
 				{ 18, 40940, "", "=q4=Relentless Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#"};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 40812, "", "=q4=Relentless Gladiator's Scaled Gauntlets", "=ds=#s9#, #a4#"};
 				{ 22, 40852, "", "=q4=Relentless Gladiator's Scaled Legguards", "=ds=#s11#, #a4#"};
 			};
@@ -2963,7 +2963,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 50079, "", "=q4=Ymirjar Lord's Gauntlets", "=ds=#s9#, #a4#"};
 				{ 11, 50081, "", "=q4=Ymirjar Lord's Legplates", "=ds=#s11#, #a4#"};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 50849, "", "=q4=Ymirjar Lord's Handguards", "=ds=#s9#, #a4#"};
 				{ 15, 50847, "", "=q4=Ymirjar Lord's Legguards", "=ds=#s11#, #a4#"};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -3042,10 +3042,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 2, 51159, "", "=q4=Sanctified Bloodmage Gloves", "=ds=#s9#, #a1#"};
 				{ 3, 51157, "", "=q4=Sanctified Bloodmage Leggings", "=ds=#s11#, #a1#"};
-				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
+				{ 5, 0, "spell_holy_guardianspirit", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 6, 51179, "", "=q4=Sanctified Crimson Acolyte Gloves", "=ds=#s9#, #a1#"};
 				{ 7, 51177, "", "=q4=Sanctified Crimson Acolyte Leggings", "=ds=#s11#, #a1#"};
-				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 9, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 10, 51183, "", "=q4=Sanctified Crimson Acolyte Handwraps", "=ds=#s9#, #a1#"};
 				{ 11, 51181, "", "=q4=Sanctified Crimson Acolyte Pants", "=ds=#s11#, #a1#"};
 				{ 13, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -3054,10 +3054,10 @@ local moduleName = "AtlasLootWotLK"
 				{ 16, 0, "inv_staff_13", "=q6="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 17, 51464, "", "=q4=Wrathful Gladiator's Silk Handguards", "=ds=#s9#, #a1#"};
 				{ 18, 51466, "", "=q4=Wrathful Gladiator's Silk Trousers", "=ds=#s11#, #a1#"};
-				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Discipline"]};
+				{ 20, 0, "spell_holy_powerwordshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
 				{ 21, 51483, "", "=q4=Wrathful Gladiator's Mooncloth Gloves", "=ds=#s9#, #a1#"};
 				{ 22, 51485, "", "=q4=Wrathful Gladiator's Mooncloth Leggings", "=ds=#s11#, #a1#"};
-				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 24, 0, "spell_shadow_shadowwordpain", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 25, 51488, "", "=q4=Wrathful Gladiator's Satin Gloves", "=ds=#s9#, #a1#"};
 				{ 26, 51490, "", "=q4=Wrathful Gladiator's Satin Leggings", "=ds=#s11#, #a1#"};
 				{ 28, 0, "spell_nature_drowsy", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
@@ -3065,25 +3065,25 @@ local moduleName = "AtlasLootWotLK"
 				{ 30, 51539, "", "=q4=Wrathful Gladiator's Felweave Trousers", "=ds=#s11#, #a1#"};
 			};
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 1, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 2, 51148, "", "=q4=Sanctified Lasherweave's Gloves", "=ds=#s9#, #a2#" };
 				{ 3, 51146, "", "=q4=Sanctified Lasherweave's Trousers", "=ds=#s11#, #a2#" };
-				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 5, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 6, 51144, "", "=q4=Sanctified Lasherweave's Handgrips", "=ds=#s9#, #a2#" };
 				{ 7, 51142, "", "=q4=Sanctified Lasherweave's Legguards", "=ds=#s11#, #a2#" };
-				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 9, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 10, 51138, "", "=q4=Sanctified Lasherweave's Gauntlets", "=ds=#s9#, #a2#" };
 				{ 11, 51136, "", "=q4=Sanctified Lasherweave's Legplates", "=ds=#s11#, #a2#" };
 				{ 13, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
 				{ 14, 51188, "", "=q4=Sanctified Shadowblade Gauntlets", "=ds=#s9#, #a2#"};
 				{ 15, 51186, "", "=q4=Sanctified Shadowblade Legplates", "=ds=#s11#, #a2#"};
-				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
+				{ 16, 0, "spell_nature_starfall", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
 				{ 17, 51434, "", "=q4=Wrathful Gladiator's Wyrmhide Gloves", "=ds=#s9#, #a2#"};
 				{ 18, 51436, "", "=q4=Wrathful Gladiator's Wyrmhide Legguards", "=ds=#s11#, #a2#"};
-				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
+				{ 20, 0, "ability_druid_catform", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
 				{ 21, 51426, "", "=q4=Wrathful Gladiator's Dragonhide Gloves", "=ds=#s9#, #a2#"};
 				{ 22, 51428, "", "=q4=Wrathful Gladiator's Dragonhide Legguards", "=ds=#s11#, #a2#"};
-				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 24, 0, "spell_nature_healingtouch", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 25, 51420, "", "=q4=Wrathful Gladiator's Kodohide Gloves", "=ds=#s9#, #a2#"};
 				{ 26, 51422, "", "=q4=Wrathful Gladiator's Kodohide Legguards", "=ds=#s11#, #a2#"};
 				{ 28, 0, "inv_throwingknife_04", "=q6="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
@@ -3094,42 +3094,42 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 2, 51154, "", "=q4=Sanctified Ahn'Kahar Blood Hunter's Handguards", "=ds=#s9#, #a3#"};
 				{ 3, 51152, "", "=q4=Sanctified Ahn'Kahar Blood Hunter's Legguards", "=ds=#s11#, #a3#"};
-				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 5, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 6, 51201, "", "=q4=Sanctified Frost Witch's Gloves", "=ds=#s9#, #a3#" };
 				{ 7, 51203, "", "=q4=Sanctified Frost Witch's Kilt", "=ds=#s11#, #a3#" };
-				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 9, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 10, 51196, "", "=q4=Sanctified Frost Witch's Grips", "=ds=#s9#, #a3#" };
 				{ 11, 51198, "", "=q4=Sanctified Frost Witch's War-Kilt", "=ds=#s11#, #a3#" };
-				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 13, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 14, 51191, "", "=q4=Sanctified Frost Witch's Handguards", "=ds=#s9#, #a3#" };
 				{ 15, 51193, "", "=q4=Sanctified Frost Witch's Legguards", "=ds=#s11#, #a3#" };
 				{ 16, 0, "inv_weapon_bow_07", "=q6="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 17, 51459, "", "=q4=Wrathful Gladiator's Chain Gauntlets", "=ds=#s9#, #a3#"};
 				{ 18, 51461, "", "=q4=Wrathful Gladiator's Chain Leggings", "=ds=#s11#, #a3#"};
-				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
+				{ 20, 0, "Spell_Nature_Lightning", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
 				{ 21, 51510, "", "=q4=Wrathful Gladiator's Mail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 22, 51512, "", "=q4=Wrathful Gladiator's Mail Leggings", "=ds=#s11#, #a3#"};
-				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
+				{ 24, 0, "spell_nature_lightningshield", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
 				{ 25, 51504, "", "=q4=Wrathful Gladiator's Linked Gauntlets", "=ds=#s9#, #a3#"};
 				{ 26, 51506, "", "=q4=Wrathful Gladiator's Linked Leggings", "=ds=#s11#, #a3#"};
-				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 28, 0, "spell_nature_magicimmunity", "=q6="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 29, 51498, "", "=q4=Wrathful Gladiator's Ringmail Gauntlets", "=ds=#s9#, #a3#"};
 				{ 30, 51500, "", "=q4=Wrathful Gladiator's Ringmail Leggings", "=ds=#s11#, #a3#"};
 			};
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 2, 51169, "", "=q4=Sanctified Lightsworn Gloves", "=ds=#s9#, #a4#" };
 				{ 3, 51168, "", "=q4=Sanctified Lightsworn Greaves", "=ds=#s11#, #a4#" };
-				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 6, 51163, "", "=q4=Sanctified Lightsworn Gauntlets", "=ds=#s9#, #a4#" };
 				{ 7, 51161, "", "=q4=Sanctified Lightsworn Legplates", "=ds=#s11#, #a4#" };
-				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
+				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 10, 51172, "", "=q4=Sanctified Lightsworn Handguards", "=ds=#s9#, #a4#" };
 				{ 11, 51171, "", "=q4=Sanctified Lightsworn Legguards", "=ds=#s11#, #a4#" };
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
 				{ 17, 51469, "", "=q4=Wrathful Gladiator's Ornamented Gloves", "=ds=#s9#, #a4#"};
 				{ 18, 51471, "", "=q4=Wrathful Gladiator's Ornamented Legplates", "=ds=#s11#, #a4#"};
-				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 20, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 21, 51475, "", "=q4=Wrathful Gladiator's Scaled Gauntlets", "=ds=#s9#, #a4#"};
 				{ 22, 51477, "", "=q4=Wrathful Gladiator's Scaled Legguards", "=ds=#s11#, #a4#"};
 			};
@@ -3143,7 +3143,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 9, 0, "ability_warrior_innerrage", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
 				{ 10, 51213, "", "=q4=Ymirjar Lord's Gauntlets", "=ds=#s9#, #a4#"};
 				{ 11, 51211, "", "=q4=Ymirjar Lord's Legplates", "=ds=#s11#, #a4#"};
-				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 13, 0, "ability_warrior_defensivestance", "=q6="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 				{ 14, 51217, "", "=q4=Ymirjar Lord's Handguards", "=ds=#s9#, #a4#"};
 				{ 15, 51216, "", "=q4=Ymirjar Lord's Legguards", "=ds=#s11#, #a4#"};
 				{ 16, 0, "spell_deathknight_classicon", "=q6="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"]};
@@ -4781,7 +4781,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 12, 45635, "", "=q4=Chestguard of the Wayward Conqueror", "=ds=#e15#", "", "52%"};
 				{ 13, 45636, "", "=q4=Chestguard of the Wayward Protector", "=ds=#e15#", "", "50%"};
 				{ 14, 45637, "", "=q4=Chestguard of the Wayward Vanquisher", "=ds=#e15#", "", "27%"};
-				{ 16, 0, "INV_Box_01", "=q6=#j53#", "#ACHIEVEMENTID:3157#"};
+				{ 16, 0, "INV_Box_01", "=q6=#j53#", "#ACHIEVEMENTID:3158#"};
 				{ 17, 46068, "", "=q4=Amice of Inconceivable Horror", "=ds=#s3#, #a1#"};
 				{ 18, 46095, "", "=q4=Soul-Devouring Cinch", "=ds=#s10#, #a2#"};
 				{ 19, 46096, "", "=q4=Signet of Soft Lament", "=ds=#s13#"};
@@ -4808,7 +4808,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 16, 45656, "", "=q4=Mantle of the Wayward Conqueror", "=ds=#e15#", "", "59%"};
 				{ 17, 45657, "", "=q4=Mantle of the Wayward Protector", "=ds=#e15#", "", "54%"};
 				{ 18, 45658, "", "=q4=Mantle of the Wayward Vanquisher", "=ds=#e15#", "", "66%"};
-				{ 20, 0, "INV_Box_01", "=q6=#j53#", "#ACHIEVEMENTID:3161#"};
+				{ 20, 0, "INV_Box_01", "=q6=#j53#", "#ACHIEVEMENTID:3163#"};
 				{ 21, 45537, "", "=q4=Treads of the False Oracle", "=ds=#s12#, #a1#", "", "1%"};
 				{ 22, 45536, "", "=q4=Legguards of Cunning Deception", "=ds=#s11#, #a2#", "", "1%"};
 				{ 23, 45534, "", "=q4=Seal of the Betrayed King", "=ds=#s13#"};
@@ -4917,7 +4917,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = BabbleBoss["Faction Champions"],
+			name = BabbleBoss["Grand Champions"],
 			module = moduleName, instance = "TrialOfTheChampion",
 		};
 	}
@@ -7933,7 +7933,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
 			module = moduleName, menu = "PVP80SET",
 		};
 	}
@@ -7982,7 +7982,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
 			module = moduleName, menu = "PVP80SET",
 		};
 	}
@@ -8031,7 +8031,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "PVP80SET",
 		};
 	}
@@ -8178,7 +8178,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
 			module = moduleName, menu = "PVP80SET",
 		};
 	}
@@ -8227,7 +8227,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "PVP80SET",
 		};
 	}
@@ -8276,7 +8276,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Shadow"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Shadow"],
 			module = moduleName, menu = "PVP80SET",
 		};
 	}
@@ -8325,7 +8325,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "PVP80SET",
 		};
 	}
@@ -8423,7 +8423,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
 			module = moduleName, menu = "PVP80SET",
 		};
 	}
@@ -8472,7 +8472,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
 			module = moduleName, menu = "PVP80SET",
 		};
 	}
@@ -8521,7 +8521,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "PVP80SET",
 		};
 	}
@@ -9004,25 +9004,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxDeathKnightDPS"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t7s10_1#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t7s10_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39619, "", "=q4=Heroes' Scourgeborne Helmet", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39621, "", "=q4=Heroes' Scourgeborne Shoulderplates", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39617, "", "=q4=Heroes' Scourgeborne Battleplate", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39618, "", "=q4=Heroes' Scourgeborne Gauntlets", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39620, "", "=q4=Heroes' Scourgeborne Legplates", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t7s10_1#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t7s10_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40554, "", "=q4=Valorous Scourgeborne Helmet", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40557, "", "=q4=Valorous Scourgeborne Shoulderplates", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40550, "", "=q4=Valorous Scourgeborne Battleplate", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40552, "", "=q4=Valorous Scourgeborne Gauntlets", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40556, "", "=q4=Valorous Scourgeborne Legplates", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t8s10_1#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t8s10_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45342, "", "=q4=Valorous Darkruned Helmet", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45344, "", "=q4=Valorous Darkruned Shoulderplates", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45340, "", "=q4=Valorous Darkruned Battleplate", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45341, "", "=q4=Valorous Darkruned Gauntlets", "=ds="..BabbleBoss.Freya};
 				{ 21, 45343, "", "=q4=Valorous Darkruned Legplates", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "spell_deathknight_frostpresence", "=q6=#t8s10_1#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "spell_deathknight_frostpresence", "=q6=#t8s10_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46115, "", "=q4=Conqueror's Darkruned Helmet", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46117, "", "=q4=Conqueror's Darkruned Shoulderplates", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46111, "", "=q4=Conqueror's Darkruned Battleplate", "=ds="..BabbleBoss.Hodir};
@@ -9039,25 +9039,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxDeathKnightTank"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t7s10_2#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t7s10_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39625, "", "=q4=Heroes' Scourgeborne Faceguard", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39627, "", "=q4=Heroes' Scourgeborne Pauldrons", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39623, "", "=q4=Heroes' Scourgeborne Chestguard", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39624, "", "=q4=Heroes' Scourgeborne Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39626, "", "=q4=Heroes' Scourgeborne Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t7s10_2#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t7s10_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40565, "", "=q4=Valorous Scourgeborne Faceguard", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40568, "", "=q4=Valorous Scourgeborne Pauldrons", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40559, "", "=q4=Valorous Scourgeborne Chestguard", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40563, "", "=q4=Valorous Scourgeborne Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40567, "", "=q4=Valorous Scourgeborne Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "spell_deathknight_bloodpresence", "=q6=#t8s10_2#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "spell_deathknight_bloodpresence", "=q6=#t8s10_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45336, "", "=q4=Valorous Darkruned Faceguard", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45339, "", "=q4=Valorous Darkruned Pauldrons", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45335, "", "=q4=Valorous Darkruned Chestguard", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45337, "", "=q4=Valorous Darkruned Handguards", "=ds="..BabbleBoss.Freya};
 				{ 21, 45338, "", "=q4=Valorous Darkruned Legguards", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "spell_deathknight_bloodpresence", "=q6=#t8s10_2#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "spell_deathknight_bloodpresence", "=q6=#t8s10_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46120, "", "=q4=Conqueror's Darkruned Faceguard", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46122, "", "=q4=Conqueror's Darkruned Pauldrons", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46118, "", "=q4=Conqueror's Darkruned Chestguard", "=ds="..BabbleBoss.Hodir};
@@ -9074,25 +9074,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxDruidFeral"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_druid_catform", "=q6=#t7s1_2#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "ability_druid_catform", "=q6=#t7s1_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39553, "", "=q4=Heroes' Dreamwalker Headguard", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39556, "", "=q4=Heroes' Dreamwalker Shoulderpads", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39554, "", "=q4=Heroes' Dreamwalker Raiments", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39557, "", "=q4=Heroes' Dreamwalker Handgrips", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39555, "", "=q4=Heroes' Dreamwalker Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "ability_druid_catform", "=q6=#t7s1_2#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "ability_druid_catform", "=q6=#t7s1_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40473, "", "=q4=Valorous Dreamwalker Headguard", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40494, "", "=q4=Valorous Dreamwalker Shoulderpads", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40471, "", "=q4=Valorous Dreamwalker Raiments", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40472, "", "=q4=Valorous Dreamwalker Handgrips", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40493, "", "=q4=Valorous Dreamwalker Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "ability_druid_catform", "=q6=#t8s1_2#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "ability_druid_catform", "=q6=#t8s1_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45356, "", "=q4=Valorous Nightsong Headguard", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45359, "", "=q4=Valorous Nightsong Shoulderpads", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45358, "", "=q4=Valorous Nightsong Raiments", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45355, "", "=q4=Valorous Nightsong Handgrips", "=ds="..BabbleBoss.Freya};
 				{ 21, 45357, "", "=q4=Valorous Nightsong Legguards", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "ability_druid_catform", "=q6=#t8s1_2#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "ability_druid_catform", "=q6=#t8s1_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46161, "", "=q4=Conqueror's Nightsong Headguard", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46157, "", "=q4=Conqueror's Nightsong Shoulderpads", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46159, "", "=q4=Conqueror's Nightsong Raiments", "=ds="..BabbleBoss.Hodir};
@@ -9101,7 +9101,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9109,25 +9109,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxDruidRestoration"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_healingtouch", "=q6=#t7s1_3#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "spell_nature_healingtouch", "=q6=#t7s1_3#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39531, "", "=q4=Heroes' Dreamwalker Headpiece", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39542, "", "=q4=Heroes' Dreamwalker Spaulders", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39538, "", "=q4=Heroes' Dreamwalker Robe", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39543, "", "=q4=Heroes' Dreamwalker Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39539, "", "=q4=Heroes' Dreamwalker Leggings", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "spell_nature_healingtouch", "=q6=#t7s1_3#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "spell_nature_healingtouch", "=q6=#t7s1_3#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40461, "", "=q4=Valorous Dreamwalker Headpiece", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40465, "", "=q4=Valorous Dreamwalker Spaulders", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40463, "", "=q4=Valorous Dreamwalker Robe", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40460, "", "=q4=Valorous Dreamwalker Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40462, "", "=q4=Valorous Dreamwalker Leggings", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "spell_nature_healingtouch", "=q6=#t8s1_3#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "spell_nature_healingtouch", "=q6=#t8s1_3#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45346, "", "=q4=Valorous Nightsong Headpiece", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45349, "", "=q4=Valorous Nightsong Spaulders", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45348, "", "=q4=Valorous Nightsong Robe", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45345, "", "=q4=Valorous Nightsong Handguards", "=ds="..BabbleBoss.Freya};
 				{ 21, 45347, "", "=q4=Valorous Nightsong Leggings", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "spell_nature_healingtouch", "=q6=#t8s1_3#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "spell_nature_healingtouch", "=q6=#t8s1_3#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46184, "", "=q4=Conqueror's Nightsong Headpiece", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46187, "", "=q4=Conqueror's Nightsong Spaulders", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46186, "", "=q4=Conqueror's Nightsong Robe", "=ds="..BabbleBoss.Hodir};
@@ -9136,7 +9136,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9144,25 +9144,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxDruidBalance"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6=#t7s1_1#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "spell_nature_starfall", "=q6=#t7s1_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39545, "", "=q4=Heroes' Dreamwalker Cover", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39548, "", "=q4=Heroes' Dreamwalker Mantle", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39547, "", "=q4=Heroes' Dreamwalker Vestments", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39544, "", "=q4=Heroes' Dreamwalker Gloves", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39546, "", "=q4=Heroes' Dreamwalker Trousers", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "spell_nature_starfall", "=q6=#t7s1_1#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "spell_nature_starfall", "=q6=#t7s1_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40467, "", "=q4=Valorous Dreamwalker Cover", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40470, "", "=q4=Valorous Dreamwalker Mantle", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40469, "", "=q4=Valorous Dreamwalker Vestments", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40466, "", "=q4=Valorous Dreamwalker Gloves", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40468, "", "=q4=Valorous Dreamwalker Trousers", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "spell_nature_starfall", "=q6=#t8s1_1#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "spell_nature_starfall", "=q6=#t8s1_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 46313, "", "=q4=Valorous Nightsong Cover", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45352, "", "=q4=Valorous Nightsong Mantle", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45354, "", "=q4=Valorous Nightsong Vestments", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45351, "", "=q4=Valorous Nightsong Gloves", "=ds="..BabbleBoss.Freya};
 				{ 21, 45353, "", "=q4=Valorous Nightsong Trousers", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "spell_nature_starfall", "=q6=#t8s1_1#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "spell_nature_starfall", "=q6=#t8s1_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46191, "", "=q4=Conqueror's Nightsong Cover", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46196, "", "=q4=Conqueror's Nightsong Mantle", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46194, "", "=q4=Conqueror's Nightsong Vestments", "=ds="..BabbleBoss.Hodir};
@@ -9171,7 +9171,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9179,25 +9179,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxHunter"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_weapon_bow_07", "=q6=#t7s2#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "inv_weapon_bow_07", "=q6=#t7s2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39578, "", "=q4=Heroes' Cryptstalker Headpiece", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39581, "", "=q4=Heroes' Cryptstalker Spaulders", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39579, "", "=q4=Heroes' Cryptstalker Tunic", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39582, "", "=q4=Heroes' Cryptstalker Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39580, "", "=q4=Heroes' Cryptstalker Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "inv_weapon_bow_07", "=q6=#t7s2#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "inv_weapon_bow_07", "=q6=#t7s2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40505, "", "=q4=Valorous Cryptstalker Headpiece", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40507, "", "=q4=Valorous Cryptstalker Spaulders", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40503, "", "=q4=Valorous Cryptstalker Tunic", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40504, "", "=q4=Valorous Cryptstalker Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40506, "", "=q4=Valorous Cryptstalker Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "inv_weapon_bow_07", "=q6=#t8s2#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "inv_weapon_bow_07", "=q6=#t8s2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45361, "", "=q4=Valorous Scourgestalker Headpiece", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45363, "", "=q4=Valorous Scourgestalker Spaulders", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45364, "", "=q4=Valorous Scourgestalker Tunic", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45360, "", "=q4=Valorous Scourgestalker Handguards", "=ds="..BabbleBoss.Freya};
 				{ 21, 45362, "", "=q4=Valorous Scourgestalker Legguards", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "inv_weapon_bow_07", "=q6=#t8s2#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "inv_weapon_bow_07", "=q6=#t8s2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46143, "", "=q4=Conqueror's Scourgestalker Headpiece", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46145, "", "=q4=Conqueror's Scourgestalker Spaulders", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46141, "", "=q4=Conqueror's Scourgestalker Tunic", "=ds="..BabbleBoss.Hodir};
@@ -9214,25 +9214,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxMage"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_staff_13", "=q6=#t7s3#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "inv_staff_13", "=q6=#t7s3#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39491, "", "=q4=Heroes' Frostfire Circlet", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39494, "", "=q4=Heroes' Frostfire Shoulderpads", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39492, "", "=q4=Heroes' Frostfire Robe", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39495, "", "=q4=Heroes' Frostfire Gloves", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39493, "", "=q4=Heroes' Frostfire Leggings", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "inv_staff_13", "=q6=#t7s3#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "inv_staff_13", "=q6=#t7s3#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40416, "", "=q4=Valorous Frostfire Circlet", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40419, "", "=q4=Valorous Frostfire Shoulderpads", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40418, "", "=q4=Valorous Frostfire Robe", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40415, "", "=q4=Valorous Frostfire Gloves", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40417, "", "=q4=Valorous Frostfire Leggings", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "inv_staff_13", "=q6=#t8s3#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "inv_staff_13", "=q6=#t8s3#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45365, "", "=q4=Valorous Kirin Tor Hood", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45369, "", "=q4=Valorous Kirin Tor Shoulderpads", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45368, "", "=q4=Valorous Kirin Tor Tunic", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 46131, "", "=q4=Valorous Kirin Tor Gauntlets", "=ds="..BabbleBoss.Freya};
 				{ 21, 45367, "", "=q4=Valorous Kirin Tor Leggings", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "inv_staff_13", "=q6=#t8s3#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "inv_staff_13", "=q6=#t8s3#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46129, "", "=q4=Conqueror's Kirin Tor Hood", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46134, "", "=q4=Conqueror's Kirin Tor Shoulderpads", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46130, "", "=q4=Conqueror's Kirin Tor Tunic", "=ds="..BabbleBoss.Hodir};
@@ -9249,13 +9249,13 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxPaladinHoly"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t7s4_1#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t7s4_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39628, "", "=q4=Heroes' Redemption Headpiece", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39631, "", "=q4=Heroes' Redemption Spaulders", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39629, "", "=q4=Heroes' Redemption Tunic", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39632, "", "=q4=Heroes' Redemption Gloves", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39630, "", "=q4=Heroes' Redemption Greaves", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t7s4_1#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t7s4_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40571, "", "=q4=Valorous Redemption Headpiece", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40573, "", "=q4=Valorous Redemption Spaulders", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40569, "", "=q4=Valorous Redemption Tunic", "=ds="..BabbleBoss["The Four Horsemen"]};
@@ -9267,7 +9267,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 19, 45374, "", "=q4=Valorous Aegis Tunic", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45370, "", "=q4=Valorous Aegis Gloves", "=ds="..BabbleBoss.Freya};
 				{ 21, 45371, "", "=q4=Valorous Aegis Greaves", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "Spell_Holy_HolyBolt", "=q6=#t8s4_1#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "Spell_Holy_HolyBolt", "=q6=#t8s4_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46180, "", "=q4=Conqueror's Aegis Headpiece", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46182, "", "=q4=Conqueror's Aegis Spaulders", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46178, "", "=q4=Conqueror's Aegis Tunic", "=ds="..BabbleBoss.Hodir};
@@ -9276,7 +9276,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9284,13 +9284,13 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxPaladinRetribution"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t7s4_2#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t7s4_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39635, "", "=q4=Heroes' Redemption Helm", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39637, "", "=q4=Heroes' Redemption Shoulderplates", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39633, "", "=q4=Heroes' Redemption Chestpiece", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39634, "", "=q4=Heroes' Redemption Gauntlets", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39636, "", "=q4=Heroes' Redemption Legplates", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t7s4_2#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t7s4_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40576, "", "=q4=Valorous Redemption Helm", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40578, "", "=q4=Valorous Redemption Shoulderplates", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40574, "", "=q4=Valorous Redemption Chestpiece", "=ds="..BabbleBoss["The Four Horsemen"]};
@@ -9302,7 +9302,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 19, 45375, "", "=q4=Valorous Aegis Battleplate", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45376, "", "=q4=Valorous Aegis Gauntlets", "=ds="..BabbleBoss.Freya};
 				{ 21, 45379, "", "=q4=Valorous Aegis Legplates", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "Spell_Holy_AuraOfLight", "=q6=#t8s4_2#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "Spell_Holy_AuraOfLight", "=q6=#t8s4_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46156, "", "=q4=Conqueror's Aegis Helm", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46152, "", "=q4=Conqueror's Aegis Shoulderplates", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46154, "", "=q4=Conqueror's Aegis Battleplate", "=ds="..BabbleBoss.Hodir};
@@ -9311,7 +9311,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9319,13 +9319,13 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxPaladinProtection"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_holy_devotionaura", "=q6=#t7s4_3#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "spell_holy_devotionaura", "=q6=#t7s4_3#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39640, "", "=q4=Heroes' Redemption Faceguard", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39642, "", "=q4=Heroes' Redemption Shouldergards", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39638, "", "=q4=Heroes' Redemption Breastplate", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39639, "", "=q4=Heroes' Redemption Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39641, "", "=q4=Heroes' Redemption Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "spell_holy_devotionaura", "=q6=#t7s4_3#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "spell_holy_devotionaura", "=q6=#t7s4_3#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40581, "", "=q4=Valorous Redemption Faceguard", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40584, "", "=q4=Valorous Redemption Shouldergards", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40579, "", "=q4=Valorous Redemption Breastplate", "=ds="..BabbleBoss["The Four Horsemen"]};
@@ -9337,7 +9337,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 19, 45381, "", "=q4=Valorous Aegis Breastplate", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45383, "", "=q4=Valorous Aegis Handguards", "=ds="..BabbleBoss.Freya};
 				{ 21, 45384, "", "=q4=Valorous Aegis Legguards", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "spell_holy_devotionaura", "=q6=#t8s4_3#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "spell_holy_devotionaura", "=q6=#t8s4_3#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46175, "", "=q4=Conqueror's Aegis Faceguard", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46177, "", "=q4=Conqueror's Aegis Shouldergards", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46173, "", "=q4=Conqueror's Aegis Breastplate", "=ds="..BabbleBoss.Hodir};
@@ -9346,7 +9346,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9354,25 +9354,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxPriestShadow"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t7s5_2#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t7s5_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39521, "", "=q4=Heroes' Circlet of Faith", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39529, "", "=q4=Heroes' Mantle of Faith", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39523, "", "=q4=Heroes' Raiments of Faith", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39530, "", "=q4=Heroes' Handwraps of Faith", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39528, "", "=q4=Heroes' Pants of Faith", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t7s5_2#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t7s5_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40456, "", "=q4=Valorous Circlet of Faith", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40459, "", "=q4=Valorous Mantle of Faith", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40458, "", "=q4=Valorous Raiments of Faith", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40454, "", "=q4=Valorous Handwraps of Faith", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40457, "", "=q4=Valorous Pants of Faith", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t8s5_2#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t8s5_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45391, "", "=q4=Valorous Circlet of Sanctification", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45393, "", "=q4=Valorous Mantle of Sanctification", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45395, "", "=q4=Valorous Raiments of Sanctification", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45392, "", "=q4=Valorous Handwraps of Sanctification", "=ds="..BabbleBoss.Freya};
 				{ 21, 45394, "", "=q4=Valorous Pants of Sanctification", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "spell_shadow_shadowwordpain", "=q6=#t8s5_2#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "spell_shadow_shadowwordpain", "=q6=#t8s5_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46172, "", "=q4=Conqueror's Circlet of Sanctification", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46165, "", "=q4=Conqueror's Mantle of Sanctification", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46168, "", "=q4=Conqueror's Raiments of Sanctification", "=ds="..BabbleBoss.Hodir};
@@ -9381,7 +9381,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Shadow"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Shadow"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9389,25 +9389,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxPriestHoly"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t7s5_1#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t7s5_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39514, "", "=q4=Heroes' Crown of Faith", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39518, "", "=q4=Heroes' Shoulderpads of Faith", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39515, "", "=q4=Heroes' Robe of Faith", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39519, "", "=q4=Heroes' Gloves of Faith", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39517, "", "=q4=Heroes' Leggings of Faith", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t7s5_1#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t7s5_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40447, "", "=q4=Valorous Crown of Faith", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40450, "", "=q4=Valorous Shoulderpads of Faith", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40449, "", "=q4=Valorous Robe of Faith", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40445, "", "=q4=Valorous Gloves of Faith", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40448, "", "=q4=Valorous Leggings of Faith", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t8s5_1#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t8s5_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45386, "", "=q4=Valorous Cowl of Sanctification", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45390, "", "=q4=Valorous Shoulderpads of Sanctification", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45389, "", "=q4=Valorous Robe of Sanctification", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45387, "", "=q4=Valorous Gloves of Sanctification", "=ds="..BabbleBoss.Freya};
 				{ 21, 45388, "", "=q4=Valorous Leggings of Sanctification", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "spell_holy_guardianspirit", "=q6=#t8s5_1#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "spell_holy_guardianspirit", "=q6=#t8s5_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46197, "", "=q4=Conqueror's Cowl of Sanctification", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46190, "", "=q4=Conqueror's Shoulderpads of Sanctification", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46193, "", "=q4=Conqueror's Robe of Sanctification", "=ds="..BabbleBoss.Hodir};
@@ -9416,7 +9416,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9424,25 +9424,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxRogue"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_throwingknife_04", "=q6=#t7s6#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "inv_throwingknife_04", "=q6=#t7s6#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39561, "", "=q4=Heroes' Bonescythe Helmet", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39565, "", "=q4=Heroes' Bonescythe Pauldrons", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39558, "", "=q4=Heroes' Bonescythe Breastplate", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39560, "", "=q4=Heroes' Bonescythe Gauntlets", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39564, "", "=q4=Heroes' Bonescythe Legplates", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "inv_throwingknife_04", "=q6=#t7s6#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "inv_throwingknife_04", "=q6=#t7s6#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40499, "", "=q4=Valorous Bonescythe Helmet", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40502, "", "=q4=Valorous Bonescythe Pauldrons", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40495, "", "=q4=Valorous Bonescythe Breastplate", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40496, "", "=q4=Valorous Bonescythe Gauntlets", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40500, "", "=q4=Valorous Bonescythe Legplates", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "inv_throwingknife_04", "=q6=#t8s6#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "inv_throwingknife_04", "=q6=#t8s6#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45398, "", "=q4=Valorous Terrorblade Helmet", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45400, "", "=q4=Valorous Terrorblade Pauldrons", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45396, "", "=q4=Valorous Terrorblade Breastplate", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45397, "", "=q4=Valorous Terrorblade Gauntlets", "=ds="..BabbleBoss.Freya};
 				{ 21, 45399, "", "=q4=Valorous Terrorblade Legplates", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "inv_throwingknife_04", "=q6=#t8s6#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "inv_throwingknife_04", "=q6=#t8s6#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46125, "", "=q4=Conqueror's Terrorblade Helmet", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46127, "", "=q4=Conqueror's Terrorblade Pauldrons", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46123, "", "=q4=Conqueror's Terrorblade Breastplate", "=ds="..BabbleBoss.Hodir};
@@ -9459,25 +9459,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxShamanRestoration"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t7s7_3#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t7s7_3#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39583, "", "=q4=Heroes' Earthshatter Headpiece", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39590, "", "=q4=Heroes' Earthshatter Spaulders", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39588, "", "=q4=Heroes' Earthshatter Tunic", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39591, "", "=q4=Heroes' Earthshatter Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39589, "", "=q4=Heroes' Earthshatter Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t7s7_3#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t7s7_3#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40510, "", "=q4=Valorous Earthshatter Headpiece", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40513, "", "=q4=Valorous Earthshatter Spaulders", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40508, "", "=q4=Valorous Earthshatter Tunic", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40509, "", "=q4=Valorous Earthshatter Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40512, "", "=q4=Valorous Earthshatter Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t8s7_3#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t8s7_3#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45402, "", "=q4=Valorous Worldbreaker Headpiece", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45404, "", "=q4=Valorous Worldbreaker Spaulders", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45405, "", "=q4=Valorous Worldbreaker Tunic", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45401, "", "=q4=Valorous Worldbreaker Handguards", "=ds="..BabbleBoss.Freya};
 				{ 21, 45403, "", "=q4=Valorous Worldbreaker Legguards", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "spell_nature_magicimmunity", "=q6=#t8s7_3#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "spell_nature_magicimmunity", "=q6=#t8s7_3#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46201, "", "=q4=Conqueror's Worldbreaker Headpiece", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46204, "", "=q4=Conqueror's Worldbreaker Spaulders", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46198, "", "=q4=Conqueror's Worldbreaker Tunic", "=ds="..BabbleBoss.Hodir};
@@ -9486,7 +9486,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9494,25 +9494,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxShamanEnhancement"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_lightningshield", "=q6=#t7s7_2#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "spell_nature_lightningshield", "=q6=#t7s7_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39602, "", "=q4=Heroes' Earthshatter Faceguard", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39604, "", "=q4=Heroes' Earthshatter Shoulderguards", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39597, "", "=q4=Heroes' Earthshatter Chestguard", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39601, "", "=q4=Heroes' Earthshatter Grips", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39603, "", "=q4=Heroes' Earthshatter War-Kilt", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "spell_nature_lightningshield", "=q6=#t7s7_2#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "spell_nature_lightningshield", "=q6=#t7s7_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40521, "", "=q4=Valorous Earthshatter Faceguard", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40524, "", "=q4=Valorous Earthshatter Shoulderguards", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40523, "", "=q4=Valorous Earthshatter Chestguard", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40520, "", "=q4=Valorous Earthshatter Grips", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40522, "", "=q4=Valorous Earthshatter War-Kilt", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "spell_nature_lightningshield", "=q6=#t8s7_2#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "spell_nature_lightningshield", "=q6=#t8s7_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45412, "", "=q4=Valorous Worldbreaker Faceguard", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45415, "", "=q4=Valorous Worldbreaker Shoulderguards", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45413, "", "=q4=Valorous Worldbreaker Chestguard", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45414, "", "=q4=Valorous Worldbreaker Grips", "=ds="..BabbleBoss.Freya};
 				{ 21, 45416, "", "=q4=Valorous Worldbreaker War-Kilt", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "spell_nature_lightningshield", "=q6=#t8s7_2#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "spell_nature_lightningshield", "=q6=#t8s7_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46212, "", "=q4=Conqueror's Worldbreaker Faceguard", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46203, "", "=q4=Conqueror's Worldbreaker Shoulderguards", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46205, "", "=q4=Conqueror's Worldbreaker Chestguard", "=ds="..BabbleBoss.Hodir};
@@ -9521,7 +9521,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9529,25 +9529,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxShamanElemental"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t7s7_1#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t7s7_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39594, "", "=q4=Heroes' Earthshatter Helm", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39596, "", "=q4=Heroes' Earthshatter Shoulderpads", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39592, "", "=q4=Heroes' Earthshatter Hauberk", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39593, "", "=q4=Heroes' Earthshatter Gloves", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39595, "", "=q4=Heroes' Earthshatter Kilt", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t7s7_1#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t7s7_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40516, "", "=q4=Valorous Earthshatter Helm", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40518, "", "=q4=Valorous Earthshatter Shoulderpads", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40514, "", "=q4=Valorous Earthshatter Hauberk", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40515, "", "=q4=Valorous Earthshatter Gloves", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40517, "", "=q4=Valorous Earthshatter Kilt", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t8s7_1#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t8s7_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45408, "", "=q4=Valorous Worldbreaker Helm", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45410, "", "=q4=Valorous Worldbreaker Shoulderpads", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45411, "", "=q4=Valorous Worldbreaker Hauberk", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45406, "", "=q4=Valorous Worldbreaker Gloves", "=ds="..BabbleBoss.Freya};
 				{ 21, 45409, "", "=q4=Valorous Worldbreaker Kilt", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "Spell_Nature_Lightning", "=q6=#t8s7_1#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "Spell_Nature_Lightning", "=q6=#t8s7_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46209, "", "=q4=Conqueror's Worldbreaker Helm", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46211, "", "=q4=Conqueror's Worldbreaker Shoulderpads", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46206, "", "=q4=Conqueror's Worldbreaker Hauberk", "=ds="..BabbleBoss.Hodir};
@@ -9556,7 +9556,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9564,25 +9564,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxWarlock"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_drowsy", "=q6=#t7s8#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "spell_nature_drowsy", "=q6=#t7s8#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39496, "", "=q4=Heroes' Plagueheart Circlet", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39499, "", "=q4=Heroes' Plagueheart Shoulderpads", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39497, "", "=q4=Heroes' Plagueheart Robe", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39500, "", "=q4=Heroes' Plagueheart Gloves", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39498, "", "=q4=Heroes' Plagueheart Leggings", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "spell_nature_drowsy", "=q6=#t7s8#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "spell_nature_drowsy", "=q6=#t7s8#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40421, "", "=q4=Valorous Plagueheart Circlet", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40424, "", "=q4=Valorous Plagueheart Shoulderpads", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40423, "", "=q4=Valorous Plagueheart Robe", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40420, "", "=q4=Valorous Plagueheart Gloves", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40422, "", "=q4=Valorous Plagueheart Leggings", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "spell_nature_drowsy", "=q6=#t8s8#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "spell_nature_drowsy", "=q6=#t8s8#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45417, "", "=q4=Valorous Deathbringer Hood", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45422, "", "=q4=Valorous Deathbringer Shoulderpads", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45421, "", "=q4=Valorous Deathbringer Robe", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45419, "", "=q4=Valorous Deathbringer Gloves", "=ds="..BabbleBoss.Freya};
 				{ 21, 45420, "", "=q4=Valorous Deathbringer Leggings", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "spell_nature_drowsy", "=q6=#t8s8#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "spell_nature_drowsy", "=q6=#t8s8#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46140, "", "=q4=Conqueror's Deathbringer Hood", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46136, "", "=q4=Conqueror's Deathbringer Shoulderpads", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46137, "", "=q4=Conqueror's Deathbringer Robe", "=ds="..BabbleBoss.Hodir};
@@ -9599,25 +9599,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxWarriorFury"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_warrior_innerrage", "=q6=#t7s9_1#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "ability_warrior_innerrage", "=q6=#t7s9_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39605, "", "=q4=Heroes' Dreadnaught Helmet", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39608, "", "=q4=Heroes' Dreadnaught Shoulderplates", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39606, "", "=q4=Heroes' Dreadnaught Battleplate", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39609, "", "=q4=Heroes' Dreadnaught Gauntlets", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39607, "", "=q4=Heroes' Dreadnaught Legplates", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "ability_warrior_innerrage", "=q6=#t7s9_1#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "ability_warrior_innerrage", "=q6=#t7s9_1#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40528, "", "=q4=Valorous Dreadnaught Helmet", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40530, "", "=q4=Valorous Dreadnaught Shoulderplates", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40525, "", "=q4=Valorous Dreadnaught Battleplate", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40527, "", "=q4=Valorous Dreadnaught Gauntlets", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40529, "", "=q4=Valorous Dreadnaught Legplates", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "ability_warrior_innerrage", "=q6=#t8s9_1#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "ability_warrior_innerrage", "=q6=#t8s9_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45431, "", "=q4=Valorous Siegebreaker Helmet", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45433, "", "=q4=Valorous Siegebreaker Shoulderplates", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45429, "", "=q4=Valorous Siegebreaker Battleplate", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45430, "", "=q4=Valorous Siegebreaker Gauntlets", "=ds="..BabbleBoss.Freya};
 				{ 21, 45432, "", "=q4=Valorous Siegebreaker Legplates", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "ability_warrior_innerrage", "=q6=#t8s9_1#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "ability_warrior_innerrage", "=q6=#t8s9_1#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46151, "", "=q4=Conqueror's Siegebreaker Helmet", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46149, "", "=q4=Conqueror's Siegebreaker Shoulderplates", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46146, "", "=q4=Conqueror's Siegebreaker Battleplate", "=ds="..BabbleBoss.Hodir};
@@ -9634,25 +9634,25 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["NaxxWarriorProtection"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t7s9_2#", "=q5="..AL["Tier 7"].." ("..AL["10 Man"]..")"};
+				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t7s9_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["10 Man"]..")"};
 				{ 2, 39610, "", "=q4=Heroes' Dreadnaught Greathelm", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 3, 39613, "", "=q4=Heroes' Dreadnaught Pauldrons", "=ds="..BabbleBoss["Loatheb"]};
 				{ 4, 39611, "", "=q4=Heroes' Dreadnaught Breastplate", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 5, 39622, "", "=q4=Heroes' Dreadnaught Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 6, 39612, "", "=q4=Heroes' Dreadnaught Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t7s9_2#", "=q5="..AL["Tier 7"].." ("..AL["25 Man"]..")"};
+				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t7s9_2#", "=q5="..string.format(AL["Tier %d"], 7).." ("..AL["25 Man"]..")"};
 				{ 9, 40546, "", "=q4=Valorous Dreadnaught Greathelm", "=ds="..BabbleBoss["Kel'Thuzad"]};
 				{ 10, 40548, "", "=q4=Valorous Dreadnaught Pauldrons", "=ds="..BabbleBoss["Loatheb"]};
 				{ 11, 40544, "", "=q4=Valorous Dreadnaught Breastplate", "=ds="..BabbleBoss["The Four Horsemen"]};
 				{ 12, 40545, "", "=q4=Valorous Dreadnaught Handguards", "=ds="..BabbleBoss["Sartharion"]};
 				{ 13, 40547, "", "=q4=Valorous Dreadnaught Legguards", "=ds="..BabbleBoss["Thaddius"]};
-				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t8s9_2#", "=q5="..AL["Tier 8"].." ("..AL["10 Man"]..")"};
+				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t8s9_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["10 Man"]..")"};
 				{ 17, 45425, "", "=q4=Valorous Siegebreaker Greathelm", "=ds="..BabbleBoss["Mimiron"]};
 				{ 18, 45428, "", "=q4=Valorous Siegebreaker Pauldrons", "=ds="..BabbleBoss.Thorim};
 				{ 19, 45424, "", "=q4=Valorous Siegebreaker Breastplate", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 20, 45426, "", "=q4=Valorous Siegebreaker Handguards", "=ds="..BabbleBoss.Freya};
 				{ 21, 45427, "", "=q4=Valorous Siegebreaker Legguards", "=ds="..BabbleBoss.Hodir};
-				{ 23, 0, "ability_warrior_defensivestance", "=q6=#t8s9_2#", "=q5="..AL["Tier 8"].." ("..AL["25 Man"]..")"};
+				{ 23, 0, "ability_warrior_defensivestance", "=q6=#t8s9_2#", "=q5="..string.format(AL["Tier %d"], 8).." ("..AL["25 Man"]..")"};
 				{ 24, 46166, "", "=q4=Conqueror's Siegebreaker Greathelm", "=ds="..BabbleBoss.Thorim};
 				{ 25, 46167, "", "=q4=Conqueror's Siegebreaker Pauldrons", "=ds="..BabbleBoss["Yogg-Saron"]};
 				{ 26, 46162, "", "=q4=Conqueror's Siegebreaker Breastplate", "=ds="..BabbleBoss.Hodir};
@@ -9661,7 +9661,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T7T8SET",
 		};
 	}
@@ -9673,19 +9673,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9DeathKnightDPS"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48472, "", "=q4=Thassarian's Helmet of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48478, "", "=q4=Thassarian's Shoulderplates of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48474, "", "=q4=Thassarian's Battleplate of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48480, "", "=q4=Thassarian's Gauntlets of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48476, "", "=q4=Thassarian's Legplates of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48483, "", "=q4=Thassarian's Helmet of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48485, "", "=q4=Thassarian's Shoulderplates of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48481, "", "=q4=Thassarian's Battleplate of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48482, "", "=q4=Thassarian's Gauntlets of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48484, "", "=q4=Thassarian's Legplates of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48488, "", "=q4=Thassarian's Helmet of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48486, "", "=q4=Thassarian's Shoulderplates of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48490, "", "=q4=Thassarian's Battleplate of Triumph", "=ds=#s5#, #a4#"};
@@ -9695,19 +9695,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48503, "", "=q4=Koltira's Helmet of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48505, "", "=q4=Koltira's Shoulderplates of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48501, "", "=q4=Koltira's Battleplate of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48502, "", "=q4=Koltira's Gauntlets of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48504, "", "=q4=Koltira's Legplates of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48498, "", "=q4=Koltira's Helmet of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48496, "", "=q4=Koltira's Shoulderplates of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48500, "", "=q4=Koltira's Battleplate of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48499, "", "=q4=Koltira's Gauntlets of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48497, "", "=q4=Koltira's Legplates of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t9s10_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48493, "", "=q4=Koltira's Helmet of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48495, "", "=q4=Koltira's Shoulderplates of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48491, "", "=q4=Koltira's Battleplate of Triumph", "=ds=#s5#, #a4#"};
@@ -9724,19 +9724,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9DeathKnightTank"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48529, "", "=q4=Thassarian's Faceguard of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48535, "", "=q4=Thassarian's Pauldrons of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48531, "", "=q4=Thassarian's Chestguard of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48537, "", "=q4=Thassarian's Handguards of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48533, "", "=q4=Thassarian's Legguards of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48540, "", "=q4=Thassarian's Faceguard of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48542, "", "=q4=Thassarian's Pauldrons of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48538, "", "=q4=Thassarian's Chestguard of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48539, "", "=q4=Thassarian's Handguards of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48541, "", "=q4=Thassarian's Legguards of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48545, "", "=q4=Thassarian's Faceguard of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48543, "", "=q4=Thassarian's Pauldrons of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48547, "", "=q4=Thassarian's Chestguard of Triumph", "=ds=#s5#, #a4#"};
@@ -9746,19 +9746,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48560, "", "=q4=Koltira's Faceguard of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48562, "", "=q4=Koltira's Pauldrons of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48558, "", "=q4=Koltira's Chestguard of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48559, "", "=q4=Koltira's Handguards of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48561, "", "=q4=Koltira's Legguards of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48555, "", "=q4=Koltira's Faceguard of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48553, "", "=q4=Koltira's Pauldrons of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48557, "", "=q4=Koltira's Chestguard of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48556, "", "=q4=Koltira's Handguards of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48554, "", "=q4=Koltira's Legguards of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_deathknight_bloodpresence", "=q6=#t9s10_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48550, "", "=q4=Koltira's Faceguard of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48552, "", "=q4=Koltira's Pauldrons of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48548, "", "=q4=Koltira's Chestguard of Triumph", "=ds=#s5#, #a4#"};
@@ -9775,19 +9775,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9DruidRestoration"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "spell_nature_healingtouch", "=q6=#t9s1_1a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_nature_healingtouch", "=q6=#t9s1_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48102, "", "=q4=Malfurion's Headpiece of Conquest", "=ds=#s1#, #a2#", "#JUSTICE:591#"};
 				{ 3, 48131, "", "=q4=Malfurion's Spaulders of Conquest", "=ds=#s3#, #a2#", "#JUSTICE:478#"};
 				{ 4, 48129, "", "=q4=Malfurion's Robe of Conquest", "=ds=#s5#, #a2#", "#JUSTICE:591#"};
 				{ 5, 48132, "", "=q4=Malfurion's Handguards of Conquest", "=ds=#s9#, #a2#", "#JUSTICE:478#"};
 				{ 6, 48130, "", "=q4=Malfurion's Leggings of Conquest", "=ds=#s11#, #a2#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_nature_healingtouch", "=q6=#t9s1_1a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_nature_healingtouch", "=q6=#t9s1_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48134, "", "=q4=Malfurion's Headpiece of Triumph", "=ds=#s1#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48137, "", "=q4=Malfurion's Spaulders of Triumph", "=ds=#s3#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48136, "", "=q4=Malfurion's Robe of Triumph", "=ds=#s5#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48133, "", "=q4=Malfurion's Handguards of Triumph", "=ds=#s9#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48135, "", "=q4=Malfurion's Leggings of Triumph", "=ds=#s11#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_nature_healingtouch", "=q6=#t9s1_1a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_nature_healingtouch", "=q6=#t9s1_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48141, "", "=q4=Malfurion's Headpiece of Triumph", "=ds=#s1#, #a2#"};
 				{ 18, 48138, "", "=q4=Malfurion's Spaulders of Triumph", "=ds=#s3#, #a2#"};
 				{ 19, 48139, "", "=q4=Malfurion's Robe of Triumph", "=ds=#s5#, #a2#"};
@@ -9797,19 +9797,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "spell_nature_healingtouch", "=q6=#t9s1_1h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_nature_healingtouch", "=q6=#t9s1_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48154, "", "=q4=Runetotem's Headpiece of Conquest", "=ds=#s1#, #a2#", "#JUSTICE:591#"};
 				{ 3, 48157, "", "=q4=Runetotem's Spaulders of Conquest", "=ds=#s3#, #a2#", "#JUSTICE:478#"};
 				{ 4, 48156, "", "=q4=Runetotem's Robe of Conquest", "=ds=#s5#, #a2#", "#JUSTICE:591#"};
 				{ 5, 48153, "", "=q4=Runetotem's Handguards of Conquest", "=ds=#s9#, #a2#", "#JUSTICE:478#"};
 				{ 6, 48155, "", "=q4=Runetotem's Leggings of Conquest", "=ds=#s11#, #a2#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_nature_healingtouch", "=q6=#t9s1_1h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_nature_healingtouch", "=q6=#t9s1_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48151, "", "=q4=Runetotem's Headpiece of Triumph", "=ds=#s1#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48148, "", "=q4=Runetotem's Spaulders of Triumph", "=ds=#s3#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48149, "", "=q4=Runetotem's Robe of Triumph", "=ds=#s5#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48152, "", "=q4=Runetotem's Handguards of Triumph", "=ds=#s9#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48150, "", "=q4=Runetotem's Leggings of Triumph", "=ds=#s11#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_nature_healingtouch", "=q6=#t9s1_1h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_nature_healingtouch", "=q6=#t9s1_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48144, "", "=q4=Runetotem's Headpiece of Triumph", "=ds=#s1#, #a2#" };
 				{ 18, 48147, "", "=q4=Runetotem's Spaulders of Triumph", "=ds=#s3#, #a2#"};
 				{ 19, 48146, "", "=q4=Runetotem's Robe of Triumph", "=ds=#s5#, #a2#"};
@@ -9818,7 +9818,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -9826,19 +9826,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9DruidFeral"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "ability_druid_catform", "=q6=#t9s1_2a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "ability_druid_catform", "=q6=#t9s1_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48214, "", "=q4=Malfurion's Headguard of Conquest", "=ds=#s1#, #a2#", "#JUSTICE:591#"};
 				{ 3, 48217, "", "=q4=Malfurion's Shoulderpads of Conquest", "=ds=#s3#, #a2#", "#JUSTICE:478#"};
 				{ 4, 48216, "", "=q4=Malfurion's Raiments of Conquest", "=ds=#s5#, #a2#", "#JUSTICE:591#"};
 				{ 5, 48213, "", "=q4=Malfurion's Handgrips of Conquest", "=ds=#s9#, #a2#", "#JUSTICE:478#"};
 				{ 6, 48215, "", "=q4=Malfurion's Legguards of Conquest", "=ds=#s11#, #a2#", "#JUSTICE:591#"};
-				{ 8, 0, "ability_druid_catform", "=q6=#t9s1_2a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "ability_druid_catform", "=q6=#t9s1_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48211, "", "=q4=Malfurion's Headguard of Triumph", "=ds=#s1#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48208, "", "=q4=Malfurion's Shoulderpads of Triumph", "=ds=#s3#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48209, "", "=q4=Malfurion's Raiments of Triumph", "=ds=#s5#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48212, "", "=q4=Malfurion's Handgrips of Triumph", "=ds=#s9#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48210, "", "=q4=Malfurion's Legguards of Triumph", "=ds=#s11#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "ability_druid_catform", "=q6=#t9s1_2a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "ability_druid_catform", "=q6=#t9s1_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48204, "", "=q4=Malfurion's Headguard of Triumph", "=ds=#s1#, #a2#"};
 				{ 18, 48207, "", "=q4=Malfurion's Shoulderpads of Triumph", "=ds=#s3#, #a2#"};
 				{ 19, 48206, "", "=q4=Malfurion's Raiments of Triumph", "=ds=#s5#, #a2#"};
@@ -9848,19 +9848,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "ability_druid_catform", "=q6=#t9s1_2h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "ability_druid_catform", "=q6=#t9s1_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48188, "", "=q4=Runetotem's Headguard of Conquest", "=ds=#s1#, #a2#", "#JUSTICE:591#"};
 				{ 3, 48191, "", "=q4=Runetotem's Shoulderpads of Conquest", "=ds=#s3#, #a2#", "#JUSTICE:478#"};
 				{ 4, 48189, "", "=q4=Runetotem's Raiments of Conquest", "=ds=#s5#, #a2#", "#JUSTICE:591#"};
 				{ 5, 48192, "", "=q4=Runetotem's Handgrips of Conquest", "=ds=#s9#, #a2#", "#JUSTICE:478#"};
 				{ 6, 48190, "", "=q4=Runetotem's Legguards of Conquest", "=ds=#s11#, #a2#", "#JUSTICE:591#"};
-				{ 8, 0, "ability_druid_catform", "=q6=#t9s1_2h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "ability_druid_catform", "=q6=#t9s1_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48194, "", "=q4=Runetotem's Headguard of Triumph", "=ds=#s1#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48197, "", "=q4=Runetotem's Shoulderpads of Triumph", "=ds=#s3#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48196, "", "=q4=Runetotem's Raiments of Triumph", "=ds=#s5#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48193, "", "=q4=Runetotem's Handgrips of Triumph", "=ds=#s9#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48195, "", "=q4=Runetotem's Legguards of Triumph", "=ds=#s11#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "ability_druid_catform", "=q6=#t9s1_2h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "ability_druid_catform", "=q6=#t9s1_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48201, "", "=q4=Runetotem's Headguard of Triumph", "=ds=#s1#, #a2#"};
 				{ 18, 48198, "", "=q4=Runetotem's Shoulderpads of Triumph", "=ds=#s3#, #a2#"};
 				{ 19, 48199, "", "=q4=Runetotem's Raiments of Triumph", "=ds=#s5#, #a2#"};
@@ -9869,7 +9869,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -9877,19 +9877,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9DruidBalance"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6=#t9s1_3a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_nature_starfall", "=q6=#t9s1_3a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48158, "", "=q4=Malfurion's Cover of Conquest", "=ds=#s1#, #a2#", "#JUSTICE:591#"};
 				{ 3, 48161, "", "=q4=Malfurion's Mantle of Conquest", "=ds=#s3#, #a2#", "#JUSTICE:478#"};
 				{ 4, 48159, "", "=q4=Malfurion's Vestments of Conquest", "=ds=#s5#, #a2#", "#JUSTICE:591#"};
 				{ 5, 48162, "", "=q4=Malfurion's Gloves of Conquest", "=ds=#s9#, #a2#", "#JUSTICE:478#"};
 				{ 6, 48160, "", "=q4=Malfurion's Trousers of Conquest", "=ds=#s11#, #a2#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_nature_starfall", "=q6=#t9s1_3a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_nature_starfall", "=q6=#t9s1_3a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48164, "", "=q4=Malfurion's Cover of Triumph", "=ds=#s1#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48167, "", "=q4=Malfurion's Mantle of Triumph", "=ds=#s3#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48166, "", "=q4=Malfurion's Vestments of Triumph", "=ds=#s5#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48163, "", "=q4=Malfurion's Gloves of Triumph", "=ds=#s9#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48165, "", "=q4=Malfurion's Trousers of Triumph", "=ds=#s11#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_nature_starfall", "=q6=#t9s1_3a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_nature_starfall", "=q6=#t9s1_3a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48171, "", "=q4=Malfurion's Cover of Triumph", "=ds=#s1#, #a2#"};
 				{ 18, 48168, "", "=q4=Malfurion's Mantle of Triumph", "=ds=#s3#, #a2#"};
 				{ 19, 48169, "", "=q4=Malfurion's Vestments of Triumph", "=ds=#s5#, #a2#"};
@@ -9899,19 +9899,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6=#t9s1_3h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_nature_starfall", "=q6=#t9s1_3h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48184, "", "=q4=Runetotem's Cover of Conquest", "=ds=#s1#, #a2#", "#JUSTICE:591#"};
 				{ 3, 48187, "", "=q4=Runetotem's Mantle of Conquest", "=ds=#s3#, #a2#", "#JUSTICE:478#"};
 				{ 4, 48186, "", "=q4=Runetotem's Vestments of Conquest", "=ds=#s5#, #a2#", "#JUSTICE:591#"};
 				{ 5, 48183, "", "=q4=Runetotem's Gloves of Conquest", "=ds=#s9#, #a2#", "#JUSTICE:478#"};
 				{ 6, 48185, "", "=q4=Runetotem's Trousers of Conquest", "=ds=#s11#, #a2#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_nature_starfall", "=q6=#t9s1_3h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_nature_starfall", "=q6=#t9s1_3h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48181, "", "=q4=Runetotem's Cover of Triumph", "=ds=#s1#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48178, "", "=q4=Runetotem's Mantle of Triumph", "=ds=#s3#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48179, "", "=q4=Runetotem's Vestments of Triumph", "=ds=#s5#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48182, "", "=q4=Runetotem's Gloves of Triumph", "=ds=#s9#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48180, "", "=q4=Runetotem's Trousers of Triumph", "=ds=#s11#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_nature_starfall", "=q6=#t9s1_3h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_nature_starfall", "=q6=#t9s1_3h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48174, "", "=q4=Runetotem's Cover of Triumph", "=ds=#s1#, #a2#"};
 				{ 18, 48177, "", "=q4=Runetotem's Mantle of Triumph", "=ds=#s3#, #a2#"};
 				{ 19, 48176, "", "=q4=Runetotem's Vestments of Triumph", "=ds=#s5#, #a2#"};
@@ -9920,7 +9920,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -9928,19 +9928,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9Hunter"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "inv_weapon_bow_07", "=q6=#t9s2_a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "inv_weapon_bow_07", "=q6=#t9s2_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48250, "", "=q4=Windrunner's Headpiece of Conquest", "=ds=#s1#, #a3#", "#JUSTICE:591#"};
 				{ 3, 48253, "", "=q4=Windrunner's Spaulders of Conquest", "=ds=#s3#, #a3#", "#JUSTICE:478#"};
 				{ 4, 48251, "", "=q4=Windrunner's Tunic of Conquest", "=ds=#s5#, #a3#", "#JUSTICE:591#"};
 				{ 5, 48254, "", "=q4=Windrunner's Handguards of Conquest", "=ds=#s9#, #a3#", "#JUSTICE:478#"};
 				{ 6, 48252, "", "=q4=Windrunner's Legguards of Conquest", "=ds=#s11#, #a3#", "#JUSTICE:591#"};
-				{ 8, 0, "inv_weapon_bow_07", "=q6=#t9s2_a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "inv_weapon_bow_07", "=q6=#t9s2_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48257, "", "=q4=Windrunner's Headpiece of Triumph", "=ds=#s1#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48259, "", "=q4=Windrunner's Spaulders of Triumph", "=ds=#s3#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48255, "", "=q4=Windrunner's Tunic of Triumph", "=ds=#s5#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48256, "", "=q4=Windrunner's Handguards of Triumph", "=ds=#s9#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48258, "", "=q4=Windrunner's Legguards of Triumph", "=ds=#s11#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "inv_weapon_bow_07", "=q6=#t9s2_h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "inv_weapon_bow_07", "=q6=#t9s2_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48262, "", "=q4=Windrunner's Headpiece of Triumph", "=ds=#s1#, #a3#"};
 				{ 18, 48260, "", "=q4=Windrunner's Spaulders of Triumph", "=ds=#s3#, #a3#"};
 				{ 19, 48264, "", "=q4=Windrunner's Tunic of Triumph", "=ds=#s5#, #a3#"};
@@ -9950,19 +9950,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "inv_weapon_bow_07", "=q6=#t9s2_h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "inv_weapon_bow_07", "=q6=#t9s2_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48277, "", "=q4=Windrunner's Headpiece of Conquest", "=ds=#s1#, #a3#", "#JUSTICE:591#"};
 				{ 3, 48279, "", "=q4=Windrunner's Spaulders of Conquest", "=ds=#s3#, #a3#", "#JUSTICE:478#"};
 				{ 4, 48275, "", "=q4=Windrunner's Tunic of Conquest", "=ds=#s5#, #a3#", "#JUSTICE:591#"};
 				{ 5, 48276, "", "=q4=Windrunner's Handguards of Conquest", "=ds=#s9#, #a3#", "#JUSTICE:478#"};
 				{ 6, 48278, "", "=q4=Windrunner's Legguards of Conquest", "=ds=#s11#, #a3#", "#JUSTICE:591#"};
-				{ 8, 0, "inv_weapon_bow_07", "=q6=#t9s2_h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "inv_weapon_bow_07", "=q6=#t9s2_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48272, "", "=q4=Windrunner's Headpiece of Triumph", "=ds=#s1#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48270, "", "=q4=Windrunner's Spaulders of Triumph", "=ds=#s3#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48274, "", "=q4=Windrunner's Tunic of Triumph", "=ds=#s5#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48273, "", "=q4=Windrunner's Handguards of Triumph", "=ds=#s9#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48271, "", "=q4=Windrunner's Legguards of Triumph", "=ds=#s11#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "inv_weapon_bow_07", "=q6=#t9s2_h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "inv_weapon_bow_07", "=q6=#t9s2_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48267, "", "=q4=Windrunner's Headpiece of Triumph", "=ds=#s1#, #a3#"};
 				{ 18, 48269, "", "=q4=Windrunner's Spaulders of Triumph", "=ds=#s3#, #a3#"};
 				{ 19, 48265, "", "=q4=Windrunner's Tunic of Triumph", "=ds=#s5#, #a3#"};
@@ -9979,19 +9979,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9Mage"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "inv_staff_13", "=q6=#t9s3_a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "inv_staff_13", "=q6=#t9s3_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 47748, "", "=q4=Khadgar's Hood of Conquest", "=ds=#s1#, #a1#", "#JUSTICE:591#"};
 				{ 3, 47751, "", "=q4=Khadgar's Shoulderpads of Conquest", "=ds=#s3#, #a1#", "#JUSTICE:478#"};
 				{ 4, 47749, "", "=q4=Khadgar's Robe of Conquest", "=ds=#s5#, #a1#", "#JUSTICE:591#"};
 				{ 5, 47752, "", "=q4=Khadgar's Gauntlets of Conquest", "=ds=#s9#, #a1#", "#JUSTICE:478#"};
 				{ 6, 47750, "", "=q4=Khadgar's Leggings of Conquest", "=ds=#s11#, #a1#", "#JUSTICE:591#"};
-				{ 8, 0, "inv_staff_13", "=q6=#t9s3_a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "inv_staff_13", "=q6=#t9s3_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 47754, "", "=q4=Khadgar's Hood of Triumph", "=ds=#s1#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 47757, "", "=q4=Khadgar's Shoulderpads of Triumph", "=ds=#s3#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 47756, "", "=q4=Khadgar's Robe of Triumph", "=ds=#s5#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 47753, "", "=q4=Khadgar's Gauntlets of Triumph", "=ds=#s9#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 47755, "", "=q4=Khadgar's Leggings of Triumph", "=ds=#s11#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "inv_staff_13", "=q6=#t9s3_a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "inv_staff_13", "=q6=#t9s3_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 47761, "", "=q4=Khadgar's Hood of Triumph", "=ds=#s1#, #a1#"};
 				{ 18, 47758, "", "=q4=Khadgar's Shoulderpads of Triumph", "=ds=#s3#, #a1#"};
 				{ 19, 47759, "", "=q4=Khadgar's Robe of Triumph", "=ds=#s5#, #a1#"};
@@ -10001,19 +10001,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "inv_staff_13", "=q6=#t9s3_h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "inv_staff_13", "=q6=#t9s3_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 47774, "", "=q4=Sunstrider's Hood of Conquest", "=ds=#s1#, #a1#", "#JUSTICE:591#"};
 				{ 3, 47777, "", "=q4=Sunstrider's Shoulderpads of Conquest", "=ds=#s3#, #a1#", "#JUSTICE:478#"};
 				{ 4, 47776, "", "=q4=Sunstrider's Robe of Conquest", "=ds=#s5#, #a1#", "#JUSTICE:591#"};
 				{ 5, 47773, "", "=q4=Sunstrider's Gauntlets of Conquest", "=ds=#s9#, #a1#", "#JUSTICE:478#"};
 				{ 6, 47775, "", "=q4=Sunstrider's Leggings of Conquest", "=ds=#s11#, #a1#", "#JUSTICE:591#"};
-				{ 8, 0, "inv_staff_13", "=q6=#t9s3_h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "inv_staff_13", "=q6=#t9s3_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 47771, "", "=q4=Sunstrider's Hood of Triumph", "=ds=#s1#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 47768, "", "=q4=Sunstrider's Shoulderpads of Triumph", "=ds=#s3#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 47769, "", "=q4=Sunstrider's Robe of Triumph", "=ds=#s5#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 47772, "", "=q4=Sunstrider's Gauntlets of Triumph", "=ds=#s9#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 47770, "", "=q4=Sunstrider's Leggings of Triumph", "=ds=#s11#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "inv_staff_13", "=q6=#t9s3_h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "inv_staff_13", "=q6=#t9s3_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 47764, "", "=q4=Sunstrider's Hood of Triumph", "=ds=#s1#, #a1#"};
 				{ 18, 47767, "", "=q4=Sunstrider's Shoulderpads of Triumph", "=ds=#s3#, #a1#"};
 				{ 19, 47766, "", "=q4=Sunstrider's Robe of Triumph", "=ds=#s5#, #a1#"};
@@ -10030,19 +10030,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9PaladinHoly"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48564, "", "=q4=Turalyon's Headpiece of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48572, "", "=q4=Turalyon's Spaulders of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48566, "", "=q4=Turalyon's Tunic of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48574, "", "=q4=Turalyon's Gloves of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48568, "", "=q4=Turalyon's Greaves of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48577, "", "=q4=Turalyon's Headpiece of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48579, "", "=q4=Turalyon's Spaulders of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48575, "", "=q4=Turalyon's Tunic of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48576, "", "=q4=Turalyon's Gloves of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48578, "", "=q4=Turalyon's Greaves of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48582, "", "=q4=Turalyon's Headpiece of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48580, "", "=q4=Turalyon's Spaulders of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48584, "", "=q4=Turalyon's Tunic of Triumph", "=ds=#s5#, #a4#"};
@@ -10052,19 +10052,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48597, "", "=q4=Liadrin's Headpiece of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48595, "", "=q4=Liadrin's Spaulders of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48599, "", "=q4=Liadrin's Tunic of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48598, "", "=q4=Liadrin's Gloves of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48596, "", "=q4=Liadrin's Greaves of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48592, "", "=q4=Liadrin's Headpiece of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48590, "", "=q4=Liadrin's Spaulders of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48594, "", "=q4=Liadrin's Tunic of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48593, "", "=q4=Liadrin's Gloves of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48591, "", "=q4=Liadrin's Greaves of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t9s4_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48587, "", "=q4=Liadrin's Headpiece of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48585, "", "=q4=Liadrin's Spaulders of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48589, "", "=q4=Liadrin's Tunic of Triumph", "=ds=#s5#, #a4#"};
@@ -10073,7 +10073,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -10081,19 +10081,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9PaladinRetribution"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48604, "", "=q4=Turalyon's Helm of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48606, "", "=q4=Turalyon's Shoulderplates of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48602, "", "=q4=Turalyon's Battleplate of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48603, "", "=q4=Turalyon's Gauntlets of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48605, "", "=q4=Turalyon's Legplates of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48609, "", "=q4=Turalyon's Helm of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48611, "", "=q4=Turalyon's Shoulderplates of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48607, "", "=q4=Turalyon's Battleplate of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48608, "", "=q4=Turalyon's Gauntlets of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48610, "", "=q4=Turalyon's Legplates of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48614, "", "=q4=Turalyon's Helm of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48612, "", "=q4=Turalyon's Shoulderplates of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48616, "", "=q4=Turalyon's Battleplate of Triumph", "=ds=#s5#, #a4#"};
@@ -10103,19 +10103,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48629, "", "=q4=Liadrin's Helm of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48627, "", "=q4=Liadrin's Shoulderplates of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48631, "", "=q4=Liadrin's Battleplate of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48630, "", "=q4=Liadrin's Gauntlets of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48628, "", "=q4=Liadrin's Legplates of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48624, "", "=q4=Liadrin's Helm of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48622, "", "=q4=Liadrin's Shoulderplates of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48626, "", "=q4=Liadrin's Battleplate of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48625, "", "=q4=Liadrin's Gauntlets of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48623, "", "=q4=Liadrin's Legplates of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t9s4_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48619, "", "=q4=Liadrin's Helm of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48621, "", "=q4=Liadrin's Shoulderplates of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48617, "", "=q4=Liadrin's Battleplate of Triumph", "=ds=#s5#, #a4#"};
@@ -10124,7 +10124,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -10132,19 +10132,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9PaladinProtection"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "spell_holy_devotionaura", "=q6=#t9s4_3a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_holy_devotionaura", "=q6=#t9s4_3a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48634, "", "=q4=Turalyon's Faceguard of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48636, "", "=q4=Turalyon's Shoulderguards of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48632, "", "=q4=Turalyon's Breastplate of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48633, "", "=q4=Turalyon's Handguards of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48635, "", "=q4=Turalyon's Legguards of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_holy_devotionaura", "=q6=#t9s4_3a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_holy_devotionaura", "=q6=#t9s4_3a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48639, "", "=q4=Turalyon's Faceguard of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48637, "", "=q4=Turalyon's Shoulderguards of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48641, "", "=q4=Turalyon's Breastplate of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48640, "", "=q4=Turalyon's Handguards of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48638, "", "=q4=Turalyon's Legguards of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_holy_devotionaura", "=q6=#t9s4_3a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_holy_devotionaura", "=q6=#t9s4_3a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48644, "", "=q4=Turalyon's Faceguard of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48646, "", "=q4=Turalyon's Shoulderguards of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48642, "", "=q4=Turalyon's Breastplate of Triumph", "=ds=#s5#, #a4#"};
@@ -10154,19 +10154,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "spell_holy_devotionaura", "=q6=#t9s4_3h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_holy_devotionaura", "=q6=#t9s4_3h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48654, "", "=q4=Liadrin's Faceguard of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48656, "", "=q4=Liadrin's Shoulderguards of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48652, "", "=q4=Liadrin's Breastplate of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48653, "", "=q4=Liadrin's Handguards of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48655, "", "=q4=Liadrin's Legguards of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_holy_devotionaura", "=q6=#t9s4_3h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_holy_devotionaura", "=q6=#t9s4_3h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48659, "", "=q4=Liadrin's Faceguard of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48661, "", "=q4=Liadrin's Shoulderguards of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48657, "", "=q4=Liadrin's Breastplate of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48658, "", "=q4=Liadrin's Handguards of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48660, "", "=q4=Liadrin's Legguards of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_holy_devotionaura", "=q6=#t9s4_3h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_holy_devotionaura", "=q6=#t9s4_3h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48649, "", "=q4=Liadrin's Faceguard of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48647, "", "=q4=Liadrin's Shoulderguards of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48651, "", "=q4=Liadrin's Breastplate of Triumph", "=ds=#s5#, #a4#"};
@@ -10175,7 +10175,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -10183,19 +10183,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9PriestShadow"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48073, "", "=q4=Velen's Circlet of Conquest", "=ds=#s1#, #a1#", "#JUSTICE:591#"};
 				{ 3, 48076, "", "=q4=Velen's Mantle of Conquest", "=ds=#s3#, #a1#", "#JUSTICE:478#"};
 				{ 4, 48075, "", "=q4=Velen's Raiments of Conquest", "=ds=#s5#, #a1#", "#JUSTICE:591#"};
 				{ 5, 48072, "", "=q4=Velen's Handwraps of Conquest", "=ds=#s9#, #a1#", "#JUSTICE:478#"};
 				{ 6, 48074, "", "=q4=Velen's Pants of Conquest", "=ds=#s11#, #a1#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48078, "", "=q4=Velen's Circlet of Triumph", "=ds=#s1#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48081, "", "=q4=Velen's Mantle of Triumph", "=ds=#s3#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48080, "", "=q4=Velen's Raiments of Triumph", "=ds=#s5#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48077, "", "=q4=Velen's Handwraps of Triumph", "=ds=#s9#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48079, "", "=q4=Velen's Pants of Triumph", "=ds=#s11#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48085, "", "=q4=Velen's Circlet of Triumph", "=ds=#s1#, #a1#"};
 				{ 18, 48082, "", "=q4=Velen's Mantle of Triumph", "=ds=#s3#, #a1#"};
 				{ 19, 48083, "", "=q4=Velen's Raiments of Triumph", "=ds=#s5#, #a1#"};
@@ -10205,19 +10205,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48098, "", "=q4=Zabra's Circlet of Conquest", "=ds=#s1#, #a1#", "#JUSTICE:591#"};
 				{ 3, 48101, "", "=q4=Zabra's Mantle of Conquest", "=ds=#s3#, #a1#", "#JUSTICE:478#"};
 				{ 4, 48100, "", "=q4=Zabra's Raiments of Conquest", "=ds=#s5#, #a1#", "#JUSTICE:591#"};
 				{ 5, 48097, "", "=q4=Zabra's Handwraps of Conquest", "=ds=#s9#, #a1#", "#JUSTICE:478#"};
 				{ 6, 48099, "", "=q4=Zabra's Pants of Conquest", "=ds=#s11#, #a1#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48095, "", "=q4=Zabra's Circlet of Triumph", "=ds=#s1#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48092, "", "=q4=Zabra's Mantle of Triumph", "=ds=#s3#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48093, "", "=q4=Zabra's Raiments of Triumph", "=ds=#s5#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48096, "", "=q4=Zabra's Handwraps of Triumph", "=ds=#s9#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48094, "", "=q4=Zabra's Pants of Triumph", "=ds=#s11#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t9s5_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48088, "", "=q4=Zabra's Circlet of Triumph", "=ds=#s1#, #a1#"};
 				{ 18, 48091, "", "=q4=Zabra's Mantle of Triumph", "=ds=#s3#, #a1#"};
 				{ 19, 48090, "", "=q4=Zabra's Raiments of Triumph", "=ds=#s5#, #a1#"};
@@ -10226,7 +10226,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Shadow"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Shadow"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -10234,19 +10234,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9PriestHoly"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 47914, "", "=q4=Velen's Cowl of Conquest", "=ds=#s1#, #a1#", "#JUSTICE:591#"};
 				{ 3, 47981, "", "=q4=Velen's Shoulderpads of Conquest", "=ds=#s3#, #a1#", "#JUSTICE:478#"};
 				{ 4, 47936, "", "=q4=Velen's Robe of Conquest", "=ds=#s5#, #a1#", "#JUSTICE:591#"};
 				{ 5, 47982, "", "=q4=Velen's Gloves of Conquest", "=ds=#s9#, #a1#", "#JUSTICE:478#"};
 				{ 6, 47980, "", "=q4=Velen's Leggings of Conquest", "=ds=#s11#, #a1#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 47984, "", "=q4=Velen's Cowl of Triumph", "=ds=#s1#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 47987, "", "=q4=Velen's Shoulderpads of Triumph", "=ds=#s3#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 47986, "", "=q4=Velen's Robe of Triumph", "=ds=#s5#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 47983, "", "=q4=Velen's Gloves of Triumph", "=ds=#s9#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 47985, "", "=q4=Velen's Leggings of Triumph", "=ds=#s11#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48035, "", "=q4=Velen's Cowl of Triumph", "=ds=#s1#, #a1#"};
 				{ 18, 48029, "", "=q4=Velen's Shoulderpads of Triumph", "=ds=#s3#, #a1#"};
 				{ 19, 48031, "", "=q4=Velen's Robe of Triumph", "=ds=#s5#, #a1#"};
@@ -10256,19 +10256,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48068, "", "=q4=Zabra's Cowl of Conquest", "=ds=#s1#, #a1#", "#JUSTICE:591#"};
 				{ 3, 48071, "", "=q4=Zabra's Shoulderpads of Conquest", "=ds=#s3#, #a1#", "#JUSTICE:478#"};
 				{ 4, 48070, "", "=q4=Zabra's Robe of Conquest", "=ds=#s5#, #a1#", "#JUSTICE:591#"};
 				{ 5, 48067, "", "=q4=Zabra's Gloves of Conquest", "=ds=#s9#, #a1#", "#JUSTICE:478#"};
 				{ 6, 48069, "", "=q4=Zabra's Leggings of Conquest", "=ds=#s11#, #a1#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48065, "", "=q4=Zabra's Cowl of Triumph", "=ds=#s1#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48062, "", "=q4=Zabra's Shoulderpads of Triumph", "=ds=#s3#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48063, "", "=q4=Zabra's Robe of Triumph", "=ds=#s5#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48066, "", "=q4=Zabra's Gloves of Triumph", "=ds=#s9#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48064, "", "=q4=Zabra's Leggings of Triumph", "=ds=#s11#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t9s5_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48058, "", "=q4=Zabra's Cowl of Triumph", "=ds=#s1#, #a1#"};
 				{ 18, 48061, "", "=q4=Zabra's Shoulderpads of Triumph", "=ds=#s3#, #a1#"};
 				{ 19, 48060, "", "=q4=Zabra's Robe of Triumph", "=ds=#s5#, #a1#"};
@@ -10277,7 +10277,7 @@ local moduleName = "AtlasLootWotLK"
 			},
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -10285,19 +10285,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9Rogue"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "inv_throwingknife_04", "=q6=#t9s6_a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "inv_throwingknife_04", "=q6=#t9s6_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48218, "", "=q4=VanCleef's Helmet of Conquest", "=ds=#s1#, #a2#", "#JUSTICE:591#"};
 				{ 3, 48221, "", "=q4=VanCleef's Pauldrons of Conquest", "=ds=#s3#, #a2#", "#JUSTICE:478#"};
 				{ 4, 48219, "", "=q4=VanCleef's Breastplate of Conquest", "=ds=#s5#, #a2#", "#JUSTICE:591#"};
 				{ 5, 48222, "", "=q4=VanCleef's Gauntlets of Conquest", "=ds=#s9#, #a2#", "#JUSTICE:478#"};
 				{ 6, 48220, "", "=q4=VanCleef's Legplates of Conquest", "=ds=#s11#, #a2#", "#JUSTICE:591#"};
-				{ 8, 0, "inv_throwingknife_04", "=q6=#t9s6_a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "inv_throwingknife_04", "=q6=#t9s6_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48225, "", "=q4=VanCleef's Helmet of Triumph", "=ds=#s1#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48227, "", "=q4=VanCleef's Pauldrons of Triumph", "=ds=#s3#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48223, "", "=q4=VanCleef's Breastplate of Triumph", "=ds=#s5#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48224, "", "=q4=VanCleef's Gauntlets of Triumph", "=ds=#s9#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48226, "", "=q4=VanCleef's Legplates of Triumph", "=ds=#s11#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "inv_throwingknife_04", "=q6=#t9s6_a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "inv_throwingknife_04", "=q6=#t9s6_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48230, "", "=q4=VanCleef's Helmet of Triumph", "=ds=#s1#, #a2#"};
 				{ 18, 48228, "", "=q4=VanCleef's Pauldrons of Triumph", "=ds=#s3#, #a2#"};
 				{ 19, 48232, "", "=q4=VanCleef's Breastplate of Triumph", "=ds=#s5#, #a2#"};
@@ -10307,19 +10307,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "inv_throwingknife_04", "=q6=#t9s6_h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "inv_throwingknife_04", "=q6=#t9s6_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48245, "", "=q4=Garona's Helmet of Conquest", "=ds=#s1#, #a2#", "#JUSTICE:591#"};
 				{ 3, 48247, "", "=q4=Garona's Pauldrons of Conquest", "=ds=#s3#, #a2#", "#JUSTICE:478#"};
 				{ 4, 48243, "", "=q4=Garona's Breastplate of Conquest", "=ds=#s5#, #a2#", "#JUSTICE:591#"};
 				{ 5, 48244, "", "=q4=Garona's Gauntlets of Conquest", "=ds=#s9#, #a2#", "#JUSTICE:478#"};
 				{ 6, 48246, "", "=q4=Garona's Legplates of Conquest", "=ds=#s11#, #a2#", "#JUSTICE:591#"};
-				{ 8, 0, "inv_throwingknife_04", "=q6=#t9s6_h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "inv_throwingknife_04", "=q6=#t9s6_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48240, "", "=q4=Garona's Helmet of Triumph", "=ds=#s1#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48238, "", "=q4=Garona's Pauldrons of Triumph", "=ds=#s3#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48242, "", "=q4=Garona's Breastplate of Triumph", "=ds=#s5#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48241, "", "=q4=Garona's Gauntlets of Triumph", "=ds=#s9#, #a2#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48239, "", "=q4=Garona's Legplates of Triumph", "=ds=#s11#, #a2#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "inv_throwingknife_04", "=q6=#t9s6_h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "inv_throwingknife_04", "=q6=#t9s6_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48235, "", "=q4=Garona's Helmet of Triumph", "=ds=#s1#, #a2#"};
 				{ 18, 48237, "", "=q4=Garona's Pauldrons of Triumph", "=ds=#s3#, #a2#"};
 				{ 19, 48233, "", "=q4=Garona's Breastplate of Triumph", "=ds=#s5#, #a2#"};
@@ -10336,19 +10336,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9ShamanElemental"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48313, "", "=q4=Nobundo's Helm of Conquest", "=ds=#s1#, #a3#", "#JUSTICE:591#"};
 				{ 3, 48315, "", "=q4=Nobundo's Shoulderpads of Conquest", "=ds=#s3#, #a3#", "#JUSTICE:478#"};
 				{ 4, 48310, "", "=q4=Nobundo's Hauberk of Conquest", "=ds=#s5#, #a3#", "#JUSTICE:591#"};
 				{ 5, 48312, "", "=q4=Nobundo's Gloves of Conquest", "=ds=#s9#, #a3#", "#JUSTICE:478#"};
 				{ 6, 48314, "", "=q4=Nobundo's Kilt of Conquest", "=ds=#s11#, #a3#", "#JUSTICE:591#"};
-				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48318, "", "=q4=Nobundo's Helm of Triumph", "=ds=#s1#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48320, "", "=q4=Nobundo's Shoulderpads of Triumph", "=ds=#s3#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48316, "", "=q4=Nobundo's Hauberk of Triumph", "=ds=#s5#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48317, "", "=q4=Nobundo's Gloves of Triumph", "=ds=#s9#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48319, "", "=q4=Nobundo's Kilt of Triumph", "=ds=#s11#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48323, "", "=q4=Nobundo's Helm of Triumph", "=ds=#s1#, #a3#"};
 				{ 18, 48321, "", "=q4=Nobundo's Shoulderpads of Triumph", "=ds=#s3#, #a3#"};
 				{ 19, 48325, "", "=q4=Nobundo's Hauberk of Triumph", "=ds=#s5#, #a3#"};
@@ -10358,19 +10358,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48338, "", "=q4=Thrall's Helm of Conquest", "=ds=#s1#, #a3#", "#JUSTICE:591#"};
 				{ 3, 48340, "", "=q4=Thrall's Shoulderpads of Conquest", "=ds=#s3#, #a3#", "#JUSTICE:478#"};
 				{ 4, 48336, "", "=q4=Thrall's Hauberk of Conquest", "=ds=#s5#, #a3#", "#JUSTICE:591#"};
 				{ 5, 48337, "", "=q4=Thrall's Gloves of Conquest", "=ds=#s9#, #a3#", "#JUSTICE:478#"};
 				{ 6, 48339, "", "=q4=Thrall's Kilt of Conquest", "=ds=#s11#, #a3#", "#JUSTICE:591#"};
-				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48333, "", "=q4=Thrall's Helm of Triumph", "=ds=#s1#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48331, "", "=q4=Thrall's Shoulderpads of Triumph", "=ds=#s3#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48335, "", "=q4=Thrall's Hauberk of Triumph", "=ds=#s5#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48334, "", "=q4=Thrall's Gloves of Triumph", "=ds=#s9#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48332, "", "=q4=Thrall's Kilt of Triumph", "=ds=#s11#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t9s7_3h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48328, "", "=q4=Thrall's Helm of Triumph", "=ds=#s1#, #a3#"};
 				{ 18, 48330, "", "=q4=Thrall's Shoulderpads of Triumph", "=ds=#s3#, #a3#"};
 				{ 19, 48326, "", "=q4=Thrall's Hauberk of Triumph", "=ds=#s5#, #a3#"};
@@ -10379,7 +10379,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -10387,19 +10387,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9ShamanEnhancement"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "spell_nature_lightningshield", "=q6=#t9s7_2a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_nature_lightningshield", "=q6=#t9s7_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48343, "", "=q4=Nobundo's Faceguard of Conquest", "=ds=#s1#, #a3#", "#JUSTICE:591#"};
 				{ 3, 48345, "", "=q4=Nobundo's Shoulderguards of Conquest", "=ds=#s3#, #a3#", "#JUSTICE:478#"};
 				{ 4, 48341, "", "=q4=Nobundo's Chestguard of Conquest", "=ds=#s5#, #a3#", "#JUSTICE:591#"};
 				{ 5, 48342, "", "=q4=Nobundo's Grips of Conquest", "=ds=#s9#, #a3#", "#JUSTICE:478#"};
 				{ 6, 48344, "", "=q4=Nobundo's War-Kilt of Conquest", "=ds=#s11#, #a3#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_nature_lightningshield", "=q6=#t9s7_2a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_nature_lightningshield", "=q6=#t9s7_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48348, "", "=q4=Nobundo's Faceguard of Triumph", "=ds=#s1#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48350, "", "=q4=Nobundo's Shoulderguards of Triumph", "=ds=#s3#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48346, "", "=q4=Nobundo's Chestguard of Triumph", "=ds=#s5#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48347, "", "=q4=Nobundo's Grips of Triumph", "=ds=#s9#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48349, "", "=q4=Nobundo's War-Kilt of Triumph", "=ds=#s11#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_nature_lightningshield", "=q6=#t9s7_2a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_nature_lightningshield", "=q6=#t9s7_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48353, "", "=q4=Nobundo's Faceguard of Triumph", "=ds=#s1#, #a3#"};
 				{ 18, 48351, "", "=q4=Nobundo's Shoulderguards of Triumph", "=ds=#s3#, #a3#"};
 				{ 19, 48355, "", "=q4=Nobundo's Chestguard of Triumph", "=ds=#s5#, #a3#"};
@@ -10409,19 +10409,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "spell_nature_lightningshield", "=q6=#t9s7_2h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_nature_lightningshield", "=q6=#t9s7_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48368, "", "=q4=Thrall's Faceguard of Conquest", "=ds=#s1#, #a3#", "#JUSTICE:591#"};
 				{ 3, 48370, "", "=q4=Thrall's Shoulderguards of Conquest", "=ds=#s3#, #a3#", "#JUSTICE:478#"};
 				{ 4, 48366, "", "=q4=Thrall's Chestguard of Conquest", "=ds=#s5#, #a3#", "#JUSTICE:591#"};
 				{ 5, 48367, "", "=q4=Thrall's Grips of Conquest", "=ds=#s9#, #a3#", "#JUSTICE:478#"};
 				{ 6, 48369, "", "=q4=Thrall's War-Kilt of Conquest", "=ds=#s11#, #a3#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_nature_lightningshield", "=q6=#t9s7_2h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_nature_lightningshield", "=q6=#t9s7_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48363, "", "=q4=Thrall's Faceguard of Triumph", "=ds=#s1#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48361, "", "=q4=Thrall's Shoulderguards of Triumph", "=ds=#s3#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48365, "", "=q4=Thrall's Chestguard of Triumph", "=ds=#s5#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48364, "", "=q4=Thrall's Grips of Triumph", "=ds=#s9#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48362, "", "=q4=Thrall's War-Kilt of Triumph", "=ds=#s11#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_nature_lightningshield", "=q6=#t9s7_2h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_nature_lightningshield", "=q6=#t9s7_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48358, "", "=q4=Thrall's Faceguard of Triumph", "=ds=#s1#, #a3#"};
 				{ 18, 48360, "", "=q4=Thrall's Shoulderguards of Triumph", "=ds=#s3#, #a3#"};
 				{ 19, 48356, "", "=q4=Thrall's Chestguard of Triumph", "=ds=#s5#, #a3#"};
@@ -10430,7 +10430,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -10438,19 +10438,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9ShamanRestoration"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48280, "", "=q4=Nobundo's Headpiece of Conquest", "=ds=#s1#, #a3#", "#JUSTICE:591#"};
 				{ 3, 48283, "", "=q4=Nobundo's Spaulders of Conquest", "=ds=#s3#, #a3#", "#JUSTICE:478#"};
 				{ 4, 48281, "", "=q4=Nobundo's Tunic of Conquest", "=ds=#s5#, #a3#", "#JUSTICE:591#"};
 				{ 5, 48284, "", "=q4=Nobundo's Handguards of Conquest", "=ds=#s9#, #a3#", "#JUSTICE:478#"};
 				{ 6, 48282, "", "=q4=Nobundo's Legguards of Conquest", "=ds=#s11#, #a3#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48287, "", "=q4=Nobundo's Headpiece of Triumph", "=ds=#s1#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48289, "", "=q4=Nobundo's Spaulders of Triumph", "=ds=#s3#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48285, "", "=q4=Nobundo's Tunic of Triumph", "=ds=#s5#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48286, "", "=q4=Nobundo's Handguards of Triumph", "=ds=#s9#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48288, "", "=q4=Nobundo's Legguards of Triumph", "=ds=#s11#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48292, "", "=q4=Nobundo's Headpiece of Triumph", "=ds=#s1#, #a3#"};
 				{ 18, 48290, "", "=q4=Nobundo's Spaulders of Triumph", "=ds=#s3#, #a3#"};
 				{ 19, 48294, "", "=q4=Nobundo's Tunic of Triumph", "=ds=#s5#, #a3#"};
@@ -10460,19 +10460,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48297, "", "=q4=Thrall's Headpiece of Conquest", "=ds=#s1#, #a3#", "#JUSTICE:591#"};
 				{ 3, 48299, "", "=q4=Thrall's Spaulders of Conquest", "=ds=#s3#, #a3#", "#JUSTICE:478#"};
 				{ 4, 48295, "", "=q4=Thrall's Tunic of Conquest", "=ds=#s5#, #a3#", "#JUSTICE:591#"};
 				{ 5, 48296, "", "=q4=Thrall's Handguards of Conquest", "=ds=#s9#, #a3#", "#JUSTICE:478#"};
 				{ 6, 48298, "", "=q4=Thrall's Legguards of Conquest", "=ds=#s11#, #a3#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48302, "", "=q4=Thrall's Headpiece of Triumph", "=ds=#s1#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48304, "", "=q4=Thrall's Spaulders of Triumph", "=ds=#s3#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48300, "", "=q4=Thrall's Tunic of Triumph", "=ds=#s5#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48301, "", "=q4=Thrall's Handguards of Triumph", "=ds=#s9#, #a3#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48303, "", "=q4=Thrall's Legguards of Triumph", "=ds=#s11#, #a3#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t9s7_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48307, "", "=q4=Thrall's Headpiece of Triumph", "=ds=#s1#, #a3#"};
 				{ 18, 48309, "", "=q4=Thrall's Spaulders of Triumph", "=ds=#s3#, #a3#"};
 				{ 19, 48305, "", "=q4=Thrall's Tunic of Triumph", "=ds=#s5#, #a3#"};
@@ -10481,7 +10481,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -10489,19 +10489,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9Warlock"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "spell_nature_drowsy", "=q6=#t9s8_a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_nature_drowsy", "=q6=#t9s8_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 47784, "", "=q4=Kel'Thuzad's Hood of Conquest", "=ds=#s1#, #a1#", "#JUSTICE:591#"};
 				{ 3, 47787, "", "=q4=Kel'Thuzad's Shoulderpads of Conquest", "=ds=#s3#, #a1#", "#JUSTICE:478#"};
 				{ 4, 47786, "", "=q4=Kel'Thuzad's Robe of Conquest", "=ds=#s5#, #a1#", "#JUSTICE:591#"};
 				{ 5, 47783, "", "=q4=Kel'Thuzad's Gloves of Conquest", "=ds=#s9#, #a1#", "#JUSTICE:478#"};
 				{ 6, 47785, "", "=q4=Kel'Thuzad's Leggings of Conquest", "=ds=#s11#, #a1#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_nature_drowsy", "=q6=#t9s8_a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_nature_drowsy", "=q6=#t9s8_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 47778, "", "=q4=Kel'Thuzad's Hood of Triumph", "=ds=#s1#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 47781, "", "=q4=Kel'Thuzad's Shoulderpads of Triumph", "=ds=#s3#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 47779, "", "=q4=Kel'Thuzad's Robe of Triumph", "=ds=#s5#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 47782, "", "=q4=Kel'Thuzad's Gloves of Triumph", "=ds=#s9#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 47780, "", "=q4=Kel'Thuzad's Leggings of Triumph", "=ds=#s11#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_nature_drowsy", "=q6=#t9s8_a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_nature_drowsy", "=q6=#t9s8_a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 47789, "", "=q4=Kel'Thuzad's Hood of Triumph", "=ds=#s1#, #a1#"};
 				{ 18, 47792, "", "=q4=Kel'Thuzad's Shoulderpads of Triumph", "=ds=#s3#, #a1#"};
 				{ 19, 47791, "", "=q4=Kel'Thuzad's Robe of Triumph", "=ds=#s5#, #a1#"};
@@ -10511,19 +10511,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "spell_shadow_rainoffire", "=q6=#t9s8_h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "spell_shadow_rainoffire", "=q6=#t9s8_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 47801, "", "=q4=Gul'dan's Hood of Conquest", "=ds=#s1#, #a1#", "#JUSTICE:591#"};
 				{ 3, 47798, "", "=q4=Gul'dan's Shoulderpads of Conquest", "=ds=#s3#, #a1#", "#JUSTICE:478#"};
 				{ 4, 47799, "", "=q4=Gul'dan's Robe of Conquest", "=ds=#s5#, #a1#", "#JUSTICE:591#"};
 				{ 5, 47802, "", "=q4=Gul'dan's Gloves of Conquest", "=ds=#s9#, #a1#", "#JUSTICE:478#"};
 				{ 6, 47800, "", "=q4=Gul'dan's Leggings of Conquest", "=ds=#s11#, #a1#", "#JUSTICE:591#"};
-				{ 8, 0, "spell_shadow_rainoffire", "=q6=#t9s8_h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "spell_shadow_rainoffire", "=q6=#t9s8_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 47804, "", "=q4=Gul'dan's Hood of Triumph", "=ds=#s1#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 47807, "", "=q4=Gul'dan's Shoulderpads of Triumph", "=ds=#s3#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 47806, "", "=q4=Gul'dan's Robe of Triumph", "=ds=#s5#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 47803, "", "=q4=Gul'dan's Gloves of Triumph", "=ds=#s9#, #a1#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 47805, "", "=q4=Gul'dan's Leggings of Triumph", "=ds=#s11#, #a1#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "spell_shadow_rainoffire", "=q6=#t9s8_h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "spell_shadow_rainoffire", "=q6=#t9s8_h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 47796, "", "=q4=Gul'dan's Hood of Triumph", "=ds=#s1#, #a1#"};
 				{ 18, 47793, "", "=q4=Gul'dan's Shoulderpads of Triumph", "=ds=#s3#, #a1#"};
 				{ 19, 47794, "", "=q4=Gul'dan's Robe of Triumph", "=ds=#s5#, #a1#"};
@@ -10540,19 +10540,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9WarriorFury"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "ability_warrior_innerrage", "=q6=#t9s9_1a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "ability_warrior_innerrage", "=q6=#t9s9_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48371, "", "=q4=Wrynn's Helmet of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48374, "", "=q4=Wrynn's Shoulderplates of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48372, "", "=q4=Wrynn's Battleplate of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48375, "", "=q4=Wrynn's Gauntlets of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48373, "", "=q4=Wrynn's Legplates of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "ability_warrior_innerrage", "=q6=#t9s9_1a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "ability_warrior_innerrage", "=q6=#t9s9_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48378, "", "=q4=Wrynn's Helmet of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48380, "", "=q4=Wrynn's Shoulderplates of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48376, "", "=q4=Wrynn's Battleplate of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48377, "", "=q4=Wrynn's Gauntlets of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48379, "", "=q4=Wrynn's Legplates of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "ability_warrior_innerrage", "=q6=#t9s9_1a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "ability_warrior_innerrage", "=q6=#t9s9_1a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48383, "", "=q4=Wrynn's Helmet of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48381, "", "=q4=Wrynn's Shoulderplates of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48385, "", "=q4=Wrynn's Battleplate of Triumph", "=ds=#s5#, #a4#"};
@@ -10562,19 +10562,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "ability_warrior_innerrage", "=q6=#t9s9_1h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "ability_warrior_innerrage", "=q6=#t9s9_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48388, "", "=q4=Hellscream's Helmet of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48390, "", "=q4=Hellscream's Shoulderplates of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48386, "", "=q4=Hellscream's Battleplate of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48387, "", "=q4=Hellscream's Gauntlets of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48389, "", "=q4=Hellscream's Legplates of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "ability_warrior_innerrage", "=q6=#t9s9_1h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "ability_warrior_innerrage", "=q6=#t9s9_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48393, "", "=q4=Hellscream's Helmet of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48395, "", "=q4=Hellscream's Shoulderplates of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48391, "", "=q4=Hellscream's Battleplate of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48392, "", "=q4=Hellscream's Gauntlets of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48394, "", "=q4=Hellscream's Legplates of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "ability_warrior_innerrage", "=q6=#t9s9_1h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "ability_warrior_innerrage", "=q6=#t9s9_1h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48398, "", "=q4=Hellscream's Helmet of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48400, "", "=q4=Hellscream's Shoulderplates of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48396, "", "=q4=Hellscream's Battleplate of Triumph", "=ds=#s5#, #a4#"};
@@ -10591,19 +10591,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T9WarriorProtection"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2a#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48429, "", "=q4=Wrynn's Greathelm of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48448, "", "=q4=Wrynn's Pauldrons of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48436, "", "=q4=Wrynn's Breastplate of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48449, "", "=q4=Wrynn's Handguards of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48445, "", "=q4=Wrynn's Legguards of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2a#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48430, "", "=q4=Wrynn's Greathelm of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48454, "", "=q4=Wrynn's Pauldrons of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48450, "", "=q4=Wrynn's Breastplate of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48452, "", "=q4=Wrynn's Handguards of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48446, "", "=q4=Wrynn's Legguards of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2a#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2a#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48433, "", "=q4=Wrynn's Greathelm of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48455, "", "=q4=Wrynn's Pauldrons of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48451, "", "=q4=Wrynn's Breastplate of Triumph", "=ds=#s5#, #a4#"};
@@ -10613,19 +10613,19 @@ local moduleName = "AtlasLootWotLK"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2h#", "=q5="..AL["Tier 9"]};
+				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 2, 48458, "", "=q4=Hellscream's Greathelm of Conquest", "=ds=#s1#, #a4#", "#JUSTICE:591#"};
 				{ 3, 48460, "", "=q4=Hellscream's Pauldrons of Conquest", "=ds=#s3#, #a4#", "#JUSTICE:478#"};
 				{ 4, 48456, "", "=q4=Hellscream's Breastplate of Conquest", "=ds=#s5#, #a4#", "#JUSTICE:591#"};
 				{ 5, 48457, "", "=q4=Hellscream's Handguards of Conquest", "=ds=#s9#, #a4#", "#JUSTICE:478#"};
 				{ 6, 48459, "", "=q4=Hellscream's Legguards of Conquest", "=ds=#s11#, #a4#", "#JUSTICE:591#"};
-				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2h#", "=q5="..AL["Tier 9"]};
+				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 9, 48463, "", "=q4=Hellscream's Greathelm of Triumph", "=ds=#s1#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 10, 48465, "", "=q4=Hellscream's Pauldrons of Triumph", "=ds=#s3#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 11, 48461, "", "=q4=Hellscream's Breastplate of Triumph", "=ds=#s5#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
 				{ 12, 48462, "", "=q4=Hellscream's Handguards of Triumph", "=ds=#s9#, #a4#", "#JUSTICE:717# 1 #trophyofthecrusade#"};
 				{ 13, 48464, "", "=q4=Hellscream's Legguards of Triumph", "=ds=#s11#, #a4#", "#JUSTICE:1196# 1 #trophyofthecrusade#"};
-				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2h#", "=q5="..AL["Tier 9"]};
+				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t9s9_2h#", "=q5="..string.format(AL["Tier %d"], 9)};
 				{ 17, 48468, "", "=q4=Hellscream's Greathelm of Triumph", "=ds=#s1#, #a4#"};
 				{ 18, 48470, "", "=q4=Hellscream's Pauldrons of Triumph", "=ds=#s3#, #a4#"};
 				{ 19, 48466, "", "=q4=Hellscream's Breastplate of Triumph", "=ds=#s5#, #a4#"};
@@ -10634,7 +10634,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T9SET",
 		};
 	}
@@ -10646,19 +10646,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10DeathKnightDPS"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t10s10_1#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "spell_deathknight_frostpresence", "=q6=#t10s10_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50096, "", "=q4=Scourgelord Helmet", "=ds=#s1#, #a4#", "#JUSTICE:1100#" };
 				{ 3, 50098, "", "=q4=Scourgelord Shoulderplates", "=ds=#s3#, #a4#", "#JUSTICE:695#" };
 				{ 4, 50094, "", "=q4=Scourgelord Battleplate", "=ds=#s5#, #a4#", "#JUSTICE:1100#" };
 				{ 5, 50095, "", "=q4=Scourgelord Gauntlets", "=ds=#s9#, #a4#", "#JUSTICE:695#" };
 				{ 6, 50097, "", "=q4=Scourgelord Legplates", "=ds=#s11#, #a4#", "#JUSTICE:1100#" };
-				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t10s10_1#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "spell_deathknight_frostpresence", "=q6=#t10s10_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51127, "", "=q4=Sanctified Scourgelord Helmet", "=ds=#s1#, #a4#"};
 				{ 10, 51125, "", "=q4=Sanctified Scourgelord Shoulderplates", "=ds=#s3#, #a4#"};
 				{ 11, 51129, "", "=q4=Sanctified Scourgelord Battleplate", "=ds=#s5#, #a4#"};
 				{ 12, 51128, "", "=q4=Sanctified Scourgelord Gauntlets", "=ds=#s9#, #a4#"};
 				{ 13, 51126, "", "=q4=Sanctified Scourgelord Legplates", "=ds=#s11#, #a4#"};
-				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t10s10_1#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "spell_deathknight_frostpresence", "=q6=#t10s10_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51312, "", "=q4=Sanctified Scourgelord Helmet", "=ds=#s1#, #a4#"};
 				{ 18, 51314, "", "=q4=Sanctified Scourgelord Shoulderplates", "=ds=#s3#, #a4#"};
 				{ 19, 51310, "", "=q4=Sanctified Scourgelord Battleplate", "=ds=#s5#, #a4#"};
@@ -10675,19 +10675,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10DeathKnightTank"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t10s10_2#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "spell_deathknight_bloodpresence", "=q6=#t10s10_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50855, "", "=q4=Scourgelord Faceguard", "=ds=#s1#, #a4#", "#JUSTICE:1100#" };
 				{ 3, 50853, "", "=q4=Scourgelord Pauldrons", "=ds=#s3#, #a4#", "#JUSTICE:695#" };
 				{ 4, 50857, "", "=q4=Scourgelord Chestguard", "=ds=#s5#, #a4#", "#JUSTICE:1100#" };
 				{ 5, 50856, "", "=q4=Scourgelord Handguards", "=ds=#s9#, #a4#", "#JUSTICE:695#" };
 				{ 6, 50854, "", "=q4=Scourgelord Legguards", "=ds=#s11#, #a4#", "#JUSTICE:1100#" };
-				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t10s10_2#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "spell_deathknight_bloodpresence", "=q6=#t10s10_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51133, "", "=q4=Sanctified Scourgelord Faceguard", "=ds=#s1#, #a4#"};
 				{ 10, 51130, "", "=q4=Sanctified Scourgelord Pauldrons", "=ds=#s3#, #a4#"};
 				{ 11, 51134, "", "=q4=Sanctified Scourgelord Chestguard", "=ds=#s5#, #a4#"};
 				{ 12, 51132, "", "=q4=Sanctified Scourgelord Handguards", "=ds=#s9#, #a4#"};
 				{ 13, 51131, "", "=q4=Sanctified Scourgelord Legguards", "=ds=#s11#, #a4#"};
-				{ 16, 0, "spell_deathknight_bloodpresence", "=q6=#t10s10_2#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "spell_deathknight_bloodpresence", "=q6=#t10s10_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51306, "", "=q4=Sanctified Scourgelord Faceguard", "=ds=#s1#, #a4#"};
 				{ 18, 51309, "", "=q4=Sanctified Scourgelord Pauldrons", "=ds=#s3#, #a4#"};
 				{ 19, 51305, "", "=q4=Sanctified Scourgelord Chestguard", "=ds=#s5#, #a4#"};
@@ -10704,19 +10704,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10DruidRestoration"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_healingtouch", "=q6=#t10s1_1#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "spell_nature_healingtouch", "=q6=#t10s1_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50108, "", "=q4=Lasherweave's Helmet  ", "=ds=#s1#, #a2#", "#JUSTICE:1100#" };
 				{ 3, 50113, "", "=q4=Lasherweave's Pauldrons", "=ds=#s3#, #a2#", "#JUSTICE:695#" };
 				{ 4, 50106, "", "=q4=Lasherweave's Robes", "=ds=#s5#, #a2#", "#JUSTICE:1100#" };
 				{ 5, 50107, "", "=q4=Lasherweave's Gauntlets", "=ds=#s9#, #a2#", "#JUSTICE:695#" };
 				{ 6, 50109, "", "=q4=Lasherweave's Legplates", "=ds=#s11#, #a2#", "#JUSTICE:1100#" };
-				{ 8, 0, "spell_nature_healingtouch", "=q6=#t10s1_1#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "spell_nature_healingtouch", "=q6=#t10s1_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51137, "", "=q4=Sanctified Lasherweave's Helmet", "=ds=#s1#, #a2#" };
 				{ 10, 51135, "", "=q4=Sanctified Lasherweave's Pauldrons", "=ds=#s3#, #a2#" };
 				{ 11, 51139, "", "=q4=Sanctified Lasherweave's Robes", "=ds=#s5#, #a2#" };
 				{ 12, 51138, "", "=q4=Sanctified Lasherweave's Gauntlets", "=ds=#s9#, #a2#" };
 				{ 13, 51136, "", "=q4=Sanctified Lasherweave's Legplates", "=ds=#s11#, #a2#" };
-				{ 16, 0, "spell_nature_healingtouch", "=q6=#t10s1_1#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "spell_nature_healingtouch", "=q6=#t10s1_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51302, "", "=q4=Sanctified Lasherweave's Helmet", "=ds=#s1#, #a2#"};
 				{ 18, 51304, "", "=q4=Sanctified Lasherweave's Pauldrons", "=ds=#s3#, #a2#"};
 				{ 19, 51300, "", "=q4=Sanctified Lasherweave's Robes", "=ds=#s5#, #a2#"};
@@ -10725,7 +10725,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -10733,19 +10733,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10DruidFeral"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_druid_catform", "=q6=#t10s1_2#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "ability_druid_catform", "=q6=#t10s1_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50826, "", "=q4=Lasherweave's Headguard", "=ds=#s1#, #a2#", "#JUSTICE:1100#" };
 				{ 3, 50824, "", "=q4=Lasherweave's Shoulderpads", "=ds=#s3#, #a2#", "#JUSTICE:695#" };
 				{ 4, 50828, "", "=q4=Lasherweave's Raiment", "=ds=#s5#, #a2#", "#JUSTICE:1100#" };
 				{ 5, 50827, "", "=q4=Lasherweave's Handgrips", "=ds=#s9#, #a2#", "#JUSTICE:695#" };
 				{ 6, 50825, "", "=q4=Lasherweave's Legguards", "=ds=#s11#, #a2#", "#JUSTICE:1100#" };
-				{ 8, 0, "ability_druid_catform", "=q6=#t10s1_2#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "ability_druid_catform", "=q6=#t10s1_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51143, "", "=q4=Sanctified Lasherweave's Headguard", "=ds=#s1#, #a2#" };
 				{ 10, 51140, "", "=q4=Sanctified Lasherweave's Shoulderpads", "=ds=#s3#, #a2#" };
 				{ 11, 51141, "", "=q4=Sanctified Lasherweave's Raiment", "=ds=#s5#, #a2#" };
 				{ 12, 51144, "", "=q4=Sanctified Lasherweave's Handgrips", "=ds=#s9#, #a2#" };
 				{ 13, 51142, "", "=q4=Sanctified Lasherweave's Legguards", "=ds=#s11#, #a2#" };
-				{ 16, 0, "ability_druid_catform", "=q6=#t10s1_2#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "ability_druid_catform", "=q6=#t10s1_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51296, "", "=q4=Sanctified Lasherweave's Headguard", "=ds=#s1#, #a2#"};
 				{ 18, 51299, "", "=q4=Sanctified Lasherweave's Shoulderpads", "=ds=#s3#, #a2#"};
 				{ 19, 51298, "", "=q4=Sanctified Lasherweave's Raiment", "=ds=#s5#, #a2#"};
@@ -10754,7 +10754,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -10762,19 +10762,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10DruidBalance"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_starfall", "=q6=#t10s1_3#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "spell_nature_starfall", "=q6=#t10s1_3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50821, "", "=q4=Lasherweave's Cover", "=ds=#s1#, #a2#", "#JUSTICE:1100#" };
 				{ 3, 50819, "", "=q4=Lasherweave's Mantle", "=ds=#s3#, #a2#", "#JUSTICE:695#" };
 				{ 4, 50823, "", "=q4=Lasherweave's Vestment", "=ds=#s5#, #a2#", "#JUSTICE:1100#" };
 				{ 5, 50822, "", "=q4=Lasherweave's Gloves", "=ds=#s9#, #a2#", "#JUSTICE:695#" };
 				{ 6, 50820, "", "=q4=Lasherweave's Trousers", "=ds=#s11#, #a2#", "#JUSTICE:1100#" };
-				{ 8, 0, "spell_nature_starfall", "=q6=#t10s1_3#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "spell_nature_starfall", "=q6=#t10s1_3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51149, "", "=q4=Sanctified Lasherweave's Cover", "=ds=#s1#, #a2#" };
 				{ 10, 51147, "", "=q4=Sanctified Lasherweave's Mantle", "=ds=#s3#, #a2#" };
 				{ 11, 51145, "", "=q4=Sanctified Lasherweave's Vestment", "=ds=#s5#, #a2#" };
 				{ 12, 51148, "", "=q4=Sanctified Lasherweave's Gloves", "=ds=#s9#, #a2#" };
 				{ 13, 51146, "", "=q4=Sanctified Lasherweave's Trousers", "=ds=#s11#, #a2#" };
-				{ 16, 0, "spell_nature_starfall", "=q6=#t10s1_3#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "spell_nature_starfall", "=q6=#t10s1_3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51290, "", "=q4=Sanctified Lasherweave's Cover", "=ds=#s1#, #a2#"};
 				{ 18, 51292, "", "=q4=Sanctified Lasherweave's Mantle", "=ds=#s3#, #a2#"};
 				{ 19, 51294, "", "=q4=Sanctified Lasherweave's Vestment", "=ds=#s5#, #a2#"};
@@ -10783,7 +10783,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AL["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -10791,19 +10791,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10Hunter"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_weapon_bow_07", "=q6=#t10s2#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "inv_weapon_bow_07", "=q6=#t10s2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50115, "", "=q4=Ahn'Kahar Blood Hunter's Headpiece", "=ds=#s1#, #a3#", "#JUSTICE:1100#" };
 				{ 3, 50117, "", "=q4=Ahn'Kahar Blood Hunter's Spaulders", "=ds=#s3#, #a3#", "#JUSTICE:695#" };
 				{ 4, 50118, "", "=q4=Ahn'Kahar Blood Hunter's Tunic", "=ds=#s5#, #a3#", "#JUSTICE:1100#" };
 				{ 5, 50114, "", "=q4=Ahn'Kahar Blood Hunter's Handguards", "=ds=#s9#, #a3#", "#JUSTICE:695#" };
 				{ 6, 50116, "", "=q4=Ahn'Kahar Blood Hunter's Legguards", "=ds=#s11#, #a3#", "#JUSTICE:1100#" };
-				{ 8, 0, "inv_weapon_bow_07", "=q6=#t10s2#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "inv_weapon_bow_07", "=q6=#t10s2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51153, "", "=q4=Sanctified Ahn'Kahar Blood Hunter's Headpiece", "=ds=#s1#, #a3#"};
 				{ 10, 51151, "", "=q4=Sanctified Ahn'Kahar Blood Hunter's Spaulders", "=ds=#s3#, #a3#"};
 				{ 11, 51150, "", "=q4=Sanctified Ahn'Kahar Blood Hunter's Tunic", "=ds=#s5#, #a3#"};
 				{ 12, 51154, "", "=q4=Sanctified Ahn'Kahar Blood Hunter's Handguards", "=ds=#s9#, #a3#"};
 				{ 13, 51152, "", "=q4=Sanctified Ahn'Kahar Blood Hunter's Legguards", "=ds=#s11#, #a3#"};
-				{ 16, 0, "inv_weapon_bow_07", "=q6=#t10s2#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "inv_weapon_bow_07", "=q6=#t10s2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51286, "", "=q4=Sanctified Ahn'Kahar Blood Hunter's Headpiece", "=ds=#s1#, #a3#"};
 				{ 18, 51288, "", "=q4=Sanctified Ahn'Kahar Blood Hunter's Spaulders", "=ds=#s3#, #a3#"};
 				{ 19, 51289, "", "=q4=Sanctified Ahn'Kahar Blood Hunter's Tunic", "=ds=#s5#, #a3#"};
@@ -10820,19 +10820,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10Mage"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_staff_13", "=q6=#t10s3#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "inv_staff_13", "=q6=#t10s3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50276, "", "=q4=Bloodmage Hood", "=ds=#s1#, #a1#", "#JUSTICE:1100#" };
 				{ 3, 50279, "", "=q4=Bloodmage Shoulderpads", "=ds=#s3#, #a1#", "#JUSTICE:695#" };
 				{ 4, 50278, "", "=q4=Bloodmage Robe", "=ds=#s5#, #a1#", "#JUSTICE:1100#" };
 				{ 5, 50275, "", "=q4=Bloodmage Gloves", "=ds=#s9#, #a1#", "#JUSTICE:695#" };
 				{ 6, 50277, "", "=q4=Bloodmage Leggings", "=ds=#s11#, #a1#", "#JUSTICE:1100#" };
-				{ 8, 0, "inv_staff_13", "=q6=#t10s3#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "inv_staff_13", "=q6=#t10s3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51158, "", "=q4=Sanctified Bloodmage Hood", "=ds=#s1#, #a1#"};
 				{ 10, 51155, "", "=q4=Sanctified Bloodmage Shoulderpads", "=ds=#s3#, #a1#"};
 				{ 11, 51156, "", "=q4=Sanctified Bloodmage Robe", "=ds=#s5#, #a1#"};
 				{ 12, 51159, "", "=q4=Sanctified Bloodmage Gloves", "=ds=#s9#, #a1#"};
 				{ 13, 51157, "", "=q4=Sanctified Bloodmage Leggings", "=ds=#s11#, #a1#"};
-				{ 16, 0, "inv_staff_13", "=q6=#t10s3#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "inv_staff_13", "=q6=#t10s3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51281, "", "=q4=Sanctified Bloodmage Hood", "=ds=#s1#, #a1#"};
 				{ 18, 51284, "", "=q4=Sanctified Bloodmage Shoulderpads", "=ds=#s3#, #a1#"};
 				{ 19, 51283, "", "=q4=Sanctified Bloodmage Robe", "=ds=#s5#, #a1#"};
@@ -10849,19 +10849,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10PaladinHoly"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t10s4_1#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t10s4_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50867, "", "=q4=Lightsworn Headpiece", "=ds=#s1#, #a4#", "#JUSTICE:1100#" };
 				{ 3, 50865, "", "=q4=Lightsworn Spaulders", "=ds=#s3#, #a4#", "#JUSTICE:695#" };
 				{ 4, 50869, "", "=q4=Lightsworn Tunic", "=ds=#s5#, #a4#", "#JUSTICE:1100#" };
 				{ 5, 50868, "", "=q4=Lightsworn Gloves", "=ds=#s9#, #a4#", "#JUSTICE:695#" };
 				{ 6, 50866, "", "=q4=Lightsworn Greaves", "=ds=#s11#, #a4#", "#JUSTICE:1100#" };
-				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t10s4_1#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t10s4_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51167, "", "=q4=Sanctified Lightsworn Headpiece", "=ds=#s1#, #a4#" };
 				{ 10, 51166, "", "=q4=Sanctified Lightsworn Spaulders", "=ds=#s3#, #a4#" };
 				{ 11, 51165, "", "=q4=Sanctified Lightsworn Tunic", "=ds=#s5#, #a4#" };
 				{ 12, 51169, "", "=q4=Sanctified Lightsworn Gloves", "=ds=#s9#, #a4#" };
 				{ 13, 51168, "", "=q4=Sanctified Lightsworn Greaves", "=ds=#s11#, #a4#" };
-				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t10s4_1#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t10s4_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51272, "", "=q4=Sanctified Lightsworn Headpiece", "=ds=#s1#, #a4#"};
 				{ 18, 51273, "", "=q4=Sanctified Lightsworn Spaulders", "=ds=#s3#, #a4#"};
 				{ 19, 51274, "", "=q4=Sanctified Lightsworn Tunic", "=ds=#s5#, #a4#"};
@@ -10870,7 +10870,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -10878,19 +10878,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10PaladinRetribution"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t10s4_2#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t10s4_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50326, "", "=q4=Lightsworn Helmet", "=ds=#s1#, #a4#", "#JUSTICE:1100#" };
 				{ 3, 50324, "", "=q4=Lightsworn Shoulderplates", "=ds=#s3#, #a4#", "#JUSTICE:695#" };
 				{ 4, 50328, "", "=q4=Lightsworn Battleplate", "=ds=#s5#, #a4#", "#JUSTICE:1100#" };
 				{ 5, 50327, "", "=q4=Lightsworn Gauntlets", "=ds=#s9#, #a4#", "#JUSTICE:695#" };
 				{ 6, 50325, "", "=q4=Lightsworn Legplates", "=ds=#s11#, #a4#", "#JUSTICE:1100#" };
-				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t10s4_2#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t10s4_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51162, "", "=q4=Sanctified Lightsworn Helmet", "=ds=#s1#, #a4#" };
 				{ 10, 51160, "", "=q4=Sanctified Lightsworn Shoulderplates", "=ds=#s3#, #a4#" };
 				{ 11, 51164, "", "=q4=Sanctified Lightsworn Battleplate", "=ds=#s5#, #a4#" };
 				{ 12, 51163, "", "=q4=Sanctified Lightsworn Gauntlets", "=ds=#s9#, #a4#" };
 				{ 13, 51161, "", "=q4=Sanctified Lightsworn Legplates", "=ds=#s11#, #a4#" };
-				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t10s4_2#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t10s4_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51277, "", "=q4=Sanctified Lightsworn Helmet", "=ds=#s1#, #a4#"};
 				{ 18, 51279, "", "=q4=Sanctified Lightsworn Shoulderplates", "=ds=#s3#, #a4#"};
 				{ 19, 51275, "", "=q4=Sanctified Lightsworn Battleplate", "=ds=#s5#, #a4#"};
@@ -10899,7 +10899,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -10907,19 +10907,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10PaladinProtection"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_holy_devotionaura", "=q6=#t10s4_3#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "spell_holy_devotionaura", "=q6=#t10s4_3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50862, "", "=q4=Lightsworn Faceguard", "=ds=#s1#, #a4#", "#JUSTICE:1100#" };
 				{ 3, 50860, "", "=q4=Lightsworn Shoulderguards", "=ds=#s3#, #a4#", "#JUSTICE:695#" };
 				{ 4, 50864, "", "=q4=Lightsworn Chestguard", "=ds=#s5#, #a4#", "#JUSTICE:1100#" };
 				{ 5, 50863, "", "=q4=Lightsworn Handguards", "=ds=#s9#, #a4#", "#JUSTICE:695#" };
 				{ 6, 50861, "", "=q4=Lightsworn Legguards", "=ds=#s11#, #a4#", "#JUSTICE:1100#" };
-				{ 8, 0, "spell_holy_devotionaura", "=q6=#t10s4_3#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "spell_holy_devotionaura", "=q6=#t10s4_3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51173, "", "=q4=Sanctified Lightsworn Faceguard", "=ds=#s1#, #a4#" };
 				{ 10, 51170, "", "=q4=Sanctified Lightsworn Shoulderguards", "=ds=#s3#, #a4#" };
 				{ 11, 51174, "", "=q4=Sanctified Lightsworn Chestguard", "=ds=#s5#, #a4#" };
 				{ 12, 51172, "", "=q4=Sanctified Lightsworn Handguards", "=ds=#s9#, #a4#" };
 				{ 13, 51171, "", "=q4=Sanctified Lightsworn Legguards", "=ds=#s11#, #a4#" };
-				{ 16, 0, "spell_holy_devotionaura", "=q6=#t10s4_3#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "spell_holy_devotionaura", "=q6=#t10s4_3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51266, "", "=q4=Sanctified Lightsworn Faceguard", "=ds=#s1#, #a4#"};
 				{ 18, 51269, "", "=q4=Sanctified Lightsworn Shoulderguards", "=ds=#s3#, #a4#"};
 				{ 19, 51265, "", "=q4=Sanctified Lightsworn Chestguard", "=ds=#s5#, #a4#"};
@@ -10928,7 +10928,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -10936,19 +10936,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10PriestShadow"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t10s5_1#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t10s5_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50392, "", "=q4=Crimson Acolyte Cowl", "=ds=#s1#, #a1#", "#JUSTICE:1100#" };
 				{ 3, 50396, "", "=q4=Crimson Acolyte Mantle", "=ds=#s3#, #a1#", "#JUSTICE:695#" };
 				{ 4, 50394, "", "=q4=Crimson Acolyte Raiments", "=ds=#s5#, #a1#", "#JUSTICE:1100#" };
 				{ 5, 50391, "", "=q4=Crimson Acolyte Handwraps", "=ds=#s9#, #a1#", "#JUSTICE:695#" };
 				{ 6, 50393, "", "=q4=Crimson Acolyte Pants", "=ds=#s11#, #a1#", "#JUSTICE:1100#" };
-				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t10s5_1#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t10s5_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51184, "", "=q4=Sanctified Crimson Acolyte Cowl", "=ds=#s1#, #a1#"};
 				{ 10, 51182, "", "=q4=Sanctified Crimson Acolyte Mantle", "=ds=#s3#, #a1#"};
 				{ 11, 51180, "", "=q4=Sanctified Crimson Acolyte Raiments", "=ds=#s5#, #a1#"};
 				{ 12, 51183, "", "=q4=Sanctified Crimson Acolyte Handwraps", "=ds=#s9#, #a1#"};
 				{ 13, 51181, "", "=q4=Sanctified Crimson Acolyte Pants", "=ds=#s11#, #a1#"};
-				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t10s5_1#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t10s5_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51255, "", "=q4=Sanctified Crimson Acolyte Cowl", "=ds=#s1#, #a1#"};
 				{ 18, 51257, "", "=q4=Sanctified Crimson Acolyte Mantle", "=ds=#s3#, #a1#"};
 				{ 19, 51259, "", "=q4=Sanctified Crimson Acolyte Raiments", "=ds=#s5#, #a1#"};
@@ -10957,7 +10957,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Shadow"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Shadow"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -10965,19 +10965,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10PriestHoly"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t10s5_2#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t10s5_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50765, "", "=q4=Crimson Acolyte Hood", "=ds=#s1#, #a1#", "#JUSTICE:1100#" };
 				{ 3, 50767, "", "=q4=Crimson Acolyte Shoulderpads", "=ds=#s3#, #a1#", "#JUSTICE:695#" };
 				{ 4, 50768, "", "=q4=Crimson Acolyte Robe", "=ds=#s5#, #a1#", "#JUSTICE:1100#" };
 				{ 5, 50766, "", "=q4=Crimson Acolyte Gloves", "=ds=#s9#, #a1#", "#JUSTICE:695#" };
 				{ 6, 50769, "", "=q4=Crimson Acolyte Leggings", "=ds=#s11#, #a1#", "#JUSTICE:1100#" };
-				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t10s5_2#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t10s5_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51178, "", "=q4=Sanctified Crimson Acolyte Hood", "=ds=#s1#, #a1#"};
 				{ 10, 51175, "", "=q4=Sanctified Crimson Acolyte Shoulderpads", "=ds=#s3#, #a1#"};
 				{ 11, 51176, "", "=q4=Sanctified Crimson Acolyte Robe", "=ds=#s5#, #a1#"};
 				{ 12, 51179, "", "=q4=Sanctified Crimson Acolyte Gloves", "=ds=#s9#, #a1#"};
 				{ 13, 51177, "", "=q4=Sanctified Crimson Acolyte Leggings", "=ds=#s11#, #a1#"};
-				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t10s5_2#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t10s5_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51261, "", "=q4=Sanctified Crimson Acolyte Hood", "=ds=#s1#, #a1#"};
 				{ 18, 51264, "", "=q4=Sanctified Crimson Acolyte Shoulderpads", "=ds=#s3#, #a1#"};
 				{ 19, 51263, "", "=q4=Sanctified Crimson Acolyte Robe", "=ds=#s5#, #a1#"};
@@ -10986,7 +10986,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AL["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Holy"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -10994,19 +10994,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10Rogue"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_throwingknife_04", "=q6=#t10s6#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "inv_throwingknife_04", "=q6=#t10s6#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50089, "", "=q4=Shadowblade Helmet", "=ds=#s1#, #a2#", "#JUSTICE:1100#" };
 				{ 3, 50105, "", "=q4=Shadowblade Pauldrons", "=ds=#s3#, #a2#", "#JUSTICE:695#" };
 				{ 4, 50087, "", "=q4=Shadowblade Breastplate", "=ds=#s5#, #a2#", "#JUSTICE:1100#" };
 				{ 5, 50088, "", "=q4=Shadowblade Gauntlets", "=ds=#s9#, #a2#", "#JUSTICE:695#" };
 				{ 6, 50090, "", "=q4=Shadowblade Legplates", "=ds=#s11#, #a2#", "#JUSTICE:1100#" };
-				{ 8, 0, "inv_throwingknife_04", "=q6=#t10s6#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "inv_throwingknife_04", "=q6=#t10s6#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51187, "", "=q4=Sanctified Shadowblade Helmet", "=ds=#s1#, #a2#"};
 				{ 10, 51185, "", "=q4=Sanctified Shadowblade Pauldrons", "=ds=#s3#, #a2#"};
 				{ 11, 51189, "", "=q4=Sanctified Shadowblade Breastplate", "=ds=#s5#, #a2#"};
 				{ 12, 51188, "", "=q4=Sanctified Shadowblade Gauntlets", "=ds=#s9#, #a2#"};
 				{ 13, 51186, "", "=q4=Sanctified Shadowblade Legplates", "=ds=#s11#, #a2#"};
-				{ 16, 0, "inv_throwingknife_04", "=q6=#t10s6#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "inv_throwingknife_04", "=q6=#t10s6#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51252, "", "=q4=Sanctified Shadowblade Helmet", "=ds=#s1#, #a2#"};
 				{ 18, 51254, "", "=q4=Sanctified Shadowblade Pauldrons", "=ds=#s3#, #a2#"};
 				{ 19, 51250, "", "=q4=Sanctified Shadowblade Breastplate", "=ds=#s5#, #a2#"};
@@ -11023,19 +11023,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10ShamanElemental"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t10s7_3#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t10s7_3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50843, "", "=q4=Frost Witch's Helm", "=ds=#s1#, #a3#", "#JUSTICE:1100#" };
 				{ 3, 50845, "", "=q4=Frost Witch's Shoulderpads", "=ds=#s3#, #a3#", "#JUSTICE:695#" };
 				{ 4, 50841, "", "=q4=Frost Witch's Hauberk", "=ds=#s5#, #a3#", "#JUSTICE:1100#" };
 				{ 5, 50842, "", "=q4=Frost Witch's Gloves", "=ds=#s9#, #a3#", "#JUSTICE:695#" };
 				{ 6, 50844, "", "=q4=Frost Witch's Kilt", "=ds=#s11#, #a3#", "#JUSTICE:1100#" };
-				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t10s7_3#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t10s7_3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51202, "", "=q4=Sanctified Frost Witch's Helm", "=ds=#s1#, #a3#" };
 				{ 10, 51204, "", "=q4=Sanctified Frost Witch's Shoulderpads", "=ds=#s3#, #a3#" };
 				{ 11, 51200, "", "=q4=Sanctified Frost Witch's Hauberk", "=ds=#s5#, #a3#" };
 				{ 12, 51201, "", "=q4=Sanctified Frost Witch's Gloves", "=ds=#s9#, #a3#" };
 				{ 13, 51203, "", "=q4=Sanctified Frost Witch's Kilt", "=ds=#s11#, #a3#" };
-				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t10s7_3#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t10s7_3#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51237, "", "=q4=Sanctified Frost Witch's Helm", "=ds=#s1#, #a3#"};
 				{ 18, 51235, "", "=q4=Sanctified Frost Witch's Shoulderpads", "=ds=#s3#, #a3#"};
 				{ 19, 51239, "", "=q4=Sanctified Frost Witch's Hauberk", "=ds=#s5#, #a3#"};
@@ -11044,7 +11044,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -11052,19 +11052,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10ShamanEnhancement"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_lightningshield", "=q6=#t10s7_2#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "spell_nature_lightningshield", "=q6=#t10s7_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50832, "", "=q4=Frost Witch's Faceguard", "=ds=#s1#, #a3#", "#JUSTICE:1100#" };
 				{ 3, 50834, "", "=q4=Frost Witch's Shoulderguards", "=ds=#s3#, #a3#", "#JUSTICE:695#" };
 				{ 4, 50830, "", "=q4=Frost Witch's Chestguard", "=ds=#s5#, #a3#", "#JUSTICE:1100#" };
 				{ 5, 50831, "", "=q4=Frost Witch's Grips", "=ds=#s9#, #a3#", "#JUSTICE:695#" };
 				{ 6, 50833, "", "=q4=Frost Witch's War-Kilt", "=ds=#s11#, #a3#", "#JUSTICE:1100#" };
-				{ 8, 0, "spell_nature_lightningshield", "=q6=#t10s7_2#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "spell_nature_lightningshield", "=q6=#t10s7_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51197, "", "=q4=Sanctified Frost Witch's Faceguard", "=ds=#s1#, #a3#" };
 				{ 10, 51199, "", "=q4=Sanctified Frost Witch's Shoulderguards", "=ds=#s3#, #a3#" };
 				{ 11, 51195, "", "=q4=Sanctified Frost Witch's Chestguard", "=ds=#s5#, #a3#" };
 				{ 12, 51196, "", "=q4=Sanctified Frost Witch's Grips", "=ds=#s9#, #a3#" };
 				{ 13, 51198, "", "=q4=Sanctified Frost Witch's War-Kilt", "=ds=#s11#, #a3#" };
-				{ 16, 0, "spell_nature_lightningshield", "=q6=#t10s7_2#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "spell_nature_lightningshield", "=q6=#t10s7_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51242, "", "=q4=Sanctified Frost Witch's Faceguard", "=ds=#s1#, #a3#"};
 				{ 18, 51240, "", "=q4=Sanctified Frost Witch's Shoulderguards", "=ds=#s3#, #a3#"};
 				{ 19, 51244, "", "=q4=Sanctified Frost Witch's Chestguard", "=ds=#s5#, #a3#"};
@@ -11073,7 +11073,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -11081,19 +11081,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10ShamanRestoration"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t10s7_1#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t10s7_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50837, "", "=q4=Frost Witch's Headpiece", "=ds=#s1#, #a3#", "#JUSTICE:1100#" };
 				{ 3, 50839, "", "=q4=Frost Witch's Spaulders", "=ds=#s3#, #a3#", "#JUSTICE:695#" };
 				{ 4, 50835, "", "=q4=Frost Witch's Tunic", "=ds=#s5#, #a3#", "#JUSTICE:1100#" };
 				{ 5, 50836, "", "=q4=Frost Witch's Handguards", "=ds=#s9#, #a3#", "#JUSTICE:695#" };
 				{ 6, 50838, "", "=q4=Frost Witch's Legguards", "=ds=#s11#, #a3#", "#JUSTICE:1100#" };
-				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t10s7_1#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t10s7_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51192, "", "=q4=Sanctified Frost Witch's Headpiece", "=ds=#s1#, #a3#" };
 				{ 10, 51194, "", "=q4=Sanctified Frost Witch's Spaulders", "=ds=#s3#, #a3#" };
 				{ 11, 51190, "", "=q4=Sanctified Frost Witch's Tunic", "=ds=#s5#, #a3#" };
 				{ 12, 51191, "", "=q4=Sanctified Frost Witch's Handguards", "=ds=#s9#, #a3#" };
 				{ 13, 51193, "", "=q4=Sanctified Frost Witch's Legguards", "=ds=#s11#, #a3#" };
-				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t10s7_1#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t10s7_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51247, "", "=q4=Sanctified Frost Witch's Headpiece", "=ds=#s1#, #a3#"};
 				{ 18, 51245, "", "=q4=Sanctified Frost Witch's Spaulders", "=ds=#s3#, #a3#"};
 				{ 19, 51249, "", "=q4=Sanctified Frost Witch's Tunic", "=ds=#s5#, #a3#"};
@@ -11102,7 +11102,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AL["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
 			module = moduleName, menu = "T10SET",
 		};
 	}
@@ -11110,19 +11110,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10Warlock"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "spell_nature_drowsy", "=q6=#t10s8#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "spell_nature_drowsy", "=q6=#t10s8#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50241, "", "=q4=Dark Coven Hood", "=ds=#s1#, #a1#", "#JUSTICE:1100#" };
 				{ 3, 50244, "", "=q4=Dark Coven Shoulderpads", "=ds=#s3#, #a1#", "#JUSTICE:695#" };
 				{ 4, 50243, "", "=q4=Dark Coven Robe", "=ds=#s5#, #a1#", "#JUSTICE:1100#" };
 				{ 5, 50240, "", "=q4=Dark Coven Gloves", "=ds=#s9#, #a1#", "#JUSTICE:695#" };
 				{ 6, 50242, "", "=q4=Dark Coven Leggings", "=ds=#s11#, #a1#", "#JUSTICE:1100#" };
-				{ 8, 0, "spell_nature_drowsy", "=q6=#t10s8#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "spell_nature_drowsy", "=q6=#t10s8#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51208, "", "=q4=Sanctified Dark Coven Hood", "=ds=#s1#, #a1#"};
 				{ 10, 51205, "", "=q4=Sanctified Dark Coven Shoulderpads", "=ds=#s3#, #a1#"};
 				{ 11, 51206, "", "=q4=Sanctified Dark Coven Robe", "=ds=#s5#, #a1#"};
 				{ 12, 51209, "", "=q4=Sanctified Dark Coven Gloves", "=ds=#s9#, #a1#"};
 				{ 13, 51207, "", "=q4=Sanctified Dark Coven Leggings", "=ds=#s11#, #a1#"};
-				{ 16, 0, "spell_nature_drowsy", "=q6=#t10s8#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "spell_nature_drowsy", "=q6=#t10s8#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51231, "", "=q4=Sanctified Dark Coven Hood", "=ds=#s1#, #a1#"};
 				{ 18, 51234, "", "=q4=Sanctified Dark Coven Shoulderpads", "=ds=#s3#, #a1#"};
 				{ 19, 51233, "", "=q4=Sanctified Dark Coven Robe", "=ds=#s5#, #a1#"};
@@ -11139,19 +11139,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10WarriorFury"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_warrior_innerrage", "=q6=#t10s9_1#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "ability_warrior_innerrage", "=q6=#t10s9_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50080, "", "=q4=Ymirjar Lord's Helmet", "=ds=#s1#, #a4#", "#JUSTICE:1100#" };
 				{ 3, 50082, "", "=q4=Ymirjar Lord's Shoulderplates", "=ds=#s3#, #a4#", "#JUSTICE:695#" };
 				{ 4, 50078, "", "=q4=Ymirjar Lord's Battleplate", "=ds=#s5#, #a4#", "#JUSTICE:1100#" };
 				{ 5, 50079, "", "=q4=Ymirjar Lord's Gauntlets", "=ds=#s9#, #a4#", "#JUSTICE:695#" };
 				{ 6, 50081, "", "=q4=Ymirjar Lord's Legplates", "=ds=#s11#, #a4#", "#JUSTICE:1100#" };
-				{ 8, 0, "ability_warrior_innerrage", "=q6=#t10s9_1#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "ability_warrior_innerrage", "=q6=#t10s9_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51212, "", "=q4=Sanctified Ymirjar Lord's Helmet", "=ds=#s1#, #a4#"};
 				{ 10, 51210, "", "=q4=Sanctified Ymirjar Lord's Shoulderplates", "=ds=#s3#, #a4#"};
 				{ 11, 51214, "", "=q4=Sanctified Ymirjar Lord's Battleplate", "=ds=#s5#, #a4#"};
 				{ 12, 51213, "", "=q4=Sanctified Ymirjar Lord's Gauntlets", "=ds=#s9#, #a4#"};
 				{ 13, 51211, "", "=q4=Sanctified Ymirjar Lord's Legplates", "=ds=#s11#, #a4#"};
-				{ 16, 0, "ability_warrior_innerrage", "=q6=#t10s9_1#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "ability_warrior_innerrage", "=q6=#t10s9_1#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51227, "", "=q4=Sanctified Ymirjar Lord's Helmet", "=ds=#s1#, #a4#"};
 				{ 18, 51229, "", "=q4=Sanctified Ymirjar Lord's Shoulderplates", "=ds=#s3#, #a4#"};
 				{ 19, 51225, "", "=q4=Sanctified Ymirjar Lord's Battleplate", "=ds=#s5#, #a4#"};
@@ -11168,19 +11168,19 @@ local moduleName = "AtlasLootWotLK"
 	AtlasLoot_Data["T10WarriorProtection"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t10s9_2#", "=q5="..AL["Tier 10"]};
+				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t10s9_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 2, 50848, "", "=q4=Ymirjar Lord's Greathelm", "=ds=#s1#, #a4#", "#JUSTICE:1100#" };
 				{ 3, 50846, "", "=q4=Ymirjar Lord's Pauldrons", "=ds=#s3#, #a4#", "#JUSTICE:695#" };
 				{ 4, 50850, "", "=q4=Ymirjar Lord's Breastplate", "=ds=#s5#, #a4#", "#JUSTICE:1100#" };
 				{ 5, 50849, "", "=q4=Ymirjar Lord's Handguards", "=ds=#s9#, #a4#", "#JUSTICE:695#" };
 				{ 6, 50847, "", "=q4=Ymirjar Lord's Legguards", "=ds=#s11#, #a4#", "#JUSTICE:1100#" };
-				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t10s9_2#", "=q5="..AL["Tier 10"]};
+				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t10s9_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 9, 51218, "", "=q4=Sanctified Ymirjar Lord's Greathelm", "=ds=#s1#, #a4#"};
 				{ 10, 51215, "", "=q4=Sanctified Ymirjar Lord's Pauldrons", "=ds=#s3#, #a4#"};
 				{ 11, 51219, "", "=q4=Sanctified Ymirjar Lord's Breastplate", "=ds=#s5#, #a4#"};
 				{ 12, 51217, "", "=q4=Sanctified Ymirjar Lord's Handguards", "=ds=#s9#, #a4#"};
 				{ 13, 51216, "", "=q4=Sanctified Ymirjar Lord's Legguards", "=ds=#s11#, #a4#"};
-				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t10s9_2#", "=q5="..AL["Tier 10"]};
+				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t10s9_2#", "=q5="..string.format(AL["Tier %d"], 10)};
 				{ 17, 51221, "", "=q4=Sanctified Ymirjar Lord's Greathelm", "=ds=#s1#, #a4#"};
 				{ 18, 51224, "", "=q4=Sanctified Ymirjar Lord's Pauldrons", "=ds=#s3#, #a4#"};
 				{ 19, 51220, "", "=q4=Sanctified Ymirjar Lord's Breastplate", "=ds=#s5#, #a4#"};
@@ -11189,7 +11189,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AL["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AtlasLoot_IngameLocales["Protection"],
 			module = moduleName, menu = "T10SET",
 		};
 	}

@@ -1,4 +1,4 @@
--- $Id: Options.lua 4045 2012-12-20 18:46:32Z lag123 $
+-- $Id: Options.lua 4082 2013-02-19 07:45:57Z dynaletik $
 local AtlasLoot = _G.AtlasLoot
 --Invoke libraries
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
@@ -55,11 +55,12 @@ do
 									},]]
 									HideMiniMapButton = {
 										type = "toggle",
-										name = AL["Minimap Button"],
-										--desc = ,
+										name = AL["Toggle Minimap Button"],
+										desc = AL["Toggles the display of the minimap icon"],
 										order = 20,
 										get = function() return not AtlasLootLoaderDB.MiniMapButton.hide end,
 										set = AtlasLoot.MiniMapButtonHideShow,
+										width = "full",
 									},
 									
 								},
@@ -88,7 +89,7 @@ do
 									},
 									EquipCompare = {
 										type = "toggle",
-										name = AL["Comparison TT"],
+										name = AL["Comparison Tooltips"],
 										desc = AL["Show Comparison Tooltips"],
 										order = 30,
 										get = getOpt,
@@ -111,6 +112,14 @@ do
 										name = AL["Show Boss Tooltip"],
 										desc = AL["Show wishlist items in bosses tooltip"],
 										order = 45,
+										get = getOpt,
+										set = setOpt,
+									},
+									ShowBonusRollInfoInTT = {
+										type = "toggle",
+										name = AL["Show BonusRoll info"],
+										desc = AL["Shows if a item is available with bonus roll or raid finder loot."],
+										order = 46,
 										get = getOpt,
 										set = setOpt,
 									},

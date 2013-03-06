@@ -1,4 +1,4 @@
--- $Id: CraftingMenus.lua 3980 2012-11-21 09:32:09Z celellach $
+-- $Id: CraftingMenus.lua 4092 2013-02-23 01:05:26Z dynaletik $
 -- Invoke libraries
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -113,6 +113,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 19, "SmithingWeaponBC", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Burning Crusade"]};
 				{ 20, "SmithingWeaponOld", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Classic WoW"]};
 				{ 22, "SmithingWeaponEnhancement", "inv_misc_steelweaponchain", "=ds="..AL["Weapon Enhancements"], ""};
+				{ 23, "SmithingTrainingProjects", "inv_misc_1h_pa_pan_a_01", "=ds="..AL["Training Projects"], ""};
 				{ 25, "Weaponsmith", "inv_hammer_21", "=ds="..GetSpellInfo(9787), ""};
 				{ 26, "Hammersmith", "inv_hammer_09", "=ds="..GetSpellInfo(17040), ""};
 				{ 29, "SmithingCataVendor", "inv_scroll_04", "=ds="..AL["Cataclysm Vendor Sold Plans"], "=q5="..AtlasLoot:GetMapNameByID(700)};
@@ -261,11 +262,11 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["TAILORINGMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "TailoringArmorMoP", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Mists of Pandaria"] };
-				{ 3, "TailoringArmorCata", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Cataclysm"] };
-				{ 4, "TailoringArmorWotLK", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Wrath of the Lich King"] };
-				{ 5, "TailoringArmorBC", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Burning Crusade"] };
-				{ 6, "TailoringArmorOld", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Classic WoW"] };
+				{ 2, "TailoringArmorMoP", "Trade_Tailoring", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Mists of Pandaria"] };
+				{ 3, "TailoringArmorCata", "Trade_Tailoring", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Cataclysm"] };
+				{ 4, "TailoringArmorWotLK", "Trade_Tailoring", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Wrath of the Lich King"] };
+				{ 5, "TailoringArmorBC", "Trade_Tailoring", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Burning Crusade"] };
+				{ 6, "TailoringArmorOld", "Trade_Tailoring", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Classic WoW"] };
 				{ 8, "Mooncloth", "Trade_Tailoring", "=ds="..GetSpellInfo(26798), "" };
 				{ 9, "Shadoweave", "Trade_Tailoring", "=ds="..GetSpellInfo(26801), "" };
 				{ 11, "TailoringMoPVendor", "inv_scroll_04", "=ds="..AL["Mists of Pandaria Vendor Sold Patterns"], "=q5="..AtlasLoot:GetMapNameByID(811)};
@@ -290,14 +291,15 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 2, "ArchaeologyDwarf", "trade_archaeology_dwarf_runestone", "=ds="..AL["Dwarf"], "" };
 				{ 3, "ArchaeologyDraenei", "trade_archaeology_draenei_tome", "=ds="..AL["Draenei"], "" };
 				{ 4, "ArchaeologyFossil", "trade_archaeology_dwarf_runestone", "=ds="..AL["Fossil"], "" };
-				{ 5, "ArchaeologyMogu", "trade_archaeology_vrykul_runestick", "=ds="..AL["Mogu"], "" };
-				{ 6, "ArchaeologyNightElf", "trade_archaeology_highborne_scroll", "=ds="..AL["Night Elf"], "" };
-				{ 7, "ArchaeologyNerubian", "trade_archaeology_nerubian_obelisk", "=ds="..AL["Nerubian"], "" };
-				{ 17, "ArchaeologyPandaren", "archaeology_5_0_umbrellaofchiji", "=ds="..AL["Pandaren"], "" };
-				{ 18, "ArchaeologyOrc", "trade_archaeology_orc_bloodtext", "=ds="..AL["Orc"], "" };
-				{ 19, "ArchaeologyTolvir", "trade_archaeology_aqir_artifactfragment", "=ds="..AL["Tol'vir"], "" };
-				{ 20, "ArchaeologyTroll", "trade_archaeology_troll_tablet", "=ds="..AL["Troll"], "" };
-				{ 21, "ArchaeologyVrykul", "trade_archaeology_vrykul_runestick", "=ds="..AL["Vrykul"], "" };
+				{ 5, "ArchaeologyMantid", "inv_jewelcrafting_nobletopaz_01", "=ds="..AL["Mantid"], "" };
+				{ 6, "ArchaeologyMogu", "trade_archaeology_vrykul_runestick", "=ds="..AL["Mogu"], "" };
+				{ 7, "ArchaeologyNightElf", "trade_archaeology_highborne_scroll", "=ds="..AL["Night Elf"], "" };
+				{ 17, "ArchaeologyNerubian", "trade_archaeology_nerubian_obelisk", "=ds="..AL["Nerubian"], "" };
+				{ 18, "ArchaeologyPandaren", "archaeology_5_0_umbrellaofchiji", "=ds="..AL["Pandaren"], "" };
+				{ 19, "ArchaeologyOrc", "trade_archaeology_orc_bloodtext", "=ds="..AL["Orc"], "" };
+				{ 20, "ArchaeologyTolvir", "trade_archaeology_aqir_artifactfragment", "=ds="..AL["Tol'vir"], "" };
+				{ 21, "ArchaeologyTroll", "trade_archaeology_troll_tablet", "=ds="..AL["Troll"], "" };
+				{ 22, "ArchaeologyVrykul", "trade_archaeology_vrykul_runestick", "=ds="..AL["Vrykul"], "" };
 				{ 9, "ArchaeologyArmorAndWeapons", "trade_archaeology_ancientorcshamanheaddress", "=ds="..BabbleInventory["Armor"].." & "..AL["Weapons"], "" };
 				{ 24, "ArchaeologyMisc", "trade_archaeology_theinnkeepersdaughter", "=ds="..BabbleInventory["Miscellaneous"], "" };
 				{ 11, "s92137", "60847", "=q4=Crawling Claw", "=ds="..AL["Tol'vir"], "=ds=#e13#"};

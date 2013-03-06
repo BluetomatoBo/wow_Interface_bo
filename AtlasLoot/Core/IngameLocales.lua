@@ -4,8 +4,18 @@
 	WotLK	=	2256
 	Mop		=	7439
 ]]--
+local _, tmp1, tmp2, tmp3
+local months = {CalendarGetMonthNames()}
+
+local function GetSpecNameById(id)
+	_, tmp1 = GetSpecializationInfoByID(id)
+	return tmp1
+end
 
 AtlasLoot_IngameLocales = {
+	-- ######################################################################
+	-- Rares
+	-- ######################################################################
 	--- Burning Crusade - Outland: Bloody Rare
 	["Ambassador Jerrikar"] = GetAchievementCriteriaInfo(1312,1),
 	["Bog Lurker"] = GetAchievementCriteriaInfo(1312,2),
@@ -114,11 +124,12 @@ AtlasLoot_IngameLocales = {
 	--- Other Rares
 	["Darkmoon Rabbit"] = GetItemInfo(80008),
 
+	-- ######################################################################
 	--- Items
 	----- These need to be converted to instead of those in constant files one.
 	----- If an entry isn't in use anymore, delete it.
 	----- Once this has been done, delete these lines.
-	
+	-- ######################################################################
 	---- Feast of Winter Veil
 	["Carefully Wrapped Present"] = GetItemInfo(21191),
 	["Gaily Wrapped Present"] = GetItemInfo(21310),
@@ -166,6 +177,57 @@ AtlasLoot_IngameLocales = {
 	["Lorgalis Manuscript"] = GetItemInfo(5359),
 	["Overcharged Manacell"] = GetItemInfo(30824),
 	["The Saga of Terokk"] = GetItemInfo(27634),
+	
+	-- ######################################################################
+	-- Months
+	-- ######################################################################
+	["January"] = months[1],
+	["February"] = months[2],
+	["March"] = months[3],
+	["April"] = months[4],
+	["May"] = months[5],
+	["June"] = months[6],
+	["July"] = months[7],
+	["August"] = months[8],
+	["September"] = months[9],
+	["October"] = months[10],
+	["November"] = months[11],
+	["December"] = months[12],
+	
+	-- ######################################################################
+	-- Class Specs
+	-- ######################################################################
+	["Balance"] = GetSpecNameById(102),
+	["Feral"] = GetSpecNameById(103),
+	["Guardian"] = GetSpecNameById(104),
+	["Restoration"] = GetSpecNameById(105),
+	["Holy"] = GetSpecNameById(257),
+	["Discipline"] = GetSpecNameById(256),
+	["Protection"] = GetSpecNameById(66),
+	["Retribution"] = GetSpecNameById(70),
+	["Shadow"] = GetSpecNameById(258),
+	["Elemental"] = GetSpecNameById(262),
+	["Enhancement"] = GetSpecNameById(263),
+	["Fury"] = GetSpecNameById(72),
+	["Demonology"] = GetSpecNameById(266),
+	["Destruction"] = GetSpecNameById(267),
+	["Mistweaver"] = GetSpecNameById(270),
+	["Brewmaster"] = GetSpecNameById(268),
+	["Windwalker"] = GetSpecNameById(269),
+	
+	-- ######################################################################
+	-- Professions
+	-- ######################################################################
+	-- Cooking
+	["Way of the Brew"] = GetSpellInfo(125589),
+	["Way of the Grill"] = GetSpellInfo(124694),
+	["Way of the Oven"] = GetSpellInfo(125588),
+	["Way of the Pot"] = GetSpellInfo(125586),
+	["Way of the Steamer"] = GetSpellInfo(125587),
+	["Way of the Wok"] = GetSpellInfo(125584),
+	
+	-- Insc
+	["Book of Glyph Mastery"] = GetSpellInfo(64323),
 }
 
 do

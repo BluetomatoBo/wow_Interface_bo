@@ -1,4 +1,4 @@
--- $Id: BossTooltip.lua 3962 2012-11-16 12:58:56Z lag123 $
+-- $Id: BossTooltip.lua 4101 2013-02-24 18:40:32Z Bahnak $
 function AtlasLoot_hook(tooltip)
 	if not ALtooltipName then
 		ALtooltipName = tooltip:GetUnit()
@@ -26,26 +26,12 @@ function AtlasLoot_hook(tooltip)
 						end
 						for ALindexWishlistItem,ALvalueWishlistItem in pairs(ALvalueWishlist[1]) do
 							local ALbossHandle, ALitemDifficulty = strsplit("#", ALvalueWishlistItem[6])
-							local _, _, ALdifficultyIndex, _, ALmaxPlayers = GetInstanceInfo()
+							local _, _, ALdifficultyIndex = GetInstanceInfo()
 							local ALinstanceDifficulty = "Normal"
-							if (ALmaxPlayers == 5 and ALdifficultyIndex == 2) or (ALmaxPlayers == 10 and ALdifficultyIndex == 3) or (ALmaxPlayers == 25 and ALdifficultyIndex == 4) then
+							if ALdifficultyIndex == 2 or ALdifficultyIndex == 5 or ALdifficultyIndex == 6 then
 								ALinstanceDifficulty = "Heroic"
-							----------------------------------------------------------------------------
-							-- Fix to detect LFR till Blizzard adds that difficulty to GetInstanceInfo()
-							----------------------------------------------------------------------------
-							else
-								if ALmaxPlayers == 25 then
-									for i=1,25 do
-										local _, ALrealm = UnitName("raid"..i)
-										if ALrealm and ALrealm~="" then
-											ALinstanceDifficulty = "RaidFinder"
-											break
-										end
-									end
-								end
-							----------------------------------------------------------------------------
-							-- End fix
-							----------------------------------------------------------------------------
+							elseif ALdifficultyIndex == 7 then
+								ALinstanceDifficulty = "RaidFinder"
 							end
 							if ALindexBoss == ALbossHandle and ALinstanceDifficulty == ALitemDifficulty then
 								local ALitemName, _, ALitemQuality, _, _, _, _, _, ALequipSlot = GetItemInfo(ALvalueWishlistItem[2])

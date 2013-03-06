@@ -1,4 +1,4 @@
--- $Id: SetMenus.lua 4029 2012-12-04 12:53:00Z celellach $
+-- $Id: SetMenus.lua 4120 2013-03-04 18:18:57Z hegarol $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -24,15 +24,16 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 				{ 14, "CardGame", "inv_misc_ogrepinata", "=ds="..AL["TCG Items"], ""};
 				{ 16, "HEIRLOOMMENU", "INV_Sword_43", "=ds="..AL["Heirloom"].." & "..AL["Bind on Account"], ""};
 				{ 17, "CHALLENGEMODESET", "inv_neck_hyjaldaily_04", "=ds="..AL["Challenge Mode Armor Sets"], "=q5="..AL["Mists of Pandaria"]};
-				{ 20, "SETSMISCMENU", "inv_misc_monsterscales_15", "=ds="..AL["Misc Sets"], ""};
-				{ 22, "T1T2T3SET", "INV_Pants_Mail_03", "=ds="..AL["Tier 1/2/3 Set"], "=q5="..AL["Classic WoW"]};
-				{ 23, "T456SET", "INV_Gauntlets_63", "=ds="..AL["Tier 4/5/6 Set"], "=q5="..AL["Burning Crusade"]};
-				{ 24, "T7T8SET", "INV_Chest_Chain_15", "=ds="..AL["Tier 7/8 Set"], "=q5="..AL["Wrath of the Lich King"]};
-				{ 25, "T9SET", "inv_gauntlets_80", "=ds="..AL["Tier 9 Set"], "=q5="..AL["Wrath of the Lich King"]};
-				{ 26, "T10SET", "inv_chest_plate_26", "=ds="..AL["Tier 10 Set"], "=q5="..AL["Wrath of the Lich King"]};
-				{ 27, "T1112SET", "inv_helm_robe_raidmage_i_01", "=ds="..AL["Tier 11/12 Set"], "=q5="..AL["Cataclysm"]};
-				{ 28, "T13SET", "inv_shoulder_plate_raiddeathknight_j_01", "=ds="..AL["Tier 13 Set"], "=q5="..AL["Cataclysm"]};
-				{ 29, "T14SET", "inv_shoulder_cloth_raidwarlock_l_01", "=ds="..AL["Tier 14 Set"], "=q5="..AL["Mists of Pandaria"]};
+				{ 19, "SETSMISCMENU", "inv_misc_monsterscales_15", "=ds="..AL["Misc Sets"], ""};
+				{ 21, "T1T2T3SET", "INV_Pants_Mail_03", "=ds="..AL["Tier 1/2/3 Set"], "=q5="..AL["Classic WoW"]};
+				{ 22, "T456SET", "INV_Gauntlets_63", "=ds="..AL["Tier 4/5/6 Set"], "=q5="..AL["Burning Crusade"]};
+				{ 23, "T7T8SET", "INV_Chest_Chain_15", "=ds="..AL["Tier 7/8 Set"], "=q5="..AL["Wrath of the Lich King"]};
+				{ 24, "T9SET", "inv_gauntlets_80", "=ds="..AL["Tier 9 Set"], "=q5="..AL["Wrath of the Lich King"]};
+				{ 25, "T10SET", "inv_chest_plate_26", "=ds="..AL["Tier 10 Set"], "=q5="..AL["Wrath of the Lich King"]};
+				{ 26, "T1112SET", "inv_helm_robe_raidmage_i_01", "=ds="..AL["Tier 11/12 Set"], "=q5="..AL["Cataclysm"]};
+				{ 27, "T13SET", "inv_shoulder_plate_raiddeathknight_j_01", "=ds="..AL["Tier 13 Set"], "=q5="..AL["Cataclysm"]};
+				{ 28, "T14SET", "inv_shoulder_cloth_raidwarlock_l_01", "=ds="..AL["Tier 14 Set"], "=q5="..AL["Mists of Pandaria"]};
+				{ 29, "T15SET", "inv_chest_plate_raidwarrior_m_01", "=ds="..AL["Tier 15 Set"], "=q5="..AL["Mists of Pandaria"]};
 			};
 		};
 		info = {
@@ -151,7 +152,7 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 				{ 2, "SmithingMoPVendor", "inv_scroll_04", "=ds="..AL["Mists of Pandaria Vendor Sold Plans"], "=q5="..AtlasLoot:GetMapNameByID(811)};
 				{ 3, "TailoringMoPVendor", "inv_scroll_04", "=ds="..AL["Mists of Pandaria Vendor Sold Patterns"], "=q5="..AtlasLoot:GetMapNameByID(811)};
 				{ 17, "LeatherworkingMoPVendor", "inv_scroll_04", "=ds="..AL["Mists of Pandaria Vendor Sold Patterns"], "=q5="..AtlasLoot:GetMapNameByID(811)};
-				{ 20, 72238, "", "=q2=Golden Lotus", "=ds=", "#SPIRITOFHARMONY:1#", amount = 3};
+				{ 20, 72238, "", "=q2=Golden Lotus", "=ds=", "#SPIRITOFHARMONY:1#", amount = 2};
 				{ 21, 89610, "", "=q1=Pandaria Herbs", "=ds=", "#SPIRITOFHARMONY:1#"};
 				{ 23, 74247, "", "=q3=Ethereal Shard", "=ds=", "#SPIRITOFHARMONY:1#"};
 				{ 24, 74250, "", "=q2=Mysterious Essence", "=ds=", "#SPIRITOFHARMONY:1#", amount = 5};
@@ -180,11 +181,11 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 			{
 				{ 2, "WorldEpics90", "inv_cape_pandaria_d_01", "=ds="..AL["Level 90"], ""};
 				{ 3, "WorldEpics80", "INV_Sword_109", "=ds="..AL["Level 80"], ""};
-				{ 4, "WorldEpics5060", "INV_Jewelry_Amulet_01", "=ds="..AL["Level 50-60"], ""};
-				{ 5, "WorldEpics3039", "INV_Jewelry_Ring_15", "=ds="..AL["Level 30-39"], ""};
+				{ 4, "WorldEpics5060", "INV_Jewelry_Amulet_01", "=ds="..string.format(AL["Level %s"], "50-60"), ""};
+				{ 5, "WorldEpics3039", "INV_Jewelry_Ring_15", "=ds="..string.format(AL["Level %s"], "30-39"), ""};
 				{ 17, "WorldEpics85", "inv_misc_cape_cataclysm_caster_c_01", "=ds="..AL["Level 85"], ""};
 				{ 18, "WorldEpics70", "INV_Sword_76", "=ds="..AL["Level 70"], ""};
-				{ 19, "WorldEpics4049", "INV_Staff_29", "=ds="..AL["Level 40-49"], ""};
+				{ 19, "WorldEpics4049", "INV_Staff_29", "=ds="..string.format(AL["Level %s"], "40-49"), ""};
 			};
 		};
 		info = {
@@ -206,7 +207,7 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 				{ 10, "MountsCraftQuest", "ability_mount_gyrocoptorelite", "=ds="..BabbleInventory["Quest"].." / "..AL["Crafted Mounts"], ""};
 				{ 11, "MountsEvent", "achievement_halloween_witch_01", "=ds="..AL["World Events"], ""};
 				{ 12, "MountsPromotional", "inv_misc_reforgedarchstone_01", "=ds="..AL["Promotional Mounts"], ""};
-				{ 13, "MountsNEW", "inv_pandarenserpentmount_green", "=ds="..AL["New Mounts"], "=q5="..AL["Mists of Pandaria"]};
+				--{ 13, "MountsNEW", "inv_pandarenserpentmount_green", "=ds="..AL["New Mounts"], "=q5=Patch 5.2"};
 				{ 17, "MountsHorde", "achievement_pvp_h_16", "=ds="..BabbleFaction["Orgrimmar"].." / "..BabbleFaction["Silvermoon City"], "=ec1="..BabbleFaction["Horde"]};
 				{ 18, "MountsHorde#2", "achievement_pvp_h_16", "=ds="..BabbleFaction["Darkspear Trolls"].." / "..BabbleFaction["Thunder Bluff"].." / "..BabbleFaction["Undercity"], "=ec1="..BabbleFaction["Horde"]};
 				{ 19, "MountsHorde#3", "achievement_pvp_h_16", "=ds="..BabbleFaction["Huojin Pandaren"].." / "..BabbleFaction["Bilgewater Cartel"], "=ec1="..BabbleFaction["Horde"]};
@@ -217,7 +218,6 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 				{ 25, "MountsAchievement", "inv_mount_allianceliong", "=ds="..AL["Achievement Reward"], ""};
 				{ 26, "MountsCardGame", "ability_mount_bigblizzardbear", "=ds="..AL["Card Game Mounts"], ""};
 				{ 27, "MountsRemoved", "INV_Misc_QirajiCrystal_05", "=ds="..AL["Unobtainable Mounts"], ""};
-				{ 28, "MountsNEW2", "inv_pandarenserpentmount_green", "=ds="..AL["New Mounts"], "=q5=Patch 5.1"};
 			};
 		};
 		info = {
@@ -235,14 +235,13 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 				{ 5, "PetsFaction", "ability_hunter_pet_sporebat", "=ds="..AL["Faction Companions"], ""};
 				{ 6, "PetsEvent", "inv_pet_egbert", "=ds="..AL["World Events"], ""};
 				{ 7, "PetsRemoved", "inv_pet_babyblizzardbear", "=ds="..AL["Unobtainable Companions"], ""};
-				{ 8, "PetsNEW", "inv_pet_babycloudserpent", "=ds="..AL["New Companions"], "=q5="..AL["Mists of Pandaria"]};
+				{ 8, "PetsNEW", "inv_pet_babycloudserpent", "=ds="..AL["New Companions"], "=q5=Patch 5.2"};
 				{ 17, "PetsQuest", "inv_drink_19", "=ds="..AL["Quest Reward Companions"], ""};
 				{ 18, "PetsAchievement", "inv_misc_darkphoenixpet_01", "=ds="..AL["Achievement Reward"], ""};
 				{ 19, "PetsPromotional", "inv_netherwhelp", "=ds="..AL["Promotional Companions"], ""};
 				{ 20, "PetsCardGame", "inv_misc_fish_34", "=ds="..AL["Card Game Companions"], ""};
 				{ 21, "PetsPetStore", "INV_Misc_Coin_01", "=ds="..AL["Blizzard Store"], ""};
 				{ 22, "PetsAccessories", "inv_misc_petbiscuit_01", "=ds="..AL["Companion Accessories"], ""};
-				{ 23, "PetsNEW2", "inv_pet_babycloudserpent", "=ds="..AL["New Companions"], "=q5=Patch 5.1"};
 			};
 		};
 		info = {
@@ -494,23 +493,23 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 	AtlasLoot_Data["T456SET"] = {
 		["Normal"] = {
 			{
-				{ 3, "T456DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
-				{ 4, "T456DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
-				{ 5, "T456DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 3, "T456DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
+				{ 4, "T456DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
+				{ 5, "T456DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 7, "T456Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 9, "T456Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
-				{ 11, "T456PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
-				{ 12, "T456PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
-				{ 13, "T456PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
-				{ 17, "T456PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
-				{ 18, "T456PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 11, "T456PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 12, "T456PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
+				{ 13, "T456PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
+				{ 17, "T456PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 18, "T456PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 20, "T456Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
-				{ 22, "T456ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
-				{ 23, "T456ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
-				{ 24, "T456ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 22, "T456ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
+				{ 23, "T456ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
+				{ 24, "T456ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 26, "T456Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
 				{ 28, "T456WarriorFury", "ability_warrior_innerrage", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
-				{ 29, "T456WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 29, "T456WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 			};
 		};
 		info = {
@@ -524,23 +523,23 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 			{
 				{ 2, "NaxxDeathKnightDPS", "spell_deathknight_frostpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["DPS"]};
 				{ 3, "NaxxDeathKnightTank", "spell_deathknight_bloodpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["Tanking"]};
-				{ 5, "NaxxDruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
-				{ 6, "NaxxDruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
-				{ 7, "NaxxDruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 5, "NaxxDruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
+				{ 6, "NaxxDruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
+				{ 7, "NaxxDruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 9, "NaxxHunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 11, "NaxxMage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
-				{ 13, "NaxxPaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
-				{ 14, "NaxxPaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
-				{ 15, "NaxxPaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
-				{ 17, "NaxxPriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
-				{ 18, "NaxxPriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 13, "NaxxPaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 14, "NaxxPaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
+				{ 15, "NaxxPaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
+				{ 17, "NaxxPriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 18, "NaxxPriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 20, "NaxxRogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
-				{ 22, "NaxxShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
-				{ 23, "NaxxShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
-				{ 24, "NaxxShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 22, "NaxxShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
+				{ 23, "NaxxShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
+				{ 24, "NaxxShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 26, "NaxxWarlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
 				{ 28, "NaxxWarriorFury", "ability_warrior_innerrage", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
-				{ 29, "NaxxWarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 29, "NaxxWarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 			};
 		};
 		info = {
@@ -554,23 +553,23 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 			{
 				{ 2, "T9DeathKnightDPS", "spell_deathknight_frostpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["DPS"]};
 				{ 3, "T9DeathKnightTank", "spell_deathknight_bloodpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["Tanking"]};
-				{ 5, "T9DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
-				{ 6, "T9DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
-				{ 7, "T9DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 5, "T9DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
+				{ 6, "T9DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
+				{ 7, "T9DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 9, "T9Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 11, "T9Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
-				{ 13, "T9PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
-				{ 14, "T9PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
-				{ 15, "T9PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
-				{ 17, "T9PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
-				{ 18, "T9PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 13, "T9PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 14, "T9PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
+				{ 15, "T9PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
+				{ 17, "T9PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 18, "T9PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 20, "T9Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
-				{ 22, "T9ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
-				{ 23, "T9ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
-				{ 24, "T9ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 22, "T9ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
+				{ 23, "T9ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
+				{ 24, "T9ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 26, "T9Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
 				{ 28, "T9WarriorFury", "ability_warrior_innerrage", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
-				{ 29, "T9WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 29, "T9WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 			};
 		};
 		info = {
@@ -584,23 +583,23 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 			{
 				{ 2, "T10DeathKnightDPS", "spell_deathknight_frostpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["DPS"]};
 				{ 3, "T10DeathKnightTank", "spell_deathknight_bloodpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["Tanking"]};
-				{ 5, "T10DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
-				{ 6, "T10DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
-				{ 7, "T10DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 5, "T10DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
+				{ 6, "T10DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
+				{ 7, "T10DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 9, "T10Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 11, "T10Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
-				{ 13, "T10PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
-				{ 14, "T10PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
-				{ 15, "T10PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
-				{ 17, "T10PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
-				{ 18, "T10PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 13, "T10PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 14, "T10PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
+				{ 15, "T10PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
+				{ 17, "T10PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 18, "T10PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 20, "T10Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
-				{ 22, "T10ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
-				{ 23, "T10ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
-				{ 24, "T10ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 22, "T10ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
+				{ 23, "T10ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
+				{ 24, "T10ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 26, "T10Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
 				{ 28, "T10WarriorFury", "ability_warrior_innerrage", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
-				{ 29, "T10WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 29, "T10WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 			};
 		};
 		info = {
@@ -614,23 +613,23 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 			{
 				{ 2, "T1112DeathKnightDPS", "spell_deathknight_frostpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["DPS"]};
 				{ 3, "T1112DeathKnightTank", "spell_deathknight_bloodpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["Tanking"]};
-				{ 5, "T1112DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
-				{ 6, "T1112DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
-				{ 7, "T1112DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 5, "T1112DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
+				{ 6, "T1112DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
+				{ 7, "T1112DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 9, "T1112Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 11, "T1112Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
-				{ 13, "T1112PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
-				{ 14, "T1112PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
-				{ 15, "T1112PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
-				{ 17, "T1112PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
-				{ 18, "T1112PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 13, "T1112PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 14, "T1112PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
+				{ 15, "T1112PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
+				{ 17, "T1112PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 18, "T1112PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 20, "T1112Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
-				{ 22, "T1112ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
-				{ 23, "T1112ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
-				{ 24, "T1112ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 22, "T1112ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
+				{ 23, "T1112ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
+				{ 24, "T1112ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 26, "T1112Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
 				{ 28, "T1112WarriorFury", "ability_warrior_innerrage", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
-				{ 29, "T1112WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 29, "T1112WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 			};
 		};
 		info = {
@@ -644,23 +643,23 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 			{
 				{ 2, "T13DeathKnightDPS", "spell_deathknight_frostpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["DPS"]};
 				{ 3, "T13DeathKnightTank", "spell_deathknight_bloodpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["Tanking"]};
-				{ 5, "T13DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
-				{ 6, "T13DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
-				{ 7, "T13DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
+				{ 5, "T13DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
+				{ 6, "T13DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
+				{ 7, "T13DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 9, "T13Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 11, "T13Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
-				{ 13, "T13PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
-				{ 14, "T13PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
-				{ 15, "T13PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
-				{ 17, "T13PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
-				{ 18, "T13PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
+				{ 13, "T13PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 14, "T13PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
+				{ 15, "T13PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
+				{ 17, "T13PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 18, "T13PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
 				{ 20, "T13Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
-				{ 22, "T13ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
-				{ 23, "T13ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
-				{ 24, "T13ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 22, "T13ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
+				{ 23, "T13ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
+				{ 24, "T13ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 26, "T13Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
 				{ 28, "T13WarriorFury", "ability_warrior_innerrage", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
-				{ 29, "T13WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 29, "T13WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 			};
 		};
 		info = {
@@ -676,29 +675,63 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 				{ 2, "T14Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
 				{ 3, "T14Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
 				{ 4, "T14Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
-				{ 6, "T14MonkTank", "spell_monk_brewmaster_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AL["Brewmaster"]};
-				{ 7, "T14MonkHealer", "spell_monk_mistweaver_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AL["Mistweaver"]};
-				{ 8, "T14MonkDPS", "spell_monk_windwalker_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AL["Windwalker"]};
-				{ 10, "T14ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Elemental"]};
-				{ 11, "T14ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Enhancement"]};
-				{ 12, "T14ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Restoration"]};
+				{ 6, "T14MonkTank", "spell_monk_brewmaster_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AtlasLoot_IngameLocales["Brewmaster"]};
+				{ 7, "T14MonkHealer", "spell_monk_mistweaver_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AtlasLoot_IngameLocales["Mistweaver"]};
+				{ 8, "T14MonkDPS", "spell_monk_windwalker_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AtlasLoot_IngameLocales["Windwalker"]};
+				{ 10, "T14ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
+				{ 11, "T14ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
+				{ 12, "T14ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
 				{ 14, "T14DeathKnightDPS", "spell_deathknight_frostpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["DPS"]};
 				{ 15, "T14DeathKnightTank", "spell_deathknight_bloodpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["Tanking"]};
-				{ 17, "T14PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Holy"]};
-				{ 18, "T14PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Shadow"]};
-				{ 20, "T14DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Balance"]};
-				{ 21, "T14DruidDPS", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Feral"]};
-				{ 22, "T14DruidTank", "ability_racial_bearform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Guardian"]};
-				{ 23, "T14DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Restoration"]};
-				{ 25, "T14PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Holy"]};
-				{ 26, "T14PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Protection"]};
-				{ 27, "T14PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Retribution"]};
+				{ 17, "T14PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 18, "T14PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
+				{ 20, "T14DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
+				{ 21, "T14DruidDPS", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
+				{ 22, "T14DruidTank", "ability_racial_bearform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Guardian"]};
+				{ 23, "T14DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
+				{ 25, "T14PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 26, "T14PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
+				{ 27, "T14PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
 				{ 29, "T14WarriorFury", "ability_warrior_innerrage", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
-				{ 30, "T14WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Protection"]};
+				{ 30, "T14WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
 			};
 		};
 		info = {
 			name = AL["Tier 14 Set"],
+			menu = "SETMENU", instance = "TierSetsMenus",
+		};
+	}
+
+	AtlasLoot_Data["T15SET"] = {
+		["Normal"] = {
+			{
+				{ 1, "T15Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
+				{ 2, "T15Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
+				{ 3, "T15Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
+				{ 4, "T15Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
+				{ 6, "T15MonkTank", "spell_monk_brewmaster_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AtlasLoot_IngameLocales["Brewmaster"]};
+				{ 7, "T15MonkHealer", "spell_monk_mistweaver_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AtlasLoot_IngameLocales["Mistweaver"]};
+				{ 8, "T15MonkDPS", "spell_monk_windwalker_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AtlasLoot_IngameLocales["Windwalker"]};
+				{ 10, "T15ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
+				{ 11, "T15ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
+				{ 12, "T15ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
+				{ 14, "T15DeathKnightDPS", "spell_deathknight_frostpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["DPS"]};
+				{ 15, "T15DeathKnightTank", "spell_deathknight_bloodpresence", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["Tanking"]};
+				{ 17, "T15PriestHoly", "spell_holy_guardianspirit", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 18, "T15PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
+				{ 20, "T15DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
+				{ 21, "T15DruidDPS", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
+				{ 22, "T15DruidTank", "ability_racial_bearform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Guardian"]};
+				{ 23, "T15DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
+				{ 25, "T15PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
+				{ 26, "T15PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
+				{ 27, "T15PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
+				{ 29, "T15WarriorFury", "ability_warrior_innerrage", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["DPS"]};
+				{ 30, "T15WarriorProtection", "ability_warrior_defensivestance", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
+			};
+		};
+		info = {
+			name = AL["Tier 15 Set"],
 			menu = "SETMENU", instance = "TierSetsMenus",
 		};
 	}
@@ -902,5 +935,31 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 		};
 		info = {
 			name = AtlasLoot:EJ_GetBossName("Sha of Anger", 691),
+		};
+	}
+
+	AtlasLoot_Data["NALAK"] = {
+		["Normal"] = {
+			{
+				{ 2, "Nalak#7", "spell_deathknight_classicon", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ""};
+				{ 3, "Nalak", "ability_druid_maul", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], ""};
+				{ 4, "Nalak#2", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
+				{ 5, "Nalak#2", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
+				{ 6, "Nalak#3", "class_monk", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], ""};
+				{ 7, "Nalak#4", "ability_thunderbolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ""};
+				{ 9, "Nalak#8", "inv_bracer_robe_pvpmage_e_01", "=ds="..AL["PvP Non-Set Epics"], "=q5="..BabbleInventory["Cloth"].." / "..BabbleInventory["Leather"]};
+				{ 10, "Nalak#10", "inv_misc_pvp_ringc2", "=ds="..AL["PvP Accessories"], "=q5="..AL["Level 90"]};
+				{ 12, 95057, "", "=q4=Reins of the Thundering Cobalt Cloud Serpent", "=ds=#e27#" },
+				{ 17, "Nalak#5", "inv_staff_30", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ""};
+				{ 18, "Nalak#2", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
+				{ 19, "Nalak#6", "spell_nature_bloodlust", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ""};
+				{ 20, "Nalak#2", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
+				{ 21, "Nalak#7", "inv_sword_27", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ""};
+				{ 24, "Nalak#9", "inv_bracer_plate_pvppaladin_e_01", "=ds="..AL["PvP Non-Set Epics"], "=q5="..BabbleInventory["Mail"].." / "..BabbleInventory["Plate"]};
+				{ 27, 95602, "", "=q4=Stormtouched Cache", "=ds=#m20#"  },
+			};
+		};
+		info = {
+			name = AtlasLoot:EJ_GetBossName("Nalak, The Storm Lord", 814),
 		};
 	}

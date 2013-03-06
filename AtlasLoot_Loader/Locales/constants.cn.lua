@@ -1,4 +1,4 @@
-﻿-- $Id: constants.cn.lua 4047 2012-12-22 08:21:02Z ananhaid $
+﻿-- $Id: constants.cn.lua 4119 2013-03-04 04:47:34Z ananhaid $
 --[[
 constants.cn.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -6,6 +6,9 @@ by AtlasLoot.  In this implementation, if a translation is missing, it will fall
 back to the English translation.
 
 The AL["text"] = true; shortcut can ONLY be used for English (the root translation).
+
+Before adding a new string, check first if it can be acquired from GetItemInfo, GetSpellInfo or GetAchievementCriteriaInfo.
+Also check if it should be added instead to one of the Babble libraries we use.
 ]]
 
 	-- Table holding all loot tables is initialised here as it loads early
@@ -45,6 +48,8 @@ if AL then
 	AL["You cant set more then %d item stats."] = "您可以设定多达 %d 个物品状态.";
 	AL["Slot"] = "空位";
 	AL["AtlasLoot has detected some corrupted items on your Wishlist. You can now run an automatic check to fix it. Please be aware that this could take a few moments."] = "AtlasLoot 已检测到愿望列表存在一些损坏的物品。现在可以运行自动检查修复它。请注意，这可能需要一会儿。";
+	AL["BonusRoll:"] = "额外掷骰";
+	AL["|cffFF0000Shift+Click: |cffFFFFFFOpen filter configuration"] = "|cffFF0000Shift+点击：|cffFFFFFF打开过滤器配置";
 
 	-- Stats short
 	AL["iLvl"] = "等级";	-- Item lvl
@@ -82,11 +87,12 @@ if AL then
 	-- Options
 	AL["Options"] = "选项";
 	AL["Load Loot Modules at Startup"] = "在启动时载入掉落物品模块";
-	AL["Minimap Button"] = "小地图按钮";
+	AL["Toggle Minimap Button"] = "切换小地图按钮";
+	AL["Toggles the display of the minimap icon"] = "切换显示小地图按钮";
 	AL["Show itemIDs"] = "显示物品 ID";
 	AL["Show Droprates"] = "显示掉落率";
 	AL["Safe Chat Links"] = "使用安全物品连接";
-	AL["Comparison TT"] = "装备对比";
+	AL["Comparison Tooltips"] = "装备对比";
 	AL["Show Boss Tooltip"] = "显示首领提示";
 	AL["Show Comparison Tooltips"] = "显示装备对比";
 	AL["Opaque"] = "不透明";
@@ -101,6 +107,8 @@ if AL then
 	AL["Loot Table"] = "掉落列表";
 	AL["Enable mouse on item descriptions"] = "启用鼠标指向物品属性";
 	AL["Upgrade Level:"] = "升级等级：";
+	AL["Show BonusRoll info"] = "显示额外掷骰信息";
+	AL["Shows if a item is available with bonus roll or raid finder loot."] = "当物品拾取可用于额外掷骰或团队查找器时显示。";
 
 	-- Default Frame
 	AL["Default Frame"] = "默认框体";
@@ -355,6 +363,7 @@ if AL then
 	AL["Tier 11/12 Set"] = "等级11/12套装";
 	AL["Tier 13 Set"] = "等级13套装";
 	AL["Tier 14 Set"] = "等级14套装";
+	AL["Tier 15 Set"] = "等级15套装";
 	AL["TCG Items"] = "集换式卡牌物品";
 	AL["Rare Mobs"] = "稀有怪物";
 	AL["Grand Marshal"] = "大元帅";
@@ -487,15 +496,10 @@ if AL then
 	AL["Weapon Enhancements"] = "武器强化";
 	AL["Cataclysm Vendor Sold Plans"] = "大地的裂变商人出售图纸";
 	AL["Mists of Pandaria Vendor Sold Plans"] = "熊猫人之谜商人出售图纸";
+	AL["Training Projects"] = "训练项目";
 
 	-- Cooking
 	AL["Banquets/Feasts"] = "盛宴/大餐";
-	AL["Way of the Brew"] = "酿造之道";
-	AL["Way of the Grill"] = "烧烤之道";
-	AL["Way of the Oven"] = "烘焙之道";
-	AL["Way of the Pot"] = "炖煮之道";
-	AL["Way of the Steamer"] = "蒸烧之道";
-	AL["Way of the Wok"] = "烹炒之道";
 
 	-- Enchanting
 	AL["Enchant Boots"] = "附魔脚部";
@@ -526,7 +530,6 @@ if AL then
 	AL["Off-Hand Items"] = "副手物品";
 	AL["Shoulder Enchants"] = "肩膀附魔";
 	AL["Reagents"] = "材料";
-	AL["Book of Glyph Mastery"] = "雕文精通之书";
 
 	-- Leatherworking
 	AL["Leather Armor"] = "皮甲";
@@ -536,7 +539,6 @@ if AL then
 	AL["Drums, Bags and Misc."] = "战鼓、容器及其它";
 
 	-- Tailoring
-	AL["Cloth Armor"] = "布甲";
 	AL["Shirts"] = "衬衣";
 	AL["Bags"] = "容器";
 	AL["Cataclysm Vendor Sold Patterns"] = "大地的裂变商人出售图样";
@@ -565,6 +567,7 @@ if AL then
 	AL["No Longer Available"] = "已绝版";
 	AL["Shared Boss Loot"] = "首领共享掉落";
 	AL["Shared Zone Loot"] = "区域共享掉落";
+	AL["Black Market Auction House"] = "黑市拍卖行";
 
 	-- Minor Labels for loot table descriptions
 	AL["Classic WoW"] = "经典旧世";
@@ -579,32 +582,13 @@ if AL then
 	AL["Replica"] = "复制品";
 	AL["Dungeon Set 3"] = "地下城套装3";
 	AL["Dungeon Set 4"] = "地下城套装4";
-	AL["Tier 1"] = "等级1";
-	AL["Tier 2"] = "等级2";
-	AL["Tier 3"] = "等级3";
-	AL["Tier 4"] = "等级4";
-	AL["Tier 5"] = "等级5";
-	AL["Tier 6"] = "等级6";
-	AL["Tier 7"] = "等级7";
-	AL["Tier 8"] = "等级8";
-	AL["Tier 9"] = "等级9";
-	AL["Tier 10"] = "等级10";
-	AL["Tier 11"] = "等级11";
-	AL["Tier 12"] = "等级12";
-	AL["Tier 13"] = "等级13";
-	AL["Tier 14"] = "等级14";
-	AL["Challenge Mode Armor Sets"] = "挑战模式护甲套装";
+	AL["Tier %d"] = "等级%d" -- usage: string.format(AL["Tier %d"], 1)
+	AL["Challenge Mode Armor Sets"] = "挑战难度护甲套装";
 	AL["10 Man"] = "10人";
 	AL["10/25 Man"] = "10/25人";
 	AL["Epic Set"] = "史诗套装";
 	AL["Rare Set"] = "精良套装";
-	AL["Season 6"] = "第6季";
-	AL["Season 7"] = "第7季";
-	AL["Season 8"] = "第8季";
-	AL["Season 9"] = "第9季";
-	AL["Season 10"] = "第10季";
-	AL["Season 11"] = "第11季";
-	AL["Season 12"] = "第12季";
+	AL["Season %d"] = "第%d季"; -- usage: string.format(AL["Season %d"], 6)
 	AL["Fire"] = "火";
 	AL["Water"] = "水";
 	AL["Wind"] = "风";
@@ -618,9 +602,9 @@ if AL then
 
 	-- Labels for loot table sections
 	AL["Additional Heroic Loot"] = "英雄难度额外掉落";
-	AL["Heroic Mode"] = "英雄模式";
-	AL["Normal Mode"] = "普通模式";
-	AL["Hard Mode"] = "困难模式";
+	AL["Heroic Mode"] = "英雄难度";
+	AL["Normal Mode"] = "普通难度";
+	AL["Hard Mode"] = "困难难度";
 	AL["Bonus Loot"] = "额外掉落";
 	AL["Arena Reward"] = "竞技场奖励";
 	AL["Achievement Reward"] = "成就奖励";
@@ -638,14 +622,10 @@ if AL then
 	AL["Pandaria World Bosses"] = "潘达利亚世界首领";
 	AL["Elite"] = "精锐";
 	AL["Vegetables"] = "蔬菜";
+	AL["Thunderforged"] = "雷霆";
 
 	-- Loot Table Names
-	AL["Level 30-39"] = "等级30-39";
-	AL["Level 40-49"] = "等级40-49";
-	AL["Level 50-60"] = "等级50-60";
-	AL["Level 60-69"] = "等级60-69";
-	AL["Level 70-79"] = "等级70-79";
-	AL["Level 85-89"] = "等级85-89";
+	AL["Level %s"] = "等级%s"; -- usage: string.format(AL["Level %s"], "85-89")
 	AL["Summon"] = "召唤";
 	AL["Random"] = "随机";
 
@@ -688,17 +668,18 @@ if AL then
 	AL["Oil"] = "附魔油";
 	AL["Culture"] = "文化";
 	AL["Description"] = "描述";
-	AL["Dwarf"] = "矮人";
 	AL["Draenei"] = "德莱尼";
-	AL["Night Elf"] = "暗夜精灵";
+	AL["Dwarf"] = "矮人";
 	AL["Fossil"] = "化石";
+	AL["Mantid"] = "螳螂妖";
+	AL["Mogu"] = "魔古族";
 	AL["Nerubian"] = "蛛魔";
-	AL["Vrykul"] = "维库人";
-	AL["Troll"] = "巨魔";
-	AL["Tol'vir"] = "托维尔";
+	AL["Night Elf"] = "暗夜精灵";
 	AL["Orc"] = "兽人";
 	AL["Pandaren"] = "熊猫人";
-	AL["Mogu"] = "魔古族";
+	AL["Tol'vir"] = "托维尔";
+	AL["Troll"] = "巨魔";
+	AL["Vrykul"] = "维库人";
 	AL["Stats"] = "属性";
 	AL["Resilience"] = "韧性";
 	AL["Professions"] = "专业技能";
@@ -890,17 +871,14 @@ if AL then
 	-- Nineteenth set
 	AL["War of the Ancients"] = "时空行者：上古之战";
 
+	-- Twentieth set
+	AL["Betrayal of the Guardian"] = "守护者的背叛";
+
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = "旧 PvP 奖励";
 	AL["BG/Open PvP Rewards"] = "燃烧的远征/野外 PvP 奖励";
 	AL["Misc. Rewards"] = "其它奖励";
-	AL["Level 10-19 Rewards"] = "等级10-19奖励";
-	AL["Level 20-39 Rewards"] = "等级20-39奖励";
-	AL["Level 20-29 Rewards"] = "等级20-29奖励";
-	AL["Level 30-39 Rewards"] = "等级30-39奖励";
-	AL["Level 40-49 Rewards"] = "等级40-49奖励";
-	AL["Level 50-59 Rewards"] = "等级50-59奖励";
-	AL["Level 60 Rewards"] = "等级60奖励";
+	AL["Level %s Rewards"] = "等级%s奖励"; -- usage: string.format(AL["Level %s Rewards"], "60")
 
 	-- Brood of Nozdormu Paths
 	AL["Path of the Conqueror"] = "征服者之路";
@@ -968,40 +946,9 @@ if AL then
 	AL["Vendor"] = "商人";
 	AL["World Drop"] = "世界掉落";
 
-	-- Months
-	AL["January"] = "一月";
-	AL["February"] = "二月";
-	AL["March"] = "三月";
-	AL["April"] = "四月";
-	AL["May"] = "五月";
-	AL["June"] = "六月";
-	AL["July"] = "七月";
-	AL["August"] = "八月";
-	AL["September"] = "九月";
-	AL["October"] = "十月";
-	AL["November"] = "十一月";
-	AL["December"] = "十二月";
-
 	-- Specs
-	AL["Balance"] = "平衡";
-	AL["Feral"] = "野性战斗";
-	AL["Guardian"] = "守护";
-	AL["Restoration"] = "恢复";
-	AL["Holy"] = "神圣";
-	AL["Discipline"] = "戒律";
-	AL["Protection"] = "防护";
-	AL["Retribution"] = "惩戒";
-	AL["Shadow"] = "暗影";
-	AL["Elemental"] = "元素";
-	AL["Enhancement"] = "增强";
-	AL["Fury"] = "狂怒";
-	AL["Demonology"] = "恶魔学识";
-	AL["Destruction"] = "毁灭";
 	AL["Tanking"] = "坦克";
 	AL["DPS"] = "DPS";
-	AL["Mistweaver"] = "织雾";
-	AL["Brewmaster"] = "酒仙";
-	AL["Windwalker"] = "踏风";
 
 	-- NPCs missing from BabbleBoss
 	AL["Trash Mobs"] = "普通怪物";

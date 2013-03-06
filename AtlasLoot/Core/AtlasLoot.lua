@@ -1,4 +1,4 @@
--- $Id: AtlasLoot.lua 4057 2013-01-25 17:46:08Z hegarol $
+-- $Id: AtlasLoot.lua 4110 2013-02-28 07:51:45Z dynaletik $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -13,15 +13,15 @@ local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "7";
-local VERSION_MINOR = "04";
-local VERSION_BOSSES = "02";
+local VERSION_MINOR = "05";
+local VERSION_BOSSES = "00";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_VERSION_NUM = VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES
 
 --Now allows for multiple compatible Atlas versions.  Always put the newest first
 ATLASLOOT_MIN_ATLAS = "1.22.0"
-ATLASLOOT_CURRENT_ATLAS = {"1.23.0"};
-ATLASLOOT_PREVIEW_ATLAS = {"1.23.1", "1.23.2"};
+ATLASLOOT_CURRENT_ATLAS = {"1.24.0"};
+ATLASLOOT_PREVIEW_ATLAS = {"1.24.1", "1.24.2"};
 
 --ATLASLOOT_POSITION = AL["Position:"];
 ATLASLOOT_DEBUGMESSAGES = false;
@@ -123,6 +123,8 @@ local AtlasLootDBDefaults = {
 		LastMinAtlasVersion = 0,
 		EnableMouseOverDesc = true,
 		CurrentUpgradeLvl = 0,
+		BonusRollEnabled = true,
+		ShowBonusRollInfoInTT = true,
 	}
 }
 
@@ -227,6 +229,7 @@ function AtlasLoot:OnLoaderLoad()
 	end
 	self:CompareFrame_Create()
 	self:EncounterJournal_Initialize()
+	self:BonusRoll_Initialize()
 
 
 	--#########
@@ -700,10 +703,37 @@ do
 			dataID = self:FormatDataID(dataID)
 		end
 		if dataID and AtlasLoot_Data[dataID] then
-			for k,v in ipairs(lootTableTypes) do
-				if AtlasLoot_Data[dataID][v..factionAdd] then
-					AtlasLoot_Data[dataID][v] = AtlasLoot_Data[dataID][v..factionAdd]
+			-- Faction specific items
+			if not AtlasLoot_Data[dataID].factionCheck then
+				for k,v in ipairs(lootTableTypes) do
+					if AtlasLoot_Data[dataID][v..factionAdd] then
+						for page in ipairs(AtlasLoot_Data[dataID][v..factionAdd]) do
+							if AtlasLoot_Data[dataID][v..factionAdd][page].merge and AtlasLoot_Data[dataID][v][page] then
+								-- Merge tables here
+								local saveTab = {}
+								-- First check all entry (maybe we must override some items)
+								for index,tab in ipairs(AtlasLoot_Data[dataID][v][page]) do
+									saveTab[tab[1]] = index
+								end
+								-- Now merge
+								for index,tab in ipairs(AtlasLoot_Data[dataID][v..factionAdd][page]) do
+									if saveTab[tab[1]] then
+										-- Replace a item if it already exists
+										AtlasLoot_Data[dataID][v][page][saveTab[tab[1]]] = tab
+									else
+										table.insert(AtlasLoot_Data[dataID][v][page], tab)
+									end
+								end
+							else
+								if not AtlasLoot_Data[dataID][v] then AtlasLoot_Data[dataID][v] = {} end
+								AtlasLoot_Data[dataID][v][page] = AtlasLoot_Data[dataID][v..factionAdd][page]
+							end
+						end
+						-- remove old pointers to the tables
+						AtlasLoot_Data[dataID][v..factionAdd] = nil
+					end
 				end
+				AtlasLoot_Data[dataID].factionCheck = true
 			end
 
 			if AtlasLoot_Data[dataID][lootTableType] then
@@ -1012,7 +1042,6 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 	end
 	
 	if AtlasLoot_Data[dataID]["RaidFinder"] and lootTableType ~= "RaidFinder" then
-		--print"this"
 		self.ItemFrame.RaidFinder:Show()
 		self.ItemFrame.RaidFinder:SetChecked(false)
 		self.ItemFrame.RaidFinder:Enable()
@@ -1092,6 +1121,11 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 	
 	AtlasLoot.ItemFrame.EncounterJournal.info = dataID
 	AtlasLoot:EncounterJournal_ButtonsRefresh()
+	if AtlasLoot:BonusLoot_GetDataIdInfo(dataID) then
+		AtlasLoot.ItemFrame.BonusRoll:Show()
+	else
+		AtlasLoot.ItemFrame.BonusRoll:Hide()
+	end
 	if AtlasLoot.ItemFrame.CloseButton:IsShown() then
 		AtlasLoot.ItemFrame.EncounterJournal:SetPoint("RIGHT", AtlasLoot.ItemFrame.CloseButton, "LEFT", 0, 0)
 	else
@@ -1460,7 +1494,6 @@ function AtlasLoot:ShowSecretPage()
 					{ 12, 12947};
 					{ 13, 32824};
 					{ 14, 80237};
-					{ 15, 32824};
 					{ 16, 0, "INV_Box_01", "=q6=Legendary", ""};
 					{ 17, 80211};
 					{ 18, 43651};
@@ -1481,8 +1514,3 @@ function AtlasLoot:ShowSecretPage()
 	
 	AtlasLoot:ShowLootPage("SECRET_PAGE")
 end
-
-
--- ###########################################################################
--- itemEditor
--- ###########################################################################

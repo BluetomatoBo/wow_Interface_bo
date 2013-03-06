@@ -1,4 +1,4 @@
-﻿-- $Id: LootButtons.lua 4045 2012-12-20 18:46:32Z lag123 $
+﻿-- $Id: LootButtons.lua 4086 2013-02-20 08:53:34Z dynaletik $
 local _
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot")
@@ -42,6 +42,16 @@ local function createItemLink(itemId, cutomLvl, upgradeLvl)
 	return itemLink
 end
 
+local function bonusLootOnEnter(self)
+	if self.Id then
+		local name, desc = AtlasLoot:BonusLoot_GetSpecInfo(self.Id)
+		GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+		GameTooltip:AddLine(name)
+		GameTooltip:AddLine(WHITE..desc, nil, nil, nil, true)
+		GameTooltip:Show()
+	end
+end
+
 local CURRENCY_PRICE = {
 	-- http://www.wowhead.com/currencies
 	["CHEFAWARD"] = 402,	-- Chef's Award
@@ -49,6 +59,7 @@ local CURRENCY_PRICE = {
 	["CONQUEST"] = 390,		-- Conquest Points
 	["DALARANJW"] = 61,		-- Dalaran Jewelcrafter's Token
 	["DARKMOON"] = 515,		-- Darkmoon Prize Ticket
+	["ELDERCHARM"] = 697,		-- Elder Charm of Good Fortune
 	["EPICUREAN"] = 81,		-- Epicurean's Award (CookingDaily)
 	["HONOR"] = 392,		-- Honor Points
 	["ILLLJW"] = 361,		-- Illustrious Jewelcrafter's Token -- why duplicate?
@@ -72,6 +83,7 @@ local CURRENCY_PRICE = {
 	["SPIRITOFHARMONY"] = { itemID = 76061 },			-- Spirit of Harmony (SmithingMoPVendor, LeatherworkingMoPVendor, TailoringMoPVendor, SpiritOfHarmony)
 	["DOMINATIONCOMMISSION"] = { itemID = 91877 },		-- Domination Point Commission
 	["LIONSLANDINGCOMMISSION"] = { itemID = 91838 },	-- Lion's Landing Commission
+	["HISTORICALPARCHMENTS"] = { itemID = 95491 },		-- Tattered Historical Parchments
 }
 
 -- AtlasLoot:CreateItemButton
@@ -203,6 +215,29 @@ do
 		itemButton.Frame.IconAmount:SetHeight(15)
 		itemButton.Frame.IconAmount:SetWidth(25)
 		itemButton.Frame.IconAmount:SetText()
+		
+		-- Bonus roll
+		itemButton.Frame.BonusRoll = {}
+		local numSpecs = 4 --GetNumSpecializations() or 4
+		for i=1,4 do
+			if i > numSpecs then break end
+			itemButton.Frame.BonusRoll[i] = CreateFrame("Button", name.."_BonusRoll_Spec"..i, itemButton.Frame, "AtlasLoot_SpecButton")
+			if i==1 then
+				itemButton.Frame.BonusRoll[i]:SetPoint("TOPLEFT", itemButton.Frame.Icon, "TOPLEFT", 0, 0)
+			elseif i==2 then
+				itemButton.Frame.BonusRoll[i]:SetPoint("TOPLEFT", itemButton.Frame.Icon, "TOPLEFT", 12.5, 0)
+			elseif i==3 then
+				itemButton.Frame.BonusRoll[i]:SetPoint("TOPLEFT", itemButton.Frame.Icon, "TOPLEFT", 0, -12.5)
+			elseif i==4 then
+				itemButton.Frame.BonusRoll[i]:SetPoint("TOPLEFT", itemButton.Frame.Icon, "TOPLEFT", 12.5, -12.5)
+			end
+			itemButton.Frame.BonusRoll[i]:SetHeight(12.5)
+			itemButton.Frame.BonusRoll[i]:SetWidth(12.5)
+			itemButton.Frame.BonusRoll[i]:SetScript("OnEnter", bonusLootOnEnter)
+			itemButton.Frame.BonusRoll[i]:SetScript("OnLeave", function() GameTooltip:Hide() end)
+			--SetPortraitToTexture(itemButton.Frame.BonusRoll[i].specIcon, "Interface\\Icons\\INV_Misc_QuestionMark")
+
+		end
 
 		-- itemButton Scripts
 		itemButton.Frame:SetScript("OnEnter", AtlasLoot.ItemOnEnter)
@@ -773,7 +808,7 @@ do
 	--- Sets a item to the button
 	-- @param itemID The item ID
 	-- @param itemName The item name, self is only used if the item name is not in the cache. Set to nil and not in cache it will use UNKNOWN
-	-- @param extraText The small text under the item name. Set to nil and it will use slotInfo of the item if aviable
+	-- @param extraText The small text under the item name. Set to nil and it will use slotInfo of the item if available
 	-- @param itemTexture Sets a texture for the item icon. Set to nil and it will use the icon from the item ID
 	-- @param itemPrice The item price (Arena, PVP, ...). Set self will hide the extra text if its to long
 	-- @param itemDroprate The droprate of the item. Only a number value automatic adds "%"
@@ -870,6 +905,11 @@ do
 				self.droprate = itemDroprate
 			end
 		end
+		
+		-- ########################
+		-- BonusRoll
+		-- ########################
+		self:CheckBonusRoll(AtlasLoot.db.profile.BonusRollEnabled)
 
 		-- ########################
 		-- Unsafe
@@ -1172,6 +1212,47 @@ end
 function AltasLootItemButton:SetHeirloomLvl(lvl)
 	self.cutomLvl = tonumber(lvl)
 end
+
+--- Set the amount of an item
+function AltasLootItemButton:SetAmount(amount)
+	self.Frame.IconAmount:SetText(amount)
+	self.amount = amount
+end
+
+function AltasLootItemButton:CheckBonusRoll(enabled)
+	if self.type ~= "ItemIcon" then return end
+	for k,v in ipairs(self.Frame.BonusRoll) do
+		v:Hide()
+	end
+	if self.info then 
+		self.Specs = AtlasLoot:BonusLoot_CheckItemId(self.info[2]) 
+		if AtlasLoot.db.profile.ShowBonusRollInfoInTT then
+			self.SpecsTT = AtlasLoot:BonusLoot_GetItemIdInfo(self.info[2]) 
+		end
+	else
+		self.Specs = nil
+		self.SpecsTT = nil
+	end
+	if enabled then
+		if self.Specs then
+			self.Frame:SetAlpha(1)
+			for k,v in ipairs(self.Specs) do
+				if not self.Frame.BonusRoll[k] then break end
+				self.Frame.BonusRoll[k]:Show()
+				self.Frame.BonusRoll[k].Id = k
+				--SetPortraitToTexture(self.Frame.BonusRoll[k].specIcon, v)
+				self.Frame.BonusRoll[k].specIcon:SetTexture(v)
+			end
+		elseif self.Specs == false then
+			self.Frame:SetAlpha(0.33)
+		elseif self.Specs == nil then
+			self.Frame:SetAlpha(1)
+		end
+	else
+		self.Frame:SetAlpha(1)
+	end
+end
+
 --- Querys the server
 -- Querys the server for the setn item
 -- @usage AltasLootItemButton:Query()
@@ -1182,11 +1263,6 @@ function AltasLootItemButton:Query()
 	end
 end
 
---- Set the amount of an item
-function AltasLootItemButton:SetAmount(amount)
-	self.Frame.IconAmount:SetText(amount)
-	self.amount = amount
-end
 
 --- Clears the button
 -- Clears and hides the itemButton
@@ -1199,12 +1275,14 @@ function AltasLootItemButton:Clear()
 	self:SetIcon(nil)
 	self:SetAmount(nil)
 	self:SetUpgradeLvl(nil)
+	self:CheckBonusRoll(false)
 	self.Frame.Name:SetText("")
 	self.Frame.Extra:SetText("")
 	self.info = nil
 	self.cutomLvl = nil
 	--self.itemType = nil					-- vlt später was überlegen..
 	self.tableLinkFunc = nil
+	self.SpecsTT = nil
 	self.Frame:Hide()
 end
 
@@ -1497,6 +1575,14 @@ do
 					end
 					if( priority ~= nil and priority ~= "" ) then
 						AtlasLootTooltip:AddLine(GREEN..AL["Priority:"].." "..priority, 1, 1, 0);
+					end
+					if AtlasLoot.db.profile.ShowBonusRollInfoInTT and self.par.Specs then
+						if not self.par.SpecsTT then
+							self.par:CheckBonusRoll(AtlasLoot.db.profile.BonusRollEnabled)
+						end
+						--AtlasLootTooltip:AddDoubleLine(AL["BonusRoll:"], table.concat(self.par.SpecsTT,","))
+						AtlasLootTooltip:AddLine(AL["BonusRoll:"].." "..table.concat(self.par.SpecsTT, " "))
+						
 					end
 
 					AtlasLoot:AddTextToTooltip(AtlasLootTooltip, self.par.info)

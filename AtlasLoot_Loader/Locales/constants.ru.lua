@@ -1,4 +1,4 @@
-﻿-- $Id: constants.ru.lua 3993 2012-11-22 08:39:14Z celellach $
+﻿-- $Id: constants.ru.lua 4089 2013-02-20 15:53:11Z dynaletik $
 --[[
 constants.ru.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -432,7 +432,6 @@ if AL then
 	AL["Drums, Bags and Misc."] = "Барабаны, Сумки и Другое";
 
 	-- Tailoring
-	AL["Cloth Armor"] = "Тканевая броня";
 	AL["Shirts"] = "Рубашки";
 	AL["Bags"] = "Сумки";
 	AL["Cataclysm Vendor Sold Patterns"] = "Выкройки Cataclysmа у торговцев";
