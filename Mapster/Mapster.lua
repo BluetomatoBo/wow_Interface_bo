@@ -133,8 +133,8 @@ function Mapster:OnEnable()
 	WorldMapQuestShowObjectives:SetChecked(db.questObjectives ~= 0)
 	WorldMapQuestShowObjectives.Show = function() end
 	WorldMapQuestShowObjectives_Toggle()
-	local questObj = CreateFrame("Frame", "MapsterQuestObjectivesDropDown", WorldMapFrame, "UIDropDownMenuTemplate")
-	questObj:SetPoint("BOTTOMRIGHT", "WorldMapPositioningGuide", "BOTTOMRIGHT", -5, -2)
+	MapsterQuestObjectivesDropDown = CreateFrame("Frame", "MapsterQuestObjectivesDropDown", WorldMapFrame, "UIDropDownMenuTemplate")
+	MapsterQuestObjectivesDropDown:SetPoint("BOTTOMRIGHT", "WorldMapPositioningGuide", "BOTTOMRIGHT", -5, -2)
 
 	WorldMapShowDropDown:SetScript("OnShow", function(f) f:Hide() end)
 
@@ -153,15 +153,10 @@ function Mapster:OnEnable()
 		EncounterJournal_AddMapButtons()
 	end)
 
-	local text = questObj:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+	local text = MapsterQuestObjectivesDropDown:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
 	text:SetText(L["Quest Objectives"])
-	text:SetPoint("RIGHT", questObj, "LEFT", 5, 3)
-	-- Init DropDown
-	UIDropDownMenu_Initialize(questObj, questObjDropDownInit)
-	UIDropDownMenu_SetWidth(questObj, 150)
-	questObjDropDownUpdate()
+	text:SetPoint("RIGHT", MapsterQuestObjectivesDropDown, "LEFT", 5, 3)
 
-	wmfOnShow(WorldMapFrame)
 	hooksecurefunc(WorldMapTooltip, "Show", function(self)
 		self:SetFrameStrata("TOOLTIP")
 	end)
@@ -190,6 +185,9 @@ function Mapster:OnEnable()
 	self:SecureHook("WorldMapLevelDropDown_Update", "UpdateMapElements")
 	WorldMapFrame_SetPOIMaxBounds()
 	self:SecureHook("EncounterJournal_AddMapButtons")
+
+	self:RawHook(WorldMapPlayerLower, "SetPoint", "WorldMapPlayerSetPoint", true)
+	self:RawHook(WorldMapPlayerUpper, "SetPoint", "WorldMapPlayerSetPoint", true)
 
 	if vis then
 		ShowUIPanel(WorldMapFrame)
@@ -288,6 +286,14 @@ end
 function Mapster:WorldMapFrame_SetPOIMaxBounds()
 	WORLDMAP_POI_MAX_Y = WorldMapDetailFrame:GetHeight() * -WORLDMAP_SETTINGS.size + 12;
 	WORLDMAP_POI_MAX_X = WorldMapDetailFrame:GetWidth() * WORLDMAP_SETTINGS.size + 12;
+end
+
+function Mapster:WorldMapPlayerSetPoint(frame, point, relFrame, relPoint, x, y)
+	if x and y then
+		x = x / db.arrowScale
+		y = y / db.arrowScale
+	end
+	return self.hooks[frame].SetPoint(frame, point, relFrame, relPoint, x, y)
 end
 
 function Mapster:EncounterJournal_AddMapButtons()
@@ -536,6 +542,15 @@ function wmfOnShow(frame)
 	Mapster:SetScale()
 	realZone = getZoneId()
 
+	if not MapsterQuestObjectivesDropDown.dropdownInitialized then
+		-- Init DropDown
+		UIDropDownMenu_Initialize(MapsterQuestObjectivesDropDown, questObjDropDownInit)
+		UIDropDownMenu_SetWidth(MapsterQuestObjectivesDropDown, 150)
+		questObjDropDownUpdate()
+
+		MapsterQuestObjectivesDropDown.dropdownInitialized = true
+	end
+
 	if WORLDMAP_SETTINGS.selectedQuest then
 		WorldMapFrame_SelectQuestFrame(WORLDMAP_SETTINGS.selectedQuest)
 	end
@@ -591,8 +606,9 @@ function Mapster:SetAlpha()
 end
 
 function Mapster:SetArrow()
-	PlayerArrowFrame:SetModelScale(db.arrowScale)
-	PlayerArrowEffectFrame:SetModelScale(db.arrowScale)
+	WorldMapPlayerUpper:SetScale(db.arrowScale)
+	WorldMapPlayerLower:SetScale(db.arrowScale)
+	--PlayerArrowEffectFrame:SetModelScale(db.arrowScale)
 end
 
 function Mapster:SetScale()
@@ -747,7 +763,8 @@ local function hasOverlays()
 end
 
 function Mapster:UpdateDetailTiles()
-	if db.hideBorder and GetCurrentMapZone() > 0 and hasOverlays() then
+	local mapFileName, textureHeight, _, isMicroDungeon, microDungeonMapName = GetMapInfo()
+	if db.hideBorder and GetCurrentMapZone() > 0 and hasOverlays() and not isMicroDungeon then
 		for i=1, GetNumberOfDetailTiles() do
 			_G["WorldMapDetailTile"..i]:Hide()
 		end
