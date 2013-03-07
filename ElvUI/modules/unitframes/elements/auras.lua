@@ -69,8 +69,16 @@ function UF:Construct_AuraIcon(button)
 end
 
 local function SortAurasByPriority(a, b)
-    if (a and b and a.priority and b.priority) then
-        return a.priority > b.priority
+    if (a and b) then
+		if a.isPlayer and not b.isPlayer then
+			return true
+		elseif not a.isPlayer and b.isPlayer then
+			return false
+		end
+	
+		if (a.priority and b.priority) then
+			return a.priority > b.priority
+		end
     end
 end
 
@@ -160,7 +168,12 @@ function UF:UpdateAuraTimer(elapsed)
 
 	local timervalue, formatid
 	timervalue, formatid, self.nextupdate = E:GetTimeInfo(self.expiration, 4)
-	self.text:SetFormattedText(("%s%s|r"):format(E.TimeColors[formatid], E.TimeFormats[formatid][2]), timervalue)
+	if self.text:GetFont() then
+		self.text:SetFormattedText(("%s%s|r"):format(E.TimeColors[formatid], E.TimeFormats[formatid][2]), timervalue)
+	else
+		self.text:FontTemplate(LSM:Fetch("font", E.db['unitframe'].font), self:GetParent():GetParent().db[self:GetParent().type].fontSize, 'OUTLINE')
+		self.text:SetFormattedText(("%s%s|r"):format(E.TimeColors[formatid], E.TimeFormats[formatid][2]), timervalue)
+	end
 end
 
 function UF:CheckFilter(filterType, isFriend)
@@ -222,7 +235,7 @@ function UF:AuraFilter(unit, icon, name, rank, texture, count, dtype, duration, 
 	end
 	
 	if UF:CheckFilter(db.onlyDispellable, isFriend) then
-		if (self.type == 'buffs' and not isStealable) or (self.type == 'debuffs' and dtype and  not E:IsDispellableByMe(dtype)) then
+		if (self.type == 'buffs' and not isStealable) or (self.type == 'debuffs' and dtype and  not E:IsDispellableByMe(dtype)) or dtype == nil then
 			returnValue = false;
 		end
 		anotherFilterExists = true
