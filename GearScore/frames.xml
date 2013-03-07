@@ -1,4 +1,10 @@
 ﻿<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	
+	<!-- need to load this addon before anything in this XML is processed as some of the frames depend on templates from the inspect UI -->
+	<Script>
+		LoadAddOn("Blizzard_InspectUI");
+	</Script>
+
 	<!--@no-lib-strip@-->
 	<Script file="Libs\LibStub\LibStub.lua"/>
 	<Include file="Libs\AceAddon-3.0\AceAddon-3.0.xml"/>
@@ -1147,7 +1153,7 @@
 								<Scripts>
 									<OnEnter>
 										GameTooltip:SetOwner(self, "ANCHOR_CURSOR");
-										GameTooltip:AddLine("GearScore™/PlayerScore™ 4.11.02 \n©2010 - Ten Ton Hammer™, All Rights Reserved.");
+										GameTooltip:AddLine("GearScore™/PlayerScore™ 5.2 \n©2010 - Ten Ton Hammer™, All Rights Reserved.");
 										GameTooltip:Show();
 										self:GetParent():SetBackdrop({ bgFile = "Interface\\Addons\\GearScore\\UI\\playerscore2" });
 									</OnEnter>
@@ -1182,7 +1188,7 @@
 				</Frames>
 			</Frame>
 
-			<Frame name="$parent_TitleFrame" toplevel="true" movable="false" enableMouse="false" inherits="UIDialogFrame">
+			<Frame name="$parent_TitleFrame" toplevel="true" movable="false" enableMouse="false">
 				<Scripts>
 					<OnLoad>
 						<![CDATA[
@@ -1309,7 +1315,7 @@
 					</Anchor>
 				</Anchors>
 				<Frames>
-					<DressUpModel xsi:type="PlayerModel" name="$parent_Model" inherits="DressUpModel">
+					<DressUpModel xsi:type="PlayerModel" name="$parent_Model">
 						<Scripts>
 							<OnUpdate>
 								if self.rotation ~= 0 then self:SetFacing(self:GetFacing() + self.rotation); end;
@@ -3338,6 +3344,7 @@
 		<Scripts>
 			<OnLoad>
 				<![CDATA[
+					
 					self:RegisterEvent("INSPECT_HONOR_UPDATE");
 					TTH_InspectPVPFrame:SetPoint("TOPLEFT", TenTonHammer_Frame5, "TOPLEFT", 10, 45);
 					TTH_InspectPVPTeam1Standard:SetPoint("LEFT", 14,45);
