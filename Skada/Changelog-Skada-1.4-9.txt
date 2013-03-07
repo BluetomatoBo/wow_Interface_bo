@@ -1,0 +1,77 @@
+------------------------------------------------------------------------
+r435 | zarnivoop | 2013-03-06 19:40:20 +0000 (Wed, 06 Mar 2013) | 1 line
+Changed paths:
+   A /tags/1.4-9 (from /trunk:434)
+
+Tagging as 1.4-9
+------------------------------------------------------------------------
+r434 | oscarucb | 2013-03-06 11:06:11 +0000 (Wed, 06 Mar 2013) | 2 lines
+Changed paths:
+   M /trunk/modules/SkadaHealing/Healing.lua
+
+fix a lua error
+
+------------------------------------------------------------------------
+r433 | stanzilla | 2013-03-06 00:35:55 +0000 (Wed, 06 Mar 2013) | 1 line
+Changed paths:
+   M /trunk/modules/SkadaCC/SkadaCC.toc
+   M /trunk/modules/SkadaDamage/SkadaDamage.toc
+   M /trunk/modules/SkadaDamageTaken/SkadaDamageTaken.toc
+   M /trunk/modules/SkadaDeaths/SkadaDeaths.toc
+   M /trunk/modules/SkadaDebuffs/SkadaDebuffs.toc
+   M /trunk/modules/SkadaDispels/SkadaDispels.toc
+   M /trunk/modules/SkadaEnemies/SkadaEnemies.toc
+   M /trunk/modules/SkadaHealing/SkadaHealing.toc
+   M /trunk/modules/SkadaPower/SkadaPower.toc
+   M /trunk/modules/SkadaThreat/SkadaThreat.toc
+
+bump toc
+------------------------------------------------------------------------
+r432 | funkydude | 2013-03-06 00:31:37 +0000 (Wed, 06 Mar 2013) | 1 line
+Changed paths:
+   M /trunk/Skada.toc
+
+bump toc
+------------------------------------------------------------------------
+r431 | zarnivoop | 2013-02-15 20:38:34 +0000 (Fri, 15 Feb 2013) | 2 lines
+Changed paths:
+   M /trunk/locale/enUS.lua
+   M /trunk/modules/SkadaEnemies/Enemies.lua
+
+added missing translation
+safety check for new enemy healing modes
+------------------------------------------------------------------------
+r430 | oscarucb | 2013-02-15 11:39:31 +0000 (Fri, 15 Feb 2013) | 2 lines
+Changed paths:
+   M /trunk/Skada.lua
+
+Add a private index to find_player: provides about a 6x speedup for that function on a set for a 10-man raid
+
+------------------------------------------------------------------------
+r429 | oscarucb | 2013-02-15 09:15:58 +0000 (Fri, 15 Feb 2013) | 5 lines
+Changed paths:
+   M /trunk/modules/SkadaEnemies/Enemies.lua
+
+Add new modes for enemy healing done/taken to SkadaEnemies
+Factor some code in the Enemies module
+Fix a bug in the Enemies module that was failing to record in the Total set
+Re-key the set.mobs array by mob name, for more efficient access
+
+------------------------------------------------------------------------
+r428 | oscarucb | 2013-02-15 03:01:23 +0000 (Fri, 15 Feb 2013) | 3 lines
+Changed paths:
+   M /trunk/modules/SkadaHealing/Healing.lua
+
+fix a minor glitch in healing stats
+min heal spell amount was always showing as zero
+
+------------------------------------------------------------------------
+r427 | oscarucb | 2013-01-30 18:56:54 +0000 (Wed, 30 Jan 2013) | 4 lines
+Changed paths:
+   M /trunk/Skada.lua
+
+fix row sorting for :Report on mods not using ordersort
+old function was incorrect when the table contained empty rows and would result in randomly-sorted output
+new function is a variant on the existing value_sort, which also verifies the id field to preserve the spirit of the old function
+
+------------------------------------------------------------------------
