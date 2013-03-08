@@ -35,20 +35,25 @@ local function getOption(info)
 	return gsadb[name]
 end
 local function spellOption(order, spellID, ...)
-	local spellname,_,icon = GetSpellInfo(spellID)				
+	local spellname, _, icon = GetSpellInfo(spellID)				
 	if (spellname ~= nil) then
 		return {
 			type = 'toggle',
-			name = "\124T"..icon..":24\124t"..spellname,							
+			name = "\124T" .. icon .. ":24\124t" .. spellname,							
 			desc = function () 
-			GameTooltip:SetHyperlink(GetSpellLink(spellID));
-			--GameTooltip:Show();
+				GameTooltip:SetHyperlink(GetSpellLink(spellID));
+				--GameTooltip:Show();
 			end,
 			descStyle = "custom",
 					order = order,
 		}
 	else
-		print("spell id: "..spellID.." is invalid")
+		print("spell id: " .. spellID .. " is invalid")
+		return {
+			type = 'toggle',
+			name = "unknown spell, id:" .. spellID,	
+			order = order,
+		}
 	end
 end
 
@@ -441,14 +446,14 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cff9482C9Warlock|r"],
 								order = 14,
-								args = listOption({108416,108503,119049,113858,113861,113860,104773},"auraApplied"),
+								args = listOption({108416,108503,113858,113861,113860,104773},"auraApplied"),
 							},
 							warrior	= {
 								type = 'group',
 								inline = true,
 								name = L["|cffC79C6EWarrior|r"],
 								order = 15,
-								args = listOption({55694,871,18499,23920,12328,46924,85730,12292,1719,114028,107574,114029,114030},"auraApplied"),	
+								args = listOption({55694,871,18499,23920,12328,46924,12292,1719,114028,107574,114029,114030},"auraApplied"),	
 							},
 						},
 					},
@@ -603,7 +608,7 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffF58CBAPaladin|r"],
 								order = 8,
-								args = listOption({20066},"castStart"),
+								args = listOption({20066,115750},"castStart"),
 							},
 							preist	= {
 								type = 'group',
@@ -702,7 +707,7 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffF58CBAPaladin|r"],
 								order = 10,
-								args = listOption({31821,96231,853,105593,115750,85499},"castSuccess"),
+								args = listOption({31821,96231,853,105593,85499},"castSuccess"),
 							},
 							preist	= {
 								type = 'group',

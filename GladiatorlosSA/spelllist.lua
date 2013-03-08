@@ -68,7 +68,7 @@
 			[23920] = "spellReflection", -- 盾反
 			[12328] = "sweepingStrikes", -- 橫掃攻擊
 			[46924] = "bladestorm", -- 劍刃風暴
-			[85730] = "deadlyCalm", -- 沉著殺機
+			-- [85730] = "deadlyCalm", -- 沉著殺機 --removed in 5.2
 			[1719] = "recklessness", -- 魯莽
 				-- Mist of pandaria
 			[114029] = "safeguard",
@@ -134,7 +134,7 @@
 				-- Mist of pandaria
 			[108416] = "sacrificialPact",
 			[108503] = "grimoireOfSacrifice",
-			[119049] = "kjCunning",
+			-- [119049] = "kjCunning", -- removed in 5.2
 			[113858] = "darkSoul",
 			[113861] = "darkSoul",
 			[113860] = "darkSoul",
@@ -207,6 +207,7 @@
 			--paladin
 				-- Mist of pandaria
 			[20066] = "repentance", -- 懺悔
+			[115750] = "blindingLight", -- 
 			--rogue
 			--warrior
 			--preist
@@ -305,7 +306,6 @@
 				-- Mist of pandaria
 			[105593] = "fistOfJustice", --
 			--[114158] = "lightsHammer", -- removed
-			[115750] = "blindingLight", --
 			[85499] = "speedOfLight",
 			--rogue
 				-- OLD

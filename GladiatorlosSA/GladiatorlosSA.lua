@@ -6,7 +6,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("GladiatorlosSA")
 local LSM = LibStub("LibSharedMedia-3.0")
 local self, GSA = GladiatorlosSA, GladiatorlosSA
 local GSA_TEXT = "GladiatorlosSA"
-local GSA_VERSION = " v2.0"
+local GSA_VERSION = " v2.0.3"
 local GSA_AUTHOR = " updated by superk"
 
 local GSA_LOCALEPATH = {
