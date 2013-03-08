@@ -13,6 +13,7 @@ for i=10, 40, 15 do
 		self.menu = UF.SpawnMenu
 
 		self.RaisedElementParent = CreateFrame('Frame', nil, self)
+		self.RaisedElementParent:SetFrameStrata("MEDIUM")
 		self.RaisedElementParent:SetFrameLevel(self:GetFrameLevel() + 10)		
 		
 		self.Health = UF:Construct_HealthBar(self, true, true, 'RIGHT')
@@ -68,12 +69,6 @@ for i=10, 40, 15 do
 	end
 
 	UF['Update_Raid'..i..'Header'] = function (self, header, db)
-		if not header.isForced then
-			header:Hide()
-			header:SetAttribute('oUF-initialConfigFunction', ([[self:SetWidth(%d); self:SetHeight(%d); self:SetFrameLevel(5)]]):format(db.width, db.height))
-			header:SetAttribute('startingIndex', 1)
-		end
-		
 		header.db = db
 		
 		if not header.isForced then	
@@ -90,7 +85,6 @@ for i=10, 40, 15 do
 			header:SetAttribute("showPlayer", db.showPlayer)
 		end
 
-		UF:ConvertGroupDB(header)
 		local positionOverride = UF:SetupGroupAnchorPoints(header)
 		if not header.positioned then
 			header:ClearAllPoints()
