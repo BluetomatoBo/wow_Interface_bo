@@ -1,9 +1,20 @@
 ------------------------------------------------------------------------
-r435 | zarnivoop | 2013-03-06 19:40:20 +0000 (Wed, 06 Mar 2013) | 1 line
+r437 | zarnivoop | 2013-03-08 19:02:10 +0000 (Fri, 08 Mar 2013) | 1 line
 Changed paths:
-   A /tags/1.4-9 (from /trunk:434)
+   A /tags/1.4-10 (from /trunk:436)
 
-Tagging as 1.4-9
+Tagging as 1.4-10
+------------------------------------------------------------------------
+r436 | eridius | 2013-03-07 08:38:16 +0000 (Thu, 07 Mar 2013) | 6 lines
+Changed paths:
+   M /trunk/Skada.lua
+
+Fix support for Storm, Earth, and Fire
+
+The spirits summoned from Storm, Earth, and Fire have the same name as
+their summoner. Therefore we can't ask UnitIsPlayer(playername) in
+Skada:FixPets(). Rely instead on the playerflags bitwise operations to
+detect guardians.
 ------------------------------------------------------------------------
 r434 | oscarucb | 2013-03-06 11:06:11 +0000 (Wed, 06 Mar 2013) | 2 lines
 Changed paths:
