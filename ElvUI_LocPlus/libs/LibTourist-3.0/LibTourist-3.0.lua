@@ -1,6 +1,6 @@
 ﻿--[[
 Name: LibTourist-3.0
-Revision: $Rev: 158 $
+Revision: $Rev: 160 $
 Author(s): ckknight (ckknight@gmail.com), Arrowmaster, Odica (maintainer)
 Website: http://ckknight.wowinterface.com/
 Documentation: http://www.wowace.com/addons/libtourist-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibTourist-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 158 $"):match("(%d+)"))
+local MINOR_VERSION = 90000 + tonumber(("$Revision: 160 $"):match("(%d+)"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub") end
 
@@ -1558,6 +1558,9 @@ local MapIdLookupTable = {
 	[905] = "Shrine of Seven Stars",
 	[906] = "Dustwallow Marsh",
 	[907] = "Dustwallow Marsh",
+	[928] = "Isle of Thunder",
+	[929] = "Isle of Giants",
+	[930] = "Throne of Thunder",
 }
 
 local zoneTranslation = {
@@ -2122,6 +2125,10 @@ do
 	local STORMWIND_JADEFOREST_PORTAL = string.format(X_Y_PORTAL, BZ["Stormwind City"], BZ["The Jade Forest"])
 	local JADEFOREST_STORMWIND_PORTAL = string.format(X_Y_PORTAL, BZ["The Jade Forest"], BZ["Stormwind City"])
 
+	local TOWNLONGSTEPPES_ISLEOFTHUNDER_PORTAL = string.format(X_Y_PORTAL, BZ["Townlong Steppes"], BZ["Isle of Thunder"])
+	local ISLEOFTHUNDER_TOWNLONGSTEPPES_PORTAL = string.format(X_Y_PORTAL, BZ["Isle of Thunder"], BZ["Townlong Steppes"])
+
+	
 	local DARKMOON_MULGORE_PORTAL = string.format(X_Y_PORTAL, BZ["Darkmoon Island"], BZ["Mulgore"])
 	local DARKMOON_ELWYNNFOREST_PORTAL = string.format(X_Y_PORTAL, BZ["Darkmoon Island"], BZ["Elwynn Forest"])
 	local MULGORE_DARKMOON_PORTAL = string.format(X_Y_PORTAL, BZ["Mulgore"], BZ["Darkmoon Island"])
@@ -2135,8 +2142,7 @@ do
 
 	zones[BZ["Eastern Kingdoms"]] = {
 		type = "Continent",
---		yards = 47714.278579261,
-		yards = 40741.17907,
+--		yards = 40741.17907,
 		x_offset = 0,
 		y_offset = 0,
 		continent = Eastern_Kingdoms,
@@ -2144,7 +2150,7 @@ do
 
 	zones[BZ["Kalimdor"]] = {
 		type = "Continent",
-		yards = 36800.210572494,
+--		yards = 36800.210572494,
 		x_offset = 0,
 		y_offset = 0,
 		continent = Kalimdor,
@@ -2152,7 +2158,7 @@ do
 
 	zones[BZ["Outland"]] = {
 		type = "Continent",
-		yards = 17463.5328406368,
+--		yards = 17463.5328406368,
 		x_offset = 0,
 		y_offset = 0,
 		continent = Outland,
@@ -2160,7 +2166,7 @@ do
 
 	zones[BZ["Northrend"]] = {
 		type = "Continent",
-		yards = 17751.3962441049,
+--		yards = 17751.3962441049,
 		x_offset = 0,
 		y_offset = 0,
 		continent = Northrend,
@@ -2168,7 +2174,7 @@ do
 
 	zones[BZ["The Maelstrom"]] = {
 		type = "Continent",
-		yards = 0.0,   -- TODO
+--		yards = 0.0,   -- TODO
 		x_offset = 0,
 		y_offset = 0,
 		continent = The_Maelstrom,
@@ -2176,7 +2182,7 @@ do
 
 	zones[BZ["Pandaria"]] = {
 		type = "Continent",
-		yards = 0.0,   -- TODO
+--		yards = 0.0,   -- TODO
 		x_offset = 0,
 		y_offset = 0,
 		continent = Pandaria,
@@ -2678,6 +2684,22 @@ do
 		faction = "Alliance",
 		type = "Transport",
 	}	
+
+	zones[TOWNLONGSTEPPES_ISLEOFTHUNDER_PORTAL] = {
+		paths = {
+			[BZ["Isle of Thunder"]] = true,
+		},
+		type = "Transport",
+	}	
+
+	zones[ISLEOFTHUNDER_TOWNLONGSTEPPES_PORTAL] = {
+		paths = {
+			[BZ["Townlong Steppes"]] = true,
+		},
+		type = "Transport",
+	}	
+
+
 	
 	
 	
@@ -5876,6 +5898,7 @@ do
 		paths = {
 			[BZ["Siege of Niuzao Temple"]] = true,
 			[BZ["Dread Wastes"]] = true,
+			[TOWNLONGSTEPPES_ISLEOFTHUNDER_PORTAL] = true,
 		},
 		fishing_min = 700,
 		battlepet_low = 24,
@@ -5933,6 +5956,33 @@ do
 		battlepet_high = 25,
 	}
 
+	-- Patch 5.2 zones
+	zones[BZ["Isle of Thunder"]] = {
+		low = 90,
+		high = 90,
+		continent = Pandaria,
+		instances = {
+			[BZ["Throne of Thunder"]] = true,
+		},
+		paths = {
+			[ISLEOFTHUNDER_TOWNLONGSTEPPES_PORTAL] = true,
+		},
+		fishing_min = 750,
+		battlepet_low = 23,
+		battlepet_high = 25,
+	}
+
+	zones[BZ["Isle of Giants"]] = {
+		low = 90,
+		high = 90,
+		continent = Pandaria,
+		fishing_min = 750,
+		battlepet_low = 23,
+		battlepet_high = 25,
+	}
+
+
+	
 --	Mists of Pandaria (MoP) cities
 	
 	zones[BZ["Shrine of Seven Stars"]] = {
@@ -5986,7 +6036,7 @@ do
 		paths = BZ["Kun-Lai Summit"],
 		groupSize = 5,
 		type = "Instance",
-	--	entrancePortal = { BZ["Kun-Lai Summit"], 47.70, 51.96 },  TODO
+		entrancePortal = { BZ["Kun-Lai Summit"], 36.7, 47.6 },  
 	}
 
 	zones[BZ["Mogu'shan Vaults"]] = {
@@ -6027,7 +6077,7 @@ do
 		paths = BZ["Dread Wastes"],
 		groupSize = 5,
 		type = "Instance",
-	--	entrancePortal = { BZ["Dread Wastes"], 47.70, 51.96 },  TODO
+		entrancePortal = { BZ["Dread Wastes"], 15.80, 74.30 }, 
 	}
 
 	zones[BZ["Heart of Fear"]] = {
@@ -6052,14 +6102,29 @@ do
 	--	entrancePortal = { BZ["The Veiled Stair"], 66.2, 49.3 },   TODO
 	}
 
-
+	-- Patch 5.2 instance
+	zones[BZ["Throne of Thunder"]] = {
+		low = 90,
+		high = 90,
+		continent = Pandaria,
+		paths = BZ["Isle of Thunder"],
+		groupSize = 10,
+		altGroupSize = 25,
+		type = "Instance",
+	--	entrancePortal = { BZ["The Veiled Stair"], 66.2, 49.3 },   TODO
+	}
+	
+	
+	
+	
+	
 
 --------------------------------------------------------------------------------------------------------
 --                                                CORE                                                --
 --------------------------------------------------------------------------------------------------------
 	local continentNames = { GetMapContinents() }
 	local doneZones = {}
-	local zoneIDs = {}
+	local zoneIndices = {}
 
 	-- Lookup for zones that are on a sub-continent map and therefore have no own highlight on the continent map
 	-- Value is the name of the sub-continent map that will be searched instead of the continent map
@@ -6080,15 +6145,16 @@ do
 	searchMaps[BZ["Northshire"]] = BZ["Elwynn Forest"]	
 	searchMaps[BZ["Sunstrider Isle"]] = BZ["Eversong Woods"]	
 	
+	-- Unfortunaltely this trick does not work for cities.
 --	searchMaps[BZ["Stormwind City"]] = BZ["Elwynn Forest"]	
 --	searchMaps[BZ["Darnassus"]] = BZ["Teldrassil"]
 --	searchMaps[BZ["Orgrimmar"]] = BZ["Durotar"]
 --	searchMaps[BZ["Ruins of Gilneas City"]] = BZ["Ruins of Gilneas"]	
-
 --	searchMaps[BZ["Shrine of Two Moons"]] = BZ["Vale of Eternal Blossoms"]	
 --	searchMaps[BZ["Shrine of Seven Stars"]] = BZ["Vale of Eternal Blossoms"]		
 	
 	-- The submaps have different sizes than the continent maps -> use submap size as 'continent size'
+	-- These values are hardcoded because it is not guaranteed the searchmap has been 'discovered' yet
 	local submapContinentYards = {}
 	submapContinentYards[BZ["Stranglethorn Vale"]] = 6552.1
 	submapContinentYards[BZ["Vashj'ir"]] = 6945.8
@@ -6102,20 +6168,39 @@ do
 	submapContinentYards[BZ["Eversong Woods"]] = 4925.0
 		
 --	submapContinentYards[BZ["Ruins of Gilneas"]] = 3145.8
---	submapContinentYards[BZ["Vale of Eternal Blossoms"]] = 0  -- ?
+--	submapContinentYards[BZ["Vale of Eternal Blossoms"]] = 2533.3
 		
 		
+
+	trace("Tourist: Initializing continents...")
+	
+	for continentID, continentName in ipairs(continentNames) do
+		SetMapZoom(continentID)
+		
+		if zones[continentName] then
+			-- Get map texture name and size in yards for the continent
+			zones[continentName].texture = GetMapInfo()
+			
+			local _, X1, Y1, X2, Y2 = GetCurrentMapZone()
+			zones[continentName].yards = X1 - X2
+			
+			trace("Continent yards for "..tostring(continentName)..": "..tostring(zones[continentName].yards))
+		end
+	end
+	
 		
 	-- Hack:
 	-- For the zones below, UpdateMapHighlight() does not return name and map data for the city icon on the continent map
 	-- Use hardcoded values as default; will be overwritten once the UpdateMapHighlight bug has been fixed - if ever
-	-- Note: the city highlights/icons on the zone maps can't be used because these return the name but no map data
-	-- TODO: determine values!
+	-- However, some of the data can be gathered by GetMapInfo() and GetCurrentMapZone(), which will overwrite the values below.
+	-- Note: the city highlights/icons on the zone maps can't be used because these return the name but no map data.
+	-- TODO: determine offset values
 
 	local kalimdorYards = zones[BZ["Kalimdor"]].yards
 	local eastkingYards = zones[BZ["Eastern Kingdoms"]].yards
 	local northrendYards = zones[BZ["Northrend"]].yards
 	local maelstromYards = zones[BZ["The Maelstrom"]].yards
+	local pandariaYards = zones[BZ["Pandaria"]].yards
 
 	zones[BZ["Orgrimmar"]].yards = 1739.375
 	zones[BZ["Orgrimmar"]].x_offset = 0 * kalimdorYards
@@ -6165,18 +6250,17 @@ do
 	-- end hack
 
 	trace("Tourist: Initializing zones...")
-
+	
 	for continentID, continentName in ipairs(continentNames) do
 		SetMapZoom(continentID)
-		if zones[continentName] then
-			zones[continentName].texture = GetMapInfo()
-		end
+		
 		local zoneNames = { GetMapZones(continentID) }
 		local continentYards = zones[continentName] and zones[continentName].yards or 0
 
-		-- First, build a collection of zone IDs to be able to lookup a zone ID for SetMapZoom() in case we need to 'dig deeper'
+		-- First, build a collection of zone indices (numbers of the zones within a continent)
+		-- to be able to lookup a zone index for SetMapZoom()
 		for _ = 1, #zoneNames do
-			zoneIDs[zoneNames[_]] = _
+			zoneIndices[zoneNames[_]] = _
 		end
 
 		for _ = 1, #zoneNames do
@@ -6184,19 +6268,20 @@ do
 			local name, fileName, texPctX, texPctY, texX, texY, scrollX, scrollY
 
 			-- Some zones are not directly accessible from the continent map and have to be searched for on a zone map
-			local searchMap, zoneID
+			local searchMap, zoneIndex
 			searchMap = searchMaps[zoneNames[_]]
 			if searchMap then
-				-- Get the zone ID from the lookup
-				zoneID = zoneIDs[searchMap]
-				if zoneID then
+				-- Get the zone index from the lookup
+				zoneIndex = zoneIndices[searchMap]
+				if zoneIndex then
 					-- Set map to zone map
-					SetMapZoom(continentID, zoneID)
-					-- Get searchMap 'continent' size
+					SetMapZoom(continentID, zoneIndex)
+					-- Get searchMap size and use as 'continent' size
 					continentYards = submapContinentYards[searchMap]
 				end
 			end
 
+			-- Probe the map for the map highlight of the zone
 			local scansDone = 0
 			repeat
 				scansDone = scansDone + 1
@@ -6208,37 +6293,56 @@ do
 				x, y = math.random(), math.random()
 				name, fileName, texPctX, texPctY, texX, texY, scrollX, scrollY = UpdateMapHighlight(x, y)
 			until name and not doneZones[name] and name == zoneNames[_]  -- do not stop searching until we have a match on zonename
-
+			
+			-- Process result
+			local tryGetCurrentMapZone = false
 			if name then
-				if fileName then
-					-- UpdateMapHighlight() returned the zone name and data for the texture
-					doneZones[name] = true
+				-- UpdateMapHighlight() has found the zone highlight
+				if zones[name] then
+					if fileName then
+						-- UpdateMapHighlight() returned the zone name and data for the texture
+						doneZones[name] = true
 
-					-- TODO: expand for new zones?
-					if fileName == "EversongWoods" or fileName == "Ghostlands" or fileName == "Sunwell" or fileName == "SilvermoonCity" then
-						scrollX = scrollX - 0.00168
-						scrollY = scrollY + 0.01
-					end
+						-- Not sure what this is:
+						if fileName == "EversongWoods" or fileName == "Ghostlands" or fileName == "Sunwell" or fileName == "SilvermoonCity" then
+							scrollX = scrollX - 0.00168
+							scrollY = scrollY + 0.01
+						end
 
-					if zones[name] then
 						zones[name].yards = texX * continentYards
 						zones[name].x_offset = scrollX * continentYards
 						zones[name].y_offset = scrollY * continentYards * 2/3
 						zones[name].texture = fileName
 					else
-						trace("! Tourist: TODO: "..tostring(name))
+						-- UpdateMapHighlight() returned the zone name but did NOT return data for the texture
+						trace("! Tourist: No texture data from UpdateMapHighlight for "..tostring(name))
+						tryGetCurrentMapZone = true
 					end
 				else
-					-- UpdateMapHighlight() returned the zone name but did NOT return data for the texture
-					trace("! Tourist: No texture data from UpdateMapHighlight for "..tostring(name))
+					trace("! Tourist: TODO: "..tostring(name))
 				end
 			else
 				-- UpdateMapHighlight did not return anything
 				-- See hack, above
 				trace("! Tourist: Highlight not found for "..tostring(continentName).."["..tostring(_).."] = "..tostring(zoneNames[_]))
+				name = zoneNames[_]
+				tryGetCurrentMapZone = true
 			end
 
-			if zoneID then
+			if tryGetCurrentMapZone then
+				-- Alternative method to gather some of the data. This will overwrite the hardcoded values above,
+				-- but does not return offset values.
+				zoneIndex = zoneIndices[name]
+				SetMapZoom(continentID, zoneIndex)
+				fileName = GetMapInfo()
+				local _, X1, Y1, X2, Y2 = GetCurrentMapZone()
+				local sizeInYards = X1 - X2 or 0
+				
+				zones[name].yards = sizeInYards
+				zones[name].texture = fileName
+			end
+			
+			if zoneIndex then
 				-- Revert map to current continent map for next zoneName lookup
 				SetMapZoom(continentID)
 				continentYards = zones[continentName].yards
@@ -6248,6 +6352,7 @@ do
 
 	SetMapToCurrentZone()
 
+	-- Fill the lookup tables
 	for k,v in pairs(zones) do
 		lows[k] = v.low or 0
 		highs[k] = v.high or 0

@@ -1,5 +1,14 @@
+[b]1.77[/b]
+*Fixed level range on location panel not showing in some cases. Also fixed the tooltip when level range isn't available (major cities).
+*Simplified the coords creation.
+*Added option to hide tooltip  while in combat (enabled by default).
+*Disabled Monochrome font flag (Still causing wow crashes).
+*Updated LibTourist-3.0 library.
+*Updated LibElvUIPlugin-1.0 library.
+
 [b]1.76[/b]
 *Ready for patch 5.2
+*Included Sortokk's LibElvUIPlugin
 *Added optional area level range in the location panel (user request)
 *Toggling transparency works without a reloadui.
 *Fixed panel appearance after pet combat, while mouseover is disabled.

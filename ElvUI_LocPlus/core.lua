@@ -20,6 +20,8 @@ local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, Pr
 local LPB = E:NewModule('LocationPlus');
 local DT = E:GetModule('DataTexts');
 local LSM = LibStub("LibSharedMedia-3.0");
+local EP = LibStub("LibElvUIPlugin-1.0")
+local addon = ...
 
 local tourist = LibStub("LibTourist-3.0");
 
@@ -82,7 +84,7 @@ local function LocStatus()
 end
 
 -- Dungeon coords
-function LocDungCoords(zone)
+local function LocDungCoords(zone)
 	local z, x, y = "", 0, 0;
 	local dcoords
 	
@@ -222,11 +224,12 @@ local function LocLevelRange(zoneText)
 	local low, high = tourist:GetLevel(zoneText)
 	if low >= 1 and high >= 1 then
 		local r, g, b = tourist:GetLevelColor(zoneText)
-		return string.format("|cff%02x%02x%02x (%d-%d)|r", r*255, g*255, b*255, low, high)
+		return string.format("|cff%02x%02x%02x (%d-%d)|r", r*255, g*255, b*255, low, high) or ""
 	end
+	return ""
 end
 
-function LocUpdateTooltip()
+function LPB:UpdateTooltip()
 	
 	local mapID = GetCurrentMapAreaID()
 	local zoneText = GetMapNameByID(mapID) or UNKNOWN;
@@ -250,7 +253,10 @@ function LocUpdateTooltip()
 	
     -- Zone level range
 	if E.db.locplus.ttlvl then
-		GameTooltip:AddDoubleLine(LEVEL_RANGE.." : ", LocLevelRange(zoneText), 1, 1, 1, r, g, b)
+		local checklvl = LocLevelRange(zoneText)
+		if checklvl ~= "" then
+			GameTooltip:AddDoubleLine(LEVEL_RANGE.." : ", checklvl, 1, 1, 1, r, g, b)
+		end
 	end
 	
 	-- Fishing
@@ -321,7 +327,13 @@ local function LocPanel_OnEnter(self,...)
 	GameTooltip:SetOwner(self, "ANCHOR_BOTTOM", 0, -4)
 	GameTooltip:ClearAllPoints()
 	GameTooltip:SetPoint("BOTTOM", self, "BOTTOM", 0, 0)
-	LocUpdateTooltip()
+	
+	if InCombatLockdown() and E.db.locplus.ttcombathide then
+		GameTooltip:Hide()
+	else
+		LPB:UpdateTooltip()
+	end
+	
 	if E.db.locplus.mouseover then
 		UIFrameFadeIn(self, 0.2, self:GetAlpha(), 1)
 	end
@@ -340,21 +352,29 @@ local function LocPanelOnFade()
 	LocationPlusPanel:Hide()
 end
 
+function LPB:CreateCoords()
+	local x, y = GetPlayerMapPosition("player")
+	local dig
+	
+	if E.db.locplus.dig then
+		dig = 2
+	else
+		dig = 0
+	end
+	
+	x = tonumber(E:Round(100 * x, dig))
+	y = tonumber(E:Round(100 * y, dig))
+	
+	return x, y
+end
+
 -- clicking the location panel
 local function LocPanel_OnClick(self, btn)
 	zoneText = GetRealZoneText() or UNKNOWN;
 	if btn == "LeftButton" then	
 		if IsShiftKeyDown() then
 			local edit_box = ChatEdit_ChooseBoxForSend()
-			local x, y = GetPlayerMapPosition("player")
-			local dig
-			if E.db.locplus.dig then
-				dig = 2
-			else
-				dig = 0
-			end
-			x = tonumber(E:Round(100 * x, dig))
-			y = tonumber(E:Round(100 * y, dig))
+			local x, y = LPB:CreateCoords()
 			local message
 			local coords = x..", "..y
 				if zoneText ~= GetSubZoneText() then
@@ -376,6 +396,8 @@ local function LocPanel_OnClick(self, btn)
 		end
 	end
 	if btn == "RightButton" then
+		--local ACD = LibStub("AceConfigDialog-3.0")
+		--ACD:SelectGroup("ElvUI", "locplus")
 		E:ToggleConfig()
 	end
 end
@@ -387,7 +409,7 @@ local function unpackColor(color)
 end
 
 -- Location panel
-function LPB:CreateMainLocPanel()
+function LPB:CreateLocPanel()
 	local loc_panel = CreateFrame('Frame', 'LocationPlusPanel', E.UIParent)
 	loc_panel:Width(E.db.locplus.lpwidth)
 	loc_panel:SetHeight(E.db.locplus.dtheight)
@@ -407,28 +429,26 @@ function LPB:CreateMainLocPanel()
 		local zoneText = GetRealZoneText() or UNKNOWN;
 		local displaylvl = LocLevelRange(zoneText) or ""
 		local displayLine
-		
-		-- zone, subzone and level range
+
+		-- zone and subzone
 		if E.db.locplus.both then
 			if (subZoneText ~= "") and (subZoneText ~= zoneText) then
 				displayLine = zoneText .. ": " .. subZoneText
-				if E.db.locplus.displayLevel then
-					if displaylvl ~= "" then
-						displayLine = displayLine..displaylvl
-					end
-				end
 			else
 				displayLine = subZoneText
 			end
 		else
 			displayLine = subZoneText
-			if E.db.locplus.displayLevel then
-				if displaylvl ~= "" then
-					displayLine = displayLine..displaylvl
-				end
+		end
+		
+		-- Show Level Range
+		if E.db.locplus.displayLevel then
+			if displaylvl ~= "" then
+				displayLine = displayLine..displaylvl
 			end
 		end
 		
+		-- Coloring
 		if displayLine ~= "" then
 			local inInstance, _ = IsInInstance()
 			
@@ -447,6 +467,7 @@ function LPB:CreateMainLocPanel()
 			end		
 		end
 		
+		-- Sizing
 		local fixedwidth = (E.db.locplus.lpwidth + 18)
 		local autowidth = (self.Text:GetStringWidth() + 18)
 		
@@ -496,7 +517,7 @@ function LPB:CreateMainLocPanel()
 	E:CreateMover(LocationPlusPanel, "LocationMover", L["LocationPlus "])
 end
 
-local function LocDtHide()
+local function LocHideDt()
 	if E.db.locplus.dtshow then
 		RightCoordDtPanel:Show()
 		LeftCoordDtPanel:Show()
@@ -507,7 +528,7 @@ local function LocDtHide()
 end
 
 -- mouse over option
-function LocMouseOver()
+function LPB:MouseOver()
 	if E.db.locplus.mouseover then
 		LocationPlusPanel:SetAlpha(E.db.locplus.malpha)
 	else
@@ -516,13 +537,13 @@ function LocMouseOver()
 end
 
 -- datatext panels width
-function LocPlusDTWidth()
+function LPB:DTWidth()
 	LeftCoordDtPanel:SetWidth(E.db.locplus.dtwidth)
 	RightCoordDtPanel:SetWidth(E.db.locplus.dtwidth)
 end
 
 -- all panels height
-function LocPlusDTHeight()
+function LPB:DTHeight()
 	if E.db.locplus.ht then
 		LocationPlusPanel:SetHeight((E.db.locplus.dtheight)+6)
 	else
@@ -557,11 +578,11 @@ function LPB:LocCoordPanelFont()
 end
 
 -- Enable/Disable shadows
-function AllLocPanelsShadow()
+function LPB:ShadowPanels()
 	local panelsToAddShadow = {LocationPlusPanel, XCoordsPanel, YCoordsPanel, LeftCoordDtPanel, RightCoordDtPanel}
 	
 	for _, frame in pairs(panelsToAddShadow) do
-	frame:CreateShadow('Default')
+		frame:CreateShadow('Default')
 		if E.db.locplus.shadow then
 			frame.shadow:Show()
 		else
@@ -585,7 +606,7 @@ function AllLocPanelsShadow()
 end
 
 -- Toggle transparency
-function AllLocPanelsTransparent()
+function LPB:TransparentPanels()
 	local panelsToAddTrans = {LocationPlusPanel, XCoordsPanel, YCoordsPanel, LeftCoordDtPanel, RightCoordDtPanel}
 	
 	for _, frame in pairs(panelsToAddTrans) do
@@ -601,7 +622,7 @@ function AllLocPanelsTransparent()
 end
 
 -- Coord panels
-function LPB:CreateLocCoordPanels()
+function LPB:CreateCoordPanels()
 
 	-- X Coord panel
 	local coordsX = CreateFrame('Frame', "XCoordsPanel", LocationPlusPanel)
@@ -619,32 +640,26 @@ function LPB:CreateLocCoordPanels()
 	coordsY.Text = YCoordsPanel:CreateFontString(nil, "LOW")
 	coordsY.Text:Point("CENTER", 1, 0)
 
-	LCoordsColor()
+	self:CoordsColor()
 
 	local ela = 0
 
 	local cUpdate = function(self,t)
 		ela = ela - t
 		if ela > 0 then return end
-			local x,y = GetPlayerMapPosition("player")
+			local x, y = LPB:CreateCoords()
 			local xt,yt
-			local dig
-			if E.db.locplus.dig then
-				dig = 2
+
+			if x == 0 and y == 0 then
+				coordsX.Text:SetText("-")
+				coordsY.Text:SetText("-")
 			else
-				dig = 0
+			if x < 10 then
+				xt = "0"..x
+			else
+				xt = x
 			end
-			x = tonumber(E:Round(100 * x, dig))
-			y = tonumber(E:Round(100 * y, dig))
-				if x == 0 and y == 0 then
-					coordsX.Text:SetText("-")
-					coordsY.Text:SetText("-")
-				else
-				if x < 10 then
-					xt = "0"..x
-				else
-					xt = x
-				end
+			
 			if y < 10 then
 				yt = "0"..y
 			else
@@ -661,7 +676,7 @@ function LPB:CreateLocCoordPanels()
 end
 
 -- Coord panels width
-function LCoordsDig()
+function LPB:CoordsDig()
 	if E.db.locplus.dig then
 		XCoordsPanel:SetWidth(COORDS_WIDTH*1.5)
 		YCoordsPanel:SetWidth(COORDS_WIDTH*1.5)
@@ -671,7 +686,7 @@ function LCoordsDig()
 	end
 end
 
-function LCoordsColor()
+function LPB:CoordsColor()
 	if E.db.locplus.customCoordsColor == 1 then
 		XCoordsPanel.Text:SetTextColor(unpackColor(E.db.locplus.userColor))
 		YCoordsPanel.Text:SetTextColor(unpackColor(E.db.locplus.userColor))			
@@ -685,7 +700,7 @@ function LCoordsColor()
 end
 
 -- Datatext panels
-function LPB:CreateLocDTPanels()
+function LPB:CreateDTPanels()
 
 	-- Left coords Datatext panel
 	left_dtp:SetWidth(E.db.locplus.dtwidth)
@@ -702,15 +717,15 @@ end
 
 -- Update changes
 function LPB:LocPlusUpdate()
-	AllLocPanelsTransparent()
-	AllLocPanelsShadow()
-	LocPlusDTHeight()
-	LocDtHide()
-	LCoordsDig()
-	LCoordsColor()
-	LocMouseOver()
+	self:TransparentPanels()
+	self:ShadowPanels()
+	self:DTHeight()
+	LocHideDt()
+	self:CoordsDig()
+	self:MouseOver()
 end
 
+-- Defaults in case something is wrong on first load
 function LPB:LocDefault()
 	if E.db.locplus.lpwidth == nil then
 		E.db.locplus.lpwidth = 200
@@ -737,10 +752,11 @@ end)
 
 function LPB:Initialize()
 	self:LocDefault()
-	self:CreateMainLocPanel()
-	self:CreateLocDTPanels()
-	self:CreateLocCoordPanels()
+	self:CreateLocPanel()
+	self:CreateDTPanels()
+	self:CreateCoordPanels()
 	self:LocPlusUpdate()
+	EP:RegisterPlugin(addon, LPB.AddOptions)
 	LocationPlusPanel:RegisterEvent("PLAYER_REGEN_DISABLED")
 	LocationPlusPanel:RegisterEvent("PLAYER_REGEN_ENABLED")
 	LocationPlusPanel:RegisterEvent("PET_BATTLE_CLOSE")
