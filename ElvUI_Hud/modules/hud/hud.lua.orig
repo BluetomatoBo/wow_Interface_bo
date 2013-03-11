@@ -209,15 +209,8 @@ function H:ConstructHudFrame(frame,unit)
 	frame:SetScript('OnEnter', UnitFrame_OnEnter)
 	frame:SetScript('OnLeave', UnitFrame_OnLeave)	
 	if frame.unit ~= 'target' then
-		frame:HookScript("OnHide",function(self)
-			if E.db.unitframe.hud.enabled and E.db.unitframe.hud.hideOOC and not InCombatLockdown() and E.db.unitframe.hud.units[frame.unit].enabled then
-				self:Show()
-				self:SetAlpha(0)
-			end
-		end)
-		frame:HookScript("OnEnter",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
-	    frame:HookScript("OnLeave",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
-	    frame:HookScript("OnShow",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+		frame:HookScript("OnEnter",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:ForceShow(frame) end end)
+	    frame:HookScript("OnLeave",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:ForceHide(frame) end end)
 	end
 	frame.menu = UF.SpawnMenu
 	frame.db = self.db.units[unit]
@@ -242,13 +235,6 @@ function H:UpdateFrame(unit)
 		frame:EnableMouse(self.db.hideElv or self.db.enableMouse)
 		frame:Enable()
 		frame:SetAlpha(self.db.alpha)
-		local event
-		if InCombatLockdown() then
-			event = "PLAYER_REGEN_DISABLED"
-		else
-			event = "PLAYER_REGEN_ENABLED"
-		end
-		if self.db.hideOOC then H:Hide(frame, event) end
 		if not frame.AuraBars then frame.AuraBars = frame.DummyAuraBars end
 		self:UpdateAllElements(frame)
 		self:UpdateAllElementAnchors(frame)
@@ -485,11 +471,9 @@ function H:ComboLayout()
 	end
 	self.db.units.player.health.enabled = true
 	self.db.units.player.castbar.enabled = true
-	self.db.units.player.aurabars.enabled = true
 	self.db.units.target.health.enabled = true
 	self.db.units.target.name.enabled = true
 	self.db.units.target.raidicon.enabled = true
-	self.db.units.target.aurabars.enabled = true
 	self.db.units.target.castbar.enabled = true
 	self.db.units.pet.health.enabled = true
 	self.db.units.player.horizCastbar = true
@@ -497,7 +481,18 @@ function H:ComboLayout()
 	local db = E.db['unitframe']['units']
 	db.player.castbar.enable = false
 	db.target.castbar.enable = false
-	db.player.aurabar.enable = false
-	db.target.aurabar.enable = false
+	local ma,ea
+	if E.db.layoutSet and E.db.layoutSet == 'healer' then
+		ma = false
+		ea = true
+	else
+		ma = true
+		ea = false
+	end
+
+	self.db.units.player.aurabars.enabled = ma
+	self.db.units.target.aurabars.enabled = ma
+	db.player.aurabar.enable = ea
+	db.target.aurabar.enable = ea
 	UF:Update_AllFrames()
 end

@@ -12,6 +12,12 @@ H.frames = {}
 E.db.unitframe.hud = {}
 E.Hud = H
 
+if not H.CombatParent then
+    local f = CreateFrame("FRAME", "ElvUIHudCombatStateDriver", UIParent, "SecureHandlerStateTemplate")
+    RegisterStateDriver(f, "visibility", "[combat] show; hide")
+    H.CombatParent = f
+end
+
 function H:updateAllElements(frame)
     for _, v in ipairs(frame.__elements) do
         v(frame, "UpdateElement", frame.unit)
@@ -77,6 +83,25 @@ function H:Hide(frame,event)
     H.fading = false
 end
 
+local function __UpdateVis(frame,parent,hiding)
+    if hiding then
+        H:Hide(frame,"PLAYER_REGEN_ENABLED")
+        frame:Hide()
+    else
+        frame:Show()
+        H:Hide(frame,"PLAYER_REGEN_DISABLED")
+    end
+    frame:SetParent(parent)
+end
+
+function H:ForceShow(frame)
+    __UpdateVis(frame, E.UIParent, false)
+end
+
+function H:ForceHide(frame)
+    __UpdateVis(frame, H.CombatParent, true)
+end
+
 local frames = { }
 
 function H:HideOOC(frame)
@@ -138,25 +163,12 @@ end
 
 function H:EnableHide(frame)
     if frame.unit == 'target' then return end
-    local hider = frame.hud_hider
-    if not hider then
-        hider = CreateFrame("Frame",nil,UIParent)
-        frame.hud_hider = hider
-    end
-    hider:RegisterEvent("PLAYER_REGEN_DISABLED")
-    hider:RegisterEvent("PLAYER_REGEN_ENABLED")
-    hider:RegisterEvent("PLAYER_ENTERING_WORLD")
-    hider:SetScript("OnEvent", function(self,event) H:Hide(frame,event) end)
+    frame:SetParent(H.CombatParent)
 end
 
 function H:DisableHide(frame)
     if frame.unit == 'target' then return end
-    local hider = frame.hud_hider
-    if not hider then return end
-    hider:UnregisterEvent("PLAYER_REGEN_DISABLED")
-    hider:UnregisterEvent("PLAYER_REGEN_ENABLED")
-    hider:UnregisterEvent("PLAYER_ENTERING_WORLD")
-    hider:SetScript("OnEvent", nil)
+    frame:SetParent(E.UIParent)
 end
 
 function H:AuraBarsSuck()
@@ -177,7 +189,6 @@ function H:Enable()
             H:EnableFrame(f,self.db.alpha,self.db.enableMouse)
             if self.db.hideOOC then            
                 self:EnableHide(f)
-                H:Hide(f,"PLAYER_REGEN_ENABLED")
             end
         end
     end
