@@ -44,7 +44,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 8856 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 8880 $"):sub(12, -3)),
 	DisplayVersion = "5.2 語音增強版", -- the string that is shown as version
 	ReleaseRevision = 8828 -- the revision of the latest stable version that is available
 }
@@ -101,6 +101,8 @@ DBM.DefaultOptions = {
 	ShowLHFrame = true,
 	AlwaysShowHealthFrame = false,
 	ShowBigBrotherOnCombatStart = false,
+	AutologBosses = false,
+	AdvancedAutologBosses = false,
 	UseMasterVolume = true,
 	EnableModels = true,
 	RangeFrameFrames = "radar",
@@ -1905,6 +1907,15 @@ end
 --  Handle Incoming Syncs  --
 -----------------------------
 do
+	local function checkForActualPull()
+		if DBM.Options.AutologBosses and LoggingCombat() and #inCombat == 0 then
+			LoggingCombat(0)
+		end
+		if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
+			Transcriptor:StopLog()
+		end
+	end
+
 	local syncHandlers = {}
 	local whisperSyncHandlers = {}
 
@@ -2013,6 +2024,16 @@ do
 		end
 		if not DBM.Options.DontShowPTCountdownText then
 			TimerTracker_OnEvent(TimerTracker, "START_TIMER", 2, timer, timer)--Hopefully this doesn't taint. Initial tests show positive even though it is an intrusive way of calling a blizzard timer. It's too bad the max value doesn't seem to actually work
+		end
+		if DBM.Options.AutologBosses and not LoggingCombat() then--Start logging here to catch pre pots.
+			LoggingCombat(1)
+			DBM:Unschedule(checkForActualPull)
+			DBM:Schedule(timer+10, checkForActualPull)--But if pull was canceled and we don't have a boss engaged within 10 seconds of pull timer ending, abort log
+		end
+		if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
+			Transcriptor:StartLog()
+			DBM:Unschedule(checkForActualPull)
+			DBM:Schedule(timer+10, checkForActualPull)--But if pull was canceled and we don't have a boss engaged within 10 seconds of pull timer ending, abort log
 		end
 	end
 
@@ -2742,6 +2763,7 @@ function DBM:StartCombat(mod, delay, synced)
 			sendSync("C", (delay or 0).."\t"..mod.id.."\t"..(mod.revision or 0))
 		end
 		fireEvent("pull", mod, delay, synced)
+		DBM:ToggleRaidBossEmoteFrame(1)
 		if DBM.Options.ShowBigBrotherOnCombatStart and BigBrother and type(BigBrother.ConsumableCheck) == "function" then
 			if DBM.Options.BigBrotherAnnounceToRaid then
 				BigBrother:ConsumableCheck("RAID")
@@ -2749,7 +2771,12 @@ function DBM:StartCombat(mod, delay, synced)
 				BigBrother:ConsumableCheck("SELF")
 			end
 		end
-		DBM:ToggleRaidBossEmoteFrame(1)
+		if DBM.Options.AutologBosses and not LoggingCombat() then
+			LoggingCombat(1)
+		end
+		if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
+			Transcriptor:StartLog()
+		end
 	end
 end
 
@@ -2941,6 +2968,12 @@ function DBM:EndCombat(mod, wipe)
 		DBM.BossHealth:Hide()
 		DBM.Arrow:Hide(true)
 		DBM:ToggleRaidBossEmoteFrame(0)
+		if DBM.Options.AutologBosses and LoggingCombat() then
+			LoggingCombat(0)
+		end
+		if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
+			Transcriptor:StopLog()
+		end
 	end
 end
 
