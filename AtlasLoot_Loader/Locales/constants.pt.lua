@@ -1,4 +1,4 @@
-﻿-- $Id: constants.pt.lua 4089 2013-02-20 15:53:11Z dynaletik $
+﻿-- $Id: constants.pt.lua 4133 2013-03-09 07:45:03Z hegarol $
 --[[
 constants.pt.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -880,8 +880,6 @@ if AL then
 	AL["Ogre Tannin Basket"] = "Cesta de Ogro Tanino";
 	AL["Unfinished Painting"] = "Pintura Interminada"; --Comprobar
 	AL["Felvine Shard"] = "Fragmento de Vinhavil";
-	AL["Lorgalis Manuscript"] = "Manuscrito de Lorgalis";
-	AL["Fathom Core"] = "Núcleo das Profundezas";
 	AL["Gift of Adoration"] = "Presente de adoração";
 	AL["Treat Bag"] = "Bolsa de Prêmios";
 	AL["Timed Reward Chest"] = "Baú de Recompensa de Tempo"; --Comprobar

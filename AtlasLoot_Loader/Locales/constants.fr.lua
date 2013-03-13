@@ -1,4 +1,4 @@
-﻿-- $Id: constants.fr.lua 4118 2013-03-03 12:33:14Z TrAsHeR $
+﻿-- $Id: constants.fr.lua 4147 2013-03-12 19:29:57Z TrAsHeR $
 --[[
 constants.fr.lua --- Traduction frFR par TrAsHeR. Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
@@ -381,6 +381,10 @@ if AL then
 	--AL["ilvl 397"] = true;
 	--AL["ilvl 470"] = true;
 	--AL["ilvl 490"] = true;
+	--AL["ilvl 489"] = true;
+	--AL["ilvl 493"] = true;
+	--AL["ilvl 496"] = true;
+	--AL["ilvl 512"] = true;
 
 	-- PvP Menu
 	AL["Arathi Basin Sets"] = "Sets du Bassin d'Arathi";
@@ -620,7 +624,7 @@ if AL then
 	AL["Pandaria World Bosses"] = "World Boss de Pandarie";
 	--AL["Elite"] = true;
 	AL["Vegetables"] = "Légumes";
-	AL["Thunderforged"] = "Foudroyants"; -- à traduire
+	AL["Thunderforged"] = "Foudroyant";
 
 	-- Loot Table Names
 	AL["Level %s"] = "Niveau %s"; -- usage: string.format(AL["Level %s"], "85-89")
@@ -1058,6 +1062,8 @@ if AL then
 	AL["Crusader's Square"] = "Place des Croisés";
 	AL["The Gauntlet"] = "Le Défi";
 	AL["Halfhill Farm"] = "Marché de Micolline";
+	AL["Domination Point"] = "Halte de la Domination";
+	AL["Lion's Landing"] = "Le territoire du Lion";
 
 	-- Shortcuts for Bossname files
 	--AL["Avatar"] = true; -- Avatar of the Martyred
@@ -1070,8 +1076,6 @@ if AL then
 	AL["Ogre Tannin Basket"] = "Panier Ogre de tannin";
 	AL["Unfinished Painting"] = "Toile inachevée";
 	AL["Felvine Shard"] = "Fragment de la Gangrevigne"; --- If still in game, should be used in IngameLocales
-	AL["Lorgalis Manuscript"] = "Manuscrit de Lorgalis"; --- If still in game, should be used in IngameLocales
-	AL["Fathom Core"] = "Noyau de la Brasse"; --- If still in game, should be used in IngameLocales
 	AL["Gift of Adoration"] = "Cadeau d'adoration"; --- If still in game, should be used in IngameLocales
 	AL["Treat Bag"] = "Sac de friandises"; --- If still in game, should be used in IngameLocales
 	AL["The Cache of Madness"] = "L'antre de la Folie";

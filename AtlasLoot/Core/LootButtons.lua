@@ -1,4 +1,4 @@
-﻿-- $Id: LootButtons.lua 4086 2013-02-20 08:53:34Z dynaletik $
+﻿-- $Id: LootButtons.lua 4138 2013-03-10 18:33:08Z lag123 $
 local _
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot")
@@ -681,7 +681,6 @@ do
 							else
 								if type(v[2]) == "number" then
 									icon = select(3, GetCurrencyInfo(v[2]))
-									icon = "Interface\\Icons\\"..icon
 								else
 									icon = GetItemIcon(CURRENCY_PRICE[v[2]].itemID)
 								end
@@ -768,13 +767,11 @@ do
 			local icon
 			--if type(isPrice[2]) == "number" then
 			--	icon = select(3, GetCurrencyInfo(isPrice[2]))
-			--	icon = "Interface\\Icons\\"..icon
 			--else
 			--	icon = GetItemIcon(CURRENCY_PRICE[isPrice[2]].itemID)
 			--end
 			if type(priceTab[1][2]) == "number" then
 				icon = select(3, GetCurrencyInfo(priceTab[1][2]))
-				icon = "Interface\\Icons\\"..icon
 			else
 				icon = GetItemIcon(CURRENCY_PRICE[priceTab[1][2]].itemID)
 			end
@@ -1220,6 +1217,7 @@ function AltasLootItemButton:SetAmount(amount)
 end
 
 function AltasLootItemButton:CheckBonusRoll(enabled)
+	if not AtlasLoot.CanShowBonusRoll then return end
 	if self.type ~= "ItemIcon" then return end
 	for k,v in ipairs(self.Frame.BonusRoll) do
 		v:Hide()
@@ -1576,7 +1574,7 @@ do
 					if( priority ~= nil and priority ~= "" ) then
 						AtlasLootTooltip:AddLine(GREEN..AL["Priority:"].." "..priority, 1, 1, 0);
 					end
-					if AtlasLoot.db.profile.ShowBonusRollInfoInTT and self.par.Specs then
+					if AtlasLoot.db.profile.ShowBonusRollInfoInTT and self.par.Specs and self.par.SpecsTT then
 						if not self.par.SpecsTT then
 							self.par:CheckBonusRoll(AtlasLoot.db.profile.BonusRollEnabled)
 						end

@@ -1,4 +1,4 @@
--- $Id: burningcrusade.lua 4069 2013-02-09 21:34:59Z lag123 $
+-- $Id: burningcrusade.lua 4133 2013-03-09 07:45:03Z hegarol $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -473,9 +473,8 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 3, 22543, "", "=q2=Formula: Enchant Boots - Fortitude", "=ds=#p4# (320) =q1="..AL["Ethereal Priest"], "", "0.52%"};
 				{ 5, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["Sethekk Halls"]};
 				{ 6, 25731, "", "=q3=Pattern: Stylin' Crimson Hat", "=ds=#p7# (350) =q1="..AL["Sethekk Ravenguard"], "", "0.46%"};
-				{ 7, 29669, "", "=q2=Pattern: Shadow Armor Kit", "=ds=#p7# (340) =q1="..AL["Time-Lost Shadowmage"], "", "0.39%"};
-				{ 9, 0, "INV_Box_01", "=q6="..AL["The Saga of Terokk"], "=q5="..BabbleZone["Sethekk Halls"]};
-				{ 10, 27634, "", "=q1=The Saga of Terokk", "=ds=#m3#"};
+				{ 8, 0, "INV_Box_01", "=q6="..AL["The Saga of Terokk"], "=q5="..BabbleZone["Sethekk Halls"]};
+				{ 9, 27634, "", "=q1=The Saga of Terokk", "=ds=#m3#"};
 				{ 16, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["Auchenai Crypts"]};
 				{ 17, 23605, "", "=q3=Plans: Felsteel Gloves", "=ds=#p2# (360), =q1="..AL["Auchenai Monk"], "", "0.69%"};
 				{ 18, 22544, "", "=q2=Formula: Enchant Boots - Dexterity", "=ds=#p4# (340) =q1="..AL["Raging Skeleton"], "", "0.60%"};
@@ -904,7 +903,6 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 27993, "", "=q3=Mask of Inner Fire", "=ds=#s1#, #a3#", "", "13.84%"};
 				{ 5, 27996, "", "=q3=Ring of Spiritual Precision", "=ds=#s13#", "", "14.45%"};
 				{ 6, 27987, "", "=q3=Melmorta's Twilight Longbow", "=ds=#w2#", "", "11.51%"};
-				{ 8, 29675, "", "=q2=Pattern: Arcane Armor Kit", "=ds=#p7# (340)", "", "0.35%"};
 				{ 16, 0, "INV_Box_01", "=q6=#j27#", ""};
 				{ 17, 30558, "", "=q4=Stalwart Fire Opal", "=ds=#e7#"};
 				{ 18, 30556, "", "=q4=Glinting Tanzanite", "=ds=#e7#"};
@@ -1134,7 +1132,6 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 24360, "", "=q3=Tracker's Belt", "=ds=#s10#, #a3#", "", "11.07%"};
 				{ 5, 24356, "", "=q3=Wastewalker Shiv", "=ds=#h1#, #w4#", "", "12.47%"};
 				{ 6, 24361, "", "=q3=Spellfire Longsword", "=ds=#h3#, #w10#", "", "11.07%"};
-				{ 8, 29674, "", "=q2=Pattern: Nature Armor Kit", "=ds=#p7# (340)", "", "0.80%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 30604, "", "=q4=Resplendent Fire Opal", "=ds=#e7#", "", "22.49%"};
 				{ 18, 30605, "", "=q4=Nimble Chrysoprase", "=ds=#e7#", "", "9.39%"};
@@ -1144,7 +1141,6 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 23, 27541, "", "=q3=Archery Belt of the Broken", "=ds=#s10#, #a3#", "", "12.75%"};
 				{ 24, 27546, "", "=q3=Traitor's Noose", "=ds=#s2#", "", "13.75%"};
 				{ 25, 27543, "", "=q3=Starlight Dagger", "=ds=#h3#, #w4#", "", "20.00%"};
-				{ 27, 29674, "", "=q2=Pattern: Nature Armor Kit", "=ds=#p7# (340)", "", "0.80%"};
 			};
 		};
 		info = {
@@ -1235,8 +1231,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 27787, "", "=q3=Chestguard of No Remorse", "=ds=#s5#, #a2#", "", "17.65%"};
 				{ 5, 27783, "", "=q3=Moonrage Girdle", "=ds=#s10#, #a2#", "", "18.71%"};
 				{ 6, 27784, "", "=q3=Scintillating Coral Band", "=ds=#s13#", "", "16.72%"};
-				{ 8, 29673, "", "=q2=Pattern: Frost Armor Kit", "=ds=#p7# (340)", "", "0.60%"};
-				{ 10, 30828, "", "=q1=Vial of Underworld Loam", "=ds=#m3#", "", "100%"};
+				{ 8, 30828, "", "=q1=Vial of Underworld Loam", "=ds=#m3#", "", "100%"};
 				{ 16, 0, "INV_Box_01", "=q6=#j27#", ""};
 				{ 17, 30550, "", "=q4=Misty Chrysoprase", "=ds=#e7#", "", "8.59%"};
 				{ 18, 30551, "", "=q4=Reckless Fire Opal", "=ds=#e7#", "", "6.64%"};
@@ -1310,7 +1305,6 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 1, 24159, "", "=q3=Design: Khorium Band of Frost", "=ds=#p12# (355) =q1="..AL["Coilfang Sorceress"], "", "0.14%"};
 				{ 3, 22533, "", "=q2=Formula: Enchant Bracer - Fortitude", "=ds=#p4# (350) =q1="..AL["Coilfang Oracle"], "", "0.40%"};
 				{ 5, 24367, "", "=q1=Orders from Lady Vashj", "=ds=#m2#"};
-				{ 6, 24368, "", "=q1=Coilfang Armaments", "=ds=#m3#", "", "12.68%"};
 				{ 16, 0, "INV_Box_01", "=q6="..AL["Second Fragment Guardian"], "=q5="..BabbleZone["The Steamvault"]};
 				{ 17, 24487, "", "=q1=Second Key Fragment", "=ds=#m3#", "", "100%"};
 			};
@@ -2434,7 +2428,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 34791, "", "=q3=Gauntlets of the Tranquil Waves", "=ds=#s9#, #a3#", "", "16%"};
 				{ 5, 34789, "", "=q3=Bracers of Slaughter", "=ds=#s8#, #a4#", "", "17%"};
 				{ 6, 34790, "", "=q3=Battle-Mace of the High Priestess", "=ds=#h3#, #w6#", "", "16%"};
-				{ 8, 35756, "", "=q3=Formula: Enchant Cloak - Steelweave", "=ds=#p4# (375)", "", "14%"};
+				{ 8, 35756, "", "=q3=Formula: Enchant Cloak - Greater Dodge", "=ds=#p4# (375)", "", "14%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 34473, "", "=q4=Commendation of Kael'thas", "=ds=#s14#", "", "19%"};
 				{ 18, 34472, "", "=q4=Shard of Contempt", "=ds=#s14#", "", "19%"};
@@ -2464,7 +2458,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 18, 34795, "", "=q3=Helm of Sanctification", "=ds=#s1#, #a4#", "", "5%"};
 				{ 19, 34798, "", "=q3=Band of Celerity", "=ds=#s13#", "", "5%"};
 				{ 20, 34794, "", "=q3=Axe of Shattered Dreams", "=ds=#h2#, #w1#", "", "5%"};
-				{ 21, 34797, "", "=q3=Sun-infused Focus Staff", "=ds=#w9#", "", "14%"};
+				{ 21, 34797, "", "=q3=Sun-Infused Focus Staff", "=ds=#w9#", "", "14%"};
 				{ 22, 35504, "", "=q3=Phoenix Hatchling", "=ds=#e13#", "", "7%"};
 			};
 		};
@@ -2659,7 +2653,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 5, 34340, "", "=q4=Dark Conjuror's Collar", "=ds=#s1#, #a1#", "", "20%"};
 				{ 6, 34342, "", "=q4=Handguards of the Dawn", "=ds=#s9#, #a1#", "", "19%"};
 				{ 7, 34406, "", "=q4=Gloves of Tyri's Power", "=ds=#m29#"};
-				{ 8, 34344, "", "=q4=Handguards of the Defiled Worlds", "=ds=#s9#, #a1#", "", "22%"};
+				{ 8, 34344, "", "=q4=Handguards of Defiled Worlds", "=ds=#s9#, #a1#", "", "22%"};
 				{ 9, 34244, "", "=q4=Duplicitous Guise", "=ds=#s1#, #a2#", "", "17%"};
 				{ 10, 34404, "", "=q4=Mask of the Fury Hunter", "=ds=#m29#"};
 				{ 11, 34245, "", "=q4=Cover of Ursol the Wise", "=ds=#s1#, #a2#", "", "14%"};
@@ -2694,7 +2688,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 1, 35212, "", "=q4=Pattern: Leather Gauntlets of the Sun", "=ds=#p7# (365)"};
 				{ 2, 35216, "", "=q4=Pattern: Leather Chestguard of the Sun", "=ds=#p7# (365)"};
 				{ 3, 35213, "", "=q4=Pattern: Fletcher's Gloves of the Phoenix", "=ds=#p7# (365)"};
-				{ 4, 35217, "", "=q4=Pattern: Pattern: Embrace of the Phoenix", "=ds=#p7# (365)"};
+				{ 4, 35217, "", "=q4=Pattern: Embrace of the Phoenix", "=ds=#p7# (365)"};
 				{ 5, 35214, "", "=q4=Pattern: Gloves of Immortal Dusk", "=ds=#p7# (365)"};
 				{ 6, 35218, "", "=q4=Pattern: Carapace of Sun and Shadow", "=ds=#p7# (365)"};
 				{ 7, 35215, "", "=q4=Pattern: Sun-Drenched Scale Gloves", "=ds=#p7# (365)"};
@@ -2869,10 +2863,9 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 16, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["The Arcatraz"]};
 				{ 17, 23606, "", "=q3=Plans: Felsteel Leggings", "=ds=#p2# (360), =q1="..AL["Unchained Doombringer"], "", "3.93%"};
 				{ 18, 22556, "", "=q2=Formula: Enchant 2H Weapon - Major Agility", "=ds=#p4# (360) =q1="..AL["Eredar Deathbringer"], "", "1.68%"};
-				{ 19, 29672, "", "=q2=Pattern: Flame Armor Kit", "=ds=#p7# (340) =q1="..AL["Gargantuan Abyssal"], "", "1.84%"};
-				{ 20, 21905, "", "=q2=Pattern: Arcanoweave Bracers", "=ds=#p8# (350) =q1="..AL["Arcatraz Sentinel"], "", "1.21%"};
-				{ 22, 0, "INV_Box_01", "=q6="..AL["Third Fragment Guardian"], "=q5="..BabbleZone["The Arcatraz"]};
-				{ 23, 24488, "", "=q1=Third Key Fragment", "=ds=#m3#", "", "100%"};
+				{ 19, 21905, "", "=q2=Pattern: Arcanoweave Bracers", "=ds=#p8# (350) =q1="..AL["Arcatraz Sentinel"], "", "1.21%"};
+				{ 21, 0, "INV_Box_01", "=q6="..AL["Third Fragment Guardian"], "=q5="..BabbleZone["The Arcatraz"]};
+				{ 22, 24488, "", "=q1=Third Key Fragment", "=ds=#m3#", "", "100%"};
 			};
 		};
 		info = {
@@ -3146,7 +3139,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 2, 29918, "", "=q4=Mindstorm Wristbands", "=ds=#s8#, #a1#", "", "22%"};
 				{ 3, 29947, "", "=q4=Gloves of the Searing Grip", "=ds=#s9#, #a2#", "", "23%"};
 				{ 4, 29921, "", "=q4=Fire Crest Breastplate", "=ds=#s5#, #a3#", "", "20%"};
-				{ 5, 29922, "", "=q4=Band of Al'Ar", "=ds=#s13#", "", "21%"};
+				{ 5, 29922, "", "=q4=Band of Al'ar", "=ds=#s13#", "", "21%"};
 				{ 6, 29920, "", "=q4=Phoenix-Ring of Rebirth", "=ds=#s13#", "", "21%"};
 				{ 7, 30448, "", "=q4=Talon of Al'ar", "=ds=#s14#, =q1=#m1# =ds=#c2#", "", "22%"};
 				{ 8, 30447, "", "=q4=Tome of Fiery Redemption", "=ds=#s14#, =q1=#m1# =ds=#c4#", "", "21%"};
@@ -3343,13 +3336,12 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 19, 25835, "", "=q3=Explorer's Walking Stick", "=ds=#w9#"};
 				{ 20, 25735, "", "=q3=Pattern: Heavy Clefthoof Vest", "=ds=#p7# (360)"};
 				{ 21, 25736, "", "=q3=Pattern: Heavy Clefthoof Leggings", "=ds=#p7# (355)"};
-				{ 22, 29194, "", "=q2=Arcanum of Nature Warding", "#s1# #e17#"};
-				{ 23, 25869, "", "=q1=Recipe: Transmute Earthstorm Diamond", "=ds=#p1# (350)"};
-				{ 24, 32070, "", "=q1=Recipe: Earthen Elixir", "=ds=#p1# (320)"};
-				{ 25, 23618, "", "=q1=Plans: Adamantite Sharpening Stone", "=ds=#p2# (350)"};
-				{ 26, 28632, "", "=q1=Plans: Adamantite Weightstone", "=ds=#p2# (350)"};
-				{ 27, 25526, "", "=q1=Plans: Greater Rune of Warding", "=ds=#p2# (350)"};
-				{ 28, 29720, "", "=q1=Pattern: Clefthide Leg Armor", "=ds=#p7# (335)"};
+				{ 22, 25869, "", "=q1=Recipe: Transmute Earthstorm Diamond", "=ds=#p1# (350)"};
+				{ 23, 32070, "", "=q1=Recipe: Earthen Elixir", "=ds=#p1# (320)"};
+				{ 24, 23618, "", "=q1=Plans: Adamantite Sharpening Stone", "=ds=#p2# (350)"};
+				{ 25, 28632, "", "=q1=Plans: Adamantite Weightstone", "=ds=#p2# (350)"};
+				{ 26, 25526, "", "=q1=Plans: Greater Rune of Warding", "=ds=#p2# (350)"};
+				{ 27, 29720, "", "=q1=Pattern: Clefthide Leg Armor", "=ds=#p7# (335)"};
 			};
 			{
 				{ 1, 0, "INV_Misc_Ammo_Arrow_02", "=q6=#r4#", ""};
@@ -3358,9 +3350,8 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 29174, "", "=q3=Watcher's Cowl", "=ds=#s1#, #a1#"};
 				{ 5, 29173, "", "=q3=Strength of the Untamed", "=ds=#s2#"};
 				{ 6, 24183, "", "=q3=Design: Nightseye Panther", "=ds=#p12# (370)"};
-				{ 7, 29192, "", "=q2=Arcanum of Ferocity", "=ds=#s1# #e17#"};
-				{ 8, 22918, "", "=q2=Recipe: Transmute Primal Water to Air", "=ds=#p1# (350)"};
-				{ 9, 28271, "", "=q2=Formula: Enchant Gloves - Spell Strike", "=ds=#p4# (360)"};
+				{ 7, 22918, "", "=q2=Recipe: Transmute Primal Water to Air", "=ds=#p1# (350)"};
+				{ 8, 28271, "", "=q2=Formula: Enchant Gloves - Spell Strike", "=ds=#p4# (360)"};
 				{ 16, 0, "INV_Misc_Ammo_Arrow_02", "=q6=#r5#", ""};
 				{ 17, 29170, "", "=q4=Windcaller's Orb", "=ds=#s15#"};
 				{ 18, 29172, "", "=q4=Ashyen's Gift", "=ds=#s13#"};
@@ -3392,33 +3383,29 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 2, 29213, "", "=q3=Pattern: Felstalker Belt", "=ds=#p7# (350)"};
 				{ 3, 23142, "", "=q2=Design: Regal Deep Peridot", "=ds=#p12# (315)"};
 				{ 4, 22531, "", "=q1=Formula: Enchant Bracer - Superior Healing", "=ds=#p4# (325)"};
-				{ 5, 24007, "", "=q1=Footman's Waterskin", "=ds=#e4#"};
-				{ 6, 24008, "", "=q1=Dried Mushroom Rations", "=ds=#e3#"};
-				{ 16, 0, "INV_BannerPVP_02", "=q6=#r3#", ""};
-				{ 17, 25826, "", "=q3=Sage's Band", "=ds=#s13#"};
-				{ 18, 25825, "", "=q3=Footman's Longsword", "=ds=#h1#, #w10#"};
-				{ 19, 29214, "", "=q3=Pattern: Felstalker Bracers", "=ds=#p7# (360)"};
-				{ 20, 29215, "", "=q3=Pattern: Felstalker Breastplate", "=ds=#p7# (360)"};
-				{ 21, 29196, "", "=q2=Arcanum of Fire Warding", "=ds=#s1# #e17#"};
-				{ 22, 25870, "", "=q1=Recipe: Transmute Skyfire Diamond", "=ds=#p1# (350)"};
-				{ 23, 22905, "", "=q1=Recipe: Elixir of Major Agility", "=ds=#p1# (330)"};
-				{ 24, 29719, "", "=q1=Pattern: Cobrahide Leg Armor", "=ds=#p7# (335)"};
-			};
-			{
-				{ 1, 0, "INV_BannerPVP_02", "=q6=#r4#", ""};
-				{ 2, 29169, "", "=q3=Ring of Convalescence", "=ds=#s13#"};
-				{ 3, 29166, "", "=q3=Hellforged Halberd", "=ds=#w7#"};
-				{ 4, 24180, "", "=q3=Design: Dawnstone Crab", "=ds=#p12# (370)"};
-				{ 5, 29189, "", "=q2=Arcanum of Renewal", "=ds=#s1# #e17#"};
-				{ 6, 22547, "", "=q1=Formula: Enchant Chest - Exceptional Stats", "=ds=#p4# (345)"};
-				{ 16, 0, "INV_BannerPVP_02", "=q6=#r5#", ""};
-				{ 17, 29153, "", "=q4=Blade of the Archmage", "=ds=#h3#, #w10#"};
-				{ 18, 29156, "", "=q4=Honor's Call", "=ds=#h1#, #w10#"};
-				{ 19, 29151, "", "=q4=Veteran's Musket", "=ds=#w5#"};
-				{ 20, 33150, "", "=q3=Formula: Enchant Cloak - Subtlety", "=ds=#p4# (300)"};
-				{ 21, 23619, "", "=q1=Plans: Felsteel Shield Spike", "=ds=#p2# (360)"};
-				{ 22, 29722, "", "=q1=Pattern: Nethercobra Leg Armor", "=ds=#p7# (365)"};
-				{ 23, 23999, "", "=q1=Honor Hold Tabard", "=ds=#s7#"};
+				{ 5, 24007, "", "=q1=Footman's Waterskin", "=ds=#e4#", amount = 5};
+				{ 6, 24008, "", "=q1=Dried Mushroom Rations", "=ds=#e3#", amount = 5};
+				{ 8, 0, "INV_BannerPVP_02", "=q6=#r3#", ""};
+				{ 9, 25826, "", "=q3=Sage's Band", "=ds=#s13#"};
+				{ 10, 25825, "", "=q3=Footman's Longsword", "=ds=#h1#, #w10#"};
+				{ 11, 29214, "", "=q3=Pattern: Felstalker Bracers", "=ds=#p7# (360)"};
+				{ 12, 29215, "", "=q3=Pattern: Felstalker Breastplate", "=ds=#p7# (360)"};
+				{ 13, 25870, "", "=q1=Recipe: Transmute Skyfire Diamond", "=ds=#p1# (350)"};
+				{ 14, 22905, "", "=q1=Recipe: Elixir of Major Agility", "=ds=#p1# (330)"};
+				{ 15, 29719, "", "=q1=Pattern: Cobrahide Leg Armor", "=ds=#p7# (335)"};
+				{ 16, 0, "INV_BannerPVP_02", "=q6=#r4#", ""};
+				{ 17, 29169, "", "=q3=Ring of Convalescence", "=ds=#s13#"};
+				{ 18, 29166, "", "=q3=Hellforged Halberd", "=ds=#w7#"};
+				{ 19, 24180, "", "=q3=Design: Dawnstone Crab", "=ds=#p12# (370)"};
+				{ 20, 22547, "", "=q1=Formula: Enchant Chest - Exceptional Stats", "=ds=#p4# (345)"};
+				{ 23, 0, "INV_BannerPVP_02", "=q6=#r5#", ""};
+				{ 24, 29153, "", "=q4=Blade of the Archmage", "=ds=#h3#, #w10#"};
+				{ 25, 29156, "", "=q4=Honor's Call", "=ds=#h1#, #w10#"};
+				{ 26, 29151, "", "=q4=Veteran's Musket", "=ds=#w5#"};
+				{ 27, 33150, "", "=q3=Formula: Enchant Cloak - Subtlety", "=ds=#p4# (300)"};
+				{ 28, 23619, "", "=q1=Plans: Felsteel Shield Spike", "=ds=#p2# (360)"};
+				{ 29, 29722, "", "=q1=Pattern: Nethercobra Leg Armor", "=ds=#p7# (365)"};
+				{ 30, 23999, "", "=q1=Honor Hold Tabard", "=ds=#s7#"};
 			};
 		};
 		info = {
@@ -3514,26 +3501,23 @@ local moduleName = "AtlasLootBurningCrusade"
 			{
 				{ 1, 0, "Ability_Rogue_MasterOfSubtlety", "=q6=#r2#", ""};
 				{ 2, 23138, "", "=q2=Design: Potent Flame Spessarite", "=ds=#p12# (325)"};
-				{ 6, 0, "Ability_Rogue_MasterOfSubtlety", "=q6=#r4#", ""};
-				{ 7, 30836, "", "=q3=Leggings of the Skettis Exile", "=ds=#s11#, #a1#"};
-				{ 8, 30835, "", "=q3=Salvager's Hauberk", "=ds=#s5#, #a3#"};
-				{ 9, 30841, "", "=q3=Lower City Prayerbook", "=ds=#s14#"};
-				{ 10, 24179, "", "=q3=Design: Felsteel Boar", "=ds=#p12# (370)"};
-				{ 11, 24175, "", "=q3=Design: Pendant of Thawing", "=ds=#p12# (360)"};
-				{ 12, 30846, "", "=q2=Arcanum of the Outcast", "=ds=#s1# #e17#"};
-				{ 13, 22910, "", "=q2=Recipe: Elixir of Major Shadow Power", "=ds=#p1# (350)"};
-				{ 14, 33157, "", "=q1=Design: Falling Star", "=ds=#p12# (360)"};
+				{ 5, 0, "Ability_Rogue_MasterOfSubtlety", "=q6=#r4#", ""};
+				{ 6, 30836, "", "=q3=Leggings of the Skettis Exile", "=ds=#s11#, #a1#"};
+				{ 7, 30835, "", "=q3=Salvager's Hauberk", "=ds=#s5#, #a3#"};
+				{ 8, 30841, "", "=q3=Lower City Prayerbook", "=ds=#s14#"};
+				{ 9, 24179, "", "=q3=Design: Felsteel Boar", "=ds=#p12# (370)"};
+				{ 10, 24175, "", "=q3=Design: Pendant of Thawing", "=ds=#p12# (360)"};
+				{ 11, 22910, "", "=q2=Recipe: Elixir of Major Shadow Power", "=ds=#p1# (350)"};
+				{ 12, 33157, "", "=q1=Design: Falling Star", "=ds=#p12# (360)"};
 				{ 16, 0, "Ability_Rogue_MasterOfSubtlety", "=q6=#r3#", ""};
-				{ 17, 29199, "", "=q2=Arcanum of Shadow Warding", "=ds=#s1# #e17#"};
-				{ 18, 22538, "", "=q1=Formula: Enchant Ring - Stats", "=ds=#p4# (375)"};
-				{ 19, 30833, "", "=q1=Pattern: Cloak of Arcane Evasion", "=ds=#p8# (350)"};
-				{ 21, 0, "Ability_Rogue_MasterOfSubtlety", "=q6=#r5#", ""};
-				{ 22, 30834, "", "=q4=Shapeshifter's Signet", "=ds=#s13#"};
-				{ 23, 30832, "", "=q4=Gavel of Unearthed Secrets", "=ds=#h3#, #w6#"};
-				{ 24, 30830, "", "=q4=Trident of the Outcast Tribe", "=ds=#w7#"};
-				{ 25, 33148, "", "=q3=Formula: Enchant Cloak - Dodge", "=ds=#p4# (300)"};
-				{ 26, 31357, "", "=q2=Recipe: Flask of Chromatic Resistance", "=ds=#p1# (300)"};
-				{ 27, 31778, "", "=q1=Lower City Tabard", "=ds=#s7#"};
+				{ 17, 22538, "", "=q1=Formula: Enchant Ring - Stats", "=ds=#p4# (375)"};
+				{ 18, 30833, "", "=q1=Pattern: Cloak of Arcane Evasion", "=ds=#p8# (350)"};
+				{ 20, 0, "Ability_Rogue_MasterOfSubtlety", "=q6=#r5#", ""};
+				{ 21, 30834, "", "=q4=Shapeshifter's Signet", "=ds=#s13#"};
+				{ 22, 30832, "", "=q4=Gavel of Unearthed Secrets", "=ds=#h3#, #w6#"};
+				{ 23, 30830, "", "=q4=Trident of the Outcast Tribe", "=ds=#w7#"};
+				{ 24, 33148, "", "=q3=Formula: Enchant Cloak - Dodge", "=ds=#p4# (300)"};
+				{ 25, 31778, "", "=q1=Lower City Tabard", "=ds=#s7#"};
 			};
 		};
 		info = {
@@ -3613,9 +3597,9 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "INV_Misc_Ribbon_01", "=q6=#r2#", ""};
-				{ 2, 32722, "", "=q1=Enriched Terocone Juice", "=ds=#e4#"};
+				{ 2, 32722, "", "=q1=Enriched Terocone Juice", "=ds=#e4#", amount = 5};
 				{ 4, 0, "INV_Misc_Ribbon_01", "=q6=#r3#", ""};
-				{ 5, 32721, "", "=q1=Skyguard Rations", "=ds=#e3#"};
+				{ 5, 32721, "", "=q1=Skyguard Rations", "=ds=#e3#", amount = 5};
 				{ 7, 0, "INV_Misc_Ribbon_01", "=q6=#r4#", ""};
 				{ 8, 32539, "", "=q3=Skyguard's Drape", "=ds=#s4#"};
 				{ 9, 32538, "", "=q3=Skywitch's Drape", "=ds=#s4#"};
@@ -3646,24 +3630,24 @@ local moduleName = "AtlasLootBurningCrusade"
 			{
 				{ 1, 0, "INV_Misc_Statue_04", "=q6=#r2#", ""};
 				{ 2, 35244, "", "=q1=Design: Bold Crimson Spinel", "=ds=#p12# (375)"};
-				{ 4, 35255, "", "=q1=Design: Brilliant Crimson Spinel", "=ds=#p12# (375)"};
-				{ 5, 35246, "", "=q1=Design: Delicate Crimson Spinel", "=ds=#p12# (375)"};
-				{ 9, 35260, "", "=q1=Design: Smooth Lionseye", "=ds=#p12# (375)"};
-				{ 10, 35263, "", "=q1=Design: Solid Empyrean Sapphire", "=ds=#p12# (375)"};
-				{ 11, 35264, "", "=q1=Design: Sparkling Empyrean Sapphire", "=ds=#p12# (375)"};
-				{ 14, 35261, "", "=q1=Design: Subtle Lionseye", "=ds=#p12# (375)"};
-				{ 15, 34780, "", "=q1=Naaru Ration", "=ds=#e3#"};
+				{ 3, 35255, "", "=q1=Design: Brilliant Crimson Spinel", "=ds=#p12# (375)"};
+				{ 4, 35246, "", "=q1=Design: Delicate Crimson Spinel", "=ds=#p12# (375)"};
+				{ 5, 35260, "", "=q1=Design: Smooth Lionseye", "=ds=#p12# (375)"};
+				{ 6, 35263, "", "=q1=Design: Solid Empyrean Sapphire", "=ds=#p12# (375)"};
+				{ 7, 35264, "", "=q1=Design: Sparkling Empyrean Sapphire", "=ds=#p12# (375)"};
+				{ 8, 35261, "", "=q1=Design: Subtle Lionseye", "=ds=#p12# (375)"};
+				{ 9, 34780, "", "=q1=Naaru Ration", "=ds=#e3#", amount = 5};
 				{ 16, 0, "INV_Misc_Statue_04", "=q6=#r3#", ""};
 				{ 17, 35238, "", "=q1=Design: Shifting Shadowsong Amethyst", "=ds=#p12# (375)"};
 				{ 18, 35251, "", "=q1=Design: Purified Shadowsong Amethyst", "=ds=#p12# (375)"};
 				{ 19, 35266, "", "=q1=Design: Glinting Shadowsong Amethyst", "=ds=#p12# (375)"};
 				{ 20, 35239, "", "=q1=Design: Timeless Shadowsong Amethyst", "=ds=#p12# (375)"};
-				{ 22, 35253, "", "=q1=Design: Jagged Seaspray Emerald", "=ds=#p12# (375)"};
-				{ 23, 35268, "", "=q1=Design: Reckless Pyrestone", "=ds=#p12# (375)"};
-				{ 24, 35269, "", "=q1=Design: Potent Pyrestone", "=ds=#p12# (375)"};
-				{ 25, 35254, "", "=q1=Design: Radiant Seaspray Emerald", "=ds=#p12# (375)"};
-				{ 26, 34872, "", "=q1=Formula: Void Shatter", "=ds=#p4# (375)"};
-				{ 27, 35500, "", "=q1=Formula: Enchant Chest - Defense", "=ds=#p4# (360)"};
+				{ 21, 35253, "", "=q1=Design: Jagged Seaspray Emerald", "=ds=#p12# (375)"};
+				{ 22, 35268, "", "=q1=Design: Reckless Pyrestone", "=ds=#p12# (375)"};
+				{ 23, 35269, "", "=q1=Design: Potent Pyrestone", "=ds=#p12# (375)"};
+				{ 24, 35254, "", "=q1=Design: Radiant Seaspray Emerald", "=ds=#p12# (375)"};
+				{ 25, 34872, "", "=q1=Formula: Void Shatter", "=ds=#p4# (375)"};
+				{ 26, 35500, "", "=q1=Formula: Enchant Chest - Defense", "=ds=#p4# (360)"};
 			};
 			{
 				{ 1, 0, "INV_Misc_Statue_04", "=q6=#r4#", ""};
@@ -3679,7 +3663,6 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 11, 34670, "", "=q3=Seeker's Gavel", "=ds=#h3#, #w6#"};
 				{ 12, 34673, "", "=q3=Legionfoe", "=ds=#h2#, #w1#"};
 				{ 13, 34674, "", "=q3=Truestrike Crossbow", "=ds=#w3#"};
-				{ 14, 29193, "", "=q2=Arcanum of the Gladiator", "=ds=#s1# #e17#"};
 				{ 17, 35252, "", "=q1=Design: Regal Seaspray Emerald", "=ds=#p12# (375)"};
 				{ 18, 35697, "", "=q1=Design: Figurine - Crimson Serpent", "=ds=#p12# (375)"};
 				{ 19, 35695, "", "=q1=Design: Figurine - Empyrean Tortoise", "=ds=#p12# (375)"};
@@ -3734,9 +3717,9 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "INV_Mushroom_10", "=q6=#r2#", ""};
-				{ 2, 30156, "", "=q1=Recipe: Clam Bar", "=ds=#p3# (300)", "1 #glowcap#", ""};
+				{ 2, 30156, "", "=q1=Recipe: Clam Bar", "=ds=#p3# (300)", "1 #glowcap#", "" };
 				{ 3, 25548, "", "=q1=Tallstalk Mushroom", "=ds=#e3#", "1 #glowcap#", ""};
-				{ 4, 24539, "", "=q1=Marsh Lichen", "=ds=#e3#", "2 #glowcap#", ""};
+				{ 4, 24539, "", "=q1=Marsh Lichen", "=ds=#e3#", "2 #glowcap#", amount = 5};
 				{ 6, 0, "INV_Mushroom_10", "=q6=#r3#", ""};
 				{ 7, 25827, "", "=q3=Muck-Covered Drape", "=ds=#s4#", "25 #glowcap#", ""};
 				{ 8, 25828, "", "=q3=Petrified Lichen Guard", "=ds=#w8#", "15 #glowcap#", ""};
@@ -3823,7 +3806,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			{
 				{ 1, 0, "INV_Weapon_Shortblade_31", "=q6=#r2#", ""};
 				{ 2, 25732, "", "=q3=Pattern: Fel Leather Gloves", "=ds=#p7# (340)"};
-				{ 3, 28274, "", "=q2=Formula: Enchant Cloak - Spell Penetration", "=ds=#p4# (325)"};
+				{ 3, 28274, "", "=q2=Formula: Enchant Cloak - PvP Power", "=ds=#p4# (325)"};
 				{ 4, 23146, "", "=q2=Design: Shifting Shadow Draenite", "=ds=#p12# (315)"};
 				{ 5, 23136, "", "=q2=Design: Reckless Flame Spessarite", "=ds=#p12# (305)"};
 				{ 16, 0, "INV_Weapon_Shortblade_31", "=q6=#r3#", ""};
@@ -4031,25 +4014,22 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 5, 29180, "", "=q3=Blessed Scale Girdle", "=ds=#s10#, #a3#"};
 				{ 6, 29179, "", "=q3=Xi'ri's Gift", "=ds=#s14#"};
 				{ 7, 24182, "", "=q3=Design: Talasite Owl", "=ds=#p12# (370)"};
-				{ 8, 29191, "", "=q2=Arcanum of Power", "=ds=#s1# #e17#"};
-				{ 9, 22915, "", "=q2=Recipe: Transmute Primal Air to Fire", "=ds=#p1# (350)"};
-				{ 10, 28281, "", "=q2=Formula: Enchant Weapon - Major Healing", "=ds=#p4# (350)"};
-				{ 11, 13517, "", "=q1=Recipe: Alchemist's Stone", "=ds=#p1# (350)"};
-				{ 12, 22537, "", "=q1=Formula: Enchant Ring - Healing Power", "=ds=#p4# (370)"};
-				{ 13, 33159, "", "=q1=Design: Blood of Amber", "=ds=#p12# (360)"};
+				{ 8, 22915, "", "=q2=Recipe: Transmute Primal Air to Fire", "=ds=#p1# (350)"};
+				{ 9, 28281, "", "=q2=Formula: Enchant Weapon - Major Healing", "=ds=#p4# (350)"};
+				{ 10, 13517, "", "=q1=Recipe: Alchemist Stone", "=ds=#p1# (350)"};
+				{ 11, 33159, "", "=q1=Design: Blood of Amber", "=ds=#p12# (360)"};
 				{ 16, 0, "Spell_Nature_LightningOverload", "=q6=#r3#", ""};
 				{ 17, 30826, "", "=q3=Design: Ring of Arcane Shielding", "=ds=#p12# (360)"};
-				{ 18, 29195, "", "=q2=Arcanum of Arcane Warding", "=ds=#s1# #e17#"};
-				{ 19, 28273, "", "=q2=Formula: Enchant Gloves - Major Healing", "=ds=#p4# (350)"};
-				{ 20, 33155, "", "=q1=Design: Kailee's Rose", "=ds=#p12# (360)"};
-				{ 21, 29717, "", "=q1=Pattern: Drums of Battle", "=ds=#p7# (365)"};
-				{ 23, 0, "Spell_Nature_LightningOverload", "=q6=#r5#", ""};
-				{ 24, 29177, "", "=q4=A'dal's Command", "=ds=#s13#"};
-				{ 25, 29175, "", "=q4=Gavel of Pure Light", "=ds=#h3#, #w6#"};
-				{ 26, 29176, "", "=q4=Crest of the Sha'tar", "=ds=#w8#"};
-				{ 27, 33153, "", "=q3=Formula: Enchant Gloves - Threat", "=ds=#p4# (300)"};
-				{ 28, 31354, "", "=q2=Recipe: Flask of the Titans", "=ds=#p1# (300)"};
-				{ 29, 31781, "", "=q1=Sha'tar Tabard", "=ds=#s7#"};
+				{ 18, 28273, "", "=q2=Formula: Enchant Gloves - Major Healing", "=ds=#p4# (350)"};
+				{ 19, 33155, "", "=q1=Design: Kailee's Rose", "=ds=#p12# (360)"};
+				{ 20, 29717, "", "=q1=Pattern: Drums of Battle", "=ds=#p7# (365)"};
+				{ 22, 0, "Spell_Nature_LightningOverload", "=q6=#r5#", ""};
+				{ 23, 29177, "", "=q4=A'dal's Command", "=ds=#s13#"};
+				{ 24, 29175, "", "=q4=Gavel of Pure Light", "=ds=#h3#, #w6#"};
+				{ 25, 29176, "", "=q4=Crest of the Sha'tar", "=ds=#w8#"};
+				{ 26, 33153, "", "=q3=Formula: Enchant Gloves - Threat", "=ds=#p4# (300)"};
+				{ 27, 31354, "", "=q2=Recipe: Flask of the Titans", "=ds=#p1# (300)"};
+				{ 28, 31781, "", "=q1=Sha'tar Tabard", "=ds=#s7#"};
 			};
 		};
 		info = {
@@ -4093,7 +4073,6 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 31393, "", "=q4=Plans: Iceguard Breastplate", "=ds=#p2# (375)"};
 				{ 5, 31401, "", "=q4=Design: The Frozen Eye", "=ds=#p12# (375)"};
 				{ 6, 29187, "", "=q2=Inscription of Endurance", "=ds=#s3# #e17#"};
-				{ 7, 33209, "", "=q2=Recipe: Flask of Chromatic Wonder", "=ds=#p1# (375)"};
 				{ 16, 0, "Ability_Warrior_ShieldMastery", "=q6=#r4#", ""};
 				{ 17, 31394, "", "=q4=Plans: Iceguard Leggings", "=ds=#p2# (375)"};
 				{ 18, 33205, "", "=q4=Pattern: Shadowprowler's Chestguard", "=ds=#p7# (365)"};
@@ -4119,33 +4098,29 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 2, 25738, "", "=q3=Pattern: Felstalker Belt", "=ds=#p7# (350)"};
 				{ 3, 31359, "", "=q2=Design: Regal Deep Peridot", "=ds=#p12# (315)"};
 				{ 4, 24000, "", "=q1=Formula: Enchant Bracer - Superior Healing", "=ds=#p4# (325)"};
-				{ 5, 24006, "", "=q1=Grunt's Waterskin", "=ds=#e4#"};
-				{ 6, 24009, "", "=q1=Dried Fruit Rations", "=ds=#e3#"};
-				{ 16, 0, "INV_BannerPVP_01", "=q6=#r3#", ""};
-				{ 17, 25824, "", "=q3=Farseer's Band", "=ds=#s13#"};
-				{ 18, 25823, "", "=q3=Grunt's Waraxe", "=ds=#h1#, #w1#"};
-				{ 19, 25739, "", "=q3=Pattern: Felstalker Bracers", "=ds=#p7# (360)"};
-				{ 20, 25740, "", "=q3=Pattern: Felstalker Breastplate", "=ds=#p7# (360)"};
-				{ 21, 29197, "", "=q2=Arcanum of Fire Warding", "=ds=#s1# #e17#"};
-				{ 22, 29232, "", "=q1=Recipe: Transmute Skyfire Diamond", "=ds=#p1# (350)"};
-				{ 23, 24001, "", "=q1=Recipe: Elixir of Major Agility", "=ds=#p1# (330)"};
-				{ 24, 31361, "", "=q1=Pattern: Cobrahide Leg Armor", "=ds=#p7# (335)"};
-			};
-			{
-				{ 1, 0, "INV_BannerPVP_01", "=q6=#r4#", ""};
-				{ 2, 29168, "", "=q3=Ancestral Band", "=ds=#s13#"};
-				{ 3, 29167, "", "=q3=Blackened Spear", "=ds=#w7#"};
-				{ 4, 31358, "", "=q3=Design: Dawnstone Crab", "=ds=#p12# (370)"};
-				{ 5, 29190, "", "=q2=Arcanum of Renewal", "=ds=#s1# #e17#"};
-				{ 6, 24003, "", "=q1=Formula: Enchant Chest - Exceptional Stats", "=ds=#p4# (345)"};
-				{ 16, 0, "INV_BannerPVP_01", "=q6=#r5#", ""};
-				{ 17, 29155, "", "=q4=Stormcaller", "=ds=#h3#, #w10#"};
-				{ 18, 29165, "", "=q4=Warbringer", "=ds=#h1#, #w1#"};
-				{ 19, 29152, "", "=q4=Marksman's Bow", "=ds=#w2#"};
-				{ 20, 33151, "", "=q3=Formula: Enchant Cloak - Subtlety", "=ds=#p4# (300)"};
-				{ 21, 24002, "", "=q1=Plans: Felsteel Shield Spike", "=ds=#p2# (360)"};
-				{ 22, 31362, "", "=q1=Pattern: Nethercobra Leg Armor", "=ds=#p7# (365)"};
-				{ 23, 24004, "", "=q1=Thrallmar Tabard", "=ds=#s7#"};
+				{ 5, 24006, "", "=q1=Grunt's Waterskin", "=ds=#e4#", amount = 5};
+				{ 6, 24009, "", "=q1=Dried Fruit Rations", "=ds=#e3#", amount = 5};
+				{ 8, 0, "INV_BannerPVP_01", "=q6=#r3#", ""};
+				{ 9, 25824, "", "=q3=Farseer's Band", "=ds=#s13#"};
+				{ 10, 25823, "", "=q3=Grunt's Waraxe", "=ds=#h1#, #w1#"};
+				{ 11, 25739, "", "=q3=Pattern: Felstalker Bracers", "=ds=#p7# (360)"};
+				{ 12, 25740, "", "=q3=Pattern: Felstalker Breastplate", "=ds=#p7# (360)"};
+				{ 13, 29232, "", "=q1=Recipe: Transmute Skyfire Diamond", "=ds=#p1# (350)"};
+				{ 14, 24001, "", "=q1=Recipe: Elixir of Major Agility", "=ds=#p1# (330)"};
+				{ 15, 31361, "", "=q1=Pattern: Cobrahide Leg Armor", "=ds=#p7# (335)"};
+				{ 16, 0, "INV_BannerPVP_01", "=q6=#r4#", ""};
+				{ 17, 29168, "", "=q3=Ancestral Band", "=ds=#s13#"};
+				{ 18, 29167, "", "=q3=Blackened Spear", "=ds=#w7#"};
+				{ 19, 31358, "", "=q3=Design: Dawnstone Crab", "=ds=#p12# (370)"};
+				{ 20, 24003, "", "=q1=Formula: Enchant Chest - Exceptional Stats", "=ds=#p4# (345)"};
+				{ 23, 0, "INV_BannerPVP_01", "=q6=#r5#", ""};
+				{ 24, 29155, "", "=q4=Stormcaller", "=ds=#h3#, #w10#"};
+				{ 25, 29165, "", "=q4=Warbringer", "=ds=#h1#, #w1#"};
+				{ 26, 29152, "", "=q4=Marksman's Bow", "=ds=#w2#"};
+				{ 27, 33151, "", "=q3=Formula: Enchant Cloak - Subtlety", "=ds=#p4# (300)"};
+				{ 28, 24002, "", "=q1=Plans: Felsteel Shield Spike", "=ds=#p2# (360)"};
+				{ 29, 31362, "", "=q1=Pattern: Nethercobra Leg Armor", "=ds=#p7# (365)"};
+				{ 30, 24004, "", "=q1=Thrallmar Tabard", "=ds=#s7#"};
 			};
 		};
 		info = {

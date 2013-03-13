@@ -1,4 +1,4 @@
--- $Id: loottables.lua 4111 2013-02-28 14:36:36Z dynaletik $
+-- $Id: loottables.lua 4133 2013-03-09 07:45:03Z hegarol $
 --[[
 loottables.en.lua
 This file assigns a title to every loot table.  The primary use of this table
@@ -341,11 +341,11 @@ AtlasLoot_LootTableRegister = {
 
 		["ThroneOfTheTides"] = {
 			["Bosses"] = {
-				{ "ToTNazjar", 5, EncounterJournalID = 101 },
-				{ "ToTUlthok",  6, EncounterJournalID = 102 },
-				{ "ToTMindbender", 7, EncounterJournalID = 103 },
-				{ "ToTOzumat", 8, EncounterJournalID = 104 },
-				{ "ToTTrash", 12 },
+				{ "TotTNazjar", 5, EncounterJournalID = 101 },
+				{ "TotTUlthok",  6, EncounterJournalID = 102 },
+				{ "TotTMindbender", 7, EncounterJournalID = 103 },
+				{ "TotTOzumat", 8, EncounterJournalID = 104 },
+				{ "TotTTrash", 12 },
 			},
 			["Info"] = { BabbleZone["Throne of the Tides"], "AtlasLootCataclysm", mapname = "ThroneOfTheTides", EncounterJournalID = 65 },
 		},
@@ -1470,8 +1470,7 @@ AtlasLoot_LootTableRegister = {
 				{ "UldBaelog", {5,6,7} },
 				{ "UldRevelosh", 9, EncounterJournalID = 467 },
 				{ "UldIronaya", 10, EncounterJournalID = 469 },
-				{ "UldObsidianSentinel", 11, EncounterJournalID = 748 },
-				{ "UldAncientStoneKeeper", 12, EncounterJournalID = 470 },
+				{ "UldObsidianSentinel", 12, EncounterJournalID = 470 },
 				{ "UldGalgannFirehammer", 13, EncounterJournalID = 471 },
 				{ "UldGrimlok", 14, EncounterJournalID = 472 },
 				{ "UldArchaedas", 15, EncounterJournalID = 473 },

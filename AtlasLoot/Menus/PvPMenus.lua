@@ -1,4 +1,4 @@
--- $Id: PvPMenus.lua 4069 2013-02-09 21:34:59Z lag123 $
+-- $Id: PvPMenus.lua 4144 2013-03-12 18:26:37Z hegarol $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -9,11 +9,14 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 			{
 				{ 2, "PVP90Accessories", "inv_misc_pvp_ringc2", "=ds="..AL["PvP Accessories"], "=q5="..AL["Level 90"]};
 				{ 3, "PVP90SET", "inv_helm_plate_pvppaladin_c_01", "=ds="..AL["PvP Armor Sets"], "=q5="..AL["Level 90"]};
-				{ 4, "PVP90NonSet", "inv_bracer_robe_pvpmage_e_01", "=ds="..AL["PvP Non-Set Epics"], "=q5="..AL["Level 90"]};	
-				{ 7, "PVPMENU2", "INV_Jewelry_Necklace_21", "=ds="..AL["BG/Open PvP Rewards"], ""};
-				{ 17, "PVP90Weapons2", "inv_stave_2h_pvppandarias1_c_01", "=ds="..AL["PvP Weapons"].." - "..AL["ilvl 490"], "=q5="..AL["Level 90"]};
-				{ 18, "PVP90Weapons", "inv_hand_1h_pvppandarias1_c_01", "=ds="..AL["PvP Weapons"].." - "..AL["ilvl 470"], "=q5="..AL["Level 90"]};
-				{ 22, "PVPMENU3", "inv_belt_13", "=ds="..AL["Old PvP Rewards"], "=q5="};
+				{ 5, "PVP90NonSetCloth", "inv_cloth_pvpwarlock_f_01boot", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Cloth"], "=q5="..AL["Level 90"]};
+				{ 6, "PVP90NonSetLeather", "inv_belt_leather_pvpmonk_f_01", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Leather"], "=q5="..AL["Level 90"]};	
+				{ 8, "PVPMENU2", "INV_Jewelry_Necklace_21", "=ds="..AL["BG/Open PvP Rewards"], ""};
+				{ 17, "PVP90WeaponsTyrannicalElite", "inv_stave_2h_pvppandarias1_c_01", "=ds="..AL["PvP Weapons"].." - "..AL["ilvl 512"], "=q5="..AL["Level 90"]};
+				{ 18, "PVP90WeaponsTyrannical", "inv_hand_1h_pvppandarias1_c_01", "=ds="..AL["PvP Weapons"].." - "..AL["ilvl 493"], "=q5="..AL["Level 90"]};
+				{ 20, "PVP90NonSetMail", "inv_mail_pvphunter_f_01boot", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Mail"], "=q5="..AL["Level 90"]};
+				{ 21, "PVP90NonSetPlate", "inv_bracer_plate_pvppaladin_f_01white", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Plate"], "=q5="..AL["Level 90"]};
+				{ 23, "PVPMENU3", "inv_belt_13", "=ds="..AL["Old PvP Rewards"], "=q5="};
 			};
 		};
 		info = {

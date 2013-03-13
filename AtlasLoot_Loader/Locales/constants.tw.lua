@@ -1,4 +1,4 @@
-﻿-- $Id: constants.tw.lua 4119 2013-03-04 04:47:34Z ananhaid $
+﻿-- $Id: constants.tw.lua 4140 2013-03-11 01:53:28Z ananhaid $
 --[[
 constants.tw.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -1060,6 +1060,8 @@ if AL then
 	AL["Crusader's Square"] = "十字軍廣場";
 	AL["The Gauntlet"] = "街巷";
 	AL["Halfhill Farm"] = "半山農場";
+	AL["Domination Point"] = "制霸岬";
+	AL["Lion's Landing"] = "雄獅灘";
 
 	-- Shortcuts for Bossname files
 	AL["Avatar"] = "馬丁瑞德的化身";
@@ -1072,8 +1074,6 @@ if AL then
 	AL["Ogre Tannin Basket"] = "巨魔鞣酸籃";
 	AL["Unfinished Painting"] = "未完成的畫作";
 	AL["Felvine Shard"] = "魔藤碎片";
-	AL["Lorgalis Manuscript"] = "洛迦里斯手稿";
-	AL["Fathom Core"] = "深淵之核";
 	AL["Gift of Adoration"] = "愛慕之禮";
 	AL["Treat Bag"] = "糖果包";
 	AL["The Cache of Madness"] = "瘋狂之緣";

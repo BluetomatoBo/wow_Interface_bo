@@ -1,4 +1,4 @@
--- $Id: SetMenus.lua 4120 2013-03-04 18:18:57Z hegarol $
+-- $Id: SetMenus.lua 4132 2013-03-08 23:21:27Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -350,13 +350,15 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 				{ 4, "RaresMOPMobsTownlongSteppes", "achievement_zone_townlongsteppes", "=ds="..AtlasLoot:GetMapNameByID(810), "#ACHIEVEMENTID:7439#"};
 				{ 5, "RaresMOPMobsValeOfEternalBlossoms", "achievement_zone_valeofeternalblossoms", "=ds="..AtlasLoot:GetMapNameByID(811), "#ACHIEVEMENTID:7439#"};
 				{ 7, "RaresMOPMobsMisc", "inv_pandarenserpentmount_lightning", "=ds="..AL["Misc"], ""};
-				{ 9, "RaresMOPItemsJadeForestValleyoftheFourWinds", "achievement_zone_jadeforest", "=ds="..AtlasLoot:GetMapNameByID(806).." / "..AtlasLoot:GetMapNameByID(807), "#ACHIEVEMENTID:7284#"};
-				{ 10, "RaresMOPItemsTownlongSteppesDreadWastes", "achievement_zone_krasarangwilds", "=ds="..AtlasLoot:GetMapNameByID(810).." / "..AtlasLoot:GetMapNameByID(858), "#ACHIEVEMENTID:7284#"};
+				{ 8, "RaresMOPMobsWarbringer", "achievement_boss_chiefukorzsandscalp", "=ds="..BabbleRare["Zandalari Warbringer"], ""};
+				{ 10, "RaresMOPItemsJadeForestValleyoftheFourWinds", "achievement_zone_jadeforest", "=ds="..AtlasLoot:GetMapNameByID(806).." / "..AtlasLoot:GetMapNameByID(807), "#ACHIEVEMENTID:7284#"};
+				{ 11, "RaresMOPItemsTownlongSteppesDreadWastes", "achievement_zone_krasarangwilds", "=ds="..AtlasLoot:GetMapNameByID(810).." / "..AtlasLoot:GetMapNameByID(858), "#ACHIEVEMENTID:7284#"};
 				{ 17, "RaresMOPMobsValleyFourWinds", "achievement_zone_valleyoffourwinds", "=ds="..AtlasLoot:GetMapNameByID(807), "#ACHIEVEMENTID:7439#"};
 				{ 18, "RaresMOPMobsKunLaiSummit", "achievement_zone_kunlaisummit", "=ds="..AtlasLoot:GetMapNameByID(809), "#ACHIEVEMENTID:7439#"};
 				{ 19, "RaresMOPMobsDreadWastes", "achievement_zone_dreadwastes", "=ds="..AtlasLoot:GetMapNameByID(858), "#ACHIEVEMENTID:7439#"};
+				{ 20, "RaresMOPMobsIsleofThunder", "inv_shield_mogu_c_01", "=ds="..AtlasLoot:GetMapNameByID(928), "#ACHIEVEMENTID:8103#"};
 				{ 22, "RaresMOPMobsClawlord", "inv_misc_birdbeck_02", "=ds="..BabbleRare["Clawlord Kril'mandar"], ""};
-				{ 24, "RaresMOPItemsKrasarangWildsKunLaiSummit", "achievement_zone_valleyoffourwinds", "=ds="..AtlasLoot:GetMapNameByID(857).." / "..AtlasLoot:GetMapNameByID(809), "#ACHIEVEMENTID:7284#"};
+				{ 25, "RaresMOPItemsKrasarangWildsKunLaiSummit", "achievement_zone_valleyoffourwinds", "=ds="..AtlasLoot:GetMapNameByID(857).." / "..AtlasLoot:GetMapNameByID(809), "#ACHIEVEMENTID:7284#"};
 			};
 		};
 		info = {

@@ -5,7 +5,16 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 -Hegarol
 
 Patch Notes
-v7.05.00 (Mar 06, 2013)
+v7.05.02 (Mar 12, 2013)
+Fixed a bug that prevented the factions menu to open.
+
+v7.05.01 (Mar 12, 2013)
+Added various missing 5.2 stuff.
+Added missing Season 13 items.
+Added drop rates to MoP dungeons.
+Many minor fixes, additions and translations.
+
+v7.05.00 (Mar 05, 2013)
 Compatible with Patch 5.2.
 Compatible with Atlas 1.24.00.
 Added Tier 15 Raid Set.

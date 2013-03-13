@@ -103,7 +103,7 @@ function AtlasLoot:BonusRoll_CreateButton(name, parent)
 	button:SetHeight(30)
 	button:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
 	local texture = select(3, GetCurrencyInfo(697))
-	SetPortraitToTexture(button.icon, "Interface\\Icons\\"..texture)
+	SetPortraitToTexture(button.icon, texture)
 	button:SetScript("OnClick", bonusRoll_OnClick)
 	--button:SetScript("OnShow", function(self) self:SetFrameLevel( (self:GetParent()):GetFrameLevel() + 1 ) end)
 	

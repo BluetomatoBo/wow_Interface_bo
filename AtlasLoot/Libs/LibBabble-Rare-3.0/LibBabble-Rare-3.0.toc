@@ -1,4 +1,4 @@
-## Interface: 50001
+## Interface: 50200
 ## LoadOnDemand: 1
 ## Title: Lib: Babble-Rare-3.0
 ## Notes: A library to help with localization of Rare Mobs.
@@ -9,7 +9,7 @@
 ## X-eMail: 
 ## X-Category: Library
 ## X-License: MIT
-## X-Curse-Packaged-Version: v7.05.00
+## X-Curse-Packaged-Version: v7.05.02
 ## X-Curse-Project-Name: AtlasLoot Enhanced
 ## X-Curse-Project-ID: atlasloot-enhanced
 ## X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline

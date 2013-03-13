@@ -1,4 +1,4 @@
--- $Id: wrathofthelichking.lua 4116 2013-03-02 18:36:56Z lag123 $
+-- $Id: wrathofthelichking.lua 4133 2013-03-09 07:45:03Z hegarol $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
@@ -532,7 +532,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 2, 35635, "", "=q3=Stable Master's Breeches", "=ds=#s11#, #a1#", "", "28%"};
 				{ 3, 35634, "", "=q3=Scabrous-Hide Helm", "=ds=#s1#, #a2#", "", "28%"};
 				{ 4, 35633, "", "=q3=Staff of the Great Reptile", "=ds=#w9#", "", "31%"};
-				{ 6, 35633, "", "=q1=King Dred's Tooth", "=ds=#m3#", "", "100%"};
+				{ 6, 74755, "", "=q1=King Dred's Tooth", "=ds=#m3#", "", "100%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", "#ACHIEVEMENTID:2039#"};
 				{ 17, 37725, "", "=q3=Savage Wound Wrap", "=ds=#s8#, #a1#", "", "21%"};
 				{ 18, 37724, "", "=q3=Handler's Arm Strap", "=ds=#s8#, #a2#", "", "21%"};
@@ -675,7 +675,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 3, 43382, "", "=q3=Band of Eyes", "=ds=#s13#", "", "43%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 43410, "", "=q3=Moragg's Chestguard", "=ds=#s5#, #a3#", "", "29%"};
-				{ 18, 43408, "", "=q3=Solitare of Reflecting Beams", "=ds=#s13#", "", "29%"};
+				{ 18, 43408, "", "=q3=Solitaire of Reflecting Beams", "=ds=#s13#", "", "29%"};
 				{ 19, 43409, "", "=q3=Saliva Corroded Pike", "=ds=#w7#", "", "30%"};
 			};	
 		};
@@ -7452,9 +7452,9 @@ local moduleName = "AtlasLootWotLK"
 		["Normal"] = {
 			{
 				{ 2, 43462, "", "=q1=Airy Pale Ale", "=ds=#e18#", "#RELICULDUAR:10#"};
-				{ 3, 43473, "", "=q1=Drakefire Chile Ale", "=ds=#e18#", "#RELICULDUAR:2#"};
+				{ 3, 43473, "", "=q1=Drakefire Chile Ale", "=ds=#e18#", "#RELICULDUAR:2#", amount = 2};
 				{ 4, 43499, "", "=q1=Iron Boot Flask", "=ds=#e25#", "#RELICULDUAR:10#"};
-				{ 5, 43472, "", "=q1=Snowfall Lager", "=ds=#e18#", "#RELICULDUAR:2#"};
+				{ 5, 43472, "", "=q1=Snowfall Lager", "=ds=#e18#", "#RELICULDUAR:2#", amount = 2};
 				{ 6, 43470, "", "=q1=Worg Tooth Oatmeal Stout", "=ds=#e18#", "#RELICULDUAR:10#"};
 			};
 		};
@@ -7474,7 +7474,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 1, 0, "INV_Misc_Rune_14", "=q6=#r2#", ""};
 				{ 2, 41561, "", "=q2=Design: Reckless Huge Citrine", "=ds=#p12# 350"};
 				{ 3, 44064, "", "=q1=Nepeta Leaf", "=ds="};
-				{ 4, 44072, "", "=q1=Roasted Mystery Beast", "=ds=#e3#"};
+				{ 4, 44072, "", "=q1=Roasted Mystery Beast", "=ds=#e3#", amount = 5};
 				{ 6, 0, "INV_Misc_Rune_14", "=q6=#r4#", ""};
 				{ 7, 44116, "", "=q3=Muddied Crimson Gloves", "=ds=#s9#, #a1#"};
 				{ 8, 44117, "", "=q3=Azure Strappy Pants", "=ds=#s11#, #a2#"};
@@ -7516,7 +7516,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 8, 38456, "", "=q3=Sin'dorei Recurve Bow", "=ds=#w2#"};
 				{ 9, 38460, "", "=q3=Charged Wand of the Cleft", "=ds=#w12#"};
 				{ 17, 0, "INV_Shield_50", "=q6=#r5#", ""};
-				{ 18, 44502, "", "=q4=Schematic: Mechano-hog", "=ds=#p5# (450)"};
+				{ 18, 44502, "", "=q4=Schematic: Mechano-Hog", "=ds=#p5# (450)"};
 				{ 19, 44938, "", "=q3=Plans: Titanium Plating", "=ds=#p2# (450)"};
 			};
 		};
@@ -7662,7 +7662,7 @@ local moduleName = "AtlasLootWotLK"
 			{
 				{ 1, 0, "INV_Fishingpole_03", "=q6=#r2#", ""};
 				{ 2, 41568, "", "=q2=Design: Purified Shadow Crystal", "=ds=#p12# (350)"};
-				{ 3, 44049, "", "=q1=Freshly-Speared Emperor Salmon", "=ds=#e3#"};
+				{ 3, 44049, "", "=q1=Freshly-Speared Emperor Salmon", "=ds=#e3#", amount = 5};
 				{ 5, 0, "INV_Fishingpole_03", "=q6=#r3#", ""};
 				{ 6, 44061, "", "=q3=Pigment-Stained Robes", "=ds=#s5#, #a1#"};
 				{ 7, 44062, "", "=q3=Turtle-Minders Robe", "=ds=#s5#, #a1#"};
@@ -7711,7 +7711,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 13, 41724, "", "=q3=Design: Misty Forest Emerald", "=ds=#p12# (390)"};
 				{ 14, 39878, "", "=q1=Mysterious Egg", "=ds="};
 				{ 16, 0, "INV_Helmet_138", "=q6=#r3#", ""};
-				{ 17, 44071, "", "=q1=Slow-Roasted Eel", "=ds=#e3#"};
+				{ 17, 44071, "", "=q1=Slow-Roasted Eel", "=ds=#e3#", amount = 5};
 				{ 19, 0, "INV_Helmet_138", "=q6=#r5#", ""};
 				{ 20, 44074, "", "=q4=Oracle Talisman of Ablution", "=ds=#s14#"};
 				{ 22, 0, "INV_Egg_02", "=q6="..AtlasLoot_IngameLocales["Cracked Egg"], ""};

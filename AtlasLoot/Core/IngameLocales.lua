@@ -121,6 +121,20 @@ AtlasLoot_IngameLocales = {
 	["Yul Wildpaw"] = GetAchievementCriteriaInfo(7439,40),
 	["Zai the Outcast"] = GetAchievementCriteriaInfo(7439,11),
 
+	--- Mists of Pandaria - Isle of Thunder: Champions of Lei Shen
+	["Haywire Sunreaver Construct"] = GetAchievementCriteriaInfo(8103,1),
+
+	--- Mists of Pandaria - Isle of Thunder: It Was Worth Every Ritual Stone
+	["Ancient Mogu Guardian"] = GetAchievementCriteriaInfo(8101,6),
+	["Cera"] = GetAchievementCriteriaInfo(8101,8),
+	["Echo of Kros"] = GetAchievementCriteriaInfo(8101,3),
+	["Electromancer Ju'le"] = GetAchievementCriteriaInfo(8101,4),
+	["Incomplete Drakkari Colossus"] = GetAchievementCriteriaInfo(8101,9),
+	["Kor'dok and Tinzo the Emberkeeper"] = GetAchievementCriteriaInfo(8101,2),
+	["Qi'nor"] = GetAchievementCriteriaInfo(8101,5),
+	["Spirit of Warlord Teng"] = GetAchievementCriteriaInfo(8101,1),
+	["Windweaver Akil'amon"] = GetAchievementCriteriaInfo(8101,7),
+
 	--- Other Rares
 	["Darkmoon Rabbit"] = GetItemInfo(80008),
 
@@ -153,6 +167,7 @@ AtlasLoot_IngameLocales = {
 	["Brightly Colored Egg"] = GetItemInfo(45072),
 	---- Related to Mounts and Pets
 	["Cracked Egg"] = GetItemInfo(39883),
+	["Fabled Pandaren Pet Supplies"] = GetItemInfo(94207),
 	["Hidden Stash"] = GetItemInfo(61387),
 	["Hyldnir Spoils"] = GetItemInfo(44751),
 	["Mysterious Egg"] = GetItemInfo(39878),

@@ -1,4 +1,4 @@
--- $Id: constants.en.lua 4114 2013-03-02 07:45:36Z dynaletik $
+-- $Id: constants.en.lua 4144 2013-03-12 18:26:37Z hegarol $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -382,7 +382,9 @@ if AL then
 	AL["ilvl 470"] = true;
 	AL["ilvl 490"] = true;
 	AL["ilvl 489"] = true;
+	AL["ilvl 493"] = true;
 	AL["ilvl 496"] = true;
+	AL["ilvl 512"] = true;
 
 	-- PvP Menu
 	AL["Arathi Basin Sets"] = true;
@@ -1060,6 +1062,8 @@ if AL then
 	AL["Crusader's Square"] = true;
 	AL["The Gauntlet"] = true;
 	AL["Halfhill Farm"] = true;
+	AL["Domination Point"] = true;
+	AL["Lion's Landing"] = true;
 
 	-- Shortcuts for Bossname files
 	AL["Avatar"] = true; -- Avatar of the Martyred
@@ -1072,8 +1076,6 @@ if AL then
 	AL["Ogre Tannin Basket"] = true;
 	AL["Unfinished Painting"] = true;
 	AL["Felvine Shard"] = true; --- If still in game, should be used in IngameLocales
-	AL["Lorgalis Manuscript"] = true; --- If still in game, should be used in IngameLocales
-	AL["Fathom Core"] = true; --- If still in game, should be used in IngameLocales
 	AL["Gift of Adoration"] = true; --- If still in game, should be used in IngameLocales
 	AL["Treat Bag"] = true; --- If still in game, should be used in IngameLocales
 	AL["The Cache of Madness"] = true;

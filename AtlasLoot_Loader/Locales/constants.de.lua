@@ -1,4 +1,4 @@
-﻿-- $Id: constants.de.lua 4114 2013-03-02 07:45:36Z dynaletik $
+﻿-- $Id: constants.de.lua 4146 2013-03-12 19:01:26Z dynaletik $
 --[[
 constants.de.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -370,16 +370,18 @@ if AL then
 	-- AL["Brutal"] = true;
 	AL["Wrathful"] = "Zornerfüllt";
 	AL["Cataclysmic"] = "Kataklysmisch";
-	-- AL["ilvl 200"] = "Gegenstandsstufe 200";
-	-- AL["ilvl 213"] = "Gegenstandsstufe 213";
-	-- AL["ilvl 226"] = "Gegenstandsstufe 226";
-	-- AL["ilvl 245"] = "Gegenstandsstufe 245";
-	-- AL["ilvl 264"] = "Gegenstandsstufe 264";
-	-- AL["ilvl 397"] = "Gegenstandsstufe 397";
-	-- AL["ilvl 470"] = "Gegenstandsstufe 470";
-	-- AL["ilvl 490"] = "Gegenstandsstufe 490";
-	-- AL["ilvl 489"] = "Gegenstandsstufe 489";
-	-- AL["ilvl 496"] = "Gegenstandsstufe 496";
+	-- AL["ilvl 200"] = true;
+	-- AL["ilvl 213"] = true;
+	-- AL["ilvl 226"] = true;
+	-- AL["ilvl 245"] = true;
+	-- AL["ilvl 264"] = true;
+	-- AL["ilvl 397"] = true;
+	-- AL["ilvl 470"] = true;
+	-- AL["ilvl 490"] = true;
+	-- AL["ilvl 489"] = true;
+	-- AL["ilvl 493"] = true;
+	-- AL["ilvl 496"] = true;
+	-- AL["ilvl 512"] = true;
 
 	-- PvP Menu
 	AL["Arathi Basin Sets"] = "Arathibecken (Sets)";
@@ -1057,6 +1059,8 @@ if AL then
 	AL["Crusader's Square"] = "Kreuzzüglerpass";
 	AL["The Gauntlet"] = "Der Spießrutenlauf";
 	AL["Halfhill Farm"] = "Halbhügel Farm";
+	AL["Domination Point"] = "Herrschaftsfeste";
+	AL["Lion's Landing"] = "Löwenlandung";
 
 	-- Shortcuts for Bossname files
 	-- AL["Avatar"] = true; -- Avatar of the Martyred
@@ -1069,8 +1073,6 @@ if AL then
 	AL["Ogre Tannin Basket"] = "Gerbekorb der Oger";
 	AL["Unfinished Painting"] = "Unvollendetes Gemälde";
 	AL["Felvine Shard"] = "Teufelsrankensplitter";
-	AL["Lorgalis Manuscript"] = "Manuskript von Lorgalis";
-	AL["Fathom Core"] = "Tiefenkern";
 	AL["Gift of Adoration"] = "Geschenke der Verehrung";
 	AL["Treat Bag"] = "Schlotterbeutel";
 	AL["The Cache of Madness"] = "Der Hort des Wahnsinns";

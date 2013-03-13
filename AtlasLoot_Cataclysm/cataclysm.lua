@@ -1,4 +1,4 @@
--- $Id: cataclysm.lua 4069 2013-02-09 21:34:59Z lag123 $
+-- $Id: cataclysm.lua 4133 2013-03-09 07:45:03Z hegarol $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
@@ -1025,7 +1025,7 @@ local moduleName = "AtlasLootCataclysm"
 				{ 2, 5199, "", "=q3=Smelting Pants", "=ds=#s11#, #a2#", "" };
 				{ 3, 5191, "", "=q3=Cruel Barb", "=ds=#h1#, #w10#", "" };
 				{ 4, 5200, "", "=q3=Impaling Harpoon", "=ds=#w7#", "" };
-				{ 5, 5443, "", "=q3=Gold-plated Buckler", "=ds=#w8#", "" };
+				{ 5, 5443, "", "=q3=Gold-Plated Buckler", "=ds=#w8#", "" };
 				{ 16, 0, "inv_box_04", "=q6=#j3#", "#ACHIEVEMENTID:5367#"};
 				{ 17, 63473, "", "=q3=Cloak of Thredd", "=ds=#s4#", ""};
 				{ 18, 63475, "", "=q3=Old Friend's Gloves", "=ds=#s9#, #a3#", ""};
@@ -1362,7 +1362,7 @@ local moduleName = "AtlasLootCataclysm"
 		--- Throne of the Tides ---
 		---------------------------
 
-	AtlasLoot_Data["ToTNazjar"] = {
+	AtlasLoot_Data["TotTNazjar"] = {
 		["Normal"] = {
 			{
 				{ 1, 0, "INV_Box_01", "=q6=#j1#", ""};
@@ -1385,7 +1385,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 	};
 
-	AtlasLoot_Data["ToTUlthok"] = {
+	AtlasLoot_Data["TotTUlthok"] = {
 		["Normal"] = {
 			{
 				{ 1, 0, "INV_Box_01", "=q6=#j1#", ""};
@@ -1408,7 +1408,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 	};
 
-	AtlasLoot_Data["ToTMindbender"] = {
+	AtlasLoot_Data["TotTMindbender"] = {
 		["Normal"] = {
 			{
 				{ 1, 0, "INV_Box_01", "=q6=#j1#", ""};
@@ -1429,7 +1429,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 	};
 
-	AtlasLoot_Data["ToTOzumat"] = {
+	AtlasLoot_Data["TotTOzumat"] = {
 		["Normal"] = {
 			{
 				{ 1, 0, "INV_Box_01", "=q6=#j1#", ""};
@@ -1462,7 +1462,7 @@ local moduleName = "AtlasLootCataclysm"
 		};
 	};
 
-	AtlasLoot_Data["ToTTrash"] = {
+	AtlasLoot_Data["TotTTrash"] = {
 		["Normal"] = {
 			{
 				{ 2, 55260, "", "=q3=Alpheus Legguards", "=ds=#s11#, #a4#", ""};

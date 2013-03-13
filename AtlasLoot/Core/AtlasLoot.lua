@@ -1,4 +1,4 @@
--- $Id: AtlasLoot.lua 4110 2013-02-28 07:51:45Z dynaletik $
+-- $Id: AtlasLoot.lua 4148 2013-03-12 20:57:08Z hegarol $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -14,7 +14,7 @@ local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "7";
 local VERSION_MINOR = "05";
-local VERSION_BOSSES = "00";
+local VERSION_BOSSES = "02";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_VERSION_NUM = VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES
 
@@ -1123,8 +1123,10 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 	AtlasLoot:EncounterJournal_ButtonsRefresh()
 	if AtlasLoot:BonusLoot_GetDataIdInfo(dataID) then
 		AtlasLoot.ItemFrame.BonusRoll:Show()
+		AtlasLoot.CanShowBonusRoll = true
 	else
 		AtlasLoot.ItemFrame.BonusRoll:Hide()
+		AtlasLoot.CanShowBonusRoll = false
 	end
 	if AtlasLoot.ItemFrame.CloseButton:IsShown() then
 		AtlasLoot.ItemFrame.EncounterJournal:SetPoint("RIGHT", AtlasLoot.ItemFrame.CloseButton, "LEFT", 0, 0)

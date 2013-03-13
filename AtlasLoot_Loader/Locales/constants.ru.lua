@@ -1,4 +1,4 @@
-﻿-- $Id: constants.ru.lua 4089 2013-02-20 15:53:11Z dynaletik $
+﻿-- $Id: constants.ru.lua 4133 2013-03-09 07:45:03Z hegarol $
 --[[
 constants.ru.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -929,8 +929,6 @@ if AL then
 	AL["Ogre Tannin Basket"] = "Огрский дубильный чан";
 	AL["Unfinished Painting"] = "Незаконченная картина";
 	AL["Felvine Shard"] = "Сквернит";
-	AL["Lorgalis Manuscript"] = "Манускрипт Лоргалиса";
-	AL["Fathom Core"] = "Глубинный сердечник";
 	AL["Gift of Adoration"] = "Дар обожания";
 	AL["Treat Bag"] = "Сумка с лакомствами";
 	AL["Timed Reward Chest"] = "Сундук, награда за время";
