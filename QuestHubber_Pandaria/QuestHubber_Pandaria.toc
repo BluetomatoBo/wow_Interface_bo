@@ -3,7 +3,7 @@
 ## Author: pigmonkey
 ## Dependencies: QuestHubber
 ## Notes: QuestHubber data for Pandaria zones
-## X-Curse-Packaged-Version: v12
+## X-Curse-Packaged-Version: v13
 ## X-Curse-Project-Name: QuestHubber
 ## X-Curse-Project-ID: questhubber
 ## X-Curse-Repository-ID: wow/questhubber/mainline

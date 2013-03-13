@@ -7,7 +7,7 @@
 ## Notes-zhTW: QuestHubber 外域區域任務資料庫。
 ## Title-zhCN: QuestHubber [外域]
 ## Notes-zhCN: QuestHubber 外域区域任务数据库。
-## X-Curse-Packaged-Version: v12
+## X-Curse-Packaged-Version: v13
 ## X-Curse-Project-Name: QuestHubber
 ## X-Curse-Project-ID: questhubber
 ## X-Curse-Repository-ID: wow/questhubber/mainline
