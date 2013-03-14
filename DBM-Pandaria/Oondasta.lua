@@ -2,9 +2,9 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8862 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8899 $"):sub(12, -3))
 mod:SetCreatureID(69161)
---mod:SetModelID(41448)
+mod:SetModelID(47257)
 mod:SetZone(929)--Isle of Giants
 
 mod:RegisterCombat("combat")
@@ -61,8 +61,9 @@ function mod:SPELL_CAST_START(args)
 		timerPiercingRoarCD:Start()
 		if mod:IsManaUser() and mod:IsRanged() then
 			DBM.Flash:Show(1, 0, 0)
-			specWarnPiercingRoar:Show()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\stopcast.mp3") --停止施法
+		else
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\aesoon.mp3")
 		end
 	elseif args:IsSpellID(137505) then
 		warnFrillBlast:Show()

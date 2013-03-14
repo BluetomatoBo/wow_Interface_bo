@@ -199,7 +199,7 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	BossSpellInfo 	= "進化技能分析表",
 	AE1				= "持續性AE",
-	AE2				= "週期性AE (15s)",
+	AE2				= "靠近分擔AE (15s)",
 	tar5			= "分散5碼 (3s)",
 	tar1			= "病原體點名 (30s)",
 	speed			= "速度提升50%",

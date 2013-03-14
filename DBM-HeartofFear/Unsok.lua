@@ -129,7 +129,7 @@ local warnedoo = {}
 
 local function buildGuidTable()
 	table.wipe(guids)
-	for i = 1, DBM:GetGroupMembers() do
+	for i = 1, DBM:GetNumGroupMembers() do
 		guids[UnitGUID("raid"..i) or "none"] = GetRaidRosterInfo(i)
 	end
 end

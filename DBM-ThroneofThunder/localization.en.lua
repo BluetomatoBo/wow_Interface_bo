@@ -206,8 +206,7 @@ L= DBM:GetModLocalization(820)
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
 	InfoFrame		= "资讯框：首领当前的$journal:6949技能",
-	RangeFrame			= "Show range frame (5/2)",
-	SetIconOnBadOoze	= "Set icon on Living Fluid that drops $spell:140506"
+	RangeFrame			= "Show range frame (5/2)"
 })
 
 L:SetMiscLocalization({
@@ -289,7 +288,9 @@ L:SetOptionLocalization({
 	HudMAP2			= "高级定位监视(HUD)：$spell:136295",
 	RangeFrame			= "Show range frame",--For two different spells
 	StaticShockArrow	= "Show DBM Arrow when someone is affected by $spell:135695",
-	OverchargeArrow		= "Show DBM Arrow when someone is affected by $spell:136295"
+	OverchargeArrow		= "Show DBM Arrow when someone is affected by $spell:136295",
+	SetIconOnOvercharge	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136295),
+	SetIconOnStaticShock= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(135695)
 })
 
 ------------

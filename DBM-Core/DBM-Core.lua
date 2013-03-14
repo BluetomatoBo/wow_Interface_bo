@@ -44,9 +44,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 8880 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 8894 $"):sub(12, -3)),
 	DisplayVersion = "5.2 語音增強版", -- the string that is shown as version
-	ReleaseRevision = 8828 -- the revision of the latest stable version that is available
+	ReleaseRevision = 8892 -- the revision of the latest stable version that is available
 }
 
 -- Legacy crap; that stupid "Version" field was never a good idea.
@@ -435,15 +435,17 @@ do
 		end
 	end
 
-	function DBM:UnregisterInCombatEvents()
+	function DBM:UnregisterInCombatEvents(ignore)
 		for event, mods in pairs(registeredEvents) do
-			for i = #mods, 1, -1 do
-				if mods[i] == self and checkEntry(self.inCombatOnlyEvents, event)  then
-					tremove(mods, i)
+			if event ~= ignore then
+				for i = #mods, 1, -1 do
+					if mods[i] == self and checkEntry(self.inCombatOnlyEvents, event)  then
+						tremove(mods, i)
+					end
 				end
-			end
-			if #mods == 0 then
-				unregisterEvent(event)
+				if #mods == 0 then
+					unregisterEvent(event)
+				end
 			end
 		end
 	end
@@ -1908,11 +1910,14 @@ end
 -----------------------------
 do
 	local function checkForActualPull()
-		if DBM.Options.AutologBosses and LoggingCombat() and #inCombat == 0 then
-			LoggingCombat(0)
-		end
-		if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
-			Transcriptor:StopLog()
+		if #inCombat == 0 then
+			if DBM.Options.AutologBosses and LoggingCombat() then
+				LoggingCombat(0)
+				print(COMBATLOGDISABLED)
+			end
+			if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
+				Transcriptor:StopLog()
+			end
 		end
 	end
 
@@ -2027,6 +2032,7 @@ do
 		end
 		if DBM.Options.AutologBosses and not LoggingCombat() then--Start logging here to catch pre pots.
 			LoggingCombat(1)
+			print(COMBATLOGENABLED)
 			DBM:Unschedule(checkForActualPull)
 			DBM:Schedule(timer+10, checkForActualPull)--But if pull was canceled and we don't have a boss engaged within 10 seconds of pull timer ending, abort log
 		end
@@ -2773,6 +2779,7 @@ function DBM:StartCombat(mod, delay, synced)
 		end
 		if DBM.Options.AutologBosses and not LoggingCombat() then
 			LoggingCombat(1)
+			print(COMBATLOGENABLED)
 		end
 		if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
 			Transcriptor:StartLog()
@@ -2802,11 +2809,9 @@ function DBM:EndCombat(mod, wipe)
 		if not wipe then
 			mod.lastKillTime = GetTime()
 			if mod.inCombatOnlyEvents then
-				--Timer issues not super rare (At lease for me). It causes every time for me at lfr Tsulong (if we kill him at night, he changes to day phase on die. This fires UNIT_SPELLCAST_SUCCEEDED/spellid 123532 event. If this evert fires after he yells (die trigger), this can cause bad timer starts.)
-				--mod:UnregisterInCombatEvents()
-				DBM:Schedule(1.5, mod.UnregisterInCombatEvents, mod) -- Delay unregister events to make sure icon clear functions get to run their course. We want to catch some SPELL_AURA_REMOVED events that fire after boss death and get those icons cleared
-				--Remove bad started timer after boss dies.
-				DBM:Schedule(1.6, mod.Stop, mod)
+				-- unregister all events except for SPELL_AURA_REMOVED events (might still be needed to remove icons etc...)
+				mod:UnregisterInCombatEvents("SPELL_AURA_REMOVED")
+				DBM:Schedule(2, mod.UnregisterInCombatEvents, mod) -- 2 seconds should be enough for all auras to fade
 				mod.inCombatOnlyEventsRegistered = nil
 			end
 		end
@@ -2970,6 +2975,7 @@ function DBM:EndCombat(mod, wipe)
 		DBM:ToggleRaidBossEmoteFrame(0)
 		if DBM.Options.AutologBosses and LoggingCombat() then
 			LoggingCombat(0)
+			print(COMBATLOGDISABLED)
 		end
 		if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
 			Transcriptor:StopLog()
@@ -3358,6 +3364,8 @@ do
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_RAID_WARNING", filterRaidWarning)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY", filterRaidWarning)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_PARTY_LEADER", filterRaidWarning)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT", filterRaidWarning)
+	ChatFrame_AddMessageEventFilter("CHAT_MSG_INSTANCE_CHAT_LEADER", filterRaidWarning)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_SAY", filterSayYell)
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", filterSayYell)
 end
@@ -4018,7 +4026,7 @@ do
 					for i = 1, select("#", GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING")) do
 						local frame = select(i, GetFramesRegisteredForEvent("CHAT_MSG_RAID_WARNING"))
 						if frame ~= RaidWarningFrame and frame:GetScript("OnEvent") then
-							frame:GetScript("OnEvent")(frame, "CHAT_MSG_RAID_WARNING", text, UnitName("player"), GetDefaultLanguage("player"), "", UnitName("player"), "", 0, 0, "", 0, 99, "")
+							frame:GetScript("OnEvent")(frame, "CHAT_MSG_RAID_WARNING", text, UnitName("player"), GetDefaultLanguage("player"), "", UnitName("player"), "", 0, 0, "", 0, 99, UnitGUID("player"))
 						end
 					end
 				else

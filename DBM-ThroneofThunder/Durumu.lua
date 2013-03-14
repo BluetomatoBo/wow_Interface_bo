@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(818, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8862 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8886 $"):sub(12, -3))
 mod:SetCreatureID(68036)--Crimson Fog 69050, 
 mod:SetModelID(47189)
 mod:SetUsedIcons(7, 6, 1)
@@ -242,7 +242,7 @@ end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
-	if spellId == 140502 and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then
+	if spellId == 134755 and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then
 		specWarnEyeSore:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3") --快躲開
 	end

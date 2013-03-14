@@ -35,6 +35,7 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	Pull				= "How dare you interrupt our preparations! The Zandalari will not be stopped, not this time!"
 })
+
 ---------------------------
 -- Nalak, The Storm Lord --
 ---------------------------

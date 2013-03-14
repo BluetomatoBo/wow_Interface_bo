@@ -31,7 +31,6 @@ L.Button_OK 				= '確定'
 L.Button_Cancel 			= '取消'
 L.Button_LoadMod 			= '載入模組'
 L.Mod_Enabled				= "啟用首領模組"
-L.Mod_EnableAnnounce		= "團隊廣播 (需要隊長)"
 L.Reset 					= "重置"
 
 L.Enable  					= "啟用"

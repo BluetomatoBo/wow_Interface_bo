@@ -158,19 +158,6 @@ local function showheadinfo()
 	end
 end
 
-local function chooseattack()
-	if not combat then return end
-	if iceInFront == 1 then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lskd.mp3") --藍色
-	elseif fireInFront == 1 then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hskd.mp3") --紅色
-	elseif venomInFront == 1 then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lvkd.mp3") --綠色
-	elseif arcaneInFront == 1 then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_zskd.mp3") --紫色
-	end
-end
-
 function mod:OnCombatStart(delay)
 	buildGuidTable()
 	guidTableBuilt = true
@@ -412,19 +399,15 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		if cid == 70235 then--Frozen
 			iceInFront = iceInFront - 1
 			iceBehind = iceBehind + 2
-			chooseattack()
 		elseif cid == 70212 then--Flaming
 			fireInFront = fireInFront - 1
 			fireBehind = fireBehind + 2
-			chooseattack()
 		elseif cid == 70247 then--Venomous
 			venomInFront = venomInFront - 1
 			venomBehind = venomBehind + 2
-			chooseattack()
 		elseif cid == 70248 then--Arcane
 			arcaneInFront = arcaneInFront - 1
 			arcaneBehind = arcaneBehind + 2
-			chooseattack()
 		end
 		showheadinfo()
 	end
