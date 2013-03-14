@@ -1,4 +1,7 @@
-﻿local _G = _G
+﻿-- TODO: I love this addon, but would it be possible to add an option to lock the tabs we dont want to change?
+-- TODO: So with that in mind I came up with this suggestion.  Creating a grouping function with a drop-down menu-maybe located near the revive pet.  Each grouping would still allow up to 8 tabs.  Then each grouping would allow for naming by the user.  A player (like myself) could then have Panderia/Northrend Tamers as one group and Misc Tamers as another group then naming each team either the zone or the tamer name for quick selection.  Another grouping might be PVP, becuase it's good to have mulitple teams if you happen to end up fighting the same 2-3 people due to the time of day/night you are battling.  A Leveling group would be good because of the changes in 5.2 with XP being used based on the highest level pet in the group (so I won't be power leveling with my 25's anymore).  This type of combinations leads to easily over 8 tabs but it would keep your UI clean which is the impression I have from reading some of your posts.
+
+local _G = _G
 local ACCEPT = ACCEPT
 local C_PetBattles = C_PetBattles
 local C_PetJournal = C_PetJournal
@@ -70,7 +73,7 @@ local function PetJournal_UpdateDisplay()
   elseif PetJournal_UpdateAll then
     PetJournal_UpdateAll()
   else
-    print("Fatal error, couldn't update Pet Journal UI!")
+    --print("Fatal error, couldn't update Pet Journal UI!")
   end
 end
 
@@ -172,6 +175,12 @@ local function GetTeamMacroName(teamId)
 end
 
 local function CreateTeamMacro(macroName, teamId, teamData)
+  if type(macroName) ~= "string" then
+    return
+  end
+  if type(teamId) ~= "number" then
+    return
+  end
   if type(teamData) ~= "table" then
     return
   end
@@ -179,7 +188,7 @@ local function CreateTeamMacro(macroName, teamId, teamData)
     return -- can't work with macros in combat
   end
   if GetNumMacros() >= (MAX_ACCOUNT_MACROS or 36) then -- it's a LOD addon but I don't care to add a bunch of code just for one variable, so I hardcoded it!
-    print("Can't create macro for team #"..teamId.." because you don't have any more available macro slots in your General category.")
+    print("Can't create macro for team #" .. teamId .. " because you don't have any more available macro slots in your General category.")
     return
   end
   if MacroFrame then
@@ -260,7 +269,7 @@ function BattlePetTabsReorganizeDB()
       if macroName then
         if i <= lastId then
           macroIndex = GetMacroIndexByName(macroName)
-          if macroIndex ~= 0 then
+          if macroIndex > 0 then
             CreateTeamMacro(macroName, i, BattlePetTabsDB[i])
           end
         else
@@ -612,6 +621,7 @@ function BattlePetTabs_OnEvent(addon, event, name)
         addon:RegisterEvent("PET_BATTLE_OPENING_START")
         addon:RegisterEvent("PET_BATTLE_QUEUE_STATUS")
         addon:RegisterEvent("PET_JOURNAL_LIST_UPDATE")
+        addon:RegisterEvent("COMPANION_UPDATE")
 
         -- combat locking
         addon:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -663,6 +673,10 @@ function BattlePetTabs_OnEvent(addon, event, name)
 
     else
       BattlePetTabs_UpdateLock()
+    end
+
+    if event == "COMPANION_UPDATE" and name == "CRITTER" then
+      PetJournal_UpdateDisplay()
     end
 
     -- update and load our default team (as long the loaded data is valid, and it should be)
