@@ -21,7 +21,7 @@ local LPB = E:NewModule('LocationPlus');
 local DT = E:GetModule('DataTexts');
 local LSM = LibStub("LibSharedMedia-3.0");
 local EP = LibStub("LibElvUIPlugin-1.0")
-local addon = ...
+local addon, ns = ...
 
 local tourist = LibStub("LibTourist-3.0");
 
