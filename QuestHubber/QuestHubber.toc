@@ -7,7 +7,7 @@
 ## Title-zhCN: QuestHubber [任务探索]
 ## Notes-zhCN: 在世界地图上，标记你尚未完成的任务。
 ## SavedVariables: QuestHubberDB
-## X-Curse-Packaged-Version: v13
+## X-Curse-Packaged-Version: v14
 ## X-Curse-Project-Name: QuestHubber
 ## X-Curse-Project-ID: questhubber
 ## X-Curse-Repository-ID: wow/questhubber/mainline

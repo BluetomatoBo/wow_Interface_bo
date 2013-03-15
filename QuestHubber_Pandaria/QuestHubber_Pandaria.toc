@@ -1,9 +1,9 @@
-## Interface: 50100
+## Interface: 50200
 ## Title: QuestHubber_Pandaria
 ## Author: pigmonkey
 ## Dependencies: QuestHubber
 ## Notes: QuestHubber data for Pandaria zones
-## X-Curse-Packaged-Version: v13
+## X-Curse-Packaged-Version: v14
 ## X-Curse-Project-Name: QuestHubber
 ## X-Curse-Project-ID: questhubber
 ## X-Curse-Repository-ID: wow/questhubber/mainline
