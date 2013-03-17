@@ -294,7 +294,7 @@ end
 
 -- Construct arcane bar for mages
 function H:ConstructArcaneBar(frame)
-    return self:ConstructSubBars(frame,'classbars','arcanecharge',6) 
+    return self:ConstructSubBars(frame,'classbars','arcanecharge',4) 
 end
 
 -- Combo points for rogues and druids

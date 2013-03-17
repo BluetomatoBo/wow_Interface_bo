@@ -115,9 +115,9 @@ function H:UpdateClassBar(frame,element)
 		end
 
 		if E.myclass == "MAGE" then
-			curPoints = 6
-			numPoints = 6
-			maxPoints = 6
+			curPoints = 4
+			numPoints = 4
+			maxPoints = 4
 		end
 	end
 
@@ -244,7 +244,7 @@ function H:UpdateClassBarAnchors(frame,element)
 		end
 
 		if E.myclass == "MAGE" then
-			for i=1,6 do
+			for i=1,4 do
 				if i == 1 then
 		            frame.ArcaneChargeBar[i]:Point("BOTTOM",frame.ArcaneChargeBar)
 		        else
