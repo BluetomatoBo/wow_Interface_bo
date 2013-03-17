@@ -1,0 +1,27 @@
+## Interface: 50200
+## X-Curse-Packaged-Version: 3.2.6
+## X-Curse-Project-Name: Simple iLevel
+## X-Curse-Project-ID: simple-ilevel
+## X-Curse-Repository-ID: wow/simple-ilevel/mainline
+
+## Title: Simple iLevel - Group
+## Notes: View the AiL of everyone in your group
+
+## Title-deDE: Simple iLevel - Gruppe
+## Title-koKR: Simple iLevel - 그룹
+## Title-ruRU: Simple iLevel - Группа
+## Title-zhCN: SiL - 团体
+## Title-zhTW: SiL - 團體
+
+## Notes-deDE: Zeige die durchschnittliche Gegenstandsstufe von allen aus deiner Gruppe
+## Notes-koKR: 모든 그룹원의 평균 아이템레벨 표시
+## Notes-ruRU: Посмотреть средний урвоень предметов всех в вашей группе
+## Notes-zhCN: 查看团体所有人的平均物品等级
+## Notes-zhTW: 觀看團體所有人的平均物品等級
+
+## Author: Scotepi
+## Version: 3.2.6
+## Dependencies: SimpleILevel
+## LoadOnDemand: 1
+
+SimpleILevel_Group.lua

@@ -1,0 +1,32 @@
+## Interface: 50200
+## X-Curse-Packaged-Version: 3.2.6
+## X-Curse-Project-Name: Simple iLevel
+## X-Curse-Project-ID: simple-ilevel
+## X-Curse-Repository-ID: wow/simple-ilevel/mainline
+
+## Title: Simple iLevel
+## Notes: Adds the Average iLevel (AiL) to the tooltip of other players
+
+## Title-ptBR: iLevel Simples
+## Title-zhCN: SiL
+## Title-zhTW: SiL
+
+## Notes-ptBR: Incluir iLevel Medio (AiL) na informacção flutuante dos players
+## Notes-frFR: Ajoute leur iLevel moyen (AiL) à l'infobulle des autres joueurs
+## Notes-deDE: Fügt die durchschnittliche Gegenstandsstufe in den Tooltip des Spielers ein
+## Notes-koKR: 다른 플레이어의 툴팁에 평균 아이템 레벨(AiL)을 추가합니다.
+
+## Notes-ruRU: Добавлять средний iLvL (AiL) в подсказки игроков
+## Notes-zhCN: 提示栏显示其它玩家的平均物品等级
+
+## Notes-zhTW: 提示欄顯示其他玩家的平均物品等級
+
+## Author: Scotepi
+## Version: 3.2.6
+## SavedVariables: SIL_Settings, SIL_CacheGUID
+## OptionalDeps: Ace3, CallbackHandler, LibDBIcon, LibInspect, GuildMemberInfo
+
+## X-Category: Information
+
+embeds.xml
+SimpleILevel.xml

@@ -1,0 +1,31 @@
+------------------------------------------------------------------------
+r186 | scotepi | 2013-03-16 01:35:32 +0000 (Sat, 16 Mar 2013) | 1 line
+Changed paths:
+   A /tags/3.2.6 (from /trunk:185)
+
+Tagging as 3.2.6
+------------------------------------------------------------------------
+r183 | scotepi | 2013-03-13 03:24:15 +0000 (Wed, 13 Mar 2013) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Fix for error on SimpleILevel.lua:629, thanks to JeeBo
+------------------------------------------------------------------------
+r182 | scotepi | 2013-03-13 03:20:50 +0000 (Wed, 13 Mar 2013) | 2 lines
+Changed paths:
+   M /trunk/SimpleILevel.toc
+   M /trunk/SimpleILevel_Group/SimpleILevel_Group.toc
+   M /trunk/SimpleILevel_Resilience/SimpleILevel_Resilience.toc
+   M /trunk/SimpleILevel_Social/SimpleILevel_Social.toc
+   M /trunk/settings.lua
+
+TOC Update for 5.2
+Minor color tweak for T16 fully upgraded items
+------------------------------------------------------------------------
+r181 | scotepi | 2013-01-25 02:42:08 +0000 (Fri, 25 Jan 2013) | 2 lines
+Changed paths:
+   M /trunk/settings.lua
+
+Updated color brackets for T15
+Added some feedback for /sil debug
+------------------------------------------------------------------------

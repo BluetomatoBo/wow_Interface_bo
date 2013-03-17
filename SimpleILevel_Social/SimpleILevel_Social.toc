@@ -1,0 +1,28 @@
+## Interface: 50200
+## X-Curse-Packaged-Version: 3.2.6
+## X-Curse-Project-Name: Simple iLevel
+## X-Curse-Project-ID: simple-ilevel
+## X-Curse-Repository-ID: wow/simple-ilevel/mainline
+
+## Title: Simple iLevel - Social
+## Notes: Added the AiL to chat windows for various channels
+
+## Title-deDE: Simple iLevel - Sozial
+## Title-koKR: Simple iLevel - 소셜
+## Title-ruRU: Simple iLevel - Общение
+## Title-zhCN: SiL - 社交
+## Title-zhTW: SiL - 社交
+
+## Notes-deDE: Fügt die durchschnittliche Gegenstandsstufe im Chatfenster für verschiedene Kanäle hinzu
+## Notes-koKR: 다양한 채널의 대화창에 평균 아이템 레벨 표시
+## Notes-ruRU: Добавлен средний уровень предметов в окно чата для разных каналов
+## Notes-zhCN: 于聊天窗体各频道加入平均物品等级
+## Notes-zhTW: 於聊天視窗各頻道加入平均物品等級
+
+## Author: Scotepi
+## Version: 3.2.6
+## Dependencies: SimpleILevel
+## SavedVariables: SIL_Social
+## LoadOnDemand: 1
+
+SimpleILevel_Social.lua
