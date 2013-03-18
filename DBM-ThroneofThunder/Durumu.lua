@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(818, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8886 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8915 $"):sub(12, -3))
 mod:SetCreatureID(68036)--Crimson Fog 69050, 
 mod:SetModelID(47189)
 mod:SetUsedIcons(7, 6, 1)
@@ -48,26 +48,28 @@ local specWarnLingeringGazeMove		= mod:NewSpecialWarningMove(134044)
 local specWarnBlueBeam				= mod:NewSpecialWarningYou(139202)
 local specWarnRedBeam				= mod:NewSpecialWarningYou(139204)
 local specWarnYellowBeam			= mod:NewSpecialWarningYou(133738)
-local specWarnFogRevealed			= mod:NewSpecialWarning("specWarnFogRevealed")
-local specWarnDisintegrationBeam	= mod:NewSpecialWarningSpell(134169, nil, nil, nil, 2)
-local specWarnDisintegrationBeamL	= mod:NewSpecialWarning("specWarnDisintegrationBeamL")
-local specWarnDisintegrationBeamR	= mod:NewSpecialWarning("specWarnDisintegrationBeamR")
+local specWarnFogRevealed			= mod:NewSpecialWarning("specWarnFogRevealed", nil, nil, nil, 2)--Use another "Be Aware!" sound because Lingering Gaze comes on Spectrum phase.
+local specWarnDisintegrationBeam	= mod:NewSpecialWarningSpell("ej6882", nil, nil, nil, 2)
 local specWarnEyeSore				= mod:NewSpecialWarningMove(140502)
-local specWarmLifeDrain				= mod:NewSpecialWarningTarget(133795, mod:IsTank())
+local specWarnLifeDrain				= mod:NewSpecialWarningTarget(133795, mod:IsTank())
 
 local timerHardStareCD				= mod:NewCDTimer(12, 133765, mod:IsTank() or mod:IsHealer())--10 second cd but delayed by everything else. Example variation, 12, 15, 9, 25, 31
 local timerSeriousWound				= mod:NewTargetTimer(60, 133767, mod:IsTank() or mod:IsHealer())
-local timerLingeringGazeCD			= mod:NewCDTimer(45, 138467)
+local timerLingeringGazeCD			= mod:NewCDTimer(25, 138467)
 local timerForceOfWillCD			= mod:NewCDTimer(20, 136413)--Actually has a 20 second cd but rarely cast more than once per phase because of how short the phases are (both beams phases cancel this ability)
-local timerLightSpectrumCD			= mod:NewCDTimer(60, "ej6891")--Don't know when 2nd one is cast.
+local timerLightSpectrumCD			= mod:NewNextTimer(60, "ej6891")--Don't know when 2nd one is cast.
 local timerDarkParasite				= mod:NewTargetTimer(30, 133597, mod:IsHealer())--Only healer/dispeler needs to know this.
 local timerDarkPlague				= mod:NewTargetTimer(30, 133598)--EVERYONE needs to know this, if dispeler messed up and dispelled parasite too early you're going to get a new add every 3 seconds for remaining duration of this bar.
 local timerDisintegrationBeam		= mod:NewBuffActiveTimer(65, "ej6882")
 local timerDisintegrationBeamCD		= mod:NewNextTimer(127, "ej6882")
 local timerObliterateCD				= mod:NewNextTimer(80, 137747)--Heroic
 
+local berserkTimer					= mod:NewBerserkTimer(600)
+
 --mod:AddBoolOption("ArrowOnBeam", true)
 mod:AddBoolOption("SetIconRays", true)
+
+local rgbcount = 0
 
 local totalFogs = 3
 local lingeringGazeTargets = {}
@@ -90,7 +92,7 @@ local function BeamEnded()
 --[[	if mod.Options.ArrowOnBeam then
 		DBM.Arrow:Hide()
 	end--]]
-	timerForceOfWillCD:Start(14)
+	timerForceOfWillCD:Start(18)
 	timerLingeringGazeCD:Start(21)
 	timerLightSpectrumCD:Start(32)
 	timerDisintegrationBeamCD:Start()
@@ -105,7 +107,9 @@ local function BeamEnded()
 	end)
 end
 
---mod:AddBoolOption("HudMAP", true, "sound")
+mod:AddBoolOption("HudMAP", true, "sound")
+
+mod:AddDropdownOption("optDD", {"nodd", "DD1", "DD2", "DD3"}, "nodd", "sound")
 
 local DBMHudMap = DBMHudMap
 local free = DBMHudMap.free
@@ -115,16 +119,37 @@ local function register(e)
 end
 local lightmaker = {}
 
+local function lightchoose()
+	if ((rgbcount == 1) and (mod.Options.optDD == "DD1")) or ((rgbcount == 2) and (mod.Options.optDD == "DD3")) or ((rgbcount == 3) and (mod.Options.optDD == "DD2"))then
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hsfd.mp3") --紅色分擔
+		if mod.Options.HudMAP then
+			lightmaker[lastRed] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastRed))
+		end
+	elseif ((rgbcount == 1) and (mod.Options.optDD == "DD2")) or ((rgbcount == 2) and (mod.Options.optDD == "DD1")) or ((rgbcount == 3) and (mod.Options.optDD == "DD3"))then
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hufd.mp3") --黃色分擔
+		if mod.Options.HudMAP then
+			lightmaker[lastYellow] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastYellow))
+		end
+	elseif ((rgbcount == 1) and (mod.Options.optDD == "DD3")) or ((rgbcount == 2) and (mod.Options.optDD == "DD2")) or ((rgbcount == 3) and (mod.Options.optDD == "DD1"))then
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lsfd.mp3") --藍色分擔
+		if mod.Options.HudMAP then
+			lightmaker[lastBlue] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastBlue))
+		end
+	end
+end
+
 function mod:OnCombatStart(delay)
 	lastRed = nil
 	lastBlue = nil
 	lastYellow = nil
+	rgbcount = 0
 	table.wipe(lingeringGazeTargets)
 	timerHardStareCD:Start(5-delay)
 	timerLingeringGazeCD:Start(15.5-delay)
-	timerForceOfWillCD:Start(30.5-delay)
+	timerForceOfWillCD:Start(33.5-delay)
 	timerLightSpectrumCD:Start(41-delay)
 	timerDisintegrationBeamCD:Start(135-delay)
+	berserkTimer:Start(-delay)
 	self:Schedule(125, function()
 		DBM.Flash:Show(1, 0, 0)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_tenwj.mp3") --10秒後瓦解光束
@@ -154,33 +179,6 @@ function mod:SPELL_CAST_START(args)
 		timerLingeringGazeCD:Start()
 	elseif args:IsSpellID(134587) and self:AntiSpam(3, 3) then
 		warnIceWall:Show()
-	end
-end
-
-function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(133795) then
-		warnLifeDrain:Show(args.destName)
-		specWarmLifeDrain:Show(args.destName)
---[[Blizz disabled this from combat log in latest build, wtf? so now we HAVE to use emote for it
-	elseif args:IsSpellID(136932) then--Force of Will Precast
-		warnForceOfWill:Show(args.destName)
-		if args:IsPlayer() then
-			specWarnForceOfWill:Show()
-			yellForceOfWill:Yell()
-		else
-			local uId = DBM:GetRaidUnitId(args.destName)
-			if uId then
-				local x, y = GetPlayerMapPosition(uId)
-				if x == 0 and y == 0 then
-					SetMapToCurrentZone()
-					x, y = GetPlayerMapPosition(uId)
-				end
-				local inRange = DBM.RangeCheck:GetDistance("player", x, y)
-				if inRange and inRange < 11 then--Guessed range.
-					specWarnForceOfWillNear:Show(args.destName)
-				end
-			end
-		end--]]
 	end
 end
 
@@ -255,6 +253,9 @@ mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 	if msg:find("spell:136932") then--Force of Will
 		warnForceOfWill:Show(target)
+		if timerLightSpectrumCD:GetTime() > 22 or timerDisintegrationBeamCD:GetTime() > 108 then--Don't start timer if either beam or spectrum will come first (cause both disable force ability)
+			timerForceOfWillCD:Start()
+		end
 		if target == UnitName("player") then
 			specWarnForceOfWill:Show()
 			yellForceOfWill:Yell()
@@ -272,14 +273,17 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 					x, y = GetPlayerMapPosition(uId)
 				end
 				local inRange = DBM.RangeCheck:GetDistance("player", x, y)
-				if inRange and inRange < 13 then--Guessed range.
+				if inRange and inRange < 16 then--Range hard to get perfect, a player 30 yards away might still be in it. I say 15 is probably good middle ground to catch most of the "near"
 					specWarnForceOfWillNear:Show(target)
 				end
 			end
 		end
 	elseif msg:find("spell:134122") then--Blue Rays
 		warnBlueBeam:Show(target)
+		timerLingeringGazeCD:Start(21)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_syg.mp3") --三原光準備
+		if rgbcount == 3 then rgbcount = 0 end
+		rgbcount = rgbcount + 1
 		if target == UnitName("player") then
 			specWarnBlueBeam:Show()
 			DBM.Flash:Show(0, 0, 1)
@@ -314,6 +318,11 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hgsd.mp3") --黃光
 		end
 		lastYellow = target
+		mod:Schedule(1.5, function()
+			if (lastRed ~= UnitName("player")) and (lastBlue ~= UnitName("player")) and (lastYellow ~= UnitName("player")) then
+				lightchoose()
+			end
+		end)
 		if self.Options.SetIconRays then
 			self:SetIcon(target, 1, 10)--Star (auto remove after 10 seconds because this beam untethers one initial person positions it.
 		end
@@ -341,6 +350,9 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		DBM.Flash:Show(1, 1, 0)
 		specWarnFogRevealed:Show(YellowFog)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_huang.mp3") --黃色快打
+	elseif msg:find("spell:133795") then
+		warnLifeDrain:Show(target)
+		specWarnLifeDrain:Show(target)
 	elseif msg:find("spell:134169") then
 		timerLingeringGazeCD:Cancel()
 		warnDisintegrationBeam:Show()

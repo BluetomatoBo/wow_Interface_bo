@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPWS	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8862 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8913 $"):sub(12, -3))
 mod:SetCreatureID(69712)
 mod:SetModelID(46675)
 
@@ -40,6 +40,7 @@ local timerFlockCD	 		= mod:NewTimer(30, "timerFlockCD", 15746)
 local timerTalonRakeCD		= mod:NewCDTimer(20, 134366, mod:IsTank() or mod:IsHealer())--20-30 second variation
 local timerTalonRake		= mod:NewTargetTimer(60, 134366, mod:IsTank() or mod:IsHealer())
 local timerDowndraftCD		= mod:NewCDTimer(97, 134370)
+local timerFlight			= mod:NewBuffFadesTimer(10, 133755)
 local timerFeedYoung		= mod:NewCDTimer(30, 137528)
 
 mod:AddBoolOption("RangeFrame", mod:IsRanged())

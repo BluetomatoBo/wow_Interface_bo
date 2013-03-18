@@ -54,9 +54,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	newForces		= "的门蜂拥而出!",--Farraki forces pour from the Farraki Tribal Door!
-	controlOrb		= "支配宝珠",
-	chargeTarget	= "用力拍动尾巴!"--Horridon sets his eyes on Eraeshio and stamps his tail!
+	newForces		= "之门中涌出",--Farraki forces pour from the Farraki Tribal Door!
+	controlOrb		= "控制宝珠",
+	chargeTarget	= "开始拍打他的尾巴"--Horridon sets his eyes on Eraeshio and stamps his tail!
 })
 
 ---------------------------
@@ -64,14 +64,20 @@ L:SetMiscLocalization({
 ---------------------------
 L= DBM:GetModLocalization(816)
 
+L:SetWarningLocalization({
+	specWarnPossessed		= "%s 于 %s - 转换目标"
+})
+
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
 	Soundspirit		= "倒计时：女祭司的各种魂灵",
 	HudMAP			= "高级定位监视(HUD)：$spell:136992",
 	HudMAP2			= "高级定位监视(HUD)：$spell:136922",
-	warnPossessed	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136442),
-	warnSandBolt	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136189),
-	RangeFrame		= "距离监视"
+	warnPossessed		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136442),
+	specWarnPossessed	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.switch:format(136442),
+	warnSandBolt		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136189),
+	PHealthFrame		= "为$spell:136442消散显示剩余血量框(需要首领血量框架开启)",
+	RangeFrame			= "距离监视"
 })
 
 ------------
@@ -93,7 +99,8 @@ L:SetOptionLocalization({
 	dr3						= "减伤提示:$spell:134920 3/4",
 	dr4						= "减伤提示:$spell:134920 4/4",
 	specWarnCrystalShell	= "特殊警报：当没有$spell:137633效果时",
-	InfoFrame				= "信息框：没有$spell:137633效果的团员"
+	InfoFrame				= "信息框：没有$spell:137633效果的团员",
+	SetIconOnTurtles		= "为$journal:7129设置团队标记"
 })
 
 L:SetMiscLocalization({
@@ -121,7 +128,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	rampageEnds		= "梅贾拉的怒气平息了。",
+	rampageEnds		= "墨格瑞拉的怒火平息了",
 	Behind			= "迷雾中: "
 })
 
@@ -174,8 +181,8 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	eggsHatchL		= "The eggs in one of the lower nests begin to hatch!",
-	eggsHatchU		= "The eggs in one of the upper nests begin to hatch!",
+	eggsHatchL		= "下层某个鸟巢中的蛋开始孵化了",
+	eggsHatchU		= "上层某个鸟巢中的蛋开始孵化了",
 	U				= "上方",
 	L				= "下方",
 	UAndL			= "上方 & 下方"
@@ -248,7 +255,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Pull		= "The orb explodes!"
+	Pull		= "宝珠爆炸了！"
 })
 
 --------------
@@ -287,7 +294,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	DuskPhase		= "Lu'lin! Lend me your strength!"--Not in use, but a backup just in case, so translate in case it's switched to on moments notice on live or next PTR test
+	DuskPhase		= "露琳！将你的力量借给我！"--Not in use, but a backup just in case, so translate in case it's switched to on moments notice on live or next PTR test
 })
 
 --------------

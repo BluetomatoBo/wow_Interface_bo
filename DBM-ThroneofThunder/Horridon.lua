@@ -4,7 +4,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndDB		= mod:NewSound(nil, "SoundDB", false)
 local sndOrb	= mod:NewSound(nil, "SoundOrb", mod:IsTank())
 
-mod:SetRevision(("$Revision: 8904 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8906 $"):sub(12, -3))
 mod:SetCreatureID(68476)
 mod:SetModelID(47325)
 
@@ -80,6 +80,8 @@ local timerDireCallCD			= mod:NewCDTimer(62, 137458)--Heroic (every 62-70 second
 
 local berserkTimer				= mod:NewBerserkTimer(720)
 
+mod:AddBoolOption("ccsoon", false, "sound")
+mod:AddBoolOption("ddyls", true, "sound")
 local doorNumber = 0
 local jalakEngaged = false
 local Farraki	= EJ_GetSectionInfo(7081)
@@ -91,12 +93,23 @@ function mod:OnCombatStart(delay)
 	doorNumber = 0
 	jalakEngaged = false
 	timerPunctureCD:Start(-delay)
+	self:Schedule(9, function()
+		if UnitName("boss1target") == UnitName("player") or mod.Options.ccsoon then
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\watchimpale.mp3")
+		end
+	end)
 	timerDoubleSwipeCD:Start(16-delay)--16-17 second variation
 	timerDoor:Start(16.5-delay)
 	timerChargeCD:Start(31-delay)--31-35sec variation
 	berserkTimer:Start(-delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
 		timerDireCallCD:Start(-delay)
+		if mod:IsHealer() then
+			if select(2, UnitClass("player")) == "PRIEST" then
+				sndWOP:Schedule(42, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_esnh.mp3")
+			end
+			sndWOP:Schedule(57, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_wmhn.mp3")
+		end
 	end
 	self:RegisterShortTermEvents(
 		"INSTANCE_ENCOUNTER_ENGAGE_UNIT"--We register here to prevent detecting first heads on pull before variables reset from first engage fire. We'll catch them on delayed engages fired couple seconds later
@@ -133,8 +146,14 @@ function mod:SPELL_CAST_START(args)
 		timerDoubleSwipeCD:Start(11.5)--Hard coded failsafe. 136741 version is always 11.5 seconds after 136770 version
 	elseif args:IsSpellID(137458) then
 		warnDireCall:Show()
-		specWarnDireCall:Show()
 		timerDireCallCD:Start()--CD is reset when he breaks a door though.
+		if mod:IsHealer() then
+			if select(2, UnitClass("player")) == "PRIEST" then
+				sndWOP:Schedule(42, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_esnh.mp3")
+			end
+			sndWOP:Schedule(57, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_wmhn.mp3")
+		end
+		specWarnDireCall:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\aesoon.mp3") --準備AE
 	elseif args:IsSpellID(136587) then
 		warnVenomBolt:Show()
@@ -178,6 +197,11 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnPuncture:Show(args.destName, args.amount or 1)
 		timerPuncture:Start(args.destName)
 		timerPunctureCD:Start()
+		self:Schedule(9, function()
+			if UnitName("boss1target") == UnitName("player") or mod.Options.ccsoon then
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\watchimpale.mp3")
+			end
+		end)
 		if args:IsPlayer() then
 			if (args.amount or 1) >= 9 then
 				specWarnPuncture:Show(args.amount)
@@ -198,15 +222,21 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(136817) then
 		warnBestialCry:Show(args.destName, args.amount or 1)
 		timerBestialCryCD:Start(10, (args.amount or 1)+1)
+		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\aesoon.mp3") --準備AE
+		sndWOP:Schedule(7.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
+		sndWOP:Schedule(8.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
+		sndWOP:Schedule(9.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")		
 	elseif args:IsSpellID(136821) then
 		warnRampage:Show(args.destName)
 		specWarnRampage:Show(args.destName)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hldn.mp3")--哈里登暴怒
 	elseif args:IsSpellID(136797) then
 		warnMending:Show()
-		DBM.Flash:Show(1, 0, 0)
-		specWarnMending:Show(args.sourceName)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\kickcast.mp3")--快打斷
+		if mod.Options.ddyls then
+			DBM.Flash:Show(1, 0, 0)
+			specWarnMending:Show(args.sourceName)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\kickcast.mp3")--快打斷
+		end
 	elseif args:IsSpellID(140946) then
 		warnDireFixate:Show(args.destName)
 		if args:IsPlayer() then
@@ -275,7 +305,7 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:find(L.chargeTarget) then
-		warnCharge:Show(target)
+		warnCharge:Show(target)		
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_cfkd.mp3") --衝鋒快躲
 		timerCharge:Start()
 		timerChargeCD:Start()
@@ -283,7 +313,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 			specWarnCharge:Show()
 			yellCharge:Yell()
 			DBM.Flash:Show(1, 0, 0)
-			sndWOP:Schedule(1.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3") --快躲開
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\targetyou.mp3")
 		end
 	--Doors spawn every 131.5 seconds
 	--Halfway through it (literlaly exact center) Dinomancers spawn at 56.75

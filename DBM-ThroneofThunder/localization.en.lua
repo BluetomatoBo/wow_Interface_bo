@@ -58,14 +58,20 @@ L:SetMiscLocalization({
 ---------------------------
 L= DBM:GetModLocalization(816)
 
+L:SetWarningLocalization({
+	specWarnPossessed		= "%s on %s - switch targets"
+})
+
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
 	Soundspirit		= "倒计时：女祭司的各种魂灵",
 	HudMAP			= "高级定位监视(HUD)：$spell:136992",
 	HudMAP2			= "高级定位监视(HUD)：$spell:136922",
-	warnPossessed	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136442),
-	warnSandBolt	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136189),
-	RangeFrame		= "Show range frame"
+	warnPossessed		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136442),
+	specWarnPossessed	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.switch:format(136442),
+	warnSandBolt		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136189),
+	PHealthFrame		= "Show remaining health frame for $spell:136442 fades\n(Requires boss health frame enabled)",
+	RangeFrame			= "Show range frame"
 })
 
 ------------
@@ -87,7 +93,8 @@ L:SetOptionLocalization({
 	dr3						= "减伤提示:$spell:134920 3/4",
 	dr4						= "减伤提示:$spell:134920 4/4",
 	specWarnCrystalShell	= "Show special warning when you are missing $spell:137633 debuff",
-	InfoFrame				= "Show info frame for players without $spell:137633"
+	InfoFrame				= "Show info frame for players without $spell:137633",
+	SetIconOnTurtles		= "Set icons on $journal:7129 \n(May not be reliable if more than 1 person with assist enables)",
 })
 
 L:SetMiscLocalization({
@@ -183,9 +190,7 @@ L= DBM:GetModLocalization(818)
 L:SetWarningLocalization({
 	warnAddsLeft				= "Fogs remaining: %d",
 	specWarnFogRevealed			= "%s revealed!",
-	specWarnDisintegrationBeam	= "%s (%s)",
-	specWarnDisintegrationBeamL	= "← ← ←Left",
-	specWarnDisintegrationBeamR	= "Right→ → →"
+	specWarnDisintegrationBeam	= "%s (%s)"
 })
 
 L:SetOptionLocalization({
