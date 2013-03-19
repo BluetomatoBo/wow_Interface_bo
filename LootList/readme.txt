@@ -1,1 +1,0 @@
-The readme.txt file has been deprecated in favour of the readme.htm file.
