@@ -501,7 +501,8 @@ function addon:GetClickAttributes(global)
                 bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, entry.type)
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
             elseif entry.type == "menu" then
-                bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, "togglemenu")
+                set_text = ATTR(indent, prefix, "type", suffix, "togglemenu")
+                bits[#bits + 1] = string.gsub(set_text, '"togglemenu"', 'button:GetAttribute("*type2") == "menu" and "menu" or "togglemenu"')
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
 			elseif entry.type == "spell" and self.settings.stopcastingfix then
 				-- Implement the 'stop casting'f ix

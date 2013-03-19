@@ -1,0 +1,16 @@
+tag v50200-1.0.4
+1656444e096467d6e8f044c066b6ea59dab7d648
+James Whitehead II <jnwhiteh@gmail.com>
+2013-03-19 07:38:22 +0100
+
+Tagging v50200-1.0.4
+
+
+--------------------
+
+James Whitehead II:
+	- Temporarily fix an issue with unit menus
+	After 5.2 when Blizzard switched to 'togglemenu', there is a bug with
+	the dropdown code that requires raid frames to continue using 'menu'
+	instead in order to work properly. This change should properly use the
+	correct attribute until this bug has been fixed.
