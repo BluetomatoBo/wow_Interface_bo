@@ -209,12 +209,6 @@ function H:ConstructHudFrame(frame,unit)
 	frame:SetScript('OnEnter', UnitFrame_OnEnter)
 	frame:SetScript('OnLeave', UnitFrame_OnLeave)	
 	if frame.unit ~= 'target' then
-		frame:HookScript("OnHide",function(self)
-			if E.db.unitframe.hud.enabled and E.db.unitframe.hud.hideOOC and not InCombatLockdown() and E.db.unitframe.hud.units[frame.unit].enabled then
-				self:Show()
-				self:SetAlpha(0)
-			end
-		end)
 		frame:HookScript("OnEnter",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
 	    frame:HookScript("OnLeave",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
 	    frame:HookScript("OnShow",function(self) if E.db.unitframe.hud.hideOOC and not InCombatLockdown() then H:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
