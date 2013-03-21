@@ -12,14 +12,11 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	SoundWOP			= "语音警告：重要技能",
 	SpecWarnJSA			= "特殊警告：注意减伤",
-	dr1					= "减伤提示:$spell:137313 1-1 [开始时提示]",
-	dr2					= "减伤提示:$spell:137313 1-2 [八秒时提示]",
-	dr3					= "减伤提示:$spell:137313 2-1",
-	dr4					= "减伤提示:$spell:137313 2-2",
-	dr5					= "减伤提示:$spell:137313 3-1",
-	dr6					= "减伤提示:$spell:137313 3-2",
-	dr7					= "减伤提示:$spell:137313 4-1",
-	dr8					= "减伤提示:$spell:137313 4-2",
+	dr1					= "减伤提示:$spell:137313 1/3-1 [开始时提示]",
+	dr2					= "减伤提示:$spell:137313 1/3-2 [五秒时提示]",
+	dr3					= "减伤提示:$spell:137313 2/4-1",
+	dr4					= "减伤提示:$spell:137313 2/4-2",
+
 	RangeFrame		= "Show range frame"
 })
 
@@ -30,12 +27,14 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization(819)
 
 L:SetWarningLocalization({
-	warnAdds	= "%s"
+	warnAdds				= "%s",
+	warnOrbofControl		= "Orb of Control dropped",
+	specWarnOrbofControl	= "Orb of Control dropped!"
 })
 
 L:SetTimerLocalization({
-	timerDoor		= "Next Tribal Door",
-	timerAdds		= "Next %s"
+	timerDoor				= "Next Tribal Door",
+	timerAdds				= "Next %s"
 })
 
 L:SetOptionLocalization({
@@ -43,14 +42,16 @@ L:SetOptionLocalization({
 	SoundDB				= "语音警告：$spell:136741",
 	SoundOrb			= "语音警告：$journal:7092",
 	specWarnOrb			= "特别警告：$journal:7092",
-	warnAdds		= "Announce when new adds jump down",
-	timerDoor		= "Show timer for next Tribal Door phase",
-	timerAdds		= "Show timer for when next add jumps down"
+	warnAdds				= "Announce when new adds jump down",
+	warnOrbofControl		= "Announce when $journal:7092 dropped",
+	specWarnOrbofControl	= "Show special warning when $journal:7092 dropped",
+	timerDoor				= "Show timer for next Tribal Door phase",
+	timerAdds				= "Show timer for when next add jumps down"
 })
 
 L:SetMiscLocalization({
-	newForces		= "forces pour from the",--Farraki forces pour from the Farraki Tribal Door!
-	chargeTarget	= "stamps his tail!"--Horridon sets his eyes on Eraeshio and stamps his tail!
+	newForces				= "forces pour from the",--Farraki forces pour from the Farraki Tribal Door!
+	chargeTarget			= "stamps his tail!"--Horridon sets his eyes on Eraeshio and stamps his tail!
 })
 
 ---------------------------
@@ -71,7 +72,9 @@ L:SetOptionLocalization({
 	specWarnPossessed	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.switch:format(136442),
 	warnSandBolt		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136189),
 	PHealthFrame		= "Show remaining health frame for $spell:136442 fades\n(Requires boss health frame enabled)",
-	RangeFrame			= "Show range frame"
+	RangeFrame			= "Show range frame",
+	SetIconOnBitingCold	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136992),
+	SetIconOnFrostBite	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136922)
 })
 
 ------------
@@ -132,8 +135,8 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(828)
 
 L:SetWarningLocalization({
-	warnFlock		= "%s %s (%d)",
-	specWarnFlock	= "%s %s (%d)"
+	warnFlock		= "%s %s (%s)",
+	specWarnFlock	= "%s %s (%s)"
 })
 
 L:SetTimerLocalization({
@@ -179,7 +182,9 @@ L:SetMiscLocalization({
 	eggsHatchU		= "The eggs in one of the upper nests begin to hatch!",
 	Upper			= "Upper",
 	Lower			= "Lower",
-	UpperAndLower	= "Upper & Lower"
+	UpperAndLower	= "Upper & Lower",
+	TrippleD		= "Tripple (2xDwn)",
+	TrippleU		= "Tripple (2xUp)"
 })
 
 --------------------------
@@ -277,15 +282,31 @@ L:SetMiscLocalization({
 -------------------
 L= DBM:GetModLocalization(829)
 
+L:SetWarningLocalization({
+	warnNight		= "Night phase",
+	warnDay			= "Day phase",
+	warnDusk		= "Dusk phase"
+})
+
+L:SetTimerLocalization({
+	timerDayCD		= "Next day phase",
+	timerDuskCD		= "Next dusk phase",
+})
+
 L:SetOptionLocalization({
 	SoundWOP			= "语音警告：重要技能",
 	HudMAP				= "高级定位监视(HUD)：$journal:7651星座辅助线",
 	HudMAP2				= "高级定位监视(HUD)：$spell:136752",
+	warnNight		= "Announce night phase",
+	warnDay			= "Announce day phase",
+	warnDusk		= "Announce dusk phase",
+	timerDayCD		= "Show timer for next day phase",
+	timerDuskCD		= "Show timer for next dusk phase",
 	RangeFrame		= "Show range frame (8)"
 })
 
 L:SetMiscLocalization({
-	DuskPhase		= "Lu'lin! Lend me your strength!"--Not in use, but a backup just in case, so translate in case it's switched to on moments notice on live or next PTR test
+	DuskPhase		= "Lu'lin! Lend me your strength!"
 })
 
 --------------

@@ -13,14 +13,10 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	SoundWOP			= "語音警告：重要技能",
 	SpecWarnJSA			= "特殊警告：注意減傷",
-	dr1					= "減傷提示：$spell:137313 1-1 [開始時提示]",
-	dr2					= "減傷提示：$spell:137313 1-2 [八秒時提示]",
-	dr3					= "減傷提示：$spell:137313 2-1",
-	dr4					= "減傷提示：$spell:137313 2-2",
-	dr5					= "減傷提示：$spell:137313 3-1",
-	dr6					= "減傷提示：$spell:137313 3-2",
-	dr7					= "減傷提示：$spell:137313 4-1",
-	dr8					= "減傷提示：$spell:137313 4-2",
+	dr1					= "減傷提示：$spell:137313 1/3-1 [開始時提示]",
+	dr2					= "減傷提示：$spell:137313 1/3-2 [五秒時提示]",
+	dr3					= "減傷提示：$spell:137313 2/4-1",
+	dr4					= "減傷提示：$spell:137313 2/4-2",
 	RangeFrame			= "距離監視"
 })
 
@@ -31,7 +27,9 @@ L= DBM:GetModLocalization(819)
 
 L:SetWarningLocalization({
 	warnAdds		= "%s",
-	specWarnOrb		= ">>控獸寶珠<<"
+	SpecWarnJSA		= ">>> 注意減傷 <<<",
+	warnOrbofControl		= "控獸寶珠掉落",
+	specWarnOrbofControl		= ">>控獸寶珠掉落<<"
 })
 
 L:SetTimerLocalization({
@@ -40,21 +38,32 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	warnAdds			= "警告：小怪跳下",
+	warnOrbofControl		= "警告：$journal:7092掉落",
+	specWarnOrbofControl		= "特別警告：$journal:7092掉落",
 	SoundWOP			= "語音警告：重要技能",
+	SpecWarnJSA			= "特殊警告：注意減傷",
 	ccsoon				= "語音警告：即將$spell:136767(當你是首領目標時無視此選項)",
 	ddyls				= "語音警告：打斷$spell:136797",
+	dr1					= "減傷提示：$spell:136817 1",
+	dr2					= "減傷提示：$spell:136817 2",
+	dr3					= "減傷提示：$spell:136817 3",
+	dr4					= "減傷提示：$spell:136817 4",
 	SoundDB				= "語音警告：$spell:136741",
 	SoundOrb			= "語音警告：$journal:7092",
-	specWarnOrb			= "特別警告：$journal:7092",
-	warnAdds			= "警告：新一組小怪刷新",
+	optQS				= "DEBUFF驅散鏈",
+	noQS				= "不提示",
+	QS1					= "順序1",
+	QS2					= "順序2",
+	QS3					= "順序3",
+	allQS				= "總是提示",
 	timerDoor			= "計時器：下一个部族大门開啟",
 	timerAdds			= "計時器：下一組小怪刷新"
 })
 
 L:SetMiscLocalization({
-	newForces		= "的門蜂擁而出!",--Farraki forces pour from the Farraki Tribal Door!
-	controlOrb		= "掉下了一顆控獸寶珠",
-	chargeTarget	= "用力拍動尾巴!"--Horridon sets his eyes on Eraeshio and stamps his tail!
+	newForces				= "的門蜂擁而出!",--Farraki forces pour from the Farraki Tribal Door!
+	chargeTarget			= "用力拍動尾巴!"--Horridon sets his eyes on Eraeshio and stamps his tail!
 })
 
 ---------------------------
@@ -64,13 +73,13 @@ L= DBM:GetModLocalization(816)
 
 L:SetWarningLocalization({
 	specWarnDDL 	= ">> 下一次 到你斷 <<",
-	specWarnPossessed		= "%s 在 %s - 轉換目標"
+	specWarnPossessed		= "%s 附身 %s - 快轉火!"
 })
 
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
 	SoundLs			= "倒計時：$spell:136521",	
-	SoundHs			= "倒計時：$spell:136990",
+	SoundHs			= "語音預警：$spell:136990",
 	Soundspirit		= "倒計時：女祭司的各種魂靈",
 	HudMAP			= "高級定位監視(HUD)：$spell:136992",
 	HudMAP2			= "高級定位監視(HUD)：$spell:136922",
@@ -79,12 +88,18 @@ L:SetOptionLocalization({
 	DD1				= "打斷1",
 	DD2				= "打斷2",
 	DD3				= "打斷3",
+	optOC			= "當靈魂碎片疊加幾層時提示你傳遞",
+	five			= "5層",
+	ten				= "10層",
+	none			= "從不提示",
 	specWarnDDL 	= "特殊警告：下一次到你打斷",
 	warnPossessed		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136442),
 	specWarnPossessed	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.switch:format(136442),
 	warnSandBolt		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136189),
 	PHealthFrame		= "為$spell:136442消散顯示剩餘血量框架(需要首領血量框架開啟)",
-	RangeFrame			= "顯示距離框架"
+	RangeFrame			= "顯示距離框架",
+	SetIconOnBitingCold	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136992),
+	SetIconOnFrostBite	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136922)
 })
 
 ------------
@@ -145,8 +160,8 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(828)
 
 L:SetWarningLocalization({
-	warnFlock		= "%s %s (%d)",
-	specWarnFlock	= "%s %s (%d)"
+	warnFlock		= "%s %s (%s)",
+	specWarnFlock	= "%s %s (%s)"
 })
 
 L:SetTimerLocalization({
@@ -188,11 +203,13 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	eggsHatchL			= "下層巢裡的蛋開始孵化了!",
-	eggsHatchU			= "上層巢裡的蛋開始孵化了!",
-	Upper				= "上方",
-	Lower				= "下方",
-	UpperAndLower		= "上下都有"
+	eggsHatchL		= "下層巢裡的蛋開始孵化了!",
+	eggsHatchU		= "上層巢裡的蛋開始孵化了!",
+	Upper			= "上層",
+	Lower			= "下層",
+	UpperAndLower		= "上層和下層",
+	TrippleD		= "三個 (2x下)",
+	TrippleU		= "三個 (2x上)"
 })
 
 --------------------------
@@ -201,11 +218,9 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(818)
 
 L:SetWarningLocalization({
-	warnAddsLeft			= "迷霧剩餘: %d",
-	specWarnFogRevealed		= "%s 出現!",
-	specWarnDisintegrationBeam	= "%s (%s)",
-	specWarnDisintegrationBeamL	= "← ← ←左左左",
-	specWarnDisintegrationBeamR	= "右右右→ → →"
+	warnAddsLeft				= "霧獸剩餘: %d",
+	specWarnFogRevealed			= "照出%s了!",
+	specWarnDisintegrationBeam	= "%s (%s)"
 })
 
 L:SetOptionLocalization({
@@ -216,8 +231,8 @@ L:SetOptionLocalization({
 	DD2							= "B:黃藍紅",
 	DD3							= "C:藍紅黃",
 	HudMAP						= "高級定位監視(HUD)：三元光分擔",
-	warnAddsLeft				= "警告：迷霧剩餘數量",
-	specWarnFogRevealed			= "特別警告：迷霧被發現",
+	warnAddsLeft				= "警告：霧獸剩餘數量",
+	specWarnFogRevealed			= "特別警告：霧獸被照出",
 	specWarnDisintegrationBeam	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format("ej6882"),
 	ArrowOnBeam					= "DBM箭頭：$journal:6882的轉動方向",
 	specWarnDisintegrationBeamL			= "特殊警告：左轉$spell:133775",
@@ -298,15 +313,31 @@ L:SetMiscLocalization({
 -------------------
 L= DBM:GetModLocalization(829)
 
+L:SetWarningLocalization({
+	warnNight		= "黑夜階段",
+	warnDay			= "白天階段",
+	warnDusk		= "黃昏階段"
+})
+
+L:SetTimerLocalization({
+	timerDayCD		= "白天階段",
+	timerDuskCD		= "黃昏階段",
+})
+
 L:SetOptionLocalization({
 	SoundWOP			= "語音警告：重要技能",
 	HudMAP				= "高級定位監視(HUD)：$journal:7651星座輔助線",
 	HudMAP2				= "高級定位監視(HUD)：$spell:136752",
+	warnNight		= "警告：黑夜階段",
+	warnDay			= "警告：白天階段",
+	warnDusk		= "警告：黃昏階段",
+	timerDayCD		= "計時器：白天階段",
+	timerDuskCD		= "計時器：黃昏階段",
 	RangeFrame			= "距離監視(8碼)"
 })
 
 L:SetMiscLocalization({
-	DuskPhase			= "盧凜!借本宮力量!"
+	DuskPhase		= "盧凜!借本宮力量!"
 })
 
 --------------
@@ -320,7 +351,9 @@ L:SetOptionLocalization({
 	HudMAP2			= "高級定位監視(HUD)：$spell:136295",
 	RangeFrame		= "距離監視",--For two different spells
 	StaticShockArrow	= "DBM箭頭：$spell:135695",
-	OverchargeArrow		= "DBM箭頭：$spell:136295"
+	OverchargeArrow		= "DBM箭頭：$spell:136295",
+	SetIconOnOvercharge	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136295),
+	SetIconOnStaticShock= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(135695)
 })
 
 ------------

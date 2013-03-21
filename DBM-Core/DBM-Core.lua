@@ -44,7 +44,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 8919 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 8950 $"):sub(12, -3)),
 	DisplayVersion = "5.2 語音增強版", -- the string that is shown as version
 	ReleaseRevision = 8892 -- the revision of the latest stable version that is available
 }
@@ -84,6 +84,7 @@ DBM.DefaultOptions = {
 	ShowFakedRaidWarnings = false,
 	WarningIconLeft = true,
 	WarningIconRight = true,
+	StripServerName = true,
 	ShowLoadMessage = true,
 	ShowPizzaMessage = true,
 	ShowEngageMessage = true,
@@ -142,7 +143,7 @@ DBM.DefaultOptions = {
 	DontSetIcons = false,
 	DontShowRangeFrame = false,
 	DontShowInfoFrame = false,
-	DontShowPT = false,
+	DontShowPT = true,
 	DontShowPTCountdownText = false,
 	DontPlayPTCountdown = false,
 	LatencyThreshold = 250,
@@ -1260,6 +1261,8 @@ end
 -------------------------------------------------
 do
 	local inRaid = false
+	
+	local raidGuids = {}
 
 	local function updateAllRoster()
 		if IsInRaid() then
@@ -1278,12 +1281,17 @@ do
 					if (not raid[name]) and inRaid then
 						fireEvent("raidJoin", name)
 					end
+					do
+					    local name, realm = UnitName("raid" .. i)
+						raidGuids[UnitGUID("raid" .. i) or ""] = realm and realm ~= "" and name .. "-" .. realm or name
+					end
 					raid[name] = raid[name] or {}
 					raid[name].name = name
 					raid[name].rank = rank
 					raid[name].subgroup = subgroup
 					raid[name].class = fileName
-					raid[name].id = "raid"..i
+					raid[name].id = "raid" .. i
+					raid[name].guid = UnitGUID("raid" .. i) or ""
 					raid[name].updated = true
 					if not playerWithHigherVersionPromoted and rank >= 1 and raid[name].version and raid[name].version > tonumber(DBM.Version) then
 						playerWithHigherVersionPromoted = true
@@ -1294,6 +1302,7 @@ do
 			for i, v in pairs(raid) do
 				if not v.updated then
 					raid[i] = nil
+					raidGuids[v.guid] = nil
 					fireEvent("raidLeave", i)
 				else
 					v.updated = nil
@@ -1322,8 +1331,10 @@ do
 				if (not raid[name]) and inRaid then
 					fireEvent("partyJoin", name)
 				end
+				raidGuids[UnitGUID(id) or ""] = name
 				raid[name] = raid[name] or {}
 				raid[name].name = name
+				raid[name].guid = UnitGUID(id) or ""
 				if rank then
 					raid[name].rank = 2
 				else
@@ -1336,6 +1347,7 @@ do
 			for i, v in pairs(raid) do
 				if not v.updated then
 					raid[i] = nil
+					raidGuids[v.guid] = nil
 					fireEvent("partyLeave", i)
 				else
 					v.updated = nil
@@ -1355,6 +1367,14 @@ do
 
 	function DBM:IsInRaid()
 		return inRaid
+	end
+
+	function DBM:GetFullPlayerNameByGUID(guid)
+		return raidGuids[guid]
+	end
+
+	function DBM:GetPlayerNameByGUID(guid)
+		return raidGuids[guid] and raidGuids[guid]:gsub("%-.*$", "")
 	end
 end
 	
@@ -1425,6 +1445,7 @@ function DBM:GetUnitFullName(uId)
 	if realm then name = name.."-"..realm end
 	return name
 end
+
 
 function DBM:GetBossUnitId(name)
 	for i = 1, 4 do
@@ -1911,15 +1932,7 @@ end
 do
 	local function checkForActualPull()
 		if #inCombat == 0 then
-			if DBM.Options.AutologBosses and LoggingCombat() then
-				LoggingCombat(0)
-				print(COMBATLOGDISABLED)
-			end
-			if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
-				if Transcriptor:IsLogging() then
-					Transcriptor:StopLog()
-				end
-			end
+			DBM:StopLogging()
 		end
 	end
 
@@ -2032,19 +2045,7 @@ do
 		if not DBM.Options.DontShowPTCountdownText then
 			TimerTracker_OnEvent(TimerTracker, "START_TIMER", 2, timer, timer)--Hopefully this doesn't taint. Initial tests show positive even though it is an intrusive way of calling a blizzard timer. It's too bad the max value doesn't seem to actually work
 		end
-		if DBM.Options.AutologBosses and not LoggingCombat() then--Start logging here to catch pre pots.
-			LoggingCombat(1)
-			print(COMBATLOGENABLED)
-			DBM:Unschedule(checkForActualPull)
-			DBM:Schedule(timer+10, checkForActualPull)--But if pull was canceled and we don't have a boss engaged within 10 seconds of pull timer ending, abort log
-		end
-		if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
-			if not Transcriptor:IsLogging() then
-				Transcriptor:StartLog()
-			end
-			DBM:Unschedule(checkForActualPull)
-			DBM:Schedule(timer+10, checkForActualPull)--But if pull was canceled and we don't have a boss engaged within 10 seconds of pull timer ending, abort log
-		end
+		DBM:StartLogging(timer, checkForActualPull)
 	end
 
 	-- TODO: is there a good reason that version information is broadcasted and not unicasted?
@@ -2726,9 +2727,6 @@ function DBM:StartCombat(mod, delay, synced)
 		elseif mod:IsDifficulty("heroic25") then
 			mod.stats.heroic25Pulls = mod.stats.heroic25Pulls + 1
 		end
-		if DBM.Options.ShowEngageMessage then
-			self:AddMsg(DBM_CORE_COMBAT_STARTED:format(difficultyText..mod.combatInfo.name))
-		end
 		if C_Scenario.IsInScenario() then
 			mod.inScenario = true
 		end
@@ -2781,14 +2779,9 @@ function DBM:StartCombat(mod, delay, synced)
 				BigBrother:ConsumableCheck("SELF")
 			end
 		end
-		if DBM.Options.AutologBosses and not LoggingCombat() then
-			LoggingCombat(1)
-			print(COMBATLOGENABLED)
-		end
-		if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
-			if not Transcriptor:IsLogging() then
-				Transcriptor:StartLog()
-			end
+		DBM:StartLogging(0, nil)
+		if DBM.Options.ShowEngageMessage then
+			self:AddMsg(DBM_CORE_COMBAT_STARTED:format(difficultyText..mod.combatInfo.name))
 		end
 	end
 end
@@ -2830,6 +2823,7 @@ function DBM:EndCombat(mod, wipe)
 				mod.combatInfo.killMobs[i] = true
 			end
 		end
+		DBM:Schedule(3, DBM.StopLogging)--small delay to catch kill/died combatlog events
 		if not savedDifficulty or not difficultyText then -- prevent error when timer recovery function worked and etc (StartCombat not called)
 			savedDifficulty, difficultyText = self:GetCurrentInstanceDifficulty()
 		end
@@ -2980,15 +2974,6 @@ function DBM:EndCombat(mod, wipe)
 		DBM.BossHealth:Hide()
 		DBM.Arrow:Hide(true)
 		DBM:ToggleRaidBossEmoteFrame(0)
-		if DBM.Options.AutologBosses and LoggingCombat() then
-			LoggingCombat(0)
-			print(COMBATLOGDISABLED)
-		end
-		if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
-			if Transcriptor:IsLogging() then
-				Transcriptor:StopLog()
-			end
-		end
 	end
 end
 
@@ -3018,6 +3003,38 @@ function DBM:OnMobKill(cId, synced)
 				sendSync("K", cId)
 			end
 			self:EndCombat(v)
+		end
+	end
+end
+
+function DBM:StartLogging(timer, checkFunc)
+	if DBM.Options.AutologBosses and not LoggingCombat() then--Start logging here to catch pre pots.
+		LoggingCombat(1)
+		print(COMBATLOGENABLED)
+		if checkFunc then
+			DBM:Unschedule(checkFunc)
+			DBM:Schedule(timer+10, checkFunc)--But if pull was canceled and we don't have a boss engaged within 10 seconds of pull timer ending, abort log
+		end
+	end
+	if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
+		if not Transcriptor:IsLogging() then
+			Transcriptor:StartLog()
+		end
+		if checkFunc then
+			DBM:Unschedule(checkFunc)
+			DBM:Schedule(timer+10, checkFunc)--But if pull was canceled and we don't have a boss engaged within 10 seconds of pull timer ending, abort log
+		end
+	end
+end
+
+function DBM:StopLogging()
+	if DBM.Options.AutologBosses and LoggingCombat() then
+		LoggingCombat(0)
+		print(COMBATLOGDISABLED)
+	end
+	if DBM.Options.AdvancedAutologBosses and IsAddOnLoaded("Transcriptor") then
+		if Transcriptor:IsLogging() then
+			Transcriptor:StopLog()
 		end
 	end
 end
@@ -3923,6 +3940,19 @@ function bossModPrototype:IsTank()
 	or (class == "MONK" and (GetSpecialization() == 1))
 end
 
+function bossModPrototype:IsTanking(unit, boss)
+	if GetPartyAssignment("MAINTANK", unit, 1) then
+		return true
+	end
+	if UnitGroupRolesAssigned(unit) == "TANK" then
+		return true
+	end
+	if UnitExists(boss) and UnitDetailedThreatSituation(unit, boss) then
+		return true
+	end
+	return false
+end
+
 function bossModPrototype:IsHealer()
 	return (class == "PALADIN" and (GetSpecialization() == 1))
 	or (class == "SHAMAN" and (GetSpecialization() == 3))
@@ -4039,6 +4069,9 @@ do
 					if DBM:GetRaidClass(cap) then
 						local playerColor = RAID_CLASS_COLORS[DBM:GetRaidClass(cap)] or color
 						cap = ("|r|cff%.2x%.2x%.2x%s|r|cff%.2x%.2x%.2x"):format(playerColor.r * 255, playerColor.g * 255, playerColor.b * 255, cap, color.r * 255, color.g * 255, color.b * 255)
+					end
+					if DBM.Options.StripServerName then
+						cap = cap:gsub("%-.*$", "")
 					end
 					return cap
 				end
@@ -4484,7 +4517,16 @@ do
 
 	function specialWarningPrototype:Show(...)
 		if DBM.Options.ShowSpecialWarnings and (not self.option or self.mod.Options[self.option]) and not moving and frame then
-			font:SetText(pformat(self.text, ...))
+			local msg = pformat(self.text, ...)
+			local stripName = function(cap)
+				cap = cap:sub(2, -2)
+				if DBM.Options.StripServerName then
+					cap = cap:gsub("%-.*$", "")
+				end
+				return cap
+			end
+			msg = msg:gsub(">.-<", stripName)
+			font:SetText(msg)
 			if DBM.Options.ShowLHFrame and not UnitIsDeadOrGhost("player") then
 				LowHealthFrame:Show()
 				LowHealthFrame:SetAlpha(1)
@@ -4706,11 +4748,21 @@ do
 			if not bar then
 				return false, "error" -- creating the timer failed somehow, maybe hit the hard-coded timer limit of 15
 			end
+			local msg = ""
 			if self.type and not self.text then
-				bar:SetText(pformat(self.mod:GetLocalizedTimerText(self.type, self.spellId), ...))
+				msg = pformat(self.mod:GetLocalizedTimerText(self.type, self.spellId), ...)
 			else
-				bar:SetText(pformat(self.text, ...))
+				msg = pformat(self.text, ...)
 			end
+			local stripName = function(cap)
+				cap = cap:sub(2, -2)
+				if DBM.Options.StripServerName then
+					cap = cap:gsub("%-.*$", "")
+				end
+				return cap
+			end
+			msg = msg:gsub(">.-<", stripName)
+			bar:SetText(msg)
 			table.insert(self.startedTimers, id)
 			self.mod:Unschedule(removeEntry, self.startedTimers, id)
 			self.mod:Schedule(timer, removeEntry, self.startedTimers, id)

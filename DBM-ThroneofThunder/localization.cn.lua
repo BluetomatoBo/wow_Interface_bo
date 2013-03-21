@@ -16,14 +16,10 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	SoundWOP			= "语音警告：重要技能",
 	SpecWarnJSA			= "特殊警告：注意减伤",
-	dr1					= "减伤提示:$spell:137313 1-1 [开始时提示]",
-	dr2					= "减伤提示:$spell:137313 1-2 [八秒时提示]",
-	dr3					= "减伤提示:$spell:137313 2-1",
-	dr4					= "减伤提示:$spell:137313 2-2",
-	dr5					= "减伤提示:$spell:137313 3-1",
-	dr6					= "减伤提示:$spell:137313 3-2",
-	dr7					= "减伤提示:$spell:137313 4-1",
-	dr8					= "减伤提示:$spell:137313 4-2",
+	dr1					= "减伤提示:$spell:137313 1/3-1 [开始时提示]",
+	dr2					= "减伤提示:$spell:137313 1/3-2 [五秒时提示]",
+	dr3					= "减伤提示:$spell:137313 2/4-1",
+	dr4					= "减伤提示:$spell:137313 2/4-2",
 	RangeFrame			= "距离监视"
 })
 
@@ -35,7 +31,9 @@ L= DBM:GetModLocalization(819)
 
 L:SetWarningLocalization({
 	warnAdds		= "%s",
-	specWarnOrb		= ">>支配宝珠<<"
+	SpecWarnJSA		= ">>> 注意减伤 <<<",
+	warnOrbofControl		= "支配宝珠掉落",
+	specWarnOrbofControl		= ">>支配宝珠掉落<<"
 })
 
 L:SetTimerLocalization({
@@ -44,18 +42,31 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
+	warnAdds			= "警告：小怪跳下",
+	warnOrbofControl		= "警告：$journal:7092掉落",
+	specWarnOrbofControl		= "特别警告：$journal:7092掉落",
 	SoundWOP			= "语音警告：重要技能",
+	SpecWarnJSA			= "特殊警告：注意减伤",
+	ccsoon				= "语音警告：即将$spell:136767(当你是首领目标时无视此选项)",
+	ddyls				= "语音警告：打断$spell:136797",
+	dr1					= "减伤提示：$spell:136817 1",
+	dr2					= "减伤提示：$spell:136817 2",
+	dr3					= "减伤提示：$spell:136817 3",
+	dr4					= "减伤提示：$spell:136817 4",
 	SoundDB				= "语音警告：$spell:136741",
 	SoundOrb			= "语音警告：$journal:7092",
-	specWarnOrb			= "特别警告：$journal:7092",
-	warnAdds		= "警报：新的敌人加入战斗",
-	timerDoor		= "计时条：下一个部族大门阶段",
-	timerAdds		= "计时条：下一次小怪"
+	optQS				= "DEBUFF驱散链",
+	noQS				= "不提示",
+	QS1					= "顺序1",
+	QS2					= "顺序2",
+	QS3					= "顺序3",
+	allQS				= "总是提示",
+	timerDoor			= "计时器：下一个部族大门开啟",
+	timerAdds			= "计时器：下一组小怪刷新"
 })
 
 L:SetMiscLocalization({
 	newForces		= "之门中涌出",--Farraki forces pour from the Farraki Tribal Door!
-	controlOrb		= "控制宝珠",
 	chargeTarget	= "开始拍打他的尾巴"--Horridon sets his eyes on Eraeshio and stamps his tail!
 })
 
@@ -65,19 +76,34 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(816)
 
 L:SetWarningLocalization({
-	specWarnPossessed		= "%s 于 %s - 转换目标"
+	specWarnDDL 	= ">> 下一次 到你断 <<",
+	specWarnPossessed		= "%s 附身 %s - 快转火!"
 })
 
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
+	SoundLs			= "倒计时：$spell:136521",	
+	SoundHs			= "语音预警：$spell:136990",
 	Soundspirit		= "倒计时：女祭司的各种魂灵",
 	HudMAP			= "高级定位监视(HUD)：$spell:136992",
 	HudMAP2			= "高级定位监视(HUD)：$spell:136922",
+	optDD			= "沙王打断链",
+	nodd			= "我不打断",
+	DD1				= "打断1",
+	DD2				= "打断2",
+	DD3				= "打断3",
+	optOC			= "当灵魂碎片叠加几层时提示你传递",
+	five			= "5层",
+	ten				= "10层",
+	none			= "从不提示",
+	specWarnDDL 	= "特殊警告：下一次到你打断",
 	warnPossessed		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136442),
 	specWarnPossessed	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.switch:format(136442),
 	warnSandBolt		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target:format(136189),
 	PHealthFrame		= "为$spell:136442消散显示剩余血量框(需要首领血量框架开启)",
-	RangeFrame			= "距离监视"
+	RangeFrame			= "距离监视",
+	SetIconOnBitingCold	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136992),
+	SetIconOnFrostBite	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136922)
 })
 
 ------------
@@ -138,8 +164,8 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(828)
 
 L:SetWarningLocalization({
-	warnFlock		= "%s %s (%d)",
-	specWarnFlock	= "%s %s (%d)"
+	warnFlock		= "%s %s (%s)",
+	specWarnFlock	= "%s %s (%s)"
 })
 
 L:SetTimerLocalization({
@@ -185,7 +211,9 @@ L:SetMiscLocalization({
 	eggsHatchU		= "上层某个鸟巢中的蛋开始孵化了",
 	U				= "上方",
 	L				= "下方",
-	UAndL			= "上方 & 下方"
+	UAndL			= "上方 & 下方",
+	TrippleD		= "三个 (2x下)",
+	TrippleU		= "三个 (2x上)"
 })
 
 --------------------------
@@ -194,18 +222,21 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(818)
 
 L:SetWarningLocalization({
-	warnAddsLeft			= "迷雾剩餘: %d",
-	specWarnFogRevealed		= "%s 出现!",
-	specWarnDisintegrationBeam	= "%s (%s)",
-	specWarnDisintegrationBeamL	= "← ← ←左左左",
-	specWarnDisintegrationBeamR	= "右右右→ → →"
+	warnAddsLeft				= "雾兽剩餘: %d",
+	specWarnFogRevealed			= "照出%s了!",
+	specWarnDisintegrationBeam	= "%s (%s)"
 })
 
 L:SetOptionLocalization({
 	SoundWOP					= "语音警告：重要技能",
-	HudMAP						= "高级定位监视(HUD)：$spell:133775时指向$journal:6901分界线",
-	warnAddsLeft				= "警告：迷雾剩餘数量",
-	specWarnFogRevealed			= "特别警告：迷雾被发现",
+	optDD						= "三元光分担策略",
+	nodd						= "不分担",
+	DD1							= "A:红黄蓝",
+	DD2							= "B:黄蓝红",
+	DD3							= "C:蓝红黄",
+	HudMAP						= "高级定位监视(HUD)：三元光分担",
+	warnAddsLeft				= "警告：雾兽剩余数量",
+	specWarnFogRevealed			= "特别警告：雾兽被照出",
 	specWarnDisintegrationBeam	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format("ej6882"),
 	ArrowOnBeam					= "DBM箭头：$journal:6882的转动方向",
 	specWarnDisintegrationBeamL			= "特殊警告：左转$spell:133775",
@@ -214,7 +245,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	Eye		= "Eye"--What to localize here, "<72.0 20:04:19> [CHAT_MSG_MONSTER_EMOTE] CHAT_MSG_MONSTER_EMOTE#The Bright  Light reveals an Amber Fog!#Amber Fog###--------->Yellow Eye<---------##0#0##0#309#nil#0#false#false", -- [13413]
+	Eye		= "魔眼"
 })
 
 ----------------
@@ -286,10 +317,26 @@ L:SetMiscLocalization({
 -------------------
 L= DBM:GetModLocalization(829)
 
+L:SetWarningLocalization({
+	warnNight		= "黑夜阶段",
+	warnDay			= "白天阶段",
+	warnDusk		= "黄昏阶段"
+})
+
+L:SetTimerLocalization({
+	timerDayCD		= "白天阶段",
+	timerDuskCD		= "黄昏阶段",
+})
+
 L:SetOptionLocalization({
 	SoundWOP			= "语音警告：重要技能",
 	HudMAP				= "高级定位监视(HUD)：$journal:7651星座辅助线",
 	HudMAP2				= "高级定位监视(HUD)：$spell:136752",
+	warnNight		= "警告：黑夜阶段",
+	warnDay			= "警告：白天阶段",
+	warnDusk		= "警告：黄昏阶段",
+	timerDayCD		= "计时器：白天阶段",
+	timerDuskCD		= "计时器：黄昏阶段",
 	RangeFrame			= "距离监视(8码)"
 })
 
@@ -306,7 +353,11 @@ L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
 	HudMAP			= "高级定位监视(HUD)：$spell:135695",
 	HudMAP2			= "高级定位监视(HUD)：$spell:136295",
-	RangeFrame		= "距离监视"--For two different spells
+	RangeFrame		= "距离监视",--For two different spells
+	StaticShockArrow	= "DBM箭头：$spell:135695",
+	OverchargeArrow		= "DBM箭头：$spell:136295",
+	SetIconOnOvercharge	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136295),
+	SetIconOnStaticShock= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(135695)
 })
 
 ------------

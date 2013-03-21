@@ -1,5 +1,6 @@
 local mod	= DBM:NewMod(818, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
+--BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
 mod:SetRevision(("$Revision: 8915 $"):sub(12, -3))
@@ -11,7 +12,6 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
@@ -69,19 +69,48 @@ local berserkTimer					= mod:NewBerserkTimer(600)
 --mod:AddBoolOption("ArrowOnBeam", true)
 mod:AddBoolOption("SetIconRays", true)
 
-local rgbcount = 0
-
 local totalFogs = 3
 local lingeringGazeTargets = {}
 local lastRed = nil
 local lastBlue = nil
-local lastYellow = nil
 local blueTracking = GetSpellInfo(139202)
 local redTracking = GetSpellInfo(139204)
-
+--BH ADD
+local rgbcount = 0
+local lastYellow = nil
+local lightmaker = {}
 local BlueFog	= EJ_GetSectionInfo(6898)
 local RedFog	= EJ_GetSectionInfo(6892)
 local YellowFog	= EJ_GetSectionInfo(6895)
+
+mod:AddBoolOption("HudMAP", true, "sound")
+mod:AddDropdownOption("optDD", {"nodd", "DD1", "DD2", "DD3"}, "nodd", "sound")
+local DBMHudMap = DBMHudMap
+local free = DBMHudMap.free
+local function register(e)	
+	DBMHudMap:RegisterEncounterMarker(e)
+	return e
+end
+
+local function lightchoose()
+	if ((rgbcount == 1) and (mod.Options.optDD == "DD1")) or ((rgbcount == 2) and (mod.Options.optDD == "DD3")) or ((rgbcount == 3) and (mod.Options.optDD == "DD2"))then
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hsfd.mp3") --紅色分擔
+		if mod.Options.HudMAP then
+			lightmaker[lastRed] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastRed))
+		end
+	elseif ((rgbcount == 1) and (mod.Options.optDD == "DD2")) or ((rgbcount == 2) and (mod.Options.optDD == "DD1")) or ((rgbcount == 3) and (mod.Options.optDD == "DD3"))then
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hufd.mp3") --黃色分擔
+		if mod.Options.HudMAP then
+			lightmaker[lastYellow] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastYellow))
+		end
+	elseif ((rgbcount == 1) and (mod.Options.optDD == "DD3")) or ((rgbcount == 2) and (mod.Options.optDD == "DD2")) or ((rgbcount == 3) and (mod.Options.optDD == "DD1"))then
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lsfd.mp3") --藍色分擔
+		if mod.Options.HudMAP then
+			lightmaker[lastBlue] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastBlue))
+		end
+	end
+end
+--BH ADD END
 
 local function warnLingeringGazeTargets()
 	warnLingeringGaze:Show(table.concat(lingeringGazeTargets, "<, >"))
@@ -107,42 +136,16 @@ local function BeamEnded()
 	end)
 end
 
-mod:AddBoolOption("HudMAP", true, "sound")
 
-mod:AddDropdownOption("optDD", {"nodd", "DD1", "DD2", "DD3"}, "nodd", "sound")
-
-local DBMHudMap = DBMHudMap
-local free = DBMHudMap.free
-local function register(e)	
-	DBMHudMap:RegisterEncounterMarker(e)
-	return e
-end
-local lightmaker = {}
-
-local function lightchoose()
-	if ((rgbcount == 1) and (mod.Options.optDD == "DD1")) or ((rgbcount == 2) and (mod.Options.optDD == "DD3")) or ((rgbcount == 3) and (mod.Options.optDD == "DD2"))then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hsfd.mp3") --紅色分擔
-		if mod.Options.HudMAP then
-			lightmaker[lastRed] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastRed))
-		end
-	elseif ((rgbcount == 1) and (mod.Options.optDD == "DD2")) or ((rgbcount == 2) and (mod.Options.optDD == "DD1")) or ((rgbcount == 3) and (mod.Options.optDD == "DD3"))then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hufd.mp3") --黃色分擔
-		if mod.Options.HudMAP then
-			lightmaker[lastYellow] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastYellow))
-		end
-	elseif ((rgbcount == 1) and (mod.Options.optDD == "DD3")) or ((rgbcount == 2) and (mod.Options.optDD == "DD2")) or ((rgbcount == 3) and (mod.Options.optDD == "DD1"))then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lsfd.mp3") --藍色分擔
-		if mod.Options.HudMAP then
-			lightmaker[lastBlue] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastBlue))
-		end
-	end
-end
 
 function mod:OnCombatStart(delay)
 	lastRed = nil
 	lastBlue = nil
-	lastYellow = nil
+	--BH ADD
 	rgbcount = 0
+	lastYellow = nil	
+	table.wipe(lightmaker)
+	--BH ADD END
 	table.wipe(lingeringGazeTargets)
 	timerHardStareCD:Start(5-delay)
 	timerLingeringGazeCD:Start(15.5-delay)
@@ -281,9 +284,11 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 	elseif msg:find("spell:134122") then--Blue Rays
 		warnBlueBeam:Show(target)
 		timerLingeringGazeCD:Start(21)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_syg.mp3") --三原光準備
+		--BH ADD
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_syg.mp3") --三原光準備		
 		if rgbcount == 3 then rgbcount = 0 end
 		rgbcount = rgbcount + 1
+		--BH ADD END
 		if target == UnitName("player") then
 			specWarnBlueBeam:Show()
 			DBM.Flash:Show(0, 0, 1)
@@ -291,7 +296,8 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		end
 		lastBlue = target
 		if self.Options.SetIconRays then
-			self:SetIcon(target, 6)--Square			
+			self:SetIcon(target, 6)--Square
+--BH DELETE		lastBlue = target
 		end
 	elseif msg:find("spell:134123") then--Infrared Light (red)
 		warnRedBeam:Show(target)
@@ -302,7 +308,8 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		end
 		lastRed = target
 		if self.Options.SetIconRays then
-			self:SetIcon(target, 7)--Cross			
+			self:SetIcon(target, 7)--Cross
+--BH DELETE		lastRed = target
 		end
 	elseif msg:find("spell:134124") then--useful only on heroic and LFR since there are only amber adds in them. Normal 10 and normal 25 do not have amber adds (why LFR does is beyond me)
 		totalFogs = 3
@@ -311,6 +318,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 			timerObliterateCD:Start()
 			sndWOP:Schedule(80, "Interface\\AddOns\\DBM-Core\\extrasounds\\dead.mp3")
 		end
+		--BH MODIFY
 		warnYellowBeam:Show(target)
 		if target == UnitName("player") then
 			specWarnYellowBeam:Show()
@@ -323,6 +331,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 				lightchoose()
 			end
 		end)
+		--BH MODIFY END
 		if self.Options.SetIconRays then
 			self:SetIcon(target, 1, 10)--Star (auto remove after 10 seconds because this beam untethers one initial person positions it.
 		end
@@ -330,6 +339,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 	--"<72.0 20:04:19> [CHAT_MSG_MONSTER_EMOTE] CHAT_MSG_MONSTER_EMOTE#The Bright  Light reveals an Amber Fog!#Amber Fog###Yellow Eye##0#0##0#309#nil#0#false#false", -- [13413]
 	--"<102.2 20:07:32> [CHAT_MSG_MONSTER_EMOTE] CHAT_MSG_MONSTER_EMOTE#The Blue Rays reveal an Azure Fog!#Azure Fog###Blue Eye##0#0##0#225#nil#0#false#false", -- [20262]
 	--Seems the easiest way to localize this is to just scan for npc with "eye" in it and npc for mobname in the announce. Better than localizing 3 msg variations (one of which has a typo that may get fixed)
+	--BH MODIFY
 	elseif npc:find(BlueFog) then
 		specWarnFogRevealed:Show(BlueFog)
 		if lastBlue == UnitName("player") then
@@ -350,6 +360,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		DBM.Flash:Show(1, 1, 0)
 		specWarnFogRevealed:Show(YellowFog)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_huang.mp3") --黃色快打
+	--BH MODIFY END
 	elseif msg:find("spell:133795") then
 		warnLifeDrain:Show(target)
 		specWarnLifeDrain:Show(target)
@@ -410,6 +421,7 @@ function mod:UNIT_DIED(args)
 				self:SetIcon(lastBlue, 0)
 				lastRed = nil
 				lastBlue = nil
+				--BH ADD
 				lastYellow = nil
 			end
 		end
@@ -429,6 +441,7 @@ function mod:UNIT_DIED(args)
 					self:SetIcon(lastBlue, 0)
 					lastRed = nil
 					lastBlue = nil
+					--BH ADD
 					lastYellow = nil
 				end
 			end
@@ -449,6 +462,8 @@ function mod:UNIT_DIED(args)
 					self:SetIcon(lastBlue, 0)
 					lastRed = nil
 					lastBlue = nil
+					--BH ADD
+					lastYellow = nil
 				end
 			end
 		end
@@ -462,10 +477,6 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName, _, _, spellId)
 		warnDisintegrationBeam:Show()
 		specWarnDisintegrationBeam:Show(spellName, DBM_CORE_LEFT)
 		timerDisintegrationBeam:Start()
-		specWarnDisintegrationBeamL:Schedule(20)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_zzgs.mp3") --左轉光束
-		lightmaker["1"] = register(DBMHudMap:AddEdge(0, 1, 0, 1, 15, "player", nil, nil, nil, 770, 470))
-		lightmaker["2"] = register(DBMHudMap:PlaceRangeMarker("highlight", 770, 470, 2, 15, 0, 1, 0, 0.4))
 		if self.Options.ArrowOnBeam then
 			DBM.Arrow:ShowStatic(90)
 		end
@@ -476,10 +487,6 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName, _, _, spellId)
 		warnDisintegrationBeam:Show()
 		specWarnDisintegrationBeam:Show(spellName, DBM_CORE_RIGHT)
 		timerDisintegrationBeam:Start()
-		specWarnDisintegrationBeamR:Schedule(20)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_yzgs.mp3") --右轉光束
-		lightmaker["3"] = register(DBMHudMap:AddEdge(0, 1, 0, 1, 15, "player", nil, nil, nil, 696, 470))
-		lightmaker["4"] = register(DBMHudMap:PlaceRangeMarker("highlight", 696, 470, 2, 15, 0, 1, 0, 0.4))
 		if self.Options.ArrowOnBeam then
 			DBM.Arrow:ShowStatic(270)
 		end

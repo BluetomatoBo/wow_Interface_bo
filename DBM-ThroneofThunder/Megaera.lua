@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(821, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8862 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8937 $"):sub(12, -3))
 mod:SetCreatureID(68065, 70212, 70235, 70247)--flaming 70212. Frozen 70235, Venomous 70247
 mod:SetModelID(47414)--Hydra Fire Head, 47415 Frost Head, 47416 Poison Head
 
@@ -10,7 +10,7 @@ mod:SetModelID(47414)--Hydra Fire Head, 47415 Frost Head, 47416 Poison Head
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
---	"SPELL_CAST_START",
+	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
@@ -49,8 +49,8 @@ local timerArcticFreezeCD		= mod:NewCDTimer(17, 139843, mod:IsTank() or mod:IsHe
 local timerIgniteFleshCD		= mod:NewCDTimer(17, 137731, mod:IsTank() or mod:IsHealer())--So must start cd bars for both in case of engage delays
 local timerRotArmorCD			= mod:NewCDTimer(17, 139840, mod:IsTank() or mod:IsHealer())--This may have been PTR bug, if they stay synce don live, i will combine these 3 timers into 1
 local timerArcaneDiffusionCD	= mod:NewCDTimer(17, 139993, mod:IsTank() or mod:IsHealer())
---local timerCinderCD				= mod:NewCDTimer(20, 139822)--Honestly not sure if this is doable with accuracy, the number of heads in back affects it and they don't always sync up
---local timerTorrentofIceCD		= mod:NewCDTimer(16, 139866)
+local timerCinderCD				= mod:NewCDTimer(25, 139822)
+local timerTorrentofIceCD		= mod:NewCDTimer(16, 139866)
 --local timerAcidRainCD			= mod:NewCDTimer(13.5, 139850)--Can only give time for next impact, no cast trigger so cannot warn cast very effectively. Maybe use some scheduling to pre warn. Although might be VERY spammy if you have many venomous up
 local timerNetherTearCD			= mod:NewCDTimer(30, 140138)--Heroic
 
@@ -102,14 +102,9 @@ local iceBehind = 0
 local arcaneBehind = 0
 local rampageCast = 0
 local activeHeadGUIDS = {}
-local guids = {}
-local guidTableBuilt = false--Entirely for DCs, so we don't need to reset between pulls cause it doesn't effect building table on combat start and after a DC then it will be reset to false always
-local function buildGuidTable()
-	table.wipe(guids)
-	for uId, i in DBM:GetGroupMembers() do
-		guids[UnitGUID(uId) or "none"] = GetRaidRosterInfo(i)
-	end
-end
+local headdead = false
+local firecount = 0
+local icecount = 0
 
 local function isTank(unit)
 	-- 1. check blizzard tanks first
@@ -159,8 +154,6 @@ local function showheadinfo()
 end
 
 function mod:OnCombatStart(delay)
-	buildGuidTable()
-	guidTableBuilt = true
 	table.wipe(activeHeadGUIDS)
 	table.wipe(FireMarkers)
 	table.wipe(IceMarkers)
@@ -173,7 +166,8 @@ function mod:OnCombatStart(delay)
 	iceBehind = 0
 	Ramcount = 0
 	combat = true
---	timerCinderCD:Start(42)--Debuff application, not cast (TODO, check to see if heroic is still 19 seconds)
+	headdead = false
+	timerCinderCD:Start(26)
 	if self:IsDifficulty("heroic10", "heroic25") then
 		arcaneBehind = 1
 		arcaneInFront = 0
@@ -201,7 +195,20 @@ end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(139866) then
---		timerTorrentofIceCD:Start()
+		icecount = icecount + 1
+		if iceBehind == 2 then
+			if icecount%2==1 then
+				timerTorrentofIceCD:Start(15)
+			else
+				timerTorrentofIceCD:Start(13)
+			end
+		elseif iceBehind == 3 then
+			if icecount%3==0 then
+				timerTorrentofIceCD:Start(8)
+			else
+				timerTorrentofIceCD:Start(10)
+			end
+		end
 	end
 end
 
@@ -262,8 +269,25 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 	elseif args:IsSpellID(139822) then
+		firecount = firecount + 1
 		warnCinders:Show(args.destName)
---		timerCinderCD:Start()
+		if not headdead then
+			timerCinderCD:Start()
+		else
+			if fireBehind == 2 then
+				if firecount%2==1 then
+					timerCinderCD:Start(15)
+				else
+					timerCinderCD:Start(13)
+				end
+			elseif fireBehind == 3 then
+				if firecount%3==0 then
+					timerCinderCD:Start(8)
+				else
+					timerCinderCD:Start(10)
+				end
+			end
+		end
 		if args:IsPlayer() then
 			specWarnCinders:Show()
 			yellCinders:Yell()
@@ -364,7 +388,7 @@ local function CheckHeads(GUID)
 				iceInFront = iceInFront + 1
 				if iceBehind > 0 then
 					iceBehind = iceBehind - 1
-				end		
+				end
 			elseif cid == 70212 then--Flaming
 				fireInFront = fireInFront + 1
 				if fireBehind > 0 then
@@ -419,29 +443,66 @@ end
 
 --Nil out front boss GUIDs and cancel timers for correct died unit so those units can activate again later
 function mod:UNIT_DIED(args)
+	headdead = true
+	firecount = 0
+	icecount = 0
+	timerCinderCD:Cancel()
+	timerTorrentofIceCD:Cancel()
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 70235 then--Frozen
 		self:Schedule(5, clearHeadGUID, args.destGUID)
+		if fireBehind == 2 then
+			timerCinderCD:Start(33)
+		elseif fireBehind == 3 then
+			timerCinderCD:Start(29)
+		end
+		if iceBehind == 2 then
+			timerTorrentofIceCD:Start(35)
+		elseif iceBehind == 3 then
+			timerTorrentofIceCD:Start(31)
+		end
 	elseif cid == 70212 then--Flaming
 		self:Schedule(5, clearHeadGUID, args.destGUID)
+		if fireBehind == 2 then
+			timerCinderCD:Start(36)
+		elseif fireBehind == 3 then
+			timerCinderCD:Start(31)
+		end
+		if iceBehind == 2 then
+			timerTorrentofIceCD:Start(37)
+		elseif iceBehind == 3 then
+			timerTorrentofIceCD:Start(33)
+		end
 	elseif cid == 70247 then--Venomous
 		self:Schedule(5, clearHeadGUID, args.destGUID)
+		if fireBehind == 2 then
+			timerCinderCD:Start(33)
+		elseif fireBehind == 3 then
+			timerCinderCD:Start(29)
+		end
+		if iceBehind == 2 then
+			timerTorrentofIceCD:Start(37)
+		elseif iceBehind == 3 then
+			timerTorrentofIceCD:Start(33)
+		end
 	elseif cid == 70248 then--Arcane
 		self:Schedule(5, clearHeadGUID, args.destGUID)
+		if fireBehind == 2 then
+			timerCinderCD:Start(33)
+		elseif fireBehind == 3 then
+			timerCinderCD:Start(29)
+		end
+		if iceBehind == 2 then
+			timerTorrentofIceCD:Start(37)
+		elseif iceBehind == 3 then
+			timerTorrentofIceCD:Start(33)
+		end
 	end
 end
 
 --TODO, check for an aura method instead?
 function mod:OnSync(msg, guid)
-	if not guidTableBuilt then
-		buildGuidTable()
-		guidTableBuilt = true
-	end
-	if msg == "IceTarget" and guids[guid] then
-		warnTorrentofIce:Show(guids[guid])
-		if self.Options.HudMAP2 then
-			local spelltext = GetSpellInfo(139889)
-			IceMarkers[guids[guid]] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", guids[guid], 3, 10, 1, 0 ,0 ,0.8):SetLabel(spelltext))
-		end
+	if msg == "IceTarget" and guid then
+		warnTorrentofIce:Show(DBM:GetFullPlayerNameByGUID(guid))
 	end
 end
