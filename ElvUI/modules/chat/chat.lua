@@ -167,6 +167,7 @@ function CH:InsertEmotions(msg)
 end
 
 function CH:GetSmileyReplacementText(msg)
+	if not msg then return end
 	if not self.db.emotionIcons or msg:find('/run') or msg:find('/dump') or msg:find('/script') then return msg end
 	local outstr = "";
 	local origlen = len(msg);
@@ -1514,6 +1515,7 @@ function CH:DelayGMOTD()
 	if msg then
 		ChatFrame_SystemEventHandler(DEFAULT_CHAT_FRAME, "GUILD_MOTD", msg)
 	end
+	self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 end
 
 function CH:Initialize()
