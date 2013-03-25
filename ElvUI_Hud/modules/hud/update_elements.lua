@@ -494,6 +494,15 @@ function H:UpdateElementAnchor(frame,element)
 		if element ~= 'gcd' then
 			frame[e]:Hide()
 		end
+		if element == 'classbars' then -- Dirty hack for DKs
+			H:ScheduleTimer(function()
+				local oldValue = E.db.unitframe.units.player.classbar.enable
+				E.db.unitframe.units.player.classbar.enable = false
+				UF:CreateAndUpdateUF('player')
+				E.db.unitframe.units.player.classbar.enable = oldValue
+				UF:CreateAndUpdateUF('player')
+			end, 1)
+		end
 	end
 end
 

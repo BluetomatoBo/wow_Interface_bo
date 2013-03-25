@@ -186,7 +186,7 @@ function H:Enable()
     end
     self.lowHealthFlash:Show()
     self.lowHealthFlash:SetAlpha(0)
-    H:ScheduleTimer('AuraBarsSuck',3)
+    H:ScheduleTimer('AuraBarsSuck',5)
 end
 
 function H:UpdateMouseSetting()

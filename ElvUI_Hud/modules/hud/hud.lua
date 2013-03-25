@@ -235,6 +235,7 @@ function H:UpdateFrame(unit)
 	if E.db.unitframe.hud.enabled and self.db.units[frame.unit].enabled then
 		frame:EnableMouse(self.db.hideElv or self.db.enableMouse)
 		frame:Enable()
+		if not frame then H:ScheduleTimer("UpdateFrame", 1, unit); return end
 		frame:SetAlpha(self.db.alpha)
 		local event
 		if InCombatLockdown() then
