@@ -92,7 +92,7 @@ local timerTT4CD						= mod:NewCDTimer(86, 138189)
 local berserkTimer						= mod:NewBerserkTimer(600)
 
 mod:AddBoolOption("RangeFrame")--For various abilities that target even melee. UPDATE, cosmic barrage (worst of the 3 abilities) no longer target melee. However, light of day and tears of teh sun still do. melee want to split into 2-3 groups (depending on how many) but no longer have to stupidly spread about all crazy and out of range of boss during cosmic barrage to avoid dying. On that note, MAYBE change this to ranged default instead of all.
-local phase3started = false
+local phase3Started = false
 
 mod:AddBoolOption("HudMAP", true, "sound")
 mod:AddBoolOption("HudMAP2", true, "sound")
@@ -107,7 +107,7 @@ local lightmaker = {}
 local CBMarkers = {}
 
 function mod:OnCombatStart(delay)
-	phase3started = false
+	phase3Started = false
 	table.wipe(lightmaker)
 	table.wipe(CBMarkers)
 	berserkTimer:Start(-delay)
@@ -367,35 +367,35 @@ function mod:OnSync(msg)
 			warnDusk:Show()
 			timerIceCometCD:Start(17)--This seems to reset, despite what last CD was (this can be a bad thing if it was do any second)
 			timerTidalForceCD:Start(26)
-			timerCosmicBarrageCD:Start(54)
+			timerCosmicBarrageCD:Start(54)		
+			sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hhzb.mp3")--黃昏準備
+			sndWOP:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
+			sndWOP:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
+			sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+			sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hhjd.mp3") --黃昏開始
+			self:Schedule(20, function()
+				if UnitAura("player", GetSpellInfo(138264)) then
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_kkbh.mp3")--快開白虎
+				else
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_cxzb.mp3") --潮汐準備
+				end
+				sndWOPCX:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
+				sndWOPCX:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")
+				sndWOPCX:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
+				sndWOPCX:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
+				sndWOPCX:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+			end)
 		end
-		sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hhzb.mp3")--黃昏準備
-		sndWOP:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOP:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hhjd.mp3") --黃昏開始
-		self:Schedule(20, function()
-			if UnitAura("player", GetSpellInfo(138264)) then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_kkbh.mp3")--快開白虎
-			else
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_cxzb.mp3") --潮汐準備
-			end
-			sndWOPCX:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
-			sndWOPCX:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")
-			sndWOPCX:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-			sndWOPCX:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-			sndWOPCX:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-		end)
 	elseif msg == "Phase3" then
 		self:UnregisterShortTermEvents()
 		timerFanOfFlamesCD:Cancel()--DO NOT CANCEL THIS ON YELL		
-		if not phase3Started then
+	--[[if not phase3Started then
 			warnDusk:Show()
 			phase3Started = true
 			timerIceCometCD:Start(11)--This seems to reset, despite what last CD was (this can be a bad thing if it was do any second)
 			timerTidalForceCD:Start(20)
 			timerCosmicBarrageCD:Start(48)
-		end
+		end]]
 	elseif msg == "TidalForce" then
 		warnTidalForce:Show()
 		specWarnTidalForce:Show()

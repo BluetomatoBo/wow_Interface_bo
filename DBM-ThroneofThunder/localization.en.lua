@@ -121,7 +121,9 @@ L:SetOptionLocalization({
 	dr6				= "减伤提示:$spell:139458 6",
 	dr7				= "减伤提示:$spell:139458 7",
 	dr8				= "减伤提示:$spell:139458 8",
-	InfoFrame		= "资讯框：$journal:7006"
+	InfoFrame		= "资讯框：$journal:7006",
+	SetIconOnCinders		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(139822),
+	SetIconOnTorrentofIce	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(139889)
 })
 
 L:SetMiscLocalization({

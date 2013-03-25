@@ -230,14 +230,14 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, _, _, _, target)
 					end)
 					specWarnFlock:Schedule(34, L.Lower, flockName, flockCount+1)
 					sndWOP:Schedule(34, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xfxg.mp3")
-					sndWOP:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh.mp3")
+					sndWOP:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh"..math.random(1,5)..".mp3")
 				else
 					self:Schedule(24, function()
 						DBM.Flash:Show(1, 0, 0)
 					end)
 					specWarnFlock:Schedule(24, L.Lower, flockName, flockCount+1)
 					sndWOP:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xfxg.mp3")
-					sndWOP:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh.mp3")
+					sndWOP:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh"..math.random(1,5)..".mp3")
 				end
 			end
 			if MyAddUp(flockCount+1) then
@@ -247,14 +247,14 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, _, _, _, target)
 					end)
 					specWarnFlock:Schedule(34, L.Upper, flockName, flockCount+1)
 					sndWOP:Schedule(34, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_sfxg.mp3")
-					sndWOP:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh.mp3")
+					sndWOP:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh"..math.random(1,5)..".mp3")
 				else
 					self:Schedule(24, function()
 						DBM.Flash:Show(1, 0, 0)
 					end)
 					specWarnFlock:Schedule(24, L.Upper, flockName, flockCount+1)
 					sndWOP:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_sfxg.mp3")
-					sndWOP:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh.mp3")
+					sndWOP:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh"..math.random(1,5)..".mp3")
 				end
 			end
 		end

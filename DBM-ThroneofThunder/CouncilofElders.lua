@@ -6,7 +6,7 @@ local sndSpirit	= mod:NewSound(nil, "Soundspirit", true)
 local sndLS		= mod:NewSound(nil, "SoundLs", false)
 local sndHS		= mod:NewSound(nil, "SoundHs", false)
 
-mod:SetRevision(("$Revision: 8951 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8978 $"):sub(12, -3))
 mod:SetCreatureID(69078, 69132, 69134, 69131)--69078 Sul the Sandcrawler, 69132 High Prestess Mar'li, 69131 Frost King Malakk, 69134 Kazra'jin --Adds: 69548 Shadowed Loa Spirit,
 mod:SetModelID(47229)--Kazra'jin, 47505 Sul the Sandcrawler, 47506 Frost King Malakk, 47730 High Priestes Mar'li
 mod:SetUsedIcons(7, 6)
@@ -80,7 +80,7 @@ local specWarnSP					= mod:NewSpecialWarningStack(137650, nil, 5)
 local specWarnDDL					= mod:NewSpecialWarning("specWarnDDL")
 
 --All
-local timerDarkPowerCD				= mod:NewCDTimer(73, 136507) -- needs review.
+local timerDarkPowerCD				= mod:NewCDTimer(68, 136507)
 --Kazra'jin
 local timerRecklessChargeCD			= mod:NewCDTimer(6, 137122, nil, false)
 --Sul the Sandcrawler
@@ -234,10 +234,10 @@ function mod:OnCombatStart(delay)
 	possessesDone = 0
 	boltCasts = 0
 	timerQuickSandCD:Start(8-delay)
-	sndLS:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lszb.mp3") --流沙準備
-	sndLS:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-	sndLS:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-	sndLS:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+	sndLS:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lszb.mp3") --流沙準備
+	sndLS:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
+	sndLS:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
+	sndLS:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
 	timerRecklessChargeCD:Start(10-delay)--the trigger is 6 seconds from pull, charge will happen at 10. I like timer ending at cast finish for this one though vs tryng to have TWO timers for something that literally only has 6 second cd
 	timerBitingColdCD:Start(15-delay)--15 seconds until debuff, 13 til cast.
 	timerBlessedLoaSpiritCD:Start(25-delay)
@@ -262,7 +262,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(136189) then
+	if args.spellId == 136189 then
 		scansDone = 0
 		if boltCasts == 3 then boltCasts = 0 end
 		boltCasts = boltCasts + 1
@@ -277,23 +277,23 @@ function mod:SPELL_CAST_START(args)
 			sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_ddzb.mp3") --打斷準備
 		end
 		--BH ADD END
-	elseif args:IsSpellID(136521) and args:GetSrcCreatureID() == 69078 then--Filter the ones cast by adds dying.
+	elseif args.spellId == 136521 and args:GetSrcCreatureID() == 69078 then--Filter the ones cast by adds dying.
 		warnQuicksand:Show()
 		timerQuickSandCD:Start()
 		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
 		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
 		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-		sndLS:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_zyls.mp3")
+		sndLS:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_zyls.mp3")
 		sndLS:Schedule(29, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lszb.mp3") --流沙準備
 		sndLS:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
 		sndLS:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
 		sndLS:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-	elseif args:IsSpellID(136894) then
+	elseif args.spellId == 136894 then
 		warnSandstorm:Show()
 		specWarnSandStorm:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_scfb.mp3")  --沙塵風暴
 		timerSandStormCD:Start()
-	elseif args:IsSpellID(137203) then
+	elseif args.spellId == 137203 then
 		warnBlessedLoaSpirit:Show()
 		specWarnBlessedLoaSpirit:Show()
 		timerBlessedLoaSpiritCD:Start()
@@ -305,7 +305,7 @@ function mod:SPELL_CAST_START(args)
 		sndSpirit:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
 		sndSpirit:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
 		sndSpirit:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-	elseif args:IsSpellID(137350) then
+	elseif args.spellId == 137350 then
 		warnShadowedLoaSpirit:Show()
 		specWarnShadowedLoaSpirit:Show()
 		timerShadowedLoaSpiritCD:Start()
@@ -317,7 +317,7 @@ function mod:SPELL_CAST_START(args)
 		sndSpirit:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
 		sndSpirit:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
 		sndSpirit:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-	elseif args:IsSpellID(137891) then
+	elseif args.spellId == 137891 then
 		warnTwistedFate:Show()
 		specWarnTwistedFate:Show()
 		timerTwistedFateCD:Start()
@@ -338,10 +338,9 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(136442) then--Possessed
+	if args.spellId == 136442 then--Possessed
 		local cid = args:GetDestCreatureID()
 		local uid
-		local darkPowerCD = 73 -- calculated in 25man normal.
 		for i = 1, 5 do
 			if UnitName("boss"..i) == args.destName then
 				uid = "boss"..i
@@ -354,14 +353,20 @@ function mod:SPELL_AURA_APPLIED(args)
 		if uid and UnitBuff(uid, lingeringPresence) then
 			local _, _, _, stack = UnitBuff(uid, lingeringPresence)
 			if self:IsDifficulty("heroic10", "heroic25") then
-				timerDarkPowerCD:Start(darkPowerCD * (1/(1+(stack*0.15))))
+				timerDarkPowerCD:Start(math.floor(68 * (1-(stack*0.15))))--need review
 			elseif self:IsDifficulty("normal10", "normal25") then
-				timerDarkPowerCD:Start(darkPowerCD * (1/(1+(stack*0.1))))
+				timerDarkPowerCD:Start(math.floor(73 * (1-(stack*0.1))))--need review
 			else -- lfr
-				timerDarkPowerCD:Start(darkPowerCD * (1/(1+(stack*0.05))))
+				timerDarkPowerCD:Start(math.floor(97 * (1-(stack*0.05))))--need review
 			end
 		else
-			timerDarkPowerCD:Start(darkPowerCD)
+			if self:IsDifficulty("heroic10", "heroic25") then
+				timerDarkPowerCD:Start(68)
+			elseif self:IsDifficulty("normal10", "normal25") then
+				timerDarkPowerCD:Start(73)
+			else
+				timerDarkPowerCD:Start(97)
+			end
 		end
 		if cid == 69078 then--Sul the Sandcrawler
 			--BH ADD
@@ -433,7 +438,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			local bossHealth = math.floor(UnitHealthMax(uid or "boss4") * 0.25)
 			showDamagedHealthBar(self, args.destGUID, args.spellName.." : "..args.destName, bossHealth)
 		end
-	elseif args:IsSpellID(136903) then--Player Debuff version, not cast version
+	elseif args.spellId == 136903 then--Player Debuff version, not cast version
 		timerFrigidAssault:Start(args.destName)
 		if self:AntiSpam(3, 1) then--Might need to adjust slightly to 2 or 4.
 			warnFrigidAssault:Show(args.destName, args.amount or 1)
@@ -450,7 +455,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 			end
 		end
-	elseif args:IsSpellID(136992) then--Player Debuff version, not cast version
+	elseif args.spellId == 136992 then--Player Debuff version, not cast version
 		warnBitingCold:Show(args.destName)
 		if self.Options.SetIconOnBitingCold then
 			self:SetIcon(args.destName, 7)--Cross
@@ -466,7 +471,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			BitingColdMarkers[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", args.destName, 4, 30, 1, 1, 1, 0.8):Appear():RegisterForAlerts():Rotate(360, 31))
 		end
 		--BH ADD END
-	elseif args:IsSpellID(136922) and (args.amount or 1) == 1 then--Player Debuff version, not cast version (amount is just a spam filter for ignoring SPELL_AURA_APPLIED_DOSE on this event)
+	elseif args.spellId == 136922 and (args.amount or 1) == 1 then--Player Debuff version, not cast version (amount is just a spam filter for ignoring SPELL_AURA_APPLIED_DOSE on this event)
 		warnFrostBite:Show(args.destName)
 		if self.Options.SetIconOnFrostBite then
 			self:SetIcon(args.destName, 6)--Square
@@ -489,7 +494,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(136860, 136878) and args:IsPlayer() and self:AntiSpam(2, 3) then--Trigger off initial quicksand debuff and ensnared stacks. much less cpu them registering damage events and just as effective.
 		specWarnQuickSand:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xj.mp3") --陷阱跑開
-	elseif args:IsSpellID(137359) then
+	elseif args.spellId == 137359 then
 		warnMarkedSoul:Show(args.destName)
 		timerMarkedSoul:Start(args.destName)
 		if args:IsPlayer() then
@@ -511,7 +516,7 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(136442) then--Possessed
+	if args.spellId == 136442 then--Possessed
 		darkPowerWarned = false
 		timerDarkPowerCD:Cancel()
 		if args:GetDestCreatureID() == 69078 then--Sul the Sandcrawler
@@ -544,21 +549,21 @@ function mod:SPELL_AURA_REMOVED(args)
 		if (self.Options.HealthFrame or DBM.Options.AlwaysShowHealthFrame) and self.Options.PHealthFrame then
 			hideDamagedHealthBar()
 		end
-	elseif args:IsSpellID(136903) then
+	elseif args.spellId == 136903 then
 		timerFrigidAssault:Cancel(args.destName)
-	elseif args:IsSpellID(136904) then
+	elseif args.spellId == 136904 then
 		timerFrigidAssaultCD:Start()
-	elseif args:IsSpellID(137359) then
+	elseif args.spellId == 137359 then
 		timerMarkedSoul:Cancel(args.destName)
 	--BH ADD
-	elseif args:IsSpellID(136992)  then
+	elseif args.spellId == 136992 then
 		if self.Options.SetIconOnBitingCold then
 			self:SetIcon(args.destName, 0)
 		end
 		if BitingColdMarkers[args.destName] then
 			BitingColdMarkers[args.destName] = free(BitingColdMarkers[args.destName])
 		end
-	elseif args:IsSpellID(136922)  then
+	elseif args.spellId == 136922 then
 		if self.Options.SetIconOnFrostBite then
 			self:SetIcon(args.destName, 0)
 		end

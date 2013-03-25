@@ -2,10 +2,10 @@ local mod	= DBM:NewMod(821, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8937 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8979 $"):sub(12, -3))
 mod:SetCreatureID(68065, 70212, 70235, 70247)--flaming 70212. Frozen 70235, Venomous 70247
 mod:SetModelID(47414)--Hydra Fire Head, 47415 Frost Head, 47416 Poison Head
-
+mod:SetUsedIcons(7, 6)
 
 mod:RegisterCombat("combat")
 
@@ -45,9 +45,9 @@ local specWarnTorrentofIce		= mod:NewSpecialWarningMove(139889)
 local specWarnNetherTear		= mod:NewSpecialWarningSwitch("ej7816", mod:IsDps())
 
 local timerRampage				= mod:NewBuffActiveTimer(21, 139458)
-local timerArcticFreezeCD		= mod:NewCDTimer(17, 139843, mod:IsTank() or mod:IsHealer())--breath cds are very often syncronized, but not always, sometimes if mobs not engaged same time they go off sync.
-local timerIgniteFleshCD		= mod:NewCDTimer(17, 137731, mod:IsTank() or mod:IsHealer())--So must start cd bars for both in case of engage delays
-local timerRotArmorCD			= mod:NewCDTimer(17, 139840, mod:IsTank() or mod:IsHealer())--This may have been PTR bug, if they stay synce don live, i will combine these 3 timers into 1
+local timerArcticFreezeCD		= mod:NewCDTimer(16, 139843, mod:IsTank() or mod:IsHealer())--breath cds are very often syncronized, but not always, sometimes if mobs not engaged same time they go off sync.
+local timerIgniteFleshCD		= mod:NewCDTimer(16, 137731, mod:IsTank() or mod:IsHealer())--So must start cd bars for both in case of engage delays
+local timerRotArmorCD			= mod:NewCDTimer(16, 139840, mod:IsTank() or mod:IsHealer())--This may have been PTR bug, if they stay synce don live, i will combine these 3 timers into 1
 local timerArcaneDiffusionCD	= mod:NewCDTimer(17, 139993, mod:IsTank() or mod:IsHealer())
 local timerCinderCD				= mod:NewCDTimer(25, 139822)
 local timerTorrentofIceCD		= mod:NewCDTimer(16, 139866)
@@ -55,6 +55,9 @@ local timerTorrentofIceCD		= mod:NewCDTimer(16, 139866)
 local timerNetherTearCD			= mod:NewCDTimer(30, 140138)--Heroic
 
 --local soundTorrentofIce			= mod:NewSound(139889)
+
+mod:AddBoolOption("SetIconOnCinders", true)
+mod:AddBoolOption("SetIconOnTorrentofIce", true)
 
 --count will go to hell fast on a DC though. Need to figure out some kind of head status recovery to get active/inactive head counts.
 --Maybe add an info frame that shows head status too would be cool such as
@@ -298,6 +301,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			local spelltext = GetSpellInfo(139822)
 			FireMarkers[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 3, 10, 1, 0 ,0 ,0.8):SetLabel(spelltext))
 		end
+		if self.Options.SetIconOnCinders then
+			self:SetIcon(args.destName, 7)
+		end
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -309,6 +315,9 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 		if FireMarkers[args.destName] then
 			FireMarkers[args.destName] = free(FireMarkers[args.destName])
+		end
+		if self.Options.SetIconOnCinders then
+			self:SetIcon(args.destName, 0)
 		end
 	end
 end
@@ -503,6 +512,10 @@ end
 --TODO, check for an aura method instead?
 function mod:OnSync(msg, guid)
 	if msg == "IceTarget" and guid then
-		warnTorrentofIce:Show(DBM:GetFullPlayerNameByGUID(guid))
+		local target = DBM:GetFullPlayerNameByGUID(guid)
+		warnTorrentofIce:Show(target)
+		if self.Options.SetIconOnTorrentofIce then
+			self:SetIcon(target, 6, 8)--do not have cleu, so use scheduler.
+		end
 	end
 end

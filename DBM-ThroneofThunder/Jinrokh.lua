@@ -5,7 +5,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndIon	= mod:NewSound(nil, "SoundWOP", true)
 local sndIonCD	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8966 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8978 $"):sub(12, -3))
 mod:SetCreatureID(69465)
 mod:SetModelID(47552)
 
@@ -103,7 +103,7 @@ function mod:TargetScanner(Force)
 end
 
 function mod:OnCombatStart(delay)
-	timerFocusedLightningCD:Start(-delay)
+	timerFocusedLightningCD:Start(8-delay)
 	timerStaticBurstCD:Start(13-delay)
 	timerThrowCD:Start(30-delay)
 	-- BH ADD

@@ -239,6 +239,10 @@ function mod:SPELL_CAST_SUCCESS(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\dispelnow.mp3") --快驅散
 			specWarnSunDebuff:Show()
 		end
+	elseif args:IsSpellID(136564) then
+		if self:AntiSpam(2, 10) then
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_bqxx.mp3") --冰球小心
+		end
 	end
 end
 --BH ADD END
@@ -328,7 +332,8 @@ function mod:SPELL_AURA_APPLIED(args)
 --BH DELETE		soundDireFixate:Play()
 			-- BH ADD
 			DBM.Flash:Show(1, 0, 0)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\killspirit.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lhsd.mp3")
+			sndWOP:Schedule(1,"Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lhsd.mp3")
 			-- BH ADD END
 		end
 	elseif args:IsSpellID(136512) and args:IsPlayer() then
@@ -444,8 +449,9 @@ function mod:OnSync(msg, guid)
 			yellCharge:Yell()
 			DBM.Flash:Show(1, 0, 0)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_nbcf.mp3")
+			sndWOP:Schedule(0.5,"Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_nbcf.mp3")
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_cfkd.mp3") --衝鋒快躲			
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_cfkd.mp3") --衝鋒快躲
 		end
 	elseif msg == "Door" then
 	--Doors spawn every 131.5 seconds
@@ -455,7 +461,7 @@ function mod:OnSync(msg, guid)
 		doorNumber = doorNumber + 1
 		timerDinoCD:Start()
 		warnDino:Schedule(56.75)
-		specWarnDino:Schedule(56.75)
+		specWarnDino:Schedule(56.75)		
 		if mod:IsDps() then
 			sndWOP:Schedule(56.75, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ylsd.mp3") --禦龍師快打
 		else
