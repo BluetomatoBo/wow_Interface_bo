@@ -358,7 +358,7 @@ local function SkilletFrameOnUpdate(self, event, ...)
 end
 
 local name = "SkilletSkin"
-local function SkinSkillet(Self)
+function AS:SkinSkillet(Self)
 		local buttons = {
 			"SkilletQueueAllButton",
 			"SkilletCreateAllButton",
@@ -443,4 +443,4 @@ local function SkinSkillet(Self)
 		local plugin = _G["SkilletPluginButton"]
 		plugin:SetScript("PostClick", SkinPluginButtons)
 end
-AS:RegisterSkin(name,SkinSkillet)
+AS:RegisterSkin(name,AS.SkinSkillet)
