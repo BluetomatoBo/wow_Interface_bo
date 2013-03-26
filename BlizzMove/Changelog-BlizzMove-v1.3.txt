@@ -1,0 +1,19 @@
+------------------------------------------------------------------------
+r42 | yess | 2013-03-25 22:32:16 +0000 (Mon, 25 Mar 2013) | 1 line
+Changed paths:
+   A /tags/v1.3 (from /trunk:41)
+
+Tagging as v1.3
+------------------------------------------------------------------------
+r41 | yess | 2013-03-25 22:25:32 +0000 (Mon, 25 Mar 2013) | 1 line
+Changed paths:
+   M /trunk/BlizzMove.toc
+
+Update TOC
+------------------------------------------------------------------------
+r40 | yess | 2012-12-17 03:32:00 +0000 (Mon, 17 Dec 2012) | 1 line
+Changed paths:
+   M /trunk/BlizzMove.lua
+
+Fixed db not set when an addon was loaded before Blizzmove. Ticket #21
+------------------------------------------------------------------------
