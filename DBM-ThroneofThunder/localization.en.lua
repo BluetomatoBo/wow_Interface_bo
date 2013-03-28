@@ -176,6 +176,16 @@ L:SetOptionLocalization({
 	add24			= "第十四波$journal:7348(下)",
 	add25			= "第十五波$journal:7348(上)",
 	add26			= "第十五波$journal:7348(下)",
+	add27			= "第十六波$journal:7348(上)",
+	add28			= "第十六波$journal:7348(下)",
+	add29			= "第十七波$journal:7348(上)",
+	add30			= "第十七波$journal:7348(下)",
+	add31			= "第十八波$journal:7348(上)",
+	add32			= "第十八波$journal:7348(下)",
+	add33			= "第十九波$journal:7348(上)",
+	add34			= "第十九波$journal:7348(下)",
+	add35			= "第二十波$journal:7348(上)",
+	add36			= "第二十波$journal:7348(下)",
 	RangeFrame		= "Show range frame (8) for $spell:138923"
 })
 
@@ -271,6 +281,7 @@ L:SetOptionLocalization({
 	SoundARAT		= "语音警告：报出$spell:137231的攻击方位",
 	ReapetAP		= "特殊功能：若你中了$spell:136192则不停呼救",
 	HudMAP			= "高级定位监视(HUD)：$spell:136192",
+	HudMAP2			= "高級定位監視(HUD)：閃電階段結束後標誌出$spell:136193攜帶者",
 	RangeFrame		= "Show dynamic range frame\n(This is a smart range frame that shows when too many are too close)",
 	InfoFrame		= "Show info frame for players with $spell:136193"
 })

@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPWS	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8964 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9063 $"):sub(12, -3))
 mod:SetCreatureID(69712)
 mod:SetModelID(46675)
 
@@ -37,12 +37,15 @@ local specWarnFeedYoung		= mod:NewSpecialWarningSpell(137528)
 local specWarnBigBird		= mod:NewSpecialWarningSwitch("ej7827", mod:IsTank())
 
 --local timerCawsCD			= mod:NewCDTimer(15, 138923)--Variable beyond usefulness. anywhere from 18 second cd and 50.
+local timerQuills			= mod:NewBuffActiveTimer(10, 134380)
 local timerQuillsCD			= mod:NewCDTimer(60, 134380)--variable because he has two other channeled abilities with different cds, so this is cast every 60-67 seconds usually after channel of some other spell ends
 local timerFlockCD	 		= mod:NewTimer(30, "timerFlockCD", 15746)
 local timerTalonRakeCD		= mod:NewCDTimer(20, 134366, mod:IsTank() or mod:IsHealer())--20-30 second variation
 local timerTalonRake		= mod:NewTargetTimer(60, 134366, mod:IsTank() or mod:IsHealer())
+local timerDowndraft		= mod:NewBuffActiveTimer(10, 134730)
 local timerDowndraftCD		= mod:NewCDTimer(97, 134370)
 local timerFlight			= mod:NewBuffFadesTimer(10, 133755)
+local timerPrimalNutriment	= mod:NewBuffFadesTimer(30, 140741)
 -- BH ADD
 local timerFeedYoung		= mod:NewCDTimer(30, 137528)
 
@@ -57,17 +60,17 @@ local flockName = EJ_GetSectionInfo(7348)
 local flockCount = 0
 local myGroup = nil
 local wstime = 0
-for i = 1, 26 do
+for i = 1, 36 do
 	mod:AddBoolOption("add"..i, false, "sound")
 end
 local function MyAddDown(flockwave)
-	if (flockwave == 2 and mod.Options.add2) or (flockwave == 3 and mod.Options.add3) or (flockwave == 4 and mod.Options.add5) or (flockwave == 5 and mod.Options.add7) or (flockwave == 7 and mod.Options.add10) or (flockwave == 8 and mod.Options.add12) or (flockwave == 9 and mod.Options.add14) or (flockwave == 10 and mod.Options.add16) or (flockwave == 11 and mod.Options.add18) or (flockwave == 12 and mod.Options.add20) or (flockwave == 13 and mod.Options.add22) or (flockwave == 14 and mod.Options.add24) or (flockwave == 15 and mod.Options.add26) then
+	if (flockwave == 2 and mod.Options.add2) or (flockwave == 3 and mod.Options.add3) or (flockwave == 4 and mod.Options.add5) or (flockwave == 5 and mod.Options.add7) or (flockwave == 7 and mod.Options.add10) or (flockwave == 8 and mod.Options.add12) or (flockwave == 9 and mod.Options.add14) or (flockwave == 10 and mod.Options.add16) or (flockwave == 11 and mod.Options.add18) or (flockwave == 12 and mod.Options.add20) or (flockwave == 13 and mod.Options.add22) or (flockwave == 14 and mod.Options.add24) or (flockwave == 15 and mod.Options.add26) or (flockwave == 16 and mod.Options.add28) or (flockwave == 17 and mod.Options.add30) or (flockwave == 18 and mod.Options.add32) or (flockwave == 19 and mod.Options.add34) or (flockwave == 20 and mod.Options.add36) then
 		return true
 	end
 	return false
 end
 local function MyAddUp(flockwave)
-	if (flockwave == 4 and mod.Options.add4) or (flockwave == 5 and mod.Options.add6) or (flockwave == 6 and mod.Options.add8) or (flockwave == 7 and mod.Options.add9) or (flockwave == 8 and mod.Options.add11) or (flockwave == 9 and mod.Options.add13) or (flockwave == 10 and mod.Options.add15) or (flockwave == 11 and mod.Options.add17) or (flockwave == 12 and mod.Options.add19) or (flockwave == 13 and mod.Options.add21) or (flockwave == 14 and mod.Options.add23) or (flockwave == 15 and mod.Options.add19) then
+	if (flockwave == 4 and mod.Options.add4) or (flockwave == 5 and mod.Options.add6) or (flockwave == 6 and mod.Options.add8) or (flockwave == 7 and mod.Options.add9) or (flockwave == 8 and mod.Options.add11) or (flockwave == 9 and mod.Options.add13) or (flockwave == 10 and mod.Options.add15) or (flockwave == 11 and mod.Options.add17) or (flockwave == 12 and mod.Options.add19) or (flockwave == 13 and mod.Options.add21) or (flockwave == 14 and mod.Options.add23) or (flockwave == 15 and mod.Options.add25) or (flockwave == 16 and mod.Options.add27) or (flockwave == 17 and mod.Options.add29) or (flockwave == 18 and mod.Options.add31) or (flockwave == 19 and mod.Options.add33) or (flockwave == 20 and mod.Options.add35) then
 		return true
 	end
 	return false
@@ -85,11 +88,11 @@ function mod:OnCombatStart(delay)
 		timerQuillsCD:Start(42.5-delay)
 	end	
 	timerDowndraftCD:Start(91-delay)
-	sndWOP:Schedule(85, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xjzb.mp3")
-	sndWOP:Schedule(87, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")	
-	sndWOP:Schedule(88, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-	sndWOP:Schedule(89, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-	sndWOP:Schedule(90, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+	sndWOP:Schedule(85, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xjzb.mp3")
+	sndWOP:Schedule(87, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+	sndWOP:Schedule(88, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+	sndWOP:Schedule(89, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+	sndWOP:Schedule(90, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(8)
 	end
@@ -114,7 +117,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			if (args.amount or 1) >= 1 and not UnitDebuff("player", GetSpellInfo(134366)) and not UnitIsDeadOrGhost("player") then
 				specWarnTalonRakeOther:Show(args.destName)
 				if mod:IsTank() then
-					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\changemt.mp3") --換坦嘲諷
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3") --換坦嘲諷
 				end
 			end
 		end
@@ -122,26 +125,28 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnFeedYoung:Show()
 		specWarnFeedYoung:Show()
 		wstime = GetTime()
-		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_zbws.mp3")
-		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-		sndWOPWS:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_wsyc.mp3") --餵食	
+		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbws.mp3")
+		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		sndWOPWS:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wsyc.mp3") --餵食	
 		if self:IsDifficulty("normal10", "heroic10", "lfr25") then
 			timerFeedYoung:Start(40)
-			sndWOPWS:Schedule(36, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_zbws.mp3")
-			sndWOPWS:Schedule(37.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-			sndWOPWS:Schedule(38.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-			sndWOPWS:Schedule(39.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+			sndWOPWS:Schedule(36, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbws.mp3")
+			sndWOPWS:Schedule(37.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOPWS:Schedule(38.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOPWS:Schedule(39.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		else
 			timerFeedYoung:Start(30)
-			sndWOPWS:Schedule(26, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_zbws.mp3")
-			sndWOPWS:Schedule(27.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-			sndWOPWS:Schedule(28.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-			sndWOPWS:Schedule(29.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+			sndWOPWS:Schedule(26, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbws.mp3")
+			sndWOPWS:Schedule(27.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOPWS:Schedule(28.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOPWS:Schedule(29.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		end	
 	elseif args:IsSpellID(133755) and args:IsPlayer() then
 		timerFlight:Start()
+	elseif args:IsSpellID(140741) and args:IsPlayer() then
+		timerPrimalNutriment:Start()
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -156,55 +161,57 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(134380) then
 		warnQuills:Show()
 		specWarnQuills:Show()
+		timerQuills:Start()
 		if self:IsDifficulty("normal10", "heroic10", "lfr25") then
 			timerQuillsCD:Start(80)
 		else
 			timerQuillsCD:Start()
 		end
 		if mod:IsHealer() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\healall.mp3") --注意群療
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\healall.mp3") --注意群療
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\aesoon.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
 		end
 	elseif args:IsSpellID(134370) then
 		warnDowndraft:Show()
 		specWarnDowndraft:Show()
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xjzb.mp3")
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")	
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		timerDowndraft:Start()
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xjzb.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		if self:IsDifficulty("normal10", "heroic10", "lfr25") then
 			if GetTime() - wstime > 35 then
-				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 			end
 		else
 			if GetTime() - wstime > 25 then
-				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+				sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 			end
 		end
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xjql.mp3") --下降氣流		
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xjql.mp3") --下降氣流		
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerDowndraftCD:Start(93)
-			sndWOP:Schedule(87, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xjzb.mp3") --下降氣流準備
-			sndWOP:Schedule(88, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
-			sndWOP:Schedule(89, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")
-			sndWOP:Schedule(90, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-			sndWOP:Schedule(91, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-			sndWOP:Schedule(92, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+			sndWOP:Schedule(87, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xjzb.mp3") --下降氣流準備
+			sndWOP:Schedule(88, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(89, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+			sndWOP:Schedule(90, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(91, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(92, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		else
 			timerDowndraftCD:Start()--Todo, confirm they didn't just change normal to 90 as well. in my normal logs this had a 110 second cd on normal
-			sndWOP:Schedule(90, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xjzb.mp3")
-			sndWOP:Schedule(91, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
-			sndWOP:Schedule(92, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")	
-			sndWOP:Schedule(93, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-			sndWOP:Schedule(94, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-			sndWOP:Schedule(95, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+			sndWOP:Schedule(90, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xjzb.mp3")
+			sndWOP:Schedule(91, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(92, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+			sndWOP:Schedule(93, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(94, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(95, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		end
 	elseif args:IsSpellID(134380) and self:AntiSpam(2, 1) then--Maybe adjust anti spam a bit or find a different way to go about this. It is important information though.
 		warnLayEgg:Show()
@@ -229,15 +236,15 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, _, _, _, target)
 						DBM.Flash:Show(1, 0, 0)
 					end)
 					specWarnFlock:Schedule(34, L.Lower, flockName, flockCount+1)
-					sndWOP:Schedule(34, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xfxg.mp3")
-					sndWOP:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh"..math.random(1,5)..".mp3")
+					sndWOP:Schedule(34, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xfxg.mp3")
+					sndWOP:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_ddfh.mp3")
 				else
 					self:Schedule(24, function()
 						DBM.Flash:Show(1, 0, 0)
 					end)
 					specWarnFlock:Schedule(24, L.Lower, flockName, flockCount+1)
-					sndWOP:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xfxg.mp3")
-					sndWOP:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh"..math.random(1,5)..".mp3")
+					sndWOP:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xfxg.mp3")
+					sndWOP:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_ddfh.mp3")
 				end
 			end
 			if MyAddUp(flockCount+1) then
@@ -246,15 +253,15 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, _, _, _, target)
 						DBM.Flash:Show(1, 0, 0)
 					end)
 					specWarnFlock:Schedule(34, L.Upper, flockName, flockCount+1)
-					sndWOP:Schedule(34, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_sfxg.mp3")
-					sndWOP:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh"..math.random(1,5)..".mp3")
+					sndWOP:Schedule(34, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sfxg.mp3")
+					sndWOP:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_ddfh.mp3")
 				else
 					self:Schedule(24, function()
 						DBM.Flash:Show(1, 0, 0)
 					end)
 					specWarnFlock:Schedule(24, L.Upper, flockName, flockCount+1)
-					sndWOP:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_sfxg.mp3")
-					sndWOP:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ddfh"..math.random(1,5)..".mp3")
+					sndWOP:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sfxg.mp3")
+					sndWOP:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_ddfh.mp3")
 				end
 			end
 		end

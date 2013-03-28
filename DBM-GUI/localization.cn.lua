@@ -102,7 +102,7 @@ L.WarningIconRight 			= "右侧显示图标"
 L.RaidWarnMessage 			= "感谢您使用Deadly Boss Mods"
 L.BarWhileMove 				= "可移动团队警报"
 L.RaidWarnSound				= "发出团队警报时播放声音"
-L.CountdownVoice			= "倒数时播放语音"
+L.CountdownVoice			= "设置语音包"
 L.SpecialWarnSound			= "针对你或你的角色发出特殊警报时播放声音"
 L.SpecialWarnSound2			= "针对所有人发出特殊警报时播放声音"
 L.SpecialWarnSound3			= "针对非常重要事件的特殊警报播放声音，这些事件若不注意往往会造成灭团"
@@ -189,3 +189,7 @@ L.DontPlayPTCountdown			= "不播放开怪倒计时语音"
 
 -- Misc
 L.FontHeight	= 20
+
+L.yike = "夏一可"
+L.yun =  "芷小芸(TW)"
+L.other =  "自定义"

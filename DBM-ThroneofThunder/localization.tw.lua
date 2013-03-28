@@ -13,6 +13,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	SoundWOP			= "語音警告：重要技能",
 	SpecWarnJSA			= "特殊警告：注意減傷",
+	SoundWOPIonM		= "語音警告：$spell:138732 7秒時提示(不選則結束前提示)",
 	dr1					= "減傷提示：$spell:137313 1/3-1 [開始時提示]",
 	dr2					= "減傷提示：$spell:137313 1/3-2 [五秒時提示]",
 	dr3					= "減傷提示：$spell:137313 2/4-1",
@@ -43,6 +44,7 @@ L:SetOptionLocalization({
 	specWarnOrbofControl		= "特別警告：$journal:7092掉落",
 	SoundWOP			= "語音警告：重要技能",
 	SpecWarnJSA			= "特殊警告：注意減傷",
+	InfoFrame			= "資訊框：$spell:137458輪數",	
 	ccsoon				= "語音警告：即將$spell:136767(當你是首領目標時無視此選項)",
 	ddyls				= "語音警告：打斷$spell:136797",
 	dr1					= "減傷提示：$spell:136817 1",
@@ -57,6 +59,9 @@ L:SetOptionLocalization({
 	QS2					= "順序2",
 	QS3					= "順序3",
 	allQS				= "總是提示",
+	RangeFrame			= "距離監視：熊門5碼",
+	SoundWSP			= "語音警告：$journal:7866 接近20碼內 (請焦點鎖定你的靈魂)",
+	dispsetHex			= "當設定的角色中了混亂詛咒時提示你幫忙驅散",
 	timerDoor			= "計時器：下一个部族大门開啟",
 	timerAdds			= "計時器：下一組小怪刷新"
 })
@@ -73,11 +78,13 @@ L= DBM:GetModLocalization(816)
 
 L:SetWarningLocalization({
 	specWarnDDL 	= ">> 下一次 到你斷 <<",
-	specWarnPossessed		= "%s 附身 %s - 快轉火!"
+	specWarnPossessed		= "%s %s - 快轉火!"
 })
 
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
+	helpcold		= "監視此人的體溫：在體溫流失前3秒給予提示",
+	InfoFrame		= "資訊框：$spell:136442信息",
 	SoundLs			= "倒計時：$spell:136521",	
 	SoundHs			= "語音預警：$spell:136990",
 	Soundspirit		= "倒計時：女祭司的各種魂靈",
@@ -201,6 +208,16 @@ L:SetOptionLocalization({
 	add24			= "第十四波$journal:7348(下)",
 	add25			= "第十五波$journal:7348(上)",
 	add26			= "第十五波$journal:7348(下)",
+	add27			= "第十六波$journal:7348(上)",
+	add28			= "第十六波$journal:7348(下)",
+	add29			= "第十七波$journal:7348(上)",
+	add30			= "第十七波$journal:7348(下)",
+	add31			= "第十八波$journal:7348(上)",
+	add32			= "第十八波$journal:7348(下)",
+	add33			= "第十九波$journal:7348(上)",
+	add34			= "第十九波$journal:7348(下)",
+	add35			= "第二十波$journal:7348(上)",
+	add36			= "第二十波$journal:7348(下)",
 	RangeFrame		= "距離監視(8碼)：$spell:138923"
 })
 
@@ -228,6 +245,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	SoundWOP					= "語音警告：重要技能",
 	optDD						= "三元光分擔策略",
+	DXsound						= "高級定位監視(HUD)：$spell:133795",
 	nodd						= "不分擔",
 	DD1							= "A:紅黃藍",
 	DD2							= "B:黃藍紅",
@@ -293,7 +311,8 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(817)
 
 L:SetWarningLocalization({
-	warnDeadZone	= "%s: %s / %s "
+	warnDeadZone	= "%s: %s / %s ",
+	SpecWarnJSA			= ">>> 注意減傷 <<<"
 })
 
 L:SetOptionLocalization({
@@ -302,6 +321,7 @@ L:SetOptionLocalization({
 	SoundARAT		= "語音警告：報出$spell:137231的攻擊方位",
 	ReapetAP		= "特殊功能：若你中了$spell:136192則不停呼救",
 	HudMAP			= "高級定位監視(HUD)：$spell:136192",
+	HudMAP2			= "高級定位監視(HUD)：閃電階段結束後標誌出$spell:136193攜帶者",
 	RangeFrame		= "顯示動態距離框架(當太多人太接近時會動態顯示)",
 	InfoFrame		= "信息框：$spell:136193"
 })
@@ -351,6 +371,7 @@ L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
 	HudMAP			= "高級定位監視(HUD)：$spell:135695",
 	HudMAP2			= "高級定位監視(HUD)：$spell:136295",
+	cancelhud		= "當玩家白字說不需要分擔時變換HUD標誌(輸入監視關鍵字 例如:單吃)",
 	RangeFrame		= "距離監視",--For two different spells
 	StaticShockArrow	= "DBM箭頭：$spell:135695",
 	OverchargeArrow		= "DBM箭頭：$spell:136295",

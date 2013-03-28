@@ -221,7 +221,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		specWarnNetherTear:Show()
 --		timerNetherTearCD:Start()--TODO: see if cast more often if more than 1 arcane head.
 		if self:AntiSpam(10, 4) then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\dragonnow.mp3")  --小龍出現
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dragonnow.mp3")  --小龍出現
 		end
 	end
 end
@@ -295,7 +295,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnCinders:Show()
 			yellCinders:Yell()
 			DBM.Flash:Show(1, 0, 0)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_hydn.mp3")  --快跑 火焰點你
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_hydn.mp3")  --快跑 火焰點你
 		end
 		if self.Options.HudMAP then
 			local spelltext = GetSpellInfo(139822)
@@ -311,7 +311,7 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 function mod:SPELL_AURA_REMOVED(args)
 	if args:IsSpellID(139822) then
 		if args:IsPlayer() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\safenow.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\safenow.mp3")
 		end
 		if FireMarkers[args.destName] then
 			FireMarkers[args.destName] = free(FireMarkers[args.destName])
@@ -327,7 +327,7 @@ function mod:SPELL_DAMAGE(sourceGUID, _, _, _, destGUID, _, _, _, spellId, spell
 --		timerAcidRainCD:Start(13.5)--TODO, it should be cast more often more heads there are. this is timing with two heads in back. Find out timing with 1 head, or 3 or 4
 	elseif spellId == 139889 and destGUID == UnitGUID("player") and self:AntiSpam(2, 2) then
 		specWarnTorrentofIce:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3") --快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -346,13 +346,13 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 --		timerNetherTearCD:Cancel()
 		specWarnRampage:Show()
 		timerRampage:Start()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\gather.mp3")--快集合		
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\gather.mp3")--快集合		
 		Ramcount = Ramcount + 1		
 		if MyJS() then
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_zyjs.mp3") --注意減傷
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
 		end		
 	elseif msg == L.rampageEnds or msg:find(L.rampageEnds) then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\scattersoon.mp3")--注意分散
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 		if iceInFront > 0 then
 			timerArcticFreezeCD:Start(10)
 		end
@@ -384,7 +384,7 @@ function mod:RAID_BOSS_WHISPER(msg)
 --		soundTorrentofIce:Play()
 		self:SendSync("IceTarget", UnitGUID("player"))
 		DBM.Flash:Show(0, 0, 1)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\justrun.mp3") --快跑
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
 	end
 end
 

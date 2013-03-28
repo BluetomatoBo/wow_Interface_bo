@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8954 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9035 $"):sub(12, -3))
 mod:SetCreatureID(69427)
 mod:SetModelID(47527)
 
@@ -46,8 +46,9 @@ local timerExplosiveSlam			= mod:NewTargetTimer(25, 138569, nil, mod:IsTank() or
 --Dark Animus will now use its abilities at more consistent intervals. (March 19 hotfix)
 --As such, all of these timers need re-verification and updating.
 local timerSiphonAnimaCD			= mod:NewNextTimer(30, 138644)
-local timerAnimaRingCD				= mod:NewCDTimer(22, 136954)
-local timerEmpowerGolemCD			= mod:NewCDTimer(16, 138780)--TODO, this wasn't cast as often on normal. Find out if they actually have different CDs or if it was buffed since normal was tested.
+local timerAnimaRingCD				= mod:NewNextTimer(24.2, 136954)--Updated/Verified post march 19 hotfix
+local timerEmpowerGolemCD			= mod:NewCDTimer(16, 138780)--Still need updated heroic log (post hotfix) to verify/update
+local timerInterruptingJoltCD		= mod:NewCDTimer(22, 138763)--Still need a log where he actually reaches 75 anima, my guild kills too fast
 
 ----BH DELETE local soundCrimsonWake				= mod:NewSound(138480)
 
@@ -99,11 +100,15 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(138763, 139867) then--Normal version is 2.2 sec cast. Heroic is 1.4 second cast (thus why it has different spellid)
 		warnInterruptingJolt:Show()
 		specWarnInterruptingJolt:Show()
+		timerInterruptingJoltCD:Start()
+		sndWOP:Schedule(19.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Schedule(20.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Schedule(21.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		if mod:IsManaUser() and mod:IsRanged() then
 			DBM.Flash:Show(1, 0, 0)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\stopcast.mp3") --停止施法
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopcast.mp3") --停止施法
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_dfzj.mp3") --斷法震擊
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_dfzj.mp3") --斷法震擊
 		end
 	end
 end
@@ -122,7 +127,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				if (args.amount or 1) >= 2 and not UnitDebuff("player", GetSpellInfo(138569)) and not UnitIsDeadOrGhost("player") then
 					specWarnExplosiveSlamOther:Show(args.destName)
 					if mod:IsTank() then
-						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\changemt.mp3")--換坦嘲諷
+						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3")--換坦嘲諷
 					end
 				end
 			end
@@ -132,9 +137,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerMatterSwap:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnMatterSwap:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_jhzb.mp3") --交換準備
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_jhzb.mp3") --交換準備
 		elseif mod:IsHealer() then		
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_wzjh.mp3") --物質交換
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wzjh.mp3") --物質交換
 		end
 	elseif args:IsSpellID(138780) then
 		warnEmpowerGolem:Show(args.destName)
@@ -154,7 +159,7 @@ end
 function mod:SPELL_DAMAGE(sourceGUID, _, _, _, destGUID, _, _, _, spellId, spellName)
 	if spellId == 138485 and destGUID == UnitGUID("player") and self:AntiSpam(2, 1) then
 		specWarnCrimsonWake:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3") --快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 --"<84.3 22:50:19> [CLEU] SPELL_DAMAGE#false#0x040000000587A80F#Crones#1300#0#0x040000000587A80F#Crones#1300#0#138618#Matter Swap#64#187086#-1#64#nil#nil#51355#nil#nil#nil#nil", -- [9602]
 --"<84.3 22:50:19> [CLEU] SPELL_DAMAGE#false#0x040000000587A80F#Crones#1300#0#0x04000000060845B3#Rvst#1300#0#138618#Matter Swap#64#52388#-1#64#nil#nil#162209#nil#nil#nil#nil", -- [9604]
 	elseif spellId == 138618 then
@@ -175,13 +180,14 @@ function mod:RAID_BOSS_WHISPER(msg, npc)
 		yellCrimsonWake:Yell()
 ----BH DELETE	soundCrimsonWake:Play()
 		DBM.Flash:Show(1, 0, 0)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\justrun.mp3")  --快跑
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3")  --快跑
 		self:SendSync("WakeTarget", UnitGUID("player"))
 	end
 end
 
 function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 	if UnitExists("boss1") and tonumber(UnitGUID("boss1"):sub(6, 10), 16) == 69427 then
+		timerInterruptingJoltCD:Start(160)
 		self:UnregisterShortTermEvents()--Once boss is out, unregister event, since we need it no longer.
 		if self:IsDifficulty("heroic10", "heroic25") then
 			--Maybe do some stuff here later.

@@ -50,7 +50,7 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(106653) and args:IsPlayer() and self:AntiSpam(4, 1) then
 		specWarnShaResidue:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")--快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
 	end
 end
 
@@ -58,21 +58,21 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(106526) then--Call Water
 		timerLivingWater:Start()
 		specWarnLivingWater:Schedule(5.5)
-		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\mobsoon.mp3")--準備小怪
+		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\mobsoon.mp3")--準備小怪
 	elseif args:IsSpellID(106612) then--Bubble Burst (phase 2)
 		warnBubbleBurst:Show()
 		timerWashAway:Start()
-		sndWOP:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\ptwo.mp3")--P2
-		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndWOP:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3")--P2
+		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	end
 end
 
 function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)--120037 is a weak version of same spell by exit points, 115219 is the 50k per second icewall that will most definitely wipe your group if it consumes the room cause you're dps sucks.
 	if spellId == 115167 and destGUID == UnitGUID("player") and self:AntiSpam(2, 1) then
 		specWarnCorruptingWaters:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")--快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -83,7 +83,7 @@ function mod:UNIT_DIED(args)
 		addsRemaining = addsRemaining - 1
 		warnAddsLeft:Show(addsRemaining)
 		if addsRemaining == 0 then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\phasechange.mp3")--階段轉換
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\phasechange.mp3")--階段轉換
 		end
 	end
 end

@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8952 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8974 $"):sub(12, -3))
 mod:SetCreatureID(68078, 68079, 68080, 68081)--Ro'shak 68079, Quet'zal 68080, Dam'ren 68081, Iron Qon 68078
 mod:SetMainBossID(68078)
 mod:SetModelID(46627) -- Iron Qon, 46628 Ro'shak, 46629 Quet'zal, 46630 Dam'ren
@@ -79,9 +79,11 @@ local stormcount = 0
 local senddr = {}
 local warneddr = {}
 local lightmaker = {}
+local FireMarkers={}
 mod:AddBoolOption("ReapetAP", true, "sound")
 mod:AddBoolOption("SoundARAT", mod:IsDps(), "sound")
 mod:AddBoolOption("HudMAP", true, "sound")
+mod:AddBoolOption("HudMAP2", true, "sound")
 -- BH ADD END
 mod:AddBoolOption("RangeFrame", true)--One tooltip says 8 yards, other says 10. Confirmed it's 10 during testing though. Ignore the 8 on spellid 134611
 mod:AddBoolOption("InfoFrame")
@@ -151,6 +153,18 @@ local function fixdebuffremovebug(checkplayer)
 		end
 	end
 end
+
+local function fixdebuffremovebug2(checkplayer)
+    if UnitDebuff(checkplayer, GetSpellInfo(136193)) then
+		mod:Schedule(2, function()
+			fixdebuffremovebug2(checkplayer)
+		end)
+	else
+		if FireMarkers[checkplayer] then
+			FireMarkers[checkplayer] = free(FireMarkers[checkplayer])
+		end
+	end
+end
 -- BH ADD END
 
 function mod:OnCombatStart(delay)
@@ -162,9 +176,10 @@ function mod:OnCombatStart(delay)
 	Warned = false
 	stormcount = 0
 	table.wipe(lightmaker)
+	table.wipe(FireMarkers)
 	table.wipe(senddr)
 	table.wipe(warneddr)
-	sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hyxt.mp3") --火焰形态
+	sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hyxt.mp3") --火焰形态
 	--BH ADD END
 	timerThrowSpearCD:Start(-delay)
 	if self.Options.RangeFrame then
@@ -198,7 +213,7 @@ function mod:OnCombatEnd()
 		DBM.InfoFrame:Hide()
 	end
 	--BH ADD
-	if self.Options.HudMAP then
+	if self.Options.HudMAP or self.Options.HudMAP2 then
 		DBMHudMap:FreeEncounterMarkers()
 	end
 	--BH ADD END
@@ -226,7 +241,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnMoltenOverload:Show()
 		specWarnMoltenOverload:Show()
 		timerMoltenOverload:Start()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_rycz.mp3") --熔岩超載
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_rycz.mp3") --熔岩超載
 	elseif args:IsSpellID(136192) then
 		warnLightningStorm:Show(args.destName)
 		if phase == 1 then--Heroic
@@ -242,7 +257,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				self:ScheduleMethod(4, "checkmydebuff")
 			end
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\helpme.mp3") --救我
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\helpme.mp3") --救我
 			if self.Options.HudMAP then
 				lightmaker[args.destName] = register(DBMHudMap:AddEdge(0, 0, 1, 1, nil, "player", args.destName))
 				fixdebuffremovebug(args.destName)
@@ -259,6 +274,13 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(136323) then
 		warnRisingAnger:Show(args.destName, args.amount or 1)
 		timerRisingAngerCD:Start()
+	elseif args:IsSpellID(136193) then
+		if phase > 2 then
+			if self.Options.HudMAP2 and not FireMarkers[args.destName] then
+				FireMarkers[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 10, nil, 1, 1 ,1 ,0.8):Appear():RegisterForAlerts())
+				fixdebuffremovebug2(args.destName)
+			end
+		end
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -272,6 +294,10 @@ function mod:SPELL_AURA_REMOVED(args)
 			lightmaker[args.destName] = free(lightmaker[args.destName])
 		end
 	--BH ADD END
+	elseif args:IsSpellID(136193) then
+		if FireMarkers[args.destName] then
+			FireMarkers[args.destName] = free(FireMarkers[args.destName])
+		end
 	end
 end
 
@@ -283,54 +309,54 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnDeadZone:Show(args.spellName, DBM_CORE_FRONT, DBM_CORE_RIGHT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\attmid.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\attmid.mp3")
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_mq.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack left or Behind (maybe add special warning that says where you can attack, for dps?)
 	elseif args:IsSpellID(137227) then--Left, Right Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_LEFT, DBM_CORE_RIGHT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\attmid.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\attmid.mp3")
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_mq.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack Front or Behind
 	elseif args:IsSpellID(137228) then--Left, Front Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_LEFT, DBM_CORE_FRONT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\attmid.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\attmid.mp3")
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_mq.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack Right or Behind
 	elseif args:IsSpellID(137229) then--Back, Front Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_BACK, DBM_CORE_FRONT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\attleft.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\attleft.mp3")
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_mq.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack left or Right
 	elseif args:IsSpellID(137230) then--Back, Left Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_BACK, DBM_CORE_LEFT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\attright.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\attright.mp3")
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_mq.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack Front or Right
 	elseif args:IsSpellID(137231) then--Back, Right Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_BACK, DBM_CORE_RIGHT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\attleft.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\attleft.mp3")
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_mq.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack Front or Left
 	end
@@ -341,7 +367,7 @@ function mod:SPELL_SUMMON(args)
 		warnThrowSpear:Show()
 		specWarnThrowSpear:Show()
 		timerThrowSpearCD:Start()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\spear.mp3") --投擲長矛
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\spear.mp3") --投擲長矛
 	end
 end
 
@@ -353,13 +379,13 @@ end
 function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 137668 and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then
 		specWarnBurningCinders:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3") --快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	elseif spellId == 137669 and destGUID == UnitGUID("player") and self:AntiSpam(3, 3) then
 		specWarnStormCloud:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")
 	elseif spellId == 137664 and destGUID == UnitGUID("player") and self:AntiSpam(2, 4) then
 		specWarnFrozenBlood:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -379,7 +405,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			phase = 2
 			updateHealthFrame()
 			if self:IsDifficulty("heroic10", "heroic25") then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_sdxt.mp3") --閃電形态
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdxt.mp3") --閃電形态
 			end
 			timerUnleashedFlameCD:Cancel()
 			timerMoltenOverload:Cancel()
@@ -392,13 +418,25 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerLightningStormCD:Start()
 			warnWindStorm:Schedule(52)
 			specWarnWindStorm:Schedule(52)
-			sndWOP:Schedule(52, "Interface\\AddOns\\DBM-Core\\extrasounds\\wwsoon.mp3")
+			sndWOP:Schedule(52, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
 			timerWindStormCD:Start(52)
 		elseif cid == 68080 then--Quet'zal
 			phase = 3
+			if self.Options.HudMAP2 then
+				for i = 1, DBM:GetNumGroupMembers() do
+					if UnitDebuff("raid"..i, GetSpellInfo(136193)) then
+						if UnitName("raid"..i) ~= UnitName("player") then
+							FireMarkers[UnitName("raid"..i)] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", UnitName("raid"..i), 10, nil, 1, 1 ,1 ,0.8):Appear():RegisterForAlerts())
+						else
+							FireMarkers[UnitName("raid"..i)] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", UnitName("raid"..i), 10, nil, 1, 1 ,1 ,0.4):Appear():RegisterForAlerts())
+						end
+						fixdebuffremovebug2(UnitName("raid"..i))
+					end
+				end
+			end
 			updateHealthFrame()
 			if self:IsDifficulty("heroic10", "heroic25") then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_bsxt.mp3") --冰霜形態
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bsxt.mp3") --冰霜形態
 			end
 			timerLightningStormCD:Cancel()
 			timerWindStormCD:Cancel()
@@ -424,7 +462,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerRisingAngerCD:Start(15)
 			timerFistSmashCD:Start(25, 1)
 			if self:IsDifficulty("heroic10", "heroic25") then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ptwo.mp3") --2階段
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3") --2階段
 			end
 		end
 	elseif spellId == 139172 and self:AntiSpam(2, 7) then--Whirling Winds (Phase 1 Heroic)
@@ -438,17 +476,17 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	elseif spellId == 137656 and self:AntiSpam(2, 1) then--Rushing Winds (Wind Storm pre trigger)
 		warnWindStorm:Cancel()
 		specWarnWindStorm:Cancel()
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\wwsoon.mp3") 
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3") 
 		warnWindStorm:Schedule(70)
 		specWarnWindStorm:Schedule(70)
-		sndWOP:Schedule(70, "Interface\\AddOns\\DBM-Core\\extrasounds\\wwsoon.mp3") --準備旋風
+		sndWOP:Schedule(70, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3") --準備旋風
 		timerWindStormCD:Start()
 	elseif spellId == 136146 and self:AntiSpam(2, 5) then
 		fistSmashCount = fistSmashCount + 1
 		warnFistSmash:Show(fistSmashCount)
 		specWarnFistSmash:Show()
 		timerFistSmashCD:Start(nil, fistSmashCount+1)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\aesoon.mp3")
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
 	end
 end
 
@@ -472,22 +510,34 @@ function mod:UNIT_DIED(args)
 		warnPhase2:Show()
 		warnWindStorm:Schedule(49.5)
 		specWarnWindStorm:Schedule(49.5)
-		sndWOP:Schedule(49.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\wwsoon.mp3")
+		sndWOP:Schedule(49.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
 		timerWindStormCD:Start(49.5)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_sdxt.mp3") --閃電形态
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdxt.mp3") --閃電形态
 	elseif cid == 68080 then--Quet'zal
 		phase = 3
+		if self.Options.HudMAP2 then
+			for i = 1, DBM:GetNumGroupMembers() do
+				if UnitDebuff("raid"..i, GetSpellInfo(136193)) then
+					if UnitName("raid"..i) ~= UnitName("player") then
+						FireMarkers[UnitName("raid"..i)] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", UnitName("raid"..i), 10, nil, 1, 1 ,1 ,0.8):Appear():RegisterForAlerts())
+					else
+						FireMarkers[UnitName("raid"..i)] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", UnitName("raid"..i), 10, nil, 1, 1 ,1 ,0.4):Appear():RegisterForAlerts())
+					end
+					fixdebuffremovebug2(UnitName("raid"..i))
+				end
+			end
+		end
 		updateHealthFrame()
 		timerLightningStormCD:Cancel()
 		warnWindStorm:Cancel()
 		specWarnWindStorm:Cancel()
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\wwsoon.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
 		timerWindStormCD:Cancel()
 		warnPhase3:Show()
 		timerDeadZoneCD:Start(6)
 		timerThrowSpearCD:Start()
 		checkArcing()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_bsxt.mp3") --冰霜形態
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bsxt.mp3") --冰霜形態
 	elseif cid == 68081 then--Dam'ren
 		phase = 4
 		updateHealthFrame()
@@ -502,7 +552,7 @@ function mod:UNIT_DIED(args)
 		else
 			timerFistSmashCD:Start(31.5, 1)
 		end
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ptwo.mp3") --2階段
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3") --2階段
 	end
 end
 
@@ -511,7 +561,7 @@ function mod:UNIT_POWER(uId)
 	if self:IsDifficulty("lfr25") then return end
 	if (self:GetUnitCreatureId(uId) == 68079) and UnitPower(uId) > 50 and not Warned then
 		Warned = true
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_nlgg.mp3") --能量過高
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_nlgg.mp3") --能量過高
 	elseif (self:GetUnitCreatureId(uId) == 68079) and UnitPower(uId) < 20 and Warned then
 		Warned = false
 	end

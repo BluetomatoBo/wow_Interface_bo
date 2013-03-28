@@ -146,11 +146,11 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnBeastOfNightmares:Show(args.destName)
 		specWarnBeastOfNightmares:Show()
 		if args:IsPlayer() or mod:IsHealer() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_mys.mp3") --夢魘獸出現
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mys.mp3") --夢魘獸出現
 		else
 			if not UnitDebuff("player", GetSpellInfo(137375)) and not UnitIsDeadOrGhost("player") then
 				if mod:IsTank() then
-					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\changemt.mp3") --換坦嘲諷
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3") --換坦嘲諷
 				end
 			end
 		end
@@ -169,13 +169,13 @@ function mod:SPELL_AURA_APPLIED(args)
 			if (args.amount or 1) >= 1 and not UnitDebuff("player", GetSpellInfo(137408)) and not UnitIsDeadOrGhost("player") then
 				specWarnFanOfFlamesOther:Show(args.destName)
 				if mod:IsTank() then
-					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\changemt.mp3") --換坦嘲諷
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3") --換坦嘲諷
 				end
 			end
 		end
 	elseif args:IsSpellID(137417) and args:IsPlayer() and self:AntiSpam(3, 4) then
 		specWarnFlamesofPassionMove:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3") --快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	elseif args:IsSpellID(138264) and args:IsPlayer() then  --白虎
 		if self.Options.HudMAP then
 			lightmaker["1"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,705,352,731,381))
@@ -209,15 +209,15 @@ function mod:SPELL_AURA_APPLIED(args)
 			lightmaker["5"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,732,383,713,401))
 		end		
 	elseif args:IsSpellID(138300) and self:AntiSpam(40, 10) then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xntt.mp3")--玄牛圖騰
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xntt.mp3")--玄牛圖騰
 		specWarnTT1:Show()
 		timerTT1CD:Start()
 	elseif args:IsSpellID(138855) and self:AntiSpam(40, 11) then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_bhtt.mp3")--白虎圖騰
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bhtt.mp3")--白虎圖騰
 		specWarnTT2:Show()
 		timerTT2CD:Start()
 	elseif args:IsSpellID(138306) and self:AntiSpam(40, 12) then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_yjtt.mp3")--玉蛟圖騰
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_yjtt.mp3")--玉蛟圖騰
 		specWarnTT3:Show()
 		timerTT3CD:Start()
 	end
@@ -313,10 +313,10 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		timerFanOfFlamesCD:Cancel()
 		timerFlamesOfPassionCD:Cancel()
 		warnNight:Show()
-		sndWOP:Schedule(180, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_btzb.mp3")--白天準備
-		sndWOP:Schedule(181, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOP:Schedule(182, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOP:Schedule(183, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndWOP:Schedule(180, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_btzb.mp3")--白天準備
+		sndWOP:Schedule(181, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Schedule(182, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Schedule(183, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		timerDayCD:Start()
 		timerDuskCD:Start()
 		timerCosmicBarrageCD:Start(17)
@@ -333,7 +333,7 @@ end
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 137417 and destGUID == UnitGUID("player") and self:AntiSpam(2, 4) then
 		specWarnFlamesofPassionMove:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3") --快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
@@ -353,11 +353,11 @@ function mod:OnSync(msg)
 		else
 			timerIceCometCD:Start()
 		end
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_btzb.mp3")
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_bzjd.mp3")--白晝開始
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_btzb.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bzjd.mp3")--白晝開始
 		self:RegisterShortTermEvents(
 			"INSTANCE_ENCOUNTER_ENGAGE_UNIT"
 		)
@@ -368,22 +368,22 @@ function mod:OnSync(msg)
 			timerIceCometCD:Start(17)--This seems to reset, despite what last CD was (this can be a bad thing if it was do any second)
 			timerTidalForceCD:Start(26)
 			timerCosmicBarrageCD:Start(54)		
-			sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hhzb.mp3")--黃昏準備
-			sndWOP:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-			sndWOP:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-			sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-			sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hhjd.mp3") --黃昏開始
+			sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hhzb.mp3")--黃昏準備
+			sndWOP:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+			sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hhjd.mp3") --黃昏開始
 			self:Schedule(20, function()
 				if UnitAura("player", GetSpellInfo(138264)) then
-					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_kkbh.mp3")--快開白虎
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_kkbh.mp3")--快開白虎
 				else
-					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_cxzb.mp3") --潮汐準備
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cxzb.mp3") --潮汐準備
 				end
-				sndWOPCX:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
-				sndWOPCX:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")
-				sndWOPCX:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-				sndWOPCX:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-				sndWOPCX:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+				sndWOPCX:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+				sndWOPCX:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+				sndWOPCX:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+				sndWOPCX:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+				sndWOPCX:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 			end)
 		end
 	elseif msg == "Phase3" then
@@ -401,12 +401,12 @@ function mod:OnSync(msg)
 		specWarnTidalForce:Show()
 		timerTidalForce:Start()
 		timerTidalForceCD:Start()
-		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
-		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")
-		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_cxzl.mp3") --潮汐之力
+		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cxzl.mp3") --潮汐之力
 	elseif msg == "CosmicBarrage" then
 		warnCosmicBarrage:Show()
 		specWarnCosmicBarrage:Show()
@@ -414,18 +414,18 @@ function mod:OnSync(msg)
 			timerCosmicBarrageCD:Start()
 		end
 		if mod:IsRanged() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\scattersoon.mp3")--注意分散
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xzzb.mp3")--星宙准备
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xzzb.mp3")--星宙准备
 		end
-		sndWOP:Schedule(1.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")
-		sndWOP:Schedule(2.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOP:Schedule(3.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOP:Schedule(4.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndWOP:Schedule(1.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+		sndWOP:Schedule(2.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Schedule(3.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Schedule(4.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	elseif msg == "Inferno" then
 		warnNuclearInferno:Show()
 		specWarnNuclearInferno:Show()
 		timerNuclearInfernoCD:Start()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hzly.mp3") --核子煉獄
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hzly.mp3") --核子煉獄
 	end
 end

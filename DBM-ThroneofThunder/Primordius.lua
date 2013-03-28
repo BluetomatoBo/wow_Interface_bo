@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(820, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8913 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8974 $"):sub(12, -3))
 mod:SetCreatureID(69017)--69070 Viscous Horror, 69069 good ooze, 70579 bad ooze (patched out of game, :\)
 mod:SetModelID(47009)
 
@@ -125,7 +125,7 @@ function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(136216) then
 		warnCausticGas:Show()
 		specWarnCausticGas:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_kjfd.mp3")--靠近分擔
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_kjfd.mp3")--靠近分擔
 		timerCausticGasCD:Start()
 	end
 end
@@ -157,7 +157,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerPustuleEruptionCD:Start()--not affected by metabolicBoost?
 		if self.Options.RangeFrame and not acidSpinesActive then--Check if acidSpinesActive is active, if they are, we should already have range 5 up
 			DBM.RangeCheck:Show(2)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\scattersoon.mp3")--注意分散
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 		end
 		showspellinfo()
 	elseif args:IsSpellID(136225) then
@@ -168,14 +168,14 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerVolatilePathogenCD:Start()
 		if args:IsPlayer() then
 			specWarnVolatilePathogen:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\holdit.mp3")--自保
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\holdit.mp3")--自保
 			DBM.Flash:Show(1, 0, 0)
 		elseif mod:IsHealer() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_byt.mp3")--病原體出現
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_byt.mp3")--病原體出現
 		end
 	elseif args:IsSpellID(136245) then
 		metabolicBoost = true
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_sljs.mp3")--加速
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sljs.mp3")--加速
 		warnMetabolicBoost:Show(args.destName)
 		showspellinfo()		
 	elseif args:IsSpellID(136210) then
@@ -186,13 +186,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(5)
 		end
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\scattersoon.mp3")--注意分散
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 		showspellinfo()
 	elseif args:IsSpellID(140546) and args:IsPlayer() then
 		DBM.Flash:Show(0, 1, 0)
-		timerFullyMutated:Start()
 		specWarnFullyMutated:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_tbwc.mp3")--完美突變
+		timerFullyMutated:Start()
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tbwc.mp3")--完美突變
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED

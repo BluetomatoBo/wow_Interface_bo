@@ -44,7 +44,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 8990 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 8995 $"):sub(12, -3)),
 	DisplayVersion = "5.2 語音增強版", -- the string that is shown as version
 	ReleaseRevision = 8892 -- the revision of the latest stable version that is available
 }
@@ -1993,7 +1993,7 @@ do
 			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\3.mp3", "Master")
 			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\2.mp3", "Master")
 			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\1.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\com_go.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\com_go.mp3", "Master")
 		end
 		if not DBM.Options.DontShowPTCountdownText then
 			TimerTracker_OnEvent(TimerTracker, "PLAYER_ENTERING_WORLD")--easiest way to nil out timers on TimerTracker frame. This frame just has no actual star/stop functions :\
@@ -2024,7 +2024,7 @@ do
 			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\3.mp3", "Master")
 			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\2.mp3", "Master")
 			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\1.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\com_go.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\com_go.mp3", "Master")
 		end
 		if not DBM.Options.DontShowPTCountdownText then
 			TimerTracker_OnEvent(TimerTracker, "PLAYER_ENTERING_WORLD")--easiest way to nil out timers on TimerTracker frame. This frame just has no actual star/stop functions :\
@@ -2040,7 +2040,7 @@ do
 			if timer > 3 then DBM:Schedule(timer-3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\3.mp3", "Master") end
 			if timer > 3 then DBM:Schedule(timer-2, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\2.mp3", "Master") end
 			if timer > 3 then DBM:Schedule(timer-1, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\1.mp3", "Master") end
-			if timer > 1 then DBM:Schedule(timer, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\com_go.mp3", "Master") end
+			if timer > 1 then DBM:Schedule(timer, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\com_go.mp3", "Master") end
 		end
 		if not DBM.Options.DontShowPTCountdownText then
 			TimerTracker_OnEvent(TimerTracker, "START_TIMER", 2, timer, timer)--Hopefully this doesn't taint. Initial tests show positive even though it is an intrusive way of calling a blizzard timer. It's too bad the max value doesn't seem to actually work

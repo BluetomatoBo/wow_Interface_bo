@@ -69,7 +69,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnDeathBlossom:Show()
 --		timerPiercingThrowCD:Start()
 	elseif args:IsSpellID(114259) then--Call Dog
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\mobsoon.mp3")--準備小怪
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\mobsoon.mp3")--準備小怪
 		warnCallDog:Show()
 --[[
 		if timerPiercingThrowCD:IsStarted() then--When this is cast, it extend the current CD of throw/blossom from 6 to 12

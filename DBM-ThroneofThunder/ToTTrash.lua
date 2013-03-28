@@ -77,7 +77,7 @@ function mod:SPELL_CAST_START(args)
 		end
 	elseif args.spellId == 136751 and (args.sourceGUID == UnitGUID("target") or args.sourceGUID == UnitGUID("focus")) then
 		specWarnSonicScreech:Show(args.sourceName)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\kickcast.mp3")
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3")
 	end
 end
 
@@ -87,7 +87,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			DBM.Flash:Show(1, 0, 0)
 			specWarnStormEnergy:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runout.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3")
 		else
 			lightmaker[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", args.destName, 10, 10, 1, 1, 1, 0.7):RegisterForAlerts())
 		end
@@ -101,7 +101,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			DBM.Flash:Show(1, 0, 0)			
 			specWarnStormCloud:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runout.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3")
 		else
 			lightmaker[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", args.destName, 10, 60, 1, 1, 1, 0.7):RegisterForAlerts())
 		end
@@ -115,7 +115,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnConductiveShield:Show(args.destName)
 		timerConductiveShieldCD:Start(20, args.destName, args.sourceGUID)
 		if args.sourceGUID == UnitGUID("target") then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\stopattack.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopattack.mp3")
 		end
 	end
 end

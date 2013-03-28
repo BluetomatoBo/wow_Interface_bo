@@ -134,7 +134,7 @@ function mod:ClobaltMineTarget(targetname)
 	warnCobaltMine:Show(targetname)
 	if targetname == UnitName("player") then
 		specWarnCobaltMine:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")--快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
 		yellCobaltMine:Yell()
 		if activePetrification ~= "Cobalt" then
 			DBM.Flash:Show(1, 0, 0)
@@ -153,7 +153,7 @@ function mod:ClobaltMineTarget(targetname)
 				if activePetrification ~= "Cobalt" then
 					DBM.Flash:Show(1, 0, 0)
 				end
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")--快躲開
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
 			end
 		end
 	end
@@ -318,16 +318,16 @@ function mod:SPELL_AURA_APPLIED(args)
 			local uId = getBossuId(Jasper)
 			if uId and (UnitPower(uId) <= 80) and (activePetrification == "Jasper") then--Make sure his energy isn't already high, otherwise breaking chains when jasper will only be active for a few seconds is bad
 				specWarnBreakJasperChains:Show()
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_ldsl.mp3") --拉斷鎖鏈
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_ldsl.mp3") --拉斷鎖鏈
 				DBM.Arrow:Hide()
 			else
 				specWarnJasperChains:Show()
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_lx.mp3")--連線快靠近
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_lx.mp3")--連線快靠近
 			end
 		end
 	elseif args:IsSpellID(130774) and args:IsPlayer() then
 		specWarnAmethystPool:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")--快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
 	elseif args:IsSpellID(115745) then
 		if args.destName == Jasper then SDNOW["Rsdnow"] = true end
 		if args.destName == Jade then SDNOW["Gsdnow"] = true end
@@ -338,7 +338,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if args.sourceGUID == UnitGUID("target") then
 			if mod:IsTank() then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_mbsh.mp3")--目標石化
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_mbsh.mp3")--目標石化
 			end
 		end
 	end
@@ -418,7 +418,7 @@ function mod:RAID_BOSS_EMOTE(msg, boss)
 	elseif msg:find("spell:116529") then
 		warnPowerDown:Show()
 		specWarnPowerDown:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_dzcz.mp3")--地磚重置
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_dzcz.mp3")--地磚重置
 	end
 end
 
@@ -427,13 +427,13 @@ function mod:OnSync(msg, boss)
 	if msg == "Overload" and self:AntiSpam(2, 6) then
 		specWarnOverloadSoon:Show(Overload[boss])
 		if boss == "Cobalt" then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_lscz.mp3") --藍色超載		
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_lscz.mp3") --藍色超載		
 		elseif boss == "Jade" then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_lvscz.mp3") --綠色超載
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_lvscz.mp3") --綠色超載
 		elseif boss == "Jasper" then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_hscz.mp3") --紅色超載
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_hscz.mp3") --紅色超載
 		elseif boss == "Amethyst" then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_zscz.mp3") --紫色超載
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zscz.mp3") --紫色超載
 		end
 		ChecknextOverload()
 	end
@@ -454,7 +454,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		activePetrification = "Cobalt"
 		timerPetrification:Start()
 		warnBSD:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_lssh.mp3") --藍色石化
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_lssh.mp3") --藍色石化
 		SDSTAT = L.SDBLUE		
 		ChecknextOverload()
 		if UnitName(getBossuId(Cobalt).."target") == UnitName("player") then
@@ -466,7 +466,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		activePetrification = "Jade"
 		timerPetrification:Start()
 		warnGSD:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_lvssh.mp3") --綠色石化
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_lvssh.mp3") --綠色石化
 		SDSTAT = L.SDGREEN
 		ChecknextOverload()
 		if UnitName(getBossuId(Jade).."target") == UnitName("player") then
@@ -478,7 +478,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		activePetrification = "Jasper"
 		timerPetrification:Start()
 		warnRSD:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_hssh.mp3") --紅色石化
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_hssh.mp3") --紅色石化
 		SDSTAT = L.SDRED
 		ChecknextOverload()
 		if UnitName(getBossuId(Jasper).."target") == UnitName("player") then
@@ -490,7 +490,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			local uId = getBossuId(Jasper)
 			if uId and (UnitPower(uId) <= 80) and (activePetrification == "Jasper") then
 				specWarnBreakJasperChains:Show()
-				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_ldsl.mp3") --拉斷鎖鏈
+				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_ldsl.mp3") --拉斷鎖鏈
 				DBM.Arrow:Hide()
 			end
 		end
@@ -498,7 +498,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		activePetrification = "Amethyst"
 		timerPetrification:Start()
 		warnPSD:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_zssh.mp3") --紫色石化
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zssh.mp3") --紫色石化
 		SDSTAT = L.SDPURPLE
 		ChecknextOverload()
 		if UnitName(getBossuId(Amethyst).."target") == UnitName("player") then

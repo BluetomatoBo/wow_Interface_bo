@@ -16,6 +16,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	SoundWOP			= "语音警告：重要技能",
 	SpecWarnJSA			= "特殊警告：注意减伤",
+	SoundWOPIonM		= "语音警告：$spell:138732 7秒时提示（不选则结束前提示）",
 	dr1					= "减伤提示:$spell:137313 1/3-1 [开始时提示]",
 	dr2					= "减伤提示:$spell:137313 1/3-2 [五秒时提示]",
 	dr3					= "减伤提示:$spell:137313 2/4-1",
@@ -61,6 +62,9 @@ L:SetOptionLocalization({
 	QS2					= "顺序2",
 	QS3					= "顺序3",
 	allQS				= "总是提示",
+	RangeFrame			= "距离监视：熊门5码",
+	SoundWSP			= "语音警告：$journal:7866接近20码内（请焦点锁定你的灵魂）",
+	dispsetHex			= "当设定的角色中了混乱诅咒时提示你帮忙驱散",
 	timerDoor			= "计时器：下一个部族大门开啟",
 	timerAdds			= "计时器：下一组小怪刷新"
 })
@@ -77,7 +81,7 @@ L= DBM:GetModLocalization(816)
 
 L:SetWarningLocalization({
 	specWarnDDL 	= ">> 下一次 到你断 <<",
-	specWarnPossessed		= "%s 附身 %s - 快转火!"
+	specWarnPossessed		= "%s %s - 快转火!"
 })
 
 L:SetOptionLocalization({
@@ -85,6 +89,8 @@ L:SetOptionLocalization({
 	SoundLs			= "倒计时：$spell:136521",	
 	SoundHs			= "语音预警：$spell:136990",
 	Soundspirit		= "倒计时：女祭司的各种魂灵",
+	InfoFrame		= "信息框：$spell:136442",
+	helpcold		= "监视此人的体温：在体温流失前3秒给予提示",
 	HudMAP			= "高级定位监视(HUD)：$spell:136992",
 	HudMAP2			= "高级定位监视(HUD)：$spell:136922",
 	optDD			= "沙王打断链",
@@ -205,6 +211,16 @@ L:SetOptionLocalization({
 	add24			= "第十四波$journal:7348(下)",
 	add25			= "第十五波$journal:7348(上)",
 	add26			= "第十五波$journal:7348(下)",
+	add27			= "第十六波$journal:7348(上)",
+	add28			= "第十六波$journal:7348(下)",
+	add29			= "第十七波$journal:7348(上)",
+	add30			= "第十七波$journal:7348(下)",
+	add31			= "第十八波$journal:7348(上)",
+	add32			= "第十八波$journal:7348(下)",
+	add33			= "第十九波$journal:7348(上)",
+	add34			= "第十九波$journal:7348(下)",
+	add35			= "第二十波$journal:7348(上)",
+	add36			= "第二十波$journal:7348(下)",
 	RangeFrame		= "距离监视(8码)：$spell:138923"
 })
 
@@ -232,6 +248,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	SoundWOP					= "语音警告：重要技能",
 	optDD						= "三元光分担策略",
+	DXsound						= "高级定位监视(HUD)：$spell:133795",
 	nodd						= "不分担",
 	DD1							= "A:红黄蓝",
 	DD2							= "B:黄蓝红",
@@ -306,6 +323,7 @@ L:SetOptionLocalization({
 	SoundARAT		= "语音警告：报出$spell:137231的攻击方位",
 	ReapetAP		= "特殊功能：若你中了$spell:136192则不停呼救",
 	HudMAP			= "高级定位监视(HUD)：$spell:136192",
+	HudMAP2			= "高级定位监视(HUD)：闪电阶段结束后标出$spell:136193",
 	RangeFrame		= "距离监视（动态，当存在多名团员过近时显示）",
 	InfoFrame		= "信息框：$spell:136193"
 })
@@ -353,6 +371,7 @@ L= DBM:GetModLocalization(832)
 
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
+	cancelhud		= "当玩家白字说不需要分担时变换HUD标誌(输入监视关键字 例如:单吃)",
 	HudMAP			= "高级定位监视(HUD)：$spell:135695",
 	HudMAP2			= "高级定位监视(HUD)：$spell:136295",
 	RangeFrame		= "距离监视",--For two different spells

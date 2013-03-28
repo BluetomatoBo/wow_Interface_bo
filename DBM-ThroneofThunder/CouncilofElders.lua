@@ -6,7 +6,7 @@ local sndSpirit	= mod:NewSound(nil, "Soundspirit", true)
 local sndLS		= mod:NewSound(nil, "SoundLs", false)
 local sndHS		= mod:NewSound(nil, "SoundHs", false)
 
-mod:SetRevision(("$Revision: 8978 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9028 $"):sub(12, -3))
 mod:SetCreatureID(69078, 69132, 69134, 69131)--69078 Sul the Sandcrawler, 69132 High Prestess Mar'li, 69131 Frost King Malakk, 69134 Kazra'jin --Adds: 69548 Shadowed Loa Spirit,
 mod:SetModelID(47229)--Kazra'jin, 47505 Sul the Sandcrawler, 47506 Frost King Malakk, 47730 High Priestes Mar'li
 mod:SetUsedIcons(7, 6)
@@ -38,10 +38,9 @@ mod:SetBossHealthInfo(
 
 --All
 local warnPossessed					= mod:NewStackAnnounce(136442, 2, nil, nil, "warnPossessed")
---local warnSoulFragment				= mod:NewTargetAnnounce(137359, 3)--Could find no spellid in either wowhead or wowdb, so i'll need logs
 
 --Sul the Sandcrawler
-local warnSandBolt					= mod:NewStackAnnounce(136189, 3, nil, false, "warnSandBolt")--Spammy but important for heroic (and even normal if very melee heavy)
+local warnSandBolt					= mod:NewCountAnnounce(136189, 3, nil, false)--Spammy but important for heroic for internet rotation.
 local warnQuicksand					= mod:NewSpellAnnounce(136521, 2)
 local warnSandstorm					= mod:NewSpellAnnounce(136894, 3)
 --High Prestess Mar'li
@@ -60,7 +59,7 @@ local warnRecklessCharge			= mod:NewCastAnnounce(137122, 3, 2, nil, false)
 local specWarnPossessed				= mod:NewSpecialWarning("specWarnPossessed", mod:IsDps())
 local specWarnDarkPower				= mod:NewSpecialWarningSpell(136507, nil, nil, nil, 2)
 --Sul the Sandcrawler
-local specWarnSandBolt				= mod:NewSpecialWarningInterrupt(136189, false)--When it's targeting a melee, damage is pretty big. More important to interrupt than ones targeting ranged that SHOULD be spread out. Maybe add a bool menu option to choose ALL or melee only for heroic
+local specWarnSandBolt				= mod:NewSpecialWarningInterrupt(136189, false)
 local specWarnSandStorm				= mod:NewSpecialWarningSpell(136894, nil, nil, nil, 2)
 local specWarnQuickSand				= mod:NewSpecialWarningMove(136860)
 --High Prestess Mar'li
@@ -109,10 +108,12 @@ mod:AddBoolOption("SetIconOnBitingCold", true)
 mod:AddBoolOption("SetIconOnFrostBite", true)
 
 -- BH ADD
+mod:AddBoolOption("InfoFrame", true, "sound")
 mod:AddBoolOption("HudMAP", true, "sound")
 mod:AddBoolOption("HudMAP2", true, "sound")
 mod:AddDropdownOption("optDD", {"nodd", "DD1", "DD2", "DD3"}, "nodd", "sound")
 mod:AddDropdownOption("optOC", {"five", "ten", "none"}, "five", "sound")
+mod:AddEditBoxOption("helpcold", 150, "", "sound")
 local DBMHudMap = DBMHudMap
 local free = DBMHudMap.free
 local function register(e)	
@@ -121,11 +122,9 @@ local function register(e)
 end
 -- BH ADD END
 
-local SulsName = EJ_GetSectionInfo(7049)
 local lingeringPresence = GetSpellInfo(136467)
 local chilledDebuff = GetSpellInfo(137085)
 local boltCasts = 0
-local scansDone = 0
 local kazraPossessed = false
 local possessesDone = 0
 local chilledWarned = false
@@ -143,20 +142,6 @@ local Kazcount = 0
 local speedcheck = 0
 local OCn = 0
 --BH ADD END
-
-local function isTank(unit)
-	if GetPartyAssignment("MAINTANK", unit, 1) then
-		return true
-	end
-	if UnitGroupRolesAssigned(unit) == "TANK" then
-		return true
-	end
-	local uId = DBM:GetBossUnitId()
-	if uId and UnitExists(uId.."target") and UnitDetailedThreatSituation(unit, uId) then
-		return true
-	end
-	return false
-end
 
 local showDamagedHealthBar, hideDamagedHealthBar
 do
@@ -195,27 +180,6 @@ do
 	end
 end
 
-function mod:BoltTarget()
-	scansDone = scansDone + 1
-	local targetname, uId = self:GetBossTarget(69078)
-	if targetname and uId then
-		if isTank(uId) and scansDone < 15 then--Make sure no infinite loop.
-			self:ScheduleMethod(0.1, "BoltTarget")--Check multiple times to find a target that isn't a player.
-		else
-			warnSandBolt:Show(targetname, boltCasts)
---[[			local targetedClass = UnitClass(uId)
-			--Todo, add hybrid melee class checks somehow? Inspect throttling won't allow that here though, too often. Maybe on pull inspect just those classes and cache their specs?
-			if targetedClass == "WARRIOR" or targetedClass == "DEATHKNIGHT" or targetedClass == "MONK" or targetedClass == "ROGUE" then--This bolt is targeting a melee, it is a priority interrupt
-				specWarnSandBolt:Show(SulsName)
-			end]] --BH DELETE
-		end
-	else--target was nil, lets schedule a rescan here too.
-		if scansDone < 15 then--Make sure not to infinite loop here as well.
-			self:ScheduleMethod(0.1, "BoltTarget")
-		end
-	end
-end
-
 function mod:OnCombatStart(delay)
 	--BH ADD
 	table.wipe(BitingColdMarkers)
@@ -234,17 +198,17 @@ function mod:OnCombatStart(delay)
 	possessesDone = 0
 	boltCasts = 0
 	timerQuickSandCD:Start(8-delay)
-	sndLS:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lszb.mp3") --流沙準備
-	sndLS:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-	sndLS:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-	sndLS:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+	sndLS:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lszb.mp3") --流沙準備
+	sndLS:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+	sndLS:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+	sndLS:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	timerRecklessChargeCD:Start(10-delay)--the trigger is 6 seconds from pull, charge will happen at 10. I like timer ending at cast finish for this one though vs tryng to have TWO timers for something that literally only has 6 second cd
 	timerBitingColdCD:Start(15-delay)--15 seconds until debuff, 13 til cast.
 	timerBlessedLoaSpiritCD:Start(25-delay)
-	sndSpirit:Schedule(21, "Interface\\AddOns\\DBM-Core\\extrasounds\\ghostsoon.mp3")
-	sndSpirit:Schedule(22, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-	sndSpirit:Schedule(23, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-	sndSpirit:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+	sndSpirit:Schedule(21, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ghostsoon.mp3")
+	sndSpirit:Schedule(22, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+	sndSpirit:Schedule(23, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+	sndSpirit:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(5)
 	end
@@ -258,81 +222,83 @@ function mod:OnCombatEnd()
 	if self.Options.HudMAP or self.Options.HudMAP2 then
 		DBMHudMap:FreeEncounterMarkers()
 	end
+	if mod.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
+	end
 	--BH ADD END
 end
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 136189 then
-		scansDone = 0
 		if boltCasts == 3 then boltCasts = 0 end
 		boltCasts = boltCasts + 1
-		self:BoltTarget()
+		warnSandBolt:Show(boltCasts)
 		--BH ADD
 		if ((mod.Options.optDD == "DD1") and (boltCasts == 1)) or ((mod.Options.optDD == "DD2") and (boltCasts == 2)) or ((mod.Options.optDD == "DD3") and (boltCasts == 3)) then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\kickcast.mp3") --快打斷
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3") --快打斷
 			specWarnSandBolt:Show(args.sourceName)
 		end	
 		if ((mod.Options.optDD == "DD1") and (boltCasts == 3)) or ((mod.Options.optDD == "DD2") and (boltCasts == 1)) or ((mod.Options.optDD == "DD3") and (boltCasts == 2)) then
 			specWarnDDL:Schedule(2)
-			sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_ddzb.mp3") --打斷準備
+			sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_ddzb.mp3") --打斷準備
 		end
 		--BH ADD END
 	elseif args.spellId == 136521 and args:GetSrcCreatureID() == 69078 then--Filter the ones cast by adds dying.
 		warnQuicksand:Show()
 		timerQuickSandCD:Start()
-		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-		sndLS:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_zyls.mp3")
-		sndLS:Schedule(29, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lszb.mp3") --流沙準備
-		sndLS:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndLS:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndLS:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		sndLS:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zyls.mp3")
+		sndLS:Schedule(29, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lszb.mp3") --流沙準備
+		sndLS:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndLS:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndLS:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	elseif args.spellId == 136894 then
 		warnSandstorm:Show()
 		specWarnSandStorm:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_scfb.mp3")  --沙塵風暴
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_scfb.mp3")  --沙塵風暴
 		timerSandStormCD:Start()
 	elseif args.spellId == 137203 then
 		warnBlessedLoaSpirit:Show()
 		specWarnBlessedLoaSpirit:Show()
 		timerBlessedLoaSpiritCD:Start()
-		sndSpirit:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\killspirit.mp3")
-		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-		sndSpirit:Schedule(29, "Interface\\AddOns\\DBM-Core\\extrasounds\\ghostsoon.mp3")
-		sndSpirit:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndSpirit:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndSpirit:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndSpirit:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\killspirit.mp3")
+		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		sndSpirit:Schedule(29, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ghostsoon.mp3")
+		sndSpirit:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndSpirit:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndSpirit:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	elseif args.spellId == 137350 then
 		warnShadowedLoaSpirit:Show()
 		specWarnShadowedLoaSpirit:Show()
 		timerShadowedLoaSpiritCD:Start()
-		sndSpirit:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\killspirit.mp3")
-		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-		sndSpirit:Schedule(29, "Interface\\AddOns\\DBM-Core\\extrasounds\\ghostsoon.mp3")
-		sndSpirit:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndSpirit:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndSpirit:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndSpirit:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\killspirit.mp3")
+		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		sndSpirit:Schedule(29, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ghostsoon.mp3")
+		sndSpirit:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndSpirit:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndSpirit:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	elseif args.spellId == 137891 then
 		warnTwistedFate:Show()
 		specWarnTwistedFate:Show()
 		timerTwistedFateCD:Start()
 		DBM.Flash:Show(1, 0, 0)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\killspirit.mp3")
-		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
-		sndSpirit:Schedule(29, "Interface\\AddOns\\DBM-Core\\extrasounds\\ghostsoon.mp3")
-		sndSpirit:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndSpirit:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndSpirit:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\killspirit.mp3")
+		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndSpirit:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		sndSpirit:Schedule(29, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ghostsoon.mp3")
+		sndSpirit:Schedule(30, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndSpirit:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndSpirit:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	--BH ADD
 	elseif args:IsSpellID(136990) then
-		sndHS:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_zyjt.mp3")
+		sndHS:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zyjt.mp3")
 	--BH ADD END
 	end
 end
@@ -373,9 +339,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			Sulcount = Sulcount + 1
 			speedcheck = Sulcount
 			if mod:IsDps() then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_sxzk.mp3")  --沙行者快打
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sxzk.mp3")  --沙行者快打
 			else
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_sxz.mp3") 	 --沙行者強化
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sxz.mp3") 	 --沙行者強化
 			end
 			--BH ADD END
 			--Do nothing. He just casts sand storm right away and continues his quicksand cd as usual
@@ -385,9 +351,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			Marlicount = Marlicount + 1
 			speedcheck = Marlicount
 			if mod:IsDps() then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_njsk.mp3")  --女祭祀快打
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_njsk.mp3")  --女祭祀快打
 			else
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_njs.mp3") 	 --女祭祀強化
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_njs.mp3") 	 --女祭祀強化
 			end
 			--BH ADD END
 			--Swap timers. While possessed 
@@ -406,9 +372,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			Malcount = Malcount + 1
 			speedcheck = Malcount
 			if mod:IsDps() then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_shwk.mp3")	--霜王快打
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_shwk.mp3")	--霜王快打
 			else
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_shw.mp3")	--霜王強化
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_shw.mp3")	--霜王強化
 			end
 			--BH ADD END
 			--Swap timers. While possessed 
@@ -416,7 +382,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerBitingColdCD:Cancel()
 			if elapsed and total and total ~= 0 then--If for some reason it was nil, like it JUST came off cd, do nothing, he should cast frost bite right away.
 				timerFrostBiteCD:Update(elapsed, total)
-				sndHS:Schedule(total-elapsed-3.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hszb.mp3") --寒霜準備
+				sndHS:Schedule(total-elapsed-3.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hszb.mp3") --寒霜準備
 			end
 			self:RegisterShortTermEvents(
 				"UNIT_AURA"
@@ -426,9 +392,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			Kazcount = Kazcount + 1
 			speedcheck = Kazcount
 			if mod:IsDps() then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ljrk.mp3")  --綠巨人快打
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_ljrk.mp3")  --綠巨人快打
 			else
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_ljr.mp3") 	 --綠巨人強化
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_ljr.mp3") 	 --綠巨人強化
 			end
 			--BH ADD END
 			kazraPossessed = true
@@ -438,6 +404,28 @@ function mod:SPELL_AURA_APPLIED(args)
 			local bossHealth = math.floor(UnitHealthMax(uid or "boss4") * 0.25)
 			showDamagedHealthBar(self, args.destGUID, args.spellName.." : "..args.destName, bossHealth)
 		end
+		--BH ADD
+		if mod.Options.InfoFrame then
+			if self:IsDifficulty("lfr25") then return end
+			DBM.InfoFrame:Hide()
+			local bosshealthnow
+			for i = 1, 5 do
+				if UnitName("boss"..i) == args.destName then
+					bosshealthnow = ("%d"):format(UnitHealth("boss"..i) / UnitHealthMax("boss"..i) * 100)
+					break
+				end
+			end				
+			local bosspowerspeed
+			if self:IsDifficulty("heroic10", "heroic25") then
+				bosspowerspeed = math.modf(68*(0.85^(speedcheck-1)))
+			else
+				bosspowerspeed = math.modf(68*(0.9^(speedcheck-1)))
+			end
+			local actboss = args.destName
+			DBM.InfoFrame:SetHeader(actboss.."["..bosshealthnow.."%]"..GetSpellInfo(136442))
+			DBM.InfoFrame:Show(1, "time", bosshealthnow, bosspowerspeed, actboss)
+		end
+		--BH ADD END
 	elseif args.spellId == 136903 then--Player Debuff version, not cast version
 		timerFrigidAssault:Start(args.destName)
 		if self:AntiSpam(3, 1) then--Might need to adjust slightly to 2 or 4.
@@ -450,7 +438,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				if (args.amount or 1) >= 8 and not UnitDebuff("player", GetSpellInfo(136903)) and not UnitIsDeadOrGhost("player") then
 					specWarnFrigidAssaultOther:Show(args.destName)
 					if mod:IsTank() then
-						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\changemt.mp3") --換坦嘲諷
+						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3") --換坦嘲諷
 					end
 				end
 			end
@@ -463,7 +451,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerBitingColdCD:Start()
 		if args:IsPlayer() then
 			specWarnBitingCold:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runout.mp3") --離開人群 (刺骨之寒)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3") --離開人群 (刺骨之寒)
 			yellBitingCold:Yell()
 		end
 		--BH ADD
@@ -477,13 +465,13 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetIcon(args.destName, 6)--Square
 		end
 		timerFrostBiteCD:Start()
-		sndHS:Schedule(42, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hszb.mp3") --寒霜準備
+		sndHS:Schedule(42, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hszb.mp3") --寒霜準備
 		if args:IsPlayer() then
 			specWarnFrostBite:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_zrkj.mp3") --找人靠近 (寒霜刺骨)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zrkj.mp3") --找人靠近 (寒霜刺骨)
 		else
 			if mod:IsRanged() then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_jhfd.mp3")
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_jhfd.mp3")
 			end
 		end
 		--BH ADD
@@ -493,7 +481,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		--BH ADD END
 	elseif args:IsSpellID(136860, 136878) and args:IsPlayer() and self:AntiSpam(2, 3) then--Trigger off initial quicksand debuff and ensnared stacks. much less cpu them registering damage events and just as effective.
 		specWarnQuickSand:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xj.mp3") --陷阱跑開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xj.mp3") --陷阱跑開
 	elseif args.spellId == 137359 then
 		warnMarkedSoul:Show(args.destName)
 		timerMarkedSoul:Start(args.destName)
@@ -501,14 +489,14 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnMarkedSoul:Show()
 --BH DELETE		soundMarkedSoul:Play()
 			DBM.Flash:Show(1, 0, 0)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_mop_aydn.mp3") --快跑 暗影點你
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_aydn.mp3") --快跑 暗影點你
 		end
 	--BH ADD
 	elseif args:IsSpellID(137650) then --幽暗碎片
 		OCn = self.Options.optOC == "five" and 5 or self.Options.optOC == "ten" and 10 or self.Options.optOC == "none" and 99
 		if (args.amount or 1) >= OCn then
 			specWarnSP:Show(args.amount)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\transplague.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\transplague.mp3")
 		end
 	--BH ADD END
 	end
@@ -517,6 +505,11 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 136442 then--Possessed
+		--BH ADD
+		if mod.Options.InfoFrame then
+			DBM.InfoFrame:Hide()
+		end
+		--BH ADD END
 		darkPowerWarned = false
 		timerDarkPowerCD:Cancel()
 		if args:GetDestCreatureID() == 69078 then--Sul the Sandcrawler
@@ -538,7 +531,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			--Swap timer back
 			local elapsed, total  = timerFrostBiteCD:GetTime()
 			timerFrostBiteCD:Cancel()
-			sndHS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hszb.mp3")
+			sndHS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hszb.mp3")
 			if elapsed and total then
 				timerBitingColdCD:Update(elapsed, total)
 			end
@@ -578,7 +571,7 @@ function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 136507 and not darkPowerWarned then
 		darkPowerWarned = true
 		specWarnDarkPower:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\aesoon.mp3")
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -591,23 +584,31 @@ function mod:UNIT_AURA(uId)
 	elseif not UnitDebuff("player", chilledDebuff) and chilledWarned then
 		chilledWarned = false
 	end
+	--BH ADD
+	if UnitDebuff("player", coldDebuff) and not coldsend then
+		coldsend = true
+		self:SendSync("mycold", UnitName("player"))
+	elseif not UnitDebuff("player", coldDebuff) and coldsend then
+		coldsend = false
+	end
+	--BH ADD END
 end
 
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 69078 then--Sul the Sandcrawler
 		timerSandStormCD:Cancel()
-		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lszb.mp3")
-		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lszb.mp3")
+		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndLS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	elseif cid == 69132 then--High Prestess Mar'li
 		timerTwistedFateCD:Cancel()
 		timerBlessedLoaSpiritCD:Cancel()
 		timerShadowedLoaSpiritCD:Cancel()
 	elseif cid == 69131 then--Frost King Malakk
 		timerFrostBiteCD:Cancel()
-		sndHS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hszb.mp3")
+		sndHS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hszb.mp3")
 		timerBitingColdCD:Cancel()
 		timerFrigidAssaultCD:Cancel()
 	elseif cid == 69134 then--Kazra'jin
@@ -625,3 +626,12 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		end
 	end
 end
+--BH ADD
+function mod:OnSync(msg, guid)
+	if msg == "mycold" and guid then
+		if guid == mod.Options.helpcold then
+			sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_twjs.mp3")
+		end
+	end
+end
+--BH ADD END

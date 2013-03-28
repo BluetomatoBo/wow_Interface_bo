@@ -6,7 +6,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 mod:SetRevision(("$Revision: 8915 $"):sub(12, -3))
 mod:SetCreatureID(68036)--Crimson Fog 69050, 
 mod:SetModelID(47189)
-mod:SetUsedIcons(7, 6, 1)
+mod:SetUsedIcons(8, 7, 6, 1)
 
 mod:RegisterCombat("combat")
 
@@ -59,10 +59,12 @@ local timerLingeringGazeCD			= mod:NewCDTimer(25, 138467)
 local timerForceOfWillCD			= mod:NewCDTimer(20, 136413)--Actually has a 20 second cd but rarely cast more than once per phase because of how short the phases are (both beams phases cancel this ability)
 local timerLightSpectrumCD			= mod:NewNextTimer(60, "ej6891")--Don't know when 2nd one is cast.
 local timerDarkParasite				= mod:NewTargetTimer(30, 133597, mod:IsHealer())--Only healer/dispeler needs to know this.
+local timerDarkParasiteCD			= mod:NewNextTimer(62, 133597)
 local timerDarkPlague				= mod:NewTargetTimer(30, 133598)--EVERYONE needs to know this, if dispeler messed up and dispelled parasite too early you're going to get a new add every 3 seconds for remaining duration of this bar.
 local timerDisintegrationBeam		= mod:NewBuffActiveTimer(65, "ej6882")
 local timerDisintegrationBeamCD		= mod:NewNextTimer(127, "ej6882")
 local timerObliterateCD				= mod:NewNextTimer(80, 137747)--Heroic
+local timerLifeDrainCD				= mod:NewCDTimer(210, 133795)
 
 local berserkTimer					= mod:NewBerserkTimer(600)
 
@@ -77,13 +79,17 @@ local blueTracking = GetSpellInfo(139202)
 local redTracking = GetSpellInfo(139204)
 --BH ADD
 local rgbcount = 0
+local lifecount = 0
+local paracount = 0
 local lastYellow = nil
 local lightmaker = {}
+local linemaker = {}
 local BlueFog	= EJ_GetSectionInfo(6898)
 local RedFog	= EJ_GetSectionInfo(6892)
 local YellowFog	= EJ_GetSectionInfo(6895)
 
 mod:AddBoolOption("HudMAP", true, "sound")
+mod:AddBoolOption("DXsound", false, "sound")
 mod:AddDropdownOption("optDD", {"nodd", "DD1", "DD2", "DD3"}, "nodd", "sound")
 local DBMHudMap = DBMHudMap
 local free = DBMHudMap.free
@@ -94,17 +100,17 @@ end
 
 local function lightchoose()
 	if ((rgbcount == 1) and (mod.Options.optDD == "DD1")) or ((rgbcount == 2) and (mod.Options.optDD == "DD3")) or ((rgbcount == 3) and (mod.Options.optDD == "DD2"))then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hsfd.mp3") --紅色分擔
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hsfd.mp3") --紅色分擔
 		if mod.Options.HudMAP then
 			lightmaker[lastRed] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastRed))
 		end
 	elseif ((rgbcount == 1) and (mod.Options.optDD == "DD2")) or ((rgbcount == 2) and (mod.Options.optDD == "DD1")) or ((rgbcount == 3) and (mod.Options.optDD == "DD3"))then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hufd.mp3") --黃色分擔
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hufd.mp3") --黃色分擔
 		if mod.Options.HudMAP then
 			lightmaker[lastYellow] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastYellow))
 		end
 	elseif ((rgbcount == 1) and (mod.Options.optDD == "DD3")) or ((rgbcount == 2) and (mod.Options.optDD == "DD2")) or ((rgbcount == 3) and (mod.Options.optDD == "DD1"))then
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lsfd.mp3") --藍色分擔
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lsfd.mp3") --藍色分擔
 		if mod.Options.HudMAP then
 			lightmaker[lastBlue] = register(DBMHudMap:AddEdge(0, 0, 1, 1, 10, "player", lastBlue))
 		end
@@ -127,12 +133,12 @@ local function BeamEnded()
 	timerDisintegrationBeamCD:Start()
 	mod:Schedule(121, function()
 		DBM.Flash:Show(1, 0, 0)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_tenwj.mp3") --10秒後瓦解光束
-		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
-		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")	
-		sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenwj.mp3") --10秒後瓦解光束
+		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+		sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	end)
 end
 
@@ -143,24 +149,29 @@ function mod:OnCombatStart(delay)
 	lastBlue = nil
 	--BH ADD
 	rgbcount = 0
+	lifecount = 0
+	paracount = 0
 	lastYellow = nil	
 	table.wipe(lightmaker)
+	table.wipe(linemaker)
 	--BH ADD END
 	table.wipe(lingeringGazeTargets)
 	timerHardStareCD:Start(5-delay)
 	timerLingeringGazeCD:Start(15.5-delay)
 	timerForceOfWillCD:Start(33.5-delay)
 	timerLightSpectrumCD:Start(41-delay)
+	timerDarkParasiteCD:Start(-delay)
 	timerDisintegrationBeamCD:Start(135-delay)
+	timerLifeDrainCD:Start(-delay)
 	berserkTimer:Start(-delay)
 	self:Schedule(125, function()
 		DBM.Flash:Show(1, 0, 0)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_tenwj.mp3") --10秒後瓦解光束
-		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
-		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")	
-		sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenwj.mp3") --10秒後瓦解光束
+		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+		sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	end)
 end
 
@@ -196,7 +207,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			if (args.amount or 1) >= 3 and not UnitDebuff("player", GetSpellInfo(133767)) and not UnitIsDeadOrGhost("player") then
 				specWarnSeriousWoundOther:Show(args.destName)
 				if mod:IsTank() then
-					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\changemt.mp3") --換坦嘲諷
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3") --換坦嘲諷
 				end
 			end
 		end
@@ -205,8 +216,22 @@ function mod:SPELL_AURA_APPLIED(args)
 		local _, _, _, _, _, duration, expires = UnitDebuff(args.destName, args.spellName)
 		timerDarkParasite:Start(duration)
 		if mod:IsHealer() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hajs.mp3")--黑暗寄生
-		end			
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hajs.mp3")--黑暗寄生
+		end
+		if self:AntiSpam(5, 4) then
+			paracount = paracount + 1
+			if paracount == 1 then
+				timerDarkParasiteCD:Start(60)
+			elseif paracount == 2 then
+				timerDarkParasiteCD:Start(78)
+			elseif paracount == 3 then
+				timerDarkParasiteCD:Start(72)
+			elseif paracount == 4 then
+				timerDarkParasiteCD:Start(117)
+			elseif paracount == 5 then
+				timerDarkParasiteCD:Start(72)
+			end
+		end
 	elseif args:IsSpellID(133598) then--Dark Plague
 		local _, _, _, _, _, duration, expires = UnitDebuff(args.destName, args.spellName)
 		--maybe add a warning/special warning for everyone if duration is too high and many adds expected
@@ -215,7 +240,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		lingeringGazeTargets[#lingeringGazeTargets + 1] = args.destName
 		if args:IsPlayer() then
 			specWarnLingeringGaze:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xxns.mp3")--小心凝視
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xxns.mp3")--小心凝視
 			yellLingeringGaze:Yell()
 		end
 		self:Unschedule(warnLingeringGazeTargets)
@@ -223,6 +248,10 @@ function mod:SPELL_AURA_APPLIED(args)
 			warnLingeringGazeTargets()
 		else
 			self:Schedule(0.5, warnLingeringGazeTargets)
+		end
+	elseif args:IsSpellID(133798) then
+		if (args.amount or 1) >= 2 and (args.amount or 1) % 2 == 0 then
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bmdx.mp3")--幫忙擋線
 		end
 	end
 end
@@ -237,7 +266,7 @@ end
 function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 134044 and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then
 		specWarnLingeringGazeMove:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3") --快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -245,7 +274,7 @@ mod.SPELL_MISSED = mod.SPELL_DAMAGE
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 134755 and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then
 		specWarnEyeSore:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3") --快躲開
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
@@ -263,10 +292,10 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 			specWarnForceOfWill:Show()
 			yellForceOfWill:Yell()
 			DBM.Flash:Show(1, 0, 0)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")
 		else
 			if not self:IsDifficulty("lfr25") then
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_xxjf.mp3") --小心擊飛
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xxjf.mp3") --小心擊飛
 			end
 			local uId = DBM:GetRaidUnitId(target)
 			if uId then
@@ -285,14 +314,14 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		warnBlueBeam:Show(target)
 		timerLingeringGazeCD:Start(21)
 		--BH ADD
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_syg.mp3") --三原光準備		
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_syg.mp3") --三原光準備		
 		if rgbcount == 3 then rgbcount = 0 end
 		rgbcount = rgbcount + 1
 		--BH ADD END
 		if target == UnitName("player") then
 			specWarnBlueBeam:Show()
 			DBM.Flash:Show(0, 0, 1)
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lgzb.mp3") --藍光
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lgzb.mp3") --藍光
 		end
 		lastBlue = target
 		if self.Options.SetIconRays then
@@ -304,7 +333,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		if target == UnitName("player") then
 			specWarnRedBeam:Show()
 			DBM.Flash:Show(1, 0, 0)
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hgzb.mp3") --紅光
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hgzb.mp3") --紅光
 		end
 		lastRed = target
 		if self.Options.SetIconRays then
@@ -316,14 +345,14 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		timerForceOfWillCD:Cancel()
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerObliterateCD:Start()
-			sndWOP:Schedule(80, "Interface\\AddOns\\DBM-Core\\extrasounds\\dead.mp3")
+			sndWOP:Schedule(80, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dead.mp3")
 		end
 		--BH MODIFY
 		warnYellowBeam:Show(target)
 		if target == UnitName("player") then
 			specWarnYellowBeam:Show()
 			DBM.Flash:Show(1, 1, 0)			
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hgsd.mp3") --黃光
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hgsd.mp3") --黃光
 		end
 		lastYellow = target
 		mod:Schedule(1.5, function()
@@ -344,36 +373,67 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		specWarnFogRevealed:Show(BlueFog)
 		if lastBlue == UnitName("player") then
 			DBM.Flash:Show(0, 1, 0)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\stopmove.mp3") --停止移動
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopmove.mp3") --停止移動
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_lan.mp3") --藍色快打
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_lan.mp3") --藍色快打
 		end
 	elseif npc:find(RedFog) then
 		specWarnFogRevealed:Show(RedFog)
 		if lastRed == UnitName("player") then
 			DBM.Flash:Show(0, 1, 0)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\stopmove.mp3") --停止移動
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopmove.mp3") --停止移動
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_hong.mp3") --紅色快打
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_hong.mp3") --紅色快打
 		end
 	elseif npc:find(YellowFog) then
 		DBM.Flash:Show(1, 1, 0)
 		specWarnFogRevealed:Show(YellowFog)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\ex_huang.mp3") --黃色快打
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_huang.mp3") --黃色快打
 	--BH MODIFY END
 	elseif msg:find("spell:133795") then
 		warnLifeDrain:Show(target)
 		specWarnLifeDrain:Show(target)
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smxq.mp3") --生命吸取
+		if self.Options.SetIconRays then
+			self:SetIcon(target, 8, 10)
+		end
+		lifecount = lifecount + 1
+		if lifecount == 3 then
+			timerLifeDrainCD:Start(105)
+		else
+			timerLifeDrainCD:Start(41)
+		end
+		if mod.Options.DXsound then
+			linemaker[target] = register(DBMHudMap:AddEdge(1, 0, 0, 1, 1, "player", target))
+			self:Schedule(1.5, function()
+				linemaker[target] = register(DBMHudMap:AddEdge(1, 0, 0, 1, 1, "player", target))
+			end)
+			self:Schedule(3, function()
+				linemaker[target] = register(DBMHudMap:AddEdge(1, 0, 0, 1, 1, "player", target))
+			end)
+			self:Schedule(4.5, function()
+				linemaker[target] = register(DBMHudMap:AddEdge(1, 0, 0, 1, 1, "player", target))
+			end)
+			self:Schedule(6, function()
+				linemaker[target] = register(DBMHudMap:AddEdge(1, 0, 0, 1, 1, "player", target))
+			end)
+			self:Schedule(7.5, function()
+				linemaker[target] = register(DBMHudMap:AddEdge(1, 0, 0, 1, 1, "player", target))
+			end)
+			self:Schedule(9, function()
+				linemaker[target] = register(DBMHudMap:AddEdge(1, 0, 0, 1, 1, "player", target))
+			end)
+		end
 	elseif msg:find("spell:134169") then
 		timerLingeringGazeCD:Cancel()
 		warnDisintegrationBeam:Show()
 		specWarnDisintegrationBeam:Show()
 		timerDisintegrationBeam:Start()
-		sndWOP:Schedule(61, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfive.mp3")
-		sndWOP:Schedule(62, "Interface\\AddOns\\DBM-Core\\extrasounds\\countfour.mp3")	
-		sndWOP:Schedule(63, "Interface\\AddOns\\DBM-Core\\extrasounds\\countthree.mp3")
-		sndWOP:Schedule(64, "Interface\\AddOns\\DBM-Core\\extrasounds\\counttwo.mp3")
-		sndWOP:Schedule(65, "Interface\\AddOns\\DBM-Core\\extrasounds\\countone.mp3")
+		sndWOP:Schedule(61, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+		sndWOP:Schedule(62, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+		sndWOP:Schedule(63, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Schedule(64, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Schedule(65, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		self:Schedule(65, BeamEnded)--Best to start next phase bars when this one ends, so artifically create a "phase end" trigger
 	end
 end
@@ -387,7 +447,7 @@ function mod:UNIT_AURA(uId)
 		if name == UnitName("player") then
 			specWarnBlueBeam:Show()
 			DBM.Flash:Show(0, 0, 1)
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_lgzb.mp3") --藍光
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lgzb.mp3") --藍光
 		end
 		if self.Options.SetIconRays then
 			self:SetIcon(name, 6)--Square
@@ -398,7 +458,7 @@ function mod:UNIT_AURA(uId)
 		if name == UnitName("player") then
 			specWarnRedBeam:Show()
 			DBM.Flash:Show(1, 0, 0)
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\ex_tt_hgzb.mp3") --紅光
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hgzb.mp3") --紅光
 		end
 		if self.Options.SetIconRays then
 			self:SetIcon(name, 7)--Cross
@@ -414,7 +474,7 @@ function mod:UNIT_DIED(args)
 			warnAddsLeft:Show(totalFogs)
 		else--No adds left, force ability is re-enabled
 			timerObliterateCD:Cancel()
-			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\dead.mp3")
+			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dead.mp3")
 			timerForceOfWillCD:Start()
 			if self.Options.SetIconRays and lastRed then
 				self:SetIcon(lastRed, 0)
@@ -434,7 +494,7 @@ function mod:UNIT_DIED(args)
 				warnAddsLeft:Show(totalFogs)
 			else--No adds left, force ability is re-enabled
 				timerObliterateCD:Cancel()
-				sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\dead.mp3")
+				sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dead.mp3")
 				timerForceOfWillCD:Start()
 				if self.Options.SetIconRays and lastRed then
 					self:SetIcon(lastRed, 0)
@@ -455,7 +515,7 @@ function mod:UNIT_DIED(args)
 				warnAddsLeft:Show(totalFogs)
 			else--No adds left, force ability is re-enabled
 				timerObliterateCD:Cancel()
-				sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\dead.mp3")
+				sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dead.mp3")
 				timerForceOfWillCD:Start()
 				if self.Options.SetIconRays and lastRed then
 					self:SetIcon(lastRed, 0)
