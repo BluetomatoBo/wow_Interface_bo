@@ -1,3 +1,6 @@
+V 1.10
+- This AddOn is discontinued, download the new improved version, with more features: Cecile_MeterOverlay
+
 V 1.9
 - Update toc for 5.2
 

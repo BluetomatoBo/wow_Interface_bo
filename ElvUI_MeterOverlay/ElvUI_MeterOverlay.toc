@@ -3,11 +3,7 @@
 ## Title: |cff1784d1ElvUI |rMeter Overlay
 ## Author: Cecile
 ## Dependencies: ElvUI
-## Version: 1.9
+## Version: 1.10
 ## Notes: Display your damage meter as overlay in an ElvUI data text
 
 ElvUI_MeterOverlay.lua
- 
- 
-## X-Tukui-ProjectID: 137
-## X-Tukui-ProjectFolders: ElvUI_MeterOverlay_Recount, ElvUI_MeterOverlay_Skada, ElvUI_MeterOverlay_TinyDPS, ElvUI_MeterOverlay
