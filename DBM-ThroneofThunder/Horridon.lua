@@ -8,9 +8,10 @@ local sndOrb	= mod:NewSound(nil, "SoundOrb", mod:IsTank())
 local LibRange = LibStub("LibRangeCheck-2.0")
 --BH ADD END
 
-mod:SetRevision(("$Revision: 9078 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9124 $"):sub(12, -3))
 mod:SetCreatureID(68476)
 mod:SetModelID(47325)
+mod:SetUsedIcons(1)
 
 mod:RegisterCombat("combat")
 
@@ -107,6 +108,7 @@ local Direname	= EJ_GetSectionInfo(7866)
 mod:AddBoolOption("ccsoon", false, "sound")
 mod:AddBoolOption("ddyls", true, "sound")
 mod:AddBoolOption("RangeFrame")
+mod:AddBoolOption("SetIconOnCharge")
 for i = 1, 4 do
 	mod:AddBoolOption("dr"..i, false, "sound")
 end
@@ -211,7 +213,7 @@ Delayed by Charge version
 --]]
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(136741) then--Regular double swipe
+	if args.spellId == 136741 then--Regular double swipe
 		warnDoubleSwipe:Show()
 		specWarnDoubleSwipe:Show()
 		sndDB:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_scsj.mp3") --雙重掃擊
@@ -219,12 +221,12 @@ function mod:SPELL_CAST_START(args)
 		if timerChargeCD:GetTime() < 32 then--Check if charge is less than 18 seconds away, if it is, double swipe is going tobe delayed by quite a bit and we'll trigger timer after charge
 			timerDoubleSwipeCD:Start()
 		end
-	elseif args:IsSpellID(136770) then--Double swipe that follows a charge (136769)
+	elseif args.spellId == 136770 then--Double swipe that follows a charge (136769)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_scsj.mp3")
 		warnDoubleSwipe:Show()
 		specWarnDoubleSwipe:Show()
 		timerDoubleSwipeCD:Start(11.5)--Hard coded failsafe. 136741 version is always 11.5 seconds after 136770 version
-	elseif args:IsSpellID(137458) then
+	elseif args.spellId == 137458 then
 		direNumber = direNumber + 1
 		warnDireCall:Show(direNumber)
 		specWarnDireCall:Show()
@@ -262,22 +264,22 @@ end
 
 --BH ADD
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(136487) then
+	if args.spellId == 136487 then
 		specWarnLightTT:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdtt.mp3")--閃電圖騰
-	elseif args:IsSpellID(136512) then		
+	elseif args.spellId == 136512 then		
 		qscount = qscount + 1
 		if ((mod.Options.optQS == "QS1") and (qscount % 3 == 1)) or ((mod.Options.optQS == "QS2") and (qscount % 3 == 2)) or ((mod.Options.optQS == "QS3") and (qscount % 3 == 0)) or (mod.Options.optQS == "allQS") then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dispelnow.mp3") --快驅散
 			specWarnWitchDebuff:Show()
 		end
-	elseif args:IsSpellID(136719) then
+	elseif args.spellId == 136719 then
 		qscount = qscount + 1
 		if ((mod.Options.optQS == "QS1") and (qscount % 3 == 1)) or ((mod.Options.optQS == "QS2") and (qscount % 3 == 2)) or ((mod.Options.optQS == "QS3") and (qscount % 3 == 0)) or (mod.Options.optQS == "allQS") then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dispelnow.mp3") --快驅散
 			specWarnSunDebuff:Show()
 		end
-	elseif args:IsSpellID(136564) then
+	elseif args.spellId == 136564 then
 		if self:AntiSpam(2, 7) then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bqxx.mp3") --冰球小心
 		end
@@ -286,7 +288,7 @@ end
 --BH ADD END
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(136767) then
+	if args.spellId == 136767 then
 		warnPuncture:Show(args.destName, args.amount or 1)
 		timerPuncture:Start(args.destName)
 		timerPunctureCD:Start()
@@ -313,10 +315,10 @@ function mod:SPELL_AURA_APPLIED(args)
 	--"<327.0 15:12:46> [INSTANCE_ENCOUNTER_ENGAGE_UNIT] Fake Args:#1#1#Horridon#0xF1310B7C0000383C#elite#261178058#1#1#War-God Jalak <--War-God Jalak jumps down
 	--He jumps down 10 seconds after 4th door is smashed, or when Horridon reaches 30%
 	--BH ADD
-	elseif args:IsSpellID(137240) and (args.amount or 1) == 4 and not jalakEngaged then
+	elseif args.spellId == 137240 and (args.amount or 1) == 4 and not jalakEngaged then
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3")
 	--BH ADD END
-	elseif args:IsSpellID(136817) then
+	elseif args.spellId == 136817 then
 		warnBestialCry:Show(args.destName, args.amount or 1)
 		timerBestialCryCD:Start(10, (args.amount or 1)+1)
 		--BH ADD
@@ -331,11 +333,11 @@ function mod:SPELL_AURA_APPLIED(args)
 		sndWOP:Schedule(8.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 		sndWOP:Schedule(9.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		--BH ADD END		
-	elseif args:IsSpellID(136821) then
+	elseif args.spellId == 136821 then
 		warnRampage:Show(args.destName)
 		specWarnRampage:Show(args.destName)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hldn.mp3")--哈里登暴怒
-	elseif args:IsSpellID(136797) then
+	elseif args.spellId == 136797 then
 		warnMending:Show()
 		--BH MODIFY
 		if mod.Options.ddyls then
@@ -344,28 +346,28 @@ function mod:SPELL_AURA_APPLIED(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3")--快打斷
 		end
 		--BH MODIFY END
-	elseif args:IsSpellID(137237) then
+	elseif args.spellId == 137237 then
 		warnOrbofControl:Show()
 		specWarnOrbofControl:Show()
 		sndOrb:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_ksbz.mp3") --控獸寶珠
-	elseif args:IsSpellID(137240) then
+	elseif args.spellId == 137240 then
 		warnCrackedShell:Show(args.destName, args.amount or 1)
---[[	elseif args:IsSpellID(136587) then
+--[[	elseif args.spellId == 136587 then
 		warnVenomBolt:Show()
 		if args.sourceGUID == UnitGUID("target") or args.sourceGUID == UnitGUID("focus") then
 			specWarnVenomBolt:Show(args.sourceName)
 		end
-	elseif args:IsSpellID(136480) then
+	elseif args.spellId == 136480 then
 		warnChainLightning:Show()
 		if args.sourceGUID == UnitGUID("target") or args.sourceGUID == UnitGUID("focus") then
 			specWarnChainLightning:Show(args.sourceName)
 		end
-	elseif args:IsSpellID(136465) then
+	elseif args.spellId == 136465 then
 		warnFireball:Show()
 		if args.sourceGUID == UnitGUID("target") or args.sourceGUID == UnitGUID("focus") then
 			specWarnFireball:Show(args.sourceName)
 		end]] -- BH DELETE
-	elseif args:IsSpellID(140946) then
+	elseif args.spellId == 140946 then
 		warnDireFixate:Show(args.destName)
 		if args:IsPlayer() then
 			specWarnDireFixate:Show()
@@ -377,7 +379,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			checksprange()
 			-- BH ADD END
 		end
-	elseif args:IsSpellID(136512) then
+	elseif args.spellId == 136512 then
 		if args:IsPlayer() then
 			specWarnHex:Show()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopattack.mp3") -- 停止攻擊
@@ -386,7 +388,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\helpdispel.mp3") -- 幫忙驅散
 		end
 	-- BH ADD
-	elseif args:IsSpellID(137294) then
+	elseif args.spellId == 137294 then
 		closedoor = closedoor + 1
 		timerHeadache:Start(10)
 		sndWOP:Schedule(5.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
@@ -401,7 +403,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		elseif closedoor == 3 then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bmgb.mp3")--冰門關閉
 		end
-	elseif args:IsSpellID(136670) then
+	elseif args.spellId ==  136670 then
 		if args:IsPlayer() then
 			if (args.amount or 1) >= 2 then
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dshigh.mp3")--致死過高
@@ -413,7 +415,7 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(136767) then
+	if args.spellId == 136767 then
 		timerPuncture:Cancel(args.destName)
 	end
 end
@@ -467,10 +469,13 @@ end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:find(L.chargeTarget) then
-		local uId = DBM:GetRaidUnitId(target)
-		self:SendSync("Charge", UnitGUID(uId))
+		if self:LatencyCheck() then
+			self:SendSync("ChargeTo", target)
+		end
 	elseif msg:find(L.newForces) then
-		self:SendSync("Door")
+		if self:LatencyCheck() then
+			self:SendSync("Door")
+		end
 	end
 end
 
@@ -506,12 +511,13 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	end
 end
 
-function mod:OnSync(msg, guid)
-	if msg == "Charge" and guid then
-		warnCharge:Show(DBM:GetFullPlayerNameByGUID(guid))
+function mod:OnSync(msg, target)
+	if msg == "ChargeTo" and target then
+		local target = DBM:GetFullNameByShortName(target)
+		warnCharge:Show(target)
 		timerCharge:Start()
 		timerChargeCD:Start()
-		if guid == UnitGUID("player") then
+		if target == UnitName("player") then
 			specWarnCharge:Show()
 			yellCharge:Yell()
 			DBM.Flash:Show(1, 0, 0)
@@ -519,6 +525,9 @@ function mod:OnSync(msg, guid)
 			sndWOP:Schedule(0.5,"Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_nbcf.mp3")
 		else
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cfkd.mp3") --衝鋒快躲
+		end
+		if UnitExists(target) and self.Options.SetIconOnCharge then
+			self:SetIcon(name, 1, 5)--Cross
 		end
 	elseif msg == "Door" and self:AntiSpam(60, 4) then--prevent bad doorNumber increase if very late sync received.
 	--Doors spawn every 131.5 seconds
@@ -565,32 +574,12 @@ function mod:OnSync(msg, guid)
 				timerJalakCD:Start(143)
 			end
 		end
-	elseif msg == "Sand" and guid then
-		if self:IsDifficulty("lfr25") then return end
-		if guid == UnitName("player") then
+	elseif msg == "Sand" and target then
+		local target = DBM:GetFullNameByShortName(target)
+		if target == UnitName("player") then
 			specWarnSandTrapYou:Show()
 			yellSandTrap:Yell()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")
-		else
-			local uId = DBM:GetRaidUnitId(guid)
-			if uId ~= "none" then
-				local x, y = GetPlayerMapPosition(uId)
-				if x == 0 and y == 0 then
-					SetMapToCurrentZone()
-					x, y = GetPlayerMapPosition(uId)
-				end
-				local inRange = DBM.RangeCheck:GetDistance("player", x, y)
-				if inRange and inRange < 2 then
-					specWarnSandTrapNear:Show(guid)
-					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")
-				elseif inRange and inRange < 8 then
-					specWarnSandTrapNear:Show(guid)
-				end
-			else --tar pet? warn for melee
-				if mod:IsMelee() then
-					specWarnSandTrapNear:Show(guid)
-				end
-			end
 		end
 	elseif msg == "Duye" then
 		if self:AntiSpam(2, 10) then

@@ -46,43 +46,25 @@ local timerExplosiveSlam			= mod:NewTargetTimer(25, 138569, nil, mod:IsTank() or
 --Dark Animus will now use its abilities at more consistent intervals. (March 19 hotfix)
 --As such, all of these timers need re-verification and updating.
 local timerSiphonAnimaCD			= mod:NewNextTimer(30, 138644)
-local timerAnimaRingCD				= mod:NewNextTimer(24.2, 136954)--Updated/Verified post march 19 hotfix
+local timerAnimaRingCD				= mod:NewNextTimer(19.3, 136954)--Updated/Verified post march 19 hotfix
 local timerEmpowerGolemCD			= mod:NewCDTimer(16, 138780)--Still need updated heroic log (post hotfix) to verify/update
-local timerInterruptingJoltCD		= mod:NewCDTimer(22, 138763)--Still need a log where he actually reaches 75 anima, my guild kills too fast
+local timerInterruptingJoltCD		= mod:NewCDTimer(21.8, 138763)--Still need a log where he actually reaches 75 anima, my guild kills too fast
 
 ----BH DELETE local soundCrimsonWake				= mod:NewSound(138480)
 
-local scansDone = 0
 local crimsonWake = GetSpellInfo(138485)--Debuff ID I believe, not cast one. Same spell name though
 
-function mod:TargetScanner(Force)
-	scansDone = scansDone + 1
-	local targetname, uId = self:GetBossTarget(69427)
-	if UnitExists(targetname) then
-		if self:IsTanking(uId, "boss1") and not Force then--This will USUALLY target tank but sometimes it does target a DPS like a mage on pull so we still do a tank check to be certain
-			if scansDone < 12 then
-				self:ScheduleMethod(0.02, "TargetScanner")
-			else
-				self:TargetScanner(true)
-			end
-		else
-			warnAnimaRing:Show(targetname)
-			if targetname == UnitName("player") then
-				specWarnAnimaRing:Show()
-				yellAnimaRing:Yell()
-			else
-				specWarnAnimaRingOther:Show(targetname)
-			end
-		end
+function mod:AnimaRingTarget(targetname)
+	warnAnimaRing:Show(targetname)
+	if targetname == UnitName("player") then
+		specWarnAnimaRing:Show()
+		yellAnimaRing:Yell()
 	else
-		if scansDone < 12 then
-			self:ScheduleMethod(0.02, "TargetScanner")
-		end
+		specWarnAnimaRingOther:Show(targetname)
 	end
 end
 
 function mod:OnCombatStart(delay)
-	scansDone = 0
 	self:RegisterShortTermEvents(
 		"INSTANCE_ENCOUNTER_ENGAGE_UNIT"--We register here to prevent detecting first heads on pull before variables reset from first engage fire. We'll catch them on delayed engages fired couple seconds later
 	)
@@ -93,17 +75,16 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(136954) then
-		scansDone = 0
-		self:TargetScanner()
+	if args.spellId == 136954 then
+		self:BossTargetScanner(69427, "AnimaRingTarget", 0.02, 12)
 		timerAnimaRingCD:Start()
 	elseif args:IsSpellID(138763, 139867) then--Normal version is 2.2 sec cast. Heroic is 1.4 second cast (thus why it has different spellid)
 		warnInterruptingJolt:Show()
 		specWarnInterruptingJolt:Show()
 		timerInterruptingJoltCD:Start()
-		sndWOP:Schedule(19.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
-		sndWOP:Schedule(20.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
-		sndWOP:Schedule(21.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		sndWOP:Schedule(19.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Schedule(20.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Schedule(21.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		if mod:IsManaUser() and mod:IsRanged() then
 			DBM.Flash:Show(1, 0, 0)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopcast.mp3") --停止施法
@@ -114,7 +95,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(138569) then
+	if args.spellId == 138569 then
 		local uId = DBM:GetRaidUnitId(args.destName)
 		if self:IsTanking(uId, "boss1") then--Only want sprays that are on tanks, not bads standing on tanks.
 			warnExplosiveSlam:Show(args.destName, args.amount or 1)
@@ -132,7 +113,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 			end
 		end
-	elseif args:IsSpellID(138609) then
+	elseif args.spellId == 138609 then
 		warnMatterSwap:Show(args.destName)
 		timerMatterSwap:Start(args.destName)
 		if args:IsPlayer() then
@@ -141,7 +122,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		elseif mod:IsHealer() then		
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wzjh.mp3") --物質交換
 		end
-	elseif args:IsSpellID(138780) then
+	elseif args.spellId == 138780 then
 		warnEmpowerGolem:Show(args.destName)
 		timerEmpowerGolemCD:Start()
 	end
@@ -149,9 +130,9 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(138609) then
+	if args.spellId == 138609 then
 		timerMatterSwap:Cancel(args.destName)
-	elseif args:IsSpellID(138569) then
+	elseif args.spellId == 138569 then
 		timerExplosiveSlam:Cancel(args.destName)
 	end
 end

@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("BrawlRank8", "DBM-Brawlers")
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8381 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 8974 $"):sub(12, -3))
 --mod:SetCreatureID(60491)
 mod:SetModelID(46265)
 mod:SetZone()
@@ -38,22 +38,22 @@ local brawlersMod = DBM:GetModByName("Brawlers")
 
 function mod:SPELL_CAST_START(args)
 	if not brawlersMod.Options.SpectatorMode and not brawlersMod:PlayerFighting() then return end--Spectator mode is disabled, do nothing.
-	if args:IsSpellID(133398) then
+	if args.spellId == 133398 then
 		warnPowerCrystal:Show()
 		timerPowerCrystalCD:Start()
-	elseif args:IsSpellID(133650) then
+	elseif args.spellId == 133650 then
 		warnDoom:Show()
 		if brawlersMod:PlayerFighting() then
 			specWarnDoom:Show()
 		end
-	elseif args:IsSpellID(133262) then
+	elseif args.spellId == 133262 then
 		warnBlueCrush:Show()
 		timerBlueCrushCD:Start()
 		if brawlersMod:PlayerFighting() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3")
 			specWarnBlueCrush:Show(args.sourceName)
 		end
-	elseif args:IsSpellID(135621) then
+	elseif args.spellId == 135621 then
 		warnStaticCharge:Show()
 --		timerStaticChargeCD:Start()
 		if brawlersMod:PlayerFighting() then
@@ -65,14 +65,14 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if not brawlersMod.Options.SpectatorMode and not brawlersMod:PlayerFighting() then return end--Spectator mode is disabled, do nothing.
-	if args:IsSpellID(133208) then
+	if args.spellId == 133208 then
 		warnEvilGlare:Show()
 --		timerEvilGlareCD:Start()
 		if brawlersMod:PlayerFighting() then
 			specWarnEvilGlare:Show()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")
 		end
-	elseif args:IsSpellID(133250) then
+	elseif args.spellId == 133250 then
 		warnDestructolaser:Show()
 		timerDestructolaserCD:Start()
 		if brawlersMod:PlayerFighting() then

@@ -46,7 +46,9 @@ L:SetOptionLocalization({
 	warnOrbofControl		= "Announce when $journal:7092 dropped",
 	specWarnOrbofControl	= "Show special warning when $journal:7092 dropped",
 	timerDoor				= "Show timer for next Tribal Door phase",
-	timerAdds				= "Show timer for when next add jumps down"
+	timerAdds				= "Show timer for when next add jumps down",
+	RangeFrame				= "Show range frame (5) for $spell:136480",
+	SetIconOnCharge			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136769)
 })
 
 L:SetMiscLocalization({
@@ -97,7 +99,8 @@ L:SetOptionLocalization({
 	dr4						= "减伤提示:$spell:134920 4/4",
 	specWarnCrystalShell	= "Show special warning when you are missing $spell:137633 debuff",
 	InfoFrame				= "Show info frame for players without $spell:137633",
-	SetIconOnTurtles		= "Set icons on $journal:7129 \n(May not be reliable if more than 1 person with assist enables)",
+	SetIconOnTurtles		= "Set icons on $journal:7129",
+	ClearIconOnTurtles		= "Clear icons on $journal:7129 when affected by $spell:133971"
 })
 
 L:SetMiscLocalization({
@@ -206,6 +209,7 @@ L= DBM:GetModLocalization(818)
 
 L:SetWarningLocalization({
 	warnAddsLeft				= "Fogs remaining: %d",
+	specWarnBlueBeam			= "Blue Beam on you - DO NOT MOVE!!",
 	specWarnFogRevealed			= "%s revealed!",
 	specWarnDisintegrationBeam	= "%s (%s)"
 })
@@ -215,11 +219,12 @@ L:SetOptionLocalization({
 	HudMAP						= "高级定位监视(HUD)：$spell:133775时指向$journal:6901分界线",
 	warnAddsLeft				= "Announce how many Fogs remain",
 	specWarnFogRevealed			= "Show special warning when a fog is revealed",
+	specWarnBlueBeam			= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format(139202),
 	specWarnDisintegrationBeam	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format("ej6882"),
 	ArrowOnBeam					= "Show DBM Arrow during $journal:6882 to indicate which direction to move",
-	specWarnDisintegrationBeamL			= "特殊警告：左转$spell:133775",
-	specWarnDisintegrationBeamR			= "特殊警告：右转$spell:136316",
-	SetIconRays					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format("ej6891")
+	SetIconRays					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format("ej6891"),
+	SetIconLifeDrain			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(133795),
+	InfoFrame					= "Show info frame for $spell:133795 stacks"
 })
 
 L:SetMiscLocalization({
@@ -231,7 +236,14 @@ L:SetMiscLocalization({
 ----------------
 L= DBM:GetModLocalization(820)
 
+L:SetWarningLocalization({
+	warnDebuffCount				= "Too many mutations: % good & % bad",
+	specWarnFullyMutatedFaded	= "%s faded"
+})
+
 L:SetOptionLocalization({
+	warnDebuffCount				= "Show debuff count warnings when you absorb too many pools",
+	specWarnFullyMutatedFaded	= "Show special warning when $spell:140546 has faded",
 	SoundWOP		= "语音警告：重要技能",
 	InfoFrame		= "资讯框：首领当前的$journal:6949技能",
 	RangeFrame			= "Show range frame (5/2)"

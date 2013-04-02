@@ -2,9 +2,11 @@ local mod	= DBM:NewMod("ToTTrash", "DBM-ThroneofThunder")
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9003 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9108 $"):sub(12, -3))
 --mod:SetModelID(39378)
 mod:SetZone()
+
+mod.isTrashMod = true
 
 mod:RegisterEvents(
 	"SPELL_CAST_START",
@@ -15,16 +17,19 @@ mod:RegisterEvents(
 
 local warnStormEnergy			= mod:NewTargetAnnounce(139322, 4)
 local warnSpiritFire			= mod:NewTargetAnnounce(139895, 3)--This is morchok entryway trash that throws rocks at random poeple.
+local warnShadowNova			= mod:NewCastAnnounce(139899, 4)
 local warnStormCloud			= mod:NewTargetAnnounce(139900, 4)
 local warnFixated				= mod:NewSpellAnnounce(140306, 3)
 local warnConductiveShield		= mod:NewTargetAnnounce(140296, 4)
 
 local specWarnStormEnergy		= mod:NewSpecialWarningYou(139322)
+local specWarnShadowNova		= mod:NewSpecialWarningRun(139899, mod:IsMelee(), nil, nil, 3)--This hurls you pretty damn far. If you aren't careful you're as good as gone.
 local specWarnStormCloud		= mod:NewSpecialWarningYou(139900)
 local specWarnSonicScreech		= mod:NewSpecialWarningInterrupt(136751)
 local specWarnConductiveShield	= mod:NewSpecialWarningTarget(140296)
 
 local timerSpiritfireCD			= mod:NewCDTimer(12, 139895)
+local timerShadowNovaCD			= mod:NewCDTimer(12, 139899)
 local timerFixatedCD			= mod:NewNextTimer(15.7, 140306)
 local timerConductiveShieldCD	= mod:NewNextSourceTimer(20, 140296)
 
@@ -69,6 +74,7 @@ function mod:SpiritFireTarget(sGUID)
 end
 
 function mod:SPELL_CAST_START(args)
+	if not mod.Options.Enabled then return end
 	if args.spellId == 139895 then
 		self:ScheduleMethod(0.2, "SpiritFireTarget", args.sourceGUID)--Untested scan timing (don't even know if scanning works
 		timerSpiritfireCD:Start()
@@ -78,10 +84,18 @@ function mod:SPELL_CAST_START(args)
 	elseif args.spellId == 136751 and (args.sourceGUID == UnitGUID("target") or args.sourceGUID == UnitGUID("focus")) then
 		specWarnSonicScreech:Show(args.sourceName)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3")
+	elseif args.spellId == 139899 then
+		warnShadowNova:Show()
+		specWarnShadowNova:Show()
+		timerShadowNovaCD:Start()
+		if mod:IsMelee() then
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3")
+		end
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
+	if not mod.Options.Enabled then return end
 	if args.spellId == 139322 then--Or 139559, not sure which
 		stormEnergyTargets[#stormEnergyTargets + 1] = args.destName
 		if args:IsPlayer() then
@@ -95,7 +109,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			DBM.RangeCheck:Show(10)
 		end
 		self:Unschedule(warnStormEnergyTargets)
-		self:Schedule(1, warnStormEnergyTargets)
+		self:Schedule(1.5, warnStormEnergyTargets)--For some reason debuffs can go out as slow as 1.2, set to 1.5 in case it can get even worse then that
 	elseif args.spellId == 139900 then
 		stormCloudTargets[#stormCloudTargets + 1] = args.destName
 		if args:IsPlayer() then
@@ -121,6 +135,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:UNIT_DIED(args)
+	if not mod.Options.Enabled then return end
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 70308 then--Soul-Fed Construct
 		timerSpiritfireCD:Cancel()
@@ -130,6 +145,8 @@ function mod:UNIT_DIED(args)
 		if self.Options.HudMAP then
 			DBMHudMap:FreeEncounterMarkers()
 		end
+	elseif cid == 70440 then--Monara
+		timerShadowNovaCD:Cancel()
 	elseif cid == 70236 then--Zandalari Storm-Caller
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
@@ -153,6 +170,7 @@ end
 
 --"<1.0 17:57:05> [UNIT_SPELLCAST_SUCCEEDED] Gastropod [[target:Fixated::0:140306]]", -- [23]
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
+	if not mod.Options.Enabled then return end
 	if spellId == 140306 and self:AntiSpam() then
 		self:SendSync("OMGSnail", UnitGUID(uId))
 	end

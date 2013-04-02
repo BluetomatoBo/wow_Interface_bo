@@ -8,16 +8,32 @@ DBM_CORE_NEED_SUPPORT				= "嘿, 你是否拥有良好的程序开发或语言�
 DBM_HOW_TO_USE_MOD					= "欢迎使用DBM。在聊天框输入 /dbm help 以获取可用命令的帮助。输入 /dbm 可打开设置窗口。手动打开指定区域的模组即可开始针对各个模块进行设置，也可以浏览首领击杀记录。DBM 会在你首次尝试首领战时自动进行扫描，但是有些设置需要手动开启。"
 
 DBM_CORE_LOAD_MOD_ERROR				= "读取%s模块时发生错误：%s"
+DBM_CORE_LOAD_MOD_GUILDERROR		= "您正在使用一个不正确的DBM版本，请到[http://bbs.ngacn.cc/read.php?tid=5397726]重新下载"
 DBM_CORE_LOAD_MOD_SUCCESS			= "成功读取%s模块。在聊天框输入 /dbm 或 /dbm help 可进行更多设置。"
 DBM_CORE_LOAD_GUI_ERROR				= "无法读取图形界面：%s"
+DBM_CORE_LOAD_GUI_COMBAT			= "图形介面不能在战斗中初始化。请先在於战斗外读取图形介面，这样就能够在战斗中使用。"
+
+DBM_ABSOLUTE_MODE_ON				= "专制模式开啟。"
+DBM_ABSOLUTE_MODE_OFF				= "专制模式关闭。再次广播模组版本。"
+DBM_ABSOLUTE_MODE_NOTIFY_ON			= "专制模式被%s开啟。只有他们的DBM能够设置团队图示。"
+DBM_ABSOLUTE_MODE_NOTIFY_OFF		= "专制模式被%s关闭。还原一般图示权限。"
 
 DBM_CORE_COMBAT_STARTED				= "%s作战开始，祝你走运 :)"
+DBM_CORE_COMBAT_STARTED_IN_PROGRESS	= "已进行的战斗%s作战开始。祝你走运 :)"
+DBM_CORE_SCENARIO_STARTED			= "%s作战开始，祝你走运 :)"
 DBM_CORE_BOSS_DOWN					= "%s战斗胜利！用时%s！"
 DBM_CORE_BOSS_DOWN_L				= "%s战斗胜利！用时%s！上次用时%s，最快用时%s。总计%d次胜利。"
 DBM_CORE_BOSS_DOWN_NR				= "%s战斗胜利！用时%s！新的纪录诞生了！原纪录为%s。总计%d次胜利。"
+DBM_CORE_SCENARIO_COMPLETE			= "%s战斗胜利！用时%s!"
+DBM_CORE_SCENARIO_COMPLETE_L		= "%s战斗胜利！用时%s！上次用时%s，最快用时%s。总计%d次胜利。"
+DBM_CORE_SCENARIO_COMPLETE_NR		= "%s战斗胜利！用时%s！新的纪录诞生了！原纪录为%s。总计%d次胜利。"
 DBM_CORE_COMBAT_ENDED_AT			= "%s（%s）作战结束，用时%s。"
 DBM_CORE_COMBAT_ENDED_AT_LONG		= "%s（%s）作战结束，用时%s。该难度下总计失败%d次。"
+DBM_CORE_SCENARIO_ENDED_AT			= "%s战斗胜利！用时%s!"
+DBM_CORE_SCENARIO_ENDED_AT_LONG		= "%s战斗胜利！用时%s！总计%d次胜利。"
 DBM_CORE_COMBAT_STATE_RECOVERED		= "%s作战%s前开始，正在恢复计时条……"
+DBM_CORE_TRANSCRIPTOR_LOG_START		= "Transcriptor开始记录."
+DBM_CORE_TRANSCRIPTOR_LOG_END		= "Transcriptor结束记录."
 
 DBM_CORE_TIMER_FORMAT_SECS			= "%d秒"
 DBM_CORE_TIMER_FORMAT_MINS			= "%d分钟"
@@ -30,6 +46,7 @@ DBM_CORE_SEC_FMT					= "%d秒"
 DBM_CORE_DEAD						= "死亡"
 DBM_CORE_OK							= "确定"
 
+DBM_CORE_GENERIC_WARNING_DUPLICATE		= "%s之一"
 DBM_CORE_GENERIC_WARNING_BERSERK	= "%s%s后狂暴"
 DBM_CORE_GENERIC_TIMER_BERSERK		= "狂暴"
 DBM_CORE_OPTION_TIMER_BERSERK		= "计时条：$spell:26662"
@@ -119,6 +136,7 @@ DBM_CORE_BOSSHEALTH_HIDE_FRAME		= "隐藏生命值框体"
 DBM_CORE_ALLIANCE					= "联盟"
 DBM_CORE_HORDE						= "部落"
 
+DBM_CORE_WORLD_BOSS					= "世界首领"
 DBM_CORE_UNKNOWN					= "未知"
 DBM_CORE_LEFT						= "左"
 DBM_CORE_RIGHT						= "右"
@@ -208,7 +226,8 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	move					= "特殊警报：当你受到$spell:%s影响时",
 	run						= "特殊警报：$spell:%s",
 	cast					= "特殊警报：$spell:%s的施放",
-	stack					= "特殊警报：当叠加了至少%d层$spell:%s时",
+	count 					= "特殊警报：$spell:%s",
+	stack					= "特殊警报：当叠加了>=%d层$spell:%s时",
 	switch 					= "特殊警报：针对$spell:%s需要转换目标"
 }
 
@@ -222,7 +241,8 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	move					= "%s - 快躲开",
 	run						= "%s - 快跑",
 	cast					= "%s - 停止施法",
-	stack					= "%s (%%d)",
+	count					= "%s! (%%d)",
+	stack					= "你叠加了%%d层%s",
 	switch					= ">%s< - 转换目标"
 }
 
@@ -232,7 +252,7 @@ DBM_CORE_AUTO_SOUND_OPTION_TEXT			= "声音警报（快跑啊）：$spell:%s"
 DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "声音警报：$spell:%s的冷却时间倒计时"
 DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "声音警报：$spell:%s的持续时间正计时"
 DBM_CORE_AUTO_YELL_OPTION_TEXT			= "当你受到$spell:%s影响时时大喊"
-DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "我中了%s！"
+DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "" .. UnitName("player") .. "中了%s！"
 
 
 -- New special warnings

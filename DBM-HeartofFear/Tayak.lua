@@ -203,7 +203,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerOverwhelmingAssaultCD:Start()--Start CD here, since this might miss.
 		if mod.Options.InfoFrame then
 			DBM.InfoFrame:SetHeader(GetSpellInfo(123474))
-			DBM.InfoFrame:Show(3, "playerdebuffstacks", 123474)
+			DBM.InfoFrame:Show(3, "playerdebuffstackstime", 123474)
 		end
 		if not mod:IsDps() then
 			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_yzgj.mp3")

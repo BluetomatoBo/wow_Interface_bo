@@ -168,7 +168,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(135095) then
+	if args.spellId == 135095 then
 		warnThunderstruck:Show()
 		specWarnThunderstruck:Show()
 		if phase < 3 then
@@ -179,7 +179,7 @@ function mod:SPELL_CAST_START(args)
 		DBM.Flash:Show(1, 0, 0)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_yllj.mp3") --遠離雷擊
 	--"<206.2 20:38:58> [UNIT_SPELLCAST_SUCCEEDED] Lei Shen [[boss1:Lightning Whip::0:136845]]", -- [13762] --This event comes about .5 seconds earlier than SPELL_CAST_START. Maybe worth using?
-	elseif args:IsSpellID(136850) then
+	elseif args.spellId == 136850 then
 		warnLightningWhip:Show()
 		specWarnLightningWhip:Show()
 		if phase < 3 then
@@ -189,7 +189,7 @@ function mod:SPELL_CAST_START(args)
 		end
 		DBM.Flash:Show(1, 0, 0)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdb.mp3") --閃電鞭
-	elseif args:IsSpellID(136478) then
+	elseif args.spellId == 136478 then
 		warnFusionSlash:Show()
 		specWarnFusionSlash:Show()
 		timerFussionSlashCD:Start()
@@ -217,7 +217,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 	--Conduit activations
-	elseif args:IsSpellID(135695) then
+	elseif args.spellId == 135695 then
 		staticshockTargets[#staticshockTargets + 1] = args.destName
 		if self.Options.SetIconOnStaticShock then
 			self:SetIcon(args.destName, staticIcon)
@@ -273,7 +273,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		self:Unschedule(warnStaticShockTargets)
 		self:Schedule(0.3, warnStaticShockTargets)
-	elseif args:IsSpellID(136295) then
+	elseif args.spellId == 136295 then
 		overchargeTarget[#overchargeTarget + 1] = args.destName
 		if self.Options.SetIconOnOvercharge then
 			self:SetIcon(args.destName, overchargeIcon)
@@ -324,9 +324,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		self:Unschedule(warnOverchargeTargets)
 		self:Schedule(0.3, warnOverchargeTargets)
-	elseif args:IsSpellID(135680) and args:GetDestCreatureID() == 68397 then--North (Static Shock)
+	elseif args.spellId == 135680 and args:GetDestCreatureID() == 68397 then--North (Static Shock)
 		--start timers here when we have em
-	elseif args:IsSpellID(135681) and args:GetDestCreatureID() == 68397 then--East (Diffusion Chain)
+	elseif args.spellId == 135681 and args:GetDestCreatureID() == 68397 then--East (Diffusion Chain)
 		if self.Options.RangeFrame and self:IsRanged() then--Shouldn't target melee during a normal pillar, only during intermission when all melee are with ranged and out of melee range of boss
 			DBM.RangeCheck:Show(8)--Assume 8 since spell tooltip has no info
 		end
@@ -335,11 +335,11 @@ function mod:SPELL_AURA_APPLIED(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 		end
 		-- BH ADD END
-	elseif args:IsSpellID(135682) and args:GetDestCreatureID() == 68397 then--South (Overcharge)
+	elseif args.spellId == 135682 and args:GetDestCreatureID() == 68397 then--South (Overcharge)
 	
-	elseif args:IsSpellID(135683) and args:GetDestCreatureID() == 68397 then--West (Bouncing Bolt)
+	elseif args.spellId == 135683 and args:GetDestCreatureID() == 68397 then--West (Bouncing Bolt)
 
-	elseif args:IsSpellID(136914) and (args.amount or 1) % 3 == 0 then
+	elseif args.spellId == 136914 and (args.amount or 1) % 3 == 0 then
 		warnElectricalShock:Show(args.destName, args.amount or 1)
 		if (args.amount or 1) >= 12 then
 			if args:IsPlayer() then
@@ -357,13 +357,13 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(135991) then
+	if args.spellId == 135991 then
 		warnDiffusionChain:Show(args.destName)
 		specWarnDiffusionChain:Show(args.destName)
 		if not intermissionActive then
 			timerDiffusionChainCD:Start()
 		end
-	elseif args:IsSpellID(136543) and self:AntiSpam(2, 1) then
+	elseif args.spellId == 136543 and self:AntiSpam(2, 1) then
 		warnSummonBallLightning:Show()
 		specWarnSummonBallLightning:Show()
 		if phase < 3 then
@@ -381,9 +381,9 @@ end
 
 function mod:SPELL_AURA_REMOVED(args)
 	--Conduit deactivations
-	if args:IsSpellID(135680) and args:GetDestCreatureID() == 68397 then--North (Static Shock)
+	if args.spellId == 135680 and args:GetDestCreatureID() == 68397 then--North (Static Shock)
 		timerStaticShockCD:Cancel()
-	elseif args:IsSpellID(135681) and args:GetDestCreatureID() == 68397 then--East (Diffusion Chain)
+	elseif args.spellId == 135681 and args:GetDestCreatureID() == 68397 then--East (Diffusion Chain)
 		timerDiffusionChainCD:Cancel()
 		if self.Options.RangeFrame and self:IsRanged() then--Shouldn't target melee during a normal pillar, only during intermission when all melee are with ranged and out of melee range of boss
 			if phase == 1 then
@@ -392,13 +392,13 @@ function mod:SPELL_AURA_REMOVED(args)
 				DBM.RangeCheck:Show(6)--Switch back to Summon Lightning Orb spell range
 			end
 		end
-	elseif args:IsSpellID(135682) and args:GetDestCreatureID() == 68397 then--South (Overcharge)
+	elseif args.spellId == 135682 and args:GetDestCreatureID() == 68397 then--South (Overcharge)
 		timerOverchargeCD:Cancel()
-	elseif args:IsSpellID(135683) and args:GetDestCreatureID() == 68397 then--West (Bouncing Bolt)
+	elseif args.spellId == 135683 and args:GetDestCreatureID() == 68397 then--West (Bouncing Bolt)
 		timerBouncingBoltCD:Cancel()
 	--Conduit deactivations
 	--BH MODIFY
-	elseif args:IsSpellID(135695) then
+	elseif args.spellId == 135695 then
 		if self.Options.SetIconOnStaticShock then
 			self:SetIcon(args.destName, 0)
 		end
@@ -409,7 +409,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		if canceledshock[args.destName] then
 			canceledshock[args.destName] = free(canceledshock[args.destName])
 		end
-	elseif args:IsSpellID(136295) then
+	elseif args.spellId == 136295 then
 		if self.Options.SetIconOnOvercharge then
 			self:SetIcon(args.destName, 0)
 		end

@@ -30,6 +30,7 @@ L.Button_OK 				= 'OK'
 L.Button_Cancel 			= 'Cancel'
 L.Button_LoadMod 			= 'Load AddOn'
 L.Mod_Enabled				= "Enable boss mod"
+L.Mod_Reset					= "Load default options for this mod (WIP)"
 L.Reset 					= "Reset"
 
 L.Enable  					= "Enable"
@@ -41,9 +42,10 @@ L.IconsInUse				= "Icons used by this mod"
 
 -- Tab: Boss Statistics
 L.BossStatistics			= "Boss Statistics"
-L.Statistic_Kills			= "Kills:"
+L.Statistic_Kills			= "Victories:"
 L.Statistic_Wipes			= "Wipes:"
-L.Statistic_BestKill		= "Best Kill:"
+L.Statistic_Incompletes		= "Incompletes:"--For scenarios, TODO, figure out a clean way to replace any Statistic_Wipes with Statistic_Incompletes for scenario mods
+L.Statistic_BestKill		= "Best Victory:"
 L.Statistic_Heroic			= "Heroic"
 L.Statistic_10Man			= "10man raid"
 L.Statistic_25Man			= "25man raid"
@@ -95,6 +97,7 @@ L.ShowWarningsInChat 		= "Show warnings in chat frame"
 L.ShowFakedRaidWarnings 	= "Show warnings as faked raid warning messages"
 L.WarningIconLeft 			= "Show icon on left side"
 L.WarningIconRight 			= "Show icon on right side"
+L.ShowCountdownText			= "Show countdown text"
 L.RaidWarnMessage 			= "Thanks for using Deadly Boss Mods"
 L.BarWhileMove 				= "Raid warning movable"
 L.RaidWarnSound				= "Play sound on raid warning"

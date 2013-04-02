@@ -1,9 +1,10 @@
 local mod	= DBM:NewMod(825, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
+local sndXG		= mod:NewSound(nil, "SoundXG", true)
 local sndAE		= mod:NewSound(nil, "SoundAE", true)
 
-mod:SetRevision(("$Revision: 9060 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9111 $"):sub(12, -3))
 mod:SetCreatureID(67977)
 mod:SetModelID(46559)
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3)
@@ -15,6 +16,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
+	"UNIT_POWER",
 	"UNIT_AURA",
 	"UNIT_SPELLCAST_SUCCEEDED"
 )
@@ -52,11 +54,15 @@ if GetLocale() == "koKR" then
 else
 	mod:AddBoolOption("SetIconOnTurtles", true)
 end
+mod:AddBoolOption("ClearIconOnTurtles", false)--Different option, because you may want auto marking but not auto clearing. or you may want auto clearning when they "die" but not auto marking when they spawn
+mod:AddBoolOption("warnsj", true, "sound")
 
 local shelldName = GetSpellInfo(137633)
 local shellConcussion = GetSpellInfo(136431)
 local stompActive = false
 local stompCount = 0
+
+local stomptime = 0
 
 --黑手減傷
 for i = 1, 4 do
@@ -71,6 +77,20 @@ local function MyJS()
 end
 --減傷結束
 
+function mod:checkmydebuff()
+    if not UnitDebuff("player", GetSpellInfo(137633)) then
+		self:UnscheduleMethod("checkmydebuff")
+		self:ScheduleMethod(7, "checkmydebuff")
+		if not UnitIsDeadOrGhost("player") then
+			if GetTime() - stomptime > 10 then
+				DBM.Flash:Show(1, 1, 0)
+				specWarnCrystalShell:Show(shelldName)
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sjsl.mp3")--水晶碎裂
+			end
+		end
+	end
+end
+
 local firstRockfall = false--First rockfall after a stomp
 local shellsRemaining = 0
 local lastConcussion = 0
@@ -82,6 +102,7 @@ local AddIcon = 8
 local iconsSet = 3
 local highestVersion = 0
 local hasHighestVersion = false
+local Warned = false
 
 local function clearStomp()
 	stompActive = false
@@ -104,6 +125,7 @@ function mod:OnCombatStart(delay)
 	AddIcon = 8
 	iconsSet = 3
 	alternateSet = false
+	Warned = false
 	table.wipe(adds)
 	table.wipe(kickedShells)
 	timerRockfallCD:Start(15-delay)
@@ -111,13 +133,16 @@ function mod:OnCombatStart(delay)
 	timerStompCD:Start(29-delay, 1)
 	sndWOP:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stompsoon.mp3")--準備踐踏
 	timerBreathCD:Start(-delay)
+	if self:IsDifficulty("heroic10", "heroic25") then
+		if mod.Options.warnsj then
+			mod:checkmydebuff()
+		else
+			DBM.Flash:Show(1, 1, 0)
+			specWarnCrystalShell:Show(shelldName)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sjsl.mp3")--水晶碎裂
+		end
+	end
 --BH DELETE	berserkTimer:Start(-delay)
-	sndAE:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
-	sndAE:Schedule(41, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
-	sndAE:Schedule(42, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
-	sndAE:Schedule(43, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
-	sndAE:Schedule(44, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
-	sndAE:Schedule(45, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	if self.Options.InfoFrame and self:IsDifficulty("heroic10", "heroic25") then
 		DBM.InfoFrame:SetHeader(L.WrongDebuff:format(shelldName))
 		DBM.InfoFrame:Show(5, "playergooddebuff", 137633)
@@ -137,32 +162,32 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(133939) then
+	if args.spellId == 133939 then
 		warnStoneBreath:Show()
 		specWarnStoneBreath:Show(args.sourceName)
 		timerBreathCD:Start()
 		DBM.Flash:Show(1, 0, 0)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3")--快打斷
-		sndAE:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3") --準備AE
-		sndAE:Schedule(41, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
-		sndAE:Schedule(42, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
-		sndAE:Schedule(43, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
-		sndAE:Schedule(44, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
-		sndAE:Schedule(45, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
-	elseif args:IsSpellID(136294) then
+		sndAE:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
+		sndAE:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+		sndAE:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+		sndAE:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndAE:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndAE:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		sndAE:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3")--快打斷
+	elseif args.spellId == 136294 then
 		warnCallofTortos:Show()
 		specWarnCallofTortos:Show()
 		if self:AntiSpam(59, 3) then -- On below 10%, he casts Call of Tortos always. This cast ignores cooldown, so filter below 10% cast.
 			timerCallTortosCD:Start()
 		end
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xwg.mp3")--小烏龜出現
-	elseif args:IsSpellID(135251) then
+		sndXG:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xwg.mp3")--小烏龜出現
+	elseif args.spellId == 135251 then
 		if UnitName("boss1target") == UnitName("player") then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xxsy.mp3")--小心撕咬
 		end
 		warnBite:Show()
 		timerBiteCD:Start()
-	elseif args:IsSpellID(134920) then
+	elseif args.spellId == 134920 then
 		stompActive = true
 		stompCount = stompCount + 1
 		warnQuakeStomp:Show(stompCount)
@@ -176,14 +201,13 @@ function mod:SPELL_CAST_START(args)
 		else
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stompstart.mp3")--踐踏開始
 		end
+		stomptime = GetTime()
 	end
 end
-
 
 local function resetaddstate()
 	iconsSet = 0
 	table.wipe(adds)
---	print("DBM Debug: "..addsActivated.." adds active")
 	if addsActivated >= 1 then--1 or more add is up from last set
 		if alternateSet then--We check whether we started with skull last time or moon
 			AddIcon = 5--Start with moon if we used skull last time
@@ -208,50 +232,65 @@ mod:RegisterOnUpdateHandler(function(self)
 				SetRaidTarget(uId, adds[guid])
 				iconsSet = iconsSet + 1
 				adds[guid] = nil
---				print("DBM Debug: Found an add in targets, setting icon")
 			end
 			local guid2 = UnitGUID("mouseover")
 			if adds[guid2] then
 				SetRaidTarget("mouseover", adds[guid2])
 				iconsSet = iconsSet + 1
 				adds[guid2] = nil
---				print("DBM Debug: Found an add in mouseover, setting icon")
 			end
 		end
 	end
 end, 0.2)
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(133971) then--Shell Block (turtles dying and becoming kickable)
+	if args.spellId == 133971 then--Shell Block (turtles dying and becoming kickable)
 		shellsRemaining = shellsRemaining + 1
 		addsActivated = addsActivated - 1
-	elseif args:IsSpellID(133974) and self.Options.SetIconOnTurtles then--Spinning Shell
+		if DBM:GetRaidRank() > 0 and self.Options.ClearIconOnTurtles then
+			for i = 1, DBM:GetNumGroupMembers() do
+				local uId = "raid"..i.."target"
+				local guid = UnitGUID(uId)
+				if args.destGUID == guid then
+					SetRaidTarget(uId, 0)
+				end
+			end
+		end
+	elseif args.spellId == 133974 and self.Options.SetIconOnTurtles then--Spinning Shell
 		if self:AntiSpam(5, 6) then
 			resetaddstate()
 		end
 		adds[args.destGUID] = AddIcon
---		print("DBM Debug: GUID "..args.destGUID.." is icon "..adds[args.destGUID])--Check to see if table is working.
 		AddIcon = AddIcon - 1
 		addsActivated = addsActivated + 1
 	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(137633) and args:IsPlayer() then
-		DBM.Flash:Show(1, 1, 0)
-		specWarnCrystalShell:Show(shelldName)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sjsl.mp3")--水晶碎裂
+	if args.spellId == 137633 and args:IsPlayer() then
+		if mod.Options.warnsj then
+			mod:checkmydebuff()
+		else
+			DBM.Flash:Show(1, 1, 0)
+			specWarnCrystalShell:Show(shelldName)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sjsl.mp3")--水晶碎裂
+		end
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(134476) then
+	if args.spellId == 134476 then
 		if stompActive then--10 second cd normally, but cd is disabled when stomp active
 			if not firstRockfall then--Announce first one only and ignore the next ones spammed for about 9-10 seconds
 				firstRockfall = true
 				warnRockfall:Show()
 				specWarnRockfall:Show()--To warn of massive incoming for the 9 back to back rockfalls that are incoming
 				self:Schedule(10, clearStomp)
+				if self:IsDifficulty("heroic10", "heroic25") then
+					if mod.Options.warnsj then
+						self:ScheduleMethod(12, "checkmydebuff")
+					end
+				end
 			end
 		else
 			if self:AntiSpam(9, 1) then--sometimes clearstomp doesn't work? i can't find reason cause all logs match this system exactly.
@@ -260,7 +299,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 				timerRockfallCD:Start()
 			end
 		end
-	elseif args:IsSpellID(134031) and not kickedShells[args.destGUID] then--Kick Shell
+	elseif args.spellId == 134031 and not kickedShells[args.destGUID] then--Kick Shell
 		kickedShells[args.destGUID] = true
 		shellsRemaining = shellsRemaining - 1
 		warnKickShell:Show(args.spellName, args.sourceName, shellsRemaining)
@@ -284,11 +323,21 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		warnSummonBats:Show()
 		specWarnSummonBats:Show()
 		timerSummonBatsCD:Start()
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bfcx.mp3")--蝙蝠出現
 	end
 end
 
 local function FindFastestHighestVersion()
 	mod:SendSync("FastestPerson", UnitGUID("player"))
+end
+
+function mod:UNIT_POWER(uId)
+	if (self:GetUnitCreatureId(uId) == 67977) and UnitPower(uId) > 85 and not Warned then
+		Warned = true
+		mod:SendSync("aesoon")
+	elseif (self:GetUnitCreatureId(uId) == 67977) and UnitPower(uId) < 20 and Warned then
+		Warned = false
+	end
 end
 
 function mod:OnSync(msg, guid, ver)
@@ -308,10 +357,17 @@ function mod:OnSync(msg, guid, ver)
 		self:Unschedule(FindFastestHighestVersion)
 		if guid == UnitGUID("player") then
 			hasHighestVersion = true
---			print("DBM Debug: You have highest DBM version with icons enabled and fastest computer. You designated icon setter.")
 		else
 			hasHighestVersion = false
---			print("DBM Debug: You will not be setting icons since your DBM version is out of date or your computer is slower")
+		end
+	elseif msg == "aesoon" then
+		if mod:AntiSpam(15, 10) then
+			sndAE:Schedule(0.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3") --準備AE
+			sndAE:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndAE:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+			sndAE:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndAE:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndAE:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		end
 	end
 end

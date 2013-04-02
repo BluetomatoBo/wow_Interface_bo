@@ -63,7 +63,8 @@ L:SetOptionLocalization({
 	SoundWSP			= "語音警告：$journal:7866 接近20碼內 (請焦點鎖定你的靈魂)",
 	dispsetHex			= "當設定的角色中了混亂詛咒時提示你幫忙驅散",
 	timerDoor			= "計時器：下一个部族大门開啟",
-	timerAdds			= "計時器：下一組小怪刷新"
+	timerAdds			= "計時器：下一組小怪刷新",
+	SetIconOnCharge			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136769)
 })
 
 L:SetMiscLocalization({
@@ -121,14 +122,17 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({	
 	warnKickShell			= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(134031),
-	SoundWOP				= "語音警告：重要技能",	
-	SoundAE					= "倒計時：$spell:133939",	
+	SoundWOP				= "語音警告：重要技能",
+	SoundAE					= "倒計時：$spell:133939",
+	SoundXG					= "語音警告：$journal:7129出現",
 	dr1						= "減傷提示：$spell:134920 1/4",
 	dr2						= "減傷提示：$spell:134920 2/4",
 	dr3						= "減傷提示：$spell:134920 3/4",
 	dr4						= "減傷提示：$spell:134920 4/4",
 	specWarnCrystalShell	= "特別警告：缺少$spell:137633",
 	InfoFrame				= "資訊框：缺少$spell:137633",
+	warnsj					= "特別功能：水晶碎裂使用智能警報方式",
+	ClearIconOnTurtles		= "為$journal:7129取消團隊圖示",
 	SetIconOnTurtles		= "為$journal:7129標示團隊圖示(超過一名以上的團隊助理時不可靠)",
 })
 
@@ -141,8 +145,13 @@ L:SetMiscLocalization({
 -------------
 L= DBM:GetModLocalization(821)
 
+L:SetWarningLocalization({
+	SpecWarnJSA			= ">>> 給毒頭坦減傷 <<<"
+})
+
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
+	SoundXL			= "語音警告：$spell:140138",
 	HudMAP			= "高級定位監視(HUD)：$spell:139822",
 	HudMAP2			= "高級定位監視(HUD)：$spell:139889",
 	dr1				= "減傷提示：$spell:139458 1",
@@ -160,7 +169,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	rampageEnds		= "梅賈拉的怒氣平息了。",
-	Behind			= "迷霧中: "
+	Behind			= "迷霧蛇頭"
 })
 
 ------------
@@ -239,13 +248,19 @@ L= DBM:GetModLocalization(818)
 L:SetWarningLocalization({
 	warnAddsLeft				= "霧獸剩餘: %d",
 	specWarnFogRevealed			= "照出%s了!",
+	specWarnHold				= "黑暗寄生(%d秒)--快開自保技能",
+	specWarnBlueBeam			= "藍光鎖定你 - 不要動!!",
 	specWarnDisintegrationBeam	= "%s (%s)"
 })
 
 L:SetOptionLocalization({
 	SoundWOP					= "語音警告：重要技能",
+	specWarnBlueBeam			= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format(139202),
 	optDD						= "三元光分擔策略",
 	DXsound						= "高級定位監視(HUD)：$spell:133795",
+	InfoFrame					= "信息框：$spell:133597 (若同時監視$spell:133795 則優先顯示$spell:133795層數)",
+	InfoFrameLife				= "信息框：$spell:133795層數",
+	Sayam						= "特殊功能：被吸血時喊出層數(內容可在下方自定義)",
 	nodd						= "不分擔",
 	DD1							= "A:紅黃藍",
 	DD2							= "B:黃藍紅",
@@ -255,13 +270,20 @@ L:SetOptionLocalization({
 	specWarnFogRevealed			= "特別警告：霧獸被照出",
 	specWarnDisintegrationBeam	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format("ej6882"),
 	ArrowOnBeam					= "DBM箭頭：$journal:6882的轉動方向",
-	specWarnDisintegrationBeamL			= "特殊警告：左轉$spell:133775",
-	specWarnDisintegrationBeamR			= "特殊警告：右轉$spell:136316",
-	SetIconRays					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format("ej6891")
+	soundhold					= "黑暗寄生多少秒時提示你開自保(30-剩幾秒驅散-自保持續時間)",
+	specWarnHold				= "特別警告：黑暗寄生開自保",
+	xx1							= "當你被吸血一層時喊話",
+	xx2							= "當你被吸血兩層時喊話",
+	xx3							= "當你被吸血超過三層時喊話(DBM會自動在結尾為你顯示層數)",
+	SetIconRays					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format("ej6891"),
+	SetIconLifeDrain			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(133795)
 })
 
 L:SetMiscLocalization({
-	Eye		= "魔眼"
+	Eye		= "魔眼",
+	xx1noset = "11111111吸我了",
+	xx2noset = "22222層了 快幫我擋 快幫我擋",
+	xx3noset = "我要被吸死了------"
 })
 
 ----------------
@@ -269,8 +291,13 @@ L:SetMiscLocalization({
 ----------------
 L= DBM:GetModLocalization(820)
 
+L:SetWarningLocalization({
+	specWarnFullyMutatedFaded	= "%s 結束"
+})
+
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
+	specWarnFullyMutatedFaded	= "特別警告：$spell:140546 結束",
 	InfoFrame		= "資訊框：首領當前的$journal:6949技能",
 	RangeFrame		= "顯示距離框架(2碼/5碼)",
 	SetIconOnBadOoze	= "為$spell:140506自動標記"

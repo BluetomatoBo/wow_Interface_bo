@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(820, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8974 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9118 $"):sub(12, -3))
 mod:SetCreatureID(69017)--69070 Viscous Horror, 69069 good ooze, 70579 bad ooze (patched out of game, :\)
 mod:SetModelID(47009)
 
@@ -31,6 +31,7 @@ local warnAcidicSpines				= mod:NewTargetAnnounce(136218, 3)
 local warnBlackBlood				= mod:NewStackAnnounce(137000, 2, nil, mod:IsTank() or mod:IsHealer())
 
 local specWarnFullyMutated			= mod:NewSpecialWarningYou(140546)
+local specWarnFullyMutatedFaded		= mod:NewSpecialWarning("specWarnFullyMutatedFaded")
 local specWarnCausticGas			= mod:NewSpecialWarningSpell(136216, nil, nil, nil, 2)--All must be in front for this.
 local specWarnPustuleEruption		= mod:NewSpecialWarningSpell(136247, false, nil, nil, 2)--off by default since every 5 sec, very spammy for special warning
 local specWarnVolatilePathogen		= mod:NewSpecialWarningYou(136228)
@@ -94,11 +95,19 @@ end
 local metabolicBoost = false
 local acidSpinesActive = false--Spread of 5 yards
 local postulesActive = false
+--TODO, make an infoframe that shows players with > 0 debufs and sorts them highest amount of debuffs to lowest. This will show raid leaders or healers who's messing up or who needs to be dispelled.
+local positiveDebuffs = { GetSpellInfo(136184), GetSpellInfo(136186), GetSpellInfo(136182), GetSpellInfo(136180) }
+local failDebuffs  = { GetSpellInfo(136185), GetSpellInfo(136187), GetSpellInfo(136183), GetSpellInfo(136181) }
 
 function mod:BigOoze()
 	specWarnViscousHorror:Show()
 	timerViscousHorrorCD:Start()
 	self:ScheduleMethod(30, "BigOoze")
+end
+
+function mod:DebuffTest()
+	print(positiveDebuffs)
+	print(failDebuffs)
 end
 
 function mod:OnCombatStart(delay)
@@ -122,7 +131,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(136216) then
+	if args.spellId == 136216 then
 		warnCausticGas:Show()
 		specWarnCausticGas:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_kjfd.mp3")--靠近分擔
@@ -131,7 +140,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(136037) then
+	if args.spellId == 136037 then
 		warnPrimordialStrike:Show()
 		if metabolicBoost then--Only issue is updating current bar when he gains buff in between CDs, it does seem to affect it to a degree
 			timerPrimordialStrikeCD:Start(20)
@@ -142,16 +151,16 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(136050) then
+	if args.spellId == 136050 then
 		warnMalformedBlood:Show(args.destName, args.amount or 1)
 		timerMalformedBlood:Start(args.destName)
-	elseif args:IsSpellID(137000) then
+	elseif args.spellId == 137000 then
 		warnBlackBlood:Show(args.destName, args.amount or 1)
 		timerBlackBlood:Start(args.destName)
-	elseif args:IsSpellID(136215) then
+	elseif args.spellId == 136215 then
 		warnGasBladder:Show(args.destName)
 		showspellinfo()
-	elseif args:IsSpellID(136246) then
+	elseif args.spellId == 136246 then
 		postulesActive = true
 		warnEruptingPustules:Show(args.destName)
 		timerPustuleEruptionCD:Start()--not affected by metabolicBoost?
@@ -160,10 +169,10 @@ function mod:SPELL_AURA_APPLIED(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 		end
 		showspellinfo()
-	elseif args:IsSpellID(136225) then
+	elseif args.spellId == 136225 then
 		warnPathogenGlands:Show(args.destName)
 		showspellinfo()	
-	elseif args:IsSpellID(136228) then
+	elseif args.spellId == 136228 then
 		warnVolatilePathogen:Show(args.destName)
 		timerVolatilePathogenCD:Start()
 		if args:IsPlayer() then
@@ -173,22 +182,22 @@ function mod:SPELL_AURA_APPLIED(args)
 		elseif mod:IsHealer() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_byt.mp3")--病原體出現
 		end
-	elseif args:IsSpellID(136245) then
+	elseif args.spellId == 136245 then
 		metabolicBoost = true
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sljs.mp3")--加速
 		warnMetabolicBoost:Show(args.destName)
 		showspellinfo()		
-	elseif args:IsSpellID(136210) then
+	elseif args.spellId == 136210 then
 		warnVentralSacs:Show(args.destName)
 		showspellinfo()
-	elseif args:IsSpellID(136218) then
+	elseif args.spellId == 136218 then
 		acidSpinesActive = true
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(5)
 		end
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 		showspellinfo()
-	elseif args:IsSpellID(140546) and args:IsPlayer() then
+	elseif args.spellId == 140546 and args:IsPlayer() then
 		DBM.Flash:Show(0, 1, 0)
 		specWarnFullyMutated:Show()
 		timerFullyMutated:Start()
@@ -198,25 +207,25 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(136050) then
+	if args.spellId == 136050 then
 		timerMalformedBlood:Cancel(args.destName)
-	elseif args:IsSpellID(136215) then
+	elseif args.spellId == 136215 then
 		timerCausticGasCD:Cancel()
 		showspellinfo()
-	elseif args:IsSpellID(136246) then
+	elseif args.spellId == 136246 then
 		postulesActive = false
 		timerPustuleEruptionCD:Cancel()
 		if self.Options.RangeFrame and not acidSpinesActive then--Check if acidSpinesActive is active, if they are, leave range frame alone
 			DBM.RangeCheck:Hide()
 		end
 		showspellinfo()
-	elseif args:IsSpellID(136225) then
+	elseif args.spellId == 136225 then
 		timerVolatilePathogenCD:Cancel()
 		showspellinfo()
-	elseif args:IsSpellID(136245) then
+	elseif args.spellId == 136245 then
 		metabolicBoost = false
 		showspellinfo()
-	elseif args:IsSpellID(136218) then
+	elseif args.spellId == 136218 then
 		acidSpinesActive = false
 		if self.Options.RangeFrame then
 			if postulesActive then
@@ -226,8 +235,10 @@ function mod:SPELL_AURA_REMOVED(args)
 			end
 		end
 		showspellinfo()
-	elseif args:IsSpellID(136210) then
+	elseif args.spellId == 136210 then
 		showspellinfo()
+	elseif args.spellId == 140546 and args:IsPlayer() then
+		specWarnFullyMutatedFaded:Show(args.spellName)
 	end
 end
 

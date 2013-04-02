@@ -170,6 +170,7 @@ end
 ------------------------
 local function sortFuncDesc(a, b) return lines[a] > lines[b] end
 local function sortFuncAsc(a, b) return lines[a] < lines[b] end
+local function namesortFuncAsc(a, b) return a < b end
 local function updateLines()
 	table.wipe(sortedLines)
 	for i in pairs(lines) do
@@ -180,6 +181,14 @@ local function updateLines()
 	else
 		table.sort(sortedLines, sortFuncDesc)
 	end
+end
+
+local function updateNamesortLines()
+	table.wipe(sortedLines)
+	for i in pairs(lines) do
+		sortedLines[#sortedLines + 1] = i
+	end
+	table.sort(sortedLines, namesortFuncAsc)
 end
 
 local function updateIcons()
@@ -493,6 +502,51 @@ end
 
 local function updatePlayerDebuffStacks()
 	table.wipe(lines)
+	updateIcons()	-- update Icons first in case of an "icon modifier"
+	if IsInRaid() then
+		for i = 1, GetNumGroupMembers() do
+			local uId = "raid"..i
+			if UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)) then
+				lines[UnitName(uId)] = select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)))
+			elseif UnitDebuff(uId, GetSpellInfo(pIndex)) then
+				lines[UnitName(uId)] = lastStacks[UnitName(uId)] or 0			-- is always 0 ?
+				if iconModifier then
+					icons[UnitName(uId)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(iconModifier)
+				end
+			end
+		end
+	elseif IsInGroup() then
+		for i = 1, GetNumSubgroupMembers() do
+			local uId = "party"..i
+			if UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)) then
+				lines[UnitName(uId)] = select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)))
+			elseif UnitDebuff(uId, GetSpellInfo(pIndex)) then
+				lines[UnitName(uId)] = lastStacks[UnitName(uId)] or 0
+				if iconModifier then
+					icons[UnitName(uId)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(iconModifier)
+				end
+			end
+		end
+		if UnitDebuff("player", GetSpellInfo(infoFrameThreshold)) then
+			lines[UnitName("player")] = select(4, UnitDebuff("player", GetSpellInfo(infoFrameThreshold)))
+		elseif UnitDebuff("player", GetSpellInfo(pIndex)) then
+			lines[UnitName("player")] = lastStacks[UnitName("player")]
+			if iconModifier then
+				icons[UnitName("player")] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(iconModifier)
+			end
+		end
+	end
+
+	table.wipe(lastStacks)		-- 'Erase' the old table, and copy the current values into it
+	for k,v in pairs(lines) do
+		lastStacks[k] = v
+	end
+
+	updateLines()
+end
+
+local function updatePlayerDebuffStacksTime()
+	table.wipe(lines)
 	local UnitBossTarget
 	local UnitDebuffTime
 	if IsInRaid() then
@@ -509,7 +563,11 @@ local function updatePlayerDebuffStacks()
 				else
 					UnitDebuffTime = ""
 				end
-				lines[UnitBossTarget] = "["..select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold))).."層]  "..UnitDebuffTime
+				if select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold))) > 1 then
+					lines[UnitBossTarget] = "["..select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold))).."層]  "..UnitDebuffTime
+				else
+					lines[UnitBossTarget] = UnitDebuffTime
+				end
 			end			
 		end
 	elseif IsInGroup() then
@@ -526,7 +584,11 @@ local function updatePlayerDebuffStacks()
 				else
 					UnitDebuffTime = ""
 				end
-				lines[UnitBossTarget] = "["..select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold))).."層]  "..UnitDebuffTime
+				if select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold))) > 1 then
+					lines[UnitBossTarget] = "["..select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold))).."層]  "..UnitDebuffTime
+				else
+					lines[UnitBossTarget] = UnitDebuffTime
+				end
 			end
 		end
 		if UnitDebuff("player", GetSpellInfo(infoFrameThreshold)) then
@@ -540,11 +602,15 @@ local function updatePlayerDebuffStacks()
 			else
 				UnitDebuffTime = ""
 			end
-			lines[UnitBossTarget] = "["..select(4, UnitDebuff("player", GetSpellInfo(infoFrameThreshold))).."層]  "..UnitDebuffTime
+			if select(4, UnitDebuff("player", GetSpellInfo(infoFrameThreshold))) > 1 then
+				lines[UnitBossTarget] = "["..select(4, UnitDebuff("player", GetSpellInfo(infoFrameThreshold))).."層]  "..UnitDebuffTime
+			else
+				lines[UnitBossTarget] = UnitDebuffTime
+			end
 		end
 	end
-
-	updateLines()
+--	updateLines()
+	updateNamesortLines()
 	updateIcons()
 end
 
@@ -673,6 +739,8 @@ function onUpdate(self, elapsed)
 		updatePlayerTargets()
 	elseif currentEvent == "playerdebuffstacks" then
 		updatePlayerDebuffStacks()
+	elseif currentEvent == "playerdebuffstackstime" then
+		updatePlayerDebuffStacksTime()
 	elseif currentEvent == "bossdebuffstacks" then
 		updateBossDebuffStacks()
 	elseif currentEvent == "other" then
@@ -695,7 +763,7 @@ function onUpdate(self, elapsed)
 			addedSelf = true
 			if currentEvent == "playerbuff" or currentEvent == "playerbaddebuff" or currentEvent == "playergooddebuff" or currentEvent == "health" or currentEvent == "playertargets" or (currentEvent == "playeraggro" and infoFrameThreshold == 3) then--Player name on frame bad a thing make it red.
 				self:AddDoubleLine(name, power, 255, 0, 0, 255, 255, 255)	-- (leftText, rightText, left.R, left.G, left.B, right.R, right.G, right.B)
-			elseif currentEvent == "playerbuffstacks" or currentEvent == "playerdebuffstacks" or (currentEvent == "playeraggro" and infoFrameThreshold == 0) or currentEvent == "enemypower" then--Player name on frame is a good thing, make it green
+			elseif currentEvent == "playerbuffstacks" or currentEvent == "playerdebuffstackstime" or (currentEvent == "playeraggro" and infoFrameThreshold == 0) or currentEvent == "enemypower" then--Player name on frame is a good thing, make it green
 				self:AddDoubleLine(name, power, 0, 255, 0, 255, 255, 255)	-- (leftText, rightText, left.R, left.G, left.B, right.R, right.G, right.B)
 			else--it's not defined a color, so default to white.
 				self:AddDoubleLine(name, power, color.R, color.G, color.B, 255, 255, 255)	-- (leftText, rightText, left.R, left.G, left.B, right.R, right.G, right.B)
@@ -752,10 +820,12 @@ function infoFrame:Show(maxLines, event, threshold, ...)
 		updatePlayerAggro()
 	elseif currentEvent == "playerbuffstacks" then
 		updatePlayerBuffStacks()
-	elseif currentEvent == "playertargets" then
-		updatePlayerTargets()
 	elseif currentEvent == "playerdebuffstacks" then
 		updatePlayerDebuffStacks()
+	elseif currentEvent == "playerdebuffstackstime" then
+		updatePlayerDebuffStacksTime()
+	elseif currentEvent == "playertargets" then
+		updatePlayerTargets()
 	elseif currentEvent == "other" then
 		updateOther()
 	elseif currentEvent == "time" then

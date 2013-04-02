@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8974 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9130 $"):sub(12, -3))
 mod:SetCreatureID(68078, 68079, 68080, 68081)--Ro'shak 68079, Quet'zal 68080, Dam'ren 68081, Iron Qon 68078
 mod:SetMainBossID(68078)
 mod:SetModelID(46627) -- Iron Qon, 46628 Ro'shak, 46629 Quet'zal, 46630 Dam'ren
@@ -220,7 +220,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(134691) then
+	if args.spellId == 134691 then
 		warnImpale:Show(args.destName, args.amount or 1)
 		timerImpaleCD:Start()
 		if args:IsPlayer() then
@@ -232,17 +232,17 @@ function mod:SPELL_AURA_APPLIED(args)
 				specWarnImpaleOther:Show(args.destName)
 			end
 		end
-	elseif args:IsSpellID(134647) and args:IsPlayer() then
+	elseif args.spellId == 134647 and args:IsPlayer() then
 		timerScorched:Start()
 		if (args.amount or 1) > 2 then
 			specWarnScorched:Show(args.amount or 1)
 		end
-	elseif args:IsSpellID(137221) then
+	elseif args.spellId == 137221 then
 		warnMoltenOverload:Show()
 		specWarnMoltenOverload:Show()
 		timerMoltenOverload:Start()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_rycz.mp3") --熔岩超載
-	elseif args:IsSpellID(136192) then
+	elseif args.spellId == 136192 then
 		warnLightningStorm:Show(args.destName)
 		if phase == 1 then--Heroic
 			timerLightningStormCD:Start(38)
@@ -264,17 +264,17 @@ function mod:SPELL_AURA_APPLIED(args)
 			end			
 		end
 		--BH ADD END
-	elseif args:IsSpellID(135145) then
+	elseif args.spellId == 135145 then
 		warnFreeze:Show(args.destName)
 		if phase == 2 then--Heroic
 			timerFreezeCD:Start(36)
 		else
 			timerFreezeCD:Start()
 		end
-	elseif args:IsSpellID(136323) then
+	elseif args.spellId == 136323 then
 		warnRisingAnger:Show(args.destName, args.amount or 1)
 		timerRisingAngerCD:Start()
-	elseif args:IsSpellID(136193) then
+	elseif args.spellId == 136193 then
 		if phase > 2 then
 			if self.Options.HudMAP2 and not FireMarkers[args.destName] then
 				FireMarkers[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 10, nil, 1, 1 ,1 ,0.8):Appear():RegisterForAlerts())
@@ -286,15 +286,15 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(134647) and args:IsPlayer() then
+	if args.spellId == 134647 and args:IsPlayer() then
 		timerScorched:Cancel()
 	--BH ADD
-	elseif args:IsSpellID(136192) then
+	elseif args.spellId == 136192 then
 		if lightmaker[args.destName] then
 			lightmaker[args.destName] = free(lightmaker[args.destName])
 		end
 	--BH ADD END
-	elseif args:IsSpellID(136193) then
+	elseif args.spellId == 136193 then
 		if FireMarkers[args.destName] then
 			FireMarkers[args.destName] = free(FireMarkers[args.destName])
 		end
@@ -302,10 +302,10 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(134664) then
+	if args.spellId == 134664 then
 		warnMoltenInferno:Show()
 	--Dead zone IDs, each dead zone has two shields and two openings. Each spellid identifies those openings.
-	elseif args:IsSpellID(137226) then--Front, Right Shielded
+	elseif args.spellId == 137226 then--Front, Right Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_FRONT, DBM_CORE_RIGHT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
@@ -314,7 +314,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack left or Behind (maybe add special warning that says where you can attack, for dps?)
-	elseif args:IsSpellID(137227) then--Left, Right Shielded
+	elseif args.spellId == 137227 then--Left, Right Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_LEFT, DBM_CORE_RIGHT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
@@ -323,7 +323,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack Front or Behind
-	elseif args:IsSpellID(137228) then--Left, Front Shielded
+	elseif args.spellId == 137228 then--Left, Front Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_LEFT, DBM_CORE_FRONT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
@@ -332,7 +332,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack Right or Behind
-	elseif args:IsSpellID(137229) then--Back, Front Shielded
+	elseif args.spellId == 137229 then--Back, Front Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_BACK, DBM_CORE_FRONT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
@@ -341,7 +341,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack left or Right
-	elseif args:IsSpellID(137230) then--Back, Left Shielded
+	elseif args.spellId == 137230 then--Back, Left Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_BACK, DBM_CORE_LEFT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
@@ -350,7 +350,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mq.mp3")
 		end
 		--Attack Front or Right
-	elseif args:IsSpellID(137231) then--Back, Right Shielded
+	elseif args.spellId == 137231 then--Back, Right Shielded
 		warnDeadZone:Show(args.spellName, DBM_CORE_BACK, DBM_CORE_RIGHT)
 		timerDeadZoneCD:Start()
 		if self.Options.SoundARAT then
@@ -363,7 +363,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(134926) and phase < 4 then
+	if args.spellId == 134926 and phase < 4 then
 		warnThrowSpear:Show()
 		specWarnThrowSpear:Show()
 		timerThrowSpearCD:Start()
@@ -413,7 +413,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			warnPhase2:Show()
 			if self:IsDifficulty("heroic10", "heroic25") then
 				timerFreezeCD:Start(13)
-				timerFrostSpikeCD:Start(18)
+				timerFrostSpikeCD:Start(15)
 			end
 			timerLightningStormCD:Start()
 			warnWindStorm:Schedule(52)
@@ -460,7 +460,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerFreezeCD:Cancel()
 			warnPhase4:Show()
 			timerRisingAngerCD:Start(15)
-			timerFistSmashCD:Start(25, 1)
+			timerFistSmashCD:Start(62, 1)
 			if self:IsDifficulty("heroic10", "heroic25") then
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3") --2階段
 			end
@@ -485,7 +485,11 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		fistSmashCount = fistSmashCount + 1
 		warnFistSmash:Show(fistSmashCount)
 		specWarnFistSmash:Show()
-		timerFistSmashCD:Start(nil, fistSmashCount+1)
+		if self:IsDifficulty("heroic10", "heroic25") then
+			timerFistSmashCD:Start(30, fistSmashCount+1) -- heroic cd longer.
+		else
+			timerFistSmashCD:Start(nil, fistSmashCount+1)
+		end
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
 	end
 end
@@ -547,11 +551,7 @@ function mod:UNIT_DIED(args)
 		--BH MODIFY
 		warnPhase4:Show()
 		timerRisingAngerCD:Start()
-		if self:IsDifficulty("normal25", "lfr25") then --lfr not comfirms
-			timerFistSmashCD:Start(22.5, 1)
-		else
-			timerFistSmashCD:Start(31.5, 1)
-		end
+		timerFistSmashCD:Start(22.5, 1)--fist smash cd is random. (22.5 or 31.5)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3") --2階段
 	end
 end

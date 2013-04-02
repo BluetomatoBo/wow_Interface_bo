@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPCX	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8952 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9090 $"):sub(12, -3))
 mod:SetCreatureID(68905, 68904)--Lu'lin 68905, Suen 68904
 mod:SetModelID(46975)--Lu'lin, 46974 Suen
 
@@ -71,6 +71,7 @@ local specWarnTT3						= mod:NewSpecialWarningSpell(138306)
 local timerDayCD						= mod:NewTimer(183, "timerDayCD", 122789) -- timer is 183 or 190 (confirmed in 10 man. variable)
 local timerCosmicBarrageCD				= mod:NewCDTimer(23, 136752)
 local timerTearsOfTheSunCD				= mod:NewCDTimer(40, 137404)
+local timerTearsOfTheSun				= mod:NewBuffActiveTimer(10, 137404)
 local timerBeastOfNightmaresCD			= mod:NewCDTimer(50, 137375)
 --Light
 local timerDuskCD						= mod:NewTimer(360, "timerDuskCD", "Interface\\Icons\\achievement_zone_easternplaguelands")--it seems always 360s after combat entered. (day timer is variables, so not reliable to day phase)
@@ -126,23 +127,24 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(137491) then
+	if args.spellId == 137491 then
 		self:SendSync("Inferno")
-	elseif args:IsSpellID(137531) then
+	elseif args.spellId == 137531 then
 		self:SendSync("TidalForce")
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(136752) then
+	if args.spellId == 136752 then
 		self:SendSync("CosmicBarrage")
-	elseif args:IsSpellID(137404) then
+	elseif args.spellId == 137404 then
 		warnTearsOfSun:Show()
 		specWarnTearsOfSun:Show()
+		timerTearsOfTheSun:Start()
 		if timerDayCD:GetTime() < 145 then
 			timerTearsOfTheSunCD:Start()
 		end
-	elseif args:IsSpellID(137375) then
+	elseif args.spellId == 137375 then
 		warnBeastOfNightmares:Show(args.destName)
 		specWarnBeastOfNightmares:Show()
 		if args:IsPlayer() or mod:IsHealer() then
@@ -157,7 +159,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if timerDayCD:GetTime() < 135 then
 			timerBeastOfNightmaresCD:Start()
 		end
-	elseif args:IsSpellID(137408) then
+	elseif args.spellId == 137408 then
 		warnFanOfFlames:Show(args.destName, args.amount or 1)
 		timerFanOfFlames:Start(args.destName)
 		timerFanOfFlamesCD:Start()
@@ -173,10 +175,10 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 			end
 		end
-	elseif args:IsSpellID(137417) and args:IsPlayer() and self:AntiSpam(3, 4) then
+	elseif args.spellId == 137417 and args:IsPlayer() and self:AntiSpam(3, 4) then
 		specWarnFlamesofPassionMove:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
-	elseif args:IsSpellID(138264) and args:IsPlayer() then  --白虎
+	elseif args.spellId == 138264 and args:IsPlayer() then  --白虎
 		if self.Options.HudMAP then
 			lightmaker["1"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,705,352,731,381))
 			lightmaker["2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,731,381,709,377))
@@ -185,14 +187,14 @@ function mod:SPELL_AURA_APPLIED(args)
 			lightmaker["5"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,712,398,709,376))
 			lightmaker["6"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,376,705,354))
 		end
-	elseif args:IsSpellID(138267) and args:IsPlayer() then  --青龍
+	elseif args.spellId == 138267 and args:IsPlayer() then  --青龍
 		if self.Options.HudMAP then
 			lightmaker["1"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,693,393,686,371))
 			lightmaker["2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,686,371,710,377))
 			lightmaker["3"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,710,377,704,353))
 			lightmaker["4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,704,353,725,361))
 		end
-	elseif args:IsSpellID(138254) and args:IsPlayer() then  --玄牛
+	elseif args.spellId == 138254 and args:IsPlayer() then  --玄牛
 		if self.Options.HudMAP then
 			lightmaker["1"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,713,401,709,376))
 			lightmaker["2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,376,705,352))
@@ -200,7 +202,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			lightmaker["4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,688,370,709,376))
 			lightmaker["5"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,376,732,383))
 		end
-	elseif args:IsSpellID(138189) and args:IsPlayer() then  --红鹤
+	elseif args.spellId == 138189 and args:IsPlayer() then  --红鹤
 		if self.Options.HudMAP then
 			lightmaker["1"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,733,382,705,353))
 			lightmaker["2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,705,353,687,371))
@@ -208,15 +210,15 @@ function mod:SPELL_AURA_APPLIED(args)
 			lightmaker["4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,377,732,383))
 			lightmaker["5"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,732,383,713,401))
 		end		
-	elseif args:IsSpellID(138300) and self:AntiSpam(40, 10) then
+	elseif args.spellId == 138300 and self:AntiSpam(40, 10) then
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xntt.mp3")--玄牛圖騰
 		specWarnTT1:Show()
 		timerTT1CD:Start()
-	elseif args:IsSpellID(138855) and self:AntiSpam(40, 11) then
+	elseif args.spellId == 138855 and self:AntiSpam(40, 11) then
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bhtt.mp3")--白虎圖騰
 		specWarnTT2:Show()
 		timerTT2CD:Start()
-	elseif args:IsSpellID(138306) and self:AntiSpam(40, 12) then
+	elseif args.spellId == 138306 and self:AntiSpam(40, 12) then
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_yjtt.mp3")--玉蛟圖騰
 		specWarnTT3:Show()
 		timerTT3CD:Start()
@@ -225,24 +227,24 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(137408) then
+	if args.spellId == 137408 then
 		timerFanOfFlames:Cancel(args.destName)
-	elseif args:IsSpellID(138264) and args:IsPlayer() then
+	elseif args.spellId == 138264 and args:IsPlayer() then
 		if self.Options.HudMAP then
 			DBMHudMap:FreeEncounterMarkers()
 			table.wipe(lightmaker)
 		end
-	elseif args:IsSpellID(138267) and args:IsPlayer() then
+	elseif args.spellId == 138267 and args:IsPlayer() then
 		if self.Options.HudMAP then
 			DBMHudMap:FreeEncounterMarkers()
 			table.wipe(lightmaker)
 		end
-	elseif args:IsSpellID(138254) and args:IsPlayer() then
+	elseif args.spellId == 138254 and args:IsPlayer() then
 		if self.Options.HudMAP then
 			DBMHudMap:FreeEncounterMarkers()
 			table.wipe(lightmaker)
 		end
-	elseif args:IsSpellID(138189) and args:IsPlayer() then
+	elseif args.spellId == 138189 and args:IsPlayer() then
 		if self.Options.HudMAP then
 			DBMHudMap:FreeEncounterMarkers()
 			table.wipe(lightmaker)
@@ -251,14 +253,14 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(137414) then
+	if args.spellId == 137414 then
 		warnFlamesOfPassion:Show()
 		timerFlamesOfPassionCD:Start()
 	end
 end
 
 function mod:SPELL_SUMMON(args)
-	if args:IsSpellID(137419) then
+	if args.spellId == 137419 then
 		warnIceComet:Show()
 		specWarnIceComet:Show()
 		if self:IsDifficulty("heroic10", "heroic25") then

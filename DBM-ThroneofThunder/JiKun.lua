@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPWS	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9063 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9112 $"):sub(12, -3))
 mod:SetCreatureID(69712)
 mod:SetModelID(46675)
 
@@ -38,16 +38,15 @@ local specWarnBigBird		= mod:NewSpecialWarningSwitch("ej7827", mod:IsTank())
 
 --local timerCawsCD			= mod:NewCDTimer(15, 138923)--Variable beyond usefulness. anywhere from 18 second cd and 50.
 local timerQuills			= mod:NewBuffActiveTimer(10, 134380)
-local timerQuillsCD			= mod:NewCDTimer(60, 134380)--variable because he has two other channeled abilities with different cds, so this is cast every 60-67 seconds usually after channel of some other spell ends
+local timerQuillsCD			= mod:NewCDTimer(62.5, 134380)--variable because he has two other channeled abilities with different cds, so this is cast every 62.5-67 seconds usually after channel of some other spell ends
 local timerFlockCD	 		= mod:NewTimer(30, "timerFlockCD", 15746)
+local timerFeedYoungCD	 	= mod:NewCDTimer(30, 137528)--30-40 seconds (always 30 unless delayed by other channeled spells)
 local timerTalonRakeCD		= mod:NewCDTimer(20, 134366, mod:IsTank() or mod:IsHealer())--20-30 second variation
 local timerTalonRake		= mod:NewTargetTimer(60, 134366, mod:IsTank() or mod:IsHealer())
-local timerDowndraft		= mod:NewBuffActiveTimer(10, 134730)
+local timerDowndraft		= mod:NewBuffActiveTimer(10, 134370)
 local timerDowndraftCD		= mod:NewCDTimer(97, 134370)
 local timerFlight			= mod:NewBuffFadesTimer(10, 133755)
 local timerPrimalNutriment	= mod:NewBuffFadesTimer(30, 140741)
--- BH ADD
-local timerFeedYoung		= mod:NewCDTimer(30, 137528)
 
 mod:AddBoolOption("RangeFrame", mod:IsRanged())
 
@@ -105,7 +104,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(134366) then
+	if args.spellId == 134366 then
 		warnTalonRake:Show(args.destName, args.amount or 1)
 		timerTalonRake:Start(args.destName)
 		timerTalonRakeCD:Start()
@@ -121,7 +120,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 			end
 		end
-	elseif args:IsSpellID(137528) then
+	elseif args.spellId == 137528 then
 		warnFeedYoung:Show()
 		specWarnFeedYoung:Show()
 		wstime = GetTime()
@@ -131,39 +130,39 @@ function mod:SPELL_AURA_APPLIED(args)
 		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		sndWOPWS:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wsyc.mp3") --餵食	
 		if self:IsDifficulty("normal10", "heroic10", "lfr25") then
-			timerFeedYoung:Start(40)
+			timerFeedYoungCD:Start(40)
 			sndWOPWS:Schedule(36, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbws.mp3")
 			sndWOPWS:Schedule(37.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 			sndWOPWS:Schedule(38.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 			sndWOPWS:Schedule(39.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		else
-			timerFeedYoung:Start(30)
+			timerFeedYoungCD:Start(30)
 			sndWOPWS:Schedule(26, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbws.mp3")
 			sndWOPWS:Schedule(27.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 			sndWOPWS:Schedule(28.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 			sndWOPWS:Schedule(29.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		end	
-	elseif args:IsSpellID(133755) and args:IsPlayer() then
+	elseif args.spellId == 133755 and args:IsPlayer() then
 		timerFlight:Start()
-	elseif args:IsSpellID(140741) and args:IsPlayer() then
+	elseif args.spellId == 140741 and args:IsPlayer() then
 		timerPrimalNutriment:Start()
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(134366) then
+	if args.spellId == 134366 then
 		timerTalonRake:Cancel(args.destName)
 	end
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(134380) then
+	if args.spellId == 134380 then
 		warnQuills:Show()
 		specWarnQuills:Show()
 		timerQuills:Start()
 		if self:IsDifficulty("normal10", "heroic10", "lfr25") then
-			timerQuillsCD:Start(80)
+			timerQuillsCD:Start(81)--exactly 81 sec in lfr
 		else
 			timerQuillsCD:Start()
 		end
@@ -172,7 +171,7 @@ function mod:SPELL_CAST_START(args)
 		else
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
 		end
-	elseif args:IsSpellID(134370) then
+	elseif args.spellId == 134370 then
 		warnDowndraft:Show()
 		specWarnDowndraft:Show()
 		timerDowndraft:Start()
@@ -213,7 +212,7 @@ function mod:SPELL_CAST_START(args)
 			sndWOP:Schedule(94, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 			sndWOP:Schedule(95, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		end
-	elseif args:IsSpellID(134380) and self:AntiSpam(2, 1) then--Maybe adjust anti spam a bit or find a different way to go about this. It is important information though.
+	elseif args.spellId == 134380 and self:AntiSpam(2, 1) then--Maybe adjust anti spam a bit or find a different way to go about this. It is important information though.
 		warnLayEgg:Show()
 	end
 end

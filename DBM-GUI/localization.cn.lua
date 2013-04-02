@@ -34,6 +34,7 @@ L.Button_OK 				= '确定'
 L.Button_Cancel 			= '取消'
 L.Button_LoadMod 			= '加载插件'
 L.Mod_Enabled				= "开启模块"
+L.Mod_Reset					= "恢复默认设置 (未完成)"
 L.Reset 					= "重置"
 
 L.Enable  					= "开启"
@@ -46,6 +47,8 @@ L.IconsInUse				= "该模块使用到的团队标记"
 -- Tab: Boss Statistics
 L.BossStatistics			= "首领统计"
 L.Statistic_Kills			= "击杀："
+L.Statistic_Wipes			= "失败："
+L.Statistic_Incompletes		= "完成:"--For scenarios, TODO, figure out a clean way to replace any Statistic_Wipes with Statistic_Incompletes for scenario mods
 L.Statistic_Wipes			= "失败："
 L.Statistic_BestKill		= "最好成绩："
 L.Statistic_Heroic			= "英雄模式"
@@ -99,6 +102,7 @@ L.ShowWarningsInChat 		= "在聊天窗口中显示警报"
 L.ShowFakedRaidWarnings 	= "以伪装团队警报信息的方式显示警报内容"
 L.WarningIconLeft 			= "左侧显示图标"
 L.WarningIconRight 			= "右侧显示图标"
+L.ShowCountdownText			= "显示倒数文字"
 L.RaidWarnMessage 			= "感谢您使用Deadly Boss Mods"
 L.BarWhileMove 				= "可移动团队警报"
 L.RaidWarnSound				= "发出团队警报时播放声音"

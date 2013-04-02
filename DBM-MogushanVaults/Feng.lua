@@ -189,7 +189,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerLightningLashCD:Start()
 		if mod.Options.InfoFrame then
 			DBM.InfoFrame:SetHeader(GetSpellInfo(131788))
-			DBM.InfoFrame:Show(3, "playerdebuffstacks", 131788)
+			DBM.InfoFrame:Show(3, "playerdebuffstackstime", 131788)
 		end
 	elseif args:IsSpellID(116942) then
 		warnFlamingSpear:Show(args.destName, 1)
@@ -197,7 +197,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerFlamingSpearCD:Start()
 		if mod.Options.InfoFrame then
 			DBM.InfoFrame:SetHeader(GetSpellInfo(116942))
-			DBM.InfoFrame:Show(3, "playerdebuffstacks", 116942)
+			DBM.InfoFrame:Show(3, "playerdebuffstackstime", 116942)
 		end
 	elseif args:IsSpellID(131790) then
 		warnArcaneShock:Show(args.destName, 1)
@@ -205,7 +205,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerArcaneShockCD:Start()
 		if mod.Options.InfoFrame then
 			DBM.InfoFrame:SetHeader(GetSpellInfo(131790))
-			DBM.InfoFrame:Show(3, "playerdebuffstacks", 131790)
+			DBM.InfoFrame:Show(3, "playerdebuffstackstime", 131790)
 		end
 	elseif args:IsSpellID(131792) then
 		warnShadowBurn:Show(args.destName, 1)
@@ -213,7 +213,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerShadowBurnCD:Start()
 		if mod.Options.InfoFrame then
 			DBM.InfoFrame:SetHeader(GetSpellInfo(131792))
-			DBM.InfoFrame:Show(3, "playerdebuffstacks", 131792)
+			DBM.InfoFrame:Show(3, "playerdebuffstackstime", 131792)
 		end
 	elseif args:IsSpellID(118302) then
 		warnReversalLightningFists:Show(args.destName)
