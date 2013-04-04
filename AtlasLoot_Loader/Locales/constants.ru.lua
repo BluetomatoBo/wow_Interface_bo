@@ -1,4 +1,4 @@
-﻿-- $Id: constants.ru.lua 4133 2013-03-09 07:45:03Z hegarol $
+﻿-- $Id: constants.ru.lua 4163 2013-03-19 15:06:21Z dynaletik $
 --[[
 constants.ru.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -391,7 +391,6 @@ if AL then
 	AL["Potions"] = "Зелья";
 	AL["Transmutes"] = "Трансмутация";
 	AL["Flasks"] = "Фляги";
-	AL["Guild"] = "Гильдия";
 	
 	-- Blacksmithing
 	AL["Cataclysm Vendor Sold Plans"] = "Чертежы Cataclysmа у торговцев";
@@ -790,6 +789,19 @@ if AL then
 	AL["Husk of the Old God"] = "Броня Древнего Бога";
 	AL["Carapace of the Old God"] = "Панцирь Древнего Бога";
 
+	-- Faction related strings
+	AL["Alliance"] = "Альянс";
+	AL["Horde"] = "Орда";
+	AL["Neutral"] = "Равнодушие";
+	AL["Friendly"] = "Дружелюбие";
+	AL["Honored"] = "Уважение";
+	AL["Revered"] = "Почтение";
+	AL["Exalted"] = "Превознесение";
+	AL["Best Friend"] = "Лучший друг";
+	-- AL["Rank 4"] = true;
+	-- AL["Rank 8"] = true;
+	AL["Winterfin Retreat"] = "Холодный Плавник";
+
 	-- Recipe origin strings
 	AL["Trainer"] = "Тренер";
 	AL["Discovery"] = "Находка";
@@ -914,10 +926,17 @@ if AL then
 	AL["Servant's Quarter Animal Bosses"] = "Боссы Комнаты Слуг";
 	AL["Master Elemental Shaper Krixix"] = "Ваятель стихий Криксикс";
 
-	-- Zones
-	AL["Trial of the Grand Crusader"] = "Испытание великого крестоносца";
+	-- Zone related strings
+	AL["Azeroth"] = "Азерот";
+	AL["Blackrock Mountain"] = "Черная гора";
+	AL["Caverns of Time"] = "Пещеры Времени";
 	AL["Crusader's Square"] = "Площадь рыцарей";
+	AL["Darkmoon Island"] = "Остров Новолуния";
+	AL["East"] = "Восток";
+	AL["North"] = "Север";
 	AL["The Gauntlet"] = "Улица Испытаний";
+	AL["Trial of the Grand Crusader"] = "Испытание великого крестоносца";
+	AL["West"] = "Запад";
 
 	-- Shortcuts for Bossname files
 	AL["Avatar"] = "Аватара"; -- Avatar of the Martyred

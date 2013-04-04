@@ -1,10 +1,9 @@
--- $Id: worldevents.lua 4099 2013-02-24 13:19:14Z hegarol $
+-- $Id: worldevents.lua 4172 2013-03-31 22:53:10Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
+local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
-local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
 local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
-local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 local moduleName = "AtlasLoot_WorldEvents"
 
 -- Index
@@ -57,9 +56,9 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 12, 45154, "", "=q3=Necklace of Valiant Blood", "=ds=#s2#", "#CHAMPSEAL:10#" };
 				{ 13, 45152, "", "=q3=Pendant of Azure Dreams", "=ds=#s2#", "#CHAMPSEAL:10#" };
 				{ 14, 45131, "", "=q3=Jouster's Fury", "=ds=#s14#", "#CHAMPSEAL:10#" };
-				{ 17, 45078, "", "=q4=Dagger of Lunar Purity", "=ds=#h3#, #w4#", "#CHAMPSEAL:25#" };
+				{ 17, 45078, "", "=q4=Dagger of Lunar Purity", "=ds=#h1#, #w4#", "#CHAMPSEAL:25#" };
 				{ 18, 45077, "", "=q4=Dagger of the Rising Moon", "=ds=#h1#, #w4#", "#CHAMPSEAL:25#" };
-				{ 19, 45129, "", "=q4=Gnomeregan Bonechopper", "=ds=#h3#, #w10#", "#CHAMPSEAL:25#" };
+				{ 19, 45129, "", "=q4=Gnomeregan Bonechopper", "=ds=#h1#, #w10#", "#CHAMPSEAL:25#" };
 				{ 20, 45074, "", "=q4=Claymore of the Prophet", "=ds=#h2#, #w10#", "#CHAMPSEAL:25#" };
 				{ 21, 45076, "", "=q4=Teldrassil Protector", "=ds=#h1#, #w1#", "#CHAMPSEAL:25#" };
 				{ 22, 45075, "", "=q4=Ironforge Smasher", "=ds=#h1#, #w6#", "#CHAMPSEAL:25#" };
@@ -82,9 +81,9 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 12, 45213, "", "=q3=Pendant of Emerald Crusader", "=ds=#s2#", "#CHAMPSEAL:10#" };
 				{ 13, 45223, "", "=q3=Razor's Edge Pendant", "=ds=#s2#", "#CHAMPSEAL:10#" };
 				{ 14, 45219, "", "=q3=Jouster's Fury", "=ds=#s14#", "#CHAMPSEAL:10#" };
-				{ 17, 45214, "", "=q4=Scalpel of the Royal Apothecary", "=ds=#h3#, #w4#", "#CHAMPSEAL:25#" };
+				{ 17, 45214, "", "=q4=Scalpel of the Royal Apothecary", "=ds=#h1#, #w4#", "#CHAMPSEAL:25#" };
 				{ 18, 45222, "", "=q4=Spinal Destroyer", "=ds=#h1#, #w4#", "#CHAMPSEAL:25#" };
-				{ 19, 45208, "", "=q4=Blade of the Keening Banshee", "=ds=#h3#, #w10#", "#CHAMPSEAL:25#" };
+				{ 19, 45208, "", "=q4=Blade of the Keening Banshee", "=ds=#h1#, #w10#", "#CHAMPSEAL:25#" };
 				{ 20, 45205, "", "=q4=Greatsword of the Sin'dorei", "=ds=#h2#, #w10#", "#CHAMPSEAL:25#" };
 				{ 21, 45204, "", "=q4=Axe of the Sen'jin Protector", "=ds=#h1#, #w1#", "#CHAMPSEAL:25#" };
 				{ 22, 45203, "", "=q4=Grimhorn Crusher", "=ds=#h1#, #w6#", "#CHAMPSEAL:25#" };
@@ -123,14 +122,14 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 27, 46747, "", "=q4=Turbostrider", "=ds=#e26#", "500 #gold# #CHAMPSEAL:5#"};
 			};
 			{
-				{ 1, 0, "inv_misc_tabardpvp_01", "=q6="..BabbleFaction["The Silver Covenant"], "=ec1=#m7#"};
+				{ 1, 0, "inv_misc_tabardpvp_01", "=q6="..ALIL["The Silver Covenant"], "=ec1=#m7#"};
 				{ 2, 46815, "", "=q4=Quel'dorei Steed", "=ds=#e26#", "#CHAMPSEAL:100#"};
 				{ 3, 46813, "", "=q4=Silver Covenant Hippogryph", "=ds=#e27#", "#CHAMPSEAL:150#"};
-				{ 5, 0, "INV_Jewelry_Talisman_08", "=q6="..BabbleFaction["Argent Crusade"], "" };
+				{ 5, 0, "INV_Jewelry_Talisman_08", "=q6="..ALIL["Argent Crusade"], "" };
 				{ 6, 47179, "", "=q4=Argent Charger", "=ds=#e26#", "#CHAMPSEAL:100#"};
 				{ 7, 47180, "", "=q4=Argent Warhorse", "=ds=#e26#", "#CHAMPSEAL:100#"};
 				{ 8, 45725, "", "=q4=Argent Hippogryph", "=ds=#e27#", "#CHAMPSEAL:150#"};
-				{ 16, 0, "inv_misc_tabardpvp_02", "=q6="..BabbleFaction["The Sunreavers"], "=ec1=#m6#"};
+				{ 16, 0, "inv_misc_tabardpvp_02", "=q6="..ALIL["The Sunreavers"], "=ec1=#m6#"};
 				{ 17, 46816, "", "=q4=Sunreaver Hawkstrider", "=ds=#e26#", "#CHAMPSEAL:100#"};
 				{ 18, 46814, "", "=q4=Sunreaver Dragonhawk", "=ds=#e27#", "#CHAMPSEAL:150#"};
 			};
@@ -151,7 +150,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 6, 44973, "", "=q3=Durotar Scorpion", "=ds=#e13#", "#CHAMPSEAL:40#"};
 				{ 7, 44982, "", "=q3=Enchanted Broom", "=ds=#e13#", "#CHAMPSEAL:40#"};
 				{ 8, 46821, "", "=q3=Shimmering Wyrmling", "=ds=#e13#", "#CHAMPSEAL:40#"};
-				{ 10, 0, "INV_Jewelry_Talisman_08", "=q6="..BabbleFaction["Argent Crusade"], "" };
+				{ 10, 0, "INV_Jewelry_Talisman_08", "=q6="..ALIL["Argent Crusade"], "" };
 				{ 11, 47541, "", "=q3=Argent Pony Bridle", "=ds=", "#CHAMPSEAL:50#"};
 				{ 17, 44998, "", "=q3=Argent Squire", "=ds=#e13#", "=ds=#m4#, =ec1=#m7#"};
 				{ 18, 44984, "", "=q3=Ammen Vale Lashling", "=ds=#e13#", "#CHAMPSEAL:40#"};
@@ -188,10 +187,10 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 16, 42992, "", "=q7=Discerning Eye of the Beast", "=ds=#s14#", "#CHAMPSEAL:75#"};
 				{ 17, 42991, "", "=q7=Swift Hand of Justice", "=ds=#s14#", "#CHAMPSEAL:75#"};
 				{ 19, 42944, "", "=q7=Balanced Heartseeker", "=ds=#h1#, #w4#", "#CHAMPSEAL:60#"};
-				{ 20, 69893, "", "=q7=Bloodsoaked Skullforge Reaver", "=ds=#h3#, #w10#", "#CHAMPSEAL:60#"};
-				{ 21, 42945, "", "=q7=Venerable Dal'Rend's Sacred Charge", "=ds=#h3#, #w10#", "#CHAMPSEAL:60#"};
+				{ 20, 69893, "", "=q7=Bloodsoaked Skullforge Reaver", "=ds=#h1#, #w10#", "#CHAMPSEAL:60#"};
+				{ 21, 42945, "", "=q7=Venerable Dal'Rend's Sacred Charge", "=ds=#h1#, #w10#", "#CHAMPSEAL:60#"};
 				{ 22, 42943, "", "=q7=Bloodied Arcanite Reaper", "=ds=#h2#, #w1#", "#CHAMPSEAL:95#"};
-				{ 23, 42948, "", "=q7=Devout Aurastone Hammer", "=ds=#h3#, #w6#", "#CHAMPSEAL:60#"};
+				{ 23, 42948, "", "=q7=Devout Aurastone Hammer", "=ds=#h1#, #w6#", "#CHAMPSEAL:60#"};
 				{ 24, 48716, "", "=q7=Venerable Mass of McGowan", "=ds=#h1#, #w6#", "#CHAMPSEAL:60#"};
 				{ 25, 48718, "", "=q7=Repurposed Lava Dredger", "=ds=#h2#, #w6#", "#CHAMPSEAL:95#"};
 				{ 26, 79131, "", "=q7=Burnished Warden Staff", "=ds=#w9#", "#CHAMPSEAL:95#"};
@@ -325,18 +324,18 @@ local moduleName = "AtlasLoot_WorldEvents"
 	AtlasLoot_Data["ChildrensWeek"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6="..BabbleZone["Azeroth"], "=q5="..AtlasLoot:GetMapNameByID(301).." / "..AtlasLoot:GetMapNameByID(321)};
+				{ 1, 0, "INV_Box_01", "=q6="..AL["Azeroth"], "=q5="..ALIL["Stormwind City"].." / "..ALIL["Orgrimmar"]};
 				{ 2, 23007, "", "=q1=Piglet's Collar", "=ds=#e13#"};
 				{ 3, 23015, "", "=q1=Rat Cage", "=ds=#e13#"};
 				{ 4, 66073, "", "=q1=Snail Shell", "=ds=#e13#"};
 				{ 5, 23002, "", "=q1=Turtle Box", "=ds=#e13#"};
 				{ 6, 23022, "", "=q1=Curmudgeon's Payoff", "=ds="};
-				{ 8, 0, "INV_Box_01", "=q6="..BabbleZone["Outland"], "=q5="..AtlasLoot:GetMapNameByID(481)};
+				{ 8, 0, "INV_Box_01", "=q6="..ALIL["Outland"], "=q5="..ALIL["Shattrath City"]};
 				{ 9, 32616, "", "=q3=Egbert's Egg", "=ds=#e13#"};
 				{ 10, 32622, "", "=q3=Elekk Training Collar", "=ds=#e13#"};
 				{ 11, 69648, "", "=q3=Legs", "=ds=#e13#"};
 				{ 12, 32617, "", "=q3=Sleepy Willy", "=ds=#e13#"};
-				{ 16, 0, "INV_Box_01", "=q6="..BabbleZone["Northrend"], "=q5="..AtlasLoot:GetMapNameByID(504)};
+				{ 16, 0, "INV_Box_01", "=q6="..ALIL["Northrend"], "=q5="..ALIL["Dalaran"]};
 				{ 17, 46545, "", "=q3=Curious Oracle Hatchling", "=ds=#e13#"};
 				{ 18, 46544, "", "=q3=Curious Wolvar Pup", "=ds=#e13#"};
 			};
@@ -403,7 +402,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				extraText = ": "..AL["Vendor"];
 			};
 			{
-				{ 1, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AtlasLoot_IngameLocales["Ticking Present"], ""};
+				{ 1, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Ticking Present"], ""};
 				{ 2, 21325, "", "=q2=Mechanical Greench", "=ds=#e22#"};
 				{ 3, 21213, "", "=q2=Preserved Holly", "=ds=#m20#"};
 				{ 4, 17706, "", "=q2=Plans: Edge of Winter", "=ds=#p2# (190)"};
@@ -412,24 +411,24 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 7, 17722, "", "=q2=Pattern: Gloves of the Greatfather", "=ds=#p7# (190)"};
 				{ 8, 17709, "", "=q1=Recipe: Elixir of Frost Power", "=ds=#p1# (190)"};
 				{ 9, 17724, "", "=q1=Pattern: Green Holiday Shirt", "=ds=#p8# (190)"};
-				{ 11, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AtlasLoot_IngameLocales["Festive Gift"], ""};
+				{ 11, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Festive Gift"], ""};
 				{ 12, 21328, "", "=q1=Wand of Holiday Cheer", "=ds=#m20#"};
-				{ 16, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AtlasLoot_IngameLocales["Gaily Wrapped Present"], ""};
+				{ 16, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Gaily Wrapped Present"], ""};
 				{ 17, 21301, "", "=q1=Green Helper Box", "=ds=#e13#"};
 				{ 18, 21308, "", "=q1=Jingling Bell", "=ds=#e13#"};
 				{ 19, 21305, "", "=q1=Red Helper Box", "=ds=#e13#"};
 				{ 20, 21309, "", "=q1=Snowman Kit", "=ds=#e13#"};
-				{ 22, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AtlasLoot_IngameLocales["Gently Shaken Gift"], ""};
+				{ 22, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Gently Shaken Gift"], ""};
 				{ 23, 21235, "", "=q1=Winter Veil Roast", "=ds=#e3#"};
 				{ 24, 21241, "", "=q1=Winter Veil Eggnog", "=ds=#e4#"};
-				{ 26, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AtlasLoot_IngameLocales["Carefully Wrapped Present"], ""};
+				{ 26, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Carefully Wrapped Present"], ""};
 				{ 27, 21254, "", "=q1=Winter Veil Cookie", "=ds=#e3#"};
-				{ 29, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AtlasLoot_IngameLocales["Smokywood Pastures Extra-Special Gift"], ""};
+				{ 29, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Smokywood Pastures Extra-Special Gift"], ""};
 				{ 30, 21215, "", "=q1=Graccu's Mince Meat Fruitcake", "=ds=#e3#"};
 				extraText = ": "..AL["Gifts & Presents"];
 			};
 			{
-				{ 1, 0, "INV_Holiday_Christmas_Present_01", "=q6="..AtlasLoot_IngameLocales["Stolen Present"], "#QUESTID:7043#"};
+				{ 1, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Stolen Present"], "#QUESTID:7043#"};
 				{ 2, 93625, "", "=q4=Miniature Winter Veil Tree", "=ds=#h1#, #w4#"};
 				{ 3, 54436, "", "=q3=Blue Clockwork Rocket Bot", "=ds=#e13#"};
 				{ 4, 73797, "", "=q3=Lump of Coal", "=ds=#e13#"};
@@ -443,7 +442,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 12, 34498, "", "=q3=Paper Zeppelin Kit", "=ds=#m20#"};
 				{ 13, 44482, "", "=q3=Trusty Copper Racer", "=ds=#m20#"};
 				{ 14, 44599, "", "=q3=Zippy Copper Racer", "=ds=#m20#"};
-				extraText = ": "..AtlasLoot_IngameLocales["Stolen Present"];
+				extraText = ": "..ALIL["Stolen Present"];
 			};
 		};
 		info = {
@@ -599,21 +598,21 @@ local moduleName = "AtlasLoot_WorldEvents"
 				extraText = ": "..AL["Vendor"];
 			};
 			{
-				{ 1, 0, "INV_Box_02", "=q6="..AtlasLoot_IngameLocales["Lovely Dress Box"], "#ACHIEVEMENTID:1694#"};
+				{ 1, 0, "INV_Box_02", "=q6="..ALIL["Lovely Dress Box"], "#ACHIEVEMENTID:1694#"};
 				{ 2, 22279, "", "=q1=Lovely Black Dress", "=ds=#s5#"};
 				{ 3, 22276, "", "=q1=Lovely Red Dress", "=ds=#s5#"};
 				{ 4, 22278, "", "=q1=Lovely Blue Dress", "=ds=#s5#"};
 				{ 5, 22280, "", "=q1=Lovely Purple Dress", "=ds=#s5#"};	
-				{ 7, 0, "INV_Box_01", "=q6="..AtlasLoot_IngameLocales["Dinner Suit Box"], ""};
+				{ 7, 0, "INV_Box_01", "=q6="..ALIL["Dinner Suit Box"], ""};
 				{ 8, 22277, "", "=q1=Red Dinner Suit", "=ds=#s5#"};
 				{ 9, 22281, "", "=q1=Blue Dinner Suit", "=ds=#s5#"};
 				{ 10, 22282, "", "=q1=Purple Dinner Suit", "=ds=#s5#"};	
-				{ 16, 0, "INV_ValentinesBoxOfChocolates02", "=q6="..AtlasLoot_IngameLocales["Box of Chocolates"], "#ACHIEVEMENTID:1702#"};
+				{ 16, 0, "INV_ValentinesBoxOfChocolates02", "=q6="..ALIL["Box of Chocolates"], "#ACHIEVEMENTID:1702#"};
 				{ 17, 22237, "", "=q1=Dark Desire", "=ds=#e3#"};
 				{ 18, 22238, "", "=q1=Very Berry Cream", "=ds=#e3#"};
 				{ 19, 22236, "", "=q1=Buttermilk Delight", "=ds=#e3#"};
 				{ 20, 22239, "", "=q1=Sweet Surprise ", "=ds=#e3#"};
-				{ 22, 0, "inv_valentinescandysack", "=q6="..AtlasLoot_IngameLocales["Bag of Heart Candies"], "#ACHIEVEMENTID:1701#"};
+				{ 22, 0, "inv_valentinescandysack", "=q6="..ALIL["Bag of Heart Candies"], "#ACHIEVEMENTID:1701#"};
 				{ 23, 21816, "", "=q1=Heart Candy", "=ds=#m20#"};
 				{ 24, 21817, "", "=q1=Heart Candy", "=ds=#m20#"};
 				{ 25, 21818, "", "=q1=Heart Candy", "=ds=#m20#"};
@@ -927,7 +926,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 12, 11026, "", "=q1=Tree Frog Box", "=ds=#e13#", "1 #gold#"};
 				{ 13, 11027, "", "=q1=Wood Frog Box", "=ds=#e13#", "1 #gold#"};
 				{ 17, 80008, "", "=q4=Darkmoon Rabbit", "=ds=#e13#", "#ACHIEVEMENTID:6332#"};
-				{ 18, 73953, "", "=q3=Sea Pony", "=ds=#e13#", "=q2=#p24#, =q1="..BabbleZone["Darkmoon Island"]};
+				{ 18, 73953, "", "=q3=Sea Pony", "=ds=#e13#", "=q2=#p24#, =q1="..AL["Darkmoon Island"]};
 				{ 20, 91040, "", "=q3=Darkmoon Eye", "=ds=#e13#", "=q1=#m4#: #QUESTID:32175#"};
 				{ 21, 19450, "", "=q1=A Jubling's Tiny Home", "=ds=#e13#", "=q1=#m4#: #QUESTID:7946#"};
 				{ 23, 75040, "", "=q1=Flimsy Darkmoon Balloon", "=ds=#e13#", "10 #silver#"},
@@ -1010,20 +1009,20 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 16, 42992, "", "=q7=Discerning Eye of the Beast", "=ds=#s14#", "#DARKMOON:130#"};
 				{ 17, 42991, "", "=q7=Swift Hand of Justice", "=ds=#s14#", "#DARKMOON:130#"};
 				{ 19, 42944, "", "=q7=Balanced Heartseeker", "=ds=#h1#, #w4#", "#DARKMOON:110#"};
-				{ 22, 69893, "", "=q7=Bloodsoaked Skullforge Reaver", "=ds=#h3#, #w10#", "#DARKMOON:110#"};
-				{ 20, 42945, "", "=q7=Venerable Dal'Rend's Sacred Charge", "=ds=#h3#, #w10#", "#DARKMOON:110#"};
-				{ 21, 42943, "", "=q7=Bloodied Arcanite Reaper", "=ds=#h2#, #w1#", "#DARKMOON:160#"};
-				{ 22, 42948, "", "=q7=Devout Aurastone Hammer", "=ds=#h3#, #w6#", "#DARKMOON:110#"};
-				{ 23, 48716, "", "=q7=Venerable Mass of McGowan", "=ds=#h1#, #w6#", "#DARKMOON:110#"};
-				{ 24, 48718, "", "=q7=Repurposed Lava Dredger", "=ds=#h2#, #w6#", "#DARKMOON:160#"};
-				{ 25, 79131, "", "=q7=Burnished Warden Staff", "=ds=#w9#", "#DARKMOON:160#"};
-				{ 26, 42947, "", "=q7=Dignified Headmaster's Charge", "=ds=#w9#", "#DARKMOON:160#"};
-				{ 27, 42946, "", "=q7=Charmed Ancient Bone Bow", "=ds=#w2#", "#DARKMOON:160#"};
+				{ 20, 69893, "", "=q7=Bloodsoaked Skullforge Reaver", "=ds=#h1#, #w10#", "#DARKMOON:110#"};
+				{ 21, 42945, "", "=q7=Venerable Dal'Rend's Sacred Charge", "=ds=#h1#, #w10#", "#DARKMOON:110#"};
+				{ 22, 42943, "", "=q7=Bloodied Arcanite Reaper", "=ds=#h2#, #w1#", "#DARKMOON:160#"};
+				{ 23, 42948, "", "=q7=Devout Aurastone Hammer", "=ds=#h1#, #w6#", "#DARKMOON:110#"};
+				{ 24, 48716, "", "=q7=Venerable Mass of McGowan", "=ds=#h1#, #w6#", "#DARKMOON:110#"};
+				{ 25, 48718, "", "=q7=Repurposed Lava Dredger", "=ds=#h2#, #w6#", "#DARKMOON:160#"};
+				{ 26, 79131, "", "=q7=Burnished Warden Staff", "=ds=#w9#", "#DARKMOON:160#"};
+				{ 27, 42947, "", "=q7=Dignified Headmaster's Charge", "=ds=#w9#", "#DARKMOON:160#"};
+				{ 28, 42946, "", "=q7=Charmed Ancient Bone Bow", "=ds=#w2#", "#DARKMOON:160#"};
 				extraText = ": "..AL["Heirloom"];
 			};
 		};
 		info = {
-			name = BabbleFaction["Darkmoon Faire"],
+			name = ALIL["Darkmoon Faire"],
 			module = moduleName, menu = "DARKMOONMENU"
 		};
 	};
@@ -1212,7 +1211,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 			};
 		};
 		info = {
-			name = BabbleFaction["Darkmoon Faire"],
+			name = ALIL["Darkmoon Faire"],
 			module = moduleName, menu = "DARKMOONMENU"
 		};
 	};
@@ -1298,7 +1297,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 			};
 		};
 		info = {
-			name = BabbleFaction["Darkmoon Faire"],
+			name = ALIL["Darkmoon Faire"],
 			module = moduleName, menu = "DARKMOONMENU"
 		};
 	};
@@ -1402,7 +1401,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 			{
 				{ 1, 0, "INV_Box_01", "=q6="..AL["The Duke of Cynders"], "=q1=#j19#"};
 				{ 2, 20665, "", "=q3=Abyssal Leather Leggings", "=ds=#s11#, #a2#", "", "22.50%"};
-				{ 3, 20666, "", "=q3=Hardened Steel Warhammer", "=ds=#h3#, #w6#", "", "30.47%"};
+				{ 3, 20666, "", "=q3=Hardened Steel Warhammer", "=ds=#h1#, #w6#", "", "30.47%"};
 				{ 4, 20514, "", "=q3=Abyssal Signet", "=ds=#m3#", "", "100%"};
 				{ 5, 20664, "", "=q2=Abyssal Cloth Sash", "=ds=#s10#, #a1#", "", "27.08%"};
 				{ 6, 21989, "", "=q1=Cinder of Cynders", "=ds=#m3#", "", "100%"};
@@ -1724,7 +1723,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 8, 32535, "", "=q3=Gift of the Talonpriests", "=ds=#s13#", "", "7.9%"};
 				{ 9, 32534, "", "=q3=Brooch of the Immortal King", "=ds=#s14#", "", "11.2%"};
 				{ 10, 32782, "", "=q3=Time-Lost Figurine", "=ds=#s14#", "", ""};
-				{ 11, 32537, "", "=q3=Terokk's Gavel", "=ds=#h3#, #w6#", "", "7.9%"};
+				{ 11, 32537, "", "=q3=Terokk's Gavel", "=ds=#h1#, #w6#", "", "7.9%"};
 				{ 12, 32536, "", "=q3=Terokk's Gavel", "=ds=#h1#, #w6#", "", "6.7%"};
 			};
 		};

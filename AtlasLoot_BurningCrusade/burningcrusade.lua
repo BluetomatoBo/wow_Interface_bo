@@ -1,10 +1,9 @@
--- $Id: burningcrusade.lua 4133 2013-03-09 07:45:03Z hegarol $
+-- $Id: burningcrusade.lua 4172 2013-03-31 22:53:10Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
+local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
-local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 local BabbleItemSet = AtlasLoot_GetLocaleLibBabble("LibBabble-ItemSet-3.0")
-local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 local moduleName = "AtlasLootBurningCrusade"
 
 -- Index
@@ -32,7 +31,7 @@ local moduleName = "AtlasLootBurningCrusade"
 ---- Tempest Keep: The Arcatraz
 ---- Tempest Keep: The Botanica
 ---- Tempest Keep: The Mechanar
----- Tempest Keep: The Eye
+---- Tempest Keep: Tempest Keep
 --- Factions
 ---- Ashtongue Deathsworn
 ---- Cenarion Expedition
@@ -98,7 +97,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 23, 27865, "", "=q3=Bracers of Shirrak", "=ds=#s8#, #a3#", "", "21.74%"};
 				{ 24, 27845, "", "=q3=Magma Plume Boots", "=ds=#s12#, #a3#", "", "23.91%"};
 				{ 25, 27847, "", "=q3=Fanblade Pauldrons", "=ds=#s3#, #a4#", "", "6.52%"};
-				{ 26, 27846, "", "=q3=Claw of the Watcher", "=ds=#h3#, #w13#", "", "6.52%"};
+				{ 26, 27846, "", "=q3=Claw of the Watcher", "=ds=#h1#, #w13#", "", "6.52%"};
 			};
 		};
 		info = {
@@ -144,8 +143,8 @@ local moduleName = "AtlasLootBurningCrusade"
 			{
 				{ 1, 27878, "", "=q3=Auchenai Death Shroud", "=ds=#s4#", "", "4.41%"};
 				{ 2, 28268, "", "=q3=Natural Mender's Wraps", "=ds=#s9#, #a2#", "", "3.94%"};
-				{ 3, 27876, "", "=q3=Will of the Fallen Exarch", "=ds=#h3#, #w6#", "", "5.10%"};
-				{ 4, 27937, "", "=q3=Sky Breaker", "=ds=#h3#, #w6#", "", "3.48%"};
+				{ 3, 27876, "", "=q3=Will of the Fallen Exarch", "=ds=#h1#, #w6#", "", "5.10%"};
+				{ 4, 27937, "", "=q3=Sky Breaker", "=ds=#h1#, #w6#", "", "3.48%"};
 				{ 5, 27877, "", "=q3=Draenic Wildstaff", "=ds=#w9#", "", "4.87%"};
 				{ 7, 27797, "", "=q3=Wastewalker Shoulderpads", "=ds=#s3#, #a2# (D3)", "", "3.94%"};
 			};
@@ -166,7 +165,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 1, 0, "INV_Box_01", "=q6=#j1#", ""};
 				{ 2, 25941, "", "=q3=Boots of the Outlander", "=ds=#s12#, #a3#", "", "10.55%"};
 				{ 3, 25942, "", "=q3=Faith Bearer's Gauntlets", "=ds=#s9#, #a4#", "", "11.41%"};
-				{ 4, 25943, "", "=q3=Creepjacker", "=ds=#h3#, #w13#", "", "14.22%"};
+				{ 4, 25943, "", "=q3=Creepjacker", "=ds=#h1#, #w13#", "", "14.22%"};
 				{ 5, 28166, "", "=q3=Shield of the Void", "=ds=#w8#", "", "10.81%"};
 				{ 6, 25939, "", "=q3=Voidfire Wand", "=ds=#w12#", "", "13.04%"};
 				{ 8, 72126, "", "=q1=Pandemonius' Essence", "=ds=#m3#", "", "100%"};
@@ -438,7 +437,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 3, 27902, "", "=q3=Silent Slippers of Meditation", "=ds=#s12#, #a1#", "", "12.28%"};
 				{ 4, 27912, "", "=q3=Harness of the Deep Currents", "=ds=#s5#, #a3#", "", "13.59%"};
 				{ 5, 27913, "", "=q3=Whispering Blade of Slaying", "=ds=#h1#, #w4#", "", "9.69%"};
-				{ 6, 27905, "", "=q3=Greatsword of Horrid Dreams", "=ds=#h3#, #w10#", "", "9.35%"};
+				{ 6, 27905, "", "=q3=Greatsword of Horrid Dreams", "=ds=#h1#, #w10#", "", "9.35%"};
 				{ 7, 27903, "", "=q3=Sonic Spear", "=ds=#w7#", "", "11.17%"};
 				{ 8, 27910, "", "=q3=Silvermoon Crest Shield", "=ds=#w8#", "", "12.46%"};
 				{ 10, 27778, "", "=q3=Spaulders of Oblivion", "=ds=#s3#, #a1# (D3)", "", "12.28%"};
@@ -454,7 +453,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 21, 30532, "", "=q4=Kirin Tor Master's Trousers", "=ds=#s11#, #a1#", "", "11.90%"};
 				{ 22, 29357, "", "=q4=Master Thief's Gloves", "=ds=#s9#, #a2#"};
 				{ 23, 29261, "", "=q4=Girdle of Ferocity", "=ds=#s10#, #a3#", "", "3.57%"};
-				{ 24, 29353, "", "=q4=Shockwave Truncheon", "=ds=#h3#, #w6#", "", "10.71%"};
+				{ 24, 29353, "", "=q4=Shockwave Truncheon", "=ds=#h1#, #w6#", "", "10.71%"};
 				{ 26, 31722, "", "=q1=Murmur's Essence", "=ds=#m3#", "", "100%"};
 				{ 27, 33840, "", "=q1=Murmur's Whisper", "=ds=#m3#", "", "100%"};
 			};
@@ -468,19 +467,19 @@ local moduleName = "AtlasLootBurningCrusade"
 	AtlasLoot_Data["AuchTrash"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["Mana-Tombs"]};
+				{ 1, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..ALIL["Mana-Tombs"]};
 				{ 2, 23615, "", "=q3=Plans: Swiftsteel Gloves", "=ds=#p2# (370), =q1="..AL["Nexus Stalker"], "", "0.52%"};
 				{ 3, 22543, "", "=q2=Formula: Enchant Boots - Fortitude", "=ds=#p4# (320) =q1="..AL["Ethereal Priest"], "", "0.52%"};
-				{ 5, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["Sethekk Halls"]};
+				{ 5, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..ALIL["Sethekk Halls"]};
 				{ 6, 25731, "", "=q3=Pattern: Stylin' Crimson Hat", "=ds=#p7# (350) =q1="..AL["Sethekk Ravenguard"], "", "0.46%"};
-				{ 8, 0, "INV_Box_01", "=q6="..AL["The Saga of Terokk"], "=q5="..BabbleZone["Sethekk Halls"]};
+				{ 8, 0, "INV_Box_01", "=q6="..AL["The Saga of Terokk"], "=q5="..ALIL["Sethekk Halls"]};
 				{ 9, 27634, "", "=q1=The Saga of Terokk", "=ds=#m3#"};
-				{ 16, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["Auchenai Crypts"]};
+				{ 16, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..ALIL["Auchenai Crypts"]};
 				{ 17, 23605, "", "=q3=Plans: Felsteel Gloves", "=ds=#p2# (360), =q1="..AL["Auchenai Monk"], "", "0.69%"};
 				{ 18, 22544, "", "=q2=Formula: Enchant Boots - Dexterity", "=ds=#p4# (340) =q1="..AL["Raging Skeleton"], "", "0.60%"};
-				{ 20, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["Shadow Labyrinth"]};
+				{ 20, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..ALIL["Shadow Labyrinth"]};
 				{ 21, 23607, "", "=q3=Plans: Felsteel Helm", "=ds=#p2# (365), =q1="..AL["Cabal Fanatic"], "", "0.61%"};
-				{ 23, 0, "INV_Box_01", "=q6="..AL["First Fragment Guardian"], "=q5="..BabbleZone["Shadow Labyrinth"]};
+				{ 23, 0, "INV_Box_01", "=q6="..AL["First Fragment Guardian"], "=q5="..ALIL["Shadow Labyrinth"]};
 				{ 24, 24514, "", "=q1=First Key Fragment", "=ds=#m3#", "", "100%"};
 			};
 		};
@@ -508,7 +507,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 9, 32245, "", "=q4=Tide-Stomper's Greaves", "=ds=#s12#, #a4#", "", "7%"};
 				{ 16, 32238, "", "=q4=Ring of Calming Waves", "=ds=#s13#", "", "16%"};
 				{ 17, 32247, "", "=q4=Ring of Captured Storms", "=ds=#s13#", "", "16%"};
-				{ 19, 32237, "", "=q4=The Maelstrom's Fury", "=ds=#h3#, #w4#", "", "15%"};
+				{ 19, 32237, "", "=q4=The Maelstrom's Fury", "=ds=#h1#, #w4#", "", "15%"};
 				{ 20, 32236, "", "=q4=Rising Tide", "=ds=#h1#, #w1#", "", "16%"};
 				{ 21, 32248, "", "=q4=Halberd of Desolation", "=ds=#w7#", "", "16%"};
 			};
@@ -691,7 +690,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 17, 31091, "", "=q4=Chestguard of the Forgotten Protector", "=ds=#m23# #e15#", "", "79%"};
 				{ 18, 31090, "", "=q4=Chestguard of the Forgotten Vanquisher", "=ds=#m23# #e15#", "", "78%"};
 				{ 20, 32471, "", "=q4=Shard of Azzinoth", "=ds=#h1#, #w4#", "", "16%"};
-				{ 21, 32500, "", "=q4=Crystal Spire of Karabor", "=ds=#h3#, #w6#", "", "15%"};
+				{ 21, 32500, "", "=q4=Crystal Spire of Karabor", "=ds=#h1#, #w6#", "", "15%"};
 				{ 22, 32374, "", "=q4=Zhar'doom, Greatstaff of the Devourer", "=ds=#w9#", "", "14%"};
 				{ 23, 32375, "", "=q4=Bulwark of Azzinoth", "=ds=#w8#", "", "14%"};
 				{ 24, 32336, "", "=q4=Black Bow of the Betrayer", "=ds=#w2#", "", "16%"};
@@ -718,7 +717,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 10, 32526, "", "=q4=Band of Devastation", "=ds=#s13#", "", "1%"};
 				{ 11, 32528, "", "=q4=Blessed Band of Karabor", "=ds=#s13#", "", "1%"};
 				{ 12, 32527, "", "=q4=Ring of Ancient Knowledge", "=ds=#s13#", "", "2%"};
-				{ 16, 34009, "", "=q4=Hammer of Judgement", "=ds=#h3#, #w6#", "", "1%"};
+				{ 16, 34009, "", "=q4=Hammer of Judgement", "=ds=#h1#, #w6#", "", "1%"};
 				{ 17, 32943, "", "=q4=Swiftsteel Bludgeon", "=ds=#h1#, #w6#", "", "2%"};
 				{ 18, 34011, "", "=q4=Illidari Runeshield", "=ds=#w8#", "", "1%"};
 				{ 20, 32228, "", "=q4=Empyrean Sapphire", "=ds=#e7#", "", "12%"};
@@ -759,7 +758,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = AtlasLoot:GetMapNameByID(796).. " "..AL["Patterns/Plans"],
+			name = ALIL["Black Temple"].. " "..AL["Patterns/Plans"],
 			module = moduleName, instance = "BlackTemple",
 		};
 	};
@@ -803,7 +802,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 3, 27430, "", "=q3=Scaled Greaves of Patience", "=ds=#s11#, #a3#", "", "19.22%"};
 				{ 4, 27427, "", "=q3=Durotan's Battle Harness", "=ds=#s5#, #a4#", "", "14.83%"};
 				{ 5, 27424, "", "=q3=Amani Venom-Axe", "=ds=#h1#, #w1#", "", "18.50%"};
-				{ 6, 27426, "", "=q3=Northshire Battlemace", "=ds=#h3#, #w6#", "", "15.37%"};
+				{ 6, 27426, "", "=q3=Northshire Battlemace", "=ds=#h1#, #w6#", "", "15.37%"};
 				{ 8, 22927, "", "=q2=Recipe: Ironshield Potion", "=ds=#p1# (365)", "", "1.03%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 30589, "", "=q4=Purified Tanzanite", "=ds=#e7#", "", "0.66%"};
@@ -814,7 +813,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 23, 28219, "", "=q3=Emerald-Scale Greaves", "=ds=#s11#, #a3#", "", "3.03%"};
 				{ 24, 28221, "", "=q3=Boots of the Watchful Heart", "=ds=#s12#, #a4#", "", "0.52%"};
 				{ 25, 28217, "", "=q3=Tarren Mill Vitality Locket", "=ds=#s2#", "", "9.09%"};
-				{ 26, 28216, "", "=q3=Dathrohan's Ceremonial Hammer", "=ds=#h3#, #w6#", "", "6.06%"};
+				{ 26, 28216, "", "=q3=Dathrohan's Ceremonial Hammer", "=ds=#h1#, #w6#", "", "6.06%"};
 			};
 		};
 		info = {
@@ -832,7 +831,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 27434, "", "=q3=Mantle of Perenolde", "=ds=#s3#, #a2#", "", "16.26%"};
 				{ 5, 27440, "", "=q3=Diamond Prism of Recurrence", "=ds=#s2#", "", "16.12%"};
 				{ 6, 27432, "", "=q3=Broxigar's Ring of Valor", "=ds=#s13#", "", "16.35%"};
-				{ 7, 27431, "", "=q3=Time-Shifted Dagger", "=ds=#h3#, #w4#", "", "14.09%"};
+				{ 7, 27431, "", "=q3=Time-Shifted Dagger", "=ds=#h1#, #w4#", "", "14.09%"};
 			};
 		};
 		["Heroic"] = {
@@ -870,17 +869,17 @@ local moduleName = "AtlasLootBurningCrusade"
 	AtlasLoot_Data["CoTTrash"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["Old Hillsbrad Foothills"]};
+				{ 1, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..ALIL["Old Hillsbrad Foothills"]};
 				{ 2, 25729, "", "=q3=Pattern: Stylin' Adventure Hat", "=ds=#p7# (350) =q1="..AL["Durnholde Rifleman"], "", "0.25%"};
-				{ 4, 0, "INV_Box_01", "=q6="..AL["Don Carlos"], "=q5="..BabbleZone["Old Hillsbrad Foothills"]};
+				{ 4, 0, "INV_Box_01", "=q6="..AL["Don Carlos"], "=q5="..ALIL["Old Hillsbrad Foothills"]};
 				{ 5, 38506, "", "=q3=Don Carlos' Famous Hat", "=ds=#s1#, #a1# =q2=#j3#"};
 				{ 6, 38329, "", "=q1=Don Carlos' Hat", "=q1=#m3#"};
 				{ 7, 38276, "", "=q1=Haliscan Brimmed Hat", "=q1=#m4#: =ds=#s1#, #a1#"};
-				{ 9, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["The Black Morass"]};
+				{ 9, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..ALIL["The Black Morass"]};
 				{ 10, 25730, "", "=q3=Pattern: Stylin' Jungle Hat", "=ds=#p7# (350) =q1="..AL["Rift Keeper/Rift Lord"], "", "0.29%"};
-				{ 16, 0, "INV_Box_01", "=q6="..AL["Thomas Yance"], "=q5="..BabbleZone["Old Hillsbrad Foothills"]};
+				{ 16, 0, "INV_Box_01", "=q6="..AL["Thomas Yance"], "=q5="..ALIL["Old Hillsbrad Foothills"]};
 				{ 17, 25725, "", "=q1=Pattern: Riding Crop", "=ds=#p7# (350)"};
-				{ 19, 0, "INV_Box_01", "=q6="..AL["Aged Dalaran Wizard"], "=q5="..BabbleZone["Old Hillsbrad Foothills"]};
+				{ 19, 0, "INV_Box_01", "=q6="..AL["Aged Dalaran Wizard"], "=q5="..ALIL["Old Hillsbrad Foothills"]};
 				{ 20, 22539, "", "=q1=Formula: Enchant Shield - Intellect", "=ds=#p4# (325)"};
 			};
 		};
@@ -1032,7 +1031,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 8, 30919, "", "=q4=Valestalker Girdle", "=ds=#s10#, #a3#", "", "15%"};
 				{ 9, 30893, "", "=q4=Sun-Touched Chain Leggings", "=ds=#s11#, #a3#", "", "15%"};
 				{ 10, 30915, "", "=q4=Belt of Seething Fury", "=ds=#s10#, #a4#", "", "17%"};
-				{ 16, 30918, "", "=q4=Hammer of Atonement", "=ds=#h3#, #w6#", "", "17%"};
+				{ 16, 30918, "", "=q4=Hammer of Atonement", "=ds=#h1#, #w6#", "", "17%"};
 				{ 17, 30889, "", "=q4=Kaz'rogal's Hardened Heart", "=ds=#w8#", "", "16%"};
 			};
 		};
@@ -1073,7 +1072,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 5, 30904, "", "=q4=Savior's Grasp", "=ds=#s5#, #a4#", "", "14%"};
 				{ 6, 30903, "", "=q4=Legguards of Endless Rage", "=ds=#s11#, #a4#", "", "15%"};
 				{ 7, 30911, "", "=q4=Scepter of Purification", "=ds=#s15#", "", "15%"};
-				{ 9, 30910, "", "=q4=Tempest of Chaos", "=ds=#h3#, #w10#", "", "14%"};
+				{ 9, 30910, "", "=q4=Tempest of Chaos", "=ds=#h1#, #w10#", "", "14%"};
 				{ 10, 30902, "", "=q4=Cataclysm's Edge", "=ds=#h2#, #w10#", "", "15%"};
 				{ 11, 30908, "", "=q4=Apostle of Argus", "=ds=#w9#", "", "15%"};
 				{ 12, 30909, "", "=q4=Antonidas' Aegis of Rapt Concentration", "=ds=#w8#", "", "15%"};
@@ -1098,9 +1097,9 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 32592, "", "=q4=Chestguard of Relentless Storms", "=ds=#s5#, #a3#", "", "1%"};
 				{ 5, 32591, "", "=q4=Choker of Serrated Blades", "=ds=#s2#", "", "1%"};
 				{ 6, 32589, "", "=q4=Hellfire-Encased Pendant", "=ds=#s2#", "", "1%"};
-				{ 7, 34009, "", "=q4=Hammer of Judgement", "=ds=#h3#, #w6#", "", "1%"};
-				{ 8, 32946, "", "=q4=Claw of Molten Fury", "=ds=#h3#, #w13#", "", "0.46%"};
-				{ 9, 32945, "", "=q4=Fist of Molten Fury", "=ds=#h4#, #w13#", "", "0.42%"};
+				{ 7, 34009, "", "=q4=Hammer of Judgement", "=ds=#h1#, #w6#", "", "1%"};
+				{ 8, 32946, "", "=q4=Claw of Molten Fury", "=ds=#h1#, #w13#", "", "0.46%"};
+				{ 9, 32945, "", "=q4=Fist of Molten Fury", "=ds=#h1#, #w13#", "", "0.42%"};
 				{ 11, 32428, "", "=q3=Heart of Darkness", "=ds=#e8#", "", "16%"};
 				{ 12, 32897, "", "=q2=Mark of the Illidari", "=ds=#m20#", "", "27%"};
 				{ 16, 32285, "", "=q4=Design: Flashing Crimson Spinel", "=ds=#p12# (375)", "", "4%"};
@@ -1131,7 +1130,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 3, 24357, "", "=q3=Vest of Living Lightning", "=ds=#s5#, #a3#", "", "11.94%"};
 				{ 4, 24360, "", "=q3=Tracker's Belt", "=ds=#s10#, #a3#", "", "11.07%"};
 				{ 5, 24356, "", "=q3=Wastewalker Shiv", "=ds=#h1#, #w4#", "", "12.47%"};
-				{ 6, 24361, "", "=q3=Spellfire Longsword", "=ds=#h3#, #w10#", "", "11.07%"};
+				{ 6, 24361, "", "=q3=Spellfire Longsword", "=ds=#h1#, #w10#", "", "11.07%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 30604, "", "=q4=Resplendent Fire Opal", "=ds=#e7#", "", "22.49%"};
 				{ 18, 30605, "", "=q4=Nimble Chrysoprase", "=ds=#e7#", "", "9.39%"};
@@ -1140,7 +1139,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 22, 27545, "", "=q3=Mennu's Scaled Leggings", "=ds=#s11#, #a2#", "", "8.50%"};
 				{ 23, 27541, "", "=q3=Archery Belt of the Broken", "=ds=#s10#, #a3#", "", "12.75%"};
 				{ 24, 27546, "", "=q3=Traitor's Noose", "=ds=#s2#", "", "13.75%"};
-				{ 25, 27543, "", "=q3=Starlight Dagger", "=ds=#h3#, #w4#", "", "20.00%"};
+				{ 25, 27543, "", "=q3=Starlight Dagger", "=ds=#h1#, #w4#", "", "20.00%"};
 			};
 		};
 		info = {
@@ -1155,7 +1154,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 1, 0, "INV_Box_01", "=q6=#j1#", ""};
 				{ 2, 24379, "", "=q3=Bogstrok Scale Cloak", "=ds=#s4#", "", "10.05%"};
 				{ 3, 24376, "", "=q3=Runed Fungalcap", "=ds=#s14#", "", "11.45%"};
-				{ 4, 24378, "", "=q3=Coilfang Hammer of Renewal", "=ds=#h3#, #w6#", "", "9.66%"};
+				{ 4, 24378, "", "=q3=Coilfang Hammer of Renewal", "=ds=#h1#, #w6#", "", "9.66%"};
 				{ 5, 24380, "", "=q3=Calming Spore Reed", "=ds=#w12#", "", "10.26%"};
 				{ 6, 24381, "", "=q3=Coilfang Needler", "=ds=#w3#", "", "10.05%"};
 				{ 8, 72118, "", "=q1=The Invader's Claw", "=ds=#m3#", "", "100%"};
@@ -1208,7 +1207,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 27683, "", "=q3=Quagmirran's Eye", "=ds=#s14#", "", "7.86%"};
 				{ 21, 27714, "", "=q3=Swamplight Lantern", "=ds=#s15#", "", "10.92%"};
 				{ 22, 27673, "", "=q3=Phosphorescent Blade", "=ds=#h1#, #w10#"};
-				{ 23, 27741, "", "=q3=Bleeding Hollow Warhammer", "=ds=#h3#, #w6#", "", "9.83%"};
+				{ 23, 27741, "", "=q3=Bleeding Hollow Warhammer", "=ds=#h1#, #w6#", "", "9.83%"};
 				{ 25, 33821, "", "=q1=The Heart of Quagmirran", "=ds=#m3#", "", "100%"};
 
 			};
@@ -1305,7 +1304,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 1, 24159, "", "=q3=Design: Khorium Band of Frost", "=ds=#p12# (355) =q1="..AL["Coilfang Sorceress"], "", "0.14%"};
 				{ 3, 22533, "", "=q2=Formula: Enchant Bracer - Fortitude", "=ds=#p4# (350) =q1="..AL["Coilfang Oracle"], "", "0.40%"};
 				{ 5, 24367, "", "=q1=Orders from Lady Vashj", "=ds=#m2#"};
-				{ 16, 0, "INV_Box_01", "=q6="..AL["Second Fragment Guardian"], "=q5="..BabbleZone["The Steamvault"]};
+				{ 16, 0, "INV_Box_01", "=q6="..AL["Second Fragment Guardian"], "=q5="..ALIL["The Steamvault"]};
 				{ 17, 24487, "", "=q1=Second Key Fragment", "=ds=#m3#", "", "100%"};
 			};
 		};
@@ -1334,7 +1333,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 22, 27745, "", "=q3=Hungarhide Gauntlets", "=ds=#s9#, #a3#", "", "13.79%"};
 				{ 23, 27743, "", "=q3=Girdle of Living Flame", "=ds=#s10#, #a3#", "", "13.79%"};
 				{ 24, 27748, "", "=q3=Cassock of the Loyal", "=ds=#s11#, #a4#", "", "7.39%"};
-				{ 25, 27747, "", "=q3=Boggspine Knuckles", "=ds=#h4#, #w13#", "", "12.81%"};
+				{ 25, 27747, "", "=q3=Boggspine Knuckles", "=ds=#h1#, #w13#", "", "12.81%"};
 			};
 		};
 		info = {
@@ -1378,7 +1377,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 3, 24455, "", "=q3=Tunic of the Nightwatcher", "=ds=#s5#, #a2#", "", "14.47%"};
 				{ 4, 24457, "", "=q3=Truth Bearer Shoulderguards", "=ds=#s3#, #a4#", "", "14.42%"};
 				{ 5, 24456, "", "=q3=Greaves of the Iron Guardian", "=ds=#s11#, #a4#", "", "12.41%"};
-				{ 6, 24453, "", "=q3=Zangartooth Shortblade", "=ds=#h3#, #w4#", "", "15.17%"};
+				{ 6, 24453, "", "=q3=Zangartooth Shortblade", "=ds=#h1#, #w4#", "", "15.17%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 30606, "", "=q4=Lightning Chrysoprase", "=ds=#e7#", "", "17.89%"};
 				{ 18, 30607, "", "=q4=Splendid Fire Opal", "=ds=#e7#", "", "6.50%"};
@@ -1498,7 +1497,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 3, 30091, "", "=q4=True-Aim Stalker Bands", "=ds=#s8#, #a3#", "", "17%"};
 				{ 4, 30096, "", "=q4=Girdle of the Invulnerable", "=ds=#s10#, #a4#", "", "14%"};
 				{ 5, 30627, "", "=q4=Tsunami Talisman", "=ds=#s14#", "", "15%"};
-				{ 6, 30095, "", "=q4=Fang of the Leviathan", "=ds=#h3#, #w10#", "", "14%"};
+				{ 6, 30095, "", "=q4=Fang of the Leviathan", "=ds=#h1#, #w10#", "", "14%"};
 				{ 16, 30239, "", "=q4=Gloves of the Vanquished Champion", "=ds=#m22# #e15#", "", "63%"};
 				{ 17, 30240, "", "=q4=Gloves of the Vanquished Defender", "=ds=#m22# #e15#", "", "67%"};
 				{ 18, 30241, "", "=q4=Gloves of the Vanquished Hero", "=ds=#m22# #e15#", "", "65%"};
@@ -1567,7 +1566,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 8, 30110, "", "=q4=Coral Band of the Revived", "=ds=#s13#", "", "16%"};
 				{ 9, 30621, "", "=q4=Prism of Inner Calm", "=ds=#s14#", "", "13%"};
 				{ 10, 30103, "", "=q4=Fang of Vashj", "=ds=#h1#, #w4#", "", "14%"};
-				{ 11, 30108, "", "=q4=Lightfathom Scepter", "=ds=#h3#, #w6#", "", "14%"};
+				{ 11, 30108, "", "=q4=Lightfathom Scepter", "=ds=#h1#, #w6#", "", "14%"};
 				{ 12, 30105, "", "=q4=Serpent Spine Longbow", "=ds=#w2#", "", "13%"};
 				{ 16, 30242, "", "=q4=Helm of the Vanquished Champion", "=ds=#m22# #e15#", "", "61%"};
 				{ 17, 30243, "", "=q4=Helm of the Vanquished Defender", "=ds=#m22# #e15#", "", "62%"};
@@ -1653,7 +1652,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 16, 29766, "", "=q4=Leggings of the Fallen Champion", "=ds=#m21# #e15#", "", "23.69%"};
 				{ 17, 29767, "", "=q4=Leggings of the Fallen Defender", "=ds=#m21# #e15#", "", "17.46%"};
 				{ 18, 29765, "", "=q4=Leggings of the Fallen Hero", "=ds=#m21# #e15#", "", "30.17%"};
-				{ 20, 28802, "", "=q4=Bloodmaw Magus-Blade", "=ds=#h3#, #w10#", "", "9.23%"};
+				{ 20, 28802, "", "=q4=Bloodmaw Magus-Blade", "=ds=#h1#, #w10#", "", "9.23%"};
 				{ 21, 28794, "", "=q4=Axe of the Gronn Lords", "=ds=#h2#, #w1#", "", "6.73%"};
 				{ 22, 28825, "", "=q4=Aldori Legacy Defender", "=ds=#w8#", "", "2.99%"};
 			};
@@ -1794,7 +1793,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 2, 24388, "", "=q3=Girdle of the Gale Storm", "=ds=#s10#, #a3#", "", "15.84%"};
 				{ 3, 24387, "", "=q3=Ironblade Gauntlets", "=ds=#s9#, #a4#", "", "13.27%"};
 				{ 4, 24385, "", "=q3=Pendant of Battle-Lust", "=ds=#s2#", "", "15.43%"};
-				{ 5, 24384, "", "=q3=Diamond-Core Sledgemace", "=ds=#h3#, #w6#", "", "12.90%"};
+				{ 5, 24384, "", "=q3=Diamond-Core Sledgemace", "=ds=#h1#, #w6#", "", "12.90%"};
 				{ 7, 73200, "", "=q1=Fel Infusion Rod", "=ds=#m3#", "", "100%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 30601, "", "=q4=Steady Chrysoprase", "=ds=#e7#", "", "18.18%"};
@@ -1867,7 +1866,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 17, 27497, "", "=q3=Doomplate Gauntlets", "=ds=#s9#, #a4# (D3)", "", "9.09%"};
 				{ 19, 27495, "", "=q3=Soldier's Dog Tags", "=ds=#s2#", "", "9.85%"};
 				{ 20, 28121, "", "=q3=Icon of Unyielding Courage", "=ds=#s14#", "", "8.33%"};
-				{ 21, 27512, "", "=q3=The Willbreaker", "=ds=#h3#, #w10#", "", "6.06%"};
+				{ 21, 27512, "", "=q3=The Willbreaker", "=ds=#h1#, #w10#", "", "6.06%"};
 				{ 22, 27507, "", "=q3=Adamantine Repeater", "=ds=#w3#", "", "6.82%"};
 				{ 24, 33814, "", "=q1=Keli'dan's Feathered Stave", "=ds=#m3#", "", "100%"};
 			};
@@ -1929,7 +1928,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			{
 				{ 1, 27802, "", "=q3=Tidefury Shoulderguards", "=ds=#s3#, #a3# (D3)", "", "17.02%"};
 				{ 3, 27525, "", "=q3=Jeweled Boots of Sanctification", "=ds=#s12#, #a1#", "", "18.26%"};
-				{ 4, 27868, "", "=q3=Runesong Dagger", "=ds=#h3#, #w4#", "", "15.32%"};
+				{ 4, 27868, "", "=q3=Runesong Dagger", "=ds=#h1#, #w4#", "", "15.32%"};
 				{ 5, 27524, "", "=q3=Firemaul of Destruction", "=ds=#h2#, #w6#", "", "17.95%"};
 				{ 6, 27526, "", "=q3=Skyfire Hawk-Bow", "=ds=#w2#", "", "17.31%"};
 				{ 8, 72597, "", "=q1=O'mrogg's Warcloth", "=ds=#m3#", "", "100%"};
@@ -1958,8 +1957,8 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 8, 27527, "", "=q3=Greaves of the Shatterer", "=ds=#s11#, #a4#", "", "12.89%"};
 				{ 9, 27529, "", "=q3=Figurine of the Colossus", "=ds=#s14#", "", "10.41%"};
 				{ 10, 27534, "", "=q3=Hortus' Seal of Brilliance", "=ds=#s15#", "", "12.98%"};
-				{ 11, 27533, "", "=q3=Demonblood Eviscerator", "=ds=#h3#, #w13#", "", "12.70%"};
-				{ 12, 27538, "", "=q3=Lightsworn Hammer", "=ds=#h3#, #w6#", "", "10.6%"};
+				{ 11, 27533, "", "=q3=Demonblood Eviscerator", "=ds=#h1#, #w13#", "", "12.70%"};
+				{ 12, 27538, "", "=q3=Lightsworn Hammer", "=ds=#h1#, #w6#", "", "10.6%"};
 				{ 13, 27540, "", "=q3=Nexus Torch", "=ds=#w12#", "", "13.02%"};
 				{ 15, 23723, "", "=q1=Warchief Kargath's Fist", "=ds=#m3#", "", "100%"};
 				{ 16, 0, "INV_Box_01", "=q6=#j27#", ""};
@@ -1969,7 +1968,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 21, 29255, "", "=q4=Bands of Rarefied Magic", "=ds=#s8#, #a1#", "", "0.58%"};
 				{ 22, 29263, "", "=q4=Forestheart Bracers", "=ds=#s8#, #a2#", "", "0.28%"};
 				{ 23, 29254, "", "=q4=Boots of the Righteous Path", "=ds=#s12#, #a4#"};
-				{ 24, 29348, "", "=q4=The Bladefist", "=ds=#h3#, #w13#", "", "3.39%"};
+				{ 24, 29348, "", "=q4=The Bladefist", "=ds=#h1#, #w13#", "", "3.39%"};
 				{ 26, 33815, "", "=q1=Bladefist's Seal", "=ds=#m3#", "", "100%"};
 			};
 		};
@@ -2133,7 +2132,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 8, 28512, "", "=q4=Bracers of Justice", "=ds=#s8#, #a4#", "", "15%"};
 				{ 9, 28518, "", "=q4=Iron Gauntlets of the Maiden", "=ds=#s9#, #a4#", "", "12.63%"};
 				{ 16, 28516, "", "=q4=Barbed Choker of Discipline", "=ds=#s2#", "", "11.48%"};
-				{ 18, 28522, "", "=q4=Shard of the Virtuous", "=ds=#h3#, #w6#", "", "10.69%"};
+				{ 18, 28522, "", "=q4=Shard of the Virtuous", "=ds=#h1#, #w6#", "", "10.69%"};
 			};
 		};
 		info = {
@@ -2164,7 +2163,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 23, 0, "INV_Box_01", "=q6="..BabbleBoss["The Big Bad Wolf"], "=q5="..AL["Red Riding Hood"]};
 				{ 24, 28582, "", "=q4=Red Riding Hood's Cloak", "=ds=#s4#", "", "12.85%"};
 				{ 25, 28583, "", "=q4=Big Bad Wolf's Head", "=ds=#s1#, #a3#", "", "16.37%"};
-				{ 26, 28584, "", "=q4=Big Bad Wolf's Paw", "=ds=#h3#, #w13#", "", "16.12%"};
+				{ 26, 28584, "", "=q4=Big Bad Wolf's Paw", "=ds=#h1#, #w13#", "", "16.12%"};
 				{ 27, 28581, "", "=q4=Wolfslayer Sniper Rifle", "=ds=#w5#", "", "22.42%"};
 			};
 		};
@@ -2321,11 +2320,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 28762, "", "=q4=Adornment of Stolen Souls", "=ds=#s2#", "", "9.57%"};
 				{ 5, 28763, "", "=q4=Jade Ring of the Everliving", "=ds=#s13#", "", "11.84%"};
 				{ 6, 28757, "", "=q4=Ring of a Thousand Marks", "=ds=#s13#", "", "12.90%"};
-				{ 8, 28770, "", "=q4=Nathrezim Mindblade", "=ds=#h3#, #w4#", "", "10.64%"};
+				{ 8, 28770, "", "=q4=Nathrezim Mindblade", "=ds=#h1#, #w4#", "", "10.64%"};
 				{ 9, 28768, "", "=q4=Malchazeen", "=ds=#h1#, #w4#", "", "9.84%"};
 				{ 10, 28767, "", "=q4=The Decapitator", "=ds=#h1#, #w1#", "", "15.43%"};
 				{ 11, 28773, "", "=q4=Gorehowl", "=ds=#h2#, #w1#", "", "12.63%"};
-				{ 12, 28771, "", "=q4=Light's Justice", "=ds=#h3#, #w6#", "", "11.17%"};
+				{ 12, 28771, "", "=q4=Light's Justice", "=ds=#h1#, #w6#", "", "11.17%"};
 				{ 13, 28772, "", "=q4=Sunfury Bow of the Phoenix", "=ds=#w2#", "", "9.97%"};
 				{ 16, 29760, "", "=q4=Helm of the Fallen Champion", "=ds=#m21# #e15#", "", "23.01%"};
 				{ 17, 29761, "", "=q4=Helm of the Fallen Defender", "=ds=#m21# #e15#", "", "26.73%"};
@@ -2384,7 +2383,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 34602, "", "=q4=Eversong Cuffs", "=ds=#s8#, #a2#", "", "20%"};
 				{ 18, 34601, "", "=q4=Shoulderplates of Everlasting Pain", "=ds=#s3#, #a4#", "", "21%"};
-				{ 19, 34604, "", "=q4=Jaded Crystal Dagger", "=ds=#h3#, #w4#", "", "21%"};
+				{ 19, 34604, "", "=q4=Jaded Crystal Dagger", "=ds=#h1#, #w4#", "", "21%"};
 				{ 21, 35275, "", "=q3=Orb of the Sin'dorei", "=ds=#e25#", "", "2%"};
 			};
 		};
@@ -2427,7 +2426,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 3, 34788, "", "=q3=Duskhallow Mantle", "=ds=#s3#, #a1#", "", "5%"};
 				{ 4, 34791, "", "=q3=Gauntlets of the Tranquil Waves", "=ds=#s9#, #a3#", "", "16%"};
 				{ 5, 34789, "", "=q3=Bracers of Slaughter", "=ds=#s8#, #a4#", "", "17%"};
-				{ 6, 34790, "", "=q3=Battle-Mace of the High Priestess", "=ds=#h3#, #w6#", "", "16%"};
+				{ 6, 34790, "", "=q3=Battle-Mace of the High Priestess", "=ds=#h1#, #w6#", "", "16%"};
 				{ 8, 35756, "", "=q3=Formula: Enchant Cloak - Greater Dodge", "=ds=#p4# (375)", "", "14%"};
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
 				{ 17, 34473, "", "=q4=Commendation of Kael'thas", "=ds=#s14#", "", "19%"};
@@ -2472,7 +2471,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 7, 34160, "", "=q1=The Signet Ring of Prince Kael'thas", "=ds=#m3#", "", "12%"};
 				{ 16, 34609, "", "=q4=Quickening Blade of the Prince", "=ds=#h1#, #w10#", "", "20%"};
 				{ 17, 34616, "", "=q4=Breeching Comet", "=ds=#h1#, #w1#", "", "19%"};
-				{ 18, 34611, "", "=q4=Cudgel of Consecration", "=ds=#h3#, #w6#", "", "19%"};
+				{ 18, 34611, "", "=q4=Cudgel of Consecration", "=ds=#h1#, #w6#", "", "19%"};
 				{ 19, 35513, "", "=q4=Swift White Hawkstrider", "=ds=#e26#", "", "3%"};
 				{ 21, 35504, "", "=q3=Phoenix Hatchling", "=ds=#e13#", "", "7%"};
 			};
@@ -2532,7 +2531,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 34178, "", "=q4=Collar of the Pit Lord", "=ds=#s2#", "", "15%"};
 				{ 5, 34177, "", "=q4=Clutch of Demise", "=ds=#s2#", "", "15%"};
 				{ 6, 34179, "", "=q4=Heart of the Pit", "=ds=#s15#", "", "13%"};
-				{ 7, 34176, "", "=q4=Reign of Misery", "=ds=#h3#, #w6#", "", "17%"};
+				{ 7, 34176, "", "=q4=Reign of Misery", "=ds=#h1#, #w6#", "", "17%"};
 				{ 16, 34853, "", "=q4=Belt of the Forgotten Conqueror", "=ds=#m23# #e15#", "", "74%"};
 				{ 17, 34854, "", "=q4=Belt of the Forgotten Protector", "=ds=#m23# #e15#", "", "70%"};
 				{ 18, 34855, "", "=q4=Belt of the Forgotten Vanquisher", "=ds=#m23# #e15#", "", "75%"};
@@ -2592,8 +2591,8 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 22, 34189, "", "=q4=Band of Ruinous Delight", "=ds=#s13#", "", "18%"};
 				{ 23, 34206, "", "=q4=Book of Highborne Hymns", "=ds=#s15#", "", "22%"};
 				{ 24, 34197, "", "=q4=Shiv of Exsanguination", "=ds=#h1#, #w4#", "", "23%"};
-				{ 25, 34199, "", "=q4=Archon's Gavel", "=ds=#h3#, #w6#", "", "17%"};
-				{ 26, 34203, "", "=q4=Grip of Mannoroth", "=ds=#h4#, #w13#", "", "20%"};
+				{ 25, 34199, "", "=q4=Archon's Gavel", "=ds=#h1#, #w6#", "", "17%"};
+				{ 26, 34203, "", "=q4=Grip of Mannoroth", "=ds=#h1#, #w13#", "", "20%"};
 				{ 27, 34198, "", "=q4=Stanchion of Primal Instinct", "=ds=#w9#", "", "19%"};
 				{ 28, 34196, "", "=q4=Golden Bow of Quel'Thalas", "=ds=#w3#", "", "18%"};
 			};
@@ -2670,9 +2669,9 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 23, 34334, "", "=q5=Thori'dal, the Stars' Fury", "=ds=#w2#", "", "6%"};
 				{ 25, 34329, "", "=q4=Crux of the Apocalypse", "=ds=#h1#, #w4#", "", "16%"};
 				{ 26, 34247, "", "=q4=Apolyon, the Soul-Render", "=ds=#h2#, #w10#", "", "17%"};
-				{ 27, 34335, "", "=q4=Hammer of Sanctification", "=ds=#h3#, #w6#", "", "20%"};
+				{ 27, 34335, "", "=q4=Hammer of Sanctification", "=ds=#h1#, #w6#", "", "20%"};
 				{ 28, 34331, "", "=q4=Hand of the Deceiver", "=ds=#h1#, #w13#", "", "17%"};
-				{ 29, 34336, "", "=q4=Sunflare", "=ds=#h3#, #w4#", "", "18%"};
+				{ 29, 34336, "", "=q4=Sunflare", "=ds=#h1#, #w4#", "", "18%"};
 				{ 30, 34337, "", "=q4=Golden Staff of the Sin'dorei", "=ds=#w9#", "", "14%"};
 			};
 		};
@@ -2717,7 +2716,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = AtlasLoot:GetMapNameByID(789).. " "..AL["Patterns/Plans"],
+			name = ALIL["Sunwell Plateau"].. " "..AL["Patterns/Plans"],
 			module = moduleName, instance = "SunwellPlateau",
 		};
 	};
@@ -2731,7 +2730,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 34409, "", "=q4=Gauntlets of the Ancient Frostwolf", "=ds=#m29#"};
 				{ 5, 35733, "", "=q4=Ring of Harmonic Beauty", "=ds=#s13#", "", "8%"};
 				{ 6, 34183, "", "=q4=Shivering Felspine", "=ds=#h2#, #w7#", "", "1%"};
-				{ 7, 34346, "", "=q4=Mounting Vengeance", "=ds=#h4#, #w13#", "", "2%"};
+				{ 7, 34346, "", "=q4=Mounting Vengeance", "=ds=#h1#, #w13#", "", "2%"};
 				{ 8, 34348, "", "=q4=Wand of Cleansing Light", "=ds=#w12#", "", "4%"};
 				{ 9, 34347, "", "=q4=Wand of the Demonsoul", "=ds=#w12#", "", "2%"};
 				{ 11, 35273, "", "=q3=Study of Advanced Smelting", "=ds=#p23# (375)", "", "3%"};
@@ -2804,7 +2803,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 3, 28391, "", "=q3=Worldfire Chestguard", "=ds=#s5#, #a3#", "", "18.57%"};
 				{ 4, 28390, "", "=q3=Thatia's Self-Correcting Gauntlets", "=ds=#s9#, #a4#", "", "14.80%"};
 				{ 5, 28387, "", "=q3=Lamp of Peaceful Repose", "=ds=#s15#", "", "15.92%"};
-				{ 6, 28392, "", "=q3=Reflex Blades", "=ds=#h3#, #w13#", "", "18.37%"};
+				{ 6, 28392, "", "=q3=Reflex Blades", "=ds=#h1#, #w13#", "", "18.37%"};
 				{ 7, 28386, "", "=q3=Nether Core's Control Rod", "#w12#", "", "15.29%"};
 				{ 16, 0, "INV_Box_01", "=q6=#j27#", ""};
 				{ 17, 30582, "", "=q4=Deadly Fire Opal", "=ds=#e7#", "", "0.18%"};
@@ -2853,18 +2852,18 @@ local moduleName = "AtlasLootBurningCrusade"
 	AtlasLoot_Data["TKTrash"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["The Botanica"]};
+				{ 1, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..ALIL["The Botanica"]};
 				{ 2, 24172, "", "=q4=Design: Coronet of Verdant Flame", "=ds=#p12# (370) =q1="..AL["Sunseeker Botanist"], "", "0.27%"};
-				{ 4, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["The Mechanar"]};
+				{ 4, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..ALIL["The Mechanar"]};
 				{ 5, 22920, "", "=q2=Recipe: Major Fire Protection Potion", "=ds=#p1# (360) =q1="..AL["Sunseeker Astromage"], "", "0.30%"};
 				{ 6, 21906, "", "=q2=Pattern: Arcanoweave Boots", "=ds=#p8# (360) =q1="..AL["Sunseeker Astromage"], "", "0.57%"};
-				{ 8, 0, "INV_Box_01", "=q6="..AL["Overcharged Manacell"], "=q5="..BabbleZone["The Mechanar"]};
+				{ 8, 0, "INV_Box_01", "=q6="..AL["Overcharged Manacell"], "=q5="..ALIL["The Mechanar"]};
 				{ 9, 30824, "", "=q1=Overcharged Manacell", "=ds=#m3#"};
-				{ 16, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..BabbleZone["The Arcatraz"]};
+				{ 16, 0, "INV_Box_01", "=q6="..AL["Trash Mobs"], "=q5="..ALIL["The Arcatraz"]};
 				{ 17, 23606, "", "=q3=Plans: Felsteel Leggings", "=ds=#p2# (360), =q1="..AL["Unchained Doombringer"], "", "3.93%"};
 				{ 18, 22556, "", "=q2=Formula: Enchant 2H Weapon - Major Agility", "=ds=#p4# (360) =q1="..AL["Eredar Deathbringer"], "", "1.68%"};
 				{ 19, 21905, "", "=q2=Pattern: Arcanoweave Bracers", "=ds=#p8# (350) =q1="..AL["Arcatraz Sentinel"], "", "1.21%"};
-				{ 21, 0, "INV_Box_01", "=q6="..AL["Third Fragment Guardian"], "=q5="..BabbleZone["The Arcatraz"]};
+				{ 21, 0, "INV_Box_01", "=q6="..AL["Third Fragment Guardian"], "=q5="..ALIL["The Arcatraz"]};
 				{ 22, 24488, "", "=q1=Third Key Fragment", "=ds=#m3#", "", "100%"};
 			};
 		};
@@ -2904,7 +2903,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 1, 28317, "", "=q3=Energis Armwraps", "=ds=#s9#, #a1#", "", "17.60%"};
 				{ 2, 28318, "", "=q3=Obsidian Clodstompers", "=ds=#s12#, #a4#", "", "16.48%"};
 				{ 3, 28321, "", "=q3=Enchanted Thorium Torque", "=ds=#s2#", "", "18.09%"};
-				{ 4, 28315, "", "=q3=Stormreaver Warblades", "=ds=#h4#, #w13#", "", "16.75%"};
+				{ 4, 28315, "", "=q3=Stormreaver Warblades", "=ds=#h1#, #w13#", "", "16.75%"};
 				{ 5, 28316, "", "=q3=Aegis of the Sunbird", "=ds=#w8#", "", "14.60%"};
 				{ 7, 23617, "", "=q3=Plans: Earthpeace Breastplate", "=ds=#p2# (370)", "", "1.07%"};
 				{ 9, 31744, "", "=q1=Botanist's Field Guide", "=ds=#m3#", "", "100%"};
@@ -2927,7 +2926,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 3, 28324, "", "=q3=Gauntlets of Cruel Intention", "=ds=#s9#, #a4#", "", "15.56%"};
 				{ 4, 28327, "", "=q3=Arcane Netherband", "=ds=#s13#", "", "17.77%"};
 				{ 5, 28323, "", "=q3=Ring of Umbral Doom", "=ds=#s13#", "", "16.25%"};
-				{ 6, 28322, "", "=q3=Runed Dagger of Solace", "=ds=#h3#, #w4#", "", "18.16%"};
+				{ 6, 28322, "", "=q3=Runed Dagger of Solace", "=ds=#h1#, #w4#", "", "18.16%"};
 				{ 7, 28325, "", "=q3=Dreamer's Dragonstaff", "=ds=#w9#", "", "15.46%"};
 				{ 16, 0, "INV_Box_01", "=q6=#j27#", ""};
 				{ 17, 30574, "", "=q4=Shifting Tanzanite", "=ds=#e7#", "", "8.00%"};
@@ -3042,7 +3041,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 1, 28256, "", "=q3=Thoriumweave Cloak", "=ds=#s4#", "", "14.81%"};
 				{ 2, 28255, "", "=q3=Lunar-Claw Pauldrons", "=ds=#s3#, #a2#", "", "16.98%"};
 				{ 3, 28254, "", "=q3=Warp Engineer's Prismatic Chain", "=ds=#s2#", "", "16.81%"};
-				{ 4, 28257, "", "=q3=Hammer of the Penitent", "=ds=#h3#, #w6#", "", "14.36%"};
+				{ 4, 28257, "", "=q3=Hammer of the Penitent", "=ds=#h1#, #w6#", "", "14.36%"};
 				{ 5, 28253, "", "=q3=Plasma Rat's Hyper-Scythe", "=ds=#w7#", "", "17.69%"};
 				{ 7, 35582, "", "=q3=Schematic: Rocket Boots Xtreme Lite", "=ds=#p5# (355)"};
 				{ 16, 0, "INV_Box_01", "=q6=#j27#", ""};
@@ -3084,7 +3083,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 2, 28266, "", "=q3=Molten Earth Kilt", "=ds=#s11#, #a3#", "", "12.26%"};
 				{ 3, 28265, "", "=q3=Dath'Remar's Ring of Defense", "=ds=#s13#", "", "10.61%"};
 				{ 4, 28288, "", "=q3=Abacus of Violent Odds", "=ds=#s14#", "", "10.54%"};
-				{ 5, 27899, "", "=q3=Mana Wrath", "=ds=#h3#, #w10#", "", "11.38%"};
+				{ 5, 27899, "", "=q3=Mana Wrath", "=ds=#h1#, #w10#", "", "11.38%"};
 				{ 6, 28267, "", "=q3=Edge of the Cosmos", "=ds=#h1#, #w10#", "", "11.13%"};
 				{ 7, 28286, "", "=q3=Telescopic Sharprifle", "=ds=#w5#", "", "12.28%"};
 				{ 9, 21907, "", "=q2=Pattern: Arcanoweave Robe", "=ds=#p8# (370)", "", "1.11%"};
@@ -3106,7 +3105,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 7, 28266, "", "=q3=Molten Earth Kilt", "=ds=#s11#, #a3#", "", "14.29%"};
 				{ 8, 28265, "", "=q3=Dath'Remar's Ring of Defense", "=ds=#s13#", "", "8.87%"};
 				{ 9, 28288, "", "=q3=Abacus of Violent Odds", "=ds=#s14#", "", "8.37%"};
-				{ 10, 27899, "", "=q3=Mana Wrath", "=ds=#h3#, #w10#", "", "9.36%"};
+				{ 10, 27899, "", "=q3=Mana Wrath", "=ds=#h1#, #w10#", "", "9.36%"};
 				{ 11, 28267, "", "=q3=Edge of the Cosmos", "=ds=#h1#, #w10#", "", "11.82%"};
 				{ 12, 28286, "", "=q3=Telescopic Sharprifle", "=ds=#w5#", "", "9.85%"};
 				{ 15, 21907, "", "=q2=Pattern: Arcanoweave Robe", "=ds=#p8# (370)", "", "1.11%"};
@@ -3128,9 +3127,9 @@ local moduleName = "AtlasLootBurningCrusade"
 		};
 	};
 
-		-----------------------------
-		--- Tempest Keep: The Eye ---
-		-----------------------------
+		----------------------------------
+		--- Tempest Keep: Tempest Keep ---
+		----------------------------------
 
 	AtlasLoot_Data["TKEyeAlar"] = {
 		["Normal"] = {
@@ -3144,8 +3143,8 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 7, 30448, "", "=q4=Talon of Al'ar", "=ds=#s14#, =q1=#m1# =ds=#c2#", "", "22%"};
 				{ 8, 30447, "", "=q4=Tome of Fiery Redemption", "=ds=#s14#, =q1=#m1# =ds=#c4#", "", "21%"};
 				{ 9, 29923, "", "=q4=Talisman of the Sun King", "=ds=#s15#", "", "23%"};
-				{ 16, 32944, "", "=q4=Talon of the Phoenix", "=ds=#h3#, #w13#", "", "12%"};
-				{ 17, 29948, "", "=q4=Claw of the Phoenix", "=ds=#h4#, #w13#", "", "10%"};
+				{ 16, 32944, "", "=q4=Talon of the Phoenix", "=ds=#h1#, #w13#", "", "12%"};
+				{ 17, 29948, "", "=q4=Claw of the Phoenix", "=ds=#h1#, #w13#", "", "10%"};
 				{ 18, 29924, "", "=q4=Netherbane", "=ds=#h1#, #w1#", "", "21%"};
 				{ 19, 29949, "", "=q4=Arcanite Steam-Pistol", "=ds=#w5#", "", "22%"};
 			};
@@ -3314,7 +3313,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Ashtongue Deathsworn"],
+			name = ALIL["Ashtongue Deathsworn"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3332,7 +3331,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 24429, "", "=q1=Expedition Flare", ""};
 				{ 16, 0, "INV_Misc_Ammo_Arrow_02", "=q6=#r3#", ""};
 				{ 17, 25838, "", "=q3=Warden's Hauberk", "=ds=#s5#, #a2#"};
-				{ 18, 25836, "", "=q3=Preserver's Cudgel", "=ds=#h3#, #w6#"};
+				{ 18, 25836, "", "=q3=Preserver's Cudgel", "=ds=#h1#, #w6#"};
 				{ 19, 25835, "", "=q3=Explorer's Walking Stick", "=ds=#w9#"};
 				{ 20, 25735, "", "=q3=Pattern: Heavy Clefthoof Vest", "=ds=#p7# (360)"};
 				{ 21, 25736, "", "=q3=Pattern: Heavy Clefthoof Leggings", "=ds=#p7# (355)"};
@@ -3367,7 +3366,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Cenarion Expedition"],
+			name = ALIL["Cenarion Expedition"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3399,7 +3398,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 19, 24180, "", "=q3=Design: Dawnstone Crab", "=ds=#p12# (370)"};
 				{ 20, 22547, "", "=q1=Formula: Enchant Chest - Exceptional Stats", "=ds=#p4# (345)"};
 				{ 23, 0, "INV_BannerPVP_02", "=q6=#r5#", ""};
-				{ 24, 29153, "", "=q4=Blade of the Archmage", "=ds=#h3#, #w10#"};
+				{ 24, 29153, "", "=q4=Blade of the Archmage", "=ds=#h1#, #w10#"};
 				{ 25, 29156, "", "=q4=Honor's Call", "=ds=#h1#, #w10#"};
 				{ 26, 29151, "", "=q4=Veteran's Musket", "=ds=#w5#"};
 				{ 27, 33150, "", "=q3=Formula: Enchant Cloak - Subtlety", "=ds=#p4# (300)"};
@@ -3409,7 +3408,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Honor Hold"],
+			name = ALIL["Honor Hold"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3430,7 +3429,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 7, 29713, "", "=q1=Pattern: Drums of Panic", "=ds=#p7# (370)"};
 				{ 9, 0, "Ability_Warrior_VictoryRush", "=q6=#r4#", ""};
 				{ 10, 29184, "", "=q3=Timewarden's Leggings", "=ds=#s11#, #a4#"};
-				{ 11, 29185, "", "=q3=Continuum Blade", "=ds=#h3#, #w10#"};
+				{ 11, 29185, "", "=q3=Continuum Blade", "=ds=#h1#, #w10#"};
 				{ 12, 24181, "", "=q3=Design: Living Ruby Serpent", "=ds=#p12# (370)"};
 				{ 13, 24174, "", "=q3=Design: Pendant of Frozen Flame", "=ds=#p12# (360)"};
 				{ 14, 29186, "", "=q2=Arcanum of the Defender", "=ds=#s1# #e17#"};
@@ -3445,7 +3444,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Keepers of Time"],
+			name = ALIL["Keepers of Time"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3487,7 +3486,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Kurenai"],
+			name = ALIL["Kurenai"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3514,14 +3513,14 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 18, 30833, "", "=q1=Pattern: Cloak of Arcane Evasion", "=ds=#p8# (350)"};
 				{ 20, 0, "Ability_Rogue_MasterOfSubtlety", "=q6=#r5#", ""};
 				{ 21, 30834, "", "=q4=Shapeshifter's Signet", "=ds=#s13#"};
-				{ 22, 30832, "", "=q4=Gavel of Unearthed Secrets", "=ds=#h3#, #w6#"};
+				{ 22, 30832, "", "=q4=Gavel of Unearthed Secrets", "=ds=#h1#, #w6#"};
 				{ 23, 30830, "", "=q4=Trident of the Outcast Tribe", "=ds=#w7#"};
 				{ 24, 33148, "", "=q3=Formula: Enchant Cloak - Dodge", "=ds=#p4# (300)"};
 				{ 25, 31778, "", "=q1=Lower City Tabard", "=ds=#s7#"};
 			};
 		};
 		info = {
-			name = BabbleFaction["Lower City"],
+			name = ALIL["Lower City"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3550,7 +3549,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Netherwing"],
+			name = ALIL["Netherwing"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3584,7 +3583,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Ogri'la"],
+			name = ALIL["Ogri'la"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3616,7 +3615,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Sha'tari Skyguard"],
+			name = ALIL["Sha'tari Skyguard"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3656,11 +3655,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 35767, "", "=q4=Design: Reckless Pyrestone", "=ds=#p12# (375)"};
 				{ 5, 35766, "", "=q4=Design: Steady Seaspray Emerald", "=ds=#p12# (375)"};
 				{ 6, 34665, "", "=q3=Bombardier's Blade", "=ds=#h1#, #w4#"};
-				{ 7, 34667, "", "=q3=Archmage's Guile", "=ds=#h3#, #w10#"};
+				{ 7, 34667, "", "=q3=Archmage's Guile", "=ds=#h1#, #w10#"};
 				{ 8, 34672, "", "=q3=Inuuro's Blade", "=ds=#h1#, #w10#"};
 				{ 9, 34666, "", "=q3=The Sunbreaker", "=ds=#h1#, #w10#"};
-				{ 10, 34671, "", "=q3=K'iru's Presage", "=ds=#h3#, #w6#"};
-				{ 11, 34670, "", "=q3=Seeker's Gavel", "=ds=#h3#, #w6#"};
+				{ 10, 34671, "", "=q3=K'iru's Presage", "=ds=#h1#, #w6#"};
+				{ 11, 34670, "", "=q3=Seeker's Gavel", "=ds=#h1#, #w6#"};
 				{ 12, 34673, "", "=q3=Legionfoe", "=ds=#h2#, #w1#"};
 				{ 13, 34674, "", "=q3=Truestrike Crossbow", "=ds=#w3#"};
 				{ 17, 35252, "", "=q1=Design: Regal Seaspray Emerald", "=ds=#p12# (375)"};
@@ -3704,7 +3703,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Shattered Sun Offensive"],
+			name = ALIL["Shattered Sun Offensive"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3737,7 +3736,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Sporeggar"],
+			name = ALIL["Sporeggar"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3792,7 +3791,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["The Aldor"],
+			name = ALIL["The Aldor"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3810,7 +3809,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 4, 23146, "", "=q2=Design: Shifting Shadow Draenite", "=ds=#p12# (315)"};
 				{ 5, 23136, "", "=q2=Design: Reckless Flame Spessarite", "=ds=#p12# (305)"};
 				{ 16, 0, "INV_Weapon_Shortblade_31", "=q6=#r3#", ""};
-				{ 17, 29457, "", "=q3=Nethershard", "=ds=#h3#, #w4#"};
+				{ 17, 29457, "", "=q3=Nethershard", "=ds=#h1#, #w4#"};
 				{ 18, 29456, "", "=q3=Gift of the Ethereal", "=ds=#h1#, #w10#"};
 				{ 19, 29118, "", "=q3=Smuggler's Ammo Pouch", "=ds=#e1# =q1=#m1# =ds=#c2#"};
 				{ 20, 25733, "", "=q3=Pattern: Fel Leather Boots", "=ds=#p7# (350)"};
@@ -3843,7 +3842,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["The Consortium"],
+			name = ALIL["The Consortium"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3885,7 +3884,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["The Mag'har"],
+			name = ALIL["The Mag'har"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3943,7 +3942,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["The Scale of the Sands"],
+			name = ALIL["The Scale of the Sands"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -3996,7 +3995,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["The Scryers"],
+			name = ALIL["The Scryers"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -4025,7 +4024,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 29717, "", "=q1=Pattern: Drums of Battle", "=ds=#p7# (365)"};
 				{ 22, 0, "Spell_Nature_LightningOverload", "=q6=#r5#", ""};
 				{ 23, 29177, "", "=q4=A'dal's Command", "=ds=#s13#"};
-				{ 24, 29175, "", "=q4=Gavel of Pure Light", "=ds=#h3#, #w6#"};
+				{ 24, 29175, "", "=q4=Gavel of Pure Light", "=ds=#h1#, #w6#"};
 				{ 25, 29176, "", "=q4=Crest of the Sha'tar", "=ds=#w8#"};
 				{ 26, 33153, "", "=q3=Formula: Enchant Gloves - Threat", "=ds=#p4# (300)"};
 				{ 27, 31354, "", "=q2=Recipe: Flask of the Titans", "=ds=#p1# (300)"};
@@ -4033,7 +4032,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["The Sha'tar"],
+			name = ALIL["The Sha'tar"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -4082,7 +4081,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["The Violet Eye"],
+			name = ALIL["The Violet Eye"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -4114,7 +4113,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 19, 31358, "", "=q3=Design: Dawnstone Crab", "=ds=#p12# (370)"};
 				{ 20, 24003, "", "=q1=Formula: Enchant Chest - Exceptional Stats", "=ds=#p4# (345)"};
 				{ 23, 0, "INV_BannerPVP_01", "=q6=#r5#", ""};
-				{ 24, 29155, "", "=q4=Stormcaller", "=ds=#h3#, #w10#"};
+				{ 24, 29155, "", "=q4=Stormcaller", "=ds=#h1#, #w10#"};
 				{ 25, 29165, "", "=q4=Warbringer", "=ds=#h1#, #w1#"};
 				{ 26, 29152, "", "=q4=Marksman's Bow", "=ds=#w2#"};
 				{ 27, 33151, "", "=q3=Formula: Enchant Cloak - Subtlety", "=ds=#p4# (300)"};
@@ -4124,7 +4123,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Thrallmar"],
+			name = ALIL["Thrallmar"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -4154,7 +4153,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleFaction["Tranquillien"],
+			name = ALIL["Tranquillien"],
 			module = moduleName, menu = "REPMENU_BURNINGCRUSADE",
 		};
 	}
@@ -4185,7 +4184,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleZone["Hellfire Peninsula"]..": "..AL["Hellfire Fortifications"],
+			name = ALIL["Hellfire Peninsula"]..": "..AL["Hellfire Fortifications"],
 			module = moduleName, menu = "PVPMENU2",
 		};
 	}
@@ -4230,7 +4229,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleZone["Nagrand"]..": "..AL["Halaa"],
+			name = ALIL["Nagrand"]..": "..AL["Halaa"],
 			module = moduleName, menu = "PVPMENU2",
 		};
 	}
@@ -4263,7 +4262,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleZone["Terokkar Forest"]..": "..AL["Spirit Towers"],
+			name = ALIL["Terokkar Forest"]..": "..AL["Spirit Towers"],
 			module = moduleName, menu = "PVPMENU2",
 		};
 	}
@@ -4285,7 +4284,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = BabbleZone["Zangarmarsh"]..": "..AL["Twin Spire Ruins"],
+			name = ALIL["Zangarmarsh"]..": "..AL["Twin Spire Ruins"],
 			module = moduleName, menu = "PVPMENU2",
 		};
 	}
@@ -4598,7 +4597,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..ALIL["Feral"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4633,7 +4632,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..ALIL["Balance"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4668,7 +4667,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..ALIL["Restoration"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4773,7 +4772,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..ALIL["Protection"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4808,7 +4807,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..ALIL["Retribution"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4843,7 +4842,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..ALIL["Holy"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4878,7 +4877,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Shadow"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..ALIL["Shadow"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4913,7 +4912,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Discipline"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..ALIL["Discipline"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -4983,7 +4982,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"].." - "..AtlasLoot_IngameLocales["Demonology"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"].." - "..ALIL["Demonology"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5018,7 +5017,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"].." - "..AtlasLoot_IngameLocales["Destruction"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"].." - "..ALIL["Destruction"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5053,7 +5052,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..ALIL["Enhancement"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5088,7 +5087,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..ALIL["Elemental"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5123,7 +5122,7 @@ local moduleName = "AtlasLootBurningCrusade"
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..ALIL["Restoration"],
 			module = moduleName, menu = "PVP70SET",
 		};
 	}
@@ -5170,17 +5169,17 @@ local moduleName = "AtlasLootBurningCrusade"
 	AtlasLoot_Data["PVP70GladiatorWeapons"] = {
 		["Normal"] = {
 			{
-				{ 1, 28313, "", "=q4=Gladiator's Right Ripper", "=ds=#h1#, #w13#", "#HONOR:750#" },
-				{ 2, 28314, "", "=q4=Gladiator's Left Ripper", "=ds=#h4#, #w13#", "#HONOR:750#" },
-				{ 4, 28297, "", "=q4=Gladiator's Spellblade", "=ds=#h3#, #w4#", "#HONOR:750#" },
+				{ 1, 28313, "", "=q4=Gladiator's Ripper", "=ds=#h1#, #w13#", "#HONOR:750#" },
+				{ 2, 28314, "", "=q4=Gladiator's Fleshslicer", "=ds=#h1#, #w13#", "#HONOR:750#" },
+				{ 4, 28297, "", "=q4=Gladiator's Spellblade", "=ds=#h1#, #w4#", "#HONOR:750#" },
 				{ 5, 28312, "", "=q4=Gladiator's Shanker", "=ds=#h1#, #w4#", "#HONOR:750#" },
 				{ 6, 28310, "", "=q4=Gladiator's Shiv", "=ds=#h4#, #w4#", "#HONOR:750#" },
 				{ 8, 28295, "", "=q4=Gladiator's Slicer", "=ds=#h1#, #w10#", "#HONOR:750#" },
 				{ 9, 28307, "", "=q4=Gladiator's Quickblade", "=ds=#h4#, #w10#", "#HONOR:750#" },
 				{ 11, 28308, "", "=q4=Gladiator's Cleaver", "=ds=#h1#, #w1#", "#HONOR:750#" },
 				{ 12, 28309, "", "=q4=Gladiator's Hacker", "=ds=#h4#, #w1#", "#HONOR:750#" },
-				{ 14, 32450, "", "=q4=Gladiator's Gavel", "=ds=#h3#, #w6#", "#HONOR:750#" },
-				{ 15, 32451, "", "=q4=Gladiator's Salvation", "=ds=#h3#, #w6#", "#HONOR:750#" },
+				{ 14, 32450, "", "=q4=Gladiator's Gavel", "=ds=#h1#, #w6#", "#HONOR:750#" },
+				{ 15, 32451, "", "=q4=Gladiator's Salvation", "=ds=#h1#, #w6#", "#HONOR:750#" },
 				{ 16, 28305, "", "=q4=Gladiator's Pummeler", "=ds=#h1#, #w6#", "#HONOR:750#" },
 				{ 17, 28302, "", "=q4=Gladiator's Bonecracker", "=ds=#h4#, #w6#", "#HONOR:750#" },
 				{ 19, 24550, "", "=q4=Gladiator's Greatsword", "=ds=#h2#, #w10#", "#HONOR:1500#" },
@@ -5207,17 +5206,17 @@ local moduleName = "AtlasLootBurningCrusade"
 	AtlasLoot_Data["PVP70MercilessWeapons"] = {
 		["Normal"] = {
 			{
-				{ 1, 32028, "", "=q4=Merciless Gladiator's Right Ripper", "=ds=#h1#, #w13#", "#HONOR:750#" },
-				{ 2, 32003, "", "=q4=Merciless Gladiator's Left Ripper", "=ds=#h4#, #w13#", "#HONOR:750#" },
-				{ 4, 32053, "", "=q4=Merciless Gladiator's Spellblade", "=ds=#h3#, #w4#", "#HONOR:750#" },
+				{ 1, 32028, "", "=q4=Merciless Gladiator's Ripper", "=ds=#h1#, #w13#", "#HONOR:750#" },
+				{ 2, 32003, "", "=q4=Merciless Gladiator's Fleshslicer", "=ds=#h1#, #w13#", "#HONOR:750#" },
+				{ 4, 32053, "", "=q4=Merciless Gladiator's Spellblade", "=ds=#h1#, #w4#", "#HONOR:750#" },
 				{ 5, 32044, "", "=q4=Merciless Gladiator's Shanker", "=ds=#h1#, #w4#", "#HONOR:750#" },
 				{ 6, 32046, "", "=q4=Merciless Gladiator's Shiv", "=ds=#h4#, #w4#", "#HONOR:750#" },
 				{ 8, 32052, "", "=q4=Merciless Gladiator's Slicer", "=ds=#h1#, #w10#", "#HONOR:750#" },
 				{ 9, 32027, "", "=q4=Merciless Gladiator's Quickblade", "=ds=#h4#, #w10#", "#HONOR:750#" },
 				{ 11, 31965, "", "=q4=Merciless Gladiator's Cleaver", "=ds=#h1#, #w1#", "#HONOR:750#" },
 				{ 12, 31985, "", "=q4=Merciless Gladiator's Hacker", "=ds=#h4#, #w1#", "#HONOR:750#" },
-				{ 14, 32963, "", "=q4=Merciless Gladiator's Gavel", "=ds=#h3#, #w6#", "#HONOR:750#" },
-				{ 15, 32964, "", "=q4=Merciless Gladiator's Salvation", "=ds=#h3#, #w6#", "#HONOR:750#" },
+				{ 14, 32963, "", "=q4=Merciless Gladiator's Gavel", "=ds=#h1#, #w6#", "#HONOR:750#" },
+				{ 15, 32964, "", "=q4=Merciless Gladiator's Salvation", "=ds=#h1#, #w6#", "#HONOR:750#" },
 				{ 16, 32026, "", "=q4=Merciless Gladiator's Pummeler", "=ds=#h1#, #w6#", "#HONOR:750#" },
 				{ 17, 31958, "", "=q4=Merciless Gladiator's Bonecracker", "=ds=#h4#, #w6#", "#HONOR:750#" },
 				{ 19, 31984, "", "=q4=Merciless Gladiator's Greatsword", "=ds=#h2#, #w10#", "#HONOR:1500#" },
@@ -5245,10 +5244,10 @@ local moduleName = "AtlasLootBurningCrusade"
 	AtlasLoot_Data["PVP70VengefulWeapons"] = {
 		["Normal"] = {
 			{
-				{ 1, 33737, "", "=q4=Vengeful Gladiator's Right Ripper", "=ds=#h1#, #w13#", "#HONOR:750#" },
-				{ 2, 33705, "", "=q4=Vengeful Gladiator's Left Ripper", "=ds=#h4#, #w13#", "#HONOR:750#" },
-				{ 3, 34016, "", "=q4=Vengeful Gladiator's Left Render", "=ds=#h4#, #w13#", "#HONOR:750#" },
-				{ 5, 33763, "", "=q4=Vengeful Gladiator's Spellblade", "=ds=#h3#, #w4#", "#HONOR:750#" },
+				{ 1, 33737, "", "=q4=Vengeful Gladiator's Ripper", "=ds=#h1#, #w13#", "#HONOR:750#" },
+				{ 2, 33705, "", "=q4=Vengeful Gladiator's Fleshslicer", "=ds=#h1#, #w13#", "#HONOR:750#" },
+				{ 3, 34016, "", "=q4=Vengeful Gladiator's Slasher", "=ds=#h1#, #w13#", "#HONOR:750#" },
+				{ 5, 33763, "", "=q4=Vengeful Gladiator's Spellblade", "=ds=#h1#, #w4#", "#HONOR:750#" },
 				{ 6, 33754, "", "=q4=Vengeful Gladiator's Shanker", "=ds=#h1#, #w4#", "#HONOR:750#" },
 				{ 7, 33801, "", "=q4=Vengeful Gladiator's Mutilator", "=ds=#h4#, #w4#", "#HONOR:750#" },
 				{ 8, 33756, "", "=q4=Vengeful Gladiator's Shiv", "=ds=#h4#, #w4#", "#HONOR:750#" },
@@ -5257,8 +5256,8 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 13, 33669, "", "=q4=Vengeful Gladiator's Cleaver", "=ds=#h1#, #w1#", "#HONOR:750#" },
 				{ 14, 34015, "", "=q4=Vengeful Gladiator's Chopper", "=ds=#h4#, #w1#", "#HONOR:750#" },
 				{ 15, 33689, "", "=q4=Vengeful Gladiator's Hacker", "=ds=#h4#, #w1#", "#HONOR:750#" },
-				{ 16, 33687, "", "=q4=Vengeful Gladiator's Gavel", "=ds=#h3#, #w6#", "#HONOR:750#" },
-				{ 17, 33743, "", "=q4=Vengeful Gladiator's Salvation", "=ds=#h3#, #w6#", "#HONOR:750#" },
+				{ 16, 33687, "", "=q4=Vengeful Gladiator's Gavel", "=ds=#h1#, #w6#", "#HONOR:750#" },
+				{ 17, 33743, "", "=q4=Vengeful Gladiator's Salvation", "=ds=#h1#, #w6#", "#HONOR:750#" },
 				{ 18, 33733, "", "=q4=Vengeful Gladiator's Pummeler", "=ds=#h1#, #w6#", "#HONOR:750#" },
 				{ 19, 33662, "", "=q4=Vengeful Gladiator's Bonecracker", "=ds=#h4#, #w6#", "#HONOR:750#" },
 				{ 21, 33688, "", "=q4=Vengeful Gladiator's Greatsword", "=ds=#h2#, #w10#", "#HONOR:1500#" },
@@ -5294,22 +5293,22 @@ local moduleName = "AtlasLootBurningCrusade"
 	AtlasLoot_Data["PVP70BrutalWeapons"] = {
 		["Normal"] = {
 			{
-				{ 1, 35076, "", "=q4=Brutal Gladiator's Right Ripper", "=ds=#h1#, #w13#", "#HONOR:245#"};
-				{ 2, 35038, "", "=q4=Brutal Gladiator's Left Ripper", "=ds=#h4#, #w13#", "#HONOR:105#"};
-				{ 3, 35037, "", "=q4=Brutal Gladiator's Left Render", "=ds=#h4#, #w13#", "#HONOR:105#"};
-				{ 5, 35102, "", "=q4=Brutal Gladiator's Spellblade", "=ds=#h3#, #w4#", "#HONOR:245#"};
+				{ 1, 35076, "", "=q4=Brutal Gladiator's Ripper", "=ds=#h1#, #w13#", "#HONOR:245#"};
+				{ 2, 35038, "", "=q4=Brutal Gladiator's Fleshslicer", "=ds=#h1#, #w13#", "#HONOR:105#"};
+				{ 3, 35037, "", "=q4=Brutal Gladiator's Slasher", "=ds=#h1#, #w13#", "#HONOR:105#"};
+				{ 5, 35102, "", "=q4=Brutal Gladiator's Spellblade", "=ds=#h1#, #w4#", "#HONOR:245#"};
 				{ 6, 35093, "", "=q4=Brutal Gladiator's Shanker", "=ds=#h1#, #w4#", "#HONOR:245#"};
 				{ 7, 35058, "", "=q4=Brutal Gladiator's Mutilator", "=ds=#h4#, #w4#", "#HONOR:105#"};
 				{ 8, 35095, "", "=q4=Brutal Gladiator's Shiv", "=ds=#h4#, #w4#", "#HONOR:105#"};
 				{ 10, 35101, "", "=q4=Brutal Gladiator's Slicer", "=ds=#h1#, #w10#", "#HONOR:245#"};
 				{ 11, 35072, "", "=q4=Brutal Gladiator's Quickblade", "=ds=#h4#, #w10#", "#HONOR:105#"};
-				{ 13, 35110, "", "=q4=Brutal Gladiator's Waraxe", "=ds=#h3#, #w1#", "#HONOR:555#"};
+				{ 13, 35110, "", "=q4=Brutal Gladiator's Waraxe", "=ds=#h1#, #w1#", "#HONOR:555#"};
 				{ 14, 34996, "", "=q4=Brutal Gladiator's Cleaver", "=ds=#h1#, #w1#", "#HONOR:245#"};
 				{ 15, 34995, "", "=q4=Brutal Gladiator's Chopper", "=ds=#h4#, #w1#", "#HONOR:105#"};
 				{ 16, 36737, "", "=q4=Brutal Gladiator's Hatchet", "=ds=#h4#, #w1#", "#HONOR:555#"};
 				{ 17, 35017, "", "=q4=Brutal Gladiator's Hacker", "=ds=#h4#, #w1#", "#HONOR:105#"};
-				{ 19, 35014, "", "=q4=Brutal Gladiator's Gavel", "=ds=#h3#, #w6#", "#HONOR:245#"};
-				{ 20, 35082, "", "=q4=Brutal Gladiator's Salvation", "=ds=#h3#, #w6#", "#HONOR:245#"};
+				{ 19, 35014, "", "=q4=Brutal Gladiator's Gavel", "=ds=#h1#, #w6#", "#HONOR:245#"};
+				{ 20, 35082, "", "=q4=Brutal Gladiator's Salvation", "=ds=#h1#, #w6#", "#HONOR:245#"};
 				{ 21, 35071, "", "=q4=Brutal Gladiator's Pummeler", "=ds=#h1#, #w6#", "#HONOR:245#"};
 				{ 22, 34988, "", "=q4=Brutal Gladiator's Bonecracker", "=ds=#h4#, #w6#", "#HONOR:245#"};
 				{ 24, 35015, "", "=q4=Brutal Gladiator's Greatsword", "=ds=#h2#, #w10#", "#HONOR:350#"};
@@ -5353,29 +5352,29 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "Spell_Holy_InnerFire", "=q6=#ds3s1#", ""};
-				{ 2, 28413, "", "=q3=Hallowed Crown", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..BabbleZone["The Arcatraz"]..")"};
-				{ 3, 27775, "", "=q3=Hallowed Pauldrons", "=ds="..AtlasLoot:EJ_GetBossName("Grandmaster Vorpil", 546).." ("..BabbleZone["Shadow Labyrinth"]..")"};
-				{ 4, 28230, "", "=q3=Hallowed Garments", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..BabbleZone["Shadow Labyrinth"]..")"};
-				{ 5, 27536, "", "=q3=Hallowed Handwraps", "=ds="..AtlasLoot:EJ_GetBossName("Warchief Kargath Bladefist", 569).." ("..BabbleZone["The Shattered Halls"]..")"};
-				{ 6, 27875, "", "=q3=Hallowed Trousers", "=ds="..AtlasLoot:EJ_GetBossName("Talon King Ikiss", 543).." ("..BabbleZone["Sethekk Halls"]..")"};
+				{ 2, 28413, "", "=q3=Hallowed Crown", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..ALIL["The Arcatraz"]..")"};
+				{ 3, 27775, "", "=q3=Hallowed Pauldrons", "=ds="..AtlasLoot:EJ_GetBossName("Grandmaster Vorpil", 546).." ("..ALIL["Shadow Labyrinth"]..")"};
+				{ 4, 28230, "", "=q3=Hallowed Garments", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..ALIL["Shadow Labyrinth"]..")"};
+				{ 5, 27536, "", "=q3=Hallowed Handwraps", "=ds="..AtlasLoot:EJ_GetBossName("Warchief Kargath Bladefist", 569).." ("..ALIL["The Shattered Halls"]..")"};
+				{ 6, 27875, "", "=q3=Hallowed Trousers", "=ds="..AtlasLoot:EJ_GetBossName("Talon King Ikiss", 543).." ("..ALIL["Sethekk Halls"]..")"};
 				{ 8, 0, "INV_Elemental_Mote_Nether", "=q6=#ds3s3#", ""};
-				{ 9, 28193, "", "=q3=Mana-Etched Crown", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..BabbleZone["The Black Morass"]..")"};
+				{ 9, 28193, "", "=q3=Mana-Etched Crown", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..ALIL["The Black Morass"]..")"};
 				{ 10, 27796, "", "=q3=Mana-Etched Spaulders", "=ds="..AtlasLoot:EJ_GetBossName("Quagmirran", 572).." (#j3#)"};
-				{ 11, 28191, "", "=q3=Mana-Etched Vestments", "=ds="..AtlasLoot:EJ_GetBossName("Epoch Hunter", 540).." ("..BabbleZone["Old Hillsbrad Foothills"]..") (#j3#)"};
-				{ 12, 27465, "", "=q3=Mana-Etched Gloves", "=ds="..AtlasLoot:EJ_GetBossName("Omor the Unscarred", 528).." ("..BabbleZone["Hellfire Ramparts"]..") (#j3#)"};
+				{ 11, 28191, "", "=q3=Mana-Etched Vestments", "=ds="..AtlasLoot:EJ_GetBossName("Epoch Hunter", 540).." ("..ALIL["Old Hillsbrad Foothills"]..") (#j3#)"};
+				{ 12, 27465, "", "=q3=Mana-Etched Gloves", "=ds="..AtlasLoot:EJ_GetBossName("Omor the Unscarred", 528).." ("..ALIL["Hellfire Ramparts"]..") (#j3#)"};
 				{ 13, 27907, "", "=q3=Mana-Etched Pantaloons", "=ds="..AtlasLoot:EJ_GetBossName("The Black Stalker", 579).." (#j3#)"};
 				{ 16, 0, "Ability_Creature_Cursed_04", "=q6=#ds3s2#", ""};
-				{ 17, 28278, "", "=q3=Incanter's Cowl", "=ds="..AtlasLoot:EJ_GetBossName("Pathaleon the Calculator", 565).." ("..BabbleZone["The Mechanar"]..")"};
-				{ 18, 27738, "", "=q3=Incanter's Pauldrons", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..BabbleZone["The Steamvault"]..")"};
-				{ 19, 28229, "", "=q3=Incanter's Robe", "=ds="..AtlasLoot:EJ_GetBossName("Warp Splinter", 562).." ("..BabbleZone["The Botanica"]..")"};
-				{ 20, 27508, "", "=q3=Incanter's Gloves", "=ds="..AtlasLoot:EJ_GetBossName("Hydromancer Thespia", 573).." ("..BabbleZone["The Steamvault"]..")"}; 
-				{ 21, 27838, "", "=q3=Incanter's Trousers", "=ds="..AtlasLoot:EJ_GetBossName("Talon King Ikiss", 543).." ("..BabbleZone["Sethekk Halls"]..")"};
+				{ 17, 28278, "", "=q3=Incanter's Cowl", "=ds="..AtlasLoot:EJ_GetBossName("Pathaleon the Calculator", 565).." ("..ALIL["The Mechanar"]..")"};
+				{ 18, 27738, "", "=q3=Incanter's Pauldrons", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..ALIL["The Steamvault"]..")"};
+				{ 19, 28229, "", "=q3=Incanter's Robe", "=ds="..AtlasLoot:EJ_GetBossName("Warp Splinter", 562).." ("..ALIL["The Botanica"]..")"};
+				{ 20, 27508, "", "=q3=Incanter's Gloves", "=ds="..AtlasLoot:EJ_GetBossName("Hydromancer Thespia", 573).." ("..ALIL["The Steamvault"]..")"}; 
+				{ 21, 27838, "", "=q3=Incanter's Trousers", "=ds="..AtlasLoot:EJ_GetBossName("Talon King Ikiss", 543).." ("..ALIL["Sethekk Halls"]..")"};
 				{ 23, 0, "Ability_Creature_Cursed_03", "=q6=#ds3s4#", ""};
-				{ 24, 28415, "", "=q3=Hood of Oblivion", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..BabbleZone["The Arcatraz"]..")"};
-				{ 25, 27778, "", "=q3=Spaulders of Oblivion", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..BabbleZone["Shadow Labyrinth"]..")"};
-				{ 26, 28232, "", "=q3=Robe of Oblivion", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..BabbleZone["Shadow Labyrinth"]..")"};
-				{ 27, 27537, "", "=q3=Gloves of Oblivion", "=ds="..AtlasLoot:EJ_GetBossName("Warchief Kargath Bladefist", 569).." ("..BabbleZone["The Shattered Halls"]..")"};
-				{ 28, 27948, "", "=q3=Trousers of Oblivion", "=ds="..AtlasLoot:EJ_GetBossName("Talon King Ikiss", 543).." ("..BabbleZone["Sethekk Halls"]..")"};
+				{ 24, 28415, "", "=q3=Hood of Oblivion", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..ALIL["The Arcatraz"]..")"};
+				{ 25, 27778, "", "=q3=Spaulders of Oblivion", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..ALIL["Shadow Labyrinth"]..")"};
+				{ 26, 28232, "", "=q3=Robe of Oblivion", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..ALIL["Shadow Labyrinth"]..")"};
+				{ 27, 27537, "", "=q3=Gloves of Oblivion", "=ds="..AtlasLoot:EJ_GetBossName("Warchief Kargath Bladefist", 569).." ("..ALIL["The Shattered Halls"]..")"};
+				{ 28, 27948, "", "=q3=Trousers of Oblivion", "=ds="..AtlasLoot:EJ_GetBossName("Talon King Ikiss", 543).." ("..ALIL["Sethekk Halls"]..")"};
 			};
 		};
 		info = {
@@ -5388,23 +5387,23 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "Ability_Rogue_SinisterCalling", "=q6=#ds3s5#", ""};
-				{ 2, 28414, "", "=q3=Helm of Assassination", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..BabbleZone["The Arcatraz"]..")"};
-				{ 3, 27776, "", "=q3=Shoulderpads of Assassination", "=ds="..AtlasLoot:EJ_GetBossName("Talon King Ikiss", 543).." ("..BabbleZone["Sethekk Halls"]..")"};
-				{ 4, 28204, "", "=q3=Tunic of Assassination", "=ds="..AtlasLoot:EJ_GetBossName("Pathaleon the Calculator", 565).." ("..BabbleZone["The Mechanar"]..")"};
-				{ 5, 27509, "", "=q3=Handgrips of Assassination", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..BabbleZone["The Black Morass"]..")"};
-				{ 6, 27908, "", "=q3=Leggings of Assassination", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..BabbleZone["Shadow Labyrinth"]..")"};
+				{ 2, 28414, "", "=q3=Helm of Assassination", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..ALIL["The Arcatraz"]..")"};
+				{ 3, 27776, "", "=q3=Shoulderpads of Assassination", "=ds="..AtlasLoot:EJ_GetBossName("Talon King Ikiss", 543).." ("..ALIL["Sethekk Halls"]..")"};
+				{ 4, 28204, "", "=q3=Tunic of Assassination", "=ds="..AtlasLoot:EJ_GetBossName("Pathaleon the Calculator", 565).." ("..ALIL["The Mechanar"]..")"};
+				{ 5, 27509, "", "=q3=Handgrips of Assassination", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..ALIL["The Black Morass"]..")"};
+				{ 6, 27908, "", "=q3=Leggings of Assassination", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..ALIL["Shadow Labyrinth"]..")"};
 				{ 8, 0, "Ability_Hunter_RapidKilling", "=q6=#ds3s7#", ""};
-				{ 9, 28224, "", "=q3=Wastewalker Helm", "=ds="..AtlasLoot:EJ_GetBossName("Epoch Hunter", 540).." ("..BabbleZone["Old Hillsbrad Foothills"]..") (#j3#)"};
-				{ 10, 27797, "", "=q3=Wastewalker Shoulderpads", "=ds="..AL["Avatar"].." ("..BabbleZone["Auchenai Crypts"]..") (#j3#)"};
-				{ 11, 28264, "", "=q3=Wastewalker Tunic", "=ds="..AtlasLoot:EJ_GetBossName("Keli'dan the Breaker", 557).." ("..BabbleZone["The Blood Furnace"]..") (#j3#)"};
-				{ 12, 27531, "", "=q3=Wastewalker Gloves", "=ds="..AtlasLoot:EJ_GetBossName("Warchief Kargath Bladefist", 569).." ("..BabbleZone["The Shattered Halls"]..")"};
-				{ 13, 27837, "", "=q3=Wastewalker Leggings", "=ds="..AtlasLoot:EJ_GetBossName("Nexus-Prince Shaffar", 537).." ("..BabbleZone["Mana-Tombs"]..") (#j3#)"};
+				{ 9, 28224, "", "=q3=Wastewalker Helm", "=ds="..AtlasLoot:EJ_GetBossName("Epoch Hunter", 540).." ("..ALIL["Old Hillsbrad Foothills"]..") (#j3#)"};
+				{ 10, 27797, "", "=q3=Wastewalker Shoulderpads", "=ds="..AL["Avatar"].." ("..ALIL["Auchenai Crypts"]..") (#j3#)"};
+				{ 11, 28264, "", "=q3=Wastewalker Tunic", "=ds="..AtlasLoot:EJ_GetBossName("Keli'dan the Breaker", 557).." ("..ALIL["The Blood Furnace"]..") (#j3#)"};
+				{ 12, 27531, "", "=q3=Wastewalker Gloves", "=ds="..AtlasLoot:EJ_GetBossName("Warchief Kargath Bladefist", 569).." ("..ALIL["The Shattered Halls"]..")"};
+				{ 13, 27837, "", "=q3=Wastewalker Leggings", "=ds="..AtlasLoot:EJ_GetBossName("Nexus-Prince Shaffar", 537).." ("..ALIL["Mana-Tombs"]..") (#j3#)"};
 				{ 16, 0, "Spell_Holy_SealOfRighteousness", "=q6=#ds3s6#", ""};
-				{ 17, 28348, "", "=q3=Moonglade Cowl", "=ds="..AtlasLoot:EJ_GetBossName("Warp Splinter", 562).." ("..BabbleZone["The Botanica"]..")"};
-				{ 18, 27737, "", "=q3=Moonglade Shoulders", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..BabbleZone["The Steamvault"]..")"};
-				{ 19, 28202, "", "=q3=Moonglade Robe", "=ds="..AtlasLoot:EJ_GetBossName("Pathaleon the Calculator", 565).." ("..BabbleZone["The Mechanar"]..")"};
-				{ 20, 27468, "", "=q3=Moonglade Handwraps", "=ds="..AtlasLoot:EJ_GetBossName("Blackheart the Inciter", 545).." ("..BabbleZone["Shadow Labyrinth"]..")"};
-				{ 21, 27873, "", "=q3=Moonglade Pants", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..BabbleZone["The Black Morass"]..")"};
+				{ 17, 28348, "", "=q3=Moonglade Cowl", "=ds="..AtlasLoot:EJ_GetBossName("Warp Splinter", 562).." ("..ALIL["The Botanica"]..")"};
+				{ 18, 27737, "", "=q3=Moonglade Shoulders", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..ALIL["The Steamvault"]..")"};
+				{ 19, 28202, "", "=q3=Moonglade Robe", "=ds="..AtlasLoot:EJ_GetBossName("Pathaleon the Calculator", 565).." ("..ALIL["The Mechanar"]..")"};
+				{ 20, 27468, "", "=q3=Moonglade Handwraps", "=ds="..AtlasLoot:EJ_GetBossName("Blackheart the Inciter", 545).." ("..ALIL["Shadow Labyrinth"]..")"};
+				{ 21, 27873, "", "=q3=Moonglade Pants", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..ALIL["The Black Morass"]..")"};
 			};
 		};
 		info = {
@@ -5417,23 +5416,23 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "Ability_Hunter_Pet_Wolf", "=q6=#ds3s8#", ""};
-				{ 2, 28275, "", "=q3=Beast Lord Helm", "=ds="..AtlasLoot:EJ_GetBossName("Pathaleon the Calculator", 565).." ("..BabbleZone["The Mechanar"]..")"};
-				{ 3, 27801, "", "=q3=Beast Lord Mantle", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..BabbleZone["The Steamvault"]..")"};
-				{ 4, 28228, "", "=q3=Beast Lord Curiass", "=ds="..AtlasLoot:EJ_GetBossName("Warp Splinter", 562).." ("..BabbleZone["The Botanica"]..")"};
-				{ 5, 27474, "", "=q3=Beast Lord Handguards", "=ds="..AtlasLoot:EJ_GetBossName("Warchief Kargath Bladefist", 569).." ("..BabbleZone["The Shattered Halls"]..")"};
-				{ 6, 27874, "", "=q3=Beast Lord Leggings", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..BabbleZone["The Steamvault"]..")"};
+				{ 2, 28275, "", "=q3=Beast Lord Helm", "=ds="..AtlasLoot:EJ_GetBossName("Pathaleon the Calculator", 565).." ("..ALIL["The Mechanar"]..")"};
+				{ 3, 27801, "", "=q3=Beast Lord Mantle", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..ALIL["The Steamvault"]..")"};
+				{ 4, 28228, "", "=q3=Beast Lord Curiass", "=ds="..AtlasLoot:EJ_GetBossName("Warp Splinter", 562).." ("..ALIL["The Botanica"]..")"};
+				{ 5, 27474, "", "=q3=Beast Lord Handguards", "=ds="..AtlasLoot:EJ_GetBossName("Warchief Kargath Bladefist", 569).." ("..ALIL["The Shattered Halls"]..")"};
+				{ 6, 27874, "", "=q3=Beast Lord Leggings", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..ALIL["The Steamvault"]..")"};
 				{ 8, 0, "INV_Helmet_70", "=q6=#ds3s10#", ""};
-				{ 9, 28349, "", "=q3=Tidefury Helm", "=ds="..AtlasLoot:EJ_GetBossName("Warp Splinter", 562).." ("..BabbleZone["The Botanica"]..")"};
-				{ 10, 27802, "", "=q3=Tidefury Shoulderguards", "=ds="..AtlasLoot:EJ_GetBossName("Warbringer O'mrogg", 568).." ("..BabbleZone["The Shattered Halls"]..")"};
-				{ 11, 28231, "", "=q3=Tidefury Chestpiece", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..BabbleZone["The Arcatraz"]..")"};
-				{ 12, 27510, "", "=q3=Tidefury Gauntlets", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..BabbleZone["The Steamvault"]..")"};
-				{ 13, 27909, "", "=q3=Tidefury Kilt", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..BabbleZone["Shadow Labyrinth"]..")"};
+				{ 9, 28349, "", "=q3=Tidefury Helm", "=ds="..AtlasLoot:EJ_GetBossName("Warp Splinter", 562).." ("..ALIL["The Botanica"]..")"};
+				{ 10, 27802, "", "=q3=Tidefury Shoulderguards", "=ds="..AtlasLoot:EJ_GetBossName("Warbringer O'mrogg", 568).." ("..ALIL["The Shattered Halls"]..")"};
+				{ 11, 28231, "", "=q3=Tidefury Chestpiece", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..ALIL["The Arcatraz"]..")"};
+				{ 12, 27510, "", "=q3=Tidefury Gauntlets", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..ALIL["The Steamvault"]..")"};
+				{ 13, 27909, "", "=q3=Tidefury Kilt", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..ALIL["Shadow Labyrinth"]..")"};
 				{ 16, 0, "Ability_FiegnDead", "=q6=#ds3s9#", ""};
-				{ 17, 28192, "", "=q3=Helm of Desolation", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..BabbleZone["The Black Morass"]..")"};
+				{ 17, 28192, "", "=q3=Helm of Desolation", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..ALIL["The Black Morass"]..")"};
 				{ 18, 27713, "", "=q3=Pauldrons of Desolation", "=ds="..AtlasLoot:EJ_GetBossName("Quagmirran", 572).." (#j3#)"};
-				{ 19, 28401, "", "=q3=Hauberk of Desolation", "=ds="..AtlasLoot:EJ_GetBossName("Epoch Hunter", 540).." ("..BabbleZone["Old Hillsbrad Foothills"]..") (#j3#)"};
-				{ 20, 27528, "", "=q3=Gauntlets of Desolation", "=ds="..AtlasLoot:EJ_GetBossName("Warchief Kargath Bladefist", 569).." ("..BabbleZone["The Shattered Halls"]..")"};
-				{ 21, 27936, "", "=q3=Greaves of Desolation", "=ds="..AtlasLoot:EJ_GetBossName("Talon King Ikiss", 543).." ("..BabbleZone["Sethekk Halls"]..")"};
+				{ 19, 28401, "", "=q3=Hauberk of Desolation", "=ds="..AtlasLoot:EJ_GetBossName("Epoch Hunter", 540).." ("..ALIL["Old Hillsbrad Foothills"]..") (#j3#)"};
+				{ 20, 27528, "", "=q3=Gauntlets of Desolation", "=ds="..AtlasLoot:EJ_GetBossName("Warchief Kargath Bladefist", 569).." ("..ALIL["The Shattered Halls"]..")"};
+				{ 21, 27936, "", "=q3=Greaves of Desolation", "=ds="..AtlasLoot:EJ_GetBossName("Talon King Ikiss", 543).." ("..ALIL["Sethekk Halls"]..")"};
 			};
 		};
 		info = {
@@ -5446,23 +5445,23 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "Spell_Fire_EnchantWeapon", "=q6=#ds3s11#", ""};
-				{ 2, 28350, "", "=q3=Warhelm of the Bold", "=ds="..AtlasLoot:EJ_GetBossName("Warp Splinter", 562).." ("..BabbleZone["The Botanica"]..")"};
-				{ 3, 27803, "", "=q3=Shoulderguards of the Bold", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..BabbleZone["Shadow Labyrinth"]..")"};
-				{ 4, 28205, "", "=q3=Breastplate of the Bold", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..BabbleZone["The Arcatraz"]..")"};
-				{ 5, 27475, "", "=q3=Gauntlets of the Bold", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..BabbleZone["The Steamvault"]..")"};
-				{ 6, 27977, "", "=q3=Legplates of the Bold", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..BabbleZone["The Black Morass"]..")"};
+				{ 2, 28350, "", "=q3=Warhelm of the Bold", "=ds="..AtlasLoot:EJ_GetBossName("Warp Splinter", 562).." ("..ALIL["The Botanica"]..")"};
+				{ 3, 27803, "", "=q3=Shoulderguards of the Bold", "=ds="..AtlasLoot:EJ_GetBossName("Murmur", 547).." ("..ALIL["Shadow Labyrinth"]..")"};
+				{ 4, 28205, "", "=q3=Breastplate of the Bold", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..ALIL["The Arcatraz"]..")"};
+				{ 5, 27475, "", "=q3=Gauntlets of the Bold", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..ALIL["The Steamvault"]..")"};
+				{ 6, 27977, "", "=q3=Legplates of the Bold", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..ALIL["The Black Morass"]..")"};
 				{ 8, 0, "INV_Hammer_02", "=q6=#ds3s13#", ""};
-				{ 9, 28285, "", "=q3=Helm of the Righteous", "=ds="..AtlasLoot:EJ_GetBossName("Pathaleon the Calculator", 565).." ("..BabbleZone["The Mechanar"]..")"};
-				{ 10, 27739, "", "=q3=Spaulders of the Righteous", "=ds="..AtlasLoot:EJ_GetBossName("Laj", 561).." ("..BabbleZone["The Botanica"]..")"};
-				{ 11, 28203, "", "=q3=Breastplate of the Righteous", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..BabbleZone["The Steamvault"]..")"};
-				{ 12, 27535, "", "=q3=Gauntlets of the Righteous", "=ds="..AtlasLoot:EJ_GetBossName("Warbringer O'mrogg", 568).." ("..BabbleZone["The Shattered Halls"]..")"};
-				{ 13, 27839, "", "=q3=Legplates of the Righteous", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..BabbleZone["The Black Morass"]..")"};
+				{ 9, 28285, "", "=q3=Helm of the Righteous", "=ds="..AtlasLoot:EJ_GetBossName("Pathaleon the Calculator", 565).." ("..ALIL["The Mechanar"]..")"};
+				{ 10, 27739, "", "=q3=Spaulders of the Righteous", "=ds="..AtlasLoot:EJ_GetBossName("Laj", 561).." ("..ALIL["The Botanica"]..")"};
+				{ 11, 28203, "", "=q3=Breastplate of the Righteous", "=ds="..AtlasLoot:EJ_GetBossName("Warlord Kalithresh", 575).." ("..ALIL["The Steamvault"]..")"};
+				{ 12, 27535, "", "=q3=Gauntlets of the Righteous", "=ds="..AtlasLoot:EJ_GetBossName("Warbringer O'mrogg", 568).." ("..ALIL["The Shattered Halls"]..")"};
+				{ 13, 27839, "", "=q3=Legplates of the Righteous", "=ds="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..ALIL["The Black Morass"]..")"};
 				{ 16, 0, "INV_Helmet_08", "=q6=#ds3s12#", ""};
-				{ 17, 28225, "", "=q3=Doomplate Warhelm", "=ds="..AtlasLoot:EJ_GetBossName("Epoch Hunter", 540).." ("..BabbleZone["Old Hillsbrad Foothills"]..") (#j3#)"};
+				{ 17, 28225, "", "=q3=Doomplate Warhelm", "=ds="..AtlasLoot:EJ_GetBossName("Epoch Hunter", 540).." ("..ALIL["Old Hillsbrad Foothills"]..") (#j3#)"};
 				{ 18, 27771, "", "=q3=Doomplate Shoulderguards", "=ds="..AtlasLoot:EJ_GetBossName("The Black Stalker", 579).." (#j3#)"};
-				{ 19, 28403, "", "=q3=Doomplate Chestguard", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..BabbleZone["The Arcatraz"]..")"};
-				{ 20, 27497, "", "=q3=Doomplate Gauntlets", "=ds="..AtlasLoot:EJ_GetBossName("Keli'dan the Breaker", 557).." ("..BabbleZone["The Blood Furnace"]..") (#j3#)"};
-				{ 21, 27870, "", "=q3=Doomplate Legguards", "=ds="..AtlasLoot:EJ_GetBossName("Exarch Maladaar", 524).." ("..BabbleZone["Auchenai Crypts"]..") (#j3#)"};
+				{ 19, 28403, "", "=q3=Doomplate Chestguard", "=ds="..AtlasLoot:EJ_GetBossName("Harbinger Skyriss", 551).." ("..ALIL["The Arcatraz"]..")"};
+				{ 20, 27497, "", "=q3=Doomplate Gauntlets", "=ds="..AtlasLoot:EJ_GetBossName("Keli'dan the Breaker", 557).." ("..ALIL["The Blood Furnace"]..") (#j3#)"};
+				{ 21, 27870, "", "=q3=Doomplate Legguards", "=ds="..AtlasLoot:EJ_GetBossName("Exarch Maladaar", 524).." ("..ALIL["Auchenai Crypts"]..") (#j3#)"};
 			};
 		};
 		info = {
@@ -5479,30 +5478,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "ability_druid_catform", "=q6=#t4s1_1#", "=ec1=#m21#"};
-				{ 2, 29098, "", "=q4=Stag-Helm of Malorne", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29098, "", "=q4=Stag-Helm of Malorne", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29100, "", "=q4=Mantle of Malorne", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29096, "", "=q4=Breastplate of Malorne", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29097, "", "=q4=Gauntlets of Malorne", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29097, "", "=q4=Gauntlets of Malorne", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29099, "", "=q4=Greaves of Malorne", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "ability_druid_catform", "=q6=#t5s1_1#", "=ec1=#m22#"};
-				{ 9, 30228, "", "=q4=Nordrassil Headdress", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30230, "", "=q4=Nordrassil Feral-Mantle", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30222, "", "=q4=Nordrassil Chestplate", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30223, "", "=q4=Nordrassil Handgrips", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30229, "", "=q4=Nordrassil Feral-Kilt", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30228, "", "=q4=Nordrassil Headdress", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30230, "", "=q4=Nordrassil Feral-Mantle", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30222, "", "=q4=Nordrassil Chestplate", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30223, "", "=q4=Nordrassil Handgrips", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30229, "", "=q4=Nordrassil Feral-Kilt", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "ability_druid_catform", "=q6=#t6s1_1#", "=ec1=#m23#"};
-				{ 17, 31039, "", "=q4=Thunderheart Cover", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31048, "", "=q4=Thunderheart Pauldrons", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31042, "", "=q4=Thunderheart Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34444, "", "=q4=Thunderheart Wristguards", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31034, "", "=q4=Thunderheart Gauntlets", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34556, "", "=q4=Thunderheart Waistguard", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31044, "", "=q4=Thunderheart Leggings", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34573, "", "=q4=Thunderheart Treads", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31039, "", "=q4=Thunderheart Cover", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31048, "", "=q4=Thunderheart Pauldrons", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31042, "", "=q4=Thunderheart Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34444, "", "=q4=Thunderheart Wristguards", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31034, "", "=q4=Thunderheart Gauntlets", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34556, "", "=q4=Thunderheart Waistguard", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31044, "", "=q4=Thunderheart Leggings", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34573, "", "=q4=Thunderheart Treads", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Feral"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..ALIL["Feral"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5511,30 +5510,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "spell_nature_healingtouch", "=q6=#t4s1_2#", "=ec1=#m21#"};
-				{ 2, 29086, "", "=q4=Crown of Malorne", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29086, "", "=q4=Crown of Malorne", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29089, "", "=q4=Shoulderguards of Malorne", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29087, "", "=q4=Chestguard of Malorne", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29090, "", "=q4=Handguards of Malorne", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29090, "", "=q4=Handguards of Malorne", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29088, "", "=q4=Legguards of Malorne", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "spell_nature_healingtouch", "=q6=#t5s1_2#", "=ec1=#m22#"};
-				{ 9, 30219, "", "=q4=Nordrassil Headguard", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30221, "", "=q4=Nordrassil Life-Mantle", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30216, "", "=q4=Nordrassil Chestguard", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30217, "", "=q4=Nordrassil Gloves", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30220, "", "=q4=Nordrassil Life-Kilt", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30219, "", "=q4=Nordrassil Headguard", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30221, "", "=q4=Nordrassil Life-Mantle", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30216, "", "=q4=Nordrassil Chestguard", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30217, "", "=q4=Nordrassil Gloves", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30220, "", "=q4=Nordrassil Life-Kilt", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "spell_nature_healingtouch", "=q6=#t6s1_2#", "=ec1=#m23#"};
-				{ 17, 31037, "", "=q4=Thunderheart Helmet", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31047, "", "=q4=Thunderheart Spaulders", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31041, "", "=q4=Thunderheart Tunic", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34445, "", "=q4=Thunderheart Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31032, "", "=q4=Thunderheart Gloves", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34554, "", "=q4=Thunderheart Belt", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31045, "", "=q4=Thunderheart Legguards", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34571, "", "=q4=Thunderheart Boots", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31037, "", "=q4=Thunderheart Helmet", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31047, "", "=q4=Thunderheart Spaulders", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31041, "", "=q4=Thunderheart Tunic", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34445, "", "=q4=Thunderheart Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31032, "", "=q4=Thunderheart Gloves", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34554, "", "=q4=Thunderheart Belt", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31045, "", "=q4=Thunderheart Legguards", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34571, "", "=q4=Thunderheart Boots", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..ALIL["Restoration"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5543,30 +5542,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "spell_nature_starfall", "=q6=#t4s1_3#", "=ec1=#m21#"};
-				{ 2, 29093, "", "=q4=Antlers of Malorne", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29093, "", "=q4=Antlers of Malorne", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29095, "", "=q4=Pauldrons of Malorne", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29091, "", "=q4=Chestpiece of Malorne", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29092, "", "=q4=Gloves of Malorne", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29092, "", "=q4=Gloves of Malorne", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29094, "", "=q4=Britches of Malorne", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "spell_nature_starfall", "=q6=#t5s1_3#", "=ec1=#m22#"};
-				{ 9, 30233, "", "=q4=Nordrassil Headpiece", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30235, "", "=q4=Nordrassil Wrath-Mantle", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30231, "", "=q4=Nordrassil Chestpiece", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30232, "", "=q4=Nordrassil Gauntlets", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30234, "", "=q4=Nordrassil Wrath-Kilt", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30233, "", "=q4=Nordrassil Headpiece", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30235, "", "=q4=Nordrassil Wrath-Mantle", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30231, "", "=q4=Nordrassil Chestpiece", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30232, "", "=q4=Nordrassil Gauntlets", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30234, "", "=q4=Nordrassil Wrath-Kilt", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "spell_nature_starfall", "=q6=#t6s1_3#", "=ec1=#m23#"};
-				{ 17, 31040, "", "=q4=Thunderheart Headguard", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31049, "", "=q4=Thunderheart Shoulderpads", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31043, "", "=q4=Thunderheart Vest", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34446, "", "=q4=Thunderheart Bands", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31035, "", "=q4=Thunderheart Handguards", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34555, "", "=q4=Thunderheart Cord", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31046, "", "=q4=Thunderheart Pants", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34572, "", "=q4=Thunderheart Footwraps", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31040, "", "=q4=Thunderheart Headguard", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31049, "", "=q4=Thunderheart Shoulderpads", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31043, "", "=q4=Thunderheart Vest", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34446, "", "=q4=Thunderheart Bands", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31035, "", "=q4=Thunderheart Handguards", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34555, "", "=q4=Thunderheart Cord", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31046, "", "=q4=Thunderheart Pants", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34572, "", "=q4=Thunderheart Footwraps", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..AtlasLoot_IngameLocales["Balance"],
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"].." - "..ALIL["Balance"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5575,26 +5574,26 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "inv_weapon_bow_07", "=q6=#t4s2#", "=ec1=#m21#"};
-				{ 2, 29081, "", "=q4=Demon Stalker Greathelm", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29081, "", "=q4=Demon Stalker Greathelm", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29084, "", "=q4=Demon Stalker Shoulderguards", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29082, "", "=q4=Demon Stalker Harness", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29085, "", "=q4=Demon Stalker Gauntlets", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29085, "", "=q4=Demon Stalker Gauntlets", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29083, "", "=q4=Demon Stalker Greaves", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "inv_weapon_bow_07", "=q6=#t5s2#", "=ec1=#m22#"};
-				{ 9, 30141, "", "=q4=Rift Stalker Helm", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30143, "", "=q4=Rift Stalker Mantle", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30139, "", "=q4=Rift Stalker Hauberk", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30140, "", "=q4=Rift Stalker Gauntlets", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30142, "", "=q4=Rift Stalker Leggings", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30141, "", "=q4=Rift Stalker Helm", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30143, "", "=q4=Rift Stalker Mantle", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30139, "", "=q4=Rift Stalker Hauberk", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30140, "", "=q4=Rift Stalker Gauntlets", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30142, "", "=q4=Rift Stalker Leggings", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "inv_weapon_bow_07", "=q6=#t6s2#", "=ec1=#m23#"};
-				{ 17, 31003, "", "=q4=Gronnstalker's Helmet", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31006, "", "=q4=Gronnstalker's Spaulders", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31004, "", "=q4=Gronnstalker's Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34443, "", "=q4=Gronnstalker's Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31001, "", "=q4=Gronnstalker's Gloves", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34549, "", "=q4=Gronnstalker's Belt", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31005, "", "=q4=Gronnstalker's Leggings", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34570, "", "=q4=Gronnstalker's Boots", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31003, "", "=q4=Gronnstalker's Helmet", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31006, "", "=q4=Gronnstalker's Spaulders", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31004, "", "=q4=Gronnstalker's Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34443, "", "=q4=Gronnstalker's Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31001, "", "=q4=Gronnstalker's Gloves", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34549, "", "=q4=Gronnstalker's Belt", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31005, "", "=q4=Gronnstalker's Leggings", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34570, "", "=q4=Gronnstalker's Boots", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
@@ -5607,26 +5606,26 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "inv_staff_13", "=q6=#t4s3#", "=ec1=#m21#"};
-				{ 2, 29076, "", "=q4=Collar of the Aldor", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29076, "", "=q4=Collar of the Aldor", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29079, "", "=q4=Pauldrons of the Aldor", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29077, "", "=q4=Vestments of the Aldor", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29080, "", "=q4=Gloves of the Aldor", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29080, "", "=q4=Gloves of the Aldor", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29078, "", "=q4=Legwraps of the Aldor", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "inv_staff_13", "=q6=#t5s3#", "=ec1=#m22#"};
-				{ 9, 30206, "", "=q4=Cowl of Tirisfal", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30210, "", "=q4=Mantle of Tirisfal", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30196, "", "=q4=Robes of Tirisfal", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30205, "", "=q4=Gloves of Tirisfal", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30207, "", "=q4=Leggings of Tirisfal", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30206, "", "=q4=Cowl of Tirisfal", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30210, "", "=q4=Mantle of Tirisfal", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30196, "", "=q4=Robes of Tirisfal", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30205, "", "=q4=Gloves of Tirisfal", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30207, "", "=q4=Leggings of Tirisfal", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "inv_staff_13", "=q6=#t6s3#", "=ec1=#m23#"};
-				{ 17, 31056, "", "=q4=Cowl of the Tempest", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31059, "", "=q4=Mantle of the Tempest", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31057, "", "=q4=Robes of the Tempest", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34447, "", "=q4=Bracers of the Tempest", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31055, "", "=q4=Gloves of the Tempest", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34557, "", "=q4=Belt of the Tempest", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31058, "", "=q4=Leggings of the Tempest", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34574, "", "=q4=Boots of the Tempest", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31056, "", "=q4=Cowl of the Tempest", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31059, "", "=q4=Mantle of the Tempest", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31057, "", "=q4=Robes of the Tempest", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34447, "", "=q4=Bracers of the Tempest", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31055, "", "=q4=Gloves of the Tempest", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34557, "", "=q4=Belt of the Tempest", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31058, "", "=q4=Leggings of the Tempest", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34574, "", "=q4=Boots of the Tempest", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
@@ -5639,30 +5638,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "spell_holy_devotionaura", "=q6=#t4s4_1#", "=ec1=#m21#"};
-				{ 2, 29068, "", "=q4=Justicar Faceguard", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29068, "", "=q4=Justicar Faceguard", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29070, "", "=q4=Justicar Shoulderguards", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29066, "", "=q4=Justicar Chestguard", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29067, "", "=q4=Justicar Handguards", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29067, "", "=q4=Justicar Handguards", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29069, "", "=q4=Justicar Legguards", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "spell_holy_devotionaura", "=q6=#t5s4_1#", "=ec1=#m22#"};
-				{ 9, 30125, "", "=q4=Crystalforge Faceguard", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30127, "", "=q4=Crystalforge Shoulderguards", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30123, "", "=q4=Crystalforge Chestguard", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30124, "", "=q4=Crystalforge Handguards", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30126, "", "=q4=Crystalforge Legguards", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30125, "", "=q4=Crystalforge Faceguard", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30127, "", "=q4=Crystalforge Shoulderguards", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30123, "", "=q4=Crystalforge Chestguard", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30124, "", "=q4=Crystalforge Handguards", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30126, "", "=q4=Crystalforge Legguards", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "spell_holy_devotionaura", "=q6=#t6s4_1#", "=ec1=#m23#"};
-				{ 17, 30987, "", "=q4=Lightbringer Faceguard", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 30998, "", "=q4=Lightbringer Shoulderguards", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 30991, "", "=q4=Lightbringer Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34433, "", "=q4=Lightbringer Wristguards", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 30985, "", "=q4=Lightbringer Handguards", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34488, "", "=q4=Lightbringer Waistguard", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 30995, "", "=q4=Lightbringer Legguards", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34560, "", "=q4=Lightbringer Stompers", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 30987, "", "=q4=Lightbringer Faceguard", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 30998, "", "=q4=Lightbringer Shoulderguards", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 30991, "", "=q4=Lightbringer Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34433, "", "=q4=Lightbringer Wristguards", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 30985, "", "=q4=Lightbringer Handguards", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34488, "", "=q4=Lightbringer Waistguard", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 30995, "", "=q4=Lightbringer Legguards", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34560, "", "=q4=Lightbringer Stompers", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..ALIL["Protection"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5671,30 +5670,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "Spell_Holy_AuraOfLight", "=q6=#t4s4_2#", "=ec1=#m21#"};
-				{ 2, 29073, "", "=q4=Justicar Crown", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29073, "", "=q4=Justicar Crown", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29075, "", "=q4=Justicar Shoulderplates", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29071, "", "=q4=Justicar Breastplate", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29072, "", "=q4=Justicar Gauntlets", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29072, "", "=q4=Justicar Gauntlets", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29074, "", "=q4=Justicar Greaves", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "Spell_Holy_AuraOfLight", "=q6=#t5s4_2#", "=ec1=#m22#"};
-				{ 9, 30131, "", "=q4=Crystalforge War-Helm", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30133, "", "=q4=Crystalforge Shoulderbraces", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30129, "", "=q4=Crystalforge Breastplate", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30130, "", "=q4=Crystalforge Gauntlets", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30132, "", "=q4=Crystalforge Greaves", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30131, "", "=q4=Crystalforge War-Helm", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30133, "", "=q4=Crystalforge Shoulderbraces", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30129, "", "=q4=Crystalforge Breastplate", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30130, "", "=q4=Crystalforge Gauntlets", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30132, "", "=q4=Crystalforge Greaves", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "Spell_Holy_AuraOfLight", "=q6=#t6s4_2#", "=ec1=#m23#"};
-				{ 17, 30989, "", "=q4=Lightbringer War-Helm", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 30997, "", "=q4=Lightbringer Shoulderbraces", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 30990, "", "=q4=Lightbringer Breastplate", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34431, "", "=q4=Lightbringer Bands", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 30982, "", "=q4=Lightbringer Gauntlets", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34485, "", "=q4=Lightbringer Girdle", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 30993, "", "=q4=Lightbringer Greaves", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34561, "", "=q4=Lightbringer Boots", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 30989, "", "=q4=Lightbringer War-Helm", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 30997, "", "=q4=Lightbringer Shoulderbraces", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 30990, "", "=q4=Lightbringer Breastplate", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34431, "", "=q4=Lightbringer Bands", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 30982, "", "=q4=Lightbringer Gauntlets", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34485, "", "=q4=Lightbringer Girdle", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 30993, "", "=q4=Lightbringer Greaves", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34561, "", "=q4=Lightbringer Boots", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Retribution"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..ALIL["Retribution"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5703,30 +5702,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "Spell_Holy_HolyBolt", "=q6=#t4s4_3#", "=ec1=#m21#"};
-				{ 2, 29061, "", "=q4=Justicar Diadem", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29061, "", "=q4=Justicar Diadem", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29064, "", "=q4=Justicar Pauldrons", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29062, "", "=q4=Justicar Chestpiece", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29065, "", "=q4=Justicar Gloves", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29065, "", "=q4=Justicar Gloves", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29063, "", "=q4=Justicar Leggings", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "Spell_Holy_HolyBolt", "=q6=#t5s4_3#", "=ec1=#m22#"};
-				{ 9, 30136, "", "=q4=Crystalforge Greathelm", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30138, "", "=q4=Crystalforge Pauldrons", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30134, "", "=q4=Crystalforge Chestpiece", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30135, "", "=q4=Crystalforge Gloves", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30137, "", "=q4=Crystalforge Leggings", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30136, "", "=q4=Crystalforge Greathelm", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30138, "", "=q4=Crystalforge Pauldrons", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30134, "", "=q4=Crystalforge Chestpiece", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30135, "", "=q4=Crystalforge Gloves", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30137, "", "=q4=Crystalforge Leggings", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "Spell_Holy_HolyBolt", "=q6=#t6s4_3#", "=ec1=#m23#"};
-				{ 17, 30988, "", "=q4=Lightbringer Greathelm", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 30996, "", "=q4=Lightbringer Pauldrons", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 30992, "", "=q4=Lightbringer Chestpiece", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34432, "", "=q4=Lightbringer Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 30983, "", "=q4=Lightbringer Gloves", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34487, "", "=q4=Lightbringer Belt", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 30994, "", "=q4=Lightbringer Leggings", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34559, "", "=q4=Lightbringer Treads", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 30988, "", "=q4=Lightbringer Greathelm", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 30996, "", "=q4=Lightbringer Pauldrons", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 30992, "", "=q4=Lightbringer Chestpiece", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34432, "", "=q4=Lightbringer Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 30983, "", "=q4=Lightbringer Gloves", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34487, "", "=q4=Lightbringer Belt", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 30994, "", "=q4=Lightbringer Leggings", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34559, "", "=q4=Lightbringer Treads", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..AtlasLoot_IngameLocales["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"].." - "..ALIL["Holy"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5735,30 +5734,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "spell_holy_guardianspirit", "=q6=#t4s5_1#", "=ec1=#m21#"};
-				{ 2, 29049, "", "=q4=Light-Collar of the Incarnate", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29049, "", "=q4=Light-Collar of the Incarnate", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29054, "", "=q4=Light-Mantle of the Incarnate", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29050, "", "=q4=Robes of the Incarnate", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29055, "", "=q4=Handwraps of the Incarnate", "The Curator ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29055, "", "=q4=Handwraps of the Incarnate", "The Curator ("..ALIL["Karazhan"]..")"};
 				{ 6, 29053, "", "=q4=Trousers of the Incarnate", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "spell_holy_guardianspirit", "=q6=#t5s5_1#", "=ec1=#m22#"};
-				{ 9, 30152, "", "=q4=Cowl of the Avatar", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30154, "", "=q4=Mantle of the Avatar", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30150, "", "=q4=Vestments of the Avatar", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30151, "", "=q4=Gloves of the Avatar", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30153, "", "=q4=Breeches of the Avatar", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30152, "", "=q4=Cowl of the Avatar", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30154, "", "=q4=Mantle of the Avatar", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30150, "", "=q4=Vestments of the Avatar", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30151, "", "=q4=Gloves of the Avatar", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30153, "", "=q4=Breeches of the Avatar", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "spell_holy_guardianspirit", "=q6=#t6s5_1#", "=ec1=#m23#"};
-				{ 17, 31063, "", "=q4=Cowl of Absolution", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31069, "", "=q4=Mantle of Absolution", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31066, "", "=q4=Vestments of Absolution", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34435, "", "=q4=Cuffs of Absolution", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31060, "", "=q4=Gloves of Absolution", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34527, "", "=q4=Belt of Absolution", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31068, "", "=q4=Breeches of Absolution", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34562, "", "=q4=Boots of Absolution", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31063, "", "=q4=Cowl of Absolution", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31069, "", "=q4=Mantle of Absolution", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31066, "", "=q4=Vestments of Absolution", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34435, "", "=q4=Cuffs of Absolution", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31060, "", "=q4=Gloves of Absolution", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34527, "", "=q4=Belt of Absolution", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31068, "", "=q4=Breeches of Absolution", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34562, "", "=q4=Boots of Absolution", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Holy"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..ALIL["Holy"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5767,30 +5766,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "spell_shadow_shadowwordpain", "=q6=#t4s5_2#", "=ec1=#m21#"};
-				{ 2, 29058, "", "=q4=Soul-Collar of the Incarnate", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29058, "", "=q4=Soul-Collar of the Incarnate", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29060, "", "=q4=Soul-Mantle of the Incarnate", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29056, "", "=q4=Shroud of the Incarnate", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29057, "", "=q4=Gloves of the Incarnate", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29057, "", "=q4=Gloves of the Incarnate", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29059, "", "=q4=Leggings of the Incarnate", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "spell_shadow_shadowwordpain", "=q6=#t5s5_2#", "=ec1=#m22#"};
-				{ 9, 30161, "", "=q4=Hood of the Avatar", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30163, "", "=q4=Wings of the Avatar", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30159, "", "=q4=Shroud of the Avatar", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30160, "", "=q4=Handguards of the Avatar", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30162, "", "=q4=Leggings of the Avatar", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30161, "", "=q4=Hood of the Avatar", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30163, "", "=q4=Wings of the Avatar", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30159, "", "=q4=Shroud of the Avatar", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30160, "", "=q4=Handguards of the Avatar", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30162, "", "=q4=Leggings of the Avatar", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "spell_shadow_shadowwordpain", "=q6=#t6s5_2#", "=ec1=#m23#"};
-				{ 17, 31064, "", "=q4=Hood of Absolution", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31070, "", "=q4=Shoulderpads of Absolution", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31065, "", "=q4=Shroud of Absolution", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34434, "", "=q4=Bracers of Absolution", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31061, "", "=q4=Handguards of Absolution", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34528, "", "=q4=Cord of Absolution", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31067, "", "=q4=Leggings of Absolution", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34563, "", "=q4=Treads of Absolution", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31064, "", "=q4=Hood of Absolution", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31070, "", "=q4=Shoulderpads of Absolution", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31065, "", "=q4=Shroud of Absolution", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34434, "", "=q4=Bracers of Absolution", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31061, "", "=q4=Handguards of Absolution", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34528, "", "=q4=Cord of Absolution", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31067, "", "=q4=Leggings of Absolution", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34563, "", "=q4=Treads of Absolution", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..AtlasLoot_IngameLocales["Shadow"],
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"].." - "..ALIL["Shadow"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5799,26 +5798,26 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "inv_throwingknife_04", "=q6=#t4s6#", "=ec1=#m21#"};
-				{ 2, 29044, "", "=q4=Netherblade Facemask", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29044, "", "=q4=Netherblade Facemask", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29047, "", "=q4=Netherblade Shoulderpads", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29045, "", "=q4=Netherblade Chestpiece", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29048, "", "=q4=Netherblade Gloves", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29048, "", "=q4=Netherblade Gloves", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29046, "", "=q4=Netherblade Breeches", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "inv_throwingknife_04", "=q6=#t5s6#", "=ec1=#m22#"};
-				{ 9, 30146, "", "=q4=Deathmantle Helm", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30149, "", "=q4=Deathmantle Shoulderpads", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30144, "", "=q4=Deathmantle Chestguard", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30145, "", "=q4=Deathmantle Handguards", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30148, "", "=q4=Deathmantle Legguards", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30146, "", "=q4=Deathmantle Helm", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30149, "", "=q4=Deathmantle Shoulderpads", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30144, "", "=q4=Deathmantle Chestguard", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30145, "", "=q4=Deathmantle Handguards", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30148, "", "=q4=Deathmantle Legguards", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "inv_throwingknife_04", "=q6=#t6s6#", "=ec1=#m23#"};
-				{ 17, 31027, "", "=q4=Slayer's Helm", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31030, "", "=q4=Slayer's Shoulderpads", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31028, "", "=q4=Slayer's Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34448, "", "=q4=Slayer's Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31026, "", "=q4=Slayer's Handguards", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34558, "", "=q4=Slayer's Belt", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31029, "", "=q4=Slayer's Legguards", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34575, "", "=q4=Slayer's Boots", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31027, "", "=q4=Slayer's Helm", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31030, "", "=q4=Slayer's Shoulderpads", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31028, "", "=q4=Slayer's Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34448, "", "=q4=Slayer's Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31026, "", "=q4=Slayer's Handguards", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34558, "", "=q4=Slayer's Belt", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31029, "", "=q4=Slayer's Legguards", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34575, "", "=q4=Slayer's Boots", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
@@ -5831,30 +5830,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "spell_nature_lightningshield", "=q6=#t4s7_1#", "=ec1=#m21#"};
-				{ 2, 29040, "", "=q4=Cyclone Helm", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29040, "", "=q4=Cyclone Helm", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29043, "", "=q4=Cyclone Shoulderplates", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29038, "", "=q4=Cyclone Breastplate", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29039, "", "=q4=Cyclone Gauntlets", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29039, "", "=q4=Cyclone Gauntlets", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29042, "", "=q4=Cyclone War-Kilt", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "spell_nature_lightningshield", "=q6=#t5s7_1#", "=ec1=#m22#"};
-				{ 9, 30190, "", "=q4=Cataclysm Helm", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30194, "", "=q4=Cataclysm Shoulderplates", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30185, "", "=q4=Cataclysm Chestplate", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30189, "", "=q4=Cataclysm Gauntlets", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30192, "", "=q4=Cataclysm Leggings", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30190, "", "=q4=Cataclysm Helm", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30194, "", "=q4=Cataclysm Shoulderplates", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30185, "", "=q4=Cataclysm Chestplate", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30189, "", "=q4=Cataclysm Gauntlets", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30192, "", "=q4=Cataclysm Leggings", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "spell_nature_lightningshield", "=q6=#t6s7_1#", "=ec1=#m23#"};
-				{ 17, 31015, "", "=q4=Skyshatter Cover", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31024, "", "=q4=Skyshatter Pauldrons", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31018, "", "=q4=Skyshatter Tunic", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34439, "", "=q4=Skyshatter Wristguards", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31011, "", "=q4=Skyshatter Grips", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34545, "", "=q4=Skyshatter Girdle", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31021, "", "=q4=Skyshatter Pants", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34567, "", "=q4=Skyshatter Greaves", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31015, "", "=q4=Skyshatter Cover", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31024, "", "=q4=Skyshatter Pauldrons", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31018, "", "=q4=Skyshatter Tunic", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34439, "", "=q4=Skyshatter Wristguards", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31011, "", "=q4=Skyshatter Grips", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34545, "", "=q4=Skyshatter Girdle", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31021, "", "=q4=Skyshatter Pants", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34567, "", "=q4=Skyshatter Greaves", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Enhancement"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..ALIL["Enhancement"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5863,30 +5862,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "spell_nature_magicimmunity", "=q6=#t4s7_2#", "=ec1=#m21#"};
-				{ 2, 29028, "", "=q4=Cyclone Headdress", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29028, "", "=q4=Cyclone Headdress", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29031, "", "=q4=Cyclone Shoulderpads", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29029, "", "=q4=Cyclone Hauberk", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29032, "", "=q4=Cyclone Gloves", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29032, "", "=q4=Cyclone Gloves", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29030, "", "=q4=Cyclone Kilt", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "spell_nature_magicimmunity", "=q6=#t5s7_2#", "=ec1=#m22#"};
-				{ 9, 30166, "", "=q4=Cataclysm Headguard", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30168, "", "=q4=Cataclysm Shoulderguards", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30164, "", "=q4=Cataclysm Chestguard", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30165, "", "=q4=Cataclysm Gloves", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30167, "", "=q4=Cataclysm Legguards", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30166, "", "=q4=Cataclysm Headguard", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30168, "", "=q4=Cataclysm Shoulderguards", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30164, "", "=q4=Cataclysm Chestguard", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30165, "", "=q4=Cataclysm Gloves", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30167, "", "=q4=Cataclysm Legguards", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "spell_nature_magicimmunity", "=q6=#t6s7_2#", "=ec1=#m23#"};
-				{ 17, 31012, "", "=q4=Skyshatter Helmet", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31022, "", "=q4=Skyshatter Shoulderpads", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31016, "", "=q4=Skyshatter Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34438, "", "=q4=Skyshatter Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31007, "", "=q4=Skyshatter Gloves", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34543, "", "=q4=Skyshatter Belt", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31019, "", "=q4=Skyshatter Leggings", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34565, "", "=q4=Skyshatter Boots", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31012, "", "=q4=Skyshatter Helmet", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31022, "", "=q4=Skyshatter Shoulderpads", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31016, "", "=q4=Skyshatter Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34438, "", "=q4=Skyshatter Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31007, "", "=q4=Skyshatter Gloves", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34543, "", "=q4=Skyshatter Belt", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31019, "", "=q4=Skyshatter Leggings", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34565, "", "=q4=Skyshatter Boots", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Restoration"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..ALIL["Restoration"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5895,30 +5894,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "Spell_Nature_Lightning", "=q6=#t4s7_3#", "=ec1=#m21#"};
-				{ 2, 29035, "", "=q4=Cyclone Faceguard", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29035, "", "=q4=Cyclone Faceguard", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29037, "", "=q4=Cyclone Shoulderguards", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29033, "", "=q4=Cyclone Chestguard", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29034, "", "=q4=Cyclone Handguards", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29034, "", "=q4=Cyclone Handguards", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29036, "", "=q4=Cyclone Legguards", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "Spell_Nature_Lightning", "=q6=#t5s7_3#", "=ec1=#m22#"};
-				{ 9, 30171, "", "=q4=Cataclysm Headpiece", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30173, "", "=q4=Cataclysm Shoulderpads", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30169, "", "=q4=Cataclysm Chestpiece", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30170, "", "=q4=Cataclysm Handgrips", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30172, "", "=q4=Cataclysm Legguards", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30171, "", "=q4=Cataclysm Headpiece", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30173, "", "=q4=Cataclysm Shoulderpads", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30169, "", "=q4=Cataclysm Chestpiece", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30170, "", "=q4=Cataclysm Handgrips", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30172, "", "=q4=Cataclysm Legguards", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "Spell_Nature_Lightning", "=q6=#t6s7_3#", "=ec1=#m23#"};
-				{ 17, 31014, "", "=q4=Skyshatter Headguard", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31023, "", "=q4=Skyshatter Mantle", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31017, "", "=q4=Skyshatter Breastplate", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34437, "", "=q4=Skyshatter Bands", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31008, "", "=q4=Skyshatter Gauntlets", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34542, "", "=q4=Skyshatter Cord", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31020, "", "=q4=Skyshatter Legguards", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34566, "", "=q4=Skyshatter Treads", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31014, "", "=q4=Skyshatter Headguard", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31023, "", "=q4=Skyshatter Mantle", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31017, "", "=q4=Skyshatter Breastplate", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34437, "", "=q4=Skyshatter Bands", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31008, "", "=q4=Skyshatter Gauntlets", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34542, "", "=q4=Skyshatter Cord", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31020, "", "=q4=Skyshatter Legguards", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34566, "", "=q4=Skyshatter Treads", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..AtlasLoot_IngameLocales["Elemental"],
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." - "..ALIL["Elemental"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5927,26 +5926,26 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "spell_nature_drowsy", "=q6=#t4s8#", "=ec1=#m21#"};
-				{ 2, 28963, "", "=q4=Voidheart Crown", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 28963, "", "=q4=Voidheart Crown", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 28967, "", "=q4=Voidheart Mantle", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 28964, "", "=q4=Voidheart Robe", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 28968, "", "=q4=Voidheart Gloves", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 28968, "", "=q4=Voidheart Gloves", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 28966, "", "=q4=Voidheart Leggings", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "spell_nature_drowsy", "=q6=#t5s8#", "=ec1=#m22#"};
-				{ 9, 30212, "", "=q4=Hood of the Corruptor", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30215, "", "=q4=Mantle of the Corruptor", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30214, "", "=q4=Robe of the Corruptor", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30211, "", "=q4=Gloves of the Corruptor", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30213, "", "=q4=Leggings of the Corruptor", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30212, "", "=q4=Hood of the Corruptor", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30215, "", "=q4=Mantle of the Corruptor", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30214, "", "=q4=Robe of the Corruptor", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30211, "", "=q4=Gloves of the Corruptor", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30213, "", "=q4=Leggings of the Corruptor", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "spell_nature_drowsy", "=q6=#t6s8#", "=ec1=#m23#"};
-				{ 17, 31051, "", "=q4=Hood of the Malefic", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 31054, "", "=q4=Mantle of the Malefic", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 31052, "", "=q4=Robe of the Malefic", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34436, "", "=q4=Bracers of the Malefic", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 31050, "", "=q4=Gloves of the Malefic", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34541, "", "=q4=Belt of the Malefic", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 31053, "", "=q4=Leggings of the Malefic", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34564, "", "=q4=Boots of the Malefic", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 31051, "", "=q4=Hood of the Malefic", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 31054, "", "=q4=Mantle of the Malefic", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 31052, "", "=q4=Robe of the Malefic", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34436, "", "=q4=Bracers of the Malefic", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 31050, "", "=q4=Gloves of the Malefic", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34541, "", "=q4=Belt of the Malefic", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 31053, "", "=q4=Leggings of the Malefic", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34564, "", "=q4=Boots of the Malefic", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
@@ -5959,30 +5958,30 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "ability_warrior_defensivestance", "=q6=#t4s9_1#", "=ec1=#m21#"};
-				{ 2, 29011, "", "=q4=Warbringer Greathelm", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29011, "", "=q4=Warbringer Greathelm", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29016, "", "=q4=Warbringer Shoulderguards", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29012, "", "=q4=Warbringer Chestguard", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29017, "", "=q4=Warbringer Handguards", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29017, "", "=q4=Warbringer Handguards", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29015, "", "=q4=Warbringer Legguards", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "ability_warrior_defensivestance", "=q6=#t5s9_1#", "=ec1=#m22#"};
-				{ 9, 30115, "", "=q4=Destroyer Greathelm", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30117, "", "=q4=Destroyer Shoulderguards", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30113, "", "=q4=Destroyer Chestguard", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30114, "", "=q4=Destroyer Handguards", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30116, "", "=q4=Destroyer Legguards", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30115, "", "=q4=Destroyer Greathelm", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30117, "", "=q4=Destroyer Shoulderguards", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30113, "", "=q4=Destroyer Chestguard", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30114, "", "=q4=Destroyer Handguards", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30116, "", "=q4=Destroyer Legguards", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "ability_warrior_defensivestance", "=q6=#t6s9_1#", "=ec1=#m23#"};
-				{ 17, 30974, "", "=q4=Onslaught Greathelm", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 30980, "", "=q4=Onslaught Shoulderguards", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 30976, "", "=q4=Onslaught Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34442, "", "=q4=Onslaught Wristguards", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 30970, "", "=q4=Onslaught Handguards", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34547, "", "=q4=Onslaught Waistguard", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 30978, "", "=q4=Onslaught Legguards", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34568, "", "=q4=Onslaught Boots", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 30974, "", "=q4=Onslaught Greathelm", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 30980, "", "=q4=Onslaught Shoulderguards", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 30976, "", "=q4=Onslaught Chestguard", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34442, "", "=q4=Onslaught Wristguards", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 30970, "", "=q4=Onslaught Handguards", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34547, "", "=q4=Onslaught Waistguard", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 30978, "", "=q4=Onslaught Legguards", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34568, "", "=q4=Onslaught Boots", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..AtlasLoot_IngameLocales["Protection"],
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"].." - "..ALIL["Protection"],
 			module = moduleName, menu = "T456SET",
 		};
 	}
@@ -5991,26 +5990,26 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "ability_warrior_innerrage", "=q6=#t4s9_2#", "=ec1=#m21#"};
-				{ 2, 29021, "", "=q4=Warbringer Battle-Helm", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 2, 29021, "", "=q4=Warbringer Battle-Helm", "=ds="..BabbleBoss["Prince Malchezaar"].." ("..ALIL["Karazhan"]..")"};
 				{ 3, 29023, "", "=q4=Warbringer Shoulderplates", "=ds="..BabbleBoss["High King Maulgar"]};
 				{ 4, 29019, "", "=q4=Warbringer Breastplate", "=ds="..BabbleBoss["Magtheridon"]};
-				{ 5, 29020, "", "=q4=Warbringer Gauntlets", "=ds="..BabbleBoss["The Curator"].." ("..BabbleZone["Karazhan"]..")"};
+				{ 5, 29020, "", "=q4=Warbringer Gauntlets", "=ds="..BabbleBoss["The Curator"].." ("..ALIL["Karazhan"]..")"};
 				{ 6, 29022, "", "=q4=Warbringer Greaves", "=ds="..BabbleBoss["Gruul the Dragonkiller"]};
 				{ 8, 0, "ability_warrior_innerrage", "=q6=#t5s9_2#", "=ec1=#m22#"};
-				{ 9, 30120, "", "=q4=Destroyer Battle-Helm", "=ds="..BabbleBoss["Lady Vashj"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 10, 30122, "", "=q4=Destroyer Shoulderblades", "=ds="..BabbleBoss["Void Reaver"].." ("..BabbleZone["The Eye"]..")"};
-				{ 11, 30118, "", "=q4=Destroyer Breastplate", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..BabbleZone["The Eye"]..")"};
-				{ 12, 30119, "", "=q4=Destroyer Gauntlets", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
-				{ 13, 30121, "", "=q4=Destroyer Greaves", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..BabbleZone["Serpentshrine Cavern"]..")"};
+				{ 9, 30120, "", "=q4=Destroyer Battle-Helm", "=ds="..BabbleBoss["Lady Vashj"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 10, 30122, "", "=q4=Destroyer Shoulderblades", "=ds="..BabbleBoss["Void Reaver"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 11, 30118, "", "=q4=Destroyer Breastplate", "=ds="..BabbleBoss["Kael'thas Sunstrider"].." ("..ALIL["Tempest Keep"]..")"};
+				{ 12, 30119, "", "=q4=Destroyer Gauntlets", "=ds="..BabbleBoss["Leotheras the Blind"].." ("..ALIL["Serpentshrine Cavern"]..")"};
+				{ 13, 30121, "", "=q4=Destroyer Greaves", "=ds="..BabbleBoss["Fathom-Lord Karathress"].." ("..ALIL["Serpentshrine Cavern"]..")"};
 				{ 16, 0, "ability_warrior_innerrage", "=q6=#t6s9_2#", "=ec1=#m23#"};
-				{ 17, 30972, "", "=q4=Onslaught Battle-Helm", "=ds="..BabbleBoss["Archimonde"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 18, 30979, "", "=q4=Onslaught Shoulderblades", "=ds="..BabbleBoss["Mother Shahraz"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 19, 30975, "", "=q4=Onslaught Breastplate", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 20, 34441, "", "=q4=Onslaught Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 21, 30969, "", "=q4=Onslaught Gauntlets", "=ds="..BabbleBoss["Azgalor"].." ("..BabbleZone["Hyjal Summit"]..")"};
-				{ 22, 34546, "", "=q4=Onslaught Belt", "=ds="..BabbleBoss["Brutallus"].." ("..BabbleZone["Sunwell Plateau"]..")"};
-				{ 23, 30977, "", "=q4=Onslaught Greaves", "=ds="..BabbleBoss["The Illidari Council"].." ("..BabbleZone["Black Temple"]..")"};
-				{ 24, 34569, "", "=q4=Onslaught Treads", "=ds="..BabbleBoss["Felmyst"].." ("..BabbleZone["Sunwell Plateau"]..")"};
+				{ 17, 30972, "", "=q4=Onslaught Battle-Helm", "=ds="..BabbleBoss["Archimonde"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 18, 30979, "", "=q4=Onslaught Shoulderblades", "=ds="..BabbleBoss["Mother Shahraz"].." ("..ALIL["Black Temple"]..")"};
+				{ 19, 30975, "", "=q4=Onslaught Breastplate", "=ds="..BabbleBoss["Illidan Stormrage"].." ("..ALIL["Black Temple"]..")"};
+				{ 20, 34441, "", "=q4=Onslaught Bracers", "=ds="..BabbleBoss["Kalecgos"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 21, 30969, "", "=q4=Onslaught Gauntlets", "=ds="..BabbleBoss["Azgalor"].." ("..ALIL["Hyjal Summit"]..")"};
+				{ 22, 34546, "", "=q4=Onslaught Belt", "=ds="..BabbleBoss["Brutallus"].." ("..ALIL["Sunwell Plateau"]..")"};
+				{ 23, 30977, "", "=q4=Onslaught Greaves", "=ds="..BabbleBoss["The Illidari Council"].." ("..ALIL["Black Temple"]..")"};
+				{ 24, 34569, "", "=q4=Onslaught Treads", "=ds="..BabbleBoss["Felmyst"].." ("..ALIL["Sunwell Plateau"]..")"};
 			};
 		};
 		info = {
@@ -6027,15 +6026,15 @@ local moduleName = "AtlasLootBurningCrusade"
 		["Normal"] = {
 			{
 				{ 1, 0, "INV_Box_01", "=q6="..BabbleItemSet["Latro's Flurry"], "=q1="..AL["Various Locations"]};
-				{ 2, 34703, "", "=q3=Latro's Dancing Blade", "=ds=#h1#, #w10#", "=q2="..AtlasLoot:EJ_GetBossName("Vexallus", 531).." ("..BabbleZone["Magisters' Terrace"]..")", "", ""};
-				{ 3, 28189, "", "=q3=Latro's Shifting Sword", "=ds=#h1#, #w10#", "=q2="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..BabbleZone["The Black Morass"]..")", "", ""};
+				{ 2, 34703, "", "=q3=Latro's Dancing Blade", "=ds=#h1#, #w10#", "=q2="..AtlasLoot:EJ_GetBossName("Vexallus", 531).." ("..ALIL["Magisters' Terrace"]..")", "", ""};
+				{ 3, 28189, "", "=q3=Latro's Shifting Sword", "=ds=#h1#, #w10#", "=q2="..AtlasLoot:EJ_GetBossName("Aeonus", 554).." ("..ALIL["The Black Morass"]..")", "", ""};
 				{ 5, 0, "INV_Box_01", "=q6="..BabbleItemSet["The Twin Stars"], "=q1="..AL["World Drop"]};
 				{ 6, 31338, "", "=q4=Charlotte's Ivy", "=ds=#s2#", "", "0.01%"};
 				{ 7, 31339, "", "=q4=Lola's Eve", "=ds=#s13#", "", "0.01%"};
-				{ 16, 0, "INV_Box_01", "=q6="..BabbleItemSet["The Fists of Fury"], "=q2="..AL["Trash Mobs"]..", =q1="..BabbleZone["Hyjal Summit"]};
-				{ 17, 32946, "", "=q4=Claw of Molten Fury", "=ds=#h3#, #w13#"};
-				{ 18, 32945, "", "=q4=Fist of Molten Fury", "=ds=#h4#, #w13#"};
-				{ 20, 0, "INV_Box_01", "=q6="..BabbleItemSet["The Twin Blades of Azzinoth"], "=q2="..BabbleBoss["Illidan Stormrage"]..", =q1="..BabbleZone["Black Temple"]};
+				{ 16, 0, "INV_Box_01", "=q6="..BabbleItemSet["The Fists of Fury"], "=q2="..AL["Trash Mobs"]..", =q1="..ALIL["Hyjal Summit"]};
+				{ 17, 32946, "", "=q4=Claw of Molten Fury", "=ds=#h1#, #w13#"};
+				{ 18, 32945, "", "=q4=Fist of Molten Fury", "=ds=#h1#, #w13#"};
+				{ 20, 0, "INV_Box_01", "=q6="..BabbleItemSet["The Twin Blades of Azzinoth"], "=q2="..BabbleBoss["Illidan Stormrage"]..", =q1="..ALIL["Black Temple"]};
 				{ 21, 32837, "", "=q5=Warglaive of Azzinoth", "=ds=#h3#, #w10#, =q1=#m1# =ds=#c9#, #c6#"};
 				{ 22, 32838, "", "=q5=Warglaive of Azzinoth", "=ds=#h4#, #w10#, =q1=#m1# =ds=#c9#, #c6#"};
 			};
@@ -6331,15 +6330,15 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 12, 29271, "", "=q4=Talisman of Kalecgos", "=ds=#s15#", "#JUSTICE:130#", ""};
 				{ 13, 29274, "", "=q4=Tears of Heaven", "=ds=#s15#", "#JUSTICE:130#", ""};
 				{ 14, 33325, "", "=q4=Voodoo Shaker", "=ds=#s15#", "#JUSTICE:182#", ""};
-				{ 17, 34893, "", "=q4=Vanir's Right Fist of Brutality", "=ds=#h3#, #w13#", "#JUSTICE:546#", ""};
-				{ 18, 34951, "", "=q4=Vanir's Left Fist of Brutality", "=ds=#h4#, #w13#", "#JUSTICE:234#", ""};
-				{ 19, 34950, "", "=q4=Vanir's Left Fist of Savagery", "=ds=#h4#, #w13#", "#JUSTICE:234#", ""};
-				{ 20, 34895, "", "=q4=Scryer's Blade of Focus", "=ds=#h3#, #w4#", "#JUSTICE:780#", ""};
+				{ 17, 34893, "", "=q4=Vanir's Right Fist of Brutality", "=ds=#h1#, #w13#", "#JUSTICE:546#", ""};
+				{ 18, 34951, "", "=q4=Vanir's Left Fist of Brutality", "=ds=#h1#, #w13#", "#JUSTICE:234#", ""};
+				{ 19, 34950, "", "=q4=Vanir's Left Fist of Savagery", "=ds=#h1#, #w13#", "#JUSTICE:234#", ""};
+				{ 20, 34895, "", "=q4=Scryer's Blade of Focus", "=ds=#h1#, #w4#", "#JUSTICE:780#", ""};
 				{ 21, 34894, "", "=q4=Blade of Serration", "=ds=#h1#, #w4#", "#JUSTICE:546#", ""};
 				{ 22, 34949, "", "=q4=Swift Blade of Uncertainty", "=ds=#h4#, #w4#", "#JUSTICE:234#", ""};
 				{ 23, 34952, "", "=q4=The Mutilator", "=ds=#h4#, #w4#", "#JUSTICE:234#", ""};
 				{ 24, 34891, "", "=q4=The Blade of Harbingers", "=ds=#h2#, #w1#", "#JUSTICE:780#", ""};
-				{ 25, 34896, "", "=q4=Gavel of Naaru Blessings", "=ds=#h3#, #w6#", "#JUSTICE:780#", ""};
+				{ 25, 34896, "", "=q4=Gavel of Naaru Blessings", "=ds=#h1#, #w6#", "#JUSTICE:780#", ""};
 				{ 26, 34898, "", "=q4=Staff of the Forest Lord", "=ds=#w9#", "#JUSTICE:780#", ""};
 				{ 27, 34892, "", "=q4=Crossbow of Relentless Strikes", "=ds=#w3#", "#JUSTICE:780#", ""};
 			};
@@ -6416,10 +6415,10 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 12, 31339, "", "=q4=Lola's Eve", "=ds=#s13#", "", ""};
 				{ 13, 31326, "", "=q4=Truestrike Ring", "=ds=#s13#", "", ""};
 				{ 16, 31331, "", "=q4=The Night Blade", "=ds=#h1#, #w4#", "", ""};
-				{ 17, 31336, "", "=q4=Blade of Wizardry", "=ds=#h3#, #w10#", "", ""};
+				{ 17, 31336, "", "=q4=Blade of Wizardry", "=ds=#h1#, #w10#", "", ""};
 				{ 18, 31332, "", "=q4=Blinkstrike", "=ds=#h1#, #w10#", "", ""};
 				{ 19, 31318, "", "=q4=Singing Crystal Axe", "=ds=#h2#, #w1#", "", ""};
-				{ 20, 31342, "", "=q4=The Ancient Scepter of Sue-Min", "=ds=#h3#, #w6#", "", ""};
+				{ 20, 31342, "", "=q4=The Ancient Scepter of Sue-Min", "=ds=#h1#, #w6#", "", ""};
 				{ 21, 31322, "", "=q4=The Hammer of Destiny", "=ds=#h2#, #w6#", "", ""};
 				{ 22, 31334, "", "=q4=Staff of Natural Fury", "=ds=#w9#", "", ""};
 				{ 23, 31323, "", "=q4=Don Santos' Famous Hunting Rifle", "=ds=#w5#", "", ""};
@@ -6457,7 +6456,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 21, 30728, "", "=q4=Fathom-Helm of the Deeps", "=ds=#s1#, #a3#", "", "16.2%"};
 				{ 22, 30731, "", "=q4=Faceguard of the Endless Watch", "=ds=#s1#, #a4#", "", "18.1%"};
 				{ 23, 30726, "", "=q4=Archaic Charm of Presence", "=ds=#s2#", "", "20.9%"};
-				{ 24, 30723, "", "=q4=Talon of the Tempest", "=ds=#h3#, #w4#", "", "15.4%"};
+				{ 24, 30723, "", "=q4=Talon of the Tempest", "=ds=#h1#, #w4#", "", "15.4%"};
 				{ 25, 30722, "", "=q4=Ethereum Nexus-Reaver", "=ds=#h2#, #w1#", "", "16.0%"};
 				{ 26, 30724, "", "=q4=Barrel-Blade Longrifle", "=ds=#w5#", "", "20.0%"};
 			};

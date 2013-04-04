@@ -1,4 +1,4 @@
--- $Id: AtlasLoot.lua 4148 2013-03-12 20:57:08Z hegarol $
+-- $Id: AtlasLoot.lua 4159 2013-03-17 13:28:14Z lag123 $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -14,7 +14,7 @@ local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "7";
 local VERSION_MINOR = "05";
-local VERSION_BOSSES = "02";
+local VERSION_BOSSES = "03";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_VERSION_NUM = VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES
 
@@ -1036,12 +1036,12 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 		self.ItemFrame.Prev.lootpage = prevPage
 		self.ItemFrame.Prev:Show()
 	end
-	if AtlasLoot_Data[dataID].info and AtlasLoot_Data[dataID].info.menu then
+	if AtlasLoot_Data[dataID] and AtlasLoot_Data[dataID].info and AtlasLoot_Data[dataID].info.menu then
 		self.ItemFrame.Back.lootpage = AtlasLoot_Data[dataID].info.menu
 		self.ItemFrame.Back:Show()
 	end
 	
-	if AtlasLoot_Data[dataID]["RaidFinder"] and lootTableType ~= "RaidFinder" then
+	if AtlasLoot_Data[dataID] and AtlasLoot_Data[dataID]["RaidFinder"] and lootTableType ~= "RaidFinder" then
 		self.ItemFrame.RaidFinder:Show()
 		self.ItemFrame.RaidFinder:SetChecked(false)
 		self.ItemFrame.RaidFinder:Enable()
@@ -1094,7 +1094,7 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 	elseif ( lootTableType == "25Man" or lootTableType == "25ManHeroic" ) and AtlasLoot_Data[dataID] and ( AtlasLoot_Data[dataID]["Normal"] or AtlasLoot_Data[dataID]["Heroic"] ) then
 		self.ItemFrame.Switch:SetText(AL["Show 10 Man Loot"])
 		self.ItemFrame.Switch:Show()
-	elseif self.ItemFrame.Switch.changePoint then
+	elseif self.ItemFrame.Switch.changePoint and AtlasLoot_Data[dataID] then
 		if AtlasLoot.db.profile.ShowLootTablePrice then
 			if AtlasLoot_Data[dataID].info.switchText and AtlasLoot_Data[dataID].info.switchText[1] then
 				self.ItemFrame.Switch:SetText(AtlasLoot_Data[dataID].info.switchText[1])

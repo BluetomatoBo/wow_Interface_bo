@@ -1,4 +1,4 @@
-﻿-- $Id: constants.kr.lua 4133 2013-03-09 07:45:03Z hegarol $
+﻿-- $Id: constants.kr.lua 4163 2013-03-19 15:06:21Z dynaletik $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -739,6 +739,19 @@ if AL then
 	AL["Husk of the Old God"] = "고대신의 허물";
 	AL["Carapace of the Old God"] = "고대신의 껍질";
 
+	-- Faction related strings
+	AL["Alliance"] = "얼라이언스";
+	AL["Horde"] = "호드";
+	AL["Neutral"] = "중립적";
+	AL["Friendly"] = "약간 우호적";
+	AL["Honored"] = "우호적";
+	AL["Revered"] = "매우 우호적";
+	AL["Exalted"] = "확고한 동맹";
+	AL["Best Friend"] = "가장 친한 친구";
+	-- AL["Rank 4"] = true;
+	-- AL["Rank 8"] = true;
+	AL["Winterfin Retreat"] = "겨울지느러미 은신처";
+
 	-- Recipe origin strings
 	AL["Trainer"] = true;
 	AL["Discovery"] = true;
@@ -861,10 +874,17 @@ if AL then
 	AL["Deviate Ravager/Deviate Guardian"] = true;
 	AL["Servant's Quarter Animal Bosses"] = true;
 
-	-- Zones
-	AL["Trial of the Grand Crusader"] = true;
-	AL["Crusader's Square"] = true;
-	AL["The Gauntlet"] = true;
+	-- Zone related strings
+	AL["Azeroth"] = "아제로스";
+	AL["Blackrock Mountain"] = "검은바위 산";
+	AL["Caverns of Time"] = "시간의 동굴";
+	-- AL["Crusader's Square"] = true;
+	AL["Darkmoon Island"] = "다크문 축제";
+	AL["East"] = "동부";
+	AL["North"] = "북부";
+	-- AL["The Gauntlet"] = true;
+	-- AL["Trial of the Grand Crusader"] = true;
+	AL["West"] = "서부";
 
 	-- Shortcuts for Bossname files
 	AL["Avatar"] = true; -- Avatar of the Martyred

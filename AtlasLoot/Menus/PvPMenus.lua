@@ -1,22 +1,22 @@
--- $Id: PvPMenus.lua 4144 2013-03-12 18:26:37Z hegarol $
+-- $Id: PvPMenus.lua 4165 2013-03-20 11:03:22Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
+local ALIL = AtlasLoot_IngameLocales;
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
-local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
-local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 
 	AtlasLoot_Data["PVPMENU"] = {
 		["Normal"] = {
 			{
 				{ 2, "PVP90Accessories", "inv_misc_pvp_ringc2", "=ds="..AL["PvP Accessories"], "=q5="..AL["Level 90"]};
 				{ 3, "PVP90SET", "inv_helm_plate_pvppaladin_c_01", "=ds="..AL["PvP Armor Sets"], "=q5="..AL["Level 90"]};
-				{ 5, "PVP90NonSetCloth", "inv_cloth_pvpwarlock_f_01boot", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Cloth"], "=q5="..AL["Level 90"]};
-				{ 6, "PVP90NonSetLeather", "inv_belt_leather_pvpmonk_f_01", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Leather"], "=q5="..AL["Level 90"]};	
-				{ 8, "PVPMENU2", "INV_Jewelry_Necklace_21", "=ds="..AL["BG/Open PvP Rewards"], ""};
-				{ 17, "PVP90WeaponsTyrannicalElite", "inv_stave_2h_pvppandarias1_c_01", "=ds="..AL["PvP Weapons"].." - "..AL["ilvl 512"], "=q5="..AL["Level 90"]};
-				{ 18, "PVP90WeaponsTyrannical", "inv_hand_1h_pvppandarias1_c_01", "=ds="..AL["PvP Weapons"].." - "..AL["ilvl 493"], "=q5="..AL["Level 90"]};
-				{ 20, "PVP90NonSetMail", "inv_mail_pvphunter_f_01boot", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Mail"], "=q5="..AL["Level 90"]};
-				{ 21, "PVP90NonSetPlate", "inv_bracer_plate_pvppaladin_f_01white", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Plate"], "=q5="..AL["Level 90"]};
-				{ 23, "PVPMENU3", "inv_belt_13", "=ds="..AL["Old PvP Rewards"], "=q5="};
+				{ 6, "PVP90NonSetCloth", "inv_cloth_pvpwarlock_f_01boot", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Cloth"], "=q5="..AL["Level 90"]};
+				{ 7, "PVP90NonSetLeather", "inv_belt_leather_pvpmonk_f_01", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Leather"], "=q5="..AL["Level 90"]};	
+				{ 9, "PVPMENU2", "INV_Jewelry_Necklace_21", "=ds="..AL["BG/Open PvP Rewards"], ""};
+				{ 17, "PVP90WeaponsTyrannicalElite", "inv_stave_2h_pvppandarias2_c_01", "=ds="..AL["PvP Weapons"].." - "..AL["ilvl 512"], "=q5="..AL["Level 90"]};
+				{ 18, "PVP90WeaponsTyrannical", "inv_hand_1h_pvppandarias2_c_01", "=ds="..AL["PvP Weapons"].." - "..AL["ilvl 498"], "=q5="..AL["Level 90"]};
+				{ 19, "PVP90Weapons", "inv_hand_1h_pvppandarias1_c_01", "=ds="..AL["PvP Weapons"].." - "..AL["ilvl 470"], "=q5="..AL["Level 90"]};
+				{ 21, "PVP90NonSetMail", "inv_mail_pvphunter_f_01boot", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Mail"], "=q5="..AL["Level 90"]};
+				{ 22, "PVP90NonSetPlate", "inv_bracer_plate_pvppaladin_f_01white", "=ds="..AL["PvP Non-Set Epics"]..": "..BabbleInventory["Plate"], "=q5="..AL["Level 90"]};
+				{ 24, "PVPMENU3", "inv_belt_13", "=ds="..AL["Old PvP Rewards"], "=q5="};
 			};
 		};
 		info = {
@@ -27,21 +27,21 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 	AtlasLoot_Data["PVPMENU2"] = {
 		["Normal"] = {
 			{
-				{ 2, "ABMisc", "INV_Jewelry_Amulet_07", "=ds="..AL["Misc. Rewards"], "=q5="..BabbleZone["Arathi Basin"]};
+				{ 2, "ABMisc", "INV_Jewelry_Amulet_07", "=ds="..AL["Misc. Rewards"], "=q5="..ALIL["Arathi Basin"]};
 				{ 3, "ABSets", "INV_Jewelry_Amulet_07", "=ds="..AL["Arathi Basin Sets"], ""};
-				{ 5, "WSGMisc", "INV_Misc_Rune_07", "=ds="..AL["Misc. Rewards"], "=q5="..BabbleZone["Warsong Gulch"]};
-				{ 6, "WSGAccessories", "INV_Misc_Rune_07", "=ds="..AL["Accessories"], "=q5="..BabbleZone["Warsong Gulch"]};
-				{ 8, "AVMisc", "INV_Jewelry_Necklace_21", "=ds="..BabbleZone["Alterac Valley"], ""};
-				{ 10, "Hellfire", "INV_Misc_Token_HonorHold", "=ds="..BabbleZone["Hellfire Peninsula"], "=q5="..AL["Hellfire Fortifications"]};
-				{ 11, "Zangarmarsh", "Spell_Nature_ElementalPrecision_1", "=ds="..BabbleZone["Zangarmarsh"], "=q5="..AL["Twin Spire Ruins"]};
-				{ 13, "WINTERGRASPMENU", "INV_Misc_Platnumdisks", "=ds="..BabbleZone["Wintergrasp"], ""};
-				{ 17, "AB4049", "INV_Jewelry_Amulet_07", "=ds="..string.format(AL["Level %s Rewards"], "40-49"), "=q5="..BabbleZone["Arathi Basin"]};
-				{ 18, "AB2039", "INV_Jewelry_Amulet_07", "=ds="..string.format(AL["Level %s Rewards"], "20-39"), "=q5="..BabbleZone["Arathi Basin"]};
-				{ 20, "WSGWeapons", "INV_Misc_Rune_07", "=ds="..AL["Weapons"], "=q5="..BabbleZone["Warsong Gulch"]};
-				{ 21, "WSGArmor", "INV_Misc_Rune_07", "=ds="..BabbleInventory["Armor"], "=q5="..BabbleZone["Warsong Gulch"]};
-				{ 25, "Terokkar", "INV_Jewelry_FrostwolfTrinket_04", "=ds="..BabbleZone["Terokkar Forest"], "=q5="..AL["Spirit Towers"]};
-				{ 26, "Nagrand", "INV_Misc_Rune_09", "=ds="..BabbleZone["Nagrand"], "=q5="..AL["Halaa"]};
-				{ 28, "VentureBay", "INV_Misc_Coin_16", "=ds="..BabbleZone["Grizzly Hills"], "=q5="..AL["Venture Bay"]};
+				{ 5, "WSGMisc", "INV_Misc_Rune_07", "=ds="..AL["Misc. Rewards"], "=q5="..ALIL["Warsong Gulch"]};
+				{ 6, "WSGAccessories", "INV_Misc_Rune_07", "=ds="..AL["Accessories"], "=q5="..ALIL["Warsong Gulch"]};
+				{ 8, "AVMisc", "INV_Jewelry_Necklace_21", "=ds="..ALIL["Alterac Valley"], ""};
+				{ 10, "Hellfire", "INV_Misc_Token_HonorHold", "=ds="..ALIL["Hellfire Peninsula"], "=q5="..AL["Hellfire Fortifications"]};
+				{ 11, "Zangarmarsh", "Spell_Nature_ElementalPrecision_1", "=ds="..ALIL["Zangarmarsh"], "=q5="..AL["Twin Spire Ruins"]};
+				{ 13, "WINTERGRASPMENU", "INV_Misc_Platnumdisks", "=ds="..ALIL["Wintergrasp"], ""};
+				{ 17, "AB4049", "INV_Jewelry_Amulet_07", "=ds="..string.format(AL["Level %s Rewards"], "40-49"), "=q5="..ALIL["Arathi Basin"]};
+				{ 18, "AB2039", "INV_Jewelry_Amulet_07", "=ds="..string.format(AL["Level %s Rewards"], "20-39"), "=q5="..ALIL["Arathi Basin"]};
+				{ 20, "WSGWeapons", "INV_Misc_Rune_07", "=ds="..AL["Weapons"], "=q5="..ALIL["Warsong Gulch"]};
+				{ 21, "WSGArmor", "INV_Misc_Rune_07", "=ds="..BabbleInventory["Armor"], "=q5="..ALIL["Warsong Gulch"]};
+				{ 25, "Terokkar", "INV_Jewelry_FrostwolfTrinket_04", "=ds="..ALIL["Terokkar Forest"], "=q5="..AL["Spirit Towers"]};
+				{ 26, "Nagrand", "INV_Misc_Rune_09", "=ds="..ALIL["Nagrand"], "=q5="..AL["Halaa"]};
+				{ 28, "VentureBay", "INV_Misc_Coin_16", "=ds="..ALIL["Grizzly Hills"], "=q5="..AL["Venture Bay"]};
 			};
 		};
 		info = {
@@ -105,22 +105,22 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 		["Normal"] = {
 			{
 				{ 2, "PVP70DeathKnight", "spell_deathknight_classicon", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ""};
-				{ 4, "PVP70DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
-				{ 5, "PVP70DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
-				{ 6, "PVP70DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};		
+				{ 4, "PVP70DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Balance"]};
+				{ 5, "PVP70DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Feral"]};
+				{ 6, "PVP70DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Restoration"]};		
 				{ 8, "PVP70Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};		
 				{ 10, "PVP70Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};		
-				{ 12, "PVP70PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
-				{ 13, "PVP70PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Protection"]};
-				{ 14, "PVP70PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};		
-				{ 17, "PVP70PriestHoly", "spell_holy_powerwordshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
-				{ 18, "PVP70PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};		
+				{ 12, "PVP70PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Holy"]};
+				{ 13, "PVP70PaladinProtection", "spell_holy_devotionaura", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Protection"]};
+				{ 14, "PVP70PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Retribution"]};		
+				{ 17, "PVP70PriestHoly", "spell_holy_powerwordshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..ALIL["Discipline"]};
+				{ 18, "PVP70PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..ALIL["Shadow"]};		
 				{ 20, "PVP70Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};		
-				{ 22, "PVP70ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
-				{ 23, "PVP70ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
-				{ 24, "PVP70ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};	
-				{ 26, "PVP70WarlockDemonology", "spell_shadow_deathcoil", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], "=q5="..AtlasLoot_IngameLocales["Demonology"]};
-				{ 27, "PVP70WarlockDestruction", "spell_shadow_rainoffire", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], "=q5="..AtlasLoot_IngameLocales["Destruction"]};
+				{ 22, "PVP70ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Elemental"]};
+				{ 23, "PVP70ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Enhancement"]};
+				{ 24, "PVP70ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Restoration"]};	
+				{ 26, "PVP70WarlockDemonology", "spell_shadow_deathcoil", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], "=q5="..ALIL["Demonology"]};
+				{ 27, "PVP70WarlockDestruction", "spell_shadow_rainoffire", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], "=q5="..ALIL["Destruction"]};
 				{ 29, "PVP70Warrior", "inv_sword_27", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ""};
 			};
 		};
@@ -169,19 +169,19 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 		["Normal"] = {
 			{
 				{ 2, "PVP80DeathKnight", "spell_deathknight_classicon", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ""};
-				{ 4, "PVP80DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
-				{ 5, "PVP80DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
-				{ 6, "PVP80DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
+				{ 4, "PVP80DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Balance"]};
+				{ 5, "PVP80DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Feral"]};
+				{ 6, "PVP80DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Restoration"]};
 				{ 8, "PVP80Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 10, "PVP80Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
-				{ 12, "PVP80PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
-				{ 13, "PVP80PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
-				{ 17, "PVP80PriestHoly", "spell_holy_powerwordshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
-				{ 18, "PVP80PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
+				{ 12, "PVP80PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Holy"]};
+				{ 13, "PVP80PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Retribution"]};
+				{ 17, "PVP80PriestHoly", "spell_holy_powerwordshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..ALIL["Discipline"]};
+				{ 18, "PVP80PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..ALIL["Shadow"]};
 				{ 20, "PVP80Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
-				{ 22, "PVP80ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
-				{ 23, "PVP80ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
-				{ 24, "PVP80ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
+				{ 22, "PVP80ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Elemental"]};
+				{ 23, "PVP80ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Enhancement"]};
+				{ 24, "PVP80ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Restoration"]};
 				{ 26, "PVP80Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
 				{ 28, "PVP80Warrior", "inv_sword_27", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ""};
 			};
@@ -196,19 +196,19 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 		["Normal"] = {
 			{
 				{ 2, "PVP85DeathKnight", "spell_deathknight_classicon", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ""};
-				{ 4, "PVP85DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
-				{ 5, "PVP85DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
-				{ 6, "PVP85DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
+				{ 4, "PVP85DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Balance"]};
+				{ 5, "PVP85DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Feral"]};
+				{ 6, "PVP85DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Restoration"]};
 				{ 8, "PVP85Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 10, "PVP85Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
-				{ 12, "PVP85PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
-				{ 13, "PVP85PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
+				{ 12, "PVP85PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Holy"]};
+				{ 13, "PVP85PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Retribution"]};
 				{ 17, "PVP85PriestHoly", "spell_holy_powerwordshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"]};
 				{ 18, "PVP85PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"]};
 				{ 20, "PVP85Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
-				{ 22, "PVP85ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
-				{ 23, "PVP85ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
-				{ 24, "PVP85ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
+				{ 22, "PVP85ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Elemental"]};
+				{ 23, "PVP85ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Enhancement"]};
+				{ 24, "PVP85ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Restoration"]};
 				{ 26, "PVP85Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
 				{ 28, "PVP85Warrior", "inv_sword_27", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ""};
 			};
@@ -231,7 +231,7 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 			};
 		};
 		info = {
-			name = BabbleZone["Wintergrasp"],
+			name = ALIL["Wintergrasp"],
 			menu = "PVPMENU2",
 		};
 	}
@@ -240,21 +240,21 @@ local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 		["Normal"] = {
 			{
 				{ 1, "PVP90DeathKnight", "spell_deathknight_classicon", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ""};
-				{ 3, "PVP90DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Balance"]};
-				{ 4, "PVP90DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Feral"]};
-				{ 5, "PVP90DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
+				{ 3, "PVP90DruidBalance", "spell_nature_starfall", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Balance"]};
+				{ 4, "PVP90DruidFeral", "ability_druid_catform", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Feral"]};
+				{ 5, "PVP90DruidRestoration", "spell_nature_healingtouch", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..ALIL["Restoration"]};
 				{ 7, "PVP90Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], ""};
 				{ 9, "PVP90Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], ""};
-				{ 11, "PVP90MonkHealer", "spell_monk_mistweaver_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AtlasLoot_IngameLocales["Mistweaver"]};
-				{ 12, "PVP90MonkDPS", "spell_monk_windwalker_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..AtlasLoot_IngameLocales["Windwalker"]};
-				{ 14, "PVP90PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Holy"]};
-				{ 15, "PVP90PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AtlasLoot_IngameLocales["Retribution"]};
-				{ 17, "PVP90PriestHoly", "spell_holy_powerwordshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Discipline"]};
-				{ 18, "PVP90PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AtlasLoot_IngameLocales["Shadow"]};
+				{ 11, "PVP90MonkHealer", "spell_monk_mistweaver_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..ALIL["Mistweaver"]};
+				{ 12, "PVP90MonkDPS", "spell_monk_windwalker_spec", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MONK"], "=q5="..ALIL["Windwalker"]};
+				{ 14, "PVP90PaladinHoly", "Spell_Holy_HolyBolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Holy"]};
+				{ 15, "PVP90PaladinRetribution", "Spell_Holy_AuraOfLight", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Retribution"]};
+				{ 17, "PVP90PriestHoly", "spell_holy_powerwordshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..ALIL["Discipline"]};
+				{ 18, "PVP90PriestShadow", "spell_shadow_shadowwordpain", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..ALIL["Shadow"]};
 				{ 20, "PVP90Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
-				{ 22, "PVP90ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Elemental"]};
-				{ 23, "PVP90ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Enhancement"]};
-				{ 24, "PVP90ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AtlasLoot_IngameLocales["Restoration"]};
+				{ 22, "PVP90ShamanElemental", "Spell_Nature_Lightning", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Elemental"]};
+				{ 23, "PVP90ShamanEnhancement", "spell_nature_lightningshield", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Enhancement"]};
+				{ 24, "PVP90ShamanRestoration", "spell_nature_magicimmunity", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..ALIL["Restoration"]};
 				{ 26, "PVP90Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
 				{ 28, "PVP90Warrior", "inv_sword_27", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ""};
 			};

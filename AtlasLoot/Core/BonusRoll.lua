@@ -41,15 +41,32 @@ local PLAYER_SPEC_INFO = nil
 local BonusRollEventIds = {}
 local BonusRollDataIds = {}
 
+local classTable = {
+	[1] = {[71] = 1,[72] = 2,[73] = 3,},
+	[2] = {[65] = 1,[66] = 2,[70] = 3,},
+	[3] = {[253] = 1,[254] = 2,[255] = 3,},
+	[4] = {[259] = 1,[260] = 2,[261] = 3,},
+	[5] = {[256] = 1,[257] = 2,[258] = 3,},
+	[6] = {[250] = 1,[251] = 2,[252] = 3,},
+	[7] = {[262] = 1,[263] = 2,[264] = 3,},
+	[8] = {[62] = 1,[63] = 2,[64] = 3,},
+	[9] = {[265] = 1,[266] = 2,[267] = 3,},
+	[10] = {[268] = 1,[270] = 2,[269] = 3,},
+	[11] = {[102] = 1,[103] = 2,[104] = 3,[105] = 4,},
+}
+
 local function CreateSpecInfo()
 	PLAYER_SPEC_INFO = {}
+	local classID = select(3, UnitClass("player"))
 	for i=1,GetNumSpecializations() do
 		local id, name, description, icon, background, role = GetSpecializationInfo(i)
-		PLAYER_SPEC_INFO[i] = {
-			name = name,
-			description = description,
-			icon = icon
-		}
+		if classID and classTable[classID] and classTable[classID][id] then
+			PLAYER_SPEC_INFO[classTable[classID][id]] = {
+				name = name,
+				description = description,
+				icon = icon
+			}
+		end
 	end
 end
 
@@ -129,7 +146,7 @@ function AtlasLoot:BonusLoot_CheckItemId(itemId)
 			if not PLAYER_SPEC_INFO[k].icon then
 				CreateSpecInfo()
 			end
-			table.insert(ret, PLAYER_SPEC_INFO[k].icon)
+			table.insert(ret, { k, PLAYER_SPEC_INFO[k].icon })
 		end
 	end
 	return #ret > 0 and ret or false
@@ -156,4 +173,3 @@ function AtlasLoot:BonusLoot_GetDataIdInfo(dataId)
 		return true
 	end
 end
-

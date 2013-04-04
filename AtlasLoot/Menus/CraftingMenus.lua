@@ -1,11 +1,10 @@
--- $Id: CraftingMenus.lua 4092 2013-02-23 01:05:26Z dynaletik $
+-- $Id: CraftingMenus.lua 4163 2013-03-19 15:06:21Z dynaletik $
 -- Invoke libraries
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
+local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 local BabbleItemSet = AtlasLoot_GetLocaleLibBabble("LibBabble-ItemSet-3.0")
-local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
-local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 
 -- TEMP FIX REMOVE WITH PATCH/CATA
 local GetSpellInfoOri = GetSpellInfo
@@ -105,7 +104,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 10, "Armorsmith", "inv_chest_plate16", "=ds="..GetSpellInfo(9788), ""};
 				{ 11, "Axesmith", "inv_axe_1h_blacksmithing_01", "=ds="..GetSpellInfo(17041), ""};
 				{ 12, "Swordsmith", "inv_sword_1h_blacksmithing_02", "=ds="..GetSpellInfo(17039), ""};
-				{ 14, "SmithingMoPVendor", "inv_scroll_04", "=ds="..AL["Mists of Pandaria Vendor Sold Plans"], "=q5="..AtlasLoot:GetMapNameByID(811)};
+				{ 14, "SmithingMoPVendor", "inv_scroll_04", "=ds="..AL["Mists of Pandaria Vendor Sold Plans"], "=q5="..ALIL["Vale of Eternal Blossoms"]};
 				--{ 15, "SmithingArmorRemoved", "Trade_BlackSmithing", "=ds=Removed (Temp Name)", ""};
 				{ 16, "SmithingWeaponMoP", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Mists of Pandaria"]};
 				{ 17, "SmithingWeaponCata", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Cataclysm"]};
@@ -116,7 +115,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 23, "SmithingTrainingProjects", "inv_misc_1h_pa_pan_a_01", "=ds="..AL["Training Projects"], ""};
 				{ 25, "Weaponsmith", "inv_hammer_21", "=ds="..GetSpellInfo(9787), ""};
 				{ 26, "Hammersmith", "inv_hammer_09", "=ds="..GetSpellInfo(17040), ""};
-				{ 29, "SmithingCataVendor", "inv_scroll_04", "=ds="..AL["Cataclysm Vendor Sold Plans"], "=q5="..AtlasLoot:GetMapNameByID(700)};
+				{ 29, "SmithingCataVendor", "inv_scroll_04", "=ds="..AL["Cataclysm Vendor Sold Plans"], "=q5="..ALIL["Twilight Highlands"]};
 				--{ 30, "SmithingWeaponRemoved", "Trade_BlackSmithing", "=ds=Removed (Temp Name)", ""};
 			};
 		};
@@ -135,7 +134,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 5, "EnchantingChest", "inv_enchant_formulagood_01", "=ds="..AL["Enchant Chest"], "" };
 				{ 6, "EnchantingGloves", "Spell_Holy_GreaterHeal", "=ds="..AL["Enchant Gloves"], "" };
 				{ 8, "EnchantingMisc", "inv_rod_enchantedadamantite", "=ds="..BabbleInventory["Miscellaneous"], "" };
-				{ 10, "EnchantingCataVendor", "inv_enchant_formulasuperior_01", "=ds="..AL["Cataclysm Vendor Sold Formulas"], "=q5="..AtlasLoot:GetMapNameByID(700)};
+				{ 10, "EnchantingCataVendor", "inv_enchant_formulasuperior_01", "=ds="..AL["Cataclysm Vendor Sold Formulas"], "=q5="..ALIL["Twilight Highlands"]};
 				{ 17, "EnchantingRing", "inv_misc_note_01", "=ds="..AL["Enchant Ring"], "" };
 				{ 18, "EnchantingShieldOffHand", "Spell_Holy_GreaterHeal", "=ds="..AL["Enchant Shield & Off-Hand"], "" };
 				{ 19, "EnchantingWeapon", "Trade_Engraving", "=ds="..AL["Enchant Weapon"], "" };
@@ -242,7 +241,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 8, "LeatherCloaks", "inv_misc_cape_05", "=ds="..AL["Cloaks"], "" };
 				{ 9, "LeatherDrumsBagsMisc", "inv_misc_drum_03", "=ds="..AL["Drums, Bags and Misc."], "" };
 				{ 11, "LeatherLeather", "inv_misc_leatherscrap_10", "=ds="..BabbleInventory["Leather"], "" };
-				{ 13, "LeatherworkingMoPVendor", "inv_scroll_04", "=ds="..AL["Mists of Pandaria Vendor Sold Patterns"], "=q5="..AtlasLoot:GetMapNameByID(811)};
+				{ 13, "LeatherworkingMoPVendor", "inv_scroll_04", "=ds="..AL["Mists of Pandaria Vendor Sold Patterns"], "=q5="..ALIL["Vale of Eternal Blossoms"]};
 				{ 17, "LeatherMailArmorMoP", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Mists of Pandaria"] };
 				{ 18, "LeatherMailArmorCata", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Cataclysm"] };
 				{ 19, "LeatherMailArmorWrath", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Wrath of the Lich King"] };
@@ -250,7 +249,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 21, "LeatherMailArmorOld", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Classic WoW"] };
 				{ 23, "LeatherItemEnhancement", "inv_misc_armorkit_18", "=ds="..AL["Item Enhancements"], "" };
 				{ 24, "LeatherSpecializations", "INV_Misc_ArmorKit_17", "=ds="..AL["Specializations"], "" };
-				{ 28, "LeatherworkingCataVendor", "inv_scroll_03", "=ds="..AL["Cataclysm Vendor Sold Patterns"], "=q5="..AtlasLoot:GetMapNameByID(700)};
+				{ 28, "LeatherworkingCataVendor", "inv_scroll_03", "=ds="..AL["Cataclysm Vendor Sold Patterns"], "=q5="..ALIL["Twilight Highlands"]};
 			};
 		};
 		info = {
@@ -269,14 +268,14 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 6, "TailoringArmorOld", "Trade_Tailoring", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Classic WoW"] };
 				{ 8, "Mooncloth", "Trade_Tailoring", "=ds="..GetSpellInfo(26798), "" };
 				{ 9, "Shadoweave", "Trade_Tailoring", "=ds="..GetSpellInfo(26801), "" };
-				{ 11, "TailoringMoPVendor", "inv_scroll_04", "=ds="..AL["Mists of Pandaria Vendor Sold Patterns"], "=q5="..AtlasLoot:GetMapNameByID(811)};
+				{ 11, "TailoringMoPVendor", "inv_scroll_04", "=ds="..AL["Mists of Pandaria Vendor Sold Patterns"], "=q5="..ALIL["Vale of Eternal Blossoms"]};
 				{ 17, "TailoringItemEnhancement", "inv_misc_thread_01", "=ds="..AL["Item Enhancements"], "" };
 				{ 18, "TailoringBags", "inv_misc_bag_enchantedrunecloth", "=ds="..AL["Bags"], "" };
 				{ 19, "TailoringMisc", "ability_mount_magnificentflyingcarpet", "=ds="..BabbleInventory["Miscellaneous"], "" };
 				{ 20, "TailoringShirts", "inv_shirt_white_01", "=ds="..AL["Shirts"], "" };
 				{ 21, "TailoringCloth", "inv_fabric_netherweave_bolt", "=ds="..BabbleInventory["Cloth"], "" };
 				{ 23, "Spellfire", "Trade_Tailoring", "=ds="..GetSpellInfo(26797), "" };
-				{ 26, "TailoringCataVendor", "inv_scroll_05", "=ds="..AL["Cataclysm Vendor Sold Plans"], "=q5="..AtlasLoot:GetMapNameByID(700)};
+				{ 26, "TailoringCataVendor", "inv_scroll_05", "=ds="..AL["Cataclysm Vendor Sold Plans"], "=q5="..ALIL["Twilight Highlands"]};
 			};
 		};
 		info = {
@@ -436,10 +435,10 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["COOKINGDAILYMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "CookingDaily#1", "inv_misc_food_meat_cooked_09", "=ds="..AtlasLoot:GetMapNameByID(807), "=q5="..AL["Mists of Pandaria"] };
-				{ 3, "CookingDaily#5", "inv_misc_food_12", "=ds="..AtlasLoot:GetMapNameByID(504), "=q5="..AL["Wrath of the Lich King"] };
-				{ 17, "CookingDaily#3", "inv_misc_food_meat_cooked_09", "=ds="..AtlasLoot:GetMapNameByID(301).." / "..AtlasLoot:GetMapNameByID(321), "=q5="..AL["Cataclysm"] };
-				{ 18, "CookingDaily#7", "inv_misc_cauldron_arcane", "=ds="..AtlasLoot:GetMapNameByID(481), "=q5="..AL["Burning Crusade"] };
+				{ 2, "CookingDaily#1", "inv_misc_food_meat_cooked_09", "=ds="..ALIL["Valley of the Four Winds"], "=q5="..AL["Mists of Pandaria"] };
+				{ 3, "CookingDaily#5", "inv_misc_food_12", "=ds="..ALIL["Dalaran"], "=q5="..AL["Wrath of the Lich King"] };
+				{ 17, "CookingDaily#3", "inv_misc_food_meat_cooked_09", "=ds="..ALIL["Stormwind City"].." / "..ALIL["Orgrimmar"], "=q5="..AL["Cataclysm"] };
+				{ 18, "CookingDaily#7", "inv_misc_cauldron_arcane", "=ds="..ALIL["Shattrath City"], "=q5="..AL["Burning Crusade"] };
 			};
 		};
 		info = {
@@ -451,12 +450,12 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["FISHINGDAILYMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "FishingDaily#1", "inv_fishingpole_03", "=ds="..BabbleZone["Dalaran"], "=q5="..AL["Wrath of the Lich King"] };
+				{ 2, "FishingDaily#1", "inv_fishingpole_03", "=ds="..ALIL["Dalaran"], "=q5="..AL["Wrath of the Lich King"] };
 				{ 4, 33820, "", "=q3=Weather-Beaten Fishing Hat", "=ds=#s1#, #a1#", "", ""};
 				{ 5, 45991, "", "=q3=Bone Fishing Pole", "=ds=#e20#", "", ""};
 				{ 6, 45992, "", "=q3=Jeweled Fishing Pole", "=ds=#e20#", "", ""};
 				{ 7, 44983, "", "=q3=Strand Crawler", "=ds=#e13#", "", ""};
-				{ 17, "FishingDaily#2", "achievement_profession_fishing_oldmanbarlowned", "=ds="..BabbleZone["Terokkar Forest"], "=q5="..AL["Burning Crusade"] };
+				{ 17, "FishingDaily#2", "achievement_profession_fishing_oldmanbarlowned", "=ds="..ALIL["Terokkar Forest"], "=q5="..AL["Burning Crusade"] };
 				{ 19, 34834, "", "=q2=Recipe: Captain Rumsey's Lager", "=ds=#sr# (100)", "", ""};
 				{ 21, 67404, "", "=q1=Glass Fishing Bobber", "=ds=#e24#", "", ""};
 				{ 22, 34109, "", "=q1=Weather-Beaten Journal", "=ds=#e10#", "", ""};

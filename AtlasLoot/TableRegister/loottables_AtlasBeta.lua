@@ -1,4 +1,4 @@
-﻿-- $Id: loottables_AtlasBeta.lua 3697 2012-01-31 15:17:37Z lag123 $
+﻿-- $Id: loottables_AtlasBeta.lua 4163 2013-03-19 15:06:21Z dynaletik $
 --[[
 loottables.en.lua
 This file assigns a title to every loot table.  The primary use of this table
@@ -8,10 +8,9 @@ inherant title to the loot table, given the origins of the mod as an Atlas plugi
 
 -- Invoke libraries
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
+local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
-local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
-local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 
 -- Using alchemy skill to get localized rank
 local JOURNEYMAN = select(2, GetSpellInfo(3101));
@@ -60,7 +59,7 @@ AtlasLoot_LootTableRegister_AtlasBeta = {
 					{ "BlackrockCavernsLordObsidius", 6 },
 					{ "BlackrockCavernsTrash", 11 },
 				},
-				["Info"] = { BabbleZone["Blackrock Caverns"], "AtlasLootCataclysm", mapname = "BlackrockCaverns" },
+				["Info"] = { ALIL["Blackrock Caverns"], "AtlasLootCataclysm", mapname = "BlackrockCaverns" },
 			},
 		]]--
 		},

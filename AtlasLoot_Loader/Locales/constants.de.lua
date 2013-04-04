@@ -1,4 +1,4 @@
-﻿-- $Id: constants.de.lua 4146 2013-03-12 19:01:26Z dynaletik $
+﻿-- $Id: constants.de.lua 4165 2013-03-20 11:03:22Z dynaletik $
 --[[
 constants.de.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -379,8 +379,8 @@ if AL then
 	-- AL["ilvl 470"] = true;
 	-- AL["ilvl 490"] = true;
 	-- AL["ilvl 489"] = true;
-	-- AL["ilvl 493"] = true;
 	-- AL["ilvl 496"] = true;
+	-- AL["ilvl 498"] = true;
 	-- AL["ilvl 512"] = true;
 
 	-- PvP Menu
@@ -488,7 +488,6 @@ if AL then
 	AL["Potions"] = "Tränke";
 	AL["Transmutes"] = "Transmutieren";
 	AL["Flasks"] = "Fläschchen";
-	AL["Guild"] = "Gilde";
 
 	-- Blacksmithing
 	AL["Armor Enhancements"] = "Rüstungsverbesserungen";
@@ -936,6 +935,19 @@ if AL then
 	AL["Husk of the Old God"] = "Hülle des Gottes";
 	AL["Carapace of the Old God"] = "Knochenpanzer des Gottes";
 
+	-- Faction related strings
+	AL["Alliance"] = "Allianz";
+	-- AL["Horde"] = true;
+	-- AL["Neutral"] = true;
+	AL["Friendly"] = "Freundlich";
+	AL["Honored"] = "Wohlwollend";
+	AL["Revered"] = "Respektvoll";
+	AL["Exalted"] = "Ehrfürchtig";
+	AL["Best Friend"] = "Bester Freund";
+	AL["Rank 4"] = "Rang 4";
+	AL["Rank 8"] = "Rang 8";
+	AL["Winterfin Retreat"] = "Zuflucht der Winterflossen";
+
 	-- Recipe origin strings
 	AL["Crafted"] = "Hergestellt";
 	AL["Discovery"] = "Entdeckung";
@@ -1054,13 +1066,18 @@ if AL then
 	AL["Bash'ir Landing Stasis Chambers"] = "Stasiskammer des Landeplatz von Bash'ir";
 	AL["Battle Pet Trainer"] = "Kampfhaustiertrainer";
 
-	-- Zones
-	AL["Trial of the Grand Crusader"] = "Prüfung des Obersten Kreuzfahrers";
+	-- Zone related strings
+	-- AL["Azeroth"] = true;
+	AL["Blackrock Mountain"] = "Der Schwarzfels";
+	AL["Caverns of Time"] = "Höhlen der Zeit";
 	AL["Crusader's Square"] = "Kreuzzüglerpass";
-	AL["The Gauntlet"] = "Der Spießrutenlauf";
+	AL["Darkmoon Island"] = "Dunkelmondinsel";
+	AL["East"] = "Ost";
 	AL["Halfhill Farm"] = "Halbhügel Farm";
-	AL["Domination Point"] = "Herrschaftsfeste";
-	AL["Lion's Landing"] = "Löwenlandung";
+	AL["North"] = "Nord";
+	AL["The Gauntlet"] = "Der Spießrutenlauf";
+	AL["Trial of the Grand Crusader"] = "Prüfung des Obersten Kreuzfahrers";
+	AL["West"] = "West";
 
 	-- Shortcuts for Bossname files
 	-- AL["Avatar"] = true; -- Avatar of the Martyred

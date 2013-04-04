@@ -1,4 +1,4 @@
-﻿-- $Id: LootButtons.lua 4138 2013-03-10 18:33:08Z lag123 $
+﻿-- $Id: LootButtons.lua 4168 2013-03-25 20:02:28Z lag123 $
 local _
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot")
@@ -1217,29 +1217,31 @@ function AltasLootItemButton:SetAmount(amount)
 end
 
 function AltasLootItemButton:CheckBonusRoll(enabled)
-	if not AtlasLoot.CanShowBonusRoll then return end
 	if self.type ~= "ItemIcon" then return end
+	if not AtlasLoot.CanShowBonusRoll then 
+		enabled = false
+	end
 	for k,v in ipairs(self.Frame.BonusRoll) do
 		v:Hide()
 	end
-	if self.info then 
-		self.Specs = AtlasLoot:BonusLoot_CheckItemId(self.info[2]) 
-		if AtlasLoot.db.profile.ShowBonusRollInfoInTT then
-			self.SpecsTT = AtlasLoot:BonusLoot_GetItemIdInfo(self.info[2]) 
-		end
-	else
-		self.Specs = nil
-		self.SpecsTT = nil
-	end
 	if enabled then
+		if self.info then 
+			self.Specs = AtlasLoot:BonusLoot_CheckItemId(self.info[2]) 
+			if AtlasLoot.db.profile.ShowBonusRollInfoInTT then
+				self.SpecsTT = AtlasLoot:BonusLoot_GetItemIdInfo(self.info[2]) 
+			end
+		else
+			self.Specs = nil
+			self.SpecsTT = nil
+		end
 		if self.Specs then
 			self.Frame:SetAlpha(1)
 			for k,v in ipairs(self.Specs) do
 				if not self.Frame.BonusRoll[k] then break end
 				self.Frame.BonusRoll[k]:Show()
-				self.Frame.BonusRoll[k].Id = k
+				self.Frame.BonusRoll[k].Id = v[1]
 				--SetPortraitToTexture(self.Frame.BonusRoll[k].specIcon, v)
-				self.Frame.BonusRoll[k].specIcon:SetTexture(v)
+				self.Frame.BonusRoll[k].specIcon:SetTexture(v[2])
 			end
 		elseif self.Specs == false then
 			self.Frame:SetAlpha(0.33)

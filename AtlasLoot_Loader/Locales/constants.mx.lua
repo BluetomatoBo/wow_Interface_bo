@@ -1,4 +1,4 @@
-﻿-- $Id: constants.mx.lua 4133 2013-03-09 07:45:03Z hegarol $
+﻿-- $Id: constants.mx.lua 4163 2013-03-19 15:06:21Z dynaletik $
 --[[
 constants.es.lua --- Traduction ES por maqjav
 This file defines an AceLocale table for all the various text strings needed
@@ -406,6 +406,19 @@ if AL then
 	AL["Husk of the Old God"] = "Colmillo del dios antiguo";
 	AL["Carapace of the Old God"] = "Caparazón del dios antiguo";
 
+	-- Faction related strings
+	AL["Alliance"] = "Alianza";
+	AL["Horde"] = "Horda";
+	-- AL["Neutral"] = true;
+	AL["Friendly"] = "Amistoso";
+	AL["Honored"] = "Honorable";
+	AL["Revered"] = "Reverenciado";
+	AL["Exalted"] = "Exaltado";
+	-- AL["Best Friend"] = true;
+	-- AL["Rank 4"] = true;
+	-- AL["Rank 8"] = true;
+	AL["Winterfin Retreat"] = "Retiro Aleta Invernal";
+
 	--Recipe origin strings
 	AL["Trainer"] = "Instructor";
 	AL["Discovery"] = "Descubierto";
@@ -567,7 +580,14 @@ if AL then
 	AL["Felsteed"] = "Corcel vil";
 	AL["Shattered Hand Executioner"] = "Verdugo Mano Destrozada";	 
 
-	--Zones
+	-- Zone related strings
+	-- AL["Azeroth"] = true;
+	AL["Blackrock Mountain"] = "Montaña Roca Negra";
+	AL["Caverns of Time"] = "Cavernas del Tiempo";
+	AL["Darkmoon Island"] = "Isla Luna Negra";
+	AL["East"] = "Este";
+	AL["North"] = "Norte";
+	AL["West"] = "Oeste";
 
 	--Shortcuts for Bossname files
 	--AL["Avatar"] = true,	

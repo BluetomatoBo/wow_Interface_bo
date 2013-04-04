@@ -1,4 +1,4 @@
-﻿-- $Id: Info.lua 4116 2013-03-02 18:36:56Z lag123 $
+﻿-- $Id: Info.lua 4174 2013-04-02 09:13:52Z dynaletik $
 --[[
 Atlasloot Enhanced
 Author Hegarol

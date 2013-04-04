@@ -1,4 +1,4 @@
--- $Id: constants.en.lua 4144 2013-03-12 18:26:37Z hegarol $
+-- $Id: constants.en.lua 4165 2013-03-20 11:03:22Z dynaletik $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -382,8 +382,8 @@ if AL then
 	AL["ilvl 470"] = true;
 	AL["ilvl 490"] = true;
 	AL["ilvl 489"] = true;
-	AL["ilvl 493"] = true;
 	AL["ilvl 496"] = true;
+	AL["ilvl 498"] = true;
 	AL["ilvl 512"] = true;
 
 	-- PvP Menu
@@ -491,7 +491,6 @@ if AL then
 	AL["Potions"] = true;
 	AL["Transmutes"] = true;
 	AL["Flasks"] = true;
-	AL["Guild"] = true;
 
 	-- Blacksmithing
 	AL["Armor Enhancements"] = true;
@@ -939,6 +938,19 @@ if AL then
 	AL["Husk of the Old God"] = true;
 	AL["Carapace of the Old God"] = true;
 
+	-- Faction related strings
+	AL["Alliance"] = true;
+	AL["Horde"] = true;
+	AL["Neutral"] = true;
+	AL["Friendly"] = true;
+	AL["Honored"] = true;
+	AL["Revered"] = true;
+	AL["Exalted"] = true;
+	AL["Best Friend"] = true;
+	AL["Rank 4"] = true;
+	AL["Rank 8"] = true;
+	AL["Winterfin Retreat"] = true;
+
 	-- Recipe origin strings
 	AL["Crafted"] = true;
 	AL["Discovery"] = true;
@@ -1057,13 +1069,18 @@ if AL then
 	AL["Bash'ir Landing Stasis Chambers"] = true;
 	AL["Battle Pet Trainer"] = true;
 
-	-- Zones
-	AL["Trial of the Grand Crusader"] = true;
+	-- Zone related strings
+	AL["Azeroth"] = true;
+	AL["Blackrock Mountain"] = true;
+	AL["Caverns of Time"] = true;
 	AL["Crusader's Square"] = true;
-	AL["The Gauntlet"] = true;
+	AL["Darkmoon Island"] = true;
+	AL["East"] = true;
 	AL["Halfhill Farm"] = true;
-	AL["Domination Point"] = true;
-	AL["Lion's Landing"] = true;
+	AL["North"] = true;
+	AL["The Gauntlet"] = true;
+	AL["Trial of the Grand Crusader"] = true;
+	AL["West"] = true;
 
 	-- Shortcuts for Bossname files
 	AL["Avatar"] = true; -- Avatar of the Martyred

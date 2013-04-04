@@ -1,10 +1,9 @@
--- $Id: classicwow.lua 4136 2013-03-10 12:25:09Z hegarol $
+-- $Id: classicwow.lua 4172 2013-03-31 22:53:10Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
+local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
-local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
-local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 local moduleName = "AtlasLootClassicWoW"
 
 -- Index
@@ -78,7 +77,6 @@ local moduleName = "AtlasLootClassicWoW"
 ---- Thunder Bluff
 ---- Timbermaw Hold
 ---- Tushui Pandaren
----- Zandalar Tribe
 ---- Undercity
 
 	------------------------
@@ -238,7 +236,7 @@ local moduleName = "AtlasLootClassicWoW"
 		["Normal"] = {
 			{
 				{ 1, 21479, "", "=q4=Gauntlets of the Immovable", "=ds=#s9#, #a4#", "", "6.18%"};
-				{ 2, 21466, "", "=q4=Stinger of Ayamiss", "=ds=#h3#, #w6#", "", "2.06%"};
+				{ 2, 21466, "", "=q4=Stinger of Ayamiss", "=ds=#h1#, #w6#", "", "2.06%"};
 				{ 3, 21478, "", "=q4=Bow of Taut Sinew", "=ds=#w2#", "", "10.14%"};
 				{ 5, 21484, "", "=q3=Helm of Regrowth", "=ds=#s1#, #a2#", "", "15.85%"};
 				{ 6, 21480, "", "=q3=Scaled Silithid Gauntlets", "=ds=#s9#, #a3#", "", "17.10%"};
@@ -407,7 +405,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 11, 21678, "", "=q4=Necklace of Purity", "=ds=#s2#", "", "14.21%"};
 				{ 12, 21670, "", "=q4=Badge of the Swarmguard", "=ds=#s14#", "", "13.22%"};
 				{ 13, 21666, "", "=q4=Sartura's Might", "=ds=#s15#", "", "6.47%"};
-				{ 14, 21673, "", "=q4=Silithid Claw", "=ds=#h3#, #w13#", "", "7.16%"};
+				{ 14, 21673, "", "=q4=Silithid Claw", "=ds=#h1#, #w13#", "", "7.16%"};
 				{ 16, 21237, "", "=q4=Imperial Qiraji Regalia", "=ds=#m3#", "", "4.01%"};
 				{ 17, 21273, "", "=q4=Blessed Qiraji Acolyte Staff", "=q1=#m4#, =ds=#w9#"};
 				{ 18, 21275, "", "=q4=Blessed Qiraji Augur Staff", "=q1=#m4#, =ds=#w9#"};
@@ -464,7 +462,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 3, 21623, "", "=q4=Gauntlets of the Righteous Champion", "=ds=#s9#, #a4#", "", "5.37%"};
 				{ 5, 21677, "", "=q4=Ring of the Qiraji Fury", "=ds=#s13#", "", "2.93%"};
 				{ 6, 21625, "", "=q4=Scarab Brooch", "=ds=#s14#", "", "21.46%"};
-				{ 7, 21622, "", "=q4=Sharpened Silithid Femur", "=ds=#h3#, #w10#", "", "15.12%"};
+				{ 7, 21622, "", "=q4=Sharpened Silithid Femur", "=ds=#h1#, #w10#", "", "15.12%"};
 				{ 9, 20932, "", "=q4=Qiraji Bindings of Dominance", "=q1=#m1# =ds=#c8#, #c3#, #c7#, #c1#, #c4#", "", "100%"};
 				{ 10, 20928, "", "=q4=Qiraji Bindings of Command", "=q1=#m1# =ds=#c5#, #c6#, #c9#, #c2#", "", "100%"};
 				{ 16, 21237, "", "=q4=Imperial Qiraji Regalia", "=ds=#m3#", "", "3.19%"};
@@ -594,7 +592,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 11, 21579, "", "=q4=Vanquished Tentacle of C'Thun", "=ds=#s14#", "", "12.18%"};
 				{ 12, 21126, "", "=q4=Death's Sting", "=ds=#h1#, #w4#", "", "6.84%"};
 				{ 13, 21134, "", "=q4=Dark Edge of Insanity", "=ds=#h2#, #w1#", "", "5.93%"};
-				{ 14, 21839, "", "=q4=Scepter of the False Prophet", "=ds=#h3#, #w6#", "", "4.75%"};
+				{ 14, 21839, "", "=q4=Scepter of the False Prophet", "=ds=#h1#, #w6#", "", "4.75%"};
 				{ 16, 20933, "", "=q4=Husk of the Old God", "=q1=#m1# =ds=#c8#, #c3#, #c1#, #c5#", "", "100%"};
 				{ 17, 20929, "", "=q4=Carapace of the Old God", "=q1=#m1# =ds=#c7#, #c6#, #c9#, #c2#, #c4#", "", "100%"};
 				{ 19, 21221, "", "=q4=Eye of C'Thun", "=ds=#m2#", "", "100%"};
@@ -713,7 +711,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = AtlasLoot:GetMapNameByID(688),
+			name = ALIL["Blackfathom Deeps"],
 			module = moduleName, instance = "BlackfathomDeeps",
 		};
 	};
@@ -843,7 +841,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 1, 11782, "", "=q3=Boreal Mantle", "=ds=#s3#, #a1#", "", "25%"};
 				{ 2, 22241, "", "=q3=Dark Warder's Pauldrons", "=ds=#s3#, #a2#", "", "25%"};
 				{ 3, 11783, "", "=q3=Chillsteel Girdle", "=ds=#s10#, #a3#", "", "25%"};
-				{ 4, 11784, "", "=q3=Arbiter's Blade", "=ds=#h3#, #w10#", "", "25%"};
+				{ 4, 11784, "", "=q3=Arbiter's Blade", "=ds=#h1#, #w10#", "", "25%"};
 			};
 		};
 		info = {
@@ -1022,9 +1020,9 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 3, 11925, "", "=q3=Ghostshroud", "=ds=#s1#, #a2#", "", "25%"};
 				{ 4, 11926, "", "=q3=Deathdealer Breastplate", "=ds=#s5#, #a3#", "", "25%"};
 				{ 5, 11927, "", "=q3=Legplates of the Eternal Guardian", "=ds=#s11#, #a4#", "", "25%"};
-				{ 6, 11922, "", "=q3=Blood-Etched Blade", "=ds=#h3#, #w4#", "", "25%"};
+				{ 6, 11922, "", "=q3=Blood-Etched Blade", "=ds=#h1#, #w4#", "", "25%"};
 				{ 7, 11920, "", "=q3=Wraith Scythe", "=ds=#h1# #w1#", "", "25%"};
-				{ 8, 11923, "", "=q3=The Hammer of Grace", "=ds=#h3#, #w6#", "", "25%"};
+				{ 8, 11923, "", "=q3=The Hammer of Grace", "=ds=#h1#, #w6#", "", "25%"};
 				{ 9, 11921, "", "=q3=Impervious Giant", "=ds=#h2#, #w6#", "", "25%"};
 			};
 		};
@@ -1110,7 +1108,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = AtlasLoot:GetMapNameByID(688).." - "..AL["Quest Item"],
+			name = ALIL["Blackrock Depths"].." - "..AL["Quest Item"],
 			module = moduleName, instance = "BlackrockDepths",
 		};
 	};
@@ -1167,7 +1165,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Blackrock Mountain"],
+			name = AL["Blackrock Mountain"],
 			module = moduleName, instance = "BlackrockMountainEnt",
 		};
 	};
@@ -1183,7 +1181,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Lower Blackrock Spire"].." - "..AL["Quest Item"],
+			name = ALIL["Lower Blackrock Spire"].." - "..AL["Quest Item"],
 			module = moduleName, instance = "BlackrockSpireLower",
 		};
 	};
@@ -1489,7 +1487,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 1, 18047, "", "=q3=Flame Walkers", "=ds=#s12#, #a3#", "", "18.05%"};
 				{ 2, 13502, "", "=q3=Handcrafted Mastersmith Girdle", "=ds=#s10#, #a4#", "", "15.78%"};
 				{ 3, 13498, "", "=q3=Handcrafted Mastersmith Leggings", "=ds=#s11#, #a4#", "", "20.63%"};
-				{ 4, 18048, "", "=q3=Mastersmith's Hammer", "=ds=#h3#, #w6#", "", "17.26%"};
+				{ 4, 18048, "", "=q3=Mastersmith's Hammer", "=ds=#h1#, #w6#", "", "17.26%"};
 				{ 16, 12837, "", "=q3=Plans: Masterwork Stormhammer", "=ds=#p2# (300)", "", "4.80%"};
 				{ 17, 12794, "", "=q3=Masterwork Stormhammer", "=ds=#h1#, #w6#"};
 				{ 18, 12834, "", "=q3=Plans: Arcanite Champion", "=ds=#p2# (300)", "", "4.75%"};
@@ -1722,7 +1720,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 7, 16948, "", "=q4=Gauntlets of Ten Storms", "=q1=#m1# =ds=#c7#", "", "2.13%"};
 				{ 8, 16964, "", "=q4=Gauntlets of Wrath", "=q1=#m1# =ds=#c9#", "", "5.93%"};
 				{ 9, 16956, "", "=q4=Judgement Gauntlets", "=q1=#m1# =ds=#c4#", "", "3.58%"};
-				{ 11, 19365, "", "=q4=Claw of the Black Drake", "=ds=#h3#, #w13#", "", "15.97%"};
+				{ 11, 19365, "", "=q4=Claw of the Black Drake", "=ds=#h1#, #w13#", "", "15.97%"};
 				{ 12, 19355, "", "=q4=Shadow Wing Focus Staff", "=ds=#w9#", "", "3.70%"};
 				{ 13, 19353, "", "=q4=Drake Talon Cleaver", "=ds=#h2#, #w1#", "", "3.18%"};
 				{ 16, 19343, "", "=q4=Scrolls of Blinding Light", "=ds=#s14#, =q1=#m1# =ds=#c4#", "", "9.17%"};
@@ -1830,7 +1828,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 22, 19393, "", "=q4=Primalist's Linked Waistguard", "=ds=#s10#, #a3#", "", "6.17%"};
 				{ 23, 19392, "", "=q4=Girdle of the Fallen Crusader", "=ds=#s10#, #a4#", "", "10.97%"};
 				{ 24, 19387, "", "=q4=Chromatic Boots", "=ds=#s12#, #a4#", "", "16.46%"};
-				{ 26, 19347, "", "=q4=Claw of Chromaggus", "=ds=#h3#, #w4#", "", "8.39%"};
+				{ 26, 19347, "", "=q4=Claw of Chromaggus", "=ds=#h1#, #w4#", "", "8.39%"};
 				{ 27, 19352, "", "=q4=Chromatically Tempered Sword", "=ds=#h1#, #w10#", "", "9.05%"};
 				{ 28, 19349, "", "=q4=Elementium Reinforced Bulwark", "=ds=#w8#", "", "8.04%"};
 				{ 29, 19361, "", "=q4=Ashjre'thul, Crossbow of Smiting", "=ds=#w3#", "", "7.51%"};
@@ -1879,7 +1877,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 4, 19366, "", "=q4=Master Dragonslayer's Orb", "=q1=#m4#: =ds=#s15#"};
 				{ 16, 19364, "", "=q4=Ashkandi, Greatsword of the Brotherhood", "=ds=#h2#, #w10#", "", "7.21%"};
 				{ 17, 19363, "", "=q4=Crul'shorukh, Edge of Chaos", "=ds=#h1#, #w1#", "", "7.00%"};
-				{ 18, 19360, "", "=q4=Lok'amir il Romathis", "=ds=#h3#, #w6#", "", "6.98%"};
+				{ 18, 19360, "", "=q4=Lok'amir il Romathis", "=ds=#h1#, #w6#", "", "6.98%"};
 				{ 19, 19356, "", "=q4=Staff of the Shadow Flame", "=ds=#w9#", "", "7.27%"};
 			};
 		};
@@ -1928,7 +1926,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 7, 17109, "", "=q4=Choker of Enlightenment", "=ds=#s2#", "", "12.61%"};
 				{ 8, 18879, "", "=q4=Heavy Dark Iron Ring", "=ds=#s13#", "", "2.04%"};
 				{ 9, 19147, "", "=q4=Ring of Spell Power", "=ds=#s13#", "", "2.23%"};
-				{ 10, 18878, "", "=q4=Sorcerous Dagger", "=ds=#h3#, #w4#", "", "2.23%"};
+				{ 10, 18878, "", "=q4=Sorcerous Dagger", "=ds=#h1#, #w4#", "", "2.23%"};
 				{ 11, 17077, "", "=q4=Crimson Shocker", "=ds=#w12#", "", "1.60%"};
 				{ 16, 16800, "", "=q4=Arcanist Boots", "=q1=#m1# =ds=#c3# (T1)", "", "12.06%"};
 				{ 17, 16805, "", "=q4=Felheart Gloves", "=q1=#m1# =ds=#c8# (T1)", "", "14.89%"};
@@ -1957,21 +1955,22 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 8, 17065, "", "=q4=Medallion of Steadfast Might", "=ds=#s2#", "", "14.05%"};
 				{ 9, 18821, "", "=q4=Quick Strike Ring", "=ds=#s13#", "", "5.79%"};
 				{ 10, 18820, "", "=q4=Talisman of Ephemeral Power", "=ds=#s14#", "", "5.55%"};
-				{ 11, 19142, "", "=q4=Fire Runed Grimoire", "=ds=#s15#", "", "5.42%"};
-				{ 12, 18203, "", "=q4=Eskhandar's Right Claw", "=ds=#h3#, #w13#", "", "17.82%"};
-				{ 13, 18822, "", "=q4=Obsidian Edged Blade", "=ds=#h2#, #w10#", "", "5.68%"};
-				{ 14, 17073, "", "=q4=Earthshaker", "=ds=#h2#, #w6#", "", "16.75%"};
-				{ 15, 17069, "", "=q4=Striker's Mark", "=ds=#w2#", "", "16.37%"};
-				{ 16, 16796, "", "=q4=Arcanist Leggings", "=q1=#m1# =ds=#c3# (T1)", "", "14.57%"};
-				{ 17, 16814, "", "=q4=Pants of Prophecy", "=q1=#m1# =ds=#c5# (T1)", "", "14.33%"};
-				{ 18, 16810, "", "=q4=Felheart Pants", "=q1=#m1# =ds=#c8# (T1)", "", "13.75%"};
-				{ 19, 16822, "", "=q4=Nightslayer Pants", "=q1=#m1# =ds=#c6# (T1)", "", "13.83%"};
-				{ 20, 16847, "", "=q4=Giantstalker's Leggings", "=q1=#m1# =ds=#c2# (T1)", "", "13.28%"};
-				{ 21, 16835, "", "=q4=Cenarion Leggings", "=q1=#m1# =ds=#c1# (T1)", "", "12.90%"};
-				{ 22, 16843, "", "=q4=Earthfury Legguards", "=q1=#m1# =ds=#c7# (T1)", "", " 4.73%"};
-				{ 23, 16855, "", "=q4=Lawbringer Legplates", "=q1=#m1# =ds=#c4# (T1)", "", "8.54%"};
-				{ 24, 16867, "", "=q4=Legplates of Might", "=q1=#m1# =ds=#c9# (T1)", "", "13.97%"};
-				{ 26, 93034, "", "=q3=Blazing Rune", "=ds=#e13#", ""};
+				{ 12, 19142, "", "=q4=Fire Runed Grimoire", "=ds=#s15#", "", "5.42%"};
+				{ 13, 18202, "", "=q4=Eskhandar's Left Claw", "=ds=#h1#, #w13#", "", "14%"};
+				{ 14, 18203, "", "=q4=Eskhandar's Right Claw", "=ds=#h1#, #w13#", "", "17.82%"};
+				{ 15, 18822, "", "=q4=Obsidian Edged Blade", "=ds=#h2#, #w10#", "", "5.68%"};
+				{ 16, 17073, "", "=q4=Earthshaker", "=ds=#h2#, #w6#", "", "16.75%"};
+				{ 17, 17069, "", "=q4=Striker's Mark", "=ds=#w2#", "", "16.37%"};
+				{ 19, 16796, "", "=q4=Arcanist Leggings", "=q1=#m1# =ds=#c3# (T1)", "", "14.57%"};
+				{ 20, 16814, "", "=q4=Pants of Prophecy", "=q1=#m1# =ds=#c5# (T1)", "", "14.33%"};
+				{ 21, 16810, "", "=q4=Felheart Pants", "=q1=#m1# =ds=#c8# (T1)", "", "13.75%"};
+				{ 22, 16822, "", "=q4=Nightslayer Pants", "=q1=#m1# =ds=#c6# (T1)", "", "13.83%"};
+				{ 23, 16847, "", "=q4=Giantstalker's Leggings", "=q1=#m1# =ds=#c2# (T1)", "", "13.28%"};
+				{ 24, 16835, "", "=q4=Cenarion Leggings", "=q1=#m1# =ds=#c1# (T1)", "", "12.90%"};
+				{ 25, 16843, "", "=q4=Earthfury Legguards", "=q1=#m1# =ds=#c7# (T1)", "", " 4.73%"};
+				{ 26, 16855, "", "=q4=Lawbringer Legplates", "=q1=#m1# =ds=#c4# (T1)", "", "8.54%"};
+				{ 27, 16867, "", "=q4=Legplates of Might", "=q1=#m1# =ds=#c9# (T1)", "", "13.97%"};
+				{ 29, 93034, "", "=q3=Blazing Rune", "=ds=#e13#", ""};
 			};
 		};
 		info = {
@@ -1991,7 +1990,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 6, 18861, "", "=q4=Flamewaker Legplates", "=ds=#s11#, #a4#", "", "3.48%"};
 				{ 7, 18879, "", "=q4=Heavy Dark Iron Ring", "=ds=#s13#", "", "3.78%"};
 				{ 8, 19147, "", "=q4=Ring of Spell Power", "=ds=#s13#", "", "3.78%"};
-				{ 9, 18878, "", "=q4=Sorcerous Dagger", "=ds=#h3#, #w4#", "", "3.79%"};
+				{ 9, 18878, "", "=q4=Sorcerous Dagger", "=ds=#h1#, #w4#", "", "3.79%"};
 				{ 10, 17077, "", "=q4=Crimson Shocker", "=ds=#w12#", "", "3.34%"};
 				{ 16, 16812, "", "=q4=Gloves of Prophecy", "=q1=#m1# =ds=#c5# (T1)", "", "18.65%"};
 				{ 17, 16826, "", "=q4=Nightslayer Gloves", "=q1=#m1# =ds=#c6# (T1)", "", "19.47%"};
@@ -2023,7 +2022,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 11, 17071, "", "=q4=Gutgore Ripper", "=ds=#h1#, #w4#", "", "11.21%"};
 				{ 12, 18832, "", "=q4=Brutality Blade", "=ds=#h1#, #w10#", "", "13.27%"};
 				{ 13, 18822, "", "=q4=Obsidian Edged Blade", "=ds=#h2#, #w10#", "", "4.09%"};
-				{ 14, 17105, "", "=q4=Aurastone Hammer", "=ds=#h3#, #w6#", "", "12.67%"};
+				{ 14, 17105, "", "=q4=Aurastone Hammer", "=ds=#h1#, #w6#", "", "12.67%"};
 				{ 15, 17066, "", "=q4=Drillborer Disk", "=ds=#w8#", "", "11.85%"};
 				{ 16, 16795, "", "=q4=Arcanist Crown", "=q1=#m1# =ds=#c3# (T1)", "", "11.31%"};
 				{ 17, 16813, "", "=q4=Circlet of Prophecy", "=q1=#m1# =ds=#c5# (T1)", "", "11.36%"};
@@ -2055,7 +2054,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 6, 18861, "", "=q4=Flamewaker Legplates", "=ds=#s11#, #a4#", "", "2.22%"};
 				{ 7, 18879, "", "=q4=Heavy Dark Iron Ring", "=ds=#s13#", "", "1.72%"};
 				{ 8, 19147, "", "=q4=Ring of Spell Power", "=ds=#s13#", "", "1.99%"};
-				{ 9, 18878, "", "=q4=Sorcerous Dagger", "=ds=#h3#, #w4#", "", "2.27%"};
+				{ 9, 18878, "", "=q4=Sorcerous Dagger", "=ds=#h1#, #w4#", "", "2.27%"};
 				{ 10, 17077, "", "=q4=Crimson Shocker", "=ds=#w12#", "", "3.32%"};
 				{ 16, 16801, "", "=q4=Arcanist Gloves", "=q1=#m1# =ds=#c3# (T1)", "", "19.59%"};
 				{ 17, 16803, "", "=q4=Felheart Slippers", "=q1=#m1# =ds=#c8# (T1)", "", "15.28%"};
@@ -2114,7 +2113,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 8, 18821, "", "=q4=Quick Strike Ring", "=ds=#s13#", "", "2.26%"};
 				{ 9, 18820, "", "=q4=Talisman of Ephemeral Power", "=ds=#s14#", "", "2.91%"};
 				{ 10, 19142, "", "=q4=Fire Runed Grimoire", "=ds=#s15#", "", "2.46%"};
-				{ 11, 17103, "", "=q4=Azuresong Mageblade", "=ds=#h3#, #w10#", "", "17.59%"};
+				{ 11, 17103, "", "=q4=Azuresong Mageblade", "=ds=#h1#, #w10#", "", "17.59%"};
 				{ 12, 18822, "", "=q4=Obsidian Edged Blade", "=ds=#h2#, #w10#", "", "2.89%"};
 				{ 13, 18842, "", "=q4=Staff of Dominance", "=ds=#w9#", "", "18.95%"};
 				{ 14, 17072, "", "=q4=Blastershot Launcher", "=ds=#w5#", "", "17.83%"};
@@ -2149,7 +2148,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 6, 18861, "", "=q4=Flamewaker Legplates", "=ds=#s11#, #a4#", "", "2.54%"};
 				{ 7, 18879, "", "=q4=Heavy Dark Iron Ring", "=ds=#s13#", "", "2.32%"};
 				{ 8, 19147, "", "=q4=Ring of Spell Power", "=ds=#s13#", "", "2.39%"};
-				{ 9, 18878, "", "=q4=Sorcerous Dagger", "=ds=#h3#, #w4#", "", "2.53%"};
+				{ 9, 18878, "", "=q4=Sorcerous Dagger", "=ds=#h1#, #w4#", "", "2.53%"};
 				{ 10, 17074, "", "=q4=Shadowstrike", "=ds=#w7#", "", "23.50%"};
 				{ 11, 17077, "", "=q4=Crimson Shocker", "=ds=#w12#", "", "2.26%"};
 				{ 16, 16816, "", "=q4=Mantle of Prophecy", "=q1=#m1# =ds=#c5# (T1)", "", "21.06%"};
@@ -2391,7 +2390,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 16, 18315, "", "=q3=Ring of Demonic Potency", "=ds=#s13#", "20%"};
 				{ 17, 18314, "", "=q3=Ring of Demonic Guile", "=ds=#s13#", "20%"};
 				{ 18, 18310, "", "=q3=Fiendish Machete", "=ds=#h1#, #w10#", "20%"};
-				{ 19, 18321, "", "=q3=Energetic Rod", "=ds=#h3#, #w6#", "20%"};
+				{ 19, 18321, "", "=q3=Energetic Rod", "=ds=#h1#, #w6#", "20%"};
 			};
 		};
 		info = {
@@ -2731,7 +2730,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 5, 18380, "", "=q3=Eldritch Reinforced Legplates", "=ds=#s11#, #a4#", "", "15.87%"};
 				{ 6, 18395, "", "=q3=Emerald Flame Ring", "=ds=#s13#", "", "14.55%"};
 				{ 16, 18392, "", "=q3=Distracting Dagger", "=ds=#h4#, #w4#", "", "14.70%"};
-				{ 17, 18396, "", "=q3=Mind Carver", "=ds=#h3#, #w10#", "", "14.62%"};
+				{ 17, 18396, "", "=q3=Mind Carver", "=ds=#h1#, #w10#", "", "14.62%"};
 				{ 18, 18376, "", "=q3=Timeworn Mace", "=ds=#h1#, #w6#", "", "14.40%"};
 				{ 19, 18388, "", "=q3=Stoneshatter", "=ds=#w3#", "", "7.72%"};
 			};
@@ -2827,7 +2826,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Gnomeregan"],
+			name = ALIL["Gnomeregan"],
 			module = moduleName, instance = "Gnomeregan",
 		};
 	};
@@ -2866,7 +2865,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 1, 0, "INV_Box_01", "=q6="..AtlasLoot:EJ_GetBossName("Celebras the Cursed", 428), ""};
 				{ 2, 17739, "", "=q3=Grovekeeper's Drape", "=ds=#s4#", "", "30.32%"};
 				{ 3, 17740, "", "=q3=Soothsayer's Headdress", "=ds=#s1#, #a2#", "", "28.59%"};
-				{ 4, 17738, "", "=q3=Claw of Celebras", "=ds=#h4#, #w13#", "", "28.22%"};
+				{ 4, 17738, "", "=q3=Claw of Celebras", "=ds=#h1#, #w13#", "", "28.22%"};
 				{ 6, 0, "INV_Box_01", "=q6="..AtlasLoot:EJ_GetBossName("Landslide", 429), ""};
 				{ 7, 17736, "", "=q3=Rockgrip Gauntlets", "=ds=#s9#, #a3#", "", "23.09%"};
 				{ 8, 17734, "", "=q3=Helm of the Mountain", "=ds=#s1#, #a3#", "", "20.87%"};
@@ -2888,7 +2887,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Maraudon"],
+			name = ALIL["Maraudon"],
 			module = moduleName, instance = "Maraudon",
 		};
 	};
@@ -2919,7 +2918,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Ragefire Chasm"],
+			name = ALIL["Ragefire Chasm"],
 			module = moduleName, instance = "RagefireChasm",
 		};
 	};
@@ -2976,7 +2975,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Razorfen Downs"],
+			name = ALIL["Razorfen Downs"],
 			module = moduleName, instance = "RazorfenDowns",
 		};
 	};
@@ -2993,7 +2992,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 4, 0, "INV_Box_01", "=q6="..AtlasLoot:EJ_GetBossName("Death Speaker Jargba", 438), ""};
 				{ 5, 6685, "", "=q3=Death Speaker Mantle", "=ds=#s3#, #a1#", "", "40.42%"};
 				{ 6, 6682, "", "=q3=Death Speaker Robes", "=ds=#s5#, #a1#", "", "40.52%"};
-				{ 7, 2816, "", "=q3=Death Speaker Scepter", "=ds=#h3#, #w6#", "", "7.72%"};
+				{ 7, 2816, "", "=q3=Death Speaker Scepter", "=ds=#h1#, #w6#", "", "7.72%"};
 				{ 9, 0, "INV_Box_01", "=q6="..AL["Razorfen Spearhide"], ""};
 				{ 10, 6679, "", "=q3=Armor Piercer", "=ds=#w7#", "", "43%"};
 				{ 16, 0, "INV_Box_01", "=q6="..AtlasLoot:EJ_GetBossName("Overlord Ramtusk", 440), ""};
@@ -3030,7 +3029,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Razorfen Kraul"],
+			name = ALIL["Razorfen Kraul"],
 			module = moduleName, instance = "RazorfenKraul",
 		};
 	};
@@ -3119,7 +3118,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 6, 88277, "", "=q3=Pyretic Legguards", "=ds=#s11#, #a4#" },
 				{ 7, 88275, "", "=q3=Scorched Scarlet Key", "=ds=#s2#" },
 				{ 8, 88281, "", "=q3=Temperature-Sensing Necklace", "=ds=#s2#" },
-				{ 9, 88280, "", "=q3=Melted Hypnotic Blade", "=ds=#h3#, #w4#" },
+				{ 9, 88280, "", "=q3=Melted Hypnotic Blade", "=ds=#h1#, #w4#" },
 				{ 10, 88274, "", "=q3=Koegler's Ritual Knife", "=ds=#h1#, #w4#" },
 				{ 11, 88278, "", "=q3=Mograine's Immaculate Might", "=ds=#h2#, #w6#" },
 				{ 16, 0, "inv_box_04", "=q6=#j3#", ""};
@@ -3131,7 +3130,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 22, 82812, "", "=q3=Pyretic Legguards", "=ds=#s11#, #a4#" },
 				{ 23, 81564, "", "=q3=Scorched Scarlet Key", "=ds=#s2#" },
 				{ 24, 81565, "", "=q3=Temperature-Sensing Necklace", "=ds=#s2#" },
-				{ 25, 82816, "", "=q3=Melted Hypnotic Blade", "=ds=#h3#, #w4#" },
+				{ 25, 82816, "", "=q3=Melted Hypnotic Blade", "=ds=#h1#, #w4#" },
 				{ 26, 82813, "", "=q3=Koegler's Ritual Knife", "=ds=#h1#, #w4#" },
 				{ 27, 82814, "", "=q3=Mograine's Immaculate Might", "=ds=#h2#, #w6#" },
 			};
@@ -3549,7 +3548,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 4, 13381, "", "=q3=Master Cannoneer Boots", "=ds=#s12#, #a4#", "", "12.86%"};
 				{ 5, 22403, "", "=q3=Diana's Pearl Necklace", "=ds=#s2#", "", "14.27%"};
 				{ 6, 13382, "", "=q3=Cannonball Runner", "=ds=#s14#", "", "12.28%"};
-				{ 7, 22404, "", "=q3=Willey's Back Scratcher", "=ds=#h3#, #w13#", "", "6.26%"};
+				{ 7, 22404, "", "=q3=Willey's Back Scratcher", "=ds=#h1#, #w13#", "", "6.26%"};
 				{ 8, 22406, "", "=q3=Redemption", "=ds=#w9#", "", "7.04%"};
 				{ 9, 13380, "", "=q3=Willey's Portable Howitzer", "=ds=#w5#", "", "10.71%"};
 				{ 16, 12839, "", "=q3=Plans: Heartseeker", "=ds=#p2# (300)", "", "4.98%"};
@@ -3828,7 +3827,7 @@ local moduleName = "AtlasLootClassicWoW"
 			{
 				{ 1, 13397, "", "=q3=Stoneskin Gargoyle Cape", "=ds=#s4#", "", "23.44%"};
 				{ 2, 13954, "", "=q3=Verdant Footpads", "=ds=#s12#, #a2#", "", "25.36%"};
-				{ 3, 13399, "", "=q3=Gargoyle Shredder Talons", "=ds=#h4#, #w13#", "", "26.16%"};
+				{ 3, 13399, "", "=q3=Gargoyle Shredder Talons", "=ds=#h1#, #w13#", "", "26.16%"};
 			}
 		};
 		info = {
@@ -4009,7 +4008,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["The Stockade"],
+			name = ALIL["The Stockade"],
 			module = moduleName, instance = "TheStockade",
 		};
 	};
@@ -4382,7 +4381,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Wailing Caverns"],
+			name = ALIL["Wailing Caverns"],
 			module = moduleName, instance = "WailingCaverns",
 		};
 	};
@@ -5259,26 +5258,26 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["VWOWSets"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6=#pre60s1#", "=ec1=#a2#. =q1="..BabbleZone["The Deadmines"]};
+				{ 1, 0, "INV_Box_01", "=q6=#pre60s1#", "=ec1=#a2#. =q1="..ALIL["The Deadmines"]};
 				{ 2, 10399, "", "=q3=Blackened Defias Armor", "=ds=#s5#", "=q2="..BabbleBoss["Edwin VanCleef"], "", "14.77%"};
 				{ 3, 10401, "", "=q3=Blackened Defias Gloves", "=ds=#s9#", "=q2="..AL["Defias Overseer/Taskmaster"], "", "1.76%"};
 				{ 4, 10403, "", "=q3=Blackened Defias Belt", "=ds=#s10#", "=q2="..BabbleBoss["Captain Greenskin"], "", "23.26%"};
 				{ 5, 10400, "", "=q3=Blackened Defias Leggings", "=ds=#s11#", "=q2="..AL["Defias Overseer/Taskmaster"], "", "1.64%"};
 				{ 6, 10402, "", "=q3=Blackened Defias Boots", "=ds=#s12#", "=q2="..AL["Defias Strip Miner"], "", "1.23%"};
-				{ 8, 0, "INV_Box_01", "=q6=#pre60s2#", "=ec1=#a2#. =q1="..BabbleZone["Wailing Caverns"]};
+				{ 8, 0, "INV_Box_01", "=q6=#pre60s2#", "=ec1=#a2#. =q1="..ALIL["Wailing Caverns"]};
 				{ 9, 6473, "", "=q3=Armor of the Fang", "=ds=#s5#", "=q2="..BabbleBoss["Lord Pythas"], "", "52.05%"};
 				{ 10, 10413, "", "=q3=Gloves of the Fang", "=ds=#s9#", "=q2="..AL["Druid of the Fang"], "", "1.20%"};
 				{ 11, 10412, "", "=q3=Belt of the Fang", "=ds=#s10#", "=q2="..BabbleBoss["Lady Anacondra"], "", "8.64%"};
 				{ 12, 10410, "", "=q3=Leggings of the Fang", "=ds=#s11#", "=q2="..BabbleBoss["Lord Cobrahn"], "", "16.03%"};
 				{ 13, 10411, "", "=q3=Footpads of the Fang", "=ds=#s12#", "=q2="..BabbleBoss["Lord Serpentis"], "", "19.08%"};
-				{ 16, 0, "INV_Box_01", "=q6=#pre60s3#", "=ec1=#a3#. =q1="..BabbleZone["Scarlet Monastery"]};
+				{ 16, 0, "INV_Box_01", "=q6=#pre60s3#", "=ec1=#a3#. =q1="..ALIL["Scarlet Monastery"]};
 				{ 17, 10328, "", "=q3=Scarlet Chestpiece", "=ds=#s5#", ""};
 				{ 18, 10333, "", "=q2=Scarlet Wristguards", "=ds=#s8#", ""};
 				{ 19, 10331, "", "=q2=Scarlet Gauntlets", "=ds=#s9#", ""};
 				{ 20, 10329, "", "=q2=Scarlet Belt", "=ds=#s10#", ""};
 				{ 21, 10330, "", "=q3=Scarlet Leggings", "=ds=#s11#", ""};
 				{ 22, 10332, "", "=q3=Scarlet Boots", "=ds=#s12#", ""};
-				{ 24, 0, "INV_Box_01", "=q6=#pre60s4#", "=ec1=#a3#. =q1="..BabbleZone["Blackrock Depths"]};
+				{ 24, 0, "INV_Box_01", "=q6=#pre60s4#", "=ec1=#a3#. =q1="..ALIL["Blackrock Depths"]};
 				{ 25, 11729, "", "=q3=Savage Gladiator Helm", "=ds=#s1#", "=q2="..BabbleBoss["Gorosh the Dervish"].." / "..BabbleBoss["Hedrum the Creeper"], "", "10.08%"};
 				{ 26, 11726, "", "=q4=Savage Gladiator Chain", "=ds=#s5#", "=q2="..BabbleBoss["Gorosh the Dervish"], "", "14.52%"};
 				{ 27, 11730, "", "=q3=Savage Gladiator Grips", "=ds=#s9#", "=q2="..BabbleBoss["Eviscerator"], "", "14.12%"};
@@ -5287,15 +5286,15 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 			{
 				{ 1, 0, "INV_Box_01", "=q6=#pre60s5#", "=ec1=#a1#, =q1=#m1# #c5#, #c3#, #c8#"};
-				{ 2, 22302, "", "=q3=Ironweave Cowl", "=ds=#s1#", "=q2="..BabbleBoss["Lord Valthalak"].." ("..BabbleZone["Upper Blackrock Spire"]..")", "", "27.72%"};
-				{ 3, 22305, "", "=q3=Ironweave Mantle", "=ds=#s3#", "=q2=#n17# ("..BabbleZone["Blackrock Depths"]..")", "", "30.39%"};
-				{ 4, 22301, "", "=q3=Ironweave Robe", "=ds=#s5#", "=q2=#n18# ("..BabbleZone["Stratholme"]..")", "", "19.00%"};
-				{ 5, 22313, "", "=q3=Ironweave Bracers", "=ds=#s8#", "=q2="..BabbleBoss["Halycon"].." ("..BabbleZone["Lower Blackrock Spire"]..")", "", "18.16%"};
-				{ 6, 22304, "", "=q3=Ironweave Gloves", "=ds=#s9#", "=q2="..BabbleBoss["Isalien"].." ("..BabbleZone["Dire Maul (East)"]..")", "", "16.24%"};
-				{ 7, 22306, "", "=q3=Ironweave Belt", "=ds=#s10#", "=q2="..BabbleBoss["Mor Grayhoof"].." ("..BabbleZone["Lower Blackrock Spire"]..")", "", "20.28%"};
-				{ 8, 22303, "", "=q3=Ironweave Pants", "=ds=#s11#", "=q2="..BabbleBoss["Kormok"].." ("..BabbleZone["Scholomance"]..")", "", "23.33%"};
-				{ 9, 22311, "", "=q3=Ironweave Boots", "=ds=#s12#", "=q2="..BabbleBoss["The Beast"].." ("..BabbleZone["Upper Blackrock Spire"]..")", "", "12.31%"};
-				{ 16, 0, "INV_Box_01", "=q6=#pre60s10#", "=ec1=#a1#, =q2="..BabbleBoss["Postmaster Malown"]..", =q1="..BabbleZone["Stratholme"]};
+				{ 2, 22302, "", "=q3=Ironweave Cowl", "=ds=#s1#", "=q2="..BabbleBoss["Lord Valthalak"].." ("..ALIL["Upper Blackrock Spire"]..")", "", "27.72%"};
+				{ 3, 22305, "", "=q3=Ironweave Mantle", "=ds=#s3#", "=q2=#n17# ("..ALIL["Blackrock Depths"]..")", "", "30.39%"};
+				{ 4, 22301, "", "=q3=Ironweave Robe", "=ds=#s5#", "=q2=#n18# ("..ALIL["Stratholme"]..")", "", "19.00%"};
+				{ 5, 22313, "", "=q3=Ironweave Bracers", "=ds=#s8#", "=q2="..BabbleBoss["Halycon"].." ("..ALIL["Lower Blackrock Spire"]..")", "", "18.16%"};
+				{ 6, 22304, "", "=q3=Ironweave Gloves", "=ds=#s9#", "=q2="..BabbleBoss["Isalien"].." ("..ALIL["Dire Maul"].." ("..AL["East"]..")"..")", "", "16.24%"};
+				{ 7, 22306, "", "=q3=Ironweave Belt", "=ds=#s10#", "=q2="..BabbleBoss["Mor Grayhoof"].." ("..ALIL["Lower Blackrock Spire"]..")", "", "20.28%"};
+				{ 8, 22303, "", "=q3=Ironweave Pants", "=ds=#s11#", "=q2="..BabbleBoss["Kormok"].." ("..ALIL["Scholomance"]..")", "", "23.33%"};
+				{ 9, 22311, "", "=q3=Ironweave Boots", "=ds=#s12#", "=q2="..BabbleBoss["The Beast"].." ("..ALIL["Upper Blackrock Spire"]..")", "", "12.31%"};
+				{ 16, 0, "INV_Box_01", "=q6=#pre60s10#", "=ec1=#a1#, =q2="..BabbleBoss["Postmaster Malown"]..", =q1="..ALIL["Stratholme"]};
 				{ 17, 13390, "", "=q3=The Postmaster's Band", "=ds=#s1#", "", ""};
 				{ 18, 13388, "", "=q3=The Postmaster's Tunic", "=ds=#s5#", "", ""};
 				{ 19, 13389, "", "=q3=The Postmaster's Trousers", "=ds=#s11#", "", ""};
@@ -5304,15 +5303,15 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 			{
 				{ 1, 0, "INV_Box_01", "=q6=#pre60s15#", "=q1="..AL["Various Locations"]};
-				{ 2, 17082, "", "=q4=Shard of the Flame", "=ds=#s14#", "=q2="..BabbleBoss["Ragnaros"].." ("..BabbleZone["Molten Core"]..")", "", "4.46%"};
+				{ 2, 17082, "", "=q4=Shard of the Flame", "=ds=#s14#", "=q2="..BabbleBoss["Ragnaros"].." ("..ALIL["Molten Core"]..")", "", "4.46%"};
 				{ 3, 17064, "", "=q4=Shard of the Scale", "=ds=#s14#"};
 				{ 5, 0, "INV_Box_01", "=q6=#pre60s20#", "=q1="..AL["Various Locations"]};
-				{ 6, 18203, "", "=q4=Eskhandar's Right Claw", "=ds=#h3#, #w13#", "=q2="..BabbleBoss["Magmadar"].." ("..BabbleZone["Molten Core"]..")", "", "16.97%"};
-				{ 7, 18202, "", "=q4=Eskhandar's Left Claw", "=ds=#h4#, #w13#", "=q2="};
-				{ 16, 0, "INV_Box_01", "=q6=#pre60s24#", "=q1="..BabbleZone["Lower Blackrock Spire"]};
+				{ 6, 18203, "", "=q4=Eskhandar's Right Claw", "=ds=#h1#, #w13#", "=q2="..BabbleBoss["Magmadar"].." ("..ALIL["Molten Core"]..")", "", "16.97%"};
+				{ 7, 18202, "", "=q4=Eskhandar's Left Claw", "=ds=#h1#, #w13#", "=q2="..BabbleBoss["Magmadar"].." ("..ALIL["Molten Core"]..")", "", "14%"};
+				{ 16, 0, "INV_Box_01", "=q6=#pre60s24#", "=q1="..ALIL["Lower Blackrock Spire"]};
 				{ 17, 13218, "", "=q3=Fang of the Crystal Spider", "=ds=#h1#, #w4#", "=q2="..BabbleBoss["Crystal Fang"], "", "15.46%"};
 				{ 18, 13183, "", "=q3=Venomspitter", "=ds=#h1#, #w6#", "=q2="..BabbleBoss["Mother Smolderweb"], "", "13.07%"};
-				{ 20, 0, "INV_Box_01", "=q6=#pre60s23#", "=q1="..BabbleZone["Upper Blackrock Spire"]};
+				{ 20, 0, "INV_Box_01", "=q6=#pre60s23#", "=q1="..ALIL["Upper Blackrock Spire"]};
 				{ 21, 12940, "", "=q3=Dal'Rend's Sacred Charge", "=ds=#h3#, #w10#", "=q2="..BabbleBoss["Warchief Rend Blackhand"], "", "6.62%"};
 				{ 22, 12939, "", "=q3=Dal'Rend's Tribal Guardian", "=ds=#h4#, #w10#", "=q2="..BabbleBoss["Warchief Rend Blackhand"], "", "7.44%"};
 			};
@@ -5325,25 +5324,25 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["VWOWScholo"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Box_01", "=q6=#pre60s6#", "=ec1=#a1#. =q1="..BabbleZone["Scholomance"]};
+				{ 1, 0, "INV_Box_01", "=q6=#pre60s6#", "=ec1=#a1#. =q1="..ALIL["Scholomance"]};
 				{ 2, 14633, "", "=q3=Necropile Mantle", "=ds=#s3#", "", "1.12%"};
 				{ 3, 14626, "", "=q3=Necropile Robe", "=ds=#s5#", "", "1.27%"};
 				{ 4, 14629, "", "=q3=Necropile Cuffs", "=ds=#s8#", "", "1.03%"};
 				{ 5, 14632, "", "=q3=Necropile Leggings", "=ds=#s11#", "", "0.85%"};
 				{ 6, 14631, "", "=q3=Necropile Boots", "=ds=#s12#", "", "0.88%"};
-				{ 8, 0, "INV_Box_01", "=q6=#pre60s7#", "=ec1=#a2#. =q1="..BabbleZone["Scholomance"]};
+				{ 8, 0, "INV_Box_01", "=q6=#pre60s7#", "=ec1=#a2#. =q1="..ALIL["Scholomance"]};
 				{ 9, 14637, "", "=q3=Cadaverous Armor", "=ds=#s5#", "", "1.51%"};
 				{ 10, 14640, "", "=q3=Cadaverous Gloves", "=ds=#s9#", "", "0.82%"};
 				{ 11, 14636, "", "=q3=Cadaverous Belt", "=ds=#s10#", "", "0.60%"};
 				{ 12, 14638, "", "=q3=Cadaverous Leggings", "=ds=#s11#", "", "1.09%"};
 				{ 13, 14641, "", "=q3=Cadaverous Walkers", "=ds=#s12#", "", "0.67%"};
-				{ 16, 0, "INV_Box_01", "=q6=#pre60s8#", "=ec1=#a3#. =q1="..BabbleZone["Scholomance"]};
+				{ 16, 0, "INV_Box_01", "=q6=#pre60s8#", "=ec1=#a3#. =q1="..ALIL["Scholomance"]};
 				{ 17, 14611, "", "=q3=Bloodmail Hauberk", "=ds=#s5#", "", "0.54%"};
 				{ 18, 14615, "", "=q3=Bloodmail Gauntlets", "=ds=#s9#", "", "0.09%"};
 				{ 19, 14614, "", "=q3=Bloodmail Belt", "=ds=#s10#", "", "0.60%"};
 				{ 20, 14612, "", "=q3=Bloodmail Legguards", "=ds=#s11#", "", "0.42%"};
 				{ 21, 14616, "", "=q3=Bloodmail Boots", "=ds=#s12#", "", "0.36%"};
-				{ 23, 0, "INV_Box_01", "=q6=#pre60s9#", "=ec1=#a4#. =q1="..BabbleZone["Scholomance"]};
+				{ 23, 0, "INV_Box_01", "=q6=#pre60s9#", "=ec1=#a4#. =q1="..ALIL["Scholomance"]};
 				{ 24, 14624, "", "=q3=Deathbone Chestplate", "=ds=#s5#", "", "0.45%"};
 				{ 25, 14622, "", "=q3=Deathbone Gauntlets", "=ds=#s9#", "", "0.45%"};
 				{ 26, 14620, "", "=q3=Deathbone Girdle", "=ds=#s10#", "", "0.67%"};
@@ -5352,7 +5351,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Scholomance"].." "..AL["Sets"],
+			name = ALIL["Scholomance"].." "..AL["Sets"],
 			module = moduleName, NextPrevDisable = true, menu = "SETSCLASSIC",
 		};
 	};
@@ -5373,7 +5372,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 8, 21403, "", "=q4=Cloak of the Unseen Path", "=ds=#s4#", "=q3=#aq20t5#, =ds=#r4#"};
 				{ 9, 21402, "", "=q4=Signet of the Unseen Path", "=ds=#s13#", "=q3=#aq20t4#, =ds=#r3#"};
 				{ 11, 0, "inv_staff_13", "=q6=#aq20s3#", "=ec1=#c3#"};
-				{ 12, 21413, "", "=q4=Blade of Vaulted Secrets", "=ds=#h3#, #w10#", "=q4=#aq20t1#, =ds=#r5#"};
+				{ 12, 21413, "", "=q4=Blade of Vaulted Secrets", "=ds=#h1#, #w10#", "=q4=#aq20t1#, =ds=#r5#"};
 				{ 13, 21415, "", "=q4=Drape of Vaulted Secrets", "=ds=#s4#", "=q3=#aq20t2#, =ds=#r4#"};
 				{ 14, 21414, "", "=q4=Band of Vaulted Secrets", "=ds=#s13#", "=ds=", "=q3=#aq20t3#, =ds=#r3#"};
 				{ 16, 0, "ability_thunderbolt", "=q6=#aq20s4#", "=ec1=#c4#"};
@@ -5381,7 +5380,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 18, 21397, "", "=q4=Cape of Eternal Justice", "=ds=#s4#", "=q3=#aq20t5#, =ds=#r4#"};
 				{ 19, 21396, "", "=q4=Ring of Eternal Justice", "=ds=#s13#", "=q3=#aq20t3#, =ds=#r3#"};
 				{ 21, 0, "inv_staff_30", "=q6=#aq20s5#", "=ec1=#c5#"};
-				{ 22, 21410, "", "=q4=Gavel of Infinite Wisdom", "=ds=#h3#, #w6#", "=q4=#aq20t1#, =ds=#r5#"};
+				{ 22, 21410, "", "=q4=Gavel of Infinite Wisdom", "=ds=#h1#, #w6#", "=q4=#aq20t1#, =ds=#r5#"};
 				{ 23, 21412, "", "=q4=Shroud of Infinite Wisdom", "=ds=#s4#", "=q3=#aq20t2#, =ds=#r4#"};
 				{ 24, 21411, "", "=q4=Ring of Infinite Wisdom", "=ds=#s13#", "=q3=#aq20t4#, =ds=#r3#"};
 				{ 26, 0, "inv_throwingknife_04", "=q6=#aq20s6#", "=ec1=#c6#"};
@@ -5391,11 +5390,11 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 			{
 				{ 1, 0, "spell_nature_bloodlust", "=q6=#aq20s7#", "=ec1=#c7#"};
-				{ 2, 21398, "", "=q4=Hammer of the Gathering Storm", "=ds=#h3#, #w6#", "=q4=#aq20t6#, =ds=#r5#"};
+				{ 2, 21398, "", "=q4=Hammer of the Gathering Storm", "=ds=#h1#, #w6#", "=q4=#aq20t6#, =ds=#r5#"};
 				{ 3, 21400, "", "=q4=Cloak of the Gathering Storm", "=ds=#s4#", "=q3=#aq20t5#, =ds=#r4#"};
 				{ 4, 21399, "", "=q4=Ring of the Gathering Storm", "=ds=#s13#", "=q3=#aq20t3#, =ds=#r3#"};
 				{ 6, 0, "spell_nature_drowsy", "=q6=#aq20s8#", "=ec1=#c8#"};
-				{ 7, 21416, "", "=q4=Kris of Unspoken Names", "=ds=#h3#, #w4#", "=q4=#aq20t1#, =ds=#r5#"};
+				{ 7, 21416, "", "=q4=Kris of Unspoken Names", "=ds=#h1#, #w4#", "=q4=#aq20t1#, =ds=#r5#"};
 				{ 8, 21418, "", "=q4=Shroud of Unspoken Names", "=ds=#s4#", "=q3=#aq20t5#, =ds=#r4#"};
 				{ 9, 21417, "", "=q4=Ring of Unspoken Names", "=ds=#s13#", "=q3=#aq20t4#, =ds=#r3#"};
 				{ 16, 0, "inv_sword_27", "=q6=#aq20s9#", "=ec1=#c9#"};
@@ -5405,7 +5404,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Ruins of Ahn'Qiraj"].." "..AL["Set"],
+			name = ALIL["Ruins of Ahn'Qiraj"].." "..AL["Set"],
 			module = moduleName, menu = "SETSMISCMENU",
 		};
 	}
@@ -5478,7 +5477,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Temple of Ahn'Qiraj"].." "..AL["Set"],
+			name = ALIL["Temple of Ahn'Qiraj"].." "..AL["Set"],
 			module = moduleName, menu = "SETSMISCMENU",
 		};
 	}
@@ -5583,7 +5582,7 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["AVMisc"] = {
 		["Normal"] = {
 			{
-				{ 2, 0, "INV_BannerPVP_02", "=q6=#m7#", "=q5="..BabbleFaction["Stormpike Guard"]};
+				{ 2, 0, "INV_BannerPVP_02", "=q6=#m7#", "=q5="..ALIL["Stormpike Guard"]};
 				{ 3, 19030, "", "=q4=Stormpike Battle Charger", "=ds=#e26#", "#HONOR:2000#"};
 				{ 4, 19045, "", "=q3=Stormpike Battle Standard", "=ds=#e14#", "#HONOR:500#"};
 				{ 5, 19032, "", "=q1=Stormpike Battle Tabard", "=ds=#s7#", "#HONOR:2678#"};
@@ -5591,7 +5590,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 8, 17349, "", "=q1=Superior Healing Draught", "=ds=#e2#", "5 #silver# #HONOR:1#"};
 				{ 9, 19301, "", "=q1=Alterac Manna Biscuit", "=ds=#e3#", "70 #silver#"};
 				{ 10, 19307, "", "=q1=Alterac Heavy Runecloth Bandage", "=ds=#e5#", "80 #silver#"};
-				{ 17, 0, "INV_BannerPVP_01", "=q6=#m6#", "=q5="..BabbleFaction["Frostwolf Clan"]};
+				{ 17, 0, "INV_BannerPVP_01", "=q6=#m6#", "=q5="..ALIL["Frostwolf Clan"]};
 				{ 18, 19029, "", "=q4=Horn of the Frostwolf Howler", "=ds=#e26#", "#HONOR:2000#"};
 				{ 19, 19046, "", "=q3=Frostwolf Battle Standard", "=ds=#e14#", "#HONOR:500#"};
 				{ 20, 19031, "", "=q1=Frostwolf Battle Tabard", "=ds=#s7#", "#HONOR:2678#"};
@@ -5601,7 +5600,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Alterac Valley"].." "..AL["Misc. Rewards"],
+			name = ALIL["Alterac Valley"].." "..AL["Misc. Rewards"],
 			module = moduleName, menu = "PVPMENU2", instance = "AlteracValley",
 		};
 	}
@@ -5664,7 +5663,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Alterac Valley"],
+			name = ALIL["Alterac Valley"],
 			module = moduleName, menu = "PVPMENU2", instance = "AlteracValley",
 		};
 	}
@@ -5688,7 +5687,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 12, 21118, "", "=q3=Talisman of Arathor", "=ds=", "#HONOR:35#", ""};
 				{ 13, 21117, "", "=q3=Talisman of Arathor", "=ds=", "#HONOR:45#", ""};
 				{ 14, 20071, "", "=q3=Talisman of Arathor", "=ds=", "#HONOR:55#", ""};
-				{ 17, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "60"), "=q5="..BabbleFaction["The League of Arathor"]};
+				{ 17, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "60"), "=q5="..ALIL["The League of Arathor"]};
 				{ 18, 20073, "", "=q4=Cloak of the Honor Guard", "=ds=", "#HONOR:85#", ""};
 				{ 19, 20070, "", "=q4=Sageclaw", "=ds=", "#HONOR:130#", ""};
 				{ 20, 20069, "", "=q4=Ironbark Staff", "=ds=", "#HONOR:185#", ""};
@@ -5708,14 +5707,14 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 12, 21120, "", "=q3=Defiler's Talisman", "=ds=", "#HONOR:35#", ""};
 				{ 13, 21115, "", "=q3=Defiler's Talisman", "=ds=", "#HONOR:45#", ""};
 				{ 14, 20072, "", "=q3=Defiler's Talisman", "=ds=", "#HONOR:55#", ""};
-				{ 16, 0, "INV_BannerPVP_01", "=q6="..string.format(AL["Level %s Rewards"], "60"), "=q5="..BabbleFaction["The Defilers"]};
+				{ 16, 0, "INV_BannerPVP_01", "=q6="..string.format(AL["Level %s Rewards"], "60"), "=q5="..ALIL["The Defilers"]};
 				{ 17, 20068, "", "=q4=Deathguard's Cloak", "=ds=", "#HONOR:85#", ""};
 				{ 25, 20214, "", "=q4=Mindfang", "=ds=", "#HONOR:130#", ""};
 				{ 26, 20220, "", "=q4=Ironbark Staff", "=ds=", "#HONOR:185#", ""};
 			};
 		};
 		info = {
-			name = BabbleZone["Arathi Basin"].." "..AL["Misc. Rewards"],
+			name = ALIL["Arathi Basin"].." "..AL["Misc. Rewards"],
 			module = moduleName, menu = "PVPMENU2"
 		};
 	}
@@ -5723,7 +5722,7 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["AB4049"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "40-49"), "=q5="..BabbleFaction["The League of Arathor"]};
+				{ 1, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "40-49"), "=q5="..ALIL["The League of Arathor"]};
 				{ 2, 20097, "", "=q3=Highlander's Cloth Girdle", "=ds=", "#HONOR:70#", ""};
 				{ 3, 20094, "", "=q3=Highlander's Cloth Boots", "=ds=", "#HONOR:70#", ""};
 				{ 4, 20115, "", "=q3=Highlander's Leather Girdle", "=ds=", "#HONOR:70#", ""};
@@ -5750,7 +5749,7 @@ local moduleName = "AtlasLootClassicWoW"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "40-49"), "=q5="..BabbleFaction["The Defilers"]};
+				{ 1, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "40-49"), "=q5="..ALIL["The Defilers"]};
 				{ 2, 20165, "", "=q3=Defiler's Cloth Girdle", "=ds=", "#HONOR:70#", ""};
 				{ 3, 20160, "", "=q3=Defiler's Cloth Boots", "=ds=", "#HONOR:70#", ""};
 				{ 4, 20193, "", "=q3=Defiler's Leather Girdle", "=ds=", "#HONOR:70#", ""};
@@ -5776,7 +5775,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Arathi Basin"].." "..string.format(AL["Level %s Rewards"], "40-49"),
+			name = ALIL["Arathi Basin"].." "..string.format(AL["Level %s Rewards"], "40-49"),
 			module = moduleName, menu = "PVPMENU2"
 		};
 	}
@@ -5784,14 +5783,14 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["AB2039"] = {
 		["Normal_A"] = {
 			{
-				{ 1, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "30-39"), "=q5="..BabbleFaction["The League of Arathor"]};
+				{ 1, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "30-39"), "=q5="..ALIL["The League of Arathor"]};
 				{ 2, 20098, "", "=q3=Highlander's Cloth Girdle", "=ds=", "#HONOR:45#", ""};
 				{ 3, 20095, "", "=q3=Highlander's Cloth Boots", "=ds=", "#HONOR:45#", ""};
 				{ 4, 20116, "", "=q3=Highlander's Leather Girdle", "=ds=", "#HONOR:45#", ""};
 				{ 5, 20104, "", "=q3=Highlander's Lizardhide Girdle", "=ds=", "#HONOR:45#", ""};
 				{ 6, 20113, "", "=q3=Highlander's Leather Boots", "=ds=", "#HONOR:45#", ""};
 				{ 7, 20101, "", "=q3=Highlander's Lizardhide Boots", "=ds=", "#HONOR:45#", ""};
-				{ 16, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "20-29"), "=q5="..BabbleFaction["The League of Arathor"]};
+				{ 16, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "20-29"), "=q5="..ALIL["The League of Arathor"]};
 				{ 17, 20099, "", "=q3=Highlander's Cloth Girdle", "=ds=", "#HONOR:45#", ""};
 				{ 18, 20096, "", "=q3=Highlander's Cloth Boots", "=ds=", "#HONOR:45#", ""};
 				{ 19, 20117, "", "=q3=Highlander's Leather Girdle", "=ds=", "#HONOR:45#", ""};
@@ -5810,14 +5809,14 @@ local moduleName = "AtlasLootClassicWoW"
 		};
 		["Normal_H"] = {
 			{
-				{ 1, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "30-39"), "=q5="..BabbleFaction["The Defilers"]};
+				{ 1, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "30-39"), "=q5="..ALIL["The Defilers"]};
 				{ 2, 20166, "", "=q3=Defiler's Cloth Girdle", "=ds=", "#HONOR:45#", ""};
 				{ 3, 20161, "", "=q3=Defiler's Cloth Boots", "=ds=", "#HONOR:45#", ""};
 				{ 4, 20192, "", "=q3=Defiler's Leather Girdle", "=ds=", "#HONOR:45#", ""};
 				{ 5, 20173, "", "=q3=Defiler's Lizardhide Girdle", "=ds=", "#HONOR:45#", ""};
 				{ 6, 20187, "", "=q3=Defiler's Leather Boots", "=ds=", "#HONOR:45#", ""};
 				{ 7, 20168, "", "=q3=Defiler's Lizardhide Boots", "=ds=", "#HONOR:45#", ""};
-				{ 16, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "20-29"), "=q5="..BabbleFaction["The Defilers"]};
+				{ 16, 0, "INV_BannerPVP_02", "=q6="..string.format(AL["Level %s Rewards"], "20-29"), "=q5="..ALIL["The Defilers"]};
 				{ 17, 20164, "", "=q3=Defiler's Cloth Girdle", "=ds=", "#HONOR:45#", ""};
 				{ 18, 20162, "", "=q3=Defiler's Cloth Boots", "=ds=", "#HONOR:45#", ""};
 				{ 19, 20191, "", "=q3=Defiler's Leather Girdle", "=ds=", "#HONOR:45#", ""};
@@ -5835,7 +5834,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Arathi Basin"].." "..string.format(AL["Level %s Rewards"], "20-39"),
+			name = ALIL["Arathi Basin"].." "..string.format(AL["Level %s Rewards"], "20-39"),
 			module = moduleName, menu = "PVPMENU2"
 		};
 	}
@@ -5922,14 +5921,14 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["WSGMisc"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_BannerPVP_02", "=q6=#m7#", "=q5="..BabbleFaction["Silverwing Sentinels"]};
+				{ 1, 0, "INV_BannerPVP_02", "=q6=#m7#", "=q5="..ALIL["Silverwing Sentinels"]};
 				{ 2, 19506, "", "=q1=Silverwing Battle Tabard", "=ds=", "#HONOR:2059#", ""};
 				{ 5, 17348, "", "=q1=Major Healing Draught", "=ds=", "10 #silver# #HONOR:1#", ""};
 				{ 6, 17349, "", "=q1=Superior Healing Draught", "=ds=", "5 #silver# #HONOR:1#", ""};
 				{ 7, 19060, "", "=q1=Warsong Gulch Enriched Ration", "=ds=", "20 #silver#", ""};
 				{ 8, 19062, "", "=q1=Warsong Gulch Field Ration", "=ds=", "10 #silver#", ""};
 				{ 9, 19067, "", "=q1=Warsong Gulch Mageweave Bandage", "=ds=", "15 #silver#", ""};
-				{ 16, 0, "INV_BannerPVP_01", "=q6=#m6#", "=q5="..BabbleFaction["Warsong Outriders"]};
+				{ 16, 0, "INV_BannerPVP_01", "=q6=#m6#", "=q5="..ALIL["Warsong Outriders"]};
 				{ 17, 19505, "", "=q1=Warsong Battle Tabard", "=ds=", "#HONOR:2059#", ""};
 				{ 20, 17351, "", "=q1=Major Mana Draught", "=ds=", "10 #silver# #HONOR:1#", ""};
 				{ 21, 17352, "", "=q1=Superior Mana Draught", "=ds=", "5 #silver# #HONOR:1#", ""};
@@ -5939,7 +5938,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Warsong Gulch"].." "..AL["Misc. Rewards"],
+			name = ALIL["Warsong Gulch"].." "..AL["Misc. Rewards"],
 			module = moduleName, menu = "PVPMENU2", instance = "WarsongGulch",
 		};
 	}
@@ -6002,7 +6001,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Warsong Gulch"].." "..AL["Accessories"],
+			name = ALIL["Warsong Gulch"].." "..AL["Accessories"],
 			module = moduleName, menu = "PVPMENU2", instance = "WarsongGulch",
 		};
 	}
@@ -6057,7 +6056,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Warsong Gulch"].." "..AL["Weapons"],
+			name = ALIL["Warsong Gulch"].." "..AL["Weapons"],
 			module = moduleName, menu = "PVPMENU2", instance = "WarsongGulch",
 		};
 	}
@@ -6110,7 +6109,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleZone["Warsong Gulch"].." "..BabbleInventory["Armor"],
+			name = ALIL["Warsong Gulch"].." "..BabbleInventory["Armor"],
 			module = moduleName, menu = "PVPMENU2", instance = "WarsongGulch",
 		};
 	}
@@ -6478,13 +6477,13 @@ local moduleName = "AtlasLootClassicWoW"
 		["Normal_A"] = {
 			{
 				{ 1, 18843, "", "=q4=Grand Marshal's Right Hand Blade", "=ds=#h1#, #w13#", "#HONOR:185#", ""};
-				{ 2, 18847, "", "=q4=Grand Marshal's Left Hand Blade", "=ds=#h4#, #w13#", "#HONOR:185#", ""};
-				{ 4, 23451, "", "=q4=Grand Marshal's Mageblade", "=ds=#h3#, #w4#", "#HONOR:185#", ""};
+				{ 2, 18847, "", "=q4=Grand Marshal's Left Hand Blade", "=ds=#h1#, #w13#", "#HONOR:185#", ""};
+				{ 4, 23451, "", "=q4=Grand Marshal's Mageblade", "=ds=#h1#, #w4#", "#HONOR:185#", ""};
 				{ 5, 18838, "", "=q4=Grand Marshal's Dirk", "=ds=#h1#, #w4#", "#HONOR:185#", ""};
 				{ 7, 12584, "", "=q4=Grand Marshal's Longsword", "=ds=#h1#, #w10#", "#HONOR:185#", ""};
 				{ 8, 23456, "", "=q4=Grand Marshal's Swiftblade", "=ds=#h1#, #w10#", "#HONOR:185#", ""};
 				{ 10, 18827, "", "=q4=Grand Marshal's Handaxe", "=ds=#h1#, #w1#", "#HONOR:185#", ""};
-				{ 12, 23454, "", "=q4=Grand Marshal's Warhammer", "=ds=#h3#, #w6#", "#HONOR:185#", ""};
+				{ 12, 23454, "", "=q4=Grand Marshal's Warhammer", "=ds=#h1#, #w6#", "#HONOR:185#", ""};
 				{ 13, 18865, "", "=q4=Grand Marshal's Punisher", "=ds=#h1#, #w6#", "#HONOR:185#", ""};
 				{ 15, 18869, "", "=q4=Grand Marshal's Glaive", "=ds=#w7#", "#HONOR:290#", ""};				
 				{ 16, 18876, "", "=q4=Grand Marshal's Claymore", "=ds=#h2#, #w10#", "#HONOR:290#", ""};
@@ -6503,13 +6502,13 @@ local moduleName = "AtlasLootClassicWoW"
 		["Normal_H"] = {
 			{
 				{ 1, 18844, "", "=q4=High Warlord's Right Claw", "=ds=#h1#, #w13#", "#HONOR:185#", ""};
-				{ 2, 18848, "", "=q4=High Warlord's Left Claw", "=ds=#h4#, #w13#", "#HONOR:185#", ""};
-				{ 4, 23466, "", "=q4=High Warlord's Spellblade", "=ds=#h3#, #w4#", "#HONOR:185#", ""};
+				{ 2, 18848, "", "=q4=High Warlord's Razor Claw", "=ds=#h1#, #w13#", "#HONOR:185#", ""};
+				{ 4, 23466, "", "=q4=High Warlord's Spellblade", "=ds=#h1#, #w4#", "#HONOR:185#", ""};
 				{ 5, 18840, "", "=q4=High Warlord's Razor", "=ds=#h1#, #w4#", "#HONOR:185#", ""};
 				{ 7, 16345, "", "=q4=High Warlord's Blade", "=ds=#h1#, #w10#", "#HONOR:185#", ""};
 				{ 8, 23467, "", "=q4=High Warlord's Quickblade", "=ds=#h1#, #w10#", "#HONOR:185#", ""};
 				{ 10, 18828, "", "=q4=High Warlord's Cleaver", "=ds=#h1#, #w1#", "#HONOR:185#", ""};
-				{ 12, 23464, "", "=q4=High Warlord's Battle Mace", "=ds=#h3#, #w6#", "#HONOR:185#", ""};
+				{ 12, 23464, "", "=q4=High Warlord's Battle Mace", "=ds=#h1#, #w6#", "#HONOR:185#", ""};
 				{ 13, 18866, "", "=q4=High Warlord's Bludgeon", "=ds=#h1#, #w6#", "#HONOR:185#", ""};
 				{ 15, 18871, "", "=q4=High Warlord's Pig Sticker", "=ds=#w7#", "#HONOR:290#", ""};
 				{ 16, 18877, "", "=q4=High Warlord's Greatsword", "=ds=#h2#, #w10#", "#HONOR:290#", ""};
@@ -6637,25 +6636,25 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["MiscFactions"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_jewelry_stormpiketrinket_05", "=q6="..BabbleFaction["Stormpike Guard"], "=q5="..BabbleFaction["Alliance"]};
+				{ 1, 0, "inv_jewelry_stormpiketrinket_05", "=q6="..ALIL["Stormpike Guard"], "=q5="..AL["Alliance"]};
 				{ 2, 17904, "", "=q4=Stormpike Insignia Rank 6", "=ds=#s14#, =q1=#r5#"};
 				{ 3, 17903, "", "=q3=Stormpike Insignia Rank 5", "=ds=#s14#, =q1=#r5#"};
 				{ 4, 17902, "", "=q3=Stormpike Insignia Rank 4", "=ds=#s14#, =q1=#r4#"};
 				{ 5, 17901, "", "=q2=Stormpike Insignia Rank 3", "=ds=#s14#, =q1=#r3#"};
 				{ 6, 17900, "", "=q2=Stormpike Insignia Rank 2", "=ds=#s14#, =q1=#r2#"};
 				{ 7, 17691, "", "=q2=Stormpike Insignia Rank 1", "=ds=#s14#, =q1=#r1#"};
-				{ 9, 0, "ability_warrior_rallyingcry", "=q6="..BabbleFaction["The League of Arathor"], "=ds=#r5#, =q5="..BabbleFaction["Alliance"]};
+				{ 9, 0, "ability_warrior_rallyingcry", "=q6="..ALIL["The League of Arathor"], "=ds=#r5#, =q5="..AL["Alliance"]};
 				{ 10, 20132, "", "=q1=Arathor Battle Tabard", "=ds=#s7#", "#HONOR:2679#"};
-				{ 12, 0, "Ability_Mount_PinkTiger", "=q6="..BabbleFaction["Wintersaber Trainers"], "=ds=#r5#, =q5="..BabbleFaction["Alliance"]};
+				{ 12, 0, "Ability_Mount_PinkTiger", "=q6="..ALIL["Wintersaber Trainers"], "=ds=#r5#, =q5="..AL["Alliance"]};
 				{ 13, 13086, "", "=q4=Reins of the Winterspring Frostsaber", "=ds=#e26#", "=q1=#m4#: #QUESTID:29034#"};
-				{ 16, 0, "inv_jewelry_frostwolftrinket_05", "=q6="..BabbleFaction["Frostwolf Clan"], "=q5="..BabbleFaction["Horde"]};
+				{ 16, 0, "inv_jewelry_frostwolftrinket_05", "=q6="..ALIL["Frostwolf Clan"], "=q5="..AL["Horde"]};
 				{ 17, 17909, "", "=q4=Frostwolf Insignia Rank 6", "=ds=#s14#, =q1=#r5#"};
 				{ 18, 17908, "", "=q3=Frostwolf Insignia Rank 5", "=ds=#s14#, =q1=#r5#"};
 				{ 19, 17907, "", "=q3=Frostwolf Insignia Rank 4", "=ds=#s14#, =q1=#r4#"};
 				{ 20, 17906, "", "=q2=Frostwolf Insignia Rank 3", "=ds=#s14#, =q1=#r3#"};
 				{ 21, 17905, "", "=q2=Frostwolf Insignia Rank 2", "=ds=#s14#, =q1=#r2#"};
 				{ 22, 17690, "", "=q2=Frostwolf Insignia Rank 1", "=ds=#s14#, =q1=#r1#"};
-				{ 24, 0, "spell_shadow_psychichorrors", "=q6="..BabbleFaction["The Defilers"], "=ds=#r5#, =q5="..BabbleFaction["Horde"]};
+				{ 24, 0, "spell_shadow_psychichorrors", "=q6="..ALIL["The Defilers"], "=ds=#r5#, =q5="..AL["Horde"]};
 				{ 25, 20131, "", "=q1=Battle Tabard of the Defilers", "=ds=#s7#", "#HONOR:2679#"};
 			};
 		};
@@ -6698,7 +6697,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Argent Dawn"],
+			name = ALIL["Argent Dawn"],
 			module = moduleName, menu = "REPMENU_ORIGINALWOW",
 		};
 	}
@@ -6710,11 +6709,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["BilgewaterCartel"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tabard_kezan", "=q6="..BabbleFaction["Bilgewater Cartel"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tabard_kezan", "=q6="..ALIL["Bilgewater Cartel"], "=q5=#r1#"};
 				{ 2, 64884, "", "=q1=Bilgewater Cartel Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tabard_kezan", "=q6="..BabbleFaction["Bilgewater Cartel"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tabard_kezan", "=q6="..ALIL["Bilgewater Cartel"], "=q5=#r4#"};
 				{ 5, 67525, "", "=q2=Bilgewater Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tabard_kezan", "=q6="..BabbleFaction["Bilgewater Cartel"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tabard_kezan", "=q6="..ALIL["Bilgewater Cartel"], "=q5=#r5#"};
 				{ 8, 64906, "", "=q3=Bilgewater Cape", "=ds=#s4#", "3 #gold# 62 #silver# 2 #copper#"};
 				{ 9, 64907, "", "=q3=Bilgewater Mantle", "=ds=#s4#", "3 #gold# 63 #silver# 31 #copper#"};
 				{ 10, 64905, "", "=q3=Bilgewater Shroud", "=ds=#s4#", "3 #gold# 60 #silver# 78 #copper#"};
@@ -6723,7 +6722,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Bilgewater Cartel"],
+			name = ALIL["Bilgewater Cartel"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -6735,17 +6734,17 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["BloodsailBuccaneers"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Helmet_66", "=q6="..BabbleFaction["Bloodsail Buccaneers"], "=q5=#r1# / #QUESTID:9272#"};
+				{ 1, 0, "INV_Helmet_66", "=q6="..ALIL["Bloodsail Buccaneers"], "=q5=#r1# / #QUESTID:9272#"};
 				{ 2, 22742, "", "=q1=Bloodsail Shirt", "=ds=#s5#, #a1#"};
 				{ 3, 22743, "", "=q1=Bloodsail Sash", "=ds=#s10#, #a1#"};
 				{ 4, 22745, "", "=q1=Bloodsail Pants", "=ds=#s11#, #a1#"};
 				{ 5, 22744, "", "=q1=Bloodsail Boots", "=ds=#s12#, #a1#"};
-				{ 16, 0, "INV_Helmet_66", "=q6="..BabbleFaction["Bloodsail Buccaneers"], "=q5=#r2# / #QUESTID:4621#"};
+				{ 16, 0, "INV_Helmet_66", "=q6="..ALIL["Bloodsail Buccaneers"], "=q5=#r2# / #QUESTID:4621#"};
 				{ 17, 12185, "", "=q2=Bloodsail Admiral's Hat", "=ds=#s1#, #a1#"};
 			};
 		};
 		info = {
-			name = BabbleFaction["Bloodsail Buccaneers"],
+			name = ALIL["Bloodsail Buccaneers"],
 			module = moduleName, menu = "REPMENU_ORIGINALWOW",
 		};
 	}
@@ -6778,7 +6777,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Brood of Nozdormu"],
+			name = ALIL["Brood of Nozdormu"],
 			module = moduleName, menu = "REPMENU_ORIGINALWOW",
 		};
 	}
@@ -6810,7 +6809,7 @@ local moduleName = "AtlasLootClassicWoW"
 			{
 				{ 1, 0, "ability_racial_ultravision", "=q6=#r4#", ""};
 				{ 2, 22766, "", "=q1=Plans: Ironvine Breastplate", "=ds=#p2# (300)", "5 #gold#"};
-				{ 3, 22219, "", "=q1=Plans: Jagged Obsidian Shield", "=ds=#p2# (300)", "5 #gold# =q2="..AtlasLoot:GetMapNameByID(717)};
+				{ 3, 22219, "", "=q1=Plans: Jagged Obsidian Shield", "=ds=#p2# (300)", "5 #gold# =q2="..ALIL["Ruins of Ahn'Qiraj"]};
 				{ 4, 22771, "", "=q1=Pattern: Bramblewood Helm", "=ds=#p7# (300)", "5 #gold#"};
 				{ 5, 20511, "", "=q1=Pattern: Sandstalker Breastplate", "=ds=#p7# (300)", "4 #gold#"};
 				{ 6, 20508, "", "=q1=Pattern: Spitfire Breastplate", "=ds=#p7# (300)", "4 #gold#"};
@@ -6818,12 +6817,12 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 8, 22312, "", "=q1=Pattern: Satchel of Cenarius", "=ds=#p8# (300)", "5 #gold#"};
 				{ 9, 22774, "", "=q1=Pattern: Sylvan Vest", "=ds=#p8# (300)", "5 #gold#"};
 				{ 16, 0, "ability_racial_ultravision", "=q6=#r5#", ""};
-				{ 17, 22221, "", "=q1=Plans: Obsidian Mail Tunic", "=ds=#p2# (300)", "8 #gold# =q2="..AtlasLoot:GetMapNameByID(717)};
+				{ 17, 22221, "", "=q1=Plans: Obsidian Mail Tunic", "=ds=#p2# (300)", "8 #gold# =q2="..ALIL["Ruins of Ahn'Qiraj"]};
 				{ 18, 20382, "", "=q1=Pattern: Dreamscale Breastplate", "=ds=#p7# (300)", "6 #gold#"};
 			};
 		};
 		info = {
-			name = BabbleFaction["Cenarion Circle"],
+			name = ALIL["Cenarion Circle"],
 			module = moduleName, menu = "REPMENU_ORIGINALWOW",
 		};
 	}
@@ -6835,11 +6834,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["Darnassus"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_banner_nightelf", "=q6="..BabbleFaction["Darnassus"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_banner_nightelf", "=q6="..ALIL["Darnassus"], "=q5=#r1#"};
 				{ 2, 45579, "", "=q1=Darnassus Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_banner_nightelf", "=q6="..BabbleFaction["Darnassus"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_banner_nightelf", "=q6="..ALIL["Darnassus"], "=q5=#r4#"};
 				{ 5, 67526, "", "=q2=Darnassian Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tournaments_banner_nightelf", "=q6="..BabbleFaction["Darnassus"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tournaments_banner_nightelf", "=q6="..ALIL["Darnassus"], "=q5=#r5#"};
 				{ 8, 64887, "", "=q3=Cape of Darnassus", "=ds=#s4#", "3 #gold# 62 #silver# 34 #copper#"};
 				{ 9, 64888, "", "=q3=Mantle of Darnassus", "=ds=#s4#", "3 #gold# 29 #silver# 92 #copper#"};
 				{ 10, 64886, "", "=q3=Shroud of Darnassus", "=ds=#s4#", "3 #gold# 62 #silver# 9 #copper#"};
@@ -6853,7 +6852,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Darnassus"],
+			name = ALIL["Darnassus"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -6865,11 +6864,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["DarkspearTrolls"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_troll", "=q6="..BabbleFaction["Darkspear Trolls"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_troll", "=q6="..ALIL["Darkspear Trolls"], "=q5=#r1#"};
 				{ 2, 45582, "", "=q1=Darkspear Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_troll", "=q6="..BabbleFaction["Darkspear Trolls"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_troll", "=q6="..ALIL["Darkspear Trolls"], "=q5=#r4#"};
 				{ 5, 67536, "", "=q2=Darkspear Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tournaments_symbol_troll", "=q6="..BabbleFaction["Darkspear Trolls"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tournaments_symbol_troll", "=q6="..ALIL["Darkspear Trolls"], "=q5=#r5#"};
 				{ 8, 64912, "", "=q3=Darkspear Cape", "=ds=#s4#", "3 #gold# 34 #silver# 98 #copper#"};
 				{ 9, 64911, "", "=q3=Darkspear Mantle", "=ds=#s4#", "3 #gold# 33 #silver# 70 #copper#"};
 				{ 10, 64913, "", "=q3=Darkspear Shroud", "=ds=#s4#", "3 #gold# 36 #silver# 26 #copper#"};
@@ -6882,7 +6881,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Darkspear Trolls"],
+			name = ALIL["Darkspear Trolls"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -6894,11 +6893,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["Exodar"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_draenei", "=q6="..BabbleFaction["Exodar"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_draenei", "=q6="..ALIL["Exodar"], "=q5=#r1#"};
 				{ 2, 45580, "", "=q1=Exodar Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_draenei", "=q6="..BabbleFaction["Exodar"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_draenei", "=q6="..ALIL["Exodar"], "=q5=#r4#"};
 				{ 5, 67527, "", "=q2=Exodar Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tournaments_symbol_draenei", "=q6="..BabbleFaction["Exodar"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tournaments_symbol_draenei", "=q6="..ALIL["Exodar"], "=q5=#r5#"};
 				{ 8, 64890, "", "=q3=Cape of Exodar", "=ds=#s4#", "3 #gold# 32 #silver# 48 #copper#"};
 				{ 9, 64889, "", "=q3=Mantle of Exodar", "=ds=#s4#", "3 #gold# 31 #silver# 20 #copper#"};
 				{ 10, 64891, "", "=q3=Shroud of Exodar", "=ds=#s4#", "3 #gold# 33 #silver# 73 #copper#"};
@@ -6911,7 +6910,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Exodar"],
+			name = ALIL["Exodar"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -6923,11 +6922,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["Gilneas"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "achievement_win_gilneas", "=q6="..BabbleFaction["Gilneas"], "=q5=#r1#"};
+				{ 1, 0, "achievement_win_gilneas", "=q6="..ALIL["Gilneas"], "=q5=#r1#"};
 				{ 2, 64882, "", "=q1=Gilneas Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "achievement_win_gilneas", "=q6="..BabbleFaction["Gilneas"], "=q5=#r4#"};
+				{ 4, 0, "achievement_win_gilneas", "=q6="..ALIL["Gilneas"], "=q5=#r4#"};
 				{ 5, 67532, "", "=q2=Gilnean Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "achievement_win_gilneas", "=q6="..BabbleFaction["Gilneas"], "=q5=#r5#"};
+				{ 7, 0, "achievement_win_gilneas", "=q6="..ALIL["Gilneas"], "=q5=#r5#"};
 				{ 8, 64893, "", "=q3=Cape of Gilneas", "=ds=#s4#", "3 #gold# 36 #silver# 30 #copper#"};
 				{ 9, 64892, "", "=q3=Mantle of Gilneas", "=ds=#s4#", "3 #gold# 35 #silver# 2 #copper#"};
 				{ 10, 64894, "", "=q3=Shroud of Gilneas", "=ds=#s4#", "3 #gold# 37 #silver# 58 #copper#"};
@@ -6936,7 +6935,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Gilneas"],
+			name = ALIL["Gilneas"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -6948,11 +6947,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["GnomereganRep"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_gnome", "=q6="..BabbleFaction["Gnomeregan"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_gnome", "=q6="..ALIL["Gnomeregan"], "=q5=#r1#"};
 				{ 2, 45578, "", "=q1=Gnomeregan Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_gnome", "=q6="..BabbleFaction["Gnomeregan"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_gnome", "=q6="..ALIL["Gnomeregan"], "=q5=#r4#"};
 				{ 5, 67530, "", "=q2=Gnomeregan Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tournaments_symbol_gnome", "=q6="..BabbleFaction["Gnomeregan"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tournaments_symbol_gnome", "=q6="..ALIL["Gnomeregan"], "=q5=#r5#"};
 				{ 8, 64896, "", "=q3=Cape of Gnomeregan", "=ds=#s4#", "3 #gold# 40 #silver# 11 #copper#"};
 				{ 9, 64895, "", "=q3=Mantle of Gnomeregan", "=ds=#s4#", "3 #gold# 38 #silver# 83 #copper#"};
 				{ 10, 64897, "", "=q3=Shroud of Gnomeregan", "=ds=#s4#", "3 #gold# 41 #silver# 40 #copper#"};
@@ -6966,7 +6965,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Gnomeregan"],
+			name = ALIL["Gnomeregan"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -6978,11 +6977,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["HuojinPandaren"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_orc", "=q6="..BabbleFaction["Huojin Pandaren"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_orc", "=q6="..ALIL["Huojin Pandaren"], "=q5=#r1#"};
 				{ 2, 83080, "", "=q1=Huojin Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_gnome", "=q6="..BabbleFaction["Huojin Pandaren"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_gnome", "=q6="..ALIL["Huojin Pandaren"], "=q5=#r4#"};
 				{ 5, 92070, "", "=q2=Huojin Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 16, 0, "inv_misc_tournaments_symbol_orc", "=q6="..BabbleFaction["Huojin Pandaren"], "=q5=#r5#"};
+				{ 16, 0, "inv_misc_tournaments_symbol_orc", "=q6="..ALIL["Huojin Pandaren"], "=q5=#r5#"};
 				{ 17, 87802, "", "=q4=Reins of the Great Black Dragon Turtle", "=ds=#e26#", "10 #gold#"};
 				{ 18, 87803, "", "=q4=Reins of the Great Blue Dragon Turtle", "=ds=#e26#", "10 #gold#"};
 				{ 19, 87804, "", "=q4=Reins of the Great Brown Dragon Turtle", "=ds=#e26#", "10 #gold#"};
@@ -6998,7 +6997,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Huojin Pandaren"],
+			name = ALIL["Huojin Pandaren"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -7010,11 +7009,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["Ironforge"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_dwarf", "=q6="..BabbleFaction["Ironforge"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_dwarf", "=q6="..ALIL["Ironforge"], "=q5=#r1#"};
 				{ 2, 45577, "", "=q1=Ironforge Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_dwarf", "=q6="..BabbleFaction["Ironforge"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_dwarf", "=q6="..ALIL["Ironforge"], "=q5=#r4#"};
 				{ 5, 67528, "", "=q2=Ironforge Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tournaments_symbol_dwarf", "=q6="..BabbleFaction["Ironforge"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tournaments_symbol_dwarf", "=q6="..ALIL["Ironforge"], "=q5=#r5#"};
 				{ 8, 64899, "", "=q3=Cape of Ironforge", "=ds=#s4#", "3 #gold# 43 #silver# 93 #copper#"};
 				{ 9, 64900, "", "=q3=Mantle of Ironforge", "=ds=#s4#", "3 #gold# 45 #silver# 21 #copper#"};
 				{ 10, 64898, "", "=q3=Shroud of Ironforge", "=ds=#s4#", "3 #gold# 42 #silver# 68 #copper#"};
@@ -7027,7 +7026,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Ironforge"],
+			name = ALIL["Ironforge"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -7039,11 +7038,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["Orgrimmar"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_orc", "=q6="..BabbleFaction["Orgrimmar"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_orc", "=q6="..ALIL["Orgrimmar"], "=q5=#r1#"};
 				{ 2, 45581, "", "=q1=Orgrimmar", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_orc", "=q6="..BabbleFaction["Orgrimmar"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_orc", "=q6="..ALIL["Orgrimmar"], "=q5=#r4#"};
 				{ 5, 67533, "", "=q2=Orgrimmar Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tournaments_symbol_orc", "=q6="..BabbleFaction["Orgrimmar"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tournaments_symbol_orc", "=q6="..ALIL["Orgrimmar"], "=q5=#r5#"};
 				{ 8, 64909, "", "=q3=Cape of Orgrimmar", "=ds=#s4#", "3 #gold# 31 #silver# 17 #copper#"};
 				{ 9, 64910, "", "=q3=Mantle of Orgrimmar", "=ds=#s4#", "3 #gold# 32 #silver# 42 #copper#"};
 				{ 10, 64908, "", "=q3=Shroud of Orgrimmar", "=ds=#s4#", "3 #gold# 29 #silver# 88 #copper#"};
@@ -7057,7 +7056,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Orgrimmar"],
+			name = ALIL["Orgrimmar"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -7069,11 +7068,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["SilvermoonCity"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_bloodelf", "=q6="..BabbleFaction["Silvermoon City"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_bloodelf", "=q6="..ALIL["Silvermoon City"], "=q5=#r1#"};
 				{ 2, 45585, "", "=q1=Silvermoon City Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_bloodelf", "=q6="..BabbleFaction["Silvermoon City"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_bloodelf", "=q6="..ALIL["Silvermoon City"], "=q5=#r4#"};
 				{ 5, 67535, "", "=q2=Silvermoon Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tournaments_symbol_bloodelf", "=q6="..BabbleFaction["Silvermoon City"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tournaments_symbol_bloodelf", "=q6="..ALIL["Silvermoon City"], "=q5=#r5#"};
 				{ 8, 64915, "", "=q3=Cape of Silvermoon", "=ds=#s4#", "3 #gold# 38 #silver# 80 #copper#"};
 				{ 9, 64916, "", "=q3=Mantle of Silvermoon", "=ds=#s4#", "3 #gold# 40 #silver# 8 #copper#"};
 				{ 10, 64914, "", "=q3=Shroud of Silvermoon", "=ds=#s4#", "3 #gold# 37 #silver# 51 #copper#"};
@@ -7087,7 +7086,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Silvermoon City"],
+			name = ALIL["Silvermoon City"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -7099,11 +7098,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["Stormwind"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_human", "=q6="..BabbleFaction["Stormwind"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_human", "=q6="..ALIL["Stormwind"], "=q5=#r1#"};
 				{ 2, 45574, "", "=q1=Stormwind Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_human", "=q6="..BabbleFaction["Stormwind"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_human", "=q6="..ALIL["Stormwind"], "=q5=#r4#"};
 				{ 5, 67531, "", "=q2=Stormwind Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tournaments_symbol_human", "=q6="..BabbleFaction["Stormwind"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tournaments_symbol_human", "=q6="..ALIL["Stormwind"], "=q5=#r5#"};
 				{ 8, 64902, "", "=q3=Cape of Stormwind", "=ds=#s4#", "3 #gold# 56 #silver# 93 #copper#"};
 				{ 9, 64901, "", "=q3=Mantle of Stormwind", "=ds=#s4#", "3 #gold# 46 #silver# 49 #copper#"};
 				{ 10, 64898, "", "=q3=Shroud of Stormwind", "=ds=#s4#", "3 #gold# 58 #silver# 21 #copper#"};
@@ -7117,7 +7116,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Stormwind"],
+			name = ALIL["Stormwind"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -7129,14 +7128,14 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["ThoriumBrotherhood"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "INV_Ingot_Mithril", "=q6=#r2#", "=q5="..BabbleZone["Blackrock Depths"]};
+				{ 1, 0, "INV_Ingot_Mithril", "=q6=#r2#", "=q5="..ALIL["Blackrock Depths"]};
 				{ 2, 17051, "", "=q3=Plans: Dark Iron Bracers", "=ds=#p2# (295)"};
 				{ 3, 20761, "", "=q1=Recipe: Transmute Elemental Fire", "=ds=#p1# (300)"};
 				{ 4, 19444, "", "=q1=Formula: Enchant Weapon - Strength", "=ds=#p4# (290)"};
 				{ 5, 17023, "", "=q1=Pattern: Molten Helm", "=ds=#p7# (300)"};
 				{ 6, 17022, "", "=q1=Pattern: Corehound Boots", "=ds=#p7# (295)"};
 				{ 7, 17018, "", "=q1=Pattern: Flarecore Gloves", "=ds=#p8# (300)"};
-				{ 16, 0, "INV_Ingot_Mithril", "=q6=#r3#", "=q5="..BabbleZone["Blackrock Depths"]};
+				{ 16, 0, "INV_Ingot_Mithril", "=q6=#r3#", "=q5="..ALIL["Blackrock Depths"]};
 				{ 17, 17060, "", "=q3=Plans: Dark Iron Destroyer", "=ds=#p2# (300)"};
 				{ 18, 17059, "", "=q3=Plans: Dark Iron Reaver", "=ds=#p2# (300)"};
 				{ 19, 17049, "", "=q3=Plans: Fiery Chain Girdle", "=ds=#p2# (295)"};
@@ -7148,7 +7147,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 25, 19219, "", "=q1=Pattern: Flarecore Robe", "=ds=#p8# (300)"};
 			};
 			{
-				{ 1, 0, "INV_Ingot_Mithril", "=q6=#r4#", "=q5="..BabbleZone["Blackrock Depths"]};
+				{ 1, 0, "INV_Ingot_Mithril", "=q6=#r4#", "=q5="..ALIL["Blackrock Depths"]};
 				{ 2, 18592, "", "=q4=Plans: Sulfuron Hammer", "=ds=#p2# (300), #m4#"};
 				{ 3, 17052, "", "=q3=Plans: Dark Iron Leggings", "=ds=#p2# (300)"};
 				{ 4, 17053, "", "=q3=Plans: Fiery Chain Shoulders", "=ds=#p2# (300)"};
@@ -7160,7 +7159,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 10, 19332, "", "=q1=Pattern: Corehound Belt", "=ds=#p7# (300)"};
 				{ 11, 19333, "", "=q1=Pattern: Molten Belt", "=ds=#p7# (300)"};
 				{ 12, 19220, "", "=q1=Pattern: Flarecore Leggings", "=ds=#p8# (300)"};
-				{ 16, 0, "INV_Ingot_Mithril", "=q6=#r5#", "=q5="..BabbleZone["Blackrock Depths"]};
+				{ 16, 0, "INV_Ingot_Mithril", "=q6=#r5#", "=q5="..ALIL["Blackrock Depths"]};
 				{ 17, 19211, "", "=q1=Plans: Blackguard", "=ds=#p2# (300)"};
 				{ 18, 20040, "", "=q1=Plans: Dark Iron Boots", "=ds=#p2# (300)"};
 				{ 19, 19210, "", "=q1=Plans: Ebon Hand", "=ds=#p2# (300)"};
@@ -7168,7 +7167,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Thorium Brotherhood"],
+			name = ALIL["Thorium Brotherhood"],
 			module = moduleName, menu = "REPMENU_ORIGINALWOW",
 		};
 	}
@@ -7180,11 +7179,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["ThunderBluff"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_tauren", "=q6="..BabbleFaction["Thunder Bluff"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_tauren", "=q6="..ALIL["Thunder Bluff"], "=q5=#r1#"};
 				{ 2, 45584, "", "=q1=Thunder Bluff Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_tauren", "=q6="..BabbleFaction["Thunder Bluff"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_tauren", "=q6="..ALIL["Thunder Bluff"], "=q5=#r4#"};
 				{ 5, 67534, "", "=q2=Thunder Bluff Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tournaments_symbol_tauren", "=q6="..BabbleFaction["Thunder Bluff"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tournaments_symbol_tauren", "=q6="..ALIL["Thunder Bluff"], "=q5=#r5#"};
 				{ 8, 64918, "", "=q3=Cape of Thunder Bluff", "=ds=#s4#", "3 #gold# 51 #silver# 80 #copper#"};
 				{ 9, 64917, "", "=q3=Mantle of Thunder Bluff", "=ds=#s4#", "3 #gold# 41 #silver# 36 #copper#"};
 				{ 10, 64919, "", "=q3=Shroud of Thunder Bluff", "=ds=#s4#", "3 #gold# 53 #silver# 8 #copper#"};
@@ -7197,7 +7196,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Thunder Bluff"],
+			name = ALIL["Thunder Bluff"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -7216,7 +7215,7 @@ local moduleName = "AtlasLootClassicWoW"
 				{ 5, 20253, "", "=q1=Pattern: Warbear Harness", "=ds=#p7# (275)"};
 				{ 7, 0, "achievement_reputation_timbermaw", "=q6=#r3#", ""};
 				{ 8, 16768, "", "=q2=Furbolg Medicine Pouch", "=ds=#s15#"};
-				{ 9, 16769, "", "=q2=Furbolg Medicine Totem", "=ds=#h3#, #w6#"};
+				{ 9, 16769, "", "=q2=Furbolg Medicine Totem", "=ds=#h1#, #w6#"};
 				{ 10, 19202, "", "=q1=Plans: Heavy Timbermaw Belt", "=ds=#p2# (290)"};
 				{ 11, 19445, "", "=q1=Formula: Enchant Weapon - Agility", "=ds=#p4# (290)"};
 				{ 12, 19326, "", "=q1=Pattern: Might of the Timbermaw", "=ds=#p7# (290)"};
@@ -7231,7 +7230,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Timbermaw Hold"],
+			name = ALIL["Timbermaw Hold"],
 			module = moduleName, menu = "REPMENU_ORIGINALWOW",
 		};
 	}
@@ -7243,11 +7242,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["TushuiPandaren"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_human", "=q6="..BabbleFaction["Tushui Pandaren"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_human", "=q6="..ALIL["Tushui Pandaren"], "=q5=#r1#"};
 				{ 2, 83079, "", "=q1=Tushui Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_gnome", "=q6="..BabbleFaction["Tushui Pandaren"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_gnome", "=q6="..ALIL["Tushui Pandaren"], "=q5=#r4#"};
 				{ 5, 92071, "", "=q2=Tushui Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 16, 0, "inv_misc_tournaments_symbol_human", "=q6="..BabbleFaction["Tushui Pandaren"], "=q5=#r5#"};
+				{ 16, 0, "inv_misc_tournaments_symbol_human", "=q6="..ALIL["Tushui Pandaren"], "=q5=#r5#"};
 				{ 17, 87802, "", "=q4=Reins of the Great Black Dragon Turtle", "=ds=#e26#", "10 #gold#"};
 				{ 18, 87803, "", "=q4=Reins of the Great Blue Dragon Turtle", "=ds=#e26#", "10 #gold#"};
 				{ 19, 87804, "", "=q4=Reins of the Great Brown Dragon Turtle", "=ds=#e26#", "10 #gold#"};
@@ -7263,7 +7262,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Tushui Pandaren"],
+			name = ALIL["Tushui Pandaren"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}
@@ -7275,11 +7274,11 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["Undercity"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_misc_tournaments_symbol_scourge", "=q6="..BabbleFaction["Undercity"], "=q5=#r1#"};
+				{ 1, 0, "inv_misc_tournaments_symbol_scourge", "=q6="..ALIL["Undercity"], "=q5=#r1#"};
 				{ 2, 45583, "", "=q1=Undercity Tabard", "=ds=#s7#", "10 #silver#"};
-				{ 4, 0, "inv_misc_tournaments_symbol_scourge", "=q6="..BabbleFaction["Undercity"], "=q5=#r4#"};
+				{ 4, 0, "inv_misc_tournaments_symbol_scourge", "=q6="..ALIL["Undercity"], "=q5=#r4#"};
 				{ 5, 67529, "", "=q2=Undercity Satchel", "=ds=#e1#", "2 #gold#"};
-				{ 7, 0, "inv_misc_tournaments_symbol_scourge", "=q6="..BabbleFaction["Undercity"], "=q5=#r5#"};
+				{ 7, 0, "inv_misc_tournaments_symbol_scourge", "=q6="..ALIL["Undercity"], "=q5=#r5#"};
 				{ 8, 64921, "", "=q3=Cape of Undercity", "=ds=#s4#", "3 #gold# 55 #silver# 61 #copper#"};
 				{ 9, 64922, "", "=q3=Mantle of Undercity", "=ds=#s4#", "3 #gold# 56 #silver# 90 #copper#"};
 				{ 10, 64920, "", "=q3=Shroud of Undercity", "=ds=#s4#", "3 #gold# 54 #silver# 36 #copper#"};
@@ -7293,7 +7292,7 @@ local moduleName = "AtlasLootClassicWoW"
 			};
 		};
 		info = {
-			name = BabbleFaction["Undercity"],
+			name = ALIL["Undercity"],
 			module = moduleName, menu = "REPMENU_RACEFACTIONS",
 		};
 	}

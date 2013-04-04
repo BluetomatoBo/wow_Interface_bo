@@ -1,4 +1,4 @@
-﻿-- $Id: constants.fr.lua 4147 2013-03-12 19:29:57Z TrAsHeR $
+﻿-- $Id: constants.fr.lua 4165 2013-03-20 11:03:22Z dynaletik $
 --[[
 constants.fr.lua --- Traduction frFR par TrAsHeR. Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
@@ -382,8 +382,8 @@ if AL then
 	--AL["ilvl 470"] = true;
 	--AL["ilvl 490"] = true;
 	--AL["ilvl 489"] = true;
-	--AL["ilvl 493"] = true;
 	--AL["ilvl 496"] = true;
+	--AL["ilvl 498"] = true;
 	--AL["ilvl 512"] = true;
 
 	-- PvP Menu
@@ -491,7 +491,6 @@ if AL then
 	--AL["Potions"] = true;
 	AL["Transmutes"] = "Transmutations";
 	AL["Flasks"] = "Flacons";
-	AL["Guild"] = "Guilde";
 
 	-- Blacksmithing
 	AL["Armor Enhancements"] = "Améliorations d'armure";
@@ -939,6 +938,19 @@ if AL then
 	AL["Husk of the Old God"] = "Peau du Grand ver des sables";
 	AL["Carapace of the Old God"] = "Carapace du Dieu très ancien";
 
+	-- Faction related strings
+	-- AL["Alliance"] = true;
+	-- AL["Horde"] = true;
+	AL["Neutral"] = "Neutre";
+	AL["Friendly"] = "Amical";
+	AL["Honored"] = "Honoré";
+	AL["Revered"] = "Révéré";
+	AL["Exalted"] = "Exalté";
+	AL["Best Friend"] = "Meilleur ami";
+	AL["Rank 4"] = "Rang 4";
+	AL["Rank 8"] = "Rang 8";
+	AL["Winterfin Retreat"] = "Retraite des Ailerons-d'hiver";
+
 	-- Recipe origin strings
 	AL["Crafted"] = "Fabriqué";
 	AL["Discovery"] = "Découverte";
@@ -1057,13 +1069,18 @@ if AL then
 	AL["Bash'ir Landing Stasis Chambers"] = "Chambre de stase alpha du point d'ancrage de Bash'ir";
 	AL["Battle Pet Trainer"] = "Dresseur de mascottes de combat";
 
-	-- Zones
-	AL["Trial of the Grand Crusader"] = "L'épreuve du grand croisé";
+	-- Zone related strings
+	-- AL["Azeroth"] = true;
+	AL["Blackrock Mountain"] = "Mont Rochenoire";
+	AL["Caverns of Time"] = "Grottes du temps";
 	AL["Crusader's Square"] = "Place des Croisés";
-	AL["The Gauntlet"] = "Le Défi";
+	AL["Darkmoon Island"] = "Île de Sombrelune";
+	AL["East"] = "Est";
 	AL["Halfhill Farm"] = "Marché de Micolline";
-	AL["Domination Point"] = "Halte de la Domination";
-	AL["Lion's Landing"] = "Le territoire du Lion";
+	AL["North"] = "Nord";
+	AL["The Gauntlet"] = "Le Défi";
+	AL["Trial of the Grand Crusader"] = "L'épreuve du grand croisé";
+	AL["West"] = "Ouest";
 
 	-- Shortcuts for Bossname files
 	--AL["Avatar"] = true; -- Avatar of the Martyred

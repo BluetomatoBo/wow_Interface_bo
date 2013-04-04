@@ -1,4 +1,4 @@
-﻿-- $Id: constants.cn.lua 4140 2013-03-11 01:53:28Z ananhaid $
+﻿-- $Id: constants.cn.lua 4165 2013-03-20 11:03:22Z dynaletik $
 --[[
 constants.cn.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -383,6 +383,8 @@ if AL then
 	AL["ilvl 490"] = "等级490";
 	AL["ilvl 489"] = "等级489";
 	AL["ilvl 496"] = "等级496";
+	AL["ilvl 498"] = "等级498";
+	AL["ilvl 512"] = "等级512";
 
 	-- PvP Menu
 	AL["Arathi Basin Sets"] = "阿拉希盆地套装";
@@ -489,7 +491,6 @@ if AL then
 	AL["Potions"] = "药水";
 	AL["Transmutes"] = "转化";
 	AL["Flasks"] = "药剂";
-	AL["Guild"] = "公会";
 
 	-- Blacksmithing
 	AL["Armor Enhancements"] = "护甲强化";
@@ -937,6 +938,19 @@ if AL then
 	AL["Husk of the Old God"] = "上古之神的外鞘";
 	AL["Carapace of the Old God"] = "上古之神的甲壳";
 
+	-- Faction related strings
+	AL["Alliance"] = "联盟";
+	AL["Horde"] = "部落";
+	AL["Neutral"] = "中立";
+	AL["Friendly"] = "友善";
+	AL["Honored"] = "尊敬";
+	AL["Revered"] = "崇敬";
+	AL["Exalted"] = "崇拜";
+	AL["Best Friend"] = "挚友";
+	AL["Rank 4"] = "4级";
+	AL["Rank 8"] = "8级";
+	AL["Winterfin Retreat"] = "冬鳞避难所";
+
 	-- Recipe origin strings
 	AL["Crafted"] = "制造";
 	AL["Discovery"] = "领悟";
@@ -1055,13 +1069,18 @@ if AL then
 	AL["Bash'ir Landing Stasis Chambers"] = "巴什伊尔码头静止间";
 	AL["Battle Pet Trainer"] = "宠物对战训练师";
 
-	-- Zones
-	AL["Trial of the Grand Crusader"] = "大十字军的试炼";
+	-- Zone related strings
+	AL["Azeroth"] = "艾泽拉斯";
+	AL["Blackrock Mountain"] = "黑石山";
+	AL["Caverns of Time"] = "时光之穴";
 	AL["Crusader's Square"] = "十字军广场";
-	AL["The Gauntlet"] = "街巷";
+	AL["Darkmoon Island"] = "暗月岛";
+	AL["East"] = "东";
 	AL["Halfhill Farm"] = "半山农场";
-	AL["Domination Point"] = "统御岗哨";
-	AL["Lion's Landing"] = "雄狮港";
+	AL["North"] = "北";
+	AL["The Gauntlet"] = "街巷";
+	AL["Trial of the Grand Crusader"] = "大十字军的试炼";
+	AL["West"] = "西";
 
 	-- Shortcuts for Bossname files
 	AL["Avatar"] = "殉难者的化身";

@@ -1,4 +1,4 @@
-﻿-- $Id: constants.pt.lua 4133 2013-03-09 07:45:03Z hegarol $
+﻿-- $Id: constants.pt.lua 4163 2013-03-19 15:06:21Z dynaletik $
 --[[
 constants.pt.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -735,6 +735,19 @@ if AL then
 	AL["Husk of the Old God"] = "Carapaça do Deus Antigo";
 	AL["Carapace of the Old God"] = "Carapaça do Deus Antigo";
 
+	-- Faction related strings
+	AL["Alliance"] = "Aliança";
+	AL["Horde"] = "Horda";
+	AL["Neutral"] = "Tolerado";
+	AL["Friendly"] = "Respeitado";
+	AL["Honored"] = "Honrado";
+	AL["Revered"] = "Reverenciado";
+	AL["Exalted"] = "Exaltado";
+	-- AL["Best Friend"] = true;
+	-- AL["Rank 4"] = true;
+	-- AL["Rank 8"] = true;
+	AL["Winterfin Retreat"] = "Retiro da Falésia Invernal";
+
 	--Recipe origin strings
 	AL["Trainer"] = "Instrutor";
 	AL["Discovery"] = "Descoberta";
@@ -865,10 +878,17 @@ if AL then
 	--AL["Servant's Quarter Animal Bosses"] = true; FALTA
 	AL["Master Elemental Shaper Krixix"] = "Mestre Modelador de Elementos Krixix";
 
-	--Zones
-	AL["Trial of the Grand Crusader"] = "Prova do Grande Cruzado";
+	-- Zone related strings
+	-- AL["Azeroth"] = true;
+	AL["Blackrock Mountain"] = "Montanha Rocha Negra";
+	AL["Caverns of Time"] = "Cavernas do Tempo";
 	AL["Crusader's Square"] = "Praça dos Cruzados";
+	AL["Darkmoon Island"] = "Ilha de Negraluna";
+	AL["East"] = "Leste";
+	AL["North"] = "Norte";
 	AL["The Gauntlet"] = "A Manopla"; -- Comprobar
+	AL["Trial of the Grand Crusader"] = "Prova do Grande Cruzado";
+	AL["West"] = "Oeste";
 
 	--Shortcuts for Bossname files
 	--AL["Avatar"] = true,	

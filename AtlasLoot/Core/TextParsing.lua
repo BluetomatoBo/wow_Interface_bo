@@ -1,10 +1,9 @@
--- $Id: TextParsing.lua 4069 2013-02-09 21:34:59Z lag123 $
+-- $Id: TextParsing.lua 4163 2013-03-19 15:06:21Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
+local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
-local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 local BabbleItemSet = AtlasLoot_GetLocaleLibBabble("LibBabble-ItemSet-3.0")
-local BabbleZone = AtlasLoot_GetLocaleLibBabble("LibBabble-Zone-3.0")
 
 AtlasLoot_TextParsing = {
 
@@ -52,11 +51,11 @@ AtlasLoot_TextParsing = {
 	{ "#p28#", GetSpellInfo(921) },		-- Pick Pocket
 	
 	-- Reputation
-	{ "#r1#", BabbleFaction["Neutral"] },
-	{ "#r2#", BabbleFaction["Friendly"] },
-	{ "#r3#", BabbleFaction["Honored"] },
-	{ "#r4#", BabbleFaction["Revered"] },
-	{ "#r5#", BabbleFaction["Exalted"] },
+	{ "#r1#", AL["Neutral"] },
+	{ "#r2#", AL["Friendly"] },
+	{ "#r3#", AL["Honored"] },
+	{ "#r4#", AL["Revered"] },
+	{ "#r5#", AL["Exalted"] },
 
 	-- Armour Class
 	{ "#a1#", BabbleInventory["Cloth"] },
@@ -140,8 +139,8 @@ AtlasLoot_TextParsing = {
 	{ "#m3#", AL["Quest Item"] },
 	{ "#m4#", AL["Quest Reward"] },
 	{ "#m5#", AL["Shared"] },
-	{ "#m6#", BabbleFaction["Horde"] },
-	{ "#m7#", BabbleFaction["Alliance"] },
+	{ "#m6#", AL["Horde"] },
+	{ "#m7#", AL["Alliance"] },
 	{ "#m17#", AL["Currency"] },
 	{ "#m20#", AL["Misc"] },
 	{ "#m21#", string.format(AL["Tier %d"], 4) },
@@ -217,11 +216,11 @@ AtlasLoot_TextParsing = {
 	{ "#n18#", AL["Sothos and Jarien"] },
 
 	-- Factions
-	{ "#f1#", BabbleFaction["Lower City"] },
-	{ "#f2#", BabbleFaction["The Sha'tar"] },
-	{ "#f4#", BabbleFaction["Honor Hold"] },
-	{ "#f5#", BabbleFaction["Keepers of Time"] },
-	{ "#f6#", BabbleFaction["Cenarion Expedition"] },
+	{ "#f1#", ALIL["Lower City"] },
+	{ "#f2#", ALIL["The Sha'tar"] },
+	{ "#f4#", ALIL["Honor Hold"] },
+	{ "#f5#", ALIL["Keepers of Time"] },
+	{ "#f6#", ALIL["Cenarion Expedition"] },
 
 	-- Blacksmithing Crafted Plate Sets
 	{ "#craftbp1#", BabbleItemSet["Imperial Plate"] },
@@ -795,18 +794,18 @@ AtlasLoot_TextParsing = {
 	{ "=ds=", "|cffFFd200" },	-- Yellow
 
 	-- Months
-	{ "#month1#", AtlasLoot_IngameLocales["January"] },
-	{ "#month2#", AtlasLoot_IngameLocales["February"] },
-	{ "#month3#", AtlasLoot_IngameLocales["March"] },
-	{ "#month4#", AtlasLoot_IngameLocales["April"] },
-	{ "#month5#", AtlasLoot_IngameLocales["May"] },
-	{ "#month6#", AtlasLoot_IngameLocales["June"] },
-	{ "#month7#", AtlasLoot_IngameLocales["July"] },
-	{ "#month8#", AtlasLoot_IngameLocales["August"] },
-	{ "#month9#", AtlasLoot_IngameLocales["September"] },
-	{ "#month10#", AtlasLoot_IngameLocales["October"] },
-	{ "#month11#", AtlasLoot_IngameLocales["November"] },
-	{ "#month12#", AtlasLoot_IngameLocales["December"] },
+	{ "#month1#", ALIL["January"] },
+	{ "#month2#", ALIL["February"] },
+	{ "#month3#", ALIL["March"] },
+	{ "#month4#", ALIL["April"] },
+	{ "#month5#", ALIL["May"] },
+	{ "#month6#", ALIL["June"] },
+	{ "#month7#", ALIL["July"] },
+	{ "#month8#", ALIL["August"] },
+	{ "#month9#", ALIL["September"] },
+	{ "#month10#", ALIL["October"] },
+	{ "#month11#", ALIL["November"] },
+	{ "#month12#", ALIL["December"] },
 
 	-- Currency Icons
 	{ "#gold#", "|TInterface\\AddOns\\AtlasLoot\\Images\\gold:0|t" },
