@@ -8,15 +8,9 @@ DBM_CORE_NEED_SUPPORT				= "嘿, 你是否拥有良好的程序开发或语言�
 DBM_HOW_TO_USE_MOD					= "欢迎使用DBM。在聊天框输入 /dbm help 以获取可用命令的帮助。输入 /dbm 可打开设置窗口。手动打开指定区域的模组即可开始针对各个模块进行设置，也可以浏览首领击杀记录。DBM 会在你首次尝试首领战时自动进行扫描，但是有些设置需要手动开启。"
 
 DBM_CORE_LOAD_MOD_ERROR				= "读取%s模块时发生错误：%s"
-DBM_CORE_LOAD_MOD_GUILDERROR		= "您正在使用一个不正确的DBM版本，请到[http://bbs.ngacn.cc/read.php?tid=5397726]重新下载"
 DBM_CORE_LOAD_MOD_SUCCESS			= "成功读取%s模块。在聊天框输入 /dbm 或 /dbm help 可进行更多设置。"
 DBM_CORE_LOAD_GUI_ERROR				= "无法读取图形界面：%s"
-DBM_CORE_LOAD_GUI_COMBAT			= "图形介面不能在战斗中初始化。请先在於战斗外读取图形介面，这样就能够在战斗中使用。"
-
-DBM_ABSOLUTE_MODE_ON				= "专制模式开啟。"
-DBM_ABSOLUTE_MODE_OFF				= "专制模式关闭。再次广播模组版本。"
-DBM_ABSOLUTE_MODE_NOTIFY_ON			= "专制模式被%s开啟。只有他们的DBM能够设置团队图示。"
-DBM_ABSOLUTE_MODE_NOTIFY_OFF		= "专制模式被%s关闭。还原一般图示权限。"
+DBM_CORE_LOAD_GUI_COMBAT			= "无法在战斗中初始化图形界面。请先在非战斗状态打开图形设置界面，之后的战斗中就可以自由打开和关闭该界面了。"
 
 DBM_CORE_COMBAT_STARTED				= "%s作战开始，祝你走运 :)"
 DBM_CORE_COMBAT_STARTED_IN_PROGRESS	= "已进行的战斗%s作战开始。祝你走运 :)"
@@ -190,6 +184,8 @@ DBM_CORE_AUTO_ANNOUNCE_TEXTS = {
 	target					= "%s -> >%%s<",
 	targetcount				= "%s (%%d) -> >%%s<",
 	spell					= "%s",
+	ends 					= "%s 结束",
+	fades					= "%s 消失",
 	adds					= "%s剩余：%%d",
 	cast					= "正在施放 %s：%.1f秒",
 	soon					= "即将 %s",
@@ -205,6 +201,8 @@ DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
 	target					= "警报：$spell:%s的目标",
 	targetcount				= "警报：$spell:%s的目标",
 	spell					= "警报：$spell:%s",
+	ends					= "警报：$spell:%s结束",
+	fades					= "警报：$spell:%s消失",
 	adds					= "警报：$spell:%s剩余数量",
 	cast					= "警报：$spell:%s的施放",
 	soon					= prewarnOption,
@@ -218,6 +216,9 @@ DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
 -- Auto-generated Special Warning Localizations
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	spell					= "特殊警报：$spell:%s",
+	ends					= "特殊警报：$spell:%s结束",
+	fades					= "特殊警报：$spell:%s消失",
+	soon					= "特殊警报：$spell:%s即将到来",
 	dispel					= "特殊警报：需要驱散或偷取$spell:%s",
 	interrupt				= "特殊警报：需要打断$spell:%s",
 	you						= "特殊警报：当你受到$spell:%s影响时",
@@ -233,6 +234,9 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 
 DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	spell					= "%s!",
+	ends					= "%s 结束",
+	fades					= "%s 消失",
+	soon					= "%s 即将到来",
 	dispel					= ">%%s<中了%s - 快驱散",
 	interrupt				= "%s - 快打断",
 	you						= "你中了%s",

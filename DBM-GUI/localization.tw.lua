@@ -47,9 +47,6 @@ L.Statistic_Kills			= "成功："
 L.Statistic_Wipes			= "失敗："
 L.Statistic_Incompletes		= "完成:"
 L.Statistic_BestKill		= "最快記錄："
-L.Statistic_Heroic			= "英雄模式"
-L.Statistic_10Man			= "10人團隊"
-L.Statistic_25Man			= "25人團隊"
 
 -- Tab: General Options
 L.General 					= "DBM綜合設置"
@@ -62,6 +59,7 @@ L.EnableReadyCheckSound		= "允許關閉音效後播放團隊確認音"
 L.SKT_Enabled				= "永遠顯示快速擊殺計時器 (覆蓋首領特定的選項)"
 L.AutologBosses				= "自動使用暴雪戰鬥日誌記錄首領戰鬥"
 L.AdvancedAutologBosses		= "自動使用Transcriptor紀錄首領戰鬥"
+L.LogOnlyRaidBosses			= "只記錄首領戰鬥"
 L.Latency_Text				= "設定最高延遲同步門檻:%d"
 
 L.ModelOptions				= "3D模型預覽選項"

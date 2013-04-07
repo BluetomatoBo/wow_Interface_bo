@@ -8,7 +8,7 @@ local sndOrb	= mod:NewSound(nil, "SoundOrb", mod:IsTank())
 local LibRange = LibStub("LibRangeCheck-2.0")
 --BH ADD END
 
-mod:SetRevision(("$Revision: 9124 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9140 $"):sub(12, -3))
 mod:SetCreatureID(68476)
 mod:SetModelID(47325)
 mod:SetUsedIcons(1)
@@ -135,6 +135,10 @@ local function checksprange()
 						DBM.Flash:Show(1, 0, 0)
 						sndWSP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\killspirit.mp3") --靈魂快打
 					end
+--				elseif min >= 60 then
+--					if mod:AntiSpam(4, 5) then
+--						sndWSP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\safenow.mp3")
+--					end
 				end
 			end	
 		end
@@ -527,7 +531,7 @@ function mod:OnSync(msg, target)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cfkd.mp3") --衝鋒快躲
 		end
 		if UnitExists(target) and self.Options.SetIconOnCharge then
-			self:SetIcon(name, 1, 5)--Cross
+			self:SetIcon(target, 1, 5)--star
 		end
 	elseif msg == "Door" and self:AntiSpam(60, 4) then--prevent bad doorNumber increase if very late sync received.
 	--Doors spawn every 131.5 seconds
@@ -563,7 +567,7 @@ function mod:OnSync(msg, target)
 			timerAdds:Start(18.9, Amani)
 			warnAdds:Schedule(18.9, Amani)
 			self:Schedule(18.9, addsDelay, Amani)
-			if self.Options.RangeFrame then
+			if self.Options.RangeFrame and not self:IsDifficulty("lfr25") then
 				DBM.RangeCheck:Show(5)
 			end
 		end

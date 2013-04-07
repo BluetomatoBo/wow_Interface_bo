@@ -144,13 +144,17 @@ L:SetMiscLocalization({
 -- Megaera --
 -------------
 L= DBM:GetModLocalization(821)
-
+L:SetTimerLocalization({
+	timerBreathsCD			= "下一次吐息"
+})
+	
 L:SetWarningLocalization({
 	SpecWarnJSA			= ">>> 給毒頭坦減傷 <<<"
 })
 
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
+	timerBreaths			= "計時器：下一次吐息",
 	SoundXL			= "語音警告：$spell:140138",
 	HudMAP			= "高級定位監視(HUD)：$spell:139822",
 	HudMAP2			= "高級定位監視(HUD)：$spell:139889",
@@ -292,12 +296,12 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(820)
 
 L:SetWarningLocalization({
-	specWarnFullyMutatedFaded	= "%s 結束"
+	warnDebuffCount				= "變異 : %d/5 有益 & %d 有害"
 })
 
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
-	specWarnFullyMutatedFaded	= "特別警告：$spell:140546 結束",
+	warnDebuffCount		= "警告：當你獲得了有害變異",
 	InfoFrame		= "資訊框：首領當前的$journal:6949技能",
 	RangeFrame		= "顯示距離框架(2碼/5碼)",
 	SetIconOnBadOoze	= "為$spell:140506自動標記"
@@ -394,8 +398,13 @@ L:SetMiscLocalization({
 --------------
 L= DBM:GetModLocalization(832)
 
+L:SetWarningLocalization({
+	specWarnIntermissionSoon	= "充能階段 即將到來"
+})
+	
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
+	specWarnIntermissionSoon	= "特別警告：充能階段即將到來",
 	HudMAP			= "高級定位監視(HUD)：$spell:135695",
 	HudMAP2			= "高級定位監視(HUD)：$spell:136295",
 	cancelhud		= "當玩家白字說不需要分擔時變換HUD標誌(輸入監視關鍵字 例如:單吃)",

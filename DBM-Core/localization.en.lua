@@ -4,14 +4,8 @@ DBM_HOW_TO_USE_MOD					= "Welcome to DBM. Type /dbm help for a list of supported
 
 DBM_CORE_LOAD_MOD_ERROR				= "Error while loading boss mods for %s: %s"
 DBM_CORE_LOAD_MOD_SUCCESS			= "Loaded '%s' mods. For more options, type /dbm or /dbm help in your chat."
-DBM_CORE_LOAD_MOD_GUILDERROR		= "You are using an incorrect version of DBM, please go to [http://bbs.ngacn.cc/read.php?tid=5397726] Re-download"
 DBM_CORE_LOAD_GUI_ERROR				= "Could not load GUI: %s"
-DBM_CORE_LOAD_GUI_COMBAT			= "GUI cannot be initially loaded in combat. Please load GUI/configure options out of combat first, then it will be available in combat after that."
-
-DBM_ABSOLUTE_MODE_ON				= "Absolute mode enabled."
-DBM_ABSOLUTE_MODE_OFF				= "Absolute mode disabled. Broadcasting propper mod version again"
-DBM_ABSOLUTE_MODE_NOTIFY_ON			= "Absolute mode enabled by %s. Only their DBM can set raid icons."
-DBM_ABSOLUTE_MODE_NOTIFY_OFF		= "Absolute mode diabled by %s. Normal icon permissions restored."
+DBM_CORE_LOAD_GUI_COMBAT			= "GUI cannot be initially loaded in combat. GUI will be loaded out of combat. After GUI loaded, you can load GUI in combat."
 
 DBM_CORE_COMBAT_STARTED				= "%s engaged. Good luck and have fun! :)"
 DBM_CORE_COMBAT_STARTED_IN_PROGRESS	= "Engaged an in progress fight against %s. Good luck and have fun! :)"
@@ -152,6 +146,77 @@ DBM_CORE_ANNOUNCE_PULL_CANCEL		= "Cancel Pull Countdown!"
 
 DBM_CORE_ACHIEVEMENT_TIMER_SPEED_KILL = "Achievement"
 
+-- Auto-generated Warning Localizations
+DBM_CORE_AUTO_ANNOUNCE_TEXTS = {
+	target		= "%s on >%%s<",
+	targetcount	= "%s (%%d) on >%%s<",
+	spell		= "%s",
+	ends 		= "%s ended",
+	fades		= "%s faded",
+	adds		= "%s remaining: %%d",
+	cast		= "Casting %s: %.1f sec",
+	soon		= "%s soon",
+	prewarn		= "%s in %s",
+	phase		= "Phase %s",
+	prephase	= "Phase %s soon",
+	count		= "%s (%%d)",
+	stack		= "%s on >%%s< (%%d)"
+}
+
+local prewarnOption = "Show pre-warning for $spell:%s"
+DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
+	target		= "Announce $spell:%s targets",
+	targetcount	= "Announce $spell:%s targets",
+	spell		= "Show warning for $spell:%s",
+	ends		= "Show warning when $spell:%s has ended",
+	fades		= "Show warning when $spell:%s has faded",
+	adds		= "Announce how many $spell:%s remain",
+	cast		= "Show warning when $spell:%s is being cast",
+	soon		= prewarnOption,
+	prewarn 	= prewarnOption,
+	phase		= "Announce Phase %s",
+	prephase	= "Show a prewarning for Phase %s",
+	count		= "Show warning for $spell:%s",
+	stack		= "Announce $spell:%s stacks"
+}
+
+DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
+	spell		= "%s!",
+	ends		= "%s ended",
+	fades		= "%s faded",
+	soon		= "%s soon",
+	dispel		= "%s on >%%s< - dispel now",
+	interrupt	= "%s - interrupt >%%s<!",
+	you			= "%s on you",
+	target		= "%s on >%%s<",
+	close		= "%s on >%%s< near you",
+	move		= "%s - move away",
+	run			= "%s - run away",
+	cast		= "%s - stop casting",
+	count		= "%s! (%%d)",
+	stack		= "%%d stacks of %s on you",--too long?
+	switch		= ">%s< - switch targets"
+}
+
+-- Auto-generated Special Warning Localizations
+DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
+	spell 		= "Show special warning for $spell:%s",
+	ends 		= "Show special warning when $spell:%s has ended",
+	fades 		= "Show special warning when $spell:%s has faded",
+	soon 		= "Show pre-special warning for $spell:%s",
+	dispel 		= "Show special warning to dispel/spellsteal \n $spell:%s",
+	interrupt	= "Show special warning to interrupt $spell:%s",
+	you 		= "Show special warning when you are affected by \n $spell:%s",
+	target 		= "Show special warning when someone is affected by \n $spell:%s",
+	close 		= "Show special warning when someone close to you is \n affected by $spell:%s",
+	move 		= "Show special warning when you are affected by \n $spell:%s",
+	run 		= "Show special warning for $spell:%s",
+	cast 		= "Show special warning for $spell:%s cast",
+	count 		= "Show special warning for $spell:%s",
+	stack 		= "Show special warning when you are affected by >=%d stacks of \n $spell:%s",--too long?
+	switch		= "Show special warning to switch targets for \n $spell:%s"
+}
+
 -- Auto-generated Timer Localizations
 DBM_CORE_AUTO_TIMER_TEXTS = {
 	target		= "%s: >%%s<",
@@ -179,67 +244,6 @@ DBM_CORE_AUTO_TIMER_OPTIONS = {
 	nextcount	= "Show timer for next $spell:%s",
 	nextsource	= "Show timer (with source) for next $spell:%s",--Maybe better wording?
 	achievement	= "Show timer for %s"
-}
-
--- Auto-generated Warning Localizations
-DBM_CORE_AUTO_ANNOUNCE_TEXTS = {
-	target		= "%s on >%%s<",
-	targetcount	= "%s (%%d) on >%%s<",
-	spell		= "%s",
-	adds		= "%s remaining: %%d",
-	cast		= "Casting %s: %.1f sec",
-	soon		= "%s soon",
-	prewarn		= "%s in %s",
-	phase		= "Phase %s",
-	prephase	= "Phase %s soon",
-	count		= "%s (%%d)",
-	stack		= "%s on >%%s< (%%d)"
-}
-
-local prewarnOption = "Show pre-warning for $spell:%s"
-DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
-	target		= "Announce $spell:%s targets",
-	targetcount	= "Announce $spell:%s targets",
-	spell		= "Show warning for $spell:%s",
-	adds		= "Announce how many $spell:%s remain",
-	cast		= "Show warning when $spell:%s is being cast",
-	soon		= prewarnOption,
-	prewarn 	= prewarnOption,
-	phase		= "Announce Phase %s",
-	prephase	= "Show a prewarning for Phase %s",
-	count		= "Show warning for $spell:%s",
-	stack		= "Announce $spell:%s stacks"
-}
-
--- Auto-generated Special Warning Localizations
-DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
-	spell 		= "Show special warning for $spell:%s",
-	dispel 		= "Show special warning to dispel/spellsteal \n $spell:%s",
-	interrupt	= "Show special warning to interrupt $spell:%s",
-	you 		= "Show special warning when you are affected by \n $spell:%s",
-	target 		= "Show special warning when someone is affected by \n $spell:%s",
-	close 		= "Show special warning when someone close to you is \n affected by $spell:%s",
-	move 		= "Show special warning when you are affected by \n $spell:%s",
-	run 		= "Show special warning for $spell:%s",
-	cast 		= "Show special warning for $spell:%s cast",
-	count 		= "Show special warning for $spell:%s",
-	stack 		= "Show special warning when you are affected by >=%d stacks of \n $spell:%s",--too long?
-	switch		= "Show special warning to switch targets for \n $spell:%s"
-}
-
-DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
-	spell = "%s!",
-	dispel = "%s on >%%s< - dispel now",
-	interrupt = "%s - interrupt >%%s<!",
-	you = "%s on you",
-	target = "%s on >%%s<",
-	close = "%s on >%%s< near you",
-	move = "%s - move away",
-	run = "%s - run away",
-	cast = "%s - stop casting",
-	count = "%s! (%%d)",
-	stack = "%%d stacks of %s on you",--too long?
-	switch = ">%s< - switch targets"
 }
 
 

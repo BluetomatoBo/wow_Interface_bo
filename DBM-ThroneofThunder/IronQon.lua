@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9130 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9191 $"):sub(12, -3))
 mod:SetCreatureID(68078, 68079, 68080, 68081)--Ro'shak 68079, Quet'zal 68080, Dam'ren 68081, Iron Qon 68078
 mod:SetMainBossID(68078)
 mod:SetModelID(46627) -- Iron Qon, 46628 Ro'shak, 46629 Quet'zal, 46630 Dam'ren
@@ -24,7 +24,7 @@ mod:RegisterEventsInCombat(
 )
 
 local warnImpale						= mod:NewStackAnnounce(134691, 2, nil, mod:IsTank() or mod:IsHealer())
-local warnThrowSpear					= mod:NewSpellAnnounce(134926, 3)--Target scanning does not work for this.
+local warnThrowSpear					= mod:NewTargetAnnounce(134926, 3)--Target scanning does not work for this.
 local warnPhase1						= mod:NewPhaseAnnounce(1)
 local warnMoltenInferno					= mod:NewSpellAnnounce(134664, 2, nil, false)--highly variables cd, also can be spammy. disbled by default.
 local warnUnleashedFlame				= mod:NewSpellAnnounce(134611, 3, nil, false)--Spammy and unnesssary. Every 6 seconds is too often for a non important warning. people can turn it on if they want.
@@ -32,6 +32,7 @@ local warnMoltenOverload				= mod:NewSpellAnnounce(137221, 4)
 local warnWhirlingWinds					= mod:NewSpellAnnounce(139167, 3)--Heroic Phase 1
 local warnPhase2						= mod:NewPhaseAnnounce(2)
 local warnWindStorm						= mod:NewSpellAnnounce(136577, 4)
+local warnWindStormEnd					= mod:NewEndAnnounce(136577, 4)
 local warnLightningStorm				= mod:NewTargetAnnounce(136192, 3)
 local warnFrostSpike					= mod:NewSpellAnnounce(139180, 3)--Heroic Phase 2
 local warnPhase3						= mod:NewPhaseAnnounce(3)
@@ -44,6 +45,9 @@ local warnFistSmash						= mod:NewCountAnnounce(136146, 3)
 local specWarnImpale					= mod:NewSpecialWarningStack(134691, mod:IsTank(), 3)
 local specWarnImpaleOther				= mod:NewSpecialWarningTarget(134691, mod:IsTank())
 local specWarnThrowSpear				= mod:NewSpecialWarningSpell(134926, nil, nil, nil, 2)
+local specWarnThrowSpearYou				= mod:NewSpecialWarningYou(134926)
+local specWarnThrowSpearNear			= mod:NewSpecialWarningClose(134926)
+local yellThrowSpear					= mod:NewYell(134926)
 local specWarnScorched					= mod:NewSpecialWarningStack(134647, false, 3)--We do a 4 and 2 strat (4 melee 2 ranged). 3 is not an everyone strat.
 local specWarnBurningCinders			= mod:NewSpecialWarningMove(137668)
 local specWarnMoltenOverload			= mod:NewSpecialWarningSpell(137221, nil, nil, nil, 2)
@@ -53,8 +57,6 @@ local specWarnLightningStorm			= mod:NewSpecialWarningYou(136192)
 local yellLightningStorm				= mod:NewYell(136192)
 local specWarnFrozenBlood				= mod:NewSpecialWarningMove(136520)
 local specWarnFistSmash					= mod:NewSpecialWarningSpell(136146, nil, nil, nil, 2)
---BH ADD
-local specWarnJSA						= mod:NewSpecialWarning("SpecWarnJSA")
 
 local timerImpale						= mod:NewTargetTimer(40, 134691, mod:IsTank() or mod:IsHealer())
 local timerImpaleCD						= mod:NewCDTimer(20, 134691, mod:IsTank() or mod:IsHealer())
@@ -63,10 +65,12 @@ local timerUnleashedFlameCD				= mod:NewCDTimer(6, 134611)
 local timerScorched						= mod:NewBuffFadesTimer(30, 134647)
 local timerMoltenOverload				= mod:NewBuffActiveTimer(10, 137221)
 local timerLightningStormCD				= mod:NewCDTimer(20, 136192)
+local timerWindStorm					= mod:NewBuffActiveTimer(19.8, 136577)--19.8~21.7sec variables
 local timerWindStormCD					= mod:NewNextTimer(70, 136577)
 local timerFreezeCD						= mod:NewCDTimer(7, 135145, nil, false)
 local timerDeadZoneCD					= mod:NewCDTimer(15, 137229)
 local timerRisingAngerCD				= mod:NewNextTimer(15, 136323, nil, false)
+local timerFistSmash					= mod:NewBuffActiveTimer(8, 136146)
 local timerFistSmashCD					= mod:NewNextCountTimer(20, 136146)
 local timerWhirlingWindsCD				= mod:NewCDTimer(30, 139167)--Heroic Phase 1
 local timerFrostSpikeCD					= mod:NewCDTimer(12, 139180)--Heroic Phase 2
@@ -106,7 +110,42 @@ local function updateHealthFrame()
 			DBM.BossHealth:AddBoss(68081, Damren)
 		elseif phase == 4 then
 			DBM.BossHealth:AddBoss(68078, L.name)
+			if mod:IsDifficulty("heroic10", "heroic25") then
+				DBM.BossHealth:AddBoss(68081, Damren)
+				DBM.BossHealth:AddBoss(68080, Quetzal)
+				DBM.BossHealth:AddBoss(68079, Roshak)
+			end
 		end
+	end
+end
+
+--Spear target happens BEFORE cast, so we have to pre schedule scan it to grab target
+--This will fail if the spear target actually IS his highest threat
+--In that case the aoe failsafe warning will just be used, so 1/10 or 1/25 odds in phase 1.
+--Should not fail in phase 2+ cause tank will be highest threat then (assuming after he dismounts first mount the tank taunts/hits him before he grabs second.
+local function checkSpear()
+	if UnitExists("boss1target") and not UnitDetailedThreatSituation("boss1target", "boss1") then--Boss 1 is looking at someone that isn't his highest threat (not a bug, i know bigwigs filters boss2 and that's wrong way to do it. boss2 threat ~= boss 1 threat. my debug printed healers in phase 1 every pull as boss1 threat, tank in phase 2+)
+		mod:Unschedule(checkSpear)
+		local targetname = DBM:GetUnitFullName("boss1target")
+		warnThrowSpear:Show(targetname)
+		if UnitIsUnit("boss1target", "player") then--you are spear target
+			specWarnThrowSpearYou:Show()
+			yellThrowSpear:Yell()
+		else--Not spear target
+			local x, y = GetPlayerMapPosition("boss1target")
+			if x == 0 and y == 0 then
+				SetMapToCurrentZone()
+				x, y = GetPlayerMapPosition("boss1target")
+			end
+			local inRange = DBM.RangeCheck:GetDistance("player", x, y)
+			if inRange and inRange < 10 then
+				specWarnThrowSpearNear:Show(targetname)--Near spear target
+			elseif AntiSpam(15, 8) then--Smart way to do a failsafe in case we never get a valid target
+				specWarnThrowSpear:Show()--not spear target or near spear target, generic aoe warning (for the lines and stuff)
+			end
+		end
+	else
+		mod:Schedule(0.3, checkSpear)
 	end
 end
 
@@ -182,6 +221,7 @@ function mod:OnCombatStart(delay)
 	sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hyxt.mp3") --火焰形态
 	--BH ADD END
 	timerThrowSpearCD:Start(-delay)
+	self:Schedule(25, checkSpear)
 	if self.Options.RangeFrame then
 		if self:IsDifficulty("normal10", "heroic10") then
 			DBM.RangeCheck:Show(10, nil, nil, 2)
@@ -244,10 +284,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_rycz.mp3") --熔岩超載
 	elseif args.spellId == 136192 then
 		warnLightningStorm:Show(args.destName)
-		if phase == 1 then--Heroic
-			timerLightningStormCD:Start(38)
-		else
+		if phase == 2 then
 			timerLightningStormCD:Start()
+		else--Heroic phase 1 or 4
+			timerLightningStormCD:Start(38)
 		end
 		--BH ADD
 		if args:IsPlayer() then
@@ -266,10 +306,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		--BH ADD END
 	elseif args.spellId == 135145 then
 		warnFreeze:Show(args.destName)
-		if phase == 2 then--Heroic
-			timerFreezeCD:Start(36)
-		else
+		if phase == 3 then
 			timerFreezeCD:Start()
+		else--Heroic phase 2 or 4
+			timerFreezeCD:Start(36)
 		end
 	elseif args.spellId == 136323 then
 		warnRisingAnger:Show(args.destName, args.amount or 1)
@@ -364,9 +404,13 @@ end
 
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 134926 and phase < 4 then
-		warnThrowSpear:Show()
-		specWarnThrowSpear:Show()
+--		warnThrowSpear:Show()
+		if self:AntiSpam(15, 8) then--Basically, if the target scanning failed, we do an aoe warning on the actual summon.
+			specWarnThrowSpear:Show()
+		end
 		timerThrowSpearCD:Start()
+		self:Unschedule(checkSpear)
+		self:Schedule(25, checkSpear)--Timing adjust to reduce cpu usage when we know for sure the best time to check target. spear cd is variable, minimum though is 30, 25 is probably too early to start scanning but a good place to start.
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\spear.mp3") --投擲長矛
 	end
 end
@@ -393,7 +437,11 @@ mod.SPELL_MISSED = mod.SPELL_DAMAGE
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 134611 and self:AntiSpam(2, 5) then--Unleashed Flame internal CD. He cannot use more often than every 6 seconds. 137991 is ability activation on pull, before 137991 is cast, he can't use ability at all
 		warnUnleashedFlame:Show()
-		timerUnleashedFlameCD:Start()
+		if phase == 1 then
+			timerUnleashedFlameCD:Start()
+		else--heroic phase 3 or 4
+			timerUnleashedFlameCD:Start(30)--30-33 second variation
+		end
 	elseif spellId == 50630 and self:AntiSpam(2, 6) then--Eject All Passengers (heroic phase change trigger)
 		local cid = self:GetCIDFromGUID(UnitGUID(uId))
 		timerThrowSpearCD:Start()
@@ -418,6 +466,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerLightningStormCD:Start()
 			warnWindStorm:Schedule(52)
 			specWarnWindStorm:Schedule(52)
+			timerWindStorm:Schedule(52)
 			sndWOP:Schedule(52, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
 			timerWindStormCD:Start(52)
 		elseif cid == 68080 then--Quet'zal
@@ -439,6 +488,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bsxt.mp3") --冰霜形態
 			end
 			timerLightningStormCD:Cancel()
+			timerWindStorm:Cancel()
 			timerWindStormCD:Cancel()
 			timerFrostSpikeCD:Cancel()
 			warnPhase3:Show()
@@ -476,15 +526,18 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	elseif spellId == 137656 and self:AntiSpam(2, 1) then--Rushing Winds (Wind Storm pre trigger)
 		warnWindStorm:Cancel()
 		specWarnWindStorm:Cancel()
+		warnWindStormEnd:Show()
 		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3") 
 		warnWindStorm:Schedule(70)
 		specWarnWindStorm:Schedule(70)
+		timerWindStorm:Schedule(70)
 		sndWOP:Schedule(70, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3") --準備旋風
 		timerWindStormCD:Start()
 	elseif spellId == 136146 and self:AntiSpam(2, 5) then
 		fistSmashCount = fistSmashCount + 1
 		warnFistSmash:Show(fistSmashCount)
 		specWarnFistSmash:Show()
+		timerFistSmash:Start()
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerFistSmashCD:Start(30, fistSmashCount+1) -- heroic cd longer.
 		else
@@ -497,62 +550,76 @@ end
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 68079 then--Ro'shak
-		if self.Options.RangeFrame then
-			DBM.RangeCheck:Show(10, nil, nil, 1)--Switch range frame back to 1. Range is assumed 10, no spell info
+		if self:IsDifficulty("heroic10", "heroic25") then--In heroic, all mounts die in phase 4.
+			DBM.BossHealth:RemoveBoss(cid)
+		else
+			if self.Options.RangeFrame then
+				DBM.RangeCheck:Show(10, nil, nil, 1)--Switch range frame back to 1. Range is assumed 10, no spell info
+			end
+			if self.Options.InfoFrame then
+				DBM.InfoFrame:SetHeader(arcingName)
+				DBM.InfoFrame:Show(5, "playerbaddebuff", 136193)
+			end
+			--Only one log, but i looks like spear cd from phase 1 remains intact
+			phase = 2
+			updateHealthFrame()
+			timerUnleashedFlameCD:Cancel()
+			timerMoltenOverload:Cancel()
+			timerLightningStormCD:Start(17)
+			timerThrowSpearCD:Start()
+			warnPhase2:Show()
+			warnWindStorm:Schedule(49.5)
+			specWarnWindStorm:Schedule(49.5)
+			timerWindStorm:Schedule(49.5)
+			sndWOP:Schedule(49.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+			timerWindStormCD:Start(49.5)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdxt.mp3") --閃電形态
 		end
-		if self.Options.InfoFrame then
-			DBM.InfoFrame:SetHeader(arcingName)
-			DBM.InfoFrame:Show(5, "playerbaddebuff", 136193)
-		end
-		--Only one log, but i looks like spear cd from phase 1 remains intact
-		phase = 2
-		updateHealthFrame()
-		timerUnleashedFlameCD:Cancel()
-		timerMoltenOverload:Cancel()
-		timerLightningStormCD:Start(17)
-		timerThrowSpearCD:Start()
-		warnPhase2:Show()
-		warnWindStorm:Schedule(49.5)
-		specWarnWindStorm:Schedule(49.5)
-		sndWOP:Schedule(49.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
-		timerWindStormCD:Start(49.5)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdxt.mp3") --閃電形态
 	elseif cid == 68080 then--Quet'zal
-		phase = 3
-		if self.Options.HudMAP2 then
-			for i = 1, DBM:GetNumGroupMembers() do
-				if UnitDebuff("raid"..i, GetSpellInfo(136193)) then
-					if UnitName("raid"..i) ~= UnitName("player") then
-						FireMarkers[UnitName("raid"..i)] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", UnitName("raid"..i), 10, nil, 1, 1 ,1 ,0.8):Appear():RegisterForAlerts())
-					else
-						FireMarkers[UnitName("raid"..i)] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", UnitName("raid"..i), 10, nil, 1, 1 ,1 ,0.4):Appear():RegisterForAlerts())
+		if self:IsDifficulty("heroic10", "heroic25") then--In heroic, all mounts die in phase 4.
+			DBM.BossHealth:RemoveBoss(cid)
+		else
+			phase = 3
+			if self.Options.HudMAP2 then
+				for i = 1, DBM:GetNumGroupMembers() do
+					if UnitDebuff("raid"..i, GetSpellInfo(136193)) then
+						if UnitName("raid"..i) ~= UnitName("player") then
+							FireMarkers[UnitName("raid"..i)] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", UnitName("raid"..i), 10, nil, 1, 1 ,1 ,0.8):Appear():RegisterForAlerts())
+						else
+							FireMarkers[UnitName("raid"..i)] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", UnitName("raid"..i), 10, nil, 1, 1 ,1 ,0.4):Appear():RegisterForAlerts())
+						end
+						fixdebuffremovebug2(UnitName("raid"..i))
 					end
-					fixdebuffremovebug2(UnitName("raid"..i))
 				end
 			end
+			updateHealthFrame()
+			timerLightningStormCD:Cancel()
+			warnWindStorm:Cancel()
+			specWarnWindStorm:Cancel()
+			timerWindStorm:Cancel()
+			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+			timerWindStormCD:Cancel()
+			warnPhase3:Show()
+			timerDeadZoneCD:Start(6)
+			timerThrowSpearCD:Start()
+			checkArcing()
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bsxt.mp3") --冰霜形態
 		end
-		updateHealthFrame()
-		timerLightningStormCD:Cancel()
-		warnWindStorm:Cancel()
-		specWarnWindStorm:Cancel()
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
-		timerWindStormCD:Cancel()
-		warnPhase3:Show()
-		timerDeadZoneCD:Start(6)
-		timerThrowSpearCD:Start()
-		checkArcing()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bsxt.mp3") --冰霜形態
 	elseif cid == 68081 then--Dam'ren
-		phase = 4
-		updateHealthFrame()
-		self:UnregisterShortTermEvents()
-		timerDeadZoneCD:Cancel()
-		timerFreezeCD:Cancel()
-		--BH MODIFY
-		warnPhase4:Show()
-		timerRisingAngerCD:Start()
-		timerFistSmashCD:Start(22.5, 1)--fist smash cd is random. (22.5 or 31.5)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3") --2階段
+		if self:IsDifficulty("heroic10", "heroic25") then--In heroic, all mounts die in phase 4.
+			DBM.BossHealth:RemoveBoss(cid)
+		else
+			phase = 4
+			updateHealthFrame()
+			self:UnregisterShortTermEvents()
+			timerDeadZoneCD:Cancel()
+			timerFreezeCD:Cancel()
+			--BH MODIFY
+			warnPhase4:Show()
+			timerRisingAngerCD:Start()
+			timerFistSmashCD:Start(22.5, 1)--fist smash cd is random. (22.5 or 31.5)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3") --2階段
+		end
 	end
 end
 

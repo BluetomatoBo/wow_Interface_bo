@@ -4,7 +4,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndXG		= mod:NewSound(nil, "SoundXG", true)
 local sndAE		= mod:NewSound(nil, "SoundAE", true)
 
-mod:SetRevision(("$Revision: 9111 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9136 $"):sub(12, -3))
 mod:SetCreatureID(67977)
 mod:SetModelID(46559)
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3)
@@ -164,7 +164,9 @@ end
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 133939 then
 		warnStoneBreath:Show()
-		specWarnStoneBreath:Show(args.sourceName)
+		if not self:IsDifficulty("lfr25") then
+			specWarnStoneBreath:Show(args.sourceName)
+		end
 		timerBreathCD:Start()
 		DBM.Flash:Show(1, 0, 0)
 		sndAE:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")

@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(820, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9118 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9142 $"):sub(12, -3))
 mod:SetCreatureID(69017)--69070 Viscous Horror, 69069 good ooze, 70579 bad ooze (patched out of game, :\)
 mod:SetModelID(47009)
 
@@ -17,6 +17,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
+local warnDebuffCount				= mod:NewAnnounce("warnDebuffCount", 1, 140546)
 local warnMalformedBlood			= mod:NewStackAnnounce(136050, 2, nil, mod:IsTank() or mod:IsHealer())--No cd bars for this because it's HIGHLY variable (lowest priority spell so varies wildly depending on bosses 3 buffs)
 local warnPrimordialStrike			= mod:NewSpellAnnounce(136037, 3, nil, mod:IsTank() or mod:IsHealer())
 local warnGasBladder				= mod:NewTargetAnnounce(136215, 4)--Stack up in front for (but not too close or cleave will get you)
@@ -28,14 +29,15 @@ local warnVolatilePathogen			= mod:NewTargetAnnounce(136228, 4)
 local warnMetabolicBoost			= mod:NewTargetAnnounce(136245, 3)--Makes Malformed Blood, Primordial Strike and melee 50% more often
 local warnVentralSacs				= mod:NewTargetAnnounce(136210, 2)--This one is a joke, if you get it, be happy.
 local warnAcidicSpines				= mod:NewTargetAnnounce(136218, 3)
+local warnViscousHorror				= mod:NewCountAnnounce("ej6969", mod:IsTank())
 local warnBlackBlood				= mod:NewStackAnnounce(137000, 2, nil, mod:IsTank() or mod:IsHealer())
 
 local specWarnFullyMutated			= mod:NewSpecialWarningYou(140546)
-local specWarnFullyMutatedFaded		= mod:NewSpecialWarning("specWarnFullyMutatedFaded")
+local specWarnFullyMutatedFaded		= mod:NewSpecialWarningFades(140546)
 local specWarnCausticGas			= mod:NewSpecialWarningSpell(136216, nil, nil, nil, 2)--All must be in front for this.
 local specWarnPustuleEruption		= mod:NewSpecialWarningSpell(136247, false, nil, nil, 2)--off by default since every 5 sec, very spammy for special warning
 local specWarnVolatilePathogen		= mod:NewSpecialWarningYou(136228)
-local specWarnViscousHorror			= mod:NewSpecialWarningSwitch("ej6969", mod:IsTank())
+local specWarnViscousHorror			= mod:NewSpecialWarningCount("ej6969", mod:IsTank())
 
 local timerFullyMutated				= mod:NewBuffFadesTimer(120, 140546)
 local timerMalformedBlood			= mod:NewTargetTimer(60, 136050, nil, mod:IsTank() or mod:IsHealer())
@@ -44,7 +46,7 @@ local timerCausticGasCD				= mod:NewCDTimer(14, 136216)
 local timerPustuleEruptionCD		= mod:NewCDTimer(5, 136247, nil, false)
 local timerVolatilePathogenCD		= mod:NewCDTimer(28, 136228)--Too cute blizzard, too cute. (those who get the 28 reference for pathogen get an A+)
 local timerBlackBlood				= mod:NewTargetTimer(60, 137000, nil, mod:IsTank() or mod:IsHealer())
-local timerViscousHorrorCD			= mod:NewNextTimer(30, "ej6969", nil, nil, nil, 137000)
+local timerViscousHorrorCD			= mod:NewNextCountTimer(30, "ej6969", nil, nil, nil, 137000)
 
 local berserkTimer					= mod:NewBerserkTimer(480)
 
@@ -95,28 +97,28 @@ end
 local metabolicBoost = false
 local acidSpinesActive = false--Spread of 5 yards
 local postulesActive = false
---TODO, make an infoframe that shows players with > 0 debufs and sorts them highest amount of debuffs to lowest. This will show raid leaders or healers who's messing up or who needs to be dispelled.
-local positiveDebuffs = { GetSpellInfo(136184), GetSpellInfo(136186), GetSpellInfo(136182), GetSpellInfo(136180) }
-local failDebuffs  = { GetSpellInfo(136185), GetSpellInfo(136187), GetSpellInfo(136183), GetSpellInfo(136181) }
+local goodCount = 0
+local badCount = 0
+local bigOozeCount = 0
 
 function mod:BigOoze()
-	specWarnViscousHorror:Show()
-	timerViscousHorrorCD:Start()
+	bigOozeCount = bigOozeCount + 1
+	warnViscousHorror:Show(bigOozeCount)
+	specWarnViscousHorror:Show(bigOozeCount)
+	timerViscousHorrorCD:Start(30, bigOozeCount)
 	self:ScheduleMethod(30, "BigOoze")
-end
-
-function mod:DebuffTest()
-	print(positiveDebuffs)
-	print(failDebuffs)
 end
 
 function mod:OnCombatStart(delay)
 	metabolicBoost = false
 	acidSpinesActive = false
 	postulesActive = false
+	goodCount = 0
+	badCount = 0
+	bigOozeCount = 0
 	berserkTimer:Start(-delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
-		timerViscousHorrorCD:Start(12-delay)
+		timerViscousHorrorCD:Start(12-delay, 1)
 		self:ScheduleMethod(12-delay, "BigOoze")
 	end
 end
@@ -239,6 +241,36 @@ function mod:SPELL_AURA_REMOVED(args)
 		showspellinfo()
 	elseif args.spellId == 140546 and args:IsPlayer() then
 		specWarnFullyMutatedFaded:Show(args.spellName)
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bsjs.mp3")--變身結束
+	end
+end
+
+local good1 = GetSpellInfo(136180)
+local good2 = GetSpellInfo(136182)
+local good2 = GetSpellInfo(136184)
+local good3 = GetSpellInfo(136186)
+local bad1 = GetSpellInfo(136181)
+local bad2 = GetSpellInfo(136183)
+local bad3 = GetSpellInfo(136185)
+local bad4 = GetSpellInfo(136187)
+
+function mod:UNIT_AURA(uId)
+	if uId ~= "player" then return end
+	local gcnt, gcnt1, gcnt2, gcnt3, gcnt4, bcnt, bcnt1, bcnt2, bcnt3, bcnt4
+	gcnt1 = select(4, UnitDebuff("player", good1)) or 0
+	gcnt2 = select(4, UnitDebuff("player", good2)) or 0
+	gcnt3 = select(4, UnitDebuff("player", good3)) or 0
+	gcnt4 = select(4, UnitDebuff("player", good4)) or 0
+	bcnt1 = select(4, UnitDebuff("player", bad1)) or 0
+	bcnt2 = select(4, UnitDebuff("player", bad2)) or 0
+	bcnt3 = select(4, UnitDebuff("player", bad3)) or 0
+	bcnt4 = select(4, UnitDebuff("player", bad4)) or 0
+	gcnt = gcnt1 + gcnt2 + gcnt3 + gcnt4
+	bcnt = bcnt1 + bcnt2 + bcnt3 + bcnt4
+	if goodCount ~= gcnt or badCount ~= bcnt then
+		goodCount = gcnt
+		badCount = bcnt
+		warnDebuffCount:Show(goodCount, badCount)
 	end
 end
 
@@ -247,7 +279,5 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		warnPustuleEruption:Show()
 		specWarnPustuleEruption:Show()
 		timerPustuleEruptionCD:Start()
-	elseif spellId == 136050 and self:AntiSpam(2, 2) then--Malformed Blood
-		
 	end
 end

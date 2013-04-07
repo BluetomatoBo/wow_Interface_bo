@@ -6,7 +6,7 @@ local sndSpirit	= mod:NewSound(nil, "Soundspirit", true)
 local sndLS		= mod:NewSound(nil, "SoundLs", false)
 local sndHS		= mod:NewSound(nil, "SoundHs", false)
 
-mod:SetRevision(("$Revision: 9090 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9136 $"):sub(12, -3))
 mod:SetCreatureID(69078, 69132, 69134, 69131)--69078 Sul the Sandcrawler, 69132 High Prestess Mar'li, 69131 Frost King Malakk, 69134 Kazra'jin --Adds: 69548 Shadowed Loa Spirit,
 mod:SetModelID(47229)--Kazra'jin, 47505 Sul the Sandcrawler, 47506 Frost King Malakk, 47730 High Priestes Mar'li
 mod:SetUsedIcons(7, 6)
@@ -209,7 +209,7 @@ function mod:OnCombatStart(delay)
 	sndSpirit:Schedule(22, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 	sndSpirit:Schedule(23, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 	sndSpirit:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
-	if self.Options.RangeFrame then
+	if self.Options.RangeFrame and not self:IsDifficulty("lfr25") then
 		DBM.RangeCheck:Show(5)
 	end
 end

@@ -4,15 +4,9 @@ DBM_CORE_NEED_SUPPORT				= "你是否擁有良好的程式開發或語言能力?
 DBM_HOW_TO_USE_MOD					= "歡迎使用黑手之鄉DBM-語音版。在聊天頻道輸入 /dbm 打開設定開始設定。你可以載入特定區域後為任何首領設定你喜歡的特別設置。DBM會在第一次啟動時嘗試掃描你的職業天賦，但有些選項你可能想打開。"
 
 DBM_CORE_LOAD_MOD_ERROR				= "載入%s模組時發生錯誤：%s"
-DBM_CORE_LOAD_MOD_GUILDERROR		= "您正在使用一個不正確的DBM版本，請到[http://bbs.ngacn.cc/read.php?tid=5397726]重新下載"
 DBM_CORE_LOAD_MOD_SUCCESS			= "成功載入%s模組。輸入/dbm或/dbm help有更多選項。"
 DBM_CORE_LOAD_GUI_ERROR				= "無法載入圖形介面：%s"
 DBM_CORE_LOAD_GUI_COMBAT			= "圖形介面不能在戰鬥中初始化。請先在於戰鬥外讀取圖形介面，這樣就能夠在戰鬥中使用。"
-
-DBM_ABSOLUTE_MODE_ON				= "專制模式開啟。"
-DBM_ABSOLUTE_MODE_OFF				= "專制模式關閉。再次廣播模組版本。"
-DBM_ABSOLUTE_MODE_NOTIFY_ON			= "專制模式被%s開啟。只有他們的DBM能夠設置團隊圖示。"
-DBM_ABSOLUTE_MODE_NOTIFY_OFF		= "專制模式被%s關閉。還原一般圖示權限。"
 
 DBM_CORE_COMBAT_STARTED				= "%s開戰。祝好運與盡興! :)"
 DBM_CORE_COMBAT_STARTED_IN_PROGRESS	= "開戰%s已進行的戰鬥。祝好運與盡興! :)"
@@ -187,6 +181,8 @@ DBM_CORE_AUTO_ANNOUNCE_TEXTS = {
 	target					= "%s:>%%s<",
 	targetcount				= "%s (%%d):>%%s<",
 	spell					= "%s",
+	ends 					= "%s 結束",
+	fades					= "%s 消散",
 	adds					= "%s 剩餘：%%d",
 	cast					= "正在施放 %s: %.1f 秒",
 	soon					= "%s 即將到來",
@@ -202,6 +198,8 @@ DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
 	target					= "警告：$spell:%s的目標",
 	targetcount				= "警告：$spell:%s的目標",
 	spell					= "警告：$spell:%s",
+	ends 					= "警告：$spell:%s結束",
+	fades					= "警告：$spell:%s消散",
 	adds					= "警告：$spell:%s剩餘數量",
 	cast					= "警告：$spell:%s的施放",
 	soon					= prewarnOption,
@@ -215,6 +213,9 @@ DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
 -- Auto-generated Special Warning Localizations
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	spell					= "特別警告：$spell:%s",
+	ends					= "特別警告：$spell:%s结束",
+	fades					= "特別警告：$spell:%s消失",
+	soon					= "特別警告：$spell:%s即将到来",
 	dispel					= "特別警告：需要驅散/竊取$spell:%s時",
 	interrupt				= "特別警告：需要打斷$spell:%s時",
 	you						= "特別警告：當你中了$spell:%s時",
@@ -230,6 +231,9 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 
 DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	spell					= "%s!",
+	ends					= "%s 结束",
+	fades					= "%s 消失",
+	soon					= "%s 即将到来",
 	dispel					= ">%%s<中了%s - 快驅散",
 	interrupt				= "%s - 快打斷>%%s< !",
 	you						= "你中了%s",

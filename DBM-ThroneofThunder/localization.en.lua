@@ -112,8 +112,13 @@ L:SetMiscLocalization({
 -------------
 L= DBM:GetModLocalization(821)
 
+L:SetTimerLocalization({
+	timerBreathsCD			= "Next Breath"
+})
+
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
+	timerBreaths			= "Show timer for next breath",
 	HudMAP			= "高级定位监视(HUD)：$spell:139822",
 	HudMAP2			= "高级定位监视(HUD)：$spell:139889",
 	dr1				= "减伤提示:$spell:139458 1",
@@ -237,13 +242,11 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(820)
 
 L:SetWarningLocalization({
-	warnDebuffCount				= "Too many mutations: % good & % bad",
-	specWarnFullyMutatedFaded	= "%s faded"
+	warnDebuffCount				= "Mutate progress : %d/5 good & %d bad"
 })
 
 L:SetOptionLocalization({
-	warnDebuffCount				= "Show debuff count warnings when you absorb too many pools",
-	specWarnFullyMutatedFaded	= "Show special warning when $spell:140546 has faded",
+	warnDebuffCount				= "Show debuff count warnings when you absorb pools",
 	SoundWOP		= "语音警告：重要技能",
 	InfoFrame		= "资讯框：首领当前的$journal:6949技能",
 	RangeFrame			= "Show range frame (5/2)"
@@ -339,7 +342,12 @@ L:SetMiscLocalization({
 --------------
 L= DBM:GetModLocalization(832)
 
+L:SetWarningLocalization({
+	specWarnIntermissionSoon	= "Intermission soon"
+})
+
 L:SetOptionLocalization({
+	specWarnIntermissionSoon	= "Show pre-special warning before Intermission",
 	SoundWOP		= "语音警告：重要技能",
 	HudMAP			= "高级定位监视(HUD)：$spell:135695",
 	HudMAP2			= "高级定位监视(HUD)：$spell:136295",

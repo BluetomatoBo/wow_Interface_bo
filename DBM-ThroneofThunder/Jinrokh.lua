@@ -5,7 +5,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndIon	= mod:NewSound(nil, "SoundWOP", true)
 local sndIonCD	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9107 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9163 $"):sub(12, -3))
 mod:SetCreatureID(69465)
 mod:SetModelID(47552)
 
@@ -46,7 +46,8 @@ local timerStaticBurstCD			= mod:NewCDTimer(19, 137162, mod:IsTank())
 local timerThrowCD					= mod:NewCDTimer(26, 137175)--90-93 variable (26-30 seconds after storm. verified in well over 50 logs)
 local timerStorm					= mod:NewBuffActiveTimer(17, 137313)--2 second cast, 15 second duration
 local timerStormCD					= mod:NewCDTimer(60.5, 137313)--90-93 variable (60.5~67 seconds after throw)
-local timerIonizationCD				= mod:NewNextTimer(60.5, 138732)
+local timerIonization				= mod:NewBuffFadesTimer(24, 138732)
+local timerIonizationCD				= mod:NewNextTimer(61.5, 138732)
 -- BH ADD
 local specWarnLightningCrack			= mod:NewSpecialWarningMove(137485)
 local specWarnJSA				= mod:NewSpecialWarning("SpecWarnJSA")
@@ -57,7 +58,7 @@ local stormcount = 0
 
 local berserkTimer					= mod:NewBerserkTimer(540)
 
--- BH DELETE local countdownIonization			= mod:NewCountdown(60.5, 138732)
+-- BH DELETE local countdownIonization			= mod:NewCountdown(61.5, 138732)
 
 mod:AddBoolOption("RangeFrame")
 -- BH ADD
@@ -81,26 +82,8 @@ local function MyJS2()
 end
 -- BH ADD END
 
-local scansDone = 0
-
-function mod:TargetScanner(Force)
-	scansDone = scansDone + 1
-	local targetname, uId = self:GetBossTarget(69465)
-	if UnitExists(targetname) then
-		if self:IsTanking(uId, "boss1") and not Force then
-			if scansDone < 12 then
-				self:ScheduleMethod(0.025, "TargetScanner")
-			else
-				self:TargetScanner(true)
-			end
-		else
-			warnFocusedLightning:Show(targetname)
-		end
-	else
-		if scansDone < 12 then
-			self:ScheduleMethod(0.025, "TargetScanner")
-		end
-	end
+function mod:FocusedLightningTarget(targetname)
+	warnFocusedLightning:Show(targetname)
 end
 
 function mod:OnCombatStart(delay)
@@ -112,15 +95,17 @@ function mod:OnCombatStart(delay)
 	inoizame = false
 	stormcount = 0
 	if self:IsDifficulty("heroic10", "heroic25") then
-		timerIonizationCD:Start(-delay)
+		timerIonizationCD:Start(60-delay)
 --BH DELETE	countdownIonization:Start(-delay)
+		berserkTimer:Start(360-delay)
 		sndIonCD:Schedule(56, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_dlzb.mp3")
 		sndIonCD:Schedule(57, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
 		sndIonCD:Schedule(58, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 		sndIonCD:Schedule(59, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 		sndIonCD:Schedule(60, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+	else
+		berserkTimer:Start(-delay)
 	end
-	berserkTimer:Start(-delay)
 end
 
 function mod:OnCombatEnd()
@@ -130,11 +115,10 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(137399) then
-		scansDone = 0
-		self:TargetScanner()
+	if args.spellId == 137399 then
+		self:BossTargetScanner(69465, "FocusedLightningTarget", 0.025, 12)
 		timerFocusedLightningCD:Start()
-	elseif args:IsSpellID(137313) then
+	elseif args.spellId == 137313 then
 		warnStorm:Show()
 --BH DELETE	specWarnStorm:Show()
 		timerStorm:Start()
@@ -178,20 +162,20 @@ function mod:SPELL_CAST_START(args)
 			sndIonCD:Schedule(59, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 			sndIonCD:Schedule(60, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		end
-	elseif args:IsSpellID(138732) then
+	elseif args.spellId == 138732 then
 		warnIonization:Show()
 		specWarnIonization:Show()
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(137162) then
+	if args.spellId == 137162 then
 		timerStaticBurstCD:Start()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(137162) then
+	if args.spellId == 137162 then
 		warnStaticBurst:Show(args.destName)
 		if args:IsPlayer() then
 			specWarnStaticBurst:Show()
@@ -201,7 +185,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		if mod:IsTank() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3") --換坦嘲諷
 		end
-	elseif args:IsSpellID(138732) and args:IsPlayer() then
+	elseif args.spellId == 138732 and args:IsPlayer() then
+		timerIonization:Start()
 		--BH MODIFY
 		if self.Options.RangeFrame then
 			if self:IsDifficulty("heroic25") then
@@ -240,8 +225,9 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(138732) and args:IsPlayer() then
+	if args.spellId == 138732 and args:IsPlayer() then
 		--BH MODIFY
+		timerIonization:Cancel()
 		inoizame = false
 		if self.Options.RangeFrame then
 			if focusme then
@@ -259,7 +245,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		sndIon:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 		sndIon:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		sndIon:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\safenow.mp3")
-	elseif args:IsSpellID(137422) and args:IsPlayer() then
+	elseif args.spellId == 137422 and args:IsPlayer() then
 		focusme = false
 		if self.Options.RangeFrame then
 			if inoizame then
@@ -296,6 +282,7 @@ mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:find("spell:137175") then
+		local target = DBM:GetFullNameByShortName(target)
 		warnThrow:Show(target)
 		timerStormCD:Start()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lttz.mp3") --雷霆投擲
@@ -317,7 +304,6 @@ function mod:RAID_BOSS_WHISPER(msg)
 	if msg:find("spell:137422") then--In case target scanning fails, personal warnings still always go off. Target scanning is just so everyone else in raid knows who it's on (since only target sees this emote)
 		specWarnFocusedLightning:Show()
 		yellFocusedLightning:Yell()
---BH DELETE	soundFocusedLightning:Play()
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Show(8)
 		end

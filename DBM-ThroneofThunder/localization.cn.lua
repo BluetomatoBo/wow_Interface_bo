@@ -148,8 +148,13 @@ L:SetMiscLocalization({
 -------------
 L= DBM:GetModLocalization(821)
 
+L:SetTimerLocalization({
+	timerBreathsCD			= "下一次吐息"
+})
+	
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
+	timerBreaths			= "计时器：下一次吐息",
 	SoundXL			= "语音警告：$spell:140138",
 	HudMAP			= "高级定位监视(HUD)：$spell:139822",
 	HudMAP2			= "高级定位监视(HUD)：$spell:139889",
@@ -292,12 +297,12 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(820)
 
 L:SetWarningLocalization({
-	specWarnFullyMutatedFaded	= "%s 結束"
+	warnDebuffCount				= "变异 : %d/5 有益 & %d 有害"
 })
 
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
-	specWarnFullyMutatedFaded	= "特别警告：$spell:140546 消散",
+	warnDebuffCount		= "警告:当你获得了debuff",
 	InfoFrame		= "资讯框：首领当前的$journal:6949技能",
 	RangeFrame		= "显示距离框架(2码/5码)",
 	SetIconOnBadOoze	= "为$spell:140506自动标记"
@@ -393,8 +398,13 @@ L:SetMiscLocalization({
 --------------
 L= DBM:GetModLocalization(832)
 
+L:SetWarningLocalization({
+	specWarnIntermissionSoon	= "充能阶段即将到来"
+})
+
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
+	specWarnIntermissionSoon	= "特别警告：充能阶段即将到来",
 	cancelhud		= "当玩家白字说不需要分担时变换HUD标誌(输入监视关键字 例如:单吃)",
 	HudMAP			= "高级定位监视(HUD)：$spell:135695",
 	HudMAP2			= "高级定位监视(HUD)：$spell:136295",

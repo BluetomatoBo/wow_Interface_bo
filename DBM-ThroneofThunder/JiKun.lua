@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPWS	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9112 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9157 $"):sub(12, -3))
 mod:SetCreatureID(69712)
 mod:SetModelID(46675)
 
@@ -36,9 +36,9 @@ local specWarnDowndraft		= mod:NewSpecialWarningSpell(134370, nil, nil, nil, 2)
 local specWarnFeedYoung		= mod:NewSpecialWarningSpell(137528)
 local specWarnBigBird		= mod:NewSpecialWarningSwitch("ej7827", mod:IsTank())
 
---local timerCawsCD			= mod:NewCDTimer(15, 138923)--Variable beyond usefulness. anywhere from 18 second cd and 50.
+local timerCawsCD			= mod:NewCDTimer(15, 138923)--Variable beyond usefulness. anywhere from 18 second cd and 50.
 local timerQuills			= mod:NewBuffActiveTimer(10, 134380)
-local timerQuillsCD			= mod:NewCDTimer(62.5, 134380)--variable because he has two other channeled abilities with different cds, so this is cast every 62.5-67 seconds usually after channel of some other spell ends
+local timerQuillsCD			= mod:NewCDCountTimer(62.5, 134380)--variable because he has two other channeled abilities with different cds, so this is cast every 62.5-67 seconds usually after channel of some other spell ends
 local timerFlockCD	 		= mod:NewTimer(30, "timerFlockCD", 15746)
 local timerFeedYoungCD	 	= mod:NewCDTimer(30, 137528)--30-40 seconds (always 30 unless delayed by other channeled spells)
 local timerTalonRakeCD		= mod:NewCDTimer(20, 134366, mod:IsTank() or mod:IsHealer())--20-30 second variation
@@ -52,6 +52,7 @@ mod:AddBoolOption("RangeFrame", mod:IsRanged())
 
 local flockC = 0
 local lastFlock = 0
+local quillsCount = 0
 local trippleNest = false
 local flockName = EJ_GetSectionInfo(7348)
 
@@ -76,24 +77,26 @@ local function MyAddUp(flockwave)
 end
 function mod:OnCombatStart(delay)
 	flockC = 0
+	quillsCount = 0
 	trippleNest = false
 	-- BH ADD
 	flockCount = 0
 	wstime = 0
 	-- BH ADD END
-	if self:IsDifficulty("normal10", "heroic10") then
-		timerQuillsCD:Start(60.5-delay)
+	if self:IsDifficulty("normal10", "heroic10", "lfr25") then
+		timerQuillsCD:Start(60-delay, 1)
 	else
-		timerQuillsCD:Start(42.5-delay)
-	end	
+		timerQuillsCD:Start(42.5-delay, 1)
+	end
 	timerDowndraftCD:Start(91-delay)
+	timerCawsCD:Start(15-delay)
 	sndWOP:Schedule(85, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xjzb.mp3")
 	sndWOP:Schedule(87, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
 	sndWOP:Schedule(88, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 	sndWOP:Schedule(89, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 	sndWOP:Schedule(90, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(8)
+	if self.Options.RangeFrame and not self:IsDifficulty("lfr25") then
+		DBM.RangeCheck:Show(10)
 	end
 end
 
@@ -136,12 +139,12 @@ function mod:SPELL_AURA_APPLIED(args)
 			sndWOPWS:Schedule(38.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 			sndWOPWS:Schedule(39.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		else
-			timerFeedYoungCD:Start(30)
+			timerFeedYoungCD:Start()
 			sndWOPWS:Schedule(26, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbws.mp3")
 			sndWOPWS:Schedule(27.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 			sndWOPWS:Schedule(28.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 			sndWOPWS:Schedule(29.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
-		end	
+		end
 	elseif args.spellId == 133755 and args:IsPlayer() then
 		timerFlight:Start()
 	elseif args.spellId == 140741 and args:IsPlayer() then
@@ -158,13 +161,14 @@ end
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 134380 then
-		warnQuills:Show()
+		quillsCount = quillsCount + 1
+		warnQuills:Show(quillsCount)
 		specWarnQuills:Show()
 		timerQuills:Start()
 		if self:IsDifficulty("normal10", "heroic10", "lfr25") then
-			timerQuillsCD:Start(81)--exactly 81 sec in lfr
+			timerQuillsCD:Start(81, quillsCount+1)--81 sec normal, sometimes 91s?
 		else
-			timerQuillsCD:Start()
+			timerQuillsCD:Start(nil, quillsCount+1)
 		end
 		if mod:IsHealer() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\healall.mp3") --注意群療
@@ -220,7 +224,7 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:find("spell:138923") then--Caws (does not show in combat log, like a lot of stuff this tier) Fortunately easy to detect this way without localizing
 		warnCaws:Show()
-		--timerCawsCD
+		timerCawsCD:Start(18)
 	end
 end
 
@@ -289,15 +293,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, _, _, _, target)
 		warnFlock:Schedule(0.5, messageText, flockName, flockText)
 --BH DELETE	specWarnFlock:Schedule(0.5, messageText, flockName, flockText)
 		--10N/10H/LFR: L, L, L, U, U, U (Repeating)
-		if self:IsDifficulty("normal10") then
-			if flockC == 1 or flockC == 2 or flockC == 6 or flockC == 7 or flockC == 8 or flockC == 12 or flockC == 13 or flockC == 14 or flockC == 18 or flockC == 19 or flockC == 20 or flockC == 24 or flockC == 25 or flockC == 26 or flockC == 30 or flockC == 31 or flockC == 32 then--Lower is next
-				timerFlockCD:Show(40, flockCount+1, L.Lower)
-			elseif flockC == 3 or flockC == 4 or flockC == 5 or flockC == 9 or flockC == 10 or flockC == 11 or flockC == 15 or flockC == 16 or flockC == 17 or flockC == 21 or flockC == 22 or flockC == 23 or flockC == 27 or flockC == 28 or flockC == 29 or flockC == 33 or flockC == 34 or flockC == 35 then--Upper is next
-				timerFlockCD:Show(40, flockCount+1, L.Upper)
-			else--Logic Failsafe, if we don't know what next one is we just say unknown and at least start a timer
-				timerFlockCD:Show(40, flockCount+1, DBM_CORE_UNKNOWN)
-			end
-		elseif self:IsDifficulty("heroic10", "lfr25") then--LFR is same as 10 heroic
+		if self:IsDifficulty("normal10", "heroic10", "lfr25") then
 			if flockC == 1 or flockC == 2 or flockC == 6 or flockC == 7 or flockC == 8 or flockC == 12 or flockC == 13 or flockC == 14 or flockC == 18 or flockC == 19 or flockC == 20 or flockC == 24 or flockC == 25 or flockC == 26 or flockC == 30 or flockC == 31 or flockC == 32 then--Lower is next
 				timerFlockCD:Show(40, flockCount+1, L.Lower)
 			elseif flockC == 3 or flockC == 4 or flockC == 5 or flockC == 9 or flockC == 10 or flockC == 11 or flockC == 15 or flockC == 16 or flockC == 17 or flockC == 21 or flockC == 22 or flockC == 23 or flockC == 27 or flockC == 28 or flockC == 29 or flockC == 33 or flockC == 34 or flockC == 35 then--Upper is next
@@ -335,7 +331,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, _, _, _, target)
 			timerFlockCD:Show(30, flockCount+1, DBM_CORE_UNKNOWN)
 		end
 		lastFlock = GetTime()
-		if self:IsDifficulty("heroic10") and flockC % 2 == 0 or self:IsDifficulty("heroic25") and (flockC == 2 or flockC == 6 or flockC == 12 or flockC == 23) then--TODO, nest 12 is only one that's an upper, all others on 25H are lower.
+		if self:IsDifficulty("heroic10") and (flockC == 2 or flockC == 4 or flockC == 8 or flockC == 12 or flockC == 14) or self:IsDifficulty("heroic25") and (flockC == 2 or flockC == 6 or flockC == 12 or flockC == 16 or flockC == 23) then--TODO, nest 12/16 are upper, all others on 25H are lower.
 			specWarnBigBird:Show()
 		end
 	end

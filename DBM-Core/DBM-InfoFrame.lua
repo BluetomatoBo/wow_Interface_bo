@@ -481,6 +481,33 @@ local function updatePlayerBuffStacks()
 	updateLines()
 end
 
+local function updatePlayerDebuffStacks()
+	table.wipe(lines)
+	local spell = GetSpellInfo(infoFrameThreshold)
+	if IsInRaid() then
+		for i = 1, GetNumGroupMembers() do
+			local uId = "raid"..i
+			if UnitDebuff(uId, spell) then
+				lines[UnitName(uId)] = select(4, UnitDebuff(uId, spell))
+			end
+		end
+	elseif IsInGroup() then
+		for i = 1, GetNumSubgroupMembers() do
+			local uId = "party"..i
+			if UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)) then
+				lines[UnitName(uId)] = select(4, UnitDebuff(uId, spell))
+			end
+		end
+		if UnitDebuff("player", GetSpellInfo(infoFrameThreshold)) then
+			lines[UnitName("player")] = select(4, UnitDebuff("player", spell))
+		end
+	end
+
+	updateIcons()
+	updateLines()
+end
+
+--BH ADD
 local function updateBossDebuffStacks()
 	table.wipe(lines)
 	local UnitDebuffTime
@@ -497,51 +524,6 @@ local function updateBossDebuffStacks()
 			end			
 		end
 	end
-	updateLines()
-end
-
-local function updatePlayerDebuffStacks()
-	table.wipe(lines)
-	updateIcons()	-- update Icons first in case of an "icon modifier"
-	if IsInRaid() then
-		for i = 1, GetNumGroupMembers() do
-			local uId = "raid"..i
-			if UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)) then
-				lines[UnitName(uId)] = select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)))
-			elseif UnitDebuff(uId, GetSpellInfo(pIndex)) then
-				lines[UnitName(uId)] = lastStacks[UnitName(uId)] or 0			-- is always 0 ?
-				if iconModifier then
-					icons[UnitName(uId)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(iconModifier)
-				end
-			end
-		end
-	elseif IsInGroup() then
-		for i = 1, GetNumSubgroupMembers() do
-			local uId = "party"..i
-			if UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)) then
-				lines[UnitName(uId)] = select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)))
-			elseif UnitDebuff(uId, GetSpellInfo(pIndex)) then
-				lines[UnitName(uId)] = lastStacks[UnitName(uId)] or 0
-				if iconModifier then
-					icons[UnitName(uId)] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(iconModifier)
-				end
-			end
-		end
-		if UnitDebuff("player", GetSpellInfo(infoFrameThreshold)) then
-			lines[UnitName("player")] = select(4, UnitDebuff("player", GetSpellInfo(infoFrameThreshold)))
-		elseif UnitDebuff("player", GetSpellInfo(pIndex)) then
-			lines[UnitName("player")] = lastStacks[UnitName("player")]
-			if iconModifier then
-				icons[UnitName("player")] = ("|TInterface\\TargetingFrame\\UI-RaidTargetingIcon_%d:0|t"):format(iconModifier)
-			end
-		end
-	end
-
-	table.wipe(lastStacks)		-- 'Erase' the old table, and copy the current values into it
-	for k,v in pairs(lines) do
-		lastStacks[k] = v
-	end
-
 	updateLines()
 end
 
@@ -609,7 +591,6 @@ local function updatePlayerDebuffStacksTime()
 			end
 		end
 	end
---	updateLines()
 	updateNamesortLines()
 	updateIcons()
 end
@@ -650,8 +631,7 @@ local function updateTime()
 		lines[infot]= infoFrameThreshold
 	end
 	updateLines()
-end
-
+end --BH ADD END
 
 local function updatePlayerAggro()
 	table.wipe(lines)
@@ -723,8 +703,6 @@ function onUpdate(self, elapsed)
 		updatePlayerPower()
 	elseif currentEvent == "enemypower" then
 		updateEnemyPower()
-	elseif currentEvent == "cobalypower" then
-		updateCobalyPower()
 	elseif currentEvent == "playerbuff" then
 		updatePlayerBuffs()
 	elseif currentEvent == "playergooddebuff" then
@@ -735,10 +713,12 @@ function onUpdate(self, elapsed)
 		updatePlayerAggro()
 	elseif currentEvent == "playerbuffstacks" then
 		updatePlayerBuffStacks()
-	elseif currentEvent == "playertargets" then
-		updatePlayerTargets()
 	elseif currentEvent == "playerdebuffstacks" then
 		updatePlayerDebuffStacks()
+	elseif currentEvent == "playertargets" then
+		updatePlayerTargets()
+	elseif currentEvent == "cobalypower" then
+		updateCobalyPower()
 	elseif currentEvent == "playerdebuffstackstime" then
 		updatePlayerDebuffStacksTime()
 	elseif currentEvent == "bossdebuffstacks" then
@@ -808,8 +788,6 @@ function infoFrame:Show(maxLines, event, threshold, ...)
 		updatePlayerPower()
 	elseif event == "enemypower" then
 		updateEnemyPower()
-	elseif currentEvent == "cobalypower" then
-		updateCobalyPower()
 	elseif event == "playerbuff" then
 		updatePlayerBuffs()
 	elseif event == "playergooddebuff" then
@@ -822,10 +800,12 @@ function infoFrame:Show(maxLines, event, threshold, ...)
 		updatePlayerBuffStacks()
 	elseif currentEvent == "playerdebuffstacks" then
 		updatePlayerDebuffStacks()
-	elseif currentEvent == "playerdebuffstackstime" then
-		updatePlayerDebuffStacksTime()
 	elseif currentEvent == "playertargets" then
 		updatePlayerTargets()
+	elseif currentEvent == "cobalypower" then
+		updateCobalyPower()
+	elseif currentEvent == "playerdebuffstackstime" then
+		updatePlayerDebuffStacksTime()
 	elseif currentEvent == "other" then
 		updateOther()
 	elseif currentEvent == "time" then
@@ -840,6 +820,32 @@ function infoFrame:Show(maxLines, event, threshold, ...)
 	frame:Show()
 	frame:SetOwner(UIParent, "ANCHOR_PRESERVE")
 	onUpdate(frame, 0)
+end
+
+function infoFrame:Update(event)
+	if event == "health" then
+		updateHealth()
+	elseif event == "playerpower" then
+		updatePlayerPower()
+	elseif event == "enemypower" then
+		updateEnemyPower()
+	elseif event == "playerbuff" then
+		updatePlayerBuffs()
+	elseif event == "playergooddebuff" then
+		updateGoodPlayerDebuffs()
+	elseif event == "playerbaddebuff" then
+		updateBadPlayerDebuffs()
+	elseif event == "playeraggro" then
+		updatePlayerAggro()
+	elseif event == "playerbuffstacks" then
+		updatePlayerBuffStacks()
+	elseif event == "playerdebuffstacks" then
+		updatePlayerDebuffStacks()
+	elseif event == "playertargets" then
+		updatePlayerTargets()
+	else
+		error("DBM-InfoFrame: Unsupported event", 2)
+	end
 end
 
 function infoFrame:Hide()

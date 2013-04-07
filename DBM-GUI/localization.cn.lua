@@ -51,9 +51,6 @@ L.Statistic_Wipes			= "失败："
 L.Statistic_Incompletes		= "完成:"--For scenarios, TODO, figure out a clean way to replace any Statistic_Wipes with Statistic_Incompletes for scenario mods
 L.Statistic_Wipes			= "失败："
 L.Statistic_BestKill		= "最好成绩："
-L.Statistic_Heroic			= "英雄模式"
-L.Statistic_10Man			= "10人"
-L.Statistic_25Man			= "25人"
 
 -- Tab: General Options
 L.General 					= "DBM综合设置"
@@ -66,6 +63,7 @@ L.EnableReadyCheckSound		= "允许关闭音效后播放团队确认音"
 L.SKT_Enabled				= "永远显示最速击杀计时条（无论该首领的相关设置如何）"
 L.AutologBosses				= "自动开启战斗记录"
 L.AdvancedAutologBosses			= "自动开启战斗记录(使用Transcriptor插件)"
+L.LogOnlyRaidBosses			= "只记录首领战斗"
 L.Latency_Text				= "设定启用同步功能的最高延迟阀值：%d"
 
 L.ModelOptions				= "3D模型选项"
