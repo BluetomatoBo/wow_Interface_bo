@@ -207,12 +207,12 @@ local function ValidateTeamData(petIds)
     local temp = {}
     for i = 1, MAX_ACTIVE_PETS do
       local petId = petIds[i]
-      if C_PetJournal.GetPetInfoByPetID(petId) then
+      if type(petId) == "string" and strlen(petId) >= 18 and C_PetJournal.GetPetInfoByPetID(petId) then -- trying to avoid more errors by feeding it corrupt data, checking that the petId is infact up-to-date hex guid of a pet! a valid hex guid consists of a 16 hex in lenght and the prefix, making it 18 characters long.
         table.insert(temp, petId)
       end
     end
     for i = MAX_ACTIVE_PETS - #temp, 1, -1 do
-      table.insert(temp, "0x0000")
+      table.insert(temp, "0x0000000000000000")
     end
     return next(temp) and temp or nil
   end
@@ -362,7 +362,7 @@ function BattlePetTab_SetCurentTeamAsTab(teamId)
     end
   end
   for i = MAX_ACTIVE_PETS - #team.team, 1, -1 do
-    table.insert(team.team, "0x0000")
+    table.insert(team.team, "0x0000000000000000")
     team.team2[#team.team] = {0, 0, 0}
   end
   team.icon = nil -- refresh icon
@@ -384,7 +384,7 @@ function BattlePetTab_LoadTeamId(teamId)
     for i = 1, MAX_ACTIVE_PETS do
       pets[i] = BattlePetTabsDB[teamId].team[i]
       pets[i] = type(pets[i]) == "string" and pets[i] or ""
-      if pets[i] == "" or pets[i] == C_PetJournal.GetPetLoadOutInfo(i) or (pets[i] == "0x0000" and not C_PetJournal.GetPetLoadOutInfo(i)) then
+      if pets[i] == "" or pets[i] == C_PetJournal.GetPetLoadOutInfo(i) or ((pets[i] == "0x0000" or pets[i] == "0x0000000000000000") and not C_PetJournal.GetPetLoadOutInfo(i)) then
         count = count + 1
       else
         C_PetJournal.SetPetLoadOutInfo(i, pets[i], addonName)
@@ -524,7 +524,7 @@ function BattlePetTabs_OnEvent(addon, event, name)
           button1 = ACCEPT,
           button2 = CANCEL,
           OnAccept = function(self)
-            C_PetJournal.SetPetLoadOutInfo(self.data, "0x0000")
+            C_PetJournal.SetPetLoadOutInfo(self.data, "0x0000000000000000")
             BattlePetTabs_Update()
           end,
           timeout = 0,
