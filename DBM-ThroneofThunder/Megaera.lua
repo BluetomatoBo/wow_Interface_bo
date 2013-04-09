@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndXL	= mod:NewSound(nil, "SoundXL", true)
 
-mod:SetRevision(("$Revision: 9155 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9194 $"):sub(12, -3))
 mod:SetCreatureID(68065, 70212, 70235, 70247)--flaming 70212. Frozen 70235, Venomous 70247
 mod:SetMainBossID(68065)
 mod:SetModelID(47414)--Hydra Fire Head, 47415 Frost Head, 47416 Poison Head
@@ -35,6 +35,7 @@ mod:RegisterEventsInCombat(
 --http://worldoflogs.com/reports/t4bwnbajfwm9gsbv/xe/?s=2435&e=2856&x=spell+%3D+%22Icy+Touch%22+or+%28spellid+%3D+139850+or+spell+%3D+%22Rampage%22%29+and+targetname+%3D+%22Omegal%22+or+%28spellid+%3D+139822+or+spellid+%3D+139866%29+and+fulltype+%3D+SPELL_CAST_SUCCESS
 
 local warnRampage				= mod:NewCountAnnounce(139458, 3)
+local warnRampageFaded			= mod:NewFadesAnnounce(139458, 2)
 local warnArcticFreeze			= mod:NewStackAnnounce(139843, 3, nil, mod:IsTank() or mod:IsHealer())
 local warnIgniteFlesh			= mod:NewStackAnnounce(137731, 3, nil, mod:IsTank() or mod:IsHealer())
 local warnRotArmor				= mod:NewStackAnnounce(139840, 3, nil, mod:IsTank() or mod:IsHealer())
@@ -44,6 +45,7 @@ local warnTorrentofIce			= mod:NewTargetAnnounce(139889, 4)
 local warnNetherTear			= mod:NewSpellAnnounce(140138, 3)--Heroic
 
 local specWarnRampage			= mod:NewSpecialWarningCount(139458, nil, nil, nil, 2)
+local specWarnRampageFaded		= mod:NewSpecialWarningFades(139458)--Spread back out quickly (plus for tanks to get back to heads and face them correctly)
 local specWarnArcticFreeze		= mod:NewSpecialWarningStack(139843, mod:IsTank(), 2)
 local specWarnIgniteFlesh		= mod:NewSpecialWarningStack(137731, mod:IsTank(), 2)
 local specWarnRotArmor			= mod:NewSpecialWarningStack(139840, mod:IsTank(), 2)
@@ -55,6 +57,7 @@ local specWarnTorrentofIceYou	= mod:NewSpecialWarningRun(139889)
 local yellTorrentofIce			= mod:NewYell(139889)
 local specWarnTorrentofIce		= mod:NewSpecialWarningMove(139909)--Ice left on ground by the beam
 local specWarnNetherTear		= mod:NewSpecialWarningSwitch("ej7816", mod:IsDps())
+local SpecWarnJSA				= mod:NewSpecialWarning("SpecWarnJSA")
 
 local timerRampage				= mod:NewBuffActiveTimer(21, 139458)
 mod:AddBoolOption("timerBreaths", mod:IsTank() or mod:IsHealer(), "timer")--Better to have one option for breaths than 4
@@ -221,7 +224,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnNetherTear:Show()
 		specWarnNetherTear:Show()
 		timerNetherTearCD:Start(args.sourceGUID)
-		if self:AntiSpam(10, 4) then
+		if self:AntiSpam(10, 5) then
 			sndXL:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dragonnow.mp3")  --小龍出現
 		end
 	elseif args.spellId == 139866 then
@@ -362,6 +365,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
 		end		
 	elseif msg == L.rampageEnds or msg:find(L.rampageEnds) then
+		warnRampageFaded:Show()
+		specWarnRampageFaded:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 		if self.Options.timerBreaths then
 			timerBreathsCD:Start(10)
@@ -392,12 +397,15 @@ end
 
 function mod:RAID_BOSS_WHISPER(msg)
 	if msg:find("spell:139866") then
-		specWarnTorrentofIceYou:Show()
-		yellTorrentofIce:Yell()
---		soundTorrentofIce:Play()
-		self:SendSync("IceTarget", UnitGUID("player"))
-		DBM.Flash:Show(0, 0, 1)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
+		if self:AntiSpam(5, 6) then
+			specWarnTorrentofIceYou:Show()
+			yellTorrentofIce:Yell()
+			timerTorrentofIce:Start()
+	--		soundTorrentofIce:Play()
+			self:SendSync("IceTarget", UnitGUID("player"))
+			DBM.Flash:Show(0, 0, 1)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
+		end
 	end
 end
 
@@ -478,20 +486,22 @@ function mod:UNIT_DIED(args)
 	end
 end
 
---TODO, check for an aura method instead?
---[[ UNCONFIRMED YET.
 function mod:UNIT_AURA(uId)
 	if UnitDebuff(uId, iceTorrent) then
-		print("ice Torrent detected")
 		local _, _, _, _, _, duration, expires = UnitDebuff(uId, iceTorrent)
 		if lastTorrent ~= expires then
 			lastTorrent = expires
 			local name = DBM:GetUnitFullName(uId)
 			warnTorrentofIce:Show(name)
 			if name == UnitName("player") then
-				specWarnTorrentofIceYou:Show()
-				timerTorrentofIce:Start()
-				yellTorrentofIce:Yell()
+				if self:AntiSpam(5, 6) then
+					specWarnTorrentofIceYou:Show()
+					timerTorrentofIce:Start()
+					yellTorrentofIce:Yell()
+					self:SendSync("IceTarget", UnitGUID("player")) -- Remain sync stuff for older version.
+					DBM.Flash:Show(0, 0, 1)
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
+				end
 			end
 			if self.Options.SetIconOnTorrentofIce then
 				self:SetIcon(uId, iceIcon, 11)--do not have cleu, so use scheduler.
@@ -500,22 +510,6 @@ function mod:UNIT_AURA(uId)
 				else
 					iceIcon = 6
 				end
-			end
-		end
-	end
-end
-]]
-
-function mod:OnSync(msg, guid)
-	if msg == "IceTarget" and guid then
-		local target = DBM:GetFullPlayerNameByGUID(guid)
-		warnTorrentofIce:Show(target)
-		if self.Options.SetIconOnTorrentofIce then
-			self:SetIcon(target, iceIcon, 8)--do not have cleu, so use scheduler.
-			if iceIcon == 6 then--Alternate cinder icons because you can have two at once in later fight.
-				iceIcon = 4--green is closest match to blue for a cold like color
-			else
-				iceIcon = 6
 			end
 		end
 	end

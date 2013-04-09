@@ -2,11 +2,12 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8080 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9120 $"):sub(12, -3))
 mod:SetCreatureID(56541)
 mod:SetModelID(39887)
 mod:SetZone()
 mod:SetMinSyncRevision(7888)
+mod:SetReCombatTime(60)
 
 -- pre-bosswave. Novice -> Black Sash (Fragrant Lotus, Flying Snow). this runs automaticially.
 -- maybe we need Black Sash wave warns.
@@ -44,7 +45,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(118961) then
+	if args.spellId == 118961 then
 		warnChaseDown:Show(args.destName)
 		timerChaseDown:Start(args.destName)
 --		timerChaseDownCD:Start()
@@ -55,20 +56,20 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(118961) then
+	if args.spellId == 118961 then
 		timerChaseDown:Cancel(args.destName)
 	end
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(106853) then
+	if args.spellId == 106853 then
 		warnFistsOfFury:Show()
 		specWarnFists:Show()
 		timerFistsOfFuryCD:Start()
 		if mod:IsTank() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
 		end
-	elseif args:IsSpellID(106434) then
+	elseif args.spellId == 106434 then
 		warnTornadoKick:Show()
 		timerTornadoKickCD:Start()
 	end

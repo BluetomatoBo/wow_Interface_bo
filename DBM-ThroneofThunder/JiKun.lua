@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPWS	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9157 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9206 $"):sub(12, -3))
 mod:SetCreatureID(69712)
 mod:SetModelID(46675)
 
@@ -20,7 +20,7 @@ mod:RegisterEventsInCombat(
 )
 
 local warnCaws				= mod:NewSpellAnnounce(138923, 2)
-local warnQuills			= mod:NewSpellAnnounce(134380, 4)
+local warnQuills			= mod:NewCountAnnounce(134380, 4)
 local warnFlock				= mod:NewAnnounce("warnFlock", 3, 15746)--Some random egg icon
 local warnLayEgg			= mod:NewSpellAnnounce(134367, 3)
 local warnTalonRake			= mod:NewStackAnnounce(134366, 3, nil, mod:IsTank() or mod:IsHealer())
@@ -53,6 +53,7 @@ mod:AddBoolOption("RangeFrame", mod:IsRanged())
 local flockC = 0
 local lastFlock = 0
 local quillsCount = 0
+local FeedCount = 0
 local trippleNest = false
 local flockName = EJ_GetSectionInfo(7348)
 
@@ -78,6 +79,7 @@ end
 function mod:OnCombatStart(delay)
 	flockC = 0
 	quillsCount = 0
+	FeedCount = 0
 	trippleNest = false
 	-- BH ADD
 	flockCount = 0
@@ -126,6 +128,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 137528 then
 		warnFeedYoung:Show()
 		specWarnFeedYoung:Show()
+		FeedCount = FeedCount + 1
 		wstime = GetTime()
 		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbws.mp3")
 		sndWOPWS:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
@@ -140,7 +143,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			sndWOPWS:Schedule(39.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		else
 			timerFeedYoungCD:Start()
-			sndWOPWS:Schedule(26, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbws.mp3")
+			sndWOPWS:Schedule(25, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbws.mp3")
 			sndWOPWS:Schedule(27.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 			sndWOPWS:Schedule(28.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 			sndWOPWS:Schedule(29.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")

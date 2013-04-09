@@ -6,7 +6,7 @@ local sndSpirit	= mod:NewSound(nil, "Soundspirit", true)
 local sndLS		= mod:NewSound(nil, "SoundLs", false)
 local sndHS		= mod:NewSound(nil, "SoundHs", false)
 
-mod:SetRevision(("$Revision: 9136 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9200 $"):sub(12, -3))
 mod:SetCreatureID(69078, 69132, 69134, 69131)--69078 Sul the Sandcrawler, 69132 High Prestess Mar'li, 69131 Frost King Malakk, 69134 Kazra'jin --Adds: 69548 Shadowed Loa Spirit,
 mod:SetModelID(47229)--Kazra'jin, 47505 Sul the Sandcrawler, 47506 Frost King Malakk, 47730 High Priestes Mar'li
 mod:SetUsedIcons(7, 6)
@@ -319,17 +319,17 @@ function mod:SPELL_AURA_APPLIED(args)
 		if uid and UnitBuff(uid, lingeringPresence) then
 			local _, _, _, stack = UnitBuff(uid, lingeringPresence)
 			if self:IsDifficulty("heroic10", "heroic25") then
-				timerDarkPowerCD:Start(math.floor(68 * (1-(stack*0.15))))--need review
+				timerDarkPowerCD:Start(math.floor(68/(0.15*stack+1.0)+0.5))--need review (68, 59, 52, 47)
 			elseif self:IsDifficulty("normal10", "normal25") then
-				timerDarkPowerCD:Start(math.floor(71 * (1-(stack*0.1))))--need review
+				timerDarkPowerCD:Start(math.floor(68/(0.10*stack+1.0)+0.5))--need review (68, 62, 57, 52)
 			else -- lfr
-				timerDarkPowerCD:Start(math.floor(97 * (1-(stack*0.05))))--need review
+				timerDarkPowerCD:Start(math.floor(97/(0.05*stack+1.0)+0.5))--need review (97, 92, 88, 84)
 			end
 		else
 			if self:IsDifficulty("heroic10", "heroic25") then
 				timerDarkPowerCD:Start(68)
 			elseif self:IsDifficulty("normal10", "normal25") then
-				timerDarkPowerCD:Start(73)
+				timerDarkPowerCD:Start(68)
 			else
 				timerDarkPowerCD:Start(97)
 			end
@@ -494,9 +494,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	--BH ADD
 	elseif args:IsSpellID(137650) then --幽暗碎片
 		OCn = self.Options.optOC == "five" and 5 or self.Options.optOC == "ten" and 10 or self.Options.optOC == "none" and 99
-		if (args.amount or 1) >= OCn then
-			specWarnSP:Show(args.amount)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\transplague.mp3")
+		if args:IsPlayer() then
+			if (args.amount or 1) >= OCn then
+				specWarnSP:Show(args.amount)
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\transplague.mp3")
+			end
 		end
 	--BH ADD END
 	end

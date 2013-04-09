@@ -2,13 +2,12 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8953 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9071 $"):sub(12, -3))
 mod:SetCreatureID(69161)
 mod:SetModelID(47257)
 mod:SetZone(929)--Isle of Giants
 
 mod:RegisterCombat("combat")
-mod:SetWipeTime(120)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START",
@@ -33,18 +32,22 @@ local specWarnPiercingRoar		= mod:NewSpecialWarningCast(137457, mod:IsRanged() o
 local specWarnFrillBlast		= mod:NewSpecialWarningSpell(137505, nil, nil, nil, 2)
 
 local timerCrush				= mod:NewTargetTimer(60, 137504, nil, mod:IsTank() or mod:IsHealer())
-local timerCrushCD				= mod:NewCDTimer(32, 137504)
+local timerCrushCD				= mod:NewCDTimer(26, 137504)
 local timerPiercingRoarCD		= mod:NewCDTimer(25, 137457)--25-60sec variation (i'm going to guess like all the rest of the variations, the timers are all types of fucked up when the boss is running around untanked, which delays casts of crush and frill blast, but makes him cast spitfire twice as often)
 --local timerSpiritfireBeamCD		= mod:NewCDTimer(25, 137511)--25-30sec variation (disabled because he also seems to spam it far more often if there is no tank, making it difficult to find an ACTUAL cd when fight is done incorrectly
 local timerFrillBlastCD			= mod:NewCDTimer(25, 137505)--25-30sec variation
 
 mod:AddBoolOption("RangeFrame", true)
 
+local yellTriggered = false
+
 function mod:OnCombatStart(delay)
---	timerCrushCD:Start(-delay)--There was no tank, so he pretty much never cast this, just ran like a wild animal around area while corpse cannoned
---	timerSpiritfireBeamCD:Start(15-delay)
-	timerPiercingRoarCD:Start(20-delay)
-	timerFrillBlastCD:Start(40-delay)
+	if yellTriggered then--We know for sure this is an actual pull and not diving into in progress
+--		timerCrushCD:Start(-delay)--There was no tank, so he pretty much never cast this, just ran like a wild animal around area while corpse cannoned
+--		timerSpiritfireBeamCD:Start(15-delay)
+		timerPiercingRoarCD:Start(20-delay)
+		timerFrillBlastCD:Start(40-delay)
+	end
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(10)--range is guessed. spell tooltip and EJ do not save what range is right now.
 	end
@@ -54,6 +57,7 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
+	yellTriggered = false
 end
 
 function mod:SPELL_CAST_START(args)
@@ -109,7 +113,10 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.Pull and not self:IsInCombat() then
-		DBM:StartCombat(self, 0)
+		if self:GetCIDFromGUID(UnitGUID("target")) == 69161 or self:GetCIDFromGUID(UnitGUID("targettarget")) == 69161 then--Whole zone gets yell, so lets not engage combat off yell unless he is our target (or the target of our target for healers)
+			yellTriggered = true
+			DBM:StartCombat(self, 0)
+		end
 	end
 end
 

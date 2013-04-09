@@ -7,8 +7,9 @@
 ## RequiredDeps: DBM-Core
 ## SavedVariablesPerCharacter: DBMWorldEvents_SavedVars, DBMWorldEvents_SavedStats
 ## X-DBM-Mod: 1
+## X-DBM-Mod-Type: OTHER
 ## X-DBM-Mod-Category: MOP
-## X-DBM-Mod-Has-Heroic-Mode: 0
+## X-DBM-Mod-Has-Single-Format: 1
 ## X-DBM-Mod-SubCategories: Holidays,Darkmoon Faire,Quests
 ## X-DBM-Mod-SubCategories-zhTW: 節慶,暗月馬戲團,任務
 ## X-DBM-Mod-SubCategories-zhCN: 节日,暗月马戏团,任务

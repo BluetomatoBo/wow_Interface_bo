@@ -7,8 +7,9 @@
 ## RequiredDeps: DBM-Core
 ## SavedVariablesPerCharacter: DBMPandaria_SavedVars, DBMPandaria_SavedStats
 ## X-DBM-Mod: 1
+## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: MOP
-## X-DBM-Mod-Has-Heroic-Mode: 0
+## X-DBM-Mod-Has-Single-Format: 1
 ## X-DBM-Mod-Name: Pandaria
 ## X-DBM-Mod-Name-zhTW: 野外首領 (潘達利亞)
 ## X-DBM-Mod-Name-zhCN: 野外首领 (潘达利亚)

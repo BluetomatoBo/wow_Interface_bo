@@ -6,9 +6,10 @@
 -- This addon is written and copyrighted by:
 --    * Paul Emmerich (Tandanu @ EU-Aegwynn) (DBM-Core)
 --    * Martin Verges (Nitram @ EU-Azshara) (DBM-GUI)
+--    * Adam Williams (Omegal @ US-Whisperwind) (Primary boss mod author) Contact: mysticalosx@gmail.com (Twitter: @MysticalOS)
 --
 -- The localizations are written by:
---    * enGB/enUS: Tandanu				http://www.deadlybossmods.com
+--    * enGB/enUS: Tandanu & Omegal		http://www.deadlybossmods.com
 --    * deDE: Tandanu					http://www.deadlybossmods.com
 --    * zhCN: Diablohu					http://www.dreamgen.cn | diablohudream@gmail.com
 --    * ruRU: BootWin					bootwin@gmail.com
@@ -20,9 +21,8 @@
 --
 -- Special thanks to:
 --    * Arta
---    * Omegal @ US-Whisperwind (continuing mod support for 3.2+) Contact: mysticalosx@gmail.com
 --    * Tennberg (a lot of fixes in the enGB/enUS localization)
---    * nBlueWiz (a lot of fixes in the koKR localization as well as boss mod work) Contant: everfinale@gmail.com
+--    * nBlueWiz (a lot of fixes in the koKR localization as well as boss mod work) Contact: everfinale@gmail.com
 --
 --
 -- The code of this addon is licensed under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License. (see license.txt)
@@ -44,7 +44,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 9190 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 9200 $"):sub(12, -3)),
 	DisplayVersion = "5.2 語音增強版", -- the string that is shown as version
 	ReleaseRevision = 9085 -- the revision of the latest stable version that is available
 }
@@ -1661,7 +1661,7 @@ do
 			end
 		end
 	end
-	
+
 	local function fixsoundbug()
 		if DBM.Options.CountdownVoice == "Corsica" or DBM.Options.CountdownVoice == "None" then 
 			DBM.Options.CountdownVoice = "Mosh"
