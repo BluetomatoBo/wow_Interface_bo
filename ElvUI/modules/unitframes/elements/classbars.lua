@@ -36,7 +36,7 @@ function UF:UpdateHoly(event, unit, powerType)
 	local numHolyPower = UnitPower('player', SPELL_POWER_HOLY_POWER);
 	local maxHolyPower = UnitPowerMax('player', SPELL_POWER_HOLY_POWER);	
 	local MAX_HOLY_POWER = UF['classMaxResourceBar'][E.myclass]
-	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and db.classbar.enable and not db.combobar.DetachFromFrame
+	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and db.classbar.enable
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_WIDTH = db.portrait.width
@@ -163,7 +163,7 @@ function UF:UpdateHarmony()
 	
 	self:SetWidth(CLASSBAR_WIDTH)
 	
-	local colors = ElvUF.colors.harmony
+	local colors = ElvUF.colors.Harmony
 	for i = 1, maxBars do		
 		self[i]:SetHeight(self:GetHeight())	
 		self[i]:SetWidth((self:GetWidth() - (maxBars - 1)) / maxBars)	
@@ -193,8 +193,7 @@ function UF:Construct_Stagger(frame)
 end
 
 function UF:PostUpdateStagger()
-	local frame = self:GetParent()
-	UF:UpdatePlayerFrameAnchors(frame, (frame[frame.ClassBar] and frame[frame.ClassBar]:IsShown()))
+	UF:UpdatePlayerFrameAnchors(ElvUF_Player, (ElvUF_Player.Harmony and ElvUF_Player.Harmony:IsShown()))
 end
 
 -------------------------------------------------------------
