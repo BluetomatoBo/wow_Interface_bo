@@ -12,6 +12,8 @@ DBM_CORE_LOAD_MOD_SUCCESS			= "成功读取%s模块。在聊天框输入 /dbm �
 DBM_CORE_LOAD_GUI_ERROR				= "无法读取图形界面：%s"
 DBM_CORE_LOAD_GUI_COMBAT			= "无法在战斗中初始化图形界面。请先在非战斗状态打开图形设置界面，之后的战斗中就可以自由打开和关闭该界面了。"
 
+DBM_CORE_BIGWIGS_ICON_CONFLICT			= "DBM检测到你同时开启了Bigwigs,请关闭自动标记以避免冲突"
+
 DBM_CORE_COMBAT_STARTED				= "%s作战开始，祝你走运 :)"
 DBM_CORE_COMBAT_STARTED_IN_PROGRESS	= "已进行的战斗%s作战开始。祝你走运 :)"
 DBM_CORE_SCENARIO_STARTED			= "%s作战开始，祝你走运 :)"
@@ -62,9 +64,13 @@ DBM_CORE_WHISPER_COMBAT_END_WIPE_STATS_AT	= "%s在%s（%s）的战斗中灭团�
 
 DBM_CORE_VERSIONCHECK_HEADER		= "Deadly Boss Mods - 版本检测"
 DBM_CORE_VERSIONCHECK_ENTRY			= "%s：%s (r%d)"
-DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM	= "%s：未安装DBM"
-DBM_CORE_VERSIONCHECK_FOOTER		= "团队中有%d名成员正在使用Deadly Boss Mods"
+DBM_CORE_VERSIONCHECK_ENTRY_TWO			= "%s: %s (r%d) & %s (r%d)"
+DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM		= "%s：尚未安装任何团队首领模组"
+DBM_CORE_VERSIONCHECK_FOOTER			= "团队中有%d玩家正在使用DBM / %d玩家正在使用Bigwigs"
 DBM_CORE_YOUR_VERSION_OUTDATED		= "你的Deadly Boss Mods已经过期。请访问 http://dev.deadlybossmods.com 下载最新版本。"
+DBM_BIG_WIGS							= "BigWigs"
+DBM_BIG_WIGS_ALPHA						= "BigWigs Alpha"
+
 
 DBM_CORE_UPDATEREMINDER_HEADER		= "你的Deadly Boss Mods版本已过期。\n你可以在如下地址下载到新版本%s（r%d）："
 DBM_CORE_UPDATEREMINDER_FOOTER		= (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "Ctrl+C：复制下载地址到剪切板。"
@@ -78,7 +84,7 @@ DBM_PIZZA_ERROR_USAGE				= "命令：/dbm [broadcast] timer <时间（秒）> <�
 
 DBM_CORE_ERROR_DBMV3_LOADED			= "目前有2个版本的Deadly Boss Mods正在运行：DBMv3和DBMv4。\n单击“确定”按钮可将DBMv3关闭并重载用户界面。\n我们建议将插件目录下的DBMv3删除。"
 
-DBM_CORE_MINIMAP_TOOLTIP_HEADER		= "Deadly Boss Mods"
+--DBM_CORE_MINIMAP_TOOLTIP_HEADER (Same as English locales)
 DBM_CORE_MINIMAP_TOOLTIP_FOOTER		= "Shift+拖动 / 右键拖动：拖动\nAlt+Shift+拖动：自由拖动"
 
 DBM_CORE_RANGECHECK_HEADER			= "距离监视（%d码）"

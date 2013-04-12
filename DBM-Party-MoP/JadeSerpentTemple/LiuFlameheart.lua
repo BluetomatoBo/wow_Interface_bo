@@ -2,7 +2,7 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9120 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9224 $"):sub(12, -3))
 mod:SetCreatureID(56732)
 mod:SetModelID(39487)
 mod:SetZone()
@@ -20,14 +20,10 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
---This fight has more abilities not implimented yet do to no combat log or emote/yell triggers at all
---Will likely need to transcribe this fight with transcriptor to complete this mod
---Probably only things worth adding would be Serpant wave and Jade Serpant wave
 local warnDragonStrike			= mod:NewSpellAnnounce(106823, 2)
 local warnPhase2				= mod:NewPhaseAnnounce(2)
 local warnJadeDragonStrike		= mod:NewSpellAnnounce(106841, 3)
 local warnPhase3				= mod:NewPhaseAnnounce(3)
-local warnJadeFire				= mod:NewTargetAnnounce(107045, 4, nil, false)-- spammy
 
 local specWarnJadeDragonWave	= mod:NewSpecialWarningMove(118540)
 local specWarnJadeFire			= mod:NewSpecialWarningMove(107110)
@@ -36,8 +32,8 @@ local timerDragonStrikeCD		= mod:NewNextTimer(10.5, 106823)
 local timerJadeDragonStrikeCD	= mod:NewNextTimer(10.5, 106841)
 local timerJadeFireCD			= mod:NewNextTimer(3.5, 107045)
 
-function mod:JadeFireTarget(tagetname)
-	warnJadeFire:Show(targetname)
+function mod:JadeFireTarget(targetname)
+--BH DELETE	warnJadeFire:Show(targetname)
 	if targetname == UnitName("player") then
 		specWarnJadeFire:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
@@ -45,7 +41,6 @@ function mod:JadeFireTarget(tagetname)
 end
 
 function mod:OnCombatStart(delay)
-	scansDone = 0
 --	timerDragonStrikeCD:Start(-delay)--Unknown, tank pulled before i could start a log to get an accurate first timer.
 end
 

@@ -3,10 +3,10 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9147 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9264 $"):sub(12, -3))
 mod:SetCreatureID(68036)--Crimson Fog 69050, 
 mod:SetModelID(47189)
-mod:SetUsedIcons(8, 7, 6, 1)
+mod:SetUsedIcons(7, 6, 4, 1)
 
 mod:RegisterCombat("combat")
 
@@ -21,16 +21,16 @@ mod:RegisterEventsInCombat(
 	"SPELL_PERIODIC_MISS",
 	"CHAT_MSG_MONSTER_EMOTE",
 	"UNIT_DIED",
---	"UNIT_AURA",
+	"UNIT_AURA",
 	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warnHardStare					= mod:NewSpellAnnounce(133765, 3, nil, mod:IsTank() or mod:IsHealer())--Announce CAST not debuff, cause it misses a lot, plus we have 1 sec to hit an active mitigation
 local warnForceOfWill				= mod:NewTargetAnnounce(136413, 4)
 local warnLingeringGaze				= mod:NewTargetAnnounce(138467, 3)--Seems highly variable Cd so no timer for this yet
-local warnBlueBeam					= mod:NewTargetAnnounce(139202, 2)
-local warnRedBeam					= mod:NewTargetAnnounce(139204, 2)
-local warnYellowBeam				= mod:NewTargetAnnounce(133738, 2)--Cannot find a tracking ID for this one
+mod:AddBoolOption("warnBeam", nil, "announce")
+local warnBeamNormal				= mod:NewAnnounce("warnBeamNormal", 4, 139204, true, false)
+local warnBeamHeroic				= mod:NewAnnounce("warnBeamHeroic", 4, 139204, true, false)
 local warnAddsLeft					= mod:NewAnnounce("warnAddsLeft", 2, 134123)
 local warnDisintegrationBeam		= mod:NewSpellAnnounce("ej6882", 4)
 local warnLifeDrain					= mod:NewTargetAnnounce(133795, 3)--Some times needs to block this even dps. So warn for everyone.
@@ -46,6 +46,7 @@ local specWarnLingeringGaze			= mod:NewSpecialWarningYou(134044)
 local yellLingeringGaze				= mod:NewYell(134044, nil, false)
 local specWarnLingeringGazeMove		= mod:NewSpecialWarningMove(134044)
 local specWarnBlueBeam				= mod:NewSpecialWarning("specWarnBlueBeam", nil, nil, nil, 3)
+local specWarnBlueBeamLFR			= mod:NewSpecialWarningYou(139202, true, false)
 local specWarnRedBeam				= mod:NewSpecialWarningYou(139204)
 local specWarnYellowBeam			= mod:NewSpecialWarningYou(133738)
 local specWarnDarkParasite			= mod:NewSpecialWarningYou(133597)
@@ -65,9 +66,9 @@ local timerLightSpectrumCD			= mod:NewNextTimer(60, "ej6891")--Don't know when 2
 local timerDarkParasite				= mod:NewTargetTimer(30, 133597, mod:IsHealer())--Only healer/dispeler needs to know this.
 local timerDarkParasiteCD			= mod:NewNextTimer(62, 133597)
 local timerDarkPlague				= mod:NewTargetTimer(30, 133598)--EVERYONE needs to know this, if dispeler messed up and dispelled parasite too early you're going to get a new add every 3 seconds for remaining duration of this bar.
-local timerDisintegrationBeam		= mod:NewBuffActiveTimer(65, "ej6882")
-local timerDisintegrationBeamCD		= mod:NewNextTimer(126, "ej6882")
-local timerLifeDrainCD				= mod:NewCDTimer(210, 133795)
+local timerDisintegrationBeam		= mod:NewBuffActiveTimer(64, "ej6882")
+local timerDisintegrationBeamCD		= mod:NewNextTimer(127, "ej6882")
+local timerLifeDrainCD				= mod:NewCDTimer(40, 133795)
 local timerLifeDrain				= mod:NewBuffActiveTimer(18, 133795)
 local timerIceWallCD				= mod:NewNextTimer(120, 134587)
 local timerObliterateCD				= mod:NewNextTimer(80, 137747)--Heroic
@@ -88,21 +89,25 @@ local lingeringGazeTargets = {}
 local lingeringGazeCD = 46
 local lastRed = nil
 local lastBlue = nil
+local lastYellow = nil
 local spectrumStarted = false
 local lifeDrained = false
+local lfrCrimsonFogRevealed = false
+local lfrAmberFogRevealed = false
+local lfrAzureFogRevealed = false
+local lfrEngaged = false
 local blueTracking = GetSpellInfo(139202)
 local redTracking = GetSpellInfo(139204)
+local crimsonFog = EJ_GetSectionInfo(6892)
+local amberFog = EJ_GetSectionInfo(6895)
+local azureFog = EJ_GetSectionInfo(6898)
+
 --BH ADD
 local rgbcount = 0
 local lifecount = 0
 local paracount = 0
-local lastYellow = nil
 local lightmaker = {}
 local linemaker = {}
-local BlueFog	= EJ_GetSectionInfo(6898)
-local RedFog	= EJ_GetSectionInfo(6892)
-local YellowFog	= EJ_GetSectionInfo(6895)
-
 mod:AddBoolOption("HudMAP", true, "sound")
 mod:AddBoolOption("DXsound", false, "sound")
 mod:AddDropdownOption("optDD", {"nodd", "DD1", "DD2", "DD3"}, "nodd", "sound")
@@ -143,34 +148,56 @@ local function warnLingeringGazeTargets()
 	table.wipe(lingeringGazeTargets)
 end
 
+local function warnBeam()
+	if mod:IsDifficulty("heroic10", "heroic25", "lfr25") then
+		warnBeamHeroic:Show(lastRed, lastBlue, lastYellow)
+	else
+		warnBeamNormal:Show(lastRed, lastBlue)
+	end
+end
+
 local function BeamEnded()
 --[[	if mod.Options.ArrowOnBeam then
 		DBM.Arrow:Hide()
 	end--]]
-	timerLingeringGazeCD:Start(16)
-	timerForceOfWillCD:Start(18)
-	timerLightSpectrumCD:Start(32)
+	timerLingeringGazeCD:Start(17)
+	timerForceOfWillCD:Start(19)
 	if mod:IsDifficulty("heroic10", "heroic25") then
-		timerIceWallCD:Start(25)
+		timerIceWallCD:Start(26)
 	end
-	timerDisintegrationBeamCD:Start()
-	--Life Drain comes after beamended 1~3 sec.
-	mod:Schedule(116, function()
-		DBM.Flash:Show(1, 0, 0)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenwj.mp3") --10秒後瓦解光束
-		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
-		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
-		sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
-		sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
-		sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
-	end)
+	if mod:IsDifficulty("lfr25") then
+		timerLightSpectrumCD:Start(66)
+		timerDisintegrationBeamCD:Start(186)
+		mod:Schedule(176, function()
+			DBM.Flash:Show(1, 0, 0)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenwj.mp3") --10秒後瓦解光束
+			sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+			sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		end)
+	else
+		timerLightSpectrumCD:Start(33)
+		timerDisintegrationBeamCD:Start()
+		mod:Schedule(117, function()
+			DBM.Flash:Show(1, 0, 0)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenwj.mp3") --10秒後瓦解光束
+			sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+			sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		end)
+	end
+	--Life Drain comes beam ended after 1~3 sec.
 end
 
 local function HideInfoFrame()
 	if mod.Options.InfoFrameLife then
 		DBM.InfoFrame:Hide()
 	end
-	if mod.Options.InfoFrame then
+	if mod.Options.InfoFrame and mod:IsDifficulty("heroic10", "heroic25") then
 		DBM.InfoFrame:SetHeader(GetSpellInfo(133597).."("..paracount..")")
 		DBM.InfoFrame:Show(3, "playerdebuffstackstime", 133597)
 	end
@@ -180,13 +207,16 @@ function mod:OnCombatStart(delay)
 	lingeringGazeCD = 46
 	lastRed = nil
 	lastBlue = nil
+	lastYellow = nil
 	spectrumStarted = false
 	lifeDrained = false
+	lfrCrimsonFogRevealed = false
+	lfrAmberFogRevealed = false
+	lfrAzureFogRevealed = false
 	--BH ADD
 	rgbcount = 0
 	lifecount = 0
-	paracount = 0
-	lastYellow = nil	
+	paracount = 0	
 	table.wipe(lightmaker)
 	table.wipe(linemaker)
 	--BH ADD END
@@ -199,24 +229,40 @@ function mod:OnCombatStart(delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
 		timerIceWallCD:Start(128-delay)
 	end
-	timerDisintegrationBeamCD:Start(135-delay)
-	timerLifeDrainCD:Start(-delay)
+	if mod:IsDifficulty("lfr25") then
+		lfrEngaged = true
+		timerLifeDrainCD:Start(151)
+		timerDisintegrationBeamCD:Start(161-delay)
+		self:Schedule(151, function()
+			DBM.Flash:Show(1, 0, 0)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenwj.mp3") --10秒後瓦解光束
+			sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+			sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		end)
+	else
+		timerLifeDrainCD:Start(210)
+		timerDisintegrationBeamCD:Start(135-delay)
+		self:Schedule(125, function()
+			DBM.Flash:Show(1, 0, 0)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenwj.mp3") --10秒後瓦解光束
+			sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+			sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		end)
+	end
 	berserkTimer:Start(-delay)
-	self:Schedule(125, function()
-		DBM.Flash:Show(1, 0, 0)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenwj.mp3") --10秒後瓦解光束
-		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
-		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
-		sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
-		sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
-		sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
-	end)
 end
 
 function mod:OnCombatEnd()
 --[[	if self.Options.ArrowOnBeam then
 		DBM.Arrow:Hide()
 	end--]]
+	lfrEngaged = false
 	if self.Options.SetIconRays and lastRed then
 		self:SetIcon(lastRed, 0)
 		self:SetIcon(lastBlue, 0)
@@ -232,6 +278,10 @@ function mod:SPELL_CAST_START(args)
 		timerHardStareCD:Start()
 	elseif args.spellId == 138467 then
 		timerLingeringGazeCD:Start(lingeringGazeCD)
+	elseif args.spellId == 136154 and self:IsDifficulty("lfr25") and not lfrCrimsonFogRevealed then--Only use in lfr.
+		lfrCrimsonFogRevealed = true
+		specWarnFogRevealed:Show(crimsonFog)
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_hong.mp3") --紅色快打
 	elseif args.spellId == 134587 and self:AntiSpam(3, 3) then
 		warnIceWall:Show()
 	end
@@ -240,15 +290,15 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 133767 then
 		timerSeriousWound:Start(args.destName)
-		if args:IsPlayer() then
-			if (args.amount or 1) >= 4 then
+		if (args.amount or 1) >= 5 then
+			if args:IsPlayer() then
 				specWarnSeriousWound:Show(args.amount)
-			end
-		else
-			if (args.amount or 1) >= 3 and not UnitDebuff("player", GetSpellInfo(133767)) and not UnitIsDeadOrGhost("player") then
-				specWarnSeriousWoundOther:Show(args.destName)
-				if mod:IsTank() then
-					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3") --換坦嘲諷
+			else
+				if not UnitDebuff("player", GetSpellInfo(133767)) and not UnitIsDeadOrGhost("player") then
+					specWarnSeriousWoundOther:Show(args.destName)
+					if mod:IsTank() then
+						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3") --換坦嘲諷
+					end
 				end
 			end
 		end
@@ -310,7 +360,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:Schedule(0.5, warnLingeringGazeTargets)
 		end
 	elseif args.spellId == 137727 and self.Options.SetIconLifeDrain then -- Life Drain current target. If target warning needed, insert into this block. (maybe very spammy)
-		self:SetIcon(args.destName, 8)--Skull
+		self:SetIcon(args.destName, 4)--Triangle
 	elseif args.spellId == 133798 then
 		if (args.amount or 1) >= 2 and (args.amount or 1) % 2 == 0 then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bmdx.mp3")--幫忙擋線
@@ -330,6 +380,9 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 			end
 		end
+		if self.Options.InfoFrameLife then
+			DBM.InfoFrame:Update("playerdebuffstacks")
+		end
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -347,13 +400,25 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
+function mod:SPELL_DAMAGE(_, _, _, _, destGUID, destName, _, _, spellId)
+	if spellId == 134044 and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then
+		specWarnLingeringGazeMove:Show()
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
+	end
+	if not lfrEngaged or lfrAmberFogRevealed then return end -- To reduce cpu usage normal and heroic.
+	if destName == amberFog and not lfrAmberFogRevealed then -- Lfr Amger fog do not have CLEU, no unit events and no emote.
+		lfrAmberFogRevealed = true
+		specWarnFogRevealed:Show(amberFog)
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_huang.mp3") --黃色快打
+	end
+end
+
+function mod:SPELL_MISSED(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 134044 and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then
 		specWarnLingeringGazeMove:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	end
 end
-mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 134755 and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then
@@ -370,14 +435,16 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 	if msg:find("spell:136932") then--Force of Will
 		local target = DBM:GetFullNameByShortName(target)
 		warnForceOfWill:Show(target)
-		if timerLightSpectrumCD:GetTime() > 22 or timerDisintegrationBeamCD:GetTime() > 108 then--Don't start timer if either beam or spectrum will come first (cause both disable force ability)
+		if timerLightSpectrumCD:GetTime() > 22 or timerDisintegrationBeamCD:GetTime() > 110 then--Don't start timer if either beam or spectrum will come first (cause both disable force ability)
 			timerForceOfWillCD:Start()
 		end
 		if target == UnitName("player") then
 			specWarnForceOfWill:Show()
 			yellForceOfWill:Yell()
-			DBM.Flash:Show(1, 0, 0)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")
+			if not self:IsDifficulty("lfr25") then
+				DBM.Flash:Show(1, 0, 0)				
+			end
 		else
 			if not self:IsDifficulty("lfr25") then
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xxjf.mp3") --小心擊飛
@@ -399,38 +466,43 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		local target = DBM:GetFullNameByShortName(target)
 		lingeringGazeCD = not spectrumStarted and 25 or 40 -- First spectrum Lingering Gaze CD = 25, second = 40
 		spectrumStarted = true
-		warnBlueBeam:Show(target)
+		lastBlue = target
 		--BH ADD
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_syg.mp3") --三原光準備		
 		if rgbcount == 3 then rgbcount = 0 end
 		rgbcount = rgbcount + 1
 		--BH ADD END
 		if target == UnitName("player") then
-			specWarnBlueBeam:Show()
+			if self:IsDifficulty("lfr25") and self.Options.specWarnBlueBeam then
+				specWarnBlueBeamLFR:Show()
+			else
+				specWarnBlueBeam:Show()
+			end
 			DBM.Flash:Show(0, 0, 1)
 			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lgzb.mp3") --藍光
 		end
-		lastBlue = target
 		if self.Options.SetIconRays then
 			self:SetIcon(target, 6)--Square
---BH DELETE		lastBlue = target
 		end
+		self:Schedule(0.5, warnBeam)
 	elseif msg:find("spell:134123") then--Infrared Light (red)
 		local target = DBM:GetFullNameByShortName(target)
-		warnRedBeam:Show(target)
+		lastRed = target
 		if target == UnitName("player") then
 			specWarnRedBeam:Show()
 			DBM.Flash:Show(1, 0, 0)
 			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hgzb.mp3") --紅光
 		end
-		lastRed = target
 		if self.Options.SetIconRays then
 			self:SetIcon(target, 7)--Cross
---BH DELETE		lastRed = target
 		end
 	elseif msg:find("spell:134124") then--useful only on heroic and LFR since there are only amber adds in them. Normal 10 and normal 25 do not have amber adds (why LFR does is beyond me)
 		local target = DBM:GetFullNameByShortName(target)
+		lastYellow = target
 		totalFogs = 3
+		lfrCrimsonFogRevealed = false
+		lfrAmberFogRevealed = false
+		lfrAzureFogRevealed = false
 		timerForceOfWillCD:Cancel()
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerObliterateCD:Start()
@@ -440,13 +512,11 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 			end
 		end
 		--BH MODIFY
-		warnYellowBeam:Show(target)
 		if target == UnitName("player") then
 			specWarnYellowBeam:Show()
 			DBM.Flash:Show(1, 1, 0)			
 			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hgsd.mp3") --黃光
 		end
-		lastYellow = target
 		mod:Schedule(1.5, function()
 			if (lastRed ~= UnitName("player")) and (lastBlue ~= UnitName("player")) and (lastYellow ~= UnitName("player")) then
 				lightchoose()
@@ -456,32 +526,34 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		if self.Options.SetIconRays then
 			self:SetIcon(target, 1, 10)--Star (auto remove after 10 seconds because this beam untethers one initial person positions it.
 		end
-	--"<55.5 20:06:45> [CHAT_MSG_MONSTER_EMOTE] CHAT_MSG_MONSTER_EMOTE#The Infrared Light reveals a Crimson Fog!#Crimson Fog###Red Eye##0#0##0#218#nil#0#false#false", -- [10446]
-	--"<72.0 20:04:19> [CHAT_MSG_MONSTER_EMOTE] CHAT_MSG_MONSTER_EMOTE#The Bright  Light reveals an Amber Fog!#Amber Fog###Yellow Eye##0#0##0#309#nil#0#false#false", -- [13413]
-	--"<102.2 20:07:32> [CHAT_MSG_MONSTER_EMOTE] CHAT_MSG_MONSTER_EMOTE#The Blue Rays reveal an Azure Fog!#Azure Fog###Blue Eye##0#0##0#225#nil#0#false#false", -- [20262]
-	--Seems the easiest way to localize this is to just scan for npc with "eye" in it and npc for mobname in the announce. Better than localizing 3 msg variations (one of which has a typo that may get fixed)
-	--BH MODIFY
-	elseif npc:find(BlueFog) then
-		specWarnFogRevealed:Show(BlueFog)
-		if lastBlue == UnitName("player") then
-			DBM.Flash:Show(0, 1, 0)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopmove.mp3") --停止移動
-		else
+	elseif npc == crimsonFog or npc == amberFog or npc == azureFog then
+		if self:IsDifficulty("lfr25") and npc == azureFog and not lfrAzureFogRevealed then
+			lfrAzureFogRevealed = true
+			specWarnFogRevealed:Show(npc)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_lan.mp3") --藍色快打
+		elseif not lfrAzureFogRevealed or not self:IsDifficulty("lfr25") then
+			specWarnFogRevealed:Show(npc)
+			--BH ADD
+			if npc == azureFog then
+				if lastBlue == UnitName("player") then
+					DBM.Flash:Show(0, 1, 0)
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopmove.mp3") --停止移動
+				else
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_lan.mp3") --藍色快打
+				end
+			elseif npc == crimsonFog then
+				if lastRed == UnitName("player") then
+					DBM.Flash:Show(1, 0, 0)
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopmove.mp3") --停止移動
+				else
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_hong.mp3") --紅色快打
+				end
+			elseif npc == amberFog then
+				DBM.Flash:Show(1, 1, 0)
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_huang.mp3") --黃色快打
+			end
+			--BH ADD END
 		end
-	elseif npc:find(RedFog) then
-		specWarnFogRevealed:Show(RedFog)
-		if lastRed == UnitName("player") then
-			DBM.Flash:Show(0, 1, 0)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopmove.mp3") --停止移動
-		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_hong.mp3") --紅色快打
-		end
-	elseif npc:find(YellowFog) then
-		DBM.Flash:Show(1, 1, 0)
-		specWarnFogRevealed:Show(YellowFog)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_huang.mp3") --黃色快打
-	--BH MODIFY END
 	elseif msg:find("spell:133795") then
 		local target = DBM:GetFullNameByShortName(target)
 		warnLifeDrain:Show(target)
@@ -491,7 +563,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		if lifecount == 3 then
 			timerLifeDrainCD:Start(105)
 		else
-			timerLifeDrainCD:Start(41)
+			timerLifeDrainCD:Start()
 		end
 		lifeDrained = true
 		if target == UnitName("player") then
@@ -499,13 +571,13 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		end
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smxq.mp3") --生命吸取
 		if self.Options.SetIconLifeDrain then
-			self:SetIcon(target, 8) -- Skull
+			self:SetIcon(target, 4) -- Triangle
 		end
 		if self.Options.InfoFrameLife then
 			DBM.InfoFrame:SetHeader(GetSpellInfo(133795))
-			DBM.InfoFrame:Show(5, "playerdebuffstacks", 133798, 133798, 4)
+			DBM.InfoFrame:Show(5, "playerdebuffstacks", 133798)
 		end
-		self:Schedule(18, HideInfoFrame)
+		self:Schedule(21, HideInfoFrame)
 		if mod.Options.DXsound then
 			linemaker[target] = register(DBMHudMap:AddEdge(1, 0, 0, 1, 1, "player", target))
 			self:Schedule(1.5, function()
@@ -520,35 +592,47 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 		end
 	elseif msg:find("spell:134169") then
 		lingeringGazeCD = 46 -- Return to Original CD.
+		timerForceOfWillCD:Cancel()
 		timerLingeringGazeCD:Cancel()
 		warnDisintegrationBeam:Show()
 		specWarnDisintegrationBeam:Show()
-		timerDisintegrationBeam:Start()
-		self:Unschedule(HideInfoFrame)
-		sndWOP:Schedule(61, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
-		sndWOP:Schedule(62, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
-		sndWOP:Schedule(63, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
-		sndWOP:Schedule(64, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
-		sndWOP:Schedule(65, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
-		self:Schedule(65, BeamEnded)--Best to start next phase bars when this one ends, so artifically create a "phase end" trigger
-		if self.Options.InfoFrameLife then
-			DBM.InfoFrame:Hide()
-		end
-		if mod.Options.InfoFrame then
-			DBM.InfoFrame:SetHeader(GetSpellInfo(133597).."("..paracount..")")
-			DBM.InfoFrame:Show(3, "playerdebuffstackstime", 133597)
+		--Best to start next phase bars when this one ends, so artifically create a "phase end" trigger
+		if self:IsDifficulty("lfr25") then
+			timerDisintegrationBeam:Start(55)
+			sndWOP:Schedule(51, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(52, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+			sndWOP:Schedule(53, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(54, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(55, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+			self:Schedule(55, BeamEnded)
+		else
+			timerDisintegrationBeam:Start()
+			sndWOP:Schedule(60, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(61, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+			sndWOP:Schedule(62, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(63, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(64, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+			self:Schedule(64, BeamEnded)
 		end
 	end
 end
 
 --Because blizz sucks and these do NOT show in combat log AND the emote only fires for initial application, but not for when a player dies and beam jumps.
+--Reports are this is majorly fucked up in LFR, because the antispam in name doesn't work with server names (wtf? maybe only happens if server name strip is turned on?)
+--I will not be able to debug for several hours but commenting in case someone else runs LFR before I do in 5 hours
 function mod:UNIT_AURA(uId)
 	local name = DBM:GetUnitFullName(uId)
 	if UnitDebuff(uId, blueTracking) and lastBlue ~= name then
+--		print("DBM Debug - UnitName(): "..UnitName(uId))
+--		print("DBM Debug - DBM:GetUnitFullName: "..DBM:GetUnitFullName(uId))
+--		print("DBM Debug - lastBlue: "..lastBlue)
 		lastBlue = name
-		warnBlueBeam:Show(name)
 		if name == UnitName("player") then
-			specWarnBlueBeam:Show()
+			if self:IsDifficulty("lfr25") and self.Options.specWarnBlueBeam then
+				specWarnBlueBeamLFR:Show()
+			else
+				specWarnBlueBeam:Show()
+			end
 			DBM.Flash:Show(0, 0, 1)
 			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lgzb.mp3") --藍光
 		end
@@ -557,7 +641,6 @@ function mod:UNIT_AURA(uId)
 		end
 	elseif UnitDebuff(uId, redTracking) and lastRed ~= name then
 		lastRed = name
-		warnRedBeam:Show(name)
 		if name == UnitName("player") then
 			specWarnRedBeam:Show()
 			DBM.Flash:Show(1, 0, 0)
@@ -576,16 +659,15 @@ function mod:UNIT_DIED(args)
 		if totalFogs >= 1 then
 			warnAddsLeft:Show(totalFogs)
 		else--No adds left, force ability is re-enabled
+			lastRed = nil
+			lastBlue = nil
+			lastYellow = nil
 			timerObliterateCD:Cancel()
 			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dead.mp3")
-			timerForceOfWillCD:Start()
+			timerForceOfWillCD:Start(15)
 			if self.Options.SetIconRays and lastRed then
 				self:SetIcon(lastRed, 0)
 				self:SetIcon(lastBlue, 0)
-				lastRed = nil
-				lastBlue = nil
-				--BH ADD
-				lastYellow = nil
 			end
 		end
 	elseif cid == 69051 then--Amber Fog
@@ -596,16 +678,15 @@ function mod:UNIT_DIED(args)
 				--LFR does something completely different than kill 3 crimson adds to end phase. in LFR, they kill 1 of each color (which is completely against what you do in 10N, 25N, 10H, 25H)
 				warnAddsLeft:Show(totalFogs)
 			else--No adds left, force ability is re-enabled
+				lastRed = nil
+				lastBlue = nil
+				lastYellow = nil
 				timerObliterateCD:Cancel()
 				sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dead.mp3")
-				timerForceOfWillCD:Start()
+				timerForceOfWillCD:Start(15)
 				if self.Options.SetIconRays and lastRed then
 					self:SetIcon(lastRed, 0)
 					self:SetIcon(lastBlue, 0)
-					lastRed = nil
-					lastBlue = nil
-					--BH ADD
-					lastYellow = nil
 				end
 			end
 		end
@@ -617,16 +698,15 @@ function mod:UNIT_DIED(args)
 				--LFR does something completely different than kill 3 crimson adds to end phase. in LFR, they kill 1 of each color (which is completely against what you do in 10N, 25N, 10H, 25H)
 				warnAddsLeft:Show(totalFogs)
 			else--No adds left, force ability is re-enabled
+				lastRed = nil
+				lastBlue = nil
+				lastYellow = nil
 				timerObliterateCD:Cancel()
 				sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\dead.mp3")
-				timerForceOfWillCD:Start()
+				timerForceOfWillCD:Start(15)
 				if self.Options.SetIconRays and lastRed then
 					self:SetIcon(lastRed, 0)
 					self:SetIcon(lastBlue, 0)
-					lastRed = nil
-					lastBlue = nil
-					--BH ADD
-					lastYellow = nil
 				end
 			end
 		end
@@ -643,7 +723,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName, _, _, spellId)
 		if self.Options.ArrowOnBeam then
 			DBM.Arrow:ShowStatic(90)
 		end
-		self:Schedule(65, BeamEnded)--Best to start next phase bars when this one ends, so artifically create a "phase end" trigger--]]
+		self:Schedule(64, BeamEnded)--Best to start next phase bars when this one ends, so artifically create a "phase end" trigger--]]
 		print("DBM Debug: Clockwise beam spellid re-enabled by blizzard.")
 	elseif spellId == 133775 and self:AntiSpam(2, 2) then--Disintegration Beam (counter-clockwise)
 --[[		timerLingeringGazeCD:Cancel()
@@ -653,7 +733,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName, _, _, spellId)
 		if self.Options.ArrowOnBeam then
 			DBM.Arrow:ShowStatic(270)
 		end
-		self:Schedule(65, BeamEnded)--Best to start next phase bars when this one ends, so artifically create a "phase end" trigger--]]
+		self:Schedule(64, BeamEnded)--Best to start next phase bars when this one ends, so artifically create a "phase end" trigger--]]
 		print("DBM Debug: Counter-Clockwise beam spellid re-enabled by blizzard.")
 	end
 end

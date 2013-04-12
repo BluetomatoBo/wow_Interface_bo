@@ -2,7 +2,7 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8424 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9241 $"):sub(12, -3))
 mod:SetCreatureID(56448)
 mod:SetModelID(41125)
 mod:SetZone()
@@ -37,7 +37,7 @@ local addsRemaining = 4--Also 4 on heroic?
 local addsName = EJ_GetSectionInfo(5616)
 
 function mod:UNIT_TARGET()
-	if self.Options.SetIconOnAdds and UnitName("target") == addsName then
+	if self.Options.SetIconOnAdds and not DBM.Options.DontSetIcons and UnitName("target") == addsName then
 		SetRaidTarget("target", 8)
 	end
 end
@@ -48,18 +48,18 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(106653) and args:IsPlayer() and self:AntiSpam(4, 1) then
+	if args.spellId == 106653 and args:IsPlayer() and self:AntiSpam(4, 1) then
 		specWarnShaResidue:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
 	end
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(106526) then--Call Water
+	if args.spellId == 106526 then--Call Water
 		timerLivingWater:Start()
 		specWarnLivingWater:Schedule(5.5)
 		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\mobsoon.mp3")--準備小怪
-	elseif args:IsSpellID(106612) then--Bubble Burst (phase 2)
+	elseif args.spellId == 106612 then--Bubble Burst (phase 2)
 		warnBubbleBurst:Show()
 		timerWashAway:Start()
 		sndWOP:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3")--P2

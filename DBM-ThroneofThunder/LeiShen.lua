@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 -- BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9206 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9264 $"):sub(12, -3))
 mod:SetCreatureID(68397)--Diffusion Chain Conduit 68696, Static Shock Conduit 68398, Bouncing Bolt conduit 68698, Overcharge conduit 68697
 mod:SetModelID(46770)
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)--All icons can be used, because if a pillar is level 3, it puts out 4 debuffs on 25 man (if both are level 3, then you will have 8)
@@ -370,15 +370,13 @@ function mod:SPELL_AURA_APPLIED(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 		end
 		-- BH ADD END
-	elseif args.spellId == 135682 and args:GetDestCreatureID() == 68397 then--South (Overcharge)
-	
-	elseif args.spellId == 135683 and args:GetDestCreatureID() == 68397 then--West (Bouncing Bolt)
-
-	elseif args.spellId == 136914 and (args.amount or 1) % 3 == 0 then
-		warnElectricalShock:Show(args.destName, args.amount or 1)
-		if (args.amount or 1) >= 12 then
+	elseif args.spellId == 136914 then
+		local amount = args.amount or 1
+		if not amount % 3 == 0 then return end
+		warnElectricalShock:Show(args.destName, amount)
+		if amount >= 12 then
 			if args:IsPlayer() then
-				specWarnElectricalShock:Show(args.amount)
+				specWarnElectricalShock:Show(amount)
 			else
 				if not UnitDebuff("player", GetSpellInfo(136914)) and not UnitIsDeadOrGhost("player") then
 					specWarnElectricalShockOther:Show(args.destName)

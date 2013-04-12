@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(820, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9207 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9258 $"):sub(12, -3))
 mod:SetCreatureID(69017)--69070 Viscous Horror, 69069 good ooze, 70579 bad ooze (patched out of game, :\)
 mod:SetModelID(47009)
 
@@ -14,6 +14,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
+--	"UNIT_AURA",
 	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
@@ -35,7 +36,6 @@ local warnBlackBlood				= mod:NewStackAnnounce(137000, 2, nil, mod:IsTank() or m
 local specWarnFullyMutated			= mod:NewSpecialWarningYou(140546)
 local specWarnFullyMutatedFaded		= mod:NewSpecialWarningFades(140546)
 local specWarnCausticGas			= mod:NewSpecialWarningSpell(136216, nil, nil, nil, 2)--All must be in front for this.
-local specWarnPustuleEruption		= mod:NewSpecialWarningSpell(136247, false, nil, nil, 2)--off by default since every 5 sec, very spammy for special warning
 local specWarnVolatilePathogen		= mod:NewSpecialWarningYou(136228)
 local specWarnViscousHorror			= mod:NewSpecialWarningCount("ej6969", mod:IsTank())
 
@@ -44,7 +44,7 @@ local timerMalformedBlood			= mod:NewTargetTimer(60, 136050, nil, mod:IsTank() o
 local timerPrimordialStrikeCD		= mod:NewCDTimer(24, 136037)
 local timerCausticGasCD				= mod:NewCDTimer(14, 136216)
 local timerPustuleEruptionCD		= mod:NewCDTimer(5, 136247, nil, false)
-local timerVolatilePathogenCD		= mod:NewCDTimer(28, 136228)--Too cute blizzard, too cute. (those who get the 28 reference for pathogen get an A+)
+local timerVolatilePathogenCD		= mod:NewCDTimer(27, 136228)--Too cute blizzard, too cute. (those who get the 28 reference for pathogen get an A+)
 local timerBlackBlood				= mod:NewTargetTimer(60, 137000, nil, mod:IsTank() or mod:IsHealer())
 local timerViscousHorrorCD			= mod:NewNextCountTimer(30, "ej6969", nil, nil, nil, 137000)
 
@@ -240,6 +240,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif args.spellId == 136210 then
 		showspellinfo()
 	elseif args.spellId == 140546 and args:IsPlayer() then
+		timerFullyMutated:Cancel()--Can be dispeled
 		specWarnFullyMutatedFaded:Show(args.spellName)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bsjs.mp3")--變身結束
 	end
@@ -247,8 +248,8 @@ end
 
 local good1 = GetSpellInfo(136180)
 local good2 = GetSpellInfo(136182)
-local good2 = GetSpellInfo(136184)
-local good3 = GetSpellInfo(136186)
+local good3 = GetSpellInfo(136184)
+local good4 = GetSpellInfo(136186)
 local bad1 = GetSpellInfo(136181)
 local bad2 = GetSpellInfo(136183)
 local bad3 = GetSpellInfo(136185)
@@ -277,7 +278,6 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 136248 and self:AntiSpam(2, 1) then--Pustule Eruption
 		warnPustuleEruption:Show()
-		specWarnPustuleEruption:Show()
 		timerPustuleEruptionCD:Start()
 	end
 end

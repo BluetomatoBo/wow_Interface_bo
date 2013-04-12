@@ -6,10 +6,11 @@ local sndSpirit	= mod:NewSound(nil, "Soundspirit", true)
 local sndLS		= mod:NewSound(nil, "SoundLs", false)
 local sndHS		= mod:NewSound(nil, "SoundHs", false)
 
-mod:SetRevision(("$Revision: 9200 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9272 $"):sub(12, -3))
 mod:SetCreatureID(69078, 69132, 69134, 69131)--69078 Sul the Sandcrawler, 69132 High Prestess Mar'li, 69131 Frost King Malakk, 69134 Kazra'jin --Adds: 69548 Shadowed Loa Spirit,
 mod:SetModelID(47229)--Kazra'jin, 47505 Sul the Sandcrawler, 47506 Frost King Malakk, 47730 High Priestes Mar'li
 mod:SetUsedIcons(7, 6)
+mod:SetBossHPInfoToHighest()
 
 mod:RegisterCombat("combat")
 
@@ -54,10 +55,12 @@ local warnFrostBite					= mod:NewTargetAnnounce(136922, 4)--136990 is cast ID ve
 local warnFrigidAssault				= mod:NewStackAnnounce(136903, 3, nil, mod:IsTank() or mod:IsHealer())
 --Kazra'jin
 local warnRecklessCharge			= mod:NewCastAnnounce(137122, 3, 2, nil, false)
+local warnDischarge					= mod:NewCountAnnounce(137166, 3)
 
 --All
 local specWarnPossessed				= mod:NewSpecialWarning("specWarnPossessed", mod:IsDps())
 local specWarnDarkPower				= mod:NewSpecialWarningSpell(136507, nil, nil, nil, 2)
+local specWarnSoulFragment			= mod:NewSpecialWarningYou(137641)
 --Sul the Sandcrawler
 local specWarnSandBolt				= mod:NewSpecialWarningInterrupt(136189, false)
 local specWarnSandStorm				= mod:NewSpecialWarningSpell(136894, nil, nil, nil, 2)
@@ -74,6 +77,8 @@ local specWarnFrostBite				= mod:NewSpecialWarningYou(136922)--This one you do n
 local specWarnFrigidAssault			= mod:NewSpecialWarningStack(136903, mod:IsTank(), 8)
 local specWarnFrigidAssaultOther	= mod:NewSpecialWarningTarget(136903, mod:IsTank())
 local specWarnChilled				= mod:NewSpecialWarningYou(137085, false)--Heroic
+--Kazra'jin
+local specWarnDischarge				= mod:NewSpecialWarningCount(137166, nil, nil, nil, 2)
 --BH ADD
 local specWarnSP					= mod:NewSpecialWarningStack(137650, nil, 5)
 local specWarnDDL					= mod:NewSpecialWarning("specWarnDDL")
@@ -91,7 +96,9 @@ local timerShadowedLoaSpiritCD		= mod:NewCDTimer(33, 137350)--Possessed version 
 local timerTwistedFateCD			= mod:NewCDTimer(33, 137891)--On heroic, this replaces shadowed loa spirit
 local timerMarkedSoul				= mod:NewTargetTimer(20, 137359)
 --Frost King Malak
+local timerBitingCold				= mod:NewBuffFadesTimer(30, 136917)
 local timerBitingColdCD				= mod:NewCDTimer(45, 136917)--10 man Cds (and probably LFR), i have no doubt on 25 man this will either have a shorter cd or affect 3 targets with same CD. Watch for timer diffs though
+local timerFrostBite				= mod:NewBuffFadesTimer(30, 136990)
 local timerFrostBiteCD				= mod:NewCDTimer(45, 136990)--^same comment as above
 local timerFrigidAssault			= mod:NewTargetTimer(15, 136903)
 local timerFrigidAssaultCD			= mod:NewCDTimer(30, 136904)--30 seconds after last one ended (maybe even a next timer, i'll change it with more logs.)
@@ -120,6 +127,8 @@ local function register(e)
 	DBMHudMap:RegisterEncounterMarker(e)
 	return e
 end
+
+
 -- BH ADD END
 
 local lingeringPresence = GetSpellInfo(136467)
@@ -127,6 +136,7 @@ local chilledDebuff = GetSpellInfo(137085)
 local boltCasts = 0
 local kazraPossessed = false
 local possessesDone = 0
+local dischargeCount = 0
 local chilledWarned = false
 local darkPowerWarned = false
 
@@ -319,19 +329,21 @@ function mod:SPELL_AURA_APPLIED(args)
 		if uid and UnitBuff(uid, lingeringPresence) then
 			local _, _, _, stack = UnitBuff(uid, lingeringPresence)
 			if self:IsDifficulty("heroic10", "heroic25") then
-				timerDarkPowerCD:Start(math.floor(68/(0.15*stack+1.0)+0.5))--need review (68, 59, 52, 47)
-			elseif self:IsDifficulty("normal10", "normal25") then
-				timerDarkPowerCD:Start(math.floor(68/(0.10*stack+1.0)+0.5))--need review (68, 62, 57, 52)
+				timerDarkPowerCD:Start(math.floor(68/(0.15*stack+1.0)+0.5))--(68, 59, 52, 47)
+			elseif self:IsDifficulty("normal25") then--This is now 25man normal only
+				timerDarkPowerCD:Start(math.floor(68/(0.10*stack+1.0)+0.5))--(68, 62, 57, 52)
+			elseif self:IsDifficulty("normal10") then--Updated 10 man data post hotfix as seen in this log here http://worldoflogs.com/reports/8sy56hojz9x3ej7j/xe/?s=6609&e=7296&x=spellid+%3D+136442+or+spellid+%3D+136507+and+targetname+%3D+%22Slayhoof%22
+				timerDarkPowerCD:Start(math.floor(68/(0.10*(stack-1.0)+1.0)+0.5))--(76, 68, 62, x)
 			else -- lfr
-				timerDarkPowerCD:Start(math.floor(97/(0.05*stack+1.0)+0.5))--need review (97, 92, 88, 84)
+				timerDarkPowerCD:Start(math.floor(97/(0.05*stack+1.0)+0.5))--(97, 92, 88, 84)
 			end
 		else
-			if self:IsDifficulty("heroic10", "heroic25") then
-				timerDarkPowerCD:Start(68)
-			elseif self:IsDifficulty("normal10", "normal25") then
-				timerDarkPowerCD:Start(68)
-			else
+			if self:IsDifficulty("lfr25") then
 				timerDarkPowerCD:Start(97)
+			elseif self:IsDifficulty("normal10") then
+				timerDarkPowerCD:Start(76)
+			else
+				timerDarkPowerCD:Start(68)
 			end
 		end
 		if cid == 69078 then--Sul the Sandcrawler
@@ -397,6 +409,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_ljr.mp3") 	 --綠巨人強化
 			end
 			--BH ADD END
+			dischargeCount = 0
 			kazraPossessed = true
 			self:UnregisterShortTermEvents()
 		end
@@ -428,7 +441,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		--BH ADD END
 	elseif args.spellId == 136903 then--Player Debuff version, not cast version
 		timerFrigidAssault:Start(args.destName)
-		if self:AntiSpam(3, 1) then--Might need to adjust slightly to 2 or 4.
+		if self:AntiSpam(2.5, 1) then
 			warnFrigidAssault:Show(args.destName, args.amount or 1)
 			if args:IsPlayer() then
 				if (args.amount or 1) >= 8 then
@@ -451,6 +464,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerBitingColdCD:Start()
 		if args:IsPlayer() then
 			specWarnBitingCold:Show()
+			timerBitingCold:Start()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3") --離開人群 (刺骨之寒)
 			yellBitingCold:Yell()
 		end
@@ -468,6 +482,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		sndHS:Schedule(42, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hszb.mp3") --寒霜準備
 		if args:IsPlayer() then
 			specWarnFrostBite:Show()
+			timerFrostBite:Start()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zrkj.mp3") --找人靠近 (寒霜刺骨)
 		else
 			if mod:IsRanged() then
@@ -491,8 +506,14 @@ function mod:SPELL_AURA_APPLIED(args)
 			DBM.Flash:Show(1, 0, 0)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_aydn.mp3") --快跑 暗影點你
 		end
+	elseif args.spellId == 137166 then
+		dischargeCount = dischargeCount + 1
+		warnDischarge:Show(dischargeCount)
+		specWarnDischarge:Show(dischargeCount)
+	elseif args.spellId == 137641 and args:IsPlayer() then
+		specWarnSoulFragment:Show()
 	--BH ADD
-	elseif args:IsSpellID(137650) then --幽暗碎片
+	elseif args.spellId == 137650 then --幽暗碎片
 		OCn = self.Options.optOC == "five" and 5 or self.Options.optOC == "ten" and 10 or self.Options.optOC == "none" and 99
 		if args:IsPlayer() then
 			if (args.amount or 1) >= OCn then
@@ -555,12 +576,18 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.SetIconOnBitingCold then
 			self:SetIcon(args.destName, 0)
 		end
+		if args:IsPlayer() then
+			timerBitingCold:Cancel()
+		end
 		if BitingColdMarkers[args.destName] then
 			BitingColdMarkers[args.destName] = free(BitingColdMarkers[args.destName])
 		end
 	elseif args.spellId == 136922 then
 		if self.Options.SetIconOnFrostBite then
 			self:SetIcon(args.destName, 0)
+		end
+		if args:IsPlayer() then
+			timerFrostBite:Cancel()
 		end
 		if FrostBiteMarkers[args.destName] then
 			FrostBiteMarkers[args.destName] = free(FrostBiteMarkers[args.destName])

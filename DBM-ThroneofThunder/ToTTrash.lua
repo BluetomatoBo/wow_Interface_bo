@@ -104,7 +104,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnStormEnergy:Show()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3")
 		else
-			lightmaker[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", args.destName, 10, 10, 1, 1, 1, 0.7):RegisterForAlerts())
+			if self.Options.HudMAP then
+				lightmaker[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", args.destName, 10, 10, 1, 1, 1, 0.7):RegisterForAlerts())
+			end
 		end
 		if self.Options.RangeFrame and not DBM.RangeCheck:IsShown() then
 			DBM.RangeCheck:Show(10)
@@ -118,7 +120,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnStormCloud:Show()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3")
 		else
-			lightmaker[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", args.destName, 10, 60, 1, 1, 1, 0.7):RegisterForAlerts())
+			if self.Options.HudMAP then
+				lightmaker[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", args.destName, 10, 60, 1, 1, 1, 0.7):RegisterForAlerts())
+			end
 		end
 		if self.Options.RangeFrame and not DBM.RangeCheck:IsShown() then
 			DBM.RangeCheck:Show(10)

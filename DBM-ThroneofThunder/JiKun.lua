@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPWS	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9206 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9264 $"):sub(12, -3))
 mod:SetCreatureID(69712)
 mod:SetModelID(46675)
 
@@ -15,6 +15,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
+	"SPELL_CAST_SUCCESS",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"CHAT_MSG_MONSTER_EMOTE"
 )
@@ -35,6 +36,7 @@ local specWarnTalonRakeOther= mod:NewSpecialWarningTarget(134366, mod:IsTank())
 local specWarnDowndraft		= mod:NewSpecialWarningSpell(134370, nil, nil, nil, 2)
 local specWarnFeedYoung		= mod:NewSpecialWarningSpell(137528)
 local specWarnBigBird		= mod:NewSpecialWarningSwitch("ej7827", mod:IsTank())
+local specWarnFly			= mod:NewSpecialWarningYou(134339)
 
 local timerCawsCD			= mod:NewCDTimer(15, 138923)--Variable beyond usefulness. anywhere from 18 second cd and 50.
 local timerQuills			= mod:NewBuffActiveTimer(10, 134380)
@@ -61,9 +63,23 @@ local flockName = EJ_GetSectionInfo(7348)
 local flockCount = 0
 local myGroup = nil
 local wstime = 0
+mod:AddBoolOption("HudMAP", mod:IsRanged(), "sound")
+mod:AddBoolOption("HudMAPMe", false, "sound")
 for i = 1, 36 do
 	mod:AddBoolOption("add"..i, false, "sound")
 end
+for i = 1, 7 do
+	mod:AddBoolOption("dr"..i, false, "sound")
+end
+
+local function MyJS()
+	if (mod.Options.dr1 and quillsCount == 1) or (mod.Options.dr2 and quillsCount == 2) or (mod.Options.dr3 and quillsCount == 3) or (mod.Options.dr4 and quillsCount == 4) or (mod.Options.dr5 and quillsCount == 5) or (mod.Options.dr6 and quillsCount == 6) or (mod.Options.dr7 and quillsCount == 7) then
+		return true
+	end
+	return false
+end
+
+
 local function MyAddDown(flockwave)
 	if (flockwave == 2 and mod.Options.add2) or (flockwave == 3 and mod.Options.add3) or (flockwave == 4 and mod.Options.add5) or (flockwave == 5 and mod.Options.add7) or (flockwave == 7 and mod.Options.add10) or (flockwave == 8 and mod.Options.add12) or (flockwave == 9 and mod.Options.add14) or (flockwave == 10 and mod.Options.add16) or (flockwave == 11 and mod.Options.add18) or (flockwave == 12 and mod.Options.add20) or (flockwave == 13 and mod.Options.add22) or (flockwave == 14 and mod.Options.add24) or (flockwave == 15 and mod.Options.add26) or (flockwave == 16 and mod.Options.add28) or (flockwave == 17 and mod.Options.add30) or (flockwave == 18 and mod.Options.add32) or (flockwave == 19 and mod.Options.add34) or (flockwave == 20 and mod.Options.add36) then
 		return true
@@ -76,6 +92,14 @@ local function MyAddUp(flockwave)
 	end
 	return false
 end
+local DBMHudMap = DBMHudMap
+local free = DBMHudMap.free
+local function register(e)	
+	DBMHudMap:RegisterEncounterMarker(e)
+	return e
+end
+local FireMarkers = {}
+-- BH ADD END
 function mod:OnCombatStart(delay)
 	flockC = 0
 	quillsCount = 0
@@ -110,15 +134,16 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 134366 then
-		warnTalonRake:Show(args.destName, args.amount or 1)
+		local amount = args.amount or 1
+		warnTalonRake:Show(args.destName, amount)
 		timerTalonRake:Start(args.destName)
 		timerTalonRakeCD:Start()
 		if args:IsPlayer() then
-			if (args.amount or 1) >= 2 then
-				specWarnTalonRake:Show(args.amount)
+			if amount >= 2 then
+				specWarnTalonRake:Show(amount)
 			end
 		else
-			if (args.amount or 1) >= 1 and not UnitDebuff("player", GetSpellInfo(134366)) and not UnitIsDeadOrGhost("player") then
+			if amount >= 1 and not UnitDebuff("player", GetSpellInfo(134366)) and not UnitIsDeadOrGhost("player") then
 				specWarnTalonRakeOther:Show(args.destName)
 				if mod:IsTank() then
 					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3") --換坦嘲諷
@@ -152,6 +177,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerFlight:Start()
 	elseif args.spellId == 140741 and args:IsPlayer() then
 		timerPrimalNutriment:Start()
+	elseif args.spellId == 134339 and args:IsPlayer() then
+		specWarnFly:Show()
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -159,6 +186,26 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 134366 then
 		timerTalonRake:Cancel(args.destName)
+	end
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 138923 then
+		if mod.Options.HudMAP then
+			for i = 1, DBM:GetNumGroupMembers() do
+				if UnitName("raid"..i) ~= UnitName("player") then
+					local _, class = UnitClass("raid"..i)
+					if (class == "DRUID" and UnitPowerMax("raid"..i) > 200000) or class == "HUNTER" or class == "PRIEST" or class == "MAGE" or class == "WARLOCK" or (class == "SHAMAN" and UnitPowerMax("raid"..i) > 200000) or (class == "PALADIN" and UnitPowerMax("raid"..i) > 200000) then
+						FireMarkers[UnitName("raid"..i)] = register(DBMHudMap:PlaceStaticMarkerOnPartyMember("highlight", UnitName("raid"..i), 10, 3, 1, 1 ,1 ,0.8):Appear():RegisterForAlerts())
+					end
+				end
+			end
+		end
+		if mod.Options.HudMAPMe then
+			if mod:IsRanged() then
+				FireMarkers[UnitName("player")] = register(DBMHudMap:PlaceStaticMarkerOnPartyMember("highlight", UnitName("player"), 10, 3, 1, 1 ,1 ,0.8):Appear():RegisterForAlerts())
+			end
+		end
 	end
 end
 
@@ -173,11 +220,15 @@ function mod:SPELL_CAST_START(args)
 		else
 			timerQuillsCD:Start(nil, quillsCount+1)
 		end
-		if mod:IsHealer() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\healall.mp3") --注意群療
+		if MyJS() then
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
-		end
+			if mod:IsHealer() then
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\healall.mp3") --注意群療
+			else
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
+			end
+		end		
 	elseif args.spellId == 134370 then
 		warnDowndraft:Show()
 		specWarnDowndraft:Show()

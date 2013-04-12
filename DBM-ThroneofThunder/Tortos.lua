@@ -4,7 +4,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndXG		= mod:NewSound(nil, "SoundXG", true)
 local sndAE		= mod:NewSound(nil, "SoundAE", true)
 
-mod:SetRevision(("$Revision: 9136 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9272 $"):sub(12, -3))
 mod:SetCreatureID(67977)
 mod:SetModelID(46559)
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3)
@@ -33,7 +33,7 @@ local warnShellConcussion			= mod:NewTargetAnnounce(136431, 1)
 local specWarnCallofTortos			= mod:NewSpecialWarningSpell(136294)
 local specWarnQuakeStomp			= mod:NewSpecialWarningSpell(134920, nil, nil, nil, 2)
 local specWarnRockfall				= mod:NewSpecialWarningSpell(134476, false, nil, nil, 2)
-local specWarnStoneBreath			= mod:NewSpecialWarningInterrupt(133939)
+local specWarnStoneBreath			= mod:NewSpecialWarningInterrupt(133939, not mod:IsTank())
 local specWarnCrystalShell			= mod:NewSpecialWarning("specWarnCrystalShell", false)
 local specWarnSummonBats			= mod:NewSpecialWarningSwitch("ej7140", mod:IsTank())--Dps can turn it on too, but not on by default for dps cause quite frankly dps should NOT switch right away, tank needs to get aggro first and where they spawn is semi random.
 
@@ -98,7 +98,7 @@ local kickedShells = {}
 local addsActivated = 0
 local alternateSet = false
 local adds = {}
-local AddIcon = 8
+local AddIcon = 6
 local iconsSet = 3
 local highestVersion = 0
 local hasHighestVersion = false
@@ -122,7 +122,7 @@ function mod:OnCombatStart(delay)
 	lastConcussion = 0
 	addsActivated = 0
 	highestVersion = 0
-	AddIcon = 8
+	AddIcon = 6
 	iconsSet = 3
 	alternateSet = false
 	Warned = false
@@ -150,7 +150,7 @@ function mod:OnCombatStart(delay)
 	else
 		berserkTimer:Start(-delay)
 	end
-	if DBM:GetRaidRank() > 0 and self.Options.SetIconOnTurtles then--You can set marks and you have icons turned on
+	if DBM:GetRaidRank() > 0 and self.Options.SetIconOnTurtles and not DBM.Options.DontSetIcons then--You can set marks and you have icons turned on
 		self:SendSync("IconCheck", UnitGUID("player"), tostring(DBM.Revision))
 	end
 end
@@ -196,7 +196,7 @@ function mod:SPELL_CAST_START(args)
 		specWarnQuakeStomp:Show()
 		timerStompActive:Start()
 		timerRockfallCD:Start(7.4)--When the spam of rockfalls start
-		timerStompCD:Start(49, stompCount+1)
+		timerStompCD:Start(nil, stompCount+1)
 		sndWOP:Schedule(45, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stompsoon.mp3")--準備踐踏
 		if MyJS() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
@@ -212,14 +212,14 @@ local function resetaddstate()
 	table.wipe(adds)
 	if addsActivated >= 1 then--1 or more add is up from last set
 		if alternateSet then--We check whether we started with skull last time or moon
-			AddIcon = 5--Start with moon if we used skull last time
+			AddIcon = 3--Start with moon if we used skull last time
 			alternateSet = false
 		else
-			AddIcon = 8--Start with skull if we used moon last time
+			AddIcon = 6--Start with skull if we used moon last time
 			alternateSet = true
 		end
 	else--No turtles are up at all
-		AddIcon = 8--Always start with skull
+		AddIcon = 6--Always start with skull
 		alternateSet = true--And reset alternate status so we use moon next time (unless all are dead again, then re always reset to skull)
 	end
 end
@@ -263,7 +263,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			resetaddstate()
 		end
 		adds[args.destGUID] = AddIcon
-		AddIcon = AddIcon - 1
+		AddIcon = AddIcon + 1
 		addsActivated = addsActivated + 1
 	end
 end

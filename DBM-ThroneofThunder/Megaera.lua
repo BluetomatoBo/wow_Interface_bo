@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndXL	= mod:NewSound(nil, "SoundXL", true)
 
-mod:SetRevision(("$Revision: 9194 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9272 $"):sub(12, -3))
 mod:SetCreatureID(68065, 70212, 70235, 70247)--flaming 70212. Frozen 70235, Venomous 70247
 mod:SetMainBossID(68065)
 mod:SetModelID(47414)--Hydra Fire Head, 47415 Frost Head, 47416 Poison Head
@@ -57,7 +57,6 @@ local specWarnTorrentofIceYou	= mod:NewSpecialWarningRun(139889)
 local yellTorrentofIce			= mod:NewYell(139889)
 local specWarnTorrentofIce		= mod:NewSpecialWarningMove(139909)--Ice left on ground by the beam
 local specWarnNetherTear		= mod:NewSpecialWarningSwitch("ej7816", mod:IsDps())
-local SpecWarnJSA				= mod:NewSpecialWarning("SpecWarnJSA")
 
 local timerRampage				= mod:NewBuffActiveTimer(21, 139458)
 mod:AddBoolOption("timerBreaths", mod:IsTank() or mod:IsHealer(), "timer")--Better to have one option for breaths than 4
@@ -127,7 +126,8 @@ local cinderIcon = 7
 local iceIcon = 6
 local activeHeadGUIDS = {}
 local iceTorrent = GetSpellInfo(139857)
-local lastTorrent = 0
+local torrentTarget1 = nil
+local torrentTarget2 = nil
 
 local function isTank(unit)
 	-- 1. check blizzard tanks first
@@ -193,14 +193,17 @@ function mod:OnCombatStart(delay)
 	combat = true
 	cinderIcon = 7
 	iceIcon = 6
-	lastTorrent = 0
+	torrentTarget1 = nil
+	torrentTarget2 = nil
 	if self:IsDifficulty("heroic10", "heroic25") then
 		arcaneBehind = 1
 		arcaneInFront = 0
 		timerCinderCD:Start(13)
 		timerNetherTearCD:Start()
-	elseif self:IsDifficulty("normal10", "normal25") then -- lfr seems first Cinder not comes
+	elseif self:IsDifficulty("normal10", "normal25") then
 		timerCinderCD:Start()
+	else
+		timerCinderCD:Start(58)
 	end
 	showheadinfo()
 	self:RegisterShortTermEvents(
@@ -236,11 +239,10 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 139843 then
 		local uId = DBM:GetRaidUnitId(args.destName)
 		if isTank(uId) then
-			warnArcticFreeze:Show(args.destName, args.amount or 1)
-			if args:IsPlayer() then
-				if (args.amount or 1) >= 2 then
-					specWarnArcticFreeze:Show(args.amount)
-				end
+			local amount = args.amount or 1
+			warnArcticFreeze:Show(args.destName, amount)
+			if args:IsPlayer() and amount >= 2 then
+				specWarnArcticFreeze:Show(amount)
 			end
 			if not self.Options.timerBreaths then return end
 			if rampageCast == 0 then--In first phase, the breaths aren't at same time because the cds don't start until the specific head is engaged, thus, they can be desynced 1-3 seconds, so we want each breath to use it's own timer until after first rampage
@@ -252,11 +254,10 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 137731 then
 		local uId = DBM:GetRaidUnitId(args.destName)
 		if isTank(uId) then
-			warnIgniteFlesh:Show(args.destName, args.amount or 1)
-			if args:IsPlayer() then
-				if (args.amount or 1) >= 2 then
-					specWarnIgniteFlesh:Show(args.amount)
-				end
+			local amount = args.amount or 1
+			warnIgniteFlesh:Show(args.destName, amount)
+			if args:IsPlayer() and amount >= 2 then
+				specWarnIgniteFlesh:Show(amount)
 			end
 			if not self.Options.timerBreaths then return end
 			timerBreathsCD:Start()
@@ -264,11 +265,10 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 139840 then
 		local uId = DBM:GetRaidUnitId(args.destName)
 		if isTank(uId) then
-			warnRotArmor:Show(args.destName, args.amount or 1)
-			if args:IsPlayer() then
-				if (args.amount or 1) >= 2 then
-					specWarnRotArmor:Show(args.amount)
-				end
+			local amount = args.amount or 1
+			warnRotArmor:Show(args.destName, amount)
+			if args:IsPlayer() and amount >= 2 then
+				specWarnRotArmor:Show(amount)
 			end
 			if not self.Options.timerBreaths then return end
 			if rampageCast == 0 then--In first phase, the breaths aren't at same time because the cds don't start until the specific head is engaged, thus, they can be desynced 1-3 seconds, so we want each breath to use it's own timer until after first rampage
@@ -280,11 +280,10 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 139993 then
 		local uId = DBM:GetRaidUnitId(args.destName)
 		if isTank(uId) then
-			warnArcaneDiffusion:Show(args.destName, args.amount or 1)
-			if args:IsPlayer() then
-				if (args.amount or 1) >= 2 then
-					specWarnArcaneDiffusion:Show(args.amount)
-				end
+			local amount = args.amount or 1
+			warnArcaneDiffusion:Show(args.destName, amount)
+			if args:IsPlayer() and amount >= 2 then
+				specWarnArcaneDiffusion:Show(amount)
 			end
 			if not self.Options.timerBreaths then return end
 			timerBreathsCD:Start()
@@ -381,7 +380,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		end
 		if fireBehind > 0 then
 			if self:IsDifficulty("lfr25") then
-				timerCinderCD:Start(11)--11-14 second variatio
+				timerCinderCD:Start(12)--12-15 second variatio
 			else
 				timerCinderCD:Start(5)--5-8 second variatio
 			end
@@ -391,20 +390,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		end--]]
 		if arcaneBehind > 0 then
 			timerNetherTearCD:Start(15)--15-18 seconds after rampages end
-		end
-	end
-end
-
-function mod:RAID_BOSS_WHISPER(msg)
-	if msg:find("spell:139866") then
-		if self:AntiSpam(5, 6) then
-			specWarnTorrentofIceYou:Show()
-			yellTorrentofIce:Yell()
-			timerTorrentofIce:Start()
-	--		soundTorrentofIce:Play()
-			self:SendSync("IceTarget", UnitGUID("player"))
-			DBM.Flash:Show(0, 0, 1)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
 		end
 	end
 end
@@ -486,31 +471,56 @@ function mod:UNIT_DIED(args)
 	end
 end
 
+function mod:RAID_BOSS_WHISPER(msg)
+	if msg:find("spell:139866") then
+		if self:AntiSpam(5, 6) then
+			specWarnTorrentofIceYou:Show()
+			yellTorrentofIce:Yell()
+			timerTorrentofIce:Start()
+			self:SendSync("IceTarget", UnitGUID("player"))
+			DBM.Flash:Show(0, 0, 1)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
+		end
+	end
+end
+
+local function warnTorrent(name)
+	if not name then return end
+	warnTorrentofIce:Show(name)
+	if name == UnitName("player") then
+		if self:AntiSpam(5, 6) then
+			specWarnTorrentofIceYou:Show()
+			timerTorrentofIce:Start()
+			yellTorrentofIce:Yell()
+			mod:SendSync("IceTarget", UnitGUID("player")) -- Remain sync stuff for older version.
+		end
+	end
+end
+
 function mod:UNIT_AURA(uId)
-	if UnitDebuff(uId, iceTorrent) then
-		local _, _, _, _, _, duration, expires = UnitDebuff(uId, iceTorrent)
-		if lastTorrent ~= expires then
-			lastTorrent = expires
-			local name = DBM:GetUnitFullName(uId)
-			warnTorrentofIce:Show(name)
-			if name == UnitName("player") then
-				if self:AntiSpam(5, 6) then
-					specWarnTorrentofIceYou:Show()
-					timerTorrentofIce:Start()
-					yellTorrentofIce:Yell()
-					self:SendSync("IceTarget", UnitGUID("player")) -- Remain sync stuff for older version.
-					DBM.Flash:Show(0, 0, 1)
-					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
-				end
-			end
-			if self.Options.SetIconOnTorrentofIce then
-				self:SetIcon(uId, iceIcon, 11)--do not have cleu, so use scheduler.
-				if iceIcon == 6 then--Alternate cinder icons because you can have two at once in later fight.
-					iceIcon = 4--green is closest match to blue for a cold like color
-				else
-					iceIcon = 6
-				end
-			end
+	if UnitDebuff(uId, iceTorrent) and not torrentTarget1 and (torrentTarget2 or "") ~= uId then
+		torrentTarget1 = uId
+		local name = DBM:GetUnitFullName(uId)
+		warnTorrent(name)
+		if self.Options.SetIconOnTorrentofIce then
+			self:SetIcon(uId, 6)
+		end
+	elseif UnitDebuff(uId, iceTorrent) and not torrentTarget2 and (torrentTarget1 or "") ~= uId then
+		torrentTarget2 = uId
+		local name = DBM:GetUnitFullName(uId)
+		warnTorrent(name)
+		if self.Options.SetIconOnTorrentofIce then
+			self:SetIcon(uId, 4)
+		end
+	elseif torrentTarget1 and torrentTarget1 == uId and not UnitDebuff(uId, iceTorrent) then
+		torrentTarget1 = nil
+		if self.Options.SetIconOnTorrentofIce then
+			self:SetIcon(uId, 0)
+		end
+	elseif torrentTarget2 and torrentTarget2 == uId and not UnitDebuff(uId, iceTorrent) then
+		torrentTarget2 = nil
+		if self.Options.SetIconOnTorrentofIce then
+			self:SetIcon(uId, 0)
 		end
 	end
 end

@@ -6,7 +6,9 @@ DBM_HOW_TO_USE_MOD					= "歡迎使用黑手之鄉DBM-語音版。在聊天頻�
 DBM_CORE_LOAD_MOD_ERROR				= "載入%s模組時發生錯誤：%s"
 DBM_CORE_LOAD_MOD_SUCCESS			= "成功載入%s模組。輸入/dbm或/dbm help有更多選項。"
 DBM_CORE_LOAD_GUI_ERROR				= "無法載入圖形介面：%s"
-DBM_CORE_LOAD_GUI_COMBAT			= "圖形介面不能在戰鬥中初始化。請先在於戰鬥外讀取圖形介面，這樣就能夠在戰鬥中使用。"
+DBM_CORE_LOAD_GUI_COMBAT			= "圖形介面不能在戰鬥中初始化。圖形介面將在戰鬥後自動讀取，這樣就能夠在戰鬥中使用。"
+
+DBM_CORE_BIGWIGS_ICON_CONFLICT			= "DBM檢測到你同時開啟了Bigwigs,請關閉自動標記以避免衝突"
 
 DBM_CORE_COMBAT_STARTED				= "%s開戰。祝好運與盡興! :)"
 DBM_CORE_COMBAT_STARTED_IN_PROGRESS	= "開戰%s已進行的戰鬥。祝好運與盡興! :)"
@@ -59,9 +61,12 @@ DBM_CORE_WHISPER_COMBAT_END_WIPE_STATS_AT	= "%s在%s還有%s時滅團了。他�
 
 DBM_CORE_VERSIONCHECK_HEADER			= "Deadly Boss Mods - 版本檢測"
 DBM_CORE_VERSIONCHECK_ENTRY				= "%s：%s(r%d)"
-DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM		= "%s：尚未安裝DBM"
-DBM_CORE_VERSIONCHECK_FOOTER			= "團隊中有%d名成員正在使用Deadly Boss Mods"
+DBM_CORE_VERSIONCHECK_ENTRY_TWO			= "%s: %s (r%d) & %s (r%d)"
+DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM		= "%s：尚未安裝任何團隊首領模組"
+DBM_CORE_VERSIONCHECK_FOOTER			= "團隊中有%d玩家正在使用DBM / %d玩家正在使用Bigwigs"
 DBM_CORE_YOUR_VERSION_OUTDATED			= "你的 Deadly Boss Mod 已經過期。請到 www.deadlybossmods.com 下載最新版本。"
+--DBM_BIG_WIGS (Same as English locales)
+--DBM_BIG_WIGS_ALPHA (Same as English locales)
 
 DBM_CORE_UPDATEREMINDER_HEADER			= "你的 Deadly Boss Mod 已經過期。\n你可以在此網址下載到新版本%s(r%d)："
 DBM_CORE_UPDATEREMINDER_FOOTER			= "Ctrl-C：複製下載網址到剪貼簿。"
@@ -75,7 +80,7 @@ DBM_PIZZA_ERROR_USAGE				= "命令：/dbm [broadcast] timer <時間（秒）> <�
 
 DBM_CORE_ERROR_DBMV3_LOADED			= "目前有2個版本的Deadly Boss Mods正在運行：DBMv3和DBMv4。\n按一下“確定”按鈕可將DBMv3關閉並重載插件。\n我們建議將插件目錄下的DBMv3刪除。"
 
-DBM_CORE_MINIMAP_TOOLTIP_HEADER		= "Deadly Boss Mods"
+--DBM_CORE_MINIMAP_TOOLTIP_HEADER (Same as English locales)
 DBM_CORE_MINIMAP_TOOLTIP_FOOTER		= "Shift+左鍵或右鍵點擊即可移動，Alt+Shift+點擊即可拖放"
 
 DBM_CORE_RANGECHECK_HEADER			= "距離監視（%d碼）"
@@ -147,35 +152,6 @@ DBM_CORE_ANNOUNCE_PULL_CANCEL		= "取消了戰鬥準備倒計時"
 
 DBM_CORE_ACHIEVEMENT_TIMER_SPEED_KILL 		= "成就：最速勝利"
 
--- Auto-generated Timer Localizations
-DBM_CORE_AUTO_TIMER_TEXTS = {
-	target					= "%s:>%%s<",
-	cast					= "%s",
-	active					= "%s結束",
-	fades					= "%s消散",
-	cd						= "%s冷卻",
-	cdcount					= "%s冷卻 (%%d)",
-	cdsource				= "%s冷卻: >%%s<",
-	next 					= "下一次%s",
-	nextcount 				= "下一次%s (%%d)",
-	nextsource				= "下一次%s: >%%s<",
-	achievement 			= "%s"
-}
-
-DBM_CORE_AUTO_TIMER_OPTIONS = {
-	target					= "計時器：$spell:%s減益效果持續時間",
-	cast					= "計時器：$spell:%s施法時間",
-	active					= "計時器：$spell:%s持續時間",
-	fades					= "計時器：$spell:%s何時從玩家身上消失",
-	cd						= "計時器：$spell:%s冷卻時間",
-	cdcount					= "計時器：$spell:%s冷卻時間",
-	cdsource				= "計時器：$spell:%s冷卻時間",
-	next					= "計時器：下一次$spell:%s",
-	nextcount				= "計時器：下一次$spell:%s",
-	nextsource				= "計時器：下一次$spell:%s",
-	achievement				= "計時器：成就%s"
-}
-
 -- Auto-generated Warning Localizations
 DBM_CORE_AUTO_ANNOUNCE_TEXTS = {
 	target					= "%s:>%%s<",
@@ -210,6 +186,24 @@ DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
 	stack					= "警告：$spell:%s疊加層數",
 }
 
+DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
+	spell					= "%s!",
+	ends					= "%s 结束",
+	fades					= "%s 消失",
+	soon					= "%s 即将到来",
+	dispel					= ">%%s<中了%s - 快驅散",
+	interrupt				= "%s - 快打斷>%%s< !",
+	you						= "你中了%s",
+	target					= ">%%s<中了%s",
+	close					= "你附近的>%%s<中了%s",
+	move					= "%s - 快移動",
+	run						= "%s - 快躲開",
+	cast					= "%s - 停止施法",
+	count 					= "%s! (%%d)",
+	stack 					= "你疊加了%%d層%s",
+	switch					= ">%s< - 轉換目標!"
+}
+
 -- Auto-generated Special Warning Localizations
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	spell					= "特別警告：$spell:%s",
@@ -229,22 +223,33 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	switch 					= "特別警告：針對$spell:%s轉換目標"
 }
 
-DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
-	spell					= "%s!",
-	ends					= "%s 结束",
-	fades					= "%s 消失",
-	soon					= "%s 即将到来",
-	dispel					= ">%%s<中了%s - 快驅散",
-	interrupt				= "%s - 快打斷>%%s< !",
-	you						= "你中了%s",
-	target					= ">%%s<中了%s",
-	close					= "你附近的>%%s<中了%s",
-	move					= "%s - 快移動",
-	run						= "%s - 快躲開",
-	cast					= "%s - 停止施法",
-	count 					= "%s! (%%d)",
-	stack 					= "你疊加了%%d層%s",
-	switch					= ">%s< - 轉換目標!"
+-- Auto-generated Timer Localizations
+DBM_CORE_AUTO_TIMER_TEXTS = {
+	target					= "%s:>%%s<",
+	cast					= "%s",
+	active					= "%s結束",
+	fades					= "%s消散",
+	cd						= "%s冷卻",
+	cdcount					= "%s冷卻 (%%d)",
+	cdsource				= "%s冷卻: >%%s<",
+	next 					= "下一次%s",
+	nextcount 				= "下一次%s (%%d)",
+	nextsource				= "下一次%s: >%%s<",
+	achievement 			= "%s"
+}
+
+DBM_CORE_AUTO_TIMER_OPTIONS = {
+	target					= "計時器：$spell:%s減益效果持續時間",
+	cast					= "計時器：$spell:%s施法時間",
+	active					= "計時器：$spell:%s持續時間",
+	fades					= "計時器：$spell:%s何時從玩家身上消失",
+	cd						= "計時器：$spell:%s冷卻時間",
+	cdcount					= "計時器：$spell:%s冷卻時間",
+	cdsource				= "計時器：$spell:%s冷卻時間",
+	next					= "計時器：下一次$spell:%s",
+	nextcount				= "計時器：下一次$spell:%s",
+	nextsource				= "計時器：下一次$spell:%s",
+	achievement				= "計時器：成就%s"
 }
 
 

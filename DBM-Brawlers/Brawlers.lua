@@ -1,17 +1,14 @@
 local mod	= DBM:NewMod("Brawlers", "DBM-Brawlers")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9116 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9235 $"):sub(12, -3))
 --mod:SetCreatureID(60491)
 --mod:SetModelID(41448)
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"CHAT_MSG_MONSTER_YELL",
-	"PLAYER_REGEN_ENABLED",
-	"UNIT_DIED",
-	"ZONE_CHANGED_NEW_AREA"
+	"ZONE_CHANGED_NEW_AREA",
+	"CHAT_MSG_MONSTER_YELL"
 )
 
 local warnOrgPortal			= mod:NewCastAnnounce(135385, 1)--These are rare casts and linked to achievement.
@@ -32,6 +29,7 @@ local currentFighter = nil
 local currentRank = 0--Used to stop bars for the right sub mod based on dynamic rank detection from pulls
 local currentZoneID = 0
 local modsStopped = false
+local eventsRegistered = false
 
 function mod:PlayerFighting() -- for external mods
 	return playerIsFighting
@@ -53,30 +51,36 @@ end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg, npc, _, _, target)
 	local isMatchBegin = true
-	if msg:find(L.Rank1) then
+	if msg:find(L.Rank1, 1, true) then -- fix for ruRU clients.
 		currentFighter = target
 		currentRank = 1
-	elseif msg:find(L.Rank2) then
+	elseif msg:find(L.Rank2, 1, true) then
 		currentFighter = target
 		currentRank = 2
-	elseif msg:find(L.Rank3) then
+	elseif msg:find(L.Rank3, 1, true) then
 		currentFighter = target
 		currentRank = 3
-	elseif msg:find(L.Rank4) then
+	elseif msg:find(L.Rank4, 1, true) then
 		currentFighter = target
 		currentRank = 4
-	elseif msg:find(L.Rank5) then
+	elseif msg:find(L.Rank5, 1, true) then
 		currentFighter = target
 		currentRank = 5
-	elseif msg:find(L.Rank6) then
+	elseif msg:find(L.Rank6, 1, true) then
 		currentFighter = target
 		currentRank = 6
-	elseif msg:find(L.Rank7) then
+	elseif msg:find(L.Rank7, 1, true) then
 		currentFighter = target
 		currentRank = 7
-	elseif msg:find(L.Rank8) then
+	elseif msg:find(L.Rank8, 1, true) then
 		currentFighter = target
 		currentRank = 8
+	elseif msg:find(L.Rank9, 1, true) then
+		currentFighter = target
+		currentRank = 9
+	elseif msg:find(L.Rank10, 1, true) then
+		currentFighter = target
+		currentRank = 10
 	elseif currentFighter and target == currentFighter and (npc == L.Bizmo or npc == L.Bazzelflange) then--He's targeting current fighter but it's not a match begin yell, the only other time this happens is on match end.
 		self:SendSync("MatchEnd")
 		isMatchBegin = false
@@ -123,9 +127,9 @@ function mod:ZONE_CHANGED_NEW_AREA()
 	currentZoneID = GetCurrentMapAreaID()
 	if currentZoneID == 922 or currentZoneID == 925 then
 		modsStopped = false
+		eventsRegistered = true
 		self:RegisterShortTermEvents(
 			"SPELL_CAST_START",
-			"CHAT_MSG_MONSTER_YELL",
 			"PLAYER_REGEN_ENABLED",
 			"UNIT_DIED"
 		)
@@ -134,8 +138,15 @@ function mod:ZONE_CHANGED_NEW_AREA()
 	if modsStopped then return end--Don't need this to fire every time you change zones after the first.
 	self:Stop()
 	self:UnregisterShortTermEvents()
-	for i = 1, 8 do
+	eventsRegistered = false
+	for i = 1, 9 do
 		local mod2 = DBM:GetModByName("BrawlRank" .. i)
+		if mod2 then
+			mod2:Stop()--Stop all timers and warnings
+		end
+	end
+	for i = 1, 2 do
+		local mod2 = DBM:GetModByName("BrawlRare" .. i)
 		if mod2 then
 			mod2:Stop()--Stop all timers and warnings
 		end
@@ -146,6 +157,14 @@ end
 --Most group up for this so they can buff eachother for matches. Syncing should greatly improve reliability, especially for match end since the person fighting definitely should detect that (probably missing yells still)
 function mod:OnSync(msg)
 	if msg == "MatchBegin" then
+		if not eventsRegistered then
+			eventsRegistered = true
+			self:RegisterShortTermEvents(
+				"SPELL_CAST_START",
+				"PLAYER_REGEN_ENABLED",
+				"UNIT_DIED"
+			)
+		end
 		if not (currentZoneID == 0 or currentZoneID == 922 or currentZoneID == 925) then return end
 		self:Stop()--Sometimes NPC doesn't yell when a match ends too early, if a new match begins we stop on begin before starting new stuff
 		berserkTimer:Start()
@@ -153,16 +172,17 @@ function mod:OnSync(msg)
 		if not (currentZoneID == 0 or currentZoneID == 922 or currentZoneID == 925) then return end
 		currentFighter = nil
 		self:Stop()
-		local mod2 = DBM:GetModByName("BrawlRank" .. currentRank)
-		if mod2 then
-			mod2:Stop()--Stop all timers and warnings
+		--Boss from any rank can be faught by any rank at max level, so we just need to always cancel them all
+		for i = 1, 9 do
+			local mod2 = DBM:GetModByName("BrawlRank" .. i)
+			if mod2 then
+				mod2:Stop()--Stop all timers and warnings
+			end
 		end
-		if currentRank == 0 then--We walked in on an in progress match and didn't capture what rank it is, so lets make sure when match ends we stop ALL mods
-			for i = 1, 8 do
-				local mod2 = DBM:GetModByName("BrawlRank" .. i)
-				if mod2 then
-					mod2:Stop()--Stop all timers and warnings
-				end
+		for i = 1, 2 do
+			local mod2 = DBM:GetModByName("BrawlRare" .. i)
+			if mod2 then
+				mod2:Stop()--Stop all timers and warnings
 			end
 		end
 	end

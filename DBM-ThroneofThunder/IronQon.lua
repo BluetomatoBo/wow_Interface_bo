@@ -3,10 +3,11 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9206 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9264 $"):sub(12, -3))
 mod:SetCreatureID(68078, 68079, 68080, 68081)--Ro'shak 68079, Quet'zal 68080, Dam'ren 68081, Iron Qon 68078
 mod:SetMainBossID(68078)
 mod:SetModelID(46627) -- Iron Qon, 46628 Ro'shak, 46629 Quet'zal, 46630 Dam'ren
+mod:SetBossHPInfoToHighest()
 
 mod:RegisterCombat("combat")
 
@@ -42,7 +43,7 @@ local warnPhase4						= mod:NewPhaseAnnounce(4)
 local warnRisingAnger					= mod:NewStackAnnounce(136323, 2, nil, false)
 local warnFistSmash						= mod:NewCountAnnounce(136146, 3)
 
-local specWarnImpale					= mod:NewSpecialWarningStack(134691, mod:IsTank(), 3)
+local specWarnImpale					= mod:NewSpecialWarningStack(134691, mod:IsTank(), 2)
 local specWarnImpaleOther				= mod:NewSpecialWarningTarget(134691, mod:IsTank())
 local specWarnThrowSpear				= mod:NewSpecialWarningSpell(134926, nil, nil, nil, 2)
 local specWarnThrowSpearYou				= mod:NewSpecialWarningYou(134926)
@@ -84,6 +85,9 @@ local senddr = {}
 local warneddr = {}
 local lightmaker = {}
 local FireMarkers={}
+
+local morestack = 0
+
 mod:AddBoolOption("ReapetAP", true, "sound")
 mod:AddBoolOption("SoundARAT", mod:IsDps(), "sound")
 mod:AddBoolOption("HudMAP", true, "sound")
@@ -227,6 +231,7 @@ end
 function mod:OnCombatStart(delay)
 	phase = 1
 	fistSmashCount = 0
+	morestack = 0
 	updateHealthFrame()
 	warnPhase1:Show()
 	--BH ADD
@@ -279,22 +284,44 @@ end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 134691 then
-		warnImpale:Show(args.destName, args.amount or 1)
+		local amount = args.amount or 1
+		warnImpale:Show(args.destName, amount)
 		timerImpaleCD:Start()
 		if args:IsPlayer() then
-			if (args.amount or 1) >= 3 then
+			if amount >= 2 then
 				specWarnImpale:Show(args.amount)
 			end
 		else
-			if (args.amount or 1) >= 2 and not UnitDebuff("player", GetSpellInfo(134691)) and not UnitIsDeadOrGhost("player") then
+			if amount >= 2 and not UnitDebuff("player", GetSpellInfo(134691)) and not UnitIsDeadOrGhost("player") then
 				specWarnImpaleOther:Show(args.destName)
 			end
 		end
-	elseif args.spellId == 134647 and args:IsPlayer() then
-		timerScorched:Start()
-		if (args.amount or 1) > 2 then
-			specWarnScorched:Show(args.amount or 1)
+	elseif args.spellId == 134647 then
+		if args:IsPlayer() then
+			timerScorched:Start()
+			if (args.amount or 1) > 2 then
+				specWarnScorched:Show(args.amount or 1)
+			end
 		end
+		if morestack < (args.amount or 1) then
+			morestack = (args.amount or 1)
+		end
+		self:Schedule(0.2, function()
+			if morestack == 1 then
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+			elseif morestack == 2 then
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			elseif morestack == 3 then
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			elseif morestack == 4 then
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+			elseif morestack == 5 then
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			elseif morestack == 6 then
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countsix.mp3")
+			end
+			morestack = 0
+		end)
 	elseif args.spellId == 137221 then
 		warnMoltenOverload:Show()
 		specWarnMoltenOverload:Show()
@@ -513,6 +540,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerFrostSpikeCD:Cancel()
 			warnPhase3:Show()
 			timerDeadZoneCD:Start(8.5)
+			--Maybe remove this range frame. in heroic phase 3-4, he only targets melee and no one else, and cd is 31 so ALL melee just soak entire phase and never move for it. does mindless need a range checker?
 			if self:IsDifficulty("heroic10", "heroic25") then--On heroic, the fire guy returns and attacks clumps again
 				if self.Options.RangeFrame then--So on heroic we need to restore the grouping range frame
 					if self:IsDifficulty("heroic25") then
@@ -526,8 +554,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		elseif cid == 68081 then--Dam'ren
 			phase = 4
 			updateHealthFrame()
-			timerDeadZoneCD:Cancel()
-			timerFreezeCD:Cancel()
+			timerDeadZoneCD:Cancel()--Todo, find out what they change to in phase 4 since Dam'ren still casts them
+			timerFreezeCD:Cancel()--Todo, find out what they change to in phase 4 since Dam'ren still casts them
 			warnPhase4:Show()
 			timerRisingAngerCD:Start(15)
 			timerFistSmashCD:Start(62, 1)
@@ -570,6 +598,8 @@ end
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 68079 then--Ro'shak
+		timerUnleashedFlameCD:Cancel()
+		timerMoltenOverload:Cancel()
 		if self:IsDifficulty("heroic10", "heroic25") then--In heroic, all mounts die in phase 4.
 			DBM.BossHealth:RemoveBoss(cid)
 		else
@@ -598,6 +628,11 @@ function mod:UNIT_DIED(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdxt.mp3") --閃電形态
 		end
 	elseif cid == 68080 then--Quet'zal
+		timerLightningStormCD:Cancel()
+		timerWindStormCD:Cancel()
+		warnWindStorm:Cancel()
+		specWarnWindStorm:Cancel()
+		timerWindStorm:Cancel()
 		if self:IsDifficulty("heroic10", "heroic25") then--In heroic, all mounts die in phase 4.
 			DBM.BossHealth:RemoveBoss(cid)
 		else
@@ -630,6 +665,8 @@ function mod:UNIT_DIED(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bsxt.mp3") --冰霜形態
 		end
 	elseif cid == 68081 then--Dam'ren
+		timerDeadZoneCD:Cancel()
+		timerFreezeCD:Cancel()
 		if self:IsDifficulty("heroic10", "heroic25") then--In heroic, all mounts die in phase 4.
 			DBM.BossHealth:RemoveBoss(cid)
 		else

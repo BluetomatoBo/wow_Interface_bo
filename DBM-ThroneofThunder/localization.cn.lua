@@ -192,7 +192,8 @@ L:SetTimerLocalization({
 
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
-	InfoFrame		= "信息框：黑手鸟蛋战术提示",
+	HudMAP			= "高级定位监视(HUD)：标注出可能的$spell:138923落点(不包括对你的)",
+	HudMAPMe		= "同时标注出可能对你发射的$spell:138923(不建议)",
 	warnFlock		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.count:format("ej7348"),
 	specWarnFlock	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.switch:format("ej7348"),
 	timerFlockCD	= DBM_CORE_AUTO_TIMER_OPTIONS.nextcount:format("ej7348"),
@@ -232,6 +233,13 @@ L:SetOptionLocalization({
 	add34			= "第十九波$journal:7348(下)",
 	add35			= "第二十波$journal:7348(上)",
 	add36			= "第二十波$journal:7348(下)",
+	dr1				= "减伤提示：$spell:134380 1",
+	dr2				= "减伤提示：$spell:134380 2",
+	dr3				= "减伤提示：$spell:134380 3",
+	dr4				= "减伤提示：$spell:134380 4",
+	dr5				= "减伤提示：$spell:134380 5",
+	dr6				= "减伤提示：$spell:134380 6",
+	dr7				= "减伤提示：$spell:134380 7",
 	RangeFrame		= "距离监视(8码)：$spell:138923"
 })
 
@@ -241,8 +249,8 @@ L:SetMiscLocalization({
 	U				= "上方",
 	L				= "下方",
 	UAndL			= "上方 & 下方",
-	TrippleD		= "三个 (2x下)",
-	TrippleU		= "三个 (2x上)"
+	TrippleD		= "三个 (2下1上)",
+	TrippleU		= "三个 (2上1下)"
 })
 
 --------------------------
@@ -251,16 +259,19 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(818)
 
 L:SetWarningLocalization({
-	warnAddsLeft				= "雾兽剩餘: %d",
+	warnBeamNormal				= "射线 - |cffff0000红光|r : >%s<, |cff0000ff蓝光|r : >%s<",
+	warnBeamHeroic				= "射线 - |cffff0000红光|r : >%s<, |cff0000ff蓝光|r : >%s<, |cffffff00黄光|r : >%s<",
+	specWarnBlueBeam			= "你中了蓝光射线 - 避免移动!!",
+	warnAddsLeft				= "雾兽剩余: %d",
 	specWarnFogRevealed			= "照出%s了!",
 	specWarnHold				= "黑暗寄生(%d秒)--快开自保技能",
-	specWarnBlueBeam			= "蓝光锁定你 - 不要动!!",
 	specWarnDisintegrationBeam	= "%s (%s)"
 })
 
 L:SetOptionLocalization({
 	SoundWOP					= "语音警告：重要技能",
 	specWarnBlueBeam			= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format(139202),
+	warnBeam					= "提示射线目标",
 	optDD						= "三元光分担策略",
 	DXsound						= "高级定位监视(HUD)：$spell:133795",
 	InfoFrame					= "信息框：$spell:133597 (若同时监视$spell:133795 则优先显示$spell:133795层数)",

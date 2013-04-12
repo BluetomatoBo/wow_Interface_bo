@@ -195,6 +195,8 @@ L:SetOptionLocalization({
 	warnFlock		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.count:format("ej7348"),
 	specWarnFlock	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.switch:format("ej7348"),
 	timerFlockCD	= DBM_CORE_AUTO_TIMER_OPTIONS.nextcount:format("ej7348"),
+	HudMAP			= "高級定位監視(HUD)：標注出可能的$spell:138923落點(不包括對你的)",
+	HudMAPMe		= "同時標注出可能對你發射的$spell:138923(不建議)",
 	add1			= "第一波$journal:7348(下)",
 	add2			= "第二波$journal:7348(下)",
 	add3			= "第三波$journal:7348(下)",
@@ -231,6 +233,13 @@ L:SetOptionLocalization({
 	add34			= "第十九波$journal:7348(下)",
 	add35			= "第二十波$journal:7348(上)",
 	add36			= "第二十波$journal:7348(下)",
+	dr1				= "減傷提示：$spell:134380 1",
+	dr2				= "減傷提示：$spell:134380 2",
+	dr3				= "減傷提示：$spell:134380 3",
+	dr4				= "減傷提示：$spell:134380 4",
+	dr5				= "減傷提示：$spell:134380 5",
+	dr6				= "減傷提示：$spell:134380 6",
+	dr7				= "減傷提示：$spell:134380 7",
 	RangeFrame		= "距離監視(8碼)：$spell:138923"
 })
 
@@ -240,8 +249,8 @@ L:SetMiscLocalization({
 	Upper			= "上層",
 	Lower			= "下層",
 	UpperAndLower		= "上層和下層",
-	TrippleD		= "三個 (2x下)",
-	TrippleU		= "三個 (2x上)"
+	TrippleD		= "三個 (2下1上)",
+	TrippleU		= "三個 (2上1下)"
 })
 
 --------------------------
@@ -250,15 +259,18 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(818)
 
 L:SetWarningLocalization({
+	warnBeamNormal				= "射線 - |cffff0000紅光|r : >%s<, |cff0000ff藍光|r : >%s<",
+	warnBeamHeroic				= "射線 - |cffff0000紅光|r : >%s<, |cff0000ff藍光|r : >%s<, |cffffff00黃光|r : >%s<",
 	warnAddsLeft				= "霧獸剩餘: %d",
+	specWarnBlueBeam			= "你中了藍光射線 - 避免移動!!",
 	specWarnFogRevealed			= "照出%s了!",
 	specWarnHold				= "黑暗寄生(%d秒)--快開自保技能",
-	specWarnBlueBeam			= "藍光鎖定你 - 不要動!!",
 	specWarnDisintegrationBeam	= "%s (%s)"
 })
 
 L:SetOptionLocalization({
 	SoundWOP					= "語音警告：重要技能",
+	warnBeam					= "提示射線目標",
 	specWarnBlueBeam			= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format(139202),
 	optDD						= "三元光分擔策略",
 	DXsound						= "高級定位監視(HUD)：$spell:133795",

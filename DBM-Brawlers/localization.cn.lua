@@ -34,6 +34,8 @@ L:SetMiscLocalization({
 	Rank6			= "6级",
 	Rank7			= "7级",
 	Rank8			= "8级",
+	Rank9			= "9级",
+	Rank10			= "10级",
 	Proboskus		= "Oh dear... I'm sorry, but it looks like you're going to have to fight Proboskus.",--Alliance
 	Proboskus2		= "Ha ha ha! What bad luck you have! It's Proboskus! Ahhh ha ha ha! I've got twenty five gold that says you die in the fire!"--Horde
 })
@@ -138,6 +140,45 @@ L= DBM:GetModLocalization("BrawlRank8")
 
 L:SetGeneralLocalization({
 	name = "搏击俱乐部：8级"
+})
+
+L:SetOptionLocalization({
+	SoundWOP			= "语音警告：重要技能"
+})
+
+------------
+-- Rank 9 --
+------------
+L= DBM:GetModLocalization("BrawlRank9")
+
+L:SetGeneralLocalization({
+	name = "搏击俱乐部：9级"
+})
+
+L:SetOptionLocalization({
+	SoundWOP			= "语音警告：重要技能"
+})
+
+-------------
+-- Rares 1 --
+-------------
+L= DBM:GetModLocalization("BrawlRare1")
+
+L:SetGeneralLocalization({
+	name = "搏击俱乐部: Rares 1"
+})
+
+L:SetOptionLocalization({
+	SoundWOP			= "语音警告：重要技能"
+})
+
+-------------
+-- Rares 2 --
+-------------
+L= DBM:GetModLocalization("BrawlRare2")
+
+L:SetGeneralLocalization({
+	name = "搏击俱乐部: Rares 2"
 })
 
 L:SetOptionLocalization({

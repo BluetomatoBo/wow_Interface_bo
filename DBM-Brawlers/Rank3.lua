@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("BrawlRank3", "DBM-Brawlers")
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8974 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9241 $"):sub(12, -3))
 --mod:SetCreatureID(60491)
 mod:SetModelID(28649)
 mod:SetZone()
@@ -54,7 +54,7 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:UNIT_TARGET()
-	if self.Options.SetIconOnBlat and UnitGUID("target") == blatGUID then
+	if self.Options.SetIconOnBlat and not DBM.Options.DontSetIcons and UnitGUID("target") == blatGUID then
 		SetRaidTarget("target", 8)
 	end
 end

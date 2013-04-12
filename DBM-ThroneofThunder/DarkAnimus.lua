@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9151 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9267 $"):sub(12, -3))
 mod:SetCreatureID(69427)
 mod:SetModelID(47527)
 
@@ -11,6 +11,7 @@ mod:RegisterCombat("emote", L.Pull)
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START",
+	"SPELL_CAST_SUCCESS",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
@@ -45,8 +46,8 @@ local timerExplosiveSlam			= mod:NewTargetTimer(25, 138569, nil, mod:IsTank() or
 --Boss
 --Dark Animus will now use its abilities at more consistent intervals. (March 19 hotfix)
 --As such, all of these timers need re-verification and updating.
-local timerSiphonAnimaCD			= mod:NewNextTimer(30, 138644)
-local timerAnimaRingCD				= mod:NewNextTimer(19.3, 136954)--Updated/Verified post march 19 hotfix
+local timerSiphonAnimaCD			= mod:NewNextTimer(20, 138644)--Needed mainly for heroic. not important on normal/LFR
+local timerAnimaRingCD				= mod:NewNextTimer(24.2, 136954)--Updated/Verified post march 19 hotfix
 local timerEmpowerGolemCD			= mod:NewCDTimer(16, 138780)--Still need updated heroic log (post hotfix) to verify/update
 local timerInterruptingJoltCD		= mod:NewCDTimer(21.8, 138763)--Still need a log where he actually reaches 75 anima, my guild kills too fast
 
@@ -94,18 +95,25 @@ function mod:SPELL_CAST_START(args)
 	end
 end
 
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 138644 and self:IsDifficulty("heroic10", "heroic25") then--Only start on heroic, on normal it's 6 second cd, not worth using timer there
+		timerSiphonAnimaCD:Start()
+	end
+end
+
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 138569 then
 		local uId = DBM:GetRaidUnitId(args.destName)
 		if self:IsTanking(uId, "boss1") then--Only want sprays that are on tanks, not bads standing on tanks.
-			warnExplosiveSlam:Show(args.destName, args.amount or 1)
+			local amount = args.amount or 1
+			warnExplosiveSlam:Show(args.destName, amount)
 			timerExplosiveSlam:Start(args.destName)
 			if args:IsPlayer() then
-				if (args.amount or 1) >= 4 then
-					specWarnExplosiveSlam:Show(args.amount)
+				if amount >= 4 then
+					specWarnExplosiveSlam:Show(amount)
 				end
 			else
-				if (args.amount or 1) >= 2 and not UnitDebuff("player", GetSpellInfo(138569)) and not UnitIsDeadOrGhost("player") then
+				if amount >= 4 and not UnitDebuff("player", GetSpellInfo(138569)) and not UnitIsDeadOrGhost("player") then
 					specWarnExplosiveSlamOther:Show(args.destName)
 					if mod:IsTank() then
 						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3")--換坦嘲諷
@@ -171,9 +179,9 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 		timerInterruptingJoltCD:Start(160)
 		self:UnregisterShortTermEvents()--Once boss is out, unregister event, since we need it no longer.
 		if self:IsDifficulty("heroic10", "heroic25") then
-			--Maybe do some stuff here later.
-		else
-			timerSiphonAnimaCD:Start()--Seems only 30 seconds after engage on normal. On heroic he works differently
+			timerSiphonAnimaCD:Start(120)--VERY important on heroic. boss activaet on pull, you have 2 minutes to do as much with adds as you can before he starts using siphon anima
+		elseif self:IsDifficulty("normal10", "normal25") then
+			timerSiphonAnimaCD:Start(5.3)
 		end
 	end
 end

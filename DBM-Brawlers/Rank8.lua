@@ -1,83 +1,41 @@
 local mod	= DBM:NewMod("BrawlRank8", "DBM-Brawlers")
 local L		= mod:GetLocalizedStrings()
-local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8974 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9226 $"):sub(12, -3))
 --mod:SetCreatureID(60491)
-mod:SetModelID(46265)
+--mod:SetModelID(46265)
 mod:SetZone()
 
 mod:RegisterEvents(
-	"SPELL_CAST_START",
-	"SPELL_CAST_SUCCESS"
+	"SPELL_AURA_APPLIED"
 )
 
-local warnEvilGlare				= mod:NewSpellAnnounce(133208, 4)
-local warnPowerCrystal			= mod:NewSpellAnnounce(133398, 3)
-local warnDoom					= mod:NewSpellAnnounce(133650, 4)
-local warnBlueCrush				= mod:NewSpellAnnounce(133262, 4)
-local warnDestructolaser		= mod:NewSpellAnnounce(133250, 4)
-local warnStaticCharge			= mod:NewCastAnnounce(135621, 4)
+--Boss Key
+--http://mysticalos.com/images/MoP/new_brawlers/rank8.jpeg
+local warnSmolderingHeat			= mod:NewTargetAnnounce(142400, 4)--A real cute troll, Anthracite (rank 8) debuffs random players in audience, this will KILL YOU if you do not get heals
 
-local specWarnEvilGlare			= mod:NewSpecialWarningMove(133208)
-local specWarnDoom				= mod:NewSpecialWarningSpell(133650, nil, nil, nil, true)--Nothing you can do about this, it means you let him get to 100 stacks and will most likely wipe if you don't have super strong CDs to blow
-local specWarnBlueCrush			= mod:NewSpecialWarningInterrupt(133262)
-local specWarnDestructolaser	= mod:NewSpecialWarningMove(133250)
-local specWarnStaticCharge		= mod:NewSpecialWarningInterrupt(135621)
-
---local timerEvilGlareCD			= mod:NewNextTimer(6, 133208)--This sometimes comes early, most of time it is 6 second next timer though.
-local timerPowerCrystalCD		= mod:NewCDTimer(13, 133398)--13-17 second variation
-local timerBlueCrushCD			= mod:NewNextTimer(30, 133262)
-local timerDestructolaserCD		= mod:NewNextTimer(30, 133250)
---local timerStaticChargeCD		= mod:NewCDTimer(24, 135621)--24-33 second variation (maybe health based?)
+local specWarnSmolderingHeat		= mod:NewSpecialWarningYou(142400)
 
 mod:RemoveOption("HealthFrame")
 mod:RemoveOption("SpeedKillTimer")
 
 local brawlersMod = DBM:GetModByName("Brawlers")
 
-function mod:SPELL_CAST_START(args)
-	if not brawlersMod.Options.SpectatorMode and not brawlersMod:PlayerFighting() then return end--Spectator mode is disabled, do nothing.
-	if args.spellId == 133398 then
-		warnPowerCrystal:Show()
-		timerPowerCrystalCD:Start()
-	elseif args.spellId == 133650 then
-		warnDoom:Show()
-		if brawlersMod:PlayerFighting() then
-			specWarnDoom:Show()
-		end
-	elseif args.spellId == 133262 then
-		warnBlueCrush:Show()
-		timerBlueCrushCD:Start()
-		if brawlersMod:PlayerFighting() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3")
-			specWarnBlueCrush:Show(args.sourceName)
-		end
-	elseif args.spellId == 135621 then
-		warnStaticCharge:Show()
---		timerStaticChargeCD:Start()
-		if brawlersMod:PlayerFighting() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3")
-			specWarnStaticCharge:Show(args.sourceName)
-		end
-	end
+local smolderingHeaTargets = {}
+
+local function warnSmolderingHeatTargets()
+	warnSmolderingHeat:Show(table.concat(smolderingHeaTargets, "<, >"))
+	table.wipe(smolderingHeaTargets)
 end
 
-function mod:SPELL_CAST_SUCCESS(args)
-	if not brawlersMod.Options.SpectatorMode and not brawlersMod:PlayerFighting() then return end--Spectator mode is disabled, do nothing.
-	if args.spellId == 133208 then
-		warnEvilGlare:Show()
---		timerEvilGlareCD:Start()
-		if brawlersMod:PlayerFighting() then
-			specWarnEvilGlare:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")
+function mod:SPELL_AURA_APPLIED(args)
+--	if not brawlersMod.Options.SpectatorMode and not brawlersMod:PlayerFighting() then return end--Commented out for now to see if blizzard keeps the rank 8 boss that attacks spectators
+	if args.spellId == 142400 then
+		smolderingHeaTargets[#smolderingHeaTargets + 1] = args.destName
+		if args:IsPlayer() then
+			specWarnSmolderingHeat:Show()
 		end
-	elseif args.spellId == 133250 then
-		warnDestructolaser:Show()
-		timerDestructolaserCD:Start()
-		if brawlersMod:PlayerFighting() then
-			specWarnDestructolaser:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")
-		end
+		self:Unschedule(warnSmolderingHeatTargets)
+		self:Schedule(0.5, warnSmolderingHeatTargets)
 	end
 end
