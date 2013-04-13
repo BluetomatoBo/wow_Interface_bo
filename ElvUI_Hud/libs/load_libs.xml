@@ -1,6 +1,4 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
-	<Script file="oUF_ShadowOrbsBar\oUF_ShadowOrbsBar.lua"/>
-	<Script file="oUF_WarlockSpecBars\oUF_WarlockSpecBars.lua"/>
 	<Script file="oUF_WeakenedSoul\oUF_WeakenedSoul.lua"/>
 	<Script file="oUF_WildMushroom\oUF_WildMushroom.lua"/>
 	<Script file="oUF_GCD\oUF_GCD.lua"/>

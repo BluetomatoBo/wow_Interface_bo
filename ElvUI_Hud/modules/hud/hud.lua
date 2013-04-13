@@ -61,7 +61,7 @@ function H:GetClassBarName()
 	end
 
 	if E.myclass == "WARLOCK" then
-		return 'WarlockSpecBars'
+		return 'ShardBar'
 	end
 
 	if E.myclass == "PALADIN" then
@@ -72,16 +72,12 @@ function H:GetClassBarName()
 		return 'Runes'
 	end
 
-	if E.myclass == "SHAMAN" then
-		return 'TotemBar'
-	end
-
 	if E.myclass == "MONK" then
 		return 'Harmony'
 	end
 
 	if E.myclass == "PRIEST" then
-		return 'ShadowOrbsBar'
+		return 'ShadowOrbs'
 	end
 
 	if E.myclass == "MAGE" then

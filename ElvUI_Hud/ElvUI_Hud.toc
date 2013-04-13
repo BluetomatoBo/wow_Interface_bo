@@ -1,7 +1,7 @@
 ## Interface: 50200
 ## Title: |cff1784d1ElvUI |rHud
 ## Author: Sortokk
-## Version: 4.16
+## Version: 4.17
 ## Notes: Hud frames for ElvUI
 ## RequiredDeps: ElvUI
 ## X-oUF: ElvUF

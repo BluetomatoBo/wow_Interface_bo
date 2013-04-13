@@ -240,6 +240,7 @@ function H:Initialize()
     self:UpdateHideSetting()
 
     hooksecurefunc(E,"UpdateAll",function(self,ignoreInstall) H:UpdateAll() end)
+    hooksecurefunc(UF,"Update_AllFrames",function(self) H:UpdateAllFrames() end)
 
     local f = CreateFrame('Frame', nil, UIParent); 
     f:SetAllPoints();

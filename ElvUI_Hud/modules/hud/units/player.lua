@@ -19,34 +19,37 @@ function H:ConstructPlayerFrame(frame,unit)
 	if E.myclass == "DRUID" then
 		frame.EclipseBar = self:ConstructEclipseBar(frame)
 		frame.WildMushroom = self:ConstructWildMushroomBar(frame)
+		frame.ClassBar = 'EclipseBar'
 	end
 
 	if E.myclass == "WARLOCK" then
-		frame.WarlockSpecBars = self:ConstructWarlockSpecBars(frame)
+		frame.ShardBar = self:ConstructShardBar(frame)
+		frame.ClassBar = 'ShardBar'
 	end
 
 	if E.myclass == "PALADIN" then
 		frame.HolyPower = self:ConstructHolyPower(frame)
+		frame.ClassBar = 'HolyPower'
 	end
 
 	if E.myclass == "DEATHKNIGHT" then
 		frame.Runes = self:ConstructRunes(frame)
-	end
-
-	if E.myclass == "SHAMAN" then
-		frame.TotemBar = self:ConstructTotems(frame)
+		frame.ClassBar = 'Runes'
 	end
 
 	if E.myclass == "MONK" then
 		frame.Harmony = self:ConstructHarmony(frame)
+		frame.ClassBar = 'Harmony'
 	end
 
 	if E.myclass == "PRIEST" then
-		frame.ShadowOrbsBar = self:ConstructShadowOrbBar(frame)
+		frame.ShadowOrbs = self:ConstructShadowOrbBar(frame)
+		frame.ClassBar = 'ShadowOrbs'
 	end
 
 	if E.myclass == "MAGE" then
 		frame.ArcaneChargeBar = self:ConstructArcaneBar(frame)
+		frame.ClassBar = 'ArcanceChargeBar'
 	end
 
 	if E.myclass == "ROGUE" or E.myclass == "DRUID" then

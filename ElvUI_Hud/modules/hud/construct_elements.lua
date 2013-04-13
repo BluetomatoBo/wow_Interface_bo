@@ -263,8 +263,8 @@ function H:ConstructWildMushroomBar(frame)
 end
 
 -- Warlock spec bars
-function H:ConstructWarlockSpecBars(frame)
-    return self:ConstructSubBars(frame,'classbars','warlockspecbar',4)
+function H:ConstructShardBar(frame)
+    return self:ConstructSubBars(frame,'classbars','shardbar',4)
 end
 
 -- Construct holy power for paladins
