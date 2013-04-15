@@ -36,13 +36,13 @@ P['unitframe']['hud']['units'] = {
     ['player'] = {
         ['enabled'] = true,
         ['height'] = 150,
-        ['width'] = 39,
+        ['width'] = 75,
         ['horizCastbar'] = true,
         ['health'] = {
             ['enabled'] = true,
             ['size'] = {
                 ['height'] = 150,
-                ['width'] = 15,
+                ['width'] = 50,
             },
             ['value'] = {
                 ['enabled'] = true,
@@ -285,17 +285,22 @@ P['unitframe']['hud']['units'] = {
                 ['width'] = 4,
             },
         },
+        ['portrait'] = {
+            ['enabled'] = true,
+            ['rotation'] = 0,
+            ['camDistanceScale'] = 1,
+        },
     },
     ['target'] = {
         ['enabled'] = true,
         ['height'] = 150,
-        ['width'] = 27,
+        ['width'] = 75,
         ['horizCastbar'] = true,
         ['health'] = {
             ['enabled'] = true,
             ['size'] = {
                 ['height'] = 150,
-                ['width'] = 15,
+                ['width'] = 50,
             },
             ['value'] = {
                 ['enabled'] = true,
@@ -434,7 +439,13 @@ P['unitframe']['hud']['units'] = {
                 ['xOffset'] = 0,
                 ['yOffset'] = 0
             }
-        },    
+
+        },
+        ['portrait'] = {
+            ['enabled'] = true,
+            ['rotation'] = 0,
+            ['camDistanceScale'] = 1,
+        },
     },
     ['pet'] = {
         ['enabled'] = true,

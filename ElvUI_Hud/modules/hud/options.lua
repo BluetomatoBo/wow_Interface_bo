@@ -383,6 +383,23 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
         }
     end
 
+    if element == 'portrait' then
+        options.args.enabled.set = function(info,value) E.db.unitframe.hud.units[unit][element][ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL") end,
+        options.args.rotation = {
+            type = 'range',
+            name = L['Model Rotation'],
+            order = 4,
+            min = 0, max = 360, step = 1,
+        }
+        options.args.camDistanceScale = {
+            type = 'range',
+            name = L['Camera Distance Scale'],
+            desc = L['How far away the portrait is from the camera.'],
+            order = 5,
+            min = 0.01, max = 4, step = 0.01,
+        }
+    end
+
     return options
 end
 --H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,hasValue,hasTag,hasSpacing)
@@ -402,6 +419,7 @@ local function mushroomOptions(unit) return H:GenerateElementOptionTable(unit,'m
 local function gcdOptions(unit) return H:GenerateElementOptionTable(unit,'gcd',1300,'GCD Spark',true,true,false,false,false) end
 local function buffOptions(unit) return H:GenerateElementOptionTable(unit,'buffs',725,'Buffs',true,true,false,false,false) end
 local function debuffOptions(unit) return H:GenerateElementOptionTable(unit,'debuffs',750,'Debuffs',true,true,false,false,false) end
+local function portraitOptions(unit) return H:GenerateElementOptionTable(unit,'portrait',850,'Portrait',false,false,false,false,false) end
 
 local elementOptions = {
 	['health'] = healthOptions,
@@ -420,6 +438,7 @@ local elementOptions = {
     ['gcd'] = gcdOptions,
     ['buffs'] = buffOptions,
     ['debuffs'] = debuffOptions,
+    ['portrait'] = portraitOptions,
 }
 
 local nameMap = {
@@ -496,7 +515,7 @@ function H:GenerateUnitOptionTable(unit,name,order,mover,elements)
                 order = 4,
                 name = L['Width'],
                 type = 'range',
-                min = 7, max = 50, step = 1,
+                min = 7, max = 150, step = 1,
                 get = function(info) return E.db.unitframe.hud.units[unit][ info[#info] ] end,
                 set = function(info,value)
                     E.db.unitframe.hud.units['player'][ info[#info] ] = value;

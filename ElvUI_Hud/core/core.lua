@@ -129,7 +129,7 @@ function H:UpdateElvUFSetting()
     local value
     if E.db.unitframe.hud.enabled then value = not E.db.unitframe.hud.hideElv else value = true end
     for _,unit in pairs(elv_units) do
-        if not value and not old_settings[unit] then old_settings[unit] = E.db.unitframe.units[unit]['enable'] end
+        if not value and old_settings[unit] == nil then old_settings[unit] = E.db.unitframe.units[unit]['enable'] end
         E.db.unitframe.units[unit]['enable'] = (value and old_settings[unit] or (E.db.unitframe.hud.units[unit]['enabled'] and value)) or value; UF:CreateAndUpdateUF(unit)
     end
 end
@@ -221,6 +221,7 @@ function H:Initialize()
     self:CreateWarningFrame()
     
     oUF:RegisterStyle('ElvUI_Hud',function(frame,unit)
+        frame:SetFrameLevel(5)
         H:ConstructHudFrame(frame,unit)
     end)
 

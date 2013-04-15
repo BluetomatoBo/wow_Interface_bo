@@ -39,16 +39,23 @@ function H:GenerateOptions()
                 desc = L["Reset the settings of this addon to their defaults."],
                 func = function() E:CopyTable(E.db.unitframe.hud,P.unitframe.hud); H:Enable(); H:UpdateHideSetting(); H:UpdateAllFrames(); H:UpdateMouseSetting(); end
             },
-            simpleLayout = {
+            oldDefault = {
                 type = 'execute',
                 order = 3,
+                name = L["Old Default"],
+                desc = L["Use the old default settings from version 4.17 or under"],
+                func = function() H:OldDefault(); H:Enable(); H:UpdateHideSetting(); H:UpdateAllFrames(); H:UpdateMouseSetting(); end,
+            },
+            simpleLayout = {
+                type = 'execute',
+                order = 4,
                 name = L['Simple Layout'],
                 desc = L['Use the simple layout from 2.0'],
                 func = function() H:SimpleLayout(); H:Enable(); H:UpdateHideSetting(); H:UpdateAllFrames(); H:UpdateMouseSetting(); end,
             },
             comboLayout = {
                 type = 'execute',
-                order = 4,
+                order = 5,
                 name = L['Combo Layout'],
                 desc = L["Use a layout designed to work with ElvUI unitframes"],
                 func = function() H:ComboLayout(); H:Enable(); H:UpdateHideSetting(); H:UpdateAllFrames(); H:UpdateMouseSetting(); end,

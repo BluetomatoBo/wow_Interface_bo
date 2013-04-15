@@ -9,6 +9,7 @@ function H:ConstructHealth(frame)
 
 	-- Health Bar
     local health = self:ConfigureStatusBar(frame,'health')
+    health:SetFrameStrata("LOW")
     health:SetOrientation("VERTICAL")
     health:SetFrameLevel(frame:GetFrameLevel() + 5)
     health:Point("LEFT",frame,"LEFT")
@@ -509,3 +510,26 @@ function H:ConstructBuffs(frame)
 
     return buffs
 end 
+
+local function CreatePortaitOverlay(frame,portrait)
+    local pOverlay = CreateFrame("Frame", nil, frame.Health)
+    pOverlay:SetBackdrop({ bgFile = E["media"].blankTex, })
+    pOverlay:SetBackdropColor(.1, .1, .1, 1)
+    pOverlay:SetPoint("BOTTOMLEFT", portrait)
+    pOverlay:SetPoint("TOPRIGHT", portrait)
+    portrait.overlay = pOverlay
+end
+
+function H:ConstructPortrait(frame)
+    self:AddElement(frame,'portrait')
+    local portrait = self:ConfigureFrame(frame,'portrait',nil,frame.Health)
+    
+    portrait = CreateFrame("PlayerModel", nil, frame)
+    portrait:SetFrameStrata('LOW')
+    
+    portrait.PostUpdate = self.PortraitUpdate
+
+    CreatePortaitOverlay(frame,portrait)
+
+    return portrait
+end
