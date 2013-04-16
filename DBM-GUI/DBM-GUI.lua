@@ -40,7 +40,7 @@
 
 
 
-local revision =("$Revision: 9246 $"):sub(12, -3)
+local revision =("$Revision: 9299 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 local fixeditframe = false
 
@@ -51,6 +51,12 @@ setmetatable(PanelPrototype, {__index = DBM_GUI})
 local L = DBM_GUI_Translations
 
 local usemodelframe = true		-- very beta
+
+--------------------------------------------------------
+--  Cache frequently used global variables in locals  --
+--------------------------------------------------------
+local GetSpellInfo = GetSpellInfo
+local EJ_GetSectionInfo = EJ_GetSectionInfo
 
 function DBM_GUI:ShowHide(forceshow)
 	if forceshow == true then

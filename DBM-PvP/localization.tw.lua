@@ -49,11 +49,7 @@ L:SetMiscLocalization({
 ----------------------
 --  Alterac Valley  --
 ----------------------
-L = DBM:GetModLocalization("AlteracValley")
-
-L:SetGeneralLocalization({
-	name 				= "奧特蘭克山谷"
-})
+L = DBM:GetModLocalization("z30")
 
 L:SetTimerLocalization({
 	TimerTower			= "%s",
@@ -69,11 +65,7 @@ L:SetOptionLocalization({
 --------------------
 --  Arathi Basin  --
 --------------------
-L = DBM:GetModLocalization("ArathiBasin")
-
-L:SetGeneralLocalization({
-	name 				= "阿拉希盆地"
-})
+L = DBM:GetModLocalization("z529")
 
 L:SetMiscLocalization({
 	ScoreExpr 			= "(%d+)/1600",
@@ -98,11 +90,7 @@ L:SetOptionLocalization({
 ------------------------
 --  Eye of the Storm  --
 ------------------------
-L = DBM:GetModLocalization("EyeoftheStorm")
-
-L:SetGeneralLocalization({
-	name 				= "暴風之眼"
-})
+L = DBM:GetModLocalization("z566")
 
 L:SetMiscLocalization({
 	ZoneName			= "暴風之眼",
@@ -112,7 +100,7 @@ L:SetMiscLocalization({
 	WinBarText 			= "%s勝利",
 	FlagReset 			= "旗幟已重置!",
 	FlagTaken 			= "(.+)已經奪走了旗幟!",
-	FlagCaptured		= "(.+)已奪得旗幟!",
+	FlagCaptured			= "(.+)已奪得旗幟!",
 	FlagDropped			= "旗幟已經掉落!"
 })
 
@@ -129,17 +117,13 @@ L:SetOptionLocalization({
 ---------------------
 --  Warsong Gulch  --
 ---------------------
-L = DBM:GetModLocalization("WarsongGulch")
-
-L:SetGeneralLocalization({
-	name 				= "戰歌峽谷"
-})
+L = DBM:GetModLocalization("z489")
 
 L:SetMiscLocalization({
 	BgStart60 			= "戰鬥將在1分鐘內開始。",
 	BgStart30 			= "戰鬥將在30秒鐘內開始。做好準備!",
 	Alliance 			= "聯盟",
-	Horde 				= "部落",
+	Horde 				= "部落",	
 	InfoErrorText			= "當你離開戰鬥後，旗幟框架將會回復。",
 	ExprFlagPickUp			= "(.+)的旗幟被(.+)拔掉了!",
 	ExprFlagPickUp2			= "(.+)的旗幟被(.+)拔起了!",
@@ -167,11 +151,7 @@ L:SetOptionLocalization({
 ------------------------
 --  Isle of Conquest  --
 ------------------------
-L = DBM:GetModLocalization("IsleofConquest")
-
-L:SetGeneralLocalization({
-	name 					= "征服之島"
-})
+L = DBM:GetModLocalization("z628")
 
 L:SetWarningLocalization({
 	WarnSiegeEngine			= "攻城機具準備好了!",
@@ -207,11 +187,7 @@ L:SetMiscLocalization({
 ------------------
 --  Twin Peaks  --
 ------------------
-L = DBM:GetModLocalization("TwinPeaks")
-
-L:SetGeneralLocalization({
-	name 				= "雙子峰"
-})
+L = DBM:GetModLocalization("z726")
 
 L:SetMiscLocalization({
 	BgStart60 			= "戰鬥將在1分鐘內開始。",
@@ -248,11 +224,7 @@ L:SetOptionLocalization({
 --------------------------
 --  Battle for Gilneas  --
 --------------------------
-L = DBM:GetModLocalization("Gilneas")
-
-L:SetGeneralLocalization({
-	name 				= "吉爾尼斯之戰"	-- translate
-})
+L = DBM:GetModLocalization("z761")
 
 L:SetMiscLocalization({
 	ScoreExpr 			= "(%d+)/2000",
@@ -277,11 +249,7 @@ L:SetOptionLocalization({
 ------------------------
 --  Silvershard Mines  --
 -------------------------
-L = DBM:GetModLocalization("SilvershardMines")
-
-L:SetGeneralLocalization({
-	name	    = "碎銀礦坑"
-})
+L = DBM:GetModLocalization("z727")
 
 L:SetTimerLocalization({
 	TimerCart	= "礦坑推車重生"
@@ -298,11 +266,7 @@ L:SetMiscLocalization({
 -------------------------
 --  Temple of Kotmogu  --
 -------------------------
-L = DBM:GetModLocalization("Kotmogu")
-
-L:SetGeneralLocalization({
-	name		 = "科特魔古神廟"
-})
+L = DBM:GetModLocalization("z998")
 
 L:SetOptionLocalization({
 	TimerWin					= "顯示勝利計時器",
@@ -312,7 +276,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	OrbTaken 	= "(%S+)奪走了(%S+)異能球!",
-	OrbReturn 	= "The (%S+)異能球已回到初始位置!",
+	OrbReturn 	= "(%S+)異能球已回到初始位置!",
 	ScoreExpr	= "(%d+)/1600",
 	Alliance	= "聯盟",
 	Horde		= "部落",

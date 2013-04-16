@@ -2,7 +2,7 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9224 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9314 $"):sub(12, -3))
 mod:SetCreatureID(56732)
 mod:SetModelID(39487)
 mod:SetZone()
@@ -31,14 +31,6 @@ local specWarnJadeFire			= mod:NewSpecialWarningMove(107110)
 local timerDragonStrikeCD		= mod:NewNextTimer(10.5, 106823)
 local timerJadeDragonStrikeCD	= mod:NewNextTimer(10.5, 106841)
 local timerJadeFireCD			= mod:NewNextTimer(3.5, 107045)
-
-function mod:JadeFireTarget(targetname)
---BH DELETE	warnJadeFire:Show(targetname)
-	if targetname == UnitName("player") then
-		specWarnJadeFire:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
-	end
-end
 
 function mod:OnCombatStart(delay)
 --	timerDragonStrikeCD:Start(-delay)--Unknown, tank pulled before i could start a log to get an accurate first timer.
@@ -71,7 +63,6 @@ function mod:SPELL_CAST_START(args)
 		timerDragonStrikeCD:Cancel()
 	elseif args.spellId == 107045 then
 		timerJadeFireCD:Start()
-		self:BossTargetScanner(56762, "JadeFireTarget", 0.02, 20)
 	end
 end
 

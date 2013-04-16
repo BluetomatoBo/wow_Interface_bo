@@ -90,6 +90,9 @@ L:SetOptionLocalization({
 	SoundLs			= "倒计时：$spell:136521",	
 	SoundHs			= "语音预警：$spell:136990",
 	Soundspirit		= "倒计时：女祭司的各种魂灵",
+	dr1			= "减伤提示：$spell:137166 1",
+	dr2			= "减伤提示：$spell:137166 2",
+	dr3			= "减伤提示：$spell:137166 3",
 	InfoFrame		= "信息框：$spell:136442",
 	helpcold		= "监视此人的体温：在体温流失前3秒给予提示",
 	HudMAP			= "高级定位监视(HUD)：$spell:136992",
@@ -313,7 +316,7 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
-	warnDebuffCount		= "警告:当你获得了debuff",
+	warnDebuffCount		= "警告:当你获得了有害状态",
 	InfoFrame		= "资讯框：首领当前的$journal:6949技能",
 	RangeFrame		= "显示距离框架(2码/5码)",
 	SetIconOnBadOoze	= "为$spell:140506自动标记"
@@ -335,11 +338,24 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(824)
 
 L:SetWarningLocalization({
-	warnMatterSwapped	= "%s：>%s<、>%s<交换"
+	warnMatterSwapped	= "%s：>%s<、>%s<交换",
+	SpecWarnJSA			= ">>> 注意减伤 <<<"
 })
 
 L:SetOptionLocalization({
 	SoundWOP			= "语音警告：重要技能",
+	SoundCQ				= "语音警告：$spell:136954时提示你帮忙吃球",
+	dr1				= "减伤提示：$spell:139867 1",
+	dr2				= "减伤提示：$spell:139867 2",
+	dr3				= "减伤提示：$spell:139867 3",
+	dr4				= "减伤提示：$spell:139867 4",
+	dr5				= "减伤提示：$spell:139867 5",
+	dr6				= "减伤提示：$spell:139867 6",
+	dr7				= "减伤提示：$spell:139867 7",
+	dr8				= "减伤提示：$spell:139867 8",
+	dr9				= "减伤提示：$spell:139867 9",
+	dr10				= "减伤提示：$spell:139867 10",
+	SpecWarnJSA			= "特殊警告：注意减伤",
 	RangeFrame			= "显示距离框架(8码)",
 	warnMatterSwapped	= "警报：$spell:138618交换的目标"
 })
@@ -391,7 +407,36 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	SoundWOP			= "语音警告：重要技能",
 	HudMAP				= "高级定位监视(HUD)：$journal:7651星座辅助线",
-	HudMAP2				= "高级定位监视(HUD)：$spell:136752",
+	InfoFrame			= "信息框：下一次开星座时间（下方自行输入）",
+	drAchoose			= "----减伤提示：黑夜阶段----",
+	drA1				= "$spell:136752 1",
+	drA2				= "$spell:136752 2",
+	drA3				= "$spell:136752 3",
+	drA4				= "$spell:136752 4",
+	drA5				= "$spell:136752 5",
+	drA6				= "$spell:136752 6",
+	drA7				= "$spell:136752 7",
+	drA8				= "$spell:136752 8",
+	drBchoose			= "----减伤提示：白天阶段----",
+	drC1				= "$spell:137491 1",
+	drC2				= "$spell:137491 2",
+	drC3				= "$spell:137491 3",
+	drCchoose			= "----减伤提示：黄昏阶段----",
+	drB1				= "$spell:136752 1",
+	drB2				= "$spell:136752 2",
+	drB3				= "$spell:136752 3",
+	drD1				= "$spell:137491 1",
+	drD2				= "$spell:137491 2",
+	drE1				= "$spell:137531 1",
+	drE2				= "$spell:137531 2",
+	XNA					= "第一次玄牛时间(秒)",
+	QLA					= "第一次青龙时间(秒)",
+	BHA					= "第一次白虎时间(秒)",
+	HHA					= "第一次红鹤时间(秒)",
+	XNB					= "第二次玄牛时间(秒)",
+	QLB					= "第二次青龙时间(秒)",
+	BHB					= "第二次白虎时间(秒)",
+	HHB					= "第二次红鹤时间(秒)",
 	warnNight		= "警告：黑夜阶段",
 	warnDay			= "警告：白天阶段",
 	warnDusk		= "警告：黄昏阶段",
@@ -401,7 +446,16 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	DuskPhase		= "露琳！将你的力量借给我！"--Not in use, but a backup just in case, so translate in case it's switched to on moments notice on live or next PTR test
+	DuskPhase		= "露琳！将你的力量借给我！",
+	XN1				= "玄牛(1)",
+	QL1				= "青龙(1)",
+	BH1				= "白虎(1)",
+	HH1				= "红鹤(1)",
+	XN2				= "玄牛(2)",
+	QL2				= "青龙(2)",
+	BH2				= "白虎(2)",
+	HH2				= "红鹤(2)",
+	NextTT			= "下一个星座",
 })
 
 --------------

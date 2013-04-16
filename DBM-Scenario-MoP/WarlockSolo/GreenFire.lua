@@ -1,7 +1,8 @@
-local mod	= DBM:NewMod("GreenFire", "DBM-Scenario-MoP")
+if select(2, UnitClass("player")) ~= "WARLOCK" then return end
+local mod	= DBM:NewMod("d594", "DBM-Scenario-MoP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9177 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9306 $"):sub(12, -3))
 mod:SetZone(919)
 
 mod:RegisterCombat("scenario", 919)
@@ -33,7 +34,7 @@ local specWarnLostSouls			= mod:NewSpecialWarning("specWarnLostSouls", nil, nil,
 local specWarnEnslavePitLord	= mod:NewSpecialWarning("specWarnEnslavePitLord")
 local specWarnCataclysm			= mod:NewSpecialWarningInterrupt(138564)
 local specWarnRainOfFire		= mod:NewSpecialWarningMove(138561)
-local specWarnChaosBolt			= mod:NewSpecialWarningSpell(138559, nil, nil, nil, 2)--Is this interruptable? user submitted it as a spell announce and not interrupt so assume no for now?
+local specWarnChaosBolt			= mod:NewSpecialWarningInterrupt(138559, nil, nil, nil, 3)
 
 --Essence of Order
 --Todo, maybe register COMBAT_REGEN_DISABLED and check warlocks target (basically what dbm core normally does) for combat start timers?

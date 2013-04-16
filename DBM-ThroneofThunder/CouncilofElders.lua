@@ -6,7 +6,7 @@ local sndSpirit	= mod:NewSound(nil, "Soundspirit", true)
 local sndLS		= mod:NewSound(nil, "SoundLs", false)
 local sndHS		= mod:NewSound(nil, "SoundHs", false)
 
-mod:SetRevision(("$Revision: 9272 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9285 $"):sub(12, -3))
 mod:SetCreatureID(69078, 69132, 69134, 69131)--69078 Sul the Sandcrawler, 69132 High Prestess Mar'li, 69131 Frost King Malakk, 69134 Kazra'jin --Adds: 69548 Shadowed Loa Spirit,
 mod:SetModelID(47229)--Kazra'jin, 47505 Sul the Sandcrawler, 47506 Frost King Malakk, 47730 High Priestes Mar'li
 mod:SetUsedIcons(7, 6)
@@ -47,6 +47,7 @@ local warnSandstorm					= mod:NewSpellAnnounce(136894, 3)
 --High Prestess Mar'li
 local warnBlessedLoaSpirit			= mod:NewSpellAnnounce(137203, 4)
 local warnShadowedLoaSpirit			= mod:NewSpellAnnounce(137350, 4)
+local warnSoulTaget					= mod:NewTargetAnnounce(136857, 4)
 local warnMarkedSoul				= mod:NewTargetAnnounce(137359, 4)--Shadowed Loa Spirit fixate target, no need to warn for Shadowed Loa Spirit AND this, so we just warn for this
 local warnTwistedFate				= mod:NewSpellAnnounce(137891, 4)--Heroic Only
 --Frost King Malak
@@ -118,6 +119,9 @@ mod:AddBoolOption("SetIconOnFrostBite", true)
 mod:AddBoolOption("InfoFrame", true, "sound")
 mod:AddBoolOption("HudMAP", true, "sound")
 mod:AddBoolOption("HudMAP2", true, "sound")
+for i = 1, 3 do
+	mod:AddBoolOption("dr"..i, false, "sound")
+end
 mod:AddDropdownOption("optDD", {"nodd", "DD1", "DD2", "DD3"}, "nodd", "sound")
 mod:AddDropdownOption("optOC", {"five", "ten", "none"}, "five", "sound")
 mod:AddEditBoxOption("helpcold", 150, "", "sound")
@@ -151,6 +155,13 @@ local Marlicount = 0
 local Kazcount = 0
 local speedcheck = 0
 local OCn = 0
+
+local function MyJS()
+	if (mod.Options.dr1 and dischargeCount == 1) or (mod.Options.dr2 and dischargeCount == 2) or (mod.Options.dr3 and dischargeCount == 3) then
+		return true
+	end
+	return false
+end
 --BH ADD END
 
 local showDamagedHealthBar, hideDamagedHealthBar
@@ -333,9 +344,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			elseif self:IsDifficulty("normal25") then--This is now 25man normal only
 				timerDarkPowerCD:Start(math.floor(68/(0.10*stack+1.0)+0.5))--(68, 62, 57, 52)
 			elseif self:IsDifficulty("normal10") then--Updated 10 man data post hotfix as seen in this log here http://worldoflogs.com/reports/8sy56hojz9x3ej7j/xe/?s=6609&e=7296&x=spellid+%3D+136442+or+spellid+%3D+136507+and+targetname+%3D+%22Slayhoof%22
-				timerDarkPowerCD:Start(math.floor(68/(0.10*(stack-1.0)+1.0)+0.5))--(76, 68, 62, x)
-			else -- lfr
-				timerDarkPowerCD:Start(math.floor(97/(0.05*stack+1.0)+0.5))--(97, 92, 88, 84)
+				timerDarkPowerCD:Start(math.floor(68/(0.10*(stack-1)+1.0)+0.5))--(76, 68, 62, x)
+			else -- lfr (13 Apr 2013: 11:54:49.500->11:56:26.609 => 97.109 [0 stacks] | 70/100 after ~63.9 => ~91 [1 stack] | 11:59:44.515->12:01:09.593 => 85.078 [2 stacks])
+				timerDarkPowerCD:Start(math.floor(68/(0.05*(stack-6)+1.0)+0.5))--(97, 91, 85, x)
 			end
 		else
 			if self:IsDifficulty("lfr25") then
@@ -510,6 +521,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		dischargeCount = dischargeCount + 1
 		warnDischarge:Show(dischargeCount)
 		specWarnDischarge:Show(dischargeCount)
+		if MyJS() then
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
+		end
 	elseif args.spellId == 137641 and args:IsPlayer() then
 		specWarnSoulFragment:Show()
 	--BH ADD
@@ -521,6 +535,8 @@ function mod:SPELL_AURA_APPLIED(args)
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\transplague.mp3")
 			end
 		end
+	elseif args.spellId == 136857 then --沙牢
+		warnSoulTaget:Show(args.destName)
 	--BH ADD END
 	end
 end

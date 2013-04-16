@@ -2,6 +2,7 @@ local mod	= DBM:NewMod(824, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
+local sndCQ		= mod:NewSound(nil, "SoundCQ", true)
 
 mod:SetRevision(("$Revision: 9267 $"):sub(12, -3))
 mod:SetCreatureID(69427)
@@ -26,7 +27,7 @@ local warnMatterSwapped				= mod:NewAnnounce("warnMatterSwapped", 3, 138618)--Ac
 local warnExplosiveSlam				= mod:NewStackAnnounce(138569, 2, nil, mod:IsTank() or mod:IsHealer())
 --Boss
 local warnAnimaRing					= mod:NewTargetAnnounce(136954, 3)
-local warnInterruptingJolt			= mod:NewSpellAnnounce(138763, 4)
+local warnInterruptingJolt			= mod:NewCountAnnounce(138763, 4)
 local warnEmpowerGolem				= mod:NewTargetAnnounce(138780, 3)
 
 local specWarnCrimsonWakeYou		= mod:NewSpecialWarningRun(138480)--Kiter
@@ -39,7 +40,8 @@ local specWarnExplosiveSlamOther	= mod:NewSpecialWarningTarget(138569, mod:IsTan
 local specWarnAnimaRing				= mod:NewSpecialWarningYou(136954)
 local specWarnAnimaRingOther		= mod:NewSpecialWarningTarget(136954, false)
 local yellAnimaRing					= mod:NewYell(136954)
-local specWarnInterruptingJolt		= mod:NewSpecialWarningCast(138763, nil, nil, nil, 2)
+local specWarnInterruptingJolt		= mod:NewSpecialWarningCount(138763, nil, nil, nil, 2)
+local specWarnJSA					= mod:NewSpecialWarning("SpecWarnJSA")
 
 local timerMatterSwap				= mod:NewTargetTimer(12, 138609)--If not dispelled, it ends after 12 seconds regardless
 local timerExplosiveSlam			= mod:NewTargetTimer(25, 138569, nil, mod:IsTank() or mod:IsHealer())
@@ -49,11 +51,25 @@ local timerExplosiveSlam			= mod:NewTargetTimer(25, 138569, nil, mod:IsTank() or
 local timerSiphonAnimaCD			= mod:NewNextTimer(20, 138644)--Needed mainly for heroic. not important on normal/LFR
 local timerAnimaRingCD				= mod:NewNextTimer(24.2, 136954)--Updated/Verified post march 19 hotfix
 local timerEmpowerGolemCD			= mod:NewCDTimer(16, 138780)--Still need updated heroic log (post hotfix) to verify/update
-local timerInterruptingJoltCD		= mod:NewCDTimer(21.8, 138763)--Still need a log where he actually reaches 75 anima, my guild kills too fast
+local timerInterruptingJoltCD		= mod:NewNextCountTimer(21.8, 138763)--Still need a log where he actually reaches 75 anima, my guild kills too fast
 
 ----BH DELETE local soundCrimsonWake				= mod:NewSound(138480)
 
 local crimsonWake = GetSpellInfo(138485)--Debuff ID I believe, not cast one. Same spell name though
+
+local firstSiphonAnima = false
+local InterruptingJoltCount = 0
+
+for i = 1, 10 do
+	mod:AddBoolOption("dr"..i, false, "sound")
+end
+
+local function MyJS()
+	if (mod.Options.dr1 and InterruptingJoltCount == 0) or (mod.Options.dr2 and InterruptingJoltCount == 1) or (mod.Options.dr3 and InterruptingJoltCount == 2) or (mod.Options.dr4 and InterruptingJoltCount == 3) or (mod.Options.dr5 and InterruptingJoltCount == 4) or (mod.Options.dr6 and InterruptingJoltCount == 5) or (mod.Options.dr7 and InterruptingJoltCount == 6) or (mod.Options.dr8 and InterruptingJoltCount == 7) or (mod.Options.dr9 and InterruptingJoltCount == 8) or (mod.Options.dr10 and InterruptingJoltCount == 9) then 
+		return true
+	end
+	return false
+end
 
 function mod:AnimaRingTarget(targetname)
 	warnAnimaRing:Show(targetname)
@@ -66,6 +82,8 @@ function mod:AnimaRingTarget(targetname)
 end
 
 function mod:OnCombatStart(delay)
+	firstSiphonAnima = false
+	InterruptingJoltCount = 0
 	self:RegisterShortTermEvents(
 		"INSTANCE_ENCOUNTER_ENGAGE_UNIT"--We register here to prevent detecting first heads on pull before variables reset from first engage fire. We'll catch them on delayed engages fired couple seconds later
 	)
@@ -79,25 +97,57 @@ function mod:SPELL_CAST_START(args)
 	if args.spellId == 136954 then
 		self:BossTargetScanner(69427, "AnimaRingTarget", 0.02, 12)
 		timerAnimaRingCD:Start()
+		sndCQ:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bmcq.mp3") --幫忙吃球
 	elseif args:IsSpellID(138763, 139867, 139869) then--Normal version is 2.2 sec cast. Heroic is 1.4 second cast. LFR is 3.8 sec cast (thus why it has different spellid)
-		warnInterruptingJolt:Show()
-		specWarnInterruptingJolt:Show()
-		timerInterruptingJoltCD:Start()
-		sndWOP:Schedule(19.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
-		sndWOP:Schedule(20.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
-		sndWOP:Schedule(21.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		InterruptingJoltCount = InterruptingJoltCount + 1
+		warnInterruptingJolt:Show(InterruptingJoltCount)
+		specWarnInterruptingJolt:Show(InterruptingJoltCount)
+		timerInterruptingJoltCD:Start(21.8, InterruptingJoltCount + 1)		
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		if mod:IsManaUser() and mod:IsRanged() then
 			DBM.Flash:Show(1, 0, 0)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopcast.mp3") --停止施法
 		else
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_dfzj.mp3") --斷法震擊
 		end
+		if mod:IsHealer() then
+			sndWOP:Schedule(11.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenzj.mp3") -- 10秒後斷法震擊
+		end
+		if MyJS() then
+			specWarnJSA:Schedule(18.8)
+			sndWOP:Schedule(18.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
+		else
+			sndWOP:Schedule(18.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+		end		
+		sndWOP:Schedule(19.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Schedule(20.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Schedule(21.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")		
 	end
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 138644 and self:IsDifficulty("heroic10", "heroic25") then--Only start on heroic, on normal it's 6 second cd, not worth using timer there
 		timerSiphonAnimaCD:Start()
+		if not firstSiphonAnima and self:IsDifficulty("heroic25") then
+			timerInterruptingJoltCD:Start(41.2, 1)
+			if mod:IsHealer() then
+				sndWOP:Schedule(31.2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenzj.mp3") -- 10秒後斷法震擊
+			end
+			if MyJS() then
+				specWarnJSA:Schedule(39.2)
+				sndWOP:Schedule(39.2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
+			else
+				sndWOP:Schedule(39.2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+			end		
+			sndWOP:Schedule(39.2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(40.2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(41.2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+			firstSiphonAnima = true
+		end
 	end
 end
 
@@ -176,7 +226,6 @@ end
 
 function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 	if UnitExists("boss1") and tonumber(UnitGUID("boss1"):sub(6, 10), 16) == 69427 then
-		timerInterruptingJoltCD:Start(160)
 		self:UnregisterShortTermEvents()--Once boss is out, unregister event, since we need it no longer.
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerSiphonAnimaCD:Start(120)--VERY important on heroic. boss activaet on pull, you have 2 minutes to do as much with adds as you can before he starts using siphon anima

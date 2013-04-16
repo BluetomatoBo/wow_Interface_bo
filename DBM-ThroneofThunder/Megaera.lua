@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndXL	= mod:NewSound(nil, "SoundXL", true)
 
-mod:SetRevision(("$Revision: 9272 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9310 $"):sub(12, -3))
 mod:SetCreatureID(68065, 70212, 70235, 70247)--flaming 70212. Frozen 70235, Venomous 70247
 mod:SetMainBossID(68065)
 mod:SetModelID(47414)--Hydra Fire Head, 47415 Frost Head, 47416 Poison Head
@@ -126,8 +126,8 @@ local cinderIcon = 7
 local iceIcon = 6
 local activeHeadGUIDS = {}
 local iceTorrent = GetSpellInfo(139857)
-local torrentTarget1 = nil
-local torrentTarget2 = nil
+local torrentExpires = {}
+local arcaneRecent = false
 
 local function isTank(unit)
 	-- 1. check blizzard tanks first
@@ -193,11 +193,11 @@ function mod:OnCombatStart(delay)
 	combat = true
 	cinderIcon = 7
 	iceIcon = 6
-	torrentTarget1 = nil
-	torrentTarget2 = nil
+	table.wipe(torrentExpires)
 	if self:IsDifficulty("heroic10", "heroic25") then
 		arcaneBehind = 1
 		arcaneInFront = 0
+		arcaneRecent = false
 		timerCinderCD:Start(13)
 		timerNetherTearCD:Start()
 	elseif self:IsDifficulty("normal10", "normal25") then
@@ -350,6 +350,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:find("spell:139458") then
 		rampageCast = rampageCast + 1
 		warnRampage:Show(rampageCast)
+		specWarnRampage:Show(rampageCast)
 		timerArcticFreezeCD:Cancel()
 		timerRotArmorCD:Cancel()
 		timerBreathsCD:Cancel()
@@ -357,13 +358,13 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		timerTorrentofIceCD:Cancel()
 --		timerAcidRainCD:Cancel()
 		timerNetherTearCD:Cancel()
-		specWarnRampage:Show(rampageCast)
 		timerRampage:Start()
 		Ramcount = Ramcount + 1		
 		if MyJS() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
 		end		
 	elseif msg == L.rampageEnds or msg:find(L.rampageEnds) then
+		arcaneRecent = false
 		warnRampageFaded:Show()
 		specWarnRampageFaded:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
@@ -448,6 +449,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		elseif cid == 70248 then--Arcane
 			arcaneInFront = arcaneInFront - 1
 			arcaneBehind = arcaneBehind + 2
+			arcaneRecent = true
 		end
 		showheadinfo()
 	end
@@ -473,10 +475,10 @@ end
 
 function mod:RAID_BOSS_WHISPER(msg)
 	if msg:find("spell:139866") then
-		if self:AntiSpam(5, 6) then
+		if self:AntiSpam(2, 6) then
 			specWarnTorrentofIceYou:Show()
-			yellTorrentofIce:Yell()
 			timerTorrentofIce:Start()
+			yellTorrentofIce:Yell()			
 			self:SendSync("IceTarget", UnitGUID("player"))
 			DBM.Flash:Show(0, 0, 1)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
@@ -488,39 +490,33 @@ local function warnTorrent(name)
 	if not name then return end
 	warnTorrentofIce:Show(name)
 	if name == UnitName("player") then
-		if self:AntiSpam(5, 6) then
+		if mod:AntiSpam(2, 6) then
 			specWarnTorrentofIceYou:Show()
 			timerTorrentofIce:Start()
 			yellTorrentofIce:Yell()
 			mod:SendSync("IceTarget", UnitGUID("player")) -- Remain sync stuff for older version.
+			DBM.Flash:Show(0, 0, 1)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
 		end
 	end
 end
 
+--We have at least 4 frost heads in back, debuffs going out very often, often 2 back to back within 2 seconds of one another, this causes problems because name 2 resets name 1. also, Spell name for getting hit by beam applies a different and SAME name aura and also fires UNIT_aura event. i'll upload screen shots later but this method VERY inaccurate and spammed icons all over place, tons of chat bubbles, and multiple announces "torrent on name1, torrent on name1"
 function mod:UNIT_AURA(uId)
-	if UnitDebuff(uId, iceTorrent) and not torrentTarget1 and (torrentTarget2 or "") ~= uId then
-		torrentTarget1 = uId
-		local name = DBM:GetUnitFullName(uId)
+	local name = DBM:GetUnitFullName(uId)
+	if not name then return end
+	local expires = select(7, UnitDebuff(uId, iceTorrent)) or 0
+	local spellId = select(11, UnitDebuff(uId, iceTorrent)) or 0
+	if spellId == 139857 and expires > 0 and not torrentExpires[expires] then
+		torrentExpires[expires] = true
 		warnTorrent(name)
 		if self.Options.SetIconOnTorrentofIce then
-			self:SetIcon(uId, 6)
-		end
-	elseif UnitDebuff(uId, iceTorrent) and not torrentTarget2 and (torrentTarget1 or "") ~= uId then
-		torrentTarget2 = uId
-		local name = DBM:GetUnitFullName(uId)
-		warnTorrent(name)
-		if self.Options.SetIconOnTorrentofIce then
-			self:SetIcon(uId, 4)
-		end
-	elseif torrentTarget1 and torrentTarget1 == uId and not UnitDebuff(uId, iceTorrent) then
-		torrentTarget1 = nil
-		if self.Options.SetIconOnTorrentofIce then
-			self:SetIcon(uId, 0)
-		end
-	elseif torrentTarget2 and torrentTarget2 == uId and not UnitDebuff(uId, iceTorrent) then
-		torrentTarget2 = nil
-		if self.Options.SetIconOnTorrentofIce then
-			self:SetIcon(uId, 0)
+			self:SetIcon(uId, iceIcon, 11)
+			if iceIcon == 6 then
+				iceIcon = 4
+			else
+				iceIcon = 6
+			end
 		end
 	end
 end

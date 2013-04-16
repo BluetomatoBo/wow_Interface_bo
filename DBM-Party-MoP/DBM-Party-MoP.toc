@@ -10,7 +10,7 @@
 ## X-DBM-Mod-Type: PARTY
 ## X-DBM-Mod-Category: MOP
 ## X-DBM-Mod-Has-Challenge: 1
-## X-DBM-Mod-SubCategories: Temple of the Jade Serpent, Stormstout Brewery, Shado-Pan Monastery, The Gate of the Setting Sun, Mogu'Shan Palace, Siege of Niuzao Temple, Scholomance, Scarlet Halls, Scarlet Cathedral
+## X-DBM-Mod-SubCategoriesID: 960, 961, 959, 962, 994, 1011, 1007, 1001, 1004
 ## X-DBM-Mod-SubCategories-zhTW: 玉蛟寺, 風暴烈酒酒坊, 影潘僧寺, 落陽關, 魔古山宮, 圍攻怒兆寺, 通靈學院, 血色大廳, 血色修道院
 ## X-DBM-Mod-SubCategories-zhCN: 青龙寺, 风暴烈酒酿造厂, 影踪禅院, 残阳关, 魔古山宫殿, 围攻砮皂寺, 通灵学院, 血色大厅, 血色修道院
 ## X-DBM-Mod-Name: Party (MoP)

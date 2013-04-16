@@ -617,13 +617,17 @@ local function updateTime()
 		table.wipe(lines)
 		local actbossid = nil
 		for i = 1, 5 do
-			if UnitName("boss"..i) == iconModifier then
-				actbossid = "boss"..i
-				break
+			if iconModifier then
+				if UnitName("boss"..i) == iconModifier then
+					actbossid = "boss"..i
+					break
+				end
 			end
 		end
 		if actbossid then
 			lines[infot]= ("%d%%"):format(25 - (infoFrameThreshold - UnitHealth(actbossid) / UnitHealthMax(actbossid) * 100))
+		else
+			lines[infot]= infoFrameThreshold
 		end
 	else
 		infot = ("%d:%0.2d"):format(showtime/60, math.fmod(showtime, 60))

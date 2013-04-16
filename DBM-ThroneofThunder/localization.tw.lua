@@ -96,6 +96,9 @@ L:SetOptionLocalization({
 	DD1				= "打斷1",
 	DD2				= "打斷2",
 	DD3				= "打斷3",
+	dr1				= "減傷提示：$spell:137166 1",
+	dr2				= "減傷提示：$spell:137166 2",
+	dr3				= "減傷提示：$spell:137166 3",
 	optOC			= "當靈魂碎片疊加幾層時提示你傳遞",
 	five			= "5層",
 	ten				= "10層",
@@ -335,11 +338,24 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(824)
 
 L:SetWarningLocalization({
-	warnMatterSwapped	= "%s: >%s< 和 >%s< 交換"
+	warnMatterSwapped	= "%s: >%s< 和 >%s< 交換",
+	SpecWarnJSA			= ">>> 注意減傷 <<<"
 })
 
 L:SetOptionLocalization({
 	SoundWOP			= "語音警告：重要技能",
+	SoundCQ				= "語音警告：$spell:136954時提示你幫忙吃球",
+	dr1					= "減傷提示：$spell:139867 1",
+	dr2					= "減傷提示：$spell:139867 2",
+	dr3					= "減傷提示：$spell:139867 3",
+	dr4					= "減傷提示：$spell:139867 4",
+	dr5					= "減傷提示：$spell:139867 5",
+	dr6					= "減傷提示：$spell:139867 6",
+	dr7					= "減傷提示：$spell:139867 7",
+	dr8					= "減傷提示：$spell:139867 8",
+	dr9					= "減傷提示：$spell:139867 9",
+	dr10				= "減傷提示：$spell:139867 10",
+	SpecWarnJSA			= "特殊警告：注意減傷",
 	RangeFrame			= "顯示距離框架(8碼)",
 	warnMatterSwapped	= "警告：被$spell:138618交換的目標"
 })
@@ -392,17 +408,55 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	SoundWOP			= "語音警告：重要技能",
 	HudMAP				= "高級定位監視(HUD)：$journal:7651星座輔助線",
-	HudMAP2				= "高級定位監視(HUD)：$spell:136752",
-	warnNight		= "警告：黑夜階段",
-	warnDay			= "警告：白天階段",
-	warnDusk		= "警告：黃昏階段",
-	timerDayCD		= "計時器：白天階段",
-	timerDuskCD		= "計時器：黃昏階段",
+	InfoFrame			= "資訊框：下一次開星座時間(下方自行輸入)",
+	drAchoose			= "----減傷提示：黑夜階段----",
+	drA1				= "$spell:136752 1",
+	drA2				= "$spell:136752 2",
+	drA3				= "$spell:136752 3",
+	drA4				= "$spell:136752 4",
+	drA5				= "$spell:136752 5",
+	drA6				= "$spell:136752 6",
+	drA7				= "$spell:136752 7",
+	drA8				= "$spell:136752 8",
+	drBchoose			= "----減傷提示：白天階段----",
+	drC1				= "$spell:137491 1",
+	drC2				= "$spell:137491 2",
+	drC3				= "$spell:137491 3",
+	drCchoose			= "----減傷提示：黃昏階段----",
+	drB1				= "$spell:136752 1",
+	drB2				= "$spell:136752 2",
+	drB3				= "$spell:136752 3",
+	drD1				= "$spell:137491 1",
+	drD2				= "$spell:137491 2",
+	drE1				= "$spell:137531 1",
+	drE2				= "$spell:137531 2",
+	XNA					= "第一次玄牛時間(秒)",
+	QLA					= "第一次青龍時間(秒)",
+	BHA					= "第一次白虎時間(秒)",
+	HHA					= "第一次紅鶴時間(秒)",
+	XNB					= "第二次玄牛時間(秒)",
+	QLB					= "第二次青龍時間(秒)",
+	BHB					= "第二次白虎時間(秒)",
+	HHB					= "第二次紅鶴時間(秒)",
+	warnNight			= "警告：黑夜階段",
+	warnDay				= "警告：白天階段",
+	warnDusk			= "警告：黃昏階段",
+	timerDayCD			= "計時器：白天階段",
+	timerDuskCD			= "計時器：黃昏階段",
 	RangeFrame			= "距離監視(8碼)"
 })
 
 L:SetMiscLocalization({
-	DuskPhase		= "盧凜!借本宮力量!"
+	DuskPhase		= "盧凜!借本宮力量!",
+	XN1				= "玄牛(1)",
+	QL1				= "青龍(1)",
+	BH1				= "白虎(1)",
+	HH1				= "紅鶴(1)",
+	XN2				= "玄牛(2)",
+	QL2				= "青龍(2)",
+	BH2				= "白虎(2)",
+	HH2				= "紅鶴(2)",
+	NextTT			= "下一個星座",
 })
 
 --------------

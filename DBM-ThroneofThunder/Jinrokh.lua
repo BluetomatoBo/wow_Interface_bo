@@ -5,7 +5,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndIon	= mod:NewSound(nil, "SoundWOP", true)
 local sndIonCD	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9163 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9283 $"):sub(12, -3))
 mod:SetCreatureID(69465)
 mod:SetModelID(47552)
 
@@ -61,6 +61,7 @@ local berserkTimer					= mod:NewBerserkTimer(540)
 -- BH DELETE local countdownIonization			= mod:NewCountdown(61.5, 138732)
 
 mod:AddBoolOption("RangeFrame")
+local scanFailed = false
 -- BH ADD
 local focusme = false
 local inoizame = false
@@ -82,11 +83,17 @@ local function MyJS2()
 end
 -- BH ADD END
 
-function mod:FocusedLightningTarget(targetname)
-	warnFocusedLightning:Show(targetname)
+function mod:FocusedLightningTarget(targetname, uId)
+	if not targetname then return end
+	if self:IsTanking(uId, "boss1") then--Focused Lightning never target tanks, so if target is tank, that means scanning failed.
+		scanFailed = true
+	else
+		warnFocusedLightning:Show(targetname)
+	end
 end
 
 function mod:OnCombatStart(delay)
+	scanFailed = false
 	timerFocusedLightningCD:Start(8-delay)
 	timerStaticBurstCD:Start(13-delay)
 	timerThrowCD:Start(30-delay)
@@ -96,7 +103,7 @@ function mod:OnCombatStart(delay)
 	stormcount = 0
 	if self:IsDifficulty("heroic10", "heroic25") then
 		timerIonizationCD:Start(60-delay)
---BH DELETE	countdownIonization:Start(-delay)
+--BH DELETE	countdownIonization:Start(60-delay)
 		berserkTimer:Start(360-delay)
 		sndIonCD:Schedule(56, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_dlzb.mp3")
 		sndIonCD:Schedule(57, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
@@ -185,6 +192,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		if mod:IsTank() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\changemt.mp3") --換坦嘲諷
 		end
+	elseif args.spellId == 137422 and scanFailed then--Use cleu target if scanning is failed (slower than target scanning)
+		scanFailed = false
+		self:FocusedLightningTarget(args.destName)
 	elseif args.spellId == 138732 and args:IsPlayer() then
 		timerIonization:Start()
 		--BH MODIFY
