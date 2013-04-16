@@ -384,7 +384,7 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
     end
 
     if element == 'portrait' then
-        options.args.enabled.set = function(info,value) E.db.unitframe.hud.units[unit][element][ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL") end,
+        options.args.enabled.set = function(info,value) E.db.unitframe.hud.units[unit][element][ info[#info] ] = value; E:StaticPopup_Show("CONFIG_RL") end
         options.args.rotation = {
             type = 'range',
             name = L['Model Rotation'],
