@@ -319,6 +319,7 @@ function mod:SPELL_CAST_START(args)
 		sndSpirit:Schedule(32, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	--BH ADD
 	elseif args:IsSpellID(136990) then
+		timerFrostBiteCD:Start()
 		sndHS:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zyjt.mp3")
 	--BH ADD END
 	end

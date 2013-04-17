@@ -371,7 +371,7 @@ L= DBM:GetModLocalization(817)
 
 L:SetWarningLocalization({
 	warnDeadZone	= "%s: %s / %s ",
-	SpecWarnJSA			= ">>> 注意減傷 <<<"
+	SpecWarnJSA		= ">>> 注意減傷 <<<"
 })
 
 L:SetOptionLocalization({

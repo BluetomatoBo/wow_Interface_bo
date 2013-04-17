@@ -513,9 +513,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerLightningStormCD:Start()
 			warnWindStorm:Schedule(52)
 			specWarnWindStorm:Schedule(52)
-			timerWindStorm:Schedule(52)
-			sndWOP:Schedule(52, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+			timerWindStorm:Schedule(52)			
 			timerWindStormCD:Start(52)
+			sndWOP:Schedule(52, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
 		elseif cid == 68080 then--Quet'zal
 			phase = 3
 			if self.Options.HudMAP2 then
@@ -537,6 +537,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerLightningStormCD:Cancel()
 			timerWindStorm:Cancel()
 			timerWindStormCD:Cancel()
+			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3") 
 			timerFrostSpikeCD:Cancel()
 			warnPhase3:Show()
 			timerDeadZoneCD:Start(8.5)
@@ -632,6 +633,7 @@ function mod:UNIT_DIED(args)
 		timerWindStormCD:Cancel()
 		warnWindStorm:Cancel()
 		specWarnWindStorm:Cancel()
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3") 
 		timerWindStorm:Cancel()
 		if self:IsDifficulty("heroic10", "heroic25") then--In heroic, all mounts die in phase 4.
 			DBM.BossHealth:RemoveBoss(cid)
@@ -677,7 +679,6 @@ function mod:UNIT_DIED(args)
 			self:UnregisterShortTermEvents()
 			timerDeadZoneCD:Cancel()
 			timerFreezeCD:Cancel()
-			--BH MODIFY
 			warnPhase4:Show()
 			timerRisingAngerCD:Start()
 			timerFistSmashCD:Start(22.5, 1)--fist smash cd is random. (22.5 or 31.5)
@@ -696,3 +697,5 @@ function mod:UNIT_POWER(uId)
 		Warned = false
 	end
 end
+
+--BH ADD END

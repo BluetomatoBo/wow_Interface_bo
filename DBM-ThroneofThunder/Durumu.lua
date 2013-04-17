@@ -620,34 +620,36 @@ end
 --Because blizz sucks and these do NOT show in combat log AND the emote only fires for initial application, but not for when a player dies and beam jumps.
 --Reports are this is majorly fucked up in LFR, because the antispam in name doesn't work with server names (wtf? maybe only happens if server name strip is turned on?)
 --I will not be able to debug for several hours but commenting in case someone else runs LFR before I do in 5 hours
-function mod:UNIT_AURA(uId)
-	local name = DBM:GetUnitFullName(uId)
-	if UnitDebuff(uId, blueTracking) and lastBlue ~= name then
---		print("DBM Debug - UnitName(): "..UnitName(uId))
---		print("DBM Debug - DBM:GetUnitFullName: "..DBM:GetUnitFullName(uId))
---		print("DBM Debug - lastBlue: "..lastBlue)
-		lastBlue = name
-		if name == UnitName("player") then
-			if self:IsDifficulty("lfr25") and self.Options.specWarnBlueBeam then
-				specWarnBlueBeamLFR:Show()
-			else
-				specWarnBlueBeam:Show()
+function mod:UNIT_AURA(uId)	
+	if UnitDebuff(uId, blueTracking) then
+		local name = DBM:GetUnitFullName(uId)
+		if lastBlue ~= name then
+			lastBlue = name
+			if name == UnitName("player") then
+				if self:IsDifficulty("lfr25") and self.Options.specWarnBlueBeam then
+					specWarnBlueBeamLFR:Show()
+				else
+					specWarnBlueBeam:Show()
+				end
+				DBM.Flash:Show(0, 0, 1)
+				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lgzb.mp3") --藍光
 			end
-			DBM.Flash:Show(0, 0, 1)
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lgzb.mp3") --藍光
+			if self.Options.SetIconRays then
+				self:SetIcon(name, 6)--Square
+			end
 		end
-		if self.Options.SetIconRays then
-			self:SetIcon(name, 6)--Square
-		end
-	elseif UnitDebuff(uId, redTracking) and lastRed ~= name then
-		lastRed = name
-		if name == UnitName("player") then
-			specWarnRedBeam:Show()
-			DBM.Flash:Show(1, 0, 0)
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hgzb.mp3") --紅光
-		end
-		if self.Options.SetIconRays then
-			self:SetIcon(name, 7)--Cross
+	elseif UnitDebuff(uId, redTracking) then
+		local name = DBM:GetUnitFullName(uId)
+		if lastRed ~= name then
+			lastRed = name
+			if name == UnitName("player") then
+				specWarnRedBeam:Show()
+				DBM.Flash:Show(1, 0, 0)
+				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hgzb.mp3") --紅光
+			end
+			if self.Options.SetIconRays then
+				self:SetIcon(name, 7)--Cross
+			end
 		end
 	end
 end
