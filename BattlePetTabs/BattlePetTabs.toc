@@ -2,7 +2,7 @@
 ## Title: BattlePetTabs
 ## Notes: Expands the Pet Journal to show tabs for easy team management!
 ## Author: Vladinator
-## Version: 1.1.5.2
-## SavedVariables: BattlePetTabsDB
+## Version: 1.1.6
+## SavedVariables: BattlePetTabsDB, BattlePetTabsDB2
 core.xml
 core.lua
