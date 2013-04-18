@@ -1,0 +1,9 @@
+## Interface: 50200
+## Title: Tidy Plates: Graphite
+## Notes: Minimalisty
+## Author: Binny 
+## Dependencies: TidyPlates, TidyPlatesHub
+
+TidyPlates_Graphite.lua
+
+
