@@ -65,6 +65,7 @@ function H:ConstructPlayerFrame(frame,unit)
 	frame.HealPrediction = self:ConstructHealComm(frame)
 	frame.GCD = self:ConstructGCD(frame)
 	frame.Portrait = self:ConstructPortrait(frame)
+	frame.ResurrectIcon = self:ConstructResurrectIcon(frame)
 	frame:SetAlpha(self.db.alpha)
 
     H:HideOOC(frame)

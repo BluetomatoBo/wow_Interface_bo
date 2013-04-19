@@ -70,7 +70,7 @@ function H:UpdateClassBar(frame,element)
 				maxPoints = 4
 			end
 			if not config['enabled'] then numPoints = 4; maxPoints = 4 end
-			if not frame.ShardBar.PostUpdate then
+			if frame.ShardBar and not frame.ShardBar.PostUpdate then
 				frame.ShardBar.PostUpdate = function(self)
 					if config['enabled'] then
 						H:UpdateClassBar(frame,element)
@@ -310,6 +310,9 @@ function H:UpdateElement(frame,element)
 				self:UpdateClassBar(frame,element)
 			end
 		end
+		if element == 'health' then
+			frame:Size(frame.Health:GetSize())
+		end
 	end
 	local texture
 	if he[element] and (element ~= "castbar" or (element == "castbar" and self.db.units[frame.unit].horizCastbar)) then
@@ -350,8 +353,31 @@ function H:UpdateElementAnchor(frame,element)
 	local config = self.db.units[frame.unit][element]
 	local enabled = config['enabled']
 	local enableAuraBars = H.enableAuraBars
-	if element == 'healcomm' then
+	if element == 'resurrecticon' then
 		if enabled then
+			frame:EnableElement(e)
+		else
+			frame:DisableElement(e)
+		end
+		return
+	end
+	if element == 'healcomm' then
+		local use_portrait = self.db.units[frame.unit].portrait and self.db.units[frame.unit].portrait.enabled
+		local overlay_enabled = use_portrait and self.db.units[frame.unit].portrait.overlay
+		local c = UF.db.colors.healPrediction
+		local healPrediction = frame[e]
+		if enabled then
+			if not frame:IsElementEnabled('HealPrediction') then
+				frame:EnableElement('HealPrediction')
+			end		
+			
+			healPrediction.myBar:SetFrameLevel(frame:GetFrameLevel()+10)
+			healPrediction.otherBar:SetFrameLevel(frame:GetFrameLevel()+10)
+			healPrediction.absorbBar:SetFrameLevel(frame:GetFrameLevel()+10)
+			
+			healPrediction.myBar:SetStatusBarColor(c.personal.r, c.personal.g, c.personal.b, c.personal.a)
+			healPrediction.otherBar:SetStatusBarColor(c.others.r, c.others.g, c.others.b, c.others.a)
+			healPrediction.absorbBar:SetStatusBarColor(c.absorbs.r, c.absorbs.g, c.absorbs.b, c.absorbs.a)				
 			frame:EnableElement(e)
 		else
 			frame:DisableElement(e)
@@ -460,6 +486,7 @@ function H:UpdateElementAnchor(frame,element)
 		end
 	elseif element == 'portrait' then
 		local portrait = frame.Portrait
+		if not portrait then return end
 		portrait:ClearAllPoints()
 		portrait:SetFrameLevel(frame.Health:GetFrameLevel())
 		portrait.overlay:SetFrameLevel(portrait:GetFrameLevel() + 1)
@@ -536,33 +563,60 @@ function H:UpdateElementAnchor(frame,element)
 	end
 end
 
-function H.PostUpdateHealth(health, unit, min, max)
+function H:PostUpdateHealth(unit, min, max)
 	if not E.db.unitframe.hud.units[unit] then return end
-    if UF.db.colors.colorhealthbyvalue then
-		local dc = UF.db.colors.health
-		local r = dc.r
-		local g = dc.g
-		local b = dc.b
-		local newr, newg, newb = oUF.ColorGradient(min, max, 1, 0, 0, 1, 1, 0, r, g, b)
+	local parent = self:GetParent()
 
-		health:SetStatusBarColor(newr, newg, newb)
-		if health.bg and health.bg.multiplier then
-			local mu = health.bg.multiplier
-			health.bg:SetVertexColor(newr * mu, newg * mu, newb * mu)
+    if parent.ResurrectIcon then
+		parent.ResurrectIcon:SetAlpha(min == 0 and 1 or 0)
+	end
+	
+	local r, g, b = self:GetStatusBarColor()
+	local colors = E.db['unitframe']['colors'];
+	if (colors.healthclass == true and colors.colorhealthbyvalue == true) or (colors.colorhealthbyvalue and parent.isForced) and not (UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit)) then
+		local newr, newg, newb = ElvUF.ColorGradient(min, max, 1, 0, 0, 1, 1, 0, r, g, b)
+
+		self:SetStatusBarColor(newr, newg, newb)
+		if self.bg and self.bg.multiplier then
+			local mu = self.bg.multiplier
+			self.bg:SetVertexColor(newr * mu, newg * mu, newb * mu)
 		end
 
 		if E.db.unitframe.hud.units[unit].portrait and E.db.unitframe.hud.units[unit].portrait.enabled then
-			local overlay = health:GetParent().Portrait.overlay
-			local r,g,b=health:GetStatusBarColor()
-			local mu=health.bg.multiplier
-			overlay:SetBackdropColor(r*mu,g*mu,b*mu)
+			if self:GetParent().Portrait then
+				local overlay = self:GetParent().Portrait.overlay
+				local r,g,b=self:GetStatusBarColor()
+				local mu=self.bg.multiplier
+				overlay:SetBackdropColor(r*mu,g*mu,b*mu)
+			end
 		end
+	end
+
+	if colors.classbackdrop then
+		local reaction = UnitReaction(unit, 'player')
+		local t
+		if UnitIsPlayer(unit) then
+			local _, class = UnitClass(unit)
+			t = parent.colors.class[class]
+		elseif reaction then
+			t = parent.colors.reaction[reaction]
+		end
+
+		if t then
+			self.bg:SetVertexColor(t[1], t[2], t[3])
+		end
+	end
+	
+	--Backdrop
+	if colors.customhealthbackdrop then
+		local backdrop = colors.health_backdrop
+		self.bg:SetVertexColor(backdrop.r, backdrop.g, backdrop.b)		
 	end
 
     -- Flash health below threshold %
     if max == 0 then return end
 	if (min / max * 100) < (E.db.unitframe.hud.lowThreshold) then
-		H.Flash(health, 0.6)
+		E:Flash(parent, 0.6)
 		if (not warningTextShown and unit == "player") and E.db.unitframe.hud.warningText then
 			ElvUIHudWarning:AddMessage("|cffff0000LOW HEALTH")
 			warningTextShown = true
@@ -571,15 +625,13 @@ function H.PostUpdateHealth(health, unit, min, max)
 			warningTextShown = false
 		end
 		if unit == "player" and E.db.unitframe.hud.screenflash then
-			local f = H.lowHealthFlash
-			if not f then return end
-			f:SetAlpha(1)
-			H.Flash(f, 0.6)
+			ElvUIHudScreenFlash:SetAlpha(1)
+			E:Flash(ElvUIHudScreenFlash, 0.6)
 		end
 	else
-		local f = H.lowHealthFlash
-		if not f then return end
-		f:SetAlpha(0)
+		E:StopFlash(parent)
+		E:StopFlash(ElvUIHudScreenFlash)
+		ElvUIHudScreenFlash:SetAlpha(0)
 	end
 end
 
@@ -634,23 +686,21 @@ function H:CustomCastDelayText(duration)
 	self.Time:SetText(("%.1f |cffaf5050%s %.1f|r"):format(self.channeling and duration or self.max - duration, self.channeling and "- " or "+", self.delay))
 end
 
-function H.PreUpdatePowerHud(power, unit)
+function H:PreUpdatePowerHud(unit)
     local _, pType = UnitPowerType(unit)
 
     local color = oUF["colors"].power[pType]
     if color then
-        power:SetStatusBarColor(color[1], color[2], color[3])
+        self:SetStatusBarColor(color[1], color[2], color[3])
     end
 end
 
-function H.PostUpdatePowerHud(power, unit, min, max)
-    local self = power:GetParent()
-
+function H:PostUpdatePowerHud(unit, min, max)
 	-- Flash mana below threshold %
 	local powerMana, _ = UnitPowerType(unit)
-	if (min / max * 100) < (E.db.unitframe.hud.lowThreshold) and (powerMana == SPELL_POWER_MANA) and self.db.flash then
-		H.Flash(power, 0.4)
-		if self.db.warningText then
+	if (min / max * 100) < (E.db.unitframe.hud.lowThreshold) and (powerMana == SPELL_POWER_MANA) and H.db.flash then
+		E:Flash(self, 0.4)
+		if H.db.warningText then
 			if not warningTextShown and unit == "player" then
 				ElvUIHudWarning:AddMessage("|cff00ffffLOW MANA")
 				warningTextShown = true
@@ -659,6 +709,8 @@ function H.PostUpdatePowerHud(power, unit, min, max)
 				warningTextShown = false
 			end
 		end
+	else
+		E:StopFlash(self)
 	end
 end
 

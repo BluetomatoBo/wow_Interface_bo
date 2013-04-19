@@ -290,6 +290,9 @@ P['unitframe']['hud']['units'] = {
             ['rotation'] = 0,
             ['camDistanceScale'] = 1,
         },
+        ['resurrecticon'] = {
+            ['enabled'] = true,
+        },
     },
     ['target'] = {
         ['enabled'] = true,

@@ -420,6 +420,7 @@ local function gcdOptions(unit) return H:GenerateElementOptionTable(unit,'gcd',1
 local function buffOptions(unit) return H:GenerateElementOptionTable(unit,'buffs',725,'Buffs',true,true,false,false,false) end
 local function debuffOptions(unit) return H:GenerateElementOptionTable(unit,'debuffs',750,'Debuffs',true,true,false,false,false) end
 local function portraitOptions(unit) return H:GenerateElementOptionTable(unit,'portrait',850,'Portrait',false,false,false,false,false) end
+local function resurrectIconOptions(unit) return H:GenerateElementOptionTable(unit,'resurrecticon',950,'Resurrect Icon',false,false,false,false,false) end
 
 local elementOptions = {
 	['health'] = healthOptions,
@@ -439,6 +440,7 @@ local elementOptions = {
     ['buffs'] = buffOptions,
     ['debuffs'] = debuffOptions,
     ['portrait'] = portraitOptions,
+    ['resurrecticon'] = resurrectIconOptions,
 }
 
 local nameMap = {
@@ -510,30 +512,6 @@ function H:GenerateUnitOptionTable(unit,name,order,mover,elements)
                         E:ResetMovers(castbarMover)
                     end
                 end,
-            },
-            width = {
-                order = 4,
-                name = L['Width'],
-                type = 'range',
-                min = 7, max = 150, step = 1,
-                get = function(info) return E.db.unitframe.hud.units[unit][ info[#info] ] end,
-                set = function(info,value)
-                    E.db.unitframe.hud.units['player'][ info[#info] ] = value;
-                    H:UpdateElementSizes('player',true,value)
-                    H:UpdateAllFrames() 
-                end
-            },
-            height = {
-                order = 5,
-                name = L['Height'],
-                type = 'range',
-                min = 20, max = 600, step = 1,
-                get = function(info) return E.db.unitframe.hud.units[unit][ info[#info] ] end,
-                set = function(info,value) 
-                    E.db.unitframe.hud.units['player'][ info[#info] ] = value; 
-                    H:UpdateElementSizes('player',false,value)
-                    H:UpdateAllFrames() 
-                end
             },
             customText = {
                 order = 50,

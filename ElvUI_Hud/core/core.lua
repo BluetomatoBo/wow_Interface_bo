@@ -18,29 +18,6 @@ function H:updateAllElements(frame)
     end
 end
 
-function H:SetUpAnimGroup()
--- The following functions are thanks to Hydra from the ElvUI forums
-    self.anim = self:CreateAnimationGroup("Flash")
-    self.anim.fadein = self.anim:CreateAnimation("ALPHA", "FadeIn")
-    self.anim.fadein:SetChange(1)
-    self.anim.fadein:SetOrder(2)
-
-    self.anim.fadeout = self.anim:CreateAnimation("ALPHA", "FadeOut")
-    self.anim.fadeout:SetChange(-1)
-    self.anim.fadeout:SetOrder(1)
-end
-
-function H:Flash(duration)
-    if not E.db.unitframe.hud.flash then return end
-    if not self.anim then
-        H.SetUpAnimGroup(self)
-    end
-
-    self.anim.fadein:SetDuration(duration)
-    self.anim.fadeout:SetDuration(duration)
-    self.anim:Play()
-end
-
 function H:CreateWarningFrame()
 	local f=CreateFrame("ScrollingMessageFrame","ElvUIHudWarning",UIParent)
 	f:SetFont(LSM:Fetch("font", (UF.db or P.unitframe).font),(UF.db or P.unitframe).fontSize*2,"THINOUTLINE")
@@ -56,6 +33,19 @@ function H:CreateWarningFrame()
 	f:SetMovable(false)
 	f:SetResizable(false)
 	--f:SetInsertMode("TOP") -- Bugged currently
+end
+
+function H:CreateScreenFlash()
+    local f = CreateFrame('Frame', "ElvUIHudScreenFlash", E.UIParent);
+    f:SetToplevel(true)
+    f:SetFrameStrata("FULLSCREEN_DIALOG")
+    f:SetAllPoints(E.UIParent)
+    f:EnableMouse(false)
+    f.texture = f:CreateTexture(nil, "BACKGROUND")
+    f.texture:SetTexture("Interface\\FullScreenTextures\\LowHealth")
+    f.texture:SetAllPoints(E.UIParent)
+    f.texture:SetBlendMode("ADD")
+    f:SetAlpha(0)
 end
 
 H.fading = false
@@ -184,8 +174,7 @@ function H:Enable()
             end
         end
     end
-    self.lowHealthFlash:Show()
-    self.lowHealthFlash:SetAlpha(0)
+
     H:ScheduleTimer('AuraBarsSuck',5)
 end
 
@@ -219,7 +208,8 @@ function H:Initialize()
     self.db = E.db.unitframe.hud
 
     self:CreateWarningFrame()
-    
+    self:CreateScreenFlash()
+
     oUF:RegisterStyle('ElvUI_Hud',function(frame,unit)
         frame:SetFrameLevel(5)
         H:ConstructHudFrame(frame,unit)
@@ -242,14 +232,7 @@ function H:Initialize()
 
     hooksecurefunc(E,"UpdateAll",function(self,ignoreInstall) H:UpdateAll() end)
     hooksecurefunc(UF,"Update_AllFrames",function(self) H:UpdateAllFrames() end)
-
-    local f = CreateFrame('Frame', nil, UIParent); 
-    f:SetAllPoints();
-    f.t = f:CreateTexture(nil, 'ARTWORK'); 
-    f.t:SetTexture("Interface\\FullScreenTextures\\LowHealth"); 
-    f.t:SetBlendMode("ADD")
-    self.lowHealthFlash = f
-
+    
     if UnitAffectingCombat("player") then self:RegisterEvent("PLAYER_REGEN_ENABLED") else self:Enable() end
 
     self.version = GetAddOnMetadata(addon,'Version')

@@ -102,6 +102,7 @@ local elements = {
 	['buffs'] = 'Buffs',
 	['debuffs'] = 'Debuffs',
 	['portrait'] = 'Portrait',
+	['resurrecticon'] = 'ResurrectIcon',
 }
 
 H.Elements = elements
@@ -233,6 +234,16 @@ function H:UpdateFrame(unit)
 		frame:EnableMouse(self.db.hideElv or self.db.enableMouse)
 		frame:Enable()
 		if not frame then H:ScheduleTimer("UpdateFrame", 1, unit); return end
+		if unit == "target" then
+			local db = E.db.unitframe.units.target
+			if not IsAddOnLoaded("Clique") then
+				if db.middleClickFocus then
+					frame:SetAttribute("type3", "focus")
+				elseif frame:GetAttribute("type3") == "focus" then
+					frame:SetAttribute("type3", nil)
+				end
+			end
+		end
 		frame:SetAlpha(self.db.alpha)
 		local event
 		if InCombatLockdown() then
@@ -325,8 +336,10 @@ function H:ConfigureStatusBar(frame,element,parent,name,t)
 
 	-- Create the status bar
 	local sb = CreateFrame('StatusBar', sbname, parent)
-	sb:SetTemplate("Default")
-	sb:CreateBackdrop("Default")
+	if not t then
+		sb:SetTemplate("Default")
+		sb:CreateBackdrop("Default")
+	end
 
 	-- Dummy texture so we can set colors
 	sb:SetStatusBarTexture(E['media'].blankTex)
@@ -336,16 +349,18 @@ function H:ConfigureStatusBar(frame,element,parent,name,t)
 	sb:SetFrameStrata(parent:GetFrameStrata())
 	sb:SetFrameLevel(parent:GetFrameLevel())
 
-	-- Create the status bar background
-    local bg = sb:CreateTexture(nil, 'BORDER')
-    bg:SetAllPoints()
-    bg:SetTexture(E['media'].blankTex)
-    if element == 'gcd' then
-    	bg:SetTexture(.1,.1,.1)
-    end
-    bg:SetAlpha(.2)
-    bg.multiplier = 0.25
-    sb.bg = bg
+	if not t then
+		-- Create the status bar background
+	    local bg = sb:CreateTexture(nil, 'BORDER')
+	    bg:SetAllPoints()
+	    bg:SetTexture(E['media'].blankTex)
+	    if element == 'gcd' then
+	    	bg:SetTexture(.1,.1,.1)
+	    end
+	    bg:SetAlpha(.2)
+	    bg.multiplier = 0.25
+	    sb.bg = bg
+	end
 
 	if not self.units[frame.unit][element].statusbars then
 		self.units[frame.unit][element].statusbars =  { }
@@ -401,27 +416,6 @@ function H:ResetUnitSettings(unit)
 	if not frame then return end
 	E:CopyTable(self.db.units[unit],P.unitframe.hud.units[unit])
     self:UpdateAllFrames()
-end
-
-function H:UpdateElementSizes(unit,isWidth,newSize)
-	local elements = self.units[unit]
-	
-	for element,_ in pairs(elements) do
-		local config = self.db.units[unit][element]
-		local size = config['size']
-		if size then
-			local config = true
-			if element == 'castbar' and (unit == 'player' or unit == 'target') then 
-				if self.db.units[unit].horizCastbar then
-					config = false
-				else
-					size = size['vertical']
-				end
-			end
-			local var = (isWidth and 'width') or 'height'
-			if config then size[var] = newSize end
-		end
-	end
 end
 
 function H:OldDefault()
