@@ -71,11 +71,17 @@ function H:ConstructCastbar(frame)
     local hcastbar = self:ConfigureStatusBar(frame,'hcastbar')
     local vcastbar = self:ConfigureStatusBar(frame,'vcastbar')
 
+    vcastbar.CustomDelayText = H.CustomCastDelayText
+    vcastbar.CustomTimeText = H.CustomTimeText
     vcastbar.PostCastStart = H.PostCastStart
-    vcastbar.PostChannelStart = H.PostChannelStart
+    vcastbar.PostChannelStart = H.PostCastStart
+    vcastbar.PostCastStop = UF.PostCastStop
+    vcastbar.PostChannelStop = UF.PostCastStop
+    vcastbar.PostChannelUpdate = H.PostChannelUpdate
+    vcastbar.PostCastInterruptible = UF.PostCastInterruptible
+    vcastbar.PostCastNotInterruptible = UF.PostCastNotInterruptible
     vcastbar.OnUpdate = H.CastbarUpdate
-    --vcastbar.PostCastInterruptible = H.PostCastInterruptible
-    --vcastbar.PostCastNotInterruptible = H.PostCastNotInterruptible
+
     vcastbar:SetOrientation("VERTICAL")
     vcastbar:SetFrameStrata(frame.Power:GetFrameStrata())
     vcastbar:SetFrameLevel(frame.Power:GetFrameLevel()+2)
@@ -113,24 +119,20 @@ function H:ConstructCastbar(frame)
     --Set to castbar.Icon
     vcastbar.ButtonIcon = icon
     frame.VertCastbar = vcastbar
+
     hcastbar:SetFrameLevel(6)
 
     hcastbar.CustomTimeText = H.CustomCastTimeText
     hcastbar.CustomDelayText = H.CustomCastDelayText
-    if frame.unit ~= 'player' then
-        hcastbar.PostCastStart = H.CheckCast
-        hcastbar.PostChannelStart = H.CheckCast
-        hcastbar.PostCastInterruptible = UF.PostCastInterruptible
-        hcastbar.PostCastNotInterruptible = UF.PostCastNotInterruptible
-    else
-        hcastbar.PostCastStart = UF.PostCastStart
-        hcastbar.PostChannelStart = UF.PostCastStart
-        hcastbar.PostCastStop = UF.PostCastStop
-        hcastbar.PostChannelStop = UF.PostCastStop
-        hcastbar.PostChannelUpdate = UF.PostChannelUpdate
-        hcastbar.PostCastInterruptible = UF.PostCastInterruptible
-        hcastbar.PostCastNotInterruptible = UF.PostCastNotInterruptible
-    end
+    hcastbar.CustomDelayText = H.CustomCastDelayText
+    hcastbar.CustomTimeText = H.CustomTimeText
+    hcastbar.PostCastStart = H.PostCastStart
+    hcastbar.PostChannelStart = H.PostCastStart
+    hcastbar.PostCastStop = UF.PostCastStop
+    hcastbar.PostChannelStop = UF.PostCastStop
+    hcastbar.PostChannelUpdate = H.PostChannelUpdate
+    hcastbar.PostCastInterruptible = UF.PostCastInterruptible
+    hcastbar.PostCastNotInterruptible = UF.PostCastNotInterruptible
 
     hcastbar.Time = self:ConfigureFontString(frame,'hcastbar',hcastbar,'time')
     hcastbar.Time:SetPoint("RIGHT", hcastbar, "RIGHT", -4, 0)
@@ -326,13 +328,10 @@ function H:ConstructComboPoints(frame)
 end
 
 function H.ConstructAuraBars(self,unit)
-    local config = E.db.unitframe.hud.units[unit]['aurabars']
-    local size = config.size
     local bar = self.statusBar
     
     self:SetTemplate('Default')
 
-    bar:Size(size.width,size.height)
     bar:SetInside(self)
 
     bar:SetStatusBarTexture(LSM:Fetch("statusbar", UF.db.statusbar))
@@ -410,7 +409,6 @@ function H:ConstructRaidIcon(frame)
     
     local tex = f:CreateTexture(nil, "OVERLAY")
     tex:SetTexture([[Interface\TargetingFrame\UI-RaidTargetingIcons]])
-    tex:Size(12)
 
     return tex
 end

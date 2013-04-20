@@ -5,6 +5,8 @@ local H = E:GetModule('HUD');
 local LSM = LibStub("LibSharedMedia-3.0");
 local UF = E:GetModule('UnitFrames');
 
+local floor = math.floor
+local sub = string.sub
 local warningTextShown = false;
 
 function H:GetCastbar(frame)
@@ -343,6 +345,10 @@ function H:UpdateElement(frame,element)
 		if not aurabars then return end
 		aurabars.buffColor = {buffColor.r, buffColor.g, buffColor.b}
 		aurabars.debuffColor = {debuffColor.r, debuffColor.g, debuffColor.b}
+		aurabars.auraBarHeight = size.height
+		aurabars.auraBarWidth = size.width
+		aurabars:Size(size.width,size.height)
+		if aurabars.SetAnchors then aurabars:SetAnchors() end
 	end
 end
 
@@ -526,7 +532,7 @@ function H:UpdateElementAnchor(frame,element)
 	end
 
 	if enabled then
-		if element ~= 'aurabars' or enableAuraBars then frame:EnableElement(e) end
+		if element ~= 'aurabars' or enableAuraBars then frame:EnableElement(e); if element == 'aurabars' then frame[e]:SetAnchors() end end
 		frame[e]:SetAlpha(1)
 		if config['value'] and frame[e].value then
 			if config['value']['enabled'] then
@@ -535,7 +541,7 @@ function H:UpdateElementAnchor(frame,element)
 				frame[e].value:Hide()
 			end
 		end
-		if element ~= 'raidicon' then frame[e]:Show() end
+		if element ~= 'raidicon' then frame[e]:Show() else frame[e]:Size(frame:GetWidth()*.8) end
 		if frame[e].ForceUpdate and (element ~= 'aurabars') then frame[e]:ForceUpdate() end
 	else
 		frame:DisableElement(e)
@@ -636,55 +642,51 @@ function H:PostUpdateHealth(unit, min, max)
 	end
 end
 
-local ticks = {}
-hooksecurefunc(UF,'SetCastTicks',function(self,frame,numTicks,extraTickRatio)
-	extraTickRatio = extraTickRatio or 0
-	local color = E.db.unitframe.hud.units.player['castbar']['tickcolor']
-	UF:HideTicks()
-	if numTicks and numTicks > 0 then
-		local d = frame:GetWidth() / (numTicks + extraTickRatio)
-		for i = 1, numTicks do
-			if not ticks[i] then
-				ticks[i] = frame:CreateTexture(nil, 'OVERLAY')
-				ticks[i]:SetTexture(E["media"].normTex)
-				ticks[i]:SetVertexColor(color.r, color.g, color.b)
-				ticks[i]:SetWidth(1)
-				ticks[i]:SetHeight(frame:GetHeight())
-			end
-			ticks[i]:ClearAllPoints()
-			ticks[i]:SetPoint("CENTER", frame, "LEFT", d * i, 0)
-			ticks[i]:Show()
-		end
-	end
-end)
-
--- used to check if a spell is interruptable
-function H:CheckInterrupt(unit)
-	if unit == "vehicle" then unit = "player" end
-	if self.interrupt and UnitCanAttack("player", unit) then
-		local c = E.db.unitframe.colors.castColor
-		if not c then return end
-		self:SetStatusBarColor(c.r,c.g,c.b)	
-	else
-		local c = E.db.unitframe.colors.castNoInterrupt
-		if not c then return end
-		self:SetStatusBarColor(c.r,c.g,c.b)	
-	end
-end
-
--- check if we can interrupt on cast
-function H:CheckCast(unit, name, rank, castid)
-	H.CheckInterrupt(self,unit)
-end
-
--- display casting time
-function H:CustomCastTimeText(duration)
-	self.Time:SetText(("%.1f / %.1f"):format(self.channeling and duration or self.max - duration, self.max))
-end
-
--- display delay in casting time
 function H:CustomCastDelayText(duration)
-	self.Time:SetText(("%.1f |cffaf5050%s %.1f|r"):format(self.channeling and duration or self.max - duration, self.channeling and "- " or "+", self.delay))
+	local db = H.db.units[self:GetParent().unit]
+	if not db then return end
+	
+	if self.channeling then
+		if db.castbar.format == 'CURRENT' then
+			self.Time:SetText(("%.1f |cffaf5050%.1f|r"):format(abs(duration - self.max), self.delay))
+		elseif db.castbar.format == 'CURRENTMAX' then
+			self.Time:SetText(("%.1f / %.1f |cffaf5050%.1f|r"):format(duration, self.max, self.delay))
+		elseif db.castbar.format == 'REMAINING' then
+			self.Time:SetText(("%.1f |cffaf5050%.1f|r"):format(duration, self.delay))
+		end			
+	else
+		if db.castbar.format == 'CURRENT' then
+			self.Time:SetText(("%.1f |cffaf5050%s %.1f|r"):format(duration, "+", self.delay))
+		elseif db.castbar.format == 'CURRENTMAX' then
+			self.Time:SetText(("%.1f / %.1f |cffaf5050%s %.1f|r"):format(duration, self.max, "+", self.delay))
+		elseif db.castbar.format == 'REMAINING' then
+			self.Time:SetText(("%.1f |cffaf5050%s %.1f|r"):format(abs(duration - self.max), "+", self.delay))
+		end		
+	end
+end
+
+function UF:CustomTimeText(duration)
+	local db = H.db.units[self:GetParent().unit]
+	if not db then return end
+
+	if self.channeling then
+		if db.castbar.format == 'CURRENT' then
+			self.Time:SetText(("%.1f"):format(abs(duration - self.max)))
+		elseif db.castbar.format == 'CURRENTMAX' then
+			self.Time:SetText(("%.1f / %.1f"):format(duration, self.max))
+			self.Time:SetText(("%.1f / %.1f"):format(abs(duration - self.max), self.max))
+		elseif db.castbar.format == 'REMAINING' then
+			self.Time:SetText(("%.1f"):format(duration))
+		end				
+	else
+		if db.castbar.format == 'CURRENT' then
+			self.Time:SetText(("%.1f"):format(duration))
+		elseif db.castbar.format == 'CURRENTMAX' then
+			self.Time:SetText(("%.1f / %.1f"):format(duration, self.max))
+		elseif db.castbar.format == 'REMAINING' then
+			self.Time:SetText(("%.1f"):format(abs(duration - self.max)))
+		end		
+	end
 end
 
 function H:PreUpdatePowerHud(unit)
@@ -767,19 +769,228 @@ local updateSafeZone = function(self,c)
 	end
 end
 
-function H:PostCastStart(unit, name, rank, castid)
-	H.CheckInterrupt(self,unit)
-	local sz = self.SafeZone
-	if sz then
-		updateSafeZone(self,true)
+local hticks = {}
+local vticks = {}
+function H:HideTicks()
+	for i=1, #hticks do
+		hticks[i]:Hide()
+	end	
+	for i=1, #vticks do
+		vticks[i]:Hide()
+	end	
+end
+
+function H:SetCastTicks(frame, numTicks, extraTickRatio)
+	extraTickRatio = extraTickRatio or 0
+	H:HideTicks()
+	if numTicks and numTicks <= 0 then return end;
+	local w = frame:GetOrientation() == "HORIZONTAL" and frame:GetWidth() or frame:GetHeight()
+	local d = w / (numTicks + extraTickRatio)
+	local color = H.db.units[frame:GetParent().unit].castbar.tickcolor
+	local ticks = frame:GetOrientation() == "HORIZONTAL" and hticks or vticks
+	--local _, _, _, ms = GetNetStats()
+	for i = 1, numTicks do
+		if not ticks[i] then
+			ticks[i] = frame:CreateTexture(nil, 'OVERLAY')
+			ticks[i]:SetTexture(E["media"].normTex)
+			ticks[i]:SetVertexColor(color.r, color.g, color.b, 0.8)
+			if frame:GetOrientation() == "HORIZONTAL" then
+				ticks[i]:Width(1)
+				ticks[i]:SetHeight(frame:GetHeight())
+			else
+				ticks[i]:Height(1)
+				ticks[i]:SetWidth(frame:GetWidth())
+			end
+		end
+		
+		--[[if(ms ~= 0) then
+			local perc = (w / frame.max) * (ms / 1e5)
+			if(perc > 1) then perc = 1 end
+
+			ticks[i]:SetWidth((w * perc) / (numTicks + extraTickRatio))
+		else
+			ticks[i]:Width(1)
+		end]]
+		
+		ticks[i]:ClearAllPoints()
+		if frame:GetOrientation() == "HORIZONTAL" then
+			ticks[i]:SetPoint("RIGHT", frame, "LEFT", d * i, 0)
+		else
+			ticks[i]:SetPoint("TOP", frame, "BOTTOM", 0, d * i)
+		end
+		ticks[i]:Show()
 	end
 end
 
-function H:PostChannelStart(unit, name, rank, castid)
-	H.CheckInterrupt(self,unit)
-	local sz = self.SafeZone
-	if sz then
-		updateSafeZone(self,false)
+function H:PostCastStart(unit, name, rank, castid)
+	local db = H.db.units[unit]
+	if not db or not db.castbar then return; end
+	
+	if unit == "vehicle" then unit = "player" end
+	
+	if db.castbar.displayTarget and self.curTarget then
+		self.Text:SetText(sub(name..' --> '..self.curTarget, 0, floor((((32/245) * self:GetWidth()) / E.db['unitframe'].fontSize) * 12)))
+	else
+		self.Text:SetText(sub(name, 0, floor((((32/245) * self:GetWidth()) / E.db['unitframe'].fontSize) * 12)))
+	end
+
+	if self:GetOrientation() == "HORIZONTAL" then
+		self.Spark:Height(self:GetHeight() * 2)
+	else
+		self.Spark:Width(self:GetWidth() * 2)
+	end
+		
+	self.unit = unit
+
+	if db.castbar.ticks and unit == "player" then
+		local unitframe = E.global.unitframe
+		local baseTicks = unitframe.ChannelTicks[name]
+		
+        -- Detect channeling spell and if it's the same as the previously channeled one
+        if baseTicks and name == prevSpellCast then
+            self.chainChannel = true
+        elseif baseTicks then
+            self.chainChannel = nil
+            self.prevSpellCast = name
+        end
+		
+		if baseTicks and unitframe.ChannelTicksSize[name] and unitframe.HastedChannelTicks[name] then
+			local tickIncRate = 1 / baseTicks
+			local curHaste = UnitSpellHaste("player") * 0.01
+			local firstTickInc = tickIncRate / 2
+			local bonusTicks = 0
+			if curHaste >= firstTickInc then
+				bonusTicks = bonusTicks + 1
+			end
+			
+			local x = tonumber(E:Round(firstTickInc + tickIncRate, 2))
+			while curHaste >= x do
+				x = tonumber(E:Round(firstTickInc + (tickIncRate * bonusTicks), 2))
+				if curHaste >= x then
+					bonusTicks = bonusTicks + 1
+				end
+			end
+
+            local baseTickSize = unitframe.ChannelTicksSize[name]
+            local hastedTickSize = baseTickSize / (1 + curHaste)
+            local extraTick = self.max - hastedTickSize * (baseTicks + bonusTicks)
+            local extraTickRatio = extraTick / hastedTickSize
+
+			H:SetCastTicks(self, baseTicks + bonusTicks, extraTickRatio)
+		elseif baseTicks and unitframe.ChannelTicksSize[name] then
+			local curHaste = UnitSpellHaste("player") * 0.01
+            local baseTickSize = unitframe.ChannelTicksSize[name]
+            local hastedTickSize = baseTickSize / (1 +  curHaste)
+            local extraTick = self.max - hastedTickSize * (baseTicks)
+            local extraTickRatio = extraTick / hastedTickSize
+
+			H:SetCastTicks(self, baseTicks, extraTickRatio)
+		elseif baseTicks then
+			H:SetCastTicks(self, baseTicks)
+		else
+			H:HideTicks()
+		end
+	elseif unit == 'player' then
+		H:HideTicks()			
+	end	
+	
+	local colors = ElvUF.colors
+	local r, g, b = colors.castColor[1], colors.castColor[2], colors.castColor[3]
+	if UF.db.colors.castClassColor then
+		local t
+		if UnitIsPlayer(unit) then
+			local _, class = UnitClass(unit)
+			t = ElvUF.colors.class[class]
+		elseif UnitReaction(unit, 'player') then
+			t = ElvUF.colors.reaction[UnitReaction(unit, "player")]
+		end
+			
+		if(t) then
+			r, g, b = t[1], t[2], t[3]
+		end		
+	end
+	
+	if self.interrupt and unit ~= "player" and UnitCanAttack("player", unit) then
+		r, g, b = colors.castNoInterrupt[1], colors.castNoInterrupt[2], colors.castNoInterrupt[3]
+	end
+	
+	self:SetStatusBarColor(r, g, b)
+	UF:ToggleTransparentStatusBar(UF.db.colors.transparentCastbar, self, self.bg, nil, true)
+	if self.bg:IsShown() then
+		self.bg:SetTexture(r * 0.25, g * 0.25, b * 0.25)
+		
+		local _, _, _, alpha = self.backdrop:GetBackdropColor()
+		self.backdrop:SetBackdropColor(r * 0.58, g * 0.58, b * 0.58, alpha)
+	end
+
+	if self:GetOrientation() == "VERTICAL" then
+		local sz = self.SafeZone
+		if sz then
+			updateSafeZone(self,true)
+		end
+	end
+end
+
+function H:PostChannelUpdate(unit, name)
+	local db = H.db.units[unit]
+	if not db then return; end
+    if not (unit == "player" or unit == "vehicle") then return end
+	
+	if db.castbar.ticks then
+		local unitframe = E.global.unitframe
+		local baseTicks = unitframe.ChannelTicks[name]
+		
+		if baseTicks and unitframe.ChannelTicksSize[name] and unitframe.HastedChannelTicks[name] then
+			local tickIncRate = 1 / baseTicks
+			local curHaste = UnitSpellHaste("player") * 0.01
+			local firstTickInc = tickIncRate / 2
+			local bonusTicks = 0
+			if curHaste >= firstTickInc then
+				bonusTicks = bonusTicks + 1
+			end
+
+			local x = tonumber(E:Round(firstTickInc + tickIncRate, 2))
+			while curHaste >= x do
+				x = tonumber(E:Round(firstTickInc + (tickIncRate * bonusTicks), 2))
+				if curHaste >= x then
+					bonusTicks = bonusTicks + 1
+				end
+			end
+
+			local baseTickSize = unitframe.ChannelTicksSize[name]
+			local hastedTickSize = baseTickSize / (1 + curHaste)
+			local extraTick = self.max - hastedTickSize * (baseTicks + bonusTicks)
+			if self.chainChannel then
+				self.extraTickRatio = extraTick / hastedTickSize
+				self.chainChannel = nil
+			end
+
+			H:SetCastTicks(self, baseTicks + bonusTicks, self.extraTickRatio)
+		elseif baseTicks and unitframe.ChannelTicksSize[name] then
+			local curHaste = UnitSpellHaste("player") * 0.01
+			local baseTickSize = unitframe.ChannelTicksSize[name]
+			local hastedTickSize = baseTickSize / (1 + curHaste)
+			local extraTick = self.max - hastedTickSize * (baseTicks)
+			if self.chainChannel then
+				self.extraTickRatio = extraTick / hastedTickSize
+				self.chainChannel = nil
+			end
+
+			H:SetCastTicks(self, baseTicks, self.extraTickRatio)
+		elseif baseTicks then
+			H:SetCastTicks(self, baseTicks)
+		else
+			H:HideTicks()
+		end
+	else
+		H:HideTicks()			
+	end
+
+	if self:GetOrientation() == "VERTICAL" then
+		local sz = self.SafeZone
+		if sz then
+			updateSafeZone(self,false)
+		end
 	end
 end
 

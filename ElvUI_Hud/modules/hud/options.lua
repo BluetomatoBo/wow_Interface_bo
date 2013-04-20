@@ -45,7 +45,7 @@ function H:GenerateValidAnchors(unit,element,value)
     return anchors
 end
 
-function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,hasValue,hasTag,hasSpacing)
+function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,hasValue,hasTag,hasSpacing,hasTicks)
     local options = {
 		order = order,
 		type = 'group',
@@ -400,12 +400,53 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
         }
     end
 
+    if element == 'castbar' then
+        options.args.format = {
+            order = 12,
+            type = 'select',
+            name = L['Format'],
+            values = {
+                ['CURRENTMAX'] = L['Current / Max'],
+                ['CURRENT'] = L['Current'],
+                ['REMAINING'] = L['Remaining'],
+            },
+        }
+        if hasTicks then
+            options.args.ticks = {
+                order = 13,
+                type = 'toggle',
+                name = L['Ticks'],
+                desc = L['Display tick marks on the castbar for channelled spells. This will adjust automatically for spells like Drain Soul and add additional ticks based on haste.'],
+            }
+            options.args.displayTarget = {
+                order = 14,
+                type = 'toggle',
+                name = L['Display Target'],
+                desc = L['Display the target of your current cast. Useful for mouseover casts.'],
+            }
+            options.args.tickcolor = {
+                order = 15,
+                type = 'color',
+                name = L['Tick Color'],
+                get = function(info)
+                    local t = E.db.unitframe.hud.units[unit][element][ info[#info] ]
+                    return t.r, t.g, t.b, t.a
+                end,
+                set = function(info, r, g, b)
+                    local t = E.db.unitframe.hud.units[unit][element][ info[#info] ]
+                    t.r, t.g, t.b = r, g, b
+                    H:UpdateAllFrames()
+                end,
+            }     
+        end
+    end
+
     return options
 end
 --H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,hasValue,hasTag,hasSpacing)
 local function healthOptions(unit) return H:GenerateElementOptionTable(unit,'health',100,'Health',false,true,true,true,false) end
 local function powerOptions(unit) return H:GenerateElementOptionTable(unit,'power',200,'Power',true,true,true,true,false) end
-local function castbarOptions(unit) return H:GenerateElementOptionTable(unit,'castbar',300,'Castbar',true,true,false,false,false) end
+local function castbarOptions(unit) return H:GenerateElementOptionTable(unit,'castbar',300,'Castbar',true,true,false,false,false, unit == "player") end
 local function nameOptions(unit) return H:GenerateElementOptionTable(unit,'name',400,'Name',true,false,false,true,false) end
 local function classbarOptions(unit) return H:GenerateElementOptionTable(unit,'classbars',500,'Classbar',true,true,true,true,true) end
 local function cpointOptions(unit) return H:GenerateElementOptionTable(unit,'cpoints',600,'Combobar',true,true,false,false,true) end
