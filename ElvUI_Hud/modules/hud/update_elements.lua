@@ -564,6 +564,7 @@ function H:UpdateElementAnchor(frame,element)
 end
 
 function H:PostUpdateHealth(unit, min, max)
+	if unit == "vehicle" then unit = "player" end
 	if not E.db.unitframe.hud.units[unit] then return end
 	local parent = self:GetParent()
 
@@ -1039,7 +1040,7 @@ function H:AuraFilter(unit, icon, name, rank, texture, count, dtype, duration, t
 	end
 
 	local isPlayer, isFriend
-
+	if unit == "vehicle" then unit = "player" end
 	if not E.db.unitframe.units[unit] then return end
 	local db = E.db.unitframe.units[unit]
 	if not db or not db[self.type] then return; end
@@ -1136,6 +1137,7 @@ function H:AuraFilter(unit, icon, name, rank, texture, count, dtype, duration, t
 end
 
 function H:AuraBarFilter(unit, name, rank, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, shouldConsolidate)
+	if unit == "vehicle" then unit = "player" end
 	if not E.db.unitframe.units[unit] then return end
 	local db = E.db.unitframe.units[unit].aurabar
 	if not db then return; end
@@ -1188,9 +1190,10 @@ function H:AuraBarFilter(unit, name, rank, icon, count, debuffType, duration, ex
 end
 
 function H:PortraitUpdate(unit)
+	if unit == "vehicle" then unit = "player" end
 	local db = E.db.unitframe.hud.units[unit]
 	
-	if not db then print('Returning because I have no database for unit',unit); return end
+	if not db then return end
 	
 	local portrait = db.portrait
 	if portrait.enabled and portrait.overlay then

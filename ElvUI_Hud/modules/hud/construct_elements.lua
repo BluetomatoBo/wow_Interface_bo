@@ -327,15 +327,14 @@ end
 
 function H.ConstructAuraBars(self,unit)
     local config = E.db.unitframe.hud.units[unit]['aurabars']
-    local media = config.media
     local size = config.size
     local bar = self.statusBar
     
     self:SetTemplate('Default')
 
     bar:Size(size.width,size.height)
-    local textureSetting = 'units.'..unit..'.aurabars.media.texture'
-    local fontSetting = 'units.'..unit..'.aurabars.media.font'
+    bar:SetInside(self)
+
     bar:SetStatusBarTexture(LSM:Fetch("statusbar", UF.db.statusbar))
     
     bar.spelltime:FontTemplate(LSM:Fetch("font", UF.db.font), UF.db.fontSize, "THINOUTLINE")
@@ -343,23 +342,30 @@ function H.ConstructAuraBars(self,unit)
 
     bar.spellname:ClearAllPoints()
     bar.spellname:SetPoint('LEFT', bar, 'LEFT', 2, 0)
+    bar.spellname:SetPoint('RIGHT', bar.spelltime, 'LEFT', -4, 0)
     
     bar.iconHolder:SetTemplate('Default')
     bar.icon:SetInside(bar.iconHolder)
     bar.icon:SetDrawLayer('OVERLAY')
     
-    
-    bar.iconHolder:HookScript('OnEnter', function(self)
-        GameTooltip.auraBarLine = true;
-    end)    
-    
-    bar.iconHolder:HookScript('OnLeave', function(self)
-        GameTooltip.auraBarLine = nil;
-        GameTooltip.numLines = nil
-    end)
-
     bar.bg = bar:CreateTexture(nil, 'BORDER')
     bar.bg:Hide()
+    
+    
+    bar.iconHolder:RegisterForClicks('RightButtonUp')
+    bar.iconHolder:SetScript('OnClick', function(self)
+        if not IsShiftKeyDown() then return; end
+        local auraName = self:GetParent().aura.name
+        
+        if auraName then
+            E:Print(format(L['The spell "%s" has been added to the Blacklist unitframe aura filter.'], auraName))
+            E.global['unitframe']['aurafilters']['Blacklist']['spells'][auraName] = {
+                ['enable'] = true,
+                ['priority'] = 0,           
+            }
+            UF:Update_AllFrames()
+        end
+    end)
 end
 
 function H:ConstructPlayerAuraBars()
@@ -380,8 +386,8 @@ function H:ConstructAuraBarHeader(frame)
         auraBar.PostCreateBar = H.ConstructTargetAuraBars
     end
     auraBar.PostUpdate = UF.ColorizeAuraBars
-    auraBar.gap = 1
-    auraBar.spacing = 1
+    auraBar.gap = (E.PixelMode and -1 or 1)
+    auraBar.spacing = (E.PixelMode and -1 or 1)
     auraBar.spark = true
     auraBar.sort = true
     auraBar.debuffColor = {0.8, 0.1, 0.1}
