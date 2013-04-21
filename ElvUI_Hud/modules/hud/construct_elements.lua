@@ -41,7 +41,7 @@ function H:ConstructPower(frame)
     
     local power = self:ConfigureStatusBar(frame,'power')
     power:SetOrientation("VERTICAL")
-    power:SetFrameLevel(frame:GetFrameLevel()+1)
+    power:SetFrameLevel(frame:GetFrameLevel()+20)
 
     power.value = self:ConfigureFontString(frame,'power',power)               
     

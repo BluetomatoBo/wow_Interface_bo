@@ -702,7 +702,6 @@ function H:PostUpdatePowerHud(unit, min, max)
 	-- Flash mana below threshold %
 	local powerMana, _ = UnitPowerType(unit)
 	if (min / max * 100) < (E.db.unitframe.hud.lowThreshold) and (powerMana == SPELL_POWER_MANA) and H.db.flash then
-		E:Flash(self, 0.4)
 		if H.db.warningText then
 			if not warningTextShown and unit == "player" then
 				ElvUIHudWarning:AddMessage("|cff00ffffLOW MANA")
@@ -712,8 +711,6 @@ function H:PostUpdatePowerHud(unit, min, max)
 				warningTextShown = false
 			end
 		end
-	else
-		E:StopFlash(self)
 	end
 end
 
