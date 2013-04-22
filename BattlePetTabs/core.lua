@@ -1,5 +1,4 @@
 local _G = _G
-local ACCEPT = ACCEPT
 local C_PetBattles = C_PetBattles
 local C_PetBattles_GetAbilityInfoByID = C_PetBattles.GetAbilityInfoByID
 local C_PetBattles_GetAttackModifier = C_PetBattles.GetAttackModifier
@@ -13,7 +12,6 @@ local C_PetJournal_GetPetLoadOutInfo = C_PetJournal.GetPetLoadOutInfo
 local C_PetJournal_IsJournalUnlocked = C_PetJournal.IsJournalUnlocked
 local C_PetJournal_SetAbility = C_PetJournal.SetAbility
 local C_PetJournal_SetPetLoadOutInfo = C_PetJournal.SetPetLoadOutInfo
-local CANCEL = CANCEL
 local ChatEdit_FocusActiveWindow = ChatEdit_FocusActiveWindow
 local ClearCursor = ClearCursor
 local CreateFrame = CreateFrame
@@ -34,13 +32,19 @@ local MAX_ACCOUNT_MACROS = MAX_ACCOUNT_MACROS or 36 -- LOD
 local OKAY = OKAY
 local pairs = pairs
 local PickupMacro = PickupMacro
+local PlaySound = PlaySound
 local print = print
 local select = select
+local SetItemButtonCount = SetItemButtonCount
+local SetItemButtonNormalTextureVertexColor = SetItemButtonNormalTextureVertexColor
+local SetItemButtonTexture = SetItemButtonTexture
+local SetItemButtonTextureVertexColor = SetItemButtonTextureVertexColor
 local StaticPopup_Hide = StaticPopup_Hide
 local StaticPopup_Show = StaticPopup_Show
 local StaticPopupDialogs = StaticPopupDialogs
 local strlen = strlen
 local table = table
+local time = time
 local tonumber = tonumber
 local type = type
 local unpack = unpack
@@ -50,7 +54,8 @@ local addon = CreateFrame("Frame")
 local frameName = "BattlePetTabs"
 local petJournalAddonName = "Blizzard_PetJournal"
 local numTabs = 8 -- hardcoded tab limit (so they don't grow outside the journal frame)
-BattlePetTabsDB2 = type(BattlePetTabsDB2) == "table" and BattlePetTabsDB2 or {} -- defaults
+BattlePetTabsDB2 = type(BattlePetTabsDB2) == "table" and BattlePetTabsDB2 or {}
+BattlePetTabsSnapshotDB = type(BattlePetTabsSnapshotDB) == "table" and BattlePetTabsSnapshotDB or {}
 
 local watcher = CreateFrame("Frame")
 local elapsed = 0
@@ -83,6 +88,7 @@ local PET_EFFECTIVENESS_CHART = {
 }
 
 local InCombatLockdown
+local InProcessingLockdown
 do
 	local combat
 
@@ -195,6 +201,18 @@ local function PetJournal_UpdateDisplay()
 	elseif type(PetJournal_UpdateAll) == "function" then
 		PetJournal_UpdateAll()
 	end
+end
+
+local function GetNumTeams()
+	local i = 0
+	if type(BattlePetTabsDB2) == "table" then
+		for _, object in pairs(BattlePetTabsDB2) do
+			if type(object) == "table" then
+				i = i + 1
+			end
+		end
+	end
+	return i
 end
 
 local function GetTeamId(teamId)
@@ -312,7 +330,7 @@ local function CreateTeamMacro(macroName, teamId, teamData)
 		HideUIPanel(MacroFrame)
 	end
 	local iconFile = teamData.icon:lower():gsub(".-\\.-\\(.-)%.blp", "%1") -- need only the filename, the API is strict and doesn't anyway let you define paths outside the Interface\Icons folder
-	local macroBody = "#showtooltip\n/run PetJournal_LoadUI()if\"RightButton\"==GetMouseButtonClicked()then TogglePetJournal(2)else local i,b=tonumber("..(teamId or 0)..")b=_G[\""..frameName.."Tab\"..i..\"Button\"]if b then if not b.newTeam then b:Click()end else print\""..frameName.." not loaded!\"end end"
+	local macroBody = "#showtooltip\n/run PetJournal_LoadUI()if\"RightButton\"==GetMouseButtonClicked()then TogglePetJournal(2)else local i,b=tonumber(" .. (teamId or 0) .. ")b=_G[\"" .. frameName .. "Tab\"..i..\"Button\"]if b then if not b.newTeam then b:Click()end else print\"" .. frameName .. " not loaded!\"end end"
 	if GetMacroIndexByName(macroName) == 0 then
 		CreateMacro(macroName, 0, macroBody, nil)
 	end
@@ -407,32 +425,41 @@ local function UpdateTeamLoadOutAbilities(slotId, abilitySlot, abilityId, skipUp
 	end
 end
 
-function LoadTeam(teamId)
+function LoadTeam(teamId) -- local
 	teamId = GetTeamId(teamId)
 	if type(BattlePetTabsDB2[teamId]) ~= "table" or type(BattlePetTabsDB2[teamId].setup) ~= "table" or not ValidateTeam(teamId, 1) then
 		return
 	end
 	local team = BattlePetTabsDB2[teamId]
-	local pets, count, unhook = {}, 0
+	local pets, count, emptyCount, unhook, loadoutId = {}, 0, 0
 	for i = 1, MAX_ACTIVE_PETS do
 		local petData = team.setup[i]
 		if type(petData) == "table" then
 			local petId, ab1, ab2, ab3 = petData[1], petData[2], petData[3], petData[4]
-			if petId == C_PetJournal_GetPetLoadOutInfo(i) or ((petId == "" or petId == EMPTY_PET_X64 or petId == EMPTY_PET_X86 or petId == EMPTY_PET) and not C_PetJournal_GetPetLoadOutInfo(i)) then
+			petId = strlower(petId)
+			loadoutId = C_PetJournal_GetPetLoadOutInfo(i)
+			if loadoutId then
+				loadoutId = strlower(loadoutId)
+			end
+			if petId == loadoutId or ((petId == "" or petId == EMPTY_PET_X64 or petId == EMPTY_PET_X86 or petId == EMPTY_PET) and not loadoutId) then
 				count = count + 1
+				if not loadoutId then
+					emptyCount = emptyCount + 1
+				end
 			elseif ValidatePetId(petId, 1) then
 				C_PetJournal_SetPetLoadOutInfo(i, petId, addonName)
 			else
 				C_PetJournal_SetPetLoadOutInfo(i, EMPTY_PET_DYNAMIC, addonName)
 			end
-			table.insert(pets, petData)
+			table.insert(pets, {petId, ab1, ab2, ab3})
 		end
 	end
 	if count == MAX_ACTIVE_PETS then
 		unhook = 1
 		count = 0
 		for i, petData in ipairs(pets) do
-			if petData[1] == "" or petData[1] == EMPTY_PET_X64 or petData[1] == EMPTY_PET_X86 or petData[1] == EMPTY_PET then
+			petId = petData[1]
+			if petId == "" or petId == EMPTY_PET_X64 or petId == EMPTY_PET_X86 or petId == EMPTY_PET then
 				count = count + MAX_ACTIVE_ABILITIES
 			else
 				for j = 1, MAX_ACTIVE_ABILITIES do
@@ -448,19 +475,22 @@ function LoadTeam(teamId)
 			unhook = nil
 		end
 		if unhook then
+			InProcessingLockdown = nil
 			watcher:SetScript("OnUpdate", nil)
 			elapsed = 0
 			PetJournal_UpdateDisplay()
 		else
+			InProcessingLockdown = 1
 			watcher:SetScript("OnUpdate", Watcher_OnUpdate)
 		end
 	else
+		InProcessingLockdown = 1
 		watcher:SetScript("OnUpdate", Watcher_OnUpdate)
 	end
 	Update()
 end
 
-function Watcher_OnUpdate(watcher, elapse)
+function Watcher_OnUpdate(watcher, elapse) -- local
 	elapsed = elapsed + elapse
 	if elapsed > .1 then
 		elapsed = 0
@@ -491,14 +521,35 @@ local function onGameTooltipShow(self)
 end
 
 local function UpdateLock()
+	local lockdown = InProcessingLockdown or not C_PetJournal_IsJournalUnlocked() or C_PetBattles_GetPVPMatchmakingInfo() or C_PetBattles_IsInBattle()
 	local tabButton, tabTexture
+	tabButton = _G[frameName .. "TabManagerButton"]
+	tabTexture = _G[frameName .. "TabManagerButtonIconTexture"]
+	if lockdown then
+		tabButton:Disable()
+		tabTexture:SetDesaturated(true)
+		if InProcessingLockdown then
+			tabButton.tooltip2 = "Please wait..."
+		else
+			tabButton.tooltip2 = {"|cffFFFFFFLocked|r", "You are either queued for a match\nor caught up in a pet battle."}
+		end
+		BattlePetTabFlyoutFrame:Hide()
+	else
+		tabButton:Enable()
+		tabTexture:SetDesaturated(false)
+		tabButton.tooltip2 = nil
+	end
 	for i = 1, numTabs do
 		tabButton = _G[frameName .. "Tab" .. i .. "Button"]
 		tabTexture = _G[frameName .. "Tab" .. i .. "ButtonIconTexture"]
-		if not C_PetJournal_IsJournalUnlocked() or C_PetBattles_GetPVPMatchmakingInfo() or C_PetBattles_IsInBattle() then
+		if lockdown then
 			tabButton:Disable()
 			tabTexture:SetDesaturated(true)
-			tabButton.tooltip2 = {"|cffFFFFFFLocked|r", "You are either queued for a match\nor caught up in a pet battle."}
+			if InProcessingLockdown then
+				tabButton.tooltip2 = "Please wait..."
+			else
+				tabButton.tooltip2 = {"|cffFFFFFFLocked|r", "You are either queued for a match\nor caught up in a pet battle."}
+			end
 		else
 			tabButton:Enable()
 			tabTexture:SetDesaturated(false)
@@ -507,7 +558,7 @@ local function UpdateLock()
 	end
 end
 
-function Update()
+function Update() -- local
 	IntegrityCheck()
 	local shownNewTeam
 	for i = 1, numTabs do
@@ -546,10 +597,14 @@ function Update()
 	end
 	UpdateLock()
 	local focus = GetMouseFocus() -- the tooltip stays the same when we add or remove teams, so this helps update that tooltip automatically by checking what we are currently hovering over and triggering the mechanism is appropriate
-	if type(focus) == "table" and type(focus.GetObjectType) == "function" and focus:GetObjectType() == "CheckButton" and type(focus.GetScript) == "function" then
+	if type(focus) == "table" and type(focus.GetObjectType) == "function" and (focus:GetObjectType() == "Button" or focus:GetObjectType() == "CheckButton") and type(focus.GetScript) == "function" then
 		(focus:GetScript("OnEnter") or function() end)(focus)
 	end
 	PetJournal_UpdateDisplay()
+	if BattlePetTabFlyoutFrame:IsVisible() then
+		BattlePetTabFlyoutFrame:Hide()
+		BattlePetTabFlyoutFrame:Show()
+	end
 end
 
 function BattlePetTab_OnClick(self, button, currentId)
@@ -589,7 +644,389 @@ function BattlePetTab_OnDrag(self, button, currentId)
 	end
 end
 
-function Initialize()
+local BATTLEPETTABSFLYOUT_ITEM_HEIGHT = 37
+local BATTLEPETTABSFLYOUT_ITEM_WIDTH = 37
+local BATTLEPETTABSFLYOUT_ITEM_XOFFSET = 4
+local BATTLEPETTABSFLYOUT_ITEM_YOFFSET = -5
+
+local BATTLEPETTABSFLYOUT_BORDERWIDTH = 3
+local BATTLEPETTABSFLYOUT_HEIGHT = 43
+local BATTLEPETTABSFLYOUT_WIDTH = 43
+
+local BATTLEPETTABSFLYOUT_ITEMS_PER_ROW = 5
+local BATTLEPETTABSFLYOUT_MAXITEMS = 50
+
+local BATTLEPETTABSFLYOUT_ONESLOT_LEFT_COORDS = {0, 0.09765625, 0.5546875, 0.77734375}
+local BATTLEPETTABSFLYOUT_ONESLOT_RIGHT_COORDS = {0.41796875, 0.51171875, 0.5546875, 0.77734375}
+local BATTLEPETTABSFLYOUT_ONESLOT_LEFTWIDTH = 25
+local BATTLEPETTABSFLYOUT_ONESLOT_RIGHTWIDTH = 24
+
+local BATTLEPETTABSFLYOUT_ONEROW_LEFT_COORDS = {0, 0.16796875, 0.5546875, 0.77734375}
+local BATTLEPETTABSFLYOUT_ONEROW_CENTER_COORDS = {0.16796875, 0.328125, 0.5546875, 0.77734375}
+local BATTLEPETTABSFLYOUT_ONEROW_RIGHT_COORDS = {0.328125, 0.51171875, 0.5546875, 0.77734375}
+local BATTLEPETTABSFLYOUT_ONEROW_LEFT_WIDTH = 43
+local BATTLEPETTABSFLYOUT_ONEROW_CENTER_WIDTH = 41
+local BATTLEPETTABSFLYOUT_ONEROW_RIGHT_WIDTH = 47
+local BATTLEPETTABSFLYOUT_ONEROW_HEIGHT = 54
+
+local BATTLEPETTABSFLYOUT_MULTIROW_TOP_COORDS = {0, 0.8359375, 0, 0.19140625}
+local BATTLEPETTABSFLYOUT_MULTIROW_MIDDLE_COORDS = {0, 0.8359375, 0.19140625, 0.35546875}
+local BATTLEPETTABSFLYOUT_MULTIROW_BOTTOM_COORDS = {0, 0.8359375, 0.35546875, 0.546875}
+local BATTLEPETTABSFLYOUT_MULTIROW_TOP_HEIGHT = 49
+local BATTLEPETTABSFLYOUT_MULTIROW_MIDDLE_HEIGHT = 42
+local BATTLEPETTABSFLYOUT_MULTIROW_BOTTOM_HEIGHT = 49
+local BATTLEPETTABSFLYOUT_MULTIROW_WIDTH = 214
+
+local table_clone
+function table_clone(t) -- local
+	if type(t) == "table" then
+		local c = {}
+		for k, v in pairs(t) do
+			c[k] = table_clone(v)
+		end
+		return c
+	end
+	return t
+end
+
+local function CreateSnapshot()
+	local clone = table_clone(BattlePetTabsDB2)
+	local newIndex = #BattlePetTabsSnapshotDB.db + 1
+	table.insert(BattlePetTabsSnapshotDB.db, {
+		index = newIndex,
+		created = time(),
+		name = "Snapshot " .. newIndex,
+		icon = "Interface\\Icons\\INV_Misc_QuestionMark.blp",
+		db = clone,
+	})
+	BattlePetTabsSnapshotDB.currentId = newIndex
+end
+
+local function GetSnapshotIndex(index)
+	index = tonumber(index) or 0
+	index = index > 0 and index <= #BattlePetTabsSnapshotDB.db and index or 0
+	return index
+end
+
+local function LoadSnapshot(index)
+	index = GetSnapshotIndex(index)
+	if index > 0 then
+		local snapshot = BattlePetTabsSnapshotDB.db[index]
+		local clone = table_clone(snapshot.db)
+		table.wipe(BattlePetTabsDB2)
+		BattlePetTabsDB2 = clone
+		BattlePetTabsSnapshotDB.currentId = index
+	end
+end
+
+local function ApplySnapshotRename(index, newName)
+	index = GetSnapshotIndex(index)
+	if index > 0 and type(newName) == "string" and strlen(newName) > 0 then
+		BattlePetTabsSnapshotDB.db[index].name = newName
+		if BattlePetTabFlyoutFrame:IsVisible() then
+			BattlePetTabFlyoutFrame:Hide()
+			BattlePetTabFlyoutFrame:Show()
+		end
+	end
+end
+
+local function ApplySnapshotDelete(index)
+	index = GetSnapshotIndex(index)
+	if index > 0 then
+		local temp = {}
+		for k, v in pairs(BattlePetTabsSnapshotDB.db) do
+			if k ~= index then
+				table.insert(temp, v)
+			end
+		end
+		table.wipe(BattlePetTabsSnapshotDB.db)
+		BattlePetTabsSnapshotDB.db = temp
+		if not BattlePetTabsSnapshotDB.db[index] then
+			BattlePetTabsSnapshotDB.currentId = BattlePetTabsSnapshotDB.currentId - 1
+			if BattlePetTabsSnapshotDB.currentId < 1 then
+				BattlePetTabsSnapshotDB.currentId = 1
+			end
+		end
+		if BattlePetTabFlyoutFrame:IsVisible() then
+			BattlePetTabFlyoutFrame:Hide()
+			BattlePetTabFlyoutFrame:Show()
+		end
+	end
+end
+
+local function SnapshotIntegrityCheck()
+	if type(BattlePetTabsSnapshotDB) ~= "table" then
+		BattlePetTabsSnapshotDB = {}
+	end
+	if type(BattlePetTabsSnapshotDB.db) ~= "table" then
+		BattlePetTabsSnapshotDB.db = {}
+	end
+	if type(BattlePetTabsSnapshotDB.currentId) ~= "number" then
+		BattlePetTabsSnapshotDB.currentId = 1
+	end
+end
+
+local function BattlePetTabFlyout_DisplayButton(button, managerButton, snapshot)
+	button.snapshot = snapshot
+	snapshot = snapshot or {}
+	button.newSnapshot = snapshot.newSnapshot
+	button.tooltip = snapshot.name
+	local textureName = (type(snapshot.db) == "table" and type(snapshot.db[1]) == "table" and snapshot.db[1].icon) or snapshot.icon or "Interface\\Icons\\INV_Misc_QuestionMark.blp" -- use first team icon, or assigned icon, or fallback to question mark (WIP)
+	SetItemButtonTexture(button, textureName)
+	SetItemButtonCount(button, 0)
+	local locked = button.newSnapshot and GetNumTeams() < 1
+	if locked then
+		--SetItemButtonTextureVertexColor(button, .9, 0, 0)
+		--SetItemButtonNormalTextureVertexColor(button, .9, 0, 0)
+		button:SetEnabled(false)
+		button.icon:SetDesaturated(true)
+	else
+		--SetItemButtonTextureVertexColor(button, 1, 1, 1)
+		--SetItemButtonNormalTextureVertexColor(button, 1, 1, 1)
+		button:SetEnabled(true)
+		button.icon:SetDesaturated(false)
+	end
+	--if not button.newSnapshot and BattlePetTabsSnapshotDB.currentId == button:GetID() then
+	--	button:LockHighlight()
+	--else
+	--	button:UnlockHighlight()
+	--end
+	button.UpdateTooltip = function(self)
+		--GameTooltip:SetOwner(BattlePetTabFlyoutFrame.buttonFrame, "ANCHOR_RIGHT", 6, -BattlePetTabFlyoutFrame.buttonFrame:GetHeight() - 6)
+		if self.tooltip or self.tooltip2 then
+			GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+			GameTooltip:ClearLines()
+			if type(self.tooltip2 or self.tooltip) == "table" then
+				for _, line in ipairs(self.tooltip2 or self.tooltip) do
+					GameTooltip:AddLine(line)
+				end
+			else
+				GameTooltip:AddLine(self.tooltip2 or self.tooltip)
+			end
+			if not self.tooltip2 and not self.newSnapshot then
+				GameTooltip:AddLine("|cff999999Right-click to delete.|r")
+				GameTooltip:AddLine("|cff999999Right-click with modifier to rename.|r")
+			end
+			GameTooltip:Show()
+		end
+	end
+	if button:IsMouseOver() then
+		button:UpdateTooltip()
+	end
+end
+
+function BattlePetTabFlyout_CreateButton()
+	local buttons = BattlePetTabFlyoutFrame.buttons
+	local buttonAnchor = BattlePetTabFlyoutFrame.buttonFrame
+	local numButtons = #buttons
+	local button = CreateFrame("Button", "BattlePetTabFlyoutFrameButton" .. numButtons + 1, buttonAnchor, "BattlePetTabFlyoutButtonTemplate")
+	local pos = numButtons/BATTLEPETTABSFLYOUT_ITEMS_PER_ROW
+	if pos == math.floor(pos) then
+		button:SetPoint("TOPLEFT", buttonAnchor, "TOPLEFT", BATTLEPETTABSFLYOUT_BORDERWIDTH, -BATTLEPETTABSFLYOUT_BORDERWIDTH - (BATTLEPETTABSFLYOUT_ITEM_HEIGHT - BATTLEPETTABSFLYOUT_ITEM_YOFFSET)*pos)
+	else
+		button:SetPoint("TOPLEFT", buttons[numButtons], "TOPRIGHT", BATTLEPETTABSFLYOUT_ITEM_XOFFSET, 0);
+	end
+	table.insert(buttons, button)
+	return button
+end
+
+function BattlePetTabFlyout_CreateBackground(buttonAnchor)
+	local numBGs = buttonAnchor.numBGs
+	numBGs = numBGs + 1
+	local texture = buttonAnchor:CreateTexture(nil, nil, "BattlePetTabFlyoutTexture")
+	buttonAnchor["bg" .. numBGs] = texture
+	buttonAnchor.numBGs = numBGs
+	return texture
+end
+
+function BattlePetTabFlyout_OnClick(button, mouseButton)
+	local snapshot = button.snapshot
+	if not snapshot then
+		return
+	end
+	if mouseButton == "LeftButton" then
+		if snapshot.newSnapshot then
+			CreateSnapshot()
+			BattlePetTabFlyoutFrame:Show() -- make sure it stays open
+		else
+			LoadSnapshot(button:GetID())
+			LoadTeam() -- refresh the loadout team
+		end
+		if BattlePetTabFlyoutFrame:IsVisible() then
+			BattlePetTabFlyoutFrame:Hide()
+			BattlePetTabFlyoutFrame:Show()
+		end
+	elseif mouseButton == "RightButton" and not snapshot.newSnapshot then
+		if IsModifiedClick() then
+			StaticPopup_Show("BATTLETABS_SNAPSHOT_RENAME", snapshot.name, nil, button:GetID())
+		else
+			StaticPopup_Show("BATTLETABS_SNAPSHOT_DELETE", snapshot.name, nil, button:GetID())
+		end
+	end
+	Update()
+end
+
+function BattlePetTabFlyout_OnShow(self)
+	SnapshotIntegrityCheck()
+
+	local managerButton = self.managerButton
+	local flyoutSettings = self.flyoutSettings
+	local buttons = self.buttons
+	local buttonAnchor = self.buttonFrame
+
+	table.wipe(self.snapshots)
+	for i, snapshot in ipairs(BattlePetTabsSnapshotDB.db) do
+		table.insert(self.snapshots, snapshot)
+	end
+	table.sort(self.snapshots, function(a, b) return a.created < b.created end)
+
+	local numSnapshots = #self.snapshots
+	for i = BATTLEPETTABSFLYOUT_MAXITEMS + 1, numSnapshots do
+		self.snapshots[i] = nil
+	end
+	table.insert(self.snapshots, {
+		created = time() + 1,
+		name = "New Snapshot",
+		icon = "Interface\\GuildBankFrame\\UI-GuildBankFrame-NewTab.blp",
+		newSnapshot = 1,
+	})
+	numSnapshots = math.min(#self.snapshots, BATTLEPETTABSFLYOUT_MAXITEMS)
+
+	while #buttons < numSnapshots do
+		BattlePetTabFlyout_CreateButton()
+	end
+
+	if numSnapshots == 0 then
+		self:Hide()
+		return
+	end
+
+	for i, button in ipairs(buttons) do
+		if i <= numSnapshots then
+			button:SetID(i)
+			BattlePetTabFlyout_DisplayButton(button, managerButton, self.snapshots[i])
+			button:Show()
+		else
+			button:Hide()
+		end
+	end
+
+	self:SetParent(flyoutSettings.parent)
+	self:SetFrameStrata("HIGH")
+	self:ClearAllPoints()
+	self:SetFrameLevel(managerButton:GetFrameLevel() - 1)
+	self:SetPoint("TOPLEFT", managerButton, "TOPLEFT", -BATTLEPETTABSFLYOUT_BORDERWIDTH, BATTLEPETTABSFLYOUT_BORDERWIDTH)
+
+	local horizontalItems = math.min(numSnapshots, BATTLEPETTABSFLYOUT_ITEMS_PER_ROW)
+	local relativeAnchor = managerButton and managerButton.popoutButton or managerButton
+	if managerButton.verticalFlyout then
+		buttonAnchor:SetPoint("TOPLEFT", relativeAnchor, "BOTTOMLEFT", flyoutSettings.verticalAnchorX, flyoutSettings.verticalAnchorY)
+	else
+		buttonAnchor:SetPoint("TOPLEFT", relativeAnchor, "TOPRIGHT", flyoutSettings.anchorX, flyoutSettings.anchorY)
+	end
+	buttonAnchor:SetWidth((horizontalItems * BATTLEPETTABSFLYOUT_ITEM_WIDTH) + ((horizontalItems - 1) * BATTLEPETTABSFLYOUT_ITEM_XOFFSET) + BATTLEPETTABSFLYOUT_BORDERWIDTH)
+	buttonAnchor:SetHeight(BATTLEPETTABSFLYOUT_HEIGHT + (math.floor((numSnapshots - 1)/BATTLEPETTABSFLYOUT_ITEMS_PER_ROW) * (BATTLEPETTABSFLYOUT_ITEM_HEIGHT - BATTLEPETTABSFLYOUT_ITEM_YOFFSET)))
+
+	if self.numSnapshots ~= numSnapshots then
+		local texturesUsed = 0
+		if numSnapshots == 1 then
+			local bgTex, lastBGTex
+			bgTex = buttonAnchor.bg1
+			bgTex:ClearAllPoints()
+			bgTex:SetTexCoord(unpack(BATTLEPETTABSFLYOUT_ONESLOT_LEFT_COORDS))
+			bgTex:SetWidth(BATTLEPETTABSFLYOUT_ONESLOT_LEFTWIDTH)
+			bgTex:SetHeight(BATTLEPETTABSFLYOUT_ONEROW_HEIGHT)
+			bgTex:SetPoint("TOPLEFT", -5, 4)
+			bgTex:Show()
+			texturesUsed = texturesUsed + 1
+			lastBGTex = bgTex
+
+			bgTex = buttonAnchor.bg2 or BattlePetTabFlyout_CreateBackground(buttonAnchor)
+			bgTex:ClearAllPoints()
+			bgTex:SetTexCoord(unpack(BATTLEPETTABSFLYOUT_ONESLOT_RIGHT_COORDS))
+			bgTex:SetWidth(BATTLEPETTABSFLYOUT_ONESLOT_RIGHTWIDTH)
+			bgTex:SetHeight(BATTLEPETTABSFLYOUT_ONEROW_HEIGHT)
+			bgTex:SetPoint("TOPLEFT", lastBGTex, "TOPRIGHT")
+			bgTex:Show()
+			texturesUsed = texturesUsed + 1
+			lastBGTex = bgTex
+
+		elseif numSnapshots <= BATTLEPETTABSFLYOUT_ITEMS_PER_ROW then
+			local bgTex, lastBGTex
+			bgTex = buttonAnchor.bg1
+			bgTex:ClearAllPoints()
+			bgTex:SetTexCoord(unpack(BATTLEPETTABSFLYOUT_ONEROW_LEFT_COORDS))
+			bgTex:SetWidth(BATTLEPETTABSFLYOUT_ONEROW_LEFT_WIDTH)
+			bgTex:SetHeight(BATTLEPETTABSFLYOUT_ONEROW_HEIGHT)
+			bgTex:SetPoint("TOPLEFT", -5, 4)
+			bgTex:Show()
+			texturesUsed = texturesUsed + 1
+			lastBGTex = bgTex
+			for i = texturesUsed + 1, numSnapshots - 1 do
+				bgTex = buttonAnchor["bg"..i] or BattlePetTabFlyout_CreateBackground(buttonAnchor)
+				bgTex:ClearAllPoints()
+				bgTex:SetTexCoord(unpack(BATTLEPETTABSFLYOUT_ONEROW_CENTER_COORDS))
+				bgTex:SetWidth(BATTLEPETTABSFLYOUT_ONEROW_CENTER_WIDTH)
+				bgTex:SetHeight(BATTLEPETTABSFLYOUT_ONEROW_HEIGHT)
+				bgTex:SetPoint("TOPLEFT", lastBGTex, "TOPRIGHT")
+				bgTex:Show()
+				texturesUsed = texturesUsed + 1
+				lastBGTex = bgTex
+			end
+
+			bgTex = buttonAnchor["bg"..numSnapshots] or BattlePetTabFlyout_CreateBackground(buttonAnchor)
+			bgTex:ClearAllPoints()
+			bgTex:SetTexCoord(unpack(BATTLEPETTABSFLYOUT_ONEROW_RIGHT_COORDS))
+			bgTex:SetWidth(BATTLEPETTABSFLYOUT_ONEROW_RIGHT_WIDTH)
+			bgTex:SetHeight(BATTLEPETTABSFLYOUT_ONEROW_HEIGHT)
+			bgTex:SetPoint("TOPLEFT", lastBGTex, "TOPRIGHT")
+			bgTex:Show()
+			texturesUsed = texturesUsed + 1
+
+		elseif numSnapshots > BATTLEPETTABSFLYOUT_ITEMS_PER_ROW then
+			local numRows = math.ceil(numSnapshots/BATTLEPETTABSFLYOUT_ITEMS_PER_ROW)
+			local bgTex, lastBGTex
+			bgTex = buttonAnchor.bg1
+			bgTex:ClearAllPoints()
+			bgTex:SetTexCoord(unpack(BATTLEPETTABSFLYOUT_MULTIROW_TOP_COORDS))
+			bgTex:SetWidth(BATTLEPETTABSFLYOUT_MULTIROW_WIDTH)
+			bgTex:SetHeight(BATTLEPETTABSFLYOUT_MULTIROW_TOP_HEIGHT)
+			bgTex:SetPoint("TOPLEFT", -5, 4)
+			bgTex:Show()
+			texturesUsed = texturesUsed + 1
+			lastBGTex = bgTex
+			for i = 2, numRows - 1 do -- Middle rows
+				bgTex = buttonAnchor["bg"..i] or BattlePetTabFlyout_CreateBackground(buttonAnchor)
+				bgTex:ClearAllPoints()
+				bgTex:SetTexCoord(unpack(BATTLEPETTABSFLYOUT_MULTIROW_MIDDLE_COORDS))
+				bgTex:SetWidth(BATTLEPETTABSFLYOUT_MULTIROW_WIDTH)
+				bgTex:SetHeight(BATTLEPETTABSFLYOUT_MULTIROW_MIDDLE_HEIGHT)
+				bgTex:SetPoint("TOPLEFT", lastBGTex, "BOTTOMLEFT")
+				bgTex:Show()
+				texturesUsed = texturesUsed + 1
+				lastBGTex = bgTex
+			end
+
+			bgTex = buttonAnchor["bg"..numRows] or BattlePetTabFlyout_CreateBackground(buttonAnchor)
+			bgTex:ClearAllPoints()
+			bgTex:SetTexCoord(unpack(BATTLEPETTABSFLYOUT_MULTIROW_BOTTOM_COORDS))
+			bgTex:SetWidth(BATTLEPETTABSFLYOUT_MULTIROW_WIDTH)
+			bgTex:SetHeight(BATTLEPETTABSFLYOUT_MULTIROW_BOTTOM_HEIGHT)
+			bgTex:SetPoint("TOPLEFT", lastBGTex, "BOTTOMLEFT")
+			bgTex:Show()
+			texturesUsed = texturesUsed + 1
+			lastBGTex = bgTex
+		end
+
+		for i = texturesUsed + 1, buttonAnchor.numBGs do
+			buttonAnchor["bg" .. i]:Hide()
+		end
+
+		self.numSnapshots = numSnapshots
+	end
+end
+
+function Initialize() -- local
 	Initialize = function() end
 
 	-- conversion between old and new structure
@@ -697,14 +1134,72 @@ function Initialize()
 		hideOnEscape = 1,
 	}
 
+	StaticPopupDialogs["BATTLETABS_SNAPSHOT_RENAME"] = {
+		text = "What do you wish to rename |cffffd200%s|r to?",
+		button1 = ACCEPT,
+		button2 = CANCEL,
+		hasEditBox = 1,
+		maxLetters = 30,
+		OnAccept = function(self)
+			ApplySnapshotRename(self.data, self.editBox:GetText())
+		end,
+		EditBoxOnEnterPressed = function(self)
+			local parent = self:GetParent()
+			ApplySnapshotRename(parent.data, parent.editBox:GetText())
+			parent:Hide()
+		end,
+		OnShow = function(self)
+			self.editBox:SetFocus()
+		end,
+		OnHide = function(self)
+			ChatEdit_FocusActiveWindow()
+			self.editBox:SetText("")
+		end,
+		timeout = 0,
+		exclusive = 1,
+		hideOnEscape = 1,
+	}
+
+	StaticPopupDialogs["BATTLETABS_SNAPSHOT_DELETE"] = {
+		text = "Are you sure you want to delete team |cffffd200%s|r?",
+		button1 = OKAY,
+		button2 = CANCEL,
+		OnAccept = function(self)
+			ApplySnapshotDelete(self.data)
+		end,
+		timeout = 0,
+		exclusive = 1,
+		hideOnEscape = 1,
+	}
+
 	local tabs = CreateFrame("Frame", frameName, PetJournal)
 	tabs:SetSize(42, 50)
 	tabs:SetPoint("TOPLEFT", "$parent", "TOPRIGHT", -1, -17)
 	tabs:HookScript("OnShow", Update)
 
-	local tab
+	local tab = CreateFrame("Frame", "$parentTabManager", tabs, "BattlePetTabTemplate")
+	tab:SetID(0)
+	tab:SetPoint("TOPLEFT", tabs, "BOTTOMLEFT", 0, 0)
+	tab.button.checked:SetTexture(nil)
+	tab.button.icon:SetTexture("Interface\\Icons\\INV_Pet_Achievement_CaptureAWildPet")
+	tab.button.tooltip = "Team Manager"
+	tab.button.teamManager = 1
+	tab.button:SetScript("OnDragStart", nil)
+	tab.button:SetScript("OnClick", function(self)
+		PlaySound("igMainMenuOptionCheckBoxOn")
+		if BattlePetTabFlyoutFrame:IsVisible() then
+			BattlePetTabFlyoutFrame:Hide()
+		else
+			BattlePetTabFlyoutFrame:Show()
+		end
+	end)
+	tab.button:HookScript("OnHide", function(self)
+		BattlePetTabFlyoutFrame:Hide()
+	end)
+	BattlePetTabFlyoutFrame.managerButton = tab.button
+
 	for i = 1, numTabs do
-		tabs[i] = CreateFrame("Frame", "$parentTab" .. i, tabs, "BattlePetTabTemplate") -- requires core.xml to be loaded by the toc-file
+		tabs[i] = CreateFrame("Frame", "$parentTab" .. i, tabs, "BattlePetTabTemplate")
 		tabs[i]:SetID(i)
 		tabs[i]:SetPoint("TOPLEFT", tab or "$parent", "BOTTOMLEFT", 0, 0)
 		tab = "$parentTab" .. i
