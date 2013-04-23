@@ -338,26 +338,40 @@ local function CreateTeamMacro(macroName, teamId, teamData)
 end
 
 local function IntegrityCheck()
-	local lastId = 0
-	if type(BattlePetTabsDB2) == "table" then
-		local temp = {}
-		for index, team in ipairs(BattlePetTabsDB2) do
-			team = ValidateTeam(index, 1)
-			if team then
-				table.insert(temp, team)
-			end
+	local temp = {}
+	for index, team in ipairs(BattlePetTabsDB2) do
+		team = ValidateTeam(index, 1)
+		if team then
+			table.insert(temp, team)
 		end
-		temp.currentId = BattlePetTabsDB2.currentId
-		BattlePetTabsDB2 = temp
-		lastId = #temp
 	end
+	temp.currentId = BattlePetTabsDB2.currentId
+	BattlePetTabsDB2 = temp
 	if not InCombatLockdown() then
+		local lastId = #temp
 		if lastId == 0 then
 			for i = 1, numTabs do
 				if ValidateTeam(i, 1) then
 					lastId = lastId + 1
 				else
 					lastId = lastId - 1
+				end
+			end
+		end
+		local canDelete = 1
+		if type(BattlePetTabsSnapshotDB.db) == "table" then
+			for _, snapshot in pairs(BattlePetTabsSnapshotDB.db) do
+				if type(snapshot) == "table" and type(snapshot.db) == "table" then
+					local numTeams = 0
+					for _, team in pairs(snapshot.db) do
+						if type(team) == "table" then
+							numTeams = numTeams + 1
+						end
+					end
+					if numTeams > lastId then
+						canDelete = nil
+						break
+					end
 				end
 			end
 		end
@@ -369,7 +383,7 @@ local function IntegrityCheck()
 					if macroIndex > 0 then
 						CreateTeamMacro(macroName, i, BattlePetTabsDB2[i])
 					end
-				else
+				elseif canDelete then
 					DeleteMacro(macroName)
 				end
 			end
@@ -503,7 +517,7 @@ local function onGameTooltipShow(self)
 	for i = 1, numTabs do
 		if text and text == GetTeamMacroName(i) then
 			tabButton = _G[frameName .. "Tab" .. i .. "Button"]
-			if tabButton and tabButton.tooltip and not tabButton.newTeam then
+			if tabButton and tabButton.tooltip and not tabButton.newTeam and tabButton:IsVisible() then
 				self:ClearLines()
 				if type(tabButton.tooltip) == "table" then
 					for _, line in ipairs(tabButton.tooltip) do
@@ -541,19 +555,21 @@ local function UpdateLock()
 	end
 	for i = 1, numTabs do
 		tabButton = _G[frameName .. "Tab" .. i .. "Button"]
-		tabTexture = _G[frameName .. "Tab" .. i .. "ButtonIconTexture"]
-		if lockdown then
-			tabButton:Disable()
-			tabTexture:SetDesaturated(true)
-			if InProcessingLockdown then
-				tabButton.tooltip2 = "Please wait..."
+		if tabButton:IsVisible() then
+			tabTexture = _G[frameName .. "Tab" .. i .. "ButtonIconTexture"]
+			if lockdown then
+				tabButton:Disable()
+				tabTexture:SetDesaturated(true)
+				if InProcessingLockdown then
+					tabButton.tooltip2 = "Please wait..."
+				else
+					tabButton.tooltip2 = {"|cffFFFFFFLocked|r", "You are either queued for a match\nor caught up in a pet battle."}
+				end
 			else
-				tabButton.tooltip2 = {"|cffFFFFFFLocked|r", "You are either queued for a match\nor caught up in a pet battle."}
+				tabButton:Enable()
+				tabTexture:SetDesaturated(false)
+				tabButton.tooltip2 = nil
 			end
-		else
-			tabButton:Enable()
-			tabTexture:SetDesaturated(false)
-			tabButton.tooltip2 = nil
 		end
 	end
 end
@@ -567,6 +583,7 @@ function Update() -- local
 		local tabButton = _G[frameName .. "Tab" .. i .. "Button"]
 		if shownNewTeam then
 			tab:Hide()
+			tabButton:SetEnabled(false)
 		else
 			local tabTexture = _G[frameName .. "Tab" .. i .. "ButtonIconTexture"]
 			if type(team.setup) ~= "table" then
@@ -593,6 +610,7 @@ function Update() -- local
 				tabButton:SetChecked(nil)
 			end
 			tab:Show()
+			tabButton:SetEnabled(true)
 		end
 	end
 	UpdateLock()
@@ -602,6 +620,7 @@ function Update() -- local
 	end
 	PetJournal_UpdateDisplay()
 	if BattlePetTabFlyoutFrame:IsVisible() then
+		BattlePetTabFlyoutPopupFrame.skipHide = 1
 		BattlePetTabFlyoutFrame:Hide()
 		BattlePetTabFlyoutFrame:Show()
 	end
@@ -691,12 +710,13 @@ end
 
 local function CreateSnapshot()
 	local clone = table_clone(BattlePetTabsDB2)
+	local cloneIcon = type(clone) == "table" and type(clone[1]) == "table" and clone[1].icon
 	local newIndex = #BattlePetTabsSnapshotDB.db + 1
 	table.insert(BattlePetTabsSnapshotDB.db, {
 		index = newIndex,
 		created = time(),
 		name = "Snapshot " .. newIndex,
-		icon = "Interface\\Icons\\INV_Misc_QuestionMark.blp",
+		icon = cloneIcon or "Interface\\Icons\\INV_Misc_QuestionMark.blp",
 		db = clone,
 	})
 	BattlePetTabsSnapshotDB.currentId = newIndex
@@ -719,11 +739,12 @@ local function LoadSnapshot(index)
 	end
 end
 
-local function ApplySnapshotRename(index, newName)
+local function ApplySnapshotRename(index, newName) -- deprecated/obscolete
 	index = GetSnapshotIndex(index)
 	if index > 0 and type(newName) == "string" and strlen(newName) > 0 then
 		BattlePetTabsSnapshotDB.db[index].name = newName
 		if BattlePetTabFlyoutFrame:IsVisible() then
+			--BattlePetTabFlyoutPopupFrame.skipHide = 1
 			BattlePetTabFlyoutFrame:Hide()
 			BattlePetTabFlyoutFrame:Show()
 		end
@@ -748,6 +769,7 @@ local function ApplySnapshotDelete(index)
 			end
 		end
 		if BattlePetTabFlyoutFrame:IsVisible() then
+			--BattlePetTabFlyoutPopupFrame.skipHide = 1
 			BattlePetTabFlyoutFrame:Hide()
 			BattlePetTabFlyoutFrame:Show()
 		end
@@ -771,8 +793,7 @@ local function BattlePetTabFlyout_DisplayButton(button, managerButton, snapshot)
 	snapshot = snapshot or {}
 	button.newSnapshot = snapshot.newSnapshot
 	button.tooltip = snapshot.name
-	local textureName = (type(snapshot.db) == "table" and type(snapshot.db[1]) == "table" and snapshot.db[1].icon) or snapshot.icon or "Interface\\Icons\\INV_Misc_QuestionMark.blp" -- use first team icon, or assigned icon, or fallback to question mark (WIP)
-	SetItemButtonTexture(button, textureName)
+	SetItemButtonTexture(button, snapshot.icon)
 	SetItemButtonCount(button, 0)
 	local locked = button.newSnapshot and GetNumTeams() < 1
 	if locked then
@@ -805,7 +826,7 @@ local function BattlePetTabFlyout_DisplayButton(button, managerButton, snapshot)
 			end
 			if not self.tooltip2 and not self.newSnapshot then
 				GameTooltip:AddLine("|cff999999Right-click to delete.|r")
-				GameTooltip:AddLine("|cff999999Right-click with modifier to rename.|r")
+				GameTooltip:AddLine("|cff999999Right-click with modifier to edit.|r")
 			end
 			GameTooltip:Show()
 		end
@@ -847,18 +868,21 @@ function BattlePetTabFlyout_OnClick(button, mouseButton)
 	if mouseButton == "LeftButton" then
 		if snapshot.newSnapshot then
 			CreateSnapshot()
-			BattlePetTabFlyoutFrame:Show() -- make sure it stays open
+			BattlePetTabFlyoutFrame:Show() -- make sure it stays open after the click
 		else
 			LoadSnapshot(button:GetID())
 			LoadTeam() -- refresh the loadout team
 		end
 		if BattlePetTabFlyoutFrame:IsVisible() then
+			BattlePetTabFlyoutPopupFrame.skipHide = 1
 			BattlePetTabFlyoutFrame:Hide()
 			BattlePetTabFlyoutFrame:Show()
 		end
 	elseif mouseButton == "RightButton" and not snapshot.newSnapshot then
 		if IsModifiedClick() then
-			StaticPopup_Show("BATTLETABS_SNAPSHOT_RENAME", snapshot.name, nil, button:GetID())
+			BattlePetTabFlyoutPopupFrame:Hide()
+			BattlePetTabFlyoutPopupFrame.button = button
+			BattlePetTabFlyoutPopupFrame:Show()
 		else
 			StaticPopup_Show("BATTLETABS_SNAPSHOT_DELETE", snapshot.name, nil, button:GetID())
 		end
@@ -868,9 +892,9 @@ end
 
 function BattlePetTabFlyout_OnShow(self)
 	SnapshotIntegrityCheck()
+	self:SetScale(.935) -- weaked scale for uniform button size
 
 	local managerButton = self.managerButton
-	local flyoutSettings = self.flyoutSettings
 	local buttons = self.buttons
 	local buttonAnchor = self.buttonFrame
 
@@ -911,7 +935,7 @@ function BattlePetTabFlyout_OnShow(self)
 		end
 	end
 
-	self:SetParent(flyoutSettings.parent)
+	self:SetParent(BattlePetTabsTabManager)
 	self:SetFrameStrata("HIGH")
 	self:ClearAllPoints()
 	self:SetFrameLevel(managerButton:GetFrameLevel() - 1)
@@ -919,11 +943,7 @@ function BattlePetTabFlyout_OnShow(self)
 
 	local horizontalItems = math.min(numSnapshots, BATTLEPETTABSFLYOUT_ITEMS_PER_ROW)
 	local relativeAnchor = managerButton and managerButton.popoutButton or managerButton
-	if managerButton.verticalFlyout then
-		buttonAnchor:SetPoint("TOPLEFT", relativeAnchor, "BOTTOMLEFT", flyoutSettings.verticalAnchorX, flyoutSettings.verticalAnchorY)
-	else
-		buttonAnchor:SetPoint("TOPLEFT", relativeAnchor, "TOPRIGHT", flyoutSettings.anchorX, flyoutSettings.anchorY)
-	end
+	buttonAnchor:SetPoint("TOPLEFT", relativeAnchor, "TOPRIGHT", 12, 2)
 	buttonAnchor:SetWidth((horizontalItems * BATTLEPETTABSFLYOUT_ITEM_WIDTH) + ((horizontalItems - 1) * BATTLEPETTABSFLYOUT_ITEM_XOFFSET) + BATTLEPETTABSFLYOUT_BORDERWIDTH)
 	buttonAnchor:SetHeight(BATTLEPETTABSFLYOUT_HEIGHT + (math.floor((numSnapshots - 1)/BATTLEPETTABSFLYOUT_ITEMS_PER_ROW) * (BATTLEPETTABSFLYOUT_ITEM_HEIGHT - BATTLEPETTABSFLYOUT_ITEM_YOFFSET)))
 
@@ -1134,34 +1154,8 @@ function Initialize() -- local
 		hideOnEscape = 1,
 	}
 
-	StaticPopupDialogs["BATTLETABS_SNAPSHOT_RENAME"] = {
-		text = "What do you wish to rename |cffffd200%s|r to?",
-		button1 = ACCEPT,
-		button2 = CANCEL,
-		hasEditBox = 1,
-		maxLetters = 30,
-		OnAccept = function(self)
-			ApplySnapshotRename(self.data, self.editBox:GetText())
-		end,
-		EditBoxOnEnterPressed = function(self)
-			local parent = self:GetParent()
-			ApplySnapshotRename(parent.data, parent.editBox:GetText())
-			parent:Hide()
-		end,
-		OnShow = function(self)
-			self.editBox:SetFocus()
-		end,
-		OnHide = function(self)
-			ChatEdit_FocusActiveWindow()
-			self.editBox:SetText("")
-		end,
-		timeout = 0,
-		exclusive = 1,
-		hideOnEscape = 1,
-	}
-
 	StaticPopupDialogs["BATTLETABS_SNAPSHOT_DELETE"] = {
-		text = "Are you sure you want to delete team |cffffd200%s|r?",
+		text = "Are you sure you want to delete snapshot |cffffd200%s|r?",
 		button1 = OKAY,
 		button2 = CANCEL,
 		OnAccept = function(self)
@@ -1182,8 +1176,8 @@ function Initialize() -- local
 	tab:SetPoint("TOPLEFT", tabs, "BOTTOMLEFT", 0, 0)
 	tab.button.checked:SetTexture(nil)
 	tab.button.icon:SetTexture("Interface\\Icons\\INV_Pet_Achievement_CaptureAWildPet")
-	tab.button.tooltip = "Team Manager"
-	tab.button.teamManager = 1
+	tab.button.tooltip = "Snapshot Manager"
+	tab.button.snapshotManager = 1
 	tab.button:SetScript("OnDragStart", nil)
 	tab.button:SetScript("OnClick", function(self)
 		PlaySound("igMainMenuOptionCheckBoxOn")
