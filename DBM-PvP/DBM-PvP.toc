@@ -1,7 +1,7 @@
 ﻿## Interface: 50200
 ## X-Min-Interface: 50001
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
-## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0競技場/戰場|r
+## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0PvP|r
 ## Author: Nitram/Tandanu/Arta
 ## LoadOnDemand: 1
@@ -15,7 +15,7 @@
 ## X-DBM-Mod-SubCategories-zhTW: 競技場,戰場
 ## X-DBM-Mod-SubCategories-zhCN: 竞技场,战场
 ## X-DBM-Mod-Name: PvP
-## X-DBM-Mod-Name-zhTW: 競技場/戰場
+## X-DBM-Mod-Name-zhTW: PvP
 ## X-DBM-Mod-Name-zhCN: PvP
 ## X-DBM-Mod-Sort: 75
 ## X-DBM-Mod-LoadZoneID: 461,443,401,540,482,856,860

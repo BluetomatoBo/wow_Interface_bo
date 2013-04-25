@@ -318,7 +318,7 @@ L:SetOptionLocalization({
 	warnDebuffCount		= "警告：當你獲得了有害變異",
 	InfoFrame		= "資訊框：首領當前的$journal:6949技能",
 	RangeFrame		= "顯示距離框架(2碼/5碼)",
-	SetIconOnBadOoze	= "為$spell:140506自動標記"
+	SetIconOnBigOoze	= "為$journal:6969自動標記"
 })
 
 L:SetMiscLocalization({
@@ -379,7 +379,7 @@ L:SetOptionLocalization({
 	SoundARAT		= "語音警告：報出$spell:137231的攻擊方位",
 	ReapetAP		= "特殊功能：若你中了$spell:136192則不停呼救",
 	HudMAP			= "高級定位監視(HUD)：$spell:136192",
-	HudMAP2			= "高級定位監視(HUD)：閃電階段結束後標誌出$spell:136193攜帶者",
+	HudLight		= "高級定位監視(HUD)：閃電階段結束後標誌出$spell:136193攜帶者",
 	RangeFrame		= "顯示動態距離框架(當太多人太接近時會動態顯示)",
 	InfoFrame		= "信息框：$spell:136193"
 })

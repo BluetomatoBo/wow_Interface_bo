@@ -1,8 +1,8 @@
 local L
 
---------------------------------
+---------------------
 -- A Brewing Storm --
---------------------------------
+---------------------
 L= DBM:GetModLocalization("d517")
 
 L:SetTimerLocalization{
@@ -20,9 +20,27 @@ L:SetMiscLocalization{
 	BorokhulaAdds		= "calls out for reinforcements!"--In case useful/important on heroic. On normal just zerg boss and ignore these unless you want achievement.
 }
 
---------------------------------
+-----------------------
+-- A Little Patience --
+-----------------------
+L= DBM:GetModLocalization("d589")
+
+L:SetMiscLocalization{
+	ScargashPull		= "Your Alliance is WEAK!"--Not yet in use but could be with more logs and combat start timers
+}
+
+-------------------------
+-- Assault of Zan'vess --
+-------------------------
+L= DBM:GetModLocalization("d593")
+
+L:SetMiscLocalization{
+	TelvrakPull			= "Zan'vess will never fall!"
+}
+
+------------------------------
 -- Crypt of Forgotten Kings --
---------------------------------
+------------------------------
 L= DBM:GetModLocalization("d504")
 
 ----------------------
@@ -63,6 +81,15 @@ L:SetOptionLocalization{
 -- Troves of the Thunder King --
 --------------------------------
 L= DBM:GetModLocalization("d620")
+
+----------------
+-- Unga Ingoo --
+----------------
+L= DBM:GetModLocalization("d499")
+
+L:SetMiscLocalization{
+	Stage2	= "Well! This looks like as good a place to brew as any."
+}
 
 ------------------------
 -- Warlock Green Fire --

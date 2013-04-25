@@ -4,9 +4,10 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndXG		= mod:NewSound(nil, "SoundXG", true)
 local sndAE		= mod:NewSound(nil, "SoundAE", true)
 
-mod:SetRevision(("$Revision: 9300 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
 mod:SetCreatureID(67977)
 mod:SetModelID(46559)
+mod:SetQuestID(32747)
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3)
 
 mod:RegisterCombat("combat")

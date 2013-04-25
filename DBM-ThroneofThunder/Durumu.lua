@@ -3,9 +3,10 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9288 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
 mod:SetCreatureID(68036)--Crimson Fog 69050, 
 mod:SetModelID(47189)
+mod:SetQuestID(32750)
 mod:SetUsedIcons(7, 6, 4, 1)
 
 mod:RegisterCombat("combat")
@@ -621,6 +622,7 @@ end
 --Reports are this is majorly fucked up in LFR, because the antispam in name doesn't work with server names (wtf? maybe only happens if server name strip is turned on?)
 --I will not be able to debug for several hours but commenting in case someone else runs LFR before I do in 5 hours
 function mod:UNIT_AURA(uId)	
+	if self:IsDifficulty("lfr25") then return end
 	if UnitDebuff(uId, blueTracking) then
 		local name = DBM:GetUnitFullName(uId)
 		if lastBlue ~= name then

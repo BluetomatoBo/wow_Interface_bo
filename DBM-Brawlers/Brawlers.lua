@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Brawlers", "DBM-Brawlers")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9235 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9336 $"):sub(12, -3))
 --mod:SetCreatureID(60491)
 --mod:SetModelID(41448)
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
@@ -172,7 +172,7 @@ function mod:OnSync(msg)
 		if not (currentZoneID == 0 or currentZoneID == 922 or currentZoneID == 925) then return end
 		currentFighter = nil
 		self:Stop()
-		--Boss from any rank can be faught by any rank at max level, so we just need to always cancel them all
+		--Boss from any rank can be fought by any rank at max level, so we just need to always cancel them all
 		for i = 1, 9 do
 			local mod2 = DBM:GetModByName("BrawlRank" .. i)
 			if mod2 then

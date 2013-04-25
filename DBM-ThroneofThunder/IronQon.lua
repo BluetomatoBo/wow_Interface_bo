@@ -3,10 +3,11 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9264 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
 mod:SetCreatureID(68078, 68079, 68080, 68081)--Ro'shak 68079, Quet'zal 68080, Dam'ren 68081, Iron Qon 68078
 mod:SetMainBossID(68078)
 mod:SetModelID(46627) -- Iron Qon, 46628 Ro'shak, 46629 Quet'zal, 46630 Dam'ren
+mod:SetQuestID(32754)
 mod:SetBossHPInfoToHighest()
 
 mod:RegisterCombat("combat")
@@ -21,7 +22,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_SUMMON",
 	"SPELL_DAMAGE",
 	"SPELL_MISSED",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_SPELLCAST_SUCCEEDED",
+	"UNIT_DIED"
 )
 
 local warnImpale						= mod:NewStackAnnounce(134691, 2, nil, mod:IsTank() or mod:IsHealer())
@@ -57,12 +59,14 @@ local specWarnStormCloud				= mod:NewSpecialWarningMove(137669)
 local specWarnLightningStorm			= mod:NewSpecialWarningYou(136192)
 local yellLightningStorm				= mod:NewYell(136192)
 local specWarnFrozenBlood				= mod:NewSpecialWarningMove(136520)
-local specWarnFistSmash					= mod:NewSpecialWarningSpell(136146, nil, nil, nil, 2)
+local specWarnFistSmash					= mod:NewSpecialWarningCount(136146, nil, nil, nil, 2)
+--BH ADD
+local specWarnJSA						= mod:NewSpecialWarning("SpecWarnJSA")
 
 local timerImpale						= mod:NewTargetTimer(40, 134691, mod:IsTank() or mod:IsHealer())
 local timerImpaleCD						= mod:NewCDTimer(20, 134691, mod:IsTank() or mod:IsHealer())
-local timerThrowSpearCD					= mod:NewCDTimer(30, 134926)--30-36 second variation observed (at last in phase 1)
-local timerUnleashedFlameCD				= mod:NewCDTimer(6, 134611)
+local timerThrowSpearCD					= mod:NewCDTimer(30, 134926)--30-42 second variation observed
+local timerUnleashedFlameCD				= mod:NewCDTimer(6, 134611, nil, false)--CD for the periodic trigger, not when he'll actually be at 30 energy and use it.
 local timerScorched						= mod:NewBuffFadesTimer(30, 134647)
 local timerMoltenOverload				= mod:NewBuffActiveTimer(10, 137221)
 local timerLightningStormCD				= mod:NewCDTimer(20, 136192)
@@ -74,15 +78,13 @@ local timerRisingAngerCD				= mod:NewNextTimer(15, 136323, nil, false)
 local timerFistSmash					= mod:NewBuffActiveTimer(8, 136146)
 local timerFistSmashCD					= mod:NewNextCountTimer(20, 136146)
 local timerWhirlingWindsCD				= mod:NewCDTimer(30, 139167)--Heroic Phase 1
-local timerFrostSpikeCD					= mod:NewCDTimer(12, 139180)--Heroic Phase 2
+local timerFrostSpikeCD					= mod:NewCDTimer(11, 139180)--Heroic Phase 2
 
 local berserkTimer						= mod:NewBerserkTimer(720)
 
 -- BH ADD
 local Warned = false
 local stormcount = 0
-local senddr = {}
-local warneddr = {}
 local lightmaker = {}
 local FireMarkers={}
 
@@ -91,7 +93,8 @@ local morestack = 0
 mod:AddBoolOption("ReapetAP", true, "sound")
 mod:AddBoolOption("SoundARAT", mod:IsDps(), "sound")
 mod:AddBoolOption("HudMAP", true, "sound")
-mod:AddBoolOption("HudMAP2", true, "sound")
+mod:AddBoolOption("HudLight", false, "sound")
+
 -- BH ADD END
 mod:AddBoolOption("RangeFrame", true)--One tooltip says 8 yards, other says 10. Confirmed it's 10 during testing though. Ignore the 8 on spellid 134611
 mod:AddBoolOption("InfoFrame")
@@ -167,7 +170,7 @@ local function checkSpear()
 			end
 		end
 	else
-		mod:Schedule(0.2, checkSpear)
+		mod:Schedule(0.25, checkSpear)
 	end
 end
 
@@ -191,6 +194,22 @@ local function checkArcing()
 		mod:Schedule(5, checkArcing)
 	end
 end
+-- BH ADD
+for i = 1, 7 do
+	mod:AddBoolOption("dr"..i, false, "sound")
+end
+
+mod:AddBoolOption("dispsetLight", true, "sound")
+mod:AddEditBoxOption("dispsetLight1", 150, "", "sound")
+mod:AddEditBoxOption("dispsetLight2", 150, "", "sound")
+
+local function MyJS()
+	if (mod.Options.dr1 and fistSmashCount == 1) or (mod.Options.dr2 and fistSmashCount == 2) or (mod.Options.dr3 and fistSmashCount == 3) or (mod.Options.dr4 and fistSmashCount == 4) or (mod.Options.dr5 and fistSmashCount == 5) or (mod.Options.dr6 and fistSmashCount == 6) or (mod.Options.dr7 and fistSmashCount == 7) then
+		return true
+	end
+	return false
+end
+
 local DBMHudMap = DBMHudMap
 local free = DBMHudMap.free
 local function register(e)	
@@ -239,8 +258,6 @@ function mod:OnCombatStart(delay)
 	stormcount = 0
 	table.wipe(lightmaker)
 	table.wipe(FireMarkers)
-	table.wipe(senddr)
-	table.wipe(warneddr)
 	sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hyxt.mp3") --火焰形态
 	--BH ADD END
 	timerThrowSpearCD:Start(-delay)
@@ -253,22 +270,17 @@ function mod:OnCombatStart(delay)
 		end
 	end
 	if self:IsDifficulty("heroic10", "heroic25") then
-		timerWhirlingWindsCD:Start(20-delay)
+		timerWhirlingWindsCD:Start(15-delay)
 		timerLightningStormCD:Start(22-delay)
 		if self.Options.InfoFrame then
 			DBM.InfoFrame:SetHeader(GetSpellInfo(136193))
 			DBM.InfoFrame:Show(5, "playerbaddebuff", 136193)
 		end
-	else
-		self:RegisterShortTermEvents(
-			"UNIT_DIED"--Alternate phase detection for normal (not sure if needed, but just in case, i deleted my normal mode log and don't remember if they fired "eject all passengers" there.
-		)
 	end
 	berserkTimer:Start(-delay)
 end
 
 function mod:OnCombatEnd()
-	self:UnregisterShortTermEvents()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
@@ -276,7 +288,7 @@ function mod:OnCombatEnd()
 		DBM.InfoFrame:Hide()
 	end
 	--BH ADD
-	if self.Options.HudMAP or self.Options.HudMAP2 then
+	if self.Options.HudMAP or self.Options.HudLight then
 		DBMHudMap:FreeEncounterMarkers()
 	end
 	--BH ADD END
@@ -287,12 +299,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		local amount = args.amount or 1
 		warnImpale:Show(args.destName, amount)
 		timerImpaleCD:Start()
-		if args:IsPlayer() then
-			if amount >= 2 then
+		if amount >= 2 then
+			if args:IsPlayer() then
 				specWarnImpale:Show(args.amount)
-			end
-		else
-			if amount >= 2 and not UnitDebuff("player", GetSpellInfo(134691)) and not UnitIsDeadOrGhost("player") then
+			else
 				specWarnImpaleOther:Show(args.destName)
 			end
 		end
@@ -303,6 +313,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				specWarnScorched:Show(args.amount or 1)
 			end
 		end
+		--[[
 		if morestack < (args.amount or 1) then
 			morestack = (args.amount or 1)
 		end
@@ -322,6 +333,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 			morestack = 0
 		end)
+		]]
 	elseif args.spellId == 137221 then
 		warnMoltenOverload:Show()
 		specWarnMoltenOverload:Show()
@@ -332,7 +344,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if phase == 2 then
 			timerLightningStormCD:Start()
 		else--Heroic phase 1 or 4
-			timerLightningStormCD:Start(38)
+			timerLightningStormCD:Start(37.5)
 		end
 		--BH ADD
 		if args:IsPlayer() then
@@ -342,11 +354,21 @@ function mod:SPELL_AURA_APPLIED(args)
 				self:ScheduleMethod(4, "checkmydebuff")
 			end
 		else
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\helpme.mp3") --救我
-			if self.Options.HudMAP then
-				lightmaker[args.destName] = register(DBMHudMap:AddEdge(0, 0, 1, 1, nil, "player", args.destName))
-				fixdebuffremovebug(args.destName)
-			end			
+			if (mod.Options.dispsetLight1 == "") and (mod.Options.dispsetLight2 == "") then
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\helpme.mp3") --救我
+				if self.Options.HudMAP then
+					lightmaker[args.destName] = register(DBMHudMap:AddEdge(0, 0, 1, 1, nil, "player", args.destName))
+					fixdebuffremovebug(args.destName)
+				end				
+			else
+				if (args.destName == mod.Options.dispsetLight1) or (args.destName == mod.Options.dispsetLight2) then
+					sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\helpme.mp3") --救我
+					if self.Options.HudMAP then
+						lightmaker[args.destName] = register(DBMHudMap:AddEdge(0, 0, 1, 1, nil, "player", args.destName))
+						fixdebuffremovebug(args.destName)
+					end
+				end
+			end
 		end
 		--BH ADD END
 	elseif args.spellId == 135145 then
@@ -361,7 +383,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerRisingAngerCD:Start()
 	elseif args.spellId == 136193 then
 		if phase > 2 then
-			if self.Options.HudMAP2 and not FireMarkers[args.destName] then
+			if self.Options.HudLight and not FireMarkers[args.destName] then
 				FireMarkers[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 10, nil, 1, 1 ,1 ,0.8):Appear():RegisterForAlerts())
 				fixdebuffremovebug2(args.destName)
 			end
@@ -377,6 +399,9 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif args.spellId == 136192 then
 		if lightmaker[args.destName] then
 			lightmaker[args.destName] = free(lightmaker[args.destName])
+		end
+		if (args.destName == mod.Options.dispsetLight1) or (args.destName == mod.Options.dispsetLight2) then
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\thanks.mp3")
 		end
 	--BH ADD END
 	elseif args.spellId == 136193 then
@@ -482,11 +507,10 @@ mod.SPELL_MISSED = mod.SPELL_DAMAGE
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 134611 and self:AntiSpam(2, 5) then--Unleashed Flame internal CD. He cannot use more often than every 6 seconds. 137991 is ability activation on pull, before 137991 is cast, he can't use ability at all
 		warnUnleashedFlame:Show()
-		if phase == 1 then
-			timerUnleashedFlameCD:Start()
-		else--heroic phase 3 or 4
-			timerUnleashedFlameCD:Start(30)--30-33 second variation
-		end
+		timerUnleashedFlameCD:Start()
+		--NOTE, on heroic phase 3-4, trigger still fires every 6 seconds but energy gain is slower so it won't actually go off often like it does in phase 1.
+		--None the less, this timer is accurate on heroic as 6 seconds as it indicates when the next POSSIBLE cast is. in other words, if he reaches enough energy during this cd, he won't cast it until 6 second cd ends
+		--This cast is the periodic trigger that checks whether or not boss has 30 energy, nothing more.
 	elseif spellId == 50630 and self:AntiSpam(2, 6) then--Eject All Passengers (heroic phase change trigger)
 		local cid = self:GetCIDFromGUID(UnitGUID(uId))
 		self:Unschedule(checkSpear)
@@ -498,6 +522,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			end
 			--Only one log, but i looks like spear cd from phase 1 remains intact
 			phase = 2
+			stormcount = 0
 			updateHealthFrame()
 			if self:IsDifficulty("heroic10", "heroic25") then
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdxt.mp3") --閃電形态
@@ -513,12 +538,17 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerLightningStormCD:Start()
 			warnWindStorm:Schedule(52)
 			specWarnWindStorm:Schedule(52)
-			timerWindStorm:Schedule(52)			
+			timerWindStorm:Schedule(52)
 			timerWindStormCD:Start(52)
-			sndWOP:Schedule(52, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+			sndWOP:Schedule(47, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+			sndWOP:Schedule(48, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(49, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+			sndWOP:Schedule(50, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(51, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(52, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		elseif cid == 68080 then--Quet'zal
 			phase = 3
-			if self.Options.HudMAP2 then
+			if self.Options.HudLight then
 				for i = 1, DBM:GetNumGroupMembers() do
 					if UnitDebuff("raid"..i, GetSpellInfo(136193)) then
 						if UnitName("raid"..i) ~= UnitName("player") then
@@ -537,7 +567,14 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerLightningStormCD:Cancel()
 			timerWindStorm:Cancel()
 			timerWindStormCD:Cancel()
-			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3") 
+			warnWindStorm:Cancel()
+			specWarnWindStorm:Cancel()
+			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 			timerFrostSpikeCD:Cancel()
 			warnPhase3:Show()
 			timerDeadZoneCD:Start(8.5)
@@ -553,10 +590,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			end
 			checkArcing()
 		elseif cid == 68081 then--Dam'ren
+			--confirmed, dam'ren's abilities do NOT reset in phase 4, cds from phase 3 carry over.
 			phase = 4
 			updateHealthFrame()
-			timerDeadZoneCD:Cancel()--Todo, find out what they change to in phase 4 since Dam'ren still casts them
-			timerFreezeCD:Cancel()--Todo, find out what they change to in phase 4 since Dam'ren still casts them
 			warnPhase4:Show()
 			timerRisingAngerCD:Start(15)
 			timerFistSmashCD:Start(62, 1)
@@ -572,27 +608,44 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		timerFrostSpikeCD:Start()
 	--"<168.1 19:53:31> [UNIT_SPELLCAST_SUCCEEDED] Quet'zal [[boss3:Rushing Winds::0:137656]]", -- [13876]
 	--"<170.1 19:29:36> [CLEU] SPELL_MISSED#true##nil#2632#0#0x010000000003A244#Oxey#1300#8#136577#Wind Storm#8#MISS#nil", -- [11314]
-	elseif spellId == 137656 and self:AntiSpam(2, 1) then--Rushing Winds (Wind Storm pre trigger)
+	elseif spellId == 137656 and self:AntiSpam(2, 1) then--Rushing Winds (Wind Storm end trigger)
 		warnWindStorm:Cancel()
 		specWarnWindStorm:Cancel()
 		warnWindStormEnd:Show()
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3") 
-		warnWindStorm:Schedule(70)
-		specWarnWindStorm:Schedule(70)
-		timerWindStorm:Schedule(70)
-		sndWOP:Schedule(70, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3") --準備旋風
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")		
+		if phase == 2 then
+			warnWindStorm:Schedule(70)
+			specWarnWindStorm:Schedule(70)
+			timerWindStorm:Schedule(70)
+			sndWOP:Schedule(65, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+			sndWOP:Schedule(66, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(67, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+			sndWOP:Schedule(68, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(69, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(70, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		end
 		timerWindStormCD:Start()
 	elseif spellId == 136146 and self:AntiSpam(2, 5) then
 		fistSmashCount = fistSmashCount + 1
-		warnFistSmash:Show(fistSmashCount)
-		specWarnFistSmash:Show()
+		warnFistSmash:Show(fistSmashCount)		
 		timerFistSmash:Start()
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerFistSmashCD:Start(30, fistSmashCount+1) -- heroic cd longer.
 		else
 			timerFistSmashCD:Start(nil, fistSmashCount+1)
+		end		
+		if MyJS() then
+			specWarnJSA:Show()
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
+		else
+			specWarnFistSmash:Show(fistSmashCount)
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
 		end
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\aesoon.mp3")
 	end
 end
 
@@ -613,9 +666,8 @@ function mod:UNIT_DIED(args)
 			end
 			--Only one log, but i looks like spear cd from phase 1 remains intact
 			phase = 2
+			stormcount = 0
 			updateHealthFrame()
-			timerUnleashedFlameCD:Cancel()
-			timerMoltenOverload:Cancel()
 			timerLightningStormCD:Start(17)
 			self:Unschedule(checkSpear)
 			self:Schedule(25, checkSpear)
@@ -624,7 +676,12 @@ function mod:UNIT_DIED(args)
 			warnWindStorm:Schedule(49.5)
 			specWarnWindStorm:Schedule(49.5)
 			timerWindStorm:Schedule(49.5)
-			sndWOP:Schedule(49.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+			sndWOP:Schedule(44.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+			sndWOP:Schedule(45.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(46.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+			sndWOP:Schedule(47.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(48.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(49.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 			timerWindStormCD:Start(49.5)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdxt.mp3") --閃電形态
 		end
@@ -633,13 +690,18 @@ function mod:UNIT_DIED(args)
 		timerWindStormCD:Cancel()
 		warnWindStorm:Cancel()
 		specWarnWindStorm:Cancel()
-		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3") 
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		timerWindStorm:Cancel()
 		if self:IsDifficulty("heroic10", "heroic25") then--In heroic, all mounts die in phase 4.
 			DBM.BossHealth:RemoveBoss(cid)
 		else
 			phase = 3
-			if self.Options.HudMAP2 then
+			if self.Options.HudLight then
 				for i = 1, DBM:GetNumGroupMembers() do
 					if UnitDebuff("raid"..i, GetSpellInfo(136193)) then
 						if UnitName("raid"..i) ~= UnitName("player") then
@@ -652,12 +714,6 @@ function mod:UNIT_DIED(args)
 				end
 			end
 			updateHealthFrame()
-			timerLightningStormCD:Cancel()
-			warnWindStorm:Cancel()
-			specWarnWindStorm:Cancel()
-			timerWindStorm:Cancel()
-			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\wwsoon.mp3")
-			timerWindStormCD:Cancel()
 			warnPhase3:Show()
 			timerDeadZoneCD:Start(6)
 			self:Unschedule(checkSpear)
@@ -677,8 +733,6 @@ function mod:UNIT_DIED(args)
 			self:Unschedule(checkSpear)
 			timerThrowSpearCD:Cancel()
 			self:UnregisterShortTermEvents()
-			timerDeadZoneCD:Cancel()
-			timerFreezeCD:Cancel()
 			warnPhase4:Show()
 			timerRisingAngerCD:Start()
 			timerFistSmashCD:Start(22.5, 1)--fist smash cd is random. (22.5 or 31.5)

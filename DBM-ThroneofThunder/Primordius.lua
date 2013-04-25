@@ -2,9 +2,11 @@ local mod	= DBM:NewMod(820, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9258 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
 mod:SetCreatureID(69017)--69070 Viscous Horror, 69069 good ooze, 70579 bad ooze (patched out of game, :\)
 mod:SetModelID(47009)
+mod:SetQuestID(32751)
+mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)--Although if you have 8 viscous horrors up, you are probably doing fight wrong.
 
 mod:RegisterCombat("combat")
 
@@ -15,7 +17,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
 --	"UNIT_AURA",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_SPELLCAST_SUCCEEDED",
+	"UNIT_DIED"
 )
 
 local warnDebuffCount				= mod:NewAnnounce("warnDebuffCount", 1, 140546)
@@ -38,12 +41,13 @@ local specWarnFullyMutatedFaded		= mod:NewSpecialWarningFades(140546)
 local specWarnCausticGas			= mod:NewSpecialWarningSpell(136216, nil, nil, nil, 2)--All must be in front for this.
 local specWarnVolatilePathogen		= mod:NewSpecialWarningYou(136228)
 local specWarnViscousHorror			= mod:NewSpecialWarningCount("ej6969", mod:IsTank())
+local specWarnPustuleEruption		= mod:NewSpecialWarningSpell(136247)
 
 local timerFullyMutated				= mod:NewBuffFadesTimer(120, 140546)
 local timerMalformedBlood			= mod:NewTargetTimer(60, 136050, nil, mod:IsTank() or mod:IsHealer())
 local timerPrimordialStrikeCD		= mod:NewCDTimer(24, 136037)
 local timerCausticGasCD				= mod:NewCDTimer(14, 136216)
-local timerPustuleEruptionCD		= mod:NewCDTimer(5, 136247, nil, false)
+local timerPustuleEruptionCD		= mod:NewCDTimer(10, 136247)
 local timerVolatilePathogenCD		= mod:NewCDTimer(27, 136228)--Too cute blizzard, too cute. (those who get the 28 reference for pathogen get an A+)
 local timerBlackBlood				= mod:NewTargetTimer(60, 137000, nil, mod:IsTank() or mod:IsHealer())
 local timerViscousHorrorCD			= mod:NewNextCountTimer(30, "ej6969", nil, nil, nil, 137000)
@@ -52,8 +56,18 @@ local berserkTimer					= mod:NewBerserkTimer(480)
 
 local bossspellinfo = {}
 
-mod:AddBoolOption("RangeFrame", true)--Right now, EVERYTHING targets melee. If blizz listens to feedback, it may change to just ranged.
+mod:AddBoolOption("RangeFrame", true)
+mod:AddBoolOption("SetIconOnBigOoze", true)--These very hard to see when spawn. rooms red, boss is red, damn ooze is red.
 mod:AddBoolOption("InfoFrame", true, "sound")
+mod:AddBoolOption("HudMAP", mod:IsRanged(), "sound")
+
+local DBMHudMap = DBMHudMap
+local free = DBMHudMap.free
+local function register(e)	
+	DBMHudMap:RegisterEncounterMarker(e)
+	return e
+end
+local FireMarkers = {}
 
 local function showspellinfo()
 	if mod.Options.InfoFrame then
@@ -100,13 +114,54 @@ local postulesActive = false
 local goodCount = 0
 local badCount = 0
 local bigOozeCount = 0
+local bigOozeAlive = 0
+local bigOozeGUIDS = {}
 
 function mod:BigOoze()
 	bigOozeCount = bigOozeCount + 1
+	bigOozeAlive = bigOozeAlive + 1
 	warnViscousHorror:Show(bigOozeCount)
 	specWarnViscousHorror:Show(bigOozeCount)
+	if mod:IsTank() then
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_drn.mp3")--大軟泥
+	end
 	timerViscousHorrorCD:Start(30, bigOozeCount+1)
 	self:ScheduleMethod(30, "BigOoze")
+	--This is a means to try and do it without using lots of cpu on an already cpu bad fight. If it's not fast enough or doesn't work well (ie people with assist aren't doing this fast enough). may still have to scan all targets
+	if DBM:GetRaidRank() > 0 and self.Options.SetIconOnBigOoze then--Only register event if option is turned on, otherwise no waste cpu
+		self:RegisterShortTermEvents(
+			"PLAYER_TARGET_CHANGED",
+			"UPDATE_MOUSEOVER_UNIT"
+		)
+	end
+end
+
+function mod:PLAYER_TARGET_CHANGED()
+	local guid = UnitGUID("target")
+	if guid and (bit.band(guid:sub(1, 5), 0x00F) == 3 or bit.band(guid:sub(1, 5), 0x00F) == 5) then
+		local cId = tonumber(guid:sub(6, 10), 16)
+		if cId == 69070 and not bigOozeGUIDS[guid] then
+			local icon = 9 - bigOozeAlive--Start with skull for big ooze then subtrack from it based on number of oozes up to choose an unused icon
+			bigOozeGUIDS[guid] = true--NOW we add this ooze to the table now that we're done counting old ones
+			self:UnregisterShortTermEvents()--Add is marked, unregister events until next ooze spawns
+			SetRaidTarget("target", icon)
+			self:SendSync("BigOozeGUID", guid)--Make sure we keep everynoes ooze guid ignore list/counts up to date.
+		end
+	end
+end
+
+function mod:UPDATE_MOUSEOVER_UNIT()
+	local guid = UnitGUID("mouseover")
+	if guid and (bit.band(guid:sub(1, 5), 0x00F) == 3 or bit.band(guid:sub(1, 5), 0x00F) == 5) then
+		local cId = tonumber(guid:sub(6, 10), 16)
+		if cId == 69070 and not bigOozeGUIDS[guid] then
+			local icon = 9 - bigOozeAlive--Start with skull for big ooze then subtrack from it based on number of oozes up to choose an unused icon
+			bigOozeGUIDS[guid] = true--NOW we add this ooze to the table now that we're done counting old ones
+			self:UnregisterShortTermEvents()--Add is marked, unregister events until next ooze spawns
+			SetRaidTarget("mouseover", icon)
+			self:SendSync("BigOozeGUID", guid)
+		end
+	end
 end
 
 function mod:OnCombatStart(delay)
@@ -116,6 +171,8 @@ function mod:OnCombatStart(delay)
 	goodCount = 0
 	badCount = 0
 	bigOozeCount = 0
+	bigOozeAlive = 0
+	table.wipe(bigOozeGUIDS)
 	berserkTimer:Start(-delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
 		timerViscousHorrorCD:Start(11.5-delay, 1)
@@ -124,6 +181,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:OnCombatEnd()
+	self:UnregisterShortTermEvents()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
@@ -279,5 +337,38 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 136248 and self:AntiSpam(2, 1) then--Pustule Eruption
 		warnPustuleEruption:Show()
 		timerPustuleEruptionCD:Start()
+		if self:IsDifficulty("heroic10", "heroic25") then
+			specWarnPustuleEruption:Show()		
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zynx.mp3")--注意膿血
+			if mod.Options.HudMAP then
+				for i = 1, DBM:GetNumGroupMembers() do
+					local uId = "raid"..i
+					local x, y = GetPlayerMapPosition(uId)
+					if x == 0 and y == 0 then
+						SetMapToCurrentZone()
+						x, y = GetPlayerMapPosition(uId)
+					end
+					local inRange = DBM.RangeCheck:GetDistance("player", x, y)
+					if inRange and inRange < 20 then
+						FireMarkers[UnitName(uId)] = register(DBMHudMap:PlaceStaticMarkerOnPartyMember("highlight", UnitName(uId), 2.5, 2, 1, 1 ,1 ,0.8):Appear():RegisterForAlerts())
+					end
+				end
+			end
+		end
+	end
+end
+
+function mod:UNIT_DIED(args)
+	local cid = self:GetCIDFromGUID(args.destGUID)
+	if cId == 69070 and bigOozeGUIDS[args.destGUID] then
+		bigOozeAlive = bigOozeAlive - 1
+		bigOozeGUIDS[guid] = nil
+	end
+end
+
+function mod:OnSync(msg, guid)
+	if msg == "BigOozeGUID" and guid then
+		bigOozeGUIDS[guid] = true
+		self:UnregisterShortTermEvents()
 	end
 end

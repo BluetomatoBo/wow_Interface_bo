@@ -316,10 +316,11 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
+	HudMAP			= "高级定位监视(HUD)：$spell:136248(WIP)",
 	warnDebuffCount		= "警告:当你获得了有害状态",
 	InfoFrame		= "资讯框：首领当前的$journal:6949技能",
 	RangeFrame		= "显示距离框架(2码/5码)",
-	SetIconOnBadOoze	= "为$spell:140506自动标记"
+	SetIconOnBigOoze	= "为$journal:6969自动标记"
 })
 
 L:SetMiscLocalization({
@@ -370,16 +371,28 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(817)
 
 L:SetWarningLocalization({
-	warnDeadZone	= "%s: %s / %s "
+	warnDeadZone	= "%s: %s / %s ",
+	SpecWarnJSA		= ">>注意减伤<<"
 })
 
 L:SetOptionLocalization({
 	warnDeadZone	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(137229),
 	SoundWOP		= "语音警告：重要技能",
 	SoundARAT		= "语音警告：报出$spell:137231的攻击方位",
+	SpecWarnJSA		= "特殊警告：注意减伤",
 	ReapetAP		= "特殊功能：若你中了$spell:136192则不停呼救",
 	HudMAP			= "高级定位监视(HUD)：$spell:136192",
-	HudMAP2			= "高级定位监视(HUD)：闪电阶段结束后标出$spell:136193",
+	HudLight		= "高级定位监视(HUD)：闪电阶段结束后标出$spell:136193",
+	dr1			= "减伤提示：$spell:136146 1",
+	dr2			= "减伤提示：$spell:136146 2",
+	dr3			= "减伤提示：$spell:136146 3",
+	dr4			= "减伤提示：$spell:136146 4",
+	dr5			= "减伤提示：$spell:136146 5",
+	dr6			= "减伤提示：$spell:136146 6",
+	dr7			= "减伤提示：$spell:136146 7",
+	dispsetLight		= "下列角色被电击时提示你[若设定了则不会再提示其他角色]",
+	dispsetLight1		= "角色A",
+	dispsetLight2		= "角色B",		
 	RangeFrame		= "距离监视（动态，当存在多名团员过近时显示）",
 	InfoFrame		= "信息框：$spell:136193"
 })
@@ -484,6 +497,18 @@ L:SetOptionLocalization({
 -- Ra-den --
 ------------
 L= DBM:GetModLocalization(831)
+
+L:SetTimerLocalization({
+	timerAnima		= "下一次心能爆炸"
+})
+
+L:SetOptionLocalization({
+	SoundWOP		= "语音警告：重要技能",
+	HudMAP			= "高级定位监视(HUD)：$spell:138295爆炸",
+	timerAnima		= "计时器：下一次$spell:138295爆炸",
+	SetIconOnUnstableVita	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(138297),
+	SetIconOnUnstableAnima	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(138288)
+})
 
 -------------
 --  Trash  --

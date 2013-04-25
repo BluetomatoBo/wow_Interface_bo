@@ -44,7 +44,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 9320 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 9350 $"):sub(12, -3)),
 	DisplayVersion = "5.2 語音增強版", -- the string that is shown as version
 	ReleaseRevision = 9314 -- the revision of the latest stable version that is available
 }
@@ -203,7 +203,7 @@ local _, class = UnitClass("player")
 local LastZoneText = ""
 local LastZoneMapID = -1
 local queuedBattlefield = {}
-local combatDelay = false
+local loadDelay = nil
 local myRealRevision = DBM.Revision or DBM.ReleaseRevision
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -234,6 +234,7 @@ local IsInGroup = IsInGroup
 local IsInInstance = IsInInstance
 local UnitAffectingCombat = UnitAffectingCombat
 local UnitExists = UnitExists
+local UnitIsDead = UnitIsDead
 local GetSpellInfo = GetSpellInfo
 local EJ_GetSectionInfo = EJ_GetSectionInfo
 
@@ -271,7 +272,7 @@ end
 local function sendSync(prefix, msg)
 	local zoneType = select(2, IsInInstance())
 	msg = msg or ""
-	if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInInstance() then--For BGs, LFR and LFG (we also check IsInInstance() so if you're in queue but fighting osmething outside like sha, it'll sync in "RAID" instead)
+	if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInInstance() then--For BGs, LFR and LFG (we also check IsInInstance() so if you're in queue but fighting something outside like a world boss, it'll sync in "RAID" instead)
 		SendAddonMessage("D4", prefix .. "\t" .. msg, "INSTANCE_CHAT")
 	else
 		if IsInRaid() then
@@ -1097,9 +1098,19 @@ end
 
 do
 	local sortMe = {}
+	
 	local function sort(v1, v2)
-		return (v1.revision or 0) > (v2.revision or 0)
+		if v1.revision and not v2.revision then
+			return true
+		elseif v2.revision and not v1.revision then
+			return false
+		elseif v1.revision and v2.revision then
+			return v1.revision > v2.revision
+		else
+			return (v1.bwarevision or v1.bwrevision or 0) > (v2.bwarevision or v2.bwrevision or 0)
+		end
 	end
+
 	function DBM:ShowVersions(notify)
 		for i, v in pairs(raid) do
 			table.insert(sortMe, v)
@@ -1401,6 +1412,7 @@ do
 			if not inRaid then
 				inRaid = true
 				sendSync("H")
+				SendAddonMessage("BigWigs", "VQ:0", IsPartyLFG() and "INSTANCE_CHAT" or "RAID")--Basically "H" to bigwigs. Tell Bigwigs users we joined raid. Send revision of 0 so bigwigs ignores revision but still replies with their version information
 				DBM:Schedule(2, DBM.RequestTimers, DBM)
 				DBM:Schedule(2, DBM.RoleCheck, DBM)
 				fireEvent("raidJoin", playerName)
@@ -1461,6 +1473,7 @@ do
 				-- joined a new party
 				inRaid = true
 				sendSync("H")
+				SendAddonMessage("BigWigs", "VQ:0", IsPartyLFG() and "INSTANCE_CHAT" or "PARTY")
 				DBM:Schedule(2, DBM.RequestTimers, DBM)
 				DBM:Schedule(2, DBM.RoleCheck, DBM)
 				fireEvent("partyJoin", playerName)
@@ -1770,9 +1783,19 @@ function DBM:ACTIVE_TALENT_GROUP_CHANGED()
 end
 
 function DBM:PLAYER_REGEN_ENABLED()
-	if combatDelay then
-		combatDelay = false
-		collectgarbage("collect")
+	if loadDelay then
+		if type(loadDelay) == "table" then
+			for i, v in ipairs(loadDelay) do
+				DBM:LoadMod(v)
+			end
+		else
+			DBM:LoadMod(loadDelay)
+		end
+		loadDelay = nil
+	end
+	if guiRequested and not IsAddOnLoaded("DBM-GUI") then
+		guiRequested = false
+		DBM:LoadGUI()
 	end
 end
 
@@ -1905,19 +1928,12 @@ do
 --		self:AddMsg(LastZoneMapID)--Debug
 		for i, v in ipairs(self.AddOns) do
 			if not IsAddOnLoaded(v.modId) and (checkEntry(v.zone, LastZoneText) or (checkEntry(v.zoneId, LastZoneMapID))) then --To Fix blizzard bug here as well. MapID loading requiring instance since we don't force map outside instances, prevent throne loading at login outside instances. -- TODO: this work-around implies that zoneID based loading is only used for instances
-				-- srsly, wtf? LoadAddOn doesn't work properly on ZONE_CHANGED_NEW_AREA when reloading the UI
-				-- TODO: is this still necessary? this was a WotLK beta bug A: loading stuff during a loading screen seems to bug sometimes as of 4.1
---				if firstZoneChangedEvent then
---					firstZoneChangedEvent = false
-					self:Unschedule(DBM.LoadMod, DBM, v)
-					self:Schedule(3, DBM.LoadMod, DBM, v)
-					--Lets try multiple checks, cause quite frankly this has been failinga bout 50% of time with just one check.
-					self:Schedule(4, DBM.ScenarioCheck)
-					self:Schedule(8, DBM.ScenarioCheck)
-					self:Schedule(12, DBM.ScenarioCheck)
---				else -- just the first event seems to be broken and loading stuff during the ZONE_CHANGED event is slightly better as it doesn't add a short lag just after the loading screen (instead the loading screen is a few ms longer, no one notices that, but a 100 ms lag a few seconds after the loading screen sucks)
---					self:LoadMod(v)
---				end
+				self:Unschedule(DBM.LoadMod, DBM, v)
+				self:Schedule(3, DBM.LoadMod, DBM, v)
+				--Depending on speed of computer, scenario check needs to run multiple times to ensure it fires properly (it will fail if it tries to start in a loading screen)
+				self:Schedule(4, DBM.ScenarioCheck)
+				self:Schedule(8, DBM.ScenarioCheck)
+				self:Schedule(12, DBM.ScenarioCheck)
 			end
 		end
 		if select(2, IsInInstance()) == "pvp" and not self:GetModByName("AlteracValley") then
@@ -1932,7 +1948,6 @@ do
 end
 
 --LFG_IsHeroicScenario(dungeonID)--5.3
---Going to have to stop neglecting scenario mods. in fact, we should get all the current scenarios finished now, they all have heroics in 5.3
 function DBM:ScenarioCheck()
 	DBM:Unschedule(DBM.ScenarioCheck)
 	if combatInfo[LastZoneMapID] then
@@ -1946,6 +1961,21 @@ end
 
 function DBM:LoadMod(mod)
 	if type(mod) ~= "table" then return false end
+	--In combat and it's not a raid boss. We'll just delay mod load until we leave combat to avoid "script ran to long errors"
+	--This should avoid most load problems (especially in LFR) When zoning in while in combat which causes the mod to fail to load/work correctly
+	--IF we are fighting a boss, we don't have much of a choice but to try and load anyways since script ran too long isn't actually a guarentee.
+	--it's mainly for slower computers that fail to load mods in combat. Most can load in combat if we delay the garbage collect
+	if InCombatLockdown() and IsInInstance() and not IsEncounterInProgress() then
+		if loadDelay then
+			if type(loadDelay) ~= "table" then
+				loadDelay = { loadDelay }
+			end
+			loadDelay[#loadDelay + 1] = mod
+		else
+			loadDelay = mod
+		end
+		return
+	end
 	local _, _, _, enabled = GetAddOnInfo(mod.modId)
 	if not enabled then
 		EnableAddOn(mod.modId)
@@ -1977,9 +2007,7 @@ function DBM:LoadMod(mod)
 			DBM_GUI:UpdateModList()
 		end
 		local _, instanceType, difficulty, _, maxPlayers = GetInstanceInfo()
-		if InCombatLockdown() and difficulty == 1 or difficulty == 2 then--In combat in a 5 man. the garbage collect on 5 man party mods is too big to do in combat and causes "script ran too long"
-			combatDelay = true
-		else
+		if not InCombatLockdown() then--We loaded in combat because a raid boss was in process, but lets at least delay the garbage collect so at least load mod is half as bad, to do our best to avoid "script ran too long"
 			collectgarbage("collect")
 		end
 		return true
@@ -2133,20 +2161,25 @@ do
 		DBM:StartLogging(timer, checkForActualPull)
 	end
 
+	local function SendVersion()
+		sendSync("V", ("%d\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()))
+	end
+
 	-- TODO: is there a good reason that version information is broadcasted and not unicasted?
 	syncHandlers["H"] = function(sender)
-		sendSync("V", ("%d\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()))
+		DBM:Unschedule(SendVersion)--Throttle so we don't needlessly send tons of comms during initial raid invites
+		DBM:Schedule(3, SendVersion)--Send version if 3 seconds have past since last "Hi" sync
 	end
 
 	syncHandlers["VR"] = function(sender, bwrevision)--Sent by bigwigs releases
 		if bwrevision and raid[sender] then
-			raid[sender].bwrevision = bwrevision
+			raid[sender].bwrevision = tonumber(bwrevision)
 		end
 	end
 	
 	syncHandlers["VRA"] = function(sender, bwarevision)--Sent by bigwigs Alphas
 		if bwarevision and raid[sender] then
-			raid[sender].bwarevision = bwarevision
+			raid[sender].bwarevision = tonumber(bwarevision)
 		end
 	end
 
@@ -2792,7 +2825,7 @@ function checkWipe(confirm)
 				DBM:EndCombat(inCombat[i], true)
 			end
 		else
-			local maxDelayTime = (savedDifficulty == "worldboss" and 20) or 5 --wait 15s more on worldboss do actual wipe.
+			local maxDelayTime = (savedDifficulty == "worldboss" and 30) or 5 --wait 25s more on worldboss do actual wipe.
 			for i, v in ipairs(inCombat) do
 				maxDelayTime = v.combatInfo and v.combatInfo.wipeTimer and v.combatInfo.wipeTimer > maxDelayTime and v.combatInfo.wipeTimer or maxDelayTime
 			end
@@ -2822,24 +2855,30 @@ function DBM:StartCombat(mod, delay, synced, syncedStartHp, noKillRecord)
 			mod.inCombatOnlyEventsRegistered = 1
 			mod:RegisterEvents(unpack(mod.inCombatOnlyEvents))
 		end
-		if mod:IsDifficulty("lfr25") then
-			mod.stats.lfr25Pulls = mod.stats.lfr25Pulls + 1
-		elseif mod:IsDifficulty("normal5", "worldboss") then
-			mod.stats.normalPulls = mod.stats.normalPulls + 1
-		elseif mod:IsDifficulty("heroic5") then
-			mod.stats.heroicPulls = mod.stats.heroicPulls + 1
-		elseif mod:IsDifficulty("challenge5") then
-			mod.stats.challengePulls = mod.stats.challengePulls + 1
-		elseif mod:IsDifficulty("normal10") then
-			mod.stats.normalPulls = mod.stats.normalPulls + 1
-			local _, _, _, _, maxPlayers = GetInstanceInfo()
-			--Because we still combine 40 mans with 10 man raids, we use maxPlayers arg for player count.
-		elseif mod:IsDifficulty("heroic10") then
-			mod.stats.heroicPulls = mod.stats.heroicPulls + 1
-		elseif mod:IsDifficulty("normal25") then
-			mod.stats.normal25Pulls = mod.stats.normal25Pulls + 1
-		elseif mod:IsDifficulty("heroic25") then
-			mod.stats.heroic25Pulls = mod.stats.heroic25Pulls + 1
+		--Fix for "attempt to perform arithmetic on field 'stats' (a nil value)"
+		if not mod.stats then
+			self:AddMsg(DBM_CORE_BAD_LOAD)--Warn user that they should reload ui soon as they leave combat to get their mod to load correctly as soon as possible
+			mod.ignoreBestkill = true--Force this to true so we don't check any more occurances of "stats"
+		else
+			if mod:IsDifficulty("lfr25") then
+				mod.stats.lfr25Pulls = mod.stats.lfr25Pulls + 1
+			elseif mod:IsDifficulty("normal5", "worldboss") then
+				mod.stats.normalPulls = mod.stats.normalPulls + 1
+			elseif mod:IsDifficulty("heroic5") then
+				mod.stats.heroicPulls = mod.stats.heroicPulls + 1
+			elseif mod:IsDifficulty("challenge5") then
+				mod.stats.challengePulls = mod.stats.challengePulls + 1
+			elseif mod:IsDifficulty("normal10") then
+				mod.stats.normalPulls = mod.stats.normalPulls + 1
+				local _, _, _, _, maxPlayers = GetInstanceInfo()
+				--Because we still combine 40 mans with 10 man raids, we use maxPlayers arg for player count.
+			elseif mod:IsDifficulty("heroic10") then
+				mod.stats.heroicPulls = mod.stats.heroicPulls + 1
+			elseif mod:IsDifficulty("normal25") then
+				mod.stats.normal25Pulls = mod.stats.normal25Pulls + 1
+			elseif mod:IsDifficulty("heroic25") then
+				mod.stats.heroic25Pulls = mod.stats.heroic25Pulls + 1
+			end
 		end
 		if C_Scenario.IsInScenario() then
 			mod.inScenario = true
@@ -2980,7 +3019,12 @@ function DBM:EndCombat(mod, wipe)
 		if not savedDifficulty or not difficultyText then--prevent error if savedDifficulty or difficultyText is nil
 			savedDifficulty, difficultyText = self:GetCurrentInstanceDifficulty()
 		end
+		if not mod.stats then--This will be nil if the mod for this intance failed to load fully because "script ran too long" (it tried to load in combat and failed)
+			self:AddMsg(DBM_CORE_BAD_LOAD)--Warn user that they should reload ui soon as they leave combat to get their mod to load correctly as soon as possible
+			return--Don't run any further, stats are nil on a bad load so rest of this code will also error out.
+		end
 		if wipe then
+			--Fix for "attempt to perform arithmetic on field 'pull' (a nil value)" (which was actually caused by stats being nil, so we never did getTime on pull, fixing one SHOULD fix the other)
 			local thisTime = GetTime() - mod.combatInfo.pull
 			local wipeHP = ("%d%%"):format((mod.highesthealth and DBM:GetHighestBossHealth() or DBM:GetLowestBossHealth()) * 100)
 			local totalPulls = (savedDifficulty == "lfr25" and mod.stats.lfr25Pulls) or ((savedDifficulty == "heroic5" or savedDifficulty == "heroic10") and mod.stats.heroicPulls) or (savedDifficulty == "challenge5" and mod.stats.challengePulls) or (savedDifficulty == "normal25" and mod.stats.normal25Pulls) or (savedDifficulty == "heroic25" and mod.stats.heroic25Pulls) or ((savedDifficulty == "normal5" or savedDifficulty == "normal10" or savedDifficulty == "worldboss") and mod.stats.normalPulls) or 0
@@ -3705,6 +3749,7 @@ function DBM:Capitalize(str)
 	return str:sub(1, numBytes):upper()..str:sub(numBytes + 1):lower()
 end
 
+--Credits to Funkeh`
 function DBM:RoleCheck()
 	if not DBM.Options.SetPlayerRole then return end
 	if not InCombatLockdown() and IsInGroup() and not IsPartyLFG() then
@@ -3906,6 +3951,10 @@ function bossModPrototype:SetCreatureID(...)
 		local cId = ...
 		bossIds[cId] = true
 	end
+end
+
+function bossModPrototype:SetQuestID(id)
+	self.questId = id
 end
 
 function bossModPrototype:Toggle()

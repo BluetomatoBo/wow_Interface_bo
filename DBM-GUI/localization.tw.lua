@@ -41,6 +41,9 @@ L.NoSound					= "靜音"
 
 L.IconsInUse				= "此模組已使用的標記"
 
+L.QuestComplete				= "本週已擊殺"
+L.QuestIncomplete			= "本週未擊殺(注意：如果你登錄後曾重載界面則此信息不準確)"
+
 -- Tab: Boss Statistics
 L.BossStatistics			= "首領狀態"
 L.Statistic_Kills			= "勝利："

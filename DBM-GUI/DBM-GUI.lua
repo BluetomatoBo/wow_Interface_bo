@@ -40,7 +40,7 @@
 
 
 
-local revision =("$Revision: 9299 $"):sub(12, -3)
+local revision =("$Revision: 9355 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 local fixeditframe = false
 
@@ -2405,7 +2405,21 @@ do
 			elseif	i == 8 then		icon:SetTexCoord(0.75,	1,		0.25,	0.5)
 			end
 		end
-
+		
+		--NOTE, blizzard bug, IsQuestFlaggedCompleted always returns nil after a ReloadUI. They work on a fresh login
+		--Nothing we can do about this bug, the icon will be wrong when it happens.
+		--Also, only ToT and world bosses use quest flags. Old LFRs info can be pulled from "local bossName, texture, isKilled = GetLFGDungeonEncounterInfo(dungeonID, i)" if we know the bosses correct boss index
+		if mod.questId then
+			local icon = panel.frame:CreateTexture()
+			if IsQuestFlaggedCompleted(mod.questId) then
+				icon:SetTexture(READY_CHECK_READY_TEXTURE)--Already complete for week. (ie, recieved LFR loot, legendary quest chance, and rep off boss for week)
+			else
+				icon:SetTexture(READY_CHECK_NOT_READY_TEXTURE)--Not yet completed for week  (ie, has not yet recieved LFR loot, legendary quest chance, and rep off boss for week)
+			end
+			icon:SetPoint("TOPLEFT", panel.frame, "TOPRIGHT", -14, -20)--Meh, it's not ugly, but probably not right place or even coordinates for it, i plugged in random numbers and it looked ok!
+			icon:SetWidth(16)
+			icon:SetHeight(16)
+		end
 		local reset  = panel:CreateButton(L.Mod_Reset, 300)--button ugly.
 		reset:SetPoint('TOPRIGHT', panel.frame, "TOPRIGHT", -14, -2)
 		reset:SetScript("OnClick", function(self)

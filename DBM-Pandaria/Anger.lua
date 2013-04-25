@@ -2,9 +2,10 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9282 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
 mod:SetCreatureID(60491)
 mod:SetModelID(41448)
+mod:SetQuestID(32099)
 mod:SetZone(809)--Kun-Lai Summit
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)
 
