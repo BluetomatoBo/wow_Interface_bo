@@ -2,13 +2,15 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Multishot", "koKR")
 if not L then return end
 
 L["achievements"] = "업적"
+L["arena"] = "arena win or draw" -- Requires localization
+L["battleground"] = "battleground win" -- Requires localization
 L["bosskillshots"] = "처치 스크린샷"
 L["bosskillsparty"] = "5인 인던"
 L["bosskillsraid"] = "10/25/40인 공격대"
 L["BOTTOMLEFT"] = "왼쪽 하단"
 L["BOTTOMRIGHT"] = "오른쪽 하단"
 L["capture"] = "캡쳐시 설정"
-L["challengemode"] = "challenge mode medals" -- Requires localization
+L["challengemode"] = "도전 모드"
 L["charpane"] = "케릭터 창 보이기"
 L["clear the text and press Enter to restore defaults."] = "기본값 설정시 입력한 내용은 모두 지워집니다."
 L["close"] = "열린 창 닫기"
@@ -32,6 +34,7 @@ L["rarekills"] = "희귀몹"
 L["repchange"] = "평판레벨 변경"
 L["reset"] = "첫 처치기록 초기화"
 L["set the format for watermark text"] = "워터마크 기록 방법"
+L["Test"] = "Test" -- Requires localization
 L["tga"] = "압축하지 않음 (TGA)"
 L["timeline"] = "Timeline"
 L["timeLineEnable"] = "타임라인 모드 설정 (자동 캡쳐)"
@@ -43,6 +46,8 @@ L["uihide"] = "UI 숨기기"
 L["various"] = "기타항목"
 L["watermark"] = "워터마크"
 L["watermarkanchor"] = "워터마크 텍스트 화면 위치 설정"
+L["watermarkfont"] = "Set the watermark font" -- Requires localization
+L["watermarkfontsize"] = "Set the watermark font size" -- Requires localization
 L["watermarkformat"] = "워터마크 텍스트 구성"
 L["watermarkformattext"] = [=[
 $n = 이름
@@ -52,3 +57,4 @@ $z = 지역
 $r = 서버
 $d = 날짜
 $b = 라인 변경]=]
+L["watermarktest"] = "Watermark display (toggle)" -- Requires localization

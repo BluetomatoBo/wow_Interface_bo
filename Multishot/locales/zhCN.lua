@@ -2,6 +2,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Multishot", "zhCN")
 if not L then return end
 
 L["achievements"] = "获得成就"
+L["arena"] = "arena win or draw" -- Requires localization
+L["battleground"] = "battleground win" -- Requires localization
 L["bosskillshots"] = "击杀截图"
 L["bosskillsparty"] = "5人副本"
 L["bosskillsraid"] = "10/25/40人团队副本"
@@ -32,6 +34,7 @@ L["rarekills"] = "稀有怪"
 L["repchange"] = "声望等级变化"
 L["reset"] = "重置首次击杀历史"
 L["set the format for watermark text"] = "设置水印文字格式"
+L["Test"] = "Test" -- Requires localization
 L["tga"] = "未压缩（TGA格式）"
 L["timeline"] = "顺时拍摄"
 L["timeLineEnable"] = "开启顺时拍摄（自动截图）"
@@ -43,5 +46,8 @@ L["uihide"] = "隐藏UI"
 L["various"] = "其他"
 L["watermark"] = "水印"
 L["watermarkanchor"] = "设置水印位置"
+L["watermarkfont"] = "Set the watermark font" -- Requires localization
+L["watermarkfontsize"] = "Set the watermark font size" -- Requires localization
 L["watermarkformat"] = "设置水印文字"
 L["watermarkformattext"] = "$n =角色 $c = 职业 $l = 等级 $z = 地区 $r = 服务器 $d = 日期 $b = 换行"
+L["watermarktest"] = "Watermark display (toggle)" -- Requires localization

@@ -2,6 +2,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Multishot", "frFR")
 if not L then return end
 
 L["achievements"] = "Hauts faits"
+L["arena"] = "arena win or draw" -- Requires localization
+L["battleground"] = "battleground win" -- Requires localization
 L["bosskillshots"] = "killing screenshots" -- Requires localization
 L["bosskillsparty"] = "groupes 5 joueurs" -- Needs review
 L["bosskillsraid"] = "raids 10/25/40" -- Needs review
@@ -32,6 +34,7 @@ L["rarekills"] = "Monstres rares" -- Needs review
 L["repchange"] = "Changements de réputation" -- Needs review
 L["reset"] = "reset firstkill history" -- Requires localization
 L["set the format for watermark text"] = "set the format for watermark text" -- Requires localization
+L["Test"] = "Test" -- Requires localization
 L["tga"] = "non-compressé (TGA)" -- Needs review
 L["timeline"] = "Timeline" -- Requires localization
 L["timeLineEnable"] = "Enable Timeline mode (auto screenshot)" -- Requires localization
@@ -43,6 +46,8 @@ L["uihide"] = "Cacher l'interface" -- Needs review
 L["various"] = "various" -- Requires localization
 L["watermark"] = "watermark" -- Requires localization
 L["watermarkanchor"] = "Set the screen location of the watermark text" -- Requires localization
+L["watermarkfont"] = "Set the watermark font" -- Requires localization
+L["watermarkfontsize"] = "Set the watermark font size" -- Requires localization
 L["watermarkformat"] = "Configure the watermark text" -- Requires localization
 L["watermarkformattext"] = [=[
 $n = name
@@ -52,3 +57,4 @@ $z = zone
 $r = realm
 $d = date
 $b = line change]=] -- Requires localization
+L["watermarktest"] = "Watermark display (toggle)" -- Requires localization

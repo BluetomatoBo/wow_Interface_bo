@@ -1,0 +1,17 @@
+tag 3.0.9
+53b287fa5ce88afa0b6746d60a5218afc4cab527
+Dridzt <dridzt.addons@hotmail.com>
+2013-04-26 19:44:37 +0300
+
+Tag as 3.0.9 "Thunder King"
+
+
+--------------------
+
+Dridzt:
+	- .toc update, compatible with WoW 5.2.0 "thunder king"
+	- Add font and fontsize selection and a test option for watermark, move watermark to higher strata.
+	- Add battleground and arena win screenshot options (beta).
+	- Re-arrange and improve options layout.
+	- Attempt to fix a rare condition when hideui option doesn't restore UI visibility.
+	- Update libraries for new 5.2.0 rares.

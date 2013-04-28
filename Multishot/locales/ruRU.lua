@@ -2,13 +2,15 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Multishot", "ruRU")
 if not L then return end
 
 L["achievements"] = "Достижения"
+L["arena"] = "arena win or draw" -- Requires localization
+L["battleground"] = "battleground win" -- Requires localization
 L["bosskillshots"] = "Смерть босса"
 L["bosskillsparty"] = "Подземелья"
 L["bosskillsraid"] = "Рейды"
 L["BOTTOMLEFT"] = "Внизу слева"
 L["BOTTOMRIGHT"] = "Внизу справа"
 L["capture"] = "Настройки снимка"
-L["challengemode"] = "challenge mode medals" -- Requires localization
+L["challengemode"] = "Медали испытаний" -- Needs review
 L["charpane"] = "Показывать окно персонажа"
 L["clear the text and press Enter to restore defaults."] = "очистите этот текст и нажмите Ввод, чтобы восстановить значения по умолчанию."
 L["close"] = "Закрыть открытые окна"
@@ -32,6 +34,7 @@ L["rarekills"] = "Редкие мобы"
 L["repchange"] = "Изменения репутации"
 L["reset"] = "Сбросить историю первых убийств"
 L["set the format for watermark text"] = "формат текста водяного знака"
+L["Test"] = "Test" -- Requires localization
 L["tga"] = "Без сжатия (TGA)"
 L["timeline"] = "Скриншоты с задержкой"
 L["timeLineEnable"] = "Включить скриншоты с задержкой (авто скриншот)"
@@ -43,6 +46,8 @@ L["uihide"] = "Спрятать интерфейс"
 L["various"] = "Разное"
 L["watermark"] = "водяной знак"
 L["watermarkanchor"] = "Установка расположение текста водяного знака"
+L["watermarkfont"] = "Set the watermark font" -- Requires localization
+L["watermarkfontsize"] = "Set the watermark font size" -- Requires localization
 L["watermarkformat"] = "Настройка текста водяного знака"
 L["watermarkformattext"] = [=[
 $n = имя
@@ -52,3 +57,4 @@ $z = зона
 $r = игровой мир
 $d = дата
 $b = линия изменения]=]
+L["watermarktest"] = "Watermark display (toggle)" -- Requires localization
