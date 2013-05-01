@@ -1,0 +1,25 @@
+------------------------------------------------------------------------
+r390 | tiker | 2013-04-30 14:12:12 +0000 (Tue, 30 Apr 2013) | 1 line
+Changed paths:
+   A /tags/5.2.3 (from /trunk:389)
+
+Tagging as 5.2.3
+------------------------------------------------------------------------
+r389 | tiker | 2013-04-28 13:53:40 +0000 (Sun, 28 Apr 2013) | 3 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Added support for Armored Red Dragonhawk
+- Added support for Armored Blue Dragonhawk
+- Added support for Enchanted Fey Dragon
+------------------------------------------------------------------------
+r388 | tiker | 2013-04-12 15:23:07 +0000 (Fri, 12 Apr 2013) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- added some new zone ids for recognition
+------------------------------------------------------------------------
