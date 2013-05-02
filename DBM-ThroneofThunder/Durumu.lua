@@ -3,10 +3,11 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9385 $"):sub(12, -3))
 mod:SetCreatureID(68036)--Crimson Fog 69050, 
 mod:SetModelID(47189)
 mod:SetQuestID(32750)
+mod:SetZone()
 mod:SetUsedIcons(7, 6, 4, 1)
 
 mod:RegisterCombat("combat")
@@ -458,7 +459,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 					x, y = GetPlayerMapPosition(uId)
 				end
 				local inRange = DBM.RangeCheck:GetDistance("player", x, y)
-				if inRange and inRange < 16 then--Range hard to get perfect, a player 30 yards away might still be in it. I say 15 is probably good middle ground to catch most of the "near"
+				if inRange and inRange < 21 then--Range hard to get perfect, a player 30 yards away might still be in it. I say 15 is probably good middle ground to catch most of the "near"
 					specWarnForceOfWillNear:Show(target)
 				end
 			end
@@ -621,8 +622,7 @@ end
 --Because blizz sucks and these do NOT show in combat log AND the emote only fires for initial application, but not for when a player dies and beam jumps.
 --Reports are this is majorly fucked up in LFR, because the antispam in name doesn't work with server names (wtf? maybe only happens if server name strip is turned on?)
 --I will not be able to debug for several hours but commenting in case someone else runs LFR before I do in 5 hours
-function mod:UNIT_AURA(uId)	
-	if self:IsDifficulty("lfr25") then return end
+function mod:UNIT_AURA(uId)
 	if UnitDebuff(uId, blueTracking) then
 		local name = DBM:GetUnitFullName(uId)
 		if lastBlue ~= name then
@@ -636,9 +636,9 @@ function mod:UNIT_AURA(uId)
 				DBM.Flash:Show(0, 0, 1)
 				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lgzb.mp3") --藍光
 			end
-			if self.Options.SetIconRays then
+--[[			if self.Options.SetIconRays then
 				self:SetIcon(name, 6)--Square
-			end
+			end]]
 		end
 	elseif UnitDebuff(uId, redTracking) then
 		local name = DBM:GetUnitFullName(uId)
@@ -649,9 +649,9 @@ function mod:UNIT_AURA(uId)
 				DBM.Flash:Show(1, 0, 0)
 				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hgzb.mp3") --紅光
 			end
-			if self.Options.SetIconRays then
+--[[			if self.Options.SetIconRays then
 				self:SetIcon(name, 7)--Cross
-			end
+			end]]
 		end
 	end
 end

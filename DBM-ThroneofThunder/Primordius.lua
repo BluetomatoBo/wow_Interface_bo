@@ -2,10 +2,11 @@ local mod	= DBM:NewMod(820, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9383 $"):sub(12, -3))
 mod:SetCreatureID(69017)--69070 Viscous Horror, 69069 good ooze, 70579 bad ooze (patched out of game, :\)
 mod:SetModelID(47009)
 mod:SetQuestID(32751)
+mod:SetZone()
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)--Although if you have 8 viscous horrors up, you are probably doing fight wrong.
 
 mod:RegisterCombat("combat")
@@ -120,6 +121,7 @@ local bigOozeGUIDS = {}
 function mod:BigOoze()
 	bigOozeCount = bigOozeCount + 1
 	bigOozeAlive = bigOozeAlive + 1
+--	print("DBM Debug Spawn: ", bigOozeAlive)
 	warnViscousHorror:Show(bigOozeCount)
 	specWarnViscousHorror:Show(bigOozeCount)
 	if mod:IsTank() then
@@ -140,7 +142,7 @@ function mod:PLAYER_TARGET_CHANGED()
 	local guid = UnitGUID("target")
 	if guid and (bit.band(guid:sub(1, 5), 0x00F) == 3 or bit.band(guid:sub(1, 5), 0x00F) == 5) then
 		local cId = tonumber(guid:sub(6, 10), 16)
-		if cId == 69070 and not bigOozeGUIDS[guid] then
+		if cId == 69070 and not bigOozeGUIDS[guid] and not UnitIsDead("target") then
 			local icon = 9 - bigOozeAlive--Start with skull for big ooze then subtrack from it based on number of oozes up to choose an unused icon
 			bigOozeGUIDS[guid] = true--NOW we add this ooze to the table now that we're done counting old ones
 			self:UnregisterShortTermEvents()--Add is marked, unregister events until next ooze spawns
@@ -154,7 +156,7 @@ function mod:UPDATE_MOUSEOVER_UNIT()
 	local guid = UnitGUID("mouseover")
 	if guid and (bit.band(guid:sub(1, 5), 0x00F) == 3 or bit.band(guid:sub(1, 5), 0x00F) == 5) then
 		local cId = tonumber(guid:sub(6, 10), 16)
-		if cId == 69070 and not bigOozeGUIDS[guid] then
+		if cId == 69070 and not bigOozeGUIDS[guid] and not UnitIsDead("mouseover") then
 			local icon = 9 - bigOozeAlive--Start with skull for big ooze then subtrack from it based on number of oozes up to choose an unused icon
 			bigOozeGUIDS[guid] = true--NOW we add this ooze to the table now that we're done counting old ones
 			self:UnregisterShortTermEvents()--Add is marked, unregister events until next ooze spawns
@@ -359,10 +361,10 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 end
 
 function mod:UNIT_DIED(args)
-	local cid = self:GetCIDFromGUID(args.destGUID)
-	if cId == 69070 and bigOozeGUIDS[args.destGUID] then
+	if bigOozeGUIDS[args.destGUID] then
 		bigOozeAlive = bigOozeAlive - 1
-		bigOozeGUIDS[guid] = nil
+		bigOozeGUIDS[args.destGUID] = nil
+--		print("DBM Debug Died: ", bigOozeAlive)
 	end
 end
 

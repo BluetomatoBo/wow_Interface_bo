@@ -8,10 +8,11 @@ local sndOrb	= mod:NewSound(nil, "SoundOrb", mod:IsTank())
 local LibRange = LibStub("LibRangeCheck-2.0")
 --BH ADD END
 
-mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9384 $"):sub(12, -3))
 mod:SetCreatureID(68476)
 mod:SetModelID(47325)
 mod:SetQuestID(32745)
+mod:SetZone()
 mod:SetUsedIcons(1)
 
 mod:RegisterCombat("combat")

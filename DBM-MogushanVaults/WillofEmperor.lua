@@ -410,7 +410,7 @@ function mod:UNIT_POWER(uId)
 	if (not chooseboss(uId)) then return end
 	if (self:GetUnitCreatureId(uId) == 60399 or self:GetUnitCreatureId(uId) == 60400) and UnitPower(uId) == 18 and not comboWarned then
 		comboWarned = true
-		specWarnCombo:Show()
+		specWarnCombo:Show()		
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zbbyz.mp3") --準備半月斬
 	elseif (self:GetUnitCreatureId(uId) == 60399 or self:GetUnitCreatureId(uId) == 60400) and UnitPower(uId) == 1 then
 		comboWarned = false

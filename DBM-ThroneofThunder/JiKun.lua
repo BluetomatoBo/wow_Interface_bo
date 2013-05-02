@@ -4,10 +4,11 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPWS	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9409 $"):sub(12, -3))
 mod:SetCreatureID(69712)
 mod:SetModelID(46675)
 mod:SetQuestID(32749)
+mod:SetZone()
 
 mod:RegisterCombat("combat")
 

@@ -3,10 +3,11 @@ local L		= mod:GetLocalizedStrings()
 -- BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9383 $"):sub(12, -3))
 mod:SetCreatureID(69473)--69888
 mod:SetModelID(47739)
 mod:SetQuestID(32753)
+mod:SetZone()
 mod:SetUsedIcons(2, 6)
 
 mod:RegisterCombat("combat")
@@ -68,7 +69,7 @@ mod:AddBoolOption("HudMAP", true, "sound")
 local function LoopUnstableAnima()
 	mod:Unschedule(LoopUnstableAnima)
 	timerUnstableAnima:Start()
-	sndWOP:Schedule(10,"Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wmxn.mp3") --5ÃëĞÄÄÜ±¬Õ¨
+	sndWOP:Schedule(10,"Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wmxn.mp3") --5ç§’å¿ƒèƒ½çˆ†ç‚¸
 	mod:Schedule(15, LoopUnstableAnima)
 	if mod.Options.HudMAP and UnstableAnimatarget then
 		UnstableAnimaMarkers[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", UnstableAnimatarget, 8, 5, 1, 1, 0, 0.8):Appear():RegisterForAlerts():Rotate(360, 5.5):SetAlertColor(0, 0, 1, 0.5))
@@ -88,19 +89,19 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_CAST_START(args)
-	if args.spellId == 138321 then --ÔìÎï²ÄÁÏ
+	if args.spellId == 138321 then --é€ ç‰©ææ–™
 		warnMaterialsofCreation:Show()
 		specWarnMaterialsofCreation:Show()
 		timerMaterialsofCreationCD:Start()
 		specWarnCreationSwitch:Schedule(2)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbdq.mp3") --œÊ‚ä´òÇò
-	elseif args.spellId == 138338 then --ÕÙ†¾¿ÖÄ§
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbdq.mp3") --æº–å‚™æ‰“çƒ
+	elseif args.spellId == 138338 then --å¬å–šæé­”
 		warnSummonSanguineHorror:Show()
 		specWarnSummonSanguineHorror:Show()
 		if self:AntiSpam(2, 1) then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xgkd.mp3") --Ğ¡¹Ö¿ì´ò
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xgkd.mp3") --å°æ€ªå¿«æ‰“
 		end
-	elseif args.spellId == 138339 then --ÕÙ»½¹êÁÑ×·×ÙÕß
+	elseif args.spellId == 138339 then --å¬å”¤é¾Ÿè£‚è¿½è¸ªè€…
 		warnSummonCracklingStalker:Show()
 		specWarnSummonCracklingStalker:Show()
 		if self:AntiSpam(2, 1) then
@@ -110,53 +111,53 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args.spellId == 138297 then --²»·€¶¨µÄÉúÃü
+	if args.spellId == 138297 then --ä¸ç©©å®šçš„ç”Ÿå‘½
 		warnUnstableVita:Show(args.destName)
 		timerUnstableVita:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnUnstableVita:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smdn.mp3") --ÉúÃüücÄã
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smdn.mp3") --ç”Ÿå‘½é»ä½ 
 		else
 			specWarnUnstableVitaOther:Show(args.destName)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bwsm.mp3") --²»·€¶¨ÉúÃü
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bwsm.mp3") --ä¸ç©©å®šç”Ÿå‘½
 		end
 		if self.Options.SetIconOnUnstableVita then
 			self:SetIcon(args.destName, 5)
 		end
-	elseif args.spellId == 138308 then --ÉúÃüŞDÒÆ
+	elseif args.spellId == 138308 then --ç”Ÿå‘½è½‰ç§»
 		warnUnstableVita:Show(args.destName)
 		timerUnstableVita:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnUnstableVita:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smdn.mp3") --ÉúÃüücÄã
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smdn.mp3") --ç”Ÿå‘½é»ä½ 
 		else
 			specWarnUnstableVitaOther:Show(args.destName)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smzy.mp3") --ÉúÃüŞDÒÆ
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smzy.mp3") --ç”Ÿå‘½è½‰ç§»
 		end
 		if self.Options.SetIconOnUnstableVita then
 			self:SetIcon(args.destName, 5)
 		end
-	elseif args.spellId == 138288 then --²»ÎÈ¶¨µÄĞÄÄÜ
+	elseif args.spellId == 138288 then --ä¸ç¨³å®šçš„å¿ƒèƒ½
 		warnUnstableAnima:Show(args.destName)
 		UnstableAnimatarget = args.destName
 		if args:IsPlayer() then
 			specWarnUnstableAnima:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xndn.mp3") --ĞÄÄÜücÄã
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xndn.mp3") --å¿ƒèƒ½é»ä½ 
 		else
 			specWarnUnstableAnimaOther:Show(args.destName)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bwxn.mp3") --²»·€¶¨ĞÄÄÜ
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bwxn.mp3") --ä¸ç©©å®šå¿ƒèƒ½
 		end
 		if self.Options.SetIconOnUnstableAnima then
 			self:SetIcon(args.destName, 2)
 		end
 		LoopUnstableAnima()
-	elseif args.spellId == 138331 then --¹àÊäĞÄÄÜ
+	elseif args.spellId == 138331 then --çŒè¾“å¿ƒèƒ½
 		warnImbuedwithAnima:Show()
 		timerSummonSanguineHorror:Start()
-	elseif args.spellId == 138332 then --¹àÊäÉúÃü
+	elseif args.spellId == 138332 then --çŒè¾“ç”Ÿå‘½
 		warnImbuedwithVita:Show()
 		timerSummonCracklingStalker:Start()
-	elseif args.spellId == 139087 then --š§œç¼ı
+	elseif args.spellId == 139087 then --æ¯€æ»…ç®­
 		warnRuinBolt:Show()
 	end
 end
@@ -191,7 +192,7 @@ end
 function mod:UNIT_POWER(uId)
 	if (self:GetUnitCreatureId(uId) == 69473) and UnitPower(uId) > 80 and not Warned then
 		Warned = true
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_nlgg.mp3") --ÄÜÁ¿ß^¸ß
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_nlgg.mp3") --èƒ½é‡éé«˜
 	elseif (self:GetUnitCreatureId(uId) == 69473) and UnitPower(uId) < 20 and Warned then
 		Warned = false
 	end

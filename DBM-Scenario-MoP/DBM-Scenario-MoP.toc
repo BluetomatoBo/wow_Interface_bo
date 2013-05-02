@@ -13,7 +13,7 @@
 ## X-DBM-Mod-Name-zhTW: 事件 (潘達利亞之謎)
 ## X-DBM-Mod-Name-zhCN: 场景战役 (熊猫人之谜)
 ## X-DBM-Mod-Sort: 35
-## X-DBM-Mod-LoadZoneID: 906, 851, 899, 911, 920, 934, 919, 900, 878, 912, 883, 822
+## X-DBM-Mod-LoadZoneID: 906, 851, 899, 911, 920, 934, 919, 900, 878, 912, 883, 882, 884, 914, 880
 localization.en.lua
 localization.tw.lua
 localization.cn.lua
@@ -25,8 +25,14 @@ ArenaOfAnnihilation\MapSizes.lua
 ArenaOfAnnihilation\ArenaOfAnnihilation.lua
 AssaultofZanvess\MapSizes.lua
 AssaultofZanvess\AssaultofZanvess.lua
+BrewmoonFestival\MapSizes.lua
+BrewmoonFestival\BrewmoonFestival.lua
 CryptofForgotenKings\MapSizes.lua
 CryptofForgotenKings\CryptofKings.lua
+DaggerInDark\MapSizes.lua
+DaggerInDark\DaggerInDark.lua
+GreenstoneVillage\MapSizes.lua
+GreenstoneVillage\GreenstoneVillage.lua
 Landfall\MapSizes.lua
 Landfall\Landfall.lua
 TheramoresFall\MapSizes.lua

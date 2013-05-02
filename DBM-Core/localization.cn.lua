@@ -55,6 +55,7 @@ DBM_CORE_OPTION_CATEGORY_SPECWARNINGS	= "特殊警报"
 DBM_CORE_OPTION_CATEGORY_SOUND			= "语音警告"
 DBM_CORE_OPTION_CATEGORY_MISC		= "其它"
 
+--BOSS
 DBM_CORE_AUTO_RESPONDED						= "已自动回复密语。"
 DBM_CORE_STATUS_WHISPER						= "%s：%s，%d/%d存活"
 DBM_CORE_AUTO_RESPOND_WHISPER				= "%s正在与%s交战，（当前%s，%d/%d存活）"
@@ -62,6 +63,12 @@ DBM_CORE_WHISPER_COMBAT_END_KILL			= "%s已在%s的战斗中取得胜利！"
 DBM_CORE_WHISPER_COMBAT_END_KILL_STATS		= "%s已在%s的战斗中取得胜利！总计%d次胜利。"
 DBM_CORE_WHISPER_COMBAT_END_WIPE_AT			= "%s在%s（%s）的战斗中灭团了。"
 DBM_CORE_WHISPER_COMBAT_END_WIPE_STATS_AT	= "%s在%s（%s）的战斗中灭团了。该难度下总共失败%d次。"
+--Scenarios (no percents. words like "fighting" or "wipe" changed to better fit scenarios)
+DBM_CORE_AUTO_RESPOND_WHISPER_SCENARIO		= "%s 正在进行战斗： %s (%d/%d people alive)"
+DBM_CORE_WHISPER_SCENARIO_END_KILL			= "%s 已完成 %s!"
+DBM_CORE_WHISPER_SCENARIO_END_KILL_STATS	= "%s 已完成 %s! 总计 %d 次胜利."
+DBM_CORE_WHISPER_SCENARIO_END_WIPE			= "%s 未能完成 %s."
+DBM_CORE_WHISPER_SCENARIO_END_WIPE_STATS	= "%s 未能完成 %s. 该难度下总计 %d 次失败."
 
 DBM_CORE_VERSIONCHECK_HEADER		= "Deadly Boss Mods - 版本检测"
 DBM_CORE_VERSIONCHECK_ENTRY			= "%s：%s (r%d)"

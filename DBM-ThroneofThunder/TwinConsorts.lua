@@ -4,10 +4,11 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPCX	= mod:NewSound(nil, "SoundWOP", true)
 local sndYX		= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9404 $"):sub(12, -3))
 mod:SetCreatureID(68905, 68904)--Lu'lin 68905, Suen 68904
 mod:SetModelID(46975)--Lu'lin, 46974 Suen
 mod:SetQuestID(32755)
+mod:SetZone()
 
 mod:RegisterCombat("combat")
 
@@ -94,6 +95,24 @@ local berserkTimer						= mod:NewBerserkTimer(600)
 mod:AddBoolOption("RangeFrame")--For various abilities that target even melee. UPDATE, cosmic barrage (worst of the 3 abilities) no longer target melee. However, light of day and tears of teh sun still do. melee want to split into 2-3 groups (depending on how many) but no longer have to stupidly spread about all crazy and out of range of boss during cosmic barrage to avoid dying. On that note, MAYBE change this to ranged default instead of all.
 local phase2Started = false
 local phase3Started = false
+local invokeTiger = GetSpellInfo(138264)
+local invokeCrane = GetSpellInfo(138189)
+local invokeSerpent = GetSpellInfo(138267)
+local invokeOx = GetSpellInfo(138254)
+
+local function isRunner(unit)
+	if UnitDebuff(unit, invokeTiger) or UnitDebuff(unit, invokeCrane) or UnitDebuff(unit, invokeSerpent) or UnitDebuff(unit, invokeOx) then
+		return true
+	end
+	return false
+end
+
+local constellationRunner
+do
+	constellationRunner = function(uId)
+		return isRunner(uId)
+	end
+end
 
 local CrashingStarCount = 0
 local NuclearInfernoCount = 0
@@ -254,7 +273,7 @@ function mod:OnCombatStart(delay)
 	table.wipe(lightmaker)
 	berserkTimer:Start(-delay)
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(8)
+		DBM.RangeCheck:Show(8, not constellationRunner)
 	end	
 	intTTtime()	
 	showTTtime(TTstart+1)
@@ -324,35 +343,43 @@ function mod:SPELL_AURA_APPLIED(args)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	elseif args.spellId == 138264 and args:IsPlayer() then  --白虎
 		if self.Options.HudMAP then
-			lightmaker["A1"] = register(DBMHudMap:AddEdge(0, 1, 0, 1, nil, nil, nil,705,352,731,381))
-			lightmaker["A2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,731,381,709,377))
-			lightmaker["A3"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,377,686,373))
-			lightmaker["A4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,686,373,712,398))
-			lightmaker["A5"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,712,398,709,376))
-			lightmaker["A6"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,376,705,354))
+			self:Schedule(1, function()
+				lightmaker["A1"] = register(DBMHudMap:AddEdge(0, 1, 0, 1, nil, nil, nil,705,352,731,381))
+				lightmaker["A2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,731,381,709,377))
+				lightmaker["A3"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,377,686,373))
+				lightmaker["A4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,686,373,712,398))
+				lightmaker["A5"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,712,398,709,376))
+				lightmaker["A6"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,376,705,354))
+			end)
 		end
 	elseif args.spellId == 138267 and args:IsPlayer() then  --青龍
 		if self.Options.HudMAP then
-			lightmaker["B1"] = register(DBMHudMap:AddEdge(0, 1, 0, 1, nil, nil, nil,693,393,686,371))
-			lightmaker["B2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,686,371,710,377))
-			lightmaker["B3"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,710,377,704,353))
-			lightmaker["B4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,704,353,725,361))
+			self:Schedule(1, function()
+				lightmaker["B1"] = register(DBMHudMap:AddEdge(0, 1, 0, 1, nil, nil, nil,693,393,686,371))
+				lightmaker["B2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,686,371,710,377))
+				lightmaker["B3"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,710,377,704,353))
+				lightmaker["B4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,704,353,725,361))
+			end)
 		end
 	elseif args.spellId == 138254 and args:IsPlayer() then  --玄牛
 		if self.Options.HudMAP then
-			lightmaker["C1"] = register(DBMHudMap:AddEdge(0, 1, 0, 1, nil, nil, nil,713,401,709,376))
-			lightmaker["C2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,376,705,352))
-			lightmaker["C3"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,705,352,688,370))
-			lightmaker["C4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,688,370,709,376))
-			lightmaker["C5"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,376,732,383))
+			self:Schedule(1, function()
+				lightmaker["C1"] = register(DBMHudMap:AddEdge(0, 1, 0, 1, nil, nil, nil,713,401,709,376))
+				lightmaker["C2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,376,705,352))
+				lightmaker["C3"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,705,352,688,370))
+				lightmaker["C4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,688,370,709,376))
+				lightmaker["C5"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,376,732,383))
+			end)
 		end
 	elseif args.spellId == 138189 and args:IsPlayer() then  --红鹤
 		if self.Options.HudMAP then
-			lightmaker["D1"] = register(DBMHudMap:AddEdge(0, 1, 0, 1, nil, nil, nil,733,382,705,353))
-			lightmaker["D2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,705,353,687,371))
-			lightmaker["D3"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,687,371,709,377))
-			lightmaker["D4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,377,732,383))
-			lightmaker["D5"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,732,383,713,401))
+			self:Schedule(1, function()
+				lightmaker["D1"] = register(DBMHudMap:AddEdge(0, 1, 0, 1, nil, nil, nil,733,382,705,353))
+				lightmaker["D2"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,705,353,687,371))
+				lightmaker["D3"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,687,371,709,377))
+				lightmaker["D4"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,709,377,732,383))
+				lightmaker["D5"] = register(DBMHudMap:AddEdge(1, 1, 1, 1, nil, nil, nil,732,383,713,401))
+			end)
 		end		
 	elseif args.spellId == 138300 and self:AntiSpam(40, 10) then
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xntt.mp3")--玄牛圖騰
@@ -651,7 +678,7 @@ function mod:OnSync(msg)
 					sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3")
 				end
 			end
-			sndWOP:Schedule(11, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")
+			sndWOP:Schedule(11, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scatter.mp3")
 		end
 	elseif msg == "TearsOfSun" then
 		if self:AntiSpam(10, 8) then

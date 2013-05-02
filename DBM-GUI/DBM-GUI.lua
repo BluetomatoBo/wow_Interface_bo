@@ -40,7 +40,7 @@
 
 
 
-local revision =("$Revision: 9355 $"):sub(12, -3)
+local revision =("$Revision: 9400 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 local fixeditframe = false
 
@@ -2013,6 +2013,7 @@ local function CreateOptionsMenu()
 
 		local spamArea = spamPanel:CreateArea(L.Area_SpamFilter, nil, 150, true)
 		spamArea:CreateCheckButton(L.HideBossEmoteFrame, true, nil, "HideBossEmoteFrame")
+		spamArea:CreateCheckButton(L.HideWatchFrame, true, nil, "HideWatchFrame")
 		spamArea:CreateCheckButton(L.StripServerName, true, nil, "StripServerName")
 		spamArea:CreateCheckButton(L.SpamBlockBossWhispers, true, nil, "SpamBlockBossWhispers")
 		spamArea:CreateCheckButton(L.SpamBlockSayYell, true, nil, "FilterSayAndYell")
@@ -2406,9 +2407,11 @@ do
 			end
 		end
 		
-		--NOTE, blizzard bug, IsQuestFlaggedCompleted always returns nil after a ReloadUI. They work on a fresh login
-		--Nothing we can do about this bug, the icon will be wrong when it happens.
-		--Also, only ToT and world bosses use quest flags. Old LFRs info can be pulled from "local bossName, texture, isKilled = GetLFGDungeonEncounterInfo(dungeonID, i)" if we know the bosses correct boss index
+		--[[IsQuestFlaggedCompleted() is throttled by the server and will only get a response every 2-3 minutes.
+		It's cached internally by the client during that time.
+		If you reload, the client probably loses its cache and is unable to refresh it for a few minutes
+		In other words, if you reloadui often or log in and out a bunch, the checks will be all wrong.
+		--]]
 		if mod.questId then
 			local icon = panel.frame:CreateTexture()
 			if IsQuestFlaggedCompleted(mod.questId) then

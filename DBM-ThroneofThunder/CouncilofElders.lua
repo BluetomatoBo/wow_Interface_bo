@@ -6,10 +6,11 @@ local sndSpirit	= mod:NewSound(nil, "Soundspirit", true)
 local sndLS		= mod:NewSound(nil, "SoundLs", false)
 local sndHS		= mod:NewSound(nil, "SoundHs", false)
 
-mod:SetRevision(("$Revision: 9350 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9392 $"):sub(12, -3))
 mod:SetCreatureID(69078, 69132, 69134, 69131)--69078 Sul the Sandcrawler, 69132 High Prestess Mar'li, 69131 Frost King Malakk, 69134 Kazra'jin --Adds: 69548 Shadowed Loa Spirit,
 mod:SetModelID(47229)--Kazra'jin, 47505 Sul the Sandcrawler, 47506 Frost King Malakk, 47730 High Priestes Mar'li
 mod:SetQuestID(32746)
+mod:SetZone()
 mod:SetUsedIcons(7, 6)
 mod:SetBossHPInfoToHighest()
 
@@ -108,7 +109,7 @@ local timerFrigidAssaultCD			= mod:NewCDTimer(30, 136904)--30 seconds after last
 
 -- BH DELETE local soundMarkedSoul				= mod:NewSound(137359)
 
---local berserkTimer				= mod:NewBerserkTimer(490)
+local berserkTimer				= mod:NewBerserkTimer(720)
 
 -- BH DELETE mod:AddBoolOption("HealthFrame", true)
 mod:AddBoolOption("PHealthFrame", true)
@@ -227,6 +228,7 @@ function mod:OnCombatStart(delay)
 	timerRecklessChargeCD:Start(10-delay)--the trigger is 6 seconds from pull, charge will happen at 10. I like timer ending at cast finish for this one though vs tryng to have TWO timers for something that literally only has 6 second cd
 	timerBitingColdCD:Start(15-delay)--15 seconds until debuff, 13 til cast.
 	timerBlessedLoaSpiritCD:Start(25-delay)
+	berserkTimer:Start(-delay)
 	sndSpirit:Schedule(21, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ghostsoon.mp3")
 	sndSpirit:Schedule(22, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 	sndSpirit:Schedule(23, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")

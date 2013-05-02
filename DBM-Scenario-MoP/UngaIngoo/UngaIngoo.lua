@@ -1,16 +1,16 @@
 local mod	= DBM:NewMod("d499", "DBM-Scenario-MoP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9357 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9385 $"):sub(12, -3))
 mod:SetZone()
 
 mod:RegisterCombat("scenario", 882)
 
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
-	"UNIT_DIED",
-	"CHAT_MSG_MONSTER_SAY",
-	"UNIT_SPELLCAST_SUCCEEDED"
+--	"UNIT_DIED",
+	"UNIT_SPELLCAST_SUCCEEDED",
+	"SCENARIO_UPDATE"
 )
 
 --Captain Ook
@@ -22,7 +22,7 @@ local specWarnOrange		= mod:NewSpecialWarningSpell(121895)
 --Captain Ook
 --local timerOrangeCD		= mod:NewCDTimer(45, 121895)--Not good sample size, could be inaccurate
 
-local timerSpillNoEvil		= mod:NewAchievementTimer(240, 7231)
+local timerKegRunner		= mod:NewAchievementTimer(240, 7232)
 
 mod:RemoveOption("HealthFrame")
 
@@ -37,19 +37,9 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 
---[[
-"<225.5 22:39:05> [CHAT_MSG_MONSTER_SAY] CHAT_MSG_MONSTER_SAY#Well! This looks like as good a place to brew as any.#Brewmaster Bo#####0#0##0#1201#nil#0#false#false", -- [1729]
-"<225.7 22:39:05> [CHAT_MSG_MONSTER_YELL] CHAT_MSG_MONSTER_YELL#WIKKETS!!!#Unga Brewstealer#####0#0##0#1202#nil#0#false#false", -- [1730]
---]]
-function mod:CHAT_MSG_MONSTER_SAY(msg)
-	if msg == L.Stage2 or msg:find(L.Stage2) then
-		self:SendSync("Phase2")
-	end
-end
-
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
-	if cid == 68168 then--Captain Ook
+	if cid == 62465 then--Captain Ook
 
 	end
 end
@@ -61,10 +51,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 end
 
 function mod:OnSync(msg)
-	if msg == "Phase2" then
-		timerSpillNoEvil:Start()
-	elseif msg == "Phase3" then
-		timerSpillNoEvil:Cancel()
+	if msg == "Phase3" then
+		timerKegRunner:Cancel()
 --		timerOrangeCD:Start()
 	elseif msg == "Orange" then
 		warnOrange:Show()
@@ -72,3 +60,9 @@ function mod:OnSync(msg)
 	end
 end
 
+function mod:SCENARIO_UPDATE(newStep)
+	local _, currentStage = C_Scenario.GetInfo()
+	if currentStage == 2 then
+		timerKegRunner:Start()
+	end
+end
