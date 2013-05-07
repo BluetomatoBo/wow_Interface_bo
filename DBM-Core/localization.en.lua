@@ -2,6 +2,10 @@
 DBM_CORE_NEED_SUPPORT				= "Are you good with programming or languages? If yes, the DBM team needs your help to keep DBM the best boss mod for WoW. Join the team by visiting www.deadlybossmods.com or sending a message to tandanu@deadlybossmods.com or nitram@deadlybossmods.com."
 DBM_HOW_TO_USE_MOD					= "Welcome to DBM. Type /dbm help for a list of supported commands. To access options type /dbm in your chat to begin configuration. Load specific zones manually to configure any boss specific settings to your liking as well. DBM tries to do this for you by scanning your spec on first run, but some might want additional options turned on anyways."
 
+DBM_FORUMS_MESSAGE					= "Found a bug or wrong timer? Do you think some mod would need an additional warning, timer or special feature?\nVisit the new Deadly Boss Mods discussion, bug report and feature request forums at |HDBM:forums|h|cff3588ffhttp://www.deadlybossmods.com|r (you can click the link to copy the URL)"
+DBM_FORUMS_COPY_URL_DIALOG			= "Come visit our new discussion and support forums\r\n(hosted by Elitist Jerks!)"
+
+
 DBM_CORE_LOAD_MOD_ERROR				= "Error while loading boss mods for %s: %s"
 DBM_CORE_LOAD_MOD_SUCCESS			= "Loaded '%s' mods. For more options, type /dbm or /dbm help in your chat."
 DBM_CORE_LOAD_GUI_ERROR				= "Could not load GUI: %s"
@@ -36,20 +40,22 @@ DBM_CORE_MIN						= "min"
 DBM_CORE_MIN_FMT					= "%d min"
 DBM_CORE_SEC						= "sec"
 DBM_CORE_SEC_FMT					= "%d sec"
-DBM_CORE_DEAD						= "dead"
-DBM_CORE_OK							= "Okay"
+DBM_CORE_DEAD						= "dead"--DEAD
+DBM_CORE_OK							= "Okay"--OKAY
 
 DBM_CORE_GENERIC_WARNING_DUPLICATE	= "One of the %s"
 DBM_CORE_GENERIC_WARNING_BERSERK	= "Berserk in %s %s"
 DBM_CORE_GENERIC_TIMER_BERSERK		= "Berserk"
 DBM_CORE_OPTION_TIMER_BERSERK		= "Show timer for $spell:26662"
+DBM_CORE_GENERIC_TIMER_COMBAT		= "Combat starts"
+DBM_CORE_OPTION_TIMER_COMBAT		= "Show timer for combat start"
 DBM_CORE_OPTION_HEALTH_FRAME		= "Show boss health frame"
 
 DBM_CORE_OPTION_CATEGORY_TIMERS		= "Bars"
 DBM_CORE_OPTION_CATEGORY_WARNINGS	= "Announces"
 DBM_CORE_OPTION_CATEGORY_SPECWARNINGS	= "SpecAnnounces"
 DBM_CORE_OPTION_CATEGORY_SOUND			= "Sound Warning"
-DBM_CORE_OPTION_CATEGORY_MISC		= "Miscellaneous"
+DBM_CORE_OPTION_CATEGORY_MISC		= "Miscellaneous"--MISCELLANEOUS
 
 DBM_CORE_AUTO_RESPONDED						= "Auto-responded."
 DBM_CORE_STATUS_WHISPER						= "%s: %s, %d/%d people alive"
@@ -75,9 +81,10 @@ DBM_CORE_YOUR_VERSION_OUTDATED      = "Your version of Deadly Boss Mods is out-o
 DBM_BIG_WIGS						= "BigWigs"
 DBM_BIG_WIGS_ALPHA					= "BigWigs Alpha"
 
-DBM_CORE_UPDATEREMINDER_HEADER		= "Your version of Deadly Boss Mods is out-of-date.\n Version %s (r%d) is available for download here:"
-DBM_CORE_UPDATEREMINDER_FOOTER		= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
-DBM_CORE_UPDATEREMINDER_NOTAGAIN	= "Show popup when a new version is available"
+DBM_CORE_UPDATEREMINDER_HEADER			= "Your version of Deadly Boss Mods is out-of-date.\n Version %s (r%d) is available for download here:"
+DBM_CORE_UPDATEREMINDER_FOOTER			= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the download link to your clipboard."
+DBM_CORE_UPDATEREMINDER_FOOTER_GENERIC	= "Press " .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  " to copy the link to your clipboard."
+DBM_CORE_UPDATEREMINDER_NOTAGAIN		= "Show popup when a new version is available"
 
 DBM_CORE_MOVABLE_BAR				= "Drag me!"
 
@@ -98,22 +105,18 @@ DBM_CORE_RANGECHECK_SOUND_OPTION_2	= "Sound when more than one player is in rang
 DBM_CORE_RANGECHECK_SOUND_0			= "No sound"
 DBM_CORE_RANGECHECK_SOUND_1			= "Default sound"
 DBM_CORE_RANGECHECK_SOUND_2			= "Annoying beep"
-DBM_CORE_RANGECHECK_HIDE			= "Hide"
+DBM_CORE_RANGECHECK_HIDE			= "Hide"--HIDE
 DBM_CORE_RANGECHECK_SETRANGE_TO		= "%d yd"
-DBM_CORE_RANGECHECK_LOCK			= "Lock frame"
+DBM_CORE_RANGECHECK_LOCK			= "Lock frame"--LOCK_FRAME
 DBM_CORE_RANGECHECK_OPTION_FRAMES	= "Frames"
 DBM_CORE_RANGECHECK_OPTION_RADAR	= "Show radar frame"
 DBM_CORE_RANGECHECK_OPTION_TEXT		= "Show text frame"
 DBM_CORE_RANGECHECK_OPTION_BOTH		= "Show both frames"
-DBM_CORE_RANGECHECK_OPTION_SPEED	= "Update Rate (Reload Req.)"
-DBM_CORE_RANGECHECK_OPTION_SLOW		= "Slow (lowest CPU)"
-DBM_CORE_RANGECHECK_OPTION_AVERAGE	= "Medium"
-DBM_CORE_RANGECHECK_OPTION_FAST		= "Fast (Most real-time)"
 DBM_CORE_RANGERADAR_HEADER			= "Range Radar (%d yd)"
 DBM_CORE_RANGERADAR_IN_RANGE_TEXT	= "%d players in range"
 
-DBM_CORE_INFOFRAME_LOCK				= "Lock frame"
-DBM_CORE_INFOFRAME_HIDE				= "Hide"
+DBM_CORE_INFOFRAME_LOCK				= "Lock frame"--LOCK_FRAME
+DBM_CORE_INFOFRAME_HIDE				= "Hide"--HIDE
 DBM_CORE_INFOFRAME_SHOW_SELF		= "Always show your power"		-- Always show your own power value even if you are below the threshold
 
 DBM_LFG_INVITE						= "LFG Invite"
@@ -136,14 +139,14 @@ DBM_ERROR_NO_PERMISSION				= "You don't have the required permission to do this.
 
 DBM_CORE_BOSSHEALTH_HIDE_FRAME		= "Close health frame"
 
-DBM_CORE_ALLIANCE					= "Alliance"
-DBM_CORE_HORDE						= "Horde"
+DBM_CORE_ALLIANCE					= "Alliance"--FACTION_ALLIANCE
+DBM_CORE_HORDE						= "Horde"--FACTION_HORDE
 
 DBM_CORE_WORLD_BOSS					= "World Boss"
-DBM_CORE_UNKNOWN					= "unknown"
+DBM_CORE_UNKNOWN					= "unknown"--UNKNOWN which is "Unknown" (does u vs U matter?)
 DBM_CORE_LEFT						= "Left"
 DBM_CORE_RIGHT						= "Right"
-DBM_CORE_BACK						= "Back"
+DBM_CORE_BACK						= "Back"--BACK
 DBM_CORE_FRONT						= "Front"
 
 DBM_CORE_BREAK_START				= "Break starting now -- you have %s minute(s)!"
@@ -157,7 +160,7 @@ DBM_CORE_ANNOUNCE_PULL				= "Pull in %d sec"
 DBM_CORE_ANNOUNCE_PULL_NOW			= "Pull now!"
 DBM_CORE_ANNOUNCE_PULL_CANCEL		= "Cancel Pull Countdown!"
 
-DBM_CORE_ACHIEVEMENT_TIMER_SPEED_KILL = "Achievement"
+DBM_CORE_ACHIEVEMENT_TIMER_SPEED_KILL = "Achievement"--BATTLE_PET_SOURCE_6
 
 -- Auto-generated Warning Localizations
 DBM_CORE_AUTO_ANNOUNCE_TEXTS = {
@@ -198,6 +201,7 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	ends		= "%s ended",
 	fades		= "%s faded",
 	soon		= "%s soon",
+	prewarn		= "%s in %s",
 	dispel		= "%s on >%%s< - dispel now",
 	interrupt	= "%s - interrupt >%%s<!",
 	you			= "%s on you",
@@ -217,6 +221,7 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	ends 		= "Show special warning when $spell:%s has ended",
 	fades 		= "Show special warning when $spell:%s has faded",
 	soon 		= "Show pre-special warning for $spell:%s",
+	prewarn 	= "Show pre-special warning %d seconds before $spell:%s",
 	dispel 		= "Show special warning to dispel/spellsteal \n $spell:%s",
 	interrupt	= "Show special warning to interrupt $spell:%s",
 	you 		= "Show special warning when you are affected by \n $spell:%s",
@@ -262,7 +267,8 @@ DBM_CORE_AUTO_TIMER_OPTIONS = {
 
 DBM_CORE_AUTO_ICONS_OPTION_TEXT			= "Set icons on $spell:%s targets"
 DBM_CORE_AUTO_SOUND_OPTION_TEXT			= "Play \"run away\" sound for $spell:%s"
-DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "Play countdown sound for $spell:%s"
+DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "Play countdown sound for $spell:%s cooldown"
+DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT2	= "Play countdown sound for $spell:%s debuff"
 DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "Play countout sound for $spell:%s duration"
 DBM_CORE_AUTO_YELL_OPTION_TEXT			= "Yell when you are affected by $spell:%s"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "%s on " .. UnitName("player") .. "!"
@@ -285,8 +291,9 @@ DBM_ARROW_ERROR_USAGE	= {
 	"/dbm arrow move  makes the arrow movable",
 }
 
-DBM_SPEED_KILL_TIMER_TEXT	= "Record Victory"
+DBM_SPEED_KILL_TIMER_TEXT	= "Record Victory/Clear"
 DBM_SPEED_KILL_TIMER_OPTION	= "Show a timer to beat your fastest victory"
+DBM_SPEED_CLEAR_TIMER_TEXT	= "Record Clear"
 
 
 DBM_REQ_INSTANCE_ID_PERMISSION		= "%s requested to see your current instance IDs and progress.\nDo you want to send this information to %s? He or she will be able to request this information during your current session (i. e. until you relog)."

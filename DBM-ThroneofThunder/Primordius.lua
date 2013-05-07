@@ -58,9 +58,9 @@ local berserkTimer					= mod:NewBerserkTimer(480)
 local bossspellinfo = {}
 
 mod:AddBoolOption("RangeFrame", true)
-mod:AddBoolOption("SetIconOnBigOoze", true)--These very hard to see when spawn. rooms red, boss is red, damn ooze is red.
+mod:AddBoolOption("SetIconOnBigOozes", false)--These very hard to see when spawn. rooms red, boss is red, damn ooze is red.
 mod:AddBoolOption("InfoFrame", true, "sound")
-mod:AddBoolOption("HudMAP", mod:IsRanged(), "sound")
+mod:AddBoolOption("HudMAPF", true, "sound")
 
 local DBMHudMap = DBMHudMap
 local free = DBMHudMap.free
@@ -130,7 +130,7 @@ function mod:BigOoze()
 	timerViscousHorrorCD:Start(30, bigOozeCount+1)
 	self:ScheduleMethod(30, "BigOoze")
 	--This is a means to try and do it without using lots of cpu on an already cpu bad fight. If it's not fast enough or doesn't work well (ie people with assist aren't doing this fast enough). may still have to scan all targets
-	if DBM:GetRaidRank() > 0 and self.Options.SetIconOnBigOoze then--Only register event if option is turned on, otherwise no waste cpu
+	if DBM:GetRaidRank() > 0 and self.Options.SetIconOnBigOozes then--Only register event if option is turned on, otherwise no waste cpu
 		self:RegisterShortTermEvents(
 			"PLAYER_TARGET_CHANGED",
 			"UPDATE_MOUSEOVER_UNIT"
@@ -177,8 +177,8 @@ function mod:OnCombatStart(delay)
 	table.wipe(bigOozeGUIDS)
 	berserkTimer:Start(-delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
-		timerViscousHorrorCD:Start(11.5-delay, 1)
-		self:ScheduleMethod(11.5-delay, "BigOoze")
+		timerViscousHorrorCD:Start(10-delay, 1)
+		self:ScheduleMethod(10-delay, "BigOoze")
 	end
 end
 
@@ -195,7 +195,7 @@ end
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 136216 then
 		warnCausticGas:Show()
-		specWarnCausticGas:Show()
+		specWarnCausticGas:Show()		
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_kjfd.mp3")--靠近分擔
 		timerCausticGasCD:Start()
 	end
@@ -342,7 +342,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		if self:IsDifficulty("heroic10", "heroic25") then
 			specWarnPustuleEruption:Show()		
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zynx.mp3")--注意膿血
-			if mod.Options.HudMAP then
+			if mod.Options.HudMAPF then
 				for i = 1, DBM:GetNumGroupMembers() do
 					local uId = "raid"..i
 					local x, y = GetPlayerMapPosition(uId)

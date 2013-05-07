@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Tonks", "DBM-WorldEvents", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 8974 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9412 $"):sub(12, -3))
 mod:SetZone()
 
 mod:RegisterEvents(
@@ -17,7 +17,7 @@ local specWarnMarked			= mod:NewSpecialWarningRun(102341)
 
 local timerGame					= mod:NewBuffActiveTimer(60, 102178)
 
-local countdownGame				= mod:NewCountdown(60, 102178)
+local countdownGame				= mod:NewCountdownFades(60, 102178)
 
 local soundMarked				= mod:NewSound(102341)
 

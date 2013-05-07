@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("d620", "DBM-Scenario-MoP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9306 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9412 $"):sub(12, -3))
 mod:SetZone()
 
 mod:RegisterCombat("scenario", 934)
@@ -23,7 +23,7 @@ local specWarnSaurok		= mod:NewSpecialWarningSpell(140009)
 local timerEvent			= mod:NewBuffFadesTimer(299, 140000)
 local timerStoneSmash		= mod:NewCastTimer(3, 139777, nil, false)
 
-local countdownEvent		= mod:NewCountdown(299, 140000, nil, nil, 10)
+local countdownEvent		= mod:NewCountdownFades(299, 140000, nil, nil, 10)
 
 mod:RemoveOption("HealthFrame")
 

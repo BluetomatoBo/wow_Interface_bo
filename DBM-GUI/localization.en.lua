@@ -4,10 +4,16 @@ local L = DBM_GUI_Translations
 
 L.MainFrame = "Deadly Boss Mods"
 
-L.TranslationBy 			= "Translated by: Nitram, Tandanu & Tennberg"
+L.TranslationByPrefix		= "Translated by "
+L.TranslationBy 			= nil -- your name here, localizers!
+L.Website					= "Visit our new discussion and support forums at |cFF73C2FBwww.deadlybossmods.com|r (hosted by Elitist Jerks!)"
+L.WebsiteButton				= "Forums"
 
 L.OTabBosses	= "Bosses"
 L.OTabOptions	= "Options"
+
+L.Checkinstance				= "Check instance"
+L.Checkver					= "Check version"
 
 L.TabCategory_Options	 	= "General Options"
 L.TabCategory_MOP	 		= "Mists of Pandaria"
@@ -30,7 +36,7 @@ L.Button_OK 				= 'OK'
 L.Button_Cancel 			= 'Cancel'
 L.Button_LoadMod 			= 'Load AddOn'
 L.Mod_Enabled				= "Enable boss mod"
-L.Mod_Reset					= "Load default options for this mod (WIP)"
+L.Mod_Reset					= "Load default options"
 L.Reset 					= "Reset"
 
 L.Enable  					= "Enable"

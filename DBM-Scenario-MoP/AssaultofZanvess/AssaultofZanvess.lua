@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("d593", "DBM-Scenario-MoP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9357 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9423 $"):sub(12, -3))
 mod:SetZone()
 
 mod:RegisterCombat("scenario", 883)
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 local warnGuidedMissle		= mod:NewCastAnnounce(135546, 3, 5)
 local warnImpale			= mod:NewSpellAnnounce(133942, 2)
 
-local specWarnGuidedMissle	= mod:NewSpecialWarningSpell(135546)--So you can use Force field and not get weapons disabled.
+local specWarnGuidedMissle	= mod:NewSpecialWarningPreWarn(135546, nil, 5)--So you can use Force field and not get weapons disabled.
 
 local timerGuidedMissle		= mod:NewCastTimer(5, 135546)--Time until impact
 local timerImpaleCD			= mod:NewNextTimer(6, 133942)

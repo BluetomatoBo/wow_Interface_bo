@@ -24,7 +24,7 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	SoundWOP 		= "voice warning: important skills",
-	SpecWarnIntensity	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS["stack"]:format(6, 113315)
+	SpecWarnIntensity	= DBM_CORE_AUTO_SPEC_WARN_OPTIONS.stack:format(6, 113315)
 })
 
 -----------------------
@@ -43,6 +43,15 @@ L= DBM:GetModLocalization(335)
 
 L:SetOptionLocalization({
 	SoundWOP 		= "voice warning: important skills"
+})
+
+--------------------------------
+-- General options/zone timer --
+--------------------------------
+L = DBM:GetModLocalization("TJSGeneral")
+
+L:SetGeneralLocalization({
+	name =	"TJS: Challenge Timer"
 })
 
 -----------------------
@@ -191,6 +200,15 @@ L:SetMiscLocalization({
 	Kkxka		= "messenger",
 	Kkxkb		= "protecter",
 	Kkxkc		= "Devourer"
+})
+
+--------------------------------
+-- General options/zone timer --
+--------------------------------
+L = DBM:GetModLocalization("GSSGeneral")
+
+L:SetGeneralLocalization({
+	name =	"GSS: Challenge Timer"
 })
 
 -----------------------

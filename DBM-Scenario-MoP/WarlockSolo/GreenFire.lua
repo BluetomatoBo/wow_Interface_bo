@@ -2,7 +2,7 @@ if select(2, UnitClass("player")) ~= "WARLOCK" then return end
 local mod	= DBM:NewMod("d594", "DBM-Scenario-MoP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9306 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9412 $"):sub(12, -3))
 mod:SetZone(919)
 
 mod:RegisterCombat("scenario", 919)
@@ -50,7 +50,7 @@ local timerSummonDoomlordCast	= mod:NewCastTimer(10, 138755)
 local timerEnslaveDemon			= mod:NewTargetTimer(300, 1098)
 local timerDoom					= mod:NewBuffFadesTimer(419, 138558)
 
-local countdownDoom				= mod:NewCountdown(419, 138558, nil, nil, 10)
+local countdownDoom				= mod:NewCountdownFades(419, 138558, nil, nil, 10)
 
 mod:RemoveOption("HealthFrame")
 

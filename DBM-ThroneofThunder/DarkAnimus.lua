@@ -52,7 +52,7 @@ local timerExplosiveSlam			= mod:NewTargetTimer(25, 138569, nil, mod:IsTank() or
 --Dark Animus will now use its abilities at more consistent intervals. (March 19 hotfix)
 --As such, all of these timers need re-verification and updating.
 local timerAnimusActivation			= mod:NewCastTimer(60, 139537)--LFR only
-local timerSiphonAnimaCD			= mod:NewNextTimer(20, 138644)--Needed mainly for heroic. not important on normal/LFR
+local timerSiphonAnimaCD			= mod:NewNextCountTimer(20, 138644)--Needed mainly for heroic. not important on normal/LFR
 local timerAnimaRingCD				= mod:NewNextTimer(24.2, 136954)--Updated/Verified post march 19 hotfix
 local timerEmpowerGolemCD			= mod:NewCDTimer(16, 138780)--Still need updated heroic log (post hotfix) to verify/update
 local timerInterruptingJoltCD		= mod:NewNextCountTimer(21.8, 138763)--Still need a log where he actually reaches 75 anima, my guild kills too fast
@@ -63,6 +63,7 @@ local berserkTimer					= mod:NewBerserkTimer(600)
 local crimsonWake = GetSpellInfo(138485)--Debuff ID I believe, not cast one. Same spell name though
 
 local firstSiphonAnima = false
+local SiphonAnimaCount = 0
 local InterruptingJoltCount = 0
 
 for i = 1, 10 do
@@ -89,6 +90,7 @@ end
 function mod:OnCombatStart(delay)
 	firstSiphonAnima = false
 	InterruptingJoltCount = 0
+	SiphonAnimaCount = 0
 	berserkTimer:Start(-delay)
 	self:RegisterShortTermEvents(
 		"INSTANCE_ENCOUNTER_ENGAGE_UNIT"--We register here to prevent detecting first heads on pull before variables reset from first engage fire. We'll catch them on delayed engages fired couple seconds later
@@ -137,7 +139,8 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 138644 and self:IsDifficulty("heroic10", "heroic25") then--Only start on heroic, on normal it's 6 second cd, not worth using timer there
-		timerSiphonAnimaCD:Start()
+		SiphonAnimaCount = SiphonAnimaCount + 1
+		timerSiphonAnimaCD:Start(20, SiphonAnimaCount + 1)		
 		if not firstSiphonAnima and self:IsDifficulty("heroic25") then
 			timerInterruptingJoltCD:Start(41.2, 1)
 			if mod:IsHealer() then
@@ -237,7 +240,7 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 	if UnitExists("boss1") and tonumber(UnitGUID("boss1"):sub(6, 10), 16) == 69427 then
 		self:UnregisterShortTermEvents()--Once boss is out, unregister event, since we need it no longer.
 		if self:IsDifficulty("heroic10", "heroic25") then
-			timerSiphonAnimaCD:Start(120)--VERY important on heroic. boss activaet on pull, you have 2 minutes to do as much with adds as you can before he starts using siphon anima
+			timerSiphonAnimaCD:Start(120, 1)--VERY important on heroic. boss activaet on pull, you have 2 minutes to do as much with adds as you can before he starts using siphon anima
 		elseif self:IsDifficulty("normal10", "normal25") then
 			timerSiphonAnimaCD:Start(5.3)
 		end

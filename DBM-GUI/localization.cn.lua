@@ -8,7 +8,13 @@ local L = DBM_GUI_Translations
 
 L.MainFrame 				= "Deadly Boss Mods"
 
-L.TranslationBy 			= "Translated by: Diablohu & yleaf"
+L.TranslationByPrefix		= "本地化："
+L.TranslationBy 			= "Diablohu & yleaf"
+L.Website					= "拜访我们的讨论与支持论坛:|cFF73C2FBhttp://bbs.ngacn.cc/read.php?tid=5397726&page=1|r (语音版由Sunlcy维护)"
+L.WebsiteButton				= "论坛"
+
+L.Checkinstance				= "检查进度"
+L.Checkver					= "检查版本"
 
 L.OTabBosses				= "模块"
 L.OTabOptions				= "选项"
@@ -34,7 +40,7 @@ L.Button_OK 				= '确定'
 L.Button_Cancel 			= '取消'
 L.Button_LoadMod 			= '加载插件'
 L.Mod_Enabled				= "开启模块"
-L.Mod_Reset					= "恢复默认设置 (未完成)"
+L.Mod_Reset					= "恢复默认设置"
 L.Reset 					= "重置"
 
 L.Enable  					= "开启"
@@ -52,7 +58,6 @@ L.BossStatistics			= "首领统计"
 L.Statistic_Kills			= "击杀："
 L.Statistic_Wipes			= "失败："
 L.Statistic_Incompletes		= "完成:"--For scenarios, TODO, figure out a clean way to replace any Statistic_Wipes with Statistic_Incompletes for scenario mods
-L.Statistic_Wipes			= "失败："
 L.Statistic_BestKill		= "最好成绩："
 
 -- Tab: General Options

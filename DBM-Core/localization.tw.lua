@@ -3,6 +3,10 @@
 DBM_CORE_NEED_SUPPORT				= "你是否擁有良好的程式開發或語言能力? 如果是的話, DBM團隊真的需要你的幫助以保持成為WOW裡最佳的首領模組。觀看 www.deadlybossmods.com 或發送郵件到 tandanu@deadlybossmods.com 或 nitram@deadlybossmods.com 來加入團隊。"
 DBM_HOW_TO_USE_MOD					= "歡迎使用黑手之鄉DBM-語音版。在聊天頻道輸入 /dbm 打開設定開始設定。你可以載入特定區域後為任何首領設定你喜歡的特別設置。DBM會在第一次啟動時嘗試掃描你的職業天賦，但有些選項你可能想打開。"
 
+DBM_FORUMS_MESSAGE					= "發現BUG或錯誤? 希望有新的警告，計時器或是特別功能? \n |HDBM:論壇|h|cff3588ffhttp://bbs.ngacn.cc/read.php?tid=5397726&page=1|r (你可以點擊複製網址)"
+DBM_FORUMS_COPY_URL_DIALOG			= "拜訪我們的討論與支援論壇\r"
+
+
 DBM_CORE_LOAD_MOD_ERROR				= "載入%s模組時發生錯誤：%s"
 DBM_CORE_LOAD_MOD_SUCCESS			= "成功載入%s模組。輸入/dbm或/dbm help有更多選項。"
 DBM_CORE_LOAD_GUI_ERROR				= "無法載入圖形介面：%s"
@@ -44,6 +48,8 @@ DBM_CORE_GENERIC_WARNING_DUPLICATE		= "%s之一"
 DBM_CORE_GENERIC_WARNING_BERSERK		= "%s%s後狂暴"
 DBM_CORE_GENERIC_TIMER_BERSERK			= "狂暴"
 DBM_CORE_OPTION_TIMER_BERSERK			= "計時器：$spell:26662"
+DBM_CORE_GENERIC_TIMER_COMBAT			= "戰鬥開始"
+DBM_CORE_OPTION_TIMER_COMBAT			= "計時器：戰鬥開始"
 DBM_CORE_OPTION_HEALTH_FRAME			= "顯示首領血量框架"
 
 DBM_CORE_OPTION_CATEGORY_TIMERS			= "計時器"
@@ -60,7 +66,6 @@ DBM_CORE_WHISPER_COMBAT_END_KILL			= "%s已經擊敗%s!"
 DBM_CORE_WHISPER_COMBAT_END_KILL_STATS		= "%s已經擊敗%s! 他們總共已擊殺了%d次。"
 DBM_CORE_WHISPER_COMBAT_END_WIPE_AT			= "%s在%s還有%s時滅團了。"
 DBM_CORE_WHISPER_COMBAT_END_WIPE_STATS_AT	= "%s在%s還有%s時滅團了。他們在這個難度總共滅團了%d次。"
-
 --Scenarios (no percents. words like "fighting" or "wipe" changed to better fit scenarios)
 DBM_CORE_AUTO_RESPOND_WHISPER_SCENARIO		= "%s忙碌於%s(%d/%d存活)"
 DBM_CORE_WHISPER_SCENARIO_END_KILL			= "%s已經完成%s!"
@@ -78,7 +83,8 @@ DBM_CORE_YOUR_VERSION_OUTDATED			= "你的 Deadly Boss Mod 已經過期。請到
 --DBM_BIG_WIGS_ALPHA (Same as English locales)
 
 DBM_CORE_UPDATEREMINDER_HEADER			= "你的 Deadly Boss Mod 已經過期。\n你可以在此網址下載到新版本%s(r%d)："
-DBM_CORE_UPDATEREMINDER_FOOTER			= "" .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "：複製下載網址到剪貼簿。"
+DBM_CORE_UPDATEREMINDER_FOOTER			= "按下" .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "：複製下載網址到剪貼簿。"
+DBM_CORE_UPDATEREMINDER_FOOTER_GENERIC	= "按下" .. (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "：複製網址到剪貼簿。"
 DBM_CORE_UPDATEREMINDER_NOTAGAIN		= "當有新版本時顯示彈出提示"
 
 DBM_CORE_MOVABLE_BAR				= "拖動我!"
@@ -107,10 +113,6 @@ DBM_CORE_RANGECHECK_OPTION_FRAMES	= "框架"
 DBM_CORE_RANGECHECK_OPTION_RADAR	= "顯示雷達框架"
 DBM_CORE_RANGECHECK_OPTION_TEXT		= "顯示文字框"
 DBM_CORE_RANGECHECK_OPTION_BOTH		= "兩者都顯示"
-DBM_CORE_RANGECHECK_OPTION_SPEED	= "更新頻率(需要重載介面)"
-DBM_CORE_RANGECHECK_OPTION_SLOW		= "慢(CPU使用量低)"
-DBM_CORE_RANGECHECK_OPTION_AVERAGE	= "中"
-DBM_CORE_RANGECHECK_OPTION_FAST		= "快(幾近即時)"
 DBM_CORE_RANGERADAR_HEADER			= "距離雷達(%d碼)"
 DBM_CORE_RANGERADAR_IN_RANGE_TEXT	= "%d玩家在範圍內"
 
@@ -200,6 +202,7 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	ends					= "%s 结束",
 	fades					= "%s 消失",
 	soon					= "%s 即将到来",
+	prewarn					= "%2$s後 %1$s",
 	dispel					= ">%%s<中了%s - 快驅散",
 	interrupt				= "%s - 快打斷>%%s< !",
 	you						= "你中了%s",
@@ -219,13 +222,14 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	ends					= "特別警告：$spell:%s结束",
 	fades					= "特別警告：$spell:%s消失",
 	soon					= "特別警告：$spell:%s即将到来",
+	prewarn					= "特別警告：%d秒後$spell:%s",
 	dispel					= "特別警告：需要驅散/竊取$spell:%s時",
 	interrupt				= "特別警告：需要打斷$spell:%s時",
 	you						= "特別警告：當你中了$spell:%s時",
 	target					= "特別警告：當有人中了$spell:%s時",
 	close					= "特別警告：當你附近有人中了$spell:%s時",
 	move					= "特別警告：當你需要躲開$spell:%s時",
-	run					= "特別警告：當你需要遠離$spell:%s時",
+	run						= "特別警告：當你需要遠離$spell:%s時",
 	cast					= "特別警告：$spell:%s的施放",
 	count 					= "特別警告：$spell:%s",
 	stack					= "特別警告：當疊加了>=%d層$spell:%s時",
@@ -265,6 +269,7 @@ DBM_CORE_AUTO_TIMER_OPTIONS = {
 DBM_CORE_AUTO_ICONS_OPTION_TEXT			= "為$spell:%s的目標設置團隊標記"
 DBM_CORE_AUTO_SOUND_OPTION_TEXT			= "語音警告：當你中了$spell:%s時"
 DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "倒計時：$spell:%s的冷卻時間"
+DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT2		= "倒計時：$spell:%s的消散時間"
 DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "正計時：$spell:%s的持續時間"
 DBM_CORE_AUTO_YELL_OPTION_TEXT			= "自動喊話：當你中了$spell:%s時"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "" .. UnitName("player") .. "中了%s!"
@@ -289,6 +294,7 @@ DBM_ARROW_ERROR_USAGE	= {
 
 DBM_SPEED_KILL_TIMER_TEXT			= "記錄擊殺"
 DBM_SPEED_KILL_TIMER_OPTION			= "計時器：上次的最快擊殺"
+DBM_SPEED_CLEAR_TIMER_TEXT			= "清除記錄"
 
 
 DBM_REQ_INSTANCE_ID_PERMISSION		= "%s想要查看你的副本ID和進度鎖定情況。\n你想發送該訊息給%s嗎? 在你的當前進程（除非你下線）他可以一直查閱該訊息。"
@@ -309,3 +315,7 @@ DBM_CORE_LAG_CHECKING				= "延遲檢測--五秒後反饋結果..."
 DBM_CORE_LAG_HEADER					= "Deadly Boss Mods - 延遲檢測"
 DBM_CORE_LAG_ENTRY					= "%s：世界延時[%d毫秒] / 本地延時[%d毫秒]"
 DBM_CORE_LAG_FOOTER					= "未反饋此次檢測的團員:%s"
+
+DBM_CORE_GUILDAD_HEADER_GENERIC		= "黑手之鄉簡介"
+DBM_CORE_GUILDAD_GENERIC			= "        黑手之鄉成立于2007年10月17日，前身是國服三區雷斧堡壘的聯盟公會盟誓的二團。團長一直是阿爾貝裏希（在台服改名爲Alberich）。\n\n        2010年1月，黑手的骨幹十多名玩家一起轉戰台服pve服務器眾星之子，看重的就是這個服務器良好的pve氛圍，希望能在台服繼續我們的夢想。4.2國服同步後，由于團隊已經一部分本土化，亦對台服良好的玩家素質，服務器良好的raid氛圍表示滿意，團隊留在了台服並准備一直留下去。\n\n        建會以來，團隊一直保持了比較強的開荒強度，鍛煉了團隊，也收集了很多優秀的宅男。公會現有25人團隊一支，從3.3至今所有版本25人H模式當前版本皆全通。5.1版本25人團排名臺服第八，並轉服至世界之樹，5.2版本25人團隊進度服務器領先！\n\n        公會活動時間：開荒期間周四五六 周一二三(也就是除了周日都有活動)，farm期間周五周六周一周二(或者更少)，晚上7:40開組，8:00開打，12:00左右結束(平時有的時候早點，不到12點就結束，周五周六到12：00左右)。"
+DBM_CORE_GUILDAD_FOOTER_GENERIC		= "|h|cff3588ff重點招募\n鳥德   元素薩   奶僧   坦僧   奶騎   奶薩   奶牧\n要求:加QQ談   聯系QQ:313082736 注明wow和自己的職業|r|h"

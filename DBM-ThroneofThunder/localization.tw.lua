@@ -316,7 +316,7 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
-	HudMAP			= "高級定位監視(HUD)：$spell:136248(WIP)",
+	HudMAPF			= "高級定位監視(HUD)：$spell:136248",
 	warnDebuffCount		= "警告：當你獲得了有害變異",
 	InfoFrame		= "資訊框：首領當前的$journal:6949技能",
 	RangeFrame		= "顯示距離框架(2碼/5碼)",

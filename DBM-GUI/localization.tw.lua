@@ -5,7 +5,13 @@ local L = DBM_GUI_Translations
 
 L.MainFrame		 = "Deadly Boss Mods"
 
-L.TranslationBy 		= "黑手公會廣納賢才，歡迎您的加入【聯繫QQ:313082736】"
+L.TranslationByPrefix		= ""
+L.TranslationBy 			= "黑手歡迎您的加入【QQ:313082736】"
+L.Website					= "拜訪我們的討論與支援論壇:|cFF73C2FBhttp://bbs.ngacn.cc/read.php?tid=5397726&page=1|r (語音版由Sunlcy維護)"
+L.WebsiteButton				= "了解黑手"
+
+L.Checkinstance				= "檢查進度"
+L.Checkver					= "檢查版本"
 
 L.OTabBosses	= "首領模組"
 L.OTabOptions	= "選項"
@@ -31,7 +37,7 @@ L.Button_OK 				= '確定'
 L.Button_Cancel 			= '取消'
 L.Button_LoadMod 			= '載入模組'
 L.Mod_Enabled				= "啟用首領模組"
-L.Mod_Reset					= "為此模組讀取預設值(未完成)"
+L.Mod_Reset					= "恢復默認設置"
 L.Reset 					= "重置"
 
 L.Enable  					= "啟用"
@@ -170,11 +176,11 @@ L.BarWidth					= "寬度: %d"
 -- Tab: Spam Filter
 L.Panel_SpamFilter				= "整體及垃圾過濾"
 L.Area_SpamFilter				= "垃圾過濾選項"
-L.HideBossEmoteFrame			= "首領戰中隱藏團隊首領表情框"
-L.HideWatchFrame				= "首領戰中隱藏任務追蹤框"
+L.HideBossEmoteFrame			= "在首領戰鬥時隱藏團隊首領表情框"
+L.HideWatchFrame				= "在首領戰鬥時隱藏監看(目標)框架"
 L.StripServerName				= "隱藏警告和計時器的玩家伺服器名稱"
 L.SpamBlockBossWhispers			= "當戰鬥時過濾 <DBM> 密語警告"
-L.BlockVersionUpdateNotice		= "禁用彈出的更新通知(不推薦)"
+L.BlockVersionUpdateNotice		= "禁用彈出的更新通知"
 L.ShowBigBrotherOnCombatStart	= "戰鬥開始時顯示BigBrother(檢查團隊 增益/精煉UI)"
 L.BigBrotherAnnounceToRaid		= "通告BigBrother的結果給團隊"
 L.SpamBlockSayYell				= "從聊天頻道隱藏聊天泡泡提示"

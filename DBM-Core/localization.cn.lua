@@ -7,6 +7,10 @@ if GetLocale() ~= "zhCN" then return end
 DBM_CORE_NEED_SUPPORT				= "嘿, 你是否拥有良好的程序开发或语言能力? 如果是的话, DBM团队真心需要你的帮助以保持成为WOW里面最佳的首领报警插件。请访问 www.deadlybossmods.com 或发送邮件给 tandanu@deadlybossmods.com 或者 nitram@deadlybossmods.com 来加入我们的行列。"
 DBM_HOW_TO_USE_MOD					= "欢迎使用DBM。在聊天框输入 /dbm help 以获取可用命令的帮助。输入 /dbm 可打开设置窗口。手动打开指定区域的模组即可开始针对各个模块进行设置，也可以浏览首领击杀记录。DBM 会在你首次尝试首领战时自动进行扫描，但是有些设置需要手动开启。"
 
+DBM_FORUMS_MESSAGE					= "发现BUG或错误的计时器?你希望要让某些模组有新的警告，计时器或是特别功能?\n拜访新的Deadly Boss Mods讨论，臭虫回报与功能要求论坛 |HDBM:论坛|h|cff3588ffhttp://bbs.ngacn.cc/read.php?tid=5397726&page=1|r (你可以点击链接复制网址)"
+DBM_FORUMS_COPY_URL_DIALOG			= "拜访我们的讨论与支持论坛\r"
+
+
 DBM_CORE_LOAD_MOD_ERROR				= "读取%s模块时发生错误：%s"
 DBM_CORE_LOAD_MOD_SUCCESS			= "成功读取%s模块。在聊天框输入 /dbm 或 /dbm help 可进行更多设置。"
 DBM_CORE_LOAD_GUI_ERROR				= "无法读取图形界面：%s"
@@ -19,6 +23,7 @@ DBM_CORE_COMBAT_STARTED				= "%s作战开始，祝你走运 :)"
 DBM_CORE_COMBAT_STARTED_IN_PROGRESS	= "已进行的战斗%s作战开始。祝你走运 :)"
 DBM_CORE_SCENARIO_STARTED			= "%s作战开始，祝你走运 :)"
 DBM_CORE_BOSS_DOWN					= "%s战斗胜利！用时%s！"
+DBM_CORE_BOSS_DOWN_I				= "击败%s！总计%d次胜利。"
 DBM_CORE_BOSS_DOWN_L				= "%s战斗胜利！用时%s！上次用时%s，最快用时%s。总计%d次胜利。"
 DBM_CORE_BOSS_DOWN_NR				= "%s战斗胜利！用时%s！新的纪录诞生了！原纪录为%s。总计%d次胜利。"
 DBM_CORE_SCENARIO_COMPLETE			= "%s战斗胜利！用时%s!"
@@ -46,6 +51,8 @@ DBM_CORE_OK							= "确定"
 DBM_CORE_GENERIC_WARNING_DUPLICATE		= "%s之一"
 DBM_CORE_GENERIC_WARNING_BERSERK	= "%s%s后狂暴"
 DBM_CORE_GENERIC_TIMER_BERSERK		= "狂暴"
+DBM_CORE_GENERIC_TIMER_COMBAT		= "战斗开始"
+DBM_CORE_OPTION_TIMER_COMBAT		= "计时条：战斗开始"
 DBM_CORE_OPTION_TIMER_BERSERK		= "计时条：$spell:26662"
 DBM_CORE_OPTION_HEALTH_FRAME		= "首领生命值窗口"
 
@@ -55,9 +62,9 @@ DBM_CORE_OPTION_CATEGORY_SPECWARNINGS	= "特殊警报"
 DBM_CORE_OPTION_CATEGORY_SOUND			= "语音警告"
 DBM_CORE_OPTION_CATEGORY_MISC		= "其它"
 
---BOSS
 DBM_CORE_AUTO_RESPONDED						= "已自动回复密语。"
 DBM_CORE_STATUS_WHISPER						= "%s：%s，%d/%d存活"
+--BOSS
 DBM_CORE_AUTO_RESPOND_WHISPER				= "%s正在与%s交战，（当前%s，%d/%d存活）"
 DBM_CORE_WHISPER_COMBAT_END_KILL			= "%s已在%s的战斗中取得胜利！"
 DBM_CORE_WHISPER_COMBAT_END_KILL_STATS		= "%s已在%s的战斗中取得胜利！总计%d次胜利。"
@@ -76,12 +83,12 @@ DBM_CORE_VERSIONCHECK_ENTRY_TWO			= "%s: %s (r%d) & %s (r%d)"
 DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM		= "%s：尚未安装任何团队首领模组"
 DBM_CORE_VERSIONCHECK_FOOTER			= "团队中有%d玩家正在使用DBM / %d玩家正在使用Bigwigs"
 DBM_CORE_YOUR_VERSION_OUTDATED		= "你的Deadly Boss Mods已经过期。请访问 http://dev.deadlybossmods.com 下载最新版本。"
-DBM_BIG_WIGS							= "BigWigs"
-DBM_BIG_WIGS_ALPHA						= "BigWigs Alpha"
-
+--DBM_BIG_WIGS (Same as English locales)
+--DBM_BIG_WIGS_ALPHA (Same as English locales)
 
 DBM_CORE_UPDATEREMINDER_HEADER		= "你的Deadly Boss Mods版本已过期。\n你可以在如下地址下载到新版本%s（r%d）："
-DBM_CORE_UPDATEREMINDER_FOOTER		= (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "Ctrl+C：复制下载地址到剪切板。"
+DBM_CORE_UPDATEREMINDER_FOOTER		= (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "复制地址到剪切板。"
+DBM_CORE_UPDATEREMINDER_FOOTER_GENERIC	= (IsMacClient() and "Cmd-C" or "Ctrl-C")  ..  "复制地址到剪切板。"
 DBM_CORE_UPDATEREMINDER_NOTAGAIN	= "检测到新版本后弹出提示框"
 
 DBM_CORE_MOVABLE_BAR				= "拖动我！"
@@ -164,35 +171,6 @@ DBM_CORE_ANNOUNCE_PULL_CANCEL		= "取消了开怪倒计时"
 
 DBM_CORE_ACHIEVEMENT_TIMER_SPEED_KILL = "成就：快速击杀"
 
--- Auto-generated Timer Localizations
-DBM_CORE_AUTO_TIMER_TEXTS = {
-	target		= "%s: >%%s<",
-	cast		= "%s",
-	active		= "%s结束",--Buff/Debuff/event on boss
-	fades		= "%s消失",--Buff/Debuff on players
-	cd			= "%s冷却",
-	cdcount		= "%s冷却（%%d）",
-	cdsource	= "%s冷却: >%%s<",
-	next 		= "下一次%s",
-	nextcount	= "下一次%s（%%d）",
-	nextsource	= "下一次%s: >%%s<",
-	achievement = "%s",
-}
-
-DBM_CORE_AUTO_TIMER_OPTIONS = {
-	target		= "计时条：$spell:%s减益效果持续时间",
-	cast		= "计时条：$spell:%s施法时间",
-	active		= "计时条：$spell:%s效果持续时间",
-	fades		= "计时条：$spell:%s何时从玩家身上消失",
-	cd			= "计时条：$spell:%s冷却时间",
-	cdcount		= "计时条：$spell:%s冷却时间",
-	cdsource	= "计时条：$spell:%s冷却时间以及来源",
-	next		= "计时条：下一次$spell:%s",
-	nextcount	= "计时条：下一次$spell:%s",
-	nextsource	= "计时条：下一次$spell:%s以及来源",
-	achievement	= "计时条：成就%s"
-}
-
 -- Auto-generated Warning Localizations
 DBM_CORE_AUTO_ANNOUNCE_TEXTS = {
 	target					= "%s -> >%%s<",
@@ -227,30 +205,12 @@ DBM_CORE_AUTO_ANNOUNCE_OPTIONS = {
 	stack					= "警报：$spell:%s叠加层数",
 }
 
--- Auto-generated Special Warning Localizations
-DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
-	spell					= "特殊警报：$spell:%s",
-	ends					= "特殊警报：$spell:%s结束",
-	fades					= "特殊警报：$spell:%s消失",
-	soon					= "特殊警报：$spell:%s即将到来",
-	dispel					= "特殊警报：需要驱散或偷取$spell:%s",
-	interrupt				= "特殊警报：需要打断$spell:%s",
-	you						= "特殊警报：当你受到$spell:%s影响时",
-	target					= "特殊警报：当他人受到$spell:%s影响时",
-	close					= "特殊警报：当你附近有人受到$spell:%s影响时",
-	move					= "特殊警报：当你受到$spell:%s影响时",
-	run						= "特殊警报：$spell:%s",
-	cast					= "特殊警报：$spell:%s的施放",
-	count 					= "特殊警报：$spell:%s",
-	stack					= "特殊警报：当叠加了>=%d层$spell:%s时",
-	switch 					= "特殊警报：针对$spell:%s需要转换目标"
-}
-
 DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	spell					= "%s!",
 	ends					= "%s 结束",
 	fades					= "%s 消失",
 	soon					= "%s 即将到来",
+	prewarn					= "%s 于 %s",
 	dispel					= ">%%s<中了%s - 快驱散",
 	interrupt				= "%s - 快打断",
 	you						= "你中了%s",
@@ -264,10 +224,60 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	switch					= ">%s< - 转换目标"
 }
 
+-- Auto-generated Special Warning Localizations
+DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
+	spell					= "特殊警报：$spell:%s",
+	ends					= "特殊警报：$spell:%s结束",
+	fades					= "特殊警报：$spell:%s消失",
+	soon					= "特殊警报：$spell:%s即将到来",
+	prewarn					= "特殊警报：%d秒后$spell:%s",
+	dispel					= "特殊警报：需要驱散或偷取$spell:%s",
+	interrupt				= "特殊警报：需要打断$spell:%s",
+	you						= "特殊警报：当你受到$spell:%s影响时",
+	target					= "特殊警报：当他人受到$spell:%s影响时",
+	close					= "特殊警报：当你附近有人受到$spell:%s影响时",
+	move					= "特殊警报：当你受到$spell:%s影响时",
+	run						= "特殊警报：$spell:%s",
+	cast					= "特殊警报：$spell:%s的施放",
+	count 					= "特殊警报：$spell:%s",
+	stack					= "特殊警报：当叠加了>=%d层$spell:%s时",
+	switch 					= "特殊警报：针对$spell:%s需要转换目标"
+}
+
+-- Auto-generated Timer Localizations
+DBM_CORE_AUTO_TIMER_TEXTS = {
+	target		= "%s: >%%s<",
+	cast		= "%s",
+	active		= "%s结束",--Buff/Debuff/event on boss
+	fades		= "%s消失",--Buff/Debuff on players
+	cd			= "%s冷却",
+	cdcount		= "%s冷却（%%d）",
+	cdsource	= "%s冷却: >%%s<",
+	next 		= "下一次%s",
+	nextcount	= "下一次%s（%%d）",
+	nextsource	= "下一次%s: >%%s<",
+	achievement = "%s",
+}
+
+DBM_CORE_AUTO_TIMER_OPTIONS = {
+	target		= "计时条：$spell:%s减益效果持续时间",
+	cast		= "计时条：$spell:%s施法时间",
+	active		= "计时条：$spell:%s效果持续时间",
+	fades		= "计时条：$spell:%s何时从玩家身上消失",
+	cd			= "计时条：$spell:%s冷却时间",
+	cdcount		= "计时条：$spell:%s冷却时间",
+	cdsource	= "计时条：$spell:%s冷却时间以及来源",
+	next		= "计时条：下一次$spell:%s",
+	nextcount	= "计时条：下一次$spell:%s",
+	nextsource	= "计时条：下一次$spell:%s以及来源",
+	achievement	= "计时条：成就%s"
+}
+
 
 DBM_CORE_AUTO_ICONS_OPTION_TEXT			= "为$spell:%s的目标添加团队标记"
 DBM_CORE_AUTO_SOUND_OPTION_TEXT			= "声音警报（快跑啊）：$spell:%s"
 DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "声音警报：$spell:%s的冷却时间倒计时"
+DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT2		= "声音警报：$spell:%s的消散时间倒计时"
 DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "声音警报：$spell:%s的持续时间正计时"
 DBM_CORE_AUTO_YELL_OPTION_TEXT			= "当你受到$spell:%s影响时时大喊"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "" .. UnitName("player") .. "中了%s！"
@@ -292,6 +302,7 @@ DBM_ARROW_ERROR_USAGE	= {
 
 DBM_SPEED_KILL_TIMER_TEXT	= "击杀记录"
 DBM_SPEED_KILL_TIMER_OPTION	= "计时条：最速击杀记录"
+DBM_SPEED_CLEAR_TIMER_TEXT	= "清除记录"
 
 
 DBM_REQ_INSTANCE_ID_PERMISSION		= "%s请求获取你现在副本的存档ID与进度。是否愿意向&s提交进度？\n\n注意：在接受后，他可以随时查看您当前的进度情况，直到您下线、掉线或重载用户界面。"

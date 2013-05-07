@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 -- BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9405 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9411 $"):sub(12, -3))
 mod:SetCreatureID(68397)--Diffusion Chain Conduit 68696, Static Shock Conduit 68398, Bouncing Bolt conduit 68698, Overcharge conduit 68697
 mod:SetModelID(46770)
 mod:SetQuestID(32756)
@@ -175,9 +175,6 @@ function mod:OnCombatStart(delay)
 	timerThunderstruckCD:Start(25-delay)
 	timerDecapitateCD:Start(40-delay)--First seems to be 45, rest 50. it's a CD though, not a "next"
 	berserkTimer:Start(-delay)
-	if self.Options.RangeFrame and self:IsRanged() then
-		DBM.RangeCheck:Show(8)
-	end
 	self:RegisterShortTermEvents(
 		"UNIT_HEALTH_FREQUENT"
 	)-- Do not use on phase 3.
@@ -367,13 +364,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		self:Unschedule(warnOverchargeTargets)
 		self:Schedule(0.3, warnOverchargeTargets)
 	elseif args.spellId == 135680 and args:GetDestCreatureID() == 68397 then--North (Static Shock)
-		if self.Options.RangeFrame and self:IsRanged() then
-			if phase == 1 then
-				DBM.RangeCheck:Hide()
-			else
-				DBM.RangeCheck:Show(6)
-			end
-		end
+		--start timers here when we have em
 	elseif args.spellId == 135681 and args:GetDestCreatureID() == 68397 then--East (Diffusion Chain)
 		if self.Options.RangeFrame and self:IsRanged() then--Shouldn't target melee during a normal pillar, only during intermission when all melee are with ranged and out of melee range of boss
 			DBM.RangeCheck:Show(8)--Assume 8 since spell tooltip has no info
@@ -383,21 +374,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 		end
 	elseif args.spellId == 135682 and args:GetDestCreatureID() == 68397 then--South (Overcharge)
-		if self.Options.RangeFrame and self:IsRanged() then
-			if phase == 1 then
-				DBM.RangeCheck:Hide()
-			else
-				DBM.RangeCheck:Show(6)
-			end
-		end
+
 	elseif args.spellId == 135683 and args:GetDestCreatureID() == 68397 then--West (Bouncing Bolt)
-		if self.Options.RangeFrame and self:IsRanged() then
-			if phase == 1 then
-				DBM.RangeCheck:Hide()
-			else
-				DBM.RangeCheck:Show(6)
-			end
-		end
+
 		-- BH ADD END
 	elseif args.spellId == 136914 then
 		--TODO add prints to figure out how this remotely doesn't work, when it's impossible.
@@ -451,50 +430,22 @@ function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 135680 and args:GetDestCreatureID() == 68397 and not intermissionActive then--North (Static Shock)
 		timerStaticShockCD:Cancel()
 		if self.Options.RangeFrame and self:IsRanged() then
-			if not eastDestroyed then
-				DBM.RangeCheck:Show(8)
-			else
-				if phase == 1 then
-					DBM.RangeCheck:Hide()
-				else
-					DBM.RangeCheck:Show(6)
-				end
-			end
+			DBM.RangeCheck:Show(8)
 		end
 	elseif args.spellId == 135681 and args:GetDestCreatureID() == 68397 and not intermissionActive then--East (Diffusion Chain)
 		timerDiffusionChainCD:Cancel()
-		if self.Options.RangeFrame and self:IsRanged() then--Shouldn't target melee during a normal pillar, only during intermission when all melee are with ranged and out of melee range of boss
-			if phase == 1 then
-				DBM.RangeCheck:Hide()
-			else
-				DBM.RangeCheck:Show(6)
-			end
+		if self.Options.RangeFrame and self:IsRanged() then
+			DBM.RangeCheck:Show(8)
 		end
 	elseif args.spellId == 135682 and args:GetDestCreatureID() == 68397 and not intermissionActive then--South (Overcharge)
 		timerOverchargeCD:Cancel()
 		if self.Options.RangeFrame and self:IsRanged() then
-			if not eastDestroyed then
-				DBM.RangeCheck:Show(8)
-			else
-				if phase == 1 then
-					DBM.RangeCheck:Hide()
-				else
-					DBM.RangeCheck:Show(6)
-				end
-			end
+			DBM.RangeCheck:Show(8)
 		end
 	elseif args.spellId == 135683 and args:GetDestCreatureID() == 68397 and not intermissionActive then--West (Bouncing Bolt)
 		timerBouncingBoltCD:Cancel()
 		if self.Options.RangeFrame and self:IsRanged() then
-			if not eastDestroyed then
-				DBM.RangeCheck:Show(8)
-			else
-				if phase == 1 then
-					DBM.RangeCheck:Hide()
-				else
-					DBM.RangeCheck:Show(6)
-				end
-			end
+			DBM.RangeCheck:Show(8)
 		end
 	--Conduit deactivations
 	--BH MODIFY
@@ -571,11 +522,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 			timerLightningWhipCD:Start(30)
 			timerFussionSlashCD:Start(44)
 			if self.Options.RangeFrame and self:IsRanged() then
-				if not eastDestroyed then
-					DBM.RangeCheck:Show(8)
-				else
-					DBM.RangeCheck:Show(6)
-				end
+				DBM.RangeCheck:Show(8)
 			end
 		elseif phase == 3 then--Start Phase 3 timers
 			warnPhase3:Show()
@@ -667,15 +614,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		timerLightningWhipCD:Cancel()
 		timerSummonBallLightningCD:Cancel()
 		if self:IsDifficulty("heroic10", "heroic25") then
-			timerHelmofCommandCD:Start(13.5)
-			if self.Options.RangeFrame then
-				DBM.RangeCheck:Show(8)
-			end
-		elseif not eastDestroyed then
-			if self.Options.RangeFrame then
-				DBM.RangeCheck:Show(8)
-			end			
-		end
+			timerHelmofCommandCD:Start(13.5)		
+		end	
 		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wmdq.mp3")
 		if phase == 1 then
 			sndWOP:Schedule(45, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3")--2階段準備
@@ -695,6 +635,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 				timerDiffusionChainCD:Start(6)
 				sndWOP:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 			end
+		end
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Show(8)
 		end
 		if not southDestroyed then
 			if self:IsDifficulty("lfr25") then
