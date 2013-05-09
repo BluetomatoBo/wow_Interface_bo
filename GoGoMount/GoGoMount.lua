@@ -43,6 +43,7 @@ function GoGo_OnEvent(self, event, ...)
 		elseif (GoGo_Variables.Player.Class == "SHAMAN") then
 			GoGo_Variables.Shaman = {}
 			GoGoFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
+			GoGo_Shaman_Panel()
 		elseif (GoGo_Variables.Player.Class == "HUNTER") then
 			GoGo_Hunter_Panel()
 		elseif (GoGo_Variables.Player.Class == "PALADIN") then
@@ -54,6 +55,9 @@ function GoGo_OnEvent(self, event, ...)
 		GoGo_ExtraPassengerMounts_Panel()
 		GoGo_ZoneExclusions_Panel()
 		GoGo_GlobalExclusions_Panel()
+		if GoGo_Prefs.autodismount then
+			GoGo_SetOptionAutoDismount(1)
+		end --if
 	elseif event == "PLAYER_REGEN_DISABLED" then
 		for i, button in ipairs({GoGoButton, GoGoButton2, GoGoButton3}) do
 			if GoGo_Variables.Player.Class == "SHAMAN" then
@@ -2657,6 +2661,13 @@ function GoGo_ZoneCheck()
 			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Siege of Niuzao Temple (5 man instance)")
 		end --if
 		GoGo_Variables.ZoneExclude.CanFly = false
+	elseif GoGo_Variables.Player.ZoneID == 888 then
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Shadowglen")
+		end --if
+		if GoGo_InBook(GoGo_Variables.Localize.FlightMastersLicense) then
+			GoGo_Variables.ZoneExclude.CanFly = true
+		end --if
 	elseif GoGo_Variables.Player.ZoneID == 895 then
 		if GoGo_Variables.Debug >= 10 then
 			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for New Tinkertown")
@@ -3195,6 +3206,7 @@ GOGO_ERRORS = {
 	[SPELL_FAILED_NOT_MOUNTED] = true,
 	[SPELL_FAILED_NOT_SHAPESHIFT] = true,
 	[ERR_ATTACK_MOUNTED] = true,
+	[SPELL_FAILED_NO_ACTIONS] = true,  -- Spell casting while in Zen Flight
 }
 
 GOGO_SPELLS = {
@@ -3234,14 +3246,28 @@ GOGO_SPELLS = {
 	end, --function
 }
 
+---------
+function GoGo_SetOptionAutoDismount(GoGo_Value)
+---------
+	if GoGo_Value == 1 then
+		GoGoFrame:RegisterEvent("UI_ERROR_MESSAGE")
+		GoGo_Panel_AutoDismount:SetChecked(1)
+		GoGo_Prefs.autodismount = true
+	elseif GoGo_Value == 0 then	
+		GoGoFrame:UnregisterEvent("UI_ERROR_MESSAGE")
+		GoGo_Panel_AutoDismount:SetChecked(0)
+		GoGo_Prefs.autodismount = false
+	end --if
+end --function
+
 GOGO_COMMANDS = {
 	["auto"] = function()
 		GoGo_Prefs.autodismount = not GoGo_Prefs.autodismount
 		GoGo_Msg("auto")
 		if GoGo_Prefs.autodismount then
-			GoGo_Panel_AutoDismount:SetChecked(1)
+			GoGo_SetOptionAutoDismount(1)
 		else
-			GoGo_Panel_AutoDismount:SetChecked(0)
+			GoGo_SetOptionAutoDismount(0)
 		end --if
 	end, --function
 	["clear"] = function()
@@ -3436,9 +3462,9 @@ function GoGo_Panel_Options()
 	GoGo_Panel_AutoDismount:SetScript("OnClick",
 		function(self)
 			if GoGo_Panel_AutoDismount:GetChecked() then
-				GoGo_Prefs.autodismount = true
+				GoGo_SetOptionAutoDismount(1)
 			else
-				GoGo_Prefs.autodismount = false
+				GoGo_SetOptionAutoDismount(0)
 			end --if
 		end --function
 	)
@@ -3732,6 +3758,39 @@ function GoGo_Paladin_Panel()
 end --function
 
 ---------
+function GoGo_Shaman_Panel()
+---------
+	GoGo_Shaman_Panel = CreateFrame("Frame", nil, UIParent)
+	GoGo_Shaman_Panel.name = GoGo_Variables.Localize.String.ShamanOptions
+	GoGo_Shaman_Panel.parent = "GoGoMount"
+--	GoGo_Shaman_Panel.okay = function (self) GoGo_Panel_Okay("SHAMAN"); end;
+	GoGo_Shaman_Panel.default = function (self) GoGo_Settings_Default("SHAMAN"); end;  -- use clear command with default button
+	InterfaceOptions_AddCategory(GoGo_Shaman_Panel)
+
+	GoGo_Shaman_Panel_ClickForm = CreateFrame("CheckButton", "GoGo_Shaman_Panel_ClickForm", GoGo_Shaman_Panel, "OptionsCheckButtonTemplate")
+	GoGo_Shaman_Panel_ClickForm:SetPoint("TOPLEFT", 16, -16)
+	GoGo_Shaman_Panel_ClickFormText:SetText(GoGo_Variables.Localize.String.ShamanSingleClick)
+	GoGo_Shaman_Panel_ClickForm:SetScript("OnClick",
+		function(self)
+			if GoGo_Shaman_Panel_ClickForm:GetChecked() then
+				GoGo_Prefs.ShamanClickForm = true
+			else
+				GoGo_Prefs.ShamanClickForm = false
+			end --if
+		end --function
+	)
+	GoGo_Shaman_Panel_ClickForm:SetScript("OnShow",
+		function(self)
+			if GoGo_Prefs.ShamanClickForm then
+				GoGo_Shaman_Panel_ClickForm:SetChecked(1)
+			else
+				GoGo_Shaman_Panel_ClickForm:SetChecked(0)
+			end --if
+		end --function
+	)
+end --function
+
+---------
 function GoGo_ZoneFavorites_Panel()
 ---------
 	GoGo_ZoneFavorites_Panel = CreateFrame("Frame", nil, UIParent)
@@ -3951,11 +4010,14 @@ function GoGo_Settings_Default(Class)
 	elseif Class == "HUNTER" then
 		GoGo_Prefs.AspectPack = false
 		InterfaceOptionsFrame_OpenToCategory(GoGo_Hunter_Panel)
+	elseif Class == "SHAMAN" then
+		GoGo_Prefs.ShamanClickForm = false
 	elseif Class == "PALADIN" then
 		GoGo_Prefs.PaladinUseCrusaderAura = false
 		InterfaceOptionsFrame_OpenToCategory(GoGo_Paladin_Panel)
 	elseif Class == "MAIN" then
-		GoGo_Prefs.autodismount = true
+		--GoGo_Prefs.autodismount = true
+		GoGo_SetOptionAutoDismount(1)
 		GoGo_Prefs.DisableUpdateNotice = false
 		GoGo_Prefs.DisableMountNotice = false
 		GoGo_Prefs.GlobalPrefMount = false
@@ -3968,7 +4030,8 @@ function GoGo_Settings_Default(Class)
 		GoGo_Prefs.ExtraPassengerMounts = {}
 		GoGo_Prefs.GlobalExclude = {}
 		GoGo_Prefs.version = GetAddOnMetadata("GoGoMount", "Version")
-		GoGo_Prefs.autodismount = true
+--		GoGo_Prefs.autodismount = true
+		GoGo_SetOptionAutoDismount(1)
 		GoGo_Prefs.DisableUpdateNotice = false
 		GoGo_Prefs.DisableMountNotice = false
 		GoGo_Prefs.DruidClickForm = true
@@ -3982,6 +4045,7 @@ function GoGo_Settings_Default(Class)
 		GoGo_Prefs.RemoveBuffs = true
 		GoGo_Prefs.DruidDisableInCombat = false
 		GoGo_Prefs.PaladinUseCrusaderAura = false
+		GoGo_Prefs.ShamanClickForm = false
 	end --if
 end --function
 
@@ -4001,6 +4065,7 @@ function GoGo_Settings_SetUpdates()
 	if not GoGo_Prefs.RemoveBuffs then GoGo_Prefs.RemoveBuffs = false end
 	if not GoGo_Prefs.DruidDisableInCombat then GoGo_Prefs.DruidDisableInCombat = false end
 	if not GoGo_Prefs.PaladinUseCrusaderAura then GoGo_Prefs.PaladinUseCrusaderAura = false end
+	if not GoGo_Prefs.ShamanClickForm then GoGo_Prefs.ShamanClickForm = false end
 	
 	GoGo_Prefs.UnknownMounts = {}
 	if not GoGo_Prefs.GlobalExclude then
