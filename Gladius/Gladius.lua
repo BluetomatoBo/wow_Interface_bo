@@ -212,8 +212,8 @@ function Gladius:OnInitialize()
 	self.dbi.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
 	
 	
-local SML = LibStub:GetLibrary("LibSharedMedia-3.0")
-SML:Register(SML.MediaType.STATUSBAR, "Smooth",   "Interface\\Addons\\Gladius\\images\\smooth")
+   local SML = LibStub:GetLibrary("LibSharedMedia-3.0")
+   SML:Register(SML.MediaType.STATUSBAR, "Smooth",   "Interface\\Addons\\Gladius\\images\\smooth")
 	
 	self.db = setmetatable(self.dbi.profile, {
       __newindex = function(t, index, value)
@@ -240,7 +240,7 @@ SML:Register(SML.MediaType.STATUSBAR, "Smooth",   "Interface\\Addons\\Gladius\\i
 	
 	-- libsharedmedia
 	self.LSM = LibStub("LibSharedMedia-3.0")
-	self.LSM:Register("statusbar", "Minimalist", "Interface\\Addons\\Gladius\\images\\Minimalist")
+	self.LSM:Register("statusbar", "minimalist", "Interface\\Addons\\Gladius\\images\\minimalist")
 		
 	-- test environment
 	self.test = false
@@ -932,5 +932,4 @@ function Gladius:UNIT_HEALTH(event, unit)
 			Gladius.buttons["arena"..i].spec=spec;
 		end
 	end
-   
 end

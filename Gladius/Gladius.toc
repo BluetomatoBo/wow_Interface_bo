@@ -1,9 +1,9 @@
-﻿## Interface: 50100
+﻿## Interface: 50200
 ## X-Compatible-With: 40000
-## Title: Gladius 5
+## Title: Gladius
 ## Notes: Arena enemy unit frames
-## Version: 5.1-06
-## Author: Firebunny. Original author: Proditor
+## Version: 3.0.0
+## Author: Resike and Firebunny. Original author: Proditor
 ## SavedVariables: Gladius2DB
 ## OptionalDeps: Ace3, LibStub, LibSharedMedia-3.0
 

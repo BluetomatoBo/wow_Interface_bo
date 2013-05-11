@@ -21,7 +21,7 @@ local HealthBar = Gladius:NewModule("HealthBar", true, true, {
    healthBarColor = { r = 1, g = 1, b = 1, a = 1 },
    healthBarClassColor = true,
    healthBarBackgroundColor = { r = 1, g = 1, b = 1, a = 0.3 },
-   healthBarTexture = "Minimalist", 
+   healthBarTexture = "minimalist", 
    
    healthBarOffsetX = 0,
    healthBarOffsetY = 0,  

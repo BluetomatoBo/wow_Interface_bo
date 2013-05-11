@@ -129,6 +129,5 @@ function Layout:GetOptions()
          },
       },
    }
-   
    return t
 end

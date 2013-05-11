@@ -322,7 +322,7 @@ function Dispell:Show(unit)
    self.frame[unit]:SetAlpha(1)
    
    if (Gladius.db.dispellGridStyleIcon) then
-      self.frame[unit].texture:SetTexture(LSM:Fetch(LSM.MediaType.STATUSBAR, "Minimalist"))
+      self.frame[unit].texture:SetTexture(LSM:Fetch(LSM.MediaType.STATUSBAR, "minimalist"))
       self.frame[unit].texture:SetVertexColor(Gladius.db.dispellGridStyleIconColor.r, Gladius.db.dispellGridStyleIconColor.g, Gladius.db.dispellGridStyleIconColor.b, Gladius.db.dispellGridStyleIconColor.a)
    else
       local dispellIcon

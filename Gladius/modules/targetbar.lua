@@ -23,7 +23,7 @@ local TargetBar = Gladius:NewModule("TargetBar", true, true, {
    targetBarColor = { r = 1, g = 1, b = 1, a = 1 },
    targetBarClassColor = true,
    targetBarBackgroundColor = { r = 1, g = 1, b = 1, a = 0.3 },
-   targetBarTexture = "Minimalist", 
+   targetBarTexture = "minimalist", 
    
    targetBarIconPosition = "LEFT",
    targetBarIcon = true,

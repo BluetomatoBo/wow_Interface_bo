@@ -1,4 +1,3 @@
-
 local Gladius = _G.Gladius
 if not Gladius then
   DEFAULT_CHAT_FRAME:AddMessage(format("Module %s requires Gladius", "Tags"))
@@ -218,8 +217,10 @@ function Tags:UpdateText(unit, text)
          else
             -- create function
             if (not self.func[tag]) then
-               local func, error = loadstring("local strformat = string.format; return " .. Gladius.db.tags[tag])
-               self.func[tag] = func
+				if tag ~= nil then
+					local func, error = loadstring("local strformat = string.format; return " .. Gladius.db.tags[tag])
+					self.func[tag] = func
+				end
             end
             
             -- escape return string

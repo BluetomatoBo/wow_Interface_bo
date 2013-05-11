@@ -457,6 +457,5 @@ function Highlight:GetOptions()
          },
       }
    end
-   
    return options
 end

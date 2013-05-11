@@ -584,6 +584,5 @@ function DRTracker:GetOptions()
       
       index = index + 1
    end
-   
    return t
 end

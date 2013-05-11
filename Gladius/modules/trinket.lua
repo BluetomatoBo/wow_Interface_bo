@@ -292,7 +292,7 @@ function Trinket:Show(unit)
    self.frame[unit]:SetAlpha(1)
    
    if (Gladius.db.trinketGridStyleIcon) then
-      self.frame[unit].texture:SetTexture(LSM:Fetch(LSM.MediaType.STATUSBAR, "Minimalist"))
+      self.frame[unit].texture:SetTexture(LSM:Fetch(LSM.MediaType.STATUSBAR, "minimalist"))
       self.frame[unit].texture:SetVertexColor(Gladius.db.trinketGridStyleIconColor.r, Gladius.db.trinketGridStyleIconColor.g, Gladius.db.trinketGridStyleIconColor.b, Gladius.db.trinketGridStyleIconColor.a)
    else
       local trinketIcon
