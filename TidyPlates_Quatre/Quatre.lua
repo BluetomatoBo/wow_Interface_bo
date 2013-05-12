@@ -53,7 +53,7 @@ StyleDefault.target = {
 
 StyleDefault.highlight = {
 	--texture		 =				path.."Highlight",
-	texture		 =					path.."RegularBorder",
+	texture		 =					path.."Highlight",
 	--width = 128,
 	--height = 64,
 }
@@ -140,7 +140,7 @@ StyleDefault.healthbar = {
 
 StyleDefault.customtext = {
 	typeface =					font,
-	size = 9,
+	size = 10,
 	width = 93,
 	height = 10,
 	x = 0,

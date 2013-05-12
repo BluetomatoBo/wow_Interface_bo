@@ -74,8 +74,8 @@ TidyPlatesHubModes.TextModes = {
 				{ text = L("Approximate Health"), notCheckable = 1 } ,
 				{ text = L("Level"), notCheckable = 1 } ,
 				{ text = L("Level and Health"), notCheckable = 1 } ,
-				{ text = L("Arena Vitals"), notCheckable = 1 } ,
-				--{ text = "Health and Power", notCheckable = 1 } ,
+				{ text = L("Arena ID, Health, and Power"), notCheckable = 1 } ,
+				
 			}
 				
 TidyPlatesHubModes.RangeModes = { 

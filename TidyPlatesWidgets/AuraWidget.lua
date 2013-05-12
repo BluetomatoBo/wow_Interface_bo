@@ -96,10 +96,13 @@ local function GetAuraWidgetByGUID(guid)
 end
 
 local function IsAuraShown(widget, aura)
-		if widget and widget.IsShown then 
+		if widget and widget:IsShown() and widget.currentAuraCount ~= 0 then
+			return true
+			--[[
 			for i = 1, 6 do
 				if widget.AuraIconFrames[i] and widget.AuraIconFrames[i]:IsShown() then return true end
 			end
+			--]]
 		end
 end
 
@@ -256,8 +259,11 @@ local Aura_Type = {}
 local Aura_Target = {}
 
 local function SetAuraInstance(guid, spellid, spellname, expiration, stacks, caster, duration, texture, auratype, auratarget)
-	if guid and spellid and caster and texture then
+	--if guid and spellid and caster and texture then
+	if guid and spellid and texture then
 		if AuraPrefilterFunction(spellid, spellname, auratype, auratarget) ~= true then return end
+		
+		--if auratarget == AURA_TARGET_FRIENDLY and auratype > 1 then print("Aura Approved", auratype) end
 		
 		local aura_id = spellid..(tostring(caster or "UNKNOWN_CASTER"))
 		local aura_instance_id = guid..aura_id
@@ -382,6 +388,9 @@ local function UpdateAurasByUnitID(unitid)
 			local spellname , _, texture, count, dispelType, duration, expirationTime, unitCaster, _, _, spellid, _, isBossDebuff = UnitDebuff(unitid, index)
 			if not spellname then break end
 			SetSpellDuration(spellid, duration)			-- Caches the aura data for times when the duration cannot be determined (ie. via combat log)
+			
+			--if dispelType and unitType == AURA_TARGET_FRIENDLY then print(spellname, unitCaster, dispelType, UnitName(unitid), guid, spellid, texture) end		-- DEBUG
+			
 			SetAuraInstance(guid, spellid, spellname, expirationTime, count, UnitGUID(unitCaster or ""), duration, texture, AURA_TYPE[dispelType or "Debuff"], unitType)
 		end	
 		
@@ -741,6 +750,7 @@ local function UpdateIconGrid(frame, guid)
 		
 		DebuffCache = wipe(DebuffCache)
 		local debuffCount = 0
+		frame.currentAuraCount = 0
 
 		
 		--  if AuraHookFunction then debuffCount = AuraHookFunction(DebuffCache) end
@@ -766,10 +776,11 @@ local function UpdateIconGrid(frame, guid)
 					aura.unit = frame.unit
 					
 					-- Call Filter Function
-					--if frame.Filter then show, priority, r, g, b = frame.Filter(aura)		-- This method will be depricated
-					--else 
-					show, priority, r, g, b = AuraFilterFunction(aura) 
-					--end				-- This method will replace it
+					if frame.Filter then
+						show, priority, r, g, b = frame.Filter(aura)		-- This method will be depricated
+					else 
+						show, priority, r, g, b = AuraFilterFunction(aura)
+					end				-- This method will replace it
 
 					-- Get Order/Priority
 					if show and aura.expiration > GetTime() then
@@ -825,9 +836,10 @@ local function UpdateIconGrid(frame, guid)
 					
 					UpdateIcon(AuraIconFrames[AuraSlotIndex], aura.texture, aura.expiration, aura.stacks, aura.r, aura.g, aura.b) 
 					AuraSlotIndex = AuraSlotIndex + 1
+					frame.currentAuraCount = index
 				end
-				
 			end
+			
 		end
 		
 		-- Clear Extra Slots
@@ -859,7 +871,12 @@ function UpdateWidget(frame)
 		
 		
 		UpdateIconGrid(frame, guid)
-		TidyPlates:RequestDelegateUpdate()		-- Delegate Update, For Debuff Widget-Controlled Scale and Opacity Functions
+		
+		if frame.currentAuraCount ~= frame.previousAuraCount then
+			frame.previousAuraCount = frame.currentAuraCount
+			--TidyPlates:RequestDelegateUpdate()		-- Delegate Update, For Debuff Widget-Controlled Scale and Opacity Functions
+			TidyPlates:RequestDelegateUpdate(frame:GetParent():GetParent())		-- Delegate Update, For Debuff Widget-Controlled Scale and Opacity Functions
+		end
 end
 
 local function UpdateWidgetTarget(frame)

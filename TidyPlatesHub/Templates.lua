@@ -1,4 +1,5 @@
 local font = TidyPlatesHubLocalizedFont or "Interface\\Addons\\TidyPlates\\Media\\DefaultFont.ttf"
+local divider = "Interface\\Addons\\TidyPlatesHub\\shared\\ThinBlackLine"
 
 local PanelHelpers = TidyPlatesUtility.PanelHelpers 		-- PanelTools
 local DropdownFrame = CreateFrame("Frame", "TidyPlatesHubCategoryFrame", UIParent, "UIDropDownMenuTemplate" )
@@ -152,6 +153,11 @@ local function CreateQuickSlider(name, label, ... ) --, neighborFrame, xOffset, 
 		frame.Text:SetText(L(label))
 		frame.Text:SetJustifyH("LEFT")
 		frame.Text:SetJustifyV("BOTTOM")
+                -- Divider Line
+                frame.DividerLine = frame:CreateTexture(nil, 'ARTWORK')
+                frame.DividerLine:SetTexture(divider)
+                frame.DividerLine:SetSize( 500, 12)
+                frame.DividerLine:SetPoint("BOTTOMLEFT", frame.Text, "TOPLEFT", 0, 5)
 		-- Margins
 		frame.Margins = { Left = 6, Right = 2, Top = 12, Bottom = 2,}
 		-- Set Positions
@@ -421,13 +427,13 @@ local function CreateInterfacePanel( objectName, panelTitle, parentTitle)
 	------------------------------
 	local panel = CreateFrame( "Frame", objectName.."_InterfaceOptionsPanel", UIParent);
 	panel.objectName = objectName
-	panel:SetBackdrop({	bgFile = "Interface/FrameGeneral/UI-Background-Marble", 
+	panel:SetBackdrop({	bgFile = "Interface/Tooltips/UI-Tooltip-Background", --bgFile = "Interface/FrameGeneral/UI-Background-Marble", 
 						edgeFile = "Interface/Tooltips/UI-Tooltip-Border", 
 						edgeSize = 16, 
 						insets = { left = 4, right = 4, top = 4, bottom = 4 },})	
 		
 	--panel:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background", insets = { left = 2, right = 2, top = 2, bottom = 2 },})
-	panel:SetBackdropColor(1, 1, 1, .6)
+	panel:SetBackdropColor(.1, .1, .1, .6)
 	panel:SetBackdropBorderColor(0.2, 0.2, 0.2, 1)
 	--panel:SetBackdropColor(0.06, 0.06, 0.06, .5)
 	if parentTitle then panel.parent = parentTitle end
@@ -438,6 +444,32 @@ local function CreateInterfacePanel( objectName, panelTitle, parentTitle)
 	--panel.MainLabel = CreateQuickHeadingLabel(nil, panelTitle, panel, nil, 16, 16)	
 	panel.MainLabel = CreateQuickHeadingLabel(nil, panelTitle, panel, nil, 16, 8)	
 	
+        -- Warnings
+        ------------------------------
+	panel.WarningFrame = CreateFrame("Frame", objectName.."WarningFrame", panel )
+	panel.WarningFrame:SetPoint("LEFT", 16, 0 )
+	panel.WarningFrame:SetPoint("TOP", panel.MainLabel, "BOTTOM", 0, -8 )
+        panel.WarningFrame:SetPoint("RIGHT", -16 , 16 )
+        panel.WarningFrame:SetHeight(50)
+	panel.WarningFrame:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background", 
+												edgeFile = "Interface/Tooltips/UI-Tooltip-Border", 
+												--tile = true, tileSize = 16,
+												edgeSize = 16, 
+												insets = { left = 4, right = 4, top = 4, bottom = 4 }
+												});
+	--panel.WarningFrame:SetBackdropColor(0.5, 0.5, 0.5, 1)
+	panel.WarningFrame:SetBackdropColor(.9, 0.3, 0.2, 1)
+	panel.WarningFrame:SetBackdropBorderColor(0.2, 0.2, 0.2, 1)
+	panel.WarningFrame:Hide()
+        -- Description
+        panel.Warnings = CreateQuickHeadingLabel(nil, "", panel.WarningFrame, nil, 8, -4)
+        -- Button
+	local WarningFixButton = CreateFrame("Button", objectName.."WarningFixButton", panel.WarningFrame, "TidyPlatesPanelButtonTemplate")
+	WarningFixButton:SetPoint("RIGHT", -10, 0)
+	WarningFixButton:SetWidth(150)
+        WarningFixButton:SetText("Fix Problem...")
+
+        
 	-- Main Scrolled Frame
 	------------------------------
 	panel.MainFrame = CreateFrame("Frame")
@@ -447,7 +479,8 @@ local function CreateInterfacePanel( objectName, panelTitle, parentTitle)
 	-- Scrollable Panel Window
 	------------------------------
 	panel.ScrollFrame = CreateFrame("ScrollFrame",objectName.."_Scrollframe", panel, "UIPanelScrollFrameTemplate")
-	panel.ScrollFrame:SetPoint("TOPLEFT", 16, -48 )
+	panel.ScrollFrame:SetPoint("LEFT", 16 )
+	panel.ScrollFrame:SetPoint("TOP", panel.MainLabel, "BOTTOM", 0, -8 )
 	panel.ScrollFrame:SetPoint("BOTTOMRIGHT", -32 , 16 )
 	panel.ScrollFrame:SetScrollChild(panel.MainFrame)
 	panel.ScrollFrame:SetScript("OnMouseWheel", OnMouseWheelScrollFrame)
@@ -493,7 +526,7 @@ local function CreateInterfacePanel( objectName, panelTitle, parentTitle)
 	
 	-- Paste
 	local PasteThemeDataButton = CreateFrame("Button", objectName.."PasteThemeDataButton", panel, "TidyPlatesPanelButtonTemplate")
-	PasteThemeDataButton.tooltipText = "Pastes your settings from the clipboard.  'Shift'-clicking uses the panel-specific clipboard"
+	PasteThemeDataButton.tooltipText = "Pastes your settings from the cache.  'Shift'-clicking uses the panel-specific cache"
 	PasteThemeDataButton:SetPoint("TOPRIGHT", -40, -22)
 	PasteThemeDataButton:SetWidth(60)
 	PasteThemeDataButton:SetScale(.85)
@@ -503,7 +536,7 @@ local function CreateInterfacePanel( objectName, panelTitle, parentTitle)
 	
 	-- Copy
 	local CopyThemeDataButton = CreateFrame("Button", objectName.."CopyThemeDataButton", panel, "TidyPlatesPanelButtonTemplate")
-	CopyThemeDataButton.tooltipText = "Copies your settings to the clipboard.  'Shift'-clicking uses a panel-specific clipboard"
+	CopyThemeDataButton.tooltipText = "Copies your settings to the cache.  'Shift'-clicking uses a panel-specific cache"
 	---- This feature works between matching panel types (ie. Hub/Damage to Hub/Damage)
 	CopyThemeDataButton:SetPoint("TOPRIGHT", PasteThemeDataButton, "TOPLEFT", -4, 0)
 	CopyThemeDataButton:SetWidth(60)
@@ -532,6 +565,13 @@ local function CreateInterfacePanel( objectName, panelTitle, parentTitle)
 	BookmarkButton:SetScale(.85)
 	BookmarkButton:SetText("Bookmarks...")
 	
+        --local child1, child2, child3 = BookmarkButton:GetRegions()
+        
+        --child1:SetVertexColor()
+        
+        
+        
+        
 	local function InitializeDropdownMenu()	
 		AddDropdownTitle("Bookmarks")
 		-- Populate List with Categories
@@ -611,10 +651,11 @@ local function CreateInterfacePanel( objectName, panelTitle, parentTitle)
 		SetMaximizeButtonTexture(UnlinkButton)
 		UnlinkButton:SetScript("OnClick", UnLinkPanel)
 		
-		panel:SetScale(1)
+		--panel:SetScale(1)
 		panel:SetMovable(false)
 		panel:SetScript("OnDragStart",nil)
 		panel:SetScript("OnDragStop",nil)
+                panel:SetBackdropColor(.1, .1, .1, .6)
 	end
 	
 	-- The Unlink feature will pop the config panel onto its own movable window frame
@@ -626,7 +667,8 @@ local function CreateInterfacePanel( objectName, panelTitle, parentTitle)
 		panel:SetHeight(height - 40)
 		panel:SetWidth(width - 60)
 		panel:SetPoint("CENTER")
-		panel:SetScale(.95)
+		--panel:SetScale(.95)
+                panel:SetBackdropColor(.1, .1, .1, 1)
 		
 		--[[
 		panel:SetBackdrop({ bgFile = "Interface/Tooltips/UI-Tooltip-Background", 
@@ -662,14 +704,50 @@ local function CreateInterfacePanel( objectName, panelTitle, parentTitle)
 		panel:Hide()
 	end
 	
-	UnlinkButton:SetScript("OnClick", UnLinkPanel)
-
+        local function OpenTidyPlatesConfig()
+            InterfaceOptionsFrame_OpenToCategory("Tidy Plates")
+        end
+    
+        local RefreshPanel = function(self)
+            SetPanelValues(panel, GetVariableSet(panel))
+            EnableUnlink(UnlinkButton)
+            
+            if TidyPlates.ActiveThemeTable.OnUpdate ~= TidyPlatesHubFunctions.OnUpdate then
+                 panel.ScrollFrame:SetPoint("TOP", panel.WarningFrame, "BOTTOM", 0, -8 )     -- Warning
+                panel.WarningFrame:Show()
+                panel.Warnings.Text:SetText("It appears that you're not using a Hub-compatible Theme.")
+                panel.Warnings.Text:SetTextColor(1, 1, 1)
+                panel.Warnings.Text:SetFont(font, 18)
+                
+                WarningFixButton:SetText("Change Theme...")
+                WarningFixButton:SetScript("OnClick", OpenTidyPlatesConfig)
+            else
+                panel.WarningFrame:Hide()
+                panel.ScrollFrame:SetPoint("TOP", panel.MainLabel, "BOTTOM", 0, -8 )        -- Default
+            end
+            
+            --[[
+            -- On Warning...
+            panel.ScrollFrame:SetPoint("TOP", panel.MainLabel, "BOTTOM", 0, -8       -- Default
+            panel.ScrollFrame:SetPoint("TOP", panel.MainLabel, "BOTTOM", 0, -8       -- Default
+            
+            panel.ScrollFrame:SetPoint("TOP", panel.WarningFrame, "BOTTOM", 0, -8 )     -- Warning
+            
+            panel.WarningFrame:Hide()
+        -- Description
+        panel.Warnings  
+            --]]
+            --Theme.ShowConfigPanel = ShowTidyPlatesHubDamagePanel
+        end
+        
 	-----------------
 	-- Button Handlers
 	-----------------
-	panel.okay = function() OnPanelItemChange(panel) end
-	panel.refresh = function() SetPanelValues(panel, GetVariableSet(panel)); EnableUnlink(UnlinkButton) end
-	
+	panel.okay = ClosePanel --function() OnPanelItemChange(panel) end
+	panel.refresh = RefreshPanel
+        panel:SetScript("OnShow", RefreshPanel)
+	UnlinkButton:SetScript("OnClick", UnLinkPanel)
+        
 	----------------
 	-- Return a pointer to the whole thingy
 	----------------

@@ -60,6 +60,7 @@ TidyPlatesHubDefaults = {
 	TextShowLevel = false,
 	TextUseBlizzardFont = false,
 	TextHealthTextMode = 1,
+	TextShowOnlyOnTargets = false, 
 	
 	-- Color
 	---------------------------------------
@@ -127,6 +128,7 @@ TidyPlatesHubDefaults = {
 	WidgetsThreatIndicatorMode = 1,
 	WidgetsRangeIndicator = false,
 	WidgetsRangeMode = 1,
+	WidgetsEnableExternal = true,
 	
 	-- Aura Widget
 	---------------------------------------

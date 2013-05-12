@@ -1,12 +1,11 @@
 TidyPlatesUtility = {}
--- TidyPlatesData = {}	-- ## SavedVariables: TidyPlatesData
-
 
 -------------------------------------------------------------------------------------
 --  General Helpers
 -------------------------------------------------------------------------------------
 local _
-local copytable
+
+local copytable         -- Allows self-reference
 copytable = function(original)
 	local duplicate = {}
 	for key, value in pairs(original) do
@@ -15,7 +14,6 @@ copytable = function(original)
 	end
 	return duplicate
 end
-
 
 local function RaidMemberCount()
 	if UnitInRaid("player") then 
@@ -465,11 +463,6 @@ PanelHelpers.EnableFreePositioning = EnableFreePositioning
 
 
 
-
-
-
-
-
 ----------------------
 -- Call In() - Registers a callback, which hides the specified frame in X seconds
 ----------------------
@@ -509,155 +502,6 @@ do
 	TidyPlatesUtility.CallIn = CallIn
 	
 end
-
-
---[[
-
-	PanelHelpers.CreateItemList
-	
-	- Update the item list
-	- Create/Sort list of names in an array
-	
-	* Item
-	CreateFrame			Frame
-	CreateFontstring	Name
-	CreateTexture		Highlight
-	CreateFrame			DeleteButton
-	
-	* List
-	CreateScrollFrame
-	CreateChildFrame
-	
-	Items go in Child Frame
-	Child frame is anchored to the first and last item
-	
-	* Add Item Box
-	CreateFrame
-	CreateFrame		EditBox
-	CreateFrame		AddButton
-	
-	UpdateItems
-	items are stored in an ItemList array, which can be cleared.
-	
-	
-
-
-
-
-
-
-
-
-
---]]
-
-
-
-
-
-
---[[
- 
-local frame = CreateFrame("Frame", "DragFrame2", UIParent)
-frame:SetMovable(true)
-frame:EnableMouse(true)
-frame:SetScript("OnMouseDown", frame.StartMoving)
-frame:SetScript("OnMouseUp", frame.StopMovingOrSizing)
-
--- The code below makes the frame visible, and is not necessary to enable dragging.
-frame:SetPoint("CENTER"); frame:SetWidth(64); frame:SetHeight(64);
-local tex = frame:CreateTexture("ARTWORK");
-tex:SetAllPoints();
-tex:SetTexture(1.0, 0.5, 0); tex:SetAlpha(0.5);
-
---]]
-
-
-
---[[
-do
-	local function OnClickSelect(self) 
-		
-	end
-		
-	local function AddListItem(self, itemname, itemdata)
-		
-		
-		local item = CreateFrame("Frame", nil, self.Content)
-		item.Label = = item:CreateFontString(nil, "OVERLAY")
-		
-		-- Create or REUSE frame
-		-- create a frame
-		-- create highlight region
-		-- create text region
-		
-		-- Scale Frame
-		-- Set Anchors
-		-- Scale Contents Frame
-		
-		-- Store parent list information
-		
-		-- Add OnClick Handler (OnSelect)
-	end
-	
-	local function DeleteItem(self, itemname) 
-		
-	end
-	
-	local function UpdateList(self)
-		self:SetScrollChild(self.Content)
-	end
-	
-	local function GetSelectedItem(self) end
-	
-
-	function PanelHelpers:CreateScrollList(reference, parent, label, targetTable)
-		local self = CreateFrame("ScrollFrame",reference, parent)
-		local self.Content = CreateFrame("Frame", reference.."_Contents", scrollListWindow)
-		
-		-- Setup Visible Item List
-		self.Content.Items = {}
-		self.Content.ItemCount = 0
-		self.Content.SelectedIndex = 0 
-		
-		-- Setup Default Options
-		-- Register Functions
-		
-	end
-
-end
-
---]]
-
---[[
-
-	UIPanelScrollFrameTemplate
-	or
-	UIPanelScrollFrameTemplate2
-
---]]
-
-
-
---[[
-			<OnEnter>
-				if ( self.tooltipText ) then
-					GameTooltip:SetOwner(self, self.tooltipOwnerPoint or "ANCHOR_RIGHT");
-					GameTooltip:SetText(self.tooltipText, nil, nil, nil, nil, 1);
-				end
-				if ( self.tooltipRequirement ) then
-					GameTooltip:AddLine(self.tooltipRequirement, 1.0, 1.0, 1.0, 1.0);
-					GameTooltip:Show();
-				end
-			</OnEnter>
-			<OnLeave>
-				GameTooltip:Hide();
-			</OnLeave>
---]]
-
-
-
-
 
 
 

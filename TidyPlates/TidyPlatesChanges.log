@@ -1,6 +1,18 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   
 
+6.9.9
+---------------------------
+- Hub: Added "Selective Optional Text"
+- Deprecated: 'customart' Texture and theme functions.  Please use the Widget system to create additional textures. (Removing unused textures provides a small performance improvement)
+- Core: Reorganized the nameplate strata, removing an unnecessary anchor frame
+- Core: Reorganized and relabeled some internal functions, adding a few extra comments
+- Core & Aura Widget: Made some changes to reduce extraneous calls.
+- Aura Widget: "Show Dispellable Auras" should work, now.  Ran some BGs, and things seemed to work.
+- Hub: Added a warning, notifying the user when they're not using a Hub-compatible theme.
+- Hub: Added a divider line between Headings
+- Aura Widget: The old method of applying the aura widget has been re-added; The new method (described somewhere below) is still preferred!
+
 6.9.8
 ---------------------------
 - Hub: "By Threat" Color Modes will pass through enemy class colors, when available, and then use Reaction colors.  (NPC-Pets will continue to use the "By Threat" colors)

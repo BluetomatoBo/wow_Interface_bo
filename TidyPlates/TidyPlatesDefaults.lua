@@ -171,15 +171,6 @@ TemplateTheme.customtext = {
 	show = false,
 }
 
-TemplateTheme.customart = {
-	width = 24,
-	height = 24,
-	x = -5,
-	y = 10,
-	anchor = "TOP",
-	show = false,
-}
-
 TemplateTheme.spellicon = {
 	width = 18,
 	height = 18,

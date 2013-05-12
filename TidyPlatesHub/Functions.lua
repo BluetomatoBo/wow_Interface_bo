@@ -3,6 +3,33 @@
 -- Tidy Plates Hub
 ------------------------------------------------------------------------------------
 
+--[[
+
+Index:
+	Colors
+	Helper Functions
+	Style
+	Health Bar Color
+	Warning Border Color
+	Cast Bar Color
+	Name Text Color
+	Optional/Health Text
+	Headline/Binary Text Styles
+
+	Filter
+	Scale
+	Alpha
+	
+	Aura Widget
+	Widget Creation
+	Widget Activation
+	Customization
+	Function List
+	Slash Commands
+	
+
+--]]
+
 TidyPlatesHubFunctions = {}
 local LocalVars = TidyPlatesHubDefaults
 --local LocalRole = 1
@@ -432,7 +459,7 @@ end
 	
 local ColorFunctions = {DummyFunction, ColorFunctionByClassEnemy, ColorFunctionByThreat, ColorFunctionByReaction, ColorFunctionByLevelColor, ColorFunctionByRaidIcon, ColorFunctionByHealth, ColorFunctionByClassFriendly }
 
-local function HealthColorDelegate(unit)	
+local function HealthColorDelegate(unit)
 	local color, class
 
 	-- Group Member Aggro Coloring
@@ -507,9 +534,9 @@ local function WarningBorderFunctionByThreat(unit)
 				elseif unit.threatValue == 2 then return LocalVars.ColorAggroTransition
 				elseif unit.threatValue < 2 then return LocalVars.ColorAttackingMe	end
 		elseif unit.threatValue > 0 then return ColorFunctionDamage(unit) end
-	--else
+	else
 		-- Add healer tracking
-		--return WarningBorderFunctionByEnemyHealer(unit)
+		return WarningBorderFunctionByEnemyHealer(unit)
 				
 	end
 end
@@ -539,7 +566,8 @@ end
 ------------------------------------------------------------------------------
 local function CastBarDelegate(unit)
 	local color
-	if unit.spellInterruptible then color = LocalVars.ColorNormalSpellCast 
+	if unit.spellInterruptible then
+		color = LocalVars.ColorNormalSpellCast
 	else color = LocalVars.ColorUnIntpellCast end 
 	return color.r, color.g, color.b, 1
 end
@@ -559,7 +587,8 @@ local function NameColorByReaction(unit)
 end
 	
 -- By Significance
-local function NameColorBySignificance(unit)	
+local function NameColorBySignificance(unit)
+	-- [[
 	if unit.reaction ~= "FRIENDLY" then
 		if unit.isTarget then return White
 		elseif unit.isBoss or unit.isMarked then return BossGrey
@@ -568,6 +597,13 @@ local function NameColorBySignificance(unit)
 	else
 		return NameColorByReaction(unit)
 	end
+	--]]
+	--[[
+	if unit.reaction == "FRIENDLY" then return White
+	elseif unit.isBoss or unit.isMarked then return BossGrey
+	elseif unit.isElite or (unit.levelcolorRed > .9 and unit.levelcolorGreen < .9) then return EliteGrey
+	else return NormalGrey end
+	--]]
 end
 
 local function NameColorByClass(unit)
@@ -676,8 +712,14 @@ end
 local function TextFunctionMana(unit) 
 	if unit.isTarget then
 		local power = ceil((UnitPower("target") / UnitPowerMax("target"))*100)
-		local powername = getglobal(select(2, UnitPowerType("target")))
-		if power and power > 0 then	return power.."% "..powername end
+		--local r, g, b = UnitPowerType("target")
+		--local powername = getglobal(select(2, UnitPowerType("target")))
+		--if power and power > 0 then	return power.."% "..powername end
+		local powertype = select(2,UnitPowerType("target"))
+		local powercolor = PowerBarColor[powertype]
+		local powername = getglobal(powertype)
+		---print(power, powertype, powercolor, powercolor.r, powercolor.g, powercolor.b)
+		if power and power > 0 then return power.."% "..powername, powercolor.r, powercolor.g, powercolor.b, 1 end
 	end
 end
 
@@ -709,9 +751,10 @@ local function HealthFunctionDeficit(unit)
 	if health ~= healthmax then return "-"..SepThousands(healthmax - health) end 
 end
 -- Total and Percent
-local function HealthFunctionTotal(unit) 
+local function HealthFunctionTotal(unit)
+	local color = ColorFunctionByHealth(unit)
 	local health, healthmax = unit.health, unit.healthmax
-	return ShortenNumber(health).." / "..ShortenNumber(healthmax).." ("..ceil(100*(health/healthmax)).."%)" 
+	return ShortenNumber(health).."|cffffffff ("..ceil(100*(health/healthmax)).."%)", color.r, color.g, color.b
 end
 -- TargetOf
 local function HealthFunctionTargetOf(unit) 
@@ -734,10 +777,52 @@ local function HealthFunctionLevelHealth(unit)
 end
 
 -- Arena Vitals (ID, Mana, Health
-local function HealthFunctionArenaID(unit) 
-	return (TextFunctionMana(unit) or "").."  "..ShortenNumber(unit.health).."  "..(GetArenaIndex(unit.name) or "")
-	--return GetArenaIndex(unit.name)
+local function HealthFunctionArenaID(unit)
+	local localid
+	local powercolor = WhiteColor
+	local powerstring = ""
+	local arenastring = ""
+	local arenaindex = GetArenaIndex(unit.name)
+	
+	--arenaindex = 2	-- Tester
+	
+	if arenaindex and arenaindex > 0 then
+		arenastring = "|cffffcc00["..(tostring(arenaindex)).."]  |r"
+	end
+	
+	
+	if unit.isTarget then localid = "target"
+	elseif unit.isMouseover then localid = "mouseover" end
+
+	
+	if localid then
+		local power = ceil((UnitPower(localid) / UnitPowerMax(localid))*100)
+		local powerindex, powertype = UnitPowerType(localid)
+		
+		--local powername = getglobal(powertype)
+		
+		
+		if power and power > 0 then
+			powerstring = "  "..power.."%"		--..powername
+			powercolor = PowerBarColor[powerindex] or WhiteColor
+		end
+	end
+		
+	local healthstring = "|cffffffff"..tostring(ceil(unit.health/1000)).."k|cff0088ff"
+
+	--	return '4'.."|r"..(powerstring or "")
+	return arenastring..healthstring..powerstring, powercolor.r, powercolor.g, powercolor.b, 1
+
+	--[[
+	Arena ID, HealthFraction, ManaPercent
+	#1  65%  75%
+	
+	Arena ID, HealthK, ManaFraction
+	#2  300k  75%  
+	
+	--]]
 end
+
 
 
 local HealthTextModeFunctions = {
@@ -750,11 +835,13 @@ local HealthTextModeFunctions = {
 	HealthFunctionApprox,
 	HealthFunctionLevel,
 	HealthFunctionLevelHealth,
+	--TextFunctionMana,
 	HealthFunctionArenaID,
 }
 
 local function HealthTextDelegate(unit) 
 	local func = HealthTextModeFunctions[LocalVars.TextHealthTextMode] or DummyFunction
+	if LocalVars.TextShowOnlyOnTargets and not (unit.isTarget or unit.isMouseover) then return end -- or unit.isMouseover
 	return func(unit) 
 end
 
@@ -1097,6 +1184,7 @@ local function AlphaDelegate(...)
 		end
 	end
 	
+	
 	if alpha then return Diminish(alpha)
 	else 
 		if (not UnitExists("target")) and LocalVars.OpacityFullNoTarget then return Diminish(LocalVars.OpacityTarget)
@@ -1258,6 +1346,7 @@ end
 
 local function DebuffFilter(aura)
 	if LocalVars.WidgetAuraTrackDispelFriendly and aura.reaction == AURA_TARGET_FRIENDLY then
+		--if (aura.type ~= 1)  then print("Debuff Filter", aura.name, aura.type) end
 		if TrackDispelType(AURA_TYPE[aura.type]) then 
 		local r, g, b = GetAuraColor(aura)
 		return true, 10, r, g, b end
@@ -1269,7 +1358,7 @@ local function DebuffFilter(aura)
 end
 
 local function Prefilter(spellid, spellname, auratype, auratargetreaction)
-	if (auratargetreaction == AURA_TARGET_FRIENDLY) and (auratype > 1) then return true end
+	if (auratargetreaction == AURA_TARGET_FRIENDLY) and (AURA_TYPE[auratype] ~= 1) then return true end
 	return ((LocalVars.WidgetsDebuffLookup[tostring(spellid)] or LocalVars.WidgetsDebuffLookup[spellname]) ~= nil)
 end
 
@@ -1419,7 +1508,7 @@ local function OnInitializeWidgets(plate, configTable)
 	--plate.widgets.HealerWidget = CreateHealerWidget(plate)
 	--plate.widgets.HealerWidget:SetPoint("CENTER", -50, 2) --0, 0)
 	
-	if TidyPlatesGlobal_OnInitialize then TidyPlatesGlobal_OnInitialize(plate) end
+	if LocalVars.WidgetsEnableExternal and TidyPlatesGlobal_OnInitialize then TidyPlatesGlobal_OnInitialize(plate) end
 end
 
 local function OnContextUpdateDelegate(plate, unit)
@@ -1428,7 +1517,7 @@ local function OnContextUpdateDelegate(plate, unit)
 	if (LocalVars.WidgetsThreatIndicatorMode == 1) and LocalVars.WidgetsThreatIndicator then Widgets.ThreatLineWidget:UpdateContext(unit) end		-- Tug-O-Threat
 	if LocalVars.WidgetsDebuff then Widgets.DebuffWidget:UpdateContext(unit) end
 
-	if TidyPlatesGlobal_OnContextUpdate then TidyPlatesGlobal_OnContextUpdate(plate, unit) end
+	if LocalVars.WidgetsEnableExternal and TidyPlatesGlobal_OnContextUpdate then TidyPlatesGlobal_OnContextUpdate(plate, unit) end
 end
 
 local function OnUpdateDelegate(plate, unit)
@@ -1438,10 +1527,7 @@ local function OnUpdateDelegate(plate, unit)
 	if LocalVars.WidgetsTotemIcon then Widgets.TotemIcon:Update(unit)  end
 	if (LocalVars.WidgetsThreatIndicatorMode == 2) and LocalVars.WidgetsThreatIndicator then plate.widgets.ThreatWheelWidget:Update(unit) end 		-- Threat Wheel
 	
-	--testing HealerWidget
-	--Widgets.HealerWidget:Update(unit)
-	
-	if TidyPlatesGlobal_OnUpdate then TidyPlatesGlobal_OnUpdate(plate, unit) end
+	if LocalVars.WidgetsEnableExternal and TidyPlatesGlobal_OnUpdate then TidyPlatesGlobal_OnUpdate(plate, unit) end
 end
 
 -- Threat Functions List
@@ -1461,7 +1547,7 @@ local function EnableWatchers()
 	-- Healer Tracker
 	if (ScaleFunctionsUniversal[LocalVars.ScaleSpotlightMode] == ScaleFunctionByEnemyHealer) or
 		AlphaFunctionsUniversal[LocalVars.OpacitySpotlightMode] == AlphaFunctionByEnemyHealer or
-		WarningBorderFunctionsUniversal[LocalVars.ColorDangerGlowMode] == WarningBorderFunctionByEnemyHealer then
+		WarningBorderFunctionsUniversal[LocalVars.ColorDangerGlowMode] ~= DummyFunction then
 			TidyPlatesUtility:EnableHealerTrack()
 	else
 		TidyPlatesUtility:DisableHealerTrack()
