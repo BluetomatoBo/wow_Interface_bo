@@ -96,7 +96,7 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization(713)
 
 L:SetWarningLocalization({
-	specwarnUnder	= "离开紫圈!",
+	specwarnUnder	= "远离紫圈!",
 	specWarnPungencyOtherFix = "%s 敏感 (%d)",
 	specwarnCrushH	= "重碾 (%d)",
 	SpecWarnJSA		= "5秒后重碾 >>注意减伤<<",

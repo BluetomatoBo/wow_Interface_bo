@@ -4,9 +4,8 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndCQ		= mod:NewSound(nil, "SoundCQ", true)
 
-mod:SetRevision(("$Revision: 9383 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9476 $"):sub(12, -3))
 mod:SetCreatureID(69427)
-mod:SetModelID(47527)
 mod:SetQuestID(32752)
 mod:SetZone()
 
@@ -110,6 +109,7 @@ function mod:SPELL_CAST_START(args)
 		InterruptingJoltCount = InterruptingJoltCount + 1
 		warnInterruptingJolt:Show(InterruptingJoltCount)
 		specWarnInterruptingJolt:Show(InterruptingJoltCount)
+		timerInterruptingJoltCD:Cancel()
 		timerInterruptingJoltCD:Start(21.8, InterruptingJoltCount + 1)		
 		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3")
 		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
@@ -123,6 +123,7 @@ function mod:SPELL_CAST_START(args)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_dfzj.mp3") --斷法震擊
 		end
 		if mod:IsHealer() then
+			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenzj.mp3")
 			sndWOP:Schedule(11.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenzj.mp3") -- 10秒後斷法震擊
 		end
 		if MyJS() then

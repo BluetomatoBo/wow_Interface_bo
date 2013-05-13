@@ -125,7 +125,11 @@ do
 
 		for i=1, MAX_BUTTONS, 1 do
 			if i + self.offset <= #values then
-				self.buttons[i]:SetText(values[i+self.offset].text)
+				local ind = "   "
+				if values[i+self.offset].value == TabFrame1.dropdown.value then
+				  ind = "|TInterface\\Buttons\\UI-CheckBox-Check:0|t"
+				end
+				self.buttons[i]:SetText(ind..values[i+self.offset].text)
 				self.buttons[i].entry = values[i+self.offset]
 				if values[i+self.offset].texture then
 					BackDropTable.bgFile = values[i+self.offset].texture
@@ -175,12 +179,12 @@ do
 
 	local FrameTitle = "DBM_GUI_DropDown"
 
-	function DBM_GUI:CreateDropdown(title, values, selected, callfunc, width)
+	function DBM_GUI:CreateDropdown(title, values, selected, callfunc, width, parent)
 		-- Check Values
 		self:CheckValues(values)
 
 		-- Create the Dropdown Frame
-		local dropdown = CreateFrame("Frame", FrameTitle..self:GetNewID(), self.frame, "DBM_GUI_DropDownMenuTemplate")
+		local dropdown = CreateFrame("Frame", FrameTitle..self:GetNewID(), parent or self.frame, "DBM_GUI_DropDownMenuTemplate")
 		dropdown.creator = self
 		dropdown.values = values
 		dropdown.callfunc = callfunc

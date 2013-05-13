@@ -2,9 +2,8 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9120 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9469 $"):sub(12, -3))
 mod:SetCreatureID(56884)
-mod:SetModelID(41121)
 mod:SetZone()
 
 mod:RegisterCombat("combat")
@@ -30,7 +29,6 @@ local specWarnDarkH			= mod:NewSpecialWarningMove(112933)
 local timerRingofMalice		= mod:NewBuffActiveTimer(15, 131521)
 local timerGrippingHartedCD	= mod:NewNextTimer(45.5, 115002)
 
--- info frame stuff not confirmed
 mod:AddBoolOption("InfoFrame", true)
 
 local Hate = EJ_GetSectionInfo(5827)

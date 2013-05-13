@@ -143,7 +143,6 @@ DBM_CORE_BOSSHEALTH_HIDE_FRAME		= "關閉血量框架"
 DBM_CORE_ALLIANCE				= "聯盟"
 DBM_CORE_HORDE					= "部落"
 
-DBM_CORE_WORLD_BOSS					= "世界首領"
 DBM_CORE_UNKNOWN					= "未知"
 DBM_CORE_LEFT						= "左"
 DBM_CORE_RIGHT						= "右"
@@ -294,7 +293,7 @@ DBM_ARROW_ERROR_USAGE	= {
 
 DBM_SPEED_KILL_TIMER_TEXT			= "記錄擊殺"
 DBM_SPEED_KILL_TIMER_OPTION			= "計時器：上次的最快擊殺"
-DBM_SPEED_CLEAR_TIMER_TEXT			= "清除記錄"
+DBM_SPEED_CLEAR_TIMER_TEXT			= "最速清除"
 
 
 DBM_REQ_INSTANCE_ID_PERMISSION		= "%s想要查看你的副本ID和進度鎖定情況。\n你想發送該訊息給%s嗎? 在你的當前進程（除非你下線）他可以一直查閱該訊息。"
@@ -318,4 +317,4 @@ DBM_CORE_LAG_FOOTER					= "未反饋此次檢測的團員:%s"
 
 DBM_CORE_GUILDAD_HEADER_GENERIC		= "黑手之鄉簡介"
 DBM_CORE_GUILDAD_GENERIC			= "        黑手之鄉成立于2007年10月17日，前身是國服三區雷斧堡壘的聯盟公會盟誓的二團。團長一直是阿爾貝裏希（在台服改名爲Alberich）。\n\n        2010年1月，黑手的骨幹十多名玩家一起轉戰台服pve服務器眾星之子，看重的就是這個服務器良好的pve氛圍，希望能在台服繼續我們的夢想。4.2國服同步後，由于團隊已經一部分本土化，亦對台服良好的玩家素質，服務器良好的raid氛圍表示滿意，團隊留在了台服並准備一直留下去。\n\n        建會以來，團隊一直保持了比較強的開荒強度，鍛煉了團隊，也收集了很多優秀的宅男。公會現有25人團隊一支，從3.3至今所有版本25人H模式當前版本皆全通。5.1版本25人團排名臺服第八，並轉服至世界之樹，5.2版本25人團隊進度服務器領先！\n\n        公會活動時間：開荒期間周四五六 周一二三(也就是除了周日都有活動)，farm期間周五周六周一周二(或者更少)，晚上7:40開組，8:00開打，12:00左右結束(平時有的時候早點，不到12點就結束，周五周六到12：00左右)。"
-DBM_CORE_GUILDAD_FOOTER_GENERIC		= "|h|cff3588ff重點招募\n鳥德   元素薩   奶僧   坦僧   奶騎   奶薩   奶牧\n要求:加QQ談   聯系QQ:313082736 注明wow和自己的職業|r|h"
+DBM_CORE_GUILDAD_FOOTER_GENERIC		= "|h|cff3588ff重點招募\n術士       元素薩       奶僧       奶薩\n要求:加QQ談   聯系QQ:313082736 注明wow和自己的職業|r|h"

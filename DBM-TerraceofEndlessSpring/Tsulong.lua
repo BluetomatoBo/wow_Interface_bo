@@ -6,9 +6,8 @@ local sndGH		= mod:NewSound(nil, "SoundGH", mod:IsHealer())
 local sndHX		= mod:NewSound(nil, "SoundHX", mod:IsTank() or mod:IsHealer())
 local sndMY		= mod:NewSound(nil, "SoundMY", false)
 
-mod:SetRevision(("$Revision: 8856 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9469 $"):sub(12, -3))
 mod:SetCreatureID(62442)--62919 Unstable Sha, 62969 Embodied Terror
-mod:SetModelID(42532)
 mod:SetReCombatTime(60)--fix lfr combat re-starts after killed.
 
 mod:RegisterCombat("combat")

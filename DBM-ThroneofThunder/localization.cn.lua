@@ -284,6 +284,9 @@ L:SetOptionLocalization({
 	DD1							= "A:红黄蓝",
 	DD2							= "B:黄蓝红",
 	DD3							= "C:蓝红黄",
+	HDD1						= "H-A:红红红",
+	HDD2						= "H-B:蓝蓝黄",
+	HDD3						= "H-C:黄黄蓝",
 	HudMAP						= "高级定位监视(HUD)：三元光分担",
 	warnAddsLeft				= "警告：雾兽剩余数量",
 	specWarnFogRevealed			= "特别警告：雾兽被照出",
@@ -294,15 +297,22 @@ L:SetOptionLocalization({
 	xx1							= "当你被吸血一层时喊话",
 	xx2							= "当你被吸血两层时喊话",
 	xx3							= "当你被吸血超过三层时喊话(DBM会自动在结尾為你显示层数)",
+	lifeA						= "当你被吸血两层时密语此目标挡线",
+	lifeB						= "当你被吸血两层时密语此目标挡线",
 	SetIconRays					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format("ej6891"),
-	SetIconLifeDrain			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(133795)
+	SetIconLifeDrain			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(133795),
+	SetIconOnParasite			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(133597),
+	SetParticle				= "开战后自动将投影材质调為低(离开战斗后恢復设定)"
+
+
 })
 
 L:SetMiscLocalization({
 	Eye		= "魔眼",
-	xx1noset = "11111111吸我了",
-	xx2noset = "22222层了 快帮我挡 快帮我挡",
-	xx3noset = "我要被吸死了------"
+	xx1noset 	= "11111111吸我了",
+	xx2noset 	= "22222层了 快帮我挡 快帮我挡",
+	xx3noset 	= "我要被吸死了------",
+	dx		= "帮我挡线!!"
 })
 
 ----------------
@@ -320,7 +330,7 @@ L:SetOptionLocalization({
 	warnDebuffCount		= "警告:当你获得了有害状态",
 	InfoFrame		= "资讯框：首领当前的$journal:6949技能",
 	RangeFrame		= "显示距离框架(2码/5码)",
-	SetIconOnBigOoze	= "为$journal:6969自动标记"
+	SetIconOnBigOozes	= "为$journal:6969自动标记"
 })
 
 L:SetMiscLocalization({
@@ -483,6 +493,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
 	specWarnIntermissionSoon	= "特别警告：充能阶段即将到来",
+	RangeFrameLB	= "距离监视：当闪电球存在时切换到3码(英雄模式)",
 	cancelhud		= "当玩家白字说不需要分担时变换HUD标誌(输入监视关键字 例如:单吃)",
 	HudMAP			= "高级定位监视(HUD)：$spell:135695",
 	HudMAP2			= "高级定位监视(HUD)：$spell:136295",
@@ -499,12 +510,24 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization(831)
 
 L:SetTimerLocalization({
-	timerAnima		= "下一次心能爆炸"
+	timerAnima		= "下一次心能爆炸",
+	specWarnVitarun		= "準备生命传递! 快就位!"
 })
 
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
-	HudMAP			= "高级定位监视(HUD)：$spell:138295爆炸",
+	SoundStrike		= "為$spell:138295倒数3秒",
+	specWarnVitarun		= "特别警告：生命传递跑位",
+	optDD			= "生命跑位策略",
+	nodd			= "正常循环成员(下方设定编号)",
+	DD1			= "替补1",
+	DD2			= "替补2",
+	DD3			= "替补3",
+	DD4			= "替补4",
+	DD5			= "替补5",
+	lightnumber		= "正常循环成员编号(不会分配编号為0的团员)",
+	lastnumber		= "总共安排了多少正常循环成员[必须填写 非常重要]",
+	HudMAPAnima		= "高级定位监视(HUD)：$spell:138295爆炸",
 	timerAnima		= "计时器：下一次$spell:138295爆炸",
 	SetIconOnUnstableVita	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(138297),
 	SetIconOnUnstableAnima	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(138288)

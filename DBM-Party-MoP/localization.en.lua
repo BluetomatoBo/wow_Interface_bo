@@ -45,15 +45,6 @@ L:SetOptionLocalization({
 	SoundWOP 		= "voice warning: important skills"
 })
 
---------------------------------
--- General options/zone timer --
---------------------------------
-L = DBM:GetModLocalization("TJSGeneral")
-
-L:SetGeneralLocalization({
-	name =	"TJS: Challenge Timer"
-})
-
 -----------------------
 -- <<<Stormstout Brewery>>> --
 -----------------------
@@ -154,6 +145,7 @@ L:SetOptionLocalization({
 -----------------------
 -- <<<The Gate of the Setting Sun>>> --
 -----------------------
+
 ---------------------
 -- Kiptilak --
 ---------------------
@@ -200,15 +192,6 @@ L:SetMiscLocalization({
 	Kkxka		= "messenger",
 	Kkxkb		= "protecter",
 	Kkxkc		= "Devourer"
-})
-
---------------------------------
--- General options/zone timer --
---------------------------------
-L = DBM:GetModLocalization("GSSGeneral")
-
-L:SetGeneralLocalization({
-	name =	"GSS: Challenge Timer"
 })
 
 -----------------------

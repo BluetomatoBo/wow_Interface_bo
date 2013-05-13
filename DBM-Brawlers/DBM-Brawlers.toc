@@ -19,7 +19,6 @@
 localization.en.lua
 localization.cn.lua
 localization.tw.lua
-MapSizes.lua
 Brawlers.lua
 Rank1.lua
 Rank2.lua

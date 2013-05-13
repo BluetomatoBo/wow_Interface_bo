@@ -2,9 +2,8 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8538 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9469 $"):sub(12, -3))
 mod:SetCreatureID(60051, 60043, 59915, 60047)--Cobalt: 60051, Jade: 60043, Jasper: 59915, Amethyst: 60047
-mod:SetModelID(41892)
 mod:SetZone()
 
 mod:RegisterCombat("combat")
@@ -32,7 +31,7 @@ local warnBSD						= mod:NewSpellAnnounce(115861)
 local warnPSD						= mod:NewSpellAnnounce(116060)
 local warnRSD						= mod:NewSpellAnnounce(116038)
 
-local specWarnOverloadSoon			= mod:NewSpecialWarning("SpecWarnOverloadSoon", nil, nil, nil, true)
+local specWarnOverloadSoon			= mod:NewSpecialWarning("SpecWarnOverloadSoon", nil, nil, nil, 2)
 local specWarnJasperChains			= mod:NewSpecialWarningYou(130395)
 local specWarnBreakJasperChains		= mod:NewSpecialWarning("specWarnBreakJasperChains")
 local yellJasperChains				= mod:NewYell(130395, nil, false)

@@ -231,7 +231,7 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	run 		= "Show special warning to run away from $spell:%s",
 	cast 		= "Show special warning for $spell:%s cast",
 	count 		= "Show special warning for $spell:%s",
-	stack 		= "Show special warning when you are affected by >=%d stacks of \n $spell:%s",--too long?
+	stack 		= "Show special warning when you are affected by >=%d stacks\n of $spell:%s",--too long?
 	switch		= "Show special warning to switch targets for \n $spell:%s"
 }
 
@@ -291,9 +291,9 @@ DBM_ARROW_ERROR_USAGE	= {
 	"/dbm arrow move  makes the arrow movable",
 }
 
-DBM_SPEED_KILL_TIMER_TEXT	= "Record Victory/Clear"
+DBM_SPEED_KILL_TIMER_TEXT	= "Record Victory"
 DBM_SPEED_KILL_TIMER_OPTION	= "Show a timer to beat your fastest victory"
-DBM_SPEED_CLEAR_TIMER_TEXT	= "Record Clear"
+DBM_SPEED_CLEAR_TIMER_TEXT	= "Best Clear"
 
 
 DBM_REQ_INSTANCE_ID_PERMISSION		= "%s requested to see your current instance IDs and progress.\nDo you want to send this information to %s? He or she will be able to request this information during your current session (i. e. until you relog)."

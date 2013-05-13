@@ -60,8 +60,8 @@ L.Statistic_Wipes			= "失败："
 L.Statistic_Incompletes		= "完成:"--For scenarios, TODO, figure out a clean way to replace any Statistic_Wipes with Statistic_Incompletes for scenario mods
 L.Statistic_BestKill		= "最好成绩："
 
--- Tab: General Options
-L.General 					= "DBM综合设置"
+-- Tab: General Core Options
+L.General 					= "DBM核心综合设置"
 L.EnableDBM 				= "启用DBM"
 L.EnableMiniMapIcon			= "显示小地图图标"
 L.SetPlayerRole				= "自动设置角色类型"
@@ -69,11 +69,18 @@ L.UseMasterVolume			= "使用游戏总声道播放音频"
 L.DisableCinematics			= "在副本时自动跳过游戏内过场动画"
 L.DisableCinematicsOutside	= "在副本外时自动跳过游戏内过场动画"
 L.EnableReadyCheckSound		= "允许关闭音效后播放团队确认音"
-L.SKT_Enabled				= "永远显示最速击杀计时条（无论该首领的相关设置如何）"
 L.AutologBosses				= "自动开启战斗记录"
 L.AdvancedAutologBosses			= "自动开启战斗记录(使用Transcriptor插件)"
 L.LogOnlyRaidBosses			= "只记录首领战斗"
 L.Latency_Text				= "设定启用同步功能的最高延迟阀值：%d"
+
+-- Tab: General Timer Options
+L.TimerGeneral 				= "DBM计时条综合设置"
+L.SKT_Enabled				= "总是显示最速胜利计时条(覆盖首领特定的选项)"
+L.ChallengeTimerOptions			= "设置挑战模式最佳记录计时条"
+L.ChallengeTimerPersonal		= "个人"
+L.ChallengeTimerGuild			= "公会"
+L.ChallengeTimerRealm			= "服务器"
 
 L.ModelOptions				= "3D模型选项"
 L.EnableModels				= "在首领选项中启用3D模型"
@@ -159,6 +166,7 @@ L.Panel_SpecWarnFrame		= "特殊警报"
 L.Area_SpecWarn				= "特殊警报设置"
 L.SpecWarn_Enabled			= "显示首领技能特殊警报"
 L.SpecWarn_LHFrame			= "特殊警报时屏幕边缘泛光"
+L.SpecWarn_AdSound			= "启用特别警告高级声音选项（需要UI重载）"
 L.SpecWarn_FlashFrame		= "为毁灭性的技能震动屏幕"
 L.SpecWarn_Font				= "特殊警报字体"
 L.SpecWarn_DemoButton		= "测试警报"

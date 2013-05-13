@@ -4,9 +4,8 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPCX	= mod:NewSound(nil, "SoundWOP", true)
 local sndYX		= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9404 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9491 $"):sub(12, -3))
 mod:SetCreatureID(68905, 68904)--Lu'lin 68905, Suen 68904
-mod:SetModelID(46975)--Lu'lin, 46974 Suen
 mod:SetQuestID(32755)
 mod:SetZone()
 
@@ -590,16 +589,18 @@ function mod:OnSync(msg)
 			timerCosmicBarrageCD:Start(48)
 		end]]
 	elseif msg == "Comet" then
-		warnIceComet:Show()
-		specWarnIceComet:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hbcx.mp3") --寒冰出現
-		if phase3Started then -- cd longer on phase 3.
-			timerIceCometCD:Start(30.5)
-		else
-			timerIceCometCD:Start()
+		if self:AntiSpam(10, 5) then
+			warnIceComet:Show()
+			specWarnIceComet:Show()
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hbcx.mp3") --寒冰出現
+			if phase3Started then -- cd longer on phase 3.
+				timerIceCometCD:Start(30.5)
+			else
+				timerIceCometCD:Start()
+			end
 		end
 	elseif msg == "TidalForce" then
-		if self:AntiSpam(10, 5) then
+		if self:AntiSpam(10, 6) then
 			TidalForceCount = TidalForceCount + 1
 			warnTidalForce:Show(TidalForceCount)
 			specWarnTidalForce:Show(TidalForceCount)
@@ -623,7 +624,7 @@ function mod:OnSync(msg)
 
 		end
 	elseif msg == "CosmicBarrage" then
-		if self:AntiSpam(10, 6) then
+		if self:AntiSpam(10, 7) then
 			CrashingStarCount = CrashingStarCount + 1
 			warnCrashingStarSoon:Show(CrashingStarCount)
 			specWarnCrashingStarSoon:Show(CrashingStarCount)
@@ -661,7 +662,7 @@ function mod:OnSync(msg)
 			end
 		end
 	elseif msg == "Inferno" then
-		if self:AntiSpam(10, 7) then
+		if self:AntiSpam(10, 8) then
 			NuclearInfernoCount = NuclearInfernoCount + 1
 			warnNuclearInferno:Show(NuclearInfernoCount)
 			specWarnNuclearInferno:Show(NuclearInfernoCount)
@@ -681,7 +682,7 @@ function mod:OnSync(msg)
 			sndWOP:Schedule(11, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scatter.mp3")
 		end
 	elseif msg == "TearsOfSun" then
-		if self:AntiSpam(10, 8) then
+		if self:AntiSpam(10, 9) then
 			warnTearsOfSun:Show()
 			specWarnTearsOfSun:Show()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_lrzl.mp3")

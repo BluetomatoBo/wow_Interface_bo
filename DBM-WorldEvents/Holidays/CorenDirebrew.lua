@@ -1,9 +1,10 @@
 local mod	= DBM:NewMod("d287", "DBM-WorldEvents", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9308 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9464 $"):sub(12, -3))
 mod:SetCreatureID(23872)
 mod:SetModelID(21824)
+mod:SetReCombatTime(10)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(

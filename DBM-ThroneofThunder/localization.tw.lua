@@ -284,6 +284,9 @@ L:SetOptionLocalization({
 	DD1							= "A:紅黃藍",
 	DD2							= "B:黃藍紅",
 	DD3							= "C:藍紅黃",
+	HDD1						= "H-A:紅紅紅",
+	HDD2						= "H-B:藍藍黃",
+	HDD3						= "H-C:黃黃藍",
 	HudMAP						= "高級定位監視(HUD)：三元光分擔",
 	warnAddsLeft				= "警告：霧獸剩餘數量",
 	specWarnFogRevealed			= "特別警告：霧獸被照出",
@@ -294,15 +297,20 @@ L:SetOptionLocalization({
 	xx1							= "當你被吸血一層時喊話",
 	xx2							= "當你被吸血兩層時喊話",
 	xx3							= "當你被吸血超過三層時喊話(DBM會自動在結尾為你顯示層數)",
+	lifeA						= "當你被吸血兩層時密語此目標擋線",
+	lifeB						= "當你被吸血兩層時密語此目標擋線",
 	SetIconRays					= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format("ej6891"),
-	SetIconLifeDrain			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(133795)
+	SetIconLifeDrain			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(133795),
+	SetIconOnParasite			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(133597),
+	SetParticle				= "開戰後自動將投影材質調為低(離開戰鬥後恢復設定)"
 })
 
 L:SetMiscLocalization({
-	Eye		= "魔眼",
-	xx1noset = "11111111吸我了",
-	xx2noset = "22222層了 快幫我擋 快幫我擋",
-	xx3noset = "我要被吸死了------"
+	Eye							= "魔眼",
+	xx1noset 					= "11111111吸我了",
+	xx2noset 					= "22222層了 快幫我擋 快幫我擋",
+	xx3noset 					= "我要被吸死了------",
+	dx							= "幫我擋線!!"
 })
 
 ----------------
@@ -320,7 +328,7 @@ L:SetOptionLocalization({
 	warnDebuffCount		= "警告：當你獲得了有害變異",
 	InfoFrame		= "資訊框：首領當前的$journal:6949技能",
 	RangeFrame		= "顯示距離框架(2碼/5碼)",
-	SetIconOnBigOoze	= "為$journal:6969自動標記"
+	SetIconOnBigOozes	= "為$journal:6969自動標記"
 })
 
 L:SetMiscLocalization({
@@ -487,6 +495,7 @@ L:SetOptionLocalization({
 	HudMAP2			= "高級定位監視(HUD)：$spell:136295",
 	cancelhud		= "當玩家白字說不需要分擔時變換HUD標誌(輸入監視關鍵字 例如:單吃)",
 	RangeFrame		= "距離監視",--For two different spells
+	RangeFrameLB	= "距離監視：當閃電球存在時切換到3碼(英雄模式)",
 	StaticShockArrow	= "DBM箭頭：$spell:135695",
 	OverchargeArrow		= "DBM箭頭：$spell:136295",
 	SetIconOnOvercharge	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136295),
@@ -499,12 +508,24 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization(831)
 
 L:SetTimerLocalization({
-	timerAnima		= "下一次血靈爆炸"
+	timerAnima		= "下一次血靈爆炸",
+	specWarnVitarun	= "準備生命傳遞! 快就位!"
 })
 
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
-	HudMAP			= "高級定位監視(HUD)：$spell:138295爆炸",
+	SoundStrike		= "為$spell:138295倒數3秒",
+	specWarnVitarun	= "特別警告：生命傳遞跑位",
+	optDD			= "生命跑位策略",
+	nodd			= "正常循環成員(下方設定編號)",
+	DD1				= "替補1",
+	DD2				= "替補2",
+	DD3				= "替補3",
+	DD4				= "替補4",
+	DD5				= "替補5",
+	lightnumber		= "正常循環成員編號(不會分配編號為0的團員)",
+	lastnumber		= "總共安排了多少正常循環成員[必須填寫 非常重要]",
+	HudMAPAnima		= "高級定位監視(HUD)：$spell:138295爆炸",
 	timerAnima		= "計時器：下一次$spell:138295爆炸",
 	SetIconOnUnstableVita	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(138297),
 	SetIconOnUnstableAnima	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(138288)

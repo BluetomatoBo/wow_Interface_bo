@@ -2,9 +2,8 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 7901 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9469 $"):sub(12, -3))
 mod:SetCreatureID(59153)
-mod:SetModelID(31092)
 mod:SetZone()
 
 mod:RegisterCombat("combat")
@@ -56,7 +55,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(113765) then
+	if args.spellId == 113765 then
 		timerRusting:Start()
 		if (args.amount or 0) >= 5 and self:AntiSpam(1, 3) then
 			specWarnRusting:Show(args.amount)
@@ -69,10 +68,10 @@ end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(113996) and args:IsPlayer() then
+	if args.spellId == 113996 and args:IsPlayer() then
 		specWarnGetBoned:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\getboned.mp3")--快拿骨甲
-	elseif args:IsSpellID(113765) then
+	elseif args.spellId == 113765 then
 		timerRusting:Cancel()
 		if mod:IsTank() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\safenow.mp3")--安全
@@ -81,7 +80,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(113999) then
+	if args.spellId == 113999 then
 		self:ScheduleMethod(0.1, "BoneSpikeTarget")
 		timerBoneSpikeCD:Start()
 	end

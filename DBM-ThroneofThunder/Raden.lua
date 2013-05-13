@@ -2,10 +2,10 @@ local mod	= DBM:NewMod(831, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 -- BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
+local sndStrike	= mod:NewSound(nil, "SoundStrike", true)
 
-mod:SetRevision(("$Revision: 9383 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9476 $"):sub(12, -3))
 mod:SetCreatureID(69473)--69888
-mod:SetModelID(47739)
 mod:SetQuestID(32753)
 mod:SetZone()
 mod:SetUsedIcons(2, 6)
@@ -16,40 +16,43 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"UNIT_POWER",
 	"SPELL_CAST_SUCCESS"
 )
 
-local warnMurderousStrike		= mod:NewSpellAnnounce(138333, 4, nil, mod:IsTank() or mod:IsHealer())--Tank (think thrash, like sha. Gains buff, uses on next melee attack)
-local specWarnMurderousStrike	= mod:NewSpecialWarningSpell(138333, mod:IsTank() or mod:IsHealer(), nil, nil, 3)
+local warnMurderousStrike						= mod:NewSpellAnnounce(138333, 4, nil, mod:IsTank() or mod:IsHealer())--Tank (think thrash, like sha. Gains buff, uses on next melee attack)
+local specWarnMurderousStrike					= mod:NewSpecialWarningSpell(138333, mod:IsTank() or mod:IsHealer(), nil, nil, 3)
+local timerMurderousStrikeCD					= mod:NewCDTimer(33, 138333, nil, mod:IsTank())
 
-local warnFatalStrike			= mod:NewSpellAnnounce(138334, 4, nil, mod:IsTank() or mod:IsHealer())--Tank (think thrash, like sha. Gains buff, uses on next melee attack)
-local specWarnFatalStrike		= mod:NewSpecialWarningSpell(138334, mod:IsTank() or mod:IsHealer(), nil, nil, 3)--Do all need to switch? how dangerous adds? more info needed
+local warnFatalStrike							= mod:NewSpellAnnounce(138334, 4, nil, mod:IsTank() or mod:IsHealer())--Tank (think thrash, like sha. Gains buff, uses on next melee attack)
+local specWarnFatalStrike						= mod:NewSpecialWarningSpell(138334, mod:IsTank() or mod:IsHealer(), nil, nil, 3)--Do all need to switch? how dangerous adds? more info needed
+local timerFatalStrikeCD						= mod:NewCDTimer(10, 138334, nil, mod:IsTank())
 
-local warnMaterialsofCreation					= mod:NewSpellAnnounce(138321, 3)
+local warnMaterialsofCreation					= mod:NewCountAnnounce(138321, 3)
 local specWarnMaterialsofCreation				= mod:NewSpecialWarningCast(138321)
-local timerMaterialsofCreationCD				= mod:NewNextTimer(33, 138321)
+local timerMaterialsofCreationCD				= mod:NewCDCountTimer(31, 138321)
 local specWarnCreationSwitch					= mod:NewSpecialWarningSwitch(138321, not mod:IsHealer())
 
 local warnUnstableVita							= mod:NewTargetAnnounce(138297, 4)
 local timerUnstableVita							= mod:NewTargetTimer(12, 138297)
+local yellUnstableVita							= mod:NewYell(138297)
 local specWarnUnstableVita						= mod:NewSpecialWarningYou(138297)
-local specWarnUnstableVitaOther					= mod:NewSpecialWarningTarget(138297)
+--local specWarnUnstableVitaOther					= mod:NewSpecialWarningTarget(138297)
+local specWarnVitarun							= mod:NewSpecialWarning("specWarnVitarun")
 
 local warnUnstableAnima							= mod:NewTargetAnnounce(138288, 4)
 local timerUnstableAnima						= mod:NewTimer(15, "timerAnima", 138295)
 local specWarnUnstableAnima						= mod:NewSpecialWarningYou(138288)
 local specWarnUnstableAnimaOther				= mod:NewSpecialWarningTarget(138288)
 
-local warnRuinBolt						= mod:NewSpellAnnounce(139087)
+local warnRuinBolt								= mod:NewSpellAnnounce(139087)
 
-local warnSummonSanguineHorror					= mod:NewSpellAnnounce(138338, 3)
+local warnSummonSanguineHorror					= mod:NewCountAnnounce(138338, 3)
 local specWarnSummonSanguineHorror				= mod:NewSpecialWarningSpell(138338)
-local timerSummonSanguineHorror					= mod:NewNextTimer(10, 138338)
+local timerSummonSanguineHorror					= mod:NewCDCountTimer(40, 138338)
 
-local warnSummonCracklingStalker				= mod:NewSpellAnnounce(138339, 3)
+local warnSummonCracklingStalker				= mod:NewCountAnnounce(138339, 3)
 local specWarnSummonCracklingStalker			= mod:NewSpecialWarningSpell(138339)
-local timerSummonCracklingStalker				= mod:NewNextTimer(10, 138339)
+local timerSummonCracklingStalker				= mod:NewCDCountTimer(40, 138339)
 
 local warnImbuedwithAnima						= mod:NewSpellAnnounce(138331, 3)
 local warnImbuedwithVita						= mod:NewSpellAnnounce(138332, 3)
@@ -57,86 +60,182 @@ local warnImbuedwithVita						= mod:NewSpellAnnounce(138332, 3)
 local warnUnleashedVita							= mod:NewSpellAnnounce(138330, 3)
 local specWarnUnleashedVita						= mod:NewSpecialWarningSpell(138330)
 
-local Warned = false
 local UnstableAnimatarget = nil
 local UnstableAnimaMarkers = {}
+local mylightnum = 0
+local lightcount = 0
+local lastlightnum = 0
+local combat = false
+
+local creationCount = 0
+local stalkerCount = 0
+local horrorCount = 0
+local lastStalker = 0
 
 mod:AddBoolOption("SetIconOnUnstableVita", true)
 mod:AddBoolOption("SetIconOnUnstableAnima", true)
 
-mod:AddBoolOption("HudMAP", true, "sound")
+mod:AddBoolOption("HudMAPAnima", false, "sound")
+
+mod:AddDropdownOption("optDD", {"nodd", "DD1", "DD2", "DD3", "DD4", "DD5"}, "nodd", "sound")
+
+mod:AddEditBoxOption("lightnumber", 50, "0", "sound")
+
+mod:AddEditBoxOption("lastnumber", 50, "0", "sound")
+
 
 local function LoopUnstableAnima()
 	mod:Unschedule(LoopUnstableAnima)
 	timerUnstableAnima:Start()
-	sndWOP:Schedule(10,"Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wmxn.mp3") --5秒心能爆炸
 	mod:Schedule(15, LoopUnstableAnima)
-	if mod.Options.HudMAP and UnstableAnimatarget then
+	if mod.Options.HudMAPAnima and UnstableAnimatarget then
 		UnstableAnimaMarkers[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", UnstableAnimatarget, 8, 5, 1, 1, 0, 0.8):Appear():RegisterForAlerts():Rotate(360, 5.5):SetAlertColor(0, 0, 1, 0.5))
 	end
 end
 
 function mod:OnCombatStart(delay)
 	table.wipe(UnstableAnimaMarkers)
-	Warned = false
-	timerMaterialsofCreationCD:Start(10-delay)
+	lightcount = 0
+	combat = true
+	creationCount = 0
+	stalkerCount = 0
+	horrorCount = 0
+	mylightnum = tonumber(mod.Options.lightnumber)
+	lastlightnum = tonumber(mod.Options.lastnumber)
+	timerMaterialsofCreationCD:Start(10-delay, 1)
 end
 
 function mod:OnCombatEnd()
-	if self.Options.HudMAP then
+	combat = false
+	if self.Options.HudMAPAnima then
 		DBMHudMap:FreeEncounterMarkers()
 	end
 end
 
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 138321 then --造物材料
-		warnMaterialsofCreation:Show()
+		creationCount = creationCount + 1
+		warnMaterialsofCreation:Show(creationCount)
 		specWarnMaterialsofCreation:Show()
-		timerMaterialsofCreationCD:Start()
+		timerMaterialsofCreationCD:Start(nil, creationCount+1)
 		specWarnCreationSwitch:Schedule(2)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_zbdq.mp3") --準備打球
 	elseif args.spellId == 138338 then --召喚恐魔
-		warnSummonSanguineHorror:Show()
+		horrorCount = horrorCount + 1
+		warnSummonSanguineHorror:Show(horrorCount)
 		specWarnSummonSanguineHorror:Show()
+		timerSummonSanguineHorror:Start(nil, horrorCount+1)
 		if self:AntiSpam(2, 1) then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xgkd.mp3") --小怪快打
 		end
 	elseif args.spellId == 138339 then --召唤龟裂追踪者
-		warnSummonCracklingStalker:Show()
+		lastStalker = GetTime()
+		stalkerCount = stalkerCount + 1
+		warnSummonCracklingStalker:Show(stalkerCount)
 		specWarnSummonCracklingStalker:Show()
+		timerSummonCracklingStalker:Start(nil, stalkerCount+1)
 		if self:AntiSpam(2, 1) then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_xgkd.mp3")
+		end
+	elseif args.spellId == 139087 then --毀滅箭
+		warnRuinBolt:Show()
+	end
+end
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if args.spellId == 138330 then
+		warnUnleashedVita:Show()
+		specWarnUnleashedVita:Show()
+	elseif args.spellId == 138333 then
+		warnMurderousStrike:Show()
+		specWarnMurderousStrike:Show()
+	elseif args.spellId == 138334 then
+		warnFatalStrike:Show()
+		specWarnFatalStrike:Show()
+		timerFatalStrikeCD:Start()
+		if mod:IsTank() or mod:IsHealer() then
+			sndStrike:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndStrike:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndStrike:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		end
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 138297 then --不穩定的生命
+		lightcount = lightcount + 1
 		warnUnstableVita:Show(args.destName)
-		timerUnstableVita:Start(args.destName)
+		if self:IsDifficulty("heroic25") then
+			timerUnstableVita:Start(6, args.destName)
+		else
+			timerUnstableVita:Start(args.destName)
+		end
 		if args:IsPlayer() then
+			yellUnstableVita:Yell()
 			specWarnUnstableVita:Show()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smdn.mp3") --生命點你
-		else
-			specWarnUnstableVitaOther:Show(args.destName)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_bwsm.mp3") --不穩定生命
+			sndWOP:Schedule(0.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\movesoon.mp3")  --快跑位
+			if self:IsDifficulty("heroic25") then
+				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+				sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+				sndWOP:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+				sndWOP:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+			else
+				sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+				sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+				sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+				sndWOP:Schedule(10, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+				sndWOP:Schedule(11, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+			end
 		end
 		if self.Options.SetIconOnUnstableVita then
 			self:SetIcon(args.destName, 5)
 		end
+		if (lightcount == mylightnum) and (mod.Options.optDD == "nodd") then
+			if UnitDebuff("player", GetSpellInfo(138372)) or UnitIsDeadOrGhost("player") then
+				mod:SendSync("Bench1")
+			else
+				specWarnVitarun:Show()
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\movesoon.mp3")
+			end
+		end
+		if lightcount == lastlightnum then lightcount = 0 end
 	elseif args.spellId == 138308 then --生命轉移
+		lightcount = lightcount + 1
 		warnUnstableVita:Show(args.destName)
-		timerUnstableVita:Start(args.destName)
-		if args:IsPlayer() then
-			specWarnUnstableVita:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smdn.mp3") --生命點你
+		if self:IsDifficulty("heroic25") then
+			timerUnstableVita:Start(5, args.destName)
 		else
-			specWarnUnstableVitaOther:Show(args.destName)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_smzy.mp3") --生命轉移
+			timerUnstableVita:Start(args.destName)
+		end
+		if args:IsPlayer() then
+			yellUnstableVita:Yell()
+			specWarnUnstableVita:Show()
+			if self:IsDifficulty("heroic25") then
+				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+				sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+				sndWOP:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+				sndWOP:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+			else
+				sndWOP:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+				sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+				sndWOP:Schedule(9, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+				sndWOP:Schedule(10, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+				sndWOP:Schedule(11, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+			end
 		end
 		if self.Options.SetIconOnUnstableVita then
 			self:SetIcon(args.destName, 5)
 		end
+		if (lightcount == mylightnum) and (mod.Options.optDD == "nodd") then
+			if UnitDebuff("player", GetSpellInfo(138372)) or UnitIsDeadOrGhost("player") then
+				mod:SendSync("Bench1")
+			else
+				specWarnVitarun:Show()
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\movesoon.mp3")
+			end
+		end
+		if lightcount == lastlightnum then lightcount = 0 end
 	elseif args.spellId == 138288 then --不稳定的心能
 		warnUnstableAnima:Show(args.destName)
 		UnstableAnimatarget = args.destName
@@ -152,13 +251,34 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		LoopUnstableAnima()
 	elseif args.spellId == 138331 then --灌输心能
+		local radenPower = UnitPower("boss1")
+		radenPower = radenPower / 3
+		horrorCount = 0
+		timerFatalStrikeCD:Cancel()
+		timerSummonCracklingStalker:Cancel()
+		timerMurderousStrikeCD:Start(33-radenPower)
 		warnImbuedwithAnima:Show()
-		timerSummonSanguineHorror:Start()
+		timerSummonSanguineHorror:Start(10, 1)
 	elseif args.spellId == 138332 then --灌输生命
+		local radenPower = UnitPower("boss1")
+		radenPower = radenPower / 10
+		local stalkerupdate = nil
+		if GetTime() - lastStalker < 32 then--Check if it's been at least 32 seconds since last stalker
+			stalkerupdate = 40 - (GetTime() - lastStalker)--if not, find out how much time is left on internal stalker cd (cause CD doesn't actually reset when you reset vita, it just extends to 8-9 seconds if less than 8-9 seconds remaining)
+		else
+			stalkerupdate = 8
+		end
+		stalkerCount = 0
 		warnImbuedwithVita:Show()
-		timerSummonCracklingStalker:Start()
-	elseif args.spellId == 139087 then --毀滅箭
-		warnRuinBolt:Show()
+		timerMurderousStrikeCD:Cancel()
+		timerSummonSanguineHorror:Cancel()
+		timerSummonCracklingStalker:Start(stalkerupdate, 1)
+		timerFatalStrikeCD:Start(10-radenPower)
+		if mod:IsTank() or mod:IsHealer() then
+			sndStrike:Schedule(10-radenPower-3, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndStrike:Schedule(10-radenPower-2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndStrike:Schedule(10-radenPower-1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		end
 	end
 end
 
@@ -166,6 +286,16 @@ function mod:SPELL_AURA_REMOVED(args)
 	if args.spellId == 138297 then
 		if self.Options.SetIconOnUnstableVita then
 			self:SetIcon(args.destName, 0)
+		end
+		if args:IsPlayer() then
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runin.mp3") --快回人群
+		end
+	elseif args.spellId == 138308 then
+		if self.Options.SetIconOnUnstableVita then
+			self:SetIcon(args.destName, 0)
+		end
+		if args:IsPlayer() then
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runin.mp3")
 		end
 	elseif args.spellId == 138288 then
 		self:Unschedule(LoopUnstableAnima)
@@ -176,24 +306,40 @@ function mod:SPELL_AURA_REMOVED(args)
 	end
 end
 
-function mod:SPELL_CAST_SUCCESS(args)
-	if args.spellId == 138330 then
-		warnUnleashedVita:Show()
-		specWarnUnleashedVita:Show()
-	elseif args.spellId == 138333 then
-		warnMurderousStrike:Show()
-		specWarnMurderousStrike:Show()
-	elseif args.spellId == 138334 then
-		warnFatalStrike:Show()
-		specWarnFatalStrike:Show()
-	end
-end
-
-function mod:UNIT_POWER(uId)
-	if (self:GetUnitCreatureId(uId) == 69473) and UnitPower(uId) > 80 and not Warned then
-		Warned = true
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_nlgg.mp3") --能量過高
-	elseif (self:GetUnitCreatureId(uId) == 69473) and UnitPower(uId) < 20 and Warned then
-		Warned = false
+function mod:OnSync(msg, msg2)
+	if not combat then return end
+	if msg == "Bench1" and mod.Options.optDD == "DD1" then
+		if UnitDebuff("player", GetSpellInfo(138372)) or UnitIsDeadOrGhost("player") then
+			mod:SendSync("Bench2")
+		else
+			specWarnVitarun:Show()
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\movesoon.mp3")
+		end
+	elseif msg == "Bench2" and mod.Options.optDD == "DD2" then
+		if UnitDebuff("player", GetSpellInfo(138372)) or UnitIsDeadOrGhost("player") then
+			mod:SendSync("Bench3")
+		else
+			specWarnVitarun:Show()
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\movesoon.mp3")
+		end
+	elseif msg == "Bench3" and mod.Options.optDD == "DD3" then
+		if UnitDebuff("player", GetSpellInfo(138372)) or UnitIsDeadOrGhost("player") then
+			mod:SendSync("Bench4")
+		else
+			specWarnVitarun:Show()
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\movesoon.mp3")
+		end
+	elseif msg == "Bench4" and mod.Options.optDD == "DD4" then
+		if UnitDebuff("player", GetSpellInfo(138372)) or UnitIsDeadOrGhost("player") then
+			mod:SendSync("Bench5")
+		else
+			specWarnVitarun:Show()
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\movesoon.mp3")
+		end
+	elseif msg == "Bench5" and mod.Options.optDD == "DD5" then
+		if (not UnitDebuff("player", GetSpellInfo(138372))) and (not UnitIsDeadOrGhost("player")) then
+			specWarnVitarun:Show()
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\movesoon.mp3")
+		end
 	end
 end

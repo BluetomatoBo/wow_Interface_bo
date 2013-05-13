@@ -2,13 +2,12 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 7617 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9469 $"):sub(12, -3))
 mod:SetCreatureID(58633, 58664)--58633 is boss, 58664 is Phylactery. We register BOTH to avoid pre mature combat ending cause boss dies twice.
 --To re-emphesize again (although it was already spelled out in comments. THE BOSS DIES TWICE, if you only register 58633 then the boss will fire EndCombat at end of phase 1.
 --THIS is why we also register 58664, so end combat does not fire until the boss is actually dead
 --that said, the way dbm works, registering UNIT_DIED was overkill in original code
 --Just adding both CIDs to combat table will suffice, 58633 will be removed in phase 1 sure, but 58664 stays in table until boss actually dies completely so all is good.
-mod:SetModelID(40301)
 mod:SetZone()
 
 mod:RegisterCombat("combat")
@@ -34,7 +33,7 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(111606) then
+	if args.spellId == 111606 then
 		warnTouchGrave:Show()
 	end
 end
