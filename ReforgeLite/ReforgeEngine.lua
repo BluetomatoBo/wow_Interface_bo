@@ -558,6 +558,8 @@ function ReforgeLite:ComputeReforge (initFunc, optionFunc, chooseFunc)
     local code = self[chooseFunc] (self, data, reforgeOptions, scores, codes)
     scores, codes = nil, nil
     collectgarbage ("collect")
+    self.methodDebug = "version = 1.23\n\n"
+    self.methodDebug = self.methodDebug .. "data = " .. FormatValue (data) .. "\n\n"
     for i = 1, #data.method.items do
       local opt = reforgeOptions[i][code:byte (i)]
       if data.conv.s2h == 1 then
@@ -573,7 +575,6 @@ function ReforgeLite:ComputeReforge (initFunc, optionFunc, chooseFunc)
       data.method.items[i].src = opt.src
       data.method.items[i].dst = opt.dst
     end
-    self.methodDebug = "data = " .. FormatValue (data) .. "\n\n"
     self:FinalizeReforge (data)
     self.methodDebug = self.methodDebug .. "method = " .. FormatValue (data.method)
     return data.method

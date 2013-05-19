@@ -1,3 +1,8 @@
+** v1.24
+
+- Updated all presets
+- Updated TOC line
+
 ** v1.23
 
 - Fixed a typo that caused an error
