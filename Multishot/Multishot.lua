@@ -114,9 +114,12 @@ function Multishot:COMBAT_LOG_EVENT_UNFILTERED(strEvent, ...)
   local strType, _, sourceGuid, _, _, _, destGuid = select(2, ...) -- 4.1 compat, 4.2 compat
   local currentId = tonumber("0x" .. string.sub(destGuid, 6, 10))
   if strType == "UNIT_DIED" or strType == "PARTY_KILL" then
-    local inInstance, instanceType = IsInInstance()
+    local solo, inParty, inRaid
+    if IsInRaid() then inRaid = true elseif IsInGroup() then inParty = true else solo = true end
+    local _,_,difficultyID = GetInstanceInfo()
     if not (sourceGuid == UnitGUID("player") and MultishotConfig.rares and Multishot.RareID[currentId]) and strType == "PARTY_KILL" then return end
-    if not ((instanceType == "party" and MultishotConfig.party) or (instanceType == "raid" and MultishotConfig.raid)) then return end
+    if not ((solo and MultishotConfig.groupstatus["1solo"]) or (inParty and MultishotConfig.groupstatus["2party"]) or (inRaid and MultishotConfig.groupstatus["3raid"])) then return end
+    if difficultyID and not MultishotConfig.difficulty[difficultyID] then return end
     if not (Multishot_dbWhitelist[currentId] or Multishot.BossID[currentId]) or Multishot_dbBlacklist[currentId] then return end
     if MultishotConfig.firstkill and MultishotConfig.history[UnitName("player") .. currentId] then return end
     MultishotConfig.history[player .. currentId] = true

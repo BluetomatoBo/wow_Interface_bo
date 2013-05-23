@@ -1,10 +1,54 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("Multishot")
 
+local GetFonts = function()
+	local fonts = {}
+	fonts[STANDARD_TEXT_FONT] = "Standard"
+	fonts[(NumberFontNormal:GetFont())] = "NumberFontNormal"
+	fonts[(NumberFontNormalHuge:GetFont())] = "NumberFontNormalHuge"
+	fonts[(ItemTextFontNormal:GetFont())] = "ItemTextFontNormal"
+
+	local LSM3 = LSM3 or LibStub("LibSharedMedia-3.0")
+	if LSM3 then
+		for index, fontName in pairs(LSM3:List("font")) do
+			fonts[LSM3:Fetch("font", fontName)] = fontName
+		end
+	end
+	return fonts
+end
+
+local GetFontSizes = function()
+	local sizes = {}
+	for k,v in ipairs(CHAT_FONT_HEIGHTS) do
+		sizes[v] = v
+	end
+	return sizes
+end
+
+local GetDifficulties = function()
+	local diffs,id = {[0]=_G.NONE}, 1
+	local name = GetDifficultyInfo(id)
+	while (name and name ~= "") do
+		diffs[id] = name
+		id = id+1
+		name = GetDifficultyInfo(id)
+	end
+	return diffs
+end
+local getDiffDefaults = function()
+	local defaults,id = {[0]=true}, 1
+	local name = GetDifficultyInfo(id)
+	while (name and name ~= "") do
+		defaults[id] = true
+		id = id+1
+		name = GetDifficultyInfo(id)
+	end
+	return defaults
+end
+
 local dataDefaults = { 
 	levelup = true,
 	achievement = true,
-	party = true, 
-	raid = true, 
+	groupstatus = {["1solo"]=true,["2party"]=true,["3raid"]=true},
 	rares = true, 
 	repchange = true, 
 	delay1 = 1.2,  
@@ -12,6 +56,7 @@ local dataDefaults = {
 	debug = false, 
 	trade = true, 
 	firstkill = false, 
+	difficulty = getDiffDefaults(),
 	close = false, 
 	uihide = false, 
 	played = false, 
@@ -30,31 +75,6 @@ local dataDefaults = {
 	watermarkfont = STANDARD_TEXT_FONT,
 	watermarkfontsize = CHAT_FONT_HEIGHTS[3],
 }
-
-
-local GetFonts = function()
-	local fonts = {}
-	fonts[STANDARD_TEXT_FONT] = "Standard"
-	fonts[(NumberFont_Normal_Med:GetFont())] = "NumberFont_Normal_Med"
-	fonts[(QuestFont_Large:GetFont())] = "QuestFont_Large"
-	fonts[(NumberFont_Outline_Huge:GetFont())] = "NumberFont_Outline_Huge"
-
-	local LSM3 = LSM3 or LibStub("LibSharedMedia-3.0")
-	if LSM3 then
-		for index, fontName in pairs(LSM3:List("font")) do
-			fonts[LSM3:Fetch("font", fontName)] = fontName
-		end
-	end
-	return fonts
-end
-
-local GetFontSizes = function()
-	local sizes = {}
-	for k,v in ipairs(CHAT_FONT_HEIGHTS) do
-		sizes[v] = v
-	end
-	return sizes
-end
 
 local dataOptions = {
   type = "group",
@@ -89,23 +109,23 @@ local dataOptions = {
       get = function() return MultishotConfig.guildachievement end,
       set = function(_,v) MultishotConfig.guildachievement = v end },
     challengemode = {
-    	order = 5,
-    	type = "toggle",
-    	name = L["challengemode"],
-    	get = function() return MultishotConfig.challengemode end,
-    	set = function(_,v) MultishotConfig.challengemode = v end },
+	  order = 5,
+	  type = "toggle",
+	  name = L["challengemode"],
+	  get = function() return MultishotConfig.challengemode end,
+	  set = function(_,v) MultishotConfig.challengemode = v end },
     battleground = {
-    	order = 6,
-    	type = "toggle",
-    	name = L["battleground"],
-    	get = function() return MultishotConfig.battleground end,
-    	set = function(_,v) MultishotConfig.battleground = v end },
+      order = 6,
+      type = "toggle",
+      name = L["battleground"],
+      get = function() return MultishotConfig.battleground end,
+      set = function(_,v) MultishotConfig.battleground = v end },
     arena = {
-    	order = 7,
-    	type = "toggle",
-    	name = L["arena"],
-    	get = function() return MultishotConfig.arena end,
-    	set = function(_,v) MultishotConfig.arena = v end },
+      order = 7,
+      type = "toggle",
+      name = L["arena"],
+      get = function() return MultishotConfig.arena end,
+      set = function(_,v) MultishotConfig.arena = v end },
     repchange = {
       order = 8,
       type = "toggle",
@@ -122,35 +142,37 @@ local dataOptions = {
       order = 10,
       type = "header",
       name = L["bosskillshots"] },
-    party = {
+    firstkills = {
       order = 11,
       type = "toggle",
-      name = L["bosskillsparty"],
-      get = function() return MultishotConfig.party end, 
-      set = function(_,v) MultishotConfig.party = v end },
+      name = L["firstkills"],
+      get = function() return MultishotConfig.firstkill end, 
+      set = function(_,v) MultishotConfig.firstkill = v end },
     rares = {
       order = 12,
       type = "toggle",
       name = L["rarekills"],
       get = function() return MultishotConfig.rares end, 
       set = function(_,v) MultishotConfig.rares = v end },
-    raid = {
+    groupstatus = {
       order = 13,
-      type = "toggle",
-      name = L["bosskillsraid"],
-      get = function() return MultishotConfig.raid end,
-      set = function(_,v) MultishotConfig.raid = v end },
-    firstkills = {
+      type = "multiselect",
+      name = L["groupstatus"],
+      values = {["1solo"]=L["bosskillssolo"],["2party"]=L["bosskillsparty"],["3raid"]=L["bosskillsraid"]},
+      get = function(_,k) return MultishotConfig.groupstatus[k] end,
+      set = function(_,k,v) MultishotConfig.groupstatus[k] = v end },
+    difficulty = {
       order = 14,
-      type = "toggle",
-      name = L["firstkills"],
-      get = function() return MultishotConfig.firstkill end, 
-      set = function(_,v) MultishotConfig.firstkill = v end },
+      type = "multiselect",
+      name = L["instancedifficulty"],
+      values = GetDifficulties,
+      get = function(_,k) return MultishotConfig.difficulty[k] end,
+      set = function(_,k,v) MultishotConfig.difficulty[k] = v end },
     header2 = {
       order = 15,
       type = "header",
       name = L["timeline"] },
-		timeline = {
+	timeline = {
       order = 16,
       type = "toggle",
       name = L["timeLineEnable"],
@@ -160,7 +182,7 @@ local dataOptions = {
       	MultishotConfig.timeLineEnable = v
       	Multishot:TimeLineConfig(v)
       end },
-		delay3 = {
+	delay3 = {
       order = 17,
       type = "range",
       name = L["delayTimeline"],
@@ -228,52 +250,52 @@ local dataOptions = {
       get = function() return MultishotConfig.charpane end, 
       set = function(_,v) MultishotConfig.charpane = v end },
     watermark = {
-    	order = 28,
-    	type = "toggle",
-    	name = L["watermark"],
-    	get = function() return MultishotConfig.watermark end,
-    	set = function(_,v) MultishotConfig.watermark = v end },
+      order = 28,
+      type = "toggle",
+      name = L["watermark"],
+      get = function() return MultishotConfig.watermark end,
+      set = function(_,v) MultishotConfig.watermark = v end },
     watermarkformat = {
-    	order = 29,
-    	type = "input",
-    	name = L["watermarkformat"],
-    	desc = L["set the format for watermark text"].."\n"..L["watermarkformattext"], -- "\n$n = name\n$c = class\n$l = level\n$z = zone\n$r = realm\n$d = date\n$b = line change"
-    	usage = L["clear the text and press Enter to restore defaults."],
-    	get = function() return MultishotConfig.watermarkformat end,
-    	set = function(_,v)
+      order = 29,
+      type = "input",
+      name = L["watermarkformat"],
+      desc = L["set the format for watermark text"].."\n"..L["watermarkformattext"], -- "\n$n = name\n$c = class\n$l = level\n$z = zone\n$r = realm\n$d = date\n$b = line change"
+      usage = L["clear the text and press Enter to restore defaults."],
+      get = function() return MultishotConfig.watermarkformat end,
+      set = function(_,v)
     		print(tostring(v))
     		if v == "" or not (v):find("[%w%p]+") or (v):find("\\n") then -- or (v):find("$[^nclzrdb]")
     			v = "$n($l) $c $b$z - $d$b$r"
     		end
     		MultishotConfig.watermarkformat = v
-    	end	},
+      end	},
     watermarkanchor = {
-    	order = 30,
-    	type = "select",
-    	name = L["watermarkanchor"],
-    	values = {["TOP"] = L["TOP"], ["TOPLEFT"] = L["TOPLEFT"], ["TOPRIGHT"] = L["TOPRIGHT"], ["BOTTOMLEFT"] = L["BOTTOMLEFT"], ["BOTTOMRIGHT"] = L["BOTTOMRIGHT"]}, -- add to localization
-    	get = function() return MultishotConfig.watermarkanchor end,
-    	set = function(_,v) MultishotConfig.watermarkanchor = v end },
+      order = 30,
+      type = "select",
+      name = L["watermarkanchor"],
+      values = {["TOP"] = L["TOP"], ["TOPLEFT"] = L["TOPLEFT"], ["TOPRIGHT"] = L["TOPRIGHT"], ["BOTTOMLEFT"] = L["BOTTOMLEFT"], ["BOTTOMRIGHT"] = L["BOTTOMRIGHT"]}, -- add to localization
+      get = function() return MultishotConfig.watermarkanchor end,
+      set = function(_,v) MultishotConfig.watermarkanchor = v end },
     watermarkfont = {
-    	order = 31,
-    	type = "select",
-    	name = L["watermarkfont"],
-    	values = GetFonts,
-    	get = function() return MultishotConfig.watermarkfont end,
-    	set = function(_,v) MultishotConfig.watermarkfont = v end },
+      order = 31,
+      type = "select",
+      name = L["watermarkfont"],
+      values = GetFonts,
+      get = function() return MultishotConfig.watermarkfont end,
+      set = function(_,v) MultishotConfig.watermarkfont = v end },
     watermarkfontsize = {
-    	order = 32,
-    	type = "select",
-    	name = L["watermarkfontsize"],
-    	values = GetFontSizes,
-    	get = function() return MultishotConfig.watermarkfontsize end,
-    	set = function(_,v) MultishotConfig.watermarkfontsize = v end },
+      order = 32,
+      type = "select",
+      name = L["watermarkfontsize"],
+      values = GetFontSizes,
+      get = function() return MultishotConfig.watermarkfontsize end,
+      set = function(_,v) MultishotConfig.watermarkfontsize = v end },
     watermarktest = {
-    	order = 33,
-    	type = "execute",
-    	name = L["Test"],
-    	desc = L["watermarktest"],
-    	func = function() Multishot.test_watermark = not Multishot.test_watermark; Multishot:RefreshWatermark(Multishot.test_watermark) end  },
+      order = 33,
+      type = "execute",
+      name = L["Test"],
+      desc = L["watermarktest"],
+      func = function() Multishot.test_watermark = not Multishot.test_watermark; Multishot:RefreshWatermark(Multishot.test_watermark) end  },
     header5 = {
       order = 34,
       type = "header",
@@ -307,4 +329,6 @@ function Multishot:OnInitialize()
   Multishot.PrefPane = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("Multishot")
   setmetatable(MultishotConfig, {__index = dataDefaults})
   MultishotConfig.history = MultishotConfig.history
+  MultishotConfig.difficulty = MultishotConfig.difficulty
+  MultishotConfig.groupstatus = MultishotConfig.groupstatus
 end
