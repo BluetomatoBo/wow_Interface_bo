@@ -1,4 +1,4 @@
-﻿-- $Id: constants.fr.lua 4165 2013-03-20 11:03:22Z dynaletik $
+﻿-- $Id: constants.fr.lua 4212 2013-05-20 12:27:56Z dynaletik $
 --[[
 constants.fr.lua --- Traduction frFR par TrAsHeR. Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
@@ -373,18 +373,7 @@ if AL then
 	AL["Brutal"] = "Brutale";
 	AL["Wrathful"] = "Courroucé";
 	AL["Cataclysmic"] = "Cataclysmique";
-	--AL["ilvl 200"] = true;
-	--AL["ilvl 213"] = true;
-	--AL["ilvl 226"] = true;
-	--AL["ilvl 245"] = true;
-	--AL["ilvl 264"] = true;
-	--AL["ilvl 397"] = true;
-	--AL["ilvl 470"] = true;
-	--AL["ilvl 490"] = true;
-	--AL["ilvl 489"] = true;
-	--AL["ilvl 496"] = true;
-	--AL["ilvl 498"] = true;
-	--AL["ilvl 512"] = true;
+	--AL["ilvl %d"] = true; -- usage: string.format(AL["ilvl %d"], 522)
 
 	-- PvP Menu
 	AL["Arathi Basin Sets"] = "Sets du Bassin d'Arathi";
@@ -620,10 +609,10 @@ if AL then
 	--AL["Rare"] = true;
 	AL["Specializations"] = "Spécialisations";
 	AL["Raid Finder"] = "Recherche de raid";
+	AL["Thunderforged"] = "Foudroyant";
 	AL["Pandaria World Bosses"] = "World Boss de Pandarie";
 	--AL["Elite"] = true;
 	AL["Vegetables"] = "Légumes";
-	AL["Thunderforged"] = "Foudroyant";
 
 	-- Loot Table Names
 	AL["Level %s"] = "Niveau %s"; -- usage: string.format(AL["Level %s"], "85-89")
@@ -939,16 +928,13 @@ if AL then
 	AL["Carapace of the Old God"] = "Carapace du Dieu très ancien";
 
 	-- Faction related strings
-	-- AL["Alliance"] = true;
-	-- AL["Horde"] = true;
 	AL["Neutral"] = "Neutre";
 	AL["Friendly"] = "Amical";
 	AL["Honored"] = "Honoré";
 	AL["Revered"] = "Révéré";
 	AL["Exalted"] = "Exalté";
 	AL["Best Friend"] = "Meilleur ami";
-	AL["Rank 4"] = "Rang 4";
-	AL["Rank 8"] = "Rang 8";
+	AL["Rank %d"] = "Rang %d";
 	AL["Winterfin Retreat"] = "Retraite des Ailerons-d'hiver";
 
 	-- Recipe origin strings

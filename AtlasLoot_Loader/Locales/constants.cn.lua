@@ -1,4 +1,4 @@
-﻿-- $Id: constants.cn.lua 4165 2013-03-20 11:03:22Z dynaletik $
+﻿-- $Id: constants.cn.lua 4212 2013-05-20 12:27:56Z dynaletik $
 --[[
 constants.cn.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -373,18 +373,7 @@ if AL then
 	AL["Brutal"] = "野蛮";
 	AL["Wrathful"] = "暴怒";
 	AL["Cataclysmic"] = "灾变";
-	AL["ilvl 200"] = "等级200";
-	AL["ilvl 213"] = "等级213";
-	AL["ilvl 226"] = "等级226";
-	AL["ilvl 245"] = "等级245";
-	AL["ilvl 264"] = "等级264";
-	AL["ilvl 397"] = "等级397";
-	AL["ilvl 470"] = "等级470";
-	AL["ilvl 490"] = "等级490";
-	AL["ilvl 489"] = "等级489";
-	AL["ilvl 496"] = "等级496";
-	AL["ilvl 498"] = "等级498";
-	AL["ilvl 512"] = "等级512";
+	AL["ilvl %d"] = "等级%d";
 
 	-- PvP Menu
 	AL["Arathi Basin Sets"] = "阿拉希盆地套装";
@@ -620,10 +609,10 @@ if AL then
 	AL["Rare"] = "稀有";
 	AL["Specializations"] = "特殊";
 	AL["Raid Finder"] = "团队查找器";
+	AL["Thunderforged"] = "雷霆";
 	AL["Pandaria World Bosses"] = "潘达利亚世界首领";
 	AL["Elite"] = "精锐";
 	AL["Vegetables"] = "蔬菜";
-	AL["Thunderforged"] = "雷霆";
 
 	-- Loot Table Names
 	AL["Level %s"] = "等级%s"; -- usage: string.format(AL["Level %s"], "85-89")
@@ -939,16 +928,13 @@ if AL then
 	AL["Carapace of the Old God"] = "上古之神的甲壳";
 
 	-- Faction related strings
-	AL["Alliance"] = "联盟";
-	AL["Horde"] = "部落";
 	AL["Neutral"] = "中立";
 	AL["Friendly"] = "友善";
 	AL["Honored"] = "尊敬";
 	AL["Revered"] = "崇敬";
 	AL["Exalted"] = "崇拜";
 	AL["Best Friend"] = "挚友";
-	AL["Rank 4"] = "4级";
-	AL["Rank 8"] = "8级";
+	AL["Rank %d"] = "%d级";
 	AL["Winterfin Retreat"] = "冬鳞避难所";
 
 	-- Recipe origin strings

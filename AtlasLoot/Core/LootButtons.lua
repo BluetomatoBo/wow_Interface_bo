@@ -1,4 +1,4 @@
-﻿-- $Id: LootButtons.lua 4168 2013-03-25 20:02:28Z lag123 $
+﻿-- $Id: LootButtons.lua 4206 2013-05-06 22:44:00Z lag123 $
 local _
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot")
@@ -12,7 +12,11 @@ local ORANGE = "|cffFF8400"
 local DEFAULT = "|cffFFd200"
 local ParseTooltip_Enabled = false
 
-local AltasLootItemButton = {}
+local AtlasLootItemButton = {}
+
+local function GetItemIcon(...) 
+	return _G.GetItemIcon(...) or "Interface\\Icons\\INV_Misc_QuestionMark"
+end
 
 local function canUpgradeItem(itemId)
 	if not itemId or type(itemId) ~= "number" then return end
@@ -37,7 +41,7 @@ local function createItemLink(itemId, cutomLvl, upgradeLvl)
 		upgradeLvl = upgradeTab[upgradeLvl] or upgradeStart
 		itemLink = "item:"..itemId..":0:0:0:0:0:0:0:"..cutomLvl..":0:"..upgradeLvl
 	else
-		itemLink = "item:"..itemId
+		itemLink = "item:"..itemId..":0:0:0:0:0:0:0:"..cutomLvl
 	end
 	return itemLink
 end
@@ -52,6 +56,7 @@ local function bonusLootOnEnter(self)
 	end
 end
 
+local TEMP_TABLE = {}
 local CURRENCY_PRICE = {
 	-- http://www.wowhead.com/currencies
 	["CHEFAWARD"] = 402,	-- Chef's Award
@@ -59,7 +64,7 @@ local CURRENCY_PRICE = {
 	["CONQUEST"] = 390,		-- Conquest Points
 	["DALARANJW"] = 61,		-- Dalaran Jewelcrafter's Token
 	["DARKMOON"] = 515,		-- Darkmoon Prize Ticket
-	["ELDERCHARM"] = 697,		-- Elder Charm of Good Fortune
+	["ELDERCHARM"] = 697,	-- Elder Charm of Good Fortune
 	["EPICUREAN"] = 81,		-- Epicurean's Award (CookingDaily)
 	["HONOR"] = 392,		-- Honor Points
 	["ILLLJW"] = 361,		-- Illustrious Jewelcrafter's Token -- why duplicate?
@@ -84,15 +89,70 @@ local CURRENCY_PRICE = {
 	["DOMINATIONCOMMISSION"] = { itemID = 91877 },		-- Domination Point Commission
 	["LIONSLANDINGCOMMISSION"] = { itemID = 91838 },	-- Lion's Landing Commission
 	["HISTORICALPARCHMENTS"] = { itemID = 95491 },		-- Tattered Historical Parchments
+	["KORKRONLUMBER"] = { itemID = 97530 },				-- Kor'kron Lumber
+	["KORKRONMEAT"] = { itemID = 97545 },				-- Kor'kron Meat
+	["KORKRONOIL"] = { itemID = 97544 },				-- Kor'kron Oil
+	["KORKRONSTONE"] = { itemID = 97543 },				-- Kor'kron Stone
+	
+	-- functions
+	["ITEM"] = function(text, newText) 					-- USAGE: #ITEM:ID:AMOUNT#		EXAMPLE: #ITEM:1234:4#
+		if string.find(text, "#ITEM:%d+:%d+#") then
+			local _,_,itemID,price = string.find(text, "#ITEM:(%d+):(%d+)#")
+			newText = gsub(newText, "#ITEM:%d+:%d+#", "")
+			
+			if not TEMP_TABLE["ITEM"] then TEMP_TABLE["ITEM"] = {} end
+			TEMP_TABLE["ITEM"][itemID] = function(get, info)
+				if get == "tooltip" then
+					local count = GetItemCount(itemID)
+					local countAll = GetItemCount(itemID, true)
+					local color = ""
+					local name, _, itemQuality = GetItemInfo(itemID)
+					if countAll and tonumber(price) and countAll >= tonumber(price) then
+						color = color..GREEN
+					else
+						color = color..RED
+					end
+					--info:SetHyperlink("item:"..TEMP_TABLE["TMP"]..":0:0:0")
+					if name then
+						itemQuality = select(4, GetItemQualityColor(itemQuality))
+						name = "|c"..itemQuality..string.gsub(name, 1, 4)
+						local icon = TEMP_TABLE["ITEM"][itemID]("icon")
+						icon = icon and "|T"..icon..":16|t " or ""
+						name = icon..name
+					else
+						name = _G["UNKNOWN"]
+					end
+					info:AddLine(name)
+					if countAll == count then
+						info:AddLine(color..count.." / "..price)
+					else
+						info:AddLine(color..string.format(AL["%d / %d ( Bank: %d )"], countAll, price, countAll - count))
+					end
+				elseif get == "click" then
+					_, get = GetItemInfo(itemID)
+					return price.." x "..get
+				elseif get == "icon" then
+					return GetItemIcon(itemID)
+				end
+			end
+			
+			return price, {"ITEM", itemID}, newText
+		end
+		return nil, nil, newText
+	end,
 }
+
+function AtlasLoot:WipeItemInfoTempTable()
+	wipe(TEMP_TABLE)
+end
 
 -- AtlasLoot:CreateItemButton
 do
-	local mt = {__index = AltasLootItemButton}
+	local mt = {__index = AtlasLootItemButton}
 	-- Creat a AtlasLoot ItemButton with:
 	-- frames:		Icon, Name, ExtraText, Unsafe
 	-- functions: 	SetButtonType, GetItemEquipInfo, Clear, Refresh, SetItem, SetSpell, SetLink
-	-- for usage of the functions check the AltasLootItemButton table
+	-- for usage of the functions check the AtlasLootItemButton table
 	-- @param parent The parent frame where the ItemButton is created
 	-- @param point Sets the itemButton Position. This use frame:SetPoint(...)
 	-- @param name The name of the ButtonFrame
@@ -293,6 +353,7 @@ do
 		itemButton.Frame:SetHeight(37)
 		itemButton.Frame:SetPoint(unpack(point));
 		itemButton.Frame:RegisterForClicks("LeftButtonDown", "RightButtonDown")
+		itemButton.Frame.SetAlpha = function() end	-- No Alpha change allowed here ;)
 		itemButton.SetPoint = itemButton.Frame.SetPoint
 		itemButton.Frame.par = itemButton
 
@@ -529,8 +590,8 @@ end
 -- @param item Button contains a item
 -- @param spell Button contains a spell
 -- @param tableLink TableLink to another loottable
--- @usage AltasLootItemButton:SetButtonType(true, true, nil)
-function AltasLootItemButton:SetButtonType(item, spell, tableLink)
+-- @usage AtlasLootItemButton:SetButtonType(true, true, nil)
+function AtlasLootItemButton:SetButtonType(item, spell, tableLink)
 	if item then
 		self.item = true
 	elseif item == "" then
@@ -566,17 +627,25 @@ do
 		local newPrice = text
 		if text then
 			for k,v in pairs(CURRENCY_PRICE) do
-				if string.find(text, "#"..k..":%d+#") then
-					_,_,price = string.find(text, "#"..k..":(%d+)#")
-					newPrice = gsub(newPrice, "#"..k..":%d+#", "")
-					if type(v) == "number" then
-						isPrice = v
-					elseif v["itemID"] then
-						isPrice = k
+				if type(v) == "function" then
+					price, isPrice, newPrice = v(text, newPrice)
+					if price and isPrice then
+						if not tab then tab = {} end
+						table.insert(tab, {tonumber(price), isPrice})
 					end
-					if not tab then tab = {} end
-					table.insert(tab, {tonumber(price), isPrice})
-					--break
+				else
+					if string.find(text, "#"..k..":%d+#") then
+						_,_,price = string.find(text, "#"..k..":(%d+)#")
+						newPrice = gsub(newPrice, "#"..k..":%d+#", "")
+						if type(v) == "number" then
+							isPrice = v
+						elseif v["itemID"] then
+							isPrice = k
+						end
+						if not tab then tab = {} end
+						table.insert(tab, {tonumber(price), isPrice})
+						--break
+					end
 				end
 			end
 		end
@@ -645,7 +714,7 @@ do
 					end
 				end
 				if dummyText and string.trim(dummyText) ~= "" then
-					if extraText and extraText ~= "" and extraText ~= "=ds=" then
+					if extraText and extraText:trim() ~= "" and extraText:trim() ~= "=ds=" then
 						dummyText = dummyText.." / "..AtlasLoot:FixText(extraText)
 					end
 				else
@@ -681,13 +750,15 @@ do
 							else
 								if type(v[2]) == "number" then
 									icon = select(3, GetCurrencyInfo(v[2]))
-								else
+								elseif type(v[2]) == "table" and TEMP_TABLE[v[2][1]] then
+									icon = TEMP_TABLE[v[2][1]][v[2][2]]("icon")
+								elseif CURRENCY_PRICE[v[2]].itemID then
 									icon = GetItemIcon(CURRENCY_PRICE[v[2]].itemID)
 								end
 								extraText2 = extraText2.." / |T"..icon..":15:15|t"..v[1]
 							end	
 						end
-						if newPrice and newPrice ~= "" then
+						if newPrice and newPrice:trim() ~= "" then
 							tempText = extraText2.." / "..newPrice
 						else
 							tempText = extraText2
@@ -772,9 +843,12 @@ do
 			--end
 			if type(priceTab[1][2]) == "number" then
 				icon = select(3, GetCurrencyInfo(priceTab[1][2]))
+			elseif type(priceTab[1][2]) == "table" and TEMP_TABLE[priceTab[1][2][1]] then
+				icon = TEMP_TABLE[priceTab[1][2][1]][priceTab[1][2][2]]("icon")
 			else
 				icon = GetItemIcon(CURRENCY_PRICE[priceTab[1][2]].itemID)
 			end
+
 			self.Frame.Extra:Hide()
 			self.Frame.QA:Show()
 			self.Frame.QA.achievementID = nil
@@ -809,17 +883,22 @@ do
 	-- @param itemTexture Sets a texture for the item icon. Set to nil and it will use the icon from the item ID
 	-- @param itemPrice The item price (Arena, PVP, ...). Set self will hide the extra text if its to long
 	-- @param itemDroprate The droprate of the item. Only a number value automatic adds "%"
-	-- @usage AltasLootItemButton:SetItem(45038, "=q5=Fragment of Val'anyr", "=ds=#m3#", nil, nil, "40%")
 	-- @param tooltipAdd adds a extra text too the tooltip
-	function AltasLootItemButton:SetItem(itemID, itemName, extraText, itemTexture, itemPrice, itemDroprate, tooltipAdd)
+	-- @param tfItemID Thunderforged itemID
+	-- @usage AtlasLootItemButton:SetItem(45038, "=q5=Fragment of Val'anyr", "=ds=#m3#", nil, nil, "40%")
+	-- 
+	function AtlasLootItemButton:SetItem(itemID, itemName, extraText, itemTexture, itemPrice, itemDroprate, tooltipAdd, tfItemID)
 		self:Clear()
 		if not itemID or type(itemID) ~= "number" then
 			self:SetDummy(itemName, extraText, itemTexture)
-			--error("AltasLootItemButton:SetItem: Enter a itemID <number>", 2)
+			--error("AtlasLootItemButton:SetItem: Enter a itemID <number>", 2)
 			return
 		end
 		if not self.info then
-			self.info = { nil, itemID, itemName, extraText, itemTexture, itemPrice, itemDroprate, tooltipAdd }
+			self.info = { nil, itemID, itemName, extraText, itemTexture, itemPrice, itemDroprate, tooltipAdd, tfItemID }
+		end
+		if tfItemID and AtlasLoot.db.profile.ShowThunderforged then
+			itemID = tfItemID
 		end
 
 		self:SetButtonType(true, false, nil)
@@ -904,10 +983,15 @@ do
 		end
 		
 		-- ########################
+		-- Thunderforged
+		-- ########################
+		self:RefreshThunderforge(tfItemID)		
+		
+		-- ########################
 		-- BonusRoll
 		-- ########################
 		self:CheckBonusRoll(AtlasLoot.db.profile.BonusRollEnabled)
-
+		
 		-- ########################
 		-- Unsafe
 		-- ########################
@@ -923,13 +1007,13 @@ do
 	-- @param extraText The small text under the spell name.
 	-- @param itemTexture Sets a texture for the spell icon. Set to nil and it will use the icon from the spell ID
 	-- @param itemPrice The item price (Arena, PVP, ...). Set self will hide the extraText if its to long
-	-- @usage AltasLootItemButton:SetSpell(60403, 44323, "=q3=Indestructible Alchemist Stone", "=ds="..AL["Trainer"], nil, nil)
+	-- @usage AtlasLootItemButton:SetSpell(60403, 44323, "=q3=Indestructible Alchemist Stone", "=ds="..AL["Trainer"], nil, nil)
 	-- @param tooltipAdd adds a extra text too the tooltip
-	function AltasLootItemButton:SetSpell(spellID, itemID, spellName, extraText, spellTexture, itemPrice, tooltipAdd)
+	function AtlasLootItemButton:SetSpell(spellID, itemID, spellName, extraText, spellTexture, itemPrice, tooltipAdd)
 		self:Clear()
 		if not spellID or type(spellID) ~= "number" then
 			self:SetDummy(spellName, extraText, spellTexture)
-			--error("AltasLootItemButton:SetSpell: Enter a spellID <number>", 2)
+			--error("AtlasLootItemButton:SetSpell: Enter a spellID <number>", 2)
 			return
 		end
 		if not self.info then
@@ -1021,13 +1105,13 @@ do
 	-- @param tabExtraText The small text under the table name.
 	-- @param iconTexture path to icon texture
 	-- @param tooltipAdd adds a extra text too the tooltip
-	function AltasLootItemButton:SetMenu(linkTab, tabName, tabExtraText, iconTexture, tableLinkFunc, tooltipAdd)
+	function AtlasLootItemButton:SetMenu(linkTab, tabName, tabExtraText, iconTexture, tableLinkFunc, tooltipAdd)
 		self:Clear()
 		self.tableLinkFunc = tableLinkFunc
 		self:SetLink(linkTab)
 		if not self.tableLink then
 			self:SetDummy(tabName, tabExtraText, iconTexture)
-			--error("AltasLootItemButton:SetMenu: Enter a available AtlasLoot table <string> ", 2)
+			--error("AtlasLootItemButton:SetMenu: Enter a available AtlasLoot table <string> ", 2)
 			return
 		end
 		if not self.info then
@@ -1076,7 +1160,7 @@ do
 	-- @param name The name
 	-- @param extraText The small text under the name.
 	-- @param iconTexture path to icon texture
-	function AltasLootItemButton:SetDummy(name, extraText, iconTexture)
+	function AtlasLootItemButton:SetDummy(name, extraText, iconTexture)
 		self:Clear()
 		self.Frame:Show()
 
@@ -1113,7 +1197,7 @@ do
 end
 
 -- Update item stats font colors
-function AltasLootItemButton:UpdateStatsColor()
+function AtlasLootItemButton:UpdateStatsColor()
 	--AtlasLoot.db.profile.CompareFrame.statsColor[v]
 	for k,v in ipairs(self.statsList) do
 		if self.Stats["ITEM_MOD_"..v.."_SHORT"] then
@@ -1123,7 +1207,7 @@ function AltasLootItemButton:UpdateStatsColor()
 end
 
 -- Update the stats table
-function AltasLootItemButton:UpdateStatsList(statsList, refresh)
+function AtlasLootItemButton:UpdateStatsList(statsList, refresh)
 	if not statsList or self.type ~= "CompareFrameItemButton" then return end
 	-- Reset all links
 	wipe(self.Stats)
@@ -1162,8 +1246,8 @@ end
 --- Sets a link to the button
 -- Sets a link to another loottable from AtlasLoot
 -- @param lootTable Name of the AtlasLoot loottable
--- @usage AltasLootItemButton:SetLink(lootTable)
-function AltasLootItemButton:SetLink(lootTable)
+-- @usage AtlasLootItemButton:SetLink(lootTable)
+function AtlasLootItemButton:SetLink(lootTable)
 	if not lootTable or type(lootTable) ~= "string" then return end
 	local dataID = AtlasLoot:FormatDataID(lootTable)
 	if AtlasLoot_Data[dataID] or self.tableLinkFunc then
@@ -1174,8 +1258,8 @@ end
 
 --- Shows or Hide the MenuButton
 -- @param show true/false 
--- @usage AltasLootItemButton:SetMenuButton(show)
-function AltasLootItemButton:SetMenuButton(show)
+-- @usage AtlasLootItemButton:SetMenuButton(show)
+function AtlasLootItemButton:SetMenuButton(show)
 	if not show then
 		self.Frame.Icon:Show()
 		self.Frame.Icon:SetTexture(self.Frame.MenuIcon:GetTexture())
@@ -1195,8 +1279,8 @@ end
 
 --- Sets a button Icon
 -- @param icon the path to the icon
--- @usage AltasLootItemButton:SetIcon(icon)
-function AltasLootItemButton:SetIcon(icon)
+-- @usage AtlasLootItemButton:SetIcon(icon)
+function AtlasLootItemButton:SetIcon(icon)
 	if self.Frame.Icon:IsShown() then
 		self.Frame.Icon:SetTexture(icon)
 	elseif self.Frame.MenuIcon:IsShown() then
@@ -1206,17 +1290,17 @@ end
 
 --- Sets the level of an Heirloom item
 -- @param lvl the level
-function AltasLootItemButton:SetHeirloomLvl(lvl)
+function AtlasLootItemButton:SetHeirloomLvl(lvl)
 	self.cutomLvl = tonumber(lvl)
 end
 
 --- Set the amount of an item
-function AltasLootItemButton:SetAmount(amount)
+function AtlasLootItemButton:SetAmount(amount)
 	self.Frame.IconAmount:SetText(amount)
 	self.amount = amount
 end
 
-function AltasLootItemButton:CheckBonusRoll(enabled)
+function AtlasLootItemButton:CheckBonusRoll(enabled)
 	if self.type ~= "ItemIcon" then return end
 	if not AtlasLoot.CanShowBonusRoll then 
 		enabled = false
@@ -1235,7 +1319,9 @@ function AltasLootItemButton:CheckBonusRoll(enabled)
 			self.SpecsTT = nil
 		end
 		if self.Specs then
-			self.Frame:SetAlpha(1)
+			if not AtlasLoot.ThunderforgeAviable then
+				self.Frame:SetAlpha(1)
+			end
 			for k,v in ipairs(self.Specs) do
 				if not self.Frame.BonusRoll[k] then break end
 				self.Frame.BonusRoll[k]:Show()
@@ -1245,9 +1331,19 @@ function AltasLootItemButton:CheckBonusRoll(enabled)
 			end
 		elseif self.Specs == false then
 			self.Frame:SetAlpha(0.33)
-		elseif self.Specs == nil then
+		elseif self.Specs == nil and not AtlasLoot.ThunderforgeAviable then
 			self.Frame:SetAlpha(1)
 		end
+	elseif not AtlasLoot.ThunderforgeAviable then
+		self.Frame:SetAlpha(1)
+	end
+end
+
+function AtlasLootItemButton:RefreshThunderforge(id)
+	if AtlasLoot.ThunderforgeAviable and id and AtlasLoot.db.profile.ShowThunderforged then
+		self.Frame:SetAlpha(1)
+	elseif AtlasLoot.ThunderforgeAviable and not id and AtlasLoot.db.profile.ShowThunderforged then
+		self.Frame:SetAlpha(0.33)
 	else
 		self.Frame:SetAlpha(1)
 	end
@@ -1255,8 +1351,8 @@ end
 
 --- Querys the server
 -- Querys the server for the setn item
--- @usage AltasLootItemButton:Query()
-function AltasLootItemButton:Query()
+-- @usage AtlasLootItemButton:Query()
+function AtlasLootItemButton:Query()
 	if self.info and self.info[2] and not self.info[1] then
 		AtlasLootTooltip:SetHyperlink("item:"..self.info[2]..":0:0:0:0:0:0:0")
 		self:Refresh()
@@ -1266,8 +1362,8 @@ end
 
 --- Clears the button
 -- Clears and hides the itemButton
--- @usage AltasLootItemButton:Clear()
-function AltasLootItemButton:Clear()
+-- @usage AtlasLootItemButton:Clear()
+function AtlasLootItemButton:Clear()
 	self.Frame.Unsafe:Hide()
 	self.Frame.QueryIcon:Hide()
 	self:SetButtonType(nil, nil, nil)
@@ -1288,14 +1384,13 @@ end
 
 --- Refresh the button
 -- Refreshs the button
--- @usage AltasLootItemButton:Refresh()
-function AltasLootItemButton:Refresh()
+-- @usage AtlasLootItemButton:Refresh()
+function AtlasLootItemButton:Refresh()
 	local tabLinkSave = self.tableLink
 	local amountSave = self.amount
 	local upgradeLvlSave = self.upgradeLvl
-	
 	if self.item == true and self.spell == false and self.info then
-		self:SetItem(self.info[2], self.info[3], self.info[4], self.info[5], self.info[6], self.info[7])
+		self:SetItem(self.info[2], self.info[3], self.info[4], self.info[5], self.info[6], self.info[7], self.info[8], self.info[9])
 		self:SetLink(tabLinkSave)
 		self:SetAmount(amountSave)
 		self:SetUpgradeLvl(self.upgradeLvl)
@@ -1313,17 +1408,18 @@ end
 -- Returns a item or SpellLink
 -- @return The link of the spell/item or the name
 -- @return The name of the spell/item 
--- @usage local link, name = AltasLootItemButton:GetChatLink()
-function AltasLootItemButton:GetChatLink()
+-- @usage local link, name = AtlasLootItemButton:GetChatLink()
+function AtlasLootItemButton:GetChatLink()
 	if self.info and self.info[1] then
 		return AtlasLoot:GetEnchantLink(self.info[1]), ""
 	elseif self.info and self.info[2] then
-		local itemInfo, itemLink = GetItemInfo(self.info[2])
+		local itemID = (AtlasLoot.db.profile.ShowThunderforged and self.info[9]) and self.info[9] or self.info[2]
+		local itemInfo, itemLink = GetItemInfo(itemID)
 		local color = strsub(self.Frame.Name:GetText(), 1, 10)
 		local name = strsub(self.Frame.Name:GetText(), 11)
 		if self.upgradeLvl then
-			local itemString = createItemLink(self.info[2], self.cutomLvl, self.upgradeLvl)
-			itemString = itemString or "item:"..self.info[2]
+			local itemString = createItemLink(itemID, self.cutomLvl, self.upgradeLvl)
+			itemString = itemString or "item:"..itemID
 			return color.."|H"..itemString.."|h["..itemInfo.."]|h|r", name
 		end
 		if itemInfo then
@@ -1335,8 +1431,8 @@ function AltasLootItemButton:GetChatLink()
 end
 
 --- DressUp the item
--- @usage AltasLootItemButton:DressUp()
-function AltasLootItemButton:DressUp()
+-- @usage AtlasLootItemButton:DressUp()
+function AtlasLootItemButton:DressUp()
 	if self.info and self.info[2] then
 		local _,itemLink = GetItemInfo(self.info[2])
 		if itemLink then
@@ -1345,11 +1441,11 @@ function AltasLootItemButton:DressUp()
 	end
 end
 
-function AltasLootItemButton:SetItemType(itemType)
+function AtlasLootItemButton:SetItemType(itemType)
 	self.itemType = itemType
 end
 
-function AltasLootItemButton:SetUpgradeLvl(lvl)
+function AtlasLootItemButton:SetUpgradeLvl(lvl)
 	lvl = lvl or 0
 	if self.info and self.info[2] and self.info[2] ~= 0 then
 		local upgradeStart, upgradeTab = canUpgradeItem(self.info[2])
@@ -1370,12 +1466,12 @@ function AltasLootItemButton:SetUpgradeLvl(lvl)
 end
 --- Adds a item button function
 -- @param func the function
--- @param name the name of the function ( AltasLootItemButton:<NAME>() )
+-- @param name the name of the function ( AtlasLootItemButton:<NAME>() )
 -- @usage AtlasLoot:AddItemButtonTemplateFunc(func, name)
 function AtlasLoot:AddItemButtonTemplateFunc(func, name)
 	if not func or not name or type(func) ~= "function" then return end
-	if not AltasLootItemButton[name] then
-		AltasLootItemButton[name] = func
+	if not AtlasLootItemButton[name] then
+		AtlasLootItemButton[name] = func
 	end
 end
 
@@ -1413,23 +1509,40 @@ function AtlasLoot:QAItemOnEnter()
 		AtlasLootTooltip:SetOwner(self, "ANCHOR_RIGHT", -(self:GetWidth() / 2), 24);
 		for k,price in ipairs(self.price) do
 			if type(price[2]) == "number" then
-				local name, currentAmount = GetCurrencyInfo(price[2])
-				AtlasLootTooltip:AddLine(name);
+				local name, currentAmount, icon = GetCurrencyInfo(price[2])
+				icon = icon and "|T"..icon..":16|t " or ""
+		
+				AtlasLootTooltip:AddLine(icon..name);
 				if currentAmount and tonumber(price[1]) and currentAmount >= tonumber(price[1]) then
 					AtlasLootTooltip:AddLine(GREEN..currentAmount.." / "..price[1]);
 				else
 				AtlasLootTooltip:AddLine(RED..currentAmount.." / "..price[1]);
 				end
+			elseif type(price[2]) == "table" and TEMP_TABLE[price[2][1]] then
+				TEMP_TABLE[price[2][1]][price[2][2]]("tooltip", AtlasLootTooltip)
 			elseif CURRENCY_PRICE[price[2]] then
 				local count = GetItemCount(CURRENCY_PRICE[price[2]].itemID)
 				local countAll = GetItemCount(CURRENCY_PRICE[price[2]].itemID, true)
-				local color = "\n"
+				local color = ""
+				local name, _, itemQuality = GetItemInfo(CURRENCY_PRICE[price[2]].itemID)
 				if countAll and tonumber(price[1]) and countAll >= tonumber(price[1]) then
 					color = color..GREEN
 				else
 					color = color..RED
 				end
-				AtlasLootTooltip:SetHyperlink("item:"..CURRENCY_PRICE[price[2]].itemID..":0:0:0")
+				
+				--AtlasLootTooltip:SetHyperlink("item:"..TEMP_TABLE["TMP"]..":0:0:0")
+				if name then
+					itemQuality = select(4, GetItemQualityColor(itemQuality))
+					name = "|c"..itemQuality..string.gsub(name, 1, 4)
+					local icon =  GetItemIcon(CURRENCY_PRICE[price[2]].itemID)
+					icon = icon and "|T"..icon..":16|t " or ""
+					name = icon..name
+				else
+					name = _G["UNKNOWN"]
+				end
+				AtlasLootTooltip:AddLine(name)
+				
 				if countAll == count then
 					AtlasLootTooltip:AddLine(color..count.." / "..price[1])
 				else
@@ -1465,6 +1578,8 @@ function AtlasLoot:QAItemOnClick(arg1)
 				if CURRENCY_PRICE[v[2]] then
 					_, linkTmp = GetItemInfo(CURRENCY_PRICE[v[2]].itemID)
 					linkTmp = v[1].." x "..linkTmp
+				elseif type(v[2]) == "table" and TEMP_TABLE[v[2][1]] then
+					linkTmp = TEMP_TABLE[v[2][1]][v[2][2]]("click", linkTmp)
 				elseif type(v[2]) == "number" then
 					linkTmp = GetCurrencyInfo(v[2])
 					--SendChatMessage("\124cff00aa00\124Hcurrency:396\124h[Valor Points]\124h\124r")
@@ -1541,7 +1656,7 @@ do
 		--self.info = { nil, itemID, itemName, extraText, itemTexture, itemPrice, itemDroprate }
 		if not self.par.info then return end
 		local spellID = self.par.info[1]
-		local itemID = self.par.info[2]
+		local itemID = (AtlasLoot.db.profile.ShowThunderforged and self.par.info[9]) and self.par.info[9] or self.par.info[2]
 		local droprate = self.par.info[7]
 		local tooltipAdd = self.par.info[8]
 
@@ -1708,7 +1823,8 @@ end
 function AtlasLoot:ItemOnClick(arg1)
 	local itemRarity
 	if self.par.info and self.par.info[2] then
-		itemRarity = select(3, GetItemInfo(self.par.info[2]))
+		itemRarity = (AtlasLoot.db.profile.ShowThunderforged and self.par.info[9]) and self.par.info[9] or self.par.info[2]
+		itemRarity = select(3, GetItemInfo(itemRarity))
 	end
 	if self.par.tableLink and arg1 == "LeftButton" and not IsAltKeyDown() then
 		if self.par.tableLinkFunc then

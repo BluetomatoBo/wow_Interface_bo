@@ -1,4 +1,4 @@
--- $Id: classicwow.lua 4172 2013-03-31 22:53:10Z dynaletik $
+-- $Id: classicwow.lua 4212 2013-05-20 12:27:56Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -4121,21 +4121,7 @@ local moduleName = "AtlasLootClassicWoW"
 		--- Uldaman ---
 		---------------
 
-	AtlasLoot_Data["UldShovelphlange"] = {
-		["Normal"] = {
-			{
-				{ 1, 9375, "", "=q3=Expert Goldminer's Helmet", "=ds=#s1#, #a2#", "", "9.30%"};
-				{ 2, 9378, "", "=q3=Shovelphlange's Mining Axe", "=ds=#h1#, #w1#", "", "13.50%"};
-				{ 4, 9382, "", "=q2=Tromping Miner's Boots", "=ds=#s12#, #a2#", "", "70.70%"};
-			}
-		};
-		info = {
-			name = BabbleBoss["Digmaster Shovelphlange"],
-			module = moduleName, instance = "Uldaman",
-		};
-	};
-
-	AtlasLoot_Data["UldBaelog"] = {
+	AtlasLoot_Data["UldDwarves"] = {
 		["Normal"] = {
 			{
 				{ 1, 0, "INV_Box_01", "=q6="..BabbleBoss["Baelog"], ""};
@@ -4152,12 +4138,12 @@ local moduleName = "AtlasLootClassicWoW"
 			}
 		};
 		info = {
-			name = BabbleBoss["Baelog"],
+			name = AtlasLoot:EJ_GetBossName("The Lost Dwarves", 468),
 			module = moduleName, instance = "Uldaman",
 		};
 	};
 
---[[	AtlasLoot_Data["Uldamanloot"] = {
+	AtlasLoot_Data["UldamanLoot"] = {
 		["Normal"] = {
 			{
 				{ 1, 0, "INV_Box_01", "=q6="..AtlasLoot:EJ_GetBossName("Revelosh", 467), ""};
@@ -4189,105 +4175,7 @@ local moduleName = "AtlasLootClassicWoW"
 			}
 		};
 		info = {
-			name = AtlasLoot:EJ_GetBossName("Ancient Stone Keeper", 470),
-			module = moduleName, instance = "Uldaman",
-		};
-	};--]]
-
-	AtlasLoot_Data["UldRevelosh"] = {
-		["Normal"] = {
-			{
-				{ 1, 9390, "", "=q3=Revelosh's Gloves", "=ds=#s9#, #a1#", "", "20.08%"};
-				{ 2, 9389, "", "=q3=Revelosh's Spaulders", "=ds=#s3#, #a2#", "", "18.77%"};
-				{ 3, 9388, "", "=q3=Revelosh's Armguards", "=ds=#s8#, #a3#", "", "19.84%"};
-				{ 4, 9387, "", "=q3=Revelosh's Boots", "=ds=#s12#, #a3#", "", "20.53%"};
-			}
-		};
-		info = {
-			name = AtlasLoot:EJ_GetBossName("Revelosh", 467),
-			module = moduleName, instance = "Uldaman",
-		};
-	};
-
-	AtlasLoot_Data["UldIronaya"] = {
-		["Normal"] = {
-			{
-				{ 1, 9407, "", "=q3=Stoneweaver Leggings", "=ds=#s11#, #a1#", "", "31.02%"};
-				{ 2, 9409, "", "=q3=Ironaya's Bracers", "=ds=#s8#, #a3#", "", "32.71%"};
-				{ 3, 9408, "", "=q3=Ironshod Bludgeon", "=ds=#w9#", "", "17.37%"};
-			}
-		};
-		info = {
-			name = AtlasLoot:EJ_GetBossName("Ironaya", 469),
-			module = moduleName, instance = "Uldaman",
-		};
-	};
-
-	AtlasLoot_Data["UldObsidianSentinel"] = {
-		["Normal"] = {
-			{
-				{ 1, 62053, "", "=q1=Obsidian Power Core", "=ds=#m3#", "", "100%"};
-			}
-		};
-		info = {
-			name = AtlasLoot:EJ_GetBossName("Obsidian Sentinel", 748),
-			module = moduleName, instance = "Uldaman",
-		};
-	};
-
-	AtlasLoot_Data["UldAncientStoneKeeper"] = {
-		["Normal"] = {
-			{
-				{ 1, 9411, "", "=q3=Rockshard Pauldrons", "=ds=#s3#, #a2#", "", "43.41%"};
-				{ 2, 9410, "", "=q3=Cragfists", "=ds=#s9#, #a3#", "", "41.61%"};
-				{ 4, 62055, "", "=q1=Titan Power Core", "=ds=#m3#", "", "100%"};
-			}
-		};
-		info = {
-			name = AtlasLoot:EJ_GetBossName("Ancient Stone Keeper", 470),
-			module = moduleName, instance = "Uldaman",
-		};
-	};
-
-	AtlasLoot_Data["UldGalgannFirehammer"] = {
-		["Normal"] = {
-			{
-				{ 1, 11311, "", "=q3=Emberscale Cape", "=ds=#s4#", "", "36.52%"};
-				{ 2, 11310, "", "=q3=Flameseer Mantle", "=ds=#s3#, #a1#", "", "17.35%"};
-				{ 3, 9419, "", "=q3=Galgann's Firehammer", "=ds=#h1#, #w6#", "", "18.10%"};
-				{ 4, 9412, "", "=q3=Galgann's Fireblaster", "=ds=#w5#", "", "17.10%"};
-			}
-		};
-		info = {
-			name = AtlasLoot:EJ_GetBossName("Galgann Firehammer", 471),
-			module = moduleName, instance = "Uldaman",
-		};
-	};
-
-	AtlasLoot_Data["UldGrimlok"] = {
-		["Normal"] = {
-			{
-				{ 1, 9415, "", "=q3=Grimlok's Tribal Vestments", "=ds=#s5#, #a1#", "", "36.51%"};
-				{ 2, 9414, "", "=q3=Oilskin Leggings", "=ds=#s11#, #a2#", "", "29.78%"};
-				{ 3, 9416, "", "=q3=Grimlok's Charge", "=ds=#w7#", "", "15.05%"};
-			}
-		};
-		info = {
-			name = AtlasLoot:EJ_GetBossName("Grimlok", 472),
-			module = moduleName, instance = "Uldaman",
-		};
-	};
-
-	AtlasLoot_Data["UldArchaedas"] = {
-		["Normal"] = {
-			{
-				{ 1, 11118, "", "=q3=Archaedic Stone", "=ds=#s13#", "", "51.99%"};
-				{ 2, 9418, "", "=q3=Stoneslayer", "=ds=#h2#, #w10#", "", "10.48%"};
-				{ 3, 9413, "", "=q3=The Rockpounder", "=ds=#h2#, #w6#", "", "10.94%"};
-			}
-		};
-		info = {
-			name = AtlasLoot:EJ_GetBossName("Archaedas", 473),
+			name = ALIL["Uldaman"],
 			module = moduleName, instance = "Uldaman",
 		};
 	};
@@ -6636,25 +6524,25 @@ local moduleName = "AtlasLootClassicWoW"
 	AtlasLoot_Data["MiscFactions"] = {
 		["Normal"] = {
 			{
-				{ 1, 0, "inv_jewelry_stormpiketrinket_05", "=q6="..ALIL["Stormpike Guard"], "=q5="..AL["Alliance"]};
+				{ 1, 0, "inv_jewelry_stormpiketrinket_05", "=q6="..ALIL["Stormpike Guard"], "=q5="..FACTION_ALLIANCE};
 				{ 2, 17904, "", "=q4=Stormpike Insignia Rank 6", "=ds=#s14#, =q1=#r5#"};
 				{ 3, 17903, "", "=q3=Stormpike Insignia Rank 5", "=ds=#s14#, =q1=#r5#"};
 				{ 4, 17902, "", "=q3=Stormpike Insignia Rank 4", "=ds=#s14#, =q1=#r4#"};
 				{ 5, 17901, "", "=q2=Stormpike Insignia Rank 3", "=ds=#s14#, =q1=#r3#"};
 				{ 6, 17900, "", "=q2=Stormpike Insignia Rank 2", "=ds=#s14#, =q1=#r2#"};
 				{ 7, 17691, "", "=q2=Stormpike Insignia Rank 1", "=ds=#s14#, =q1=#r1#"};
-				{ 9, 0, "ability_warrior_rallyingcry", "=q6="..ALIL["The League of Arathor"], "=ds=#r5#, =q5="..AL["Alliance"]};
+				{ 9, 0, "ability_warrior_rallyingcry", "=q6="..ALIL["The League of Arathor"], "=ds=#r5#, =q5="..FACTION_ALLIANCE};
 				{ 10, 20132, "", "=q1=Arathor Battle Tabard", "=ds=#s7#", "#HONOR:2679#"};
-				{ 12, 0, "Ability_Mount_PinkTiger", "=q6="..ALIL["Wintersaber Trainers"], "=ds=#r5#, =q5="..AL["Alliance"]};
+				{ 12, 0, "Ability_Mount_PinkTiger", "=q6="..ALIL["Wintersaber Trainers"], "=ds=#r5#, =q5="..FACTION_ALLIANCE};
 				{ 13, 13086, "", "=q4=Reins of the Winterspring Frostsaber", "=ds=#e26#", "=q1=#m4#: #QUESTID:29034#"};
-				{ 16, 0, "inv_jewelry_frostwolftrinket_05", "=q6="..ALIL["Frostwolf Clan"], "=q5="..AL["Horde"]};
+				{ 16, 0, "inv_jewelry_frostwolftrinket_05", "=q6="..ALIL["Frostwolf Clan"], "=q5="..FACTION_HORDE};
 				{ 17, 17909, "", "=q4=Frostwolf Insignia Rank 6", "=ds=#s14#, =q1=#r5#"};
 				{ 18, 17908, "", "=q3=Frostwolf Insignia Rank 5", "=ds=#s14#, =q1=#r5#"};
 				{ 19, 17907, "", "=q3=Frostwolf Insignia Rank 4", "=ds=#s14#, =q1=#r4#"};
 				{ 20, 17906, "", "=q2=Frostwolf Insignia Rank 3", "=ds=#s14#, =q1=#r3#"};
 				{ 21, 17905, "", "=q2=Frostwolf Insignia Rank 2", "=ds=#s14#, =q1=#r2#"};
 				{ 22, 17690, "", "=q2=Frostwolf Insignia Rank 1", "=ds=#s14#, =q1=#r1#"};
-				{ 24, 0, "spell_shadow_psychichorrors", "=q6="..ALIL["The Defilers"], "=ds=#r5#, =q5="..AL["Horde"]};
+				{ 24, 0, "spell_shadow_psychichorrors", "=q6="..ALIL["The Defilers"], "=ds=#r5#, =q5="..FACTION_HORDE};
 				{ 25, 20131, "", "=q1=Battle Tabard of the Defilers", "=ds=#s7#", "#HONOR:2679#"};
 			};
 		};

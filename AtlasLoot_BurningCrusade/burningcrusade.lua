@@ -1,4 +1,4 @@
--- $Id: burningcrusade.lua 4172 2013-03-31 22:53:10Z dynaletik $
+-- $Id: burningcrusade.lua 4193 2013-04-20 18:44:04Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -1458,6 +1458,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 18, 30664, "", "=q4=Living Root of the Wildheart", "=ds=#s14#, =q1=#m1# =ds=#c1#", "", "18%"};
 				{ 19, 30629, "", "=q4=Scarab of Displacement", "=ds=#s14#", "", "21%"};
 				{ 20, 30049, "", "=q4=Fathomstone", "=ds=#s15#", "", "19%"};
+				{ 22, 97553, "", "=q3=Tainted Core", "=ds=#e13#", ""};
 			};
 		};
 		info = {
@@ -1545,6 +1546,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 19, 30720, "", "=q4=Serpent-Coil Braid", "=ds=#s14#, =q1=#m1# =ds=#c3#", "", "20%"};
 				{ 20, 30082, "", "=q4=Talon of Azshara", "=ds=#h1#, #w10#", "", "20%"};
 				{ 21, 30080, "", "=q4=Luminescent Rod of the Naaru", "=ds=#w12#", "", "15%"};
+				{ 23, 97552, "", "=q3=Shell of Tide-Calling", "=ds=#e13#", ""};
 			};
 		};
 		info = {
@@ -1571,7 +1573,8 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 16, 30242, "", "=q4=Helm of the Vanquished Champion", "=ds=#m22# #e15#", "", "61%"};
 				{ 17, 30243, "", "=q4=Helm of the Vanquished Defender", "=ds=#m22# #e15#", "", "62%"};
 				{ 18, 30244, "", "=q4=Helm of the Vanquished Hero", "=ds=#m22# #e15#", "", "63%"};
-				{ 20, 29906, "", "=q1=Vashj's Vial Remnant", "=ds=#m3#", "", "35%"};
+				{ 20, 97554, "", "=q3=Dripping Strider Egg", "=ds=#e13#", ""};
+				{ 22, 29906, "", "=q1=Vashj's Vial Remnant", "=ds=#m3#", "", "100%"};
 			};
 		};
 		info = {
@@ -2165,6 +2168,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 25, 28583, "", "=q4=Big Bad Wolf's Head", "=ds=#s1#, #a3#", "", "16.37%"};
 				{ 26, 28584, "", "=q4=Big Bad Wolf's Paw", "=ds=#h1#, #w13#", "", "16.12%"};
 				{ 27, 28581, "", "=q4=Wolfslayer Sniper Rifle", "=ds=#w5#", "", "22.42%"};
+				{ 28, 97548, "", "=q3=Spiky Collar", "=ds=#e13#", ""};
 			};
 		};
 		info = {
@@ -2185,6 +2189,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 16, 29757, "", "=q4=Gloves of the Fallen Champion", "=ds=#m21# #e15#", "", "29.42%"};
 				{ 17, 29758, "", "=q4=Gloves of the Fallen Defender", "=ds=#m21# #e15#", "", "23.60%"};
 				{ 18, 29756, "", "=q4=Gloves of the Fallen Hero", "=ds=#m21# #e15#", "", "21.66%"};
+				{ 20, 97549, "", "=q3=Instant Arcane Sanctum Security Kit", "=ds=#e13#", ""};
 			};
 		};
 		info = {
@@ -2207,7 +2212,8 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 17, 28785, "", "=q4=The Lightning Capacitor", "=ds=#s14#", "", "10.75%"};
 				{ 18, 28657, "", "=q4=Fool's Bane", "=ds=#h1#, #w6#", "", "14.63%"};
 				{ 19, 28658, "", "=q4=Terestian's Stranglestaff", "=ds=#w9#", "", "7.46%"};
-				{ 21, 22561, "", "=q3=Formula: Enchant Weapon - Soulfrost", "=ds=#p4# (375)", "", "0.30%"};
+				{ 21, 97551, "", "=q3=Satyr Charm", "=ds=#e13#", ""};
+				{ 23, 22561, "", "=q3=Formula: Enchant Weapon - Soulfrost", "=ds=#p4# (375)", "", "0.30%"};
 			};
 		};
 		info = {
@@ -2329,6 +2335,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 16, 29760, "", "=q4=Helm of the Fallen Champion", "=ds=#m21# #e15#", "", "23.01%"};
 				{ 17, 29761, "", "=q4=Helm of the Fallen Defender", "=ds=#m21# #e15#", "", "26.73%"};
 				{ 18, 29759, "", "=q4=Helm of the Fallen Hero", "=ds=#m21# #e15#", "", "20.48%"};
+				{ 20, 97550, "", "=q3=Netherspace Portal-Stone", "=ds=#e13#", ""};
 			};
 		};
 		info = {
@@ -3147,6 +3154,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 17, 29948, "", "=q4=Claw of the Phoenix", "=ds=#h1#, #w13#", "", "10%"};
 				{ 18, 29924, "", "=q4=Netherbane", "=ds=#h1#, #w1#", "", "21%"};
 				{ 19, 29949, "", "=q4=Arcanite Steam-Pistol", "=ds=#w5#", "", "22%"};
+				{ 21, 97557, "", "=q3=Brilliant Phoenix Hawk Feather", "=ds=#e13#", ""};
 			};
 		};
 		info = {
@@ -3168,6 +3176,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 16, 30248, "", "=q4=Pauldrons of the Vanquished Champion", "=ds=#m22# #e15#", "", "61%"};
 				{ 17, 30249, "", "=q4=Pauldrons of the Vanquished Defender", "=ds=#m22# #e15#", "", "62%"};
 				{ 18, 30250, "", "=q4=Pauldrons of the Vanquished Hero", "=ds=#m22# #e15#", "", "61%"};
+				{ 20, 97555, "", "=q3=Tiny Fel Engine Key", "=ds=#e13#", ""};
 			};
 		};
 		info = {
@@ -3192,6 +3201,7 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 18, 29962, "", "=q4=Heartrazor", "=ds=#h1#, #w4#", "", "23%"};
 				{ 19, 29981, "", "=q4=Ethereum Life-Staff", "=ds=#w9#", "", "21%"};
 				{ 20, 29982, "", "=q4=Wand of the Forgotten Star", "=ds=#w12#", "", "18%"};
+				{ 22, 97556, "", "=q3=Crystal of the Void", "=ds=#e13#", ""};
 			};
 		};
 		info = {

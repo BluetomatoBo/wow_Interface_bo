@@ -1,4 +1,4 @@
--- $Id: EJIntegration.lua 4075 2013-02-12 20:43:06Z lag123 $
+-- $Id: EJIntegration.lua 4201 2013-05-05 16:05:37Z lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
 
@@ -100,19 +100,13 @@ local function encounterJournal_OnClick(self)
 	end
 end
 
-function AtlasLoot:EncounterJournal_CreateButton(name, parent)
-	local button = CreateFrame("Button",name,parent,"AtlasLoot_RoundButton")
-	button:SetWidth(30)
-	button:SetHeight(30)
-	--button:SetNormalTexture("Interface\\EncounterJournal\\UI-EJ-PortraitIcon")
-	--button:SetPushedTexture("Interface\\EncounterJournal\\UI-EJ-PortraitIcon")
-	--button:SetDisabledTexture("Interface\\EncounterJournal\\UI-EJ-PortraitIcon")
-	button:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
-	SetPortraitToTexture(button.icon, "Interface\\EncounterJournal\\UI-EJ-PortraitIcon")
-	button:SetScript("OnClick", encounterJournal_OnClick)
-	button:SetScript("OnEnter", encounterJournal_OnEnter)
-	button:SetScript("OnLeave", function() GameTooltip:Hide() end)
-	--button:SetScript("OnShow", function(self) self:SetFrameLevel( (self:GetParent()):GetFrameLevel() + 1 ) end)
+function AtlasLoot:EncounterJournal_CreateButton(name, parent, addInList)
+	local scripts = {
+		["OnClick"] = encounterJournal_OnClick,
+		["OnEnter"] = encounterJournal_OnEnter,
+		["OnLeave"] = function() GameTooltip:Hide() end,
+	}
+	local button = self:ItemFrame_IconList_CreateIcon(name, parent, "Interface\\EncounterJournal\\UI-EJ-PortraitIcon", scripts, addInList)
 	
 	BUTTON_LIST[ #BUTTON_LIST + 1 ] = button
 	
@@ -122,8 +116,8 @@ end
 function AtlasLoot:EncounterJournal_Initialize()
 	createEncounterJournalIDList()
 	if AtlasLoot.ItemFrame then
-		AtlasLoot.ItemFrame.EncounterJournal = self:EncounterJournal_CreateButton("AtlasLootItemsFrame_EncounterJournal", AtlasLoot.ItemFrame)
-		AtlasLoot.ItemFrame.EncounterJournal:SetPoint("RIGHT", AtlasLoot.ItemFrame.CloseButton, "LEFT", 0, 0)
+		AtlasLoot.ItemFrame.EncounterJournal = self:EncounterJournal_CreateButton("EncounterJournal", AtlasLoot.ItemFrame, true)
+		AtlasLoot:ItemFrame_IconList_Refresh()
 	end
 	
 	if AtlasLoot.CompareFrame then

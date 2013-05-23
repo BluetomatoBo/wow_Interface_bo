@@ -1,4 +1,4 @@
-﻿-- $Id: constants.mx.lua 4163 2013-03-19 15:06:21Z dynaletik $
+﻿-- $Id: constants.mx.lua 4212 2013-05-20 12:27:56Z dynaletik $
 --[[
 constants.es.lua --- Traduction ES por maqjav
 This file defines an AceLocale table for all the various text strings needed
@@ -407,16 +407,12 @@ if AL then
 	AL["Carapace of the Old God"] = "Caparazón del dios antiguo";
 
 	-- Faction related strings
-	AL["Alliance"] = "Alianza";
-	AL["Horde"] = "Horda";
 	-- AL["Neutral"] = true;
 	AL["Friendly"] = "Amistoso";
 	AL["Honored"] = "Honorable";
 	AL["Revered"] = "Reverenciado";
 	AL["Exalted"] = "Exaltado";
 	-- AL["Best Friend"] = true;
-	-- AL["Rank 4"] = true;
-	-- AL["Rank 8"] = true;
 	AL["Winterfin Retreat"] = "Retiro Aleta Invernal";
 
 	--Recipe origin strings

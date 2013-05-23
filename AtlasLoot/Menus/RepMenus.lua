@@ -1,4 +1,4 @@
--- $Id: RepMenus.lua 4163 2013-03-19 15:06:21Z dynaletik $
+-- $Id: RepMenus.lua 4212 2013-05-20 12:27:56Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
@@ -6,7 +6,7 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 	AtlasLoot_Data["REPMENU"] = {
 		["Normal"] = {
 			{
-				{ 1, "REPMENU_RACEFACTIONS", "INV_Helmet_66", "=ds=Race Factions (temp name)", ""};
+				{ 1, "REPMENU_RACEFACTIONS", "inv_misc_tournaments_symbol_human", "=ds="..FACTION_ALLIANCE.." / "..FACTION_HORDE, ""};
 				{ 2, "REPMENU_ORIGINALWOW", "INV_Helmet_66", "=ds="..AL["Classic WoW"], ""};
 				{ 3, "REPMENU_WOTLK", "achievement_reputation_kirintor", "=ds="..AL["Wrath of the Lich King"], ""};
 				{ 5, "KirinTorOffensive", "achievement_reputation_kirintor_offensive", "=ds="..ALIL["Kirin Tor Offensive"], "=q5="..ALIL["Isle of Thunder"]};
@@ -39,7 +39,7 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 	AtlasLoot_Data["REPMENU_RACEFACTIONS"] = {
 		["Normal"] = {
 			{
-				{ 2, "", "inv_misc_tournaments_symbol_human", "=q6="..AL["Alliance"], ""};
+				{ 2, "", "inv_misc_tournaments_symbol_human", "=q6="..FACTION_ALLIANCE, ""};
 				{ 3, "Darnassus", "inv_misc_tournaments_symbol_nightelf", "=ds="..ALIL["Darnassus"], "=q5="..AL["Classic WoW"]};
 				{ 4, "GnomereganRep", "inv_misc_tournaments_symbol_gnome", "=ds="..ALIL["Gnomeregan"], "=q5="..AL["Classic WoW"]};
 				{ 5, "Ironforge", "inv_misc_tournaments_symbol_dwarf", "=ds="..ALIL["Ironforge"], "=q5="..AL["Classic WoW"]};
@@ -47,7 +47,7 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 				{ 8, "Exodar", "inv_misc_tournaments_symbol_draenei", "=ds="..ALIL["Exodar"], "=q5="..AL["Burning Crusade"]};
 				{ 10, "Gilneas", "achievement_win_gilneas", "=ds="..ALIL["Gilneas"], "=q5="..AL["Cataclysm"]};
 				{ 12, "TushuiPandaren", "inv_misc_tournaments_symbol_human", "=ds="..ALIL["Tushui Pandaren"], "=q5="..AL["Mists of Pandaria"]};
-				{ 17, "", "inv_misc_tournaments_symbol_orc", "=q6="..AL["Horde"], ""};
+				{ 17, "", "inv_misc_tournaments_symbol_orc", "=q6="..FACTION_HORDE, ""};
 				{ 18, "DarkspearTrolls", "inv_misc_tournaments_symbol_troll", "=ds="..ALIL["Darkspear Trolls"], "=q5="..AL["Classic WoW"]};
 				{ 19, "Orgrimmar", "inv_misc_tournaments_symbol_orc", "=ds="..ALIL["Orgrimmar"], "=q5="..AL["Classic WoW"]};
 				{ 20, "ThunderBluff", "inv_misc_tournaments_symbol_tauren", "=ds="..ALIL["Thunder Bluff"], "=q5="..AL["Classic WoW"]};
@@ -58,7 +58,7 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 			};
 		};
 		info = {
-			name = AL["Factions"],
+			name = AL["Factions"].." - "..FACTION_ALLIANCE.." / "..FACTION_HORDE,
 			menu = "REPMENU",
 		};
 	}
@@ -66,14 +66,14 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 	AtlasLoot_Data["REPMENU_ORIGINALWOW"] = {
 		["Normal"] = {
 			{
-				{ 2, "MiscFactions", "ability_warrior_rallyingcry", "=ds="..ALIL["The League of Arathor"], "=q5="..AL["Alliance"].." - "..ALIL["Arathi Basin"]};
-				{ 3, "MiscFactions", "inv_jewelry_stormpiketrinket_05", "=ds="..ALIL["Stormpike Guard"], "=q5="..AL["Alliance"].." - "..ALIL["Alterac Valley"]};
-				{ 4, "MiscFactions", "Ability_Mount_PinkTiger", "=ds="..ALIL["Wintersaber Trainers"], "=q5="..AL["Alliance"].." - "..ALIL["Winterspring"]};
+				{ 2, "MiscFactions", "ability_warrior_rallyingcry", "=ds="..ALIL["The League of Arathor"], "=q5="..FACTION_ALLIANCE.." - "..ALIL["Arathi Basin"]};
+				{ 3, "MiscFactions", "inv_jewelry_stormpiketrinket_05", "=ds="..ALIL["Stormpike Guard"], "=q5="..FACTION_ALLIANCE.." - "..ALIL["Alterac Valley"]};
+				{ 4, "MiscFactions", "Ability_Mount_PinkTiger", "=ds="..ALIL["Wintersaber Trainers"], "=q5="..FACTION_ALLIANCE.." - "..ALIL["Winterspring"]};
 				{ 6, "ArgentDawn", "inv_jewelry_talisman_07", "=ds="..ALIL["Argent Dawn"], "=q5="..ALIL["Eastern Plaguelands"]};
 				{ 7, "Timbermaw", "achievement_reputation_timbermaw", "=ds="..ALIL["Timbermaw Hold"], "=q5="..ALIL["Felwood"].." / "..ALIL["Winterspring"]};
 				{ 9, "AQBroodRings", "inv_misc_head_dragon_bronze", "=ds="..ALIL["Brood of Nozdormu"], "=q5="..ALIL["Temple of Ahn'Qiraj"].." / "..AL["Caverns of Time"]};
-				{ 17, "MiscFactions", "spell_shadow_psychichorrors", "=ds="..ALIL["The Defilers"], "=q5="..AL["Horde"].." - "..ALIL["Arathi Basin"]}; 
-				{ 18, "MiscFactions", "inv_jewelry_frostwolftrinket_05", "=ds="..ALIL["Frostwolf Clan"], "=q5="..AL["Horde"].." - "..ALIL["Alterac Valley"]};
+				{ 17, "MiscFactions", "spell_shadow_psychichorrors", "=ds="..ALIL["The Defilers"], "=q5="..FACTION_HORDE.." - "..ALIL["Arathi Basin"]}; 
+				{ 18, "MiscFactions", "inv_jewelry_frostwolftrinket_05", "=ds="..ALIL["Frostwolf Clan"], "=q5="..FACTION_HORDE.." - "..ALIL["Alterac Valley"]};
 				{ 21, "BloodsailBuccaneers", "INV_Helmet_66", "=ds="..ALIL["Bloodsail Buccaneers"], "=q5="..ALIL["Stranglethorn Vale"]};
 				{ 22, "CenarionCircle", "ability_racial_ultravision", "=ds="..ALIL["Cenarion Circle"], "=q5="..ALIL["Silithus"]};
 				{ 24, "ThoriumBrotherhood", "INV_Ingot_Mithril", "=ds="..ALIL["Thorium Brotherhood"], "=q5="..ALIL["Searing Gorge"]};
@@ -88,8 +88,8 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 	AtlasLoot_Data["REPMENU_BURNINGCRUSADE"] = {
 		["Normal"] = {
 			{
-				{ 2, "HonorHold", "INV_BannerPVP_02", "=ds="..ALIL["Honor Hold"], "=q5="..AL["Alliance"].." - "..ALIL["Hellfire Peninsula"]};
-				{ 3, "Kurenai", "INV_Misc_Foot_Centaur", "=ds="..ALIL["Kurenai"], "=q5="..AL["Alliance"].." - "..ALIL["Nagrand"]};
+				{ 2, "HonorHold", "INV_BannerPVP_02", "=ds="..ALIL["Honor Hold"], "=q5="..FACTION_ALLIANCE.." - "..ALIL["Hellfire Peninsula"]};
+				{ 3, "Kurenai", "INV_Misc_Foot_Centaur", "=ds="..ALIL["Kurenai"], "=q5="..FACTION_ALLIANCE.." - "..ALIL["Nagrand"]};
 				{ 6, "CExpedition", "INV_Misc_Ammo_Arrow_02", "=ds="..ALIL["Cenarion Expedition"], "=q5="..ALIL["Zangarmarsh"]};
 				{ 7, "KeepersofTime", "Ability_Warrior_VictoryRush", "=ds="..ALIL["Keepers of Time"], "=q5="..AL["Caverns of Time"]};
 				{ 8, "Netherwing", "Ability_Mount_Netherdrakepurple", "=ds="..ALIL["Netherwing"], "=q5="..ALIL["Shadowmoon Valley"]};
@@ -98,9 +98,9 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 				{ 12, "Aldor", "INV_Jewelry_Talisman_08", "=ds="..ALIL["The Aldor"], ""};
 				{ 14, "Ashtongue", "achievement_reputation_ashtonguedeathsworn", "=ds="..ALIL["Ashtongue Deathsworn"], "=q5="..ALIL["Shadowmoon Valley"].." / "..ALIL["Black Temple"]};
 				{ 15, "VioletEye", "spell_holy_mindsooth", "=ds="..ALIL["The Violet Eye"], "=q5="..ALIL["Karazhan"]};
-				{ 17, "Thrallmar", "INV_BannerPVP_01", "=ds="..ALIL["Thrallmar"], "=q5="..AL["Horde"].." - "..ALIL["Hellfire Peninsula"]};
-				{ 18, "Maghar", "INV_Misc_Foot_Centaur", "=ds="..ALIL["The Mag'har"], "=q5="..AL["Horde"].." - "..ALIL["Nagrand"]};
-				{ 19, "Tranquillien", "INV_Misc_Bandana_03", "=ds="..ALIL["Tranquillien"], "=q5="..AL["Horde"].." - "..ALIL["Ghostlands"]};
+				{ 17, "Thrallmar", "INV_BannerPVP_01", "=ds="..ALIL["Thrallmar"], "=q5="..FACTION_HORDE.." - "..ALIL["Hellfire Peninsula"]};
+				{ 18, "Maghar", "INV_Misc_Foot_Centaur", "=ds="..ALIL["The Mag'har"], "=q5="..FACTION_HORDE.." - "..ALIL["Nagrand"]};
+				{ 19, "Tranquillien", "INV_Misc_Bandana_03", "=ds="..ALIL["Tranquillien"], "=q5="..FACTION_HORDE.." - "..ALIL["Ghostlands"]};
 				{ 21, "Consortium", "inv_enchant_shardprismaticlarge", "=ds="..ALIL["The Consortium"], "=q5="..ALIL["Nagrand"].." / "..ALIL["Netherstorm"]};
 				{ 22, "LowerCity", "Spell_Holy_ChampionsBond", "=ds="..ALIL["Lower City"], ""};
 				{ 23, "Ogrila", "inv_misc_apexis_crystal", "=ds="..ALIL["Ogri'la"], "=q5="..ALIL["Blade's Edge Mountains"]};
@@ -119,7 +119,7 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 	AtlasLoot_Data["REPMENU_WOTLK"] = {
 		["Normal"] = {
 			{
-				{ 2, "AllianceVanguard", "spell_misc_hellifrepvphonorholdfavor", "=ds="..ALIL["Alliance Vanguard"], "=q5="..AL["Alliance"]};
+				{ 2, "AllianceVanguard", "spell_misc_hellifrepvphonorholdfavor", "=ds="..ALIL["Alliance Vanguard"], "=q5="..FACTION_ALLIANCE};
 				{ 3, "ExplorersLeagueWarsongOffensive", "inv_drink_01", "=ds="..ALIL["Explorers' League"], "=q5="..ALIL["The Storm Peaks"]};
 				{ 4, "ArgentTournamentFaction", "inv_misc_tabardpvp_01", "=ds="..ALIL["The Silver Covenant"], "=q5="..ALIL["Icecrown"].." / "..ALIL["Dalaran"]};
 				{ 6, "ArgentCrusade", "INV_Jewelry_Talisman_08", "=ds="..ALIL["Argent Crusade"], "=q5="..ALIL["Zul'Drak"].." / "..ALIL["Icecrown"]};
@@ -128,7 +128,7 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 				{ 9, "TheWyrmrestAccord", "achievement_reputation_wyrmresttemple", "=ds="..ALIL["The Wyrmrest Accord"], "=q5="..ALIL["Dragonblight"]};
 				{ 11, "FrenzyheartTribe", "ability_mount_whitedirewolf", "=ds="..ALIL["Frenzyheart Tribe"], "=q5="..ALIL["Sholazar Basin"]};
 				{ 13, "TheAshenVerdict", "INV_Jewelry_Ring_85", "=ds="..ALIL["The Ashen Verdict"], "=q5="..ALIL["Icecrown Citadel"]};
-				{ 17, "HordeExpedition", "spell_misc_hellifrepvpthrallmarfavor", "=ds="..ALIL["Horde Expedition"], "=q5="..AL["Horde"]};
+				{ 17, "HordeExpedition", "spell_misc_hellifrepvpthrallmarfavor", "=ds="..ALIL["Horde Expedition"], "=q5="..FACTION_HORDE};
 				{ 18, "ExplorersLeagueWarsongOffensive", "inv_drink_01", "=ds="..ALIL["Warsong Offensive"], "=q5="..ALIL["The Storm Peaks"]};
 				{ 19, "ArgentTournamentFaction", "inv_misc_tabardpvp_02", "=ds="..ALIL["The Sunreavers"], "=q5="..ALIL["Icecrown"].." / "..ALIL["Dalaran"]};
 				{ 21, "TheKaluak", "achievement_reputation_tuskarr", "=ds="..ALIL["The Kalu'ak"], "=q5="..ALIL["Borean Tundra"].." / "..ALIL["Howling Fjord"].." / "..ALIL["Dragonblight"]};
@@ -146,13 +146,13 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 	AtlasLoot_Data["REPMENU_CATACLYSM"] = {
 		["Normal"] = {
 			{
-				{ 2, "WildhammerClan", "inv_misc_tabard_wildhammerclan", "=ds="..ALIL["Wildhammer Clan"], "=q5="..AL["Alliance"].." - "..ALIL["Twilight Highlands"]};
-				{ 3, "BaradinsWardens", "inv_misc_tabard_baradinwardens", "=ds="..ALIL["Baradin's Wardens"], "=q5="..AL["Alliance"].." - "..ALIL["Tol Barad"]};
+				{ 2, "WildhammerClan", "inv_misc_tabard_wildhammerclan", "=ds="..ALIL["Wildhammer Clan"], "=q5="..FACTION_ALLIANCE.." - "..ALIL["Twilight Highlands"]};
+				{ 3, "BaradinsWardens", "inv_misc_tabard_baradinwardens", "=ds="..ALIL["Baradin's Wardens"], "=q5="..FACTION_ALLIANCE.." - "..ALIL["Tol Barad"]};
 				{ 5, "EarthenRing", "inv_misc_tabard_earthenring", "=ds="..ALIL["The Earthen Ring"], "=q5="..ALIL["Vashj'ir"].." / "..ALIL["Deepholm"]};
 				{ 6, "Ramkahen", "inv_misc_tabard_tolvir", "=ds="..ALIL["Ramkahen"], "=q5="..ALIL["Uldum"]};
 				{ 8, "AvengersHyjal", "inv_neck_hyjaldaily_04", "=ds="..ALIL["Avengers of Hyjal"], "=q5="..ALIL["Firelands"]};
-				{ 17, "DragonmawClan", "inv_misc_tabard_dragonmawclan", "=ds="..ALIL["Dragonmaw Clan"], "=q5="..AL["Horde"].." - "..ALIL["Twilight Highlands"]};
-				{ 18, "HellscreamsReach", "inv_misc_tabard_hellscream", "=ds="..ALIL["Hellscream's Reach"], "=q5="..AL["Horde"].." - "..ALIL["Tol Barad"]};
+				{ 17, "DragonmawClan", "inv_misc_tabard_dragonmawclan", "=ds="..ALIL["Dragonmaw Clan"], "=q5="..FACTION_HORDE.." - "..ALIL["Twilight Highlands"]};
+				{ 18, "HellscreamsReach", "inv_misc_tabard_hellscream", "=ds="..ALIL["Hellscream's Reach"], "=q5="..FACTION_HORDE.." - "..ALIL["Tol Barad"]};
 				{ 20, "GuardiansHyjal", "inv_misc_tabard_guardiansofhyjal", "=ds="..ALIL["Guardians of Hyjal"], "=q5="..ALIL["Molten Front"].." / "..ALIL["Mount Hyjal"]};
 				{ 21, "Therazane", "inv_misc_tabard_therazane", "=ds="..ALIL["Therazane"], "=q5="..ALIL["Deepholm"]};
 			};

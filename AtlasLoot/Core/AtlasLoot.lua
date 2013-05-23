@@ -1,4 +1,4 @@
--- $Id: AtlasLoot.lua 4159 2013-03-17 13:28:14Z lag123 $
+-- $Id: AtlasLoot.lua 4215 2013-05-22 17:34:14Z hegarol $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -13,15 +13,15 @@ local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "7";
-local VERSION_MINOR = "05";
-local VERSION_BOSSES = "03";
+local VERSION_MINOR = "06";
+local VERSION_BOSSES = "00";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_VERSION_NUM = VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES
 
 --Now allows for multiple compatible Atlas versions.  Always put the newest first
-ATLASLOOT_MIN_ATLAS = "1.22.0"
-ATLASLOOT_CURRENT_ATLAS = {"1.24.0"};
-ATLASLOOT_PREVIEW_ATLAS = {"1.24.1", "1.24.2"};
+ATLASLOOT_MIN_ATLAS = "1.25.0"
+ATLASLOOT_CURRENT_ATLAS = {"1.25.0"};
+ATLASLOOT_PREVIEW_ATLAS = {"1.25.1", "1.25.2"};
 
 --ATLASLOOT_POSITION = AL["Position:"];
 ATLASLOOT_DEBUGMESSAGES = false;
@@ -125,6 +125,7 @@ local AtlasLootDBDefaults = {
 		CurrentUpgradeLvl = 0,
 		BonusRollEnabled = true,
 		ShowBonusRollInfoInTT = true,
+		ShowThunderforged = false,
 	}
 }
 
@@ -552,10 +553,11 @@ end
 -- @param addInstanceName false\nil if no instance name behind the boss name is needed
 -- @param addInstanceType false\nil if no instance type behind the boss name is needed
 -- @param addPageNumber false\nil if no pagenumber behind the boss name is needed
+-- @param isThunderforged false\nil if not thunderforged 
 -- @usage local bossName, instanceName = AtlasLoot:GetTableInfo(dataID, addInstanceName, addInstanceType, addPageNumber)
 -- @return localized boss name or table name
 -- @return localized instance name
-function AtlasLoot:GetTableInfo(dataID, addInstanceName, addInstanceType, addPageNumber)
+function AtlasLoot:GetTableInfo(dataID, addInstanceName, addInstanceType, addPageNumber, isThunderforged)
 	if not dataID or type(dataID) ~= "string" then
 		--error("AtlasLoot:GetTableInfo: Enter a available dataID <string>", 2)
 		return
@@ -592,6 +594,13 @@ function AtlasLoot:GetTableInfo(dataID, addInstanceName, addInstanceType, addPag
 	end
 	local instanceTypeOld = instanceType
 	instanceType = self:GetLocInstanceType(instanceType)
+	if isThunderforged then
+		if instanceType == "" then
+			instanceType = AL["Thunderforged"]
+		else
+			instanceType = instanceType.." "..AL["Thunderforged"]
+		end
+	end
 	
 	if addInstanceName and not addInstanceType and instanceName and instanceType ~= "" then
 		bossName = bossName.." ("..instanceName..")"
@@ -1010,7 +1019,6 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 	dataID, instancePage = self:FormatDataID(dataID)
 	nextPage, prevPage = self:GetNextPrevPage(dataID, instancePage)
 	lootTableType = self:GetLootTableType(saveDataID)
-	bossName = self:GetTableInfo(saveDataID, false, true, true)
 	
 	if AtlasLoot_Data[dataID] and AtlasLoot_Data[dataID].info and AtlasLoot_Data[dataID].info.module then
 		moduleName = AtlasLoot_Data[dataID].info.module
@@ -1027,7 +1035,6 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 	self.ItemFrame.dataID = saveDataID
 	self.ItemFrame.lootTableType = lootTableType
 	
-	self.ItemFrame.BossName:SetText(bossName)
 	if nextPage then
 		self.ItemFrame.Next.lootpage = nextPage
 		self.ItemFrame.Next:Show()
@@ -1128,11 +1135,18 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 		AtlasLoot.ItemFrame.BonusRoll:Hide()
 		AtlasLoot.CanShowBonusRoll = false
 	end
-	if AtlasLoot.ItemFrame.CloseButton:IsShown() then
-		AtlasLoot.ItemFrame.EncounterJournal:SetPoint("RIGHT", AtlasLoot.ItemFrame.CloseButton, "LEFT", 0, 0)
+	AtlasLoot:ItemFrame_IconList_Refresh()
+	
+	if self.ThunderforgeAviable then
+		self.ItemFrame.Thunderforged:Show()
+		self.ItemFrame.Thunderforged:SetChecked(self.db.profile.ShowThunderforged)
+		bossName = self:GetTableInfo(saveDataID, false, true, true, self.db.profile.ShowThunderforged)
 	else
-		AtlasLoot.ItemFrame.EncounterJournal:SetPoint("TOPRIGHT", AtlasLoot.ItemFrame, "TOPRIGHT", -5, -5)
+		self.ItemFrame.Thunderforged:Hide()
+		bossName = self:GetTableInfo(saveDataID, false, true, true)
 	end
+	self.ItemFrame.BossName:SetText(bossName)
+	
 	
 	if string.find(dataID, "SortedTable") then
 		self.ItemFrame.QuickLooks:Hide()
@@ -1452,9 +1466,6 @@ function AtlasLoot:CheckHeroic(itemTable)
 		end
 	end
 end
-
---gsub(ITEM_UPGRADE_TOOLTIP_FORMAT, "%%d", "(%%d)")
-
 
 --- Returns a MapName by ID
 -- This function only replace nil with a "error" string

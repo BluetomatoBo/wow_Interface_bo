@@ -1,4 +1,4 @@
-﻿-- $Id: constants.ru.lua 4163 2013-03-19 15:06:21Z dynaletik $
+﻿-- $Id: constants.ru.lua 4212 2013-05-20 12:27:56Z dynaletik $
 --[[
 constants.ru.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -790,16 +790,12 @@ if AL then
 	AL["Carapace of the Old God"] = "Панцирь Древнего Бога";
 
 	-- Faction related strings
-	AL["Alliance"] = "Альянс";
-	AL["Horde"] = "Орда";
 	AL["Neutral"] = "Равнодушие";
 	AL["Friendly"] = "Дружелюбие";
 	AL["Honored"] = "Уважение";
 	AL["Revered"] = "Почтение";
 	AL["Exalted"] = "Превознесение";
 	AL["Best Friend"] = "Лучший друг";
-	-- AL["Rank 4"] = true;
-	-- AL["Rank 8"] = true;
 	AL["Winterfin Retreat"] = "Холодный Плавник";
 
 	-- Recipe origin strings

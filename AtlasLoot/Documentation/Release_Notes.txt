@@ -5,12 +5,23 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 -Hegarol
 
 Patch Notes
-v7.05.03 (Mar xx, 2013)
+v7.06.00 (May 22, 2013)
+Compatible with Patch 5.3.
+Compatible with Atlas 1.25.00.
+Added Darkspear Rebellion rewards.
+Added Gate of the Setting Sun normal mode loot.
+Updated Heirloom & BoA section with Patch 5.2 items.
+Updated Brawler's Guild rewards.
+Added amount of crafted items to crafting section.
+Added bonusroll info to Thunderforged items.
+Removed DKP & Classpriority addons, as they were not working anymore.
+Minor fixes, additions and translations.
+
+v7.05.03 (Apr 03, 2013)
 Added all Thunderforged items to Throne of Thunder loot tables.
 Converted faction names to use ingame locales instead of BabbleFaction.
-Removed BabbleFaction library.
 Converted zone names to use ingame locales instead of BabbleZone.
-Removed BabbleZone library.
+Removed BabbleZone and BabbleFaction library.
 Fixed a bug that occured with disabled modules.
 Fixed a bug where icons sometimes had no tooltips.
 Fixed a bug that sometimes prevented BonusRoll information from displaying the correct specs.

@@ -1,4 +1,4 @@
--- $Id: Panel.lua 3729 2012-07-31 13:38:29Z lag123 $
+-- $Id: Panel.lua 4201 2013-05-05 16:05:37Z lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
@@ -128,14 +128,6 @@ local function Init_ButtonList()
 			lootPage = "CRAFTINGMENU",
 			order = 50,
 		},
-		--[[
-		Wishlist = {
-			text = AL["Wishlist"],
-			func = function() print("WISHLIST") end,
-			order = 60,
-			--disabled = true,
-		},
-		]]--
 		Options = {
 			text = AL["Options"],
 			func = AtlasLoot.OptionsToggle,

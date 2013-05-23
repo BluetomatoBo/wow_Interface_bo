@@ -1,4 +1,4 @@
--- $Id: QuickLooks.lua 3697 2012-01-31 15:17:37Z lag123 $
+-- $Id: QuickLooks.lua 4201 2013-05-05 16:05:37Z lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
@@ -93,8 +93,8 @@ do
 					AtlasLoot:RefreshAtlasLootPanel()
 				end,
 			},
-		
 		}
+		
 		if AtlasLoot.db.profile.QuickLooks[num].lootPage then
 			retTab.curLootPage.name = "|cff0070dd"..AtlasLoot:GetQuickLookName(num, true)
 		else

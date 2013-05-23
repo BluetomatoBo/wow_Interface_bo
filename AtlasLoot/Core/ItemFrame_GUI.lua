@@ -1,4 +1,4 @@
--- $Id: ItemFrame_GUI.lua 3729 2012-07-31 13:38:29Z lag123 $
+-- $Id: ItemFrame_GUI.lua 4201 2013-05-05 16:05:37Z lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
@@ -94,10 +94,21 @@ function AtlasLoot:CreateItemFrame()
 	Frame.RaidFinder:SetScript("OnClick", AtlasLoot.RaidFinderToggle)
 	Frame.RaidFinder:Hide()
 	
+	Frame.Thunderforged = CreateFrame("CheckButton", "AtlasLootItemsFrame_Thunderforged", Frame, "OptionsCheckButtonTemplate")
+	Frame.Thunderforged:SetPoint("TOPLEFT", Frame.RaidFinder, "TOPRIGHT", Frame.RaidFinder:GetWidth()+_G[Frame.RaidFinder:GetName().."Text"]:GetWidth()+5, 0) --_G[Frame.RaidFinder:GetName().."Text"]
+	Frame.Thunderforged:SetWidth(25)
+	Frame.Thunderforged:SetHeight(25)
+	_G[Frame.Thunderforged:GetName().."Text"]:SetText(AL["Thunderforged"])
+	Frame.Thunderforged:SetScript("OnShow", function(self)
+		self:SetFrameLevel( (self:GetParent()):GetFrameLevel() + 1 )
+	end)
+	Frame.Thunderforged:SetScript("OnClick", AtlasLoot.ThunderforgedToggle)
+	Frame.Thunderforged:Hide()
+	
 	Frame.Back = CreateFrame("Button","AtlasLootItemsFrame_BACK",Frame,"UIPanelButtonTemplate")
 	Frame.Back:SetWidth(80)
 	Frame.Back:SetText(AL["Back"])
-	Frame.Back:SetPoint("BOTTOM", Frame, "BOTTOM", 0, 4)
+	Frame.Back:SetPoint("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", -40, 4)
 	Frame.Back:SetScript("OnClick", AtlasLoot.NavButton_OnClick)
 	Frame.Back:Hide()
 	
@@ -139,10 +150,11 @@ function AtlasLoot:CreateItemFrame()
 	Frame.PrevBack:SetWidth(30)
 	Frame.Prev:Hide()
 	
+	--[[ Maybe change position in a later version
 	Frame.ServerQuery = CreateFrame("Button","AtlasLootServerQueryButton",Frame,"UIPanelButtonTemplate")
-	Frame.ServerQuery:SetWidth(160)
+	Frame.ServerQuery:SetWidth(140)
 	Frame.ServerQuery:SetHeight(23)
-	Frame.ServerQuery:SetPoint("BOTTOM", Frame, "BOTTOM", 120, 4)
+	Frame.ServerQuery:SetPoint("BOTTOM", Frame, "BOTTOM", 130, 4)
 	Frame.ServerQuery:SetScript("OnShow", function(self)
 		self:SetText(AL["Query Server"])
 		self:SetFrameLevel( (self:GetParent()):GetFrameLevel() + 1 )
@@ -161,6 +173,7 @@ function AtlasLoot:CreateItemFrame()
 		GameTooltip:Hide()
 		AtlasLoot:QueryLootPage()
 	end)
+	]]--
 	
 	Frame.QuickLooks = CreateFrame("Button","AtlasLootQuickLooksButton",Frame)
 	Frame.QuickLooks:SetWidth(23)

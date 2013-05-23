@@ -1,4 +1,4 @@
--- $Id: GUI_Atlas.lua 3729 2012-07-31 13:38:29Z lag123 $
+-- $Id: GUI_Atlas.lua 4201 2013-05-05 16:05:37Z lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
@@ -9,7 +9,7 @@ function AtlasLoot:CreateAtlasInfoFrame()
 
 	local Frame = AtlasLoot.AtlasInfoFrame
 	Frame:ClearAllPoints()
-	
+
     Frame:SetParent(UIParent);
     Frame:SetPoint("TOPLEFT", "UIParent", "TOPLEFT", 535, -37);
 	Frame:SetFrameStrata("HIGH")
@@ -21,7 +21,7 @@ function AtlasLoot:CreateAtlasInfoFrame()
 	Frame.Version:SetText(ATLASLOOT_VERSION);
 	Frame.Version:SetWidth(Frame.Version:GetStringWidth() < 180 and Frame.Version:GetStringWidth()+5 or 180)
 	Frame.Version:SetHeight(10)
-	
+
 	Frame.Info = Frame:CreateFontString(nil,"OVERLAY","GameFontNormalSmall")
 	Frame.Info:SetPoint("TOPLEFT", Frame.Version, "TOPLEFT", 0, -12)
 	Frame.Info:SetText(AL["Click boss name to view loot."])

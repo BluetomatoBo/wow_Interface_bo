@@ -1,4 +1,4 @@
--- $Id: worldevents.lua 4172 2013-03-31 22:53:10Z dynaletik $
+-- $Id: worldevents.lua 4202 2013-05-05 21:56:29Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -936,15 +936,17 @@ local moduleName = "AtlasLoot_WorldEvents"
 			};
 			{
 				{ 2, 78341, "", "=q3=Darkmoon Hammer", "=ds=#h2#, #w6#", "#DARKMOON:160#"},
-				{ 3, 78340, "", "=q3=Cloak of the Darkmoon Faire", "=ds=#s4#", "#DARKMOON:90#"},
-				{ 4, 90899, "", "=q3=Darkmoon Whistle", "=ds=#m20#", "#DARKMOON:90#"},
-				{ 5, 77256, "", "=q1=Darkmoon \"Sword\"", "=ds=#h2#", "#DARKMOON:20#"},
-				{ 6, 19295, "", "=q1=Darkmoon Flower", "=ds=#s15#", "#DARKMOON:1#"},
-				{ 7, 19291, "", "=q1=Darkmoon Storage Box", "=ds=#e1#", "#DARKMOON:1#"},
-				{ 8, 19292, "", "=q1=Last Month's Mutton", "=ds=#h1#, #w6#", "#DARKMOON:1#" },
-				{ 9, 19293, "", "=q1=Last Year's Mutton", "=ds=#h1#, #w6#", "#DARKMOON:1#" },
-				{ 10, 74142, "", "=q1=Darkmoon Firework", "=ds=#e23#", "1 #silver#"},
-				{ 11, 18662, "", "=q1=Heavy Leather Ball", "=ds=#m20#", "20 #copper#"},
+				{ 3, 93732, "", "=q3=Darkmoon Fishing Cap", "=ds=#s1#", "#p24#: "..AL["Darkmoon Island"]},
+				{ 4, 78340, "", "=q3=Cloak of the Darkmoon Faire", "=ds=#s4#", "#DARKMOON:90#"},
+				{ 5, 90899, "", "=q3=Darkmoon Whistle", "=ds=#m20#", "#DARKMOON:90#"},
+				{ 6, 77256, "", "=q1=Darkmoon \"Sword\"", "=ds=#h2#", "#DARKMOON:20#"},
+				{ 7, 19295, "", "=q1=Darkmoon Flower", "=ds=#s15#", "#DARKMOON:1#"},
+				{ 8, 19291, "", "=q1=Darkmoon Storage Box", "=ds=#e1#", "#DARKMOON:1#"},
+				{ 9, 19292, "", "=q1=Last Month's Mutton", "=ds=#h1#, #w6#", "#DARKMOON:1#" },
+				{ 10, 19293, "", "=q1=Last Year's Mutton", "=ds=#h1#, #w6#", "#DARKMOON:1#" },
+				{ 11, 74142, "", "=q1=Darkmoon Firework", "=ds=#e23#", "1 #silver#"},
+				{ 12, 93730, "", "=q1=Darkmoon Top Hat", "=ds=#m20#", "#DARKMOON:10#"},
+				{ 13, 18662, "", "=q1=Heavy Leather Ball", "=ds=#m20#", "20 #copper#"},
 				{ 17, 92959, "", "=q1=Darkmoon \"Cougar\"", "=ds=#m20#", "#DARKMOON:1#", amount = 10},
 				{ 18, 92966, "", "=q1=Darkmoon \"Dragon\"", "=ds=#m20#", "#DARKMOON:1#", amount = 10},
 				{ 19, 92967, "", "=q1=Darkmoon \"Gryphon\"", "=ds=#m20#", "#DARKMOON:1#", amount = 10},
@@ -992,20 +994,49 @@ local moduleName = "AtlasLoot_WorldEvents"
 				extraText = ": "..AL["Food and Drinks"];
 			};
 			{
-				{ 1, 42985, "", "=q7=Tattered Dreadmist Mantle", "=ds=#s3#, #a1#",  "#DARKMOON:110#"};
-				{ 2, 42984, "", "=q7=Preened Ironfeather Shoulders", "=ds=#s3#, #a2#", "#DARKMOON:110#"};
-				{ 3, 42952, "", "=q7=Stained Shadowcraft Spaulders", "=ds=#s3#, #a2#", "#DARKMOON:110#"};
-				{ 4, 42950, "", "=q7=Champion Herod's Shoulder", "=ds=#s3#, #a3#", "#DARKMOON:110#"};
-				{ 5, 42951, "", "=q7=Mystical Pauldrons of Elements", "=ds=#s3#, #a3#", "#DARKMOON:110#"};
-				{ 6, 69890, "", "=q7=Burnished Pauldrons of Might", "=ds=#s3#, #a4#", "#DARKMOON:110#"};
-				{ 7, 42949, "", "=q7=Polished Spaulders of Valor", "=ds=#s3#, #a4#", "#DARKMOON:110#"};
-				{ 9, 48691, "", "=q7=Tattered Dreadmist Robe", "=ds=#s5#, #a1#", "#DARKMOON:110#"};
-				{ 10, 48687, "", "=q7=Preened Ironfeather Breastplate", "=ds=#s5#, #a2#", "#DARKMOON:110#"};
-				{ 11, 48689, "", "=q7=Stained Shadowcraft Tunic", "=ds=#s5#, #a2#", "#DARKMOON:110#"};
-				{ 12, 48677, "", "=q7=Champion's Deathdealer Breastplate", "=ds=#s5#, #a3#", "#DARKMOON:110#"};
-				{ 13, 48683, "", "=q7=Mystical Vest of Elements", "=ds=#s5#, #a3#", "#DARKMOON:110#"};
-				{ 14, 69889, "", "=q7=Burnished Breastplate of Might", "=ds=#s5#, #a4#", "#DARKMOON:110#"};
-				{ 15, 48685, "", "=q7=Polished Breastplate of Valor", "=ds=#s5#, #a4#", "#DARKMOON:110#"};
+				{ 1, 93859, "", "=q7=Bloodstained Dreadmist Mantle", "=ds=#s3#, #a1#", "#DARKMOON:44# #ITEM:42985:1#"};
+				{ 2, 93864, "", "=q7=Majestic Ironfeather Shoulders", "=ds=#s3#, #a2#", "#DARKMOON:44# #ITEM:42984:1#"};
+				{ 3, 93862, "", "=q7=Supple Shadowcraft Spaulders", "=ds=#s3#, #a2#", "#DARKMOON:44# #ITEM:42952:1#"};
+				{ 4, 93887, "", "=q7=Grand Champion Herod's Shoulder", "=ds=#s3#, #a3#", "#DARKMOON:44# #ITEM:42950:1#"};
+				{ 5, 93876, "", "=q7=Awakened Pauldrons of Elements", "=ds=#s3#, #a3#", "#DARKMOON:44# #ITEM:42951:1#"};
+				{ 6, 93893, "", "=q7=Brushed Pauldrons of Might", "=ds=#s3#, #a4#", "#DARKMOON:44# #ITEM:69890:1#"};
+				{ 7, 93890, "", "=q7=Gleaming Spaulders of Valor", "=ds=#s3#, #a4#", "#DARKMOON:44# #ITEM:42949:1#"};
+				{ 9, 93860, "", "=q7=Bloodstained Dreadmist Robe", "=ds=#s5#, #a1#", "#DARKMOON:44# #ITEM:48691:1#"};
+				{ 10, 93865, "", "=q7=Majestic Ironfeather Breastplate", "=ds=#s5#, #a2#", "#DARKMOON:44# #ITEM:48687:1#"};
+				{ 11, 93863, "", "=q7=Supple Shadowcraft Tunic", "=ds=#s5#, #a2#", "#DARKMOON:44# #ITEM:48689:1#"};
+				{ 12, 93888, "", "=q7=Furious Deathdealer Breastplate", "=ds=#s5#, #a3#", "#DARKMOON:44# #ITEM:48677:1#"};
+				{ 13, 93885, "", "=q7=Awakened Vest of Elements", "=ds=#s5#, #a3#", "#DARKMOON:44# #ITEM:48683:1#"};
+				{ 14, 93892, "", "=q7=Brushed Breastplate of Might", "=ds=#s5#, #a4#", "#DARKMOON:44# #ITEM:69889:1#"};
+				{ 15, 93891, "", "=q7=Gleaming Breastplate of Valor", "=ds=#s5#, #a4#", "#DARKMOON:44# #ITEM:48685:1#"};
+				{ 16, 42985, "", "=q7=Tattered Dreadmist Mantle", "=ds=#s3#, #a1#",  "#DARKMOON:110#"};
+				{ 17, 42984, "", "=q7=Preened Ironfeather Shoulders", "=ds=#s3#, #a2#", "#DARKMOON:110#"};
+				{ 18, 42952, "", "=q7=Stained Shadowcraft Spaulders", "=ds=#s3#, #a2#", "#DARKMOON:110#"};
+				{ 19, 42950, "", "=q7=Champion Herod's Shoulder", "=ds=#s3#, #a3#", "#DARKMOON:110#"};
+				{ 20, 42951, "", "=q7=Mystical Pauldrons of Elements", "=ds=#s3#, #a3#", "#DARKMOON:110#"};
+				{ 21, 69890, "", "=q7=Burnished Pauldrons of Might", "=ds=#s3#, #a4#", "#DARKMOON:110#"};
+				{ 22, 42949, "", "=q7=Polished Spaulders of Valor", "=ds=#s3#, #a4#", "#DARKMOON:110#"};
+				{ 24, 48691, "", "=q7=Tattered Dreadmist Robe", "=ds=#s5#, #a1#", "#DARKMOON:110#"};
+				{ 25, 48687, "", "=q7=Preened Ironfeather Breastplate", "=ds=#s5#, #a2#", "#DARKMOON:110#"};
+				{ 26, 48689, "", "=q7=Stained Shadowcraft Tunic", "=ds=#s5#, #a2#", "#DARKMOON:110#"};
+				{ 27, 48677, "", "=q7=Champion's Deathdealer Breastplate", "=ds=#s5#, #a3#", "#DARKMOON:110#"};
+				{ 28, 48683, "", "=q7=Mystical Vest of Elements", "=ds=#s5#, #a3#", "#DARKMOON:110#"};
+				{ 29, 69889, "", "=q7=Burnished Breastplate of Might", "=ds=#s5#, #a4#", "#DARKMOON:110#"};
+				{ 30, 48685, "", "=q7=Polished Breastplate of Valor", "=ds=#s5#, #a4#", "#DARKMOON:110#"};
+				extraText = ": "..AL["Heirloom"]..": "..BabbleInventory["Armor"];
+			};
+			{
+				{ 1, 93897, "", "=q7=Piercing Eye of the Beast", "=ds=#s14#", "#DARKMOON:60# #ITEM:42992:1#"};
+				{ 2, 93896, "", "=q7=Forceful Hand of Justice", "=ds=#s14#", "#DARKMOON:60# #ITEM:42991:1#"};
+				{ 4, 93857, "", "=q7=Vengeful Heartseeker", "=ds=#h1#, #w4#", "#DARKMOON:44# #ITEM:42944:1#"};
+				{ 5, 93845, "", "=q7=Gore-Steeped Skullforge Reaver", "=ds=#h1#, #w10#", "#DARKMOON:44# #ITEM:69893:1#"};
+				{ 6, 93856, "", "=q7=Noble Dal'Rend's Sacred Charge", "=ds=#h1#, #w10#", "#DARKMOON:44# #ITEM:42945:1#"};
+				{ 7, 93843, "", "=q7=Hardened Arcanite Reaper", "=ds=#h2#, #w1#", "#DARKMOON:64# #ITEM:42943:1#"};
+				{ 8, 93853, "", "=q7=Pious Aurastone Hammer", "=ds=#h1#, #w6#", "#DARKMOON:44# #ITEM:42948:1#"};
+				{ 9, 93847, "", "=q7=Crushing Mass of McGowan", "=ds=#h1#, #w6#", "#DARKMOON:44# #ITEM:48716:1#"};
+				{ 10, 93846, "", "=q7=Re-Engineered Lava Dredger", "=ds=#h2#, #w6#", "#DARKMOON:64# #ITEM:48718:1#"};
+				{ 11, 93844, "", "=q7=Refinished Warden Staff", "=ds=#w9#", "#DARKMOON:64# #ITEM:79131:1#"};
+				{ 12, 93854, "", "=q7=Scholarly Headmaster's Charge", "=ds=#w9#", "#DARKMOON:64# #ITEM:42947:1#"};
+				{ 13, 93855, "", "=q7=War-Torn Ancient Bone Bow", "=ds=#w2#", "#DARKMOON:64# #ITEM:42946:1#"};
 				{ 16, 42992, "", "=q7=Discerning Eye of the Beast", "=ds=#s14#", "#DARKMOON:130#"};
 				{ 17, 42991, "", "=q7=Swift Hand of Justice", "=ds=#s14#", "#DARKMOON:130#"};
 				{ 19, 42944, "", "=q7=Balanced Heartseeker", "=ds=#h1#, #w4#", "#DARKMOON:110#"};
@@ -1018,7 +1049,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 26, 79131, "", "=q7=Burnished Warden Staff", "=ds=#w9#", "#DARKMOON:160#"};
 				{ 27, 42947, "", "=q7=Dignified Headmaster's Charge", "=ds=#w9#", "#DARKMOON:160#"};
 				{ 28, 42946, "", "=q7=Charmed Ancient Bone Bow", "=ds=#w2#", "#DARKMOON:160#"};
-				extraText = ": "..AL["Heirloom"];
+				extraText = ": "..AL["Heirloom"]..": "..AL["Accessories"].." / "..AL["Weapons"];
 			};
 		};
 		info = {

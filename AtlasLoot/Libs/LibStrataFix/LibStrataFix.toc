@@ -1,4 +1,4 @@
-﻿## Interface: 50200
+﻿## Interface: 50300
 ## Title: Lib: StrataFix
 ## Description: Fixes strata bugs in UI windows
 ## Notes: Fixes strata bugs in UI windows
@@ -7,7 +7,7 @@
 ## Version: r7
 ## X-Build: 7
 ## X-ReleaseDate: 2012-03-15T08:43:30Z
-## X-Revision: $Revision: 23 $
+## X-Revision: $Revision: 28 $
 ## X-Category: Libraries
 ## Dependencies:
 ## OptionalDeps: LibStub
@@ -17,7 +17,7 @@
 ## X-Curse-Project-Name: LibStrataFix
 ## X-Curse-Project-ID: libstratafix
 ## X-Curse-Repository-ID: wow/libstratafix/mainline
-## X-Curse-Packaged-Version: 1.1.3
+## X-Curse-Packaged-Version: 1.2.1
 ## X-Curse-Project-Name: LibStrataFix
 ## X-Curse-Project-ID: libstratafix
 ## X-Curse-Repository-ID: wow/libstratafix/mainline

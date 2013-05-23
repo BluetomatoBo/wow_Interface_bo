@@ -1,4 +1,4 @@
--- $Id: wrathofthelichking.lua 4172 2013-03-31 22:53:10Z dynaletik $
+-- $Id: wrathofthelichking.lua 4196 2013-04-23 15:16:00Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -11294,7 +11294,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = AL["ilvl 200"].." - "..AL["Rewards"],
+			name = string.format(AL["ilvl %d"], 200).." - "..AL["Rewards"],
 			module = moduleName, menu = "JPWRATHMENU",
 		};
 	}
@@ -11343,7 +11343,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = AL["ilvl 213"].." - "..AL["Rewards"],
+			name = string.format(AL["ilvl %d"], 213).." - "..AL["Rewards"],
 			module = moduleName, menu = "JPWRATHMENU",
 		};
 	}
@@ -11396,7 +11396,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = AL["ilvl 226"].." - "..AL["Rewards"],
+			name = string.format(AL["ilvl %d"], 226).." - "..AL["Rewards"],
 			module = moduleName, menu = "JPWRATHMENU",
 		};
 	}
@@ -11426,6 +11426,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 25, 47702, "", "=q4=Pauldrons of the Cavalier", "=ds=#s3#, #a4#", "#JUSTICE:591#" };
 				{ 26, 47697, "", "=q4=Pauldrons of Trembling Rage", "=ds=#s3#, #a4#", "#JUSTICE:591#" };
 				{ 27, 47698, "", "=q4=Shoulderplates of Enduring Order", "=ds=#s3#, #a4#", "#JUSTICE:591#" };
+				merge = true;
 			};
 		};
 		["Normal_H"] = {
@@ -11448,16 +11449,11 @@ local moduleName = "AtlasLootWotLK"
 				{ 25, 47701, "", "=q4=Shoulderplates of the Cavalier", "=ds=#s3#, #a4#", "#JUSTICE:591#" };
 				{ 26, 47696, "", "=q4=Shoulderplates of Trembling Rage", "=ds=#s3#, #a4#", "#JUSTICE:591#" };
 				{ 27, 47699, "", "=q4=Shoulderguards of Enduring Order", "=ds=#s3#, #a4#", "#JUSTICE:591#" };
+				merge = true;
 			};
 		};
-		info = {
-			name = AL["ilvl 245"].." - "..AL["Rewards"],
-			module = moduleName, menu = "JPWRATHMENU", instance = "EmblemofTriumph",
-		};
-	}
-	
-	AtlasLoot_Data["EmblemofTriumph2"] = {
 		["Normal"] = {
+			{};
 			{
 				{ 1, 47732, "", "=q4=Band of the Invoker", "=ds=#s13#", "#JUSTICE:492#" };
 				{ 2, 47729, "", "=q4=Bloodshed Band", "=ds=#s13#", "#JUSTICE:492#" };
@@ -11473,8 +11469,8 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = AL["ilvl 245"].." - "..AL["Rewards"],
-			module = moduleName, menu = "JPWRATHMENU", instance = "EmblemofTriumph",
+			name = string.format(AL["ilvl %d"], 245).." - "..AL["Rewards"],
+			module = moduleName, menu = "JPWRATHMENU",
 		};
 	}
 
@@ -11527,7 +11523,7 @@ local moduleName = "AtlasLootWotLK"
 			};
 		};
 		info = {
-			name = AL["ilvl 264"].." - "..AL["Rewards"],
+			name = string.format(AL["ilvl %d"], 264).." - "..AL["Rewards"],
 			module = moduleName, menu = "JPWRATHMENU",
 		};
 	}

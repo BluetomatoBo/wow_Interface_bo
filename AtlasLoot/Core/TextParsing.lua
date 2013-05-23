@@ -1,4 +1,4 @@
--- $Id: TextParsing.lua 4163 2013-03-19 15:06:21Z dynaletik $
+-- $Id: TextParsing.lua 4212 2013-05-20 12:27:56Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -139,8 +139,8 @@ AtlasLoot_TextParsing = {
 	{ "#m3#", AL["Quest Item"] },
 	{ "#m4#", AL["Quest Reward"] },
 	{ "#m5#", AL["Shared"] },
-	{ "#m6#", AL["Horde"] },
-	{ "#m7#", AL["Alliance"] },
+	{ "#m6#", FACTION_HORDE },
+	{ "#m7#", FACTION_ALLIANCE },
 	{ "#m17#", AL["Currency"] },
 	{ "#m20#", AL["Misc"] },
 	{ "#m21#", string.format(AL["Tier %d"], 4) },
@@ -660,10 +660,10 @@ AtlasLoot_TextParsing = {
 	{ "#t15s5_1#", BabbleItemSet["Regalia of the Exorcist"] },
 	{ "#t15s5_2#", BabbleItemSet["Vestments of the Exorcist"] },
 	{ "#t15s6#", BabbleItemSet["Nine-Tail Battlegear"] },
-	{ "#t15s7_1#", BabbleItemSet["Vestments of the Spiritbreaker"] },
-	{ "#t15s7_2#", BabbleItemSet["Battlegear of the Spiritbreaker"] },
-	{ "#t15s7_3#", BabbleItemSet["Regalia of the Spiritbreaker"] },
-	{ "#t15s8#", BabbleItemSet["Regalia of the Thousand Hells"] },
+	{ "#t15s7_1#", BabbleItemSet["Vestments of the Witch Doctor"] },
+	{ "#t15s7_2#", BabbleItemSet["Battlegear of the Witch Doctor"] },
+	{ "#t15s7_3#", BabbleItemSet["Regalia of the Witch Doctor"] },
+	{ "#t15s8#", BabbleItemSet["Regalia of the Thousandfold Hells"] },
 	{ "#t15s9_1#", BabbleItemSet["Battleplate of the Last Mogu"] },
 	{ "#t15s9_2#", BabbleItemSet["Plate of the Last Mogu"] },
 	{ "#t15s10_1#", BabbleItemSet["Battleplate of the All-Consuming Maw"] },
@@ -847,7 +847,7 @@ AtlasLoot_TextParsing = {
 -- Text replacement function
 --------------------------------------------------------------------------------
 function AtlasLoot:FixText(text)
-	if not text or text == "" then return "" end
+	if not text or string.trim(text) == "" then return "" end
 	for k in ipairs(AtlasLoot_TextParsing) do
 		text = gsub(text, AtlasLoot_TextParsing[k][1], tostring(AtlasLoot_TextParsing[k][2]));
 	end
@@ -863,7 +863,7 @@ function AtlasLoot:FixText(text)
 end
 
 function AtlasLoot:FixTextBack(text)
-	if not text or text == "" then return "" end
+	if not text or string.trim(text) == "" then return "" end
 	
 	text = gsub(text, "Miscellaneous", "#m20#");
 	for k in ipairs(AtlasLoot_TextParsing) do

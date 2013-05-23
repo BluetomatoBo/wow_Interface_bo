@@ -1,4 +1,4 @@
--- $Id: WorldEventMenus.lua 4163 2013-03-19 15:06:21Z dynaletik $
+-- $Id: WorldEventMenus.lua 4183 2013-04-09 08:06:19Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -216,12 +216,13 @@ local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
 				{ 17, "Darkmoon", "ability_hunter_pet_bear", "=ds="..BabbleInventory["Mounts"].." & "..BabbleInventory["Companions"], ""};
 				{ 18, "Darkmoon#2", "inv_misc_cape_darkmoonfaire_c_01", "=ds="..AL["Toys"], ""};
 				{ 19, "Darkmoon#3", "inv_misc_food_164_fish_seadog", "=ds="..AL["Food and Drinks"], ""};
-				{ 20, "Darkmoon#5", "inv_misc_bone_taurenskull_01", "=ds="..AL["Heirloom"], ""};
-				{ 22, "DarkmoonDeck", "inv_inscription_trinket_tiger", "=ds="..AL["Level 90"].." "..AL["Trinkets"], ""};
-				{ 23, "DarkmoonDeck#2", "inv_inscription_tarot_hurricanecard", "=ds="..AL["Level 85"].." "..AL["Trinkets"], ""};
-				{ 24, "DarkmoonDeck#3", "INV_Inscription_TarotGreatness", "=ds="..AL["Level 80"].." "..AL["Trinkets"], ""};
-				{ 25, "DarkmoonDeck#4", "INV_Misc_Ticket_Tarot_Madness", "=ds="..AL["Level 60 & 70 Trinkets"], ""};
-				{ 26, "DarkmoonDeck#5", "INV_Misc_Ticket_Tarot_Furies", "=ds="..AL["Low Level Decks"], ""};
+				{ 20, "Darkmoon#5", "inv_misc_bone_taurenskull_01", "=ds="..AL["Heirloom"], "=ec1="..BabbleInventory["Armor"]};
+				{ 21, "Darkmoon#6", "inv_sword_17", "=ds="..AL["Heirloom"], "=ec1="..AL["Accessories"].." / "..AL["Weapons"]};
+				{ 23, "DarkmoonDeck", "inv_inscription_trinket_tiger", "=ds="..AL["Level 90"].." "..AL["Trinkets"], ""};
+				{ 24, "DarkmoonDeck#2", "inv_inscription_tarot_hurricanecard", "=ds="..AL["Level 85"].." "..AL["Trinkets"], ""};
+				{ 25, "DarkmoonDeck#3", "INV_Inscription_TarotGreatness", "=ds="..AL["Level 80"].." "..AL["Trinkets"], ""};
+				{ 26, "DarkmoonDeck#4", "INV_Misc_Ticket_Tarot_Madness", "=ds="..AL["Level 60 & 70 Trinkets"], ""};
+				{ 27, "DarkmoonDeck#5", "INV_Misc_Ticket_Tarot_Furies", "=ds="..AL["Low Level Decks"], ""};
 			};
 		};
 		info = {

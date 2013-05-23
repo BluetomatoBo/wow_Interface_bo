@@ -1,12 +1,12 @@
-﻿## Interface: 50200
+﻿## Interface: 50300
 ## Author: Hegarol
-## Version: v7.05.03
+## Version: v7.06.00
 ## SavedVariables: AtlasLootDB
 ## SavedVariablesPerCharacter: AtlasLootCharDB
 ## Dependencies: AtlasLoot_Loader
 ## LoadOnDemand: 1
 ## OptionalDeps: Ace3, LibBabble-Boss-3.0, LibBabble-Inventory-3.0, LibBabble-ItemSet-3.0, LibDBIcon-1.0, LibDataBroker-1.1, LibStrataFix
-## X-Curse-Packaged-Version: v7.05.03
+## X-Curse-Packaged-Version: v7.06.00
 ## X-Curse-Project-Name: AtlasLoot Enhanced
 ## X-Curse-Project-ID: atlasloot-enhanced
 ## X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline
@@ -40,7 +40,6 @@
 
 embeds.xml
 
-Add_Ons\Addons.xml
 Core\AtlasLoot.xml
 Menus\Menus.xml
 Modules\Modules.xml

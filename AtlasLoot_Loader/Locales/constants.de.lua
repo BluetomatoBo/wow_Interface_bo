@@ -1,4 +1,4 @@
-﻿-- $Id: constants.de.lua 4165 2013-03-20 11:03:22Z dynaletik $
+﻿-- $Id: constants.de.lua 4212 2013-05-20 12:27:56Z dynaletik $
 --[[
 constants.de.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -370,18 +370,7 @@ if AL then
 	-- AL["Brutal"] = true;
 	AL["Wrathful"] = "Zornerfüllt";
 	AL["Cataclysmic"] = "Kataklysmisch";
-	-- AL["ilvl 200"] = true;
-	-- AL["ilvl 213"] = true;
-	-- AL["ilvl 226"] = true;
-	-- AL["ilvl 245"] = true;
-	-- AL["ilvl 264"] = true;
-	-- AL["ilvl 397"] = true;
-	-- AL["ilvl 470"] = true;
-	-- AL["ilvl 490"] = true;
-	-- AL["ilvl 489"] = true;
-	-- AL["ilvl 496"] = true;
-	-- AL["ilvl 498"] = true;
-	-- AL["ilvl 512"] = true;
+	--AL["ilvl %d"] = true;
 
 	-- PvP Menu
 	AL["Arathi Basin Sets"] = "Arathibecken (Sets)";
@@ -617,10 +606,10 @@ if AL then
 	AL["Rare"] = "Selten";
 	AL["Specializations"] = "Spezialisierungen";
 	AL["Raid Finder"] = "Schlachtzugsbrowser";
+	AL["Thunderforged"] = "Donnergeschmiedet";
 	AL["Pandaria World Bosses"] = "Pandaria Weltbosse";
 	-- AL["Elite"] = true;
 	AL["Vegetables"] = "Gemüse";
-	AL["Thunderforged"] = "Donnergeschmiedet";
 
 	-- Loot Table Names
 	AL["Level %s"] = "Stufe %s";
@@ -876,7 +865,7 @@ if AL then
 	AL["Old PvP Rewards"] = "Alte PvP Belohnungen";
 	AL["BG/Open PvP Rewards"] = "BG/Open PvP Belohnungen";
 	AL["Misc. Rewards"] = "Diverses";
-	AL["Level %s Rewards"] = "Belohnungen (Stufe %s)"; -- usage: string.format(AL["Level %s Rewards"], "60")
+	AL["Level %s Rewards"] = "Belohnungen (Stufe %s)";
 
 	-- Brood of Nozdormu Paths
 	AL["Path of the Conqueror"] = "Der Pfad des Eroberers";
@@ -936,16 +925,13 @@ if AL then
 	AL["Carapace of the Old God"] = "Knochenpanzer des Gottes";
 
 	-- Faction related strings
-	AL["Alliance"] = "Allianz";
-	-- AL["Horde"] = true;
 	-- AL["Neutral"] = true;
 	AL["Friendly"] = "Freundlich";
 	AL["Honored"] = "Wohlwollend";
 	AL["Revered"] = "Respektvoll";
 	AL["Exalted"] = "Ehrfürchtig";
 	AL["Best Friend"] = "Bester Freund";
-	AL["Rank 4"] = "Rang 4";
-	AL["Rank 8"] = "Rang 8";
+	AL["Rank %d"] = "Rang %d";
 	AL["Winterfin Retreat"] = "Zuflucht der Winterflossen";
 
 	-- Recipe origin strings

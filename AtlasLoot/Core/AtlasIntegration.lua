@@ -1,4 +1,4 @@
--- $Id: AtlasIntegration.lua 3874 2012-10-11 00:59:54Z arith $
+-- $Id: AtlasIntegration.lua 4213 2013-05-22 11:24:37Z lag123 $
 --[[
 self file contains all the Atlas specific functions
 ]]
@@ -97,7 +97,6 @@ function AtlasLoot:AtlasInitialize()
 		AtlasLoot.SetupForAtlas = nil
 		AtlasLoot.Atlas_SetBoss = nil
 		AtlasLoot.Boss_OnClick = nil
-		AtlasLoot.SetupForAtlas = nil
 		AtlasLoot.AtlasInitialize = nil
 	end
 end
@@ -147,17 +146,15 @@ function AtlasLoot:AtlasRefreshHook()
 	--Get map selection info from Atlas
 	local zoneID = ATLAS_DROPDOWNS[AtlasOptions.AtlasType][AtlasOptions.AtlasZone];
 	local data = AtlasMaps;
-	local base = {};
+	local Atlastextbase = {};
 	
 	--Get boss name information
 	for k,v in pairs(data[zoneID]) do
-		base[k] = v;
+		Atlastextbase[k] = v;
 	end
 	
 	Atlas_MapRefresh();
-	
-	Atlastextbase = base;
-	
+
 	-- Check Tables
 	local contentTable = "Instances"
 	for k,v in pairs(AtlasLoot_LootTableRegister) do
@@ -183,7 +180,9 @@ function AtlasLoot:AtlasRefreshHook()
 							if missLines > 0 then
 								for _ = 1,missLines do
 									numContent = numContent + 1
-									Atlastextbase[numContent]={"", nil, nil}
+									if not Atlastextbase[numContent] then
+										Atlastextbase[numContent]={"", nil, nil}
+									end
 								end
 							end
 							-- Sets the Text
@@ -202,7 +201,9 @@ function AtlasLoot:AtlasRefreshHook()
 								if missLines > 0 then
 									for _ = 1,missLines do
 										numContent = numContent + 1
-										Atlastextbase[numContent]={"", nil, nil}
+										if not Atlastextbase[numContent] then
+											Atlastextbase[numContent]={"", nil, nil}
+										end
 									end
 								end
 								-- Sets the Text
@@ -242,13 +243,13 @@ function AtlasLoot:AtlasRefreshHook()
 	end
 
 	--populate the scroll frame entries list, the update func will do the rest
-	Atlas_Search("");
-	AtlasSearchEditBox:SetText("");
-	AtlasSearchEditBox:ClearFocus();
+	--Atlas_Search("");
+	--AtlasSearchEditBox:SetText("");
+	--AtlasSearchEditBox:ClearFocus();
 	
 	--create and align any new entry buttons that we need
 	if not AtlasLoot.AtlasLines then AtlasLoot.AtlasLines = {} end
-	for i=1,ATLAS_CUR_LINES do
+	for i=1,#ATLAS_DATA do
 		if not AtlasLoot.AtlasLines[i] then
 			if i==1 then
 				AtlasLoot.AtlasLines[i] = AtlasLoot:CreateSelectBossLineButton(AtlasFrame, {"TOPLEFT", "AtlasScrollBar", "TOPLEFT", 16, -3}, "AtlasBossLine"..i)
@@ -270,7 +271,7 @@ function AtlasLoot:AtlasRefreshHook()
 	AtlasLootItemsFrame:Hide();
 	Atlas_Search("");
 	--Make sure the scroll bar is correctly offset
-	AtlasLoot:AtlasScrollBar_Update();
+	AtlasLoot:AtlasScrollBar_Update()
 	
 	--see if we should display the entrance/instance button or not, and decide what it should say
 	local matchFound = {nil};
@@ -421,7 +422,7 @@ function AtlasLoot:Boss_OnClick()
 					if v[2] == id then
 						self.Selected:Show()
 						self.Loot:Hide()
-						local _,_,boss = string.find(self.Text:GetText(), "|c%x%x%x%x%x%x%x%x%s*[%dX']*[%) ]*(.*[^%,])[%,]?$")
+						local _,_,boss = string.find(self.Text:GetText() or "", "|c%x%x%x%x%x%x%x%x%s*[%dX']*[%) ]*(.*[^%,])[%,]?$")
 						AtlasLoot:ShowLootPage(v[1])
 						AtlasLootItemsFrame.activeBoss = id
 						AtlasLoot:AtlasScrollBar_Update()

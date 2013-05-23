@@ -1,4 +1,4 @@
--- $Id: Options.lua 4082 2013-02-19 07:45:57Z dynaletik $
+-- $Id: Options.lua 4201 2013-05-05 16:05:37Z lag123 $
 local AtlasLoot = _G.AtlasLoot
 --Invoke libraries
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
@@ -300,7 +300,7 @@ do
 end
 
 --[[
-AtlasLoot:OptionsInitialize()
+-> AtlasLoot:OptionsInitialize()
 ]]
 function AtlasLoot:ReplaceOptions()
 	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable("AtlasLoot", getOptions)

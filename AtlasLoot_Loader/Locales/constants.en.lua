@@ -1,4 +1,4 @@
--- $Id: constants.en.lua 4165 2013-03-20 11:03:22Z dynaletik $
+-- $Id: constants.en.lua 4212 2013-05-20 12:27:56Z dynaletik $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -373,18 +373,7 @@ if AL then
 	AL["Brutal"] = true;
 	AL["Wrathful"] = true;
 	AL["Cataclysmic"] = true;
-	AL["ilvl 200"] = true;
-	AL["ilvl 213"] = true;
-	AL["ilvl 226"] = true;
-	AL["ilvl 245"] = true;
-	AL["ilvl 264"] = true;
-	AL["ilvl 397"] = true;
-	AL["ilvl 470"] = true;
-	AL["ilvl 490"] = true;
-	AL["ilvl 489"] = true;
-	AL["ilvl 496"] = true;
-	AL["ilvl 498"] = true;
-	AL["ilvl 512"] = true;
+	AL["ilvl %d"] = true; -- usage: string.format(AL["ilvl %d"], 522)
 
 	-- PvP Menu
 	AL["Arathi Basin Sets"] = true;
@@ -620,10 +609,10 @@ if AL then
 	AL["Rare"] = true;
 	AL["Specializations"] = true;
 	AL["Raid Finder"] = true;
+	AL["Thunderforged"] = true;
 	AL["Pandaria World Bosses"] = true;
 	AL["Elite"] = true;
 	AL["Vegetables"] = true;
-	AL["Thunderforged"] = true;
 
 	-- Loot Table Names
 	AL["Level %s"] = true; -- usage: string.format(AL["Level %s"], "85-89")
@@ -939,16 +928,13 @@ if AL then
 	AL["Carapace of the Old God"] = true;
 
 	-- Faction related strings
-	AL["Alliance"] = true;
-	AL["Horde"] = true;
 	AL["Neutral"] = true;
 	AL["Friendly"] = true;
 	AL["Honored"] = true;
 	AL["Revered"] = true;
 	AL["Exalted"] = true;
 	AL["Best Friend"] = true;
-	AL["Rank 4"] = true;
-	AL["Rank 8"] = true;
+	AL["Rank %d"] = true; -- usage: string.format(AL["Rank %d"], 1)
 	AL["Winterfin Retreat"] = true;
 
 	-- Recipe origin strings

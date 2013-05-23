@@ -68,30 +68,7 @@
 			</Layer>	
 		</Layers>
 	</Button>
-	<!--
-	<Button name="AtlasLoot_SpecButton" virtual="true">
-		<Size x="12.5" y="12.5"/>
-		<Layers>
-			<Layer level="ARTWORK" textureSubLevel="2">
-				<Texture name="$parentRing" file="Interface\TalentFrame\talent-main" parentKey="ring">
-					<Size x="12.5" y="12.5"/>
-					<Anchors>
-						<Anchor point="CENTER" x="0" y="0" />
-					</Anchors>
-					<TexCoords left="0.50000000" right="0.91796875" top="0.00195313" bottom="0.21093750"/>
-				</Texture>
-			</Layer>
-			<Layer level="ARTWORK">
-				<Texture name="$parentSpecIcon" parentKey="specIcon">
-					<Size x="8.25" y="8.25"/>
-					<Anchors>
-						<Anchor point="CENTER" relativeTo="$parentRing" x="0" y="0" />
-					</Anchors>
-				</Texture>
-			</Layer>	
-		</Layers>
-	</Button>
-	-->
+
 	<Button name="AtlasLoot_SpecButton" virtual="true">
 		<Size x="12.5" y="12.5"/>
 		<Layers>

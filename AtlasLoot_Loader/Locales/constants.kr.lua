@@ -1,4 +1,4 @@
-﻿-- $Id: constants.kr.lua 4163 2013-03-19 15:06:21Z dynaletik $
+﻿-- $Id: constants.kr.lua 4212 2013-05-20 12:27:56Z dynaletik $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -740,16 +740,12 @@ if AL then
 	AL["Carapace of the Old God"] = "고대신의 껍질";
 
 	-- Faction related strings
-	AL["Alliance"] = "얼라이언스";
-	AL["Horde"] = "호드";
 	AL["Neutral"] = "중립적";
 	AL["Friendly"] = "약간 우호적";
 	AL["Honored"] = "우호적";
 	AL["Revered"] = "매우 우호적";
 	AL["Exalted"] = "확고한 동맹";
 	AL["Best Friend"] = "가장 친한 친구";
-	-- AL["Rank 4"] = true;
-	-- AL["Rank 8"] = true;
 	AL["Winterfin Retreat"] = "겨울지느러미 은신처";
 
 	-- Recipe origin strings

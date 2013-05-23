@@ -87,12 +87,8 @@ function AtlasLoot:BonusRoll_Initialize()
 	end
 	
 	if AtlasLoot.ItemFrame then
-		AtlasLoot.ItemFrame.BonusRoll = self:BonusRoll_CreateButton("AtlasLootItemsFrame_BonusRoll", AtlasLoot.ItemFrame)
-		if AtlasLoot.ItemFrame.EncounterJournal then
-			AtlasLoot.ItemFrame.BonusRoll:SetPoint("RIGHT", AtlasLoot.ItemFrame.EncounterJournal, "LEFT", 0, 0)
-		else
-			AtlasLoot.ItemFrame.BonusRoll:SetPoint("RIGHT", AtlasLoot.ItemFrame.CloseButton, "LEFT", 0, 0)
-		end
+		AtlasLoot.ItemFrame.BonusRoll = self:BonusRoll_CreateButton("BonusRoll", AtlasLoot.ItemFrame, true)
+		AtlasLoot:ItemFrame_IconList_Refresh()
 	end
 	
 	--[[ BonusRoll not workes here :/
@@ -114,15 +110,12 @@ local function bonusRoll_OnClick(self)
 	AtlasLoot:RefreshLootPage()
 end
 
-function AtlasLoot:BonusRoll_CreateButton(name, parent)
-	local button = CreateFrame("Button",name,parent,"AtlasLoot_RoundButton")
-	button:SetWidth(30)
-	button:SetHeight(30)
-	button:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
+function AtlasLoot:BonusRoll_CreateButton(name, parent, addInList)
+	local scripts = {
+		["OnClick"] = bonusRoll_OnClick,
+	}
 	local texture = select(3, GetCurrencyInfo(697))
-	SetPortraitToTexture(button.icon, texture)
-	button:SetScript("OnClick", bonusRoll_OnClick)
-	--button:SetScript("OnShow", function(self) self:SetFrameLevel( (self:GetParent()):GetFrameLevel() + 1 ) end)
+	local button = self:ItemFrame_IconList_CreateIcon(name, parent, texture, scripts, addInList)
 	
 	BUTTON_LIST[ #BUTTON_LIST + 1 ] = button
 	

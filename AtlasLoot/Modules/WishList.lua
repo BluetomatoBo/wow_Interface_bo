@@ -1,4 +1,4 @@
--- $Id: WishList.lua 3729 2012-07-31 13:38:29Z lag123 $
+-- $Id: WishList.lua 4206 2013-05-06 22:44:00Z lag123 $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -1011,13 +1011,21 @@ function WishList:ButtonTemp_AddItemToWishList()
 		if self.itemType and self.itemType[1] == "wishlist" then--SetItemType({"wishlist", dataID, heroic,})
 			self:DeleteItemFromWishList()
 		elseif self.info and self.itemType and self.GetChatLink then
-			curItem = { self.info[1], self.info[2], self.info[3], self.info[4], self.itemType[2].."#"..self.itemType[3], self:GetChatLink() }
+			if AtlasLoot.db.profile.ShowThunderforged and self.info[9] then
+				curItem = { self.info[1], self.info[9], self.info[3], self.info[4], self.itemType[2].."#"..self.itemType[3], self:GetChatLink() }
+			else
+				curItem = { self.info[1], self.info[2], self.info[3], self.info[4], self.itemType[2].."#"..self.itemType[3], self:GetChatLink() }
+			end
 			if (db.defaultWishlist and Wishlists_Info.defaultWishlist) or #WishList.ownWishLists == 1 then
 				if #WishList.ownWishLists == 1 then WishList:RefreshCurWishlist(1) end
 				if self.info[2] == nil then 
 					WishList:AddItemToWishList(self.info[1], self.info[5], self.info[3], self.info[4], self.itemType[2].."#"..self.itemType[3], self:GetChatLink())
 				else
-					WishList:AddItemToWishList(self.info[1], self.info[2], self.info[3], self.info[4], self.itemType[2].."#"..self.itemType[3], self:GetChatLink())
+					if AtlasLoot.db.profile.ShowThunderforged and self.info[9] then
+						WishList:AddItemToWishList(self.info[1], self.info[9], self.info[3], self.info[4], self.itemType[2].."#"..self.itemType[3], self:GetChatLink())
+					else	
+						WishList:AddItemToWishList(self.info[1], self.info[2], self.info[3], self.info[4], self.itemType[2].."#"..self.itemType[3], self:GetChatLink())
+					end
 				end
 			else
 				ToggleDropDownMenu(1, nil, AtlasLoot.ItemFrame.WishListDropDownMenu, self.Frame:GetName(), 0, 0)
@@ -1033,13 +1041,21 @@ function WishList:ButtonTemp_AddItemToWishList()
 		else
 			lootTableType = AtlasLoot.ItemFrame.lootTableType
 		end
-		curItem = { self.info[1], self.info[2], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink() }
+		if AtlasLoot.db.profile.ShowThunderforged and self.info[9] then
+			curItem = { self.info[1], self.info[9], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink() }
+		else
+			curItem = { self.info[1], self.info[2], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink() }
+		end
 		if (db.defaultWishlist and Wishlists_Info.defaultWishlist) or #WishList.ownWishLists == 1 then
 			if #WishList.ownWishLists == 1 then WishList:RefreshCurWishlist(1) end
 			if self.info[2] == nil then 
 				WishList:AddItemToWishList(self.info[1], self.info[5], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink())
 			else
-				WishList:AddItemToWishList(self.info[1], self.info[2], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink())
+				if AtlasLoot.db.profile.ShowThunderforged and self.info[9] then
+					WishList:AddItemToWishList(self.info[1], self.info[9], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink())
+				else	
+					WishList:AddItemToWishList(self.info[1], self.info[2], self.info[3], self.info[4], dataID.."#"..lootTableType, self:GetChatLink())
+				end
 			end
 		else
 			ToggleDropDownMenu(1, nil, AtlasLoot.ItemFrame.WishListDropDownMenu, self.Frame:GetName(), 0, 0)

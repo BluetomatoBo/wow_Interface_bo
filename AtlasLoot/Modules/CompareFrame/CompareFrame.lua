@@ -1,4 +1,4 @@
-﻿-- $Id: CompareFrame.lua 4108 2013-02-26 20:34:27Z lag123 $
+﻿-- $Id: CompareFrame.lua 4213 2013-05-22 11:24:37Z lag123 $
 local _
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
@@ -905,6 +905,8 @@ function AtlasLoot:CompareFrame_LoadWishList(itemTab, wishlistID, wishlistName, 
 	elseif refresh and not frameWasShown then
 		AtlasLoot.CompareFrame:Hide()
 	end	
+	AtlasLoot.CompareFrame.EncounterJournal.info = nil
+	AtlasLoot:EncounterJournal_ButtonsRefresh()
 end	
 
 --function AtlasLoot:CompareFrame_WishlistSelect_UpdateList()

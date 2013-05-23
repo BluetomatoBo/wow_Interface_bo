@@ -1,5 +1,6 @@
--- $Id: Search.lua 3729 2012-07-31 13:38:29Z lag123 $
+-- $Id: Search.lua 4201 2013-05-05 16:05:37Z lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
+local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot")
 
 local GREY = "|cff999999";
 local RED = "|cffff0000";
@@ -8,8 +9,6 @@ local GREEN = "|cff1eff00";
 local PURPLE = "|cff9F3FFF";
 local BLUE = "|cff0070dd";
 local ORANGE = "|cffFF8400";
-
-local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 
 local openName = nil
 

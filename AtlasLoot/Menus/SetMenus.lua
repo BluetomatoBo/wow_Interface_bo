@@ -1,4 +1,4 @@
--- $Id: SetMenus.lua 4163 2013-03-19 15:06:21Z dynaletik $
+-- $Id: SetMenus.lua 4212 2013-05-20 12:27:56Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -12,7 +12,8 @@ local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
 				{ 1, "VPMOPMENU", "pvecurrency-valor", "=ds="..AL["Valor Points"].." "..AL["Rewards"], "=q5="..AL["Mists of Pandaria"]};
 				{ 2, "JUSTICEPOINTSMENU", "pvecurrency-justice", "=ds="..AL["Justice Points"].." "..AL["Rewards"], ""};
 				{ 3, "SpiritOfHarmony", "inv_elemental_spiritofharmony_2", "=ds="..ALIL["Spirit of Harmony"].." "..AL["Rewards"], "=q5="..AL["Mists of Pandaria"]};
-				{ 4, "MoltenFront", "inv_misc_markoftheworldtree", "=ds="..ALIL["Molten Front"].." "..AL["Rewards"], "=q5="..AL["Cataclysm"]};
+				{ 4, "DarkspearRebellion", "inv_misc_tournaments_banner_troll", "=ds="..ALIL["Darkspear Rebellion"].." "..AL["Rewards"], "=q5="..AL["Mists of Pandaria"]};
+				{ 5, "MoltenFront", "inv_misc_markoftheworldtree", "=ds="..ALIL["Molten Front"].." "..AL["Rewards"], "=q5="..AL["Cataclysm"]};
 				{ 7, "RAREMENU", "expansionicon_mistsofpandaria", "=ds="..AL["Rare Mobs"], "=q5="..AL["Mists of Pandaria"]};
 				{ 8, "WORLDEPICS", "INV_Sword_76", "=ds="..AL["BoE World Epics"], ""};
 				{ 9, "Legendaries", "inv_hammer_unique_sulfuras", "=ds="..AL["Legendary Items"], ""};
@@ -44,11 +45,11 @@ local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
 		["Normal"] = {
 			{
 				{ 2, "ValorPointsMoP", "inv_helmet_cloth_reputation_c_01", "=ds="..BabbleInventory["Cloth"], ""};
-				{ 3, "ValorPointsMoP#3", "inv_helm_mail_reputation_c_01", "=ds="..BabbleInventory["Mail"], ""};
-				{ 5, "ValorPointsMoP#6", "inv_cape_pandaria_c_01", "=ds="..AL["Accessories"]..": "..BabbleInventory["Back"].." / "..BabbleInventory["Neck"], ""};
-				{ 17, "ValorPointsMoP#2", "inv_helm_leather_reputation_c_01", "=ds="..BabbleInventory["Leather"], ""};
-				{ 18, "ValorPointsMoP#4", "inv_helmet_plate_reputation_c_01", "=ds="..BabbleInventory["Plate"], ""};
-				{ 20, "ValorPointsMoP#7", "inv_cape_pandaria_c_01", "=ds="..AL["Accessories"]..": "..BabbleInventory["Ring"].." / "..BabbleInventory["Trinket"], ""};
+				{ 3, "ValorPointsMoP#5", "inv_helm_mail_reputation_c_01", "=ds="..BabbleInventory["Mail"], ""};
+				{ 5, "ValorPointsMoP#10", "inv_cape_pandaria_c_01", "=ds="..AL["Accessories"]..": "..BabbleInventory["Back"].." / "..BabbleInventory["Neck"], ""};
+				{ 17, "ValorPointsMoP#3", "inv_helm_leather_reputation_c_01", "=ds="..BabbleInventory["Leather"], ""};
+				{ 18, "ValorPointsMoP#7", "inv_helmet_plate_reputation_c_01", "=ds="..BabbleInventory["Plate"], ""};
+				{ 20, "ValorPointsMoP#12", "inv_cape_pandaria_c_01", "=ds="..AL["Accessories"]..": "..BabbleInventory["Ring"].." / "..BabbleInventory["Trinket"], ""};
 			};
 		};
 		info = {
@@ -104,19 +105,18 @@ local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
 	AtlasLoot_Data["JPWRATHMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "EmblemofFrost", "inv_misc_frostemblem_01", "=ds="..AL["ilvl 264"], "=q5="..BabbleInventory["Armor"].." & "..AL["Weapons"]};
-				{ 4, "EmblemofTriumph", "spell_holy_summonchampion", "=ds="..AL["ilvl 245"], "=q5="..BabbleInventory["Armor"]};
-				{ 5, "EmblemofTriumph2", "spell_holy_summonchampion", "=ds="..AL["ilvl 245"], "=q5="..AL["Accessories"].." & "..AL["Weapons"]};
-				{ 7, "EmblemofConquest", "Spell_Holy_ChampionsGrace", "=ds="..AL["ilvl 226"], "=q5="..BabbleInventory["Armor"]};
-				{ 9, "EmblemofValor", "Spell_Holy_ProclaimChampion_02", "=ds="..AL["ilvl 213"], "=q5="..BabbleInventory["Armor"]};
-				{ 11, "EmblemofHeroism", "Spell_Holy_ProclaimChampion", "=ds="..AL["ilvl 200"], "=q5="..BabbleInventory["Armor"].." & "..AL["Weapons"]};
-				{ 12, "EmblemofHeroism#3", "Spell_Holy_ProclaimChampion", "=ds="..AL["ilvl 200"], "=q5="..BabbleInventory["Miscellaneous"]};
-				{ 14, "PVP80SET", "INV_Boots_01", "=ds="..AL["PvP Armor Sets"], "=q5="..AL["Level 80"]};
+				{ 2, "EmblemofFrost", "inv_misc_frostemblem_01", "=ds="..string.format(AL["ilvl %d"], 264), "=q5="..BabbleInventory["Armor"]};
+				{ 4, "EmblemofTriumph", "spell_holy_summonchampion", "=ds="..string.format(AL["ilvl %d"], 245), "=q5="..BabbleInventory["Armor"]};
+				{ 5, "EmblemofTriumph#2", "spell_holy_summonchampion", "=ds="..string.format(AL["ilvl %d"], 245), "=q5="..AL["Accessories"].." & "..AL["Weapons"]};
+				{ 7, "EmblemofConquest", "Spell_Holy_ChampionsGrace", "=ds="..string.format(AL["ilvl %d"], 226), "=q5="..BabbleInventory["Armor"]};
+				{ 9, "EmblemofValor", "Spell_Holy_ProclaimChampion_02", "=ds="..string.format(AL["ilvl %d"], 213), "=q5="..BabbleInventory["Armor"]};
+				{ 11, "EmblemofHeroism", "Spell_Holy_ProclaimChampion", "=ds="..string.format(AL["ilvl %d"], 200), "=q5="..BabbleInventory["Armor"].." & "..AL["Weapons"]};
+				{ 13, "PVP80SET", "INV_Boots_01", "=ds="..AL["PvP Armor Sets"], "=q5="..AL["Level 80"]};
 				{ 17, "T10SET", "inv_misc_frostemblem_01", "=ds="..AL["Tier 10 Set"], "=q5="..AL["10/25 Man"]};
 				{ 19, "T9SET", "spell_holy_summonchampion", "=ds="..AL["Tier 9 Set"], "=q5="..AL["10/25 Man"]};
-				{ 22, "EmblemofConquest#2", "Spell_Holy_ChampionsGrace", "=ds="..AL["ilvl 226"], "=q5="..AL["Accessories"]};
-				{ 24, "EmblemofValor#2", "Spell_Holy_ProclaimChampion_02", "=ds="..AL["ilvl 213"], "=q5="..AL["Accessories"]};
-				{ 26, "EmblemofHeroism#2", "Spell_Holy_ProclaimChampion", "=ds="..AL["ilvl 200"], "=q5="..AL["Accessories"]};
+				{ 22, "EmblemofConquest#2", "Spell_Holy_ChampionsGrace", "=ds="..string.format(AL["ilvl %d"], 226), "=q5="..AL["Accessories"]};
+				{ 24, "EmblemofValor#2", "Spell_Holy_ProclaimChampion_02", "=ds="..string.format(AL["ilvl %d"], 213), "=q5="..AL["Accessories"]};
+				{ 26, "EmblemofHeroism#2", "Spell_Holy_ProclaimChampion", "=ds="..string.format(AL["ilvl %d"], 200), "=q5="..AL["Accessories"]};
 			};
 		};
 		info = {
@@ -196,22 +196,22 @@ local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
 	AtlasLoot_Data["MOUNTMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "MountsAlliance", "achievement_pvp_a_16", "=ds="..ALIL["Darnassus"].." / "..ALIL["Gnomeregan"], "=ec1="..AL["Alliance"]};
-				{ 3, "MountsAlliance#2", "achievement_pvp_a_16", "=ds="..ALIL["Ironforge"].." / "..ALIL["Exodar"].." / "..ALIL["Stormwind"], "=ec1="..AL["Alliance"]};
-				{ 4, "MountsAlliance#3", "achievement_pvp_a_16", "=ds="..ALIL["Tushui Pandaren"].." / "..ALIL["Gilneas"], "=ec1="..AL["Alliance"]};
-				{ 5, "MountsAlliance#4", "achievement_pvp_a_16", "=ds="..AL["Flying Mounts"].." / "..ALIL["Kurenai"], "=ec1="..AL["Alliance"]};
-				{ 6, "MountsAlliance#5", "achievement_pvp_a_16", "=ds="..ALIL["Dalaran"].." / "..AL["Misc"], "=ec1="..AL["Alliance"]};
+				{ 2, "MountsAlliance", "achievement_pvp_a_16", "=ds="..ALIL["Darnassus"].." / "..ALIL["Gnomeregan"], "=ec1="..FACTION_ALLIANCE};
+				{ 3, "MountsAlliance#2", "achievement_pvp_a_16", "=ds="..ALIL["Ironforge"].." / "..ALIL["Exodar"].." / "..ALIL["Stormwind"], "=ec1="..FACTION_ALLIANCE};
+				{ 4, "MountsAlliance#3", "achievement_pvp_a_16", "=ds="..ALIL["Tushui Pandaren"].." / "..ALIL["Gilneas"], "=ec1="..FACTION_ALLIANCE};
+				{ 5, "MountsAlliance#4", "achievement_pvp_a_16", "=ds="..AL["Flying Mounts"].." / "..ALIL["Kurenai"], "=ec1="..FACTION_ALLIANCE};
+				{ 6, "MountsAlliance#5", "achievement_pvp_a_16", "=ds="..ALIL["Dalaran"].." / "..AL["Misc"], "=ec1="..FACTION_ALLIANCE};
 				{ 8, "MountsFaction", "ability_mount_warhippogryph", "=ds="..AL["Neutral Faction Mounts"], ""};
 				{ 9, "MountsRareDungeon", "ability_mount_drake_bronze", "=ds="..AL["Rare Mounts"], "=ec1="..AL["Dungeon"].." / "..AL["Outdoor"]};
 				{ 10, "MountsCraftQuest", "ability_mount_gyrocoptorelite", "=ds="..BabbleInventory["Quest"].." / "..AL["Crafted Mounts"], ""};
 				{ 11, "MountsEvent", "achievement_halloween_witch_01", "=ds="..AL["World Events"], ""};
 				{ 12, "MountsPromotional", "inv_misc_reforgedarchstone_01", "=ds="..AL["Promotional Mounts"], ""};
-				--{ 13, "MountsNEW", "inv_pandarenserpentmount_green", "=ds="..AL["New Mounts"], "=q5=Patch 5.2"};
-				{ 17, "MountsHorde", "achievement_pvp_h_16", "=ds="..ALIL["Orgrimmar"].." / "..ALIL["Silvermoon City"], "=ec1="..AL["Horde"]};
-				{ 18, "MountsHorde#2", "achievement_pvp_h_16", "=ds="..ALIL["Darkspear Trolls"].." / "..ALIL["Thunder Bluff"].." / "..ALIL["Undercity"], "=ec1="..AL["Horde"]};
-				{ 19, "MountsHorde#3", "achievement_pvp_h_16", "=ds="..ALIL["Huojin Pandaren"].." / "..ALIL["Bilgewater Cartel"], "=ec1="..AL["Horde"]};
-				{ 20, "MountsHorde#4", "achievement_pvp_h_16", "=ds="..AL["Flying Mounts"].." / "..ALIL["The Mag'har"], "=ec1="..AL["Horde"]};
-				{ 21, "MountsHorde#5", "achievement_pvp_h_16", "=ds="..ALIL["Dalaran"].." / "..AL["Misc"], "=ec1="..AL["Horde"]};
+				{ 13, "MountsNEW", "inv_pandarenserpentmount_green", "=ds="..AL["New Mounts"], "=q5=Patch 5.3"};
+				{ 17, "MountsHorde", "achievement_pvp_h_16", "=ds="..ALIL["Orgrimmar"].." / "..ALIL["Silvermoon City"], "=ec1="..FACTION_HORDE};
+				{ 18, "MountsHorde#2", "achievement_pvp_h_16", "=ds="..ALIL["Darkspear Trolls"].." / "..ALIL["Thunder Bluff"].." / "..ALIL["Undercity"], "=ec1="..FACTION_HORDE};
+				{ 19, "MountsHorde#3", "achievement_pvp_h_16", "=ds="..ALIL["Huojin Pandaren"].." / "..ALIL["Bilgewater Cartel"], "=ec1="..FACTION_HORDE};
+				{ 20, "MountsHorde#4", "achievement_pvp_h_16", "=ds="..AL["Flying Mounts"].." / "..ALIL["The Mag'har"], "=ec1="..FACTION_HORDE};
+				{ 21, "MountsHorde#5", "achievement_pvp_h_16", "=ds="..ALIL["Dalaran"].." / "..AL["Misc"], "=ec1="..FACTION_HORDE};
 				{ 23, "MountsPvP", "ability_mount_netherdrakeelite", "=ds="..AL["PvP Mounts"], ""};
 				{ 24, "MountsRareRaid", "inv_misc_summerfest_brazierorange", "=ds="..AL["Rare Mounts"], "=ec1="..AL["Raid"]};
 				{ 25, "MountsAchievement", "inv_mount_allianceliong", "=ds="..AL["Achievement Reward"], ""};
@@ -234,7 +234,7 @@ local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
 				{ 5, "PetsFaction", "ability_hunter_pet_sporebat", "=ds="..AL["Faction Companions"], ""};
 				{ 6, "PetsEvent", "inv_pet_egbert", "=ds="..AL["World Events"], ""};
 				{ 7, "PetsRemoved", "inv_pet_babyblizzardbear", "=ds="..AL["Unobtainable Companions"], ""};
-				{ 8, "PetsNEW", "inv_pet_babycloudserpent", "=ds="..AL["New Companions"], "=q5=Patch 5.2"};
+				{ 8, "PetsNEW", "inv_pet_babycloudserpent", "=ds="..AL["New Companions"], "=q5=Patch 5.3"};
 				{ 17, "PetsQuest", "inv_drink_19", "=ds="..AL["Quest Reward Companions"], ""};
 				{ 18, "PetsAchievement", "inv_misc_darkphoenixpet_01", "=ds="..AL["Achievement Reward"], ""};
 				{ 19, "PetsPromotional", "inv_netherwhelp", "=ds="..AL["Promotional Companions"], ""};
@@ -297,7 +297,7 @@ local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
 		["Normal"] = {
 			{
 				{ 2, "Heirloom", "inv_helmet_24", "=ds="..BabbleInventory["Back"].." / "..BabbleInventory["Cloth"].." / "..BabbleInventory["Leather"], ""};
-				{ 3, "Heirloom#4", "inv_sword_17", "=ds="..AL["PvP Heirlooms"], ""};
+				{ 3, "Heirloom#4", "inv_sword_19", "=ds="..AL["PvP Heirlooms"], ""};
 				{ 5, 86559, "", "=q7=Frying Pan", "=ds=#h1#", "#IRONPAW:50#"};
 				{ 6, 86558, "", "=q7=Rolling Pin", "=ds=#s15#", "#IRONPAW:50#"};
 				{ 7, 86468, "", "=q7=Apron", "=ds=#s7#", "#IRONPAW:50#"};
@@ -305,7 +305,7 @@ local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
 				{ 11, "HeirloomBoAArmor", "trade_archaeology_ancientorcshamanheaddress", "=ds="..AL["Bind on Account Armor"], ""};
 				{ 12, "HeirloomBoAMisc", "trade_archaeology_pendant of the aqir", "=ds="..AL["Misc"], ""};
 				{ 17, "Heirloom#2", "inv_chest_plate03", "=ds="..BabbleInventory["Mail"].." / "..BabbleInventory["Plate"], ""};
-				{ 18, "Heirloom#3", "INV_Helmet_01", "=ds="..AL["Accessories"].." / "..AL["Weapons"], ""};
+				{ 18, "Heirloom#3", "inv_sword_17", "=ds="..AL["Accessories"].." / "..AL["Weapons"], ""};
 				{ 20, 44133, "", "=q7=Greater Inscription of the Axe", "=ds=#s3# #e17#", "100 #gold#"};
 				{ 21, 44134, "", "=q7=Greater Inscription of the Crag", "=ds=#s3# #e17#", "100 #gold#"};
 				{ 22, 44136, "", "=q7=Greater Inscription of the Pinnacle", "=ds=#s3# #e17#", "100 #gold#"};
