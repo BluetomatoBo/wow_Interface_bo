@@ -179,14 +179,16 @@ end
 
 function Tourist:GetBattlePetLevelString(zone)
 	local lo, hi = Tourist:GetBattlePetLevel(zone)
-	if lo and hi then
-		if lo == hi then
-			return tostring(lo)
+	if lo ~= nil or hi ~= nil then
+		if lo and hi then
+			if lo == hi then
+				return tostring(lo)
+			else
+				return tostring(lo).."-"..tostring(hi)
+			end
 		else
-			return tostring(lo).."-"..tostring(hi)
+			return tostring(lo) or tostring(hi) or ""
 		end
-	else
-		return tostring(lo) or tostring(hi) or ""
 	end
 end
 

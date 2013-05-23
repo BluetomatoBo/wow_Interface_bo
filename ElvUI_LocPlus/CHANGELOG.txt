@@ -1,3 +1,8 @@
+[b]1.80[/b]
+*toc update for patch 5.3
+*Added option to also display Battle Pet level, Fishing level or Area Level, on the Location Panel. Also optionally show a corresponding icon.
+*Minor improvements and corrections.
+
 [b]1.79[/b]
 *Removed LibElvUIPlugin library. It's part of ElvUI now. (Recommended update)
 

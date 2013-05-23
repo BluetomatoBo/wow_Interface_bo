@@ -1,6 +1,6 @@
-﻿## Interface: 50200
+﻿## Interface: 50300
 ## Author: Benik
-## Version: 1.79
+## Version: 1.80
 ## Title: |cff1784d1ElvUI|r Location Plus
 ## Notes: Location Plus Plugin for ElvUI 5+
 ## RequiredDeps: ElvUI
@@ -11,6 +11,10 @@
 ## X-Curse-Project-ID: elvui-location-plus
 ## X-Curse-Repository-ID: wow/elvui-location-plus/mainline
 ## X-Curse-Packaged-Version: 1.762
+## X-Curse-Project-Name: ElvUI Location Plus
+## X-Curse-Project-ID: elvui-location-plus
+## X-Curse-Repository-ID: wow/elvui-location-plus/mainline
+## X-Curse-Packaged-Version: 1.79
 ## X-Curse-Project-Name: ElvUI Location Plus
 ## X-Curse-Project-ID: elvui-location-plus
 ## X-Curse-Repository-ID: wow/elvui-location-plus/mainline

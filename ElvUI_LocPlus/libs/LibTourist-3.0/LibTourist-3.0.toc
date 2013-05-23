@@ -8,6 +8,10 @@
 ## X-Curse-Project-Name: LibTourist-3.0
 ## X-Curse-Project-ID: libtourist-3-0
 ## X-Curse-Repository-ID: wow/libtourist-3-0/mainline
+## X-Curse-Packaged-Version: 1.79
+## X-Curse-Project-Name: ElvUI Location Plus
+## X-Curse-Project-ID: elvui-location-plus
+## X-Curse-Repository-ID: wow/elvui-location-plus/mainline
 
 LibStub\LibStub.lua
 lib.xml

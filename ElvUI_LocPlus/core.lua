@@ -5,11 +5,9 @@ a plugin for ElvUI, that adds player location and coords + 2 Datatexts
 - Info, requests, bugs: http://www.tukui.org/addons/index.php?act=view&id=56
 ----------------------------------------------------------------------------------
 - Credits:
-	-Elv, Blazeflack, Darth Predator for showing me the best way to do this
-	-CohesioN(idea from his TukUI edit)
-
-	-iceeagle from Broker_Location addon, grdn from iLocation addon,
-	 for digging their great code and making this possible.
+	-Elv, Blazeflack, for showing me the best way to do this
+	-Sinaris(idea from his TukUI edit)
+	-iceeagle, grdn, for digging their great code and making this possible.
 	-Tukui and Elvui forum community.
 ----------------------------------------------------------------------------------
 - ToDo:
@@ -49,38 +47,34 @@ end
 
 -- Status
 local function LocStatus()
-	if E.db.locplus.ttst then
-		local status
-		local statusText
-		local r, g, b = 1, 1, 0
-		local color
-		local pvpType, _, factionName = GetZonePVPInfo()
-			if (pvpType == "sanctuary") then
-				status = SANCTUARY_TERRITORY
-				r, g, b = 0.41, 0.8, 0.94
-			elseif(pvpType == "arena") then
-				status = ARENA
-				r, g, b = 1, 0.1, 0.1
-			elseif(pvpType == "friendly") then
-				status = FRIENDLY.." "..FACTION_CONTROLLED_TERRITORY:format(factionName)
-				r, g, b = 0.1, 1, 0.1
-			elseif(pvpType == "hostile") then
-				status = HOSTILE.." "..FACTION_CONTROLLED_TERRITORY:format(factionName)
-				r, g, b = 1, 0.1, 0.1
-			elseif(pvpType == "contested") then
-				status = CONTESTED_TERRITORY
-				r, g, b = 1, 0.7, 0.10
-			elseif(pvpType == "combat" ) then
-				status = COMBAT
-				r, g, b = 1, 0.1, 0.1
-			else
-				status = CONTESTED_TERRITORY
-			end
+	local status
+	local statusText
+	local r, g, b = 1, 1, 0
+	local pvpType, _, factionName = GetZonePVPInfo()
+		if (pvpType == "sanctuary") then
+			status = SANCTUARY_TERRITORY
+			r, g, b = 0.41, 0.8, 0.94
+		elseif(pvpType == "arena") then
+			status = ARENA
+			r, g, b = 1, 0.1, 0.1
+		elseif(pvpType == "friendly") then
+			status = FRIENDLY.." "..FACTION_CONTROLLED_TERRITORY:format(factionName)
+			r, g, b = 0.1, 1, 0.1
+		elseif(pvpType == "hostile") then
+			status = HOSTILE.." "..FACTION_CONTROLLED_TERRITORY:format(factionName)
+			r, g, b = 1, 0.1, 0.1
+		elseif(pvpType == "contested") then
+			status = CONTESTED_TERRITORY
+			r, g, b = 1, 0.7, 0.10
+		elseif(pvpType == "combat" ) then
+			status = COMBAT
+			r, g, b = 1, 0.1, 0.1
+		else
+			status = CONTESTED_TERRITORY
+		end
 
-		color = r*254, g*254, b*254
-		statusText = string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, status)
-		return statusText, color
-	end
+	statusText = string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, status)
+	return statusText
 end
 
 -- Dungeon coords
@@ -224,8 +218,9 @@ local function LocLevelRange(zoneText)
 	local low, high = tourist:GetLevel(zoneText)
 	if low >= 1 and high >= 1 then
 		local r, g, b = tourist:GetLevelColor(zoneText)
-		return string.format("|cff%02x%02x%02x (%d-%d)|r", r*255, g*255, b*255, low, high) or ""
+		return string.format("|cff%02x%02x%02x %d-%d|r", r*255, g*255, b*255, low, high) or ""
 	end
+	
 	return ""
 end
 
@@ -271,7 +266,7 @@ function LPB:UpdateTooltip()
 	if E.db.locplus.petlevel then
 		local low,high = tourist:GetBattlePetLevel(zoneText)
 		if low ~= nil or high ~= nil then
-			GameTooltip:AddDoubleLine(L["Battle Pet level :"], low == high and low or string.format("%d-%d", low, high), 1, 1, 1, selectioncolor)
+			GameTooltip:AddDoubleLine(L["Battle Pet level"].. " :", low == high and low or string.format("%d-%d", low, high), 1, 1, 1, selectioncolor)
 		end
 	end
 
@@ -396,8 +391,6 @@ local function LocPanel_OnClick(self, btn)
 		end
 	end
 	if btn == "RightButton" then
-		--local ACD = LibStub("AceConfigDialog-3.0")
-		--ACD:SelectGroup("ElvUI", "locplus")
 		E:ToggleConfig()
 	end
 end
@@ -406,6 +399,76 @@ end
 local color = { r = 1, g = 1, b = 1 }
 local function unpackColor(color)
 	return color.r, color.g, color.b
+end
+
+local FISH_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\fish.tga:14:14|t"
+local PET_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\pet.tga:14:14|t"
+local LEVEL_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\levelup.tga:14:14|t"
+
+-- Simple PetBattle Range
+local function LocSimplePet(zoneText)
+
+	local slevel = tourist:GetBattlePetLevelString(zoneText)
+	if slevel ~= nil then
+		local dlevel = string.format(" (%s) ", slevel) or ""
+		
+		if E.db.locplus.showicon then
+			return dlevel..PET_ICON
+		else
+			return dlevel
+		end
+	end
+	
+	return ""
+end
+
+-- Zone level range
+local function LocSimpleLevelRange(zoneText)
+	local zoneText = GetRealZoneText()
+	local low, high = tourist:GetLevel(zoneText)
+	if low >= 1 and high >= 1 then
+		local r, g, b = tourist:GetLevelColor(zoneText)
+		local dlevel = string.format("|cff%02x%02x%02x (%d-%d) |r", r*255, g*255, b*255, low, high) or ""
+		
+		if E.db.locplus.showicon then
+			return dlevel..LEVEL_ICON
+		else
+			return dlevel
+		end
+	end
+	
+	return ""
+end
+
+-- Simple Fishing Level
+local function LocSimpleFishing(minFish)
+	local zoneText = GetRealZoneText()
+	local minFish = tourist:GetFishingLevel(zoneText)
+	local _, _, _, fishing = GetProfessions()
+	local r, g, b = 1, 0, 0
+	local r1, g1, b1 = 1, 0, 0
+	local playerFlvl
+	if minFish then
+		if fishing ~= nil then
+			_, _, playerFlvl = GetProfessionInfo(fishing)
+			if minFish < playerFlvl then
+				r, g, b = 0, 1, 0
+				r1, g1, b1 = 0, 1, 0
+			elseif minFish == playerFlvl then
+				r, g, b = 1, 1, 0
+				r1, g1, b1 = 1, 1, 0
+			end
+		end
+		
+		local dfish = string.format(" (|cff%02x%02x%02x%d|r", r1*255, g1*255, b1*255, playerFlvl).."-"..(string.format("|cff%02x%02x%02x%d|r) ", r*255, g*255, b*255, minFish)) or ""
+		if E.db.locplus.showicon then
+			return dfish..FISH_ICON
+		else
+			return dfish
+		end
+	else
+		return ""
+	end
 end
 
 -- Location panel
@@ -427,7 +490,6 @@ function LPB:CreateLocPanel()
 	loc_panel:SetScript("OnUpdate", function(self,event,...)
 		local subZoneText = GetMinimapZoneText() or ""
 		local zoneText = GetRealZoneText() or UNKNOWN;
-		local displaylvl = LocLevelRange(zoneText) or ""
 		local displayLine
 
 		-- zone and subzone
@@ -441,24 +503,41 @@ function LPB:CreateLocPanel()
 			displayLine = subZoneText
 		end
 		
-		-- Show Level Range
-		if E.db.locplus.displayLevel then
+		-- Show Other (Level, Battle Pet Level, Fishing)
+		if E.db.locplus.displayOther == 'RLEVEL' then
+			local displaylvl = LocSimpleLevelRange(zoneText) or ""
 			if displaylvl ~= "" then
 				displayLine = displayLine..displaylvl
 			end
+		elseif E.db.locplus.displayOther == 'PET' then
+			local displaypet = LocSimplePet(zoneText) or ""
+			if displaypet ~= "" then
+				displayLine = displayLine..displaypet
+			end
+		elseif E.db.locplus.displayOther == 'PFISH' then
+			local displayfish = LocSimpleFishing(minFish) or ""
+			if displayfish ~= "" then
+				displayLine = displayLine..displayfish
+			end
+		else
+			displayLine = displayLine
 		end
 		
 		-- Coloring
 		if displayLine ~= "" then
 			local inInstance, _ = IsInInstance()
+			local pvpType = GetZonePVPInfo()
+			local r1, g1, b1 = tourist:GetFactionColor(zoneText)
 			
 			self.Text:SetText(displayLine)
 			
 			if E.db.locplus.customColor == 1 then
 				if inInstance then
 					self.Text:SetText(string.format("|cff%02x%02x%02x%s|r", 255, 77, 0, displayLine)) -- Redish color when in an instance
+				elseif (pvpType == "sanctuary") then
+					self.Text:SetText(string.format("|cff%02x%02x%02x%s|r", 104.55, 204, 239.7, displayLine)) -- LibTourist sanctuary coloring fix
 				else
-					self.Text:SetTextColor(LocStatus(color))
+					self.Text:SetTextColor(r1*255, g1*255, b1*255)
 				end
 			elseif E.db.locplus.customColor == 2 then
 				self.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
@@ -477,7 +556,7 @@ function LPB:CreateLocPanel()
 		else
 			self:SetWidth(fixedwidth)
 			if E.db.locplus.trunc then
-				self.Text:SetWidth(fixedwidth-18)
+				self.Text:SetWidth(fixedwidth - 18)
 				self.Text:SetWordWrap(false)
 			elseif autowidth > fixedwidth then
 				self:SetWidth(autowidth)

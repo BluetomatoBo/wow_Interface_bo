@@ -7,7 +7,8 @@ P['locplus'] = {
 	['both'] = true,
 	['combat'] = false,
 	['dig'] = true,
-	['displayLevel'] = false,
+	['displayOther'] = "RLEVEL",
+	['showicon'] = true,
 -- Tooltip
 	['tt'] = true,
 	['ttcombathide'] = true,
@@ -46,7 +47,11 @@ P['locplus'] = {
 	['lpfontflags'] = "NONE",
 }
 
-local newsign = "|cffff4400 ("..NEW..")|r"
+local newsign = "|TInterface\\OptionsFrame\\UI-OptionsFrame-NewFeatureIcon:14:14|t"
+
+local FISH_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\fish.tga:14:14|t"
+local PET_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\pet.tga:14:14|t"
+local LEVEL_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\levelup.tga:14:14|t"
 
 function LPB:AddOptions()
 	E.Options.args.locplus = {
@@ -109,18 +114,31 @@ function LPB:AddOptions()
 						get = function(info) return E.db.locplus[ info[#info] ] end,
 						set = function(info, value) E.db.locplus[ info[#info] ] = value; LPB:CoordsDig() end,					
 					},
-					displayLevel = {
+					displayOther = {
 						order = 3,
-						name = LEVEL_RANGE..newsign,
-						--desc = L["The frame is not shown unless you mouse over the frame."],
-						type = 'toggle',
-						width = "full",	
+						name = OTHER..newsign,
+						type = 'select',
+						desc = L["Show additional info in the Location Panel."],
+							values = {
+								['NONE'] = L['None'],
+								['RLEVEL'] = LEVEL_ICON.." "..LEVEL_RANGE,
+								['PET'] = PET_ICON.." "..L['Battle Pet Level'],
+								['PFISH'] = FISH_ICON.." "..PROFESSIONS_FISHING,
+							},
 						get = function(info) return E.db.locplus[ info[#info] ] end,
 						set = function(info, value) E.db.locplus[ info[#info] ] = value; end,					
 					},
+					showicon = {
+						order = 5,
+						name = EMBLEM_SYMBOL..newsign,
+						type = 'toggle',
+						disabled = function() return E.db.locplus.displayOther == 'NONE' end,
+						get = function(info) return E.db.locplus[ info[#info] ] end,
+						set = function(info, value) E.db.locplus[ info[#info] ] = value; end,					
+					},					
 					mouseover = {
-						order = 4,
-						name = L["Mouse Over"]..newsign,
+						order = 6,
+						name = L["Mouse Over"],
 						desc = L["The frame is not shown unless you mouse over the frame."],
 						type = 'toggle',
 						width = "full",	
@@ -128,7 +146,7 @@ function LPB:AddOptions()
 						set = function(info, value) E.db.locplus[ info[#info] ] = value; LPB:MouseOver() end,					
 					},
 					malpha = {
-						order = 5,
+						order = 7,
 						type = "range",
 						name = L["Alpha"],
 						desc = L["Change the alpha level of the frame."],
@@ -136,7 +154,7 @@ function LPB:AddOptions()
 						disabled = function() return not E.db.locplus.mouseover end,
 						get = function(info) return E.db.locplus[ info[#info] ] end,
 						set = function(info, value) E.db.locplus[ info[#info] ] = value; LPB:MouseOver() end,
-					},				
+					},			
 				},
 			},
 			gen_tt = {
