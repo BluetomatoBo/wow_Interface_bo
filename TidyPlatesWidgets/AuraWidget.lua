@@ -875,7 +875,8 @@ function UpdateWidget(frame)
 		if frame.currentAuraCount ~= frame.previousAuraCount then
 			frame.previousAuraCount = frame.currentAuraCount
 			--TidyPlates:RequestDelegateUpdate()		-- Delegate Update, For Debuff Widget-Controlled Scale and Opacity Functions
-			TidyPlates:RequestDelegateUpdate(frame:GetParent():GetParent())		-- Delegate Update, For Debuff Widget-Controlled Scale and Opacity Functions
+			
+			TidyPlates:RequestDelegateUpdate(frame:GetParent().PlateParent)		-- Delegate Update, For Debuff Widget-Controlled Scale and Opacity Functions
 		end
 end
 

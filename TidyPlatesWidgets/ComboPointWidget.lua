@@ -12,6 +12,8 @@ local comboWidgetPath = "Interface\\Addons\\TidyPlatesWidgets\\ComboWidget\\"
 
 local WidgetList = {}
 
+local Anticipation =  GetSpellInfo(115190)
+
 -- Update Graphics
 local function UpdateWidgetFrame(frame)
 		local points 
@@ -19,7 +21,7 @@ local function UpdateWidgetFrame(frame)
 		if points and points > 0 then 
 			
 			-- Anticipation
-			local name, rank, icon, count, _, duration, expirationTime, _,_,_,_= UnitAura("player", "Anticipation")
+			local name, rank, icon, count, _, duration, expirationTime, _,_,_,_= UnitAura("player", Anticipation)
 			if name and count > 0 then
 				points = points + count
 			end

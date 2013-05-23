@@ -110,14 +110,12 @@
 	<!-- For Testing -->
 	<!--
 	<Script file="TidyPlatesCore_6_9_Trial.lua"/>
-	
+	<Script file="MetasequoiaCore.lua"/>
 	-->
 	<Script file="TidyPlatesCore.lua"/>
 	
 	<Script file="TidyPlatesUtility.lua"/>
 	<Script file="TidyPlatesDefaults.lua"/>
 	<Script file="TidyPlatesPanel.lua"/>
-	<Script file="TidyPlatesMinimapButton.lua"/>
-	<Script file="TidyPlatesSpellCastMonitor.lua"/>	
-	
+	<Script file="TidyPlatesMinimapButton.lua"/>	
 </Ui>

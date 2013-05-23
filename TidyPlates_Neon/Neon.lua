@@ -16,6 +16,7 @@ local NonLatinLocales = { ["ruRU"] = true, ["koKR"] = true, ["zhCN"] = true, ["z
 if NonLatinLocales[GetLocale()] == true then font = NAMEPLATE_FONT end
 
 
+--   /run print(TidyPlates.ActiveThemeTable["Default"].frame.y)
 ---------------------------------------------
 -- Default Style
 ---------------------------------------------

@@ -513,7 +513,7 @@ end
 
 -- "By Threat (Low) Tank"
 local function WarningBorderFunctionByThreatTank(unit)
-	if unit.InCombatLockdown and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" then
+	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" then
 		if unit.threatValue < 3 then 
 			if IsTankedByAnotherTank(unit) then return else	return ColorFunctionRawTank(unit) end
 		end
@@ -526,8 +526,7 @@ local function WarningBorderFunctionByThreat(unit)
 	--if unit.reaction == "HOSTILE" then print(unit.name, unit.threatValue) end
 	--print("Tank Aura:", TidyPlatesWidgets.IsTankingAuraActive)
 	
-	if unit.InCombatLockdown and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" then
-		
+	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" then
 		if (LocalVars.ThreatMode == THREATMODE_AUTO and TidyPlatesWidgets.IsTankingAuraActive) 
 			or LocalVars.ThreatMode == THREATMODE_TANK then
 				if IsTankedByAnotherTank(unit) then return

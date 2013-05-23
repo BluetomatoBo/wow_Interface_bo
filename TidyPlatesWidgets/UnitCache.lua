@@ -118,7 +118,7 @@ function UnitCacheMonitorEvents.UPDATE_MOUSEOVER_UNIT(self, ...)
 	if inInstance then return end
 	
 	-- Vars
-	local name, class, realm, description, unitadded
+	local name, class, realm, description, unitadded, descriptionAlt
 	
 	-- Player
 	------------------------------------

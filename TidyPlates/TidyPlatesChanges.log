@@ -1,6 +1,39 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   
 
+
+6.10.2
+---------------------------
+- Panel: New Option: Performance Mode.  This enables the performance improvements introduced in 6.10.  By default this is NOT enabled.
+- Using "Performance Mode" may cause problems with other nameplate addons.  
+
+6.10.1
+---------------------------
+- Panel: Reverted the dropdown menu init changes from beta4.  Seems to be messing up the panel.
+- Core: Blizz Spell Shadow: More thoroughly hidden
+- Hub: Threat/Warning Glow fix
+- Core: Spelltext; "Font Not Set" error - Hopefully fixed
+
+
+6.10
+---------------------------
+Beta 6:
+- Reorganized event handling structure to rigorously check the visibility of the parent nameplate to prevent showing previously hidden nameplates or hiding previously shown nameplates
+
+Beta5
+- Combo Points: "Anticipation" fix for non-english regions?  need to test
+- Core: Back to hooking the base plate.
+- Healertrack: Strsplit fix  (thought I fixed that several months ago.. hmmm...)
+
+Beta4
+- Refactored a bit of the Core
+- Panel: Dropdown menu will now init when the interface panel is shown, rather than on load
+- other stuff.  too tired to remember.
+
+
+
+- Reparent Tidy Plates Frames to UIParent, Reanchor back to base nameplate = Performance boost.  Sweet.
+
 6.9.9
 ---------------------------
 - Hub: Added "Selective Optional Text"
@@ -12,6 +45,7 @@ Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.j
 - Hub: Added a warning, notifying the user when they're not using a Hub-compatible theme.
 - Hub: Added a divider line between Headings
 - Aura Widget: The old method of applying the aura widget has been re-added; The new method (described somewhere below) is still preferred!
+- Hub: Added "Enable External Widgets" checkbox, to control the running of the Global widget functions described in 6.9.6  *
 
 6.9.8
 ---------------------------

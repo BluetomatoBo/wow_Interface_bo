@@ -309,7 +309,7 @@ function Events.COMBAT_LOG_EVENT_UNFILTERED(...)
 	-- Combat Log Unfiltered
 	local timestamp, combatevent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlag, spellid  = ...		-- WoW 4.2
 
-	if IsEnemyPlayer(sourceFlags) and sourceGUID then					-- Filter: Only Enemy Players
+	if IsEnemyPlayer(sourceFlags) and sourceGUID and sourceName then					-- Filter: Only Enemy Players
 		if SpellEvents[combatevent] then								-- Filter: Specific spell events
 			if HealerSpells[spellid] then								-- Filter: Known Healing Spells
 				local rawName = strsplit("-", sourceName)				-- Strip server name
