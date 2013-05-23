@@ -1,5 +1,5 @@
-## Interface: 50200
-## X-Curse-Packaged-Version: r38-release
+## Interface: 50300
+## X-Curse-Packaged-Version: r40-release
 ## X-Curse-Project-Name: TooltipItemInfo
 ## X-Curse-Project-ID: tooltip-item-info
 ## X-Curse-Repository-ID: wow/tooltip-item-info/mainline

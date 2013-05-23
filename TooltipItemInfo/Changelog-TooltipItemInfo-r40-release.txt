@@ -1,0 +1,13 @@
+------------------------------------------------------------------------
+r40 | stanzilla | 2013-05-21 16:32:42 +0000 (Tue, 21 May 2013) | 1 line
+Changed paths:
+   A /tags/r40-release (from /trunk:39)
+
+Tagging as r40-release
+------------------------------------------------------------------------
+r39 | stanzilla | 2013-05-21 13:17:27 +0000 (Tue, 21 May 2013) | 1 line
+Changed paths:
+   M /trunk/TooltipItemInfo.toc
+
+Let's escalate some TOCs! (5.3 Update)
+------------------------------------------------------------------------
