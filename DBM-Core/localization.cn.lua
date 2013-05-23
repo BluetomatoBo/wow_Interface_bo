@@ -281,6 +281,8 @@ DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT2		= "声音警报：$spell:%s的消散时间
 DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "声音警报：$spell:%s的持续时间正计时"
 DBM_CORE_AUTO_YELL_OPTION_TEXT			= "当你受到$spell:%s影响时时大喊"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "" .. UnitName("player") .. "中了%s！"
+DBM_CORE_AUTO_RANGE_OPTION_TEXT			= "距离监视(%s)：$spell:%s"--string used for range so we can use things like "5/2" as a value for that field
+DBM_CORE_AUTO_RANGE_OPTION_TEXT_SHORT		= "距离监视(%s)"--For when a range frame is just used for more than one thing
 
 
 -- New special warnings
@@ -323,3 +325,9 @@ DBM_CORE_LAG_CHECKING				= "延时检测--五秒后反馈结果..."
 DBM_CORE_LAG_HEADER					= "Deadly Boss Mods - 延时检测"
 DBM_CORE_LAG_ENTRY					= "%s：世界延时[%d毫秒] / 本地延时[%d毫秒]"
 DBM_CORE_LAG_FOOTER					= "未反馈此次检测的团员:%s"
+
+DBM_CORE_SOUNDGRIL_NAME_YIKE		= "夏一可"
+DBM_CORE_SOUNDGRIL_TEXT_YIKE		= "    夏一可，又名可可超人，女，真名不详，《我叫MT》中法师和美屡的配音，魔兽世界知名解说，部落控。2009年进入西南科技大学。高三时因参加唱响艾泽拉斯而成名。"
+
+DBM_CORE_SOUNDGRIL_NAME_YUN			= "芷小芸"
+DBM_CORE_SOUNDGRIL_TEXT_YUN			= "    芷小芸，来自中国台湾省的魔兽世界美女玩家，现为台服世界之树《黑手之乡》公会人类死亡骑士。"

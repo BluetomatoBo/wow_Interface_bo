@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndXL	= mod:NewSound(nil, "SoundXL", true)
 
-mod:SetRevision(("$Revision: 9476 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9560 $"):sub(12, -3))
 mod:SetCreatureID(68065, 70212, 70235, 70247)--flaming 70212. Frozen 70235, Venomous 70247
 mod:SetMainBossID(68065)
 mod:SetQuestID(32748)

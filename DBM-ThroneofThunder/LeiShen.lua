@@ -89,6 +89,7 @@ local timerSuperChargedConduits			= mod:NewBuffActiveTimer(47, 137045)--Actually
 local timerDecapitateCD					= mod:NewCDTimer(50, 134912)--Cooldown with some variation. 50-57ish or so.
 local timerThunderstruck				= mod:NewCastTimer(4.8, 135095)--4 sec cast. + landing 0.8~1.3 sec.
 local timerThunderstruckCD				= mod:NewNextTimer(46, 135095)--Seems like an exact bar
+local timerCrashingThunder				= mod:NewNextTimer(30, 135150)
 --Phase 2
 local timerFussionSlashCD				= mod:NewCDTimer(42.5, 136478)
 local timerLightningWhip				= mod:NewCastTimer(4, 136850)
@@ -99,6 +100,7 @@ local timerViolentGaleWinds				= mod:NewBuffActiveTimer(18, 136889)
 local timerViolentGaleWindsCD			= mod:NewNextTimer(30.5, 136889)
 --Heroic
 local timerHelmOfCommand				= mod:NewCDTimer(14, 139011)
+local timerCommandTarget				= mod:NewTargetTimer(8, 139011)
 
 local berserkTimer						= mod:NewBerserkTimer(900)--Confirmed in LFR, probably the same in all modes though?
 
@@ -181,6 +183,7 @@ function mod:OnCombatStart(delay)
 	southDestroyed = false
 	westDestroyed = false
 	timerThunderstruckCD:Start(25-delay)
+	timerCrashingThunder:Start(7-delay)
 	timerDecapitateCD:Start(40-delay)--First seems to be 45, rest 50. it's a CD though, not a "next"
 	berserkTimer:Start(-delay)
 	self:RegisterShortTermEvents(
@@ -378,6 +381,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		specWarnOverloadedCircuits:Show()
 	elseif args.spellId == 139011 then
 		helmOfCommandTarget[#helmOfCommandTarget + 1] = args.destName
+		timerCommandTarget:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnHelmOfCommand:Show()
 			DBM.Flash:Show(1, 0, 0)
@@ -470,9 +474,12 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
-	if spellId == 135150 and destGUID == UnitGUID("player") and self:AntiSpam(3, 4) then
-		specWarnCrashingThunder:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
+	if spellId == 135150 and self:AntiSpam(10, 4) then
+		if destGUID == UnitGUID("player") then
+			specWarnCrashingThunder:Show()
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
+		end
+		timerCrashingThunder:Start()
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -620,6 +627,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cjcn.mp3") --超級充能		
 		intermissionActive = true
 		timerThunderstruckCD:Cancel()
+		timerCrashingThunder:Cancel()
 		timerDecapitateCD:Cancel()
 		timerFussionSlashCD:Cancel()
 		timerLightningWhipCD:Cancel()

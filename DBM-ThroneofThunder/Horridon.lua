@@ -8,7 +8,7 @@ local sndOrb	= mod:NewSound(nil, "SoundOrb", mod:IsTank())
 local LibRange = LibStub("LibRangeCheck-2.0")
 --BH ADD END
 
-mod:SetRevision(("$Revision: 9476 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9578 $"):sub(12, -3))
 mod:SetCreatureID(68476)
 mod:SetQuestID(32745)
 mod:SetZone()
@@ -75,7 +75,7 @@ local specWarnHex				= mod:NewSpecialWarningYou(136512)
 local specWarnHexOther			= mod:NewSpecialWarningTarget(136512)
 local specWarnJalak				= mod:NewSpecialWarningSwitch("ej7087", mod:IsTank())--To pick him up (and maybe dps to switch, depending on strat)
 local specWarnRampage			= mod:NewSpecialWarningTarget(136821, mod:IsTank() or mod:IsHealer())--Dog is pissed master died, need more heals and cooldowns. Maybe warn dps too? his double swipes and charges will be 100% worse too.
-local specWarnDireCall			= mod:NewSpecialWarningSpell(137458, nil, nil, nil, 2)--Heroic
+local specWarnDireCall			= mod:NewSpecialWarningCount(137458, nil, nil, nil, 2)--Heroic
 local specWarnDireFixate		= mod:NewSpecialWarningRun(140946)--Heroic
 --BH ADD
 local specWarnSunDebuff			= mod:NewSpecialWarningSpell(136719, mod:IsHealer())
@@ -94,7 +94,7 @@ local timerPuncture				= mod:NewTargetTimer(90, 136767, nil, mod:IsTank() or mod
 local timerPunctureCD			= mod:NewCDTimer(11, 136767, nil, mod:IsTank() or mod:IsHealer())
 local timerJalakCD				= mod:NewNextTimer(10, "ej7087", nil, nil, nil, 2457)--Maybe it's time for a better worded spawn timer than "Next mobname". Maybe NewSpawnTimer with "mobname activates" or something.
 local timerBestialCryCD			= mod:NewNextCountTimer(10, 136817)
-local timerDireCallCD			= mod:NewCDTimer(62, 137458)--Heroic (every 62-70 seconds)
+local timerDireCallCD			= mod:NewCDCountTimer(62, 137458)--Heroic (every 62-70 seconds)
 
 local berserkTimer				= mod:NewBerserkTimer(720)
 
@@ -178,7 +178,7 @@ function mod:OnCombatStart(delay)
 	timerChargeCD:Start(31-delay)--31-35sec variation
 	berserkTimer:Start(-delay)
 	if self:IsDifficulty("heroic10", "heroic25") then
-		timerDireCallCD:Start(-delay)
+		timerDireCallCD:Start(-delay, 1)
 		--BH ADD
 		if mod:IsHealer() then
 			if select(2, UnitClass("player")) == "PRIEST" then
@@ -234,8 +234,8 @@ function mod:SPELL_CAST_START(args)
 	elseif args.spellId == 137458 then
 		direNumber = direNumber + 1
 		warnDireCall:Show(direNumber)
-		specWarnDireCall:Show()
-		timerDireCallCD:Start()--CD still reset when he breaks a door?
+		specWarnDireCall:Show(direNumber)
+		timerDireCallCD:Start(nil, direNumber+1)--CD still reset when he breaks a door?
 		--BH ADD
 		if mod:IsHealer() then
 			if select(2, UnitClass("player")) == "PRIEST" then
@@ -493,7 +493,7 @@ function mod:UNIT_DIED(args)
 		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
-	elseif cid == 69176 then--shamen
+	elseif cid == 69176 then--shaman
 		shamandead = shamandead + 1
 		if shamandead == 3 then
 			if self.Options.RangeFrame then

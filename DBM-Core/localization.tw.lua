@@ -143,6 +143,7 @@ DBM_CORE_BOSSHEALTH_HIDE_FRAME		= "關閉血量框架"
 DBM_CORE_ALLIANCE				= "聯盟"
 DBM_CORE_HORDE					= "部落"
 
+DBM_CORE_WORLD_BOSS					= "世界首領"
 DBM_CORE_UNKNOWN					= "未知"
 DBM_CORE_LEFT						= "左"
 DBM_CORE_RIGHT						= "右"
@@ -272,6 +273,8 @@ DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT2		= "倒計時：$spell:%s的消散時間"
 DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "正計時：$spell:%s的持續時間"
 DBM_CORE_AUTO_YELL_OPTION_TEXT			= "自動喊話：當你中了$spell:%s時"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "" .. UnitName("player") .. "中了%s!"
+DBM_CORE_AUTO_RANGE_OPTION_TEXT			= "距離監視(%s)：$spell:%s"--string used for range so we can use things like "5/2" as a value for that field
+DBM_CORE_AUTO_RANGE_OPTION_TEXT_SHORT		= "距離監視(%s)"--For when a range frame is just used for more than one thing
 
 
 -- New special warnings
@@ -318,3 +321,9 @@ DBM_CORE_LAG_FOOTER					= "未反饋此次檢測的團員:%s"
 DBM_CORE_GUILDAD_HEADER_GENERIC		= "黑手之鄉簡介"
 DBM_CORE_GUILDAD_GENERIC			= "        黑手之鄉成立于2007年10月17日，前身是國服三區雷斧堡壘的聯盟公會盟誓的二團。團長一直是阿爾貝裏希（在台服改名爲Alberich）。\n\n        2010年1月，黑手的骨幹十多名玩家一起轉戰台服pve服務器眾星之子，看重的就是這個服務器良好的pve氛圍，希望能在台服繼續我們的夢想。4.2國服同步後，由于團隊已經一部分本土化，亦對台服良好的玩家素質，服務器良好的raid氛圍表示滿意，團隊留在了台服並准備一直留下去。\n\n        建會以來，團隊一直保持了比較強的開荒強度，鍛煉了團隊，也收集了很多優秀的宅男。公會現有25人團隊一支，從3.3至今所有版本25人H模式當前版本皆全通。5.1版本25人團排名臺服第八，並轉服至世界之樹，5.2版本25人團隊進度服務器領先！\n\n        公會活動時間：開荒期間周四五六 周一二三(也就是除了周日都有活動)，farm期間周五周六周一周二(或者更少)，晚上7:40開組，8:00開打，12:00左右結束(平時有的時候早點，不到12點就結束，周五周六到12：00左右)。"
 DBM_CORE_GUILDAD_FOOTER_GENERIC		= "|h|cff3588ff重點招募\n術士       元素薩       奶僧       奶薩\n要求:加QQ談   聯系QQ:313082736 注明wow和自己的職業|r|h"
+
+DBM_CORE_SOUNDGRIL_NAME_YIKE		= "夏一可"
+DBM_CORE_SOUNDGRIL_TEXT_YIKE		= "    夏一可，又名可可超人，女，真名不詳，《我叫MT》中法師和美屢的配音，魔獸世界知名解說，部落控。2009年進入西南科技大學。高三時因參加唱響艾澤拉斯而成名。"
+
+DBM_CORE_SOUNDGRIL_NAME_YUN			= "芷小芸"
+DBM_CORE_SOUNDGRIL_TEXT_YUN			= "    芷小芸，來自中國台灣省的魔獸世界美女玩家，現為台服世界之樹《黑手之鄉》公會人類死亡騎士。"

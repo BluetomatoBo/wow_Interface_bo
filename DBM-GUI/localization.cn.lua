@@ -12,6 +12,7 @@ L.TranslationByPrefix		= "本地化："
 L.TranslationBy 			= "Diablohu & yleaf"
 L.Website					= "拜访我们的讨论与支持论坛:|cFF73C2FBhttp://bbs.ngacn.cc/read.php?tid=5397726&page=1|r (语音版由Sunlcy维护)"
 L.WebsiteButton				= "论坛"
+L.SoundMM					= "|cFFC3C2FB[查看配音介绍]|r"
 
 L.Checkinstance				= "检查进度"
 L.Checkver					= "检查版本"

@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(820, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9516 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9566 $"):sub(12, -3))
 mod:SetCreatureID(69017)--69070 Viscous Horror, 69069 good ooze, 70579 bad ooze (patched out of game, :\)
 mod:SetQuestID(32751)
 mod:SetZone()
@@ -363,7 +363,6 @@ function mod:UNIT_DIED(args)
 	if bigOozeGUIDS[args.destGUID] then
 		bigOozeAlive = bigOozeAlive - 1
 		bigOozeGUIDS[args.destGUID] = nil
---		print("DBM Debug Died: ", bigOozeAlive)
 	end
 end
 

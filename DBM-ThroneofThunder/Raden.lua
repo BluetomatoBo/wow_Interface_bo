@@ -14,9 +14,10 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START",
+	"SPELL_CAST_SUCCESS",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"SPELL_CAST_SUCCESS"
+	"UNIT_SPELLCAST_SUCCEEDED"
 )
 
 local warnMurderousStrike						= mod:NewSpellAnnounce(138333, 4, nil, mod:IsTank() or mod:IsHealer())--Tank (think thrash, like sha. Gains buff, uses on next melee attack)
@@ -43,6 +44,12 @@ local warnUnstableAnima							= mod:NewTargetAnnounce(138288, 4)
 local timerUnstableAnima						= mod:NewTimer(15, "timerAnima", 138295)
 local specWarnUnstableAnima						= mod:NewSpecialWarningYou(138288)
 local specWarnUnstableAnimaOther				= mod:NewSpecialWarningTarget(138288)
+
+local warnPhase2				= mod:NewPhaseAnnounce(2, 2)
+
+local warnCallEssence			= mod:NewSpellAnnounce(139040, 4, 139071)
+local specWarnCallEssence		= mod:NewSpecialWarningSpell(139040, mod:IsDps())
+local timerCallEssenceCD		= mod:NewNextTimer(15.5, 139040)
 
 local warnRuinBolt								= mod:NewSpellAnnounce(139087)
 
@@ -305,6 +312,17 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	end
 end
+--"<299.6 01:54:51> CHAT_MSG_MONSTER_YELL#You still think victory possible? Fools!#Ra-den#####0#0##0#298#nil#0#false#false",
+--"<299.9 01:54:51> [UNIT_SPELLCAST_SUCCEEDED] Ra-den [boss1:Ruin::0:139073]
+function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
+	if spellId == 139040 and self:AntiSpam(2) then--Call Essence
+		warnCallEssence:Show()
+		specWarnCallEssence:Show()
+		timerCallEssenceCD:Start()
+	elseif spellId == 139073 and self:AntiSpam(2) then--Phase 2 (the Ruin Trigger)
+		self:SendSync("Phase2")
+	end
+end
 
 function mod:OnSync(msg, msg2)
 	if not combat then return end
@@ -341,5 +359,14 @@ function mod:OnSync(msg, msg2)
 			specWarnVitarun:Show()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\movesoon.mp3")
 		end
+	elseif msg == "Phase2" then
+		warnPhase2:Show()
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ptwo.mp3")
+		timerSummonCracklingStalker:Cancel()
+		timerSummonSanguineHorror:Cancel()
+		timerMurderousStrikeCD:Cancel()
+		timerFatalStrikeCD:Cancel()
+		timerMaterialsofCreationCD:Cancel()
+		timerCallEssenceCD:Start()
 	end
 end

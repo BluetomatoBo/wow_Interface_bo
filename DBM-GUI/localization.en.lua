@@ -8,6 +8,7 @@ L.TranslationByPrefix		= "Translated by "
 L.TranslationBy 			= nil -- your name here, localizers!
 L.Website					= "Visit our new discussion and support forums at |cFF73C2FBwww.deadlybossmods.com|r (hosted by Elitist Jerks!)"
 L.WebsiteButton				= "Forums"
+L.SoundMM					= "Voice Actor"
 
 L.OTabBosses	= "Bosses"
 L.OTabOptions	= "Options"

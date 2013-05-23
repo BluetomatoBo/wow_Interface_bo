@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9483 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9566 $"):sub(12, -3))
 mod:SetCreatureID(68036)--Crimson Fog 69050, 
 mod:SetQuestID(32750)
 mod:SetZone()
@@ -79,7 +79,6 @@ local timerObliterateCD				= mod:NewNextTimer(80, 137747)--Heroic
 
 local berserkTimer					= mod:NewBerserkTimer(600)
 
---mod:AddBoolOption("ArrowOnBeam", true)
 mod:AddBoolOption("SetIconRays", true)
 mod:AddBoolOption("SetIconLifeDrain", true)
 mod:AddBoolOption("InfoFrameLife", not mod:IsHealer()) -- may be need special warning or generic warning high stack player? or do not needed at all?
@@ -118,10 +117,12 @@ local lightmaker = {}
 local linemaker = {}
 local lightcheck = {}
 local lightphase = false
+local paranmu = 0
 mod:AddBoolOption("HudMAP", true, "sound")
 mod:AddBoolOption("DXsound", false, "sound")
 mod:AddDropdownOption("optDD", {"nodd", "DD1", "DD2", "DD3", "HDD1", "HDD2", "HDD3"}, "nodd", "sound")
 mod:AddEditBoxOption("soundhold", 50, "20", "sound")
+mod:AddEditBoxOption("sounddisp", 50, "15", "sound")
 mod:AddEditBoxOption("xx1", 300, L.xx1noset, "sound")
 mod:AddEditBoxOption("xx2", 300, L.xx2noset, "sound")
 mod:AddEditBoxOption("xx3", 300, L.xx3noset, "sound")
@@ -164,6 +165,11 @@ end
 local function warnDarkParasiteTargets()
 	warnDarkParasite:Show(table.concat(darkParasiteTargets, "<, >"))
 	table.wipe(darkParasiteTargets)
+	if UnitDebuff("player", GetSpellInfo(133597)) then
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_nbjs.mp3")--你被寄生		
+	elseif mod:IsHealer() then
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hajs.mp3")--黑暗寄生
+	end
 end
 
 local function warnBeam()
@@ -175,9 +181,6 @@ local function warnBeam()
 end
 
 local function BeamEnded()
---[[	if mod.Options.ArrowOnBeam then
-		DBM.Arrow:Hide()
-	end--]]
 	timerLingeringGazeCD:Start(17)
 	timerForceOfWillCD:Start(19)
 	if mod:IsDifficulty("heroic10", "heroic25") then
@@ -243,7 +246,8 @@ function mod:OnCombatStart(delay)
 	lightphase = false
 	rgbcount = 0
 	lifecount = 0
-	paracount = 0	
+	paracount = 0
+	paranmu = 0
 	table.wipe(lightmaker)
 	table.wipe(linemaker)
 	table.wipe(lightcheck)
@@ -309,7 +313,7 @@ function mod:OnCombatEnd()
 	if self.Options.InfoFrame or self.Options.InfoFrameLife then
 		DBM.InfoFrame:Hide()
 	end
-	if CVAR then--CVAR was set on pull which means we changed it, cahnge it back
+	if CVAR then--CVAR was set on pull which means we changed it, change it back
 		SetCVar("particleDensity", CVAR)
 	end
 end
@@ -326,9 +330,6 @@ do
 		table.sort(darkParasiteTargetsIcons, sort_by_group)
 		local parasiteIcon = 5
 		for i, v in ipairs(darkParasiteTargetsIcons) do
-			-- DBM:SetIcon() is used because of follow reasons
-			--1. It checks to make sure you're on latest dbm version, if you are not, it disables icon setting so you don't screw up icons (ie example, a newer version of mod does icons differently)
-			--2. It checks global dbm option "DontSetIcons"
 			self:SetIcon(v, parasiteIcon)
 			parasiteIcon = parasiteIcon - 1
 		end
@@ -486,25 +487,31 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 			end
 		end
+		paranmu = paranmu + 1
 		if args:IsPlayer() then
 			specWarnDarkParasite:Show()
 			yellDarkParasite:Yell()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_nbjs.mp3")--你被寄生
 			local soundholdtime = tonumber(mod.Options.soundhold)
-			if soundholdtime > 0 then
-				sndWOP:Schedule(soundholdtime, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\holdit.mp3") --快開自保
-				specWarnHold:Schedule(soundholdtime,soundholdtime)
+			if soundholdtime > 0 then				
 				self:Schedule(soundholdtime, function()
 					if UnitDebuff("player", GetSpellInfo(133597)) then
 						DBM.Flash:Show(1, 0, 0)
+						specWarnHold:Show(soundholdtime)
+						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\holdit.mp3") --快開自保
 					end
 				end)
 			end
-		elseif mod:IsHealer() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hajs.mp3")--黑暗寄生
 		end
 		if self:AntiSpam(5, 4) then
 			paracount = paracount + 1
+			local sounddisptime = tonumber(mod.Options.sounddisp)
+			if sounddisptime > 0 and sounddisptime < 30 then
+				self:Schedule(30 - sounddisptime, function()
+					if paranmu > 0 then
+						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\helpdispel.mp3") --幫忙驅散
+					end
+				end)
+			end
 			if paracount == 1 then
 				timerDarkParasiteCD:Start(60)
 			elseif paracount == 2 then
@@ -588,13 +595,10 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif args.spellId == 137727 and self.Options.SetIconLifeDrain then -- Life Drain current target.
 		self:SetIcon(args.destName, 0)
 	elseif args.spellId == 133597 then--Dark Parasite
-		if args:IsPlayer() then
-			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\holdit.mp3")
-			specWarnHold:Cancel()
-		end
 		if self.Options.SetIconOnParasite then
 			self:SetIcon(args.destName, 0)
 		end
+		paranmu = paranmu - 1
 	end
 end
 
@@ -617,10 +621,16 @@ function mod:SPELL_DAMAGE(_, _, _, _, destGUID, destName, _, _, spellId)
 	end
 end
 
-function mod:SPELL_MISSED(_, _, _, _, destGUID, _, _, _, spellId)
+function mod:SPELL_MISSED(_, _, _, _, destGUID, destName, _, _, spellId)
 	if spellId == 134044 and destGUID == UnitGUID("player") and self:AntiSpam(3, 1) then
 		specWarnLingeringGazeMove:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
+	elseif spellId == 133677 then --藍
+		lightcheck[destName] = "blue"
+	elseif spellId == 133738 then --紅
+		lightcheck[destName] = "red"
+	elseif spellId == 133732 then --黃
+		lightcheck[destName] = "yellow"
 	end
 end
 
@@ -632,9 +642,7 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
---Blizz doesn't like combat log anymore
---Currently very bugged too so warnings aren't working right (since fight isn't working right)
---Beams wildly jump targets and don't give new target a warning at all nor does it even show in damn combat log.
+--Blizz doesn't like combat log anymore for some spells
 function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 	if npc == crimsonFog or npc == amberFog or npc == azureFog then
 		if self:IsDifficulty("lfr25") and npc == azureFog and not lfrAzureFogRevealed then
@@ -664,7 +672,7 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 			end
 			--BH ADD END
 		end
-	elseif msg:find("spell:133795") then
+	elseif msg:find("spell:133795") then--Does show in combat log, but emote gives targetname 3 seconds earlier.
 		local target = DBM:GetFullNameByShortName(target)
 		warnLifeDrain:Show(target)
 		specWarnLifeDrain:Show(target)
@@ -734,9 +742,8 @@ function mod:CHAT_MSG_MONSTER_EMOTE(msg, npc, _, _, target)
 	end
 end
 
---Because blizz sucks and these do NOT show in combat log AND the emote only fires for initial application, but not for when a player dies and beam jumps.
---Reports are this is majorly fucked up in LFR, because the antispam in name doesn't work with server names (wtf? maybe only happens if server name strip is turned on?)
---I will not be able to debug for several hours but commenting in case someone else runs LFR before I do in 5 hours
+--Because blizz sucks and these do NOT show in combatlog AND the emote only fires for initial application,
+--we register high performance costing event to work around for beam jump detection
 function mod:UNIT_AURA(uId)
 	if UnitDebuff(uId, blueTracking) then
 		local name = DBM:GetUnitFullName(uId)
@@ -838,30 +845,5 @@ function mod:UNIT_DIED(args)
 				lightphase = false
 			end
 		end
-	end
-end
-
---As of live, they removed ability to detect this thus ability to detect beam direction also gone.
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName, _, _, spellId)
-	if spellId == 136316 and self:AntiSpam(2, 2) then--Disintegration Beam (clockwise)
---[[		timerLingeringGazeCD:Cancel()
-		warnDisintegrationBeam:Show()
-		specWarnDisintegrationBeam:Show(spellName, DBM_CORE_LEFT)
-		timerDisintegrationBeam:Start()
-		if self.Options.ArrowOnBeam then
-			DBM.Arrow:ShowStatic(90)
-		end
-		self:Schedule(64, BeamEnded)--Best to start next phase bars when this one ends, so artifically create a "phase end" trigger--]]
-		print("DBM Debug: Clockwise beam spellid re-enabled by blizzard.")
-	elseif spellId == 133775 and self:AntiSpam(2, 2) then--Disintegration Beam (counter-clockwise)
---[[		timerLingeringGazeCD:Cancel()
-		warnDisintegrationBeam:Show()
-		specWarnDisintegrationBeam:Show(spellName, DBM_CORE_RIGHT)
-		timerDisintegrationBeam:Start()
-		if self.Options.ArrowOnBeam then
-			DBM.Arrow:ShowStatic(270)
-		end
-		self:Schedule(64, BeamEnded)--Best to start next phase bars when this one ends, so artifically create a "phase end" trigger--]]
-		print("DBM Debug: Counter-Clockwise beam spellid re-enabled by blizzard.")
 	end
 end

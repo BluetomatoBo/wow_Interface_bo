@@ -4,7 +4,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPCX	= mod:NewSound(nil, "SoundWOP", true)
 local sndYX		= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9491 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9568 $"):sub(12, -3))
 mod:SetCreatureID(68905, 68904)--Lu'lin 68905, Suen 68904
 mod:SetQuestID(32755)
 mod:SetZone()
@@ -35,19 +35,19 @@ mod:SetBossHealthInfo(
 )
 
 --Darkness
-local warnNight							= mod:NewAnnounce("warnNight", 1, 108558)
+local warnNight							= mod:NewAnnounce("warnNight", 2, 108558)
 local warnCrashingStarSoon				= mod:NewCountAnnounce(137129, 2)
 local warnTearsOfSun					= mod:NewSpellAnnounce(137404, 3)
 local warnBeastOfNightmares				= mod:NewTargetAnnounce(137375, 3, nil, mod:IsTank() or mod:IsHealer())
 --Light
-local warnDay							= mod:NewAnnounce("warnDay", 1, 122789)
+local warnDay							= mod:NewAnnounce("warnDay", 2, 122789)
 local warnLightOfDay					= mod:NewSpellAnnounce(137403, 2, nil, false)--Spammy, but leave it as an option at least
 local warnFanOfFlames					= mod:NewStackAnnounce(137408, 2, nil, mod:IsTank() or mod:IsHealer())
 local warnFlamesOfPassion				= mod:NewSpellAnnounce(137414, 3)--Todo, check target scanning
-local warnIceComet						= mod:NewSpellAnnounce(137419, 2)
+local warnIceComet						= mod:NewSpellAnnounce(137419, 1)
 local warnNuclearInferno				= mod:NewCountAnnounce(137491, 4)--Heroic
 --Dusk
-local warnDusk							= mod:NewAnnounce("warnDusk", 1, "Interface\\Icons\\achievement_zone_easternplaguelands")--"achievement_zone_easternplaguelands" (best Dusk icon i could find)
+local warnDusk							= mod:NewAnnounce("warnDusk", 2, "Interface\\Icons\\achievement_zone_easternplaguelands")--"achievement_zone_easternplaguelands" (best Dusk icon i could find)
 local warnTidalForce					= mod:NewCountAnnounce(137531, 3)
 
 --Darkness
@@ -75,14 +75,14 @@ local timerCrashingStar					= mod:NewNextTimer(5.5, 137129)
 local timerCosmicBarrageCD				= mod:NewNextCountTimer(22, 136752)--Very high variation. (22~38s) Changed to Crashing Star stuff.
 local timerTearsOfTheSunCD				= mod:NewCDTimer(41, 137404)
 local timerTearsOfTheSun				= mod:NewBuffActiveTimer(10, 137404)
-local timerBeastOfNightmaresCD			= mod:NewCDTimer(51, 137375)
+local timerBeastOfNightmaresCD			= mod:NewCDTimer(51, 137375, nil, mod:IsTank() or mod:IsHealer())
 --Light
 local timerDuskCD						= mod:NewTimer(360, "timerDuskCD", "Interface\\Icons\\achievement_zone_easternplaguelands")--it seems always 360s after combat entered. (day timer is variables, so not reliable to day phase)
 local timerLightOfDayCD					= mod:NewCDTimer(6, 137403, nil, false)--Trackable in day phase using UNIT event since boss1 can be used in this phase. Might be useful for heroic to not run behind in shadows too early preparing for a special
 local timerFanOfFlamesCD				= mod:NewNextTimer(12, 137408, nil, mod:IsTank() or mod:IsHealer())
 local timerFanOfFlames					= mod:NewTargetTimer(30, 137408, nil, mod:IsTank())
 --local timerFlamesOfPassionCD			= mod:NewCDTimer(30, 137414)--Also very high variation. (31~65). Can be confuse, no use.
-local timerIceCometCD					= mod:NewCDTimer(20.5, 137419)--Every 20.5-25 seconds on normal. On 10 heroic, variables 20.5~41s. Maybe 25 heroic same?
+local timerIceCometCD					= mod:NewCDTimer(20.5, 137419)--Every 20.5-25 seconds on normal. On 10 heroic, variables 20.5~41s. 25 heroic vary 20.5-27.
 local timerNuclearInferno				= mod:NewBuffActiveTimer(12, 137491)
 local timerNuclearInfernoCD				= mod:NewNextCountTimer(49.5, 137491)
 --Dusk
@@ -448,7 +448,7 @@ end
 --"<333.5 18:37:56> [CHAT_MSG_MONSTER_YELL] CHAT_MSG_MONSTER_YELL#Lu'lin! Lend me your strength!#Suen#####0#0##0#247#nil#0#false#false", -- [71265]
 --"<339.3 18:38:02> [INSTANCE_ENCOUNTER_ENGAGE_UNIT] Fake Args:#1#1#Suen#0xF1310D2800005863#worldboss#410952978#nil#1#Unknown#0xF1310D2900005864#worldboss#310232488
 function mod:CHAT_MSG_MONSTER_YELL(msg) -- Switch to yell. INSTANCE_ENCOUNTER_ENGAGE_UNIT fires too late. also yell ranage covers all rooms. Not need sync.
-	if (msg == L.DuskPhase or msg:find(L.DuskPhase)) then
+	if msg == L.DuskPhase or msg:find(L.DuskPhase) then
 		self:SendSync("Phase3Yell")
 	end
 end
@@ -467,6 +467,7 @@ function mod:UNIT_DIED(args)
 		timerDayCD:Cancel()
 		timerDuskCD:Cancel()
 		timerNuclearInfernoCD:Cancel()
+		warnDay:Show()
 		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3")
 		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cxzb.mp3")
 		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
@@ -483,6 +484,7 @@ function mod:UNIT_DIED(args)
 		--timerFlamesOfPassionCD:Cancel()
 		--timerBeastOfNightmaresCD:Start()--My group kills Lu'lin first. Need log of Suen being killed first to get first beast timer value
 		Sunlive = false
+		warnNight:Show()
 		timerTidalForceCD:Cancel()
 		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cxzb.mp3")
 		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")

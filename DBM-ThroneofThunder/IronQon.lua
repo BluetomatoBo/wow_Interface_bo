@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9523 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9560 $"):sub(12, -3))
 mod:SetCreatureID(68078, 68079, 68080, 68081)--Ro'shak 68079, Quet'zal 68080, Dam'ren 68081, Iron Qon 68078
 mod:SetMainBossID(68078)
 mod:SetQuestID(32754)
@@ -105,10 +105,11 @@ local Damren = select(2, EJ_GetCreatureInfo(4, 817))
 local arcingName = GetSpellInfo(136193)
 local phase = 1--Not sure this is useful yet, coding it in, in case spear cd is different in different phases
 local fistSmashCount = 0
---Spear method called VERY often, so cache these globals locally
+--Spear/arcing methods called VERY often, so cache these globals locally
 local UnitDetailedThreatSituation = UnitDetailedThreatSituation
 local UnitExists = UnitExists
 local UnitClass = UnitClass
+local UnitDebuff = UnitDebuff
 
 local function updateHealthFrame()
 	if DBM.BossHealth:IsShown() then

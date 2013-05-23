@@ -456,27 +456,22 @@ end
 
 local function updatePlayerDebuffStacksTime()
 	table.wipe(lines)
-	local UnitBossTarget
 	local UnitDebuffTime
+	local spell = GetSpellInfo(infoFrameThreshold)
 	if IsInGroup() then
 		local groupType = (IsInRaid() and "raid") or "party"
 		for i = 1, GetNumGroupMembers() do
-			local uId = "groupType"..i
-			if UnitDebuff(uId, GetSpellInfo(infoFrameThreshold)) and not UnitIsDeadOrGhost(uId) then
-				if UnitName(uId) == UnitName("boss1target") then
-					UnitBossTarget = UnitName(uId).." |cFFFF0000← boss|r"
-				else
-					UnitBossTarget = UnitName(uId)
-				end
-				if select(7, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold))) > GetTime() then
-					UnitDebuffTime = math.ceil(select(7, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold))) - GetTime()).."s"
+			local uId = groupType..i
+			if UnitDebuff(uId, spell) and not UnitIsDeadOrGhost(uId) then
+				if select(7, UnitDebuff(uId, spell)) > GetTime() then
+					UnitDebuffTime = math.ceil(select(7, UnitDebuff(uId, spell)) - GetTime()).."s"
 				else
 					UnitDebuffTime = ""
 				end
-				if select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold))) > 1 then
-					lines[UnitBossTarget] = "["..select(4, UnitDebuff(uId, GetSpellInfo(infoFrameThreshold))).."stacks]  "..UnitDebuffTime
+				if select(4, UnitDebuff(uId, spell)) > 1 then
+					lines[UnitName(uId)] = "["..select(4, UnitDebuff(uId, spell)).."層]"..UnitDebuffTime
 				else
-					lines[UnitBossTarget] = UnitDebuffTime
+					lines[UnitName(uId)] = UnitDebuffTime
 				end
 			end			
 		end
@@ -728,6 +723,14 @@ function infoFrame:Update(event)
 		updatePlayerDebuffStacks()
 	elseif event == "playertargets" then
 		updatePlayerTargets()
+	elseif currentEvent == "cobalypower" then
+		updateCobalyPower()
+	elseif currentEvent == "playerdebuffstackstime" then
+		updatePlayerDebuffStacksTime()
+	elseif currentEvent == "bossdebuffstacks" then
+		updateBossDebuffStacks()
+	elseif currentEvent == "other" then
+		updateOther()
 	else
 		error("DBM-InfoFrame: Unsupported event", 2)
 	end

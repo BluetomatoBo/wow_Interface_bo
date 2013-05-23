@@ -4,7 +4,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndJR	= mod:NewSound(nil, "SoundJR", true)
 local sndDS	= mod:NewSound(nil, "SoundDS", true)
 
-mod:SetRevision(("$Revision: 9469 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9576 $"):sub(12, -3))
 mod:SetCreatureID(62397)
 mod:SetZone()
 mod:SetUsedIcons(1, 2)
