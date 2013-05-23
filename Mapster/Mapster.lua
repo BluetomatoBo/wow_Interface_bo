@@ -8,12 +8,15 @@ local Mapster = LibStub("AceAddon-3.0"):NewAddon("Mapster", "AceEvent-3.0", "Ace
 local LibWindow = LibStub("LibWindow-1.1")
 local L = LibStub("AceLocale-3.0"):GetLocale("Mapster")
 
+local PLAYER_ARROW_SIZE_WINDOW = 40
+local PLAYER_ARROW_SIZE_FULL_WITH_QUESTS = 38
+local PLAYER_ARROW_SIZE_FULL_NO_QUESTS = 28
+
 local defaults = {
 	profile = {
-		strata = "HIGH",
 		hideMapButton = false,
 		arrowScale = 0.88,
-		questObjectives = 2,
+		questPanels = 1,
 		modules = {
 			['*'] = true,
 		},
@@ -23,7 +26,6 @@ local defaults = {
 		scale = 0.75,
 		poiScale = 0.8,
 		ejScale = 0.8,
-		showEJBosses = true,
 		alpha = 1,
 		hideBorder = false,
 		disableMouse = false,
@@ -64,7 +66,6 @@ local db = setmetatable({}, {
 local format = string.format
 
 local wmfOnShow, wmfStartMoving, wmfStopMoving, dropdownScaleFix
-local questObjDropDownInit, questObjDropDownUpdate
 
 function Mapster:OnInitialize()
 	self.db = LibStub("AceDB-3.0"):New("MapsterDB", defaults, true)
@@ -73,6 +74,14 @@ function Mapster:OnInitialize()
 	self.db.RegisterCallback(self, "OnProfileChanged", "Refresh")
 	self.db.RegisterCallback(self, "OnProfileCopied", "Refresh")
 	self.db.RegisterCallback(self, "OnProfileReset", "Refresh")
+
+	-- small migration
+	if db.questObjectives then
+		if db.questObjectives < 2 then
+			db.questPanels = 0
+		end
+		db.questObjectives = nil
+	end
 
 	self.elementsToHide = {}
 
@@ -128,34 +137,19 @@ function Mapster:OnEnable()
 	WorldMapFrameSizeUpButton:SetScript("OnClick", function() Mapster:ToggleMapSize() end)
 	self:RawHook("WorldMapFrame_ToggleWindowSize", "ToggleMapSize", true)
 
-	-- Hide Quest Objectives CheckBox and replace it with a DropDown
-	WorldMapQuestShowObjectives:Hide()
-	WorldMapQuestShowObjectives:SetChecked(db.questObjectives ~= 0)
-	WorldMapQuestShowObjectives.Show = function() end
-	WorldMapQuestShowObjectives_Toggle()
-	MapsterQuestObjectivesDropDown = CreateFrame("Frame", "MapsterQuestObjectivesDropDown", WorldMapFrame, "UIDropDownMenuTemplate")
-	MapsterQuestObjectivesDropDown:SetPoint("BOTTOMRIGHT", "WorldMapPositioningGuide", "BOTTOMRIGHT", -5, -2)
+	WorldMapShowDropDown:SetPoint("BOTTOMRIGHT", WorldMapPositioningGuide, "BOTTOMRIGHT", 0, -2)
 
-	WorldMapShowDropDown:SetScript("OnShow", function(f) f:Hide() end)
-
-	WorldMapShowDigSites:ClearAllPoints()
-	WorldMapShowDigSites:SetPoint("LEFT", WorldMapTrackQuestText, "RIGHT", 25, -1)
-
-	local showEJBoss = CreateFrame("CheckButton", "MapsterShowEJBosses", WorldMapFrame, "OptionsCheckButtonTemplate")
-	showEJBoss:SetWidth(24)
-	showEJBoss:SetHeight(24)
-	MapsterShowEJBossesText:SetText(L["Show Bosses"])
-	showEJBoss:SetPoint("LEFT", WorldMapShowDigSitesText, "RIGHT", 20, -1)
-	showEJBoss:Show()
-	showEJBoss:SetChecked(db.showEJBosses)
-	showEJBoss:SetScript("OnClick", function(self)
-		db.showEJBosses = self:GetChecked()
-		EncounterJournal_AddMapButtons()
+	local questOnlyBlobs = CreateFrame("CheckButton", "MapsterShowOnlyQuestBlobs", WorldMapFrame, "OptionsCheckButtonTemplate")
+	questOnlyBlobs:SetWidth(24)
+	questOnlyBlobs:SetHeight(24)
+	MapsterShowOnlyQuestBlobsText:SetText(L["Hide Quest Panels"])
+	questOnlyBlobs:SetPoint("RIGHT", WorldMapShowDropDown, "LEFT", -130, 0)
+	questOnlyBlobs:Show()
+	questOnlyBlobs:SetChecked(db.questPanels == 0)
+	questOnlyBlobs:SetScript("OnClick", function(self)
+		db.questPanels = self:GetChecked() and 0 or 1
+		Mapster:WorldMapFrame_DisplayQuests()
 	end)
-
-	local text = MapsterQuestObjectivesDropDown:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-	text:SetText(L["Quest Objectives"])
-	text:SetPoint("RIGHT", MapsterQuestObjectivesDropDown, "LEFT", 5, 3)
 
 	hooksecurefunc(WorldMapTooltip, "Show", function(self)
 		self:SetFrameStrata("TOOLTIP")
@@ -305,13 +299,6 @@ function Mapster:EncounterJournal_AddMapButtons()
 	local x, y, instanceID, name, description, encounterID = EJ_GetMapEncounter(index)
 
 	local mini = WORLDMAP_SETTINGS.size == WORLDMAP_WINDOWED_SIZE
-	if name then
-		if not mini then
-			MapsterShowEJBosses:Show()
-		end
-	else
-		MapsterShowEJBosses:Hide()
-	end
 	while name do
 		local bossButton = _G["EJMapButton"..index];
 		if bossButton then
@@ -405,6 +392,7 @@ function Mapster:SizeUp()
 	-- adjust main frame
 	WorldMapFrame:SetWidth(1024)
 	WorldMapFrame:SetHeight(768)
+	WorldMapFrame_ResetFrameLevels()
 	-- adjust map frames
 	WorldMapPositioningGuide:ClearAllPoints()
 	WorldMapPositioningGuide:SetPoint("CENTER")
@@ -414,9 +402,7 @@ function Mapster:SizeUp()
 	WorldMapFrameAreaFrame:SetScale(WORLDMAP_QUESTLIST_SIZE)
 	WorldMapBlobFrame:SetScale(WORLDMAP_QUESTLIST_SIZE)
 	WorldMapBlobFrame.xRatio = nil		-- force hit recalculations
-	if ScenarioPOIFrame then
-		ScenarioPOIFrame:SetScale(WORLDMAP_FULLMAP_SIZE);	--If we ever need to add objectives on the map itself we should adjust this value
-	end
+	ScenarioPOIFrame:SetScale(WORLDMAP_FULLMAP_SIZE);	--If we ever need to add objectives on the map itself we should adjust this value
 	WorldMapArchaeologyDigSites:SetScale(WORLDMAP_FULLMAP_SIZE)
 	WorldMapArchaeologyDigSites.xRatio = nil		-- force hit recalculations
 	-- show big window elements
@@ -428,7 +414,9 @@ function Mapster:SizeUp()
 	WorldMapQuestDetailScrollFrame:Show()
 	WorldMapQuestRewardScrollFrame:Show()
 	WorldMapFrameSizeDownButton:Show()
+	WorldMapShowDropDown:Show()
 	-- hide small window elements
+	WorldMapTitleButton:Hide()
 	WorldMapFrameMiniBorderLeft:Hide()
 	WorldMapFrameMiniBorderRight:Hide()
 	WorldMapFrameSizeUpButton:Hide()
@@ -446,17 +434,19 @@ function Mapster:SizeUp()
 	WorldMapFrameTitle:ClearAllPoints()
 	WorldMapFrameTitle:SetPoint("CENTER", 0, 372)
 
-	MapsterQuestObjectivesDropDown:Show()
-	if EJ_GetMapEncounter(1) then
-		MapsterShowEJBosses:Show()
-	end
-	WorldMapShowDigSites:SetScript("OnShow", nil)
-	WorldMapShowDigSites:Show()
-
 	WorldMapFrame_SetPOIMaxBounds()
-	--WorldMapQuestShowObjectives_AdjustPosition()
-	self:WorldMapFrame_DisplayQuests()
+	if GetCVarBool("questPOI") then
+		WorldMapPlayerLower:SetSize(PLAYER_ARROW_SIZE_FULL_WITH_QUESTS,PLAYER_ARROW_SIZE_FULL_WITH_QUESTS)
+		WorldMapPlayerUpper:SetSize(PLAYER_ARROW_SIZE_FULL_WITH_QUESTS,PLAYER_ARROW_SIZE_FULL_WITH_QUESTS)
+	else
+		WorldMapPlayerLower:SetSize(PLAYER_ARROW_SIZE_FULL_NO_QUESTS,PLAYER_ARROW_SIZE_FULL_NO_QUESTS)
+		WorldMapPlayerUpper:SetSize(PLAYER_ARROW_SIZE_FULL_NO_QUESTS,PLAYER_ARROW_SIZE_FULL_NO_QUESTS)
+	end
+	MapBarFrame_UpdateLayout(MapBarFrame)
 
+	MapsterShowOnlyQuestBlobs:Show()
+
+	self:WorldMapFrame_DisplayQuests()
 	self.optionsButton:SetPoint("TOPRIGHT", WorldMapPositioningGuide, "TOPRIGHT", -43, -2)
 end
 
@@ -465,6 +455,7 @@ function Mapster:SizeDown()
 	-- adjust main frame
 	WorldMapFrame:SetWidth(623)
 	WorldMapFrame:SetHeight(437)
+	WorldMapFrame_ResetFrameLevels()
 	-- adjust map frames
 	WorldMapPositioningGuide:ClearAllPoints()
 	WorldMapPositioningGuide:SetAllPoints()
@@ -473,9 +464,7 @@ function Mapster:SizeDown()
 	WorldMapFrameAreaFrame:SetScale(WORLDMAP_WINDOWED_SIZE)
 	WorldMapBlobFrame:SetScale(WORLDMAP_WINDOWED_SIZE)
 	WorldMapBlobFrame.xRatio = nil		-- force hit recalculations
-	if ScenarioPOIFrame then
-		ScenarioPOIFrame:SetScale(WORLDMAP_WINDOWED_SIZE);
-	end
+	ScenarioPOIFrame:SetScale(WORLDMAP_WINDOWED_SIZE);
 	WorldMapArchaeologyDigSites:SetScale(WORLDMAP_WINDOWED_SIZE)
 	WorldMapArchaeologyDigSites.xRatio = nil		-- force hit recalculations
 	WorldMapFrameMiniBorderLeft:SetPoint("TOPLEFT", 10, -14)
@@ -492,7 +481,9 @@ function Mapster:SizeDown()
 	WorldMapQuestDetailScrollFrame:Hide()
 	WorldMapQuestRewardScrollFrame:Hide()
 	WorldMapFrameSizeDownButton:Hide()
+	WorldMapShowDropDown:Hide()
 	-- show small window elements
+	WorldMapTitleButton:Show()
 	WorldMapFrameMiniBorderLeft:Show()
 	WorldMapFrameMiniBorderRight:Show()
 	WorldMapFrameSizeUpButton:Show()
@@ -508,13 +499,12 @@ function Mapster:SizeDown()
 	WorldMapFrameTitle:ClearAllPoints()
 	WorldMapFrameTitle:SetPoint("TOP", WorldMapDetailFrame, 0, 20)
 
-	MapsterQuestObjectivesDropDown:Hide()
-	MapsterShowEJBosses:Hide()
-	WorldMapShowDigSites:Hide()
-	WorldMapShowDigSites:SetScript("OnShow", WorldMapShowDigSites.Hide)
-
 	WorldMapFrame_SetPOIMaxBounds()
-	--WorldMapQuestShowObjectives_AdjustPosition()
+	WorldMapPlayerLower:SetSize(PLAYER_ARROW_SIZE_WINDOW,PLAYER_ARROW_SIZE_WINDOW)
+	WorldMapPlayerUpper:SetSize(PLAYER_ARROW_SIZE_WINDOW,PLAYER_ARROW_SIZE_WINDOW)
+	MapBarFrame_UpdateLayout(MapBarFrame)
+
+	MapsterShowOnlyQuestBlobs:Hide()
 
 	self.optionsButton:SetPoint("TOPRIGHT", WorldMapFrameMiniBorderRight, "TOPRIGHT", -93, -2)
 end
@@ -541,15 +531,6 @@ function wmfOnShow(frame)
 	Mapster:SetStrata()
 	Mapster:SetScale()
 	realZone = getZoneId()
-
-	if not MapsterQuestObjectivesDropDown.dropdownInitialized then
-		-- Init DropDown
-		UIDropDownMenu_Initialize(MapsterQuestObjectivesDropDown, questObjDropDownInit)
-		UIDropDownMenu_SetWidth(MapsterQuestObjectivesDropDown, 150)
-		questObjDropDownUpdate()
-
-		MapsterQuestObjectivesDropDown.dropdownInitialized = true
-	end
 
 	if WORLDMAP_SETTINGS.selectedQuest then
 		WorldMapFrame_SelectQuestFrame(WORLDMAP_SETTINGS.selectedQuest)
@@ -598,7 +579,14 @@ function Mapster:HideBlobs()
 end
 
 function Mapster:SetStrata()
-	WorldMapFrame:SetFrameStrata(db.strata)
+	WorldMapFrame:SetFrameStrata("HIGH")
+	-- restore some stratas
+	WorldMapPing:SetFrameStrata("FULLSCREEN")
+	WorldMapPlayerUpper:SetFrameStrata("FULLSCREEN")
+	WorldMapCompareTooltip1:SetFrameStrata("TOOLTIP")
+	WorldMapCompareTooltip2:SetFrameStrata("TOOLTIP")
+	WorldMapCompareTooltip3:SetFrameStrata("TOOLTIP")
+	WorldMapTooltip:SetFrameStrata("TOOLTIP")
 end
 
 function Mapster:SetAlpha()
@@ -712,42 +700,33 @@ function Mapster:UpdateMouseInteractivity()
 	end
 end
 
-function Mapster:RefreshQuestObjectivesDisplay()
-	WorldMapQuestShowObjectives:SetChecked(db.questObjectives ~= 0)
-	WorldMapQuestShowObjectives:GetScript("OnClick")(WorldMapQuestShowObjectives)
-end
-
 function Mapster:WorldMapFrame_DisplayQuests()
 	if WORLDMAP_SETTINGS.size == WORLDMAP_WINDOWED_SIZE then return end
-	if db.questObjectives == 0 or not (WatchFrame.showObjectives and WorldMapFrame.numQuests > 0) then
+	if not (WatchFrame.showObjectives and WorldMapFrame.numQuests > 0) then return end
+	if db.questPanels == 0 and WORLDMAP_SETTINGS.size == WORLDMAP_QUESTLIST_SIZE then
+		WorldMapFrame_SetFullMapView()
+
+		WorldMapBlobFrame:SetScale(WORLDMAP_FULLMAP_SIZE)
+		WorldMapBlobFrame.xRatio = nil		-- force hit recalculations
 		WorldMapArchaeologyDigSites:SetScale(WORLDMAP_FULLMAP_SIZE)
 		WorldMapArchaeologyDigSites.xRatio = nil		-- force hit recalculations
-	else
-		if db.questObjectives == 1 then
-			WorldMapFrame_SetFullMapView()
-			
-			WorldMapBlobFrame:SetScale(WORLDMAP_FULLMAP_SIZE)
-			WorldMapBlobFrame.xRatio = nil		-- force hit recalculations
-			WorldMapArchaeologyDigSites:SetScale(WORLDMAP_FULLMAP_SIZE)
-			WorldMapArchaeologyDigSites.xRatio = nil		-- force hit recalculations
-			WorldMapFrame_SetPOIMaxBounds()
-			WorldMapFrame_UpdateQuests()
-		elseif db.questObjectives == 2 then
-			WorldMapFrame_SetQuestMapView()
-			
-			WorldMapBlobFrame:SetScale(WORLDMAP_QUESTLIST_SIZE)
-			WorldMapBlobFrame.xRatio = nil		-- force hit recalculations
-			WorldMapArchaeologyDigSites:SetScale(WORLDMAP_QUESTLIST_SIZE)
-			WorldMapArchaeologyDigSites.xRatio = nil		-- force hit recalculations
-			WorldMapFrame_SetPOIMaxBounds()
-			WorldMapFrame_UpdateQuests()
-		end
+		WorldMapFrame_SetPOIMaxBounds()
+		WorldMapFrame_UpdateQuests()
+	elseif db.questPanels == 1 and WORLDMAP_SETTINGS.size ~= WORLDMAP_QUESTLIST_SIZE then
+		WorldMapFrame_SetQuestMapView()
+
+		WorldMapBlobFrame:SetScale(WORLDMAP_QUESTLIST_SIZE)
+		WorldMapBlobFrame.xRatio = nil		-- force hit recalculations
+		WorldMapArchaeologyDigSites:SetScale(WORLDMAP_QUESTLIST_SIZE)
+		WorldMapArchaeologyDigSites.xRatio = nil		-- force hit recalculations
+		WorldMapFrame_SetPOIMaxBounds()
+		WorldMapFrame_UpdateQuests()
 	end
 end
 
 function Mapster:WorldMapFrame_SelectQuestFrame(...)
 	local old_size = WORLDMAP_SETTINGS.size
-	if db.questObjectives ~= 2 then
+	if db.questPanels ~= 1 then
 		WORLDMAP_SETTINGS.size = WORLDMAP_WINDOWED_SIZE
 	end
 	self.hooks.WorldMapFrame_SelectQuestFrame(...)
@@ -785,39 +764,4 @@ function Mapster:SetModuleEnabled(module, value)
 			self:DisableModule(module)
 		end
 	end
-end
-
-local function questObjDropDownOnClick(button)
-	UIDropDownMenu_SetSelectedValue(MapsterQuestObjectivesDropDown, button.value)
-	db.questObjectives = button.value
-	Mapster:RefreshQuestObjectivesDisplay()
-end
-
-local questObjTexts = {
-	[0] = L["Hide Completely"],
-	[1] = L["Only WorldMap Blobs"],
-	[2] = L["Blobs & Panels"],
-}
-
-function questObjDropDownInit()
-	local info = UIDropDownMenu_CreateInfo()
-	local value = db.questObjectives
-
-	for i=0,2 do
-		info.value = i
-		info.text = questObjTexts[i]
-		info.func = questObjDropDownOnClick
-		if ( value == i ) then
-			info.checked = 1
-			UIDropDownMenu_SetText(MapsterQuestObjectivesDropDown, info.text)
-		else
-			info.checked = nil
-		end
-		UIDropDownMenu_AddButton(info)
-	end
-end
-
-function questObjDropDownUpdate()
-	UIDropDownMenu_SetSelectedValue(MapsterQuestObjectivesDropDown, db.questObjectives)
-	UIDropDownMenu_SetText(MapsterQuestObjectivesDropDown,questObjTexts[db.questObjectives])
 end
