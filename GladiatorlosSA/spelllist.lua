@@ -420,7 +420,7 @@
 				-- Mist of pandaria
 			[109248] = "bindingShot",
 			[109304] = "Exhilaration",
-			[120657] = "murderOfCrows",
+			[131894] = "murderOfCrows",
 			[126216] = "direBeast",
 			[126215] = "direBeast",
 			[126214] = "direBeast",

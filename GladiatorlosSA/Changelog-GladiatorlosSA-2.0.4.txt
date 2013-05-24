@@ -1,0 +1,28 @@
+------------------------------------------------------------------------
+r56 | superk521 | 2013-05-23 19:02:24 +0000 (Thu, 23 May 2013) | 5 lines
+Changed paths:
+   A /tags/2.0.4 (from /trunk:55)
+
+tag as version 2.0.4
+update for 5.3
+fix spell id for hunters' murder of crows
+fix for option table does not load on click the load button
+
+------------------------------------------------------------------------
+r55 | superk521 | 2013-05-23 19:01:23 +0000 (Thu, 23 May 2013) | 1 line
+Changed paths:
+   M /trunk/GladiatorlosSA.lua
+
+tag 2.0.4
+------------------------------------------------------------------------
+r54 | superk521 | 2013-05-23 18:50:40 +0000 (Thu, 23 May 2013) | 3 lines
+Changed paths:
+   M /trunk/GladiatorlosSA.lua
+   M /trunk/GladiatorlosSA.toc
+   M /trunk/options.lua
+   M /trunk/spelllist.lua
+
+update for 5.3
+fix spell id for hunters' murder of crows
+fix for option table does not load on click the load button
+------------------------------------------------------------------------

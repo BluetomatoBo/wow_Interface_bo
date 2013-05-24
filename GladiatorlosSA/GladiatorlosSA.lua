@@ -6,7 +6,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("GladiatorlosSA")
 local LSM = LibStub("LibSharedMedia-3.0")
 local self, GSA = GladiatorlosSA, GladiatorlosSA
 local GSA_TEXT = "GladiatorlosSA"
-local GSA_VERSION = " v2.0.3"
+local GSA_VERSION = " v2.0.4"
 local GSA_AUTHOR = " updated by superk"
 
 local GSA_LOCALEPATH = {
@@ -145,7 +145,14 @@ function GladiatorlosSA:OnInitialize()
 		name = L["Load Configuration"],
 		desc = L["Load Configuration Options"],
 		type = 'execute',
-		func = function() self:OnOptionCreate() bliz_options.args.load.disabled = true GameTooltip:Hide() end,
+		func = function() 
+			self:OnOptionCreate() 
+			bliz_options.args.load.disabled = true 
+			GameTooltip:Hide() 
+			--fix for in 5.3 BLZOptionsFrame can't refresh on load
+			InterfaceOptionsFrame:Hide() 
+			InterfaceOptionsFrame:Show() 
+		end,
 		handler = GladiatorlosSA,
 	}
 	LibStub("AceConfig-3.0"):RegisterOptionsTable("GladiatorlosSA_bliz", bliz_options)
