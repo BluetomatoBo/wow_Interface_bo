@@ -580,7 +580,7 @@ function H:PostUpdateHealth(unit, min, max)
 	
 	local r, g, b = self:GetStatusBarColor()
 	local colors = E.db['unitframe']['colors'];
-	if (colors.healthclass == true and colors.colorhealthbyvalue == true) or (colors.colorhealthbyvalue and parent.isForced) and not (UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit)) then
+	if (colors.healthclass == true and colors.colorhealthbyvalue == true) or (colors.colorhealthbyvalue and parent.isForced) or not (UnitIsTapped(unit) and not UnitIsTappedByPlayer(unit)) then
 		local newr, newg, newb = ElvUF.ColorGradient(min, max, 1, 0, 0, 1, 1, 0, r, g, b)
 
 		self:SetStatusBarColor(newr, newg, newb)
@@ -588,14 +588,14 @@ function H:PostUpdateHealth(unit, min, max)
 			local mu = self.bg.multiplier
 			self.bg:SetVertexColor(newr * mu, newg * mu, newb * mu)
 		end
+	end
 
-		if E.db.unitframe.hud.units[unit].portrait and E.db.unitframe.hud.units[unit].portrait.enabled then
-			if self:GetParent().Portrait then
-				local overlay = self:GetParent().Portrait.overlay
-				local r,g,b=self:GetStatusBarColor()
-				local mu=self.bg.multiplier
-				overlay:SetBackdropColor(r*mu,g*mu,b*mu)
-			end
+	if E.db.unitframe.hud.units[unit].portrait and E.db.unitframe.hud.units[unit].portrait.enabled then
+		if self:GetParent().Portrait then
+			local overlay = self:GetParent().Portrait.overlay
+			local r, g, b = self:GetStatusBarColor()
+			local mu=self.bg.multiplier
+			overlay:SetBackdropColor(r*mu,g*mu,b*mu)
 		end
 	end
 
