@@ -1,6 +1,23 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   
 
+6.10.4
+---------------------------
+- Core: Fixed a major typo. Should fix SetStyle/Headline Mode and ClassIcon LUA errors at the very least.  Might explain some of the other elusive bugs.
+
+6.10.3
+---------------------------
+* Performance Mode:
+By default this is NOT enabled, reverting to the older, slower, reliable method.
+Using Performance Mode may break HHTD and other nameplate addons.  
+You may also experience 'hung' nameplates.  Please report these, and try to be as 
+specific as possible in describing the condition of the game when it occured.
+
+- Core: (Since 6.10.2) Performance Mode:  This enables the performance improvements introduced in 6.10. 	
+- Core: Reintegrated original Alpha locking
+- Core: More reorganization, pruning of old, dead methods
+- Core: Set initial fonts during Init/Hooking.  Removes the possibility of :SetFont() errors.  Not sure why I didn't do this years ago.
+- Panel: Removal of latent "Show Minimap Icon" button code
 
 6.10.2
 ---------------------------

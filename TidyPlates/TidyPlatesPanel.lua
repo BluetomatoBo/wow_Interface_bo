@@ -51,8 +51,8 @@ TidyPlatesOptions = {
 	ExclusiveMode = false,
 	WelcomeShown = false,
 	--VariableVersion = CurrentVariableVersion,
-	EnableMinimapButton = false,
-	_EnableMiniButton = false,
+	--EnableMinimapButton = false,
+	--_EnableMiniButton = false,
 }
 
 local TidyPlatesOptionsDefaults = copytable(TidyPlatesOptions)
@@ -354,7 +354,7 @@ local primarySpecName, primarySpecDescription, primarySpecIcon, primarySpecBackg
 	panel.ExclusiveMode:SetScript("OnClick", function(self) if self:GetChecked() then EnableExclusiveMode() end; end)
 
 	-- Minimap Button
-	-- [[
+	--[[
 	panel.EnableMinimapButton = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableMinimapButton", panel, "Enable Minimap Icon")
 	panel.EnableMinimapButton:SetPoint("TOPLEFT", panel.DisableSoftTransitions, "TOPLEFT", 0, -35)
 	-- panel.EnableMinimapButton:SetScript("OnClick", function(self) if self:GetChecked() then TidyPlatesUtility:ShowMinimapButton() else TidyPlatesUtility:HideMinimapButton() end; end)
@@ -379,7 +379,7 @@ local primarySpecName, primarySpecDescription, primarySpecIcon, primarySpecBackg
 		panel.DisableSoftTransitions:SetChecked(TidyPlatesOptions.DisableSoftTransitions)
 		panel.ExclusiveMode:SetChecked(TidyPlatesOptions.ExclusiveMode)
 
-		panel.EnableMinimapButton:SetChecked(TidyPlatesOptions.EnableMinimapButton)
+		--panel.EnableMinimapButton:SetChecked(TidyPlatesOptions.EnableMinimapButton)
 		panel.AutoShowFriendly:SetValue(TidyPlatesOptions.FriendlyAutomation)
 		panel.AutoShowEnemy:SetValue(TidyPlatesOptions.EnemyAutomation)
 
@@ -453,7 +453,7 @@ ApplyPanelSettings = function()
 	TidyPlatesOptions.DisableSoftTransitions = panel.DisableSoftTransitions:GetChecked()
 	TidyPlatesOptions.ExclusiveMode = panel.ExclusiveMode:GetChecked()
 
-	TidyPlatesOptions.EnableMinimapButton = panel.EnableMinimapButton:GetChecked()
+	--TidyPlatesOptions.EnableMinimapButton = panel.EnableMinimapButton:GetChecked()
 
 	-- Clear Widgets
 	if TidyPlatesWidgets then TidyPlatesWidgets:ResetWidgets() end
