@@ -169,7 +169,7 @@ local function CreateInterfacePanelWidgets(panel)
 	panel.ColorMediumHealth = CreateQuickColorbox(objectName.."ColorMediumHealth", "Medium Health", AlignmentColumn, panel.ColorHighHealth , 16)
 	panel.ColorLowHealth = CreateQuickColorbox(objectName.."ColorLowHealth", "Low Health", AlignmentColumn, panel.ColorMediumHealth , 16)
 	
-     ------------------------------
+        ------------------------------
 	-- Casting
 	------------------------------
         panel.SpellCastLabel = CreateQuickHeadingLabel(nil, "Spell Casting", AlignmentColumn, panel.ColorLowHealth, 0, 5)	        
@@ -270,12 +270,12 @@ end
 	local TankPanel = CreateInterfacePanel( "HubPanelSettingsTank", "Tidy Plates Hub: |cFF3782D1Tank", nil ) 
 	CreateInterfacePanelWidgets(TankPanel)
 	InterfaceOptions_AddCategory(TankPanel)
-	function ShowTidyPlatesHubTankPanel() InterfaceOptionsFrame_OpenToCategory("Tidy Plates Hub: |cFF3782D1Tank") end
+	function ShowTidyPlatesHubTankPanel() InterfaceOptionsFrame_OpenToCategory(TankPanel) end
 
 	local DamagePanel = CreateInterfacePanel( "HubPanelSettingsDamage", "Tidy Plates Hub: |cFFFF1100Damage", nil ) 
 	CreateInterfacePanelWidgets(DamagePanel)
 	InterfaceOptions_AddCategory(DamagePanel)
-	function ShowTidyPlatesHubDamagePanel() InterfaceOptionsFrame_OpenToCategory("Tidy Plates Hub: |cFFFF1100Damage") end
+	function ShowTidyPlatesHubDamagePanel() InterfaceOptionsFrame_OpenToCategory(DamagePanel) end
 --end
 	
 --local HubHandler = CreateFrame("Frame")

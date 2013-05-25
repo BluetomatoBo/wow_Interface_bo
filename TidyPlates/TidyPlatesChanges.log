@@ -1,6 +1,16 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   
 
+6.11
+---------------------------
+- Basically, I've given up trying to quickly patch up 6.10.  I've reverted to 6.9.9, and made the changes necessary for it to work with WoW 5.3.  If you want the Performance Mode stuff, grab the old version, or keep an eye out for it to be Re-Beta'd as 6.12.  
+
+These are the changes that I've migrated:
+- Spell Casting Update, for WoW 5.3
+- Core: Set initial fonts during Init/Hooking.  Removes the possibility of :SetFont() errors.
+- Combo Points: "Anticipation" fix for non-english regions
+
+
 6.10.4
 ---------------------------
 - Core: Fixed a major typo. Should fix SetStyle/Headline Mode and ClassIcon LUA errors at the very least.  Might explain some of the other elusive bugs.

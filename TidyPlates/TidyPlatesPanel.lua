@@ -22,19 +22,15 @@ local function SetAutoHide(option)
 	if useAutoHide and (not InCombat) then SetCVar("nameplateShowEnemies", 0) end
 end
 
---[[
 local function SetSpellCastWatcher(enable)
 	if enable then TidyPlates:StartSpellCastWatcher()
 	else TidyPlates:StopSpellCastWatcher()	end
 end
---]]
 
 local function SetSoftTransitions(enable)
 	if enable then TidyPlates:EnableFadeIn()
 		else TidyPlates:DisableFadeIn() end
 end
-
-local EnableExclusiveMode = TidyPlates.EnableExclusiveMode
 
 
 -------------------------------------------------------------------------------------
@@ -46,13 +42,12 @@ TidyPlatesOptions = {
 	secondary = defaultSecondaryTheme,
 	FriendlyAutomation = NO_AUTOMATION,
 	EnemyAutomation = NO_AUTOMATION,
-	--EnableCastWatcher = false,
+	EnableCastWatcher = false,
 	DisableSoftTransitions = false,
-	ExclusiveMode = false,
 	WelcomeShown = false,
 	--VariableVersion = CurrentVariableVersion,
-	--EnableMinimapButton = false,
-	--_EnableMiniButton = false,
+	EnableMinimapButton = false,
+	_EnableMiniButton = false,
 }
 
 local TidyPlatesOptionsDefaults = copytable(TidyPlatesOptions)
@@ -336,30 +331,21 @@ local primarySpecName, primarySpecDescription, primarySpecIcon, primarySpecBackg
 	BlizzOptionsButton:SetWidth(260)
 	BlizzOptionsButton:SetText("Nameplate Motion & Visibility")
 
-	--[[
 	-- Cast Watcher
 	panel.EnableCastWatcher = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableCastWatcher", panel, "Show Off-Target Cast Bars")
 	panel.EnableCastWatcher:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
 	panel.EnableCastWatcher:SetScript("OnClick", function(self) SetSpellCastWatcher(self:GetChecked()) end)
---]]
 
 	-- Soft Transitions
-	panel.DisableSoftTransitions = PanelHelpers:CreateCheckButton("TidyPlatesOptions_DisableSoftTransitions", panel, "Disable Transition Effects")
-	panel.DisableSoftTransitions:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
+	panel.DisableSoftTransitions = PanelHelpers:CreateCheckButton("TidyPlatesOptions_DisableSoftTransitions", panel, "Disable Alpha/Scale Transition Effects")
+	panel.DisableSoftTransitions:SetPoint("TOPLEFT", panel.EnableCastWatcher, "TOPLEFT", 0, -35)
 	panel.DisableSoftTransitions:SetScript("OnClick", function(self) SetSoftTransitions(not self:GetChecked()) end)
-	
-	-- ExclusiveMode
-	panel.ExclusiveMode = PanelHelpers:CreateCheckButton("TidyPlatesOptions_ExclusiveMode", panel, "Performance Mode (Requires UI Reload)")
-	panel.ExclusiveMode:SetPoint("TOPLEFT", panel.DisableSoftTransitions, "TOPLEFT", 0, -35)
-	panel.ExclusiveMode:SetScript("OnClick", function(self) if self:GetChecked() then EnableExclusiveMode() end; end)
 
 	-- Minimap Button
-	--[[
 	panel.EnableMinimapButton = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableMinimapButton", panel, "Enable Minimap Icon")
 	panel.EnableMinimapButton:SetPoint("TOPLEFT", panel.DisableSoftTransitions, "TOPLEFT", 0, -35)
 	-- panel.EnableMinimapButton:SetScript("OnClick", function(self) if self:GetChecked() then TidyPlatesUtility:ShowMinimapButton() else TidyPlatesUtility:HideMinimapButton() end; end)
 	panel.EnableMinimapButton:Hide()
-	--]]
 
 	-- Reset
 	ResetButton = CreateFrame("Button", "TidyPlatesOptions_ResetButton", panel, "TidyPlatesPanelButtonTemplate")
@@ -375,11 +361,10 @@ local primarySpecName, primarySpecDescription, primarySpecIcon, primarySpecBackg
 	local function RefreshPanel()
 		panel.PrimarySpecTheme:SetValue(TidyPlatesOptions.primary)
 		panel.SecondarySpecTheme:SetValue(TidyPlatesOptions.secondary)
-		--panel.EnableCastWatcher:SetChecked(TidyPlatesOptions.EnableCastWatcher)
+		panel.EnableCastWatcher:SetChecked(TidyPlatesOptions.EnableCastWatcher)
 		panel.DisableSoftTransitions:SetChecked(TidyPlatesOptions.DisableSoftTransitions)
-		panel.ExclusiveMode:SetChecked(TidyPlatesOptions.ExclusiveMode)
 
-		--panel.EnableMinimapButton:SetChecked(TidyPlatesOptions.EnableMinimapButton)
+		panel.EnableMinimapButton:SetChecked(TidyPlatesOptions.EnableMinimapButton)
 		panel.AutoShowFriendly:SetValue(TidyPlatesOptions.FriendlyAutomation)
 		panel.AutoShowEnemy:SetValue(TidyPlatesOptions.EnemyAutomation)
 
@@ -432,9 +417,8 @@ InterfaceOptions_AddCategory(panel);
 
 
 local function ApplyAutomationSettings()
-	--SetSpellCastWatcher(TidyPlatesOptions.EnableCastWatcher)
+	SetSpellCastWatcher(TidyPlatesOptions.EnableCastWatcher)
 	SetSoftTransitions(not TidyPlatesOptions.DisableSoftTransitions)
-	if TidyPlatesOptions.ExclusiveMode then EnableExclusiveMode() end
 
 	if TidyPlatesOptions._EnableMiniButton then
 		TidyPlatesUtility:CreateMinimapButton()
@@ -449,11 +433,10 @@ ApplyPanelSettings = function()
 	TidyPlatesOptions.secondary = panel.SecondarySpecTheme:GetValue()
 	TidyPlatesOptions.FriendlyAutomation = panel.AutoShowFriendly:GetValue()
 	TidyPlatesOptions.EnemyAutomation = panel.AutoShowEnemy:GetValue()
-	--TidyPlatesOptions.EnableCastWatcher = panel.EnableCastWatcher:GetChecked()
+	TidyPlatesOptions.EnableCastWatcher = panel.EnableCastWatcher:GetChecked()
 	TidyPlatesOptions.DisableSoftTransitions = panel.DisableSoftTransitions:GetChecked()
-	TidyPlatesOptions.ExclusiveMode = panel.ExclusiveMode:GetChecked()
 
-	--TidyPlatesOptions.EnableMinimapButton = panel.EnableMinimapButton:GetChecked()
+	TidyPlatesOptions.EnableMinimapButton = panel.EnableMinimapButton:GetChecked()
 
 	-- Clear Widgets
 	if TidyPlatesWidgets then TidyPlatesWidgets:ResetWidgets() end
@@ -617,7 +600,7 @@ function slash_TidyPlates(arg)
 	if type(TidyPlatesSlashCommands[arg]) == 'function' then
 		TidyPlatesSlashCommands[arg]()
 		TidyPlates:ForceUpdate()
-	else InterfaceOptionsFrame_OpenToCategory("Tidy Plates") end
+	else InterfaceOptionsFrame_OpenToCategory(panel) end
 end
 
 SLASH_TIDYPLATES1 = '/tidyplates'
