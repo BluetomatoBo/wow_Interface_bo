@@ -3,16 +3,16 @@
 --     W o w h e a d   L o o t e r     --
 --                                     --
 --                                     --
---    Patch: 5.1.0                     --
---    Updated: December 12, 2012       --
+--    Patch: 5.3.0                     --
+--    Updated: May 23, 2013            --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 50007;
-local WL_VERSION_PATCH = 0;
+local WL_VERSION = 50010;
+local WL_VERSION_PATCH = 4;
 
 
 -- SavedVariables
@@ -43,6 +43,7 @@ local WL_SPELL_BLACKLIST = {
 	[1604] = true,  -- Dazed
 	[15571] = true, -- Dazed
 	[61394] = true, -- Frozen Wake (Glyph of Freezing Trap)
+	[132951] = true,-- Flare
 	[135299] = true, -- Ice Trap
 	[135373] = true, -- Entrapment
 };
@@ -77,6 +78,11 @@ local WL_CURRENCIES = {
 	["pvpcurrency-honor-horde"] = 392,
 	["achievement_zone_tolbarad"] = 391,
 	["inv_misc_markoftheworldtree"] = 416,
+	["inv_misc_ticket_darkmoon_01"] = 515, -- Darkmoon Prize Ticket
+	["inv_misc_coin_17"] = 697, -- Elder Charm of Good Fortune
+	["inv_misc_coin_18"] = 738, -- Lesser Charm of Good Fortune
+	["archaeology_5_0_mogucoin"] = 752, -- Mogu Rune of Fate
+	["inv_misc_archaeology_mantidstatue_01"] = 754, -- Mantid Archaeology Fragment
 };
 local VALOR_TIER1_LFG_ID = 301;
 -- Random Dungeon IDs extracted from LFGDungeons.dbc
@@ -245,6 +251,7 @@ local wlN = 0;
 local wlEventId = 1;
 local wlForgeSpells = {};
 local wlAnvilSpells = {};
+local wlRegisterCooldown = {};
 
 local isBetaClient = false;
 if (tonumber(select(4, GetBuildInfo())) >= 50001) then
@@ -548,21 +555,40 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlRegisterUnitLocation(id, level)
+	
+	local now = wlGetTime();
+	
+	-- Clean cooldowns
+	for k, v in pairs(wlRegisterCooldown) do
+		if v < now - 30000 then -- 30 seconds
+			wlRegisterCooldown[k] = nil;
+		end
+	end
+	
+	-- Check for CD
+	if wlRegisterCooldown[id] then
+		return;
+	end
+	
+	-- Start CD
+	wlRegisterCooldown[id] = now;
+	
 	local dd = wlGetInstanceDifficulty();
+	local mapAreaID = wlGetCurrentMapAreaID();
 	local zone, x, y, dl = wlGetLocation();
 
-	wlUpdateVariable(wlUnit, id, "spec", dd, level, "loc", zone, "init", { n = 0 });
+	wlUpdateVariable(wlUnit, id, "spec", dd, level, "loc", zone, mapAreaID, "init", { n = 0 });
 
-	local i = wlGetLocationIndex(wlUnit[id].spec[dd][level].loc[zone], x, y, dl, 5);
+	local i = wlGetLocationIndex(wlUnit[id].spec[dd][level].loc[zone][mapAreaID], x, y, dl, 5);
 	if i then
-		local n = wlUnit[id].spec[dd][level].loc[zone][i].n;
+		local n = wlUnit[id].spec[dd][level].loc[zone][mapAreaID][i].n;
 
-		wlUnit[id].spec[dd][level].loc[zone][i].x = floor((wlUnit[id].spec[dd][level].loc[zone][i].x * n + x) / (n + 1) + 0.5);
-		wlUnit[id].spec[dd][level].loc[zone][i].y = floor((wlUnit[id].spec[dd][level].loc[zone][i].y * n + y) / (n + 1) + 0.5);
-		wlUnit[id].spec[dd][level].loc[zone][i].n = n + 1;
+		wlUnit[id].spec[dd][level].loc[zone][mapAreaID][i].x = floor((wlUnit[id].spec[dd][level].loc[zone][mapAreaID][i].x * n + x) / (n + 1) + 0.5);
+		wlUnit[id].spec[dd][level].loc[zone][mapAreaID][i].y = floor((wlUnit[id].spec[dd][level].loc[zone][mapAreaID][i].y * n + y) / (n + 1) + 0.5);
+		wlUnit[id].spec[dd][level].loc[zone][mapAreaID][i].n = n + 1;
 	else
-		i = wlUpdateVariable(wlUnit, id, "spec", dd, level, "loc", zone, "n", "add", 1);
-		wlUpdateVariable(wlUnit, id, "spec", dd, level, "loc", zone, i, "set", {
+		i = wlUpdateVariable(wlUnit, id, "spec", dd, level, "loc", zone, mapAreaID, "n", "add", 1);
+		wlUpdateVariable(wlUnit, id, "spec", dd, level, "loc", zone, mapAreaID, i, "set", {
 			x = x,
 			y = y,
 			dl = dl,
@@ -1134,21 +1160,22 @@ function wlRegisterObject(id)
 	end
 
 	local zone, x, y, dl = wlGetLocation();
+	local mapAreaID = wlGetCurrentMapAreaID();
 
 	zone = wlConcat(wlGetInstanceDifficulty(), zone);
 
-	wlUpdateVariable(wlObject, id, zone, "init", { n = 0 });
+	wlUpdateVariable(wlObject, id, zone, mapAreaID, "init", { n = 0 });
 
-	local i = wlGetLocationIndex(wlObject[id][zone], x, y, dl, 5);
+	local i = wlGetLocationIndex(wlObject[id][zone][mapAreaID], x, y, dl, 5);
 	if i then
-		local n = wlObject[id][zone][i].n;
+		local n = wlObject[id][zone][mapAreaID][i].n;
 
-		wlObject[id][zone][i].x = floor((wlObject[id][zone][i].x * n + x) / (n + 1) + 0.5);
-		wlObject[id][zone][i].y = floor((wlObject[id][zone][i].y * n + y) / (n + 1) + 0.5);
-		wlObject[id][zone][i].n = n + 1;
+		wlObject[id][zone][mapAreaID][i].x = floor((wlObject[id][zone][mapAreaID][i].x * n + x) / (n + 1) + 0.5);
+		wlObject[id][zone][mapAreaID][i].y = floor((wlObject[id][zone][mapAreaID][i].y * n + y) / (n + 1) + 0.5);
+		wlObject[id][zone][mapAreaID][i].n = n + 1;
 	else
-		i = wlUpdateVariable(wlObject, id, zone, "n", "add", 1);
-		wlUpdateVariable(wlObject, id, zone, i, "set", {
+		i = wlUpdateVariable(wlObject, id, zone, mapAreaID, "n", "add", 1);
+		wlUpdateVariable(wlObject, id, zone, mapAreaID, i, "set", {
 			x = x,
 			y = y,
 			dl = dl,
@@ -1228,7 +1255,7 @@ function wlEvent_QUEST_LOG_UPDATE(self)
 					if index and done and wlQuestObjectives[3 - wlCurrentQuestObj][index].done ~= done then
 						wlUpdateVariable(wlEvent, wlId, wlN, eventId, "initArray", 0);
 						wlEvent[wlId][wlN][eventId].what = "questStatus";
-						wlEvent[wlId][wlN][eventId][wlConcat(questId, objId, done)] = wlConcat(wlGetLocation());
+						wlEvent[wlId][wlN][eventId][wlConcat(questId, objId, done)] = wlConcat(wlGetLocation(),wlGetCurrentMapAreaID());
 					end
 				end
 			end
@@ -1856,6 +1883,10 @@ function wlEvent_LOOT_OPENED(self)
 	local instanceDiff = wlGetInstanceDifficulty();
 	wlEvent[wlId][wlN][eventId].dd = instanceDiff;
 
+	if wlEvent[wlId][wlN][eventId].zone ~= nil then
+		wlEvent[wlId][wlN][eventId].mapAreaID = wlGetCurrentMapAreaID();
+	end
+	
 	local flags = 0;
 
 	-- Vitreous Focuser
@@ -1884,105 +1915,120 @@ function wlEvent_LOOT_OPENED(self)
 
 	local i = 1;
 	for slot=1, GetNumLootItems() do
-			local lootSources = { GetLootSourceInfo(slot) };
+		local lootSources = { GetLootSourceInfo(slot) };
 			
-			local slotType = GetLootSlotType(slot);
-			if slotType == LOOT_SLOT_ITEM then
-				local itemId = wlParseItemLink(GetLootSlotLink(slot));
-				
+		local slotType = GetLootSlotType(slot);
+		if slotType ~= LOOT_SLOT_NONE then
+			local itemId = nil;
+			local currencyId = nil;
+			
+			if slotType == LOOT_SLOT_ITEM then 
+				itemId = wlParseItemLink(GetLootSlotLink(slot));
 				-- for sourceIndex = 1, #lootSources, 2 do
-					-- print(("%s looted %d of %s"):format(wlParseGUID(lootSources[sourceIndex]), lootSources[sourceIndex + 1], GetItemInfo(itemId)));
+				--	 print(("%s looted %d of %s"):format(wlParseGUID(lootSources[sourceIndex]), lootSources[sourceIndex + 1], GetItemInfo(itemId)));
 				-- end
+			elseif slotType == LOOT_SLOT_MONEY then
+				itemId = "coin";
+			else -- Currency
+				itemId = "currency";
 				
-				for sourceIndex = 1, #lootSources, 2 do
-					local qty = lootSources[sourceIndex + 1];
-					local aoeGUID = lootSources[sourceIndex];
-					if ((wlTracker.spell.action == "Killing" and targetGUID == aoeGUID) or wlTracker.spell.action ~= "Killing") then
-						if not targetLoots[itemId] then
-							targetLoots[itemId] = {};
-						end
-						targetLoots[itemId][1] = (targetLoots[itemId][1] or 0) + qty;
-						targetLoots[itemId][2] = (targetLoots[itemId][2] or 0) + wlSelectOne(3, GetLootSlotInfo(slot));
-					else
-						if not aoeNpcs[aoeGUID] then
-							aoeNpcs[aoeGUID] = {};
-						end
-						aoeNpcs[aoeGUID][itemId] = (aoeNpcs[aoeGUID][itemId] or 0) + qty;
-					end
-				end
-
-			elseif slotType == LOOT_SLOT_CURRENCY then
-
 				local icon_file_name, currencyName, currencyQuantity, currencyRarity, currencyLocked = GetLootSlotInfo(slot);
 				icon_file_name = icon_file_name:match("[^\\]+$"):lower();
-				local currencyId = WL_CURRENCIES[icon_file_name];
+				currencyId = WL_CURRENCIES[icon_file_name];
 				
 				wlLootedCurrencyBlacklist = {
 					["currencyId"] = currencyId,
 					["currencyQuantity"] = currencyQuantity,
 				};
-
-				for sourceIndex = 1, #lootSources, 2 do
-					if (targetGUID == lootSources[sourceIndex] and lootSources[sourceIndex + 1]) then
-						wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", i, "set", wlConcat("currency", lootSources[sourceIndex + 1], currencyId));
-						i = i + 1;
-					end
-				end
-
-			elseif slotType == LOOT_SLOT_MONEY then
-			
-				wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", i, "set", wlConcat("coin", wlParseCoin(select(2, GetLootSlotInfo(slot)))));
-				i = i + 1;
-				
 			end
+			
+			for sourceIndex = 1, #lootSources, 2 do
+				local qty = lootSources[sourceIndex + 1];
+				local aoeGUID = lootSources[sourceIndex];
+				if ((wlTracker.spell.action == "Killing" and targetGUID == aoeGUID) or wlTracker.spell.action ~= "Killing") then
+					if not targetLoots[itemId] then
+						targetLoots[itemId] = {};
+					end
+					targetLoots[itemId][1] = (targetLoots[itemId][1] or 0) + qty;
+					targetLoots[itemId][2] = (targetLoots[itemId][2] or 0) + wlSelectOne(3, GetLootSlotInfo(slot));
+					targetLoots[itemId][3] = (currencyId or 0);
+				else
+					if not aoeNpcs[aoeGUID] then
+						aoeNpcs[aoeGUID] = {};
+					end
+					if not aoeNpcs[aoeGUID][itemId] then
+						aoeNpcs[aoeGUID][itemId] = {};
+					end
+					aoeNpcs[aoeGUID][itemId][1] = (aoeNpcs[aoeGUID][itemId][1] or 0) + qty;
+					aoeNpcs[aoeGUID][itemId][2] = (currencyId or 0);
+				end
+			end
+		end
 	end
 	
 	local isAoeLoot = (next(aoeNpcs) ~= nil) and 1 or 0;
 	wlEvent[wlId][wlN][eventId].isAoeLoot = isAoeLoot;
 
 	for itemId, qtyInfo in pairs(targetLoots) do
-		local qty = (isAoeLoot == 1) and qtyInfo[1] or qtyInfo[2];
-		wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", i, "set", wlConcat(itemId, qty));
+		local qty = qtyInfo[1] or qtyInfo[2];
+		local currencyId = qtyInfo[3];
+		if currencyId > 0 then
+			wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", i, "set", wlConcat(itemId, qty, currencyId));
+		else 
+			wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", i, "set", wlConcat(itemId, qty));
+		end
 		i = i + 1;
 	end
 	
 	for aoeGUID, dropInfo in pairs(aoeNpcs) do
+		-- Enclosing loop for wlLootCooldown purposes
+		repeat
+			local guidMsg = wlConcat(wlTracker.spell.action, aoeGUID);
+			if wlLootCooldown[guidMsg] then
+				-- wlClearTracker("spell");
+				-- The next line jumps to the enclosing "for" loop
+				-- Equivalent to "continue;"
+				do break end;
+			end
+			if wlIsInParty() then
+				SendAddonMessage("WL_LOOT_COOLDOWN", guidMsg, "RAID");
+			else
+				wlEvent_CHAT_MSG_ADDON(self, "WL_LOOT_COOLDOWN", guidMsg, "RAID", UnitName("player"));
+			end
 
-		local guidMsg = wlConcat(wlTracker.spell.action, aoeGUID);
-		if wlLootCooldown[guidMsg] then
-			wlClearTracker("spell");
-			return;
-		end
-		if wlIsInParty() then
-			SendAddonMessage("WL_LOOT_COOLDOWN", guidMsg, "RAID");
-		else
-			wlEvent_CHAT_MSG_ADDON(self, "WL_LOOT_COOLDOWN", guidMsg, "RAID", UnitName("player"));
-		end
-
-		local npcId = wlParseGUID(aoeGUID);
-		local aoeEventId = wlGetNextEventId();
-		local aoeCounter = 1;
-		wlUpdateVariable(wlEvent, wlId, wlN, aoeEventId, "initArray", 0);
-		wlEvent[wlId][wlN][aoeEventId].what = "loot";
-		wlEvent[wlId][wlN][aoeEventId].isAoeLoot = isAoeLoot;
-		wlTableCopy(wlEvent[wlId][wlN][aoeEventId], wlTracker.spell);
-		wlEvent[wlId][wlN][aoeEventId].dd = instanceDiff;
-		wlEvent[wlId][wlN][aoeEventId].flags = flags;
-		wlEvent[wlId][wlN][aoeEventId].id = npcId;
-		for itemId, qty in pairs(dropInfo) do
-			wlUpdateVariable(wlEvent, wlId, wlN, aoeEventId, "drop", aoeCounter, "set", wlConcat(itemId, qty));
-			aoeCounter = aoeCounter + 1;
-		end
+			local npcId = wlParseGUID(aoeGUID);
+			local aoeEventId = wlGetNextEventId();
+			local aoeCounter = 1;
+			wlUpdateVariable(wlEvent, wlId, wlN, aoeEventId, "initArray", 0);
+			wlEvent[wlId][wlN][aoeEventId].what = "loot";
+			wlEvent[wlId][wlN][aoeEventId].isAoeLoot = isAoeLoot;
+			wlTableCopy(wlEvent[wlId][wlN][aoeEventId], wlTracker.spell);
+			wlEvent[wlId][wlN][aoeEventId].dd = instanceDiff;
+			wlEvent[wlId][wlN][aoeEventId].flags = flags;
+			wlEvent[wlId][wlN][aoeEventId].id = npcId;
+			-- Add Drops
+			for itemId, qty in pairs(dropInfo) do
+				if qty[2] > 0 then -- Currency 
+					wlUpdateVariable(wlEvent, wlId, wlN, aoeEventId, "drop", aoeCounter, "set", wlConcat(itemId, qty[1], qty[2]));
+				else -- Money or Item
+					wlUpdateVariable(wlEvent, wlId, wlN, aoeEventId, "drop", aoeCounter, "set", wlConcat(itemId, qty[1]));
+				end
+				aoeCounter = aoeCounter + 1;
+			end
+			-- End inner loop
+			break;
+		until true
 	end
 	
 	-- wlDebugFrame:Show();
 	-- wlPrint("-------------------------------");
 	-- wlTablePrint(wlTracker.spell);
-	-- for k, v in pairs(tempLoot) do
-		-- local name = GetItemInfo(k);
-		-- tempLoot[k] = wlConcat(name,v);
+	-- wlTablePrint(wlEvent[wlId][wlN]);
+	-- wlTablePrint(aoeNpcs);
+	-- for slot=1, GetNumLootItems() do
+	--	 wlPrint("------GetLootSourceInfo(" .. slot .. ")------");
+	--	 wlPrint(GetLootSourceInfo(slot));
 	-- end
-	-- wlTablePrint(tempLoot);
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -2155,7 +2201,7 @@ function wlEvent_CURRENCY_DISPLAY_UPDATE(...)
 					SetMapToCurrentZone();
 					local areaId = GetCurrentMapAreaID();
 					SetMapByID(oldAreaId);
-					local diff = GetInstanceDifficulty();
+					local diff = (wlSelectOne(3, GetInstanceInfo()) + 1);
 					local dungeonGroupId = 0;
 					if WL_AREAID_TO_DUNGEONID[diff] then
 						dungeonGroupId = WL_AREAID_TO_DUNGEONID[diff][areaId] or 0;
@@ -2563,9 +2609,24 @@ end
 
 function wlGetLocation()
 	local zone = GetRealZoneText() or "";
+	local mainZone, _, _, isMicroZone, microZone = GetMapInfo();
+	
+	-- Save Map
+	local currentDL = GetCurrentMapDungeonLevel() or 0;
+	local currentId = GetCurrentMapAreaID();
+	local wasMicroZone = isMicroZone;
+	local oldMicroZone = microZone;
+	
+	-- Obtain true coords
+	SetMapToCurrentZone();
+	mainZone, _, _, isMicroZone, microZone = GetMapInfo();
+	if((wlSelectOne(3,GetInstanceInfo()) == 0) and (microZone ~= "ShrineofSevenStars") and(microZone ~= "ShrineofTwoMoons") and (isMicroZone == true)) then
+		SetMapByID(GetCurrentMapAreaID());
+	end
+	
 	local x, y = GetPlayerMapPosition("player");
 	local dl = GetCurrentMapDungeonLevel() or 0;
-
+	
 	if not x or not y then
 		x, y = 0, 0;
 	end
@@ -2589,6 +2650,20 @@ function wlGetLocation()
 		dl = dl - 1;
 	end
 
+	-- Restore Map
+	if wasMicroZone then
+		if oldMicroZone == "ShrineofSevenStars" then
+			SetMapByID(905);
+		elseif oldMicroZone == "ShrineofTwoMoons" then
+			SetMapByID(903);
+		else
+			SetMapToCurrentZone();
+		end
+	else
+		SetMapByID(currentId);
+	end
+	SetDungeonMapLevel(currentDL); 
+	
 	return zone, floor(x * 1000 + 0.5), floor(y * 1000 + 0.5), dl;
 end
 
@@ -4858,4 +4933,43 @@ function wlArrayLength(array, depth)
 	return count;
 end
 
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlGetCurrentMapAreaID()
+	
+	local dl = GetCurrentMapDungeonLevel() or 0; -- Save DL
+	local currentId = GetCurrentMapAreaID(); -- Save Location
+	local mapAreaID = 0;
+	
+	local mainZone, _, _, isMicroZone, microZone = GetMapInfo();
+	local wasMicroZone = isMicroZone;
+	local oldMicroZone = microZone;
+	
+	SetMapToCurrentZone(); -- Move Map
+	mainZone, _, _, isMicroZone, microZone = GetMapInfo();
+	if microZone == "ShrineofSevenStars" then
+		mapAreaID = 905;
+	elseif microZone == "ShrineofTwoMoons" then
+		mapAreaID = 903;
+	else
+		mapAreaID = GetCurrentMapAreaID();
+	end
+	
+	-- Restore Map
+	if wasMicroZone then
+		if oldMicroZone == "ShrineofSevenStars" then
+			SetMapByID(905);
+		elseif oldMicroZone == "ShrineofTwoMoons" then
+			SetMapByID(903);
+		else
+			SetMapToCurrentZone();
+		end
+	else
+		SetMapByID(currentId);
+	end
+	SetDungeonMapLevel(dl); 
+	
+	return mapAreaID;
+end
+	
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
