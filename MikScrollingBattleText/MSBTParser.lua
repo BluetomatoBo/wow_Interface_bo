@@ -632,10 +632,7 @@ local function CreateCaptureFuncs()
   ENCHANT_REMOVED = function (p, ...) p.eventType, p.isFade, p.skillName, p.itemID, p.itemName = "enchant", true, ... end,
   
   -- Dispel events.
-  -- XXX: Bug in combat log with Patch 5.2 that has the skill and extra skill reversed.
-  --SPELL_DISPEL = function (p, ...) p.eventType, p.skillID, p.skillName, p.skillSchool, p.extraSkillID, p.extraSkillName, p.extraSkillSchool, p.auraType = "dispel", ... end,
-  SPELL_DISPEL = function (p, ...) p.eventType, p.extraSkillID, p.extraSkillName, p.extraSkillSchool, p.skillID, p.skillName, p.skillSchool, p.auraType = "dispel", ... end,
-  
+  SPELL_DISPEL = function (p, ...) p.eventType, p.skillID, p.skillName, p.skillSchool, p.extraSkillID, p.extraSkillName, p.extraSkillSchool, p.auraType = "dispel", ... end,
 
   -- Cast events.
   SPELL_CAST_START = function (p, ...) p.eventType, p.skillID, p.skillName, p.skillSchool = "cast", ... end,

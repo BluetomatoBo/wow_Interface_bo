@@ -2339,7 +2339,7 @@ local function SpamTab_Create()
  objLocale = L.SLIDERS["healThreshold"]
  slider:Configure(150, objLocale.label, objLocale.tooltip)
  slider:SetPoint("TOPLEFT", tabFrame, "TOPLEFT", 5, -10)
- slider:SetMinMaxValues(0, 10000)
+ slider:SetMinMaxValues(0, 100000)
  slider:SetValueStep(100)
  slider:SetValueChangedHandler(
    function(this, value)
@@ -2353,7 +2353,7 @@ local function SpamTab_Create()
  objLocale = L.SLIDERS["damageThreshold"]
  slider:Configure(150, objLocale.label, objLocale.tooltip)
  slider:SetPoint("TOPLEFT", controls.healSlider, "BOTTOMLEFT", 0, -10)
- slider:SetMinMaxValues(0, 10000)
+ slider:SetMinMaxValues(0, 100000)
  slider:SetValueStep(100)
  slider:SetValueChangedHandler(
    function(this, value)
