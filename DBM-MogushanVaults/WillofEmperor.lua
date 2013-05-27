@@ -8,7 +8,7 @@ local sndADD2	= mod:NewSound(nil, "SoundADD2", mod:IsDps())
 local sndADD3A	= mod:NewSound(nil, "SoundADD3A", mod:IsDps())
 local sndADD3	= mod:NewSound(nil, "SoundADD3", mod:IsDps())
 
-mod:SetRevision(("$Revision: 9534 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9667 $"):sub(12, -3))
 mod:SetCreatureID(60399, 60400)--60396 (Rage), 60397 (Strength), 60398 (Courage), 60480 (Titan Spark), 60399 (Qin-xi), 60400 (Jan-xi)
 mod:SetZone()
 --mod:SetMinSyncRevision(7708)
@@ -19,7 +19,7 @@ mod:SetMinCombatTime(25)
 mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"UNIT_SPELLCAST_SUCCEEDED",
+	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 target focus",--For this boss we want target/focus and boss1-2
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_DIED",
 	"SWING_DAMAGE",

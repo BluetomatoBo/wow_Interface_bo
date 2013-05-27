@@ -4,7 +4,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndXG		= mod:NewSound(nil, "SoundXG", true)
 local sndAE		= mod:NewSound(nil, "SoundAE", true)
 
-mod:SetRevision(("$Revision: 9578 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9641 $"):sub(12, -3))
 mod:SetCreatureID(67977)
 mod:SetQuestID(32747)
 mod:SetZone()
@@ -18,8 +18,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"UNIT_POWER",
-	"UNIT_AURA",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_AURA boss1",
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 local warnBite						= mod:NewSpellAnnounce(135251, 3, nil, mod:IsTank())
@@ -50,11 +50,7 @@ local timerShellConcussion			= mod:NewBuffFadesTimer(20, 136431)
 local berserkTimer					= mod:NewBerserkTimer(780)
 
 mod:AddBoolOption("InfoFrame")
-if GetLocale() == "koKR" then
-	mod:AddBoolOption("SetIconOnTurtles", false)
-else
-	mod:AddBoolOption("SetIconOnTurtles", true)
-end
+mod:AddBoolOption("SetIconOnTurtles", false)
 mod:AddBoolOption("ClearIconOnTurtles", false)--Different option, because you may want auto marking but not auto clearing. or you may want auto clearning when they "die" but not auto marking when they spawn
 mod:AddBoolOption("warnsj", true, "sound")
 
@@ -65,7 +61,6 @@ local stompCount = 0
 
 local stomptime = 0
 
---黑手減傷
 for i = 1, 4 do
 	mod:AddBoolOption("dr"..i, false, "sound")
 end
@@ -76,7 +71,6 @@ local function MyJS()
 	end
 	return false
 end
---減傷結束
 
 function mod:checkmydebuff()
     if not UnitDebuff("player", GetSpellInfo(137633)) then
@@ -143,7 +137,6 @@ function mod:OnCombatStart(delay)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sjsl.mp3")--水晶碎裂
 		end
 	end
---BH DELETE	berserkTimer:Start(-delay)
 	if self.Options.InfoFrame and self:IsDifficulty("heroic10", "heroic25") then
 		DBM.InfoFrame:SetHeader(L.WrongDebuff:format(shelldName))
 		DBM.InfoFrame:Show(5, "playergooddebuff", 137633)
@@ -322,9 +315,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
---Does not show in combat log, so UNIT_AURA must be used instead
 function mod:UNIT_AURA(uId)
-	if uId ~= "boss1" then return end
 	local _, _, _, _, _, duration, expires = UnitDebuff(uId, shellConcussion)
 	if expires and lastConcussion ~= expires then
 		lastConcussion = expires
@@ -336,7 +327,7 @@ function mod:UNIT_AURA(uId)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
-	if spellId == 136685 and self:AntiSpam(2, 5) then --Don't filter main tank, bat tank often taunts boss just before bats for vengeance, otherwise we lose threat to dps. Then main tank taunts back after bats spawn and we go get them, fully vengeanced (if you try to pick up bats without vengeance you will not hold aggro for shit)
+	if spellId == 136685 then --Don't filter main tank, bat tank often taunts boss just before bats for vengeance, otherwise we lose threat to dps. Then main tank taunts back after bats spawn and we go get them, fully vengeanced (if you try to pick up bats without vengeance you will not hold aggro for shit)
 		warnSummonBats:Show()
 		specWarnSummonBats:Show()
 		timerSummonBatsCD:Start()

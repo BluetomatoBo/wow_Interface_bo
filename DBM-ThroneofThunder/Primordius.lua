@@ -2,7 +2,7 @@ local mod	= DBM:NewMod(820, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9566 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9626 $"):sub(12, -3))
 mod:SetCreatureID(69017)--69070 Viscous Horror, 69069 good ooze, 70579 bad ooze (patched out of game, :\)
 mod:SetQuestID(32751)
 mod:SetZone()
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
---	"UNIT_AURA",
+	"UNIT_AURA player",
 	"UNIT_SPELLCAST_SUCCEEDED",
 	"UNIT_DIED"
 )
@@ -315,7 +315,6 @@ local bad3 = GetSpellInfo(136185)
 local bad4 = GetSpellInfo(136187)
 
 function mod:UNIT_AURA(uId)
-	if uId ~= "player" then return end
 	local gcnt, gcnt1, gcnt2, gcnt3, gcnt4, bcnt, bcnt1, bcnt2, bcnt3, bcnt4
 	gcnt1 = select(4, UnitDebuff("player", good1)) or 0
 	gcnt2 = select(4, UnitDebuff("player", good2)) or 0

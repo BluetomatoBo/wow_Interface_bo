@@ -2,7 +2,7 @@ local mod	= DBM:NewMod("ToTTrash", "DBM-ThroneofThunder")
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9361 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9665 $"):sub(12, -3))
 mod:SetModelID(47785)
 mod:SetZone()
 
@@ -12,7 +12,7 @@ mod:RegisterEvents(
 	"SPELL_CAST_START",
 	"SPELL_AURA_APPLIED",
 	"UNIT_DIED",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_SPELLCAST_SUCCEEDED target focus"
 )
 
 local warnStormEnergy			= mod:NewTargetAnnounce(139322, 4)
@@ -120,13 +120,8 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args.spellId == 139900 then
 		stormCloudTargets[#stormCloudTargets + 1] = args.destName
 		if args:IsPlayer() then
-			DBM.Flash:Show(1, 0, 0)			
 			specWarnStormCloud:Show()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3")
-		else
-			if self.Options.HudMAP then
-				lightmaker[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", args.destName, 10, 60, 1, 1, 1, 0.7):RegisterForAlerts())
-			end
 		end
 		if self.Options.RangeFrame and not DBM.RangeCheck:IsShown() then
 			DBM.RangeCheck:Show(10)

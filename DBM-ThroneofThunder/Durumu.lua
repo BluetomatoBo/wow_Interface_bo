@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9566 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9607 $"):sub(12, -3))
 mod:SetCreatureID(68036)--Crimson Fog 69050, 
 mod:SetQuestID(32750)
 mod:SetZone()
@@ -608,10 +608,10 @@ function mod:SPELL_DAMAGE(_, _, _, _, destGUID, destName, _, _, spellId)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	elseif spellId == 133677 then --藍
 		lightcheck[destName] = "blue"
-	elseif spellId == 133738 then --紅
-		lightcheck[destName] = "red"
-	elseif spellId == 133732 then --黃
+	elseif spellId == 133738 then --黃
 		lightcheck[destName] = "yellow"
+	elseif spellId == 133732 then --紅
+		lightcheck[destName] = "red"
 	end
 	if not lfrEngaged or lfrAmberFogRevealed then return end -- To reduce cpu usage normal and heroic.
 	if destName == amberFog and not lfrAmberFogRevealed then -- Lfr Amger fog do not have CLEU, no unit events and no emote.
@@ -627,10 +627,10 @@ function mod:SPELL_MISSED(_, _, _, _, destGUID, destName, _, _, spellId)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	elseif spellId == 133677 then --藍
 		lightcheck[destName] = "blue"
-	elseif spellId == 133738 then --紅
-		lightcheck[destName] = "red"
-	elseif spellId == 133732 then --黃
+	elseif spellId == 133738 then --黃
 		lightcheck[destName] = "yellow"
+	elseif spellId == 133732 then --紅
+		lightcheck[destName] = "red"
 	end
 end
 
@@ -800,6 +800,7 @@ function mod:UNIT_DIED(args)
 			lastBlue = nil
 			lastYellow = nil
 			lightphase = false
+			table.wipe(lightcheck)
 		end
 	elseif cid == 69051 then--Amber Fog
 		--Maybe do something for heroic here too, if timers for the crap this thing does gets added.
@@ -821,6 +822,7 @@ function mod:UNIT_DIED(args)
 				lastBlue = nil
 				lastYellow = nil
 				lightphase = false
+				table.wipe(lightcheck)
 			end
 		end
 	elseif cid == 69052 then--Azure Fog (endlessly respawn in all but LFR, so we ignore them dying anywhere else)
@@ -843,6 +845,7 @@ function mod:UNIT_DIED(args)
 				lastBlue = nil
 				lastYellow = nil
 				lightphase = false
+				table.wipe(lightcheck)
 			end
 		end
 	end

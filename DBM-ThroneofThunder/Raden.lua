@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndStrike	= mod:NewSound(nil, "SoundStrike", true)
 
-mod:SetRevision(("$Revision: 9476 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9633 $"):sub(12, -3))
 mod:SetCreatureID(69473)--69888
 mod:SetQuestID(32753)
 mod:SetZone()
@@ -17,7 +17,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 local warnMurderousStrike						= mod:NewSpellAnnounce(138333, 4, nil, mod:IsTank() or mod:IsHealer())--Tank (think thrash, like sha. Gains buff, uses on next melee attack)
@@ -83,13 +83,19 @@ mod:AddBoolOption("SetIconOnUnstableVita", true)
 mod:AddBoolOption("SetIconOnUnstableAnima", true)
 
 mod:AddBoolOption("HudMAPAnima", false, "sound")
+mod:AddBoolOption("HudMAP", true, "sound")
 
 mod:AddDropdownOption("optDD", {"nodd", "DD1", "DD2", "DD3", "DD4", "DD5"}, "nodd", "sound")
-
 mod:AddEditBoxOption("lightnumber", 50, "0", "sound")
-
 mod:AddEditBoxOption("lastnumber", 50, "0", "sound")
 
+local DBMHudMap = DBMHudMap
+local free = DBMHudMap.free
+local function register(e)	
+	DBMHudMap:RegisterEncounterMarker(e)
+	return e
+end
+local FireMarkers = {}
 
 local function LoopUnstableAnima()
 	mod:Unschedule(LoopUnstableAnima)
@@ -107,6 +113,7 @@ function mod:OnCombatStart(delay)
 	creationCount = 0
 	stalkerCount = 0
 	horrorCount = 0
+	table.wipe(FireMarkers)
 	mylightnum = tonumber(mod.Options.lightnumber)
 	lastlightnum = tonumber(mod.Options.lastnumber)
 	timerMaterialsofCreationCD:Start(10-delay, 1)
@@ -114,7 +121,7 @@ end
 
 function mod:OnCombatEnd()
 	combat = false
-	if self.Options.HudMAPAnima then
+	if self.Options.HudMAP or self.Options.HudMAPAnima then
 		DBMHudMap:FreeEncounterMarkers()
 	end
 end
@@ -195,6 +202,10 @@ function mod:SPELL_AURA_APPLIED(args)
 				sndWOP:Schedule(11, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 			end
 		end
+		if self.Options.HudMAP then
+			local spelltext = GetSpellInfo(138297)
+			FireMarkers[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 3, 10, 1, 0 ,0 ,0.8):SetLabel(spelltext))
+		end
 		if self.Options.SetIconOnUnstableVita then
 			self:SetIcon(args.destName, 5)
 		end
@@ -230,6 +241,10 @@ function mod:SPELL_AURA_APPLIED(args)
 				sndWOP:Schedule(10, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 				sndWOP:Schedule(11, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 			end
+		end
+		if self.Options.HudMAP then
+			local spelltext = GetSpellInfo(138308)
+			FireMarkers[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 3, 10, 1, 0 ,0 ,0.8):SetLabel(spelltext))
 		end
 		if self.Options.SetIconOnUnstableVita then
 			self:SetIcon(args.destName, 5)
@@ -297,12 +312,18 @@ function mod:SPELL_AURA_REMOVED(args)
 		if args:IsPlayer() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runin.mp3") --快回人群
 		end
+		if FireMarkers[args.destName] then
+			FireMarkers[args.destName] = free(FireMarkers[args.destName])
+		end
 	elseif args.spellId == 138308 then
 		if self.Options.SetIconOnUnstableVita then
 			self:SetIcon(args.destName, 0)
 		end
 		if args:IsPlayer() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runin.mp3")
+		end
+		if FireMarkers[args.destName] then
+			FireMarkers[args.destName] = free(FireMarkers[args.destName])
 		end
 	elseif args.spellId == 138288 then
 		self:Unschedule(LoopUnstableAnima)
@@ -315,11 +336,11 @@ end
 --"<299.6 01:54:51> CHAT_MSG_MONSTER_YELL#You still think victory possible? Fools!#Ra-den#####0#0##0#298#nil#0#false#false",
 --"<299.9 01:54:51> [UNIT_SPELLCAST_SUCCEEDED] Ra-den [boss1:Ruin::0:139073]
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
-	if spellId == 139040 and self:AntiSpam(2) then--Call Essence
+	if spellId == 139040 then--Call Essence
 		warnCallEssence:Show()
 		specWarnCallEssence:Show()
 		timerCallEssenceCD:Start()
-	elseif spellId == 139073 and self:AntiSpam(2) then--Phase 2 (the Ruin Trigger)
+	elseif spellId == 139073 then--Phase 2 (the Ruin Trigger)
 		self:SendSync("Phase2")
 	end
 end

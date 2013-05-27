@@ -469,7 +469,7 @@ L= DBM:GetModLocalization(832)
 L:SetWarningLocalization({
 	specWarnIntermissionSoon	= "充能階段 即將到來"
 })
-	
+
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
 	specWarnIntermissionSoon	= "特別警告：充能階段即將到來",

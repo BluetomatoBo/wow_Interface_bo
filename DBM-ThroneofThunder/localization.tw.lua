@@ -532,6 +532,7 @@ L:SetOptionLocalization({
 	lightnumber		= "正常循環成員編號(不會分配編號為0的團員)",
 	lastnumber		= "總共安排了多少正常循環成員[必須填寫 非常重要]",
 	HudMAPAnima		= "高級定位監視(HUD)：$spell:138295爆炸",
+	HudMAP			= "高級定位監視(HUD)：$spell:138297",
 	timerAnima		= "計時器：下一次$spell:138295爆炸",
 	SetIconOnUnstableVita	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(138297),
 	SetIconOnUnstableAnima	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(138288)
@@ -548,6 +549,6 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	SoundWOP		= "語音警告：重要技能",
-	HudMAP			= "高級定位監視(HUD)：$spell:139322/$spell:139900",
+	HudMAP			= "高級定位監視(HUD)：$spell:139322",
 	RangeFrame		= "距離監視(10碼)"--For 3 different spells
 })

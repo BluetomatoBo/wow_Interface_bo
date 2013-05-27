@@ -2,7 +2,7 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9469 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9668 $"):sub(12, -3))
 mod:SetCreatureID(62980)--63554 (Special invisible Vizier that casts the direction based spellid versions of attenuation)
 mod:SetZone()
 
@@ -16,7 +16,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"RAID_BOSS_EMOTE",
-	"UNIT_SPELLCAST_SUCCEEDED",
+	"UNIT_SPELLCAST_SUCCEEDED boss1",
 	"UNIT_DIED"
 )
 
@@ -271,11 +271,11 @@ end
 
 --"<55.0 21:38:55> [CLEU] UNIT_DIED#true#0x0000000000000000#nil#-2147483648#-2147483648#0xF130FE9600003072#Echo of Force and Verve#68168#0", -- [10971]
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
-	if spellId == 122933 and self:AntiSpam(2, 1) then--Clear Throat (4 seconds before force and verve)
+	if spellId == 122933 then--Clear Throat (4 seconds before force and verve)
 		if self:LatencyCheck() then
 			self:SendSync("ForceandVerve")
 		end
-	elseif (spellId == 130297 or spellId == 127541) and not EchoAlive then--Echo of Zor'lok
+	elseif (spellId == 127542 or spellId == 127541 or spellId == 130297) and not EchoAlive then--Echo of Zor'lok (127542 is platform 1 echo spawn, 127541 is platform 2 echo spawn, 130297 is phase 2 echos)
 		EchoAlive = true
 		if platform == 1 then--Boss flew off from first platform to 2nd, and this means the echo that spawned is an Echo of Force and Verve
 --			timerForceCD:Start()

@@ -4,7 +4,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPCX	= mod:NewSound(nil, "SoundWOP", true)
 local sndYX		= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9568 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9656 $"):sub(12, -3))
 mod:SetCreatureID(68905, 68904)--Lu'lin 68905, Suen 68904
 mod:SetQuestID(32755)
 mod:SetZone()
@@ -23,7 +23,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_SUMMON",
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_DIED",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2"
 )
 
 local Lulin = EJ_GetSectionInfo(7629)
@@ -69,7 +69,6 @@ local specWarnTT3						= mod:NewSpecialWarningSpell(138306)
 
 
 --Darkness
---Light of Day (137403) has a HIGHLY variable cd variation, every 6-14 seconds. Not to mention it requires using SPELL_DAMAGE and SPELL_MISSED. for now i'm excluding it on purpose
 local timerDayCD						= mod:NewTimer(183, "timerDayCD", 122789) -- timer is 183 or 190 (confirmed in 10 man. variable)
 local timerCrashingStar					= mod:NewNextTimer(5.5, 137129)
 local timerCosmicBarrageCD				= mod:NewNextCountTimer(22, 136752)--Very high variation. (22~38s) Changed to Crashing Star stuff.
@@ -87,7 +86,7 @@ local timerNuclearInferno				= mod:NewBuffActiveTimer(12, 137491)
 local timerNuclearInfernoCD				= mod:NewNextCountTimer(49.5, 137491)
 --Dusk
 local timerTidalForce					= mod:NewBuffActiveTimer(18 ,137531)
-local timerTidalForceCD					= mod:NewNextCountTimer(74, 137531)
+local timerTidalForceCD					= mod:NewNextCountTimer(73, 137531)
 
 local berserkTimer						= mod:NewBerserkTimer(600)
 
@@ -171,7 +170,7 @@ local function MyJSD()  --P3煉獄
 end
 
 local function MyJSE()  --P3潮汐
-	if (mod.Options.drE1 and TidalForceCount == 0) or (mod.Options.drE2 and TidalForceCount == 1) then
+	if (mod.Options.drE1 and TidalForceCount == 1) or (mod.Options.drE2 and TidalForceCount == 2) then
 		return true
 	end
 	return false
@@ -480,11 +479,14 @@ function mod:UNIT_DIED(args)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
 		end
+		phase3Started = true
 	elseif cid == 68904 then--Suen
 		--timerFlamesOfPassionCD:Cancel()
-		--timerBeastOfNightmaresCD:Start()--My group kills Lu'lin first. Need log of Suen being killed first to get first beast timer value
+		timerBeastOfNightmaresCD:Start(64)
+		timerNuclearInfernoCD:Cancel()
 		Sunlive = false
 		warnNight:Show()
+		phase3Started = true
 		timerTidalForceCD:Cancel()
 		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cxzb.mp3")
 		sndWOPCX:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
@@ -495,7 +497,7 @@ function mod:UNIT_DIED(args)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
-	if spellId == 137105 and self:AntiSpam(2, 1) then--Suen Ports away (Night Phase)
+	if spellId == 137105 then--Suen Ports away (Night Phase)
 		timerLightOfDayCD:Cancel()
 		timerFanOfFlamesCD:Cancel()
 		--timerFlamesOfPassionCD:Cancel()
@@ -503,17 +505,17 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		sndWOP:Schedule(180, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_btzb.mp3")--白天準備
 		sndWOP:Schedule(181, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 		sndWOP:Schedule(182, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
-		sndWOP:Schedule(183, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")		
-		timerCosmicBarrageCD:Start(17, 1)
+		sndWOP:Schedule(183, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		if Sunlive then
 			timerDayCD:Start()
 			timerDuskCD:Start()
+			timerCosmicBarrageCD:Start(17, 1)
 			timerTearsOfTheSunCD:Start(28.5)			
 		end
 		timerBeastOfNightmaresCD:Start()
-	elseif spellId == 137187 and self:AntiSpam(2, 2) then--Lu'lin Ports away (Day Phase)
+	elseif spellId == 137187 then--Lu'lin Ports away (Day Phase)
 		self:SendSync("Phase2")
-	elseif spellId == 138823 and self:AntiSpam(2, 3) then
+	elseif spellId == 138823 then
 		warnLightOfDay:Show()
 		timerLightOfDayCD:Start()
 	end
@@ -555,7 +557,7 @@ function mod:OnSync(msg)
 		NuclearInfernoCount = 0
 		warnDusk:Show()
 		timerIceCometCD:Start(17)--This seems to reset, despite what last CD was (this can be a bad thing if it was do any second)
-		timerTidalForceCD:Start(26, 1)		
+		timerTidalForceCD:Start(30, 1)		
 		if self:IsDifficulty("heroic10", "heroic25") then
 			timerNuclearInfernoCD:Cancel()
 			timerNuclearInfernoCD:Start(63, 1)
@@ -568,15 +570,11 @@ function mod:OnSync(msg)
 		sndWOP:Schedule(4, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 		sndWOP:Schedule(5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		sndWOP:Schedule(6, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_hhjd.mp3") --黃昏開始
-		if MyJSE() then
-			sndWOPCX:Schedule(21, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3")
-		else
-			sndWOPCX:Schedule(21, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cxzb.mp3")
-		end
-		sndWOPCX:Schedule(22, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
-		sndWOPCX:Schedule(23, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
-		sndWOPCX:Schedule(24, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
-		sndWOPCX:Schedule(25, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		sndWOPCX:Schedule(25, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cxzb.mp3")
+		sndWOPCX:Schedule(26, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
+		sndWOPCX:Schedule(27, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+		sndWOPCX:Schedule(28, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+		sndWOPCX:Schedule(29, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 	elseif msg == "Phase3" then
 		self:UnregisterShortTermEvents()
 		timerFanOfFlamesCD:Cancel()--DO NOT CANCEL THIS ON YELL
@@ -588,7 +586,7 @@ function mod:OnSync(msg)
 			if self:IsDifficulty("heroic10", "heroic25") then
 				timerNuclearInfernoCD:Start(57)
 			end
-			timerCosmicBarrageCD:Start(48)
+			timerCosmicBarrageCD:Start(48, 1)
 		end]]
 	elseif msg == "Comet" then
 		if self:AntiSpam(10, 5) then

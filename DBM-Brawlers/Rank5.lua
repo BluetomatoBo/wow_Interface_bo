@@ -2,14 +2,14 @@ local mod	= DBM:NewMod("BrawlRank5", "DBM-Brawlers")
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8974 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9665 $"):sub(12, -3))
 --mod:SetCreatureID(60491)
 mod:SetModelID(6923)
 mod:SetZone()
 
 mod:RegisterEvents(
 	"SPELL_CAST_START",
-	"UNIT_SPELLCAST_INTERRUPTED"
+	"UNIT_SPELLCAST_INTERRUPTED target focus"
 )
 
 local warnPolymorph			= mod:NewSpellAnnounce(133362, 4)

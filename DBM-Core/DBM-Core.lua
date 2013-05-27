@@ -44,7 +44,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 9596 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 9670 $"):sub(12, -3)),
 	DisplayVersion = "5.3 語音增強版", -- the string that is shown as version
 	ReleaseRevision = 9592 -- the revision of the latest stable version that is available
 }
@@ -96,7 +96,7 @@ DBM.DefaultOptions = {
 	AutoRespond = true,
 	StatusEnabled = true,
 	WhisperStats = false,
-	HideBossEmoteFrame = false,
+	HideBossEmoteFrame = true,
 	SpamBlockBossWhispers = false,
 	ShowMinimapButton = false,
 	BlockVersionUpdateNotice = false,
@@ -348,6 +348,7 @@ local BNSendWhisper = sendWhisper
 --------------
 do
 	local registeredEvents = {}
+	local registeredUnitEventIds = {}
 	local argsMT = {__index = {}}
 	local args = setmetatable({}, argsMT)
 
@@ -401,14 +402,18 @@ do
 	end
 
 	local function handleEvent(self, event, ...)
-		if self == mainFrame and event == "UNIT_HEALTH" or event == "UNIT_HEALTH_FREQUENT" then
-			event = event == "UNIT_HEALTH" and "UNIT_HEALTH_UNFILTERED" or "UNIT_HEALTH_FREQUENT_UNFILTERED"
+		local isUnitEvent = event:sub(0, 5) == "UNIT_" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED"
+		if self == mainFrame and isUnitEvent then
+			-- UNIT_* events that come from mainFrame are _UNFILTERED variants and need their suffix
+			event = event .. "_UNFILTERED"
+			isUnitEvent = false -- not actually a real unit id for this function...
 		end
 		if not registeredEvents[event] or not enabled then return end
 		for i, v in ipairs(registeredEvents[event]) do
 			local zones = v.zones
 			local handler = v[event]
-			if handler and (not zones or zones[LastZoneMapID]) and enabled and not (v.isTrashMod and IsEncounterInProgress()) then
+			local modEvents = v.registeredUnitEvents
+			if handler and (not isUnitEvent or not modEvents or modEvents[event .. ...])  and (not zones or zones[LastZoneMapID]) and not (v.isTrashMod and IsEncounterInProgress()) then
 				handler(v, ...)
 			end
 		end
@@ -416,57 +421,104 @@ do
 
 	local registerUnitEvent, unregisterUnitEvent
 	do
-		local unitEventFrame1 = CreateFrame("Frame")
-		local unitEventFrame2 = CreateFrame("Frame")
-		local unitEventFrame3 = CreateFrame("Frame")
-		local unitEventFrame4 = CreateFrame("Frame")
+		local frames = {} -- frames that are being used for unit events, one frame per unit id (this could be optimized, as it currently creates a new frame even for a different event, but that's not worth the effort as 90% of all calls are just boss1 anyways)
 
-		unitEventFrame1:SetScript("OnEvent", handleEvent)
-		unitEventFrame2:SetScript("OnEvent", handleEvent)
-		unitEventFrame3:SetScript("OnEvent", handleEvent)
-		unitEventFrame4:SetScript("OnEvent", handleEvent)
-
-		function registerUnitEvent(event)
-			unitEventFrame1:RegisterUnitEvent(event, "boss1", "boss2")
-			unitEventFrame2:RegisterUnitEvent(event, "boss3", "boss4")
-			unitEventFrame3:RegisterUnitEvent(event, "boss5", "target")
-			unitEventFrame4:RegisterUnitEvent(event, "focus", "mouseover")
+		function registerUnitEvent(mod, event, ...)
+			mod.registeredUnitEvents = mod.registeredUnitEvents or {}
+			for i = 1, select("#", ...) do
+				local uId = select(i, ...)
+				if not uId then break end
+				local frame = frames[uId]
+				if not frame then
+					frame = CreateFrame("Frame")
+					if uId == "mouseover" then
+						-- work-around for mouse-over events (broken!)
+						frame:SetScript("OnEvent", function(self, event, uId, ...)
+							-- we registered mouseover events, so we only want mouseover events, thanks.
+							handleEvent(self, event, "mouseover", ...)
+						end)
+					else
+						frame:SetScript("OnEvent", handleEvent)
+					end
+					frames[uId] = frame
+				end
+				registeredUnitEventIds[event .. uId] = (registeredUnitEventIds[event .. uId] or 0) + 1
+				mod.registeredUnitEvents[event .. uId] = true
+				frame:RegisterUnitEvent(event, uId)
+			end
 		end
 
-		function unregisterUnitEvent(event)
-			unitEventFrame1:UnregisterEvent(event)
-			unitEventFrame2:UnregisterEvent(event)
-			unitEventFrame3:UnregisterEvent(event)
-			unitEventFrame4:UnregisterEvent(event)
+		function unregisterUnitEvent(mod, event, ...)
+			for i = 1, select("#", ...) do
+				local uId = select(i, ...)
+				if not uId then break end
+				local frame = frames[uId]
+				local refs = (registeredUnitEventIds[event .. uId] or 1) - 1
+				registeredUnitEventIds[event .. uId] = refs
+				if refs <= 0 then
+					registeredUnitEventIds[event .. uId] = nil
+					if frame then
+						frame:UnregisterEvent(event)
+					end
+				end
+				if mod.registeredUnitEvents and mod.registeredUnitEvents[event .. uId] then
+					mod.registeredUnitEvents[event .. uId] = nil
+				end
+			end
+			for i = #registeredEvents[event], 1, -1 do
+				if registeredEvents[event][i] == mod then
+					tremove(registeredEvents[event], i)
+				end
+			end
+			if #registeredEvents[event] == 0 then
+				registeredEvents[event] = nil
+			end
 		end
 
 	end
+	
 
+	-- UNIT_* events are special: they can take 'parameters' like this: "UNIT_HEALTH boss1 boss" which only trigger the event for the given unit ids
 	function DBM:RegisterEvents(...)
 		for i = 1, select("#", ...) do
 			local event = select(i, ...)
-			registeredEvents[event] = registeredEvents[event] or {}
-			tinsert(registeredEvents[event], self)
-			-- unit events that default to boss1-5, target, and focus only
-			-- for now: only UNIT_HEALTH(_FREQUENT), more events (and a lookup table for these events) might be added later
-			if event == "UNIT_HEALTH" or event == "UNIT_HEALTH_FREQUENT" then
-				registerUnitEvent(event)
-			elseif event == "UNIT_HEALTH_UNFILTERED" or event == "UNIT_HEALTH_FREQUENT_UNFILTERED" then
-				-- unfiltered version of these events
-				mainFrame:RegisterEvent(event:sub(0, -12))
+			local eventWithArgs = event
+			-- unit events need special care
+			if event:sub(0, 5) == "UNIT_" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
+				-- unit events are limited to 8 "parameters", as there is no good reason to ever use more than 5 (it's just that the code old code supported 8 (boss1-5, target, focus))
+				local arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8
+				event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = strsplit(" ", event)
+				if not arg1 and event:sub(event:len() - 10) ~= "_UNFILTERED" then -- no arguments given, support for legacy mods
+					eventWithArgs = event .. " boss1 boss2 boss3 boss4 boss5 target focus"
+					event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = strsplit(" ", eventWithArgs)
+				end
+				if event:sub(event:len() - 10) == "_UNFILTERED" then
+					-- we really want *all* unit ids
+					mainFrame:RegisterEvent(event:sub(0, -12))
+				else
+					registerUnitEvent(self, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+				end
 			else
 				-- normal events
 				mainFrame:RegisterEvent(event)
 			end
+			registeredEvents[eventWithArgs] = registeredEvents[eventWithArgs] or {}
+			tinsert(registeredEvents[eventWithArgs], self)
+			if event ~= eventWithArgs then
+				registeredEvents[event] = registeredEvents[event] or {}
+				tinsert(registeredEvents[event], self)
+			end
 		end
 	end
-
-	local function unregisterEvent(event)
-		registeredEvents[event] = nil
-		if event == "UNIT_HEALTH" or event == "UNIT_HEALTH_FREQUENT" then
-			unregisterUnitEvent(event)
-		elseif event == "UNIT_HEALTH_UNFILTERED" or event == "UNIT_HEALTH_FREQUENT_UNFILTERED" then
-			mainFrame:UnregisterEvent(event:sub(0, -12))
+	
+	local function unregisterEvent(mod, event)
+		if event:sub(0, 5) == "UNIT_" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED" then
+			local event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 = strsplit(" ", event)
+			if event:sub(event:len() - 10) == "_UNFILTERED" then 
+				mainFrame:UnregisterEvent(event:sub(0, -12))
+			else
+				unregisterUnitEvent(mod, event, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+			end
 		else
 			mainFrame:UnregisterEvent(event)
 		end
@@ -475,13 +527,18 @@ do
 	function DBM:UnregisterInCombatEvents(ignore)
 		for event, mods in pairs(registeredEvents) do
 			if event ~= ignore then
+				local match = false
 				for i = #mods, 1, -1 do
 					if mods[i] == self and checkEntry(self.inCombatOnlyEvents, event)  then
 						tremove(mods, i)
+						match = true
 					end
 				end
+				if #mods == 0 or (match and event:sub(0, 5) == "UNIT_" and event:sub(0, -10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED") then -- unit events have their own reference count
+					unregisterEvent(self, event)
+				end
 				if #mods == 0 then
-					unregisterEvent(event)
+					registeredEvents[event] = nil
 				end
 			end
 		end
@@ -490,13 +547,18 @@ do
 	function DBM:UnregisterShortTermEvents()
 		if self.shortTermRegisterEvents then
 			for event, mods in pairs(registeredEvents) do
+				local match = false
 				for i = #mods, 1, -1 do
 					if mods[i] == self and checkEntry(self.shortTermRegisterEvents, event)  then
 						tremove(mods, i)
+						match = true
 					end
 				end
+				if #mods == 0 or (match and event:sub(0, 5) == "UNIT_" and event:sub(0, -10) ~= "_UNFILTERED" and event ~= "UNIT_DIED" and event ~= "UNIT_DESTROYED") then
+					unregisterEvent(self, event)
+				end
 				if #mods == 0 then
-					unregisterEvent(event)
+					registeredEvents[event] = nil
 				end
 			end
 			self.shortTermEventsRegistered = nil
@@ -556,12 +618,7 @@ do
 					args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
 				elseif event == "SPELL_EXTRA_ATTACKS" then
 					args.amount = select(4, ...)
-				elseif event == "SPELL_DISPEL_FAILED" then
-					args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
-				elseif event == "SPELL_AURA_DISPELLED" then
-					args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
-					args.auraType = select(7, ...)
-				elseif event == "SPELL_AURA_STOLEN" then
+				elseif event == "SPELL_DISPEL" or event == "SPELL_DISPEL_FAILED" or event == "SPELL_AURA_STOLEN" then
 					args.extraSpellId, args.extraSpellName, args.extraSpellSchool = select(4, ...)
 					args.auraType = select(7, ...)
 				elseif event == "SPELL_AURA_APPLIED" or event == "SPELL_AURA_REMOVED" or event == "SPELL_AURA_REFRESH" then
@@ -587,10 +644,7 @@ do
 			elseif event == "DAMAGE_SHIELD_MISSED" then
 				args.spellId, args.spellName, args.spellSchool = select(1, ...)
 				args.missType = select(4, ...)
-			elseif event == "ENCHANT_APPLIED" then
-				args.spellName = select(1,...)
-				args.itemId, args.itemName = select(2,...)
-			elseif event == "ENCHANT_REMOVED" then
+			elseif event == "ENCHANT_APPLIED" or event == "ENCHANT_REMOVED" then
 				args.spellName = select(1,...)
 				args.itemId, args.itemName = select(2,...)
 			elseif event == "UNIT_DIED" or event == "UNIT_DESTROYED" then
@@ -690,7 +744,7 @@ do
 				"INSTANCE_ENCOUNTER_ENGAGE_UNIT",
 				"UNIT_DIED",
 				"UNIT_DESTROYED",
-				"UNIT_HEALTH",
+				"UNIT_HEALTH mouseover target focus boss1 boss2 boss3 boss4 boss5",
 				"CHAT_MSG_WHISPER",
 				"CHAT_MSG_BN_WHISPER",
 				"CHAT_MSG_MONSTER_YELL",
@@ -1808,9 +1862,8 @@ end
 
 function DBM:PLAYER_REGEN_ENABLED()
 	if loadDelay then
-		loadDelay = nil
 		if type(loadDelay) == "table" then
-			for i, v in ipairs(modsToLoad) do
+			for i, v in ipairs(loadDelay) do
 				DBM:LoadMod(v)
 			end
 		else
@@ -1967,6 +2020,10 @@ function DBM:ZONE_CHANGED_INDOORS()
 		SetMapToCurrentZone()
 		DBM:UpdateMapSizes()
 	end
+end
+
+function DBM:GetCurrentArea()
+	return LastZoneMapID
 end
 
 --------------------------------
@@ -2963,6 +3020,9 @@ do
 	end
 
 	function DBM:CHAT_MSG_MONSTER_EMOTE(msg)
+		if LastZoneMapID == 11 then--Northern barrens caravan messages
+			PlaySoundFile("Sound\\interface\\UI_RaidBossWhisperWarning.ogg", "Master")
+		end
 		return onMonsterMessage("emote", msg)
 	end
 
@@ -3133,7 +3193,7 @@ function DBM:StartCombat(mod, delay, synced, syncedStartHp, noKillRecord)
 		end
 		self:StartLogging(0, nil)
 		if DBM.Options.ShowEngageMessage then
-			if mod.ignoreBestkill then--Should only be true on in progress field bosses, not in progress raid bosses we did timer recovery on.
+			if mod.ignoreBestkill and mod:IsDifficulty("worldboss") then--Should only be true on in progress field bosses, not in progress raid bosses we did timer recovery on.
 				self:AddMsg(DBM_CORE_COMBAT_STARTED_IN_PROGRESS:format(difficultyText..mod.combatInfo.name))
 			else
 				if mod.type == "SCENARIO" then
@@ -3195,7 +3255,7 @@ function DBM:EndCombat(mod, wipe)
 		local scenario = mod.type == "SCENARIO"
 		if not wipe then
 			mod.lastKillTime = GetTime()
-			if mod.inCombatOnlyEvents then
+			if mod.inCombatOnlyEvents and mod.inCombatOnlyEventsRegistered then
 				-- unregister all events except for SPELL_AURA_REMOVED events (might still be needed to remove icons etc...)
 				mod:UnregisterInCombatEvents("SPELL_AURA_REMOVED")
 				self:Schedule(2, mod.UnregisterInCombatEvents, mod) -- 2 seconds should be enough for all auras to fade
@@ -3332,7 +3392,7 @@ function DBM:EndCombat(mod, wipe)
 				mod.stats.heroicKills = mod.stats.heroicKills + 1
 				if not mod.ignoreBestkill then
 					mod.stats.heroicLastTime = thisTime
-					if bestTime and bestTime > 0 and bestTime < 10 then
+					if bestTime and bestTime > 0 and bestTime < 3 then
 						mod.stats.heroicBestTime = thisTime
 					else
 						mod.stats.heroicBestTime = math.min(bestTime or math.huge, thisTime)
@@ -3344,7 +3404,7 @@ function DBM:EndCombat(mod, wipe)
 				mod.stats.normal25Kills = mod.stats.normal25Kills + 1
 				if not mod.ignoreBestkill then
 					mod.stats.normal25LastTime = thisTime
-					if bestTime and bestTime > 0 and bestTime < 10 then
+					if bestTime and bestTime > 0 and bestTime < 5 then
 						mod.stats.normal25BestTime = thisTime
 					else
 						mod.stats.normal25BestTime = math.min(bestTime or math.huge, thisTime)
@@ -3356,7 +3416,7 @@ function DBM:EndCombat(mod, wipe)
 				mod.stats.heroic25Kills = mod.stats.heroic25Kills + 1
 				if not mod.ignoreBestkill then
 					mod.stats.heroic25LastTime = thisTime
-					if bestTime and bestTime > 0 and bestTime < 10 then
+					if bestTime and bestTime > 0 and bestTime < 5 then
 						mod.stats.heroic25BestTime = thisTime
 					else
 						mod.stats.heroic25BestTime = math.min(bestTime or math.huge, thisTime)
@@ -3494,14 +3554,10 @@ end
 
 function DBM:GetCurrentInstanceDifficulty()
 	local _, instanceType, difficulty, _, maxPlayers = GetInstanceInfo()
-	if instanceType == "scenario" and difficulty == 1 then
-		return "normal5", GUILD_CHALLENGE_TYPE4.." - "--Just treat these like 5 man normals, for stat purposes. 5.2 compat code, diff index is still 1 for scenarios, 10 and 11 in 5.3
+	if difficulty == 0 then
+		return "worldboss", DBM_CORE_WORLD_BOSS.." - "
 	elseif difficulty == 1 then
-		if instanceType == "party" then
-			return "normal5", PLAYER_DIFFICULTY1.." ("..maxPlayers..") - "
-		else--Should never happen anymore, now that outdoor areas return 0 instead of 1 like they used to, but we leave just in case
-			return "normal5", ""
-		end
+		return "normal5", PLAYER_DIFFICULTY1.." ("..maxPlayers..") - "
 	elseif difficulty == 2 then
 		return "heroic5", PLAYER_DIFFICULTY2.." ("..maxPlayers..") - "
 	elseif difficulty == 3 then
@@ -3518,12 +3574,12 @@ function DBM:GetCurrentInstanceDifficulty()
 		return "challenge5", CHALLENGE_MODE.." - "
 	elseif difficulty == 9 then--40 man raids have their own difficulty now, no longer returned as normal 10man raids
 		return "normal10", PLAYER_DIFFICULTY1.." ("..maxPlayers..") - "--Just use normal10 anyways, since that's where we been saving 40 man stuff for so long anyways, no reason to change it now, not like any 40 mans can be toggled between 10 and 40 where we NEED to tell the difference.
-	elseif difficulty == 10 then--5.3 normal scenario
-		return "normal5", GUILD_CHALLENGE_TYPE4.." - "
 	elseif difficulty == 11 then--5.3 heroic scenario
-		return "heroic5", HEROIC_SCENARIO.." - "
-	else--Returned 0, likely a world boss
-		return "worldboss", DBM_CORE_WORLD_BOSS.." - "
+		return "heroic5", PLAYER_DIFFICULTY2.." - "
+	elseif difficulty == 12 then--5.3 normal scenario
+		return "normal5", PLAYER_DIFFICULTY1.." - "
+	else--failsafe
+		return "normal5", ""
 	end
 end
 
@@ -3776,7 +3832,7 @@ do
 			if not difficultyText then -- prevent error when timer recovery function worked and etc (StartCombat not called)
 				difficultyText = select(2, DBM:GetCurrentInstanceDifficulty())
 			end
-			if difficultyText == CHALLENGETYPE4 then return end--status not really useful on scenario mods since there is no way to report progress as a percent. We just ignore it.
+			if IsInScenarioGroup() then return end--status not really useful on scenario mods since there is no way to report progress as a percent. We just ignore it.
 			local mod
 			for i, v in ipairs(inCombat) do
 				mod = not v.isCustomMod and v
@@ -3796,7 +3852,7 @@ do
 			mod = mod or inCombat[1]
 			local hp = ("%d%%"):format((mod.highesthealth and DBM:GetHighestBossHealth() or DBM:GetLowestBossHealth()) * 100)
 			if not autoRespondSpam[sender] then
-				if difficultyText == CHALLENGETYPE4 then
+				if IsInScenarioGroup() then
 					sendWhisper(sender, chatPrefix..DBM_CORE_AUTO_RESPOND_WHISPER_SCENARIO:format(playerName, difficultyText..(mod.combatInfo.name or ""), getNumAlivePlayers(), GetNumGroupMembers()))
 				else
 					sendWhisper(sender, chatPrefix..DBM_CORE_AUTO_RESPOND_WHISPER:format(playerName, difficultyText..(mod.combatInfo.name or ""), hp or DBM_CORE_UNKNOWN, getNumAlivePlayers(), GetNumGroupMembers()))
@@ -4004,24 +4060,28 @@ end
 --copied from big wigs with permission from funkydude. Modified by MysticalOS
 local roleEventUnregistered = false
 function DBM:RoleCheck()
-	if DBM.Options.SetPlayerRole then
-		if not InCombatLockdown() and IsInGroup() and not IsPartyLFG() then
-			local spec = GetSpecialization()
-			if not spec then return end
-			local role = GetSpecializationRole(spec)
-			if UnitGroupRolesAssigned("player") ~= role then
-				UnitSetRole("player", role)
-			end
-			if not roleEventUnregistered then
-				roleEventUnregistered = true
-				RolePollPopup:UnregisterEvent("ROLE_POLL_BEGIN")
-			end
+	local spec = GetSpecialization()
+	if not spec then return end
+	local role = GetSpecializationRole(spec)
+	local specID = GetLootSpecialization()
+	local _, _, _, _, _, lootrole = GetSpecializationInfoByID(specID)
+	if DBM.Options.SetPlayerRole and not InCombatLockdown() and IsInGroup() and not IsPartyLFG() then
+		if UnitGroupRolesAssigned("player") ~= role then
+			UnitSetRole("player", role)
+		end
+		if not roleEventUnregistered then
+			roleEventUnregistered = true
+			RolePollPopup:UnregisterEvent("ROLE_POLL_BEGIN")
 		end
 	else
 		if roleEventUnregistered then
 			roleEventUnregistered = false
 			RolePollPopup:RegisterEvent("ROLE_POLL_BEGIN")
 		end
+	end
+	--Loot reminder even if spec isn't known or we are in LFR where we have a valid for role without us being ones that set us.
+	if lootrole and (role ~= lootrole) then
+		self:AddMsg(DBM_CORE_LOOT_SPEC_REMINDER:format(role or DBM_CORE_UNKNOWN, lootrole))
 	end
 end
 
@@ -4207,31 +4267,35 @@ function bossModPrototype:SetZone(...)
 	end
 end
 
-
+--------------
+--  Events  --
+--------------
 function bossModPrototype:RegisterEventsInCombat(...)
-	if not self.inCombatOnlyEvents then
-		self.inCombatOnlyEvents = {...}
-	else
-		for i = 1, select("#", ...) do
-			local ev = select(i, ...)
-			tinsert(self.inCombatOnlyEvents, ev)
+	if self.inCombatOnlyEvents then
+		geterrorhandler()("combat events already set")
+	end
+	self.inCombatOnlyEvents = {...}
+	for k, v in pairs(self.inCombatOnlyEvents) do
+		if v:sub(0, 5) == "UNIT_" and v:sub(v:len() - 10) ~= "_UNFILTERED" and not v:find(" ") and v ~= "UNIT_DIED" and v ~= "UNIT_DESTROYED" then
+			-- legacy event, oh noes
+			self.inCombatOnlyEvents[k] = v .. " boss1 boss2 boss3 boss4 boss5 target focus"
 		end
 	end
 end
 
 function bossModPrototype:RegisterShortTermEvents(...)
-	if not self.shortTermRegisterEvents then
-		self.shortTermRegisterEvents = {...}
-	else
-		for i = 1, select("#", ...) do
-			local ev = select(i, ...)
-			tinsert(self.shortTermRegisterEvents, ev)
+	if self.shortTermEventsRegistered then
+		return
+	end
+	self.shortTermRegisterEvents = {...}
+	for k, v in pairs(self.shortTermRegisterEvents) do
+		if v:sub(0, 5) == "UNIT_" and v:sub(v:len() - 10) ~= "_UNFILTERED" and not v:find(" ") and v ~= "UNIT_DIED" and v ~= "UNIT_DESTROYED" then
+			-- legacy event, oh noes
+			self.shortTermRegisterEvents[k] = v .. " boss1 boss2 boss3 boss4 boss5 target focus"
 		end
 	end
-	if self.shortTermRegisterEvents and not self.shortTermEventsRegistered then
-		self.shortTermEventsRegistered = 1
-		self:RegisterEvents(unpack(self.shortTermRegisterEvents))
-	end
+	self.shortTermEventsRegistered = 1
+	self:RegisterEvents(unpack(self.shortTermRegisterEvents))
 end
 
 function bossModPrototype:SetCreatureID(...)
@@ -4423,7 +4487,7 @@ end
 
 function bossModPrototype:IsCriteriaCompleted(criteriaIDToCheck)
 	if not criteriaIDToCheck then
-		print("DBM Debug: Bad check to IsCriteriaCompleted. Please add criteriaIDToCheck")
+		geterrorhandler()("usage: mod:IsCriteriaComplected(criteriaId)")
 		return false
 	end
 	local _, _, numCriteria = C_Scenario.GetStepInfo()
@@ -4885,10 +4949,10 @@ do
 				if file == "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3" and UnitName("player") == "Aberich" then
 					PlaySoundFile("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\abrun.mp3", "Master")
 				else
-					PlaySoundFile(file or "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav", "Master")
+					PlaySoundFile(file or "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.ogg", "Master")
 				end
 			else
-				PlaySoundFile(file or "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.wav")
+				PlaySoundFile(file or "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.ogg")
 			end
 		end
 	end

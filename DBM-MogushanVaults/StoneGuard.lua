@@ -2,7 +2,7 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9469 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9656 $"):sub(12, -3))
 mod:SetCreatureID(60051, 60043, 59915, 60047)--Cobalt: 60051, Jade: 60043, Jasper: 59915, Amethyst: 60047
 mod:SetZone()
 
@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
 	"RAID_BOSS_EMOTE",
-	"UNIT_SPELLCAST_SUCCEEDED",
+	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3 boss4",
 	"UNIT_DIED"
 )
 
@@ -449,7 +449,7 @@ function mod:UNIT_DIED(args)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
-	if spellId == 115852 and self:AntiSpam(2, 1) then
+	if spellId == 115852 then
 		activePetrification = "Cobalt"
 		timerPetrification:Start()
 		warnBSD:Show()
@@ -461,7 +461,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 				specWarnMySD:Show()
 			end
 		end
-	elseif spellId == 116006 and self:AntiSpam(2, 2) then
+	elseif spellId == 116006 then
 		activePetrification = "Jade"
 		timerPetrification:Start()
 		warnGSD:Show()
@@ -473,7 +473,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 				specWarnMySD:Show()
 			end
 		end
-	elseif spellId == 116036 and self:AntiSpam(2, 3) then
+	elseif spellId == 116036 then
 		activePetrification = "Jasper"
 		timerPetrification:Start()
 		warnRSD:Show()
@@ -493,7 +493,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 				DBM.Arrow:Hide()
 			end
 		end
-	elseif spellId == 116057 and self:AntiSpam(2, 4) then
+	elseif spellId == 116057 then
 		activePetrification = "Amethyst"
 		timerPetrification:Start()
 		warnPSD:Show()
@@ -505,9 +505,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 				specWarnMySD:Show()
 			end
 		end
-	elseif spellId == 129424 and self:AntiSpam(2, 5) then
---		scansDone = 0
---		self:ScanHandler()
+	elseif spellId == 129424 then
 		warnCobaltMine:Show()
 		if self:IsDifficulty("lfr25") then
 			timerCobaltMineCD:Start(10.5)

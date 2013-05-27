@@ -43,6 +43,16 @@ L:SetMiscLocalization{
 	TelvrakPull			= "贊斐斯永遠不會倒下!"
 }
 
+------------------------------
+-- Battle on the High Seas ---
+------------------------------
+L= DBM:GetModLocalization("d652")
+
+-----------------------
+-- Blood in the Snow --
+-----------------------
+L= DBM:GetModLocalization("d646")
+
 -----------------------
 -- Brewmoon Festival --
 -----------------------
@@ -85,6 +95,15 @@ L:SetMiscLocalization{
 	LizardLord		= "那些薩烏洛克在守護洞穴，我們來對付他們。"
 }
 
+----------------------------
+-- Dark Heart of Pandaria --
+----------------------------
+L= DBM:GetModLocalization("d647")
+
+L:SetMiscLocalization{
+	summonElemental		= "我的元素們，消滅這些害蟲!"
+}
+
 ------------------------
 -- Greenstone Village --
 ------------------------
@@ -112,6 +131,16 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	WarnAchFiveAlive	= "為成就\"五小福\"失敗顯示警告."
+}
+
+----------------------------
+-- The Secret of Ragefire --
+----------------------------
+L= DBM:GetModLocalization("d649")
+
+L:SetMiscLocalization{
+	XorenthPull		= "All lesser races are enemies of the true Horde!",
+	ElagloPull		= "Fools! The true horde cannot be stopped by the likes of you."
 }
 
 ----------------------

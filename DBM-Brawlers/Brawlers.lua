@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Brawlers", "DBM-Brawlers")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9336 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9655 $"):sub(12, -3))
 --mod:SetCreatureID(60491)
 --mod:SetModelID(41448)
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
@@ -11,25 +11,40 @@ mod:RegisterEvents(
 	"CHAT_MSG_MONSTER_YELL"
 )
 
+local warnQueuePosition		= mod:NewAnnounce("warnQueuePosition", 2, 132639, false)
 local warnOrgPortal			= mod:NewCastAnnounce(135385, 1)--These are rare casts and linked to achievement.
 local warnStormPortal		= mod:NewCastAnnounce(135386, 1)--So warn for them being cast
 
 local specWarnOrgPortal		= mod:NewSpecialWarningSpell(135385)
 local specWarnStormPortal	= mod:NewSpecialWarningSpell(135386)
+local specWarnYourNext		= mod:NewSpecialWarning("specWarnYourNext")
 local specWarnYourTurn		= mod:NewSpecialWarning("specWarnYourTurn")
 
 local berserkTimer			= mod:NewBerserkTimer(120)--all fights have a 2 min enrage to 134545. some fights have an earlier berserk though.
 
 mod:AddBoolOption("SpectatorMode", true)
+mod:AddBoolOption("SpeakOutQueue", true)
 mod:RemoveOption("HealthFrame")
 mod:RemoveOption("SpeedKillTimer")
 
 local playerIsFighting = false
 local currentFighter = nil
 local currentRank = 0--Used to stop bars for the right sub mod based on dynamic rank detection from pulls
-local currentZoneID = 0
+local currentZoneID = DBM:GetCurrentArea()--As core what current area is on load, since core should know
 local modsStopped = false
 local eventsRegistered = false
+local lastRank = 0
+local QueuedBuff = GetSpellInfo(132639)
+--Fix for not registering events on reloadui or login while already inside brawlers guild.
+if currentZoneID == 922 or currentZoneID == 925 then
+	eventsRegistered = true
+	mod:RegisterShortTermEvents(
+		"SPELL_CAST_START",
+		"PLAYER_REGEN_ENABLED",
+		"UNIT_DIED",
+		"UNIT_AURA player"
+	)
+end
 
 function mod:PlayerFighting() -- for external mods
 	return playerIsFighting
@@ -131,7 +146,8 @@ function mod:ZONE_CHANGED_NEW_AREA()
 		self:RegisterShortTermEvents(
 			"SPELL_CAST_START",
 			"PLAYER_REGEN_ENABLED",
-			"UNIT_DIED"
+			"UNIT_DIED",
+			"UNIT_AURA player"
 		)
 		return
 	end--We returned to arena, reset variable
@@ -162,7 +178,8 @@ function mod:OnSync(msg)
 			self:RegisterShortTermEvents(
 				"SPELL_CAST_START",
 				"PLAYER_REGEN_ENABLED",
-				"UNIT_DIED"
+				"UNIT_DIED",
+				"UNIT_AURA player"
 			)
 		end
 		if not (currentZoneID == 0 or currentZoneID == 922 or currentZoneID == 925) then return end
@@ -187,3 +204,22 @@ function mod:OnSync(msg)
 		end
 	end
 end
+
+function mod:UNIT_AURA(uId)
+	local currentQueueRank = select(15, UnitBuff("player", QueuedBuff))
+	if currentQueueRank and currentQueueRank ~= lastRank then
+		lastRank = currentQueueRank
+		warnQueuePosition:Show(currentQueueRank)
+		if currentQueueRank == 1 then
+			specWarnYourNext:Show()
+		end
+		if self.Options.SpeakOutQueue and currentQueueRank < 11 then
+			if DBM.Options.UseMasterVolume then
+				PlaySoundFile("Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\"..currentQueueRank..".ogg", "Master")
+			else
+				PlaySoundFile("Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\"..currentQueueRank..".ogg")
+			end
+		end
+	end
+end
+

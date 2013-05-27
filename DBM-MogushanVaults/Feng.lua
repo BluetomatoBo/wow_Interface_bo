@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndWOPD	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9581 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9663 $"):sub(12, -3))
 mod:SetCreatureID(60009)--60781 Soul Fragment
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6)
@@ -19,9 +19,9 @@ mod:RegisterEventsInCombat(
 	"SPELL_DAMAGE",
 	"SPELL_MISSED",
 	"CHAT_MSG_MONSTER_YELL",
-	"UNIT_SPELLCAST_SUCCEEDED",
-	"UNIT_SPELLCAST_STOP",
-	"UNIT_SPELLCAST_CHANNEL_STOP"
+	"UNIT_SPELLCAST_SUCCEEDED boss1",
+	"UNIT_SPELLCAST_STOP boss1",
+	"UNIT_SPELLCAST_CHANNEL_STOP boss1"
 )
 --Phase order is controlled by players. it is only pre determined order in LFR and LFR only.
 --Heroic a player can do ANY phase first. It even says this in encounter journal.

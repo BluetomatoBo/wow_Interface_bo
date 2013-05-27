@@ -42,6 +42,11 @@ L:SetMiscLocalization{
 	TelvrakPull			= "Zan'vess will never fall!"
 }
 
+------------------------------
+-- Battle on the High Seas ---
+------------------------------
+L= DBM:GetModLocalization("d652")
+
 -----------------------
 -- Blood in the Snow --
 -----------------------
@@ -125,6 +130,16 @@ L:SetWarningLocalization{
 
 L:SetOptionLocalization{
 	WarnAchFiveAlive	= "Show warning if achievement \"Number Five Is Alive\" failed"
+}
+
+----------------------------
+-- The Secret of Ragefire --
+----------------------------
+L= DBM:GetModLocalization("d649")
+
+L:SetMiscLocalization{
+	XorenthPull		= "All lesser races are enemies of the true Horde!",
+	ElagloPull		= "Fools! The true horde cannot be stopped by the likes of you."
 }
 
 ----------------------

@@ -2,7 +2,7 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9560 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9644 $"):sub(12, -3))
 mod:SetCreatureID(62983)--62995 Animated Protector
 
 mod:RegisterCombat("combat")
@@ -15,8 +15,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_START",
 	"CHAT_MSG_TARGETICONS",
-	"UNIT_HEALTH",--UNIT_HEALTH_FREQUENT maybe not needed. It's too high cpu usage.
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_HEALTH boss1",--UNIT_HEALTH_FREQUENT maybe not needed. It's too high cpu usage.
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 local warnProtect						= mod:NewSpellAnnounce(123250, 2)
@@ -120,7 +120,7 @@ end
 local bossTank
 do
 	bossTank = function(uId)
-		return isTank(uId)
+		return mod:IsTanking(uId, "boss1")
 	end
 end
 
@@ -399,12 +399,10 @@ function mod:CHAT_MSG_TARGETICONS(msg)
 end
 
 function mod:UNIT_HEALTH(uId)
-	if uId == "boss1" then
-		local currentHealth = 1 - (UnitHealth(uId) / UnitHealthMax(uId))
-		if currentHealth and currentHealth < 1 and currentHealth > prevlostHealth then -- Failsafe.
-			lostHealth = currentHealth
-			prevlostHealth = currentHealth
-		end
+	local currentHealth = 1 - (UnitHealth(uId) / UnitHealthMax(uId))
+	if currentHealth and currentHealth < 1 and currentHealth > prevlostHealth then -- Failsafe.
+		lostHealth = currentHealth
+		prevlostHealth = currentHealth
 	end
 end
 

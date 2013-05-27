@@ -26,3 +26,4 @@ Garalon.lua
 Meljarak.lua
 Unsok.lua
 Shekzeer.lua
+HoFTrash.lua

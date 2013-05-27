@@ -4,7 +4,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndJR	= mod:NewSound(nil, "SoundJR", true)
 local sndDS	= mod:NewSound(nil, "SoundDS", true)
 
-mod:SetRevision(("$Revision: 9576 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9626 $"):sub(12, -3))
 mod:SetCreatureID(62397)
 mod:SetZone()
 mod:SetUsedIcons(1, 2)
@@ -29,11 +29,12 @@ mod:RegisterEventsInCombat(
 	"RAID_BOSS_EMOTE",
 	"UNIT_DIED",
 	"UNIT_SPELLCAST_SUCCEEDED",
-	"UNIT_AURA"
+	"UNIT_AURA_UNFILTERED"
 )
+
 local isDispeller = select(2, UnitClass("player")) == "MAGE"
 	    		 or select(2, UnitClass("player")) == "PRIEST"
-	    		 or select(2, UnitClass("player")) == "SHAMAN" 
+	    		 or select(2, UnitClass("player")) == "SHAMAN"
 
 local warnWhirlingBlade					= mod:NewTargetAnnounce(121896, 4)--Target scanning not tested
 local warnRainOfBlades					= mod:NewSpellAnnounce(122406, 4)
@@ -496,7 +497,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	end
 end
 
-function mod:UNIT_AURA(uId)
+function mod:UNIT_AURA_UNFILTERED(uId)
 	if uId ~= "player" then return end
 	if UnitDebuff("player", strikeTarget) and not strikeWarned then--Warn you that you have a meteor
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\holdit.mp3")--自保技能

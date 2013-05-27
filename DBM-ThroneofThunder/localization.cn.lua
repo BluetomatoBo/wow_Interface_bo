@@ -517,13 +517,13 @@ L= DBM:GetModLocalization(831)
 
 L:SetTimerLocalization({
 	timerAnima		= "下一次心能爆炸",
-	specWarnVitarun		= "準备生命传递! 快就位!"
+	specWarnVitarun	= "准备生命传递！快就位!"
 })
 
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
-	SoundStrike		= "為$spell:138295倒数3秒",
-	specWarnVitarun		= "特别警告：生命传递跑位",
+	SoundStrike		= "为$spell:138295倒数3秒",
+	specWarnVitarun	= "特别警告：生命传递跑位",
 	optDD			= "生命跑位策略",
 	nodd			= "正常循环成员(下方设定编号)",
 	DD1			= "替补1",
@@ -531,9 +531,10 @@ L:SetOptionLocalization({
 	DD3			= "替补3",
 	DD4			= "替补4",
 	DD5			= "替补5",
-	lightnumber		= "正常循环成员编号(不会分配编号為0的团员)",
+	lightnumber		= "正常循环成员编号(不会分配编号为0的团员)",
 	lastnumber		= "总共安排了多少正常循环成员[必须填写 非常重要]",
 	HudMAPAnima		= "高级定位监视(HUD)：$spell:138295爆炸",
+	HudMAP			= "高級定位監視(HUD)：$spell:138297",
 	timerAnima		= "计时器：下一次$spell:138295爆炸",
 	SetIconOnUnstableVita	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(138297),
 	SetIconOnUnstableAnima	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(138288)
@@ -550,7 +551,7 @@ L:SetGeneralLocalization({
 
 L:SetOptionLocalization({
 	SoundWOP		= "语音警告：重要技能",
-	HudMAP			= "高级定位监视(HUD)：$spell:139322/$spell:139900",
+	HudMAP			= "高级定位监视(HUD)：$spell:139322",
 	RangeFrame		= "距离监视(10码)"--For 3 different spells
 })
 

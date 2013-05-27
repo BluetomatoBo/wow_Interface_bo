@@ -66,6 +66,7 @@ local crimsonWake = GetSpellInfo(138485)--Debuff ID I believe, not cast one. Sam
 local firstSiphonAnima = false
 local SiphonAnimaCount = 0
 local InterruptingJoltCount = 0
+local fpower = true
 
 mod:AddBoolOption("Mob", true, "sound")
 mod:AddBoolOption("MobA", false, "sound")
@@ -96,16 +97,32 @@ end
 
 function mod:OnCombatStart(delay)
 	firstSiphonAnima = false
+	fpower = true
 	InterruptingJoltCount = 0
 	SiphonAnimaCount = 0
 	berserkTimer:Start(-delay)
 	self:RegisterShortTermEvents(
 		"INSTANCE_ENCOUNTER_ENGAGE_UNIT"--We register here to prevent detecting first heads on pull before variables reset from first engage fire. We'll catch them on delayed engages fired couple seconds later
 	)
+	if self:IsDifficulty("heroic10", "heroic25") then
+		timerAnimaFontCD:Start(14)
+		timerAnimaRingCD:Start(23)
+		timerSiphonAnimaCD:Start(120, 1)--VERY important on heroic. boss activaet on pull, you have 2 minutes to do as much with adds as you can before he starts using siphon anima
+		if mod.Options.MobA then
+			sndWOP:Schedule(88, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mobA.mp3")
+			sndWOP:Schedule(90, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
+			sndWOP:Schedule(92, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
+			sndWOP:Schedule(94, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
+			sndWOP:Schedule(96, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
+			sndWOP:Schedule(97, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+			sndWOP:Schedule(98, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\mobkill.mp3")
+		end
+	end
 end
 
 function mod:OnCombatEnd()
 	self:UnregisterShortTermEvents()
+	DBM.InfoFrame:Hide()
 end
 
 function mod:SPELL_CAST_START(args)
@@ -143,12 +160,16 @@ function mod:SPELL_CAST_START(args)
 		sndWOP:Schedule(19.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 		sndWOP:Schedule(20.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 		sndWOP:Schedule(21.8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		DBM.InfoFrame:Hide()
+		DBM.InfoFrame:SetHeader(GetSpellInfo(138763).."("..(InterruptingJoltCount + 1)..")")
+		DBM.InfoFrame:Show(1, "time", "", 22)
 	end
 end
 
 local function PowerDelay()
 	local power = UnitPower("boss1")
-	if power >= 70 and power < 75 then
+	if power >= 70 and fpower then
+		fpower = false
 		timerInterruptingJoltCD:Start(18, 1)
 		if mod:IsHealer() then
 			sndWOP:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tenzj.mp3") -- 10秒後斷法震擊
@@ -162,6 +183,8 @@ local function PowerDelay()
 		sndWOP:Schedule(16, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
 		sndWOP:Schedule(17, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 		sndWOP:Schedule(18, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
+		DBM.InfoFrame:SetHeader(GetSpellInfo(138763).."(1)")
+		DBM.InfoFrame:Show(1, "time", "", 18)
 	end
 end
 
@@ -271,21 +294,8 @@ end
 
 function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 	if UnitExists("boss1") and tonumber(UnitGUID("boss1"):sub(6, 10), 16) == 69427 then
-		self:UnregisterShortTermEvents()--Once boss is out, unregister event, since we need it no longer.
-		if self:IsDifficulty("heroic10", "heroic25") then
-			timerAnimaFontCD:Start(14)
-			timerAnimaRingCD:Start(23)
-			timerSiphonAnimaCD:Start(120, 1)--VERY important on heroic. boss activaet on pull, you have 2 minutes to do as much with adds as you can before he starts using siphon anima
-			if mod.Options.MobA then
-				sndWOP:Schedule(88, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_mobA.mp3")
-				sndWOP:Schedule(90, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
-				sndWOP:Schedule(92, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")	
-				sndWOP:Schedule(94, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
-				sndWOP:Schedule(96, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
-				sndWOP:Schedule(98, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
-				sndWOP:Schedule(98.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\mobkill.mp3")
-			end
-		elseif self:IsDifficulty("normal10", "normal25") then
+		self:UnregisterShortTermEvents()--Once boss is out, unregister event, since we need it no longer.		
+		if self:IsDifficulty("normal10", "normal25") then
 			timerSiphonAnimaCD:Start(5.3, 1)
 		end
 	end

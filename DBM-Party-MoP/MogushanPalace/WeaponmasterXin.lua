@@ -2,7 +2,7 @@
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9469 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9656 $"):sub(12, -3))
 mod:SetCreatureID(61398)
 mod:SetZone()
 
@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_MISSED",
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
-	"UNIT_SPELLCAST_SUCCEEDED"
+	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
 
@@ -59,14 +59,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
-	if spellId == 120109 and self:AntiSpam(2, 1) then
+	if spellId == 120109 then
 		warnStaff:Show()
 		timerStaffCD:Start()
-	elseif spellId == 120083 and self:AntiSpam(2, 2) then
+	elseif spellId == 120083 then
 		warnWhirlwindingAxe:Show()
-	elseif spellId == 120094 and self:AntiSpam(2, 3) then
+	elseif spellId == 120094 then
 		warnStreamBlades:Show()
-	elseif spellId == 120139 and self:AntiSpam(2, 4) then
+	elseif spellId == 120139 then
 		warnCrossbowTrap:Show()
 	end
 end

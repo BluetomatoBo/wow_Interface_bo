@@ -290,3 +290,17 @@ L:SetMiscLocalization({
 	YellPhase3			= "别找借口了，女皇！消灭这些傻瓜，否则我会亲手杀了你！"
 
 })
+
+
+-------------
+--  Trash  --
+-------------
+L = DBM:GetModLocalization("HoFTrash")
+
+L:SetGeneralLocalization({
+	name =	"恐惧之心杂兵"
+})
+
+L:SetOptionLocalization({
+	UnseenStrikeArrow	= "DBM箭头：$spell:122949"
+})

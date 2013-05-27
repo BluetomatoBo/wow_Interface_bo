@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndXL	= mod:NewSound(nil, "SoundXL", true)
 
-mod:SetRevision(("$Revision: 9560 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9656 $"):sub(12, -3))
 mod:SetCreatureID(68065, 70212, 70235, 70247)--flaming 70212. Frozen 70235, Venomous 70247
 mod:SetMainBossID(68065)
 mod:SetQuestID(32748)
@@ -23,8 +23,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_PERIODIC_MISSED",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"RAID_BOSS_WHISPER",
-	"UNIT_AURA",
-	"UNIT_SPELLCAST_SUCCEEDED",
+	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3 boss4 boss5",
 	"UNIT_DIED"
 )
 
@@ -56,6 +55,7 @@ local specWarnCindersMove		= mod:NewSpecialWarningMove(139836)--Fire left on gro
 local yellCinders				= mod:NewYell(139822)
 local specWarnTorrentofIceYou	= mod:NewSpecialWarningRun(139857)
 local yellTorrentofIce			= mod:NewYell(139857)
+local specWarnTorrentofIceNear	= mod:NewSpecialWarningClose(139889)
 local specWarnTorrentofIce		= mod:NewSpecialWarningMove(139909)--Ice left on ground by the beam
 local specWarnNetherTear		= mod:NewSpecialWarningSwitch("ej7816", mod:IsDps())
 
@@ -70,7 +70,6 @@ local timerBreathsCD			= mod:NewTimer(16, "timerBreathsCD", 137731, nil, false)-
 local timerCinderCD				= mod:NewCDTimer(25, 139822, nil, not mod:IsTank())--The cd is either 25 or 28 (either or apparently, no in between). it can even swap between teh two in SAME pull
 local timerTorrentofIce			= mod:NewBuffFadesTimer(11, 139866)
 local timerTorrentofIceCD		= mod:NewCDTimer(25, 139866, nil, not mod:IsTank())--Same as bove, either 25 or 28
---local timerAcidRainCD			= mod:NewCDTimer(13.5, 139850, nil, false)--Can only give time for next impact, no cast trigger so cannot warn cast very effectively. Also seems not possible to separate heads on this one. In my log every cast came from same head GUID
 local timerNetherTearCD			= mod:NewCDTimer(25, 140138)--Heroic. Also either 25 or 28. On by default since these require more pre planning than fire and ice.
 
 --local soundCinders				= mod:NewSound(139822)
@@ -170,10 +169,10 @@ local function showheadinfo()
 		local venomBehindcolor = "|cFF088A08"..venomBehind.."|r"
 		local arcaneBehindcolor = "|cFFB91FC7"..arcaneBehind.."|r"
 		if mod:IsDifficulty("heroic10", "heroic25") then
-			DBM.InfoFrame:SetHeader(L.Behind.." ("..rampageCast.."/7)")
+			DBM.InfoFrame:SetHeader(L.Behind.." ("..(rampageCast + 1).."/7)")
 			DBM.InfoFrame:Show(4, "other", iceBehindcolor, iceinfob, venomBehindcolor, venominfob, fireBehindcolor, fireinfob, arcaneBehindcolor, arcaneinfob)
 		else
-			DBM.InfoFrame:SetHeader(L.Behind.." ("..rampageCast.."/7)")
+			DBM.InfoFrame:SetHeader(L.Behind.." ("..(rampageCast + 1).."/7)")
 			DBM.InfoFrame:Show(3, "other", iceBehindcolor, iceinfob, venomBehindcolor, venominfob, fireBehindcolor, fireinfob)
 		end
 	end
@@ -333,8 +332,6 @@ function mod:SPELL_DAMAGE(sourceGUID, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 139836 and destGUID == UnitGUID("player") and self:AntiSpam(2, 4) then
 		specWarnCindersMove:Show()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
-	--[[elseif spellId == 139850 and self:AntiSpam(2, 1) then--Does not work right because sourceguid is not the head, it's an invisible mob and it seems that invisible mob can be used by more than one head (so no way to separate teh Cds of 2 or more heads
-		timerAcidRainCD:Start(sourceGUID)--]]
 	end
 end
 mod.SPELL_MISSED = mod.SPELL_DAMAGE
@@ -347,8 +344,12 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg:find("spell:139458") then
+		self:UnregisterShortTermEvents()--Wipe short term events
+		self:RegisterShortTermEvents(--Re-register without UNIT_AURA. UNIT_AURA during rampage is ridiculous. This saves some CPU
+			"INSTANCE_ENCOUNTER_ENGAGE_UNIT"
+		)
 		rampageCast = rampageCast + 1
 		warnRampage:Show(rampageCast)
 		specWarnRampage:Show(rampageCast)
@@ -382,14 +383,11 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		end
 		if fireBehind > 0 then
 			if self:IsDifficulty("lfr25") then
-				timerCinderCD:Start(12)--12-15 second variatio
+				timerCinderCD:Start(12)--12-15 second variation
 			else
-				timerCinderCD:Start(5)--5-8 second variatio
+				timerCinderCD:Start(5)--5-8 second variation
 			end
 		end
---[[		if venomBehind > 0 then
-			timerAcidRainCD:Start(15)--15-20 seconds after rampage ends, unknown heroic value, this number is from normal log.
-		end--]]
 		if arcaneBehind > 0 then
 			timerNetherTearCD:Start(15)--15-18 seconds after rampages end
 		end
@@ -424,6 +422,13 @@ local function CheckHeads(GUID)
 			end
 		end
 	end
+	if iceBehind > 0 then--We only need UNIT_AURA if there is actually an ice head in back, so this is only time we register it
+		mod:UnregisterShortTermEvents()--Wipe old short term events
+		mod:RegisterShortTermEvents(--Update them with both IEEU and UNIT_AURA
+			"INSTANCE_ENCOUNTER_ENGAGE_UNIT",
+			"UNIT_AURA_UNFILTERED"
+		)
+	end
 	showheadinfo()
 end
 
@@ -435,7 +440,7 @@ end
 
 --Unfortunately we need to update the counts sooner than UNIT_DIED fires because we need those counts BEFORE CHAT_MSG_RAID_BOSS_EMOTE fires.
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
-	if spellId == 70628 and self:AntiSpam(2, 3) then--Permanent Feign Death
+	if spellId == 70628 then--Permanent Feign Death
 		local cid = self:GetCIDFromGUID(UnitGUID(uId))
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\gather.mp3")--快集合
 		if cid == 70235 then--Frozen
@@ -479,8 +484,7 @@ function mod:RAID_BOSS_WHISPER(msg)
 		if self:AntiSpam(2, 6) then
 			specWarnTorrentofIceYou:Show()
 			timerTorrentofIce:Start()
-			yellTorrentofIce:Yell()			
-			self:SendSync("IceTarget", UnitGUID("player"))
+			yellTorrentofIce:Yell()
 			DBM.Flash:Show(0, 0, 1)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
 		end
@@ -495,14 +499,27 @@ local function warnTorrent(name)
 			specWarnTorrentofIceYou:Show()
 			timerTorrentofIce:Start()
 			yellTorrentofIce:Yell()
-			mod:SendSync("IceTarget", UnitGUID("player")) -- Remain sync stuff for older version.
 			DBM.Flash:Show(0, 0, 1)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3") --快跑
+		end
+	else
+		local uId = DBM:GetRaidUnitId(name)
+			if uId then
+				local x, y = GetPlayerMapPosition(uId)
+				if x == 0 and y == 0 then
+				SetMapToCurrentZone()
+				x, y = GetPlayerMapPosition(uId)
+			end
+			local inRange = DBM.RangeCheck:GetDistance("player", x, y)
+			if inRange and inRange < 3 then
+				specWarnTorrentofIceNear:Show(name)
+			end
 		end
 	end
 end
 
-function mod:UNIT_AURA(uId)
+--Combat log bugged, UNIT_AURA only good way to work around.
+function mod:UNIT_AURA_UNFILTERED(uId)
 	local name = DBM:GetUnitFullName(uId)
 	if not name then return end
 	local expires = select(7, UnitDebuff(uId, iceTorrent)) or 0

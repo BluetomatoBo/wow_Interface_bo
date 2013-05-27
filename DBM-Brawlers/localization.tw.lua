@@ -11,12 +11,17 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	warnQueuePosition	= "你的排名順位為%d",
+	specWarnYourNext	= "你是下一位!",
 	specWarnYourTurn	= "輪到你上場了!"
 })
 
 L:SetOptionLocalization({
+	warnQueuePosition	= "提示你目前的順位",
+	specWarnYourNext	= "當你下一個上場時顯示特別警告",
 	specWarnYourTurn	= "輪到你上時顯示特別警告",
-	SpectatorMode		= "當旁觀戰鬥時顯示警告/計時器(旁觀者不會顯示個人的特別警告訊息)"
+	SpectatorMode		= "當旁觀戰鬥時顯示警告/計時器(旁觀者不會顯示個人的特別警告訊息)",
+	SpeakOutQueue		= "當順位更新數出你的順位"
 })
 
 L:SetMiscLocalization({
@@ -163,10 +168,11 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization("BrawlRare1")
 
 L:SetGeneralLocalization({
-	name = "鬥陣俱樂部: Rares 1"
+	name = "鬥陣俱樂部:挑戰1"
 })
 
 L:SetOptionLocalization({
+	ArrowOnBoxing			= "DBM箭頭：$spell:140868 / $spell:140862 / $spell:140886",
 	SoundWOP			= "語音警告：重要技能"
 })
 
@@ -176,7 +182,7 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization("BrawlRare2")
 
 L:SetGeneralLocalization({
-	name = "鬥陣俱樂部: Rares 2"
+	name = "鬥陣俱樂部:挑戰2"
 })
 
 L:SetOptionLocalization({

@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndADD	= mod:NewSound(nil, "SoundADD", true)
 
-mod:SetRevision(("$Revision: 9469 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9656 $"):sub(12, -3))
 mod:SetCreatureID(62511)
 mod:SetZone()
 mod:SetMinSyncRevision(8052)
@@ -20,7 +20,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_MISSED",
 	"SWING_DAMAGE",
 	"SWING_MISSED",
-	"UNIT_SPELLCAST_STOP",
+	"UNIT_SPELLCAST_STOP boss1 boss2",
 	"UNIT_POWER"
 )
 

@@ -14,12 +14,17 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	warnQueuePosition	= "你的队列号为 %d",
+	specWarnYourNext	= "你是下一个!",
 	specWarnYourTurn	= "该你上场了！"
 })
 
 L:SetOptionLocalization({
+	warnQueuePosition	= "警报：你当前的队列号",
+	specWarnYourNext	= "特殊警报：当你下一个登场时",
 	specWarnYourTurn	= "特殊警报：轮到玩家登场",
-	SpectatorMode		= "在观看比赛时显示警报与计时条\n（特殊警报不会同步给其他观众）"
+	SpectatorMode		= "在观看比赛时显示警报与计时条\n（特殊警报不会同步给其他观众）",
+	SpeakOutQueue		= "当你的队列号提升时报数"
 })
 
 L:SetMiscLocalization({
@@ -165,10 +170,11 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization("BrawlRare1")
 
 L:SetGeneralLocalization({
-	name = "搏击俱乐部: Rares 1"
+	name = "搏击俱乐部: Challenges 1"
 })
 
 L:SetOptionLocalization({
+	ArrowOnBoxing			= "DBM箭头：$spell:140868 / $spell:140862 / $spell:140886",
 	SoundWOP			= "语音警告：重要技能"
 })
 
@@ -178,7 +184,7 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization("BrawlRare2")
 
 L:SetGeneralLocalization({
-	name = "搏击俱乐部: Rares 2"
+	name = "搏击俱乐部: Challenges 2"
 })
 
 L:SetOptionLocalization({
