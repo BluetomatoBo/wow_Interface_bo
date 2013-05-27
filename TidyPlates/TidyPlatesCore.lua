@@ -407,7 +407,8 @@ do
 	
 	-- UpdateIndicator_ShowCastBar
 	function UpdateIndicator_ShowCastBar(bar)
-		local castbar = bar.parentPlate.extended.bars.castbar
+		UpdateReferences(bar.parentPlate)
+		local castbar = bars.castbar
 		
 		UpdateIndicator_UpdateCastBar(bar)
 		
@@ -423,7 +424,8 @@ do
 	
 	-- UpdateIndicator_HideCastBar
 	function UpdateIndicator_HideCastBar(bar)
-		local castbar = bar.parentPlate.extended.bars.castbar
+		UpdateReferences(bar.parentPlate)
+		local castbar = bars.castbar
 		castbar:Hide()
 		unit.isCasting = false
 		UpdateIndicator_CustomScaleText()

@@ -335,10 +335,11 @@ local primarySpecName, primarySpecDescription, primarySpecIcon, primarySpecBackg
 	panel.EnableCastWatcher = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableCastWatcher", panel, "Show Off-Target Cast Bars")
 	panel.EnableCastWatcher:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
 	panel.EnableCastWatcher:SetScript("OnClick", function(self) SetSpellCastWatcher(self:GetChecked()) end)
+	panel.EnableCastWatcher:Hide()
 
 	-- Soft Transitions
 	panel.DisableSoftTransitions = PanelHelpers:CreateCheckButton("TidyPlatesOptions_DisableSoftTransitions", panel, "Disable Alpha/Scale Transition Effects")
-	panel.DisableSoftTransitions:SetPoint("TOPLEFT", panel.EnableCastWatcher, "TOPLEFT", 0, -35)
+	panel.DisableSoftTransitions:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
 	panel.DisableSoftTransitions:SetScript("OnClick", function(self) SetSoftTransitions(not self:GetChecked()) end)
 
 	-- Minimap Button

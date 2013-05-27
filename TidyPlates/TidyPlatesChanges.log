@@ -1,6 +1,14 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   
 
+6.11.2
+---------------------------
+- In reverting, I missed updating the TOC version for TidyPlatesHub.  Updated for 50300
+
+6.11.1
+---------------------------
+- Core: Fixed a cast bar bug, where the sub-object references were not being updated.  Addresses certain "attempt to perform arithmetic on field 'health' (a nil value)" errors
+
 6.11
 ---------------------------
 - Basically, I've given up trying to quickly patch up 6.10.  I've reverted to 6.9.9, and made the changes necessary for it to work with WoW 5.3.  If you want the Performance Mode stuff, grab the old version, or keep an eye out for it to be Re-Beta'd as 6.12.  
