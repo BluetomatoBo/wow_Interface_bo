@@ -1,9 +1,23 @@
 ------------------------------------------------------------------------
-r400 | tiker | 2013-05-21 22:34:48 +0000 (Tue, 21 May 2013) | 1 line
+r403 | tiker | 2013-05-27 13:20:39 +0000 (Mon, 27 May 2013) | 1 line
 Changed paths:
-   A /tags/5.3.1 (from /trunk:399)
+   A /tags/5.3.3 (from /trunk:402)
 
-Tagging as 5.3.1
+Tagging as 5.3.3
+------------------------------------------------------------------------
+r402 | tiker | 2013-05-25 18:58:57 +0000 (Sat, 25 May 2013) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+
+- Removed debug message that appeared when mounting in watter
+------------------------------------------------------------------------
+r401 | tiker | 2013-05-24 22:32:18 +0000 (Fri, 24 May 2013) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+
+- Fixed error for people running GoGoMount for the first time (709)
 ------------------------------------------------------------------------
 r399 | tiker | 2013-05-21 22:31:44 +0000 (Tue, 21 May 2013) | 3 lines
 Changed paths:
