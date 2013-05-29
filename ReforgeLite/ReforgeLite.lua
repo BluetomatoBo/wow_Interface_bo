@@ -1,4 +1,4 @@
--- ReforgeLite v1.24 by d07.RiV (Iroared)
+-- ReforgeLite v1.25 by d07.RiV (Iroared)
 -- All rights reserved
 
 local function DeepCopy (t, cache)
@@ -40,7 +40,7 @@ local DefaultDB = {
   reforgeCheat = 5,
 
   openOnReforge = true,
-  updateTooltip = true,
+--  updateTooltip = true,
 
   activeWindowTitle = {0.8, 0, 0},
   inactiveWindowTitle = {0.5, 0.5, 0.5},
@@ -978,7 +978,7 @@ function ReforgeLite:CreateOptionList ()
 
   self.settingsCategory = self:CreateCategory (L["Settings"])
   self:SetAnchor (self.settingsCategory, "TOPLEFT", self.computeButton, "BOTTOMLEFT", 0, -10)
-  self.settings = GUI:CreateTable (5, 1, nil, 200)
+  self.settings = GUI:CreateTable (4, 1, nil, 200)
   self.settingsCategory:AddFrame (self.settings)
   self:SetAnchor (self.settings, "TOPLEFT", self.settingsCategory, "BOTTOMLEFT", 0, -5)
   self.settings:SetPoint ("RIGHT", self.content, "RIGHT", -10, 0)
@@ -1004,11 +1004,11 @@ end
 function ReforgeLite:FillSettings ()
   self.settings:SetCell (1, 0, GUI:CreateCheckButton (self.settings, L["Open window when reforging"],
     self.db.openOnReforge, function (val) self.db.openOnReforge = val or false end), "LEFT")
-  self.settings:SetCell (2, 0, GUI:CreateCheckButton (self.settings, L["Show reforged stats in item tooltips"],
-    self.db.updateTooltip, function (val) self.db.updateTooltip = val or false end), "LEFT")
+--  self.settings:SetCell (2, 0, GUI:CreateCheckButton (self.settings, L["Show reforged stats in item tooltips"],
+--    self.db.updateTooltip, function (val) self.db.updateTooltip = val or false end), "LEFT")
 
-  self.settings:SetCellText (3, 0, L["Active window color"], "LEFT", nil, "GameFontNormal")
-  self.settings:SetCell (3, 1, GUI:CreateColorPicker (self.settings, 20, 20, self.db.activeWindowTitle, function ()
+  self.settings:SetCellText (2, 0, L["Active window color"], "LEFT", nil, "GameFontNormal")
+  self.settings:SetCell (2, 1, GUI:CreateColorPicker (self.settings, 20, 20, self.db.activeWindowTitle, function ()
     if self.methodWindow and self.methodWindow:IsShown () and self.methodWindow:GetFrameLevel () > self:GetFrameLevel () then
       self.methodWindow:SetBackdropBorderColor (unpack (self.db.activeWindowTitle))
     else
@@ -1016,8 +1016,8 @@ function ReforgeLite:FillSettings ()
     end
   end), "LEFT")
 
-  self.settings:SetCellText (4, 0, L["Inactive window color"], "LEFT", nil, "GameFontNormal")
-  self.settings:SetCell (4, 1, GUI:CreateColorPicker (self.settings, 20, 20, self.db.inactiveWindowTitle, function ()
+  self.settings:SetCellText (3, 0, L["Inactive window color"], "LEFT", nil, "GameFontNormal")
+  self.settings:SetCell (3, 1, GUI:CreateColorPicker (self.settings, 20, 20, self.db.inactiveWindowTitle, function ()
     if self.methodWindow and self.methodWindow:IsShown () and self.methodWindow:GetFrameLevel () > self:GetFrameLevel () then
       self:SetBackdropBorderColor (unpack (self.db.inactiveWindowTitle))
     elseif self.methodWindow then
@@ -1032,7 +1032,7 @@ function ReforgeLite:FillSettings ()
   self.debugButton:SetScript ("OnClick", function (self)
     ReforgeLite:DebugMethod ()
   end)
-  self.settings:SetCell (5, 0, self.debugButton, "LEFT")
+  self.settings:SetCell (4, 0, self.debugButton, "LEFT")
 end
 function ReforgeLite:GetCurrentScore ()
   local score = 0
@@ -1578,7 +1578,7 @@ function ReforgeLite:DoReforge ()
 end
 
 --------------------------------------------------------------------------
-
+--[=[ OBSOLETE
 function ReforgeLite.OnTooltipSetItem (tip)
   if not ReforgeLite.db.updateTooltip then return end
   local _, item = tip:GetItem ()
@@ -1608,7 +1608,7 @@ function ReforgeLite:SetUpHooks ()
   hooksecurefunc (ItemRefShoppingTooltip2, "SetHyperlinkCompareItem", self.OnTooltipSetItem)
   hooksecurefunc (ItemRefShoppingTooltip3, "SetHyperlinkCompareItem", self.OnTooltipSetItem)
 end
-
+]=]
 --------------------------------------------------------------------------
 
 function ReforgeLite:OnEvent (event, ...)
@@ -1635,17 +1635,17 @@ function ReforgeLite:OnEvent (event, ...)
     self:QueueUpdate ()
   end
 end
-
+--[[
 local ReforgeLiteTimer = CreateFrame ("Frame")
 function ReforgeLiteTimer:OnUpdate (epsilon)
   self.elapsed = (self.elapsed or 0) + epsilon
   if self.elapsed > 3 then
     self:SetScript ("OnUpdate", nil)
     self:Hide ()
-    ReforgeLite:SetUpHooks ()
+--    ReforgeLite:SetUpHooks ()
   end
 end
-
+]]
 function ReforgeLite:ADDON_LOADED (addon)
   if addon == "ReforgeLite" then
     self:UpgradeDB ()
@@ -1661,7 +1661,7 @@ function ReforgeLite:ADDON_LOADED (addon)
     self:RegisterEvent ("FORGE_MASTER_OPENED")
     self:RegisterEvent ("FORGE_MASTER_CLOSED")
     
-    ReforgeLiteTimer:SetScript ("OnUpdate", ReforgeLiteTimer.OnUpdate)
+    --ReforgeLiteTimer:SetScript ("OnUpdate", ReforgeLiteTimer.OnUpdate)
 
     SlashCmdList["ReforgeLite"] = function (cmd) ReforgeLite:OnCommand (cmd) end
     SLASH_ReforgeLite1 = "/reforge"

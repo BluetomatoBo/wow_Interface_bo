@@ -1,3 +1,8 @@
+** v1.25
+
+- Updated item scaling
+- Updated TOC line to 5.3
+
 ** v1.24
 
 - Updated all presets
