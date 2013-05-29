@@ -1,0 +1,13 @@
+tag 1.5.4
+a590a139443b08618b2d1f8f4003bf5540c76182
+Hendrik Leppkes <h.leppkes@gmail.com>
+2013-05-28 20:32:39 +0200
+
+Tag as 1.5.4
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Fix Quest POI positioning after changing zone
+	- Fix FogClear module when the battle map is loaded
