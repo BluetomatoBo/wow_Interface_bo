@@ -24,6 +24,7 @@ function AS:SkinSkillet()
 		else
 			button = ButtonOrSpellID
 		end
+		if not button then return end
 		local texture = button:GetNormalTexture()
 		if not texture then
 			texture = _G[button:GetName().."Icon"]
@@ -48,6 +49,7 @@ function AS:SkinSkillet()
 		else
 			button = ButtonOrSpellID
 		end
+		if not button then return end
 		local texture = button:GetNormalTexture()
 		if not texture then
 			texture = _G[button:GetName().."Icon"]
