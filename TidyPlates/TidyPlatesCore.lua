@@ -425,7 +425,11 @@ do
 	-- UpdateIndicator_HideCastBar
 	function UpdateIndicator_HideCastBar(bar)
 		UpdateReferences(bar.parentPlate)
+		
+		if not unit.health then return end
+		
 		local castbar = bars.castbar
+		
 		castbar:Hide()
 		unit.isCasting = false
 		UpdateIndicator_CustomScaleText()

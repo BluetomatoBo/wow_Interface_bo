@@ -1,6 +1,13 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   
 
+To Do:
+- Check unit.health on all externally bound functions
+
+6.11.3
+---------------------------
+- Check unit.health on spell cast functions, to catch premature update calls.
+
 6.11.2
 ---------------------------
 - In reverting, I missed updating the TOC version for TidyPlatesHub.  Updated for 50300
@@ -16,7 +23,7 @@ Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.j
 These are the changes that I've migrated:
 - Spell Casting Update, for WoW 5.3
 - Core: Set initial fonts during Init/Hooking.  Removes the possibility of :SetFont() errors.
-- Combo Points: "Anticipation" fix for non-english regions
+- Combo Points: "Antic ipation" fix for non-english regions
 
 
 6.10.4
