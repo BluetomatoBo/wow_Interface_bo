@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9607 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9678 $"):sub(12, -3))
 mod:SetCreatureID(68036)--Crimson Fog 69050, 
 mod:SetQuestID(32750)
 mod:SetZone()

@@ -15,6 +15,7 @@ DBM_CORE_LOAD_MOD_ERROR				= "读取%s模块时发生错误：%s"
 DBM_CORE_LOAD_MOD_SUCCESS			= "成功读取%s模块。在聊天框输入 /dbm 或 /dbm help 可进行更多设置。"
 DBM_CORE_LOAD_GUI_ERROR				= "无法读取图形界面：%s"
 DBM_CORE_LOAD_GUI_COMBAT			= "无法在战斗中初始化图形界面。请先在非战斗状态打开图形设置界面，之后的战斗中就可以自由打开和关闭该界面了。"
+DBM_CORE_LOAD_MOD_COMBAT			= "延迟读取模块 '%s' 直到你脱离战斗"
 DBM_CORE_BAD_LOAD				= "DBM检测到你无法完全正确加载当前副本模块(因為你正在战斗中),请在离开战斗后立刻重载介面"
 
 DBM_CORE_LOOT_SPEC_REMINDER			= "你当前的专精为 %s. 你当前的拾取选择为 %s."

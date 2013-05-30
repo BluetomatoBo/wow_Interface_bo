@@ -44,9 +44,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 9670 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 9700 $"):sub(12, -3)),
 	DisplayVersion = "5.3 語音增強版", -- the string that is shown as version
-	ReleaseRevision = 9592 -- the revision of the latest stable version that is available
+	ReleaseRevision = 9689 -- the revision of the latest stable version that is available
 }
 
 -- Legacy crap; that stupid "Version" field was never a good idea.
@@ -166,7 +166,8 @@ DBM.DefaultOptions = {
 	MovieFilters = {},
 	LastRevision = 0,
 	FilterSayAndYell = false,
-	ChatFrame = "DEFAULT_CHAT_FRAME"
+	ChatFrame = "DEFAULT_CHAT_FRAME",
+	barrensSounds = true,
 }
 
 DBM.Bars = DBT:New()
@@ -208,6 +209,7 @@ local _, class = UnitClass("player")
 local LastZoneMapID = -1
 local queuedBattlefield = {}
 local loadDelay = nil
+local loadDelay2 = nil
 local stopDelay = nil
 local myRealRevision = DBM.Revision or DBM.ReleaseRevision
 local watchFrameRestore = false
@@ -1708,20 +1710,29 @@ do
 			end
 		end
 	end
+	
+	local function soloIterator(_, state)
+		if not state then -- no state == first call
+			return "player", 0
+		end
+	end
 
 	-- returns the unit ids of all raid or party members, including the player's own id
 	-- limitations: will break if there are ever raids with more than 99 players or partys with more than 10
 	function DBM:GetGroupMembers()
 		if IsInRaid() then
 			return raidIterator, GetNumGroupMembers(), "raid0"
-		else
+		elseif IsInGroup() then
 			return partyIterator, GetNumSubgroupMembers(), nil
+		else
+			-- solo!
+			return soloIterator, nil, nil
 		end
 	end
 end
 
 function DBM:GetNumGroupMembers()
-	return GetNumGroupMembers()
+	return IsInGroup() and GetNumGroupMembers() or 1
 end
 
 function DBM:GetBossUnitId(name)
@@ -1862,13 +1873,12 @@ end
 
 function DBM:PLAYER_REGEN_ENABLED()
 	if loadDelay then
-		if type(loadDelay) == "table" then
-			for i, v in ipairs(loadDelay) do
-				DBM:LoadMod(v)
-			end
-		else
-			DBM:LoadMod(loadDelay)
-		end
+--		print("DBM Debug: loading ", loadDelay)
+		DBM:LoadMod(loadDelay)
+	end
+	if loadDelay2 then
+--		print("DBM Debug: loading ", loadDelay2)
+		DBM:LoadMod(loadDelay2)
 	end
 	if guiRequested and not IsAddOnLoaded("DBM-GUI") then
 		guiRequested = false
@@ -2087,13 +2097,9 @@ function DBM:LoadMod(mod)
 	--IF we are fighting a boss, we don't have much of a choice but to try and load anyways since script ran too long isn't actually a guarentee.
 	--it's mainly for slower computers that fail to load mods in combat. Most can load in combat if we delay the garbage collect
 	if InCombatLockdown() and IsInInstance() and not IsEncounterInProgress() then
-		if loadDelay and loadDelay ~= mod then
-			if type(loadDelay) ~= "table" then
-				loadDelay = { loadDelay }
-			end
-			if not loadDelay[mod] then
-				loadDelay[#loadDelay + 1] = mod
-			end
+		self:AddMsg(DBM_CORE_LOAD_MOD_COMBAT:format(tostring(mod.name)))
+		if loadDelay and loadDelay ~= mod then--Check if load delay exists, but make sure this isn't a loop of same mod before making a second load delay
+			loadDelay2 = mod
 		else
 			loadDelay = mod
 		end
@@ -2113,7 +2119,6 @@ function DBM:LoadMod(mod)
 		end
 		return false
 	else
-		loadDelay = nil
 		if DBM.Options.ShowLoadMessage then--Make load option optional for advanced users, option is NOT in the GUI.
 			self:AddMsg(DBM_CORE_LOAD_MOD_SUCCESS:format(tostring(mod.name)))
 		end
@@ -2140,6 +2145,11 @@ function DBM:LoadMod(mod)
 		end
 		if not InCombatLockdown() then--We loaded in combat because a raid boss was in process, but lets at least delay the garbage collect so at least load mod is half as bad, to do our best to avoid "script ran too long"
 			collectgarbage("collect")
+		end
+		if loadDelay2 == mod then
+			loadDelay2 = nil
+		elseif loadDelay == mod then
+			loadDelay = nil
 		end
 		return true
 	end
@@ -2731,7 +2741,7 @@ do
 		button:SetNormalTexture(button:CreateTexture(nil, nil, "UIPanelButtonUpTexture"))
 		button:SetPushedTexture(button:CreateTexture(nil, nil, "UIPanelButtonDownTexture"))
 		button:SetHighlightTexture(button:CreateTexture(nil, nil, "UIPanelButtonHighlightTexture"))
-		button:SetText(DBM_CORE_OK)
+		button:SetText(OKAY)
 		button:SetScript("OnClick", function(self)
 			frame:Hide()
 		end)
@@ -3020,8 +3030,12 @@ do
 	end
 
 	function DBM:CHAT_MSG_MONSTER_EMOTE(msg)
-		if LastZoneMapID == 11 then--Northern barrens caravan messages
-			PlaySoundFile("Sound\\interface\\UI_RaidBossWhisperWarning.ogg", "Master")
+		if DBM.Options.barrensSounds and LastZoneMapID == 11 then--Northern barrens caravan messages
+			if DBM.Options.UseMasterVolume then
+				PlaySoundFile("Sound\\interface\\UI_RaidBossWhisperWarning.ogg", "Master")
+			else
+				PlaySoundFile("Sound\\interface\\UI_RaidBossWhisperWarning.ogg")
+			end
 		end
 		return onMonsterMessage("emote", msg)
 	end
@@ -3250,6 +3264,17 @@ function DBM:GetHighestBossHealth()
 	return highestBossHealth
 end
 
+function DBM:GetBossHealthByCID(cid)
+	if #bossHealth == 0 then return 1 end
+	local health
+	for i, v in pairs(bossHealth) do
+		if i == cid then
+			health = v
+		end
+	end
+	return health
+end
+
 function DBM:EndCombat(mod, wipe)
 	if removeEntry(inCombat, mod) then
 		local scenario = mod.type == "SCENARIO"
@@ -3271,7 +3296,7 @@ function DBM:EndCombat(mod, wipe)
 				mod.combatInfo.killMobs[i] = true
 			end
 		end
-		self:Schedule(4, DBM.StopLogging)--small delay to catch kill/died combatlog events
+		self:Schedule(10, DBM.StopLogging)--small delay to catch kill/died combatlog events
 		if not savedDifficulty or not difficultyText then--prevent error if savedDifficulty or difficultyText is nil
 			savedDifficulty, difficultyText = self:GetCurrentInstanceDifficulty()
 		end
@@ -3282,7 +3307,7 @@ function DBM:EndCombat(mod, wipe)
 		if wipe then
 			--Fix for "attempt to perform arithmetic on field 'pull' (a nil value)" (which was actually caused by stats being nil, so we never did getTime on pull, fixing one SHOULD fix the other)
 			local thisTime = GetTime() - mod.combatInfo.pull
-			local wipeHP = ("%d%%"):format((mod.highesthealth and DBM:GetHighestBossHealth() or DBM:GetLowestBossHealth()) * 100)
+			local wipeHP = ("%d%%"):format((mod.mainBossId and DBM:GetBossHealthByCID(mod.mainBossId) or mod.highesthealth and DBM:GetHighestBossHealth() or DBM:GetLowestBossHealth()) * 100)
 			local totalPulls = (savedDifficulty == "lfr25" and mod.stats.lfr25Pulls) or ((savedDifficulty == "heroic5" or savedDifficulty == "heroic10") and mod.stats.heroicPulls) or (savedDifficulty == "challenge5" and mod.stats.challengePulls) or (savedDifficulty == "normal25" and mod.stats.normal25Pulls) or (savedDifficulty == "heroic25" and mod.stats.heroic25Pulls) or ((savedDifficulty == "normal5" or savedDifficulty == "normal10" or savedDifficulty == "worldboss") and mod.stats.normalPulls) or 0
 			local totalKills = (savedDifficulty == "lfr25" and mod.stats.lfr25Kills) or ((savedDifficulty == "heroic5" or savedDifficulty == "heroic10") and mod.stats.heroicKills) or (savedDifficulty == "challenge5" and mod.stats.challengeKills) or (savedDifficulty == "normal25" and mod.stats.normal25Kills) or (savedDifficulty == "heroic25" and mod.stats.heroic25Kills) or ((savedDifficulty == "normal5" or savedDifficulty == "normal10" or savedDifficulty == "worldboss") and mod.stats.normalKills) or 0
 			if thisTime < 30 then -- Normally, one attempt will last at least 30 sec.
@@ -3838,7 +3863,7 @@ do
 				mod = not v.isCustomMod and v
 			end
 			mod = mod or inCombat[1]
-			local hp = ("%d%%"):format((mod.highesthealth and DBM:GetHighestBossHealth() or DBM:GetLowestBossHealth()) * 100)
+			local hp = ("%d%%"):format((mod.mainBossId and DBM:GetBossHealthByCID(mod.mainBossId) or mod.highesthealth and DBM:GetHighestBossHealth() or DBM:GetLowestBossHealth()) * 100)
 			sendWhisper(sender, chatPrefix..DBM_CORE_STATUS_WHISPER:format(difficultyText..(mod.combatInfo.name or ""), hp or DBM_CORE_UNKNOWN, getNumAlivePlayers(), GetNumGroupMembers()))
 		elseif #inCombat > 0 and DBM.Options.AutoRespond and
 		(isRealIdMessage and (not isOnSameServer(sender) or not DBM:GetRaidUnitId(select(4, BNGetFriendInfoByID(sender)))) or not isRealIdMessage and not DBM:GetRaidUnitId(sender)) then
@@ -3850,7 +3875,7 @@ do
 				mod = not v.isCustomMod and v
 			end
 			mod = mod or inCombat[1]
-			local hp = ("%d%%"):format((mod.highesthealth and DBM:GetHighestBossHealth() or DBM:GetLowestBossHealth()) * 100)
+			local hp = ("%d%%"):format((mod.mainBossId and DBM:GetBossHealthByCID(mod.mainBossId) or mod.highesthealth and DBM:GetHighestBossHealth() or DBM:GetLowestBossHealth()) * 100)
 			if not autoRespondSpam[sender] then
 				if IsInScenarioGroup() then
 					sendWhisper(sender, chatPrefix..DBM_CORE_AUTO_RESPOND_WHISPER_SCENARIO:format(playerName, difficultyText..(mod.combatInfo.name or ""), getNumAlivePlayers(), GetNumGroupMembers()))
@@ -4035,9 +4060,9 @@ end
 DBM.Bars:SetAnnounceHook(function(bar)
 	local prefix
 	if bar.color and bar.color.r == 1 and bar.color.g == 0 and bar.color.b == 0 then
-		prefix = DBM_CORE_HORDE
+		prefix = DBM_CORE_HORDE or FACTION_HORDE
 	elseif bar.color and bar.color.r == 0 and bar.color.g == 0 and bar.color.b == 1 then
-		prefix = DBM_CORE_ALLIANCE
+		prefix = DBM_CORE_ALLIANCE or FACTION_ALLIANCE
 	end
 	if prefix then
 		return ("%s: %s  %d:%02d"):format(prefix, _G[bar.frame:GetName().."BarName"]:GetText(), math.floor(bar.timer / 60), bar.timer % 60)
@@ -6353,7 +6378,7 @@ do
 			timer		= DBM_CORE_OPTION_CATEGORY_TIMERS,
 			announce	= DBM_CORE_OPTION_CATEGORY_WARNINGS,
 			specannounce	= DBM_CORE_OPTION_CATEGORY_SPECWARNINGS,
-			misc		= DBM_CORE_OPTION_CATEGORY_MISC,
+			misc		= MISCELLANEOUS,
 			sound		= DBM_CORE_OPTION_CATEGORY_SOUND
 		}, returnKey)
 	}

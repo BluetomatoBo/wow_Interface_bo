@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 -- BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9640 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9675 $"):sub(12, -3))
 mod:SetCreatureID(68397)--Diffusion Chain Conduit 68696, Static Shock Conduit 68398, Bouncing Bolt conduit 68698, Overcharge conduit 68697
 mod:SetQuestID(32756)
 mod:SetZone()
@@ -297,7 +297,7 @@ function mod:SPELL_AURA_APPLIED(args)
 					if self.Options.StaticShockArrow then
 						DBM.Arrow:ShowRunTo(args.destName, 3, 3, 8)
 					end
-					if self:AntiSpam(3, 5) then
+					if self:AntiSpam(3, 11) then
 						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_jhfd.mp3") --集合分擔
 						sndWOP:Schedule(1.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countseven.mp3")
 						sndWOP:Schedule(2.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countsix.mp3")
@@ -374,8 +374,11 @@ function mod:SPELL_AURA_APPLIED(args)
 			DBM.RangeCheck:Show(8)--Assume 8 since spell tooltip has no info
 		end
 		-- BH ADD
-		if self:IsRanged() then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
+		if phase > 1 then
+			if self:AntiSpam(10, 20) then
+				specWarnDiffusionChainSoon:Show()
+				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdls.mp3")--閃電鏈準備
+			end
 		end
 	elseif args.spellId == 137176 and self:AntiSpam(3, 5) and args:IsPlayer() then
 		specWarnOverloadedCircuits:Show()
@@ -397,23 +400,19 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnDiffusionChain:Show(args.destName)
 		specWarnDiffusionChain:Show(args.destName)
 		if not intermissionActive then
-			timerDiffusionChainCD:Start()			
-			if self:IsRanged() then
-				specWarnDiffusionChainSoon:Schedule(36)
-				sndWOP:Schedule(36, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
-			end
+			timerDiffusionChainCD:Start()
+			specWarnDiffusionChainSoon:Schedule(36)
+			sndWOP:Schedule(36, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdls.mp3")
 		end
 	elseif args.spellId == 136543 and self:AntiSpam(2, 1) then
 		warnSummonBallLightning:Show()
 		specWarnSummonBallLightning:Show()
 		if phase < 3 then
-			lightp2count = lightp2count + 1
 			timerSummonBallLightningCD:Start()
 			sndWOP:Schedule(40, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wmdq.mp3") --5秒後電球
 		else
-			lightp3count = lightp3count + 1
 			timerSummonBallLightningCD:Start(30)
-			sndWOP:Schedule(25, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wmdq.mp3") --5秒後電球
+			sndWOP:Schedule(25, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wmdq.mp3")
 		end
 		if self:IsDifficulty("heroic10", "heroic25") and self.Options.RangeFrameLB then
 			DBM.RangeCheck:Show(3)
@@ -431,9 +430,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif args.spellId == 135681 and args:GetDestCreatureID() == 68397 and not intermissionActive then--East (Diffusion Chain)
 		timerDiffusionChainCD:Cancel()
 		specWarnDiffusionChainSoon:Cancel()
-		if self:IsRanged() then
-			sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")
-		end
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdls.mp3")
 		if self.Options.RangeFrame and self:IsRanged() then
 			DBM.RangeCheck:Show(8)
 		end
@@ -522,10 +519,8 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 			end
 			if eastDestroyed then
 				timerDiffusionChainCD:Start(14)
-				if self:IsRanged() then
-					specWarnDiffusionChainSoon:Schedule(10)
-					sndWOP:Schedule(10, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
-				end
+				specWarnDiffusionChainSoon:Schedule(10)
+				sndWOP:Schedule(10, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\scattersoon.mp3")--注意分散
 			end
 			if southDestroyed then
 				timerOverchargeCD:Start(14)
@@ -626,6 +621,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 137146 and self:AntiSpam(2, 2) then--Supercharge Conduits (comes earlier than other events so we use this one)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_cjcn.mp3") --超級充能		
 		intermissionActive = true
+		specWarnDiffusionChainSoon:Cancel()
+		sndWOP:Cancel("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sdls.mp3")
+		specWarnBouncingBoltSoon:Cancel()
 		timerThunderstruckCD:Cancel()
 		timerCrashingThunder:Cancel()
 		timerDecapitateCD:Cancel()
@@ -705,6 +703,7 @@ function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 69232 then
 		lbcount = lbcount - 1
+--		print(GetSpellInfo(136543)..":"..lbcount)
 		if lbcount == 0 then
 			if self:IsDifficulty("heroic10", "heroic25") and self.Options.RangeFrameLB then
 				DBM.RangeCheck:Hide()

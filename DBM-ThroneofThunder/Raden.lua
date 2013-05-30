@@ -4,7 +4,7 @@ local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndStrike	= mod:NewSound(nil, "SoundStrike", true)
 
-mod:SetRevision(("$Revision: 9633 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9678 $"):sub(12, -3))
 mod:SetCreatureID(69473)--69888
 mod:SetQuestID(32753)
 mod:SetZone()
@@ -102,7 +102,7 @@ local function LoopUnstableAnima()
 	timerUnstableAnima:Start()
 	mod:Schedule(15, LoopUnstableAnima)
 	if mod.Options.HudMAPAnima and UnstableAnimatarget then
-		UnstableAnimaMarkers[args.destName] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", UnstableAnimatarget, 8, 5, 1, 1, 0, 0.8):Appear():RegisterForAlerts():Rotate(360, 5.5):SetAlertColor(0, 0, 1, 0.5))
+		UnstableAnimaMarkers[UnstableAnimatarget] = register(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", UnstableAnimatarget, 8, 5, 1, 1, 0, 0.8):Appear():RegisterForAlerts():Rotate(360, 5.5):SetAlertColor(0, 0, 1, 0.5))
 	end
 end
 

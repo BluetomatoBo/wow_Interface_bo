@@ -11,6 +11,7 @@ DBM_CORE_LOAD_MOD_ERROR				= "載入%s模組時發生錯誤：%s"
 DBM_CORE_LOAD_MOD_SUCCESS			= "成功載入%s模組。輸入/dbm或/dbm help有更多選項。"
 DBM_CORE_LOAD_GUI_ERROR				= "無法載入圖形介面：%s"
 DBM_CORE_LOAD_GUI_COMBAT			= "圖形介面不能在戰鬥中初始化。圖形介面將在戰鬥後自動讀取，這樣就能夠在戰鬥中使用。"
+DBM_CORE_LOAD_MOD_COMBAT			= "延遲讀取模塊 '%s' 直到你脫離戰鬥"
 DBM_CORE_BAD_LOAD					= "DBM偵測到你的此副本的模組在戰鬥中讀取失敗。一旦脫離戰鬥，請立即輸入/consoel reloadui重新載入。"
 
 DBM_CORE_LOOT_SPEC_REMINDER			= "你目前的專精為:%s。而你目前的拾取選擇為:%s。"

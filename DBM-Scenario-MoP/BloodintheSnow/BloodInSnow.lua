@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("d646", "DBM-Scenario-MoP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9597 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9688 $"):sub(12, -3))
 mod:SetZone()
 
 mod:RegisterCombat("scenario", 939)
@@ -10,7 +10,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START",
 	"SPELL_CAST_SUCCESS",
 	"UNIT_DIED",
-	"CHAT_MSG_MONSTER_EMOTE"
+	"CHAT_MSG_RAID_BOSS_EMOTE"
 )
 
 --Farastu
@@ -45,7 +45,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnIceSpikes:Show()
 		specWarnIceSpikes:Show()
 		timerIceSpikesCD:Start()
-	elseif args.spellId == 132980 then
+	elseif args.spellId == 142669 then
 		warnZandalarBanner:Show()
 		specWarnZandalarBanner:Show()
 	end
@@ -59,7 +59,7 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:CHAT_MSG_MONSTER_EMOTE(msg, _, _, _, target)
+function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 	if msg:find("spell:141407") then--Does show in combat log, but emote gives targetname 2 seconds earlier.
 		local target = DBM:GetFullNameByShortName(target)
 		warnFrozenSolid:Show(target)

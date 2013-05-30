@@ -93,7 +93,6 @@ L:SetOptionLocalization({
 L = DBM:GetModLocalization("z566")
 
 L:SetMiscLocalization({
-	ZoneName			= "暴風之眼",
 	ScoreExpr			= "(%d+)/1600",
 	Alliance 			= "聯盟",
 	Horde 				= "部落",
@@ -192,7 +191,6 @@ L = DBM:GetModLocalization("z726")
 L:SetMiscLocalization({
 	BgStart60 			= "戰鬥將在1分鐘內開始。",
 	BgStart30 			= "戰鬥將在30秒鐘內開始。做好準備!",
-	ZoneName 			= "雙子",
 	Alliance 			= "聯盟",
 	Horde 				= "部落",
 	InfoErrorText			= "當你離開戰鬥後，旗幟框架將會回復。",

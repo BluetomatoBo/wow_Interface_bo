@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 --BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9656 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9678 $"):sub(12, -3))
 mod:SetCreatureID(68078, 68079, 68080, 68081)--Ro'shak 68079, Quet'zal 68080, Dam'ren 68081, Iron Qon 68078
 mod:SetMainBossID(68078)
 mod:SetQuestID(32754)
@@ -178,7 +178,7 @@ local function checkSpear()
 			local inRange = DBM.RangeCheck:GetDistance("player", x, y)
 			if inRange and inRange < 10 then
 				specWarnThrowSpearNear:Show(targetname)--Near spear target
-			elseif mod:AntiSpam(15, 8) then--Smart way to do a failsafe in case we never get a valid target
+			elseif mod:AntiSpam(15, 6) then--Smart way to do a failsafe in case we never get a valid target
 				specWarnThrowSpear:Show()--not spear target or near spear target, generic aoe warning (for the lines and stuff)
 			end
 		end
@@ -189,8 +189,7 @@ end
 
 local function checkArcing()
 	local arcingDebuffs = 0
-	for i = 1, GetNumGroupMembers() do
-		local uId = "raid"..i
+	for uId in DBM:GetGroupMembers() do
 		if UnitDebuff(uId, arcingName) then
 			arcingDebuffs = arcingDebuffs + 1
 		end
@@ -487,8 +486,7 @@ end
 
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 134926 and phase < 4 then
---		warnThrowSpear:Show()
-		if self:AntiSpam(15, 8) then--Basically, if the target scanning failed, we do an aoe warning on the actual summon.
+		if self:AntiSpam(15, 6) then--Basically, if the target scanning failed, we do an aoe warning on the actual summon.
 			specWarnThrowSpear:Show()
 		end
 		timerThrowSpearCD:Start()
