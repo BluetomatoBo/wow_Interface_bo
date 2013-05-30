@@ -1,4 +1,4 @@
--- $Id: LibStub.lua 76 2007-09-03 01:50:17Z mikk $
+﻿-- $Id: LibStub.lua 76 2007-09-03 01:50:17Z mikk $
 -- LibStub is a simple versioning stub meant for use in Libraries.  http://www.wowace.com/wiki/LibStub for more info
 -- LibStub is hereby placed in the Public Domain
 -- Credits: Kaelten, Cladhaire, ckknight, Mikk, Ammo, Nevcairiel, joshborke

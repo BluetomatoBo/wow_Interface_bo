@@ -1,4 +1,4 @@
---- **AceDB-3.0** manages the SavedVariables of your addon.
+﻿--- **AceDB-3.0** manages the SavedVariables of your addon.
 -- It offers profile management, smart defaults and namespaces for modules.\\
 -- Data can be saved in different data-types, depending on its intended usage.
 -- The most common data-type is the `profile` type, which allows the user to choose

@@ -1,4 +1,4 @@
-local GetSpellInfo = GetSpellInfo
+﻿local GetSpellInfo = GetSpellInfo
 local L = Gladius.L
 
 function Gladius:GetSpecList()

@@ -1,4 +1,4 @@
---- AceConfigDialog-3.0 generates AceGUI-3.0 based windows based on option tables.
+﻿--- AceConfigDialog-3.0 generates AceGUI-3.0 based windows based on option tables.
 -- @class file
 -- @name AceConfigDialog-3.0
 -- @release $Id: AceConfigDialog-3.0.lua 1049 2012-04-02 13:22:10Z mikk $
