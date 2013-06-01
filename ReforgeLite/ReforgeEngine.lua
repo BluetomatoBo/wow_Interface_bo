@@ -155,7 +155,7 @@ function ReforgeLite:UpdateMethodStats (method)
   local conv = self:GetConversion()
   method.stats[self.STATS.HIT] = method.stats[self.STATS.HIT]
     + math.floor((method.stats[self.STATS.SPIRIT] - oldspi) * conv.s2h + 0.5)
---    + math.floor((method.stats[self.STATS.EXP] - oldexp) * conv.e2h + 0.5)
+    + math.floor((method.stats[self.STATS.EXP] - oldexp) * conv.e2h + 0.5) -- TODO: is this really needed?
   method.stats[self.STATS.EXP] = method.stats[self.STATS.EXP]
     + math.floor((method.stats[self.STATS.SPIRIT] - oldspi) * conv.s2e + 0.5)
 end
@@ -558,7 +558,7 @@ function ReforgeLite:ComputeReforge (initFunc, optionFunc, chooseFunc)
     local code = self[chooseFunc] (self, data, reforgeOptions, scores, codes)
     scores, codes = nil, nil
     collectgarbage ("collect")
-    self.methodDebug = "version = 1.23\n\n"
+    self.methodDebug = "version = 1.28\n\n"
     self.methodDebug = self.methodDebug .. "data = " .. FormatValue (data) .. "\n\n"
     for i = 1, #data.method.items do
       local opt = reforgeOptions[i][code:byte (i)]

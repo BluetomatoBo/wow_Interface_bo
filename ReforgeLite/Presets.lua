@@ -275,8 +275,8 @@ ReforgeLite.presets = {
       prio = {
         {stat = StatExp, preset = ExpSoftCap},
         {stat = StatHit, preset = MeleeHitCap},
-        {stat = StatHaste},
         {stat = StatCrit},
+        {stat = StatHaste},
         {stat = StatMastery},
       },
     },

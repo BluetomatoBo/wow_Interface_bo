@@ -1,3 +1,17 @@
+** v1.28
+
+- Improved previous upgrade algorithm instead of tooltip parsing
+
+** v1.27
+
+- Hotfix tooltip parsing
+
+** v1.26
+
+- Item upgrades should work correctly now
+- Updated a couple presets
+- Maybe fixed expertise-to-hit
+
 ** v1.25
 
 - Updated item scaling
