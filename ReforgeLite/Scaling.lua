@@ -3383,7 +3383,7 @@ function GetItemStatsUp(link, table)
   if not result then
     return result
   end
-  local id, upgrade = link:match("item:(%d+):%d+:%d+:%d+:%d+:%d+:%-?%d+:%-?%d+:%d+:%d+:(%d+)"))
+  local id, upgrade = link:match("item:(%d+):%d+:%d+:%d+:%d+:%d+:%-?%d+:%-?%d+:%d+:%d+:(%d+)")
   id = tonumber(id)
   upgrade = tonumber(upgrade)
   local _, _, _, iLvl = GetItemInfo(link)

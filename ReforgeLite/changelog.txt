@@ -1,3 +1,7 @@
+** v1.29
+
+- Fixed a typo
+
 ** v1.28
 
 - Improved previous upgrade algorithm instead of tooltip parsing
