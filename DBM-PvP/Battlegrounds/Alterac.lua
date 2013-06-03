@@ -88,8 +88,10 @@ do
 			Alterac:UnregisterShortTermEvents()
 		end
 	end
-	Alterac.OnInitialize = Alterac:Schedule(1, AV_Initialize)
-	Alterac.ZONE_CHANGED_NEW_AREA = Alterac:Schedule(1, AV_Initialize)--Core is also watching ZONE_CHANGED_NEW_AREA but we want core to do it's thing before we call DBM:GetCurrentArea()
+	Alterac.OnInitialize = AV_Initialize
+	function Alterac:ZONE_CHANGED_NEW_AREA()
+		self:Schedule(1, AV_Initialize)
+	end
 end
 
 do

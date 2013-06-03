@@ -64,8 +64,11 @@ do
 			end
 		end
 	end
-	Warsong.OnInitialize = Warsong:Schedule(1, WSG_Initialize)
-	Warsong.ZONE_CHANGED_NEW_AREA = Warsong:Schedule(1, WSG_Initialize)
+	Warsong.OnInitialize = WSG_Initialize()
+	
+	function Warsong:ZONE_CHANGED_NEW_AREA()
+		self:Schedule(1, WSG_Initialize)
+	end
 end
 
 function Warsong:CHAT_MSG_BG_SYSTEM_NEUTRAL(msg)

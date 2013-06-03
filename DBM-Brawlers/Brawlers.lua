@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Brawlers", "DBM-Brawlers")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9655 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9709 $"):sub(12, -3))
 --mod:SetCreatureID(60491)
 --mod:SetModelID(41448)
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
@@ -213,12 +213,8 @@ function mod:UNIT_AURA(uId)
 		if currentQueueRank == 1 then
 			specWarnYourNext:Show()
 		end
-		if self.Options.SpeakOutQueue and currentQueueRank < 11 then
-			if DBM.Options.UseMasterVolume then
-				PlaySoundFile("Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\"..currentQueueRank..".ogg", "Master")
-			else
-				PlaySoundFile("Interface\\AddOns\\DBM-Core\\Sounds\\Corsica_S\\"..currentQueueRank..".ogg")
-			end
+		if self.Options.SpeakOutQueue then
+			DBM:PlayCountSound(currentQueueRank)
 		end
 	end
 end

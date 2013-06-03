@@ -86,8 +86,10 @@ do
 		end
 	end
 	
-	IsleOfConquest.OnInitialize = IsleOfConquest:Schedule(1, initialize)
-	IsleOfConquest.ZONE_CHANGED_NEW_AREA = IsleOfConquest:Schedule(1, initialize)
+	IsleOfConquest.OnInitialize = initialize
+	function IsleOfConquest:ZONE_CHANGED_NEW_AREA()
+		self:Schedule(1, initialize)
+	end
 end
 
 do

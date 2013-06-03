@@ -3,7 +3,7 @@ local L		= mod:GetLocalizedStrings()
 -- BH ADD
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9675 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9726 $"):sub(12, -3))
 mod:SetCreatureID(68397)--Diffusion Chain Conduit 68696, Static Shock Conduit 68398, Bouncing Bolt conduit 68698, Overcharge conduit 68697
 mod:SetQuestID(32756)
 mod:SetZone()
@@ -552,9 +552,13 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 			sndWOP:Schedule(31, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wmlj.mp3") --5秒後雷擊
 			timerSummonBallLightningCD:Start(41.5)
 			sndWOP:Schedule(36, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_wmdq.mp3") --5秒後電球
-			if self.Options.RangeFrame and self:IsRanged() then
-				if self:IsDifficulty("heroic10", "heroic25") then 
-					DBM.RangeCheck:Show(8)
+			if self.Options.RangeFrame then
+				if self:IsDifficulty("heroic10", "heroic25") then
+					if self:IsRanged() then
+						DBM.RangeCheck:Show(8)
+					else
+						DBM.RangeCheck:Show(6)
+					end
 				else
 					DBM.RangeCheck:Show(6)
 				end

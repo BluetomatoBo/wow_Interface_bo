@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("HoFTrash", "DBM-HeartofFear")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 9695 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9706 $"):sub(12, -3))
 --mod:SetModelID(47785)
 mod:SetZone()
 
@@ -67,6 +67,6 @@ end
 
 function mod:OnSync(msg)
 	if msg == "UnseenTrash" then
-		self:Schedule(0.1, findUnseen)
+		findUnseen()
 	end
 end

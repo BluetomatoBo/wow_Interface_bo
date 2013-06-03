@@ -30,8 +30,10 @@ function Silvershard:OnInitialize()
 		Silvershard:UnregisterShortTermEvents()
 	end
 end
-Silvershard.ZONE_CHANGED_NEW_AREA = Silvershard:ScheduleMethod(1, "OnInitialize")
 
+function Silvershard:ZONE_CHANGED_NEW_AREA()
+	self:ScheduleMethod(1, "OnInitialize")
+end
 
 function Silvershard:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if not bgzone then return end
