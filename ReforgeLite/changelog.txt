@@ -1,3 +1,9 @@
+** v1.30
+
+- Updated all presets, again
+- Fixed & improved item stat calculation (via a giant table)
+- Simple mode now makes it clear that only two caps are allowed
+
 ** v1.29
 
 - Fixed a typo

@@ -164,17 +164,7 @@ local CasterCaps = {
 
 ReforgeLite.presets = {
   ["DEATHKNIGHT"] = {
-    ["<Blood> - <Avoidance>"] = {
-      prio = {
-        {stat = StatMastery},
-        {stat = StatParry},
-        {stat = StatDodge},
-        {stat = StatHit, preset = MeleeHitCap},
-        {stat = StatExp, preset = ExpSoftCap},
-        {stat = StatHaste},
-      }
-    },
-    ["<Blood> - <Control>"] = {
+    ["<Blood>"] = {
       prio = {
         {stat = StatMastery},
         {stat = StatHit, preset = MeleeHitCap},
@@ -197,8 +187,8 @@ ReforgeLite.presets = {
       prio = {
         {stat = StatHit, preset = MeleeHitCap},
         {stat = StatExp, preset = ExpSoftCap},
-        {stat = StatHaste},
         {stat = StatMastery},
+        {stat = StatHaste},
         {stat = StatCrit},
         {stat = StatHit, preset = MeleeDWHitCap},
       },
@@ -243,12 +233,12 @@ ReforgeLite.presets = {
     },
     ["<Guardian>"] = {
       prio = {
-        {stat = StatCrit},
         {stat = StatHit, preset = MeleeHitCap},
-        {stat = StatExp, preset = ExpSoftCap},
+        {stat = StatExp, preset = ExpHardCap},
+        {stat = StatCrit},
+        {stat = StatHaste},
         {stat = StatMastery},
         {stat = StatDodge},
-        {stat = StatHaste},
       },
     },
     ["<Restoration> - 3043 <HasteLong>"] = {
@@ -303,8 +293,8 @@ ReforgeLite.presets = {
     ["<Arcane>"] = {
       prio = {
         {stat = StatHit, preset = SpellHitCap},
-        {stat = StatHaste},
         {stat = StatMastery},
+        {stat = StatHaste},
         {stat = StatCrit},
       },
     },
@@ -330,9 +320,9 @@ ReforgeLite.presets = {
       prio = {
         {stat = StatExp, preset = ExpHardCap},
         {stat = StatHit, preset = MeleeHitCap},
-        {stat = StatHaste},
-        {stat = StatCrit},
         {stat = StatMastery},
+        {stat = StatCrit},
+        {stat = StatHaste},
         {stat = StatParry},
         {stat = StatDodge},
       },
@@ -390,8 +380,8 @@ ReforgeLite.presets = {
         {stat = StatHit, preset = MeleeHitCap},
         {stat = StatExp, preset = ExpSoftCap},
         {stat = StatHaste},
-        {stat = StatCrit},
         {stat = StatMastery},
+        {stat = StatCrit},
       },
     },
   },
@@ -399,8 +389,8 @@ ReforgeLite.presets = {
     ["<Discipline>"] = {
       prio = {
         {stat = StatSpirit},
-        {stat = StatCrit},
         {stat = StatMastery},
+        {stat = StatCrit},
         {stat = StatHaste},
       },
     },
@@ -486,8 +476,8 @@ ReforgeLite.presets = {
       prio = {
         {stat = StatHit, preset = MeleeHitCap},
         {stat = StatExp, preset = ExpSoftCap},
-        {stat = StatHaste},
         {stat = StatMastery},
+        {stat = StatHaste},
         {stat = StatCrit},
       },
     },
@@ -550,9 +540,9 @@ ReforgeLite.presets = {
     ["<Destruction>"] = {
       prio = {
         {stat = StatHit, preset = SpellHitCap},
-        {stat = StatCrit},
         {stat = StatHaste},
         {stat = StatMastery},
+        {stat = StatCrit},
       },
     },
   },
@@ -575,21 +565,11 @@ ReforgeLite.presets = {
         {stat = StatHaste},
       },
     },
-    ["<Protection> - <Avoidance>"] = {
-      prio = {
-        {stat = StatMastery},
-        {stat = StatParry},
-        {stat = StatDodge},
-        {stat = StatHit, preset = MeleeHitCap},
-        {stat = StatExp, preset = ExpSoftCap},
-        {stat = StatHaste},
-      }
-    },
-    ["<Protection> - <Control>"] = {
+    ["<Protection>"] = {
       prio = {
         {stat = StatMastery},
         {stat = StatHit, preset = MeleeHitCap},
-        {stat = StatExp, preset = ExpSoftCap},
+        {stat = StatExp, preset = ExpHardCap},
         {stat = StatParry},
         {stat = StatDodge},
         {stat = StatHaste},

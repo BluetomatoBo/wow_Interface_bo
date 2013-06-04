@@ -188,7 +188,7 @@ function ReforgeLite:AddPriorityItem(loading)
   end)
   local capped = GUI:CreateCheckButton(self.task.prio, L["to"], self.pdb.prio[row].capped, function(val)
     self.pdb.prio[row].capped = val
-    self:UpdatePriorityItem(row)
+    self:UpdatePriorities()
     self:PrioToWeights(self.pdb)
     self:RefreshMethodStats()
   end)
@@ -274,6 +274,18 @@ function ReforgeLite:UpdatePriorityPreset(row)
   self.task.prio.cells[row][7]:SetText(self.pdb.prio[row].value)
 end
 function ReforgeLite:UpdatePriorityItem(row)
+  local ccount = 0
+  local scaps = {}
+  for r = 1, #self.pdb.prio do
+    if self.pdb.prio[r].capped and not scaps[self.pdb.prio[r].stat] then
+      if ccount >= 2 then
+        self.pdb.prio[r].capped = false
+      else
+        scaps[self.pdb.prio[r].stat] = true
+        ccount = ccount + 1
+      end
+    end
+  end
   if row == 1 then
     self.task.prio.cells[row][2]:Hide()
   else
@@ -285,13 +297,19 @@ function ReforgeLite:UpdatePriorityItem(row)
     self.task.prio.cells[row][3]:Show()
   end
   self.task.prio.cells[row][4]:SetValue(self.pdb.prio[row].stat)
-  self.task.prio.cells[row][5]:SetChecked(self.pdb.prio[row].capped)
   if self.pdb.prio[row].capped then
+    self.task.prio.cells[row][5]:SetChecked(true)
     self.task.prio.cells[row][6]:Show()
     self.task.prio.cells[row][6]:SetValue(self.pdb.prio[row].preset)
     self.task.prio.cells[row][7]:Show()
     self:UpdatePriorityPreset(row)
   else
+    self.task.prio.cells[row][5]:SetChecked(false)
+    if ccount >= 2 and not scaps[self.pdb.prio[row].stat] then
+      self.task.prio.cells[row][5]:Hide()
+    else
+      self.task.prio.cells[row][5]:Show()
+    end
     self.task.prio.cells[row][6]:Hide()
     self.task.prio.cells[row][7]:Hide()
   end
