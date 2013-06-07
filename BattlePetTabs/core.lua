@@ -115,6 +115,9 @@ do
 			elseif ... == petJournalAddonName then
 				isJournalLoaded = 1
 			end
+      if type(PetJournalParent) == "table" and type(PetJournalParent.GetObjectType) == "function" then
+        isJournalLoaded = 1 -- some addons load the PetJournal before PetBattleTabs can load - leaving it waiting for the PetJournal until the end of days - but no longer!
+      end
 			if isCoreLoaded and isJournalLoaded then
 				isCoreLoaded, isJournalLoaded = nil
 				addon:UnregisterEvent(event)

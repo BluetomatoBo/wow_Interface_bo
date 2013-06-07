@@ -150,13 +150,18 @@
 				self.snapshots = {}
 			</OnLoad>
 			<OnShow>
+				if not BattlePetTabsTabManager.button:IsEnabled() then
+					return self:Hide() -- can't show the frame if the parent button is disabled
+				end
 				BattlePetTabFlyout_OnShow(self)
+				BattlePetTabsTabManager.button:SetChecked(true) -- checked state depends if this popup is shown or not
 			</OnShow>
 			<OnHide>
 				if BattlePetTabFlyoutPopupFrame.skipHide then
 					BattlePetTabFlyoutPopupFrame.skipHide = nil
 				else
 					BattlePetTabFlyoutPopupFrame:Hide()
+					BattlePetTabsTabManager.button:SetChecked(false) -- checked state depends if this popup is shown or not
 				end
 			</OnHide>
 			<OnUpdate>
