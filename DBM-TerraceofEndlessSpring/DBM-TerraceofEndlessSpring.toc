@@ -14,7 +14,7 @@
 ## X-DBM-Mod-Name: Terrace of Endless Spring
 ## X-DBM-Mod-Name-zhTW: 豐泉台  (ToES)
 ## X-DBM-Mod-Name-zhCN: 永春台
-## X-DBM-Mod-Sort: 2
+## X-DBM-Mod-Sort: 3
 ## X-DBM-Mod-MapID: 996
 ## X-DBM-Mod-LoadZoneID: 886
 localization.en.lua

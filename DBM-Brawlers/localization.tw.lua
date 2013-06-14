@@ -11,7 +11,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
-	warnQueuePosition	= "你的排名順位為%d",
+	warnQueuePosition	= "你的排名順位為:%d",
 	specWarnYourNext	= "你是下一位!",
 	specWarnYourTurn	= "輪到你上場了!"
 })
@@ -168,7 +168,7 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization("BrawlRare1")
 
 L:SetGeneralLocalization({
-	name = "鬥陣俱樂部:挑戰1"
+	name = "鬥陣俱樂部:挑戰卡 1"
 })
 
 L:SetOptionLocalization({
@@ -182,9 +182,21 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization("BrawlRare2")
 
 L:SetGeneralLocalization({
-	name = "鬥陣俱樂部:挑戰2"
+	name = "鬥陣俱樂部:挑戰卡 2"
+})
+
+L:SetWarningLocalization({
+	specWarnRPS			= "使用 %s!"
 })
 
 L:SetOptionLocalization({
+	specWarnRPS			= "特别警告： $spell:141206",
+	SpeakOutStrikes			= "語音警告： $spell:141190 的堆疊層數",
 	SoundWOP			= "語音警告：重要技能"
+})
+
+L:SetMiscLocalization({
+	rock			= "石頭",
+	paper			= "布",
+	scissors		= "剪刀"
 })

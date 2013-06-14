@@ -170,7 +170,7 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization("BrawlRare1")
 
 L:SetGeneralLocalization({
-	name = "搏击俱乐部: Challenges 1"
+	name = "搏击俱乐部: 挑战卡 1"
 })
 
 L:SetOptionLocalization({
@@ -184,9 +184,21 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization("BrawlRare2")
 
 L:SetGeneralLocalization({
-	name = "搏击俱乐部: Challenges 2"
+	name = "搏击俱乐部:挑战卡 2"
+})
+
+L:SetWarningLocalization({
+	specWarnRPS			= "使用 %s!"
 })
 
 L:SetOptionLocalization({
+	specWarnRPS			= "特别警告： $spell:141206",
+	SpeakOutStrikes			= "语音警告： $spell:141190 的堆叠层数",
 	SoundWOP			= "语音警告：重要技能"
+})
+
+L:SetMiscLocalization({
+	rock			= "石头",
+	paper			= "布",
+	scissors		= "剪刀"
 })

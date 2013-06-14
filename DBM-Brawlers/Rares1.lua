@@ -2,8 +2,7 @@ local mod	= DBM:NewMod("BrawlRare1", "DBM-Brawlers")
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9652 $"):sub(12, -3))
---mod:SetCreatureID(60491)
+mod:SetRevision(("$Revision: 9770 $"):sub(12, -3))
 mod:SetModelID(46265)
 mod:SetZone()
 
@@ -64,7 +63,6 @@ function mod:SPELL_CAST_START(args)
 --		timerStaticChargeCD:Start()
 		if brawlersMod:PlayerFighting() then
 			specWarnStaticCharge:Show(args.sourceName)
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3")
 		end
 	elseif args.spellId == 140868 and self.Options.ArrowOnBoxing and brawlersMod:PlayerFighting() then--Left Hook
 		DBM.Arrow:ShowStatic(270, 3)
@@ -93,9 +91,13 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 	elseif args.spellId == 140894 then
 		warnBoomingBoogaloo:Show()
-		specWarnBoomingBoogaloo:Show()
+		if brawlersMod:PlayerFighting() then
+			specWarnBoomingBoogaloo:Show()
+		end
 	elseif args.spellId == 140912 then
 		warnDeployBoom:Show()
-		specWarnDeployBoom:Show()
+		if brawlersMod:PlayerFighting() then
+			specWarnDeployBoom:Show()
+		end
 	end
 end

@@ -242,7 +242,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			timerDestabilized:Cancel()
 		end
 	elseif args:IsSpellID(117878) and args:IsPlayer() and self:IsInCombat() then
-		sndDD:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\di.mp3") --~
+		sndDD:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\didi.mp3") --~
 	end
 end
 

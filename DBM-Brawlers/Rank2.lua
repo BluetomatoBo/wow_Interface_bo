@@ -2,8 +2,7 @@ local mod	= DBM:NewMod("BrawlRank2", "DBM-Brawlers")
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 8974 $"):sub(12, -3))
---mod:SetCreatureID(60491)
+mod:SetRevision(("$Revision: 9770 $"):sub(12, -3))
 mod:SetModelID(46712)
 mod:SetZone()
 
