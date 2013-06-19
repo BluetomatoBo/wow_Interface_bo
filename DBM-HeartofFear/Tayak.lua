@@ -231,7 +231,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, _, _, _, target)
 		unseencount = unseencount + 1
 		if MyJS() then
 			specWarnJSA:Schedule(1.5)
-			sndWOP:Schedule(1.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
+			sndWOP:Schedule(1.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\defensive.mp3") --注意減傷
 		end
 		warnUnseenStrike:Show(target)
 		specWarnUnseenStrike:Show(target)

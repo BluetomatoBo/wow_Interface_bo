@@ -309,8 +309,13 @@ DBM_CORE_LAG_HEADER					= "Deadly Boss Mods - Delayed check"
 DBM_CORE_LAG_ENTRY					= "%s£ºWorld delay[%d ms] / Home delay[%d ms]"
 DBM_CORE_LAG_FOOTER					= "Without Member:%s"
 
+DBM_CORE_SOUNDVER					= "Voice Enhanced"
+
 DBM_CORE_SOUNDGRIL_NAME_YIKE		= "Xia Yike"
 DBM_CORE_SOUNDGRIL_TEXT_YIKE		= ""
 
 DBM_CORE_SOUNDGRIL_NAME_YUN			= "ZHi Xiaoyun"
 DBM_CORE_SOUNDGRIL_TEXT_YUN			= ""
+
+DBM_CORE_SOUNDGRIL_NAME_SST			= "Iceoven"
+DBM_CORE_SOUNDGRIL_TEXT_SST			= "    All Voice generated via VoiceRss TTS (Text To Speech), API by Iceoven (Worgen Mage from Ancient Ones @ US-Dath'Remar)."

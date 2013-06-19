@@ -256,7 +256,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		Crushcount = Crushcount + 1
 		if MyJS() then
 			specWarnJSA:Schedule(1)
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\defensive.mp3") --注意減傷
 		end
 	elseif args:IsSpellID(123121) then
 		if not mod:IsTank() and args:IsPlayer() and (not hideActive) and self:AntiSpam(2, 1) then

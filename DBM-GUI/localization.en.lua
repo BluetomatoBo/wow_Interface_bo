@@ -209,6 +209,7 @@ L.DontShowPTText				= "Do not show announce text for Pull Timer"
 -- Misc
 L.FontHeight	= 16
 
-L.yike = "Xia Yike"
+L.sst = "Iceoven(EN)"
+L.yike = "Xia Yike(CN)"
 L.yun =  "Xiao Yun(TW)"
 L.other =  "Custom"

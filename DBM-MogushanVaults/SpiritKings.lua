@@ -245,7 +245,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			specWarnFixate:Show()
 			yellFixate:Yell()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_aydn.mp3") --快跑 暗影點你
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\shadowrun.mp3") --快跑 暗影點你
 		elseif self:AntiSpam(10, 5) then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_hqcx.mp3") --黑球出現
 		end
@@ -327,7 +327,7 @@ function mod:SPELL_CAST_START(args)
 		end	
 		if ((mod.Options.optDD == "DD1") and (shadowdd % 4 == 0)) or ((mod.Options.optDD == "DD2") and (shadowdd % 4 == 1)) or ((mod.Options.optDD == "DD3") and (shadowdd % 4 == 2)) or ((mod.Options.optDD == "DD4") and (shadowdd % 4 == 3)) then
 			specWarnDDL:Schedule(2)
-			sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_ddzb.mp3") --打斷準備
+			sndWOP:Schedule(2, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\interruptsoon.mp3") --打斷準備
 		end
 	elseif args:IsSpellID(117697) then
 		warnShieldOfDarkness:Show(args.sourceName)
@@ -365,7 +365,7 @@ function mod:SPELL_CAST_START(args)
 		end		
 		if (((mod.Options.optDD == "DD1") and (ctdd % 4 == 0)) or ((mod.Options.optDD == "DD2") and (ctdd % 4 == 1)) or ((mod.Options.optDD == "DD3") and (ctdd % 4 == 2)) or ((mod.Options.optDD == "DD4") and (ctdd % 4 == 3))) and (not Warned) then
 			specWarnDDL:Schedule(1)
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_ddzb.mp3") --打斷準備
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\interruptsoon.mp3") --打斷準備
 		end
 	elseif args:IsSpellID(117708) then
 		countxk = countxk + 1
@@ -558,7 +558,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg, boss)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_wwjh.mp3") --巫王激活
 		if mod.Options.optDD == "DD1" then
 			specWarnDDL:Schedule(1)
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_ddzb.mp3") --打斷準備
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\interruptsoon.mp3") --打斷準備
 		end
 		if self:IsDifficulty("heroic10", "heroic25") then
 			warnShieldOfDarknessSoon:Schedule(35, 5)--Start pre warning with regular warnings only as you don't move at this point yet.
@@ -598,7 +598,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg, boss)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_kwjh.mp3") --狂王激活
 		if mod.Options.optDD == "DD1" then
 			specWarnDDL:Schedule(1)
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_ddzb.mp3") --打斷準備
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\interruptsoon.mp3") --打斷準備
 		end
 	elseif boss == Qiang then
 		warnActivated:Show(boss)
@@ -630,7 +630,7 @@ function mod:UNIT_POWER(uId)
 	if (self:GetUnitCreatureId(uId) == 60708) and UnitPower(uId) > 60 and not Warned then
 		Warned = true
 		if (not mod:IsDps()) or ((UnitGUID(uId) == UnitGUID("target")) and fanshang) then
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_nlgg.mp3") --能量過高
+			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\energyhigh.mp3") --能量過高
 		end
 	end
 end

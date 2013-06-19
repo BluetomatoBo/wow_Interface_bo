@@ -135,7 +135,7 @@ local function MyDR(msg)
 	if (msg == "dr90" and mod.Options.warndr9) or (msg == "dr80" and mod.Options.warndr8) or (msg == "dr70" and mod.Options.warndr7) or (msg == "dr60" and mod.Options.warndr6) or (msg == "dr50" and mod.Options.warndr5) or (msg == "dr40" and mod.Options.warndr4) or (msg == "dr30" and mod.Options.warndr3) or (msg == "dr20" and mod.Options.warndr2) or (msg == "dr10" and mod.Options.warndr1) then
 		local healthshow = string.sub(msg, 3, 4)
 		specWarnJSA:Show(healthshow)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\defensive.mp3") --注意減傷
 	end
 end
 
@@ -446,7 +446,7 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(118077) then
 		warnLightningStorm:Show()
 		specWarnLightningStorm:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_sdfb.mp3") --閃電風暴
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\lightstorm.mp3") --閃電風暴
 		sndWOP:Schedule(1.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3")
 		sndWOP:Schedule(4.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3")
 		sndWOP:Schedule(7.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
@@ -465,7 +465,7 @@ function mod:SPELL_CAST_START(args)
 				specWarnwarterDD:Show(args.sourceName)
 			end	
 			if ((mod.Options.optDD == "DD1") and (watercount % 4 == 0)) or ((mod.Options.optDD == "DD2") and (watercount % 4 == 1)) or ((mod.Options.optDD == "DD3") and (watercount % 4 == 2)) or ((mod.Options.optDD == "DD4") and (watercount % 4 == 3)) then
-				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_ddzb.mp3") --打斷準備
+				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\interruptsoon.mp3") --打斷準備
 				specWarnDDL:Schedule(1)
 			end
 		else
@@ -474,7 +474,7 @@ function mod:SPELL_CAST_START(args)
 				specWarnwarterDD:Show(args.sourceName)
 			end	
 			if ((mod.Options.optDD == "DD1") and (watercount % 3 == 0)) or ((mod.Options.optDD == "DD2") and (watercount % 3 == 1)) or ((mod.Options.optDD == "DD3") and (watercount % 3 == 2)) then
-				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_ddzb.mp3")
+				sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\interruptsoon.mp3")
 				specWarnDDL:Schedule(1)
 			end
 		end

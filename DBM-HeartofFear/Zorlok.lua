@@ -308,7 +308,7 @@ function mod:OnSync(msg)
 		timerForceCast:Start()
 		qpcount = qpcount + 1
 		if (((self.Options.optDR == "DR1" and qpcount == 1) or (self.Options.optDR == "DR2" and qpcount == 2) or (self.Options.optDR == "DR3" and qpcount == 3) or (self.Options.optDR == "DR4" and qpcount == 4) or (self.Options.optDR == "DR5" and qpcount == 5)) and not ptwo) or (((self.Options.optDRT == "DRT1" and qpcount == 1) or (self.Options.optDRT == "DRT2" and qpcount == 2) or (self.Options.optDRT == "DRT3" and qpcount == 3) or (self.Options.optDRT == "DRT4" and qpcount == 4) or (self.Options.optDRT == "DRT5" and qpcount == 5)) and ptwo) then
-			sndWOP:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyjs.mp3") --注意減傷
+			sndWOP:Schedule(3, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\defensive.mp3") --注意減傷
 			specwarnDR:Schedule(3)
 		end
 		if platform < 4 then

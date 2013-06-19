@@ -326,7 +326,7 @@ end
 function mod:RAID_BOSS_EMOTE(msg)
 	if msg == L.Floor or msg:find(L.Floor) then
 		if UnitDebuff("player", GetSpellInfo(117870)) then
-			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_lkzc.mp3") --離開中場
+			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\leavecenter.mp3") --離開中場
 		else
 			sndWOP:Schedule(1, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zcxs.mp3") --中場即將消失
 		end
