@@ -445,11 +445,11 @@ function ReforgeLite:CreateTaskUI()
 
   ------------------------
 
-  self.pawnButton = CreateFrame ("Button", "ReforgeLiteDeletePresetButton", self.content, "UIPanelButtonTemplate")
+  self.pawnButton = CreateFrame ("Button", "ReforgeLiteImportButton", self.content, "UIPanelButtonTemplate")
   self.statWeightsCategory:AddFrame (self.pawnButton)
   self.pawnButton:SetWidth (114)
   self.pawnButton:SetHeight (22)
-  self.pawnButton:SetText (L["Import Pawn"])
+  self.pawnButton:SetText (L["Import"] .. " Pawn")
   self.pawnButton:SetScript ("OnClick", function (self)
     StaticPopup_Show ("REFORGE_LITE_PARSE_PAWN")
   end)
@@ -473,7 +473,18 @@ function ReforgeLite:CreateTaskUI()
   self.targetLevel.text = self.targetLevel.tip:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   self.targetLevel.text:SetText(L["Target level"])
   self:SetAnchor(self.targetLevel.text, "TOPLEFT", self.pawnButton, "BOTTOMLEFT", 0, -8)
-  self.targetLevel:SetPoint("BOTTOMLEFT", self.targetLevel.text, "BOTTOMRIGHT", 0, -20)
+  self.targetLevel:SetPoint("BOTTOMLEFT", self.targetLevel.text, "BOTTOMLEFT", 150, -20)
+
+  local ilvlCapList = {{value = 0, name = L["None"]}, {value = 496, name = L["PvP (496)"]}}
+  self.ilvlCap = GUI:CreateDropdown(self.content, ilvlCapList, self.pdb.ilvlCap,
+    function(val) self.pdb.ilvlCap = val self:UpdateItems() end, 150)
+  self.ilvlCap.tip = CreateFrame("Frame", nil, self.content)
+  self.statWeightsCategory:AddFrame(self.ilvlCap)
+  self.statWeightsCategory:AddFrame(self.ilvlCap.tip)
+  self.ilvlCap.text = self.ilvlCap.tip:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+  self.ilvlCap.text:SetText(L["Item level cap"])
+  self:SetAnchor(self.ilvlCap.text, "TOPLEFT", self.targetLevel.text, "BOTTOMLEFT", 0, -8)
+  self.ilvlCap:SetPoint("BOTTOMLEFT", self.ilvlCap.text, "BOTTOMLEFT", 150, -20)
 
   ------------------------
 
@@ -490,7 +501,7 @@ function ReforgeLite:CreateTaskUI()
     self:RefreshMethodStats()
   end)
   self.statWeightsCategory:AddFrame (self.isWeights)
-  self:SetAnchor (self.isWeights, "TOPLEFT", self.targetLevel.text, "BOTTOMLEFT", 0, -8)
+  self:SetAnchor (self.isWeights, "TOPLEFT", self.ilvlCap.text, "BOTTOMLEFT", 0, -8)
 
   self.task = {}
 

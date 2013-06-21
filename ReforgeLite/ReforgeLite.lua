@@ -1,4 +1,4 @@
--- ReforgeLite v1.30 by d07.RiV (Iroared)
+-- ReforgeLite v1.31 by d07.RiV (Iroared)
 -- All rights reserved
 
 local function DeepCopy (t, cache)
@@ -52,6 +52,7 @@ local DefaultDB = {
 }
 local DefaultDBProfile = {
   targetLevel = 3,
+  ilvlCap = 0,
 
   buffs = {
   },
@@ -365,7 +366,21 @@ ReforgeLite.itemStats = {
     end
   },
   RatingStat (5, "ITEM_MOD_CRIT_RATING_SHORT", "Crit", CR_CRIT_SPELL, CR_CRIT_RANGED),
-  RatingStat (6, "ITEM_MOD_HASTE_RATING_SHORT", "Haste", CR_HASTE_SPELL, CR_HASTE_RANGED),
+  {
+    name = "ITEM_MOD_HASTE_RATING_SHORT",
+    tip = L["Haste"],
+    long = L["HasteLong"],
+    getter = function()
+      local result = GetCombatRating(class == "HUNTER" and CR_HASTE_RANGED or CR_HASTE_SPELL)
+      if class == "MONK" and GetShapeshiftFormID() == 20 then
+        result = math.floor(result / 1.5 + 0.5)
+      end
+      return result
+    end,
+    mgetter = function (method, orig)
+      return (orig and method.orig_stats and method.orig_stats[6]) or method.stats[6]
+    end
+  },
   RatingStat (7, "ITEM_MOD_EXPERTISE_RATING_SHORT", "Exp", CR_EXPERTISE),
   RatingStat (8, "ITEM_MOD_MASTERY_RATING_SHORT", "Mastery", CR_MASTERY)
 }
@@ -1046,9 +1061,59 @@ function ReforgeLite:UpdateMethodCategory ()
     self.methodCategory = self:CreateCategory (L["Result"])
     self:SetAnchor (self.methodCategory, "TOPLEFT", self.computeButton, "BOTTOMLEFT", 0, -10)
 
+    self.methodPresetsButton = GUI:CreateImageButton (self.content, 24, 24, "Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Up",
+      "Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Down", "Interface\\Buttons\\UI-Common-MouseHilight", function ()
+      if next(self.pdb.customMethodPresets) then
+        ToggleDropDownMenu (1, nil, self.methodPresetMenu, self.methodPresetsButton:GetName (), 0, 0)
+      end
+    end)
+    self.methodCategory:AddFrame(self.methodPresetsButton)
+    self:SetAnchor (self.methodPresetsButton, "TOPLEFT", self.methodCategory, "BOTTOMLEFT", 0, -5)
+    self.methodPresetsButton.tip = self.methodPresetsButton:CreateFontString (nil, "OVERLAY", "GameFontNormal")
+    self.methodPresetsButton.tip:SetPoint ("LEFT", self.methodPresetsButton, "RIGHT", 5, 0)
+    self.methodPresetsButton.tip:SetText (L["Presets"])
+    if next(self.pdb.customMethodPresets) == nil then
+      self.methodPresetsButton:Disable()
+    end
+
+    self.saveMethodPresetButton = CreateFrame ("Button", "ReforgeLiteSaveMethodPresetButton", self.content, "UIPanelButtonTemplate")
+    self.methodCategory:AddFrame (self.saveMethodPresetButton)
+    self.saveMethodPresetButton:SetWidth (114)
+    self.saveMethodPresetButton:SetHeight (22)
+    self.saveMethodPresetButton:SetText (L["Save"])
+    self.saveMethodPresetButton:SetScript ("OnClick", function (self)
+      StaticPopup_Show ("REFORGE_LITE_SAVE_METHOD_PRESET")
+    end)
+    self:SetAnchor (self.saveMethodPresetButton, "LEFT", self.methodPresetsButton.tip, "RIGHT", 8, 0)
+
+    self.deleteMethodPresetButton = CreateFrame ("Button", "ReforgeLiteDeleteMethodPresetButton", self.content, "UIPanelButtonTemplate")
+    self.methodCategory:AddFrame (self.deleteMethodPresetButton)
+    self.deleteMethodPresetButton:SetWidth (114)
+    self.deleteMethodPresetButton:SetHeight (22)
+    self.deleteMethodPresetButton:SetText (L["Delete"])
+    self.deleteMethodPresetButton:SetScript ("OnClick", function ()
+      if next (self.pdb.customMethodPresets) then
+        ToggleDropDownMenu (1, nil, self.methodPresetDelMenu, self.deleteMethodPresetButton:GetName (), 0, 0)
+      end
+    end)
+    self:SetAnchor (self.deleteMethodPresetButton, "LEFT", self.saveMethodPresetButton, "RIGHT", 5, 0)
+    if next (self.pdb.customMethodPresets) == nil then
+      self.deleteMethodPresetButton:Disable ()
+    end
+
+    self.methodImportButton = CreateFrame ("Button", "ReforgeLiteImportMethodButton", self.content, "UIPanelButtonTemplate")
+    self.methodCategory:AddFrame(self.methodImportButton)
+    self.methodImportButton:SetWidth(114)
+    self.methodImportButton:SetHeight(22)
+    self.methodImportButton:SetText(L["Import..."])
+    self.methodImportButton:SetScript("OnClick", function ()
+      ToggleDropDownMenu(1, nil, self.methodImportMenu, self.methodImportButton:GetName(), 0, 0)
+    end)
+    self:SetAnchor(self.methodImportButton, "TOPLEFT", self.methodPresetsButton, "BOTTOMLEFT", 0, -5)
+
     self.methodStats = GUI:CreateTable (#self.itemStats, 2, self.db.itemSize, 60, {0.5, 0.5, 0.5, 1})
     self.methodCategory:AddFrame (self.methodStats)
-    self:SetAnchor (self.methodStats, "TOPLEFT", self.methodCategory, "BOTTOMLEFT", 0, -5)
+    self:SetAnchor (self.methodStats, "TOPLEFT", self.methodImportButton, "BOTTOMLEFT", 0, -5)
     self.methodStats:SetRowHeight (self.db.itemSize + 2)
     self.methodStats:SetColumnWidth (60)
 
@@ -1098,47 +1163,7 @@ function ReforgeLite:UpdateMethodCategory ()
     self.methodCategory:AddFrame (self.methodReset)
     self:SetAnchor (self.methodReset, "BOTTOMLEFT", self.methodShow, "BOTTOMRIGHT", 8, 0)
 
-    self.methodPresetsButton = GUI:CreateImageButton (self.content, 24, 24, "Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Up",
-      "Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Down", "Interface\\Buttons\\UI-Common-MouseHilight", function ()
-      if next(self.pdb.customMethodPresets) then
-        ToggleDropDownMenu (1, nil, self.methodPresetMenu, self.methodPresetsButton:GetName (), 0, 0)
-      end
-    end)
-    self.methodCategory:AddFrame(self.methodPresetsButton)
-    self:SetAnchor (self.methodPresetsButton, "TOPLEFT", self.methodShow, "BOTTOMLEFT", 0, -5)
-    self.methodPresetsButton.tip = self.methodPresetsButton:CreateFontString (nil, "OVERLAY", "GameFontNormal")
-    self.methodPresetsButton.tip:SetPoint ("LEFT", self.methodPresetsButton, "RIGHT", 5, 0)
-    self.methodPresetsButton.tip:SetText (L["Presets"])
-    if next(self.pdb.customMethodPresets) == nil then
-      self.methodPresetsButton:Disable()
-    end
-
-    self.saveMethodPresetButton = CreateFrame ("Button", "ReforgeLiteSaveMethodPresetButton", self.content, "UIPanelButtonTemplate")
-    self.methodCategory:AddFrame (self.saveMethodPresetButton)
-    self.saveMethodPresetButton:SetWidth (114)
-    self.saveMethodPresetButton:SetHeight (22)
-    self.saveMethodPresetButton:SetText (L["Save"])
-    self.saveMethodPresetButton:SetScript ("OnClick", function (self)
-      StaticPopup_Show ("REFORGE_LITE_SAVE_METHOD_PRESET")
-    end)
-    self:SetAnchor (self.saveMethodPresetButton, "LEFT", self.methodPresetsButton.tip, "RIGHT", 8, 0)
-
-    self.deleteMethodPresetButton = CreateFrame ("Button", "ReforgeLiteDeleteMethodPresetButton", self.content, "UIPanelButtonTemplate")
-    self.methodCategory:AddFrame (self.deleteMethodPresetButton)
-    self.deleteMethodPresetButton:SetWidth (114)
-    self.deleteMethodPresetButton:SetHeight (22)
-    self.deleteMethodPresetButton:SetText (L["Delete"])
-    self.deleteMethodPresetButton:SetScript ("OnClick", function ()
-      if next (self.pdb.customMethodPresets) then
-        ToggleDropDownMenu (1, nil, self.methodPresetDelMenu, self.deleteMethodPresetButton:GetName (), 0, 0)
-      end
-    end)
-    self:SetAnchor (self.deleteMethodPresetButton, "LEFT", self.saveMethodPresetButton, "RIGHT", 5, 0)
-    if next (self.pdb.customMethodPresets) == nil then
-      self.deleteMethodPresetButton:Disable ()
-    end
-
-    self:SetAnchor (self.settingsCategory, "TOPLEFT", self.methodPresetsButton, "BOTTOMLEFT", 0, -10)    
+    self:SetAnchor (self.settingsCategory, "TOPLEFT", self.methodShow, "BOTTOMLEFT", 0, -10)    
   end
 
   self:RefreshMethodStats (true)
@@ -1195,7 +1220,7 @@ function ReforgeLite:UpdateItems ()
     if item and texture then
       v.item = item
       v.texture:SetTexture (texture)
-      stats = GetItemStatsUp (item) or {}
+      stats = GetItemStatsUp(item, self.pdb.ilvlCap) or {}
       local reforge = self:GetReforgeID (item)
       if reforge then
         reforgeSrc, reforgeDst = self.itemStats[self.reforgeTable[reforge][1]].name, self.itemStats[self.reforgeTable[reforge][2]].name
@@ -1434,7 +1459,7 @@ function ReforgeLite:IsReforgeMatching (item, reforge, override)
     return reforge == oreforge
   end
 
-  local stats = GetItemStatsUp (item)
+  local stats = GetItemStatsUp(item, self.pdb.ilvlCap)
 
   local deltas = {}
   for i = 1, #self.itemStats do
@@ -1535,7 +1560,7 @@ function ReforgeLite:DoReforgeUpdate ()
             ReforgeItem (0)
           elseif self.pdb.method.items[i].reforge then
             local id = 0
-            local stats = GetItemStatsUp (item)
+            local stats = GetItemStatsUp(item, self.pdb.ilvlCap)
             for s = 1, #self.reforgeTable do
               if (stats[self.itemStats[self.reforgeTable[s][1]].name] or 0) ~= 0 and (stats[self.itemStats[self.reforgeTable[s][2]].name] or 0) == 0 then
                 id = id + 1

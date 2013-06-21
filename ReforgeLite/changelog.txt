@@ -1,3 +1,9 @@
+** v1.31
+
+- Added option to downscale items to 496 for PvP
+- Fixed Stance of the Wise Serpent haste bonus for Mistweaver Monks
+- Added an option to import reforges (currently only supports wowreforge.com)
+
 ** v1.30
 
 - Updated all presets, again

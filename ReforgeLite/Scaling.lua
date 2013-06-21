@@ -6143,8 +6143,8 @@ local ItemStats = {
   [98615] = {t = 2, [8] = {3858, 0}, [7] = {2909, 0}},
   [98616] = {t = 2, [7] = {2664, 0}, [5] = {3997, 0}},
 }
-function GetItemStatsUp(link, table)
-  local result = GetItemStats(link, table)
+function GetItemStatsUp(link, ilvlCap)
+  local result = GetItemStats(link)
   if not result then
     return result
   end
@@ -6153,18 +6153,24 @@ function GetItemStatsUp(link, table)
   upgrade = tonumber(upgrade)
   local _, _, _, iLvl = GetItemInfo(link)
   iLvl = iLvl or 0
-  if iLvl >= 458 and ItemUpgrade[upgrade] and ItemUpgrade[upgrade] then
-    local iLvl2 = iLvl + ItemUpgrade[upgrade]
+  local iLvlBase = iLvl
+  if iLvl >= 458 and ItemUpgrade[upgrade] then
+    iLvl = iLvl + ItemUpgrade[upgrade]
+  end
+  if ilvlCap and ilvlCap > 0 and ilvlCap < iLvl then
+    iLvl = ilvlCap
+  end
+  if iLvl ~= iLvlBase then
     local budget = nil
-    if RandPropPoints[iLvl2] and ItemStats[id] then
-      budget = RandPropPoints[iLvl2][ItemStats[id].t]
+    if RandPropPoints[iLvl] and ItemStats[id] then
+      budget = RandPropPoints[iLvl][ItemStats[id].t]
     end
     for sid, sv in ipairs(ReforgeLite.itemStats) do
       if result[sv.name] then
         if budget and ItemStats[id][sid] then
           result[sv.name] = math.floor(ItemStats[id][sid][1] * budget * 0.0001 - ItemStats[id][sid][2] * 160 + 0.5)
         else
-          result[sv.name] = math.floor(tonumber(result[sv.name]) * math.pow(1.15, (iLvl2 - iLvl) / 15))
+          result[sv.name] = math.floor(tonumber(result[sv.name]) * math.pow(1.15, (iLvl - iLvlBase) / 15))
         end
       end
     end

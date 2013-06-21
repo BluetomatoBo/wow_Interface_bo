@@ -577,6 +577,9 @@ ReforgeLite.presets = {
     },
   },
 }
+ReforgeLite.importFuncs = {
+  ["wowreforge.com"] = ReforgeLite.ParseWowReforge,
+}
 
 local _, unitClass = UnitClass ("player")
 ReforgeLite.presets = ReforgeLite.presets[unitClass]
@@ -732,6 +735,24 @@ function ReforgeLite:InitPresets ()
         end
       end
       UIDropDownMenu_AddButton (info, level)
+    end
+  end
+
+  self.methodImportMenu = CreateFrame("Frame", "ReforgeLiteMethodImportMenu")
+  self.methodImportMenu.info = {}
+  self.methodImportMenu.initialize = function(menu, level)
+    if level ~= 1 then return end
+    local info = menu.info
+    wipe(info)
+    info.notCheckable = true
+
+    for k, v in pairs(self.importFuncs) do
+      info.text = k
+      info.func = function()
+        CloseDropDownMenus()
+        self:RunImport(v)
+      end
+      UIDropDownMenu_AddButton(info, level)
     end
   end
 end

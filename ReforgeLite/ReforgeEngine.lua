@@ -112,10 +112,13 @@ function ReforgeLite:GetMethodPenalty(method)
 end
 
 function ReforgeLite:IsMethodValid(method)
-  for i = 1, #method.items do
+  if not method.items then
+    return true
+  end
+  for i = 1, #self.itemData do
     local item = GetInventoryItemLink ("player", self.itemData[i].slotId)
-    local stats = (item and GetItemStatsUp(item) or {})
-    if method.items[i].src and method.items[i].dst then
+    local stats = (item and GetItemStatsUp(item, self.pdb.ilvlCap) or {})
+    if method.items[i] and method.items[i].src and method.items[i].dst then
       if (stats[self.itemStats[method.items[i].src].name] or 0) == 0 then
         return false
       end
@@ -135,10 +138,18 @@ function ReforgeLite:UpdateMethodStats (method)
   local oldspi = method.stats[self.STATS.SPIRIT]
   local oldexp = method.stats[self.STATS.EXP]
   method.stats[self.STATS.SPIRIT] = method.stats[self.STATS.SPIRIT] / self.spiritBonus
-  for i = 1, #method.items do
+  method.items = method.items or {}
+  for i = 1, #self.itemData do
     local item = GetInventoryItemLink ("player", self.itemData[i].slotId)
-    local stats = (item and GetItemStatsUp(item) or {})
+    local stats = (item and GetItemStatsUp(item, self.pdb.ilvlCap) or {})
     local reforge = (item and self:GetReforgeID(item))
+
+    method.items[i] = method.items[i] or {}
+
+    method.items[i].stats = nil
+    method.items[i].reforge = nil
+    method.items[i].amount = nil
+
     if reforge then
       local src, dst = self.reforgeTable[reforge][1], self.reforgeTable[reforge][2]
       local amount = math.floor ((stats[self.itemStats[src].name] or 0) * REFORGE_COEFF)
@@ -146,6 +157,12 @@ function ReforgeLite:UpdateMethodStats (method)
       method.stats[dst] = method.stats[dst] - amount
     end
     if method.items[i].src and method.items[i].dst then
+      for j = 1, #self.reforgeTable do
+        if self.reforgeTable[j][1] == method.items[i].src and self.reforgeTable[j][2] == method.items[i].dst then
+          method.items[i].reforge = j
+          break
+        end
+      end
       method.items[i].amount = math.floor ((stats[self.itemStats[method.items[i].src].name] or 0) * REFORGE_COEFF)
       method.stats[method.items[i].src] = method.stats[method.items[i].src] - method.items[i].amount
       method.stats[method.items[i].dst] = method.stats[method.items[i].dst] + method.items[i].amount
@@ -160,21 +177,7 @@ function ReforgeLite:UpdateMethodStats (method)
     + math.floor((method.stats[self.STATS.SPIRIT] - oldspi) * conv.s2e + 0.5)
 end
 function ReforgeLite:FinalizeReforge (data)
-  local method = data.method
-  for i = 1, #method.items do
-    method.items[i].reforge = nil
-    if method.items[i].src and method.items[i].dst then
-      local amount = math.floor (method.items[i].stats[method.items[i].src] * REFORGE_COEFF)
-      for j = 1, #self.reforgeTable do
-        if self.reforgeTable[j][1] == method.items[i].src and self.reforgeTable[j][2] == method.items[i].dst then
-          method.items[i].reforge = j
-          break
-        end
-      end
-    end
-    method.items[i].stats = nil
-  end
-  self:UpdateMethodStats (method)
+  self:UpdateMethodStats(data.method)
 end
 function ReforgeLite:ResetMethod ()
   local method = {}
@@ -182,8 +185,8 @@ function ReforgeLite:ResetMethod ()
   for i = 1, #self.itemData do
     method.items[i] = {}
     local item = GetInventoryItemLink ("player", self.itemData[i].slotId)
-    local stats = (item and GetItemStatsUp (item) or {})
-    local reforge = (item and self:GetReforgeID (item))
+    local stats = (item and GetItemStatsUp(item, self.pdb.ilvlCap) or {})
+    local reforge = (item and self:GetReforgeID(item))
     if reforge then
       method.items[i].reforge = reforge
       method.items[i].src = self.reforgeTable[reforge][1]
@@ -348,7 +351,7 @@ function ReforgeLite:InitReforgeClassic ()
     method.items[i] = {}
     method.items[i].stats = {}
     local item = GetInventoryItemLink ("player", self.itemData[i].slotId)
-    local stats = (item and GetItemStatsUp (item) or {})
+    local stats = (item and GetItemStatsUp(item, self.pdb.ilvlCap) or {})
     for j = 1, #self.itemStats do
       method.items[i].stats[j] = (stats[self.itemStats[j].name] or 0)
       statsSum = statsSum + method.items[i].stats[j]
@@ -558,7 +561,7 @@ function ReforgeLite:ComputeReforge (initFunc, optionFunc, chooseFunc)
     local code = self[chooseFunc] (self, data, reforgeOptions, scores, codes)
     scores, codes = nil, nil
     collectgarbage ("collect")
-    self.methodDebug = "version = 1.30\n\n"
+    self.methodDebug = "version = 1.31\n\n"
     self.methodDebug = self.methodDebug .. "data = " .. FormatValue (data) .. "\n\n"
     for i = 1, #data.method.items do
       local opt = reforgeOptions[i][code:byte (i)]
