@@ -232,7 +232,7 @@ function H:GenerateElementOptionTable(unit,element,order,name,hasAnchor,hasSize,
                                 order = 4,
                                 name = L['Width'],
                                 type = 'range',
-                                min = 7, max = 50, step = 1,
+                                min = 7, max = 500, step = 1,
                             },
                             height = {
                                 order = 4,
