@@ -67,7 +67,8 @@ L.core = {
 }
 L.group = {
 	addonName = "Simple iLevel - Группа", -- Needs review
-	desc = "Посмотреть средний урвоень предметов всех в вашей группе", -- Needs review
+	desc = [=[Посмотреть средний уровень предметов всех в вашей группе
+]=], -- Needs review
 	load = "Модуль Группа загружен",
 	name = "SiL Группа",
 	nameShort = "Группа",

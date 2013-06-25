@@ -1,9 +1,9 @@
-## Interface: 50200
+## Interface: 50300
 ## X-Curse-Packaged-Version: Release-r1041
 ## X-Curse-Project-Name: LibInspect
 ## X-Curse-Project-ID: libinspect
 ## X-Curse-Repository-ID: wow/libinspect/mainline
-## X-Curse-Packaged-Version: r26
+## X-Curse-Packaged-Version: r28
 ## X-Curse-Project-Name: LibInspect
 ## X-Curse-Project-ID: libinspect
 ## X-Curse-Repository-ID: wow/libinspect/mainline

@@ -1,5 +1,5 @@
-## Interface: 50200
-## X-Curse-Packaged-Version: 3.2.6
+## Interface: 50300
+## X-Curse-Packaged-Version: 3.2.8
 ## X-Curse-Project-Name: Simple iLevel
 ## X-Curse-Project-ID: simple-ilevel
 ## X-Curse-Repository-ID: wow/simple-ilevel/mainline
@@ -20,7 +20,7 @@
 ## Notes-zhTW: 於聊天視窗各頻道加入平均物品等級
 
 ## Author: Scotepi
-## Version: 3.2.6
+## Version: 3.2.8
 ## Dependencies: SimpleILevel
 ## SavedVariables: SIL_Social
 ## LoadOnDemand: 1
