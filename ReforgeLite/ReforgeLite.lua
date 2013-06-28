@@ -1,4 +1,4 @@
--- ReforgeLite v1.31 by d07.RiV (Iroared)
+-- ReforgeLite v1.32 by d07.RiV (Iroared)
 -- All rights reserved
 
 local function DeepCopy (t, cache)
@@ -1105,9 +1105,10 @@ function ReforgeLite:UpdateMethodCategory ()
     self.methodCategory:AddFrame(self.methodImportButton)
     self.methodImportButton:SetWidth(114)
     self.methodImportButton:SetHeight(22)
-    self.methodImportButton:SetText(L["Import..."])
+    self.methodImportButton:SetText(L["Import"])
     self.methodImportButton:SetScript("OnClick", function ()
-      ToggleDropDownMenu(1, nil, self.methodImportMenu, self.methodImportButton:GetName(), 0, 0)
+--      ToggleDropDownMenu(1, nil, self.methodImportMenu, self.methodImportButton:GetName(), 0, 0)
+      self:RunImport(self.ParseWowReforge)
     end)
     self:SetAnchor(self.methodImportButton, "TOPLEFT", self.methodPresetsButton, "BOTTOMLEFT", 0, -5)
 

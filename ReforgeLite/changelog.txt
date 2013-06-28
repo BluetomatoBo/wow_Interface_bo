@@ -1,3 +1,8 @@
+** v1.32
+
+- Added a missing Parsers.lua file
+- Import button no longer shows a dropdown, because all popular calculators use the same format
+
 ** v1.31
 
 - Added option to downscale items to 496 for PvP

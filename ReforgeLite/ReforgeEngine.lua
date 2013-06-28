@@ -561,7 +561,7 @@ function ReforgeLite:ComputeReforge (initFunc, optionFunc, chooseFunc)
     local code = self[chooseFunc] (self, data, reforgeOptions, scores, codes)
     scores, codes = nil, nil
     collectgarbage ("collect")
-    self.methodDebug = "version = 1.31\n\n"
+    self.methodDebug = "version = 1.32\n\n"
     self.methodDebug = self.methodDebug .. "data = " .. FormatValue (data) .. "\n\n"
     for i = 1, #data.method.items do
       local opt = reforgeOptions[i][code:byte (i)]
