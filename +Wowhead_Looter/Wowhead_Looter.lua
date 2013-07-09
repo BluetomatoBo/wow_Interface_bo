@@ -4,14 +4,14 @@
 --                                     --
 --                                     --
 --    Patch: 5.3.0                     --
---    Updated: May 23, 2013            --
+--    Updated: June 19, 2013           --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 50010;
+local WL_VERSION = 50011;
 local WL_VERSION_PATCH = 4;
 
 
@@ -43,6 +43,7 @@ local WL_SPELL_BLACKLIST = {
 	[1604] = true,  -- Dazed
 	[15571] = true, -- Dazed
 	[61394] = true, -- Frozen Wake (Glyph of Freezing Trap)
+	[121308] = true, -- Disguise (Glyph of Disguise)
 	[132951] = true,-- Flare
 	[135299] = true, -- Ice Trap
 	[135373] = true, -- Entrapment
@@ -257,7 +258,6 @@ local isBetaClient = false;
 if (tonumber(select(4, GetBuildInfo())) >= 50001) then
 	isBetaClient = true;
 end
-local doMerchantUpdate = false;
 
 -- Hooks
 local wlDefaultGetQuestReward;
@@ -768,19 +768,12 @@ end
 function wlEvent_MERCHANT_SHOW(self)
 	wlRegisterUnitGossip("vendor");
 	wlEvent_MERCHANT_UPDATE(self);
-	doMerchantUpdate = true;
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_MERCHANT_UPDATE(self)
-	-- to fix crashes in MoP
-	if (doMerchantUpdate == false) then
-		return;
-	else
-		doMerchantUpdate = false;
-	end
-	
+
 	local id, kind = wlUnitGUID("npc");
 
 	if not id or kind ~= "npc" or not wlUnit[id] then
