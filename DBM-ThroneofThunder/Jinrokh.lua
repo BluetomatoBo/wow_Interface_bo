@@ -5,7 +5,7 @@ local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 local sndIon	= mod:NewSound(nil, "SoundWOP", true)
 local sndIonCD	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 9619 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 9998 $"):sub(12, -3))
 mod:SetCreatureID(69465)
 mod:SetQuestID(32744)
 mod:SetZone()
@@ -212,17 +212,17 @@ function mod:SPELL_AURA_APPLIED(args)
 		inoizame = true
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_dlzh.mp3") --電離子化
 		if self.Options.SoundWOPIonM then
-			self:Schedule(7, function() DBM.Flash:Show(1, 0, 0) end)
-			self:Schedule(7.5, function() DBM.Flash:Show(0, 0, 1) end)
-			self:Schedule(8, function() DBM.Flash:Show(1, 0, 0) end)
+			self:Schedule(7, function() DBM.Flash:Shake(1, 0, 0) end)
+			self:Schedule(7.5, function() DBM.Flash:Shake(0, 0, 1) end)
+			self:Schedule(8, function() DBM.Flash:Shake(1, 0, 0) end)
 			sndIon:Schedule(7, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3")
 			sndIon:Schedule(8, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3")
 		else			
 			self:Schedule(16, function()
 				if UnitDebuff("player", GetSpellInfo(138732)) then
-					DBM.Flash:Show(1, 0, 0)
-					self:Schedule(0.5, function() DBM.Flash:Show(0, 0, 1) end)
-					self:Schedule(1, function() DBM.Flash:Show(1, 0, 0) end)
+					DBM.Flash:Shake(1, 0, 0)
+					self:Schedule(0.5, function() DBM.Flash:Shake(0, 0, 1) end)
+					self:Schedule(1, function() DBM.Flash:Shake(1, 0, 0) end)
 				end
 			 end)
 			sndIon:Schedule(16, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3")	--離開人群
@@ -322,7 +322,7 @@ function mod:RAID_BOSS_WHISPER(msg)
 			DBM.RangeCheck:Show(8)
 		end
 		focusme = true
-		DBM.Flash:Show(1, 0, 0)
+		DBM.Flash:Shake(1, 0, 0)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_sddn.mp3") --閃電點你
 	end
 end

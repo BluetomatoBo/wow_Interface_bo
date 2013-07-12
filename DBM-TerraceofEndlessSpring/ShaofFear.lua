@@ -218,7 +218,7 @@ function mod:LeavePlatform()
 					if not warnedBreath then
 						warnedBreath = true
 						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_tenkj.mp3") --10秒後恐懼之息
-						DBM.Flash:Show(1, 0, 0)
+						DBM.Flash:Shake(1, 0, 0)
 						sndWOP:Schedule(5.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
 						sndWOP:Schedule(6.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
 						sndWOP:Schedule(7.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
@@ -274,7 +274,7 @@ function mod:OnCombatStart(delay)
 	self:Schedule(23.3, function()
 		if not onPlatform then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_tenkj.mp3") --10秒後恐懼之息
-			DBM.Flash:Show(1, 0, 0)
+			DBM.Flash:Shake(1, 0, 0)
 			sndWOP:Schedule(5.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
 			sndWOP:Schedule(6.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
 			sndWOP:Schedule(7.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
@@ -306,7 +306,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			if (not onPlatform) and (phase == 1) and (not warnedBreath) then
 				warnedBreath = true
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_tenkj.mp3") --10秒後恐懼之息
-				DBM.Flash:Show(1, 0, 0)
+				DBM.Flash:Shake(1, 0, 0)
 				sndWOP:Schedule(5.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3")
 				sndWOP:Schedule(6.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3")
 				sndWOP:Schedule(7.5, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3")
@@ -404,7 +404,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnshuipoYou:Show()
 			yellshuipo:Yell()
 			if not UnitBuff("player", GetSpellInfo(120268)) then
-				DBM.Flash:Show(1, 0, 0)
+				DBM.Flash:Shake(1, 0, 0)
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runout.mp3")
 			end
 		else
@@ -430,10 +430,10 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(120268) then
 		warnChampionOfTheLight:Show(args.destName)
 		if args:IsPlayer() then
-			DBM.Flash:Show(1, 0, 0)
 			if lastyongshi then
 				specWarnzyg:Show(lastyongshi)
 			end
+			DBM.Flash:Shake(1, 0, 0)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_zyg.mp3") --轉移光
 		end
 		lastyongshi = args.destName
@@ -532,7 +532,7 @@ function mod:SPELL_CAST_START(args)
 		end
 	elseif args:IsSpellID(119888) and MobID and MobID == args:GetSrcCreatureID() then
 		specWarnDeathBlossom:Show()
-		DBM.Flash:Show(1, 0, 0)
+		DBM.Flash:Shake(1, 0, 0)
 		self:ScheduleMethod(40, "CheckPlatformLeaved")
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_jykd.mp3") --劍雨快躲
 	elseif args:IsSpellID(120519) then
@@ -549,7 +549,7 @@ function mod:SPELL_CAST_START(args)
 		spout = 0
 		strike = 0
 		wsIcon = 7
-		DBM.Flash:Show(1, 1, 0)
+		DBM.Flash:Shake(1, 1, 0)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_mop_ymzb.mp3")
 	elseif args:IsSpellID(120458) then --浮現
 		if yinmoCount == 1 then
@@ -590,7 +590,7 @@ function mod:SPELL_CAST_START(args)
 		spectimestart()
 	elseif args:IsSpellID(120394) and self:AntiSpam(5, 1) then
 		if UnitBuff("player", GetSpellInfo(120268)) then
-			DBM.Flash:Show(1, 0, 0)
+			DBM.Flash:Shake(1, 0, 0)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stilldanger.mp3")
 		end
 	end

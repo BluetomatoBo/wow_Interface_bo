@@ -311,11 +311,11 @@ DBM_CORE_LAG_FOOTER					= "Without Member:%s"
 
 DBM_CORE_SOUNDVER					= "Voice Enhanced"
 
-DBM_CORE_SOUNDGRIL_NAME_YIKE		= "Xia Yike"
-DBM_CORE_SOUNDGRIL_TEXT_YIKE		= ""
+DBM_CORE_SOUNDGRIL_NAME_YIKE		= "Yike Xia"
+DBM_CORE_SOUNDGRIL_TEXT_YIKE		= "    Yike Xia, nickname coco-superwoman, girl, realname unknown. Dubbed as the female mage Mei Lv in <My name is MT>. Well known WOW narrator, Horde obsessed. Southwest University of Science and Technology China, 2009. She made her name in senior high with Sing Azeroth."
 
-DBM_CORE_SOUNDGRIL_NAME_YUN			= "ZHi Xiaoyun"
-DBM_CORE_SOUNDGRIL_TEXT_YUN			= ""
+DBM_CORE_SOUNDGRIL_NAME_YUN			= "Xiaoyun Zhi"
+DBM_CORE_SOUNDGRIL_TEXT_YUN			= "    Xiaoyun Zhi, WOW player from Taiwan, beautiful girl. Human DK from Black Hand Village @ TW-World Tree"
 
 DBM_CORE_SOUNDGRIL_NAME_SST			= "Iceoven"
 DBM_CORE_SOUNDGRIL_TEXT_SST			= "    All Voice generated via VoiceRss TTS (Text To Speech), API by Iceoven (Worgen Mage from Ancient Ones @ US-Dath'Remar)."

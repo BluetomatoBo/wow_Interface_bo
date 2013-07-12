@@ -345,8 +345,8 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif args:IsSpellID(125502) then
 		warnAmberGlob:Show(args.destName)
 		if args:IsPlayer() then
-			DBM.Flash:Show(1, 0, 0)
 			specwarnAmberGlob:Show()
+			DBM.Flash:Shake(1, 0, 0)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\orbrun.mp3") --寶珠快跑
 		end
 	end
@@ -419,7 +419,7 @@ function mod:SPELL_CAST_START(args)
 			self:Schedule(0.5, warnAmberExplosionCast, 122398)--Always check available interrupts and special warn if not
 		elseif args.sourceGUID == UnitGUID("player") then--Cast by YOU
 			specwarnAmberExplosionYou:Show(args.spellName)
-			DBM.Flash:Show(1, 0, 0)
+			DBM.Flash:Shake(1, 0, 0)
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\stopcast.mp3") --停止施法
 			timerAmberExplosionCD:Start(13, args.sourceName)--Only player needs to see this, they are only person who can do anything about it.
 		end

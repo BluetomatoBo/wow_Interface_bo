@@ -239,7 +239,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			specWarnVolatilePathogen:Show()
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\holdit.mp3")--自保
-			DBM.Flash:Show(1, 0, 0)
+			DBM.Flash:Shake(1, 0, 0)
 		elseif mod:IsHealer() then
 			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_byt.mp3")--病原體出現
 		end
@@ -259,8 +259,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\range5.mp3")--注意分散
 		showspellinfo()
 	elseif args.spellId == 140546 and args:IsPlayer() then
-		DBM.Flash:Show(0, 1, 0)
 		specWarnFullyMutated:Show()
+		DBM.Flash:Shake(0, 1, 0)
 		timerFullyMutated:Start()
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\ex_tt_tbwc.mp3")--完美突變
 	end

@@ -136,7 +136,7 @@ function mod:ClobaltMineTarget(targetname)
 		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
 		yellCobaltMine:Yell()
 		if activePetrification ~= "Cobalt" then
-			DBM.Flash:Show(1, 0, 0)
+			DBM.Flash:Shake(1, 0, 0)
 		end
 	else
 		local uId = DBM:GetRaidUnitId(targetname)
@@ -150,7 +150,7 @@ function mod:ClobaltMineTarget(targetname)
 			if inRange and inRange < 8 then
 				specWarnCobaltMineNear:Show(targetname)
 				if activePetrification ~= "Cobalt" then
-					DBM.Flash:Show(1, 0, 0)
+					DBM.Flash:Shake(1, 0, 0)
 				end
 				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3")--快躲開
 			end

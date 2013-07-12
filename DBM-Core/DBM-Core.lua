@@ -43,7 +43,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 9950 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 10023 $"):sub(12, -3)),
 	DisplayVersion = "5.3.5 "..DBM_CORE_SOUNDVER, -- the string that is shown as version
 	ReleaseRevision = 9947 -- the revision of the latest stable version that is available
 }
@@ -102,9 +102,10 @@ DBM.DefaultOptions = {
 	ShowMinimapButton = false,
 	BlockVersionUpdateNotice = false,
 	ShowSpecialWarnings = true,
-	ShowLHFrame = true,
-	ShowAdvSWSounds = false,
 	ShowFlashFrame = true,
+	ShowAdvSWSounds = false,
+	ShowShakeFrame = true,
+	EnableReadyCheckSound = true,
 	AlwaysShowHealthFrame = false,
 	ShowBigBrotherOnCombatStart = false,
 	AutologBosses = false,
@@ -139,6 +140,15 @@ DBM.DefaultOptions = {
 	SpecialWarningFont = STANDARD_TEXT_FONT,
 	SpecialWarningFontSize = 50,
 	SpecialWarningFontColor = {0.0, 0.0, 1.0},
+	SpecialWarningFlashCol1 = {1.0, 1.0, 0.0},--Yellow
+	SpecialWarningFlashCol2 = {1.0, 0.5, 0.0},--Orange
+	SpecialWarningFlashCol3 = {1.0, 0.0, 0.0},--Red
+	SpecialWarningFlashDura1 = 0.4,
+	SpecialWarningFlashDura2 = 0.4,
+	SpecialWarningFlashDura3 = 1,
+	SpecialWarningFlashAlph1 = 0.3,
+	SpecialWarningFlashAlph2 = 0.3,
+	SpecialWarningFlashAlph3 = 0.4,
 	HealthFrameGrowUp = false,
 	HealthFrameLocked = false,
 	HealthFrameWidth = 200,
@@ -769,6 +779,7 @@ do
 				"LOADING_SCREEN_DISABLED"
 			)
 			self:GROUP_ROSTER_UPDATE()
+			self:LOADING_SCREEN_DISABLED()
 			self:Schedule(1.5, function()
         		combatInitialized = true
 			end)
@@ -1857,12 +1868,6 @@ function DBM:LFG_PROPOSAL_SHOW()
 	end
 end
 
-function DBM:READY_CHECK()
-	if DBM.Options.EnableReadyCheckSound then
-		PlaySoundFile("Sound\\interface\\levelup2.ogg", "Master")--Because regular sound uses SFX channel which is too low of volume most of time
-	end
-end
-
 function DBM:LFG_PROPOSAL_FAILED()
 	DBM.Bars:CancelBar(DBM_LFG_INVITE)
 end
@@ -1874,6 +1879,14 @@ end
 function DBM:ACTIVE_TALENT_GROUP_CHANGED()
 	DBM:RoleCheck()
 end
+
+--BH ADD
+function DBM:READY_CHECK()
+	if DBM.Options.EnableReadyCheckSound then
+		PlaySoundFile("Sound\\interface\\levelup2.ogg", "Master")--Because regular sound uses SFX channel which is too low of volume most of time
+	end
+end
+--ADD END
 
 function DBM:PLAYER_REGEN_ENABLED()
 	if loadDelay then
@@ -2040,9 +2053,9 @@ do
 	function DBM:LOADING_SCREEN_DISABLED()
 		local _, instanceType, _, _, _, _, _, mapID = GetInstanceInfo()
 		LastInstanceMapID = mapID
-		if instanceType == "none" and (mapID ~= 369) and (mapID ~= 1043) then return end -- instance type of brawlers guild is none ("Shlae'gararena none 0  5 0 false 1043")
+		if instanceType == "none" and (mapID ~= 369) and (mapID ~= 1043) and (mapID ~= 974) then return end -- instance type of brawlers guild and DMF are none
 		self:LoadModsOnDemand("mapId", mapID)
-		if instanceType == "scenario" and self:GetModByName("d511") then--mod already loaded
+		if instanceType == "scenario" and (mapID ~= 1148) and self:GetModByName("d511") then--mod already loaded (Filter 1148, which is proving grounds)
 			DBM:InstanceCheck()
 		end
 	end
@@ -2061,7 +2074,7 @@ end
 
 --Scenario mods
 function DBM:InstanceCheck()
-	if combatInfo[LastInstanceMapID] then--Scenarios not yet moved over to LastInstanceMapID
+	if combatInfo[LastInstanceMapID] then
 		for i, v in ipairs(combatInfo[LastInstanceMapID]) do
 			if (v.type == "scenario") and checkEntry(v.msgs, LastInstanceMapID) then
 				DBM:StartCombat(v.mod, 0)
@@ -2189,29 +2202,7 @@ do
 		cId = tonumber(cId or "")
 		if cId then DBM:OnMobKill(cId, true) end
 	end
-	
-	syncHandlers["CPT"] = function(sender)
-		if select(2, IsInInstance()) == "pvp" or DBM:GetRaidRank(sender) == 0 or IsEncounterInProgress() then
-			return
-		end
-		if not DBM.Options.DontShowPT and DBM.Bars:GetBar(DBM_CORE_TIMER_PULL) then
-			DBM.Bars:CancelBar(DBM_CORE_TIMER_PULL) 
-		end
-		if not DBM.Options.DontPlayPTCountdown then
-			DBM:Unschedule(SendChatMessage)
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\5.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\4.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\3.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\2.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\1.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\com_go.mp3", "Master")
-		end
-		if not DBM.Options.DontShowPTCountdownText then
-			TimerTracker_OnEvent(TimerTracker, "PLAYER_ENTERING_WORLD")--easiest way to nil out timers on TimerTracker frame. This frame just has no actual star/stop functions :\
-		end
-		DBM:AddMsg("<"..sender..">"..DBM_CORE_ANNOUNCE_PULL_CANCEL)
-	end
-	
+
 	local dummyMod -- dummy mod for the pull sound effect
 	syncHandlers["PT"] = function(sender, timer, mapid)
 		if select(2, IsInInstance()) == "pvp" or DBM:GetRaidRank(sender) == 0 or IsEncounterInProgress() then
@@ -2243,6 +2234,7 @@ do
 		if not DBM.Options.DontShowPTCountdownText then
 			TimerTracker_OnEvent(TimerTracker, "PLAYER_ENTERING_WORLD")--easiest way to nil out timers on TimerTracker frame. This frame just has no actual star/stop functions :\
 		end
+		dummyMod.text:Cancel()
 		if timer == 0 then return DBM:AddMsg("<"..sender..">"..DBM_CORE_ANNOUNCE_PULL_CANCEL) end--"/dbm pull 0" will strictly be used to cancel the pull timer (which is w hy we let above part of code run but not below)
 		if not DBM.Options.DontShowPT then
 			DBM.Bars:CreateBar(timer, DBM_CORE_TIMER_PULL, "Interface\\Icons\\Spell_Holy_BorrowedTime")
@@ -2265,7 +2257,29 @@ do
 		end
 		DBM:StartLogging(timer, checkForActualPull)
 	end
-
+	
+	syncHandlers["CPT"] = function(sender)
+		if select(2, IsInInstance()) == "pvp" or DBM:GetRaidRank(sender) == 0 or IsEncounterInProgress() then
+			return
+		end
+		if not DBM.Options.DontShowPT and DBM.Bars:GetBar(DBM_CORE_TIMER_PULL) then
+			DBM.Bars:CancelBar(DBM_CORE_TIMER_PULL) 
+		end
+		dummyMod.text:Cancel()
+		if not DBM.Options.DontPlayPTCountdown then
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\5.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\4.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\3.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\2.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\1.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\com_go.mp3", "Master")
+		end
+		if not DBM.Options.DontShowPTCountdownText then
+			TimerTracker_OnEvent(TimerTracker, "PLAYER_ENTERING_WORLD")--easiest way to nil out timers on TimerTracker frame. This frame just has no actual star/stop functions :\
+		end
+		DBM:AddMsg("<"..sender..">"..DBM_CORE_ANNOUNCE_PULL_CANCEL)
+	end
+	
 	local function SendVersion()
 		sendSync("V", ("%d\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale()))
 	end
@@ -4364,7 +4378,7 @@ function bossModPrototype:GetBossTarget(cid)
 	cid = cid or self.creatureId
 	local name, uid, bossuid
 	for i, uId in ipairs(bossTargetuIds) do
-		if self:GetUnitCreatureId(uId) == cid then
+		if self:GetUnitCreatureId(uId) == cid or UnitGUID(uId) == cid then
 			bossuid = uId
 			name = DBM:GetUnitFullName(uId.."target")
 			uid = DBM:GetRaidUnitId(name) or uId.."target"--overrride target uid because uid+"target" is variable uid.
@@ -4375,7 +4389,7 @@ function bossModPrototype:GetBossTarget(cid)
 	-- failed to detect from default uIds, scan all group members's target.
 	if IsInRaid() then
 		for i = 1, GetNumGroupMembers() do
-			if self:GetUnitCreatureId("raid"..i.."target") == cid then
+			if self:GetUnitCreatureId("raid"..i.."target") == cid or UnitGUID("raid"..i.."target") == cid then
 				bossuid = "raid"..i.."target"
 				name = DBM:GetUnitFullName("raid"..i.."targettarget")
 				uid = DBM:GetRaidUnitId(name) or "raid"..i.."targettarget"--overrride target uid because uid+"target" is variable uid.
@@ -4384,7 +4398,7 @@ function bossModPrototype:GetBossTarget(cid)
 		end
 	elseif IsInGroup() then
 		for i = 1, GetNumSubgroupMembers() do
-			if self:GetUnitCreatureId("party"..i.."target") == cid then
+			if self:GetUnitCreatureId("party"..i.."target") == cid or UnitGUID("party"..i.."target") == cid then
 				bossuid = "party"..i.."target"
 				name = DBM:GetUnitFullName("party"..i.."targettarget")
 				uid = DBM:GetRaidUnitId(name) or "party"..i.."targettarget"--overrride target uid because uid+"target" is variable uid.
@@ -4959,11 +4973,7 @@ do
 	function soundPrototype:Play(file)
 		if not self.option or self.mod.Options[self.option] then
 			if DBM.Options.UseMasterVolume then
-				if file == "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\justrun.mp3" and UnitName("player") == "Aberich" then
-					PlaySoundFile("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\abrun.mp3", "Master")
-				else
-					PlaySoundFile(file or "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.ogg", "Master")
-				end
+				PlaySoundFile(file or "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.ogg", "Master")
 			else
 				PlaySoundFile(file or "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.ogg")
 			end
@@ -5354,12 +5364,14 @@ do
 			end
 			msg = msg:gsub(">.-<", stripName)
 			font:SetText(msg)
-			if DBM.Options.ShowLHFrame and not UnitIsDeadOrGhost("player") then
-				LowHealthFrame:Show()
-				LowHealthFrame:SetAlpha(1)
-				frame.healthFrameHidden = nil
-			else
-				frame.healthFrameHidden = true -- to prevent bugs in the case that this option is changed while the flash effect is active (which is not that unlikely as there is a test button in the gui...)
+			if not UnitIsDeadOrGhost("player") and DBM.Options.ShowFlashFrame then
+				if self.flash == 1 then
+					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol1[1],DBM.Options.SpecialWarningFlashCol1[2], DBM.Options.SpecialWarningFlashCol1[3], DBM.Options.SpecialWarningFlashDura1, DBM.Options.SpecialWarningFlashAlph1)
+				elseif self.flash == 2 then
+					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol2[1],DBM.Options.SpecialWarningFlashCol2[2], DBM.Options.SpecialWarningFlashCol2[3], DBM.Options.SpecialWarningFlashDura2, DBM.Options.SpecialWarningFlashAlph2)
+				elseif self.flash == 3 then
+					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol3[1],DBM.Options.SpecialWarningFlashCol3[2], DBM.Options.SpecialWarningFlashCol3[3], DBM.Options.SpecialWarningFlashDura3, DBM.Options.SpecialWarningFlashAlph3)
+				end
 			end
 			frame:Show()
 			frame:SetAlpha(1)
@@ -5389,11 +5401,13 @@ do
 		elseif not runSound then
 			runSound = 1
 		end
+		local flash
 		local obj = setmetatable(
 			{
 				text = self.localization.warnings[text],
 				mod = self,
 				sound = not noSound,
+				flash = runSound,--Set flash color to hard coded runsound (even if user sets custom sounds)
 			},
 			mt
 		)
@@ -5423,6 +5437,7 @@ do
 			spellName = GetSpellInfo(spellId) or DBM_CORE_UNKNOWN
 		end
 		local text
+		local flash
 		if announceType == "prewarn" then
 			if type(stacks) == "string" then
 				text = DBM_CORE_AUTO_SPEC_WARN_TEXTS[announceType]:format(spellName, stacks)
@@ -5438,6 +5453,7 @@ do
 				announceType = announceType,
 				mod = self,
 				sound = not noSound,
+				flash = runSound,--Set flash color to hard coded runsound (even if user sets custom sounds)
 			},
 			mt
 		)
@@ -5630,7 +5646,7 @@ do
 		frame:SetFrameStrata("HIGH")
 	end
 
-	function DBM:ShowTestSpecialWarning(text)
+	function DBM:ShowTestSpecialWarning(text, number)
 		if moving then
 			return
 		end
@@ -5641,7 +5657,16 @@ do
 		self:Unschedule(testWarningEnd)
 		self:Schedule(3, testWarningEnd)
 		frame.timer = 3
-		DBM.Flash:Show(1, 0, 0)
+		DBM:PlaySpecialWarningSound(number)
+		if DBM.Options.ShowFlashFrame then
+			if number == 1 then
+				DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol1[1],DBM.Options.SpecialWarningFlashCol1[2], DBM.Options.SpecialWarningFlashCol1[3], DBM.Options.SpecialWarningFlashDura1, DBM.Options.SpecialWarningFlashAlph1)
+			elseif number == 2 then
+				DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol2[1],DBM.Options.SpecialWarningFlashCol2[2], DBM.Options.SpecialWarningFlashCol2[3], DBM.Options.SpecialWarningFlashDura2, DBM.Options.SpecialWarningFlashAlph2)
+			elseif number == 3 then
+				DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol3[1],DBM.Options.SpecialWarningFlashCol3[2], DBM.Options.SpecialWarningFlashCol3[3], DBM.Options.SpecialWarningFlashDura3, DBM.Options.SpecialWarningFlashAlph3)
+			end
+		end
 	end
 end
 

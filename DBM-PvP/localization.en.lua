@@ -66,6 +66,15 @@ L:SetOptionLocalization({
 --------------------
 L = DBM:GetModLocalization("z529")
 
+L:SetMiscLocalization({
+	ScoreExpr 	= "(%d+)/1600",
+	Alliance 	= "Alliance",
+	Horde 		= "Horde",
+	WinBarText 	= "%s wins",
+	BasesToWin 	= "Bases to win: %d",
+	Flag 		= "Flag"
+})
+
 L:SetTimerLocalization({
 	TimerCap	= "%s"
 })
@@ -77,17 +86,22 @@ L:SetOptionLocalization({
 	ShowAbBasesToWin		= "Show bases required to win"
 })
 
-L:SetMiscLocalization({
-	ScoreExpr	= "(%d+)/1600",
-	WinBarText	= "%s wins",
-	BasesToWin	= "Bases to win: %d",
-	Flag		= "Flag"
-})
-
 ------------------------
 --  Eye of the Storm  --
 ------------------------
 L = DBM:GetModLocalization("z566")
+
+L:SetMiscLocalization({
+	ScoreExpr		= "(%d+)/1600",
+	Alliance 	= "Alliance",
+	Horde 		= "Horde",
+	WinBarText 		= "%s wins",
+	FlagReset 		= "The flag has been reset!",
+	FlagTaken 		= "(.+) has taken the flag!",
+	FlagCaptured	= "The .+ ha%w+ captured the flag!",
+	FlagDropped		= "The flag has been dropped!"
+
+})
 
 L:SetTimerLocalization({
 	TimerFlag	= "Flag respawn"
@@ -99,19 +113,24 @@ L:SetOptionLocalization({
 	ShowPointFrame	= "Show flag carrier and estimated points"
 })
 
-L:SetMiscLocalization({
-	ScoreExpr		= "(%d+)/1600",
-	WinBarText 		= "%s wins",
-	FlagReset 		= "The flag has been reset!",
-	FlagTaken 		= "(.+) has taken the flag!",
-	FlagCaptured	= "The .+ ha%w+ captured the flag!",
-	FlagDropped		= "The flag has been dropped!"
-})
-
 ---------------------
 --  Warsong Gulch  --
 ---------------------
 L = DBM:GetModLocalization("z489")
+
+L:SetMiscLocalization({
+	BgStart60 			= "The battle begins in 1 minute.",
+	BgStart30 			= "The battle begins in 30 seconds.  Prepare yourselves!",
+	Alliance 	= "Alliance",
+	Horde 		= "Horde",
+	InfoErrorText		= "The flag carrier targeting function will be restored when you are out of combat.",
+	ExprFlagPickUp		= "The (%w+) .lag was picked up by (.+)!",
+	ExprFlagCaptured	= "(.+) captured the (%w+) flag!",
+	ExprFlagReturn		= "The (%w+) .lag was returned to its base by (.+)!",
+	FlagAlliance		= "Alliance Flag: ",
+	FlagHorde			= "Horde Flag: ",
+	FlagBase			= "Base"
+})
 
 L:SetTimerLocalization({
 	TimerStart	= "Game starts",
@@ -123,18 +142,6 @@ L:SetOptionLocalization({
 	TimerFlag					= "Show flag respawn timer",
 	ShowFlagCarrier				= "Show flag carrier",
 	ShowFlagCarrierErrorNote	= "Show flag carrier error message while in combat"
-})
-
-L:SetMiscLocalization({
-	BgStart60 			= "The battle begins in 1 minute.",
-	BgStart30 			= "The battle begins in 30 seconds.  Prepare yourselves!",
-	InfoErrorText		= "The flag carrier targeting function will be restored when you are out of combat.",
-	ExprFlagPickUp		= "The (%w+) .lag was picked up by (.+)!",
-	ExprFlagCaptured	= "(.+) captured the (%w+) flag!",
-	ExprFlagReturn		= "The (%w+) .lag was returned to its base by (.+)!",
-	FlagAlliance		= "Alliance Flag: ",
-	FlagHorde			= "Horde Flag: ",
-	FlagBase			= "Base"
 })
 
 ------------------------
@@ -178,6 +185,22 @@ L:SetMiscLocalization({
 ------------------
 L = DBM:GetModLocalization("z726")
 
+L:SetMiscLocalization({
+	BgStart60 			= "The battle begins in 1 minute.",
+	BgStart30 			= "The battle begins in 30 seconds.  Prepare yourselves!",
+	Alliance 	= "Alliance",
+	Horde 		= "Horde",
+	InfoErrorText		= "The flag carrier targeting function will be restored when you are out of combat.",
+	ExprFlagPickUp		= "The (%w+) .lag was picked up by (.+)!",
+	ExprFlagCaptured	= "(.+) captured the (%w+) flag!",
+	ExprFlagReturn		= "The (%w+) .lag was returned to its base by (.+)!",
+	FlagAlliance		= "Alliance Flag: ",
+	FlagHorde			= "Horde Flag: ",
+	FlagBase			= "Base",
+	Vulnerable1		= "The flag carriers have become vulnerable to attack!",
+	Vulnerable2		= "The flag carriers have become increasingly vulnerable to attack!"
+})
+
 L:SetTimerLocalization({
 	TimerStart	= "Game starts",
 	TimerFlag	= "Flag respawn"
@@ -190,24 +213,19 @@ L:SetOptionLocalization({
 	ShowFlagCarrierErrorNote	= "Show flag carrier error message while in combat"
 })
 
-L:SetMiscLocalization({
-	BgStart60 			= "The battle begins in 1 minute.",
-	BgStart30 			= "The battle begins in 30 seconds.  Prepare yourselves!",
-	InfoErrorText		= "The flag carrier targeting function will be restored when you are out of combat.",
-	ExprFlagPickUp		= "The (%w+) .lag was picked up by (.+)!",
-	ExprFlagCaptured	= "(.+) captured the (%w+) flag!",
-	ExprFlagReturn		= "The (%w+) .lag was returned to its base by (.+)!",
-	FlagAlliance		= "Alliance Flag: ",
-	FlagHorde			= "Horde Flag: ",
-	FlagBase			= "Base",
-	Vulnerable1		= "The flag carriers have become vulnerable to attack!",
-	Vulnerable2		= "The flag carriers have become increasingly vulnerable to attack!"
-})
-
 ------------------------------
 --  The Battle for Gilneas  --
 ------------------------------
 L = DBM:GetModLocalization("z761")
+
+L:SetMiscLocalization({
+	ScoreExpr	= "(%d+)/2000",
+	Alliance 	= "Alliance",
+	Horde 		= "Horde",
+	WinBarText	= "%s wins",
+	BasesToWin	= "Bases to win: %d",
+	Flag		= "Flag"
+})
 
 L:SetTimerLocalization({
 	TimerCap	= "%s"
@@ -220,12 +238,6 @@ L:SetOptionLocalization({
 	ShowGilneasBasesToWin			= "Show bases required to win"
 })
 
-L:SetMiscLocalization({
-	ScoreExpr	= "(%d+)/2000",
-	WinBarText	= "%s wins",
-	BasesToWin	= "Bases to win: %d",
-	Flag		= "Flag"
-})
 
 -------------------------
 --  Silvershard Mines  --
@@ -259,6 +271,8 @@ L:SetMiscLocalization({
 	OrbTaken 	= "(%S+) has taken the (%S+) orb!",
 	OrbReturn 	= "The (%S+) orb has been returned!",
 	ScoreExpr	= "(%d+)/1600",
+	Alliance 	= "Alliance",
+	Horde 		= "Horde",
 	WinBarText	= "Estimate %s wins",
 	OrbsToWin	= "Orbs to win: %d"
 })
