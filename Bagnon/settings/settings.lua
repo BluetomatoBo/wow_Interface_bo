@@ -255,27 +255,27 @@ function Settings:IsFlashFindEnabled()
 	return self:GetDB().enableFlashFind
 end
 
--- opens the inventory and broadcasts the search message to item frames
 function Settings:FlashFind(link)
-	local name = link and link:match('^|c%x+|Hitem.+|h%[(.*)%]')
-
-	if name and self:IsFlashFindEnabled() then
-		Addon:ShowFrame('inventory')
-		self:SetTextSearch(name)
+	if link and self:IsFlashFindEnabled() then
+		self:SendMessage('FLASH_SEARCH_UPDATE', link)
 	end
 end
 
 -- Function that is invoked when a chat link is clicked
-hooksecurefunc("SetItemRef", function(link, text, button)
+hooksecurefunc("SetItemRef", function(_, link, button)
 	if IsAltKeyDown() and button == "LeftButton" then
-		Settings:FlashFind(text)
+		local name = link and link:match('^|c%x+|Hitem.+|h%[(.*)%]')
+		if name then
+			Addon:ShowFrame('inventory')
+			Addon:GetFrame('inventory'):GetSettings():EnableTextSearch()
+			Settings:SetTextSearch(name)
+		end
 	end
 end)
 
 --fading
 function Settings:SetFading(enable)
 	self:GetDB().fading = enable and true or false
-	Addon:HookTooltips()
 end
 
 function Settings:IsFadingEnabled()
