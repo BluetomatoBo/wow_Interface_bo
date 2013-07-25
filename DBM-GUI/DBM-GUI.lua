@@ -40,7 +40,7 @@
 
 
 
-local revision =("$Revision: 10018 $"):sub(12, -3)
+local revision =("$Revision: 10041 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 local fixeditframe = false
 
@@ -1426,8 +1426,8 @@ local function CreateOptionsMenu()
 		bmtestmode:SetScript("OnClick", function(self) DBM:DemoMode() end)
 
 		local latencySlider = generaloptions:CreateSlider(L.Latency_Text, 50, 750, 5, 210)   -- (text , min_value , max_value , step , width)
-     	latencySlider:SetPoint('BOTTOMLEFT', bminfo, "BOTTOMLEFT", 10, -35)
-     	latencySlider:HookScript("OnShow", function(self) self:SetValue(DBM.Options.LatencyThreshold) end)
+		latencySlider:SetPoint('BOTTOMLEFT', bminfo, "BOTTOMLEFT", 10, -35)
+		latencySlider:HookScript("OnShow", function(self) self:SetValue(DBM.Options.LatencyThreshold) end)
 		latencySlider:HookScript("OnValueChanged", function(self) DBM.Options.LatencyThreshold = self:GetValue() end)
 
 		local generaltimeroptions = DBM_GUI_Frame:CreateArea(L.TimerGeneral, nil, 85)
@@ -1569,12 +1569,13 @@ local function CreateOptionsMenu()
 			{	text	= L.yike,	value 	= "Mosh"},
 			{	text	= L.yun,	value 	= "yun"},
 			{	text	= L.sst,	value 	= "sst"},
-			{	text	= L.other,	value 	= "other"},
+			{	text	= DBM_CORE_SOUNDGRIL_CUSTOM,	value 	= "other"},
 		}
 		local CountSoundDropDown = raidwarnoptions:CreateDropdown(L.CountdownVoice, countSounds,
 		DBM.Options.CountdownVoice, function(value)
 			DBM.Options.CountdownVoice = value
 			PlaySoundFile("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\movesoon.mp3", "Master")
+			DBM:ShowSoundMM()
 		end
 		)
 		CountSoundDropDown:SetPoint("LEFT", RaidWarnSoundDropDown, "RIGHT", 30, 0)
@@ -2004,7 +2005,7 @@ local function CreateOptionsMenu()
 
 		local color1 = specArea:CreateColorSelect(64)
 		color1:SetPoint('TOPLEFT', color0, "TOPLEFT", 0, -105)
-		local color1text = specArea:CreateText(L.SpecWarn_FlashColor, 80)
+		local color1text = specArea:CreateText(L.SpecWarn_FlashColor:format(1), 80)
 		color1text:SetPoint("BOTTOM", color1, "TOP", 5, 4)
 		local color1reset = specArea:CreateButton(L.Reset, 64, 10, nil, GameFontNormalSmall)
 		color1reset:SetPoint('TOP', color1, "BOTTOM", 5, -10)
@@ -2035,7 +2036,7 @@ local function CreateOptionsMenu()
 		
 		local color2 = specArea:CreateColorSelect(64)
 		color2:SetPoint('TOPLEFT', color1, "TOPLEFT", 0, -105)
-		local color2text = specArea:CreateText(L.SpecWarn_FlashColor, 80)
+		local color2text = specArea:CreateText(L.SpecWarn_FlashColor:format(2), 80)
 		color2text:SetPoint("BOTTOM", color2, "TOP", 5, 4)
 		local color2reset = specArea:CreateButton(L.Reset, 64, 10, nil, GameFontNormalSmall)
 		color2reset:SetPoint('TOP', color2, "BOTTOM", 5, -10)
@@ -2066,7 +2067,7 @@ local function CreateOptionsMenu()
 		
 		local color3 = specArea:CreateColorSelect(64)
 		color3:SetPoint('TOPLEFT', color2, "TOPLEFT", 0, -105)
-		local color3text = specArea:CreateText(L.SpecWarn_FlashColor, 80)
+		local color3text = specArea:CreateText(L.SpecWarn_FlashColor:format(3), 80)
 		color3text:SetPoint("BOTTOM", color3, "TOP", 5, 4)
 		local color3reset = specArea:CreateButton(L.Reset, 64, 10, nil, GameFontNormalSmall)
 		color3reset:SetPoint('TOP', color3, "BOTTOM", 5, -10)
@@ -2280,14 +2281,13 @@ local function CreateOptionsMenu()
 	do
 		local hpPanel = DBM_GUI_Frame:CreateNewPanel(L.Panel_HPFrame, "option")
 		local hpArea = hpPanel:CreateArea(L.Area_HPFrame, nil, 150, true)
-		hpArea:CreateCheckButton(L.HP_Enabled, true, nil, "AlwaysShowHealthFrame")
+		local alwaysbttn = hpArea:CreateCheckButton(L.HP_Enabled, true, nil, "AlwaysShowHealthFrame")
 		local growbttn = hpArea:CreateCheckButton(L.HP_GrowUpwards, true)
 		growbttn:SetScript("OnShow",  function(self) self:SetChecked(DBM.Options.HealthFrameGrowUp) end)
 		growbttn:SetScript("OnClick", function(self)
 				DBM.Options.HealthFrameGrowUp = not not self:GetChecked()
 				DBM.BossHealth:UpdateSettings()
 		end)
-
 
 		local BarWidthSlider = hpArea:CreateSlider(L.BarWidth, 150, 275, 1)
 		BarWidthSlider:SetPoint("TOPLEFT", hpArea.frame, "TOPLEFT", 20, -75)
@@ -2305,8 +2305,10 @@ local function CreateOptionsMenu()
 				DBM.Options.HPFramePoint = DBM.DefaultOptions.HPFramePoint
 				DBM.Options.HPFrameX = DBM.DefaultOptions.HPFrameX
 				DBM.Options.HPFrameY = DBM.DefaultOptions.HPFrameY
+				DBM.Options.AlwaysShowHealthFrame = DBM.DefaultOptions.AlwaysShowHealthFrame
 				DBM.Options.HealthFrameGrowUp = DBM.DefaultOptions.HealthFrameGrowUp
 				DBM.Options.HealthFrameWidth = DBM.DefaultOptions.HealthFrameWidth
+				alwaysbttn:SetChecked(DBM.Options.AlwaysShowHealthFrame)
 				growbttn:SetChecked(DBM.Options.HealthFrameGrowUp)
 				BarWidthSlider:SetValue(DBM.Options.HealthFrameWidth)
 				DBM.BossHealth:UpdateSettings()

@@ -36,7 +36,7 @@ L= DBM:GetModLocalization(826)
 
 L:SetOptionLocalization({
 	SoundWOP 			= "voice warning: important skills",
-	RangeFrame			= "Show range frame for $spell:137511"
+	RangeFrame			= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(10, 137511)
 })
 
 L:SetMiscLocalization({
@@ -50,6 +50,10 @@ L= DBM:GetModLocalization(814)
 
 L:SetOptionLocalization({
 	RangeFrame			= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(10, 136340)
+})
+
+L:SetMiscLocalization({
+	Pull				= "Can you feel a chill wind blow? The storm is coming..."
 })
 
 ---------------------------

@@ -43,9 +43,10 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 10023 $"):sub(12, -3)),
-	DisplayVersion = "5.3.5 "..DBM_CORE_SOUNDVER, -- the string that is shown as version
-	ReleaseRevision = 9947 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 10080 $"):sub(12, -3)),
+	DisplayVersion = "5.3.6 "..DBM_CORE_SOUNDVER, -- the string that is shown as version
+	DisplayReleaseVersion = "5.3.5", -- Needed to work around bigwigs sending improper version information
+	ReleaseRevision = 10055 -- the revision of the latest stable version that is available
 }
 
 -- Legacy crap; that stupid "Version" field was never a good idea.
@@ -254,6 +255,7 @@ local UnitExists = UnitExists
 local UnitIsDead = UnitIsDead
 local GetSpellInfo = GetSpellInfo
 local EJ_GetSectionInfo = EJ_GetSectionInfo
+local GetInstanceInfo = GetInstanceInfo
 local GetCurrentMapDungeonLevel = GetCurrentMapDungeonLevel
 local GetMapInfo = GetMapInfo
 local GetCurrentMapZone = GetCurrentMapZone
@@ -262,6 +264,9 @@ local GetSpecialization = GetSpecialization
 local UnitDetailedThreatSituation = UnitDetailedThreatSituation
 local GetPartyAssignment = GetPartyAssignment
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
+local LoadAddOn = LoadAddOn
+local IsEncounterInProgress = IsEncounterInProgress
+local InCombatLockdown = InCombatLockdown
 
 -- for Phanx' Class Colors
 local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
@@ -286,7 +291,7 @@ local function removeEntry(t, val)
 	local existed = false
 	for i = #t, 1, -1 do
 		if t[i] == val then
-			table.remove(t, i)
+			tremove(t, i)
 			existed = true
 		end
 	end
@@ -309,7 +314,7 @@ end
 
 local function strFromTime(time)
 	if type(time) ~= "number" then time = 0 end
-	time = math.floor(time)
+	time = floor(time)
 	if time < 60 then
 		return DBM_CORE_TIMER_FORMAT_SECS:format(time)
 	elseif time % 60 == 0 then
@@ -692,6 +697,22 @@ do
 			onLoadCallbacks[#onLoadCallbacks + 1] = cb
 		end
 	end
+	
+	local function showOldVerWarning()
+		StaticPopupDialogs["DBM_OLD_BC_VERSION"] = {
+			preferredIndex = STATICPOPUP_NUMDIALOGS,
+			text = "You are still running the old DBM3 compatibility layer for deprecated DBM3 mods which have been replaced by DBM4 mods. This mod will cause error messages on login and must be disabled.\nYou should also remove the folder DBM-BurningCrusade from your Interface/AddOns folder.\nClick okay to disable the mod and reload the UI.",
+			button1 = OKAY,
+			OnAccept = function()
+				DisableAddOn("DBM-BurningCrusade")
+				ReloadUI()
+			end,
+			timeout = 0,
+			exclusive = 1,
+			whileDead = 1
+		}
+		StaticPopup_Show("DBM_OLD_BC_VERSION")
+	end
 
 	function DBM:ADDON_LOADED(modname)
 		if modname == "DBM-Core" and not isLoaded then
@@ -700,6 +721,10 @@ do
 				xpcall(v, geterrorhandler())
 			end
 			onLoadCallbacks = nil
+			local enabled, loadable = select(4, GetAddOnInfo("DBM-BurningCrusade"))
+			if enabled and loadable then
+				showOldVerWarning()
+			end
 			loadOptions()
 			DBM.Bars:LoadOptions("DBM")
 			DBM.Arrow:LoadPosition()
@@ -707,38 +732,42 @@ do
 			self.AddOns = {}
 			for i = 1, GetNumAddOns() do
 				local addonName = GetAddOnInfo(i)
-				if GetAddOnMetadata(i, "X-DBM-Mod") and not checkEntry(bannedMods, addonName) then
-					local mapIdTable = {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-MapID") or "")}
-					table.insert(self.AddOns, {
-						sort			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Sort") or math.huge) or math.huge,
-						type			= GetAddOnMetadata(i, "X-DBM-Mod-Type") or "OTHER",
-						category		= GetAddOnMetadata(i, "X-DBM-Mod-Category") or "Other",
-						name			= GetAddOnMetadata(i, "X-DBM-Mod-Name") or GetRealZoneText(tonumber(mapIdTable[1])) or "",
-						mapId			= mapIdTable,
-						subTabs			= GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID"))} or GetAddOnMetadata(i, "X-DBM-Mod-SubCategories") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategories"))},
-						oneFormat		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Single-Format") or 0) == 1,
-						hasLFR			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-LFR") or 0) == 1,
-						hasFlex			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Flex") or 0) == 1,
-						hasChallenge	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Challenge") or 0) == 1,
-						noHeroic		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Heroic") or 0) == 1,
-						noStatistics	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Statistics") or 0) == 1,
-						modId			= addonName,
-					})
-					for i = #self.AddOns[#self.AddOns].mapId, 1, -1 do
-						local id = tonumber(self.AddOns[#self.AddOns].mapId[i])
-						if id then
-							self.AddOns[#self.AddOns].mapId[i] = id
-						else
-							table.remove(self.AddOns[#self.AddOns].mapId, i)
-						end
-					end
-					if self.AddOns[#self.AddOns].subTabs then
-						for k, v in ipairs(self.AddOns[#self.AddOns].subTabs) do
-							local id = tonumber(self.AddOns[#self.AddOns].subTabs[k])
+				if GetAddOnMetadata(i, "X-DBM-Mod") then
+					if checkEntry(bannedMods, addonName) then
+						print("The mod " .. addonName .. " is deprecated and will not be available. Please remove the folder " .. addonName .. " from your Interface" .. (IsWindowsClient() and "\\" or "/") .. "AddOns folder to get rid of this message.")
+					else
+						local mapIdTable = {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-MapID") or "")}
+						tinsert(self.AddOns, {
+							sort			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Sort") or math.huge) or math.huge,
+							type			= GetAddOnMetadata(i, "X-DBM-Mod-Type") or "OTHER",
+							category		= GetAddOnMetadata(i, "X-DBM-Mod-Category") or "Other",
+							name			= GetAddOnMetadata(i, "X-DBM-Mod-Name") or GetRealZoneText(tonumber(mapIdTable[1])) or "",
+							mapId			= mapIdTable,
+							subTabs			= GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID"))} or GetAddOnMetadata(i, "X-DBM-Mod-SubCategories") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategories"))},
+							oneFormat		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Single-Format") or 0) == 1,
+							hasLFR			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-LFR") or 0) == 1,
+							hasFlex			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Flex") or 0) == 1,
+							hasChallenge	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Challenge") or 0) == 1,
+							noHeroic		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Heroic") or 0) == 1,
+							noStatistics	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Statistics") or 0) == 1,
+							modId			= addonName,
+						})
+						for i = #self.AddOns[#self.AddOns].mapId, 1, -1 do
+							local id = tonumber(self.AddOns[#self.AddOns].mapId[i])
 							if id then
-								self.AddOns[#self.AddOns].subTabs[k] = GetRealZoneText(id):trim()
+								self.AddOns[#self.AddOns].mapId[i] = id
 							else
-								self.AddOns[#self.AddOns].subTabs[k] = (self.AddOns[#self.AddOns].subTabs[k]):trim()
+								tremove(self.AddOns[#self.AddOns].mapId, i)
+							end
+						end
+						if self.AddOns[#self.AddOns].subTabs then
+							for k, v in ipairs(self.AddOns[#self.AddOns].subTabs) do
+								local id = tonumber(self.AddOns[#self.AddOns].subTabs[k])
+								if id then
+									self.AddOns[#self.AddOns].subTabs[k] = GetRealZoneText(id):trim()
+								else
+									self.AddOns[#self.AddOns].subTabs[k] = (self.AddOns[#self.AddOns].subTabs[k]):trim()
+								end
 							end
 						end
 					end
@@ -810,7 +839,7 @@ do
 			error("Usage: DBM:RegisterCallback(event, callbackFunc)", 2)
 		end
 		callbacks[event] = callbacks[event] or {}
-		table.insert(callbacks[event], f)
+		tinsert(callbacks[event], f)
 		return #callbacks[event]
 	end
 end
@@ -930,7 +959,7 @@ do
 						end
 					end
 					if match then
-						table.remove(heap, i)
+						tremove(heap, i)
 						firstFree = firstFree - 1
 						foundMatch = true
 					end
@@ -1174,7 +1203,7 @@ do
 
 	function DBM:ShowVersions(notify)
 		for i, v in pairs(raid) do
-			table.insert(sortMe, v)
+			tinsert(sortMe, v)
 		end
 		table.sort(sortMe, sort)
 		self:AddMsg(DBM_CORE_VERSIONCHECK_HEADER)
@@ -1359,7 +1388,7 @@ do
 	end
 
 	function DBM:RegisterOnGuiLoadCallback(f, sort)
-		table.insert(callOnLoad, {f, sort or math.huge})
+		tinsert(callOnLoad, {f, sort or math.huge})
 	end
 end
 
@@ -1478,7 +1507,7 @@ do
 
 	local function updateAllRoster()
 		if IsInRaid() then
-			table.wipe(raidShortNames)
+			twipe(raidShortNames)
 			enableIcons = false
 			local latestRevision = tonumber(DBM.Revision)
 			if not inRaid then
@@ -1540,7 +1569,7 @@ do
 				end
 			end
 		elseif IsInGroup() then
-			table.wipe(raidShortNames)
+			twipe(raidShortNames)
 			if not inRaid then
 				-- joined a new party
 				inRaid = true
@@ -1602,7 +1631,7 @@ do
 			inRaid = false
 			enableIcons = true
 			fireEvent("raidLeave", playerName)
-			table.wipe(raid)
+			twipe(raid)
 			-- restore playerinfo into raid table on raidleave. (for solo raid)
 			raid[playerName] = {}
 			raid[playerName].name = playerName
@@ -1848,8 +1877,8 @@ do
 				if v.OnInitialize then v:OnInitialize() end
 				for i, cat in ipairs(v.categorySort) do -- temporary hack
 					if cat == "misc" then
-						table.remove(v.categorySort, i)
-						table.insert(v.categorySort, cat)
+						tremove(v.categorySort, i)
+						tinsert(v.categorySort, cat)
 						break
 					end
 				end
@@ -2048,16 +2077,19 @@ end
 --------------------------------
 --  Load Boss Mods on Demand  --
 --------------------------------
-do	
-	--Faster and more accurate loading for instances, but useless outside of them
-	function DBM:LOADING_SCREEN_DISABLED()
+do
+	local function FixForShittyComputers()
 		local _, instanceType, _, _, _, _, _, mapID = GetInstanceInfo()
 		LastInstanceMapID = mapID
 		if instanceType == "none" and (mapID ~= 369) and (mapID ~= 1043) and (mapID ~= 974) then return end -- instance type of brawlers guild and DMF are none
-		self:LoadModsOnDemand("mapId", mapID)
-		if instanceType == "scenario" and (mapID ~= 1148) and self:GetModByName("d511") then--mod already loaded (Filter 1148, which is proving grounds)
+		DBM:LoadModsOnDemand("mapId", mapID)
+		if instanceType == "scenario" and (mapID ~= 1148) and DBM:GetModByName("d511") then--mod already loaded (Filter 1148, which is proving grounds)
 			DBM:InstanceCheck()
 		end
+	end
+	--Faster and more accurate loading for instances, but useless outside of them
+	function DBM:LOADING_SCREEN_DISABLED()
+		self:Schedule(1, FixForShittyComputers, DBM)
 	end
 
 	function DBM:LoadModsOnDemand(checkTable, checkValue)
@@ -2083,12 +2115,14 @@ function DBM:InstanceCheck()
 	end
 end
 
-function DBM:LoadMod(mod)
-	if type(mod) ~= "table" then return false end
 	--In combat and it's not a raid boss. We'll just delay mod load until we leave combat to avoid "script ran to long errors"
 	--This should avoid most load problems (especially in LFR) When zoning in while in combat which causes the mod to fail to load/work correctly
 	--IF we are fighting a boss, we don't have much of a choice but to try and load anyways since script ran too long isn't actually a guarentee.
-	--it's mainly for slower computers that fail to load mods in combat. Most can load in combat if we delay the garbage collect
+	--The main place we should force a mod load in combat is for IsEncounterInProgress because i'm pretty sure blizzard waves "script ran too long" function for a small amount of time after a DC
+	--Now that there are 9 world bosses, that mod is generating "script ran too long" more often on slow computers. Trying some micro optimizes to see if that eliminates
+	--If i still get many reports of world boss mod load failing, I will remove them from load delay since a failed mod load is even less useful than no mod load.
+function DBM:LoadMod(mod)
+	if type(mod) ~= "table" then return false end
 	if InCombatLockdown() and IsInInstance() and not IsEncounterInProgress() then
 		self:AddMsg(DBM_CORE_LOAD_MOD_COMBAT:format(tostring(mod.name)))
 		if loadDelay and loadDelay ~= mod then--Check if load delay exists, but make sure this isn't a loop of same mod before making a second load delay
@@ -2224,11 +2258,11 @@ do
 			DBM.Bars:CancelBar(DBM_CORE_TIMER_PULL) 
 		end
 		if not DBM.Options.DontPlayPTCountdown then
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\5.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\4.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\3.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\2.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\1.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3", "Master")
 			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\com_go.mp3", "Master")
 		end
 		if not DBM.Options.DontShowPTCountdownText then
@@ -2241,11 +2275,11 @@ do
 		end
 		if not DBM.Options.DontPlayPTCountdown then
 			PlaySoundFile("Interface\\AddOns\\DBM-Core\\Sounds\\win.ogg", "Master")
-			if timer > 5 then DBM:Schedule(timer-5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\5.mp3", "Master") end
-			if timer > 5 then DBM:Schedule(timer-4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\4.mp3", "Master") end
-			if timer > 3 then DBM:Schedule(timer-3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\3.mp3", "Master") end
-			if timer > 3 then DBM:Schedule(timer-2, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\2.mp3", "Master") end
-			if timer > 3 then DBM:Schedule(timer-1, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\1.mp3", "Master") end
+			if timer > 5 then DBM:Schedule(timer-5, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3", "Master") end
+			if timer > 5 then DBM:Schedule(timer-4, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3", "Master") end
+			if timer > 3 then DBM:Schedule(timer-3, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3", "Master") end
+			if timer > 3 then DBM:Schedule(timer-2, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3", "Master") end
+			if timer > 3 then DBM:Schedule(timer-1, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3", "Master") end
 			if timer > 1 then DBM:Schedule(timer, PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\com_go.mp3", "Master") end
 		end
 		if not DBM.Options.DontShowPTCountdownText then
@@ -2267,11 +2301,11 @@ do
 		end
 		dummyMod.text:Cancel()
 		if not DBM.Options.DontPlayPTCountdown then
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\5.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\4.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\3.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\2.mp3", "Master")
-			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\Sounds\\Mosh\\1.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfive.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countfour.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countthree.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\counttwo.mp3", "Master")
+			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\countone.mp3", "Master")
 			DBM:Unschedule(PlaySoundFile, "Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\com_go.mp3", "Master")
 		end
 		if not DBM.Options.DontShowPTCountdownText then
@@ -2311,11 +2345,27 @@ do
 			raid[sender].locale = locale
 			local revDifference = revision - tonumber(DBM.Revision)
 			if version > tonumber(DBM.Version) then -- Update reminder
+				--Bigwigs version faking breaks version update notification because they send alpha revision as release revision with their faking code
+				--Bigwigs sniffs highest REVISION it finds in raid, (not highest ReleaseRevision) and then passes it as ReleaseRevision arg when sending sync back
+				--As a result, we'll get a valid DisplayVersion but the highest alpha Revision bigwigs saw in raid roster as a sync.
+				--For example, we might get 5.3.5 revision 10066 which is IMPOSSIBLE, anything above 10055 would be 5.3.6 alpha.
+				--So below we fix these problems so our users don't get spammed with invalid update notifications do to BW sending bad  version information
+				if displayVersion == DBM.DisplayVersion or displayVersion == DBM.DisplayReleaseVersion then--Their version is higher than hours, but display version is same, ignore it.
+					--Since we know their version information is crap, nil it out.
+					raid[sender].revision = nil
+					raid[sender].version = nil
+					raid[sender].displayVersion = nil
+					raid[sender].locale = nil
+					DBM:GROUP_ROSTER_UPDATE()
+					return
+				end
 				if not showedUpdateReminder then
 					local found = false
+					local other = nil
 					for i, v in pairs(raid) do
 						if v.version == version and v ~= raid[sender] then
 							found = true
+							other = i
 							break
 						end
 					end
@@ -2351,7 +2401,7 @@ do
 					end
 					if found then--Running alpha version that's out of date
 						showedUpdateReminder = true
---						print(("DBM Debug: Showing alpha update notification because %s and %s are running revision %d which is > than our reivision %d"):format(sender, other, revision, DBM.Revision))
+						--Bug happened again, but this print NEVER happened?? In fact, everyone in raid got the bug to happen, and suspiciously after several people in raid turned bigwigs on....
 						DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER_ALPHA:format(revDifference))
 					end
 				end
@@ -2478,7 +2528,7 @@ do
 					maxPlayers = maxPlayers,
 				}
 				results.data[instanceId].ids[id] = results.data[instanceId].ids[id] or { progress = progress }
-				table.insert(results.data[instanceId].ids[id], sender)
+				tinsert(results.data[instanceId].ids[id], sender)
 			end
 
 			if numResponses >= expectedResponses then -- unlikely, lol
@@ -2506,15 +2556,15 @@ do
 			local noResponse = {}
 			for i = 1, GetNumGroupMembers() do
 				if not UnitIsUnit("raid"..i, "player") then
-					table.insert(noResponse, (GetRaidRosterInfo(i)))
+					tinsert(noResponse, (GetRaidRosterInfo(i)))
 				end
 			end
 			for i, v in pairs(results.responses) do
 				if v == "Data" or v == "NoData" then
 				elseif v == "timeout" then
-					table.insert(away, i)
+					tinsert(away, i)
 				else -- could be "clicked" or "override", in both cases we don't get the data because the dialog requesting it was dismissed
-					table.insert(denied, i)
+					tinsert(denied, i)
 				end
 				removeEntry(noResponse, i)
 			end
@@ -2579,7 +2629,7 @@ do
 					local noResponse = {}
 					for i = 1, GetNumGroupMembers() do
 						if not UnitIsUnit("raid"..i, "player") and raid[GetRaidRosterInfo(i)] and raid[GetRaidRosterInfo(i)].revision then -- only show players who actually can respond (== DBM users)
-							table.insert(noResponse, (GetRaidRosterInfo(i)))
+							tinsert(noResponse, (GetRaidRosterInfo(i)))
 						end
 					end
 					for i, v in pairs(results.responses) do
@@ -2895,10 +2945,14 @@ do
 			Grilpic:SetTexture( [[Interface\AddOns\DBM-Core\textures\soundgrils\sst.tga]] )
 			fontstringHeader:SetText(DBM_CORE_SOUNDGRIL_NAME_SST)
 			fontstring:SetText(DBM_CORE_SOUNDGRIL_TEXT_SST)
-		else
-			Grilpic:SetTexture( [[Interface\AddOns\DBM-Core\textures\soundgrils\yike.tga]] )			
+		elseif DBM.Options.CountdownVoice == "Mosh" then
+			Grilpic:SetTexture( [[Interface\AddOns\DBM-Core\textures\soundgrils\yike.tga]] )
 			fontstringHeader:SetText(DBM_CORE_SOUNDGRIL_NAME_YIKE)
 			fontstring:SetText(DBM_CORE_SOUNDGRIL_TEXT_YIKE)
+		else
+			Grilpic:SetTexture( [[Interface\AddOns\DBM-Core\extrasounds\other\other.tga]] )
+			fontstringHeader:SetText(DBM_CORE_SOUNDGRIL_NAME_CUSTOM)
+			fontstring:SetText(DBM_CORE_SOUNDGRIL_TEXT_CUSTOM)
 		end
 	end
 end
@@ -2921,7 +2975,7 @@ do
 	end
 
 	local function clearTargetList()
-		table.wipe(targetList)
+		twipe(targetList)
 	end
 
 	local function scanForCombat(mod, mob, delay)
@@ -3110,7 +3164,7 @@ function DBM:StartCombat(mod, delay, synced, syncedStartHp, noKillRecord)
 		end
 		savedDifficulty, difficultyText, flexSize = self:GetCurrentInstanceDifficulty()
 		if synced and savedDifficulty == "worldboss" and not UnitAffectingCombat("player") then return end--Ignore world boss pulls if you aren't fighting them.
-		table.insert(inCombat, mod)
+		tinsert(inCombat, mod)
 		bossHealth[mod.combatInfo.mob or -1] = 1
 		if mod.multiMobPullDetection then
 			for _, mob in ipairs(mod.multiMobPullDetection) do
@@ -3503,8 +3557,8 @@ function DBM:EndCombat(mod, wipe)
 			end
 			fireEvent("kill", mod)
 		end
-		table.wipe(autoRespondSpam)
-		table.wipe(bossHealth)
+		twipe(autoRespondSpam)
+		twipe(bossHealth)
 		if mod.OnCombatEnd then mod:OnCombatEnd(wipe) end
 		DBM.BossHealth:Hide()
 		DBM.Arrow:Hide(true)
@@ -3653,7 +3707,7 @@ do
 			local lag = select(4, GetNetStats()) / 1000
 			if not mod.combatInfo then return end
 			self:AddMsg(DBM_CORE_COMBAT_STATE_RECOVERED:format(mod.combatInfo.name, strFromTime(time + lag)))
-			table.insert(inCombat, mod)
+			tinsert(inCombat, mod)
 			bossHealth[mod.combatInfo.mob or -1] = 1
 			if mod.multiMobPullDetection then
 				for _, mob in ipairs(mod.multiMobPullDetection) do
@@ -4057,7 +4111,7 @@ DBM.Bars:SetAnnounceHook(function(bar)
 		prefix = DBM_CORE_ALLIANCE or FACTION_ALLIANCE
 	end
 	if prefix then
-		return ("%s: %s  %d:%02d"):format(prefix, _G[bar.frame:GetName().."BarName"]:GetText(), math.floor(bar.timer / 60), bar.timer % 60)
+		return ("%s: %s  %d:%02d"):format(prefix, _G[bar.frame:GetName().."BarName"]:GetText(), floor(bar.timer / 60), bar.timer % 60)
 	end
 end)
 
@@ -4229,9 +4283,13 @@ do
 			obj.localization.general.name = string.split(",", t or name)
 		elseif name:match("d%d+") then
 			local t = GetDungeonInfo(string.sub(name, 2))
-			obj.localization.general.name = string.split(",", t or name)
+			if modId == "DBM-ProvingGrounds-MoP" then
+				obj.localization.general.name = select(2, string.split(":", t or name))
+			else
+				obj.localization.general.name = string.split(",", t or name)
+			end
 		end
-		table.insert(self.Mods, obj)
+		tinsert(self.Mods, obj)
 		modsById[name] = obj
 		obj:AddBoolOption("SpeedKillTimer", false, "misc")
 		obj:AddBoolOption("HealthFrame", false, "misc")
@@ -4828,7 +4886,7 @@ do
 			obj.option = text
 			self:AddBoolOption(text, optionDefault, "announce")
 		end
-		table.insert(self.announces, obj)
+		tinsert(self.announces, obj)
 		return obj
 	end
 
@@ -4882,7 +4940,7 @@ do
 			self:AddBoolOption("Announce"..unparsedId..announceType, optionDefault, "announce")
 			self.localization.options["Announce"..unparsedId..announceType] = DBM_CORE_AUTO_ANNOUNCE_OPTIONS[announceType]:format(unparsedId)
 		end
-		table.insert(self.announces, obj)
+		tinsert(self.announces, obj)
 		return obj
 	end
 
@@ -5110,7 +5168,7 @@ do
 			self:AddBoolOption(obj.id, optionDefault, "sound")
 			self.localization.options[obj.id] = DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT:format(spellId)
 		end
-		table.insert(self.countdowns, obj)
+		tinsert(self.countdowns, obj)
 		return obj
 	end
 
@@ -5151,7 +5209,7 @@ do
 			self:AddBoolOption(obj.id, optionDefault, "misc")
 			self.localization.options[obj.id] = DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT2:format(spellId)
 		end
-		table.insert(self.countdowns, obj)
+		tinsert(self.countdowns, obj)
 		return obj
 	end	
 end
@@ -5416,7 +5474,7 @@ do
 			obj.option = optionId
 			self:AddSpecialWarningOption(optionId, optionDefault, runSound, "specannounce")
 		end
-		table.insert(self.specwarns, obj)
+		tinsert(self.specwarns, obj)
 		return obj
 	end
 
@@ -5473,7 +5531,7 @@ do
 		if optionId then
 			self:AddSpecialWarningOption(optionId, optionDefault, runSound, "specannounce")
 		end
-		table.insert(self.specwarns, obj)
+		tinsert(self.specwarns, obj)
 		return obj
 	end
 
@@ -5709,7 +5767,7 @@ do
 			end
 			msg = msg:gsub(">.-<", stripName)
 			bar:SetText(msg)
-			table.insert(self.startedTimers, id)
+			tinsert(self.startedTimers, id)
 			self.mod:Unschedule(removeEntry, self.startedTimers, id)
 			self.mod:Schedule(timer, removeEntry, self.startedTimers, id)
 			return bar
@@ -5738,7 +5796,7 @@ do
 			for i = #self.startedTimers, 1, -1 do
 				if self.startedTimers[i] == id then
 					DBM.Bars:CancelBar(id)
-					table.remove(self.startedTimers, i)
+					tremove(self.startedTimers, i)
 				end
 			end
 		end
@@ -5830,7 +5888,7 @@ do
 			mt
 		)
 		obj:AddOption(optionDefault, optionName)--countdownDefault
-		table.insert(self.timers, obj)
+		tinsert(self.timers, obj)
 		return obj
 	end
 
@@ -5884,7 +5942,7 @@ do
 			mt
 		)
 		obj:AddOption(optionDefault, optionName)--countdownDefault
-		table.insert(self.timers, obj)
+		tinsert(self.timers, obj)
 		-- todo: move the string creation to the GUI with SetFormattedString...
 		if timerType == "achievement" then
 			self.localization.options[id] = DBM_CORE_AUTO_TIMER_OPTIONS[timerType]:format(GetAchievementLink(spellId):gsub("%[(.+)%]", "%1"))
@@ -6024,7 +6082,7 @@ do
 
 	local function getShieldHPFunc(shieldInfo)
 		return function()
-			return math.max(1, math.floor(shieldInfo.absorbRemaining / shieldInfo.maxAbsorb * 100))
+			return math.max(1, floor(shieldInfo.absorbRemaining / shieldInfo.maxAbsorb * 100))
 		end
 	end
 
@@ -6064,7 +6122,7 @@ do
 		for i = #activeShields, 1, -1 do
 			if activeShields[i].guid == guid and activeShields[i].mod == self.id and (not spellId or activeShields[i].spellId == spellId) then
 				DBM.BossHealth.RemoveBoss(activeShields[i].func)
-				table.remove(activeShields, i)
+				tremove(activeShields, i)
 			end
 		end
 	end
@@ -6075,7 +6133,7 @@ do
 			if activeShields[i].mod == self.id then
 				DBM.BossHealth.RemoveBoss(activeShields[i].func)
 				shieldsByGuid[activeShields[i].guid] = nil
-				table.remove(activeShields, i)
+				tremove(activeShields, i)
 			end
 		end
 	end
@@ -6158,7 +6216,7 @@ end
 function bossModPrototype:AddOptionSpacer(cat)
 	cat = cat or "misc"
 	if self.optionCategories[cat] then
-		table.insert(self.optionCategories[cat], DBM_OPTION_SPACER)
+		tinsert(self.optionCategories[cat], DBM_OPTION_SPACER)
 	end
 end
 
@@ -6190,9 +6248,9 @@ function bossModPrototype:SetOptionCategory(name, cat)
 	end
 	if not self.optionCategories[cat] then
 		self.optionCategories[cat] = {}
-		table.insert(self.categorySort, cat)
+		tinsert(self.categorySort, cat)
 	end
-	table.insert(self.optionCategories[cat], name)
+	tinsert(self.optionCategories[cat], name)
 end
 
 
@@ -6224,7 +6282,7 @@ function bossModPrototype:RegisterCombat(cType, ...)
 	if not self.zones then return end
 	for v in pairs(self.zones) do
 		combatInfo[v] = combatInfo[v] or {}
-		table.insert(combatInfo[v], info)
+		tinsert(combatInfo[v], info)
 	end
 end
 

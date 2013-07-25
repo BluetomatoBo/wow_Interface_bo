@@ -500,7 +500,8 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(832)
 
 L:SetWarningLocalization({
-	specWarnIntermissionSoon	= "Transition Phase Coming"
+	specWarnIntermissionSoon	= "Transition Phase Coming",
+	warnDiffusionChainSpread	= "%s spread on >%s<"
 })
 
 L:SetOptionLocalization({
@@ -535,6 +536,7 @@ L:SetOptionLocalization({
 	HudMAP			= "HUD MAP: $spell:135695",
 	HudMAP2			= "HUD MAP: $spell:136295",
 	RangeFrame		= "Range Frame",--For two different spells
+	warnDiffusionChainSpread	= "Announce $spell:135991 spread targets",
 	StaticShockArrow	= "DBM Arrow: $spell:135695",
 	OverchargeArrow		= "DBM Arrow: $spell:136295",
 	SetIconOnOvercharge	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(136295),
