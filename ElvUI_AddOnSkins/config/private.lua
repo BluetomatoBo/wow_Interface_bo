@@ -119,8 +119,12 @@ V["skins"]["addons"] = {
 	["EmbedSkada"] = false, 
 	["EmbedTDPS"] = false, 
 -- Misc
+	["TransparentEmbed"] = false,
 	["AlwaysTrue"] = true,
 	["DBMSkinHalf"] = false,
+	["DBMFont"] = 'ElvUI Norm',
+	["DBMFontSize"] = 12,
+	["DBMFontFlag"] = "OUTLINE",
 	["ParchmentRemover"] = false,
 	["RecountBackdrop"] = true,
 	["SkadaBackdrop"] = true,

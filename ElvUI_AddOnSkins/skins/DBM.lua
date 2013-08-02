@@ -10,7 +10,7 @@ function AS:SkinDBM(event, addon)
 		local function SkinBars(self)
 			for bar in self:GetBarIterator() do
 				if not bar.injected then
-						bar.ApplyStyle = function()
+					bar.ApplyStyle = function()
 						local frame = bar.frame
 						local tbar = _G[frame:GetName().."Bar"]
 						local spark = _G[frame:GetName().."BarSpark"]
@@ -43,33 +43,21 @@ function AS:SkinDBM(event, addon)
 						if bar.enlarged then frame:Width(bar.owner.options.HugeWidth) else frame:SetWidth(bar.owner.options.Width) end
 						if bar.enlarged then tbar:Width(bar.owner.options.HugeWidth) else tbar:SetWidth(bar.owner.options.Width) end
 
-						if not spark.killed then
-							spark:SetAlpha(0)
-							spark:SetTexture(nil)
-							spark.killed = true
-						end
+						spark:SetAlpha(0)
+						spark:SetTexture(nil)
 
-						if not icon1.styled then
-							icon1:SetTexCoord(unpack(E.TexCoords))
-							icon1:ClearAllPoints()
-							icon1:SetInside(icon1.overlay, 0, 0)
-							icon1.styled = true
-						end
-						
-						if not icon2.styled then
-							icon2:SetTexCoord(unpack(E.TexCoords))
-							icon2:ClearAllPoints()
-							icon2:SetInside(icon2.overlay, 0, 0)
-							icon2.styled = true
-						end
+						icon1:SetTexCoord(unpack(E.TexCoords))
+						icon1:ClearAllPoints()
+						icon1:SetInside(icon1.overlay, 0, 0)
+
+						icon2:SetTexCoord(unpack(E.TexCoords))
+						icon2:ClearAllPoints()
+						icon2:SetInside(icon2.overlay, 0, 0)
 
 						texture:SetTexture(AS.LSM:Fetch("statusbar", E.private.general.normTex))
 						tbar:SetStatusBarTexture(AS.LSM:Fetch("statusbar", E.private.general.normTex))
 
-						if not tbar.styled then
-							tbar:SetInside(frame)
-							tbar.styled = true
-						end
+						tbar:SetInside(frame)
 
 						frame:SetTemplate()
 
@@ -93,13 +81,8 @@ function AS:SkinDBM(event, addon)
 							timer:Point("RIGHT", frame, "RIGHT", -4, 0)
 						end
 
-						if AS.SLE then
-							name:FontTemplate(DBT_SavedOptions["DBM"].Font, E.private.sle.dbm.size, 'OUTLINE')
-							timer:FontTemplate(DBT_SavedOptions["DBM"].Font, E.private.sle.dbm.size, 'OUTLINE')
-						else
-							name:FontTemplate(DBT_SavedOptions["DBM"].Font, 12, 'OUTLINE')
-							timer:FontTemplate(DBT_SavedOptions["DBM"].Font, 12, 'OUTLINE')
-						end
+						name:FontTemplate(AS.LSM:Fetch("font", E.private.skins.addons.DBMFont),  E.private.skins.addons.DBMFontSize, E.private.skins.addons.DBMFontFlag)
+						timer:FontTemplate(AS.LSM:Fetch("font", E.private.skins.addons.DBMFont), E.private.skins.addons.DBMFontSize, E.private.skins.addons.DBMFontFlag)
 
 						if bar.owner.options.IconLeft then icon1:Show() icon1.overlay:Show() else icon1:Hide() icon1.overlay:Hide() end
 						if bar.owner.options.IconRight then icon2:Show() icon2.overlay:Show() else icon2:Hide() icon2.overlay:Hide() end
@@ -121,11 +104,7 @@ function AS:SkinDBM(event, addon)
 			if not anchor.styled then
 				local header = {anchor:GetRegions()}
 				if header[1]:IsObjectType("FontString") then
-					if AS.SLE then
-						header[1]:FontTemplate(DBT_SavedOptions["DBM"].Font, E.private.sle.dbm.size, 'OUTLINE')
-					else
-						header[1]:FontTemplate(DBT_SavedOptions["DBM"].Font, 12, 'OUTLINE')
-					end
+					header[1]:FontTemplate(AS.LSM:Fetch("font", E.private.skins.addons.DBMFont), E.private.skins.addons.DBMFontSize, E.private.skins.addons.DBMFontFlag)
 					header[1]:SetTextColor(1, 1, 1)
 					header[1]:SetShadowColor(0, 0, 0, 0)
 					anchor.styled = true	
@@ -144,10 +123,10 @@ function AS:SkinDBM(event, addon)
 				local name = _G[bar:GetName().."BarName"]
 				local timer = _G[bar:GetName().."BarTimer"]
 				local prev = _G[format("DBM_BossHealth_Bar_%d", count-1)]	
+				local _, anch, _ ,_, _ = bar:GetPoint()
 
 				bar:ClearAllPoints()
 				if count == 1 then
-					local	_, anch, _ ,_, _ = bar:GetPoint()
 					if DBM_SavedOptions.HealthFrameGrowUp then
 						bar:Point("BOTTOM", anch, "TOP" , 0 , 12)
 					else
@@ -179,21 +158,16 @@ function AS:SkinDBM(event, addon)
 
 				if AS:CheckOption("DBMSkinHalf") then
 					bar:SetHeight(buttonsize / 3)
-					name:Point("BOTTOMLEFT", bar, "TOPLEFT", 1, 4)
-					timer:Point("BOTTOMLEFT", bar, "TOPLEFT", 0, 2)
+					name:Point("BOTTOMLEFT", bar, "TOPLEFT", 4, 0)
+					timer:Point("BOTTOMRIGHT", bar, "TOPRIGHT", -4, 0)
 				else
 					bar:SetHeight(buttonsize)
 					name:Point("LEFT", bar, "LEFT", 4, 0)
 					timer:Point("RIGHT", bar, "RIGHT", -4, 0)
 				end
 
-				if AS.SLE then
-					name:FontTemplate(DBT_SavedOptions["DBM"].Font, E.private.sle.dbm.size, 'OUTLINE')
-					timer:FontTemplate(DBT_SavedOptions["DBM"].Font, E.private.sle.dbm.size, 'OUTLINE')
-				else
-					name:FontTemplate(DBT_SavedOptions["DBM"].Font, 12, 'OUTLINE')
-					timer:FontTemplate(DBT_SavedOptions["DBM"].Font, 12, 'OUTLINE')
-				end
+				name:FontTemplate(AS.LSM:Fetch("font", E.private.skins.addons.DBMFont), E.private.skins.addons.DBMFontSize, E.private.skins.addons.DBMFontFlag)
+				timer:FontTemplate(AS.LSM:Fetch("font", E.private.skins.addons.DBMFont), E.private.skins.addons.DBMFontSize, E.private.skins.addons.DBMFontFlag)
 
 				count = count + 1
 			end
@@ -218,7 +192,7 @@ function AS:SkinDBM(event, addon)
 			local RaidNotice_AddMessage_ = RaidNotice_AddMessage
 			RaidNotice_AddMessage = function(noticeFrame, textString, colorInfo)
 				if textString:find(" |T") then
-					textString = string.gsub(textString,"(:12:12)",":18:18:0:0:64:64:5:59:5:59")
+					textString = gsub(textString,"(:12:12)",":18:18:0:0:64:64:5:59:5:59")
 				end
 				return RaidNotice_AddMessage_(noticeFrame, textString, colorInfo)
 			end
@@ -229,7 +203,7 @@ function AS:SkinDBM(event, addon)
 		-- if AS:CheckOption("DBMSkinHalf") then
 			-- DBT_SavedOptions["DBM"]["BarYOffset"] = 15
 		-- end
-		DBT_SavedOptions["DBM"]["Texture"] = AS.LSM:Fetch("statusbar", E.private.general.normTex)
+		--DBT_SavedOptions["DBM"]["Texture"] = AS.LSM:Fetch("statusbar", E.private.general.normTex)
 		--DBT_SavedOptions["DBM"].Font = "ElvUI Font"
 	end
 	if addon == "DBM-GUI" then
