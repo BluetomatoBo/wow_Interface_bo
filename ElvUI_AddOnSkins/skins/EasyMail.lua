@@ -1,6 +1,4 @@
-﻿local E, L, V, P, G, _ = unpack(ElvUI)
-local AS = E:GetModule('AddOnSkins')
-local S = E:GetModule('Skins')
+﻿local AS = ElvUI[1]:GetModule('AddOnSkins')
 
 local name = "EasyMailSkin"
 function AS:SkinEasyMail(event)
@@ -12,11 +10,11 @@ function AS:SkinEasyMail(event)
 	AS:Desaturate(EasyMail_ClearPageButton)
 	AS:Desaturate(EasyMail_GetAllButton)
 	AS:Desaturate(EasyMail_MailButton)
-	S:HandleButton(EasyMail_AttButton)
-	S:HandleButton(EasyMail_ForwardButton)
+	AS:SkinButton(EasyMail_AttButton)
+	AS:SkinButton(EasyMail_ForwardButton)
 
 	for i = 1, 7 do
-		S:HandleCheckBox(_G["EasyMail_CheckButton"..i])
+		AS:SkinCheckBox(_G["EasyMail_CheckButton"..i])
 	end
 
 	EasyMail_ForwardButton:Point("RIGHT", OpenMailReplyButton, "LEFT", -2, 0)
@@ -39,7 +37,7 @@ function AS:SkinEasyMail(event)
 		if t then
 			t:ClearAllPoints()
 			t:Point("TOPRIGHT", -10, -4)
-		end				
+		end
 	end
 	AS:UnregisterEvent(name, event)
 end
