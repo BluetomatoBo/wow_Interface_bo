@@ -224,7 +224,7 @@ function AS:GenerateOptions()
 		type = 'group',
 		name = 'Embed Settings',
 		get = function(info) return AS:CheckOption(info[#info]) end,
-		set = function(info, value) AS:SetOption(info[#info], value) AS:EmbedSystem_WindowResize() AS:Embed_Check(nil, true) end,
+		set = function(info, value) AS:SetOption(info[#info], value) AS:EmbedSystem_WindowResize() AS:Embed_Check() end,
 		guiInline = false,
 		args = {
 			desc = {
@@ -302,22 +302,27 @@ function AS:GenerateOptions()
 				name = 'Embed Below Top Tab',
 				order = 12,
 			},
+			EmbedLeftChat = {
+				type = 'toggle',
+				name = 'Embed to Left Chat Window',
+				order = 12,
+			},
 			RecountBackdrop = {
 				type = 'toggle',
 				name = 'Recount Backdrop',
-				order = 13,
+				order = 14,
 				disabled = function() return not AS:CheckOption('RecountSkin', 'Recount') end
 			},
 			SkadaBackdrop = {
 				type = 'toggle',
 				name = 'Skada Backdrop',
-				order = 14,
+				order = 15,
 				disabled = function() return not AS:CheckOption('SkadaSkin', 'Skada') end
 			},
 			OmenBackdrop = {
 				type = 'toggle',
 				name = 'Omen Backdrop',
-				order = 15,
+				order = 16,
 				disabled = function() return not AS:CheckOption('OmenSkin', 'Omen') end
 			},
 		}
@@ -338,8 +343,8 @@ function AS:GenerateOptions()
 	local order = 2
 	for skinName, _ in AS:OrderedPairs(AS.register) do
 		if skinName ~= 'MiscFixes' then
-			if V.skins.addons[skinName] == nil then
-				print(format("%s %s: No default option for %s", AS.Title, AS.Version, skinName))
+			if V.addonskins[skinName] == nil then
+				AS:Print(format("Config: No default option for %s", skinName))
 			end
 			E.Options.args.addonskins.args.addons.args[skinName] = AS:GenerateOptionTable(skinName, order)
 			order = order + 1
