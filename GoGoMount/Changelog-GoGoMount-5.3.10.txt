@@ -1,0 +1,53 @@
+------------------------------------------------------------------------
+r412 | tiker | 2013-09-04 14:41:03 +0000 (Wed, 04 Sep 2013) | 1 line
+Changed paths:
+   A /tags/5.3.10 (from /trunk:411)
+
+Tagging as 5.3.10
+------------------------------------------------------------------------
+r411 | tiker | 2013-09-04 14:40:28 +0000 (Wed, 04 Sep 2013) | 3 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Button1 won't attempt to fly on the new island Timeless Isle
+- Button1 will attempt to fly in Northshire as long as the player has the Flight Master's License ability
+- Added support for Ashhide Mushan Beast
+------------------------------------------------------------------------
+r410 | tiker | 2013-08-22 18:36:46 +0000 (Thu, 22 Aug 2013) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+
+- Testing changes for Button 2 - should now remove any mount that can fly from section list rather than selecting mounts that work as ground mounts
+------------------------------------------------------------------------
+r409 | tiker | 2013-08-20 20:08:02 +0000 (Tue, 20 Aug 2013) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Fixed issue selecting Oculus flying mounts in the The Oculus (untested)
+------------------------------------------------------------------------
+r407 | tiker | 2013-08-16 18:52:03 +0000 (Fri, 16 Aug 2013) | 8 lines
+Changed paths:
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Added support for Kor'kron War Wolf
+- Added support for Prideful Gladiator's Cloud Serpent
+- Added support for Grievous Gladiator's Cloud Serpent
+- Added support for Thundering Onyx Cloud Serpent
+- Added support for Tyrannical Gladiator's Cloud Serpent
+- Added support for Kor'kron Juggernaut
+- Added support for Spawn of Galakras
+- Added support for Stormcrow
+------------------------------------------------------------------------
+r406 | tiker | 2013-07-16 15:14:24 +0000 (Tue, 16 Jul 2013) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Now removing Bamboozled when attempting to mount
+------------------------------------------------------------------------
