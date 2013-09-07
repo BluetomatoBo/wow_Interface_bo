@@ -97,25 +97,18 @@ function AS:SkinBigWigs(event, addon)
 	end
 
 	if (IsAddOnLoaded('BigWigs_Plugins') or event == "ADDON_LOADED" and addon == 'BigWigs_Plugins') then
+		local BigWigsBars = BigWigs:GetPlugin('Bars')
 		if Loaded then return end
 		Loaded = true
-		local BigWigsBars = BigWigs:GetPlugin('Bars')
-		local BigWigsProximity = BigWigs:GetPlugin('Proximity')
 		BigWigsBars:RegisterBarStyle("ElvUI", {
 			apiVersion = 1,
 			version = 1,
-			GetSpacing = function(bar) return 8 end,
+			GetSpacing = function(bar) return 4 end,
 			ApplyStyle = applystyle,
 			BarStopped = freestyle,
 			GetStyleName = function() return "ElvUI" end,
 		})
 		BigWigsBars:SetBarStyle("ElvUI")
-		hooksecurefunc(BigWigsProximity, 'RestyleWindow', function()
-			if BigWigs.pluginCore.modules.Bars.db.profile.barStyle == 'ElvUI' then
-				BigWigsProximityAnchor:SetTemplate('Transparent')
-			end
-		end)
-		BigWigsProximity:RestyleWindow()
 		AS:UnregisterEvent(name, "ADDON_LOADED")
 	end
 end
