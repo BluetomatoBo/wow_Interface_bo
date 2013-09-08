@@ -4,15 +4,15 @@
 --                                     --
 --                                     --
 --    Patch: 5.3.0                     --
---    Updated: June 19, 2013           --
+--    Updated: August 20, 2013         --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 50011;
-local WL_VERSION_PATCH = 4;
+local WL_VERSION = 50012;
+local WL_VERSION_PATCH = 0;
 
 
 -- SavedVariables
@@ -48,6 +48,17 @@ local WL_SPELL_BLACKLIST = {
 	[135299] = true, -- Ice Trap
 	[135373] = true, -- Entrapment
 };
+local WL_LOOT_TOAST_BAGS = {
+    [142397] = 98134, 	-- Heroic Cache of Treasures
+    [143506] = 98095, 	-- Brawler's Pet Supplies
+    [143507] = 94207, 	-- Fabled Pandaren Pet Supplies
+	[143508] = 89125, 	-- Sack of Pet Supplies
+	[143509] = 93146, 	-- Pandaren Spirit Pet Supplies
+	[143510] = 93147, 	-- Pandaren Spirit Pet Supplies
+    [143511] = 93149, 	-- Pandaren Spirit Pet Supplies
+	[143512] = 93148, 	-- Pandaren Spirit Pet Supplies
+    [147598] = 104014, 	-- Pouch of Timeless Coins
+};
 local WL_REP_MODS = {
 	[GetSpellInfo(61849)] = {nil, 0.1},
 	[GetSpellInfo(24705)] = {nil, 0.1},
@@ -56,6 +67,9 @@ local WL_REP_MODS = {
 	[GetSpellInfo(32098)] = {GetFactionInfoByID(946), 0.25},
 	[GetSpellInfo(39913)] = {GetFactionInfoByID(947), 0.1},
 	[GetSpellInfo(32096)] = {GetFactionInfoByID(947), 0.25},
+	[GetSpellInfo(39911)] = {GetFactionInfoByID(946), 0.1},
+	[GetSpellInfo(95987)] = {nil, 0.1},
+	[GetSpellInfo(100951)] = {nil, 0.08},
 };
 -- Map icon_file_name to currency ID
 local WL_CURRENCIES = {
@@ -84,6 +98,9 @@ local WL_CURRENCIES = {
 	["inv_misc_coin_18"] = 738, -- Lesser Charm of Good Fortune
 	["archaeology_5_0_mogucoin"] = 752, -- Mogu Rune of Fate
 	["inv_misc_archaeology_mantidstatue_01"] = 754, -- Mantid Archaeology Fragment
+	["inv_arcane_orb"] = 776, -- Warforged Seal
+	["timelesscoin"] = 777, -- Timeless Coin
+	["timelesscoin-bloody"] = 789, -- Bloody Coin
 };
 local VALOR_TIER1_LFG_ID = 301;
 -- Random Dungeon IDs extracted from LFGDungeons.dbc
@@ -253,11 +270,13 @@ local wlEventId = 1;
 local wlForgeSpells = {};
 local wlAnvilSpells = {};
 local wlRegisterCooldown = {};
+local wlLootToastSourceId = nil;
+local wlCurrentLootToastEventId = nil;
 
-local isBetaClient = false;
-if (tonumber(select(4, GetBuildInfo())) >= 50001) then
-	isBetaClient = true;
-end
+-- local isBetaClient = false;
+-- if (tonumber(select(4, GetBuildInfo())) >= 50001) then
+	-- isBetaClient = true;
+-- end
 
 -- Hooks
 local wlDefaultGetQuestReward;
@@ -368,11 +387,6 @@ function wlEvent_PLAYER_LOGIN(self)
 	
 	-- to make sure bag info is available
 	wlTimers.itemDurability = wlGetTime() + 20000;
-	
-	-- temp. removed to not interfere with live
-	-- if (isBetaClient) then
-		-- wlTimers.battlepets = wlGetTime() + 10000;
-	-- end
 
 	wlMessage(WL_LOADED:format(WL_NAME, WL_VERSION), true);
 end
@@ -987,13 +1001,6 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
--- Support PTR API change in 4.2
-function wlEvent_COMBAT_LOG_EVENT_UNFILTERED_40200(self, timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
-	wlEvent_COMBAT_LOG_EVENT_UNFILTERED(self, timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...);
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
 local WL_NPC_FLAGS = bit_bor(COMBATLOG_OBJECT_TYPE_NPC, COMBATLOG_OBJECT_TYPE_GUARDIAN);
 local WL_NPC_CONTROL_FLAGS = bit_bor(COMBATLOG_OBJECT_CONTROL_NPC, COMBATLOG_OBJECT_AFFILIATION_OUTSIDER);
 local WL_PET_FLAGS = bit_bor(COMBATLOG_OBJECT_TYPE_GUARDIAN, COMBATLOG_OBJECT_TYPE_PET);
@@ -1002,7 +1009,7 @@ local WL_MINDCONTROL_FLAGS = bit_bor(COMBATLOG_OBJECT_TYPE_PET, COMBATLOG_OBJECT
 local WL_PURE_NPC_FLAGS = bit_bor(COMBATLOG_OBJECT_TYPE_NPC, COMBATLOG_OBJECT_CONTROL_NPC, COMBATLOG_OBJECT_REACTION_HOSTILE, COMBATLOG_OBJECT_AFFILIATION_OUTSIDER);
 local wlMostRecentEliteKilled = {};
 local wlConsecutiveNpcKills = 0;
-function wlEvent_COMBAT_LOG_EVENT_UNFILTERED(self, timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, ...)
+function wlEvent_COMBAT_LOG_EVENT_UNFILTERED(self, timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
 	-- Extract Gas (Cloud)
 	if event == "SPELL_CAST_SUCCESS" and select(1, ...) == 30427 and sourceGUID == UnitGUID("player") then
 		wlClearTracker("spell");
@@ -1034,6 +1041,21 @@ function wlEvent_COMBAT_LOG_EVENT_UNFILTERED(self, timestamp, event, hideCaster,
 			-- spell_aura_applied is too dangerous for pets/guardians
 			-- exit if the pet is a freshly tamed npc
 			if event == "SPELL_AURA_APPLIED" or unitId == wlPetBlacklist then
+				return;
+			end
+			
+			local isBpet = false;
+			if (bit_band(COMBATLOG_OBJECT_TYPE_PET, sourceFlags) == COMBATLOG_OBJECT_TYPE_PET) then
+				isBpet = true;
+				for i=1, NUM_PET_ACTION_SLOTS do
+					local petSpellName, _, _, _, _, autoCastAllowed = GetPetActionInfo(i);
+					if petSpellName == spellName then
+						isBpet = false;
+						break;
+					end
+				end
+			end	
+			if (isBpet) then
 				return;
 			end
 			
@@ -1551,6 +1573,8 @@ function wlEvent_UNIT_SPELLCAST_SENT(self, unit, spell, rank, target, lineID)
 	if unit ~= "player" or not target or spellCastID then
 		return;
 	end
+	
+	wlPotentialBagTimer = nil;
 
 	local spellId = wlFindSpell(spell);
 
@@ -1652,6 +1676,16 @@ function wlEvent_UNIT_SPELLCAST_SUCCEEDED(self, unit, spell, rank, lineID, spell
 	end
 	
 	spellCastID = nil;
+	
+	local now = wlGetTime();
+	if WL_LOOT_TOAST_BAGS[spellId] then
+		wlClearTracker("spell");
+		wlTrackerClearedTime = now;
+		wlLootToastSourceId = WL_LOOT_TOAST_BAGS[spellId];
+		wlCurrentLootToastEventId = nil;
+		wlTimers.clearLootToastSource = now + 250;
+		return;
+	end
 
 	if wlForgeSpells[spellId] then
 		wlRegisterObject(WL_FORGE_ID);
@@ -1679,6 +1713,55 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
+function wlEvent_SHOW_LOOT_TOAST(self, typeIdentifier, itemLink, quantity, specID)
+	if not typeIdentifier or (typeIdentifier ~= "item" and typeIdentifier ~= "money") then
+        return;
+    end
+	
+	if wlLootToastSourceId then
+	
+		if not wlEvent or not wlId or not wlEvent[wlId] or not wlN or not wlEvent[wlId][wlN] then
+			return;
+		end
+			
+		local _, _, mshome, msworld = GetNetStats();
+		if mshome > WL_PING_MAX or msworld > WL_PING_MAX then
+			return;
+		end
+		
+		if not wlCurrentLootToastEventId then
+			wlCurrentLootToastEventId = wlGetNextEventId();
+		end
+		local eventId = wlCurrentLootToastEventId;	
+	
+		wlTracker.spell.action = "Opening";
+		wlTracker.spell.kind = "item";
+		wlTracker.spell.id = wlLootToastSourceId;
+		wlUpdateVariable(wlEvent, wlId, wlN, eventId, "initArray", 0);
+		wlEvent[wlId][wlN][eventId].what = "loot";
+		wlTableCopy(wlEvent[wlId][wlN][eventId], wlTracker.spell);
+		wlEvent[wlId][wlN][eventId].dd = wlGetInstanceDifficulty();
+		wlEvent[wlId][wlN][eventId].flags = 0;
+		
+		local typeId = nil;
+		if typeIdentifier == "item" then
+			typeId = wlParseItemLink(itemLink);
+		elseif typeIdentifier == "money" then
+			typeId = "coin";
+		end
+		
+		wlEvent[wlId][wlN][eventId]["drop"] = wlEvent[wlId][wlN][eventId]["drop"] or {};	
+		wlEvent[wlId][wlN][eventId].fromLootToast = 1;		
+		wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", #wlEvent[wlId][wlN][eventId]["drop"] + 1, "set", wlConcat(typeId, quantity));
+		
+	end
+	
+	wlClearTracker("spell");
+	wlTrackerClearedTime = wlGetTime();
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
 function wlBagItemOnUse(link, bag, slot)
 	local now = wlGetTime();
 	if wlIsValidInterval(wlTracker.spell.time or 0, now, 250) and wlTracker.spell.kind == "item" and wlTracker.spell.event == "SENT" then
@@ -1699,14 +1782,15 @@ function wlBagItemOnUse(link, bag, slot)
 	if link and (not bag or not slot) then
 		bag, slot = wlGuessBagAndSlot(link);
 	end
-	if bag and slot then
-		local id = wlParseItemLink(link);
+	
+	local id = wlParseItemLink(link);
+	local openable = select(6, GetContainerItemInfo(bag, slot));
+	if bag and slot and openable then	
 		wlGameTooltip:ClearLines();
 		wlGameTooltip:SetBagItem(bag, slot);
 		for i=2, wlGameTooltip:NumLines() do
 			local text = _G["wlGameTooltipTextLeft"..i]:GetText();
-			local openable = select(6, GetContainerItemInfo(bag, slot));
-			if openable and text == ITEM_OPENABLE then
+			if text == ITEM_OPENABLE then
 				wlClearTracker("spell");
 				wlTrackerClearedTime = now;
 
@@ -2035,11 +2119,7 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlIsInParty()
-	if (not isBetaClient) then
-		return GetNumPartyMembers() > 0 or GetNumRaidMembers() > 1;
-	else
-		return GetNumSubgroupMembers() > 0 or GetNumGroupMembers() > 1;
-	end
+	return GetNumSubgroupMembers() > 0 or GetNumGroupMembers() > 1;
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -2056,7 +2136,7 @@ end
 
 function wlPlaceAuctionBid(aType, aIndex, bid)
 	local id, subId, enchant, socket1, socket2, socket3, socket4 = wlParseItemLink(GetAuctionItemLink(aType, aIndex));
-	local count, _, _, _, _, _, buyoutPrice = select(3, GetAuctionItemInfo(aType, aIndex));
+	local count, _, _, _, _, _, _, buyoutPrice = select(3, GetAuctionItemInfo(aType, aIndex));
 
 	if bid == buyoutPrice and id ~= 0 and enchant == 0 and socket1 == 0 and socket2 == 0 and socket3 == 0 and socket4 == 0 and count > 0 then
 		-- checking for cross faction auction house
@@ -2738,6 +2818,7 @@ local wlEvents = {
 	-- drops
 	LOOT_OPENED = wlEvent_LOOT_OPENED,
 	LOOT_CLOSED = wlEvent_LOOT_CLOSED,
+	SHOW_LOOT_TOAST = wlEvent_SHOW_LOOT_TOAST,
 	CHAT_MSG_ADDON = wlEvent_CHAT_MSG_ADDON,
 	UNIT_SPELLCAST_SENT = wlEvent_UNIT_SPELLCAST_SENT,
 	UNIT_SPELLCAST_SUCCEEDED = wlEvent_UNIT_SPELLCAST_SUCCEEDED,
@@ -2768,9 +2849,9 @@ local wlEvents = {
 	ARTIFACT_HISTORY_READY = wlEvent_ARTIFACT_HISTORY_READY,
 	ARTIFACT_COMPLETE = wlEvent_ARTIFACT_COMPLETE,
 	
-	-- battlepets
-	PET_JOURNAL_LIST_UPDATE = wlEvent_PET_JOURNAL_LIST_UPDATE,
-	PET_BATTLE_LEVEL_CHANGED = wlEvent_PET_BATTLE_LEVEL_CHANGED,
+	-- battlepets events disabled for now
+	-- PET_JOURNAL_LIST_UPDATE = wlEvent_PET_JOURNAL_LIST_UPDATE,
+	-- PET_BATTLE_LEVEL_CHANGED = wlEvent_PET_BATTLE_LEVEL_CHANGED,
 	
 	BLACK_MARKET_ITEM_UPDATE = wlEvent_BLACK_MARKET_ITEM_UPDATE,
 };
@@ -2782,14 +2863,6 @@ function wlGetClientVersion()
 	local version = GetBuildInfo();
 	local major,minor,patch = strsplit(".", version);
 	return ((10000*major) + (100*minor) + (patch));
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
--- Support PTR version
-local wlClientVersion = wlGetClientVersion();
-if wlClientVersion >= 40200 then
-	wlEvents.COMBAT_LOG_EVENT_UNFILTERED = wlEvent_COMBAT_LOG_EVENT_UNFILTERED_40200;
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -3206,6 +3279,10 @@ function wl_OnUpdate(self, elapsed)
 				if name == "autoCollect" then
 					wlCollect();
 					
+				elseif name == "clearLootToastSource" then
+					wlLootToastSourceId = nil;
+					wlCurrentLootToastEventId = nil;
+					
 				elseif name == "battlepets" then
 					scanBattlePetData();
 					
@@ -3484,19 +3561,13 @@ end
 --------------------------
 --------------------------
 
--- |cff9d9d9d|Hitem:3170:0:0:0:0:0:0:467839504:80:0:0|h[Large Bear Tooth]|h|r : 5
--- |cff9d9d9d|Hitem:62328:0:0:0:0:0:0:488826832:80:0:0|h[Shed Fur]|h|r : 5
-
---	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : (??) : (?? added in MoP) : (name)
-local WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)|h%[(.+)%]|h|r";
-if (isBetaClient) then
-	WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)|h%[(.+)%]|h|r";
-end
+--	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : reforgeId : upgradeId : (name)
+local WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)|h%[(.+)%]|h|r";
 
 function wlParseItemLink(link)
 	if link then
 
-		local found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, unk1, unk2, name = link:find(WL_ITEMLINK);
+		local found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, reforgeId, upgradeId, name = link:find(WL_ITEMLINK);
 
 		if found then
 			id, subId, guid = tonumber(id), tonumber(subId), tonumber(guid);
@@ -4157,11 +4228,7 @@ function wlGetPlayerSpec()
 		count = count + 1;
 	end
 	if count == #wlInventoryCheck then
-		if (isBetaClient) then
-			return GetSpecialization() or 0;
-		else
-			return GetPrimaryTalentTree() or 0;
-		end
+		return GetSpecialization() or 0;
 	end
 	
 	return nil;
@@ -4330,7 +4397,7 @@ function wlGetDodgePerAgi(lvl, class)
 		return 0;
 	end
 	
-	if not isBetaClient then -- temp fix for MoP
+	if false then -- temp fix for MoP
 		if class == "DRUID" then
 			local _, _, _, _, num = GetTalentInfo(2, 1); -- Feral Swiftness
 			local _, _, _, _, num2 = GetTalentInfo(2, 18); -- Natural Reaction
@@ -4364,9 +4431,11 @@ function wlGetDodgePerAgi(lvl, class)
 	local a = -A_g*A_b;
 	local b = A_g*(D_dr-D_b)-A_b*(D_r+C*k)-C*A_g;
 	local c = (D_dr-D_b)*(D_r+C*k)-C*D_r;
-	local dodgePerAgi = (-b-(b^2-4*a*c)^0.5)/(2*a);
+	local dodgePerAgi;
 	if a == 0 then
 		dodgePerAgi = -c / b;
+	else
+		dodgePerAgi = (-b-(b^2-4*a*c)^0.5)/(2*a);
 	end
 	
 	return dodgePerAgi;
@@ -4860,7 +4929,7 @@ function wlGetStatModifier(statIndex, class, spec)
 			if pass then
 				local r, s = 1, 1;
 				-- if talent field
-				if tbl.tab and tbl.tal and not isBetaClient then -- temp fix for MoP
+				if tbl.tab and tbl.tal and false then -- temp fix for MoP
 					_, _, _, _, r = GetTalentInfo(tbl.tab, tbl.tal);
 				-- no talent but all other given conditions are statisfied
 				end
