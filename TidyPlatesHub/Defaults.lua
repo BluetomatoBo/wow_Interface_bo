@@ -8,18 +8,18 @@ TidyPlatesHubDefaults = {
 	-- Profile
 	---------------------------------------
 	UseGlobalSet = false,
-	
+
 	-- Style
 	---------------------------------------
 	--ArtDefault = "Blizzard",
-	StyleTheme = 3, 
-	StyleEnemyMode = 1, 
+	StyleTheme = 3,
+	StyleEnemyMode = 1,
 	StyleFriendlyMode = 1,
-	
+
 	-- Headline
 	TextPlateNameColorMode = 4,
 	TextPlateFieldMode = 3,
-	
+
 	-- Opacity
 	---------------------------------------
 	OpacityTarget = 1,
@@ -29,12 +29,12 @@ TidyPlatesHubDefaults = {
 	OpacityFullSpell = false,				-- Bring Casting units to Full Opacity
 	OpacityFullNoTarget = true,				-- Use full opacity when No Target
 	OpacityFullMouseover = false,
-	
+
 	-- Filter
 	---------------------------------------
 	OpacityFiltered = 0,
 	ScaleFiltered = .8,
-	
+
 	OpacityFilterNeutralUnits = false,		-- OpacityHideNeutral = false,
 	OpacityFilterNonElite = false,			-- OpacityHideNonElites = false,
 	OpacityFilterNPC = false,
@@ -49,19 +49,19 @@ TidyPlatesHubDefaults = {
 	---------------------------------------
 	ScaleStandard = 1,
 	ScaleSpotlight = 1.2,
-	ScaleSpotlightMode = 4, 
+	ScaleSpotlightMode = 4,
 	ScaleIgnoreNeutralUnits = false,
 	ScaleIgnoreNonEliteUnits = false,
 	ScaleIgnoreInactive = false,
 	ScaleCastingSpotlight = false,
-	
+
 	-- Text
 	---------------------------------------
 	TextShowLevel = false,
 	TextUseBlizzardFont = false,
 	TextHealthTextMode = 1,
-	TextShowOnlyOnTargets = false, 
-	
+	TextShowOnlyOnTargets = false,
+
 	-- Color
 	---------------------------------------
 	ColorHealthBarMode = 3,
@@ -69,9 +69,9 @@ TidyPlatesHubDefaults = {
 	TextNameColorMode = 1,
 	ClassColorPartyMembers = false,
 	ColorEnableOffTank = false,
-	
+
 	-- Threat
-	ThreatMode = 1, 
+	ThreatMode = 1,
 	ColorAttackingMe = {r = .8, g = 0, b = 0,},		-- Orange
 	ColorAggroTransition = {r = 255/255, g = 160/255, b = 0},	-- Yellow
 	--ColorAggroTransition = {r = 255/255, g = 128/255, b = 0},	-- Orange
@@ -84,8 +84,8 @@ TidyPlatesHubDefaults = {
 	ColorPartyAggroBar = false,
 	ColorPartyAggroGlow = true,
 	ColorPartyAggroText = false,
-	
-	
+
+
 	-- Reaction
 	---------------------------------------
 	ColorFriendlyNPC = {r = 0, g = 1, b = 0,},
@@ -94,20 +94,20 @@ TidyPlatesHubDefaults = {
 	ColorHostileNPC = {r = 1, g = 0, b = 0,},
 	ColorHostilePlayer = {r = 1, g = 0, b = 0,},
 	ColorGuildMember = {r = 60/255, g = 168/255, b = 255/255,},
-	
+
 	TextColorFriendlyNPC = {r = 96/255, g = 224/255, b = 37/255,},
 	TextColorFriendlyPlayer = {r = 60/255, g = 168/255, b = 255/255,},
 	TextColorNeutral = {r = 252/255, g = 180/255, b = 27/255,},
 	TextColorHostileNPC = {r = 255/255, g = 51/255, b = 32/255,},
 	TextColorHostilePlayer = {r = 255/255, g = 51/255, b = 32/255,},
 	TextColorGuildMember = {r = 60/255, g = 168/255, b = 255/255,},
-	
+
 	-- Casting
 	---------------------------------------
 	ColorNormalSpellCast = { r = 252/255, g = 140/255, b = 0, },
 	ColorUnIntpellCast = { r = 0.5137243866920471, g = 0.7529395222663879, b = 0.7647042274475098, },
-			
-	
+
+
 	-- Health
 	---------------------------------------
 	HighHealthThreshold = .7,
@@ -115,7 +115,7 @@ TidyPlatesHubDefaults = {
 	ColorLowHealth = {r = 1, g = 0, b = 0,},		-- Orange
 	ColorMediumHealth = {r = 1, g = 1, b = 0},	-- Yellow
 	ColorHighHealth = {r = 0, g = 1, b = .2},	-- Bright Blue
-	
+
 	-- Widgets
 	---------------------------------------
 	WidgetTargetHighlight = true,
@@ -129,7 +129,7 @@ TidyPlatesHubDefaults = {
 	WidgetsRangeIndicator = false,
 	WidgetsRangeMode = 1,
 	WidgetsEnableExternal = true,
-	
+
 	-- Aura Widget
 	---------------------------------------
 	WidgetsDebuff = true,
@@ -137,19 +137,18 @@ TidyPlatesHubDefaults = {
 	WidgetsAuraMode = 1,
 	WidgetsDebuffTrackList = "My Rake\nMy Rip\nMy Moonfire\nAll 339\nMy Regrowth\nMy Rejuvenation",
 	WidgetsDebuffLookup = {},
-	WidgetsDebuffPriority = {},	
+	WidgetsDebuffPriority = {},
 	WidgetAuraTrackDispelFriendly = false,
-	WidgetAuraTrackCurse = true, 
-	WidgetAuraTrackDisease = true, 
-	WidgetAuraTrackMagic = true, 
+	WidgetAuraTrackCurse = true,
+	WidgetAuraTrackDisease = true,
+	WidgetAuraTrackMagic = true,
 	WidgetAuraTrackPoison = true,
-	
-	
-	
+
 	-- Frame
 	---------------------------------------
 	FrameVerticalPosition = .7,
 	AdvancedEnableUnitCache = true,
+	--AdvancedHealthTextList = [[return unit.health]],
 }
 
 TidyPlatesHubGlobal = CopyTable(TidyPlatesHubDefaults)

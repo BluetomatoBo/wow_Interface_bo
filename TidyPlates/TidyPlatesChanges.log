@@ -1,8 +1,32 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
-Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   
+Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
-To Do:
-- Check unit.health on all externally bound functions
+6.12.0
+---------------------------
+- Core: Compatibility Mode: Restored alpha-override behavior
+- Hub: Warning Glow: Fixed InCombatLockdown() reference
+
+6.12.Beta4
+---------------------------
+- I may have fixed some bugs.  Or maybe that was a dream.  Hard to recall whilst under Benadryl's spell.
+- Ok, I definitely changed some things, and I'm not getting errors in game.  That's a good sign.
+- Made some changes to (hopefully) fix 1) debuff tracking oddities, and 2) lua error using health text.
+
+6.12.Beta3
+---------------------------
+- Added a workaround/fix to the broken Blizzard function, InterfaceOptionsFrame_OpenToCategory.  Slash command shortcuts for /hub and /tidyplates will now work properly.
+- Added a Compatibility Mode checkbox to the interface panel.  This will fall back to older anchoring methods.
+- Core: The OnShow handler will skip all data gather on that first cycle; The Alpha data is (still) unreliable, causing GUID association issues.
+
+6.12.Beta2
+---------------------------
+- Updated 6.12 with the changes made to the castbar during 6.11.  (Since 6.12 inherits the 6.10 core, it didn't see the progression)
+- Aura Widget: Fixed issue where aura is briefly shown, then hidden.  Should be fixed.
+- Added a copy of the reference to healthbar and castbar. for Threat Plates Compatibility.
+
+6.12.Beta1
+---------------------------
+- Reintegration of 6.10 Core, which includes reorganization and rebuilding of the main engine.
 
 6.11.3
 ---------------------------
@@ -18,7 +42,7 @@ To Do:
 
 6.11
 ---------------------------
-- Basically, I've given up trying to quickly patch up 6.10.  I've reverted to 6.9.9, and made the changes necessary for it to work with WoW 5.3.  If you want the Performance Mode stuff, grab the old version, or keep an eye out for it to be Re-Beta'd as 6.12.  
+- Basically, I've given up trying to quickly patch up 6.10.  I've reverted to 6.9.9, and made the changes necessary for it to work with WoW 5.3.  If you want the Performance Mode stuff, grab the old version, or keep an eye out for it to be Re-Beta'd as 6.12.
 
 These are the changes that I've migrated:
 - Spell Casting Update, for WoW 5.3
@@ -34,11 +58,11 @@ These are the changes that I've migrated:
 ---------------------------
 * Performance Mode:
 By default this is NOT enabled, reverting to the older, slower, reliable method.
-Using Performance Mode may break HHTD and other nameplate addons.  
-You may also experience 'hung' nameplates.  Please report these, and try to be as 
+Using Performance Mode may break HHTD and other nameplate addons.
+You may also experience 'hung' nameplates.  Please report these, and try to be as
 specific as possible in describing the condition of the game when it occured.
 
-- Core: (Since 6.10.2) Performance Mode:  This enables the performance improvements introduced in 6.10. 	
+- Core: (Since 6.10.2) Performance Mode:  This enables the performance improvements introduced in 6.10.
 - Core: Reintegrated original Alpha locking
 - Core: More reorganization, pruning of old, dead methods
 - Core: Set initial fonts during Init/Hooking.  Removes the possibility of :SetFont() errors.  Not sure why I didn't do this years ago.
@@ -47,7 +71,7 @@ specific as possible in describing the condition of the game when it occured.
 6.10.2
 ---------------------------
 - Panel: New Option: Performance Mode.  This enables the performance improvements introduced in 6.10.  By default this is NOT enabled.
-- Using "Performance Mode" may cause problems with other nameplate addons.  
+- Using "Performance Mode" may cause problems with other nameplate addons.
 
 6.10.1
 ---------------------------

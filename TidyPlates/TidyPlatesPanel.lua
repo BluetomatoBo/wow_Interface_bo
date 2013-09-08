@@ -22,15 +22,19 @@ local function SetAutoHide(option)
 	if useAutoHide and (not InCombat) then SetCVar("nameplateShowEnemies", 0) end
 end
 
+--[[
 local function SetSpellCastWatcher(enable)
 	if enable then TidyPlates:StartSpellCastWatcher()
 	else TidyPlates:StopSpellCastWatcher()	end
 end
+--]]
 
 local function SetSoftTransitions(enable)
 	if enable then TidyPlates:EnableFadeIn()
 		else TidyPlates:DisableFadeIn() end
 end
+
+local EnableCompatibilityMode = TidyPlates.EnableCompatibilityMode
 
 
 -------------------------------------------------------------------------------------
@@ -42,12 +46,13 @@ TidyPlatesOptions = {
 	secondary = defaultSecondaryTheme,
 	FriendlyAutomation = NO_AUTOMATION,
 	EnemyAutomation = NO_AUTOMATION,
-	EnableCastWatcher = false,
+	--EnableCastWatcher = false,
 	DisableSoftTransitions = false,
+	CompatibilityMode = false,
 	WelcomeShown = false,
 	--VariableVersion = CurrentVariableVersion,
-	EnableMinimapButton = false,
-	_EnableMiniButton = false,
+	--EnableMinimapButton = false,
+	--_EnableMiniButton = false,
 }
 
 local TidyPlatesOptionsDefaults = copytable(TidyPlatesOptions)
@@ -331,22 +336,30 @@ local primarySpecName, primarySpecDescription, primarySpecIcon, primarySpecBackg
 	BlizzOptionsButton:SetWidth(260)
 	BlizzOptionsButton:SetText("Nameplate Motion & Visibility")
 
+	--[[
 	-- Cast Watcher
 	panel.EnableCastWatcher = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableCastWatcher", panel, "Show Off-Target Cast Bars")
 	panel.EnableCastWatcher:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
 	panel.EnableCastWatcher:SetScript("OnClick", function(self) SetSpellCastWatcher(self:GetChecked()) end)
-	panel.EnableCastWatcher:Hide()
+--]]
 
 	-- Soft Transitions
-	panel.DisableSoftTransitions = PanelHelpers:CreateCheckButton("TidyPlatesOptions_DisableSoftTransitions", panel, "Disable Alpha/Scale Transition Effects")
+	panel.DisableSoftTransitions = PanelHelpers:CreateCheckButton("TidyPlatesOptions_DisableSoftTransitions", panel, "Disable Transition Effects")
 	panel.DisableSoftTransitions:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
 	panel.DisableSoftTransitions:SetScript("OnClick", function(self) SetSoftTransitions(not self:GetChecked()) end)
 
+	-- CompatibilityMode
+	panel.CompatibilityMode = PanelHelpers:CreateCheckButton("TidyPlatesOptions_CompatibilityMode", panel, "Compatibility Mode (Requires UI Reload)")
+	panel.CompatibilityMode:SetPoint("TOPLEFT", panel.DisableSoftTransitions, "TOPLEFT", 0, -35)
+	panel.CompatibilityMode:SetScript("OnClick", function(self) if self:GetChecked() then EnableCompatibilityMode() end; end)
+
 	-- Minimap Button
+	--[[
 	panel.EnableMinimapButton = PanelHelpers:CreateCheckButton("TidyPlatesOptions_EnableMinimapButton", panel, "Enable Minimap Icon")
 	panel.EnableMinimapButton:SetPoint("TOPLEFT", panel.DisableSoftTransitions, "TOPLEFT", 0, -35)
 	-- panel.EnableMinimapButton:SetScript("OnClick", function(self) if self:GetChecked() then TidyPlatesUtility:ShowMinimapButton() else TidyPlatesUtility:HideMinimapButton() end; end)
 	panel.EnableMinimapButton:Hide()
+	--]]
 
 	-- Reset
 	ResetButton = CreateFrame("Button", "TidyPlatesOptions_ResetButton", panel, "TidyPlatesPanelButtonTemplate")
@@ -362,10 +375,11 @@ local primarySpecName, primarySpecDescription, primarySpecIcon, primarySpecBackg
 	local function RefreshPanel()
 		panel.PrimarySpecTheme:SetValue(TidyPlatesOptions.primary)
 		panel.SecondarySpecTheme:SetValue(TidyPlatesOptions.secondary)
-		panel.EnableCastWatcher:SetChecked(TidyPlatesOptions.EnableCastWatcher)
+		--panel.EnableCastWatcher:SetChecked(TidyPlatesOptions.EnableCastWatcher)
 		panel.DisableSoftTransitions:SetChecked(TidyPlatesOptions.DisableSoftTransitions)
+		panel.CompatibilityMode:SetChecked(TidyPlatesOptions.CompatibilityMode)
 
-		panel.EnableMinimapButton:SetChecked(TidyPlatesOptions.EnableMinimapButton)
+		--panel.EnableMinimapButton:SetChecked(TidyPlatesOptions.EnableMinimapButton)
 		panel.AutoShowFriendly:SetValue(TidyPlatesOptions.FriendlyAutomation)
 		panel.AutoShowEnemy:SetValue(TidyPlatesOptions.EnemyAutomation)
 
@@ -418,8 +432,9 @@ InterfaceOptions_AddCategory(panel);
 
 
 local function ApplyAutomationSettings()
-	SetSpellCastWatcher(TidyPlatesOptions.EnableCastWatcher)
+	--SetSpellCastWatcher(TidyPlatesOptions.EnableCastWatcher)
 	SetSoftTransitions(not TidyPlatesOptions.DisableSoftTransitions)
+	if TidyPlatesOptions.CompatibilityMode then EnableCompatibilityMode() end
 
 	if TidyPlatesOptions._EnableMiniButton then
 		TidyPlatesUtility:CreateMinimapButton()
@@ -434,10 +449,11 @@ ApplyPanelSettings = function()
 	TidyPlatesOptions.secondary = panel.SecondarySpecTheme:GetValue()
 	TidyPlatesOptions.FriendlyAutomation = panel.AutoShowFriendly:GetValue()
 	TidyPlatesOptions.EnemyAutomation = panel.AutoShowEnemy:GetValue()
-	TidyPlatesOptions.EnableCastWatcher = panel.EnableCastWatcher:GetChecked()
+	--TidyPlatesOptions.EnableCastWatcher = panel.EnableCastWatcher:GetChecked()
 	TidyPlatesOptions.DisableSoftTransitions = panel.DisableSoftTransitions:GetChecked()
+	TidyPlatesOptions.CompatibilityMode = panel.CompatibilityMode:GetChecked()
 
-	TidyPlatesOptions.EnableMinimapButton = panel.EnableMinimapButton:GetChecked()
+	--TidyPlatesOptions.EnableMinimapButton = panel.EnableMinimapButton:GetChecked()
 
 	-- Clear Widgets
 	if TidyPlatesWidgets then TidyPlatesWidgets:ResetWidgets() end
@@ -462,33 +478,33 @@ local function CreatePopup()
 				button1 = "Reset Configuration",
 				button2 = "Ignore",
 				OnCancel = function()
-				    
+
 				end,
 				OnAccept = function()
 					-- InterfaceOptionsFrame_OpenToCategory(panel)
-					
+
 					-- Wipe Core
 					TidyPlatesOptions = wipe(TidyPlatesOptions)
 					for i, v in pairs(TidyPlatesOptionsDefaults) do TidyPlatesOptions[i] = v end
 					SetCVar("nameplateShowFriends", 0)
-					
+
 					-- Wipe Hub
 					for objectname, set in pairs(TidyPlatesHubSettings) do
-						for varname, data in pairs(set) do 
+						for varname, data in pairs(set) do
 							TidyPlatesHubSettings[objectname][varname] = nil
 						end
 						TidyPlatesHubSettings[objectname] = nil
 					end
-					
+
 					ReloadUI()
-					
+
 				end,
 				--timeout = 10,
 				whileDead = true,
 				hideOnEscape = true,
 				preferredIndex = STATICPOPUP_NUMDIALOGS + 1,  -- avoid some UI taint, see http://www.wowace.com/announcements/how-to-avoid-some-ui-taint/
 	}
-	StaticPopup_Show ("EXAMPLE_HELLOWORLD")	
+	StaticPopup_Show ("EXAMPLE_HELLOWORLD")
 end
 --]]
 
@@ -501,7 +517,7 @@ local function ShowWelcome()
 		SetCVar("threatWarning", 3)		-- Required for threat/aggro detection
 		TidyPlatesOptions.WelcomeShown = true
 	end
-	
+
 	--[[
 	if TidyPlatesOptions.VariableVersion ~= CurrentVariableVersion then
 		CreatePopup()
@@ -523,7 +539,7 @@ local function ShowWarnings()
 				"Please uninstall Tidy Plates, and then re-install.  You do NOT need to clear your variables.")
 		end
 	end
-	
+
 
 	--[[ Warn user if no theme is selected
 	if currentThemeName == TidyPlatesDefaultThemeName and not warned[activespec] then
@@ -597,11 +613,17 @@ for eventname in pairs(panelevents) do panel:RegisterEvent(eventname) end
 TidyPlatesSlashCommands = {}
 --TidyPlatesSlashCommands.reset = function() print("Tidy Plates: Variables have been reset"); TidyPlatesOptions = copytable(TidyPlatesOptionsDefaults); LoadTheme(TidyPlatesOptions[activespec]) end
 
+
 function slash_TidyPlates(arg)
 	if type(TidyPlatesSlashCommands[arg]) == 'function' then
 		TidyPlatesSlashCommands[arg]()
 		TidyPlates:ForceUpdate()
-	else InterfaceOptionsFrame_OpenToCategory(panel) end
+	else
+		--InterfaceOptionsFrame_OpenToCategory("Tidy Plates")
+		--InterfaceOptionsFrame_OpenToCategory(panel)
+		--InterfaceOptionsFrame_OpenToCategory_Fix(panel)
+		TidyPlatesUtility.OpenInterfacePanel(panel)
+	end
 end
 
 SLASH_TIDYPLATES1 = '/tidyplates'
