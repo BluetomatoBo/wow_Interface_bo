@@ -79,6 +79,7 @@ DBM_CORE_VERSIONCHECK_ENTRY_TWO		= "%s: %s (r%d) & %s (r%d)"
 DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM	= "%s：尚未安裝任何團隊首領模組"
 DBM_CORE_VERSIONCHECK_FOOTER			= "團隊中有%d玩家正在使用DBM / %d玩家正在使用Bigwigs"
 DBM_CORE_YOUR_VERSION_OUTDATED			= "你的 Deadly Boss Mod 已經過期。請到 www.deadlybossmods.com 下載最新版本。"
+DBM_CORE_OUTDATED_PVP_MODS			= "你的DBM-PvP模組已經過期而且如果不使用請移除,或是更新最新的獨立包. 這些模組不在包含在DBM-Core下載. 尋找最新的PVP模組在http://www.deadlybossmods.com"
 --DBM_BIG_WIGS (Same as English locales)
 --DBM_BIG_WIGS_ALPHA (Same as English locales)
 
@@ -129,7 +130,7 @@ DBM_CORE_SLASHCMD_HELP				= {
 	"/dbm pull <秒數>: 開始備戰計時器<秒數>。向所有團隊成員發送一個DBM備戰計時器（需要團隊隊長或助理權限）。",
 	"/dbm arrow: 顯示DBM箭頭, 輸入 /dbm arrow help 獲得更多訊息。",
 	"/dbm lockout: 向團隊成員請求他們當前的團隊副本鎖定訊息(鎖定訊息、副本id) (需要團隊隊長或助理權限)。",
-	"/dbm help：顯示可用命令的說明。",
+	"/dbm help：顯示可用命令的說明。"
 }
 
 DBM_ERROR_NO_PERMISSION				= "無權進行此操作。"
@@ -142,6 +143,10 @@ DBM_CORE_LEFT						= "左"
 DBM_CORE_RIGHT						= "右"
 DBM_CORE_BACK						= "後"
 DBM_CORE_FRONT						= "前"
+
+DBM_CORE_SETTO						= "設置為："
+DBM_CORE_SETWISP					= "的觀察目標設置為你，請協助檢查是否正確。"
+DBM_CORE_WRONGSET					= "|cFFFF0000你輸入了錯誤的內容："
 
 DBM_CORE_BREAK_START				= "現在開始休息-你有%s分鐘!"
 DBM_CORE_BREAK_MIN					= "%s分鐘後休息時間結束!"
@@ -202,6 +207,7 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	target					= ">%%s<中了%s",
 	close					= "你附近的>%%s<中了%s",
 	move					= "%s - 快移動",
+	reflect					= "%s - 停止攻擊",
 	run						= "%s - 快躲開",
 	cast					= "%s - 停止施法",
 	count 					= "%s! (%%d)",
@@ -217,6 +223,7 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	soon					= "特別警告：$spell:%s即将到来",
 	prewarn					= "特別警告：%d秒後$spell:%s",
 	dispel					= "特別警告：需要驅散/竊取$spell:%s時",
+	reflect 				= "特別警告：$spell:%s需要停止攻擊時",--Spell Reflect
 	interrupt				= "特別警告：需要打斷$spell:%s時",
 	you						= "特別警告：當你中了$spell:%s時",
 	target					= "特別警告：當有人中了$spell:%s時",
@@ -284,7 +291,7 @@ DBM_ARROW_ERROR_USAGE	= {
 	"/dbm arrow <x> <y>  建立一個箭頭在特定的位置(0 < x/y < 100)",
 	"/dbm arrow <玩家>  建立並箭頭指向你的隊伍或團隊中特定的玩家",
 	"/dbm arrow hide  隱藏箭頭",
-	"/dbm arrow move  可移動箭頭",
+	"/dbm arrow move  可移動箭頭"
 }
 
 DBM_SPEED_KILL_TIMER_TEXT	= "勝利紀錄"
