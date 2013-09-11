@@ -1,19 +1,21 @@
 ------------------------------------------------------------------------
-r42 | yess | 2013-03-25 22:32:16 +0000 (Mon, 25 Mar 2013) | 1 line
+r45 | yess | 2013-09-11 10:12:45 +0000 (Wed, 11 Sep 2013) | 1 line
 Changed paths:
-   A /tags/v1.3 (from /trunk:41)
+   A /tags/v1.3.1 (from /trunk:44)
 
-Tagging as v1.3
+Tagging as v1.3.1
 ------------------------------------------------------------------------
-r41 | yess | 2013-03-25 22:25:32 +0000 (Mon, 25 Mar 2013) | 1 line
+r44 | yess | 2013-09-11 10:06:25 +0000 (Wed, 11 Sep 2013) | 1 line
 Changed paths:
    M /trunk/BlizzMove.toc
 
 Update TOC
 ------------------------------------------------------------------------
-r40 | yess | 2012-12-17 03:32:00 +0000 (Mon, 17 Dec 2012) | 1 line
+r43 | yess | 2013-07-08 00:18:26 +0000 (Mon, 08 Jul 2013) | 2 lines
 Changed paths:
    M /trunk/BlizzMove.lua
+   M /trunk/BlizzMove.toc
 
-Fixed db not set when an addon was loaded before Blizzmove. Ticket #21
+.)Update TOC
+.)Added ColorPickerFrame ticket #24
 ------------------------------------------------------------------------
