@@ -131,8 +131,8 @@ Lib.Filters.bind = {
 		return self.keywords[search]
 	end,
 
-	match = function(self, itemLink, _, search)
-		return search and link_FindSearchInTooltip(itemLink, search)
+	match = function(self, link, _, search)
+		return search and link_FindSearchInTooltip(link, search)
 	end,
 
 	keywords = {
@@ -160,13 +160,10 @@ Lib.Filters.tooltip = {
 
 		for i = 1, tooltipScanner:NumLines() do
 			local text =  _G[tooltipScanner:GetName() .. 'TextLeft' .. i]:GetText():lower()
-			
 			if text:find(search) then
 				return true
 			end
 		end
-
-		return false
 	end,
 }
 
