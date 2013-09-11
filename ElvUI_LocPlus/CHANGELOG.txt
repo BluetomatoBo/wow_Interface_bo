@@ -1,3 +1,6 @@
+[b]1.81[/b]
+*toc update for patch 5.4
+
 [b]1.80[/b]
 *toc update for patch 5.3
 *Added option to also display Battle Pet level, Fishing level or Area Level, on the Location Panel. Also optionally show a corresponding icon.

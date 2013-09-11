@@ -46,8 +46,8 @@ do
 end
 
 -- Status
-local function LocStatus()
-	local status
+local function LocStatus(status, r, g, b)
+	local status = ""
 	local statusText
 	local r, g, b = 1, 1, 0
 	local pvpType, _, factionName = GetZonePVPInfo()
@@ -125,6 +125,24 @@ end
 
 end
 
+local function LocRecFilter(zone)
+	
+	local isHd, isAl
+	
+	isHd = nil
+	isAl = nil
+	
+	if tourist:IsHorde(zone) then
+		isHd = true
+	end
+	
+	if tourist:IsAlliance(zone) then
+		isAl = true
+	end
+	
+	return (isHd or "")..(isAl or "")
+end
+
 -- Recommended zones
 local function LocRecZones(zone)
 
@@ -137,6 +155,7 @@ local function LocRecZones(zone)
 	GameTooltip:AddDoubleLine(
 	"|cffffffff"..zone
 	..LocPvPorRaid(zone) or "",
+	--..LocRecFilter(zone) or "",
 	string.format("|cff%02xff00%s|r", continent == zContinent and 0 or 255, zContinent)
 	..(" |cff%02x%02x%02x%s|r"):format(r *255, g *255, b *255,(low == high and low or ("%d-%d"):format(low, high))));
 
@@ -408,27 +427,39 @@ local LEVEL_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\levelup.tga:14:14
 -- Simple PetBattle Range
 local function LocSimplePet(zoneText)
 
-	local slevel = tourist:GetBattlePetLevelString(zoneText)
-	if slevel ~= nil then
-		local dlevel = string.format(" (%s) ", slevel) or ""
-		
+	local low,high = tourist:GetBattlePetLevel(zoneText)
+	local plevel
+	if low ~= nil or high ~= nil then
 		if E.db.locplus.showicon then
-			return dlevel..PET_ICON
+			if low ~= high then
+				plevel = string.format(" (%d-%d)"..PET_ICON, low, high)
+			else
+				plevel = string.format(" (%d)"..PET_ICON, high)
+			end
 		else
-			return dlevel
+			if low ~= high then
+				plevel = string.format(" (%d-%d)", low, high)
+			else
+				plevel = string.format(" (%d)", high)
+			end
 		end
 	end
 	
-	return ""
+	return plevel
 end
 
 -- Zone level range
 local function LocSimpleLevelRange(zoneText)
 	local zoneText = GetRealZoneText()
 	local low, high = tourist:GetLevel(zoneText)
-	if low >= 1 and high >= 1 then
+	local dlevel
+	if low >= 0 and high >= 0 then
 		local r, g, b = tourist:GetLevelColor(zoneText)
-		local dlevel = string.format("|cff%02x%02x%02x (%d-%d) |r", r*255, g*255, b*255, low, high) or ""
+		if low ~= high then
+			dlevel = string.format("|cff%02x%02x%02x (%d-%d) |r", r*255, g*255, b*255, low, high) or ""
+		else
+			dlevel = string.format("|cff%02x%02x%02x (%d) |r", r*255, g*255, b*255, high) or ""
+		end
 		
 		if E.db.locplus.showicon then
 			return dlevel..LEVEL_ICON
