@@ -25,7 +25,8 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	kill					= "Killed",
-	clean					= "Purified"
+	clean					= "Purified",
+	Victory			= "Ah, you have done it! The waters are pure once more."
 })
 
 ---------------------------
@@ -46,7 +47,7 @@ L:SetOptionLocalization({
 	dr2						= "Defensive warning: $spell:143491 2/4",
 	dr3						= "Defensive warning: $spell:143491 3/4",
 	dr4						= "Defensive warning: $spell:143491 4/4",
-	BaneGridCount			= "Grid: Number $spell:143434 (Position need to be set on Grid \"DBM number - Shadow Word: Bane\". If none of the following options is selected, the default order from Grid will be used. The spreaded $spell:143434 will not be numbered)",
+	BaneGridCount			= "Grid: Number $spell:143434 (Position need to be set on Grid. The spreaded $spell:143434 will not be numbered)",
 	optOC					= "How many stacks of Mark of Anguish do you want to be warned to pass it",
 	imm						= "Immediately",
 	five					= "5",
@@ -75,7 +76,7 @@ L:SetWarningLocalization({
 L:SetOptionLocalization({
 	SoundWOP				= "Voice Warning: Critical Ability",
 	InfoFrame			= "Show info frame for $journal:8252",
-	InfoFrame2				= "Info frame: $spell:144452(Replace $journal:8252 notice)",
+	InfoFrame2				= "Info frame: Players under $spell:144452",
 	specWarnTestIn			= "Special Warning: The player you monitor is in",
 	specWarnTestOut			= "Special Warning: The player you monitor is out",
 	prevplayer				= "Type in a player's name and you will be warned when he/she is in or out"
@@ -178,13 +179,13 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	SoundWOP				= "Voice Warning: Critical Ability",
-	dr						= "Defensive Warning[4 seconds before]",
-	dr1						= "$spell:143973 1",
-	dr2						= "$spell:143973 2",
-	dr3						= "$spell:143973 3",
-	dr4						= "$spell:143973 4",
-	dr5						= "$spell:143973 5",
-	dr6						= "$spell:143973 6",
+	dr						= "Defensive Warning[4 seconds before the strike]",
+	dr1						= "$spell:143973 1/6",
+	dr2						= "$spell:143973 2/6",
+	dr3						= "$spell:143973 3/6",
+	dr4						= "$spell:143973 4/6",
+	dr5						= "$spell:143973 5/6",
+	dr6						= "$spell:143973 6/6",
 	SetIconOnToxicMists		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(144089),
 	RangeFrame				= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(4, 143990)
 })
@@ -260,6 +261,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(851)
 
 L:SetWarningLocalization({
+	specWarnDevotion		= "%s used Devotion Aura"
 })
 
 L:SetTimerLocalization({
@@ -268,7 +270,8 @@ L:SetTimerLocalization({
 L:SetOptionLocalization({
 	SoundWOP				= "Voice Warning: Critical Ability",
 	SoundPX					= "Countdown: $spell:143343",
-	RangeFrame	= "Show dynamic range frame (10)\n(This is a smart range frame that shows when you reach Frenzy threshold)",
+	specWarnDevotion		= "Special Warning: $spell:31821",
+	RangeFrame	= "Show dynamic range frame (10 yards)",
 	FixateIcon				= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(143445)
 })
 
@@ -291,6 +294,26 @@ L:SetOptionLocalization({
 	CSA						= "Conveyor belt 1",
 	CSB						= "Conveyor belt 2",
 	none					= "None",
+	optCSKILL1				= "Kill Warning: 1st round",
+	optCSKILL2				= "2nd round",
+	optCSKILL3				= "3rd round",
+	optCSKILL4				= "4th round",
+	optCSKILL5				= "5th round",
+	optCSKILL6				= "6th round",
+	optCSKILL7				= "7th round",
+	optCSKILL8				= "8th round",
+	optCSKILL9				= "9th round",
+	optCSKILL10				= "10th round",
+	optCSKILL11				= "11th round",
+	optCSKILL12				= "12th round",
+	optCSKILL13				= "13th round",
+	optCSKILL14				= "14th round",
+	optCSKILL15				= "15th round",
+	killdl					= "Mine",
+	killfd					= "Missile",
+	killjg					= "Laser",
+	killdc					= "Magnet",
+	killnone				= "None"
 })
 
 L:SetMiscLocalization({
