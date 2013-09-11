@@ -122,8 +122,8 @@ do
 			if CompatibilityMode then
 				plate:SetAlpha(1)
 			else
-				local x,y = plate:GetCenter()
-				carrier:SetPoint("CENTER", WorldFrame, "BOTTOMLEFT", floor(x), floor(y))
+				local _,_,_,x,y = extended.bars.group:GetPoint()
+				carrier:SetPoint("CENTER", WorldFrame, "BOTTOMLEFT", floor(x), floor(y+16))
 			end
 
 			-- Get Highlight (Mouseover Detection)
@@ -249,7 +249,6 @@ do
 		regions.spellshadow:SetTexture(nil)
 		regions.spellshadow:Hide()
 		regions.spelltext:Hide()
-
 
 
         -- Tidy Plates Frame
@@ -848,6 +847,7 @@ do
 		UpdateReferences(bar.parentPlate)
 		local castbar = extended.visual.castbar
 
+		if not unit.health then return end
 		if unit.reaction == "FRIENDLY" then return end
 
 		OnUpdateCastbar(bar)

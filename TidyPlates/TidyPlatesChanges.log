@@ -1,6 +1,15 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
+
+6.12.1
+---------------------------
+- TOC Bump
+- Core: OnShowCastbar will now check for unit health before proceeding, hopefully avoiding errors when the Castbar's OnShow handler is called early.
+- * Fix for Viewport Mods (specifically, Sunn), particularly, when the actual vertical viewport is decreased.
+
+* This should reduce or eliminate the need for Compatibility Mode.
+
 6.12.0
 ---------------------------
 - Core: Compatibility Mode: Restored alpha-override behavior
