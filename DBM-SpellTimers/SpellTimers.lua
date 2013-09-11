@@ -26,7 +26,7 @@
 --    * Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
 --
 
-local Revision = ("$Revision: 89 $"):sub(12, -3)
+local Revision = ("$Revision: 93 $"):sub(12, -3)
 
 local default_bartext = "%spell: %player"
 local default_bartextwtarget = "%spell: %player on %target"	-- Added by Florin Patan
@@ -300,6 +300,7 @@ do
 
 	local myportals = {}
 	local lastmsg = "";
+	local encounterStarted = false
 	local mainframe = CreateFrame("frame", "DBM_SpellTimers", UIParent)
 	local spellEvents = {
 	  ["SPELL_CAST_SUCCESS"] = true,
@@ -312,6 +313,8 @@ do
 		if event == "ADDON_LOADED" and select(1, ...) == "DBM-SpellTimers" then
 			self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 			self:RegisterEvent("PLAYER_ENTERING_BATTLEGROUND")
+			self:RegisterEvent("INSTANCE_ENCOUNTER_ENGAGE_UNIT")
+			self:RegisterEvent("PLAYER_REGEN_ENABLED")
 
 			-- Update settings of this Addon
 			settings = DBM_SpellTimers_Settings
@@ -357,6 +360,13 @@ do
 
 			-- now we filter if cast is from outside raidgrp (we don't want to see mass spam in Dalaran/...)
 			if settings.only_from_raid and DBM:GetRaidUnitId(fromplayer) == "none" then return end
+			
+		elseif settings.enabled and event == "INSTANCE_ENCOUNTER_ENGAGE_UNIT" and IsEncounterInProgress() and not encounterStarted then--Encounter Started
+			encounterStarted = true
+			
+		elseif settings.enabled and event == "PLAYER_REGEN_ENABLED" and not IsEncounterInProgress() and encounterStarted then--Encounter Ended
+			encounterStarted = false
+			--Reset all CDs that are > 3 minutes EXCEPT shaman reincarnate
 
       guikey = SpellIDIndex[spellid]
       v = (guikey and settings.spells[guikey])
@@ -407,4 +417,3 @@ do
 	end)
 	mainframe:RegisterEvent("ADDON_LOADED")
 end
-
