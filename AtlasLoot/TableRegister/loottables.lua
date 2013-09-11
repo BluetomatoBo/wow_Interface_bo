@@ -1,4 +1,4 @@
--- $Id: loottables.lua 4211 2013-05-19 14:58:36Z dynaletik $
+-- $Id: loottables.lua 4238 2013-09-02 17:24:17Z Dynaletik $
 --[[
 loottables.en.lua
 This file assigns a title to every loot table.  The primary use of this table
@@ -180,12 +180,52 @@ AtlasLoot_LootTableRegister = {
 
 		["Pandaria"] = {
 			["Bosses"] = {
+				{ "AUGUSTCELESTIALSWORLDBOSSES", 8, EncounterJournalID = 857 },
+				{ "Ordos", 7, EncounterJournalID = 861 },
 				{ "NALAK", 1, EncounterJournalID = 814, BonusLootID = 136381 },
 				{ "Oondasta", 2, EncounterJournalID = 826, BonusLootID = 137554 },
 				{ "SHAOFANGER", 3, EncounterJournalID = 691, BonusLootID = 132205 },
 				{ "SalyisWarband", 4, EncounterJournalID = 725, BonusLootID = 132206 },
 			},
 			["Info"] = { AL["Pandaria World Bosses"], "AtlasLootMoP", mapname = "Pandaria", raid = true, EncounterJournalID = 322 },
+		},
+		["SiegeofOrgrimmarA"] = "SiegeofOrgrimmar",
+		["SiegeofOrgrimmarB"] = "SiegeofOrgrimmar",
+		["SiegeofOrgrimmarC"] = "SiegeofOrgrimmar",
+		["SiegeofOrgrimmarD"] = "SiegeofOrgrimmar",
+		["SiegeofOrgrimmar"] = {
+			["SiegeofOrgrimmarA"] = {
+				{ "SoOImmerseus", 3, EncounterJournalID = 852 },
+				{ "SoOFallenProtectors", EncounterJournalID = 849 },
+				{ "SoONorushen", 4, EncounterJournalID = 866 },
+				{ "SoOShaofPride", 6, EncounterJournalID = 867 },
+				{ "SoOShared", 8, hide = true },
+				{ "SoOTrash", 9, hide = true },
+			},
+			["SiegeofOrgrimmarB"] = {
+				{ "SoOFallenProtectors", 2, EncounterJournalID = 849, hide = true },
+				{ "SoOShared", 7, hide = true },
+				{ "SoOTrash", 8, hide = true },
+			},
+			["SiegeofOrgrimmarC"] = {
+				{ "SoOGalakras", 2, EncounterJournalID = 868 },
+				{ "SoOIronJuggernaut", 3, EncounterJournalID = 864 },
+				{ "SoODarkShaman", 4, EncounterJournalID = 856 },
+				{ "SoOShared", 8, hide = true },
+				{ "SoOTrash", 9, hide = true },
+			},
+			["SiegeofOrgrimmarD"] = {
+				{ "SoONazgrim", 2, EncounterJournalID = 850 },
+				{ "SoOMalkorok", 3, EncounterJournalID = 846 },
+				{ "SoOSpoils", 4, EncounterJournalID = 870 },
+				{ "SoOThok", 6, EncounterJournalID = 851 },
+				{ "SoOBlackfuse", 8, EncounterJournalID = 865 },
+				{ "SoOParagons", 9, EncounterJournalID = 853 },
+				{ "SoOGarrosh", 19, EncounterJournalID = 869 },
+				{ "SoOShared", 21 },
+				{ "SoOTrash", 22 },
+			},
+			["Info"] = { ALIL["Siege of Orgrimmar"], "AtlasLootMoP", mapname = "SiegeofOrgrimmar", sortOrder = { "SiegeofOrgrimmarA", "SiegeofOrgrimmarB", "SiegeofOrgrimmarC", "SiegeofOrgrimmarD" }, raid = true, EncounterJournalID = 369 },
 		},
 
 		["TerraceofEndlessSpring"] = {
@@ -1946,6 +1986,7 @@ AtlasLoot_LootTableRegister = {
 				{ "T13SET" },
 				{ "T14SET" },
 				{ "T15SET" },
+				{ "T16SET" },
 			},
 			["Info"] = { AL["Tier Sets"], "AtlasLootMoP"},
 		},

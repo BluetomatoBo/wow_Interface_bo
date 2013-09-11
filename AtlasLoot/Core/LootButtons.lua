@@ -1,4 +1,4 @@
-﻿-- $Id: LootButtons.lua 4206 2013-05-06 22:44:00Z lag123 $
+﻿-- $Id: LootButtons.lua 4232 2013-08-12 08:52:37Z dynaletik $
 local _
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot")
@@ -59,12 +59,12 @@ end
 local TEMP_TABLE = {}
 local CURRENCY_PRICE = {
 	-- http://www.wowhead.com/currencies
-	["CHEFAWARD"] = 402,	-- Chef's Award
-	["CHAMPSEAL"] = 241,	-- Champion's Seal
+	["CHEFAWARD"] = 402,		-- Chef's Award
+	["CHAMPSEAL"] = 241,		-- Champion's Seal
 	["CONQUEST"] = 390,		-- Conquest Points
 	["DALARANJW"] = 61,		-- Dalaran Jewelcrafter's Token
 	["DARKMOON"] = 515,		-- Darkmoon Prize Ticket
-	["ELDERCHARM"] = 697,	-- Elder Charm of Good Fortune
+	["ELDERCHARM"] = 697,		-- Elder Charm of Good Fortune
 	["EPICUREAN"] = 81,		-- Epicurean's Award (CookingDaily)
 	["HONOR"] = 392,		-- Honor Points
 	["ILLLJW"] = 361,		-- Illustrious Jewelcrafter's Token -- why duplicate?
@@ -73,26 +73,28 @@ local CURRENCY_PRICE = {
 	["JUSTICE"] = 395,		-- Justice Points
 	["TOLBARAD"] = 391,		-- Tol Barad Commendation
 	["VALOR"] = 396,		-- Valor Points
-	["WORLDTREE"] = 416,	-- Mark of the World Tree
+	["WORLDTREE"] = 416,		-- Mark of the World Tree
+	["TIMELESSCOIN"] = 777,		-- Timeless Coin
+	["BLOODYCOIN"] = 789,		-- Bloody Coin
 
 	-- Custom currencys
-	["BREWFEST"] = { itemID = 37829 },					-- Brewfest
-	["CHAMPWRIT"] = { itemID = 46114 },					-- Champion's Writ
-	["HALLOWSEND"] = { itemID = 33226 },				-- Hallow's End
-	["LUNARFESTIVAL"] = { itemID = 21100 },				-- Lunar Festival
-	["MIDSUMMER"] = { itemID = 23247 },					-- Midsummer Fire Festival
-	["NOBLEGARDEN"] = { itemID = 44791 },				-- Noblegarden
-	["SPIRITSHARD"] = { itemID = 28558 },				-- World PvP - Terokkar Forest: Bone Wastes
-	["VALENTINEDAY"] = { itemID = 49927 },				-- Love is in the Air
-	["RELICULDUAR"] = { itemID = 42780 },				-- Relic of Ulduar (TransformationNonconsumedItems, ExplorersLeagueWarsongOffensive)
-	["SPIRITOFHARMONY"] = { itemID = 76061 },			-- Spirit of Harmony (SmithingMoPVendor, LeatherworkingMoPVendor, TailoringMoPVendor, SpiritOfHarmony)
+	["BREWFEST"] = { itemID = 37829 },			-- Brewfest
+	["CHAMPWRIT"] = { itemID = 46114 },			-- Champion's Writ
+	["HALLOWSEND"] = { itemID = 33226 },			-- Hallow's End
+	["LUNARFESTIVAL"] = { itemID = 21100 },			-- Lunar Festival
+	["MIDSUMMER"] = { itemID = 23247 },			-- Midsummer Fire Festival
+	["NOBLEGARDEN"] = { itemID = 44791 },			-- Noblegarden
+	["SPIRITSHARD"] = { itemID = 28558 },			-- World PvP - Terokkar Forest: Bone Wastes
+	["VALENTINEDAY"] = { itemID = 49927 },			-- Love is in the Air
+	["RELICULDUAR"] = { itemID = 42780 },			-- Relic of Ulduar (TransformationNonconsumedItems, ExplorersLeagueWarsongOffensive)
+	["SPIRITOFHARMONY"] = { itemID = 76061 },		-- Spirit of Harmony (SmithingMoPVendor, LeatherworkingMoPVendor, TailoringMoPVendor, SpiritOfHarmony)
 	["DOMINATIONCOMMISSION"] = { itemID = 91877 },		-- Domination Point Commission
 	["LIONSLANDINGCOMMISSION"] = { itemID = 91838 },	-- Lion's Landing Commission
 	["HISTORICALPARCHMENTS"] = { itemID = 95491 },		-- Tattered Historical Parchments
-	["KORKRONLUMBER"] = { itemID = 97530 },				-- Kor'kron Lumber
-	["KORKRONMEAT"] = { itemID = 97545 },				-- Kor'kron Meat
-	["KORKRONOIL"] = { itemID = 97544 },				-- Kor'kron Oil
-	["KORKRONSTONE"] = { itemID = 97543 },				-- Kor'kron Stone
+	--["KORKRONLUMBER"] = { itemID = 97530 },		-- Kor'kron Lumber
+	--["KORKRONMEAT"] = { itemID = 97545 },			-- Kor'kron Meat
+	--["KORKRONOIL"] = { itemID = 97544 },			-- Kor'kron Oil
+	--["KORKRONSTONE"] = { itemID = 97543 },		-- Kor'kron Stone
 	
 	-- functions
 	["ITEM"] = function(text, newText) 					-- USAGE: #ITEM:ID:AMOUNT#		EXAMPLE: #ITEM:1234:4#

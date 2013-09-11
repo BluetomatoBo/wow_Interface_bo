@@ -1,4 +1,4 @@
--- $Id: constants.en.lua 4212 2013-05-20 12:27:56Z dynaletik $
+-- $Id: constants.en.lua 4247 2013-09-10 09:12:37Z Dynaletik $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -364,6 +364,7 @@ if AL then
 	AL["Tier 13 Set"] = true;
 	AL["Tier 14 Set"] = true;
 	AL["Tier 15 Set"] = true;
+	AL["Tier 16 Set"] = true;
 	AL["TCG Items"] = true; -- Trading Card Game Items
 	AL["Rare Mobs"] = true;
 	AL["Grand Marshal"] = true;
@@ -608,8 +609,10 @@ if AL then
 	AL["Accessories"] = true;
 	AL["Rare"] = true;
 	AL["Specializations"] = true;
+	AL["Flexible"] = true;
 	AL["Raid Finder"] = true;
 	AL["Thunderforged"] = true;
+	AL["Warforged"] = true;
 	AL["Pandaria World Bosses"] = true;
 	AL["Elite"] = true;
 	AL["Vegetables"] = true;
@@ -1037,8 +1040,10 @@ if AL then
 	AL["Auntie Stormstout"] = true;
 	AL["Luo Luo"] = true;
 	AL["Meng Meng"] = true;
+	AL["Moonfang"] = true;
 	AL["Ongrom Black Tooth"] = true;
 	AL["Proveditor Grantley"] = true;
+	AL["Scary Sprite"] = true;
 	--- World Events
 	AL["Crimson Templar"] = true;  --- mob removed from game?
 	AL["Azure Templar"] = true;  --- mob removed from game?
@@ -1098,6 +1103,7 @@ if AL then
 	AL["Overcharged Manacell"] = true; --- If still in game, should be used in IngameLocales
 	AL["Shellfish Trap"] = true;
 	AL["Fishing Pools"] = true;
+	AL["Timeless Chest"] = true;
 
 	-- Blizzard Promotions
 	AL["Annual Pass"] = true;

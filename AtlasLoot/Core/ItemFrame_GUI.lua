@@ -1,4 +1,4 @@
--- $Id: ItemFrame_GUI.lua 4201 2013-05-05 16:05:37Z lag123 $
+-- $Id: ItemFrame_GUI.lua 4249 2013-09-10 09:43:39Z lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
@@ -94,8 +94,21 @@ function AtlasLoot:CreateItemFrame()
 	Frame.RaidFinder:SetScript("OnClick", AtlasLoot.RaidFinderToggle)
 	Frame.RaidFinder:Hide()
 	
+	-- Flexible
+	Frame.Flexible = CreateFrame("CheckButton", "AtlasLootItemsFrame_Flexible", Frame, "OptionsCheckButtonTemplate")
+	Frame.Flexible:SetPoint("TOPLEFT", Frame.RaidFinder, "TOPRIGHT", Frame.RaidFinder:GetWidth()+_G[Frame.RaidFinder:GetName().."Text"]:GetWidth()+5, 0) --_G[Frame.RaidFinder:GetName().."Text"]
+	Frame.Flexible:SetWidth(25)
+	Frame.Flexible:SetHeight(25)
+	_G[Frame.Flexible:GetName().."Text"]:SetText(AL["Flexible"])
+	Frame.Flexible:SetScript("OnShow", function(self)
+		self:SetFrameLevel( (self:GetParent()):GetFrameLevel() + 1 )
+	end)
+	Frame.Flexible:SetScript("OnClick", AtlasLoot.FlexibleToggle)
+	Frame.Flexible:Hide()
+	
 	Frame.Thunderforged = CreateFrame("CheckButton", "AtlasLootItemsFrame_Thunderforged", Frame, "OptionsCheckButtonTemplate")
-	Frame.Thunderforged:SetPoint("TOPLEFT", Frame.RaidFinder, "TOPRIGHT", Frame.RaidFinder:GetWidth()+_G[Frame.RaidFinder:GetName().."Text"]:GetWidth()+5, 0) --_G[Frame.RaidFinder:GetName().."Text"]
+	--Frame.Thunderforged:SetPoint("TOPLEFT", Frame.RaidFinder, "TOPRIGHT", Frame.RaidFinder:GetWidth()+_G[Frame.RaidFinder:GetName().."Text"]:GetWidth()+Frame.Flexible:GetWidth()+_G[Frame.Flexible:GetName().."Text"]:GetWidth()+10, 0) --_G[Frame.RaidFinder:GetName().."Text"]
+	Frame.Thunderforged:SetPoint("TOPLEFT", Frame.Flexible, "TOPRIGHT", Frame.Flexible:GetWidth()+_G[Frame.Flexible:GetName().."Text"]:GetWidth()+5, 0)
 	Frame.Thunderforged:SetWidth(25)
 	Frame.Thunderforged:SetHeight(25)
 	_G[Frame.Thunderforged:GetName().."Text"]:SetText(AL["Thunderforged"])

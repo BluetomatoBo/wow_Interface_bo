@@ -1,4 +1,4 @@
-﻿-- $Id: constants.tw.lua 4212 2013-05-20 12:27:56Z dynaletik $
+﻿-- $Id: constants.tw.lua 4245 2013-09-10 04:08:49Z ananhaid $
 --[[
 constants.tw.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -364,6 +364,7 @@ if AL then
 	AL["Tier 13 Set"] = "T13 套裝";
 	AL["Tier 14 Set"] = "T14 套裝";
 	AL["Tier 15 Set"] = "T15 套裝";
+	AL["Tier 16 Set"] = "T16 套裝";
 	AL["TCG Items"] = "卡片遊戲物品";
 	AL["Rare Mobs"] = "稀有怪物";
 	AL["Grand Marshal"] = "總元帥";
@@ -608,8 +609,9 @@ if AL then
 	AL["Accessories"] = "配件";
 	AL["Rare"] = "稀有";
 	AL["Specializations"] = "特殊";
+	AL["Flexible"] = "彈性";
 	AL["Raid Finder"] = "團隊搜尋器";
-	--AL["Thunderforged"] = "Thunderforged";
+	AL["Thunderforged"] = "雷霆鎔鑄";
 	AL["Pandaria World Bosses"] = "潘達利亞世界首領";
 	AL["Elite"] = "菁英";
 	AL["Vegetables"] = "蔬菜";
@@ -1037,8 +1039,10 @@ if AL then
 	AL["Auntie Stormstout"] = "風暴烈酒姑媽";
 	AL["Luo Luo"] = "洛洛";
 	AL["Meng Meng"] = "萌萌";
+	AL["Moonfang"] = "月牙";
 	AL["Ongrom Black Tooth"] = "『黑齒』歐格姆";
 	AL["Proveditor Grantley"] = "供應商格蘭特雷";
+	AL["Scary Sprite"] = "駭人的妖精";
 	--- World Events
 	AL["Crimson Templar"] = "赤紅聖殿騎士";
 	AL["Azure Templar"] = "碧藍聖殿騎士";
@@ -1098,6 +1102,7 @@ if AL then
 	AL["Overcharged Manacell"] = "滿溢的法力容器";
 	AL["Shellfish Trap"] = "貝殼陷阱";
 	AL["Fishing Pools"] = "魚群";
+	AL["Timeless Chest"] = "永恆寶箱";
 
 	-- Blizzard Promotions
 	AL["Annual Pass"] = "年卡";

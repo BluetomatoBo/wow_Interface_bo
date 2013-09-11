@@ -1,4 +1,4 @@
--- $Id: DefaultFrame.lua 3829 2012-10-03 12:42:46Z lag123 $
+-- $Id: DefaultFrame.lua 4248 2013-09-10 09:29:27Z lag123 $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -639,7 +639,7 @@ do
 		if not mapname or not mapRegister[mapname] then return end
 		
 		if type(mapRegister[mapname][2]) == "table" then
-			if UnitLevel("player") == 85 then
+			if UnitLevel("player") >= 85 and mapRegister[mapname][2][2] then
 				db.module = mapRegister[mapname][2][2]
 			else
 				db.module = mapRegister[mapname][2][1]

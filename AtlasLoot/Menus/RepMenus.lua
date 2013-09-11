@@ -1,4 +1,4 @@
--- $Id: RepMenus.lua 4212 2013-05-20 12:27:56Z dynaletik $
+-- $Id: RepMenus.lua 4243 2013-09-08 12:10:13Z hegarol $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
@@ -14,19 +14,20 @@ local BabbleInventory = AtlasLoot_GetLocaleLibBabble("LibBabble-Inventory-3.0")
 				{ 7, "LionsLanding", "pvpcurrency-conquest-alliance", "=ds="..ALIL["Lion's Landing"], "=q5="..ALIL["Krasarang Wilds"]};
 				{ 8, "BizmosBrawlpubBrawlgarArena", "inv_misc_head_clockworkgnome_01", "=ds="..ALIL["Bizmo's Brawlpub"], "=q5="..ALIL["Deeprun Tram"]};
 				{ 10, "Anglers", "achievement_faction_anglers", "=ds="..ALIL["The Anglers"], "=q5="..ALIL["Krasarang Wilds"]};
-				{ 11, "GoldenLotus", "achievement_faction_goldenlotus", "=ds="..ALIL["Golden Lotus"], "=q5="..ALIL["Vale of Eternal Blossoms"]};
-				{ 12, "Lorewalkers", "achievement_faction_lorewalkers", "=ds="..ALIL["The Lorewalkers"], "=q5="..ALIL["Vale of Eternal Blossoms"]};
-				{ 13, "ShadoPan", "achievement_faction_shadopan", "=ds="..ALIL["Shado-Pan"], "=q5="..ALIL["Townlong Steppes"]};
-				{ 15, "VPMOPMENU", "pvecurrency-valor", "=ds="..AL["Valor Points"].." "..AL["Rewards"], "=q5="..AL["Mists of Pandaria"]};
-				{ 17, "REPMENU_BURNINGCRUSADE", "INV_Misc_Ribbon_01", "=ds="..AL["Burning Crusade"], ""};
-				{ 18, "REPMENU_CATACLYSM", "inv_neck_hyjaldaily_04", "=ds="..AL["Cataclysm"], ""};
+				{ 11, "EmperorShaohao", "ability_monk_quipunch", "=ds="..ALIL["Emperor Shaohao"], "=q5="..ALIL["Timeless Isle"]};
+				{ 12, "Klaxxi", "achievement_faction_klaxxi", "=ds="..ALIL["The Klaxxi"], "=q5="..ALIL["Dread Wastes"]};
+				{ 13, "OrderCloudSerpent", "achievement_faction_serpentriders", "=ds="..ALIL["Order of the Cloud Serpent"], "=q5="..ALIL["The Jade Forest"]};
+				{ 14, "ShadoPan", "achievement_faction_shadopan", "=ds="..ALIL["Shado-Pan"], "=q5="..ALIL["Townlong Steppes"]};
+				{ 16, "REPMENU_BURNINGCRUSADE", "INV_Misc_Ribbon_01", "=ds="..AL["Burning Crusade"], ""};
+				{ 17, "REPMENU_CATACLYSM", "inv_neck_hyjaldaily_04", "=ds="..AL["Cataclysm"], ""};
+				{ 18, "VPMOPMENU", "pvecurrency-valor", "=ds="..AL["Valor Points"].." "..AL["Rewards"], "=q5="..AL["Mists of Pandaria"]};
 				{ 20, "SunreaverOnslaught", "achievement_faction_sunreaveronslaught", "=ds="..ALIL["Sunreaver Onslaught"], "=q5="..ALIL["Isle of Thunder"]};
 				{ 21, "DominanceOffensive", "pvpcurrency-honor-horde", "=ds="..ALIL["Dominance Offensive"], "=q5="..ALIL["Krasarang Wilds"]};
 				{ 22, "DominationPoint", "pvpcurrency-conquest-horde", "=ds="..ALIL["Domination Point"], "=q5="..ALIL["Krasarang Wilds"]};
 				{ 23, "BizmosBrawlpubBrawlgarArena", "inv_misc_head_clockworkgnome_01", "=ds="..ALIL["Brawl'gar Arena"], "=q5="..ALIL["Brawl'gar Arena"]};
 				{ 25, "AugustCelestials", "achievement_faction_celestials", "=ds="..ALIL["The August Celestials"], "=q5="..ALIL["Vale of Eternal Blossoms"]};
-				{ 26, "Klaxxi", "achievement_faction_klaxxi", "=ds="..ALIL["The Klaxxi"], "=q5="..ALIL["Dread Wastes"]};
-				{ 27, "OrderCloudSerpent", "achievement_faction_serpentriders", "=ds="..ALIL["Order of the Cloud Serpent"], "=q5="..ALIL["The Jade Forest"]};
+				{ 26, "GoldenLotus", "achievement_faction_goldenlotus", "=ds="..ALIL["Golden Lotus"], "=q5="..ALIL["Vale of Eternal Blossoms"]};
+				{ 27, "Lorewalkers", "achievement_faction_lorewalkers", "=ds="..ALIL["The Lorewalkers"], "=q5="..ALIL["Vale of Eternal Blossoms"]};
 				{ 28, "ShadoPanAssault", "achievement_faction_shadopan", "=ds="..ALIL["Shado-Pan Assault"], "=q5="..ALIL["Throne of Thunder"]};
 				{ 29, "Tillers", "achievement_faction_tillers", "=ds="..ALIL["The Tillers"], "=q5="..ALIL["Valley of the Four Winds"]};
 			};

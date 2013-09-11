@@ -1,4 +1,4 @@
--- $Id: worldevents.lua 4202 2013-05-05 21:56:29Z dynaletik $
+-- $Id: worldevents.lua 4243 2013-09-08 12:10:13Z hegarol $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -413,18 +413,19 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 9, 17724, "", "=q1=Pattern: Green Holiday Shirt", "=ds=#p8# (190)"};
 				{ 11, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Festive Gift"], ""};
 				{ 12, 21328, "", "=q1=Wand of Holiday Cheer", "=ds=#m20#"};
+				{ 14, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Carefully Wrapped Present"], ""};
+				{ 15, 21254, "", "=q1=Winter Veil Cookie", "=ds=#e3#"};
 				{ 16, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Gaily Wrapped Present"], ""};
-				{ 17, 21301, "", "=q1=Green Helper Box", "=ds=#e13#"};
-				{ 18, 21308, "", "=q1=Jingling Bell", "=ds=#e13#"};
-				{ 19, 21305, "", "=q1=Red Helper Box", "=ds=#e13#"};
-				{ 20, 21309, "", "=q1=Snowman Kit", "=ds=#e13#"};
-				{ 22, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Gently Shaken Gift"], ""};
-				{ 23, 21235, "", "=q1=Winter Veil Roast", "=ds=#e3#"};
-				{ 24, 21241, "", "=q1=Winter Veil Eggnog", "=ds=#e4#"};
-				{ 26, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Carefully Wrapped Present"], ""};
-				{ 27, 21254, "", "=q1=Winter Veil Cookie", "=ds=#e3#"};
-				{ 29, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Smokywood Pastures Extra-Special Gift"], ""};
-				{ 30, 21215, "", "=q1=Graccu's Mince Meat Fruitcake", "=ds=#e3#"};
+				{ 17, 104317, "", "=q3=Rotten Little Helper", "=ds=#e13#"};
+				{ 18, 21301, "", "=q1=Green Helper Box", "=ds=#e13#"};
+				{ 19, 21308, "", "=q1=Jingling Bell", "=ds=#e13#"};
+				{ 20, 21305, "", "=q1=Red Helper Box", "=ds=#e13#"};
+				{ 21, 21309, "", "=q1=Snowman Kit", "=ds=#e13#"};
+				{ 23, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Gently Shaken Gift"], ""};
+				{ 24, 21235, "", "=q1=Winter Veil Roast", "=ds=#e3#"};
+				{ 25, 21241, "", "=q1=Winter Veil Eggnog", "=ds=#e4#"};
+				{ 27, 0, "INV_Holiday_Christmas_Present_01", "=q6="..ALIL["Smokywood Pastures Extra-Special Gift"], ""};
+				{ 28, 21215, "", "=q1=Graccu's Mince Meat Fruitcake", "=ds=#e3#"};
 				extraText = ": "..AL["Gifts & Presents"];
 			};
 			{
@@ -926,12 +927,13 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 12, 11026, "", "=q1=Tree Frog Box", "=ds=#e13#", "1 #gold#"};
 				{ 13, 11027, "", "=q1=Wood Frog Box", "=ds=#e13#", "1 #gold#"};
 				{ 17, 80008, "", "=q4=Darkmoon Rabbit", "=ds=#e13#", "#ACHIEVEMENTID:6332#"};
-				{ 18, 73953, "", "=q3=Sea Pony", "=ds=#e13#", "=q2=#p24#, =q1="..AL["Darkmoon Island"]};
-				{ 20, 91040, "", "=q3=Darkmoon Eye", "=ds=#e13#", "=q1=#m4#: #QUESTID:32175#"};
-				{ 21, 19450, "", "=q1=A Jubling's Tiny Home", "=ds=#e13#", "=q1=#m4#: #QUESTID:7946#"};
-				{ 23, 75040, "", "=q1=Flimsy Darkmoon Balloon", "=ds=#e13#", "10 #silver#"},
-				{ 24, 75041, "", "=q1=Flimsy Green Balloon", "=ds=#e13#", "10 #silver#"},
-				{ 25, 75042, "", "=q1=Flimsy Yellow Balloon", "=ds=#e13#", "10 #silver#"},
+				{ 18, 101570, "", "=q3=Moon Moon", "=ds=#e13#", "=q2="..AL["Drop"]..": "..AL["Moonfang"]};
+				{ 19, 73953, "", "=q3=Sea Pony", "=ds=#e13#", "=q2=#p24#, =q1="..AL["Darkmoon Island"]};
+				{ 21, 91040, "", "=q3=Darkmoon Eye", "=ds=#e13#", "=q1=#m4#: #QUESTID:32175#"};
+				{ 22, 19450, "", "=q1=A Jubling's Tiny Home", "=ds=#e13#", "=q1=#m4#: #QUESTID:7946#"};
+				{ 24, 75040, "", "=q1=Flimsy Darkmoon Balloon", "=ds=#e13#", "10 #silver#"},
+				{ 25, 75041, "", "=q1=Flimsy Green Balloon", "=ds=#e13#", "10 #silver#"},
+				{ 26, 75042, "", "=q1=Flimsy Yellow Balloon", "=ds=#e13#", "10 #silver#"},
 				extraText = ": "..BabbleInventory["Mounts"].." & "..BabbleInventory["Companions"];
 			};
 			{

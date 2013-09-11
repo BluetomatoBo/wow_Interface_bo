@@ -9,7 +9,7 @@
 ## X-eMail: 
 ## X-Category: Library
 ## X-License: MIT
-## X-Curse-Packaged-Version: v7.06.00
+## X-Curse-Packaged-Version: v7.07.00
 ## X-Curse-Project-Name: AtlasLoot Enhanced
 ## X-Curse-Project-ID: atlasloot-enhanced
 ## X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline

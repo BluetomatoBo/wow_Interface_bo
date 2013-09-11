@@ -1,4 +1,4 @@
-﻿-- $Id: constants.de.lua 4212 2013-05-20 12:27:56Z dynaletik $
+﻿-- $Id: constants.de.lua 4247 2013-09-10 09:12:37Z Dynaletik $
 --[[
 constants.de.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -361,6 +361,7 @@ if AL then
 	-- AL["Tier 13 Set"] = true;
 	-- AL["Tier 14 Set"] = true;
 	-- AL["Tier 15 Set"] = true;
+	-- AL["Tier 16 Set"] = true;
 	AL["TCG Items"] = "TCG Gegenstände";
 	AL["Rare Mobs"] = "Rare-Mobs";
 	AL["Grand Marshal"] = "Großmarschall";
@@ -605,8 +606,10 @@ if AL then
 	AL["Accessories"] = "Zubehör";
 	AL["Rare"] = "Selten";
 	AL["Specializations"] = "Spezialisierungen";
+	AL["Flexible"] = "Flexibel";
 	AL["Raid Finder"] = "Schlachtzugsbrowser";
 	AL["Thunderforged"] = "Donnergeschmiedet";
+	AL["Warforged"] = "Kriegsgeschmiedet";
 	AL["Pandaria World Bosses"] = "Pandaria Weltbosse";
 	-- AL["Elite"] = true;
 	AL["Vegetables"] = "Gemüse";
@@ -1034,8 +1037,10 @@ if AL then
 	AL["Auntie Stormstout"] = "Tantchen Sturmbräu";
 	-- AL["Luo Luo"] = true;
 	-- AL["Meng Meng"] = true;
+	AL["Moonfang"] = "Mondfang";
 	AL["Ongrom Black Tooth"] = "Ongrom Schwarzzahn";
 	AL["Proveditor Grantley"] = "Administrator Grantley";
+	AL["Scary Sprite"] = "Schauriger Geist";
 	--- World Events
 	AL["Crimson Templar"] = "Purpurroter Templer";
 	AL["Azure Templar"] = "Azurblauer Templer";
@@ -1095,6 +1100,7 @@ if AL then
 	AL["Overcharged Manacell"] = "Überladene Manazelle";
 	AL["Shellfish Trap"] = "Schalentierfalle";
 	AL["Fishing Pools"] = "Fischschwärme";
+	AL["Timeless Chest"] = "Zeitlose Truhe";
 
 	-- Blizzard Promotions
 	AL["Annual Pass"] = "Jahrespass";

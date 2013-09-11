@@ -1,4 +1,4 @@
--- $Id: TextParsing.lua 4212 2013-05-20 12:27:56Z dynaletik $
+-- $Id: TextParsing.lua 4236 2013-08-15 17:15:54Z dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -80,7 +80,7 @@ AtlasLoot_TextParsing = {
 	{ "#s14#", BabbleInventory["Trinket"] },
 	{ "#s15#", BabbleInventory["Held in Off-Hand"] },
 
-	-- Weapon Weilding
+	-- Weapon Wielding
 	{ "#h1#", BabbleInventory["One-Hand"] },
 	{ "#h2#", BabbleInventory["Two-Hand"] },
 	{ "#h3#", BabbleInventory["Main Hand"] },
@@ -160,6 +160,7 @@ AtlasLoot_TextParsing = {
 	{ "#m39#", string.format(AL["Tier %d"], 13) },
 	{ "#m40#", string.format(AL["Tier %d"], 14) },
 	{ "#m41#", string.format(AL["Tier %d"], 15) },
+	{ "#m42#", string.format(AL["Tier %d"], 16) },
 
 	-- Misc
 	{ "#j1#", AL["Normal Mode"] },
@@ -218,6 +219,7 @@ AtlasLoot_TextParsing = {
 	-- Factions
 	{ "#f1#", ALIL["Lower City"] },
 	{ "#f2#", ALIL["The Sha'tar"] },
+	{ "#f3#", ALIL["Thrallmar"] },
 	{ "#f4#", ALIL["Honor Hold"] },
 	{ "#f5#", ALIL["Keepers of Time"] },
 	{ "#f6#", ALIL["Cenarion Expedition"] },
@@ -671,6 +673,31 @@ AtlasLoot_TextParsing = {
 	{ "#t15s11_1#", BabbleItemSet["Fire-Charm Armor"] },
 	{ "#t15s11_2#", BabbleItemSet["Fire-Charm Battlegear"] },
 	{ "#t15s11_3#", BabbleItemSet["Fire-Charm Vestments"] },
+
+	-- Tier 16 Sets
+	{ "#t16s1_1#", BabbleItemSet["Vestments of the Shattered Vale"] },
+	{ "#t16s1_2#", BabbleItemSet["Battlegear of the Shattered Vale"] },
+	{ "#t16s1_3#", BabbleItemSet["Regalia of the Shattered Vale"] },
+	{ "#t16s1_4#", BabbleItemSet["Armor of the Shattered Vale"] },
+	{ "#t16s2#", BabbleItemSet["Battlegear of the Unblinking Vigil"] },
+	{ "#t16s3#", BabbleItemSet["Chronomancer Regalia"] },
+	{ "#t16s4_1#", BabbleItemSet["Vestments of Winged Triumph"] },
+	{ "#t16s4_2#", BabbleItemSet["Plate of Winged Triumph"] },
+	{ "#t16s4_3#", BabbleItemSet["Battlegear of Winged Triumph"] },
+	{ "#t16s5_1#", BabbleItemSet["Regalia of Ternion Glory"] },
+	{ "#t16s5_2#", BabbleItemSet["Vestments of Ternion Glory"] },
+	{ "#t16s6#", BabbleItemSet["Barbed Assassin Battlegear"] },
+	{ "#t16s7_1#", BabbleItemSet["Celestial Harmony Vestment"] },
+	{ "#t16s7_2#", BabbleItemSet["Celestial Harmony Battlegear"] },
+	{ "#t16s7_3#", BabbleItemSet["Celestial Harmony Regalia"] },
+	{ "#t16s8#", BabbleItemSet["Regalia of the Horned Nightmare"] },
+	{ "#t16s9_1#", BabbleItemSet["Battleplate of the Prehistoric Marauder"] },
+	{ "#t16s9_2#", BabbleItemSet["Plate of the Prehistoric Marauder"] },
+	{ "#t16s10_1#", BabbleItemSet["Battleplate of Cyclopean Dread"] },
+	{ "#t16s10_2#", BabbleItemSet["Plate of Cyclopean Dread"] },
+	{ "#t16s11_1#", BabbleItemSet["Armor of Seven Sacred Seals"] },
+	{ "#t16s11_2#", BabbleItemSet["Battlegear of Seven Sacred Seals"] },
+	{ "#t16s11_3#", BabbleItemSet["Vestments of Seven Sacred Seals"] },
 
 	-- Arathi Basin Sets - Alliance
 	{ "#absa1#", BabbleItemSet["The Highlander's Intent"] },

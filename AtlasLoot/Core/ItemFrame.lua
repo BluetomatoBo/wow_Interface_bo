@@ -1,4 +1,4 @@
--- $Id: ItemFrame.lua 4206 2013-05-06 22:44:00Z lag123 $
+-- $Id: ItemFrame.lua 4248 2013-09-10 09:29:27Z lag123 $
 local _
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
@@ -20,6 +20,7 @@ function AtlasLoot:ClearLootPage()
 	self.ItemFrame.Prev:Hide()
 	self.ItemFrame.Heroic:Hide()
 	self.ItemFrame.RaidFinder:Hide()
+	self.ItemFrame.Flexible:Hide()
 	self.ItemFrame.Switch:Hide()
 	self.ItemFrame.changePoint = nil
 	self.ItemFrame.Back:Hide()
@@ -167,6 +168,8 @@ function AtlasLoot.HeroicModeToggle(self)
 		AtlasLoot:SetLootTableType("25Man", dataID)
 	elseif AtlasLoot.db.profile.LootTableType == "RaidFinder" then
 		AtlasLoot:SetLootTableType("Heroic", dataID)
+	elseif AtlasLoot.db.profile.LootTableType == "Flexible" then
+		AtlasLoot:SetLootTableType("Heroic", dataID)
 	end
 end
 
@@ -175,6 +178,16 @@ function AtlasLoot.RaidFinderToggle(self)
 	
 	if AtlasLoot.db.profile.LootTableType ~= "RaidFinder" then
 		AtlasLoot:SetLootTableType("RaidFinder", dataID)
+	else
+		AtlasLoot:SetLootTableType("Normal", dataID)
+	end
+end
+
+function AtlasLoot.FlexibleToggle(self)
+	local dataID = AtlasLoot.ItemFrame.dataID
+	
+	if AtlasLoot.db.profile.LootTableType ~= "Flexible" then
+		AtlasLoot:SetLootTableType("Flexible", dataID)
 	else
 		AtlasLoot:SetLootTableType("Normal", dataID)
 	end

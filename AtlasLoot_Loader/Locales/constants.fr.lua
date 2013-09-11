@@ -1,4 +1,4 @@
-﻿-- $Id: constants.fr.lua 4212 2013-05-20 12:27:56Z dynaletik $
+﻿-- $Id: constants.fr.lua 4224 2013-06-24 09:13:28Z trasher $
 --[[
 constants.fr.lua --- Traduction frFR par TrAsHeR. Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
@@ -364,6 +364,7 @@ if AL then
 	--AL["Tier 13 Set"] = true;
 	--AL["Tier 14 Set"] = true;
 	--AL["Tier 15 Set"] = true;
+	--AL["Tier 16 Set"] = true;
 	AL["TCG Items"] = "Objets des cartes à jouer"; -- Trading Card Game Items
 	AL["Rare Mobs"] = "Monstres rares";
 	AL["Grand Marshal"] = "Connétable";
@@ -608,6 +609,7 @@ if AL then
 	AL["Accessories"] = "Accessoires";
 	--AL["Rare"] = true;
 	AL["Specializations"] = "Spécialisations";
+	--AL["Flexible"] = true;
 	AL["Raid Finder"] = "Recherche de raid";
 	AL["Thunderforged"] = "Foudroyant";
 	AL["Pandaria World Bosses"] = "World Boss de Pandarie";
