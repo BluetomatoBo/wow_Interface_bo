@@ -1,6 +1,9 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
+6.12.2
+---------------------------
+- Revert fix for viewport mod interaction.  Needs a bit more external testing, apparently.
 
 6.12.1
 ---------------------------

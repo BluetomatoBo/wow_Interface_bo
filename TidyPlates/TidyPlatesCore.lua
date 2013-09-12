@@ -122,8 +122,10 @@ do
 			if CompatibilityMode then
 				plate:SetAlpha(1)
 			else
-				local _,_,_,x,y = extended.bars.group:GetPoint()
-				carrier:SetPoint("CENTER", WorldFrame, "BOTTOMLEFT", floor(x), floor(y+16))
+				--local _,_,_,x,y = extended.bars.group:GetPoint()
+				--carrier:SetPoint("CENTER", WorldFrame, "BOTTOMLEFT", floor(x), floor(y+16))
+				local x,y = plate:GetCenter()
+				carrier:SetPoint("CENTER", WorldFrame, "BOTTOMLEFT", floor(x), floor(y))
 			end
 
 			-- Get Highlight (Mouseover Detection)
