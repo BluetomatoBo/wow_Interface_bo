@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------
-r24 | burnum | 2013-07-04 01:57:39 +0000 (Thu, 04 Jul 2013) | 1 line
+r26 | burnum | 2013-09-12 05:30:35 +0000 (Thu, 12 Sep 2013) | 1 line
 Changed paths:
-   A /tags/v1.2.3 (from /trunk:23)
+   A /tags/v1.2.4 (from /trunk:25)
 
-Tagging as v1.2.3
+Tagging as v1.2.4
 ------------------------------------------------------------------------
-r23 | burnum | 2013-07-04 01:46:20 +0000 (Thu, 04 Jul 2013) | 1 line
+r25 | burnum | 2013-09-12 05:15:34 +0000 (Thu, 12 Sep 2013) | 1 line
 Changed paths:
    M /trunk/Readme.html
    M /trunk/_NPCScan.Overlay.Broker.toc
 
--- update TOC for 5.3
+-- update TOC for 5.4
 ------------------------------------------------------------------------

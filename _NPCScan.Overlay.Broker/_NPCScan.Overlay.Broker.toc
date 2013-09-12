@@ -1,14 +1,14 @@
-## Interface: 50300
+## Interface: 50400
 ## Title: _|cffCCCC88NPCScan|r.Overlay.Broker
 ## Notes: LibDataBroker button to toggle _NPCScan.Overlay's Map Layers and open it's Configuration Options.
 ## Author: Steve Dodds (Darkclaw of Hyjal)
 ## X-Category: Maps
-## Version: 1.2.3
+## Version: 1.2.4
 ## X-License: CC Attribution Noncommercial Share Alike 3.0 License
 ## X-Curse-Project-ID: 
 ## OptionalDeps: Ace3
 ## RequiredDeps: _NPCScan.Overlay
-## X-Curse-Packaged-Version: v1.2.3
+## X-Curse-Packaged-Version: v1.2.4
 ## X-Curse-Project-Name: _NPCScan.Overlay.Broker
 ## X-Curse-Project-ID: npc-ov-ldb
 ## X-Curse-Repository-ID: wow/npc-ov-ldb/mainline
