@@ -159,10 +159,12 @@ function addon:Enable_BlizzCompactUnitFrames()
             local buff = _G[name .. "Buff" .. i]
             local debuff = _G[name .. "Debuff" .. i]
             local dispel = _G[name .. "DispelDebuff" .. i]
+			local statusIcon = _G[name .. "CenterStatusIcon" .. i]
 
             if buff then enable(buff) end
             if debuff then enable(debuff) end
             if dispel then enable(dispel) end
+			if statusIcon then enable(statusIcon) end
         end
         enable(frame)
     end)
