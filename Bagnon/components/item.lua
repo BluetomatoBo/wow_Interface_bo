@@ -520,11 +520,6 @@ function ItemSlot:IsBank()
 	return Addon:IsBank(self:GetBag())
 end
 
-function ItemSlot:IsBankSlot()
-	local bag = self:GetBag()
-	return Addon:IsBank(bag) or Addon:IsBankBag(bag)
-end
-
 function ItemSlot:GetInfo()
 	return Cache:GetItemInfo(self:GetPlayer(), self:GetBag(), self:GetID())
 end
