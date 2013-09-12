@@ -1,3 +1,10 @@
+** v1.33
+
+- Updated TOC
+- Updated stat presets
+- Fixed PvP item scaling
+- Note that new trinkets that provide a % stat increase are not supported yet; expect a fix soon
+
 ** v1.32
 
 - Added a missing Parsers.lua file

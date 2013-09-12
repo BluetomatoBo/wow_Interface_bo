@@ -141,6 +141,7 @@ function ReforgeLite:UpdateMethodStats (method)
   method.items = method.items or {}
   for i = 1, #self.itemData do
     local item = GetInventoryItemLink ("player", self.itemData[i].slotId)
+    local orgstats = (item and GetItemStatsUp(item) or {})
     local stats = (item and GetItemStatsUp(item, self.pdb.ilvlCap) or {})
     local reforge = (item and self:GetReforgeID(item))
 
@@ -150,9 +151,12 @@ function ReforgeLite:UpdateMethodStats (method)
     method.items[i].reforge = nil
     method.items[i].amount = nil
 
+    for s, v in ipairs(self.itemStats) do
+      method.stats[s] = method.stats[s] - (orgstats[v.name] or 0) + (stats[v.name] or 0)
+    end
     if reforge then
       local src, dst = self.reforgeTable[reforge][1], self.reforgeTable[reforge][2]
-      local amount = math.floor ((stats[self.itemStats[src].name] or 0) * REFORGE_COEFF)
+      local amount = math.floor ((orgstats[self.itemStats[src].name] or 0) * REFORGE_COEFF)
       method.stats[src] = method.stats[src] + amount
       method.stats[dst] = method.stats[dst] - amount
     end
@@ -346,14 +350,18 @@ end
 function ReforgeLite:InitReforgeClassic ()
   local method = {}
   method.items = {}
+  local orgitems = {}
   local statsSum = 0
   for i = 1, #self.itemData do
     method.items[i] = {}
     method.items[i].stats = {}
+    orgitems[i] = {}
     local item = GetInventoryItemLink ("player", self.itemData[i].slotId)
     local stats = (item and GetItemStatsUp(item, self.pdb.ilvlCap) or {})
-    for j = 1, #self.itemStats do
-      method.items[i].stats[j] = (stats[self.itemStats[j].name] or 0)
+    local orgstats = (item and GetItemStatsUp(item) or {})
+    for j, v in ipairs(self.itemStats) do
+      method.items[i].stats[j] = (stats[v.name] or 0)
+      orgitems[i][j] = (orgstats[v.name] or 0)
       statsSum = statsSum + method.items[i].stats[j]
     end
   end
@@ -392,8 +400,8 @@ function ReforgeLite:InitReforgeClassic ()
     if i == self.STATS.SPIRIT then
       data.initial[i] = data.initial[i] / self.spiritBonus
     end
-    for j = 1, #data.method.items do
-      data.initial[i] = data.initial[i] - data.method.items[j].stats[i]
+    for j = 1, #orgitems do
+      data.initial[i] = data.initial[i] - orgitems[j][i]
     end
   end
   local reforgedSpirit = 0
@@ -403,7 +411,7 @@ function ReforgeLite:InitReforgeClassic ()
     local reforge = (item and self:GetReforgeID (item))
     if reforge then
       local src, dst = self.reforgeTable[reforge][1], self.reforgeTable[reforge][2]
-      local amount = math.floor (method.items[i].stats[src] * REFORGE_COEFF)
+      local amount = math.floor(orgitems[i][src] * REFORGE_COEFF)
       data.initial[src] = data.initial[src] + amount
       data.initial[dst] = data.initial[dst] - amount
       if src == self.STATS.SPIRIT then
@@ -519,27 +527,30 @@ StaticPopupDialogs["REFORGELITE_COMPUTEERROR"] = {
 function ReforgeLite:ComputeReforgeCore (data, reforgeOptions)
   local TABLE_SIZE = 10000
   local scores, codes = {}, {}
-  local linit = math.floor (data.caps[1].init / data.cheat + math.random ()) + math.floor (data.caps[2].init / data.cheat + math.random ()) * TABLE_SIZE
+  local mfloor = math.floor
+  local mrandom = math.random
+  local schar = string.char
+  local linit = mfloor(data.caps[1].init / data.cheat + mrandom()) + mfloor(data.caps[2].init / data.cheat + mrandom()) * TABLE_SIZE
   scores[linit] = 0
   codes[linit] = ""
   for i = 1, #self.itemData do
     local newscores, newcodes = {}, {}
     local opt = reforgeOptions[i]
     local count = 0
-    for k, score in pairs (scores) do
+    for k, score in pairs(scores) do
       local code = codes[k]
       local s1 = k % TABLE_SIZE
-      local s2 = math.floor (k / TABLE_SIZE)
+      local s2 = mfloor(k / TABLE_SIZE)
       for j = 1, #opt do
         local o = opt[j]
         local nscore = score + o.score
-        local nk = s1 + math.floor (o.d1 / data.cheat + math.random ()) + (s2 + math.floor (o.d2 / data.cheat + math.random ())) * TABLE_SIZE
+        local nk = s1 + mfloor(o.d1 / data.cheat + mrandom()) + (s2 + mfloor(o.d2 / data.cheat + mrandom())) * TABLE_SIZE
         if newscores[nk] == nil or nscore > newscores[nk] then
           if newscores[nk] == nil then
             count = count + 1
           end
           newscores[nk] = nscore
-          newcodes[nk] = code .. string.char (j)
+          newcodes[nk] = code .. schar(j)
         end
       end
     end

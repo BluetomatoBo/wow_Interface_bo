@@ -198,6 +198,7 @@ function ReforgeLite:AddPriorityItem(loading)
   end
   local stat = GUI:CreateDropdown(self.task.prio, statList, self.pdb.prio[row].stat, function(val)
     self.pdb.prio[row].stat = val
+    self:UpdatePriorities()
     self:PrioToWeights(self.pdb)
     self:RefreshMethodStats()
   end, 110)
@@ -239,7 +240,7 @@ function ReforgeLite:RemovePriorityItem(row, loading)
   self.task.prio:DeleteRow(#self.pdb.prio)
   if not loading then
     table.remove(self.pdb.prio, row)
-    self:UpdatePriorities(i)
+    self:UpdatePriorities()
     self:UpdateContentSize()
 
     self:PrioToWeights(self.pdb)
@@ -475,7 +476,7 @@ function ReforgeLite:CreateTaskUI()
   self:SetAnchor(self.targetLevel.text, "TOPLEFT", self.pawnButton, "BOTTOMLEFT", 0, -8)
   self.targetLevel:SetPoint("BOTTOMLEFT", self.targetLevel.text, "BOTTOMLEFT", 150, -20)
 
-  local ilvlCapList = {{value = 0, name = L["None"]}, {value = 496, name = L["PvP (496)"]}}
+  local ilvlCapList = {{value = 0, name = L["None"]}, {value = 522, name = L["PvP (522)"]}}
   self.ilvlCap = GUI:CreateDropdown(self.content, ilvlCapList, self.pdb.ilvlCap,
     function(val) self.pdb.ilvlCap = val self:UpdateItems() end, 150)
   self.ilvlCap.tip = CreateFrame("Frame", nil, self.content)
