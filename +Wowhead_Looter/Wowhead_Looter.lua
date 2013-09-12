@@ -3,16 +3,16 @@
 --     W o w h e a d   L o o t e r     --
 --                                     --
 --                                     --
---    Patch: 5.3.0                     --
---    Updated: August 20, 2013         --
+--    Patch: 5.4.0                     --
+--    Updated: September 10, 2013      --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 50012;
-local WL_VERSION_PATCH = 0;
+local WL_VERSION = 50013;
+local WL_VERSION_PATCH = 1;
 
 
 -- SavedVariables
@@ -1784,23 +1784,25 @@ function wlBagItemOnUse(link, bag, slot)
 	end
 	
 	local id = wlParseItemLink(link);
-	local openable = select(6, GetContainerItemInfo(bag, slot));
-	if bag and slot and openable then	
-		wlGameTooltip:ClearLines();
-		wlGameTooltip:SetBagItem(bag, slot);
-		for i=2, wlGameTooltip:NumLines() do
-			local text = _G["wlGameTooltipTextLeft"..i]:GetText();
-			if text == ITEM_OPENABLE then
-				wlClearTracker("spell");
-				wlTrackerClearedTime = now;
+	if bag and slot then
+		local openable = select(6, GetContainerItemInfo(bag, slot));
+		if openable then
+			wlGameTooltip:ClearLines();
+			wlGameTooltip:SetBagItem(bag, slot);
+			for i=2, wlGameTooltip:NumLines() do
+				local text = _G["wlGameTooltipTextLeft"..i]:GetText();
+				if text == ITEM_OPENABLE then
+					wlClearTracker("spell");
+					wlTrackerClearedTime = now;
 
-				wlTracker.spell.time = now;
-				wlTracker.spell.event = "SUCCEEDED";
-				wlTracker.spell.action = "Opening";
-				wlTracker.spell.kind = "item";
-				wlTracker.spell.id = id;
-				wlTracker.spell.name = wlGameTooltipTextLeft1:GetText();
-				break;
+					wlTracker.spell.time = now;
+					wlTracker.spell.event = "SUCCEEDED";
+					wlTracker.spell.action = "Opening";
+					wlTracker.spell.kind = "item";
+					wlTracker.spell.id = id;
+					wlTracker.spell.name = wlGameTooltipTextLeft1:GetText();
+					break;
+				end
 			end
 		end
 	end
