@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------
-r354 | mitch0 | 2013-05-25 08:50:40 +0000 (Sat, 25 May 2013) | 1 line
+r356 | mitch0 | 2013-09-13 09:34:58 +0000 (Fri, 13 Sep 2013) | 1 line
 Changed paths:
-   A /tags/v4.2.2 (from /trunk:353)
+   A /tags/v4.2.3 (from /trunk:355)
 
-Tagging as v4.2.2
+Tagging as v4.2.3
 ------------------------------------------------------------------------
-r353 | mitch0 | 2013-05-25 08:40:18 +0000 (Sat, 25 May 2013) | 1 line
+r355 | mitch0 | 2013-09-13 09:26:49 +0000 (Fri, 13 Sep 2013) | 1 line
 Changed paths:
    M /trunk/RangeDisplay.toc
    M /trunk/RangeDisplay_Options/RangeDisplay_Options.toc
 
-toc bump
+toc bump for 5.4
 ------------------------------------------------------------------------
