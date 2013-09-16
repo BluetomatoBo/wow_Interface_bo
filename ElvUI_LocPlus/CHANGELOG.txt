@@ -1,3 +1,7 @@
+[b]1.82[/b]
+*updated LibTourist for Timeless Isle
+*minor fixes
+
 [b]1.81[/b]
 *toc update for patch 5.4
 

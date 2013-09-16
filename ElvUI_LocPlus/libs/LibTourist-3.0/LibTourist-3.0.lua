@@ -1,6 +1,6 @@
 ﻿--[[
 Name: LibTourist-3.0
-Revision: $Rev: 164 $
+Revision: $Rev: 165 $
 Author(s): ckknight (ckknight@gmail.com), Arrowmaster, Odica (maintainer)
 Website: http://ckknight.wowinterface.com/
 Documentation: http://www.wowace.com/addons/libtourist-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibTourist-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 164 $"):match("(%d+)"))
+local MINOR_VERSION = 90000 + tonumber(("$Revision: 165 $"):match("(%d+)"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub") end
 
@@ -1562,6 +1562,7 @@ local MapIdLookupTable = {
 	[929] = "Isle of Giants",
 	[930] = "Throne of Thunder",
 	[935] = "Deepwind Gorge",
+	[951] = "Timeless Isle",
 }
 
 local zoneTranslation = {
@@ -5843,6 +5844,7 @@ do
 		paths = {
 			[BZ["Temple of the Jade Serpent"]] = true,
 			[BZ["Valley of the Four Winds"]] = true,
+			[BZ["Timeless Isle"]] = true,
 			[JADEFOREST_ORGRIMMAR_PORTAL] = true,
 			[JADEFOREST_STORMWIND_PORTAL] = true,
 		},
@@ -6146,6 +6148,17 @@ do
 		high = 90,
 		continent = Pandaria,
 		type = "Arena",
+	}
+	
+	-- Patch 5.4 Zone
+	zones[BZ["Timeless Isle"]] = {
+		low = 90,
+		high = 90,
+		continent = Pandaria,
+		paths = BZ["The Jade Forest"],
+		fishing_min = 825,
+		battlepet_low = 23,
+		battlepet_high = 25,
 	}
 	
 	

@@ -438,9 +438,9 @@ local function LocSimplePet(zoneText)
 			end
 		else
 			if low ~= high then
-				plevel = string.format(" (%d-%d)", low, high)
+				plevel = string.format(" (%d-%d) ", low, high)
 			else
-				plevel = string.format(" (%d)", high)
+				plevel = string.format(" (%d) ", high)
 			end
 		end
 	end
@@ -453,7 +453,7 @@ local function LocSimpleLevelRange(zoneText)
 	local zoneText = GetRealZoneText()
 	local low, high = tourist:GetLevel(zoneText)
 	local dlevel
-	if low >= 0 and high >= 0 then
+	if low > 0 and high > 0 then
 		local r, g, b = tourist:GetLevelColor(zoneText)
 		if low ~= high then
 			dlevel = string.format("|cff%02x%02x%02x (%d-%d) |r", r*255, g*255, b*255, low, high) or ""
