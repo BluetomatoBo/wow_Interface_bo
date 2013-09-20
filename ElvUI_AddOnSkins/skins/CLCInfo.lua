@@ -49,7 +49,7 @@ function AS:SkinCLCInfo(event, addon)
 				else
 					self.elements.backdropFrame:Hide()
 				end
-			end
+			end)
 
 			count:SetSize(40 * xScale, 10 * yScale)
 			count:ClearAllPoints()
