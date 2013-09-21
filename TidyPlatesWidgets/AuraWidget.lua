@@ -202,7 +202,8 @@ local function FindWidgetByName(SearchFor)
 	local widget
 	--local SearchFor = strsplit("-", NameString)
 	for widget in pairs(WidgetList) do
-		if widget.unit.name == SearchFor then
+		--if widget.unit.name == SearchFor then
+		if widget.unit.rawName == SearchFor then
 			return widget
 		end
 	end
@@ -857,7 +858,7 @@ function UpdateWidget(frame)
 
 		if not guid then
 			-- Attempt to ID widget via Name or Raid Icon
-			if unit.type == "PLAYER" then guid = ByName[unit.name]
+			if unit.type == "PLAYER" then guid = ByName[unit.rawName]
 			elseif unit.isMarked then guid = ByRaidIcon[unit.raidIcon] end
 
 
@@ -902,7 +903,7 @@ local function UpdateWidgetContextFull(frame, unit)
 		raidicon = unit.raidIcon
 		if guid and raidicon then ByRaidIcon[raidicon] = guid end
 	end
-	if unit.type == "PLAYER" then name = unit.name end
+	if unit.type == "PLAYER" then name = unit.rawName end
 
 	CallForWidgetUpdate(guid, raidicon, name)
 end

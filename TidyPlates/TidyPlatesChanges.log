@@ -1,7 +1,20 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
-6.12.2
+6.12.5
+---------------------------
+- Widgets: Unit Cache: Stores non-local units with a " (*)" suffix.
+- Hub: Class colors on cached units shoud work properly
+
+6.12.4
+---------------------------
+- Core: New unit data: unit.rawName, strips the (*) from nameplate names.
+- Core: The carrier frame is now globally labeled with a unique frame name.
+- Hub: Healer Tracking: Now uses unit.rawName rather than unit.name
+- Widgets: Aura Tracker: Now uses unit.rawName to associate on-screen PvP names
+- Widgets: Unit Cache: Will now properly filter non-realm units (ex. coalesced or battlegroup)
+
+6.12.2/3
 ---------------------------
 - Revert fix for viewport mod interaction.  Needs a bit more external testing, apparently.
 
@@ -10,8 +23,6 @@ Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.j
 - TOC Bump
 - Core: OnShowCastbar will now check for unit health before proceeding, hopefully avoiding errors when the Castbar's OnShow handler is called early.
 - * Fix for Viewport Mods (specifically, Sunn), particularly, when the actual vertical viewport is decreased.
-
-* This should reduce or eliminate the need for Compatibility Mode.
 
 6.12.0
 ---------------------------

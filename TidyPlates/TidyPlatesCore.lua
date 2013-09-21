@@ -42,7 +42,7 @@ local UpdateStyle
 local UpdateIndicator_CustomScaleText, UpdateIndicator_Standard, UpdateIndicator_CustomAlpha
 local UpdateIndicator_Level, UpdateIndicator_ThreatGlow, UpdateIndicator_RaidIcon
 local UpdateIndicator_EliteIcon, UpdateIndicator_UnitColor, UpdateIndicator_Name
-local UpdateIndicator_HealthBar
+local UpdateIndicator_HealthBar, UpdateIndicator_Target
 local OnUpdateCastbar, OnShowCastbar, OnHideCastbar
 
 -- Event Functions
@@ -256,8 +256,10 @@ do
         -- Tidy Plates Frame
         --------------------------------
 		local carrier
-		if CompatibilityMode then carrier = CreateFrame("Frame", nil, plate)
-			else carrier = CreateFrame("Frame", nil, WorldFrame) end
+		local frameName = "TidyPlatesCarrier"..numChildren
+
+		if CompatibilityMode then carrier = CreateFrame("Frame", frameName, plate)
+			else carrier = CreateFrame("Frame", frameName, WorldFrame) end
 
 		local extended = CreateFrame("Frame", nil, carrier)
 
@@ -563,6 +565,8 @@ do
 	-- UpdateUnitIdentity: Updates Low-volatility Unit Data
 	function UpdateUnitIdentity()
 		unit.name = regions.name:GetText()
+		unit.rawName = gsub(unit.name, " %(%*%)", "")
+
 		unit.isBoss = regions.skullicon:IsShown()
 		unit.isDangerous = unit.isBoss
 		unit.isElite = (regions.eliteicon:IsShown() or 0) == 1
@@ -1023,7 +1027,6 @@ function TidyPlates:EnableFadeIn() EnableFadeIn = true; end
 function TidyPlates:DisableFadeIn() EnableFadeIn = nil; end
 function TidyPlates:EnableCompatibilityMode() CompatibilityMode = true; end
 TidyPlates.NameplatesByGUID, TidyPlates.NameplatesAll, TidyPlates.NameplatesByVisible = GUID, Plates, PlatesVisible
-
 
 
 

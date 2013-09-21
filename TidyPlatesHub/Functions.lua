@@ -271,7 +271,7 @@ local function AlphaFunctionByThreatHigh (unit)
 	if InCombatLockdown() and unit.reaction == "HOSTILE" then
 		if unit.threatValue > 1 and unit.health > 0 then return LocalVars.OpacitySpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
-		if GetAggroCondition(unit.name) then return LocalVars.OpacitySpotlight end
+		if GetAggroCondition(unit.rawName) then return LocalVars.OpacitySpotlight end
 	end
 end
 
@@ -281,7 +281,7 @@ local function AlphaFunctionByThreatLow (unit)
 		if IsTankedByAnotherTank(unit) then return end
 		if unit.threatValue < 2 and unit.health > 0 then return LocalVars.OpacitySpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
-		if GetAggroCondition(unit.name) then return LocalVars.OpacitySpotlight end
+		if GetAggroCondition(unit.rawName) then return LocalVars.OpacitySpotlight end
 	end
 end
 	--]]
@@ -297,7 +297,7 @@ end
 			if IsTankedByAnotherTank(unit) then return HEADLINEMODE end
 			if unit.threatValue < 2 and unit.health > 0 then return BARMODE end
 		elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
-			if GetAggroCondition(unit.name) == true then return BARMODE end
+			if GetAggroCondition(unit.rawName) == true then return BARMODE end
 		end
 		return HEADLINEMODE
 	end,
@@ -465,7 +465,7 @@ local function HealthColorDelegate(unit)
 	-- Group Member Aggro Coloring
 	if unit.reaction == "FRIENDLY"  then
 		if LocalVars.ColorShowPartyAggro and LocalVars.ColorPartyAggroBar then
-			if GetAggroCondition(unit.name) then color = LocalVars.ColorPartyAggro end
+			if GetAggroCondition(unit.rawName) then color = LocalVars.ColorPartyAggro end
 		end
 	end
 
@@ -494,9 +494,9 @@ end
 -- By Enemy Healer
 local function WarningBorderFunctionByEnemyHealer(unit)
 	if unit.reaction == "HOSTILE" and unit.type == "PLAYER" then
-		--if TidyPlatesCache and TidyPlatesCache.HealerListByName[unit.name] then
+		--if TidyPlatesCache and TidyPlatesCache.HealerListByName[unit.rawName] then
 
-		if IsHealer(unit.name) then
+		if IsHealer(unit.rawName) then
 			return RaidClassColors[unit.class or ""] or ReactionColors[unit.reaction][unit.type]
 		end
 	end
@@ -546,7 +546,7 @@ local function ThreatColorDelegate(unit)
 
 	-- Friendly Unit Aggro
 	if LocalVars.ColorShowPartyAggro and LocalVars.ColorPartyAggroGlow and unit.reaction == "FRIENDLY" then
-		if GetAggroCondition(unit.name) then color = LocalVars.ColorPartyAggro end
+		if GetAggroCondition(unit.rawName) then color = LocalVars.ColorPartyAggro end
 
 	-- Enemy Units
 	else
@@ -627,6 +627,7 @@ local function NameColorByFriendlyClass(unit)
 	if unit.type == "PLAYER" and unit.reaction == "FRIENDLY" then
 		-- Determine Unit Class
 		class = GetFriendlyClass(unit.name)
+		--print(unit.name, class)
 
 		-- Return color
 		if class and RaidClassColors[class] then
@@ -684,7 +685,7 @@ local function SetNameColorDelegate(unit)
 	if unit.reaction == "FRIENDLY" then
 		-- Party Aggro Coloring -- Overrides the normal coloring
 		if LocalVars.ColorShowPartyAggro and LocalVars.ColorPartyAggroText then
-			if GetAggroCondition(unit.name) then color = LocalVars.ColorPartyAggro end
+			if GetAggroCondition(unit.rawName) then color = LocalVars.ColorPartyAggro end
 		end
 	end
 
@@ -784,7 +785,7 @@ local function HealthFunctionArenaID(unit)
 	local powercolor = WhiteColor
 	local powerstring = ""
 	local arenastring = ""
-	local arenaindex = GetArenaIndex(unit.name)
+	local arenaindex = GetArenaIndex(unit.rawName)
 
 	--arenaindex = 2	-- Tester
 	if unit.type == "PLAYER" then
@@ -990,7 +991,7 @@ local function ScaleFunctionByThreatHigh(unit)
 	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" then
 		if unit.type == "NPC" and unit.threatValue > 1 and unit.health > 2 then return LocalVars.ScaleSpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
-		if GetAggroCondition(unit.name) then return LocalVars.ScaleSpotlight end
+		if GetAggroCondition(unit.rawName) then return LocalVars.ScaleSpotlight end
 	end
 end
 
@@ -1000,7 +1001,7 @@ local function ScaleFunctionByThreatLow(unit)
 		if  IsTankedByAnotherTank(unit) then return end
 		if unit.type == "NPC" and unit.health > 2 and unit.threatValue < 2 then return LocalVars.ScaleSpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
-		if GetAggroCondition(unit.name) then return LocalVars.ScaleSpotlight end
+		if GetAggroCondition(unit.rawName) then return LocalVars.ScaleSpotlight end
 	end
 end
 
@@ -1029,8 +1030,8 @@ end
 -- By Enemy Healer
 local function ScaleFunctionByEnemyHealer(unit)
 	if unit.reaction == "HOSTILE" and unit.type == "PLAYER" then
-		--if TidyPlatesCache and TidyPlatesCache.HealerListByName[unit.name] then
-		if IsHealer(unit.name) then
+		--if TidyPlatesCache and TidyPlatesCache.HealerListByName[unit.rawName] then
+		if IsHealer(unit.rawName) then
 			return LocalVars.ScaleSpotlight
 		end
 	end
@@ -1099,7 +1100,7 @@ local function AlphaFunctionByThreatHigh (unit)
 	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" then
 		if unit.threatValue > 1 and unit.health > 0 then return LocalVars.OpacitySpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
-		if GetAggroCondition(unit.name) then return LocalVars.OpacitySpotlight end
+		if GetAggroCondition(unit.rawName) then return LocalVars.OpacitySpotlight end
 	end
 end
 
@@ -1109,7 +1110,7 @@ local function AlphaFunctionByThreatLow (unit)
 		if  IsTankedByAnotherTank(unit) then return end
 		if unit.threatValue < 2 and unit.health > 0 then return LocalVars.OpacitySpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
-		if GetAggroCondition(unit.name) then return LocalVars.OpacitySpotlight end
+		if GetAggroCondition(unit.rawName) then return LocalVars.OpacitySpotlight end
 	end
 end
 
@@ -1142,8 +1143,8 @@ end
 -- By Enemy Healer
 local function AlphaFunctionByEnemyHealer(unit)
 	if unit.reaction == "HOSTILE" and unit.type == "PLAYER" then
-		--if TidyPlatesCache and TidyPlatesCache.HealerListByName[unit.name] then
-		if IsHealer(unit.name) then
+		--if TidyPlatesCache and TidyPlatesCache.HealerListByName[unit.rawName] then
+		if IsHealer(unit.rawName) then
 			return LocalVars.OpacitySpotlight
 		end
 	end
