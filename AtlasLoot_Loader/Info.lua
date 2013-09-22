@@ -1,4 +1,4 @@
-﻿-- $Id: Info.lua 4174 2013-04-02 09:13:52Z dynaletik $
+﻿-- $Id: Info.lua 4276 2013-09-21 21:08:59Z hegarol $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -14,7 +14,7 @@ AtlasLoot.AddonInfo = {
 	support = {
 		email = "manager@atlasloot.net",
 		forum = "http://www.atlasloot.net/",
-		curse = "http://wow.curse.com/downloads/wow-addons/details/atlasloot-enhanced.aspx",
+		curse = "http://www.curse.com/addons/wow/atlasloot-enhanced",
 		wowinterface = "http://www.wowinterface.com/downloads/info5541-AtlasLootEnhanced.html",
 	},
 	authors = {
@@ -24,7 +24,7 @@ AtlasLoot.AddonInfo = {
 		},
 		["Lag"] = {
 			email = "lag@atlasloot.net",
-			ingame = {"Lág@Ysera", "Calî@Ysera", "Shijera@Ysera", "Làg@Ysera", "Terija@Ysera"},
+			ingame = {"Lág@Ysera", "Calî@Ysera", "Shijera@Ysera", "Làg@Ysera", "Terija@Ysera", "Choreria@Ysera"},
 			friends = {"Meena@Ysera", "Purzlschn@Ysera"},
 		},
 		["Celellach"] = {

@@ -138,8 +138,18 @@ AtlasLoot_IngameLocales = {
 	["Crane Nest"] = GetAchievementCriteriaInfo(8725,3),
 
 	--- Mists of Pandaria - Timeless Isle: Killing Time
+	["Ashleaf Sprite"] = GetAchievementCriteriaInfo(8712,11),
+	["Burning Berserker"] = GetAchievementCriteriaInfo(8712,25),
+	["Crag Stalker"] = GetAchievementCriteriaInfo(8712,10),
+	["Damp Shambler"] = GetAchievementCriteriaInfo(8712,18),
+	["Eternal Kilnmaster"] = GetAchievementCriteriaInfo(8712,31),
 	["Foreboding Flame"] = GetAchievementCriteriaInfo(8712,13),
+	["Gulp Frog"] = GetAchievementCriteriaInfo(8712,21),
 	["Jademist Dancer"] = GetAchievementCriteriaInfo(8712,14),
+	["Ordon Candlekeeper"] = GetAchievementCriteriaInfo(8712,12),
+	["Ordon Oathguard"] = GetAchievementCriteriaInfo(8712,24),
+	["Primal Stalker"] = GetAchievementCriteriaInfo(8712,19),
+	["Windfeather Nestkeeper"] = GetAchievementCriteriaInfo(8712,5),
 
 	--- Mists of Pandaria - Timeless Isle: Timeless Champion
 	["Bufo"] = GetAchievementCriteriaInfo(8714,14),
@@ -147,9 +157,13 @@ AtlasLoot_IngameLocales = {
 	["Gu'chi the Swarmbringer"] = GetAchievementCriteriaInfo(8714,4),
 	["Huolon"] = GetAchievementCriteriaInfo(8714,27),
 	["Imperial Python"] = GetAchievementCriteriaInfo(8714,18),
+	["Jakur of Ordon"] = GetAchievementCriteriaInfo(8714,22),
 	["Leafmender"] = GetAchievementCriteriaInfo(8714,13),
 	["Monstrous Spineclaw"] = GetAchievementCriteriaInfo(8714,17),
+	["Rattleskew"] = GetAchievementCriteriaInfo(8714,11),
+	["Rock Moss"] = GetAchievementCriteriaInfo(8714,20),
 	["Spirit of Jadefire"] = GetAchievementCriteriaInfo(8714,12),
+	["Zesqua"] = GetAchievementCriteriaInfo(8714,5),
 	["Zhu-Gon the Sour"] = GetAchievementCriteriaInfo(8714,6),
 
 	--- Other Rares

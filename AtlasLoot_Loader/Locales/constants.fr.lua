@@ -1,4 +1,4 @@
-﻿-- $Id: constants.fr.lua 4224 2013-06-24 09:13:28Z trasher $
+﻿-- $Id: constants.fr.lua 4269 2013-09-17 09:38:33Z trasher $
 --[[
 constants.fr.lua --- Traduction frFR par TrAsHeR. Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
@@ -84,6 +84,9 @@ if AL then
 	-- AtlasLootFu 
 	AL["AtlasLootFu is no longer in use.\nDelete it from your AddOns folder"] = "AtlasLootFu n'est plus utilisé.\nVeuillez le supprimer de votre dossier AddOns.";
 
+	-- Atlas Incompatible
+	AL["Please note that AtlasLoot v%s is only compatible with Atlas v%s. AtlasLoot detected that you have an older Atlas version installed and thus Atlas integration was disabled."] = "Veuillez noter que AtlasLoot v%s est compatible uniquement avec Atlas v%s. AtlasLoot a détecté que vous utilisez une ancienne version d'Atlas, donc l'intégration d'AtlasLoot a été désactivé.";
+
 	-- Options
 	--AL["Options"] = true;
 	AL["Load Loot Modules at Startup"] = "Charger les modules de loot au démarrage";
@@ -103,7 +106,7 @@ if AL then
 	AL["Reset"] = "Réinitialiser";
 	AL["Reset Frames"] = "Réinitialiser les frames";
 	--AL["Profiles"] = true;
-	--AL["Item Buttons"] = true; -- à traduire
+	AL["Item Buttons"] = "Options des boutons"
 	AL["Loot Table"] = "Table de loot";
 	AL["Enable mouse on item descriptions"] = "Activer la souris sur la description de l'objet";
 	AL["Upgrade Level:"] = "Niveau d'amélioration :";
@@ -487,7 +490,7 @@ if AL then
 	AL["Weapon Enhancements"] = "Améliorations d'arme";
 	AL["Cataclysm Vendor Sold Plans"] = "Vendeur de plans à Cataclysme"
 	AL["Mists of Pandaria Vendor Sold Plans"] = "Vendeur de plans à Mist of Pandoria";
-	--AL["Training Projects"] = true; -- à traduire
+	AL["Training Projects"] = "Ouvrages";
 
 	-- Cooking
 	AL["Banquets/Feasts"] = "Banquets / Festins";
@@ -612,6 +615,7 @@ if AL then
 	--AL["Flexible"] = true;
 	AL["Raid Finder"] = "Recherche de raid";
 	AL["Thunderforged"] = "Foudroyant";
+	AL["Warforged"] = "De guerre";
 	AL["Pandaria World Bosses"] = "World Boss de Pandarie";
 	--AL["Elite"] = true;
 	AL["Vegetables"] = "Légumes";
@@ -1039,8 +1043,10 @@ if AL then
 	AL["Auntie Stormstout"] = "Tatie Brune d’Orage";
 	--AL["Luo Luo"] = true;
 	--AL["Meng Meng"] = true;
+	AL["Moonfang"] = "Croc-de-Lune";
 	AL["Ongrom Black Tooth"] = "Ongrom Dent-Noire";
 	AL["Proveditor Grantley"] = "Provéditeur Grantley";
+	--AL["Scary Sprite"] = true; -- à traduire
 	--- World Events
 	AL["Crimson Templar"] = "Templier cramoisi";  --- mob removed from game?
 	AL["Azure Templar"] = "Templier d'azur";  --- mob removed from game?
@@ -1100,6 +1106,7 @@ if AL then
 	AL["Overcharged Manacell"] = "Cellule de mana surchargée"; --- If still in game, should be used in IngameLocales
 	AL["Shellfish Trap"] = "Casier à crustacés";
 	AL["Fishing Pools"] = "Bancs de poissons";
+	--AL["Timeless Chest"] = true; -- à traduire
 
 	-- Blizzard Promotions
 	AL["Annual Pass"] = "Pass annuel";

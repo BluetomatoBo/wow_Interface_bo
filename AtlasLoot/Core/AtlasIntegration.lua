@@ -1,4 +1,4 @@
--- $Id: AtlasIntegration.lua 4213 2013-05-22 11:24:37Z lag123 $
+-- $Id: AtlasIntegration.lua 4265 2013-09-16 18:45:31Z arith $
 --[[
 self file contains all the Atlas specific functions
 ]]
@@ -16,8 +16,9 @@ local PURPLE = "|cff9F3FFF";
 local BLUE = "|cff0070dd";
 local ORANGE = "|cffFF8400";
 
+local compStr = string.format(AL["Please note that AtlasLoot v%s is only compatible with Atlas v%s. AtlasLoot detected that you have an older Atlas version installed and thus Atlas integration was disabled."], ATLASLOOT_VERSION_NUM, ATLASLOOT_MIN_ATLAS);
 StaticPopupDialogs["ATLASLOOT_INCOMPATIBLE_ATLAS"] = {
-	text = "Please note that AtlasLoot v6.05.01 is only compatible with Atlas 1.21.0. AtlasLoot detected that you have an older Atlas version installed and thus Atlas integration was disabled.",
+	text = compStr,
 	button1 = AL["OK"],
 	OnAccept = function()
 		
@@ -287,6 +288,15 @@ function AtlasLoot:AtlasRefreshHook()
 			if ( k == zoneID ) then
 				matchFound = v;
 				sayEntrance = true;
+			end
+		end
+	end
+	-- Below try to add the series maps into switch button's map list
+	if (not matchFound[1]) then
+		for k, v in pairs(Atlas_MapSeries) do
+			if (k == zoneID) then
+				matchFound = v;
+				sayEntrance = false;
 			end
 		end
 	end

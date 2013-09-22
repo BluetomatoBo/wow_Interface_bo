@@ -1,4 +1,4 @@
--- $Id: mistsofpandaria.lua 4251 2013-09-10 10:04:21Z Dynaletik $
+-- $Id: mistsofpandaria.lua 4273 2013-09-17 19:06:11Z Dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -2057,7 +2057,7 @@ local moduleName = "AtlasLootMoP"
 				{ 2, 99134, "", "=q4=Gloves of Winged Triumph", "=ds=#s9#, #a4#"};
 				{ 3, 99124, "", "=q4=Greaves of Winged Triumph", "=ds=#s11#, #a4#"};
 				{ 5, 0, "Spell_Holy_AuraOfLight", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Retribution"]};
-				{ 6, 99134, "", "=q4=Gauntlets of Winged Triumph", "=ds=#s9#, #a4#"};
+				{ 6, 99137, "", "=q4=Gauntlets of Winged Triumph", "=ds=#s9#, #a4#"};
 				{ 7, 99139, "", "=q4=Legplates of Winged Triumph", "=ds=#s11#, #a4#"};
 				{ 9, 0, "spell_holy_devotionaura", "=q6="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..ALIL["Protection"]};
 				{ 10, 99127, "", "=q4=Handguards of Winged Triumph", "=ds=#s9#, #a4#"};
@@ -2642,12 +2642,12 @@ local moduleName = "AtlasLootMoP"
 				{ 4, 105759, "", "=q4=Magmaplates of Jian Wu Xi Feng", "=ds=#s11#, #a4#" },
 				{ 5, 105761, "", "=q4=Partik's Purified Legplates", "=ds=#s11#, #a4#" },
 				{ 6, 105756, "", "=q4=Poxleitner's Leggings of Lights", "=ds=#s11#, #a4#" },
+				{ 8, 104273, "", "=q4=Flame-Scarred Cache of Offerings", "=ds=#m20#" },
 				{ 16, 105766, "", "=q4=Anafielle's Spiked Choker", "=ds=#s2#" },
 				{ 17, 105765, "", "=q4=Bladeforger Necklace", "=ds=#s2#" },
 				{ 18, 105763, "", "=q4=Penate's Perilous Pendant", "=ds=#s2#" },
 				{ 19, 105764, "", "=q4=Rising New Moon Talisman", "=ds=#s2#" },
 				{ 20, 105762, "", "=q4=Smoldering Eye", "=ds=#s2#" },
-				{ 22, 104273, "", "=q4=Flame-Scarred Cache of Offerings", "=ds=#m20#" },
 			}
 		};
 		info = {
@@ -4242,12 +4242,15 @@ local moduleName = "AtlasLootMoP"
 				{ 13, 105143, "", "=q4=Spaulders of the Fallen Warchief", "=ds=#s3#, #a4#" },
 				{ 14, 105156, "", "=q4=Chestplate of Fallen Passion", "=ds=#s5#, #a4#" },
 				{ 15, 105142, "", "=q4=Legplates of Unthinking Strife", "=ds=#s11#, #a4#" },
-				{ 16, 105150, "", "=q4=Black Blood of Y'Shaarj", "=ds=#s14#" },
-				{ 17, 105147, "", "=q4=Curse of Hubris", "=ds=#s14#" },
-				{ 19, 105151, "", "=q4=Horned Mace of the Old Ones", "=ds=#h1#, #w6#" },
-				{ 20, 105136, "", "=q4=Kor'kron Spire of Supremacy", "=ds=#w9#" },
-				{ 21, 105146, "", "=q4=Xal'atoh, Desecrated Image of Gorehowl", "=ds=#h2#, #w1#" },
-				{ 22, 105152, "", "=q4=Revelations of Y'Shaarj", "=ds=#s15#" },
+				{ 16, 105861, "", "=q4=Essence of the Cursed Conqueror", "=ds=#e15#, #m42#" },
+				{ 17, 105860, "", "=q4=Essence of the Cursed Protector", "=ds=#e15#, #m42#" },
+				{ 18, 105862, "", "=q4=Essence of the Cursed Vanquisher", "=ds=#e15#, #m42#" },
+				{ 20, 105150, "", "=q4=Black Blood of Y'Shaarj", "=ds=#s14#" },
+				{ 21, 105147, "", "=q4=Curse of Hubris", "=ds=#s14#" },
+				{ 23, 105151, "", "=q4=Horned Mace of the Old Ones", "=ds=#h1#, #w6#" },
+				{ 24, 105136, "", "=q4=Kor'kron Spire of Supremacy", "=ds=#w9#" },
+				{ 25, 105146, "", "=q4=Xal'atoh, Desecrated Image of Gorehowl", "=ds=#h2#, #w1#" },
+				{ 26, 105152, "", "=q4=Revelations of Y'Shaarj", "=ds=#s15#" },
 			};
 		};
 		["Flexible"] = {
@@ -4267,12 +4270,15 @@ local moduleName = "AtlasLootMoP"
 				{ 13, 104894, "", "=q4=Spaulders of the Fallen Warchief", "=ds=#s3#, #a4#" },
 				{ 14, 104907, "", "=q4=Chestplate of Fallen Passion", "=ds=#s5#, #a4#" },
 				{ 15, 104893, "", "=q4=Legplates of Unthinking Strife", "=ds=#s11#, #a4#" },
-				{ 16, 104901, "", "=q4=Black Blood of Y'Shaarj", "=ds=#s14#" },
-				{ 17, 104898, "", "=q4=Curse of Hubris", "=ds=#s14#" },
-				{ 19, 104902, "", "=q4=Horned Mace of the Old Ones", "=ds=#h1#, #w6#" },
-				{ 20, 104887, "", "=q4=Kor'kron Spire of Supremacy", "=ds=#w9#" },
-				{ 21, 104897, "", "=q4=Xal'atoh, Desecrated Image of Gorehowl", "=ds=#h2#, #w1#" },
-				{ 22, 104903, "", "=q4=Revelations of Y'Shaarj", "=ds=#s15#" },
+				{ 16, 105864, "", "=q4=Essence of the Cursed Conqueror", "=ds=#e15#, #m42#" },
+				{ 17, 105863, "", "=q4=Essence of the Cursed Protector", "=ds=#e15#, #m42#" },
+				{ 18, 105865, "", "=q4=Essence of the Cursed Vanquisher", "=ds=#e15#, #m42#" },
+				{ 20, 104901, "", "=q4=Black Blood of Y'Shaarj", "=ds=#s14#" },
+				{ 21, 104898, "", "=q4=Curse of Hubris", "=ds=#s14#" },
+				{ 23, 104902, "", "=q4=Horned Mace of the Old Ones", "=ds=#h1#, #w6#" },
+				{ 24, 104887, "", "=q4=Kor'kron Spire of Supremacy", "=ds=#w9#" },
+				{ 25, 104897, "", "=q4=Xal'atoh, Desecrated Image of Gorehowl", "=ds=#h2#, #w1#" },
+				{ 26, 104903, "", "=q4=Revelations of Y'Shaarj", "=ds=#s15#" },
 			};
 			{
 				{ 1, 105672, "", "=q7=Hellscream's Cleaver", "=ds=#h1#, #w1#" },
@@ -4306,12 +4312,15 @@ local moduleName = "AtlasLootMoP"
 				{ 14, 103785, "", "=q4=Tusks of Mannoroth", "=ds=#s3#, #a4#", tf=105393 },
 				{ 15, 103958, "", "=q4=Chestplate of Fallen Passion", "=ds=#s5#, #a4#", tf=105405 },
 				{ 16, 104311, "", "=q4=Legplates of Unthinking Strife", "=ds=#s11#, #a4#", tf=105391 },
-				{ 18, 102310, "", "=q4=Black Blood of Y'Shaarj", "=ds=#s14#", tf=105399 },
-				{ 19, 102307, "", "=q4=Curse of Hubris", "=ds=#s14#", tf=105396 },
-				{ 21, 103937, "", "=q4=Horned Mace of the Old Ones", "=ds=#h1#, #w6#", tf=105400 },
-				{ 22, 103974, "", "=q4=Kor'kron Spire of Supremacy", "=ds=#w9#", tf=105385 },
-				{ 23, 103649, "", "=q4=Xal'atoh, Desecrated Image of Gorehowl", "=ds=#h2#, #w1#", tf=105395 },
-				{ 24, 103920, "", "=q4=Revelations of Y'Shaarj", "=ds=#s15#", tf=105401 },
+				{ 18, 105858, "", "=q4=Essence of the Cursed Conqueror", "=ds=#e15#, #m42#" },
+				{ 19, 105857, "", "=q4=Essence of the Cursed Protector", "=ds=#e15#, #m42#" },
+				{ 20, 105859, "", "=q4=Essence of the Cursed Vanquisher", "=ds=#e15#, #m42#" },
+				{ 22, 102310, "", "=q4=Black Blood of Y'Shaarj", "=ds=#s14#", tf=105399 },
+				{ 23, 102307, "", "=q4=Curse of Hubris", "=ds=#s14#", tf=105396 },
+				{ 25, 103937, "", "=q4=Horned Mace of the Old Ones", "=ds=#h1#, #w6#", tf=105400 },
+				{ 26, 103974, "", "=q4=Kor'kron Spire of Supremacy", "=ds=#w9#", tf=105385 },
+				{ 27, 103649, "", "=q4=Xal'atoh, Desecrated Image of Gorehowl", "=ds=#h2#, #w1#", tf=105395 },
+				{ 28, 103920, "", "=q4=Revelations of Y'Shaarj", "=ds=#s15#", tf=105401 },
 			};
 			{
 				{ 1, 104404, "", "=q7=Hellscream's Cleaver", "=ds=#h1#, #w1#" },
@@ -4345,13 +4354,16 @@ local moduleName = "AtlasLootMoP"
 				{ 14, 104646, "", "=q4=Tusks of Mannoroth", "=ds=#s3#, #a4#", tf=105642 },
 				{ 15, 104658, "", "=q4=Chestplate of Fallen Passion", "=ds=#s5#, #a4#", tf=105654 },
 				{ 16, 104644, "", "=q4=Legplates of Unthinking Strife", "=ds=#s11#, #a4#", tf=105640 },
-				{ 18, 104652, "", "=q4=Black Blood of Y'Shaarj", "=ds=#s14#", tf=105648 },
-				{ 19, 104649, "", "=q4=Curse of Hubris", "=ds=#s14#", tf=105645 },
-				{ 21, 104653, "", "=q4=Horned Mace of the Old Ones", "=ds=#h1#, #w6#", tf=105649 },
-				{ 22, 104638, "", "=q4=Kor'kron Spire of Supremacy", "=ds=#w9#", tf=105634 },
-				{ 23, 104648, "", "=q4=Xal'atoh, Desecrated Image of Gorehowl", "=ds=#h2#, #w1#", tf=105644 },
-				{ 24, 104654, "", "=q4=Revelations of Y'Shaarj", "=ds=#s15#", tf=105650 },
-				{ 26, 104253, "", "=q4=Kor'kron Juggernaut", "=ds=#e26#" },
+				{ 18, 105867, "", "=q4=Essence of the Cursed Conqueror", "=ds=#e15#, #m42#" },
+				{ 19, 105866, "", "=q4=Essence of the Cursed Protector", "=ds=#e15#, #m42#" },
+				{ 20, 105868, "", "=q4=Essence of the Cursed Vanquisher", "=ds=#e15#, #m42#" },
+				{ 22, 104652, "", "=q4=Black Blood of Y'Shaarj", "=ds=#s14#", tf=105648 },
+				{ 23, 104649, "", "=q4=Curse of Hubris", "=ds=#s14#", tf=105645 },
+				{ 25, 104653, "", "=q4=Horned Mace of the Old Ones", "=ds=#h1#, #w6#", tf=105649 },
+				{ 26, 104638, "", "=q4=Kor'kron Spire of Supremacy", "=ds=#w9#", tf=105634 },
+				{ 27, 104648, "", "=q4=Xal'atoh, Desecrated Image of Gorehowl", "=ds=#h2#, #w1#", tf=105644 },
+				{ 28, 104654, "", "=q4=Revelations of Y'Shaarj", "=ds=#s15#", tf=105650 },
+				{ 30, 104253, "", "=q4=Kor'kron Juggernaut", "=ds=#e26#" },
 			};
 			{
 				{ 1, 105685, "", "=q7=Hellscream's Cleaver", "=ds=#h1#, #w1#" },
@@ -4376,11 +4388,13 @@ local moduleName = "AtlasLootMoP"
 	AtlasLoot_Data["SoOShared"] = {
 		["RaidFinder"] = {
 			{
-				{ 1, 105824, "", "=q4=Aeth's Swiftcinder Cloak", "=ds=#s4#" },
-				{ 2, 105816, "", "=q4=Brave Niunai's Cloak", "=ds=#s4#" },
-				{ 3, 105812, "", "=q4=Cape of the Alpha", "=ds=#s4#" },
-				{ 4, 105815, "", "=q4=Drape of the Omega", "=ds=#s4#" },
-				{ 5, 105825, "", "=q4=Turtleshell Greatcloak", "=ds=#s4#" },
+				{ 1, 104271, "", "=q4=Coalesced Turmoil", "=ds=#m20#" },
+				{ 2, 104275, "", "=q4=Twisted Treasures of the Vale", "=ds=#m20#" },
+				{ 3, 105824, "", "=q4=Aeth's Swiftcinder Cloak", "=ds=#s4#" },
+				{ 4, 105816, "", "=q4=Brave Niunai's Cloak", "=ds=#s4#" },
+				{ 5, 105812, "", "=q4=Cape of the Alpha", "=ds=#s4#" },
+				{ 6, 105815, "", "=q4=Drape of the Omega", "=ds=#s4#" },
+				{ 7, 105825, "", "=q4=Turtleshell Greatcloak", "=ds=#s4#" },
 				{ 16, 105813, "", "=q4=Kalaena's Arcane Handwraps", "=ds=#s9#, #a1#" },
 				{ 17, 105814, "", "=q4=Seebo's Sainted Touch", "=ds=#s9#, #a1#" },
 				{ 18, 105818, "", "=q4=Crimson Gauntlets of Death", "=ds=#s9#, #a2#" },
@@ -4394,11 +4408,13 @@ local moduleName = "AtlasLootMoP"
 		};
 		["Flexible"] = {
 			{
-				{ 1, 105838, "", "=q4=Aeth's Swiftcinder Cloak", "=ds=#s4#" },
-				{ 2, 105830, "", "=q4=Brave Niunai's Cloak", "=ds=#s4#" },
-				{ 3, 105826, "", "=q4=Cape of the Alpha", "=ds=#s4#" },
-				{ 4, 105829, "", "=q4=Drape of the Omega", "=ds=#s4#" },
-				{ 5, 105839, "", "=q4=Turtleshell Greatcloak", "=ds=#s4#" },
+				{ 1, 105714, "", "=q4=Coalesced Turmoil", "=ds=#m20#" },
+				{ 2, 105713, "", "=q4=Twisted Treasures of the Vale", "=ds=#m20#" },
+				{ 3, 105838, "", "=q4=Aeth's Swiftcinder Cloak", "=ds=#s4#" },
+				{ 4, 105830, "", "=q4=Brave Niunai's Cloak", "=ds=#s4#" },
+				{ 5, 105826, "", "=q4=Cape of the Alpha", "=ds=#s4#" },
+				{ 6, 105829, "", "=q4=Drape of the Omega", "=ds=#s4#" },
+				{ 7, 105839, "", "=q4=Turtleshell Greatcloak", "=ds=#s4#" },
 				{ 16, 105827, "", "=q4=Kalaena's Arcane Handwraps", "=ds=#s9#, #a1#" },
 				{ 17, 105828, "", "=q4=Seebo's Sainted Touch", "=ds=#s9#, #a1#" },
 				{ 18, 105832, "", "=q4=Crimson Gauntlets of Death", "=ds=#s9#, #a2#" },
@@ -4410,6 +4426,25 @@ local moduleName = "AtlasLootMoP"
 				{ 24, 105836, "", "=q4=Zoid's Molten Gauntlets", "=ds=#s9#, #a4#" },
 			};
 		};
+		["Heroic"] = {
+			{
+				{ 1, 105856, "", "=q4=Echoes of War", "=ds=#m17#" },
+				{ 3, 105852, "", "=q4=Aeth's Swiftcinder Cloak", "=ds=#s4#, #ITEMID:103846#" },
+				{ 4, 105844, "", "=q4=Brave Niunai's Cloak", "=ds=#s4#, #ITEMID:103960#" },
+				{ 5, 105840, "", "=q4=Cape of the Alpha", "=ds=#s4#, #ITEMID:103935#" },
+				{ 6, 105843, "", "=q4=Drape of the Omega", "=ds=#s4#, #ITEMID:103770#" },
+				{ 7, 105853, "", "=q4=Turtleshell Greatcloak", "=ds=#s4#, #ITEMID:103800#" },
+				{ 18, 105841, "", "=q4=Kalaena's Arcane Handwraps", "=ds=#s9#, #a1#, #ITEMID:103854#" },
+				{ 19, 105842, "", "=q4=Seebo's Sainted Touch", "=ds=#s9#, #a1#, #ITEMID:103753#" },
+				{ 20, 105846, "", "=q4=Crimson Gauntlets of Death", "=ds=#s9#, #a2#, #ITEMID:103859#" },
+				{ 21, 105845, "", "=q4=Siid's Silent Stranglers", "=ds=#s9#, #a2#, #ITEMID:103832#" },
+				{ 22, 105847, "", "=q4=Keengrip Arrowpullers", "=ds=#s9#, #a3#, #ITEMID:103781#" },
+				{ 23, 105848, "", "=q4=Marco's Crackling Gloves", "=ds=#s9#, #a3#, #ITEMID:103764#" },
+				{ 24, 105851, "", "=q4=Gauntlets of Discarded Time", "=ds=#s9#, #a4#, #ITEMID:103791#" },
+				{ 25, 105849, "", "=q4=Romy's Reliable Grips", "=ds=#s9#, #a4#, #ITEMID:103818#" },
+				{ 26, 105850, "", "=q4=Zoid's Molten Gauntlets", "=ds=#s9#, #a4#, #ITEMID:103734#" },
+			};
+		};
 		info = {
 			name = AL["Shared Boss Loot"],
 			module = moduleName, instance = "SiegeofOrgrimmar",
@@ -4417,22 +4452,22 @@ local moduleName = "AtlasLootMoP"
 	};
 
 	AtlasLoot_Data["SoOTrash"] = {
-		["Normal"] = {
+		["Flexible"] = {
 			{
-				{ 1, 103846, "", "=q4=Aeth's Swiftcinder Cloak", "=ds=#s4#" },
-				{ 2, 103960, "", "=q4=Brave Niunai's Cloak", "=ds=#s4#" },
-				{ 3, 103935, "", "=q4=Cape of the Alpha", "=ds=#s4#" },
-				{ 4, 103770, "", "=q4=Drape of the Omega", "=ds=#s4#" },
-				{ 5, 103800, "", "=q4=Turtleshell Greatcloak", "=ds=#s4#" },
-				{ 6, 103854, "", "=q4=Kalaena's Arcane Handwraps", "=ds=#s9#, #a1#" },
-				{ 7, 103753, "", "=q4=Seebo's Sainted Touch", "=ds=#s9#, #a1#" },
-				{ 8, 103859, "", "=q4=Crimson Gauntlets of Death", "=ds=#s9#, #a2#" },
-				{ 9, 103832, "", "=q4=Siid's Silent Stranglers", "=ds=#s9#, #a2#" },
-				{ 10, 103781, "", "=q4=Keengrip Arrowpullers", "=ds=#s9#, #a3#" },
-				{ 11, 103764, "", "=q4=Marco's Crackling Gloves", "=ds=#s9#, #a3#" },
-				{ 12, 103791, "", "=q4=Gauntlets of Discarded Time", "=ds=#s9#, #a4#" },
-				{ 13, 103818, "", "=q4=Romy's Reliable Grips", "=ds=#s9#, #a4#" },
-				{ 14, 103734, "", "=q4=Zoid's Molten Gauntlets", "=ds=#s9#, #a4#" },
+				{ 1, 105838, "", "=q4=Aeth's Swiftcinder Cloak", "=ds=#s4#" },
+				{ 2, 105830, "", "=q4=Brave Niunai's Cloak", "=ds=#s4#" },
+				{ 3, 105826, "", "=q4=Cape of the Alpha", "=ds=#s4#" },
+				{ 4, 105829, "", "=q4=Drape of the Omega", "=ds=#s4#" },
+				{ 5, 105839, "", "=q4=Turtleshell Greatcloak", "=ds=#s4#" },
+				{ 7, 105827, "", "=q4=Kalaena's Arcane Handwraps", "=ds=#s9#, #a1#" },
+				{ 8, 105828, "", "=q4=Seebo's Sainted Touch", "=ds=#s9#, #a1#" },
+				{ 9, 105832, "", "=q4=Crimson Gauntlets of Death", "=ds=#s9#, #a2#" },
+				{ 10, 105831, "", "=q4=Siid's Silent Stranglers", "=ds=#s9#, #a2#" },
+				{ 11, 105833, "", "=q4=Keengrip Arrowpullers", "=ds=#s9#, #a3#" },
+				{ 12, 105834, "", "=q4=Marco's Crackling Gloves", "=ds=#s9#, #a3#" },
+				{ 13, 105837, "", "=q4=Gauntlets of Discarded Time", "=ds=#s9#, #a4#" },
+				{ 14, 105835, "", "=q4=Romy's Reliable Grips", "=ds=#s9#, #a4#" },
+				{ 15, 105836, "", "=q4=Zoid's Molten Gauntlets", "=ds=#s9#, #a4#" },
 				{ 16, 105745, "", "=q4=Kor'kron Dark Shaman Cowl", "=ds=#s1#" },
 				{ 17, 105747, "", "=q4=Kor'kron Dark Shaman Shoulder", "=ds=#s3#" },
 				{ 18, 105743, "", "=q4=Kor'kron Dark Shaman Vestment", "=ds=#s5#" },
@@ -4443,16 +4478,30 @@ local moduleName = "AtlasLootMoP"
 				{ 23, 105742, "", "=q4=Kor'kron Dark Shaman Treads", "=ds=#s12#" },
 			};
 		};
-		["Flexible"] = {
+		["Normal"] = {
 			{
-				{ 1, 105745, "", "=q4=Kor'kron Dark Shaman Cowl", "=ds=#s1#" },
-				{ 2, 105747, "", "=q4=Kor'kron Dark Shaman Shoulder", "=ds=#s3#" },
-				{ 3, 105743, "", "=q4=Kor'kron Dark Shaman Vestment", "=ds=#s5#" },
-				{ 4, 105748, "", "=q4=Kor'kron Dark Shaman Bracers", "=ds=#s8#" },
-				{ 5, 105744, "", "=q4=Kor'kron Dark Shaman Gloves", "=ds=#s9#" },
-				{ 6, 105741, "", "=q4=Kor'kron Dark Shaman Belt", "=ds=#s10#" },
-				{ 7, 105746, "", "=q4=Kor'kron Dark Shaman Kilt", "=ds=#s11#" },
-				{ 8, 105742, "", "=q4=Kor'kron Dark Shaman Treads", "=ds=#s12#" },
+				{ 1, 103846, "", "=q4=Aeth's Swiftcinder Cloak", "=ds=#s4#" },
+				{ 2, 103960, "", "=q4=Brave Niunai's Cloak", "=ds=#s4#" },
+				{ 3, 103935, "", "=q4=Cape of the Alpha", "=ds=#s4#" },
+				{ 4, 103770, "", "=q4=Drape of the Omega", "=ds=#s4#" },
+				{ 5, 103800, "", "=q4=Turtleshell Greatcloak", "=ds=#s4#" },
+				{ 7, 103854, "", "=q4=Kalaena's Arcane Handwraps", "=ds=#s9#, #a1#" },
+				{ 8, 103753, "", "=q4=Seebo's Sainted Touch", "=ds=#s9#, #a1#" },
+				{ 9, 103859, "", "=q4=Crimson Gauntlets of Death", "=ds=#s9#, #a2#" },
+				{ 10, 103832, "", "=q4=Siid's Silent Stranglers", "=ds=#s9#, #a2#" },
+				{ 11, 103781, "", "=q4=Keengrip Arrowpullers", "=ds=#s9#, #a3#" },
+				{ 12, 103764, "", "=q4=Marco's Crackling Gloves", "=ds=#s9#, #a3#" },
+				{ 13, 103791, "", "=q4=Gauntlets of Discarded Time", "=ds=#s9#, #a4#" },
+				{ 14, 103818, "", "=q4=Romy's Reliable Grips", "=ds=#s9#, #a4#" },
+				{ 15, 103734, "", "=q4=Zoid's Molten Gauntlets", "=ds=#s9#, #a4#" },
+				{ 16, 105745, "", "=q4=Kor'kron Dark Shaman Cowl", "=ds=#s1#" },
+				{ 17, 105747, "", "=q4=Kor'kron Dark Shaman Shoulder", "=ds=#s3#" },
+				{ 18, 105743, "", "=q4=Kor'kron Dark Shaman Vestment", "=ds=#s5#" },
+				{ 19, 105748, "", "=q4=Kor'kron Dark Shaman Bracers", "=ds=#s8#" },
+				{ 20, 105744, "", "=q4=Kor'kron Dark Shaman Gloves", "=ds=#s9#" },
+				{ 21, 105741, "", "=q4=Kor'kron Dark Shaman Belt", "=ds=#s10#" },
+				{ 22, 105746, "", "=q4=Kor'kron Dark Shaman Kilt", "=ds=#s11#" },
+				{ 23, 105742, "", "=q4=Kor'kron Dark Shaman Treads", "=ds=#s12#" },
 			};
 		};
 		info = {
@@ -6578,7 +6627,7 @@ local moduleName = "AtlasLootMoP"
 				{ 5, 103680, "", "=q3=Mask of Hatred", "=ds=#m20#", "#TIMELESSCOIN:100#"};
 				{ 6, 103682, "", "=q3=Mask of Violence", "=ds=#m20#", "#TIMELESSCOIN:100#"};
 				{ 8, 0, "ability_monk_quipunch", "=q6=#r3#", ""};
-				{ 9, 104013, "", "=q4=Pouch of Timeless Coins", "=ds=#m17#", "#VALOR:500#"};
+				{ 9, 104014, "", "=q4=Pouch of Timeless Coins", "=ds=#m17#", "#VALOR:500#"};
 				{ 10, 103678, "", "=q4=Time-Lost Artifact", "=ds=#s14#", "#TIMELESSCOIN:7500#"};
 				{ 11, 103684, "", "=q3=Scroll of Challenge", "=ds=#m20#", "#TIMELESSCOIN:500#"};
 				{ 16, 0, "ability_monk_quipunch", "=q6=#r4#", ""};
@@ -10702,7 +10751,7 @@ local moduleName = "AtlasLootMoP"
 				{ 12, 99623, "", "=q4=Handguards of the Shattered Vale", "=ds=#s9#, #a2#", AtlasLoot:EJ_GetBossName("General Nazgrim", 850)};
 				{ 13, 99610, "", "=q4=Breeches of the Shattered Vale", "=ds=#s11#, #a2#", AtlasLoot:EJ_GetBossName("Paragons of the Klaxxi", 853)};
 				{ 16, 0, "ability_racial_bearform", "=q6=#t16s1_4#", "=q5="..string.format(AL["Tier %d"], 16).." - "..AL["Normal"]};
-				{ 17, 99163, "", "=q4=Headguard of the Shattered Vale", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Thok the Bloodthirsty", 851)};
+				{ 17, 99164, "", "=q4=Headguard of the Shattered Vale", "=ds=#s1#, #a2#", AtlasLoot:EJ_GetBossName("Thok the Bloodthirsty", 851)};
 				{ 18, 99166, "", "=q4=Shoulderguards of the Shattered Vale", "=ds=#s3#, #a2#", AtlasLoot:EJ_GetBossName("Siegecrafter Blackfuse", 865)};
 				{ 19, 99170, "", "=q4=Tunic of the Shattered Vale", "=ds=#s5#, #a2#", AtlasLoot:EJ_GetBossName("Sha of Pride", 867)};
 				{ 20, 99163, "", "=q4=Handguards of the Shattered Vale", "=ds=#s9#, #a2#", AtlasLoot:EJ_GetBossName("General Nazgrim", 850)};
@@ -12789,7 +12838,6 @@ local moduleName = "AtlasLootMoP"
 				{ 26, 0, "INV_Box_01", "=q6="..AL["Unknown"], ""};
 				{ 27, 103630, "", "=q4=Lucky Riding Turtle", "=ds=#e26#" };
 				{ 28, 104011, "", "=q4=Stormcrow", "=ds=" };
-
 			};
 		};
 		info = {
@@ -13301,11 +13349,10 @@ local moduleName = "AtlasLootMoP"
 			{
 				{ 1, 0, "INV_Box_01", "=q6="..string.format(AL["Level %s"], "85-89"), "=q1="..AL["Mists of Pandaria"]};
 				{ 2, 86521, "", "=q3=Lucid Amulet of the Agile Mind", "=ds=#s2#"};
-				{ 3, 86525, "", "=q3=Bloodsoaked Chitin Fragment", "=ds=#s14#"};
-				{ 4, 89611, "", "=q3=Quilen Statuette", "=ds=#s14#"};
-				{ 6, 0, "INV_Box_01", "=q6="..AL["Level 85"], "=q1="..AL["Cataclysm"]};
-				{ 7, 64904, "", "=q4=Ring of the Boy Emperor", "=ds=#s13#"};
-				{ 8, 64645, "", "=q4=Tyrande's Favorite Doll", "=ds=#s14#"};
+				{ 3, 89611, "", "=q3=Quilen Statuette", "=ds=#s14#"};
+				{ 5, 0, "INV_Box_01", "=q6="..AL["Level 85"], "=q1="..AL["Cataclysm"]};
+				{ 6, 64904, "", "=q4=Ring of the Boy Emperor", "=ds=#s13#"};
+				{ 7, 64645, "", "=q4=Tyrande's Favorite Doll", "=ds=#s14#"};
 				{ 16, 0, "INV_Box_01", "=q6="..string.format(AL["Level %s"], "60-69"), ""};
 				{ 17, 64644, "", "=q4=Headdress of the First Shaman", "=ds=#s1#, #a3#"};
 				{ 19, 0, "INV_Box_01", "=q6="..string.format(AL["Level %s"], "50-60"), ""};

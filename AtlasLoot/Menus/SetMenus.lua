@@ -1,4 +1,4 @@
--- $Id: SetMenus.lua 4244 2013-09-08 13:20:12Z Dynaletik $
+-- $Id: SetMenus.lua 4266 2013-09-16 21:21:07Z Dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -1013,13 +1013,13 @@ local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
 				{ 7, "AugustCelestialsWorldBosses#4", "ability_thunderbolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ""};
 				{ 9, "AugustCelestialsWorldBosses#8", "inv_belt_leather_pvprogue_g_01", "=ds="..AL["PvP Non-Set Epics"], "=q5="..BabbleInventory["Cloth"].." / "..BabbleInventory["Leather"]};
 				{ 10, "AugustCelestialsWorldBosses#10", "inv_misc_pvp_ringc2", "=ds="..AL["PvP Accessories"], "=q5="..AL["Level 90"]};
+				{ 12, 104272, "", "=q4=Celestial Treasure Box", "=ds=#m20#"  },
 				{ 17, "AugustCelestialsWorldBosses#5", "inv_staff_30", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ""};
 				{ 18, "AugustCelestialsWorldBosses#2", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], ""};
 				{ 19, "AugustCelestialsWorldBosses#6", "spell_nature_bloodlust", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ""};
 				{ 20, "AugustCelestialsWorldBosses#2", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], ""};
 				{ 21, "AugustCelestialsWorldBosses#7", "inv_sword_27", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ""};
 				{ 24, "AugustCelestialsWorldBosses#9", "inv_boots_mail_pvphunter_g_01", "=ds="..AL["PvP Non-Set Epics"], "=q5="..BabbleInventory["Mail"].." / "..BabbleInventory["Plate"]};
-				{ 27, 104272, "", "=q4=Celestial Treasure Box", "=ds=#m20#"  },
 			};
 		};
 		info = {

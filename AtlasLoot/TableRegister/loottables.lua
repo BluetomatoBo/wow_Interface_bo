@@ -1,4 +1,4 @@
--- $Id: loottables.lua 4238 2013-09-02 17:24:17Z Dynaletik $
+-- $Id: loottables.lua 4257 2013-09-13 10:44:24Z lag123 $
 --[[
 loottables.en.lua
 This file assigns a title to every loot table.  The primary use of this table
@@ -173,15 +173,14 @@ AtlasLoot_LootTableRegister = {
 				{ "MSVWilloftheEmperor", 16, EncounterJournalID = 677, BonusLootID = 132193 },
 				{ "MoguShanVaultsTrash", 20 },
 				{ "Patternsilvl496", 21 },
-	
 			},
 			["Info"] = { ALIL["Mogu'shan Vaults"], "AtlasLootMoP", mapname = "MoguShanVaults", raid = true, EncounterJournalID = 317 },
 		},
 
 		["Pandaria"] = {
 			["Bosses"] = {
-				{ "AUGUSTCELESTIALSWORLDBOSSES", 8, EncounterJournalID = 857 },
-				{ "Ordos", 7, EncounterJournalID = 861 },
+				{ "AUGUSTCELESTIALSWORLDBOSSES", 8, EncounterJournalID = 857, BonusLootID = 1 },
+				{ "Ordos", 7, EncounterJournalID = 861, BonusLootID = 1 },
 				{ "NALAK", 1, EncounterJournalID = 814, BonusLootID = 136381 },
 				{ "Oondasta", 2, EncounterJournalID = 826, BonusLootID = 137554 },
 				{ "SHAOFANGER", 3, EncounterJournalID = 691, BonusLootID = 132205 },
@@ -189,41 +188,42 @@ AtlasLoot_LootTableRegister = {
 			},
 			["Info"] = { AL["Pandaria World Bosses"], "AtlasLootMoP", mapname = "Pandaria", raid = true, EncounterJournalID = 322 },
 		},
+
 		["SiegeofOrgrimmarA"] = "SiegeofOrgrimmar",
 		["SiegeofOrgrimmarB"] = "SiegeofOrgrimmar",
 		["SiegeofOrgrimmarC"] = "SiegeofOrgrimmar",
 		["SiegeofOrgrimmarD"] = "SiegeofOrgrimmar",
 		["SiegeofOrgrimmar"] = {
 			["SiegeofOrgrimmarA"] = {
-				{ "SoOImmerseus", 3, EncounterJournalID = 852 },
-				{ "SoOFallenProtectors", EncounterJournalID = 849 },
-				{ "SoONorushen", 4, EncounterJournalID = 866 },
-				{ "SoOShaofPride", 6, EncounterJournalID = 867 },
-				{ "SoOShared", 8, hide = true },
-				{ "SoOTrash", 9, hide = true },
+				{ "SoOImmerseus", 3, EncounterJournalID = 852, BonusLootID = 1 },
+				{ "SoOFallenProtectors", EncounterJournalID = 849, BonusLootID = 1 },
+				{ "SoONorushen", 4, EncounterJournalID = 866, BonusLootID = 1 },
+				{ "SoOShaofPride", 6, EncounterJournalID = 867, BonusLootID = 1 },
+				{ "SoOShared", 8, hide = true, BonusLootID = 1 },
+				{ "SoOTrash", 9, hide = true, BonusLootID = 1 },
 			},
 			["SiegeofOrgrimmarB"] = {
-				{ "SoOFallenProtectors", 2, EncounterJournalID = 849, hide = true },
-				{ "SoOShared", 7, hide = true },
-				{ "SoOTrash", 8, hide = true },
+				{ "SoOFallenProtectors", 2, EncounterJournalID = 849, hide = true, BonusLootID = 1 },
+				{ "SoOShared", 7, hide = true, BonusLootID = 1 },
+				{ "SoOTrash", 8, hide = true, BonusLootID = 1 },
 			},
 			["SiegeofOrgrimmarC"] = {
-				{ "SoOGalakras", 2, EncounterJournalID = 868 },
-				{ "SoOIronJuggernaut", 3, EncounterJournalID = 864 },
-				{ "SoODarkShaman", 4, EncounterJournalID = 856 },
-				{ "SoOShared", 8, hide = true },
-				{ "SoOTrash", 9, hide = true },
+				{ "SoOGalakras", 2, EncounterJournalID = 868, BonusLootID = 1 },
+				{ "SoOIronJuggernaut", 3, EncounterJournalID = 864, BonusLootID = 1 },
+				{ "SoODarkShaman", 4, EncounterJournalID = 856, BonusLootID = 1 },
+				{ "SoOShared", 8, hide = true, BonusLootID = 1 },
+				{ "SoOTrash", 9, hide = true, BonusLootID = 1 },
 			},
 			["SiegeofOrgrimmarD"] = {
-				{ "SoONazgrim", 2, EncounterJournalID = 850 },
-				{ "SoOMalkorok", 3, EncounterJournalID = 846 },
-				{ "SoOSpoils", 4, EncounterJournalID = 870 },
-				{ "SoOThok", 6, EncounterJournalID = 851 },
-				{ "SoOBlackfuse", 8, EncounterJournalID = 865 },
-				{ "SoOParagons", 9, EncounterJournalID = 853 },
-				{ "SoOGarrosh", 19, EncounterJournalID = 869 },
-				{ "SoOShared", 21 },
-				{ "SoOTrash", 22 },
+				{ "SoONazgrim", 2, EncounterJournalID = 850, BonusLootID = 1 },
+				{ "SoOMalkorok", 3, EncounterJournalID = 846, BonusLootID = 1 },
+				{ "SoOSpoils", 4, EncounterJournalID = 870, BonusLootID = 1 },
+				{ "SoOThok", 6, EncounterJournalID = 851, BonusLootID = 1 },
+				{ "SoOBlackfuse", 8, EncounterJournalID = 865, BonusLootID = 1 },
+				{ "SoOParagons", 9, EncounterJournalID = 853, BonusLootID = 1 },
+				{ "SoOGarrosh", 19, EncounterJournalID = 869, BonusLootID = 1 },
+				{ "SoOShared", 21, BonusLootID = 1 },
+				{ "SoOTrash", 22, BonusLootID = 1 },
 			},
 			["Info"] = { ALIL["Siege of Orgrimmar"], "AtlasLootMoP", mapname = "SiegeofOrgrimmar", sortOrder = { "SiegeofOrgrimmarA", "SiegeofOrgrimmarB", "SiegeofOrgrimmarC", "SiegeofOrgrimmarD" }, raid = true, EncounterJournalID = 369 },
 		},
@@ -1916,7 +1916,6 @@ AtlasLoot_LootTableRegister = {
 				{ "PetsPetStore" },
 				{ "PetsRemoved" },
 				{ "PetsNEW" },
-				{ "PetsNEW2" },
 				{ "PetsAccessories" },
 			},
 			["Info"] = { BabbleInventory["Companions"], "AtlasLootMoP"},
@@ -1935,7 +1934,6 @@ AtlasLoot_LootTableRegister = {
 				{ "MountsEvent" },
 				{ "MountsRemoved" },
 				{ "MountsNEW" },
-				{ "MountsNEW2" },
 			},
 			["Info"] = { BabbleInventory["Mounts"], "AtlasLootMoP"},
 		},
@@ -1991,7 +1989,6 @@ AtlasLoot_LootTableRegister = {
 			["Info"] = { AL["Tier Sets"], "AtlasLootMoP"},
 		},
 	},
-
 }
 
 AtlasLoot_LootTableRegister["Instances"]["EmptyPage"] = {

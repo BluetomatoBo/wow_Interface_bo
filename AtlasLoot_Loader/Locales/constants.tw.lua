@@ -1,4 +1,4 @@
-﻿-- $Id: constants.tw.lua 4245 2013-09-10 04:08:49Z ananhaid $
+﻿-- $Id: constants.tw.lua 4270 2013-09-17 13:23:17Z arith $
 --[[
 constants.tw.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -83,6 +83,9 @@ if AL then
 
 	-- AtlasLootFu 
 	AL["AtlasLootFu is no longer in use.\nDelete it from your AddOns folder"] = "AtlasLootFu 已不再包含在 AtlasLoot 裡, \n請將其從 Addons 目錄移除.";
+
+	-- Atlas Incompatible
+	AL["Please note that AtlasLoot v%s is only compatible with Atlas v%s. AtlasLoot detected that you have an older Atlas version installed and thus Atlas integration was disabled."] = "請注意，AAtlasLoot v%s 僅支援 Atlas v%s 。我們偵測到您目前的 Atlas 版本太舊，因此關於 Atlas 的整合將會被停用。";
 
 	-- Options
 	AL["Options"] = "選項";

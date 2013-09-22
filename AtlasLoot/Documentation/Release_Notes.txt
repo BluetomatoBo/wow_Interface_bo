@@ -5,6 +5,10 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 -Hegarol
 
 Patch Notes
+v7.07.01 (Sep 21, 2013)
+Updated Bonus Roll database.
+Various fixes, additions and translations.
+
 v7.07.00 (Sep 10, 2013)
 Compatible with Patch 5.4.
 Compatible with Atlas 1.26.00.

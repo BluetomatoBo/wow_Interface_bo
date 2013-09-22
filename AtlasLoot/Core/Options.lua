@@ -1,4 +1,4 @@
--- $Id: Options.lua 4201 2013-05-05 16:05:37Z lag123 $
+-- $Id: Options.lua 4262 2013-09-16 15:58:35Z arith $
 local AtlasLoot = _G.AtlasLoot
 --Invoke libraries
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
@@ -339,6 +339,7 @@ end
 --- Shows the AtlasLoot Options
 function AtlasLoot:OptionsToggle()
 	InterfaceOptionsFrame_OpenToCategory("AtlasLoot")
+	InterfaceOptionsFrame_OpenToCategory("AtlasLoot") -- Silly fix. Call it twice to force the expected category to be opened.
 end
 -- Hides the AtlasLoot Panel
 function AtlasLoot:OptionsHidePanel()

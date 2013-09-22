@@ -1,4 +1,4 @@
-﻿-- $Id: constants.de.lua 4247 2013-09-10 09:12:37Z Dynaletik $
+﻿-- $Id: constants.de.lua 4266 2013-09-16 21:21:07Z Dynaletik $
 --[[
 constants.de.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -80,6 +80,9 @@ if AL then
 
 	-- AtlasLootFu 
 	AL["AtlasLootFu is no longer in use.\nDelete it from your AddOns folder"] = "AtlasLootFu wird nicht mehr verwendet.\nLöschen Sie es aus Ihrem AddOns-Verzeichnis";
+
+	-- Atlas Incompatible
+	AL["Please note that AtlasLoot v%s is only compatible with Atlas v%s. AtlasLoot detected that you have an older Atlas version installed and thus Atlas integration was disabled."] = "Bitte beachte, dass AtlasLoot v%s nur mit Atlas v%s kompatibel ist. AtlasLoot hat erkannt, dass eine ältere Atlas Version installiert ist, weshalb die Atlas Integration deaktiviert wurde.";
 
 	-- Options
 	AL["Options"] = "Optionen";

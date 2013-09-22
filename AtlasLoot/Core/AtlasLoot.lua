@@ -1,4 +1,4 @@
--- $Id: AtlasLoot.lua 4250 2013-09-10 09:49:18Z lag123 $
+-- $Id: AtlasLoot.lua 4274 2013-09-18 12:20:03Z lag123 $
 --[[
 Atlasloot Enhanced
 Author Hegarol
@@ -14,14 +14,14 @@ local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "7";
 local VERSION_MINOR = "07";
-local VERSION_BOSSES = "00";
+local VERSION_BOSSES = "01";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_VERSION_NUM = VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES
 
 --Now allows for multiple compatible Atlas versions.  Always put the newest first
-ATLASLOOT_MIN_ATLAS = "1.25.0"
-ATLASLOOT_CURRENT_ATLAS = {"1.26.0"};
-ATLASLOOT_PREVIEW_ATLAS = {"1.26.1", "1.26.2"};
+ATLASLOOT_MIN_ATLAS = "1.26.02"
+ATLASLOOT_CURRENT_ATLAS = {"1.26.02"};
+ATLASLOOT_PREVIEW_ATLAS = {"1.26.03", "1.26.04"};
 
 --ATLASLOOT_POSITION = AL["Position:"];
 ATLASLOOT_DEBUGMESSAGES = false;
@@ -878,8 +878,22 @@ function AtlasLoot:GetLootPageFromDataID(dataID)
 	local dataIDOri = dataID
 	dataID, instancePage = self:FormatDataID(dataID)
 	lootTableType = self:GetLootTableType(dataIDOri) or "Normal"
-	if not AtlasLoot_Data[dataID] or not AtlasLoot_Data[dataID][lootTableType] or not AtlasLoot_Data[dataID][lootTableType][instancePage] then
+	
+	if AtlasLoot_Data[dataID] and AtlasLoot_Data[dataID][lootTableType] then
+		if AtlasLoot_Data[dataID][lootTableType][instancePage] then
+			-- do nothing ...
+		elseif AtlasLoot_Data[dataID][lootTableType][1] then
+			instancePage = 1
+		else
+			return
+		end
+	else
 		print(string.format("AtlasLoot_Data[\"%s\"][\"%s\"][%s] not found. (%s)", dataID or "nil", lootTableType or "nil", instancePage or "nil", dataIDOri or "nil"))
+		return
+	end
+	
+	if not AtlasLoot_Data[dataID] or not AtlasLoot_Data[dataID][lootTableType] or not AtlasLoot_Data[dataID][lootTableType][instancePage] then
+
 		return
 	end
 	lootTable = AtlasLoot_Data[dataID][lootTableType][instancePage]
@@ -1080,7 +1094,7 @@ function AtlasLoot:ShowLootPage(dataID, pFrame)
 			self.ItemFrame.Heroic:Show()
 			self.ItemFrame.Heroic:SetChecked(false)
 			self.ItemFrame.Heroic:Enable()
-		end --"Flexible"
+		end
 	elseif lootTableType == "Flexible" and AtlasLoot_Data[dataID] and AtlasLoot_Data[dataID]["Flexible"] then
 		self.ItemFrame.Flexible:Show()
 		self.ItemFrame.Flexible:SetChecked(true)
