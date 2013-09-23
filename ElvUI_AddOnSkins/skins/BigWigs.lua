@@ -107,7 +107,15 @@ function AS:SkinBigWigs(event, addon)
 		BigWigsBars:RegisterBarStyle("ElvUI", {
 			apiVersion = 1,
 			version = 1,
-			GetSpacing = function(bar) return (ElvUI[1].PixelMode and 4 or 8) end,
+			GetSpacing = function(bar)
+				local Spacing = 0
+				if AS:CheckOption('BigWigsHalfBar') then
+					Spacing = ElvUI[1].PixelMode and 16 or 20
+				else
+					Spacing = ElvUI[1].PixelMode and 4 or 8
+				end
+				return Spacing
+			end,
 			ApplyStyle = applystyle,
 			BarStopped = freestyle,
 			GetStyleName = function() return "ElvUI" end,

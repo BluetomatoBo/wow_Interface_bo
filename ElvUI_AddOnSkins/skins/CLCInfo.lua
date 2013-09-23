@@ -54,7 +54,6 @@ function AS:SkinCLCInfo(event, addon)
 			count:SetSize(40 * xScale, 10 * yScale)
 			count:ClearAllPoints()
 			count:SetPoint('CENTER', self.elements, 'CENTER', -2 * xScale, -8 * yScale)
-			count:FontTemplate()
 		end
 
 		local function ApplyBarSkin(self)

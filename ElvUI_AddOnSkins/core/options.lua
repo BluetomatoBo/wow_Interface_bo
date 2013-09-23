@@ -180,9 +180,9 @@ function AS:GenerateOptions()
 		guiInline = true,
 		args = {},
 	}
-	E.Options.args.addonskins.args.dbm = {
+	E.Options.args.addonskins.args.bossmods = {
 		type = 'group',
-		name = 'DBM Options',
+		name = 'BossMods Options',
 		order = 1,
 		get = function(info) return AS:CheckOption(info[#info]) end,
 		set = function(info, value) AS:SetOption(info[#info], value) end,
@@ -225,7 +225,7 @@ function AS:GenerateOptions()
 				type = 'toggle',
 				name = 'BigWigs Half-bar Skin',
 				order = 4,
-				--disabled = function() return not AS:CheckOption('DBMSkin', 'DBM-Core') end
+				disabled = function() return not AS:CheckOption('BigWigsSkin', 'BigWigs') end
 			},
 		}
 	}

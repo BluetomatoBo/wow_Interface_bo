@@ -19,6 +19,7 @@ V['addonskins'] = {
 	['AuctionatorSkin'] = true,
 	['AuctioneerSkin'] = true,
 	['AuctionLiteSkin'] = true,
+	['BagSyncSkin'] = true,
 	['BagnonSkin'] = true,
 	['BPTSkin'] = true,
 	['BGDefenderSkin'] = true,
