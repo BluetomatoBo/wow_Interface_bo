@@ -236,11 +236,20 @@ local function CreateInterfacePanelWidgets(panel)
 	panel.AdvancedEnableUnitCache = CreateQuickCheckbutton(objectName.."AdvancedEnableUnitCache", "Enable Class & Title Caching ", AlignmentColumn, panel.AdvancedLabel)
 	panel.FrameVerticalPosition = CreateQuickSlider(objectName.."FrameVerticalPosition", "Vertical Position of Artwork: (May cause targeting problems)", AlignmentColumn, panel.AdvancedEnableUnitCache, 0, 4)
 
-	--panel.AdvancedHealthTextLabel = CreateQuickItemLabel(nil, "Custom Health Text Script:", AlignmentColumn, panel.FrameVerticalPosition, 0, 4)
-	--panel.AdvancedHealthTextList = CreateQuickEditbox(objectName.."AdvancedHealthTextList", AlignmentColumn, panel.AdvancedHealthTextLabel, 8)
+	--panel.AdvancedCustomCodeLabel = CreateQuickItemLabel(nil, "Custom Theme Code:", AlignmentColumn, panel.FrameVerticalPosition, 0, 4)
+	--panel.AdvancedCustomCodeTextbox = CreateQuickEditbox(objectName.."AdvancedCustomCodeTextbox", AlignmentColumn, panel.AdvancedHealthTextLabel, 8)
+
+
+	--loadstring( [[return function(unit) ]]..LocalVars.AdvancedCustomCodeTextbox..[[ end]])
+	--[[
+	--function(theme)
+
+	theme.Default.name.size = 18
+	--]]
 
 	local BlizzOptionsButton = CreateFrame("Button", objectName.."BlizzButton", AlignmentColumn, "TidyPlatesPanelButtonTemplate")
 	BlizzOptionsButton:SetPoint("TOPLEFT", panel.FrameVerticalPosition, "BOTTOMLEFT",-6, -18)
+	--BlizzOptionsButton:SetPoint("TOPLEFT", panel.AdvancedCustomCodeTextbox, "BOTTOMLEFT",-6, -18)
 	BlizzOptionsButton:SetWidth(300)
 	BlizzOptionsButton:SetText("Blizzard Nameplate Motion & Visibility...")
 	BlizzOptionsButton:SetScript("OnClick", function() InterfaceOptionsFrame_OpenToCategory(_G["InterfaceOptionsNamesPanel"]) end)
@@ -252,7 +261,7 @@ local function CreateInterfacePanelWidgets(panel)
 	panel.MainFrame:SetHeight(2800)
 
 	-- Edit Box Widths
-	--panel.AdvancedHealthTextList:SetWidth(300)
+	--panel.AdvancedCustomCodeTextbox:SetWidth(300)
 	panel.OpacityFilterList:SetWidth(200)
 	panel.WidgetsDebuffTrackList:SetWidth(200)
 
@@ -281,8 +290,8 @@ local function CreateInterfacePanelWidgets(panel)
 		ConvertDebuffListTable(LocalVars.WidgetsDebuffTrackList, LocalVars.WidgetsDebuffLookup, LocalVars.WidgetsDebuffPriority)
 		-- Convert Unit Filter Strings
 		ConvertStringToTable(LocalVars.OpacityFilterList, LocalVars.OpacityFilterLookup)
-		-- Convert Custom Code...
-		--local func, err = loadstring( [[return function(unit) ]]..LocalVars.AdvancedHealthTextList..[[ end]])
+		-- Convert Custom Code...  (Testing)
+		--local func, err = loadstring( [[return function(unit) ]]..LocalVars.AdvancedCustomCodeTextbox..[[ end]])
 		--if func == nil and err then print(panel.name, "|r CUSTOM SCRIPT ERROR", err)
 		--elseif func then LocalVars.CustomHealthFunction = func()	end
 

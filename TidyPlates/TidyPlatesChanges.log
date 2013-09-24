@@ -1,6 +1,13 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
+
+
+6.12.6
+---------------------------
+- Widgets: Combo Point: Anticipation "fix"
+- Hub: Cached class colors in instances
+
 6.12.5
 ---------------------------
 - Widgets: Unit Cache: Stores non-local units with a " (*)" suffix.

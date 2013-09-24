@@ -44,7 +44,14 @@ function UpdateRoster(frame, event, ...)
 
 		for index = 1, groupSize do
 			unitId = groupType..index
-			unitName = UnitName(unitId)
+
+			if UnitRealmRelationship(unitId) == LE_REALM_RELATION_SAME then
+				-- Local units
+				unitName = UnitName(unitId)
+			else
+				-- Foreign units
+				unitName = UnitName(unitId).." (*)"
+			end
 
 			if (not unitName) or (unitName == "Unknown") then
 				foundUnknown = true
