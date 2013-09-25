@@ -1,4 +1,4 @@
-## Interface: 50300
+## Interface: 50400
 
 ## Title: AutoRepair
 ## Notes: Automaticaly repairs all items when a merchant window is opened
