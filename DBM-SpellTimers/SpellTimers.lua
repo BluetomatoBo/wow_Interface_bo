@@ -26,7 +26,7 @@
 --    * Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
 --
 
-local Revision = ("$Revision: 93 $"):sub(12, -3)
+local Revision = ("$Revision: 96 $"):sub(12, -3)
 
 local default_bartext = "%spell: %player"
 local default_bartextwtarget = "%spell: %player on %target"	-- Added by Florin Patan
@@ -348,7 +348,12 @@ do
 			end
 			
 			rebuildSpellIDIndex()
-
+		elseif settings.enabled and event == "INSTANCE_ENCOUNTER_ENGAGE_UNIT" and IsEncounterInProgress() and not encounterStarted then--Encounter Started
+			encounterStarted = true
+			
+		elseif settings.enabled and event == "PLAYER_REGEN_ENABLED" and not IsEncounterInProgress() and encounterStarted then--Encounter Ended
+			encounterStarted = false
+			--Reset all CDs that are > 3 minutes EXCEPT shaman reincarnate
 		elseif settings.enabled and event == "COMBAT_LOG_EVENT_UNFILTERED" and spellEvents[select(2, ...)] then
 			-- first some exeptions (we don't want to see any skill around the world)
 			if settings.only_from_raid and not DBM:IsInRaid() then return end
@@ -360,34 +365,27 @@ do
 
 			-- now we filter if cast is from outside raidgrp (we don't want to see mass spam in Dalaran/...)
 			if settings.only_from_raid and DBM:GetRaidUnitId(fromplayer) == "none" then return end
-			
-		elseif settings.enabled and event == "INSTANCE_ENCOUNTER_ENGAGE_UNIT" and IsEncounterInProgress() and not encounterStarted then--Encounter Started
-			encounterStarted = true
-			
-		elseif settings.enabled and event == "PLAYER_REGEN_ENABLED" and not IsEncounterInProgress() and encounterStarted then--Encounter Ended
-			encounterStarted = false
-			--Reset all CDs that are > 3 minutes EXCEPT shaman reincarnate
 
-      guikey = SpellIDIndex[spellid]
-      v = (guikey and settings.spells[guikey])
-      if v and v.enabled == true then
-          if v.spell ~= spellid then
-            print("DBM-SpellTimers Index mismatch error! "..guikey.." "..spellid)
-          end
-					local spellinfo, _, icon = GetSpellInfo(spellid)
-                                        spellinfo = spellinfo or "UNKNOWN SPELL"
-                                        fromplayer = fromplayer or "UNKNOWN SOURCE"
-                                        toplayer = toplayer or "UNKNOWN TARGET"
-					local bartext = v.bartext:gsub("%%spell", spellinfo):gsub("%%player", fromplayer):gsub("%%target", toplayer)	-- Changed by Florin Patan
-					SpellBarIndex[bartext] = SpellBars:CreateBar(v.cooldown, bartext, icon, nil, true)
+			guikey = SpellIDIndex[spellid]
+			v = (guikey and settings.spells[guikey])
+			if v and v.enabled == true then
+				if v.spell ~= spellid then
+					print("DBM-SpellTimers Index mismatch error! "..guikey.." "..spellid)
+				end
+				local spellinfo, _, icon = GetSpellInfo(spellid)
+				spellinfo = spellinfo or "UNKNOWN SPELL"
+				fromplayer = fromplayer or "UNKNOWN SOURCE"
+				toplayer = toplayer or "UNKNOWN TARGET"
+				local bartext = v.bartext:gsub("%%spell", spellinfo):gsub("%%player", fromplayer):gsub("%%target", toplayer)	-- Changed by Florin Patan
+				SpellBarIndex[bartext] = SpellBars:CreateBar(v.cooldown, bartext, icon, nil, true)
 
-					if settings.showlocal then
-						local msg =  L.Local_CastMessage:format(bartext)
-						if not lastmsg or lastmsg ~= msg then
-							DBM:AddMsg(msg)
-							lastmsg = msg
-						end
+				if settings.showlocal then
+					local msg =  L.Local_CastMessage:format(bartext)
+					if not lastmsg or lastmsg ~= msg then
+						DBM:AddMsg(msg)
+						astmsg = msg
 					end
+				end
 			end
 
 		elseif settings.enabled and event == "COMBAT_LOG_EVENT_UNFILTERED" and settings.show_portal and select(2, ...) == "SPELL_CREATE" then
