@@ -56,8 +56,18 @@ local berserkTimer						= mod:NewBerserkTimer(360)
 
 mod:AddBoolOption("RangeFrame", true)--Various things
 mod:AddBoolOption("SetIconOnDisplacedEnergy", false)
-
 mod:AddBoolOption("HudMAP", false, "sound")
+
+mod:AddBoolOption("Malhelper", true, "sound")
+mod:AddBoolOption("MalhelperSend", false, "sound", 
+function()
+	if mod.Options.MalhelperSend then
+		DBM.MalHelperEnabled = true
+		DBM:AddMsg("|cFFFA6BC1"..MHExRTL.sendnote.."|r")
+	else
+		DBM.MalHelperEnabled = false
+	end
+end)
 
 local DBMHudMap = DBMHudMap
 local free = DBMHudMap.free
@@ -144,6 +154,18 @@ function mod:OnCombatStart(delay)
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(5)
 	end
+	if self.Options.Malhelper then
+		if self:IsDifficulty("normal25", "heroic25") then
+			ExRT:MalkorokAILoad()
+		else
+			ExRT:MalkorokLoad()
+		end
+		if self.Options.MalhelperSend then
+			DBM.MalHelperEnabled = true
+		else
+			DBM.MalHelperEnabled = false
+		end
+	end
 end
 
 function mod:OnCombatEnd()
@@ -152,6 +174,9 @@ function mod:OnCombatEnd()
 	end
 	if self.Options.HudMAP then
 		DBMHudMap:FreeEncounterMarkers()
+	end
+	if self.Options.Malhelper then
+		ExRT:ExBossmodsCloseAll()
 	end
 end
 

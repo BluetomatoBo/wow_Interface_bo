@@ -1,8 +1,8 @@
-﻿local mod	= DBM:NewMod(861, "DBM-Pandaria", nil, 322)
+﻿local mod	= DBM:NewMod(861, "DBM-Pandaria", nil, 322, 1)
 local L		= mod:GetLocalizedStrings()
 local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 10329 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 10408 $"):sub(12, -3))
 mod:SetCreatureID(72057)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6)
