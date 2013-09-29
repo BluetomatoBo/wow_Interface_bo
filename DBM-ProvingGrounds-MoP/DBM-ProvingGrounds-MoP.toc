@@ -17,4 +17,6 @@
 ## X-DBM-Mod-Sort: 40
 ## X-DBM-Mod-MapID: 1148
 localization.en.lua
+localization.tw.lua
+localization.cn.lua
 PGWhiteTiger.lua
