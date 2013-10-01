@@ -6143,6 +6143,25 @@ local ItemStats = {
   [98615] = {t = 2, [8] = {3858, 0}, [7] = {2909, 0}},
   [98616] = {t = 2, [7] = {2664, 0}, [5] = {3997, 0}},
 }
+function GetItemInfoUp(link, ilvlCap)
+  local result = GetItemStats(link)
+  if not result then
+    return result
+  end
+  local id, upgrade = link:match("item:(%d+):%d+:%d+:%d+:%d+:%d+:%-?%d+:%-?%d+:%d+:%d+:(%d+)")
+  id = tonumber(id)
+  upgrade = tonumber(upgrade)
+  local _, _, _, iLvl = GetItemInfo(link)
+  iLvl = iLvl or 0
+  local iLvlBase = iLvl
+  if iLvl >= 458 and ItemUpgrade[upgrade] then
+    iLvl = iLvl + ItemUpgrade[upgrade]
+  end
+  if ilvlCap and ilvlCap > 0 and ilvlCap < iLvl then
+    iLvl = ilvlCap
+  end
+  return id, iLvl
+end
 function GetItemStatsUp(link, ilvlCap)
   local result = GetItemStats(link)
   if not result then

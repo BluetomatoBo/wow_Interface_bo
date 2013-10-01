@@ -1,3 +1,8 @@
+** v1.34
+
+- Added support for new trinkets with % stat bonuses
+- Updated item upgrade data
+
 ** v1.33
 
 - Updated TOC
