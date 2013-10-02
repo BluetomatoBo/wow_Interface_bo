@@ -11,7 +11,8 @@ local L = NS.L;
 NS.Frame = CreateFrame( "Frame" );
 NS.Updater = NS.Frame:CreateAnimationGroup();
 --NS.Version = GetAddOnMetadata( ..., "Version" ):match( "^([%d.]+)" );
-NS.Version = 5.1;
+NS.Version = "5.1.3";
+
 
 NS.Options = {
 	Version = NS.Version;
@@ -20,10 +21,10 @@ NS.Options = {
 		[ 64191 ] = "Ghostly Pandaren Craftsman";
 		[ 50409 ] ="Mysterious Camel Figurine";
 		[ 50410 ] = "Mysterious Camel Figurine";
-		[ 62346 ] = "Galleon";
-		[ 60491 ] = "Sha of Anger";
-		[ 69099 ] = "Nalak";
-		[ 69161 ] = "Oondasta";
+		--[ 62346 ] = "Galleon";
+		--[ 60491 ] = "Sha of Anger";
+		--[ 69099 ] = "Nalak";
+		--[ 69161 ] = "Oondasta";
 		};
 
 	NPCWorldIDs = {			
@@ -31,7 +32,7 @@ NS.Options = {
 		[ 50410 ] = 1; -- Mysterious Camel Figurine
 		[ 62346 ] = 6; -- Galleon
 		[ 60491 ] = 6; --"Sha of Anger";
-		[ 64004 ] =  6; --"Ghostly Pandaren Fisherman";
+		[ 64004 ] = 6; --"Ghostly Pandaren Fisherman";
 		[ 64191 ] = 6; --"Ghostly Pandaren Craftsman";
 		[ 69099 ] = 6; -- "Nalak";
 		[ 69161 ] = 6; -- "Oondasta";
@@ -49,6 +50,10 @@ NS.OptionsCharacter = {
 		[ 8714 ] = true;  --Timeless Champion
 
 			};
+	AchievementsAddFound = nil;
+	AlertSoundUnmute = nil;
+	AlertSound = nil; -- Default sound
+	CacheWarnings = true;
 	FlightSupress = true;
 	Modules = {};
 	ModulesAlpha = {};
@@ -65,17 +70,17 @@ NS.OptionsDefault = {
 		[ 64191 ] = "Ghostly Pandaren Craftsman";
 		[ 50409 ] ="Mysterious Camel Figurine";
 		[ 50410 ] = "Mysterious Camel Figurine";
-		[ 62346 ] = "Galleon";
-		[ 60491 ] = "Sha of Anger";
-		[ 69099 ] = "Nalak";
-		[ 69161 ] = "Oondasta";
+		--[ 62346 ] = "Galleon";
+		--[ 60491 ] = "Sha of Anger";
+		--[ 69099 ] = "Nalak";
+		--[ 69161 ] = "Oondasta";
 	};
 	NPCWorldIDs = {			
 		[ 50409 ] = 1; -- Mysterious Camel Figurine
 		[ 50410 ] = 1; -- Mysterious Camel Figurine
 		[ 62346 ] = 6; -- Galleon
 		[ 60491 ] = 6; --"Sha of Anger";
-		[ 64004 ] =  6; --"Ghostly Pandaren Fisherman";
+		[ 64004 ] = 6; --"Ghostly Pandaren Fisherman";
 		[ 64191 ] = 6; --"Ghostly Pandaren Craftsman";
 		[ 69099 ] = 6; -- "Nalak";
 		[ 69161 ] = 6; -- "Oondasta";
@@ -804,14 +809,23 @@ function NS.Frame:PLAYER_LOGIN ( Event )
 	local Options, OptionsCharacter = _NPCScanOptions, _NPCScanOptionsCharacter;
 	_NPCScanOptions, _NPCScanOptionsCharacter = NS.Options, NS.OptionsCharacter;
 
+	--fix to correct 5.1.1 verson saved as iterger instead of string 
+
 	-- Update settings incrementally
 	if ( Options and Options.Version ~= NS.Version ) then
-	--Clears old settings and updates to new variables
-		if ( (Options.Version == nil) or (Options.Version < "5.1") ) then
-		Options = NS.OptionsDefault;
-		OptionsCharacter = NS.OptionsCharacterDefault;
-		Options.Version = NS.Version;
+	--Clears old global settings and updates to new variables
+		if ( (Options.Version == nil) or (tostring(Options.Version) < "5.1.3") ) then
+			Options = NS.OptionsDefault;
 		end
+		Options.Version = NS.Version;
+	end
+
+		if ( OptionsCharacter and OptionsCharacter.Version ~= NS.Version ) then
+	--Clears old character settings and updates to new variables
+		if ( (OptionsCharacter.Version == nil) or (tostring(OptionsCharacter.Version) < "5.1") ) then
+			OptionsCharacter = NS.OptionsCharacterDefault;
+		end
+		OptionsCharacter.Version = NS.Version;
 	end
 	-- Character settings
 	--[[if ( OptionsCharacter and OptionsCharacter.Version ~= NS.Version ) then
@@ -951,8 +965,14 @@ do
 		self:PLAYER_UPDATE_RESTING();
 
 		-- Since real MapIDs aren't available to addons, a "WorldID" is a universal ContinentID or the map's localized name.
-		local MapName = GetInstanceInfo();
-		NS.WorldID = NS.ContinentIDs[ MapName ] or MapName;
+		local MapName,_,_,_,_,_,_,MapID = GetInstanceInfo();
+		--print(MapID)
+
+		if (MapID == 1064) then --Fix for Isle of Thunder having a diffrent Instance name
+			NS.WorldID = 6; 
+		else
+			NS.WorldID = NS.ContinentIDs[ MapName ] or MapName;
+		end
 
 		-- Activate scans on this world
 		--Loads Any Custom Mobs
