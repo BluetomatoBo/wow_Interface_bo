@@ -4,15 +4,15 @@
 --                                     --
 --                                     --
 --    Patch: 5.4.0                     --
---    Updated: September 10, 2013      --
+--    Updated: September 25, 2013      --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 50013;
-local WL_VERSION_PATCH = 1;
+local WL_VERSION = 50014;
+local WL_VERSION_PATCH = 2;
 
 
 -- SavedVariables
@@ -58,6 +58,8 @@ local WL_LOOT_TOAST_BAGS = {
     [143511] = 93149, 	-- Pandaren Spirit Pet Supplies
 	[143512] = 93148, 	-- Pandaren Spirit Pet Supplies
     [147598] = 104014, 	-- Pouch of Timeless Coins
+	[149222] = 105911,  -- Pouch of Enduring Wisdom
+    [149223] = 105912,  -- Oversized Pouch of Enduring Wisdom
 };
 local WL_REP_MODS = {
 	[GetSpellInfo(61849)] = {nil, 0.1},
@@ -799,13 +801,30 @@ function wlEvent_MERCHANT_UPDATE(self)
 	end
 
 	local standing = select(2, wlUnitFaction("npc"));
+	
+	local merchantFilters = GetMerchantFilter();
+    SetMerchantFilter(LE_LOOT_FILTER_ALL);
+    MerchantFrame_Update();
 
 	local merchantItemList = {};
+	local currencies = { GetMerchantCurrencies() };
+	local numCurrencies = #currencies;
+	local currencyInfos = {};
+	for index = 1, numCurrencies do
+		local cName, cCount, cIcon = GetCurrencyInfo(currencies[index]);
+		currencyInfos[cName] = { currencies[index], cIcon };
+	end
 
 	for slot=1, GetMerchantNumItems() do
-		local _, _, price, stack, numAvailable, _, extendedCost = GetMerchantItemInfo(slot);
+		local name, icon, price, stack, numAvailable, _, extendedCost = GetMerchantItemInfo(slot);
 		local id, subId = wlParseItemLink(GetMerchantItemLink(slot));
-		if id ~= 0 then
+		if (id ~= 0 or ((currencyInfos[name] ~= nil) and (currencyInfos[name][2] == icon))) then
+			
+			if (id == 0) then
+				id = currencyInfos[name][1];
+				subId = -2; -- this is a currency
+			end
+			
 			price = wlGetFullCost(price, standing);
 
 			if extendedCost then
@@ -900,6 +919,9 @@ function wlEvent_MERCHANT_UPDATE(self)
 	for link, numAvailable in pairs(merchantItemList) do
 		wlUpdateVariable(wlUnit, id, "merchant", link, "max", numAvailable);
 	end
+	
+	SetMerchantFilter(merchantFilters);
+    MerchantFrame_Update();
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -1631,8 +1653,8 @@ function wlEvent_UNIT_SPELLCAST_SENT(self, unit, spell, rank, target, lineID)
 
 			local zone, x, y, dl = wlGetLocation();
 
-			wlRegisterObject(wlConcat(spellId, zone, target));
-
+			-- wlRegisterObject(wlConcat(spellId, zone, target)); moved to LOOT_OPENED for more precision
+			
 			wlTracker.spell.kind = "object";
 			wlTracker.spell.name = target;
 			wlTracker.spell.zone = zone;
@@ -1991,6 +2013,7 @@ function wlEvent_LOOT_OPENED(self)
 	local targetLoots = {};
 	local aoeNpcs = {};
 	local targetGUID = UnitGUID("target");
+	local objectId = nil;
 
 	local i = 1;
 	for slot=1, GetNumLootItems() do
@@ -2031,6 +2054,12 @@ function wlEvent_LOOT_OPENED(self)
 					targetLoots[itemId][1] = (targetLoots[itemId][1] or 0) + qty;
 					targetLoots[itemId][2] = (targetLoots[itemId][2] or 0) + wlSelectOne(3, GetLootSlotInfo(slot));
 					targetLoots[itemId][3] = (currencyId or 0);
+					if wlTracker.spell.kind == "object" then
+						local guidId, guidKind = wlParseGUID(aoeGUID);
+						if (guidKind == "object") then
+							objectId = guidId;
+						end
+					end
 				else
 					if not aoeNpcs[aoeGUID] then
 						aoeNpcs[aoeGUID] = {};
@@ -2043,6 +2072,11 @@ function wlEvent_LOOT_OPENED(self)
 				end
 			end
 		end
+	end
+	
+	if objectId then
+		wlEvent[wlId][wlN][eventId].id = objectId;
+		wlRegisterObject(objectId);
 	end
 	
 	local isAoeLoot = (next(aoeNpcs) ~= nil) and 1 or 0;

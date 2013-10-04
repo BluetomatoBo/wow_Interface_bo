@@ -4,7 +4,7 @@
 ## Author: mystadio
 ## eMail: feedback@wowhead.com
 ## URL: http://www.wowhead.com/
-## Version: 50013
+## Version: 50014
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 ## SavedVariables: wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList, wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlBaseStats, wlItemDurability, wlBattlePetStats
