@@ -90,6 +90,7 @@ local PET_EFFECTIVENESS_CHART = {
 local InCombatLockdown
 local InProcessingLockdown
 do
+  local _G_InCombatLockdown = _G.InCombatLockdown
 	local combat
 
 	addon:HookScript("OnEvent", function(addon, event, ...)
@@ -101,12 +102,12 @@ do
 	end)
 
 	function InCombatLockdown()
-		return _G.InCombatLockdown() or combat
+		return _G_InCombatLockdown() or combat
 	end
 end
 
 do
-	local isCoreLoaded, isJournalLoaded
+	local isCoreLoaded, isJournalLoaded, isEventFound
 
 	addon:HookScript("OnEvent", function(addon, event, ...)
 		if event == "ADDON_LOADED" then
@@ -115,18 +116,22 @@ do
 			elseif ... == petJournalAddonName then
 				isJournalLoaded = 1
 			end
-      if type(PetJournalParent) == "table" and type(PetJournalParent.GetObjectType) == "function" then
-        isJournalLoaded = 1 -- some addons load the PetJournal before PetBattleTabs can load - leaving it waiting for the PetJournal until the end of days - but no longer!
-      end
-			if isCoreLoaded and isJournalLoaded then
-				isCoreLoaded, isJournalLoaded = nil
-				addon:UnregisterEvent(event)
-				Initialize()
+			if type(PetJournalParent) == "table" and type(PetJournalParent.GetObjectType) == "function" then
+				isJournalLoaded = 1 -- some addons load the PetJournal before PetBattleTabs can load - leaving it waiting for the PetJournal until the end of days - but no longer!
 			end
+    elseif event == "PET_JOURNAL_LIST_UPDATE" then
+      isEventFound = 1
 		end
+    if isCoreLoaded and isJournalLoaded and isEventFound then
+      isCoreLoaded, isJournalLoaded, isEventFound = nil
+      addon:UnregisterEvent("ADDON_LOADED")
+      addon:UnregisterEvent("PET_JOURNAL_LIST_UPDATE")
+      Initialize()
+    end
 	end)
 
 	addon:RegisterEvent("ADDON_LOADED")
+  addon:RegisterEvent("PET_JOURNAL_LIST_UPDATE") -- so that IntegrityCheck doesn't delete valid teams (thanks flopsygamer for the help figuring this out!)
 end
 
 local function GetStatIconString(i)

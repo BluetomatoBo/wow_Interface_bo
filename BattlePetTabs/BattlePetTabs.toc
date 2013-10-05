@@ -1,8 +1,8 @@
-﻿## Interface: 50300
+﻿## Interface: 50400
 ## Title: BattlePetTabs
 ## Notes: Expands the Pet Journal to show tabs for easy team management!
 ## Author: Vladinator
-## Version: 1.1.7.3
+## Version: 1.1.7.4
 ## SavedVariables: BattlePetTabsDB, BattlePetTabsDB2, BattlePetTabsSnapshotDB
 core.xml
 core.lua
