@@ -26,7 +26,7 @@
 --    * Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
 --
 
-local Revision = ("$Revision: 96 $"):sub(12, -3)
+local Revision = ("$Revision: 97 $"):sub(12, -3)
 
 local default_bartext = "%spell: %player"
 local default_bartextwtarget = "%spell: %player on %target"	-- Added by Florin Patan
@@ -383,7 +383,7 @@ do
 					local msg =  L.Local_CastMessage:format(bartext)
 					if not lastmsg or lastmsg ~= msg then
 						DBM:AddMsg(msg)
-						astmsg = msg
+						lastmsg = msg
 					end
 				end
 			end
@@ -404,7 +404,11 @@ do
 					SpellBarIndex[bartext] = SpellBars:CreateBar(v.cooldown, bartext, icon, nil, true)
 
 					if settings.showlocal then
-						DBM:AddMsg( L.Local_CastMessage:format(bartext) )
+						local msg =  L.Local_CastMessage:format(bartext)
+						if not lastmsg or lastmsg ~= msg then
+							DBM:AddMsg(msg)
+							lastmsg = msg
+						end
 					end
 				end
 			end
