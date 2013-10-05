@@ -50,7 +50,7 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 10490 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 10500 $"):sub(12, -3)),
 	DisplayVersion = "5.4.3 "..DBM_CORE_SOUNDVER, -- the string that is shown as version
 	DisplayReleaseVersion = "5.4.2", -- Needed to work around bigwigs sending improper version information
 	ReleaseRevision = 10395 -- the revision of the latest stable version that is available
@@ -6273,7 +6273,20 @@ do
 	function timerPrototype:GetTime(...)
 		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 		local bar = DBM.Bars:GetBar(id)
-		return bar and (bar.totalTime - bar.timer) or 0, (bar and bar.totalTime) or 0, (bar and bar.timer) or 0
+		if bar then
+			return bar and (bar.totalTime - bar.timer) or 0, (bar and bar.totalTime) or 0, (bar and bar.timer) or 0
+		else
+			for i = 1, 100 do
+				id = id.."\t"..i
+				bar = DBM.Bars:GetBar(id)
+				if bar then
+					break
+				else
+					id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+				end
+			end
+			return bar and (bar.totalTime - bar.timer) or 0, (bar and bar.totalTime) or 0, (bar and bar.timer) or 0
+		end				
 	end
 
 	function timerPrototype:IsStarted(...)
