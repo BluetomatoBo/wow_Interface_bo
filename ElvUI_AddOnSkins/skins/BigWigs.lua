@@ -110,9 +110,9 @@ function AS:SkinBigWigs(event, addon)
 			GetSpacing = function(bar)
 				local Spacing = 0
 				if AS:CheckOption('BigWigsHalfBar') then
-					Spacing = ElvUI[1].PixelMode and 16 or 20
+					Spacing = (ElvUI[1].PixelMode and 16 or 20)
 				else
-					Spacing = ElvUI[1].PixelMode and 4 or 8
+					Spacing = (ElvUI[1].PixelMode and 4 or 8)
 				end
 				return Spacing
 			end,
@@ -122,6 +122,7 @@ function AS:SkinBigWigs(event, addon)
 		})
 		BigWigsBars:SetBarStyle("ElvUI")
 		AS:UnregisterEvent(name, "ADDON_LOADED")
+		AS:UnregisterEvent(name, "PLAYER_ENTERING_WORLD")
 	end
 end
 

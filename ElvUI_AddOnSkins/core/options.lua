@@ -104,7 +104,11 @@ local Skins = {
 	['TitanPanelSkin'] = {
 		['buttonText'] = 'Titan Panel',
 		['addon'] = 'Titan',
-	}
+	},
+	["VEMSkin"] = {
+		["buttonText"] = "VEM",
+		["addon"] = "VEM-Core",
+	},
 }
 
 AS.Skins = Skins
@@ -142,6 +146,7 @@ local DEVELOPERS = {
 	'Dec',
 	'Driizt',
 	'Edoc',
+	'efaref',
 	'Elv',
 	'Jasje',
 	'Kkthnx',
@@ -180,9 +185,9 @@ function AS:GenerateOptions()
 		guiInline = true,
 		args = {},
 	}
-	E.Options.args.addonskins.args.bossmods = {
+	E.Options.args.addonskins.args.dbm = {
 		type = 'group',
-		name = 'BossMods Options',
+		name = 'DBM Options',
 		order = 1,
 		get = function(info) return AS:CheckOption(info[#info]) end,
 		set = function(info, value) AS:SetOption(info[#info], value) end,
@@ -225,7 +230,7 @@ function AS:GenerateOptions()
 				type = 'toggle',
 				name = 'BigWigs Half-bar Skin',
 				order = 4,
-				disabled = function() return not AS:CheckOption('BigWigsSkin', 'BigWigs') end
+				--disabled = function() return not AS:CheckOption('DBMSkin', 'DBM-Core') end
 			},
 		}
 	}
