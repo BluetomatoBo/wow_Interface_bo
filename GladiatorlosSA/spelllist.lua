@@ -411,10 +411,11 @@
 			--hunter
 				-- old
 			[19386] = "wyvernSting", -- 翼龍釘刺
-			[23989] = "readiness", -- 準備就緒
-			--[51755] = "camouflage", -- 偽裝
+			-- [23989] = "readiness", -- 準備就緒 removed
+			-- [51755] = "camouflage", -- 偽裝
 			[19503] = "scattershot", -- 驅散射擊
 			[34490] = "silencingshot", -- 沉默射擊
+			[147362] = "counterShot", -- 反制射击 
 			[1499] = "freezingTrap",
 			[60192] = "freezingTrap2",
 				-- Mist of pandaria
@@ -484,6 +485,8 @@
 			[57994] = "lockout", -- Wind Shear
 			[116705] = "lockout", -- Spear Hand Strike
 			[113287] = "lockout", -- Symbiosis Solar Beam
+			[147362] = "lockout", -- Counter Shot
+			[34490] = "lockout", -- Silencing Shot
 		},
 	}
 end
