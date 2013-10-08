@@ -43,6 +43,7 @@ local StaticPopup_Hide = StaticPopup_Hide
 local StaticPopup_Show = StaticPopup_Show
 local StaticPopupDialogs = StaticPopupDialogs
 local strlen = strlen
+local strlower = strlower
 local table = table
 local time = time
 local tonumber = tonumber
@@ -234,10 +235,39 @@ local function GetTeamId(teamId)
 	return 1 -- fallback
 end
 
-local function ValidatePetId(petId, petCheck)
+-- desperate times call for desperate measures
+local ValidatePetSmartly
+do
+  local MAX_FAILS = 3
+  local CHECK_INTERVAL = 1
+  ValidatePetSmartly = {}
+
+  function ValidatePetSmartly:Check(petId)
+    if not self[petId] then
+      self[petId] = {time(), 1}
+    end
+    if C_PetJournal_GetPetInfoByPetID(petId) then
+      self[petId] = nil
+      return 1
+    end
+    if self[petId][2] > MAX_FAILS then
+      self[petId] = nil
+      --print("DEBUG", "VPS:C(", petId, ") = FAIL") -- DEBUG
+      return nil
+    end
+    if time() - self[petId][1] > CHECK_INTERVAL then
+      self[petId][1] = time()
+      self[petId][2] = self[petId][2] + 1
+      --print("DEBUG", "VPS:C(", petId, ") =", self[petId][2]) -- DEBUG
+    end
+    return self[petId][2]
+  end
+end --_G.ValidatePetSmartly = ValidatePetSmartly -- /run ValidatePetSmartly:Check("0x0000000000000000") -- DEBUG
+
+local function ValidatePetId(petId, petCheck, isValidating)
 	if type(petId) == "string" and strlen(petId) >= 10 and (not Is64BitClient() or strlen(petId) >= 18) then -- x86 is 8+2 while x64 is 16+2
 		if petCheck then
-			return C_PetJournal_GetPetInfoByPetID(petId) and 1 or nil
+      return ValidatePetSmartly:Check(petId)
 		end
 		return 1
 	end
@@ -268,7 +298,7 @@ local function ValidateTeam(teamId, attemptFix)
 				end
 			end
 			local petId, ab1, ab2, ab3 = petData[1], petData[2], petData[3], petData[4]
-			if not ValidatePetId(petId, 1) then
+			if not ValidatePetId(petId, 1, 1) then
 				if attemptFix then
 					team.setup[index] = {EMPTY_PET_DYNAMIC, 0, 0, 0}
 				else
@@ -480,7 +510,7 @@ function LoadTeam(teamId) -- local
 		unhook = 1
 		count = 0
 		for i, petData in ipairs(pets) do
-			petId = petData[1]
+			local petId = petData[1]
 			if petId == "" or petId == EMPTY_PET_X64 or petId == EMPTY_PET_X86 or petId == EMPTY_PET then
 				count = count + MAX_ACTIVE_ABILITIES
 			else
