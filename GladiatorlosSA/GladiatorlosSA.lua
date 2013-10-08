@@ -113,7 +113,7 @@ local dbDefaults = {
 	}	
 }
 
-local function log(msg) DEFAULT_CHAT_FRAME:AddMessage("|cFF33FF22GSA|r:"..msg) end
+GSA.log = function(msg) DEFAULT_CHAT_FRAME:AddMessage("|cFF33FF22GladiatorlosSA|r: "..msg) end
 
 function GladiatorlosSA:OnInitialize()
 	if not self.spellList then

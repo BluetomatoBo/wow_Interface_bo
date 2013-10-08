@@ -1,12 +1,17 @@
 ------------------------------------------------------------------------
-r62 | superk521 | 2013-10-07 06:46:49 +0000 (Mon, 07 Oct 2013) | 4 lines
+r64 | superk521 | 2013-10-07 09:51:34 +0000 (Mon, 07 Oct 2013) | 2 lines
 Changed paths:
-   A /tags/2.0.5 (from /trunk:61)
+   A /tags/2.0.5b (from /trunk:63)
 
-tag as version 2.0.5
-1.add hunter's Counter Shot
-2.remove hunter's Readiness
-3.update libs 
+tag as version 2.0.5b
+fix for custom alert options
+------------------------------------------------------------------------
+r63 | superk521 | 2013-10-07 09:46:11 +0000 (Mon, 07 Oct 2013) | 1 line
+Changed paths:
+   M /trunk/GladiatorlosSA.lua
+   M /trunk/options.lua
+
+fix for custom alert options
 ------------------------------------------------------------------------
 r61 | superk521 | 2013-10-07 06:42:26 +0000 (Mon, 07 Oct 2013) | 1 line
 Changed paths:

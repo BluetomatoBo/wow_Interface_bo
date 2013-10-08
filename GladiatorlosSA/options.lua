@@ -48,7 +48,7 @@ local function spellOption(order, spellID, ...)
 					order = order,
 		}
 	else
-		print("spell id: " .. spellID .. " is invalid")
+		GSA.log("spell id: " .. spellID .. " is invalid")
 		return {
 			type = 'toggle',
 			name = "unknown spell, id:" .. spellID,	
@@ -72,26 +72,28 @@ local function listOption(spellList, listType, ...)
 end
 
 function GSA:MakeCustomOption(key)
-	local keytemp = key
-	self.options.args.custom.args[key] = {
+	local options = self.options.args.custom.args
+	local db = gsadb.custom
+	options[key] = {
 		type = 'group',
-		name = gsadb.custom[key].name,
-		set = function(info, value) local name = info[#info] gsadb.custom[key][name] = value end,
-		get = function(info) local name = info[#info] return gsadb.custom[key][name] end,
-		order = gsadb.custom[key].order,
+		name = function() return db[key].name end,
+		set = function(info, value) local name = info[#info] db[key][name] = value end,
+		get = function(info) local name = info[#info] return db[key][name] end,
+		order = db[key].order,
 		args = {
 			name = {
 				name = L["name"],
 				type = 'input',
 				set = function(info, value)
-					if gsadb.custom[value] then log(L["same name already exists"]) return end
-					gsadb.custom[key].name = value
-					gsadb.custom[key].order = 100
-					gsadb.custom[key].soundfilepath = "Interface\\GSASound\\"..value..".ogg"
-					gsadb.custom[value] = gsadb.custom[key]
-					gsadb.custom[key] = nil
+					if db[value] then GSA.log(L["same name already exists"]) return end
+					db[value] = db[key]
+					db[value].name = value
+					db[value].order = #db + 1
+					db[value].soundfilepath = "Interface\\GSASound\\"..value..".ogg"
+					db[key] = nil
 					--makeoption(value)
-					self.options.args.custom.args[keytemp].name = value
+					options[value] = options[key]
+					options[key] = nil
 					key = value
 				end,
 				order = 10,
@@ -109,15 +111,15 @@ function GSA:MakeCustomOption(key)
 				confirm = true,
 				confirmText = L["Are you sure?"],
 				func = function() 
-					gsadb.custom[key] = nil
-					self.options.args.custom.args[keytemp] = nil
+					db[key] = nil
+					options[key] = nil
 				end,
 			},
 			test = {
 				type = 'execute',
 				order = 28,
 				name = L["Test"],
-				func = function() PlaySoundFile(gsadb.custom[key].soundfilepath, "Master") end,
+				func = function() PlaySoundFile(db[key].soundfilepath, "Master") end,
 			},
 			existingsound = {
 				name = L["Use existing sound"],
@@ -129,7 +131,7 @@ function GSA:MakeCustomOption(key)
 				type = 'select',
 				dialogControl = 'LSM30_Sound',
 				values =  LSM:HashTable("sound"),
-				disabled = function() return not gsadb.custom[key].existingsound end,
+				disabled = function() return not db[key].existingsound end,
 				order = 40,
 			},
 			NewLine3 = {
@@ -142,15 +144,15 @@ function GSA:MakeCustomOption(key)
 				type = 'input',
 				width = 'double',
 				order = 27,
-				disabled = function() return gsadb.custom[key].existingsound end,
+				disabled = function() return db[key].existingsound end,
 			},
 			eventtype = {
 				type = 'multiselect',
 				order = 50,
 				name = L["event type"],
 				values = self.GSA_EVENT,
-				get = function(info, k) return gsadb.custom[key].eventtype[k] end,
-				set = function(info, k, v) gsadb.custom[key].eventtype[k] = v end,
+				get = function(info, k) return db[key].eventtype[k] end,
+				set = function(info, k, v) db[key].eventtype[k] = v end,
 			},
 			sourceuidfilter = {
 				type = 'select',
@@ -168,7 +170,7 @@ function GSA:MakeCustomOption(key)
 				type= 'input',
 				order = 62,
 				name= L["Custom unit name"],
-				disabled = function() return not (gsadb.custom[key].sourceuidfilter == "custom") end,
+				disabled = function() return not (db[key].sourceuidfilter == "custom") end,
 			},
 			destuidfilter = {
 				type = 'select',
@@ -186,7 +188,7 @@ function GSA:MakeCustomOption(key)
 				type= 'input',
 				order = 68,
 				name = L["Custom unit name"],
-				disabled = function() return not (gsadb.custom[key].destuidfilter == "custom") end,
+				disabled = function() return not (db[key].destuidfilter == "custom") end,
 			},
 			--[[NewLine5 = {
 				type = 'header',
