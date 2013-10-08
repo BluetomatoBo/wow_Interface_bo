@@ -185,9 +185,9 @@ function AS:GenerateOptions()
 		guiInline = true,
 		args = {},
 	}
-	E.Options.args.addonskins.args.dbm = {
+	E.Options.args.addonskins.args.bossmods = {
 		type = 'group',
-		name = 'DBM Options',
+		name = 'BossMod Options',
 		order = 1,
 		get = function(info) return AS:CheckOption(info[#info]) end,
 		set = function(info, value) AS:SetOption(info[#info], value) end,
@@ -196,19 +196,17 @@ function AS:GenerateOptions()
 			DBMFont = {
 				type = "select", dialogControl = 'LSM30_Font',
 				order = 1,
-				name = "DBM Font",
+				name = "DBM/VEM Font",
 				values = AceGUIWidgetLSMlists.font, 
-				disabled = function() return not AS:CheckOption('DBMSkin', 'DBM-Core') end
 			},
 			DBMFontSize = {
 				type = 'range',
 				order = 2,
-				name = "DBM Font Size",
+				name = "DBM/VEM Font Size",
 				min = 8, max = 18, step = 1, 
-				disabled = function() return not AS:CheckOption('DBMSkin', 'DBM-Core') end
 			},
 			DBMFontFlag = {
-				name = 'DBM Font Flag',
+				name = 'DBM/VEM Font Flag',
 				order = 3,
 				type = "select",
 				values = {
@@ -218,19 +216,16 @@ function AS:GenerateOptions()
 					['MONOCHROME'] = 'MONOCHROME',
 					['MONOCHROMEOUTLINE'] = 'MONOCHROMEOUTLINE',
 				},
-				disabled = function() return not AS:CheckOption('DBMSkin', 'DBM-Core') end
 			},
 			DBMSkinHalf = {
 				type = 'toggle',
-				name = 'DBM Half-bar Skin',
+				name = 'DBM/VEM Half-bar Skin',
 				order = 4,
-				disabled = function() return not AS:CheckOption('DBMSkin', 'DBM-Core') end
 			},
 			BigWigsHalfBar = {
 				type = 'toggle',
 				name = 'BigWigs Half-bar Skin',
 				order = 4,
-				--disabled = function() return not AS:CheckOption('DBMSkin', 'DBM-Core') end
 			},
 		}
 	}
