@@ -1,3 +1,8 @@
+** v1.36
+
+- Fixed new trinkets with % stat bonuses (hopefully)
+- Reduced memory footprint
+
 ** v1.35
 
 - Really updated item upgrade data
