@@ -120,19 +120,19 @@ do
 			if type(PetJournalParent) == "table" and type(PetJournalParent.GetObjectType) == "function" then
 				isJournalLoaded = 1 -- some addons load the PetJournal before PetBattleTabs can load - leaving it waiting for the PetJournal until the end of days - but no longer!
 			end
-    elseif event == "PET_JOURNAL_LIST_UPDATE" then
+    elseif event == "UPDATE_SUMMONPETS_ACTION" then
       isEventFound = 1
 		end
     if isCoreLoaded and isJournalLoaded and isEventFound then
       isCoreLoaded, isJournalLoaded, isEventFound = nil
       addon:UnregisterEvent("ADDON_LOADED")
-      addon:UnregisterEvent("PET_JOURNAL_LIST_UPDATE")
+      addon:UnregisterEvent("UPDATE_SUMMONPETS_ACTION")
       Initialize()
     end
 	end)
 
 	addon:RegisterEvent("ADDON_LOADED")
-  addon:RegisterEvent("PET_JOURNAL_LIST_UPDATE") -- so that IntegrityCheck doesn't delete valid teams (thanks flopsygamer for the help figuring this out!)
+  addon:RegisterEvent("UPDATE_SUMMONPETS_ACTION")
 end
 
 local function GetStatIconString(i)
@@ -235,7 +235,7 @@ local function GetTeamId(teamId)
 	return 1 -- fallback
 end
 
--- desperate times call for desperate measures
+--[[ desperate times call for desperate measures
 local ValidatePetSmartly
 do
   local MAX_FAILS = 3
@@ -262,12 +262,12 @@ do
     end
     return self[petId][2]
   end
-end --_G.ValidatePetSmartly = ValidatePetSmartly -- /run ValidatePetSmartly:Check("0x0000000000000000") -- DEBUG
+end --]] --_G.ValidatePetSmartly = ValidatePetSmartly -- /run ValidatePetSmartly:Check("0x0000000000000000") -- DEBUG
 
 local function ValidatePetId(petId, petCheck, isValidating)
 	if type(petId) == "string" and strlen(petId) >= 10 and (not Is64BitClient() or strlen(petId) >= 18) then -- x86 is 8+2 while x64 is 16+2
 		if petCheck then
-      return ValidatePetSmartly:Check(petId)
+      return C_PetJournal_GetPetInfoByPetID(petId)
 		end
 		return 1
 	end
