@@ -213,7 +213,7 @@ function ReforgeLite:UpdateMethodStats (method)
     end
   end
   for s, f in pairs(mult) do
-    method.stats[s] = math.floor(method.stats[i] * f + 0.5)
+    method.stats[s] = math.floor(method.stats[s] * f + 0.5)
   end
   -- assume we don't have 2 conversions
   for src, c in pairs(conv) do

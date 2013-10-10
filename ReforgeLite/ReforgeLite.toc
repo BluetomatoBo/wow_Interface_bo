@@ -2,10 +2,10 @@
 ## Author: d07.RiV (Iroared)
 ## Title: ReforgeLite
 ## Notes: Calculates optimal reforging for given weights/caps.
-## Version: 1.36
+## Version: 1.37
 ## SavedVariables: ReforgeLiteDB
 ## Dependencies: 
-## X-Curse-Packaged-Version: v1.36
+## X-Curse-Packaged-Version: v1.37
 ## X-Curse-Project-Name: ReforgeLite
 ## X-Curse-Project-ID: reforgelite
 ## X-Curse-Repository-ID: wow/reforgelite/mainline
