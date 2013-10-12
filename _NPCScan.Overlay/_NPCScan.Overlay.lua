@@ -7,17 +7,20 @@
 _NPCScan = _NPCScan or {};
 local _NPCScan = _NPCScan;
 local AddOnName, NS = ...;
+local L = NS.L;
 _NPCScan.Overlay = NS;
 
+local MiniMapIcon = LibStub("LibDBIcon-1.0")
+_NPCScanMiniMapIcon = {}
+
 NS.Version = GetAddOnMetadata( AddOnName, "Version" ):match( "^([%d.]+)" );
-
-
 
 NS.Options = {
 	Version = NS.Version;
 	Modules = {};
 	ModulesAlpha = {};
 	ModulesExtra = {};
+	MiniMapIcon = {};
 };
 
 NS.OptionsDefault = {
@@ -25,6 +28,7 @@ NS.OptionsDefault = {
 	Modules = {};
 	ModulesAlpha = {};
 	ModulesExtra = {};
+	MiniMapIcon = {};
 	ShowAll = false;
 };
 
@@ -528,6 +532,62 @@ function NS.Synchronize ( Options )
 	NS.SetShowAll( Options.ShowAll );
 	NS.Modules.OnSynchronize( Options );
 end
+ 
+ --Creates LDB icon and click actgions
+local LDB = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("_NPCScan.Overlay", {
+	type = "launcher",
+	text = "_NPCScan.Overlay",
+	icon = "Interface\\Icons\\INV_Misc_EngGizmos_20",
+	OnClick = function(_, button)
+		if button == "LeftButton" then
+			-- for LeftButton, toggle the module Enabled or Disabled
+			if( IsControlKeyDown() ) then
+				--Toggle Legend will go here
+			else
+								-- if Control Key down, toggle stuff on Main World Map
+				if ( _NPCScan.Overlay.Options.Modules[ "WorldMap" ] ) then
+					_NPCScan.Overlay.Modules.Disable( "WorldMap" );
+				else
+					_NPCScan.Overlay.Modules.Enable( "WorldMap" );
+				end
+			end
+		elseif button == "RightButton" then
+							-- else toggle Stuff Mini Map
+				if ( _NPCScan.Overlay.Options.Modules[ "Minimap" ] ) then
+					_NPCScan.Overlay.Modules.Disable( "Minimap" );
+				else
+					_NPCScan.Overlay.Modules.Enable( "Minimap" );
+				end
+		elseif button == "MiddleButton" then
+			if( IsShiftKeyDown() ) then
+				InterfaceOptionsFrame_OpenToCategory( _NPCScan.Overlay.Config );
+			else
+				if ( _NPCScan.Overlay.Options.Modules[ "Minimap" ] ) then
+					_NPCScan.Overlay.Modules.Disable( "Minimap" );
+					_NPCScan.Overlay.Modules.Disable( "WorldMap" );
+				else
+					_NPCScan.Overlay.Modules.Enable( "Minimap" );
+					_NPCScan.Overlay.Modules.Enable( "WorldMap" );
+				end
+			end
+		end
+	end,
+	OnTooltipShow = function(tooltip)
+		if not tooltip or not tooltip.AddLine then return end
+		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE1)
+		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE2)
+		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE3)
+		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE4)
+		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE5)
+	end,
+})
+
+
+
+
+
+
+
 do
 	NS.GetMapName = GetMapNameByID; -- For backwards compatibility with older versions of _NPCScan
 	local MapIDs = {}; -- [ LocalizedZoneName ] = MapID;
@@ -574,9 +634,10 @@ do
 				Options.ModulesExtra = {};
 			end
 			NS.Synchronize( Options ); -- Loads defaults if nil
-
 			self:RegisterMessage( MESSAGE_REGISTER );
 			self:RegisterMessage( MESSAGE_FOUND );
+			MiniMapIcon:Register("_NPCScan.Minimap", LDB, _NPCScanMiniMapIcon)
+			
 		end
 	end
 end
@@ -619,5 +680,10 @@ function NS.FlashStop(MobID)
 	end
 end
 
-
 NS.Events:RegisterEvent( "ADDON_LOADED" );
+
+
+
+
+--http://wowprogramming.com/BlizzArt/Interface/ICONS/Ability_Hunter_MasterMarksman.png
+--http://wowprogramming.com/BlizzArt/Interface/ICONS/INV_Misc_EngGizmos_20.png

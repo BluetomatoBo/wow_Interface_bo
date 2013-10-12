@@ -13,15 +13,6 @@ local ShowKey = true;
 NS.KeyMinScale = 0.5; -- Minimum effective scale to render the key at
 NS.KeyMaxSize = 1; -- If the key takes up more than this fraction of the canvas, hide it
 
-
---REVISIT
-	--local function WorldMapFrameOnHide()
-		--_NPCScanOverlayKeyParent:Hide();
-	--end
-
-	--local function WorldMapFrameOnShow()
-	--end
-
 function NS:OnHide ( ... )
 	--_NPCScanOverlayKeyParent:Hide();
 	return self.super.OnHide( self, ... );
@@ -45,8 +36,9 @@ do
 		Count = Count + 1;
 		local Line = self[Count];
 		if not Line then
-			Line = CreateFrame("Button" ,"ScannerOverlayMobKey"..Count, self.Body, "KeyButtonTemplate")
-			--Line = self.Body:CreateFontString( nil, "OVERLAY", self.Font:GetName() );
+			Line = CreateFrame("Frame" ,"ScannerOverlayMobKey"..Count, self.Body)
+			Line.Text = Line:CreateFontString( nil, "OVERLAY", self.Font:GetName() );
+			Line.Text:SetAllPoints()
 			Line:SetPoint( "RIGHT", -5, 0 );
 			if ( Count == 1 ) then
 				Line:SetPoint( "TOPLEFT", 5, -5 );
@@ -58,16 +50,13 @@ do
 			Line:Show();
 		end
 
-		Line:SetID(NpcID)
-		Line:SetText(L.MODULE_WORLDMAP_KEY_FORMAT:format( NS.AchievementNPCNames[ NpcID ] or L.NPCs[ NpcID ] or NpcID ) );
-		local texture = Line:GetNormalTexture() 
-		texture:SetTexture(R,G,B)
-		Line:SetNormalFontObject(ChatFontNormal);
+		Line.Text:SetText(L.MODULE_WORLDMAP_KEY_FORMAT:format( NS.AchievementNPCNames[ NpcID ] or L.NPCs[ NpcID ] or NpcID ) );
+		Line.Text:SetTextColor( R, G, B );
 		Line:SetScript( "OnEnter", function() Overlay.FlashRoute(NpcID) end );
 		Line:SetScript( "OnLeave", function() Overlay.FlashStop(NpcID) end );
-		Line:SetHeight(Line:GetTextHeight()+5)
-		Width = max( Width, Line:GetTextWidth() );
-		Height = Height + Line:GetTextHeight()+5;
+		Line:SetHeight(Line.Text:GetStringHeight())
+		Width = max( Width, Line.Text:GetStringWidth() );
+		Height = Height + Line.Text:GetStringHeight();
 	end
 
 	--- Fills the key in when repainting a zone.
@@ -227,10 +216,10 @@ function NS:Paint ( Map, ... )
 		self.KeyPaint( self.KeyParent.Key, Map );
 		self.RangeRingPaint( self.RangeRing, Map );
 		if ShowKey then
-_NPCScanOverlayKeyParent:Show()
-else
-_NPCScanOverlayKeyParent:Hide()
-end
+			_NPCScanOverlayKeyParent:Show()
+		else
+			_NPCScanOverlayKeyParent:Hide()
+		end
 	else
 		self.KeyParent.Key:Hide();
 		self.RangeRing:Hide();
@@ -273,7 +262,7 @@ function NS:OnLoad ( ... )
 	--self:ClearAllPoints();
 	--self:SetPoint( "BOTTOMRIGHT" );
 	Key:EnableMouse( true );
-	Key:SetBackdrop( {edgeFile = [[Interface\Tooltips\UI-Tooltip-Border]]; edgeSize = 25;} );
+	Key:SetBackdrop( { edgeFile = [[Interface\AchievementFrame\UI-Achievement-WoodBorder]]; edgeSize = 48; } );
 
 	Key.Font = CreateFont( "_NPCScanOverlayWorldMapKeyFont" );
 	Key.Font:SetFontObject( ChatFontNormal );
@@ -283,6 +272,14 @@ function NS:OnLoad ( ... )
 	Key.Body:SetPoint( "BOTTOMLEFT", 10, 10 );
 	Key.Body:SetPoint( "TOPRIGHT", -10, -10 );
 	Key.Body:SetBackdrop( { edgeFile = [[Interface\Tooltips\UI-Tooltip-Border]]; edgeSize = 16; } );
+	Key.Body:SetBackdropBorderColor( 0.8, 0.4, 0.2 ); -- Light brown
+
+	local Background = Key.Body:CreateTexture( nil, "BACKGROUND" );
+	Background:SetPoint( "TOPLEFT", 3, -3 );
+	Background:SetPoint( "BOTTOMRIGHT", -3, 3 );
+	Background:SetTexture( [[Interface\AchievementFrame\UI-Achievement-AchievementBackground]] );
+	Background:SetTexCoord( 0, 1, 0.5, 1 );
+	Background:SetVertexColor( 0.8, 0.8, 0.8 );
 
 	--Sets Key Frame as Moveable & Stores position
 	Key:SetMovable(true)

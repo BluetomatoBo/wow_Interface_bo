@@ -1,0 +1,15 @@
+tag v5.4.0.1
+1f72240445cf4068ff307e713ea7e726065b1682
+SLOKnightfall <SLOKnightfall@gmail.com>
+2013-10-11 13:03:14 -0700
+
+* Switch to incremental numeric DB versioning.
+*Tagging new updates
+
+
+--------------------
+
+SLOKnightfall:
+	- Added LibDataBroker-1.1 and LibDBIcon-1.0 to the .pkgmeta Added icon to minimap and LDB icon for easier path toggles as per user request
+	- -Added paths for the Darkmoon Rabbit, Moonhowl, Zandalari Warscouts & Zandalari Warbringers
+	- -Updated World Map Mob Key to look like previous version while maintaining new functionality.
