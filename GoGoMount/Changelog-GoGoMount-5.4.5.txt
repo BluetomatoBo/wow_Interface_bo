@@ -1,9 +1,26 @@
 ------------------------------------------------------------------------
-r418 | tiker | 2013-09-30 07:16:44 +0000 (Mon, 30 Sep 2013) | 1 line
+r421 | tiker | 2013-10-11 13:08:10 +0000 (Fri, 11 Oct 2013) | 1 line
 Changed paths:
-   A /tags/5.4.3 (from /trunk:417)
+   A /tags/5.4.5 (from /trunk:420)
 
-Tagging as 5.4.3
+Tagging as 5.4.5
+------------------------------------------------------------------------
+r420 | tiker | 2013-10-11 13:07:00 +0000 (Fri, 11 Oct 2013) | 2 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Fixed Moonfang not summoning
+- Updated Sky Golem to be considered a ground mount as well as flying now.
+------------------------------------------------------------------------
+r419 | tiker | 2013-10-09 16:07:45 +0000 (Wed, 09 Oct 2013) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Added support for Moonfang
 ------------------------------------------------------------------------
 r417 | tiker | 2013-09-30 00:00:12 +0000 (Mon, 30 Sep 2013) | 1 line
 Changed paths:
@@ -42,21 +59,4 @@ Changed paths:
 - Updated TOC for World of Warcraft 5.4
 
 
-------------------------------------------------------------------------
-r411 | tiker | 2013-09-04 14:40:28 +0000 (Wed, 04 Sep 2013) | 3 lines
-Changed paths:
-   M /trunk/GoGoMount.lua
-   M /trunk/GoGoMount.toc
-   M /trunk/GoGoMountData.lua
-
-- Button1 won't attempt to fly on the new island Timeless Isle
-- Button1 will attempt to fly in Northshire as long as the player has the Flight Master's License ability
-- Added support for Ashhide Mushan Beast
-------------------------------------------------------------------------
-r410 | tiker | 2013-08-22 18:36:46 +0000 (Thu, 22 Aug 2013) | 1 line
-Changed paths:
-   M /trunk/GoGoMount.lua
-   M /trunk/GoGoMount.toc
-
-- Testing changes for Button 2 - should now remove any mount that can fly from section list rather than selecting mounts that work as ground mounts
 ------------------------------------------------------------------------

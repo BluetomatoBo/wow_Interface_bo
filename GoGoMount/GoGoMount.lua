@@ -1281,8 +1281,14 @@ function GoGo_GetIDName(itemid)
 		local GoGo_TempMount = {}
 		table.insert(GoGo_TempMount, itemid)
 		if (table.getn(GoGo_FilterMountsIn(GoGo_TempMount, 50000)) == 1) then
+			if GoGo_Variables.Debug >= 10 then
+				GoGo_DebugAddLine("GoGo_GetIDName: GetItemID for " .. itemid .. " " .. GetItemInfo(GoGo_Variables.MountDB[itemid][50000]))
+			end --if
 			return GetItemInfo(GoGo_Variables.MountDB[itemid][50000]) or "Unknown Mount"
 		else
+			if GoGo_Variables.Debug >= 10 then
+				GoGo_DebugAddLine("GoGo_GetIDName: GetSpellID for " .. itemid .. " " .. (GetSpellInfo(itemid) or "Unknown Mount"))
+			end --if
 			return GetSpellInfo(itemid) or "Unknown Mount"
 		end --if
 	elseif type(itemid) == "table" then
@@ -2680,12 +2686,19 @@ function GoGo_ZoneCheck()
 		if GoGo_InBook(GoGo_Variables.Localize.FlightMastersLicense) then
 			GoGo_Variables.ZoneExclude.CanFly = true
 		end --if
+	elseif GoGo_Variables.Player.ZoneID == 891 then
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Echo Isles")
+		end --if
+		if GoGo_InBook(GoGo_Variables.Localize.FlightMastersLicense) then
+			GoGo_Variables.ZoneExclude.CanFly = true  -- to verify
+		end --if
 	elseif GoGo_Variables.Player.ZoneID == 893 then
 		if GoGo_Variables.Debug >= 10 then
 			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Sunstrider Isle")
 		end --if
 		if GoGo_InBook(GoGo_Variables.Localize.FlightMastersLicense) then
-			GoGo_Variables.ZoneExclude.CanFly = false  -- to verify
+			GoGo_Variables.ZoneExclude.CanFly = true  -- to verify
 		end --if
 	elseif GoGo_Variables.Player.ZoneID == 895 then
 		if GoGo_Variables.Debug >= 10 then
@@ -2744,6 +2757,12 @@ function GoGo_ZoneCheck()
 	elseif GoGo_Variables.Player.ZoneID == 922 then
 		if GoGo_Variables.Debug >= 10 then
 			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Deeprun Tram")
+		end --if
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = false
+	elseif GoGo_Variables.Player.ZoneID == 925 then
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Brawl'gar Arena")
 		end --if
 		GoGo_Variables.ZoneExclude.CanFly = false
 		-- can ride = false
