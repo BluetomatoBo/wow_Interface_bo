@@ -1,0 +1,12 @@
+tag v5.4.0.3
+4d064b9ce5adc69e194052a6190397260b67f631
+SLOKnightfall <SLOKnightfall@gmail.com>
+2013-10-12 10:05:41 -0700
+
+Tagging v5.4.0.3
+
+
+--------------------
+
+SLOKnightfall:
+	- Added check and older version of code for users that are running old versions of Carbonite

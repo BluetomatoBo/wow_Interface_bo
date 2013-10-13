@@ -583,11 +583,6 @@ local LDB = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("_NPCScan.Over
 })
 
 
-
-
-
-
-
 do
 	NS.GetMapName = GetMapNameByID; -- For backwards compatibility with older versions of _NPCScan
 	local MapIDs = {}; -- [ LocalizedZoneName ] = MapID;
@@ -636,7 +631,7 @@ do
 			NS.Synchronize( Options ); -- Loads defaults if nil
 			self:RegisterMessage( MESSAGE_REGISTER );
 			self:RegisterMessage( MESSAGE_FOUND );
-			MiniMapIcon:Register("_NPCScan.Minimap", LDB, _NPCScanMiniMapIcon)
+			--MiniMapIcon:Register("_NPCScan.Minimap", LDB, _NPCScanMiniMapIcon)
 			
 		end
 	end
