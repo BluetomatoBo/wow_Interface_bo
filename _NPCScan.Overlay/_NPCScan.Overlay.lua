@@ -10,7 +10,7 @@ local AddOnName, NS = ...;
 local L = NS.L;
 _NPCScan.Overlay = NS;
 
-local MiniMapIcon = LibStub("LibDBIcon-1.0")
+--local MiniMapIcon = LibStub("LibDBIcon-1.0")
 _NPCScanMiniMapIcon = {}
 
 NS.Version = GetAddOnMetadata( AddOnName, "Version" ):match( "^([%d.]+)" );
@@ -62,19 +62,50 @@ NS.Achievements = { -- Achievements whos criteria mobs are all mapped
 
 --Color's used for the paths.  Need to revisit to replace the duplicated colors if possible
 NS.Colors = {
-	RAID_CLASS_COLORS.HUNTER,	-- Green
+	RAID_CLASS_COLORS.SHAMAN,
+	RAID_CLASS_COLORS.DEATHKNIGHT,
+	GREEN_FONT_COLOR,
+	RAID_CLASS_COLORS.DRUID,
+	RAID_CLASS_COLORS.PALADIN,
+	UnitPopupButtons.RAID_TARGET_1.color,
+	UnitPopupButtons.RAID_TARGET_5.color,
+	UnitPopupButtons.RAID_TARGET_6.color,
+	UnitPopupButtons.RAID_TARGET_3.color,
+	RAID_CLASS_COLORS.MONK,
+	RAID_CLASS_COLORS.HUNTER,
+
+	RAID_CLASS_COLORS.SHAMAN,
+	RAID_CLASS_COLORS.DEATHKNIGHT,
+	GREEN_FONT_COLOR,
+	RAID_CLASS_COLORS.DRUID,
+	RAID_CLASS_COLORS.PALADIN,
+	UnitPopupButtons.RAID_TARGET_1.color,
+	UnitPopupButtons.RAID_TARGET_5.color,
+	UnitPopupButtons.RAID_TARGET_6.color,
+	UnitPopupButtons.RAID_TARGET_3.color,
+	RAID_CLASS_COLORS.MONK,
+	RAID_CLASS_COLORS.HUNTER,
+
+	RAID_CLASS_COLORS.SHAMAN,
+	RAID_CLASS_COLORS.DEATHKNIGHT,
+	GREEN_FONT_COLOR,
+	RAID_CLASS_COLORS.DRUID,
+	RAID_CLASS_COLORS.PALADIN,
+	UnitPopupButtons.RAID_TARGET_1.color,
+	UnitPopupButtons.RAID_TARGET_5.color,
+	UnitPopupButtons.RAID_TARGET_6.color,
+	UnitPopupButtons.RAID_TARGET_3.color,
+	RAID_CLASS_COLORS.MONK,
+	RAID_CLASS_COLORS.HUNTER,
+
+--[[
 	RAID_CLASS_COLORS.WARLOCK,	--Purple
 	RAID_CLASS_COLORS.PALADIN,	--Pink
 	RAID_CLASS_COLORS.MAGE,		--Blue
 	RAID_CLASS_COLORS.ROGUE,		--Yellow
-	RAID_CLASS_COLORS.DRUID,		--Orange
-	RAID_CLASS_COLORS.SHAMAN,	--??	
-	RAID_CLASS_COLORS.DEATHKNIGHT,--Dark Red	
-	RAID_CLASS_COLORS.MONK,		--Light Blue
 	NORMAL_FONT_COLOR,
 	RED_FONT_COLOR,			--Red
 	GRAY_FONT_COLOR,			--Grey
-	UnitPopupButtons.RAID_TARGET_3.color,
 	UnitPopupButtons.RAID_TARGET_4.color,
 	YELLOW_FONT_COLOR,			--Yellow
 	ORANGE_FONT_COLOR,			--Orange
@@ -94,7 +125,7 @@ NS.Colors = {
 	RAID_CLASS_COLORS.ROGUE,		--Yellow
 	RAID_CLASS_COLORS.DRUID,		--Orange
 	RAID_CLASS_COLORS.SHAMAN,	--??	
-	RAID_CLASS_COLORS.DEATHKNIGHT,--Dark Red	
+	RAID_CLASS_COLORS.DEATHKNIGHT,--Dark Red ]]--	
 };
 
 NS.DetectionRadius = 100; -- yards
@@ -327,14 +358,38 @@ do
 
 	end
 end
---- Passes info for all enabled NPCs in a zone to a callback function.
+
+-- Cache achievement NPC names
+local AchievementNPCNames = {};
+for AchievementID in pairs( NS.Achievements ) do
+	for Criteria = 1, GetAchievementNumCriteria( AchievementID ) do
+		local Name, CriteriaType, _, _, _, _, _, AssetID = GetAchievementCriteriaInfo( AchievementID, Criteria );
+		if ( CriteriaType == 0 ) then -- Mob kill type
+			AchievementNPCNames[ AssetID ] = Name;
+		end
+	end
+end
+
+-- Passes info for all enabled NPCs in a zone to a callback function.
 -- @param Callback  Function( self, PathData, [FoundX], [FoundY], R, G, B, NpcID )
 function NS:ApplyZone ( Map, Callback )
 	local MapData = NS.PathData[ Map ];
-	if ( MapData ) then
-		local ColorIndex = 0;
 
-		for NpcID, PathData in pairs( MapData ) do
+	if (MapData) then
+		local ColorIndex = 0;
+		local AlphaList = {} --List of mob names to sort
+		local NPCList = {} --Index of Mob Name to MobIDs
+
+	--Sorts Mobs in current zone by name
+		for MobID, pathx in pairs(MapData) do
+			local MobName = AchievementNPCNames[MobID] or L.NPCs[MobID] or MobID
+			NPCList[MobName] = MobID
+			table.insert(AlphaList, MobName)
+			table.sort(AlphaList)
+		end
+
+		for _, NpcName in pairs(AlphaList) do
+			local NpcID, PathData = NPCList[NpcName], MapData[NPCList[NpcName]]
 			ColorIndex = ColorIndex + 1;
 			if ( NS.Options.ShowAll or NS.NPCCounts[ NpcID ] ) then
 				local Color = assert( NS.Colors[ ColorIndex ], "Ran out of unique path colors." );
@@ -347,7 +402,6 @@ function NS:ApplyZone ( Map, Callback )
 		end
 	end
 end
-
 
 --- @return Aliased NPC ID, or original if not aliased.
 local function GetRealNpcID ( NpcID )
@@ -581,6 +635,11 @@ local LDB = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("_NPCScan.Over
 		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE5)
 	end,
 })
+
+
+
+
+
 
 
 do
