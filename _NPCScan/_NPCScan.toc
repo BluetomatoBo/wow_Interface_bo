@@ -29,8 +29,8 @@
 ## X-Credits-ruRU: Localization: StingerSoft, Sarymian, KVVV, The_DimoK, ichik, Ant1dotE, tick095, dartraiden
 ## X-Credits-zhCN: Localization: digmouse, tss1398383123, ananhaid, redsaru, dh0000
 ## X-Credits-zhTW: Localization: s8095324, pepper_ep, zhTW, laincat, alpha2009, machihchung
-## Version: 5.4.0.4
-## X-Date: 2013-10-09T19:26:34Z
+## Version: v5.4.0.5
+## X-Date: 2013-10-18T03:49:15Z
 ## X-Category: Miscellaneous
 ## X-License: GPLv3
 ## X-Email: jcallahan@curse.com
@@ -40,7 +40,7 @@
 ## SavedVariables: _NPCScanOptions, TESTPRO
 ## SavedVariablesPerCharacter: _NPCScanOptionsCharacter
 ## OptionalDeps: Ace3, LibTextTable-1.1, LibSharedMedia-3.0
-## X-Curse-Packaged-Version: 5.4.0.4
+## X-Curse-Packaged-Version: v5.4.0.5
 ## X-Curse-Project-Name: _NPCScan
 ## X-Curse-Project-ID: npcscan
 ## X-Curse-Repository-ID: wow/npcscan/mainline
@@ -67,6 +67,7 @@ Locales\Locale-zhTW.lua
 
 NPCData.lua
 
+Constants.lua
 _NPCScan.lua
 TargetButton.lua
 MapOverlays.lua
