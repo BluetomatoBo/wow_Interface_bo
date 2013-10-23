@@ -1,445 +1,413 @@
---[[****************************************************************************
-  * _NPCScan by Saiket                                                         *
-  * ConfigSearch.lua - Adds a configuration pane to add/remove NPCs and        *
-  * achievements to search for.                                                *
-  ****************************************************************************]]
+-------------------------------------------------------------------------------
+-- Localized Lua globals.
+-------------------------------------------------------------------------------
+local _G = getfenv(0)
+
+-- Functions
+local pairs = _G.pairs
+local select = _G.select
+local type = _G.type
+
+-- Libraries
+local math = _G.math
 
 
+-------------------------------------------------------------------------------
+-- AddOn namespace.
+-------------------------------------------------------------------------------
 local FOLDER_NAME, private = ...
 local L = private.L
-local NS = CreateFrame("Frame")
-private.Config.Search = NS
 
-NS.AddFoundCheckbox = CreateFrame("CheckButton", "_NPCScanSearchAchievementAddFoundCheckbox", NS, "InterfaceOptionsCheckButtonTemplate")
-NS.BlockFlightScanCheckbox = CreateFrame("CheckButton", "_NPCScannerBlockFlightScanCheckbox", NS, "InterfaceOptionsCheckButtonTemplate")
+local panel = _G.CreateFrame("Frame")
+private.Config.Search = panel
 
-NS.TableContainer = CreateFrame("Frame", nil, NS)
 
-NS.NPCControls = CreateFrame("Frame", nil, NS.TableContainer)
-NS.NPCName = CreateFrame("EditBox", "_NPCScanSearchNpcName", NS.NPCControls, "InputBoxTemplate")
-NS.NPCNpcID = CreateFrame("EditBox", "_NPCScanSearchNpcID", NS.NPCControls, "InputBoxTemplate")
-NS.NPCWorld = CreateFrame("EditBox", "_NPCScanSearchNpcWorld", NS.NPCControls, "InputBoxTemplate")
-NS.NPCWorldButton = CreateFrame("Button", nil, NS.NPCWorld)
-NS.NPCWorldButton.Dropdown = CreateFrame("Frame", "_NPCScanSearchNPCWorldDropdown", NS.NPCWorldButton)
-NS.NPCAdd = CreateFrame("Button", nil, NS.NPCControls, "UIPanelButtonTemplate")
-NS.NPCRemove = CreateFrame("Button", nil, NS.NPCControls, "UIPanelButtonTemplate")
+-------------------------------------------------------------------------------
+-- Constants.
+-------------------------------------------------------------------------------
+local ALPHA_ACTIVE = 1
+local ALPHA_INACTIVE = 0.5
+local TEXTURE_NOT_READY = [[|TInterface\RaidFrame\ReadyCheck-NotReady:0|t]]
+local TEXTURE_READY = [[|TInterface\RaidFrame\ReadyCheck-Ready:0|t]]
 
-NS.InactiveAlpha = 0.5
 
-local LibRareSpawnsData
-if IsAddOnLoaded("LibRareSpawns") then
-	LibRareSpawnsData = LibRareSpawns.ByNPCID
+-------------------------------------------------------------------------------
+-- Variables.
+-------------------------------------------------------------------------------
+local panel_tabs = {}
+
+
+-------------------------------------------------------------------------------
+-- Helpers.
+-------------------------------------------------------------------------------
+local function GetWorldID(localized_name)
+	if localized_name ~= "" then
+		return private.LOCALIZED_CONTINENT_IDS[localized_name] or localized_name
+	end
 end
 
--- Sets the search for found achievement mobs option when its checkbox is clicked.
-function NS.AddFoundCheckbox.setFunc(Enable)
-	if private.SetAchievementsAddFound(Enable == "1") then
+
+local function GetWorldIDName(world_id)
+	return type(world_id) == "number" and private.LOCALIZED_CONTINENT_NAMES[world_id] or world_id
+end
+
+
+-- Validates ability to use, add, and remove buttons for NPCs.
+local function UpdateButtonStates()
+	local npc_id = panel.npc_id_editbox:GetNumber()
+	local npc_name = panel.npc_name_editbox:GetText()
+	local world_id = GetWorldID(panel.npc_world_editbox:GetText())
+	local old_npc_name = private.Options.NPCs[npc_id]
+	local old_world_id = private.Options.NPCWorldIDs[npc_id]
+	local can_add = npc_id and npc_id >= 1 and npc_id <= private.NPC_ID_MAX and npc_name ~= "" and (npc_name ~= old_npc_name or world_id ~= old_world_id)
+
+	-- Color world name orange if not a continent
+	local world_color = type(world_id) == "string" and _G.ORANGE_FONT_COLOR or _G.HIGHLIGHT_FONT_COLOR
+	panel.npc_world_editbox:SetTextColor(world_color.r, world_color.g, world_color.b)
+
+	if panel.table then
+		panel.table:SetSelectionByKey(old_npc_name and npc_id or nil)
+	end
+	panel.npc_add_button[can_add and "Enable" or "Disable"](panel.npc_add_button)
+	panel.npc_remove_button[old_npc_name and "Enable" or "Disable"](panel.npc_remove_button)
+end
+
+
+local CreateEditBox
+do
+	local function EditBox_OnEnterPressed(self)
+		self:ClearFocus()
+		panel.npc_add_button:Click()
+	end
+
+
+	local function EditBox_OnTabPressed(self)
+		panel[self.next_editbox]:SetFocus()
+	end
+
+
+	function CreateEditBox(name, parent, tooltip_text, next_editbox)
+		local editbox = _G.CreateFrame("EditBox", name, parent, "InputBoxTemplate")
+		editbox:SetAutoFocus(false)
+		editbox:SetScript("OnTabPressed", EditBox_OnTabPressed)
+		editbox:SetScript("OnEnterPressed", EditBox_OnEnterPressed)
+		editbox:SetScript("OnTextChanged", UpdateButtonStates)
+		editbox:SetScript("OnEnter", private.Config.ControlOnEnter)
+		editbox:SetScript("OnLeave", _G.GameTooltip_Hide)
+		editbox.tooltipText = tooltip_text
+		editbox.next_editbox = next_editbox
+		return editbox
+	end
+end -- do-block
+
+
+-------------------------------------------------------------------------------
+-- Config UI.
+-------------------------------------------------------------------------------
+panel.name = L.SEARCH_TITLE
+panel.parent = L.CONFIG_TITLE
+panel:Hide()
+
+panel:SetScript("OnShow", function(self)
+	if not self.table then
+		self.table = _G.LibStub("LibTextTable-1.1").New(nil, self.table_container)
+		self.table:SetAllPoints()
+	end
+
+	if self.selected_tab then
+		self.UpdateTab()
+	else
+		self:SelectTab(panel_tabs.NPC)
+	end
+end)
+
+
+local panel_title = panel:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
+panel_title:SetPoint("TOPLEFT", 16, -16)
+panel_title:SetText(L.SEARCH_TITLE)
+
+
+local panel_subtext = panel:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+panel_subtext:SetPoint("TOPLEFT", panel_title, "BOTTOMLEFT", 0, -8)
+panel_subtext:SetPoint("RIGHT", -32, 0)
+panel_subtext:SetHeight(32)
+panel_subtext:SetJustifyH("LEFT")
+panel_subtext:SetJustifyV("TOP")
+panel_subtext:SetText(L.SEARCH_DESC)
+
+
+local add_found_checkbox = _G.CreateFrame("CheckButton", "_NPCScanSearchAchievementAddFoundCheckbox", panel, "InterfaceOptionsCheckButtonTemplate")
+add_found_checkbox:SetPoint("TOPLEFT", panel_subtext, "BOTTOMLEFT", -2, -8)
+add_found_checkbox.tooltipText = L.SEARCH_ACHIEVEMENTADDFOUND_DESC
+
+panel.add_found_checkbox = add_found_checkbox
+
+local add_found_label = _G[add_found_checkbox:GetName() .. "Text"]
+add_found_label:SetText(L.SEARCH_ACHIEVEMENTADDFOUND)
+add_found_checkbox:SetHitRectInsets(4, 4 - add_found_label:GetStringWidth(), 4, 4)
+
+function add_found_checkbox.setFunc(is_enabled)
+	if private.SetAchievementsAddFound(is_enabled == "1") then
 		private.CacheListPrint(true)
 	end
 end
 
---FlightSupress
-function NS.BlockFlightScanCheckbox.setFunc(Enable)
+
+local block_flight_scan_checkbox = _G.CreateFrame("CheckButton", "_NPCScannerBlockFlightScanCheckbox", panel, "InterfaceOptionsCheckButtonTemplate")
+block_flight_scan_checkbox:SetPoint("BOTTOMLEFT", add_found_checkbox, "TOPLEFT", 0, 0)
+block_flight_scan_checkbox.tooltipText = L.BLOCKFLIGHTSCAN_DESC
+
+panel.block_flight_scan_checkbox = block_flight_scan_checkbox
+
+local block_flight_scan_label = _G[block_flight_scan_checkbox:GetName() .. "Text"]
+block_flight_scan_label:SetText(L.BLOCKFLIGHTSCAN)
+block_flight_scan_checkbox:SetHitRectInsets(4, 4 - block_flight_scan_label:GetStringWidth(), 4, 4)
+
+function block_flight_scan_checkbox.setFunc()
 	if private.OptionsCharacter.FlightSupress then
 		private.OptionsCharacter.FlightSupress = false
-		NS.BlockFlightScanCheckbox:SetChecked(false)
+		panel.block_flight_scan_checkbox:SetChecked(false)
 	else
 		private.OptionsCharacter.FlightSupress = true
-
-		NS.BlockFlightScanCheckbox:SetChecked(true)
+		panel.block_flight_scan_checkbox:SetChecked(true)
 	end
 end
 
 
--- Converts a localized world name into a WorldID.
-local function GetWorldID(World)
-	if World ~= "" then
-		return private.LOCALIZED_CONTINENT_IDS[World] or World
+local table_container = _G.CreateFrame("Frame", nil, panel)
+table_container:SetBackdrop({
+	bgFile = [[Interface\DialogFrame\UI-DialogBox-Background]]
+})
+
+panel.table_container = table_container
+
+
+local npc_controls = _G.CreateFrame("Frame", nil, table_container)
+npc_controls:Hide()
+
+panel.npc_controls = npc_controls
+
+
+-- Anchor table_container - must be done here since its anchoring depends on the existence of npc_controls. TODO: Fix this insanity.
+table_container:SetPoint("TOP", add_found_checkbox, "BOTTOM", 0, -28)
+table_container:SetPoint("LEFT", panel_subtext, -2, 0)
+table_container:SetPoint("RIGHT", -16, 0)
+table_container:SetPoint("BOTTOM", npc_controls)
+
+
+local npc_world_editbox = CreateEditBox("_NPCScanSearchNpcWorldEditBox", npc_controls, L.SEARCH_WORLD_DESC, "npc_name_editbox")
+
+panel.npc_world_editbox = npc_world_editbox
+
+
+local npc_world_button = _G.CreateFrame("Button", nil, npc_world_editbox)
+npc_world_button:SetPoint("RIGHT", npc_world_editbox, 3, 1)
+npc_world_button:SetSize(24, 24)
+npc_world_button:SetNormalTexture([[Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up]])
+npc_world_button:SetPushedTexture([[Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down]])
+npc_world_button:SetHighlightTexture([[Interface\Buttons\UI-Common-MouseHilight]], "ADD")
+
+npc_world_button:SetScript("OnClick", function(self)
+	self:GetParent():ClearFocus()
+	_G.ToggleDropDownMenu(nil, nil, self.dropdown)
+	_G.PlaySound("igMainMenuOptionCheckBoxOn")
+end)
+
+npc_world_button:SetScript("OnHide", function(self)
+	_G.CloseDropDownMenus()
+end)
+
+panel.npc_world_button = npc_world_button
+
+
+local npc_world_button_dropdown = _G.CreateFrame("Frame", "_NPCScanSearchNPCWorldButtonDropdown", npc_world_button)
+_G.UIDropDownMenu_SetAnchor(npc_world_button_dropdown, 0, 0, "TOPRIGHT", npc_world_button, "BOTTOMRIGHT")
+
+panel.npc_world_button.dropdown = npc_world_button_dropdown
+
+function npc_world_button_dropdown:initialize()
+	local info = _G.UIDropDownMenu_CreateInfo()
+	info.notCheckable = true
+	info.func = self.OnSelect
+
+	for index = 1, select("#", _G.GetMapContinents()) do
+		local continent_name = private.LOCALIZED_CONTINENT_NAMES[index]
+
+		if continent_name then
+			info.text = continent_name
+			info.arg1 = continent_name
+			_G.UIDropDownMenu_AddButton(info)
+		end
+	end
+	local instance_name = _G.GetInstanceInfo()
+
+	if not private.LOCALIZED_CONTINENT_IDS[instance_name] then -- Add current instance name
+		info = _G.UIDropDownMenu_CreateInfo()
+		info.notCheckable = true
+		info.disabled = true
+		_G.UIDropDownMenu_AddButton(info)
+
+		info.disabled = nil
+		info.text = instance_name
+		info.arg1 = instance_name
+		info.colorCode = _G.ORANGE_FONT_COLOR_CODE
+		info.func = self.OnSelect
+		_G.UIDropDownMenu_AddButton(info)
 	end
 end
 
--- Converts a WorldID into a localized world name.
-local function GetWorldIDName(WorldID)
-	return type(WorldID) == "number" and private.LOCALIZED_CONTINENT_NAMES[WorldID] or WorldID
+
+function npc_world_button_dropdown:OnSelect(world_name)
+	npc_world_editbox:SetText(world_name)
 end
 
 
--- Selects the given table tab.
-function NS.TabSelect(NewTab)
-	local OldTab = NS.TabSelected
-	if NewTab ~= OldTab then
-		if OldTab then
-			if OldTab.Deactivate then
-				OldTab:Deactivate()
-			end
-			PanelTemplates_DeselectTab(OldTab)
-		end
+local npc_remove_button = _G.CreateFrame("Button", nil, npc_controls, "UIPanelButtonTemplate")
+npc_remove_button:SetSize(16, 20)
+npc_remove_button:SetPoint("BOTTOMRIGHT", panel, -16, 16)
+npc_remove_button:SetText(L.SEARCH_REMOVE)
+npc_remove_button:SetScript("OnClick", function(self)
+	private.NPCRemove(panel.npc_id_editbox:GetNumber())
+	panel:ClearEditBoxes()
+end)
 
-		for _, Row in ipairs(NS.Table.Rows) do
-			Row:SetAlpha(1.0)
-		end
-		NS.Table:Clear()
+panel.npc_remove_button = npc_remove_button
 
-		NS.TabSelected = NewTab
-		PanelTemplates_SelectTab(NewTab)
-		if NewTab.Activate then
-			NewTab:Activate()
-		end
-		NewTab:Update()
+
+local npc_name_editbox_label = npc_controls:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+npc_name_editbox_label:SetPoint("LEFT", panel, 16, 0)
+npc_name_editbox_label:SetPoint("TOP", npc_remove_button)
+npc_name_editbox_label:SetPoint("BOTTOM", npc_remove_button)
+npc_name_editbox_label:SetText(L.SEARCH_NAME)
+
+
+local npc_add_button = _G.CreateFrame("Button", nil, npc_controls, "UIPanelButtonTemplate")
+npc_add_button:SetSize(16, 20)
+npc_add_button:SetPoint("BOTTOMRIGHT", npc_remove_button, "TOPRIGHT", 0, 4)
+npc_add_button:SetText(L.SEARCH_ADD)
+npc_add_button.tooltipText = L.SEARCH_ADD_DESC
+npc_add_button:SetScript("OnEnter", private.Config.ControlOnEnter)
+npc_add_button:SetScript("OnLeave", _G.GameTooltip_Hide)
+npc_add_button:SetScript("OnClick", function(self)
+	local npc_id = panel.npc_id_editbox:GetNumber()
+	local npc_name = panel.npc_name_editbox:GetText()
+	local world_id = GetWorldID(panel.npc_world_editbox:GetText())
+
+	if private.TamableIDs[npc_id] then
+		private.Print(L.SEARCH_ADD_TAMABLE_FORMAT:format(npc_name))
 	end
-end
+	private.NPCRemove(npc_id)
 
-
--- Selects a tab's table view when clicked.
-function NS:TabOnClick()
-	PlaySound("igCharacterInfoTab")
-	NS.TabSelect(self)
-end
-
-
--- Displays a tooltip for a table tab when moused over.
-function NS:TabOnEnter()
-	GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, -8)
-	if self.AchievementID then
-		local _, Name, _, _, _, _, _, Description = GetAchievementInfo(self.AchievementID)
-		local WorldID = private.ACHIEVEMENTS[self.AchievementID].WorldID
-		local Highlight = HIGHLIGHT_FONT_COLOR
-		if WorldID then
-			GameTooltip:ClearLines()
-			local Gray = GRAY_FONT_COLOR
-			GameTooltip:AddDoubleLine(Name, L.SEARCH_WORLD_FORMAT:format(GetWorldIDName(WorldID)),
-				Highlight.r, Highlight.g, Highlight.b, Gray.r, Gray.g, Gray.b)
-		else
-			GameTooltip:SetText(Name, Highlight.r, Highlight.g, Highlight.b)
-		end
-		GameTooltip:AddLine(Description, nil, nil, nil, true)
-
-		if not private.OptionsCharacter.Achievements[self.AchievementID] then
-			local Color = RED_FONT_COLOR
-			GameTooltip:AddLine(L.SEARCH_ACHIEVEMENT_DISABLED, Color.r, Color.g, Color.b)
-		end
-	elseif self.AchievementID == "BEASTS" then
-		GameTooltip:SetText(L.SEARCH_TAMEBEAST_DECS, nil, nil, nil, nil, true)
-	else
-		GameTooltip:SetText(L.SEARCH_NPCS_DESC, nil, nil, nil, nil, true)
-	end
-	GameTooltip:Show()
-end
-
-
--- Enables or disables tracking an achievement when its tab checkbox is clicked.
-function NS:TabCheckOnClick()
-	local Enable = self:GetChecked()
-	PlaySound(Enable and "igMainMenuOptionCheckBoxOn" or "igMainMenuOptionCheckBoxOff")
-
-	local AchievementID = self:GetParent().AchievementID
-	NS.AchievementSetEnabled(AchievementID, Enable)
-	if not Enable then
-		private.AchievementRemove(AchievementID)
-	elseif private.AchievementAdd(AchievementID) then -- Cache might have changed
+	if private.NPCAdd(npc_id, npc_name, world_id) then
 		private.CacheListPrint(true)
 	end
-end
+	panel:ClearEditBoxes()
+end)
+
+panel.npc_add_button = npc_add_button
 
 
--- Show's the tab's tooltip when mousing over the tab's checkbox.
-function NS:TabCheckOnEnter()
-	NS.TabOnEnter(self:GetParent())
-end
+local npc_id_editbox_label = npc_controls:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+npc_id_editbox_label:SetPoint("LEFT", npc_name_editbox_label)
+npc_id_editbox_label:SetPoint("TOP", panel.npc_add_button)
+npc_id_editbox_label:SetPoint("BOTTOM", panel.npc_add_button)
+npc_id_editbox_label:SetText(L.SEARCH_ID)
 
 
-function NS:RareTabCheckOnClick()
-	local Enable = self:GetChecked()
-	PlaySound(Enable and "igMainMenuOptionCheckBoxOn" or "igMainMenuOptionCheckBoxOff")
-	local TabID = self:GetParent().TabID
-	local Tab = self:GetParent()
-	NS.AchievementSetEnabled(TabID, Enable)
+-- More delayed anchoring due to existential constraints. TODO: Determine if fixing is possible.
+npc_controls:SetPoint("BOTTOMRIGHT", npc_remove_button)
+npc_controls:SetPoint("LEFT", npc_id_editbox_label)
+npc_controls:SetPoint("TOP", npc_add_button)
 
-	if TabID == "BEASTS" then
-		private.OptionsCharacter.TrackBeasts = Enable or nil
-	elseif TabID == "RARENPC" then
-		private.OptionsCharacter.TrackRares = Enable or nil
+
+local npc_name_editbox = CreateEditBox("_NPCScanSearchNpcNameEditBox", npc_controls, L.SEARCH_NAME_DESC, "npc_id_editbox")
+npc_name_editbox:SetPoint("LEFT", npc_name_editbox_label:GetStringWidth() > npc_id_editbox_label:GetStringWidth() and npc_name_editbox_label or npc_id_editbox_label, "RIGHT", 8, 0)
+npc_name_editbox:SetPoint("RIGHT", npc_remove_button, "LEFT", -4, 0)
+npc_name_editbox:SetPoint("TOP", npc_name_editbox_label)
+npc_name_editbox:SetPoint("BOTTOM", npc_name_editbox_label)
+
+panel.npc_name_editbox = npc_name_editbox
+
+
+local npc_id_editbox = CreateEditBox("_NPCScanSearchNpcIDEditBox", npc_controls, L.SEARCH_ID_DESC, "npc_world_editbox")
+npc_id_editbox:SetPoint("LEFT", npc_name_editbox)
+npc_id_editbox:SetPoint("TOP", npc_id_editbox_label)
+npc_id_editbox:SetPoint("BOTTOM", npc_id_editbox_label)
+npc_id_editbox:SetWidth(64)
+npc_id_editbox:SetNumeric(true)
+npc_id_editbox:SetMaxLetters(math.floor(math.log10(private.NPC_ID_MAX)) + 1)
+
+panel.npc_id_editbox = npc_id_editbox
+
+
+local world_editbox_label = npc_controls:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+world_editbox_label:SetPoint("LEFT", npc_id_editbox, "RIGHT", 8, 0)
+world_editbox_label:SetPoint("TOP", npc_id_editbox_label)
+world_editbox_label:SetPoint("BOTTOM", npc_id_editbox_label)
+world_editbox_label:SetText(L.SEARCH_WORLD)
+
+
+-- More delayed anchoring. TODO: See about fixing this.
+npc_world_editbox:SetPoint("LEFT", world_editbox_label, "RIGHT", 8, 0)
+npc_world_editbox:SetPoint("RIGHT", npc_name_editbox)
+npc_world_editbox:SetPoint("TOP", npc_id_editbox_label)
+npc_world_editbox:SetPoint("BOTTOM", npc_id_editbox_label)
+
+
+-------------------------------------------------------------------------------
+-- Panel methods.
+-------------------------------------------------------------------------------
+function panel.AchievementSetEnabled(achievement_id, is_enabled)
+	local tab = panel_tabs[achievement_id]
+	tab.checkbox:SetChecked(is_enabled)
+
+	local checked_texture = tab.checkbox:GetCheckedTexture()
+	checked_texture:SetTexture(is_enabled and [[Interface\Buttons\UI-CheckBox-Check]] or [[Interface\RAIDFRAME\ReadyCheck-NotReady]])
+	checked_texture:Show()
+
+	if _G.GameTooltip:GetOwner() == tab then
+		tab:GetScript("OnEnter")(tab)
 	end
-	private.RareMobToggle(TabID, Enable)
-	NS.UpdateTab(TabID)
-	private.CacheListPrint(true)
-end
 
-
-local Tabs = {} -- [ "NPC" or AchievementID ] = Tab
-
-
--- Validates ability to use add and remove buttons for NPCs.
-function NS.NPCValidate()
-	local NpcID, Name, WorldID = NS.NPCNpcID:GetNumber(), NS.NPCName:GetText(), GetWorldID(NS.NPCWorld:GetText())
-
-	local OldName = private.Options.NPCs[NpcID]
-	local OldWorldID = private.Options.NPCWorldIDs[NpcID]
-	local CanAdd = NpcID and Name ~= ""
-		and NpcID >= 1 and NpcID <= private.NPC_ID_MAX
-		and (Name ~= OldName or WorldID ~= OldWorldID)
-
-	-- Color world name orange if not a standard continent
-	local WorldColor = type(WorldID) == "string" and ORANGE_FONT_COLOR or HIGHLIGHT_FONT_COLOR
-	NS.NPCWorld:SetTextColor(WorldColor.r, WorldColor.g, WorldColor.b)
-
-	if NS.Table then
-		NS.Table:SetSelectionByKey(OldName and NpcID or nil)
-	end
-	NS.NPCAdd[CanAdd and "Enable" or "Disable"](NS.NPCAdd)
-	NS.NPCRemove[OldName and "Enable" or "Disable"](NS.NPCRemove)
-end
-
-
--- Clears the NPC controls.
-function NS.NPCClear()
-	NS.NPCNpcID:SetText("")
-	NS.NPCName:SetText("")
-	NS.NPCWorld:SetText("")
-end
-
-
--- Adds a Custom NPC list element.
-function NS.NPCAdd:OnClick()
-	local NpcID, Name, WorldID = NS.NPCNpcID:GetNumber(), NS.NPCName:GetText(), GetWorldID(NS.NPCWorld:GetText())
-	if private.TamableIDs[NpcID] then
-		private.Print(L.SEARCH_ADD_TAMABLE_FORMAT:format(Name))
-	end
-	private.NPCRemove(NpcID)
-	if private.NPCAdd(NpcID, Name, WorldID) then
-		private.CacheListPrint(true)
-	end
-	NS.NPCClear()
-end
-
-
--- Removes a Custom NPC list element.
-function NS.NPCRemove:OnClick()
-	private.NPCRemove(NS.NPCNpcID:GetNumber())
-	NS.NPCClear()
-end
-
-
--- Cycles through edit box controls.
-function NS:NPCOnTabPressed()
-	self.NextEditBox:SetFocus()
-end
-
-
--- Attempts to add the entered NPC when enter is pressed in any edit box.
-function NS:NPCOnEnterPressed()
-	self:ClearFocus()
-	NS.NPCAdd:Click()
-end
-
-
--- Fills in the edit boxes when a table row is selected.
-function NS:NPCOnSelect(NpcID)
-	if NpcID ~= nil then
-		NS.NPCNpcID:SetNumber(NpcID)
-		NS.NPCName:SetText(private.Options.NPCs[NpcID])
-		NS.NPCWorld:SetText(GetWorldIDName(private.Options.NPCWorldIDs[NpcID]) or "")
+	if panel.selected_tab == tab then
+		panel.table.Header:SetAlpha(is_enabled and ALPHA_ACTIVE or ALPHA_INACTIVE)
 	end
 end
 
 
--- Builds a dropdown of continent names.
-function NS.NPCWorldButton.Dropdown:initialize()
-	local Info = UIDropDownMenu_CreateInfo()
-	Info.notCheckable = true
-	Info.func = self.OnSelect
-	for Index = 1, select("#", GetMapContinents()) do
-		local World = private.LOCALIZED_CONTINENT_NAMES[Index]
-		if World then -- Not an excluded virtual continent
-			Info.text, Info.arg1 = World, World
-			UIDropDownMenu_AddButton(Info)
+function panel:ClearEditBoxes()
+	self.npc_id_editbox:SetText("")
+	self.npc_name_editbox:SetText("")
+	self.npc_world_editbox:SetText("")
+end
+
+
+function panel:SelectTab(new_tab)
+	local old_tab = self.selected_tab
+
+	if new_tab == old_tab then
+		return
+	end
+
+	if old_tab then
+		if old_tab.Deactivate then
+			old_tab:Deactivate()
 		end
-	end
-	local CurrentWorld = GetInstanceInfo()
-	if not private.LOCALIZED_CONTINENT_IDS[CurrentWorld] then -- Add current instance name
-		-- Spacer
-		Info = UIDropDownMenu_CreateInfo()
-		Info.notCheckable = true
-		Info.disabled = true
-		UIDropDownMenu_AddButton(Info)
-		-- Current instance
-		Info.disabled = nil
-		Info.text, Info.arg1 = CurrentWorld, CurrentWorld
-		Info.colorCode = ORANGE_FONT_COLOR_CODE
-		Info.func = self.OnSelect
-		UIDropDownMenu_AddButton(Info)
-	end
-end
-
-
--- Selects a preset world name from the dropdown.
-function NS.NPCWorldButton.Dropdown:OnSelect(Name)
-	NS.NPCWorld:SetText(Name)
-end
-
-
--- Opens a dropdown with world name presets.
-function NS.NPCWorldButton:OnClick()
-	local Parent = self:GetParent()
-	Parent:ClearFocus()
-	ToggleDropDownMenu(nil, nil, self.Dropdown)
-	PlaySound("igMainMenuOptionCheckBoxOn")
-end
-
-
--- Hides the dropdown if its button is hidden.
-function NS.NPCWorldButton:OnHide()
-	CloseDropDownMenus()
-end
-
-
--- Fills the search table with custom NPCs.
-function NS:NPCUpdate()
-	NS.NPCValidate()
-	local WorldIDs = private.Options.NPCWorldIDs
-	local Overlay = IsAddOnLoaded("_NPCScan.Overlay") and private.Overlay
-	for NpcID, Name in pairs(private.Options.NPCs) do
-		--local Map = Overlay and Overlay.GetNPCMapID( NpcID )
-		local Map = private.RareMobData.NPCMapIDs[NpcID]
-		local Row = NS.Table:AddRow(NpcID,
-			private.TestID(NpcID) and [[|TInterface\RaidFrame\ReadyCheck-NotReady:0|t]] or "",
-			Name, NpcID, GetWorldIDName(WorldIDs[NpcID]) or "",
-			Map and (GetMapNameByID(Map) or Map) or "")
-
-		if not private.NPCIsActive(NpcID) then
-			Row:SetAlpha(NS.InactiveAlpha)
-		end
-	end
-end
-
-
-function NS:RareNPCUpdate()
-	NS.NPCValidate()
-	local WorldIDs = private.RareMobData.NPCWorldIDs
-	for NpcID, Name in pairs(private.RareMobData.RareNPCs) do
-		local Map = private.RareMobData.NPCMapIDs[NpcID]
-		local Row = NS.Table:AddRow(NpcID,
-			private.TestID(NpcID) and [[|TInterface\RaidFrame\ReadyCheck-NotReady:0|t]] or "",
-			Name, NpcID, GetWorldIDName(WorldIDs[NpcID]) or "",
-			Map and (GetMapNameByID(Map) or Map) or "")
-
-		if not private.NPCIsActive(NpcID) then
-			Row:SetAlpha(NS.InactiveAlpha)
-		end
-	end
-end
-
-
-function NS:TameableNPCUpdate()
-	NS.NPCValidate()
-	local WorldIDs = private.RareMobData.NPCWorldIDs
-	for NpcID, Name in pairs(private.TamableNames) do
-		local Map = private.TamableIDs[NpcID]
-		if type(Map) == "boolean" then Map = false end
-		local Row = NS.Table:AddRow(NpcID,
-			private.TestID(NpcID) and [[|TInterface\RaidFrame\ReadyCheck-NotReady:0|t]] or "",
-			Name, NpcID, GetWorldIDName(WorldIDs[NpcID]) or "",
-			Map and (GetMapNameByID(Map) or Map) or "")
-
-		if not private.NPCIsActive(NpcID) then
-			Row:SetAlpha(NS.InactiveAlpha)
-		end
-	end
-end
-
-
--- Customizes the table when the NPCs tab is selected.
-function NS:CustomNPCActivate()
-	NS.Table:SetHeader(L.SEARCH_CACHED, L.SEARCH_NAME, L.SEARCH_ID, L.SEARCH_WORLD, L.SEARCH_MAP)
-	NS.Table:SetSortHandlers(true, true, true, true, true)
-	NS.Table:SetSortColumn(2) -- Default by name
-
-	NS.NPCClear()
-	NS.NPCControls:Show()
-	NS.TableContainer:SetPoint("BOTTOM", NS.NPCControls, "TOP", 0, 4)
-	NS.Table.OnSelect = NS.NPCOnSelect
-end
-
-
--- Customizes the table when the NPCs tab is selected.
-function NS:DefultNPCActivate()
-	NS.Table:SetHeader(L.SEARCH_CACHED, L.SEARCH_NAME, L.SEARCH_ID, L.SEARCH_WORLD, L.SEARCH_MAP)
-	NS.Table:SetSortHandlers(true, true, true, true, true)
-	NS.Table:SetSortColumn(2) -- Default by name
-
-	NS.NPCClear()
-	--NS.NPCControls:Show()
-	NS.TableContainer:SetPoint("BOTTOM", NS.NPCControls, "TOP", 0, 4)
-	--NS.Table.OnSelect = NS.NPCOnSelect
-end
-
-
--- Undoes customization to the table when leaving the NPCs tab.
-function NS:NPCDeactivate()
-	NS.NPCControls:Hide()
-	NS.TableContainer:SetPoint("BOTTOM", NS.NPCControls)
-	NS.Table.OnSelect = nil
-end
-
-
--- Enables/disables the achievement related to a tab.
-function NS.AchievementSetEnabled(AchievementID, Enable)
-	local Tab = Tabs[AchievementID]
-	Tab.Checkbox:SetChecked(Enable)
-	local Texture = Tab.Checkbox:GetCheckedTexture()
-	Texture:SetTexture(Enable
-		and [[Interface\Buttons\UI-CheckBox-Check]]
-		or [[Interface\RAIDFRAME\ReadyCheck-NotReady]])
-	Texture:Show()
-
-	-- Update tooltip if shown
-	if GameTooltip:GetOwner() == Tab then
-		NS.TabOnEnter(Tab)
+		_G.PanelTemplates_DeselectTab(old_tab)
 	end
 
-	if NS.TabSelected == Tab then
-		NS.Table.Header:SetAlpha(Enable and 1.0 or NS.InactiveAlpha)
+	for index = 1, #self.table.Rows do
+		self.table.Rows[index]:SetAlpha(ALPHA_ACTIVE)
 	end
-end
 
+	self.selected_tab = new_tab
+	self.table:Clear()
+	_G.PanelTemplates_SelectTab(new_tab)
 
--- Fills the search table with achievement NPCs.
-function NS:AchievementUpdate()
-	local Achievement = private.ACHIEVEMENTS[self.AchievementID]
-	local Overlay = IsAddOnLoaded("_NPCScan.Overlay") and private.Overlay
-	for CriteriaID, NpcID in pairs(Achievement.Criteria) do
-		if NpcID > 1 then
-			local Name, _, Completed = GetAchievementCriteriaInfoByID(self.AchievementID, CriteriaID)
-			local Map = private.RareMobData.NPCMapIDs[NpcID]
-			--local Map = Overlay and Overlay.GetNPCMapID( NpcID )
-			local Row = NS.Table:AddRow(NpcID,
-				private.TestID(NpcID) and [[|TInterface\RaidFrame\ReadyCheck-NotReady:0|t]] or "",
-				Name, NpcID,
-				Completed and [[|TInterface\RaidFrame\ReadyCheck-Ready:0|t]] or "",
-				Map and (GetMapNameByID(Map) or Map) or "")
-
-			if not private.AchievementNPCIsActive(Achievement, NpcID) then
-				Row:SetAlpha(NS.InactiveAlpha)
-			end
-		end
+	if new_tab.Activate then
+		new_tab:Activate()
 	end
-end
-
-
--- Customizes the table when an achievement tab is selected.
-function NS:AchievementActivate()
-
-	NS.Table:SetHeader(L.SEARCH_CACHED, L.SEARCH_NAME, L.SEARCH_ID, L.SEARCH_COMPLETED, L.SEARCH_MAP)
-	NS.Table:SetSortHandlers(true, true, true, true, true)
-	NS.Table:SetSortColumn(2) -- Default by name
-
-	NS.Table.Header:SetAlpha(private.OptionsCharacter.Achievements[self.AchievementID] and 1.0 or NS.InactiveAlpha)
-end
-
-
--- Undoes customization to the table when leaving an achievement tab.
-function NS:AchievementDeactivate()
-	NS.Table.Header:SetAlpha(1.0)
+	new_tab:Update()
 end
 
 
@@ -448,315 +416,333 @@ do
 	local function OnUpdate(self)
 		self:SetScript("OnUpdate", nil)
 
-		for _, Row in ipairs(NS.Table.Rows) do
-			Row:SetAlpha(1.0)
+		for index = 1, #panel.table.Rows do
+			panel.table.Rows[index]:SetAlpha(ALPHA_ACTIVE)
 		end
-		NS.Table:Clear()
-		NS.TabSelected:Update()
+		panel.table:Clear()
+		panel.selected_tab:Update()
 	end
 
-	--- Updates the table for a given tab if it is displayed.
-	function NS.UpdateTab(ID)
-		if not ID or Tabs[ID] == NS.TabSelected then
-			NS.TableContainer:SetScript("OnUpdate", OnUpdate)
-		end
-	end
-end
-
-
-if LibRareSpawnsData then
-	local MaxSize = 160 -- Larger images are forced to this max width and height
-	-- Adds mob info from LibRareSpawns to each row.
-	function NS:TableRowOnEnter()
-		local Data = LibRareSpawnsData[self:GetData()]
-		if Data then
-			local Width, Height = Data.PortraitWidth, Data.PortraitHeight
-			if Width > MaxSize then
-				Width, Height = MaxSize, Height * (MaxSize / Width)
-			end
-			if Height > MaxSize then
-				Width, Height = Width * (MaxSize / Height), MaxSize
-			end
-
-			GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT")
-			GameTooltip:SetText("|T" .. Data.Portrait .. ":" .. Height .. ":" .. Width .. "|t")
-			GameTooltip:AddLine(L.SEARCH_LEVEL_TYPE_FORMAT:format(Data.Level, Data.MonsterType))
-			GameTooltip:Show()
+	function panel.UpdateTab(tab_id)
+		if not tab_id or panel_tabs[tab_id] == panel.selected_tab then
+			panel.table_container:SetScript("OnUpdate", OnUpdate)
 		end
 	end
 end
 
 
-do
-	local CreateRowBackup
+function panel:UpdateTabNames()
+	for achievement_id in pairs(private.ACHIEVEMENTS) do
+		local _, achievement_name = _G.GetAchievementInfo(achievement_id)
 
-	if LibRareSpawnsData then
-		-- Adds mouseover tooltip hooks to new rows.
-		local function AddTooltipHooks(Row, ...)
-			Row:SetScript("OnEnter", NS.TableRowOnEnter)
-			Row:SetScript("OnLeave", GameTooltip_Hide)
-
-			return Row, ...
-		end
-
-		-- Hooks new table rows.
-		function NS:TableCreateRow(...)
-			return AddTooltipHooks(CreateRowBackup(self, ...))
-		end
-	end
-
-
-	-- Creates the NPC table when first shown, and selects the Custom NPCs tab.
-	function NS:OnShow()
-		if not NS.Table then
-			NS.Table = LibStub("LibTextTable-1.1").New(nil, NS.TableContainer)
-			NS.Table:SetAllPoints()
-
-			if LibRareSpawnsData then
-				-- Hook row creation to add mouseover tooltips
-				CreateRowBackup = NS.Table.CreateRow
-				NS.Table.CreateRow = NS.TableCreateRow
-			end
-		end
-
-		if NS.TabSelected then
-			NS.UpdateTab()
-		else
-			NS.TabSelect(Tabs["NPC"])
-		end
+		panel_tabs[achievement_id]:SetText(achievement_name)
+		panel_tabs[achievement_id]:GetFontString():SetPoint("RIGHT", -12, 0)
+		_G.PanelTemplates_TabResize(panel_tabs[achievement_id], 20 - 12)
 	end
 end
 
 
 -- Reverts to default options.
-function NS:default()
+function panel:default()
 	private.Synchronize(private.Options) -- Resets only character settings
 end
 
 
-NS.name = L.SEARCH_TITLE
-NS.parent = L.CONFIG_TITLE
-NS:Hide()
-NS:SetScript("OnShow", NS.OnShow)
-
--- Pane title
-local Title = NS:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-Title:SetPoint("TOPLEFT", 16, -16)
-Title:SetText(L.SEARCH_TITLE)
-local SubText = NS:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
-SubText:SetPoint("TOPLEFT", Title, "BOTTOMLEFT", 0, -8)
-SubText:SetPoint("RIGHT", -32, 0)
-SubText:SetHeight(32)
-SubText:SetJustifyH("LEFT")
-SubText:SetJustifyV("TOP")
-SubText:SetText(L.SEARCH_DESC)
+-------------------------------------------------------------------------------
+-- Tabs.
+-------------------------------------------------------------------------------
+do
+	local TEXT_TAB_TOOLTIPS = {
+		BEASTS = L.SEARCH_TAMEBEAST_DECS,
+		NPC = L.SEARCH_NPCS_DESC,
+		RARENPC = L.SEARCH_NPCS_DESC,
+	}
 
 
--- Settings checkboxes
-NS.AddFoundCheckbox:SetPoint("TOPLEFT", SubText, "BOTTOMLEFT", -2, -8)
-NS.AddFoundCheckbox.tooltipText = L.SEARCH_ACHIEVEMENTADDFOUND_DESC
-local Label = _G[NS.AddFoundCheckbox:GetName() .. "Text"]
-Label:SetText(L.SEARCH_ACHIEVEMENTADDFOUND)
-NS.AddFoundCheckbox:SetHitRectInsets(4, 4 - Label:GetStringWidth(), 4, 4)
+	local TEXT_TAB_CONFIG = {
+		BEASTS = "TrackBeasts",
+		RARENPC = "TrackRares",
+	}
 
--- Flight alert supression checkboxes
-NS.BlockFlightScanCheckbox:SetPoint("BOTTOMLEFT", NS.AddFoundCheckbox, "TOPLEFT", 0, 0)
-NS.BlockFlightScanCheckbox.tooltipText = L.BLOCKFLIGHTSCAN_DESC
-local Label = _G[NS.BlockFlightScanCheckbox:GetName() .. "Text"]
-Label:SetText(L.BLOCKFLIGHTSCAN)
-NS.BlockFlightScanCheckbox:SetHitRectInsets(4, 4 - Label:GetStringWidth(), 4, 4)
+	local function Tab_OnEnter(tab)
+		local tooltip = _G.GameTooltip
+		tooltip:SetOwner(tab, "ANCHOR_TOPLEFT", 0, -8)
 
+		if type(tab.identifier) == "number" then
+			local _, name, _, _, _, _, _, description = _G.GetAchievementInfo(tab.identifier)
+			local world_id = private.ACHIEVEMENTS[tab.identifier].WorldID
+			local highlight = _G.HIGHLIGHT_FONT_COLOR
 
--- Controls for NPCs table
-NS.NPCControls:Hide()
+			if world_id then
+				local gray = _G.GRAY_FONT_COLOR
 
--- Create add and remove buttons
-NS.NPCRemove:SetSize(16, 20)
-NS.NPCRemove:SetPoint("BOTTOMRIGHT", NS, -16, 16)
-NS.NPCRemove:SetText(L.SEARCH_REMOVE)
-NS.NPCRemove:SetScript("OnClick", NS.NPCRemove.OnClick)
-NS.NPCAdd:SetSize(16, 20)
-NS.NPCAdd:SetPoint("BOTTOMRIGHT", NS.NPCRemove, "TOPRIGHT", 0, 4)
-NS.NPCAdd:SetText(L.SEARCH_ADD)
-NS.NPCAdd:SetScript("OnClick", NS.NPCAdd.OnClick)
-NS.NPCAdd:SetScript("OnEnter", private.Config.ControlOnEnter)
-NS.NPCAdd:SetScript("OnLeave", GameTooltip_Hide)
-NS.NPCAdd.tooltipText = L.SEARCH_ADD_DESC
+				tooltip:ClearLines()
+				tooltip:AddDoubleLine(name, L.SEARCH_WORLD_FORMAT:format(GetWorldIDName(world_id)), highlight.r, highlight.g, highlight.b, gray.r, gray.g, gray.b)
+			else
+				tooltip:SetText(name, highlight.r, highlight.g, highlight.b)
+			end
+			tooltip:AddLine(description, nil, nil, nil, true)
 
--- Create edit boxes
-local NameLabel = NS.NPCControls:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-NameLabel:SetPoint("LEFT", NS, 16, 0)
-NameLabel:SetPoint("TOP", NS.NPCRemove)
-NameLabel:SetPoint("BOTTOM", NS.NPCRemove)
-NameLabel:SetText(L.SEARCH_NAME)
-local NpcIDLabel = NS.NPCControls:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-NpcIDLabel:SetPoint("LEFT", NameLabel)
-NpcIDLabel:SetPoint("TOP", NS.NPCAdd)
-NpcIDLabel:SetPoint("BOTTOM", NS.NPCAdd)
-NpcIDLabel:SetText(L.SEARCH_ID)
-
-
-local function EditBoxSetup(self)
-	self:SetAutoFocus(false)
-	self:SetScript("OnTabPressed", NS.NPCOnTabPressed)
-	self:SetScript("OnEnterPressed", NS.NPCOnEnterPressed)
-	self:SetScript("OnTextChanged", NS.NPCValidate)
-	self:SetScript("OnEnter", private.Config.ControlOnEnter)
-	self:SetScript("OnLeave", GameTooltip_Hide)
-	return self
-end
-
-
-local NpcID, Name, World = EditBoxSetup(NS.NPCNpcID), EditBoxSetup(NS.NPCName), EditBoxSetup(NS.NPCWorld)
-Name:SetPoint("LEFT", -- Attach to longest label
-	NameLabel:GetStringWidth() > NpcIDLabel:GetStringWidth() and NameLabel or NpcIDLabel,
-	"RIGHT", 8, 0)
-Name:SetPoint("RIGHT", NS.NPCRemove, "LEFT", -4, 0)
-Name:SetPoint("TOP", NameLabel)
-Name:SetPoint("BOTTOM", NameLabel)
-Name.NextEditBox, Name.tooltipText = NpcID, L.SEARCH_NAME_DESC
-
-NpcID:SetPoint("LEFT", Name)
-NpcID:SetPoint("TOP", NpcIDLabel)
-NpcID:SetPoint("BOTTOM", NpcIDLabel)
-NpcID:SetWidth(64)
-NpcID:SetNumeric(true)
-NpcID:SetMaxLetters(floor(log10(private.NPC_ID_MAX)) + 1)
-NpcID.NextEditBox, NpcID.tooltipText = World, L.SEARCH_ID_DESC
-
-local WorldLabel = NS.NPCControls:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
-WorldLabel:SetPoint("LEFT", NpcID, "RIGHT", 8, 0)
-WorldLabel:SetPoint("TOP", NpcIDLabel)
-WorldLabel:SetPoint("BOTTOM", NpcIDLabel)
-WorldLabel:SetText(L.SEARCH_WORLD)
-
-World:SetPoint("LEFT", WorldLabel, "RIGHT", 8, 0)
-World:SetPoint("RIGHT", Name)
-World:SetPoint("TOP", NpcIDLabel)
-World:SetPoint("BOTTOM", NpcIDLabel)
-World.NextEditBox, World.tooltipText = Name, L.SEARCH_WORLD_DESC
-
-local WorldButton = NS.NPCWorldButton
-WorldButton:SetPoint("RIGHT", World, 3, 1)
-WorldButton:SetSize(24, 24)
-WorldButton:SetNormalTexture([[Interface\ChatFrame\UI-ChatIcon-ScrollDown-Up]])
-WorldButton:SetPushedTexture([[Interface\ChatFrame\UI-ChatIcon-ScrollDown-Down]])
-WorldButton:SetHighlightTexture([[Interface\Buttons\UI-Common-MouseHilight]], "ADD")
-WorldButton:SetScript("OnClick", WorldButton.OnClick)
-WorldButton:SetScript("OnHide", WorldButton.OnHide)
-UIDropDownMenu_SetAnchor(WorldButton.Dropdown, 0, 0, "TOPRIGHT", WorldButton, "BOTTOMRIGHT")
-
-NS.NPCControls:SetPoint("BOTTOMRIGHT", NS.NPCRemove)
-NS.NPCControls:SetPoint("LEFT", NpcIDLabel)
-NS.NPCControls:SetPoint("TOP", NS.NPCAdd)
-
-
--- Place table
-NS.TableContainer:SetPoint("TOP", NS.AddFoundCheckbox, "BOTTOM", 0, -28)
-NS.TableContainer:SetPoint("LEFT", SubText, -2, 0)
-NS.TableContainer:SetPoint("RIGHT", -16, 0)
-NS.TableContainer:SetPoint("BOTTOM", NS.NPCControls)
-NS.TableContainer:SetBackdrop({ bgFile = [[Interface\DialogFrame\UI-DialogBox-Background]] })
-
--- Add all tabs
-local FirstTab
-local LastTab
-local TabCount = 0
-local TabRow = 0
-
-
-local function AddTab(ID, Update, Activate, Deactivate)
-	TabCount = TabCount + 1
-	local Tab = CreateFrame("Button", "_NPCScanSearchTab" .. TabCount, NS.TableContainer, "TabButtonTemplate")
-	Tabs[ID] = Tab
-
-	Tab:SetHitRectInsets(6, 6, 6, 0)
-	Tab:SetScript("OnClick", NS.TabOnClick)
-	Tab:SetScript("OnEnter", NS.TabOnEnter)
-	Tab:SetScript("OnLeave", GameTooltip_Hide)
-	Tab:SetMotionScriptsWhileDisabled(true) -- Allow tooltip while active
-
-	if type(ID) == "number" then -- AchievementID
-		Tab:SetText((select(2, GetAchievementInfo(ID))))
-		Tab:GetFontString():SetPoint("RIGHT", -12, 0)
-		local Checkbox = CreateFrame("CheckButton", nil, Tab, "UICheckButtonTemplate")
-		Tab.AchievementID, Tab.Checkbox = ID, Checkbox
-		Checkbox:SetSize(20, 20)
-		Checkbox:SetPoint("BOTTOMLEFT", 8, 0)
-		Checkbox:SetHitRectInsets(4, 4, 4, 4)
-		Checkbox:SetScript("OnClick", NS.TabCheckOnClick)
-		--Checkbox:SetScript( "OnEnter", NS.TabCheckOnEnter )
-		Checkbox:SetScript("OnLeave", GameTooltip_Hide)
-		NS.AchievementSetEnabled(ID, false) -- Initialize the custom "unchecked" texture
-		PanelTemplates_TabResize(Tab, Checkbox:GetWidth() - 12)
-	elseif ID == "BEASTS" then
-		Tab:SetText(L.TAMEDBEASTS)
-		Tab:GetFontString():SetPoint("RIGHT", -12, 0)
-		local Checkbox = CreateFrame("CheckButton", nil, Tab, "UICheckButtonTemplate")
-		Tab.TabID, Tab.Checkbox = ID, Checkbox
-		Checkbox:SetSize(20, 20)
-		Checkbox:SetPoint("BOTTOMLEFT", 8, 0)
-		Checkbox:SetHitRectInsets(4, 4, 4, 4)
-		Checkbox:SetScript("OnClick", NS.RareTabCheckOnClick)
-		--Checkbox:SetScript( "OnEnter", NS.TabCheckOnEnter )
-		Checkbox:SetScript("OnLeave", GameTooltip_Hide)
-		NS.AchievementSetEnabled(ID, false) -- Initialize the custom "unchecked" texture
-		PanelTemplates_TabResize(Tab, Checkbox:GetWidth() - 12)
-
-	elseif ID == "RARENPC" then
-		Tab:SetText("Rare Mobs")
-		Tab:GetFontString():SetPoint("RIGHT", -12, 0)
-		local Checkbox = CreateFrame("CheckButton", nil, Tab, "UICheckButtonTemplate")
-		Tab.TabID, Tab.Checkbox = ID, Checkbox
-		Checkbox:SetSize(20, 20)
-		Checkbox:SetPoint("BOTTOMLEFT", 8, 0)
-		Checkbox:SetHitRectInsets(4, 4, 4, 4)
-		Checkbox:SetScript("OnClick", NS.RareTabCheckOnClick)
-		--Checkbox:SetScript( "OnEnter", NS.TabCheckOnEnter )
-		Checkbox:SetScript("OnLeave", GameTooltip_Hide)
-		NS.AchievementSetEnabled(ID, false) -- Initialize the custom "unchecked" texture
-		PanelTemplates_TabResize(Tab, Checkbox:GetWidth() - 12)
-
-	else
-		Tab:SetText(L.SEARCH_NPCS)
-		PanelTemplates_TabResize(Tab, -8)
-	end
-
-	Tab.Update = Update
-	Tab.Activate, Tab.Deactivate = Activate, Deactivate
-
-	PanelTemplates_DeselectTab(Tab)
-	if LastTab then
-		if TabCount > 5 and TabRow == 0 then
-			Tab:SetPoint("BOTTOMLEFT", FirstTab, "TOPLEFT", 0, -10)
-			NS.TableContainer:SetPoint("TOP", NS.AddFoundCheckbox, "BOTTOM", 0, -60)
-			TabRow = 1
+			if not private.OptionsCharacter.Achievements[tab.identifier] then
+				local red = _G.RED_FONT_COLOR
+				tooltip:AddLine(L.SEARCH_ACHIEVEMENT_DISABLED, red.r, red.g, red.b)
+			end
 		else
-			Tab:SetPoint("LEFT", LastTab, "RIGHT", -4, 0)
+			tooltip:SetText(TEXT_TAB_TOOLTIPS[tab.identifier] or _G.UNKNOWN, nil, nil, nil, nil, true)
+
+			local config_section = TEXT_TAB_CONFIG[tab.identifier]
+			if config_section and not private.OptionsCharacter[config_section] then
+				local red = _G.RED_FONT_COLOR
+				tooltip:AddLine(L.SEARCH_ACHIEVEMENT_DISABLED, red.r, red.g, red.b)
+			end
 		end
-	else
-		Tab:SetPoint("BOTTOMLEFT", NS.TableContainer, "TOPLEFT")
+		tooltip:Show()
 	end
-	if TabCount == 1 then FirstTab = Tab end
-	LastTab = Tab
-end
-
-AddTab("NPC", NS.NPCUpdate, NS.CustomNPCActivate, NS.NPCDeactivate)
-AddTab("RARENPC", NS.RareNPCUpdate, NS.DefultNPCActivate, NS.NPCDeactivate)
-AddTab("BEASTS", NS.TameableNPCUpdate, NS.DefultNPCActivate, NS.NPCDeactivate)
-
-for AchievementID in pairs(private.ACHIEVEMENTS) do
-	AddTab(AchievementID, NS.AchievementUpdate, NS.AchievementActivate, NS.AchievementDeactivate)
-end
 
 
-InterfaceOptions_AddCategory(NS)
-
-
-function NS:UpdateTabNames()
-	for AchievementID in pairs(private.ACHIEVEMENTS) do
-		Tabs[AchievementID]:SetText((select(2, GetAchievementInfo(AchievementID))))
-		Tabs[AchievementID]:GetFontString():SetPoint("RIGHT", -12, 0)
-		PanelTemplates_TabResize(Tabs[AchievementID], 20 - 12)
+	local function Tab_OnClick(tab)
+		_G.PlaySound("igCharacterInfoTab")
+		panel:SelectTab(tab)
 	end
-end
+
+
+	local function CheckBox_OnEnter(checkbox)
+		Tab_OnEnter(checkbox:GetParent())
+	end
+
+
+	local function CheckBoxAchievement_OnClick(checkbox)
+		local is_enabled = checkbox:GetChecked()
+		_G.PlaySound(is_enabled and "igMainMenuOptionCheckBoxOn" or "igMainMenuOptionCheckBoxOff")
+
+		local identifier = checkbox:GetParent().identifier
+		panel.AchievementSetEnabled(identifier, is_enabled)
+
+		if not is_enabled then
+			private.AchievementRemove(identifier)
+		elseif private.AchievementAdd(identifier) then -- Cache might have changed
+			private.CacheListPrint(true)
+		end
+		Tab_OnEnter(checkbox:GetParent())
+	end
+
+
+	local function CheckBoxID_OnClick(checkbox)
+		local is_enabled = checkbox:GetChecked()
+		_G.PlaySound(is_enabled and "igMainMenuOptionCheckBoxOn" or "igMainMenuOptionCheckBoxOff")
+
+		local identifier = checkbox:GetParent().identifier
+		panel.AchievementSetEnabled(identifier, is_enabled)
+
+		if identifier == "BEASTS" then
+			private.OptionsCharacter.TrackBeasts = is_enabled or nil
+		elseif identifier == "RARENPC" then
+			private.OptionsCharacter.TrackRares = is_enabled or nil
+		end
+		private.RareMobToggle(identifier, is_enabled)
+		private.CacheListPrint(true)
+		Tab_OnEnter(checkbox:GetParent())
+	end
+
+
+	local function CreateTabCheckBox(tab, onclick_script)
+		local checkbox = _G.CreateFrame("CheckButton", nil, tab, "UICheckButtonTemplate")
+		checkbox:SetSize(20, 20)
+		checkbox:SetPoint("BOTTOMLEFT", 8, 0)
+		checkbox:SetHitRectInsets(4, 4, 4, 4)
+		checkbox:SetScript("OnClick", onclick_script)
+		checkbox:SetScript("OnEnter", CheckBox_OnEnter)
+		checkbox:SetScript("OnLeave", _G.GameTooltip_Hide)
+
+		tab.checkbox = checkbox
+	end
+
+
+	local first_tab
+	local last_tab
+	local num_tabs = 0
+	local tab_row = 0
+
+
+	local TEXT_TAB_LABELS = {
+		BEASTS = L.TAMEDBEASTS,
+		RARENPC = "Rare Mobs",
+	}
+
+
+	local function AddTab(identifier, update_func, activate_func, deactivate_func)
+		num_tabs = num_tabs + 1
+
+		local tab = _G.CreateFrame("Button", "_NPCScanSearchTab" .. num_tabs, table_container, "TabButtonTemplate")
+		tab:SetHitRectInsets(6, 6, 6, 0)
+		tab:SetScript("OnClick", Tab_OnClick)
+		tab:SetScript("OnEnter", Tab_OnEnter)
+		tab:SetScript("OnLeave", _G.GameTooltip_Hide)
+		tab:SetMotionScriptsWhileDisabled(true) -- Allow tooltip while active
+
+		panel_tabs[identifier] = tab
+		tab.identifier = identifier
+		tab:GetFontString():SetPoint("RIGHT", -12, 0)
+
+		if type(identifier) == "number" then
+			local _, achievement_name = _G.GetAchievementInfo(identifier)
+			tab:SetText(achievement_name)
+			CreateTabCheckBox(tab, CheckBoxAchievement_OnClick)
+		elseif TEXT_TAB_LABELS[identifier] then
+			tab:SetText(TEXT_TAB_LABELS[identifier])
+			CreateTabCheckBox(tab, CheckBoxID_OnClick)
+		else
+			tab:SetText(L.SEARCH_NPCS)
+		end
+
+		if tab.checkbox then
+			panel.AchievementSetEnabled(identifier, false)
+			_G.PanelTemplates_TabResize(tab, tab.checkbox:GetWidth() - 12)
+		else
+			_G.PanelTemplates_TabResize(tab, -8)
+		end
+		tab.Update = update_func
+		tab.Activate = activate_func
+		tab.Deactivate = deactivate_func
+
+		_G.PanelTemplates_DeselectTab(tab)
+
+		if last_tab then
+			if num_tabs > 5 and tab_row == 0 then
+				tab:SetPoint("BOTTOMLEFT", first_tab, "TOPLEFT", 0, -10)
+				table_container:SetPoint("TOP", add_found_checkbox, "BOTTOM", 0, -60)
+				tab_row = 1
+			else
+				tab:SetPoint("LEFT", last_tab, "RIGHT", -4, 0)
+			end
+		else
+			tab:SetPoint("BOTTOMLEFT", panel.table_container, "TOPLEFT")
+		end
+
+		if num_tabs == 1 then
+			first_tab = tab
+		end
+		last_tab = tab
+
+		return tab
+	end
+
+
+	local function GeneralNPCUpdate(world_ids, map_ids, npc_data)
+		UpdateButtonStates()
+
+		for npc_id, npc_name in pairs(npc_data) do
+			local map_id = map_ids[npc_id]
+
+			if type(map_id) == "boolean" then
+				map_id = nil
+			end
+
+			local new_row = panel.table:AddRow(npc_id,
+				private.NPCNameFromCache(npc_id) and TEXTURE_NOT_READY or "",
+				npc_name,
+				npc_id,
+				GetWorldIDName(world_ids[npc_id]) or "",
+				map_id and (_G.GetMapNameByID(map_id) or map_id) or "")
+
+			if not private.NPCIsActive(npc_id) then
+				new_row:SetAlpha(ALPHA_INACTIVE)
+			end
+		end
+	end
+
+
+	local function UpdateNPCTab(tab)
+		GeneralNPCUpdate(private.Options.NPCWorldIDs, private.RareMobData.NPCMapIDs, private.Options.NPCs)
+	end
+
+
+	local function UpdateRareTab(tab)
+		GeneralNPCUpdate(private.RareMobData.NPCWorldIDs, private.RareMobData.NPCMapIDs, private.RareMobData.RareNPCs)
+	end
+
+
+	local function UpdateTameableTab(tab)
+		GeneralNPCUpdate(private.RareMobData.NPCWorldIDs, private.TamableIDs, private.TamableNames)
+	end
+
+
+	local function UpdateAchievementTab(tab)
+		local achievement = private.ACHIEVEMENTS[tab.identifier]
+
+		for criteria_id, npc_id in pairs(achievement.Criteria) do
+			if npc_id > 1 then
+				local npc_name, _, is_completed = _G.GetAchievementCriteriaInfoByID(tab.identifier, criteria_id)
+				local map_id = private.RareMobData.NPCMapIDs[npc_id]
+				local new_row = panel.table:AddRow(npc_id,
+					private.NPCNameFromCache(npc_id) and TEXTURE_NOT_READY or "",
+					npc_name,
+					npc_id,
+					is_completed and TEXTURE_READY or "",
+					map_id and (_G.GetMapNameByID(map_id) or map_id) or "")
+
+				if not private.AchievementNPCIsActive(achievement, npc_id) then
+					new_row:SetAlpha(ALPHA_INACTIVE)
+				end
+			end
+		end
+	end
+
+
+	local function ActivateNPCTab(tab)
+		panel.table:SetHeader(L.SEARCH_CACHED, L.SEARCH_NAME, L.SEARCH_ID, L.SEARCH_WORLD, L.SEARCH_MAP)
+		panel.table:SetSortHandlers(true, true, true, true, true)
+		panel.table:SetSortColumn(2) -- Default by name
+		panel.table.OnSelect = tab.table_row_on_select
+
+		panel.table_container:SetPoint("BOTTOM", npc_controls, "TOP", 0, 4)
+		panel:ClearEditBoxes()
+
+		if tab.show_controls_on_activate then
+			npc_controls:Show()
+		end
+	end
+
+
+	local function ActivateAchievementTab(tab)
+		panel.table:SetHeader(L.SEARCH_CACHED, L.SEARCH_NAME, L.SEARCH_ID, L.SEARCH_COMPLETED, L.SEARCH_MAP)
+		panel.table:SetSortHandlers(true, true, true, true, true)
+		panel.table:SetSortColumn(2) -- Default by name
+		panel.table.Header:SetAlpha(private.OptionsCharacter.Achievements[tab.identifier] and ALPHA_ACTIVE or ALPHA_INACTIVE)
+	end
+
+
+	local function DeactivateNPCTab()
+		npc_controls:Hide()
+		table_container:SetPoint("BOTTOM", npc_controls)
+		panel.table.OnSelect = nil
+	end
+
+
+	local function DeactivateAchievementTab(tab)
+		panel.table.Header:SetAlpha(ALPHA_ACTIVE)
+	end
+
+
+	local npc_tab = AddTab("NPC", UpdateNPCTab, ActivateNPCTab, DeactivateNPCTab)
+	npc_tab.show_controls_on_activate = true
+	npc_tab.table_row_on_select = function(text_table, npc_id)
+		if not npc_id then
+			return
+		end
+		npc_id_editbox:SetNumber(npc_id)
+		npc_name_editbox:SetText(private.Options.NPCs[npc_id])
+		npc_world_editbox:SetText(GetWorldIDName(private.Options.NPCWorldIDs[npc_id]) or "")
+	end
+
+	AddTab("RARENPC", UpdateRareTab, ActivateNPCTab, DeactivateNPCTab)
+	AddTab("BEASTS", UpdateTameableTab, ActivateNPCTab, DeactivateNPCTab)
+
+
+	for achievement_id in pairs(private.ACHIEVEMENTS) do
+		AddTab(achievement_id, UpdateAchievementTab, ActivateAchievementTab, DeactivateAchievementTab)
+	end
+end -- do-block
+
+
+_G.InterfaceOptions_AddCategory(panel)

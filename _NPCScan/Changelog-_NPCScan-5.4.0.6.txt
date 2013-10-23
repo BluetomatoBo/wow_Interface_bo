@@ -1,0 +1,25 @@
+tag 5.4.0.6
+50987543a480f3b8bc81de4986f034d894baec03
+James D. Callahan III <jcallahan@curse.com>
+2013-10-23 04:35:49 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Split the alert-sound-selection drop down menu into sections to prevent it from scrolling offscreen.
+	- Config revamp.
+	- Finished massive ConfigSearch revamp.
+	- Changed InitializeEditBox to CreateEditBox.
+	- No idea why the OnEnter for the tab checkboxes was commented out…remedied.
+	- Replaced a couple of ipairs() calls.
+	- Moved some variables to just before they're required.
+	- More renames: panel.TabSelected => panel.selected_tab, panel.TabSelect => panel:SelectTab, panel.Table => panel.table. Decoupled tab-handling code from the panel.
+	- Renamed panel.NPCClear to panel:ClearEditBoxes - used colon-notation for implicit self.
+	- Massive ConfigSearch revamp, stage 1.
+	- Preliminary cleanup.
+	- Added GeneralNPCUpdate() for function deduplication.
+	- Removed support for LibRareSpawns; it's been abandoned since 2009.
+	- Made constants for oft-used texture escape sequences.
+	- Rename unintuitive TestID() to NPCNameFromCache()
