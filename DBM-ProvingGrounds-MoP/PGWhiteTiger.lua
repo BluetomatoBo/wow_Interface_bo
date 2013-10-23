@@ -1,13 +1,8 @@
-﻿local mod	= DBM:NewMod("d640", "DBM-ProvingGrounds-MoP", nil, nil, function(t)
-	if( GetLocale() == "deDE") then
-		return select(2, string.match(t, "(%S+): (%S+.%S+.%S+.%S+)")) -- "Feuerprobe: Tempel des Weißen Tigers QUEST nil"
-	else
-		return select(2, string.match(t, "(%S+.%S+): (%S+.%S+)")) or select(2, string.match(t, "(%S+.%S+):(%S+.%S+)"))
-	end
-end)
+local mod	= DBM:NewMod("d640", "DBM-ProvingGrounds-MoP")
 local L		= mod:GetLocalizedStrings()
+local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 21 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 10 $"):sub(12, -3))
 mod:SetZone()
 
 --mod:RegisterCombat("scenario", 1148)
@@ -28,7 +23,7 @@ local warnFlamecallerTank	= mod:NewSpellAnnounce(144091, 2)--145401 is healer ve
 local warnWindGuard			= mod:NewSpellAnnounce(144087, 3)
 local warnAmbusher			= mod:NewSpellAnnounce(144086, 4)
 local warnConquerorTank		= mod:NewSpellAnnounce(144088, 3)--145409 is healer version of mob
-----Other Stuff
+----Adds spawning
 local warnPyroBlast			= mod:NewCastAnnounce(147601, 3, 3)--Tooltip says 2 but it actually has 3 sec cast
 local warnInvokeLava		= mod:NewSpellAnnounce(144374, 3)
 local warnWindBlast			= mod:NewSpellAnnounce(144106, 4)--Threat wipe & knockback, must taunt, very important
@@ -75,6 +70,10 @@ local countdownTimer		= mod:NewCountdownFades(10, 141582)
 mod:RemoveOption("HealthFrame")
 mod:RemoveOption("SpeedKillTimer")
 
+for i = 1, 10 do
+	mod:AddEditBoxOption("count"..i, 350, "", "sound")
+end
+
 function mod:SPELL_CAST_START(args)
 	if args.spellId == 147601 then
 		warnPyroBlast:Show()
@@ -90,6 +89,7 @@ function mod:SPELL_CAST_START(args)
 		warnPowerfulSlam:Show()
 		specWarnPowerfulSlam:Show()
 		timerPowerfulSlamCD:Start(args.sourceGUID)
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	elseif args.spellId == 142189 then
 		warnAmberGlobule:Show()
 		specWarnAmberGlob:Show()
@@ -98,6 +98,7 @@ function mod:SPELL_CAST_START(args)
 		warnHealIllusion:Show()
 		specWarnHealIllusion:Show(args.sourceName)
 		timerHealIllusionCD:Start(args.sourceGUID)
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3") --快打斷
 	elseif args.spellId == 145200 then
 		warnSonicBlast:Show()
 		specWarnSonicBlast:Show(args.sourceName)
@@ -108,6 +109,7 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 144383 and args:IsPlayer() and self:AntiSpam(1.5, 1) then
 		specWarnInvokeLavaSIS:Show()
+		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\"..DBM.Options.CountdownVoice.."\\runaway.mp3") --快躲開
 	elseif args.spellId == 144404 then
 		warnEnrage:Show(args.destName)
 	elseif args.spellId == 145206 then
@@ -176,7 +178,14 @@ function mod:SCENARIO_UPDATE(newStep)
 	if diffID > 0 then
 		countdownTimer:Cancel()
 		countdownTimer:Start(duration)
+		local wavenum = currWave % 10
+		local inforwave = "count"..wavenum
+		if mod.Options[inforwave] then			
+			DBM.InfoFrame:SetHeader(wavenum)
+			DBM.InfoFrame:Show(1, "other", "", mod.Options[inforwave])
+		end
 	else
 		countdownTimer:Cancel()
+		DBM.InfoFrame:Hide()
 	end
 end
