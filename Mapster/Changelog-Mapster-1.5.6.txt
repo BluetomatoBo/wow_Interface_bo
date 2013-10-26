@@ -1,0 +1,22 @@
+tag 1.5.6
+ddca392450fdaa17018f3afc734fc5fec5e880f2
+Hendrik Leppkes <h.leppkes@gmail.com>
+2013-10-26 07:13:56 +0200
+
+Tag as 1.5.6
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Automatically clear old values in the FogClear Data
+	This avoids issues of old and misplaced textures being rendered after a
+	major zone re-design.
+	- Simplify previous commit
+	- Fix scale of the new continent/zone dropdowns
+	- Use secure hooks for the dropdown scale fix
+	- Completely replace continent/zone dropdowns instead of hooking them
+	This should avoid a few taint issues.
+	- Fix another case of quest/digsite blobs being shown in the wrong position
+	- Add Siege of Orgrimmar instance map
+	- Ensure the map isn't locked
