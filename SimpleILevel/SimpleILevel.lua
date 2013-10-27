@@ -16,7 +16,7 @@ SIL = LibStub("AceAddon-3.0"):NewAddon(L.core.name, "AceEvent-3.0", "AceConsole-
 SIL.category = GetAddOnMetadata("SimpleILevel", "X-Category");
 SIL.version = GetAddOnMetadata("SimpleILevel", "Version");
 SIL.versionMajor = 3;                    -- Used for cache DB versioning
-SIL.versionRev = 'r190';    -- Used for version information
+SIL.versionRev = 'r198';    -- Used for version information
 SIL.action = {};        -- DB of unitGUID->function to run when a update comes through
 SIL.hooks = {};         -- List of hooks in [type][] = function;
 SIL.autoscan = 0;       -- time() value of last autoscan, must be more then 1sec
@@ -624,7 +624,8 @@ function SIL:GetActualItemLevel(link)
         ["451"]=0,["452"]=8,["453"]=0,["454"]=4,["455"]=8,["456"]=0,
         ["457"]=8,["458"]=0,["459"]=4,["460"]=8,["461"]=12,["462"]=16,
         ["465"]=0,["466"]=4,["467"]=8,["469"]=4,["470"]=8,["471"]=12,
-        ["472"]=16,
+        ["472"]=16,["491"]=0,["492"]=4,["493"]=8,["494"]=4,["495"]=8,
+        ["496"]=8,["497"]=12,["498"]=16,
     }
     local baseLevel = select(4,GetItemInfo(link))
     local upgrade = link:match(":(%d+)\124h%[")
