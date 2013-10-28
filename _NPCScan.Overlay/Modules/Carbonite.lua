@@ -10,6 +10,9 @@ if ( not IsAddOnLoaded( "Carbonite" ) ) then
 end
 
 local CarboniteVersion = GetAddOnMetadata("Carbonite", "Version"):match("^([%d.]+)");
+	_NPCScanOverlayKey:SetMovable(false)
+	_NPCScanOverlayKey:SetScript("OnMouseDown",nil )
+	_NPCScanOverlayKey:SetScript("OnMouseUp", nil )
 
 
 if CarboniteVersion < "5.4.0" then
@@ -70,7 +73,7 @@ function NS:WorldMapFrameOnShow ()
 
 		WorldMap.RangeRing:SetParent( WorldMapDetailFrame );
 		WorldMap.RangeRing:SetAllPoints();
-		WorldMap.RangeRingSetTarget( PlayerArrowEffectFrame );
+		WorldMap.RangeRingSetTarget( WorldMapPlayerUpper );
 	end
 end
 --- Adjusts the canvas when entering Carbonite mode.
@@ -174,7 +177,7 @@ function NS:WorldMapFrameOnShow ()
 
 		WorldMap.RangeRing:SetParent( WorldMapDetailFrame );
 		WorldMap.RangeRing:SetAllPoints();
-		WorldMap.RangeRingSetTarget( BattlefieldMinimapPlayerIconHighlight );
+		WorldMap.RangeRingSetTarget( WorldMapPlayerUpper );
 	end
 end
 --- Adjusts the canvas when entering Carbonite mode.
