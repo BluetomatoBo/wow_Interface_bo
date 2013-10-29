@@ -1,0 +1,30 @@
+## Interface: 50400
+## Title: |cff1784d1ElvUI|r Enhanced
+## Author: Tristimdorio (Omega1970)
+## X-Credits: Azilroka, Lockslap, Sortokk, Repooc, moresunders
+## Version: 2.11
+## Notes: Plugin-Enhancements for |cff1784d1ElvUI|r.
+## X-Category: Plugins
+## URL: http://www.tukui.org/addons/index.php?act=view&id=161
+## X-Website: http://www.tukui.org/addons/index.php?act=view&id=161
+## RequiredDeps: ElvUI
+## DefaultState: Enabled
+## X-Tukui-ProjectID: 161
+
+## OptionalDeps: LibBalancePowerTracker-1.1, LibRangeCheck-2.0
+## X-Embeds: LibBalancePowerTracker-1.1, LibRangeCheck-2.0
+
+## X-Localizations: enUS, enGB, deDE, frFR, esES, esMX, zhCN, zhTW, koKR, ruRU
+## X-CompatibleLocales: enUS, enGB, deDE, frFR, esES, esMX, zhCN, zhTW, koKR, ruRU
+
+developer\load_developer.xml
+
+#@no-lib-strip@
+libs\load_libs.xml
+#@end-no-lib-strip@
+
+locales\load_locales.xml
+media\load_media.xml
+config\load_config.xml
+modules\load_modules.xml
+ElvUI_Enhanced.lua
