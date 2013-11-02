@@ -628,13 +628,15 @@ do
 	end
 
 
-	local function GeneralNPCUpdate(world_ids, map_ids, npc_data)
+	local function GeneralNPCUpdate(world_ids, map_names, npc_data)
 		UpdateButtonStates()
 
 		for npc_id, npc_name in pairs(npc_data) do
-			local map_id = map_ids[npc_id]
+			local map_name = map_names[npc_id]
 
-			if type(map_id) == "boolean" then
+			if type(map_name) == "number" then
+				map_id = _G.GetMapNameByID(map_name)
+			elseif type(map_name) == "boolean" then
 				map_id = nil
 			end
 
@@ -643,7 +645,7 @@ do
 				npc_name,
 				npc_id,
 				GetWorldIDName(world_ids[npc_id]) or "",
-				map_id and (_G.GetMapNameByID(map_id) or map_id) or "")
+				map_name or _G.UNKNOWN)
 
 			if not private.NPCIsActive(npc_id) then
 				new_row:SetAlpha(ALPHA_INACTIVE)
@@ -653,12 +655,12 @@ do
 
 
 	local function UpdateNPCTab(tab)
-		GeneralNPCUpdate(private.Options.NPCWorldIDs, private.RareMobData.NPCMapIDs, private.Options.NPCs)
+		GeneralNPCUpdate(private.Options.NPCWorldIDs, private.RareMobData.map_names, private.Options.NPCs)
 	end
 
 
 	local function UpdateRareTab(tab)
-		GeneralNPCUpdate(private.RareMobData.NPCWorldIDs, private.RareMobData.NPCMapIDs, private.RareMobData.RareNPCs)
+		GeneralNPCUpdate(private.RareMobData.NPCWorldIDs, private.RareMobData.map_names, private.RareMobData.RareNPCs)
 	end
 
 
@@ -673,13 +675,13 @@ do
 		for criteria_id, npc_id in pairs(achievement.Criteria) do
 			if npc_id > 1 then
 				local npc_name, _, is_completed = _G.GetAchievementCriteriaInfoByID(tab.identifier, criteria_id)
-				local map_id = private.RareMobData.NPCMapIDs[npc_id]
+				local map_name = private.RareMobData.map_names[npc_id]
 				local new_row = panel.table:AddRow(npc_id,
 					private.NPCNameFromCache(npc_id) and TEXTURE_NOT_READY or "",
 					npc_name,
 					npc_id,
 					is_completed and TEXTURE_READY or "",
-					map_id and (_G.GetMapNameByID(map_id) or map_id) or "")
+					map_name or _G.UNKNOWN)
 
 				if not private.AchievementNPCIsActive(achievement, npc_id) then
 					new_row:SetAlpha(ALPHA_INACTIVE)

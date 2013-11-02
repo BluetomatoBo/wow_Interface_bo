@@ -29,8 +29,8 @@
 ## X-Credits-ruRU: Localization: StingerSoft, Sarymian, KVVV, The_DimoK, ichik, Ant1dotE, tick095, dartraiden
 ## X-Credits-zhCN: Localization: digmouse, tss1398383123, ananhaid, redsaru, dh0000
 ## X-Credits-zhTW: Localization: s8095324, pepper_ep, zhTW, laincat, alpha2009, machihchung
-## Version: 5.4.0.9
-## X-Date: 2013-10-18T03:49:15Z
+## Version: 5.4.1.1
+## X-Date: 2013-11-02T03:04:46Z
 ## X-Category: Miscellaneous
 ## X-License: GPLv3
 ## X-Email: jcallahan@curse.com
@@ -39,8 +39,8 @@
 ## X-CompatibleLocales: deDE, enCN, enTW, enUS, esES, esMX, frFR, itIT, koKR, ptBR, ptPT, ruRU, zhCN, zhTW
 ## SavedVariables: _NPCScanOptions, TESTPRO
 ## SavedVariablesPerCharacter: _NPCScanOptionsCharacter
-## OptionalDeps: Ace3, LibTextTable-1.1, LibSharedMedia-3.0
-## X-Curse-Packaged-Version: 5.4.0.9
+## OptionalDeps: Ace3, LibTextDump-1.0, LibTextTable-1.1, LibSharedMedia-3.0
+## X-Curse-Packaged-Version: 5.4.1.1
 ## X-Curse-Project-Name: _NPCScan
 ## X-Curse-Project-ID: npcscan
 ## X-Curse-Repository-ID: wow/npcscan/mainline
@@ -48,6 +48,7 @@
 #@no-lib-strip@
 Libs\LibStub\LibStub.lua
 Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\LibTextDump-1.0\Lib.xml
 Libs\LibTextTable-1.1\Lib.xml
 Libs\LibSharedMedia-3.0\lib.xml
 Libs\AceEvent-3.0\AceEvent-3.0.xml
@@ -65,9 +66,9 @@ Locales\Locale-ruRU.lua
 Locales\Locale-zhCN.lua
 Locales\Locale-zhTW.lua
 
+Constants.lua
 NPCData.lua
 
-Constants.lua
 _NPCScan.lua
 TargetButton.lua
 MapOverlays.lua
