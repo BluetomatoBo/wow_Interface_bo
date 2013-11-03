@@ -3,8 +3,8 @@
 --     W o w h e a d   L o o t e r     --
 --                                     --
 --                                     --
---    Patch: 5.4.0                     --
---    Updated: September 25, 2013      --
+--    Patch: 5.4.1                     --
+--    Updated: October 31, 2013        --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
@@ -12,7 +12,7 @@
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
 local WL_VERSION = 50014;
-local WL_VERSION_PATCH = 2;
+local WL_VERSION_PATCH = 3;
 
 
 -- SavedVariables
@@ -633,16 +633,19 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlReplacePlayerName(name)
-	if name == UnitName("player") then
+function wlReplaceWord(word)
+	if word == GetUnitName("player", false) or word == GetUnitName("player", true) then
 		return "<name>";
+	end
+	if word == UnitClass("player") then
+		return "<class>";
 	end
 end
 
 local wlLanguage = nil;
 function wlRegisterUnitQuote(name, how, language, text)
 	-- Init
-	text = text:gsub("(%w+)", wlReplacePlayerName);
+	text = text:gsub("(%w+-?%w*)", wlReplaceWord);
 
 	if not wlLanguage then
 		wlLanguage = {};
@@ -1989,16 +1992,6 @@ function wlEvent_LOOT_OPENED(self)
 	end
 	
 	local flags = 0;
-
-	-- Vitreous Focuser
-	if GetItemCount(13370) > 0 then
-		flags = flags + 64;
-	end
-
-	-- Argent Dawn Trinket
-	if IsEquippedItem(12846) or IsEquippedItem(13209) or IsEquippedItem(19812) or IsEquippedItem(23206) or IsEquippedItem(23207) then
-		flags = flags + 128;
-	end
 
 	-- Alliance or Horde
 	local faction = UnitFactionGroup("player");
