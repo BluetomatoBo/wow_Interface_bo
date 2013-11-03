@@ -42,13 +42,8 @@ local panel_tabs = {}
 -------------------------------------------------------------------------------
 local function GetWorldID(localized_name)
 	if localized_name ~= "" then
-		return private.LOCALIZED_CONTINENT_IDS[localized_name] or localized_name
+		return localized_name
 	end
-end
-
-
-local function GetWorldIDName(world_id)
-	return type(world_id) == "number" and private.LOCALIZED_CONTINENT_NAMES[world_id] or world_id
 end
 
 
@@ -293,7 +288,7 @@ npc_add_button:SetScript("OnClick", function(self)
 	local npc_name = panel.npc_name_editbox:GetText()
 	local world_id = GetWorldID(panel.npc_world_editbox:GetText())
 
-	if private.TamableIDs[npc_id] then
+	if private.TAMABLE_ID_TO_NAME[npc_id] then
 		private.Print(L.SEARCH_ADD_TAMABLE_FORMAT:format(npc_name))
 	end
 	private.NPCRemove(npc_id)
@@ -477,7 +472,7 @@ do
 				local gray = _G.GRAY_FONT_COLOR
 
 				tooltip:ClearLines()
-				tooltip:AddDoubleLine(name, L.SEARCH_WORLD_FORMAT:format(GetWorldIDName(world_id)), highlight.r, highlight.g, highlight.b, gray.r, gray.g, gray.b)
+				tooltip:AddDoubleLine(name, L.SEARCH_WORLD_FORMAT:format(world_id), highlight.r, highlight.g, highlight.b, gray.r, gray.g, gray.b)
 			else
 				tooltip:SetText(name, highlight.r, highlight.g, highlight.b)
 			end
@@ -634,17 +629,11 @@ do
 		for npc_id, npc_name in pairs(npc_data) do
 			local map_name = map_names[npc_id]
 
-			if type(map_name) == "number" then
-				map_id = _G.GetMapNameByID(map_name)
-			elseif type(map_name) == "boolean" then
-				map_id = nil
-			end
-
 			local new_row = panel.table:AddRow(npc_id,
 				private.NPCNameFromCache(npc_id) and TEXTURE_NOT_READY or "",
 				npc_name,
 				npc_id,
-				GetWorldIDName(world_ids[npc_id]) or "",
+				world_ids[npc_id] or "",
 				map_name or _G.UNKNOWN)
 
 			if not private.NPCIsActive(npc_id) then
@@ -654,18 +643,18 @@ do
 	end
 
 
-	local function UpdateNPCTab(tab)
-		GeneralNPCUpdate(private.Options.NPCWorldIDs, private.RareMobData.map_names, private.Options.NPCs)
+	local function UpdateCustomTab(tab)
+		GeneralNPCUpdate(private.Options.NPCWorldIDs, private.NPC_ID_TO_MAP_NAME, private.Options.NPCs)
 	end
 
 
 	local function UpdateRareTab(tab)
-		GeneralNPCUpdate(private.RareMobData.NPCWorldIDs, private.RareMobData.map_names, private.RareMobData.RareNPCs)
+		GeneralNPCUpdate(private.NPC_ID_TO_WORLD_NAME, private.NPC_ID_TO_MAP_NAME, private.UNTAMABLE_ID_TO_NAME)
 	end
 
 
 	local function UpdateTameableTab(tab)
-		GeneralNPCUpdate(private.RareMobData.NPCWorldIDs, private.TamableIDs, private.TamableNames)
+		GeneralNPCUpdate(private.NPC_ID_TO_WORLD_NAME, private.NPC_ID_TO_MAP_NAME, private.TAMABLE_ID_TO_NAME)
 	end
 
 
@@ -675,7 +664,7 @@ do
 		for criteria_id, npc_id in pairs(achievement.Criteria) do
 			if npc_id > 1 then
 				local npc_name, _, is_completed = _G.GetAchievementCriteriaInfoByID(tab.identifier, criteria_id)
-				local map_name = private.RareMobData.map_names[npc_id]
+				local map_name = private.NPC_ID_TO_MAP_NAME[npc_id]
 				local new_row = panel.table:AddRow(npc_id,
 					private.NPCNameFromCache(npc_id) and TEXTURE_NOT_READY or "",
 					npc_name,
@@ -726,7 +715,7 @@ do
 	end
 
 
-	local npc_tab = AddTab("NPC", UpdateNPCTab, ActivateNPCTab, DeactivateNPCTab)
+	local npc_tab = AddTab("NPC", UpdateCustomTab, ActivateNPCTab, DeactivateNPCTab)
 	npc_tab.show_controls_on_activate = true
 	npc_tab.table_row_on_select = function(text_table, npc_id)
 		if not npc_id then
@@ -734,7 +723,7 @@ do
 		end
 		npc_id_editbox:SetNumber(npc_id)
 		npc_name_editbox:SetText(private.Options.NPCs[npc_id])
-		npc_world_editbox:SetText(GetWorldIDName(private.Options.NPCWorldIDs[npc_id]) or "")
+		npc_world_editbox:SetText(private.Options.NPCWorldIDs[npc_id] or "")
 	end
 
 	AddTab("RARENPC", UpdateRareTab, ActivateNPCTab, DeactivateNPCTab)

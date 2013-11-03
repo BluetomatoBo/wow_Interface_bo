@@ -29,18 +29,18 @@
 ## X-Credits-ruRU: Localization: StingerSoft, Sarymian, KVVV, The_DimoK, ichik, Ant1dotE, tick095, dartraiden
 ## X-Credits-zhCN: Localization: digmouse, tss1398383123, ananhaid, redsaru, dh0000
 ## X-Credits-zhTW: Localization: s8095324, pepper_ep, zhTW, laincat, alpha2009, machihchung
-## Version: 5.4.1.1
-## X-Date: 2013-11-02T03:04:46Z
+## Version: 5.4.1.2
+## X-Date: 2013-11-03T03:27:49Z
 ## X-Category: Miscellaneous
 ## X-License: GPLv3
 ## X-Email: jcallahan@curse.com
 ## X-WoWI-ID: 12995
 ## X-Localizations: deDE, enCN, enTW, enUS, esES, esMX, frFR, itIT, koKR, ptBR, ptPT, ruRU, zhCN, zhTW
 ## X-CompatibleLocales: deDE, enCN, enTW, enUS, esES, esMX, frFR, itIT, koKR, ptBR, ptPT, ruRU, zhCN, zhTW
-## SavedVariables: _NPCScanOptions, TESTPRO
+## SavedVariables: _NPCScanOptions
 ## SavedVariablesPerCharacter: _NPCScanOptionsCharacter
 ## OptionalDeps: Ace3, LibTextDump-1.0, LibTextTable-1.1, LibSharedMedia-3.0
-## X-Curse-Packaged-Version: 5.4.1.1
+## X-Curse-Packaged-Version: 5.4.1.2
 ## X-Curse-Project-Name: _NPCScan
 ## X-Curse-Project-ID: npcscan
 ## X-Curse-Repository-ID: wow/npcscan/mainline
@@ -72,6 +72,5 @@ NPCData.lua
 _NPCScan.lua
 TargetButton.lua
 MapOverlays.lua
-TamableIDs.lua
 Config.lua
 ConfigSearch.lua

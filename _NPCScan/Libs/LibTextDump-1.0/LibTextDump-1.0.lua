@@ -6,6 +6,7 @@ local _G = getfenv(0)
 -- Functions
 local error = _G.error
 local pairs = _G.pairs
+local type = _G.type
 
 -- Libraries
 local table = _G.table
@@ -50,6 +51,8 @@ local frames = lib.frames
 
 local METHOD_USAGE_FORMAT = MAJOR .. ":%s() - %s."
 
+local DEFAULT_FRAME_WIDTH = 750
+local DEFAULT_FRAME_HEIGHT = 600
 
 -----------------------------------------------------------------------
 -- Helper functions.
@@ -64,12 +67,12 @@ local function CreateBorder(parent, width, height, left, right, top, bottom)
 	return border
 end
 
-local function NewInstance()
+local function NewInstance(width, height)
 	lib.num_frames = lib.num_frames + 1
 
 	local frame_name = ("%s_CopyFrame%d"):format(MAJOR, lib.num_frames)
 	local copy_frame = _G.CreateFrame("Frame", frame_name, _G.UIParent)
-	copy_frame:SetSize(750, 600)
+	copy_frame:SetSize(width, height)
 	copy_frame:SetPoint("CENTER", _G.UIParent, "CENTER")
 	copy_frame:SetFrameStrata("DIALOG")
 	copy_frame:EnableMouse(true)
@@ -236,13 +239,23 @@ end
 -----------------------------------------------------------------------
 -- Library methods.
 -----------------------------------------------------------------------
-function lib:New(frame_title)
-	local title_type = _G.type(frame_title)
+function lib:New(frame_title, width, height)
+	local title_type = type(frame_title)
 
 	if title_type ~= "nil" and title_type ~= "string" then
 		error(METHOD_USAGE_FORMAT:format("New", "frame title must be nil or a string."), 2)
 	end
-	local instance = NewInstance()
+	local width_type = type(width)
+
+	if width_type ~= "nil" and width_type ~= "number" then
+		error(METHOD_USAGE_FORMAT:format("New", "frame width must be nil or a number."))
+	end
+	local height_type = type(height)
+
+	if height_type ~= "nil" and height_type ~= "number" then
+		error(METHOD_USAGE_FORMAT:format("New", "frame height must be nil or a number."))
+	end
+	local instance = NewInstance(width or DEFAULT_FRAME_WIDTH, height or DEFAULT_FRAME_HEIGHT)
 	frames[instance].title:SetText(frame_title)
 
 	return instance
@@ -276,11 +289,11 @@ end
 
 
 function prototype:InsertLine(position, text)
-	if _G.type(position) ~= "number" then
+	if type(position) ~= "number" then
 		error(METHOD_USAGE_FORMAT:format("InsertLine", "position must be a number."))
 	end
 
-	if _G.type(text) ~= "string" or text == "" then
+	if type(text) ~= "string" or text == "" then
 		error(METHOD_USAGE_FORMAT:format("InsertLine", "text must be a non-empty string."), 2)
 	end
 	table.insert(buffers[self], position, text)
@@ -293,7 +306,7 @@ end
 
 
 function prototype:String(separator)
-	local sep_type = _G.type(separator)
+	local sep_type = type(separator)
 
 	if sep_type ~= "nil" and sep_type ~= "string" then
 		error(METHOD_USAGE_FORMAT:format("String", "separator must be nil or a string."), 2)
