@@ -806,15 +806,16 @@ select( 2, ... ).L = setmetatable( {
 	MODULE_RANGERING_FORMAT = "Show %dyd ring for approximate detection range",
 	MODULE_WORLDMAP = "Main World Map",
 	MODULE_WORLDMAP_KEY_FORMAT = "• %s",
-	MODULE_WORLDMAP_TOGGLE = "NPCs",
+	MODULE_WORLDMAP_TOGGLE = "Toggle Tracked Mob Paths",
 	MODULE_WORLDMAP_TOGGLE_DESC = "Toggle _|cffCCCC88NPCScan|r.Overlay's paths for tracked NPCs.",
-	MODULE_WORLDMAP_KEYTOGGLE = "Key",
+	MODULE_WORLDMAP_KEYTOGGLE = "Toggle Mob Path Key",
 	MODULE_WORLDMAP_KEYTOGGLE_DESC = "Toggle Path Key.",
 	BUTTON_TOOLTIP_LINE1 = "|cffffee00 _NPCScan.Overlay|r",
 	BUTTON_TOOLTIP_LINE2 = "|cffd6ff00 Click: |r Toggles World Map paths",
-	BUTTON_TOOLTIP_LINE3 = "|cffd6ff00 Right-Click: |r Toggles Mini Map paths",
-	BUTTON_TOOLTIP_LINE4 = "|cffaaf200 Middle-Click: |r Toggle display of Both Mini & World Map paths",
-	BUTTON_TOOLTIP_LINE5 = "|cff6cff00 Shift Middle-Click:: |r Open Options Menu",
+	BUTTON_TOOLTIP_LINE3 = "|cffd6ff00 Shift Click: |r Toggles World Map key",
+	BUTTON_TOOLTIP_LINE4 = "|cffd6ff00 Right-Click: |r Toggles Mini Map paths",
+	BUTTON_TOOLTIP_LINE5 = "|cffaaf200 Middle-Click: |r Toggle display of Both Mini & World Map paths",
+	BUTTON_TOOLTIP_LINE6 = "|cff6cff00 Shift Middle-Click: |r Open Options Menu",
 
 	-- Phrases localized by default UI
 	CONFIG_ENABLE = ENABLE;

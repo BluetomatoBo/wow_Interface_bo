@@ -3,17 +3,15 @@
   * _NPCScan.Overlay.Config.lua - Adds a configuration pane to enable and      *
   *   disable display modules like the WorldMap and BattlefieldMinimap.        *
   ****************************************************************************]]
+local FOLDER_NAME, private = ...
+local L = private.L
+local panel = _G.CreateFrame("Frame")
+private.Config = panel
 
+panel.ShowAll = CreateFrame( "CheckButton", "_NPCScanOverlayConfigShowAllCheckbox", panel, "InterfaceOptionsCheckButtonTemplate" );
 
-local Overlay = select( 2, ... );
-local L = Overlay.L;
-local NS = CreateFrame( "Frame" );
-Overlay.Config = NS;
-
-NS.ShowAll = CreateFrame( "CheckButton", "_NPCScanOverlayConfigShowAllCheckbox", NS, "InterfaceOptionsCheckButtonTemplate" );
-
-local ModuleMethods = setmetatable( {}, getmetatable( NS ) );
-NS.ModuleMeta = { __index = ModuleMethods; };
+local ModuleMethods = setmetatable( {}, getmetatable( panel ) );
+panel.ModuleMeta = { __index = ModuleMethods; };
 
 local IsChildAddOn = IsAddOnLoaded( "_NPCScan" );
 
@@ -53,36 +51,36 @@ end
 
 
 --- Shows the control's tooltip.
-function NS:ControlOnEnter ()
+function panel:ControlOnEnter ()
 	if ( self.tooltipText ) then
 		GameTooltip:SetOwner( self, "ANCHOR_TOPLEFT" );
 		GameTooltip:SetText( self.tooltipText, nil, nil, nil, nil, 1 );
 	end
 end
 --- Standard checkbox control SetEnabled method.
-function NS:ModuleCheckboxSetEnabled ( Enable )
+function panel:ModuleCheckboxSetEnabled ( Enable )
 	( Enable and BlizzardOptionsPanel_CheckButton_Enable or BlizzardOptionsPanel_CheckButton_Disable )( self );
 end
 --- Standard slider control SetEnabled method.
-function NS:ModuleSliderSetEnabled ( Enable )
+function panel:ModuleSliderSetEnabled ( Enable )
 	( Enable and BlizzardOptionsPanel_Slider_Enable or BlizzardOptionsPanel_Slider_Disable )( self );
 end
 
 --- Sets the ShowAll option when its checkbox is clicked.
-function NS.ShowAll.setFunc ( Enable )
-	Overlay.SetShowAll( Enable == "1" );
+function panel.ShowAll.setFunc ( Enable )
+	private.SetShowAll( Enable == "1" );
 end
 
 --- Toggles the module when its checkbox is clicked.
-function NS:ModuleEnabledOnClick ()
+function panel:ModuleEnabledOnClick ()
 	local Enable = self:GetChecked() == 1;
 
 	PlaySound( Enable and "igMainMenuOptionCheckBoxOn" or "igMainMenuOptionCheckBoxOff" );
-	Overlay.Modules[ Enable and "Enable" or "Disable" ]( self:GetParent().Module.Name );
+	private.Modules[ Enable and "Enable" or "Disable" ]( self:GetParent().Module.Name );
 end
 --- Sets a module's alpha setting when its slider gets adjusted.
-function NS:ModuleAlphaOnValueChanged ( Value )
-	Overlay.Modules.SetAlpha( self:GetParent().Module.Name, Value );
+function panel:ModuleAlphaOnValueChanged ( Value )
+	private.Modules.SetAlpha( self:GetParent().Module.Name, Value );
 end
 
 
@@ -92,13 +90,13 @@ do
 	local LastFrame;
 	--- Creates a config entry for a module with basic controls.
 	-- @return Settings frame for module.
-	function NS.ModuleRegister ( Module, Label )
-		local Frame = CreateFrame( "Frame", "_NPCScanOverlayModule"..Module.Name, NS.ScrollChild, "OptionsBoxTemplate" );
+	function panel.ModuleRegister ( Module, Label )
+		local Frame = CreateFrame( "Frame", "_NPCScanOverlayModule"..Module.Name, panel.ScrollChild, "OptionsBoxTemplate" );
 		Frame.Module = Module;
-		setmetatable( Frame, NS.ModuleMeta );
+		setmetatable( Frame, panel.ModuleMeta );
 
 		_G[ Frame:GetName().."Title" ]:SetText( Label );
-		Frame:SetPoint( "RIGHT", NS.ScrollChild:GetParent(), -4, 0 );
+		Frame:SetPoint( "RIGHT", panel.ScrollChild:GetParent(), -4, 0 );
 		if ( LastFrame ) then
 			Frame:SetPoint( "TOPLEFT", LastFrame, "BOTTOMLEFT", 0, -16 );
 		else
@@ -110,11 +108,11 @@ do
 		Frame.Enabled = Enabled;
 		Enabled:SetPoint( "TOPLEFT", 6, -6 );
 		Enabled:SetSize( 26, 26 );
-		Enabled:SetScript( "OnClick", NS.ModuleEnabledOnClick );
+		Enabled:SetScript( "OnClick", panel.ModuleEnabledOnClick );
 		local Label = _G[ Enabled:GetName().."Text" ];
 		Label:SetText( L.CONFIG_ENABLE );
 		Enabled:SetHitRectInsets( 4, 4 - Label:GetStringWidth(), 4, 4 );
-		Enabled.SetEnabled = NS.ModuleCheckboxSetEnabled;
+		Enabled.SetEnabled = panel.ModuleCheckboxSetEnabled;
 
 		local Alpha = CreateFrame( "Slider", "$parentAlpha", Frame, "OptionsSliderTemplate" );
 		Frame.Alpha = Alpha;
@@ -122,8 +120,8 @@ do
 		Alpha:SetPoint( "RIGHT", -8, 0 );
 		Alpha:SetPoint( "LEFT", Label, "RIGHT", 16, 0 );
 		Alpha:SetMinMaxValues( 0, 1 );
-		Alpha:SetScript( "OnValueChanged", NS.ModuleAlphaOnValueChanged );
-		Alpha.SetEnabled = NS.ModuleSliderSetEnabled;
+		Alpha:SetScript( "OnValueChanged", panel.ModuleAlphaOnValueChanged );
+		Alpha.SetEnabled = panel.ModuleSliderSetEnabled;
 		local AlphaName = Alpha:GetName();
 		_G[ AlphaName.."Text" ]:SetText( L.CONFIG_ALPHA );
 		_G[ AlphaName.."Low" ]:Hide();
@@ -137,32 +135,32 @@ end
 
 
 --- Reverts to default options.
-function NS:default ()
-	Overlay.Synchronize();
+function panel:default ()
+	private.Synchronize();
 end
 
 
 
 
 --- Slash command chat handler to open the options pane.
-function NS.SlashCommand ()
-	InterfaceOptionsFrame_OpenToCategory( NS );
+function panel.SlashCommand ()
+	InterfaceOptionsFrame_OpenToCategory( panel );
 end
 
 
 
 
 local Label = L[ IsChildAddOn and "CONFIG_TITLE" or "CONFIG_TITLE_STANDALONE" ];
-NS.name = Label;
-NS:Hide();
+panel.name = Label;
+panel:Hide();
 
 -- Pane title
-NS.Title = NS:CreateFontString( nil, "ARTWORK", "GameFontNormalLarge" );
-NS.Title:SetPoint( "TOPLEFT", 16, -16 );
-NS.Title:SetText( Label );
-local SubText = NS:CreateFontString( nil, "ARTWORK", "GameFontHighlightSmall" );
-NS.SubText = SubText;
-SubText:SetPoint( "TOPLEFT", NS.Title, "BOTTOMLEFT", 0, -8 );
+panel.Title = panel:CreateFontString( nil, "ARTWORK", "GameFontNormalLarge" );
+panel.Title:SetPoint( "TOPLEFT", 16, -16 );
+panel.Title:SetText( Label );
+local SubText = panel:CreateFontString( nil, "ARTWORK", "GameFontHighlightSmall" );
+panel.SubText = SubText;
+SubText:SetPoint( "TOPLEFT", panel.Title, "BOTTOMLEFT", 0, -8 );
 SubText:SetPoint( "RIGHT", -32, 0 );
 SubText:SetHeight( 32 );
 SubText:SetJustifyH( "LEFT" );
@@ -170,14 +168,14 @@ SubText:SetJustifyV( "TOP" );
 SubText:SetText( L.CONFIG_DESC );
 
 
-NS.ShowAll:SetPoint( "TOPLEFT", SubText, "BOTTOMLEFT", -2, -8 );
-_G[ NS.ShowAll:GetName().."Text" ]:SetText( L.CONFIG_SHOWALL );
-NS.ShowAll.tooltipText = L.CONFIG_SHOWALL_DESC;
+panel.ShowAll:SetPoint( "TOPLEFT", SubText, "BOTTOMLEFT", -2, -8 );
+_G[ panel.ShowAll:GetName().."Text" ]:SetText( L.CONFIG_SHOWALL );
+panel.ShowAll.tooltipText = L.CONFIG_SHOWALL_DESC;
 
 
 -- Module options scrollframe
-local Background = CreateFrame( "Frame", nil, NS, "OptionsBoxTemplate" );
-Background:SetPoint( "TOPLEFT", NS.ShowAll, "BOTTOMLEFT", 0, -8 );
+local Background = CreateFrame( "Frame", nil, panel, "OptionsBoxTemplate" );
+Background:SetPoint( "TOPLEFT", panel.ShowAll, "BOTTOMLEFT", 0, -8 );
 Background:SetPoint( "BOTTOMRIGHT", -32, 16 );
 local Texture = Background:CreateTexture( nil, "BACKGROUND" );
 Texture:SetTexture( 0, 0, 0, 0.5 );
@@ -188,14 +186,14 @@ local ScrollFrame = CreateFrame( "ScrollFrame", "_NPCScanOverlayScrollFrame", Ba
 ScrollFrame:SetPoint( "TOPLEFT", 4, -4 );
 ScrollFrame:SetPoint( "BOTTOMRIGHT", -4, 4 );
 
-NS.ScrollChild = CreateFrame( "Frame" );
-ScrollFrame:SetScrollChild( NS.ScrollChild );
-NS.ScrollChild:SetSize( 1, 1 );
+panel.ScrollChild = CreateFrame( "Frame" );
+ScrollFrame:SetScrollChild( panel.ScrollChild );
+panel.ScrollChild:SetSize( 1, 1 );
 
 
 if ( IsChildAddOn ) then
-	NS.parent = assert( _NPCScan.Config.name, "Couldn't parent configuration to _NPCScan." );
+	panel.parent = assert( _NPCScan.Config.name, "Couldn't parent configuration to _NPCScan." );
 end
-InterfaceOptions_AddCategory( NS );
+InterfaceOptions_AddCategory( panel );
 
-SlashCmdList[ "_NPCSCAN_OVERLAY" ] = NS.SlashCommand;
+SlashCmdList[ "_NPCSCAN_OVERLAY" ] = panel.SlashCommand;

@@ -29,8 +29,8 @@
 ## X-Credits-ruRU: Localization: The_DimoK, Sarymian, dartraiden
 ## X-Credits-zhCN: Localization: tss1398383123, zhTW, ananhaid, dh0000
 ## X-Credits-zhTW: Localization: s8095324, pepper_ep, zhTW, alpha2009, BNSSNB, titanium0107
-## Version: v5.4.0.5
-## X-Date: 2013-10-27T21:46:43Z
+## Version: 5.4.1.1
+## X-Date: 2013-11-05T04:05:40Z
 ## X-Category: Map
 ## X-License: GPLv3
 ## X-Email: jcallahan@curse.com
@@ -38,8 +38,8 @@
 ## X-Localizations: deDE, enCN, enTW, enUS, esES, esMX, frFR, koKR, ptBR, ptPT, ruRU, zhCN, zhTW
 ## X-CompatibleLocales: deDE, enCN, enTW, enUS, esES, esMX, frFR, koKR, ptBR, ptPT, ruRU, zhCN, zhTW
 ## SavedVariables: _NPCScanOverlayOptions, _NPCScanMiniMapIcon
-## OptionalDeps: Ace3, _NPCScan, AlphaMap3, Carbonite
-## X-Curse-Packaged-Version: v5.4.0.5
+## OptionalDeps: Ace3, _NPCScan, OmegaMap, Carbonite
+## X-Curse-Packaged-Version: 5.4.1.1
 ## X-Curse-Project-Name: _NPCScan.Overlay
 ## X-Curse-Project-ID: npcscan-overlay
 ## X-Curse-Repository-ID: wow/npcscan-overlay/mainline
@@ -62,11 +62,11 @@ Locales\Locale-ruRU.lua
 Locales\Locale-zhCN.lua
 Locales\Locale-zhTW.lua
 
-_NPCScan.Templates.xml
-_NPCScan.Overlay.lua
-_NPCScan.Overlay.Config.lua
-_NPCScan.Overlay.Modules.lua
-_NPCScan.Overlay.PathData.lua
+Templates.xml
+Overlay.lua
+Config.lua
+Modules.lua
+PathData.lua
 
 
 # Canvas modules

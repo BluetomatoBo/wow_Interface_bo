@@ -3,15 +3,14 @@
   * _NPCScan.Overlay.Modules.lua - Manages map modules.                        *
   ****************************************************************************]]
 
+local FOLDER_NAME, private = ...
+local panel = _G.CreateFrame("Frame")
+private.Modules = panel
 
-local AddOnName, Overlay = ...;
-local NS = CreateFrame( "Frame" );
-Overlay.Modules = NS;
 
+panel.AlphaDefault = 0.5;
 
-NS.AlphaDefault = 0.5;
-
-NS.List = {};
+panel.List = {};
 local LoadQueue = {};
 
 
@@ -23,7 +22,7 @@ local function GetEnabled ( Options, Name )
 end
 --- @return Alpha from options table.
 local function GetAlpha ( Options, Name )
-	return Options.ModulesAlpha[ Name ] or NS.List[ Name ].AlphaDefault or NS.AlphaDefault;
+	return Options.ModulesAlpha[ Name ] or panel.List[ Name ].AlphaDefault or panel.AlphaDefault;
 end
 
 
@@ -67,7 +66,7 @@ local function Enable ( Module )
 		if ( Module.OnEnable ) then
 			SafeCall( Module.OnEnable, Module );
 		end
-		SetAlpha( Module, GetAlpha( Overlay.Options, Module.Name ) );
+		SetAlpha( Module, GetAlpha( private.Options, Module.Name ) );
 		if ( Module.OnMapUpdate ) then
 			SafeCall( Module.OnMapUpdate, Module );
 		end
@@ -96,7 +95,7 @@ local function Load ( Module )
 			Module.OnLoad = nil;
 		end
 
-		if ( NS.Synchronized and GetEnabled( Overlay.Options, Module.Name ) ) then
+		if ( panel.Synchronized and GetEnabled( private.Options, Module.Name ) ) then
 			Enable( Module );
 		end
 	end
@@ -119,7 +118,7 @@ end
 local function Register ( Module, Name, Label, ParentAddOn )
 	if ( not Module.Registered ) then
 		Module.Registered, Module.Name = true, Name;
-		Module.Config = Overlay.Config.ModuleRegister( Module, Label );
+		Module.Config = private.Config.ModuleRegister( Module, Label );
 		-- No need for an OnRegister handler
 
 		if ( not ParentAddOn or IsAddOnLoaded( ParentAddOn ) ) then
@@ -143,7 +142,7 @@ end
 do
 	--- Calls OnMapUpdate for all enabled modules.
 	local function UpdateModules ( Map )
-		for Name, Module in pairs( NS.List ) do
+		for Name, Module in pairs( panel.List ) do
 			if ( Module.Enabled and Module.OnMapUpdate ) then
 				SafeCall( Module.OnMapUpdate, Module, Map );
 			end
@@ -152,7 +151,7 @@ do
 	local UpdateAll, UpdateMaps = false, {};
 	--- Throttles full map updates to once per frame.
 	local function OnUpdate ()
-		NS:SetScript( "OnUpdate", nil );
+		panel:SetScript( "OnUpdate", nil );
 
 		if ( UpdateAll ) then
 			UpdateAll = false;
@@ -166,7 +165,7 @@ do
 	end
 	--- Updates a map for all active modules.
 	-- @param Map  MapID to update, or nil to update all maps.
-	function NS.UpdateMap ( Map )
+	function panel.UpdateMap ( Map )
 		if ( not UpdateAll ) then
 			if ( Map ) then
 				UpdateMaps[ Map ] = true;
@@ -174,7 +173,7 @@ do
 				UpdateAll = true;
 				wipe( UpdateMaps );
 			end
-			NS:SetScript( "OnUpdate", OnUpdate );
+			panel:SetScript( "OnUpdate", OnUpdate );
 		end
 	end
 end
@@ -185,23 +184,23 @@ end
 -- @param Module  Module table containing methods.
 -- @param Label  Name displayed in configuration screen.
 -- @param ParentAddOn  Optional dependency to wait on to load.
-function NS.Register ( Name, Module, Label, ParentAddOn )
-	NS.List[ Name ] = Module;
+function panel.Register ( Name, Module, Label, ParentAddOn )
+	panel.List[ Name ] = Module;
 	Register( Module, Name, Label, ParentAddOn );
 end
 --- Disables the module for the session and disables its configuration controls.
-function NS.Unregister ( Name )
-	Unregister( NS.List[ Name ] );
+function panel.Unregister ( Name )
+	Unregister( panel.List[ Name ] );
 end
 
 
 --- Enables a module.
 -- @return True if enabled successfully.
-function NS.Enable ( Name )
-	if ( not Overlay.Options.Modules[ Name ] ) then
-		Overlay.Options.Modules[ Name ] = true;
+function panel.Enable ( Name )
+	if ( not private.Options.Modules[ Name ] ) then
+		private.Options.Modules[ Name ] = true;
 
-		local Module = NS.List[ Name ];
+		local Module = panel.List[ Name ];
 		Module.Config:SetEnabled( true );
 		Enable( Module );
 		return true;
@@ -209,11 +208,11 @@ function NS.Enable ( Name )
 end
 --- Disables a module.
 -- @return True if disabled successfully.
-function NS.Disable ( Name )
-	if ( GetEnabled( Overlay.Options, Name ) ) then
-		Overlay.Options.Modules[ Name ] = false;
+function panel.Disable ( Name )
+	if ( GetEnabled( private.Options, Name ) ) then
+		private.Options.Modules[ Name ] = false;
 
-		local Module = NS.List[ Name ];
+		local Module = panel.List[ Name ];
 		Module.Config:SetEnabled( false );
 		Disable( Module );
 		return true;
@@ -221,11 +220,11 @@ function NS.Disable ( Name )
 end
 --- Sets the module's alpha setting.
 -- @return True if changed.
-function NS.SetAlpha ( Name, Alpha )
-	if ( Alpha ~= Overlay.Options.ModulesAlpha[ Name ] ) then
-		Overlay.Options.ModulesAlpha[ Name ] = Alpha;
+function panel.SetAlpha ( Name, Alpha )
+	if ( Alpha ~= private.Options.ModulesAlpha[ Name ] ) then
+		private.Options.ModulesAlpha[ Name ] = Alpha;
 
-		local Module = NS.List[ Name ];
+		local Module = panel.List[ Name ];
 		Module.Config.Alpha:SetValue( Alpha );
 		SetAlpha( Module, Alpha );
 		return true;
@@ -236,7 +235,7 @@ end
 
 
 --- Loads modules that depend on other mods as they load.
-function NS:ADDON_LOADED ( _, ParentAddOn )
+function panel:ADDON_LOADED ( _, ParentAddOn )
 	ParentAddOn = ParentAddOn:upper();
 	local Module = LoadQueue[ ParentAddOn ];
 	if ( Module ) then
@@ -248,7 +247,7 @@ function NS:ADDON_LOADED ( _, ParentAddOn )
 	end
 end
 --- Common event handler.
-function NS:OnEvent ( Event, ... )
+function panel:OnEvent ( Event, ... )
 	if ( self[ Event ] ) then
 		return self[ Event ]( self, Event, ... );
 	end
@@ -256,31 +255,31 @@ end
 do
 	local OptionsExtraDefault = {};
 	--- Synchronizes settings of all modules.
-	function NS.OnSynchronize ( Options )
-		NS.Synchronized = true;
+	function panel.OnSynchronize ( Options )
+		panel.Synchronized = true;
 		-- Preserve options for missing modules
 		for Name, Enabled in pairs( Options.Modules ) do
-			if ( not NS.List[ Name ] ) then
-				Overlay.Options.Modules[ Name ] = Enabled;
-				Overlay.Options.ModulesAlpha[ Name ] = Options.ModulesAlpha[ Name ];
+			if ( not panel.List[ Name ] ) then
+				private.Options.Modules[ Name ] = Enabled;
+				private.Options.ModulesAlpha[ Name ] = Options.ModulesAlpha[ Name ];
 			end
 		end
 
 		-- Synchronize extra module options
-		for Name, Module in pairs( NS.List ) do
-			NS[ GetEnabled( Options, Name ) and "Enable" or "Disable" ]( Name );
-			NS.SetAlpha( Name, GetAlpha( Options, Name ) );
+		for Name, Module in pairs( panel.List ) do
+			panel[ GetEnabled( Options, Name ) and "Enable" or "Disable" ]( Name );
+			panel.SetAlpha( Name, GetAlpha( Options, Name ) );
 
 			if ( Module.OnSynchronize ) then
-				if ( not Overlay.Options.ModulesExtra[ Name ] ) then
-					Overlay.Options.ModulesExtra[ Name ] = {};
+				if ( not private.Options.ModulesExtra[ Name ] ) then
+					private.Options.ModulesExtra[ Name ] = {};
 				end
 				SafeCall( Module.OnSynchronize, Module, Options.ModulesExtra[ Name ] or OptionsExtraDefault );
 			end
 		end
 		for Name, Extra in pairs( Options.ModulesExtra ) do
-			if ( not NS.List[ Name ] ) then
-				Overlay.Options.ModulesExtra[ Name ] = CopyTable( Extra );
+			if ( not panel.List[ Name ] ) then
+				private.Options.ModulesExtra[ Name ] = CopyTable( Extra );
 			end
 		end
 	end
@@ -289,5 +288,5 @@ end
 
 
 
-NS:SetScript( "OnEvent", NS.OnEvent );
-NS:RegisterEvent( "ADDON_LOADED" );
+panel:SetScript( "OnEvent", panel.OnEvent );
+panel:RegisterEvent( "ADDON_LOADED" );
