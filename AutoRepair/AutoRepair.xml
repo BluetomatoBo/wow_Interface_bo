@@ -1,14 +1,9 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
-..\..\FrameXML\UI.xsd">
-<Script file="AutoRepair.lua"/> 
-<Frame name="frmautorepair">
-  <Scripts>
-   <OnEvent>
-    arEvent();
-   </OnEvent>
-   <OnLoad>
-    arInit();
-   </OnLoad>
-  </Scripts>
- </Frame>
-</Ui> 
+﻿<Ui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="AutoRepair.lua" />
+	<Frame name="AutoRepair">
+		<Scripts>
+			<OnLoad>AutoRepair_OnLoad();</OnLoad>
+			<OnEvent>AutoRepair_OnEvent(self, event, ...);</OnEvent>
+		</Scripts>
+	</Frame>
+</Ui>
