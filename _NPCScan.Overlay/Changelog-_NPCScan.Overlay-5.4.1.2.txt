@@ -1,0 +1,12 @@
+tag 5.4.1.2
+bf3a2dd44a4988d652234aefd938b6b1077e5d5f
+SLOKnightfall <SLOKnightfall@gmail.com>
+2013-11-05 08:31:48 -0800
+
+tagging changes
+
+
+--------------------
+
+SLOKnightfall:
+	- fix for Carbonite 5.4 alpha module

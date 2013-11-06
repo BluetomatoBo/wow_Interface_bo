@@ -235,7 +235,7 @@ local function OnLoad ()
 	panel[ WorldMapFrame:IsVisible() and "WorldMapFrameOnShow" or "WorldMapFrameOnHide" ]( WorldMapFrame );
 	if CarboniteMap then
 		CarboniteMap:ClipZoneFrm( CarboniteMap.Cont, CarboniteMap.Zone, WorldMap);
-	end
+	
 		Nx.Button.TypeData["NSO"] ={
 		Up = "$INV_Misc_EngGizmos_20",
 		Dn = "$INV_Misc_EngGizmos_20",
@@ -245,6 +245,7 @@ local function OnLoad ()
 		CarboniteMap.ToolBar:AddButton("NSO", L.BUTTON_TOOLTIP_LINE2.."\n"..L.BUTTON_TOOLTIP_LINE3, nil, OverlayToggle, false)
 		CarboniteMap.ToolBar:Update()
 		CarboniteMap:UpdateToolBar()
+	end
 end
 
 --- Sets a module's handler, or hooks the old one if it exists.
