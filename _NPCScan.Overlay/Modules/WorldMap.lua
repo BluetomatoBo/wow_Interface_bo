@@ -13,8 +13,20 @@ local ShowKey = true;
 panel.KeyMinScale = 0.70; -- Minimum effective scale to render the key at
 panel.KeyMaxSize = .7; -- If the key takes up more than this fraction of the canvas, hide it
 
+
+	local function WorldMapFrameOnHide()
+	--print("ASDFADF")
+		_NPCScanOverlayKey:Hide();
+	end
+
+	local function WorldMapFrameOnShow()
+		if private.Options.ShowKey then
+			_NPCScanOverlayKey:Show()
+		end
+	end
+
 function panel:OnHide ( ... )
-	--_NPCScanOverlayKeyParent:Hide();
+	_NPCScanOverlayKey:Hide();
 	return self.super.OnHide( self, ... );
 end
 
@@ -53,7 +65,7 @@ do
 			Line:Show();
 		end
 
-		Line.Text:SetText(L.MODULE_WORLDMAP_KEY_FORMAT:format( panel.AchievementNPCNames[ NpcID ] or L.NPCs[ NpcID ] or NpcID ) );
+		Line.Text:SetText(L.MODULE_WORLDMAP_KEY_FORMAT:format( panel.AchievementNPCNames[ NpcID ] or L.NPCs[ tostring(NpcID) ] or NpcID ) );
 		Line.Text:SetTextColor( R, G, B );
 		Line:SetScript( "OnEnter", function() private.FlashRoute(NpcID) end );
 		Line:SetScript( "OnLeave", function() private.FlashStop(NpcID) end );
@@ -146,8 +158,11 @@ end
 
 
 
---Toggles the display of id key frame NEW
+--Toggles the display of id key frame 
 function NSO_KeyToggleOnClick ()
+	if not private.Options.ShowKey == nil then
+		private.Options.ShowKey = true
+	end
 
 	if private.Options.ShowKey then
 		_NPCScanOverlayKey:Hide()
@@ -330,6 +345,9 @@ function panel:OnLoad ( ... )
 			isNotRadio = true,
 		}
 			end)
+
+		WorldMapFrame:HookScript( "OnHide", WorldMapFrameOnHide );
+		WorldMapFrame:HookScript( "OnShow", WorldMapFrameOnShow );
 
 	return self.super.OnLoad( self, ... );
 end

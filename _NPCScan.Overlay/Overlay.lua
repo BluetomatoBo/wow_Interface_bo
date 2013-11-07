@@ -8,7 +8,7 @@ _NPCScan = _NPCScan or {};
 local _NPCScan = _NPCScan;
 local FOLDER_NAME, private = ...
 local L = private.L
-private.Overlay = private
+_G._NPCScan.Overlay = private
 
 --local MiniMapIcon = LibStub("LibDBIcon-1.0")
 _NPCScanMiniMapIcon = {}
@@ -384,7 +384,7 @@ function private:ApplyZone ( Map, Callback )
 
 	--Sorts Mobs in current zone by name
 		for MobID, pathx in pairs(MapData) do
-			local MobName = AchievementNPCNames[MobID] or L.NPCs[MobID] or MobID
+			local MobName = AchievementNPCNames[MobID] or L.NPCs[tostring(MobID)] or MobID
 			NPCList[MobName] = MobID
 			table.insert(AlphaList, MobName)
 			table.sort(AlphaList)
