@@ -1,0 +1,12 @@
+tag 5.4.1.7
+a1e8a13f79fa5b4fee48c277d9d20e0687f66516
+SLOKnightfall <SLOKnightfall@gmail.com>
+2013-11-17 14:40:12 -0800
+
+-tagging changes
+
+
+--------------------
+
+SLOKnightfall:
+	- -Renamed the default sound from "Mute" to "Default" -Added second default sound, for users who do not like the original horn&drums,to the top level of sound dropdown -Added "Mute" option to the top level of sound dropdown -Re added the CONFIG_ALERT_SOUND_DEFAULT to local file and to curseforge locale list -Switched the channel of the alert sound from "Master" to "SFX" so the volume can be set easier
