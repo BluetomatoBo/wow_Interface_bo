@@ -55,6 +55,8 @@ function panel:OnUpdate ()
 	CarboniteMap:ClipZoneFrm( CarboniteMap.Cont, CarboniteMap.Zone, WorldMap );
 	WorldMap.RangeRing.Child:SetScale( WorldMap:GetScale() ); -- CarboniteMap:CZF also sets point
 	WorldMap.KeyParent:SetAlpha( NxMap1.NxWin.BackgndFade ); -- Obey window's "Fade Out" setting
+	WorldMap.KeyParent:SetScale( NxMap1:GetEffectiveScale() )
+	WorldMap.KeyParent:SetFrameStrata("High");
 end
 
 --- Adjusts the canvas when leaving Carbonite mode to view the default WorldMap.
@@ -72,6 +74,7 @@ function panel:WorldMapFrameOnShow ()
 
 		WorldMap.KeyParent:SetParent( WorldMapButton );
 		WorldMap.KeyParent:SetAllPoints();
+		WorldMap.KeyParent:SetFrameStrata("High");
 
 		WorldMap.RangeRing:SetParent( WorldMapDetailFrame );
 		WorldMap.RangeRing:SetAllPoints();
@@ -89,6 +92,7 @@ function panel:WorldMapFrameOnHide ()
 
 		WorldMap.KeyParent:SetParent( ScrollFrame );
 		WorldMap.KeyParent:SetAllPoints();
+		WorldMap.KeyParent:SetFrameStrata("High");
 
 		WorldMap.RangeRing:SetParent( ScrollFrame );
 		WorldMap.RangeRing:SetAllPoints();
@@ -165,6 +169,8 @@ function panel:OnUpdate ()
 	WorldMap.RangeRing.Child:SetScale( WorldMap:GetScale() ); -- CarboniteMap:CZF also sets point		
 	--WorldMap.KeyParent:SetAlpha( CarboniteMap.BackgndAlpha ); -- Obey window's "Fade Out" setting				
 	WorldMap.KeyParent:SetAlpha( NxMap1.NxWin.BackgndFade ); -- Obey window's "Fade Out" setting
+	WorldMap.KeyParent:SetScale( NxMap1:GetEffectiveScale() )
+	WorldMap.KeyParent:SetFrameStrata("High");
 end
 
 
@@ -185,6 +191,7 @@ function panel:WorldMapFrameOnShow ()
 
 		WorldMap.KeyParent:SetParent( WorldMapButton );
 		WorldMap.KeyParent:SetAllPoints();
+		WorldMap.KeyParent:SetFrameStrata("High");
 
 		WorldMap.RangeRing:SetParent( WorldMapDetailFrame );
 		WorldMap.RangeRing:SetAllPoints();
@@ -205,6 +212,7 @@ function panel:WorldMapFrameOnHide ()
 
 		WorldMap.KeyParent:SetParent( ScrollFrame );
 		WorldMap.KeyParent:SetAllPoints();
+		WorldMap.KeyParent:SetFrameStrata("High");
 
 		WorldMap.RangeRing:SetParent( ScrollFrame );
 		WorldMap.RangeRing:SetAllPoints();

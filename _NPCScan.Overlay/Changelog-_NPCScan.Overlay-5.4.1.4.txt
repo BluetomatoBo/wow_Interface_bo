@@ -1,0 +1,17 @@
+tag 5.4.1.4
+f2a53e03300be38b29f24fc32592f662190b3033
+SLOKnightfall <SLOKnightfall@gmail.com>
+2013-11-17 21:58:30 -0800
+
+tagging changes
+
+
+--------------------
+
+SLOKnightfall:
+	- -Key scaling updates
+	- -Removed Path & Key toggles from World Map Options Dropdown, to fix RaidFrame Taint (Ticket 11) -Added new button to toggle Path & Key to world map frame
+	- Fix for timeless isle key not showing
+Adavak:
+	- -- cheanup.
+	- - Timeless Isle rare mob "Karapax" fix to correct "Karkanos"

@@ -21,7 +21,6 @@ private.Options = {
 	ModulesAlpha = {},
 	ModulesExtra = {},
 	MiniMapIcon = {},
-	ShowKey = true,
 };
 
 private.OptionsDefault = {

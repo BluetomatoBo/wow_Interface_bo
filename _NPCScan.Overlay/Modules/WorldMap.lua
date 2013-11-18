@@ -10,12 +10,11 @@ local panel = private.Modules.WorldMapTemplate.Embed( CreateFrame( "Frame", nil,
 
 local ShowKey = true;
 
-panel.KeyMinScale = 0.70; -- Minimum effective scale to render the key at
-panel.KeyMaxSize = .7; -- If the key takes up more than this fraction of the canvas, hide it
+panel.KeyMinScale = 0.50; -- Minimum effective scale to render the key at
+panel.KeyMaxSize = 3; -- If the key takes up more than this fraction of the canvas, hide it
 
 
 	local function WorldMapFrameOnHide()
-	--print("ASDFADF")
 		_NPCScanOverlayKey:Hide();
 	end
 
@@ -140,12 +139,30 @@ end
 --- Shows a *world map* tooltip similar to the quest objective toggle button.
 function panel:ToggleOnEnter ()
 	WorldMapTooltip:SetOwner( self, "ANCHOR_TOPLEFT" );
-	WorldMapTooltip:SetText( L.MODULE_WORLDMAP_TOGGLE_DESC, nil, nil, nil, nil, 1 );
+	WorldMapTooltip:SetText( L.BUTTON_TOOLTIP_LINE2.."\n"..L.BUTTON_TOOLTIP_LINE3, nil, nil, nil, nil, 1 );
 end
+
 --- Hides the *world map* tooltip.
 function panel:ToggleOnLeave ()
 	WorldMapTooltip:Hide();
 end
+
+--- Toggles the module and key
+function panel:ToggleOnClick (button)
+	if button == "LeftButton" then
+		if( IsShiftKeyDown() ) then
+			NSO_KeyToggleOnClick()
+		else
+		-- for LeftButton, toggle the module Enabled or Disabled
+			if ( private.Options.Modules[ "WorldMap" ] ) then
+				private.Modules.Disable( "WorldMap" );
+			else
+				private.Modules.Enable( "WorldMap" );
+			end
+		end
+	end
+end
+
 --- Toggles the module like a checkbox.
 function NSO_ToggleOnClick ()
 				local enable = _NPCScanOverlayOptions.Modules.WorldMap
@@ -155,8 +172,6 @@ function NSO_ToggleOnClick ()
 					private.Modules.Enable( "WorldMap" )
 				end
 end
-
-
 
 --Toggles the display of id key frame 
 function NSO_KeyToggleOnClick ()
@@ -313,8 +328,6 @@ function panel:OnLoad ( ... )
 
 	panel.RangeRingSetTarget( WorldMapPlayerUpper );
 
-
-
 	-- Cache achievement NPC names
 	self.AchievementNPCNames = {};
 	for AchievementID in pairs( private.Achievements ) do
@@ -327,27 +340,24 @@ function panel:OnLoad ( ... )
 	end
 
 
---Adds toggle to default map dropdown
-	hooksecurefunc('WorldMapShowDropDown_Initialize', function()
-		UIDropDownMenu_AddButton {
-			text = L.MODULE_WORLDMAP_TOGGLE,
-			func = NSO_ToggleOnClick,
-			checked = _NPCScanOverlayOptions.Modules.WorldMap,
-			keepShownOnClick = true,
-			isNotRadio = true,
-		}
-
-		UIDropDownMenu_AddButton{
-			text = L.MODULE_WORLDMAP_KEYTOGGLE,
-			func = NSO_KeyToggleOnClick,
-			checked = _NPCScanOverlayOptions.ShowKey,
-			keepShownOnClick = true,
-			isNotRadio = true,
-		}
-			end)
-
-		WorldMapFrame:HookScript( "OnHide", WorldMapFrameOnHide );
-		WorldMapFrame:HookScript( "OnShow", WorldMapFrameOnShow );
+-- Add toggle button
+	local Toggle = CreateFrame( "CheckButton", nil, WorldMapButton );
+	self.Toggle = Toggle;
+	Toggle:SetScript( "OnClick", panel.ToggleOnClick );
+	Toggle:SetScript( "OnEnter", panel.ToggleOnEnter );
+	Toggle:SetScript( "OnLeave", panel.ToggleOnLeave );
+	local Normal = Toggle:CreateTexture();
+	Toggle.Normal = Normal;
+	Normal:SetTexture( [[Interface\Icons\INV_Misc_EngGizmos_20]] );
+	Normal:SetAllPoints();
+	Toggle:RegisterForClicks("AnyUp")
+	Toggle:SetNormalTexture( Normal );
+	Toggle:SetSize( 22, 22 );
+	Toggle:ClearAllPoints()
+	Toggle:SetPoint("BOTTOMLEFT", WorldMapButton, "TOPLEFT", 0,10)
+	
+	--WorldMapFrame:HookScript( "OnHide", WorldMapFrameOnHide );
+	--WorldMapFrame:HookScript( "OnShow", WorldMapFrameOnShow );
 
 	return self.super.OnLoad( self, ... );
 end
