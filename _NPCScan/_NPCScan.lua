@@ -26,6 +26,7 @@ private.Frame = _G.CreateFrame("Frame")
 private.Frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 private.Frame:RegisterEvent("PLAYER_LEAVING_WORLD")
 private.Frame:RegisterEvent("PLAYER_UPDATE_RESTING")
+--private.Frame:RegisterEvent("VIGNETTE_ADDED")  --Disabled until Blizzard fixes bug with GetVignetteInfoFromInstanceID
 private.Frame:SetScript("OnEvent", function(self, event_name, ...)
 	if self[event_name] then
 		return self[event_name](self, event_name, ...)
@@ -98,6 +99,7 @@ private.OptionsCharacterDefault = {
 	AlertSound = nil, -- Default sound
 	CacheWarnings = true,
 	FlightSupress = true,
+	TargetIcon = 8, --Skull
 	TrackBeasts = true,
 	TrackRares = true,
 }
@@ -563,6 +565,17 @@ function private.SetAlertSound(alert_sound)
 	end
 end
 
+--- Sets the icon to display over found NPC.
+
+function private.SetTargetIcon(icon)
+	if icon == nil then icon = 8 end
+		private.OptionsCharacter.TargetIcon = icon
+		local iconinfo = UnitPopupButtons["RAID_TARGET_"..icon]
+		local text = iconinfo.text
+		local colorCode = string.format("|cFF%02x%02x%02x", iconinfo.color.r*255, iconinfo.color.g*255, iconinfo.color.b*255);
+
+		_G.UIDropDownMenu_SetText(private.Config.alert_icon_dropdown, colorCode..text)
+end
 
 --- Enables Blocking alerts while on taxi.
 -- @return True if changed.
@@ -634,6 +647,7 @@ function private.Synchronize(options, character_options)
 	private.SetPrintTime(options.PrintTime)
 	private.SetAchievementsAddFound(character_options.AchievementsAddFound)
 	private.SetAlertSoundUnmute(character_options.AlertSoundUnmute)
+	private.SetTargetIcon(character_options.TargetIcon)
 	private.SetAlertSound(character_options.AlertSound)
 	private.SetBlockFlightScan(character_options.FlightSupress)
 	private.SetRareMob("BEASTS", character_options.TrackBeasts)
@@ -1011,6 +1025,21 @@ function private.Frame:ZONE_CHANGED_NEW_AREA(event_name)
 	self[event_name] = nil
 
 	private.Updater:SetScript("OnLoop", private.Updater.OnLoop)
+end
+
+-- Vignette alert,  Currently does not work due to bugs with instanceid assignment
+-- Will revisit again when 5.4.2 is released to see if issue is resolved
+-- Refrence: http://wowpedia.org/API_C_Vignettes.GetVignetteInfoFromInstanceID
+function private.Frame:VIGNETTE_ADDED (event, instanceid, ...)
+	if not instanceid then
+		return
+	end
+	local x, y, name, iconid = C_Vignettes.GetVignetteInfoFromInstanceID(instanceid)
+	-- iconid seems to be 40:chests, 41:mobs
+	if not name then
+		return
+	end
+--
 end
 
 
