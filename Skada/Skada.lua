@@ -1,5 +1,5 @@
 
-local Skada = LibStub("AceAddon-3.0"):NewAddon("Skada", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
+local Skada = LibStub("AceAddon-3.0"):NewAddon("Skada", "AceConsole-3.0", "AceTimer-3.0")
 _G.Skada = Skada
 
 local L = LibStub("AceLocale-3.0"):GetLocale("Skada", false)
@@ -9,6 +9,7 @@ local media = LibStub("LibSharedMedia-3.0")
 local boss = LibStub("LibBossIDs-1.0")
 local lds = LibStub:GetLibrary("LibDualSpec-1.0", 1)
 local dataobj = ldb:NewDataObject("Skada", {label = "Skada", type = "data source", icon = "Interface\\Icons\\Spell_Lightning_LightningBolt01", text = "n/a"})
+local popup, cleuFrame
 
 -- Returns the group type (i.e., "party" or "raid") and the size of the group.
 function Skada:GetGroupTypeAndCount()
@@ -28,7 +29,11 @@ function Skada:GetGroupTypeAndCount()
 end
 
 do
-	local popup = CreateFrame("Frame", nil, UIParent)
+	popup = CreateFrame("Frame", nil, UIParent) -- Recycle the popup frame as an event handler.
+	popup:SetScript("OnEvent", function(frame, event)
+		Skada[event](Skada)
+	end)
+
 	popup:SetBackdrop({bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background-Dark",
 		edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
 		tile = true, tileSize = 16, edgeSize = 16,
@@ -39,8 +44,7 @@ do
 	popup:SetFrameStrata("DIALOG")
 	popup:Hide()
 
-	local text = popup:CreateFontString()
-	text:SetFontObject(ChatFontNormal)
+	local text = popup:CreateFontString(nil, "ARTWORK", "ChatFontNormal")
 	text:SetPoint("TOP", popup, "TOP", 0, -10)
 	text:SetText(L["Do you want to reset Skada?"])
 
@@ -712,12 +716,14 @@ function Skada:SetActive(enable)
 			win:Show()
 		end
 		disabled = false
+		cleuFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	else
 		for i, win in ipairs(windows) do
 			win:Hide()
 		end
 		if self.db.profile.hidedisables then
 			disabled = true
+			cleuFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 		end
 	end
 end
@@ -849,8 +855,8 @@ local function check_for_join_and_leave()
 		end
 
 		-- Show window if we have enabled the "Hide when solo" option.
-		-- But only when NOT in pvp and it's set to hide in pvp.
-        if Skada.db.profile.hidesolo and (Skada.db.profile.hidepvp and not is_in_pvp()) then
+		-- But only when NOT in pvp if it's set to hide in pvp.
+		if Skada.db.profile.hidesolo and not (Skada.db.profile.hidepvp and is_in_pvp()) then
 			Skada:SetActive(true)
 		end
 	end
@@ -1381,11 +1387,8 @@ local RAID_FLAGS = COMBATLOG_OBJECT_AFFILIATION_MINE + COMBATLOG_OBJECT_AFFILIAT
 -- On a new event, loop through the interested parties.
 -- The flags are checked, and the flag value (say, that the SRC must be interesting, ie, one of the raid) is only checked once, regardless
 -- of how many modules are interested in the event. The check is also only done on the first flag that requires it.
-local function COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, eventtype, hideCaster, srcGUID, srcName, srcFlags, srcRaidFlags, dstGUID, dstName, dstFlags, dstRaidFlags, ...)
-	if disabled then
-		return
-	end
-
+cleuFrame = CreateFrame("Frame") -- Dedicated event handler for a small performance improvement.
+cleuFrame:SetScript("OnEvent", function(frame, event, timestamp, eventtype, hideCaster, srcGUID, srcName, srcFlags, srcRaidFlags, dstGUID, dstName, dstFlags, dstRaidFlags, ...)
 	local src_is_interesting = nil
 	local dst_is_interesting = nil
 	local src_is_interesting_nopets = nil
@@ -1527,11 +1530,19 @@ local function COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, eventtype, hideCast
 			end
 		end
 	end
-
-end
+end)
 
 function Skada:AssignPet(ownerguid, ownername, petguid)
 	pets[petguid] = {id = ownerguid, name = ownername}
+end
+
+function Skada:ENCOUNTER_START()
+	--Skada.current.mobname = dstName
+	--Skada.current.gotboss = true
+end
+
+function Skada:ENCOUNTER_END()
+	
 end
 
 --
@@ -2108,15 +2119,18 @@ end
 function Skada:OnEnable()
 	self:ReloadSettings()
 
+	cleuFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-	self:RegisterEvent("GROUP_ROSTER_UPDATE")
-	self:RegisterEvent("UNIT_PET")
-	self:RegisterEvent("PLAYER_REGEN_DISABLED")
-	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED", COMBAT_LOG_EVENT_UNFILTERED)
+	popup:RegisterEvent("PLAYER_ENTERING_WORLD")
+	popup:RegisterEvent("GROUP_ROSTER_UPDATE")
+	popup:RegisterEvent("UNIT_PET")
+	popup:RegisterEvent("PLAYER_REGEN_DISABLED")
 
-	self:RegisterEvent("PET_BATTLE_OPENING_START")
-	self:RegisterEvent("PET_BATTLE_CLOSE")
+	popup:RegisterEvent("PET_BATTLE_OPENING_START")
+	popup:RegisterEvent("PET_BATTLE_CLOSE")
+
+	popup:RegisterEvent("ENCOUNTER_START")
+	popup:RegisterEvent("ENCOUNTER_END")
 
 	if type(CUSTOM_CLASS_COLORS) == "table" then
 		Skada.classcolors = CUSTOM_CLASS_COLORS
@@ -2128,6 +2142,8 @@ function Skada:OnEnable()
 end
 
 function Skada:OnDisable()
+	cleuFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	popup:UnregisterAllEvents()
 	-- Save some settings.
 	self.char.selectedset = selectedset
 	if selectedmode then
