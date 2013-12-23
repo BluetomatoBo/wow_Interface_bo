@@ -1,3 +1,12 @@
+[b]1.85[/b]
+*Added Currencies in the tooltip
+*Added Professions in the tooltip
+*Changed the coloring and player status method
+*Simplified and renamed some functions
+*Added modifier(s) e.g. lures, on fishing level display
+*Rearranged the tooltip options a bit
+*Locales cleanup
+
 [b]1.82[/b]
 *updated LibTourist for Timeless Isle
 *minor fixes

@@ -14,7 +14,7 @@ a plugin for ElvUI, that adds player location and coords + 2 Datatexts
 
 ]]--
 
-local E, L, V, P, G, _ = unpack(ElvUI); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB, Localize Underscore
+local E, L, V, P, G, _ = unpack(ElvUI);
 local LPB = E:NewModule('LocationPlus');
 local DT = E:GetModule('DataTexts');
 local LSM = LibStub("LibSharedMedia-3.0");
@@ -28,6 +28,34 @@ local right_dtp = CreateFrame('Frame', 'RightCoordDtPanel', E.UIParent)
 
 local COORDS_WIDTH = 30 -- Coord panels width
 local classColor = RAID_CLASS_COLORS[E.myclass] -- for text coloring
+
+-----------------
+-- Currency Table
+-----------------
+-- Add below the currency you wish to track { id, total cap }. 
+-- Find the currency ids and the total caps here: http://www.wowhead.com/currencies .
+-- Click on the wanted currency and in the address you will see the id.
+-- e.g. for Bloody Coin, you will see http://www.wowhead.com/currency=789 . 789 is the id.
+-- So, on this case, add { 789, 0 }, (don't forget the comma).
+-- If there is no cap, type 0.
+-- If there are 0 earned points, the currency will be filtered out.
+
+local Tokens = {}
+local currency = {
+	{ 395, 4000 },	-- Justice Points
+	{ 396, 3000 },	-- Valor Points
+	{ 777, 0},		-- Timeless Coins
+	{ 697, 20 },	-- Elder Charm of Good Fortune
+	{ 738, 0 },		-- Lesser Charm of Good Fortune
+	{ 390, 10200 },	-- Conquest Points
+	{ 392, 4000 },	-- Honor Points
+	--{ 515, 0 },	-- Darkmoon Prize Ticket
+	--{ 402, 0 },	-- Ironpaw Token
+	{ 776, 10 },	-- Warforged Seal
+}
+------------------------
+-- end of Currency Table
+------------------------
 
 LPB.version = GetAddOnMetadata("ElvUI_LocPlus", "Version")
 
@@ -46,11 +74,12 @@ do
 end
 
 -- Status
-local function LocStatus(status, r, g, b)
+local function GetStatus(color)
 	local status = ""
 	local statusText
 	local r, g, b = 1, 1, 0
-	local pvpType, _, factionName = GetZonePVPInfo()
+	local pvpType = GetZonePVPInfo()
+	local inInstance, _ = IsInInstance()
 		if (pvpType == "sanctuary") then
 			status = SANCTUARY_TERRITORY
 			r, g, b = 0.41, 0.8, 0.94
@@ -58,10 +87,10 @@ local function LocStatus(status, r, g, b)
 			status = ARENA
 			r, g, b = 1, 0.1, 0.1
 		elseif(pvpType == "friendly") then
-			status = FRIENDLY.." "..FACTION_CONTROLLED_TERRITORY:format(factionName)
+			status = FRIENDLY
 			r, g, b = 0.1, 1, 0.1
 		elseif(pvpType == "hostile") then
-			status = HOSTILE.." "..FACTION_CONTROLLED_TERRITORY:format(factionName)
+			status = HOSTILE
 			r, g, b = 1, 0.1, 0.1
 		elseif(pvpType == "contested") then
 			status = CONTESTED_TERRITORY
@@ -69,16 +98,23 @@ local function LocStatus(status, r, g, b)
 		elseif(pvpType == "combat" ) then
 			status = COMBAT
 			r, g, b = 1, 0.1, 0.1
+		elseif inInstance then
+			status = AGGRO_WARNING_IN_INSTANCE
+			r, g, b = 1, 0.1, 0.1
 		else
 			status = CONTESTED_TERRITORY
 		end
 
 	statusText = string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, status)
-	return statusText
+	if color then
+		return r, g, b
+	else
+		return statusText
+	end
 end
 
 -- Dungeon coords
-local function LocDungCoords(zone)
+local function GetDungeonCoords(zone)
 	local z, x, y = "", 0, 0;
 	local dcoords
 	
@@ -100,7 +136,7 @@ local function LocDungCoords(zone)
 end
 
 -- PvP/Raid filter
- local function LocPvPorRaid(zone)
+ local function PvPorRaidFilter(zone)
 
 	local isPvP, isRaid;
 	
@@ -125,44 +161,25 @@ end
 
 end
 
-local function LocRecFilter(zone)
-	
-	local isHd, isAl
-	
-	isHd = nil
-	isAl = nil
-	
-	if tourist:IsHorde(zone) then
-		isHd = true
-	end
-	
-	if tourist:IsAlliance(zone) then
-		isAl = true
-	end
-	
-	return (isHd or "")..(isAl or "")
-end
-
 -- Recommended zones
-local function LocRecZones(zone)
+local function GetRecomZones(zone)
 
 	local low, high = tourist:GetLevel(zone)
 	local r, g, b = tourist:GetLevelColor(zone)
 	local zContinent = tourist:GetContinent(zone)
 	
-	if LocPvPorRaid(zone) == nil then return end
+	if PvPorRaidFilter(zone) == nil then return end
 	
 	GameTooltip:AddDoubleLine(
 	"|cffffffff"..zone
-	..LocPvPorRaid(zone) or "",
-	--..LocRecFilter(zone) or "",
+	..PvPorRaidFilter(zone) or "",
 	string.format("|cff%02xff00%s|r", continent == zContinent and 0 or 255, zContinent)
 	..(" |cff%02x%02x%02x%s|r"):format(r *255, g *255, b *255,(low == high and low or ("%d-%d"):format(low, high))));
 
 end
 
 -- Dungeons in the zone
-local function LocDungZones(zone)
+local function GetZoneDungeons(zone)
 
 	local low, high = tourist:GetLevel(zone)
 	local r, g, b = tourist:GetLevelColor(zone)
@@ -171,26 +188,26 @@ local function LocDungZones(zone)
 	local groupSizeStyle = (groupSize > 0 and string.format("|cFFFFFF00|r (%d", groupSize) or "")
 	local altGroupSizeStyle = (altGroupSize > 0 and string.format("|cFFFFFF00|r/%d", altGroupSize) or "")
 
-	if LocPvPorRaid(zone) == nil then return end
+	if PvPorRaidFilter(zone) == nil then return end
 	
 	GameTooltip:AddDoubleLine(
 	"|cffffffff"..zone
 	..(groupSizeStyle or "")
 	..(altGroupSizeStyle or "").."-"..PLAYER..") "
-	..LocDungCoords(zone)
-	..LocPvPorRaid(zone) or "",
+	..GetDungeonCoords(zone)
+	..PvPorRaidFilter(zone) or "",
 	("|cff%02x%02x%02x%s|r"):format(r *255, g *255, b *255,(low == high and low or ("%d-%d"):format(low, high))))
 
 end
 
 -- Recommended Dungeons
-local function LocRecDung(zone)
+local function GetRecomDungeons(zone)
 		
 	local low, high = tourist:GetLevel(zone);	
 	local r, g, b = tourist:GetLevelColor(zone);
 	local instZone = tourist:GetInstanceZone(zone);
 	
-	if LocPvPorRaid(zone) == nil then return end
+	if PvPorRaidFilter(zone) == nil then return end
 	
 	if instZone == nil then
 		instZone = ""
@@ -201,46 +218,110 @@ local function LocRecDung(zone)
 	GameTooltip:AddDoubleLine(
 	"|cffffffff"..zone
 	..instZone
-	..LocDungCoords(zone)
-	..LocPvPorRaid(zone) or "",
+	..GetDungeonCoords(zone)
+	..PvPorRaidFilter(zone) or "",
 	("|cff%02x%02x%02x%s|r"):format(r *255, g *255, b *255,(low == high and low or ("%d-%d"):format(low, high))))
 
 end
 
--- fishing
-local function LocFishing(minFish)
-	local zt = GetRealZoneText() or UNKNOWN;
-	local name = UnitName("player")
-	local curPos = (zt..": ") or "";
-	
+-- Icons on Location Panel
+local FISH_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\fish.tga:14:14|t"
+local PET_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\pet.tga:14:14|t"
+local LEVEL_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\levelup.tga:14:14|t"
+
+-- Get Fishing Level
+local function GetFishingLvl(minFish, ontt)
+	local zoneText = GetRealZoneText()
+	local minFish = tourist:GetFishingLevel(zoneText)
 	local _, _, _, fishing = GetProfessions()
 	local r, g, b = 1, 0, 0
 	local r1, g1, b1 = 1, 0, 0
-	local playerFlvl
-	if fishing ~= nil then
-		_, _, playerFlvl = GetProfessionInfo(fishing)
-		if minFish < playerFlvl then
-			r, g, b = 0, 1, 0
-			r1, g1, b1 = 0, 1, 0
-		elseif minFish == playerFlvl then
-			r, g, b = 1, 1, 0
-			r1, g1, b1 = 1, 1, 0
+	local rank
+	if minFish then
+		if fishing ~= nil then
+			_, _, rank, _, _, _, _, rankModifier = GetProfessionInfo(fishing)
+			if minFish < rank then
+				r, g, b = 0, 1, 0
+				r1, g1, b1 = 0, 1, 0
+			elseif minFish == rank then
+				r, g, b = 1, 1, 0
+				r1, g1, b1 = 1, 1, 0
+			end
+		end
+		
+		if ontt then
+			return (string.format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, minFish))
+		else
+			local dfish
+			if (rankModifier and rankModifier > 0) then
+				dfish = string.format("|cff%02x%02x%02x%d|r", r1*255, g1*255, b1*255, rank)..(string.format("|cFF6b8df4+%s|r", rankModifier)).."/"..(string.format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, minFish)) or ""
+			else
+				dfish = string.format("|cff%02x%02x%02x%d|r", r1*255, g1*255, b1*255, rank).."-"..(string.format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, minFish)) or ""
+			end
+
+			if E.db.locplus.showicon then
+				return " ("..dfish..") "..FISH_ICON
+			else
+				return " ("..dfish..")"
+			end
+		end
+	else
+		return ""
+	end
+end
+
+-- PetBattle Range
+local function GetBattlePetLvl(zoneText, ontt)
+	local mapID = GetCurrentMapAreaID()
+	local zoneText = GetMapNameByID(mapID) or UNKNOWN;
+
+	local low,high = tourist:GetBattlePetLevel(zoneText)
+	local plevel
+	if low ~= nil or high ~= nil then
+		if low ~= high then
+			plevel = string.format("%d-%d", low, high)
+		else
+			plevel = string.format("%d", high)
+		end
+		if ontt then
+			return plevel
+		else
+			if E.db.locplus.showicon then
+				plevel = " ("..plevel..") "..PET_ICON
+			else
+				plevel = " ("..plevel..")"
+			end
 		end
 	end
-
-	return (name..": "..string.format("|cff%02x%02x%02x%d|r", r1*255, g1*255, b1*255, playerFlvl).." - "..curPos..(string.format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, minFish)))
-
+	
+	return plevel or ""
 end
 
 -- Zone level range
-local function LocLevelRange(zoneText)
+local function GetLevelRange(zoneText, ontt)
+	local zoneText = GetRealZoneText()
 	local low, high = tourist:GetLevel(zoneText)
-	if low >= 1 and high >= 1 then
+	local dlevel
+	if low > 0 and high > 0 then
 		local r, g, b = tourist:GetLevelColor(zoneText)
-		return string.format("|cff%02x%02x%02x %d-%d|r", r*255, g*255, b*255, low, high) or ""
+		if low ~= high then
+			dlevel = string.format("|cff%02x%02x%02x%d-%d|r", r*255, g*255, b*255, low, high) or ""
+		else
+			dlevel = string.format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, high) or ""
+		end
+		
+		if ontt then
+			return dlevel
+		else
+			if E.db.locplus.showicon then
+				dlevel = " ("..dlevel..") "..LEVEL_ICON
+			else
+				dlevel = " ("..dlevel..")"
+			end
+		end
 	end
 	
-	return ""
+	return dlevel or ""
 end
 
 function LPB:UpdateTooltip()
@@ -258,16 +339,16 @@ function LPB:UpdateTooltip()
 	GameTooltip:AddDoubleLine(CONTINENT.." : ", tourist:GetContinent(zoneText), 1, 1, 1, selectioncolor)
 	
 	-- Home
-	GameTooltip:AddDoubleLine(HOME.." :", GetBindLocation(), 1, 1, 1, selectioncolor)
+	GameTooltip:AddDoubleLine(HOME.." :", GetBindLocation(), 1, 1, 1, 0.41, 0.8, 0.94)
 	
 	-- Status
 	if E.db.locplus.ttst then
-		GameTooltip:AddDoubleLine(STATUS.." :", LocStatus(statusText), 1, 1, 1)
+		GameTooltip:AddDoubleLine(STATUS.." :", GetStatus(), 1, 1, 1)
 	end
 	
     -- Zone level range
 	if E.db.locplus.ttlvl then
-		local checklvl = LocLevelRange(zoneText)
+		local checklvl = GetLevelRange(zoneText, true)
 		if checklvl ~= "" then
 			GameTooltip:AddDoubleLine(LEVEL_RANGE.." : ", checklvl, 1, 1, 1, r, g, b)
 		end
@@ -275,17 +356,17 @@ function LPB:UpdateTooltip()
 	
 	-- Fishing
 	if E.db.locplus.fish then
-		local minFish = tourist:GetFishingLevel(zoneText)
-		if minFish then
-			GameTooltip:AddDoubleLine(PROFESSIONS_FISHING.." : ", LocFishing(minFish), 1, 1, 1, r, g, b)
+		local checkfish = GetFishingLvl(minFish, true)
+		if checkfish ~= "" then
+			GameTooltip:AddDoubleLine(PROFESSIONS_FISHING.." : ", checkfish, 1, 1, 1, r, g, b)
 		end
 	end
 	
 	-- Battle Pet Levels
 	if E.db.locplus.petlevel then
-		local low,high = tourist:GetBattlePetLevel(zoneText)
-		if low ~= nil or high ~= nil then
-			GameTooltip:AddDoubleLine(L["Battle Pet level"].. " :", low == high and low or string.format("%d-%d", low, high), 1, 1, 1, selectioncolor)
+		local checkbpet = GetBattlePetLvl(zoneText, true)
+		if checkbpet ~= "" then
+			GameTooltip:AddDoubleLine(L["Battle Pet level"].. " :", checkbpet, 1, 1, 1, selectioncolor)
 		end
 	end
 
@@ -295,7 +376,7 @@ function LPB:UpdateTooltip()
 		GameTooltip:AddLine(L["Recommended Zones :"], selectioncolor)
 	
 		for zone in tourist:IterateRecommendedZones() do
-			LocRecZones(zone);
+			GetRecomZones(zone);
 		end		
 	end
 	
@@ -305,7 +386,7 @@ function LPB:UpdateTooltip()
 		GameTooltip:AddLine(format(curPos..DUNGEONS.." :"), selectioncolor)
 			
 		for zone in tourist:IterateZoneInstances(zoneText) do
-			LocDungZones(zone);
+			GetZoneDungeons(zone);
 		end	
 	end
 	
@@ -316,18 +397,58 @@ function LPB:UpdateTooltip()
 		GameTooltip:AddLine(L["Recommended Dungeons :"], selectioncolor)
 			
 		for zone in tourist:IterateRecommendedInstances() do
-			LocRecDung(zone);
+			GetRecomDungeons(zone);
 		end
+	end
+	
+	-- Currency
+	local numEntries = GetCurrencyListSize() -- Check for entries to disable the tooltip title when no currency
+	if E.db.locplus.curr and numEntries > 3 then
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine(CURRENCY.." :", selectioncolor)
+
+		for i, v in ipairs(currency) do
+			local id, max = unpack(v)
+			local name, amount, icon = GetCurrencyInfo(id)
+			icon = ("|T%s:12:12:1:0|t"):format(icon)
+			if(name and amount > 0) then
+				if max == 0 then
+					GameTooltip:AddDoubleLine(icon..format(" %s : ", name), format("%s", amount ), 1, 1, 1, selectioncolor)
+				else
+					GameTooltip:AddDoubleLine(icon..format(" %s : ", name), format("%s / %s", amount, max ), 1, 1, 1, selectioncolor)
+				end
+			end
+		end
+	end
+	
+	-- Professions
+	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
+	if E.db.locplus.prof and (prof1 or prof2 or archy or fishing or cooking or firstAid) then	
+		GameTooltip:AddLine(" ")
+		GameTooltip:AddLine(TRADE_SKILLS.." :", selectioncolor)
+		
+		local proftable = { GetProfessions() }
+		for _, id in pairs(proftable) do
+			local name, icon, rank, maxRank, _, _, _, rankModifier = GetProfessionInfo(id)
+			icon = ("|T%s:12:12:1:0|t"):format(icon)
+			if rank < 600 or (not E.db.locplus.profcap) then
+				if (rankModifier and rankModifier > 0) then
+					GameTooltip:AddDoubleLine(format("%s %s :", icon, name), (format("%s |cFF6b8df4+ %s|r / %s", rank, rankModifier, maxRank)), 1, 1, 1, selectioncolor)				
+				else
+					GameTooltip:AddDoubleLine(format("%s %s :", icon, name), (format("%s / %s", rank, maxRank)), 1, 1, 1, selectioncolor)
+				end
+			end
+		end	
 	end
 	
 	-- Hints
 	if E.db.locplus.tt then
 		if E.db.locplus.tthint then
 			GameTooltip:AddLine(" ")
-			GameTooltip:AddDoubleLine(L["Click : "], L["Toggle WorldMap"],0.7,0.7,1,0.7,0.7,1)
-			GameTooltip:AddDoubleLine(L["RightClick : "], L["Toggle Configuration"],0.7,0.7,1,0.7,0.7,1)
-			GameTooltip:AddDoubleLine(L["ShiftClick : "], L["Send position to chat"],0.7,0.7,1,0.7,0.7,1)
-			GameTooltip:AddDoubleLine(L["CtrlClick : "], L["Toggle Datatexts"],0.7,0.7,1,0.7,0.7,1)
+			GameTooltip:AddDoubleLine(L["Click : "], L["Toggle WorldMap"], 0.7, 0.7, 1, 0.7, 0.7, 1)
+			GameTooltip:AddDoubleLine(L["RightClick : "], L["Toggle Configuration"],0.7, 0.7, 1, 0.7, 0.7, 1)
+			GameTooltip:AddDoubleLine(L["ShiftClick : "], L["Send position to chat"],0.7, 0.7, 1, 0.7, 0.7, 1)
+			GameTooltip:AddDoubleLine(L["CtrlClick : "], L["Toggle Datatexts"],0.7, 0.7, 1, 0.7, 0.7, 1)
 		end
 		GameTooltip:Show()
 	else
@@ -366,6 +487,7 @@ local function LocPanelOnFade()
 	LocationPlusPanel:Hide()
 end
 
+-- Coords Creation
 function LPB:CreateCoords()
 	local x, y = GetPlayerMapPosition("player")
 	local dig
@@ -420,88 +542,6 @@ local function unpackColor(color)
 	return color.r, color.g, color.b
 end
 
-local FISH_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\fish.tga:14:14|t"
-local PET_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\pet.tga:14:14|t"
-local LEVEL_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\levelup.tga:14:14|t"
-
--- Simple PetBattle Range
-local function LocSimplePet(zoneText)
-
-	local low,high = tourist:GetBattlePetLevel(zoneText)
-	local plevel
-	if low ~= nil or high ~= nil then
-		if E.db.locplus.showicon then
-			if low ~= high then
-				plevel = string.format(" (%d-%d)"..PET_ICON, low, high)
-			else
-				plevel = string.format(" (%d)"..PET_ICON, high)
-			end
-		else
-			if low ~= high then
-				plevel = string.format(" (%d-%d) ", low, high)
-			else
-				plevel = string.format(" (%d) ", high)
-			end
-		end
-	end
-	
-	return plevel
-end
-
--- Zone level range
-local function LocSimpleLevelRange(zoneText)
-	local zoneText = GetRealZoneText()
-	local low, high = tourist:GetLevel(zoneText)
-	local dlevel
-	if low > 0 and high > 0 then
-		local r, g, b = tourist:GetLevelColor(zoneText)
-		if low ~= high then
-			dlevel = string.format("|cff%02x%02x%02x (%d-%d) |r", r*255, g*255, b*255, low, high) or ""
-		else
-			dlevel = string.format("|cff%02x%02x%02x (%d) |r", r*255, g*255, b*255, high) or ""
-		end
-		
-		if E.db.locplus.showicon then
-			return dlevel..LEVEL_ICON
-		else
-			return dlevel
-		end
-	end
-	
-	return ""
-end
-
--- Simple Fishing Level
-local function LocSimpleFishing(minFish)
-	local zoneText = GetRealZoneText()
-	local minFish = tourist:GetFishingLevel(zoneText)
-	local _, _, _, fishing = GetProfessions()
-	local r, g, b = 1, 0, 0
-	local r1, g1, b1 = 1, 0, 0
-	local playerFlvl
-	if minFish then
-		if fishing ~= nil then
-			_, _, playerFlvl = GetProfessionInfo(fishing)
-			if minFish < playerFlvl then
-				r, g, b = 0, 1, 0
-				r1, g1, b1 = 0, 1, 0
-			elseif minFish == playerFlvl then
-				r, g, b = 1, 1, 0
-				r1, g1, b1 = 1, 1, 0
-			end
-		end
-		
-		local dfish = string.format(" (|cff%02x%02x%02x%d|r", r1*255, g1*255, b1*255, playerFlvl).."-"..(string.format("|cff%02x%02x%02x%d|r) ", r*255, g*255, b*255, minFish)) or ""
-		if E.db.locplus.showicon then
-			return dfish..FISH_ICON
-		else
-			return dfish
-		end
-	else
-		return ""
-	end
-end
-
 -- Location panel
 function LPB:CreateLocPanel()
 	local loc_panel = CreateFrame('Frame', 'LocationPlusPanel', E.UIParent)
@@ -536,17 +576,17 @@ function LPB:CreateLocPanel()
 		
 		-- Show Other (Level, Battle Pet Level, Fishing)
 		if E.db.locplus.displayOther == 'RLEVEL' then
-			local displaylvl = LocSimpleLevelRange(zoneText) or ""
+			local displaylvl = GetLevelRange(zoneText) or ""
 			if displaylvl ~= "" then
 				displayLine = displayLine..displaylvl
 			end
 		elseif E.db.locplus.displayOther == 'PET' then
-			local displaypet = LocSimplePet(zoneText) or ""
+			local displaypet = GetBattlePetLvl(zoneText) or ""
 			if displaypet ~= "" then
 				displayLine = displayLine..displaypet
 			end
 		elseif E.db.locplus.displayOther == 'PFISH' then
-			local displayfish = LocSimpleFishing(minFish) or ""
+			local displayfish = GetFishingLvl(minFish) or ""
 			if displayfish ~= "" then
 				displayLine = displayLine..displayfish
 			end
@@ -554,27 +594,17 @@ function LPB:CreateLocPanel()
 			displayLine = displayLine
 		end
 		
+		self.Text:SetText(displayLine)
+		
 		-- Coloring
 		if displayLine ~= "" then
-			local inInstance, _ = IsInInstance()
-			local pvpType = GetZonePVPInfo()
-			local r1, g1, b1 = tourist:GetFactionColor(zoneText)
-			
-			self.Text:SetText(displayLine)
-			
 			if E.db.locplus.customColor == 1 then
-				if inInstance then
-					self.Text:SetText(string.format("|cff%02x%02x%02x%s|r", 255, 77, 0, displayLine)) -- Redish color when in an instance
-				elseif (pvpType == "sanctuary") then
-					self.Text:SetText(string.format("|cff%02x%02x%02x%s|r", 104.55, 204, 239.7, displayLine)) -- LibTourist sanctuary coloring fix
-				else
-					self.Text:SetTextColor(r1*255, g1*255, b1*255)
-				end
+				self.Text:SetTextColor(GetStatus(true))
 			elseif E.db.locplus.customColor == 2 then
 				self.Text:SetTextColor(classColor.r, classColor.g, classColor.b)
 			else
 				self.Text:SetTextColor(unpackColor(E.db.locplus.userColor))
-			end		
+			end
 		end
 		
 		-- Sizing
@@ -627,7 +657,7 @@ function LPB:CreateLocPanel()
 	E:CreateMover(LocationPlusPanel, "LocationMover", L["LocationPlus "])
 end
 
-local function LocHideDt()
+local function HideDT()
 	if E.db.locplus.dtshow then
 		RightCoordDtPanel:Show()
 		LeftCoordDtPanel:Show()
@@ -668,7 +698,7 @@ function LPB:DTHeight()
 end
 
 -- Fonts
-function LPB:LocCoordPanelFont()
+function LPB:ChangeFont()
 
 	E["media"].lpFont = LSM:Fetch("font", E.db.locplus.lpfont)
 
@@ -786,7 +816,7 @@ function LPB:CreateCoordPanels()
 end
 
 -- Coord panels width
-function LPB:CoordsDig()
+function LPB:CoordsDigit()
 	if E.db.locplus.dig then
 		XCoordsPanel:SetWidth(COORDS_WIDTH*1.5)
 		YCoordsPanel:SetWidth(COORDS_WIDTH*1.5)
@@ -830,13 +860,13 @@ function LPB:LocPlusUpdate()
 	self:TransparentPanels()
 	self:ShadowPanels()
 	self:DTHeight()
-	LocHideDt()
-	self:CoordsDig()
+	HideDT()
+	self:CoordsDigit()
 	self:MouseOver()
 end
 
 -- Defaults in case something is wrong on first load
-function LPB:LocDefault()
+function LPB:LocPlusDefaults()
 	if E.db.locplus.lpwidth == nil then
 		E.db.locplus.lpwidth = 200
 	end	
@@ -855,13 +885,13 @@ local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent",function(self, event)
 	if event == "PLAYER_ENTERING_WORLD" then
-		LPB:LocCoordPanelFont()
+		LPB:ChangeFont()
 		f:UnregisterEvent("PLAYER_ENTERING_WORLD")
 	end
 end)
 
 function LPB:Initialize()
-	self:LocDefault()
+	self:LocPlusDefaults()
 	self:CreateLocPanel()
 	self:CreateDTPanels()
 	self:CreateCoordPanels()
