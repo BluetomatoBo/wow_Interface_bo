@@ -751,6 +751,7 @@ private.L.NPCs["73282"] = "Garnia"
 private.L.NPCs["73293"] = "Siffleur"
 private.L.NPCs["73666"] = "Archiprêtre de flammes"
 private.L.NPCs["73704"] = "Fouettnatte"
+-- private.L.NPCs["73854"] = "Cranegnasher"
 private.L.NPCs["763"] = "Chef Perdu"
 private.L.NPCs["7846"] = "Teremus le Dévoreur"
 private.L.NPCs["79"] = "Narg le Sous-chef"
@@ -876,6 +877,8 @@ private.L["SEARCH_WORLD_FORMAT"] = "(%s)"
 private.L["TAMEDBEASTS"] = "Bêtes domptables" -- Needs review
 private.L["TIME_FORMAT"] = "|cff808080[%H:%M:%S]|r "
 private.L["TOOLS_TITLE"] = "|cff808080Outils|r"
+-- private.L["VIGNETTE_SCAN"] = "Show alerts for Vignette Mobs"
+-- private.L["VIGNETTE_SCAN_DESC"] = "Show alerts for Vignette Mobs.  This is a Beta Feature:  There is currently no way to filter mobs, so it will always trigger even if mob not tracked or ignored."
 
 
 _G[ "BINDING_NAME_CLICK _NPCScanButton:LeftButton" ] = [=[Cibler dernier monstre trouvé

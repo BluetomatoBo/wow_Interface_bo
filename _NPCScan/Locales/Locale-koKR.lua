@@ -751,6 +751,7 @@ private.L.NPCs["62346"] = "갈레온"
 -- private.L.NPCs["73293"] = "Whizzig"
 -- private.L.NPCs["73666"] = "Archiereus of Flame"
 -- private.L.NPCs["73704"] = "Stinkbraid"
+-- private.L.NPCs["73854"] = "Cranegnasher"
 -- private.L.NPCs["763"] = "Lost One Chieftain"
 -- private.L.NPCs["7846"] = "Teremus the Devourer"
 -- private.L.NPCs["79"] = "Narg the Taskmaster"
@@ -876,6 +877,8 @@ private.L["SEARCH_WORLD_FORMAT"] = "(%s)"
 -- private.L["TAMEDBEASTS"] = "Tameable Beasts"
 private.L["TIME_FORMAT"] = "|cff808080[%H:%M:%S]|r"
 private.L["TOOLS_TITLE"] = "|cff808080도구|r"
+-- private.L["VIGNETTE_SCAN"] = "Show alerts for Vignette Mobs"
+-- private.L["VIGNETTE_SCAN_DESC"] = "Show alerts for Vignette Mobs.  This is a Beta Feature:  There is currently no way to filter mobs, so it will always trigger even if mob not tracked or ignored."
 
 
 _G[ "BINDING_NAME_CLICK _NPCScanButton:LeftButton" ] = [=[마지막으로 탐색된 NPC 타겟

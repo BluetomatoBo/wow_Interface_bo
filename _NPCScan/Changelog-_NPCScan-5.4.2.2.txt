@@ -1,0 +1,12 @@
+tag 5.4.2.2
+47fc1597b397925ba36c1085fc244b98f697669b
+SLOKnightfall <SLOKnightfall@gmail.com>
+2013-12-24 12:19:34 -0800
+
+Pushing Changes
+
+
+--------------------
+
+SLOKnightfall:
+	- -Readded Default Mobs (Ticket 37) -Changed mob maps with nil to corect zone (Ticket 34) -Moved vignette code to its own file and implemented Vignette tracking(Ticket 38)

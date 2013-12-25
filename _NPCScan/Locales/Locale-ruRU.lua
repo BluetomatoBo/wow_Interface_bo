@@ -751,6 +751,7 @@ private.L.NPCs["73282"] = "Гарния"
 private.L.NPCs["73293"] = "Виззиг"
 private.L.NPCs["73666"] = "Архиерей пламени"
 private.L.NPCs["73704"] = "Вонекос"
+-- private.L.NPCs["73854"] = "Cranegnasher"
 private.L.NPCs["763"] = "Вождь из племени Заблудших"
 private.L.NPCs["7846"] = "Теремус Пожиратель"
 private.L.NPCs["79"] = "Нарг Надсмотрщик"
@@ -876,6 +877,8 @@ private.L["SEARCH_WORLD_FORMAT"] = "(%s)"
 private.L["TAMEDBEASTS"] = "Приручаемые существа" -- Needs review
 private.L["TIME_FORMAT"] = "|cff808080[%H:%M:%S]|r "
 private.L["TOOLS_TITLE"] = "|cff808080Инструменты|r" -- Needs review
+-- private.L["VIGNETTE_SCAN"] = "Show alerts for Vignette Mobs"
+-- private.L["VIGNETTE_SCAN_DESC"] = "Show alerts for Vignette Mobs.  This is a Beta Feature:  There is currently no way to filter mobs, so it will always trigger even if mob not tracked or ignored."
 
 
 _G[ "BINDING_NAME_CLICK _NPCScanButton:LeftButton" ] = [=[Выбрать последнее из найденных существ
