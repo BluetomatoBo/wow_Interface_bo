@@ -1,0 +1,12 @@
+tag 5.4.2.3
+3cd59583c2fc9b7b1f44fa808c7028435ed7d818
+SLOKnightfall <SLOKnightfall@gmail.com>
+2014-01-05 20:04:30 -0800
+
+-Tagging updates
+
+
+--------------------
+
+SLOKnightfall:
+	- -Alert sound not playing issue should be fixed. -Added a small mute timer so that the alert sound will not play multiple times when an alert sound is already playing.  The default is 8 seconds but can be set by changing the ALERT_SOUND_DELAY variable in TargetButton.lua

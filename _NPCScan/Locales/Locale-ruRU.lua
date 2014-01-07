@@ -751,7 +751,7 @@ private.L.NPCs["73282"] = "Гарния"
 private.L.NPCs["73293"] = "Виззиг"
 private.L.NPCs["73666"] = "Архиерей пламени"
 private.L.NPCs["73704"] = "Вонекос"
--- private.L.NPCs["73854"] = "Cranegnasher"
+private.L.NPCs["73854"] = "Журавлецап" -- Needs review
 private.L.NPCs["763"] = "Вождь из племени Заблудших"
 private.L.NPCs["7846"] = "Теремус Пожиратель"
 private.L.NPCs["79"] = "Нарг Надсмотрщик"
@@ -877,8 +877,8 @@ private.L["SEARCH_WORLD_FORMAT"] = "(%s)"
 private.L["TAMEDBEASTS"] = "Приручаемые существа" -- Needs review
 private.L["TIME_FORMAT"] = "|cff808080[%H:%M:%S]|r "
 private.L["TOOLS_TITLE"] = "|cff808080Инструменты|r" -- Needs review
--- private.L["VIGNETTE_SCAN"] = "Show alerts for Vignette Mobs"
--- private.L["VIGNETTE_SCAN_DESC"] = "Show alerts for Vignette Mobs.  This is a Beta Feature:  There is currently no way to filter mobs, so it will always trigger even if mob not tracked or ignored."
+private.L["VIGNETTE_SCAN"] = "Оповещать о НИПах с иконками" -- Needs review
+private.L["VIGNETTE_SCAN_DESC"] = "Некоторые редкие существа появляются на миникарте в виде иконок. Это позволяет повторно отслеживать их появление в зоне видимости, вне зависимости от кэша. Вы будете уведомлены в любом случае, даже если существо было исключено. Функция на данный момент является пробной." -- Needs review
 
 
 _G[ "BINDING_NAME_CLICK _NPCScanButton:LeftButton" ] = [=[Выбрать последнее из найденных существ
