@@ -44,6 +44,26 @@ do
 end
 
 do
+	--Adds Cached & Achievement complete marks to key if _NPCScan is loaded.
+	local NPCtoAchievement = {};
+	local NPCNameFromCache = nil
+	if IsAddOnLoaded("_NPCScan") then
+		do
+			local pairs = _G.pairs;
+			local achievements = _NPCScan.ACHIEVEMENTS
+			local achievement_id, criteria_id, npc_id
+			for achievement_id in pairs(achievements) do
+				for criteria_id, npc_id in pairs(achievements[achievement_id].Criteria) do
+					NPCtoAchievement[npc_id] = { AchievementID = achievement_id, CriteriaID = criteria_id};
+				end
+			end
+			NPCNameFromCache = _NPCScan.NPCNameFromCache
+		end
+	end
+	local CompletedIcon = [[|TInterface\RaidFrame\ReadyCheck-Ready:0|t]]
+	local CachedIcon = [[|TInterface\RaidFrame\ReadyCheck-NotReady:0|t]]
+	local ImageTranparent = [[|TInterface\BUTTONS\UI-PassiveHighlight:0|t]]
+
 	local Count, Height, Width;
 	--- Callback for ApplyZone to add an NPC's name to the key.
 	local function KeyAddLine ( self, PathData, FoundX, FoundY, R, G, B, NpcID )
@@ -64,7 +84,21 @@ do
 			Line:Show();
 		end
 
-		Line.Text:SetText(L.MODULE_WORLDMAP_KEY_FORMAT:format( panel.AchievementNPCNames[ NpcID ] or L.NPCs[ tostring(NpcID) ] or NpcID ) );
+		if IsAddOnLoaded("_NPCScan") then
+			local _
+			local Completed = false
+			if NPCtoAchievement[NpcID] then
+				_, _, Completed = GetAchievementCriteriaInfoByID( NPCtoAchievement[NpcID].AchievementID, NPCtoAchievement[NpcID].CriteriaID )
+			end
+			Line.Text:SetText( 
+				( NPCNameFromCache( NpcID ) and CachedIcon or ImageTranparent )..
+				( Completed and CompletedIcon or ImageTranparent )..
+				L.MODULE_WORLDMAP_KEY_FORMAT:format( panel.AchievementNPCNames[ NpcID ] or L.NPCs[ tostring(NpcID) ] or NpcID )
+			);
+		else
+			Line.Text:SetText(L.MODULE_WORLDMAP_KEY_FORMAT:format( panel.AchievementNPCNames[ NpcID ] or L.NPCs[ tostring(NpcID) ] or NpcID ) );
+		end
+		
 		Line.Text:SetTextColor( R, G, B );
 		Line:SetScript( "OnEnter", function() private.FlashRoute(NpcID) end );
 		Line:SetScript( "OnLeave", function() private.FlashStop(NpcID) end );

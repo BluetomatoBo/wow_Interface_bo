@@ -381,6 +381,7 @@ select( 2, ... ).L = setmetatable( {
 	["50364"] = "Nal'lak the Ripper",
 	["50370"] = "Karapax",
 	["50388"] = "Torik-Ethis",
+	["50409"] = "Mysterious Camel Figurine",
 	["506"] = "Sergeant Brashclaw",
 	["507"] = "Fenros",
 	["50724"] = "Spinecrawl",
