@@ -11,6 +11,35 @@ local font =					NAMEPLATE_FONT
 local EMPTY_TEXTURE = defaultArtPath.."\\Empty"
 
 
+
+--[[
+-- Prototype Tidy Plates 7.0 Theme Format
+TemplateTheme.threatborder = {
+	-- Shown Texture
+	texture =			EMPTY_TEXTURE,
+
+	-- Positioning
+	width = 128,
+	height = 64,
+	x = 0,
+	y = -5,
+	anchor = "CENTER",
+	root_object = "healthborder",		-- If  "default", use the default root and copy the self anchor point. (Core)
+	root_anchor = "CENTER",
+
+	-- Texture/Cropping Coordinates
+	left = 0,
+	right = 1,
+	top = 0,
+	bottom = 1,
+
+	-- Visibility
+	show = true,
+}
+--]]
+
+
+
 TemplateTheme.hitbox = {
 	width = 149,
 	height = 40,
@@ -67,6 +96,7 @@ TemplateTheme.threatborder = {
 	top = 0,
 	bottom = 1,
 }
+
 
 TemplateTheme.castborder = {
 	texture =					EMPTY_TEXTURE,

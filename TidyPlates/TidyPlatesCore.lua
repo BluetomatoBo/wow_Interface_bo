@@ -154,6 +154,7 @@ do
 			-- Scaling Animation
 
 			-- Alpha Animation
+			--EnableFadeIn
 			if extended.visibleAlpha ~= extended.requestedAlpha then
 				extended:SetAlpha(extended.requestedAlpha)
 				extended.visibleAlpha = extended.requestedAlpha
@@ -306,10 +307,10 @@ do
 		castbar:SetStatusBarColor(1,.8,0)
 		carrier:SetSize(16, 16)
 		-- Default Fonts
-		visual.customtext:SetFont(NAMEPLATE_FONT, 12, "NONE")
-		visual.name:SetFont(NAMEPLATE_FONT, 12, "NONE")
-		visual.level:SetFont(NAMEPLATE_FONT, 12, "NONE")
-		visual.spelltext:SetFont(NAMEPLATE_FONT, 12, "NONE")
+		visual.customtext:SetFont(STANDARD_TEXT_FONT, 12, "NONE")
+		visual.name:SetFont(STANDARD_TEXT_FONT, 12, "NONE")
+		visual.level:SetFont(STANDARD_TEXT_FONT, 12, "NONE")
+		visual.spelltext:SetFont(STANDARD_TEXT_FONT, 12, "NONE")
 
 		-- Tidy Plates Frame References
 		extended.regions = regions
@@ -573,10 +574,12 @@ do
 
 		if bars.group:GetScale() > .9 then
 			unit.platetype = 1
-			unit.isTrivial = false
+			unit.isTrivial = false; unit.isMini = false
+
 		else
 			unit.platetype = 2
-			unit.isTrivial = true
+			unit.isTrivial = true; unit.isMini = true
+
 		end
 
 		if unit.isBoss then
@@ -688,6 +691,7 @@ do
 	-- UpdateIndicator_Name:
 	function UpdateIndicator_Name()
 		visual.name:SetText(unit.name)
+
 		-- Name Color
 		if activetheme.SetNameColor then
 			visual.name:SetTextColor(activetheme.SetNameColor(unit))
@@ -831,12 +835,13 @@ do
 
 		if activetheme.SetCastbarColor then
 			r, g, b, a = activetheme.SetCastbarColor(unit)
-			if not (r and g and b) then return end
+			if not (r and g and b and a) then return end
 		end
 
 		castbar:SetValue( bar:GetValue())
 		castbar:SetMinMaxValues(bar:GetMinMaxValues())
-		castbar:SetStatusBarColor( r, g, b, a or 1)
+		castbar:SetStatusBarColor( r, g, b)
+		castbar:SetAlpha(a or 1)
 
 		visual.spelltext:SetText(unit.spellName)
 
@@ -854,7 +859,7 @@ do
 		local castbar = extended.visual.castbar
 
 		if not unit.health then return end
-		if unit.reaction == "FRIENDLY" then return end
+		--if unit.reaction == "FRIENDLY" then	return end
 
 		OnUpdateCastbar(bar)
 		castbar:Show()

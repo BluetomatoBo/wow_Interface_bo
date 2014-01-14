@@ -3,8 +3,11 @@
 -- Style Definition
 ---------------------------------------------
 local ArtworkPath = "Interface\\Addons\\TidyPlates_Neon\\"
-local font = "Interface\\Addons\\TidyPlatesHub\\shared\\AccidentalPresidency.ttf"
-local fontsize = 12;
+--local font = "Interface\\Addons\\TidyPlatesHub\\shared\\AccidentalPresidency.ttf"; local fontsize = 12;
+--local font = "Interface\\Addons\\TidyPlatesHub\\shared\\YanoneKaffeesatz-Regular.ttf"; local fontsize = 12;
+local font = "Interface\\Addons\\TidyPlatesHub\\shared\\RobotoCondensed-Bold.ttf"; local fontsize = 12;
+--print(font, fontsize)
+--local fontsize = 12;
 local EmptyTexture = "Interface\\Addons\\TidyPlatesHub\\shared\\Empty"
 local VerticalAdjustment = 12
 local CastBarHorizontalAdjustment = 22
@@ -12,8 +15,8 @@ local CastBarVerticalAdjustment = VerticalAdjustment - 18
 local NameTextVerticalAdjustment = VerticalAdjustment - 9
 
 -- Non-Latin Font Bypass
-local NonLatinLocales = { ["ruRU"] = true, ["koKR"] = true, ["zhCN"] = true, ["zhTW"] = true, } 
-if NonLatinLocales[GetLocale()] == true then font = NAMEPLATE_FONT end
+local NonLatinLocales = { ["koKR"] = true, ["zhCN"] = true, ["zhTW"] = true, }
+if NonLatinLocales[GetLocale()] == true then font = STANDARD_TEXT_FONT end
 
 
 --   /run print(TidyPlates.ActiveThemeTable["Default"].frame.y)
@@ -91,7 +94,7 @@ DefaultStyle.spelltext = {
 	width = 150,
 	height = 11,
 	x = CastBarHorizontalAdjustment - 10,
-	--NameTextVerticalAdjustment + 
+	--NameTextVerticalAdjustment +
 	y = CastBarVerticalAdjustment - 16,
 	align = "CENTER",
 	anchor = "CENTER",
@@ -107,7 +110,7 @@ DefaultStyle.threatborder = {
 	width = 256,
 	height = 64,
 	y = VerticalAdjustment + 1,
-	x = 0,	
+	x = 0,
 	show = true,
 }
 
@@ -333,7 +336,7 @@ Theme.OnApplyThemeCustomization = ApplyDamageCustomization -- Called By Hub Pane
 do
 	local TankTheme = CopyTable(Theme)
 	TidyPlatesThemeList[TankThemeName] = TankTheme
-	
+
 	local function ApplyTankCustomization()
 		ApplyThemeCustomization(TankTheme)
 	end
@@ -345,7 +348,7 @@ do
 			ApplyTankCustomization()
 		end
 	end
-	
+
 	TankTheme.OnActivateTheme = OnActivateTheme -- called by Tidy Plates Core, Theme Loader
 	TankTheme.OnApplyThemeCustomization = ApplyTankCustomization -- Called By Hub Panel
 	TankTheme.ShowConfigPanel = ShowTidyPlatesHubTankPanel
@@ -355,8 +358,8 @@ end
 do
 	local TestTheme = CopyTable(Theme)
 	TidyPlatesThemeList["Test Theme"] = TestTheme
-	
-	
+
+
 	--------------------------------------------------
 	--------------------------------------------------
 	TestTheme["Default"].healthborder.texture = ""
@@ -364,16 +367,16 @@ do
 	TestTheme["Default"].healthborder.height = 0
 	TestTheme["Default"].healthborder.x = 0
 	TestTheme["Default"].healthborder.y = 0
-	
+
 	--TestTheme["Default"].healthbar.texture =
 	--TestTheme["Default"].healthbar.backdrop =
-	
+
 	--TestTheme["NameOnly"].
 
 	--------------------------------------------------
 	--------------------------------------------------
-	
-	
+
+
 	local function ApplyTestCustomization()
 		ApplyThemeCustomization(TestTheme)
 	end
@@ -385,9 +388,9 @@ do
 			ApplyTestCustomization()
 		end
 	end
-	
 
-	
+
+
 	TestTheme.OnActivateTheme = OnActivateTestTheme -- called by Tidy Plates Core, Theme Loader
 	TestTheme.OnApplyThemeCustomization = ApplyTestCustomization -- Called By Hub Panel
 	TestTheme.ShowConfigPanel = ShowTidyPlatesHubDamagePanel
@@ -401,7 +404,7 @@ do
 	local GladiatorThemeName = "Neon/|cFFAA6600Gladiator"
 	local GladiatorTheme = CopyTable(Theme)
 	TidyPlatesThemeList[GladiatorThemeName] = GladiatorTheme
-	
+
 	local function ApplyCustomization()
 		ApplyThemeCustomization(GladiatorTheme)
 	end
@@ -412,7 +415,7 @@ do
 			ApplyCustomization()
 		end
 	end
-	
+
 	GladiatorTheme.OnActivateTheme = OnActivateTheme -- called by Tidy Plates Core, Theme Loader
 	GladiatorTheme.OnApplyThemeCustomization = ApplyCustomization -- Called By Hub Panel
 	GladiatorTheme.ShowConfigPanel = ShowTidyPlatesHubGladiatorPanel

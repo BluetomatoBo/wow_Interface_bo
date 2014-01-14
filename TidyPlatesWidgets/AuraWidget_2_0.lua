@@ -140,6 +140,19 @@ local PlayerDispelCapabilities = {
 	["Poison"] = false,
 }
 
+local CooldownList = {
+	[42292] = 120,		-- PvP Trinket
+	[59752]	= 120,		-- Every Man for Himself
+	[774] = 20, 		-- TEST Rejuvenation
+}
+
+local function GetCooldownInfo(spellid)
+	if spellid and CooldownList[spellid] then
+		print("Cooldown Found", spellid, GetTime())
+		return CooldownList[spellid] + GetTime()
+	end
+end
+
 --[[
 local DispelTypes = {
 	["Curse"] = function()
@@ -259,16 +272,16 @@ local Aura_Duration = {}
 local Aura_Texture = {}
 local Aura_Type = {}
 local Aura_Target = {}
+local Aura_Cooldown = {}
 
 local function SetAuraInstance(guid, spellid, spellname, expiration, stacks, caster, duration, texture, auratype, auratarget)
 	--if guid and spellid and caster and texture then
 	if guid and spellid and texture then
 		if AuraPrefilterFunction(spellid, spellname, auratype, auratarget) ~= true then return end
 
-		--if auratarget == AURA_TARGET_FRIENDLY and auratype > 1 then print("Aura Approved", auratype) end
-
 		local aura_id = spellid..(tostring(caster or "UNKNOWN_CASTER"))
 		local aura_instance_id = guid..aura_id
+
 		Aura_List[guid] = Aura_List[guid] or {}
 		Aura_List[guid][aura_id] = aura_instance_id
 		Aura_Spellid[aura_instance_id] = spellid
@@ -281,12 +294,26 @@ local function SetAuraInstance(guid, spellid, spellname, expiration, stacks, cas
 		Aura_Type[aura_instance_id] = auratype
 		Aura_Target[aura_instance_id] = auratarget
 
+
+		if CooldownList[spellid] then
+			print("Logged", spellid, GetTime(),expiration-duration, Aura_Cooldown[aura_instance_id])
+			if (not Aura_Cooldown[aura_instance_id]) or ( GetTime() > Aura_Cooldown[aura_instance_id] ) then
+				--Aura_Cooldown[aura_instance_id] = CooldownList[spellid]+GetTime()
+				Aura_Cooldown[aura_instance_id] = CooldownList[spellid]+expiration-duration
+				print("New", spellid, CooldownList[spellid]+GetTime())
+			end
+		else
+			Aura_Cooldown[aura_instance_id] = nil
+		end
+
+
 	end
 end
 
 local function GetAuraInstance(guid, aura_id)
 	if guid and aura_id then
 		local aura_instance_id = guid..aura_id
+		--[[
 		local spellid, spellname, expiration, stacks, caster, duration, texture, auratype, auratarget
 		spellid = Aura_Spellid[aura_instance_id]
 		spellname = Aura_Spellname[aura_instance_id]
@@ -298,13 +325,32 @@ local function GetAuraInstance(guid, aura_id)
 		auratype  = Aura_Type[aura_instance_id]
 		auratarget  = Aura_Target[aura_instance_id]
 		return spellid, spellname, expiration, stacks, caster, duration, texture, auratype, auratarget
+		--]]
+
+		return 	Aura_Spellid[aura_instance_id],
+				Aura_Spellname[aura_instance_id],
+				Aura_Expiration[aura_instance_id],
+				Aura_Stacks[aura_instance_id],
+				Aura_Caster[aura_instance_id],
+				Aura_Duration[aura_instance_id],
+				Aura_Texture[aura_instance_id],
+				Aura_Type[aura_instance_id],
+				Aura_Target[aura_instance_id],
+				Aura_Cooldown[aura_instance_id]
 	end
 end
 
+-- WipeUnitAuraList: Called by UpdateAurasByUnitID; Clears the nameplate for an update by direct UnitID
 local function WipeUnitAuraList(guid)
 	if guid and Aura_List[guid] then
 		local unit_aura_list = Aura_List[guid]
+
+		-- Check to see if the Aura is a cooldown
+
+		-- Clear Aura Data
 		for aura_id, aura_instance_id in pairs(unit_aura_list) do
+			-- local cooldown = Aura_Cooldown[aura_instance_id]
+			-- if cooldown and GetTime() > cooldown then
 			Aura_Spellid[aura_instance_id] = nil
 			Aura_Spellname[aura_instance_id] = nil
 			Aura_Expiration[aura_instance_id] = nil
@@ -315,6 +361,10 @@ local function WipeUnitAuraList(guid)
 			Aura_Type[aura_instance_id] = nil
 			Aura_Target[aura_instance_id] = nil
 			unit_aura_list[aura_id] = nil
+
+			if Aura_Cooldown[aura_instance_id] and GetTime() > Aura_Cooldown[aura_instance_id]  then
+				Aura_Cooldown[aura_instance_id] = nil
+			end
 		end
 	end
 end
@@ -323,6 +373,7 @@ local function GetAuraList(guid)
 	if guid and Aura_List[guid] then return Aura_List[guid] end
 end
 
+-- Called during CombatLog Remove aura
 local function RemoveAuraInstance(guid, spellid, caster)
 	if guid and spellid and Aura_List[guid] then
 		local aura_instance_id = tostring(guid)..tostring(spellid)..(tostring(caster or "UNKNOWN_CASTER"))
@@ -338,6 +389,10 @@ local function RemoveAuraInstance(guid, spellid, caster)
 			Aura_Type[aura_instance_id] = nil
 			Aura_Target[aura_instance_id] = nil
 			Aura_List[guid][aura_id] = nil
+
+			if Aura_Cooldown[aura_instance_id] and GetTime() > Aura_Cooldown[aura_instance_id]  then
+				Aura_Cooldown[aura_instance_id] = nil
+			end
 		end
 	end
 end
@@ -348,6 +403,7 @@ local function CleanAuraLists()			-- Removes expired auras from the lists
 		local auracount = 0
 		for aura_id, aura_instance_id in pairs(instance_list) do
 			local expiration = Aura_Expiration[aura_instance_id]
+			-- Regular Auras
 			if expiration and expiration < currentTime then
 
 				Aura_List[guid][aura_id] = nil
@@ -360,8 +416,13 @@ local function CleanAuraLists()			-- Removes expired auras from the lists
 				Aura_Texture[aura_instance_id] = nil
 				Aura_Type[aura_instance_id] = nil
 				Aura_Target[aura_instance_id] = nil
+
 			else
 				auracount = auracount + 1
+			end
+			-- Clean Cooldown Cache
+			if Aura_Cooldown[aura_instance_id] and GetTime() > Aura_Cooldown[aura_instance_id]  then
+				Aura_Cooldown[aura_instance_id] = nil
 			end
 		end
 		if auracount == 0 then
@@ -397,15 +458,14 @@ local function UpdateAurasByUnitID(unitid)
 		end
 
 		-- Buffs (Only for friendly units)
-		if unitType == AURA_TARGET_FRIENDLY then
+		--if unitType == AURA_TARGET_FRIENDLY then
 			for index = 1, 40 do
 				local spellname , _, texture, count, dispelType, duration, expirationTime, unitCaster, _, _, spellid, _, isBossDebuff = UnitBuff(unitid, index)
 				if not spellname then break end
 				SetSpellDuration(spellid, duration)			-- Caches the aura data for times when the duration cannot be determined (ie. via combat log)
 				SetAuraInstance(guid, spellid, spellname, expirationTime, count, UnitGUID(unitCaster or ""), duration, texture, AURA_TYPE_BUFF, AURA_TARGET_FRIENDLY)
-
 			end
-		end
+		--end
 
 		local raidicon, name
 		if UnitPlayerControlled(unitid) then
@@ -649,27 +709,33 @@ local function CombatEventHandler(frame, event, ...)
 		return
 	end
 
-	-- Combat Log Unfiltered
+	-- Translate the Unfiltered Combat Log
 	local timestamp, combatevent, sourceGUID, destGUID, destName, destFlags, destRaidFlag, auraType, spellid, spellname, stackCount = GetCombatEventResults(...)
 
+	--[[
+	-- Cooldown Tracker
+	-- Tracking Cooldowns will be more difficult.  I expect to use the combat log event to capture and store the cooldowns.
+	-- Cooldown durations will also need to be stored in a table.
+	These combat events may contain cooldowns: "SPELL_CAST_SUCCESS", "SPELL_AURA_APPLIED", "SPELL_MISSED", "SPELL_SUMMON"
+	--]]
+
 	-- Evaluate only for enemy units, for now
-	--if (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_FRIENDLY) == 0) then							-- FILTER: ENEMY UNIT
-	-- COMBATLOG_OBJECT_CONTROL_PLAYER
+	--if (bit.band(destFlags, COMBATLOG_OBJECT_REACTION_FRIENDLY) == 0) then							-- FILTER: ENEMY UNIT: Don't need to track friendly units.
 
 		local CombatLogUpdateFunction = CombatLogEvents[combatevent]
 		-- Evaluate only for certain combat log events
 		if CombatLogUpdateFunction then
+
 			-- Evaluate only for debuffs
 			--if auraType == "DEBUFF" then 															-- FILTER: DEBUFF
 
-				-- Update Auras via API/UnitID Search
-				--if not UpdateAuraByLookup(destGUID) then				--- REMOVE this function, and replace with a function that checks to see if the detected unit is a unitid matcher
-				if not GuidIsLocalUnitId(destGUID) then				--- REMOVE this function, and replace with a function that checks to see if the detected unit is a unitid match
-					-- Update Auras via Combat Log
+				-- Update/Store Auras via API/UnitID Search
+				if not GuidIsLocalUnitId(destGUID) then
+					-- CombatLogUpdateFunction; SPELL_AURA_APPLIED, SPELL_AURA_REFRESH, SPELL_AURA_APPLIED_DOSE, etc..
 					CombatLogUpdateFunction(timestamp, sourceGUID, destGUID, destName, spellid, spellname, stackCount)
+
+					-- To Do: Need to write something to detect when a change was made to the destID
 				end
-				-- To Do: Need to write something to detect when a change was made to the destID
-				-- Return values on functions?
 
 				local name, raidicon
 
@@ -692,7 +758,7 @@ local function CombatEventHandler(frame, event, ...)
 				end
 
 				CallForWidgetUpdate(destGUID, raidicon, name)
-			--end
+			--end																						-- FILTER: DEBUFF - END IF
 		end
 	--end
 end
@@ -798,8 +864,6 @@ local function UpdateIconGrid(frame, guid)
 			end
 		end
 
-
-
 		-- Debuff Cache Format
 		-- DebuffCache[i] = {'spellid', 'name', 'expiration', 'stacks', 'caster', 'duration', 'texture', 'type', 'reaction', 'priority', 'r', 'g', 'b'}
 		-- How to use: You have control over the DebuffCache before it's sorted and displayed, particularly by adding and removing items.
@@ -812,7 +876,7 @@ local function UpdateIconGrid(frame, guid)
 			for i, n in pairs(PersonalAuraList) do
 				if AuraSlotIndex > DebuffLimit then break end
 				local pName, _, pIcon, pCount, _, _, pEnd = UnitAura("player", n)
-				print(n, pName, _, pIcon, pCount, _, _, pEnd)
+				--print(n, pName, _, pIcon, pCount, _, _, pEnd)
 				if pName then
 					UpdateIcon(AuraIconFrames[AuraSlotIndex], pIcon, pEnd, pCount, 1,.9,0)
 					AuraSlotIndex = AuraSlotIndex + 1
@@ -820,6 +884,8 @@ local function UpdateIconGrid(frame, guid)
 			end
 		end
 		--]]
+
+
 
 		-- Display Auras
 		------------------------------------------------------------------------------------------------------
@@ -831,6 +897,7 @@ local function UpdateIconGrid(frame, guid)
 				if AuraSlotIndex > DebuffLimit then break end
 				local aura = DebuffCache[index]
 				if aura.spellid and aura.expiration then
+
 					--[[
 					--if IsUsableSpell(aura.spellid) and select(2, GetSpellCooldown(aura.spellid)) == 0 then
 					if select(2, GetSpellCooldown(aura.spellid)) == 0 then
