@@ -53,9 +53,6 @@ local CachedUnitClass = TidyPlatesUtility.CachedUnitClass
 local IsFriend = TidyPlatesUtility.IsFriend
 local IsGuildmate = TidyPlatesUtility.IsGuildmate
 
-
--- InstanceStatus, CachedUnitDescription, CachedUnitGuild, CachedUnitClass, IsFriend, IsGuildmate
-
 local isTanked = TidyPlatesWidgets.IsTankedByAnotherTank
 local function IsTankedByAnotherTank(...)
 	if LocalVars.ColorEnableOffTank and isTanked(...) then return true end
@@ -1402,6 +1399,35 @@ local DebuffFilterModes = {
 	end,
 }
 
+--[[
+Auras 3.0
+
+	My Debuffs
+	My Buffs
+	Smart Search
+	Custom
+
+	Smart Search
+
+	My Debuffs + Any buffs added to the list, or blacklisted
+	My Buffs + Any debuffs added to the list, or blacklisted
+	Smart Search = Debuffs on Enemies, Buffs on Friendlies, + List
+
+
+Auras 4.0
+
+	CC Database
+	Cooldown Counter
+	Ability Counter
+
+
+
+
+
+
+
+--]]
+
 
 local DispelTypeHandlers = {
 	-- Curse
@@ -1442,8 +1468,12 @@ local function DebuffFilter(aura)
 	return func(aura)
 end
 
+
+
 local function Prefilter(spellid, spellname, auratype, auratargetreaction)
-	if (auratargetreaction == AURA_TARGET_FRIENDLY) and (AURA_TYPE[auratype] ~= 1) then return true end
+	-- Store debuffs on friendly units.
+	if (auratargetreaction == AURA_TARGET_FRIENDLY) and (AURA_TYPE[auratype] ~= AURA_TYPE_BUFF) then return true end
+	-- Store auras marked in lookup
 	return ((LocalVars.WidgetsDebuffLookup[tostring(spellid)] or LocalVars.WidgetsDebuffLookup[spellname]) ~= nil)
 end
 

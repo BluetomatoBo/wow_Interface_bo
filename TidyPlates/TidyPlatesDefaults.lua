@@ -24,7 +24,11 @@ TemplateTheme.threatborder = {
 	x = 0,
 	y = -5,
 	anchor = "CENTER",
-	root_object = "healthborder",		-- If  "default", use the default root and copy the self anchor point. (Core)
+
+	--
+	root_object_table[i]....  etc.
+
+	root_object = "healthborder",		-- If nil or "default", use the default root and copy the self anchor point. (Core)
 	root_anchor = "CENTER",
 
 	-- Texture/Cropping Coordinates
@@ -35,7 +39,24 @@ TemplateTheme.threatborder = {
 
 	-- Visibility
 	show = true,
+
+	--
 }
+
+StyleLibrary[StyleName]
+
+Style
+	- Graphical Element Definitions
+	- Widget Positions
+	- Functional Overrides
+
+Widgets
+	- Managed widget system
+	- As-Needed distribution
+	-
+
+
+
 --]]
 
 

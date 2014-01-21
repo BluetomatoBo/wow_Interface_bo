@@ -39,7 +39,8 @@ local function UpdateGuildCache()
 		local name, rank, rankIndex, level, class, _, _, _, online = GetGuildRosterInfo(index)
 		--local name, rank, rankIndex, level, class = GetGuildRosterInfo(index)
 		if online then
-			Guild[name] = class
+			Guild[Ambiguate(name, "guild")] = class
+			--print(Ambiguate(name, "guild"))
 			--TidyPlatesWidgetData.UnitClass[name] = class
 			--TidyPlatesWidgetData.UnitGuild[name] = guildname
 		end

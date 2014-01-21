@@ -4,8 +4,8 @@
 local Theme = {}
 local CopyTable = TidyPlatesUtility.copyTable
 local path = "Interface\\Addons\\TidyPlates_Quatre\\"
---local font = "Interface\\Addons\\TidyPlatesHub\\shared\\AccidentalPresidency.ttf"
-local font = "Interface\\Addons\\TidyPlatesHub\\shared\\RobotoCondensed-Bold.ttf"; local fontsize = 11;
+--local font = "Interface\\Addons\\TidyPlatesHub\\shared\\AccidentalPresidency.ttf"; local fontsize = 12;
+local font = "Interface\\Addons\\TidyPlatesHub\\shared\\RobotoCondensed-Bold.ttf"; local fontsize = 10;
 local EmptyTexture = "Interface\\Addons\\TidyPlatesHub\\shared\\Empty"
 
 -- Non-Latin Font Bypass

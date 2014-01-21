@@ -127,6 +127,10 @@ TidyPlatesHubModes.DebuffModes = {
 				{ text = L("Show All Mine "), notCheckable = 1 } ,
 				{ text = L("Show My... "), notCheckable = 1 } ,
 				{ text = L("By Prefix..."), notCheckable = 1 } ,
+
+				--[[
+
+				--]]
 			}
 
 TidyPlatesHubModes.AuraWidgetModes = {

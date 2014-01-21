@@ -15,8 +15,8 @@ local castBar_verticalOffset = -6 -- Adjust Cast Bar distance
 local EmptyTexture = "Interface\\Addons\\TidyPlatesHub\\shared\\Empty"
 
 -- Non-Latin Font Bypass
-local NonLatinLocales = { ["ruRU"] = true, ["koKR"] = true, ["zhCN"] = true, ["zhTW"] = true, }
-if NonLatinLocales[GetLocale()] == true then font = NAMEPLATE_FONT end
+local NonLatinLocales = { ["koKR"] = true, ["zhCN"] = true, ["zhTW"] = true, }
+if NonLatinLocales[GetLocale()] == true then font = STANDARD_TEXT_FONT end
 
 local StyleDefault = {}
 

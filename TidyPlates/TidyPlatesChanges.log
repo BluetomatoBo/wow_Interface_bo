@@ -2,6 +2,12 @@ Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
 
+6.13.2
+---------------------------
+* Widgets: Fixed UnitCache to account for changes to the guild roster format
+* Themes: Update Grey and Graphite to the new font variable
+* Themes: Reduced "Roboto Condensed" size to better match the old font
+
 6.13.1
 ---------------------------
 * Widgets: Re-Fixed Class Icon
