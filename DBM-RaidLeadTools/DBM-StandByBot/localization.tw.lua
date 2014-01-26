@@ -1,4 +1,4 @@
--- yleaf(yaroot@gmail.com)/Juha
+﻿-- yleaf(yaroot@gmail.com)/Juha
 if GetLocale() ~= "zhTW" then return end
 local L = DBM_StandbyBot_Translations
 
@@ -35,6 +35,7 @@ L.SendWhispers		= "離開團隊時密語玩家"
 L.AreaStandbyHistory	= "候補歷史"
 L.NoHistoryAvailable	= "沒有記錄"
 
+L.Button_ResetHistory	= "重置"
 L.SB_Documentation	= [[這個候補助手可以讓團長管理目前不能參加活動的團員. 以下所有命令都可以用在公會頻道中.
 
 !sb                   - 顯示候補玩家清單

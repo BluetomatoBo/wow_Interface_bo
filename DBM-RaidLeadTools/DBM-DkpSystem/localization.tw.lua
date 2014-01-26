@@ -1,4 +1,4 @@
--- readjust by yleaf(yaroot@gmail.com)/Juha
+﻿-- readjust by yleaf(yaroot@gmail.com)/Juha
 if GetLocale() ~= "zhTW" then return end
 local L = DBM_DKP_System_Translations
 
