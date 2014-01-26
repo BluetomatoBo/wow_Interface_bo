@@ -133,7 +133,10 @@ do
 				if not plate.isMouseover then
 					plate.isMouseover = true
 					UpdateMe = true
+				--print(GetTime(), extended.unit.name)
+				--print()
 				end
+
 			elseif plate.isMouseover then
 				plate.isMouseover = false
 				UpdateMe = true
@@ -155,9 +158,18 @@ do
 
 			-- Alpha Animation
 			--EnableFadeIn
+			local increment = e * 3
 			if extended.visibleAlpha ~= extended.requestedAlpha then
-				extended:SetAlpha(extended.requestedAlpha)
-				extended.visibleAlpha = extended.requestedAlpha
+
+				if EnableFadeIn and extended.requestedAlpha > extended.visibleAlpha + increment then
+					extended.visibleAlpha = extended.visibleAlpha + increment
+				elseif EnableFadeIn and extended.requestedAlpha < extended.visibleAlpha - (increment * 1.5) then
+					extended.visibleAlpha = extended.visibleAlpha - (increment * 1.5)
+				else
+					extended.visibleAlpha = extended.requestedAlpha
+				end
+
+				extended:SetAlpha(extended.visibleAlpha)
 			end
 
 			-- Restore Carrier
@@ -192,7 +204,6 @@ do
 	-- ApplyPlateExtesion
 	function OnNewNameplate(plate)
 		Plates[plate] = true
-
 
 		-- Blizzard References
 		--------------------------------
@@ -1006,6 +1017,8 @@ do
 		for index = 1, #bargroup do objectname = bargroup[index]; SetBarGroupObject(visual[objectname], style[objectname], extended) end
 		-- Texture
 		for index = 1, #texturegroup do objectname = texturegroup[index]; SetTextureGroupObject(visual[objectname], style[objectname]) end
+		-- Raid Icon Texture
+		visual.raidicon:SetTexture(style.raidicon.texture)
 		-- Font Group
 		for index = 1, #fontgroup do objectname = fontgroup[index];SetFontGroupObject(visual[objectname], style[objectname]) end
 		-- Hide Stuff

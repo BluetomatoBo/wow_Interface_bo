@@ -312,8 +312,6 @@ local function StyleDelegate(unit)
 end
 
 
-
-
 ------------------------------------------------------------------------------------
 -- Binary Plate Styles
 ------------------------------------------------------------------------------------
@@ -322,6 +320,9 @@ local function SetStyleBinaryDelegate(unit)
 	if StyleDelegate(unit) == 2 then return "NameOnly"
 	else return "Default" end
 end
+
+
+
 
 
 
@@ -1274,6 +1275,33 @@ local function AlphaDelegate(...)
 	end
 end
 
+------------------------------------------------------------------
+-- Experimental Style Delegate
+------------------------------------------------------------------
+
+local function IsThereText(unit)
+	local text = CustomTextBinaryDelegate(unit)
+	if text and text ~= "" then return true end
+end
+
+local function SetStyleTrinaryDelegate(unit)
+	local style = StyleDelegate(unit)
+	local widget = unit.frame.widgets.DebuffWidget
+
+	if style == 2 then
+		if IsThereText(unit) then
+			return "NameOnly"
+		else
+			return "NameOnly-NoDescription"
+		end
+	elseif IsAuraShown(widget) then
+		return "Default"
+	else
+		return "Default-NoAura"
+	end
+end
+
+
 ------------------------------------------------------------------------------
 -- Aura Widget
 ------------------------------------------------------------------------------
@@ -1813,6 +1841,7 @@ TidyPlatesHubFunctions.ApplyStyleCustomization = ApplyStyleCustomization
 TidyPlatesHubFunctions.ApplyThemeCustomization = ApplyThemeCustomization
 TidyPlatesHubFunctions.SetMultistyle = StyleDelegate
 TidyPlatesHubFunctions.SetStyleBinary = SetStyleBinaryDelegate
+TidyPlatesHubFunctions.SetStyleTrinary = SetStyleTrinaryDelegate
 TidyPlatesHubFunctions.SetCustomTextBinary = CustomTextBinaryDelegate
 
 ---------------------------------------------

@@ -884,8 +884,8 @@ function UpdateWidget(frame)
 		end
 end
 
-local function UpdateWidgetTarget(frame)
-	UpdateIconGrid(frame, UnitGUID("target"))
+local function UpdateWidgetTarget(frame, unitid)
+	UpdateIconGrid(frame, UnitGUID(unitid))
 end
 
 

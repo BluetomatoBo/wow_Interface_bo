@@ -125,13 +125,14 @@ function UnitCacheMonitorEvents.UPDATE_MOUSEOVER_UNIT(self, ...)
 	------------------------------------
 
 	if UnitIsPlayer( "mouseover" ) then
-
-		if UnitRealmRelationship("mouseover") == LE_REALM_RELATION_SAME then
-			-- Local units
-			name = UnitName("mouseover")
-		else
+		--print(UnitName("mouseover"), UnitRealmRelationship("mouseover"))
+		local RealmRelationship = UnitRealmRelationship("mouseover")
+		if RealmRelationship == LE_REALM_RELATION_COALESCED then
 			-- Foreign units
 			name = UnitName("mouseover").." (*)"
+		else
+			-- Local units
+			name = UnitName("mouseover")
 		end
 
 		description = GetGuildInfo("mouseover")

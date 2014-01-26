@@ -232,6 +232,7 @@ TemplateTheme.spellicon = {
 }
 
 TemplateTheme.raidicon = {
+	texture = "Interface\\TargetingFrame\\UI-RaidTargetingIcons",
 	width = 20,
 	height = 20,
 	x = -35,

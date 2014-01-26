@@ -16,4 +16,5 @@
 	<Script file="TotemIconWidget.lua"/>
 	<Script file="SelectionWidget.lua"/>
 	<Script file="HealerTrack.lua"/>
+	<!--<Script file="TargetFrame.lua"/>-->
 </Ui>

@@ -1,6 +1,15 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
+6.13.3
+---------------------------
+* Core: Added XML Template, TidyPlatesDropdownDrawerTemplate
+* Core: Dropdown Menu Replacement (Trying to fix Blocked Action/Protected UI Taint issues in Panels and Hub)
+* Core: Updated PanelHelpers.CreateDropdownFrame to use "TidyPlatesDropdownDrawerTemplate" and Dropdown Menu Replacement
+* Core: Alpha transition animation has been restored.  You can disable it in the /tidyplates panel.
+* Themes: Fixed Neon and Quatre Headline font size (bumped them down a few pts)
+* Widgets: UnitCache: Fixed Connected Realm Class Caching
+
 
 6.13.2
 ---------------------------
@@ -977,5 +986,16 @@ In-Progress
 * Cube Frame Widget
 * "Resolution Independence"
 * Easy Scaling
+
+In Progress
+---------------------------
+* Aura Widget: Filtering Expansion
+* Health Text Display Customizer (3 channel)
+* Font Tweaker
+* Raid Icon to Target/Spotlight Opacity
+* Hub + Neon Theme: Raid Icon Repositioning Test; Raid Icon appears above the health bar, unless Auras are displayed.
+* "Highlight" Feature, to bind a key to Mark units to a Saved List, which can be used for Spotlight Functions
+* Combo Point vs Debuff Widget Repositioning, within style?
+* Drowndown Frame: 	Add: - Description Text Field on Top, which displays tooltip Text, Textures, Close/Cancel Button
 
 
