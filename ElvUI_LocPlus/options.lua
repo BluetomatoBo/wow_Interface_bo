@@ -6,6 +6,7 @@ P['locplus'] = {
 -- Options
 	['both'] = true,
 	['combat'] = false,
+	['timer'] = 0.5,
 	['dig'] = true,
 	['displayOther'] = "RLEVEL",
 	['showicon'] = true,
@@ -90,6 +91,15 @@ function LPB:AddOptions()
 						type = 'toggle',
 						get = function(info) return E.db.locplus[ info[#info] ] end,
 						set = function(info, value) E.db.locplus[ info[#info] ] = value; end,					
+					},
+					timer = {
+						order = 2,
+						name = L["Update Timer"]..newsign,
+						desc = L["Adjust coords updates (in seconds) to avoid cpu load. Bigger number = less cpu load. Requires reloadUI."],
+						type = "range",
+						min = 0.05, max = 1, step = 0.05,
+						get = function(info) return E.db.locplus[ info[#info] ] end,
+						set = function(info, value) E.db.locplus[ info[#info] ] = value; LPB:TimerUpdate(); E:StaticPopup_Show("PRIVATE_RL"); end,					
 					},
 				},
 			},

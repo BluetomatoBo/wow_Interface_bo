@@ -808,11 +808,6 @@ function LPB:UpdateCoords()
 	end
 end
 
-function LPB:UpdateTextCoords()
-	self:UpdateLocation()
-	self:UpdateCoords()
-end
-
 -- Coord panels width
 function LPB:CoordsDigit()
 	if E.db.locplus.dig then
@@ -878,6 +873,10 @@ function LPB:LocPlusDefaults()
 	end	
 end
 
+function LPB:TimerUpdate()
+	self:ScheduleRepeatingTimer('UpdateCoords', E.db.locplus.timer)
+end
+
 -- needed to fix LocPlus datatext font
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -894,7 +893,8 @@ function LPB:Initialize()
 	self:CreateDTPanels()
 	self:CreateCoordPanels()
 	self:LocPlusUpdate()
-	self:ScheduleRepeatingTimer('UpdateTextCoords', 0.5)
+	self:TimerUpdate()
+	self:ScheduleRepeatingTimer('UpdateLocation', 0.5)
 	EP:RegisterPlugin(addon, LPB.AddOptions)
 	LocationPlusPanel:RegisterEvent("PLAYER_REGEN_DISABLED")
 	LocationPlusPanel:RegisterEvent("PLAYER_REGEN_ENABLED")
