@@ -1,15 +1,15 @@
 local mod	= DBM:NewMod("SoOTrash", "DBM-SiegeOfOrgrimmar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 10671 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 10977 $"):sub(12, -3))
 --mod:SetModelID(47785)
 mod:SetZone()
 
 mod.isTrashMod = true
 
 mod:RegisterEvents(
-	"SPELL_AURA_APPLIED",
-	"SPELL_CAST_START",
+	"SPELL_AURA_APPLIED 147200 147328 145553",
+	"SPELL_CAST_START 146728",
 	"RAID_BOSS_WHISPER"
 )
 
@@ -32,20 +32,22 @@ local galakrasMod = DBM:GetModByName("868")--Because for first 10-20 seconds of 
 
 function mod:SPELL_AURA_APPLIED(args)
 	if not self.Options.Enabled then return end
-	if args.spellId == 147200 and not galakrasMod:IsInCombat() then
+	local spellId = args.spellId
+	if spellId == 147200 and not galakrasMod:IsInCombat() then
 		warnFracture:Show(args.destName)
 		specWarnFracture:Show(args.destName)
-	elseif args.spellId == 147328 and not galakrasMod:IsInCombat() then
+	elseif spellId == 147328 and not galakrasMod:IsInCombat() then
 		warnWarBanner:Show()
 		specWarnWarBanner:Show()
-	elseif args.spellId == 145553 then
+	elseif spellId == 145553 then
 		warnBribe:Show(args.destName)
 	end
 end
 
 function mod:SPELL_CAST_START(args)
 	if not self.Options.Enabled then return end
-	if args.spellId == 146728 and not galakrasMod:IsInCombat() then
+	local spellId = args.spellId
+	if spellId == 146728 and not galakrasMod:IsInCombat() then
 		local source = args.sourceName
 		warnChainHeal:Show()
 		if source == UnitName("target") or source == UnitName("focus") then 

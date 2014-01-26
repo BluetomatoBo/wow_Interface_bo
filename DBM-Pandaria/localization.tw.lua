@@ -7,10 +7,7 @@ local L
 L= DBM:GetModLocalization(691)
 
 L:SetOptionLocalization({
-	SoundWOP			= "語音警告：重要技能",
-	RangeFrame			= "距離監視：$spell:119622",
-	HudMAP				= "高級定位監視(HUD)：$spell:119622",
-	SetIconOnMC			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(119622)
+	RangeFrame			= "根據玩家減益顯示動態的距離框以對應$spell:119622",
 })
 
 L:SetMiscLocalization({
@@ -22,10 +19,6 @@ L:SetMiscLocalization({
 -----------------------
 L= DBM:GetModLocalization(725)
 
-L:SetOptionLocalization({
-	SoundWOP			= "語音警告：重要技能"
-})
-
 L:SetMiscLocalization({
 	Pull				= "把他們的屍體帶給我!"
 })
@@ -36,8 +29,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(826)
 
 L:SetOptionLocalization({
-	SoundWOP			= "語音警告：重要技能",
-	RangeFrame			= "距離監視：$spell:137511"
+	RangeFrame			= "為$spell:137511顯示距離框架"
 })
 
 L:SetMiscLocalization({
@@ -50,7 +42,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(814)
 
 L:SetOptionLocalization({
-	RangeFrame			= "距離監視(10碼)：$spell:136340"
+	ReadyCheck			= "當世界首領開打時撥放準備檢查的音效(即使沒有選定目標)"
 })
 
 L:SetMiscLocalization({
@@ -63,10 +55,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(857)
 
 L:SetOptionLocalization({
-	SoundWOP				= "語音警告：重要技能",
-	HudMAP					= "高級定位監視(HUD)：$spell:144473",
-	SetIconOnBeacon			= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(144473),
-	BeaconArrow				= "DBM箭頭：$spell:144473"
+	BeaconArrow				= "當某人中了$spell:144473顯示DBM箭頭"
 })
 
 L:SetMiscLocalization({
@@ -78,11 +67,6 @@ L:SetMiscLocalization({
 -- Yu'lon, The Jade Serpent --
 ------------------------------
 L= DBM:GetModLocalization(858)
-
-L:SetOptionLocalization({
-	SoundWOP				= "語音警告：重要技能",
-	RangeFrame				= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(11, 144532)
-})
 
 L:SetMiscLocalization({
 	Pull					= "試煉開始!",
@@ -97,10 +81,6 @@ L:SetMiscLocalization({
 --------------------------
 L= DBM:GetModLocalization(859)
 
-L:SetOptionLocalization({
-	SoundWOP				= "語音警告：重要技能"
-})
-
 L:SetMiscLocalization({
 	Pull					= "我們拭目以待。",
 	Victory					= "雖然被難以想像的敵人包圍，你的堅毅會讓你堅持下去。在未來要記得這一點。",
@@ -113,11 +93,6 @@ L:SetMiscLocalization({
 ---------------------------
 L= DBM:GetModLocalization(860)
 
-L:SetOptionLocalization({
-	SoundWOP				= "語音警告：重要技能",
-	RangeFrame				= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(3, 144642)
-})
-
 L:SetMiscLocalization({
 	Pull					= "哈哈!試煉開始吧!",
 	Victory					= "你很強，比你認知的還要強大。帶著這個信念迎接前方的黑暗，讓它保護你。"
@@ -127,13 +102,6 @@ L:SetMiscLocalization({
 -- Ordos, Fire-God of the Yaungol --
 ------------------------------------
 L= DBM:GetModLocalization(861)
-
-L:SetOptionLocalization({
-	SoundWOP				= "語音警告：重要技能",
-	HudMAP					= "高級定位監視(HUD)：$spell:144689",
-	SetIconOnBurningSoul	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(144689),
-	RangeFrame				= DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(8, 144689)
-})
 
 L:SetMiscLocalization({
 	Pull					= "你將代替我永恆地燃燒!"
