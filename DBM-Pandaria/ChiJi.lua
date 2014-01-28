@@ -1,18 +1,23 @@
-local mod	= DBM:NewMod(857, "DBM-Pandaria", nil, 322, 1)
+﻿local mod	= DBM:NewMod(857, "DBM-Pandaria", nil, 322, 1)
 local L		= mod:GetLocalizedStrings()
+local sndWOP	= mod:NewSound(nil, "SoundWOP", true)
 
-mod:SetRevision(("$Revision: 10978 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 10466 $"):sub(12, -3))
 mod:SetCreatureID(71952)
 mod:SetReCombatTime(20)
 mod:SetZone()
 mod:SetMinSyncRevision(10466)
 
-mod:RegisterCombat("combat_yell", L.Pull)
-mod:RegisterKill("yell", L.Victory)
+mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 144468 144471 144470 144473 144461",
+	"SPELL_CAST_START",
+	"SPELL_CAST_SUCCESS",
 	"UNIT_SPELLCAST_SUCCEEDED target focus"
+)
+
+mod:RegisterEvents(
+	"CHAT_MSG_MONSTER_YELL"
 )
 
 local warnInspiringSong			= mod:NewSpellAnnounce(144468, 3)
@@ -30,33 +35,51 @@ local specWarnCraneRush			= mod:NewSpecialWarningSpell(144470, nil, nil, nil, 2)
 local timerInspiringSongCD		= mod:NewCDTimer(30, 144468)--30-50sec variation?
 local timerBlazingSong			= mod:NewBuffActiveTimer(15, 144471)
 
-mod:AddReadyCheckOption(33117, false)
+local yellTriggered = false
 
-function mod:OnCombatStart(delay, yellTriggered)
+function mod:OnCombatStart(delay)
 	if yellTriggered then--We know for sure this is an actual pull and not diving into in progress
 		timerInspiringSongCD:Start(20-delay)
 	end
 end
 
+function mod:OnCombatEnd()
+	yellTriggered = false
+end
+
 function mod:SPELL_CAST_START(args)
-	local spellId = args.spellId
-	if spellId == 144468 then
+	if args.spellId == 144468 then
 		warnInspiringSong:Show()
 		specWarnInspiringSong:Show(args.sourceName)
 		timerInspiringSongCD:Start()
-	elseif spellId == 144471 then
+		if args.sourceGUID == UnitGUID("target") or args.sourceGUID == UnitGUID("focus") then
+			sndWOP:Play("Interface\\AddOns\\"..DBM.Options.CountdownVoice.."\\kickcast.mp3") --快打斷
+		end
+	elseif args.spellId == 144471 then
 		warnBlazingSong:Show()
 		specWarnBlazingSong:Show()
 		timerBlazingSong:Start()
-	elseif spellId == 144470 then
+	elseif args.spellId == 144470 then
 		warnCraneRush:Show()
 		specWarnCraneRush:Show()
-	elseif spellId == 144473 then
+	elseif args.spellId == 144473 then
 		warnBeaconOfHope:Show()
 		specWarnBeaconOfHope:Show()
-	elseif spellId == 144461 then
+	elseif args.spellId == 144461 then
 		warnFirestorm:Show()
 		specWarnFirestorm:Show()
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	--This victory yell fails if curse of tongues is on boss
+	if msg == L.Victory then
+		self:SendSync("Victory")
+	elseif msg == L.Pull and not self:IsInCombat() then
+		if self:GetCIDFromGUID(UnitGUID("target")) == 71953 or self:GetCIDFromGUID(UnitGUID("targettarget")) == 71953 then--Whole zone gets yell, so lets not engage combat off yell unless he is our target (or the target of our target for healers)
+			yellTriggered = true
+			DBM:StartCombat(self, 0)
+		end
 	end
 end
 

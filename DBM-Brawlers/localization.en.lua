@@ -50,6 +50,10 @@ L:SetGeneralLocalization({
 	name = "Brawlers: Rank 1"
 })
 
+L:SetOptionLocalization({
+	SoundWOP			= "Voice warning: important skills"
+})
+
 ------------
 -- Rank 2 --
 ------------
@@ -57,6 +61,10 @@ L= DBM:GetModLocalization("BrawlRank2")
 
 L:SetGeneralLocalization({
 	name = "Brawlers: Rank 2"
+})
+
+L:SetOptionLocalization({
+	SoundWOP			= "Voice warning: important skills"
 })
 
 ------------
@@ -69,7 +77,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnBlat	= "Set icon (skull) on real Blat"
+	SetIconOnBlat	= "Set icon (skull) on real Blat",
+	SoundWOP			= "Voice warning: important skills"
 })
 
 ------------
@@ -82,7 +91,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	SetIconOnDominika	= "Set icon (skull) on real Dominika the Illusionist"
+	SetIconOnDominika	= "Set icon (skull) on real Dominika the Illusionist",
+	SoundWOP			= "Voice warning: important skills"
 })
 
 ------------
@@ -94,6 +104,10 @@ L:SetGeneralLocalization({
 	name = "Brawlers: Rank 5"
 })
 
+L:SetOptionLocalization({
+	SoundWOP			= "Voice warning: important skills"
+})
+
 ------------
 -- Rank 6 --
 ------------
@@ -101,6 +115,10 @@ L= DBM:GetModLocalization("BrawlRank6")
 
 L:SetGeneralLocalization({
 	name = "Brawlers: Rank 6"
+})
+
+L:SetOptionLocalization({
+	SoundWOP			= "Voice warning: important skills"
 })
 
 ------------
@@ -112,6 +130,10 @@ L:SetGeneralLocalization({
 	name = "Brawlers: Rank 7"
 })
 
+L:SetOptionLocalization({
+	SoundWOP			= "Voice warning: important skills"
+})
+
 ------------
 -- Rank 8 --
 ------------
@@ -121,6 +143,10 @@ L:SetGeneralLocalization({
 	name = "Brawlers: Rank 8"
 })
 
+L:SetOptionLocalization({
+	SoundWOP			= "Voice warning: important skills"
+})
+
 ------------
 -- Rank 9 --
 ------------
@@ -128,6 +154,10 @@ L= DBM:GetModLocalization("BrawlRank9")
 
 L:SetGeneralLocalization({
 	name = "Brawlers: Rank 9"
+})
+
+L:SetOptionLocalization({
+	SoundWOP			= "Voice warning: important skills"
 })
 
 -------------
@@ -140,7 +170,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization({
-	ArrowOnBoxing	= "Show DBM Arrow during $spell:140868 and $spell:140862 and $spell:140886"
+	ArrowOnBoxing	= "Show DBM Arrow during $spell:140868 and $spell:140862 and $spell:140886",
+	SoundWOP			= "Voice warning: important skills"
 })
 
 -------------
@@ -158,7 +189,8 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	specWarnRPS			= "Show special warning on what to use for $spell:141206",
-	SpeakOutStrikes		= "Count out number of $spell:141190 attacks"
+	SpeakOutStrikes		= "Count out number of $spell:141190 attacks",
+	SoundWOP			= "Voice warning: important skills"
 })
 
 L:SetMiscLocalization({
