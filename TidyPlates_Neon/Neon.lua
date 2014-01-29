@@ -4,7 +4,6 @@
 ---------------------------------------------
 local ArtworkPath = "Interface\\Addons\\TidyPlates_Neon\\"
 --local font = "Interface\\Addons\\TidyPlatesHub\\shared\\AccidentalPresidency.ttf"; local fontsize = 12;
---local font = "Interface\\Addons\\TidyPlatesHub\\shared\\YanoneKaffeesatz-Regular.ttf"; local fontsize = 12;
 local font = "Interface\\Addons\\TidyPlatesHub\\shared\\RobotoCondensed-Bold.ttf"; local fontsize = 10;
 --print(font, fontsize)
 --local fontsize = 12;

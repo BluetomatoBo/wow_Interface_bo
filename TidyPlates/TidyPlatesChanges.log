@@ -1,6 +1,10 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
+6.13.4
+---------------------------
+* Core: Raised the default Dropdown Menu strata to TOOLTIP
+
 6.13.3
 ---------------------------
 * Core: Added XML Template, TidyPlatesDropdownDrawerTemplate

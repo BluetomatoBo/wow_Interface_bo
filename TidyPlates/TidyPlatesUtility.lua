@@ -314,7 +314,7 @@ local DropDownMenuFrame = CreateFrame("Frame")
 local MaxDropdownItems = 20
 
 DropDownMenuFrame:SetSize(100, 100)
-DropDownMenuFrame:SetFrameStrata("DIALOG");
+DropDownMenuFrame:SetFrameStrata("TOOLTIP");
 DropDownMenuFrame:Hide()
 
 local Border = CreateFrame("Frame", nil, DropDownMenuFrame)
@@ -352,12 +352,18 @@ for i = 1, MaxDropdownItems do
 	region:SetPoint("LEFT", button, "LEFT")
 	region:SetPoint("RIGHT", button, "RIGHT")
 
-	button:SetFrameStrata("DIALOG")
+	--button:SetFrameStrata("DIALOG")
 	button:SetHighlightTexture("Interface/QuestFrame/UI-QuestTitleHighlight")
 	button:SetNormalFontObject("GameFontHighlightSmallLeft")
 	button:SetHighlightFontObject("GameFontNormalSmallLeft")
 	button:Show()
 end
+
+--[[
+local CloseDropdownButton = CreateFrame("Button", nil, DropDownMenuFrame, "UIPanelCloseButton")
+CloseDropdownButton:SetPoint("TOPLEFT", DropDownMenuFrame, "TOPRIGHT")
+CloseDropdownButton:Show()
+--]]
 
 local function HideDropdownMenu()
 	DropDownMenuFrame:Hide()
@@ -395,6 +401,7 @@ local function ShowDropdownMenu(sourceFrame, menu, script)
 	Border:SetPoint("BOTTOM", DropDownMenuFrame["Button"..numOfItems], "BOTTOM", 0, -12)
 	DropDownMenuFrame:SetPoint("TOPLEFT", sourceFrame, "BOTTOM")
 	DropDownMenuFrame:Show()
+	DropDownMenuFrame:Raise()
 
 	-- Make sure the menu stays visible when displayed
 	local LowerBound = Border:GetBottom() or 0
