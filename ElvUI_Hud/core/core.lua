@@ -129,6 +129,16 @@ function H:PLAYER_REGEN_ENABLED()
     self:UnregisterEvent("PLAYER_REGEN_ENABLED")
 end
 
+function H:PLAYER_TARGET_CHANGED()
+    local frame = self.units['target']
+
+    frame:DisableElement('AuraBars');
+
+    H:ScheduleTimer('AuraBarsSuck',0.25);
+
+    self:UnregisterEvent("PLAYER_TARGET_CHANGED");
+end
+
 function H:EnableHide(frame)
     if frame.unit == 'target' then return end
     local hider = frame.hud_hider
@@ -175,6 +185,7 @@ function H:Enable()
         end
     end
 
+    self:RegisterEvent("PLAYER_TARGET_CHANGED");
     H:ScheduleTimer('AuraBarsSuck',5)
 end
 

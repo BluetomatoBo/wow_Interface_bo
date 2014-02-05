@@ -308,7 +308,11 @@ end
 
 -- Construct arcane bar for mages
 function H:ConstructArcaneBar(frame)
-    return self:ConstructSubBars(frame,'classbars','arcanecharge',4) 
+    local bars = self:ConstructSubBars(frame,'classbars','arcanecharge',4) 
+    
+    bars.PostUpdate = H.PostUpdateArcaneChargeBar
+
+    return bars
 end
 
 -- Combo points for rogues and druids

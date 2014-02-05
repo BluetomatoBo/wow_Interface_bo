@@ -344,11 +344,13 @@ function H:ConfigureStatusBar(frame,element,parent,name,t)
 	-- Dummy texture so we can set colors
 	sb:SetStatusBarTexture(E['media'].blankTex)
 	sb:GetStatusBarTexture():SetHorizTile(false)
- 
+ 	
 	-- Frame strata/level
 	sb:SetFrameStrata(parent:GetFrameStrata())
 	sb:SetFrameLevel(parent:GetFrameLevel())
 
+	sb:SetRotatesTexture(true)
+	
 	if not t then
 		-- Create the status bar background
 	    local bg = sb:CreateTexture(nil, 'BORDER')

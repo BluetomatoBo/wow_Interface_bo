@@ -1425,3 +1425,16 @@ function H:PortraitUpdate(unit)
 	end
 end
 
+function H:PostUpdateArcaneChargeBar(event, arcaneCharges, maxCharges)
+	local talentSpecialization = GetSpecialization()
+
+	local alpha;
+	if (talentSpecialization ~= 1) then
+		alpha = 0;
+	else
+		alpha = 1;
+	end
+	for i = 1,4 do
+		self[i]:SetAlpha(alpha);
+	end
+end
