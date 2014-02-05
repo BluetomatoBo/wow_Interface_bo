@@ -1,0 +1,12 @@
+tag 5.4.2.5
+73798d26e2a4501cc655d0d76102a847afc6e559
+SLOKnightfall <SLOKnightfall@gmail.com>
+2014-02-04 22:23:55 -0800
+
+Tagging changes
+
+
+--------------------
+
+SLOKnightfall:
+	- -Fix for error on initial load if user was running for the first time. -Set Scale Belly as a tamable mob
