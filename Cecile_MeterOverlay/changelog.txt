@@ -1,0 +1,6 @@
+v1.0.1
+- Unintended globals, minor string garbage & optimization by Dridzt
+- Fix Skada bug reported by Machine
+- Fix Boss bug reported by DrGjerdesmett
+v1.0.0
+- Initial release
