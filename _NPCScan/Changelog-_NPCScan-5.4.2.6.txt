@@ -1,0 +1,17 @@
+tag 5.4.2.6
+3df7c416f5f694f3c499ead3034f628f08e73f6b
+SLOKnightfall <SLOKnightfall@gmail.com>
+2014-02-09 11:44:06 -0800
+
+tagging changes
+
+
+--------------------
+
+SLOKnightfall:
+	- -Fix for stored_options error
+	- -Updated the NPCScan.AutoAdd error version check
+James D. Callahan III:
+	- Cleanups.
+	- Made the Debug function a null-op if not running a development version.
+	- Added debug output frame - only available in development code. Prevents forgotten debug prints from occurring.

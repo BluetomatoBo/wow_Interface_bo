@@ -22,6 +22,8 @@ local FOLDER_NAME, private = ...
 local L = private.L
 _G._NPCScan = private
 
+local debugger -- Only defined if needed.
+
 private.Frame = _G.CreateFrame("Frame")
 private.Frame:RegisterEvent("PLAYER_ENTERING_WORLD")
 private.Frame:RegisterEvent("PLAYER_LEAVING_WORLD")
@@ -111,6 +113,21 @@ private.OptionsCharacterDefault = {
 	TrackRares = true,
 	TrackVignettes = false,
 }
+
+
+-------------------------------------------------------------------------------
+-- Debugger.
+-------------------------------------------------------------------------------
+local function CreateDebugFrame()
+	return _G.LibStub("LibTextDump-1.0"):New(("%s Debug Output"):format(FOLDER_NAME), 640, 480)
+end
+
+function private.Debug(...)
+	--[===[@debug@
+	debugger = debugger or CreateDebugFrame()
+	debugger:AddLine(string.format(...))
+	--@end-debug@]===]
+end
 
 
 -------------------------------------------------------------------------------
@@ -897,7 +914,7 @@ function private.Frame:PLAYER_LOGIN(event_name)
 	--Check to see if old version of _NPCScan.AutoAdd is loaded and display warning
 	if _G.IsAddOnLoaded("_NPCScan.AutoAdd") then
 		local AutoAddVersion = GetAddOnMetadata("_NPCScan.AutoAdd", "Version"):match("^([%d.]+)");
-		if AutoAddVersion <= "2.1" then
+		if AutoAddVersion <= "2.2" then
 			StaticPopup_Show("NPCSCAN_AUTOADD_WARNING")
 		end
 	end
@@ -942,11 +959,6 @@ function private.Frame:PLAYER_LOGIN(event_name)
 		stored_character_options.Version = DB_VERSION
 	end
 
-	if stored_options and not stored_options.AlertSound and stored_character_options.AlertSound then
-		stored_options.AlertSound = stored_character_options.AlertSound
-		stored_character_options.AlertSound = nil
-	end
-	
 	private.Overlays.Register()
 	private.Synchronize(stored_options, stored_character_options)
 
@@ -1082,6 +1094,17 @@ do
 			end
 		end,
 		--[===[@debug@
+		DEBUG = function()
+			debugger = debugger or CreateDebugFrame()
+
+			if debugger:Lines() == 0 then
+				debugger:AddLine("Nothing to report.")
+				debugger:Display()
+				debugger:Clear()
+				return
+			end
+			debugger:Display()
+		end,
 		DUMP = function()
 			private.TextDump = private.TextDump or _G.LibStub("LibTextDump-1.0"):New(FOLDER_NAME)
 			private.DumpNPCData()
@@ -1120,7 +1143,7 @@ end
 
 
 _G.StaticPopupDialogs["NPCSCAN_AUTOADD_WARNING"] = {
-	text = "_NPCScan has detected that you are running _NPCScan.AutoAdd v2.1.  This version of the addon is not supported and may prevent _NPCScan from working properly.  It is reccomended that you disable _NPCScan.AutoAdd untill it is updated.",
+	text = "_NPCScan has detected that you are running _NPCScan.AutoAdd v2.2.  This version of the addon is not supported and may prevent _NPCScan from working properly.  It is reccomended that you disable _NPCScan.AutoAdd untill it is updated.",
 	button1 = "Ok",
 	OnAccept = function()
 	end,
