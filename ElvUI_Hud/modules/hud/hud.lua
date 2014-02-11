@@ -224,6 +224,7 @@ function H:ConstructHudFrame(frame,unit)
 end
 
 function H:UpdateFrame(unit)
+	if (UnitAffectingCombat("player")) then self:RegenWait("UpdateFrame", unit); return end
 	frame = self.units[unit]
 	if not self.db or not self.db.units then self.db = E.db.unitframe.hud end
 	if not self.db.units[frame.unit] then return end

@@ -125,7 +125,8 @@ function H:UpdateElvUFSetting()
 end
 
 function H:PLAYER_REGEN_ENABLED()
-    self:Enable()
+    if (not self.enabledFunc) then return end
+    self[self.enabledFunc](unpack(self.enabledArgs));
     self:UnregisterEvent("PLAYER_REGEN_ENABLED")
 end
 
@@ -163,6 +164,7 @@ function H:DisableHide(frame)
 end
 
 function H:AuraBarsSuck()
+    if (UnitAffectingCombat("player")) then self:RegenWait("AuraBarsSuck"); return end
     H.enableAuraBars = true
     H:UpdateAllFrames()
     H.enableAuraBars = false
@@ -199,13 +201,21 @@ function H:UpdateMouseSetting()
     end
 end
 
+function H:RegenWait(func, ...)
+    self.enabledFunc = func;
+    self.enabledArgs = {...};
+    self:RegisterEvent("PLAYER_REGEN_ENABLED");
+end
+
 function H:UpdateAll()
     self.db = E.db.unitframe.hud
+
+    if UnitAffectingCombat("player") then self:RegenWait("UpdateAll"); return end
 
     self:UpdateAllFrames()
     self:UpdateMouseSetting()
     self:UpdateHideSetting()
-    if UnitAffectingCombat("player") then self:RegisterEvent("PLAYER_REGEN_ENABLED") else self:Enable() end
+    self:Enable()
 end
 
 function H:Initialize()
@@ -237,14 +247,11 @@ function H:Initialize()
     end
 
     EP:RegisterPlugin(addon, H.GenerateOptions)
-    self:UpdateAllFrames()
-    self:UpdateMouseSetting()
-    self:UpdateHideSetting()
 
     hooksecurefunc(E,"UpdateAll",function(self,ignoreInstall) H:UpdateAll() end)
     hooksecurefunc(UF,"Update_AllFrames",function(self) H:UpdateAllFrames() end)
     
-    if UnitAffectingCombat("player") then self:RegisterEvent("PLAYER_REGEN_ENABLED") else self:Enable() end
+    if UnitAffectingCombat("player") then self:RegenWait("UpdateAll") else self:UpdateAll() end
 
     self.version = GetAddOnMetadata(addon,'Version')
     print(L["ElvUI Hud "]..format("v|cff33ffff%s|r",self.version)..L[" is loaded. Thank you for using it and note that I will always support you."])
