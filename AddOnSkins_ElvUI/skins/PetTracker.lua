@@ -29,8 +29,8 @@ function AS:SkinPetTracker()
 			end
 		end
 	end)
-	for i = 1, 3 do
-        local button = _G[("PetTrackerAbilityAction%d"):format(i)]
+	for i = 1, 6 do
+        local button = _G["PetTrackerAbilityAction"..i]
         if button then
             AS:SkinIconButton(button)
 			AS:SkinTexture(button.Icon)
@@ -58,21 +58,28 @@ function AS:SkinPetTracker()
 					_G['PetTrackerBattleSlot'..i].Bg:Hide()
 					AS:SkinTexture(_G['PetTrackerBattleSlot'..i].Icon)
 					_G['PetTrackerBattleSlot'..i].IconBorder:Hide()
+					_G['PetTrackerBattleSlot'..i].Quality:Hide()
+					_G['PetTrackerBattleSlot'..i].Highlight:StripTextures()
+					_G['PetTrackerBattleSlot'..i].Highlight:HookScript('OnShow', function() _G['PetTrackerBattleSlot'..i]:SetBackdropBorderColor(1, 1, 0) end)
+					_G['PetTrackerBattleSlot'..i].Highlight:HookScript('OnHide', function() _G['PetTrackerBattleSlot'..i]:SetBackdropBorderColor(unpack(AS.BorderColor)) end)
 					AS:SkinStatusBar(_G['PetTrackerBattleSlot'..i].Health)
 					AS:SkinStatusBar(_G['PetTrackerBattleSlot'..i].Xp)
 					_G['PetTrackerBattleSlot'..i].IsSkinned = true
-					for i = 1, 18 do
-						local Ability = _G['PetTrackerAbilityButton'..i]
-						for i = 1, Ability:GetNumRegions() do
-							local Region = select(i, Ability:GetRegions())
-							if Region and Region:GetObjectType() == 'Texture' then
-								if Region:GetTexture() == 'Interface\\Spellbook\\Spellbook-Parts' then
-									Region:SetTexture(nil)
-								end
+				end
+			end
+			for i = 1, 45 do
+				local Ability = _G['PetTrackerAbilityButton'..i]
+				if Ability and not Ability.IsSkinned then
+					for i = 1, Ability:GetNumRegions() do
+						local Region = select(i, Ability:GetRegions())
+						if Region and Region:GetObjectType() == 'Texture' then
+							if Region:GetTexture() == 'Interface\\Spellbook\\Spellbook-Parts' then
+								Region:SetTexture(nil)
 							end
 						end
-						AS:SkinTexture(_G['PetTrackerAbilityButton'..i].Icon)
 					end
+					AS:SkinTexture(Ability.Icon)
+					Ability.IsSkinned = true
 				end
 			end
 		end)
