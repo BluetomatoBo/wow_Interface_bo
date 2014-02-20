@@ -1,12 +1,10 @@
 ## Interface: 50400
 ## Title: |cff1784d1ElvUI |r|cffFFFFFFAddOnSkins|r
-## Version: 1.93
+## Version: 2.00
 ## Author: Azilroka, Sortokk
 ## RequiredDep: ElvUI
 ## OptionalDep: DSM
 ## X-Tukui-ProjectID: 128
-## X-Tukui-ProjectFolders: AddOnSkins_ElvUI
+## X-Tukui-ProjectFolders: AddOnSkins_ElvUI, AddOnSkins_Skins
 
-core\load_core.xml
-skins\load_skins.xml
-core\Profile.lua
+Load_AddOnSkins.xml

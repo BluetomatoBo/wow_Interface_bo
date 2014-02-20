@@ -37,10 +37,13 @@ local DEVELOPERS = {
 	'Lockslap',
 	'lolarennt',
 	'MaXiMUS',
+	'Merith',
 	'Outofammo',
 	'Pat',
+	'Pezzer13',
 	'Rakkhin',
 	'Repooc',
+	'Shestak',
 	'Shadowcall',
 	'Sinaris',
 	'Sortokk',
@@ -232,12 +235,17 @@ function AS:GenerateOptions()
 				type = 'toggle',
 				name = 'WeakAura AuraBar',
 				order = 1,
-				disabled = function() return not AS:CheckOption('WeakAurasSkin', 'WeakAuras') end
+				disabled = function() return not AS:CheckOption('WeakAurasSkin', 'WeakAuras') end,
 			},
 			AuctionHouse = {
 				type = 'toggle',
 				name = 'Auction House',
 				order = 2,
+			},
+			IntegrateMyRolePlayTooltip = {
+				type = 'toggle',
+				name = 'Integrate the MyRolePlay tooltip with ElvUI\'s tooltip',
+				order = 3,
 			}
 		}
 	}
