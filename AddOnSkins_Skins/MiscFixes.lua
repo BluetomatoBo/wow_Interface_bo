@@ -35,19 +35,22 @@ function AS:MiscFixes(event, addon)
 			AuctionFrameTab1:Point('TOPLEFT', AuctionFrame, 'BOTTOMLEFT', -5, 2)
 			BrowseNextPageButton:Size(20)
 			BrowsePrevPageButton:Size(20)
-			for i = 1, AuctionFrame.numTabs do
-				AS:SkinTab(_G['AuctionFrameTab'..i])
+		end
+		for i = 1, AuctionFrame.numTabs do
+			AS:SkinTab(_G['AuctionFrameTab'..i])
+		end
+		AS:UnregisterEvent(name, event)
+	end
+	local function SkinIcons()
+		for i = 1, LFG_ROLE_NUM_SHORTAGE_TYPES do
+			if _G['LFGDungeonReadyDialogRewardsFrameReward'..i] and not _G['LFGDungeonReadyDialogRewardsFrameReward'..i].IsDone then
+				_G['LFGDungeonReadyDialogRewardsFrameReward'..i..'Border']:Kill()
+				_G['LFGDungeonReadyDialogRewardsFrameReward'..i..'Texture']:SetTexCoord(unpack(AS.TexCoords))
+				_G['LFGDungeonReadyDialogRewardsFrameReward'..i].IsDone = true
 			end
 		end
-		AS:UnregisterEvent(name, event)
 	end
-	if event == 'LFG_PROPOSAL_SHOW' then
-		for i = 1, 2 do
-			_G['LFGDungeonReadyDialogRewardsFrameReward'..i..'Border']:Kill()
-			_G['LFGDungeonReadyDialogRewardsFrameReward'..i..'Texture']:SetTexCoord(unpack(AS.TexCoords))
-		end
-		AS:UnregisterEvent(name, event)
-	end
+	hooksecurefunc('LFGDungeonReadyDialog_UpdateRewards', SkinIcons)
 end
 
-AS:RegisterSkin(name, AS.MiscFixes, 'AUCTION_HOUSE_SHOW', 'LFG_PROPOSAL_SHOW')
+AS:RegisterSkin(name, AS.MiscFixes, 'AUCTION_HOUSE_SHOW')
