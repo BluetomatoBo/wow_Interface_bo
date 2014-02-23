@@ -1,0 +1,11 @@
+## Interface: 40300
+## Title: |cff1784d1ElvUI|r AtlasLoot Skin
+## Notes: Editless AtlasLoot Skin For ElvUI/Tukui
+## Author: Camealion
+## Version: 2.0
+## Dependencies: AtlasLoot, AtlasLoot_Cataclysm
+## OptionalDeps: Tukui, ElvUI
+
+ElvUI_AtlasLoot_Skin.lua
+!Functions.lua
+
