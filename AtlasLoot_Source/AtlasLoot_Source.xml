@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+	<Script file="AtlasLoot_Source.lua"/>
+	<Script file="Options.lua"/>
+	<Script file="Data\Items.lua"/>
+	<Script file="Data\IDs.lua"/>
+
+</Ui>

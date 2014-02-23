@@ -1,0 +1,18 @@
+AtlasLoot_TT
+
+This mod is distributed under Version 2 of the GPL.  A copy of the GPL is included in this zip file with links to non-english translations.
+
+-Hegarol
+
+Patch Notes
+v0.3b (Feb 26, 2012)
+IMPORTANT NOTE: Please remove any old folders before installing v0.3.
+Compatible with Patch 4.3.
+Renamed addon to AtlasLoot_Source.
+Updated database with new 4.3 items.
+
+v0.2 (Oct 03, 2011)
+Fixed a library bug.
+
+v0.1 (Oct 03, 2011)
+Initial beta release.
