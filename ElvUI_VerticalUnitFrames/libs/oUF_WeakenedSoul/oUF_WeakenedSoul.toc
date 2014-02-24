@@ -1,0 +1,13 @@
+## Interface: 40000
+## Title: oUF Weakened Soul
+## Notes: Adds a status bar to watch Weakened Soul time left to oUF frames units.
+## Author: Tukz
+## Version: 1
+## X-Category: oUF
+## Dependencies: oUF
+## X-Curse-Packaged-Version: 5.91
+## X-Curse-Project-Name: ElvUI VerticalUnitFrames
+## X-Curse-Project-ID: elvui-hud
+## X-Curse-Repository-ID: wow/elvui-hud/mainline
+
+oUF_WeakenedSoul.lua

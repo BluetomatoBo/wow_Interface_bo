@@ -1,0 +1,13 @@
+## Interface: 50000
+## Title: oUF Wild Mushroon
+## Notes: Display Druid Mushroom
+## Author: Tukz
+## Version: 1.00
+## X-Category: oUF
+## Dependencies: oUF
+## X-Curse-Packaged-Version: 5.91
+## X-Curse-Project-Name: ElvUI VerticalUnitFrames
+## X-Curse-Project-ID: elvui-hud
+## X-Curse-Repository-ID: wow/elvui-hud/mainline
+
+oUF_WildMushroom.lua
