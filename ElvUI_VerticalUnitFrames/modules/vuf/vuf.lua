@@ -189,9 +189,9 @@ function VUF:CheckHealthValue(frame,eclipse)
 	if config.enabled then
 		if VUF:IsDefault('units.player.health.value.anchor') then
         	if eclipse then
-        		frame.health.value:Point('TOPRIGHT',frame.Health,'TOPLEFT',-30,0)
+        		frame.Health.value:Point('TOPRIGHT',frame.Health,'TOPLEFT',-30,0)
         	else
-        		frame.health.value:Point('TOPRIGHT',frame.Health,'TOPLEFT',-20,0)
+        		frame.Health.value:Point('TOPRIGHT',frame.Health,'TOPLEFT',-20,0)
         	end
         end
     end
@@ -278,7 +278,9 @@ function VUF:DisableThisShit()
 	if (not self.db or not self.db.units) then VUF:ScheduleTimer('DisableThisShit', 1); return end
 	if UnitAffectingCombat("player") then self:RegenWait('DisableThisShit'); return end
 	for _,f in pairs(self.units) do
-		if(not self.db.units[f.unit].enabled) then
+		local unit = f.unit
+		if (unit == "vehicle") then unit = "player" end
+		if(not self.db.units[unit].enabled) then
 			f:Disable()
 		end
 	end

@@ -236,6 +236,7 @@ function VUF:ConstructEclipseBar(frame)
     eclipseBarText:SetPoint("LEFT", eclipseBar, "RIGHT", E:Scale(10), 0)
     
     eclipseBar.PostUpdatePower = UF.EclipseDirection
+    eclipseBar._PostUpdate = VUF.PostUpdateEclipseBar
     eclipseBar.Text = eclipseBarText
 
     return eclipseBar
@@ -273,7 +274,11 @@ end
 
 -- Wild Mushroom Bar for Druids
 function VUF:ConstructWildMushroomBar(frame)
-    return self:ConstructSubBars(frame,'mushroom','wildmushroom',3)
+    local bars = self:ConstructSubBars(frame,'mushroom','wildmushroom',3)
+
+    bars._PostUpdate = VUF.PostUpdateWildMushrooms;
+
+    return bars;
 end
 
 -- Warlock spec bars
@@ -305,7 +310,7 @@ end
 function VUF:ConstructShadowOrbBar(frame)
     local bars = self:ConstructSubBars(frame,'classbars','shadoworb',3)
 
-    bars.PostUpdate = VUF.PostUpdateShadowOrbBar
+    bars._PostUpdate = VUF.PostUpdateShadowOrbBar
 
     return bars
 end
@@ -314,7 +319,7 @@ end
 function VUF:ConstructArcaneBar(frame)
     local bars = self:ConstructSubBars(frame,'classbars','arcanecharge',4) 
     
-    bars.PostUpdate = VUF.PostUpdateArcaneChargeBar
+    bars._PostUpdate = VUF.PostUpdateArcaneChargeBar
 
     return bars
 end

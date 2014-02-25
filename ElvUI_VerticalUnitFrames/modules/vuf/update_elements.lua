@@ -45,6 +45,9 @@ function VUF:UpdateClassBar(frame,element)
 
 	if element == 'classbars' then
 		if E.myclass == "DRUID" then
+			if (not frame.EclipseBar.PostUpdate) then
+				frame.EclipseBar.PostUpdate = function(self) VUF.PostUpdateClassBar(self, frame, element) end
+			end
 			frame.EclipseBar.LunarBar:SetMinMaxValues(0, 0)
 			frame.EclipseBar.SolarBar:SetMinMaxValues(0, 0)
 			frame.EclipseBar.LunarBar:SetStatusBarColor(unpack(ElvUF.colors.EclipseBar[1]))
@@ -72,15 +75,6 @@ function VUF:UpdateClassBar(frame,element)
 				maxPoints = 4
 			end
 			if not config['enabled'] then numPoints = 4; maxPoints = 4 end
-			if frame.ShardBar and not frame.ShardBar.PostUpdate then
-				frame.ShardBar.PostUpdate = function(self)
-					if config['enabled'] then
-						VUF:UpdateClassBar(frame,element)
-					else
-						self:Hide()
-					end
-				end
-			end
 		end
 
 		if E.myclass == "PALADIN" then
@@ -109,12 +103,6 @@ function VUF:UpdateClassBar(frame,element)
 				VUF:ScheduleTimer('UpdateClassBar', 1, frame, element);
 				return
 			end
-
-			if not frame.Harmony.PostUpdate then
-				frame.Harmony.PostUpdate = function(self)
-					VUF:UpdateClassBar(frame,element)
-				end
-			end
 		end
 
 		if E.myclass == "PRIEST" then
@@ -133,6 +121,10 @@ function VUF:UpdateClassBar(frame,element)
 	local totalspacing = (config['spacesettings'].offset * 2) + (config['spacesettings'].spacing * numPoints) - numPoints
 	local e = VUF:GetElement(element)
 	if not frame[e] then VUF:ScheduleTimer('UpdateClassBar', 1, frame, element); return end
+	if (not frame[e].PostUpdate) then
+		frame[e].PostUpdate = function(self) VUF.PostUpdateClassBar(self, frame, element) end
+	end
+
 	if spaced then
 		frame[e]:SetAlpha(0)
 	else
@@ -1431,6 +1423,39 @@ function VUF:PortraitUpdate(unit)
 	end
 end
 
+function VUF:PostUpdateClassBar(frame, element)
+	local config = VUF.db.units[frame.unit][element];
+	if config['enabled'] then
+		VUF:UpdateClassBar(frame,element)
+		if (self._PostUpdate) then
+			self:_PostUpdate();
+		end
+	else
+		self:Hide()
+	end
+end
+
+function VUF:PostUpdateEclipseBar(event)
+	local talentSpecialization = GetSpecialization();
+
+	local alpha;
+
+	local form = GetShapeshiftFormID()
+	if(not form) then
+		local ptt = GetSpecialization()
+		if(ptt and ptt == 1) then -- player has balance spec
+			alpha = 1;
+		end
+	elseif(form == MOONKIN_FORM) then
+		alpha = 1;
+	else
+		alpha = 0;
+	end
+
+	self.SolarBar:SetAlpha(alpha);
+	self.LunarBar:SetAlpha(alpha);
+end
+
 function VUF:PostUpdateArcaneChargeBar(event, arcaneCharges, maxCharges)
 	local talentSpecialization = GetSpecialization()
 
@@ -1460,3 +1485,17 @@ function VUF:PostUpdateShadowOrbBar(event)
 	end
 end
 
+function VUF:PostUpdateWildMushrooms()
+	local spec = GetSpecialization()
+	
+	local alpha;
+	if spec == 1 or spec == 4 then
+		alpha = 1;
+	else
+		alpha = 0;
+	end
+
+	for i = 1,3 do
+		self[i]:SetAlpha(alpha);
+	end
+end
