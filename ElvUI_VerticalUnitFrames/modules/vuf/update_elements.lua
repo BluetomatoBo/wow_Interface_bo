@@ -46,7 +46,7 @@ function VUF:UpdateClassBar(frame,element)
 	if element == 'classbars' then
 		if E.myclass == "DRUID" then
 			if (not frame.EclipseBar.PostUpdate) then
-				frame.EclipseBar.PostUpdate = function(self) VUF.PostUpdateClassBar(self, frame, element) end
+				frame.EclipseBar.PostUpdate = function(self, ...) VUF.PostUpdateClassBar(self, frame, element, {...}) end
 			end
 			frame.EclipseBar.LunarBar:SetMinMaxValues(0, 0)
 			frame.EclipseBar.SolarBar:SetMinMaxValues(0, 0)
@@ -122,7 +122,7 @@ function VUF:UpdateClassBar(frame,element)
 	local e = VUF:GetElement(element)
 	if not frame[e] then VUF:ScheduleTimer('UpdateClassBar', 1, frame, element); return end
 	if (not frame[e].PostUpdate) then
-		frame[e].PostUpdate = function(self) VUF.PostUpdateClassBar(self, frame, element) end
+		frame[e].PostUpdate = function(self, ...) VUF.PostUpdateClassBar(self, frame, element, {...}) end
 	end
 
 	if spaced then
@@ -1065,30 +1065,6 @@ function VUF:CastbarUpdate(elapsed)
 	end
 end
 
-function VUF:UpdateHoly(event,unit,powerType)
-	if(self.unit ~= unit or (powerType and powerType ~= 'HOLY_POWER')) then return end
-	local num = UnitPower(unit, SPELL_POWER_HOLY_POWER)
-	for i = 1, 5 do
-		if(i <= num) then
-			self.HolyPower[i]:SetAlpha(1)
-		else
-			self.HolyPower[i]:SetAlpha(.2)
-		end
-	end
-end
-
-function VUF:UpdateShards(event, unit, powerType)
-	if(self.unit ~= unit or (powerType and powerType ~= 'SOUL_SHARDS')) then return end
-	local num = UnitPower(unit, SPELL_POWER_SOUL_SHARDS)
-	for i = 1, SHARD_BAR_NUM_SHARDS do
-		if(i <= num) then
-			self.SoulShards[i]:SetAlpha(1)
-		else
-			self.SoulShards[i]:SetAlpha(.2)
-		end
-	end
-end
-
 local function FormatTime(s)
 	local day, hour, minute = 86400, 3600, 60
 	if s >= day then
@@ -1423,12 +1399,14 @@ function VUF:PortraitUpdate(unit)
 	end
 end
 
-function VUF:PostUpdateClassBar(frame, element)
-	local config = VUF.db.units[frame.unit][element];
+function VUF:PostUpdateClassBar(frame, element, args)
+	local unit = frame.unit
+	if (unit == "vehicle") then unit = "player" end
+	local config = VUF.db.units[unit][element];
 	if config['enabled'] then
 		VUF:UpdateClassBar(frame,element)
 		if (self._PostUpdate) then
-			self:_PostUpdate();
+			self:_PostUpdate(unpack(args));
 		end
 	else
 		self:Hide()
@@ -1497,5 +1475,20 @@ function VUF:PostUpdateWildMushrooms()
 
 	for i = 1,3 do
 		self[i]:SetAlpha(alpha);
+	end
+end
+
+function VUF:PostUpdateHolyPower()
+	local unit = "player";
+
+	local num = UnitPower(unit, SPELL_POWER_HOLY_POWER)
+	for i = 1, 5 do
+		if(i <= num) then
+			self[i]:Show();
+			self[i]:SetAlpha(1)
+		else
+			self[i]:Show();
+			self[i]:SetAlpha(.2)
+		end
 	end
 end

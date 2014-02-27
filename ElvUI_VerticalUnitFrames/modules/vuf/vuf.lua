@@ -275,12 +275,12 @@ function VUF:UpdateFrame(unit)
 end
 
 function VUF:DisableThisShit()
-	if (not self.db or not self.db.units) then VUF:ScheduleTimer('DisableThisShit', 1); return end
+	if (not VUF.db or not VUF.db.units) then VUF:ScheduleTimer('DisableThisShit', 1); return end
 	if UnitAffectingCombat("player") then self:RegenWait('DisableThisShit'); return end
-	for _,f in pairs(self.units) do
+	for _,f in pairs(VUF.units) do
 		local unit = f.unit
 		if (unit == "vehicle") then unit = "player" end
-		if(not self.db.units[unit].enabled) then
+		if(not VUF.db.units[unit].enabled) then
 			f:Disable()
 		end
 	end

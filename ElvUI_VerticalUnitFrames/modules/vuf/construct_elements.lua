@@ -288,7 +288,11 @@ end
 
 -- Construct holy power for paladins
 function VUF:ConstructHolyPower(frame)
-    return self:ConstructSubBars(frame,'classbars','holypower',5)
+    local bars = self:ConstructSubBars(frame,'classbars','holypower',5)
+
+    bars._PostUpdate = VUF.PostUpdateHolyPower;
+
+    return bars;
 end
 
 -- Runes for death knights
