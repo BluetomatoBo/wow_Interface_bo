@@ -1,7 +1,7 @@
 ﻿--[[
-$Id: LibBabble-ItemSet-3.0.lua 63 2013-08-15 15:49:22Z arith $
+$Id: LibBabble-ItemSet-3.0.lua 68 2013-12-31 14:10:31Z arith $
 Name: LibBabble-ItemSet-3.0
-Revision: $Rev: 63 $
+Revision: $Rev: 68 $
 Maintainers: arith
 Last updated by: $Author: arith $
 Website: http://www.wowace.com/addons/libbabble-itemset-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-ItemSet-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 63 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 68 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -2726,7 +2726,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Champion's Stormcaller"] = "Clamatormentas de Campeón",
 	["Champion's Threads"] = "Vestuario de Campeón",
 	["Champion's Vestments"] = "Vestimentas de Campeón",
-	["Chronomancer Regalia"] = "Atavío de cronomante",
+	["Chronomancer Regalia"] = "Atavío de cronomántico",
 	["Colossal Dragonplate Armor"] = "Armadura de placas de dragón colosal",
 	["Colossal Dragonplate Battlegear"] = "Equipo de batalla de placas de dragón colosal",
 	["Confessor's Raiment"] = "Vestiduras de confesor",
@@ -3374,7 +3374,7 @@ elseif GAME_LOCALE == "esES" then
 	["Champion's Stormcaller"] = "Clamatormentas de Campeón",
 	["Champion's Threads"] = "Vestuario de Campeón",
 	["Champion's Vestments"] = "Vestimentas de Campeón",
-	["Chronomancer Regalia"] = "Atavío de cronomante",
+	["Chronomancer Regalia"] = "Atavío de cronomántico",
 	["Colossal Dragonplate Armor"] = "Armadura de placas de dragón colosal",
 	["Colossal Dragonplate Battlegear"] = "Equipo de batalla de placas de dragón colosal",
 	["Confessor's Raiment"] = "Vestiduras de confesor",
@@ -3958,7 +3958,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Battlegear of Undead Slaying"] = "Equipamento de Batalha de Matar Mortos-vivos",
 	["Battlegear of Unyielding Strength"] = "Equipamento de Batalha da Força Obstinada",
 	["Battlegear of Valor"] = "Equipamento de Batalhao do Valor",
-	["Battlegear of Winged Triumph"] = "Battlegear of Winged Triumph",
+	["Battlegear of Winged Triumph"] = "Equipamento de Batalha do Triunfo Alado",
 	["Battlegear of Wrath"] = "Equipamento de Batalha da Ira",
 	["Battleplate of Cyclopean Dread"] = "Loriga do Medo Ciclópico",
 	["Battleplate of Immolation"] = "Placas de Batalha da Imolação",
@@ -4512,7 +4512,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Vestments of the Virtuous"] = "Vestimenta do Virtuoso",
 	["Vestments of the Witch Doctor"] = "Vestimenta do Mandingueiro",
 	["Vestments of Transcendence"] = "Vestimenta da Transcendência",
-	["Vestments of Winged Triumph"] = "Vestments of Winged Triumph",
+	["Vestments of Winged Triumph"] = "Vestimenta do Triunfo Alado",
 	["Vindicator's Battlegear"] = "Equipamento de Batalha do Vindicante",
 	["Voidheart Raiment"] = "Traje do Coração Vazio",
 	["Volcanic Armor"] = "Armadura Vulcânica",
@@ -6528,7 +6528,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Avenger's Battlegear"] = "Tenuta Feroce del Boia",
 	["Awesome Party Ensemble"] = "Completo Elegante da Festa",
 	["Balespider's Burning Vestments"] = "Paramenti Ardenti della Pena del Ragno",
-	["Barbed Assassin Battlegear"] = "Tenuta Feroce dell'Assassino Coriaceo",
+	["Barbed Assassin Battlegear"] = "Tenuta Feroce dell'Assassino Dilaniante",
 	["Battlearmor of Immolation"] = "Armatura da Battaglia dell'Immolazione",
 	["Battlecast Garb"] = "Abiti Incantati da Battaglia",
 	["Battlegear of Eternal Justice"] = "Tenuta Feroce dell'Eterna Giustizia",
@@ -6550,7 +6550,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Battlegear of Undead Slaying"] = "Tenuta Feroce del Cacciatore di Non Morti",
 	["Battlegear of Unyielding Strength"] = "Tenuta Feroce della Forza Inflessibile",
 	["Battlegear of Valor"] = "Tenuta Feroce del Valore",
-	["Battlegear of Winged Triumph"] = "Battlegear of Winged Triumph",
+	["Battlegear of Winged Triumph"] = "Tenuta Feroce del Trionfo Alato",
 	["Battlegear of Wrath"] = "Tenuta Feroce dell'Ira",
 	["Battleplate of Cyclopean Dread"] = "Tenuta da Battaglia del Terrore Ciclopico",
 	["Battleplate of Immolation"] = "Tenuta da Battaglia dell'Immolazione",
@@ -6562,7 +6562,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Beast Lord Armor"] = "Armatura del Signore delle Bestie",
 	["Beastmaster Armor"] = "Armatura del Campione delle Bestie",
 	["Beaststalker Armor"] = "Armatura del Predatore di Bestie",
-	["Black Dragon Mail"] = "Maglia del Drago Nero",
+	["Black Dragon Mail"] = "Armatura del Drago Nero",
 	["Blackfang Battleweave"] = "Divisa da Battaglia d'Artiglionero",
 	["Blessed Battlegear of Undead Slaying"] = "Tenuta Feroce Benedetta del Cacciatore di Non Morti",
 	["Blessed Garb of the Undead Slayer"] = "Abiti Benedetti del Cacciatore di Non Morti",
@@ -6581,7 +6581,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Bloodthirsty Wyrmhide"] = "Dragonpelle Sanguinaria",
 	["Blood Tiger Harness"] = "Bardatura della Tigre del Sangue",
 	["Bloodvine Garb"] = "Abiti della Vite del Sangue",
-	["Blue Dragon Mail"] = "Maglia del Drago Blu",
+	["Blue Dragon Mail"] = "Armatura del Drago Blu",
 	["Bold Armor"] = "Armatura Audace",
 	["Bonescythe Armor"] = "Armatura della Falce Ossuta",
 	["Bonescythe Battlegear"] = "Tenuta Feroce della Falce Ossuta",
@@ -6729,7 +6729,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Gladiator's Battlegear"] = "Tenuta Feroce del Gladiatore",
 	["Gladiator's Copperskin"] = "Cuoiorame del Gladiatore",
 	["Gladiator's Desecration"] = "Dissacrazione del Gladiatore",
-	["Gladiator's Distinction"] = "Onoreficenza del Gladiatore",
+	["Gladiator's Distinction"] = "Onorificenza del Gladiatore",
 	["Gladiator's Dreadgear"] = "Tenuta di Telainfausta del Gladiatore",
 	["Gladiator's Dreadplate"] = "Corazza Tetra del Gladiatore",
 	["Gladiator's Earthshaker"] = "Scuotiterra del Gladiatore",
@@ -6763,7 +6763,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Grand Marshal's Vindication"] = "Castigo del Gran Maresciallo",
 	["Grand Marshal's Wartide"] = "Onda Guerriera del Gran Maresciallo",
 	["Grand Marshal's Wildhide"] = "Pellebrada del Gran Maresciallo",
-	["Green Dragon Mail"] = "Maglia del Drago Verde",
+	["Green Dragon Mail"] = "Armatura del Drago Verde",
 	["Gronnstalker's Armor"] = "Armatura del Predatore di Gronn",
 	["Gul'dan's Regalia"] = "Vessillo di Gul'dan",
 	["Hallowed Raiment"] = "Divisa Ombrosa",
@@ -7014,7 +7014,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Terrorblade Battlegear"] = "Tenuta Feroce dell'Angoscia",
 	["Thassarian's Battlegear"] = "Tenuta Feroce di Thassarian",
 	["Thassarian's Plate"] = "Corazza di Thassarian",
-	["The Big Wave"] = "Grande Onda",
+	["The Big Wave"] = "Tsunami",
 	["The Dark Brand"] = "Marchio Oscuro",
 	["The Darksoul"] = "Anima Scura",
 	["The Defiler's Determination"] = "Determinazione dei Profanatori",
@@ -7104,7 +7104,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Vestments of the Virtuous"] = "Paramenti del Virtuoso",
 	["Vestments of the Witch Doctor"] = "Paramenti del Taumaturgo",
 	["Vestments of Transcendence"] = "Paramenti della Trascendenza",
-	["Vestments of Winged Triumph"] = "Vestments of Winged Triumph",
+	["Vestments of Winged Triumph"] = "Paramenti del Trionfo Alato",
 	["Vindicator's Battlegear"] = "Tenuta Feroce del Vendicatore",
 	["Voidheart Raiment"] = "Divisa del Cuore Vuoto",
 	["Volcanic Armor"] = "Armatura Vulcanica",

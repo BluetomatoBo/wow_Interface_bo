@@ -1,4 +1,4 @@
--- $Id: Panel.lua 4201 2013-05-05 16:05:37Z lag123 $
+-- $Id: Panel.lua 4285 2014-02-17 11:00:12Z Lag123 $
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
@@ -399,12 +399,12 @@ do
 		
 		local SearchFrame = ButtonListLines["SearchFrame"]
 		
-		SearchFrame.SearchBox = CreateFrame("EditBox", "AtlasLootPanelSearch_Box", SearchFrame, "InputBoxTemplate")
+		SearchFrame.SearchBox = CreateFrame("EditBox", "AtlasLootPanelSearch_Box", SearchFrame, "SearchBoxTemplate")
 		SearchFrame.SearchBox:SetPoint("TOPLEFT", SearchFrame, "TOPLEFT")
 		SearchFrame.SearchBox:SetWidth(250)
 		SearchFrame.SearchBox:SetHeight(35)
 		SearchFrame.SearchBox:SetAutoFocus(false)
-		SearchFrame.SearchBox:SetTextInsets(0, 8, 0, 0)
+		--SearchFrame.SearchBox:SetTextInsets(0, 8, 0, 0)
 		SearchFrame.SearchBox:SetMaxLetters(100)
 		SearchFrame.SearchBox:SetScript("OnEnterPressed",function(self) 
 								AtlasLoot:CompareFrame_Search(SearchFrame.SearchBox:GetText(), "save")

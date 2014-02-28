@@ -15,7 +15,7 @@ Druide	 DRUID	 11
 
 
 0,0 == reset
-EJ_SetLootFilter(classID, specID)
+EJ_SetLootFilter(CLASS_ID, specID)
 
 local numLoot = EJ_GetNumLoot();
 local name, icon, slot, armorType, itemID, link, encounterID = EJ_GetLootInfoByIndex(index);
@@ -25,14 +25,29 @@ SetPortraitToTexture(scrollChild.specIcon, icon);
 ]]
 
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
+local CLASS_ID = select(3, UnitClass("player"))
 
 -- Contains infos about items
 --[[ FORMAT
 [itemId] = {
-	classID = {specId1, specId2, specId3}
+	CLASS_ID = {specId1, specId2, specId3}
 }
 ]]
 AtlasLoot_BonusRoll_Items = {}
+setmetatable(AtlasLoot_BonusRoll_Items, {
+	__newindex = function(t, k, v)
+		if CLASS_ID then
+			if v[CLASS_ID] then
+				rawset(t, k, v[CLASS_ID])
+			else
+				rawset(t, k, false)
+			end
+		else
+			rawset(t, k, v)
+		end
+		
+	end
+})
 
 local BUTTON_LIST = {}
 
@@ -57,11 +72,10 @@ local classTable = {
 
 local function CreateSpecInfo()
 	PLAYER_SPEC_INFO = {}
-	local classID = select(3, UnitClass("player"))
 	for i=1,GetNumSpecializations() do
 		local id, name, description, icon, background, role = GetSpecializationInfo(i)
-		if classID and classTable[classID] and classTable[classID][id] then
-			PLAYER_SPEC_INFO[classTable[classID][id]] = {
+		if PLAYER_CLASS_ID and classTable[PLAYER_CLASS_ID] and classTable[PLAYER_CLASS_ID][id] then
+			PLAYER_SPEC_INFO[classTable[PLAYER_CLASS_ID][id]] = {
 				name = name,
 				description = description,
 				icon = icon
@@ -130,11 +144,11 @@ end
 
 --- Checks a item if it available for the player class and specs
 function AtlasLoot:BonusLoot_CheckItemId(itemId)
-	if not itemId or type(itemId) ~= "number" or not AtlasLoot_BonusRoll_Items[itemId] then return end
-	if not AtlasLoot_BonusRoll_Items[itemId][PLAYER_CLASS_ID] then return false end
+	if not itemId or type(itemId) ~= "number" or AtlasLoot_BonusRoll_Items[itemId] == nil then return end
+	if AtlasLoot_BonusRoll_Items[itemId] == false or (not CLASS_ID and not AtlasLoot_BonusRoll_Items[itemId][PLAYER_CLASS_ID]) then return false end
 	if not PLAYER_SPEC_INFO then CreateSpecInfo() end
 	local ret = {}
-	for k,v in ipairs(AtlasLoot_BonusRoll_Items[itemId][PLAYER_CLASS_ID]) do
+	for k,v in ipairs(CLASS_ID and AtlasLoot_BonusRoll_Items[itemId] or AtlasLoot_BonusRoll_Items[itemId][PLAYER_CLASS_ID]) do
 		if v and PLAYER_SPEC_INFO[k] then
 			if not PLAYER_SPEC_INFO[k].icon then
 				CreateSpecInfo()
@@ -146,11 +160,11 @@ function AtlasLoot:BonusLoot_CheckItemId(itemId)
 end
 
 function AtlasLoot:BonusLoot_GetItemIdInfo(itemId)
-	if not itemId or type(itemId) ~= "number" or not AtlasLoot_BonusRoll_Items[itemId] then return end
-	if not AtlasLoot_BonusRoll_Items[itemId][PLAYER_CLASS_ID] then return false end
+	if not itemId or type(itemId) ~= "number" or AtlasLoot_BonusRoll_Items[itemId] == nil then return end
+	if AtlasLoot_BonusRoll_Items[itemId] == false or (not CLASS_ID and not AtlasLoot_BonusRoll_Items[itemId][PLAYER_CLASS_ID]) then return false end
 	if not PLAYER_SPEC_INFO then CreateSpecInfo() end
 	local ret = {}
-	for k,v in ipairs(AtlasLoot_BonusRoll_Items[itemId][PLAYER_CLASS_ID]) do
+	for k,v in ipairs(CLASS_ID and AtlasLoot_BonusRoll_Items[itemId] or AtlasLoot_BonusRoll_Items[itemId][PLAYER_CLASS_ID]) do
 		if v then
 			if not PLAYER_SPEC_INFO[k].icon then
 				CreateSpecInfo()

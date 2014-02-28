@@ -1,4 +1,4 @@
-﻿-- $Id: constants.tw.lua 4270 2013-09-17 13:23:17Z arith $
+﻿-- $Id: constants.tw.lua 4278 2013-09-22 01:42:20Z ananhaid $
 --[[
 constants.tw.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -85,7 +85,7 @@ if AL then
 	AL["AtlasLootFu is no longer in use.\nDelete it from your AddOns folder"] = "AtlasLootFu 已不再包含在 AtlasLoot 裡, \n請將其從 Addons 目錄移除.";
 
 	-- Atlas Incompatible
-	AL["Please note that AtlasLoot v%s is only compatible with Atlas v%s. AtlasLoot detected that you have an older Atlas version installed and thus Atlas integration was disabled."] = "請注意，AAtlasLoot v%s 僅支援 Atlas v%s 。我們偵測到您目前的 Atlas 版本太舊，因此關於 Atlas 的整合將會被停用。";
+	AL["Please note that AtlasLoot v%s is only compatible with Atlas v%s. AtlasLoot detected that you have an older Atlas version installed and thus Atlas integration was disabled."] = "請注意，AtlasLoot v%s 僅支援 Atlas v%s 。我們偵測到您目前的 Atlas 版本太舊，因此關於 Atlas 的整合將會被停用。";
 
 	-- Options
 	AL["Options"] = "選項";
@@ -615,6 +615,7 @@ if AL then
 	AL["Flexible"] = "彈性";
 	AL["Raid Finder"] = "團隊搜尋器";
 	AL["Thunderforged"] = "雷霆鎔鑄";
+	AL["Warforged"] = "戰鑄";
 	AL["Pandaria World Bosses"] = "潘達利亞世界首領";
 	AL["Elite"] = "菁英";
 	AL["Vegetables"] = "蔬菜";
