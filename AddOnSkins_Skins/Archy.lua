@@ -57,14 +57,12 @@ function AS:SkinArchy()
 		AS:SkinStatusBar(ArchyArtifactFrameSkillBar)	
 	end
 
-	AS:SkinButton(ArchyDistanceIndicatorFrameSurveyButton)
-	ArchyDistanceIndicatorFrameSurveyButtonIcon:SetDrawLayer('OVERLAY')
-	AS:SkinButton(ArchyDistanceIndicatorFrameCrateButton)
- 	ArchyDistanceIndicatorFrameCrateButtonIcon:SetDrawLayer('OVERLAY')
- 	if ArchyDistanceIndicatorFrameLorItemButton then
-		AS:SkinButton(ArchyDistanceIndicatorFrameLorItemButton)
-		ArchyDistanceIndicatorFrameLorItemButtonIcon:SetDrawLayer('OVERLAY')
-	end
+	AS:SkinButton(ArchyDistanceIndicatorSurveyButton)
+	ArchyDistanceIndicatorSurveyButtonIcon:SetDrawLayer('OVERLAY')
+	AS:SkinButton(ArchyDistanceIndicatorCrateButton)
+	ArchyDistanceIndicatorCrateButtonIcon:SetDrawLayer('OVERLAY')
+	AS:SkinButton(ArchyDistanceIndicatorLorItemButton)
+	ArchyDistanceIndicatorLorItemButtonIcon:SetDrawLayer('OVERLAY')
 end
 
 AS:RegisterSkin(name, AS.SkinArchy)
