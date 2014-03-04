@@ -233,7 +233,7 @@ function VUF:ConstructEclipseBar(frame)
     eclipseBar.SolarBar = solarBar
     
     local eclipseBarText = self:ConfigureFontString(frame,'classbars',eclipseBar,'text')
-    eclipseBarText:SetPoint("LEFT", eclipseBar, "RIGHT", E:Scale(10), 0)
+    eclipseBarText:SetPoint("RIGHT", eclipseBar, "LEFT", E:Scale(-20), 0)
     
     eclipseBar.PostUpdatePower = UF.EclipseDirection
     eclipseBar._PostUpdate = VUF.PostUpdateEclipseBar

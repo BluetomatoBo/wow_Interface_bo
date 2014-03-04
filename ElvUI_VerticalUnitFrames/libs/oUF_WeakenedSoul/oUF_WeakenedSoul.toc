@@ -5,9 +5,5 @@
 ## Version: 1
 ## X-Category: oUF
 ## Dependencies: oUF
-## X-Curse-Packaged-Version: 5.93
-## X-Curse-Project-Name: ElvUI VerticalUnitFrames
-## X-Curse-Project-ID: elvui-hud
-## X-Curse-Repository-ID: wow/elvui-hud/mainline
 
 oUF_WeakenedSoul.lua

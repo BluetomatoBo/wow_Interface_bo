@@ -45,6 +45,7 @@ function VUF:UpdateClassBar(frame,element)
 
 	if element == 'classbars' then
 		if E.myclass == "DRUID" then
+			if not frame.EclipseBar then VUF:ScheduleTimer('UpdateClassBar', 1, frame, element); return end
 			if (not frame.EclipseBar.PostUpdate) then
 				frame.EclipseBar.PostUpdate = function(self, ...) VUF.PostUpdateClassBar(self, frame, element, {...}) end
 			end
