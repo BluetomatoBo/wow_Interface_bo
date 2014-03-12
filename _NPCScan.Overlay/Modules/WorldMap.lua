@@ -29,6 +29,11 @@ function panel:OnHide ( ... )
 	return self.super.OnHide( self, ... );
 end
 
+function panel:OnShow ( ... )
+	local keyparentlevel = _G.WorldMapButton:GetFrameLevel()
+	_NPCScanOverlayKey:SetFrameLevel(keyparentlevel + 20)
+	return self.super.OnShow( self, ... );
+end
 
 do
 	local Points = { "BOTTOMLEFT", "BOTTOMRIGHT", "TOPRIGHT" };
@@ -300,7 +305,7 @@ function panel:OnLoad ( ... )
 
 	local Key = CreateFrame( "Frame", "_NPCScanOverlayKey", KeyContainer );
 	KeyParent.Key = Key;
-	Key:SetFrameStrata("High");
+	--Key:SetFrameStrata("High");
 	Key.KeyParent, Key.Container = KeyParent, KeyContainer;
 	Key:SetScript( "OnEnter", self.KeyOnEnter );
 	Key:SetScript( "OnSizeChanged", panel.KeyOnSizeChanged );

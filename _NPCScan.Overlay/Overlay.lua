@@ -98,36 +98,10 @@ private.Colors = {
 	UnitPopupButtons.RAID_TARGET_3.color,
 	RAID_CLASS_COLORS.MONK,
 	RAID_CLASS_COLORS.HUNTER,
-
---[[
-	RAID_CLASS_COLORS.WARLOCK,	--Purple
-	RAID_CLASS_COLORS.PALADIN,	--Pink
-	RAID_CLASS_COLORS.MAGE,		--Blue
-	RAID_CLASS_COLORS.ROGUE,		--Yellow
-	NORMAL_FONT_COLOR,
-	RED_FONT_COLOR,			--Red
-	GRAY_FONT_COLOR,			--Grey
-	UnitPopupButtons.RAID_TARGET_4.color,
-	YELLOW_FONT_COLOR,			--Yellow
-	ORANGE_FONT_COLOR,			--Orange
-	PASSIVE_SPELL_FONT_COLOR,
-	BATTLENET_FONT_COLOR,					--Change
-	QuestDifficultyColors.trivial,
-	QuestDifficultyColors.header,
-	UnitPopupButtons.RAID_TARGET_1.color,
-	UnitPopupButtons.RAID_TARGET_2.color,
-	UnitPopupButtons.RAID_TARGET_5.color,
-	UnitPopupButtons.RAID_TARGET_6.color,
-	RAID_CLASS_COLORS.HUNTER,	-- Green
-	RAID_CLASS_COLORS.WARLOCK,	--Purple
-	RAID_CLASS_COLORS.PRIEST,	--White
-	RAID_CLASS_COLORS.PALADIN,	--Pink
-	RAID_CLASS_COLORS.MAGE,		--Blue
-	RAID_CLASS_COLORS.ROGUE,		--Yellow
-	RAID_CLASS_COLORS.DRUID,		--Orange
-	RAID_CLASS_COLORS.SHAMAN,	--??	
-	RAID_CLASS_COLORS.DEATHKNIGHT,--Dark Red ]]--	
 };
+
+_NPCScanOverlayKeyColors = private.Colors
+
 
 private.DetectionRadius = 100; -- yards
 
@@ -393,7 +367,7 @@ function private:ApplyZone ( Map, Callback )
 			local NpcID, PathData = NPCList[NpcName], MapData[NPCList[NpcName]]
 			ColorIndex = ColorIndex + 1;
 			if ( private.Options.ShowAll or private.NPCCounts[ NpcID ] ) then
-				local Color = assert( private.Colors[ ColorIndex ], "Ran out of unique path colors." );
+				local Color = assert( _NPCScanOverlayKeyColors[ ColorIndex ], "Ran out of unique path colors." );
 				local Found, FoundX, FoundY = private.NPCMaps[ NpcID ][ Map ];
 				if ( type( Found ) == "table" ) then
 					FoundX, FoundY = unpack( Found );

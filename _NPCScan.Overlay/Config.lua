@@ -9,6 +9,7 @@ local panel = _G.CreateFrame("Frame")
 private.Config = panel
 
 panel.ShowAll = CreateFrame( "CheckButton", "_NPCScanOverlayConfigShowAllCheckbox", panel, "InterfaceOptionsCheckButtonTemplate" );
+panel.SetColor = CreateFrame( "Button", "_NPCScanOverlayConfigSetColorButton", panel, "UIPanelButtonTemplate" );
 
 local ModuleMethods = setmetatable( {}, getmetatable( panel ) );
 panel.ModuleMeta = { __index = ModuleMethods; };
@@ -172,10 +173,17 @@ panel.ShowAll:SetPoint( "TOPLEFT", SubText, "BOTTOMLEFT", -2, -8 );
 _G[ panel.ShowAll:GetName().."Text" ]:SetText( L.CONFIG_SHOWALL );
 panel.ShowAll.tooltipText = L.CONFIG_SHOWALL_DESC;
 
+panel.SetColor:SetPoint( "TOPLEFT", panel.ShowAll, "BOTTOMLEFT", -2, -8 );
+_G[ panel.SetColor:GetName().."Text" ]:SetText( L.CONFIG_SETCOLOR );
+panel.SetColor:SetScript( "OnClick", function() _NPCScanOverlayPathColorList:Show()end);
+panel.SetColor:SetHeight( 32 );
+panel.SetColor:SetWidth( 150 );
+panel.SetColor.tooltipText = L.CONFIG_SETCOLOR_DESC;
+
 
 -- Module options scrollframe
 local Background = CreateFrame( "Frame", nil, panel, "OptionsBoxTemplate" );
-Background:SetPoint( "TOPLEFT", panel.ShowAll, "BOTTOMLEFT", 0, -8 );
+Background:SetPoint( "TOPLEFT", panel.SetColor, "BOTTOMLEFT", 0, -8 );
 Background:SetPoint( "BOTTOMRIGHT", -32, 16 );
 local Texture = Background:CreateTexture( nil, "BACKGROUND" );
 Texture:SetTexture( 0, 0, 0, 0.5 );
