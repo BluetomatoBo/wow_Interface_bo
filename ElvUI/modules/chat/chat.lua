@@ -124,7 +124,8 @@ local specialChatIcons = {
 		["Aeriane"] = true,
 		["Sinth"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\tyrone_biggums_chat_logo.tga:16:18|t",
 		["Elvz"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
-		["Sarah"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\mr_hankey.tga:18:22|t",
+		["Sarah"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\helloKittyChatLogo.tga:18:20|t",
+		["Sara"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\helloKittyChatLogo.tga:18:20|t",
 		["Itzjonny"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\hulk_head:18:22|t",
 		["Elv"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\ElvUI_Chat_Logo:13:22|t",
 		["Incisìon"] = "|TInterface\\AddOns\\ElvUI\\media\\textures\\short_bus.tga:16:16|t",
@@ -1549,7 +1550,7 @@ function CH:CheckLFGRoles()
 			name, realm = UnitName(unit..i)
 			
 			if(role and name) then
-				name = realm and name..'-'..realm or PLAYER_NAME;
+				name = realm and name..'-'..realm or name..'-'..PLAYER_REALM;
 				lfgRoles[name] = rolePaths[role]
 			end
 		end

@@ -21,7 +21,7 @@ AddOn.Options = {
 	type = "group",
 	name = AddOnName,
 	args = {},
-};
+}
 
 local Locale = LibStub("AceLocale-3.0"):GetLocale(AddOnName, false);
 Engine[1] = AddOn;
