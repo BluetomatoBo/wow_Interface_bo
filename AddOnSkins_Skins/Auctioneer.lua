@@ -13,7 +13,7 @@ function AS:SkinAuctioneer(event)
 	if AucAdvScanButton then AS:SkinButton(AucAdvScanButton) end
 	if AucAdvSimpFrameCreate then AS:SkinButton(AucAdvSimpFrameCreate) end
 	if AucAdvSimpFrameRemember then AS:SkinButton(AucAdvSimpFrameRemember) end
-	AS:UnregisterEvent(name, event)
+	AS:UnregisterSkinEvent(name, event)
 end
 
 AS:RegisterSkin(name, AS.SkinAuctioneer, 'AUCTION_HOUSE_SHOW')

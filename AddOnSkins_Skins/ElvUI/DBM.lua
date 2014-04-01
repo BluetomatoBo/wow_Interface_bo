@@ -202,7 +202,7 @@ function AS:SkinDBM(event, addon)
 		AS:SkinButton(DBM_GUI_OptionsFrameOkay, true)
 		AS:SkinButton(DBM_GUI_OptionsFrameWebsiteButton, true)
 		AS:SkinScrollBar(DBM_GUI_OptionsFramePanelContainerFOVScrollBar)
-		AS:UnregisterEvent(name, event)
+		AS:UnregisterSkinEvent(name, event)
 	end
 end
 

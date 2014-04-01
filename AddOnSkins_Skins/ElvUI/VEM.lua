@@ -198,7 +198,7 @@ function AS:SkinVEM(event, addon)
 		AS:SkinButton(VEM_GUI_OptionsFrameOkay, true)
 		AS:SkinButton(VEM_GUI_OptionsFrameWebsiteButton, true)
 		AS:SkinScrollBar(VEM_GUI_OptionsFramePanelContainerFOVScrollBar)
-		AS:UnregisterEvent(name, event)
+		AS:UnregisterSkinEvent(name, event)
 	end
 end
 

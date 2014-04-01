@@ -26,7 +26,7 @@ function AS:SkinAuctionLite(event)
 	AS:SkinEditBox(SellBuyoutPriceSilver)
 	AS:SkinEditBox(SellBuyoutPriceCopper)
 	AS:SkinButton(SellCreateAuctionButton)
-	AS:UnregisterEvent(name, event)
+	AS:UnregisterSkinEvent(name, event)
 end
 
 AS:RegisterSkin(name, AS.SkinAuctionLite, 'AUCTION_HOUSE_SHOW')

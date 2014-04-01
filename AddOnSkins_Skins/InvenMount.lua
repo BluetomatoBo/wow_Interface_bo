@@ -45,7 +45,7 @@ function AS:SkinInvenMount(event, addon)
 		AS:SkinButton(InvenMountFilterButton)
 		local a, b, c, d, e = InvenMountFilterButton:GetPoint()
 		InvenMountFilterButton:SetPoint(a, b, c, -2, -8)
-		AS:UnregisterEvent('ADDON_LOADED')
+		AS:UnregisterSkinEvent(name, 'ADDON_LOADED')
 	end
 end
 

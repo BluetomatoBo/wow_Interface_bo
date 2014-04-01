@@ -31,7 +31,7 @@ function AS:SkinAdiBags(event)
 		AS:Delay(1, function()
 			if AdiBagsContainer2 then
 				SkinFrame(AdiBagsContainer2)
-				AS:UnregisterEvent(name, event)
+				AS:UnregisterSkinEvent(name, event)
 			end
 		end)
 	end

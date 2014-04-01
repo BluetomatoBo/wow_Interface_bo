@@ -19,7 +19,7 @@ function AS:SkinBigWigs(event, addon)
 					end
 				end
 			end)
-			AS:UnregisterEvent(name, event)
+			AS:UnregisterSkinEvent(name, event)
 		end
 	end
 
@@ -143,8 +143,8 @@ function AS:SkinBigWigs(event, addon)
 			GetStyleName = function() return "ElvUI" end,
 		})
 		BigWigsBars:SetBarStyle("ElvUI")
-		AS:UnregisterEvent(name, "ADDON_LOADED")
-		AS:UnregisterEvent(name, "PLAYER_ENTERING_WORLD")
+		AS:UnregisterSkinEvent(name, "ADDON_LOADED")
+		AS:UnregisterSkinEvent(name, "PLAYER_ENTERING_WORLD")
 	end
 end
 

@@ -18,7 +18,7 @@ function AS:SkinBagnon(event, addon)
 				AS:SkinCloseButton(BagnonFramebankCloseButton)
 			end
 		end)
-		AS:UnregisterEvent(name, event)
+		AS:UnregisterSkinEvent(name, event)
 	elseif event == 'GUILDBANKFRAME_OPENED' and addon == 'Bagnon_GuildBank' then
 		AS:Delay(0, function()
 			if BagnonFrameguildbank then
@@ -26,7 +26,7 @@ function AS:SkinBagnon(event, addon)
 				AS:SkinCloseButton(BagnonFrameguildbankCloseButton)
 			end
 		end)
-		AS:UnregisterEvent(name, event)
+		AS:UnregisterSkinEvent(name, event)
 	elseif event == 'VOID_STORAGE_OPEN' and addon == 'Bagnon_VoidStorage' then
 		AS:Delay(0, function()
 			if BagnonFramevoidstorage then
@@ -34,7 +34,7 @@ function AS:SkinBagnon(event, addon)
 				AS:SkinCloseButton(BagnonFramevoidstorageCloseButton)
 			end
 		end)
-		AS:UnregisterEvent(name, event)
+		AS:UnregisterSkinEvent(name, event)
 	end
 end
 

@@ -175,7 +175,7 @@ function AS:SkinCLCInfo(event, addon)
 				options.selectType.args.skinType.values = GetSkinTypeList()
 			end
 		end)
-		AS:UnregisterEvent(name, 'ADDON_LOADED')
+		AS:UnregisterSkinEvent(name, 'ADDON_LOADED')
 	end
 end
 

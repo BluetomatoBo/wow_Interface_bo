@@ -221,7 +221,7 @@ function AS:SkinAtlasLoot(event, addon)
 		AtlasLootItemsFrame_EncounterJournalIcon:SetInside()
 		AtlasLootItemsFrame_EncounterJournalRing:SetTexture(nil)
 		AtlasLootItemsFrame_EncounterJournal:SetHighlightTexture(nil)
-		AS:UnregisterEvent(name, 'ADDON_LOADED')
+		AS:UnregisterSkinEvent(name, 'ADDON_LOADED')
 	end
 end
 

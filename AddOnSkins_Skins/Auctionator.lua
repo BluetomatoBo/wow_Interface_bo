@@ -6,7 +6,7 @@ local name = 'AuctionatorSkin'
 function AS:SkinAuctionator(event)
 	if addon == 'Blizzard_TradeSkillUI' or IsAddOnLoaded('Blizzard_TradeSkillUI') then 
 		TradeSkillFrame:HookScript('OnShow', function() AS:SkinButton(Auctionator_Search, true) end)
-		AS:UnregisterEvent(name, event)
+		AS:UnregisterSkinEvent(name, event)
 	end
 	if event == 'PLAYER_ENTERING_WORLD' then return end
 	if event == 'AUCTION_HOUSE_SHOW' then
@@ -144,7 +144,7 @@ function AS:SkinAuctionator(event)
 		Atr_SellControls_Tex:StripTextures()
 		Atr_SellControls_Tex:StyleButton()
 		Atr_SellControls_Tex:SetTemplate('Default', true)
-		AS:UnregisterEvent(name, event)
+		AS:UnregisterSkinEvent(name, event)
 	end
 end
 
