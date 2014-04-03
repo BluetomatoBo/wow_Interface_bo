@@ -286,6 +286,47 @@ function AS:GenerateOptions()
 			},
 		},
 	}
+	E.Options.args.addonskins.args.about = {
+		type = 'group',
+		name = 'About/Help',
+		order = -2,
+		args = {
+			desc = {
+				order = 1,
+				type = 'description',
+				fontSize = 'medium',
+				name = 'This is where you can find out more of AddOnSkins.',
+			},
+			tukuilink = {
+				type = 'input',
+				width = 'full',
+				name = 'Download Link',
+				get = function(info) return 'http://www.tukui.org/addons/index.php?act=view&id=128' end,
+				order = 2,
+			},
+			changeloglink = {
+				type = 'input',
+				width = 'full',
+				name = 'Changelog Link',
+				get = function(info) return 'http://www.tukui.org/forums/topic.php?id=30607' end,
+				order = 3,
+			},
+			gitlablink = {
+				type = 'input',
+				width = 'full',
+				name = 'GitLab Link / Report Errors',
+				get = function(info) return 'http://git.tukui.org/Azilroka/addonskins' end,
+				order = 4,
+			},
+			skinlink = {
+				type = 'input',
+				width = 'full',
+				name = 'Available Skins / Skin Requests',
+				get = function(info) return 'http://www.tukui.org/forums/topic.php?id=28550' end,
+				order = 5,
+			},
+		},
+	}
 
 	local order = 2
 	for skinName, _ in AS:OrderedPairs(AS.register) do
