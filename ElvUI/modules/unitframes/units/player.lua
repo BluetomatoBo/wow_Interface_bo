@@ -657,9 +657,9 @@ function UF:Update_PlayerFrame(frame, db)
 	--Castbar
 	do
 		local castbar = frame.Castbar
-		castbar:Width(db.castbar.width - (E.PixelMode and 2 or (BORDER * 2)))
+		castbar:Width(db.castbar.width - (BORDER * 2))
 		castbar:Height(db.castbar.height)
-		castbar.Holder:Width(db.castbar.width + (E.PixelMode and 0 or (BORDER * 2)))
+		castbar.Holder:Width(db.castbar.width)
 		castbar.Holder:Height(db.castbar.height + (E.PixelMode and 2 or (BORDER * 2)))
 		castbar.Holder:GetScript('OnSizeChanged')(castbar.Holder)
 		
@@ -715,12 +715,11 @@ function UF:Update_PlayerFrame(frame, db)
 			local MAX_CLASS_BAR = UF.classMaxResourceBar[E.myclass]
 			if USE_MINI_CLASSBAR and not db.classbar.detachFromFrame then
 				bars:ClearAllPoints()
+				bars:Point("CENTER", frame.Health.backdrop, "TOP", 0, 0)
 				if E.myclass == 'DRUID' then
 					CLASSBAR_WIDTH = CLASSBAR_WIDTH * 2/3
-					bars:Point("LEFT", frame.Health.backdrop, "TOPLEFT", (BORDER*2 + 4), 0)
 				else
-					CLASSBAR_WIDTH = CLASSBAR_WIDTH * (MAX_CLASS_BAR - 1) / MAX_CLASS_BAR	
-					bars:Point("CENTER", frame.Health.backdrop, "TOP", -(BORDER*3 + 6), 0)
+					CLASSBAR_WIDTH = CLASSBAR_WIDTH * (MAX_CLASS_BAR - 1) / MAX_CLASS_BAR
 				end
 				bars:SetFrameStrata("MEDIUM")
 
