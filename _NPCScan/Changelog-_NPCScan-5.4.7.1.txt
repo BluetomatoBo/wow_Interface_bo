@@ -1,0 +1,12 @@
+tag 5.4.7.1
+f94ed5d08e4d680a03af003a106f174e662d2289
+James D. Callahan III <jcallahan@curse.com>
+2014-04-19 04:29:38 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Added Portent.
+	- Changed scan location for Chromehound from Searing Gorge to Burning Steppes to allay most of the false alarm warnings.
