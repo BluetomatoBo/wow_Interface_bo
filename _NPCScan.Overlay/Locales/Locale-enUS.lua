@@ -802,6 +802,7 @@ select( 2, ... ).L = setmetatable( {
 	CONFIG_SETCOLOR_DESC = "Click to set Map Key & Path Colors.",
 	CONFIG_COLORLIST_LABEL = "Overlay Path Color Table",
 	CONFIG_COLORLIST_INST = "Click on mob title to choose its color.",
+	CONFIG_COLORLIST_PLACEHOLDER = "Key Mob ",
 
 	CONFIG_TITLE = "Overlay",
 	CONFIG_TITLE_STANDALONE = "_|cffCCCC88NPCScan|r.Overlay",

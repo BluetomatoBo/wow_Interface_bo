@@ -5,9 +5,8 @@
 local FOLDER_NAME, private = ...
 local L = private.L
 local panel = CreateFrame("Frame", "_NPCScanOverlayPathColorList" )
-tinsert(UISpecialFrames,"_NPCScanOverlayPathColorList")
-panel:Hide()
 private.ColorConfig = panel
+tinsert(UISpecialFrames,"_NPCScanOverlayPathColorList")
 
 local modify_id 
 local modify_Line 
@@ -37,6 +36,7 @@ tile = true, tileSize = 32, edgeSize = 32,
 insets = { left = 11, right = 12, top = 12, bottom = 11 }});
 panel:SetBackdropColor(0,0,0,1);
 panel:SetPoint("CENTER",0,0);
+panel:Hide()
 
 local function ShowColorPicker(r, g, b, a, changedCallback)
 	ColorPickerFrame:SetColorRGB(r,g,b);
@@ -84,9 +84,6 @@ panel.ScrollChild = CreateFrame( "Frame" );
 ScrollFrame:SetScrollChild( panel.ScrollChild );
 panel.ScrollChild:SetSize( 1, 1 );
 
-
-
-
 local function AddLine ( R, G, B )
 	Count = Count + 1;
 	Line = CreateFrame("Button" ,"ColorSpot"..Count, panel.ScrollChild)
@@ -97,7 +94,7 @@ local function AddLine ( R, G, B )
 	Line.Text:SetAllPoints()
 	Line:SetID(Count)
 	Line:SetPoint( "TOPLEFT", 5, -15*Count );
-	Line.Text:SetText("Key Mob "..Count);
+	Line.Text:SetText(L.CONFIG_COLORLIST_PLACEHOLDER..Count);
 	Line.Text:SetTextColor( R, G, B );
 	Line:SetScript( "OnClick", function(self)
 		modify_id = self:GetID()
