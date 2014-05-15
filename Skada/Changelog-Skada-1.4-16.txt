@@ -1,0 +1,72 @@
+------------------------------------------------------------------------
+r524 | zarnivoop | 2014-05-15 09:14:40 +0000 (Thu, 15 May 2014) | 1 line
+Changed paths:
+   A /tags/1.4-16 (from /trunk:523)
+
+Tagging as 1.4-16
+------------------------------------------------------------------------
+r523 | oscarucb | 2014-05-11 20:36:35 +0000 (Sun, 11 May 2014) | 3 lines
+Changed paths:
+   M /trunk/modules/Deaths.lua
+
+Add absorb display to Death log
+New absorb column shows when a damage event was reduced by a heal absorb
+
+------------------------------------------------------------------------
+r522 | oscarucb | 2014-05-08 10:37:39 +0000 (Thu, 08 May 2014) | 2 lines
+Changed paths:
+   M /trunk/modules/Deaths.lua
+
+fix an intermittent display glitch introduced in r521
+
+------------------------------------------------------------------------
+r521 | oscarucb | 2014-05-08 00:19:05 +0000 (Thu, 08 May 2014) | 5 lines
+Changed paths:
+   M /trunk/modules/Deaths.lua
+
+Improve the Deaths summary display
+For regular fight sets, sort by initial death time (previously last death)
+For total set sort by number of deaths
+Bar length for both now graphs the number of deaths for the set (previously unused)
+
+------------------------------------------------------------------------
+r520 | znuff | 2014-05-04 22:56:05 +0000 (Sun, 04 May 2014) | 1 line
+Changed paths:
+   M /trunk/Skada.toc
+
+Added LibBossIDs-1.0 as an optional dependency.
+------------------------------------------------------------------------
+r519 | oscarucb | 2014-05-04 12:55:04 +0000 (Sun, 04 May 2014) | 2 lines
+Changed paths:
+   M /trunk/Skada.lua
+
+minor tweak to r517
+
+------------------------------------------------------------------------
+r518 | oscarucb | 2014-05-04 11:14:36 +0000 (Sun, 04 May 2014) | 4 lines
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/Skada.lua
+   M /trunk/embeds.xml
+
+fix ticket 352: roll back r481
+LibBossIds is still needed for world bosses and other non-raid-instance bosses,
+especially with the "Only keep boss fights" option enabled.
+
+------------------------------------------------------------------------
+r517 | oscarucb | 2014-05-04 10:50:57 +0000 (Sun, 04 May 2014) | 3 lines
+Changed paths:
+   M /trunk/Skada.lua
+
+tweak Reset and DeleteSegment so we don't leave windows pointing to deleted sets
+Fix a related lua error for deleting the last set
+
+------------------------------------------------------------------------
+r516 | oscarucb | 2014-03-14 13:57:19 +0000 (Fri, 14 Mar 2014) | 3 lines
+Changed paths:
+   M /trunk/modules/Deaths.lua
+
+Further improvements to Spirit of Redemption support
+Work harder to capture the actual killing blow, which often appears in the combat log after the SoR buff is applied.
+
+------------------------------------------------------------------------

@@ -2,6 +2,8 @@ local L = LibStub("AceLocale-3.0"):NewLocale("Skada", "enUS", true)
 
 if not L then return end
 
+L["Include set"] = true
+L["Include set name in title bar"] = true
 L["Disable"] = true
 L["Profiles"] = true
 L["Hint: Left-Click to toggle Skada window."] = true
@@ -23,6 +25,9 @@ L["Skada: Modes"] = true
 L["Skada: Fights"] = true
 
 -- Options
+L["Disabled Modules"] = true
+L["This change requires a UI reload. Are you sure?"] = true
+L["Tick the modules you want to disable."] = true
 L["Bar font"] = true
 L["The font used by all bars."] = true
 L["Bar font size"] = true
@@ -280,6 +285,11 @@ L["Healing"] = true
 L["'s Healing"] = true
 L["Overhealing"] = true
 L["Threat"] = true
+L["Power"] = true
+L["Enemies"] = true
+L["Debuffs"] = true
+L["DamageTaken"] = "Damage Taken"
+L["TotalHealing"] = "Total Healing"
 
 L["Announce CC breaking to party"] = true
 L["Ignore Main Tanks"] = true
@@ -383,3 +393,9 @@ L["Instance"] = "Instance"
 
 L["Enemy healing done"] = "Enemy healing done"
 L["Enemy healing taken"] = "Enemy healing taken"
+
+L["Skada has changed!"] = true
+L["All Skada functionality is now in 1 addon folder."] = true
+L["Skada will |cFFFF0000NOT|r function properly until you delete the following AddOns:"] = true
+L["Click below and configure your '|cFFFF0000Disabled Modules|r'."] = true
+
