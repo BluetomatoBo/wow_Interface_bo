@@ -1,9 +1,23 @@
 ------------------------------------------------------------------------
-r524 | zarnivoop | 2014-05-15 09:14:40 +0000 (Thu, 15 May 2014) | 1 line
+r527 | zarnivoop | 2014-05-15 11:55:25 +0000 (Thu, 15 May 2014) | 1 line
 Changed paths:
-   A /tags/1.4-16 (from /trunk:523)
+   A /tags/1.4-17 (from /trunk:526)
 
-Tagging as 1.4-16
+Tagging as 1.4-17
+------------------------------------------------------------------------
+r526 | zarnivoop | 2014-05-15 11:51:40 +0000 (Thu, 15 May 2014) | 1 line
+Changed paths:
+   M /trunk/.pkgmeta
+
+fix that .pkgmeta
+------------------------------------------------------------------------
+r525 | zarnivoop | 2014-05-15 11:43:20 +0000 (Thu, 15 May 2014) | 1 line
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/Skada.lua
+   M /trunk/embeds.xml
+
+undo removal of AceConsole (#469), which broke the report command
 ------------------------------------------------------------------------
 r523 | oscarucb | 2014-05-11 20:36:35 +0000 (Sun, 11 May 2014) | 3 lines
 Changed paths:
