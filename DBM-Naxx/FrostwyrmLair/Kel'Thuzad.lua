@@ -1,19 +1,19 @@
 local mod	= DBM:NewMod("Kel'Thuzad", "DBM-Naxx", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4548 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 142 $"):sub(12, -3))
 mod:SetCreatureID(15990)
+mod:SetEncounterID(1114)
+--mod:SetModelID(15945)--Doesn't work at all, doesn't even render.
 mod:SetMinCombatTime(60)
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6, 7, 8)
 
 mod:RegisterCombat("yell", L.Yell)
 
-mod:EnableModel()
-
-mod:RegisterEvents(
+mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
 	"SPELL_CAST_SUCCESS",
-	"UNIT_HEALTH"
+	"UNIT_HEALTH target focus mouseover"
 )
 
 local warnAddsSoon			= mod:NewAnnounce("warnAddsSoon", 1, 45419)
@@ -31,7 +31,7 @@ local timerMCCD				= mod:NewCDTimer(90, 28410)--actually 60 second cdish but its
 local timerPhase2			= mod:NewTimer(225, "TimerPhase2", "Interface\\Icons\\Spell_Nature_WispSplode")
 
 mod:AddBoolOption("SetIconOnMC", true)
-mod:AddBoolOption("SetIconOnManaBomb", true)
+mod:AddBoolOption("SetIconOnManaBomb", false)
 mod:AddBoolOption("SetIconOnFrostTomb", true)
 mod:AddBoolOption("ShowRange", true)
 
@@ -62,7 +62,7 @@ function mod:OnCombatStart(delay)
 	warnedAdds = false
 	MCIcon = 1
 	specwarnP2Soon:Schedule(215-delay)
-	if mod:IsDifficulty("normal25") then
+	if self:IsDifficulty("normal25") then
 		timerMCCD:Schedule(225-delay)
 	end
 	timerPhase2:Start()
@@ -79,17 +79,17 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(27808) then -- Frost Blast
+	if args.spellId == 27808 then -- Frost Blast
 		table.insert(frostBlastTargets, args.destName)
 		self:Unschedule(AnnounceBlastTargets)
 		self:Schedule(0.5, AnnounceBlastTargets)
 		blastTimer:Start()
-	elseif args:IsSpellID(27819) then -- Mana Bomb
+	elseif args.spellId == 27819 then -- Mana Bomb
 		warnMana:Show(args.destName)
 		if self.Options.SetIconOnManaBomb then
 			self:SetIcon(args.destName, 8, 5.5)
 		end
-	elseif args:IsSpellID(28410) then -- Chains of Kel'Thuzad
+	elseif args.spellId == 28410 then -- Chains of Kel'Thuzad
 		chainsTargets[#chainsTargets + 1] = args.destName
 		timerMC:Start()
 		timerMCCD:Start(60)--60 seconds?
@@ -107,7 +107,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(27810) then
+	if args.spellId == 27810 then
 		warnFissure:Show()
 	end
 end

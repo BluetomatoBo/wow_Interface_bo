@@ -1,0 +1,81 @@
+tag 5.4.14
+69a72a998ffe646abd6639643f71cacf7298b82f
+subversion <svn@deadlybossmods.com>
+2014-05-16 21:53:02 +0200
+
+Tagging as 5.4.14
+
+
+--------------------
+
+subversion:
+	- increment version number to 5.4.14
+	- Omega via svn r11262: Improve range frame behavior on malkorak to not show for non ranged in phase 1, but still show for all in phase 2 when relevant to debuff. Also now auto hides when blood rage starts like it was meant to. Another obscure bug I didn't notice because I'm a tank and these dps/healer only mechanics don't get noticed by me :\
+	- Omega via svn r11261: another timer adjust Also, filter VEM whispers.
+	- Omega via svn r11260: Seems My nameplate fixing may not be broken after all, since DBM gets to set them before entering combat, and can restore them (on a delay) after leaving combat). TPTP settings changes via DBM still work in combat, so all seems good, for now.
+	- Omega via svn r11259: Because 5.4.8 makes setting nameplates in combat protected functions in 5.4.8, now users have to deal with bad encounter design made EVEN WORSE.
+	- Omega via svn r11258: probably called often enough for this.
+	- Omega via svn r11257: Remove some prints
+	- Omega via svn r11256: This seems good
+	- Omega via svn r11255: put some of it back pretty sure the problem is here. It's a terrible place to put setskin anyways, createbar is called A LOT so this is a waste of cpu to check skin status so often.
+	- Omega via svn r11254: hmm, seems off, adding 5 seconds Also removing some other debug
+	- Omega via svn r11253: revert updates, timers are really broke now
+	- Omega via svn r11252: remove this blocker.
+	- Omega via svn r11251: Skin updates
+	- Omega via svn r11250: revert paragons, the timing on that is going to need a lot more work, i may not even bother.
+	- Omega via svn r11249: text tweak
+	- Omega via svn r11248: Update credits
+	- Omega via svn r11247: CN update
+	- Omega via svn r11246: Change that to a fades
+	- Omega via svn r11245: Garrosh improvements for last phase.
+	- Omega via svn r11244: Switch paragons to new way, old way is just for debug timing comparison and timer correction
+	- Omega via svn r11243: fix debug
+	- Omega via svn r11242: Remove default skin from req dependancies, i guess people like their bars missing textures.
+	- Omega via svn r11241: Fix some fails on global checker
+	- Omega via svn r11240: *Refactor world boss code again to be simpler. connected realm checks will now be done by sender, so that we can send more syncs to connected realms instead of just our own, and since sender is now doing check anyways, the receiver no longer needs to if sender always just sends receivers realm in the sync. *Fix some range frame bugs in Paragons mod
+	- Omega via svn r11239: actually that's not the problem, this is.
+	- Omega via svn r11238: hopefully fix nil error
+	- Omega via svn r11237: Remove this, no longer needed
+	- Omega via svn r11236: Remove this check as it causes problems, it seems skins only work if they are NOT load on demand.
+	- Omega via svn r11235: change LoD too
+	- Omega via svn r11234: And, as fall back, if setskin is called before options loaded, force load them.
+	- Omega via svn r11233: Load dependance tweaks
+	- Omega via svn r11232: make battle.net invite auto accepting more reliable
+	- Omega via svn r11231: Maybe fix another issue in skinning, if not, well it can't hurt anything either.
+	- Omega via svn r11230: Maybe fix http://forums.elitistjerks.com/topic/132509-custom-timer-skins/#entry2273770 If not, at least it'll fail quieter.
+	- Omega via svn r11229: Make DefaultSkin a req dependancy. Make sure it doesn't get disabled by the 99% that don't have their own custom skin.
+	- ebmor via svn r11228: deDE update
+	- Omega via svn r11227: Switch some translations to usable globals
+	- Omega via svn r11226: Set time back down to 30, remove pass on code completely
+	- Omega via svn r11225: Hmm, i think it's still making loops despite the antispams, so just get rid of pass on all together. Now you will only sync a world boss if YOU personally engage it. then you'll send it to your friends and your guild.
+	- Omega via svn r11224: Increase antispam to 60
+	- Omega via svn r11223: Add some debug to paragons to look at for next week
+	- Omega via svn r11222: remove invalid comment. it does have an option after all
+	- Omega via svn r11221: Add timer for garrosh/thrall RP
+	- nbluewiz via svn r11220: # koKR update.
+	- Omega via svn r11219: fix regression
+	- Omega via svn r11218: add is in instance check to auto invite accept to prevent unwanted situations where you get ported out of a dungeon/raid.
+	- Omega via svn r11217: Fix another bug by making sure index is saved on login
+	- Omega via svn r11216: why are these nilled out, they should never be nil, ever.
+	- Omega via svn r11215: More user protection. Now that timer looping is supported, lets avoid users looping a timer of 0 and freezing their wow client shall we. :)
+	- Omega via svn r11214: Also, add endloop
+	- Omega via svn r11213: update help list
+	- Omega via svn r11212: Add in some LFR protections against spammers Call GetInstanceInfo less often and use cached values
+	- Omega via svn r11211: update one debug line cause that error actually happened, but user has no idea what mod is creating invalid stats.
+	- Omega via svn r11210: Tested now, and some fixes.
+	- Omega via svn r11209: More custom timer refactoring and addition of a loop function that will come in real handy for ptr or cutting edge boss fighting (ability to setup an infinite loop timer that persists until fight ends to test cooldown theories during raid testing. Or if you're just a raid leader that has specific needs that can work on a timer cycle. This works for solo or broadcast so it can even be used for reminding yourself to do something every minute or something. :)
+	Untested, doing that next, if all works I'll try to write up timer docs.
+	- Omega via svn r11208: fix combat res stuff. forgot to account that formula is minutes not second
+	- Omega via svn r11207: Fix what looks to me as bad code in boss health scheduler. Code logic has scheduler always on regardless of boss health option, and then a duplicate schedule if boss health is off. I suspect based on code comments it's only intended to use scheduler if boss health is off and the extra always running one is a bug. This should fix one small occurrence of wasted cpu usage as this duplicate was firing every 1 second entire fight.
+	- Omega via svn r11206: Add preliminary support for combat resurrection charge timer. Will require more 6.0 API knowledge to finish it.
+	- Omega via svn r11205: fix ctimer
+	- Omega via svn r11204: fr update
+	- Omega via svn r11203: Count manifestations on norushen per user feature requests Add new type of custom timer that includes audio/text countdowns. Old method is still the same but new method is ctimer instead of timer
+	- Omega via svn r11202: fix serious regressoin
+	- Omega via svn r11201: more improvement to watchframe
+	- Omega via svn r11200: Make targeting boss for combat_yell only required for outdoor bosses.
+	- Omega via svn r11199: Add nil check for WatchFrame since it's renamed in 6.0, so the hide WatchFrame option doesn't  break things on beta/alpha. I'll concern myself with renaming it when 6.0 actually occurs
+	- Omega via svn r11198: Finally fix the bug causing 2 of prisons not to work on sha of pride. Change some yell defaults
+	- Omega via svn r11197: fr update
+	- Omega via svn r11196: french update
+	- tandanu via svn r11195: increment version number

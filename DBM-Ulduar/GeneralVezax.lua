@@ -1,19 +1,21 @@
 local mod	= DBM:NewMod("GeneralVezax", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4336 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 112 $"):sub(12, -3))
 mod:SetCreatureID(33271)
+mod:SetEncounterID(1134)
+mod:SetModelID(28548)
 mod:SetUsedIcons(7, 8)
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
+mod:RegisterEventsInCombat(
 	"SPELL_CAST_START",
 	"SPELL_INTERRUPT",
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_SUCCESS",
-	"CHAT_MSG_RAID_BOSS_EMOTE"
+	"RAID_BOSS_EMOTE"
 )
 
 local warnShadowCrash			= mod:NewTargetAnnounce(62660, 4)
@@ -33,14 +35,12 @@ local timerSaroniteVapors		= mod:NewNextTimer(30, 63322)
 local timerLifeLeech			= mod:NewTargetTimer(10, 63276)
 local timerHardmode				= mod:NewTimer(189, "hardmodeSpawn")
 
-mod:AddBoolOption("YellOnLifeLeech", true, "announce")
-mod:AddBoolOption("YellOnShadowCrash", true, "announce")
+local yellLifeLeech				= mod:NewYell(63276)
+local yellShadowCrash			= mod:NewYell(62660)
 mod:AddBoolOption("SetIconOnShadowCrash", true)
 mod:AddBoolOption("SetIconOnLifeLeach", true)
 mod:AddBoolOption("CrashArrow")
-mod:AddBoolOption("BypassLatencyCheck", false)--Use old scan method without syncing or latency check (less reliable but not dependant on other DBM users in raid)
 
-local sndWOP				= mod:NewSound(nil, "SoundWOP", true)
 
 function mod:OnCombatStart(delay)
 	timerEnrage:Start(-delay)
@@ -49,43 +49,34 @@ function mod:OnCombatStart(delay)
 end
 
 function mod:SPELL_CAST_START(args)
-	if args:IsSpellID(62661) then	-- Searing Flames
+	if args.spellId == 62661 then	-- Searing Flames
 		timerSearingFlamesCast:Start()
-	elseif args:IsSpellID(62662) then 
+	elseif args.spellId == 62662 then 
 		specWarnSurgeDarkness:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\darkpower.mp3")
 		timerNextSurgeofDarkness:Start()
 	end
 end
 
 function mod:SPELL_INTERRUPT(args)
-	if args:IsSpellID(62661) then
+	if args.spellId == 62661 then
 		timerSearingFlamesCast:Stop()
 	end
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(62662) then	-- Surge of Darkness
+	if args.spellId == 62662 then	-- Surge of Darkness
 		timerSurgeofDarkness:Start()
 	end
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(62662) then	
+	if args.spellId == 62662 then	
 		timerSurgeofDarkness:Stop()
 	end
 end
 
 function mod:ShadowCrashTarget()
-	local target = self:GetBossTarget(33271)
-	if not target then return end
-	if mod:LatencyCheck() then--Only send sync if you have low latency.
-		self:SendSync("CrashOn", target)
-	end
-end
-
-function mod:OldShadowCrashTarget()
-	local targetname = self:GetBossTarget()
+	local targetname = self:GetBossTarget(33271)
 	if not targetname then return end
 	if self.Options.SetIconOnShadowCrash then
 		self:SetIcon(targetname, 8, 10)
@@ -93,10 +84,7 @@ function mod:OldShadowCrashTarget()
 	warnShadowCrash:Show(targetname)
 	if targetname == UnitName("player") then
 		specWarnShadowCrash:Show(targetname)
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")
-		if self.Options.YellOnShadowCrash then
-			SendChatMessage(L.YellCrash, "SAY")
-		end
+		yellShadowCrash:Yell()
 	elseif targetname then
 		local uId = DBM:GetRaidUnitId(targetname)
 		if uId then
@@ -108,7 +96,6 @@ function mod:OldShadowCrashTarget()
 			end
 			if inRange then
 				specWarnShadowCrashNear:Show()
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")
 				if self.Options.CrashArrow then
 					DBM.Arrow:ShowRunAway(x, y, 15, 5)
 				end
@@ -119,13 +106,9 @@ end
 
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(62660) then		-- Shadow Crash
-		if self.Options.BypassLatencyCheck then
-			self:ScheduleMethod(0.1, "OldShadowCrashTarget")
-		else
-			self:ScheduleMethod(0.1, "ShadowCrashTarget")
-		end
-	elseif args:IsSpellID(63276) then	-- Mark of the Faceless
+	if args.spellId == 62660 then		-- Shadow Crash
+		self:ScheduleMethod(0.2, "ShadowCrashTarget")
+	elseif args.spellId == 63276 then	-- Mark of the Faceless
 		if self.Options.SetIconOnLifeLeach then
 			self:SetIcon(args.destName, 7, 10)
 		end
@@ -133,10 +116,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerLifeLeech:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnLifeLeechYou:Show()
-			sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runout.mp3")
-			if self.Options.YellOnLifeLeech then
-				SendChatMessage(L.YellLeech, "SAY")
-			end
+			yellLifeLeech:Yell()
 		else
 			local uId = DBM:GetRaidUnitId(args.destName)
 			if uId then
@@ -149,43 +129,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 	end
 end
 
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(emote)
+function mod:RAID_BOSS_EMOTE(emote)
 	if emote == L.EmoteSaroniteVapors or emote:find(L.EmoteSaroniteVapors) then
 		timerSaroniteVapors:Start()
-	end
-end
-
-function mod:OnSync(msg, target)
-	if msg == "CrashOn" then
-		if not self.Options.BypassLatencyCheck then
-			warnShadowCrash:Show(target)
-			if self.Options.SetIconOnShadowCrash then
-				self:SetIcon(target, 8, 10)
-			end
-			if target == UnitName("player") then
-				specWarnShadowCrash:Show()
-				sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")
-				if self.Options.YellOnShadowCrash then
-					SendChatMessage(L.YellCrash, "SAY")
-				end
-			elseif target then
-				local uId = DBM:GetRaidUnitId(target)
-				if uId then
-					local inRange = CheckInteractDistance(uId, 2)
-					local x, y = GetPlayerMapPosition(uId)
-					if x == 0 and y == 0 then
-						SetMapToCurrentZone()
-						x, y = GetPlayerMapPosition(uId)
-					end
-					if inRange then
-						specWarnShadowCrashNear:Show()
-						sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\runaway.mp3")
-						if self.Options.CrashArrow then
-							DBM.Arrow:ShowRunAway(x, y, 15, 5)
-						end
-					end
-				end
-			end
-		end
 	end
 end

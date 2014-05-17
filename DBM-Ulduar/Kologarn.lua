@@ -1,18 +1,23 @@
-﻿local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
+local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4523 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 120 $"):sub(12, -3))
 mod:SetCreatureID(32930)--, 32933, 32934
+mod:SetEncounterID(1137)
+mod:SetModelID(28638)
 mod:SetUsedIcons(5, 6, 7, 8)
+--mod:SetMinSyncRevision(4623)
+mod:SetMinSyncRevision(7)--Could break if someone is running out of date version with higher revision
 
 mod:RegisterCombat("combat")
 
-mod:RegisterEvents(
+mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED",
 	"SPELL_DAMAGE",
-	"CHAT_MSG_RAID_BOSS_WHISPER",
+	"SPELL_MISSED",
+	"RAID_BOSS_WHISPER",
 	"UNIT_DIED"
 )
 
@@ -28,32 +33,34 @@ local warnCrunchArmor			= mod:NewTargetAnnounce(64002, 2)
 
 local specWarnCrunchArmor2		= mod:NewSpecialWarningStack(64002, false, 2)
 local specWarnEyebeam			= mod:NewSpecialWarningYou(63346)
+local yellBeam					= mod:NewYell(63346)
 
 local timerCrunch10             = mod:NewTargetTimer(6, 63355)
 local timerNextShockwave		= mod:NewCDTimer(18, 63982)
+local timerNextEyebeam			= mod:NewCDTimer(17.5, 63346)--Experimental.
+local timerNextGrip				= mod:NewCDTimer(20, 64292)
 local timerRespawnLeftArm		= mod:NewTimer(48, "timerLeftArm")
 local timerRespawnRightArm		= mod:NewTimer(48, "timerRightArm")
 local timerTimeForDisarmed		= mod:NewTimer(10, "achievementDisarmed")	-- 10 HC / 12 nonHC
 
-local sndWOP				= mod:NewSound(nil, "SoundWOP", true)
+local soundEyebeam				= mod:NewSound(63346)
 
 mod:AddBoolOption("HealthFrame", true)
 mod:AddBoolOption("SetIconOnGripTarget", true)
-mod:AddBoolOption("PlaySoundOnEyebeam", true)
 mod:AddBoolOption("SetIconOnEyebeamTarget", true)
-mod:AddBoolOption("YellOnBeam", true, "announce")
 
 function mod:UNIT_DIED(args)
 	if self:GetCIDFromGUID(args.destGUID) == 32934 then 		-- right arm
 		timerRespawnRightArm:Start()
-		if mod:IsDifficulty("normal10") then
+		timerNextGrip:Cancel()
+		if self:IsDifficulty("normal10") then
 			timerTimeForDisarmed:Start(12)
 		else
 			timerTimeForDisarmed:Start()
 		end
 	elseif self:GetCIDFromGUID(args.destGUID) == 32933 then		-- left arm
 		timerRespawnLeftArm:Start()
-		if mod:IsDifficulty("heroic10") then
+		if self:IsDifficulty("heroic10") then
 			timerTimeForDisarmed:Start(12)
 		else
 			timerTimeForDisarmed:Start()
@@ -61,35 +68,36 @@ function mod:UNIT_DIED(args)
 	end
 end
 
-function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(63783, 63982) and args:IsPlayer() then	-- Shockwave
+function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
+	if (spellId == 63783 or spellId == 63982) and timerNextShockwave:GetTime() == 0 then
 		timerNextShockwave:Start()
-	elseif args:IsSpellID(63346, 63976) and args:IsPlayer() then
+	elseif (spellId == 63346 or spellId == 63976) and destGUID == UnitGUID("player") and self:AntiSpam() then
 		specWarnEyebeam:Show()
-		sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\justrun.mp3")
 	end
 end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
-function mod:CHAT_MSG_RAID_BOSS_WHISPER(msg)
+function mod:RAID_BOSS_WHISPER(msg)
 	if msg:find(L.FocusedEyebeam) then
-		self:SendSync("EyeBeamOn", UnitName("player"))
+		specWarnEyebeam:Show()
+		soundEyebeam:Play()
+		yellBeam:Yell()
+		self:SendSync("EyeBeamOn", UnitGUID("player"))
 	end
 end
 
-function mod:OnSync(msg, target)
-	if msg == "EyeBeamOn" then
-		warnFocusedEyebeam:Show(target)
-		if target == UnitName("player") then
-			specWarnEyebeam:Show()
-			if self.Options.PlaySoundOnEyebeam then
-				PlaySoundFile("Interface\\AddOns\\DBM-Core\\extrasounds\\justrun.mp3") 
+function mod:OnSync(msg, guid)
+	local target
+	if guid then
+		target = DBM:GetFullPlayerNameByGUID(guid)
+	end
+	if msg == "EyeBeamOn" and guid then
+		timerNextEyebeam:Start()
+		if target then
+			warnFocusedEyebeam:Show()
+			if self.Options.SetIconOnEyebeamTarget then
+				self:SetIcon(target, 5, 8) 
 			end
-			if self.Options.YellOnBeam then
-				SendChatMessage(L.YellBeam, "SAY")
-			end
-		end 
-		if self.Options.SetIconOnEyebeamTarget then
-			self:SetIcon(target, 5, 8) 
 		end
 	end
 end
@@ -97,7 +105,6 @@ end
 local gripTargets = {}
 function mod:GripAnnounce()
 	warnGrip:Show(table.concat(gripTargets, "<, >"))
-	sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\killrhand.mp3")
 	table.wipe(gripTargets)
 end
 function mod:SPELL_AURA_APPLIED(args)
@@ -114,20 +121,18 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif args:IsSpellID(64002, 63355) then	-- Crunch Armor
         warnCrunchArmor:Show(args.destName)
-		if mod:IsDifficulty("heroic10") then
+		if self:IsDifficulty("heroic10") then
             timerCrunch10:Start(args.destName)  -- We track duration timer only in 10-man since it's only 6sec and tanks don't switch.
 		end
     end
 end
 
 function mod:SPELL_AURA_APPLIED_DOSE(args)
-	if args:IsSpellID(64002) then		        -- Crunch Armor (25-man only)
+	if args.spellId == 64002 then		        -- Crunch Armor (25-man only)
 		warnCrunchArmor:Show(args.destName)
         if args.amount >= 2 then 
-            --if args:IsPlayer() then
-      			if mod:IsTank() or mod:IsHealer() then
+            if args:IsPlayer() then
                 specWarnCrunchArmor2:Show(args.amount)
-                sndWOP:Play("Interface\\AddOns\\DBM-Core\\extrasounds\\changemt.mp3")
             end
 		end
 	end

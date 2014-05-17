@@ -1,15 +1,15 @@
 local mod	= DBM:NewMod("Grobbulus", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4154 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 112 $"):sub(12, -3))
 mod:SetCreatureID(15931)
+mod:SetEncounterID(1111)
 mod:SetUsedIcons(5, 6, 7, 8)
 
 mod:RegisterCombat("combat")
+mod:SetModelID(16035)
 
-mod:EnableModel()
-
-mod:RegisterEvents(
+mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
 	"SPELL_AURA_REMOVED",
 	"SPELL_CAST_SUCCESS"
@@ -57,7 +57,7 @@ function mod:OnCombatEnd()
 end
 
 function mod:SPELL_AURA_APPLIED(args)
-	if args:IsSpellID(28169) then
+	if args.spellId == 28169 then
 		warnInjection:Show(args.destName)
 		timerInjection:Start(args.destName)
 		if args:IsPlayer() then
@@ -71,7 +71,7 @@ function mod:SPELL_AURA_APPLIED(args)
 end
 
 function mod:SPELL_AURA_REMOVED(args)
-	if args:IsSpellID(28169) then
+	if args.spellId == 28169 then
 		timerInjection:Cancel(args.destName)--Cancel timer if someone is dumb and dispels it.
 		if self.Options.SetIconOnInjectionTarget then
 			removeIcon(args.destName)
@@ -80,7 +80,7 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_CAST_SUCCESS(args)
-	if args:IsSpellID(28240) then
+	if args.spellId == 28240 then
 		warnCloud:Show()
 		timerCloud:Start()
 	end	

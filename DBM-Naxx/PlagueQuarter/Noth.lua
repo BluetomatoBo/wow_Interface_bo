@@ -1,12 +1,17 @@
 local mod	= DBM:NewMod("Noth", "DBM-Naxx", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 2248 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 112 $"):sub(12, -3))
 mod:SetCreatureID(15954)
-
+mod:SetEncounterID(1117)
+mod:SetModelID(16590)
 mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
+	"CHAT_MSG_MONSTER_YELL"
+)
+
+mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS"
 )
 
@@ -53,5 +58,12 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(29213, 54835) then	-- Curse of the Plaguebringer
 		warnCurse:Show()
+	end
+end
+
+--Secondary pull trigger, so we can detect combat when he's pulled while already in combat (which is about 99% of time)
+function mod:CHAT_MSG_MONSTER_YELL(msg)
+	if msg == L.Pull and not self:IsInCombat() then
+		DBM:StartCombat(self, 0)
 	end
 end
