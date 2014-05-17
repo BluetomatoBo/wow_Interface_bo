@@ -14,7 +14,7 @@
 --    * deDE: Ebmor						DBM forums (PM: "Ebmor")
 --    * ruRU: Swix						stalker.kgv@gmail.com
 --    * ruRU: TOM_RUS
---    * zhTW: Whyv                      ultrashining@gmail.com
+--    * zhTW: Whyv						ultrashining@gmail.com
 --    * koKR: nBlueWiz					everfinale@gmail.com
 --    * esES/esMX: Sueñalobos			alcortesm@gmail.com
 --
@@ -50,10 +50,10 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 10746 $"):sub(12, -3)),
-	DisplayVersion = "5.4.4 "..DBM_CORE_SOUNDVER, -- the string that is shown as version
-	DisplayReleaseVersion = "5.4.5", -- Needed to work around bigwigs sending improper version information
-	ReleaseRevision = 10737 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 11061 $"):sub(12, -3)),
+	DisplayVersion = "5.4.10 "..DBM_CORE_SOUNDVER, -- the string that is shown as version
+	DisplayReleaseVersion = "5.4.10", -- Needed to work around old versions of BW sending improper version information
+	ReleaseRevision = 11061 -- the revision of the latest stable version that is available
 }
 
 -- Legacy crap; that stupid "Version" field was never a good idea.
@@ -299,6 +299,7 @@ local InCombatLockdown = InCombatLockdown
 local GetAddOnInfo = GetAddOnInfo
 local PlaySoundFile = PlaySoundFile
 local PlaySound = PlaySound
+local Ambiguate = Ambiguate
 
 -- for Phanx' Class Colors
 local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
@@ -856,6 +857,7 @@ do
 				"UNIT_NAME_UPDATE_UNFILTERED",
 				--"INSTANCE_GROUP_SIZE_CHANGED",
 				"CHAT_MSG_ADDON",
+				"BN_CHAT_MSG_ADDON",
 				"PLAYER_REGEN_DISABLED",
 				"PLAYER_REGEN_ENABLED",
 				"INSTANCE_ENCOUNTER_ENGAGE_UNIT",
@@ -2961,17 +2963,24 @@ do
 	end
 
 	function DBM:CHAT_MSG_ADDON(prefix, msg, channel, sender)
-		if prefix == "D4" and msg and (channel == "PARTY" or channel == "RAID" or channel == "INSTANCE_CHAT" or channel == "WHISPER" and self:GetRaidUnitId(sender)) then
+		if prefix == "D4" and msg and (channel == "PARTY" or channel == "RAID" or channel == "INSTANCE_CHAT" or channel == "WHISPER" or channel == "GUILD") then
+			sender = Ambiguate(sender, "none")
 			handleSync(channel, sender, strsplit("\t", msg))
 		elseif prefix == "BigWigs" and msg and (channel == "PARTY" or channel == "RAID" or channel == "INSTANCE_CHAT" or channel == "WHISPER" and self:GetRaidUnitId(sender)) then
+			sender = Ambiguate(sender, "none")
 			local bwPrefix, bwMsg = msg:match("^(%u-):(.+)")
 			if bwPrefix and (bwPrefix == "VR" or bwPrefix == "VRA") then--We only care about version prefixes so only pass those prefixes on
 				handleSync(channel, sender, bwPrefix, bwMsg)
 			end
 		end
 	end
+	
+	function DBM:BN_CHAT_MSG_ADDON(prefix, msg, channel, sender)
+		if prefix == "D4" and msg then
+			handleSync(channel, sender, strsplit("\t", msg))
+		end
+	end
 end
-
 
 -----------------------
 --  Update Reminder  --
@@ -3155,7 +3164,7 @@ do
 		fontstringHeader:SetWidth(410)
 		fontstringHeader:SetHeight(0)
 		fontstringHeader:SetPoint("TOP", 80, -26)
-		fontstringHeader:SetText(DBM_CORE_SOUND_UNNAME)
+		fontstringHeader:SetText(DBM_CORE_SOUND_NOFILE)
 		
 		fontstring = frame:CreateFontString(nil, "ARTWORK", "SystemFont_Tiny")	
 		fontstring:SetWidth(200)
@@ -3164,7 +3173,7 @@ do
 		fontstring:SetFont(STANDARD_TEXT_FONT, 15, "")
 		fontstring:SetTextColor(0.62, 0.32, 0.17, 1)
 		fontstring:SetPoint("TOP", fontstringHeader, "BOTTOM", 0, -20)
-		fontstring:SetText("       "..DBM_CORE_SOUND_UNUSAGE)
+		fontstring:SetText("       "..DBM_CORE_SOUND_NOFILEUSAGE)
 		
 		local button = CreateFrame("Button", nil, frame)
 		button:SetHeight(15)
