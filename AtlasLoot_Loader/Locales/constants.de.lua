@@ -1,4 +1,4 @@
-﻿-- $Id: constants.de.lua 4266 2013-09-16 21:21:07Z Dynaletik $
+﻿-- $Id: constants.de.lua 4293 2014-05-23 08:55:03Z Dynaletik $
 --[[
 constants.de.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -1041,9 +1041,9 @@ if AL then
 	-- AL["Luo Luo"] = true;
 	-- AL["Meng Meng"] = true;
 	AL["Moonfang"] = "Mondfang";
+	AL["Nice Sprite"] = "Netter Geist";
 	AL["Ongrom Black Tooth"] = "Ongrom Schwarzzahn";
 	AL["Proveditor Grantley"] = "Administrator Grantley";
-	AL["Scary Sprite"] = "Schauriger Geist";
 	--- World Events
 	AL["Crimson Templar"] = "Purpurroter Templer";
 	AL["Azure Templar"] = "Azurblauer Templer";

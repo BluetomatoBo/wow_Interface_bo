@@ -1,4 +1,4 @@
--- $Id: SetMenus.lua 4266 2013-09-16 21:21:07Z Dynaletik $
+-- $Id: SetMenus.lua 4293 2014-05-23 08:55:03Z Dynaletik $
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
 local ALIL = AtlasLoot_IngameLocales;
 local BabbleBoss = AtlasLoot_GetLocaleLibBabble("LibBabble-Boss-3.0")
@@ -351,16 +351,17 @@ local BabbleRare = AtlasLoot_GetLocaleLibBabble("LibBabble-Rare-3.0")
 				{ 3, "RaresMOPMobsKrasarangWilds", "achievement_zone_krasarangwilds", "=ds="..ALIL["Krasarang Wilds"], "#ACHIEVEMENTID:7439#"};
 				{ 4, "RaresMOPMobsTownlongSteppes", "achievement_zone_townlongsteppes", "=ds="..ALIL["Townlong Steppes"], "#ACHIEVEMENTID:7439#"};
 				{ 5, "RaresMOPMobsValeOfEternalBlossoms", "achievement_zone_valeofeternalblossoms", "=ds="..ALIL["Vale of Eternal Blossoms"], "#ACHIEVEMENTID:7439#"};
-				{ 7, "RaresMOPMobsMisc", "inv_pandarenserpentmount_lightning", "=ds="..AL["Misc"], ""};
-				{ 8, "RaresMOPMobsWarbringer", "achievement_boss_chiefukorzsandscalp", "=ds="..BabbleRare["Zandalari Warbringer"], ""};
-				{ 10, "RaresMOPItemsJadeForestValleyoftheFourWinds", "achievement_zone_jadeforest", "=ds="..ALIL["The Jade Forest"].." / "..ALIL["Valley of the Four Winds"], "#ACHIEVEMENTID:7284#"};
-				{ 11, "RaresMOPItemsTownlongSteppesDreadWastes", "achievement_zone_krasarangwilds", "=ds="..ALIL["Townlong Steppes"].." / "..ALIL["Dread Wastes"], "#ACHIEVEMENTID:7284#"};
+				{ 6, "RaresMOPMobsTimelessIsle", "ability_monk_touchofdeath", "=ds="..ALIL["Timeless Isle"], "#ACHIEVEMENTID:8714#"};
+				{ 8, "RaresMOPMobsMisc", "inv_pandarenserpentmount_lightning", "=ds="..AL["Misc"], ""};
+				{ 9, "RaresMOPMobsWarbringer", "achievement_boss_chiefukorzsandscalp", "=ds="..BabbleRare["Zandalari Warbringer"], ""};
+				{ 11, "RaresMOPItemsJadeForestValleyoftheFourWinds", "achievement_zone_jadeforest", "=ds="..ALIL["The Jade Forest"].." / "..ALIL["Valley of the Four Winds"], "#ACHIEVEMENTID:7284#"};
+				{ 12, "RaresMOPItemsTownlongSteppesDreadWastes", "achievement_zone_krasarangwilds", "=ds="..ALIL["Townlong Steppes"].." / "..ALIL["Dread Wastes"], "#ACHIEVEMENTID:7284#"};
 				{ 17, "RaresMOPMobsValleyFourWinds", "achievement_zone_valleyoffourwinds", "=ds="..ALIL["Valley of the Four Winds"], "#ACHIEVEMENTID:7439#"};
 				{ 18, "RaresMOPMobsKunLaiSummit", "achievement_zone_kunlaisummit", "=ds="..ALIL["Kun-Lai Summit"], "#ACHIEVEMENTID:7439#"};
 				{ 19, "RaresMOPMobsDreadWastes", "achievement_zone_dreadwastes", "=ds="..ALIL["Dread Wastes"], "#ACHIEVEMENTID:7439#"};
 				{ 20, "RaresMOPMobsIsleofThunder", "inv_shield_mogu_c_01", "=ds="..ALIL["Isle of Thunder"], "#ACHIEVEMENTID:8103#"};
-				{ 22, "RaresMOPMobsClawlord", "inv_misc_birdbeck_02", "=ds="..BabbleRare["Clawlord Kril'mandar"], ""};
-				{ 25, "RaresMOPItemsKrasarangWildsKunLaiSummit", "achievement_zone_valleyoffourwinds", "=ds="..ALIL["Krasarang Wilds"].." / "..ALIL["Kun-Lai Summit"], "#ACHIEVEMENTID:7284#"};
+				{ 23, "RaresMOPMobsClawlord", "inv_misc_birdbeck_02", "=ds="..BabbleRare["Clawlord Kril'mandar"], ""};
+				{ 26, "RaresMOPItemsKrasarangWildsKunLaiSummit", "achievement_zone_valleyoffourwinds", "=ds="..ALIL["Krasarang Wilds"].." / "..ALIL["Kun-Lai Summit"], "#ACHIEVEMENTID:7284#"};
 			};
 		};
 		info = {

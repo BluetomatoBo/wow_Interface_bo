@@ -1,4 +1,4 @@
-﻿-- $Id: constants.fr.lua 4269 2013-09-17 09:38:33Z trasher $
+﻿-- $Id: constants.fr.lua 4293 2014-05-23 08:55:03Z Dynaletik $
 --[[
 constants.fr.lua --- Traduction frFR par TrAsHeR. Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
@@ -105,7 +105,7 @@ if AL then
 	AL["As Items"] = "comme des objets";
 	AL["Reset"] = "Réinitialiser";
 	AL["Reset Frames"] = "Réinitialiser les frames";
-	--AL["Profiles"] = true;
+	AL["Profiles"] = "Profils";
 	AL["Item Buttons"] = "Options des boutons"
 	AL["Loot Table"] = "Table de loot";
 	AL["Enable mouse on item descriptions"] = "Activer la souris sur la description de l'objet";
@@ -1044,9 +1044,9 @@ if AL then
 	--AL["Luo Luo"] = true;
 	--AL["Meng Meng"] = true;
 	AL["Moonfang"] = "Croc-de-Lune";
+	AL["Nice Sprite"] = "Charmant lutin";
 	AL["Ongrom Black Tooth"] = "Ongrom Dent-Noire";
 	AL["Proveditor Grantley"] = "Provéditeur Grantley";
-	--AL["Scary Sprite"] = true; -- à traduire
 	--- World Events
 	AL["Crimson Templar"] = "Templier cramoisi";  --- mob removed from game?
 	AL["Azure Templar"] = "Templier d'azur";  --- mob removed from game?

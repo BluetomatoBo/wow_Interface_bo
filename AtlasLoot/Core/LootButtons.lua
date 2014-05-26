@@ -1,4 +1,4 @@
-﻿-- $Id: LootButtons.lua 4232 2013-08-12 08:52:37Z dynaletik $
+﻿-- $Id: LootButtons.lua 4293 2014-05-23 08:55:03Z Dynaletik $
 local _
 local AtlasLoot = LibStub("AceAddon-3.0"):GetAddon("AtlasLoot")
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot")
@@ -24,6 +24,8 @@ local function canUpgradeItem(itemId)
 	if itemLevel and itemLevel >= 458 and itemRarity and itemRarity >= 3 then
 		if itemRarity == 3 then 	-- Rare
 			return 451, { 452 }
+		elseif itemRarity == 4 and itemId >= 98599 then	-- Epic & 4 times upgradeable
+			return 458, { 459, 460, 461, 462 }
 		elseif itemRarity == 4 then	-- Epic
 			return 445, { 446, 447 }
 		end

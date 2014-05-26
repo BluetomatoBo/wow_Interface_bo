@@ -1,4 +1,4 @@
--- $Id: BossTooltip.lua 4208 2013-05-08 09:12:06Z Bahnak $
+-- $Id: BossTooltip.lua 4291 2014-05-19 08:07:01Z Bahnak $
 function AtlasLoot_hook(tooltip)
 	if not ALtooltipName then
 		ALtooltipName = tooltip:GetUnit()
@@ -32,6 +32,8 @@ function AtlasLoot_hook(tooltip)
 								ALinstanceDifficulty = "Heroic"
 							elseif ALdifficultyIndex == 7 then
 								ALinstanceDifficulty = "RaidFinder"
+							elseif ALdifficultyIndex == 14 then
+								ALinstanceDifficulty = "Flexible"
 							end
 							if ALindexBoss == ALbossHandle and ALinstanceDifficulty == ALitemDifficulty then
 								local ALitemName, _, ALitemQuality, _, _, _, _, _, ALequipSlot = GetItemInfo(ALvalueWishlistItem[2])

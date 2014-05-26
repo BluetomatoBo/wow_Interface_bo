@@ -1,4 +1,4 @@
--- $Id: Options.lua 4262 2013-09-16 15:58:35Z arith $
+-- $Id: Options.lua 4293 2014-05-23 08:55:03Z Dynaletik $
 local AtlasLoot = _G.AtlasLoot
 --Invoke libraries
 local AL = LibStub("AceLocale-3.0"):GetLocale("AtlasLoot");
@@ -145,7 +145,7 @@ do
 										type = "range",
 										name = AL["Upgrade Level:"],
 										--desc = ,
-										min = 0, max = 2, bigStep = 1,
+										min = 0, max = 4, bigStep = 1,
 										get = getOpt,
 										set = function(info, value)
 											setOpt(info, value)

@@ -1,4 +1,4 @@
-﻿-- $Id: constants.cn.lua 4278 2013-09-22 01:42:20Z ananhaid $
+﻿-- $Id: constants.cn.lua 4293 2014-05-23 08:55:03Z Dynaletik $
 --[[
 constants.cn.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -1046,7 +1046,6 @@ if AL then
 	AL["Moonfang"] = "月牙";
 	AL["Ongrom Black Tooth"] = "奥格罗姆·黑牙";
 	AL["Proveditor Grantley"] = "普凡迪特·格兰特利";
-	AL["Scary Sprite"] = "惊悚之灵";
 	--- World Events
 	AL["Crimson Templar"] = "赤红圣殿骑士";
 	AL["Azure Templar"] = "碧蓝圣殿骑士";

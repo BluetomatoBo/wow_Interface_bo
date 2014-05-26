@@ -5,6 +5,11 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 -Hegarol
 
 Patch Notes
+v7.07.03 (May 25, 2014)
+Added Patch 5.4.8 items.
+Added Timeless Isle Rare mobs.
+Minor translations.
+
 v7.07.02 (Feb 27, 2014)
 Added PvP Season 15 Set.
 Added Patch 5.4.1, 5.4.2 & 5.4.7 items.
