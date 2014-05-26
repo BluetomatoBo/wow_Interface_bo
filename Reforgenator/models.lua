@@ -21,14 +21,14 @@ function Reforgenator:TwoHandFrostDKModel()
     model.readOnly = true
     model.statWeights = 
 	{
-        ["ITEM_MOD_EXPERTISE_RATING_SHORT"] = 2.15,
-		["ITEM_MOD_HIT_RATING_SHORT"] = 2.17,
-        ["ITEM_MOD_HASTE_RATING_SHORT"] = 1.67,
-		["ITEM_MOD_CRIT_RATING_SHORT"] = 1.44,
-        ["ITEM_MOD_MASTERY_RATING_SHORT"] = 1.02,        
+    ["ITEM_MOD_EXPERTISE_RATING_SHORT"] = 2.15,
+    ["ITEM_MOD_HIT_RATING_SHORT"] = 2.17,
+    ["ITEM_MOD_CRIT_RATING_SHORT"] = 1.67,
+    ["ITEM_MOD_MASTERY_RATING_SHORT"] = 1.44, 
+    ["ITEM_MOD_HASTE_RATING_SHORT"] = 1.02,   
     }
 
-    model.notes = 'http://www.noxxic.com/wow/pve/death-knight/frost/dps-gear-reforging'
+    model.notes = 'http://www.noxxic.com/wow/pve/death-knight/frost/reforging-gear'
 
     model.reforgeOrder = 
 	{
@@ -41,17 +41,18 @@ function Reforgenator:TwoHandFrostDKModel()
             cap = "MeleeHitCap"
         },
         {
-            rating = CR_HASTE_MELEE,
-            cap = "MaximumPossible"
-        },
-        {
             rating = CR_CRIT_MELEE,
             cap = "MaximumPossible"
         },
-		{
+        {
             rating = CR_MASTERY,
             cap = "MaximumPossible"
         },
+        {
+            rating = CR_HASTE_MELEE,
+            cap = "MaximumPossible"
+        },
+
     }
 
     return model
@@ -98,51 +99,6 @@ function Reforgenator:DWFrostDKModel()
 
     return model
 end
---updated 9-7 for 5.04
-
---[[  Unknown If needed so keeping
-
-function Reforgenator:MasterfrostDKModel()
-    local model = ReforgeModel:new()
-    model.readOnly = true
-    model.statWeights = 
-	{
-        ["ITEM_MOD_EXPERTISE_RATING_SHORT"] = 2.32,
-        ["ITEM_MOD_HIT_RATING_SHORT"] = 2.22,
-        ["ITEM_MOD_MASTERY_RATING_SHORT"] = 2.15,
-        ["ITEM_MOD_HASTE_RATING_SHORT"] = 2.06,
-        ["ITEM_MOD_CRIT_RATING_SHORT"] = 1.73,
-    }
-
-    model.notes = 'http://elitistjerks.com/f72/t125291-frost_dps_winter_discontent_4_3_a/'
-
-    model.reforgeOrder = 
-	{
-        {
-            rating = CR_EXPERTISE,
-            cap = "ExpertiseSoftCap"
-        },
-        {
-            rating = CR_HIT_SPELL,
-            cap = "SpellHitCap"
-        },
-        {
-            rating = CR_MASTERY,
-            cap = "MaximumPossible"
-        },
-        {
-            rating = CR_HASTE_MELEE,
-            cap = "MaximumPossible"
-        },
-        {
-            rating = CR_CRIT_MELEE,
-            cap = "MaximumPossible"
-        },
-    }
-
-    return model
-end
-]]
 --updated 9-7 for 5.04
 
 function Reforgenator:BloodDKModel()
@@ -499,7 +455,7 @@ function Reforgenator:RetPallyModel()
     return model
 end
 
--- TODO
+-- TOoDO
 function Reforgenator:HolyPallyModel()
     local model = ReforgeModel:new()
     model.readOnly = true
@@ -974,79 +930,69 @@ end
 
 -- End Rogue  
 
---updated 9/8 for 5.04
 function Reforgenator:AffWarlockModel()
     local model = ReforgeModel:new()
     model.readOnly = true
     model.statWeights = 
 	{
-        ["ITEM_MOD_HIT_RATING_SHORT"] = 2.78,
-		["ITEM_MOD_MASTERY_RATING_SHORT"] = 2.32,
-        ["ITEM_MOD_HASTE_RATING_SHORT"] = 1.79,
-        ["ITEM_MOD_CRIT_RATING_SHORT"] = 1.24,
-        
-    }
+    ["ITEM_MOD_HIT_RATING_SHORT"] = 2.78,
+    ["ITEM_MOD_MASTERY_RATING_SHORT"] = 2.32,
+    ["ITEM_MOD_HASTE_RATING_SHORT"] = 1.79,
+    ["ITEM_MOD_CRIT_RATING_SHORT"] = 1.24,S 
+  }
 
-    model.notes = 'http://www.noxxic.com/wow/pve/warlock/affliction/dps-gear-reforging'
+    model.notes = 'http://www.noxxic.com/wow/pve/warlock/affliction/reforging-gear'
 
     model.reforgeOrder = 
 	{
-        {
-            rating = CR_HIT_SPELL,
-            cap = "SpellHitCap"
-        },
-		{
-            rating = CR_MASTERY,
-            cap = "MaximumPossible"
-        },
-        {
-            rating = CR_HASTE_SPELL,
-            cap = "MaximumPossible",
-        },
-        {
-            rating = CR_CRIT_SPELL,
-            cap = "MaximumPossible"
-        },
+      {
+          rating = CR_HIT_SPELL,
+          cap = "SpellHitCap"
+      },
+	    {
+          rating = CR_MASTERY,
+          cap = "MaximumPossible"
+      },
+      {
+          rating = CR_HASTE_SPELL,
+          cap = "MaximumPossible",
+      },
+      {
+          rating = CR_CRIT_SPELL,
+          cap = "MaximumPossible"
+      },
         
     }
 
     return model
 end
 
---updated 3/9 for 5.2
 function Reforgenator:DestroWarlockModel()
     local model = ReforgeModel:new()
-    model.readOnly = true
-    model.statWeights = 
-	{
-        ["ITEM_MOD_HIT_RATING_SHORT"] = 2.83,
-		["ITEM_MOD_CRIT_RATING_SHORT"] = 2.1,
-        ["ITEM_MOD_HASTE_RATING_SHORT"] = 2.1,
-		["ITEM_MOD_MASTERY_RATING_SHORT"] = 1.75,
-        }
-
     model.notes = 'http://www.noxxic.com/wow/pve/warlock/destruction/stat-priority'
+    
+    model.readOnly = true
+    
+    model.statWeights = 
+  	{
+      ["ITEM_MOD_HIT_RATING_SHORT"] = 2.83,
+      ["ITEM_MOD_MASTERY_RATING_SHORT"] = 2.1,
+      ["ITEM_MOD_HASTE_RATING_SHORT"] = 2.0,    
+      ["ITEM_MOD_CRIT_RATING_SHORT"] = 1.75,
+  
+    }
+
 
     model.reforgeOrder = 
-	{
-        {
-            rating = CR_HIT_SPELL,
-            cap = "SpellHitCap"
-        },
-		{
-            rating = CR_HASTE_SPELL,
-            cap = "MaximumPossible"
-        },
-		{
-            rating = CR_CRIT_SPELL,
-            cap = "MaximumPossible"
-        },
-        {
-            rating = CR_MASTERY,
-            cap = "MaximumPossible"
-        },
-		
-        
+  	{
+      {rating = CR_HIT_SPELL,
+        cap = "SpellHitCap"},
+      {rating = CR_MASTERY,
+        cap = "MaximumPossible"},
+      {rating = CR_HASTE_SPELL,
+        cap = "MaximumPossible"},
+      {rating = CR_CRIT_SPELL,
+        cap = "MaximumPossible"},  
     }
 
     return model

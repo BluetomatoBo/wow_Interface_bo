@@ -1,0 +1,16 @@
+tag v2.4.3
+deb5b00d4739f9afa1b72faf314b9a4cd862ae8f
+dnewell <newell.donald@gmail.com>
+2014-05-25 12:03:34 -0400
+
+Tagging as v2.4.3
+
+
+--------------------
+
+dnewell:
+	- Cleanup  bit and stared to rework a few things
+	- updated Warlock models
+	- bumped r3evision to 2.4.3
+	- Formatting Cleanup
+	- updated DW Frost DK

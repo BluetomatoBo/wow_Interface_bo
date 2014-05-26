@@ -1,11 +1,12 @@
 Reforgenator = LibStub("AceAddon-3.0"):NewAddon("Reforgenator", "AceConsole-3.0", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("Reforgenator", false)
 local RI = LibStub("LibReforgingInfo-1.0")
-local version = "2.4.2"
+local version = "2.4.3"
 
 -- There isn't really a "spirit" combat rating, but it will simplify
 -- some things if we pretend there is one
 local CR_SPIRIT = 99
+
 
 -- and likewise there isn't an EP combat rating
 local CR_EP = 100
@@ -409,69 +410,69 @@ function Reforgenator:InitializeConstants()
 	-- Returns value based on Game version from GetExpansionLevel()
     local HIT_RATING_CONVERSIONS = 
 	{
-        [0] = 9.37931,
-        [1] = 14.7905,
-        [2] = 30.7548,
-        [3] = 120.109,
+    [0] = 9.37931,
+    [1] = 14.7905,
+    [2] = 30.7548,
+    [3] = 120.109,
 		[4] = 340,						
     }
     local SPELL_HIT_RATING_CONVERSIONS = 
 	{
-        [0] = 8,
-        [1] = 12.6154,
-        [2] = 26.232,
-        [3] = 102.446,
+    [0] = 8,
+    [1] = 12.6154,
+    [2] = 26.232,
+    [3] = 102.446,
 		[4] = 340,						
     }
     local EXP_RATING_CONVERSIONS = 
 	{
-        [0] = 2.34483,
-        [1] = 3.69761,
-        [2] = 7.68869,
-        [3] = 30.0272,
+    [0] = 2.34483,
+    [1] = 3.69761,
+    [2] = 7.68869,
+    [3] = 30.0272,
 		[4] = 340,						
     }
     local HASTE_RATING_CONVERSIONS = 
 	{
-        [0] = 10,
-        [1] = 15.7692,
-        [2] = 32.79,
-        [3] = 128.05701,
+    [0] = 10,
+    [1] = 15.7692,
+    [2] = 32.79,
+    [3] = 128.05701,
 		[4] = 425,						
     }
     local MASTERY_RATING_CONVERSIONS = 
 	{
-        [0] = 14,
-        [1] = 22.0769,
-        [2] = 45.906,
-        [3] = 179.28,
+    [0] = 14,
+    [1] = 22.0769,
+    [2] = 45.906,
+    [3] = 179.28,
 		[4] = 600,						
     }
 
     local CRIT_RATING_CONVERSIONS = 
 	{
-        [0] = 14,
-        [1] = 22.0769,
-        [2] = 45.906,
-        [3] = 179.28,
+    [0] = 14,
+    [1] = 22.0769,
+    [2] = 45.906,
+    [3] = 179.28,
 		[4] = 700,						
     }
 
     local PARRY_RATING_CONVERSIONS = 
 	{
-        [0] = 13.8,
-        [1] = 21.76154,
-        [2] = 45.25019,
-        [3] = 176.7189,
+    [0] = 13.8,
+    [1] = 21.76154,
+    [2] = 45.25019,
+    [3] = 176.7189,
 		[4] = 1035,						
     }
 
     local DODGE_RATING_CONVERSIONS = 
 	{
-        [0] = 13.8,
-        [1] = 21.76154,
-        [2] = 45.25019,
-        [3] = 176.7189,
+    [0] = 13.8,
+    [1] = 21.76154,
+    [2] = 45.25019,
+    [3] = 176.7189,
 		[4] = 1035,						
     }
 
@@ -1915,13 +1916,13 @@ end
 function Reforgenator:CalculateSpellHitCap(playerModel)
     local c = Reforgenator.constants
     local K = c.RATING_CONVERSIONS.spellHit
-	local E = c.RATING_CONVERSIONS.expertise
+	  local E = c.RATING_CONVERSIONS.expertise
     local D = (K - E)
-	local db = Reforgenator.db
+	  local db = Reforgenator.db
     local cap = c.SPELL_HIT_CAP_BY_TARGET_LEVEL[db.char.targetLevelSelection[playerModel.talentGroup] or 2]
 
 	self:Explain("spellhit="..K)
-	self:Explain("epertise=".. E)
+	self:Explain("expertise=".. E)
 	self:Explain("difference=" .. D)
     local hitCap = (cap * (K))
     self:Explain("base spell hit rating = " .. hitCap)
@@ -1943,6 +1944,12 @@ function Reforgenator:CalculateSpellHitCap(playerModel)
     if playerModel.className == "DEATHKNIGHT" then
         self:Explain("9% to hit for being Death Knight")
         hitCap = hitCap - K * 9
+    end
+    
+    if playerModel.className == "WARLOCK" then
+      self:Explain("Expertise counts as hit")
+      hitCap = (hitCap ) 
+    
     end
 
     hitCap = math.ceil(hitCap)
