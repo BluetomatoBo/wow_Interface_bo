@@ -1,6 +1,6 @@
 ﻿## Interface: 50400
-## Title: Gladius |cFF99CC01rev|r |cFFFF00003.2.5|r
-## Version: 3.2.5
+## Title: Gladius |cFF99CC01rev|r |cFFFF00003.2.6|r
+## Version: 3.2.6
 ## Notes: Arena enemy unit frames.
 ## Author: Resike and Firebunny. Original author: Proditor
 ## SavedVariables: Gladius2DB
@@ -13,17 +13,16 @@ Embeds.xml
 Gladius.lua
 Localizations.lua
 Options.lua
-Speclist.lua
 
-Modules\Healthbar.lua
-Modules\Powerbar.lua
-Modules\Castbar.lua
+Modules\HealthBar.lua
+Modules\PowerBar.lua
+Modules\CastBar.lua
 Modules\Auras.lua
-Modules\Classicon.lua
+Modules\ClassIcon.lua
 Modules\Trinket.lua
 Modules\Highlight.lua
 Modules\Clicks.lua
-Modules\Targetbar.lua
+Modules\TargetBar.lua
 Modules\Tags.lua
 Modules\Announcements.lua
 Modules\DRTracker.lua

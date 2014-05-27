@@ -59,6 +59,17 @@ function DRTracker:OnDisable()
 	end
 end
 
+function DRTracker:OnProfileChanged()
+	for unit, _ in pairs(self.frame) do
+		self:Reset(unit)
+	end
+	if Gladius.dbi.profile.modules["DRTracker"] then
+		Gladius:EnableModule("DRTracker")
+	else
+		Gladius:DisableModule("DRTracker")
+	end
+end
+
 function DRTracker:GetAttachTo()
 	return Gladius.db.drTrackerAttachTo
 end
@@ -141,13 +152,12 @@ function DRTracker:DRFaded(unit, spellID)
 	tracked:SetScript("OnUpdate", function(f, elapsed)
 		f.timeLeft = f.timeLeft - elapsed
 		if f.timeLeft <= 0 then
-			--[[if Gladius.test then
-				return
-			end]]
 			f.active = false
 			Gladius:Call(Gladius.modules.Timer, "HideTimer", f)
 			-- position icons
 			self:SortIcons(unit)
+			-- reset script
+			tracked:SetScript("OnUpdate", nil)
 		end
 	end)
 	tracked:SetAlpha(1)
@@ -253,7 +263,6 @@ function DRTracker:Update(unit)
 end
 
 function DRTracker:Show(unit)
-	local testing = Gladius.test
 	-- show frame
 	self.frame[unit]:SetAlpha(1)
 end
@@ -615,6 +624,12 @@ function DRTracker:GetOptions()
 			end,
 			set = function(info, value)
 				Gladius.dbi.profile.drCategories[info[#info]] = value
+				if not value then
+					for unit, _ in pairs(self.frame) do
+						self:Reset(unit)
+					end
+				end
+				Gladius:UpdateFrame()
 			end,
 			disabled = function()
 				return not Gladius.dbi.profile.modules[self.name]

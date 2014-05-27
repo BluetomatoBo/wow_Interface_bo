@@ -132,6 +132,11 @@ function Tags:OnDisable()
 	end
 end
 
+function Tags:OnProfileChanged()
+	Gladius.dbi.profile.tags = self:GetTags()
+	Gladius.dbi.profile.tagEvents = self:GetTagsEvents()
+end
+
 function Tags:GetAttachTo()
 	return ""
 end
@@ -171,11 +176,6 @@ function Tags:CreateFrame(unit, text)
 	end
 	-- create frame
 	self.frame[unit][text] = button:CreateFontString("Gladius"..self.name..unit..text, "OVERLAY")
-end
-
-function Tags:OnProfileChanged()
-	Gladius.dbi.profile.tags = self:GetTags()
-	Gladius.dbi.profile.tagEvents = self:GetTagsEvents()
 end
 
 function Tags:UpdateText(unit, text)

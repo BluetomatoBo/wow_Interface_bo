@@ -152,7 +152,7 @@ function Gladius:NewModule(key, bar, attachTo, defaults, templates)
 	module.messages = { }
 	self.modules[key] = module
 	-- set db defaults
-	for k,v in pairs(defaults) do
+	for k, v in pairs(defaults) do
 		self.defaults.profile[k] = v
 	end
 	return module
@@ -211,6 +211,15 @@ function Gladius:OnInitialize()
 	self.dbi.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
 	self.dbi.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged")
 	self.dbi.RegisterCallback(self, "OnProfileReset", "OnProfileChanged")
+	-- dispel module updates (3.2.6)
+	for k, v in pairs(self.dbi["profiles"]) do
+		if self.dbi["profiles"][k]["modules"] then
+			if self.dbi["profiles"][k]["modules"]["Dispell"] ~= nil then
+				self.dbi["profiles"][k]["modules"]["Dispel"] = self.dbi["profiles"][k]["modules"]["Dispell"]
+			end
+			self.dbi["profiles"][k]["modules"]["Dispell"] = nil
+		end
+	end
 	local SML = LibStub:GetLibrary("LibSharedMedia-3.0")
 	SML:Register(SML.MediaType.STATUSBAR, "Smooth", "Interface\\Addons\\Gladius\\Images\\Smooth")
 	self.db = setmetatable(self.dbi.profile, {
@@ -236,19 +245,19 @@ function Gladius:OnInitialize()
 	self.test = false
 	self.testCount = 0
 	self.testing = setmetatable({
-		["arena1"] = { health = 400000, maxHealth = 400000, power = 300000, maxPower = 300000, powerType = 0, unitClass = "MAGE", unitRace = "Draenei", unitSpec = "Frost" },
-		["arena2"] = { health = 380000, maxHealth = 400000, power = 100000, maxPower = 300000, powerType = 2, unitClass = "PRIEST", unitRace = "Night Elf", unitSpec = "Discipline" },
-		["arena3"] = { health = 240000, maxHealth = 400000, power = 90, maxPower = 130, powerType = 3, unitClass = "ROGUE", unitRace = "Human", unitSpec = "Combat" },
-		["arena4"] = { health = 200000, maxHealth = 400000, power = 80, maxPower = 100, powerType = 6, unitClass = "DEATHKNIGHT", unitRace = "Dwarf", unitSpec = "Unholy" },
-		["arena5"] = { health = 150000, maxHealth = 400000, power = 30, maxPower = 100, powerType = 1, unitClass = "WARRIOR", unitRace = "Gnome", unitSpec = "Arms" },
+		["arena1"] = {health = 400000, maxHealth = 400000, power = 300000, maxPower = 300000, powerType = 0, unitClass = "MAGE", unitRace = "Draenei", unitSpec = "Frost"},
+		["arena2"] = {health = 380000, maxHealth = 400000, power = 100000, maxPower = 300000, powerType = 2, unitClass = "PRIEST", unitRace = "Night Elf", unitSpec = "Discipline"},
+		["arena3"] = {health = 240000, maxHealth = 400000, power = 90, maxPower = 130, powerType = 3, unitClass = "ROGUE", unitRace = "Human", unitSpec = "Combat"},
+		["arena4"] = {health = 200000, maxHealth = 400000, power = 80, maxPower = 100, powerType = 6, unitClass = "DEATHKNIGHT", unitRace = "Dwarf", unitSpec = "Unholy"},
+		["arena5"] = {health = 150000, maxHealth = 400000, power = 30, maxPower = 100, powerType = 1, unitClass = "WARRIOR", unitRace = "Gnome", unitSpec = "Arms"},
 	},
 	{
 		__index = function(t, k)
 			return t["arena1"]
 		end
 	})
-	-- spec detection
-	self.specSpells = self:GetSpecList()
+	-- spec detection (old)
+	--self.specSpells = self:GetSpecList()
 	-- buttons
 	self.buttons = { }
 end
@@ -305,8 +314,11 @@ function Gladius:OnDisable()
 end
 
 function Gladius:OnProfileChanged(event, database, newProfileKey)
+	-- call function for each module
+	for _, module in pairs(self.modules) do
+		self:Call(module, "OnProfileChanged")
+	end
 	-- update frame on profile change
-	self:Call(self.modules["Tags"], OnProfileChanged)
 	self:UpdateFrame()
 end
 
@@ -504,11 +516,11 @@ function Gladius:UpdateUnit(unit, module)
 			self.buttons[unit]:SetPoint("TOPLEFT", UIParent, "BOTTOMLEFT", self.db.x[unit] / scale, self.db.y[unit] / scale)
 		end
 	else
-	local parent = string.match(unit, "^arena(.+)") - 1
-	local parentButton = self.buttons["arena"..parent]
-	if parentButton then
-		if self.db.growUp then
-			self.buttons[unit]:SetPoint("BOTTOMLEFT", parentButton, "TOPLEFT", 0, self.db.bottomMargin + indicatorHeight)
+		local parent = string.match(unit, "^arena(.+)") - 1
+		local parentButton = self.buttons["arena"..parent]
+		if parentButton then
+			if self.db.growUp then
+				self.buttons[unit]:SetPoint("BOTTOMLEFT", parentButton, "TOPLEFT", 0, self.db.bottomMargin + indicatorHeight)
 			else
 				self.buttons[unit]:SetPoint("TOPLEFT", parentButton, "BOTTOMLEFT", 0, - self.db.bottomMargin - indicatorHeight)
 			end
@@ -521,7 +533,7 @@ function Gladius:UpdateUnit(unit, module)
 				self.buttons[unit]:SetPoint("TOPLEFT", parentButton, "TOPLEFT", self.buttons[unit]:GetWidth() + self.db.backgroundPadding + abs(left), 0)
 			end
 		end
-	end 
+	end
 	-- show the button
 	self.buttons[unit]:Show()
 	self.buttons[unit]:SetAlpha(0)
@@ -761,10 +773,10 @@ function Gladius:UNIT_AURA(event, unit)
 		if not name then
 			break
 		end
-		if self.specSpells[name] and self.buttons[unitCaster] and self.buttons[unitCaster].spec == "" then
+		--[[if self.specSpells[name] and self.buttons[unitCaster] and self.buttons[unitCaster].spec == "" then
 			--self.buttons[unitCaster].spec = self.specSpells[name]
 			self:SendMessage("GLADIUS_SPEC_UPDATE", unitCaster)
-		end
+		end]]
 		index = index + 1
 		-- Update spec from API
 		local numOpps = GetNumArenaOpponentSpecs()
@@ -786,10 +798,10 @@ function Gladius:UNIT_SPELLCAST_START(event, unit)
 		self:ShowUnit(unit)
 	end
 	local spell = UnitCastingInfo(unit)
-	if self.specSpells[spell] and self.buttons[unit].spec == "" then
+	--[[if self.specSpells[spell] and self.buttons[unit].spec == "" then
 		--self.buttons[unit].spec = self.specSpells[spell]
 		self:SendMessage("GLADIUS_SPEC_UPDATE", unit)
-	end
+	end]]
 	-- Update spec from API
 	local numOpps = GetNumArenaOpponentSpecs()
 	for i = 1, numOpps do
