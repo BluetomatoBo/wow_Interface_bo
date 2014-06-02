@@ -1,0 +1,11 @@
+tag 5.4.8.2
+8de06e8f3ed12e89a271e20b9c9626f80543347e
+James D. Callahan III <jcallahan@curse.com>
+2014-06-01 06:34:58 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Removed the annoying coloration from the Title in the ToC.
