@@ -1,0 +1,28 @@
+------------------------------------------------------------------------
+r433 | tiker | 2014-06-01 17:27:30 +0000 (Sun, 01 Jun 2014) | 1 line
+Changed paths:
+   A /tags/5.4.12 (from /trunk:432)
+
+Tagging as 5.4.12
+------------------------------------------------------------------------
+r432 | tiker | 2014-06-01 17:26:40 +0000 (Sun, 01 Jun 2014) | 4 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Added support for [b]Draenor Chimera[/b]
+- Added support for [b]Grinning Reaver[/b]
+- Added support for [b]Warforged Nightmare[/b]
+- Fixed errors that appeared for new characters that were not Druids (756)
+------------------------------------------------------------------------
+r431 | tiker | 2014-03-15 17:53:42 +0000 (Sat, 15 Mar 2014) | 2 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMount.xml
+   M /trunk/GoGoMountData.lua
+
+- Disabled all addon channel messages (temporarily)
+- Changed debug log timing to use a better method
+------------------------------------------------------------------------
