@@ -475,6 +475,10 @@ function Window:set_mode_title()
 			name = name..": "..setname
 		end
 	end
+	if disabled and (self.selectedset == "current" or self.selectedset == "total") then 
+		-- indicate when data collection is disabled
+		name = name.."  |cFFFF0000"..L["DISABLED"].."|r"
+	end
 	self.metadata.title = name
 	self.display:SetTitle(self, name)
 end
@@ -663,6 +667,19 @@ function Skada:Print(msg)
 	print("|cFF33FF99Skada|r: "..msg)
 end
 
+function Skada:Debug(...)
+	if not Skada.db.profile.debug then return end
+	local msg = ""
+	for i=1, select("#",...) do
+		local v = tostring(select(i,...))
+		if #msg > 0 then
+			msg = msg .. ", "
+		end
+		msg = msg..v
+	end
+	print("|cFF33FF99Skada Debug|r: "..msg)
+end
+
 local function slashHandler(param)
 	local reportusage = "/skada report [raid|party|instance|guild|officer|say] [current||total|set_num] [mode] [max_lines]"
 	if param == "pets" then
@@ -675,6 +692,9 @@ local function slashHandler(param)
 		Skada:NewSegment()
 	elseif param == "toggle" then
 		Skada:ToggleWindow()
+	elseif param == "debug" then
+		Skada.db.profile.debug = not Skada.db.profile.debug
+		Skada:Print("Debug mode "..(Skada.db.profile.debug and ("|cFF00FF00"..L["ENABLED"].."|r") or ("|cFFFF0000"..L["DISABLED"].."|r")))
 	elseif param == "config" then
 		InterfaceOptionsFrame_OpenToCategory(Skada.optionsFrame)
 		InterfaceOptionsFrame_OpenToCategory(Skada.optionsFrame)
@@ -716,6 +736,7 @@ local function slashHandler(param)
 		Skada:Print(("%-20s"):format(reportusage))
 		Skada:Print(("%-20s"):format("/skada reset"))
 		Skada:Print(("%-20s"):format("/skada toggle"))
+		Skada:Print(("%-20s"):format("/skada debug"))
 		Skada:Print(("%-20s"):format("/skada newsegment"))
 		Skada:Print(("%-20s"):format("/skada config"))
 	end
@@ -828,17 +849,26 @@ function Skada:SetActive(enable)
 		for i, win in ipairs(windows) do
 			win:Show()
 		end
-		disabled = false
-		cleuFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	else
 		for i, win in ipairs(windows) do
 			win:Hide()
 		end
-		if self.db.profile.hidedisables then
-			disabled = true
-			cleuFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-		end
 	end
+	if not enable and self.db.profile.hidedisables then
+		if not disabled then -- print a message when we change state
+			self:Debug(L["Data Collection"].." ".."|cFFFF0000"..L["DISABLED"].."|r")
+		end
+		disabled = true
+		cleuFrame:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	else
+		if disabled then -- print a message when we change state
+			self:Debug(L["Data Collection"].." ".."|cFF00FF00"..L["ENABLED"].."|r")
+		end
+		disabled = false
+		cleuFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+	end
+
+	Skada:UpdateDisplay(true) -- update title indicator
 end
 
 function Skada:CheckGroup()
@@ -1218,6 +1248,7 @@ end
 -- We can not simply rely on PLAYER_REGEN_ENABLED since it is fired if we die and the fight continues.
 function Skada:Tick()
 	if not disabled and self.current and not InCombatLockdown() and not IsRaidInCombat() then
+		self:Debug("EndSegment: Tick")
 		self:EndSegment()
 	end
 end
@@ -1300,7 +1331,7 @@ function Skada:EndSegment()
 		end
 	end
 
-	self:UpdateDisplay()
+	self:UpdateDisplay(true) -- force required to update displays looking at older sets after insertion
 	if update_timer then self:CancelTimer(update_timer) end
 	if tick_timer then self:CancelTimer(tick_timer) end
 	update_timer, tick_timer = nil, nil
@@ -1309,6 +1340,7 @@ end
 function Skada:PLAYER_REGEN_DISABLED()
 	-- Start a new set if we are not in one already.
 	if not disabled and not self.current then
+		self:Debug("StartCombat: PLAYER_REGEN_DISABLED")
 		self:StartCombat()
 	end
 end
@@ -1322,7 +1354,7 @@ local tentative = nil
 -- AceTimer handle for reverting combat start.
 local tentativehandle= nil
 
-function Skada:StartCombat(isEncounter)
+function Skada:StartCombat()
 	-- Cancel cancelling combat if needed.
 	if tentativehandle ~= nil then
 		self:CancelTimer(tentativehandle)
@@ -1330,6 +1362,7 @@ function Skada:StartCombat(isEncounter)
 	end
 
 	if update_timer then
+		self:Debug("EndSegment: StartCombat")
 		self:EndSegment()
 	end
 
@@ -1339,6 +1372,16 @@ function Skada:StartCombat(isEncounter)
 	-- Create a new current set unless we are already have one (combat detection kicked in).
 	if not self.current then
 		self.current = createSet(L["Current"])
+	end
+
+	if self.encounterName and 
+	   GetTime() < (self.encounterTime or 0) + 15 then -- a recent ENCOUNTER_START named our segment
+		self:Debug("StartCombat setting encounterName from ENCOUNTER_START",self.encounterName)
+		self.current.mobname = self.encounterName
+		self.current.gotboss = true
+
+		self.encounterName = nil
+		self.encounterTime = nil
 	end
 
 	-- Also start the total set if it is nil.
@@ -1382,9 +1425,8 @@ function Skada:StartCombat(isEncounter)
 
 	-- Schedule timers for updating windows and detecting combat end.
 	update_timer = self:ScheduleRepeatingTimer("UpdateDisplay", 0.5)
-	if not isEncounter then
-		tick_timer = self:ScheduleRepeatingTimer("Tick", 1)
-	end
+	-- ticket 363: It is NOT safe to use ENCOUNTER_END to replace combat detection
+	tick_timer = self:ScheduleRepeatingTimer("Tick", 1)
 end
 
 -- Simply calls the same function on all windows.
@@ -1633,9 +1675,9 @@ cleuFrame:SetScript("OnEvent", function(frame, event, timestamp, eventtype, hide
 				if tentative ~= nil then
 					tentative = tentative + 1
 					if tentative == 5 then
-						--self:Print("tentative combat start SUCCESS!")
 						Skada:CancelTimer(tentativehandle)
 						tentativehandle = nil
+						Skada:Debug("StartCombat: tentative combat")
 						Skada:StartCombat()
 					end
 				end
@@ -1679,16 +1721,28 @@ function Skada:AssignPet(ownerguid, ownername, petguid)
 end
 
 function Skada:ENCOUNTER_START(encounterId, encounterName)
+	self:Debug("ENCOUNTER_START", encounterId, encounterName)
 	if not disabled then
-		self:StartCombat(true)
-		self.current.mobname = encounterName
-		self.current.gotboss = true
+		if self.current then -- already in combat, update the segment name
+			self.current.mobname = encounterName
+			self.current.gotboss = true
+		else -- we are not in combat yet
+			-- if we StartCombat here, the segment will immediately end by Tick
+			-- just save the encounter name for use when we enter combat
+			self.encounterName = encounterName
+			self.encounterTime = GetTime()
+		end
 	end
 end
 
-function Skada:ENCOUNTER_END()
+function Skada:ENCOUNTER_END(encounterId, encounterName)
+	self:Debug("ENCOUNTER_END", encounterId, encounterName)
 	if not disabled and self.current then
-		self:EndSegment()
+		-- ticket 363: it is NOT safe to EndSegment here
+		if not self.current.gotboss then -- might have missed the bossname (eg d/c in combat)
+			self.current.mobname = encounterName
+			self.current.gotboss = true
+		end
 	end
 end
 
@@ -2142,6 +2196,7 @@ end
 -- Tooltip display. Shows subview data for a specific row.
 -- Using a fake window, the subviews are asked to populate the window's dataset normally.
 local ttwin = Window:new()
+local white = {r = 1, g = 1, b = 1}
 function Skada:AddSubviewToTooltip(tooltip, win, mode, id, label)
 	-- Clean dataset.
 	wipe(ttwin.dataset)
@@ -2167,7 +2222,7 @@ function Skada:AddSubviewToTooltip(tooltip, win, mode, id, label)
 			if data.id and nr < Skada.db.profile.tooltiprows then
 				nr = nr + 1
 
-				local color = {r = 1, g = 1, b = 1}
+				local color = white
 				if data.color then
 					-- Explicit color from dataset.
 					color = data.color
@@ -2380,7 +2435,7 @@ end
 function Skada:AddLoadableModule(name, func)
 	if not self.moduleList then self.moduleList = {} end
 	self.moduleList[#self.moduleList+1] = func
-	self:AddLoadableModuleCheckbox(name, L[name] or "???")
+	self:AddLoadableModuleCheckbox(name, L[name])
 end
 
 
