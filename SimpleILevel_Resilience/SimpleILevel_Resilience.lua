@@ -112,9 +112,9 @@ function SIL_Resil:Inspect(guid, score, itemCount, age, itemTable)
 	if itemTable and type(itemTable) == 'table' then
 		for i,itemLink in pairs(itemTable) do
 			local stats = GetItemStats(itemLink);
-            
-			if stats and stats['ITEM_MOD_RESILIENCE_RATING_SHORT'] then
-				local raw = stats['ITEM_MOD_RESILIENCE_RATING_SHORT'];
+
+			if stats and (stats['ITEM_MOD_PVP_POWER_SHORT'] or stats['ITEM_MOD_RESILIENCE_RATING_SHORT']) then
+				local raw = stats['ITEM_MOD_PVP_POWER_SHORT'] or stats['ITEM_MOD_RESILIENCE_RATING_SHORT'];
 				
 				resilience = resilience + raw;
 				rItems = rItems + 1;
