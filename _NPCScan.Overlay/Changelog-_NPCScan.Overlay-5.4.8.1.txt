@@ -1,0 +1,12 @@
+tag 5.4.8.1
+c73bd11de1ad3c7148c6e000e44bdaa71b5a2b14
+SLOKnightfall <SLOKnightfall@gmail.com>
+2014-06-08 19:03:41 -0700
+
+tag 5.4.8.1
+
+
+--------------------
+
+SLOKnightfall:
+	- Created Constants.lua to store addon constant variables Added keybind to toggle Minimap path display Added separate icon for Key Toggle Added visual indicator to toggle icons to display toggle state Reworked how the saved variables are handled. Added option to swap mob key movement controls (ticket 25) Code cleanup
