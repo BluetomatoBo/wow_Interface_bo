@@ -1,5 +1,5 @@
 TARGETCHARMS_VERSION = GetAddOnMetadata("TargetCharms", "Version");
-TARGETCHARMS_DB_VERSION = "1.5.5 (9/4/2012)";
+TARGETCHARMS_DB_VERSION = "1.5.6 (6/11/2014)";
 
 local Defaults =
 {   ["Version"] = TARGETCHARMS_VERSION,
@@ -457,7 +457,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 			MakeCharm(frame,button,buttonNum,0,2,0.15,0.85,0.15,0.85,0,0,32,32);
 			SetTexture(button, _G[button:GetName().."TextureIcon"],3,0,1,0,1,3,-2,26,26);
 			_G[button:GetName().."TextureColor"]:SetTexture();
-			button:SetAttribute("macrotext", [[/cwm all]]);
+			button:SetAttribute("macrotext", [[/cwm 0]]);
 		else
         		button:Hide();
 			return false;
