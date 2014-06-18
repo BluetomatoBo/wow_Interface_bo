@@ -52,7 +52,7 @@ function Announcements:OnEnable()
 	self:RegisterEvent("UNIT_NAME_UPDATE")
 	self:RegisterEvent("ARENA_PREP_OPPONENT_SPECIALIZATIONS")
 	-- register custom events
-	self:RegisterMessage("GLADIUS_SPEC_UPDATE")
+	--self:RegisterMessage("GLADIUS_SPEC_UPDATE")
 	-- Table holding messages to throttle
 	self.throttled = { }
 	-- enemy detected
@@ -74,7 +74,7 @@ function Announcements:Reset(unit)
 	self.enemy = { }
 end
 
--- New enemy announcement, could be broken
+-- New enemy announcement
 function Announcements:Show(unit)
 	self:UNIT_NAME_UPDATE(nil, unit)
 end
@@ -97,13 +97,13 @@ function Announcements:UNIT_NAME_UPDATE(event, unit)
 	end
 end
 
-function Announcements:GLADIUS_SPEC_UPDATE(unit, event)
+--[[function Announcements:GLADIUS_SPEC_UPDATE(event, unit)
 	local _, instanceType = IsInInstance()
 	if instanceType ~= "arena" or not strfind(unit, "arena") or strfind(unit, "pet") or not Gladius.db.announcements.spec then
 		return
 	end
 	self:Send(string.format(L["SPEC DETECTED: %s (%s)"], UnitName(unit), Gladius.buttons[unit].spec), 2, unit)
-end
+end]]
 
 function Announcements:UNIT_HEALTH(event, unit)
 	local _, instanceType = IsInInstance()
@@ -143,7 +143,7 @@ function Announcements:ARENA_PREP_OPPONENT_SPECIALIZATIONS(event, ...)
 				prepFrame:Show()
 			else
 				prepFrame:Hide()]]
-			self:Send("Enemy Spec: "..spec.." "..class )
+			self:Send("Enemy Spec: "..spec.." "..class)
 		end
 		--else
 		--prepFrame:Hide()
