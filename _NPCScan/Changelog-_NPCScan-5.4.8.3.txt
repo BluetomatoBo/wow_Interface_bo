@@ -1,0 +1,22 @@
+tag 5.4.8.3
+4fa4d5c00f5cc2fb62cf7ca0c2f54060bbaec77e
+James D. Callahan III <jcallahan@curse.com>
+2014-07-10 21:36:39 -0500
+
+
+
+--------------------
+
+SLOKnightfall:
+	- -Fixed issue where rare mobs and beasts would not be enabled on login/reload
+	- -Added delay timer to vignette alert
+	- -Fix for tab tooltip enable/disable state not matching actual state
+	- -Fix for options not saving off state
+	- Fixed error on mouseover when in pet battles.  Ticket 63 Increased the delay before re-showing an alert when triggered by a mouseover to 5im (was 15 sec)
+Adavak:
+	- typo
+SLOKnightfall:
+	- Fix for Bro'Gaz the Clanless setting him as a non achievement mob
+	- Added toggle option for mouseover alerts to option menu Moved some alert option from the search page to the alert page Added mouse over alert check if mob is alive before triggering alert
+	- added code to trigger alert on mouseover updated debug code to update debug frame when new debug message is added Updated how saved variables are handled to help when adding new variable and to prevent saved variables from being reset when the addon does not load completely. cleaned up vignette code
+	- Updated the  5 Madexx localizations to include the color of the spawn.
