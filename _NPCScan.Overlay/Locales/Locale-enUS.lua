@@ -808,7 +808,7 @@ select( 2, ... ).L = setmetatable( {
 	CONFIG_SHOWKEY = "Show Mob Key on Map",
 	CONFIG_SHOWKEY_DESC = "Toggles the displaying of the mob key on the world map.",
 	CONFIG_LOCKSWAP = "Swap Mob Key Movement Controls",
-	CONFIG_LOCKSWAP_DESC = "Sets the  mob key to move on mouse over and holding <Shift> to prevent movement.",
+	CONFIG_LOCKSWAP_DESC = "Sets the mob key to move on mouse over and holding <Shift> to prevent movement.",
 	CONFIG_SETCOLOR = "Set Path Colors",
 
 	CONFIG_SETCOLOR_DESC = "Click to set Map Key & Path Colors.",
