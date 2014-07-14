@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(869, "DBM-SiegeOfOrgrimmar", nil, 369)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 11269 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 11274 $"):sub(12, -3))
 mod:SetCreatureID(71865)
 mod:SetEncounterID(1623)
 mod:SetHotfixNoticeRev(10828)
@@ -96,7 +96,7 @@ local timerSiegeEngineerCD			= mod:NewNextTimer(40, "ej8298", nil, nil, nil, 144
 local timerPowerIronStar			= mod:NewCastTimer(16.5, 144616)
 --Intermission: Realm of Y'Shaarj
 local timerEnterRealm				= mod:NewNextTimer(145.5, 144866, nil, nil, nil, 144945)
-local timerYShaarjsProtection		= mod:NewBuffActiveTimer(60.5, "ej8305", nil, nil, nil, 144945)--May be too long, but intermission makes more sense than protection buff which actually fades before intermission ends if you do it right.
+local timerRealm					= mod:NewBuffActiveTimer(60.5, "ej8305", nil, nil, nil, 144945)--May be too long, but intermission makes more sense than protection buff which actually fades before intermission ends if you do it right.
 --Stage Two: Power of Y'Shaarj
 local timerWhirlingCorruptionCD		= mod:NewCDCountTimer(49.5, 144985)--One bar for both, "empowered" makes timer too long
 local timerWhirlingCorruption		= mod:NewBuffActiveTimer("OptionVersion2", 9, 144985, nil, false)
@@ -322,7 +322,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
 	if spellId == 144945 then
 		warnYShaarjsProtection:Show(args.destName)
-		timerYShaarjsProtection:Start()
+		timerRealm:Start()
 		countdownRealm:Start()
 	elseif args:IsSpellID(145065, 145171) then
 		if spellId == 145065 then
@@ -435,6 +435,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		timerWhirlingCorruptionCD:Cancel()
 		countdownWhirlingCorruption:Cancel()
 	elseif spellId == 144956 then--Jump To Ground (intermission ending)
+		countdownRealm:Cancel()
+		timerRealm:Cancel()
 		if timerEnterRealm:GetTime() > 0 then--first cast, phase2 trigger.
 			self.vb.phase = 2
 			warnPhase2:Show()
@@ -516,6 +518,8 @@ end
 function mod:CHAT_MSG_MONSTER_YELL(msg)
 	if msg == L.wasteOfTime then
 		self:SendSync("prepull")
+	elseif msg == L.phase3End or msg:find(L.phase3End) then
+		self:SendSync("phase3End")
 	end
 end
 
@@ -546,5 +550,12 @@ function mod:OnSync(msg, guid)
 		self:SetIcon(targetName, 0)
 	elseif msg == "prepull" then
 		timerRoleplay:Start()
+	elseif msg == "phase3End" then
+		timerDesecrateCD:Cancel()
+		timerTouchOfYShaarjCD:Cancel()
+		countdownTouchOfYShaarj:Cancel()
+		timerWhirlingCorruptionCD:Cancel()
+		countdownWhirlingCorruption:Cancel()
+		--TODO< maybe one day add an RP timer for phase 3-4 transition. Unfortunately I'm unlikely to see heroic garrosh again until after 6.0
 	end
 end

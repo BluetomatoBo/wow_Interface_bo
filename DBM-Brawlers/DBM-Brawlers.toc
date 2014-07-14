@@ -24,10 +24,10 @@
 ## X-DBM-Mod-Name-esES: Camorristas
 ## X-DBM-Mod-Name-frFR: Bastonneurs
 ## X-DBM-Mod-Name-ruRU: Бойцовская гильдия
-## X-DBM-Mod-Sort: 35
+## X-DBM-Mod-Sort: 235
 ## X-DBM-Mod-MapID: 369,1043
 ## X-DBM-Mod-ForceLoad-MapID: 369,1043
-## X-Curse-Packaged-Version: 5.4.15
+## X-Curse-Packaged-Version: 5.4.16
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline

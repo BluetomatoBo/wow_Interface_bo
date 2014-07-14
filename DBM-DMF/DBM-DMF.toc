@@ -18,8 +18,8 @@
 ## X-DBM-Mod-Has-Single-Format: 1
 ## X-DBM-Mod-MapID: 974
 ## X-DBM-Mod-ForceLoad-MapID: 974
-## X-DBM-Mod-Sort: 55
-## X-Curse-Packaged-Version: 5.4.15
+## X-DBM-Mod-Sort: 255
+## X-Curse-Packaged-Version: 5.4.16
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline

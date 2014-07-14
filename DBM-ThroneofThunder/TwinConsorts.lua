@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(829, "DBM-ThroneofThunder", nil, 362)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 11193 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 11296 $"):sub(12, -3))
 mod:SetCreatureID(68905, 68904)--Lu'lin 68905, Suen 68904
 mod:SetEncounterID(1560)
 mod:SetZone()
@@ -219,7 +219,7 @@ function mod:CHAT_MSG_MONSTER_YELL(msg) -- Switch to yell. INSTANCE_ENCOUNTER_EN
 end
 
 function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT(event) -- still remains backup trigger for phase3.
-	if UnitExists("boss2") and tonumber(UnitGUID("boss2"):sub(6, 10), 16) == 68905 then--Make sure we don't trigger it off another engage such as wipe engage event
+	if UnitExists("boss2") and self:GetCIDFromGUID(UnitGUID("boss2")) == 68905 then--Make sure we don't trigger it off another engage such as wipe engage event
 		self:SendSync("Phase3")
 	end
 end

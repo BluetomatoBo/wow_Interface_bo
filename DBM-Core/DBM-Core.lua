@@ -51,10 +51,10 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 11270 $"):sub(12, -3)),
-	DisplayVersion = "5.4.15", -- the string that is shown as version
-	DisplayReleaseVersion = "5.4.15", -- Needed to work around old versions of BW sending improper version information
-	ReleaseRevision = 11270 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 11339 $"):sub(12, -3)),
+	DisplayVersion = "5.4.16", -- the string that is shown as version
+	DisplayReleaseVersion = "5.4.16", -- Needed to work around old versions of BW sending improper version information
+	ReleaseRevision = 11339 -- the revision of the latest stable version that is available
 }
 
 -- Legacy crap; that stupid "Version" field was never a good idea.
@@ -116,6 +116,7 @@ DBM.DefaultOptions = {
 	ShowSpecialWarnings = true,
 	ShowFlashFrame = true,
 	ShowAdvSWSound = true,
+	CustomSounds = 0,
 	AlwaysShowHealthFrame = false,
 	ShowBigBrotherOnCombatStart = false,
 	AutologBosses = false,
@@ -910,6 +911,10 @@ do
 	function DBM:ADDON_LOADED(modname)
 		if modname == "DBM-Core" and not isLoaded then
 			isLoaded = true
+			if select(4, GetBuildInfo()) >= 60000 then
+				DBM:AddMsg(DBM_CORE_UPDATEREMINDER_MAJORPATCH)
+				return
+			end
 			for i, v in ipairs(onLoadCallbacks) do
 				xpcall(v, geterrorhandler())
 			end
@@ -2202,6 +2207,13 @@ function DBM:GetCIDFromGUID(guid)
 	return (guid and (tonumber(guid:sub(6, 10), 16))) or 0
 end
 
+function DBM:IsCreatureGUID(guid)
+	if bband(guid:sub(1, 5), 0x00F) == 3 or bband(guid:sub(1, 5), 0x00F) == 5 then
+		return true
+	end
+	return false
+end
+
 function DBM:GetBossUnitId(name)
 	for i = 1, 5 do
 		if UnitName("boss" .. i) == name then
@@ -2456,7 +2468,7 @@ function DBM:UPDATE_BATTLEFIELD_STATUS()
 end
 
 function DBM:CINEMATIC_START()
-	if DBM.Options.MovieFilter == "Never" then return end
+	if not IsInInstance() or DBM.Options.MovieFilter == "Never" then return end
 	SetMapToCurrentZone()
 	for itemId, mapId in pairs(blockMovieSkipItems) do
 		if mapId == LastInstanceMapID then
@@ -4462,6 +4474,10 @@ function DBM:GetCurrentInstanceDifficulty()
 		return "mythic", difficultyName.." - ", difficulty, instanceGroupSize
 	elseif difficulty == 17 then
 		return "lfr", difficultyName.." - ", difficulty, instanceGroupSize
+	elseif difficulty == 18 then
+		return "event40", difficultyName.." - ", difficulty, instanceGroupSize
+	elseif difficulty == 19 then
+		return "event5", difficultyName.." - ", difficulty, instanceGroupSize
 	else--failsafe
 		return "normal5", "", difficulty, instanceGroupSize
 	end
@@ -5030,7 +5046,7 @@ end
 -------------------
 MovieFrame:HookScript("OnEvent", function(self, event, id)
 	if event == "PLAY_MOVIE" and id then
-		if DBM.Options.MovieFilter == "Never" then return end
+		if not IsInInstance() or DBM.Options.MovieFilter == "Never" then return end
 		if DBM.Options.MovieFilter == "Block" or DBM.Options.MovieFilter == "AfterFirst" and DBM.Options.MoviesSeen[id] then
 			MovieFrame_OnMovieFinished(self)
 		else
@@ -5279,6 +5295,7 @@ end
 bossModPrototype.AntiSpam = DBM.AntiSpam
 bossModPrototype.GetUnitCreatureId = DBM.GetUnitCreatureId
 bossModPrototype.GetCIDFromGUID = DBM.GetCIDFromGUID
+bossModPrototype.IsCreatureGUID = DBM.IsCreatureGUID
 
 do
 	local bossTargetuIds = {

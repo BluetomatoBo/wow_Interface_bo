@@ -15,10 +15,10 @@
 ## X-DBM-Mod-Type: RAID
 ## X-DBM-Mod-Category: MOP
 ## X-DBM-Mod-Has-Single-Format: 1
-## X-DBM-Mod-Sort: 6
+## X-DBM-Mod-Sort: 206
 ## X-DBM-Mod-MapID: 870,1064
 ## X-DBM-Mod-LoadCID: 62346,60491,69161,69099,71952,71954,72057,71953,71955
-## X-Curse-Packaged-Version: 5.4.15
+## X-Curse-Packaged-Version: 5.4.16
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline

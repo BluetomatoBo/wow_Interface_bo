@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(853, "DBM-SiegeOfOrgrimmar", nil, 369)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 11254 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 11339 $"):sub(12, -3))
 mod:SetCreatureID(71152, 71153, 71154, 71155, 71156, 71157, 71158, 71160, 71161)
 mod:SetEncounterID(1593)
 mod:DisableESCombatDetection()
@@ -19,8 +19,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 143339 142532 142533 142534 142671 142564 143939 143974 143701 143759 143337 143358 142948",
 	"SPELL_AURA_APPLIED_DOSE 143339",
 	"SPELL_AURA_REMOVED 142564 143939 143974 143700 142948 143339 142671 143542",
-	"SPELL_PERIODIC_DAMAGE 143735",
-	"SPELL_PERIODIC_MISSED 143735",
+	"SPELL_PERIODIC_DAMAGE",
+	"SPELL_PERIODIC_MISSED",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"CHAT_MSG_MONSTER_EMOTE",
 	"UNIT_DIED"
@@ -641,7 +641,7 @@ function mod:SPELL_CAST_START(args)
 			if UnitExists(bossUnitID) and UnitGUID(bossUnitID) == args.sourceGUID and UnitDetailedThreatSituation("player", bossUnitID) then
 				local elapsed, total = timerMutateCD:GetTime(self.vb.mutateCount+1)
 				local remaining = total - elapsed
-				if self:IsHeroic() and (remaining < 20) and (self.vb.parasitesActive < 3) and not UnitDebuff("player", GetSpellInfo(143339)) then--We need more parasites to spawn with this attack
+				if self:IsHeroic() and (remaining < 20) and (self:IsDifficulty("heroic25") and (self.vb.parasitesActive < 3) or (self.vb.parasitesActive < 1)) and not UnitDebuff("player", GetSpellInfo(143339)) then--We need more parasites to spawn with this attack
 					specWarnMoreParasites:Show()
 				else--We want to block attack and not spawn anything
 					specWarnInjection:Show()
