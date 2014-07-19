@@ -77,7 +77,7 @@ function Dispel:GetFrame(unit)
 	return self.frame[unit]
 end
 
-function Dispel:SetTemplate(template)
+--[[function Dispel:SetTemplate(template)
 	if template == 1 then
 		-- reset width
 		if (Gladius.db.targetBarAttachTo == "HealthBar" and not Gladius.db.healthBarAdjustWidth) then
@@ -122,7 +122,7 @@ function Dispel:SetTemplate(template)
 			Gladius.db.dispellOffsetY = 0
 		end
 	end
-end
+end]]
 
 function Dispel:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
 	local _, eventType, _, sourceGUID, _, _, _, _, _, _, _, spellId = ...
@@ -130,7 +130,7 @@ function Dispel:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
 		if not (UnitGUID("arena1") == sourceGUID or UnitGUID("arena2") == sourceGUID or UnitGUID("arena3") == sourceGUID or UnitGUID("arena4") == sourceGUID or UnitGUID("arena5") == sourceGUID) then
 			return
 		end
-		if spellId == 527 or spellId == 4987 or spellId == 77130 or spellId == 88423 or spellId == 115450 then
+		if spellId == 527 or spellId == 4987 or spellId == 77130 or spellId == 88423 or spellId == 115450 or spellId == 2782 or spellId == 51886 or spellId == 475 then
 			if UnitGUID("arena1") == sourceGUID then
 				self:UpdateDispel("arena1", 8)
 			elseif UnitGUID("arena2") == sourceGUID then
@@ -294,7 +294,7 @@ function Dispel:Show(unit)
 	-- show frame
 	self.frame[unit]:SetAlpha(1)
 	if Gladius.db.dispellGridStyleIcon then
-		self.frame[unit].texture:SetTexture(LSM:Fetch(LSM.MediaType.STATUSBAR, "minimalist"))
+		self.frame[unit].texture:SetTexture(LSM:Fetch(LSM.MediaType.STATUSBAR, "Minimalist"))
 		self.frame[unit].texture:SetVertexColor(Gladius.db.dispellGridStyleIconColor.r, Gladius.db.dispellGridStyleIconColor.g, Gladius.db.dispellGridStyleIconColor.b, Gladius.db.dispellGridStyleIconColor.a)
 	else
 		local dispellIcon
