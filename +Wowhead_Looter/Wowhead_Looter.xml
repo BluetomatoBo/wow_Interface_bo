@@ -181,9 +181,9 @@
 				</OnClick>
 			</Scripts>
 		</Button>
-		
+
 	</Frames>
-	
+
 	<Scripts>
 		<OnShow>
 			wlDebugEdit:ClearFocus();

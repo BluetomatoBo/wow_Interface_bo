@@ -3,21 +3,23 @@
 --     W o w h e a d   L o o t e r     --
 --                                     --
 --                                     --
---    Patch: 5.4.1                     --
---    Updated: October 31, 2013        --
+--    Patch: 6.0.1                     --
+--    Updated: July 28, 2014           --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 50014;
-local WL_VERSION_PATCH = 3;
+local WL_VERSION = 60001;
+local WL_VERSION_PATCH = 1;
 
 
 -- SavedVariables
 wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
-wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlBaseStats, wlItemDurability, wlBattlePetStats = {}, {}, {}, {}, {}, {}, {}, {}, {};
+wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
+wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
+wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability = {}, {}, {}, {}, {}, {}, {};
 
 -- SavedVariablesPerCharacter
 wlSetting = {};
@@ -31,8 +33,7 @@ wlPetBlacklist = nil;
 wlUIReloaded = nil;
 
 -- Constants
-local WL_LOREMASTER_ID_ALLIANCE = 1681;
-local WL_LOREMASTER_ID_HORDE = 1682;
+local WL_LOREMASTER_ID = 7520;
 local WL_FORGE_ID = 1685;
 local WL_ANVIL_ID = 192628;
 local WL_PING_MAX = 300;
@@ -72,96 +73,135 @@ local WL_REP_MODS = {
 	[GetSpellInfo(39911)] = {GetFactionInfoByID(946), 0.1},
 	[GetSpellInfo(95987)] = {nil, 0.1},
 	[GetSpellInfo(100951)] = {nil, 0.08},
+	[GetSpellInfo(161780)] = {GetFactionInfoByID(1359), 1.0},
 };
--- Map icon_file_name to currency ID
-local WL_CURRENCIES = {
-	["trade_archaeology_draenei_artifactfragment"] = 398,
-	["trade_archaeology_dwarf_artifactfragment"] = 384,
-	["trade_archaeology_fossil_fern"] = 393,
-	["trade_archaeology_nerubian_artifactfragment"] = 400,
-	["trade_archaeology_highborne_artifactfragment"] = 394,
-	["trade_archaeology_orc_artifactfragment"] = 397,
-	["trade_archaeology_titan_fragment"] = 401,
-	["trade_archaeology_troll_artifactfragment"] = 385,
-	["trade_archaeology_vrykul_artifactfragment"] = 399,
-	["inv_misc_token_argentdawn3"] = 361,
-	["pvecurrency-justice"] = 395,
-	["pvecurrency-valor"] = 396,
-	["ability_paladin_artofwar"] = 241,
-	["achievement_profession_chefhat"] = 402,
-	["inv_misc_ribbon_01"] = 81,
-	["inv_misc_gem_variety_01"] = 61,
-	["pvpcurrency-conquest-horde"] = 390,
-	["pvpcurrency-honor-horde"] = 392,
-	["achievement_zone_tolbarad"] = 391,
-	["inv_misc_markoftheworldtree"] = 416,
-	["inv_misc_ticket_darkmoon_01"] = 515, -- Darkmoon Prize Ticket
-	["inv_misc_coin_17"] = 697, -- Elder Charm of Good Fortune
-	["inv_misc_coin_18"] = 738, -- Lesser Charm of Good Fortune
-	["archaeology_5_0_mogucoin"] = 752, -- Mogu Rune of Fate
-	["inv_misc_archaeology_mantidstatue_01"] = 754, -- Mantid Archaeology Fragment
-	["inv_arcane_orb"] = 776, -- Warforged Seal
-	["timelesscoin"] = 777, -- Timeless Coin
-	["timelesscoin-bloody"] = 789, -- Bloody Coin
-};
-local VALOR_TIER1_LFG_ID = 301;
+-- Map currency name to currency ID
+local WL_CURRENCIES = {};
+local WL_CURRENCIES_MAXID = 1017;
 -- Random Dungeon IDs extracted from LFGDungeons.dbc
 local WL_AREAID_TO_DUNGEONID = {
-	[2] = {
-		-- Random Cata Normal : 300
-		[769] = 300, -- Vortex Pinnacle
-		[768] = 300, -- The Stonecore
-		[759] = 300, -- Halls of Origination
-		[757] = 300, -- Grim Batol
-		[753] = 300, -- Blackrock Caverns
-		[767] = 300, -- Throne of the Tides
-		[747] = 300, -- Lost City of the Tol'vir
-		-- Random LK Normal: 261
-		[523] = 261, -- Utgarde Keep
-		[524] = 261, -- Utgarde Pinnacle
-		[533] = 261, -- Azjol-Nerub
-		[528] = 261, -- The Oculus
-		[525] = 261, -- Halls of Lightning
-		[526] = 261, -- Halls of Stone
-		[521] = 261, -- The Culling of Stratholme
-		[534] = 261, -- Drak'tharon Keep
-		[530] = 261, -- Gundrak
-		[522] = 261, -- Ahn'kahet
-		[536] = 261, -- Violet Hold
-		[520] = 261, -- The Nexus
-	},
-	[3] = {
-		-- Random Zandalari Heroic: 341
-		[793] = 301, -- ZG
-		[781] = 301, -- ZA
-		-- Random Cata Heroic: 301
-		[769] = 301, -- Vortex Pinnacle
-		[768] = 301, -- The Stonecore
-		[759] = 301, -- Halls of Origination
-		[757] = 301, -- Grim Batol
-		[753] = 301, -- Blackrock Caverns
-		[767] = 301, -- Throne of the Tides
-		[747] = 301, -- Lost City of the Tol'vir
-		[756] = 301, -- The Deadmines
-		[764] = 301, -- ShadowFang Keep
-		-- Random LK Heroic: 262
-		[524] = 262, -- Utgarde Pinnacle
-		[521] = 262, -- The Culling of Stratholme
-		[528] = 262, -- The Oculus
-		[525] = 262, -- Halls of Lightning
-		[526] = 262, -- Halls of Stone
-		[534] = 262, -- Drak'tharon Keep
-		[530] = 262, -- Gundrak
-		[522] = 262, -- Ahn'kahet
-		[536] = 262, -- Violet Hold
-		[520] = 262, -- The Nexus
-		[533] = 262, -- Azjol-Nerub
-		[523] = 262, -- Utgarde Keep
-		[542] = 262, -- Trial of the Champion
-		[601] = 262, -- Forge of Souls
-		[602] = 262, -- Pit of Saron
-		[603] = 262, -- Halls of Reflection
-	},
+    [1] = {
+        [887] = 463,
+        [765] = 258,
+        [704] = 258,
+        [769] = 300,
+        [521] = 261,
+        [964] = 788,
+        [525] = 261,
+        [876] = 463,
+        [536] = 261,
+        [528] = 261,
+        [533] = 261,
+        [798] = 259,
+        [726] = 259,
+        [728] = 259,
+        [730] = 259,
+        [984] = 788,
+        [797] = 259,
+        [732] = 259,
+        [722] = 259,
+        [993] = 788,
+        [767] = 300,
+        [759] = 300,
+        [761] = 258,
+        [874] = 258,
+        [687] = 258,
+        [523] = 261,
+        [691] = 258,
+        [756] = 258,
+        [750] = 258,
+        [760] = 258,
+        [699] = 258,
+        [764] = 258,
+        [753] = 300,
+        [768] = 300,
+        [534] = 261,
+        [520] = 261,
+        [522] = 261,
+        [524] = 261,
+        [526] = 261,
+        [969] = 788,
+        [530] = 261,
+        [721] = 258,
+        [723] = 259,
+        [725] = 259,
+        [680] = 258,
+        [734] = 259,
+        [877] = 463,
+        [686] = 258,
+        [987] = 788,
+        [989] = 788,
+        [898] = 258,
+        [867] = 463,
+        [995] = 788,
+        [871] = 258,
+        [747] = 300,
+        [875] = 463,
+        [688] = 258,
+        [690] = 258,
+        [692] = 258,
+        [757] = 300,
+        [885] = 463,
+        [749] = 258,
+    },
+    [2] = {
+        [756] = 301,
+        [989] = 789,
+        [757] = 301,
+        [820] = 301,
+        [867] = 462,
+        [759] = 301,
+        [767] = 301,
+        [819] = 301,
+        [993] = 789,
+        [885] = 462,
+        [747] = 301,
+        [793] = 301,
+        [871] = 462,
+        [887] = 462,
+        [874] = 462,
+        [764] = 301,
+        [995] = 788,
+        [964] = 789,
+        [781] = 301,
+        [898] = 462,
+        [875] = 462,
+        [984] = 788,
+        [969] = 789,
+        [768] = 301,
+        [753] = 301,
+        [769] = 301,
+        [816] = 301,
+        [987] = 788,
+        [877] = 462,
+        [876] = 462,
+    },
+    [11] = {
+        [938] = 641,
+        [940] = 641,
+        [900] = 641,
+        [937] = 641,
+        [939] = 641,
+        [878] = 641,
+    },
+    [12] = {
+        [878] = 493,
+        [940] = 493,
+        [912] = 493,
+        [884] = 493,
+        [880] = 493,
+        [882] = 493,
+        [920] = 493,
+        [937] = 493,
+        [939] = 493,
+        [851] = 493,
+        [883] = 493,
+        [900] = 493,
+        [911] = 493,
+        [914] = 493,
+        [906] = 493,
+        [938] = 493,
+    },
 };
 local WL_REP_DISCOUNT = {
 	[5] = 0.05, -- Friend:   5%
@@ -169,6 +209,10 @@ local WL_REP_DISCOUNT = {
 	[7] = 0.15, -- Revered: 15%
 	[8] = 0.20, -- Exalted: 20%
 };
+local WL_ZONE_EXCEPTION = {
+    ["ShrineofSevenStars"]  = 905,
+    ["ShrineofTwoMoons"]    = 903,
+}
 
 -- Speed optimizations
 local CheckInteractDistance = CheckInteractDistance;
@@ -274,17 +318,22 @@ local wlAnvilSpells = {};
 local wlRegisterCooldown = {};
 local wlLootToastSourceId = nil;
 local wlCurrentLootToastEventId = nil;
+local wlQuestLog, wlQuestObjectives, wlCurrentQuestObj = {}, { {}, {} }, 1;
+local wlNumQuestCompleted = 0;
+local spellCastID = nil;
+local wlTrackerClearedTime = 0;
 
--- local isBetaClient = false;
--- if (tonumber(select(4, GetBuildInfo())) >= 50001) then
-	-- isBetaClient = true;
--- end
+local isBetaClient = false;
+if (tonumber(select(4, GetBuildInfo())) >= 60000) then
+	isBetaClient = true;
+end
 
 -- Hooks
 local wlDefaultGetQuestReward;
 local wlDefaultChatFrame_DisplayTimePlayed;
 local wlDefaultReloadUI;
 local wlDefaultConsoleExec;
+local wlDefaultMapBarFrame_UpdateLayout;
 
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -318,7 +367,11 @@ function wlEvent_PLAYER_LOGIN(self)
 	wlHook();
 	wlClearTracker("quest", "rep", "spell");
 
-	wlRealmList[GetCVar("realmList") or "nil"] = 1;
+    local realmList = GetCVar("realmList");
+    if isBetaClient then
+        realmList = GetCVar("portal");
+    end
+	wlRealmList[realmList or "nil"] = 1;
 
 	wlId = wlConcat(wlSelectOne(1, UnitName("player")), GetRealmName());
 	
@@ -384,33 +437,18 @@ function wlEvent_PLAYER_LOGIN(self)
 	wlScans.archaeology = {};
 	wlScans.timePlayedTotal = 0;
 	
-	-- to make sure the item cache is available
-	wlTimers.baseStats = wlGetTime() + 10000;
-	
 	-- to make sure bag info is available
 	wlTimers.itemDurability = wlGetTime() + 20000;
 
+    -- load currencies
+    for i=1, WL_CURRENCIES_MAXID do
+        local currencyName = GetCurrencyInfo(i);
+        if currencyName and currencyName ~= "" then
+            WL_CURRENCIES[currencyName:lower()] = i;
+        end
+    end
+
 	wlMessage(WL_LOADED:format(WL_NAME, WL_VERSION), true);
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
-function wlEvent_PLAYER_ALIVE(self)
-	if not wlTimers.baseStats then
-		if not UnitIsGhost("player") then
-			return;
-		end
-
-		for i=1, DEBUFF_MAX_DISPLAY do
-			local debuff = UnitDebuff("player", i);
-			local debuffId = select(11, UnitDebuff("player", i));
-			if debuff and debuffId ~= 8326 and debuffId ~= 20584 and debuffId ~= 9036 then -- Ghost spell ids
-				return;
-			end
-		end
-
-		wlGetBaseStats();
-	end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -429,37 +467,7 @@ function wlEvent_ADDON_LOADED(self, name)
 	end
 end
 
---**--**--**--**--**--**--**-- **--**--**--**--**--**--**--**--**--**--**--
-
-function wlEvent_PET_BATTLE_LEVEL_CHANGED(self)
-	scanBattlePetData();
-end
-
---**--**--**--**--**--**--**-- **--**--**--**--**--**--**--**--**--**--**--
-
-function wlEvent_PET_JOURNAL_LIST_UPDATE(self)
-	scanBattlePetData();
-end
-
---**--**--**--**--**--**--**-- **--**--**--**--**--**--**--**--**--**--**--
-
-function scanBattlePetData()
-	local numPets, numOwned = C_PetJournal.GetNumPets(false);
-	for index = 1, numOwned do
-		local petID, speciesID, owned = C_PetJournal.GetPetInfoByIndex(index, false);		
-		if owned then
-			local speciesID, customName, level, xp, maxXp, displayID, name, icon, petType, creatureID, sourceText, description, isWild, canBattle, tradable = C_PetJournal.GetPetInfoByPetID(petID);
-			if speciesID then
-				local health, maxHealth, power, speed, rarity = C_PetJournal.GetPetStats(petID);
-				if not wlBattlePetStats[petID] then
-					wlBattlePetStats[petID] = {};
-				end
-				wlBattlePetStats[petID][level] = { speciesID, rarity, maxXp, maxHealth, power, speed };
-			end
-		end
-	end
-end
-
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_BLACK_MARKET_ITEM_UPDATE(self)
     local numItems = C_BlackMarket.GetNumItems();
@@ -489,7 +497,7 @@ local DRUNK_ITEM1, DRUNK_ITEM2, DRUNK_ITEM3, DRUNK_ITEM4 = DRUNK_MESSAGE_ITEM_SE
 function wlEvent_CHAT_MSG_SYSTEM(self, msg)
 	if wlIsDrunk and (msg == DRUNK_MESSAGE_SELF1 or msg:match(DRUNK_ITEM1)) then
 		wlIsDrunk = false;
-	elseif not wlIsDrunk and (msg == DRUNK_MESSAGE_SELF2 or msg == DRUNK_MESSAGE_SELF3 or msg == DRUNK_MESSAGE_SELF3) then
+	elseif not wlIsDrunk and (msg == DRUNK_MESSAGE_SELF2 or msg == DRUNK_MESSAGE_SELF3 or msg == DRUNK_MESSAGE_SELF4) then
 		wlIsDrunk = true;
 	elseif not wlIsDrunk and (msg:match(DRUNK_ITEM2) or msg:match(DRUNK_ITEM3) or msg:match(DRUNK_ITEM4)) then
 		wlIsDrunk = true;
@@ -666,6 +674,7 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_GOSSIP_SHOW(self)
+	wlClearTracker("gossipNpc");
 	local gossips = { GetGossipOptions() };
 
 	for i=1, #gossips, 2 do
@@ -737,12 +746,22 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
+function wlEvent_GOSSIP_CONFIRM_CANCEL(self)
+	wlTracker.gossipNpc = { wlUnitGUID("npc") };
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
 function wlRegisterUnitGossip(gossip)
 	if not gossip or gossip == "" then
 		return;
 	end
 
 	local id, kind = wlUnitGUID("npc");
+	
+	if ((not id or not kind) and (gossip == "talentwiper" or gossip == "pettrainer")) then
+		id, kind = unpack(wlTracker.gossipNpc);
+	end
 
 	if not id or kind ~= "npc" or not wlUnit[id] then
 		return;
@@ -773,13 +792,12 @@ end
 
 -- fires whenever the player tames a new pet
 function wlEvent_LOCALPLAYER_PET_RENAMED(self)
-	if UnitGUID("pet"):match("^0xF.[3]") then
-		local id = wlUnitGUID("pet");
-		wlPetBlacklist = nil;
-		if id then
-			wlPetBlacklist = id;
-		end
-	end
+    local id, kind = wlUnitGUID("pet");
+    wlPetBlacklist = nil;
+    if not id or kind ~= "npc" then
+        return;
+    end
+    wlPetBlacklist = id;
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -970,9 +988,9 @@ function wlEvent_TRAINER_SHOW(self)
 		end
 	end
 
-	SetTrainerServiceTypeFilter("available", fAvail or 0);
-	SetTrainerServiceTypeFilter("unavailable", fUnavail or 0);
-	SetTrainerServiceTypeFilter("used", fUsed or 0);
+	SetTrainerServiceTypeFilter("available", fAvail and 1 or 0);
+	SetTrainerServiceTypeFilter("unavailable", fUnavail and 1 or 0);
+	SetTrainerServiceTypeFilter("used", fUsed and 1 or 0);
 	
 	ClassTrainerFrame.selectedService = oldIndex >= 1 and oldIndex or 1;
 	SelectTrainerService(oldIndex >= 1 and oldIndex or 1);
@@ -1001,7 +1019,7 @@ function wlCheckUnitForRep(guid, name)
 	local now = wlGetTime();
 	
 	-- npc check
-	if not guid:match("^0xF.[35]") or not id or id == 0 or not wlUnit[id] then
+	if not id or id == 0 or kind ~= "npc" or not wlUnit[id] then
 		return id, now;
 	end
 	
@@ -1053,7 +1071,7 @@ function wlEvent_COMBAT_LOG_EVENT_UNFILTERED(self, timestamp, event, hideCaster,
 		end
 		
 		-- npc check
-		if not sourceGUID:match("^0xF.[35]") or not unitId or unitId == 0 then
+		if not unitId or unitId == 0 or kind ~= "npc" then
 			return;
 		end
 		
@@ -1073,7 +1091,7 @@ function wlEvent_COMBAT_LOG_EVENT_UNFILTERED(self, timestamp, event, hideCaster,
 			if (bit_band(COMBATLOG_OBJECT_TYPE_PET, sourceFlags) == COMBATLOG_OBJECT_TYPE_PET) then
 				isBpet = true;
 				for i=1, NUM_PET_ACTION_SLOTS do
-					local petSpellName, _, _, _, _, autoCastAllowed = GetPetActionInfo(i);
+					local petSpellName = GetPetActionInfo(i);
 					if petSpellName == spellName then
 						isBpet = false;
 						break;
@@ -1245,8 +1263,6 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-local wlQuestLog, wlQuestObjectives, wlCurrentQuestObj = {}, { {}, {} }, 1;
-local wlNumQuestCompleted = 0;
 function wlEvent_QUEST_LOG_UPDATE(self)
 	self:UnregisterEvent("QUEST_LOG_UPDATE");
 	
@@ -1266,10 +1282,14 @@ function wlEvent_QUEST_LOG_UPDATE(self)
 	
 	local foundQuests, numQuests, idx, objCounter = 0, select(2, GetNumQuestLogEntries()), 1, 0;
 	while foundQuests <= numQuests do
-		local title, _, _, _, isHeader, _, _, _, questId = GetQuestLogTitle(idx);
-		if not title then 
-			break;
-		end
+        local title, isHeader, questId;
+        local questLogTitle = { GetQuestLogTitle(idx) };
+        if not questLogTitle[1] then
+            break;
+        end
+        title       = questLogTitle[1];
+        isHeader    = isBetaClient and questLogTitle[4] or questLogTitle[5];
+        questId     = isBetaClient and questLogTitle[9] or questLogTitle[10];
 		if not isHeader then
 			SelectQuestLogEntry(idx);
 		
@@ -1306,7 +1326,7 @@ function wlEvent_QUEST_LOG_UPDATE(self)
 	SelectQuestLogEntry(selectedQuest);
 	
 	if wlTracker.quest.time and wlTracker.quest.action == "accept" then
-		i = wlTableFind(wlQuestLog, function(a, v) return a.id and a.id == v; end, wlTracker.quest.id);
+		local i = wlTableFind(wlQuestLog, function(a, v) return a.id and a.id == v; end, wlTracker.quest.id);
 		if i and wlIsValidInterval(wlTracker.quest.time, wlGetTime(), 5000) then
 			wlRegisterQuestAccept(i);
 		end
@@ -1318,23 +1338,13 @@ end
 
 -- Build loremaster quest achievements list
 local WL_LOREMASTER_CRITERIA = {};
-local wlAllianceNumCrit, wlHordeNumCrit = GetAchievementNumCriteria(WL_LOREMASTER_ID_ALLIANCE), GetAchievementNumCriteria(WL_LOREMASTER_ID_HORDE);
-for i=1, wlAllianceNumCrit do
-	local _, _, _, _, _, _, _, achID1 = GetAchievementCriteriaInfo(WL_LOREMASTER_ID_ALLIANCE, i);
+local wlLoreMasterNumCrit = GetAchievementNumCriteria(WL_LOREMASTER_ID);
+for i=1, wlLoreMasterNumCrit do
+	local _, _, _, _, _, _, _, achID1 = GetAchievementCriteriaInfo(WL_LOREMASTER_ID, i);
 	local numCrit = GetAchievementNumCriteria(achID1);
 	for j=1, numCrit do
 		local _, _, _, _, _, _, _, achID2 = GetAchievementCriteriaInfo(achID1, j);
 		WL_LOREMASTER_CRITERIA[achID2] = true;
-	end
-end
-for i=1, wlHordeNumCrit do
-	local _, _, _, _, _, _, _, achID1 = GetAchievementCriteriaInfo(WL_LOREMASTER_ID_HORDE, i);
-	local numCrit = GetAchievementNumCriteria(achID1);
-	for j=1, numCrit do
-		local _, _, _, _, _, _, _, achID2 = GetAchievementCriteriaInfo(achID1, j);
-		if not WL_LOREMASTER_CRITERIA[achID2] then
-			WL_LOREMASTER_CRITERIA[achID2] = true;
-		end
 	end
 end
 function wlGetNumLoremasterQuestCompleted()
@@ -1502,12 +1512,14 @@ function wlEvent_COMBAT_TEXT_UPDATE(self, messageType, param1, param2)
 		local repMod = 1;
 		if IsSpellKnown(20599) then -- Diplomacy
 			repMod = repMod + 0.1;
-		end
-		if IsSpellKnown(78634) then -- Guild lvl 4
-			repMod = repMod + 0.05;
-		elseif IsSpellKnown(78635) then -- Guild lvl 12
-			repMod = repMod + 0.1;
-		end
+        end
+        if not isBetaClient then
+            if IsSpellKnown(78634) then -- Guild lvl 4
+                repMod = repMod + 0.05;
+            elseif IsSpellKnown(78635) then -- Guild lvl 12
+                repMod = repMod + 0.1;
+            end
+        end
 		for buffName, factMod in pairs(WL_REP_MODS) do
 			if UnitBuff("player", buffName) then
 				if param1 == factMod[1] or factMod == nil then
@@ -1525,21 +1537,9 @@ end
 
 function wlGetInstanceDifficulty()
 	local _, instanceType, instanceDifficulty, _, maxPlayers, dynamicDifficulty = GetInstanceInfo();
-
-	if type(dynamicDifficulty) ~= "nil" and dynamicDifficulty == 1 then
-		if instanceDifficulty == 1 then
-			instanceDifficulty = 3;
-		elseif instanceDifficulty == 2 then
-			instanceDifficulty = 4;
-		end
-	end
-
 	if instanceType == "party"  or (instanceType == nil and maxPlayers == 3) then
 		return -instanceDifficulty;
 	elseif instanceType == "raid" then
-		if instanceDifficulty == 2 and IsPartyLFG() and IsInLFGDungeon() then
-			return 7; -- LFR 25
-		end
 		return instanceDifficulty;
 	else
 		return 0;
@@ -1592,14 +1592,11 @@ function wlFindSpell(name)
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-local spellCastID = nil;
-local wlTrackerClearedTime = 0;
+
 function wlEvent_UNIT_SPELLCAST_SENT(self, unit, spell, rank, target, lineID)
 	if unit ~= "player" or not target or spellCastID then
 		return;
 	end
-	
-	wlPotentialBagTimer = nil;
 
 	local spellId = wlFindSpell(spell);
 
@@ -1738,7 +1735,7 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlEvent_SHOW_LOOT_TOAST(self, typeIdentifier, itemLink, quantity, specID)
+function wlEvent_SHOW_LOOT_TOAST(self, typeIdentifier, itemLink, quantity, specID, sex, isPersonal)
 	if not typeIdentifier or (typeIdentifier ~= "item" and typeIdentifier ~= "money") then
         return;
     end
@@ -1888,7 +1885,6 @@ function wlEvent_LOOT_OPENED(self)
 	local eventId = wlGetNextEventId();
 	local fromFishing = IsFishingLoot();
 
-
 	-- Clean wlLootCooldown variable
 	for k, v in pairs(wlLootCooldown) do
 		if v < now - 300000 then -- 5min
@@ -1992,8 +1988,6 @@ function wlEvent_LOOT_OPENED(self)
 	end
 	
 	local flags = 0;
-
-	-- Alliance or Horde
 	local faction = UnitFactionGroup("player");
 	if faction == "Alliance" then
 		flags = flags + 1024;
@@ -2028,8 +2022,7 @@ function wlEvent_LOOT_OPENED(self)
 				itemId = "currency";
 				
 				local icon_file_name, currencyName, currencyQuantity, currencyRarity, currencyLocked = GetLootSlotInfo(slot);
-				icon_file_name = icon_file_name:match("[^\\]+$"):lower();
-				currencyId = WL_CURRENCIES[icon_file_name];
+				currencyId = WL_CURRENCIES[currencyName:lower()];
 				
 				wlLootedCurrencyBlacklist = {
 					["currencyId"] = currencyId,
@@ -2181,7 +2174,6 @@ function wlPlaceAuctionBid(aType, aIndex, bid)
 		end
 		local server = GetRealmName();
 		local zone = wlGetLocation();
-
 		wlUpdateVariable(wlAuction, server, zone, wlConcat(id, subId, floor(buyoutPrice / count)), "add", 1);
 	end
 end
@@ -2291,19 +2283,13 @@ function wlEvent_CURRENCY_DISPLAY_UPDATE(...)
 					return;
 				end
 				
-				-- make sure the player isn't capped volume 2 (is the info here updated instantly?)
-				local currID, tier1DungeonID, tier1Quantity, tier1Limit, overallQuantity, overallLimit, periodPurseQuantity, periodPurseLimit = GetLFGDungeonRewardCapBarInfo(VALOR_TIER1_LFG_ID);
-				if currencyId == currID and (tier1Quantity == tier1Limit or overallQuantity == overallLimit or periodPurseQuantity == periodPurseLimit) then
-					return;
-				end
-				
 				-- check if the currency combo id+amount is a reward from the random dungeon
 				if instanceType == "party" then
 					local oldAreaId = GetCurrentMapAreaID();
 					SetMapToCurrentZone();
 					local areaId = GetCurrentMapAreaID();
 					SetMapByID(oldAreaId);
-					local diff = (wlSelectOne(3, GetInstanceInfo()) + 1);
+					local diff = wlSelectOne(3, GetInstanceInfo());
 					local dungeonGroupId = 0;
 					if WL_AREAID_TO_DUNGEONID[diff] then
 						dungeonGroupId = WL_AREAID_TO_DUNGEONID[diff][areaId] or 0;
@@ -2312,9 +2298,9 @@ function wlEvent_CURRENCY_DISPLAY_UPDATE(...)
 						local _, _, _, _, _, numRewards = GetLFGDungeonRewards(dungeonGroupId);
 						for i=1, numRewards do
 							local name, currencyFileName, currencyQuantity = GetLFGDungeonRewardInfo(dungeonGroupId, i); -- 1 is the index of the currency if present
-							if currencyFileName then
-								currencyFileName = currencyFileName:match("[^\\]+$"):lower();
-								if WL_CURRENCIES[currencyFileName] and WL_CURRENCIES[currencyFileName] == currencyId and currencyQuantity == currencyAmount then
+							if name and currencyFileName then
+                                name = name:lower();
+								if WL_CURRENCIES[name] and WL_CURRENCIES[name] == currencyId and currencyQuantity == currencyAmount then
 									return;
 								end
 							end
@@ -2331,14 +2317,28 @@ function wlEvent_CURRENCY_DISPLAY_UPDATE(...)
 				end
 			
 				-- check if the player has guild bonuses and remove them if necessary
-				local guildLevel = UnitGetGuildLevel("player");
+                -- guild leveling removed in WoD
+				local guildLevel = isBetaClient and 0 or UnitGetGuildLevel("player");
 				if currencyId == 395 and guildLevel >= 18 then -- Justice Points
 					currencyAmount = floor(currencyAmount / 1.1);
 				elseif currencyId == 392 and guildLevel >= 13 and guildLevel < 19 then -- Honor Points
 					currencyAmount = floor(currencyAmount / 1.05);
 				elseif currencyId == 392 and guildLevel >= 19 then -- Honor Points
 					currencyAmount = floor(currencyAmount / 1.1);
-				end
+                end
+
+                if currencyId == 396 then
+                    local valorMod = 1;
+                    -- check if the player has the Valor of the Ancients buff (+50%)
+                    if UnitBuff("player", GetSpellInfo(130609)) then
+                        valorMod = valorMod + 0.5;
+                    end
+                    -- check if the player has the Heart of the Valorous buff (+100%)
+                    if UnitBuff("player", GetSpellInfo(161795)) then
+                        valorMod = valorMod + 1.0;
+                    end
+                    currencyAmount = floor((currencyAmount/valorMod) + 0.5);
+                end
 			
 				local eventId = wlGetNextEventId();
 
@@ -2380,11 +2380,10 @@ function wlScanCurrencies()
 	local scannedCurrencies = {};
 
 	-- collect current currency information
-	for k, currencyIndex in pairs(WL_CURRENCIES) do
-		local localized_label, amount, icon_file_name = GetCurrencyInfo(currencyIndex);
-		icon_file_name = icon_file_name:lower();
-		if localized_label and "" ~= localized_label and k == icon_file_name and amount > 0 then
-			scannedCurrencies[currencyIndex] = amount;
+	for k, currencyID in pairs(WL_CURRENCIES) do
+		local localized_label, amount = GetCurrencyInfo(currencyID);
+		if localized_label and "" ~= localized_label and k == localized_label:lower() and amount > 0 then
+			scannedCurrencies[currencyID] = amount;
 		end
 	end
 
@@ -2426,7 +2425,7 @@ local wlArchaeologyProjects = {};
 function wlScanArtifacts()
 	for raceIndex=1, GetNumArchaeologyRaces() do	
 		for artifactIndex=1, GetNumArtifactsByRace(raceIndex) do
-			local name, _, _, _, _,  _, _, _, completionCount = GetArtifactInfoByRace(raceIndex, artifactIndex);
+			local name, _, _, _, _, _, _, _, completionCount = GetArtifactInfoByRace(raceIndex, artifactIndex);
 			if name and WL_ARTIFACTS[name] and completionCount > 0 then
 				wlArchaeologyProjects[WL_ARTIFACTS[name]] = completionCount;
 			end	
@@ -2683,24 +2682,40 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function escapeParentheses(str)
-	str = str:gsub('%(', '%%(');
-	str = str:gsub('%)', '%%)');
-	return str;
+local wlEscapeLuaPattern;
+do
+    local matches = {
+        ["^"] = "%^";
+        ["$"] = "%$";
+        ["("] = "%(";
+        [")"] = "%)";
+        ["%"] = "%%";
+        ["."] = "%.";
+        ["["] = "%[";
+        ["]"] = "%]";
+        ["*"] = "%*";
+        ["+"] = "%+";
+        ["-"] = "%-";
+        ["?"] = "%?";
+        ["\0"] = "%z";
+    };
+    wlEscapeLuaPattern = function(s)
+        return (s:gsub(".", matches));
+    end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlRefreshExportData()
 
-	local key = "who="..wlConcatToken(",", GetCVar("realmList"), GetRealmName(), wlSelectOne(1, UnitName("player")), GetAccountExpansionLevel());
+	local key = "who="..wlConcatToken(",", GetCVar("portal"), GetRealmName(), wlSelectOne(1, UnitName("player")), GetAccountExpansionLevel());
 	local value = wlGetExportDataValue();
 
 	-- Only add the data to the wlExportData if the character is level 10 or above
 	-- Data is still collected, just not uploaded until level 10
 	if UnitLevel("player") > 10 then
-		if wlExportData:find(escapeParentheses(key)) then
-			wlExportData = wlExportData:gsub(escapeParentheses(key).."[^;]*", key..value); -- replace
+		if wlExportData:find(wlEscapeLuaPattern(key)) then
+			wlExportData = wlExportData:gsub(wlEscapeLuaPattern(key).."[^;]*", key..value); -- replace
 		else
 			wlExportData = wlExportData..key..value..";";
 		end
@@ -2722,7 +2737,7 @@ function wlGetLocation()
 	-- Obtain true coords
 	SetMapToCurrentZone();
 	mainZone, _, _, isMicroZone, microZone = GetMapInfo();
-	if((wlSelectOne(3,GetInstanceInfo()) == 0) and (microZone ~= "ShrineofSevenStars") and(microZone ~= "ShrineofTwoMoons") and (isMicroZone == true)) then
+	if((wlSelectOne(3,GetInstanceInfo()) == 0) and not WL_ZONE_EXCEPTION[microZone] and (isMicroZone == true)) then
 		SetMapByID(GetCurrentMapAreaID());
 	end
 	
@@ -2754,11 +2769,9 @@ function wlGetLocation()
 
 	-- Restore Map
 	if wasMicroZone then
-		if oldMicroZone == "ShrineofSevenStars" then
-			SetMapByID(905);
-		elseif oldMicroZone == "ShrineofTwoMoons" then
-			SetMapByID(903);
-		else
+        if WL_ZONE_EXCEPTION[oldMicroZone] then
+            SetMapByID(WL_ZONE_EXCEPTION[oldMicroZone]);
+        else
 			SetMapToCurrentZone();
 		end
 	else
@@ -2817,7 +2830,6 @@ local wlEvents = {
 	PLAYER_LOGIN = wlEvent_PLAYER_LOGIN,
 	PLAYER_LOGOUT = wlEvent_PLAYER_LOGOUT,
 	ADDON_LOADED = wlEvent_ADDON_LOADED,
-	PLAYER_ALIVE = wlEvent_PLAYER_ALIVE,
 	CHAT_MSG_SYSTEM = wlEvent_CHAT_MSG_SYSTEM,
 
 	-- npc
@@ -2833,6 +2845,7 @@ local wlEvents = {
 	CONFIRM_BINDER = wlEvent_CONFIRM_BINDER,
 	CONFIRM_PET_UNLEARN = wlEvent_CONFIRM_PET_UNLEARN,
 	CONFIRM_TALENT_WIPE = wlEvent_CONFIRM_TALENT_WIPE,
+	GOSSIP_CONFIRM_CANCEL = wlEvent_GOSSIP_CONFIRM_CANCEL,
 	GOSSIP_ENTER_CODE = wlEvent_GOSSIP_ENTER_CODE,
 	OPEN_TABARD_FRAME = wlEvent_OPEN_TABARD_FRAME,
 	PET_STABLE_SHOW = wlEvent_PET_STABLE_SHOW,
@@ -2877,10 +2890,6 @@ local wlEvents = {
 	CURRENCY_DISPLAY_UPDATE = wlEvent_CURRENCY_DISPLAY_UPDATE,
 	ARTIFACT_HISTORY_READY = wlEvent_ARTIFACT_HISTORY_READY,
 	ARTIFACT_COMPLETE = wlEvent_ARTIFACT_COMPLETE,
-	
-	-- battlepets events disabled for now
-	-- PET_JOURNAL_LIST_UPDATE = wlEvent_PET_JOURNAL_LIST_UPDATE,
-	-- PET_BATTLE_LEVEL_CHANGED = wlEvent_PET_BATTLE_LEVEL_CHANGED,
 	
 	BLACK_MARKET_ITEM_UPDATE = wlEvent_BLACK_MARKET_ITEM_UPDATE,
 };
@@ -3059,7 +3068,7 @@ function wlCreateFrames()
 	titlebar.version:SetPoint("TOP", titlebar, "TOP", 0, -46);
 	titlebar.version:SetText("v"..WL_VERSION);
 	
-	local header = CreateFrame("Frame", nil, titlebar);
+	--[[local header = CreateFrame("Frame", nil, titlebar);
 	header:SetHeight(18);
 	header:SetPoint("TOPLEFT", titlebar, "BOTTOMLEFT");
 	header:SetPoint("TOPRIGHT", titlebar, "BOTTOMRIGHT");
@@ -3080,9 +3089,9 @@ function wlCreateFrames()
 	header.right:SetPoint("LEFT", header.label, "RIGHT", 5, 0);
 	header.right:SetTexture("Interface\\Tooltips\\UI-Tooltip-Border");
 	header.right:SetTexCoord(0.81, 0.94, 0.5, 1);
-	header.left:SetPoint("RIGHT", header.label, "LEFT", -5, 0);
+	header.left:SetPoint("RIGHT", header.label, "LEFT", -5, 0);]]
 	
-	local completionButton = CreateFrame("Button", nil, header, "UIPanelButtonTemplate");
+	--[[local completionButton = CreateFrame("Button", nil, header, "UIPanelButtonTemplate");
 	completionButton:SetText(WL_OPTIONS_COLLECT);
 	completionButton:SetWidth(140);
 	completionButton:SetHeight(24);
@@ -3090,12 +3099,12 @@ function wlCreateFrames()
 	completionButton:SetScript("OnClick", function(self, button, down)
 		wlTimers["autoCollect"] = nil;
 		wlCollect(true);
-	end);
+	end);]]
 
-	local header2 = CreateFrame("Frame", nil, header);
+	local header2 = CreateFrame("Frame", nil, titlebar);
 	header2:SetHeight(18);
-	header2:SetPoint("TOPLEFT", header, "BOTTOMLEFT", 0, -44);
-	header2:SetPoint("TOPRIGHT", header, "BOTTOMRIGHT");
+	header2:SetPoint("TOPLEFT", titlebar, "BOTTOMLEFT");
+	header2:SetPoint("TOPRIGHT", titlebar, "BOTTOMRIGHT");
 	header2.label = header2:CreateFontString(nil, "BACKGROUND", "GameFontNormal");
 	header2.label:SetPoint("TOP");
 	header2.label:SetPoint("BOTTOM");
@@ -3312,9 +3321,6 @@ function wl_OnUpdate(self, elapsed)
 					wlLootToastSourceId = nil;
 					wlCurrentLootToastEventId = nil;
 					
-				elseif name == "battlepets" then
-					scanBattlePetData();
-					
 				elseif name == "itemDurability" then
 					wlGetItemDurability();
 
@@ -3387,9 +3393,9 @@ function wlParseCommand(cmd)
 			wlFrameToggle(wlIdTooltipFrame, WL_ID_TOOLTIP, "idTooltip");
 		end
 
-	elseif param1:match("^collect$") then
+	--[[elseif param1:match("^collect$") then
 		wlTimers["autoCollect"] = nil; -- Cancel auto-collect
-		wlCollect(true);
+		wlCollect(true);]]
 		
 	elseif param1:match("^reset$") then
 		StaticPopup_Show("WL_RESET_CONFIRM");
@@ -3432,6 +3438,7 @@ end
 function wlLocMapFrame_OnLoad()
 	wlLocMapFrameText:SetText(UnitName("player")..": 100.0, 100.0  -  "..NOT_APPLICABLE..": 100.0, 100.0");
 	wlLocMapFrame:SetWidth(wlLocMapFrameText:GetStringWidth() + 20);
+    wlLocMapFrame:SetFrameLevel(MapBarFrame:GetFrameLevel() + 1);
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -3592,11 +3599,20 @@ end
 
 --	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : reforgeId : upgradeId : (name)
 local WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)|h%[(.+)%]|h|r";
+if isBetaClient then
+    --	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : upgradeId : unk : numBonus : ...bonusIds... : (name)
+    WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)([^|]*)|h%[(.+)%]|h|r";
+end
 
 function wlParseItemLink(link)
 	if link then
 
-		local found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, reforgeId, upgradeId, name = link:find(WL_ITEMLINK);
+		local found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, reforgeId, upgradeId, name, unk, numBonus, bonuses;
+        if isBetaClient then
+            found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, upgradeId, unk, numBonus, bonuses, name = link:find(WL_ITEMLINK);
+        else
+            found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, reforgeId, upgradeId, name = link:find(WL_ITEMLINK);
+        end
 
 		if found then
 			id, subId, guid = tonumber(id), tonumber(subId), tonumber(guid);
@@ -3607,7 +3623,7 @@ function wlParseItemLink(link)
 				if subId < 0 then
 					wlUpdateVariable(wlItemSuffix, id, "sF", "set", bit_band(guid, 0xFFFF));
 				end
-			end
+            end
 
 			return id, subId, tonumber(enchant), tonumber(socket1), tonumber(socket2), tonumber(socket3), tonumber(socket4), name, color, guid, tonumber(pLevel);
 		end
@@ -3670,6 +3686,24 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
+local GUID_TOKENS = {
+    ["Creature|Pet"] = {
+        "(%d+):(%d+):(%d+):(%d+):(%d+):(%x+)",
+        5,
+        "npc",
+    },
+    ["GameObject"] = {
+        "(%d+):(%d+):(%d+):(%d+):(%d+):(%x+)",
+        5,
+        "object",
+    },
+    ["Item"] = {
+        "(%d+):(%d+):(%x+)",
+        2,
+        "item",
+    }
+};
+
 function wlParseGUID(guid)
 	if not guid then
 		return;
@@ -3677,19 +3711,31 @@ function wlParseGUID(guid)
 
 	local id, kind;
 
-	if guid:match("^0x4") then
-		if guid == UnitGUID("npc") then
-			id, kind = wlParseItemLink(wlSelectOne(2, GetItemInfo(UnitName("npc")))), "item";
-		else
-			return nil, "item";
-		end
-
-	elseif guid:match("^0xF.1") then
-		id, kind = tonumber(guid:sub(6, 10), 16), "object";
-
-	elseif guid:match("^0xF.[35]") then
-		id, kind = tonumber(guid:sub(6, 10), 16), "npc";
-	end
+    if isBetaClient then
+        for token, tokenData in pairs(GUID_TOKENS) do
+            for subToken in token:gmatch("[^|]+") do
+                if guid:match("^" .. subToken) then
+                    local matches = { guid:match(tokenData[1]) };
+                    if matches and next(matches) ~= nil then
+                        id, kind = matches[tokenData[2]], tokenData[3];
+                        break;
+                    end
+                end
+            end
+        end
+    else
+        if guid:match("^0x4") then
+            if guid == UnitGUID("npc") then
+                id, kind = wlParseItemLink(wlSelectOne(2, GetItemInfo(UnitName("npc")))), "item";
+            else
+                return nil, "item";
+            end
+        elseif guid:match("^0xF.1") then
+            id, kind = tonumber(guid:sub(6, 10), 16), "object";
+        elseif guid:match("^0xF.[35]") then
+            id, kind = tonumber(guid:sub(6, 10), 16), "npc";
+        end
+    end
 
 	if id == 0 then
 		id = nil;
@@ -4145,18 +4191,25 @@ end
 -------------------------
 -------------------------
 
-function wlReloadUI() 
+function wlReloadUI()
 	wlUIReloaded = true;
 	return wlDefaultReloadUI();
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlConsoleExec(cmd) 
+function wlConsoleExec(cmd)
 	if cmd:lower() == "reloadui" then
 		wlUIReloaded = true;
     end
 	return wlDefaultConsoleExec(cmd);
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlMapBarFrame_UpdateLayout()
+    wlDefaultMapBarFrame_UpdateLayout(MapBarFrame);
+    wlLocMapFrame:SetFrameLevel(MapBarFrame:GetFrameLevel() + 1);
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -4173,6 +4226,9 @@ function wlHook()
 	
 	wlDefaultConsoleExec = ConsoleExec;
 	ConsoleExec = wlConsoleExec;
+
+    wlDefaultMapBarFrame_UpdateLayout = MapBarFrame_UpdateLayout;
+    MapBarFrame_UpdateLayout = wlMapBarFrame_UpdateLayout;
 	
 	hooksecurefunc("UseItemByName", function(name, target)
 		if not target then
@@ -4196,6 +4252,7 @@ function wlUnhook()
 	GetQuestReward = wlDefaultGetQuestReward;
 	ReloadUI = wlDefaultReloadUI;
 	ConsoleExec = wlDefaultConsoleExec;
+    MapBarFrame_UpdateLayout = wlDefaultMapBarFrame_UpdateLayout;
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -4211,56 +4268,7 @@ end
 
 function wlReset()
 	wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = WL_VERSION, 0, "", "", {};
-	wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlBaseStats, wlItemDurability, wlBattlePetStats = {}, {}, {}, {}, {}, {}, {}, {}, {};
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
-local WL_ARMORSPEC_CLASSES = {
-	["WARRIOR"] = WL_PLATE,
-	["PALADIN"] = WL_PLATE,
-	["DEATHKNIGHT"] = WL_PLATE,
-	["HUNTER"] = WL_MAIL,
-	["SHAMAN"] = WL_MAIL,
-	["ROGUE"] = WL_LEATHER,
-	["DRUID"] = WL_LEATHER,
-	["MAGE"] = WL_CLOTH,
-	["WARLOCK"] = WL_CLOTH,
-	["PRIEST"] = WL_CLOTH,
-};
-local wlInventoryCheck = {
-	(GetInventorySlotInfo("HeadSlot")),
-	(GetInventorySlotInfo("ShoulderSlot")),
-	(GetInventorySlotInfo("ChestSlot")),
-	(GetInventorySlotInfo("WristSlot")),
-	(GetInventorySlotInfo("HandsSlot")),
-	(GetInventorySlotInfo("WaistSlot")),
-	(GetInventorySlotInfo("LegsSlot")),
-	(GetInventorySlotInfo("FeetSlot")),
-};
-local WL_TOUGHNESS_IDS = {
-	[53120] = 3, [53121] = 5, [53122] = 7, [53123] = 10, [53124] = 30, [53040] = 60, [74496] = 120,
-};
-function wlGetPlayerSpec()
-	local class = select(2, UnitClass("player"));
-	local playerArmorType = WL_ARMORSPEC_CLASSES[class];
-	local count = 0;
-
-	for _, slot in pairs(wlInventoryCheck) do
-		local item = GetInventoryItemID("player", slot);
-		if not item then
-			break;
-		end
-		if (select(7, GetItemInfo(item))) ~= playerArmorType or GetInventoryItemDurability(slot) == 0 then
-			break;
-		end
-		count = count + 1;
-	end
-	if count == #wlInventoryCheck then
-		return GetSpecialization() or 0;
-	end
-	
-	return nil;
+	wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability = {}, {}, {}, {}, {}, {}, {};
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -4283,700 +4291,6 @@ function wlGetItemDurability()
 			wlItemDurability[itemID] = maxDura or 0;
 		end
 	end
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
-function wlGetBaseStats()
-	
-	local lvl, class, race = UnitLevel("player"), select(2, UnitClass("player")), select(2, UnitRace("player"));
-	local playerSpec = wlGetPlayerSpec();
-   
-	if not wlBaseStats[wlConcat(class, race, lvl)] or (wlBaseStats[wlConcat(class, race, lvl)] and (next(wlBaseStats[wlConcat(class, race, lvl)]) == nil)) then
-		wlUpdateVariable(wlBaseStats, wlConcat(class, race, lvl), "initArray", 0);
-		for i=1, 5 do			
-			-- local toughnessBuff = 0;
-			-- if i == 3 then
-				-- for id, value in pairs(WL_TOUGHNESS_IDS) do
-					-- if IsSpellKnown(id) then
-						-- toughnessBuff = value;
-					-- end
-				-- end
-			-- end
-			local effectiveStat, stat, posBuff, negBuff = UnitStat("player", i);
-			local modifier, modByArmorSpec = wlGetStatModifier(i, class, playerSpec);
-			local baseStat = ceil((stat - posBuff - negBuff) / modifier); -- - toughnessBuff
-			
-			-- sanity checks
-			if negBuff ~= 0 or modifier > 1 and not modByArmorSpec then
-				baseStat = 0;
-			end		
-			if i == 3 then -- mining check
-				for id, _ in pairs(WL_TOUGHNESS_IDS) do
-					if IsSpellKnown(id) then
-						baseStat = 0;
-						break;
-					end
-				end
-			elseif i == 5 and race == "Human" then -- +3% spi on humans
-				baseStat = 0;
-			end
-			
-			wlBaseStats[wlConcat(class, race, lvl)][PAPERDOLL_STATCATEGORIES.ATTRIBUTES.stats[i]] = baseStat;
-		end
-		wlBaseStats[wlConcat(class, race, lvl)]["DODGEPERAGI"] = wlGetDodgePerAgi(lvl, class);
-	end
-	
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
-local WL_K = {
-	["WARRIOR"]     = 0.956,
-	["PALADIN"]     = 0.956,
-	["HUNTER"]      = 0.988,
-	["ROGUE"]       = 0.988,
-	["PRIEST"]      = 0.983,
-	["DEATHKNIGHT"] = 0.956,
-	["SHAMAN"]      = 0.988,
-	["MAGE"]        = 0.983,
-	["WARLOCK"]     = 0.983,
-	["DRUID"]       = 0.972,
-	["MONK"]        = 0.988,
-};
-local WL_C_D = {
-	["WARRIOR"]     = 1/0.0152366,
-	["PALADIN"]     = 1/0.0152366,
-	["HUNTER"]      = 1/0.006870,
-	["ROGUE"]       = 1/0.006870,
-	["PRIEST"]      = 1/0.006650,
-	["DEATHKNIGHT"] = 1/0.0152366,
-	["SHAMAN"]      = 1/0.006870,
-	["MAGE"]        = 1/0.006650,
-	["WARLOCK"]     = 1/0.006650,
-	["DRUID"]       = 1/0.008555,
-	["MONK"]		= 1/0.006870,
-};
-local WL_BASEDODGE = {
-	["WARRIOR"] = 5,
-	["PALADIN"] = 5,
-	["HUNTER"] = -5.4499989748001,
-	["ROGUE"] = -0.590,
-	["PRIEST"] = 3.1830,
-	["DEATHKNIGHT"] = 5,
-	["SHAMAN"] = 1.6750,
-	["MAGE"] = 3.4575,
-	["WARLOCK"] = 2.0350,
-	["DRUID"] = 4.9510,
-	["MONK"] = 5,
-};
-local WL_ZERO_DODGE_PER_AGI_CLASSES = {
-	["WARRIOR"] = true,
-	["PALADIN"] = true,
-	["DEATHKNIGHT"] = true,
-};
-local WL_MOD_AGI_CLASSES = {
-	["DRUID"] = true,
-	["HUNTER"] = true,
-	["ROGUE"] = true,
-	["SHAMAN"] = true,
-};
---[[---------------------------------
-	wlGetDodgePerAgi()
--------------------------------------
-Arguments:
-	None
-Returns:
-	; dodge percentage per agility
-Notes:
-	* Formula by Whitetooth (hotdogee [at] gmail [dot] com)
-	* Calculates the dodge percentage per agility for your current class and level.
-	* Only works for your currect class and current level, does not support class and level args.
-	* Calculations got a bit more complicated with the introduction of the avoidance DR in WotLK, these are the values we know or can be calculated easily:
-	** D'=Total Dodge% after DR
-	** D_r=Dodge from Defense and Dodge Rating before DR
-	** D_b=Dodge unaffected by DR (BaseDodge + Dodge from talent/buffs + Lower then normal defense correction)
-	** A=Total Agility
-	** A_b=Base Agility (This is what you have with no gear on)
-	** A_g=Total Agility - Base Agility
-	** Let d be the Dodge/Agi value we are going to calculate.
-
-	#  1     1     k
-	# --- = --- + ---
-	#  x'    c     x
-
-	# x'=D'-D_b-A_b*d
-	# x=A_g*d+D_r
-
-	# 1/(D'-D_b-A_b*d)=1/C_d+k/(A_g*d+D_r)=(A_g*d+D_r+C_d*k)/(C_d*A_g*d+C_d*D_r)
-
-	# C_d*A_g*d+C_d*D_r=[(D'-D_b)-A_b*d]*[Ag*d+(D_r+C_d*k)]
-
-	# After rearranging the terms, we get an equation of type a*d^2+b*d+c where
-	# a=-A_g*A_b
-	# b=A_g(D'-D_b)-A_b(D_r+C_d*k)-C_dA_g
-	# c=(D'-D_b)(D_r+C_d*k)-C_d*D_r
-	** Dodge/Agi=(-b-(b^2-4ac)^0.5)/(2a)
-Example:
-	wlGetDodgePerAgi();
------------------------------------]]
-function wlGetDodgePerAgi(lvl, class)
-	
-	if WL_ZERO_DODGE_PER_AGI_CLASSES[class] then
-		return 0;
-	end
-	
-	if false then -- temp fix for MoP
-		if class == "DRUID" then
-			local _, _, _, _, num = GetTalentInfo(2, 1); -- Feral Swiftness
-			local _, _, _, _, num2 = GetTalentInfo(2, 18); -- Natural Reaction
-			if num > 0 or num2 > 0 then
-				return 0;
-			end
-		elseif class == "ROGUE" then
-			local _, _, _, _, num = GetTalentInfo(2, 8); -- Lightning Reflexes
-			if num > 0 then
-				return 0;
-			end
-		end
-	end
-	
-	-- Collect data
-	local D_dr = GetDodgeChance();
-	local D_r = wlGetEffectFromRating(GetCombatRating(CR_DODGE), CR_DODGE, lvl); -- dodge from dodge rating
-	local D_b = WL_BASEDODGE[class]; -- + GetStatMod("ADD_DODGE")
-	local stat, effectiveStat, posBuff, negBuff = UnitStat("player", 2); -- 2 = Agility
-	local modAgi = 1;
-	local playerSpec = wlGetPlayerSpec();
-	if WL_MOD_AGI_CLASSES[class] then
-		modAgi = wlGetStatModifier(2, class, playerSpec);
-	end
-	local A = effectiveStat;
-	local A_b = ceil((stat - posBuff - negBuff) / modAgi);
-	local A_g = A - A_b;
-	local C = WL_C_D[class];
-	local k = WL_K[class];
-	-- Solve a*x^2+b*x+c
-	local a = -A_g*A_b;
-	local b = A_g*(D_dr-D_b)-A_b*(D_r+C*k)-C*A_g;
-	local c = (D_dr-D_b)*(D_r+C*k)-C*D_r;
-	local dodgePerAgi;
-	if a == 0 then
-		dodgePerAgi = -c / b;
-	else
-		dodgePerAgi = (-b-(b^2-4*a*c)^0.5)/(2*a);
-	end
-	
-	return dodgePerAgi;
-	
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
--- Level 60 rating base
-local WL_RATING_BASE = {
-	[CR_DODGE] = 13.8,
-};
-local WL_LEVEL34_RATINGS = {
-	[CR_DODGE] = true,
-};
--- 80-85 H data
-local WL_H = {
-	[80] = 3.2789989471436,
-	[81] = 4.3056015014648,
-	[82] = 5.6539749145508,
-	[83] = 7.4275451660156,
-	[84] = 9.7527236938477,
-	[85] = 12.8057159423828,
-};
-function wlGetEffectFromRating(rating, id, level)
-	if level < 34 and WL_LEVEL34_RATINGS[id] then
-		level = 34;
-	end
-	if level >= 80 and level <= 85 then
-		return rating/WL_RATING_BASE[id]/WL_H[level];
-	elseif level >= 70 then
-		return rating/WL_RATING_BASE[id]/((82/52)*(131/63)^((level-70)/10));
-	elseif level >= 60 then
-		return rating/WL_RATING_BASE[id]/(82/(262-3*level));
-	elseif level >= 10 then
-		return rating/WL_RATING_BASE[id]/((level-8)/52);
-	else
-		return rating/WL_RATING_BASE[id]/(2/52);
-	end
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
-local WL_BASE_STATS_MODIFIERS = {
-	["DRUID"] = {
-		[2] = {
-			{ -- Leather Specialization +5% agi in cat form
-				["rank"] = {
-				  0.05,
-				},
-				["spec"] = 2,
-				["spell"] = 86530,
-				["aura"] = 768,
-			},
-		},
-		[3] = {
-			-- { -- Heart of the Wild: +2/4/6% stamina in bear form
-				-- ["tab"] = 3,
-				-- ["tal"] = 4,
-				-- ["rank"] = {
-					-- 0.02, 0.04, 0.06,
-				-- },
-				-- ["aura"] = 5487,
-			-- },
-			{ -- Bear Form
-				["rank"] = {
-					0.1,
-				},
-				["aura"] = 5487,
-			},
-			{ -- Leather Specialization +5% stam in bear form
-				["rank"] = {
-					0.05,
-				},
-				["spec"] = 2,
-				["spell"] = 86530,
-				["aura"] = 5487,
-			},
-		},
-		[4] = { 
-			{ -- Heart of the Wild 2/4/6% intellect
-				["tab"] = 3,
-				["tal"] = 4,
-				["rank"] = {
-					0.02, 0.04, 0.06,
-				},
-			},
-			{ -- Leather Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86530,
-				["spec"] = 1,
-			},
-			{ -- Leather Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86530,
-				["spec"] = 3,
-			},
-		},
-	},
-	["DEATHKNIGHT"] = {
-		[1] = {
-			{ -- Plate Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86524,
-				["spec"] = 2,
-			},
-			{ -- Plate Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86524,
-				["spec"] = 3,
-			},
-			{ -- Unholy Might
-				["rank"] = {
-					0.2,
-				},
-				["spell"] = 91107,
-			},
-			-- { -- Abomination's Might
-				-- ["tab"] = 1,
-				-- ["tal"] = 11,
-				-- ["rank"] = {
-					-- 0.01, 0.02,
-				-- },
-			-- },
-			-- { -- Pillar of Frost
-				-- ["rank"] = {
-					-- 0.2,
-				-- },
-				-- ["aura"] = 51271,
-			-- },
-			{ -- Brittle Bones
-				["tab"] = 2,
-				["tal"] = 14,
-				["rank"] = {
-					0.02, 0.04,
-				},
-			},
-			-- { -- Unholy Strength
-				-- ["rank"] = {
-					-- 0.15,
-				-- },
-				-- ["aura"] = 53365,
-			-- },
-		},
-		[3] = {
-			{ -- Plate Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86524,
-				["spec"] = 1,
-			},
-			-- { -- Blood Presence
-				-- ["rank"] = {
-					-- 0.08,
-				-- },
-				-- ["stance"] = "Interface\\Icons\\Spell_Deathknight_BloodPresence",
-			-- },
-			{ -- Veteran of the Third War
-				["rank"] = {
-					0.09,
-				},
-				["spell"] = 50029,
-			},
-			{ -- Rune of the Stoneskin Gargoyle
-				["rank"] = {
-					0.02,
-				},
-				["slot"] = 16, -- main hand slot
-				["enchant"] = 3847,
-			},
-			{ -- Rune of the Nerubian Carapace
-				["rank"] = {
-					0.01,
-				},
-				["slot"] = 16, -- main hand slot
-				["enchant"] = 3883,
-			},
-				{ -- Rune of the Nerubian Carapace
-				["rank"] = {
-					0.01,
-				},
-				["slot"] = 17, -- off hand slot
-				["enchant"] = 3883,
-			},
-		},
-	},
-	["HUNTER"] = {
-		[2] = {
-			{ -- Mail Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86528,
-				["spec"] = 0,
-			},
-			{ -- Mail Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86528,
-				["spec"] = 1,
-			},
-			{ -- Mail Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86528,
-				["spec"] = 2,
-			},
-			{ -- Mail Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86528,
-				["spec"] = 3,
-			},
-			{ -- Into the Wilderness
-				["rank"] = {
-					0.1,
-				},
-				["spell"] = 84729,
-			},
-			-- { -- Hunting Party
-				-- ["tab"] = 3,
-				-- ["tal"] = 17,
-				-- ["rank"] = {
-					-- 0.02,
-				-- },
-			-- },
-		},
-		[3] = {
-			{ -- Hunter vs. Wild
-				["tab"] = 3,
-				["tal"] = 1,
-				["rank"] = {
-					0.05, 0.1, 0.15,
-				},
-			},
-		},
-	},
-	["MAGE"] = {
-		[4] = {
-			{ -- Wizardry
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 89744,
-			},
-		},
-	},
-	["PALADIN"] = {
-		[1] = {
-			{ -- Plate Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86525,
-				["spec"] = 3,
-			},
-		},
-		[3] = {
-			{ -- Plate Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86525,
-				["spec"] = 2,
-			},
-			{ -- Touched by the Light
-				["rank"] = {
-					0.15,
-				},
-				["spell"] = 53592,
-			},
-		},
-		[4] = {
-			{ -- Plate Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86525,
-				["spec"] = 1,
-			},
-		},
-	},
-	["PRIEST"] = {
-		[4] = {
-			{ -- Enlightenment
-				["rank"] = {
-					0.15,
-				},
-				["spell"] = 84732,
-			},
-			{ -- Mysticism
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 89745,
-			},
-		},
-	},
-	["ROGUE"] = {
-		[2] = {
-			{ -- Leather Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86531,
-				["spec"] = 0,
-			},
-			{ -- Leather Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86531,
-				["spec"] = 1,
-			},
-			{ -- Leather Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86531,
-				["spec"] = 2,
-			},
-			{ -- Leather Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86531,
-				["spec"] = 3,
-			},
-			{ -- Sinister Calling
-				["rank"] = {
-					0.3,
-				},
-				["spell"] = 31220,
-			},
-		},
-	},
-	["SHAMAN"] = {
-		[2] = {
-			{ -- Mail Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86529,
-				["spec"] = 2,
-			},
-		},
-		[3] = {
-			{ -- Toughness
-				["tab"] = 2,
-				["tal"] = 8,
-				["rank"] = {
-					0.03, 0.07, 0.1,
-				},
-			},
-		},
-		[4] = {
-			{ -- Mail Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86529,
-				["spec"] = 1,
-			},
-			{ -- Mail Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86529,
-				["spec"] = 3,
-			},
-		},
-	},
-	["WARLOCK"] = {
-		[3] = {
-			{ -- Demonic Embrace
-				["tab"] = 2,
-				["tal"] = 1,
-				["rank"] = {
-					0.04, 0.07, 0.1,
-				},
-			},
-		},
-		[4] = {
-			{ -- Nethermancy
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86091,
-			},
-		},
-	},
-	["WARRIOR"] = {
-		[1] = {
-			{ -- Plate Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86526,
-				["spec"] = 1,
-			},
-			{ -- Plate Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86526,
-				["spec"] = 2,
-			},
-		},
-		[3] = {
-			{ -- Plate Specialization
-				["rank"] = {
-					0.05,
-				},
-				["spell"] = 86526,
-				["spec"] = 3,
-			},
-			-- { -- Sentinel
-				-- ["rank"] = {
-					-- 0.15,
-				-- },
-				-- ["spell"] = 29144,
-			-- },
-		},
-	},
-};
--- Generate buff names
-for class, tables in pairs(WL_BASE_STATS_MODIFIERS) do
-	for statIndex, mods in pairs(tables) do
-		for _, modTbl in ipairs(mods) do
-			if modTbl.aura then
-				modTbl.auraName = GetSpellInfo(modTbl.aura) or "nil";
-			end
-		end
-	end
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
-function wlPlayerHasAura(aura)
-	return UnitBuff("player", aura or "") or UnitDebuff("player", aura or "");
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
-function wlSlotHasEnchant(enchantId, slotId)
-	local slotLink = GetInventoryItemLink("player", slotId);
-	if not slotLink then 
-		return;
-	end
-	if select(3, wlParseItemLink(slotLink)) == enchantId then
-		return 1;
-	end
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
-function wlGetStatModifier(statIndex, class, spec)
-	
-	local modifier = 1;
-	local modByArmorSpec = false;
-	
-	if WL_BASE_STATS_MODIFIERS[class] and WL_BASE_STATS_MODIFIERS[class][statIndex] then
-		for _, tbl in ipairs(WL_BASE_STATS_MODIFIERS[class][statIndex]) do
-			local pass = true;
-			
-			if pass and tbl.auraName and not wlPlayerHasAura(tbl.auraName) then
-				pass = false;
-			end
-			if pass and tbl.enchant and not wlSlotHasEnchant(tbl.enchant, tbl.slot) then
-				pass = false;
-			end
-			if pass and tbl.spec and spec ~= tbl.spec then
-				pass = false;
-			end
-			if pass and tbl.spell and not IsSpellKnown(tbl.spell) then
-				pass = false;
-			end
-			
-			if pass then
-				local r, s = 1, 1;
-				-- if talent field
-				if tbl.tab and tbl.tal and false then -- temp fix for MoP
-					_, _, _, _, r = GetTalentInfo(tbl.tab, tbl.tal);
-				-- no talent but all other given conditions are statisfied
-				end
-				if r and tbl.rank[r] then
-					modifier = modifier * (tbl.rank[r] * s + 1);
-				end
-			end
-			
-		end
-	end
-	
-	if class ~= "HUNTER" and modifier == 1.05 then
-		modByArmorSpec = true;
-	elseif class == "HUNTER" and modifier == 1.05 and statIndex == 2 then
-		modByArmorSpec = true;
-	end
-	
-	return modifier, modByArmorSpec;
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -5038,20 +4352,16 @@ function wlGetCurrentMapAreaID()
 	
 	SetMapToCurrentZone(); -- Move Map
 	mainZone, _, _, isMicroZone, microZone = GetMapInfo();
-	if microZone == "ShrineofSevenStars" then
-		mapAreaID = 905;
-	elseif microZone == "ShrineofTwoMoons" then
-		mapAreaID = 903;
+    if WL_ZONE_EXCEPTION[microZone] then
+        mapAreaID = WL_ZONE_EXCEPTION[microZone];
 	else
 		mapAreaID = GetCurrentMapAreaID();
 	end
 	
 	-- Restore Map
 	if wasMicroZone then
-		if oldMicroZone == "ShrineofSevenStars" then
-			SetMapByID(905);
-		elseif oldMicroZone == "ShrineofTwoMoons" then
-			SetMapByID(903);
+        if WL_ZONE_EXCEPTION[oldMicroZone] then
+            SetMapByID(WL_ZONE_EXCEPTION[oldMicroZone])
 		else
 			SetMapToCurrentZone();
 		end

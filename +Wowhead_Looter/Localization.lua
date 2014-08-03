@@ -18,7 +18,6 @@ WL_HELP = {
 	"  |cffffff7f/wl loc map|r - "..WL_DESC_LOCATION_WORLDMAP,
 	"  |cffffff7f/wl loc tooltip|r - "..WL_DESC_LOCATION,
 	"  |cffffff7f/wl loc reset|r - "..WL_DESC_LOCATION_RESET,
-	"  |cffffff7f/wl collect|r - Collect completist data.",
 };
 
 WL_ENABLED = "|cff00ff00enabled|r";
@@ -90,7 +89,6 @@ if clientLocale == "deDE" then
 		"  |cffffff7f/wl loc map|r - "..WL_DESC_LOCATION_WORLDMAP,
 		"  |cffffff7f/wl loc tooltip|r - "..WL_DESC_LOCATION,
 		"  |cffffff7f/wl loc reset|r - "..WL_DESC_LOCATION_RESET,
-		"  |cffffff7f/wl collect|r - Zusätzliche Charakterdaten einsammeln.",
 	};
 
 	WL_ENABLED = "|cff00ff00aktiviert|r";
@@ -158,7 +156,6 @@ elseif clientLocale == "esES" or clientLocale == "esMX" then
 		"  |cffffff7f/wl loc map|r - "..WL_DESC_LOCATION_WORLDMAP,
 		"  |cffffff7f/wl loc tooltip|r - "..WL_DESC_LOCATION,
 		"  |cffffff7f/wl loc reset|r - "..WL_DESC_LOCATION_RESET,
-		"  |cffffff7f/wl collect|r - Recoge los datos completos.",
 	};
 	
 	WL_ENABLED = "|cff00ff00activado|r";
@@ -226,7 +223,6 @@ elseif clientLocale == "frFR" then
 		"  |cffffff7f/wl loc map|r - "..WL_DESC_LOCATION_WORLDMAP,
 		"  |cffffff7f/wl loc tooltip|r - "..WL_DESC_LOCATION,
 		"  |cffffff7f/wl loc reset|r - "..WL_DESC_LOCATION_RESET,
-		"  |cffffff7f/wl collect|r - Collecter les données.",
 	};
 
 	WL_ENABLED = "|cff00ff00activé|r";
@@ -294,7 +290,6 @@ elseif clientLocale == "ruRU" then
 		"  |cffffff7f/wl loc map|r - "..WL_DESC_LOCATION_WORLDMAP,
 		"  |cffffff7f/wl loc tooltip|r - "..WL_DESC_LOCATION,
 		"  |cffffff7f/wl loc reset|r - "..WL_DESC_LOCATION_RESET,
-		"  |cffffff7f/wl collect|r - Собрать все возможные данные.",
 	};
 	
 	WL_ENABLED = "|cff00ff00включено|r";
@@ -316,7 +311,6 @@ elseif clientLocale == "ruRU" then
 	WL_COLLECT_GLYPHS = "символы";
 	WL_COLLECT_ARCHAEOLOGY = "археология";
 	WL_COLLECT_LASTSEP = " и ";
-	WL_COLLECT_TIP = "Наберите /wl collect для того чтобы собрать информацию о всех профессиях сразу.";
 
 	-- Misc
 	WL_RUNSAWAY = "%s пытается убежать в страхе!";
