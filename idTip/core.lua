@@ -1,5 +1,7 @@
-local select, UnitBuff, UnitDebuff, UnitAura, UnitGUID, GetGlyphSocketInfo, tonumber, strfind, hooksecurefunc =
-    select, UnitBuff, UnitDebuff, UnitAura, UnitGUID, GetGlyphSocketInfo, tonumber, strfind, hooksecurefunc
+local hooksecurefunc, select, UnitBuff, UnitDebuff, UnitAura, UnitGUID, GetGlyphSocketInfo, tonumber, strfind, strsub, strmatch =
+      hooksecurefunc, select, UnitBuff, UnitDebuff, UnitAura, UnitGUID, GetGlyphSocketInfo, tonumber, strfind, strsub, strmatch
+
+local wod = select(4, GetBuildInfo()) >= 60000
 
 local types = {
     spell = "SpellID",
@@ -35,11 +37,10 @@ GameTooltip:HookScript("OnTooltipSetSpell", function(self)
 end)
 
 -- Units
-local f = CreateFrame("frame")
-f:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
-f:SetScript("OnEvent", function()
-    if GameTooltip:IsVisible() and not UnitIsPlayer("mouseover") and not C_PetBattles.IsInBattle() then
-        local id = tonumber(UnitGUID("mouseover"):sub(6, 10), 16)
+GameTooltip:HookScript("OnTooltipSetUnit", function(self)
+    local name, unit = self:GetUnit()
+    if unit then
+        local id = wod and strmatch(UnitGUID(unit) or "", ":(%d+):%x+$") or tonumber(strsub(UnitGUID(unit) or "", 6, 10), 16)
         if id ~= 0 then
             addLine(GameTooltip, id, types.unit);
         end
@@ -64,10 +65,8 @@ GameTooltip:HookScript("OnTooltipSetItem", attachItemTooltip)
 ItemRefTooltip:HookScript("OnTooltipSetItem", attachItemTooltip)
 ItemRefShoppingTooltip1:HookScript("OnTooltipSetItem", attachItemTooltip)
 ItemRefShoppingTooltip2:HookScript("OnTooltipSetItem", attachItemTooltip)
-ItemRefShoppingTooltip3:HookScript("OnTooltipSetItem", attachItemTooltip)
 ShoppingTooltip1:HookScript("OnTooltipSetItem", attachItemTooltip)
 ShoppingTooltip2:HookScript("OnTooltipSetItem", attachItemTooltip)
-ShoppingTooltip3:HookScript("OnTooltipSetItem", attachItemTooltip)
 
 -- Glyphs
 hooksecurefunc(GameTooltip, "SetGlyph", function(self, ...)
