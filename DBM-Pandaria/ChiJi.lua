@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(857, "DBM-Pandaria", nil, 322, 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 11287 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 11421 $"):sub(12, -3))
 mod:SetCreatureID(71952)
 mod:SetReCombatTime(20)
 mod:SetZone()
@@ -33,7 +33,7 @@ local timerBlazingSong			= mod:NewBuffActiveTimer(15, 144471)
 mod:AddReadyCheckOption(33117, false)
 
 function mod:BeaconTarget(targetname, uId)
-	if not targetname or (targetname == DBM_CORE_UNKNOWN) then return end
+	if not targetname then return end
 	warnBeaconOfHope:Show(targetname)
 	if targetname == UnitName("player") and not self:IsTanking(uId) then--Never targets tanks
 		yellBeacon:Yell()

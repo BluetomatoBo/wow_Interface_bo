@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(826, "DBM-Pandaria", nil, 322)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 11284 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 11472 $"):sub(12, -3))
 mod:SetCreatureID(69161)
 mod:SetReCombatTime(20)
 mod:SetZone()
@@ -22,8 +22,8 @@ local warnPiercingRoar			= mod:NewSpellAnnounce(137457, 2)
 local warnSpiritfireBeam		= mod:NewTargetAnnounce(137511, 3, nil, mod:IsHealer())
 local warnFrillBlast			= mod:NewSpellAnnounce(137505, 4)
 
-local specWarnCrush				= mod:NewSpecialWarningStack(137504, mod:IsTank(), 2)
-local specWarnCrushOther		= mod:NewSpecialWarningTarget(137504, mod:IsTank())
+local specWarnCrush				= mod:NewSpecialWarningStack(137504, nil, 2)
+local specWarnCrushOther		= mod:NewSpecialWarningTarget(137504, mod:IsTank())--Taunt immune, so not a taunt warning, just a warning that tank may die soon and to be ready
 local specWarnPiercingRoar		= mod:NewSpecialWarningCast(137457, mod:IsRanged() or mod:IsHealer())
 local specWarnFrillBlast		= mod:NewSpecialWarningSpell(137505, nil, nil, nil, 2)
 
@@ -67,7 +67,7 @@ end
 
 function mod:SPELL_CAST_SUCCESS(args)
 	if args:IsSpellID(137508, 137511) then
-		warnSpiritfireBeam:Show(args.destName)
+		warnSpiritfireBeam:CombinedShow(0.5, args.destName)
 	end
 end
 

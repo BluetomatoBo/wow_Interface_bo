@@ -92,10 +92,6 @@ L:SetWarningLocalization({
 	warnDefensiveStanceSoon		= "%d초 후 방어 태세"
 })
 
-L:SetOptionLocalization({
-	warnDefensiveStanceSoon		= "$spell:143593 이전에 초읽기 알림 보기(5초 전부터)"
-})
-
 L:SetMiscLocalization({
 	newForces1	= "전사들이여! 이리로!",
 	newForces2	= "놈들을 막아라!",--확인 필요
@@ -199,7 +195,8 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	wasteOfTime			= "아직 늦지 않았다, 가로쉬. 대족장이라는 짐을 내려놓거라. 지금, 여기서 끝내자. 피를 흘릴 필요는 없다.",
 	NoReduce			= "피해 감소 없음",
-	MaliceFadeYell		= "%s의 악의 %d초 남음!"
+	MaliceFadeYell		= "%s의 악의 %d초 남음!",
+	phase3End			= "네가 이겼다고 생각하나?"
 })
 
 -------------

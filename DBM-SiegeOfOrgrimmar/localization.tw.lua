@@ -90,10 +90,6 @@ L:SetWarningLocalization({
 	warnDefensiveStanceSoon	= "%d秒後防禦姿態"
 })
 
-L:SetOptionLocalization({
-	warnDefensiveStanceSoon	= "為$spell:143593(五秒前)顯示預先警告倒數"
-})
-
 L:SetMiscLocalization({
 	newForces1			= "戰士們，快點過來!",
 	newForces2			= "守住大門!",
@@ -186,7 +182,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	wasteOfTime			= "It is not too late, Garrosh. Lay down the mantle of Warchief. We can end this here, now, with no more bloodshed.",
+	wasteOfTime			= "卡爾洛斯，現在還不遲。放下大酋長的權力。我們可以在此時此地就結束，停止流血。",
 	NoReduce			= "無傷害減免",
 	MaliceFadeYell		= "%s的惡意消退中(%d)",
 	phase3End			= "你們以為贏了嗎?"
