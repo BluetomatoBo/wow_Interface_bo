@@ -1,0 +1,11 @@
+tag 5.4.8.3
+34ffd161e246eea475a973df6810f85dbfca479f
+James D. Callahan III <jcallahan@curse.com>
+2014-08-16 23:48:12 -0500
+
+
+
+--------------------
+
+SLOKnightfall:
+	- -Fixed the toggle buttons from covering the Alpha 5 Carbonite default map buttons
