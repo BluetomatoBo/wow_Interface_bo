@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("d620", "DBM-Scenario-MoP")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 11283 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 11506 $"):sub(12, -3))
 mod:SetZone()
 
 mod:RegisterCombat("scenario", 1135)
@@ -11,6 +11,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED",
 	"UNIT_AURA player"
 )
+mod.onlyNormal = true
 
 --Todo, get luck enough to have a treasure goblin spawn and capture event for it so we can special warn for it.
 local warnStoneSmash		= mod:NewCastAnnounce(139777, 3, nil, nil, false)

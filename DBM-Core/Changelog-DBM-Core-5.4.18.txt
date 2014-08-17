@@ -1,0 +1,21 @@
+tag 5.4.18
+97b6bee60e63b894f371616afdc8acb744b17dfc
+subversion <svn@deadlybossmods.com>
+2014-08-17 12:38:59 +0200
+
+Tagging as 5.4.18
+
+
+--------------------
+
+subversion:
+	- increment version number to 5.4.18
+	- Omega via svn r11523: Here too
+	- nbluewiz via svn r11521: # Fix here also.
+	- nbluewiz via svn r11518: # Grim Rail Depot update. # Fix several bugs.
+	- Omega via svn r11508: Make reflect use target for more clarity
+	- nbluewiz via svn r11507: # koKR update.
+	- nbluewiz via svn r11506: # Do not display non-present difficulty on GUI. # Do not display statistics on non-boss mods. # Reordering WoD difficulty in GUI.
+	- nbluewiz via svn r11499: # wording cleanup.
+	- nbluewiz via svn r11479: # koKR update.
+	- tandanu via svn r11477: increment alpha version number

@@ -51,10 +51,10 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 11475 $"):sub(12, -3)),
-	DisplayVersion = "5.4.17 alpha", -- the string that is shown as version
-	DisplayReleaseVersion = "5.4.17", -- Needed to work around old versions of BW sending improper version information
-	ReleaseRevision = 11475 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 11523 $"):sub(12, -3)),
+	DisplayVersion = "5.4.18", -- the string that is shown as version
+	DisplayReleaseVersion = "5.4.18", -- Needed to work around old versions of BW sending improper version information
+	ReleaseRevision = 11523 -- the revision of the latest stable version that is available
 }
 
 -- Legacy crap; that stupid "Version" field was never a good idea.
@@ -937,7 +937,7 @@ do
 				local addonName, _, _, enabled = GetAddOnInfo(i)
 				if GetAddOnMetadata(i, "X-DBM-Mod") and enabled then
 					if checkEntry(bannedMods, addonName) then
-						DBM:AddMsg("The mod " .. addonName .. " is deprecated and will not be available. Please remove the folder " .. addonName .. " from your Interface" .. (IsWindowsClient() and "\\" or "/") .. "AddOns folder to get rid of this message. Check for an updated version of " .. addonName .. "that is compatible with your game version.")
+						DBM:AddMsg("The mod " .. addonName .. " is deprecated and will not be available. Please remove the folder " .. addonName .. " from your Interface" .. (IsWindowsClient() and "\\" or "/") .. "AddOns folder to get rid of this message. Check for an updated version of " .. addonName .. " that is compatible with your game version.")
 					else
 						local mapIdTable = {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-MapID") or "")}
 						tinsert(self.AddOns, {
@@ -1629,8 +1629,8 @@ do
 		TimerTracker_OnEvent(TimerTracker, "START_TIMER", 2, timer, timer)
 	end
 	
-	local function loopTimer(time, text, sender, count)
-		DBM:CreatePizzaTimer(time, text, nil, sender, count, true)
+	local function loopTimer(time, text, broadcast, sender, count)
+		DBM:CreatePizzaTimer(time, text, broadcast, sender, count, true)
 	end
 
 	local ignore = {}
@@ -1680,7 +1680,7 @@ do
 		end
 		if loop then
 			DBM:Unschedule(loopTimer)--Only one loop timer supported at once doing this, but much cleaner this way
-			DBM:Schedule(time, loopTimer, time, text, sender, count)
+			DBM:Schedule(time, loopTimer, time, text, broadcast, sender, count)
 		end
 	end
 
@@ -3876,7 +3876,7 @@ function DBM:StartCombat(mod, delay, event, synced, syncedStartHp)
 		savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = DBM:GetCurrentInstanceDifficulty()
 		local name = mod.combatInfo.name
 		local modId = mod.id
-		if C_Scenario.IsInScenario() then
+		if C_Scenario.IsInScenario() and (mod.type == "SCENARIO") then
 			mod.inScenario = true
 		end
 		mod.inCombat = true
