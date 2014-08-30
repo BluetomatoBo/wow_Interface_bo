@@ -51,10 +51,10 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 11523 $"):sub(12, -3)),
-	DisplayVersion = "5.4.18", -- the string that is shown as version
-	DisplayReleaseVersion = "5.4.18", -- Needed to work around old versions of BW sending improper version information
-	ReleaseRevision = 11523 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 11593 $"):sub(12, -3)),
+	DisplayVersion = "5.4.19", -- the string that is shown as version
+	DisplayReleaseVersion = "5.4.19", -- Needed to work around old versions of BW sending improper version information
+	ReleaseRevision = 11593 -- the revision of the latest stable version that is available
 }
 
 -- Legacy crap; that stupid "Version" field was never a good idea.
@@ -222,7 +222,6 @@ local blockEnable = false
 local cachedGetTime = GetTime()
 local lastCombatStarted = cachedGetTime
 local loadcIds = {}
-local forceloadmapIds = {}
 local blockMovieSkipItems = {}
 local inCombat = {}
 local combatInfo = {}
@@ -284,8 +283,6 @@ local bannedMods = { -- a list of "banned" (meaning they are replaced by another
 --  Cache frequently used global variables in locals  --
 --------------------------------------------------------
 local DBM = DBM
--- these global functions are accessed all the time by the event handler
--- so caching them is worth the effort
 local ipairs, pairs, next = ipairs, pairs, next
 local tinsert, tremove, twipe = table.insert, table.remove, table.wipe
 local type, select = type, select
@@ -953,6 +950,7 @@ do
 							noHeroic		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Heroic") or 0) == 1,
 							noStatistics	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Statistics") or 0) == 1,
 							hasFlex			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Flex") or 0) == 1,
+							isWorldBoss		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-World-Boss") or 0) == 1,
 							modId			= addonName,
 						})
 						for i = #self.AddOns[#self.AddOns].mapId, 1, -1 do
@@ -977,12 +975,6 @@ do
 							local idTable = {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadCID"))}
 							for i = 1, #idTable do
 								loadcIds[tonumber(idTable[i]) or ""] = addonName
-							end
-						end
-						if GetAddOnMetadata(i, "X-DBM-Mod-ForceLoad-MapID") then
-							local idTable = {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-ForceLoad-MapID"))}
-							for i = 1, #idTable do
-								forceloadmapIds[tonumber(idTable[i]) or ""] = true
 							end
 						end
 						if GetAddOnMetadata(i, "X-DBM-Mod-Block-Movie-Skip-ItemID") then
@@ -2559,7 +2551,6 @@ do
 				DBM:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT", "UNIT_TARGET_UNFILTERED")
 				targetEventsRegistered = true
 			end
-			if not forceloadmapIds[mapID] then return end
 		-- You entered instance duing worldboss combat. Force end worldboss mod.
 		else
 			if targetEventsRegistered then
@@ -2609,8 +2600,9 @@ end
 	--IF we are fighting a boss, we don't have much of a choice but to try and load anyways since script ran too long isn't actually a guarentee.
 	--The main place we should force a mod load in combat is for IsEncounterInProgress because i'm pretty sure blizzard waves "script ran too long" function for a small amount of time after a DC
 	--Outdoor bosses will try to ignore check, if they fail, well, then we need to try and find ways to make the mods that can't load in combat smaller or load faster.
-function DBM:LoadMod(mod)
+function DBM:LoadMod(mod, force)
 	if type(mod) ~= "table" then return false end
+	if mod.isWorldBoss and not IsInInstance() and not force then return end--Don't load world boss mod this way.
 	if InCombatLockdown() and not IsEncounterInProgress() and IsInInstance() then
 		if not loadDelay then--Prevent duplicate DBM_CORE_LOAD_MOD_COMBAT message.
 			self:AddMsg(DBM_CORE_LOAD_MOD_COMBAT:format(tostring(mod.name)))
@@ -2713,7 +2705,7 @@ local function loadModByUnit(uId)
 			if cId and bosscId and cId == bosscId and not IsAddOnLoaded(addon) and enabled then
 				for i, v in ipairs(DBM.AddOns) do
 					if v.modId == addon then
-						DBM:LoadMod(v)
+						DBM:LoadMod(v, true)
 						break
 					end
 				end
@@ -5372,6 +5364,7 @@ do
 		local targetname, targetuid, bossuid = self:GetBossTarget(cidOrGuid, scanOnlyBoss)
 		--Do scan
 		if targetname and targetname ~= DBM_CORE_UNKNOWN then
+			if not IsInGroup() then scanTimes = 1 end--Solo, no reason to keep scanning, give faster warning. But only if first scan is actually a valid target, which is why i have this check HERE
 			if (isEnemyScan and UnitIsFriend("player", targetuid) or self:IsTanking(targetuid, bossuid)) and not isFinalScan and not includeTank then--On player scan, ignore tanks. On enemy scan, ignore friendly player.
 				if targetScanCount[cidOrGuid] < scanTimes then--Make sure no infinite loop.
 					self:ScheduleMethod(scanInterval, "BossTargetScanner", cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank)--Scan multiple times to be sure it's not on something other then tank (or friend on enemy scan).
