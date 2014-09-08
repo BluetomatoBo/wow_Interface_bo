@@ -4,15 +4,15 @@
 --                                     --
 --                                     --
 --    Patch: 6.0.1                     --
---    Updated: July 28, 2014           --
+--    Updated: August 05, 2014         --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 60001;
-local WL_VERSION_PATCH = 1;
+local WL_VERSION = 60002;
+local WL_VERSION_PATCH = 0;
 
 
 -- SavedVariables
