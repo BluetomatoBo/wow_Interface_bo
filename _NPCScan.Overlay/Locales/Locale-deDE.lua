@@ -802,11 +802,11 @@ private.L.NPCs["9736"] = "Rüstmeister Zigris"
 private.L.NPCs["99"] = "Morgaine die Verschlagene"
 
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
-private.L["BUTTON_TOOLTIP_LINE2"] = "|cffd6ff00 Klick: |r Weltkarten Pfade An/Aus"
-private.L["BUTTON_TOOLTIP_LINE3"] = "|cffd6ff00 Rechts-Klick: |r Minikarten Pfade An/Aus"
-private.L["BUTTON_TOOLTIP_LINE4"] = "|cffaaf200 Mitte-Klick: |r Anzeige beider Pfade Mini & Weltkarte AN/Ausschalten"
-private.L["BUTTON_TOOLTIP_LINE5"] = "|cff6cff00 Shift Mitte-Klick:: |r Einstellungen öffnen"
-private.L["BUTTON_TOOLTIP_LINE6"] = "|cff6cff00 Shift Mitte-Klick:: |r Einstellungen öffnen"
+private.L["BUTTON_TOOLTIP_LINE2"] = "|cffd6ff00 Klick: |r Weltkarten Pfade An/Aus" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE3"] = "|cffd6ff00 Rechts-Klick: |r Minikarten Pfade An/Aus" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE4"] = "|cffaaf200 Mitte-Klick: |r Anzeige beider Pfade Mini & Weltkarte AN/Ausschalten" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE5"] = "|cff6cff00 Shift Mitte-Klick:: |r Einstellungen öffnen" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE6"] = "|cff6cff00 Shift Mitte-Klick:: |r Einstellungen öffnen" -- Needs review
 private.L["CONFIG_ALPHA"] = "Alpha"
 private.L["CONFIG_COLORLIST_INST"] = "Klicke auf den Mob Titel um deren Farbe auszuwählen."
 private.L["CONFIG_COLORLIST_LABEL"] = "Pfad Farben Tabelle"

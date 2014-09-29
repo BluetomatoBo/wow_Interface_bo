@@ -802,11 +802,11 @@ private.L.NPCs["9736"] = "Intendente Zigris"
 private.L.NPCs["99"] = "Morgaine la Astuta"
 
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
-private.L["BUTTON_TOOLTIP_LINE2"] = "|cffd6ff00 Clic: |r Alternar trayectorias del Mapa del mundo"
-private.L["BUTTON_TOOLTIP_LINE3"] = "|cffd6ff00 Shift Clic: |r Alternar tecla del Mapa del mundo"
-private.L["BUTTON_TOOLTIP_LINE4"] = "|cffd6ff00 Clic derecho: |r Alternar trayectorias del Minimapa"
-private.L["BUTTON_TOOLTIP_LINE5"] = "|cffaaf200 Clic medio: |r Muestra u oculta tanto las trayectorias del Minimapa como las de Mapa del mundo"
-private.L["BUTTON_TOOLTIP_LINE6"] = "|cff6cff00 Shift Clic medio:: |r Abre menú de opciones"
+private.L["BUTTON_TOOLTIP_LINE2"] = "|cffd6ff00 Clic: |r Alternar trayectorias del Mapa del mundo" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE3"] = "|cffd6ff00 Shift Clic: |r Alternar tecla del Mapa del mundo" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE4"] = "|cffd6ff00 Clic derecho: |r Alternar trayectorias del Minimapa" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE5"] = "|cffaaf200 Clic medio: |r Muestra u oculta tanto las trayectorias del Minimapa como las de Mapa del mundo" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE6"] = "|cff6cff00 Shift Clic medio:: |r Abre menú de opciones" -- Needs review
 private.L["CONFIG_ALPHA"] = "Alfa"
 -- private.L["CONFIG_COLORLIST_INST"] = "Click on mob title to choose its color."
 -- private.L["CONFIG_COLORLIST_LABEL"] = "Overlay Path Color Table"

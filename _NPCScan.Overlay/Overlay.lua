@@ -23,6 +23,8 @@ local FOLDER_NAME, private = ...
 local L = private.L
 _G._NPCScan.Overlay = private
 
+local LibQTip = LibStub('LibQTip-1.0')
+
 _NPCScanMiniMapIcon = {}
 
 private.Version = _G.GetAddOnMetadata(FOLDER_NAME, "Version"):match("^([%d.]+)")
@@ -352,7 +354,7 @@ function private:ApplyZone(mapID, callbackFunc)
 		colorIndex = colorIndex + 1
 
 		if private.Options.ShowAll or private.NPCCounts[npcID] then
-			local color = assert(_NPCScanOverlayKeyColors[colorIndex], "Ran out of unique path colors.")
+			local color = assert(private.OverlayKeyColors[colorIndex], "Ran out of unique path colors.")
 			local found = private.NPCMaps[npcID][mapID]
 			local foundX, foundY
 
@@ -557,53 +559,78 @@ function private.SetLockSwap(Enable)
 	private.Config.LockSwap:SetChecked(Enable)
 end
 
---Creates LDB icon and click actgions
+--Creates LDB icon and click actions
+local function ConfigEntry_OnMouseUp(tooltipCell, configEntry, button)
+	if configEntry == "WorldMapKey" then
+		private.WorldMapKey_ToggleOnClick()
+	elseif configEntry == "MiniMap" then
+		if private.Options.Modules["Minimap"] then
+			private.Modules.Disable("Minimap")
+		else
+			private.Modules.Enable("Minimap")
+		end
+	elseif configEntry == "WorldMap" then
+		if private.Options.Modules["WorldMap"] then
+			private.Modules.Disable("WorldMap")
+		else
+			private.Modules.Enable("WorldMap")
+		end
+	elseif configEntry == "Maps" then
+		if private.Options.Modules["Minimap"] then
+			private.Modules.Disable("Minimap")
+			private.Modules.Disable("WorldMap")
+		else
+			private.Modules.Enable("Minimap")
+			private.Modules.Enable("WorldMap")
+		end
+	elseif configEntry == "Options" then
+		_G.InterfaceOptionsFrame_OpenToCategory(private.Config)
+	end
+end
+
 local LDB = _G.LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("_NPCScan.Overlay", {
 	type = "launcher",
 	text = "_NPCScan.Overlay",
 	icon = "Interface\\Icons\\INV_Misc_EngGizmos_20",
 	OnClick = function(_, button)
-		if button == "LeftButton" then
-			-- for LeftButton, toggle the module Enabled or Disabled
-			if _G.IsShiftKeyDown() then
-				private.WorldMapKey_ToggleOnClick()
-			else
-				-- if Control Key down, toggle stuff on Main World Map
-				if private.Options.Modules["WorldMap"] then
-					private.Modules.Disable("WorldMap")
-				else
-					private.Modules.Enable("WorldMap")
-				end
-			end
-		elseif button == "RightButton" then
-			-- else toggle Stuff Mini Map
-			if private.Options.Modules["Minimap"] then
-				private.Modules.Disable("Minimap")
-			else
-				private.Modules.Enable("Minimap")
-			end
-		elseif button == "MiddleButton" then
-			if _G.IsShiftKeyDown() then
-				_G.InterfaceOptionsFrame_OpenToCategory(private.Config)
-			else
-				if private.Options.Modules["Minimap"] then
-					private.Modules.Disable("Minimap")
-					private.Modules.Disable("WorldMap")
-				else
-					private.Modules.Enable("Minimap")
-					private.Modules.Enable("WorldMap")
-				end
-			end
-		end
+		_G.InterfaceOptionsFrame_OpenToCategory(private.Config)
 	end,
-	OnTooltipShow = function(tooltip)
-		if not tooltip or not tooltip.AddLine then return end
-		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE1)
-		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE2)
-		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE3)
-		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE4)
-		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE5)
-		tooltip:AddLine(L.BUTTON_TOOLTIP_LINE6)
+	OnEnter = function(self)
+		if LibQTip:IsAcquired(FOLDER_NAME) then
+			return
+		end
+		local tooltip = LibQTip:Acquire(FOLDER_NAME, 3)
+		tooltip:SetAutoHideDelay(0.1, self)
+		tooltip:SmartAnchorTo(self)
+		tooltip:Clear()
+
+		tooltip:SetCell(tooltip:AddLine(), 1, L.BUTTON_TOOLTIP_LINE1, "CENTER", 0)
+		tooltip:AddSeparator()
+
+		local line = tooltip:AddLine()
+		tooltip:SetCell(line, 1, L.BUTTON_TOOLTIP_LINE2)
+		tooltip:SetCellScript(line, 1, "OnMouseUp", ConfigEntry_OnMouseUp, "WorldMap")
+
+		line = tooltip:AddLine()
+		tooltip:SetCell(line, 1, L.BUTTON_TOOLTIP_LINE3)
+		tooltip:SetCellScript(line, 1, "OnMouseUp", ConfigEntry_OnMouseUp, "WorldMapKey")
+
+		line = tooltip:AddLine()
+		tooltip:SetCell(line, 1, L.BUTTON_TOOLTIP_LINE4)
+		tooltip:SetCellScript(line, 1, "OnMouseUp", ConfigEntry_OnMouseUp, "MiniMap")
+
+		line = tooltip:AddLine()
+		tooltip:SetCell(line, 1, L.BUTTON_TOOLTIP_LINE5)
+		tooltip:SetCellScript(line, 1, "OnMouseUp", ConfigEntry_OnMouseUp, "Maps")
+
+		line = tooltip:AddLine()
+		tooltip:SetCell(line, 1, L.BUTTON_TOOLTIP_LINE6)
+		tooltip:SetCellScript(line, 1, "OnMouseUp", ConfigEntry_OnMouseUp, "Options")
+
+		tooltip:Show()
+	end,
+	OnLeave = function(self)
+		-- Null operation: Some LDB displays get cranky if this method is missing.
 	end,
 })
 
@@ -633,6 +660,7 @@ do
 		self:UnregisterEvent(eventName)
 
 		private.Options = _G._NPCScanOverlayOptions
+		private.OverlayKeyColors = _G._NPCScanOverlayKeyColors
 
 		if not private.Options then
 			private.Options = private.OptionsDefault

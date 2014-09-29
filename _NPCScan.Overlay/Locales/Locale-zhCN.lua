@@ -802,11 +802,11 @@ private.L.NPCs["9736"] = "军需官兹格雷斯"
 private.L.NPCs["99"] = "狡猾的莫加尼"
 
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
-private.L["BUTTON_TOOLTIP_LINE2"] = "|cffd6ff00点击：|r切换世界地图路径"
-private.L["BUTTON_TOOLTIP_LINE3"] = "|cffd6ff00Shift-点击：|r切换世界地图标记"
-private.L["BUTTON_TOOLTIP_LINE4"] = "|cffd6ff00右击：|r切换小地图路径"
-private.L["BUTTON_TOOLTIP_LINE5"] = "|cffaaf200中键-点击：|r同时切换显示小地图和世界地图路径"
-private.L["BUTTON_TOOLTIP_LINE6"] = "|cff6cff00Shift-中键点击：|r打开选项菜单"
+private.L["BUTTON_TOOLTIP_LINE2"] = "|cffd6ff00点击：|r切换世界地图路径" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE3"] = "|cffd6ff00Shift-点击：|r切换世界地图标记" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE4"] = "|cffd6ff00右击：|r切换小地图路径" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE5"] = "|cffaaf200中键-点击：|r同时切换显示小地图和世界地图路径" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE6"] = "|cff6cff00Shift-中键点击：|r打开选项菜单" -- Needs review
 private.L["CONFIG_ALPHA"] = "透明度"
 private.L["CONFIG_COLORLIST_INST"] = "点击怪物名称选择颜色。"
 private.L["CONFIG_COLORLIST_LABEL"] = "路径图颜色表"

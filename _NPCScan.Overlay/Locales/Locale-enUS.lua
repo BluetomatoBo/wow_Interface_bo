@@ -795,11 +795,11 @@ select( 2, ... ).L = setmetatable( {
 	};
 
 	BUTTON_TOOLTIP_LINE1 = "|cffffee00 _NPCScan.Overlay|r",
-	BUTTON_TOOLTIP_LINE2 = "|cffd6ff00 Click: |r Toggles World Map paths",
-	BUTTON_TOOLTIP_LINE3 = "|cffd6ff00 Shift Click: |r Toggles World Map key",
-	BUTTON_TOOLTIP_LINE4 = "|cffd6ff00 Right-Click: |r Toggles Mini Map paths",
-	BUTTON_TOOLTIP_LINE5 = "|cffaaf200 Middle-Click: |r Toggle display of Both Mini & World Map paths",
-	BUTTON_TOOLTIP_LINE6 = "|cff6cff00 Shift Middle-Click: |r Open Options Menu",
+	BUTTON_TOOLTIP_LINE2 = "Toggle World Map paths",
+	BUTTON_TOOLTIP_LINE3 = "Toggle World Map key",
+	BUTTON_TOOLTIP_LINE4 = "Toggle Mini Map paths",
+	BUTTON_TOOLTIP_LINE5 = "Toggle display of Mini and World Map paths",
+	BUTTON_TOOLTIP_LINE6 = "Open Options Menu",
 
 	CONFIG_ALPHA = "Alpha",
 	CONFIG_DESC = "Control which maps will show mob path overlays.  Most map-modifying addons are controlled with the World Map option.",
