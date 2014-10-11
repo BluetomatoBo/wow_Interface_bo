@@ -4,16 +4,16 @@ local hooksecurefunc, select, UnitBuff, UnitDebuff, UnitAura, UnitGUID, GetGlyph
 local wod = select(4, GetBuildInfo()) >= 60000
 
 local types = {
-    spell      = "SpellID:",
-    item       = "ItemID:",
-    glyph      = "GlyphID:",
-    unit       = "NPC ID:",
-    quest      = "Quest ID:",
-    talent     = "Talent ID:",
-    achievment = "Achievement ID:"
+    spell       = "SpellID",
+    item        = "ItemID",
+    glyph       = "GlyphID",
+    unit        = "NPC ID",
+    quest       = "QuestID",
+    talent      = "TalentID",
+    achievement = "AchievementID"
 }
 
-local function addLine(tooltip, id, type)
+local function addLine(tooltip, id, type, noEmptyLine)
     local found = false
 
     -- Check if we already added to this tooltip. Happens on the talent frame
@@ -25,7 +25,8 @@ local function addLine(tooltip, id, type)
     end
 
     if not found then
-        tooltip:AddDoubleLine(type, "|cffffffff" .. id)
+        if not noEmptyLine then tooltip:AddLine(" ") end
+        tooltip:AddDoubleLine(type .. ":", "|cffffffff" .. id)
         tooltip:Show()
     end
 end
@@ -85,7 +86,7 @@ GameTooltip:HookScript("OnTooltipSetUnit", function(self)
     if unit then
         local id = wod and tonumber(strmatch(UnitGUID(unit) or "", "-(%d+)-%x+$"), 10) or tonumber(strsub(UnitGUID(unit) or "", 6, 10), 16)
         -- ID 970 seems to be used for players
-        if (id ~= 0) and (id ~= 970) then addLine(GameTooltip, id, types.unit) end
+        if id and id ~= 0 and id ~= 970 then addLine(GameTooltip, id, types.unit) end
     end
 end)
 
@@ -114,3 +115,23 @@ end)
 hooksecurefunc(GameTooltip, "SetGlyphByID", function(self, id)
     if id then addLine(self, id, types.glyph) end
 end)
+
+-- Achievement Frame Tooltips
+local f = CreateFrame("frame")
+f:RegisterEvent("ADDON_LOADED")
+f:SetScript("OnEvent", function(_, _, what)
+    if what == "Blizzard_AchievementUI" then
+        for i,button in ipairs(AchievementFrameAchievementsContainer.buttons) do
+            button:HookScript("OnEnter", function()
+                GameTooltip:SetOwner(button, "ANCHOR_NONE")
+                GameTooltip:SetPoint("TOPLEFT", button, "TOPRIGHT", 0, 0)
+                addLine(GameTooltip, button.id, types.achievement, true)
+                GameTooltip:Show()
+            end)
+            button:HookScript("OnLeave", function()
+                GameTooltip:Hide()
+            end)
+        end
+    end
+end)
+
