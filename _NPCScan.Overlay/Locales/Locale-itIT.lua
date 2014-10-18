@@ -802,11 +802,11 @@ private.L.NPCs["9736"] = "Quartermastro Zigris"
 private.L.NPCs["99"] = "Morgaine la Furba"
 
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
-private.L["BUTTON_TOOLTIP_LINE2"] = "|cffd6ff00 Clic: |r Attiva Percorsi Mappa del Mondo" -- Needs review
-private.L["BUTTON_TOOLTIP_LINE3"] = "|cffd6ff00 Shift+Clic: |r Attiva Chiave Mappa del Mondo" -- Needs review
-private.L["BUTTON_TOOLTIP_LINE4"] = "|cffd6ff00 Clic Destro: |r Attiva Percorsi Minimappa" -- Needs review
-private.L["BUTTON_TOOLTIP_LINE5"] = "|cffaaf200 Clic di Mezzo: |r Attiva visualizzazione sia della minimappa che della Mappa del Mondo" -- Needs review
-private.L["BUTTON_TOOLTIP_LINE6"] = "|cff6cff00 Shift+Clic di Mezzo:: |r Apre Menu Opzioni" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE2"] = "Attiva Percorsi Mappa del Mondo"
+private.L["BUTTON_TOOLTIP_LINE3"] = "Attiva Chiave Mappa del Mondo"
+private.L["BUTTON_TOOLTIP_LINE4"] = "Attiva Percorsi Minimappa"
+private.L["BUTTON_TOOLTIP_LINE5"] = "Attiva visualizzazione sia della minimappa che della Mappa del Mondo"
+private.L["BUTTON_TOOLTIP_LINE6"] = "Apre Menu Opzioni"
 private.L["CONFIG_ALPHA"] = "Alfa"
 private.L["CONFIG_COLORLIST_INST"] = "Clicca sul titolo del mostro per sceglierne il colore."
 private.L["CONFIG_COLORLIST_LABEL"] = "Sovrapposizione Tabella Colorata dei Percorsi"

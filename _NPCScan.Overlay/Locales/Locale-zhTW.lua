@@ -802,11 +802,11 @@ private.L.NPCs["9736"] = "軍需官茲格雷斯"
 private.L.NPCs["99"] = "狡猾的莫加尼"
 
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
-private.L["BUTTON_TOOLTIP_LINE2"] = "|cffd6ff00 點擊: |r 切換顯示世界地圖路徑" -- Needs review
-private.L["BUTTON_TOOLTIP_LINE3"] = "|cffd6ff00 Shift-點擊: |r 切換顯示世界地圖稀有" -- Needs review
-private.L["BUTTON_TOOLTIP_LINE4"] = "|cffd6ff00 右鍵點擊: |r 切換顯示小地圖路徑" -- Needs review
-private.L["BUTTON_TOOLTIP_LINE5"] = "|cffaaf200 中鍵點擊: |r 同時切換顯示世界地圖與小地圖路徑" -- Needs review
-private.L["BUTTON_TOOLTIP_LINE6"] = "|cff6cff00 Shift 中鍵點擊:: |r 開啟選項目錄" -- Needs review
+private.L["BUTTON_TOOLTIP_LINE2"] = "切換顯示世界地圖路徑"
+private.L["BUTTON_TOOLTIP_LINE3"] = "切換顯示世界地圖稀有"
+private.L["BUTTON_TOOLTIP_LINE4"] = "切換顯示小地圖路徑"
+private.L["BUTTON_TOOLTIP_LINE5"] = "同時切換顯示世界地圖與小地圖路徑"
+private.L["BUTTON_TOOLTIP_LINE6"] = "開啟選項目錄"
 private.L["CONFIG_ALPHA"] = "透明度"
 private.L["CONFIG_COLORLIST_INST"] = "點擊怪物名稱選擇顏色。"
 private.L["CONFIG_COLORLIST_LABEL"] = "路徑顏色表"
