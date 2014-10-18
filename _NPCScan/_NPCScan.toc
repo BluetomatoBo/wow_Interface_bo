@@ -1,4 +1,4 @@
-## Interface: 50400
+## Interface: 60000
 ## Title: _NPCScan
 ## Notes: Scans NPCs around you for rare ones.
 ## Notes-deDE: Scant NSCs in deiner Nähe nach seltenen.
@@ -29,8 +29,8 @@
 ## X-Credits-ruRU: Localization: StingerSoft, Sarymian, KVVV, The_DimoK, ichik, Ant1dotE, tick095, dartraiden
 ## X-Credits-zhCN: Localization: digmouse, tss1398383123, ananhaid, redsaru, dh0000
 ## X-Credits-zhTW: Localization: s8095324, pepper_ep, zhTW, laincat, alpha2009, machihchung
-## Version: 5.4.8.6
-## X-Date: 2014-09-21T06:07:11Z
+## Version: 6.0.2.2
+## X-Date: 2014-09-21T06:47:58Z
 ## X-Category: Miscellaneous
 ## X-License: GPLv3
 ## X-Email: jcallahan@curse.com
@@ -40,7 +40,7 @@
 ## SavedVariables: _NPCScanOptions
 ## SavedVariablesPerCharacter: _NPCScanOptionsCharacter
 ## OptionalDeps: Ace3, LibDialog-1.0, LibSharedMedia-3.0, LibTextDump-1.0, LibTextTable-1.1
-## X-Curse-Packaged-Version: 5.4.8.6
+## X-Curse-Packaged-Version: 6.0.2.2
 ## X-Curse-Project-Name: _NPCScan
 ## X-Curse-Project-ID: npcscan
 ## X-Curse-Repository-ID: wow/npcscan/mainline

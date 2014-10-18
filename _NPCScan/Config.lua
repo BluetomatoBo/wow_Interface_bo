@@ -121,6 +121,10 @@ test_button.tooltipText = L.CONFIG_TEST_DESC
 test_button:SetScript("OnEnter", panel.ControlOnEnter)
 test_button:SetScript("OnLeave", _G.GameTooltip_Hide)
 test_button:SetScript("OnClick", function(self)
+
+	private.Print(L.FOUND_FORMAT:format(L.CONFIG_TEST_NAME), _G.GREEN_FONT_COLOR)
+	private.Print(L.CONFIG_TEST_HELP_FORMAT:format("CTRL"))
+
 	local alert_text = L.FOUND_FORMAT:format(L.CONFIG_TEST_NAME)
 
 	if private.OptionsCharacter.ShowAlertAsToast then
@@ -129,6 +133,7 @@ test_button:SetScript("OnClick", function(self)
 		private.Print(alert_text, _G.GREEN_FONT_COLOR)
 	end
 	private.Print(L.CONFIG_TEST_HELP_FORMAT:format(_G.GetModifiedClick("_NPCSCAN_BUTTONDRAG")))
+
 
 	private.Button:SetNPC("player", L.CONFIG_TEST_NAME, L.CONFIG_TEST)
 end)
@@ -387,6 +392,7 @@ _G.InterfaceOptions_AddCategory(panel)
 
 -- Add stub panel to load tools UI
 local _, _, _, tools_enabled = _G.GetAddOnInfo("_NPCScan.Tools")
+
 if tools_enabled then
 	local tools_panel = _G.CreateFrame("Frame")
 	tools_panel.name = L.TOOLS_TITLE
