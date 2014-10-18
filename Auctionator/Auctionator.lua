@@ -897,7 +897,7 @@ function Atr_OnLoad()
 
 	Atr_ShoppingListsInit();
 
-	zc.msg_anm ("Read the FAQ at |cFF4499FFhttp://auctionatoraddon.com/faq")
+	zc.msg_anm ("Read the FAQ at |cFF4499FF http://auctionatoraddon.com/faq")
 	
 	EnableDisableDElogging ()
 
