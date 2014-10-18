@@ -29,6 +29,7 @@ end
 function VUF:UpdateClassBar(frame,element)
 	if not self.db.units[frame.unit] then VUF:ScheduleTimer('UpdateClassBar', 1, frame, element); return end
 	local config = self.db.units[frame.unit][element]
+	if (not config) then VUF:ScheduleTimer('UpdateClassBar', 1, frame, element); return end
 	local size = config['size']
 	local numPoints, maxPoints, curPoints
 	local colors, dcolors
@@ -99,7 +100,7 @@ function VUF:UpdateClassBar(frame,element)
 		if E.myclass == "MONK" then
 			curPoints = UnitPower('player',SPELL_POWER_CHI)
 			numPoints = UnitPowerMax('player',SPELL_POWER_CHI)
-			maxPoints = 5
+			maxPoints = 6
 			if (not frame.Harmony) then
 				VUF:ScheduleTimer('UpdateClassBar', 1, frame, element);
 				return
@@ -107,9 +108,9 @@ function VUF:UpdateClassBar(frame,element)
 		end
 
 		if E.myclass == "PRIEST" then
-			curPoints = 3
-			numPoints = 3
-			maxPoints = 3
+			curPoints = UnitPower('player',SPELL_POWER_SHADOW_ORBS);
+			numPoints = UnitPowerMax('player',SPELL_POWER_SHADOW_ORBS);
+			maxPoints = 5
 		end
 
 		if E.myclass == "MAGE" then
@@ -133,6 +134,8 @@ function VUF:UpdateClassBar(frame,element)
 	end
 	if not maxPoints then maxPoints = numPoints end
 	if not curPoints then curPoints = 0 end
+	if (numPoints == 0) then return end;
+
 	local height = (size.height - (spaced and totalspacing or 2)) / numPoints;
 	for i = 1, maxPoints do
 		frame[e][i]:Size(size.width,height)
@@ -234,7 +237,7 @@ function VUF:UpdateClassBarAnchors(frame,element)
 		end
 
 		if E.myclass == "MONK" then
-			for i=1,5 do
+			for i=1,6 do
 				if i == 1 then
 		            frame.Harmony[i]:Point("BOTTOM",frame.Harmony)
 		        else
@@ -244,7 +247,7 @@ function VUF:UpdateClassBarAnchors(frame,element)
 		end
 
 		if E.myclass == "PRIEST" then
-			for i=1,3 do
+			for i=1,5 do
 				if i == 1 then
 		            frame.ShadowOrbs[i]:Point("BOTTOM",frame.ShadowOrbs)
 		        else
@@ -1453,13 +1456,17 @@ function VUF:PostUpdateShadowOrbBar(event)
 	local spec = GetSpecialization()
 	local level = UnitLevel("player")
 
+	local enabled;
+	local curPoints;
 	if spec == SPEC_PRIEST_SHADOW and level > SHADOW_ORBS_SHOW_LEVEL then
-		alpha = 1;
+		enabled = true;
+		curPoints = UnitPower("player", SPELL_POWER_SHADOW_ORBS);
 	else
-		alpha = 0;
+		enabled = false;
 	end
 
-	for i = 1,3 do
+	for i = 1,5 do
+		local alpha = enabled and (i <= curPoints and 1 or .2) or 0;
 		self[i]:SetAlpha(alpha);
 	end
 end

@@ -1,7 +1,7 @@
-## Interface: 50400
+## Interface: 60000
 ## Title: |cff1784d1ElvUI |rVertical Unit Frames
 ## Author: Sortokk
-## Version: 5.95
+## Version: 6.0
 ## Notes: Vertial Unit Frames for ElvUI
 ## RequiredDeps: ElvUI
 ## X-oUF: ElvUF

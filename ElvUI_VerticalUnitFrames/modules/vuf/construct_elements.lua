@@ -307,12 +307,12 @@ end
 
 -- Construct harmony bar for monks
 function VUF:ConstructHarmony(frame)
-   return self:ConstructSubBars(frame,'classbars','harmony',5)
+   return self:ConstructSubBars(frame,'classbars','harmony',6)
 end
  
 -- Construct shadow orb bar for priests
 function VUF:ConstructShadowOrbBar(frame)
-    local bars = self:ConstructSubBars(frame,'classbars','shadoworb',3)
+    local bars = self:ConstructSubBars(frame,'classbars','shadoworb',5)
 
     bars._PostUpdate = VUF.PostUpdateShadowOrbBar
 
