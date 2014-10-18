@@ -140,6 +140,7 @@ end
 
 function AS:UpdateMedia()
 	LSM, ES = AS.LSM, E:GetModule('EnhancedShadows', true)
+	AS.SLE = AS:CheckAddOn('ElvUI_SLE')
 	S = E:GetModule('Skins')
 	AS.Blank = LSM:Fetch('background', 'ElvUI Blank')
 	AS.Font = LSM:Fetch('font', E.db.general.font)

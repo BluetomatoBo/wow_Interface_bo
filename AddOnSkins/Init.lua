@@ -6,10 +6,9 @@ Engine[2] = {}	-- Media
 Engine[3] = {}	-- Locale
 AddOnSkins = Engine
 
-AddOn.Title = select(2, GetAddOnInfo(AddOnName))
+AddOn.Title = GetAddOnMetadata(AddOnName, 'Title')
 AddOn.Version = GetAddOnMetadata(AddOnName, 'Version')
 AddOn.LSM = LibStub('LibSharedMedia-3.0')
-AddOn.SLE = select(4, GetAddOnInfo('ElvUI_SLE'))
 AddOn.TicketTracker = 'http://git.tukui.org/Azilroka/addonskins'
 AddOn.MyClass = select(2, UnitClass('player'))
 AddOn.MyName = UnitName('player')
@@ -22,3 +21,10 @@ AddOn.skins = {}
 AddOn.events = {}
 AddOn.register = {}
 AddOn.FrameLocks = {}
+
+AddOn.AddOns = {}
+
+for i = 1, GetNumAddOns() do
+	local Name = GetAddOnInfo(i)
+	AddOn.AddOns[Name] = GetAddOnEnableState(AddOn.MyName, Name) > 0
+end
