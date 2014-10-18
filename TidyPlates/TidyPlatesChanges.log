@@ -1,6 +1,29 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
+6.15.1
+---------------------------
+Fix for mouseover (and many other things)
+* Fixed: Core: IsHighlighted...  figured out that IsShown() now returns a bool, rather than 1/0.  *sigh*
+
+Fix for Friendly Class Colors
+* Fixed:  Hub;Functions;GetFriendlyClass: IsInInstance() now returns true or false, rather than nil or false.  Updated the function to match WoW 6.0
+
+* Removed 5.x Specific core code.
+
+
+6.15.0.1
+---------------------------
+* Curseforge Reupload
+
+6.15.0
+---------------------------
+* TOC update to 60000
+* WoD Update....
+	* Fixed Target selection issue; UnitExists() now returns true/false, rather than 1/0
+	* Fixed Mouseover issue; 6.0 no longer uses the Highlight region to indicate mouseover; Using Name text color change.
+	* Fixed Elite/Dragon Texture being reshown; Using :SetAlpha(0) rather than nilling the texture.
+
 6.13.4
 ---------------------------
 * Core: Raised the default Dropdown Menu strata to TOOLTIP
