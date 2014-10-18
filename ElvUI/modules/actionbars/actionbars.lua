@@ -67,6 +67,8 @@ AB.customExitButton = {
 	tooltip = LEAVE_VEHICLE,
 }
 
+
+
 function AB:PositionAndSizeBar(barName)
 	local spacing = E:Scale(self.db[barName].buttonspacing);
 	local buttonsPerRow = self.db[barName].buttonsPerRow;
@@ -189,7 +191,8 @@ function AB:PositionAndSizeBar(barName)
 			button:Show()
 		end
 		
-		self:StyleButton(button);
+		self:StyleButton(button, nil, nil, true);
+		button:SetCheckedTexture("")
 	end
 	
 	if self.db[barName].enabled or not bar.initialized then		
@@ -412,6 +415,7 @@ function AB:GetPage(bar, defaultPage, condition)
 		condition = condition.." "..page
 	end
 	condition = condition.." "..defaultPage
+
 	return condition
 end
 

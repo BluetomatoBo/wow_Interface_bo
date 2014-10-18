@@ -28,12 +28,15 @@ function AB:UpdatePet(event, unit)
 		button.tooltipSubtext = subtext;	
 		
 		if isActive and name ~= "PET_ACTION_FOLLOW" then
-			button:SetChecked(1);
+			--button:GetCheckedTexture():SetTexture(1, 1, 1)
+			button:SetChecked(true);
+			
 			if IsPetAttackAction(i) then
 				PetActionButton_StartFlash(button);
 			end
 		else
-			button:SetChecked(0);
+			--button:SetCheckedTexture("")
+			button:SetChecked(false);
 			if IsPetAttackAction(i) then
 				PetActionButton_StopFlash(button);
 			end			

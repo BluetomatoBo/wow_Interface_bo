@@ -39,8 +39,9 @@ function UF:Construct_AuraIcon(button)
 
 	button.cd.noOCC = true
 	button.cd.noCooldownCount = true
-	button.cd:SetReverse()
+	button.cd:SetReverse(true)
 	button.cd:SetInside()
+	button.cd:SetHideCountdownNumbers(true)
 	
 	button.icon:SetInside()
 	button.icon:SetTexCoord(unpack(E.TexCoords))
@@ -133,7 +134,7 @@ function UF:PostUpdateAura(unit, button, index, offset, filter, isDebuff, durati
 	local name, _, _, _, dtype, duration, expiration, _, isStealable = UnitAura(unit, index, button.filter)
 
 	
-	local isFriend = UnitIsFriend('player', unit) == 1 and true or false
+	local isFriend = UnitIsFriend('player', unit)
 	if button.isDebuff then
 		if(not isFriend and button.owner ~= "player" and button.owner ~= "vehicle") --[[and (not E.isDebuffWhiteList[name])]] then
 			button:SetBackdropBorderColor(0.9, 0.1, 0.1)
@@ -243,7 +244,7 @@ function UF:AuraFilter(unit, icon, name, rank, texture, count, dtype, duration, 
 	local anotherFilterExists = false
 	local playerOnlyFilter = false
 	local isPlayer = unitCaster == 'player' or unitCaster == 'vehicle'
-	local isFriend = UnitIsFriend('player', unit) == 1 and true or false
+	local isFriend = UnitIsFriend('player', unit)
 	local auraType = isFriend and db.friendlyAuraType or db.enemyAuraType
 	
 	icon.isPlayer = isPlayer
@@ -360,68 +361,4 @@ function UF:AuraFilter(unit, icon, name, rank, texture, count, dtype, duration, 
 	end		
 	
 	return returnValue	
-end
-
-function UF:SmartAuraDisplay()
-	local db = self.db
-	local unit = self.unit
-	if not db or not db.smartAuraDisplay or db.smartAuraDisplay == 'DISABLED' or not UnitExists(unit) then return; end
-	local buffs = self.Buffs
-	local debuffs = self.Debuffs
-	local auraBars = self.AuraBars
-
-	local isFriend = UnitIsFriend('player', unit) == 1 and true or false
-	
-	if isFriend then
-		if db.smartAuraDisplay == 'SHOW_DEBUFFS_ON_FRIENDLIES' then
-			buffs:Hide()
-			debuffs:Show()
-		else
-			buffs:Show()
-			debuffs:Hide()		
-		end
-	else
-		if db.smartAuraDisplay == 'SHOW_DEBUFFS_ON_FRIENDLIES' then
-			buffs:Show()
-			debuffs:Hide()
-		else
-			buffs:Hide()
-			debuffs:Show()		
-		end
-	end
-	
-	local yOffset = E.PixelMode and (db.aurabar.anchorPoint == 'BELOW' and 1 or -1) or 0;
-	if buffs:IsShown() then
-		local x, y = E:GetXYOffset(db.buffs.anchorPoint)
-		
-		buffs:ClearAllPoints()
-		buffs:Point(E.InversePoints[db.buffs.anchorPoint], self, db.buffs.anchorPoint, x + db.buffs.xOffset, y + db.buffs.yOffset + (E.PixelMode and (db.buffs.anchorPoint:find('TOP') and -1 or 1) or 0))
-		
-		if db.aurabar.attachTo ~= 'FRAME' then
-			local anchorPoint, anchorTo = 'BOTTOM', 'TOP'
-			if db.aurabar.anchorPoint == 'BELOW' then
-				anchorPoint, anchorTo = 'TOP', 'BOTTOM'
-			end		
-			auraBars:ClearAllPoints()
-			auraBars:SetPoint(anchorPoint..'LEFT', buffs, anchorTo..'LEFT', 0, yOffset)
-			auraBars:SetPoint(anchorPoint..'RIGHT', buffs, anchorTo..'RIGHT', 0, yOffset)
-		end
-	end
-	
-	if debuffs:IsShown() then
-		local x, y = E:GetXYOffset(db.debuffs.anchorPoint)
-		
-		debuffs:ClearAllPoints()
-		debuffs:Point(E.InversePoints[db.debuffs.anchorPoint], self, db.debuffs.anchorPoint, x + db.debuffs.xOffset, y + db.debuffs.yOffset)	
-		
-		if db.aurabar.attachTo ~= 'FRAME' then
-			local anchorPoint, anchorTo = 'BOTTOM', 'TOP'
-			if db.aurabar.anchorPoint == 'BELOW' then
-				anchorPoint, anchorTo = 'TOP', 'BOTTOM'
-			end		
-			auraBars:ClearAllPoints()
-			auraBars:SetPoint(anchorPoint..'LEFT', debuffs, anchorTo..'LEFT', 0, yOffset)
-			auraBars:SetPoint(anchorPoint..'RIGHT', debuffs, anchorTo..'RIGHT', 0, yOffset)		
-		end
-	end
 end

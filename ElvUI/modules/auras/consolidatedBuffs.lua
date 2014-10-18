@@ -10,11 +10,12 @@ A.DefaultIcons = {
 	[1] = "Interface\\Icons\\Spell_Magic_GreaterBlessingofKings", -- Stats
 	[2] = "Interface\\Icons\\Spell_Holy_WordFortitude", -- Stamina
 	[3] = "Interface\\Icons\\INV_Misc_Horn_02", --Attack Power
-	[4] = "Interface\\Icons\\INV_Helmet_08", --Attack Speed
+	[4] = "Interface\\Icons\\INV_Helmet_08", --Haste
 	[5] = "Interface\\Icons\\Spell_Holy_MagicalSentry", --Spell Power
-	[6] = "Interface\\Icons\\Spell_Shadow_SpectralSight", -- Spell Haste
-	[7] = "Interface\\Icons\\ability_monk_prideofthetiger", -- Critical Strike
-	[8] = "Interface\\Icons\\Spell_Holy_GreaterBlessingofKings" --Mastery
+	[6] = "Interface\\Icons\\ability_monk_prideofthetiger", -- Critical Strike
+	[7] = "Interface\\Icons\\Spell_Holy_GreaterBlessingofKings", --Mastery
+	[8] = "Interface\\ICONS\\spell_warlock_focusshadow", --Multistrike
+	[9] = "Interface\\Icons\\Spell_Holy_MindVision" --Versatility
 }
 
 function A:UpdateConsolidatedTime(elapsed)
@@ -103,6 +104,7 @@ function A:CreateButton()
 	button.cd:SetInside()
 	button.cd.noOCC = true;
 	button.cd.noCooldownCount = true;
+	button.cd:SetHideCountdownNumbers(true)
 	
 	button.timer = button.cd:CreateFontString(nil, 'OVERLAY')
 	button.timer:SetPoint('CENTER')
@@ -141,11 +143,9 @@ function A:Update_ConsolidatedBuffsSettings(isCallback)
 	twipe(ignoreIcons)
 	if E.db.auras.consolidatedBuffs.filter then
 		if E.role == 'Caster' then
-			ignoreIcons[3] = true -- it will never attempt to anchor here
-			ignoreIcons[4] = 2
+			ignoreIcons[3] = 2
 		else
-			ignoreIcons[5] = 3
-			ignoreIcons[6] = 4
+			ignoreIcons[5] = 4
 		end
 	end
 
@@ -153,12 +153,12 @@ function A:Update_ConsolidatedBuffsSettings(isCallback)
 		local button = frame[i]
 		button.t:SetAlpha(1)
 		button:ClearAllPoints()
-		button:Size(E.ConsolidatedBuffsWidth - (E.PixelMode and 1 or 4)) -- 4 needs to be 1
+		button:Size(E.ConsolidatedBuffsWidth - (E.PixelMode and 0 or 4)) -- 4 needs to be 1
 		
 		if i == 1 then
 			button:Point("TOP", ElvUI_ConsolidatedBuffs, "TOP", 0, -(E.PixelMode and 0 or 2))
 		else
-			button:Point("TOP", frame[ignoreIcons[i - 1] or (i - 1)], "BOTTOM", 0, (E.PixelMode and 1 or -1))
+			button:Point("TOP", frame[ignoreIcons[i - 1] or (i - 1)], "BOTTOM", 0, (E.PixelMode and 2 or -1))
 		end
 
 		if i == NUM_LE_RAID_BUFF_TYPES then
