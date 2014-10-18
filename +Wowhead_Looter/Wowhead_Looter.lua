@@ -3,15 +3,15 @@
 --     W o w h e a d   L o o t e r     --
 --                                     --
 --                                     --
---    Patch: 6.0.1                     --
---    Updated: August 05, 2014         --
+--    Patch: 6.0.2                     --
+--    Updated: October 14, 2014        --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 60002;
+local WL_VERSION = 60005;
 local WL_VERSION_PATCH = 0;
 
 
@@ -19,7 +19,7 @@ local WL_VERSION_PATCH = 0;
 wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
 wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
 wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
-wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability = {}, {}, {}, {}, {}, {}, {};
+wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability, wlItemBonuses = {}, {}, {}, {}, {}, {}, {}, {};
 
 -- SavedVariablesPerCharacter
 wlSetting = {};
@@ -77,7 +77,7 @@ local WL_REP_MODS = {
 };
 -- Map currency name to currency ID
 local WL_CURRENCIES = {};
-local WL_CURRENCIES_MAXID = 1017;
+local WL_CURRENCIES_MAXID = 1020;
 -- Random Dungeon IDs extracted from LFGDungeons.dbc
 local WL_AREAID_TO_DUNGEONID = {
     [1] = {
@@ -85,37 +85,38 @@ local WL_AREAID_TO_DUNGEONID = {
         [765] = 258,
         [704] = 258,
         [769] = 300,
+        [876] = 463,
         [521] = 261,
         [964] = 788,
         [525] = 261,
-        [876] = 463,
         [536] = 261,
         [528] = 261,
-        [533] = 261,
         [798] = 259,
+        [533] = 261,
+        [732] = 259,
         [726] = 259,
         [728] = 259,
         [730] = 259,
         [984] = 788,
         [797] = 259,
-        [732] = 259,
+        [750] = 258,
         [722] = 259,
-        [993] = 788,
-        [767] = 300,
+        [534] = 261,
         [759] = 300,
         [761] = 258,
+        [523] = 261,
         [874] = 258,
         [687] = 258,
-        [523] = 261,
+        [1008] = 788,
         [691] = 258,
         [756] = 258,
-        [750] = 258,
+        [753] = 300,
         [760] = 258,
         [699] = 258,
         [764] = 258,
-        [753] = 300,
+        [767] = 300,
         [768] = 300,
-        [534] = 261,
+        [993] = 788,
         [520] = 261,
         [522] = 261,
         [524] = 261,
@@ -148,11 +149,12 @@ local WL_AREAID_TO_DUNGEONID = {
         [756] = 301,
         [989] = 789,
         [757] = 301,
+        [767] = 301,
         [820] = 301,
         [867] = 462,
         [759] = 301,
-        [767] = 301,
         [819] = 301,
+        [1008] = 789,
         [993] = 789,
         [885] = 462,
         [747] = 301,
@@ -176,14 +178,6 @@ local WL_AREAID_TO_DUNGEONID = {
         [877] = 462,
         [876] = 462,
     },
-    [11] = {
-        [938] = 641,
-        [940] = 641,
-        [900] = 641,
-        [937] = 641,
-        [939] = 641,
-        [878] = 641,
-    },
     [12] = {
         [878] = 493,
         [940] = 493,
@@ -201,6 +195,14 @@ local WL_AREAID_TO_DUNGEONID = {
         [914] = 493,
         [906] = 493,
         [938] = 493,
+    },
+    [11] = {
+        [938] = 641,
+        [940] = 641,
+        [900] = 641,
+        [937] = 641,
+        [939] = 641,
+        [878] = 641,
     },
 };
 local WL_REP_DISCOUNT = {
@@ -1289,7 +1291,7 @@ function wlEvent_QUEST_LOG_UPDATE(self)
         end
         title       = questLogTitle[1];
         isHeader    = isBetaClient and questLogTitle[4] or questLogTitle[5];
-        questId     = isBetaClient and questLogTitle[9] or questLogTitle[10];
+        questId     = isBetaClient and questLogTitle[8] or questLogTitle[9];
 		if not isHeader then
 			SelectQuestLogEntry(idx);
 		
@@ -1537,7 +1539,7 @@ end
 
 function wlGetInstanceDifficulty()
 	local _, instanceType, instanceDifficulty, _, maxPlayers, dynamicDifficulty = GetInstanceInfo();
-	if instanceType == "party"  or (instanceType == nil and maxPlayers == 3) then
+	if instanceType == "party" then
 		return -instanceDifficulty;
 	elseif instanceType == "raid" then
 		return instanceDifficulty;
@@ -2737,7 +2739,7 @@ function wlGetLocation()
 	-- Obtain true coords
 	SetMapToCurrentZone();
 	mainZone, _, _, isMicroZone, microZone = GetMapInfo();
-	if((wlSelectOne(3,GetInstanceInfo()) == 0) and not WL_ZONE_EXCEPTION[microZone] and (isMicroZone == true)) then
+	if ((wlSelectOne(2, GetInstanceInfo()) == "none") and not WL_ZONE_EXCEPTION[microZone] and (isMicroZone == true)) then
 		SetMapByID(GetCurrentMapAreaID());
 	end
 	
@@ -2749,7 +2751,9 @@ function wlGetLocation()
 	end
 
 	if x == 0 and y == 0 then
-		for level=1,GetNumDungeonMapLevels() do
+        local floorMapCount, firstFloor = GetNumDungeonMapLevels();
+        local lastFloor = firstFloor + floorMapCount - 1;
+        for level=firstFloor, lastFloor do
 			SetDungeonMapLevel(level);
 			x, y = GetPlayerMapPosition("player");
 
@@ -3600,16 +3604,16 @@ end
 --	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : reforgeId : upgradeId : (name)
 local WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)|h%[(.+)%]|h|r";
 if isBetaClient then
-    --	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : upgradeId : unk : numBonus : ...bonusIds... : (name)
+    --	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : upgradeId : bonusGroup : numBonus : ...bonusIds... : (name)
     WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)([^|]*)|h%[(.+)%]|h|r";
 end
 
 function wlParseItemLink(link)
 	if link then
 
-		local found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, reforgeId, upgradeId, name, unk, numBonus, bonuses;
+		local found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, reforgeId, upgradeId, name, bonusGroup, numBonus, bonuses;
         if isBetaClient then
-            found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, upgradeId, unk, numBonus, bonuses, name = link:find(WL_ITEMLINK);
+            found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, upgradeId, bonusGroup, numBonus, bonuses, name = link:find(WL_ITEMLINK);
         else
             found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, reforgeId, upgradeId, name = link:find(WL_ITEMLINK);
         end
@@ -3623,6 +3627,27 @@ function wlParseItemLink(link)
 				if subId < 0 then
 					wlUpdateVariable(wlItemSuffix, id, "sF", "set", bit_band(guid, 0xFFFF));
 				end
+            end
+
+            if isBetaClient then
+                bonusGroup, numBonus = tonumber(bonusGroup), tonumber(numBonus);
+                if bonusGroup and bonusGroup ~= 0 then
+                    wlUpdateVariable(wlItemBonuses, id, bonusGroup, "add", 1);
+                end
+
+                if numBonus and numBonus > 0 and bonuses then
+                    local p1, p2 = bonuses:find(":");
+                    if p1 and p1 == 1 then
+                        bonuses = { strsplit(":", bonuses:sub(2)) };
+                        local allBonuses = {};
+                        for index = 1, math.min(16, numBonus), 1 do
+                            table.insert(allBonuses, bonuses[index]);
+                        end
+                        if next(allBonuses) ~= nil then
+                            wlUpdateVariable(wlItemBonuses, id, "bonuses", table.concat(allBonuses, ":"), "add", 1);
+                        end
+                    end
+                end
             end
 
 			return id, subId, tonumber(enchant), tonumber(socket1), tonumber(socket2), tonumber(socket3), tonumber(socket4), name, color, guid, tonumber(pLevel);
@@ -3688,17 +3713,17 @@ end
 
 local GUID_TOKENS = {
     ["Creature|Pet"] = {
-        "(%d+):(%d+):(%d+):(%d+):(%d+):(%x+)",
+        "(%d+)-(%d+)-(%d+)-(%d+)-(%d+)-(%x+)",
         5,
         "npc",
     },
     ["GameObject"] = {
-        "(%d+):(%d+):(%d+):(%d+):(%d+):(%x+)",
+        "(%d+)-(%d+)-(%d+)-(%d+)-(%d+)-(%x+)",
         5,
         "object",
     },
     ["Item"] = {
-        "(%d+):(%d+):(%x+)",
+        "(%d+)-(%d+)-(%x+)",
         2,
         "item",
     }
@@ -4268,7 +4293,7 @@ end
 
 function wlReset()
 	wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = WL_VERSION, 0, "", "", {};
-	wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability = {}, {}, {}, {}, {}, {}, {};
+	wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability, wlItemBonuses = {}, {}, {}, {}, {}, {}, {}, {};
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
