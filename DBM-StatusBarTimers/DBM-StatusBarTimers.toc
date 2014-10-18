@@ -1,5 +1,5 @@
-﻿## Interface: 50400
-## X-Min-Interface: 50001
+﻿## Interface: 60000
+## X-Min-Interface: 60000
 ## Title:|cffffd200DBM|r |cff69ccf0Status Bar Timers|r
 ## Title-koKR:|cffffd200DBM|r |cff69ccf0상태 바|r
 ## Title-zhTW:|cffffd200DBM|r |cff69ccf0狀態條計時器|r
@@ -12,7 +12,7 @@
 ## LoadOnDemand: 0
 ## DefaultState: enabled
 ## X-Website: http://www.deadlybossmods.com
-## X-Curse-Packaged-Version: 5.4.19
+## X-Curse-Packaged-Version: 6.0.2
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline
