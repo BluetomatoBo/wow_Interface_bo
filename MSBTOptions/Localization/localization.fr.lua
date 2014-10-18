@@ -24,6 +24,7 @@ L.MSG_INVALID_CUSTOM_FONT_NAME		= "Nom de Police incorrect."
 L.MSG_FONT_NAME_ALREADY_EXISTS		= "Le nom de la Police existe déjà."
 L.MSG_INVALID_CUSTOM_FONT_PATH		= "Le chemin de la Police doit pointé vers un fichier .ttf."
 --L.MSG_UNABLE_TO_SET_FONT			= "Unable to set specified font." 
+--L.MSG_TESTING_FONT			= "Testing the specified font for validity..."
 L.MSG_CUSTOM_SOUNDS					= "Sons Personnalisés"
 L.MSG_INVALID_CUSTOM_SOUND_NAME		= "Nom du Son incorrect."
 L.MSG_SOUND_NAME_ALREADY_EXISTS		= "Le nom du son existe déjà."
@@ -35,7 +36,7 @@ L.MSG_SCROLL_AREA_ALREADY_EXISTS	= "Une zone de défilement portant ce nom exist
 L.MSG_INVALID_SCROLL_AREA_NAME		= "Nom de zone de défilement invalide."
 L.MSG_ACKNOWLEDGE_TEXT				= "Etes-vous certain de vouloir effectuer cette action?"
 L.MSG_NORMAL_PREVIEW_TEXT			= "Normal"
-L.MSG_INVALID_SOUND_FILE			= "Le fichier son doit être au format .mp3 ou .ogg."
+L.MSG_INVALID_SOUND_FILE			= "Le fichier son doit être au format .ogg."
 L.MSG_NEW_TRIGGER					= "Nouveau déclencheur"
 L.MSG_TRIGGER_CLASSES				= "Classes du déclencheur"
 L.MSG_MAIN_EVENTS					= "Evènements principaux"
@@ -211,7 +212,7 @@ obj = L.EDITBOXES
 obj["customFontName"]	= { label="Nom de la Police:", tooltip="Le nom utilisé pour identifier la police.\n\nExemple: Ma Super Police"}
 obj["customFontPath"]	= { label="Chemin de la police:", tooltip="Le chemin du fichier de la police.\n\nNOTE: Si le fichier est situé dans le répertoire recommandé MikScrollingBattleText\\Fonts, seul le nom de fichier doit être entré ici, au lieu du chemin complet.\n\nExemple: maPolice.ttf"}
 obj["customSoundName"]	= { label="Nom du Son:", tooltip="Le nom utilisé pour identifier le son.\n\nExemple: Mon Son"}
-obj["customSoundPath"]	= { label="Chemin du Son:", tooltip="Le chemin qui pointe vers le fichier du son.\n\nNOTE: Si le fichier est situé dans le répertoire rcommandé MikScrollingBattleText\\Sounds, seul le nom de fichier doit être entré ici, au lieu du chemin complet.\n\nExemple: monSon.mp3"}
+obj["customSoundPath"]	= { label="Chemin du Son:", tooltip="Le chemin qui pointe vers le fichier du son.\n\nNOTE: Si le fichier est situé dans le répertoire rcommandé MikScrollingBattleText\\Sounds, seul le nom de fichier doit être entré ici, au lieu du chemin complet.\n\nExemple: monSon.ogg"}
 obj["copyProfile"]		= { label="Nom du nouveau profil:", tooltip="Nom du nouveau profil vers lequel copier le profil courant."}
 --obj["partialEffect"]	= { tooltip="The trailer that will be appended when the partial effect occurs."}
 obj["scrollAreaName"]	= { label="Nouveau nom pour la zone de défilement:", tooltip="Nouveau nom pour la zone de défilement."}

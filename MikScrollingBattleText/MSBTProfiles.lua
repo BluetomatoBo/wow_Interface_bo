@@ -56,13 +56,10 @@ local SPELLID_HAMMER_OF_WRATH	= 24275
 local SPELLID_KILL_SHOT		= 53351
 local SPELLID_LAVA_SURGE		= 77762
 local SPELLID_REVENGE			= 6572
-local SPELLID_RUNE_STRIKE		= 56815
-local SPELLID_OVERPOWER		= 7384
 local SPELLID_VICTORY_RUSH		= 34428
 local SPELLID_SHADOW_ORB		= 77487
 
 -- Trigger spell names.
-local SPELL_BACKLASH				= GetSkillName(34936)
 local SPELL_BERSERK				= GetSkillName(SPELLID_BERSERK)
 local SPELL_BLINDSIDE				= GetSkillName(121153)
 local SPELL_BLOODSURGE				= GetSkillName(46916)
@@ -70,8 +67,6 @@ local SPELL_BRAIN_FREEZE			= GetSkillName(44549)
 local SPELL_BF_FIREBALL			= GetSkillName(57761)
 local SPELL_CLEARCASTING			= GetSkillName(16870)
 local SPELL_DECIMATION				= GetSkillName(108869)
-local SPELL_ECLIPSE_SOLAR			= GetSkillName(48517)
-local SPELL_ECLIPSE_LUNAR			= GetSkillName(48518)
 local SPELL_ELUSIVE_BREW			= GetSkillName(128939)
 local SPELL_EXECUTE				= GetSkillName(SPELLID_EXECUTE)
 local SPELL_FINGERS_OF_FROST		= GetSkillName(112965)
@@ -80,20 +75,16 @@ local SPELL_HAMMER_OF_WRATH		= GetSkillName(SPELLID_HAMMER_OF_WRATH)
 local SPELL_KILL_SHOT				= GetSkillName(SPELLID_KILL_SHOT)
 local SPELL_KILLING_MACHINE		= GetSkillName(51124)
 local SPELL_LAVA_SURGE				= GetSkillName(SPELLID_LAVA_SURGE)
-local SPELL_LOCK_AND_LOAD			= GetSkillName(56453)
+local SPELL_LOCK_AND_LOAD			= GetSkillName(168980)
 local SPELL_MAELSTROM_WEAPON		= GetSkillName(53817)
 local SPELL_MANA_TEA				= GetSkillName(115867)
 local SPELL_MISSILE_BARRAGE		= GetSkillName(62401)
 local SPELL_MOLTEN_CORE			= GetSkillName(122351)
 local SPELL_NIGHTFALL				= GetSkillName(108558)
-local SPELL_OWLKIN_FRENZY			= GetSkillName(48391)
-local SPELL_POWER_GUARD			= GetSkillName(118636)
 local SPELL_PREDATORS_SWIFTNESS	= GetSkillName(69369)
 local SPELL_PVP_TRINKET			= GetSkillName(42292)
 local SPELL_REVENGE				= GetSkillName(SPELLID_REVENGE)
 local SPELL_RIME 					= GetSkillName(59057)
-local SPELL_RUNE_STRIKE			= GetSkillName(SPELLID_RUNE_STRIKE)
-local SPELL_OVERPOWER				= GetSkillName(SPELLID_OVERPOWER)
 local SPELL_SHADOW_TRANCE			= GetSkillName(17941)
 local SPELL_SHIELD_SLAM			= GetSkillName(23922)
 local SPELL_SHADOW_INFUSION		= GetSkillName(91342)
@@ -1162,16 +1153,6 @@ local masterProfile = {
  
  -- Default trigger settings.
  triggers = {
-  MSBT_TRIGGER_BACKLASH = {
-   colorR			= 0.709,
-   colorG			= 0,
-   colorB			= 0.709,
-   message			= SPELL_BACKLASH .. "!",
-   alwaysSticky		= true,
-   fontSize			= 26,
-   classes			= "WARLOCK",
-   mainEvents		= "SPELL_AURA_APPLIED{skillName;;eq;;" .. SPELL_BACKLASH .. ";;recipientAffiliation;;eq;;" .. FLAG_YOU .. "}",
-  },
   MSBT_TRIGGER_BERSERK = {
    colorG			= 0.25,
    colorB			= 0.25,
@@ -1226,23 +1207,6 @@ local masterProfile = {
    fontSize			= 26,
    classes			= "WARLOCK",
    mainEvents		= "SPELL_AURA_APPLIED{skillName;;eq;;" .. SPELL_DECIMATION .. ";;recipientAffiliation;;eq;;" .. FLAG_YOU .. "}",
-  },
-  MSBT_TRIGGER_ECLIPSE_SOLAR = {
-   colorG			= 0.725,
-   message			= SPELL_ECLIPSE_SOLAR .. "!",
-   alwaysSticky		= true,
-   fontSize			= 26,
-   classes			= "DRUID",
-   mainEvents		= "SPELL_AURA_APPLIED{skillName;;eq;;" .. SPELL_ECLIPSE_SOLAR .. ";;recipientAffiliation;;eq;;" .. FLAG_YOU .. "}",
-  },
-  MSBT_TRIGGER_ECLIPSE_LUNAR = {
-   colorR			= 0.5,
-   colorB			= 0.5,
-   message			= SPELL_ECLIPSE_LUNAR .. "!",
-   alwaysSticky		= true,
-   fontSize			= 26,
-   classes			= "DRUID",
-   mainEvents		= "SPELL_AURA_APPLIED{skillName;;eq;;" .. SPELL_ECLIPSE_LUNAR .. ";;recipientAffiliation;;eq;;" .. FLAG_YOU .. "}",
   },
   MSBT_TRIGGER_ELUSIVE_BREW = {
    colorB			= 0,
@@ -1399,25 +1363,6 @@ local masterProfile = {
    classes			= "WARLOCK",
    mainEvents		= "SPELL_AURA_APPLIED{skillName;;eq;;" .. SPELL_SHADOW_TRANCE .. ";;recipientAffiliation;;eq;;" .. FLAG_YOU .. "}",
   },
-  MSBT_TRIGGER_OVERPOWER = {
-   colorB			= 0,
-   message			= SPELL_OVERPOWER .. "!",
-   alwaysSticky		= true,
-   fontSize			= 26,
-   classes			= "WARRIOR",
-   mainEvents		= "GENERIC_MISSED{sourceAffiliation;;eq;;" .. FLAG_YOU .. ";;missType;;eq;;DODGE}",
-   exceptions		= "unavailableSkill;;eq;;" .. SPELL_OVERPOWER,
-   iconSkill		= SPELLID_OVERPOWER,
-  },
-  MSBT_TRIGGER_POWER_GUARD = {
-   colorR			= 0.5,
-   colorB			= 0.5,
-   message			= SPELL_POWER_GUARD .. " x3!",
-   alwaysSticky		= true,
-   fontSize			= 26,
-   classes			= "MONK",
-   mainEvents		= "SPELL_AURA_APPLIED{skillName;;eq;;" .. SPELL_POWER_GUARD .. ";;amount;;eq;;3;;recipientAffiliation;;eq;;" .. FLAG_YOU .. "}",
-  },
   MSBT_TRIGGER_PVP_TRINKET = {
    colorB			= 0,
    message			= SPELL_PVP_TRINKET .. "! (%r)",
@@ -1425,16 +1370,6 @@ local masterProfile = {
    fontSize			= 26,
    mainEvents		= "SPELL_AURA_APPLIED{skillName;;eq;;" .. SPELL_PVP_TRINKET .. ";;recipientReaction;;eq;;" .. REACTION_HOSTILE .. "}",
    exceptions		= "zoneType;;ne;;arena",
-  },
-  MSBT_TRIGGER_OWLKIN_FRENZY = {
-   colorR			= 0.627,
-   colorG			= 0.5,
-   colorB			= 0,
-   message			= SPELL_OWLKIN_FRENZY .. "!",
-   alwaysSticky		= true,
-   fontSize			= 26,
-   classes			= "DRUID",
-   mainEvents		= "SPELL_AURA_APPLIED{skillName;;eq;;" .. SPELL_OWLKIN_FRENZY .. ";;recipientAffiliation;;eq;;" .. FLAG_YOU .. "}",
   },
   MSBT_TRIGGER_PREDATORS_SWIFTNESS = {
    colorR			= 0.5,
@@ -1463,17 +1398,6 @@ local masterProfile = {
    fontSize			= 26,
    classes			= "DEATHKNIGHT",
    mainEvents		= "SPELL_AURA_APPLIED{skillName;;eq;;" .. SPELL_FREEZING_FOG .. ";;recipientAffiliation;;eq;;" .. FLAG_YOU .. "}",
-  },
-  MSBT_TRIGGER_RUNE_STRIKE = {
-   colorG			= 0.25,
-   colorB			= 0.25,
-   message			= SPELL_RUNE_STRIKE .. "!",
-   alwaysSticky		= true,
-   fontSize			= 26,
-   classes			= "DEATHKNIGHT",
-   mainEvents		= "GENERIC_MISSED{recipientAffiliation;;eq;;" .. FLAG_YOU .. ";;missType;;eq;;DODGE}&&GENERIC_MISSED{recipientAffiliation;;eq;;" .. FLAG_YOU .. ";;missType;;eq;;PARRY}",
-   exceptions		= "unavailableSkill;;eq;;" .. SPELL_RUNE_STRIKE .. ";;recentlyFired;;lt;;5",
-   iconSkill		= SPELLID_RUNE_STRIKE,
   },
   MSBT_TRIGGER_SHADOW_INFUSION = {
    colorR			= 0.709,
@@ -1659,7 +1583,7 @@ local masterProfile = {
 
  -- Loot settings.
  qualityExclusions		= {
-  [ITEM_QUALITY_POOR] = true,
+  [LE_ITEM_QUALITY_POOR] = true,
  },
  alwaysShowQuestItems	= true,
  itemsAllowed			= {},
@@ -1692,6 +1616,7 @@ local function ShowOptions()
  -- Display the main frame if the options module is loaded.
  if (IsAddOnLoaded(optionsName)) then MSBTOptions.Main.ShowMainFrame() end
 end
+
 
 -- ****************************************************************************
 -- Recursively removes empty tables and their differential map entries.
@@ -1849,7 +1774,6 @@ local function DisableBlizzardCombatText()
 end
 
 
-
 -- ****************************************************************************
 -- Set the user disabled option
 -- ****************************************************************************
@@ -1896,6 +1820,46 @@ local function UpdateCustomClassColors()
  end
 end
 
+-- ****************************************************************************
+-- Searches through current profile for all used fonts and uses the animation
+-- module to preload each font so they're available for use.
+-- ****************************************************************************
+local function LoadUsedFonts()
+  -- Add the normal and crit master font.
+  local usedFonts = {}
+  if currentProfile.normalFontName then usedFonts[currentProfile.normalFontName] = true end
+  if currentProfile.critFontName then usedFonts[currentProfile.critFontName] = true end
+
+  -- Add any unique fonts used in the scroll areas.
+  if currentProfile.scrollAreas then
+   for saKey, saSettings in pairs(currentProfile.scrollAreas) do
+    if saSettings.normalFontName then usedFonts[saSettings.normalFontName] = true end
+    if saSettings.critFontName then usedFonts[saSettings.critFontName] = true end
+   end
+  end
+
+  -- Add any unique fonts used in the events.
+  if currentProfile.events then
+   for eventName, eventSettings in pairs(currentProfile.events) do
+    if eventSettings.fontName then usedFonts[eventSettings.fontName] = true end
+   end
+  end
+
+  -- Add any unique fonts used in the triggers.
+  if currentProfile.triggers then
+   for triggerName, triggerSettings in pairs(currentProfile.triggers) do
+    if type(triggerSettings) == "table" then
+     if triggerSettings.fontName then usedFonts[triggerSettings.fontName] = true end
+    end
+   end
+  end
+ 
+  -- Let the animation system preload the fonts.
+  for fontName in pairs(usedFonts) do MikSBT.Animations.LoadFont(fontName) end
+end
+
+
+
 
 -------------------------------------------------------------------------------
 -- Profile functions.
@@ -1931,13 +1895,17 @@ local function SelectProfile(profileName)
   -- Set the current profile pointer.
   currentProfile = savedVariables.profiles[profileName]
   module.currentProfile = currentProfile
-  
+
   -- Clear the differential table map.
   EraseTable(differentialMap)
- 
+
   -- Associate the current profile tables with the corresponding master profile entries.
   AssociateDifferentialTables(currentProfile, masterProfile)
- 
+
+  -- Load the fonts used by the profile now so they are available by the time
+  -- the first text is shown.
+  LoadUsedFonts()
+
   -- Update the scroll areas and triggers with the current profile settings. 
   MikSBT.Animations.UpdateScrollAreas()
   MikSBT.Triggers.UpdateTriggers()
@@ -2231,7 +2199,10 @@ end
 -------------------------------------------------------------------------------
 
 -- Create a frame to receive events.
-eventFrame = CreateFrame("Frame")
+eventFrame = CreateFrame("Frame", "MSBTProfileFrame", UIParent)
+eventFrame:SetPoint("BOTTOM")
+eventFrame:SetWidth(0.0001)
+eventFrame:SetHeight(0.0001)
 eventFrame:Hide()
 eventFrame:SetScript("OnEvent", OnEvent)
 
