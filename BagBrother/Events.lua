@@ -18,12 +18,13 @@ This file is part of BagBrother.
 local EquipmentSlots = INVSLOT_LAST_EQUIPPED
 local BagSlots = NUM_BAG_SLOTS
 local BankSlots = NUM_BANKBAGSLOTS
-local VaultSlots = 80
+local VaultSlots = 80 * 2
 
 local FirstBankSlot = 1 + BagSlots
 local LastBankSlot = BankSlots + BagSlots
 local Backpack = BACKPACK_CONTAINER
 local Bank = BANK_CONTAINER
+local Reagents = REAGENTBANK_CONTAINER
 
 
 --[[ Continuous Events ]]--
@@ -61,6 +62,10 @@ function BagBrother:BANKFRAME_CLOSED()
 			self:SaveBag(i)
 		end
 
+		if IsReagentBankUnlocked() then
+			self:SaveBag(Reagents, true)
+		end
+
 		self:SaveBag(Bank, true)
 		self.atBank = nil
 	end
@@ -79,7 +84,7 @@ function BagBrother:VOID_STORAGE_CLOSE()
 		self.atVault = nil
 
 		for i = 1, VaultSlots do
-			local id = GetVoidItemInfo(i)
+			local id = GetVoidItemInfo(1, i)
     		self.Player.vault[i] = id and tostring(id) or nil
   		end
   	end

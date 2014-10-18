@@ -41,8 +41,7 @@ function Addon:CreateOptionsLoader()
 end
 
 function Addon:CreateFrameLoader (addon, method)
-	local name, title, notes, enabled, loadable = GetAddOnInfo(addon)
-	if enabled and loadable then
+	if GetAddOnEnableState(UnitName('player'), addon) >= 2 then
 		_G[method] = function()
 			LoadAddOn(addon)
 		end

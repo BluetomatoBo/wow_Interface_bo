@@ -66,6 +66,7 @@ function SavedSettings:GetDefaultSettings()
 		highlightItemsByQuality = true,
 		highlightQuestItems = true,
 		highlightSetItems = true,
+		allowDisableBags = true,
 		showEmptyItemSlotTexture = true,
 		lockFramePositions = false,
 		colorBagSlots = true,
@@ -104,6 +105,7 @@ function SavedSettings:GetDefaultSettings()
 			gem = {1, .65, .98},
 			mine = {1, .81, .38},
 			herb = {.5, 1, .5},
+			reagent = {1, .87, .68},
 			normal = {1, 1, 1},
 		},
 		
@@ -119,12 +121,8 @@ end
 
 
 function SavedSettings:CreateNewDB()
-	local db = {
-		version = self:GetAddOnVersion()
-	}
-	
-	_G['BagnonGlobalSettings'] = db
-	return db
+	BagnonGlobalSettings = {version = self:GetAddOnVersion()}
+	return BagnonGlobalSettings
 end
 
 function SavedSettings:UpgradeDB()

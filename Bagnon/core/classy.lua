@@ -8,6 +8,7 @@ local _, Addon = ...
 function Addon:NewClass(name, type, parent)
 	local class = CreateFrame(type)
 	class.mt = {__index = class}
+	class.Name = name
   	class:Hide()
   
 	if parent then
@@ -20,19 +21,19 @@ function Addon:NewClass(name, type, parent)
 	end
 	
 	class.RegisterMessage = function(self, ...)
-		Bagnon.RegisterCallback(self, ...)
+		Addon.RegisterCallback(self, ...)
 	end
 	
 	class.SendMessage = function(self, ...)
-		Bagnon:SendCallback(...)
+		Addon:SendCallback(...)
 	end
 	
 	class.UnregisterMessage = function(self, ...)
-		Bagnon.UnregisterCallback(self, ...)
+		Addon.UnregisterCallback(self, ...)
 	end
 	
 	class.UnregisterAllMessages = function(self)
-		Bagnon.UnregisterAllCallbacks(self)
+		Addon.UnregisterAllCallbacks(self)
 	end
 
 	self[name] = class
