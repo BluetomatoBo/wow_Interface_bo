@@ -1,1 +1,0 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">	<Script file='functions.lua'/>	<Script file='raidcooldown.lua'/>	<Script file='options.lua'/></Ui> 
