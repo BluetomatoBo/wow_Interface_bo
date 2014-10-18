@@ -15,15 +15,14 @@ local debug = Engine.AddOn:GetModule("debug");
 --get locale
 local L = Engine.Locale;
 
---not in use	
-function mod.OnEvent(self, event)
+-- not in use
+function mod.OnEvent()
 
 end
 
---updata the datatext
+--updata the Tukui datatext using our generic module
 function mod.OnUpdate(self, t)	
-	mod.datatext:UpdateText(self.text,t);
-	self:SetAllPoints(self.text);
+	mod.datatext:UpdateText(self.Text,t);
 end
 
 --button click on the datatext, is always locked so left click toggle, right config
@@ -35,27 +34,26 @@ function mod.OnClick(self,button)
 	end
 end
 
-
 --mouse enter in the datatext
 function mod.OnEnter(self)
-
-	--get Tukui
-	local T, C, _, G = unpack(_G.Tukui);
 	
 	local tooltip = nil;
-	
+		
 	if not Engine.Profile.overlay.elvtukoverride then
 		--get tooltip from Tukui
-		tooltip = GameTooltip;				
+		tooltip = GameTooltip;	
+	
 	else
 		--get our tooltip
-		tooltip = mod.datatext.tooltip;		
+		tooltip = mod.datatext.tooltip;
+
 	end
+
+	--anchor to tukui datatext panel
+	local Panel, Anchor, xOff, yOff = self:GetTooltipAnchor()
+	tooltip:SetOwner(Panel, Anchor, xOff, yOff)		
 	
-	--get the anchor
-	local anchor, panel, xoff, yoff = T.DataTextTooltipAnchor(self.text);
-	tooltip:SetOwner(panel, anchor, xoff, yoff);
-				
+	--get text from generic module
 	mod.datatext:OnEnter(self,tooltip);
 	
 	--if we need to add the tip to the overlay
@@ -64,12 +62,14 @@ function mod.OnEnter(self)
 		tooltip:AddLine(L["TIP_LOCK"]);
 	end
 	
+	--if we have our own tooltip format it
 	if Engine.Profile.overlay.elvtukoverride then	
 		--format the tooltip
 		mod.datatext:FormatTooltip(tooltip);	
-	end	
-	--show the tooltip	
-	tooltip:Show();
+	end
+	
+	--show the overlay
+	tooltip:Show();	
 	
 end
 
@@ -80,7 +80,7 @@ function mod.OnLeave(self)
 	
 	if not Engine.Profile.overlay.elvtukoverride then
 		--get tooltip from Tukui
-		tooltip = GameTooltip;				
+		tooltip = GameTooltip;	
 	else
 		--get our tooltip
 		tooltip = mod.datatext.tooltip;		
@@ -88,95 +88,46 @@ function mod.OnLeave(self)
 	
 	mod.datatext:OnLeave(self,tooltip);
 	
-end	
-
---restore our values from TukUI config saved vars
-function mod:RestoreTukuiConfig(C)
-
-	--default value
-	C["datatext"].cecilemeteroverlay = 0;
-	
-	--add our localization to the one use in TukUI config
-	TukuiConfigUILocalization.datatextcecilemeteroverlay = L["TUKUI_CONFIG"];
-	
-	--get our player name and realm
-	local myPlayerRealm = GetCVar("realmName");
-	local myPlayerName  = UnitName("player");
-
-	--if we do not have data yet, init
-	if not _G.TukuiConfigAll then _G.TukuiConfigAll = {} end
-
-	--get the saved vars
-	local tca = _G.TukuiConfigAll;
-	local private = _G.TukuiConfigPrivate;
-	local public = _G.TukuiConfigPublic;
-	
-	--init data
-	if not tca[myPlayerRealm] then tca[myPlayerRealm] = {}; end
-	if not tca[myPlayerRealm][myPlayerName] then tca[myPlayerRealm][myPlayerName] = false; end
-
-	if tca[myPlayerRealm][myPlayerName] == true and not private then return; end
-	if tca[myPlayerRealm][myPlayerName] == false and not public then return; end
-
-	--private or public
-	local setting;
-	if tca[myPlayerRealm][myPlayerName] == true then
-		setting = private;
-	else
-		setting = public;
-	end 
-	
-	--copy the value from saved var to the config
-	if(setting["datatext"].cecilemeteroverlay) then
-		C["datatext"].cecilemeteroverlay = setting["datatext"].cecilemeteroverlay;
-	end
 end
+
 
 
 --initialize module registering in Tukui the datatext
 function mod:OnInitialize()	
-	
-	--get Tukui
-	local T, C, _, G = unpack(_G.Tukui);
-	
-	--restore the config
-	mod:RestoreTukuiConfig(C);
-	
-	--if we have the datatext active
-	if C["datatext"].cecilemeteroverlay and C["datatext"].cecilemeteroverlay > 0 then
 		
-		--create the panel
-		local Stat = CreateFrame("Frame", "TukuiCecile_MeterOverlay");
+	--get Tukui datatext module
+	local T, C = Tukui:unpack();
 	
-		Stat:EnableMouse(true);
-		Stat:SetFrameStrata("BACKGROUND");
-		Stat:SetFrameLevel(3);
-		Stat.Option = C.datatext.cecilemeteroverlay;
-		Stat.Color1 = T.RGBToHex(unpack(C.media.datatextcolor1));
-		Stat.Color2 = T.RGBToHex(unpack(C.media.datatextcolor2))
-		G.DataText.cecilemeteroverlay = Stat;
-		
-		--create the text
-		local Text  = Stat:CreateFontString("TukuiCecile_MeterOverlayText", "OVERLAY");
-		Text:SetFont(C.media.font, C["datatext"].fontsize);
-		T.DataTextPosition(C["datatext"].cecilemeteroverlay, Text);
-		G.DataText.cecilemeteroverlay.Text = Text;
-		mod.text = Text;
-		Stat.text = Text;
-		
-		--set the scripts
-		Stat:SetScript("OnUpdate", mod.OnUpdate)
-		Stat:SetScript("OnMouseUp", mod.OnClick)
-		Stat:SetScript("OnEnter", mod.OnEnter)
-		Stat:SetScript("OnLeave", mod.OnLeave)
-		Stat:SetScript("OnEvent", mod.OnEvent)
-		
-		--store our generic datatext module
-		mod.datatext = Engine.AddOn:GetModule("datatext");
+	mod.TukDT = T['DataTexts'];
 	
-		debug("Tukui DataText registered");	
-		
+	--store our generic datatext module
+	mod.datatext = Engine.AddOn:GetModule("datatext");	
+	
+	-- enable datatext
+	local OnEnable = function(self)
+
+		self:RegisterEvent('PLAYER_ENTERING_WORLD');
+		self:SetScript('OnUpdate', mod.OnUpdate);
+		self:SetScript('OnMouseDown', mod.OnClick);
+		self:SetScript('OnEnter', mod.OnEnter);
+		self:SetScript('OnLeave', mod.OnLeave);
+		self:Update();
+
 	end
-		
+
+	-- disable datatext
+	local OnDisable = function(self)
+
+		self.Text:SetText('');
+		self:SetScript('OnEvent', nil);
+		self:UnregisterAllEvents();
+
+	end		
+
+	
+	--register in Tukui
+	mod.TukDT:Register(L["CONFIG_NAME"],  OnEnable, OnDisable, OnUpdate);
+	
+	debug("Tukui DataText registered");	
 	
 end
