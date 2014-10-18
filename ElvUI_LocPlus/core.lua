@@ -29,29 +29,39 @@ local right_dtp = CreateFrame('Frame', 'RightCoordDtPanel', E.UIParent)
 local COORDS_WIDTH = 30 -- Coord panels width
 local classColor = RAID_CLASS_COLORS[E.myclass] -- for text coloring
 
+local format = string.format
+
 -----------------
 -- Currency Table
 -----------------
--- Add below the currency you wish to track { id, total cap }. 
--- Find the currency ids and the total caps here: http://www.wowhead.com/currencies .
+-- Add below the currency id you wish to track. 
+-- Find the currency ids: http://www.wowhead.com/currencies .
 -- Click on the wanted currency and in the address you will see the id.
 -- e.g. for Bloody Coin, you will see http://www.wowhead.com/currency=789 . 789 is the id.
--- So, on this case, add { 789, 0 }, (don't forget the comma).
--- If there is no cap, type 0.
+-- So, on this case, add 789, (don't forget the comma).
 -- If there are 0 earned points, the currency will be filtered out.
 
-local Tokens = {}
 local currency = {
-	{ 395, 4000 },	-- Justice Points
-	{ 396, 3000 },	-- Valor Points
-	{ 777, 0},		-- Timeless Coins
-	{ 697, 20 },	-- Elder Charm of Good Fortune
-	{ 738, 0 },		-- Lesser Charm of Good Fortune
-	{ 390, 10200 },	-- Conquest Points
-	{ 392, 4000 },	-- Honor Points
-	--{ 515, 0 },	-- Darkmoon Prize Ticket
-	--{ 402, 0 },	-- Ironpaw Token
-	{ 776, 10 },	-- Warforged Seal
+	395,	-- Justice Points
+	396,	-- Valor Points
+	777,	-- Timeless Coins
+	697,	-- Elder Charm of Good Fortune
+	738,	-- Lesser Charm of Good Fortune
+	390,	-- Conquest Points
+	392,	-- Honor Points
+	--515,	-- Darkmoon Prize Ticket
+	--402,	-- Ironpaw Token
+	776,	-- Warforged Seal
+	
+	-- WoD
+	821,	-- Draenor Clans Archaeology Fragment
+	828,	-- Ogre Archaeology Fragment
+	829,	-- Arakkoa Archaeology Fragment
+	824,	-- Garrison Resources
+	823,	-- Apexis Crystal (for gear, like the valors)
+	994,	-- Seal of Tempered Fate (Raid loot roll)
+	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
+	944,	-- Artifact Fragment (PvP)
 }
 ------------------------
 -- end of Currency Table
@@ -72,6 +82,8 @@ do
 	P.datatexts.panels.RightCoordDtPanel = 'Time'
 	P.datatexts.panels.LeftCoordDtPanel = 'Durability'
 end
+
+local SPACING = 1
 
 -- Status
 local function GetStatus(color)
@@ -324,7 +336,7 @@ local function GetLevelRange(zoneText, ontt)
 	return dlevel or ""
 end
 
-function LPB:UpdateTooltip()
+local function UpdateTooltip()
 	
 	local mapID = GetCurrentMapAreaID()
 	local zoneText = GetMapNameByID(mapID) or UNKNOWN;
@@ -405,24 +417,30 @@ function LPB:UpdateTooltip()
 	local numEntries = GetCurrencyListSize() -- Check for entries to disable the tooltip title when no currency
 	if E.db.locplus.curr and numEntries > 3 then
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(CURRENCY.." :", selectioncolor)
+		GameTooltip:AddLine(TOKENS.." :", selectioncolor)
 
-		for i, v in ipairs(currency) do
-			local id, max = unpack(v)
-			local name, amount, icon = GetCurrencyInfo(id)
+		for i, id in ipairs(currency) do
+			local name, amount, icon, _, _, totalMax, isDiscovered = GetCurrencyInfo(id)
 			icon = ("|T%s:12:12:1:0|t"):format(icon)
 			if(name and amount > 0) then
-				if max == 0 then
+				-- max fix
+				if id == 392 or id == 395 then
+					totalMax = 4000
+				elseif id == 396 then
+					totalMax = 3000
+				end
+				
+				if totalMax == 0 then
 					GameTooltip:AddDoubleLine(icon..format(" %s : ", name), format("%s", amount ), 1, 1, 1, selectioncolor)
 				else
-					GameTooltip:AddDoubleLine(icon..format(" %s : ", name), format("%s / %s", amount, max ), 1, 1, 1, selectioncolor)
+					GameTooltip:AddDoubleLine(icon..format(" %s : ", name), format("%s / %s", amount, totalMax ), 1, 1, 1, selectioncolor)
 				end
 			end
 		end
 	end
 
 	-- Professions
-	local capRank = 600
+	local capRank = 700
 	local prof1, prof2, archy, fishing, cooking, firstAid = GetProfessions()
 	if E.db.locplus.prof and (prof1 or prof2 or archy or fishing or cooking or firstAid) then	
 		GameTooltip:AddLine(" ")
@@ -467,7 +485,7 @@ local function LocPanel_OnEnter(self,...)
 	if InCombatLockdown() and E.db.locplus.ttcombathide then
 		GameTooltip:Hide()
 	else
-		LPB:UpdateTooltip()
+		UpdateTooltip()
 	end
 	
 	if E.db.locplus.mouseover then
@@ -489,7 +507,7 @@ local function LocPanelOnFade()
 end
 
 -- Coords Creation
-function LPB:CreateCoords()
+local function CreateCoords()
 	local x, y = GetPlayerMapPosition("player")
 	local dig
 	
@@ -511,7 +529,7 @@ local function LocPanel_OnClick(self, btn)
 	if btn == "LeftButton" then	
 		if IsShiftKeyDown() then
 			local edit_box = ChatEdit_ChooseBoxForSend()
-			local x, y = LPB:CreateCoords()
+			local x, y = CreateCoords()
 			local message
 			local coords = x..", "..y
 				if zoneText ~= GetSubZoneText() then
@@ -544,10 +562,10 @@ local function unpackColor(color)
 end
 
 -- Location panel
-function LPB:CreateLocPanel()
+local function CreateLocPanel()
 	local loc_panel = CreateFrame('Frame', 'LocationPlusPanel', E.UIParent)
 	loc_panel:Width(E.db.locplus.lpwidth)
-	loc_panel:SetHeight(E.db.locplus.dtheight)
+	loc_panel:Height(E.db.locplus.dtheight)
 	loc_panel:Point('TOP', E.UIParent, 'TOP', 0, -E.mult -22)
 	loc_panel:SetFrameStrata('LOW')
 	loc_panel:EnableMouse(true)
@@ -611,23 +629,23 @@ end
 
 -- datatext panels width
 function LPB:DTWidth()
-	LeftCoordDtPanel:SetWidth(E.db.locplus.dtwidth)
-	RightCoordDtPanel:SetWidth(E.db.locplus.dtwidth)
+	LeftCoordDtPanel:Width(E.db.locplus.dtwidth)
+	RightCoordDtPanel:Width(E.db.locplus.dtwidth)
 end
 
 -- all panels height
 function LPB:DTHeight()
 	if E.db.locplus.ht then
-		LocationPlusPanel:SetHeight((E.db.locplus.dtheight)+6)
+		LocationPlusPanel:Height((E.db.locplus.dtheight)+6)
 	else
-		LocationPlusPanel:SetHeight(E.db.locplus.dtheight)
+		LocationPlusPanel:Height(E.db.locplus.dtheight)
 	end
 
-	LeftCoordDtPanel:SetHeight(E.db.locplus.dtheight)
-	RightCoordDtPanel:SetHeight(E.db.locplus.dtheight)
+	LeftCoordDtPanel:Height(E.db.locplus.dtheight)
+	RightCoordDtPanel:Height(E.db.locplus.dtheight)
 
-	XCoordsPanel:SetHeight(E.db.locplus.dtheight)
-	YCoordsPanel:SetHeight(E.db.locplus.dtheight)
+	XCoordsPanel:Height(E.db.locplus.dtheight)
+	YCoordsPanel:Height(E.db.locplus.dtheight)
 end
 
 -- Fonts
@@ -662,20 +680,35 @@ function LPB:ShadowPanels()
 			frame.shadow:Hide()
 		end
 	end
-	
-	local SPACING
-	
+
 	if E.db.locplus.shadow then
 		SPACING = 2
 	else
 		SPACING = 1
 	end
-	
+
+	self:HideCoords()
+end
+
+-- Show/Hide coord frames
+function LPB:HideCoords()
 	XCoordsPanel:Point('RIGHT', LocationPlusPanel, 'LEFT', -SPACING, 0)
 	YCoordsPanel:Point('LEFT', LocationPlusPanel, 'RIGHT', SPACING, 0)
-
-	LeftCoordDtPanel:Point('RIGHT', XCoordsPanel, 'LEFT', -SPACING, 0)
-	RightCoordDtPanel:Point('LEFT', YCoordsPanel, 'RIGHT', SPACING, 0)
+	
+	LeftCoordDtPanel:ClearAllPoints()
+	RightCoordDtPanel:ClearAllPoints()
+	
+	if E.db.locplus.hidecoords then
+		XCoordsPanel:Hide()
+		YCoordsPanel:Hide()
+		LeftCoordDtPanel:Point('RIGHT', LocationPlusPanel, 'LEFT', -SPACING, 0)
+		RightCoordDtPanel:Point('LEFT', LocationPlusPanel, 'RIGHT', SPACING, 0)		
+	else
+		XCoordsPanel:Show()
+		YCoordsPanel:Show()
+		LeftCoordDtPanel:Point('RIGHT', XCoordsPanel, 'LEFT', -SPACING, 0)
+		RightCoordDtPanel:Point('LEFT', YCoordsPanel, 'RIGHT', SPACING, 0)			
+	end
 end
 
 -- Toggle transparency
@@ -695,12 +728,12 @@ function LPB:TransparentPanels()
 end
 
 -- Coord panels
-function LPB:CreateCoordPanels()
+local function CreateCoordPanels()
 
 	-- X Coord panel
 	local coordsX = CreateFrame('Frame', "XCoordsPanel", LocationPlusPanel)
 	coordsX:Width(COORDS_WIDTH)
-	coordsX:SetHeight(E.db.locplus.dtheight)
+	coordsX:Height(E.db.locplus.dtheight)
 	coordsX:SetFrameStrata('LOW')
 	coordsX.Text = XCoordsPanel:CreateFontString(nil, "LOW")
 	coordsX.Text:Point("CENTER", 1, 0)
@@ -708,12 +741,12 @@ function LPB:CreateCoordPanels()
 	-- Y Coord panel
 	local coordsY = CreateFrame('Frame', "YCoordsPanel", LocationPlusPanel)
 	coordsY:Width(COORDS_WIDTH)
-	coordsY:SetHeight(E.db.locplus.dtheight)
+	coordsY:Height(E.db.locplus.dtheight)
 	coordsY:SetFrameStrata('LOW')
 	coordsY.Text = YCoordsPanel:CreateFontString(nil, "LOW")
 	coordsY.Text:Point("CENTER", 1, 0)
 
-	self:CoordsColor()
+	LPB:CoordsColor()
 end
 
 function LPB:UpdateLocation()
@@ -770,22 +803,22 @@ function LPB:UpdateLocation()
 	local autowidth = (LocationPlusPanel.Text:GetStringWidth() + 18)
 	
 	if E.db.locplus.lpauto then
-		LocationPlusPanel:SetWidth(autowidth)
-		LocationPlusPanel.Text:SetWidth(autowidth)
+		LocationPlusPanel:Width(autowidth)
+		LocationPlusPanel.Text:Width(autowidth)
 	else
-		LocationPlusPanel:SetWidth(fixedwidth)
+		LocationPlusPanel:Width(fixedwidth)
 		if E.db.locplus.trunc then
-			LocationPlusPanel.Text:SetWidth(fixedwidth - 18)
+			LocationPlusPanel.Text:Width(fixedwidth - 18)
 			LocationPlusPanel.Text:SetWordWrap(false)
 		elseif autowidth > fixedwidth then
-			LocationPlusPanel:SetWidth(autowidth)
-			LocationPlusPanel.Text:SetWidth(autowidth)
+			LocationPlusPanel:Width(autowidth)
+			LocationPlusPanel.Text:Width(autowidth)
 		end
 	end		
 end
 
 function LPB:UpdateCoords()
-	local x, y = LPB:CreateCoords()
+	local x, y = CreateCoords()
 	local xt,yt
 
 	if x == 0 and y == 0 then
@@ -811,11 +844,11 @@ end
 -- Coord panels width
 function LPB:CoordsDigit()
 	if E.db.locplus.dig then
-		XCoordsPanel:SetWidth(COORDS_WIDTH*1.5)
-		YCoordsPanel:SetWidth(COORDS_WIDTH*1.5)
+		XCoordsPanel:Width(COORDS_WIDTH*1.5)
+		YCoordsPanel:Width(COORDS_WIDTH*1.5)
 	else
-		XCoordsPanel:SetWidth(COORDS_WIDTH)
-		YCoordsPanel:SetWidth(COORDS_WIDTH)
+		XCoordsPanel:Width(COORDS_WIDTH)
+		YCoordsPanel:Width(COORDS_WIDTH)
 	end
 end
 
@@ -833,17 +866,17 @@ function LPB:CoordsColor()
 end
 
 -- Datatext panels
-function LPB:CreateDTPanels()
+local function CreateDTPanels()
 
 	-- Left coords Datatext panel
-	left_dtp:SetWidth(E.db.locplus.dtwidth)
-	left_dtp:SetHeight(E.db.locplus.dtheight)
+	left_dtp:Width(E.db.locplus.dtwidth)
+	left_dtp:Height(E.db.locplus.dtheight)
 	left_dtp:SetFrameStrata('LOW')
 	left_dtp:SetParent(LocationPlusPanel)
 
 	-- Right coords Datatext panel
-	right_dtp:SetWidth(E.db.locplus.dtwidth)
-	right_dtp:SetHeight(E.db.locplus.dtheight)
+	right_dtp:Width(E.db.locplus.dtwidth)
+	right_dtp:Height(E.db.locplus.dtheight)
 	right_dtp:SetFrameStrata('LOW')
 	right_dtp:SetParent(LocationPlusPanel)
 end
@@ -856,6 +889,7 @@ function LPB:LocPlusUpdate()
 	HideDT()
 	self:CoordsDigit()
 	self:MouseOver()
+	self:HideCoords()
 end
 
 -- Defaults in case something is wrong on first load
@@ -889,9 +923,9 @@ end)
 
 function LPB:Initialize()
 	self:LocPlusDefaults()
-	self:CreateLocPanel()
-	self:CreateDTPanels()
-	self:CreateCoordPanels()
+	CreateLocPanel()
+	CreateDTPanels()
+	CreateCoordPanels()
 	self:LocPlusUpdate()
 	self:TimerUpdate()
 	self:ScheduleRepeatingTimer('UpdateLocation', 0.5)

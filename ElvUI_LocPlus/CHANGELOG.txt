@@ -1,3 +1,13 @@
+[b]2.01[/b]
+Added option to show/hide the coord frames. (Looks sleek btw, cheers codeblake)
+
+[b]2.00[/b]
+*Updated for WoD. Note: LibTourist needed for the tooltip info is not yet updated for the new areas, so recommended areas, dungeons, level area, etc are not passing any info.
+*Made some functions local
+
+[b]1.88[/b]
+*Minor improvements
+
 [b]1.87[/b]
 *Added a slider in the options so the user can adjust the coords update time, to prevent cpu load. Bigger number -> less cpu load -> slower coords update.
 

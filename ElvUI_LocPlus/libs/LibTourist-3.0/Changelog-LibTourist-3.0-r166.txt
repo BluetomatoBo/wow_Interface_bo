@@ -1,0 +1,16 @@
+------------------------------------------------------------------------
+r166 | Odica | 2014-10-06 17:24:03 +0000 (Mon, 06 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+Fix for ticket 40 to avoid an error in WoD (PTR).
+------------------------------------------------------------------------
+r165 | Odica | 2013-09-11 20:49:05 +0000 (Wed, 11 Sep 2013) | 3 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+   M /trunk/LibTourist-3.0.toc
+
+- updated TOC to 50400
+- added Timeless Isle
+
+------------------------------------------------------------------------

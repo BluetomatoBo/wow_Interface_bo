@@ -1,6 +1,6 @@
 ﻿--[[
 Name: LibTourist-3.0
-Revision: $Rev: 165 $
+Revision: $Rev: 166 $
 Author(s): ckknight (ckknight@gmail.com), Arrowmaster, Odica (maintainer)
 Website: http://ckknight.wowinterface.com/
 Documentation: http://www.wowace.com/addons/libtourist-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibTourist-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 165 $"):match("(%d+)"))
+local MINOR_VERSION = 90000 + tonumber(("$Revision: 166 $"):match("(%d+)"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub") end
 
@@ -6166,7 +6166,39 @@ do
 --------------------------------------------------------------------------------------------------------
 --                                                CORE                                                --
 --------------------------------------------------------------------------------------------------------
-	local continentNames = { GetMapContinents() }
+
+	local WOW = {};
+
+	if ( GetBuildInfo ) then
+		local v, b, d = GetBuildInfo();
+		WOW.build = b;
+		WOW.date = d;
+		local s,e,maj,min,dot = string.find(v, "(%d+).(%d+).(%d+)");
+		WOW.major = tonumber(maj);
+		WOW.minor = tonumber(min);
+		WOW.dot = tonumber(dot);
+	else
+		WOW.major = 1;
+		WOW.minor = 9;
+		WOW.dot = 0;
+	end
+
+	-- Function for backward compatibility with pre-WoD mappping functions
+	local function Remangle(...)
+		if (WOW.major > 5) then
+			t = {}
+			for i=1, select("#", ...), 2 do
+				k = select(i, ...)
+				v = select(i+1, ...)
+				t[#t+1] = v
+			end
+			return t
+		else
+			return { ... }
+		end
+	end
+
+	local continentNames = Remangle(GetMapContinents())
 	local doneZones = {}
 	local zoneIndices = {}
 
@@ -6228,11 +6260,25 @@ do
 			local _, X1, Y1, X2, Y2 = GetCurrentMapZone()
 			zones[continentName].yards = X1 - X2
 			
-			trace("Continent yards for "..tostring(continentName)..": "..tostring(zones[continentName].yards))
+			trace("Tourist: Continent yards for "..tostring(continentName)..": "..tostring(zones[continentName].yards))
 		end
 	end
 	
-		
+	for continentID, continentName in ipairs(continentNames) do
+		if not zones[continentName] then
+			-- Unknown Continent
+			trace("! Tourist: TODO: Add Continent '"..tostring(continentName).."'")
+			local z = {}
+			z.type = zones[BZ["Outland"]].type
+			z.yards = zones[BZ["Outland"]].yards
+			z.x_offset = zones[BZ["Outland"]].x_offset
+			z.y_offset = zones[BZ["Outland"]].y_offset
+			z.continent = continentName
+			
+			zones[continentName] = z
+		end
+	end
+	
 	-- Hack:
 	-- For the zones below, UpdateMapHighlight() does not return name and map data for the city icon on the continent map
 	-- Use hardcoded values as default; will be overwritten once the UpdateMapHighlight bug has been fixed - if ever
@@ -6298,7 +6344,7 @@ do
 	for continentID, continentName in ipairs(continentNames) do
 		SetMapZoom(continentID)
 		
-		local zoneNames = { GetMapZones(continentID) }
+		local zoneNames = Remangle(GetMapZones(continentID))
 		local continentYards = zones[continentName] and zones[continentName].yards or 0
 
 		-- First, build a collection of zone indices (numbers of the zones within a continent)

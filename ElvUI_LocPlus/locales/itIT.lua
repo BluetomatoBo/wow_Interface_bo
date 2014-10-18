@@ -74,3 +74,5 @@ L["Update Timer"] = "Update Timer" -- Requires localization
 L["Use Custom Location Color"] = "Use Custom Location Color" -- Requires localization
 L["with Entrance Coords"] = "with Entrance Coords" -- Requires localization
 L["Zone and Subzone"] = "Zone and Subzone" -- Requires localization
+L["Hide Coords"] = true
+L["Show/Hide the coord frames"] = true

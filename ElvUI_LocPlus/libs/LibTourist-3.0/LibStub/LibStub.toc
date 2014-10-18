@@ -9,9 +9,5 @@
 ## X-Curse-Project-Name: LibStub
 ## X-Curse-Project-ID: libstub
 ## X-Curse-Repository-ID: wow/libstub/mainline
-## X-Curse-Packaged-Version: 1.82
-## X-Curse-Project-Name: ElvUI Location Plus
-## X-Curse-Project-ID: elvui-location-plus
-## X-Curse-Repository-ID: wow/elvui-location-plus/mainline
 
 LibStub.lua
