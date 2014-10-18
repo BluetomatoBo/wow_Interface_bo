@@ -76,22 +76,22 @@ local MAX_ACTIVE_ABILITIES = 3
 local MAX_PET_LEVEL = 25
 
 local PET_EFFECTIVENESS_CHART = {
-  [1] = {4, 5},  -- Humanoid    +Undead      -Critter
-  [2] = {1, 3},  -- Dragon      +Humanoid    -Flying
-  [3] = {6, 8},  -- Flying      +Magical     -Beast
-  [4] = {5, 2},  -- Undead      +Critter     -Dragon
-  [5] = {8, 1},  -- Critter     +Beast       -Humanoid
-  [6] = {2, 9},  -- Magical     +Dragon      -Water
-  [7] = {9, 10}, -- Elemental   +Water       -Mechanical
-  [8] = {10, 1}, -- Beast       +Mechanical  -Humanoid
-  [9] = {3, 4},  -- Water       +Flying      -Undead
-  [10] = {7, 6}, -- Mechanical  +Elemental   -Magical
+	[1] = {4, 5},  -- Humanoid    +Undead      -Critter
+	[2] = {1, 3},  -- Dragon      +Humanoid    -Flying
+	[3] = {6, 8},  -- Flying      +Magical     -Beast
+	[4] = {5, 2},  -- Undead      +Critter     -Dragon
+	[5] = {8, 1},  -- Critter     +Beast       -Humanoid
+	[6] = {2, 9},  -- Magical     +Dragon      -Water
+	[7] = {9, 10}, -- Elemental   +Water       -Mechanical
+	[8] = {10, 1}, -- Beast       +Mechanical  -Humanoid
+	[9] = {3, 4},  -- Water       +Flying      -Undead
+	[10] = {7, 6}, -- Mechanical  +Elemental   -Magical
 }
 
 local InCombatLockdown
 local InProcessingLockdown
 do
-  local _G_InCombatLockdown = _G.InCombatLockdown
+	local _G_InCombatLockdown = _G.InCombatLockdown
 	local combat
 
 	addon:HookScript("OnEvent", function(addon, event, ...)
@@ -120,19 +120,19 @@ do
 			if type(PetJournalParent) == "table" and type(PetJournalParent.GetObjectType) == "function" then
 				isJournalLoaded = 1 -- some addons load the PetJournal before PetBattleTabs can load - leaving it waiting for the PetJournal until the end of days - but no longer!
 			end
-    elseif event == "UPDATE_SUMMONPETS_ACTION" then
-      isEventFound = 1
+		elseif event == "UPDATE_SUMMONPETS_ACTION" then
+			isEventFound = 1
 		end
-    if isCoreLoaded and isJournalLoaded and isEventFound then
-      isCoreLoaded, isJournalLoaded, isEventFound = nil
-      addon:UnregisterEvent("ADDON_LOADED")
-      addon:UnregisterEvent("UPDATE_SUMMONPETS_ACTION")
-      Initialize()
-    end
+		if isCoreLoaded and isJournalLoaded and isEventFound then
+			isCoreLoaded, isJournalLoaded, isEventFound = nil
+			addon:UnregisterEvent("ADDON_LOADED")
+			addon:UnregisterEvent("UPDATE_SUMMONPETS_ACTION")
+			Initialize()
+		end
 	end)
 
 	addon:RegisterEvent("ADDON_LOADED")
-  addon:RegisterEvent("UPDATE_SUMMONPETS_ACTION")
+	addon:RegisterEvent("UPDATE_SUMMONPETS_ACTION")
 end
 
 local function GetStatIconString(i)
@@ -238,36 +238,36 @@ end
 --[[ desperate times call for desperate measures
 local ValidatePetSmartly
 do
-  local MAX_FAILS = 3
-  local CHECK_INTERVAL = 1
-  ValidatePetSmartly = {}
+	local MAX_FAILS = 3
+	local CHECK_INTERVAL = 1
+	ValidatePetSmartly = {}
 
-  function ValidatePetSmartly:Check(petId)
-    if not self[petId] then
-      self[petId] = {time(), 1}
-    end
-    if C_PetJournal_GetPetInfoByPetID(petId) then
-      self[petId] = nil
-      return 1
-    end
-    if self[petId][2] > MAX_FAILS then
-      self[petId] = nil
-      --print("DEBUG", "VPS:C(", petId, ") = FAIL") -- DEBUG
-      return nil
-    end
-    if time() - self[petId][1] > CHECK_INTERVAL then
-      self[petId][1] = time()
-      self[petId][2] = self[petId][2] + 1
-      --print("DEBUG", "VPS:C(", petId, ") =", self[petId][2]) -- DEBUG
-    end
-    return self[petId][2]
-  end
+	function ValidatePetSmartly:Check(petId)
+		if not self[petId] then
+			self[petId] = {time(), 1}
+		end
+		if C_PetJournal_GetPetInfoByPetID(petId) then
+			self[petId] = nil
+			return 1
+		end
+		if self[petId][2] > MAX_FAILS then
+			self[petId] = nil
+			--print("DEBUG", "VPS:C(", petId, ") = FAIL") -- DEBUG
+			return nil
+		end
+		if time() - self[petId][1] > CHECK_INTERVAL then
+			self[petId][1] = time()
+			self[petId][2] = self[petId][2] + 1
+			--print("DEBUG", "VPS:C(", petId, ") =", self[petId][2]) -- DEBUG
+		end
+		return self[petId][2]
+	end
 end --]] --_G.ValidatePetSmartly = ValidatePetSmartly -- /run ValidatePetSmartly:Check("0x0000000000000000") -- DEBUG
 
 local function ValidatePetId(petId, petCheck, isValidating)
 	if type(petId) == "string" and strlen(petId) >= 10 and (not Is64BitClient() or strlen(petId) >= 18) then -- x86 is 8+2 while x64 is 16+2
 		if petCheck then
-      return C_PetJournal_GetPetInfoByPetID(petId)
+			return C_PetJournal_GetPetInfoByPetID(petId)
 		end
 		return 1
 	end
@@ -573,7 +573,7 @@ local function onGameTooltipShow(self)
 end
 
 local function UpdateLock()
-	local lockdown = InProcessingLockdown or not C_PetJournal_IsJournalUnlocked() or C_PetBattles_GetPVPMatchmakingInfo() or C_PetBattles_IsInBattle()
+	local lockdown = InProcessingLockdown or not C_PetJournal_IsJournalUnlocked() or C_PetBattles_GetPVPMatchmakingInfo() or C_PetBattles_IsInBattle() or InCombatLockdown() -- reason for InCombatLockdown is to prevent managing pets and calling combat protected functions and throwing errors everywhere
 	local tabButton, tabTexture
 	tabButton = _G[frameName .. "TabManagerButton"]
 	tabTexture = _G[frameName .. "TabManagerButtonIconTexture"]
