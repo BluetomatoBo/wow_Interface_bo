@@ -1,5 +1,5 @@
 TARGETCHARMS_VERSION = GetAddOnMetadata("TargetCharms", "Version");
-TARGETCHARMS_DB_VERSION = "1.5.6 (6/11/2014)";
+TARGETCHARMS_DB_VERSION = "1.5.7 (10/15/2014)";
 
 local Defaults =
 {   ["Version"] = TARGETCHARMS_VERSION,
@@ -8,16 +8,16 @@ local Defaults =
 		["barscale"] = 1.0,
 		["Xspacing"] = 0,
 		["Yspacing"] = 0,
-		["draggable"] = 1,
-		["toggleicon"] = 0,
+		["draggable"] = true,
+		["toggleicon"] = false,
 		["alphaVal"] = 0.5,
-		["showontarget"] = 1,
+		["showontarget"] = true,
 		["buttonSetup"] = ">1>5v6<2v3>7v8<4vX>0",
 		},
 	["ReadyCharm"] = {
 		["show"] = 2,
 		["barscale"] = 1.0,			
-		["draggable"] = 1,
+		["draggable"] = true,
 		["alphaVal"] = 0.5,
 		["width"] = 60,
 		["text"] = TARGETCHARMS_READYCHECK_TEXT,
@@ -25,11 +25,11 @@ local Defaults =
 	["FlareCharms"] = {
 		["show"] = 2,
 		["barscale"] = 1.0,			
-		["draggable"] = 1,
+		["draggable"] = true,
 		["alphaVal"] = 0.5,
 		["Xspacing"] = 0,
 		["Yspacing"] = 0,
-		["showicons"] = 0,
+		["showicons"] = false,
 		["buttonSetup"] = ">B>RvY<GvP>X",
 		},
 	
@@ -137,21 +137,21 @@ function CheckFrameViewState()
 	local charmBar = _G[frameNames[2]];
 	
 	if IsInSetup() then
-		if(charmBar:IsShown()~=1) then
+		if(not charmBar:IsShown()) then
 			charmBar:Show();
 		end
 	else
 		if TargetCharms_Options["TargetCharms"]["show"] == 2 then
 			SetHideShow(frameNames[2]);
 		elseif TargetCharms_Options["TargetCharms"]["show"] == 3 then
-	    		if(charmBar:IsShown()==1) then
+	    		if(charmBar:IsShown()) then
 				charmBar:Hide();
 			end
 		else
 			if (((GetNumGroupMembers()>0) and not UnitInRaid("player")) or (UnitInRaid("player") and (UnitIsGroupAssistant("player") or UnitIsGroupLeader("player"))))  then
 				SetHideShow(frameNames[2]);
 			else
-				if(charmBar:IsShown()==1) then
+				if(charmBar:IsShown()) then
 					charmBar:Hide();
 				end               
 			end
@@ -160,29 +160,29 @@ function CheckFrameViewState()
 end
 
 function CheckFlareFrameViewState()
-    if InCombatLockdown()~=1 then
+    if (not InCombatLockdown()) then
 	local charmBar = _G[frameNames[6]];
 
 	if IsInSetup() then
-		if(charmBar:IsShown()~=1) then
+		if(not charmBar:IsShown()) then
 			charmBar:Show();
 		end
 	else
 		if TargetCharms_Options[frameNames[5]]["show"] == 2 then
-			if (charmBar:IsShown()~=1) then
+			if (not charmBar:IsShown()) then
 				charmBar:Show();
 			end
 		elseif TargetCharms_Options[frameNames[5]]["show"] == 3 then
-	    		if(charmBar:IsShown()==1) then
+	    		if(charmBar:IsShown()) then
 				charmBar:Hide();
 			end
 		else
 			if (((GetNumGroupMembers()>0) and not UnitInRaid("player")) or (UnitInRaid("player") and (UnitIsGroupAssistant("player") or UnitIsGroupLeader("player"))))  then
-				if (charmBar:IsShown()~=1) then
+				if (not charmBar:IsShown()) then
 					charmBar:Show();
 				end
 			else
-				if(charmBar:IsShown()==1) then
+				if(charmBar:IsShown()) then
 					charmBar:Hide();
 				end               
 			end
@@ -200,25 +200,25 @@ function CheckReadyButtonViewState()
 	charmBar:Show();
 
 	if IsInSetup() then
-		if(charmBar:IsShown()~=1) then
+		if(not charmBar:IsShown()) then
 			charmBar:Show();
 		end
 	else
 		if TargetCharms_Options[frameNames[3]]["show"] == 2 then
-			if (charmBar:IsShown()~=1) then
+			if (not charmBar:IsShown()) then
 				charmBar:Show();
 			end
 		elseif TargetCharms_Options[frameNames[3]]["show"] == 3 then
-	    		if(charmBar:IsShown()==1) then
+	    		if(charmBar:IsShown()) then
 				charmBar:Hide();
 			end
 		else
 			if (((GetNumGroupMembers()>0 or UnitInRaid("player")) and (UnitIsGroupAssistant("player") or UnitIsGroupLeader("player")))) then
-				if (charmBar:IsShown()~=1) then
+				if (not charmBar:IsShown()) then
 					charmBar:Show();
 				end
 			else
-				if(charmBar:IsShown()==1) then
+				if(charmBar:IsShown()) then
 					charmBar:Hide();
 				end               
 			end
@@ -229,7 +229,7 @@ end
 function IsInSetup()
  local TargetCharmsSetup = _G[frameNames[7]];
  if TargetCharmsSetup~=nil then
-	if TargetCharmsSetup:IsShown()==1 then
+	if (TargetCharmsSetup:IsShown()) then
 		return true;
 	end
  end 
@@ -238,19 +238,19 @@ end
 
 function SetHideShow(frame)
  local charmBar = _G[frame];
- if (TargetCharms_Options[frameNames[1]]["showontarget"] == 1) then
+ if (TargetCharms_Options[frameNames[1]]["showontarget"]) then
 	
-	if UnitExists("target") then
-		if (charmBar:IsShown()~=1) then
+	if (UnitExists("target")) then
+		if (not charmBar:IsShown()) then
 			charmBar:Show();
 		end
 	else
-		if (charmBar:IsShown()==1) then
+		if (charmBar:IsShown()) then
 			charmBar:Hide();
 		end
 	end
  else	
-	if (charmBar:IsShown()~=1) then
+	if (not charmBar:IsShown()) then
 		charmBar:Show();
 	end	
  end
@@ -405,7 +405,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 	else
 		if typeNum == TARGETCHARMS_BLUEFLARE then
 			MakeCharm(frame,button,buttonNum,1, 2,0.15,0.85,0.15,0.85,0,0,32,32);
-			if TargetCharms_Options[frameNames[5]]["showicons"] == 1 then
+			if TargetCharms_Options[frameNames[5]]["showicons"] then
 				SetTexture(button, _G[button:GetName().."TextureIcon"],1,0.25,0.5,0.25,0.5,6,-5,20,20);
 			else
 				_G[button:GetName().."TextureIcon"]:SetTexture();
@@ -415,7 +415,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 			button:SetAttribute("macrotext", [[/wm 1]]);	
 		elseif typeNum == TARGETCHARMS_GREENFLARE then
 			MakeCharm(frame,button,buttonNum,2,2,0.15,0.85,0.15,0.85,0,0,32,32);
-			if TargetCharms_Options[frameNames[5]]["showicons"] == 1 then
+			if TargetCharms_Options[frameNames[5]]["showicons"] then
 				SetTexture(button, _G[button:GetName().."TextureIcon"],1,0.75,1,0,0.25,6,-5,20,20);
 			else
 				_G[button:GetName().."TextureIcon"]:SetTexture();
@@ -425,7 +425,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 			button:SetAttribute("macrotext", [[/wm 2]]);
 		elseif typeNum == TARGETCHARMS_PURPLEFLARE then
 			MakeCharm(frame,button,buttonNum,3,2,0.15,0.85,0.15,0.85,0,0,32,32);
-			if TargetCharms_Options[frameNames[5]]["showicons"] == 1 then
+			if TargetCharms_Options[frameNames[5]]["showicons"] then
 				SetTexture(button, _G[button:GetName().."TextureIcon"],1,0.5,0.75,0,0.25,6,-5,20,20);
 			else
 				_G[button:GetName().."TextureIcon"]:SetTexture();
@@ -435,7 +435,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 			button:SetAttribute("macrotext", [[/wm 3]]);
 		elseif typeNum == TARGETCHARMS_REDFLARE then
 			MakeCharm(frame,button,buttonNum,4,2,0.15,0.85,0.15,0.85,0,0,32,32);
-			if TargetCharms_Options[frameNames[5]]["showicons"] == 1 then
+			if TargetCharms_Options[frameNames[5]]["showicons"] then
 				SetTexture(button, _G[button:GetName().."TextureIcon"],1,0.5,0.75,0.25,0.5,6,-5,20,20);
 			else
 				_G[button:GetName().."TextureIcon"]:SetTexture();
@@ -445,7 +445,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 			button:SetAttribute("macrotext", [[/wm 4]]);
 		elseif typeNum == TARGETCHARMS_YELLOWFLARE then
 			MakeCharm(frame,button,buttonNum,5,2,0.15,0.85,0.15,0.85,0,0,32,32);
-			if TargetCharms_Options[frameNames[5]]["showicons"] == 1 then
+			if TargetCharms_Options[frameNames[5]]["showicons"] then
 				SetTexture(button, _G[button:GetName().."TextureIcon"],1,0,0.25,0,0.25,6,-5,20,20);
 			else
 				_G[button:GetName().."TextureIcon"]:SetTexture();
@@ -483,7 +483,7 @@ end
 
 function SelectTarget(frameId, targetId)
 	local charmId = buttonCharm[frameNames[frameId]][tonumber(targetId)];
-	if (TargetCharms_Options[frameNames[1]]["toggleicon"]~=1) then
+	if (not TargetCharms_Options[frameNames[1]]["toggleicon"]) then
 		if (GetRaidTargetIndex("target")~=charmId) then
 			SetRaidTarget("target", charmId)
 		end
@@ -639,7 +639,7 @@ function MoveFlares()
 end
 
 function LockFlares()
-	if InCombatLockdown()~=1 then
+	if (not InCombatLockdown()) then
 		local frame = _G[frameNames[5]];
 		frame:EnableMouse(false);
 		_G[frameNames[5].."_Tex"]:SetTexture();

@@ -12,7 +12,7 @@
 								end
 							</OnClick>
 							<OnMouseDown>
-								if ( button == "RightButton" and (TargetCharms_Options["TargetCharms"]["draggable"]==1 or IsControlKeyDown())) then
+								if ( button == "RightButton" and (TargetCharms_Options["TargetCharms"]["draggable"] or IsControlKeyDown())) then
 									if (IsControlKeyDown()) then
 										ShowSetup();
 									else
@@ -23,7 +23,7 @@
 								end
 							</OnMouseDown>
 							<OnMouseUp>
-								if ( button == "RightButton" and (TargetCharms_Options["TargetCharms"]["draggable"]==1 or IsControlKeyDown())) then
+								if ( button == "RightButton" and (TargetCharms_Options["TargetCharms"]["draggable"] or IsControlKeyDown())) then
 									if (IsControlKeyDown()) then
 									else
 										self:GetParent():GetParent():StopMovingOrSizing();
@@ -106,7 +106,7 @@
 								end
 							</OnClick>
 							<OnMouseDown>
-								if ( button == "RightButton" and TargetCharms_Options["ReadyCharm"]["draggable"]==1) then
+								if ( button == "RightButton" and TargetCharms_Options["ReadyCharm"]["draggable"]) then
 										self:GetParent():StartMoving();
 								end
 								if (button == "RightButton" and IsControlKeyDown()) then
@@ -114,7 +114,7 @@
 								end
 							</OnMouseDown>
 							<OnMouseUp>
-								if ( button == "RightButton" and TargetCharms_Options["ReadyCharm"]["draggable"]==1) then
+								if ( button == "RightButton" and TargetCharms_Options["ReadyCharm"]["draggable"]) then
 										self:GetParent():StopMovingOrSizing();	
 								end
 							</OnMouseUp>

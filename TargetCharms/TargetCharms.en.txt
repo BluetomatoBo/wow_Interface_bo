@@ -1,6 +1,6 @@
 TargetCharms
 Author: Gander (sca_tch@hotmail.com)
-Version: 1.5.6
+Version: 1.5.7
 
 ********************
 Table of Contents
@@ -105,6 +105,9 @@ a number of commonly used layouts.
 ********************
 V - CHANGELOG
 ********************
+v1.5.7
+changed logic to true/false from 1/nil
+
 v1.5.6
 Changed "/cwm all" to "/cwm 0" Thanks xlhjun
 
