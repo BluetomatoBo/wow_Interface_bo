@@ -1,9 +1,15 @@
 ------------------------------------------------------------------------
-r377 | torhal | 2014-09-25 03:56:46 +0000 (Thu, 25 Sep 2014) | 1 line
+r379 | stanzilla | 2014-10-14 15:50:47 +0000 (Tue, 14 Oct 2014) | 1 line
 Changed paths:
-   A /tags/v3.5.2 (from /trunk:376)
+   A /tags/v3.5.3 (from /trunk:378)
 
-Tagging as v3.5.2
+Tagging as v3.5.3
+------------------------------------------------------------------------
+r378 | stanzilla | 2014-10-14 15:13:35 +0000 (Tue, 14 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/Postal.toc
+
+Toc update for Patch 6.0
 ------------------------------------------------------------------------
 r376 | oscarucb | 2014-07-06 17:09:54 +0000 (Sun, 06 Jul 2014) | 2 lines
 Changed paths:
