@@ -332,7 +332,7 @@ function TI_OnEvent(self, event, ...)
 end
 
 function TI_HandleAcceptQuest()
-	QuestInfoFadingFrame_OnUpdate(QuestInfoFadingFrame, 1);
+	--QuestInfoFadingFrame_OnUpdate(QuestInfoFadingFrame, 1); -- does not exist anymore in 6.0
 	QuestDetailAcceptButton_OnClick();
 end
 

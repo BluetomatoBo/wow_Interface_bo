@@ -1,0 +1,14 @@
+------------------------------------------------------------------------
+r41 | sabindeus | 2014-10-18 20:30:10 +0000 (Sat, 18 Oct 2014) | 1 line
+Changed paths:
+   A /tags/2.1.5 (from /trunk:40)
+
+Tagging as 2.1.5
+------------------------------------------------------------------------
+r40 | sabindeus | 2014-10-18 20:29:55 +0000 (Sat, 18 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/TurnIn.lua
+   M /trunk/TurnIn.toc
+
+Removed reference to old frame that no longer exists in 6.0. Updated TOC to 60000
+------------------------------------------------------------------------
