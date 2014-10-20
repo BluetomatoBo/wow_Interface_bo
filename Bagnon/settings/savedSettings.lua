@@ -64,6 +64,7 @@ end
 function SavedSettings:GetDefaultSettings()
 	self.defaults = self.defaults or {
 		highlightItemsByQuality = true,
+		highlightNewItems = true,
 		highlightQuestItems = true,
 		highlightSetItems = true,
 		allowDisableBags = true,

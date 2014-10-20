@@ -1,5 +1,5 @@
 --[[
-	Classy.lua
+	Classes.lua
 		Utility method for constructing object classes
 --]]
 

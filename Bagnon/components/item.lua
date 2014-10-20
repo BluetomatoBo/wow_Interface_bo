@@ -190,11 +190,17 @@ function ItemSlot:OnDragStart()
 end
 
 function ItemSlot:OnPreClick(button)
-	if button == 'RightButton' and not self.canDeposit then
-		for i = 1,9 do
-			if not GetVoidTransferDepositInfo(i) then
-				self.depositSlot = i
-				return
+	if button == 'RightButton' then 
+		if Addon.BagEvents.atBank and IsReagentBankUnlocked() then
+			return UseContainerItem(self:GetBag(), self:GetID(), nil, true)
+		end
+
+		if not self.canDeposit then
+			for i = 1,9 do
+				if not GetVoidTransferDepositInfo(i) then
+					self.depositSlot = i
+					return
+				end
 			end
 		end
 	end
@@ -344,7 +350,7 @@ function ItemSlot:UpdateBorder()
 	self:HideBorder()
 
 	if item then
-		if self:IsNew() then
+		if self:HighlightNewItems() and self:IsNew() then
 			if not self.flashAnim:IsPlaying() then
 				self.flashAnim:Play()
 				self.newitemglowAnim:SetLooping('NONE')
@@ -482,6 +488,10 @@ end
 
 function ItemSlot:HighlightItemsByQuality()
 	return Addon.Settings:HighlightItemsByQuality()
+end
+
+function ItemSlot:HighlightNewItems()
+	return Addon.Settings:HighlightNewItems()
 end
 
 function ItemSlot:HighlightUnusableItems()
