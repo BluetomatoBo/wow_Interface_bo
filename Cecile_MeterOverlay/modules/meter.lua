@@ -29,12 +29,20 @@ function mod.InCombat()
 	mod.combat = true;
 	--set the boss name for the already seen boss (empty if none)
 	mod.bossName = mod.NextCombatBoss;
+
+	--hide out of combat	
+	mod.datatext.ControlVisibility();
+	
 end
 
 --event when we exit combat
 function mod.OutOfCombat()
 	mod.combat = false;	
 	mod.NextCombatBoss = "";
+	
+	--hide out of combat	
+	mod.datatext.ControlVisibility();	
+		
 end
 
 --event when we engage a boss
@@ -114,7 +122,10 @@ end
 
 --initialize module
 function mod:OnInitialize()
-
+	
+	--store the datatext
+	mod.datatext = Engine.AddOn:GetModule("datatext");
+	
 	--we do not have any meter so set defaults
 	mod.desc = Engine.Locale["NO_DATA"];
 	mod.toggle = mod.defaultToggle;
@@ -303,18 +314,32 @@ function mod:GetValues(tablename,taged)
 	local rdamage,rdps,dps,damage,ndps 		= mod:ValuePerSecond(tablename, Engine.TYPE_DPS);
 	local rhealing,rhps,hps,healing,nhps 	= mod:ValuePerSecond(tablename, Engine.TYPE_HEAL);		
 
-	--set the tag values
-	mod:SetNumberValue( "dps",		dps,		RED_FONT_COLOR_CODE);
-	mod:SetNumberValue( "rdps",		rdps,		RED_FONT_COLOR_CODE);
-	mod:SetNumberValue( "damage",	damage,		RED_FONT_COLOR_CODE);	
-	mod:SetNumberValue( "rdamage",	rdamage,	RED_FONT_COLOR_CODE);
-	mod:SetOrdinalValue( "ndps",	ndps,		RED_FONT_COLOR_CODE);
+	--calculate % dps
+	local pdps = 100;
+	if (rdamage~=0) then
+		pdps = math.floor(1000*damage/rdamage)/10;
+	end 
 	
-	mod:SetNumberValue("hps",		hps,		GREEN_FONT_COLOR_CODE);
-	mod:SetNumberValue("rhps",		rhps,		GREEN_FONT_COLOR_CODE);
-	mod:SetNumberValue("healing",	healing,	GREEN_FONT_COLOR_CODE);
-	mod:SetNumberValue("rhealing",	rhealing,	GREEN_FONT_COLOR_CODE);
-	mod:SetOrdinalValue("nhealer",	nhps,		GREEN_FONT_COLOR_CODE);
+	--calculate % heal
+	local pheal = 100;	
+	if (rhealing~=0) then
+		pheal = math.floor(1000*healing/rhealing)/10;
+	end
+	
+	--set the tag values
+	mod:SetNumberValue( 	"dps",		dps,		RED_FONT_COLOR_CODE);
+	mod:SetNumberValue( 	"rdps",		rdps,		RED_FONT_COLOR_CODE);
+	mod:SetNumberValue( 	"damage",	damage,		RED_FONT_COLOR_CODE);	
+	mod:SetNumberValue( 	"rdamage",	rdamage,	RED_FONT_COLOR_CODE);
+	mod:SetNumberValue( 	"pdps",		pdps,		RED_FONT_COLOR_CODE);
+	mod:SetOrdinalValue(	"ndps",		ndps,		RED_FONT_COLOR_CODE);
+		
+	mod:SetNumberValue(		"hps",		hps,		GREEN_FONT_COLOR_CODE);
+	mod:SetNumberValue(		"rhps",		rhps,		GREEN_FONT_COLOR_CODE);
+	mod:SetNumberValue(		"healing",	healing,	GREEN_FONT_COLOR_CODE);
+	mod:SetNumberValue(		"rhealing",	rhealing,	GREEN_FONT_COLOR_CODE);
+	mod:SetNumberValue(		"pheal",	pheal,		GREEN_FONT_COLOR_CODE);
+	mod:SetOrdinalValue(	"nhealer",	nhps,		GREEN_FONT_COLOR_CODE);	
 	
 	--return the string
 	return mod:PaseString(taged);

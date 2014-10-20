@@ -68,6 +68,8 @@ Engine.formatlist={};
 Engine.formatlist["FORMAT_OWN_DPS"] = "DPS: [dps]";
 Engine.formatlist["FORMAT_OWN_HPS"] = "HPS: [hps]";
 Engine.formatlist["FORMAT_OWN_DPS_OWN_HPS"] = "DPS: [dps] - HPS: [hps]";
+Engine.formatlist["FORMAT_COMBAT_DPS"] = "[ndps] [combat] [dps] ([pdps]%)";
+Engine.formatlist["FORMAT_COMBAT_HEAL"] = "[nhealer] [combat] [hps] ([pheal]%)";
 
 Engine.formatlist["FORMAT_RAID_DPS"] = "RDPS: [rdps]";
 Engine.formatlist["FORMAT_RAID_HPS"] = "RHPS: [rhps]";
@@ -118,7 +120,8 @@ Engine.Defaults = {
 					b = 0,
 					a = 0.75,
 				},			
-			}
+			},
+			hideOOC = false
 		},
 		interval = 1,
 		segment = Engine.CURRENT_DATA,
@@ -607,6 +610,24 @@ Engine.Options = {
 					end,
 					disabled = function()
 						return not (Engine.Profile.datatext.enable and Engine.Profile.datatext.background.enable);
+					end,					
+				},
+				hideOOC = {
+					order = 8,
+					type = "toggle",
+					name = L["ENABLE_DATATEXT_HIDE_OCC"],
+					desc = L["ENABLE_DATATEXT_HIDE_OCC_DESC"],
+					get = function()
+						return Engine.Profile.datatext.hideOOC;
+					end,
+					set = function(key, value)					
+						Engine.Profile.datatext.hideOOC = value;
+						
+						local datatext = Engine.AddOn:GetModule("datatext");
+						datatext:ControlVisibility();					
+					end,
+					disabled = function()
+						return not Engine.Profile.datatext.enable;
 					end,					
 				},				
 			}

@@ -48,6 +48,8 @@ L["FORMAT_OWN_HPS_RAID_HPS"] = "HPS Propio - HPS de la Banda"
 L["FORMAT_OWN_HPS_RAID_DPS"] = "HPS Propio - DPS de la Banda"
 L["FORMAT_OWN_DPS_RAID_HPS"] = "DPS Propio - HPS de la Banda"
 L["FORMAT_RAID_DPS_RAID_HPS"] = "DPS de la Banda - HPS de la Banda"
+L["FORMAT_COMBAT_DPS"] = "Posición - Combate - DPS - % Daño"
+L["FORMAT_COMBAT_HEAL"] = "Posición - Combate - HPS - % Sanación"
 L["FORMAT_OWN_DPS_RAID_DPS_OWN_HPS_RAID_HPS"] = "DPS Propio - DPS de la Banda - HPS Propio - HPS de la Banda"
 L["FORMAT_DEFAULT_DPS"] = "Posición Nombre del Jugador : Daño (dps)"
 L["FORMAT_DEFAULT_HEALER"] = "Posición Nombre del Jugador : Sanación (hps)"
@@ -68,13 +70,15 @@ Esta es la lista de etiquetas disponibles.
 |cff0070de[rdps]|r - El |cffff2020DPS|r de tu raid.
 |cff0070de[damage]|r - Tu |cffff2020Daño|r actual.
 |cff0070de[rdamage]|r - El |cffff2020Daño|r de tu raid.
+|cff0070de[pdps]|r - Tu % de |cffff2020Daño|r de la raid. (No incluye el simbolo %)
 |cff0070de[ndps]|r - Tu posición en la lista de |cffff2020Dps|r.
 
 |cff0070de[hps]|r - Tu |cff44ff44HPS|r actual.
 |cff0070de[rhps]|r - El |cff44ff44HPS|r de tu raid.
 |cff0070de[healing]|r - Tu |cff44ff44Sanación|r actual.
 |cff0070de[rhealing]|r - La |cff44ff44Sanación|r de tu raid.
-|cff0070de[nhps]|r - Tu posición en la lista de |cff44ff44Healers|r.
+|cff0070de[pheal]|r - Tu % de |cff44ff44Sanación|r de la raid. (No incluye el simbolo %)
+|cff0070de[nhealer]|r - Tu posición en la lista de |cff44ff44Curanderos|r.
 
 |cff0070de[meter]|r - El nombre del |cff82c5ffmedidor de combate|r activo.
 |cff0070de[combat]|r - El |cffffff00combate|r activo.
@@ -120,6 +124,8 @@ L["OVERLAY_BG_COLOR_DESC"] = "Cambia el color de fondo, incluyendo la transapare
 L["OVERLAY_HIDE_TYPE"] = "Modo ocultación"
 L["OVERLAY_HIDE_TYPE_DESC"] = "Cambia como se oculta la ventana flotante."
 L["OVERLAY_HIDE_NORMAL"] = "Ocultar"
+L["ENABLE_DATATEXT_HIDE_OCC"] = "Ocultar fuera de combate"
+L["ENABLE_DATATEXT_HIDE_OCC_DESC"] = "Oculta la ventana floante cuando no estamos en combate"
 L["OVERLAY_HIDE_FADE"] = "Desvanecer"
 L["ENABLE_DATATEXT_BACGROUND"] ="Activar Fondo"
 L["ENABLE_DATATEXT_BACGROUND_DESC"] ="Activar el fondo para el texto flotante."

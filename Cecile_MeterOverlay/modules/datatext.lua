@@ -244,8 +244,19 @@ function mod:ControlVisibility()
 				mod.frame.bg:SetTexture(nil);
 			end
 		end		
+		
+	--hide out of combat
+	if Engine.Profile.datatext.hideOOC then				
 	
-					
+		local meter = Engine.AddOn:GetModule("meter");
+		
+		if meter.combat then
+			mod.frame:Show();	
+		else
+			mod.frame:Hide();	
+		end
+		
+	end						
 		
 		
 	else

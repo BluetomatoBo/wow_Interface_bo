@@ -5,7 +5,8 @@
 --get the addon engine
 local AddOnName, Engine = ...;
 
---_G.GAME_LOCALE = "esMX"
+--force localization to Spanish (only for testing)
+--_G.GAME_LOCALE = "esES"
 
 --prepare locale
 local L = LibStub("AceLocale-3.0"):NewLocale(AddOnName, "enUS", true);
@@ -44,6 +45,8 @@ L["FORMAT_OWN_DPS_RAID_DPS"] = "Own DPS - Raid DPS"
 L["FORMAT_OWN_HPS_RAID_HPS"] = "Own HPS - Raid HPS"
 L["FORMAT_OWN_HPS_RAID_DPS"] = "Own HPS - Raid DPS"
 L["FORMAT_OWN_DPS_RAID_HPS"] = "Own DPS - Raid HPS"
+L["FORMAT_COMBAT_DPS"] = "Position - Combat - DPS - % Damange"
+L["FORMAT_COMBAT_HEAL"] = "Position - Combat - HPS - % Heal"
 L["FORMAT_RAID_DPS_RAID_HPS"] = "Raid DPS - Raid HPS"
 L["FORMAT_OWN_DPS_RAID_DPS_OWN_HPS_RAID_HPS"] = "Own DPS - Raid DPS - Own HPS - Raid HPS"
 L["FORMAT_DEFAULT_DPS"] = "Position Player Name : Damage (dps)"
@@ -65,13 +68,15 @@ This are the liste for the supported tags.
 |cff0070de[rdps]|r - Your raid |cffff2020DPS|r.
 |cff0070de[damage]|r - Your current |cffff2020damage|r.
 |cff0070de[rdamage]|r - Your raid |cffff2020damage|r.
+|cff0070de[pdps]|r - Your % of raid |cffff2020damage|r. (Does not include % symbol)
 |cff0070de[ndps]|r - Your position in the |cffff2020Dps|r list.
 
 |cff0070de[hps]|r - Your current |cff44ff44HPS|r.
 |cff0070de[rhps]|r - Your raid |cff44ff44HPS|r.
 |cff0070de[healing]|r - Your current |cff44ff44healing|r.
 |cff0070de[rhealing]|r - Your raid |cff44ff44healing|r.
-|cff0070de[nhps]|r - Your position in the |cff44ff44Healers|r list.
+|cff0070de[pheal]|r - Your % of raid |cff44ff44healing|r. (Does not include % symbol)
+|cff0070de[nhealer]|r - Your position in the |cff44ff44Healers|r list.
 
 |cff0070de[meter]|r - The name of the active |cff82c5ffdamage meter|r.
 |cff0070de[combat]|r - The current |cffffff00combat|r.
@@ -118,6 +123,8 @@ L["OVERLAY_HIDE_TYPE"] = "Hide Mode"
 L["OVERLAY_HIDE_TYPE_DESC"] = "Change the overlay hide mode."
 L["OVERLAY_HIDE_NORMAL"] = "Hide"
 L["OVERLAY_HIDE_FADE"] = "Fade Out"
+L["ENABLE_DATATEXT_HIDE_OCC"] = "Hide Out Of Combat"
+L["ENABLE_DATATEXT_HIDE_OCC_DESC"] = "Hide the floating datatext when we are Out Of Combat"
 L["ENABLE_DATATEXT_BACGROUND"] ="Enable Background"
 L["ENABLE_DATATEXT_BACGROUND_DESC"] ="Enable the floating datatext Background."
 
