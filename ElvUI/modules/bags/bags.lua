@@ -805,9 +805,6 @@ function B:ContructContainerFrame(name, isBank)
 	
 	f.closeButton = CreateFrame('Button', name..'CloseButton', f, 'UIPanelCloseButton');
 	f.closeButton:Point('TOPRIGHT', -4, -4);
-	f.closeButton:HookScript("OnClick", function()
-		ToggleBackpack() --Fix issue #221: Bags require double tap on open key if closed with the closebutton
-	end)
 
 	E:GetModule('Skins'):HandleCloseButton(f.closeButton);
 	
@@ -1121,7 +1118,7 @@ function B:ContructContainerFrame(name, isBank)
 			f.currencyButton[i]:Hide();
 		end	
 		
-		f:SetScript('OnHide', CloseAllBags)
+		f:SetScript('OnHide', CloseBackpack)
 	end
 	
 	tinsert(UISpecialFrames, f:GetName()) --Keep an eye on this for taints..
@@ -1182,7 +1179,6 @@ function B:CloseBags()
 	
 	if self.BankFrame then
 		self.BankFrame:Hide();
-		BankFrame:Hide()
 	end
 	
 	E:GetModule('Tooltip'):GameTooltip_SetDefaultAnchor(GameTooltip)
@@ -1195,7 +1191,6 @@ function B:OpenBank()
 	end
 	
 	self:Layout(true)
-	BankFrame:Show()
 	self.BankFrame:Show();
 	self.BankFrame:UpdateAllSlots();
 	self.BagFrame:Show();
@@ -1209,7 +1204,7 @@ end
 function B:CloseBank()
 	if not self.BankFrame then return; end -- WHY???, WHO KNOWS!
 	self.BankFrame:Hide()
-	BankFrame:Hide()
+	self.BagFrame:Hide()
 end
 
 function B:GUILDBANKFRAME_OPENED()
