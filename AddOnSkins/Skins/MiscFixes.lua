@@ -56,7 +56,7 @@ function AS:MiscFixes(event, addon)
 				BrowseLevelText:Point('TOPLEFT', 184, -40)
 				BrowseMinLevel:SetHeight(17)
 				BrowseMinLevel:Point('TOPLEFT', BrowseLevelText, 'BOTTOMLEFT', 0, -6)
-				BrowseLevelHyphen:Point('LEFT', BrowseMinLevel, 'RIGHT', 4, 0)
+				BrowseLevelHyphen:Point('LEFT', BrowseMinLevel, 'RIGHT', 2, 0)
 				BrowseMaxLevel:SetHeight(17)
 				BrowseMaxLevel:Point('LEFT', BrowseMinLevel, 'RIGHT', 12, 0)
 				BrowseDropDown:Point('TOPLEFT', BrowseLevelText, 'BOTTOMRIGHT', -5, -2)
@@ -79,6 +79,19 @@ function AS:MiscFixes(event, addon)
 		end
 		AS:UnregisterSkinEvent(name, event)
 	end
+	local firstLFD
+	LFDParentFrame:HookScript("OnShow", function()
+			if not firstLFD then
+					firstLFD = 1
+					for i = 1, GetNumRandomDungeons() do
+							local id = GetLFGRandomDungeonInfo(i)
+							local isHoliday = select(15, GetLFGDungeonInfo(id))
+							if isHoliday and not GetLFGDungeonRewards(id) then
+									LFDQueueFrame_SetType(id)
+							end
+					end
+			end
+	end)
 end
 
 AS:RegisterSkin(name, AS.MiscFixes, 'AUCTION_HOUSE_SHOW')

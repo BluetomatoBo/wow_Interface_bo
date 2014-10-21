@@ -3,6 +3,8 @@ local AddOnName = ...
 local ES
 local Color = RAID_CLASS_COLORS[AS.MyClass]
 
+AS:UpdateLocale()
+
 function AS:OrderedPairs(t, f)
 	local a = {}
 	for n in pairs(t) do tinsert(a, n) end
@@ -15,6 +17,10 @@ function AS:OrderedPairs(t, f)
 		end
 	end
 	return iter
+end
+
+function AS:Delay(delay, func)
+	C_Timer.After(delay, func)
 end
 
 function AS:CheckAddOn(addon)
@@ -187,16 +193,24 @@ function AS:StartSkinning(event)
 end
 
 function AS:Init(event, addon)
-	if (IsAddOnLoaded('Tukui') or IsAddOnLoaded('ElvUI')) and not AS.Initialized then
-		if AS:CheckAddOn('ElvUI') then AS:InjectProfile() end
+	if event == 'ADDON_LOADED' and addon == AddOnName then
+		if not (AS:CheckAddOn('Tukui') or AS:CheckAddOn('ElvUI')) then return end
 		AS:UpdateMedia()
 		AS:InitAPI()
-		AS:UpdateLocale()
+		if AS:CheckAddOn('ElvUI') then
+			local ElvUIVersion, MinElvUIVersion = tonumber(GetAddOnMetadata('ElvUI', 'Version')), 7.13
+			if ElvUIVersion < MinElvUIVersion then
+				AS:AcceptFrame(format('%s - Required ElvUI Version %s. You currently have %s.\n Download ElvUI @ %s', AS.Title, MinElvUIVersion, ElvUIVersion, AS:PrintURL('http://www.tukui.org/dl.php')), function(self) print(AS:PrintURL('http://www.tukui.org/dl.php')) self:Hide() end)
+				AS:Print('Loading Aborted')
+				AS:UnregisterEvent(event)
+				return
+			end
+			AS:InjectProfile()
+		end
 		AS:CreateDataText()
 		AS:RegisterEvent('PET_BATTLE_CLOSE', 'AddNonPetBattleFrames')
 		AS:RegisterEvent('PET_BATTLE_OPENING_START', 'RemoveNonPetBattleFrames')
 		AS:RegisterEvent('PLAYER_ENTERING_WORLD', 'StartSkinning')
-		AS.Initialized = true
 	end
 end
 
@@ -372,7 +386,7 @@ function AS:AcceptFrame(MainText, Function)
 		AcceptFrame.Close:SetFormattedText('|cFFFFFFFF%s|r', NO)
 	end
 	AcceptFrame.Text:SetText(MainText)
-	AcceptFrame:SetSize(250, AcceptFrame.Text:GetStringHeight() + 60)
+	AcceptFrame:SetSize(AcceptFrame.Text:GetStringWidth() + 50, AcceptFrame.Text:GetStringHeight() + 60)
 	AcceptFrame.Accept:SetScript('OnClick', Function)
 	AcceptFrame:Show()
 end
