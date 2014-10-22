@@ -206,76 +206,6 @@ function UF:PostUpdateStagger()
 	UF:UpdatePlayerFrameAnchors(ElvUF_Player, (ElvUF_Player.Harmony and ElvUF_Player.Harmony:IsShown()))
 end
 
-local function Anticipation_OnUpdate(self, elapsed)
-	AnimateTexCoords(self.ants, 256, 256, 48, 48, 22, elapsed, 0.01);
-end
-
-function UF:Construct_Combobar(frame)
-	local CPoints = CreateFrame("Frame", nil, frame)
-	CPoints:CreateBackdrop('Default')
-	CPoints.Override = UF.UpdateComboDisplay
-
-	for i = 1, MAX_COMBO_POINTS do
-		CPoints[i] = CreateFrame("StatusBar", nil, CPoints)
-		UF['statusbars'][CPoints[i]] = true
-		CPoints[i]:SetStatusBarTexture(E['media'].blankTex)
-		CPoints[i]:GetStatusBarTexture():SetHorizTile(false)
-		CPoints[i]:SetAlpha(0.15)
-		CPoints[i]:CreateBackdrop('Default')
-		CPoints[i].backdrop:SetParent(CPoints)
-		CPoints[i].anticipation = CreateFrame("Frame", nil, CPoints[i])
-		CPoints[i].anticipation.ants = CPoints[i].anticipation:CreateTexture(nil, "OVERLAY")
-		CPoints[i].anticipation.ants:SetTexture("Interface\\SpellActivationOverlay\\IconAlertAnts")
-		CPoints[i].anticipation.ants:SetAllPoints()
-		CPoints[i].anticipation:SetPoint("CENTER")
-		CPoints[i].anticipation:SetScript("OnUpdate", Anticipation_OnUpdate)
-		CPoints[i].anticipation:Hide()
-	end
-	
-	return CPoints
-end
-
-local ANTICIPATION = GetSpellInfo(115189)
-function UF:UpdateComboDisplay(event, unit)
-	if (unit == 'pet') then return end
-	local db = UF.player.db
-	local cpoints = self.CPoints
-	local cp = (UnitHasVehicleUI("player") or UnitHasVehicleUI("vehicle")) and GetComboPoints('vehicle') or GetComboPoints('player')
-
-	for i=1, MAX_COMBO_POINTS do
-		if(i <= cp) then
-			cpoints[i]:SetAlpha(1)
-		else
-			cpoints[i]:SetAlpha(.15)	
-		end	
-	end
-	local anticipation = select(4, UnitBuff('player', ANTICIPATION)) or 0
-
-	for i=1, MAX_COMBO_POINTS do
-		if(i <= anticipation) then
-			cpoints[i].anticipation:Show()
-		else
-			cpoints[i].anticipation:Hide()
-		end	
-	end
-
-	if cpoints[1]:GetAlpha() == 1 then
-		cpoints:Show()
-	else
-		cpoints:Hide()
-	end
-
-	if(E.myclass == "DRUID" and GetShapeshiftForm() == 1) then
-		cpoints:Hide()
-	end
-
-	if(E.myclass == "DRUID") then
-		UF:UpdatePlayerFrameAnchors(ElvUF_Player, ElvUF_Player.EclipseBar:IsShown() or ElvUF_Player.DruidAltMana:IsShown())
-	else
-		UF:UpdatePlayerFrameAnchors(ElvUF_Player, ElvUF_Player.ClassBar and ElvUF_Player[ElvUF_Player.ClassBar] and ElvUF_Player[ElvUF_Player.ClassBar]:IsShown())
-	end
-end
-
 -------------------------------------------------------------
 -- MAGE
 -------------------------------------------------------------
@@ -303,6 +233,50 @@ function UF:Construct_MageResourceBar(frame)
 end
 
 function UF:UpdateArcaneCharges(event, unit, arcaneCharges, maxCharges)
+	local frame = self:GetParent()
+	local db = frame.db
+		
+	local point, _, anchorPoint, x, y = frame.Health:GetPoint()
+	if self:IsShown() and point then
+		if db.classbar.fill == 'spaced' then
+			frame.Health:SetPoint(point, frame, anchorPoint, x, -7)
+		else
+			frame.Health:SetPoint(point, frame, anchorPoint, x, -13)
+		end
+	elseif point then
+		frame.Health:SetPoint(point, frame, anchorPoint, x, -2)
+	end
+	
+	UF:UpdatePlayerFrameAnchors(frame, self:IsShown())
+end	
+
+-------------------------------------------------------------
+-- ROGUE
+-------------------------------------------------------------
+
+function UF:Construct_RogueResourceBar(frame)
+	local bars = CreateFrame("Frame", nil, frame)
+	bars:CreateBackdrop('Default')
+
+	for i = 1, UF['classMaxResourceBar'][E.myclass] do					
+		bars[i] = CreateFrame("StatusBar", nil, bars)
+		bars[i]:SetStatusBarTexture(E['media'].blankTex) --Dummy really, this needs to be set so we can change the color
+		bars[i]:GetStatusBarTexture():SetHorizTile(false)
+		
+		bars[i].bg = bars[i]:CreateTexture(nil, 'ARTWORK')
+		
+		UF['statusbars'][bars[i]] = true
+
+		bars[i]:CreateBackdrop('Default')
+		bars[i].backdrop:SetParent(bars)
+	end
+	
+	bars.PostUpdate = UF.UpdateAnticipationCharges
+	
+	return bars
+end
+
+function UF:UpdateAnticipationCharges(event, unit, numCharges, maxCharges)
 	local frame = self:GetParent()
 	local db = frame.db
 		
@@ -590,11 +564,6 @@ function UF:DruidResourceBarVisibilityUpdate(unit)
 	local eclipseBar = parent.EclipseBar
 	local druidAltMana = parent.DruidAltMana
 	
-	if(GetShapeshiftForm() == 2 and GetComboPoints('player') > 0) then
-		druidAltMana:Hide()
-		parent.CPoints:Show()
-	end
-
 	UF:UpdatePlayerFrameAnchors(parent, eclipseBar:IsShown() or druidAltMana:IsShown())
 end
 

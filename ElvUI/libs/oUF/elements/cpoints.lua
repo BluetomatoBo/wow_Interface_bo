@@ -5,7 +5,7 @@ local GetComboPoints = GetComboPoints
 local MAX_COMBO_POINTS = MAX_COMBO_POINTS
 
 local Update = function(self, event, unit)
-	if(unit ~= 'player' and unit ~= 'vehicle') then return end
+	if(unit == 'pet') then return end
 
 	local cpoints = self.CPoints
 	if(cpoints.PreUpdate) then
@@ -14,9 +14,9 @@ local Update = function(self, event, unit)
 
 	local cp
 	if(UnitHasVehicleUI'player') then
-		cp = GetComboPoints('vehicle')
+		cp = UnitPower('vehicle', 4)
 	else
-		cp = GetComboPoints('player')
+		cp = UnitPower('player', 4)
 	end
 
 	for i=1, MAX_COMBO_POINTS do
@@ -28,7 +28,7 @@ local Update = function(self, event, unit)
 	end
 
 	if(cpoints.PostUpdate) then
-		return cpoints:PostUpdate(cp, anticipation)
+		return cpoints:PostUpdate(cp)
 	end
 end
 
@@ -47,7 +47,7 @@ local Enable = function(self)
 		cpoints.ForceUpdate = ForceUpdate
 
 		self:RegisterEvent('UNIT_COMBO_POINTS', Path, true)
-		self:RegisterEvent('UNIT_AURA', Path, true)
+		self:RegisterEvent('PLAYER_TARGET_CHANGED', Path, true)
 
 		for index = 1, MAX_COMBO_POINTS do
 			local cpoint = cpoints[index]
@@ -65,7 +65,7 @@ local Disable = function(self)
 	local cpoints = self.CPoints
 	if(cpoints) then
 		self:UnregisterEvent('UNIT_COMBO_POINTS', Path)
-		self:UnregisterEvent('UNIT_AURA', Path)
+		self:UnregisterEvent('PLAYER_TARGET_CHANGED', Path)
 	end
 end
 
