@@ -204,13 +204,8 @@ function A:Construct_ConsolidatedBuffs()
 	local frame = CreateFrame('Frame', 'ElvUI_ConsolidatedBuffs', Minimap)
 	frame:SetTemplate('Default')
 	frame:Width(E.ConsolidatedBuffsWidth)
-	if E.db.auras.consolidatedBuffs.position == "LEFT" then
-		frame:Point('TOPRIGHT', Minimap.backdrop, 'TOPLEFT', (E.PixelMode and 1 or -1), 0)
-		frame:Point('BOTTOMRIGHT', Minimap.backdrop, 'BOTTOMLEFT', (E.PixelMode and 1 or -1), 0)
-	else
-		frame:Point('TOPLEFT', Minimap.backdrop, 'TOPRIGHT', (E.PixelMode and -1 or 1), 0)
-		frame:Point('BOTTOMLEFT', Minimap.backdrop, 'BOTTOMRIGHT', (E.PixelMode and -1 or 1), 0)
-	end
+	frame:Point('TOPLEFT', Minimap.backdrop, 'TOPRIGHT', (E.PixelMode and -1 or 1), 0)
+	frame:Point('BOTTOMLEFT', Minimap.backdrop, 'BOTTOMRIGHT', (E.PixelMode and -1 or 1), 0)
 	self.frame = frame
 	
 	for i=1, NUM_LE_RAID_BUFF_TYPES do

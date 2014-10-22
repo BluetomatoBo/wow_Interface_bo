@@ -42,20 +42,6 @@ UF['classMaxResourceBar'] = {
 	['ROGUE'] = 5,
 }
 
-UF['mapIDs'] = {
-	[727] = 10, --Silvershard mines
-	[489] = 10, -- WSG
-	[628] = 40, -- Isle of Conquest
-	[607] = 15, -- Strand of the Ancients
-	[726] = 10, -- Twin Peaks
-	[30] = 40, -- AV
-	[529] = 15, -- AB
-	[998] = 10, -- Temple of Kotmogu
-	[1105] = 15, -- Deepwind Gourge
-	[761] = 10, -- Gilneas
-	[566] = 15, -- EOTS
-}
-
 UF['headerGroupBy'] = {
 	['CLASS'] = function(header)
 		header:SetAttribute("groupingOrder", "DEATHKNIGHT,DRUID,HUNTER,MAGE,PALADIN,PRIEST,SHAMAN,WARLOCK,WARRIOR,MONK")
@@ -318,13 +304,6 @@ function UF:UpdateColors()
 	ElvUF.colors.HolyPower = E:GetColorTable(db.classResources.PALADIN);
 	
 	ElvUF.colors.ArcaneChargeBar = E:GetColorTable(db.classResources.MAGE);
-
-	ElvUF.colors.Anticipation = {}
-	ElvUF.colors.Anticipation[1] = E:GetColorTable(db.classResources.ROGUE[1])
-	ElvUF.colors.Anticipation[2] = E:GetColorTable(db.classResources.ROGUE[2])
-	ElvUF.colors.Anticipation[3] = E:GetColorTable(db.classResources.ROGUE[3])
-	ElvUF.colors.Anticipation[4] = E:GetColorTable(db.classResources.ROGUE[4])
-	ElvUF.colors.Anticipation[5] = E:GetColorTable(db.classResources.ROGUE[5])
 	
 	ElvUF.colors.ShadowOrbs = E:GetColorTable(db.classResources.PRIEST);
 	
@@ -476,8 +455,20 @@ function UF.groupPrototype:Configure_Groups()
 	local direction = db.growthDirection
 	local xMult, yMult = DIRECTION_TO_HORIZONTAL_SPACING_MULTIPLIER[direction], DIRECTION_TO_VERTICAL_SPACING_MULTIPLIER[direction]
 
+	local raidFilter = UF.db.smartRaidFilter
+	local numGroups = db.numGroups
+	if(raidFilter) then
+		local inInstance, instanceType = IsInInstance()
+		if(inInstance and (instanceType == 'raid')) then
+			local maxPlayers = select(5, GetInstanceInfo())
 
-	local numGroups = self.numGroups
+			if(maxPlayers > 0) then
+				numGroups = E:Round(maxPlayers/5)
+			end
+		end
+	end
+
+	self.numGroups = numGroups
 
 	for i=1, numGroups do
 		local group = self.groups[i]
@@ -599,9 +590,8 @@ end
 
 function UF.groupPrototype:AdjustVisibility()
 	if not self.isForced then
-		local numGroups = self.numGroups
 		for i=1, #self.groups do
-			if (i <= numGroups) and ((self.db.raidWideSorting and i <= 1) or not self.db.raidWideSorting) then
+			if (i <= self.db.numGroups) and ((self.db.raidWideSorting and i <= 1) or not self.db.raidWideSorting) then
 				self.groups[i]:Show()
 			else
 				if self.groups[i].forceShow then
@@ -625,11 +615,11 @@ function UF.headerPrototype:ClearChildPoints()
 end
 
 
-function UF.headerPrototype:Update(isForced)
+function UF.headerPrototype:Update()
 	local group = self.groupName
 	local db = UF.db['units'][group]
-	UF["Update_"..E:StringTitle(group).."Header"](UF, self, db, isForced)
-
+	UF["Update_"..E:StringTitle(group).."Header"](UF, self, db)
+	
 	local i = 1
 	local child = self:GetAttribute("child" .. i)
 
@@ -683,9 +673,8 @@ function UF:SetupGroupAnchorPoints(group)
 	local positionOverride = DIRECTION_TO_GROUP_ANCHOR_POINT[direction]
 	
 	local maxUnits, startingIndex = MAX_RAID_MEMBERS, -1
-	local numGroups = group.numGroups
-	if (numGroups and db.groupsPerRowCol) then
-		startingIndex = -min(numGroups * (db.groupsPerRowCol * 5), maxUnits) + 1
+	if (db.numGroups and db.groupsPerRowCol) then
+		startingIndex = -min(db.numGroups * (db.groupsPerRowCol * 5), maxUnits) + 1
 	end
 	
 	if point == "LEFT" or point == "RIGHT" then
@@ -701,7 +690,7 @@ function UF:SetupGroupAnchorPoints(group)
 	group:SetAttribute("columnAnchorPoint", db.invertGroupingOrder and INVERTED_DIRECTION_TO_COLUMN_ANCHOR_POINT[direction] or DIRECTION_TO_COLUMN_ANCHOR_POINT[direction])
 	UF:ClearChildPoints(group:GetChildren())
 	group:SetAttribute("point", point)	
-	group:SetAttribute("maxColumns", numGroups or 1)
+	group:SetAttribute("maxColumns", db.numGroups or 1)
 	group:SetAttribute("unitsPerColumn", db.groupsPerRowCol and (db.groupsPerRowCol * 5) or 5)				
 
 	UF.headerGroupBy[db.groupBy](group)
@@ -749,33 +738,10 @@ function UF:CreateHeader(parent, groupFilter, overrideName, template, groupName,
 	return header
 end
 
-
-
 function UF:CreateAndUpdateHeaderGroup(group, groupFilter, template, headerUpdate, headerTemplate)
 	if InCombatLockdown() then self:RegisterEvent('PLAYER_REGEN_ENABLED'); return end
+
 	local db = self.db['units'][group]
-	local raidFilter = UF.db.smartRaidFilter
-	local numGroups = db.numGroups
-	if(raidFilter and numGroups) then
-		local inInstance, instanceType = IsInInstance()
-		if(inInstance and (instanceType == 'raid' or instanceType == 'pvp')) then
-			local _, _, _, _, maxPlayers, _, _, mapID, maxPlayersInstance = GetInstanceInfo()
-			if(maxPlayersInstance and maxPlayersInstance > 0) then
-				maxPlayers = maxPlayersInstance
-			end
-
-			if mapID and UF.mapIDs[mapID] then
-				maxPlayers = UF.mapIDs[mapID]
-			end
-			
-			if(maxPlayers > 0) then
-				numGroups = E:Round(maxPlayers/5)
-				E:Print("Forcing maxGroups to: "..numGroups.." because maxPlayers is: "..maxPlayers)
-			end
-		end
-	end
-
-	
 	if not self[group] then
 		local stringTitle = E:StringTitle(group)
 		ElvUF:RegisterStyle("ElvUF_"..stringTitle, UF["Construct_"..stringTitle.."Frames"])
@@ -798,8 +764,7 @@ function UF:CreateAndUpdateHeaderGroup(group, groupFilter, template, headerUpdat
 		self[group]:Show()
 	end
 
-	self[group].numGroups = numGroups
-	if numGroups then
+	if db.numGroups then
 		if db.enable ~= true and group ~= 'raidpet' then
 			UnregisterStateDriver(self[group], "visibility")
 			self[group]:Hide()
@@ -811,7 +776,7 @@ function UF:CreateAndUpdateHeaderGroup(group, groupFilter, template, headerUpdat
 				self[group].groups[1] = self:CreateHeader(self[group], index, "ElvUF_"..E:StringTitle(self[group].groupName)..'Group1', template, nil, headerTemplate)
 			end
 		else
-			while numGroups > #self[group].groups do
+			while db.numGroups > #self[group].groups do
 				local index = tostring(#self[group].groups + 1)
 				 tinsert(self[group].groups, self:CreateHeader(self[group], index, "ElvUF_"..E:StringTitle(self[group].groupName)..'Group'..index, template, nil, headerTemplate))
 			end
