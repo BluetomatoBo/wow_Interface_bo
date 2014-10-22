@@ -716,6 +716,15 @@ function E:DBConversions()
 
 	self.db.unitframe.units.raid10 = nil
 	self.db.unitframe.units.raid25 = nil
+	
+	if not E.db.bagsOffsetFixed then
+		if E.db.bags.xOffset ~= P['bags']['xOffset'] then
+			E.db.bags.xOffsetBank = E.db.bags.xOffset
+			E.db.bags.yOffsetBank = E.db.bags.yOffset
+			E.db.bags.xOffset = E.db.bags.xOffset * (-1) --Change positive value to negative or vice versa
+		end
+		E.db.bagsOffsetFixed = true
+	end
 end
 
 function E:StopMassiveShake()

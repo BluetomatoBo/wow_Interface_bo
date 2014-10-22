@@ -16,6 +16,8 @@ P['general'] = {
 	['bottomPanel'] = true,
 	['hideErrorFrame'] = true,
 
+	['afk'] = true,
+	
 	["fontSize"] = 12,
 	["font"] = "ElvUI Font",
 
@@ -67,6 +69,8 @@ P['bags'] = {
     ['sortInverted'] = true,
 	['xOffset'] = 0,
 	['yOffset'] = 0,
+	['xOffsetBank'] = 0,
+	['yOffsetBank'] = 0,
 	['bagSize'] = 34,
 	['bankSize'] = 34,
 	['alignToChat'] = true,
@@ -183,6 +187,7 @@ P['auras'] = {
 		['enable'] = true,
 		['filter'] = true,
 		['durations'] = true,
+		['position'] = "RIGHT",
 		['font'] = 'ElvUI Pixel',
 		['fontSize'] = 10,
 		['fontOutline'] = 'MONOCHROMEOUTLINE',
@@ -350,13 +355,6 @@ P['unitframe'] = {
 		},
 		['classResources'] = {
 			['bgColor'] = {r = 0.1,g = 0.1,b = 0.1, a = 1},
-			['comboBar'] = {
-				[1] = {r = 0.69, g = 0.31, b = 0.31},
-				[2] = {r = 0.69, g = 0.31, b = 0.31},
-				[3] = {r = 0.65, g = 0.63, b = 0.35},
-				[4] = {r = 0.65, g = 0.63, b = 0.35},
-				[5] = {r = 0.33, g = 0.59, b = 0.33},
-			},
 			['DEATHKNIGHT'] = {
 				[1] = {r = 1, g = 0, b = 0},
 				[2] = {r = 0, g = 1, b = 0},
@@ -365,6 +363,13 @@ P['unitframe'] = {
 			},
 			['PALADIN'] = {r = 228/255,g = 225/255,b = 16/255},
 			['MAGE'] = {r = 0, g = 157/255, b = 255/255},
+			['ROGUE'] = {
+				[1] = {r = 0.69, g = 0.31, b = 0.31},
+				[2] = {r = 0.69, g = 0.31, b = 0.31},
+				[3] = {r = 0.65, g = 0.63, b = 0.35},
+				[4] = {r = 0.65, g = 0.63, b = 0.35},
+				[5] = {r = 0.33, g = 0.59, b = 0.33},				
+			},
 			['PRIEST'] = {r = 1, g = 1, b = 1},
 			['DRUID'] = {
 				[1] = {r = .30, g = .52, b = .90},
@@ -1918,6 +1923,7 @@ P["actionbar"] = {
 	},
 	['stanceBar'] = {
 		['enabled'] = true,
+		['style'] = 'darkenInactive',
 		['mouseover'] = false,
 		['buttonsPerRow'] = NUM_STANCE_SLOTS,
 		['buttons'] = NUM_STANCE_SLOTS,
