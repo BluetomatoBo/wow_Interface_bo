@@ -45,8 +45,12 @@ end
 
 local function GetMonkPoints()		-- 0 to 4
 	local points = UnitPower("player", SPELL_POWER_CHI)
+	local maxPoints = UnitPowerMax("player", SPELL_POWER_CHI)
 
-	if points > 0 then points = points + monkOffset end
+	if points > 0 and maxPoints == 4 then
+		points = points + monkOffset
+	end
+
 	return points
 end
 
@@ -56,13 +60,13 @@ end
 
 
 local GetPoints
-local PlayerClass = UnitClassBase("player")
+local PlayerClass = select(2,UnitClassBase("player"))
 
-if PlayerClass == "Rogue" or PlayerClass == "Druid" then
+if PlayerClass == "ROGUE" or PlayerClass == "DRUID" then
 	GetPoints = GetRoguePoints
-elseif PlayerClass == "Monk" then
+elseif PlayerClass == "MONK" then
 	GetPoints = GetMonkPoints
-elseif PlayerClass == "Paladin" then
+elseif PlayerClass == "PALADIN" then
 	--GetPoints = GetPaladinPoints
 	GetPoints = DummyFunction
 else

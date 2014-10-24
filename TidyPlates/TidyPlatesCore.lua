@@ -289,7 +289,6 @@ do
 		regions.spelltext:Hide()
 		--]]
 
-
         -- Tidy Plates Frame
         --------------------------------
 		local carrier

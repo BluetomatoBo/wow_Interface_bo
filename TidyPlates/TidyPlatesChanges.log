@@ -2,7 +2,12 @@ Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
 
-
+6.15.3
+---------------------------
+* Combo Widget: Fixed monk and localization issues
+* Blizzard theme; "Fixed" the graphic alignment?
+* Aura Widget:  Support for Infinite Duration (0=Expiration Time) auras, like "Storm, Earth, and Fire".
+* Hub; Cast Bar: Changed the logic of Friendly Unit cast bars.  Perhaps this will help Capacitor Totem visibility?
 
 6.15.2
 ---------------------------
