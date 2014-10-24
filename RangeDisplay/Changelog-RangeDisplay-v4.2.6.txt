@@ -1,9 +1,15 @@
 ------------------------------------------------------------------------
-r361 | mitch0 | 2014-10-14 17:43:11 +0000 (Tue, 14 Oct 2014) | 1 line
+r363 | mitch0 | 2014-10-23 18:31:32 +0000 (Thu, 23 Oct 2014) | 1 line
 Changed paths:
-   A /tags/v4.2.5 (from /trunk:360)
+   A /tags/v4.2.6 (from /trunk:362)
 
-Tagging as v4.2.5
+Tagging as v4.2.6
+------------------------------------------------------------------------
+r362 | mitch0 | 2014-10-23 18:29:19 +0000 (Thu, 23 Oct 2014) | 1 line
+Changed paths:
+   M /trunk/RangeDisplay_Options/Options.lua
+
+added checkAllSpells debug button
 ------------------------------------------------------------------------
 r360 | mitch0 | 2014-10-14 09:29:26 +0000 (Tue, 14 Oct 2014) | 1 line
 Changed paths:

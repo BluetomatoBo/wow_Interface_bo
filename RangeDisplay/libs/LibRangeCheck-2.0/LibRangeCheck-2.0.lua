@@ -1,6 +1,6 @@
 --[[
 Name: LibRangeCheck-2.0
-Revision: $Revision: 149 $
+Revision: $Revision: 154 $
 Author(s): mitch0
 Website: http://www.wowace.com/projects/librangecheck-2-0/
 Description: A range checking library based on interact distances and spell ranges
@@ -41,7 +41,7 @@ License: Public Domain
 -- @class file
 -- @name LibRangeCheck-2.0
 local MAJOR_VERSION = "LibRangeCheck-2.0"
-local MINOR_VERSION = tonumber(("$Revision: 149 $"):match("%d+")) + 100000
+local MINOR_VERSION = tonumber(("$Revision: 154 $"):match("%d+")) + 100000
 
 local lib, oldminor = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
 if not lib then
@@ -184,15 +184,21 @@ HarmSpells["WARLOCK"] = {
 }
 
 FriendSpells["DEATHKNIGHT"] = {
-    49016, -- ["Unholy Frenzy"], -- 30
 }
 HarmSpells["DEATHKNIGHT"] = {
     77606, -- ["Dark Simulacrum"], -- 40
     47541, -- ["Death Coil"], -- 30
     49576, -- ["Death Grip"], -- 30 (Glyph of Death Grip: +5)
     45477, -- ["Icy Touch"], -- 20 (Icy Reach: +5, +10)
-    50842, -- ["Pestilence"], -- 5
-    45902, -- ["Blood Strike"], -- 5, but requires weapon, use Pestilence if possible, so keep it after Pestilence in this list
+    45462, -- ["Plague Strike"], -- 5
+}
+
+FriendSpells["MONK"] = {
+}
+HarmSpells["MONK"] = {
+    115546, -- ["Provoke"], -- 40
+    115078, -- ["Paralysis"], -- 20
+    100780, -- ["Jab"], -- 5
 }
 
 -- Items [Special thanks to Maldivia for the nice list]
@@ -309,9 +315,6 @@ local HarmItems = {
 -- This could've been done by checking player race as well and creating tables for those, but it's easier like this
 for k, v in pairs(FriendSpells) do
     tinsert(v, 28880) -- ["Gift of the Naaru"]
-end
-for k, v in pairs(HarmSpells) do
-    tinsert(v, 28734) -- ["Mana Tap"]
 end
 
 -- >> END OF STATIC CONFIG
