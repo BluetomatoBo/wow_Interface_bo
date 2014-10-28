@@ -16,7 +16,7 @@ SIL = LibStub("AceAddon-3.0"):NewAddon(L.core.name, "AceEvent-3.0", "AceConsole-
 SIL.category = GetAddOnMetadata("SimpleILevel", "X-Category");
 SIL.version = GetAddOnMetadata("SimpleILevel", "Version");
 SIL.versionMajor = 3;                    -- Used for cache DB versioning
-SIL.versionRev = 'r210';    -- Used for version information
+SIL.versionRev = 'r215';    -- Used for version information
 SIL.action = {};        -- DB of unitGUID->function to run when a update comes through
 SIL.hooks = {};         -- List of hooks in [type][] = function;
 SIL.autoscan = 0;       -- time() value of last autoscan, must be more then 1sec
@@ -267,7 +267,7 @@ function SIL:TooltipHook()
 		guid = self:NameToGUID(name);
 	end
 	
-	if tonumber(guid) and tonumber(guid) > 0 then
+	if self:IsGUID(guid, 'Player') then
 		self:ShowTooltip(guid);
     end
 end
@@ -338,7 +338,11 @@ function SIL:SlashTargetPrint(guid, score, items, age)
     if guid and score then
         local name = self:GUIDtoName(guid);
         
-        self:Print(format(L.core.slashTargetScore, name, self:FormatScore(score, items)));
+        if name then
+            self:Print(format(L.core.slashTargetScore, name, self:FormatScore(score, items)));
+        else
+            self:Debug("No name for guid", guid, "score", score, items, age);
+        end
     else
         self:Print(L.core.slashTargetScoreFalse);
     end
@@ -350,7 +354,7 @@ end
 
 ]]
 function SIL:GUIDtoName(guid)
-	if guid and tonumber(guid) and self:Cache(guid) then
+	if guid and self:IsGUID(guid, 'Player') and self:Cache(guid) then
 		return self:Cache(guid, 'name'), self:Cache(guid, 'realm');
 	else
 		return false;
@@ -482,7 +486,7 @@ end
 ]]
 -- Get someones score
 function SIL:GetScore(guid, attemptUpdate, target, callback)
-    if not tonumber(guid) then return false; end
+    if not self:IsGUID(guid, 'Player') then return false; end
     
 	if self:Cache(guid) and self:Cache(guid, 'score') then
 		local score = self:Cache(guid, 'score');
@@ -1151,7 +1155,7 @@ function SIL:GMICallback(name)
 end
 
 function SIL:Cache(guid, what)
-    if not guid and not tonumber(guid) then return false end
+    if not guid and not self:IsGUID(guid, 'Player') then return false end
     
     if SIL_CacheGUID[guid] and what then
         if what == 'age' then
@@ -1167,6 +1171,19 @@ function SIL:Cache(guid, what)
         return true;
     else
         return false;
+    end
+end
+
+function SIL:IsGUID(guid, type)
+    if not guid then return false end
+    if not type then type = 'player' end
+
+    local gType, gGuid = strsplit('-', guid, 2);
+
+    if strlower(type) == strlower(gType) then 
+        return true
+    else 
+        return false
     end
 end
 
