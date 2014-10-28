@@ -1,6 +1,6 @@
 ﻿--[[
 Name: LibTourist-3.0
-Revision: $Rev: 166 $
+Revision: $Rev: 167 $
 Author(s): ckknight (ckknight@gmail.com), Arrowmaster, Odica (maintainer)
 Website: http://ckknight.wowinterface.com/
 Documentation: http://www.wowace.com/addons/libtourist-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibTourist-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 166 $"):match("(%d+)"))
+local MINOR_VERSION = 90000 + tonumber(("$Revision: 167 $"):match("(%d+)"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub") end
 
@@ -46,22 +46,14 @@ end
 
 local isWestern = GetLocale() == "enUS" or GetLocale() == "deDE" or GetLocale() == "frFR" or GetLocale() == "esES"
 
-local Kalimdor, Eastern_Kingdoms, Outland, Northrend, The_Maelstrom, Pandaria = GetMapContinents()
-if not Outland then
-	Outland = "Outland"
-end
-if not Northrend then
-	Northrend = "Northrend"
-end
-if not The_Maelstrom then
-	The_Maelstrom = "The Maelstrom"
-end
-if not Pandaria then
-	Pandaria = "Pandaria"
-end
-
---local Azeroth = BZ["Azeroth"]
 local Azeroth = "Azeroth"
+local Kalimdor = "Kalimdor"
+local Eastern_Kingdoms = "Eastern Kingdoms"
+local Outland = "Outland"
+local Northrend = "Northrend"
+local The_Maelstrom = "The Maelstrom"
+local Pandaria = "Pandaria"
+local Draenor = "Draenor"
 
 local X_Y_ZEPPELIN = "%s - %s Zeppelin"
 local X_Y_BOAT = "%s - %s Boat"
@@ -141,7 +133,6 @@ local function PLAYER_LEVEL_UP(self, level)
 				end
 			elseif zoneType == "Battleground" and low and high then
 				local playerLevel = playerLevel
---				if playerLevel >= low and (playerLevel == MAX_PLAYER_LEVEL or math.fmod(playerLevel, 10) >= 6) then
 				if low <= playerLevel and playerLevel <= high then
 					recInstances[zone] = true
 				end
@@ -341,6 +332,10 @@ function Tourist:GetZoneYardSize(zone)
 	return yardWidths[zone], yardHeights[zone]
 end
 
+function Tourist:GetZoneYardOffset(zone)
+	return yardXOffsets[zone], yardYOffsets[zone]
+end
+
 local ekXOffset = 15525.32200715066
 local ekYOffset = 672.3934326738229
 
@@ -478,18 +473,21 @@ local zonesToIterate = setmetatable({}, {__index = function(self, key)
 	return t
 end})
 
-local kal_yardWidth
-local kal_yardHeight
-local ek_yardWidth
-local ek_yardHeight
+
+
+--local kal_yardWidth
+--local kal_yardHeight
+--local ek_yardWidth
+--local ek_yardHeight
 
 function Tourist:GetBestZoneCoordinate(x, y, zone)
-	if not kal_yardWidth then
-		kal_yardWidth = yardWidths[Kalimdor]
-		kal_yardHeight = yardHeights[Kalimdor]
-		ek_yardWidth = yardWidths[Eastern_Kingdoms]
-		ek_yardHeight = yardHeights[Eastern_Kingdoms]
-	end
+
+--	if not kal_yardWidth then
+		local kal_yardWidth = yardWidths[Kalimdor]
+		local kal_yardHeight = yardHeights[Kalimdor]
+		local ek_yardWidth = yardWidths[Eastern_Kingdoms]
+		local ek_yardHeight = yardHeights[Eastern_Kingdoms]
+--	end
 
 	local zone_yardXOffset = yardXOffsets[zone]
 	if not zone_yardXOffset then
@@ -1563,6 +1561,30 @@ local MapIdLookupTable = {
 	[930] = "Throne of Thunder",
 	[935] = "Deepwind Gorge",
 	[951] = "Timeless Isle",
+	[941] = "Frostfire Ridge",
+	[945] = "Tanaan Jungle",
+	[946] = "Talador",
+	[947] = "Shadowmoon Valley",
+	[948] = "Spires of Arak",
+	[949] = "Gorgrond",
+	[950] = "Nagrand",
+	[962] = "Draenor",
+	[964] = "Bloodmaul Slag Mines",
+	[969] = "Shadowmoon Burial Grounds",
+	[970] = "Tanaan Jungle - Assault on the Dark Portal",
+	[971] = "Lunarfall",
+	[976] = "Frostwall",
+	[978] = "Ashran",
+	[984] = "Auchindoun",
+	[987] = "Iron Docks",
+	[988] = "Blackrock Foundry",
+	[989] = "Skyreach",
+	[993] = "Grimrail Depot",
+	[994] = "Highmaul",
+	[995] = "Upper Blackrock Spire",
+	[1008] = "The Everbloom",
+	[1009] = "Stormshield",
+	[1011] = "Warspear",
 }
 
 local zoneTranslation = {
@@ -2047,7 +2069,7 @@ local function CreateLocalizedZoneNameLookups()
 				BZR[localizedZoneName] = englishName
 			end
 		else
-		--trace("! ----- No map for ID "..tostring(mapID).." ("..tostring(englishName)..")")
+		trace("! ----- No map for ID "..tostring(mapID).." ("..tostring(englishName)..")")
 		end
 	end
 
@@ -2093,12 +2115,14 @@ do
 	local EXODAR_BLASTEDLANDS_PORTAL = string.format(X_Y_PORTAL, BZ["The Exodar"], BZ["Blasted Lands"])
 	local STORMWIND_BOREANTUNDRA_BOAT = string.format(X_Y_BOAT, BZ["Stormwind City"], BZ["Borean Tundra"])
 	local STORMWIND_BLASTEDLANDS_PORTAL = string.format(X_Y_PORTAL, BZ["Stormwind City"], BZ["Blasted Lands"])
+	local STORMWIND_HELLFIRE_PORTAL = string.format(X_Y_PORTAL, BZ["Stormwind City"], BZ["Hellfire Peninsula"])
 	local IRONFORGE_BLASTEDLANDS_PORTAL = string.format(X_Y_PORTAL, BZ["Ironforge"], BZ["Blasted Lands"])
 	local ORGRIMMAR_BOREANTUNDRA_ZEPPELIN = string.format(X_Y_ZEPPELIN, BZ["Orgrimmar"], BZ["Borean Tundra"])
 	local ORGRIMMAR_UNDERCITY_ZEPPELIN = string.format(X_Y_ZEPPELIN, BZ["Orgrimmar"], BZ["Undercity"])
 	local ORGRIMMAR_GROMGOL_ZEPPELIN = string.format(X_Y_ZEPPELIN, BZ["Orgrimmar"], BZ["Northern Stranglethorn"])
 	local ORGRIMMAR_THUNDERBLUFF_ZEPPELIN = string.format(X_Y_ZEPPELIN, BZ["Orgrimmar"], BZ["Thunder Bluff"])
 	local ORGRIMMAR_BLASTEDLANDS_PORTAL = string.format(X_Y_PORTAL, BZ["Orgrimmar"], BZ["Blasted Lands"])
+	local ORGRIMMAR_HELLFIRE_PORTAL = string.format(X_Y_PORTAL, BZ["Orgrimmar"], BZ["Hellfire Peninsula"])
 	local UNDERCITY_HOWLINGFJORD_ZEPPELIN = string.format(X_Y_ZEPPELIN, BZ["Undercity"], BZ["Howling Fjord"])
 	local UNDERCITY_GROMGOL_ZEPPELIN = string.format(X_Y_ZEPPELIN, BZ["Undercity"], BZ["Northern Stranglethorn"])
 	local UNDERCITY_BLASTEDLANDS_PORTAL = string.format(X_Y_PORTAL, BZ["Undercity"], BZ["Blasted Lands"])
@@ -2140,14 +2164,24 @@ do
 
 	local TOWNLONGSTEPPES_ISLEOFTHUNDER_PORTAL = string.format(X_Y_PORTAL, BZ["Townlong Steppes"], BZ["Isle of Thunder"])
 	local ISLEOFTHUNDER_TOWNLONGSTEPPES_PORTAL = string.format(X_Y_PORTAL, BZ["Isle of Thunder"], BZ["Townlong Steppes"])
-
 	
 	local DARKMOON_MULGORE_PORTAL = string.format(X_Y_PORTAL, BZ["Darkmoon Island"], BZ["Mulgore"])
 	local DARKMOON_ELWYNNFOREST_PORTAL = string.format(X_Y_PORTAL, BZ["Darkmoon Island"], BZ["Elwynn Forest"])
 	local MULGORE_DARKMOON_PORTAL = string.format(X_Y_PORTAL, BZ["Mulgore"], BZ["Darkmoon Island"])
 	local ELWYNNFOREST_DARKMOON_PORTAL = string.format(X_Y_PORTAL, BZ["Elwynn Forest"], BZ["Darkmoon Island"])
 
-
+	
+--			[WARSPEAR_ORGRIMMAR_PORTAL] = true,  TODO: portal to Org
+--			[WARSPEAR_UNDERCITY_PORTAL] = true,  TODO: portal to UC
+--			[STORMSHIELD_STORMWIND_PORTAL] = true,  TODO: portal to Stw
+--			[STORMSHIELD_IRONFORGE_PORTAL] = true,  TODO: portal to Ironforge
+--			[STORMSHIELD_DARNASSUS_PORTAL] = true,  TODO: portal to Darnassus
+--			[SHADOWMOONVALLEY_STORMWIND_PORTAL] = true,  TODO: portal to Stw?
+--			[FROSTFIRERIDGE_ORGRIMMAR_PORTAL] = true,  TODO: portal to Org
+	
+	
+	
+	
 	local zones = {}
 
 
@@ -2187,7 +2221,7 @@ do
 
 	zones[BZ["The Maelstrom"]] = {
 		type = "Continent",
---		yards = 0.0,   -- TODO
+--		yards = 0.0,   -- TODO?
 		x_offset = 0,
 		y_offset = 0,
 		continent = The_Maelstrom,
@@ -2195,7 +2229,7 @@ do
 
 	zones[BZ["Pandaria"]] = {
 		type = "Continent",
---		yards = 0.0,   -- TODO
+--		yards = 15515.300292969
 		x_offset = 0,
 		y_offset = 0,
 		continent = Pandaria,
@@ -2206,6 +2240,14 @@ do
 		yards = 44531.82907938571,
 		x_offset = 0,
 		y_offset = 0,
+	}
+
+	zones[BZ["Draenor"]] = {
+		type = "Continent",
+--		yards = 22735.782226563,  
+		x_offset = 0,
+		y_offset = 0,
+		continent = Draenor,
 	}
 
 
@@ -2246,6 +2288,14 @@ do
 		type = "Transport",
 	}
 
+	zones[ORGRIMMAR_HELLFIRE_PORTAL] = {
+		paths = {
+			[BZ["Hellfire Peninsula"]] = true,
+		},
+		faction = "Horde",
+		type = "Transport",
+	}
+	
 	zones[HELLFIRE_ORGRIMMAR_PORTAL] = {
 		paths = {
 			[BZ["Orgrimmar"]] = true,
@@ -2286,6 +2336,15 @@ do
 		type = "Transport",
 	}
 
+	zones[STORMWIND_HELLFIRE_PORTAL] = {
+		paths = {
+			[BZ["Hellfire Peninsula"]] = true,
+		},
+		faction = "Alliance",
+		type = "Transport",
+	}
+
+	
 	zones[HELLFIRE_STORMWIND_PORTAL] = {
 		paths = {
 			[BZ["Stormwind City"]] = true,
@@ -2786,6 +2845,7 @@ do
 			[TELDRASSIL_STORMWIND_BOAT] = true,
 			[STORMWIND_BOREANTUNDRA_BOAT] = true,
 			[STORMWIND_BLASTEDLANDS_PORTAL] = true,
+			[STORMWIND_HELLFIRE_PORTAL] = true,
 			[STORMWIND_TWILIGHTHIGHLANDS_PORTAL] = true,
 			[STORMWIND_MOUNTHYJAL_PORTAL] = true,
 			[STORMWIND_DEEPHOLM_PORTAL] = true,
@@ -3205,6 +3265,7 @@ do
 			[BZ["Blackwing Descent"]] = true,
 			[BZ["Molten Core"]] = true,
 			[BZ["Blackrock Spire"]] = true,
+			[BZ["Upper Blackrock Spire"]] = true,
 		},
 		paths = {
 			[BZ["Blackrock Mountain"]] = true,
@@ -3230,6 +3291,7 @@ do
 			[BZ["Blackwing Descent"]] = true,
 			[BZ["Molten Core"]] = true,
 			[BZ["Blackrock Spire"]] = true,
+			[BZ["Upper Blackrock Spire"]] = true,
 		},
 		paths = {
 			[BZ["Burning Steppes"]] = true,
@@ -3240,6 +3302,7 @@ do
 			[BZ["Blackrock Depths"]] = true,
 			[BZ["Blackrock Caverns"]] = true,
 			[BZ["Blackrock Spire"]] = true,
+			[BZ["Upper Blackrock Spire"]] = true,
 		},
 		type = "Complex",
 		fishing_min = 1, -- lava
@@ -3284,6 +3347,7 @@ do
 			[BZ["Blackwing Descent"]] = true,
 			[BZ["Molten Core"]] = true,
 			[BZ["Blackrock Spire"]] = true,
+			[BZ["Upper Blackrock Spire"]] = true,
 		},
 		paths = {
 			[BZ["Blackrock Mountain"]] = true,
@@ -3512,12 +3576,25 @@ do
 			[BZ["Blackwing Descent"]] = true,
 		},
 		groupSize = 5,
-		altGroupSize = 10,
 		type = "Instance",
 		complex = BZ["Blackrock Mountain"],
 		entrancePortal = { BZ["Burning Steppes"], 29.7, 37.5 },
 	}
 
+	zones[BZ["Upper Blackrock Spire"]] = {
+		low = 90,
+		high = 90,
+		continent = Eastern_Kingdoms,
+		paths = {
+			[BZ["Blackrock Mountain"]] = true,
+		},
+		groupSize = 5,
+		type = "Instance",
+		complex = BZ["Blackrock Mountain"],
+		entrancePortal = { BZ["Burning Steppes"], 29.7, 37.5 },
+	}
+	
+	
 	zones[BZ["Scholomance"]] = {
 		low = 38,
 		high = 48,
@@ -3637,6 +3714,7 @@ do
 			[ORGRIMMAR_BOREANTUNDRA_ZEPPELIN] = true,
 			[ORGRIMMAR_THUNDERBLUFF_ZEPPELIN] = true,
 			[ORGRIMMAR_BLASTEDLANDS_PORTAL] = true,
+			[ORGRIMMAR_HELLFIRE_PORTAL] = true,
 			[ORGRIMMAR_TWILIGHTHIGHLANDS_PORTAL] = true,
 			[ORGRIMMAR_MOUNTHYJAL_PORTAL] = true,
 			[ORGRIMMAR_DEEPHOLM_PORTAL] = true,
@@ -5702,7 +5780,6 @@ do
 			[BZ["Burning Steppes"]] = true,
 			[BZ["Blackrock Mountain"]] = true,
 			[BZ["Blackrock Spire"]] = true,
-			[BZ["Blackrock Spire"]] = true,
 		},
 		groupSize = 10,
 		altGroupSize = 25,
@@ -6162,46 +6239,333 @@ do
 	}
 	
 	
+	-- Warlords of Dreanor (WoD) zones --------------------------
+	
+	zones[BZ["Frostfire Ridge"]] = {
+		low = 90,
+		high = 92,
+		continent = Dreanor,
+		instances = {
+			[BZ["Bloodmaul Slag Mines"]] = true,
+		},
+		paths = {
+			[BZ["Gorgrond"]] = true,
+--			[FROSTFIRERIDGE_ORGRIMMAR_PORTAL] = true,  TODO: portal to Org
+		},
+		fishing_min = 750,
+		battlepet_low = 23,
+		battlepet_high = 25,
+	}
+	
+	zones[BZ["Shadowmoon Valley"]] = {
+		low = 90,
+		high = 92,
+		continent = Dreanor,
+		instances = {
+			[BZ["Shadowmoon Burial Grounds"]] = true,
+		},
+		paths = {
+			[BZ["Talador"]] = true,
+			[BZ["Spires of Arak"]] = true,
+			[BZ["Tanaan Jungle"]] = true,
+--			[SHADOWMOONVALLEY_STORMWIND_PORTAL] = true,  TODO: portal to Stw?
+		},
+		fishing_min = 750,
+		battlepet_low = 23,
+		battlepet_high = 25,
+	}	
 
+	zones[BZ["Gorgrond"]] = {
+		low = 92,
+		high = 94,
+		continent = Dreanor,
+		instances = {
+			[BZ["Iron Docks"]] = true,
+			[BZ["Grimrail Depot"]] = true,
+			[BZ["The Everbloom"]] = true,
+			[BZ["Blackrock Foundry"]] = true,
+		},
+		paths = {
+			[BZ["Frostfire Ridge"]] = true,
+			[BZ["Talador"]] = true,
+			[BZ["Tanaan Jungle"]] = true,
+		},
+		fishing_min = 750,
+		battlepet_low = 25,
+		battlepet_high = 25,
+	}
+	
+	zones[BZ["Talador"]] = {
+		low = 94,
+		high = 96,
+		continent = Dreanor,
+		instances = {
+			[BZ["Auchindoun"]] = true,
+		},
+		paths = {
+			[BZ["Shadowmoon Valley"]] = true,
+			[BZ["Gorgrond"]] = true,
+			[BZ["Tanaan Jungle"]] = true,
+			[BZ["Spires of Arak"]] = true,
+			[BZ["Nagrand"]] = true,
+		},
+		fishing_min = 750,
+		battlepet_low = 25,
+		battlepet_high = 25,
+	}	
+	
+	zones[BZ["Spires of Arak"]] = {
+		low = 96,
+		high = 98,
+		continent = Dreanor,
+		instances = {
+			[BZ["Skyreach"]] = true,
+			[BZ["Blackrock Foundry"]] = true,
+		},
+		paths = {
+			[BZ["Shadowmoon Valley"]] = true,
+			[BZ["Talador"]] = true,
+		},
+		fishing_min = 750,
+		battlepet_low = 25,
+		battlepet_high = 25,
+	}
+	
+	zones[BZ["Nagrand"]] = {
+		low = 98,
+		high = 100,
+		continent = Dreanor,
+		instances = {
+			[BZ["Highmaul"]] = true,
+			[BZ["Blackrock Foundry"]] = true,
+		},
+		paths = {
+			[BZ["Talador"]] = true,
+		},
+		fishing_min = 750,
+		battlepet_low = 25,
+		battlepet_high = 25,
+	}	
+	
+	zones[BZ["Tanaan Jungle"]] = {
+		low = 100,
+		high = 100,
+		continent = Dreanor,
+		instances = {
+--			[BZ["Iron Citadel"]] = true,
+		},
+		paths = {
+			[BZ["Talador"]] = true,
+			[BZ["Shadowmoon Valley"]] = true,
+			[BZ["Gorgrond"]] = true,
+		},
+		fishing_min = 750,
+		battlepet_low = 25,
+		battlepet_high = 25,
+	}	
+	
+	zones[BZ["Ashran"]] = {
+		low = 100,
+		high = 100,
+		continent = Dreanor,
+		type = "PvP Zone",
+		instances = {
+--			[BZ["Iron Citadel"]] = true,
+		},
+		paths = {
+			[BZ["Warspear"]] = true,
+			[BZ["Stormshield"]] = true,
+		},
+		fishing_min = 750,
+		battlepet_low = 25,
+		battlepet_high = 25,
+	}	
+	
+	
+	-- Warlords of Dreanor (WoD) cities
+	
+	zones[BZ["Warspear"]] = {
+		continent = Dreanor,
+		paths = {
+			[BZ["Ashran"]] = true,
+--			[WARSPEAR_ORGRIMMAR_PORTAL] = true,  TODO: portal to Org
+--			[WARSPEAR_UNDERCITY_PORTAL] = true,  TODO: portal to UC
+		},
+		faction = "Horde",
+		type = "City",
+		battlepet_low = 25,
+		battlepet_high = 25,
+	}
+
+	zones[BZ["Stormshield"]] = {
+		continent = Dreanor,
+		paths = {
+			[BZ["Ashran"]] = true,
+--			[STORMSHIELD_STORMWIND_PORTAL] = true,  TODO: portal to Stw
+--			[STORMSHIELD_IRONFORGE_PORTAL] = true,  TODO: portal to Ironforge
+--			[STORMSHIELD_DARNASSUS_PORTAL] = true,  TODO: portal to Darnassus
+		},
+		faction = "Alliance",
+		type = "City",
+		battlepet_low = 25,
+		battlepet_high = 25,
+	}
+	
+	-- Warlords of Dreanor (WoD) dungeons and raids
+	
+	zones[BZ["Bloodmaul Slag Mines"]] = {
+		low = 90,
+		high = 92,
+		continent = Draenor,
+		paths = BZ["Forstfire Ridge"],
+		groupSize = 5,
+		type = "Instance",
+--		entrancePortal = { BZ["Forstfire Ridge"], 0.00, 0.00 },   TODO
+	}	
+	
+	zones[BZ["Shadowmoon Burial Grounds"]] = {
+		low = 100,
+		high = 100,
+		continent = Draenor,
+		paths = BZ["Shadowmoon Valley"],
+		groupSize = 5,
+		type = "Instance",
+--		entrancePortal = { BZ["Shadowmoon Valley"], 0.00, 0.00 },   TODO
+	}
+	
+	zones[BZ["Iron Docks"]] = {
+		low = 92,
+		high = 94,
+		continent = Draenor,
+		paths = BZ["Gorgrond"],
+		groupSize = 5,
+		type = "Instance",
+--		entrancePortal = { BZ["Gorgrond"], 0.00, 0.00 },   TODO
+	}	
+	
+	zones[BZ["Grimrail Depot"]] = {
+		low = 100,
+		high = 100,
+		continent = Draenor,
+		paths = BZ["Gorgrond"],
+		groupSize = 5,
+		type = "Instance",
+--		entrancePortal = { BZ["Gorgrond"], 0.00, 0.00 },   TODO
+	}	
+	
+	zones[BZ["The Everbloom"]] = {
+		low = 100,
+		high = 100,
+		continent = Draenor,
+		paths = BZ["Gorgrond"],
+		groupSize = 5,
+		type = "Instance",
+--		entrancePortal = { BZ["Gorgrond"], 0.00, 0.00 },   TODO
+	}
+	
+	zones[BZ["Blackrock Foundry"]] = {
+		low = 100,
+		high = 100,
+		continent = Draenor,
+		paths = BZ["Gorgrond"],
+		groupSize = 10,
+		altGroupSize = 25,
+		type = "Instance",
+--		entrancePortal = { BZ["Gorgrond"], 0.00, 0.00 },   TODO
+	}	
+	
+	zones[BZ["Auchindoun"]] = {
+		low = 95,
+		high = 97,
+		continent = Draenor,
+		paths = BZ["Talador"],
+		groupSize = 5,
+		type = "Instance",
+--		entrancePortal = { BZ["Talador"], 0.00, 0.00 },   TODO
+	}
+	
+	zones[BZ["Skyreach"]] = {
+		low = 97,
+		high = 99,
+		continent = Draenor,
+		paths = BZ["Spires of Arak"],
+		groupSize = 5,
+		type = "Instance",
+--		entrancePortal = { BZ["Spires of Arak"], 0.00, 0.00 },   TODO
+	}
+	
+	zones[BZ["Highmaul"]] = {
+		low = 100,
+		high = 100,
+		continent = Draenor,
+		paths = BZ["Nagrand"],
+		groupSize = 10,
+		altGroupSize = 25,
+		type = "Instance",
+--		entrancePortal = { BZ["Nagrand"], 0.00, 0.00 },   TODO
+	}
+	
+--	zones[BZ["Iron Citadel"]] = {
+--		low = 100,
+--		high = 100,
+--		continent = Draenor,
+--		paths = BZ["Tanaan Jungle"],
+--		groupSize = 10,
+--		altGroupSize = 25,
+--		type = "Instance",
+--		entrancePortal = { BZ["Tanaan Jungle"], 0.00, 0.00 },   TODO
+--	}
+	
+	
+	
 --------------------------------------------------------------------------------------------------------
 --                                                CORE                                                --
 --------------------------------------------------------------------------------------------------------
 
-	local WOW = {};
+	-- Wrapper for GetMapContinents, removes the map IDs added to its output in WoW 6.0
+	local function GetMapContinentsAlt()
+		local temp = { GetMapContinents() }
 
-	if ( GetBuildInfo ) then
-		local v, b, d = GetBuildInfo();
-		WOW.build = b;
-		WOW.date = d;
-		local s,e,maj,min,dot = string.find(v, "(%d+).(%d+).(%d+)");
-		WOW.major = tonumber(maj);
-		WOW.minor = tonumber(min);
-		WOW.dot = tonumber(dot);
-	else
-		WOW.major = 1;
-		WOW.minor = 9;
-		WOW.dot = 0;
-	end
-
-	-- Function for backward compatibility with pre-WoD mappping functions
-	local function Remangle(...)
-		if (WOW.major > 5) then
-			t = {}
-			for i=1, select("#", ...), 2 do
-				k = select(i, ...)
-				v = select(i+1, ...)
-				t[#t+1] = v
+		if tonumber(temp[1]) then
+			-- The first value is an ID instead of a name -> WoW 6.0 or later
+			local continents = {}
+			local index = 0
+			for i = 2, #temp, 2 do
+				index = index + 1
+				continents[index] = temp[i]
+--				trace( "C "..tostring(index).." = "..tostring(continents[index]) )
 			end
-			return t
+			return continents
 		else
-			return { ... }
+			-- Backward compatibility for pre-WoW 6.0
+			return temp
 		end
 	end
-
-	local continentNames = Remangle(GetMapContinents())
-	local doneZones = {}
-	local zoneIndices = {}
-
+	
+	-- Alternative for GetMapZones because GetMapZones does NOT return all zones, 
+	-- making its output useless as input for for SetMapZoom. 
+	-- Thanks to Blackspirit (US) for this code.
+	local function GetMapZonesAlt(continentID)
+		local zones = {}
+		SetMapZoom(continentID)
+		local continentAreaID = GetCurrentMapAreaID()
+		for i=1, 100, 1 do 
+			SetMapZoom(continentID, i) 
+			local zoneAreaID = GetCurrentMapAreaID() 
+			if zoneAreaID == continentAreaID then 
+				-- If the index is out of bounds, the continent map is returned -> exit the loop
+				break 
+			end 
+			-- Get the localized zone name and store it
+			zones[i] = GetMapNameByID(zoneAreaID)
+--			if continentID == 7 then
+--				trace(i..": "..zoneAreaID.." = "..tostring(zones[i])) 
+--			end
+		end
+		return zones
+	end
+	
+	
 	-- Lookup for zones that are on a sub-continent map and therefore have no own highlight on the continent map
 	-- Value is the name of the sub-continent map that will be searched instead of the continent map
 	local searchMaps = {}
@@ -6220,14 +6584,18 @@ do
 	searchMaps[BZ["Deathknell"]] = BZ["Tirisfal Glades"]	
 	searchMaps[BZ["Northshire"]] = BZ["Elwynn Forest"]	
 	searchMaps[BZ["Sunstrider Isle"]] = BZ["Eversong Woods"]	
+	searchMaps[BZ["Warspear"]] = BZ["Ashran"]
+	searchMaps[BZ["Stormshield"]] = BZ["Ashran"]
+	searchMaps[BZ["Darnassus"]] = BZ["Teldrassil"]
+	searchMaps[BZ["Orgrimmar"]] = BZ["Durotar"]
+	searchMaps[BZ["Ruins of Gilneas City"]] = BZ["Ruins of Gilneas"]	
+	searchMaps[BZ["Stormwind City"]] = BZ["Elwynn Forest"]	
 	
-	-- Unfortunaltely this trick does not work for cities.
---	searchMaps[BZ["Stormwind City"]] = BZ["Elwynn Forest"]	
---	searchMaps[BZ["Darnassus"]] = BZ["Teldrassil"]
---	searchMaps[BZ["Orgrimmar"]] = BZ["Durotar"]
---	searchMaps[BZ["Ruins of Gilneas City"]] = BZ["Ruins of Gilneas"]	
---	searchMaps[BZ["Shrine of Two Moons"]] = BZ["Vale of Eternal Blossoms"]	
---	searchMaps[BZ["Shrine of Seven Stars"]] = BZ["Vale of Eternal Blossoms"]		
+	-- Unfortunately this trick does not work for the following cities.
+	searchMaps[BZ["Dalaran"]] = BZ["Crystalsong Forest"]
+	searchMaps[BZ["Shrine of Two Moons"]] = BZ["Vale of Eternal Blossoms"]	
+	searchMaps[BZ["Shrine of Seven Stars"]] = BZ["Vale of Eternal Blossoms"]		
+
 	
 	-- The submaps have different sizes than the continent maps -> use submap size as 'continent size'
 	-- These values are hardcoded because it is not guaranteed the searchmap has been 'discovered' yet
@@ -6242,14 +6610,15 @@ do
 	submapContinentYards[BZ["Tirisfal Glades"]] = 4518.7
 	submapContinentYards[BZ["Elwynn Forest"]] = 3470.8
 	submapContinentYards[BZ["Eversong Woods"]] = 4925.0
+	submapContinentYards[BZ["Ruins of Gilneas"]] = 3145.8
+	submapContinentYards[BZ["Vale of Eternal Blossoms"]] = 2533.3
+	submapContinentYards[BZ["Ashran"]] = 3122.9
 		
---	submapContinentYards[BZ["Ruins of Gilneas"]] = 3145.8
---	submapContinentYards[BZ["Vale of Eternal Blossoms"]] = 2533.3
-		
-		
+	
 
 	trace("Tourist: Initializing continents...")
-	
+	local continentNames = GetMapContinentsAlt()
+
 	for continentID, continentName in ipairs(continentNames) do
 		SetMapZoom(continentID)
 		
@@ -6264,6 +6633,7 @@ do
 		end
 	end
 	
+	-- Check for unknown continents (not in LibTourist yet)
 	for continentID, continentName in ipairs(continentNames) do
 		if not zones[continentName] then
 			-- Unknown Continent
@@ -6286,6 +6656,7 @@ do
 	-- Note: the city highlights/icons on the zone maps can't be used because these return the name but no map data.
 	-- TODO: determine offset values
 
+	
 	local kalimdorYards = zones[BZ["Kalimdor"]].yards
 	local eastkingYards = zones[BZ["Eastern Kingdoms"]].yards
 	local northrendYards = zones[BZ["Northrend"]].yards
@@ -6340,103 +6711,130 @@ do
 	-- end hack
 
 	trace("Tourist: Initializing zones...")
+	local doneZones = {}
 	
 	for continentID, continentName in ipairs(continentNames) do
-		SetMapZoom(continentID)
-		
-		local zoneNames = Remangle(GetMapZones(continentID))
+		local zoneNames = GetMapZonesAlt(continentID)
 		local continentYards = zones[continentName] and zones[continentName].yards or 0
-
-		-- First, build a collection of zone indices (numbers of the zones within a continent)
+		
+		-- Build a collection of zone indices (numbers of the zones within a continent)
 		-- to be able to lookup a zone index for SetMapZoom()
+		local zoneIndices = {}
 		for _ = 1, #zoneNames do
 			zoneIndices[zoneNames[_]] = _
 		end
-
+		
+		SetMapZoom(continentID)
+		
 		for _ = 1, #zoneNames do
 			local x, y
 			local name, fileName, texPctX, texPctY, texX, texY, scrollX, scrollY
 
-			-- Some zones are not directly accessible from the continent map and have to be searched for on a zone map
-			local searchMap, zoneIndex
-			searchMap = searchMaps[zoneNames[_]]
-			if searchMap then
-				-- Get the zone index from the lookup
-				zoneIndex = zoneIndices[searchMap]
-				if zoneIndex then
+			-- Draenor zones Frostfire Ridge and Shadowmoon Valley appear twice in the collection of Dreanor zones
+			-- so now we need to be able to skip duplicates, even within a Continent
+			if not doneZones[continentName.."."..zoneNames[_]] then
+			
+				-- Some zones are not directly accessible from the continent map and have to be searched for on a zone map
+				local searchMap, zoneIndex
+				searchMap = searchMaps[zoneNames[_]]
+				if searchMap then
+					-- Get the zone index from the lookup
+					zoneIndex = zoneIndices[searchMap]
+--					trace( "SearchMap for "..tostring(zoneNames[_]).." = "..tostring(zoneIndex).." ("..tostring(searchMap)..")"  )
 					-- Set map to zone map
 					SetMapZoom(continentID, zoneIndex)
 					-- Get searchMap size and use as 'continent' size
 					continentYards = submapContinentYards[searchMap]
 				end
-			end
-
-			-- Probe the map for the map highlight of the zone
-			local scansDone = 0
-			repeat
-				scansDone = scansDone + 1
-				if scansDone >= 10000 then
-					-- Timeout
-					name = nil
-					break
-				end
-				x, y = math.random(), math.random()
-				name, fileName, texPctX, texPctY, texX, texY, scrollX, scrollY = UpdateMapHighlight(x, y)
-			until name and not doneZones[name] and name == zoneNames[_]  -- do not stop searching until we have a match on zonename
 			
-			-- Process result
-			local tryGetCurrentMapZone = false
-			if name then
-				-- UpdateMapHighlight() has found the zone highlight
-				if zones[name] then
-					if fileName then
-						-- UpdateMapHighlight() returned the zone name and data for the texture
-						doneZones[name] = true
-
-						-- Not sure what this is:
-						if fileName == "EversongWoods" or fileName == "Ghostlands" or fileName == "Sunwell" or fileName == "SilvermoonCity" then
-							scrollX = scrollX - 0.00168
-							scrollY = scrollY + 0.01
+				-- MdV
+				local effe = {}
+				
+				-- Probe the map for the map highlight of the zone
+				local scansDone = 0
+				repeat
+					scansDone = scansDone + 1
+					if scansDone >= 10000 then
+						-- Timeout
+						trace( "Scan Timeout for "..tostring(zoneNames[_]) )
+						name = nil
+						break
+					end
+					x, y = math.random(), math.random()
+					name, fileName, texPctX, texPctY, texX, texY, scrollX, scrollY = UpdateMapHighlight(x, y)
+					-- MdV
+					if continentID == 7 and name then
+						if not effe[name] then
+--							trace( "-> "..tostring(continentName).." highlight: "..tostring(name))
+--							if name == zoneNames[_] then trace(" Found!") end
+							effe[name] = true
 						end
-
-						zones[name].yards = texX * continentYards
-						zones[name].x_offset = scrollX * continentYards
-						zones[name].y_offset = scrollY * continentYards * 2/3
-						zones[name].texture = fileName
+					end
+				until name == zoneNames[_]  -- do not stop searching until we have a match on zonename
+--				until name and not doneZones[continentName.."."..name] and name == zoneNames[_]  -- do not stop searching until we have a match on zonename
+				
+				
+				-- Process result
+				local tryGetCurrentMapZone = false
+				if name then
+					-- UpdateMapHighlight() has found the zone highlight
+					if zones[name] then
+						if fileName then
+							-- UpdateMapHighlight() returned the zone name and data for the texture
+							-- Not sure what this is:
+							if fileName == "EversongWoods" or fileName == "Ghostlands" or fileName == "Sunwell" or fileName == "SilvermoonCity" then
+								scrollX = scrollX - 0.00168
+								scrollY = scrollY + 0.01
+							end
+											
+							zones[name].yards = texX * continentYards
+							zones[name].x_offset = scrollX * continentYards
+							zones[name].y_offset = scrollY * continentYards * 2/3
+							zones[name].texture = fileName
+						else
+							-- UpdateMapHighlight() returned the zone name but did NOT return data for the texture
+							trace("! Tourist: No texture data from UpdateMapHighlight for "..tostring(name))
+							tryGetCurrentMapZone = true
+						end
 					else
-						-- UpdateMapHighlight() returned the zone name but did NOT return data for the texture
-						trace("! Tourist: No texture data from UpdateMapHighlight for "..tostring(name))
-						tryGetCurrentMapZone = true
+						trace("! Tourist: TODO: Add zone "..tostring(name))
 					end
 				else
-					trace("! Tourist: TODO: "..tostring(name))
+					-- UpdateMapHighlight did not return anything
+					trace("! Tourist: Highlight not found for "..tostring(continentName).."["..tostring(_).."] = "..tostring(zoneNames[_]))
+					name = zoneNames[_]
+					tryGetCurrentMapZone = true
 				end
+
+				if tryGetCurrentMapZone then
+					-- Alternative method to gather some of the data. This will overwrite the hardcoded values above,
+					-- but does not return offset values.
+					if name ~= BZ["The Maelstrom"] then -- Or zone data will overwrite continent data
+						zoneIndex = zoneIndices[name]
+						SetMapZoom(continentID, zoneIndex)
+						fileName = GetMapInfo()
+						local _, left, top, right, bot = GetCurrentMapZone()
+						local sizeInYards = left - right or 0
+						
+--						trace( "Alt for "..tostring(name)..": size ="..tostring(sizeInYards)..", fileName="..tostring(fileName) )
+						if( sizeInYards ~= 0 or not zones[name].yards ) then
+							zones[name].yards = sizeInYards
+						end
+						zones[name].texture = fileName
+					end
+				end
+				
+				if zoneIndex then
+					-- Revert map to current continent map for next zoneName lookup
+					SetMapZoom(continentID)
+					continentYards = zones[continentName].yards
+				end
+				
+				doneZones[continentName.."."..name] = true
 			else
-				-- UpdateMapHighlight did not return anything
-				-- See hack, above
-				trace("! Tourist: Highlight not found for "..tostring(continentName).."["..tostring(_).."] = "..tostring(zoneNames[_]))
-				name = zoneNames[_]
-				tryGetCurrentMapZone = true
+				trace("! Tourist: Duplicate zone: "..tostring(continentName).."["..tostring(_).."]: "..tostring(zoneNames[_]) )
 			end
 
-			if tryGetCurrentMapZone then
-				-- Alternative method to gather some of the data. This will overwrite the hardcoded values above,
-				-- but does not return offset values.
-				zoneIndex = zoneIndices[name]
-				SetMapZoom(continentID, zoneIndex)
-				fileName = GetMapInfo()
-				local _, X1, Y1, X2, Y2 = GetCurrentMapZone()
-				local sizeInYards = X1 - X2 or 0
-				
-				zones[name].yards = sizeInYards
-				zones[name].texture = fileName
-			end
-			
-			if zoneIndex then
-				-- Revert map to current continent map for next zoneName lookup
-				SetMapZoom(continentID)
-				continentYards = zones[continentName].yards
-			end
 		end
 	end
 
@@ -6474,7 +6872,7 @@ do
 	end
 	zones = nil
 
-	trace("Tourist: BZ initialized.")
+	trace("Tourist: Initialized.")
 
 	PLAYER_LEVEL_UP(Tourist)
 end

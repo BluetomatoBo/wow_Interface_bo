@@ -1,5 +1,8 @@
+[b]2.02[/b]
+*LibTourist update. Continents work fine now. Author's note: Currently, the data for the Outland zones Nagrand and Shadowmoon Valley is overwritten by the data for the Draenor zones with the same names.
+
 [b]2.01[/b]
-Added option to show/hide the coord frames. (Looks sleek btw, cheers codeblake)
+*Added option to show/hide the coord frames. (Looks sleek btw, cheers codeblake)
 
 [b]2.00[/b]
 *Updated for WoD. Note: LibTourist needed for the tooltip info is not yet updated for the new areas, so recommended areas, dungeons, level area, etc are not passing any info.
