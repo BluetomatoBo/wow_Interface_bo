@@ -1,6 +1,6 @@
 --[[
 Name: LibRangeCheck-2.0
-Revision: $Revision: 154 $
+Revision: $Revision: 158 $
 Author(s): mitch0
 Website: http://www.wowace.com/projects/librangecheck-2-0/
 Description: A range checking library based on interact distances and spell ranges
@@ -41,7 +41,7 @@ License: Public Domain
 -- @class file
 -- @name LibRangeCheck-2.0
 local MAJOR_VERSION = "LibRangeCheck-2.0"
-local MINOR_VERSION = tonumber(("$Revision: 154 $"):match("%d+")) + 100000
+local MINOR_VERSION = tonumber(("$Revision: 158 $"):match("%d+")) + 100000
 
 local lib, oldminor = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
 if not lib then
@@ -82,30 +82,21 @@ local FriendSpells = {}
 local HarmSpells = {}
 
 FriendSpells["DRUID"] = {
-    5185, -- ["Healing Touch"], -- 40
-    467, -- ["Thorns"], -- 30
+    774, -- ["Rejuvenation"], -- 40
+    1126, -- ["Mark of the Wild"], -- 30
 }
 HarmSpells["DRUID"] = {
     5176, -- ["Wrath"], -- 40
-    770, -- ["Faerie Fire"] -- 35 (Glyph of Faerie Fire: +10)
     339, -- ["Entangling Roots"], -- 35
     6795, -- ["Growl"], -- 30
---    16979, -- ["Feral Charge"], -- 8-25
-    33786, -- ["Cyclone"], -- 20 (Gale Winds: 22, 24)
-    80964, -- ["Skull Bash"] -- 13
-    5211, -- ["Bash"], -- 5
+    33786, -- ["Cyclone"], -- 20
+    22568, -- ["Ferocious Bite"], -- 5
 }
 
 FriendSpells["HUNTER"] = {}
 HarmSpells["HUNTER"] = {
-    1130, -- ["Hunter's Mark"] -- 100
-    53351, -- ["Kill Shot"] -- 45
+    53351, -- ["Kill Shot"], -- 45
     75, -- ["Auto Shot"], -- 40
-    19801, -- ["Tranquilizing Shot"] -- 35
-    34490, -- ["Silencing Shot"] -- 35
-    2764, -- ["Throw"], -- 30
-    19503, -- ["Scatter Shot"], -- 20 (Glyph of Scatter Shot: +3)
-    2973, -- ["Raptor Strike"] -- 5
 }
 
 FriendSpells["MAGE"] = {
@@ -113,21 +104,19 @@ FriendSpells["MAGE"] = {
     1459, -- ["Arcane Brilliance"], -- 30
 }
 HarmSpells["MAGE"] = {
-    133, -- ["Fireball"], -- 40
-    116, -- ["Frostbolt"], -- 35
-    30455, -- ["Ice Lance"], -- 35 (Ice Shards: +2, +5)
+    44614, --["Frostfire Bolt"], -- 40
+    2136, -- ["Fire Blast"], -- 30
     5019, -- ["Shoot"], -- 30
 }
 
 FriendSpells["PALADIN"] = {
-    635, -- ["Holy Light"], -- 40
+    85673, -- ["Word of Glory"], -- 40
     20217, -- ["Blessing of Kings"], -- 30
 }
 HarmSpells["PALADIN"] = {
-    62124, -- ["Hand of Reckoning"], -- 30
---    20473, -- ["Holy Shock"], -- 20
-    20271, -- ["Judgement"], -- 10 (Improved Judgement: +10, +20; Enlightened Judgements: +5, +10)
-    853, -- ["Hammer of Justice"], -- 10 (Glyph of Hammer of Justice: +5)
+    62124, -- ["Reckoning"], -- 30
+    20271, -- ["Judgement"], -- 30
+    853, -- ["Hammer of Justice"], -- 10
     35395, -- ["Crusader Strike"], -- 5
 } 
 
@@ -137,63 +126,55 @@ FriendSpells["PRIEST"] = {
 }
 HarmSpells["PRIEST"] = {
     589, -- ["Shadow Word: Pain"], -- 40
-    48045, -- ["Mind Sear"], -- 35
     5019, -- ["Shoot"], -- 30
 }
 
 FriendSpells["ROGUE"] = {}
 HarmSpells["ROGUE"] = {
-    2764, -- ["Throw"], -- 30 (Throwing Specialization: +5, +10)
-    3018, -- ["Shoot"], -- 30
+    2764, -- ["Throw"], -- 30
     2094, -- ["Blind"], -- 15
---    8676, -- ["Ambush"], -- 5 (Glyph of Ambush: +5)
---    921, -- ["Pick Pocket"], -- 5 (Glyph of Pick Pocket: + 5)
-    2098, -- ["Eviscerate"], -- 5
+    1752, -- ["Sinister Strike"], -- 5
 }
 
 FriendSpells["SHAMAN"] = {
-    331, -- ["Healing Wave"], -- 40
+    8004, -- ["Healing Surge"], -- 40
     546, -- ["Water Walking"], -- 30
 }
 HarmSpells["SHAMAN"] = {
-    403, -- ["Lightning Bolt"], -- 30 (Elemental Reach: +5)
+    403, -- ["Lightning Bolt"], -- 30
     370, -- ["Purge"], -- 30
-    8042, -- ["Earth Shock"], -- 25 (Elemental Reach: +7; Gladiator Gloves: +5)
+    8050, -- ["Flame Shock"], -- 25
     73899, -- ["Primal Strike"],. -- 5
 }
 
 FriendSpells["WARRIOR"] = {}
 HarmSpells["WARRIOR"] = {
-    3018, -- ["Shoot"], -- 30
-    2764, -- ["Throw"], -- 30
     355, -- ["Taunt"], -- 30
-    100, -- ["Charge"], -- 8-25 (Glyph of Long Charge: +5)
-    20252, -- ["Intercept"], -- 8-25
+    100, -- ["Charge"], -- 8-25
     5246, -- ["Intimidating Shout"], -- 8
-    88161, -- ["Strike"], -- 5
+    78, -- ["Heroic Strike"], -- 5
 }
 
 FriendSpells["WARLOCK"] = {
     5697, -- ["Unending Breath"], -- 30
 }
 HarmSpells["WARLOCK"] = {
-    348, -- ["Immolate"], -- 40
-    27243, -- ["Seed of Corruption"], -- 35
+    686, -- ["Shadow Bolt"], -- 40
     5019, -- ["Shoot"], -- 30
-    18223, -- ["Curse of Exhaustion"], -- 30 (Glyph of Exhaustion: +5)
 }
 
 FriendSpells["DEATHKNIGHT"] = {
+    47541, -- ["Death Coil"], -- 40
 }
 HarmSpells["DEATHKNIGHT"] = {
-    77606, -- ["Dark Simulacrum"], -- 40
-    47541, -- ["Death Coil"], -- 30
-    49576, -- ["Death Grip"], -- 30 (Glyph of Death Grip: +5)
-    45477, -- ["Icy Touch"], -- 20 (Icy Reach: +5, +10)
+    47541, -- ["Death Coil"], -- 40
+    49576, -- ["Death Grip"], -- 30
+    45477, -- ["Icy Touch"], -- 30
     45462, -- ["Plague Strike"], -- 5
 }
 
 FriendSpells["MONK"] = {
+    115546, -- ["Provoke"], -- 40
 }
 HarmSpells["MONK"] = {
     115546, -- ["Provoke"], -- 40
@@ -337,6 +318,7 @@ local GetSpellBookItemName = GetSpellBookItemName
 local GetNumSpellTabs = GetNumSpellTabs
 local GetSpellTabInfo = GetSpellTabInfo
 local GetItemInfo = GetItemInfo
+local UnitAura = UnitAura
 local UnitCanAttack = UnitCanAttack
 local UnitCanAssist = UnitCanAssist
 local UnitExists = UnitExists
@@ -347,8 +329,11 @@ local IsItemInRange = IsItemInRange
 local UnitClass = UnitClass
 local UnitRace = UnitRace
 local GetInventoryItemLink = GetInventoryItemLink
+local GetSpecialization = GetSpecialization
+local GetSpecializationInfo = GetSpecializationInfo
 local GetTime = GetTime
 local HandSlotId = GetInventorySlotInfo("HandsSlot")
+local math_floor = math.floor
 
 -- temporary stuff
 
@@ -358,6 +343,9 @@ local cacheAllItems
 local friendItemRequests
 local harmItemRequests
 local lastUpdate = 0
+
+local sniperTrainingName
+local hasSniperTraining
 
 -- minRangeCheck is a function to check if spells with minimum range are really out of range, or fail due to range < minRange. See :init() for its setup
 local minRangeCheck = function(unit) return CheckInteractDistance(unit, 2) end
@@ -469,8 +457,8 @@ local function createCheckerList(spellList, itemList, interactList)
             local name, _, _, _, minRange, range = GetSpellInfo(sid)
             local spellIdx = findSpellIdx(name)
             if spellIdx and range then
-                minRange = math.floor(minRange + 0.5)
-                range = math.floor(range + 0.5)
+                minRange = math_floor(minRange + 0.5)
+                range = math_floor(range + 0.5)
                 -- print("### spell: " .. tostring(name) .. ", " .. tostring(minRange) .. " - " ..  tostring(range))
                 if minRange == 0 then -- getRange() expects minRange to be nil in this case
                     minRange = nil
@@ -618,6 +606,22 @@ local function createSmartChecker(friendChecker, harmChecker, miscChecker)
     end
 end
 
+local function isMarksman()
+    local specIndex = GetSpecialization()
+    if specIndex then
+        return GetSpecializationInfo(specIndex) == 254
+    end
+end
+
+local function checkSniperTrainingChange()
+    if sniperTrainingName then
+        local hasSTNow = UnitAura("player", sniperTrainingName) and true
+        if hasSTNow ~= hasSniperTraining then
+            hasSniperTraining = hasSTNow
+            return true
+        end
+    end
+end
 
 -- OK, here comes the actual lib
 
@@ -666,10 +670,23 @@ end
 
 -- initialize RangeCheck if not yet initialized or if "forced"
 function lib:init(forced)
-    if self.initialized and (not forced) then return end
+    if self.initialized and (not forced) and (not checkSniperTrainingChange()) then
+        return
+    end
     self.initialized = true
     local _, playerClass = UnitClass("player")
     local _, playerRace = UnitRace("player")
+
+    if playerClass == "HUNTER" and isMarksman() then
+        if not sniperTrainingName then
+            sniperTrainingName = GetSpellInfo(168811)
+            checkSniperTrainingChange()
+            self.frame:RegisterUnitEvent("UNIT_AURA", "player")
+        end
+    else
+        self.frame:UnregisterEvent("UNIT_AURA")
+        sniperTrainingName = nil
+    end
 
     minRangeCheck = nil
     -- first try to find a nice item we can use for minRangeCheck
@@ -912,6 +929,12 @@ function lib:UNIT_INVENTORY_CHANGED(event, unit)
     end
 end
 
+function lib:UNIT_AURA(event, unit)
+    if self.initialized and unit == "player" then
+        self:scheduleAuraCheck()
+    end
+end
+
 function lib:processItemRequests(itemRequests)
     while true do
         local range, items = next(itemRequests)
@@ -977,6 +1000,11 @@ function lib:scheduleInit()
     self.frame:Show()
 end
 
+function lib:scheduleAuraCheck()
+    lastUpdate = UpdateDelay
+    self.frame:Show()
+end
+
  
 
 -- << load-time initialization 
@@ -995,7 +1023,7 @@ function lib:activate()
         local _, playerClass = UnitClass("player")
         if playerClass == "MAGE" or playerClass == "SHAMAN" then
             -- Mage and Shaman gladiator gloves modify spell ranges
-            frame:RegisterEvent("UNIT_INVENTORY_CHANGED")
+            frame:RegisterUnitEvent("UNIT_INVENTORY_CHANGED", "player")
         end
     end
     initItemRequests()
