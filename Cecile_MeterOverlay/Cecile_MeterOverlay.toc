@@ -2,7 +2,7 @@
 ## Title: |cffffffffCecile|r_|cfffff569MeterOverlay|r
 ## Notes: Display your damage meter as overlay
 ## Author: Cecile
-## Version: 1.0.4
+## Version: 1.0.5
 ## SavedVariables: Cecile_MeterOverlayDB
 ## OptionalDeps: ElvUI,Tukui,Skada,Recount,TinyDPS
 

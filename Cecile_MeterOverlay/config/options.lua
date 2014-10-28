@@ -4,7 +4,7 @@
 
 --get the engine & Locale
 local AddOnName,Engine = ...;
-local L = LibStub("AceLocale-3.0"):GetLocale(AddOnName);
+local L = Engine.Locale;
 	
 --ElvUI & Tukui present
 local hasElvUI = IsAddOnLoaded( "ElvUI" );
@@ -35,6 +35,16 @@ Engine.OVERLAY_HIDE_FADE	= "OVERLAY_HIDE_FADE";
 Engine.OverlayHideTypeList={}
 Engine.OverlayHideTypeList[Engine.OVERLAY_HIDE_NORMAL ] 	= L["OVERLAY_HIDE_NORMAL"];
 Engine.OverlayHideTypeList[Engine.OVERLAY_HIDE_FADE ] 		= L["OVERLAY_HIDE_FADE"];
+
+--type of floating datatext hide
+Engine.DATATEXT_HIDE_NORMAL 	= "DATATEXT_HIDE_NORMAL";
+Engine.DATATEXT_HIDE_FADE		= "DATATEXT_HIDE_FADE";
+
+--list of floating datatext hide for options
+Engine.DatatextHideTypeList={}
+Engine.DatatextHideTypeList[Engine.DATATEXT_HIDE_NORMAL ] 	= L["DATATEXT_HIDE_NORMAL"];
+Engine.DatatextHideTypeList[Engine.DATATEXT_HIDE_FADE ] 	= L["DATATEXT_HIDE_FADE"];
+
 
 --type of report we query
 Engine.TYPE_DPS		= "TYPE_DPS";
@@ -101,6 +111,7 @@ end
 Engine.Defaults = {
 	profile = {
 		debug = false,
+		forceLocale = "",
 		datatext = {
 			x = nil,
 			y = nil,
@@ -121,7 +132,8 @@ Engine.Defaults = {
 					a = 0.75,
 				},			
 			},
-			hideOOC = false
+			hideOOC = false,
+			hideOCCMode = Engine.DATATEXT_HIDE_FADE
 		},
 		interval = 1,
 		segment = Engine.CURRENT_DATA,
@@ -629,6 +641,22 @@ Engine.Options = {
 					disabled = function()
 						return not Engine.Profile.datatext.enable;
 					end,					
+				},
+				hidetype = {
+					order = 9,
+					type = "select",
+					name = L["DATATEXT_HIDE_TYPE"],
+					desc = L["DATATEXT_HIDE_TYPE_DESC"],
+					values = Engine.DatatextHideTypeList,
+					get = function()
+						return Engine.Profile.datatext.hideOCCMode;
+					end,
+					set = function(key, value)
+						Engine.Profile.datatext.hideOCCMode = value;
+					end,
+					disabled = function()
+						return not (Engine.Profile.datatext.enable and Engine.Profile.datatext.hideOOC);
+					end,						
 				},				
 			}
 		},		

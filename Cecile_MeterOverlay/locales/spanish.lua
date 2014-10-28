@@ -129,6 +129,10 @@ L["ENABLE_DATATEXT_HIDE_OCC_DESC"] = "Oculta la ventana floante cuando no estamo
 L["OVERLAY_HIDE_FADE"] = "Desvanecer"
 L["ENABLE_DATATEXT_BACGROUND"] ="Activar Fondo"
 L["ENABLE_DATATEXT_BACGROUND_DESC"] ="Activar el fondo para el texto flotante."
+L["DATATEXT_HIDE_TYPE"] = "Modo ocultación fuera de combate"
+L["DATATEXT_HIDE_TYPE_DESC"] = "Cambia como se oculta la ventana flotante fuera de combate."
+L["DATATEXT_HIDE_NORMAL"] = "Ocultar"
+L["DATATEXT_HIDE_FADE"] = "Desvanecer"
 
 --get ordinal sufix for a number (1o,2o,3o,4o...) (spanish locale)
 function Engine:OrdinalSuffix(number)    

@@ -127,6 +127,10 @@ L["ENABLE_DATATEXT_HIDE_OCC"] = "Hide Out Of Combat"
 L["ENABLE_DATATEXT_HIDE_OCC_DESC"] = "Hide the floating datatext when we are Out Of Combat"
 L["ENABLE_DATATEXT_BACGROUND"] ="Enable Background"
 L["ENABLE_DATATEXT_BACGROUND_DESC"] ="Enable the floating datatext Background."
+L["DATATEXT_HIDE_TYPE"] = "Hide Mode"
+L["DATATEXT_HIDE_TYPE_DESC"] = "Change the datatext hide mode."
+L["DATATEXT_HIDE_NORMAL"] = "Hide"
+L["DATATEXT_HIDE_FADE"] = "Fade Out"
 
 --get ordinal sufix for a number (1st,2nd,3rd,4th...) (english locale)
 function Engine:OrdinalSuffix(number)

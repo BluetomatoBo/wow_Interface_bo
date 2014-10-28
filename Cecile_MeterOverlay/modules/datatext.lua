@@ -208,6 +208,7 @@ end
 function mod:ControlVisibility()
 
 	if Engine.Profile.datatext.enable then		
+		mod.frame:SetAlpha(1);
 		mod.frame:Show();
 		debug("floating datatext show");
 		
@@ -245,18 +246,24 @@ function mod:ControlVisibility()
 			end
 		end		
 		
-	--hide out of combat
-	if Engine.Profile.datatext.hideOOC then				
-	
-		local meter = Engine.AddOn:GetModule("meter");
+		--hide out of combat
+		if Engine.Profile.datatext.hideOOC then				
 		
-		if meter.combat then
-			mod.frame:Show();	
-		else
-			mod.frame:Hide();	
-		end
-		
-	end						
+			local meter = Engine.AddOn:GetModule("meter");
+			
+			if meter.combat then
+				mod.frame:SetAlpha(1);
+				mod.frame:Show();	
+			else
+				if (Engine.Profile.datatext.hideOCCMode == Engine.DATATEXT_HIDE_NORMAL) then
+					mod.frame:Hide();	
+				else
+					--:FadeOut();
+					UIFrameFadeOut(mod.frame, 1.0, 1.0, 0.0)					
+				end
+			end
+			
+		end						
 		
 		
 	else
