@@ -1,0 +1,41 @@
+tag 6.0.4
+edf74fb4923ecaa6e3da0cb5e9883bc9456949b7
+subversion <svn@deadlybossmods.com>
+2014-10-28 20:27:50 +0100
+
+Tagging as 6.0.4
+
+
+--------------------
+
+subversion:
+	- increment version number to 6.0.4
+	- Omega via svn r11829: another debugging change, hide the targetable event too unless transcriptor is logging.
+	- Omega via svn r11828: I held hope that 6.0.3 would fix sound ducking, but since it doesn't, follow Funky's lead and force 64 sound channels on users.
+	- Omega via svn r11827: consistency in debug. may no longer need this debug as I THINK the issues are fixed with this, but i want to be sure next week.
+	- ebmor via svn r11826: deDE update
+	- nbluewiz via svn r11825: # Fix guild wipe message bug.
+	- nbluewiz via svn r11824: # Fix UNIT_HEALTH combat detection not works.
+	- Omega via svn r11823: movie should be AfterFirst by default.
+	- nbluewiz via svn r11822: # Infoframe fix again.
+	- Omega via svn r11821: Bug 2 is going to be fixed probably tuesday. as for bug 1, well. that remains to be seen.
+	- Omega via svn r11820: Disable the combat start timer on headless horseman, very inaccurate now and probably too variable.
+	- nbluewiz via svn r11819: # Fix info frame bug.
+	- Omega via svn r11818: Add difficulty 20, so when it's enabled in future, don't have a repeat of stats errors UBRS caused.
+	- nbluewiz via svn r11817: # Fix info frame bug. # Switch info frame update method to C_Timer.NewTicker.
+	- Omega via svn r11816: skippable items check no longer works correctly. removing. We'll just have to break this quest for the greater convenience of everyone else.
+	- Omega via svn r11815: Include phase and number of bosses in auto reply whispers too, not just "status" ones.
+	- nbluewiz via svn r11814: # adjust second countdown dropdown position.
+	- Omega via svn r11813: This seems to be only way to fix this issue: http://forums.elitistjerks.com/topic/132799-countdown-text-out-of-sync-when-using-slider/#entry2276165
+	- Omega via svn r11812: slightly reduce zone debug. so it's not AS much information. this should still be more than enough.
+	- Omega via svn r11811: CN update Highmaul timer option defaults pass to further reduce active timers
+	- Omega via svn r11810: further improve debug
+	- Omega via svn r11809: Add a bunch of loadmod debug, users are still reporting loadmod failures which should be impossible and can find no coding reason other than blizzard sending bad mapIDs that would cause this.
+	- Omega via svn r11808: Don't try to load GUI if core was denied from loading
+	- Omega via svn r11807: zhCN update
+	- Omega via svn r11806: Fix more bad
+	- Omega via svn r11805: Fix
+	- Omega via svn r11804: only show bug message once
+	- swix via svn r11803: ruRU update
+	- Omega via svn r11802: Add some cinematic start debug
+	- tandanu via svn r11801: increment alpha version
