@@ -1,3 +1,6 @@
+[b]2.03[/b]
+*LibTourist update. Changelog: http://www.wowace.com/addons/libtourist-3-0/files/159-r168/
+
 [b]2.02[/b]
 *LibTourist update. Continents work fine now. Author's note: Currently, the data for the Outland zones Nagrand and Shadowmoon Valley is overwritten by the data for the Draenor zones with the same names.
 
