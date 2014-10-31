@@ -15,7 +15,6 @@ function AS:SkinMageNuggets()
 		'MageNugProcFrame',
 		'MageNugProcHUFrame',
 		'MageNugSSProcFrame',
-		'MageNugBFProcFrame',
 		'MageNugMoonkin_Frame',
 		'MageNugHordeFrame',
 		'MageNugAlliFrame',
@@ -33,7 +32,7 @@ function AS:SkinMageNuggets()
 	for _, object in pairs(Frames) do
 		if _G[object] then
 			_G[object]:SetBackdrop(nil)
-			AS:SkinBackdropFrame(_G[object])
+			AS:SkinBackdropFrame(_G[object], nil, true)
 		end
 	end
 

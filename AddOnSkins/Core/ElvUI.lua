@@ -44,6 +44,7 @@ function AS:InjectProfile()
 		['EmbedMain'] = 'Skada',
 		['EmbedLeft'] = 'Skada',
 		['EmbedRight'] = 'Skada',
+		['EmbedRightChat'] = true,
 		['EmbedLeftWidth'] = 200,
 		['EmbedBelowTop'] = false,
 		['TransparentEmbed'] = false,
@@ -61,7 +62,6 @@ function AS:InjectProfile()
 		['WeakAuraIconCooldown'] = true,
 		['AuctionHouse'] = true,
 		['ParchmentRemover'] = false,
-		['IntegrateMyRolePlayTooltip'] = true,
 		['SkinTemplate'] = 'Transparent',
 		['HideChatFrame'] = 'NONE',
 		['SkinDebug'] = false,
@@ -171,12 +171,8 @@ function AS:CreateEmbedSystem()
 		EmbedSystem_MainWindow:HookScript('OnShow', AS.Embed_Show)
 		EmbedSystem_MainWindow:HookScript('OnHide', AS.Embed_Hide)
 
-		hooksecurefunc(RightChatPanel, 'SetSize', function()
-			if ChatHeight ~= E.db.chat.panelHeight or ChatWidth ~= E.db.chat.panelWidth then
-				ChatHeight, ChatWidth = E.db.chat.panelHeight, E.db.chat.panelWidth
-				AS:Embed_Check()
-			end
-		end)
+		hooksecurefunc(E:GetModule('Chat'), 'PositionChat', function() AS:Embed_Check() end)
+		hooksecurefunc(E:GetModule('Layout'), 'ToggleChatPanels', function() AS:Embed_Check() end)
 
 		RightChatToggleButton:SetScript('OnClick', function(self, btn)
 			if btn == 'RightButton' then
@@ -258,24 +254,39 @@ end
 
 function AS:EmbedSystem_WindowResize()
 	if UnitAffectingCombat('player') or not AS.EmbedSystemCreated then return end
-	local DataTextSize = AS:CheckOption('EmbedLeftChat') and E.db.datatexts.leftChatPanel and LeftChatDataPanel:GetHeight() or E.db.datatexts.rightChatPanel and RightChatDataPanel:GetHeight() or 0
-	local ChatTabSize = AS:CheckOption('EmbedBelowTop') and RightChatTab:GetHeight() or 0
-	local Width = E.PixelMode and 6 or 10
-	local Height = E.PixelMode and 2 or 4
-	local Spacing = E.PixelMode and 6 or 8
-	local Total = AS.SLE and (Spacing + ChatTabSize + (E.PixelMode and 3 or 5)) or ((E.PixelMode and 11 or 16) + ChatTabSize + DataTextSize)
+	local ChatPanel = AS:CheckOption('EmbedRightChat') and RightChatPanel or LeftChatPanel
+	local ChatTabSize = AS:CheckOption('EmbedBelowTop') and RightChatTab:GetHeight() + (E.Border * 2) or 0
 
-	local ChatPanel = AS:CheckOption('EmbedLeftChat') and LeftChatPanel or RightChatPanel
+	local DataTextSize = 0
+	if AS:CheckOption('EmbedRightChat') and E.db.datatexts.rightChatPanel then
+		DataTextSize = RightChatDataPanel:GetHeight() + (E.PixelMode and 1 or 2)
+	elseif not AS:CheckOption('EmbedRightChat') and E.db.datatexts.leftChatPanel then
+		DataTextSize = LeftChatDataPanel:GetHeight() + (E.Border * 2)
+	end
+
+	local Width, Height, X, Y
+
+	if E.PixelMode then
+		Width = 6
+		Height = (E.Border * 3) + ChatTabSize + DataTextSize + 3 
+		X = 0
+		Y = E.Border + DataTextSize + 2
+	else
+		Width = 10
+		Height = (E.Border * 3) + ChatTabSize + DataTextSize + 3
+		X = 0
+		Y = E.Border + DataTextSize + 2
+	end
 
 	EmbedSystem_MainWindow:SetParent(ChatPanel)
 
-	EmbedSystem_MainWindow:SetSize(ChatPanel:GetWidth() - Width, ChatPanel:GetHeight() - Total)
+	EmbedSystem_MainWindow:SetSize(ChatPanel:GetWidth() - Width, ChatPanel:GetHeight() - Height)
 	EmbedSystem_LeftWindow:SetSize(AS:CheckOption('EmbedLeftWidth'), EmbedSystem_MainWindow:GetHeight())
 	EmbedSystem_RightWindow:SetSize((EmbedSystem_MainWindow:GetWidth() - AS:CheckOption('EmbedLeftWidth')) - 1, EmbedSystem_MainWindow:GetHeight())
 
 	EmbedSystem_LeftWindow:SetPoint('LEFT', EmbedSystem_MainWindow, 'LEFT', 0, 0)
 	EmbedSystem_RightWindow:SetPoint('RIGHT', EmbedSystem_MainWindow, 'RIGHT', 0, 0)
-	EmbedSystem_MainWindow:SetPoint('BOTTOM', ChatPanel, 'BOTTOM', 0, (AS.SLE and (Spacing - 1) or (Spacing + DataTextSize)))
+	EmbedSystem_MainWindow:SetPoint('BOTTOM', ChatPanel, 'BOTTOM', X, Y)
 
 	-- Dynamic Range
 	if IsAddOnLoaded('ElvUI_Config') then
