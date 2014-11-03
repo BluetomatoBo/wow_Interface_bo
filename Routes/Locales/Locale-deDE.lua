@@ -19,10 +19,9 @@ L["Are you sure you want to delete this taboo? This action will also remove the 
 L["A route with that name already exists. Overwrite?"] = "Eine Route mit diesem Name existiert bereits. Überschreiben?"
 L["A taboo with that name already exists. Overwrite?"] = "Ein Tabu mit diesem Namen existiert bereits. Überschreiben?"
 L["Automatic route updating"] = "Automatisches Updaten von Routen"
-L["AUTOMATIC_UPDATE_TEXT"] = [=[
-Routes wird Ihre Routen automatisch aktualisieren und Knotenpunkte einfügen/entfernen wie es von verlangt wird wenn Sie |cffffff78GatherMate|r oder |cffffff78Cartographer_<Profs>|r als Datenquellen nutzen. |cffffff78Gatherer/HandyNotes|r wird nicht unterstützt, da es momentan keine Callbacks liefert.
+L["AUTOMATIC_UPDATE_TEXT"] = [=[Routes wird Ihre Routen automatisch aktualisieren und Knotenpunkte einfügen/entfernen wie es verlangt wird wenn Sie |cffffff78GatherMate|r oder |cffffff78Cartographer_<Profs>|r als Datenquellen nutzen. |cffffff78Gatherer/HandyNotes|r wird nicht unterstützt, da es im moment keine Callbacks liefert.
 
-Wenn Sie in einem dieser Addons einen neuen Knotenpunkt finden, wird Routes die Zonen nach existierenden Routen mit diesem Knotenpunkttyp durchsuchen und ihn in die beste Position in der Route einfügen. Ähnliches passiert, wenn Sie einen Knotenpunkt in diesen Addons entfernen, dann wird Routes den Knotenpunkt auch aus den relevanten Routen entfernen.
+Wenn Sie in einer dieser Addons einen neuen Knotenpunkt finden, wird Routes die Zonen nach existierenden Routen mit diesem Knotenpunkttyp durchsuchen und ihn in die beste Position in der Route einfügen. Ähnliches passiert, wenn Sie einen Knotenpunkt in diesen Addons entfernen, dann wird Routes den Knotenpunkt auch aus den relevanten Routen entfernen.
 
 Das Verschieben eines Knotenpunkts um ein paar Yards wird mit einer Löschung und Wiedereintragung gehandhabt. Das ist die selbe Methode die auch von GatherMate und Cartographer_<Profs> intern verwendet wird.
 
@@ -31,7 +30,7 @@ Um das automatische Aktualisieren zu deaktivieren folgen Sie folgenden Schritten
 |cffffff781.|r Wechseln Sie in das |cffffff78Routes|r-Hauptverzeichnis auf der linken Seite des Konfigurationsfensters.
 
 |cffffff782.|r Entfernen Sie die Haken der Boxen jeder Datenquelle.
-]=]
+]=] -- Needs review
 L["Auto show and hide routes based on your professions"] = "Automatisches Anzeigen und Verstecken in Abhängigkeite ihrer Berufe"
 L["Auto show/hide"] = "Auto. Anzeigen/Verstecken"
 L["Auto Show/Hide per route type"] = "Auto. Anzeigen/Verstecken nach Routentyp"
@@ -40,20 +39,12 @@ L["Background"] = "Hintergrund"
 L["Background Disclaimer"] = "Diese Option wird die TSP Routengenerierung im Hintergrund ausführen ohne ihr Spiel zum hängen zu bringen, ist dafür aber wesentlich langsamer. Bitte seien Sie sich bewusst, dass ihr WoW in dieser Zeit an Geschwindigkeitsverlust leiden wird."
 L["Cancel route edit"] = "Routenbearbeitung abbrechen"
 L["Cancel taboo edit"] = "Bearbeitung abbrechen"
-L["CartographerExtractGas"] = "Gas"
-L["CartographerFishing"] = "Angeln"
-L["CartographerHerbalism"] = "Kräuterkunde"
-L["CartographerMining"] = "Bergbau"
-L["CartographerTreasure"] = "Schätze"
 L["Cartographer_Waypoints module is missing or disabled"] = "Das Cartographer_Waypoints Modul fehlt oder ist deaktiviert"
 L["|cffffd200     %d|r node(s) are at |cffffd2000|r yards of a cluster point"] = "|cffffd200     %d|r Knotenpunkt(e) sind bei |cffffd2000|r Yards des Anhäufungspunkts"
 L["|cffffd200     %d|r node(s) are between |cffffd200%d|r-|cffffd200%d|r yards of a cluster point"] = "|cffffd200     %d|r Knotenpunkt(e) sind zwischen |cffffd200%d|r-|cffffd200%d|r Yards des Anhäufungspunkts"
 L["Change default hidden route color"] = "Ändere die Standardfarbe einer versteckten Route"
 L["Change default route color"] = "Ändere die Standardfarbe einer Route"
-L["Change direction"] = "Richtung ändern"
-L["Change direction (Carto)"] = "Richtung ändern (Carto)"
 L["Change direction (TomTom)"] = "Richtung ändern (TomTom)"
-L["Change the direction of the nodes in the route being added as the next waypoint"] = "Ändert die Richtung der Knotenpunkte der Route die als nächster Wegpunkt hinzugefügt werden"
 L["Change the line color"] = "Linienfarbe ändern"
 L["Cluster"] = "Anhäufung"
 L["CLUSTER_DESC"] = "Bei der Routenkomprimierung nimmt Routes alle Knotenpunkte die nahe beieinander sind und kombiniert sie zu einem einzigen Knotenpunkt als Reiseziel. Dieser Prozess dauert eine Weile aber ists halbwegs schnell."
@@ -214,7 +205,7 @@ L["Fishing"] = "Angeln"
 L["Foreground"] = "Vordergrund"
 L["Foreground Disclaimer"] = "Generiert fast optimalen Weg für alle Knotenpunkte der Route. Bitte beachten Sie, dass dieser Prozess ihr Spiel für kurze Zeit zum hängen bringt, je nachdem wieviele Knotenpunkte (mehrere sorgen für eine fast exponentiale Erhöhung)und wie schnell ihre CPU ist, könnte es sogar sein, dass ihre Verbindung unterbrochen wird, wenn es zulange dauert."
 L["Frequently Asked Questions"] = "Häufig gefragtes"
-L[" Gatherer/HandyNotes currently does not support callbacks, so this is impossible for Gatherer/HandyNotes."] = " Gatherer/HandyNotes unterstützt momentan keine Callbacks, also ist dies unmöglich für Gatherer/HandyNotes"
+L[" Gatherer/HandyNotes currently does not support callbacks, so this is impossible for Gatherer/HandyNotes."] = " Gatherer/HandyNotes unterstützt im moment keine Callbacks, also ist dies unmöglich für Gatherer/HandyNotes" -- Needs review
 L["GathererHERB"] = "Kräuterkunde"
 L["GathererMINE"] = "Bergbau"
 L["GathererOPEN"] = "Schätze"
@@ -224,18 +215,12 @@ L["GatherMate2Fishing"] = "Angeln"
 L["GatherMate2Herb Gathering"] = "Kräuterkunde"
 L["GatherMate2Mining"] = "Bergbau"
 L["GatherMate2Treasure"] = "Schätze"
-L["GatherMateExtract Gas"] = "Gas"
-L["GatherMateFishing"] = "Angeln"
-L["GatherMateHerb Gathering"] = "Kräuterkunde"
-L["GatherMateMining"] = "Bergbau"
-L["GatherMateTreasure"] = "Schätze"
 L["Help File"] = "Hilfedatei"
 L["Herbalism"] = "Kräuterkunde"
 L["Hidden route"] = "Versteckte Route"
 L["Hide Route"] = "Route verstecken"
 L["Hide the route from being shown on the maps"] = "Verstecke die Route auf den Karten"
 L["Information"] = "Information"
-L["Integrated support options for Cartographer_Waypoints"] = "Integrierte Optionen für Cartographer_Waypoints"
 L["Integrated support options for TomTom"] = "Integrierte Optionen für TomTom"
 L["Line Color"] = "Linienfarbe"
 L["Line gaps"] = "Linien Lücken"
@@ -339,21 +324,15 @@ L["Skill-Herbalism"] = "Kräuterkunde"
 L["Skill-Mining"] = "Bergbau"
 L["Skip clustered node points"] = "Angehäufte Knotenpunkte überspringen"
 L["%s - Node %d"] = "%s - Knotenpunkt %d"
-L["Start using Cartographer_Waypoints by finding the closest visible route/node in the current zone and using that as the waypoint"] = "Beginne Cartographer_Waypoints zu nutzen um den/die nächsten sichtbaren Knotenpunkt/Route in der aktuellen Zone als Wegpunkt zu benutzen"
 L["Start using TomTom"] = "TomTom benutzen"
 L["Start using TomTom by finding the closest visible route/node in the current zone and using that as the waypoint"] = "Beginne TomTom zu nutzen um den/die nächsten sichtbaren Knotenpunkt/Route in der aktuellen Zone als Wegpunkt zu benutzen"
-L["Start using Waypoints"] = "Wegpunkte benutzen"
-L["Start using Waypoints (Carto)"] = "Wegpunkte (Carto) benutzen"
 L["Start using Waypoints (TomTom)"] = "Wegpunkte (TomTom) benutzen"
 -- L["Stop editing this route on the world map and abandon changes made"] = "Stop editing this route on the world map and abandon changes made"
 -- L["Stop editing this route on the world map and save the edits"] = "Stop editing this route on the world map and save the edits"
 L["Stop editing this taboo region on the world map and abandon changes made"] = "Bearbeitung dieser Taburegion auf der Weltkarte abbrechen und Änderungen nicht speichern"
 L["Stop editing this taboo region on the world map and save the edits"] = "Bearbeitung dieser Taburegion auf der Weltkarte abbrechen und Änderungen speichern"
-L["Stop using Cartographer_Waypoints by clearing the last queued node"] = "Beende die Nutzung von Cartographer_Waypoints indem der letzte Knotenpunkt in der Reihe gelöscht wird"
 L["Stop using TomTom"] = "TomTom nicht mehr benutzen"
 L["Stop using TomTom by clearing the last queued node"] = "Beende die Nutzung von TomTom indem der letzte Knotenpunkt in der Reihe gelöscht wird"
-L["Stop using Waypoints"] = "Wegpunkte nicht mehr benutzen"
-L["Stop using Waypoints (Carto)"] = "Wegpunkte (Carto) nicht mehr benutzen"
 L["Stop using Waypoints (TomTom)"] = "Wegpunkte (TomTom) nicht mehr benutzen"
 L["TABOO_DESC"] = "Taburegionen sind Bereiche die Sie festlegen um Knotenpunkte auszuschliessen. Sobald Sie eine Taburegion erstellt haben, können Sie diese Taburegion zu einer bereits existierenden Route hinzufügen, alle Knotenpunkte dieser Region werden entfernt und keine neuen mehr hinzugefügt."
 L["TABOO_DESC2"] = "Taburegionen sind Bereiche die Sie festlegen damit sie von Routen ignoriert werden. Knotenpunkte in diesen Taburegionen werden ignoriert und nicht in die Route eingeschlossen. Desweiteren wird bei der Routenoptiomierung versucht diese Gebiete nicht zu durchqueren, soweit dies möglich ist."
@@ -364,7 +343,6 @@ L["The cluster radius of this route is |cffffd200%d|r yards."] = "Der Anhäufung
 L["The following error occured in the background path generation coroutine, please report to Grum or Xinhuan:"] = "Der folgende Fehler trat bei der Berechnung des Pfades auf, bitte melden Sie ihn bei Grum oder Xinhuan:"
 L["There is already a TSP running in background. Wait for it to complete first."] = "Es läuft schon eine TSP im Hintergrund. Bitte warten Sie, bis die erste abgeschlossen ist."
 L["These settings control the visibility and look of the drawn route."] = "Diese Einstellungen kontrollieren die Sichtbarkeit und das Aussehen der gezeichneten Route"
-L["This is the distance in yards away from a waypoint to consider as having reached it so that the next node in the route can be added as the waypoint"] = "Das ist die Distanz in Yards die einen Wegpunkt als erreicht vermeldet um den nächsten Knotenpunkt als Wegpunkt hinzuzufügen."
 L["This route contains |cffffd200%d|r nodes that have been tabooed."] = "Diese Route enthält |cffffd200%d|r Knotenpunkte die ausgeschlossen wurden."
 L["This route contains the following nodes:"] = "Diese Route enthält folgende Knotenpunkte:"
 L["This route has |cffffd200%d|r nodes and is |cffffd200%d|r yards long."] = "Diese Route hat |cffffd200%d|r Knotenpunkte und ist |cffffd200%d|r yards lang."
@@ -373,9 +351,6 @@ L["This route has no taboo regions."] = "Diese Route hat keine Taburegionen."
 L["This route has the following taboo regions:"] = "Diese Route hate die folgenden Taburegionen:"
 L["This route is a clustered route, down from the original |cffffd200%d|r nodes."] = "Diese Route enthält Anhäufungen aus den originalen |cffffd200%d|r Knotenpunkten."
 L["This route is not a clustered route."] = "Diese Route enthält keine Anhäufungen"
-L[ [=[This section implements Cartographer_Waypoints support for Routes. Click Start to find the nearest node in a visible route in the current zone.
-]=] ] = [=[Dieser Bereich implementiert Cartographer_Waypoints Unterstützung in Routes. Klicken Sie Start um den nächsten Knotenpunkt einer sichtbaren Route in der momentanen Zone zu finden.
-]=]
 L[ [=[This section implements TomTom support for Routes. Click Start to find the nearest node in a visible route in the current zone.
 ]=] ] = [=[Dieser Bereich implementiert TomTom Unterstützung in Routes. Klicken Sie Start um den nächsten Knotenpunkt einer sichtbaren Route in der momentanen Zone zu finden.
 ]=]
@@ -387,8 +362,6 @@ L["Uncluster"] = "Dekomprimieren"
 L["Uncluster this route"] = "Diese Route dekomprimieren"
 L["Update distance"] = "Update Distanz"
 L["Use Auto Show/Hide"] = "Auto. Anzeigen/Verstecken benutzen"
-L["Waypoint hit distance"] = "Distanz nach der der Wegpunkt als erreicht gilt."
-L["Waypoints (Carto)"] = "Wegpunkte (Carto)"
 L["Waypoints Integration"] = "Integration von Wegpunkten"
 L["WAYPOINTS_INTEGRATION_TEXT"] = [=[
 Routes verfügt über direkte Unterstützung für |cffffff78Cartographer_Waypoints|r oder |cffffff78TomTom|r, um das Wegpunkte-System zu benutzen um Ihnen ein schnelles Reisen auf Ihren Routen zu ermöglichen ohne mitten auf dem Weg die Orientierung zu verlieren.

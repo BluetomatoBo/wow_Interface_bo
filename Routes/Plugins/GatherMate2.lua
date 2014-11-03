@@ -19,8 +19,9 @@ do
 
 	-- stop loading if the addon is not enabled, or
 	-- stop loading if there is a reason why it can't be loaded ("MISSING" or "DISABLED")
-	local name, title, notes, enabled, loadable, reason, security = GetAddOnInfo(SourceName)
-	if not enabled or (reason ~= nil) then
+	local enabled = GetAddOnEnableState(UnitName("player"), SourceName)
+	local name, title, notes, loadable, reason, security = GetAddOnInfo(SourceName)
+	if not enabled or (reason ~= nil and reason ~= "DEMAND_LOADED") then
 		loaded = false
 		return
 	end
@@ -76,7 +77,7 @@ local function AppendNodes(node_list, zone, db_type, node_type)
 			-- And are of a selected type - store
 			if t == node_type then
 				-- Convert GM2 location to our format
-				local x, y, l = GatherMate2.mapData:DecodeLoc(loc) -- ignore level for now
+				local x, y, l = GatherMate2:DecodeLoc(loc) -- ignore level for now
 				local newLoc = Routes:getID(x, y)
 				tinsert( node_list, newLoc )
 			end
@@ -95,19 +96,19 @@ source.AppendNodes = AppendNodes
 
 local function InsertNode(event, zone, nodeType, coord, node_name)
 	-- Convert coords
-	local x, y, l = GatherMate2.mapData:DecodeLoc(coord) -- ignore level for now
+	local x, y, l = GatherMate2:DecodeLoc(coord) -- ignore level for now
 	local newCoord = Routes:getID(x, y)
 	-- Convert zone
-	local zoneLocalized = GatherMate2.mapData:MapLocalize(zone)
+	local zoneLocalized = GatherMate2:MapLocalize(zone)
 	Routes:InsertNode(zoneLocalized, newCoord, node_name)
 end
 
 local function DeleteNode(event, zone, nodeType, coord, node_name)
 	-- Convert coords
-	local x, y, l = GatherMate2.mapData:DecodeLoc(coord) -- ignore level for now
+	local x, y, l = GatherMate2:DecodeLoc(coord) -- ignore level for now
 	local newCoord = Routes:getID(x, y)
 	-- Convert zone
-	local zoneLocalized = GatherMate2.mapData:MapLocalize(zone)
+	local zoneLocalized = GatherMate2:MapLocalize(zone)
 	Routes:DeleteNode(zoneLocalized, newCoord, node_name)
 end
 

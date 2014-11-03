@@ -1,9 +1,10 @@
 ﻿--[[
 ********************************************************************************
 Routes
-v1.4.2
-17 December 2011
-(Written for Live Servers v4.3.0.15050)
+v1.5.0
+16 October 2014
+(Originally written for Live Servers v4.3.0.15050)
+(Hotfixed for v6.0.2.19034)
 
 Author: Xaroz @ EU Emerald Dream Alliance & Xinhuan @ US Blackrock Alliance
 ********************************************************************************
@@ -179,6 +180,7 @@ local remapMapFile = {
 	["TheLostIsles_terrain1"] = "TheLostIsles",
 	["TheLostIsles_terrain2"] = "TheLostIsles",
 	["Hyjal_terrain1"] = "Hyjal",
+	["Krasarang_terrain1"] = "Krasarang",
 }
 local remapMapID = {
 	[748] = 720,  --["Uldum_terrain1"] = "Uldum",
@@ -189,6 +191,7 @@ local remapMapID = {
 	[681] = 544,  --["TheLostIsles_terrain1"] = "TheLostIsles",
 	[682] = 544,  --["TheLostIsles_terrain2"] = "TheLostIsles",
 	[683] = 606,  --["Hyjal_terrain1"] = "Hyjal",
+	[910] = 857,  --["Krasarang_terrain1"] = "Krasarang",
 }
 
 -- Use local remapped versions of these 2 functions
@@ -204,18 +207,33 @@ local GetCurrentMapAreaID = function()
 	return remapMapID[id] or id
 end
 
+local function ZoneInfo(...)
+	local t = {}
+	for i=1, select("#", ...), 2 do
+		local MapID = select(i, ...)
+		local ZoneName = select(i+1, ...)
+		t[MapID] = ZoneName
+	end
+	return t
+end
 
 ------------------------------------------------------------------------------------------------------
 -- Data for Localized Zone Names
 local noData = {"", -1, 0}
 Routes.LZName = setmetatable({}, { __index = function() return noData end})
-for cID = 1, #{GetMapContinents()} do
-	for zID, zname in ipairs({GetMapZones(cID)}) do
-		SetMapZoom(cID, zID)
-		Routes.LZName[zname] = {GetMapInfo(), GetCurrentMapAreaID(), cID, zID}
+for cID_new, cname in next, {GetMapContinents()} do
+	if type(cname) == "string" then
+		local cID = cID_new / 2
+		for zID, zname in pairs(ZoneInfo(GetMapZones(cID))) do
+			-- old SMV/Nagrand in outlands
+			if zID == 473 or zID == 477 then
+				zname = ("%s (%s)"):format(zname, cname)
+			end
+			SetMapByID(zID)
+			Routes.LZName[zname] = {GetMapInfo(), zID, cID, (GetCurrentMapZone())}
+		end
 	end
 end
-
 
 ------------------------------------------------------------------------------------------------------
 -- Core Routes functions
@@ -256,6 +274,19 @@ function Routes:DrawWorldmapLines()
 	if (not flag1) and (not flag2) then	return end 	-- Nothing to draw
 
 	local mapFile = GetMapInfo()
+	-- microdungeon check
+	local mapName, textureWidth, textureHeight, isMicroDungeon, microDungeonName = RealGetMapInfo()
+	if isMicroDungeon then
+		if not WorldMapFrame:IsShown() then
+			-- return to the main map of this zone
+			ZoomOut()
+		else
+			-- can't do anything while in a micro dungeon and the main map is visible
+			return
+		end
+	end --end check
+
+
 	for route_name, route_data in pairs( db.routes[mapFile] ) do
 		if type(route_data) == "table" and type(route_data.route) == "table" and #route_data.route > 1 then
 			local width = route_data.width or defaults.width
@@ -404,10 +435,23 @@ function Routes:DrawMinimapLines(forceUpdate)
 		G:HideLines(Minimap)
 		return
 	end
-
+	-- microdungeon check
+	local mapName, textureWidth, textureHeight, isMicroDungeon, microDungeonName = RealGetMapInfo()
+	if isMicroDungeon then
+		if not WorldMapFrame:IsShown() then
+			-- return to the main map of this zone
+			ZoomOut()
+		else
+			-- can't do anything while in a micro dungeon and the main map is visible
+			G:HideLines(Minimap)
+			return
+		end
+	end	--end check
 	local zone = GetRealZoneText()
 
 	-- if we are indoors, or the zone we are in is not defined in our tables ... no routes
+	-- double check zoom as onload doesnt get you the map zoom
+	indoors = GetCVar("minimapZoom")+0 == Minimap:GetZoom() and "outdoor" or "indoor"
 	if not zone or self.LZName[zone][1] == "" or (not db.defaults.draw_indoors and indoors == "indoor") then
 		G:HideLines(Minimap)
 		return
@@ -2304,9 +2348,6 @@ do
 				}
 			end
 		end
-
-		-- Reclaim memory for this function
-		self.SetupSourcesOptTables = nil
 	end
 
 	options.args.add_group.args = {
@@ -2851,7 +2892,7 @@ do
 	end
 
 	GetOrCreateTabooNode = function( route_data, coord )
-		node = next( taboo_cache )
+		local node = next( taboo_cache )
 		if node then
 			taboo_cache[ node ] = nil
 		else
@@ -2901,6 +2942,7 @@ do
 	local TabooHandler = {}
 	function TabooHandler:EditTaboo(info)
 		local zone = info[2]
+		WorldMapButton:SetParent(WorldMapFrame) --Moves WorldMapButton out of its current parent which is a scroll frame. This allows the point to be smoothly dragged.
 
 		-- make a copy of the taboo for editing
 		local taboo_data
@@ -2961,6 +3003,7 @@ do
 		SetMapByID(Routes.mapData:MapAreaId(zone))
 	end
 	function TabooHandler:SaveEditTaboo(info)
+		WorldMapButton:SetParent(WorldMapDetailFrame) --Returning the WorldMapButton to its original parent
 		local zone = info[2]
 		if info[1] == "routes_group" then
 			local route = Routes.routekeys[zone][ info[3] ]
@@ -2997,6 +3040,7 @@ do
 		throttleFrame:Show()  -- Redraw the changes
 	end
 	function TabooHandler:CancelEditTaboo(info)
+		WorldMapButton:SetParent(WorldMapDetailFrame) --Returning the WorldMapButton to its original parent
 		local zone = info[2]
 		local taboo
 		if info[1] == "routes_group" then

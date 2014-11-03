@@ -7,18 +7,18 @@ local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
 local L = AceLocale:NewLocale("Routes", "ptBR")
 if not L then return end
 
-L["Add"] = "Adicionar" -- Needs review
--- L["Add node after (green)"] = "Add node after (green)"
--- L["Add node before (red)"] = "Add node before (red)"
-L["Always show"] = "Sempre Visivel" -- Needs review
+L["Add"] = "Adicionar"
+L["Add node after (green)"] = "Adicionar nota depois (verde)" -- Needs review
+L["Add node before (red)"] = "Adicionar nota antes (vermelho)" -- Needs review
+L["Always show"] = "Sempre Visivel"
 -- L["An updated copy of TomTom is required for TomTom integration to work"] = "An updated copy of TomTom is required for TomTom integration to work"
 -- L["Archaeology"] = "Archaeology"
-L["Are you sure you want to delete this route?"] = "Você tem certeza que deseja excluir essa rota?" -- Needs review
+L["Are you sure you want to delete this route?"] = "Você tem certeza que deseja excluir essa rota?"
 -- L["Are you sure you want to delete this taboo? This action will also remove the taboo from all routes that use it."] = "Are you sure you want to delete this taboo? This action will also remove the taboo from all routes that use it."
-L["Are you sure you want to recreate this route? This will delete all customized settings for this route."] = "Você tem certeza que deseja recriar esta rota? Isto excluirá todas as configurações personalizadas para está rota" -- Needs review
-L["A route with that name already exists. Overwrite?"] = "Já existe uma rota com esse nome. Sobrescrever?" -- Needs review
+L["Are you sure you want to recreate this route? This will delete all customized settings for this route."] = "Você tem certeza que deseja recriar esta rota? Isto excluirá todas as configurações personalizadas desta rota" -- Needs review
+L["A route with that name already exists. Overwrite?"] = "Já existe uma rota com esse nome. Sobrescrever?"
 -- L["A taboo with that name already exists. Overwrite?"] = "A taboo with that name already exists. Overwrite?"
-L["Automatic route updating"] = "Update automático de rota" -- Needs review
+L["Automatic route updating"] = "Update automático de rota"
 --[==[ L["AUTOMATIC_UPDATE_TEXT"] = [=[
 Routes will automatically update your routes and insert/remove nodes as required when you use |cffffff78GatherMate|r or |cffffff78Cartographer_<Profs>|r as your data sources. |cffffff78Gatherer/HandyNotes|r is not supported as it currently does not support callbacks.
 
@@ -32,38 +32,30 @@ To stop this automatic updating behavior, you can turn off the option by followi
 
 |cffffff782.|r Uncheck the boxes for each data source.
 ]=] ]==]
-L["Auto show and hide routes based on your professions"] = "Mostrar e esconder automaticamente baseado em sua profissão" -- Needs review
-L["Auto show/hide"] = "Mostrar/Esconder automaticamente" -- Needs review
-L["Auto Show/Hide per route type"] = "Mostrar/Esconder automaticamente por rota" -- Needs review
-L["Auto Show/Hide settings"] = "Mostrar/Esconder automaticamente configurações" -- Needs review
-L["Background"] = "Plano de Fundo" -- Needs review
+L["Auto show and hide routes based on your professions"] = "Mostrar e esconder automaticamente baseado em sua profissão"
+L["Auto show/hide"] = "Mostrar/Esconder automaticamente"
+L["Auto Show/Hide per route type"] = "Mostrar/Esconder automaticamente por rota"
+L["Auto Show/Hide settings"] = "Mostrar/Esconder automaticamente configurações"
+L["Background"] = "Plano de Fundo"
 -- L["Background Disclaimer"] = "This will perform the TSP route generation in the background much more slowly without locking up WoW. Please note that your WoW will still take a noticable performance hit."
-L["Cancel route edit"] = "Cancelar edição de Rota" -- Needs review
+L["Cancel route edit"] = "Cancelar edição de Rota"
 -- L["Cancel taboo edit"] = "Cancel taboo edit"
--- L["CartographerExtractGas"] = "Extract Gas"
--- L["CartographerFishing"] = "Fishing"
--- L["CartographerHerbalism"] = "Herbalism"
--- L["CartographerMining"] = "Mining"
--- L["CartographerTreasure"] = "Treasure"
-L["Cartographer_Waypoints module is missing or disabled"] = "Módulo Cartographer_Waypoints não existe ou está desabilitado" -- Needs review
+L["Cartographer_Waypoints module is missing or disabled"] = "Módulo Cartographer_Waypoints não existe ou está desabilitado"
 -- L["|cffffd200     %d|r node(s) are at |cffffd2000|r yards of a cluster point"] = "|cffffd200     %d|r node(s) are at |cffffd2000|r yards of a cluster point"
 -- L["|cffffd200     %d|r node(s) are between |cffffd200%d|r-|cffffd200%d|r yards of a cluster point"] = "|cffffd200     %d|r node(s) are between |cffffd200%d|r-|cffffd200%d|r yards of a cluster point"
-L["Change default hidden route color"] = "Alterar para esconder cor padrão da rota" -- Needs review
-L["Change default route color"] = "Alterar cor padrão da rota" -- Needs review
-L["Change direction"] = "Alterar direções" -- Needs review
-L["Change direction (Carto)"] = "Alterar direções (Carto)" -- Needs review
-L["Change direction (TomTom)"] = "Alterar direções (TomTom)" -- Needs review
--- L["Change the direction of the nodes in the route being added as the next waypoint"] = "Change the direction of the nodes in the route being added as the next waypoint"
--- L["Change the line color"] = "Change the line color"
+L["Change default hidden route color"] = "Alterar para esconder cor padrão da rota"
+L["Change default route color"] = "Alterar cor padrão da rota"
+L["Change direction (TomTom)"] = "Alterar direções (TomTom)"
+L["Change the line color"] = "Alterar a cor da linha" -- Needs review
 -- L["Cluster"] = "Cluster"
 -- L["CLUSTER_DESC"] = "Clustering a route makes Routes take all the nodes that are near each other and combine then into a single node as a travel point. This process takes a while, but is reasonably fast."
 -- L["Cluster Radius"] = "Cluster Radius"
 -- L["CLUSTER_RADIUS_DESC"] = "The maximum distance a node will be away from its cluster node point. The default is 60 yards because the detection radius of tracking skills is 80 yards."
 -- L["Cluster this route"] = "Cluster this route"
-L["Color of lines"] = "Cores das linhas" -- Needs review
+L["Color of lines"] = "Cores das linhas"
 -- L["Create Bare Route"] = "Create Bare Route"
 -- L["CREATE_BARE_ROUTE_DESC"] = "This will create a route with just 3 initial points in it, and does not use any data from any source. You may then manually edit this route to insert and move nodes."
-L["Create Route"] = "Criar Rota" -- Needs review
+L["Create Route"] = "Criar Rota"
 -- L["Create Route from Data Sources"] = "Create Route from Data Sources"
 --[==[ L["CREATE_ROUTE_TEXT"] = [=[
 Creating a route has 4 simple steps. First, navigate to the |cffffff78Add|r section on the left side.
@@ -119,7 +111,7 @@ Taboo regions may cross over itself and overlap and contain as many nodes as you
 
 * Editing a taboo region will affect all routes that use it, likewise deleting a taboo region will remove it from all routes that use it.
 ]=] ]==]
-L["Creating a route"] = "Criando uma rota" -- Needs review
+L["Creating a route"] = "Criando uma rota"
 -- L["Creating a taboo region"] = "Creating a taboo region"
 -- L["Customizing route display"] = "Customizing route display"
 --[==[ L["CUSTOMIZING_ROUTE_TEXT"] = [=[
@@ -131,9 +123,9 @@ Each route can be changed to have a specific color and width in the route settin
 
 You may also opt to |cffffff78Auto show/hide|r routes based on the types of nodes that they contain, such as ore nodes or herbalism nodes, and whether such routes should show up on the maps only when you have the profession, only while you have the tracking ability active, always show, or never show. If a route contains multiple node types, the route will be shown as long as at least one of the node types satisfy the conditions to be shown.
 ]=] ]==]
-L[" Data"] = "Dados" -- Needs review
--- L["Default route"] = "Default route"
--- L["Delete"] = "Delete"
+L[" Data"] = "Dados"
+L["Default route"] = "Rota Padrão" -- Needs review
+L["Delete"] = "Apagar" -- Needs review
 -- L["Delete node"] = "Delete node"
 -- L["Delete Taboo"] = "Delete Taboo"
 -- L["Delete this taboo region permanently. This will also remove it from all routes that use it."] = "Delete this taboo region permanently. This will also remove it from all routes that use it."
@@ -141,7 +133,7 @@ L[" Data"] = "Dados" -- Needs review
 -- L["Do not draw gaps for clustered node points in routes."] = "Do not draw gaps for clustered node points in routes."
 -- L["Draw line gaps"] = "Draw line gaps"
 -- L["Draw on minimap when indoors"] = "Draw on minimap when indoors"
--- L["Edit route"] = "Edit route"
+L["Edit route"] = "Editar Rota" -- Needs review
 -- L["Edit Route Manually"] = "Edit Route Manually"
 -- L["Edit taboo region"] = "Edit taboo region"
 -- L["Edit this route on the world map"] = "Edit this route on the world map"
@@ -214,7 +206,7 @@ Who wrote this cool addon?
 -- L["Foreground"] = "Foreground"
 -- L["Foreground Disclaimer"] = "Generate close to optimal path for the set of nodes in this route. Please keep in mind that doing this will 'hang' your client for some time. Depending on the amount of nodes (more cause near exponential increase in time) and CPU speed you might even get a disconnect if it takes too long."
 -- L["Frequently Asked Questions"] = "Frequently Asked Questions"
--- L[" Gatherer/HandyNotes currently does not support callbacks, so this is impossible for Gatherer/HandyNotes."] = " Gatherer/HandyNotes currently does not support callbacks, so this is impossible for Gatherer/HandyNotes."
+L[" Gatherer/HandyNotes currently does not support callbacks, so this is impossible for Gatherer/HandyNotes."] = "Gatherer/HandyNotes não suportam \"callbacks\", então é impossivel para Gatherer/HandyNotes." -- Needs review
 -- L["GathererHERB"] = "Herbalism"
 -- L["GathererMINE"] = "Mining"
 -- L["GathererOPEN"] = "Treasure"
@@ -224,24 +216,18 @@ Who wrote this cool addon?
 -- L["GatherMate2Herb Gathering"] = "Herbalism"
 -- L["GatherMate2Mining"] = "Mining"
 -- L["GatherMate2Treasure"] = "Treasure"
--- L["GatherMateExtract Gas"] = "Extract Gas"
--- L["GatherMateFishing"] = "Fishing"
--- L["GatherMateHerb Gathering"] = "Herbalism"
--- L["GatherMateMining"] = "Mining"
--- L["GatherMateTreasure"] = "Treasure"
--- L["Help File"] = "Help File"
+L["Help File"] = "Arquivo de Ajuda" -- Needs review
 -- L["Herbalism"] = "Herbalism"
 -- L["Hidden route"] = "Hidden route"
--- L["Hide Route"] = "Hide Route"
+L["Hide Route"] = "Ocultar Rota" -- Needs review
 -- L["Hide the route from being shown on the maps"] = "Hide the route from being shown on the maps"
--- L["Information"] = "Information"
--- L["Integrated support options for Cartographer_Waypoints"] = "Integrated support options for Cartographer_Waypoints"
+L["Information"] = "Informação" -- Needs review
 -- L["Integrated support options for TomTom"] = "Integrated support options for TomTom"
--- L["Line Color"] = "Line Color"
+L["Line Color"] = "Cor da Linha" -- Needs review
 -- L["Line gaps"] = "Line gaps"
 -- L["Line Settings"] = "Line Settings"
 -- L["Map Drawing"] = "Map Drawing"
--- L["Minimap"] = "Minimap"
+L["Minimap"] = "Minimapa" -- Needs review
 -- L["Minimap drawing"] = "Minimap drawing"
 -- L["Minimap when indoors"] = "Minimap when indoors"
 -- L["Mining"] = "Mining"
@@ -259,8 +245,8 @@ Who wrote this cool addon?
 -- L["Now running TSP in the background..."] = "Now running TSP in the background..."
 -- L["Only while tracking"] = "Only while tracking"
 -- L["Only with profession"] = "Only with profession"
--- L["Optimize Route"] = "Optimize Route"
--- L["Optimizing a route"] = "Optimizing a route"
+L["Optimize Route"] = "Otimizar Rota" -- Needs review
+L["Optimizing a route"] = "Otimizando uma Rota" -- Needs review
 --[==[ L["OPTIMIZING_ROUTE_TEXT"] = [=[
 New routes that are created start off unoptimized and just look like a haphazard mess of lines on the map. To optimize a route, navigate to your route on the left side. On the right side, there are 4 tabs, click on |cffffff78Optimize Route|r.
 
@@ -289,7 +275,7 @@ Route optimization has 2 parts. The first is Route Clustering, the second is Rou
 
 * We make efforts to prevent the route from criss-crossing itself, but sometimes it happens and the algorithm doesn't catch it. If this happens, just optimize the route again.
 ]=] ]==]
--- L["Options"] = "Options"
+L["Options"] = "Opções" -- Needs review
 -- L["Overview"] = "Overview"
 --[==[ L["OVERVIEW_TEXT"] = [=[
 |cffffff78Routes|r is an addon designed to make gathering things more efficient. It does this by generating efficient farming routes based on what you want to farm, and using existing data from your |cffffff78GatherMate|r, |cffffff78Cartographer_<Profs>|r or |cffffff78Gatherer|r addons. These routes are then drawn on your maps and you follow them easily and quickly.
@@ -300,7 +286,7 @@ The |cffffff78Travelling Salesman Problem|r (TSP) is a traditional problem where
 -- L["Pass %d: %d%% - %d yards"] = "Pass %d: %d%% - %d yards"
 -- L["Path with %d nodes found with length %.2f yards after %d iterations in %.2f seconds."] = "Path with %d nodes found with length %.2f yards after %d iterations in %.2f seconds."
 -- L["Permanently delete a route"] = "Permanently delete a route"
-L["Recreate Route"] = "Recriar Rota" -- Needs review
+L["Recreate Route"] = "Recriar Rota"
 -- L["Recreate this route with the same creation settings. NOTE: This only works for data from GatherMate2 and Gatherer."] = "Recreate this route with the same creation settings. NOTE: This only works for data from GatherMate2 and Gatherer."
 -- L["Reset"] = "Reset"
 -- L["Reset the line settings to defaults"] = "Reset the line settings to defaults"
@@ -310,8 +296,8 @@ To edit a route, click on the |cffffd200Edit|r button. The route will be drawn o
 
 Please note that you cannot edit a route when it is being optimized in the background or if the route is a clustered route.
 ]=] ]==]
--- L["Route Optimizing"] = "Route Optimizing"
--- L["routes"] = "routes"
+L["Route Optimizing"] = "Otimizando Rota" -- Needs review
+L["routes"] = "Rotas" -- Needs review
 -- L["Routes"] = "Routes"
 -- L["Routes in %s"] = "Routes in %s"
 -- L["Routes Node Menu"] = "Routes Node Menu"
@@ -331,29 +317,23 @@ Please note that you cannot edit a route when it is being optimized in the backg
 -- L["Select Zone"] = "Select Zone"
 -- L["Set the width of lines on each of the maps."] = "Set the width of lines on each of the maps."
 -- L["Shorten the lines drawn on the minimap slightly so that they do not overlap the icons and minimap tracking blips."] = "Shorten the lines drawn on the minimap slightly so that they do not overlap the icons and minimap tracking blips."
--- L["Show hidden routes"] = "Show hidden routes"
+L["Show hidden routes"] = "Mostrar rotas ocultas" -- Needs review
 -- L["Show hidden routes?"] = "Show hidden routes?"
 -- L["Skill-Engineering"] = "Engineering"
 -- L["Skill-Fishing"] = "Fishing"
 -- L["Skill-Herbalism"] = "Herbalism"
 -- L["Skill-Mining"] = "Mining"
 -- L["Skip clustered node points"] = "Skip clustered node points"
--- L["%s - Node %d"] = "%s - Node %d"
--- L["Start using Cartographer_Waypoints by finding the closest visible route/node in the current zone and using that as the waypoint"] = "Start using Cartographer_Waypoints by finding the closest visible route/node in the current zone and using that as the waypoint"
+L["%s - Node %d"] = "%s - Nodo %d" -- Needs review
 -- L["Start using TomTom"] = "Start using TomTom"
 -- L["Start using TomTom by finding the closest visible route/node in the current zone and using that as the waypoint"] = "Start using TomTom by finding the closest visible route/node in the current zone and using that as the waypoint"
--- L["Start using Waypoints"] = "Start using Waypoints"
--- L["Start using Waypoints (Carto)"] = "Start using Waypoints (Carto)"
 -- L["Start using Waypoints (TomTom)"] = "Start using Waypoints (TomTom)"
 -- L["Stop editing this route on the world map and abandon changes made"] = "Stop editing this route on the world map and abandon changes made"
 -- L["Stop editing this route on the world map and save the edits"] = "Stop editing this route on the world map and save the edits"
 -- L["Stop editing this taboo region on the world map and abandon changes made"] = "Stop editing this taboo region on the world map and abandon changes made"
 -- L["Stop editing this taboo region on the world map and save the edits"] = "Stop editing this taboo region on the world map and save the edits"
--- L["Stop using Cartographer_Waypoints by clearing the last queued node"] = "Stop using Cartographer_Waypoints by clearing the last queued node"
 -- L["Stop using TomTom"] = "Stop using TomTom"
 -- L["Stop using TomTom by clearing the last queued node"] = "Stop using TomTom by clearing the last queued node"
--- L["Stop using Waypoints"] = "Stop using Waypoints"
--- L["Stop using Waypoints (Carto)"] = "Stop using Waypoints (Carto)"
 -- L["Stop using Waypoints (TomTom)"] = "Stop using Waypoints (TomTom)"
 -- L["TABOO_DESC"] = "Taboo regions are areas which you can define to exclude nodes. Once you have created a taboo region, you can attach the taboo region to an existing route, and all nodes inside this region will be removed and no new ones will be added to it."
 -- L["TABOO_DESC2"] = "Taboo regions are areas you specify for a route to ignore. Nodes in these taboo regions are ignored and not included in a route. Additionally when optimizing a route, the generated route will attempt to avoid crossing any taboo regions if possible."
@@ -364,7 +344,6 @@ Please note that you cannot edit a route when it is being optimized in the backg
 -- L["The following error occured in the background path generation coroutine, please report to Grum or Xinhuan:"] = "The following error occured in the background path generation coroutine, please report to Grum or Xinhuan:"
 -- L["There is already a TSP running in background. Wait for it to complete first."] = "There is already a TSP running in background. Wait for it to complete first."
 -- L["These settings control the visibility and look of the drawn route."] = "These settings control the visibility and look of the drawn route."
--- L["This is the distance in yards away from a waypoint to consider as having reached it so that the next node in the route can be added as the waypoint"] = "This is the distance in yards away from a waypoint to consider as having reached it so that the next node in the route can be added as the waypoint"
 -- L["This route contains |cffffd200%d|r nodes that have been tabooed."] = "This route contains |cffffd200%d|r nodes that have been tabooed."
 -- L["This route contains the following nodes:"] = "This route contains the following nodes:"
 -- L["This route has |cffffd200%d|r nodes and is |cffffd200%d|r yards long."] = "This route has |cffffd200%d|r nodes and is |cffffd200%d|r yards long."
@@ -373,9 +352,6 @@ Please note that you cannot edit a route when it is being optimized in the backg
 -- L["This route has the following taboo regions:"] = "This route has the following taboo regions:"
 -- L["This route is a clustered route, down from the original |cffffd200%d|r nodes."] = "This route is a clustered route, down from the original |cffffd200%d|r nodes."
 -- L["This route is not a clustered route."] = "This route is not a clustered route."
---[==[ L[ [=[This section implements Cartographer_Waypoints support for Routes. Click Start to find the nearest node in a visible route in the current zone.
-]=] ] = [=[This section implements Cartographer_Waypoints support for Routes. Click Start to find the nearest node in a visible route in the current zone.
-]=] ]==]
 --[==[ L[ [=[This section implements TomTom support for Routes. Click Start to find the nearest node in a visible route in the current zone.
 ]=] ] = [=[This section implements TomTom support for Routes. Click Start to find the nearest node in a visible route in the current zone.
 ]=] ]==]
@@ -387,8 +363,6 @@ Please note that you cannot edit a route when it is being optimized in the backg
 -- L["Uncluster this route"] = "Uncluster this route"
 -- L["Update distance"] = "Update distance"
 -- L["Use Auto Show/Hide"] = "Use Auto Show/Hide"
--- L["Waypoint hit distance"] = "Waypoint hit distance"
--- L["Waypoints (Carto)"] = "Waypoints (Carto)"
 -- L["Waypoints Integration"] = "Waypoints Integration"
 --[==[ L["WAYPOINTS_INTEGRATION_TEXT"] = [=[
 Routes comes with direct support for |cffffff78Cartographer_Waypoints|r or |cffffff78TomTom|r, using the waypoints system so that you can quickly travel along your routes without getting lost amidst the lines.
@@ -406,14 +380,14 @@ To help with using waypoints, you can easily setup keybinds to start/stop and ch
 ]=] ]==]
 -- L["Waypoints (TomTom)"] = "Waypoints (TomTom)"
 -- L["When the following data sources add or delete node data, update my routes automatically by inserting or removing the same node in the relevant routes."] = "When the following data sources add or delete node data, update my routes automatically by inserting or removing the same node in the relevant routes."
--- L["Width (Map)"] = "Width (Map)"
--- L["Width (Minimap)"] = "Width (Minimap)"
+L["Width (Map)"] = "Largura (Mapa)" -- Needs review
+L["Width (Minimap)"] = "Largura (Minimapa)" -- Needs review
 -- L["Width of the line in the map"] = "Width of the line in the map"
 -- L["Width of the line in the Minimap"] = "Width of the line in the Minimap"
 -- L["Width of the line in the Worldmap"] = "Width of the line in the Worldmap"
 -- L["Width of the line in the Zone Map"] = "Width of the line in the Zone Map"
 -- L["Width (Zone Map)"] = "Width (Zone Map)"
--- L["Worldmap"] = "Worldmap"
+L["Worldmap"] = "Mapa Global" -- Needs review
 -- L["Worldmap drawing"] = "Worldmap drawing"
 -- L["Yards to move before triggering a minimap update"] = "Yards to move before triggering a minimap update"
 -- L["You have |cffffd200%d|r route(s) in |cffffd200%s|r."] = "You have |cffffd200%d|r route(s) in |cffffd200%s|r."
