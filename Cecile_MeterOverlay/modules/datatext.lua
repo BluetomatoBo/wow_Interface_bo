@@ -51,7 +51,7 @@ end
 function mod:DisplayTable(tooltip,mode,repotType,amount)
 
 	--get the sorted result
-	local StatsTable,totalsum, totalpersec = mod.meter.getSumtable(mode, repotType,true);
+	local StatsTable,totalsum, totalpersec = mod.meter.getSumtable(mode, repotType,true,Engine.SORT_RAW);
 
 	--get the segment name
 	local name = mod.meter.getSegmentName(mode);

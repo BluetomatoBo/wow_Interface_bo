@@ -18,7 +18,7 @@ function mod.ScrollingFunction(self, arg)
 	if IsShiftKeyDown() then 
 		self:ScrollToTop();
 	else 
-		elf:ScrollUp();
+		self:ScrollUp();
 	end
   elseif arg < 0 then
 	if IsShiftKeyDown() then 

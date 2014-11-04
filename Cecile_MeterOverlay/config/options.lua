@@ -5,10 +5,77 @@
 --get the engine & Locale
 local AddOnName,Engine = ...;
 local L = Engine.Locale;
+
+--create the module
+local mod = Engine.AddOn:NewModule("options");
 	
---ElvUI & Tukui present
-local hasElvUI = IsAddOnLoaded( "ElvUI" );
-local hasTukui = IsAddOnLoaded( "Tukui" );
+function mod:getRecordsString(records,top)
+	local result="";
+	local line="";
+	
+	if (top) then
+	
+		if(records.DPS and records.DPS.dps) then
+		
+			line = string.format(L["ENCOUNTERS_RECORD_DPS_LINE"],
+				_G.RAID_CLASS_COLORS[records.DPS.enclass].colorStr,
+				records.DPS.name,
+				mod.encounters.meter:FormatNumber(records.DPS.dps),
+				date("%d/%m/%y %H:%M:%S",records.DPS.timestamp),
+				records.DPS.groupSize
+			);
+			
+			result = result .. line .. "\n";
+			
+		end
+
+		if(records.HPS and records.HPS.hps) then
+		
+			line = string.format(L["ENCOUNTERS_RECORD_HPS_LINE"],
+				_G.RAID_CLASS_COLORS[records.HPS.enclass].colorStr,
+				records.HPS.name,
+				mod.encounters.meter:FormatNumber(records.HPS.hps),
+				date("%d/%m/%y %H:%M:%S",records.HPS.timestamp),
+				records.HPS.groupSize
+			);
+			
+			result = result .. line .. "\n";
+			
+		end		
+	else
+		
+		if(records.playerDPS and records.playerDPS.dps) then
+		
+			line = string.format(L["ENCOUNTERS_RECORD_DPS_LINE"],
+				_G.RAID_CLASS_COLORS[records.playerDPS.enclass].colorStr,
+				records.playerDPS.name,
+				mod.encounters.meter:FormatNumber(records.playerDPS.dps),
+				date("%d/%m/%y %H:%M:%S",records.playerDPS.timestamp),
+				records.playerDPS.groupSize
+			);
+			
+			result = result .. line .. "\n";
+			
+		end
+
+		if(records.playerHPS and records.playerHPS.hps) then
+		
+			line = string.format(L["ENCOUNTERS_RECORD_HPS_LINE"],
+				_G.RAID_CLASS_COLORS[records.playerHPS.enclass].colorStr,
+				records.playerHPS.name,
+				mod.encounters.meter:FormatNumber(records.playerHPS.hps),
+				date("%d/%m/%y %H:%M:%S",records.playerHPS.timestamp),
+				records.playerHPS.groupSize
+			);
+			
+			result = result .. line .. "\n";
+			
+		end				
+		
+	end
+	
+	return result;
+end
 
 --color, including class colors
 Engine.colors = {};
@@ -45,6 +112,9 @@ Engine.DatatextHideTypeList={}
 Engine.DatatextHideTypeList[Engine.DATATEXT_HIDE_NORMAL ] 	= L["DATATEXT_HIDE_NORMAL"];
 Engine.DatatextHideTypeList[Engine.DATATEXT_HIDE_FADE ] 	= L["DATATEXT_HIDE_FADE"];
 
+--type of sorting
+Engine.SORT_PERSEC		= "SORT_PERSEC";
+Engine.SORT_RAW			= "SORT_RAW";
 
 --type of report we query
 Engine.TYPE_DPS		= "TYPE_DPS";
@@ -107,6 +177,19 @@ for key, format in pairs(Engine.formatlist) do
  Engine.formatdesc[key] = L[key];
 end
 
+--report types
+Engine.REPORT_SELF 		= "REPORT_SELF";
+Engine.REPORT_GUILD 	= "REPORT_GUILD";
+Engine.REPORT_INSTANCE 	= "REPORT_INSTANCE";
+
+--list of reports for options ui
+Engine.ReportTypeList={}
+
+Engine.ReportTypeList[Engine.REPORT_SELF ] 		= L["REPORT_SELF"];
+Engine.ReportTypeList[Engine.REPORT_GUILD ] 	= L["REPORT_GUILD"];
+Engine.ReportTypeList[Engine.REPORT_INSTANCE ] 	= L["REPORT_INSTANCE"];
+
+
 --defaults
 Engine.Defaults = {
 	profile = {
@@ -134,6 +217,13 @@ Engine.Defaults = {
 			},
 			hideOOC = false,
 			hideOCCMode = Engine.DATATEXT_HIDE_FADE
+		},
+		encounters = {
+			store = false,
+			autoReportTop = false,
+			autoReportTopType = Engine.REPORT_SELF,
+			autoReportPlayer = false,
+			autoReportPlayerType = Engine.REPORT_SELF,			
 		},
 		interval = 1,
 		segment = Engine.CURRENT_DATA,
@@ -364,7 +454,7 @@ Engine.Options = {
 						Engine.Profile.overlay.elvtukoverride = value;
 					end,
 					disabled = function()
-						return not (hasElvUI or hasTukui)
+						return not (mod.encounters)
 					end
 				},	
 				
@@ -442,7 +532,7 @@ Engine.Options = {
 				tagsHelp = {
 					order = 6,
 					type = "description",
-					name = L.tags,
+					name = L["TAGS_LIST"],
 					width = "full",
 				},					
 			
@@ -660,8 +750,362 @@ Engine.Options = {
 				},				
 			}
 		},		
-		developer = {
+		encounters = {
 			order = 6,
+			type = "group",
+			name = L["ENCOUNTERS_SETTINGS"],
+			cmdInline = true,
+			args = {
+				Frames_Header = {
+				  type = "description",
+				  order = 0,
+				  name = L["ENCOUNTERS_SETTINGS"],
+				  fontSize = "large",
+				},
+				warning = {
+					order = 1,
+					type = "description",
+					name = L["ENCOUNTERS_WARNING"],
+					width = "full",
+					hidden = function() 
+						return mod.encounters.hasBossMod;
+					end,					
+				},
+				store = {
+					order = 2,
+					type = "toggle",
+					name = L["ENCOUNTERS_STORE"],
+					desc = L["ENCOUNTERS_STORE_DESC"],					
+					get = function()
+						return Engine.Profile.encounters.store;
+					end,
+					set = function(key, value)
+						Engine.Profile.encounters.store = value;
+					end,
+					disabled = function() 
+						return not mod.encounters.hasBossMod;
+					end,
+				},
+				wipe = {
+				  order = 3,
+				  type = 'execute',
+				  name = L["ENCOUNTERS_WIPE"],
+				  desc = L["ENCOUNTERS_WIPE_DESC"],
+				  func = function()
+					Engine.GLOBAL.encounters = nil;
+					mod.selectedInstance = nil;
+					mod.selectedDifficulty = nil;
+					mod.selectedEncounter = nil;					
+					GameTooltip:Hide();
+				  end,
+				  hidden = function()
+					return not (Engine.GLOBAL.encounters);
+				  end,
+				},
+				autoReportTop = {
+					order = 4,
+					type = "toggle",
+					name = L["ENCOUNTERS_AUTO_REPORT_TOP"],
+					desc = L["ENCOUNTERS_AUTO_REPORT_TOP_DESC"],					
+					get = function()
+						return Engine.Profile.encounters.autoReportTop;
+					end,
+					set = function(key, value)
+						Engine.Profile.encounters.autoReportTop = value;
+					end,
+					disabled = function() 
+						return not Engine.Profile.encounters.store;
+					end,
+				},								
+				autoReportTopType = {				  
+				  order = 5,
+				  type = "select",
+				  name = L["ENCOUNTERS_AUTO_REPORT_TYPE"],
+				  desc = L["ENCOUNTERS_AUTO_REPORT_TYPE_DESC"],
+				  values = Engine.ReportTypeList,
+				  disabled = function()
+					return not (Engine.Profile.encounters.store and Engine.Profile.encounters.autoReportTop);
+				  end,
+				  get = function()
+					return Engine.Profile.encounters.autoReportTopType;
+				  end,
+				  set = function(key, value)
+					Engine.Profile.encounters.autoReportTopType = value;
+				  end,				  
+				},		
+				autoReportPlayer = {
+					order = 6,
+					type = "toggle",
+					name = L["ENCOUNTERS_AUTO_REPORT_PLAYER"],
+					desc = L["ENCOUNTERS_AUTO_REPORT_PLAYER_DESC"],					
+					get = function()
+						return Engine.Profile.encounters.autoReportPlayer;
+					end,
+					set = function(key, value)
+						Engine.Profile.encounters.autoReportPlayer = value;
+					end,
+					disabled = function() 
+						return not Engine.Profile.encounters.store;
+					end,
+				},								
+				autoReportPlayerType = {				  
+				  order = 7,
+				  type = "select",
+				  name = L["ENCOUNTERS_AUTO_REPORT_TYPE"],
+				  desc = L["ENCOUNTERS_AUTO_REPORT_TYPE_DESC"],
+				  values = Engine.ReportTypeList,
+				  disabled = function()
+					return not (Engine.Profile.encounters.store and Engine.Profile.encounters.autoReportPlayer);
+				  end,
+				  get = function()
+					return Engine.Profile.encounters.autoReportPlayerType;
+				  end,
+				  set = function(key, value)
+					Engine.Profile.encounters.autoReportPlayerType = value;
+				  end,				  
+				},				
+				Browse_Header = {
+				  type = "description",
+				  order = 10,
+				  name = L["ENCOUNTERS_BROWSE"],
+				  fontSize = "medium",
+				},	
+				Browse_No_Data = {
+				  type = "description",
+				  order = 11,
+				  name = L["NO_DATA"],
+				  fontSize = "small",
+				  hidden = function()
+					return (Engine.GLOBAL.encounters);
+				  end,				  
+				},					
+				instances = {
+					order = 12,
+					type = "select",
+					name = L["ENCOUNTERS_INSTANCE"],
+					desc = L["ENCOUNTERS_INSTANCE_DESC"],
+					hidden = function()
+						return not (Engine.GLOBAL.encounters);
+					end,					
+					values = function()
+						local result = {};
+						
+						if (mod.encounters) then
+							result = mod.encounters:GetInstances();
+						end
+						
+						return result;
+					end,
+					get = function()
+						return mod.selectedInstance;
+					end,
+					set = function(key, value)
+						mod.selectedInstance = value;
+						mod.selectedDifficulty = nil;
+						mod.selectedEncounter = nil;
+					end,
+				},
+				difficulty = {
+					order = 13,
+					type = "select",
+					name = L["ENCOUNTERS_DIFFICULTY"],
+					desc = L["ENCOUNTERS_DIFFICULTY_DESC"],
+					hidden = function()
+						return not (mod.selectedInstance);
+					end,
+					values = function()
+						local result = {};
+
+						if (mod.encounters) then
+							result = mod.encounters:getDifficultyList(mod.selectedInstance);
+						end
+						
+						return result;
+					end,
+					get = function()
+						return mod.selectedDifficulty;
+					end,
+					set = function(key, value)
+						mod.selectedDifficulty = value;
+						mod.selectedEncounter = nil;
+					end,
+				},		
+				encounter = {
+					order = 14,
+					type = "select",
+					name = L["ENCOUNTERS_CHOOSE"],
+					desc = L["ENCOUNTERS_CHOOSE_DESC"],
+					hidden = function()
+						return not (mod.selectedDifficulty);
+					end,
+					values = function()
+						local result = {};
+				
+						if (mod.encounters) then
+							result = mod.encounters:getEncounterList(mod.selectedInstance,mod.selectedDifficulty);
+						end				
+						
+						return result;
+					end,
+					get = function()
+						return mod.selectedEncounter;
+					end,
+					set = function(key, value)
+						mod.selectedEncounter = value;
+					end,
+				},	
+				topRecords_Header = {
+				  type = "description",
+				  order = 15,
+				  name = L["ENCOUNTERS_TOP_RECORDS_DESC"],
+				  fontSize = "medium",
+				  hidden = function()
+					return not (mod.selectedEncounter);
+				  end,				  
+				},					
+				topRecords = {
+					order = 16,
+					type = "description",
+					name = function()
+						local result = "";
+						
+						if(mod.encounters and mod.selectedEncounter) then
+						
+							local records = mod.encounters:getRecords(	mod.selectedInstance,
+																		mod.selectedDifficulty,
+																		mod.selectedEncounter);
+																		
+							if (records) then
+							
+								result = mod:getRecordsString(records,true);
+								
+							end;
+							
+						end
+						
+						
+						return result;
+					end,
+					hidden = function()
+						return not (mod.selectedEncounter);
+					end,					
+					width = "full",
+				},	
+				reportTopButton = {				  
+				  order = 17,
+				  type = "execute",
+				  name = L["REPORT_NOW"],
+				  desc = L["REPORT_NOW_TOP_DESC"],
+				  func = function()			
+				  
+					if(mod.encounters and mod.selectedEncounter) then
+						mod.encounters:reportRecords(	mod.selectedInstance,
+														mod.selectedDifficulty,
+														mod.selectedEncounter,
+														true,
+														mod.reportTopType);					
+					end
+				  
+					GameTooltip:Hide();
+				  end,				  
+				  hidden = function()
+					return not (mod.selectedEncounter);
+				  end,				  
+				},					
+				reportTopType = {				  
+				  order = 18,
+				  type = "select",
+				  name = L["REPORT_NOW_TO"],
+				  desc = L["REPORT_TO_DESC"],
+				  values = Engine.ReportTypeList,
+				  hidden = function()
+					return not (mod.selectedEncounter);
+				  end,
+				  get = function()
+					return mod.reportTopType;
+				  end,
+				  set = function(key, value)
+					mod.reportTopType = value;
+				  end,				  
+				},					
+				playerRecords_Header = {
+				  type = "description",
+				  order = 19,
+				  name = L["ENCOUNTERS_PLAYER_RECORDS_DESC"],
+				  fontSize = "medium",
+				  hidden = function()
+					return not (mod.selectedEncounter);
+				  end,				  
+				},					
+				playerRecords = {
+					order = 20,
+					type = "description",
+					name = function()
+						local result = "";
+						
+						if(mod.encounters and mod.selectedEncounter) then
+						
+							local records = mod.encounters:getRecords(	mod.selectedInstance,
+																		mod.selectedDifficulty,
+																		mod.selectedEncounter);
+																		
+							if (records) then
+							
+								result = mod:getRecordsString(records,false);
+								
+							end;
+							
+						end
+						
+						
+						return result;
+					end,
+					hidden = function()
+						return not (mod.selectedEncounter);
+					end,					
+					width = "full",
+				},	
+				reportPlayerButton = {				  
+				  order = 21,
+				  type = "execute",
+				  name = L["REPORT_NOW"],
+				  desc = L["REPORT_NOW_PLAYER_DESC"],
+				  func = function()					
+				  
+					if(mod.encounters and mod.selectedEncounter) then
+						mod.encounters:reportRecords(	mod.selectedInstance,
+														mod.selectedDifficulty,
+														mod.selectedEncounter,
+														false,
+														mod.reportPlayerType);					
+					end
+					
+					GameTooltip:Hide();
+				  end,				  
+				  hidden = function()
+					return not (mod.selectedEncounter);
+				  end,				  
+				},	
+				reportPlayerType = {				  
+				  order = 22,
+				  type = "select",
+				  name = L["REPORT_NOW_TO"],
+				  desc = L["REPORT_TO_DESC"],
+				  values = Engine.ReportTypeList,
+				  hidden = function()
+					return not (mod.selectedEncounter);
+				  end,	
+				  get = function()
+					return mod.reportPlayerType;
+				  end,
+				  set = function(key, value)
+					mod.reportPlayerType = value;
+				  end,					  
+				},					
+			},
+		},				
+		developer = {
+			order = 7,
 			type = "group",
 			name = L["DEV_SETTINGS"],
 			cmdInline = true,
@@ -712,3 +1156,10 @@ Engine.blizzardOptions = {
     },
   },
 }
+
+--initialize module
+function mod:OnInitialize()
+	mod.encounters = Engine.AddOn:GetModule("encounters");
+	mod.reportTopType = Engine.REPORT_SELF;
+	mod.reportPlayerType = Engine.REPORT_SELF;
+end

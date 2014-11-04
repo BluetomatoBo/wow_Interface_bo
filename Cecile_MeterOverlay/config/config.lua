@@ -66,7 +66,7 @@ function AddOn:SetupOptions()
 
 	--create database
 	Engine.DB = AceDB:New(Engine.Name.."DB", Engine.Defaults, true);
-
+	Engine.GLOBAL = _G[Engine.Name.."DB"];
 	Engine.DB.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged");
 	Engine.DB.RegisterCallback(self, "OnProfileCopied", "OnProfileChanged");
 	Engine.DB.RegisterCallback(self, "OnProfileReset", "OnProfileChanged");

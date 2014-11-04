@@ -61,7 +61,7 @@ L["EXAMPLE"] = "Example"
 L["SEGMENT"] = "Data Segment"
 L["SEGMENT_DESC"] = "Set the source data segment."
 L["TAGS"] = "Tags"
-L.tags = [[
+L["TAGS_LIST"] = [[
 This are the liste for the supported tags.
 
 |cff0070de[dps]|r - Your current |cffff2020DPS|r.
@@ -131,6 +131,52 @@ L["DATATEXT_HIDE_TYPE"] = "Hide Mode"
 L["DATATEXT_HIDE_TYPE_DESC"] = "Change the datatext hide mode."
 L["DATATEXT_HIDE_NORMAL"] = "Hide"
 L["DATATEXT_HIDE_FADE"] = "Fade Out"
+L["ENCOUNTERS_SETTINGS"] = "Encounters Records"
+L["ENCOUNTERS_WARNING"] = [[
+To use this options you need to have a Boss Encounter Module.
+
+Current supported modules:
+
+- |cff0070deDeadly Boss Mods|r
+- |cff0070deBigWigs|r
+]]
+L["REPORT_SELF"]="Self";
+L["REPORT_GUILD"]="Guild chat";
+L["REPORT_INSTANCE"]="Instance chat";
+L["ENCOUNTERS_STORE"]="Store boss encounters"
+L["ENCOUNTERS_STORE_DESC"]="Enable to store boss encounters records"
+L["ENCOUNTERS_WIPE"]="Wipe all data"
+L["ENCOUNTERS_WIPE_DESC"]="Clean all stored information for encounters"
+L["ENCOUNTERS_INSTANCE"]="Instance"
+L["ENCOUNTERS_INSTANCE_DESC"]="Select instance"
+L["ENCOUNTERS_DIFFICULTY"]="Difficulty"
+L["ENCOUNTERS_DIFFICULTY_DESC"]="Select difficulty"
+L["ENCOUNTERS_CHOOSE"]="Encounter"
+L["ENCOUNTERS_CHOOSE_DESC"]="Select encounter"
+L["ENCOUNTERS_BROWSE"]="Browse saved encounters"
+L["ENCOUNTERS_TOP_RECORDS_DESC"]="Encounter TOP records"
+L["ENCOUNTERS_PLAYER_RECORDS_DESC"]="Encounter Player records"
+L["ENCOUNTERS_RECORD_DPS_LINE"]="|c%s%s|r |cffff2020%s DPS |r on |cff0070de%s|r with a group size of |cff0070de%s|r"
+L["ENCOUNTERS_RECORD_HPS_LINE"]="|c%s%s|r |cff44ff44%s HPS |r on |cff0070de%s|r with a group size of |cff0070de%s|r"
+L["REPORT_NOW"]="Report now"
+L["REPORT_NOW_TOP_DESC"]="Report top records now"
+L["REPORT_NOW_PLAYER_DESC"]="Report player records now"
+L["REPORT_NOW_TO"]="Report now to.."
+L["REPORT_TO_DESC"]="Select which channel to report"
+L["REPORT_ENCOUNTER_RECORDS_TOP"]="|cfffff569%s|r TOP records for |cff0070de%s|r (%s):"
+L["REPORT_ENCOUNTER_RECORDS_PLAYER"]="|cfffff569%s|r player records for |cff0070de%s|r (%s):"
+L["ENCOUNTERS_AUTO_REPORT_TOP"]="Auto report TOP records"
+L["ENCOUNTERS_AUTO_REPORT_TOP_DESC"]="Enable to auto report new TOP records"
+L["ENCOUNTERS_AUTO_REPORT_PLAYER"]="Auto report player records"
+L["ENCOUNTERS_AUTO_REPORT_PLAYER_DESC"]="Enable to auto report new player records"
+L["ENCOUNTERS_AUTO_REPORT_TYPE"]="Auto report to.."
+L["ENCOUNTERS_AUTO_REPORT_TYPE_DESC"]="Select which channel to auto report"
+L["ENCOUNTERS_NEW_RECORD_DPS"]="- new |c%s%s|r |cffff2020%s DPS|r"
+L["ENCOUNTERS_NEW_RECORD_HPS"]="- new |c%s%s|r |cff44ff44%s HPS|r"
+L["ENCOUNTERS_NEW_RECORD_DPS_OVER"]="- new |c%s%s|r |cffff2020%s DPS|r, was |c%s%s|r |cffff2020%s DPS|r"
+L["ENCOUNTERS_NEW_RECORD_HPS_OVER"]="- new |c%s%s|r |cff44ff44%s HPS|r, was |c%s%s|r |cff44ff44%s HPS|r"
+L["ENCOUNTERS_FAIL_RECORD_DPS"]="- retained |c%s%s|r |cffff2020%s DPS|r, attempt |c%s%s|r |cffff2020%s DPS|r"
+L["ENCOUNTERS_FAIL_RECORD_HPS"]="- retained |c%s%s|r |cff44ff44%s HPS|r, attempt |c%s%s|r |cff44ff44%s HPS|r"
 
 --get ordinal sufix for a number (1st,2nd,3rd,4th...) (english locale)
 function Engine:OrdinalSuffix(number)

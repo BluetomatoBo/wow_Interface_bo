@@ -1,3 +1,6 @@
+v1.1.0
+- Bug fixing
+- New feature a new module that will save/announce encounter records. (only if you have DBM or BigWigs)
 v1.0.5
 - Hide floating datatext out of combat could be now hide or fade out
 v1.0.4
