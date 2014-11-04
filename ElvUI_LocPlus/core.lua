@@ -179,7 +179,7 @@ local function GetRecomZones(zone)
 	local low, high = tourist:GetLevel(zone)
 	local r, g, b = tourist:GetLevelColor(zone)
 	local zContinent = tourist:GetContinent(zone)
-	
+
 	if PvPorRaidFilter(zone) == nil then return end
 	
 	GameTooltip:AddDoubleLine(
@@ -191,35 +191,37 @@ local function GetRecomZones(zone)
 end
 
 -- Dungeons in the zone
-local function GetZoneDungeons(zone)
+local function GetZoneDungeons(dungeon)
 
-	local low, high = tourist:GetLevel(zone)
-	local r, g, b = tourist:GetLevelColor(zone)
-	local groupSize = tourist:GetInstanceGroupSize(zone)
-	local altGroupSize = tourist:GetInstanceAltGroupSize(zone)
+	local low, high = tourist:GetLevel(dungeon)
+	local r, g, b = tourist:GetLevelColor(dungeon)
+	local groupSize = tourist:GetInstanceGroupSize(dungeon)
+	local altGroupSize = tourist:GetInstanceAltGroupSize(dungeon)
 	local groupSizeStyle = (groupSize > 0 and string.format("|cFFFFFF00|r (%d", groupSize) or "")
 	local altGroupSizeStyle = (altGroupSize > 0 and string.format("|cFFFFFF00|r/%d", altGroupSize) or "")
+	local name = dungeon
 
-	if PvPorRaidFilter(zone) == nil then return end
+	if PvPorRaidFilter(dungeon) == nil then return end
 	
 	GameTooltip:AddDoubleLine(
-	"|cffffffff"..zone
+	"|cffffffff"..name
 	..(groupSizeStyle or "")
 	..(altGroupSizeStyle or "").."-"..PLAYER..") "
-	..GetDungeonCoords(zone)
-	..PvPorRaidFilter(zone) or "",
+	..GetDungeonCoords(dungeon)
+	..PvPorRaidFilter(dungeon) or "",
 	("|cff%02x%02x%02x%s|r"):format(r *255, g *255, b *255,(low == high and low or ("%d-%d"):format(low, high))))
 
 end
 
 -- Recommended Dungeons
-local function GetRecomDungeons(zone)
+local function GetRecomDungeons(dungeon)
 		
-	local low, high = tourist:GetLevel(zone);	
-	local r, g, b = tourist:GetLevelColor(zone);
-	local instZone = tourist:GetInstanceZone(zone);
+	local low, high = tourist:GetLevel(dungeon);	
+	local r, g, b = tourist:GetLevelColor(dungeon);
+	local instZone = tourist:GetInstanceZone(dungeon);
+	local name = dungeon
 	
-	if PvPorRaidFilter(zone) == nil then return end
+	if PvPorRaidFilter(dungeon) == nil then return end
 	
 	if instZone == nil then
 		instZone = ""
@@ -228,10 +230,10 @@ local function GetRecomDungeons(zone)
 	end
 	
 	GameTooltip:AddDoubleLine(
-	"|cffffffff"..zone
+	"|cffffffff"..name
 	..instZone
-	..GetDungeonCoords(zone)
-	..PvPorRaidFilter(zone) or "",
+	..GetDungeonCoords(dungeon)
+	..PvPorRaidFilter(dungeon) or "",
 	("|cff%02x%02x%02x%s|r"):format(r *255, g *255, b *255,(low == high and low or ("%d-%d"):format(low, high))))
 
 end
@@ -243,8 +245,9 @@ local LEVEL_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\levelup.tga:14:14
 
 -- Get Fishing Level
 local function GetFishingLvl(minFish, ontt)
-	local zoneText = GetRealZoneText()
-	local minFish = tourist:GetFishingLevel(zoneText)
+	local mapID = GetCurrentMapAreaID()
+	local zoneText = tourist:GetMapNameByIDAlt(mapID) or UNKNOWN;	
+	local minFish = tourist:GetFishingLevel(tourist:GetUniqueZoneNameForLookup(zoneText, continentID))
 	local _, _, _, fishing = GetProfessions()
 	local r, g, b = 1, 0, 0
 	local r1, g1, b1 = 1, 0, 0
@@ -283,11 +286,11 @@ local function GetFishingLvl(minFish, ontt)
 end
 
 -- PetBattle Range
-local function GetBattlePetLvl(zoneText, ontt)
+local function GetBattlePetLvl(ontt)
 	local mapID = GetCurrentMapAreaID()
-	local zoneText = GetMapNameByID(mapID) or UNKNOWN;
+	local zoneText = tourist:GetMapNameByIDAlt(mapID) or UNKNOWN;
 
-	local low,high = tourist:GetBattlePetLevel(zoneText)
+	local low,high = tourist:GetBattlePetLevel(tourist:GetUniqueZoneNameForLookup(zoneText, continentID))
 	local plevel
 	if low ~= nil or high ~= nil then
 		if low ~= high then
@@ -310,8 +313,9 @@ local function GetBattlePetLvl(zoneText, ontt)
 end
 
 -- Zone level range
-local function GetLevelRange(zoneText, ontt)
-	local zoneText = GetRealZoneText()
+local function GetLevelRange(ontt)
+	local mapID = GetCurrentMapAreaID()
+	local zoneText = tourist:GetMapNameByIDAlt(mapID) or UNKNOWN;	
 	local low, high = tourist:GetLevel(zoneText)
 	local dlevel
 	if low > 0 and high > 0 then
@@ -339,7 +343,7 @@ end
 local function UpdateTooltip()
 	
 	local mapID = GetCurrentMapAreaID()
-	local zoneText = GetMapNameByID(mapID) or UNKNOWN;
+	local zoneText = tourist:GetMapNameByIDAlt(mapID) or UNKNOWN;
 	local curPos = (zoneText.." ") or "";
 	
 	GameTooltip:ClearLines()
@@ -397,8 +401,8 @@ local function UpdateTooltip()
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(format(curPos..DUNGEONS.." :"), selectioncolor)
 			
-		for zone in tourist:IterateZoneInstances(zoneText) do
-			GetZoneDungeons(zone);
+		for dungeon in tourist:IterateZoneInstances(zoneText) do
+			GetZoneDungeons(dungeon);
 		end	
 	end
 	
@@ -408,8 +412,8 @@ local function UpdateTooltip()
 		GameTooltip:AddLine(" ")
 		GameTooltip:AddLine(L["Recommended Dungeons :"], selectioncolor)
 			
-		for zone in tourist:IterateRecommendedInstances() do
-			GetRecomDungeons(zone);
+		for dungeon in tourist:IterateRecommendedInstances() do
+			GetRecomDungeons(dungeon);
 		end
 	end
 	

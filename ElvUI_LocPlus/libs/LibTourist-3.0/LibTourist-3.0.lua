@@ -1,6 +1,6 @@
 ﻿--[[
 Name: LibTourist-3.0
-Revision: $Rev: 168 $
+Revision: $Rev: 170 $
 Author(s): ckknight (ckknight@gmail.com), Arrowmaster, Odica (maintainer)
 Website: http://ckknight.wowinterface.com/
 Documentation: http://www.wowace.com/addons/libtourist-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibTourist-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 168 $"):match("(%d+)"))
+local MINOR_VERSION = 90000 + tonumber(("$Revision: 170 $"):match("(%d+)"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub") end
 
@@ -110,6 +110,8 @@ local entrancePortals_zone = {}
 local entrancePortals_x = {}
 local entrancePortals_y = {}
 
+local zoneIDtoContinentID = {}
+
 -- HELPER AND LOOKUP FUNCTIONS -------------------------------------------------------------
 
 local function PLAYER_LEVEL_UP(self, level)
@@ -145,7 +147,7 @@ local function PLAYER_LEVEL_UP(self, level)
 	end
 end
 
--- Wrapper for GetMapContinents, removes the map IDs added to its output in WoW 6.0
+-- Public alternative for GetMapContinents, removes the map IDs that were added to its output in WoW 6.0
 function Tourist:GetMapContinentsAlt()
 	local temp = { GetMapContinents() }
 
@@ -165,14 +167,17 @@ function Tourist:GetMapContinentsAlt()
 	end
 end
 
--- Alternative for GetMapZones because GetMapZones does NOT return all zones, 
+-- Public Alternative for GetMapZones because GetMapZones does NOT return all zones (as of 6.0.2), 
 -- making its output useless as input for for SetMapZoom. 
 -- Thanks to Blackspirit (US) for this code.
-local mapZones = {}
+-- NOTE: This method does not convert duplicate zone names for lookup in LibTourist,
+-- use GetUniqueZoneNameForLookup for that.
+local mapZonesByContinentID = {}
 function Tourist:GetMapZonesAlt(continentID)
-	if mapZones[continentID] then
-		return mapZones[continentID]
+	if mapZonesByContinentID[continentID] then
+		return mapZonesByContinentID[continentID]
 	else
+		-- Just in case GetMapZonesAltLocal has not been called yet:
 		local zones = {}
 		SetMapZoom(continentID)
 		local continentAreaID = GetCurrentMapAreaID()
@@ -180,20 +185,65 @@ function Tourist:GetMapZonesAlt(continentID)
 			SetMapZoom(continentID, i) 
 			local zoneAreaID = GetCurrentMapAreaID() 
 			if zoneAreaID == continentAreaID then 
-				-- If the index is out of bounds, the continent map is returned -> exit the loop
+				-- If the index gets out of bounds, the continent map is returned -> exit the loop
 				break 
 			end 
 			-- Get the localized zone name and store it
 			zones[i] = GetMapNameByID(zoneAreaID)
-	--		if continentID == 7 then
-	--			trace(i..": "..zoneAreaID.." = "..tostring(zones[i])) 
-	--		end
 		end
 		-- Cache
-		mapZones[continentID] = zones
+		mapZonesByContinentID[continentID] = zones
 		return zones
 	end
 end
+
+-- Local version of GetMapZonesAlt, used during initialisation of LibTourist
+local function GetMapZonesAltLocal(continentID)
+	local zones = {}
+	SetMapZoom(continentID)
+	local continentAreaID = GetCurrentMapAreaID()
+	for i=1, 100, 1 do 
+		SetMapZoom(continentID, i) 
+		local zoneAreaID = GetCurrentMapAreaID() 
+		if zoneAreaID == continentAreaID then 
+			-- If the index is out of bounds, the continent map is returned -> exit the loop
+			break 
+		end 
+		-- Add area IDs to lookup table
+		zoneIDtoContinentID[zoneAreaID] = continentID
+		-- Get the localized zone name and store it
+		zones[i] = GetMapNameByID(zoneAreaID)
+--		if continentID == 7 then
+--			trace(i..": "..zoneAreaID.." = "..tostring(zones[i])) 
+--		end
+	end
+	-- Cache (for GetMapZonesAlt)
+	mapZonesByContinentID[continentID] = zones
+	return zones
+end
+
+-- Public alternative for GetMapNameByID, returns a unique localized zone name
+-- to be used to lookup data in LibTourist
+function Tourist:GetMapNameByIDAlt(zoneAreaID)
+	local zoneName = GetMapNameByID(zoneAreaID)
+	local continentID = zoneIDtoContinentID[zoneAreaID]
+	return Tourist:GetUniqueZoneNameForLookup(zoneName, continentID)
+end 
+
+-- Returns a unique localized zone name to be used to lookup data in LibTourist,
+-- based on a localized zone name
+function Tourist:GetUniqueZoneNameForLookup(zoneName, continentID)
+	if continentID == 7 then
+		if zoneName == BZ["Nagrand"] then
+			zoneName = BZ["Nagrand"].." ("..BZ["Draenor"]..")"
+		end
+		if zoneName == BZ["Shadowmoon Valley"] then
+			zoneName = BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")"
+		end
+	end
+	return zoneName
+end
+
 
 
 
@@ -6340,22 +6390,23 @@ do
 		continent = Pandaria,
 		paths = BZ["The Jade Forest"],
 		fishing_min = 825,
-		battlepet_low = 23,
+		battlepet_low = 25,
 		battlepet_high = 25,
 	}
 	
 	
-	-- Warlords of Dreanor (WoD) zones --------------------------
+	-- Warlords of Draenor (WoD) zones --------------------------
 	
 	zones[BZ["Frostfire Ridge"]] = {
 		low = 90,
 		high = 92,
-		continent = Dreanor,
+		continent = Draenor,
 		instances = {
 			[BZ["Bloodmaul Slag Mines"]] = true,
 		},
 		paths = {
 			[BZ["Gorgrond"]] = true,
+			[BZ["Frostwall"]] = true,
 			[transports["FROSTFIRERIDGE_ORGRIMMAR_PORTAL"]] = true,
 		},
 		fishing_min = 750,
@@ -6363,10 +6414,10 @@ do
 		battlepet_high = 25,
 	}
 	
-	zones[BZ["Shadowmoon Valley"]] = {
+	zones[BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")"] = {
 		low = 90,
 		high = 92,
-		continent = Dreanor,
+		continent = Draenor,
 		instances = {
 			[BZ["Shadowmoon Burial Grounds"]] = true,
 		},
@@ -6374,6 +6425,7 @@ do
 			[BZ["Talador"]] = true,
 			[BZ["Spires of Arak"]] = true,
 			[BZ["Tanaan Jungle"]] = true,
+			[BZ["Lunarfall"]] = true,
 			[transports["SHADOWMOONVALLEY_STORMWIND_PORTAL"]] = true,
 		},
 		fishing_min = 750,
@@ -6384,7 +6436,7 @@ do
 	zones[BZ["Gorgrond"]] = {
 		low = 92,
 		high = 94,
-		continent = Dreanor,
+		continent = Draenor,
 		instances = {
 			[BZ["Iron Docks"]] = true,
 			[BZ["Grimrail Depot"]] = true,
@@ -6404,16 +6456,16 @@ do
 	zones[BZ["Talador"]] = {
 		low = 94,
 		high = 96,
-		continent = Dreanor,
+		continent = Draenor,
 		instances = {
 			[BZ["Auchindoun"]] = true,
 		},
 		paths = {
-			[BZ["Shadowmoon Valley"]] = true,
+			[BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")"] = true,
 			[BZ["Gorgrond"]] = true,
 			[BZ["Tanaan Jungle"]] = true,
 			[BZ["Spires of Arak"]] = true,
-			[BZ["Nagrand"]] = true,
+			[BZ["Nagrand"].." ("..BZ["Draenor"]..")"] = true,
 		},
 		fishing_min = 750,
 		battlepet_low = 25,
@@ -6423,13 +6475,13 @@ do
 	zones[BZ["Spires of Arak"]] = {
 		low = 96,
 		high = 98,
-		continent = Dreanor,
+		continent = Draenor,
 		instances = {
 			[BZ["Skyreach"]] = true,
 			[BZ["Blackrock Foundry"]] = true,
 		},
 		paths = {
-			[BZ["Shadowmoon Valley"]] = true,
+			[BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")"] = true,
 			[BZ["Talador"]] = true,
 		},
 		fishing_min = 750,
@@ -6437,10 +6489,10 @@ do
 		battlepet_high = 25,
 	}
 	
-	zones[BZ["Nagrand"]] = {
+	zones[BZ["Nagrand"].." ("..BZ["Draenor"]..")"] = {
 		low = 98,
 		high = 100,
-		continent = Dreanor,
+		continent = Draenor,
 		instances = {
 			[BZ["Highmaul"]] = true,
 			[BZ["Blackrock Foundry"]] = true,
@@ -6456,13 +6508,13 @@ do
 	zones[BZ["Tanaan Jungle"]] = {
 		low = 100,
 		high = 100,
-		continent = Dreanor,
+		continent = Draenor,
 --		instances = {
 --			[BZ["Iron Citadel"]] = true,
 --		},
 		paths = {
 			[BZ["Talador"]] = true,
-			[BZ["Shadowmoon Valley"]] = true,
+			[BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")"] = true,
 			[BZ["Gorgrond"]] = true,
 		},
 		fishing_min = 750,
@@ -6473,7 +6525,7 @@ do
 	zones[BZ["Ashran"]] = {
 		low = 100,
 		high = 100,
-		continent = Dreanor,
+		continent = Draenor,
 		type = "PvP Zone",
 --		instances = {
 --			[BZ["Iron Citadel"]] = true,
@@ -6493,10 +6545,10 @@ do
 	}	
 	
 	
-	-- Warlords of Dreanor (WoD) cities
+	-- Warlords of Draenor (WoD) cities
 	
 	zones[BZ["Warspear"]] = {
-		continent = Dreanor,
+		continent = Draenor,
 		paths = {
 			[BZ["Ashran"]] = true,
 			[transports["WARSPEAR_ORGRIMMAR_PORTAL"]] = true,
@@ -6509,7 +6561,7 @@ do
 	}
 
 	zones[BZ["Stormshield"]] = {
-		continent = Dreanor,
+		continent = Draenor,
 		paths = {
 			[BZ["Ashran"]] = true,
 			[transports["STORMSHIELD_STORMWIND_PORTAL"]] = true,
@@ -6522,7 +6574,33 @@ do
 		battlepet_high = 25,
 	}
 	
-	-- Warlords of Dreanor (WoD) dungeons and raids
+	
+	-- Warlords of Draenor (WoD) garrisons
+	
+	zones[BZ["Lunarfall"]] = {
+        low = 90,
+        high = 100,
+        continent = Draenor,
+        paths = {
+            [BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")"] = true,
+        },
+        faction = "Alliance",
+--      fishing_min = 750,
+    }
+	
+	zones[BZ["Frostwall"]] = {
+        low = 90,
+        high = 100,
+        continent = Draenor,
+        paths = {
+            [BZ["Frostfire Ridge"]] = true,
+        },
+        faction = "Horde",
+--      fishing_min = 750,
+    }
+	
+	
+	-- Warlords of Draenor (WoD) dungeons and raids
 	
 	zones[BZ["Bloodmaul Slag Mines"]] = {
 		low = 90,
@@ -6538,10 +6616,10 @@ do
 		low = 100,
 		high = 100,
 		continent = Draenor,
-		paths = BZ["Shadowmoon Valley"],
+		paths = BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")",
 		groupSize = 5,
 		type = "Instance",
---		entrancePortal = { BZ["Shadowmoon Valley"], 0.00, 0.00 },   TODO
+--		entrancePortal = { BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")", 0.00, 0.00 },   TODO
 	}
 	
 	zones[BZ["Iron Docks"]] = {
@@ -6609,11 +6687,11 @@ do
 		low = 100,
 		high = 100,
 		continent = Draenor,
-		paths = BZ["Nagrand"],
+		paths = BZ["Nagrand"].." ("..BZ["Draenor"]..")",
 		groupSize = 10,
 		altGroupSize = 25,
 		type = "Instance",
---		entrancePortal = { BZ["Nagrand"], 0.00, 0.00 },   TODO
+--		entrancePortal = { BZ["Nagrand"].." ("..BZ["Draenor"]..")", 0.00, 0.00 },   TODO
 	}
 	
 --	zones[BZ["Iron Citadel"]] = {
@@ -6658,6 +6736,8 @@ do
 	searchMaps[BZ["Orgrimmar"]] = BZ["Durotar"]
 	searchMaps[BZ["Ruins of Gilneas City"]] = BZ["Ruins of Gilneas"]	
 	searchMaps[BZ["Stormwind City"]] = BZ["Elwynn Forest"]	
+	searchMaps[BZ["Lunarfall"]] = BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")"
+	searchMaps[BZ["Frostwall"]] = BZ["Frostfire Ridge"]
 	
 	-- Unfortunately this trick does not work for the following cities.
 	searchMaps[BZ["Dalaran"]] = BZ["Crystalsong Forest"]
@@ -6782,7 +6862,7 @@ do
 	local doneZones = {}
 	
 	for continentID, continentName in ipairs(continentNames) do
-		local zoneNames = Tourist:GetMapZonesAlt(continentID)
+		local zoneNames = GetMapZonesAltLocal(continentID)
 		local continentYards = zones[continentName] and zones[continentName].yards or 0
 		
 		-- Build a collection of zone indices (numbers of the zones within a continent)
@@ -6798,7 +6878,7 @@ do
 			local x, y
 			local name, fileName, texPctX, texPctY, texX, texY, scrollX, scrollY
 
-			-- Draenor zones Frostfire Ridge and Shadowmoon Valley appear twice in the collection of Dreanor zones
+			-- Draenor zones Frostfire Ridge and Shadowmoon Valley appear twice in the collection of Draenor zones
 			-- so now we need to be able to skip duplicates, even within a Continent
 			if not doneZones[continentName.."."..zoneNames[_]] then
 			
@@ -6808,16 +6888,13 @@ do
 				if searchMap then
 					-- Get the zone index from the lookup
 					zoneIndex = zoneIndices[searchMap]
---					trace( "SearchMap for "..tostring(zoneNames[_]).." = "..tostring(zoneIndex).." ("..tostring(searchMap)..")"  )
+					trace( "SearchMap for "..tostring(zoneNames[_]).." = "..tostring(zoneIndex).." ("..tostring(searchMap)..")"  )
 					-- Set map to zone map
 					SetMapZoom(continentID, zoneIndex)
 					-- Get searchMap size and use as 'continent' size
 					continentYards = submapContinentYards[searchMap]
 				end
 			
-				-- MdV
-				local effe = {}
-				
 				-- Probe the map for the map highlight of the zone
 				local scansDone = 0
 				repeat
@@ -6830,14 +6907,6 @@ do
 					end
 					x, y = math.random(), math.random()
 					name, fileName, texPctX, texPctY, texX, texY, scrollX, scrollY = UpdateMapHighlight(x, y)
-					-- MdV
-					if continentID == 7 and name then
-						if not effe[name] then
---							trace( "-> "..tostring(continentName).." highlight: "..tostring(name))
---							if name == zoneNames[_] then trace(" Found!") end
-							effe[name] = true
-						end
-					end
 				until name == zoneNames[_]  -- do not stop searching until we have a match on zonename
 --				until name and not doneZones[continentName.."."..name] and name == zoneNames[_]  -- do not stop searching until we have a match on zonename
 				
@@ -6846,6 +6915,11 @@ do
 				local tryGetCurrentMapZone = false
 				if name then
 					-- UpdateMapHighlight() has found the zone highlight
+					
+					-- Hack to deal with duplicate zone names introduced in 6.0.2
+					-- From this point on the name must match the hardcoded name in the zones collection
+					name = Tourist:GetUniqueZoneNameForLookup(name, continentID)
+					
 					if zones[name] then
 						if fileName then
 							-- UpdateMapHighlight() returned the zone name and data for the texture
@@ -6854,7 +6928,7 @@ do
 								scrollX = scrollX - 0.00168
 								scrollY = scrollY + 0.01
 							end
-											
+
 							zones[name].yards = texX * continentYards
 							zones[name].x_offset = scrollX * continentYards
 							zones[name].y_offset = scrollY * continentYards * 2/3
@@ -6884,7 +6958,7 @@ do
 						local _, left, top, right, bot = GetCurrentMapZone()
 						local sizeInYards = left - right or 0
 						
---						trace( "Alt for "..tostring(name)..": size ="..tostring(sizeInYards)..", fileName="..tostring(fileName) )
+						trace( "Alt for "..tostring(name)..": size ="..tostring(sizeInYards)..", fileName="..tostring(fileName) )
 						if( sizeInYards ~= 0 or not zones[name].yards ) then
 							zones[name].yards = sizeInYards
 						end
