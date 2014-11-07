@@ -2,8 +2,7 @@ local AS = unpack(AddOnSkins)
 
 if not AS:CheckAddOn('ArkInventory') then return end
 
-local name = 'ArkInventorySkin'
-function AS:SkinArkInventory()
+function AS:ArkInventory()
 	hooksecurefunc(ArkInventory, 'Frame_Main_Paint', function(frame)
 		if not ArkInventory.ValidFrame(frame, true) then return	end
 		for i = 1, select('#', frame:GetChildren()) do
@@ -52,10 +51,7 @@ function AS:SkinArkInventory()
 		_G[status:GetName()..'GoldSilverButtonText']:SetFont(AS.Font, 12)
 		_G[status:GetName()..'GoldGoldButton']:SetPoint('RIGHT', _G[status:GetName()..'GoldSilverButtonText'], 'LEFT', -1, 0)
 		_G[status:GetName()..'GoldGoldButtonText']:SetFont(AS.Font, 12)
-		if not searchfilter.IsSkinned then
-			AS:SkinEditBox(searchfilter)
-			searchfilter.IsSkinned = true
-		end
+		AS:SkinEditBox(searchfilter)
 	end)
 
 	hooksecurefunc(ArkInventory, 'Frame_Bar_Paint', function(bar)
@@ -73,6 +69,9 @@ function AS:SkinArkInventory()
 		if ArkInventory.Global.Mode.Edit then
 			bar:SetBackdropBorderColor(1, 0, 0, 1)
 			bar:SetBackdropColor(1, 0, 0, .1)
+		else
+			bar:SetBackdropBorderColor(unpack(AS.BorderColor))
+			bar:SetBackdropColor(unpack(AS.BackdropColor))
 		end
 	end)
 
@@ -89,12 +88,22 @@ function AS:SkinArkInventory()
 		if not ArkInventory.ValidFrame(frame, true) then return end
 		local obj = _G[frame:GetName()..'ArkBorder']
 		if not obj then return end
-		obj:Hide()
+		obj:Kill()
 
 		local r, g, b, a = obj:GetBackdropBorderColor()
-		AS:SkinIconButton(frame, true)
-		local Backdrop = frame.backdrop or frame.Backdrop
-		Backdrop:SetBackdropBorderColor(r,g,b,a)
+		if not frame.isStyled then
+			AS:SkinFrame(frame)
+			AS:SkinTexture(frame.icon)
+			frame:SetNormalTexture(nil)
+			frame.SetNormalTexture = AS.Noop
+			frame.isStyled = true
+			if _G[frame:GetName()] == ARKINV_Frame1ChangerWindowBag1 then
+				ARKINV_Frame1ChangerWindowBag1IconTexture:SetTexture('interface\\icons\\inv_misc_bag_07_green')
+				AS:SkinTexture(ARKINV_Frame1ChangerWindowBag1IconTexture)
+				ARKINV_Frame1ChangerWindowBag1IconTexture:SetInside()
+			end
+		end
+		frame:SetBackdropBorderColor(r,g,b,a)
 	end)
 
 	hooksecurefunc(ArkInventory, 'Frame_Border_Paint', function(border, slot, file, size, offset, scale, r, g, b, a)
@@ -103,4 +112,4 @@ function AS:SkinArkInventory()
 	end)
 end
 
-AS:RegisterSkin(name, AS.SkinArkInventory)
+AS:RegisterSkin('ArkInventory', AS.ArkInventory)

@@ -156,6 +156,13 @@ function AS:StartSkinning(event)
 	if AS.enteredworld then return end
 	AS.enteredworld = true
 
+	local EP = LibStub('LibElvUIPlugin-1.0', true)
+	if EP then
+		EP:RegisterPlugin(AddOnName, AS.GetOptions)
+	else
+		AS:GetOptions()
+	end
+
 	AS:UpdateMedia()
 
 	if IsAddOnLoaded('ElvUI') then
@@ -180,15 +187,8 @@ function AS:StartSkinning(event)
 	if FoundError then
 		AS:Print(format('%s: Please report this to Azilroka immediately @ %s', AS.Version, AS:PrintURL(AS.TicketTracker)))
 	end
-
+	
 	AS:EmbedInit()
-
-	local EP = LibStub('LibElvUIPlugin-1.0', true)
-	if EP then
-		EP:RegisterPlugin(AddOnName, AS.GetOptions)
-	else
-		AS:GetOptions()
-	end
 
 	AS:Print(format("Version: |cFF1784D1%s|r Loaded!", AS.Version))
 	AS:UnregisterEvent(event)
@@ -200,7 +200,7 @@ function AS:Init(event, addon)
 		AS:UpdateMedia()
 		AS:InitAPI()
 		if AS:CheckAddOn('ElvUI') then
-			local ElvUIVersion, MinElvUIVersion = tonumber(GetAddOnMetadata('ElvUI', 'Version')), 7.13
+			local ElvUIVersion, MinElvUIVersion = tonumber(GetAddOnMetadata('ElvUI', 'Version')), 7.32
 			if ElvUIVersion < MinElvUIVersion then
 				AS:AcceptFrame(format('%s - Required ElvUI Version %s. You currently have %s.\n Download ElvUI @ %s', AS.Title, MinElvUIVersion, ElvUIVersion, AS:PrintURL('http://www.tukui.org/dl.php')), function(self) print(AS:PrintURL('http://www.tukui.org/dl.php')) self:Hide() end)
 				AS:Print('Loading Aborted')
@@ -222,10 +222,8 @@ end
 
 function AS:SkinScrollBar(frame)
 	frame:SkinScrollBar()
-	_G[frame:GetName().."ScrollUpButton"]:StripTextures()
-	_G[frame:GetName().."ScrollUpButton"]:SetTemplate("Default", true)
-	_G[frame:GetName().."ScrollDownButton"]:StripTextures()
-	_G[frame:GetName().."ScrollDownButton"]:SetTemplate("Default", true)
+	_G[frame:GetName().."ScrollUpButton"].texture:SetTexture(nil)
+	_G[frame:GetName().."ScrollDownButton"].texture:SetTexture(nil)
 	if not _G[frame:GetName().."ScrollUpButton"].text then
 		_G[frame:GetName().."ScrollUpButton"]:FontString("text", AS.ActionBarFont, 12)
 		_G[frame:GetName().."ScrollUpButton"].text:SetText("▲")
@@ -259,6 +257,11 @@ function AS:SkinEditBox(frame, width, height)
 	frame:SkinEditBox()
 	if width then frame:Width(width) end
 	if height then frame:Height(height) end
+	if frame.Left then
+		frame.Left:Kill()
+		frame.Middle:Kill()
+		frame.Right:Kill()
+	end
 end
 
 function AS:SkinDropDownBox(frame, width)

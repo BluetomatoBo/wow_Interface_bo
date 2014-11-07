@@ -25,7 +25,6 @@ local Defaults = {
 	['DBMFont'] = 'Tukui',
 	['DBMFontSize'] = 12,
 	['DBMFontFlag'] = 'OUTLINE',
-	['EmbedLeftChat'] = false,
 	['WeakAuraAuraBar'] = false,
 	['WeakAuraIconCooldown'] = false,
 	['AuctionHouse'] = true,
@@ -81,7 +80,7 @@ end
 
 function AS:GetOptions()
 	local function GenerateOptionTable(skinName, order)
-		local text = gsub(skinName, "Skin", "")
+		local text = strtrim(skinName:gsub("Blizzard_(.+)","%1"):gsub("(%u)"," %1"))
 		local options = {
 			type = "toggle",
 			name = text,
@@ -408,16 +407,15 @@ function AS:GetOptions()
 
 	local order, blizzorder = 0, 0
 	for skinName, _ in AS:OrderedPairs(AS.register) do
-		if skinName ~= "MiscFixes" then
-			if strfind(skinName, "Blizzard_") then
-				Options.args.blizzard.args[skinName] = GenerateOptionTable(skinName, blizzorder)
-				blizzorder = blizzorder + 1
-			else
-				Options.args.addons.args[skinName] = GenerateOptionTable(skinName, order)
-				order = order + 1
-			end
+		if strfind(skinName, "Blizzard_") then
+			Options.args.blizzard.args[skinName] = GenerateOptionTable(skinName, blizzorder)
+			blizzorder = blizzorder + 1
+		else
+			Options.args.addons.args[skinName] = GenerateOptionTable(skinName, order)
+			order = order + 1
 		end
 	end
+
 	if blizzorder == 0 then
 		Options.args.blizzard = nil
 	end

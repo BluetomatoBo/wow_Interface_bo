@@ -2,8 +2,7 @@
 
 if not AS:CheckAddOn('AtlasLoot') then return end
 
-local name = 'AtlasLootSkin'
-function AS:SkinAtlasLoot(event, addon)
+function AS:AtlasLoot(event, addon)
 	if not strfind(GetAddOnMetadata('AtlasLoot', 'Version'), 'v8') then AS:Print('AtlasLoot Aborted due to incompatible version.') return end
 	AS:SkinFrame(AtlasLootTooltip)
 	AtlasLootTooltip:HookScript('OnShow', function(self)
@@ -34,17 +33,12 @@ function AS:SkinAtlasLoot(event, addon)
 				if Frame and not Frame.IsSkinned then
 					local r, g, b = Frame:GetBackdropColor()
 					AS:SkinFrame(Frame)
-					Frame:SetBackdropBorderColor(r, g, b)
-					Frame:SetBackdropColor(unpack(AS.BackdropColor))
-					local a, f, c, d, e = Frame:GetPoint()
+					Frame:SetBackdropColor(r, g, b)
 					Frame:SetPoint(a, f, c, d, e - 3)
 
 					Frame:HookScript('OnShow', function(self)
 						local a, f, c, d, e = Frame:GetPoint()
 						Frame:SetPoint(a, f, c, d, e - 3)
-						local r, g, b = Frame:GetBackdropColor()
-						Frame:SetBackdropBorderColor(r, g, b)
-						Frame:SetBackdropColor(unpack(AS.BackdropColor))
 					end)
 
 					Frame.IsSkinned = true
@@ -78,4 +72,4 @@ function AS:SkinAtlasLoot(event, addon)
 	end)
 end
 
-AS:RegisterSkin(name, AS.SkinAtlasLoot)
+AS:RegisterSkin('AtlasLoot', AS.AtlasLoot)

@@ -18,6 +18,7 @@ AddOnSkinsOptions = {
 	['EmbedRightChat'] = 'Skada',
 	['EmbedLeftWidth'] = 200,
 	['EmbedBelowTop'] = false,
+	['EmbedIsHidden'] = false,
 	['TransparentEmbed'] = false,
 -- Misc
 	['RecountBackdrop'] = true,
@@ -28,7 +29,6 @@ AddOnSkinsOptions = {
 	['DBMFont'] = 'Tukui',
 	['DBMFontSize'] = 12,
 	['DBMFontFlag'] = 'OUTLINE',
-	['EmbedLeftChat'] = false,
 	['WeakAuraAuraBar'] = false,
 	['AuctionHouse'] = true,
 	['SkinTemplate'] = 'Transparent',
@@ -106,17 +106,18 @@ function AS:CreateEmbedSystem()
 		EmbedSystem_MainWindow:SetScript('OnShow', AS.Embed_Show)
 		EmbedSystem_MainWindow:SetScript('OnHide', AS.Embed_Hide)
 
-		AS:CreateToggleButton('RightToggleButton', '►', AS.InfoRight, AS.ChatBackgroundRight, ASL.EmbedSystem.ToggleRightChat, ASL.EmbedSystem.Toggle)
+		AS:CreateToggleButton('RightToggleButton', '►', AS.InfoRight, AS.ChatBackgroundRight, ASL.EmbedSystem.ToggleRightChat, ASL.EmbedSystem.ToggleEmbed)
 		RightToggleButton:Point('RIGHT', AS.InfoRight, 'RIGHT', -2, 0)
-
 		RightToggleButton:HookScript('OnClick', function(self, button)
 			if button == 'RightButton' then
 				if EmbedSystem_MainWindow:IsShown() then
 					EmbedSystem_MainWindow:Hide()
+					AS:SetOption('EmbedIsHidden', true)
 					if AS:CheckOption('HideChatFrame') ~= 'NONE' then
 						_G[AS:CheckOption('HideChatFrame')]:SetAlpha(1)
 					end
 				else
+					AS:SetOption('EmbedIsHidden', false)
 					EmbedSystem_MainWindow:Show()
 					if AS:CheckOption('HideChatFrame') ~= 'NONE' then
 						_G[AS:CheckOption('HideChatFrame')]:SetAlpha(0)
@@ -135,8 +136,16 @@ function AS:CreateEmbedSystem()
 			end
 		end)
 
+		UIParent:HookScript('OnShow', function()
+			if AS:CheckOption('EmbedIsHidden') then
+				AS:Embed_Hide();
+			else
+				AS:Embed_Show();
+			end
+		end)
+
 		if not UnitAffectingCombat('player') then
-			if AS:CheckOption('EmbedOoC') then
+			if AS:CheckOption('EmbedIsHidden') or AS:CheckOption('EmbedOoC') then
 				AS:Embed_Hide();
 			else
 				AS:Embed_Show();
