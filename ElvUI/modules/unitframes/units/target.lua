@@ -481,9 +481,7 @@ function UF:Update_TargetFrame(frame, db)
 			CPoints:SetParent(E.UIParent)	
 		end
 		
-		if CPoints[1]:GetAlpha() == 1 or not db.combobar.autoHide then
-			CPoints:Show()
-		else
+		if not USE_COMBOBAR or db.combobar.autoHide then
 			CPoints:Hide()
 		end
 
@@ -524,6 +522,7 @@ function UF:Update_TargetFrame(frame, db)
 		CPoints:Height(COMBOBAR_HEIGHT - (E.PixelMode and 1 or 4))			
 		
 		for i = 1, MAX_COMBO_POINTS do
+			CPoints[i]:SetStatusBarColor(unpack(ElvUF.colors.ComboPoints[i]))
 			CPoints[i]:SetHeight(CPoints:GetHeight())
 			if db.combobar.fill == "spaced" then
 				CPoints[i]:SetWidth(E:Scale(CPoints:GetWidth() - ((SPACING+(BORDER*2)+2) * (MAX_COMBO_POINTS - 1))) / MAX_COMBO_POINTS)

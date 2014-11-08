@@ -3,6 +3,8 @@ local UF = E:GetModule('UnitFrames');
 
 local floor = math.floor
 local sub = string.sub
+local utf8sub = string.utf8sub
+local utf8len = string.utf8len
 local LSM = LibStub("LibSharedMedia-3.0");
 
 local _, ns = ...
@@ -168,11 +170,31 @@ function UF:PostCastStart(unit, name, rank, castid)
 	if not db or not db.castbar then return; end
 	
 	if unit == "vehicle" then unit = "player" end
+
+	--Get length of time, then calculate available length for textLen
+	--Re-calculate and omit timeLen constraint if text length would otherwise be lower than 1
+	local timeLen = utf8len(self.Time:GetText() or "")
+	local textLen = floor(((((32/245) * self:GetWidth()) / E.db['unitframe'].fontSize) * 12) - timeLen)			
+	if textLen <1 then textLen = floor((((32/245) * self:GetWidth()) / E.db['unitframe'].fontSize) * 12) end		
 	
-	if db.castbar.displayTarget and self.curTarget then
-		self.Text:SetText(sub(name..' --> '..self.curTarget, 0, floor((((32/245) * self:GetWidth()) / E.db['unitframe'].fontSize) * 12)))
+	if timeLen == 0 then
+		E:Delay(0.03, function() --Delay may need tweaking
+			timeLen = utf8len(self.Time:GetText() or "")
+			textLen = floor(((((32/245) * self:GetWidth()) / E.db['unitframe'].fontSize) * 12) - timeLen)
+			if textLen <1 then textLen = floor((((32/245) * self:GetWidth()) / E.db['unitframe'].fontSize) * 12) end
+			
+			if db.castbar.displayTarget and self.curTarget then
+				self.Text:SetText(utf8sub(name..' --> '..self.curTarget, 0, textLen))
+			else
+				self.Text:SetText(utf8sub(name, 0, textLen))
+			end
+		end)
 	else
-		self.Text:SetText(sub(name, 0, floor((((32/245) * self:GetWidth()) / E.db['unitframe'].fontSize) * 12)))
+		if db.castbar.displayTarget and self.curTarget then
+			self.Text:SetText(utf8sub(name..' --> '..self.curTarget, 0, textLen))
+		else
+			self.Text:SetText(utf8sub(name, 0, textLen))
+		end
 	end
 
 	self.Spark:Height(self:GetHeight() * 2)
