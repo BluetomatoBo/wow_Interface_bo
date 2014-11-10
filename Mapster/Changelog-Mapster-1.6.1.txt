@@ -1,0 +1,17 @@
+tag 1.6.1
+782159b927cc8b6614309cecf3a485c8a23163aa
+Hendrik Leppkes <h.leppkes@gmail.com>
+2014-11-10 10:23:23 +0100
+
+Tag as 1.6.1
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Fix removing the WorldMapFrame from the UIPanel system
+	This should allow opening the map and other UI panels at the same time again
+	- Add options to control the map movement fade directly from the Mapster configuration
+	- Fix map transparency setting
+	- Add an extra check that the data is present
+	- Use the same order for discovered map segment as Blizzard to avoid flickering

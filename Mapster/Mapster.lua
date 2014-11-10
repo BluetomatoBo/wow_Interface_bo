@@ -97,8 +97,8 @@ function Mapster:OnEnable()
 
 	-- remove from UI panel system
 	UIPanelWindows["WorldMapFrame"] = nil
-	SetUIPanelAttribute(WorldMapFrame, "area", nil)
-	SetUIPanelAttribute(WorldMapFrame, "enabled", false)
+	WorldMapFrame:SetAttribute("UIPanelLayout-area", nil)
+	WorldMapFrame:SetAttribute("UIPanelLayout-enabled", false)
 	WorldMapFrame:HookScript("OnShow", wmfOnShow)
 	BlackoutWorld:Hide()
 
@@ -375,6 +375,13 @@ function wmfOnShow(frame)
 	Mapster:SetStrata()
 	Mapster:SetScale()
 	realZone = getZoneId()
+
+	if IsPlayerMoving() and GetCVarBool("mapFade") then
+		if not WorldMapFrame:IsMouseOver() then
+			WorldMapFrame:SetAlpha(WORLD_MAP_MIN_ALPHA)
+		end
+		WorldMapFrame.fadeOut = true
+	end
 end
 
 function wmfStartMoving(frame)
@@ -414,6 +421,7 @@ end
 
 function Mapster:SetAlpha()
 	WorldMapFrame:SetAlpha(db.alpha)
+	WORLD_MAP_MAX_ALPHA =  db.alpha
 end
 
 function Mapster:SetArrow()
