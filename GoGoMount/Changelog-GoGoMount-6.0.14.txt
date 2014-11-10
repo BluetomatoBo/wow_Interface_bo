@@ -1,9 +1,77 @@
 ------------------------------------------------------------------------
-r473 | tiker | 2014-10-27 03:18:08 +0000 (Mon, 27 Oct 2014) | 1 line
+r485 | tiker | 2014-11-09 14:41:47 +0000 (Sun, 09 Nov 2014) | 1 line
 Changed paths:
-   A /tags/6.0.13 (from /trunk:472)
+   A /tags/6.0.14 (from /trunk:484)
 
-Tagging as 6.0.13
+Tagging as 6.0.14
+------------------------------------------------------------------------
+r484 | tiker | 2014-11-09 14:41:17 +0000 (Sun, 09 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+
+New option and functionality to automatically remove mounts that can fly from the random mount selection in zones that do not allow flying
+------------------------------------------------------------------------
+r483 | tiker | 2014-11-01 19:05:03 +0000 (Sat, 01 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+zone information 995 (Hall of Blackhand)
+------------------------------------------------------------------------
+r482 | tiker | 2014-11-01 18:59:21 +0000 (Sat, 01 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+zone information for 969 (Shadowmoon Burial Grounds)
+------------------------------------------------------------------------
+r481 | tiker | 2014-11-01 18:56:58 +0000 (Sat, 01 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+zone information for 949 (Gorgrond)
+------------------------------------------------------------------------
+r480 | tiker | 2014-11-01 18:53:34 +0000 (Sat, 01 Nov 2014) | 2 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+zone information for 993 (Grimrail Depot)
+zone information for 1008 (The Everbloom)
+------------------------------------------------------------------------
+r479 | tiker | 2014-11-01 18:44:38 +0000 (Sat, 01 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+zone information for 989 (Skyreach)
+------------------------------------------------------------------------
+r478 | tiker | 2014-11-01 18:41:27 +0000 (Sat, 01 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+zone information for 987 (Iron Docks)
+------------------------------------------------------------------------
+r477 | tiker | 2014-11-01 18:39:17 +0000 (Sat, 01 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+zone information for 964 (Bloodmaul Slag Mines)
+------------------------------------------------------------------------
+r476 | tiker | 2014-11-01 18:37:05 +0000 (Sat, 01 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+zone information for 984 (Auchindoun)
+------------------------------------------------------------------------
+r475 | tiker | 2014-11-01 18:36:21 +0000 (Sat, 01 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+extra debug messages
+------------------------------------------------------------------------
+r474 | tiker | 2014-11-01 14:31:40 +0000 (Sat, 01 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Added details for zone 890 - Camp Narache
 ------------------------------------------------------------------------
 r472 | tiker | 2014-10-27 03:17:33 +0000 (Mon, 27 Oct 2014) | 1 line
 Changed paths:
