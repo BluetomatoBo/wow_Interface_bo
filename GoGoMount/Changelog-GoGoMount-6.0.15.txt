@@ -1,9 +1,27 @@
 ------------------------------------------------------------------------
-r485 | tiker | 2014-11-09 14:41:47 +0000 (Sun, 09 Nov 2014) | 1 line
+r489 | tiker | 2014-11-10 13:28:42 +0000 (Mon, 10 Nov 2014) | 1 line
 Changed paths:
-   A /tags/6.0.14 (from /trunk:484)
+   A /tags/6.0.15 (from /trunk:488)
 
-Tagging as 6.0.14
+Tagging as 6.0.15
+------------------------------------------------------------------------
+r488 | tiker | 2014-11-10 01:31:37 +0000 (Mon, 10 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+TOC version update for new release
+------------------------------------------------------------------------
+r487 | tiker | 2014-11-10 01:30:50 +0000 (Mon, 10 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+mount database updated with find / replace command to make all flying mounts ground mounts as well with a few special exceptions to be tested later on
+------------------------------------------------------------------------
+r486 | tiker | 2014-11-10 01:11:15 +0000 (Mon, 10 Nov 2014) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+updated db manually updating flying mounts that are now ground mounts as well
 ------------------------------------------------------------------------
 r484 | tiker | 2014-11-09 14:41:17 +0000 (Sun, 09 Nov 2014) | 1 line
 Changed paths:
