@@ -206,6 +206,27 @@ function VUF:UpdateAll()
     self:Enable()
 end
 
+function VUF:UNIT_HEALTH(event, unit)
+    local timeToDisplay = 3;
+
+    if (not self.db.hideOOC) then
+        return;
+    end
+
+    if (not self.units[unit] or unit == "target") then
+        return;
+    end
+
+    local f = self.units[unit]
+    if (not UnitAffectingCombat("player")) then
+
+        local healthSeen = UnitHealth(unit);
+        VUF:Hide(f, "PLAYER_REGEN_DISABLED");
+
+        C_Timer.After(timeToDisplay, function() if (not UnitAffectingCombat("player") and (UnitHealth(unit) == healthSeen)) then VUF:Hide(f, "PLAYER_REGEN_ENABLED") end end);
+    end
+end
+
 function VUF:PLAYER_ENTERING_WORLD()
     E:StaticPopup_Show('CONFIG_RL');
 end
@@ -223,6 +244,7 @@ function VUF:Initialize()
 
     oUF:SetActiveStyle('ElvUI_VerticalUnitFrames')
     local units = { 'player', 'target', 'pet', 'targettarget', 'pettarget', 'focus', 'focustarget' }
+
     for _,unit in pairs(units) do
         local stringTitle = E:StringTitle(unit)
         if stringTitle:find('target') then
@@ -237,6 +259,8 @@ function VUF:Initialize()
     hooksecurefunc(UF,"Update_AllFrames",function(self) VUF:UpdateAllFrames() end)
     
     if UnitAffectingCombat("player") then self:RegenWait("UpdateAll") else self:UpdateAll() end
+
+    self:RegisterEvent("UNIT_HEALTH");
 
     self.version = GetAddOnMetadata(addon,'Version')
     print(L["ElvUI VerticalUnitFrames "]..format("v|cff33ffff%s|r",self.version)..L[" is loaded. Thank you for using it and note that I will always support you."])
