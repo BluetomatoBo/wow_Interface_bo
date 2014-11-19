@@ -278,7 +278,6 @@ L["Testing:"] = "|cff2eb7e4< 테스터 >|r"
 
 --DataTexts
 L["24-Hour Time"] = "24시제로 표시"
-L["Always Display"] = "항상 표시"
 L["Battleground Texts"] = "전장에서 표시전환"
 L["Change settings for the display of the location text that is on the minimap."] = "미니맵 상단에 있는 지역이름의 표시방법을 결정합니다."
 L["Datatext Panel (Left)"] = "좌측 정보문자 탭 사용"
@@ -292,9 +291,7 @@ L["left"] = "왼쪽"
 L["LeftChatDataPanel"] = "좌측 패널 정보문자 탭"
 L["LeftMiniPanel"] = "미니맵 왼쪽 정보문자"
 L["Local Time"] = "컴퓨터 시계 기준"
-L["Location Text"] = "지역이름 표시 방법"
 L["middle"] = "중앙"
-L["Minimap Mouseover"] = "마우스오버 때만 표시"
 L["Minimap Panels"] = "미니맵 정보문자 사용"
 L["Panel Transparency"] = "탭을 반투명하게"
 L["Panels"] = "패널"
@@ -355,7 +352,6 @@ L["Name Font"] = "캐릭터 이름 글꼴"
 L["Remove Backdrop"] = "표시하지 않음"
 L["Reset all frames to their original positions."] = "ElvUI 에서 움직일 수 있는 모든 프레임의 위치를 기본 위치로 초기화합니다."
 L["Reset Anchors"] = "위치 초기화"
-L["Right"] = "오른쪽"
 L["Send ADDON_ACTION_BLOCKED errors to the Lua Error frame. These errors are less important in most cases and will not effect your game performance. Also a lot of these errors cannot be fixed. Please only report these errors if you notice a Defect in gameplay."] = "애드온 기능이 막히는 에러도 오류확인창에 등록합니다. 이런 에러들은 중요하지 않거나 게임플레이에 영향을 미치지 않는 것들이 대부분입니다. 게다가 이런 에러들은 대부분 고칠 수 없는 것들입니다.|n|n발견되는 에러가 게임플레이에 지장이 될 경우에만 에러보고를 해주세요."
 L["Skin Backdrop"] = "반투명 스킨적용"
 L["Skin the blizzard chat bubbles."] = "말풍선에 디자인을 변경해 스킨을 입힐지, 혹은 투명하게 하여 안보이게 할지 결정합니다."
@@ -389,6 +385,21 @@ L["The font that the core of the UI will use."] = "ElvUI에서 쓰이는 모든 
 L["The texture that will be used mainly for statusbars."] = "기본적으로 상태바 같은 곳에서 입혀지는 텍스쳐입니다."
 L["This texture will get used on objects like chat windows and dropdown menus."] = "채팅창이나 메뉴 같은 프레임에 입혀지는 텍스쳐입니다."
 L["Value Color"] = "강조 색상"
+
+--Minimap
+L['Always Display'] = "항상 표시"
+L["Bottom Left"] = true;
+L["Bottom Right"] = true;
+L["Bottom"] = true;
+L["Left"] = true;
+L['Location Text'] = "지역이름 표시 방법"
+L["Minimap Buttons"] = true;
+L['Minimap Mouseover'] = "마우스오버 때만 표시"
+L["Right"] = "오른쪽"
+L["Scale"] = true;
+L["Top Left"] = true;
+L["Top Right"] = true;
+L["Top"] = true;
 
 --Misc
 L["Install"] = "설치"

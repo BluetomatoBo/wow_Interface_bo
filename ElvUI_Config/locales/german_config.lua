@@ -253,7 +253,6 @@ L["Testing:"] = "Tester:"
 
 --DataTexts
 L["24-Hour Time"] = "24-Stunden-Format"
-L['Always Display'] = 'Immer anzeigen'
 L['Battleground Texts'] = 'Schlachtfeld-Infotexte'
 L['Change settings for the display of the location text that is on the minimap.'] = 'Ändere die Einstellungen für die Anzeige des Umgebungstextes an der Minimap.'
 L['Datatext Panel (Left)'] = 'Infotextleiste (Links)'
@@ -267,9 +266,7 @@ L["left"] = "Links"
 L["LeftChatDataPanel"] = "Linker Chat"
 L["LeftMiniPanel"] = "Minimap Links"
 L["Local Time"] = "Lokale Zeit"
-L['Location Text'] = 'Umgebungstext'
 L["middle"] = "Mitte"
-L['Minimap Mouseover'] = 'Minimap Mouseover'
 L['Minimap Panels'] = 'Minimap Leisten'
 L['Panel Transparency'] = 'Panel Transparenz'
 L["Panels"] = "Leisten"
@@ -362,6 +359,21 @@ L["The font that the core of the UI will use."] = "Die Schriftart, die hauptsäc
 L["The texture that will be used mainly for statusbars."] = "Diese Textur wird vorallem für Statusbars verwendet."
 L["This texture will get used on objects like chat windows and dropdown menus."] = "Diese Textur wird für Objekte wie Chatfenster und Dropdown-Menüs benutzt."
 L["Value Color"] = "Farbwert"
+
+--Minimap
+L['Always Display'] = 'Immer anzeigen'
+L["Bottom Left"] = 'Unten links'
+L["Bottom Right"] = 'Unten rechts'
+L["Bottom"] = 'Unten'
+L["Left"] = 'Links'
+L['Location Text'] = 'Umgebungstext'
+L["Minimap Buttons"] = 'Minimap Buttons'
+L['Minimap Mouseover'] = 'Minimap Mouseover'
+L["Right"] = 'Rechts'
+L["Scale"] = true;
+L["Top Left"] = 'Oben links'
+L["Top Right"] = 'Oben rechts'
+L["Top"] = 'Oben'
 
 --Misc
 L["Enable"] = "Eingeschaltet"

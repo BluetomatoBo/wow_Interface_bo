@@ -255,7 +255,6 @@ L["Testing:"] = "Pruebas:"
 
 --DataTexts
 L["24-Hour Time"] = "Tiempo de 24 horas"
-L["Always Display"] = "Mostrar Siempre"
 L["Battleground Texts"] = "Textos de los Campos de Batalla"
 L["Change settings for the display of the location text that is on the minimap."] = "Cambia la configuración para mostrar el texto de ubicación que está en el minimapa."
 L["Datatext Panel (Left)"] = "Panel Izquierdo de los Datos de texto"
@@ -269,9 +268,7 @@ L["left"] = "Izquierda"
 L["LeftChatDataPanel"] = "Panel de Chat Izquierdo"
 L["LeftMiniPanel"] = "Panel Izquierdo del Minimapa"
 L["Local Time"] = "Hora Local"
-L["Location Text"] = "Texto de Ubicación"
 L["middle"] = "Medio"
-L["Minimap Mouseover"] = "Ratón por encima del Minimapa"
 L["Minimap Panels"] = "Paneles del Minimapa"
 L["Panel Transparency"] = "Transparencia del Panel"
 L["Panels"] = "Paneles"
@@ -330,7 +327,6 @@ L["Name Font"] = "Fuente para Nombres"
 L["Remove Backdrop"] = "Quitar Fondo"
 L["Reset all frames to their original positions."] = "Coloca todos los marcos en sus posiciones originales"
 L["Reset Anchors"] = "Restaurar Fijadores"
-L["Right"] = "Derecha"
 L["Send ADDON_ACTION_BLOCKED errors to the Lua Error frame. These errors are less important in most cases and will not effect your game performance. Also a lot of these errors cannot be fixed. Please only report these errors if you notice a Defect in gameplay."] = "Envia los errores ADDON_ACTION_BLOCKED al marco de errores de Lua. Esos errores en la mayoría de los casos son poco importantes y no afectan al rendimiento del juego. Muchos de esos errores no pueden ser subsanados. Por favor, reporta sólo esos errores si notas algún defecto que entorpezca el juego"
 L["Skin Backdrop"] = "Apariencia del Fondo"
 L["Skin the blizzard chat bubbles."] = "Modificar la apariencia de las Burbujas de Chat de Blizzard"
@@ -364,6 +360,21 @@ L["The font that the core of the UI will use."] = "La fuente que usará el núcl
 L["The texture that will be used mainly for statusbars."] = "La textura que se usará principalmente para las barras de estado."
 L["This texture will get used on objects like chat windows and dropdown menus."] = "Esta textura se usará en objetos como las ventanas de chat y menús desplegables."
 L["Value Color"] = "Color de Dato"
+
+--Minimap
+L['Always Display'] = "Mostrar Siempre"
+L["Bottom Left"] = true;
+L["Bottom Right"] = true;
+L["Bottom"] = true;
+L["Left"] = true;
+L['Location Text'] = "Texto de Ubicación"
+L["Minimap Buttons"] = true;
+L['Minimap Mouseover'] = "Ratón por encima del Minimapa"
+L["Right"] = "Derecha"
+L["Scale"] = true;
+L["Top Left"] = true;
+L["Top Right"] = true;
+L["Top"] = true;
 
 --Misc
 L["Install"] = "Instalar"
