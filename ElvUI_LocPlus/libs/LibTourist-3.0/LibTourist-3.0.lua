@@ -1,6 +1,6 @@
 ﻿--[[
 Name: LibTourist-3.0
-Revision: $Rev: 170 $
+Revision: $Rev: 172 $
 Author(s): ckknight (ckknight@gmail.com), Arrowmaster, Odica (maintainer)
 Website: http://ckknight.wowinterface.com/
 Documentation: http://www.wowace.com/addons/libtourist-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibTourist-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 170 $"):match("(%d+)"))
+local MINOR_VERSION = 90000 + tonumber(("$Revision: 172 $"):match("(%d+)"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub") end
 
@@ -1670,6 +1670,7 @@ local MapIdLookupTable = {
 	[948] = "Spires of Arak",
 	[949] = "Gorgrond",
 	[950] = "Nagrand",
+	[953] = "Siege of Orgrimmar",
 	[962] = "Draenor",
 	[964] = "Bloodmaul Slag Mines",
 	[969] = "Shadowmoon Burial Grounds",
@@ -2276,6 +2277,7 @@ do
 
 	transports["WARSPEAR_ORGRIMMAR_PORTAL"] = string.format(X_Y_PORTAL, BZ["Warspear"], BZ["Orgrimmar"])
 	transports["WARSPEAR_UNDERCITY_PORTAL"] = string.format(X_Y_PORTAL, BZ["Warspear"], BZ["Undercity"])
+	transports["WARSPEAR_THUNDERBLUFF_PORTAL"] = string.format(X_Y_PORTAL, BZ["Warspear"], BZ["Thunder Bluff"])
 	transports["STORMSHIELD_STORMWIND_PORTAL"] = string.format(X_Y_PORTAL, BZ["Stormshield"], BZ["Stormwind City"])
 	transports["STORMSHIELD_IRONFORGE_PORTAL"] = string.format(X_Y_PORTAL, BZ["Stormshield"], BZ["Ironforge"])
 	transports["STORMSHIELD_DARNASSUS_PORTAL"] = string.format(X_Y_PORTAL, BZ["Stormshield"], BZ["Darnassus"])
@@ -2888,6 +2890,15 @@ do
 		faction = "Horde",
 		type = "Transport",
 	}
+	
+	zones[transports["WARSPEAR_THUNDERBLUFF_PORTAL"]] = {
+		paths = {
+			[BZ["Thunder Bluff"]] = true,
+		},
+		faction = "Horde",
+		type = "Transport",
+	}
+
 	
 	zones[transports["STORMSHIELD_STORMWIND_PORTAL"]] = {
 		paths = {
@@ -3643,7 +3654,7 @@ do
 --	}
 
 	-- New instance (MoP)
-	zones[BZ["Scarlet Halls"]] = {   -- TODO: check levels
+	zones[BZ["Scarlet Halls"]] = {
 		low = 28,
 		high = 31,
 		continent = Eastern_Kingdoms,
@@ -3677,7 +3688,7 @@ do
 --	}
 
 	-- New instance (MoP)
-	zones[BZ["Scarlet Monastery"]] = {   -- TODO: check levels
+	zones[BZ["Scarlet Monastery"]] = {
 		low = 30,
 		high = 33,
 		continent = Eastern_Kingdoms,
@@ -4495,6 +4506,7 @@ do
 		type = "Complex",
 	}
 
+	-- a.k.a. The Escape from Durnhold Keep
 	zones[BZ["Old Hillsbrad Foothills"]] = {
 		low = 64,
 		high = 73,
@@ -4503,7 +4515,7 @@ do
 		groupSize = 5,
 		type = "Instance",
 		complex = BZ["Caverns of Time"],
-		entrancePortal = { BZ["Tanaris"], 66.2, 49.3 },
+		entrancePortal = { BZ["Caverns of Time"], 26.7, 32.6 },
 	}
 
 	zones[BZ["The Black Morass"]] = {
@@ -4514,7 +4526,7 @@ do
 		groupSize = 5,
 		type = "Instance",
 		complex = BZ["Caverns of Time"],
-		entrancePortal = { BZ["Tanaris"], 66.2, 49.3 },
+		entrancePortal = { BZ["Caverns of Time"], 34.4, 84.9 },
 	}
 
 	zones[BZ["The Culling of Stratholme"]] = {
@@ -4525,9 +4537,10 @@ do
 		groupSize = 5,
 		type = "Instance",
 		complex = BZ["Caverns of Time"],
-		entrancePortal = { BZ["Tanaris"], 66.2, 49.3 },
+		entrancePortal = { BZ["Caverns of Time"], 60.3, 82.8 },
 	}
 
+	-- a.k.a. The Battle for Mount Hyjal
 	zones[BZ["Hyjal Summit"]] = {
 		low = 70,
 		high = 72,
@@ -4536,7 +4549,7 @@ do
 		groupSize = 25,
 		type = "Instance",
 		complex = BZ["Caverns of Time"],
-		entrancePortal = { BZ["Tanaris"], 66.2, 49.3 },
+		entrancePortal = { BZ["Caverns of Time"], 38.8, 16.6 },
 	}
 
 	zones[BZ["Shattrath City"]] = {
@@ -5855,8 +5868,8 @@ do
 			[transports["DARKMOON_MULGORE_PORTAL"]] = true,
 			[transports["DARKMOON_ELWYNNFOREST_PORTAL"]] = true,
 		},
---		battlepet_low = 1,  TODO
---		battlepet_high = 2,
+		battlepet_low = 1, 
+		battlepet_high = 10,
 	}
 
 
@@ -5997,7 +6010,7 @@ do
 		groupSize = 5,
 		type = "Instance",
 		complex = BZ["Caverns of Time"],
-		entrancePortal = { BZ["Tanaris"], 66.2, 49.3 },  -- TODO: check
+		entrancePortal = { BZ["Caverns of Time"], 57.1, 25.7 },
 	}
 
 	zones[BZ["Hour of Twilight"]] = {
@@ -6008,7 +6021,7 @@ do
 		groupSize = 5,
 		type = "Instance",
 		complex = BZ["Caverns of Time"],
-		entrancePortal = { BZ["Tanaris"], 66.2, 49.3 },  -- TODO: check
+		entrancePortal = { BZ["Caverns of Time"], 67.9, 29.0 },
 	}
 
 	zones[BZ["Well of Eternity"]] = {
@@ -6019,7 +6032,7 @@ do
 		groupSize = 5,
 		type = "Instance",
 		complex = BZ["Caverns of Time"],
-		entrancePortal = { BZ["Tanaris"], 66.2, 49.3 },  -- TODO: check
+		entrancePortal = { BZ["Caverns of Time"], 22.2, 63.6 },
 	}
 
 	zones[BZ["Dragon Soul"]] = {
@@ -6031,7 +6044,7 @@ do
 		altGroupSize = 25,
 		type = "Instance",
 		complex = BZ["Caverns of Time"],
-		entrancePortal = { BZ["Tanaris"], 66.2, 49.3 },  -- TODO: check
+		entrancePortal = { BZ["Caverns of Time"], 60.0, 21.1 },
 	}
 
 
@@ -6179,10 +6192,12 @@ do
 		continent = Pandaria,
 		instances = {
 			[BZ["Mogu'shan Palace"]] = true,
+			[BZ["Siege of Orgrimmar"]] = true,
 		},
 		paths = {
 			[BZ["Mogu'shan Palace"]] = true,
 			[BZ["Kun-Lai Summit"]] = true,
+			[BZ["Siege of Orgrimmar"]] = true,
 		},
 		fishing_min = 825,
 		battlepet_low = 23,
@@ -6231,6 +6246,16 @@ do
 		battlepet_high = 25,
 	}
 
+	-- Patch 5.4 Zone
+	zones[BZ["Timeless Isle"]] = {
+		low = 90,
+		high = 90,
+		continent = Pandaria,
+		paths = BZ["The Jade Forest"],
+		fishing_min = 825,
+		battlepet_low = 25,
+		battlepet_high = 25,
+	}
 
 	
 --	Mists of Pandaria (MoP) cities
@@ -6256,6 +6281,8 @@ do
 		battlepet_low = 23,
 		battlepet_high = 23,
 	}
+	
+
 	
 --	Mists of Pandaria (MoP) instances
 
@@ -6297,7 +6324,7 @@ do
 		groupSize = 10,
 		altGroupSize = 25,
 		type = "Instance",
-	--	entrancePortal = { BZ["Kun-Lai Summit"], 66.2, 49.3 },   TODO
+		entrancePortal = { BZ["Kun-Lai Summit"], 59.1, 39.8 }, 
 	}
 
 	zones[BZ["Siege of Niuzao Temple"]] = {
@@ -6307,7 +6334,7 @@ do
 		paths = BZ["Townlong Steppes"],
 		groupSize = 5,
 		type = "Instance",
-	--	entrancePortal = { BZ["Townlong Steppes"], 47.70, 51.96 },  TODO
+		entrancePortal = { BZ["Townlong Steppes"], 34.5, 81.1 },
 	}
 
 	zones[BZ["Mogu'shan Palace"]] = {
@@ -6317,7 +6344,7 @@ do
 		paths = BZ["Vale of Eternal Blossoms"],
 		groupSize = 5,
 		type = "Instance",
-	--	entrancePortal = { BZ["Vale of Eternal Blossoms"], 47.70, 51.96 },  TODO
+		entrancePortal = { BZ["Vale of Eternal Blossoms"], 80.7, 33.0 }, 
 	}
 
 	zones[BZ["Gate of the Setting Sun"]] = {
@@ -6338,7 +6365,7 @@ do
 		groupSize = 10,
 		altGroupSize = 25,
 		type = "Instance",
-	--	entrancePortal = { BZ["Dread Wastes"], 66.2, 49.3 },   TODO
+		entrancePortal = { BZ["Dread Wastes"], 39.0, 35.0 }, 
 	}
 
 	zones[BZ["Terrace of Endless Spring"]] = {
@@ -6349,7 +6376,7 @@ do
 		groupSize = 10,
 		altGroupSize = 25,
 		type = "Instance",
-	--	entrancePortal = { BZ["The Veiled Stair"], 66.2, 49.3 },   TODO
+		entrancePortal = { BZ["The Veiled Stair"], 47.9, 60.8 }, 
 	}
 
 	-- Patch 5.2 instance
@@ -6361,7 +6388,7 @@ do
 		groupSize = 10,
 		altGroupSize = 25,
 		type = "Instance",
-	--	entrancePortal = { BZ["The Veiled Stair"], 66.2, 49.3 },   TODO
+		entrancePortal = { BZ["The Veiled Stair"], 63.5, 32.2 }, 
 	}
 	
 	-- Patch 5.3 Battleground
@@ -6383,15 +6410,16 @@ do
 		type = "Arena",
 	}
 	
-	-- Patch 5.4 Zone
-	zones[BZ["Timeless Isle"]] = {
+	-- Patch 5.4 instance
+	zones[BZ["Siege of Orgrimmar"]] = {
 		low = 90,
 		high = 90,
 		continent = Pandaria,
-		paths = BZ["The Jade Forest"],
-		fishing_min = 825,
-		battlepet_low = 25,
-		battlepet_high = 25,
+		paths = BZ["Vale of Eternal Blossoms"],
+		groupSize = 10,
+		altGroupSize = 25,
+		type = "Instance",
+		entrancePortal = { BZ["Vale of Eternal Blossoms"], 74.0, 42.2 },
 	}
 	
 	
@@ -6535,6 +6563,7 @@ do
 			[BZ["Stormshield"]] = true,
 			[transports["WARSPEAR_ORGRIMMAR_PORTAL"]] = true,
 			[transports["WARSPEAR_UNDERCITY_PORTAL"]] = true,
+			[transports["WARSPEAR_THUNDERBLUFF_PORTAL"]] = true,
 			[transports["STORMSHIELD_STORMWIND_PORTAL"]] = true,
 			[transports["STORMSHIELD_IRONFORGE_PORTAL"]] = true,
 			[transports["STORMSHIELD_DARNASSUS_PORTAL"]] = true,
@@ -6553,6 +6582,7 @@ do
 			[BZ["Ashran"]] = true,
 			[transports["WARSPEAR_ORGRIMMAR_PORTAL"]] = true,
 			[transports["WARSPEAR_UNDERCITY_PORTAL"]] = true,
+			[transports["WARSPEAR_THUNDERBLUFF_PORTAL"]] = true,
 		},
 		faction = "Horde",
 		type = "City",
@@ -6956,7 +6986,10 @@ do
 						SetMapZoom(continentID, zoneIndex)
 						fileName = GetMapInfo()
 						local _, left, top, right, bot = GetCurrentMapZone()
-						local sizeInYards = left - right or 0
+						local sizeInYards = 0
+						if left and right then
+							sizeInYards = left - right
+						end
 						
 						trace( "Alt for "..tostring(name)..": size ="..tostring(sizeInYards)..", fileName="..tostring(fileName) )
 						if( sizeInYards ~= 0 or not zones[name].yards ) then

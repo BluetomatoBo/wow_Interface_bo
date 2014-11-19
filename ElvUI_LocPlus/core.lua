@@ -42,16 +42,16 @@ local format = string.format
 -- If there are 0 earned points, the currency will be filtered out.
 
 local currency = {
-	395,	-- Justice Points
-	396,	-- Valor Points
-	777,	-- Timeless Coins
-	697,	-- Elder Charm of Good Fortune
-	738,	-- Lesser Charm of Good Fortune
+	--395,	-- Justice Points
+	--396,	-- Valor Points
+	--777,	-- Timeless Coins
+	--697,	-- Elder Charm of Good Fortune
+	--738,	-- Lesser Charm of Good Fortune
 	390,	-- Conquest Points
 	392,	-- Honor Points
 	--515,	-- Darkmoon Prize Ticket
 	--402,	-- Ironpaw Token
-	776,	-- Warforged Seal
+	--776,	-- Warforged Seal
 	
 	-- WoD
 	821,	-- Draenor Clans Archaeology Fragment
@@ -117,7 +117,7 @@ local function GetStatus(color)
 			status = CONTESTED_TERRITORY
 		end
 
-	statusText = string.format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, status)
+	statusText = format("|cff%02x%02x%02x%s|r", r*255, g*255, b*255, status)
 	if color then
 		return r, g, b
 	else
@@ -139,7 +139,7 @@ local function GetDungeonCoords(zone)
 	elseif E.db.locplus.ttcoords then
 		x = tonumber(E:Round(x, 0))
 		y = tonumber(E:Round(y, 0))		
-		dcoords = string.format(" (%d, %d)", x, y)
+		dcoords = format(" |cffffffff(%d, %d)|r", x, y)
 	else 
 		dcoords = ""
 	end
@@ -185,7 +185,7 @@ local function GetRecomZones(zone)
 	GameTooltip:AddDoubleLine(
 	"|cffffffff"..zone
 	..PvPorRaidFilter(zone) or "",
-	string.format("|cff%02xff00%s|r", continent == zContinent and 0 or 255, zContinent)
+	format("|cff%02xff00%s|r", continent == zContinent and 0 or 255, zContinent)
 	..(" |cff%02x%02x%02x%s|r"):format(r *255, g *255, b *255,(low == high and low or ("%d-%d"):format(low, high))));
 
 end
@@ -197,8 +197,8 @@ local function GetZoneDungeons(dungeon)
 	local r, g, b = tourist:GetLevelColor(dungeon)
 	local groupSize = tourist:GetInstanceGroupSize(dungeon)
 	local altGroupSize = tourist:GetInstanceAltGroupSize(dungeon)
-	local groupSizeStyle = (groupSize > 0 and string.format("|cFFFFFF00|r (%d", groupSize) or "")
-	local altGroupSizeStyle = (altGroupSize > 0 and string.format("|cFFFFFF00|r/%d", altGroupSize) or "")
+	local groupSizeStyle = (groupSize > 0 and format("|cFFFFFF00|r (%d", groupSize) or "")
+	local altGroupSizeStyle = (altGroupSize > 0 and format("|cFFFFFF00|r/%d", altGroupSize) or "")
 	local name = dungeon
 
 	if PvPorRaidFilter(dungeon) == nil then return end
@@ -246,15 +246,17 @@ local LEVEL_ICON = "|TInterface\\AddOns\\ElvUI_LocPlus\\media\\levelup.tga:14:14
 -- Get Fishing Level
 local function GetFishingLvl(minFish, ontt)
 	local mapID = GetCurrentMapAreaID()
-	local zoneText = tourist:GetMapNameByIDAlt(mapID) or UNKNOWN;	
-	local minFish = tourist:GetFishingLevel(tourist:GetUniqueZoneNameForLookup(zoneText, continentID))
+	local zoneText = tourist:GetMapNameByIDAlt(mapID) or UNKNOWN;
+	local uniqueZone = tourist:GetUniqueZoneNameForLookup(zoneText, continentID)
+	local minFish = tourist:GetFishingLevel(uniqueZone)
 	local _, _, _, fishing = GetProfessions()
 	local r, g, b = 1, 0, 0
 	local r1, g1, b1 = 1, 0, 0
-	local rank
+	local dfish
+	
 	if minFish then
 		if fishing ~= nil then
-			_, _, rank, _, _, _, _, rankModifier = GetProfessionInfo(fishing)
+			local _, _, rank = GetProfessionInfo(fishing)
 			if minFish < rank then
 				r, g, b = 0, 1, 0
 				r1, g1, b1 = 0, 1, 0
@@ -264,20 +266,14 @@ local function GetFishingLvl(minFish, ontt)
 			end
 		end
 		
+		dfish = format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, minFish)
 		if ontt then
-			return (string.format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, minFish))
+			return dfish
 		else
-			local dfish
-			if (rankModifier and rankModifier > 0) then
-				dfish = string.format("|cff%02x%02x%02x%d|r", r1*255, g1*255, b1*255, rank)..(string.format("|cFF6b8df4+%s|r", rankModifier)).."/"..(string.format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, minFish)) or ""
-			else
-				dfish = string.format("|cff%02x%02x%02x%d|r", r1*255, g1*255, b1*255, rank).."-"..(string.format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, minFish)) or ""
-			end
-
 			if E.db.locplus.showicon then
-				return " ("..dfish..") "..FISH_ICON
+				return format(" (%s) ", dfish)..FISH_ICON
 			else
-				return " ("..dfish..")"
+				return format(" (%s) ", dfish)
 			end
 		end
 	else
@@ -286,25 +282,26 @@ local function GetFishingLvl(minFish, ontt)
 end
 
 -- PetBattle Range
-local function GetBattlePetLvl(ontt)
+local function GetBattlePetLvl(zoneText, ontt)
 	local mapID = GetCurrentMapAreaID()
 	local zoneText = tourist:GetMapNameByIDAlt(mapID) or UNKNOWN;
-
-	local low,high = tourist:GetBattlePetLevel(tourist:GetUniqueZoneNameForLookup(zoneText, continentID))
+	local uniqueZone = tourist:GetUniqueZoneNameForLookup(zoneText, continentID)
+	local low,high = tourist:GetBattlePetLevel(uniqueZone)
 	local plevel
 	if low ~= nil or high ~= nil then
 		if low ~= high then
-			plevel = string.format("%d-%d", low, high)
+			plevel = format("%d-%d", low, high)
 		else
-			plevel = string.format("%d", high)
+			plevel = format("%d", high)
 		end
+		
 		if ontt then
 			return plevel
 		else
 			if E.db.locplus.showicon then
-				plevel = " ("..plevel..") "..PET_ICON
+				plevel = format(" (%s) ", plevel)..PET_ICON
 			else
-				plevel = " ("..plevel..")"
+				plevel = format(" (%s) ", plevel)
 			end
 		end
 	end
@@ -313,7 +310,7 @@ local function GetBattlePetLvl(ontt)
 end
 
 -- Zone level range
-local function GetLevelRange(ontt)
+local function GetLevelRange(zoneText, ontt)
 	local mapID = GetCurrentMapAreaID()
 	local zoneText = tourist:GetMapNameByIDAlt(mapID) or UNKNOWN;	
 	local low, high = tourist:GetLevel(zoneText)
@@ -321,18 +318,18 @@ local function GetLevelRange(ontt)
 	if low > 0 and high > 0 then
 		local r, g, b = tourist:GetLevelColor(zoneText)
 		if low ~= high then
-			dlevel = string.format("|cff%02x%02x%02x%d-%d|r", r*255, g*255, b*255, low, high) or ""
+			dlevel = format("|cff%02x%02x%02x%d-%d|r", r*255, g*255, b*255, low, high) or ""
 		else
-			dlevel = string.format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, high) or ""
+			dlevel = format("|cff%02x%02x%02x%d|r", r*255, g*255, b*255, high) or ""
 		end
 		
 		if ontt then
 			return dlevel
 		else
 			if E.db.locplus.showicon then
-				dlevel = " ("..dlevel..") "..LEVEL_ICON
+				dlevel = format(" (%s) ", dlevel)..LEVEL_ICON
 			else
-				dlevel = " ("..dlevel..")"
+				dlevel = format(" (%s) ", dlevel)
 			end
 		end
 	end
@@ -359,7 +356,7 @@ local function UpdateTooltip()
 	
 	-- Status
 	if E.db.locplus.ttst then
-		GameTooltip:AddDoubleLine(STATUS.." :", GetStatus(), 1, 1, 1)
+		GameTooltip:AddDoubleLine(STATUS.." :", GetStatus(false), 1, 1, 1)
 	end
 	
     -- Zone level range
@@ -399,7 +396,7 @@ local function UpdateTooltip()
 	-- Instances in the zone
 	if E.db.locplus.ttinst and tourist:DoesZoneHaveInstances(zoneText) then 
 		GameTooltip:AddLine(" ")
-		GameTooltip:AddLine(format(curPos..DUNGEONS.." :"), selectioncolor)
+		GameTooltip:AddLine(curPos..DUNGEONS.." :", selectioncolor)
 			
 		for dungeon in tourist:IterateZoneInstances(zoneText) do
 			GetZoneDungeons(dungeon);
@@ -529,7 +526,7 @@ end
 
 -- clicking the location panel
 local function LocPanel_OnClick(self, btn)
-	zoneText = GetRealZoneText() or UNKNOWN;
+	local zoneText = GetRealZoneText() or UNKNOWN;
 	if btn == "LeftButton" then	
 		if IsShiftKeyDown() then
 			local edit_box = ChatEdit_ChooseBoxForSend()
@@ -537,9 +534,9 @@ local function LocPanel_OnClick(self, btn)
 			local message
 			local coords = x..", "..y
 				if zoneText ~= GetSubZoneText() then
-					message = string.format("%s: %s (%s)", zoneText, GetSubZoneText(), coords)
+					message = format("%s: %s (%s)", zoneText, GetSubZoneText(), coords)
 				else
-					message = string.format("%s (%s)", zoneText, coords)
+					message = format("%s (%s)", zoneText, coords)
 				end
 			ChatEdit_ActivateChat(edit_box)
 			edit_box:Insert(message) 
