@@ -1,10 +1,14 @@
 ## Interface: 60000
 ## Title: |cff1784d1ElvUI |rVertical Unit Frames
 ## Author: Sortokk
-## Version: 6.03
+## Version: 6.07
 ## Notes: Vertial Unit Frames for ElvUI
 ## RequiredDeps: ElvUI
 ## X-oUF: ElvUF
+## X-Curse-Packaged-Version: 6.07
+## X-Curse-Project-Name: ElvUI VerticalUnitFrames
+## X-Curse-Project-ID: elvui-hud
+## X-Curse-Repository-ID: wow/elvui-hud/mainline
 
 locales\load_locales.xml
 core\load_core.xml

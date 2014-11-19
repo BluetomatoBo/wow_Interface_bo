@@ -485,8 +485,8 @@ function VUF:UpdateElementAnchor(frame,element)
 		    	end
 		    end
 		    f:ClearAllPoints()
-		    f:SetPoint("TOPLEFT", holder, "BOTTOMLEFT", 0, 0)
-		    f:SetPoint("TOPRIGHT", holder, "BOTTOMRIGHT", 0, 0)
+		    f:SetPoint("TOPLEFT", holder, "TOPLEFT", 0, 0)
+		    f:SetPoint("BOTTOMRIGHT", holder, "BOTTOMRIGHT", 0, 0)
 		    f.Holder = holder
 
 		    E:CreateMover(f.Holder, string.format(moverFormat,frame:GetName()), name, nil, nil, nil, 'ALL,SOLO')
@@ -1194,6 +1194,8 @@ function VUF:PostUpdateAura(unit, icon, index, offset, filter, isDebuff, duratio
 			icon.remaining:Hide()
 		end
 	 
+	 	icon.cd:Hide();
+
 		icon.duration = duration
 		icon.timeLeft = expirationTime
 		icon.first = true

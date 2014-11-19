@@ -1,0 +1,8 @@
+2014-11-18  Michael Tindal  <mj.tindal@icloud.com>
+
+[14d10b6b4861] [6.07]
+* ElvUI_VerticalUnitFrames.toc:
+
+6.07 because I'm dumb and didn't commit the 6.06 TOC.
+
+

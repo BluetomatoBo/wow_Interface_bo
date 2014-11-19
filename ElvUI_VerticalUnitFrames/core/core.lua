@@ -218,12 +218,12 @@ function VUF:UNIT_HEALTH(event, unit)
     end
 
     local f = self.units[unit]
-    if (not UnitAffectingCombat("player")) then
+    if (not UnitAffectingCombat("player") and not InCombatLockdown()) then
 
         local healthSeen = UnitHealth(unit);
         VUF:Hide(f, "PLAYER_REGEN_DISABLED");
 
-        C_Timer.After(timeToDisplay, function() if (not UnitAffectingCombat("player") and (UnitHealth(unit) == healthSeen)) then VUF:Hide(f, "PLAYER_REGEN_ENABLED") end end);
+        C_Timer.After(timeToDisplay, function() if (not UnitAffectingCombat("player") and not  InCombatLockdown() and (UnitHealth(unit) == healthSeen)) then VUF:Hide(f, "PLAYER_REGEN_ENABLED") end end);
     end
 end
 

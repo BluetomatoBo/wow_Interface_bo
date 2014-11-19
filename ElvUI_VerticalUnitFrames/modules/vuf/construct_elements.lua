@@ -120,6 +120,7 @@ function VUF:ConstructCastbar(frame)
     vcastbar.ButtonIcon = icon
     frame.VertCastbar = vcastbar
 
+    hcastbar:SetOrientation("HORIZONTAL");
     hcastbar:SetFrameLevel(6)
 
     hcastbar.CustomTimeText = VUF.CustomCastTimeText
