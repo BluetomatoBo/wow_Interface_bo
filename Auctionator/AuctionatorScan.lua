@@ -362,6 +362,15 @@ function AtrSearch:Abort ()
 	self:Init();
 end
 
+
+
+-----------------------------------------
+
+function AtrSearch:CapturePageInfo ()
+
+	self.query:CapturePageInfo(self.current_page)
+end
+
 -----------------------------------------
 
 function AtrSearch:CheckForDuplicatePage ()
@@ -369,11 +378,8 @@ function AtrSearch:CheckForDuplicatePage ()
 	local isDup = self.query:CheckForDuplicatePage(self.current_page);
 
 	if (isDup) then
---		zc.msg_red ("DUPLICATE PAGE FOUND: ", "  current_page: ", self.current_page, "  numDupPages: ", self.query.numDupPages);
-
-		self.current_page	= self.current_page - 1;   -- requery the page
-		
-		self.processing_state = KM_PREQUERY;
+		self.current_page		= self.current_page - 1;   -- requery the page
+		self.processing_state	= KM_PREQUERY;
 	end
 		
 	return isDup;
@@ -390,10 +396,9 @@ function AtrSearch:AnalyzeResultsPage()
 		return true;						 -- done
 	end
 
+	local q = self.query;
 
-	local numBatchAuctions, totalAuctions = Atr_GetNumAuctionItems("list");
-
-	if (self.current_page == 1 and totalAuctions > 5000) then -- give Blizz servers a break (100 pages)
+	if (self.current_page == 1 and q.totalAuctions > 5000) then -- give Blizz servers a break (100 pages)
 		Atr_Error_Display (ZT("Too many results\n\nPlease narrow your search"));
 		return true;  -- done
 	end
@@ -411,7 +416,7 @@ function AtrSearch:AnalyzeResultsPage()
 		end
 
 		msg = string.format (ZT("Scanning auctions for %s%s"), slistItemName, pageText);
-	elseif (totalAuctions >= 50) then
+	elseif (q.totalAuctions >= 50) then
 		msg = string.format (ZT("Scanning auctions: page %d"), self.current_page);
 	end
 
@@ -426,17 +431,19 @@ function AtrSearch:AnalyzeResultsPage()
 	local k, g, f
 	local numNilOwners = 0
 
-	if (numBatchAuctions > 0) then
+	if (q.curPageInfo.numOnPage > 0) then
 
 		local x;
 
-		for x = 1, numBatchAuctions do
+		for x = 1, q.curPageInfo.numOnPage do
 
-			local name, texture, count, quality, canUse, level, huh, minBid, minIncrement, buyoutPrice, bidAmount, highBidder, bidderFullName, owner, ownerFullName = GetAuctionItemInfo("list", x);
+			--local name, texture, count, quality, canUse, level, huh, minBid, minIncrement, buyoutPrice, bidAmount, highBidder, bidderFullName, owner, ownerFullName = GetAuctionItemInfo("list", x);
 
---zz ("owner: ", owner, "      ownerFullName: ", ownerFullName, "      bidderFullName: ", bidderFullName);
-
-			local itemLink = GetAuctionItemLink("list", x);
+			--local itemLink = GetAuctionItemLink("list", x);
+			
+			local ax = q.curPageInfo.auctionInfo[x];
+			
+			local itemLink = ax.itemLink;
 			
 			if (itemLink) then
 				local IDstring = zc.ItemIDStrfromLink (itemLink);
@@ -444,10 +451,17 @@ function AtrSearch:AnalyzeResultsPage()
 				if (Atr_ILevelHist_Update) then
 					Atr_ILevelHist_Update(itemLink)
 				end
+
+				local isBattlePet = zc.IsBattlePetLink(itemLink);
+				
+				if (isBattlePet) then
+					ATR_AddToBattlePetIconCache (itemLink, ax.texture);
+				end
 				
 				local OKitemLevel = true
 				if (self.minItemLevel or self.maxItemLevel) then
-					local _, _, _, iLevel, _ = GetItemInfo(itemLink);
+					local _, _, _, iLevel = GetItemInfo(itemLink);
+
 					if ((self.minItemLevel and iLevel < self.minItemLevel) or (self.maxItemLevel and iLevel > self.maxItemLevel)) then
 						OKitemLevel = false
 					end
@@ -458,10 +472,10 @@ function AtrSearch:AnalyzeResultsPage()
 						numNilOwners = numNilOwners + 1
 					end
 
-					if (self.exactMatchText == nil or zc.StringSame (name, self.exactMatchText)) then
+					if (self.exactMatchText == nil or zc.StringSame (ax.name, self.exactMatchText)) then
 
 						if (self.items[IDstring] == nil) then
-							self.items[IDstring] = Atr_FindScanAndInit (IDstring, name)
+							self.items[IDstring] = Atr_FindScanAndInit (IDstring, ax.name)
 						end
 						
 						local curpage = (tonumber(self.current_page)-1)
@@ -469,7 +483,7 @@ function AtrSearch:AnalyzeResultsPage()
 						local scn = self.items[IDstring]
 
 						if (scn) then
-							scn:AddScanItem (count, buyoutPrice, owner, 1, curpage)
+							scn:AddScanItem (ax.count, ax.buyoutPrice, ax.owner, 1, curpage)
 							scn:UpdateItemLink (itemLink)
 						end
 					end
@@ -480,7 +494,7 @@ function AtrSearch:AnalyzeResultsPage()
 		end
 	end
 	
-	local done = (numBatchAuctions < 50);
+	local done = (q.curPageInfo.numOnPage < 50);
 
 	if (done) then
 		if (self.shplist) then

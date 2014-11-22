@@ -287,6 +287,11 @@ local MYSTERIOUS_ESS	= 74250
 local GREATER_MYST_ESS	= 74251
 local SHA_CRYSTAL		= 74248
 
+local TEMPORAL_CRYSTAL		= 113588
+local LUMINOUS_SHARD		= 111245
+local SMALL_LUM_SHARD		= 115502
+local DRAENIC_DUST			= 109693
+
 --[[
 local CINDERBLOOM		= 52983;
 local STORMVINE			= 52984;
@@ -295,6 +300,7 @@ local HEARTBLOSSOM		= 52986;
 local WHIPTAIL			= 52988;
 local ASHEN_PIGMENT		= 61979;
 ]]--
+
 
 local engDEnames = {};
 
@@ -360,6 +366,11 @@ engDEnames[SPIRIT_DUST]			= 'Spirit Dust'
 engDEnames[MYSTERIOUS_ESS]		= 'Mysterious Essence'
 engDEnames[GREATER_MYST_ESS]	= 'Greater Mysterious Essence'
 engDEnames[SHA_CRYSTAL]			= 'Sha Crystal'
+
+engDEnames[TEMPORAL_CRYSTAL]	= 'Temporal Crystal'
+engDEnames[LUMINOUS_SHARD]		= 'Luminous Shard'
+engDEnames[SMALL_LUM_SHARD]		= 'Small Luminous Shard'
+engDEnames[DRAENIC_DUST]		= 'Draenic Dust'
 
 
 
@@ -428,6 +439,10 @@ tinsert (dustsAndEssences, MYSTERIOUS_ESS)
 tinsert (dustsAndEssences, GREATER_MYST_ESS)
 tinsert (dustsAndEssences, SHA_CRYSTAL)
 
+tinsert (dustsAndEssences, TEMPORAL_CRYSTAL)
+tinsert (dustsAndEssences, LUMINOUS_SHARD)
+tinsert (dustsAndEssences, SMALL_LUM_SHARD)
+tinsert (dustsAndEssences, DRAENIC_DUST)
 
 gAtr_dustCacheIndex = 1;
 
@@ -614,7 +629,9 @@ function Atr_InitDETable()
 	DEtableInsert (t, {364,380			,85,2	,SPIRIT_DUST		,15, 1,   MYSTERIOUS_ESS})
 	DEtableInsert (t, {381,390			,85,2.5	,SPIRIT_DUST		,15, 1,	  MYSTERIOUS_ESS})
 	DEtableInsert (t, {391,410			,85,3	,SPIRIT_DUST		,15, 1.5, MYSTERIOUS_ESS})
-	DEtableInsert (t, {411,450			,85,3.5	,SPIRIT_DUST		,15, 2,   MYSTERIOUS_ESS})
+	DEtableInsert (t, {411,483			,85,3.5	,SPIRIT_DUST		,15, 2,   MYSTERIOUS_ESS})
+
+	DEtableInsert (t, {484,700		, 100, 2.5, DRAENIC_DUST})
 
 	-- UNCOMMON (GREEN) WEAPONS
 
@@ -653,7 +670,9 @@ function Atr_InitDETable()
 	DEtableInsert(t, {351,380		, 85, 2.5, SPIRIT_DUST,		15, 1, MYSTERIOUS_ESS})
 	DEtableInsert(t, {381,390		, 85, 3,   SPIRIT_DUST,		15, 1, MYSTERIOUS_ESS})
 	DEtableInsert(t, {391,410		, 85, 3.5, SPIRIT_DUST,		15, 1.5, MYSTERIOUS_ESS})
-	DEtableInsert(t, {411,450		, 85, 4,   SPIRIT_DUST,		15, 2, MYSTERIOUS_ESS})
+	DEtableInsert(t, {411,483		, 85, 4,   SPIRIT_DUST,		15, 2, MYSTERIOUS_ESS})
+
+	DEtableInsert(t, {484,700		, 100, 2.5, DRAENIC_DUST})
 
 	-- RARE (BLUE) ARMOR
 	
@@ -689,8 +708,12 @@ function Atr_InitDETable()
 	DEtableInsert (t, {381,424,		100, 1, SMALL_ETHEREAL})
 	DEtableInsert (t, {425,449,		100, 1, ETHEREAL_SHARD})
 	DEtableInsert (t, {450,450,		20,  1, ETHEREAL_SHARD,			80, 1, SMALL_ETHEREAL})
-	DEtableInsert (t, {451,500,		100, 1, ETHEREAL_SHARD})
-  
+	DEtableInsert (t, {451,476,		100, 1, ETHEREAL_SHARD})
+
+	DEtableInsert (t, {477,800,		100, 1, LUMINOUS_SHARD})
+
+   
+ 
 	-- RARE (BLUE) WEAPON
 	
 	deTable[deKey(WEAPON, RARE)] = {};
@@ -719,8 +742,9 @@ function Atr_InitDETable()
 	DEtableInsert (t, {381,424,		100, 1, SMALL_ETHEREAL})
 	DEtableInsert (t, {425,449,		100, 1, ETHEREAL_SHARD})
 	DEtableInsert (t, {450,450,		20,  1, ETHEREAL_SHARD,			80, 1, SMALL_ETHEREAL})
-	DEtableInsert (t, {451,500,		100, 1, ETHEREAL_SHARD})
+	DEtableInsert (t, {451,476,		100, 1, ETHEREAL_SHARD})
   
+	DEtableInsert (t, {477,800,		100, 1, LUMINOUS_SHARD})
 
 	-- EPIC ITEMS
 	
@@ -738,6 +762,7 @@ function Atr_InitDETable()
 	DEtableInsert (t, {165, 280,	100, 1, ABYSS_CRYSTAL});
 	DEtableInsert (t, {281, 450,	100, 1, MAELSTROM_CRYSTAL});
 	DEtableInsert (t, {420, 600,	100, 1, SHA_CRYSTAL})
+	DEtableInsert (t, {601, 900,	100, 1, TEMPORAL_CRYSTAL})
   
 	deTable[deKey(WEAPON, EPIC)] = {};
 	zc.CopyDeep (deTable[deKey(WEAPON, EPIC)], deTable[deKey(ARMOR, EPIC)]);	-- copy it this time because of differences

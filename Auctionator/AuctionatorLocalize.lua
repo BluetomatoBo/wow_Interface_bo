@@ -249,6 +249,7 @@ function Atr_IsHerb					(itemLink)		return (Atr_IsClass (itemLink, 6, 6));	end
 
 function Atr_IsWeaponType				(itemType)		return (Atr_ItemType2AuctionClass (itemType) == 1);		end
 function Atr_IsArmorType				(itemType)		return (Atr_ItemType2AuctionClass (itemType) == 2);		end
+function Atr_IsBattlePetType			(itemType)		return (Atr_ItemType2AuctionClass (itemType) == 11);	end
 
 -----------------------------------------
 
@@ -290,8 +291,6 @@ function Atr_GetAuctionClasses()
 
 	if (gItemClasses == nil) then
 		gItemClasses = { GetAuctionItemClasses() };
-		
-		local x, itemClass
 	end
 	
 	return gItemClasses;

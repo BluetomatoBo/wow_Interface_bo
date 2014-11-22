@@ -120,7 +120,7 @@ local ATR_CACT_READY						= 1;
 local ATR_CACT_PROCESSING					= 2;
 local ATR_CACT_WAITING_ON_CANCEL_CONFIRM	= 3;
 
-local gBattlePetIconCache = {};
+gATR_BattlePetIconCache = {};
 
 local gItemPostingInProgress = false;
 
@@ -1234,12 +1234,12 @@ function Atr_GetSellItemInfo ()
 
 		if (speciesID and speciesID > 0) then		-- if it's a battle pet, construct a fake battlepet link
 					
-			local battlePetID = 0		-- unofortunately we don't know it
+			local battlePetID = 0		-- unfortunately we don't know it
 			
 			auctionItemLink = "|cffcccccc|Hbattlepet:"..speciesID..":"..level..":"..breedQuality..":"..maxHealth..":"..power..":"..speed..":"..battlePetID.."|h["..name.."]|h|r";
 		
-			gBattlePetIconCache[auctionItemLink] = auctionTexture;
-			
+			ATR_AddToBattlePetIconCache (auctionItemLink, auctionTexture);
+
 			--zz ((auctionItemLink));
 		
 		else
@@ -1467,8 +1467,6 @@ end
 -----------------------------------------
 
 function Atr_ClickAuctionSellItemButton (self, button)
-
--- zc.printstack();
 
 	if (AuctionFrameAuctions.duration == nil) then		-- blizz attempts to calculate deposit below and in some cases, duration has yet to be set
 		AuctionFrameAuctions.duration = 1;
@@ -1910,14 +1908,10 @@ local aoa_count = 0
 
 function Atr_OnAuctionUpdate (...)
 
+	--zz ("Atr_OnAuctionUpdate", ...)
+
 	local numBatchAuctions, totalAuctions = Atr_GetNumAuctionItems("list");
 
-	--local name, texture, count;
-	--if (numBatchAuctions > 0) then
-	--	name, texture, count = GetAuctionItemInfo("list", 1);
-	--end
-
-	--zz (aoa_count, "Atr_OnAuctionUpdate", numBatchAuctions, totalAuctions, name, count, ...);
 	aoa_count = aoa_count + 1
 
 	if (gAtr_FullScanState == ATR_FS_STARTED) then
@@ -1942,6 +1936,8 @@ function Atr_OnAuctionUpdate (...)
 	end
 
 	if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == KM_POSTQUERY) then
+
+		gCurrentPane.activeSearch:CapturePageInfo();
 
 		local isDup = gCurrentPane.activeSearch:CheckForDuplicatePage ();
 		
@@ -2061,6 +2057,7 @@ end
 -----------------------------------------
 
 function Atr_SetMessage (msg)
+
 	Atr_HideElems (recommendElements);
 
 	if (gCurrentPane.activeSearch.searchText) then
@@ -2087,13 +2084,19 @@ function Atr_ShowItemNameAndTexture(itemName)
 	local scn = gCurrentPane.activeScan;
 
 	local color = "";
+	local level = "";
+	
 	if (scn and not scn:IsNil()) then
 		color = "|cff"..zc.RGBtoHEX (scn.itemTextColor[1], scn.itemTextColor[2], scn.itemTextColor[3]);
 		itemName = scn.itemName;
+		
+		if (zc.IsBattlePetLink(scn.itemLink)) then
+			level = " (Level "..scn.itemLevel..")"
+		end
 	end
 
 	Atr_Recommend_Text:Show ()
-	Atr_Recommend_Text:SetText (color..itemName)
+	Atr_Recommend_Text:SetText (color..itemName..level)
 
 	if (scn and not scn:IsNil()) then
 		Atr_SetTextureButton ("Atr_RecommendItem_Tex", 1, scn.itemLink)
@@ -2423,10 +2426,10 @@ function Atr_UpdateRecommendation (updatePrices)
 		end
 	end
 
-	if (new_Item_BuyoutPrice == nil) then
+	if (new_Item_BuyoutPrice == nil or gCurrentPane ~= gSellPane) then
 		return;
 	end
-	
+
 	local new_Item_StartPrice = Atr_CalcStartPrice (new_Item_BuyoutPrice);
 
 	Atr_ShowElems (recommendElements);
@@ -2530,12 +2533,27 @@ end
 
 -----------------------------------------
 
+local gABPIC_Previous = nil;		-- performance
+
+-----------------------------------------
+
+function ATR_AddToBattlePetIconCache (itemLink, texture)
+
+	if (itemLink ~= gABPIC_Previous and itemLink ~= nil) then
+		gABPIC_Previous = itemLink;
+		gATR_BattlePetIconCache[itemLink] = texture;
+	end
+	
+end
+
+-----------------------------------------
+
 function Atr_SetTextureButton (elementName, count, itemlink)
 
 	local texture = GetItemIcon (itemlink)
 
 	if (texture == nil) then
-		texture = gBattlePetIconCache[itemlink];
+		texture = gATR_BattlePetIconCache[itemlink];
 	end
 	
 	Atr_SetTextureButtonByTexture (elementName, count, texture)
@@ -2553,6 +2571,7 @@ function Atr_SetTextureButtonByTexture (elementName, count, texture)
 		textureElement:SetNormalTexture (texture)
 		Atr_SetTextureButtonCount (elementName, count)
 	else
+		--textureElement:Hide()		-- if hidden can't be dragged into
 		Atr_SetTextureButtonCount (elementName, 0)
 	end
 
@@ -2921,7 +2940,7 @@ function Atr_UpdateUI ()
 			if (scn == nil or scn:IsNil()) then
 				Atr_ShowItemNameAndTexture (gCurrentPane.activeSearch.searchText);
 			else
-				Atr_ShowItemNameAndTexture (gCurrentPane.activeScan.itemName);
+				Atr_ShowItemNameAndTexture (scn.itemName);
 			end
 
 			if (Atr_IsModeBuy()) then
@@ -3572,8 +3591,12 @@ function Atr_ShowSearchSummary()
 			if (not scn:IsNil()) then
 				
 				iLevelStr = ""
-				if (scn.itemClass == WEAPON or scn.itemClass == ARMOR) then		-- might turn this on soon
+				if (scn.itemClass == WEAPON or scn.itemClass == ARMOR) then
 					iLevelStr = " ("..scn.itemLevel..")"
+				end
+
+				if (zc.IsBattlePetLink (scn.itemLink)) then
+					iLevelStr = " (Level "..scn.itemLevel..")"
 				end
 				
 				lineEntry_text:SetText (icon.."  "..scn.itemName..iLevelStr)
@@ -3961,8 +3984,8 @@ function Atr_GetNumItemInBags (targItemLink)
 	
 	local targItemName, targIsBattlePet = zc.ItemNamefromLink (targItemLink)
 	
-	zz (zc.printableLink(targItemLink))
-	zz (zc.printableLink(targItemName), targIsBattlePet)
+	--zz (zc.printableLink(targItemLink))
+	--zz (zc.printableLink(targItemName), targIsBattlePet)
 	
 	for b = 1, #kBagIDs do
 		bagID = kBagIDs[b];

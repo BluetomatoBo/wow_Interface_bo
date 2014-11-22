@@ -455,7 +455,7 @@ function zc.ItemIDfromLink (itemLink)
 	if (zc.IsBattlePetLink (itemLink)) then
 		local speciesID, level, breedQuality, maxHealth, power, speed, battlePetID, name = zc.ParseBattlePetLink(itemLink)
 		
-		return "BP_"..tostring(speciesID), breedQuality
+		return "BP_"..tostring(speciesID)..level, breedQuality
 	
 	else
 	
