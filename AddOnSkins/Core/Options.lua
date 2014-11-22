@@ -12,7 +12,7 @@ local Defaults = {
 	['EmbedMain'] = 'Skada',
 	['EmbedLeft'] = 'Skada',
 	['EmbedRight'] = 'Skada',
-	['EmbedRightChat'] = 'Skada',
+	['EmbedRightChat'] = true,
 	['EmbedLeftWidth'] = 200,
 	['EmbedBelowTop'] = false,
 	['TransparentEmbed'] = false,
@@ -27,7 +27,6 @@ local Defaults = {
 	['DBMFontFlag'] = 'OUTLINE',
 	['WeakAuraAuraBar'] = false,
 	['WeakAuraIconCooldown'] = false,
-	['AuctionHouse'] = true,
 	['SkinTemplate'] = 'Transparent',
 	['HideChatFrame'] = 'NONE',
 	['SkinDebug'] = false,
@@ -80,7 +79,7 @@ end
 
 function AS:GetOptions()
 	local function GenerateOptionTable(skinName, order)
-		local text = strtrim(skinName:gsub("Blizzard_(.+)","%1"):gsub("(%u)"," %1"))
+		local text = strtrim(skinName:gsub("^Blizzard_(.+)","%1"):gsub("(%l)(%u%l)","%1 %2"))
 		local options = {
 			type = "toggle",
 			name = text,
@@ -154,7 +153,7 @@ function AS:GetOptions()
 						type = "toggle",
 						name = ASL["BigWigs Half-Bar"],
 						order = 4,
-						disabled = function() return not AS:CheckOption("BigWigsSkin", "BigWigs") end
+						disabled = function() return not AS:CheckOption("BigWigs", "BigWigs") end
 					},
 				},
 			},
@@ -238,41 +237,46 @@ function AS:GetOptions()
 						type = "toggle",
 						name = ASL["Attach SexyCD to action bar"],
 						order = 11,
-						disabled = function() return not AS:CheckOption("SexyCooldownSkin", "SexyCooldown2") end,
+						disabled = function() return not AS:CheckOption("SexyCooldown", "SexyCooldown2") end,
 					},
 					EmbedCoolLine = {
 						type = "toggle",
 						name = ASL["Attach CoolLine to action bar"],
 						order = 12,
-						disabled = function() return not AS:CheckOption("CoolLineSkin", "CoolLine") end,
+						disabled = function() return not AS:CheckOption("CoolLine", "CoolLine") end,
+					},
+					EmbedRightChat = {
+						type = "toggle",
+						name = ASL["Embed into Right Chat Panel"],
+						order = 13,
 					},
 					TransparentEmbed = {
 						type = "toggle",
 						name = ASL["Embed Transparancy"],
-						order = 13,
+						order = 14,
 					},
 					EmbedBelowTop = {
 						type = "toggle",
 						name = ASL["Embed Below Top Tab"],
-						order = 14,
+						order = 15,
 					},
 					RecountBackdrop = {
 						type = "toggle",
 						name = ASL["Recount Backdrop"],
-						order = 15,
-						disabled = function() return not (AS:CheckOption("RecountSkin", "Recount") and AS:CheckEmbed("Recount")) end
+						order = 16,
+						disabled = function() return not (AS:CheckOption("Recount", "Recount") and AS:CheckEmbed("Recount")) end
 					},
 					SkadaBackdrop = {
 						type = "toggle",
 						name = ASL["Skada Backdrop"],
-						order = 16,
-						disabled = function() return not (AS:CheckOption("SkadaSkin", "Skada") and AS:CheckEmbed("Skada")) end
+						order = 17,
+						disabled = function() return not (AS:CheckOption("Skada", "Skada") and AS:CheckEmbed("Skada")) end
 					},
 					OmenBackdrop = {
 						type = "toggle",
 						name = ASL["Omen Backdrop"],
-						order = 17,
-						disabled = function() return not (AS:CheckOption("OmenSkin", "Omen") and AS:CheckEmbed("Omen")) end
+						order = 18,
+						disabled = function() return not (AS:CheckOption("Omen", "Omen") and AS:CheckEmbed("Omen")) end
 					},
 				},
 			},
@@ -296,12 +300,7 @@ function AS:GetOptions()
 						type = "toggle",
 						name = ASL["WeakAura AuraBar"],
 						order = 2,
-						disabled = function() return not AS:CheckOption("WeakAurasSkin", "WeakAuras") end,
-					},
-					AuctionHouse = {
-						type = "toggle",
-						name = ASL["Auction House"],
-						order = 3,
+						disabled = function() return not AS:CheckOption("WeakAuras", "WeakAuras") end,
 					},
 				},
 			},
@@ -425,7 +424,7 @@ function AS:GetOptions()
 			type = "toggle",
 			name = ASL["WeakAura Cooldowns"],
 			order = 1,
-			disabled = function() return not AS:CheckOption("WeakAurasSkin", "WeakAuras") end,
+			disabled = function() return not AS:CheckOption("WeakAuras", "WeakAuras") end,
 		}
 	end
 

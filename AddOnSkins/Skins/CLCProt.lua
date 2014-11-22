@@ -21,14 +21,12 @@ function AS:CLCProt()
 		local button
 		if isChecked then
 			button = CreateFrame('CheckButton', name , parent)
-			button:StyleButton(true)
+			AS:StyleButton(button)
 		else
 			button = CreateFrame('Button', name , parent)
 		end
 		AS:SkinButton(button)
 
-		local Backdrop = button.backdrop or button.Backdrop
-		Backdrop:SetAllPoints()
 		button:EnableMouse(false)
 		button:Size(size)
 		button.texture = button:CreateTexture('$parentIcon', 'OVERLAY')

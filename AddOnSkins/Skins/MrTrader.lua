@@ -4,19 +4,18 @@ if not AS:CheckAddOn('MrTrader') then return end
 
 function AS:MrTrader()
 	AS:SkinFrame(MRTSkillFrame, 'Transparent', nil, true)
-	MRTSkillFrameInset:StripTextures()
+	AS:StripTextures(MRTSkillFrameInset)
 
-	MRTSkillButtons:StripTextures()
-	MRTSkillListScrollFrame:StripTextures()
+	AS:StripTextures(MRTSkillButtons)
+	AS:StripTextures(MRTSkillListScrollFrame)
 	AS:SkinScrollBar(MRTSkillListScrollFrameScrollBar)
 
 	MRTSkillFilterButtons:SetWidth(160)
 	AS:SkinBackdropFrame(MRTSkillFilterButtons)
-	local Backdrop = MRTSkillFilterButtons.backdrop or MRTSkillFilterButtons.Backdrop
-	Backdrop:Point("TOPLEFT", 0, 2)
-	Backdrop:Point("BOTTOMRIGHT", -3, -1)
+	MRTSkillFilterButtons.Backdrop:Point("TOPLEFT", 0, 2)
+	MRTSkillFilterButtons.Backdrop:Point("BOTTOMRIGHT", -3, -1)
 
-	MRTSkillFilterScrollFrame:StripTextures()
+	AS:StripTextures(MRTSkillFilterScrollFrame)
 	AS:SkinScrollBar(MRTSkillFilterScrollFrameScrollBar)
 
 	hooksecurefunc(MRTSkillWindow, "DrawFilters", function()
@@ -25,11 +24,11 @@ function AS:MrTrader()
 			local lastButton = _G["MRTSkillFilterButton"..i-1]
 			local checkbox = _G["MRTSkillFilterButton"..i.."Checkbox"]
 
-			button:StripTextures()
+			AS:StripTextures(button)
 			button.hover = nil
 			button.pushed = nil
 			button.checked = nil
-			button:StyleButton()
+			AS:StyleButton(button)
 			button.hover:SetInside(nil, 5, 0)
 
 			if (MRTSkillFilterScrollFrameScrollBar:IsVisible()) then
@@ -53,21 +52,20 @@ function AS:MrTrader()
 
 	for i = 1, 10 do
 		_G["MRTSkillButton"..i.."Border"]:Kill()
-		_G["MRTSkillButton"..i]:SetTemplate()
+		AS:SetTemplate(_G["MRTSkillButton"..i])
 		AS:SkinIconButton(_G["MRTSkillButton"..i.."Icon"])
 		_G["MRTSkillButton"..i.."IconBorder"]:Kill()
 		_G["MRTSkillButton"..i.."Icon"]:HookScript('OnUpdate', function(self)
-			local Backdrop = self.backdrop or self.Backdrop
-			Backdrop:SetBackdropBorderColor(_G["MRTSkillButton"..i.."IconBorder"]:GetBackdropBorderColor())
+			self.Backdrop:SetBackdropBorderColor(_G["MRTSkillButton"..i.."IconBorder"]:GetBackdropBorderColor())
 		end)
 		for j = 1, 4 do
-			_G["MRTSkillButton"..i.."ReagentLrg"..j.."IconTexture"]:SetTexCoord(unpack(AS.TexCoords))
+			AS:SkinTexture(_G["MRTSkillButton"..i.."ReagentLrg"..j.."IconTexture"])
 			_G["MRTSkillButton"..i.."ReagentLrg"..j.."Border"]:Kill()
-			_G["MRTSkillButton"..i.."ReagentLrg"..j]:StyleButton()
+			AS:StyleButton(_G["MRTSkillButton"..i.."ReagentLrg"..j])
 		end
 		for j = 1, 8 do
-			_G["MRTSkillButton"..i.."ReagentSml"..j.."IconTexture"]:SetTexCoord(unpack(AS.TexCoords))
-			_G["MRTSkillButton"..i.."ReagentSml"..j]:StyleButton()
+			AS:SkinTexture(_G["MRTSkillButton"..i.."ReagentSml"..j.."IconTexture"])
+			AS:StyleButton(_G["MRTSkillButton"..i.."ReagentSml"..j])
 		end
 	end
 

@@ -4,41 +4,9 @@ if not AS:CheckAddOn('Tukui') then return end
 local select = select
 local T, C
 
-AddOnSkinsOptions = {
--- Embeds
-	['EmbedOoC'] = false,
-	['EmbedOoCDelay'] = 10,
-	['EmbedCoolLine'] = false,
-	['EmbedSexyCooldown'] = false,
-	['EmbedSystem'] = false,
-	['EmbedSystemDual'] = false,
-	['EmbedMain'] = 'Skada',
-	['EmbedLeft'] = 'Skada',
-	['EmbedRight'] = 'Skada',
-	['EmbedRightChat'] = 'Skada',
-	['EmbedLeftWidth'] = 200,
-	['EmbedBelowTop'] = false,
-	['EmbedIsHidden'] = false,
-	['TransparentEmbed'] = false,
--- Misc
-	['RecountBackdrop'] = true,
-	['SkadaBackdrop'] = true,
-	['OmenBackdrop'] = true,
-	['MiscFixes'] = true,
-	['DBMSkinHalf'] = false,
-	['DBMFont'] = 'Tukui',
-	['DBMFontSize'] = 12,
-	['DBMFontFlag'] = 'OUTLINE',
-	['WeakAuraAuraBar'] = false,
-	['AuctionHouse'] = true,
-	['SkinTemplate'] = 'Transparent',
-	['HideChatFrame'] = 'NONE',
-	['SkinDebug'] = false,
-}
-
 function AS:UpdateMedia()
 	T, C = Tukui:unpack()
-	AS.PixelPerfect = C['General']['InOut']
+	AS.PixelPerfect = false
 	AS.HideShadows = C['General']['HideShadows']
 
 	AS.DataTextFontSize = 12 -- T['DataTexts']['Size']
@@ -55,14 +23,11 @@ function AS:UpdateMedia()
 	AS.ActionBar3 = T['ActionBar3']
 	AS.ActionBar4 = T['ActionBar4']
 
-	AS.GlossTex = C['Medias']['Normal']
 	AS.Blank = C['Medias']['Blank']
 	AS.NormTex = C['Medias']['Normal']
-	AS.GlowTex = C['Medias']['Glow']
 	AS.Font = C['Medias']['Font']
 	AS.PixelFont = C['Medias']['PixelFont']
 	AS.ActionBarFont = C['Medias']['ActionBarFont']
-	AS.UIScale = UIParent:GetScale()
 	AS.BackdropColor = C['General']['BackdropColor']
 	AS.BorderColor = C['General']['BorderColor']
 end
@@ -92,68 +57,30 @@ function AS:ToggleOption(optionName)
 	AddOnSkinsOptions[optionName] = not AddOnSkinsOptions[optionName]
 end
 
-function AS:CreateEmbedSystem()
-	if not AS.EmbedSystemCreated then
-		local EmbedSystem_MainWindow = CreateFrame('Frame', 'EmbedSystem_MainWindow', UIParent)
-		local EmbedSystem_LeftWindow = CreateFrame('Frame', 'EmbedSystem_LeftWindow', EmbedSystem_MainWindow)
-		local EmbedSystem_RightWindow = CreateFrame('Frame', 'EmbedSystem_RightWindow', EmbedSystem_MainWindow)
-
-		AS:EmbedSystem_WindowResize()
-
-		self:RegisterEvent('PLAYER_REGEN_DISABLED', 'EmbedEnterCombat')
-		self:RegisterEvent('PLAYER_REGEN_ENABLED', 'EmbedExitCombat')
-
-		EmbedSystem_MainWindow:SetScript('OnShow', AS.Embed_Show)
-		EmbedSystem_MainWindow:SetScript('OnHide', AS.Embed_Hide)
-
-		AS:CreateToggleButton('RightToggleButton', '►', AS.InfoRight, AS.ChatBackgroundRight, ASL.EmbedSystem.ToggleRightChat, ASL.EmbedSystem.ToggleEmbed)
-		RightToggleButton:Point('RIGHT', AS.InfoRight, 'RIGHT', -2, 0)
-		RightToggleButton:HookScript('OnClick', function(self, button)
-			if button == 'RightButton' then
-				if EmbedSystem_MainWindow:IsShown() then
-					EmbedSystem_MainWindow:Hide()
-					AS:SetOption('EmbedIsHidden', true)
-					if AS:CheckOption('HideChatFrame') ~= 'NONE' then
-						_G[AS:CheckOption('HideChatFrame')]:SetAlpha(1)
-					end
-				else
-					AS:SetOption('EmbedIsHidden', false)
-					EmbedSystem_MainWindow:Show()
-					if AS:CheckOption('HideChatFrame') ~= 'NONE' then
-						_G[AS:CheckOption('HideChatFrame')]:SetAlpha(0)
-					end
-				end
-			end
-		end)
-
-		AS:CreateToggleButton('LeftToggleButton', '◄', AS.InfoLeft, AS.ChatBackgroundLeft, ASL.EmbedSystem.ToggleLeftChat, ASL.ToggleOptions)
-		LeftToggleButton:Point('LEFT', AS.InfoLeft, 'LEFT', 2, 0)
-		LeftToggleButton:HookScript('OnClick', function(self, button)
-			if button == 'RightButton' then
-				if IsAddOnLoaded('Enhanced_Config') then
-					Enhanced_Config[1]:ToggleConfig()
-				end
-			end
-		end)
-
-		UIParent:HookScript('OnShow', function()
-			if AS:CheckOption('EmbedIsHidden') then
-				AS:Embed_Hide();
+function AS:EmbedSystemHooks()
+	AS:CreateToggleButton('RightToggleButton', '►', AS.InfoRight, AS.ChatBackgroundRight, ASL.EmbedSystem.ToggleRightChat, ASL.EmbedSystem.ToggleEmbed)
+	RightToggleButton:Point('RIGHT', AS.InfoRight, 'RIGHT', -2, 0)
+	RightToggleButton:HookScript('OnClick', function(self, button)
+		if button == 'RightButton' then
+			if EmbedSystem_MainWindow:IsShown() then
+				EmbedSystem_MainWindow:Hide()
+				AS:SetOption('EmbedIsHidden', true)
 			else
-				AS:Embed_Show();
-			end
-		end)
-
-		if not UnitAffectingCombat('player') then
-			if AS:CheckOption('EmbedIsHidden') or AS:CheckOption('EmbedOoC') then
-				AS:Embed_Hide();
-			else
-				AS:Embed_Show();
+				AS:SetOption('EmbedIsHidden', false)
+				EmbedSystem_MainWindow:Show()
 			end
 		end
+	end)
 
-		AS.EmbedSystemCreated = true
-	end
+	AS:CreateToggleButton('LeftToggleButton', '◄', AS.InfoLeft, AS.ChatBackgroundLeft, ASL.EmbedSystem.ToggleLeftChat, ASL.EmbedSystem.ToggleOptions)
+	LeftToggleButton:Point('LEFT', AS.InfoLeft, 'LEFT', 2, 0)
+	LeftToggleButton:HookScript('OnClick', function(self, button)
+		if button == 'RightButton' then
+			if IsAddOnLoaded('Enhanced_Config') then
+				Enhanced_Config[1]:ToggleConfig()
+			end
+		end
+	end)
 end
 
 function AS:CreateToggleButton(Name, Text, Panel1, Panel2, TooltipText1, TooltipText2)
@@ -195,12 +122,20 @@ function AS:CreateToggleButton(Name, Text, Panel1, Panel2, TooltipText1, Tooltip
 end
 
 function AS:EmbedSystem_WindowResize()
-	if not AS.ChatBackgroundRight then
-		EmbedSystem_MainWindow:SetPoint('BOTTOM', AS.InfoRight, 'TOP', 0, 2)
-		EmbedSystem_MainWindow:SetSize(AS.InfoRight:GetWidth(), 142)
+	local ChatPanel = AS:CheckOption('EmbedRightChat') and AS.InfoRight or AS.InfoLeft
+	local ChatTab = AS:CheckOption('EmbedRightChat') and AS.TabsRightBackground or AS.TabsLeftBackground
+	if Tukui[2]['Chat']['Background'] then
+		local FramePoint, OffsetY
+		if AS:CheckOption('EmbedBelowTop') then
+			FramePoint, OffsetY = 'BOTTOMLEFT', -2
+		else
+			FramePoint, OffsetY = 'TOPLEFT', 0
+		end
+		EmbedSystem_MainWindow:SetPoint('TOPLEFT', ChatTab, FramePoint, 0, OffsetY)
+		EmbedSystem_MainWindow:SetPoint('BOTTOMRIGHT', ChatPanel, 'TOPRIGHT', 0, 0)
 	else
-		EmbedSystem_MainWindow:SetPoint('BOTTOM', AS.InfoRight, 'TOP', 0, 3)
-		EmbedSystem_MainWindow:SetSize(AS.InfoRight:GetWidth(), AS.ChatBackgroundRight:GetHeight() - (AS:CheckOption('EmbedBelowTop') and (AS.InfoRight:GetHeight()*3) - 5 or (AS.InfoRight:GetHeight()*2) - 8))
+		EmbedSystem_MainWindow:SetPoint('BOTTOM', ChatPanel, 'TOP', 0, 2)
+		EmbedSystem_MainWindow:SetSize(ChatPanel:GetWidth(), 142)
 	end
 	EmbedSystem_LeftWindow:SetPoint('RIGHT', EmbedSystem_RightWindow, 'LEFT', -2, 0)
 	EmbedSystem_RightWindow:SetPoint('RIGHT', EmbedSystem_MainWindow, 'RIGHT', 0, 0)

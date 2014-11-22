@@ -1,8 +1,6 @@
-if not Tukui then return end
 local AS = unpack(AddOnSkins)
 
 function AS:Blizzard_Calendar(event, addon)
-	if event == 'PLAYER_ENTERING_WORLD' then return end
 	if addon ~= 'Blizzard_Calendar' then return end
 	AS:SkinFrame(CalendarFrame)
 	AS:SkinCloseButton(CalendarCloseButton)
@@ -11,60 +9,57 @@ function AS:Blizzard_Calendar(event, addon)
 	AS:SkinNextPrevButton(CalendarPrevMonthButton)
 	AS:SkinNextPrevButton(CalendarNextMonthButton)
 
-	do
-		local frame = CalendarFilterFrame
-		local button = CalendarFilterButton
+	AS:StripTextures(CalendarFilterFrame)
+	CalendarFilterFrame:Width(155)
 
-		frame:StripTextures()
-		frame:Width(155)
+	CalendarFilterFrameText:ClearAllPoints()
+	CalendarFilterFrameText:Point("RIGHT", CalendarFilterButton, "LEFT", -2, 0)
 
-		_G[frame:GetName().."Text"]:ClearAllPoints()
-		_G[frame:GetName().."Text"]:Point("RIGHT", button, "LEFT", -2, 0)
+	CalendarFilterButton:ClearAllPoints()
+	CalendarFilterButton:Point("RIGHT", CalendarFilterFrame, "RIGHT", -10, 3)
+	CalendarFilterButton.SetPoint = AS.Noop
 
-		button:ClearAllPoints()
-		button:Point("RIGHT", frame, "RIGHT", -10, 3)
-		button.SetPoint = AS.Noop
+	AS:SkinNextPrevButton(CalendarFilterButton, true)
 
-		AS:SkinNextPrevButton(button, true)
+	AS:CreateBackdrop(CalendarFilterFrame, 'Default')
+	CalendarFilterFrame.Backdrop:Point("TOPLEFT", 20, 2)
+	CalendarFilterFrame.Backdrop:Point("BOTTOMRIGHT", CalendarFilterButton, "BOTTOMRIGHT", 2, -2)
 
-		frame:CreateBackdrop("Default")
-		local Backdrop = frame.backdrop or frame.Backdrop
-		Backdrop:Point("TOPLEFT", 20, 2)
-		Backdrop:Point("BOTTOMRIGHT", button, "BOTTOMRIGHT", 2, -2)
-	end
-
-	CalendarContextMenu:SetTemplate("Transparent")
+	AS:SetTemplate(CalendarContextMenu, 'Transparent')
 	CalendarContextMenu.SetBackdropColor = AS.Noop
 	CalendarContextMenu.SetBackdropBorderColor = AS.Noop
 
-	CalendarInviteStatusContextMenu:SetTemplate("Transparent")
+	AS:SetTemplate(CalendarInviteStatusContextMenu, 'Transparent')
 	CalendarInviteStatusContextMenu.SetBackdropColor = AS.Noop
 	CalendarInviteStatusContextMenu.SetBackdropBorderColor = AS.Noop
 
-	for i = 1, 42 do
-		_G["CalendarDayButton"..i]:SetFrameLevel(_G["CalendarDayButton"..i]:GetFrameLevel() + 1)
-		AS:SkinFrame(_G["CalendarDayButton"..i])
-		_G["CalendarDayButton"..i]:SetBackdropColor(0,0,0,0)
-		for j = 1, 4 do
-			local b = _G["CalendarDayButton"..i.."EventButton"..j]
-			b:StripTextures()
-			b:StyleButton()
+	if not AS.ParchmentEnabled then
+		for i = 1, 42 do
+			local Button = _G["CalendarDayButton"..i]
+			Button:SetFrameLevel(Button:GetFrameLevel() + 1)
+			AS:SkinFrame(Button)
+			Button:SetBackdropColor(0,0,0,0)
+			for j = 1, 4 do
+				local EventButton = _G["CalendarDayButton"..i.."EventButton"..j]
+				AS:StripTextures(EventButton)
+				AS:StyleButton(EventButton)
+			end
 		end
-	end
 
-	AS:SkinFrame(CalendarTodayFrame)
-	CalendarTodayFrame:Size(CalendarDayButton1:GetWidth(), CalendarDayButton1:GetHeight())
-	CalendarTodayFrame:SetBackdropBorderColor(0, 0.44, .87, 1)
-	CalendarTodayFrame:SetBackdropColor(0, 0, 0, 0)
-	CalendarTodayFrame:HookScript('OnUpdate', function(self) self:SetAlpha(CalendarTodayTextureGlow:GetAlpha()) end)
-	CalendarTodayFrame:CreateBackdrop()
-	CalendarTodayFrame.Backdrop:SetBackdropBorderColor(0, 0.44, .87, 1)
-	CalendarTodayFrame.Backdrop:SetBackdropColor(0, 0, 0, 0)
-	CalendarTodayFrame.Backdrop:CreateShadow()
+		AS:SkinFrame(CalendarTodayFrame)
+		AS:CreateBackdrop(CalendarTodayFrame)
+		CalendarTodayFrame:Size(CalendarDayButton1:GetWidth(), CalendarDayButton1:GetHeight())
+		CalendarTodayFrame:SetBackdropBorderColor(0, 0.44, .87, 1)
+		CalendarTodayFrame:SetBackdropColor(0, 0, 0, 0)
+		CalendarTodayFrame:HookScript('OnUpdate', function(self) self:SetAlpha(CalendarTodayTextureGlow:GetAlpha()) end)
+		CalendarTodayFrame.Backdrop:SetBackdropBorderColor(0, 0.44, .87, 1)
+		CalendarTodayFrame.Backdrop:SetBackdropColor(0, 0, 0, 0)
+		CalendarTodayFrame.Backdrop:CreateShadow()
+	end
 
 	AS:SkinFrame(CalendarCreateEventFrame)
 	CalendarCreateEventFrame:Point("TOPLEFT", CalendarFrame, "TOPRIGHT", 3, -24)
-	CalendarCreateEventTitleFrame:StripTextures()
+	AS:StripTextures(CalendarCreateEventTitleFrame)
 
 	AS:SkinButton(CalendarCreateEventCreateButton, true)
 	AS:SkinButton(CalendarCreateEventMassInviteButton, true)
@@ -81,7 +76,7 @@ function AS:Blizzard_Calendar(event, addon)
 	AS:SkinFrame(CalendarCreateEventDescriptionContainer)
 
 	AS:SkinCloseButton(CalendarCreateEventCloseButton)
-	CalendarCreateEventCloseButton:StripTextures()
+	AS:StripTextures(CalendarCreateEventCloseButton)
 
 	AS:SkinCheckBox(CalendarCreateEventLockEventCheck)
 
@@ -89,40 +84,46 @@ function AS:Blizzard_Calendar(event, addon)
 	AS:SkinDropDownBox(CalendarCreateEventMinuteDropDown, 68)
 	AS:SkinDropDownBox(CalendarCreateEventAMPMDropDown, 68)
 	AS:SkinDropDownBox(CalendarCreateEventRepeatOptionDropDown, 120)
-	CalendarCreateEventIcon:SetTexCoord(.08, .92, .08, .92)
+	AS:SkinTexture(CalendarCreateEventIcon)
 	CalendarCreateEventIcon.SetTexCoord = AS.Noop
 
-	CalendarCreateEventInviteListSection:StripTextures()
+	AS:StripTextures(CalendarCreateEventInviteListSection)
 
 	CalendarClassButtonContainer:HookScript("OnShow", function()
 		for i, class in ipairs(CLASS_SORT_ORDER) do
 			local button = _G["CalendarClassButton"..i]
-			button:StripTextures()
-			button:CreateBackdrop("Default")
-
 			local tcoords = CLASS_ICON_TCOORDS[class]
 			local buttonIcon = button:GetNormalTexture()
 			buttonIcon:SetTexture("Interface\\Glues\\CharacterCreate\\UI-CharacterCreate-Classes")
 			buttonIcon:SetTexCoord(tcoords[1] + 0.015, tcoords[2] - 0.02, tcoords[3] + 0.018, tcoords[4] - 0.02)
+			buttonIcon:SetInside()
 		end
-
-		CalendarClassButton1:Point("TOPLEFT", CalendarClassButtonContainer, "TOPLEFT", 5, 0)
-
-		CalendarClassTotalsButton:StripTextures()
-		CalendarClassTotalsButton:CreateBackdrop("Default")
 	end)
 
+	CalendarClassButton1:Point("TOPLEFT", CalendarClassButtonContainer, "TOPLEFT", 4, 0)
+
+	for i = 1, 11 do
+		local Button = _G["CalendarClassButton"..i]
+		AS:StripTextures(Button)
+		AS:SkinButton(Button)
+		Button:Size(24)
+	end
+
+	AS:StripTextures(CalendarClassTotalsButton)
+	AS:SkinButton(CalendarClassTotalsButton)
+	CalendarClassTotalsButton:SetWidth(24)
+
 	AS:SkinFrame(CalendarTexturePickerFrame)
-	CalendarTexturePickerTitleFrame:StripTextures()
+	AS:StripTextures(CalendarTexturePickerTitleFrame)
 
 	AS:SkinScrollBar(CalendarTexturePickerScrollBar)
-	AS:SkinButton(CalendarTexturePickerAcceptButton, true)
-	AS:SkinButton(CalendarTexturePickerCancelButton, true)
-	AS:SkinButton(CalendarCreateEventInviteButton, true)
-	AS:SkinButton(CalendarCreateEventRaidInviteButton, true)
+	AS:SkinButton(CalendarTexturePickerAcceptButton)
+	AS:SkinButton(CalendarTexturePickerCancelButton)
+	AS:SkinButton(CalendarCreateEventInviteButton)
+	AS:SkinButton(CalendarCreateEventRaidInviteButton)
 
 	AS:SkinFrame(CalendarMassInviteFrame)
-	CalendarMassInviteTitleFrame:StripTextures()
+	AS:StripTextures(CalendarMassInviteTitleFrame)
 
 	AS:SkinCloseButton(CalendarMassInviteCloseButton)
 	AS:SkinButton(CalendarMassInviteGuildAcceptButton)
@@ -133,45 +134,38 @@ function AS:Blizzard_Calendar(event, addon)
 
 	AS:SkinFrame(CalendarViewRaidFrame)
 	CalendarViewRaidFrame:Point("TOPLEFT", CalendarFrame, "TOPRIGHT", 3, -24)
-	CalendarViewRaidTitleFrame:StripTextures()
+	AS:StripTextures(CalendarViewRaidTitleFrame)
 	AS:SkinCloseButton(CalendarViewRaidCloseButton)
-	CalendarViewRaidCloseButton:StripTextures()
+	AS:StripTextures(CalendarViewRaidCloseButton)
 
 	AS:SkinFrame(CalendarViewHolidayFrame)
 	CalendarViewHolidayFrame:Point("TOPLEFT", CalendarFrame, "TOPRIGHT", 3, -24)
-	CalendarViewHolidayTitleFrame:StripTextures()
+	AS:StripTextures(CalendarViewHolidayTitleFrame)
 	AS:SkinCloseButton(CalendarViewHolidayCloseButton)
-	CalendarViewHolidayCloseButton:StripTextures()
+	AS:StripTextures(CalendarViewHolidayCloseButton)
 	CalendarViewHolidayInfoTexture:SetAllPoints()
 
 	AS:SkinFrame(CalendarViewEventFrame)
 	CalendarViewEventFrame:Point("TOPLEFT", CalendarFrame, "TOPRIGHT", 3, -24)
-	CalendarViewEventTitleFrame:StripTextures()
+	AS:StripTextures(CalendarViewEventTitleFrame)
 	AS:SkinFrame(CalendarViewEventDescriptionContainer)
 	AS:SkinFrame(CalendarViewEventInviteList)
-	CalendarViewEventInviteListSection:StripTextures()
+	AS:StripTextures(CalendarViewEventInviteListSection)
 	AS:SkinCloseButton(CalendarViewEventCloseButton)
-	CalendarViewEventCloseButton:StripTextures()
+	AS:StripTextures(CalendarViewEventCloseButton)
 
 	AS:SkinScrollBar(CalendarViewEventInviteListScrollFrameScrollBar)
-
-	local buttons = {
-		"CalendarViewEventAcceptButton",
-		"CalendarViewEventTentativeButton",
-		"CalendarViewEventRemoveButton",
-		"CalendarViewEventDeclineButton",
-	}
-
-	for _, button in pairs(buttons) do
-		_G[button]:SkinButton()
-	end		
+	AS:SkinButton(CalendarViewEventAcceptButton)
+	AS:SkinButton(CalendarViewEventTentativeButton)
+	AS:SkinButton(CalendarViewEventRemoveButton)
+	AS:SkinButton(CalendarViewEventDeclineButton)
 
 	AS:SkinFrame(CalendarEventPickerFrame)
-	CalendarEventPickerTitleFrame:StripTextures()
+	AS:StripTextures(CalendarEventPickerTitleFrame)
 
 	AS:SkinScrollBar(CalendarEventPickerScrollBar)
 
-	CalendarEventPickerCloseButton:StripTextures()
+	AS:StripTextures(CalendarEventPickerCloseButton)
 	AS:SkinCloseButton(CalendarEventPickerCloseButton, true)
 	AS:SkinScrollBar(CalendarCreateEventDescriptionScrollFrameScrollBar)
 end

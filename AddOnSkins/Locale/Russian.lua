@@ -8,7 +8,7 @@ function AS:UpdateLocale_ruRU()
 	ASL.EmbedSystem.ToggleLeftChat = 'Показать/скрыть левую панель чата'
 	ASL.EmbedSystem.ToggleRightChat = 'Показать/ скрыть правую панель чата'
 	ASL.EmbedSystem.ToggleEmbed = 'Показать/скрыть встроенный аддон'
-	ASL.EmbedSystem.ToggleOptions = 'Toggle Extra Skins/Options'
+	ASL.EmbedSystem.ToggleOptions = 'Toggle Options'
 
 	ASL.OptionsPanel.SkinDesc = 'Включить/выключить этот скин.'
 	ASL.OptionsPanel.EmbedDesc = 'Enable/Disable this embed.'
@@ -67,4 +67,5 @@ function AS:UpdateLocale_ruRU()
 	ASL["Embed OoC Delay"] = "Embed OoC Delay"
 	ASL['Reset Settings'] = 'Reset Settings'
 	ASL["WeakAura Cooldowns"] = "WeakAura Cooldowns"
+	ASL["Embed into Right Chat Panel"] = "Embed into Right Chat Panel"
 end

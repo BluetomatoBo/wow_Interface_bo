@@ -2,6 +2,10 @@ local AS, ASL = unpack(AddOnSkins)
 
 local format, gsub, pairs, ipairs, select, tinsert, tonumber = format, gsub, pairs, ipairs, select, tinsert, tonumber
 
+AS.ChatFrameHider = CreateFrame('Frame')
+AS.ChatFrameHider:Hide()
+local EmbedSystem_MainWindow, EmbedSystem_LeftWindow, EmbedSystem_RightWindow
+
 function AS:GetChatWindowInfo()
 	local ChatTabInfo = {['NONE'] = 'NONE'}
 	for i = 1, NUM_CHAT_WINDOWS do
@@ -12,10 +16,44 @@ function AS:GetChatWindowInfo()
 	return ChatTabInfo
 end
 
+function AS:ToggleChatFrame(Hide)
+	if AS:CheckOption('HideChatFrame') == 'NONE' then return end
+	if Hide then
+		_G[AS:CheckOption('HideChatFrame')]:SetParent(AS.ChatFrameHider)
+	else
+		_G[AS:CheckOption('HideChatFrame')]:SetParent(UIParent)
+	end
+end
+
 function AS:EmbedInit()
 	if AS:CheckOption('EmbedSystem') or AS:CheckOption('EmbedSystemDual') then
-		AS:CreateEmbedSystem()
-		AS:Embed_Check(true)
+		if not AS.EmbedSystemCreated then
+			EmbedSystem_MainWindow = CreateFrame('Frame', 'EmbedSystem_MainWindow', UIParent)
+			EmbedSystem_LeftWindow = CreateFrame('Frame', 'EmbedSystem_LeftWindow', EmbedSystem_MainWindow)
+			EmbedSystem_RightWindow = CreateFrame('Frame', 'EmbedSystem_RightWindow', EmbedSystem_MainWindow)
+
+			AS.EmbedSystemCreated = true
+
+			AS:EmbedSystemHooks()
+			AS:Embed_Check(true)
+
+			EmbedSystem_MainWindow:HookScript('OnShow', AS.Embed_Show)
+			EmbedSystem_MainWindow:HookScript('OnHide', AS.Embed_Hide)
+			AS:RegisterEvent('PLAYER_REGEN_DISABLED', 'EmbedEnterCombat')
+			AS:RegisterEvent('PLAYER_REGEN_ENABLED', 'EmbedExitCombat')
+
+			UIParent:HookScript('OnShow', function()
+				if not UnitAffectingCombat('player') then
+					if AS:CheckOption('EmbedIsHidden') or AS:CheckOption('EmbedOoC') then
+						AS:Embed_Hide()
+					else
+						AS:Embed_Show()
+					end
+				end
+			end)
+
+			UIParent:GetScript('OnShow')(UIParent)
+		end
 	end
 end
 
@@ -30,6 +68,7 @@ function AS:Embed_Show()
 		if _G[EmbedSystem_LeftWindow.FrameName] then _G[EmbedSystem_LeftWindow.FrameName]:Show() end
 		if _G[EmbedSystem_RightWindow.FrameName] then _G[EmbedSystem_RightWindow.FrameName]:Show() end
 	end
+	AS:ToggleChatFrame(true)
 end
 
 function AS:Embed_Hide()
@@ -43,6 +82,7 @@ function AS:Embed_Hide()
 		if _G[EmbedSystem_LeftWindow.FrameName] then _G[EmbedSystem_LeftWindow.FrameName]:Hide() end
 		if _G[EmbedSystem_RightWindow.FrameName] then _G[EmbedSystem_RightWindow.FrameName]:Hide() end
 	end
+	AS:ToggleChatFrame(false)
 end
 
 function AS:CheckEmbed(AddOn)
@@ -57,7 +97,7 @@ end
 function AS:Embed_Check(Message)
 	if not (AS:CheckOption('EmbedSystem') or AS:CheckOption('EmbedSystemDual')) then return end
 	if not AS.EmbedSystemCreated then
-		AS:CreateEmbedSystem()
+		AS:EmbedInit()
 		Message = true
 	end
 	AS:Embed_Toggle(Message)
@@ -132,14 +172,13 @@ if AS:CheckAddOn('Recount') then
 		Recount_MainWindow:SetPoint('TOPLEFT', EmbedParent, 'TOPLEFT', 0, 6)
 		Recount_MainWindow:SetPoint('BOTTOMRIGHT', EmbedParent, 'BOTTOMRIGHT', 0, 0)
 
-		if AS:CheckOption('RecountSkin') then
-			local Backdrop = Recount_MainWindow.backdrop or Recount_MainWindow.Backdrop
-			if Backdrop then
-				Backdrop:SetTemplate(AS:CheckOption('TransparentEmbed') and 'Transparent' or 'Default')
+		if AS:CheckOption('Recount') then
+			if Recount_MainWindow.Backdrop then
+				Recount_MainWindow.Backdrop:SetTemplate(AS:CheckOption('TransparentEmbed') and 'Transparent' or 'Default')
 				if AS:CheckOption('RecountBackdrop') then
-					Backdrop:Show()
+					Recount_MainWindow.Backdrop:Show()
 				else
-					Backdrop:Hide()
+					Recount_MainWindow.Backdrop:Hide()
 				end
 			end
 		end
@@ -197,7 +236,7 @@ if AS:CheckAddOn('TinyDPS') then
 		if AS:CheckOption('EmbedSystemDual') then EmbedParent = AS:CheckOption('EmbedRight') == 'TinyDPS' and EmbedSystem_RightWindow or EmbedSystem_LeftWindow end
 		EmbedParent.FrameName = "tdpsFrame"
 
-		if AS:CheckOption('TinyDPSSkin') then
+		if AS:CheckOption('TinyDPS') then
 			AS:SkinFrame(tdpsFrame, AS:CheckOption('TransparentEmbed') and 'Transparent' or 'Default')
 		end
 
@@ -224,9 +263,8 @@ if AS:CheckAddOn('alDamageMeter') then
 
 		dmconf.barheight = floor((EmbedParent:GetHeight() / dmconf.maxbars) - dmconf.spacing)
 		dmconf.width = EmbedParent:GetWidth()
-		if AS:CheckOption('TinyDPSSkin') then
-			local Backdrop = alDamageMeterFrame.backdrop or alDamageMeterFrame.Backdrop
-			Backdrop:SetTemplate(AS:CheckOption('TransparentEmbed') and 'Transparent' or 'Default')
+		if AS:CheckOption('TinyDPS') then
+			alDamageMeterFrame.Backdrop:SetTemplate(AS:CheckOption('TransparentEmbed') and 'Transparent' or 'Default')
 			alDamageMeterFrame.bg:Kill()
 		end
 		alDamageMeterFrame:ClearAllPoints()
@@ -258,7 +296,7 @@ if AS:CheckAddOn('Skada') then
 			local barmod = Skada.displays['bar']
 			local offsety
 			if window.db.reversegrowth then
-				offsety = 17 - (window.db.enabletitle and window.db.title.height or 0)
+				offsety = 2
 			else
 				offsety = 2 + (window.db.enabletitle and window.db.title.height or 0)
 			end
@@ -275,10 +313,13 @@ if AS:CheckAddOn('Skada') then
 			window.bargroup:SetParent(relativeFrame)
 			window.bargroup:SetFrameStrata('LOW')
 			window.bargroup:SetBackdrop(nil)
-			local Backdrop = window.bargroup.backdrop or window.bargroup.Backdrop
-			if Backdrop then
-				Backdrop:SetTemplate(AS:CheckOption('TransparentEmbed') and "Transparent" or 'Default')
-				if not AS:CheckOption('SkadaBackdrop') then Backdrop:Hide() else Backdrop:Show() end
+			if window.bargroup.Backdrop then
+				window.bargroup.Backdrop:SetTemplate(AS:CheckOption('TransparentEmbed') and "Transparent" or 'Default')
+				if AS:CheckOption('SkadaBackdrop') then
+					window.bargroup.Backdrop:Show()
+				else
+					window.bargroup.Backdrop:Hide()
+				end
 			end
 			barmod.ApplySettings(barmod, window)
 		end
@@ -299,9 +340,6 @@ function AS:EmbedEnterCombat(event)
 	EmbedOoCCombatStart = true
 	if AS:CheckOption('EmbedOoC') then
 		EmbedSystem_MainWindow:Show()
-		if AS:CheckOption('HideChatFrame') ~= 'NONE' then
-			_G[AS:CheckOption('HideChatFrame')]:SetAlpha(0)
-		end
 	end
 end
 
@@ -311,9 +349,6 @@ function AS:EmbedExitCombat(event)
 		AS:Delay(AS:CheckOption('EmbedOoCDelay'), function()
 			if not EmbedOoCCombatStart then
 				EmbedSystem_MainWindow:Hide()
-				if AS:CheckOption('HideChatFrame') ~= 'NONE' then
-					_G[AS:CheckOption('HideChatFrame')]:SetAlpha(1)
-				end
 			end
 		end)
 	end

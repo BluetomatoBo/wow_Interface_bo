@@ -1,0 +1,45 @@
+tag 3.09
+a4a5e722019f63eade411cf37b3430cae738c0ef
+Azilroka <darktemplar9900@yahoo.com>
+2014-11-21 15:53:04 -0600
+
+
+
+--------------------
+
+Azilroka:
+	- 3.09
+	- Quest Frame Update
+	- Parchment Setup.
+	- Blizzard Border...
+	- Merchant Update.
+	- Merchant Frame
+	- Gossip / ExtraActionButton | DraenorAbilityButton
+	- Quest / Character Update.
+	- Glyph / Quest
+	- Some more API updating.
+	- Some Cleanup.
+	- Update EditBox API
+	- hide the old glyph icon
+	- Updates
+	- API Change - Careful may contain bugs.
+	- Character Frame / Talent Frame
+	- Since the AH Tabs doesn't get updated till the window is shown....
+	- ArkInventory #158
+	- Fix Recount's Scrollbar.
+	- Protect it.
+	- Bags, CharacterFrame, TalentFrame
+	- Bags
+	- CharacterFrame
+	- Remove AH Correction
+	- TalentFrame
+	- FU ParchmentRemover
+	- CoolLine
+	- Embed Fixes
+	- Same as previous
+	- HydraUI Support (Temporary API till I get a chance to make it exactly like everything in it)
+	- Some Changes
+	- Really.... ','
+	- EmbedRightChat
+	- SkinTooltip
+	- SkinTooltip, Skada Reverse, Archy, Blizzard Skins

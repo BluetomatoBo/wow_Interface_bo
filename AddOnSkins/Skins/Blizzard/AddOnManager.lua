@@ -1,9 +1,8 @@
-if not Tukui then return end
 local AS = unpack(AddOnSkins)
 
 function AS:Blizzard_AddonManager()
 	AS:SkinFrame(AddonList)
-	AddonListInset:StripTextures()	
+	AS:StripTextures(AddonListInset)	
 
 	AS:SkinButton(AddonListEnableAllButton, true)
 	AS:SkinButton(AddonListDisableAllButton, true)

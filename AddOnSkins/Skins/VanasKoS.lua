@@ -3,7 +3,7 @@
 if not AS:CheckAddOn('VanasKoS') then return end
 
 function AS:VanasKoS()
-	VanasKoS_WarnFrame:SetTemplate("Transparent")
+	AS:SetTemplate(VanasKoS_WarnFrame, 'Transparent')
 	VanasKoS_WarnFrame.SetBackdropBorderColor = AS.Noop
 
 	VanasKoS_FontKos:SetFont(AS.PixelFont, 8, "MONOCHROMEOUTLINE")
@@ -12,16 +12,15 @@ function AS:VanasKoS()
 	VanasKoS_FontNormal:SetFont(AS.PixelFont, 8, "MONOCHROMEOUTLINE")
 
 	AS:SkinBackdropFrame(VanasKoSFrame, 'Transparent', nil, true)
-	local Backdrop = VanasKoSFrame.backdrop or VanasKoSFrame.Backdrop
-	Backdrop:SetPoint("TOPLEFT", 16, -12)
-	Backdrop:SetPoint("BOTTOMRIGHT", -30, 75)
+	VanasKoSFrame.Backdrop:SetPoint("TOPLEFT", 16, -12)
+	VanasKoSFrame.Backdrop:SetPoint("BOTTOMRIGHT", -30, 75)
 
 	AS:SkinButton(VanasKoSListFrameChangeButton)
 	AS:SkinButton(VanasKoSListFrameRemoveButton)
 	AS:SkinButton(VanasKoSListFrameAddButton)
 	AS:SkinButton(VanasKoSListFrameConfigurationButton)
 
-	AS:SkinCloseButton(VanasKosFrameCloseButton, Backdrop)
+	AS:SkinCloseButton(VanasKosFrameCloseButton, VanasKoSFrame.Backdrop)
 	AS:SkinCheckBox(VanasKoSListFrameCheckBox)
 	AS:SkinNextPrevButton(VanasKoSListFrameToggleRightButton)
 	AS:SkinNextPrevButton(VanasKoSListFrameToggleLeftButton)
@@ -35,7 +34,7 @@ function AS:VanasKoS()
 	end
 
 	for i = 1, 5 do
-		_G["VanasKoSListFrameColButton"..i]:StripTextures()
+		AS:StripTextures(_G["VanasKoSListFrameColButton"..i])
 	end
 
 	VanasKoSPvPStatsCharacterDropDown:ClearAllPoints()
@@ -43,7 +42,7 @@ function AS:VanasKoS()
 	VanasKoSPvPStatsTimeSpanDropDown:ClearAllPoints()
 	VanasKoSPvPStatsTimeSpanDropDown:SetPoint("RIGHT", VanasKoSPvPStatsCharacterDropDown, "LEFT", 10, 0)
 	VanasKoSListFrameAddButton:ClearAllPoints()
-	VanasKoSListFrameAddButton:SetPoint("BOTTOMRIGHT", VanasKoSFrame.backdrop, "BOTTOMRIGHT", -4, 4)
+	VanasKoSListFrameAddButton:SetPoint("BOTTOMRIGHT", VanasKoSFrame.Backdrop, "BOTTOMRIGHT", -4, 4)
 	VanasKoSListFrameRemoveButton:ClearAllPoints()
 	VanasKoSListFrameRemoveButton:SetPoint("RIGHT", VanasKoSListFrameAddButton, "LEFT", -3, 0)
 	VanasKoSListFrameChangeButton:ClearAllPoints()

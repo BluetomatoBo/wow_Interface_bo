@@ -8,7 +8,7 @@ function AS:UpdateLocale_frFR()
 	ASL.EmbedSystem.ToggleLeftChat = 'Basculer le panneau de chat Gauche'
 	ASL.EmbedSystem.ToggleRightChat = 'Basculer le panneau de chat Droit'
 	ASL.EmbedSystem.ToggleEmbed = "Basculer l'AddOn Intégré"
-	ASL.EmbedSystem.ToggleOptions = 'Basculer les Options/Skins Additionnels'
+	ASL.EmbedSystem.ToggleOptions = 'Basculer les Options'
 
 	ASL.OptionsPanel.SkinDesc = 'Activer/Désactiver ce skin.'
 	ASL.OptionsPanel.EmbedDesc = 'Activer/Désactiver cette intégration.'
@@ -67,4 +67,5 @@ function AS:UpdateLocale_frFR()
 	ASL["Embed OoC Delay"] = "Délais Hors Combat de l'intégration"
 	ASL['Reset Settings'] = 'Reset Settings'
 	ASL["WeakAura Cooldowns"] = "WeakAura Cooldowns"
+	ASL["Embed into Right Chat Panel"] = "Embed into Right Chat Panel"
 end

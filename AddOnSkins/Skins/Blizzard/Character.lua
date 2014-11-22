@@ -1,12 +1,12 @@
-if not Tukui then return end
 local AS = unpack(AddOnSkins)
 
-local name = 'Blizzard_CharacterFrame'
 function AS:Blizzard_CharacterFrame()
 	AS:SkinCloseButton(CharacterFrameCloseButton)
 	AS:SkinFrame(CharacterFrame)
 	AS:SkinFrame(CharacterModelFrame)
+	CharacterModelFrame:SetBackdropColor(0,0,0,0)
 	CharacterFramePortrait:Kill()
+	PaperDollSidebarTabs:SetPoint('BOTTOMRIGHT', CharacterFrameInsetRight, 'TOPRIGHT', -29, -1)
 
 	local CharacterSlots = {
 		CharacterHeadSlot,
@@ -36,18 +36,19 @@ function AS:Blizzard_CharacterFrame()
 		Slot.icon:SetInside()
 		Slot.ignoreTexture:SetTexture([[Interface\PaperDollInfoFrame\UI-GearManager-LeaveItem-Transparent]])
 		Slot.IconBorder:SetTexture(nil)
-		hooksecurefunc(Slot.IconBorder, 'SetVertexColor', function(self, r, g, b, a)
+		Slot:SetFrameLevel(Slot:GetFrameLevel() + 2)
+		hooksecurefunc(Slot.IconBorder, 'SetVertexColor', function(self, r, g, b)
 			self:GetParent():SetBackdropBorderColor(r, g, b)
 		end)
 		hooksecurefunc(Slot.IconBorder, 'Hide', function(self)
 			self:GetParent():SetBackdropBorderColor(unpack(AS.BorderColor))
 		end)
-		Slot:StyleButton(false)
+		AS:StyleButton(Slot)
 	end
 
-	CharacterFrameInset:StripTextures()
-	CharacterFrameInsetRight:StripTextures()
-	CharacterStatsPane:StripTextures()
+	AS:StripTextures(CharacterFrameInset)
+	AS:StripTextures(CharacterFrameInsetRight)
+	AS:StripTextures(CharacterStatsPane)
 
 	CharacterFrameExpandButton:Size(CharacterFrameExpandButton:GetWidth() - 5, CharacterFrameExpandButton:GetHeight() - 5)
 	AS:SkinNextPrevButton(CharacterFrameExpandButton)
@@ -56,12 +57,12 @@ function AS:Blizzard_CharacterFrame()
 	EquipmentFlyoutFrameHighlight:Kill()
 
 	local function SkinItemFlyouts()
-		EquipmentFlyoutFrame.buttonFrame:StripTextures()
+		AS:StripTextures(EquipmentFlyoutFrame.buttonFrame)
 		for i = 1, #EquipmentFlyoutFrame.buttons do
 			local button = _G["EquipmentFlyoutFrameButton"..i]
 			if not button.isStyled then
-				button:SetTemplate()
-				button:StyleButton(false)
+				AS:SetTemplate(button)
+				AS:StyleButton(button)
 				button.IconBorder:SetTexture(nil)
 				button:HookScript('OnUpdate', function(self)
 					if self.IconBorder:IsShown() then
@@ -120,7 +121,7 @@ function AS:Blizzard_CharacterFrame()
 	AS:SkinScrollBar(GearManagerDialogPopupScrollFrameScrollBar)
 	AS:SkinFrame(GearManagerDialogPopup)
 	GearManagerDialogPopup:Point("LEFT", PaperDollFrame, "RIGHT", 4, 0)
-	GearManagerDialogPopupScrollFrame:StripTextures()
+	AS:StripTextures(GearManagerDialogPopupScrollFrame)
 	AS:SkinEditBox(GearManagerDialogPopupEditBox)
 	AS:SkinButton(GearManagerDialogPopupOkay)
 	AS:SkinButton(GearManagerDialogPopupCancel)
@@ -131,52 +132,49 @@ function AS:Blizzard_CharacterFrame()
 	PaperDollEquipmentManagerPaneEquipSet.ButtonBackground:SetTexture(nil)
 	PaperDollEquipmentManagerPane:HookScript("OnShow", function(self)
 		for x, object in pairs(PaperDollEquipmentManagerPane.buttons) do
-			AS:SkinFrame(object, nil, true)
+			AS:SetTemplate(object)
 			object.BgTop:SetTexture(nil)
 			object.HighlightBar:SetInside()
 			object.SelectedBar:SetInside()
 			object.BgBottom:SetTexture(nil)
 			object.BgMiddle:SetTexture(nil)
 
-			object.icon:SetTexCoord(.08, .92, .08, .92)
+			AS:SkinTexture(object.icon)
 		end
 	end)
 
 	for i = 1, NUM_GEARSET_ICONS_SHOWN do
-		AS:SkinIconButton(_G["GearManagerDialogPopupButton"..i], true)
+		local Button = _G["GearManagerDialogPopupButton"..i]
+		AS:SkinFrame(Button)
+		AS:SkinTexture(Button.icon)
+		Button.icon:SetInside()
 	end
 
 	for i = 1, 4 do
 		AS:SkinTab(_G["CharacterFrameTab"..i])
 	end
 
-	local function FixSidebarTabCoords()
-		for i = 1, #PAPERDOLL_SIDEBARS do
-			local tab = _G["PaperDollSidebarTab"..i]
-			if not tab.isSkinned then
-				tab.Highlight:SetTexture(1, 1, 1, 0.3)
-				tab.Highlight:Point("TOPLEFT", 3, -4)
-				tab.Highlight:Point("BOTTOMRIGHT", -1, 0)
-				tab.Hider:SetTexture(0.4,0.4,0.4,0.4)
-				tab.Hider:Point("TOPLEFT", 3, -4)
-				tab.Hider:Point("BOTTOMRIGHT", -1, 0)
-				tab.TabBg:Kill()
-				tab:CreateBackdrop("Default")
-				tab.Backdrop:Point("TOPLEFT", 1, -2)
-				tab.Backdrop:Point("BOTTOMRIGHT", 1, -2)
+	for i = 1, #PAPERDOLL_SIDEBARS do
+		local tab = _G["PaperDollSidebarTab"..i]
+		tab.Highlight:SetTexture(1, 1, 1, 0.3)
+		tab.Highlight:Point("TOPLEFT", 3, -4)
+		tab.Highlight:Point("BOTTOMRIGHT", -1, 0)
+		tab.Hider:SetTexture(0.4,0.4,0.4,0.4)
+		tab.Hider:Point("TOPLEFT", 3, -4)
+		tab.Hider:Point("BOTTOMRIGHT", -1, 0)
+		tab.TabBg:Kill()
+		AS:CreateBackdrop(tab, 'Default')
+		tab.Backdrop:Point("TOPLEFT", 1, -2)
+		tab.Backdrop:Point("BOTTOMRIGHT", 1, -2)
 
-				if i == 1 then
-					for i = 1, tab:GetNumRegions() do
-						local region = select(i, tab:GetRegions())
-						region:SetTexCoord(0.16, 0.86, 0.16, 0.86)
-						region.SetTexCoord = AS.Noop
-					end
-				end
-				tab.isSkinned = true
+		if i == 1 then
+			for i = 1, tab:GetNumRegions() do
+				local region = select(i, tab:GetRegions())
+				region:SetTexCoord(0.16, 0.86, 0.16, 0.86)
+				region.SetTexCoord = AS.Noop
 			end
 		end
 	end
-	hooksecurefunc("PaperDollFrame_UpdateSidebarTabs", FixSidebarTabCoords)
 
 	for i = 1, 7 do
 		local Frame = _G["CharacterStatsPaneCategory"..i]
@@ -188,13 +186,13 @@ function AS:Blizzard_CharacterFrame()
 	end
 
 	-- Pet
-	PetModelFrame:CreateBackdrop("Default")
+	AS:CreateBackdrop(PetModelFrame, 'Default')
 	AS:SkinNextPrevButton(PetModelFrameRotateRightButton)
 	AS:SkinNextPrevButton(PetModelFrameRotateLeftButton)
 	PetModelFrameRotateRightButton:ClearAllPoints()
 	PetModelFrameRotateRightButton:Point("LEFT", PetModelFrameRotateLeftButton, "RIGHT", 4, 0)
 
-	PetPaperDollPetInfo:CreateBackdrop("Default")
+	AS:CreateBackdrop(PetPaperDollPetInfo, 'Default')
 	PetPaperDollPetInfo:Size(24, 24)
 	PetPaperDollPetInfo:GetRegions():SetTexCoord(.12, .63, .15, .55)
 
@@ -239,7 +237,7 @@ function AS:Blizzard_CharacterFrame()
 		end
 	end
 
-	ReputationListScrollFrame:StripTextures()
+	AS:StripTextures(ReputationListScrollFrame)
 	AS:SkinFrame(ReputationDetailFrame)
 	ReputationDetailFrame:Point("TOPLEFT", ReputationFrame, "TOPRIGHT", 4, -28)
 	hooksecurefunc("ReputationFrame_Update", UpdateFaction)
@@ -252,26 +250,24 @@ function AS:Blizzard_CharacterFrame()
 
 	--Currency
 	AS:SkinFrame(TokenFramePopup)
-	TokenFramePopup:Point("TOPLEFT", TokenFrame, "TOPRIGHT", 4, -28)				
-	TokenFrame:HookScript("OnShow", function()
-		for i = 1, GetCurrencyListSize() do
-			local button = _G["TokenFrameContainerButton"..i]
-
-			if button then
-				button.highlight:Kill()
-				button.categoryMiddle:Kill()	
-				button.categoryLeft:Kill()	
-				button.categoryRight:Kill()
-				if button.icon then
-					button.icon:SetTexCoord(.08, .92, .08, .92)
-				end
-			end
-		end
-	end)
 	AS:SkinScrollBar(TokenFrameContainerScrollBar)
 	AS:SkinCloseButton(TokenFramePopupCloseButton)
 	AS:SkinCheckBox(TokenFramePopupInactiveCheckBox)
 	AS:SkinCheckBox(TokenFramePopupBackpackCheckBox)
+	TokenFramePopup:Point("TOPLEFT", TokenFrame, "TOPRIGHT", 4, -28)				
+	hooksecurefunc('TokenFrame_Update', function()
+		for i = 1, GetCurrencyListSize() do
+			local button = _G["TokenFrameContainerButton"..i]
+			if button and not button.isSkinned then
+				button.highlight:Kill()
+				button.categoryMiddle:Kill()
+				button.categoryLeft:Kill()
+				button.categoryRight:Kill()
+				AS:SkinTexture(button.icon)
+				button.isSkinned = true
+			end
+		end
+	end)
 end
 
-AS:RegisterSkin(name, AS.Blizzard_CharacterFrame)
+AS:RegisterSkin('Blizzard_CharacterFrame', AS.Blizzard_CharacterFrame)
