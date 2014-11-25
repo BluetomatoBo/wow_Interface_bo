@@ -397,7 +397,7 @@ function VUF:ConfigureFontString(frame,element,parent,name)
 		self.units[frame.unit][element].fontstrings=  { }
 	end
 
-	local fs = parent:CreateFontString(fsname, "THINOUTLINE")
+	local fs = parent:CreateFontString(fsname, "OVERLAY")
 	-- Dummy font
 	fs:FontTemplate(LSM:Fetch("font", "ElvUI Font"), 12, "THINOUTLINE")
 	self.units[frame.unit][element].fontstrings[name] = fs

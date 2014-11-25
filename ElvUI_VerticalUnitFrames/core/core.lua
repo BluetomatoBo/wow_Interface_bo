@@ -207,7 +207,7 @@ function VUF:UpdateAll()
 end
 
 function VUF:UNIT_HEALTH(event, unit)
-    local timeToDisplay = 3;
+    local timeToDisplay = 5;
 
     if (not self.db.hideOOC) then
         return;
