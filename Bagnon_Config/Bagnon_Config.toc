@@ -4,6 +4,7 @@
 ## Author: Tuller & Jaliborc (João Cardoso)
 ## Dependencies: Bagnon
 ## LoadOnDemand: 1
+## Version: 6.0.16
 
 localization\localization.xml
 widgets\widgets.xml

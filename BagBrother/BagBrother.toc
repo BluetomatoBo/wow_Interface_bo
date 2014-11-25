@@ -4,6 +4,7 @@
 ## Author: Jaliborc (João Cardoso)
 ## SavedVariables: BrotherBags
 ## OptionalDeps: WoWUnit
+## Version: 6.0.16
 
 Startup.lua
 Events.lua
