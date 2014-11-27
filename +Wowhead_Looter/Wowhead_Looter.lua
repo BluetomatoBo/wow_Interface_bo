@@ -3,8 +3,8 @@
 --     W o w h e a d   L o o t e r     --
 --                                     --
 --                                     --
---    Patch: 6.0.2                     --
---    Updated: October 14, 2014        --
+--    Patch: 6.0.3                     --
+--    Updated: November 25, 2014       --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
@@ -12,7 +12,7 @@
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
 local WL_VERSION = 60005;
-local WL_VERSION_PATCH = 0;
+local WL_VERSION_PATCH = 3;
 
 
 -- SavedVariables
@@ -61,6 +61,9 @@ local WL_LOOT_TOAST_BAGS = {
     [147598] = 104014, 	-- Pouch of Timeless Coins
 	[149222] = 105911,  -- Pouch of Enduring Wisdom
     [149223] = 105912,  -- Oversized Pouch of Enduring Wisdom
+    [171513] = 116414,  -- Pet Supplies
+    [175767] = 118697,  -- Big Bag of Pet Supplies
+    [178508] = 120321,  -- Mystery Bag
 };
 local WL_REP_MODS = {
 	[GetSpellInfo(61849)] = {nil, 0.1},
@@ -74,6 +77,9 @@ local WL_REP_MODS = {
 	[GetSpellInfo(95987)] = {nil, 0.1},
 	[GetSpellInfo(100951)] = {nil, 0.08},
 	[GetSpellInfo(161780)] = {GetFactionInfoByID(1359), 1.0},
+	[GetSpellInfo(150986)] = {nil, 0.1},
+	[GetSpellInfo(136583)] = {nil, 0.1},
+	[GetSpellInfo(46668)] = {nil, 0.1},
 };
 -- Map currency name to currency ID
 local WL_CURRENCIES = {};
@@ -163,18 +169,18 @@ local WL_AREAID_TO_DUNGEONID = {
         [887] = 462,
         [874] = 462,
         [764] = 301,
-        [995] = 788,
+        [995] = 789,
         [964] = 789,
         [781] = 301,
         [898] = 462,
         [875] = 462,
-        [984] = 788,
+        [984] = 789,
         [969] = 789,
         [768] = 301,
         [753] = 301,
         [769] = 301,
         [816] = 301,
-        [987] = 788,
+        [987] = 789,
         [877] = 462,
         [876] = 462,
     },
@@ -310,7 +316,7 @@ local wlCurrentMindControlTarget = nil;
 local wlTimers = {};
 local wlMsgCollected = "";
 local wlPlayerCurrencies = {};
-local wlLootedCurrencyBlacklist = {};
+local wlLootedCurrenciesBlacklist = {};
 local wlIsDrunk = false;
 local wlId = nil;
 local wlN = 0;
@@ -326,16 +332,15 @@ local spellCastID = nil;
 local wlTrackerClearedTime = 0;
 
 local isBetaClient = false;
-if (tonumber(select(4, GetBuildInfo())) >= 60000) then
+--[[if (tonumber(select(4, GetBuildInfo())) >= 60000) then
 	isBetaClient = true;
-end
+end]]
 
 -- Hooks
 local wlDefaultGetQuestReward;
 local wlDefaultChatFrame_DisplayTimePlayed;
 local wlDefaultReloadUI;
 local wlDefaultConsoleExec;
-local wlDefaultMapBarFrame_UpdateLayout;
 
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -369,10 +374,8 @@ function wlEvent_PLAYER_LOGIN(self)
 	wlHook();
 	wlClearTracker("quest", "rep", "spell");
 
-    local realmList = GetCVar("realmList");
-    if isBetaClient then
-        realmList = GetCVar("portal");
-    end
+    local realmList = GetCVar("portal");
+
 	wlRealmList[realmList or "nil"] = 1;
 
 	wlId = wlConcat(wlSelectOne(1, UnitName("player")), GetRealmName());
@@ -1290,8 +1293,8 @@ function wlEvent_QUEST_LOG_UPDATE(self)
             break;
         end
         title       = questLogTitle[1];
-        isHeader    = isBetaClient and questLogTitle[4] or questLogTitle[5];
-        questId     = isBetaClient and questLogTitle[8] or questLogTitle[9];
+        isHeader    = questLogTitle[4];
+        questId     = questLogTitle[8];
 		if not isHeader then
 			SelectQuestLogEntry(idx);
 		
@@ -1515,13 +1518,6 @@ function wlEvent_COMBAT_TEXT_UPDATE(self, messageType, param1, param2)
 		if IsSpellKnown(20599) then -- Diplomacy
 			repMod = repMod + 0.1;
         end
-        if not isBetaClient then
-            if IsSpellKnown(78634) then -- Guild lvl 4
-                repMod = repMod + 0.05;
-            elseif IsSpellKnown(78635) then -- Guild lvl 12
-                repMod = repMod + 0.1;
-            end
-        end
 		for buffName, factMod in pairs(WL_REP_MODS) do
 			if UnitBuff("player", buffName) then
 				if param1 == factMod[1] or factMod == nil then
@@ -1737,7 +1733,7 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlEvent_SHOW_LOOT_TOAST(self, typeIdentifier, itemLink, quantity, specID, sex, isPersonal)
+function wlEvent_SHOW_LOOT_TOAST(self, typeIdentifier, itemLink, quantity, specID, sex, isPersonal, lootSource)
 	if not typeIdentifier or (typeIdentifier ~= "item" and typeIdentifier ~= "money") then
         return;
     end
@@ -1881,7 +1877,7 @@ function wlEvent_LOOT_OPENED(self)
 		return;
 	end
 	
-	wipe(wlLootedCurrencyBlacklist);
+	wipe(wlLootedCurrenciesBlacklist);
 	
 	local now = wlGetTime();
 	local eventId = wlGetNextEventId();
@@ -2010,55 +2006,57 @@ function wlEvent_LOOT_OPENED(self)
 			
 		local slotType = GetLootSlotType(slot);
 		if slotType ~= LOOT_SLOT_NONE then
-			local itemId = nil;
+			local typeId = nil;
 			local currencyId = nil;
 			
 			if slotType == LOOT_SLOT_ITEM then 
-				itemId = wlParseItemLink(GetLootSlotLink(slot));
+				typeId = wlParseItemLink(GetLootSlotLink(slot));
 				-- for sourceIndex = 1, #lootSources, 2 do
 				--	 print(("%s looted %d of %s"):format(wlParseGUID(lootSources[sourceIndex]), lootSources[sourceIndex + 1], GetItemInfo(itemId)));
 				-- end
 			elseif slotType == LOOT_SLOT_MONEY then
-				itemId = "coin";
-			else -- Currency
-				itemId = "currency";
-				
+				typeId = "coin";
+			elseif slotType == LOOT_SLOT_CURRENCY then
 				local icon_file_name, currencyName, currencyQuantity, currencyRarity, currencyLocked = GetLootSlotInfo(slot);
 				currencyId = WL_CURRENCIES[currencyName:lower()];
+
+                typeId = "currency-" .. (currencyId or 0);
 				
-				wlLootedCurrencyBlacklist = {
+				tinsert(wlLootedCurrenciesBlacklist, {
 					["currencyId"] = currencyId,
 					["currencyQuantity"] = currencyQuantity,
-				};
-			end
-			
-			for sourceIndex = 1, #lootSources, 2 do
-				local qty = lootSources[sourceIndex + 1];
-				local aoeGUID = lootSources[sourceIndex];
-				if ((wlTracker.spell.action == "Killing" and targetGUID == aoeGUID) or wlTracker.spell.action ~= "Killing") then
-					if not targetLoots[itemId] then
-						targetLoots[itemId] = {};
-					end
-					targetLoots[itemId][1] = (targetLoots[itemId][1] or 0) + qty;
-					targetLoots[itemId][2] = (targetLoots[itemId][2] or 0) + wlSelectOne(3, GetLootSlotInfo(slot));
-					targetLoots[itemId][3] = (currencyId or 0);
-					if wlTracker.spell.kind == "object" then
-						local guidId, guidKind = wlParseGUID(aoeGUID);
-						if (guidKind == "object") then
-							objectId = guidId;
-						end
-					end
-				else
-					if not aoeNpcs[aoeGUID] then
-						aoeNpcs[aoeGUID] = {};
-					end
-					if not aoeNpcs[aoeGUID][itemId] then
-						aoeNpcs[aoeGUID][itemId] = {};
-					end
-					aoeNpcs[aoeGUID][itemId][1] = (aoeNpcs[aoeGUID][itemId][1] or 0) + qty;
-					aoeNpcs[aoeGUID][itemId][2] = (currencyId or 0);
-				end
-			end
+				});
+            end
+
+			if typeId ~= nil then
+                for sourceIndex = 1, #lootSources, 2 do
+                    local qty = lootSources[sourceIndex + 1];
+                    local aoeGUID = lootSources[sourceIndex];
+                    if ((wlTracker.spell.action == "Killing" and targetGUID == aoeGUID) or wlTracker.spell.action ~= "Killing") then
+                        if not targetLoots[typeId] then
+                            targetLoots[typeId] = {};
+                        end
+                        targetLoots[typeId][1] = (targetLoots[typeId][1] or 0) + qty;
+                        targetLoots[typeId][2] = (targetLoots[typeId][2] or 0) + wlSelectOne(3, GetLootSlotInfo(slot));
+                        targetLoots[typeId][3] = (currencyId or 0);
+                        if wlTracker.spell.kind == "object" then
+                            local guidId, guidKind = wlParseGUID(aoeGUID);
+                            if (guidKind == "object") then
+                                objectId = guidId;
+                            end
+                        end
+                    else
+                        if not aoeNpcs[aoeGUID] then
+                            aoeNpcs[aoeGUID] = {};
+                        end
+                        if not aoeNpcs[aoeGUID][typeId] then
+                            aoeNpcs[aoeGUID][typeId] = {};
+                        end
+                        aoeNpcs[aoeGUID][typeId][1] = (aoeNpcs[aoeGUID][typeId][1] or 0) + qty;
+                        aoeNpcs[aoeGUID][typeId][2] = (currencyId or 0);
+                    end
+                end
+            end
 		end
 	end
 	
@@ -2070,13 +2068,13 @@ function wlEvent_LOOT_OPENED(self)
 	local isAoeLoot = (next(aoeNpcs) ~= nil) and 1 or 0;
 	wlEvent[wlId][wlN][eventId].isAoeLoot = isAoeLoot;
 
-	for itemId, qtyInfo in pairs(targetLoots) do
+	for typeId, qtyInfo in pairs(targetLoots) do
 		local qty = qtyInfo[1] or qtyInfo[2];
 		local currencyId = qtyInfo[3];
 		if currencyId > 0 then
-			wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", i, "set", wlConcat(itemId, qty, currencyId));
+			wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", i, "set", wlConcat("currency", qty, currencyId));
 		else 
-			wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", i, "set", wlConcat(itemId, qty));
+			wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", i, "set", wlConcat(typeId, qty));
 		end
 		i = i + 1;
 	end
@@ -2097,7 +2095,10 @@ function wlEvent_LOOT_OPENED(self)
 				wlEvent_CHAT_MSG_ADDON(self, "WL_LOOT_COOLDOWN", guidMsg, "RAID", UnitName("player"));
 			end
 
-			local npcId = wlParseGUID(aoeGUID);
+			local unitId, unitKind = wlParseGUID(aoeGUID);
+            if (unitKind ~= "npc") then
+                unitId = nil;
+            end
 			local aoeEventId = wlGetNextEventId();
 			local aoeCounter = 1;
 			wlUpdateVariable(wlEvent, wlId, wlN, aoeEventId, "initArray", 0);
@@ -2106,13 +2107,13 @@ function wlEvent_LOOT_OPENED(self)
 			wlTableCopy(wlEvent[wlId][wlN][aoeEventId], wlTracker.spell);
 			wlEvent[wlId][wlN][aoeEventId].dd = instanceDiff;
 			wlEvent[wlId][wlN][aoeEventId].flags = flags;
-			wlEvent[wlId][wlN][aoeEventId].id = npcId;
+			wlEvent[wlId][wlN][aoeEventId].id = unitId;
 			-- Add Drops
-			for itemId, qty in pairs(dropInfo) do
+			for typeId, qty in pairs(dropInfo) do
 				if qty[2] > 0 then -- Currency 
-					wlUpdateVariable(wlEvent, wlId, wlN, aoeEventId, "drop", aoeCounter, "set", wlConcat(itemId, qty[1], qty[2]));
+					wlUpdateVariable(wlEvent, wlId, wlN, aoeEventId, "drop", aoeCounter, "set", wlConcat("currency", qty[1], qty[2]));
 				else -- Money or Item
-					wlUpdateVariable(wlEvent, wlId, wlN, aoeEventId, "drop", aoeCounter, "set", wlConcat(itemId, qty[1]));
+					wlUpdateVariable(wlEvent, wlId, wlN, aoeEventId, "drop", aoeCounter, "set", wlConcat(typeId, qty[1]));
 				end
 				aoeCounter = aoeCounter + 1;
 			end
@@ -2270,9 +2271,11 @@ function wlEvent_CURRENCY_DISPLAY_UPDATE(...)
 			if currencyId and currencyAmount then
 			
 				-- make sure there's no interference with looted currencies
-				if wlLootedCurrencyBlacklist.currencyId == currencyId and wlLootedCurrencyBlacklist.currencyQuantity == currencyAmount then
-					return;
-				end
+                for _, lootedCurrencyInfo in ipairs(wlLootedCurrenciesBlacklist) do
+                    if lootedCurrencyInfo.currencyId == currencyId and lootedCurrencyInfo.currencyQuantity == currencyAmount then
+                        return;
+                    end
+                end
 			
 				local isInstance, instanceType = IsInInstance();
 				if isInstance == 0 or (instanceType ~= "party" and instanceType ~= "raid") then
@@ -2317,17 +2320,6 @@ function wlEvent_CURRENCY_DISPLAY_UPDATE(...)
 				if buffName and currencyId == 392 then
 					return;
 				end
-			
-				-- check if the player has guild bonuses and remove them if necessary
-                -- guild leveling removed in WoD
-				local guildLevel = isBetaClient and 0 or UnitGetGuildLevel("player");
-				if currencyId == 395 and guildLevel >= 18 then -- Justice Points
-					currencyAmount = floor(currencyAmount / 1.1);
-				elseif currencyId == 392 and guildLevel >= 13 and guildLevel < 19 then -- Honor Points
-					currencyAmount = floor(currencyAmount / 1.05);
-				elseif currencyId == 392 and guildLevel >= 19 then -- Honor Points
-					currencyAmount = floor(currencyAmount / 1.1);
-                end
 
                 if currencyId == 396 then
                     local valorMod = 1;
@@ -3601,22 +3593,13 @@ end
 --------------------------
 --------------------------
 
---	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : reforgeId : upgradeId : (name)
-local WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)|h%[(.+)%]|h|r";
-if isBetaClient then
-    --	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : upgradeId : bonusGroup : numBonus : ...bonusIds... : (name)
-    WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)([^|]*)|h%[(.+)%]|h|r";
-end
+--	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : (upgradeId) : (bonusContext) : (numBonus) (: ...bonusIds...) : (name)
+local WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)([^|]*)|h%[(.+)%]|h|r";
 
 function wlParseItemLink(link)
 	if link then
 
-		local found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, reforgeId, upgradeId, name, bonusGroup, numBonus, bonuses;
-        if isBetaClient then
-            found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, upgradeId, bonusGroup, numBonus, bonuses, name = link:find(WL_ITEMLINK);
-        else
-            found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, reforgeId, upgradeId, name = link:find(WL_ITEMLINK);
-        end
+		local found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, upgradeId, bonusContext, numBonus, bonuses, name = link:find(WL_ITEMLINK);
 
 		if found then
 			id, subId, guid = tonumber(id), tonumber(subId), tonumber(guid);
@@ -3629,23 +3612,21 @@ function wlParseItemLink(link)
 				end
             end
 
-            if isBetaClient then
-                bonusGroup, numBonus = tonumber(bonusGroup), tonumber(numBonus);
-                if bonusGroup and bonusGroup ~= 0 then
-                    wlUpdateVariable(wlItemBonuses, id, bonusGroup, "add", 1);
-                end
+            bonusContext, numBonus = tonumber(bonusGroup), tonumber(numBonus);
+            if bonusContext and bonusContext ~= 0 then
+                wlUpdateVariable(wlItemBonuses, id, bonusContext, "add", 1);
+            end
 
-                if numBonus and numBonus > 0 and bonuses then
-                    local p1, p2 = bonuses:find(":");
-                    if p1 and p1 == 1 then
-                        bonuses = { strsplit(":", bonuses:sub(2)) };
-                        local allBonuses = {};
-                        for index = 1, math.min(16, numBonus), 1 do
-                            table.insert(allBonuses, bonuses[index]);
-                        end
-                        if next(allBonuses) ~= nil then
-                            wlUpdateVariable(wlItemBonuses, id, "bonuses", table.concat(allBonuses, ":"), "add", 1);
-                        end
+            if numBonus and numBonus > 0 and bonuses then
+                local p1, p2 = bonuses:find(":");
+                if p1 and p1 == 1 then
+                    bonuses = { strsplit(":", bonuses:sub(2)) };
+                    local allBonuses = {};
+                    for index = 1, math.min(16, numBonus), 1 do
+                        table.insert(allBonuses, bonuses[index]);
+                    end
+                    if next(allBonuses) ~= nil then
+                        wlUpdateVariable(wlItemBonuses, id, "bonuses", table.concat(allBonuses, ":"), "add", 1);
                     end
                 end
             end
@@ -3712,7 +3693,7 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 local GUID_TOKENS = {
-    ["Creature|Pet"] = {
+    ["Creature|Pet|Vehicle"] = {
         "(%d+)-(%d+)-(%d+)-(%d+)-(%d+)-(%x+)",
         5,
         "npc",
@@ -3736,29 +3717,15 @@ function wlParseGUID(guid)
 
 	local id, kind;
 
-    if isBetaClient then
-        for token, tokenData in pairs(GUID_TOKENS) do
-            for subToken in token:gmatch("[^|]+") do
-                if guid:match("^" .. subToken) then
-                    local matches = { guid:match(tokenData[1]) };
-                    if matches and next(matches) ~= nil then
-                        id, kind = matches[tokenData[2]], tokenData[3];
-                        break;
-                    end
+    for token, tokenData in pairs(GUID_TOKENS) do
+        for subToken in token:gmatch("[^|]+") do
+            if guid:match("^" .. subToken) then
+                local matches = { guid:match(tokenData[1]) };
+                if matches and next(matches) ~= nil then
+                    id, kind = matches[tokenData[2]], tokenData[3];
+                    break;
                 end
             end
-        end
-    else
-        if guid:match("^0x4") then
-            if guid == UnitGUID("npc") then
-                id, kind = wlParseItemLink(wlSelectOne(2, GetItemInfo(UnitName("npc")))), "item";
-            else
-                return nil, "item";
-            end
-        elseif guid:match("^0xF.1") then
-            id, kind = tonumber(guid:sub(6, 10), 16), "object";
-        elseif guid:match("^0xF.[35]") then
-            id, kind = tonumber(guid:sub(6, 10), 16), "npc";
         end
     end
 
@@ -4232,13 +4199,6 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlMapBarFrame_UpdateLayout()
-    wlDefaultMapBarFrame_UpdateLayout(MapBarFrame);
-    wlLocMapFrame:SetFrameLevel(MapBarFrame:GetFrameLevel() + 1);
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
 function wlHook()
 	wlDefaultChatFrame_DisplayTimePlayed = ChatFrame_DisplayTimePlayed;
 	ChatFrame_DisplayTimePlayed = wlChatFrame_DisplayTimePlayed;
@@ -4251,9 +4211,6 @@ function wlHook()
 	
 	wlDefaultConsoleExec = ConsoleExec;
 	ConsoleExec = wlConsoleExec;
-
-    wlDefaultMapBarFrame_UpdateLayout = MapBarFrame_UpdateLayout;
-    MapBarFrame_UpdateLayout = wlMapBarFrame_UpdateLayout;
 	
 	hooksecurefunc("UseItemByName", function(name, target)
 		if not target then
@@ -4277,7 +4234,6 @@ function wlUnhook()
 	GetQuestReward = wlDefaultGetQuestReward;
 	ReloadUI = wlDefaultReloadUI;
 	ConsoleExec = wlDefaultConsoleExec;
-    MapBarFrame_UpdateLayout = wlDefaultMapBarFrame_UpdateLayout;
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
