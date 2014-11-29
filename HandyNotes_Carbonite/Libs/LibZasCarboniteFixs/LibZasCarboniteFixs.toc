@@ -1,0 +1,18 @@
+## Interface: 40300
+## Title: LibZasCarboniteFixs (|cff3366ffZas|r|cff00d7e4ur|r|cff70ff6dus|r)
+## Version: r0
+## Author: Zasurus
+## Notes: This library is to control the displaying of messages to the user and also the control of debugging messages.
+## OptionalDeps: 
+## X-Curse-Packaged-Version: r0
+## X-Curse-Project-Name: Library: Zasurus' Carbonite fixes
+## X-Curse-Project-ID: libzascarbonitefixs
+## X-Curse-Repository-ID: wow/libzascarbonitefixs/mainline
+
+## X-Embeds: LibStub
+
+# Library files
+Libs\LibStub\LibStub.lua
+
+# Core files
+LibZasCarboniteFixs.lua

@@ -1,0 +1,19 @@
+## Interface: 40200
+## Title: LibZasMsgCtr (|cff3366ffZas|r|cff00d7e4ur|r|cff70ff6dus|r)
+## Version: r38
+## Author: Zasurus
+## Notes: This library is to control the displaying of messages to the user and also the control of debugging messages.
+## OptionalDeps: LibZasUsefulFuncs
+## X-Curse-Packaged-Version: r38
+## X-Curse-Project-Name: LibZasMsgCtr
+## X-Curse-Project-ID: libzasmsgctr
+## X-Curse-Repository-ID: wow/libzasmsgctr/mainline
+
+## X-Embeds: LibStub, LibZasUsefulFuncs
+
+# Library files
+Libs\LibStub\LibStub.lua
+Libs\LibZasUsefulFuncs\LibZasUsefulFuncs.xml
+
+# Core files
+LibZasMsgCtr.lua

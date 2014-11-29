@@ -1,0 +1,9 @@
+2012-01-23  Zasurus  <Zasurus>
+
+[651e0c89f9e1] [V1.1.0 BETA]
+* HandyNotes_SpecialNPCsEtc.lua, HandyNotes_SpecialNPCsEtc.toc:
+
+- Updated TOC (Forgot LOL)
+- Set Debug Msg to debug mode so it didn't show.
+
+

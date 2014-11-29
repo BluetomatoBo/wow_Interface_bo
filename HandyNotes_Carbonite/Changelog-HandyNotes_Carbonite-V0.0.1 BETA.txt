@@ -1,0 +1,9 @@
+2012-01-29  Zasurus  <Zasurus>
+
+[4649cb43bbb1] [V0.0.1 BETA]
+* HandyNotes_OrigFix.lua:
+
+- Removed the original version of HandyNotes' main file that I used to test the
+  features before pulling them into this addon.
+
+

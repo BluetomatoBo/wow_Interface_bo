@@ -1,0 +1,25 @@
+## Interface: 40300
+## Title: HandyNotes_Carbonite (|cff3366ffZas|r|cff00d7e4ur|r|cff70ff6dus|r)
+## Version: V0.0.1 BETA
+## Author: Zasurus
+## Notes: 
+## SavedVariables: HandyNotes_Carbonite_Options
+## SavedVariablesPerCharacter: HandyNotes_Carbonite_DebugLog, HandyNotes_Carbonite_StoreDebugMsgs
+## RequiredDeps: HandyNotes, Carbonite
+## OptionalDeps: LibStub, LibZasMsgCtr, LibZasUsefulFuncs, LibZasCarboniteFixs, LibBabble-SubZone-3.0
+## X-Curse-Packaged-Version: V0.0.1 BETA
+## X-Curse-Project-Name: HandyNotes_Carbonite
+## X-Curse-Project-ID: handy-notes_carbonite
+## X-Curse-Repository-ID: wow/handy-notes_carbonite/mainline
+
+## X-Embeds: LibStub, LibZasMsgCtr, LibZasUsefulFuncs, LibZasCarboniteFixs, LibBabble-SubZone-3.0
+
+# Library files
+Libs\LibStub\LibStub.lua
+Libs\LibZasUsefulFuncs\LibZasUsefulFuncs.lua
+Libs\LibZasMsgCtr\LibZasMsgCtr.xml
+Libs\LibZasCarboniteFixs\Load.xml
+Libs\LibBabble-SubZone-3.0\lib.xml
+
+# Core files
+HandyNotes_Carbonite.lua

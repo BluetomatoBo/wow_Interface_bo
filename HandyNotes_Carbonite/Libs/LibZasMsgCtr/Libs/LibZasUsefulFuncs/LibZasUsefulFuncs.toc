@@ -1,0 +1,17 @@
+## Interface: 40200
+## Title: LibZasUsefulFuncs (|cff3366ffZas|r|cff00d7e4ur|r|cff70ff6dus|r)
+## Version: V0.1-9 BETA
+## Author: Zasurus
+## Notes: This library is a few useful functions that most AddOns could use at one point or another.
+## X-Curse-Packaged-Version: V0.1-9 BETA
+## X-Curse-Project-Name: LibZasUsefulFuncs
+## X-Curse-Project-ID: libzasusefulfuncs
+## X-Curse-Repository-ID: wow/libzasusefulfuncs/mainline
+
+## X-Embeds: LibStub
+
+# Library files
+Libs\LibStub\LibStub.lua
+
+# Core files
+LibZasUsefulFuncs.lua
