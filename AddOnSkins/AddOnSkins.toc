@@ -1,12 +1,12 @@
 ## Interface: 60000
 ## Title: |cff1784d1AddOnSkins|r
-## Version: 3.09
+## Version: 3.10
 ## Author: Azilroka, Sortokk
 ## SavedVariablesPerCharacter: AddOnSkinsOptions
 ## OptionalDep: DSM, ElvUI, Tukui, HydraUI
 ## X-Tukui-ProjectID: 128
 ## X-Tukui-ProjectFolders: AddOnSkins
-## X-Curse-Packaged-Version: 3.09
+## X-Curse-Packaged-Version: 3.10
 ## X-Curse-Project-Name: AddOnSkins
 ## X-Curse-Project-ID: elvui_addonskins
 ## X-Curse-Repository-ID: wow/elvui_addonskins/mainline

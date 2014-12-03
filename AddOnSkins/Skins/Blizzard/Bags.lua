@@ -10,15 +10,22 @@ function AS:Blizzard_Bags()
 		for j = 1, 36 do
 			local ItemButton = _G["ContainerFrame"..i.."Item"..j]
 --			AS:SkinTexture(_G["ContainerFrame"..i.."Item"..j..'IconQuestTexture'])
-			AS:SkinFrame(ItemButton)
+			AS:SetTemplate(ItemButton, AS:CheckOption('SkinTemplate'))
 			AS:SkinTexture(ItemButton.icon)
+			ItemButton:SetNormalTexture('')
+			ItemButton:SetPushedTexture('')
 			ItemButton.icon:SetInside()
 
+			ItemButton.IconBorder:SetTexture('')
 			ItemButton.NewItemTexture:SetAtlas(nil)
 			ItemButton.NewItemTexture.SetAtlas = AS.Noop
 
+			_G["ContainerFrame"..i.."Item"..j..'IconQuestTexture']:SetAlpha(0)
+
 			-- This shit is hax.
 			AS:CreateBackdrop(ItemButton)
+			AS:CreateShadow(ItemButton.Backdrop)
+			ItemButton.Backdrop:Hide()
 			hooksecurefunc(ItemButton.NewItemTexture, 'Show', function()
 				ItemButton.Backdrop:Show()
 			end)
@@ -30,23 +37,49 @@ function AS:Blizzard_Bags()
 			ItemButton.Backdrop:SetFrameLevel(ItemButton:GetFrameLevel() + 4)
 			ItemButton.Backdrop:SetBackdropColor(0, 0, 0, 0)
 			ItemButton.Backdrop:SetScript('OnUpdate', function(self)
-				local r, g, b = ItemButton.IconBorder:GetVertexColor()
-				local a = ItemButton.NewItemTexture:GetAlpha()
+				local isQuestItem, questId, isActive = GetContainerItemQuestInfo(ItemButton:GetParent():GetID(), ItemButton:GetID());
+				local Quality = select(4, GetContainerItemInfo(ItemButton:GetParent():GetID(), ItemButton:GetID()))
 				ItemButton:SetBackdropBorderColor(unpack(AS.BorderColor))
-				self:SetBackdropBorderColor(r, g, b, a)
+				if Quality and BAG_ITEM_QUALITY_COLORS[Quality] then
+					self:SetBackdropBorderColor(BAG_ITEM_QUALITY_COLORS[Quality].r, BAG_ITEM_QUALITY_COLORS[Quality].g, BAG_ITEM_QUALITY_COLORS[Quality].b)
+					self.Shadow:SetBackdropBorderColor(BAG_ITEM_QUALITY_COLORS[Quality].r, BAG_ITEM_QUALITY_COLORS[Quality].g, BAG_ITEM_QUALITY_COLORS[Quality].b)
+				elseif isQuestItem then
+					self:SetBackdropBorderColor(1, .82, 0)
+					self.Shadow:SetBackdropBorderColor(1, .82, 0)
+				else
+					self:SetBackdropBorderColor(1, 1, 1)
+					self.Shadow:SetBackdropBorderColor(1, 1, 1)
+				end
+				self:SetAlpha(self:GetParent().NewItemTexture:GetAlpha())
 			end)
 			ItemButton.Backdrop:SetScript('OnHide', function(self)
-				ItemButton:SetBackdropBorderColor(ItemButton.IconBorder:GetVertexColor())
+				local Quality = select(4, GetContainerItemInfo(ItemButton:GetParent():GetID(), ItemButton:GetID()))
+				local isQuestItem, questId, isActive = GetContainerItemQuestInfo(ItemButton:GetParent():GetID(), ItemButton:GetID());
+				if Quality and (Quality > LE_ITEM_QUALITY_COMMON and BAG_ITEM_QUALITY_COLORS[Quality]) then
+					ItemButton:SetBackdropBorderColor(BAG_ITEM_QUALITY_COLORS[Quality].r, BAG_ITEM_QUALITY_COLORS[Quality].g, BAG_ITEM_QUALITY_COLORS[Quality].b)
+				elseif isQuestItem then
+					ItemButton:SetBackdropBorderColor(1, .82, 0)
+				else
+					ItemButton:SetBackdropBorderColor(unpack(AS.BorderColor))
+				end
 			end)
 			-- End of hax.
 
 			ItemButton.searchOverlay:SetAllPoints(ItemButton.icon)
 			ItemButton.searchOverlay:SetTexture(0, 0, 0, .8)
 
-			ItemButton:SetNormalTexture(nil)
+			ItemButton:SetNormalTexture('')
 			AS:StyleButton(ItemButton)
 			hooksecurefunc(ItemButton.IconBorder, 'SetVertexColor', function(self, r, g, b, a)
-				ItemButton:SetBackdropBorderColor(r, g, b)
+				local Quality = select(4, GetContainerItemInfo(ItemButton:GetParent():GetID(), ItemButton:GetID()))
+				local isQuestItem, questId, isActive = GetContainerItemQuestInfo(ItemButton:GetParent():GetID(), ItemButton:GetID());
+				if Quality and Quality > LE_ITEM_QUALITY_COMMON then
+					ItemButton:SetBackdropBorderColor(r, g, b)
+				elseif isQuestItem then
+					ItemButton:SetBackdropBorderColor(1, .82, 0)
+				else
+					ItemButton:SetBackdropBorderColor(unpack(AS.BorderColor))
+				end
 			end)
 			hooksecurefunc(ItemButton.IconBorder, 'Hide', function(self)
 				ItemButton:SetBackdropBorderColor(unpack(AS.BorderColor))
@@ -77,6 +110,18 @@ function AS:Blizzard_Bags()
 			if Portrait:GetNormalTexture() then
 				AS:SkinTexture(Portrait:GetNormalTexture())
 				Portrait:GetNormalTexture():SetInside()
+			end
+			for j = 1, 30 do
+				local ItemButton = _G["ContainerFrame"..i.."Item"..j]
+				if ItemButton then
+					local QuestIcon = _G["ContainerFrame"..i.."Item"..j.."IconQuestTexture"]
+					local QuestTexture = QuestIcon:GetTexture()
+					if QuestTexture == TEXTURE_ITEM_QUEST_BANG then
+						QuestIcon:SetAlpha(1)
+					else
+						QuestIcon:SetAlpha(0)
+					end
+				end
 			end
 		end
 	end
@@ -168,6 +213,34 @@ function AS:Blizzard_Bags()
 			ItemButton:SetBackdropBorderColor(unpack(AS.BorderColor))
 		end)
 	end
+
+	-- Reagent Bank
+	AS:SkinButton(ReagentBankFrame.DespositButton)
+	ReagentBankFrame:HookScript('OnShow', function(self)
+		if ReagentBankFrame.slots_initialized and not ReagentBankFrame.isSkinned then
+			for i = 1, 98 do
+				local ItemButton = _G["ReagentBankFrameItem"..i]
+				AS:SkinFrame(ItemButton)
+				AS:SkinTexture(ItemButton.icon)
+				ItemButton.icon:SetInside()
+
+				ItemButton.searchOverlay:SetAllPoints(ItemButton.icon)
+				ItemButton.searchOverlay:SetTexture(0, 0, 0, .8)
+
+				ItemButton:SetNormalTexture(nil)
+				AS:StyleButton(ItemButton)
+				hooksecurefunc(ItemButton.IconBorder, 'SetVertexColor', function(self, r, g, b, a)
+					ItemButton:SetBackdropBorderColor(r, g, b)
+				end)
+				hooksecurefunc(ItemButton.IconBorder, 'Hide', function(self)
+					ItemButton:SetBackdropBorderColor(unpack(AS.BorderColor))
+				end)
+				BankFrameItemButton_Update(ItemButton)
+			end
+			AS:StripTextures(ReagentBankFrame, true)
+			self.isSkinned = true
+		end
+	end)
 
 	AS:SkinTab(BankFrameTab1)
 	AS:SkinTab(BankFrameTab2)

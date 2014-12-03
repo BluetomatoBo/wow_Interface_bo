@@ -1,0 +1,30 @@
+tag 3.10
+795fc59d7638f41d6277becaaf001144ad742a62
+Azilroka <darktemplar9900@yahoo.com>
+2014-12-03 00:14:05 -0600
+
+
+
+--------------------
+
+Azilroka:
+	- 3.10
+	- VEM - Move these to Removed
+	- Mail
+	- TradeWindow
+	- rawr
+	- darth's fault i tell you.
+	- damn russians.
+	- Glyph / TradeSkill
+	- QuestBang & Split Frame
+	- Bags Update
+	- Shadows
+	- Issue with DT's?
+	- just some cleanup
+	- Item Borders in Bags
+	- Bags Update
+Michael Tindal:
+	- Update the VEM skin.
+Azilroka:
+	- AdvancedIconSelector 'Fan Update'
+	- Sigh...

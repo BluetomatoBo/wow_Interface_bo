@@ -10,8 +10,12 @@
 	<Script file="Glyph.lua"/>
 	<Script file="Gossip.lua"/>
 	<Script file="ItemSocketing.lua"/>
+	<Script file="Mail.lua"/>
 	<Script file="Merchant.lua"/>
 	<Script file="Quest.lua"/>
+	<Script file="StackSplit.lua"/>
 	<Script file="Talents.lua"/>
+	<Script file="TradeSkill.lua"/>
+	<Script file="TradeWindow.lua"/>
 	<Script file="WorldStateCaptureBar.lua"/>
 </Ui>

@@ -1,7 +1,6 @@
 local AS = unpack(AddOnSkins)
 
-if AS:CheckAddOn('ElvUI') then return end
-if not AS:CheckAddOn('VEM-Core') then return end
+if not (AS:CheckAddOn('VEM-Core') and AS:CheckAddOn('ElvUI')) then return end
 
 function AS:VEM(event, addon)
 	if event == 'PLAYER_ENTERING_WORLD' then
@@ -31,7 +30,7 @@ function AS:VEM(event, addon)
 							AS:SetTemplate(icon1.overlay)
 							icon1.overlay:SetFrameLevel(0)
 							icon1.overlay:Size(buttonsize)
-							icon1.overlay:Point('BOTTOMRIGHT', frame, 'BOTTOMLEFT', -3, 0)
+							icon1.overlay:Point('BOTTOMRIGHT', frame, 'BOTTOMLEFT', -(ElvUI[1].PixelMode and 2 or 3), 0)
 						end
 
 						if not icon2.overlay then
@@ -39,7 +38,7 @@ function AS:VEM(event, addon)
 							AS:SetTemplate(icon2.overlay)
 							icon2.overlay:SetFrameLevel(0)
 							icon2.overlay:Size(buttonsize)
-							icon2.overlay:Point('BOTTOMLEFT', frame, 'BOTTOMRIGHT', 3, 0)
+							icon2.overlay:Point('BOTTOMLEFT', frame, 'BOTTOMRIGHT', (ElvUI[1].PixelMode and 2 or 3), 0)
 						end
 
 						AS:SkinTexture(icon1)
@@ -74,8 +73,8 @@ function AS:VEM(event, addon)
 							timer:Point('RIGHT', frame, 'RIGHT', -4, 0)
 						end
 
-						timer:SetFont(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
-						name:SetFont(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
+						timer:FontTemplate(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
+						name:FontTemplate(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
 
 						if bar.owner.options.IconLeft then icon1.overlay:Show() else icon1.overlay:Hide() end
 						if bar.owner.options.IconRight then icon2.overlay:Show() else icon2.overlay:Hide() end
@@ -92,7 +91,7 @@ function AS:VEM(event, addon)
 			if not anchor.styled then
 				local header = {anchor:GetRegions()}
 				if header[1]:IsObjectType('FontString') then
-					header[1]:SetFont(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
+					header[1]:FontTemplate(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
 					header[1]:SetTextColor(1, 1, 1)
 					header[1]:SetShadowColor(0, 0, 0, 0)
 					anchor.styled = true	
@@ -154,8 +153,8 @@ function AS:VEM(event, addon)
 					timer:Point('RIGHT', bar, 'RIGHT', -4, 0)
 				end
 
-				name:SetFont(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
-				timer:SetFont(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
+				name:FontTemplate(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
+				timer:FontTemplate(AS.LSM:Fetch('font', AS:CheckOption('DBMFont')), AS:CheckOption('DBMFontSize'), AS:CheckOption('DBMFontFlag'))
 
 				count = count + 1
 			end
@@ -166,7 +165,7 @@ function AS:VEM(event, addon)
 		hooksecurefunc(VEM.BossHealth, 'AddBoss', SkinBoss)
 		hooksecurefunc(VEM.BossHealth, 'UpdateSettings', SkinBoss)
 		if not VEM_SavedOptions['DontShowRangeFrame'] then
-			VEM.RangeCheck:Show()
+			VEM.RangeCheck:Show(nil, nil, true)
 			VEM.RangeCheck:Hide()
 			VEMRangeCheck:HookScript('OnShow', function(self) self:SetTemplate('Transparent') end)
 			VEMRangeCheckRadar:SetTemplate('Transparent')
