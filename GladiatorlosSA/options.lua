@@ -8,6 +8,7 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 function GSA:ShowConfig()
 	InterfaceOptionsFrame_OpenToCategory(GetAddOnMetadata("GladiatorlosSA", "Title"))
+	InterfaceOptionsFrame_OpenToCategory(GetAddOnMetadata("GladiatorlosSA", "Title")) -- ugly temporary fix to don't have to type /gsa twice
 end
 
 function GSA:ChangeProfile()
@@ -385,77 +386,77 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffC41F3BDeath Knight|r"],
 								order = 5,
-								args = listOption({49039,48792,55233,49016,51271,48707,115989,113072},"auraApplied"),
+								args = listOption({49039,48792,55233,51271,48707,115989,152279},"auraApplied"), --@ 49016,113072 removed
 							},
 							druid = {
 								type = 'group',
 								inline = true,
 								name = L["|cffFF7D0ADruid|r"],
 								order = 6,
-								args = listOption({61336,29166,22812,132158,16689,22842,5229,1850,50334,69369,124974,106922,112071,102342,110575,110570,110617,110696,110700,110717,122291,110806,110717,110715,110788,126456,126453},"auraApplied"),	
+								args = listOption({61336,22812,132158,22842,1850,50334,69369,124974,112071,102342,155835},"auraApplied"),	--@ 9166,16689,5229,106922,110575,110570,110617,110696,110700,110717,110806,110717,110715,110788,122291,126456,126453 removed
 							},
 							hunter = {
 								type = 'group',
 								inline = true,
 								name = L["|cffABD473Hunter|r"],
 								order = 7,
-								args = listOption({34471,19263,3045,54216,113073},"auraApplied"),
+								args = listOption({19263,3045,54216},"auraApplied"), --@ 34471,113073 removed
 							},
 							mage = {
 								type = 'group',
 								inline = true,
 								name = L["|cff69CCF0Mage|r"],
 								order = 8,
-								args = listOption({45438,12042,12472,12043,108839,110909},"auraApplied"),
+								args = listOption({45438,12042,12472,12043,108839,110909},"auraApplied"), --@ Ok
 							},
 							monk = {
 								type = 'group',
 								inline = true,
 								name = L["|cFF558A84Monk|r"],
 								order = 9,
-								args = listOption({120954,122278,122783,115213,115176,116849,115294,113306},"auraApplied"),
+								args = listOption({120954,122278,122783,115176,116849,115294,152175,152173},"auraApplied"), --@ 115213,113306 removed
 							},
 							paladin = {
 								type = 'group',
 								inline = true,
 								name = L["|cffF58CBAPaladin|r"],
 								order = 10,
-								args = listOption({1022,1044,642,6940,54428,31884,114917,114163,20925,114039,105809,31842,113075},"auraApplied"),
+								args = listOption({1022,1044,642,6940,31884,114917,114163,20925,114039,105809,31842,152262,152262},"auraApplied"), --@ 54428,113075 removed
 							},
 							preist	= {
 								type = 'group',
 								inline = true,
 								name = L["|cffFFFFFFPriest|r"],
 								order = 11,
-								args = listOption({10060,33206,37274,6346,47585,89485,81700,47788,112833,109964},"auraApplied"),
+								args = listOption({10060,33206,37274,6346,47585,81700,47788,112833,109964},"auraApplied"), --@ 89485 removed
 							},
 							rogue = {
 								type = 'group',
 								inline = true,
 								name = L["|cffFFF569Rogue|r"],
 								order = 12,
-								args = listOption({51713,2983,31224,13750,5277,74001,114018},"auraApplied"),
+								args = listOption({51713,2983,31224,13750,5277,74001,114018,152151},"auraApplied"), --@ Ok
 							},
 							shaman	= {
 								type = 'group',
 								inline = true,
 								name = L["|cff0070daShaman|r"],
 								order = 13,
-								args = listOption({30823,974,16188,79206,16166,114050,114051,114052,52127},"auraApplied"),
+								args = listOption({30823,974,16188,79206,16166,114050,114051,114052,52127},"auraApplied"), --@ Ok
 							},
 							warlock	= {
 								type = 'group',
 								inline = true,
 								name = L["|cff9482C9Warlock|r"],
 								order = 14,
-								args = listOption({108416,108503,113858,113861,113860,104773},"auraApplied"),
+								args = listOption({108416,108503,113858,113861,113860,104773},"auraApplied"), --@ Ok
 							},
 							warrior	= {
 								type = 'group',
 								inline = true,
 								name = L["|cffC79C6EWarrior|r"],
 								order = 15,
-								args = listOption({55694,871,18499,23920,12328,46924,12292,1719,114028,107574,114029,114030},"auraApplied"),	
+								args = listOption({55694,871,18499,23920,12328,46924,12292,1719,114028,107574,114029,114030},"auraApplied"), --@ 114028 not displayed In Game
 							},
 						},
 					},
@@ -477,70 +478,70 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffC41F3BDeath Knight|r"],
 								order = 4,
-								args = listOption({48792,49039,113072},"auraRemoved"),
+								args = listOption({48792,49039},"auraRemoved"), --@ 113072 removed
 							},
 							druid = {
 								type = 'group',
 								inline = true,
 								name = L["|cffFF7D0ADruid|r"],
 								order = 5,
-								args = listOption({106922,110617,110696,110700,110715,110788,126456,126453},"auraRemoved"),
+								args = listOption({},"auraRemoved"), --@ 106922,110617,110696,110700,110715,110788,126456,126453 removed (All)
 							},
 							hunter = {
 								type = 'group',
 								inline = true,
 								name = L["|cffABD473Hunter|r"],
 								order = 6,
-								args = listOption({19263},"auraRemoved"),
+								args = listOption({19263},"auraRemoved"), --@ Ok
 							},
 							mage = {
 								type = 'group',
 								inline = true,
 								name = L["|cff69CCF0Mage|r"],
 								order = 7,
-								args = listOption({45438},"auraRemoved"),
+								args = listOption({45438},"auraRemoved"), --@ Ok
 							},
 							monk = {
 								type = 'group',
 								inline = true,
 								name = L["|cFF558A84Monk|r"],
 								order = 9,
-								args = listOption({120954,115213,115176},"auraRemoved"),	
+								args = listOption({120954,115176},"auraRemoved"), --@ 115213 removed
 							},
 							paladin = {
 								type = 'group',
 								inline = true,
 								name = L["|cffF58CBAPaladin|r"],
 								order = 10,
-								args = listOption({1022,642},"auraRemoved"),
+								args = listOption({1022,642},"auraRemoved"), --@ Ok
 							},
 							preist	= {
 								type = 'group',
 								inline = true,
 								name = L["|cffFFFFFFPriest|r"],
 								order = 11,
-								args = listOption({33206,47585,109964},"auraRemoved"),
+								args = listOption({33206,47585,109964},"auraRemoved"), --@ 109964 Not Displayed IG
 							},
 							rogue = {
 								type = 'group',
 								inline = true,
 								name = L["|cffFFF569Rogue|r"],
 								order = 12,
-								args = listOption({31224,5277,74001},"auraRemoved"),
+								args = listOption({31224,5277,74001},"auraRemoved"), --@ Ok
 							},
 							shaman	= {
 								type = 'group',
 								inline = true,
 								name = L["|cff0070daShaman|r"],
 								order = 13,
-								args = listOption({108271,118350,118347},"auraRemoved"),
+								args = listOption({108271,118350,118347},"auraRemoved"), --@ 118350,118347 Not Displayed IG
 							},
 							warrior	= {
 								type = 'group',
 								inline = true,
 								name = L["|cffC79C6EWarrior|r"],
 								order = 14,
-								args = listOption({871,103827,114030},"auraRemoved"),
+								args = listOption({871,103827,114030},"auraRemoved"), --@ 103827 double charge 114030 Not Displayed IG
 							},
 						},
 					},
@@ -582,56 +583,56 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffFF7D0ADruid|r"],
 								order = 4,
-								args = listOption({2637,33786,339,110707},"castStart"),
+								args = listOption({33786,339},"castStart"), --@ 2637,110707 removed
 							},
 							hunter = {
 								type = 'group',
 								inline = true,
 								name = L["|cffABD473Hunter|r"],
 								order = 5,
-								args = listOption({982,1513,120360},"castStart"),
+								args = listOption({982,120360},"castStart"), --@ 1513 removed; 120360 Not Displayed IG ( useless? )
 							},
 							mage = {
 								type = 'group',
 								inline = true,
 								name = L["|cff69CCF0Mage|r"],
 								order = 6,
-								args = listOption({118,102051,113074},"castStart"),
+								args = listOption({118,102051},"castStart"), --@ 113074 removed
 							},
 							monk = {
 								type = 'group',
 								inline = true,
 								name = L["|cFF558A84Monk|r"],
 								order = 7,
-								args = listOption({113275},"castStart"),	
+								args = listOption({},"castStart"), --@ 113275 removed ( All )
 							},
 							paladin = {
 								type = 'group',
 								inline = true,
 								name = L["|cffF58CBAPaladin|r"],
 								order = 8,
-								args = listOption({20066,115750},"castStart"),
+								args = listOption({20066,115750},"castStart"), --@ Ok
 							},
 							preist	= {
 								type = 'group',
 								inline = true,
 								name = L["|cffFFFFFFPriest|r"],
 								order = 9,
-								args = listOption({9484,605,32375,113277,113506},"castStart"),
+								args = listOption({9484,605,32375},"castStart"), --@ 113277,113506 removed
 							},
 							shaman	= {
 								type = 'group',
 								inline = true,
 								name = L["|cff0070daShaman|r"],
 								order = 10,
-								args = listOption({51514,76780},"castStart"),
+								args = listOption({51514},"castStart"), --@ 76780 removed
 							},
 							warlock	= {
 								type = 'group',
 								inline = true,
 								name = L["|cff9482C9Warlock|r"],
 								order = 11,
-								args = listOption({5782,710,691,112869,112870,112867,112866},"castStart"),
+								args = listOption({5782,710,691,112869,112870,112867,112866,152108},"castStart"), --@ Ok
 							},
 							--dk	= {
 								--type = 'group',
@@ -667,84 +668,84 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["General Abilities"],
 								order = 4,
-								args = listOption({58984,20594,7744,42292},"castSuccess"),
+								args = listOption({58984,20594,7744,42292},"castSuccess"), --@ Ok
 							},
 							dk	= {
 								type = 'group',
 								inline = true,
 								name = L["|cffC41F3BDeath Knight|r"],
 								order = 5,
-								args = listOption({47528,47476,47568,49206,77606,108194,108199,108201,108200},"castSuccess"),
+								args = listOption({47528,47476,47568,49206,77606,108194,108199,108201,108200,152280},"castSuccess"), --@ Ok
 							},
 							druid = {
 								type = 'group',
 								inline = true,
 								name = L["|cffFF7D0ADruid|r"],
 								order = 6,
-								args = listOption({102280,80964,740,78675,108238,102693,102703,102706,99,5211,102795,102560,102543,102558,33891,102359,33831,102417,102383,49376,16979,102416,102401,110698,110730,113002,113004,122292,112970,128844,126458},"castSuccess"),
+								args = listOption({102280,740,78675,108238,102693,102703,102706,99,5211,102560,102543,102558,33891,102359,33831,102417,102383,49376,16979,102416,102401},"castSuccess"), --@ 128844,80964,102795,110698,110730,113002,113004,122292,112970,126458 removed 
 							},
 							hunter = {
 								type = 'group',
 								inline = true,
 								name = L["|cffABD473Hunter|r"],
 								order = 7,
-								args = listOption({19386,19503,34490,147362,60192,1499,109248,109304,131894,120697,109259,126216,126215,126214,126213,122811,122809,122807,122806,122804,122802,121118,121818},"castSuccess"),
+								args = listOption({19386,147362,60192,1499,109248,109304,131894,120697,109259,126216,126215,126214,126213,122811,122809,122807,122806,122804,122802,121118,121818},"castSuccess"), --@ 19503,34490 removed
 							},
 							mage = {
 								type = 'group',
 								inline = true,
 								name = L["|cff69CCF0Mage|r"],
 								order = 8,
-								args = listOption({11129,11958,44572,2139,66,12051,113724,110959},"castSuccess"),
+								args = listOption({11129,11958,44572,2139,66,12051,113724,110959,152087,153595,153561},"castSuccess"), --@ Ok
 							},
 							monk = {
 								type = 'group',
 								inline = true,
 								name = L["|cFF558A84Monk|r"],
 								order = 9,
-								args = listOption({116841,115399,119392,119381,116847,123904,115078,122057,115315,115313,117368,122470,116705,123761,119996},"castSuccess"),
+								args = listOption({116841,115399,119392,119381,116847,123904,115078,115315,115313,122470,116705,123761,119996,157535},"castSuccess"), --@ 122057,117368 removed
 							},
 							paladin = {
 								type = 'group',
 								inline = true,
 								name = L["|cffF58CBAPaladin|r"],
 								order = 10,
-								args = listOption({31821,96231,853,105593,85499},"castSuccess"),
+								args = listOption({31821,96231,853,105593,85499},"castSuccess"), --@ Ok
 							},
 							preist	= {
 								type = 'group',
 								inline = true,
 								name = L["|cffFFFFFFPriest|r"],
 								order = 110,
-								args = listOption({113277,112833,8122,34433,64044,15487,64843,19236,108920,108921,123040,121135,108968,81209,81206,81208},"castSuccess"),
+								args = listOption({112833,8122,34433,64044,15487,64843,19236,108920,123040,121135,81209,81206,81208},"castSuccess"), --@ 113277,108921,108968 removed
 							},
 							rogue = {
 								type = 'group',
 								inline = true,
 								name = L["|cffFFF569Rogue|r"],
 								order = 111,
-								args = listOption({121471,51722,2094,1766,14185,1856,76577,73981,79140},"castSuccess"),
+								args = listOption({2094,1766,14185,1856,76577,79140},"castSuccess"), --@ 121471,51722,73981 removed
 							},
 							shaman	= {
 								type = 'group',
 								inline = true,
 								name = L["|cff0070daShaman|r"],
 								order = 112,
-								args = listOption({108271,8177,16190,8143,98008,108270,51485,108273,108285,108287,108280,108281,118345,2894,2062,108269,120668,118350,118347,57994,113287},"castSuccess"),
+								args = listOption({108271,8177,8143,98008,108270,51485,108273,108285,108287,108280,108281,118345,2894,2062,108269,118350,118347,57994,152256,152255},"castSuccess"), --@ 16190,120668,113287 removed
 							},
 							warlock = {
 								type = 'group',
 								inline = true,
 								name = L["|cff9482C9Warlock|r"],
 								order = 113,
-								args = listOption({108359,6789,5484,19647,48020,30283,111397,108482,108505,124539,104316,110913,111859,111895,111896,111897,111898},"castSuccess"),
+								args = listOption({108359,6789,5484,19647,48020,30283,111397,108482,108505,104316,110913,111859,111895,111896,111897,111898},"castSuccess"), --@ 124539 removed
 							},
 							warrior	= {
 								type = 'group',
 								inline = true,
 								name = L["|cffC79C6EWarrior|r"],
 								order = 114,
-								args = listOption({97462,676,5246,6552,2457,71,2458,107566,102060,46968,118000,107570,114207,114192,114203,114028},"castSuccess"),	
+								args = listOption({97462,5246,6552,2457,71,107566,102060,46968,118000,107570,114192,114028,156287,176289},"castSuccess"),	--@ 676,2458,114207,114203 removed
 							},
 						},
 					},
@@ -768,7 +769,6 @@ function GSA:OnOptionCreate()
 			custom = {
 				type = 'group',
 				name = L["Custom"],
-				--name = L["自定義"],
 				desc = L["Custom Spell"],
 				--set = function(info, value) local name = info[#info] gsadb.custom[name] = value end,
 				--get = function(info) local name = info[#info]	return gsadb.custom[name] end,
@@ -777,7 +777,6 @@ function GSA:OnOptionCreate()
 					newalert = {
 						type = 'execute',
 						name = L["New Sound Alert"],
-						--name = L["添加自定義技能"],
 						order = -1,
 						--[[args = {
 							newname = {

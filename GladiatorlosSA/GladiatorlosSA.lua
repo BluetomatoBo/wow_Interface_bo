@@ -6,8 +6,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("GladiatorlosSA")
 local LSM = LibStub("LibSharedMedia-3.0")
 local self, GSA = GladiatorlosSA, GladiatorlosSA
 local GSA_TEXT = "GladiatorlosSA"
-local GSA_VERSION = " v2.0.5"
-local GSA_AUTHOR = " updated by superk"
+local GSA_VERSION = " v2.1"
 
 local GSA_LOCALEPATH = {
 	enUS = "GladiatorlosSA\\Voice_enUS",
@@ -91,24 +90,24 @@ local dbDefaults = {
 		chakraChastise = false,
 		chakraSanctuary = false,
 		chakraSerenity = false,
-		berserkerstance = false,
+		--@ berserkerstance = false,
 		entanglingRoots = false,
-		sMassDispell = false,
+		--@ sMassDispell = false,
 		massDispell = false,
-		sEntanglingRoots = false,
+		--@ sEntanglingRoots = false,
 		waterShield = false,
 		lichborneDown = false,
 		iceboundFortitudeDown = false,
-		skullBanner = false,
+		--@ skullBanner = false,
 		mockingBanner = false,
-		demoralizingBanner = false,
+		--@ demoralizingBanner = false,
 		totemicProjection = false,
 		wildCharge = false,
-		bindElemental = false,
+		--@ bindElemental = false,
 		rushingJadeWind = false,
 		paralysis = false,
 		manaTea = false,
-		sBarkskin = false,
+		--@ sBarkskin = false,
 		custom = {},
 	}	
 }
@@ -146,7 +145,7 @@ function GladiatorlosSA:OnInitialize()
 		desc = L["Load Configuration Options"],
 		type = 'execute',
 		func = function() 
-			self:OnOptionCreate() 
+		self:OnOptionCreate() 
 			bliz_options.args.load.disabled = true 
 			GameTooltip:Hide() 
 			--fix for in 5.3 BLZOptionsFrame can't refresh on load

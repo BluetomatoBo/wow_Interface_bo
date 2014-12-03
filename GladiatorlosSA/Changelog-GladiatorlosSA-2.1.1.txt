@@ -1,0 +1,57 @@
+------------------------------------------------------------------------
+r75 | zuhligan | 2014-12-03 03:40:33 +0000 (Wed, 03 Dec 2014) | 1 line
+Changed paths:
+   A /tags/2.1.1 (from /trunk:73)
+
+6.0.3 working copy
+------------------------------------------------------------------------
+r73 | zuhligan | 2014-12-03 03:17:28 +0000 (Wed, 03 Dec 2014) | 1 line
+Changed paths:
+   M /trunk/GladiatorlosSA.toc
+
+Working version BIS without error in .toc
+------------------------------------------------------------------------
+r70 | zuhligan | 2014-12-03 02:26:12 +0000 (Wed, 03 Dec 2014) | 1 line
+Changed paths:
+   M /trunk/GladiatorlosSA.toc
+   M /trunk/Locales/frFR.lua
+   M /trunk/options.lua
+
+Working version
+------------------------------------------------------------------------
+r69 | zuhligan | 2014-12-02 01:59:05 +0000 (Tue, 02 Dec 2014) | 1 line
+Changed paths:
+   A /trunk/Voice_enUS/BreathOfSindragosa.ogg
+   A /trunk/Voice_enUS/BreathOfTheSerpent.ogg
+   A /trunk/Voice_enUS/BristlingFur.ogg
+   A /trunk/Voice_enUS/Cataclysm.ogg
+   A /trunk/Voice_enUS/CometStorm.ogg
+   A /trunk/Voice_enUS/Defile.ogg
+   A /trunk/Voice_enUS/HurricaneStrike.ogg
+   A /trunk/Voice_enUS/LiquidMagma.ogg
+   A /trunk/Voice_enUS/Meteor.ogg
+   A /trunk/Voice_enUS/PrismaticCrystal.ogg
+   A /trunk/Voice_enUS/Ravager.ogg
+   A /trunk/Voice_enUS/Seraphim.ogg
+   A /trunk/Voice_enUS/Serenity.ogg
+   A /trunk/Voice_enUS/ShadowReflection.ogg
+   A /trunk/Voice_enUS/SiegeBreaker.ogg
+   A /trunk/Voice_enUS/StormElementalTotem.ogg
+
+Missing enUS sound file
+------------------------------------------------------------------------
+r68 | zuhligan | 2014-12-02 01:52:48 +0000 (Tue, 02 Dec 2014) | 1 line
+Changed paths:
+   M /trunk/GladiatorlosSA.lua
+   M /trunk/Locales/frFR.lua
+   M /trunk/options.lua
+   M /trunk/spelllist.lua
+
+New spells, Some fix
+------------------------------------------------------------------------
+r67 | superk521 | 2014-11-01 16:38:34 +0000 (Sat, 01 Nov 2014) | 1 line
+Changed paths:
+   D /trunk/Changelog-GladiatorlosSA-2.1b.txt
+
+removed the curse default changelog 
+------------------------------------------------------------------------
