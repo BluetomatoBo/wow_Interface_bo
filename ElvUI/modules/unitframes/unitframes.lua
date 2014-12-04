@@ -373,7 +373,7 @@ function UF:Update_StatusBars()
 	for statusbar in pairs(UF['statusbars']) do
 		if statusbar and statusbar:GetObjectType() == 'StatusBar' and not statusbar.isTransparent then
 			statusbar:SetStatusBarTexture(statusBarTexture)
-		elseif statusBar and statusbar:GetObjectType() == 'Texture' then
+		elseif statusbar and statusbar:GetObjectType() == 'Texture' then
 			statusbar:SetTexture(statusBarTexture)
 		end
 	end
@@ -1266,15 +1266,7 @@ function UF:ToggleTransparentStatusBar(isTransparent, statusBar, backdropTex, ad
 		statusBar:SetStatusBarTexture(LSM:Fetch("statusbar", self.db.statusbar))
 		if adjustBackdropPoints then
 			backdropTex:ClearAllPoints()
-			if statusBarOrientation == 'VERTICAL' then
-				backdropTex:SetPoint("TOPLEFT", statusBar, "TOPLEFT")
-				backdropTex:SetPoint("BOTTOMLEFT", statusBarTex, "TOPLEFT")
-				backdropTex:SetPoint("BOTTOMRIGHT", statusBarTex, "TOPRIGHT")				
-			else			
-				backdropTex:SetPoint("TOPLEFT", statusBarTex, "TOPRIGHT")
-				backdropTex:SetPoint("BOTTOMLEFT", statusBarTex, "BOTTOMRIGHT")
-				backdropTex:SetPoint("BOTTOMRIGHT", statusBar, "BOTTOMRIGHT")
-			end
+			backdropTex:SetAllPoints(statusBar)
 		end
 		
 		if invertBackdropTex then
