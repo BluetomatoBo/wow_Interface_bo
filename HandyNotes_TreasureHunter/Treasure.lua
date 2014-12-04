@@ -89,7 +89,7 @@ ns.points = {
         [38001960]={ quest=37397, npc=87846, achievement=9571, }, -- Pit Slayer
         [38602240]={ quest=37395, npc=87788, item=119405, achievement=9571, }, -- Durg Spinecrusher
         [40001600]={ quest=37395, npc=87837, achievement=9571, }, -- Bonebreaker
-        [42207860]={ quest=34725, npc=80122, currency=824, note="In a cave", }, -- Gaz'orda
+        [42207860]={ quest=34725, npc=80122, item=116798, currency=824, note="In a cave", }, -- Gaz'orda
         [42804920]={ quest=35875, npc=83409, item=116765, }, -- Ophiis
         [43003640]={ quest=37400, npc=87234, item=119380, achievement=9541, }, -- Brutag Grimblade
         [43803440]={ quest=37473, npc=87239, achievement=9541, }, -- Krahl Deadeye
@@ -134,6 +134,7 @@ ns.points = {
         [34005100]={ quest=37224, npc=87666, item=118659, }, -- Mu'gra
         [37003800]={ quest=37520, npc=88951, item=120172, }, -- Vileclaw
         -- followers
+        [46401600]={ quest=34466, follower=190, note="Mysterious Staff; collect all the Mysterious items across Draenor", }, -- Archmage Vargoth
         [67205600]={ quest=36711, npc=82746, follower=209, note="Rebuild his fishing rod by gathering the pieces @ 38.4,49.3, 65.8,61.1, 85.4,38.7", }, -- Abu'gar
     },
     --[[
@@ -241,7 +242,6 @@ ns.points = {
         [16104980]={ quest=33942, label="Supply Dump", currency=824, },
         [21605070]={ quest=34931, label="Pale Loot Sack", currency=824, },
         [24001300]={ quest=34647, label="Snow-Covered Strongbox", currency=824, },
-        [26503640]={ quest=nil, label="Gorr'thogg's Personal Reserve", currency=824, },
         [34202350]={ quest=32803, label="Thunderlord Cache", currency=824, },
         [37205920]={ quest=34967, label="Raided Loot", currency=824, },
         [43705550]={ quest=34841, label="Forgotten Supplies", currency=824, },
@@ -258,10 +258,10 @@ ns.points = {
         [21900960]={ quest=33926, item=108739, note="Lagoon Pool", toy=true, },
         [23102500]={ quest=33916, item=108735, note="Arena Master's War Horn", toy=true, },
         [24202720]={ quest=33501, item=63293, note="Spectator's Chest; booze, jump from the tower, entrance @ 25,30", },
-        [24204860]={ quest=34507, item=110689, note="Frozen Frostwolf Axe", },
+        [24204860]={ quest=34507, item=110689, note="Frozen Frostwolf Axe; cave at 25,51", },
         [25502040]={ quest=34648, item=111415, note="Gnawed Bone", },
-        [26703940]={ quest=nil, item=113189, note="Doorog's Secret Stash", },
         [27604280]={ quest=33500, item=43696, note="Slave's Stash, booze", },
+        [30305120]={ quest=33438, item=107662, note="Time-Warped Tower; loot all the frozen ogres", }, -- note: other ogres are 33497, 33439, and 33440
         [38403780]={ quest=33502, item=112087, note="Obsidian Petroglyph", },
         [40902010]={ quest=34473, item=110536, note="Envoy's Satchel", },
         [42401970]={ quest=34520, item=120341, note="Burning Pearl", },
@@ -270,6 +270,18 @@ ns.points = {
         [61804250]={ quest=33511, npc=72156, item=112110, note="Interrupt the ritual, then feed him ogres", },
         [63401480]={ quest=33525, npc=75081, note=UNKNOWN, }, -- Young Orc Woman
         [64406580]={ quest=33505, item=117564, note="Wiggling Egg; rylak nests on the roof", pet=true, },
+        -- bladespire...
+        [26503640]={ quest=35367, label="Gorr'thogg's Personal Reserve", currency=824, },
+        [26703940]={ quest=35370, item=113189, note="Doorog's Secret Stash", },
+        [26603520]={ quest=35347, currency=824, label="Ogre Booty", },
+        [27173763]={ quest=35373, label="Ogre Booty", note="Gold", },
+        [27283876]={ quest=35570, label="Ogre Booty", note="Gold", },
+        [27603382]={ quest=35371, label="Ogre Booty", note="Gold", },
+        [28093409]={ quest=35567, currency=824, label="Ogre Booty", },
+        [28093409]={ quest=35568, currency=824, label="Ogre Booty", },
+        [28093409]={ quest=35569, currency=824, label="Ogre Booty", },
+        [28293440]={ quest=35368, label="Ogre Booty", note="Gold", },
+        [28293440]={ quest=35369, label="Ogre Booty", note="Gold", },
         -- rares
         [67407820]={ quest=34477, item=112086, npc=78621, }, -- Cyclonic Fury
         [41206820]={ quest=34843, item=111953, npc=80242, }, -- Chillfang
@@ -291,7 +303,7 @@ ns.points = {
         [54606940]={ quest=34131, item=111484, npc=76914, }, -- Coldtusk
         [71404680]={ quest=33504, item=107661, npc=74971, }, -- Firefury Giant
         [47005520]={ quest=34839, item=111955, npc=80235, }, -- Gurun
-        [50201860]={ quest=33531, npc=75120, note=UNKNOWN, }, -- Clumsy Cragmaul Brute
+        [50201860]={ quest=33531, item=112096, npc=75120, note="...and a peeled banana", }, -- Clumsy Cragmaul Brute
         [84404880]={ quest=nil, npc=84384, note=UNKNOWN, }, -- Taskmaster Kullah
         [85005220]={ quest=37556, npc=87600, currency=823, }, -- Jaluk the Pacifist
         [88605740]={ quest=37525, npc=84378, currency=823, }, -- Ak'ox the Slaughterer
@@ -313,10 +325,21 @@ ns.points = {
         [48202340]={ quest=37386, item=119390, npc=82616, }, -- Jabberjaw
         [43002100]={ quest=37387, item=119356, npc=82614, }, -- Moltnoma
         [40601240]={ quest=34522, npc=79104, currency=823, }, -- Ug'lok the Frozen
+        -- followers
+        [68001900]={ quest=34464, follower=190, note="Mysterious Boots; collect all the Mysterious items across Draenor", }, -- Archmage Vargoth
     },
     ["BladespireFortress"] = {
-        [37806900]={ quest=nil, item=113189, note="Doorog's Secret Stash", },
-        [76806280]={ quest=nil, currency=824, label="Ogre Booty", },
+        [44806480]={ quest=35570, label="Ogre Booty", note="Gold", level=1, },
+        [48506720]={ quest=35369, label="Ogre Booty", note="Gold; up some crates", level=1, },
+        [53702880]={ quest=35368, label="Ogre Booty", note="Gold; up some crates", level=1, },
+        [36502900]={ quest=35347, currency=824, label="Ogre Booty", level=2, },
+        [37806900]={ quest=35370, item=113189, note="Doorog's Secret Stash; second floor, outside", level=2, },
+        [46401640]={ quest=35371, label="Ogre Booty", note="Gold; up some crates; may hit an invisible ceiling, it's reachable if you work at it", level=2, },
+        [51101770]={ quest=35567, currency=824, label="Ogre Booty", level=2, },
+        [52605300]={ quest=35373, label="Ogre Booty", note="Gold; up some crates", level=2, },
+        [70806800]={ quest=35569, currency=824, label="Ogre Booty", note="In the vault", level=2, },
+        [76606330]={ quest=35568, currency=824, label="Ogre Booty", note="In the vault", level=2, },
+        [31706640]={ quest=35367, item=113108, note="Gorr'thogg's Personal Reserve", level=3, },
     },
     ["Gorgrond"] = {
         -- treasures
@@ -382,6 +405,7 @@ ns.points = {
         [72803580]={ quest=37373, npc=88580, achievement=9678, }, -- Firestarter Grash
         [76004200]={ quest=37405, npc=80371, currency=823, }, -- Typhon
         -- followers
+        [39703990]={ quest=34463, follower=190, note="Mysterious Ring; collect all the Mysterious items across Draenor", }, -- Archmage Vargoth
         [44908690]={ quest=36037, npc=83820, follower=193, note="He'll look hostile; fight the things that are attacking him", }, -- Tormmok
     },
     ["Talador"] = {
@@ -427,7 +451,7 @@ ns.points = {
         [75704140]={ quest=34261, label="Keluu's Belongings", note="Gold", },
         [75804480]={ quest=34250, item=116128, note="Relic of Aruuna", },
         [77005000]={ quest=34248, item=116116, note="Charred Sword", },
-        [78201480]={ quest=34263, item=117572, note="Pure Crystal Dust", },
+        [78201480]={ quest=34263, item=117572, note="Pure Crystal Dust; upper level of the mine", },
         [81803500]={ quest=34260, item=109118, note="Aruuna Mining Cart", },
         -- rares
         [22207400]={ quest=36919, npc=85572, note="In a crate, no loot", }, -- Grrbrrgle
@@ -468,6 +492,7 @@ ns.points = {
         [78005040]={ quest=34167, npc=77626, item=112369, }, -- Hen-Mother Hami
         [86403040]={ quest=34859, npc=79334, item=116077, }, -- No'losh
         -- followers
+        [45303700]={ quest=34465, follower=190, note="Mysterious Hat; collect all the Mysterious items across Draenor", }, -- Archmage Vargoth
         [62755038]={ quest=nil, follower=171, note="Complete the quests starting with Clear!", }, -- Pleasure-Bot 8000 (actually a different quest for alliance and horde)
     },
     ["SpiresOfArak"] = {
@@ -478,7 +503,7 @@ ns.points = {
         [43202720]={ quest=36355, label="Relics of the Outcasts", currency=829, note="Needs archaeology; climb the ropes", },
         [46004410]={ quest=36354, label="Relics of the Outcasts", currency=829, note="Needs archaeology; climb the tree, jump to the rope", },
         [51904890]={ quest=36360, label="Relics of the Outcasts", currency=829, note="Needs archaeology", },
-        [52404280]={ quest=36416, label="Misplaced Scroll", currency=829, note="Needs archaeology", },
+        [52404280]={ quest=36416, label="Misplaced Scroll", currency=829, note="Needs archaeology; start climbing the mountain at 53.6, 47.7", },
         [56304530]={ quest=36433, label="Smuggled Apexis Artifacts", currency=829, note="Needs archaeology; climb  the mushrooms up the tree", },
         [60205390]={ quest=36359, label="Relics of the Outcasts", currency=829, note="Needs archaeology", },
         [67403980]={ quest=36356, label="Relics of the Outcasts", currency=829, note="Needs archaeology", },
