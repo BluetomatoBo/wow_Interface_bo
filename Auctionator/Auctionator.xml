@@ -230,7 +230,12 @@
 
 		<Scripts>
 			<OnShow>
-				if (AuctionFrame and AuctionFrame:IsShown()) then Atr_Mask:Show(); end;
+				if (AuctionFrame and AuctionFrame:IsShown()) then
+					self:ClearAllPoints ();
+					self:SetPoint ("CENTER", "AuctionFrame", "CENTER");
+					self:SetPoint ("BOTTOM", "AuctionFrame", "BOTTOM", 0, -10);
+					Atr_Mask:Show();
+				end;
 			</OnShow>
 			<OnHide>
 				if (AuctionFrame and AuctionFrame:IsShown()) then Atr_Mask:Hide(); end;
@@ -250,9 +255,7 @@
 	</Font>
 
 	<Frame name="Atr_Mask" toplevel="true" parent="UIParent" enableMouse="true" hidden="true">
-		<Size><AbsDimension x="820" y="450" /></Size>		
-		<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="26" y="-129"/></Offset></Anchor></Anchors>
-	
+
 		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" tile="true">
 			<TileSize><AbsValue val="16"/></TileSize>
 		</Backdrop>
@@ -261,6 +264,11 @@
 			<OnLoad>
 				self:SetBackdropColor(0.2, 0.2, 0.2);
 			</OnLoad>
+			<OnShow>
+				self:SetPoint("TOPLEFT", "AuctionFrame", "TOPLEFT");
+				self:SetPoint("BOTTOMRIGHT", "AuctionFrame", "BOTTOMRIGHT", 0, -20);
+				self:SetFrameStrata ("HIGH")
+			</OnShow>
 		</Scripts>
 	</Frame>
 
@@ -355,13 +363,15 @@
 
 
 	<Frame name="Atr_Sell_Template" virtual="true">
-		<Size>
-			<AbsDimension x="548" y="447"/>
-		</Size>
 		<Anchors>
 			<Anchor point="TOPLEFT">
 				<Offset>
 					<AbsDimension x="210" y="0"/>
+				</Offset>
+			</Anchor>
+			<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
 				</Offset>
 			</Anchor>
 		</Anchors>	
@@ -374,7 +384,7 @@
 
 				<FontString name="Atr_ActiveItems_Text" inherits="GameFontHighlightSmall" text="Active Items" justifyH="CENTER">
 					<Size x="300"/>
-					<Anchors><Anchor point="TOP" x="-360" y="-57"/></Anchors>
+					<Anchors><Anchor point="TOP" x="-395" y="-57"/></Anchors>
 				</FontString>
 
 				<FontString name="AuctionatorMessageFrame" inherits="GameFontNormal">
@@ -459,10 +469,10 @@
 			</EditBox>
 
 			<Button name="Atr_Search_Button" text="Search" inherits="UIPanelButtonTemplate" >
-				<Size><AbsDimension x="80" y="22"/>	</Size>
+				<Size><AbsDimension x="78" y="22"/>	</Size>
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="Atr_Search_Box" relativePoint="RIGHT">
-						<Offset><AbsDimension x="15" y="0"/></Offset>
+						<Offset><AbsDimension x="5" y="0"/></Offset>
 					</Anchor>
 				</Anchors>
 				<Scripts>
@@ -472,33 +482,73 @@
 				</Scripts>
 			</Button>
 
-			<Button name="Atr_Adv_Search_Button" text="+" inherits="UIPanelButtonTemplate" >
-				<Size><AbsDimension x="24" y="18"/>	</Size>
+			<CheckButton name="Atr_Adv_Search_Button" inherits="UICheckButtonTemplate">
+				<Size><AbsDimension x="20" y="20" /></Size>		
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="Atr_Search_Button" relativePoint="RIGHT">
-						<Offset><AbsDimension x="4" y="0"/></Offset>
+						<Offset><AbsDimension x="6" y="8"/></Offset>
 					</Anchor>
 				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<FontString inherits="GameFontNormalSmall" text="Advanced">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT">
+									<Offset><AbsDimension x="2" y="1"/></Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
 				<Scripts>
-					<OnClick>
-						Atr_Adv_Search_Onclick();
-					</OnClick>
+					<OnClick>	Atr_Adv_Search_Onclick ();	</OnClick>
 				</Scripts>
-			</Button>
+			</CheckButton>
 
-			<Button name="Auctionator1Button" inherits="Atr_SmallButtonTemplate" text="Options">
-				<Size><AbsDimension x="70" y="18"/>	</Size>
-				<Anchors><Anchor point="LEFT" relativeTo="Atr_Search_Button" relativePoint="RIGHT"><Offset><AbsDimension x="165" y="0"/></Offset></Anchor></Anchors>
+
+			<CheckButton name="Atr_Exact_Search_Button" inherits="UICheckButtonTemplate">
+				<Size><AbsDimension x="20" y="20" /></Size>		
+				<Anchors>
+					<Anchor point="TOP" relativeTo="Atr_Adv_Search_Button" relativePoint="BOTTOM">
+						<Offset><AbsDimension y="5"/></Offset>
+					</Anchor>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<FontString inherits="GameFontNormalSmall" text="Exact Match">
+							<Anchors>
+								<Anchor point="LEFT" relativePoint="RIGHT">
+									<Offset><AbsDimension x="2" y="1"/></Offset>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnClick>	Atr_Exact_Search_Onclick ();	</OnClick>
+				</Scripts>
+			</CheckButton>
+
+
+			<Button name="Auctionator1Button" inherits="Atr_SmallButtonTemplate" text="Options...">
+				<Size><AbsDimension x="74" y="18"/>	</Size>
+				<Anchors><Anchor point="TOPRIGHT" relativePoint="TOPRIGHT"><Offset><AbsDimension x="-14" y="-38"/></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnClick>
-						InterfaceOptionsFrame_OpenToCategory ("Auctionator");
+						InterfaceOptionsFrame_OpenToCategory ("Auctionator");	-- seems to be a bug that requires we do this so that it works the first time someone clicks Options
+						local f = _G["Atr_BasicOptionsFrame"];
+						if (f) then
+							InterfaceOptionsFrame_OpenToCategory (f);
+						else
+							InterfaceOptionsFrame_OpenToCategory ("Auctionator");
+						end
 					</OnClick>
 				</Scripts>
 			</Button>
 			
 			<Button name="Atr_FullScanButton" inherits="Atr_SmallButtonTemplate" text="Full Scan...">
 				<Size><AbsDimension x="74" y="18"/>	</Size>
-				<Anchors><Anchor point="RIGHT" relativeTo="Auctionator1Button" relativePoint="LEFT"><Offset><AbsDimension x="-2" y="0"/></Offset></Anchor></Anchors>
+				<Anchors><Anchor point="TOPLEFT" relativeTo="Auctionator1Button" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="0" y="2"/></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnClick>Atr_ShowFullScanFrame();</OnClick>
 				</Scripts>
@@ -837,7 +887,7 @@
 
 			<Button name="AuctionatorCloseButton" inherits="UIPanelButtonTemplate" text="CLOSE">
 				<Size><AbsDimension x="80" y="22"/></Size>
-				<Anchors><Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"><Offset><AbsDimension x="66" y="14"/></Offset></Anchor></Anchors>
+				<Anchors><Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT"><Offset><AbsDimension x="-10" y="14"/></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnClick>HideUIPanel(self:GetParent():GetParent());</OnClick>
 				</Scripts>
@@ -984,7 +1034,7 @@
 				<Size><AbsDimension y="111" /></Size>
 				<Anchors>
 					<Anchor point="TOPLEFT"><Offset><AbsDimension x="5" y="-72"/></Offset></Anchor>
-					<Anchor point="RIGHT"><Offset><AbsDimension x="63"/></Offset></Anchor>
+					<Anchor point="RIGHT"><Offset><AbsDimension x="-5"/></Offset></Anchor>
 				</Anchors>
 
 				<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border">
@@ -1035,7 +1085,6 @@
 
 	<Frame name="Atr_Buy_Confirm_Frame" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" frameStrata="FULLSCREEN_DIALOG" enableMouse="true" hidden="true">
 		<Size><AbsDimension x="390" y="180" /></Size>		
-		<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="270" y="-290"/></Offset></Anchor></Anchors>
 
 		<Scripts>
 			<OnUpdate>
@@ -1141,7 +1190,6 @@
 
 	<Frame name="Atr_CheckActives_Frame" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" frameStrata="FULLSCREEN_DIALOG" enableMouse="true" hidden="true">
 		<Size><AbsDimension x="350" y="190" /></Size>		
-		<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="190" y="-220"/></Offset></Anchor></Anchors>
 
 		<Layers>
 			<Layer level="BACKGROUND">
@@ -1175,7 +1223,6 @@
 
 	<Frame name="Atr_CancelAuction_Confirm_Frame" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" enableMouse="true" frameStrata="DIALOG" hidden="true">
 		<Size><AbsDimension x="340" y="115" /></Size>		
-		<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="40" y="-390"/></Offset></Anchor></Anchors>
 	
 		<Layers>
 			<Layer level="BACKGROUND">
@@ -1215,7 +1262,6 @@
 
 	<Frame name="Atr_FullScanFrame" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" frameStrata="DIALOG" enableMouse="true" hidden="true">
 		<Size><AbsDimension x="600" y="420" /></Size>		
-		<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="150" y="-130"/></Offset></Anchor></Anchors>
 
 		<Layers>
 			<Layer level="ARTWORK">
@@ -1340,7 +1386,6 @@
 
 	<Frame name="Atr_Adv_Search_Dialog" inherits="AuctionatorDialog" toplevel="true" parent="UIParent" frameStrata="FULLSCREEN_DIALOG" enableMouse="true" hidden="true">
 		<Size><AbsDimension x="480" y="320" /></Size>		
-		<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="270" y="-160"/></Offset></Anchor></Anchors>
 
 		<Layers>
 			<Layer level="ARTWORK">

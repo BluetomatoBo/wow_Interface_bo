@@ -1,4 +1,11 @@
 
+-- 3.2.0
+
+-- change default chunk size to 50 and changed save logic to only save if explicitly set
+-- added prices to merchant and buyback
+-- fixed bug so Options button works the first time
+-- implemented exact matching for both buying and selling
+
 AuctionatorVersion = "???";		-- set from toc upon loading
 AuctionatorAuthor  = "Zirco";
 
@@ -531,10 +538,15 @@ local function Atr_SlashCmdFunction(msg)
 	elseif (cmd == "fsc") then
 		
 		if (param1) then
-			AUCTIONATOR_DC_CHUNK = tonumber(param1);
+			AUCTIONATOR_FS_CHUNK = tonumber(param1);
+		end
+
+		if (AUCTIONATOR_FS_CHUNK == nil) then
+			zc.msg_anm ("full scan chunk size: ", gDefaultFullScanChunkSize, " (default)");
+		else
+			zc.msg_anm ("full scan chunk size: ", AUCTIONATOR_FS_CHUNK);
 		end
 			
-		zc.msg_anm ("full scan chunk size set to: ", AUCTIONATOR_DC_CHUNK);
 
 	elseif (cmd == "generr") then
 		
@@ -934,20 +946,32 @@ function Atr_OnAddonLoaded(...)
 
 end
 
+-----------------------------------------
 
-
+auctionatorInited = false
 
 -----------------------------------------
 function Atr_OnPlayerEnteringWorld()
 
-	Atr_InitOptionsPanels();
-	Atr_Install_Error_Handler()
+	zz ("auctionatorInited = ", auctionatorInited);
+
+
+	if (auctionatorInited == false) then
+		auctionatorInited = true;
+
+		Atr_InitOptionsPanels()
+		Atr_Install_Error_Handler()
+		
+		Atr_InitToolTips()
+		
+		if (RegisterAddonMessagePrefix) then
+			RegisterAddonMessagePrefix ("ATR")
+		end
+		
+	--	Atr_MakeOptionsFrameOpaque();
 	
-	if (RegisterAddonMessagePrefix) then
-		RegisterAddonMessagePrefix ("ATR")
 	end
 	
---	Atr_MakeOptionsFrameOpaque();
 end
 
 -----------------------------------------
@@ -1350,6 +1374,7 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
 		Atr_Search_Box:Hide();
 		Atr_Search_Button:Hide();
 		Atr_Adv_Search_Button:Hide();
+		Atr_Exact_Search_Button:Hide();
 		Atr_AddToSListButton:Hide();
 		Atr_RemFromSListButton:Hide();
 		Atr_NewSListButton:Hide();
@@ -1387,6 +1412,7 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
 			Atr_Search_Box:Show();
 			Atr_Search_Button:Show();
 			Atr_Adv_Search_Button:Show();
+			Atr_Exact_Search_Button:Show();
 			AuctionFrameMoneyFrame:Show();
 --			Atr_BuildGlobalHistoryList(true);
 			Atr_AddToSListButton:Show();
@@ -1797,7 +1823,7 @@ function auctionator_ChatEdit_InsertLink(text)
 			item = GetItemInfo(text);
 		end
 		if ( item ) then
-			Atr_SetSearchText (item);
+			Atr_SetSearchText (zc.QuoteString(item));	-- quote to make it exact
 			Atr_Search_Onclick ();
 			return true;
 		end
@@ -2726,6 +2752,7 @@ local function Bump_MaxButton_Hack()
 
 end
 
+
 -----------------------------------------
 
 function Atr_OnUpdate(self, elapsed)
@@ -2776,6 +2803,10 @@ function Atr_Idle(self, elapsed)
 
 	if (gCurrentPane and gCurrentPane.tooltipvisible) then
 		Atr_ShowRecTooltip();
+	end
+
+	if (Atr_IsModeBuy()) then
+		Atr_Shop_Idle();
 	end
 
 	
@@ -2856,7 +2887,7 @@ function Atr_OnNewAuctionUpdate()
 		
 		if (gJustPosted.ItemName == nil) then
 			local IDstring = zc.ItemIDStrfromLink (auctionLink)
-			
+		
 			local cacheHit = gSellPane:DoSearch (auctionItemName, IDstring, auctionLink, 20);
 			
 			gSellPane.totalItems	= Atr_GetNumItemInBags (auctionLink);

@@ -6,13 +6,14 @@
 		<Scripts>
 			<OnLoad>
 				self.name = "Auctionator"
-				InterfaceOptions_AddCategory(self);
+				Atr_LoadOptionsMainPanel (self)
 			</OnLoad>
 			<OnShow>
 				local f = _G["Atr_BasicOptionsFrame"];
 				if (f) then
-					InterfaceOptionsFrame_OpenToCategory (f)
 					self:Hide();
+					InterfaceOptionsFrame_OpenToCategory (f)
+					InterfaceOptionsFrame_OpenToCategory (f)
 				end
 			</OnShow>
 		</Scripts>

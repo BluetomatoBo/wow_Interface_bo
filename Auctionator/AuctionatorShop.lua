@@ -299,6 +299,40 @@ end
 
 -----------------------------------------
 
+local function IsExactChecked ()
+	return Atr_Exact_Search_Button:GetChecked()
+end
+
+-----------------------------------------
+
+function Atr_Exact_Search_Onclick ()
+
+	local searchText 	 = Atr_Search_Box:GetText();
+	local isQuoted  	 = zc.IsTextQuoted (searchText);
+	local isExactChecked = IsExactChecked();
+	
+	if (isExactChecked and not isQuoted) then
+		Atr_Search_Box:SetText ("\""..searchText.."\"");
+	end
+	
+	if ((not isExactChecked) and isQuoted) then
+		Atr_Search_Box:SetText (zc.TrimQuotes (searchText))
+	end
+
+end
+
+-----------------------------------------
+
+function Atr_SetExactChecked (b)
+	if (b == nil) then
+		zz ("Atr_SetExactChecked requires a value")
+	end
+	
+	return Atr_Exact_Search_Button:SetChecked(b)
+end
+
+-----------------------------------------
+
 function Atr_Search_Onclick ()
 
 	local currentPane = Atr_GetCurrentPane();
@@ -307,6 +341,7 @@ function Atr_Search_Onclick ()
 
 	Atr_Search_Button:Disable();
 	Atr_Adv_Search_Button:Disable();
+	Atr_Exact_Search_Button:Disable();
 	Atr_Buy1_Button:Disable();
 	Atr_AddToSListButton:Disable();
 	Atr_RemFromSListButton:Disable();
@@ -383,6 +418,7 @@ function Atr_Shop_OnFinishScan ()
 	
 	Atr_Search_Button:Enable();
 	Atr_Adv_Search_Button:Enable();
+	Atr_Exact_Search_Button:Enable();
 end
 
 
@@ -450,6 +486,7 @@ function Atr_SEntryOnClick (self)
 		if (IsAltKeyDown()) then
 			Atr_GetCurrentPane():ClearSearch();
 			Atr_RemFromSListOnClick();
+			Atr_SetSearchText ("");
 		else
 			Atr_Search_Onclick ();
 		end
@@ -665,6 +702,16 @@ end
 
 -----------------------------------------
 
+function Atr_Shop_Idle ()
+
+	local searchText 	 = Atr_Search_Box:GetText();
+	local isQuoted  	 = zc.IsTextQuoted (searchText);
+
+	Atr_SetExactChecked (isQuoted)
+end
+
+-----------------------------------------
+
 function Atr_Shop_UpdateUI ()
 
 	local currentPane = Atr_GetCurrentPane();
@@ -672,6 +719,7 @@ function Atr_Shop_UpdateUI ()
 	Atr_AddToSListButton:Disable();
 	Atr_RemFromSListButton:Disable();
 	Atr_SrchSListButton:Disable();
+
 	
 	if (gCurrentSList == nil) then
 		Atr_ShpList_SetToRecents()
@@ -746,7 +794,8 @@ function Atr_Adv_Search_Onclick ()
 	local searchText = Atr_Search_Box:GetText();
 
 	Atr_Adv_Search_Dialog:Show();
-
+	Atr_Adv_Search_Button:SetChecked(false);		-- it's really just a button
+	
 	if (Atr_IsCompoundSearch (searchText)) then
 		local queryString, itemClass, itemSubclass, minLevel, maxLevel, minItemLevel, maxItemLevel = Atr_ParseCompoundSearch (searchText);
 		

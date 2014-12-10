@@ -84,7 +84,7 @@ function Atr_Error_Handler (...)
 	
 		Atr_LUA_Error:Show();
 		
-		local fschunk = zc.Val (AUCTIONATOR_DC_CHUNK, "<nil>") ;
+		local fschunk = zc.Val (AUCTIONATOR_FS_CHUNK, "<nil>") ;
 		
 		local dbversion = 0;
 		if (AUCTIONATOR_PRICE_DATABASE and AUCTIONATOR_PRICE_DATABASE["__dbversion"]) then

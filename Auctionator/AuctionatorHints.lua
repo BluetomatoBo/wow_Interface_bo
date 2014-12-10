@@ -952,6 +952,8 @@ function Atr_ShowTipWithPricing (tip, link, num)
 		return;
 	end
 
+--	zc.printstack();
+
 	local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, _, _, _, _, itemVendorPrice = GetItemInfo (link);
 
 	local showStackPrices = IsShiftKeyDown();
@@ -998,6 +1000,27 @@ end
 
 -----------------------------------------
 
+function Atr_InitToolTips ()
+
+end
+
+
+-----------------------------------------
+
+
+hooksecurefunc (GameTooltip, "SetMerchantItem",
+	function(tip, index)
+		Atr_ShowTipWithPricing (tip, GetMerchantItemLink(index));		
+	end
+);
+
+hooksecurefunc (GameTooltip, "SetBuybackItem",
+	function(tip, index)
+		Atr_ShowTipWithPricing (tip, GetBuybackItemLink(index));		
+	end
+);
+
+
 hooksecurefunc (GameTooltip, "SetBagItem",
 	function(tip, bag, slot)
 		local _, num = GetContainerItemInfo(bag, slot);
@@ -1043,6 +1066,7 @@ hooksecurefunc (GameTooltip, "SetInventoryItem",
 		Atr_ShowTipWithPricing (tip, GetInventoryItemLink(unit, slot), GetInventoryItemCount(unit, slot));
 	end
 );
+
 
 hooksecurefunc (GameTooltip, "SetGuildBankItem",
 	function (tip, tab, slot)
@@ -1126,6 +1150,9 @@ hooksecurefunc (ItemRefTooltip, "SetHyperlink",
 		Atr_ShowTipWithPricing (tip, link);
 	end
 );
+
+
+
 
 
 

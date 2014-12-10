@@ -8,6 +8,13 @@ Atr_LoadOptionsSubPanel_NumCalls = 0;
 
 -----------------------------------------
 
+function Atr_LoadOptionsMainPanel (f)
+	InterfaceOptions_AddCategory(f);
+
+end
+
+-----------------------------------------
+
 function Atr_LoadOptionsSubPanel (f, name, title, subtitle)
 
 	f.name		= name
