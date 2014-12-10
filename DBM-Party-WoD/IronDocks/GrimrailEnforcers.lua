@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1236, "DBM-Party-WoD", 4, 558)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 11865 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 11976 $"):sub(12, -3))
 mod:SetCreatureID(80805, 80816, 80808)
 mod:SetEncounterID(1748)
 mod:SetZone()
@@ -14,6 +14,16 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 163689",
 	"SPELL_AURA_REMOVED 163689",
 	"UNIT_DIED"
+)
+
+local Dugru = EJ_GetSectionInfo(10449)
+local Makogg = EJ_GetSectionInfo(10453)
+local Nox = EJ_GetSectionInfo(10456)
+
+mod:SetBossHealthInfo(
+	80816, Dugru,
+	80805, Makogg,
+	80808, Nox
 )
 
 local warnSanguineSphere		= mod:NewTargetAnnounce(163689, 3)
