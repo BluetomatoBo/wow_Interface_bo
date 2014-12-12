@@ -7,9 +7,9 @@ AtrL["SCAN_EXPLANATION"] =  "<br/>"
 							.."when you're away from the Auction House and to recommend a price when you're posting an item for which there are no other "
 							.."auctions at that moment."
 							.."<br/><br/>"
-
 							..""
-							.."If normal scanning causes problems, you can try |cFFff5555slow scanning|r instead.  Just hold down the Control key before clicking "
+							.."If scanning causes your computer to disconnect, go to |cFFffd100auctionatoraddon.com/faq|r for possible solutions."
+							.."  If scanning causes other problems, you can try |cFFff5555slow scanning|r instead.  Just hold down the Control key before clicking "
 							.."the Start Scanning button."
 							.."<br/><br/>"
 

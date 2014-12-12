@@ -37,6 +37,7 @@ local gNumAdded
 local gNumUpdated
 
 local gDoSlowScan = false;
+local gDeniedCounter
 
 local gScanDetails = {}
 
@@ -80,6 +81,8 @@ function Atr_FullScanStart()
 		gNumScanned = 0
 		
 		gGetAllSuccess = true
+		
+		gDeniedCounter = 0;
 		
 		if (gDoSlowScan) then
 			gAtr_FullScanState = ATR_FS_SLOW_QUERY_NEEDED;
@@ -127,7 +130,15 @@ function Atr_FullScanFrameIdle()
 
 	local statusText;
 
+	if (gAtr_FullScanState == ATR_FS_SLOW_QUERY_NEEDED and not CanSendAuctionQuery()) then
+		gDeniedCounter = gDeniedCounter+1;
+	end
+	
 	if (gAtr_FullScanState == ATR_FS_SLOW_QUERY_NEEDED and CanSendAuctionQuery()) then
+
+		zz ("gDeniedCounter", gDeniedCounter);
+		gDeniedCounter = 0;
+		
 		QueryAuctionItems ("", nil, nil, 0, 0, 0, gSlowScanPage, 0, 0)
 		gAtr_FullScanState = ATR_FS_SLOW_QUERY_SENT
 		if (gSlowScanTotalPages) then
@@ -179,11 +190,12 @@ function Atr_FullScanBeginAnalyzePhase()
 	end
 
 	gFullScanPosition = 1
-	gLowPrices = {}
-	gQualities = {}
 
 
 	if (not gDoSlowScan) then
+		gLowPrices = {}
+		gQualities = {}
+
 		zz ("FULL SCAN:"..numBatchAuctions.." out of  "..totalAuctions)
 		zz ("AUCTIONATOR_FS_CHUNK: ", AUCTIONATOR_FS_CHUNK)
 	end
@@ -207,8 +219,6 @@ function Atr_FullScanAnalyze()
 		firstScanPosition = 1
 		gSlowScanTotalPages = math.floor (totalAuctions / 50) + 1
 		
-		--zz ("gSlowScanPage:", gSlowScanPage+1, " of ", gSlowScanTotalPages)
-
 		if (numBatchAuctions == 0) then		-- slow scan done
 			Atr_FullScanUpdateDB();
 			return;
@@ -298,7 +308,7 @@ function Atr_FullScanUpdateDB()
 	local numEachQual = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 	local totalItems = 0;
 	local numRemoved = { 0, 0, 0, 0, 0, 0, 0, 0 };
-	
+
 	for name,newprice in pairs (gLowPrices) do
 		
 		if (newprice < BIGNUM) then

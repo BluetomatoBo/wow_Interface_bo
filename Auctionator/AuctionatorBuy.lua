@@ -121,6 +121,10 @@ function Atr_Buy1_Onclick ()
 	Atr_Buy_Confirm_CancelBut:SetText (ZT("Cancel"))
 	Atr_Buy_Confirm_Frame:Show();
 
+	SortAuctionClearSort("list") 
+	SortAuctionSetSort("list", "buyout")
+	SortAuctionApplySort("list")
+
 	Atr_Buy_QueueQuery(0);
 
 end
@@ -210,6 +214,8 @@ end
 function Atr_Buy_OnAuctionUpdate()
 
 	if (gBuyState == ATR_BUY_QUERY_SENT) then
+
+zz ("curpage", gAtr_Buy_CurPage);
 
 		gAtr_Buy_Query:CapturePageInfo(gAtr_Buy_CurPage)
 		

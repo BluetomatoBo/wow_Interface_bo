@@ -1,10 +1,9 @@
 
--- 3.2.0
+-- 3.2.1
 
--- change default chunk size to 50 and changed save logic to only save if explicitly set
--- added prices to merchant and buyback
--- fixed bug so Options button works the first time
--- implemented exact matching for both buying and selling
+-- Improved buy performance by sorting
+-- Changed full scan message about disconnects
+-- Fixed slow scan to save results
 
 AuctionatorVersion = "???";		-- set from toc upon loading
 AuctionatorAuthor  = "Zirco";
