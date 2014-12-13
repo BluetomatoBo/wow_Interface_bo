@@ -23,6 +23,7 @@ AddOnSkinsOptions = {
 -- Misc
 	['RecountBackdrop'] = true,
 	['SkadaBackdrop'] = true,
+	['DetailsBackdrop'] = true,
 	['OmenBackdrop'] = true,
 	['MiscFixes'] = true,
 	['DBMSkinHalf'] = false,
@@ -58,7 +59,7 @@ function AS:Delay(delay, func)
 end
 
 function AS:CheckAddOn(addon)
-	return AS.AddOns[addon] or false
+	return AS.AddOns[strlower(addon)] or false
 end
 
 function AS:Print(string)

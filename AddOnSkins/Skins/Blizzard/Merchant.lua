@@ -12,7 +12,7 @@ function AS:Blizzard_Merchant()
 	AS:StripTextures(MerchantExtraCurrencyInset)
 
 	-- skin tabs
-	for i= 1, 2 do
+	for i = 1, 2 do
 		AS:SkinTab(_G["MerchantFrameTab"..i])
 	end
 
@@ -136,7 +136,7 @@ function AS:Blizzard_Merchant()
 	MerchantRepairAllIcon:SetInside()
 
 	-- Skin misc frames
-	MerchantFrame:Width(360)
+	MerchantFrame:SetWidth(345)
 	AS:SkinCloseButton(MerchantFrameCloseButton)
 	AS:SkinNextPrevButton(MerchantNextPageButton)
 	AS:SkinNextPrevButton(MerchantPrevPageButton)

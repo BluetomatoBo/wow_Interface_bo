@@ -67,6 +67,7 @@ function AS:InjectProfile()
 		['RecountBackdrop'] = true,
 		['SkadaBackdrop'] = true,
 		['OmenBackdrop'] = true,
+		['DetailsBackdrop'] = true,
 		['MiscFixes'] = true,
 		['DBMSkinHalf'] = false,
 		['DBMFont'] = 'ElvUI Norm',
@@ -193,6 +194,19 @@ function AS:EmbedSystemHooks()
 			GameTooltip:Show()
 		end
 	end)
+
+	function HideLeftChat()
+		LeftChatToggleButton:Click()
+	end
+
+	function HideRightChat()
+		RightChatToggleButton:Click()
+	end
+
+	function HideBothChat()
+		LeftChatToggleButton:Click()
+		RightChatToggleButton:Click()
+	end
 end
 
 function AS:EmbedSystem_WindowResize()
