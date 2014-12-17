@@ -4,7 +4,13 @@
 	Copyright (c) 2014 Phanx <addons@phanx.net>. All rights reserved.
 	http://www.wowinterface.com/downloads/info23267-HandyNotes-HigherLearning.html
 	http://www.curse.com/addons/wow/handynotes-higher-learning
-	https://github.com/Phanx/HandyNotes_HigherLearning
+
+	Please DO NOT upload this addon to other websites, or post modified
+	versions of it. However, you are welcome to use any/all of its code
+	in your own addon, as long as you do not use my name or the name of
+	this addon ANYWHERE in your addon outside of an optional attribution.
+	You are also welcome to include a copy of this addon WITHOUT CHANGES
+	in compilations uploaded on Curse and/or WoWInterface.
 ----------------------------------------------------------------------]]
 
 local ADDON_NAME = ...
