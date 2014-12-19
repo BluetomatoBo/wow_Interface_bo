@@ -172,7 +172,9 @@ local kUncutGems = {
 	52303,		-- shadowspirit diamond
 	
 	42225, 		-- dragon's eye
-	52196		-- chimera's eye
+	52196,		-- chimera's eye
+
+	115524		-- taladite crystal
 	}
 
 -----------------------------------------
@@ -183,7 +185,7 @@ function Atr_IsCutGem (itemLink)
 		return false;
 	end
 	
-	local itemID = zc.ItemIDfromLink (itemLink);
+	local itemID = zc.RawItemIDfromLink (itemLink);
 
 	for n = 1, #kUncutGems do
 		if (itemID == tostring (kUncutGems[n])) then

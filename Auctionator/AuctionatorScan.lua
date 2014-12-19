@@ -447,7 +447,10 @@ function AtrSearch:AnalyzeResultsPage()
 			
 			if (itemLink) then
 				local IDstring = zc.ItemIDStrfromLink (itemLink);
-				
+	
+zz (IDstring, itemLink)
+--zz (zc.printableLink(itemLink), IDstring)	
+			
 				if (Atr_ILevelHist_Update) then
 					Atr_ILevelHist_Update(itemLink)
 				end

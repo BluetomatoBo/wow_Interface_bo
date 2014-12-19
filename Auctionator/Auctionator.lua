@@ -1,9 +1,10 @@
 
--- 3.2.1
+-- 3.2.2
 
--- Improved buy performance by sorting
--- Changed full scan message about disconnects
--- Fixed slow scan to save results
+-- distinguish items based on bonus ids
+-- substring AH search for crafted armor or weapons
+-- added taladite to list of raw gems
+
 
 AuctionatorVersion = "???";		-- set from toc upon loading
 AuctionatorAuthor  = "Zirco";
@@ -652,7 +653,10 @@ local function Atr_OnClickTradeSkillBut()
 
 	local index = GetTradeSkillSelectionIndex()
 	local link = GetTradeSkillItemLink(index)
-	
+
+	local _, _, _, _, _, itemType = GetItemInfo (link);
+
+
 	local numReagents = GetTradeSkillNumReagents (index)
 	local reagentId
 	
@@ -676,7 +680,7 @@ local function Atr_OnClickTradeSkillBut()
 		end
 	end
 
-	Atr_SearchAH (shoppingListName, items)
+	Atr_SearchAH (shoppingListName, items, itemType)
 end
 
 -----------------------------------------
@@ -4551,16 +4555,7 @@ function Atr_AddHistoricalPrice (itemName, price, stacksize, itemLink, testwhen)
 		AUCTIONATOR_PRICING_HISTORY[itemName] = {};
 	end
 
-	local itemId, suffixId, uniqueId = zc.ItemIDfromLink (itemLink);
-
-	local is = itemId;
-
-	if (suffixId ~= 0) then
-		is = is..":"..suffixId;
-		if (tonumber(suffixId) < 0) then
-			is = is..":"..uniqueId;
-		end
-	end
+	local is = zc.ItemIDStrfromLink (itemLink);
 
 	AUCTIONATOR_PRICING_HISTORY[itemName]["is"]  = is;
 

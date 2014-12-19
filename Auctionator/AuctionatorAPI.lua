@@ -85,7 +85,7 @@ end
 
 -----------------------------------------
 
-function Atr_SearchAH (shoppingListName, items)
+function Atr_SearchAH (shoppingListName, items, itemType)
 
 	if (shoppingListName == nil) then
 		shoppingListName = "Unknown"
@@ -95,7 +95,11 @@ function Atr_SearchAH (shoppingListName, items)
 
 	local i;
 	for i = 1, #items do
-		slist:AddItem ("\""..items[i].."\"")
+		if (i == 1 and (Atr_IsWeaponType (itemType) or Atr_IsArmorType (itemType))) then
+			slist:AddItem (items[i])		-- do substring search for first item if armor or weapon
+		else
+			slist:AddItem (zc.QuoteString(items[i]))
+		end
 	end
 
 	if (not Atr_IsTabSelected(SELL_TAB)) then

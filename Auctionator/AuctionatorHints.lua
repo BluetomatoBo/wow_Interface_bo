@@ -55,7 +55,7 @@ function Atr_BuildHints (itemName, itemLink)
 	
 	if (TUJMarketInfo) then
 	
-		local id = zc.ItemIDfromLink (itemLink);
+		local id = zc.RawItemIDfromLink (itemLink);
 
 		local tujData = {}
 		TUJMarketInfo (tonumber(id), tujData)
@@ -94,7 +94,7 @@ function Atr_BuildHints (itemName, itemLink)
 	
 		-- GoingPrice Wowhead
 		
-		local id = zc.ItemIDfromLink (itemLink);
+		local id = zc.RawItemIDfromLink (itemLink);
 		
 		id = tonumber(id);
 
@@ -884,7 +884,7 @@ function Atr_STWP_AddAuctionInfo (tip, xstring, link, auctionPrice)
 	
 	if (AUCTIONATOR_A_TIPS == 1) then
 		
-		local itemID = zc.ItemIDfromLink (link);
+		local itemID = zc.RawItemIDfromLink (link);
 		itemID = tonumber(itemID);
 	
 		local bondtype = Atr_GetBondType (itemID);
