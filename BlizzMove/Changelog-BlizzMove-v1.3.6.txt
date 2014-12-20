@@ -1,9 +1,16 @@
 ------------------------------------------------------------------------
-r53 | yess | 2014-12-14 04:29:33 +0000 (Sun, 14 Dec 2014) | 1 line
+r55 | yess | 2014-12-19 15:29:19 +0000 (Fri, 19 Dec 2014) | 1 line
 Changed paths:
-   A /tags/v1.3.5 (from /trunk:52)
+   A /tags/v1.3.6 (from /trunk:54)
 
-Tagging as v1.3.5
+Tagging as v1.3.6
+------------------------------------------------------------------------
+r54 | yess | 2014-12-19 15:27:59 +0000 (Fri, 19 Dec 2014) | 2 lines
+Changed paths:
+   M /trunk/BlizzMove.lua
+
+Added support for the Work Orders window.
+
 ------------------------------------------------------------------------
 r52 | yess | 2014-12-14 04:29:01 +0000 (Sun, 14 Dec 2014) | 1 line
 Changed paths:
