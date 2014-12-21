@@ -17,6 +17,7 @@
 			[124974] = "natureVigil", --
 			[112071] = "celestialAlignment", --
 			[102342] = "ironBark",
+			[102351] = "canarionWard", -- ZAdded
 				-- WoD
 			[155835] = "BristlingFur",
 			
@@ -53,6 +54,7 @@
 				-- OLD
 			[55694] = "enragedRegeneration", -- 狂怒恢復
 			[871] = "shieldWall", --盾墻
+			[112048] = "shieldBarrier", -- Added
 			[18499] = "berserkerRage", -- 狂暴之怒
 			[23920] = "spellReflection", -- 盾反
 			[12328] = "sweepingStrikes", -- 橫掃攻擊
@@ -70,6 +72,7 @@
 			[6346] = "fearWard", -- 反恐
 			[47585] = "dispersion", -- 消散
 			[47788] = "guardianSpirit",
+			[109964] = "spiritShell",
 				-- Mist of pandaria
 			[10060] = "powerInfusion",
 
@@ -85,6 +88,8 @@
 			[114050] = "ascendance",
 			[114051] = "ascendance",
 			[114052] = "ascendance",
+			[118350] = "empower", -- moved from castsucces
+			[118347] = "reinforce", -- moved from castsuccess
 
 			--mage
 				-- OLD
@@ -131,6 +136,7 @@
 			[120954] = "fortifyingBrew",
 			[115176] = "zenMeditation",
 			[116849] = "lifeCocoon",
+			[122470] = "touchOfKarma",
 				-- WoD
 			[152175] = "HurricaneStrike",
 			[152173] = "Serenity",
@@ -143,6 +149,7 @@
 			[31224] = "cloakDown", -- 斗篷結束
 			[74001] = "combatReadinessDown", -- 戰鬥就緒結束
 			[871] = "shieldWallDown", -- 盾墻結束
+			[112048] = "shieldBarrierDown", -- Added
 			[33206] = "PSDown", -- 壓制結束
 			[5277] = "evasionDown", -- 閃避結束
 			[45438] = "iceBlockDown", -- 冰箱結束
@@ -153,7 +160,11 @@
 			[108271] = "astralShiftDown",
 			[120954] = "fortifyingBrewDown",
 			[115176] = "zenMeditationDown",
-		},
+			[122470] = "karmaDown", -- Added
+			[118347] = "reinforceDown", -- Added
+			[118350] = "empowerDown", -- Added
+			[109964] = "spiritShellDown", -- Added
+			},
 		castStart = {					-- cast start [spellid] = ".mp3 file name",
 			--general
 			[2060] = "bigHeal",
@@ -325,13 +336,12 @@
 				-- Mist of pandaria
 			[108270] = "stoneBulwark",
 			[51485] = "earthgrab",
+			[2484] = "earthbind",
 			[108273] = "windwalk",
 			[108285] = "callOfTheElements",
 			[108287] = "totemicProjection",
 			[108280] = "healingTide",
 			[108281] = "ancestralGuidance",
-			[118350] = "empower",
-			[118347] = "reinforce",
 			[118345] = "pulverize",
 			[2894] = "fireElemental",
 			[2062] = "earthElemental",
@@ -409,7 +419,7 @@
 			[108359] = "darkRegeneration",
 			[111397] = "bloodFear",
 			[108482] = "unboundWill",
-			[108505] = "archimondesVengeance",
+			--[108505] = "archimondesVengeance",
 			[104316] = "impSwarm",
 			[110913] = "darkBargain",
 			[111859] = "grimoireOfService",
@@ -429,7 +439,6 @@
 			[115078] = "paralysis",
 			[115315] = "oxStatue",
 			[115313] = "serpentStatue",
-			[122470] = "touchOfKarma",
 			[116705] = "spearStrike",
 			[123761] = "manatea",
 			[119996] = "transfer",

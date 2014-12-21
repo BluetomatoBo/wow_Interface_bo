@@ -10,12 +10,12 @@ local GSA_VERSION = " v2.1"
 
 local GSA_LOCALEPATH = {
 	enUS = "GladiatorlosSA\\Voice_enUS",
-	zhTW = "GladiatorlosSA\\Voice",
-	zhCN = "GladiatorlosSA\\Voice"
+--	zhTW = "GladiatorlosSA\\Voice",
+--	zhCN = "GladiatorlosSA\\Voice"
 }
 self.GSA_LOCALEPATH = GSA_LOCALEPATH
 local GSA_LANGUAGE = {
-	["GladiatorlosSA\\Voice"] = L["Chinese(female)"],
+--	["GladiatorlosSA\\Voice"] = L["Chinese(female)"],
 	["GladiatorlosSA\\Voice_enUS"] = L["English(female)"],
 }
 self.GSA_LANGUAGE = GSA_LANGUAGE
