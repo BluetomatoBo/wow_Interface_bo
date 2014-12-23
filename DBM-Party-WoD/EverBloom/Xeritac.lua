@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1209, "DBM-Party-WoD", 5, 556)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 11933 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12037 $"):sub(12, -3))
 mod:SetCreatureID(84550)
 mod:SetEncounterID(1752)--TODO: VERIFY, "Boss 4" isn't descriptive enough
 mod:SetZone()
@@ -28,6 +28,9 @@ local warnGaseousVolley				= mod:NewSpellAnnounce(169248, 3)
 local specWarnConsume				= mod:NewSpecialWarningSpell(169248)
 local specWarnGaseousVolley			= mod:NewSpecialWarningSpell(169382, nil, nil, nil, 2)
 
+local voiceConsume					= mod:NewVoice(169248)
+local voicePhaseChange				= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_TEXT)
+
 mod.vb.spiderlingCount = 4
 mod.vb.phase2 = false
 
@@ -43,6 +46,7 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 169248 then
 		warnConsume:Show()
 		specWarnConsume:Show()
+		voiceConsume:Play("killmob")
 	elseif spellId == 169382 then
 		warnGaseousVolley:Show()
 		specWarnGaseousVolley:Show()
@@ -63,5 +67,6 @@ function mod:UNIT_TARGETABLE_CHANGED()
 	if not self.vb.phase2 then
 		self.vb.phase2 = true
 		warnPhase2:Show()
+		voicePhaseChange:Play("ptwo")
 	end
 end

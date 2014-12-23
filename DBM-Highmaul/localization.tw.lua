@@ -32,7 +32,9 @@ L= DBM:GetModLocalization(1148)
 
 L:SetOptionLocalization({
 	PhemosSpecial	= "為菲莫斯的技能冷卻播放倒數音效",
-	PolSpecial		= "為博爾的技能冷卻播放倒數音效"
+	PolSpecial		= "為博爾的技能冷卻播放倒數音效",
+	PhemosSpecialVoice	= "為菲莫斯的技能播放語音包音效",
+	PolSpecialVoice		= "為博爾的技能播放語音包音效"
 })
 
 --------------------
@@ -53,7 +55,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(1197)
 
 L:SetMiscLocalization({
-	BrandedYell			= "%s中了烙印(%d)"
+	BrandedYell			= "%2$s中了烙印(%1$s)"
 })
 
 -------------

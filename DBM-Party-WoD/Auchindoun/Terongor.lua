@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1225, "DBM-Party-WoD", 1, 547)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 11968 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12037 $"):sub(12, -3))
 mod:SetCreatureID(77734)
 mod:SetEncounterID(1714)
 mod:SetZone()
@@ -21,9 +21,7 @@ mod:RegisterEventsInCombat(
 local warnDrainLife				= mod:NewTargetAnnounce(156854, 4)
 local warnCorruption			= mod:NewTargetAnnounce(156842, 3, nil, mod:IsHealer())--Seems 1 phase only spell.
 local warnRainOfFire			= mod:NewSpellAnnounce(156857, 3)
---Unknown Abilities
---local warnInferno // no trigger, impossible now. Affliction only?
-local warnFixate				= mod:NewTargetAnnounce(157168, 2, nil, false)--Seems spammy if kite it.
+local warnFixate				= mod:NewTargetAnnounce("OptionVersion2", 157168, 2)
 --Affliction Abilities
 local warnSeedOfMalevolence		= mod:NewTargetAnnounce(156921, 3)
 local warnExhaustion			= mod:NewTargetAnnounce(164841, 3, nil, mod:CanRemoveCurse())
@@ -76,6 +74,13 @@ local countdownSeedOfMelevolence= mod:NewCountdownFades(18, 156921)
 
 local soundFixate				= mod:NewSound(157168)
 
+local voiceWarnChaosWave		= mod:NewVoice(157001)
+local voiceCorruption			= mod:NewVoice(156842, mod:IsHealer())
+local voiceWarnImmolate			= mod:NewVoice(156964, mod:IsHealer())
+local voiceSeedOfMelevolence	= mod:NewVoice(156921)
+local voiceChaosBolt			= mod:NewVoice(156975, not mod:IsHealer())
+local voiceWarnExhaustion		= mod:NewVoice(164841, mod:CanRemoveCurse())
+
 mod:AddRangeFrameOption(10, 156921)
 
 local seedDebuff = GetSpellInfo(156921)
@@ -104,6 +109,7 @@ function mod:ChaosWaveTarget(targetname, uId)
 	if targetname == UnitName("player") then
 		specWarnChaosWave:Show()
 		yellWarnChaosWave:Yell()
+		voiceWarnChaosWave:Play("runaway")
 	end
 end
 
@@ -127,6 +133,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 156842 then
 		warnCorruption:Show(args.destName)
 		specWarnCorruption:Show(args.destName)
+		voiceCorruption:Play("dispelnow")
 	elseif spellId == 156921 and args:IsDestTypePlayer() then--This debuff can be spread to the boss. bugged?
 		self.vb.seedCount = self.vb.seedCount + 1
 		warnSeedOfMalevolence:Show(args.destName)
@@ -135,6 +142,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnSeedOfMelevolence:Show()
 			timerSeedOfMelevolence:Start()
 			countdownSeedOfMelevolence:Start()
+			voiceSeedOfMelevolence:Play("runout")
 		end
 		if self.Options.RangeFrame then
 			if UnitDebuff("player", seedDebuff) then--You have debuff, show everyone
@@ -153,11 +161,13 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 164841 then
 		warnExhaustion:Show(args.destName)
 		specWarnExhaustion:Show(args.destName)
+		voiceWarnExhaustion:Play("dispelnow")
 		--timerExhaustionCD:Start()
 	elseif spellId == 156964 then--Base version cast only in phase 1
 		warnImmolate:Show(args.destName)
 		specWarnImmolate:Show(args.destName)
 		timerImmolateCD:Start()
+		voiceWarnImmolate:Plat("dispelnow")
 	end
 end
 
@@ -189,6 +199,11 @@ function mod:SPELL_CAST_START(args)
 		warnChaosBolt:Show()
 		specWarnChaosBolt:Show(args.sourceName)
 		timerChaosBoltCD:Start()--TODO, verify it's 20 on heroic and normal too. it's definitely 20 on CM
+		if self:IsTank() then
+			voiceChaosBolt:Play("kickcast")
+		else
+			voiceChaosBolt:Play("helpkick")
+		end	
 	elseif spellId == 156857 then--Base version cast only in phase 1
 		warnRainOfFire:Show()
 		specWarnRainOfFire:Show()

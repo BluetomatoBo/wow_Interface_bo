@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1227, "DBM-Party-WoD", 8, 559)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 11886 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12114 $"):sub(12, -3))
 mod:SetCreatureID(76021)
 mod:SetEncounterID(1758)
 mod:SetZone()
@@ -24,7 +24,7 @@ local warnRejuvSerum				= mod:NewTargetAnnounce(161203, 4, nil, mod:IsMagicDispe
 local warnToxicFumes				= mod:NewTargetAnnounce(162600, 3, nil, mod:IsHealer())
 local warnVilebloodSerum			= mod:NewSpellAnnounce(161209, 3)--Some may think this is spammy but the puddles tick literally instantly giving not much time to move before 2nd tick which may kill you.
 
-local specWarnDebilitatingFixation	= mod:NewSpecialWarningInterrupt(161199, mod:IsTank(), nil, nil, 3)
+local specWarnDebilitatingFixation	= mod:NewSpecialWarningInterrupt("OptionVersion2", 161199, not mod:IsHealer(), nil, nil, 3)
 local specWarnEruption				= mod:NewSpecialWarningMove(155037, mod:IsTank())
 local specWarnRejuvSerum			= mod:NewSpecialWarningDispel(161203, mod:IsMagicDispeller())
 local specWarnToxicFumes			= mod:NewSpecialWarningDispel(162600, mod:IsHealer())
@@ -36,6 +36,11 @@ local timerEruptionCD				= mod:NewCDTimer(10, 155037, nil, false)--10-15 sec var
 local timerVilebloodSerumCD			= mod:NewCDTimer(9.5, 161209)--every 9-10 seconds
 
 local countdownDebilitating			= mod:NewCountdown(20, 161199, mod:IsTank())
+
+local voiceRejuvSerum				= mod:NewVoice(161203, mod:IsMagicDispeller())
+local voiceToxicFumes				= mod:NewVoice(162600, mod:IsHealer())
+local voiceDebilitating				= mod:NewVoice(161199, not mod:IsHealer())
+local voiceVilebloodSerum			= mod:NewVoice(161288)
 
 function mod:OnCombatStart(delay)
 --	timerRejuvSerumCD:Start(22.5-delay)--Insufficent sample size
@@ -49,9 +54,11 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnRejuvSerum:Show(args.destName)
 		specWarnRejuvSerum:Show(args.destName)
 --		timerRejuvSerumCD:Start()
+		voiceRejuvSerum:Play("dispelboss")
 	elseif spellId == 162600 then
 		warnToxicFumes:Show(args.destName)
 		specWarnToxicFumes:Show(args.destName)
+		voiceToxicFumes:Play("dispelnow")
 	end
 end
 
@@ -62,6 +69,11 @@ function mod:SPELL_CAST_START(args)
 		specWarnDebilitatingFixation:Show(args.sourceName)
 		timerDebilitatingCD:Start()
 		countdownDebilitating:Start()
+		if self:IsTank() then
+			voiceDebilitating:Play("kickcast")
+		else
+			voiceDebilitating:Play("helpkick")
+		end
 	elseif spellId == 161203 then
 		warnRejuvSerumCast:Show()
 	elseif spellId == 155037 and self:IsInCombat() then
@@ -72,8 +84,11 @@ function mod:SPELL_CAST_START(args)
 end
 
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
-	if spellId == 161288 and destGUID == UnitGUID("player") and self:AntiSpam(2, 1) then
-		specWarnVilebloodSerum:Show()
+	if spellId == 161288 and destGUID == UnitGUID("player") then
+		if self:AntiSpam(2, 1) then
+			specWarnVilebloodSerum:Show()
+			voiceVilebloodSerum:Play("runaway")
+		end
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
@@ -89,5 +104,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 161209 and self:AntiSpam(3, 2) then
 		warnVilebloodSerum:Show()
 		timerVilebloodSerumCD:Start()
+		if self:AntiSpam(2, 1) then
+			specWarnVilebloodSerum:Show()--Always dropped on all players when cast, so moving during cast gets 0 ticks.
+			voiceVilebloodSerum:Play("runaway")
+		end
 	end
 end
