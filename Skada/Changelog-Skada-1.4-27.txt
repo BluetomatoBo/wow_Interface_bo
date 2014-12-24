@@ -1,9 +1,29 @@
 ------------------------------------------------------------------------
-r596 | zarnivoop | 2014-12-21 22:19:10 +0000 (Sun, 21 Dec 2014) | 1 line
+r601 | zarnivoop | 2014-12-24 08:38:24 +0000 (Wed, 24 Dec 2014) | 1 line
 Changed paths:
-   A /tags/1.4-25 (from /trunk:595)
+   A /tags/1.4-27 (from /trunk:600)
 
-Tagging as 1.4-25
+Tagging as 1.4-27
+------------------------------------------------------------------------
+r600 | zarnivoop | 2014-12-24 08:29:25 +0000 (Wed, 24 Dec 2014) | 1 line
+Changed paths:
+   M /trunk/modules/Healing.lua
+
+fix mistaken spell name for swing absorbs
+------------------------------------------------------------------------
+r598 | zarnivoop | 2014-12-23 17:31:26 +0000 (Tue, 23 Dec 2014) | 1 line
+Changed paths:
+   M /trunk/modules/Damage.lua
+   M /trunk/modules/Healing.lua
+
+more yuletide absorb fixes!
+------------------------------------------------------------------------
+r597 | zarnivoop | 2014-12-23 16:31:55 +0000 (Tue, 23 Dec 2014) | 1 line
+Changed paths:
+   M /trunk/modules/Damage.lua
+   M /trunk/modules/Healing.lua
+
+handle swing_absorbed too
 ------------------------------------------------------------------------
 r595 | zarnivoop | 2014-12-21 21:31:37 +0000 (Sun, 21 Dec 2014) | 1 line
 Changed paths:

@@ -122,11 +122,24 @@ Skada:AddLoadableModule("Healing", function(Skada, L)
 		end
 	end
 
-	local function SpellAbsorbed(timestamp, eventtype, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, spellId, spellName, spellSchool, aGUID, aName, aFlags, aRaidFlags, aspellId, aspellName, aspellSchool, aAmount)
-        -- New fancy absorb events.
-        -- Destination is the healed player, and cause of absorb comes later.
-        if aAmount then
-            SpellHeal(timestamp, eventtype, aGUID, aName, aFlags, dstGUID, dstName, dstFlags, aspellId, aspellName, aspellSchool, aAmount, 0, 0, nil, nil, nil, nil, nil, nil, nil, nil)
+	local function SpellAbsorbed(timestamp, eventtype, srcGUID, srcName, srcFlags, dstGUID, dstName, dstFlags, ...)
+        local chk = ...
+        local spellId, spellName, spellSchool, aGUID, aName, aFlags, aRaidFlags, aspellId, aspellName, aspellSchool, aAmount
+
+        if type(chk) == "number" then
+            -- Spell event
+            spellId, spellName, spellSchool, aGUID, aName, aFlags, aRaidFlags, aspellId, aspellName, aspellSchool, aAmount = ...
+            
+            if aAmount then
+                SpellHeal(timestamp, eventtype, aGUID, aName, aFlags, dstGUID, dstName, dstFlags, aspellId, aspellName, aspellSchool, aAmount, 0, 0)
+            end
+        else
+            -- Swing event
+            aGUID, aName, aFlags, aRaidFlags, aspellId, aspellName, aspellSchool, aAmount = ...
+
+            if aAmount then
+                SpellHeal(timestamp, eventtype, aGUID, aName, aFlags, dstGUID, dstName, dstFlags, aspellId, aspellName, nil, aAmount, 0, 0)
+            end
         end
     end
 
