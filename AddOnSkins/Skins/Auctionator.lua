@@ -74,7 +74,8 @@ function AS:Auctionator(event)
 		AS:SkinButton(Atr_Search_Button, true)
 		AS:SkinButton(Atr_Back_Button, true)
 		AS:SkinButton(Atr_Buy1_Button, true)
-		AS:SkinButton(Atr_Adv_Search_Button, true)
+		AS:SkinCheckBox(Atr_Adv_Search_Button)
+		AS:SkinCheckBox(Atr_Exact_Search_Button)
 		AS:SkinButton(Atr_FullScanButton, true)
 		AS:SkinButton(Auctionator1Button, true)
 		AS:SkinFrame(Atr_ListTabsTab1)
@@ -137,13 +138,16 @@ function AS:Auctionator(event)
 		Atr_Back_Button:Point('TOPLEFT', Atr_HeadingsBar, 'TOPLEFT', 0, 19)
 
 		AuctionatorCloseButton:ClearAllPoints()
-		AuctionatorCloseButton:Point('BOTTOMLEFT', Atr_Main_Panel, 'BOTTOMRIGHT', -17, 10)
+		AuctionatorCloseButton:Point('BOTTOMRIGHT', Atr_Main_Panel, 'BOTTOMRIGHT', -10, 10)
 		Atr_Buy1_Button:Point('RIGHT', AuctionatorCloseButton, 'LEFT', -5, 0)
 		Atr_CancelSelectionButton:Point('RIGHT', Atr_Buy1_Button, 'LEFT', -5, 0)
 		AS:StripTextures(Atr_SellControls_Tex)
 		AS:StyleButton(Atr_SellControls_Tex)
 		Atr_SellControls_Tex:SetTemplate('Default', true)
-		AS:UnregisterSkinEvent('Auctionator', event)
+		AS:UnregisterSkinEvent('Auctionator', 'AUCTION_HOUSE_SHOW')
+		for i = 1, AuctionFrame.numTabs do
+			AS:SkinTab(_G["AuctionFrameTab"..i])
+		end
 	end
 end
 

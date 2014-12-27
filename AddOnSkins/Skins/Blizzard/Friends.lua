@@ -1,7 +1,13 @@
 local AS = unpack(AddOnSkins)
 
 function AS:Blizzard_Friends()
-	AS:SkinFrame(FriendsFrame, nil, nil, true)
+	AS:SkinFrame(FriendsFrame)
+	FriendsFrameIcon:SetTexture('')
+	hooksecurefunc(FriendsFrameIcon, 'SetTexture', function(self, texture)
+		if texture ~= '' then
+			self:SetTexture('')
+		end
+	end)
 	AS:SkinBackdropFrame(FriendsFrameFriendsScrollFrame)
 	FriendsFrameFriendsScrollFrame.Backdrop:SetPoint('TOPLEFT', -4, 3)
 	FriendsFrameFriendsScrollFrame.Backdrop:SetPoint('BOTTOMRIGHT', 0, -3)
@@ -137,17 +143,6 @@ function AS:Blizzard_Friends()
 			end
 		end
 	end)
-
-	AS:SkinButton(RaidFrameConvertToRaidButton)
-	AS:SkinButton(RaidFrameRaidInfoButton)
-	AS:SkinCheckBox(RaidFrameAllAssistCheckButton)
-
-	AS:SkinFrame(RaidInfoFrame)
-	AS:SkinCloseButton(RaidInfoCloseButton)
-	AS:SkinButton(RaidInfoExtendButton)
-	AS:SkinButton(RaidInfoCancelButton)
-	AS:StripTextures(RaidInfoInstanceLabel)
-	AS:StripTextures(RaidInfoIDLabel)
 end
 
 AS:RegisterSkin('Blizzard_Friends', AS.Blizzard_Friends)
