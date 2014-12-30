@@ -156,6 +156,7 @@
 			[49039] = "lichborneDown", -- 巫妖之軀結束
 			[48792] = "iceboundFortitudeDown", -- 冰固結束
 			[19263] = "deterrenceDown", -- 威懾結束
+			[48707] = "AntiMagicShellDown", -- Added
 				-- Mist of pandaria
 			[108271] = "astralShiftDown",
 			[120954] = "fortifyingBrewDown",

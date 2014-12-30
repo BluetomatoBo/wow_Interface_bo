@@ -211,7 +211,9 @@ function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
 	end
 	local timestamp,event,hideCaster,sourceGUID,sourceName,sourceFlags,sourceFlags2,destGUID,destName,destFlags,destFlags2,spellID,spellName= select ( 1 , ... );
 	if not GSA_EVENT[event] then return end
-	--print(sourceName,destName,destFlags,event,spellName,spellID)
+
+		--print(sourceName,destName,destFlags,"|cffFF7D0A" .. event.. "|r",spellName,"|cffFF7D0A" .. spellID.. "|r")
+
 	if (destFlags) then
 		for k in pairs(GSA_TYPE) do
 			desttype[k] = CombatLog_Object_IsA(destFlags,k)

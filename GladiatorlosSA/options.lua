@@ -7,8 +7,7 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 
 function GSA:ShowConfig()
-	InterfaceOptionsFrame_OpenToCategory(GetAddOnMetadata("GladiatorlosSA", "Title"))
-	InterfaceOptionsFrame_OpenToCategory(GetAddOnMetadata("GladiatorlosSA", "Title")) -- ugly temporary fix to don't have to type /gsa twice
+	for i=1,2 do InterfaceOptionsFrame_OpenToCategory(GetAddOnMetadata("GladiatorlosSA", "Title")) end -- ugly fix
 end
 
 function GSA:ChangeProfile()
@@ -374,13 +373,13 @@ function GSA:OnOptionCreate()
 								desc = L["In arena, alert when enemy is drinking"],
 								order = 3,
 							},
-								--[[general = {
-								type = 'group',
-								inline = true,
-								name = L["General Abilities"],
-								order = 4,
-								args = listOption({42292,20594,7744},"auraApplied"),
-							},]]
+							--general = {
+							--	type = 'group',
+							--	inline = true,
+							--	name = L["General Abilities"],
+							--	order = 4,
+							--	args = listOption({42292,20594,7744},"auraApplied"),
+							--},
 							dk	= {
 								type = 'group',
 								inline = true,
@@ -478,7 +477,7 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffC41F3BDeath Knight|r"],
 								order = 4,
-								args = listOption({48792,49039},"auraRemoved"), --@ 113072 removed
+								args = listOption({48792,49039,48707},"auraRemoved"), --@ 113072 removed - 48707 Added
 							},
 							--druid = {
 							--	type = 'group',
