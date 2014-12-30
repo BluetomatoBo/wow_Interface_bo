@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1216, "DBM-Party-WoD", 1, 547)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12037 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12216 $"):sub(12, -3))
 mod:SetCreatureID(75927)
 mod:SetEncounterID(1678)
 mod:SetZone()
@@ -13,7 +13,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_REMOVED 153392 153764",
 	"SPELL_CAST_START 153764 154221 157173",
 	"SPELL_PERIODIC_DAMAGE 153616 153726",
-	"SPELL_PERIODIC_MISSED 153616 153726",
+	"SPELL_ABSORBED 153616 153726",
 	"SPELL_SUMMON 164081",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
@@ -70,7 +70,7 @@ function mod:OnCombatStart(delay)
 	countdownCurtainOfFlame:Start(16-delay)
 	timerClawsOfArgusCD:Start(34-delay)
 	countdownClawsOfArgus:Start(34-delay)
-	voiceClawsOfArgus:Schedule("mobsoon", 27.5-delay)
+	voiceClawsOfArgus:Schedule(27.5-delay, "mobsoon")
 end
 
 function mod:OnCombatEnd()
@@ -134,7 +134,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerCurtainOfFlameCD:Start(7)
 		timerClawsOfArgusCD:Start()
 		countdownClawsOfArgus:Start()
-		voiceClawsOfArgus:Schedule("mobsoon", 63.5)
+		voiceClawsOfArgus:Schedule(63.5, "mobsoon")
 	end
 end
 
@@ -165,7 +165,7 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 		specWarnFelSpark:Show()
 	end
 end
-mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
+mod.SPELL_ABSORBED = mod.SPELL_PERIODIC_DAMAGE
 
 function mod:SPELL_SUMMON(args)
 	if args.spellId == 164081 then

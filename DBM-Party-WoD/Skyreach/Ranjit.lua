@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(965, "DBM-Party-WoD", 7, 476)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12105 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12216 $"):sub(12, -3))
 mod:SetCreatureID(75964)
 mod:SetEncounterID(1698)
 mod:SetZone()
@@ -12,7 +12,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 153544 156793 153315",
 	"SPELL_CAST_SUCCESS 165731",
 	"SPELL_PERIODIC_DAMAGE 154043",
-	"SPELL_PERIODIC_MISSED 154043",
+	"SPELL_ABSORBED 154043",
 	"RAID_BOSS_EMOTE"
 )
 
@@ -24,7 +24,7 @@ local warnLensFlare			= mod:NewSpellAnnounce(154043, 3)
 
 local specWarnSpinningBlade	= mod:NewSpecialWarningSpell(153544, false, nil, nil, 2)
 local specWarnFourWinds		= mod:NewSpecialWarningSpell(156793, nil, nil, nil, 2)
-local specWarnLensFlareCast	= mod:NewSpecialWarningSpell(154043)
+local specWarnLensFlareCast	= mod:NewSpecialWarningSpell(154043, nil, nil, nil, 2)
 local specWarnLensFlare		= mod:NewSpecialWarningMove(154043)
 
 local timerFourWinds		= mod:NewBuffActiveTimer(18, 156793)
@@ -33,8 +33,14 @@ local timerFourWindsCD		= mod:NewCDTimer(30, 156793)
 local voiceFourWinds		= mod:NewVoice(156793)
 local voiceLensFlare		= mod:NewVoice(154043)
 
+local skyTrashMod = DBM:GetModByName("SkyreachTrash")
+
 function mod:OnCombatStart(delay)
 	timerFourWindsCD:Start(-delay)
+	if skyTrashMod.Options.RangeFrame and skyTrashMod.vb.debuffCount ~= 0 then--In case of bug where range frame gets stuck open from trash pulls before this boss.
+		skyTrashMod.vb.debuffCount = 0--Fix variable
+		DBM.RangeCheck:Hide()--Close range frame.
+	end
 end
 
 function mod:SPELL_CAST_START(args)
@@ -70,4 +76,4 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId, _, _,
 		voiceLensFlare:Play("runaway")
 	end
 end
-mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
+mod.SPELL_ABSORBED = mod.SPELL_PERIODIC_DAMAGE

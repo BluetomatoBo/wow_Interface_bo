@@ -57,6 +57,15 @@ L:SetOptionLocalization({
 --------------------
 L= DBM:GetModLocalization(1153)
 
+
+L:SetWarningLocalization({
+	specWarnExpelMagicFelFades	= "Fel fading in 5s - move to start"
+})
+
+L:SetOptionLocalization({
+	specWarnExpelMagicFelFades	= "Show special warning to move to start position for $spell:172895 expiring"
+})
+
 L:SetMiscLocalization({
 	supressionTarget1	= "I will crush you!",
 	supressionTarget2	= "Silence!",
@@ -80,7 +89,9 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	BrandedYell			= "Branded (%s) on %s"
+	BrandedYell			= "Branded (%s) on %s",
+	GazeYell			= "Gaze fading in %d",
+	PlayerDebuffs		= "Closest to Glimpse"
 })
 
 -------------

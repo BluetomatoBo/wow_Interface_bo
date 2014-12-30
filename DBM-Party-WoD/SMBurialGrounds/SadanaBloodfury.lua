@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1139, "DBM-Party-WoD", 6, 537)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12037 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12195 $"):sub(12, -3))
 mod:SetCreatureID(75509)
 mod:SetEncounterID(1677)
 
@@ -30,7 +30,7 @@ local voiceDarkEclipse			= mod:NewVoice(164974)
 --local countdownDarkCommunion	= mod:NewCountdown(45.5, 153153)
 
 function mod:OnCombatStart(delay)
-	timerDarkCommunionCD:Start(15-delay)
+	timerDarkCommunionCD:Start(24-delay)
 	--countdownDarkCommunion:Start(15-delay)
 	timerDarkEclipseCD:Start(-delay)
 end

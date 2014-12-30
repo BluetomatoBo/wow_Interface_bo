@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GRDTrash", "DBM-Party-WoD", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12034 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12216 $"):sub(12, -3))
 --mod:SetModelID(47785)
 mod:SetZone()
 
@@ -12,7 +12,7 @@ mod:RegisterEvents(
 	"SPELL_CAST_START 166675 176032",
 	"SPELL_CAST_SUCCESS 163966",
 	"SPELL_PERIODIC_DAMAGE 176033 166340",
-	"SPELL_PERIODIC_MISSED 176033 166340"
+	"SPELL_ABSORBED 176033 166340"
 )
 
 local warnActivating					= mod:NewCastAnnounce(163966, 2, 5, nil, not mod:IsHealer())
@@ -82,4 +82,4 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 		specWarnThunderzone:Show()
 	end
 end
-mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
+mod.SPELL_ABSORBED = mod.SPELL_PERIODIC_DAMAGE
