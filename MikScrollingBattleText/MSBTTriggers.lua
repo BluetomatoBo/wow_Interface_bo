@@ -715,7 +715,7 @@ local function HandleCooldowns(cooldownType, cooldownID, cooldownName, effectTex
   -- Display the fired triggers if none of the exceptions are true.
   local recipientName = playerName
   for triggerSettings in pairs(triggersToFire) do
-   if (not TestExceptions(triggerSettings)) then DisplayTrigger(triggerSettings, nil, nil, recipientName, playerClass, skillName, nil, nil, effectTexture) end
+   if (not TestExceptions(triggerSettings)) then DisplayTrigger(triggerSettings, nil, nil, recipientName, playerClass, cooldownName, nil, nil, effectTexture) end
   end
  end -- Triggers to fire?
 end
