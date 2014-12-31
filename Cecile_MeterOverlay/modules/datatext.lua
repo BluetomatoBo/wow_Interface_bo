@@ -100,7 +100,7 @@ function mod:DisplayTable(tooltip,mode,repotType,amount)
 
 			--get class color
 			if StatsTable[i].enclass then
-				classc = Engine.colors[StatsTable[i].enclass];
+				classc = Engine.colors[StatsTable[i].enclass] or Engine.colors["OTHER"];
 			else
 				classc = Engine.colors["OTHER"];
 			end
