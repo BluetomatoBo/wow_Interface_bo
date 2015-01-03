@@ -23,6 +23,7 @@ L["delayother"] = "levelups & achievements" -- Requires localization
 L["delayTimeline"] = "Timeline delay (minutes)" -- Requires localization
 L["firstkills"] = "firstkill mode (per character)" -- Requires localization
 L["format"] = "screenshot format" -- Requires localization
+L["garissonbuild"] = "garisson building" -- Requires localization
 L["groupstatus"] = "group status" -- Requires localization
 L["guildachievements"] = "guild achievements" -- Requires localization
 L["guildlevelups"] = "guild levelups" -- Requires localization

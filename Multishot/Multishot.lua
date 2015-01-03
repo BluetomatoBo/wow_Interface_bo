@@ -11,7 +11,7 @@ local prefix = "WoWScrnShot_"
 local player = (UnitName("player"))
 local class = (UnitClass("player"))
 local realm = GetRealmName()
-local extension, intAlpha
+local extension, intAlpha, minimapStatus
 local timeLineStart, timeLineElapsed
 
 function Multishot:OnEnable()
@@ -24,6 +24,7 @@ function Multishot:OnEnable()
   self:RegisterEvent("CHAT_MSG_SYSTEM")
   self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
   self:RegisterEvent("PLAYER_REGEN_ENABLED")
+  self:RegisterEvent("GARISSON_BUILDING_ACTIVATED")
   self:RegisterEvent("SCREENSHOT_FAILED", "Debug")
   if MultishotConfig.timeLineEnable then
   	self.timeLineTimer = self:ScheduleRepeatingTimer("TimeLineProgress",5)
@@ -110,9 +111,15 @@ function Multishot:TIME_PLAYED_MSG(strEvent, total, thislevel)
   self:UnregisterEvent("TIME_PLAYED_MSG")
 end
 
+function Multishot:GARISSON_BUILDING_ACTIVATED(strEvent, arg1, arg2)
+	if MultishotConfig.garissonbuild then
+		self:ScheduleTimer("CustomScreenshot", MultishotConfig.delay1, strEvent)
+	end
+end
+
 function Multishot:COMBAT_LOG_EVENT_UNFILTERED(strEvent, ...)
   local strType, _, sourceGuid, _, _, _, destGuid = select(2, ...) -- 4.1 compat, 4.2 compat
-  local currentId = tonumber("0x" .. string.sub(destGuid, 6, 10))
+  local currentId = destGuid and tonumber(destGuid:sub(-16, -12)) -- 6.x
   if strType == "UNIT_DIED" or strType == "PARTY_KILL" then
     local solo, inParty, inRaid
     if IsInRaid() then inRaid = true elseif IsInGroup() then inParty = true else solo = true end
@@ -120,13 +127,12 @@ function Multishot:COMBAT_LOG_EVENT_UNFILTERED(strEvent, ...)
     if not (sourceGuid == UnitGUID("player") and MultishotConfig.rares and Multishot.RareID[currentId]) and strType == "PARTY_KILL" then return end
     if not ((solo and MultishotConfig.groupstatus["1solo"]) or (inParty and MultishotConfig.groupstatus["2party"]) or (inRaid and MultishotConfig.groupstatus["3raid"])) then return end
     if difficultyID and not MultishotConfig.difficulty[difficultyID] then return end
-    if not (Multishot_dbWhitelist[currentId] or Multishot.BossID[currentId]) or Multishot_dbBlacklist[currentId] then return end
+    if not (Multishot_dbWhitelist[currentId] or Multishot.BossID[currentId] or Multishot.RareID[currentId]) or Multishot_dbBlacklist[currentId] then return end
     if MultishotConfig.firstkill and MultishotConfig.history[UnitName("player") .. currentId] then return end
     MultishotConfig.history[player .. currentId] = true
+    isDelayed = currentId
     if UnitIsDead("player") then
       self:PLAYER_REGEN_ENABLED(strType)
-    else
-      isDelayed = currentId
     end
   end
 end
@@ -148,12 +154,7 @@ function Multishot:SCREENSHOT_SUCCEEDED(strEvent)
   tinsert(MultishotPlayerScreens[player], filea)
   tinsert(MultishotPlayerScreens[player], fileb)
   tinsert(MultishotPlayerScreens[player], filec)
-  if intAlpha and intAlpha > 0 then
-    UIParent:SetAlpha(intAlpha)
-    intAlpha = nil
-  else
-  	UIParent:SetAlpha(1)
-  end
+  self:UIToggle(true)
   self:RefreshWatermark(false)
   self:UnregisterEvent("SCREENSHOT_SUCCEEDED")
 end
@@ -233,23 +234,34 @@ function Multishot:CustomScreenshot(strDebug)
   or string.find(strDebug, "PLAYER_LEVEL_UP") 
   or string.find(strDebug, L["timeline"])
   or string.find(strDebug, KEY_BINDING)) then
-    intAlpha = UIParent:GetAlpha()
-    UIParent:SetAlpha(0)
+    self:UIToggle()
   end
   if MultishotConfig.watermark then self:RefreshWatermark(true) end
-  if MultishotConfig.played and (strDebug == "PLAYER_LEVEL_UP" or strDebug == "ACHIEVEMENT_EARNED" or strDebug == "CHAT_MSG_SYSTEM") and strDebug ~= "TIME_PLAYED_MSG" then RequestTimePlayed() self:RegisterEvent("TIME_PLAYED_MSG") return end
+  if MultishotConfig.played and (strDebug == "PLAYER_LEVEL_UP" or strDebug == "ACHIEVEMENT_EARNED" or strDebug == "CHAT_MSG_SYSTEM" or strDebug == KEY_BINDING) and strDebug ~= "TIME_PLAYED_MSG" then self:RegisterEvent("TIME_PLAYED_MSG") RequestTimePlayed() return end
   if MultishotConfig.timeLineEnable then timeLineStart,timeLineElapsed = GetTime(),0 end
   TakeScreenshot()
 end
 
-function Multishot:Debug(strMessage)
-	if strMessage == "SCREENSHOT_FAILED" then
+function Multishot:UIToggle(show)
+	if not show then
+		intAlpha = UIParent:GetAlpha()
+ 		minimapStatus = Minimap:IsShown()
+-- 		if minimapStatus then Minimap:Hide() end -- taints if called in combat
+		UIParent:SetAlpha(0)
+	else
 		if intAlpha and intAlpha > 0 then
 			UIParent:SetAlpha(intAlpha)
 			intAlpha = nil
 		else
 			UIParent:SetAlpha(1)
 		end
+-- 		if minimapStatus then Minimap:Show() end
+	end
+end
+
+function Multishot:Debug(strMessage)
+	if strMessage == "SCREENSHOT_FAILED" then
+		self:UIToggle(true)
 		self:RefreshWatermark(false)
 	end
   if MultishotConfig.debug then self:Print(strMessage) end
@@ -257,3 +269,8 @@ end
 
 BINDING_HEADER_MULTISHOT = "Multishot"
 BINDING_NAME_MULTISHOTSCREENSHOT = L["Custom screenshot"]
+
+--[[
+Notes
+SetUIVisibility(visible)
+]]

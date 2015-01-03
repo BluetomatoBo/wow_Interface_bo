@@ -23,6 +23,7 @@ L["delayother"] = "升級和獲得成就"
 L["delayTimeline"] = "順時拍攝延遲（分）"
 L["firstkills"] = "首次擊殺模式（僅當前角色）"
 L["format"] = "截圖格式"
+L["garissonbuild"] = "garisson building" -- Requires localization
 L["groupstatus"] = "組隊狀態"
 L["guildachievements"] = "公會成就"
 L["guildlevelups"] = "公會升級"

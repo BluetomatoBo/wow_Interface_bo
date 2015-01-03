@@ -23,6 +23,7 @@ L["delayother"] = "Уровни и достижения"
 L["delayTimeline"] = "Делать скриншот каждые (минуты)"
 L["firstkills"] = "Первое убийство (для каждого персонажа отдельно)"
 L["format"] = "Формат скриншота"
+L["garissonbuild"] = "garisson building" -- Requires localization
 L["groupstatus"] = "group status" -- Requires localization
 L["guildachievements"] = "Достижения гильдии"
 L["guildlevelups"] = "Получение уровня гильдией"

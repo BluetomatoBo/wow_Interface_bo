@@ -23,6 +23,7 @@ L["delayother"] = "subidas de nível e conquistas" -- Needs review
 L["delayTimeline"] = "Timeline delay (minutes)" -- Requires localization
 L["firstkills"] = "modo de primeiro abate (por personagem)" -- Needs review
 L["format"] = "formato da foto" -- Needs review
+L["garissonbuild"] = "garisson building" -- Requires localization
 L["groupstatus"] = "group status" -- Requires localization
 L["guildachievements"] = "conquistas da Guilda" -- Needs review
 L["guildlevelups"] = "subidas de nível da Guilda" -- Needs review
