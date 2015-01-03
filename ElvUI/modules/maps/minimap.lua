@@ -235,6 +235,10 @@ function M:UpdateSettings()
 		GarrisonLandingPageMinimapButton:ClearAllPoints()
 		GarrisonLandingPageMinimapButton:SetPoint(pos, Minimap, pos, E.db.general.minimap.icons.garrison.xOffset or 0, E.db.general.minimap.icons.garrison.yOffset or 0)
 		GarrisonLandingPageMinimapButton:SetScale(scale)
+		if GarrisonLandingPageTutorialBox then
+			GarrisonLandingPageTutorialBox:SetScale(1/scale)
+			GarrisonLandingPageTutorialBox:SetClampedToScreen(true)
+		end
 	end
 	
 	if GameTimeFrame then
@@ -264,6 +268,7 @@ function M:UpdateSettings()
 		QueueStatusMinimapButton:ClearAllPoints()
 		QueueStatusMinimapButton:SetPoint(pos, Minimap, pos, E.db.general.minimap.icons.lfgEye.xOffset or 3, E.db.general.minimap.icons.lfgEye.yOffset or 0)
 		QueueStatusMinimapButton:SetScale(scale)
+		QueueStatusFrame:SetScale(1/scale)
 	end
 	
 	if MiniMapInstanceDifficulty and GuildInstanceDifficulty then
