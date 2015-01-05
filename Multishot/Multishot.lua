@@ -105,6 +105,12 @@ function Multishot:CHAT_MSG_SYSTEM(strEvent, strMessage)
   end
 end
 
+function Multishot:CHAT_MSG_MONSTER_SAY(strEvent, strBuilding, arg2, arg3, arg4, strPlayer)
+	if MultishotConfig.timeLineEnable then timeLineStart,timeLineElapsed = GetTime(),0 end
+	TakeScreenshot()
+	self:UnregisterEvent("CHAT_MSG_MONSTER_SAY")
+end
+
 function Multishot:TIME_PLAYED_MSG(strEvent, total, thislevel)
 	if MultishotConfig.timeLineEnable then timeLineStart,timeLineElapsed = GetTime(),0 end
   TakeScreenshot()
@@ -113,7 +119,7 @@ end
 
 function Multishot:GARISSON_BUILDING_ACTIVATED(strEvent, arg1, arg2)
 	if MultishotConfig.garissonbuild then
-		self:ScheduleTimer("CustomScreenshot", MultishotConfig.delay1, strEvent)
+		self:RegisterEvent("CHAT_MSG_MONSTER_SAY")
 	end
 end
 
@@ -237,7 +243,7 @@ function Multishot:CustomScreenshot(strDebug)
     self:UIToggle()
   end
   if MultishotConfig.watermark then self:RefreshWatermark(true) end
-  if MultishotConfig.played and (strDebug == "PLAYER_LEVEL_UP" or strDebug == "ACHIEVEMENT_EARNED" or strDebug == "CHAT_MSG_SYSTEM" or strDebug == KEY_BINDING) and strDebug ~= "TIME_PLAYED_MSG" then self:RegisterEvent("TIME_PLAYED_MSG") RequestTimePlayed() return end
+  if MultishotConfig.played and (strDebug == "PLAYER_LEVEL_UP" or strDebug == "ACHIEVEMENT_EARNED" or strDebug == "CHAT_MSG_SYSTEM" or strDebug == "CHAT_MSG_MONSTER_SAY" or strDebug == KEY_BINDING) and strDebug ~= "TIME_PLAYED_MSG" then self:RegisterEvent("TIME_PLAYED_MSG") RequestTimePlayed() return end
   if MultishotConfig.timeLineEnable then timeLineStart,timeLineElapsed = GetTime(),0 end
   TakeScreenshot()
 end
