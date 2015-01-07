@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rotface", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 120 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 178 $"):sub(12, -3))
 mod:SetCreatureID(36627)
 mod:SetEncounterID(1104)
 mod:SetModelID(31005)
@@ -43,8 +43,6 @@ local timerSlimeSpray			= mod:NewNextTimer(21, 69508)
 local timerMutatedInfection		= mod:NewTargetTimer(12, 69674)
 local timerOozeExplosion		= mod:NewCastTimer(4, 69839)
 local timerVileGasCD			= mod:NewNextTimer(30, 72272)
-
-local soundMutatedInfection		= mod:NewSound(69674)
 
 mod:AddBoolOption("RangeFrame", mod:IsRanged())
 mod:AddBoolOption("InfectionIcon", true)
@@ -122,7 +120,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		timerMutatedInfection:Start(args.destName)
 		if args:IsPlayer() then
 			specWarnMutatedInfection:Show()
-			soundMutatedInfection:Play()
 		end
 		if self.Options.InfectionIcon then
 			self:SetIcon(args.destName, InfectionIcon, 12)

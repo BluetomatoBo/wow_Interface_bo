@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Champions", "DBM-Coliseum")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 121 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 178 $"):sub(12, -3))
 mod:SetCreatureID(34458, 34451, 34459, 34448, 34449, 34445, 34456, 34447, 34441, 34454, 34444, 34455, 34450, 34453, 34461, 34460, 34469, 34467, 34468, 34471, 34465, 34466, 34473, 34472, 34470, 34463, 34474, 34475)
 --mod:SetEncounterID(1086)
 
@@ -45,8 +45,6 @@ local specWarnHandofProt	= mod:NewSpecialWarningDispel(66009, mod:IsMagicDispell
 local specWarnDivineShield	= mod:NewSpecialWarningDispel(66010, mod:IsMagicDispeller()) 
 local specWarnIceBlock		= mod:NewSpecialWarningDispel(65802, mod:IsMagicDispeller())
 
-local soundBladestorm		= mod:NewSound(65947, mod:IsMelee())
-
 function mod:SPELL_CAST_SUCCESS(args)
 	if args.spellId == 65816 then
 		warnHellfire:Show()
@@ -55,7 +53,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerBladestorm:Start()
 		timerBladestormCD:Start()
 		preWarnBladestorm:Schedule(85)
-		soundBladestorm:Play()
 	elseif args.spellId == 65983 then
 		warnHeroism:Show()
 	elseif args.spellId == 65980 then
