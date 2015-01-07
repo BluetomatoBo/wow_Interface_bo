@@ -1,9 +1,17 @@
 ------------------------------------------------------------------------
-r55 | yess | 2014-12-19 15:29:19 +0000 (Fri, 19 Dec 2014) | 1 line
+r57 | yess | 2015-01-07 04:17:16 +0000 (Wed, 07 Jan 2015) | 1 line
 Changed paths:
-   A /tags/v1.3.6 (from /trunk:54)
+   A /tags/v1.3.7 (from /trunk:56)
 
-Tagging as v1.3.6
+Tagging as v1.3.7
+------------------------------------------------------------------------
+r56 | yess | 2015-01-07 03:46:05 +0000 (Wed, 07 Jan 2015) | 3 lines
+Changed paths:
+   M /trunk/BlizzMove.lua
+
+.)The Quest Tracker is now temporary movable.
+.)The Garrison Report frame is now moveable. 
+
 ------------------------------------------------------------------------
 r54 | yess | 2014-12-19 15:27:59 +0000 (Fri, 19 Dec 2014) | 2 lines
 Changed paths:
