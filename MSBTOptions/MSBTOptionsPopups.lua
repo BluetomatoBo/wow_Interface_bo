@@ -2419,7 +2419,6 @@ local function ConditionDropdownOnChange(this, id)
    control:Show()
    control:SetMinMaxValues(conditionData.minValue, conditionData.maxValue)
    control:SetValueStep(conditionData.step)
-   control:SetObeyStepOnDrag(true)
    control:SetValue(conditionData.default or conditionData.minValue)
   elseif (conditionData.controlType == "dropdown") then
    control = frame.parameterDropdown
