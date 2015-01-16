@@ -1,8 +1,11 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local B = E:NewModule('Bags', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
+local Search = LibStub('LibItemSearch-1.2')
 
-local len, sub, find, format, floor, abs = string.len, string.sub, string.find, string.format, math.floor, math.abs
+local len, sub, find, format, floor, abs, gsub = string.len, string.sub, string.find, string.format, math.floor, math.abs, string.gsub
 local tinsert = table.insert
+
+local SEARCH_STRING = ""
 
 B.ProfessionColors = {
 	[0x0008] = {224/255, 187/255, 74/255}, -- Leatherworking
@@ -57,12 +60,14 @@ function B:DisableBlizzard()
 end
 
 function B:SearchReset()
-	SetItemSearch('')
+	SEARCH_STRING = ""
 end
 
 function B:UpdateSearch()
+	if self.Instructions then self.Instructions:SetShown(self:GetText() == "") end
 	local MIN_REPEAT_CHARACTERS = 3;
 	local searchString = self:GetText();
+	local prevSearchString = SEARCH_STRING;
 	if (len(searchString) > MIN_REPEAT_CHARACTERS) then
 		local repeatChar = true;
 		for i=1, MIN_REPEAT_CHARACTERS, 1 do
@@ -77,11 +82,17 @@ function B:UpdateSearch()
 		end
 	end
 
-	if searchString == SEARCH then
+	--Keep active search term when switching between bank and reagent bank
+	if searchString == SEARCH and prevSearchString ~= "" then
+		searchString = prevSearchString
+	elseif searchString == SEARCH then
 		searchString = ''
 	end
 
-	SetItemSearch(searchString);
+	SEARCH_STRING = searchString
+
+	B:SetSearch(SEARCH_STRING);
+	B:SetGuildBankSearch(SEARCH_STRING);
 end
 
 function B:OpenEditbox()
@@ -92,24 +103,26 @@ function B:OpenEditbox()
 end
 
 function B:ResetAndClear()
-	self:GetParent().editBox:SetText(SEARCH)
+	local editbox = self:GetParent().editBox or self
+	if editbox then editbox:SetText(SEARCH) end
 
 	self:ClearFocus();
 	B:SearchReset();
 end
 
-function B:INVENTORY_SEARCH_UPDATE()
+function B:SetSearch(query)
+	local empty = len(query:gsub(' ', '')) == 0
 	for _, bagFrame in pairs(self.BagFrames) do
 		for _, bagID in ipairs(bagFrame.BagIDs) do
 			for slotID = 1, GetContainerNumSlots(bagID) do
-				local _, _, _, _, _, _, _, isFiltered = GetContainerItemInfo(bagID, slotID);
+				local _, _, _, _, _, _, link = GetContainerItemInfo(bagID, slotID);
 				local button = bagFrame.Bags[bagID][slotID];
-				if ( isFiltered ) then
-					SetItemButtonDesaturated(button, 1);
-					button:SetAlpha(0.4);
-				else
+				if ( empty or Search:Matches(link, query) ) then
 					SetItemButtonDesaturated(button);
 					button:SetAlpha(1);
+				else
+					SetItemButtonDesaturated(button, 1);
+					button:SetAlpha(0.4);
 				end
 			end
 		end
@@ -117,14 +130,41 @@ function B:INVENTORY_SEARCH_UPDATE()
 
 	if(ElvUIReagentBankFrameItem1) then
 		for slotID=1, 98 do
-			local _, _, _, _, _, _, _, isFiltered = GetContainerItemInfo(REAGENTBANK_CONTAINER, slotID);
+			local _, _, _, _, _, _, link = GetContainerItemInfo(REAGENTBANK_CONTAINER, slotID);
 			local button = _G["ElvUIReagentBankFrameItem"..slotID]
-			if ( isFiltered ) then
-				SetItemButtonDesaturated(button, 1);
-				button:SetAlpha(0.4);
-			else
+			if ( empty or Search:Matches(link, query) ) then
 				SetItemButtonDesaturated(button);
 				button:SetAlpha(1);
+			else
+				SetItemButtonDesaturated(button, 1);
+				button:SetAlpha(0.4);
+			end
+		end
+	end
+end
+
+function B:SetGuildBankSearch(query)
+	local empty = len(query:gsub(' ', '')) == 0
+	if GuildBankFrame and GuildBankFrame:IsShown() then
+		local tab = GetCurrentGuildBankTab()
+		local _, _, isViewable = GetGuildBankTabInfo(tab)
+
+		if isViewable then
+			for slotID = 1, MAX_GUILDBANK_SLOTS_PER_TAB do
+				local link = GetGuildBankItemLink(tab, slotID)
+				--A column goes from 1-14, e.g. GuildBankColumn1Button14 (slotID 14) or GuildBankColumn2Button3 (slotID 17)
+				local col = math.ceil(slotID / 14)
+				local btn = (slotID % 14)
+				if col == 0 then col = 1 end
+				if btn == 0 then btn = 14 end
+				local button = _G["GuildBankColumn"..col.."Button"..btn]
+				if (empty or Search:Matches(link, query) ) then
+					SetItemButtonDesaturated(button);
+					button:SetAlpha(1);
+				else
+					SetItemButtonDesaturated(button, 1);
+					button:SetAlpha(0.4);
+				end
 			end
 		end
 	end
@@ -1199,6 +1239,11 @@ function B:PLAYERBANKBAGSLOTS_CHANGED()
 	self:Layout(true)
 end
 
+--Update search when switching guild bank tab (slightly delayed, depending on how fast the event fires)
+function B:GUILDBANKBAGSLOTS_CHANGED()
+	self:SetGuildBankSearch(SEARCH_STRING);
+end
+
 function B:CloseBank()
 	if not self.BankFrame then return; end -- WHY???, WHO KNOWS!
 	self.BankFrame:Hide()
@@ -1215,7 +1260,14 @@ function B:GUILDBANKFRAME_OPENED()
 	button:SetText(L['Sort Tab'])
 	button:SetScript("OnClick", function() B:CommandDecorator(B.SortBags, 'guild')() end)
 	E.Skins:HandleButton(button, true)]]
-
+	if GuildItemSearchBox then
+		GuildItemSearchBox:SetScript("OnEscapePressed", self.ResetAndClear);
+		GuildItemSearchBox:SetScript("OnEnterPressed", self.ResetAndClear);
+		GuildItemSearchBox:SetScript("OnEditFocusLost", self.ResetAndClear);
+		GuildItemSearchBox:SetScript("OnEditFocusGained", GuildItemSearchBox.HighlightText);
+		GuildItemSearchBox:SetScript("OnTextChanged", self.UpdateSearch);
+		GuildItemSearchBox:SetScript('OnChar', self.UpdateSearch);
+	end
 	self:UnregisterEvent("GUILDBANKFRAME_OPENED")
 end
 
@@ -1248,7 +1300,7 @@ function B:Initialize()
 	E.Bags = self;
 
 	self:DisableBlizzard();
-	self:RegisterEvent('INVENTORY_SEARCH_UPDATE');
+	self:RegisterEvent("GUILDBANKBAGSLOTS_CHANGED")
 	self:RegisterEvent("PLAYER_MONEY", "UpdateGoldText")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD", "UpdateGoldText")
 	self:RegisterEvent("PLAYER_TRADE_MONEY", "UpdateGoldText")
