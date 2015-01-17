@@ -1,9 +1,59 @@
 ------------------------------------------------------------------------
-r601 | zarnivoop | 2014-12-24 08:38:24 +0000 (Wed, 24 Dec 2014) | 1 line
+r606 | zarnivoop | 2015-01-16 17:25:17 +0000 (Fri, 16 Jan 2015) | 1 line
 Changed paths:
-   A /tags/1.4-27 (from /trunk:600)
+   A /tags/1.4-28 (from /trunk:605)
 
-Tagging as 1.4-27
+Tagging as 1.4-28
+------------------------------------------------------------------------
+r605 | zarnivoop | 2015-01-08 00:30:07 +0000 (Thu, 08 Jan 2015) | 1 line
+Changed paths:
+   M /trunk/modules/Healing.lua
+
+stagger fix
+------------------------------------------------------------------------
+r604 | zarnivoop | 2015-01-07 23:25:24 +0000 (Wed, 07 Jan 2015) | 1 line
+Changed paths:
+   M /trunk/Skada.lua
+
+autostop fix; only do anything during encounters
+------------------------------------------------------------------------
+r603 | zarnivoop | 2015-01-07 23:17:37 +0000 (Wed, 07 Jan 2015) | 2 lines
+Changed paths:
+   M /trunk/Bindings.xml
+   M /trunk/Options.lua
+   M /trunk/Skada.lua
+   M /trunk/lib/SpecializedLibBars-1.0/SpecializedLibBars-1.0.lua
+   M /trunk/locale/enUS.lua
+   M /trunk/modules/Healing.lua
+   M /trunk/modules/Overhealing.lua
+
+option to automatically pause on impending wipe (untested)
+ignore Monk stagger absorbs
+------------------------------------------------------------------------
+r602 | zarnivoop | 2014-12-24 22:58:28 +0000 (Wed, 24 Dec 2014) | 3 lines
+Changed paths:
+   M /trunk/BarDisplay.lua
+   M /trunk/Options.lua
+   M /trunk/Skada.lua
+   M /trunk/lib/SpecializedLibBars-1.0/SpecializedLibBars-1.0.lua
+   M /trunk/locale/enUS.lua
+   M /trunk/modules/CC.lua
+   M /trunk/modules/Damage.lua
+   M /trunk/modules/DamageTaken.lua
+   M /trunk/modules/Deaths.lua
+   M /trunk/modules/Debuffs.lua
+   M /trunk/modules/Dispels.lua
+   M /trunk/modules/Enemies.lua
+   M /trunk/modules/Healing.lua
+   M /trunk/modules/Interrupts.lua
+   M /trunk/modules/Overhealing.lua
+   M /trunk/modules/Power.lua
+   M /trunk/modules/Threat.lua
+   M /trunk/modules/TotalHealing.lua
+
+stop/resume segment
+descriptions for all the shiny buttons
+role icons
 ------------------------------------------------------------------------
 r600 | zarnivoop | 2014-12-24 08:29:25 +0000 (Wed, 24 Dec 2014) | 1 line
 Changed paths:
@@ -41,47 +91,4 @@ Also for consistency, ensure we report the KB for the appropriate death, namely 
 Finally, don't muddy the already-too-long detail title with the spellname, since that information is already obvious in the detail rows.
 
 
-------------------------------------------------------------------------
-r593 | zarnivoop | 2014-12-14 15:19:59 +0000 (Sun, 14 Dec 2014) | 1 line
-Changed paths:
-   M /trunk/modules/Healing.lua
-
-handle SPELL_ABSORBED in healing module (experimental)
-------------------------------------------------------------------------
-r591 | zarnivoop | 2014-12-09 13:17:42 +0000 (Tue, 09 Dec 2014) | 1 line
-Changed paths:
-   M /trunk/modules/Deaths.lua
-
-show last hit on deaths summary view
-------------------------------------------------------------------------
-r590 | zarnivoop | 2014-12-06 13:24:07 +0000 (Sat, 06 Dec 2014) | 1 line
-Changed paths:
-   M /trunk/modules/Damage.lua
-
-fix for arithmetic error on absorb
-------------------------------------------------------------------------
-r589 | zarnivoop | 2014-12-05 21:15:11 +0000 (Fri, 05 Dec 2014) | 1 line
-Changed paths:
-   M /trunk/modules/Damage.lua
-
-capitalize that function call, dude
-------------------------------------------------------------------------
-r588 | zarnivoop | 2014-12-05 19:33:43 +0000 (Fri, 05 Dec 2014) | 1 line
-Changed paths:
-   M /trunk/modules/Damage.lua
-
-fix for untested stuff
-------------------------------------------------------------------------
-r587 | zarnivoop | 2014-12-05 18:13:51 +0000 (Fri, 05 Dec 2014) | 1 line
-Changed paths:
-   M /trunk/modules/Damage.lua
-
-super-untested fix for spell_absorbed events (Ko'ragh)
-------------------------------------------------------------------------
-r585 | zarnivoop | 2014-12-02 10:04:26 +0000 (Tue, 02 Dec 2014) | 1 line
-Changed paths:
-   M /trunk/Skada.lua
-   M /trunk/modules/Damage.lua
-
-fixes for "only keep boss segments" option, MS
 ------------------------------------------------------------------------
