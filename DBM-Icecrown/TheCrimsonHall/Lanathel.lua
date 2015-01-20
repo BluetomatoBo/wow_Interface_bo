@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Lanathel", "DBM-Icecrown", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 178 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 182 $"):sub(12, -3))
 mod:SetCreatureID(37955)
 mod:SetEncounterID(1103)
 mod:SetModelID(31165)
@@ -20,7 +20,7 @@ mod:RegisterEventsInCombat(
 )
 
 local warnPactDarkfallen			= mod:NewTargetAnnounce(71340, 4)
-local warnBloodMirror				= mod:NewTargetAnnounce(71510, 3, nil, mod:IsTank() or mod:IsHealer())
+local warnBloodMirror				= mod:NewTargetAnnounce(71510, 3, nil, "Tank|Healer")
 local warnSwarmingShadows			= mod:NewTargetAnnounce(71266, 4)
 local warnInciteTerror				= mod:NewSpellAnnounce(73070, 3)
 local warnVampricBite				= mod:NewTargetAnnounce(70946, 2)
@@ -35,7 +35,7 @@ local specWarnEssenceoftheBloodQueen= mod:NewSpecialWarningYou(70867)
 local specWarnBloodthirst			= mod:NewSpecialWarningYou(70877)
 local yellBloodthirst				= mod:NewYell(70877, L.YellFrenzy)
 local specWarnSwarmingShadows		= mod:NewSpecialWarningMove(71266)
-local specWarnMindConrolled			= mod:NewSpecialWarningTarget(70923, mod:IsTank())
+local specWarnMindConrolled			= mod:NewSpecialWarningTarget(70923, "Tank")
 
 local timerNextInciteTerror			= mod:NewNextTimer(100, 73070)
 local timerFirstBite				= mod:NewNextTimer(15, 70946)

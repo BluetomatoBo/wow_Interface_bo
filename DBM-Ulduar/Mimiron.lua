@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Mimiron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 181 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 184 $"):sub(12, -3))
 mod:SetCreatureID(33432)
 mod:SetEncounterID(1138)
 mod:DisableESCombatDetection()
@@ -32,8 +32,8 @@ local warnBombSpawn				= mod:NewAnnounce("WarnBombSpawn", 3, 63811)
 local warnFrostBomb				= mod:NewSpellAnnounce(64623, 3)
 
 local warnShockBlast			= mod:NewSpecialWarning("WarningShockBlast", nil, false, nil, 4)
-mod:AddBoolOption("ShockBlastWarningInP1", mod:IsMelee(), "announce")
-mod:AddBoolOption("ShockBlastWarningInP4", mod:IsMelee(), "announce")
+mod:AddBoolOption("ShockBlastWarningInP1", "Melee", "announce")
+mod:AddBoolOption("ShockBlastWarningInP4", "Melee", "announce")
 local warnDarkGlare				= mod:NewSpecialWarningSpell(63293, nil, nil, nil, 3)
 
 local enrage 					= mod:NewBerserkTimer(900)

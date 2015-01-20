@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("IronCouncil", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 178 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 182 $"):sub(12, -3))
 mod:SetCreatureID(32867, 32927, 32857)
 mod:SetEncounterID(1140)
 mod:SetModelID(28344)
@@ -23,10 +23,6 @@ mod:SetBossHealthInfo(
 	32927, L.RunemasterMolgeim,
 	32857, L.StormcallerBrundir
 )
-
-local isDispeller = select(2, UnitClass("player")) == "MAGE"
-	    		 or select(2, UnitClass("player")) == "PRIEST"
-	    		 or select(2, UnitClass("player")) == "SHAMAN"
 
 local warnSupercharge			= mod:NewSpellAnnounce(61920, 3)
 
@@ -59,7 +55,7 @@ local warnRuneofDeath			= mod:NewSpellAnnounce(63490, 2)
 local warnShieldofRunes			= mod:NewSpellAnnounce(63489, 2)
 local warnRuneofSummoning		= mod:NewSpellAnnounce(62273, 3)
 local specwarnRuneofDeath		= mod:NewSpecialWarningMove(63490)
-local specWarnRuneofShields		= mod:NewSpecialWarningDispel(63967, isDispeller)
+local specWarnRuneofShields		= mod:NewSpecialWarningDispel(63967, "MagicDispeller")
 local timerRuneofDeath			= mod:NewCDTimer(30, 63490)
 local timerRuneofPower			= mod:NewCDTimer(30, 61974)
 
