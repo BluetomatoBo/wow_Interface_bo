@@ -349,25 +349,52 @@ do
 			return
 		end
 		local enabled = GetAddOnEnableState(UnitName("player"), "DBM-DefaultSkin")
-		if enabled ~= 0 and skins[self.options.Skin].loaded == nil then
+		if enabled ~= 0 and (not self.options.Skin or skins[self.options.Skin].loaded == nil) then
 			-- The currently set skin is no longer loaded, revert to DefaultSkin. If enabled (else, person wants textureless bar on purpose)
 			self:SetSkin("DefaultSkin")
 		end
 	end
 
 	function DBT:LoadOptions(id)
-		-- recover old options (DBM_SavedOptions) if possible (saved by DBM, before DBT was a separate addon)
-		DBT_PersistentOptions[id] = DBT_PersistentOptions[id] or (DBT_SavedOptions and DBT_SavedOptions[id]) or {}
-		if DBT_SavedOptions and DBT_SavedOptions[id] then
-			-- don't need them anymore, they are now in DBT_PersistentOptions
-			DBT_SavedOptions[id] = nil
+		--init
+		if not DBT_AllPersistentOptions then DBT_AllPersistentOptions = {} end
+		if not DBT_AllPersistentOptions[_G["DBM_UsedProfile"]] then DBT_AllPersistentOptions[_G["DBM_UsedProfile"]] = {} end
+		--migrate old options
+		if DBT_PersistentOptions and DBT_PersistentOptions[id] and not DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id] then
+			DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id] = DBT_PersistentOptions[id]
 		end
-		self.options = setmetatable(DBT_PersistentOptions[id], optionMT)
+		DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id] = DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id] or {}
+		self.options = setmetatable(DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id], optionMT)
+		self:Rearrange()
+		DBM:Schedule(2, delaySkinCheck, self)
+	end
+
+	function DBT:CreateProfile(id)
+		if not DBT_AllPersistentOptions[_G["DBM_UsedProfile"]] then DBT_AllPersistentOptions[_G["DBM_UsedProfile"]] = {} end
+		DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id] = DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id] or {}
+		self.options = setmetatable(DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id], optionMT)
+		self:Rearrange()
+	end
+
+	function DBT:ApplyProfile(id)
+		if not DBT_AllPersistentOptions[_G["DBM_UsedProfile"]] then return end
+		self.options = setmetatable(DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id], optionMT)
+		self:Rearrange()
+	end
+
+	function DBT:DeleteProfile(name, id)
+		if name == "Default" or not DBT_AllPersistentOptions[name] then return end
+		DBT_AllPersistentOptions[name] = nil
+		self.options = setmetatable(DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id], optionMT)
+		self:Rearrange()
+	end
+
+	function DBT:Rearrange()
 		self.mainAnchor:ClearAllPoints()
 		self.secAnchor:ClearAllPoints()
 		self.mainAnchor:SetPoint(self.options.TimerPoint, UIParent, self.options.TimerPoint, self.options.TimerX, self.options.TimerY)
 		self.secAnchor:SetPoint(self.options.HugeTimerPoint, UIParent, self.options.HugeTimerPoint, self.options.HugeTimerX, self.options.HugeTimerY)
-		DBM:Schedule(2, delaySkinCheck, self)
+		self:ApplyStyle()
 	end
 end
 

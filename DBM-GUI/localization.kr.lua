@@ -17,7 +17,7 @@ L.TabCategory_Options		= "기본 설정"
 L.TabCategory_PVP	 		= "PvP"
 L.TabCategory_OTHER			= "기타 우두머리 경보"
 
-L.BossModLoaded 			= "%s 공략 상황"
+L.BossModLoaded 			= "%s 통계"
 L.BossModLoad_now 			= [[이 우두머리 경보는 현재 비활성화 상태입니다. 
 불러오기 버튼을 클릭하여 우두머리 경보를 불러올 수 있습니다.
 ]]
@@ -30,7 +30,7 @@ L.Button_OK					= '확인'
 L.Button_Cancel				= '취소'
 L.Button_LoadMod			= '불러오기'
 L.Mod_Enabled				= "경보 사용"
-L.Mod_Reset					= "이 전투의 기본 설정 불러오기"
+L.Mod_Reset					= "이 전투의 설정 초기화"
 L.Reset						= "초기화"
 
 L.Enable					= "활성화"
@@ -38,10 +38,10 @@ L.Disable					= "비활성화"
 
 L.NoSound					= "끄기"
 
-L.IconsInUse				= "현재 전투에서 사용 되는 전술 목표 아이콘:"
+L.IconsInUse				= "사용되는 전술 목표 아이콘:"
 
 -- Tab: Boss Statistics
-L.BossStatistics			= "공략 상황"
+L.BossStatistics			= "통계"
 L.Statistic_Kills			= "승리:"
 L.Statistic_Wipes			= "전멸:"
 L.Statistic_Incompletes		= "미완료:"
@@ -85,23 +85,17 @@ L.InfoRaidWarning			= [[공격대 경보 창 위치와 알림 색상을 수정�
 DBM은 공격대 경보 창에 "X : Y" 같은 알림을 표시합니다.]]
 L.ColorResetted 			= "현재 색상 설정을 초기화 합니다."
 L.ShowWarningsInChat 		= "알림을 대화창에서도 보기"
-L.ShowSWarningsInChat 		= "특수 경고를 대화창에서도 보기"
 L.ShowFakedRaidWarnings 	= "알림을 공격대 경보처럼 보기"
 L.WarningIconLeft 			= "알림 왼쪽에 주문 아이콘 보기"
 L.WarningIconRight 			= "알림 오른쪽에 주문 아이콘 보기"
 L.WarningIconChat 			= "대화창 알림 메세지에 주문 아이콘 보기"
-L.ShowCountdownText			= "첫번째 초읽기로 설정된 초읽기를 진행 중일때 화면중앙에 초읽기 글자 표시"
 L.RaidWarnMessage 			= "<Deadly Boss Mods>를 사용해 주셔셔 감사합니다."
 L.BarWhileMove 				= "알림 위치 수정"
 L.RaidWarnSound				= "알림 소리"
-L.CountdownVoice			= "첫번째 숫자 읽기 소리 설정"
-L.CountdownVoice2			= "두번째 숫자 읽기 소리 설정"
-L.CountdownVoice3			= "세번째 숫자 읽기 소리 설정"
-L.VoicePackChoice			= "음성안내 소리 설정(설치되어 있을 경우)"
-L.SpecialWarnSound			= "특수 경고 소리 1 기본값(SW1) - 주로 특정 대상에게 영향 주문"
-L.SpecialWarnSound2			= "특수 경고 소리 2 기본값(SW2) - 주로 공격대 전체 영향 주문"
-L.SpecialWarnSound3			= "특수 경고 소리 3 기본값(SW3) - 주로 치명적인 피해를 입히는 주문"
-L.SpecialWarnSound3			= "특수 경고 소리 4 기본값(SW4) - 멀리 도망쳐야 하는 주문"
+L.SpecialWarnSound			= "특수 경고 소리 1 기본값(SW1, 속성: 당신 또는 특정 역할에게 영향)"
+L.SpecialWarnSound2			= "특수 경고 소리 2 기본값(SW2, 속성: 공격대 다수 영향)"
+L.SpecialWarnSound3			= "특수 경고 소리 3 기본값(SW3, 속성: 치명적인 피해를 입힘)"
+L.SpecialWarnSound4			= "특수 경고 소리 4 기본값(SW4, 속성: 도망쳐야 함)"
 
 -- Tab: Generalwarnings
 L.Tab_GeneralMessages 		= "대화창 설정"
@@ -145,7 +139,7 @@ L.BarIconLeft 				= "왼쪽 아이콘"
 L.BarIconRight 				= "오른쪽 아이콘"
 L.ExpandUpwards				= "바를 위로 쌓기"
 L.FillUpBars				= "바를 채워나가기"
-L.ClickThrough				= "바 클릭(채팅창표시, 취소) 불가"
+L.ClickThrough				= "바 클릭(대화창알림, 우클릭취소) 불가"
 L.Bar_DBMOnly				= "아래 설정은 바 작동 방식이 \"DBM\"으로 되어 있을 때만 작동합니다."
 L.Bar_EnlargeTime			= "남은시간 %d초 미만 바 확대"
 L.Bar_EnlargePercent		= "남은시간 비율 %0.1f%% 미만 바 확대"
@@ -157,8 +151,7 @@ L.Panel_SpecWarnFrame		= "특수 경고 설정"
 L.Area_SpecWarn				= "특수 경고 설정"
 L.SpecWarn_Enabled			= "특수 경고 사용"
 L.SpecWarn_FlashFrame		= "특수 경고 화면 반짝임 효과 사용"
-L.SpecWarn_AdSound			= "특수 경고 고급 소리 설정 기능 활성화(UI 재시작 필요)"
-L.SpecWarn_NoSoundsWVoice	= "음성 안내가 있는 경고일 경우 특수 경고 소리 재생 안함"
+L.ShowSWarningsInChat 		= "특수 경고를 대화창에서도 보기"
 L.SpecWarn_Font				= "특수 경고에 사용되는 글꼴"
 L.SpecWarn_FontSize			= "글꼴 크기: %d"
 L.SpecWarn_FontColor		= "글꼴 색상"
@@ -170,6 +163,20 @@ L.Area_SpecWarnFont			= "특수 경고 글꼴 설정"
 L.SpecWarn_DemoButton		= "예제 보기"
 L.SpecWarn_MoveMe			= "위치 설정"
 L.SpecWarn_ResetMe			= "초기화"
+
+-- Tab: Spoken Alerts Frame
+L.Panel_SpokenAlerts		= "음성안내 설정"
+L.Area_VoiceSelection		= "음성선택"
+L.CountdownVoice			= "첫번째 숫자 읽기 소리 설정"
+L.CountdownVoice2			= "두번째 숫자 읽기 소리 설정"
+L.CountdownVoice3			= "세번째 숫자 읽기 소리 설정"
+L.VoicePackChoice			= "음성안내 소리 설정(설치되어 있을 경우)"
+L.Area_CountdownOptions		= "초읽기 설정"
+L.ShowCountdownText			= "첫번째 초읽기로 설정된 초읽기를 진행 중일때 화면중앙에 초읽기 글자 표시"
+L.Area_VoicePackOptions		= "음성안내 설정(별도 음성안내 애드온이 필요함)"
+L.SpecWarn_NoSoundsWVoice	= "음성안내가 있는 경고일 경우 특수 경고 소리 재생 안함"
+L.SpecWarn_AlwaysVoice		= "음성안내를 무조건 듣기(각 우두머리별 설정 무시)"
+--TODO, maybe add URLS right to GUI panel on where to acquire 3rd party voice packs?
 
 -- Tab: HealthFrame
 L.Panel_HPFrame				= "우두머리 체력 바 설정"
@@ -195,7 +202,6 @@ L.SpamBlockNoCountdowns		= "초읽기 소리 재생 안함"
 L.Area_SpamFilter			= "일반 필터 설정"
 L.StripServerName			= "알림 및 바에서 서버명 보이지 않기"
 L.SpamBlockBossWhispers		= "전투 중 다른 공격대원 또는 파티원이 보낸 &lt;DBM&gt; 귓속말 감추기"
-L.BlockVersionUpdateNotice	= "업데이트 알림 창 끄기(추천하지 않음)"
 L.ShowBBOnCombatStart		= "전투 시작시 BigBrother 버프 체크 실행하기"
 L.BigBrotherAnnounceToRaid	= "BigBrother 버프 체크 결과를 공격대에 알리기"
 
@@ -232,7 +238,7 @@ L.Always					= "모든 동영상"
 
 L.Panel_ExtraFeatures		= "추가 기능 설정"
 L.Area_ChatAlerts			= "대화창 알림 설정"
-L.RoleSpecAlert				= "공격대 참여시 전문화와 전리품 전문화가 맞지 않을시 대화창에 알림 보기"
+L.RoleSpecAlert				= "공격대 진행시 전문화와 설정된 전리품 전문화가 맞지 않을시 대화창에 알림 보기"
 L.CheckGear					= "착용 아이템 레벨이 가방 아이템 레벨보다 낮을 경우 경고 보기(40+)"
 L.WorldBossAlert			= "현재 서버에서 친구 또는 길드원에 의해 야외 우두머리 전투가 시작 된 경우 메세지 보이기(서버 공용지역에서 보낸 경우 부정확할 수 있습니다)"
 L.Area_SoundAlerts			= "소리 알림 설정"
@@ -247,7 +253,7 @@ L.Area_Invite				= "파티 초대 설정"
 L.AutoAcceptFriendInvite	= "친구가 보낸 파티 초대 자동 수락"
 L.AutoAcceptGuildInvite		= "길드원이 보낸 파티 초대 자동 수락"
 L.Area_Advanced				= "고급 설정"
-L.FakeBW					= "DBM 대신 BigWigs 사용자로 가장하기(BigWigs 사용을 강제하는 공격대에서 유용합니다.)"
+L.FakeBW					= "DBM 대신 BigWigs 사용자로 위장하기(BigWigs 사용을 강제하는 공격대에서 유용합니다.)"
 
 L.PizzaTimer_Headline 		= '사용자 지정 바 만들기'
 L.PizzaTimer_Title			= '이름(예: "Pizza!")'
@@ -256,6 +262,24 @@ L.PizzaTimer_Mins 			= "분"
 L.PizzaTimer_Secs 			= "초"
 L.PizzaTimer_ButtonStart 	= "바 시작"
 L.PizzaTimer_BroadCast		= "공격대에 알리기"
+
+L.Panel_Profile				= "프로필"
+L.Area_CreateProfile		= "프로필 생성"
+L.EnterProfileName			= "생성할 프로필 이름 입력"
+L.CreateProfile				= "DBM-Core 설정 프로필 생성"
+L.Area_ApplyProfile			= "프로필 적용"
+L.SelectProfileToApply		= "적용할 DBM-Core 설정 프로필 선택"
+L.Area_DeleteProfile		= "프로필 삭제"
+L.SelectProfileToDelete		= "삭제할 DBM-Core 설정 프로필 선택"
+L.Area_DualProfile			= "우두머리 경보 프로필 설정"
+L.DualProfile				= "각 전문화 별로 별도의 우두머리 설정 사용(전문화별 세부기능은 좌측 상단 우두머리 탭을 선택 후, 경보를 불러오고 나서 나타난 통계 화면에 있습니다.)"
+
+L.Area_ModProfile			= "다른 캐릭터 또는 그 캐릭터의 전문화별 설정을 복사/삭제"
+L.ModAllReset				= "이 경보의 모든 설정을 초기화"
+L.ModAllStatReset			= "이 경보의 통계를 초기화"
+L.SelectModProfileCopy		= "전체 설정 복사"
+L.SelectModProfileCopySound	= "소리 설정 복사"
+L.SelectModProfileDelete	= "설정 삭제"
 
 -- Misc
 L.FontHeight = 16

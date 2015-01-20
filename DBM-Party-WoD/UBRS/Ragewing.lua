@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1229, "DBM-Party-WoD", 8, 559)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12261 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12458 $"):sub(12, -3))
 mod:SetCreatureID(76585)
 mod:SetEncounterID(1760)
 mod:SetZone()
@@ -19,23 +19,22 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
-local warnBurningRage		= mod:NewStackAnnounce(155620, 3, nil, mod:CanRemoveEnrage() or mod:IsTank())
-local warnEngulfingFire		= mod:NewSpellAnnounce(154996, 4)
+local warnBurningRage		= mod:NewStackAnnounce(155620, 3, nil, "RemoveEnrage|Tank")
 local warnSwirlingWinds		= mod:NewSpellAnnounce(167203, 2)
 local warnMagmaSpit			= mod:NewTargetAnnounce(155051, 3)
 
-local specWarnBurningRage	= mod:NewSpecialWarningDispel(155620, mod:CanRemoveEnrage())
+local specWarnBurningRage	= mod:NewSpecialWarningDispel(155620, "RemoveEnrage")
 local specWarnMagmaSpit		= mod:NewSpecialWarningMove(155051)
 local specWarnMagmaSpitYou	= mod:NewSpecialWarningYou(155051)
 local yellMagmaSpit			= mod:NewYell(155051)
 local specWarnMagmaPool		= mod:NewSpecialWarningMove(155057)
-local specWarnEngulfingFire	= mod:NewSpecialWarningSpell(154996, nil, nil, nil, 3)
+local specWarnEngulfingFire	= mod:NewSpecialWarningDodge(154996, nil, nil, nil, 3)
 
 local timerEngulfingFireCD	= mod:NewCDTimer(24, 154996)
 local timerSwirlingWinds	= mod:NewBuffActiveTimer(20, 167203)
 
 local voiceEngulfingFire	= mod:NewVoice(154996)
-local voiceBurningRage		= mod:NewVoice(155620, mod:CanRemoveEnrage())
+local voiceBurningRage		= mod:NewVoice(155620, "RemoveEnrage")
 local voiceMagmaSpit		= mod:NewVoice(155051)
 local voiceMagmaPool		= mod:NewVoice(155057)
 
@@ -96,7 +95,6 @@ mod.SPELL_ABSORBED = mod.SPELL_PERIODIC_DAMAGE
 --This boss actually does fire IEEU so boss1 works
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 154996 then
-		warnEngulfingFire:Show()
 		specWarnEngulfingFire:Show()
 		if not self.vb.firstBreath then
 			self.vb.firstBreath = true

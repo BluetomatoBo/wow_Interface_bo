@@ -1,10 +1,11 @@
 local mod	= DBM:NewMod(971, "DBM-Highmaul", nil, 477)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12216 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12443 $"):sub(12, -3))
 mod:SetCreatureID(77404)
 mod:SetEncounterID(1706)
 mod:SetZone()
+mod:SetModelSound("sound\\creature\\thebutcher\\VO_60_OGRERAID_BUTCHER_AGGRO.ogg", "sound\\creature\\thebutcher\\VO_60_OGRERAID_BUTCHER_SPELL_B.ogg")
 
 mod:RegisterCombat("combat")
 
@@ -19,10 +20,9 @@ mod:RegisterEventsInCombat(
 
 --TODO, Probably fix the update bar if it lua errors or doesn't work right.
 local warnCleave					= mod:NewCountAnnounce(156157, 2, nil, false)
-local warnBoundingCleave			= mod:NewCountAnnounce(156160, 3)
-local warnTenderizer				= mod:NewStackAnnounce(156151, 2, nil, mod:IsTank())
-local warnCleaver					= mod:NewSpellAnnounce(156143, 3, nil, mod:IsTank())--Saberlash
-local warnFrenzy					= mod:NewTargetAnnounce(156598, 4)
+local warnTenderizer				= mod:NewStackAnnounce(156151, 2, nil, "Tank")
+local warnCleaver					= mod:NewSpellAnnounce("OptionVersion2", 156143, 3, nil, false)--Saberlash
+local warnFrenzy					= mod:NewSpellAnnounce(156598, 4)
 
 local specWarnTenderizer			= mod:NewSpecialWarningStack(156151, nil, 2)
 local specWarnTenderizerOther		= mod:NewSpecialWarningTaunt(156151, nil, nil, nil, nil, nil, true)
@@ -32,19 +32,19 @@ local specWarnBoundingCleaveEnded	= mod:NewSpecialWarningEnd(156160)
 local specWarnPaleVitriol			= mod:NewSpecialWarningMove(163046, nil, nil, nil, nil, nil, true)--Mythic
 
 local timerCleaveCD					= mod:NewCDTimer(6, 156157, nil, false)
-local timerTenderizerCD				= mod:NewCDTimer(17, 156151, nil, mod:IsTank())
-local timerCleaverCD				= mod:NewCDTimer(8.5, 156143, nil, mod:IsTank())--Maybe change to off by default if i get a general consensus from other tanks if this is useful.
+local timerTenderizerCD				= mod:NewCDTimer(17, 156151, nil, "Tank")
+local timerCleaverCD				= mod:NewCDTimer(8.5, 156143, nil, "Tank")--Maybe change to off by default if i get a general consensus from other tanks if this is useful.
 local timerGushingWounds			= mod:NewBuffFadesTimer(15, 156152)
 local timerBoundingCleaveCD			= mod:NewNextCountTimer(60, 156160)
 local timerBoundingCleave			= mod:NewCastTimer(15, 156160)
 
 local berserkTimer					= mod:NewBerserkTimer(300)
 
-local countdownTenderizer			= mod:NewCountdown("Alt17", 156151, mod:IsTank())
+local countdownTenderizer			= mod:NewCountdown("Alt17", 156151, "Tank")
 local countdownBoundingCleave		= mod:NewCountdown(60, 156160)
 
-local voiceCleave					= mod:NewVoice(156157, mod:IsMelee())
-local voiceTenderizer				= mod:NewVoice(156151, mod:IsTank())
+local voiceCleave					= mod:NewVoice(156157, "Melee")
+local voiceTenderizer				= mod:NewVoice("OptionVersion2", 156151)
 local voiceGushingWound				= mod:NewVoice(156152, false)--off by default because only one person needs to run out in most strats, not everyone. Only that person should enable option
 local voiceFrenzy					= mod:NewVoice(156598)
 local voiceBoundingCleaveSoon		= mod:NewVoice(156160)
@@ -124,7 +124,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 156598 then
 		self.vb.isFrenzied = true
-		warnFrenzy:Show(args.destName)
+		warnFrenzy:Show()
 		voiceFrenzy:Play("frenzy")
 		--Update bounding cleave timer
 		local bossPower = UnitPower("boss1")
@@ -180,7 +180,6 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		self.vb.boundingCleave = self.vb.boundingCleave + 1
 		timerCleaveCD:Cancel()
 		countdownTenderizer:Cancel()
-		warnBoundingCleave:Show(self.vb.boundingCleave)
 		specWarnBoundingCleave:Show(self.vb.boundingCleave)
 		timerTenderizerCD:Start(15)
 		countdownTenderizer:Start(15)
