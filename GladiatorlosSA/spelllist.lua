@@ -45,6 +45,7 @@
 			[13750] = "adrenalineRush", -- 衝動
 			[5277] = "evasion", -- 閃避
 			[74001] = "combatReadiness", -- 戰鬥就緒
+			[51690] = "killingSpree", -- added to 2.2.2
 				-- Mist of pandaria
 			[114018] = "shroudOfConcealment",
 				-- WoD
@@ -52,6 +53,7 @@
 
 			--warrior
 				-- OLD
+			[114028] = "massSpellReflection", -- moved from SpellCastSucces 2.2.2
 			[55694] = "enragedRegeneration", -- 狂怒恢復
 			[871] = "shieldWall", --盾墻
 			[112048] = "shieldBarrier", -- Added
@@ -68,11 +70,13 @@
 
 			--priest
 				-- OLD
+			[81700] = "Archangel", -- add 2.2.2
 			[33206] = "painSuppression", -- 痛苦壓制
 			[6346] = "fearWard", -- 反恐
 			[47585] = "dispersion", -- 消散
 			[47788] = "guardianSpirit",
 			[109964] = "spiritShell",
+			[17] = "powerWordShield", -- added to 2.2.2
 				-- Mist of pandaria
 			[10060] = "powerInfusion",
 
@@ -157,6 +161,8 @@
 			[48792] = "iceboundFortitudeDown", -- 冰固結束
 			[19263] = "deterrenceDown", -- 威懾結束
 			[48707] = "AntiMagicShellDown", -- Added
+			[51690] = "killingSpreeDown", -- added to 2.2.2
+			[114030] = "vigilanceDown",
 				-- Mist of pandaria
 			[108271] = "astralShiftDown",
 			[120954] = "fortifyingBrewDown",
@@ -220,6 +226,8 @@
 
 			--hunter
 			[982] = "revivePet", -- 復活寵物
+			[120360] = "barrage", -- add 2.2.2
+			[109259] = "powerShot", -- add 2.2.2
 
 			--warlock
 				-- OLD
@@ -250,7 +258,6 @@
 
 			--druid
 				-- OLD
-			[80965] = "skullBash", -- 碎顱猛擊
 			[740] = "tranquility",
 			[78675] = "solarBeam", -- 太陽光束
 				-- Mist of pandaria
@@ -273,6 +280,7 @@
 			[16979] = "wildCharge",
 			[102416] = "wildCharge",
 			[102401] = "wildCharge",
+			[106839] = "skullBash", -- added to 2.2.2
 			
 			--paladin
 				-- OLD
@@ -301,7 +309,6 @@
 			[2457] = "battlestance", -- 戰鬥姿態
 			[71] = "defensestance", -- 防禦姿態
 				-- Mist of pandaria				
-			[114028] = "massSpellReflection",
 			[102060] = "disruptingShout",
 			[46968] = "shockwave",
 			[118000] = "dragonRoar",
@@ -334,6 +341,7 @@
 			[8177] = "grounding", -- 根基圖騰
 			[8143] = "tremorTotem", -- 戰慄圖騰
 			[98008] = "spiritlinktotem", -- 靈魂鏈接圖騰
+			[370] = "purge", -- added to 2.2.2
 				-- Mist of pandaria
 			[108270] = "stoneBulwark",
 			[51485] = "earthgrab",
@@ -391,6 +399,7 @@
 			[147362] = "counterShot", -- 反制射击 
 			[1499] = "freezingTrap",
 			[60192] = "freezingTrap2",
+			[19801] = "tranquilizingShot", -- added to 2.2.2
 				-- Mist of pandaria
 			[109248] = "bindingShot",
 			[109304] = "Exhilaration",

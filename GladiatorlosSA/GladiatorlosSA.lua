@@ -107,6 +107,9 @@ local dbDefaults = {
 		rushingJadeWind = false,
 		paralysis = false,
 		manaTea = false,
+		purge = false, -- Added to 2.2.2
+		tranquilizingShot = false, -- Added to 2.2.2
+		powerWordShield = false, -- Added to 2.2.2
 		--@ sBarkskin = false,
 		custom = {},
 	}	

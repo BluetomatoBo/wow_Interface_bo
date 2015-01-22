@@ -1,3 +1,15 @@
+- version 2.2.2
+	* Skull Bash added. ( ID had been changed )
+	* Killing Spree added.
+	* Archangel added.
+	* Vigilance Down added.
+	* Power Shot added.
+	* Barrage added
+	* Tranquilizing Shot added (deactivated by default)
+	* Purge added (deactivated by default)
+	* Power Word:Shield added (deactivated by default)
+	* small improvements to french localization
+
 - Version 2.2.1
 
 	* AntiMagicShellDown added.
