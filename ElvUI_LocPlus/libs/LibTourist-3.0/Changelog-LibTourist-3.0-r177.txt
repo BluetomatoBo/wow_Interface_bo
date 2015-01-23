@@ -1,0 +1,64 @@
+------------------------------------------------------------------------
+r177 | Odica | 2014-12-10 22:43:09 +0000 (Wed, 10 Dec 2014) | 6 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+Bugfix: GetEnglishZoneFromTexture did not return anything for the textures of the duplicate zones (Nagrand (Draenor), Shadowmoon Valley (Draenor) and The Maelstrom (zone)). Fixed this by adding the unique names for the duplicate zones to the localization tables.
+
+API changes:
+- Added function GetUniqueEnglishZoneNameForLookup(zoneName, continentID)
+Returns a unique English zone name to be used to lookup data in LibTourist, based on a localized or English zone name.
+- GetUniqueZoneNameForLookup now also accepts non-localized English zoneNames
+------------------------------------------------------------------------
+r176 | Odica | 2014-12-08 00:13:10 +0000 (Mon, 08 Dec 2014) | 15 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+--Major revision--
+- Finally developed a way to convert the output of GetCurrentMapZone to the zone offsets LibTourist needs, which were previously provided by UpdateMapHighlight. Completely rewrote the mechanism that gathers zone sizes, offsets and texture names. This allowed the removal of the weird and buggy use of UpdateMapHighlight as well as several hacks that were implemented in  attempts to make that mechanism work for all zones. Despite those attempts, it turned out that LibTourist has been using incorrect data for 34 zones.
+
+KNOWN ISSUE: For Dalaran, Shrine of Two Moons and Shrine of Seven Stars, GetCurrentMapZone() returns no data (0), therefore no distances can be calculated from, to or within these three zones.
+
+- Revised/rewrote the rather outdated API functions GetYardDistance and TransposeZoneCoordinate. These functions should now be able to properly calculate distances and transposes between all Azeroth continents, except for The Maelstrom. Made the functions more robust and if the calculation cannot be made, nil is returned instead of incorrect values. Due to the improved data gathering, these functions should now be more reliable. Added comments.
+Revised the API function GetBestZoneCoordinate as well.
+
+Other fixes:
+- API functions GetZoneFromTexture and GetEnglishZoneFromTexture should now work for the garrison texture names with the _tier<n> postfix.
+- Had to add hard-coded size, offset and texture name values for garrison zones Frostwall and Lunarfall (thanks, Sutorix!) because the garrison data is sometimes not available yet when LibTourist performs its initialization. Besides that, this data is only available if the character has established a garrison and only for that garrison (not for the other faction).
+- Added zone The Maelstrom (lvl82 sanctuary) to the new mechanism for duplicates zones, to (finally) be able to distinguish it from the continent with the same name. The unique lookup name for LibTourist has "(zone)" added to it and will be provided, localized, by GetUniqueZoneNameForLookup. See release notes for r169.
+
+API change:
+- New function IsContinent(zone). Returns true for all continents including Azeroth.
+------------------------------------------------------------------------
+r175 | Odica | 2014-11-27 18:56:53 +0000 (Thu, 27 Nov 2014) | 3 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+- Updated Upper Blackrock Spire level to 100
+- Added fishing skill for Warspear and Stormshield
+- All fishing skills for Draenor zones are now set to 950, which is the skill required to catch nothing but Enormous Fish.
+------------------------------------------------------------------------
+r174 | Odica | 2014-11-26 14:57:24 +0000 (Wed, 26 Nov 2014) | 3 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+- bugfix: GetYardDistance: it is now possible to calculate distances *within* a zone for which LibTourist is unable to retrieve zone offset data. This includes the garrison zones Frostwall and Lunarfall. Calculating distances from or to such a zone is still a problem (GetYardDistance returns nil if no offsets are available) but I'm working on that.
+- added fishing skill for Frostwall and Lunarfall. For now, the value is set to 750, as for the other Draenor zones.
+- expanded GetLevel() with brackets [90-94] and [95-99] for battlegrounds.
+------------------------------------------------------------------------
+r172 | Odica | 2014-11-16 13:38:28 +0000 (Sun, 16 Nov 2014) | 2 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+- Added Warspear - Thunder Bluff protal
+- Added Siege of Orgrimmar instance
+------------------------------------------------------------------------
+r171 | Odica | 2014-11-04 22:51:02 +0000 (Tue, 04 Nov 2014) | 4 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+- Added/updated instance portal coordinates for all eight Caverns of Time instances. Values are the coordinates on the Caverns of Time map (was Tanaris)
+- Added instance portal coordinates for Mogu'shan Vaults, Siege of Niuzao Temple, Mogu'shan Palace, Heart of Fear, Terrace of Endless Spring and Throne of Thunder.
+- Added battle pet levels for Darkmoon Island
+- Corrected faction for Frostwall (now Horde)
+------------------------------------------------------------------------
