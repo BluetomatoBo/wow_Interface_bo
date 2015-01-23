@@ -11,7 +11,7 @@ shrine = "Interface\\Icons\\inv_misc_statue_02",
 glider = "Interface\\Icons\\inv_feather_04",
 rocket = "Interface\\Icons\\ability_mount_rocketmount",
 }
-PlayerFaction, _ = UnitFactionGroup("player")
+local PlayerFaction, _ = UnitFactionGroup("player")
 DraenorTreasures.nodes = { }
 local nodes = DraenorTreasures.nodes
 local isTomTomloaded = false
