@@ -1,0 +1,48 @@
+tag 6.0.13
+06ffffd37487ac1839fcce7d087a9a1d3fa9a0e6
+subversion <svn@deadlybossmods.com>
+2015-01-23 21:00:42 +0100
+
+Tagging as 6.0.13
+
+
+--------------------
+
+subversion:
+	- increment version number to 6.0.13
+	- Omega via svn r12542: Make voice more consistent for mines on margok. watch step is better than runaway for this one (and already used on 1/4, all 4 should use though)
+	- Omega via svn r12541: Timing tweak
+	- Omega via svn r12540: Remove an unneeded unschedule that was causing range frame not to update back to replicating nova range value after tank is safe distance away.
+	- Omega via svn r12539: Small micro optimize
+	- Omega via svn r12538: More precise when only one near
+	- Omega via svn r12537: Text tweak
+	- Omega via svn r12536: Updated range radar
+	- Omega via svn r12535: CN Update
+	- Omega via svn r12534: Fix a logic bug where voice "player out" always played regardless.
+	- Omega via svn r12533: Delay login message, i think most aren't seeing it Set warnCausticEnergy true by default for melee.
+	- Omega via svn r12532: lets try this
+	- Omega via svn r12531: Oops.
+	- Omega via svn r12530: Option clarifications
+	- nbluewiz via svn r12529: # Add optional frost mine warning (request)
+	- ultrashining via svn r12528: zhTW update
+	- nbluewiz via svn r12527: # small adjust for edit box text. # koKR update.
+	- Omega via svn r12526: Fix area size
+	- Omega via svn r12525: Fix two errors
+	- Omega via svn r12524: Fix loadprofile from needlessly reloading profile when spec has not changed.
+	- nbluewiz via svn r12523: # move big brother check.
+	- nbluewiz via svn r12522: # fix lua error.
+	- nbluewiz via svn r12521: # more improve voice pack version check.
+	- Omega via svn r12520: Fix a regression that caused voice pack to disable (check cannot be that early, so moved back, but used anti spam instead) refactored blizzard hide to be one function instead of 2. Added hide for more annoying toasts.
+	- nbluewiz via svn r12519: # fix dbt error.
+	- nbluewiz via svn r12518: # target scanner fix.
+	- nbluewiz via svn r12517: # font dropdown fix.
+	- Omega via svn r12516: Only do this on english client.
+	- Omega via svn r12515: Fix bug where DBM_CORE_VOICE_MISSING never showed (because if VP was missing, CheckVoicePackVersion would never check for missing values Also moved THIS part out of CheckVoicePackVersion so it doesn't run and print multiple times.
+	- Omega via svn r12514: Voice pack tweak
+	- Omega via svn r12513: Revert a change that broke unicode display on English fonts
+	- nbluewiz via svn r12512: # fix lua error.
+	- nbluewiz via svn r12511: # fox voicepack related error.
+	- ultrashining via svn r12510: zhTW update
+	- nbluewiz via svn r12509: # fix one more bug. broken individual no - statistics.
+	- nbluewiz via svn r12508: # fix reset default option bug.
+	- Omega via svn r12507: increase alpha

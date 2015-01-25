@@ -53,9 +53,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 12504 $"):sub(12, -3)),
-	DisplayVersion = "6.0.12", -- the string that is shown as version
-	ReleaseRevision = 12504 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 12542 $"):sub(12, -3)),
+	DisplayVersion = "6.0.13", -- the string that is shown as version
+	ReleaseRevision = 12542 -- the revision of the latest stable version that is available
 }
 
 -- Legacy crap; that stupid "Version" field was never a good idea.
@@ -135,6 +135,7 @@ DBM.DefaultOptions = {
 	AFKHealthWarning = false,
 	HideObjectivesFrame = true,
 	HideGarrisonUpdates = true,
+	HideGuildChallengeUpdates = true,
 	HideApplicantAlerts = 0,
 	HideTooltips = false,
 	EnableModels = true,
@@ -312,6 +313,7 @@ local iconSetRevision = {}
 local iconSetPerson = {}
 local addsGUIDs = {}
 
+local voiceRevision = 2
 local fakeBWRevision = 12550
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -955,10 +957,12 @@ do
 --			end
 			if GetAddOnEnableState(playerName, "VEM-Core") >= 1 then
 				self:AddMsg(DBM_CORE_VEM)
+				dbmIsEnabled = false
 				return
 			end
 			if GetAddOnEnableState(playerName, "DBM-Profiles") >= 1 then
-				self:AddMsg(DBM_CORE_3RDPROFILES)
+				self:Schedule(10, function() self:AddMsg(DBM_CORE_3RDPROFILES) end)
+				dbmIsEnabled = false
 				return
 			end
 			self.Bars:LoadOptions("DBM")
@@ -1028,7 +1032,9 @@ do
 					else
 						local voiceValue = GetAddOnMetadata(i, "X-DBM-Voice-ShortName")
 						local voiceVersion = tonumber(GetAddOnMetadata(i, "X-DBM-Voice-Version") or 0)
-						tinsert(self.Voices, { text = GetAddOnMetadata(i, "X-DBM-Voice-Name"), value = voiceValue })
+						if voiceVersion > 0 then--Do not insert voice version 0 into THIS table. 0 should be used by voice packs that insert only countdown
+							tinsert(self.Voices, { text = GetAddOnMetadata(i, "X-DBM-Voice-Name"), value = voiceValue })
+						end
 						self.VoiceVersions[voiceValue] = voiceVersion
 						self:Schedule(10, self.CheckVoicePackVersion, self, voiceValue)--Still at 1 since the count sounds won't break any mods or affect filter. V2 if support countsound path
 						if GetAddOnMetadata(i, "X-DBM-Voice-HasCount") then--Supports adding countdown options, insert new countdown into table
@@ -1036,6 +1042,7 @@ do
 						end
 					end
 				end
+				self:Schedule(8, self.CheckVoicePackAvailable, self)
 			end
 			tsort(self.AddOns, function(v1, v2) return v1.sort < v2.sort end)
 			self:RegisterEvents(
@@ -1946,6 +1953,12 @@ do
 --		end
 		if GetAddOnEnableState(playerName, "VEM-Core") >= 1 then
 			self:AddMsg(DBM_CORE_VEM)
+			dbmIsEnabled = false
+			return
+		end
+		if GetAddOnEnableState(playerName, "DBM-Profiles") >= 1 then
+			self:AddMsg(DBM_CORE_3RDPROFILES)
+			dbmIsEnabled = false
 			return
 		end
 		if not IsAddOnLoaded("DBM-GUI") then
@@ -2461,7 +2474,9 @@ function DBM:LoadModOptions(modId, inCombat, first)
 			self:Debug("LoadModOptions: No saved options, creating defaults for profile "..profileNum, 2)
 			local defaultOptions = {}
 			for option, optionValue in pairs(mod.DefaultOptions) do
-				if type(optionValue) == "string" then
+				if type(optionValue) == "table" then
+					optionValue = optionValue.value
+				elseif type(optionValue) == "string" then
 					optionValue = mod:GetRoleFlagValue(optionValue)
 				end
 				defaultOptions[option] = optionValue 
@@ -2526,10 +2541,10 @@ function DBM:LoadModOptions(modId, inCombat, first)
 	_G[savedVarsName][fullname] = savedOptions
 	if profileNum > 0 then
 		_G[savedVarsName][fullname]["talent"..profileNum] = profileNum == 3 and gladStance or currentSpecName
-		self:Debug("LoadModOptions: Finished loading ".._G[savedVarsName][fullname]["talent"..profileNum], 2)
+		self:Debug("LoadModOptions: Finished loading ".._G[savedVarsName][fullname]["talent"..profileNum])
 	end
 	_G[savedStatsName] = savedStats
-	if not first and DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
+	if not first and DBM_GUI and DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
 		DBM_GUI_OptionsFrame:DisplayFrame(DBM_GUI.currentViewing)
 	end
 end
@@ -2567,7 +2582,9 @@ function DBM:LoadAllModDefaultOption(modId)
 		local mod = DBM:GetModByName(id)
 		local defaultOptions = {}
 		for option, optionValue in pairs(mod.DefaultOptions) do
-			if type(optionValue) == "string" then
+			if type(optionValue) == "table" then
+				optionValue = optionValue.value
+			elseif type(optionValue) == "string" then
 				optionValue = mod:GetRoleFlagValue(optionValue)
 			end
 			defaultOptions[option] = optionValue 
@@ -2579,7 +2596,7 @@ function DBM:LoadAllModDefaultOption(modId)
 	end
 	self:AddMsg(DBM_CORE_ALLMOD_DEFAULT_LOADED)
 	-- update gui if showing
-	if DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
+	if DBM_GUI and DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
 		DBM_GUI_OptionsFrame:DisplayFrame(DBM_GUI.currentViewing)
 	end
 end
@@ -2602,7 +2619,9 @@ function DBM:LoadModDefaultOption(mod)
 	-- do load default
 	local defaultOptions = {}
 	for option, optionValue in pairs(mod.DefaultOptions) do
-		if type(optionValue) == "string" then
+		if type(optionValue) == "table" then
+			optionValue = optionValue.value
+		elseif type(optionValue) == "string" then
 			optionValue = mod:GetRoleFlagValue(optionValue)
 		end
 		defaultOptions[option] = optionValue 
@@ -2613,7 +2632,7 @@ function DBM:LoadModDefaultOption(mod)
 	_G[savedVarsName][fullname][mod.id][profileNum] = defaultOptions
 	self:AddMsg(DBM_CORE_MOD_DEFAULT_LOADED)
 	-- update gui if showing
-	if DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
+	if DBM_GUI and DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
 		DBM_GUI_OptionsFrame:DisplayFrame(DBM_GUI.currentViewing)
 	end
 end
@@ -2673,7 +2692,7 @@ function DBM:CopyAllModOption(modId, sourceName, sourceProfile)
 	end
 	self:AddMsg(DBM_CORE_MPROFILE_COPY_SUCCESS:format(sourceName, sourceProfile))
 	-- update gui if showing
-	if DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
+	if DBM_GUI and DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
 		DBM_GUI_OptionsFrame:DisplayFrame(DBM_GUI.currentViewing)
 	end
 end
@@ -2730,7 +2749,7 @@ function DBM:CopyAllModSoundOption(modId, sourceName, sourceProfile)
 	end
 	self:AddMsg(DBM_CORE_MPROFILE_COPYS_SUCCESS:format(sourceName, sourceProfile))
 	-- update gui if showing
-	if DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
+	if DBM_GUI and DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
 		DBM_GUI_OptionsFrame:DisplayFrame(DBM_GUI.currentViewing)
 	end
 end
@@ -2867,20 +2886,19 @@ do
 end
 
 function DBM:ACTIVE_TALENT_GROUP_CHANGED()
+	local lastSpecID = currentSpecID
 	self:SetCurrentSpecInfo()
-	self:SpecChanged()
-	if IsInGroup() then
-		self:RoleCheck(false)
+	if currentSpecID ~= lastSpecID then--Don't fire specchanged unless spec actually has changed.
+		self:SpecChanged()
+		if IsInGroup() then
+			self:RoleCheck(false)
+		end
 	end
 end
 
 function DBM:UPDATE_SHAPESHIFT_FORM()
 	if class == "WARRIOR" and self:AntiSpam(0.5, "STANCE") then--check for stance changes for prot warriors that might be specced into Gladiator Stance
-		self:SetCurrentSpecInfo()
-		self:SpecChanged()
-		if IsInGroup() then
-			self:RoleCheck(true)
-		end
+		self:ACTIVE_TALENT_GROUP_CHANGED()
 	end
 end
 
@@ -4682,8 +4700,7 @@ do
 				end
 			end
 			--process global options
-			self:ToggleRaidBossEmoteFrame(1)
-			self:ToggleGarrisonAlertsFrame(1)
+			self:HideBlizzardEvents(1)
 			self:StartLogging(0, nil)
 			if self.Options.HideObjectivesFrame and mod.addon.type ~= "SCENARIO" and GetNumTrackedAchievements() == 0 then
 				if ObjectiveTrackerFrame:IsVisible() then
@@ -5090,8 +5107,7 @@ do
 			if mod.OnCombatEnd then mod:OnCombatEnd(wipe) end
 			if #inCombat == 0 then--prevent error if you pulled multiple boss. (Earth, Wind and Fire)
 				self:Schedule(10, self.StopLogging, self)--small delay to catch kill/died combatlog events
-				self:ToggleRaidBossEmoteFrame(0)
-				self:ToggleGarrisonAlertsFrame(0)
+				self:HideBlizzardEvents(0)
 				self:Unschedule(checkBossHealth)
 				self:Unschedule(checkCustomBossHealth)
 				self:Unschedule(loopCRTimer)
@@ -5623,40 +5639,42 @@ end
 --This completely unregisteres or registers event so frame simply does or doesn't show events
 --No dirty hooking. Least invasive way to do it. Uses lowest CPU
 --Toggle is for if we are turning off or on.
---Custom is for exterior mods to call function without needing global option turned on (such as BG mods option)
+--Custom is for pvp mods to call function without needing global option turned on (such as BG mods option)
 --All also handled by core so both core AND pvp mods aren't trying to hook/hide it. Should all be done HERE
 do
-	local RBEFUnregistered = false
-	function DBM:ToggleRaidBossEmoteFrame(toggle, custom)
-		if not self.Options.HideBossEmoteFrame and not custom then return end
-		if toggle == 1 and not RBEFUnregistered then
-			RBEFUnregistered = true
-			RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_EMOTE")
-			RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_WHISPER")
-			RaidBossEmoteFrame:UnregisterEvent("CLEAR_BOSS_EMOTES")
-		elseif toggle == 0 and RBEFUnregistered then
-			RBEFUnregistered = false
-			RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_EMOTE")
-			RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_WHISPER")
-			RaidBossEmoteFrame:RegisterEvent("CLEAR_BOSS_EMOTES")
+	local blizzEventsUnregistered = false
+	function DBM:HideBlizzardEvents(toggle, custom)
+		if toggle == 1 and not blizzEventsUnregistered then
+			blizzEventsUnregistered = true
+			if self.Options.HideBossEmoteFrame or custom then
+				RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_EMOTE")
+				RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_WHISPER")
+				RaidBossEmoteFrame:UnregisterEvent("CLEAR_BOSS_EMOTES")
+			end
+			if self.Options.HideGarrisonUpdates then
+				AlertFrame:UnregisterEvent("GARRISON_MISSION_FINISHED")
+				AlertFrame:UnregisterEvent("GARRISON_BUILDING_ACTIVATABLE")
+			end
+			if self.Options.HideGuildChallengeUpdates then
+				AlertFrame:UnregisterEvent("GUILD_CHALLENGE_COMPLETED")
+			end
+		elseif toggle == 0 and blizzEventsUnregistered then
+			blizzEventsUnregistered = false
+			if self.Options.HideBossEmoteFrame or custom then
+				RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_EMOTE")
+				RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_WHISPER")
+				RaidBossEmoteFrame:RegisterEvent("CLEAR_BOSS_EMOTES")
+			end
+			if self.Options.HideGarrisonUpdates then
+				AlertFrame:RegisterEvent("GARRISON_MISSION_FINISHED")
+				AlertFrame:RegisterEvent("GARRISON_BUILDING_ACTIVATABLE")
+			end
+			if self.Options.HideGuildChallengeUpdates then
+				AlertFrame:RegisterEvent("GUILD_CHALLENGE_COMPLETED")
+			end
 		end
 	end
-
-	local GarrisonUnregistered = false
-	function DBM:ToggleGarrisonAlertsFrame(toggle, custom)
-		if not self.Options.HideGarrisonUpdates and not custom then return end
-		if toggle == 1 and not GarrisonUnregistered then
-			GarrisonUnregistered = true
-			AlertFrame:UnregisterEvent("GARRISON_MISSION_FINISHED")
-			AlertFrame:UnregisterEvent("GARRISON_BUILDING_ACTIVATABLE")
-	--		AlertFrame:UnregisterEvent("GARRISON_RANDOM_MISSION_ADDED")--6.1
-		elseif toggle == 0 and GarrisonUnregistered then
-			GarrisonUnregistered = false
-			AlertFrame:RegisterEvent("GARRISON_MISSION_FINISHED")
-			AlertFrame:RegisterEvent("GARRISON_BUILDING_ACTIVATABLE")
-	--		AlertFrame:RegisterEvent("GARRISON_RANDOM_MISSION_ADDED")--6.1
-		end
-	end
+	DBM.ToggleRaidBossEmoteFrame = DBM.HideBlizzardEvents--PVP mod compat until 6.0.13 release. REMOVE ME BEFORE NEXT RELEASE.
 end
 
 --------------------------
@@ -5867,6 +5885,7 @@ do
 
 	function DBM:NewMod(name, modId, modSubTab, instanceId, nameModifier)
 		name = tostring(name) -- the name should never be a number of something as it confuses sync handlers that just receive some string and try to get the mod from it
+		if name == "DBM-ProfilesDummy" then return end
 		if modsById[name] then error("DBM:NewMod(): Mod names are used as IDs and must therefore be unique.", 2) end
 		local obj = setmetatable(
 			{
@@ -6172,7 +6191,7 @@ do
 				end
 			end
 		end
-		if DBM:GetUnitCreatureId(uid) == 24207 then return nil, nil, nil end--filter army of the dead.
+		if uid and DBM:GetUnitCreatureId(uid) == 24207 then return nil, nil, nil end--filter army of the dead.
 		return name, uid, bossuid
 	end
 
@@ -7939,20 +7958,12 @@ do
 		end
 	end
 
-	function DBM:CheckVoicePackVersion(value)
+	function DBM:CheckVoicePackAvailable()
 		--Check if voice pack missing
-		if self.Options.ChosenVoicePack ~= "None"  and not self.VoiceVersions[value] then--A voice pack is selected but has nil version (not possible unless voice pack disabled
+		local activeVP = self.Options.ChosenVoicePack
+		if (activeVP ~= "None" and not self.VoiceVersions[activeVP]) or (self.VoiceVersions[activeVP] and self.VoiceVersions[activeVP] == 0) then--A voice pack is selected that does not belong
 			self.Options.ChosenVoicePack = "None"--Set ChosenVoicePack back to None
 			self:AddMsg(DBM_CORE_VOICE_MISSING)
-		end
-		--Check if voice pack out of date
-		if self.Options.ChosenVoicePack == value then
-			if self.VoiceVersions[value] < 1 then--Version will be bumped when new voice packs released that contain new voices.
-				self:AddMsg(DBM_CORE_VOICE_PACK_OUTDATED)
-				SWFilterDisabed = true
-			else
-				SWFilterDisabed = false
-			end
 		end
 		--Check if any of countdown sounds are using missing voice pack
 		local voice1 = self.Options.CountdownVoice
@@ -7973,7 +7984,7 @@ do
 			local _, voiceValue = string.split(":", voice1)
 			if not self.VoiceVersions[voiceValue] then
 				self:AddMsg(DBM_CORE_VOICE_COUNT_MISSING:format(1))
-				self.Options.CountdownVoice1 = self.DefaultOptions.CountdownVoice
+				self.Options.CountdownVoice = self.DefaultOptions.CountdownVoice
 			end
 		elseif voice2:find("VP:") then
 			local _, voiceValue = string.split(":", voice2)
@@ -7989,7 +8000,20 @@ do
 			end
 		end
 	end
-	
+
+	function DBM:CheckVoicePackVersion(value)
+		local activeVP = self.Options.ChosenVoicePack
+		--Check if voice pack out of date
+		if activeVP ~= "None" and activeVP == value then
+			if self.VoiceVersions[value] < voiceRevision then--Version will be bumped when new voice packs released that contain new voices.
+				self:AddMsg(DBM_CORE_VOICE_PACK_OUTDATED)
+				SWFilterDisabed = true
+			else
+				SWFilterDisabed = false
+			end
+		end
+	end
+
 	function DBM:PlaySpecialWarningSound(soundId)
 		local sound = type(soundId) == "number" and self.Options["SpecialWarningSound" .. (soundId == 1 and "" or soundId)] or soundId or self.Options.SpecialWarningSound
 		if self.Options.UseMasterVolume then
@@ -8594,7 +8618,7 @@ end
 
 function bossModPrototype:AddSliderOption(name, minValue, maxValue, valueStep, default, cat, func)
 	cat = cat or "misc"
-	self.DefaultOptions[name] = default or 0
+	self.DefaultOptions[name] = {type = "slider", value = default or 0}
 	self.Options[name] = default or 0
 	self:SetOptionCategory(name, cat)
 	self.sliders = self.sliders or {}
@@ -8624,7 +8648,7 @@ end
 -- this will be fixed as soon as it is necessary due to removed options ;-)
 function bossModPrototype:AddDropdownOption(name, options, default, cat, func)
 	cat = cat or "misc"
-	self.DefaultOptions[name] = default
+	self.DefaultOptions[name] = {type = "dropdown", value = default}
 	self.Options[name] = default
 	self:SetOptionCategory(name, cat)
 	self.dropdowns = self.dropdowns or {}

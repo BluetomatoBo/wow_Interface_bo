@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1153, "DBM-Highmaul", nil, 477)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12472 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12533 $"):sub(12, -3))
 mod:SetCreatureID(79015)
 mod:SetEncounterID(1723)
 mod:SetZone()
@@ -24,7 +24,7 @@ mod:RegisterEventsInCombat(
 
 --TODO, find number of targets of MC and add SetIconsUsed with correct icon count.
 --TODO, see if MC works. I think it's every 3rd balls
-local warnCausticEnergy				= mod:NewTargetAnnounce("OptionVersion2", 161242, 3, nil, false)
+local warnCausticEnergy				= mod:NewTargetAnnounce("OptionVersion3", 161242, 3, nil, "Melee")
 local warnTrample					= mod:NewTargetAnnounce(163101, 3)--Technically it's supression field, then trample, but everyone is going to know it more by trample cause that's the part of it that matters
 local warnExpelMagicFrost			= mod:NewTargetAnnounce(161411, 3)
 local warnExpelMagicArcane			= mod:NewTargetAnnounce(162186, 4)
@@ -41,6 +41,7 @@ local yellTrample					= mod:NewYell(163101)
 local specWarnTrampleNear			= mod:NewSpecialWarningClose(163101)
 local specWarnExpelMagicFire		= mod:NewSpecialWarningMoveAway(162185, nil, nil, nil, nil, nil, true)
 local specWarnExpelMagicShadow		= mod:NewSpecialWarningSpell(162184, "Healer", nil, nil, nil, nil, true)
+local specWarnExpelMagicFrostYou	= mod:NewSpecialWarningYou(161411, false)
 local specWarnExpelMagicFrost		= mod:NewSpecialWarningSpell(161411, false, nil, nil, nil, nil, true)
 local specWarnExpelMagicArcaneYou	= mod:NewSpecialWarningMoveAway(162186, nil, nil, nil, 3, nil, true)
 local specWarnExpelMagicArcane		= mod:NewSpecialWarningTaunt(162186, nil, nil, nil, nil, nil, true)
@@ -131,6 +132,9 @@ end
 
 function mod:FrostTarget(targetname, uId)
 	warnExpelMagicFrost:Show(targetname)
+	if targetname == UnitName("player") then
+		specWarnExpelMagicFrostYou:Show()
+	end
 end
 
 function mod:OnCombatStart(delay)
