@@ -1,4 +1,10 @@
+- version 2.2.3
+
+	* Mass Spell Reflection corrected.
+	* Howl of Terror corrected.
+
 - version 2.2.2
+
 	* Skull Bash added. ( ID had been changed )
 	* Killing Spree added.
 	* Archangel added.

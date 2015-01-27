@@ -53,7 +53,6 @@
 
 			--warrior
 				-- OLD
-			[114028] = "massSpellReflection", -- moved from SpellCastSucces 2.2.2
 			[55694] = "enragedRegeneration", -- 狂怒恢復
 			[871] = "shieldWall", --盾墻
 			[112048] = "shieldBarrier", -- Added
@@ -302,6 +301,7 @@
 
 			--warrior
 				-- OLD
+			[114028] = "massSpellReflection", -- moved from SpellAuraApplied
 			[97462] = "rallyingCry", -- 集結怒吼
 			[5246] = "fear3", -- 破膽怒吼
 			[6552] = "pummel", -- 拳擊
@@ -421,7 +421,7 @@
 			--warlock
 				-- old
 			[6789] = "mortalCoil", -- aka Death Coil 死亡纏繞
-			[5484] = "fear2", -- 恐懼嚎叫 Howl of Terror
+			[5484] = "fear", -- 恐懼嚎叫 Howl of Terror
 			[19647] = "spellLock", -- 法術封鎖
 			[48020] = "demonicCircleTeleport", -- 惡魔法陣:傳送
 			[30283] = "shadowfury",
