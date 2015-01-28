@@ -490,6 +490,7 @@ function NP:SetUnitInfo(myPlate)
 		end
 		self.guid = UnitGUID("mouseover")
 		self.unit = "mouseover"
+		NP:UpdateAurasByUnitID('mouseover')
 	else
 		myPlate:SetFrameLevel(0)
 		myPlate.overlay:Hide()
