@@ -10,13 +10,12 @@ local GSA_VERSION = " v2.1"
 
 local GSA_LOCALEPATH = {
 	enUS = "GladiatorlosSA\\Voice_enUS",
---	zhTW = "GladiatorlosSA\\Voice",
---	zhCN = "GladiatorlosSA\\Voice"
+	enUS = "GladiatorlosSA\\Voice_enUS_Male",
 }
 self.GSA_LOCALEPATH = GSA_LOCALEPATH
 local GSA_LANGUAGE = {
---	["GladiatorlosSA\\Voice"] = L["Chinese(female)"],
 	["GladiatorlosSA\\Voice_enUS"] = L["English(female)"],
+	["GladiatorlosSA\\Voice_enUS_Male"] = "English(male)",  -- ************ TRAD
 }
 self.GSA_LANGUAGE = GSA_LANGUAGE
 local GSA_EVENT = {
@@ -63,6 +62,9 @@ local dbDefaults = {
 		battleground = true,
 		field = true,
 		path = GSA_LOCALEPATH[GetLocale()] or "GladiatorlosSA\\Voice_enUS",
+		path_male = GSA_LOCALEPATH[GetLocale()] or "GladiatorlosSA\\Voice_enUS", -- added to 2.3
+		path_neutral = GSA_LOCALEPATH[GetLocale()] or "GladiatorlosSA\\Voice_enUS", -- added to 2.3
+		path_menu = GSA_LOCALEPATH[GetLocale()] or "GladiatorlosSA\\Voice_enUS", -- added to 2.3
 		throttle = 0,
 		smartDisable = false,
 		
@@ -83,7 +85,6 @@ local dbDefaults = {
 		archangel = false,
 		--vendetta = false,
 		--desperatePrayer = false,
-		--redirect = false,
 		freezingTrap = false,
 		battlestance = false,
 		defensestance = false,
@@ -92,25 +93,20 @@ local dbDefaults = {
 		chakraSerenity = false,
 		--@ berserkerstance = false,
 		entanglingRoots = false,
-		--@ sMassDispell = false,
 		massDispell = false,
-		--@ sEntanglingRoots = false,
 		waterShield = false,
 		lichborneDown = false,
 		iceboundFortitudeDown = false,
-		--@ skullBanner = false,
 		mockingBanner = false,
-		--@ demoralizingBanner = false,
 		totemicProjection = false,
 		wildCharge = false,
-		--@ bindElemental = false,
 		rushingJadeWind = false,
 		paralysis = false,
 		manaTea = false,
 		purge = false, -- Added to 2.2.2
 		tranquilizingShot = false, -- Added to 2.2.2
 		powerWordShield = false, -- Added to 2.2.2
-		--@ sBarkskin = false,
+		genderVoice = false, -- added to 2.3
 		custom = {},
 	}	
 }
@@ -128,6 +124,7 @@ function GladiatorlosSA:OnInitialize()
 	end
 	
 	self.db1 = LibStub("AceDB-3.0"):New("GladiatorlosSADB",dbDefaults, "Default");
+	GSA.log (" 2.3 |cffC41F3BGender detection added|r. Please check the new voice options by typing /gsa.")
 	--DEFAULT_CHAT_FRAME:AddMessage(GSA_TEXT .. GSA_VERSION .. GSA_AUTHOR .."  - /gsa ");
 	--LibStub("AceConfig-3.0"):RegisterOptionsTable("GladiatorlosSA", GladiatorlosSA.Options, {"GladiatorlosSA", "SS"})
 	self:RegisterChatCommand("GladiatorlosSA", "ShowConfig")
@@ -178,6 +175,14 @@ function GSA:PlaySound(fileName, extend)
 	PlaySoundFile("Interface\\Addons\\"..gsadb.path.."\\"..fileName .. "." .. (extend or "ogg"), "Master")
 end
 
+function GSA:PlaySound2(fileName, extend)
+	PlaySoundFile("Interface\\Addons\\"..gsadb.path_male.."\\"..fileName .. "." .. (extend or "ogg"), "Master")
+end
+
+function GSA:PlaySound3(fileName, extend)
+	PlaySoundFile("Interface\\Addons\\"..gsadb.path_neutral.."\\"..fileName .. "." .. (extend or "ogg"), "Master")
+end
+
 function GladiatorlosSA:ArenaClass(id)
 	for i = 1 , 5 do
 		if id == UnitGUID("arena"..i) then
@@ -190,8 +195,8 @@ function GladiatorlosSA:PLAYER_ENTERING_WORLD()
 	--CombatLogClearEntries()
 end
 
--- play sound by spell id and spell type
-function GladiatorlosSA:PlaySpell(listName, spellID, ...)
+-- play sound by spell id and spell type AND gender
+function GladiatorlosSA:PlaySpell(listName, spellID, sourceGUID, destGUID, ...)
 	local list = self.spellList[listName]
 	if not list[spellID] then return end
 	if not gsadb[list[spellID]] then return	end
@@ -205,17 +210,54 @@ function GladiatorlosSA:PlaySpell(listName, spellID, ...)
 			self.smarter = 0
 		end
 	end
-	self:PlaySound(list[spellID]);
+	
+	local genderZ
+	if gsadb.genderVoice then
+		if (sourceGUID ~= nil or destGUID ~= nil) then
+			if (sourceGUID == ('') or sourceGUID == nil ) then
+				local _, _, _, _, sex, _, _ = GetPlayerInfoByGUID(destGUID)
+				genderZ = sex
+			else
+				local _, _, _, _, sex, _, _ = GetPlayerInfoByGUID(sourceGUID)
+				genderZ = sex
+			end
+		else
+			GSA.log ("sourceGUID or destGUID error")
+		end
+	end
+		--print (listName, spellID, genderZ)
+	if genderZ == 2 then
+		self:PlaySound2(list[spellID])
+	elseif genderZ == 1 then
+		self:PlaySound3(list[spellID])
+	else
+		self:PlaySound(list[spellID])
+	end	
 end
 function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
+	--local GSA_gender = {"unknown","male","female"}
 	local _,currentZoneType = IsInInstance()
 	if (not ((currentZoneType == "none" and gsadb.field) or (currentZoneType == "pvp" and gsadb.battleground) or (currentZoneType == "arena" and gsadb.arena) or gsadb.all)) then
 		return
 	end
 	local timestamp,event,hideCaster,sourceGUID,sourceName,sourceFlags,sourceFlags2,destGUID,destName,destFlags,destFlags2,spellID,spellName= select ( 1 , ... );
 	if not GSA_EVENT[event] then return end
+	
+		--print(sourceName,sourceGUID,destName,destGUID,destFlags,"|cffFF7D0A" .. event.. "|r",spellName,"|cffFF7D0A" .. spellID.. "|r")
 
-		--print(sourceName,destName,destFlags,"|cffFF7D0A" .. event.. "|r",spellName,"|cffFF7D0A" .. spellID.. "|r")
+		--if sourceGUID == ('') then
+		--	local _, _, race, _, sex, _, realm = GetPlayerInfoByGUID(destGUID)
+		--	print ("|cffFF7D0ADEST |r",GSA_gender[sex],destName,spellName,race,realm)
+		--else
+		--	local _, _, race, _, sex, _, realm = GetPlayerInfoByGUID(sourceGUID)
+		--	print ("|cffFFF569SOUR |r",GSA_gender[sex],sourceName,spellName,race,realm)
+		--end
+		
+		--if sourceName == nil then
+		--	print("|cffFF7D0ADEST |r",destName," is ",GSA_gender[UnitSex(destName)])
+		--else
+		--	print("|cffFFF569SOUR |r",sourceName," is ",GSA_gender[UnitSex(sourceName)]) -- Only works on target & focus only.
+		--end
 
 	if (destFlags) then
 		for k in pairs(GSA_TYPE) do
@@ -268,12 +310,13 @@ function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
 		print (sourceName,destName,event,spellName,spellID)
 	end
 	enddebug]]--
+
 	if (event == "SPELL_AURA_APPLIED" and desttype[COMBATLOG_FILTER_HOSTILE_PLAYERS] and (not gsadb.aonlyTF or destuid.target or destuid.focus) and not gsadb.aruaApplied) then
-		self:PlaySpell("auraApplied", spellID)
+		self:PlaySpell("auraApplied", spellID, sourceGUID, destGUID);
 	elseif (event == "SPELL_AURA_REMOVED" and desttype[COMBATLOG_FILTER_HOSTILE_PLAYERS] and (not gsadb.ronlyTF or destuid.target or destuid.focus) and not gsadb.auraRemoved) then
-		self:PlaySpell("auraRemoved", spellID)
+		self:PlaySpell("auraRemoved", spellID, sourceGUID, destGUID)
 	elseif (event == "SPELL_CAST_START" and sourcetype[COMBATLOG_FILTER_HOSTILE_PLAYERS] and (not gsadb.conlyTF or sourceuid.target or sourceuid.focus) and not gsadb.castStart) then
-		self:PlaySpell("castStart", spellID)
+		self:PlaySpell("castStart", spellID, sourceGUID, destGUID)
 	elseif ((event == "SPELL_CAST_SUCCESS" or event == "SPELL_SUMMON") and sourcetype[COMBATLOG_FILTER_HOSTILE_PLAYERS] and (not gsadb.sonlyTF or sourceuid.target or sourceuid.focus) and not gsadb.castSuccess) then
 		if self:Throttle(tostring(spellID).."default", 0.05) then return end
 		if (spellID == 42292 or spellID == 59752) and gsadb.class and currentZoneType == "arena" then
@@ -282,7 +325,7 @@ function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
 				self:PlaySound(c);
 			end
 		else	
-			self:PlaySpell("castSuccess", spellID)
+			self:PlaySpell("castSuccess", spellID, sourceGUID, destGUID)
 		end
 	elseif (event == "SPELL_INTERRUPT" and desttype[COMBATLOG_FILTER_HOSTILE_PLAYERS] and not gsadb.interrupt) then 
 		self:PlaySpell ("friendlyInterrupt", spellID)

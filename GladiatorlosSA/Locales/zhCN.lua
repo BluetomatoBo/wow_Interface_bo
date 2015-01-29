@@ -112,3 +112,15 @@ L["|cff9482C9Warlock|r"] = "|cff9482C9术士|r"
 L["Special Abilities"] = "敌方特殊技能"
 L["Friendly Interrupt"] = "友方打断技能"
 L["Spell Lock, Counterspell, Kick, Pummel, Mind Freeze, Skull Bash, Rebuke, Solar Beam, Spear Hand Strike, Wind Shear"] = "法术封锁 法术反制 脚踢 拳击 心智冰封 碎颅猛击 责难 太阳光束"
+
+L["Voice language"] = true
+L["Select the default voice pack of the alert"] = true
+L["Optional / Male voice |cffC41F3B*NEW*|r"] = true
+L["Select the male voice"] = true
+L["Optional / Neutral voice |cffC41F3B*NEW*|r"] = true
+L["Select the neutral voice"] = true
+L["Gender detection |cffC41F3B*NEW*|r"] = true
+L["Activate the gender detection"] = true
+L["Voice menu config"] = true
+L["Choose a test voice pack |cffC41F3B*NEW*|r"] = true
+L["Select the menu voice pack alert"] = true

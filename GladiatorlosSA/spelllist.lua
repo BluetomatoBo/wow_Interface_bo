@@ -421,7 +421,7 @@
 			--warlock
 				-- old
 			[6789] = "mortalCoil", -- aka Death Coil 死亡纏繞
-			[5484] = "fear", -- 恐懼嚎叫 Howl of Terror
+			[5484] = "fear", -- 恐懼嚎叫 Howl of Terror - was fear2 2.2.3
 			[19647] = "spellLock", -- 法術封鎖
 			[48020] = "demonicCircleTeleport", -- 惡魔法陣:傳送
 			[30283] = "shadowfury",

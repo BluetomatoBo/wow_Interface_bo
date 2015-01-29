@@ -110,6 +110,16 @@ L["|cff9482C9Warlock|r"] = true
 L["Special Abilities"] = true
 L["Friendly Interrupt"] = true
 L["Spell Lock, Counterspell, Kick, Pummel, Mind Freeze, Skull Bash, Rebuke, Solar Beam, Spear Hand Strike, Wind Shear"] = true
-
-
 L["Profiles"] = true
+
+L["Default / Female voice"] = true
+L["Select the default voice pack of the alert"] = true
+L["Optional / Male voice |cffC41F3B*NEW*|r"] = true
+L["Select the male voice"] = true
+L["Optional / Neutral voice |cffC41F3B*NEW*|r"] = true
+L["Select the neutral voice"] = true
+L["Gender detection |cffC41F3B*NEW*|r"] = true
+L["Activate the gender detection"] = true
+L["Voice menu config"] = true
+L["Choose a test voice pack |cffC41F3B*NEW*|r"] = true
+L["Select the menu voice pack alert"] = true

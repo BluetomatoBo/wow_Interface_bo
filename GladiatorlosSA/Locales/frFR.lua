@@ -112,3 +112,15 @@ L["|cff9482C9Warlock|r"] = "|cff9482C9Démoniste|r"
 L["Special Abilities"] = "Abilitées spéciales"
 L["Friendly Interrupt"] = "Interruption amicale"
 L["Spell Lock, Counterspell, Kick, Pummel, Mind Freeze, Skull Bash, Rebuke, Solar Beam, Spear Hand Strike, Wind Shear"] = "Verrou magique, Contresort, Coup de pied, Volée de coup, Gel de l'esprit, Coup de crâne, Réprimandes, Rayon solaire, Pique de main, Cisaille de vent"
+
+L["Voice language"] = true
+L["Select the default voice pack of the alert"] = true
+L["Optional / Male voice |cffC41F3B*NEW*|r"] = true
+L["Select the male voice"] = true
+L["Optional / Neutral voice |cffC41F3B*NEW*|r"] = true
+L["Select the neutral voice"] = true
+L["Gender detection |cffC41F3B*NEW*|r"] = true
+L["Activate the gender detection"] = true
+L["Voice menu config"] = true
+L["Choose a test voice pack |cffC41F3B*NEW*|r"] = true
+L["Select the menu voice pack alert"] = true

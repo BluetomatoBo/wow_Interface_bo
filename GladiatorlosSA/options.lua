@@ -27,7 +27,7 @@ local function setOption(info, value)
 	local name = info[#info]
 	gsadb[name] = value
 	if value then 
-		PlaySoundFile("Interface\\Addons\\"..gsadb.path.."\\"..name..".ogg","Master");
+		PlaySoundFile("Interface\\Addons\\"..gsadb.path_menu.."\\"..name..".ogg","Master");
 	end
 end
 local function getOption(info)
@@ -124,6 +124,7 @@ function GSA:MakeCustomOption(key)
 			existingsound = {
 				name = L["Use existing sound"],
 				type = 'toggle',
+				disabled = true, -- **************** need investigation
 				order = 30,
 			},
 			existinglist = {
@@ -263,10 +264,39 @@ function GSA:OnOptionCreate()
 						args = {
 							path = {
 								type = 'select',
-								name = L["Voice language"],
-								desc = L["Select language of the alert"],
+								--name = L["Voice language"],
+								name = L["Default / Female voice"], -- added to 2.3
+								--desc = L["Select language of the alert"],
+								desc = L["Select the default voice pack of the alert"], -- added to 2.3
 								values = self.GSA_LANGUAGE,
 								order = 1,
+							},
+							path_male = {
+								type = 'select',
+								name = L["Optional / Male voice |cffC41F3B*NEW*|r"], -- added to 2.3
+								desc = L["Select the male voice"], -- added to 2.3
+								values = self.GSA_LANGUAGE,
+								order = 2,
+								disabled = function() return not gsadb.genderVoice end,
+							},
+							path_neutral = {
+								type = 'select',
+								name = L["Optional / Neutral voice |cffC41F3B*NEW*|r"], -- added to 2.3
+								desc = L["Select the neutral voice"], -- added to 2.3
+								values = self.GSA_LANGUAGE,
+								order = 3,
+								disabled = function() return not gsadb.genderVoice end,
+							},
+							genderVoice = {
+								name = L["Gender detection |cffC41F3B*NEW*|r"], -- added to 2.3
+								type = 'toggle',
+								desc = L["Activate the gender detection"], -- added to 2.3
+								order = 4,
+							},
+							NewLinev = {
+								type= 'description',
+								order = 5,
+								name= '',
 							},
 							volumn = {
 								type = 'range',
@@ -277,7 +307,7 @@ function GSA:OnOptionCreate()
 								desc = L["adjusting the voice volume(the same as adjusting the system master sound volume)"],
 								set = function (info, value) SetCVar ("Sound_MasterVolume",tostring (value)) end,
 								get = function () return tonumber (GetCVar ("Sound_MasterVolume")) end,
-								order = 2,
+								order = 6,
 							},
 						},
 					},
@@ -313,9 +343,25 @@ function GSA:OnOptionCreate()
 				set = setOption,
 				get = getOption,
 				childGroups = "tab",
-				order = 2,
+				order = -2,
 				args = {
-					spellGeneral = {
+				menu_voice = {
+						type = 'group',
+						inline = true,
+						name = L["Voice menu config"], -- added to 2.3
+						order = -2,
+						args = {
+							path_menu = {
+								type = 'select',
+								name = L["Choose a test voice pack |cffC41F3B*NEW*|r"], -- added to 2.3
+								desc = L["Select the menu voice pack alert"], -- added to 2.3.1
+								values = self.GSA_LANGUAGE,
+								order = 1,
+							},
+
+						},
+				},
+				spellGeneral = {
 						type = 'group',
 						name = L["Disable options"],
 						desc = L["Disable abilities by type"],
@@ -786,7 +832,7 @@ function GSA:OnOptionCreate()
 						func = function()
 							gsadb.custom[L["New Sound Alert"]] = {
 								name = L["New Sound Alert"],
-								soundfilepath = "Interface\\AddOns\\GladiatorlosSA\\Voice_Custom\\"..L["New Sound Alert"]..".ogg",
+								soundfilepath = "Interface\\AddOns\\GladiatorlosSA\\Voice_Custom\\Will-Demo.ogg",--"..L["New Sound Alert"]..".ogg",
 								sourceuidfilter = "any",
 								destuidfilter = "any",
 								eventtype = {

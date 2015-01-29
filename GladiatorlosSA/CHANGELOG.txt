@@ -1,3 +1,14 @@
+- version 2.3.1
+
+	* Important locale missing files...
+
+- version 2.3
+
+	* New feature : GSA can now detect the gender of the caster if it's set correctly.
+		At this time, if it detects a male caster, Optional/Male voice pack will be used. if it detects a neutral caster, the neutral ones. If not, the Default/female will be used.
+		Various voice pack having every 2 voices possible, this option is deactivated by default.
+	* US Male Voice Pack Added : Will !
+
 - version 2.2.3
 
 	* Mass Spell Reflection corrected.
