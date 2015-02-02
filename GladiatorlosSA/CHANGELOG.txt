@@ -1,6 +1,10 @@
+- version 2.3.2
+
+	* Korean, Chinese CN&TW and French Locale updated.
+
 - version 2.3.1
 
-	* Important locale missing files...
+	* Important locale missing files... hotfix
 
 - version 2.3
 

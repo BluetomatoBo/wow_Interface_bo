@@ -1,4 +1,7 @@
-﻿local L = LibStub("AceLocale-3.0"):NewLocale("GladiatorlosSA", "zhCN")
+﻿-- Mini Dragon(projecteurs@gmail.com)
+-- Last update: Jan 29, 2015
+
+local L = LibStub("AceLocale-3.0"):NewLocale("GladiatorlosSA", "zhCN")
 if not L then return end
 
 L["Spell cast success"] = "施法成功"
@@ -113,14 +116,14 @@ L["Special Abilities"] = "敌方特殊技能"
 L["Friendly Interrupt"] = "友方打断技能"
 L["Spell Lock, Counterspell, Kick, Pummel, Mind Freeze, Skull Bash, Rebuke, Solar Beam, Spear Hand Strike, Wind Shear"] = "法术封锁 法术反制 脚踢 拳击 心智冰封 碎颅猛击 责难 太阳光束"
 
-L["Voice language"] = true
-L["Select the default voice pack of the alert"] = true
-L["Optional / Male voice |cffC41F3B*NEW*|r"] = true
-L["Select the male voice"] = true
-L["Optional / Neutral voice |cffC41F3B*NEW*|r"] = true
-L["Select the neutral voice"] = true
-L["Gender detection |cffC41F3B*NEW*|r"] = true
-L["Activate the gender detection"] = true
-L["Voice menu config"] = true
-L["Choose a test voice pack |cffC41F3B*NEW*|r"] = true
-L["Select the menu voice pack alert"] = true
+L["Default / Female voice"] = "默认 / 女声"
+L["Select the default voice pack of the alert"] = "选择默认语音包"
+L["Optional / Male voice |cffC41F3B*NEW*|r"] = "可选 / 男声 |cffC41F3B*新*|r"
+L["Select the male voice"] = "选择男性语音包"
+L["Optional / Neutral voice |cffC41F3B*NEW*|r"] = "可选 / 中立"
+L["Select the neutral voice"] = "选择中性语音包"
+L["Gender detection |cffC41F3B*NEW*|r"] = "性别判断 |cffC41F3B*新*|r"
+L["Activate the gender detection"] = "开启性别判断"
+L["Voice menu config"] = "语音菜单选项"
+L["Choose a test voice pack |cffC41F3B*NEW*|r"] = "选择测试语音包 |cffC41F3B*新*|r"
+L["Select the menu voice pack alert"] = "选择菜单语音包警告"
