@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1203, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12492 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12561 $"):sub(12, -3))
 mod:SetCreatureID(77557, 77231, 77477)
 mod:SetEncounterID(1695)
 mod:SetZone()
@@ -28,12 +28,12 @@ mod:RegisterEventsInCombat(
 --TODO, figure out why boat filter isn't working correctly (might be fixed by most recent changes though, so needs reverification
 --TODO, see if one of bosses hitting 20% before 3rd ship, cancels first ship (because ships are 10, 40 and 70 energy, but bosses skip to 100 energy if any of them hit 20%)
 --TODO, add timers for deck abilities that need them.
---Ship
 local Ship	= EJ_GetSectionInfo(10019)
 local Marak = EJ_GetSectionInfo(10033)
 local Sorka = EJ_GetSectionInfo(10030)
 local Garan = EJ_GetSectionInfo(10025)
 
+--Ship
 local warnShip							= mod:NewSpellAnnounce("ej10019", 3, 76204)
 ----Blackrock Deckhand
 local warnGrapeshotBlast				= mod:NewSpellAnnounce(158695, 3)--Could not verify

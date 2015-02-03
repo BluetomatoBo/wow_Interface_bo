@@ -53,9 +53,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 12542 $"):sub(12, -3)),
-	DisplayVersion = "6.0.13", -- the string that is shown as version
-	ReleaseRevision = 12542 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 12656 $"):sub(12, -3)),
+	DisplayVersion = "6.0.14", -- the string that is shown as version
+	ReleaseRevision = 12656 -- the revision of the latest stable version that is available
 }
 
 -- Legacy crap; that stupid "Version" field was never a good idea.
@@ -88,7 +88,7 @@ DBM.DefaultOptions = {
 	CountdownVoice2 = "Kolt",
 	CountdownVoice3 = "Pewsey",
 	ChosenVoicePack = "None",
-	VoiceOverSpecW = false,
+	VoiceOverSpecW2 = "None",
 	AlwaysPlayVoice = false,
 	ShowCountdownText = false,
 	RaidWarningPosition = {
@@ -118,7 +118,7 @@ DBM.DefaultOptions = {
 	StatusEnabled = true,
 	WhisperStats = false,
 	HideBossEmoteFrame = true,
-	SpamBlockBossWhispers = false,
+	SpamBlockBossWhispers = true,
 	ShowMinimapButton = false,
 	ShowSpecialWarnings = true,
 	ShowFlashFrame = true,
@@ -138,6 +138,7 @@ DBM.DefaultOptions = {
 	HideGuildChallengeUpdates = true,
 	HideApplicantAlerts = 0,
 	HideTooltips = false,
+	DisableSFX = false,
 	EnableModels = true,
 	RangeFrameFrames = "radar",
 	RangeFrameUpdates = "Average",
@@ -176,6 +177,11 @@ DBM.DefaultOptions = {
 	SpecialWarningFlashAlph2 = 0.3,
 	SpecialWarningFlashAlph3 = 0.4,
 	SpecialWarningFlashAlph4 = 0.4,
+	SpecialWarningFlashRepeat1 = false,
+	SpecialWarningFlashRepeat2 = false,
+	SpecialWarningFlashRepeat3 = true,
+	SpecialWarningFlashRepeat4 = false,
+	SpecialWarningFlashRepeatAmount = 2,--Repeat 2 times, mean 3 flashes (first plus 2 repeat)
 	HealthFrameGrowUp = false,
 	HealthFrameLocked = false,
 	HealthFrameWidth = 200,
@@ -286,6 +292,7 @@ local connectedServers = GetAutoCompleteRealms()
 local _, class = UnitClass("player")
 local LastInstanceMapID = -1
 local LastGroupSize = 0
+local LastInstanceType = nil
 local queuedBattlefield = {}
 local loadDelay = nil
 local loadDelay2 = nil
@@ -313,8 +320,7 @@ local iconSetRevision = {}
 local iconSetPerson = {}
 local addsGUIDs = {}
 
-local voiceRevision = 2
-local fakeBWRevision = 12550
+local fakeBWRevision = 12596
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -1079,14 +1085,14 @@ do
 				"UPDATE_BATTLEFIELD_STATUS",
 				"CINEMATIC_START",
 				"PLAYER_LEVEL_UP",
-				"LFG_COMPLETION_REWARD",
 				"CHALLENGE_MODE_START",
 				"CHALLENGE_MODE_RESET",
 				"CHALLENGE_MODE_END",
 				"ACTIVE_TALENT_GROUP_CHANGED",
 				"UPDATE_SHAPESHIFT_FORM",
 				"PARTY_INVITE_REQUEST",
-				"LOADING_SCREEN_DISABLED"
+				"LOADING_SCREEN_DISABLED",
+				"SCENARIO_CRITERIA_UPDATE"
 			)
 			RolePollPopup:UnregisterEvent("ROLE_POLL_BEGIN")
 			self:GROUP_ROSTER_UPDATE()
@@ -1345,12 +1351,13 @@ end
 --  Profile  --
 ---------------
 function DBM:CreateProfile(name)
-	if not name or name == "" then
+	if not name or name == "" or name:find(" ") then
 		self:AddMsg(DBM_CORE_PROFILE_CREATE_ERROR)
+		return
 	end
-	name = name:gsub(" ", "")
-	if name == "" then
-		self:AddMsg(DBM_CORE_PROFILE_CREATE_ERROR)
+	if DBM_AllSavedOptions[usedProfile] then
+		self:AddMsg(DBM_CORE_PROFILE_CREATE_ERROR_D:format(name))
+		return
 	end
 	-- create profile
 	usedProfile = name
@@ -1371,11 +1378,29 @@ function DBM:ApplyProfile(name)
 	end
 	usedProfile = name
 	DBM_UsedProfile = usedProfile
+	self:AddDefaultOptions(DBM_AllSavedOptions[usedProfile], self.DefaultOptions)
 	self.Options = DBM_AllSavedOptions[usedProfile]
 	-- rearrange position
 	self.Bars:ApplyProfile("DBM")
 	self:RepositionFrames()
 	self:AddMsg(DBM_CORE_PROFILE_APPLIED:format(name))
+end
+
+function DBM:CopyProfile(name)
+	if not name or not DBM_AllSavedOptions[name] then 
+		self:AddMsg(DBM_CORE_PROFILE_COPY_ERROR:format(name or DBM_CORE_UNKNOWN))
+		return
+	elseif name == usedProfile then
+		self:AddMsg(DBM_CORE_PROFILE_COPY_ERROR_SELF)
+		return
+	end
+	DBM_AllSavedOptions[usedProfile] = DBM_AllSavedOptions[name]
+	self:AddDefaultOptions(DBM_AllSavedOptions[usedProfile], self.DefaultOptions)
+	self.Options = DBM_AllSavedOptions[usedProfile]
+	-- rearrange position
+	self.Bars:CopyProfile(name, "DBM")
+	self:RepositionFrames()
+	self:AddMsg(DBM_CORE_PROFILE_COPIED:format(name))
 end
 
 function DBM:DeleteProfile(name)
@@ -1391,6 +1416,10 @@ function DBM:DeleteProfile(name)
 	usedProfile = "Default"--Restore to default
 	DBM_UsedProfile = usedProfile
 	self.Options = DBM_AllSavedOptions[usedProfile]
+	if not self.Options then
+		-- the default profile got lost somehow (maybe WoW crashed and the saved variables file got corrupted)
+		self:CreateProfile("Default")
+	end
 	-- rearrange position
 	self.Bars:DeleteProfile(name, "DBM")
 	self:RepositionFrames()
@@ -1658,18 +1687,29 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 	end
 end
 
-SLASH_DBMRANGE1 = "/range"
-SLASH_DBMRANGE2 = "/distance"
-SlashCmdList["DBMRANGE"] = function(msg)
-	if DBM.RangeCheck:IsShown() then
-		DBM.RangeCheck:Hide()
-	else
-		local r = tonumber(msg)
-		if r and (r < 50) then
-			DBM.RangeCheck:Show(r, nil, true)
+do
+	local function updateRangeFrame(r, reverse)
+		if DBM.RangeCheck:IsShown() then
+			DBM.RangeCheck:Hide()
 		else
-			DBM.RangeCheck:Show(10, nil, true)
+			if r and (r < 201) then
+				DBM.RangeCheck:Show(r, nil, true, nil, reverse)
+			else
+				DBM.RangeCheck:Show(10, nil, true, nil, reverse)
+			end
 		end
+	end
+	SLASH_DBMRANGE1 = "/range"
+	SLASH_DBMRANGE2 = "/distance"
+	SLASH_DBMRRANGE1 = "/rrange"
+	SLASH_DBMRRANGE2 = "/rdistance"
+	SlashCmdList["DBMRANGE"] = function(msg)
+		local r = tonumber(msg)
+		updateRangeFrame(r, false)
+	end
+	SlashCmdList["DBMRRANGE"] = function(msg)
+		local r = tonumber(msg)
+		updateRangeFrame(r, true)
 	end
 end
 
@@ -1697,20 +1737,25 @@ do
 		twipe(OutdatedUsers)
 		self:AddMsg(DBM_CORE_VERSIONCHECK_HEADER)
 		for i, v in ipairs(sortMe) do
+			local name = v.name
+			local playerColor = RAID_CLASS_COLORS[DBM:GetRaidClass(name)]
+			if playerColor then
+				name = ("|r|cff%.2x%.2x%.2x%s|r|cff%.2x%.2x%.2x"):format(playerColor.r * 255, playerColor.g * 255, playerColor.b * 255, name, 0.41 * 255, 0.8 * 255, 0.94 * 255)
+			end
 			if v.displayVersion and not (v.bwrevision or v.bwarevision) then--DBM, no BigWigs
 				if self.Options.ShowAllVersions then
-					self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY:format(v.name, "DBM "..v.displayVersion, v.revision, v.VPVersion or ""))--Only display VP version if not running two mods
+					self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY:format(name, "DBM "..v.displayVersion, v.revision, v.VPVersion or ""), false)--Only display VP version if not running two mods
 				end
 				if notify and v.revision < self.ReleaseRevision then
 					SendChatMessage(chatPrefixShort..DBM_CORE_YOUR_VERSION_OUTDATED, "WHISPER", nil, v.name)
 				end
 			elseif self.Options.ShowAllVersions and (v.displayVersion and (v.bwrevision or v.bwarevision)) then--DBM & BigWigs
-				self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY_TWO:format(v.name, "DBM "..v.displayVersion, v.revision, v.bwarevision and DBM_BIG_WIGS_ALPHA or DBM_BIG_WIGS, v.bwarevision or v.bwrevision))
+				self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY_TWO:format(name, "DBM "..v.displayVersion, v.revision, v.bwarevision and DBM_BIG_WIGS_ALPHA or DBM_BIG_WIGS, v.bwarevision or v.bwrevision), false)
 			elseif self.Options.ShowAllVersions and (not v.displayVersion and (v.bwrevision or v.bwarevision)) then--BigWigs, No DBM
-				self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY:format(v.name, v.bwarevision and DBM_BIG_WIGS_ALPHA or DBM_BIG_WIGS, v.bwarevision or v.bwrevision, ""))
+				self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY:format(name, v.bwarevision and DBM_BIG_WIGS_ALPHA or DBM_BIG_WIGS, v.bwarevision or v.bwrevision, ""), false)
 			else
 				if self.Options.ShowAllVersions then
-					self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM:format(v.name))
+					self:AddMsg(DBM_CORE_VERSIONCHECK_ENTRY_NO_DBM:format(name), false)
 				end
 			end
 		end
@@ -1734,8 +1779,9 @@ do
 		end
 		local TotalDBM = TotalUsers - NoDBM
 		local TotalBW = TotalUsers - NoBigwigs
-		self:AddMsg(DBM_CORE_VERSIONCHECK_FOOTER:format(TotalDBM, TotalBW))
-		self:AddMsg(DBM_CORE_VERSIONCHECK_OUTDATED:format(OldMod, #OutdatedUsers > 0 and table.concat(OutdatedUsers, ", ") or NONE))
+		self:AddMsg("---", false)
+		self:AddMsg(DBM_CORE_VERSIONCHECK_FOOTER:format(TotalDBM, TotalBW), false)
+		self:AddMsg(DBM_CORE_VERSIONCHECK_OUTDATED:format(OldMod, #OutdatedUsers > 0 and table.concat(OutdatedUsers, ", ") or NONE), false)
 		twipe(OutdatedUsers)
 		twipe(sortMe)
 		for i = #sortMe, 1, -1 do
@@ -1757,14 +1803,19 @@ do
 		tsort(sortLag, sortit)
 		self:AddMsg(DBM_CORE_LAG_HEADER)
 		for i, v in ipairs(sortLag) do
+			local name = v.name
+			local playerColor = RAID_CLASS_COLORS[DBM:GetRaidClass(name)]
+			if playerColor then
+				name = ("|r|cff%.2x%.2x%.2x%s|r|cff%.2x%.2x%.2x"):format(playerColor.r * 255, playerColor.g * 255, playerColor.b * 255, name, 0.41 * 255, 0.8 * 255, 0.94 * 255)
+			end
 			if v.worldlag then
-				self:AddMsg(DBM_CORE_LAG_ENTRY:format(v.name, v.worldlag, v.homelag))
+				self:AddMsg(DBM_CORE_LAG_ENTRY:format(name, v.worldlag, v.homelag), false)
 			else
 				tinsert(nolagResponse, v.name)
 			end
 		end
 		if #nolagResponse > 0 then
-			self:AddMsg(DBM_CORE_LAG_FOOTER:format(table.concat(nolagResponse, ", ")))
+			self:AddMsg(DBM_CORE_LAG_FOOTER:format(table.concat(nolagResponse, ", ")), false)
 			for i = #nolagResponse, 1, -1 do
 				nolagResponse[i] = nil
 			end
@@ -2445,7 +2496,7 @@ end
 
 function DBM:SetRaidWarningPositon()
 	RaidWarningFrame:ClearAllPoints()
-	RaidWarningFrame:SetPoint(DBM.Options.RaidWarningPosition.Point, UIParent, DBM.Options.RaidWarningPosition.Point, DBM.Options.RaidWarningPosition.X, DBM.Options.RaidWarningPosition.Y)
+	RaidWarningFrame:SetPoint(self.Options.RaidWarningPosition.Point, UIParent, self.Options.RaidWarningPosition.Point, self.Options.RaidWarningPosition.X, self.Options.RaidWarningPosition.Y)
 end
 
 function DBM:LoadModOptions(modId, inCombat, first)
@@ -2495,6 +2546,8 @@ function DBM:LoadModOptions(modId, inCombat, first)
 				for option, optionValue in pairs(savedOptions[id][profileNum]) do
 					if mod.DefaultOptions[option] == nil then
 						savedOptions[id][profileNum][option] = nil
+					elseif mod.DefaultOptions[option] and (type(mod.DefaultOptions[option]) == "table") then--recover broken dropdown option
+						savedOptions[id][profileNum][option] = mod.DefaultOptions[option].value
 					end
 				end
 			end
@@ -2841,8 +2894,8 @@ do
 		-- load special warning options
 		DBM:UpdateSpecialWarningOptions()
 		-- set this with a short delay to prevent issues with other addons also trying to do the same thing with another position ;)
-		DBM:Schedule(5, DBM.SetRaidWarningPositon)
-		DBM:Schedule(20, DBM.SetRaidWarningPositon)--A second attempt after we are sure all other mods are loaded, so we can work around issues with movemanything or other mods.
+		DBM:Schedule(5, DBM.SetRaidWarningPositon, DBM)
+		DBM:Schedule(20, DBM.SetRaidWarningPositon, DBM)--A second attempt after we are sure all other mods are loaded, so we can work around issues with movemanything or other mods.
 	end
 end
 
@@ -2996,8 +3049,9 @@ function DBM:CINEMATIC_START()
 	end
 end
 
-function DBM:LFG_COMPLETION_REWARD()
-	if #inCombat > 0 and C_Scenario.IsInScenario() then
+function DBM:SCENARIO_CRITERIA_UPDATE()
+	local _, currentStage, numStages = C_Scenario.GetInfo()
+	if #inCombat > 0 and currentStage > numStages and C_Scenario.IsInScenario() then
 		for i = #inCombat, 1, -1 do
 			local v = inCombat[i]
 			if v.inScenario then
@@ -3074,11 +3128,13 @@ do
 		LastGroupSize = instanceGroupSize
 		difficultyIndex = difficulty
 		if instanceType == "none" or C_Garrison:IsOnGarrisonMap() then
+			LastInstanceType = "none"
 			if not targetEventsRegistered then
 				DBM:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT", "UNIT_TARGET_UNFILTERED", "SCENARIO_UPDATE")
 				targetEventsRegistered = true
 			end
 		else
+			LastInstanceType = instanceType
 			if targetEventsRegistered then
 				DBM:UnregisterShortTermEvents()
 				targetEventsRegistered = false
@@ -3316,20 +3372,15 @@ do
 		end
 	end
 
-	syncHandlers["C"] = function(sender, delay, mod, modRevision, startHp, dbmRevision, tX, tY)
+	syncHandlers["C"] = function(sender, delay, mod, modRevision, startHp, dbmRevision)
 		if sender == playerName then return end
-		local _, instanceType = GetInstanceInfo()
-		if instanceType == "pvp" then return end
-		if instanceType == "none" and (not UnitAffectingCombat("player") or #inCombat > 0) then--world boss
-			tX = tonumber(tX or 0) or 0
-			tY = tonumber(tY or 0) or 0
-			local range
-			if tX > 0 and tY > 0 then
-				local pX, pY = UnitPosition("player")
-				local dX = pX - tX
-				local dY = pY - tY
-				range = (dX * dX + dY * dY) ^ 0.5
-			end
+		if LastInstanceType == "pvp" then return end
+		if LastInstanceType == "none" and (not UnitAffectingCombat("player") or #inCombat > 0) then--world boss
+			local senderuId = DBM:GetRaidUnitId(sender)
+			if not senderuId then return end--Should never happen, but just in case. If happens, MANY "C" syncs are sent. losing 1 no big deal.
+			local playerZone, senderZone = select(4, UnitPosition("player")), select(4, UnitPosition(senderuId))
+			if playerZone ~= senderZone then return end--not same zone
+			local range = DBM.RangeCheck:GetDistance("player", senderuId)--Same zone, so check range
 			if not range or range > 60 then return end
 		end
 		if not cSyncSender[sender] then
@@ -3583,7 +3634,7 @@ do
 			raid[sender].locale = locale
 			raid[sender].enabledIcons = iconEnabled or "false"
 			DBM:Debug("Received version info from "..sender.." : Rev - "..revision..", Ver - "..version..", Rev Diff - "..(revision - DBM.Revision), 3)
-			if version > tonumber(DBM.Version) then -- Update reminder
+			if version > tonumber(DBM.Version) and LastInstanceType ~= "pvp" then -- Update reminder
 				if not checkEntry(newerVersionPerson, sender) then
 					newerVersionPerson[#newerVersionPerson + 1] = sender
 					DBM:Debug("Newer version detected from "..sender.." : Rev - "..revision..", Ver - "..version..", Rev Diff - "..(revision - DBM.Revision), 3)
@@ -4347,9 +4398,10 @@ do
 		end
 	end
 	
-	function DBM:UNIT_TARGETABLE_CHANGED()
+	function DBM:UNIT_TARGETABLE_CHANGED(uId)
 		if DBM.Options.DebugLevel > 2 or (Transcriptor and Transcriptor:IsLogging()) then
-			self:Debug("UNIT_TARGETABLE_CHANGED event fired")
+			local active = UnitExists(uId) and "true" or "false"
+			self:Debug("UNIT_TARGETABLE_CHANGED event fired for "..UnitName(uId)..". Active: "..active)
 		end
 	end
 
@@ -4500,7 +4552,6 @@ end
 
 function checkWipe(confirm)
 	if #inCombat > 0 then
-		local _, instanceType = GetInstanceInfo()
 		if not savedDifficulty or not difficultyText or not difficultyIndex then--prevent error if savedDifficulty or difficultyText is nil
 			savedDifficulty, difficultyText, difficultyIndex = DBM:GetCurrentInstanceDifficulty()
 		end
@@ -4520,7 +4571,7 @@ function checkWipe(confirm)
 			wipe = 0
 		elseif savedDifficulty == "worldboss" and UnitIsDeadOrGhost("player") then -- On dead or ghost, unit combat status detection would be fail. If you ghost in instance, that means wipe. But in worldboss, ghost means not wipe. So do not wipe.
 			wipe = 0
-		elseif bossuIdFound and instanceType == "raid" then -- Combat started by IEEU and no boss exist and no EncounterProgress marked, that means wipe
+		elseif bossuIdFound and LastInstanceType == "raid" then -- Combat started by IEEU and no boss exist and no EncounterProgress marked, that means wipe
 			wipe = 2
 			for i = 1, 5 do
 				if UnitExists("boss"..i) then
@@ -4671,6 +4722,15 @@ do
 			end
 			--show health frame
 			if not mod.inScenario then
+				if self.Options.HideTooltips then
+					--Better or cleaner way?
+					tooltipsHidden = true
+					GameTooltip.Temphide = function() GameTooltip:Hide() end; GameTooltip:SetScript("OnShow", GameTooltip.Temphide)
+				end
+				if self.Options.DisableSFX and GetCVar("Sound_EnableSFX") == "1" then
+					self.Options.sfxDisabled = true
+					SetCVar("Sound_EnableSFX", 0)
+				end
 				if (self.Options.AlwaysShowHealthFrame or mod.Options.HealthFrame) then
 					if not self.BossHealth:IsShown() then
 						self.BossHealth:Show(mod.localization.general.name)
@@ -4723,11 +4783,6 @@ do
 						self.Bars:CreateBar(remaining, CHALLENGE_MODE_MEDAL1, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 					end
 				end
-			end
-			if self.Options.HideTooltips and not mod.inScenario then
-				--Better or cleaner way?
-				tooltipsHidden = true
-				GameTooltip.Temphide = function() GameTooltip:Hide() end; GameTooltip:SetScript("OnShow", GameTooltip.Temphide)
 			end
 			fireEvent("pull", mod, delay, synced, startHp)
 			--serperate timer recovery and normal start.
@@ -4783,8 +4838,7 @@ do
 				end
 				--send "C" sync
 				if not synced then
-					local pX, pY = UnitPosition("player")
-					sendSync("C", (delay or 0).."\t"..modId.."\t"..(mod.revision or 0).."\t"..startHp.."\t"..DBM.Revision.."\t"..pX.."\t"..pY)
+					sendSync("C", (delay or 0).."\t"..modId.."\t"..(mod.revision or 0).."\t"..startHp.."\t"..DBM.Revision)
 				end
 				--show bigbrother check
 				if self.Options.ShowBigBrotherOnCombatStart and BigBrother and type(BigBrother.ConsumableCheck) == "function" then
@@ -5128,6 +5182,10 @@ do
 					tooltipsHidden = false
 					GameTooltip:SetScript("OnShow", GameTooltip.Show)
 				end
+				if self.Options.sfxDisabled then
+					self.Options.sfxDisabled = nil
+					SetCVar("Sound_EnableSFX", 1)
+				end
 				--cache table
 				twipe(autoRespondSpam)
 				twipe(bossHealth)
@@ -5202,8 +5260,7 @@ do
 
 	function DBM:StartLogging(timer, checkFunc)
 		self:Unschedule(DBM.StopLogging)
-		local _, instanceType = GetInstanceInfo()
-		if self.Options.LogOnlyRaidBosses and ((instanceType ~= "raid") or IsPartyLFG()) then return end
+		if self.Options.LogOnlyRaidBosses and ((LastInstanceType ~= "raid") or IsPartyLFG()) then return end
 		if self.Options.AutologBosses then--Start logging here to catch pre pots.
 			if not LoggingCombat() then
 				autoLog = true
@@ -5462,10 +5519,10 @@ end
 do
 	function DBM:PLAYER_ENTERING_WORLD()
 		if GetLocale() == "ptBR" or GetLocale() == "frFR" or GetLocale() == "esES" or GetLocale() == "esMX" or GetLocale() == "itIT" then
-			self:Schedule(10, function() if not DBM.Options.HelpMessageShown2 then DBM.Options.HelpMessageShown2 = true DBM:AddMsg(DBM_CORE_NEED_SUPPORT) end end)
+			self:Schedule(10, function() if not self.Options.HelpMessageShown2 then self.Options.HelpMessageShown2 = true self:AddMsg(DBM_CORE_NEED_SUPPORT) end end)
 		end
-		self:Schedule(20, function() if not DBM.Options.ForumsMessageShown then DBM.Options.ForumsMessageShown = DBM.ReleaseRevision self:AddMsg(DBM_FORUMS_MESSAGE) end end)
-		self:Schedule(30, function() if not DBM.Options.SettingsMessageShown then DBM.Options.SettingsMessageShown = true self:AddMsg(DBM_HOW_TO_USE_MOD) end end)
+		self:Schedule(20, function() if not self.Options.ForumsMessageShown then self.Options.ForumsMessageShown = self.ReleaseRevision self:AddMsg(DBM_FORUMS_MESSAGE) end end)
+		self:Schedule(30, function() if not self.Options.SettingsMessageShown then self.Options.SettingsMessageShown = true self:AddMsg(DBM_HOW_TO_USE_MOD) end end)
 --		self:Schedule(40, function() if DBM.Options.BugMessageShown < 1 then DBM.Options.BugMessageShown = 1 self:AddMsg(DBM_CORE_BLIZZ_BUGS) end end)
 		if type(RegisterAddonMessagePrefix) == "function" then
 			if not RegisterAddonMessagePrefix("D4") then -- main prefix for DBM4
@@ -5474,6 +5531,10 @@ do
 			if not RegisterAddonMessagePrefix("BigWigs") then
 				self:AddMsg("Error: unable to register BigWigs addon message prefix (reached client side addon message filter limit), BigWigs version checks will be unavailable")
 			end
+		end
+		if self.Options.sfxDisabled then--Check if sound was disabled by previous session and not re-enabled.
+			self.Options.sfxDisabled = nil
+			SetCVar("Sound_EnableSFX", 1)
 		end
 	end
 end
@@ -5651,11 +5712,11 @@ do
 				RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_WHISPER")
 				RaidBossEmoteFrame:UnregisterEvent("CLEAR_BOSS_EMOTES")
 			end
-			if self.Options.HideGarrisonUpdates then
+			if self.Options.HideGarrisonUpdates or custom then
 				AlertFrame:UnregisterEvent("GARRISON_MISSION_FINISHED")
 				AlertFrame:UnregisterEvent("GARRISON_BUILDING_ACTIVATABLE")
 			end
-			if self.Options.HideGuildChallengeUpdates then
+			if self.Options.HideGuildChallengeUpdates or custom then
 				AlertFrame:UnregisterEvent("GUILD_CHALLENGE_COMPLETED")
 			end
 		elseif toggle == 0 and blizzEventsUnregistered then
@@ -5674,7 +5735,6 @@ do
 			end
 		end
 	end
-	DBM.ToggleRaidBossEmoteFrame = DBM.HideBlizzardEvents--PVP mod compat until 6.0.13 release. REMOVE ME BEFORE NEXT RELEASE.
 end
 
 --------------------------
@@ -7682,8 +7742,26 @@ do
 	function specialWarningPrototype:Show(...)
 		if DBM.Options.ShowSpecialWarnings and (not self.option or self.mod.Options[self.option]) and not moving and frame then
 			if self.announceType == "taunt" and DBM.Options.FilterTankSpec and not self.mod:IsTank() then return end--Don't tell non tanks to taunt, ever.
-			local msg = pformat(self.text, ...)
+			local argTable = {...}
+			if #self.combinedtext > 0 then
+				--Throttle spam.
+				local combinedText = table.concat(self.combinedtext, "<, >")
+				if self.combinedcount == 1 then
+					combinedText = combinedText.." "..DBM_CORE_GENERIC_WARNING_OTHERS
+				elseif self.combinedcount > 1 then
+					combinedText = combinedText.." "..DBM_CORE_GENERIC_WARNING_OTHERS2:format(self.combinedcount)
+				end
+				--Process
+				for i = 1, #argTable do
+					if type(argTable[i]) == "string" then
+						argTable[i] = combinedText
+					end
+				end
+			end
+			local msg = pformat(self.text, unpack(argTable))
 			local text = msg:gsub(">.-<", stripServerName)
+			self.combinedcount = 0
+			self.combinedtext = {}
 			font:SetText(text)
 			if DBM.Options.ShowSWarningsInChat then
 				local colorCode = ("|cff%.2x%.2x%.2x"):format(DBM.Options.SpecialWarningFontCol[1] * 255, DBM.Options.SpecialWarningFontCol[2] * 255, DBM.Options.SpecialWarningFontCol[3] * 255)
@@ -7691,28 +7769,52 @@ do
 			end
 			if not UnitIsDeadOrGhost("player") and DBM.Options.ShowFlashFrame then
 				if self.flash == 1 then
-					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol1[1],DBM.Options.SpecialWarningFlashCol1[2], DBM.Options.SpecialWarningFlashCol1[3], DBM.Options.SpecialWarningFlashDura1, DBM.Options.SpecialWarningFlashAlph1)
+					local repeatCount = DBM.Options.SpecialWarningFlashRepeat1 and DBM.Options.SpecialWarningFlashRepeatAmount or 0
+					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol1[1],DBM.Options.SpecialWarningFlashCol1[2], DBM.Options.SpecialWarningFlashCol1[3], DBM.Options.SpecialWarningFlashDura1, DBM.Options.SpecialWarningFlashAlph1, repeatCount)
 				elseif self.flash == 2 then
-					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol2[1],DBM.Options.SpecialWarningFlashCol2[2], DBM.Options.SpecialWarningFlashCol2[3], DBM.Options.SpecialWarningFlashDura2, DBM.Options.SpecialWarningFlashAlph2)
+					local repeatCount = DBM.Options.SpecialWarningFlashRepeat2 and DBM.Options.SpecialWarningFlashRepeatAmount or 0
+					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol2[1],DBM.Options.SpecialWarningFlashCol2[2], DBM.Options.SpecialWarningFlashCol2[3], DBM.Options.SpecialWarningFlashDura2, DBM.Options.SpecialWarningFlashAlph2, repeatCount)
 				elseif self.flash == 3 then
-					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol3[1],DBM.Options.SpecialWarningFlashCol3[2], DBM.Options.SpecialWarningFlashCol3[3], DBM.Options.SpecialWarningFlashDura3, DBM.Options.SpecialWarningFlashAlph3)
+					local repeatCount = DBM.Options.SpecialWarningFlashRepeat3 and DBM.Options.SpecialWarningFlashRepeatAmount or 0
+					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol3[1],DBM.Options.SpecialWarningFlashCol3[2], DBM.Options.SpecialWarningFlashCol3[3], DBM.Options.SpecialWarningFlashDura3, DBM.Options.SpecialWarningFlashAlph3, repeatCount)
 				elseif self.flash == 4 then
-					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol4[1],DBM.Options.SpecialWarningFlashCol4[2], DBM.Options.SpecialWarningFlashCol4[3], DBM.Options.SpecialWarningFlashDura4, DBM.Options.SpecialWarningFlashAlph4)
+					local repeatCount = DBM.Options.SpecialWarningFlashRepeat4 and DBM.Options.SpecialWarningFlashRepeatAmount or 0
+					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol4[1],DBM.Options.SpecialWarningFlashCol4[2], DBM.Options.SpecialWarningFlashCol4[3], DBM.Options.SpecialWarningFlashDura4, DBM.Options.SpecialWarningFlashAlph3, repeatCount)
 				end
 			end
 			frame:Show()
 			frame:SetAlpha(1)
 			frame.timer = 5
 			--This callback sucks, it needs useful information for external mods to listen to it better, such as mod and spellid
-			fireEvent("DBM_SpecWarn", msg)
+			fireEvent("DBM_Announce", msg)
 			if self.sound then
-				if self.hasVoice and DBM.Options.ChosenVoicePack ~= "None" and not SWFilterDisabed and DBM.Options.VoiceOverSpecW and self.mod.Options[self.voiceOptionId] ~= false then return end
+				local soundId = self.option and self.mod.Options[self.option .. "SpecialWarningSound"] or self.flash
+				if self.hasVoice and DBM.Options.ChosenVoicePack ~= "None" and not SWFilterDisabed and (type(soundId) == "number" and DBM.Options.VoiceOverSpecW2 == "DefaultOnly" or DBM.Options.VoiceOverSpecW2 == "All") and (self.mod.Options[self.voiceOptionId] ~= false or DBM.Options.AlwaysPlayVoice) then return end
 				if not self.option or self.mod.Options[self.option.."SpecialWarningSound"] ~= "None" then
-					local soundId = self.option and self.mod.Options[self.option .. "SpecialWarningSound"] or self.flash
 					DBM:PlaySpecialWarningSound(soundId or 1)
 				end
 			end
+		else
+			self.combinedcount = 0
+			self.combinedtext = {}
 		end
+	end
+
+	function specialWarningPrototype:CombinedShow(delay, ...)
+		local argTable = {...}
+		for i = 1, #argTable do
+			if type(argTable[i]) == "string" then
+				if #self.combinedtext < 8 then--Throttle spam. We may not need more than 9 targets..
+					if not checkEntry(self.combinedtext, argTable[i]) then
+						self.combinedtext[#self.combinedtext + 1] = argTable[i]
+					end
+				else
+					self.combinedcount = self.combinedcount + 1
+				end
+			end
+		end
+		unschedule(self.Show, self.mod, self)
+		schedule(delay or 0.5, self.Show, self.mod, self, ...)
 	end
 
 	function specialWarningPrototype:DelayedShow(delay, ...)
@@ -7746,6 +7848,8 @@ do
 		local obj = setmetatable(
 			{
 				text = self.localization.warnings[text],
+				combinedtext = {},
+				combinedcount = 0,
 				mod = self,
 				sound = not noSound,
 				flash = runSound,--Set flash color to hard coded runsound (even if user sets custom sounds)
@@ -7797,6 +7901,8 @@ do
 		local obj = setmetatable( -- todo: fix duplicate code
 			{
 				text = text,
+				combinedtext = {},
+				combinedcount = 0,
 				announceType = announceType,
 				mod = self,
 				sound = not noSound,
@@ -8005,7 +8111,7 @@ do
 		local activeVP = self.Options.ChosenVoicePack
 		--Check if voice pack out of date
 		if activeVP ~= "None" and activeVP == value then
-			if self.VoiceVersions[value] < voiceRevision then--Version will be bumped when new voice packs released that contain new voices.
+			if self.VoiceVersions[value] < 3 then--Version will be bumped when new voice packs released that contain new voices.
 				self:AddMsg(DBM_CORE_VOICE_PACK_OUTDATED)
 				SWFilterDisabed = true
 			else
@@ -8098,13 +8204,17 @@ do
 		self:PlaySpecialWarningSound(number)
 		if self.Options.ShowFlashFrame then
 			if number == 1 then
-				self.Flash:Show(self.Options.SpecialWarningFlashCol1[1],self.Options.SpecialWarningFlashCol1[2], self.Options.SpecialWarningFlashCol1[3], self.Options.SpecialWarningFlashDura1, self.Options.SpecialWarningFlashAlph1)
+				local repeatCount = DBM.Options.SpecialWarningFlashRepeat1 and DBM.Options.SpecialWarningFlashRepeatAmount or 0
+				self.Flash:Show(self.Options.SpecialWarningFlashCol1[1],self.Options.SpecialWarningFlashCol1[2], self.Options.SpecialWarningFlashCol1[3], self.Options.SpecialWarningFlashDura1, self.Options.SpecialWarningFlashAlph1, repeatCount)
 			elseif number == 2 then
-				self.Flash:Show(self.Options.SpecialWarningFlashCol2[1],self.Options.SpecialWarningFlashCol2[2], self.Options.SpecialWarningFlashCol2[3], self.Options.SpecialWarningFlashDura2, self.Options.SpecialWarningFlashAlph2)
+				local repeatCount = DBM.Options.SpecialWarningFlashRepeat2 and DBM.Options.SpecialWarningFlashRepeatAmount or 0
+				self.Flash:Show(self.Options.SpecialWarningFlashCol2[1],self.Options.SpecialWarningFlashCol2[2], self.Options.SpecialWarningFlashCol2[3], self.Options.SpecialWarningFlashDura2, self.Options.SpecialWarningFlashAlph2, repeatCount)
 			elseif number == 3 then
-				self.Flash:Show(self.Options.SpecialWarningFlashCol3[1],self.Options.SpecialWarningFlashCol3[2], self.Options.SpecialWarningFlashCol3[3], self.Options.SpecialWarningFlashDura3, self.Options.SpecialWarningFlashAlph3)
+				local repeatCount = DBM.Options.SpecialWarningFlashRepeat3 and DBM.Options.SpecialWarningFlashRepeatAmount or 0
+				self.Flash:Show(self.Options.SpecialWarningFlashCol3[1],self.Options.SpecialWarningFlashCol3[2], self.Options.SpecialWarningFlashCol3[3], self.Options.SpecialWarningFlashDura3, self.Options.SpecialWarningFlashAlph3, repeatCount)
 			elseif number == 4 then
-				self.Flash:Show(self.Options.SpecialWarningFlashCol4[1],self.Options.SpecialWarningFlashCol4[2], self.Options.SpecialWarningFlashCol4[3], self.Options.SpecialWarningFlashDura4, self.Options.SpecialWarningFlashAlph4)
+				local repeatCount = DBM.Options.SpecialWarningFlashRepeat4 and DBM.Options.SpecialWarningFlashRepeatAmount or 0
+				self.Flash:Show(self.Options.SpecialWarningFlashCol4[1],self.Options.SpecialWarningFlashCol4[2], self.Options.SpecialWarningFlashCol4[3], self.Options.SpecialWarningFlashDura4, self.Options.SpecialWarningFlashAlph4, repeatCount)
 			end
 		end
 	end
@@ -8127,8 +8237,21 @@ do
 			return self:Start(nil, timer, ...) -- first argument is optional!
 		end
 		if not self.option or self.mod.Options[self.option] then
+			if self.type and self.type:find("count") then--cdcount, nextcount. remove previous timer.
+				for i = #self.startedTimers, 1, -1 do
+					DBM.Bars:CancelBar(self.startedTimers[i])
+					DBM:Debug("Timer "..self.id.. " refreshed before expires", 2)
+					self.startedTimers[i] = nil
+				end
+			end
 			local timer = timer and ((timer > 0 and timer) or self.timer + timer) or self.timer
 			local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+			if not self.type or (self.type ~= "target" and self.type ~= "active" and self.type ~= "fades") then
+				local bar = DBM.Bars:GetBar(id)
+				if bar then
+					DBM:Debug("Timer "..self.id.. " refreshed before expires", 2)
+				end
+			end
 			local bar = DBM.Bars:CreateBar(timer, id, self.icon)
 			if not bar then
 				return false, "error" -- creating the timer failed somehow, maybe hit the hard-coded timer limit of 15
@@ -8197,6 +8320,12 @@ do
 		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 		local bar = DBM.Bars:GetBar(id)
 		return bar and (bar.totalTime - bar.timer) or 0, (bar and bar.totalTime) or 0
+	end
+	
+	function timerPrototype:GetRemaining(...)
+		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+		local bar = DBM.Bars:GetBar(id)
+		return bar and bar.timer or 0
 	end
 
 	function timerPrototype:IsStarted(...)

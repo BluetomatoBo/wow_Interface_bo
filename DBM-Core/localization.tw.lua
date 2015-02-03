@@ -53,18 +53,22 @@ DBM_CORE_COMBAT_STATE_RECOVERED		= "%s的戰鬥在%s前開始，恢復計時器�
 DBM_CORE_TRANSCRIPTOR_LOG_START		= "Transcriptor開始記錄。"
 DBM_CORE_TRANSCRIPTOR_LOG_END		= "Transcriptor結束紀錄。"
 
-DBM_CORE_PROFILE_CREATED			= "配置檔'%s'已被建立。"
+DBM_CORE_PROFILE_CREATED			= "配置檔'%s'已建立。"
 DBM_CORE_PROFILE_CREATE_ERROR		= "建立配置檔失敗，無效的配置檔名稱。"
+DBM_CORE_PROFILE_CREATE_ERROR_D		= "建立配置檔失敗，配置檔'%s'已存在。"
 DBM_CORE_PROFILE_APPLIED			= "配置檔'%s'已套用。"
 DBM_CORE_PROFILE_APPLY_ERROR		= "套用配置檔失敗，配置檔'%s'不存在。"
-DBM_CORE_PROFILE_DELETED			= "配置檔'%s'已被刪除。配置檔'Default'會被套用。"
+DBM_CORE_PROFILE_COPIED				= "配置檔'%s'已複製。"
+DBM_CORE_PROFILE_COPY_ERROR			= "複製配置檔失敗，配置檔'%s'不存在。"
+DBM_CORE_PROFILE_COPY_ERROR_SELF	= "不能複製配置檔到本身來源。"
+DBM_CORE_PROFILE_DELETED			= "配置檔'%s'已刪除。配置檔'Default'會被套用。"
 DBM_CORE_PROFILE_DELETE_ERROR		= "刪除配置檔失敗，配置檔'%s'不存在。"
 DBM_CORE_PROFILE_CANNOT_DELETE		= "不能刪除'Default'配置檔。"
 DBM_CORE_MPROFILE_COPY_SUCCESS		= "%s's (%d專精)模組設定已被複製。"
-DBM_CORE_MPROFILE_COPY_SELF_ERROR	= "不能複製自己的角色設定"
+DBM_CORE_MPROFILE_COPY_SELF_ERROR	= "不能複製角色設定到本身來源"
 DBM_CORE_MPROFILE_COPY_S_ERROR		= "配置檔來源已經損毀，設定不能被複製或是部分複製，複製已失敗。"
 DBM_CORE_MPROFILE_COPYS_SUCCESS		= "%s's (%d專精)模組音效設定已被複製。"
-DBM_CORE_MPROFILE_COPYS_SELF_ERROR	= "不能複製自己的角色音效設定"
+DBM_CORE_MPROFILE_COPYS_SELF_ERROR	= "不能複製角色音效設定到本身來源"
 DBM_CORE_MPROFILE_COPYS_S_ERROR		= "配置檔來源已經損毀，音效設定不能被複製或是部分複製，複製已失敗。"
 DBM_CORE_MPROFILE_DELETE_SUCCESS	= "%s's (%d專精)模組設定已被刪除。"
 DBM_CORE_MPROFILE_DELETE_SELF_ERROR	= "不能刪除使用中的模組設定。"
@@ -151,8 +155,9 @@ DBM_PIZZA_ERROR_USAGE				= "命令：/dbm [broadcast] timer <時間（秒）> <�
 --DBM_CORE_MINIMAP_TOOLTIP_HEADER (Same as English locales)
 DBM_CORE_MINIMAP_TOOLTIP_FOOTER		= "Shift+左鍵或右鍵點擊即可移動，Alt+Shift+點擊即可拖放"
 
-DBM_CORE_RANGECHECK_HEADER			= "距離監視（%d碼）"
+DBM_CORE_RANGECHECK_HEADER			= "距離監視(%d碼)"
 DBM_CORE_RANGECHECK_SETRANGE		= "設置距離"
+DBM_CORE_RANGECHECK_SETTHRESHOLD	= "設置玩家數量門檻"
 DBM_CORE_RANGECHECK_SOUNDS			= "音效"
 DBM_CORE_RANGECHECK_SOUND_OPTION_1	= "當一位玩家在範圍內時播放音效"
 DBM_CORE_RANGECHECK_SOUND_OPTION_2	= "當多於一位玩家在範圍內時播放音效"
@@ -164,8 +169,9 @@ DBM_CORE_RANGECHECK_OPTION_FRAMES	= "框架"
 DBM_CORE_RANGECHECK_OPTION_RADAR	= "顯示雷達框架"
 DBM_CORE_RANGECHECK_OPTION_TEXT		= "顯示文字框"
 DBM_CORE_RANGECHECK_OPTION_BOTH		= "兩者都顯示"
-DBM_CORE_RANGERADAR_HEADER			= "距離雷達(%d碼)"
-DBM_CORE_RANGERADAR_IN_RANGE_TEXT	= "%d玩家在範圍內"
+DBM_CORE_RANGERADAR_HEADER			= "距離:%d玩家(%d)"
+DBM_CORE_RANGERADAR_IN_RANGE_TEXT	= "%d在範圍內(%d碼)"--Multi
+DBM_CORE_RANGERADAR_IN_RANGE_TEXTONE= "%s(%0.1f碼)"--One target
 
 DBM_CORE_INFOFRAME_SHOW_SELF		= "總是顯示你的能量"
 
@@ -173,18 +179,17 @@ DBM_LFG_INVITE						= "地城準備確認"
 
 DBM_CORE_SLASHCMD_HELP				= {
 	"可用命令：",
+	"/range <數字> or /distance <數字>: 顯示距離框架。/rrange 或 /rdistance 顯示相反色。",
 	"/dbm version：進行團隊範圍內的版本檢測（也可使用：ver）。",
---	"/dbm version2: 進行團隊範圍內的版本檢測及密語通知已過期的成員（也可使用: ver2）。",
 	"/dbm unlock：顯示一個可移動的計時器（也可使用：move）。",
-	"/dbm timer/ctimer/ltimer/cltimer <x> <文字>：開始一個以<文字>為名稱的時間為<x>秒的計時器。查看http://tinyurl.com/kwsfl5933取得各種計時器說明",
+	"/dbm timer/ctimer/ltimer/cltimer <x> <文字>：開始一個以<文字>為名稱的時間為<x>秒的計時器。",
 	"/dbm broadcast timer <x> <文字>：向團隊廣播一個以<文字>為名稱，時間為<x>秒的計時器（需要團隊隊長或助理權限）。",
 	"/dbm timer endloop：停止任何無限循環的計時器。",
 	"/dbm break <分鐘>: 開始休息計時器<分鐘>。向所有團隊成員發送一個DBM休息計時器（需要團隊隊長或助理權限）。",
 	"/dbm pull <秒數>: 開始備戰計時器<秒數>。向所有團隊成員發送一個DBM備戰計時器（需要團隊隊長或助理權限）。",
 	"/dbm arrow: 顯示DBM箭頭, 輸入 /dbm arrow help 獲得更多訊息。",
 	"/dbm lockout: 向團隊成員請求他們當前的團隊副本鎖定訊息(鎖定訊息、副本id) (需要團隊隊長或助理權限)。",
-	"/dbm lag: 進行團隊範圍內的網路延遲檢測。",
-	"/dbm help：顯示可用命令的說明。"
+	"/dbm lag: 進行團隊範圍內的網路延遲檢測。"
 }
 
 DBM_ERROR_NO_PERMISSION				= "無權進行此操作。"
@@ -332,6 +337,8 @@ DBM_CORE_AUTO_YELL_OPTION_TEXT			= "當你中了$spell:%s時大喊"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= "" .. UnitName("player") .. "中了%s!"
 DBM_CORE_AUTO_RANGE_OPTION_TEXT			= "為$spell:%2$s顯示距離框架(%1$s碼)"
 DBM_CORE_AUTO_RANGE_OPTION_TEXT_SHORT	= "顯示距離框架(%s碼)"
+DBM_CORE_AUTO_RRANGE_OPTION_TEXT		= "為$spell:%2$s顯示反色距離框架(%1$s碼)"--Reverse range frame (green when players in range, red when not)
+DBM_CORE_AUTO_RRANGE_OPTION_TEXT_SHORT	= "顯示反色距離框架(%s碼)"
 DBM_CORE_AUTO_INFO_FRAME_OPTION_TEXT	= "為$spell:%s顯示訊息框架"
 DBM_CORE_AUTO_READY_CHECK_OPTION_TEXT	= "當首領開打時撥放準備檢查的音效(即使沒有選定目標)"
 
