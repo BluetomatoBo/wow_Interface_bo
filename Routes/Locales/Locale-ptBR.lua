@@ -214,6 +214,7 @@ L[" Gatherer/HandyNotes currently does not support callbacks, so this is impossi
 -- L["GatherMate2Extract Gas"] = "Extract Gas"
 -- L["GatherMate2Fishing"] = "Fishing"
 -- L["GatherMate2Herb Gathering"] = "Herbalism"
+-- L["GatherMate2Logging"] = "GatherMate2Logging"
 -- L["GatherMate2Mining"] = "Mining"
 -- L["GatherMate2Treasure"] = "Treasure"
 L["Help File"] = "Arquivo de Ajuda" -- Needs review

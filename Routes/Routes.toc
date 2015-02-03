@@ -4,14 +4,14 @@
 ## Notes-frFR: Routes sur votre carte du monde et minicarte !
 ## Notes-zhCN:Routes可以在已有采集相关数据的基础上形成采集路线，并可以优化路线，提高采集效率。
 ## Author: Grum, Xinhuan
-## Version: v1.5.0
+## Version: v1.5.1
 ## DefaultState: enabled
 ## X-Category: Map
 ## X-eMail: routes @ grum DOT nl & xinhuan @ gmail DOT com
 ## X-Name: Routes
 ## OptionalDeps: Ace3, LibMapData-1.0, Cartographer, Cartographer_Notes, GatherMate, GatherMate2, Gatherer, HandyNotes
 ## SavedVariables: RoutesDB
-## X-Curse-Packaged-Version: v1.5.0
+## X-Curse-Packaged-Version: v1.5.1
 ## X-Curse-Project-Name: Routes
 ## X-Curse-Project-ID: routes
 ## X-Curse-Repository-ID: wow/routes/mainline

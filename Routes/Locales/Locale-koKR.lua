@@ -213,6 +213,7 @@ Who wrote this cool addon?
 -- L["GatherMate2Extract Gas"] = "Extract Gas"
 -- L["GatherMate2Fishing"] = "Fishing"
 -- L["GatherMate2Herb Gathering"] = "Herbalism"
+-- L["GatherMate2Logging"] = "GatherMate2Logging"
 -- L["GatherMate2Mining"] = "Mining"
 -- L["GatherMate2Treasure"] = "Treasure"
 -- L["Help File"] = "Help File"

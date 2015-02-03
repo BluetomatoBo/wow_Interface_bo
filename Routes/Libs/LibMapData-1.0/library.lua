@@ -3,7 +3,7 @@
 	it also has a few functions to help determine distance and directions.
 --]]
 local MAJOR = "LibMapData-1.0"
-local MINOR = 1000 + tonumber(("$Revision: 144 $"):match("%d+"))
+local MINOR = 1000 + tonumber(("$Revision: 147 $"):match("%d+"))
 assert(LibStub, MAJOR.." requires LibStub")
 
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
@@ -73,6 +73,19 @@ local transforms_y = {
 }
 
 do
+
+	-- Unregistering this before we harvest all the data massively improves users' 
+	-- loading times because the amount of WORLD_MAP_UPDATE firing that happens.
+	-- For me personally (Cybeloras), it reduced the load time of
+	-- this library from 0.791 seconds to 0.142 seconds (on an i7 2600k w/ SSD)
+	-- WorldMapFrame doesn't handle anything secure AFAIK, so this is safe.
+	local doReRegisterWMU = false
+	if WorldMapFrame:IsEventRegistered("WORLD_MAP_UPDATE") then
+		doReRegisterWMU = true
+		WorldMapFrame:UnregisterEvent("WORLD_MAP_UPDATE")
+	end
+
+
 	-- Format: 
 	-- floors = number of floors
 	-- area_id = in game area id
@@ -2274,29 +2287,9 @@ do
 			},	
 		}
 		--WoD
-mapData[941] = { 
-			['floors'] = 21, ['name'] = "FrostfireRidge", ['rzti'] = 1116, ['map_type'] = 0, ['continent'] = 0, ['transform'] = 0,
-			[1] = { 725.009765625,483.33984375,-5437.4951171875,6523.330078125,-6162.5048828125,7006.669921875 },
-			[2] = { 635.009765625,423.33984375,-5479.9951171875,6537.330078125,-6115.0048828125,6960.669921875 },
-			[3] = { 360.0,240.0,-5645.0,6710.0,-6005.0,6950.0 },
-			[4] = { 615.0,410.0,-5516.0,6540.0,-6131.0,6950.0 },
-			[5] = { 277.5,185.0,-4298.75,5350.0,-4576.25,5535.0 },
-			[6] = { 442.5,295.0,-3296.25,5475.0,-3738.75,5770.0 },
-			[7] = { 825.0,550.0,-4147.5,6650.0,-4972.5,7200.0 },
-			[8] = { 825.0,550.0,-4147.5,6650.0,-4972.5,7200.0 },
-			[9] = { 375.0,250.0,-3237.5,7360.0,-3612.5,7610.0 },
-			[10] = { 555.0,370.0,-3895.0,2510.0,-4450.0,2880.0 },
-			[11] = { 368.759765625,245.83984375,-5181.2451171875,2989.580078125,-5550.0048828125,3235.419921875 },
-			[12] = { 600.0,400.0,-6075.0,2322.5,-6675.0,2722.5 },
-			[13] = { 525.0,350.0,-1962.5,1615.0,-2487.5,1965.0 },
-			[14] = { 540.0,360.0,-3092.5,2005.0,-3632.5,2365.0 },
-			[15] = { 346.5,231.0,-583.75,1030.75,-930.25,1261.75 },
-			[16] = { 258.75,172.5,-1008.1300048828125,4326.25,-1266.8800048828125,4498.75 },
-			[17] = { 247.5,165.0,-1013.75,4330.0,-1261.25,4495.0 },
-			[18] = { 322.5,215.0,-1413.75,6950.0,-1736.25,7165.0 },
-			[19] = { 397.5,265.0,-1375.75,6950.0,-1773.25,7215.0 },
-			[20] = { 340.0,226.6669921875,-585.0,6499.16650390625,-925.0,6725.83349609375 },
-			[21] = { 470.010009765625,313.33984375,-524.9949951171875,6470.830078125,-995.0050048828125,6784.169921875 },
+		mapData[941] = { 
+			['floors'] = 0, ['name'] = "FrostfireRidge", ['rzti'] = 1116, ['map_type'] = 0, ['continent'] = 0, ['transform'] = 0,
+			[1] = { 6114.5799560547,4077.080078125,-7506.25,8275,-1391.6700439453,4197.919921875 },
 			['micro'] = {
 	
 			},	
@@ -2692,6 +2685,11 @@ mapData[941] = {
 			end
 		end
 	end
+
+	if doReRegisterWMU then
+		WorldMapFrame:RegisterEvent("WORLD_MAP_UPDATE")
+	end
+
 end
 
 --- API to encode a location in game

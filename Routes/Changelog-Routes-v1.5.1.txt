@@ -1,0 +1,18 @@
+tag v1.5.1
+1e965b3ccff028fefa5856d8109c0c7e1777d504
+Hendrik Leppkes <h.leppkes@gmail.com>
+2015-02-02 16:45:18 +0100
+
+Tag as 1.5.1
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Add missing localization for GatherMate2 timer
+Ethan Centaurai:
+	- Removed duplicate binding headers.
+Hendrik Leppkes:
+	- Fix mapFile lookup in HandyNotes plugin for Draenor zones
+	- Remove bindings to the Waypoints module, which doesn't exist anymore
+	- Fixes for changed Gatherer API

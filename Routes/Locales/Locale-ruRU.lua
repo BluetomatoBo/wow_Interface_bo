@@ -212,6 +212,7 @@ L["GatherMate2Archaeology"] = "Археология" -- Needs review
 L["GatherMate2Extract Gas"] = "Извлечение газа" -- Needs review
 L["GatherMate2Fishing"] = "Рыболовство" -- Needs review
 L["GatherMate2Herb Gathering"] = "Травничество" -- Needs review
+-- L["GatherMate2Logging"] = "GatherMate2Logging"
 L["GatherMate2Mining"] = "Горное дело" -- Needs review
 L["GatherMate2Treasure"] = "Сокровища" -- Needs review
 L["Help File"] = "Файл помощи" -- Needs review
