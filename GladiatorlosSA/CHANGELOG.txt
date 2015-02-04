@@ -1,25 +1,24 @@
-- version 2.3.2
+- version 2.3.3
+	* default voice pack setted to US(female) (enUS fix)
+	* "Use existing sound" in Custom options fixed (LibSharedMedia-3.0)
 
+- version 2.3.2
 	* Korean, Chinese CN&TW and French Locale updated.
 
 - version 2.3.1
-
 	* Important locale missing files... hotfix
 
 - version 2.3
-
 	* New feature : GSA can now detect the gender of the caster if it's set correctly.
 		At this time, if it detects a male caster, Optional/Male voice pack will be used. if it detects a neutral caster, the neutral ones. If not, the Default/female will be used.
 		Various voice pack having every 2 voices possible, this option is deactivated by default.
 	* US Male Voice Pack Added : Will !
 
 - version 2.2.3
-
 	* Mass Spell Reflection corrected.
 	* Howl of Terror corrected.
 
 - version 2.2.2
-
 	* Skull Bash added. ( ID had been changed )
 	* Killing Spree added.
 	* Archangel added.
@@ -32,6 +31,5 @@
 	* small improvements to french localization
 
 - Version 2.2.1
-
 	* AntiMagicShellDown added.
 	* Korean locale added ( thx to jungwan2 )

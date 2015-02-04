@@ -127,3 +127,6 @@ L["Activate the gender detection"] = "开启性别判断"
 L["Voice menu config"] = "语音菜单选项"
 L["Choose a test voice pack |cffC41F3B*NEW*|r"] = "选择测试语音包 |cffC41F3B*新*|r"
 L["Select the menu voice pack alert"] = "选择菜单语音包警告"
+
+L["English(male)"] = true
+L["No sound selected for the Custom alert : |cffC41F4B"] = true

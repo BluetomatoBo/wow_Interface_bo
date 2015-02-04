@@ -10,12 +10,11 @@ local GSA_VERSION = " v2.1"
 
 local GSA_LOCALEPATH = {
 	enUS = "GladiatorlosSA\\Voice_enUS",
-	enUS = "GladiatorlosSA\\Voice_enUS_Male",
 }
 self.GSA_LOCALEPATH = GSA_LOCALEPATH
 local GSA_LANGUAGE = {
 	["GladiatorlosSA\\Voice_enUS"] = L["English(female)"],
-	["GladiatorlosSA\\Voice_enUS_Male"] = "English(male)",  -- ************ TRAD
+	["GladiatorlosSA\\Voice_enUS_Male"] = L["English(male)"],  -- added to 2.3.3
 }
 self.GSA_LANGUAGE = GSA_LANGUAGE
 local GSA_EVENT = {
@@ -101,7 +100,7 @@ local dbDefaults = {
 		totemicProjection = false,
 		wildCharge = false,
 		rushingJadeWind = false,
-		paralysis = false,
+		--paralysis = false,
 		manaTea = false,
 		purge = false, -- Added to 2.2.2
 		tranquilizingShot = false, -- Added to 2.2.2
@@ -124,7 +123,7 @@ function GladiatorlosSA:OnInitialize()
 	end
 	
 	self.db1 = LibStub("AceDB-3.0"):New("GladiatorlosSADB",dbDefaults, "Default");
-	GSA.log (" 2.3 |cffC41F3BGender detection added|r. Please check the new voice options by typing /gsa.")
+	--GSA.log (" 2.3 |cffC41F3BGender detection added|r. Please check the new voice options by typing /gsa.")
 	--DEFAULT_CHAT_FRAME:AddMessage(GSA_TEXT .. GSA_VERSION .. GSA_AUTHOR .."  - /gsa ");
 	--LibStub("AceConfig-3.0"):RegisterOptionsTable("GladiatorlosSA", GladiatorlosSA.Options, {"GladiatorlosSA", "SS"})
 	self:RegisterChatCommand("GladiatorlosSA", "ShowConfig")
@@ -345,7 +344,21 @@ function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
 		end
 		if css.eventtype[event] and destuid[css.destuidfilter] and desttype[css.desttypefilter] and sourceuid[css.sourceuidfilter] and sourcetype[css.sourcetypefilter] and spellID == tonumber(css.spellid) then
 			if self:Throttle(tostring(spellID)..css.name, 0.1) then return end
-			PlaySoundFile(css.soundfilepath, "Master")
+			--PlaySoundFile(css.soundfilepath, "Master")
+
+			if css.existingsound then -- Added to 2.3.3
+				--print (css.existinglist)
+				if (css.existinglist ~= nil and css.existinglist ~= ('')) then
+					local soundz = LSM:Fetch('sound', css.existinglist)
+					--print (soundz)
+					PlaySoundFile(soundz, "Master")
+				else
+					GSA.log ("No sound selected for |cffC41F4B" .. css.name .. "|r Custom alert.") -- TRRRRRRRRRRAAAAAAAADDDDDDDDDD
+				end
+			else
+				--print (css.soundfilepath)
+				PlaySoundFile(css.soundfilepath, "Master")
+			end
 		end
 	end
 end

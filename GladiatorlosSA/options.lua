@@ -115,30 +115,11 @@ function GSA:MakeCustomOption(key)
 					options[key] = nil
 				end,
 			},
-			test = {
-				type = 'execute',
-				order = 28,
-				name = L["Test"],
-				func = function() PlaySoundFile(db[key].soundfilepath, "Master") end,
-			},
 			existingsound = {
 				name = L["Use existing sound"],
 				type = 'toggle',
-				disabled = true, -- **************** need investigation
-				order = 30,
-			},
-			existinglist = {
-				name = L["choose a sound"],
-				type = 'select',
-				dialogControl = 'LSM30_Sound',
-				values =  LSM:HashTable("sound"),
-				disabled = function() return not db[key].existingsound end,
-				order = 40,
-			},
-			NewLine3 = {
-				type= 'description',
-				order = 45,
-				name= '',
+				--disabled = true,
+				order = 41, -- 30
 			},
 			soundfilepath = {
 				name = L["file path"],
@@ -146,6 +127,39 @@ function GSA:MakeCustomOption(key)
 				width = 'double',
 				order = 27,
 				disabled = function() return db[key].existingsound end,
+			},
+			test = {
+				type = 'execute',
+				order = 28,
+				name = L["Test"],
+				disabled = function() return db[key].existingsound end,
+				func = function() PlaySoundFile(db[key].soundfilepath, "Master") end,
+			},
+			NewLinetest = {
+					type= 'description',
+					order = 29,
+					name= '',
+			},
+			existinglist = {
+				name = L["choose a sound"],
+				type = 'select',
+				dialogControl = 'LSM30_Sound',
+				values =  LSM:HashTable("sound"),
+				--get = function()
+				--	return current
+				--end,
+				--set = function(self,key)
+				--	current = key
+				--end,
+				--values =  AceGUIWidgetLSMlists.sound,
+				--values = function() return AceGUIWidgetLSMlists.sound end,
+				disabled = function() return not db[key].existingsound end,
+				order = 40,
+			},
+			NewLine3 = {
+				type= 'description',
+				order = 45,
+				name= '',
 			},
 			eventtype = {
 				type = 'multiselect',

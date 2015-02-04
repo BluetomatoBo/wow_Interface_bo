@@ -127,3 +127,6 @@ L["Activate the gender detection"] = "성별 감지를 활성화합니다"
 L["Voice menu config"] = "음성 메뉴 설정"
 L["Choose a test voice pack |cffC41F3B*NEW*|r"] = "테스트 음성팩을 선택합니다 |cffC41F3B*새기능*|r"
 L["Select the menu voice pack alert"] = "음성팩 경보 메뉴를 선택하세요"
+
+L["English(male)"] = true
+L["No sound selected for the Custom alert : |cffC41F4B"] = true

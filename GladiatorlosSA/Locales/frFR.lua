@@ -124,3 +124,6 @@ L["Activate the gender detection"] = "Active la détection du genre du casteur d
 L["Voice menu config"] = "Voix des menus"
 L["Choose a test voice pack |cffC41F3B*NEW*|r"] = "Sélectionnez les voix test |cffC41F3B*NEW*|r"
 L["Select the menu voice pack alert"] = "Sélectionnez le pack de voix pour les menus"
+
+L["English(male)"] = "Anglais(masculin)"
+L["No sound selected for the Custom alert : |cffC41F4B"] = "Pas de son sélectionné pour l'alerte personnalisée : |cffC41F4B"
