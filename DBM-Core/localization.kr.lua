@@ -53,6 +53,7 @@ DBM_CORE_COMBAT_STATE_RECOVERED		= "%s 전투가 %s 전에 시작되었습니다
 DBM_CORE_TRANSCRIPTOR_LOG_START		= "Transcriptor 기록을 시작합니다."
 DBM_CORE_TRANSCRIPTOR_LOG_END		= "Transcriptor 기록을 중단합니다."
 
+DBM_CORE_PROFILE_NOT_FOUND			= "<Deadly Boss Mods> 현재 설정된 프로필이 손상되었습니다. 'Default' 프로필을 불러옵니다."
 DBM_CORE_PROFILE_CREATED			= "'%s' 프로필을 만들었습니다."
 DBM_CORE_PROFILE_CREATE_ERROR		= "프로필 생성 실패. 프로필 이름이 올바르지 않습니다."
 DBM_CORE_PROFILE_CREATE_ERROR_D		= "프로필 생성 실패. '%s' 프로필이 이미 존재합니다."
@@ -88,7 +89,7 @@ DBM_CORE_TIMER_FORMAT				= "%d|4분:분; %d|4초:초;"
 DBM_CORE_MIN						= "분"
 DBM_CORE_MIN_FMT					= "%d분"
 DBM_CORE_SEC						= "초"
-DBM_CORE_SEC_FMT					= "%d초"
+DBM_CORE_SEC_FMT					= "%s초"
 
 DBM_CORE_GENERIC_WARNING_OTHERS		= "외 1명"
 DBM_CORE_GENERIC_WARNING_OTHERS2	= "외 %d명"
@@ -282,7 +283,7 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell		= "$spell:%s 특수 경고 보기"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.ends		= "$spell:%s 종료 특수 경고 보기"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.fades		= "$spell:%s 사라짐 특수 경고 보기"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.soon		= "$spell:%s 이전에 특수 경고 보기"
-DBM_CORE_AUTO_SPEC_WARN_OPTIONS.prewarn		= "$spell:%2$s %1$d초 전에 특수 경고 보기"
+DBM_CORE_AUTO_SPEC_WARN_OPTIONS.prewarn		= "$spell:%2$s %1$s초 전에 특수 경고 보기"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.dispel		= "$spell:%s 해제 특수 경고 보기"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.interrupt	= "$spell:%s 차단 특수 경고 보기"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.you			= "당신이 $spell:%s 대상이 된 경우 특수 경고 보기"
@@ -354,7 +355,9 @@ DBM_CORE_AUTO_INFO_FRAME_OPTION_TEXT	= "$spell:%s 정보를 정보 창으로 보
 DBM_CORE_AUTO_READY_CHECK_OPTION_TEXT	= "우두머리 전투 시작시 전투 준비 소리 듣기(대상 선택 유무 무관)"
 
 -- New special warnings
-DBM_CORE_MOVE_SPECIAL_WARNING_BAR		= "특수 경고 움직이기"
+DBM_CORE_MOVE_WARNING_BAR				= "알림 이동 가능"
+DBM_CORE_MOVE_WARNING_MESSAGE			= "<Deadly Boss Mods>를 사용해 주셔셔 감사합니다."
+DBM_CORE_MOVE_SPECIAL_WARNING_BAR		= "특수 경고 이동 가능"
 DBM_CORE_MOVE_SPECIAL_WARNING_TEXT		= "특수 경고"
 
 DBM_ARROW_MOVABLE						= "화살표 움직이기"

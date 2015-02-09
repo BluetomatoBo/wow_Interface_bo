@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1202, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12597 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12732 $"):sub(12, -3))
 mod:SetCreatureID(77182)
 mod:SetEncounterID(1696)
 mod:SetZone()
@@ -24,17 +24,19 @@ mod:RegisterEventsInCombat(
 local warnAcidTorrent				= mod:NewSpellAnnounce(156240, 3)
 local warnRetchedBlackrock			= mod:NewTargetAnnounce("OptionVersion2", 156179, 3, nil, "Ranged")
 
-local specWarnBlackrockBarrage		= mod:NewSpecialWarningInterruptCount(156877, false, nil, nil, nil, nil, true)--Off by default since only interruptors want this on for their duty
-local specWarnAcidTorrent			= mod:NewSpecialWarningSpell(156240, "Tank", nil, nil, 3)
+local specWarnBlackrockBarrage		= mod:NewSpecialWarningInterruptCount(156877, false, nil, nil, nil, nil, 3)--Off by default since only interruptors want this on for their duty
+local specWarnAcidTorrent			= mod:NewSpecialWarningSpell(156240, "Tank", nil, nil, 3)--No voice filter, because voice is for tank swap that comes AFTER breath, this warning is to alert tank they need to move into position to soak breath, NOT taunt
 local yellRetchedBlackrock			= mod:NewYell(156179)
-local specWarnRetchedBlackrock		= mod:NewSpecialWarningMove(156203, nil, nil, nil, nil, nil, true)
+local specWarnRetchedBlackrockNear	= mod:NewSpecialWarningClose(156179)
+local specWarnRetchedBlackrock		= mod:NewSpecialWarningMove(156203, nil, nil, nil, nil, nil, 2)
 local specWarnExplosiveShard		= mod:NewSpecialWarningDodge("OptionVersion2", 156390, "-Tank|Melee")--No target scanning available. targets ONLY melee (except tanks)
 local specWarnHungerDrive			= mod:NewSpecialWarningSpell(165127, nil, nil, nil, 2)
 local specWarnHungerDriveEnded		= mod:NewSpecialWarningFades(165127)
 
 local timerBlackrockSpinesCD		= mod:NewCDTimer(20, 156834)--20-23 (cd for barrages themselves too inconsistent and useless. but CD for when he recharges his spines, quite consistent)
 local timerAcidTorrentCD			= mod:NewCDTimer("OptionVersion2", 23, 156240, nil, "Tank|Healer")--Every 23 seconds
-local timerExplosiveShardCD			= mod:NewCDTimer("OptionVersion2", 12, 156390, nil, "Melee")--Every 12-20 seconds
+local timerExplosiveShardCD			= mod:NewCDTimer("OptionVersion3", 12, 156390, nil, "MeleeDps")--Every 12-20 seconds
+local timerExplosiveShard			= mod:NewCastTimer(3.5, 156390, nil, "MeleeDps")
 local timerRetchedBlackrockCD		= mod:NewCDTimer("OptionVersion2", 17, 156179, nil, "Ranged")--Every 17-23 seconds
 
 local countdownAcidTorrent			= mod:NewCountdown(23, 156240, "Tank")
@@ -44,13 +46,18 @@ local voiceRetchedBlackrock			= mod:NewVoice(156203)  --runaway
 local voiceBlackrockBarrage			= mod:NewVoice(156877, false)--kickcast
 local voiceAcidTorrent				= mod:NewVoice(156240)--changemt after 3 seconds (after cast finishes)
 
---local berserkTimer				= mod:NewBerserkTimer(324)--May not be exact science. may be phase based instead, like tsulong. Needs more than one log to verify. Only saw one berserk.
+--local berserkTimer				= mod:NewBerserkTimer(324)--Auto berserk when reaching 3rd hunger drive phase. Time bariable because phase slightly variable.
 
 function mod:RetchedBlackrockTarget(targetname, uId)
 	if not targetname then return end
 	warnRetchedBlackrock:Show(targetname)
 	if targetname == UnitName("player") then
+		if self:AntiSpam(2.5, 2) then
+			specWarnRetchedBlackrock:Show()
+		end
 		yellRetchedBlackrock:Yell()
+	elseif self:CheckNearby(6, targetname) then
+		specWarnRetchedBlackrockNear:Show(targetname)
 	end
 end
 
@@ -117,6 +124,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 156390 then
 		specWarnExplosiveShard:Show()
+		timerExplosiveShard:Start()
 		timerExplosiveShardCD:Start()
 	elseif spellId == 156834 then--Boss has gained Barrage casts
 		timerBlackrockSpinesCD:Start()
@@ -124,7 +132,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 end
 
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
-	if spellId == 156203 and destGUID == UnitGUID("player") and self:AntiSpam(3, 2) then
+	if spellId == 156203 and destGUID == UnitGUID("player") and self:AntiSpam(2.5, 2) then
 		specWarnRetchedBlackrock:Show()
 		voiceRetchedBlackrock:Play("runaway")
 	end

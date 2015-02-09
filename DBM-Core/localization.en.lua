@@ -52,6 +52,7 @@ DBM_CORE_COMBAT_STATE_RECOVERED		= "%s was engaged %s ago, recovering timers..."
 DBM_CORE_TRANSCRIPTOR_LOG_START		= "Transcriptor logging started."
 DBM_CORE_TRANSCRIPTOR_LOG_END		= "Transcriptor logging ended."
 
+DBM_CORE_PROFILE_NOT_FOUND			= "<Deadly Boss Mods> Your current profile is corrupted. DBM will load 'Default' profile."
 DBM_CORE_PROFILE_CREATED			= "'%s' profile created."
 DBM_CORE_PROFILE_CREATE_ERROR		= "Create profile failed. Invalid profile name."
 DBM_CORE_PROFILE_CREATE_ERROR_D		= "Create profile failed. '%s' profile already exists."
@@ -87,7 +88,7 @@ DBM_CORE_TIMER_FORMAT				= "%d |4minute:minutes; and %d |4second:seconds;"
 DBM_CORE_MIN						= "min"
 DBM_CORE_MIN_FMT					= "%d min"
 DBM_CORE_SEC						= "sec"
-DBM_CORE_SEC_FMT					= "%d sec"
+DBM_CORE_SEC_FMT					= "%s sec"
 
 DBM_CORE_GENERIC_WARNING_OTHERS		= "and one other"
 DBM_CORE_GENERIC_WARNING_OTHERS2	= "and %d others"
@@ -284,7 +285,7 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	ends 		= "Show special warning when $spell:%s has ended",
 	fades 		= "Show special warning when $spell:%s has faded",
 	soon 		= "Show pre-special warning for $spell:%s",
-	prewarn 	= "Show pre-special warning %d seconds before $spell:%s",
+	prewarn 	= "Show pre-special warning %s seconds before $spell:%s",
 	dispel 		= "Show special warning to dispel/spellsteal $spell:%s",
 	interrupt	= "Show special warning to interrupt $spell:%s",
 	you 		= "Show special warning when you are affected by $spell:%s",
@@ -363,6 +364,8 @@ DBM_CORE_AUTO_INFO_FRAME_OPTION_TEXT	= "Show info frame for $spell:%s"
 DBM_CORE_AUTO_READY_CHECK_OPTION_TEXT	= "Play ready check sound when boss is pulled (even if it's not targeted)"
 
 -- New special warnings
+DBM_CORE_MOVE_WARNING_BAR			= "Announce movable"
+DBM_CORE_MOVE_WARNING_MESSAGE		= "Thanks for using Deadly Boss Mods"
 DBM_CORE_MOVE_SPECIAL_WARNING_BAR	= "Special warning movable"
 DBM_CORE_MOVE_SPECIAL_WARNING_TEXT	= "Special Warning"
 

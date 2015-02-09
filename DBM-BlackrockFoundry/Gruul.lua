@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1161, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12653 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12707 $"):sub(12, -3))
 mod:SetCreatureID(76877)
 mod:SetEncounterID(1691)
 mod:SetZone()
@@ -21,23 +21,23 @@ mod:RegisterEventsInCombat(
 --TODO, confirm if LFR Inferno Slice change actually also made mythic/heroic/normal or if they are still 13
 --TODO, recheck rampage timer on non LFR difficulties to see if longer there too (related to inferno slice change probably)
 --TODO, see if there is any way to impliment timers for smash and petrifyig slam. right now they are too variable. has to be a method to it.
-local warnOverwhelmingBlows			= mod:NewStackAnnounce(155078, 3, nil, "Tank|Healer")--No special warnings, strats for this revolve around the inferno slice strat, not this debuff, so dbm isn't going to say when tanks should taunt here
+local warnOverwhelmingBlows			= mod:NewStackAnnounce("OptionVersion2", 155078, 3, nil, false)--No special warnings, strats for this revolve around the inferno slice strat, not this debuff, so dbm isn't going to say when tanks should taunt here
 local warnCrumblingRoar				= mod:NewSpellAnnounce(155730, 3, nil, false)--Cave ins
 local warnInfernoSlice				= mod:NewCountAnnounce(155080, 4)
 local warnPetrifyingSlam			= mod:NewTargetAnnounce(155326, 4)--non mythic only. in mythic, applied to all, so target list only spam
 
-local specWarnInfernoSlice			= mod:NewSpecialWarningCount(155080, "Tank|Healer", nil, nil, nil, nil, true)
+local specWarnInfernoSlice			= mod:NewSpecialWarningCount(155080, "Tank|Healer", nil, nil, nil, nil, 2)
 local specWarnRampage				= mod:NewSpecialWarningSpell(155539, nil, nil, nil, 2)
 local specWarnRampageEnded			= mod:NewSpecialWarningEnd(155539)
-local specWarnOverheadSmash			= mod:NewSpecialWarningCount(155301, nil, nil, nil, 2, nil, true)
-local specWarnPetrifyingSlam		= mod:NewSpecialWarningMoveAway(155326, nil, nil, nil, 3, nil, true)
+local specWarnOverheadSmash			= mod:NewSpecialWarningCount(155301, nil, nil, nil, 2, nil, 2)
+local specWarnPetrifyingSlam		= mod:NewSpecialWarningMoveAway(155326, nil, nil, nil, 3, nil, 2)
 
 local timerInfernoSliceCD			= mod:NewCDCountTimer(13, 155080)--Variable do to energy bugs (gruul not gain power consistently)
 local timerPetrifyingSlamCD			= mod:NewCDCountTimer(60, 155323)--60-70 variation
 local timerOverheadSmashCD			= mod:NewCDCountTimer(25, 155301)--25-42 variation
 local timerShatter					= mod:NewCastTimer(8, 155529)
 local timerRampage					= mod:NewBuffActiveTimer(30, 155539)
-local timerRampageCD				= mod:NewCDTimer(108, 155539)--Variable, may be even shorter
+local timerRampageCD				= mod:NewCDTimer(107, 155539)--Variable, may be even shorter
 
 local countdownInfernoSlice			= mod:NewCountdown(13, 155080, "Tank")
 
@@ -80,17 +80,15 @@ function mod:OnCombatStart(delay)
 	self.vb.sliceCount = 0
 	self.vb.petrifyCount = 0
 	self.vb.rampage = false
-	if self:IsDifficulty("normal", "lfr") then
+	if not self:IsMythic() then
 		timerInfernoSliceCD:Start(14-delay, 1)
 		countdownInfernoSlice:Start(14-delay)
 	else
 		timerInfernoSliceCD:Start(11-delay, 1)
 		countdownInfernoSlice:Start(11-delay)
-		if self:IsMythic() then
-			self:RegisterShortTermEvents(
-				"UNIT_POWER_FREQUENT boss1"
-				)
-		end
+		self:RegisterShortTermEvents(
+			"UNIT_POWER_FREQUENT boss1"
+			)
 	end
 	timerRampageCD:Start(-delay)--Variable. But seen as low as 108 in LFR, normal, mythic
 	timerPetrifyingSlamCD:Start(20.5-delay, 1)
@@ -113,11 +111,11 @@ function mod:SPELL_CAST_START(args)
 		else
 			warnInfernoSlice:Show(self.vb.sliceCount)
 		end
-		if self:IsDifficulty("normal", "lfr") then
+		if not self:IsMythic() then
 			timerInfernoSliceCD:Start(17, self.vb.sliceCount+1)--Maybe 17 in all now? 17 normal and LFR. maybe heroic and mythic still 13?
 			countdownInfernoSlice:Start(17)
 		else
-			timerInfernoSliceCD:Start()
+			timerInfernoSliceCD:Start(nil, self.vb.sliceCount+1)
 			countdownInfernoSlice:Start()
 		end
 		voiceInfernoSlice:Play("gathershare")
@@ -167,9 +165,12 @@ function mod:SPELL_AURA_APPLIED(args)
 		countdownInfernoSlice:Cancel()
 		self:UnregisterShortTermEvents()
 	elseif spellId == 155078 then
-		local amount = args.amount or 1
-		if amount % 2 == 0 or amount >= 5 then
-			warnOverwhelmingBlows:Show(args.destName, amount)
+		local uId = DBM:GetRaidUnitId(args.destName)
+		if self:IsTanking(uId, "boss1") then
+			local amount = args.amount or 1
+			if amount % 2 == 0 or amount >= 5 then
+				warnOverwhelmingBlows:Show(args.destName, amount)
+			end
 		end
 	end
 end
@@ -194,7 +195,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			timerInfernoSliceCD:Start(17.5, 1)
 			countdownInfernoSlice:Start(17.5)
 		else
-			timerInfernoSliceCD:Start()
+			timerInfernoSliceCD:Start(nil, 1)
 			countdownInfernoSlice:Start()
 			if self:IsMythic() then
 				self:RegisterShortTermEvents(
