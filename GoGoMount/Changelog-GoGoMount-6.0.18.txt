@@ -1,0 +1,75 @@
+------------------------------------------------------------------------
+r519 | tiker | 2015-02-10 02:58:40 +0000 (Tue, 10 Feb 2015) | 1 line
+Changed paths:
+   A /tags/6.0.18 (from /trunk:518)
+
+Tagging as 6.0.18
+------------------------------------------------------------------------
+r518 | tiker | 2015-02-10 02:57:48 +0000 (Tue, 10 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+TOC version updated to 6.0.18 for release
+------------------------------------------------------------------------
+r517 | tiker | 2015-02-10 02:53:52 +0000 (Tue, 10 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Mystic Runesaber"
+------------------------------------------------------------------------
+r516 | tiker | 2015-02-10 02:52:13 +0000 (Tue, 10 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Voidtalon of the Dark Star"
+------------------------------------------------------------------------
+r515 | tiker | 2015-02-10 02:48:26 +0000 (Tue, 10 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Summon Chauffeur" (Horde)
+------------------------------------------------------------------------
+r514 | tiker | 2015-02-10 02:45:54 +0000 (Tue, 10 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Summon Chauffeur" (Alliance)
+------------------------------------------------------------------------
+r513 | tiker | 2015-02-10 02:27:56 +0000 (Tue, 10 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Fixed an issue for Druids where GoGoMount button 2 or the option not to use flying mounts in areas where flight is not allowed prevent GoGoMount from using Travel Form & Aquaform.
+------------------------------------------------------------------------
+r512 | tiker | 2015-01-27 03:28:18 +0000 (Tue, 27 Jan 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+added zone information for 799 (Karazhan)
+------------------------------------------------------------------------
+r511 | tiker | 2015-01-27 03:27:15 +0000 (Tue, 27 Jan 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added "Bloodclaw Charm" to the buff removal list
+------------------------------------------------------------------------
+r509 | tiker | 2015-01-27 02:27:37 +0000 (Tue, 27 Jan 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+tagging for release
+------------------------------------------------------------------------
+r508 | tiker | 2015-01-27 01:48:35 +0000 (Tue, 27 Jan 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMountData.lua
+
+- Filtering out Nagrand ability mounts that try to summon if added as favorites outside of Nagrand (Draenor)
+------------------------------------------------------------------------
+r507 | tiker | 2015-01-06 01:45:11 +0000 (Tue, 06 Jan 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support to remove "Make Like A Tree" from "Ancient's Bloom" toy (but requires a second click to mount)
+------------------------------------------------------------------------
