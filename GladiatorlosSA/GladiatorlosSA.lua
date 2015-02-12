@@ -8,6 +8,34 @@ local self, GSA = GladiatorlosSA, GladiatorlosSA
 local GSA_TEXT = "GladiatorlosSA"
 local GSA_VERSION = " v2.1"
 
+ -- MMMMMSSSSSSSSSSBBBBBBBBBBTTTTTTTTTTTTTTTTTTTTT LSM BEGIN from MSBTMedia.lua
+local soundz = {}
+local GSA_SOUNDFILES = {
+ ["GSA-Demo"]		= "Interface\\AddOns\\GladiatorlosSA\\Voice_Custom\\Will-Demo.ogg",
+ ["GSA-Lockout"]	= "Interface\\AddOns\\GladiatorlosSA\\Voice_enUS\\Lockout.ogg",
+ ["GSA-Hex"]		= "Interface\\AddOns\\GladiatorlosSA\\Voice_enUS\\Hex.ogg",
+}
+
+local function RegisterSound(soundName, soundPath)
+ if (type(soundName) ~= "string" or type(soundPath) ~= "string") then return end
+ if (soundName == "" or soundPath == "") then return end
+
+ soundz[soundName] = soundPath
+ LSM:Register("sound", soundName, soundPath)
+end
+
+for soundName, soundPath in pairs(GSA_SOUNDFILES) do RegisterSound(soundName, soundPath) end
+for index, soundName in pairs(LSM:List("sound")) do soundz[soundName] = LSM:Fetch("sound", soundName) end
+
+local function LSMRegistered(event, mediaType, name)
+ if (mediaType == "sound") then
+  soundz[name] = LSM:Fetch(mediaType, name)
+ end
+end
+ 
+LSM.RegisterCallback(GSA_SOUNDFILES, "LibSharedMedia_Registered", LSMRegistered)
+ -- MMMMMMMMMMMSSSSSSSSSSSSBBBBBBBBBBBBBTTTTTTTTTTTTT LSM END
+
 local GSA_LOCALEPATH = {
 	enUS = "GladiatorlosSA\\Voice_enUS",
 }
@@ -66,6 +94,8 @@ local dbDefaults = {
 		path_menu = GSA_LOCALEPATH[GetLocale()] or "GladiatorlosSA\\Voice_enUS", -- added to 2.3
 		throttle = 0,
 		smartDisable = false,
+		outputUnlock = false,
+		output_menu = "MASTER",
 		
 		
 		aruaApplied = false,
@@ -107,6 +137,8 @@ local dbDefaults = {
 		powerWordShield = false, -- Added to 2.2.2
 		genderVoice = false, -- added to 2.3
 		custom = {},
+		--shieldBarrier = false,
+		shieldBarrierDown = false,
 	}	
 }
 
@@ -123,7 +155,6 @@ function GladiatorlosSA:OnInitialize()
 	end
 	
 	self.db1 = LibStub("AceDB-3.0"):New("GladiatorlosSADB",dbDefaults, "Default");
-	--GSA.log (" 2.3 |cffC41F3BGender detection added|r. Please check the new voice options by typing /gsa.")
 	--DEFAULT_CHAT_FRAME:AddMessage(GSA_TEXT .. GSA_VERSION .. GSA_AUTHOR .."  - /gsa ");
 	--LibStub("AceConfig-3.0"):RegisterOptionsTable("GladiatorlosSA", GladiatorlosSA.Options, {"GladiatorlosSA", "SS"})
 	self:RegisterChatCommand("GladiatorlosSA", "ShowConfig")
@@ -171,15 +202,15 @@ end
 
 -- play sound by file name
 function GSA:PlaySound(fileName, extend)
-	PlaySoundFile("Interface\\Addons\\"..gsadb.path.."\\"..fileName .. "." .. (extend or "ogg"), "Master")
+	PlaySoundFile("Interface\\Addons\\"..gsadb.path.."\\"..fileName .. "." .. (extend or "ogg"), gsadb.output_menu)
 end
 
 function GSA:PlaySound2(fileName, extend)
-	PlaySoundFile("Interface\\Addons\\"..gsadb.path_male.."\\"..fileName .. "." .. (extend or "ogg"), "Master")
+	PlaySoundFile("Interface\\Addons\\"..gsadb.path_male.."\\"..fileName .. "." .. (extend or "ogg"), gsadb.output_menu)
 end
 
 function GSA:PlaySound3(fileName, extend)
-	PlaySoundFile("Interface\\Addons\\"..gsadb.path_neutral.."\\"..fileName .. "." .. (extend or "ogg"), "Master")
+	PlaySoundFile("Interface\\Addons\\"..gsadb.path_neutral.."\\"..fileName .. "." .. (extend or "ogg"), gsadb.output_menu)
 end
 
 function GladiatorlosSA:ArenaClass(id)
@@ -212,6 +243,7 @@ function GladiatorlosSA:PlaySpell(listName, spellID, sourceGUID, destGUID, ...)
 	
 	local genderZ
 	if gsadb.genderVoice then
+
 		if (sourceGUID ~= nil or destGUID ~= nil) then
 			if (sourceGUID == ('') or sourceGUID == nil ) then
 				local _, _, _, _, sex, _, _ = GetPlayerInfoByGUID(destGUID)
@@ -221,7 +253,7 @@ function GladiatorlosSA:PlaySpell(listName, spellID, sourceGUID, destGUID, ...)
 				genderZ = sex
 			end
 		else
-			GSA.log ("sourceGUID or destGUID error")
+			GSA.log ("sourceGUID or destGUID error",sourceGUID,destGUID,listName,spellID)
 		end
 	end
 		--print (listName, spellID, genderZ)
@@ -233,8 +265,9 @@ function GladiatorlosSA:PlaySpell(listName, spellID, sourceGUID, destGUID, ...)
 		self:PlaySound(list[spellID])
 	end	
 end
+
 function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
-	--local GSA_gender = {"unknown","male","female"}
+
 	local _,currentZoneType = IsInInstance()
 	if (not ((currentZoneType == "none" and gsadb.field) or (currentZoneType == "pvp" and gsadb.battleground) or (currentZoneType == "arena" and gsadb.arena) or gsadb.all)) then
 		return
@@ -243,21 +276,7 @@ function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
 	if not GSA_EVENT[event] then return end
 	
 		--print(sourceName,sourceGUID,destName,destGUID,destFlags,"|cffFF7D0A" .. event.. "|r",spellName,"|cffFF7D0A" .. spellID.. "|r")
-
-		--if sourceGUID == ('') then
-		--	local _, _, race, _, sex, _, realm = GetPlayerInfoByGUID(destGUID)
-		--	print ("|cffFF7D0ADEST |r",GSA_gender[sex],destName,spellName,race,realm)
-		--else
-		--	local _, _, race, _, sex, _, realm = GetPlayerInfoByGUID(sourceGUID)
-		--	print ("|cffFFF569SOUR |r",GSA_gender[sex],sourceName,spellName,race,realm)
-		--end
 		
-		--if sourceName == nil then
-		--	print("|cffFF7D0ADEST |r",destName," is ",GSA_gender[UnitSex(destName)])
-		--else
-		--	print("|cffFFF569SOUR |r",sourceName," is ",GSA_gender[UnitSex(sourceName)]) -- Only works on target & focus only.
-		--end
-
 	if (destFlags) then
 		for k in pairs(GSA_TYPE) do
 			desttype[k] = CombatLog_Object_IsA(destFlags,k)
@@ -327,9 +346,9 @@ function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
 			self:PlaySpell("castSuccess", spellID, sourceGUID, destGUID)
 		end
 	elseif (event == "SPELL_INTERRUPT" and desttype[COMBATLOG_FILTER_HOSTILE_PLAYERS] and not gsadb.interrupt) then 
-		self:PlaySpell ("friendlyInterrupt", spellID)
+		self:PlaySpell ("friendlyInterrupt", spellID, sourceGUID, destGUID)
 	end
-	
+
 	-- play custom spells
 	for k, css in pairs (gsadb.custom) do
 		if css.destuidfilter == "custom" and destName == css.destcustomname then 
@@ -351,13 +370,13 @@ function GladiatorlosSA:COMBAT_LOG_EVENT_UNFILTERED(event , ...)
 				if (css.existinglist ~= nil and css.existinglist ~= ('')) then
 					local soundz = LSM:Fetch('sound', css.existinglist)
 					--print (soundz)
-					PlaySoundFile(soundz, "Master")
+					PlaySoundFile(soundz, gsadb.output_menu)
 				else
-					GSA.log ("No sound selected for |cffC41F4B" .. css.name .. "|r Custom alert.") -- TRRRRRRRRRRAAAAAAAADDDDDDDDDD
+					GSA.log (L["No sound selected for the Custom alert : |cffC41F4B"] .. css.name .. "|r.") -- missing... added to 2.3.4
 				end
 			else
 				--print (css.soundfilepath)
-				PlaySoundFile(css.soundfilepath, "Master")
+				PlaySoundFile(css.soundfilepath, gsadb.output_menu)
 			end
 		end
 	end

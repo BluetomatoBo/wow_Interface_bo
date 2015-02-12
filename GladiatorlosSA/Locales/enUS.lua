@@ -61,7 +61,6 @@ L["Voice language"] = true
 L["Select language of the alert"] = true
 L["Chinese(female)"] = true
 L["English(female)"] = true
-L["Volume"] = true
 L["adjusting the voice volume(the same as adjusting the system master sound volume)"] = true
 L["Advance options"] = true
 L["Smart disable"] = true
@@ -114,14 +113,24 @@ L["Profiles"] = true
 
 L["Default / Female voice"] = true
 L["Select the default voice pack of the alert"] = true
-L["Optional / Male voice |cffC41F3B*NEW*|r"] = true
+L["Optional / Male voice"] = true
 L["Select the male voice"] = true
-L["Optional / Neutral voice |cffC41F3B*NEW*|r"] = true
+L["Optional / Neutral voice"] = true
 L["Select the neutral voice"] = true
-L["Gender detection |cffC41F3B*NEW*|r"] = true
+L["Gender detection"] = true
 L["Activate the gender detection"] = true
 L["Voice menu config"] = true
-L["Choose a test voice pack |cffC41F3B*NEW*|r"] = true
+L["Choose a test voice pack"] = true
 L["Select the menu voice pack alert"] = true
+
 L["English(male)"] = true
 L["No sound selected for the Custom alert : |cffC41F4B"] = true
+L["Master Volume"] = true -- changed from L["Volume"] = true
+L["Change Output"] = true
+L["Unlock the output options"] = true
+L["Output"] = true
+L["Select the default output"] = true
+L["Master"] = true
+L["SFX"] = true
+L["Ambience"] = true
+L["Music"] = true

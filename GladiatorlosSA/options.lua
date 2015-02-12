@@ -5,6 +5,7 @@ local AceConfig = LibStub("AceConfig-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("GladiatorlosSA")
 local LSM = LibStub("LibSharedMedia-3.0")
 
+local GSA_OUTPUT = {["MASTER"] = L["Master"],["SFX"] = L["SFX"],["AMBIENCE"] = L["Ambience"],["MUSIC"] = L["Music"]}
 
 function GSA:ShowConfig()
 	for i=1,2 do InterfaceOptionsFrame_OpenToCategory(GetAddOnMetadata("GladiatorlosSA", "Title")) end -- ugly fix
@@ -26,8 +27,8 @@ end
 local function setOption(info, value)
 	local name = info[#info]
 	gsadb[name] = value
-	if value then 
-		PlaySoundFile("Interface\\Addons\\"..gsadb.path_menu.."\\"..name..".ogg","Master");
+	if value then
+		PlaySoundFile("Interface\\Addons\\"..gsadb.path_menu.."\\"..name..".ogg",gsadb.output_menu);
 	end
 end
 local function getOption(info)
@@ -287,7 +288,7 @@ function GSA:OnOptionCreate()
 							},
 							path_male = {
 								type = 'select',
-								name = L["Optional / Male voice |cffC41F3B*NEW*|r"], -- added to 2.3
+								name = L["Optional / Male voice"], -- added to 2.3
 								desc = L["Select the male voice"], -- added to 2.3
 								values = self.GSA_LANGUAGE,
 								order = 2,
@@ -295,21 +296,21 @@ function GSA:OnOptionCreate()
 							},
 							path_neutral = {
 								type = 'select',
-								name = L["Optional / Neutral voice |cffC41F3B*NEW*|r"], -- added to 2.3
+								name = L["Optional / Neutral voice"], -- added to 2.3
 								desc = L["Select the neutral voice"], -- added to 2.3
 								values = self.GSA_LANGUAGE,
 								order = 3,
 								disabled = function() return not gsadb.genderVoice end,
 							},
 							genderVoice = {
-								name = L["Gender detection |cffC41F3B*NEW*|r"], -- added to 2.3
+								name = L["Gender detection"], -- added to 2.3
 								type = 'toggle',
 								desc = L["Activate the gender detection"], -- added to 2.3
 								order = 4,
 							},
 							NewLinev = {
 								type= 'description',
-								order = 5,
+								order = 7,
 								name= '',
 							},
 							volumn = {
@@ -317,7 +318,7 @@ function GSA:OnOptionCreate()
 								max = 1,
 								min = 0,
 								step = 0.1,
-								name = L["Volume"],
+								name = L["Master Volume"],
 								desc = L["adjusting the voice volume(the same as adjusting the system master sound volume)"],
 								set = function (info, value) SetCVar ("Sound_MasterVolume",tostring (value)) end,
 								get = function () return tonumber (GetCVar ("Sound_MasterVolume")) end,
@@ -344,7 +345,29 @@ function GSA:OnOptionCreate()
 								step = 0.1,
 								name = L["Throttle"],
 								desc = L["The minimum interval of each alert"],
+								disabled = function() return not gsadb.smartDisable end,
 								order = 2,
+							},
+							NewLineOutput = {
+								type= 'description',
+								order = 3,
+								name= '',
+							},
+							outputUnlock = {
+								type = 'toggle',
+								name = L["Change Output"],
+								desc = L["Unlock the output options"],
+								order = 8,
+								confirm = true,
+								confirmText = L["Are you sure?"],
+							},
+							output_menu = {
+								type = 'select',
+								name = L["Output"],
+								desc = L["Select the default output"],
+								values = GSA_OUTPUT,
+								order = 10,
+								disabled = function() return not gsadb.outputUnlock end,
 							},
 						},
 					},
@@ -367,7 +390,7 @@ function GSA:OnOptionCreate()
 						args = {
 							path_menu = {
 								type = 'select',
-								name = L["Choose a test voice pack |cffC41F3B*NEW*|r"], -- added to 2.3
+								name = L["Choose a test voice pack"], -- added to 2.3
 								desc = L["Select the menu voice pack alert"], -- added to 2.3.1
 								values = self.GSA_LANGUAGE,
 								order = 1,
@@ -459,7 +482,7 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffABD473Hunter|r"],
 								order = 7,
-								args = listOption({19263,3045,54216},"auraApplied"),
+								args = listOption({19263,3045,54216,53480},"auraApplied"), -- 53480 added pet skill
 							},
 							mage = {
 								type = 'group',
@@ -494,7 +517,7 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffFFF569Rogue|r"],
 								order = 12,
-								args = listOption({51713,2983,31224,13750,5277,74001,114018,152151,51690},"auraApplied"), -- add 51690 2.2.2
+								args = listOption({51713,2983,31224,13750,5277,74001,114018,152151,51690,84747},"auraApplied"), -- add 51690 2.2.2 / 84747 added 2.3.4
 							},
 							shaman	= {
 								type = 'group',
@@ -515,7 +538,7 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffC79C6EWarrior|r"],
 								order = 15,
-								args = listOption({55694,871,112048,18499,23920,12328,46924,12292,1719,107574,114029,114030},"auraApplied"),
+								args = listOption({55694,871,18499,23920,12328,46924,12292,1719,107574,114029,114030},"auraApplied"),
 							},
 						},
 					},
@@ -586,7 +609,7 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffFFF569Rogue|r"],
 								order = 12,
-								args = listOption({31224,5277,74001,51690},"auraRemoved"), -- add 51690 2.2.2
+								args = listOption({31224,5277,74001,51690,84747},"auraRemoved"), -- add 51690 2.2.2 / 84747 added 2.3.4
 							},
 							shaman	= {
 								type = 'group',
@@ -649,7 +672,7 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffABD473Hunter|r"],
 								order = 5,
-								args = listOption({982,120360,109259},"castStart"),
+								args = listOption({982,120360,109259,19386},"castStart"), -- 19386 moved from cast-success 2.3.4
 							},
 							mage = {
 								type = 'group',
@@ -748,7 +771,7 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffABD473Hunter|r"],
 								order = 7,
-								args = listOption({19386,147362,60192,1499,109248,109304,131894,120697,121818,19801,126216,126215,126214,126213,122811,122809,122807,122806,122804,122802,121118},"castSuccess"), -- 19801 added to 2.2.2 [126215,126216,126214,126213,122811,122809,122807,122806,122804,122802,121118 Dire beast]
+								args = listOption({147362,60192,1499,109248,109304,131894,120697,121818,19801,126216,126215,126214,126213,122811,122809,122807,122806,122804,122802,121118},"castSuccess"), -- 19801 added to 2.2.2 [126215,126216,126214,126213,122811,122809,122807,122806,122804,122802,121118 Dire beast]
 							},
 							mage = {
 								type = 'group',
@@ -804,7 +827,7 @@ function GSA:OnOptionCreate()
 								inline = true,
 								name = L["|cffC79C6EWarrior|r"],
 								order = 114,
-								args = listOption({97462,5246,6552,2457,71,107566,102060,46968,118000,107570,114192,114028,156287,176289,114028},"castSuccess"),
+								args = listOption({97462,5246,6552,2457,71,107566,102060,46968,118000,107570,114192,114028,156287,176289,114028,112048},"castSuccess"), -- 112048 moved from aura applied
 							},
 						},
 					},
@@ -874,6 +897,7 @@ function GSA:OnOptionCreate()
 			}
 		}
 	}
+
 	for k, v in pairs(gsadb.custom) do
 		self:MakeCustomOption(k)
 	end	

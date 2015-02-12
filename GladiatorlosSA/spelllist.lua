@@ -50,12 +50,12 @@
 			[114018] = "shroudOfConcealment",
 				-- WoD
 			[152151] = "ShadowReflection",
+			[84747] = "deepInsight",
 
 			--warrior
 				-- OLD
 			[55694] = "enragedRegeneration", -- 狂怒恢復
 			[871] = "shieldWall", --盾墻
-			[112048] = "shieldBarrier", -- Added
 			[18499] = "berserkerRage", -- 狂暴之怒
 			[23920] = "spellReflection", -- 盾反
 			[12328] = "sweepingStrikes", -- 橫掃攻擊
@@ -121,6 +121,7 @@
 			[19263] = "deterrence", -- 威懾
 			[3045] = "rapidFire",
 			[54216] = "mastersCall",
+			[53480] = "roarOfSacrifice", -- pet skill
 				-- Mist of pandaria
 
 			--lock
@@ -162,6 +163,7 @@
 			[48707] = "AntiMagicShellDown", -- Added
 			[51690] = "killingSpreeDown", -- added to 2.2.2
 			[114030] = "vigilanceDown",
+			[84747] = "deepInsightDown",
 				-- Mist of pandaria
 			[108271] = "astralShiftDown",
 			[120954] = "fortifyingBrewDown",
@@ -227,6 +229,7 @@
 			[982] = "revivePet", -- 復活寵物
 			[120360] = "barrage", -- add 2.2.2
 			[109259] = "powerShot", -- add 2.2.2
+			[19386] = "wyvernSting", -- moved from cast_succes 2.3.4
 
 			--warlock
 				-- OLD
@@ -317,6 +320,7 @@
 				-- WoD
 			[156287] = "Ravager",
 			[176289] = "SiegeBreaker", -- Maybe useless
+			[112048] = "shieldBarrier", -- Added
 
 			--priest
 				-- old
@@ -395,7 +399,6 @@
 
 			--hunter
 				-- old
-			[19386] = "wyvernSting", -- 翼龍釘刺
 			[147362] = "counterShot", -- 反制射击 
 			[1499] = "freezingTrap",
 			[60192] = "freezingTrap2",

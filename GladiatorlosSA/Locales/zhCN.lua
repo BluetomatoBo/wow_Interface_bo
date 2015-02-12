@@ -118,15 +118,24 @@ L["Spell Lock, Counterspell, Kick, Pummel, Mind Freeze, Skull Bash, Rebuke, Sola
 
 L["Default / Female voice"] = "默认 / 女声"
 L["Select the default voice pack of the alert"] = "选择默认语音包"
-L["Optional / Male voice |cffC41F3B*NEW*|r"] = "可选 / 男声 |cffC41F3B*新*|r"
+L["Optional / Male voice"] = "可选 / 男声"
 L["Select the male voice"] = "选择男性语音包"
-L["Optional / Neutral voice |cffC41F3B*NEW*|r"] = "可选 / 中立"
+L["Optional / Neutral voice"] = "可选 / 中立"
 L["Select the neutral voice"] = "选择中性语音包"
-L["Gender detection |cffC41F3B*NEW*|r"] = "性别判断 |cffC41F3B*新*|r"
+L["Gender detection"] = "性别判断"
 L["Activate the gender detection"] = "开启性别判断"
 L["Voice menu config"] = "语音菜单选项"
-L["Choose a test voice pack |cffC41F3B*NEW*|r"] = "选择测试语音包 |cffC41F3B*新*|r"
+L["Choose a test voice pack"] = "选择测试语音包"
 L["Select the menu voice pack alert"] = "选择菜单语音包警告"
 
 L["English(male)"] = true
 L["No sound selected for the Custom alert : |cffC41F4B"] = true
+L["Master Volume"] = true -- changed from L["Volume"] = true
+L["Change Output"] = true
+L["Unlock the output options"] = true
+L["Output"] = true
+L["Select the default output"] = true
+L["Master"] = true
+L["SFX"] = true
+L["Ambience"] = true
+L["Music"] = true
