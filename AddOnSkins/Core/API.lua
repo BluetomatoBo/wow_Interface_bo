@@ -99,6 +99,23 @@ function AS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 	Frame:SetBackdropColor(R, G, B, Alpha)
 end
 
+local Insets = {
+	InsetTop,
+	InsetBottom,
+	InsetLeft,
+	InsetRight,
+	InsetInsideTop,
+	InsetInsideBottom,
+	InsetInsideLeft,
+	InsetInsideRight,
+}
+
+function AS:HideInset(Frame)
+	for _, Inset in pairs(Insets) do
+		Frame[Inset]:Hide()
+	end
+end
+
 function AS:CreateBackdrop(Frame, Template, UseTexture, TextureFile)
 	if Frame.Backdrop then return end
 	if not Template then Template = AS:CheckOption('SkinTemplate') end

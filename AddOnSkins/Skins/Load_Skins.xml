@@ -33,6 +33,7 @@
 	<Script file="BigBrother.lua"/>
 	<Script file="BPT.lua"/>
 	<Script file="BugSack.lua"/>
+	<Script file="Bulkie.lua"/>
 	<Script file="BuyEmAll.lua"/>
 	<Script file="ChocolateBar.lua"/>
 	<Script file="CLCInfo.lua"/>
@@ -44,6 +45,7 @@
 	<Script file="Cork.lua"/>
 	<Script file="Critline.lua"/>
 	<Script file="DailyTamerCheck.lua"/>
+	<Script file="DBM.lua"/> 
 	<Script file="Details.lua"/> 
 	<Script file="DKDots.lua"/>
 	<Script file="Dominos.lua"/>
@@ -77,6 +79,7 @@
 	<Script file="LinkWrangler.lua"/>
 	<Script file="LootCouncilLite.lua"/>
 	<Script file="LootLog.lua"/>
+	<Script file="Ludwig.lua"/>
 	<Script file="MageNuggets.lua"/>
 	<Script file="MinimalArchaeology.lua"/>
 	<Script file="MasterLootManagerRemix.lua"/>
@@ -145,6 +148,7 @@
 	<Script file="VengeanceStatus.lua"/>
 	<Script file="WeakAuras.lua"/>
 	<Script file="Wholly.lua"/>
+	<Script file="WorldBossStatus.lua"/>
 	<Script file="WowLua.lua"/>
 	<Script file="WoWPro.lua"/>
 	<Script file="xMerchant.lua"/>

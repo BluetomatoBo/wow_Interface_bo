@@ -1,0 +1,28 @@
+tag 3.13
+1e22705b7e255210df7052dcd241786e85eca361
+Azilroka <darktemplar9900@yahoo.com>
+2015-02-13 18:06:20 -0600
+
+
+
+--------------------
+
+Azilroka:
+	- 3.13
+	- Parchment Option / Spellbook / LFG
+Michael Tindal:
+	- Remove the Tukui check from the shared DBM file so DBM gets skinned in ElvUI again.
+Azilroka:
+	- DBM | Pets | API
+	- PetTracker | ToyBox
+	- Details! HotFix 4 | Mount / Pet / Toy Box
+	- Details! HotFix 3
+	- Total RP3 Skin by mmx428
+	- Details! HotFix
+	- Fixed these Vars
+	- Altoholic
+	- Updating
+	- 3.121
+	- ArkInventory / Altoholic
+	- LightHeaded
+	- Author didn't account for Locale being too long.
