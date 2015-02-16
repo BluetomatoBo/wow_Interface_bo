@@ -322,7 +322,7 @@ local function CheckEventActive()
 	if setEnabled and not LunarFestival.isEnabled then
 		LunarFestival.isEnabled = true
 		LunarFestival:Refresh()
-		LunarFestival:RegisterEvent("QUEST_FINISHED", "Refresh") -- args: questID, unknown, zero
+		LunarFestival:RegisterEvent("QUEST_TURNED_IN", "Refresh")
 
 		HandyNotes:Print("The Lunar Festival has begun!  Locations of Elder NPCs are now marked on your map.")
 	elseif not setEnabled and LunarFestival.isEnabled then
@@ -346,8 +346,8 @@ function LunarFestival:OnEnable()
 	db = LibStub("AceDB-3.0"):New("HandyNotes_LunarFestivalDB", defaults, "Default").profile
 end
 
-function LunarFestival:Refresh(questID) -- args: questID, unknown, zero
-	completedQuests[questID] = true
+function LunarFestival:Refresh(_, questID) -- args: event, questID, unknown, zero
+	if questID then completedQuests[questID] = true end
 	self:SendMessage("HandyNotes_NotifyUpdate", "LunarFestival")
 end
 
