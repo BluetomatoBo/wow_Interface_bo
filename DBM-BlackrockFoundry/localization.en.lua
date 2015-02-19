@@ -15,10 +15,26 @@ L= DBM:GetModLocalization(1202)
 ---------------------------
 L= DBM:GetModLocalization(1154)
 
+L:SetWarningLocalization({
+	warnBlastFrequency	= "Blast frequency increased : Approx Every %d sec"
+})
+
+L:SetOptionLocalization({
+	warnBlastFrequency	= "Announce when $spell:155209 frequency increased"
+})
+
 ------------------
 -- Hans'gar And Franzok --
 ------------------
 L= DBM:GetModLocalization(1155)
+
+L:SetTimerLocalization({
+	timerStamperDodge			= DBM_CORE_AUTO_TIMER_TEXTS.nextcount:format((GetSpellInfo(160582)))
+})
+
+L:SetOptionLocalization({
+	timerStamperDodge			= DBM_CORE_AUTO_TIMER_OPTIONS.nextcount:format(160582)
+})
 
 --------------
 -- Flamebender Ka'graz --
@@ -43,6 +59,14 @@ L= DBM:GetModLocalization(1122)
 -- Operator Thogar --
 --------------------------
 L= DBM:GetModLocalization(1147)
+
+L:SetWarningLocalization({
+	specWarnSplitSoon	= "Raid split in 10"
+})
+
+L:SetOptionLocalization({
+	specWarnSplitSoon	= "Show special warning 10 seconds before raid split"
+})
 
 L:SetMiscLocalization({
 	Train			= GetSpellInfo(174806),

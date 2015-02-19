@@ -177,7 +177,7 @@ do
 			info = UIDropDownMenu_CreateInfo()
 			info.text = HIDE
 			info.notCheckable = true
-			info.func = function() rangeCheck.Hide(true) end
+			info.func = function() rangeCheck:Hide(true) end
 			info.arg1 = rangeCheck
 			UIDropDownMenu_AddButton(info, 1)
 
@@ -597,7 +597,7 @@ do
 				local range = (cx * cx + cy * cy) ^ 0.5
 				--local range = UnitDistanceSquared(uId) ^ 0.5
 				local inRange = false
-				if range < (activeRange) then
+				if range < (activeRange+0.5) then
 					closePlayer = closePlayer + 1
 					inRange = true
 					if not closestRange then

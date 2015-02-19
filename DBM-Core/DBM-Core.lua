@@ -53,14 +53,10 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 12764 $"):sub(12, -3)),
-	DisplayVersion = "6.0.15", -- the string that is shown as version
-	ReleaseRevision = 12764 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 12955 $"):sub(12, -3)),
+	DisplayVersion = "6.0.16", -- the string that is shown as version
+	ReleaseRevision = 12955 -- the revision of the latest stable version that is available
 }
-
--- Legacy crap; that stupid "Version" field was never a good idea.
--- Some functions that should be using ReleaseRevision still use this one, so we will just keep it and set to ReleaseRevision
-DBM.Version = tostring(DBM.ReleaseRevision)
 
 -- support for git svn which doesn't support svn keyword expansion
 if not DBM.Revision then
@@ -126,6 +122,9 @@ DBM.DefaultOptions = {
 	AlwaysShowHealthFrame = false,
 	ShowBigBrotherOnCombatStart = false,
 	FilterTankSpec = true,
+	FilterInterrupt = true,
+	FilterDispel = true,
+	FilterSelfHud = true,
 	AutologBosses = false,
 	AdvancedAutologBosses = false,
 	LogOnlyRaidBosses = false,
@@ -167,11 +166,14 @@ DBM.DefaultOptions = {
 	WarningFontSize = 20,
 	WarningFontStyle = "None",
 	WarningFontShadow = true,
+	SpecialWarningDuration = 4,
 	SpecialWarningPoint = "CENTER",
 	SpecialWarningX = 0,
 	SpecialWarningY = 75,
 	SpecialWarningFont = STANDARD_TEXT_FONT,
 	SpecialWarningFontSize = 50,
+	SpecialWarningFontStyle = "THICKOUTLINE",
+	SpecialWarningFontShadow = false,
 	SpecialWarningFontCol = {1.0, 0.7, 0.0},--Yellow, with a tint of orange
 	SpecialWarningFlashCol1 = {1.0, 1.0, 0.0},--Yellow
 	SpecialWarningFlashCol2 = {1.0, 0.5, 0.0},--Orange
@@ -205,6 +207,7 @@ DBM.DefaultOptions = {
 	DontShowRangeFrame = false,
 	DontRestoreRange = false,
 	DontShowInfoFrame = false,
+	DontShowHudMap2 = false,
 	DontShowHealthFrame = false,
 	DontPlayCountdowns = false,
 	DontShowPT2 = false,
@@ -330,7 +333,7 @@ local iconSetRevision = {}
 local iconSetPerson = {}
 local addsGUIDs = {}
 
-local fakeBWRevision = 12669
+local fakeBWRevision = 12756
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -363,7 +366,7 @@ local IsInRaid, IsInGroup, IsInInstance = IsInRaid, IsInGroup, IsInInstance
 local UnitAffectingCombat, InCombatLockdown, IsEncounterInProgress = UnitAffectingCombat, InCombatLockdown, IsEncounterInProgress
 local UnitGUID, UnitHealth, UnitHealthMax, UnitBuff = UnitGUID, UnitHealth, UnitHealthMax, UnitBuff
 local UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit, UnitIsAFK = UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit, UnitIsAFK
-local GetSpellInfo, EJ_GetSectionInfo, GetSpellTexture, GetActiveSpecGroup = GetSpellInfo, EJ_GetSectionInfo, GetSpellTexture, GetActiveSpecGroup
+local GetSpellInfo, EJ_GetSectionInfo, GetSpellTexture, GetActiveSpecGroup, GetSpellCooldown = GetSpellInfo, EJ_GetSectionInfo, GetSpellTexture, GetActiveSpecGroup, GetSpellCooldown
 local EJ_GetEncounterInfo, EJ_GetCreatureInfo, GetDungeonInfo = EJ_GetEncounterInfo, EJ_GetCreatureInfo, GetDungeonInfo
 local GetInstanceInfo = GetInstanceInfo
 local UnitPosition, GetCurrentMapDungeonLevel, GetMapInfo, GetCurrentMapZone, SetMapToCurrentZone = UnitPosition, GetCurrentMapDungeonLevel, GetMapInfo, GetCurrentMapZone, SetMapToCurrentZone
@@ -1365,7 +1368,7 @@ function DBM:CreateProfile(name)
 		self:AddMsg(DBM_CORE_PROFILE_CREATE_ERROR)
 		return
 	end
-	if DBM_AllSavedOptions[usedProfile] then
+	if DBM_AllSavedOptions[name] then
 		self:AddMsg(DBM_CORE_PROFILE_CREATE_ERROR_D:format(name))
 		return
 	end
@@ -2161,7 +2164,7 @@ do
 				raid[playerName].class = class
 				raid[playerName].id = "player"
 				raid[playerName].revision = DBM.Revision
-				raid[playerName].version = tonumber(DBM.Version)
+				raid[playerName].version = DBM.ReleaseRevision
 				raid[playerName].displayVersion = DBM.DisplayVersion
 				raid[playerName].locale = GetLocale()
 				raid[playerName].enabledIcons = tostring(not DBM.Options.DontSetIcons)
@@ -2308,7 +2311,7 @@ do
 			raid[playerName].class = class
 			raid[playerName].id = "player"
 			raid[playerName].revision = DBM.Revision
-			raid[playerName].version = tonumber(DBM.Version)
+			raid[playerName].version = DBM.ReleaseRevision
 			raid[playerName].displayVersion = DBM.DisplayVersion
 			raid[playerName].locale = GetLocale()
 			raidUIds["player"] = playerName
@@ -2666,7 +2669,7 @@ function DBM:LoadAllModDefaultOption(modId)
 		mod.Options = {}
 		mod.Options = defaultOptions
 		_G[savedVarsName][fullname][id][profileNum] = {}
-		_G[savedVarsName][fullname][id][profileNum] = defaultOptions
+		_G[savedVarsName][fullname][id][profileNum] = mod.Options
 	end
 	self:AddMsg(DBM_CORE_ALLMOD_DEFAULT_LOADED)
 	-- update gui if showing
@@ -2703,7 +2706,7 @@ function DBM:LoadModDefaultOption(mod)
 	mod.Options = {}
 	mod.Options = defaultOptions
 	_G[savedVarsName][fullname][mod.id][profileNum] = {}
-	_G[savedVarsName][fullname][mod.id][profileNum] = defaultOptions
+	_G[savedVarsName][fullname][mod.id][profileNum] = mod.Options
 	self:AddMsg(DBM_CORE_MOD_DEFAULT_LOADED)
 	-- update gui if showing
 	if DBM_GUI and DBM_GUI.currentViewing and DBM_GUI_OptionsFrame:IsShown() then
@@ -3280,14 +3283,7 @@ function DBM:LoadMod(mod, force)
 			RequestChallengeModeMapInfo()
 			RequestChallengeModeLeaders(mapID)
 		end
-		if instanceType == "pvp" and IsAddOnLoaded("DBM-PvP") then--Is a battleground and pvp mods are installed
-			if self:GetModByName("z30") and self:GetModByName("z30").revision >= 3 then--They are loaded and correct revision
-				--Do nothing
-			else--They either aren't loaded or are wrong revision. in either case, it means they have old pvp mods installed that don't load correctly or are out of date
-				--Not the new stand alone pvp mods these are old ones and user needs to remove them or install updated package
-				self:AddMsg(DBM_CORE_OUTDATED_PVP_MODS)
-			end
-		elseif instanceType ~= "pvp" and #inCombat == 0 and IsInGroup() then--do timer recovery only mod load
+		if instanceType ~= "pvp" and #inCombat == 0 and IsInGroup() then--do timer recovery only mod load
 			local doRequest = false
 			if IsEncounterInProgress() then
 				doRequest = true
@@ -3629,9 +3625,9 @@ do
 			VPVersion = "/ VP"..VoicePack..": v"..DBM.VoiceVersions[VoicePack]
 		end
 		if VPVersion then
-			sendSync("V", ("%d\t%s\t%s\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale(), tostring(not DBM.Options.DontSetIcons), VPVersion))
+			sendSync("V", ("%d\t%s\t%s\t%s\t%s\t%s"):format(DBM.Revision, tostring(DBM.ReleaseRevision), DBM.DisplayVersion, GetLocale(), tostring(not DBM.Options.DontSetIcons), VPVersion))
 		else
-			sendSync("V", ("%d\t%s\t%s\t%s\t%s"):format(DBM.Revision, DBM.Version, DBM.DisplayVersion, GetLocale(), tostring(not DBM.Options.DontSetIcons)))
+			sendSync("V", ("%d\t%s\t%s\t%s\t%s"):format(DBM.Revision, tostring(DBM.ReleaseRevision), DBM.DisplayVersion, GetLocale(), tostring(not DBM.Options.DontSetIcons)))
 		end
 	end
 
@@ -3663,7 +3659,7 @@ do
 			raid[sender].locale = locale
 			raid[sender].enabledIcons = iconEnabled or "false"
 			DBM:Debug("Received version info from "..sender.." : Rev - "..revision..", Ver - "..version..", Rev Diff - "..(revision - DBM.Revision), 3)
-			if version > tonumber(DBM.Version) and LastInstanceType ~= "pvp" then -- Update reminder
+			if version > DBM.ReleaseRevision and LastInstanceType ~= "pvp" then -- Update reminder
 				if not checkEntry(newerVersionPerson, sender) then
 					newerVersionPerson[#newerVersionPerson + 1] = sender
 					DBM:Debug("Newer version detected from "..sender.." : Rev - "..revision..", Ver - "..version..", Rev Diff - "..(revision - DBM.Revision), 3)
@@ -5568,6 +5564,9 @@ do
 			SetCVar("Sound_EnableSFX", 1)
 		end
 		if self.Options.RestoreRange then self.Options.RestoreRange = nil end--User DCed while this was true, clear it
+		if not DBMHudMap then--User updated from a version without HudMap, then reloaded ui. This is a no go.
+			self:Schedule(35, function() self:AddMsg(DBM_CORE_UPDATE_REQUIRES_RELAUNCH) end)
+		end
 	end
 end
 
@@ -6130,6 +6129,27 @@ function bossModPrototype:RegisterOnUpdateHandler(func, interval)
 	updateFunctions[self] = func
 end
 
+function bossModPrototype:RegisterMarker(marker)
+	DBMHudMap:RegisterEncounterMarker(marker)
+	return marker
+end
+
+function bossModPrototype:FreeMarker(marker, owner, id, noAnimate)
+	return DBMHudMap.free(marker, owner, id, noAnimate)
+end
+
+function bossModPrototype:FreeMarkers()
+	DBMHudMap:FreeEncounterMarkers()
+end
+
+function bossModPrototype:EnableHudMap()
+	DBMHudMap:Enable()
+end
+
+function bossModPrototype:DisableHudMap()
+	DBMHudMap:Disable()
+end
+
 --------------
 --  Events  --
 --------------
@@ -6205,6 +6225,25 @@ function bossModPrototype:IsTrivial(level)
 		return true
 	end
 	return false
+end
+
+function bossModPrototype:CheckInterruptFilter(sourceGUID)
+	if not DBM.Options.FilterInterrupt then return true end
+	if UnitGUID("target") == sourceGUID or UnitGUID("focus") == sourceGUID then
+		return true
+	end
+	return false
+end
+
+function bossModPrototype:CheckDispelFilter()
+	if not DBM.Options.FilterDispel then return true end
+	--Druid: Nature's Cure (88423), Remove Corruption (2782), Monk: Detox (115450), Priest: Purify (527), Plaadin: Cleanse (4987), Shaman: Cleanse Spirit (51886), Purify Spirit (77130), Mage: Remove Curse (475)
+	--start, duration, enable = GetSpellCooldown
+	--start & duration == 0 if spell not on cd
+	if (GetSpellCooldown(88423)) ~= 0 or (GetSpellCooldown(2782)) ~= 0 or (GetSpellCooldown(115450)) ~= 0 or (GetSpellCooldown(527)) ~= 0 or (GetSpellCooldown(4987)) ~= 0 or (GetSpellCooldown(51886)) ~= 0 or (GetSpellCooldown(77130)) ~= 0 or (GetSpellCooldown(475)) ~= 0 then
+		return false
+	end
+	return true
 end
 
 function bossModPrototype:IsCriteriaCompleted(criteriaIDToCheck)
@@ -6334,7 +6373,7 @@ do
 		return name, uid, bossuid
 	end
 
-	function bossModPrototype:BossTargetScanner(cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank, isFinalScan)
+	function bossModPrototype:BossTargetScanner(cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank, isFinalScan, targetFilter)
 		--Increase scan count
 		local cidOrGuid = cidOrGuid or self.creatureId
 		if not cidOrGuid then return end
@@ -6345,13 +6384,13 @@ do
 		local scanTimes = scanTimes or 16
 		local targetname, targetuid, bossuid = self:GetBossTarget(cidOrGuid, scanOnlyBoss)
 		--Do scan
-		if targetname and targetname ~= DBM_CORE_UNKNOWN then
+		if targetname and targetname ~= DBM_CORE_UNKNOWN or (targetFilter and targetFilter ~= targetname) then
 			if not IsInGroup() then scanTimes = 1 end--Solo, no reason to keep scanning, give faster warning. But only if first scan is actually a valid target, which is why i have this check HERE
 			if (isEnemyScan and UnitIsFriend("player", targetuid) or self:IsTanking(targetuid, bossuid)) and not isFinalScan and not includeTank then--On player scan, ignore tanks. On enemy scan, ignore friendly player.
 				if targetScanCount[cidOrGuid] < scanTimes then--Make sure no infinite loop.
-					self:ScheduleMethod(scanInterval, "BossTargetScanner", cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank)--Scan multiple times to be sure it's not on something other then tank (or friend on enemy scan).
+					self:ScheduleMethod(scanInterval, "BossTargetScanner", cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank, nil, targetFilter)--Scan multiple times to be sure it's not on something other then tank (or friend on enemy scan).
 				else--Go final scan.
-					self:BossTargetScanner(cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank, true)
+					self:BossTargetScanner(cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank, true, targetFilter)
 				end
 			else--Scan success. (or failed to detect right target.) But some spells can be used on tanks, anyway warns tank if player scan. (enemy scan block it)
 				targetScanCount[cidOrGuid] = nil--Reset count for later use.
@@ -6362,7 +6401,7 @@ do
 			end
 		else--target was nil, lets schedule a rescan here too.
 			if targetScanCount[cidOrGuid] < scanTimes then--Make sure not to infinite loop here as well.
-				self:ScheduleMethod(scanInterval, "BossTargetScanner", cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank)
+				self:ScheduleMethod(scanInterval, "BossTargetScanner", cidOrGuid, returnFunc, scanInterval, scanTimes, scanOnlyBoss, isEnemyScan, includeTank, nil, targetFilter)
 			else
 				targetScanCount[cidOrGuid] = nil--Reset count for later use.
 				self:UnscheduleMethod("BossTargetScanner", cidOrGuid, returnFunc)--Unschedule all checks just to be sure none are running, we are done.
@@ -7980,43 +8019,160 @@ end
 ------------------------------
 do
 	local frame = CreateFrame("Frame", "DBMSpecialWarning", UIParent)
-	local font = frame:CreateFontString(nil, "OVERLAY", "ZoneTextFont")
+	local font1 = frame:CreateFontString("DBMSpecialWarning1", "OVERLAY", "ZoneTextFont")
+	font1:SetWidth(1024)
+	font1:SetHeight(0)
+	font1:SetPoint("TOP", 0, 0)
+	local font2 = frame:CreateFontString("DBMSpecialWarning2", "OVERLAY", "ZoneTextFont")
+	font2:SetWidth(1024)
+	font2:SetHeight(0)
+	font2:SetPoint("TOP", font1, "BOTTOM", 0, 0)
 	frame:SetMovable(1)
 	frame:SetWidth(1)
 	frame:SetHeight(1)
 	frame:SetFrameStrata("HIGH")
 	frame:SetClampedToScreen()
-	frame:Hide()
-	font:SetWidth(1024)
-	font:SetHeight(0)
-	font:SetPoint("CENTER", 0, 0)
+	frame:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 
-	local moving
-	local specialWarningPrototype = {}
-	local mt = {__index = specialWarningPrototype}
+	local font1elapsed, font2elapsed, moving
+
+	local function fontHide1()
+		local duration = DBM.Options.SpecialWarningDuration
+		if font1elapsed > duration * 1.3 then
+			font1:Hide()
+			if frame.font1ticker then
+				frame.font1ticker:Cancel()
+				frame.font1ticker = nil
+			end
+		elseif font1elapsed > duration then
+			font1elapsed = font1elapsed + 0.05
+			local alpha = 1 - (font1elapsed - duration) / (duration * 0.3)
+			font1:SetAlpha(alpha > 0 and alpha or 0)
+		else
+			font1elapsed = font1elapsed + 0.05
+			font1:SetAlpha(1)
+		end
+	end
+
+	local function fontHide2()
+		local duration = DBM.Options.SpecialWarningDuration
+		if font2elapsed > duration * 1.3 then
+			font2:Hide()
+			if frame.font2ticker then
+				frame.font2ticker:Cancel()
+				frame.font2ticker = nil
+			end
+		elseif font2elapsed > duration then
+			font2elapsed = font2elapsed + 0.05
+			local alpha = 1 - (font2elapsed - duration) / (duration * 0.3)
+			font2:SetAlpha(alpha > 0 and alpha or 0)
+		else
+			font2elapsed = font2elapsed + 0.05
+			font2:SetAlpha(1)
+		end
+	end
 
 	function DBM:UpdateSpecialWarningOptions()
 		frame:ClearAllPoints()
 		frame:SetPoint(self.Options.SpecialWarningPoint, UIParent, self.Options.SpecialWarningPoint, self.Options.SpecialWarningX, self.Options.SpecialWarningY)
-		font:SetFont(self.Options.SpecialWarningFont, self.Options.SpecialWarningFontSize, "THICKOUTLINE")
-		font:SetTextColor(unpack(self.Options.SpecialWarningFontCol))
+		font1:SetFont(self.Options.SpecialWarningFont, self.Options.SpecialWarningFontSize, self.Options.SpecialWarningFontStyle == "None" and nil or self.Options.SpecialWarningFontStyle)
+		font2:SetFont(self.Options.SpecialWarningFont, self.Options.SpecialWarningFontSize, self.Options.SpecialWarningFontStyle == "None" and nil or self.Options.SpecialWarningFontStyle)
+		font1:SetTextColor(unpack(self.Options.SpecialWarningFontCol))
+		font2:SetTextColor(unpack(self.Options.SpecialWarningFontCol))
+		if self.Options.SpecialWarningFontShadow then
+			font1:SetShadowOffset(1, -1)
+			font2:SetShadowOffset(1, -1)
+		else
+			font1:SetShadowOffset(0, 0)
+			font2:SetShadowOffset(0, 0)
+		end
 	end
 
-	frame:SetScript("OnUpdate", function(self, elapsed)
-		self.timer = self.timer - elapsed
-		if self.timer >= 3 and self.timer <= 4 then
-			if not self.healthFrameHidden then
-				LowHealthFrame:SetAlpha(self.timer - 3)
-			end
-		elseif self.timer <= 2 then
-			frame:SetAlpha(self.timer/2)
-		elseif self.timer <= 0 then
-			if not self.healthFrameHidden then
-				LowHealthFrame:Hide()
-			end
-			frame:Hide()
+	function DBM:AddSpecialWarning(text, force)
+		local added = false
+		if not frame.font1ticker then
+			font1elapsed = 0
+			font1.lastUpdate = GetTime()
+			font1:SetText(text)
+			font1:Show()
+			added = true
+			frame.font1ticker = frame.font1ticker or C_Timer.NewTicker(0.05, fontHide1)
+		elseif not frame.font2ticker or force then
+			font2elapsed = 0
+			font2.lastUpdate = GetTime()
+			font2:SetText(text)
+			font2:Show()
+			added = true
+			frame.font2ticker = frame.font2ticker or C_Timer.NewTicker(0.05, fontHide2)
 		end
-	end)
+		if not added then
+			local prevText1 = font2:GetText()
+			font1:SetText(prevText1)
+			font1elapsed = font2elapsed
+			self:AddSpecialWarning(text, true)
+		end
+	end
+
+	do
+		local anchorFrame
+		local function moveEnd()
+			moving = false
+			anchorFrame:Hide()
+			font1elapsed = DBM.Options.SpecialWarningDuration
+			font2elapsed = DBM.Options.SpecialWarningDuration
+			frame:SetFrameStrata("HIGH")
+			DBM:Unschedule(moveEnd)
+			DBM.Bars:CancelBar(DBM_CORE_MOVE_SPECIAL_WARNING_BAR)
+		end
+
+		function DBM:MoveSpecialWarning()
+			if not anchorFrame then
+				anchorFrame = CreateFrame("Frame", nil, frame)
+				anchorFrame:SetWidth(32)
+				anchorFrame:SetHeight(32)
+				anchorFrame:EnableMouse(true)
+				anchorFrame:SetPoint("TOP", frame, "TOP", 0, 32)
+				anchorFrame:RegisterForDrag("LeftButton")
+				anchorFrame:SetClampedToScreen()
+				anchorFrame:Hide()
+				local texture = anchorFrame:CreateTexture()
+				texture:SetTexture("Interface\\Addons\\DBM-GUI\\textures\\dot.blp")
+				texture:SetPoint("CENTER", anchorFrame, "CENTER", 0, 0)
+				texture:SetWidth(32)
+				texture:SetHeight(32)
+				anchorFrame:SetScript("OnDragStart", function()
+					frame:StartMoving()
+					self:Unschedule(moveEnd)
+					self.Bars:CancelBar(DBM_CORE_MOVE_SPECIAL_WARNING_BAR)
+				end)
+				anchorFrame:SetScript("OnDragStop", function()
+					frame:StopMovingOrSizing()
+					local point, _, _, xOfs, yOfs = frame:GetPoint(1)
+					self.Options.SpecialWarningPoint = point
+					self.Options.SpecialWarningX = xOfs
+					self.Options.SpecialWarningY = yOfs
+					self:Schedule(15, moveEnd)
+					self.Bars:CreateBar(15, DBM_CORE_MOVE_SPECIAL_WARNING_BAR)
+				end)
+			end
+			if anchorFrame:IsShown() then
+				moveEnd()
+			else
+				moving = true
+				anchorFrame:Show()
+				DBM:AddSpecialWarning(DBM_CORE_MOVE_SPECIAL_WARNING_TEXT)
+				DBM:AddSpecialWarning(DBM_CORE_MOVE_SPECIAL_WARNING_TEXT)
+				self:Schedule(15, moveEnd)
+				self.Bars:CreateBar(15, DBM_CORE_MOVE_SPECIAL_WARNING_BAR)
+				frame:Show()
+				frame:SetFrameStrata("TOOLTIP")
+				frame:SetAlpha(1)
+			end
+		end
+	end
+
+	local specialWarningPrototype = {}
+	local mt = {__index = specialWarningPrototype}
 
 	function specialWarningPrototype:Show(...)
 		if DBM.Options.ShowSpecialWarnings and (not self.option or self.mod.Options[self.option]) and not moving and frame then
@@ -8039,9 +8195,9 @@ do
 			end
 			local msg = pformat(self.text, unpack(argTable))
 			local text = msg:gsub(">.-<", stripServerName)
+			DBM:AddSpecialWarning(text)
 			self.combinedcount = 0
 			self.combinedtext = {}
-			font:SetText(text)
 			if DBM.Options.ShowSWarningsInChat then
 				local colorCode = ("|cff%.2x%.2x%.2x"):format(DBM.Options.SpecialWarningFontCol[1] * 255, DBM.Options.SpecialWarningFontCol[2] * 255, DBM.Options.SpecialWarningFontCol[3] * 255)
 				self.mod:AddMsg(colorCode.."["..DBM_CORE_MOVE_SPECIAL_WARNING_TEXT.."] "..text.."|r", nil)
@@ -8061,9 +8217,6 @@ do
 					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol4[1],DBM.Options.SpecialWarningFlashCol4[2], DBM.Options.SpecialWarningFlashCol4[3], DBM.Options.SpecialWarningFlashDura4, DBM.Options.SpecialWarningFlashAlph3, repeatCount)
 				end
 			end
-			frame:Show()
-			frame:SetAlpha(1)
-			frame.timer = 5
 			--This callback sucks, it needs useful information for external mods to listen to it better, such as mod and spellid
 			fireEvent("DBM_Announce", msg)
 			if self.sound then
@@ -8424,63 +8577,6 @@ do
 		end
 	end
 
-	do
-		local anchorFrame
-		local function moveEnd()
-			moving = false
-			anchorFrame:Hide()
-			frame.timer = 1.5 -- fade out
-			frame:SetFrameStrata("HIGH")
-			DBM:Unschedule(moveEnd)
-			DBM.Bars:CancelBar(DBM_CORE_MOVE_SPECIAL_WARNING_BAR)
-		end
-
-		function DBM:MoveSpecialWarning()
-			if not anchorFrame then
-				anchorFrame = CreateFrame("Frame", nil, frame)
-				anchorFrame:SetWidth(32)
-				anchorFrame:SetHeight(32)
-				anchorFrame:EnableMouse(true)
-				anchorFrame:SetPoint("CENTER", 0, -32)
-				anchorFrame:RegisterForDrag("LeftButton")
-				anchorFrame:SetClampedToScreen()
-				anchorFrame:Hide()
-				local texture = anchorFrame:CreateTexture()
-				texture:SetTexture("Interface\\Addons\\DBM-GUI\\textures\\dot.blp")
-				texture:SetPoint("CENTER", anchorFrame, "CENTER", 0, 0)
-				texture:SetWidth(32)
-				texture:SetHeight(32)
-				anchorFrame:SetScript("OnDragStart", function()
-					frame:StartMoving()
-					self:Unschedule(moveEnd)
-					self.Bars:CancelBar(DBM_CORE_MOVE_SPECIAL_WARNING_BAR)
-				end)
-				anchorFrame:SetScript("OnDragStop", function()
-					frame:StopMovingOrSizing()
-					local point, _, _, xOfs, yOfs = frame:GetPoint(1)
-					self.Options.SpecialWarningPoint = point
-					self.Options.SpecialWarningX = xOfs
-					self.Options.SpecialWarningY = yOfs
-					self:Schedule(15, moveEnd)
-					self.Bars:CreateBar(15, DBM_CORE_MOVE_SPECIAL_WARNING_BAR)
-				end)
-			end
-			if anchorFrame:IsShown() then
-				moveEnd()
-			else
-				moving = true
-				anchorFrame:Show()
-				self:Schedule(15, moveEnd)
-				self.Bars:CreateBar(15, DBM_CORE_MOVE_SPECIAL_WARNING_BAR)
-				font:SetText(DBM_CORE_MOVE_SPECIAL_WARNING_TEXT)
-				frame:Show()
-				frame:SetFrameStrata("TOOLTIP")
-				frame:SetAlpha(1)
-				frame.timer = mhuge
-			end
-		end
-	end
-
 	local function testWarningEnd()
 		frame:SetFrameStrata("HIGH")
 	end
@@ -8489,13 +8585,10 @@ do
 		if moving then
 			return
 		end
-		font:SetText(DBM_CORE_MOVE_SPECIAL_WARNING_TEXT)
-		frame:Show()
-		frame:SetAlpha(1)
+		DBM:AddSpecialWarning(DBM_CORE_MOVE_SPECIAL_WARNING_TEXT)
 		frame:SetFrameStrata("TOOLTIP")
 		self:Unschedule(testWarningEnd)
-		self:Schedule(3, testWarningEnd)
-		frame.timer = 3
+		self:Schedule(self.Options.SpecialWarningDuration * 1.3, testWarningEnd)
 		self:PlaySpecialWarningSound(number)
 		if self.Options.ShowFlashFrame then
 			if number == 1 then
@@ -8581,7 +8674,7 @@ do
 		return schedule(t, self.Start, self.mod, self, ...)
 	end
 
-	function timerPrototype:Unschedule(t, ...)
+	function timerPrototype:Unschedule(...)
 		return unschedule(self.Start, self.mod, self, ...)
 	end
 
@@ -9022,6 +9115,20 @@ function bossModPrototype:AddRangeFrameOption(range, spellId, default)
 		self.localization.options["RangeFrame"] = DBM_CORE_AUTO_RANGE_OPTION_TEXT:format(range, spellId)
 	else
 		self.localization.options["RangeFrame"] = DBM_CORE_AUTO_RANGE_OPTION_TEXT_SHORT:format(range)
+	end
+end
+
+function bossModPrototype:AddHudMapOption(name, spellId, default)
+	self.DefaultOptions[name] = (default == nil) or default
+	if default and type(default) == "string" then
+		default = self:GetRoleFlagValue(default)
+	end
+	self.Options[name] = (default == nil) or default
+	self:SetOptionCategory(name, "misc")
+	if spellId then
+		self.localization.options[name] = DBM_CORE_AUTO_HUD_OPTION_TEXT:format(spellId)
+	else
+		self.localization.options[name] = DBM_CORE_AUTO_HUD_OPTION_TEXT_MULTI
 	end
 end
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1153, "DBM-Highmaul", nil, 477)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12676 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12955 $"):sub(12, -3))
 mod:SetCreatureID(79015)
 mod:SetEncounterID(1723)
 mod:SetZone()
@@ -86,6 +86,7 @@ mod:AddRangeFrameOption("5")
 mod:AddSetIconOption("SetIconOnMC", 163472, false)
 mod:AddSetIconOption("SetIconOnFel", 172895, false)
 mod:AddArrowOption("FelArrow", 172895, true, 3)
+mod:AddHudMapOption("HudMapOnMC", 163472)
 
 mod.vb.ballsCount = 0
 mod.vb.shieldCharging = false
@@ -93,6 +94,8 @@ mod.vb.fireActive = false
 local lastX, LastY = nil, nil--Not in VB table because it player personal position
 local barName = GetSpellInfo(156803)
 local arcaneDebuff = GetSpellInfo(162186)
+local DBMHudMap = DBMHudMap
+local MCMarkers={}
 
 local function closeRange(self)
 	if self.Options.RangeFrame and not UnitDebuff("player", arcaneDebuff) then
@@ -150,6 +153,10 @@ function mod:OnCombatStart(delay)
 	self:Schedule(29.5-delay, ballsWarning, self)
 	if self:IsMythic() then
 		timerExpelMagicFelCD:Start(5-delay)
+		if self.Options.HudMapOnMC then
+			table.wipe(MCMarkers)
+			self:EnableHudMap()
+		end
 	end
 	if DBM.BossHealth:IsShown() then--maybe need another option
 		DBM.BossHealth:AddBoss(function() return UnitPower("boss1", 10) end, barName)--Null Barrier health bar
@@ -162,6 +169,9 @@ function mod:OnCombatEnd()
 	end
 	if self.Options.FelArrow then
 		DBM.Arrow:Hide()
+	end
+	if self.Options.HudMapOnMC then
+		self:DisableHudMap()
 	end
 end
 
@@ -210,8 +220,7 @@ function mod:SPELL_CAST_START(args)
 		self:BossTargetScanner(79015, "FrostTarget", 0.1, 16)
 	elseif spellId == 163517 then
 		warnForfeitPower:Show()
-		local guid = args.sourceGUID
-		if (guid == UnitGUID("target")) or (guid == UnitGUID("focus")) then
+		if self:CheckInterruptFilter(args.sourceGUID) then
 			specWarnForfeitPower:Show(args.sourceName)
 		end
 	elseif spellId == 162186 then
@@ -282,6 +291,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.SetIconOnMC then
 			self:SetSortedIcon(1, args.destName, 8, nil, true)--TODO, find out number of targets and add
 		end
+		if self.Options.HudMapOnMC and not MCMarkers[args.destName] then
+			if DBM.Options.FilterSelfHud and args:IsPlayer() then return end
+			MCMarkers[args.destName] = self:RegisterMarker(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 3.5, 0, 1, 0, 0, 0.5):Pulse(0.5, 0.5))
+		end
 	elseif spellId == 172895 then
 		warnExpelMagicFel:CombinedShow(0.5, args.destName)
 		if args:IsPlayer() then
@@ -304,8 +317,13 @@ function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
 	if spellId == 162186 and args:IsPlayer() and self.Options.RangeFrame and not self.vb.fireActive then
 		DBM.RangeCheck:Hide()
-	elseif spellId == 163472 and self.Options.SetIconOnMC then
-		self:SetIcon(args.destName, 0)
+	elseif spellId == 163472 then
+		if self.Options.SetIconOnMC then
+			self:SetIcon(args.destName, 0)
+		end
+		if self.Options.HudMapOnMC and MCMarkers[args.destName] then
+			MCMarkers[args.destName] = self:FreeMarker(MCMarkers[args.destName])
+		end
 	elseif spellId == 172895 then
 		if args:IsPlayer() then
 			lastX, LastY = nil, nil
@@ -348,7 +366,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 		--Fire https://www.warcraftlogs.com/reports/kDzfJ812QZgpwa9h#view=events&pins=2%24Off%24%23244F4B%24expression%24ability.id+%3D+162185+and+type+%3D+%22begincast%22+or+ability.id+%3D+156803+and+(type+%3D+%22applybuff%22+or+type+%3D+%22removebuff%22)&fight=12
 		--https://www.warcraftlogs.com/reports/Wj4MnfLQ8t3HzFgy#fight=10&type=summary&view=events&pins=2%24Off%24%23244F4B%24expression%24ability.id+%3D+162185+and+type+%3D+%22begincast%22+or+ability.id+%3D+156803+and+(type+%3D+%22applybuff%22+or+type+%3D+%22removebuff%22)
-		local fireRemaining = timerExpelMagicArcaneCD:GetRemaining()
+		local fireRemaining = timerExpelMagicFireCD:GetRemaining()
 		if fireRemaining > 0 then--Basically, a 0 0 check.
 			timerExpelMagicFireCD:Start(fireRemaining+27)--Note the difference, shadow is +27-30 not +23-26
 		end

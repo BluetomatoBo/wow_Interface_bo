@@ -18,7 +18,7 @@
 ## X-DBM-Mod-Sort: 101
 ## X-DBM-Mod-MapID: 1205
 ## X-DBM-Mod-MinCoreRevision: 12473
-## X-Curse-Packaged-Version: 6.0.15
+## X-Curse-Packaged-Version: 6.0.16
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline
@@ -30,12 +30,12 @@ localization.tw.lua
 localization.cn.lua
 Gruul.lua
 Oregorger.lua
-BlastFurnace.lua
 HansgarAndFranzok.lua
-Kagraz.lua
-Kromog.lua
 Darmac.lua
 Thogar.lua
+Kagraz.lua
+Kromog.lua
+BlastFurnace.lua
 IronMaidens.lua
 Blackhand.lua
 BlackrockFoundryTrash.lua

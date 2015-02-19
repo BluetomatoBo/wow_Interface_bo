@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1123, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12715 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12912 $"):sub(12, -3))
 mod:SetCreatureID(76814)--76794 Cinder Wolf, 80590 Aknor Steelbringer
 mod:SetEncounterID(1689)
 mod:SetZone()
@@ -13,9 +13,9 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 155776 155074",
 	"SPELL_AURA_APPLIED 155277 155493 154952 163284 155074 154932 154950",
 	"SPELL_AURA_APPLIED_DOSE 163284 155074",
-	"SPELL_AURA_REMOVED 155277 154932 154950 154952",
+	"SPELL_AURA_REMOVED 155277 154932 154950 154952 155493",
 	"SPELL_PERIODIC_DAMAGE 155314",
-	"SPELL_PERIODIC_MISSED 155314",
+	"SPELL_ABSORBED 155314",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
@@ -43,6 +43,7 @@ local specWarnFixateEnded				= mod:NewSpecialWarningEnd(154952, false)
 local specWarnBlazinRadiance			= mod:NewSpecialWarningMoveAway(155277, nil, nil, nil, nil, nil, 2)
 local yellBlazinRadiance				= mod:NewYell(155277, nil, false)
 local specWarnFireStorm					= mod:NewSpecialWarningSpell(155493, nil, nil, nil, 2, nil, 2)
+local specWarnFireStormEnded			= mod:NewSpecialWarningEnd(155493)
 local specWarnRisingFlames				= mod:NewSpecialWarningStack(163284, nil, 10)--stack guessed
 local specWarnRisingFlamesOther			= mod:NewSpecialWarningTaunt(163284, nil, nil, nil, nil, nil, 2)
 local specWarnCharringBreath			= mod:NewSpecialWarningStack(155074, nil, 3)--Assumed based on timing and casts, that you swap every breath.
@@ -58,6 +59,7 @@ local timerCharringBreathCD				= mod:NewNextTimer(5, 155074, nil, "Tank")
 local timerFixate						= mod:NewTargetTimer(10, 154952, nil, false)--Spammy, can't combine them because of wolves will desync if players die.
 local timerBlazingRadianceCD			= mod:NewCDTimer(12, 155277, nil, false)--somewhat important but not important enough. there is just too much going on to be distracted by this timer
 local timerFireStormCD					= mod:NewNextTimer(63, 155493)
+local timerFireStorm					= mod:NewBuffActiveTimer(12, 155493)
 
 local countdownCinderWolves				= mod:NewCountdown(74, 155776)
 local countdownFireStorm				= mod:NewCountdown(63, 155493)--Same voice as wolves cause never happen at same time, in fact they alternate.
@@ -135,6 +137,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 155493 then
 		specWarnFireStorm:Show()
 		timerBlazingRadianceCD:Cancel()
+		timerFireStorm:Start()
 		timerMoltenTorrentCD:Start(44)
 		timerSummonCinderWolvesCD:Start()
 		countdownCinderWolves:Start()
@@ -143,8 +146,12 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnFixate:CombinedShow(0.5, args.destName)
 		timerFixate:Start(args.destName)
 		if args:IsPlayer() then
-			specWarnFixate:Show()--Are these kited? add a run away sound?
-			voiceFixate:Play("justrun")
+			--Schedule, do to dogs changing mind bug
+			specWarnFixate:Schedule(0.5)
+			voiceFixate:Schedule(0.5, "justrun")
+			if self:AntiSpam(1, 2) then
+				--Nothing. Just a timestamp
+			end
 		end
 	elseif spellId == 163284 then
 		local amount = args.amount or 1
@@ -205,7 +212,6 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
 	if spellId == 155277 and args:IsPlayer() then
-		specWarnBlazinRadiance:Show()
 		if self.Options.RangeFrame then
 			if self:IsRanged() then
 				DBM.RangeCheck:Show(6)
@@ -224,20 +230,28 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerOverheated:Cancel(args.destName)
 		countdownOverheated:Cancel()
 	elseif spellId == 154952 then
+		warnFixate:Cancel()--Not a bug. do to blizzards crap code, have to cancel ANY pending fixate combinedshow if removed fires, because dogs are probably changing targets and we'll get a fresh target list right after
 		timerFixate:Cancel(args.destName)
 		if args:IsPlayer() then
-			specWarnFixateEnded:Show()
+			--Cancel scheduled warnings if REMOVED fires on player within 0.5 seconds of applied, do to dogs changing mind bug
+			specWarnFixate:Cancel()
+			voiceFixate:Cancel()
+			if self:AntiSpam(1, 2) then--And, avoid firing this warning on a dog changed mind bug as well
+				specWarnFixateEnded:Show()
+			end
 		end
+	elseif spellId == 155493 then
+		specWarnFireStormEnded:Show()
 	end
 end
 
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, destName, _, _, spellId)
-	if spellId == 155314 and destGUID == UnitGUID("player") and self:AntiSpam() then
+	if spellId == 155314 and destGUID == UnitGUID("player") and self:AntiSpam(2.5, 1) then
 		specWarnLavaSlash:Show()
 		voiceLavaSlash:Play("runaway")
 	end
 end
-mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
+mod.SPELL_ABSORBED = mod.SPELL_PERIODIC_DAMAGE
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 163644 then
@@ -254,3 +268,39 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		timerLavaSlashCD:Start()
 	end
 end
+
+--[[
+Blizzard dog fixate bugs.
+--Good Fixate
+"<223.35 14:20:47> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0000DBAB80#Cinder Wolf#Player-84-061B9D28#Tenebear#154952#Fixate#DEBUFF#nil", -- [8683]
+"<223.35 14:20:47> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-00015BAB80#Cinder Wolf#Player-84-061BBF60#Fedor#154952#Fixate#DEBUFF#nil", -- [8684]
+"<223.35 14:20:47> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0001DBAB80#Cinder Wolf#Player-84-061BBF60#Fedor#154952#Fixate#DEBUFF#nil",
+"<223.82 14:20:48> DBM_Announce#Fixate on >Tenebear<, >Fedor<", -- [20]
+--Good Fixate
+"<233.36 14:20:57> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0000DBAB80#Cinder Wolf#Player-84-07146D45#Skrabble#154952#Fixate#DEBUFF#nil", -- [9682]
+"<233.36 14:20:57> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-00015BAB80#Cinder Wolf#Player-84-06170BC0#Hauntd#154952#Fixate#DEBUFF#nil", -- [9683]
+"<233.36 14:20:57> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0001DBAB80#Cinder Wolf#Player-84-061C0456#Gligz#154952#Fixate#DEBUFF#nil", -- [
+"<233.87 14:20:58> DBM_Announce#Fixate on >Skrabble<, >Hauntd<, >Gligz<", -- [23]
+--Bad Fixate (dogs changed mind and switched targets 0.04 seconds after picking first targets
+"<243.35 14:21:07> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0000DBAB80#Cinder Wolf#Player-84-061C0456#Gligz#154952#Fixate#DEBUFF#nil", -- [10795]
+"<243.35 14:21:07> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-00015BAB80#Cinder Wolf#Player-84-061B9D28#Tenebear#154952#Fixate#DEBUFF#nil", -- [10796]
+"<243.35 14:21:07> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0001DBAB80#Cinder Wolf#Player-84-061C0E66#Will#154952#Fixate#DEBUFF#nil", -- [1
+"<243.39 14:21:07> [CLEU] SPELL_AURA_REMOVED#Creature-0-3017-1205-30555-76794-00015BAB80#Cinder Wolf#Player-84-061B9D28#Tenebear#154952#Fixate#DEBUFF#nil", -- [10810]
+"<243.39 14:21:07> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-00005BAB80#Overheated Cinder Wolf#Player-84-0714763A#Hartlin#154952#Fixate#DEBUFF#nil", -- [10811]
+"<243.39 14:21:07> [CLEU] SPELL_AURA_REMOVED#Creature-0-3017-1205-30555-76794-0000DBAB80#Cinder Wolf#Player-84-061C0456#Gligz#154952#Fixate#DEBUFF#nil", -- [10812]
+"<243.39 14:21:07> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0000DBAB80#Cinder Wolf#Player-84-07146D45#Skrabble#154952#Fixate#DEBUFF#nil", -- [10813]
+"<243.39 14:21:07> [CLEU] SPELL_AURA_REMOVED#Creature-0-3017-1205-30555-76794-0001DBAB80#Cinder Wolf#Player-84-061C0E66#Will#154952#Fixate#DEBUFF#nil", -- [10814]
+"<243.39 14:21:07> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0001DBAB80#Cinder Wolf#Player-84-0714763A#Hartlin#154952#Fixate#DEBUFF#nil", -- [10815]
+"<243.88 14:21:08> DBM_Announce#Fixate on >Gligz<, >Tenebear<, >Will<, >Hartlin<, >Skrabble<", -- [29]
+--Bad Fixate (dogs changed mind and switched targets 0.02 seconds after picking first targets
+"<253.39 14:21:17> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0000DBAB80#Cinder Wolf#Player-84-061C0456#Gligz#154952#Fixate#DEBUFF#nil", -- [11819]
+"<253.39 14:21:17> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-00005BAB80#Cinder Wolf#Player-84-061BDB6C#Zarastro#154952#Fixate#DEBUFF#nil", -- [11820]
+"<253.39 14:21:17> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0001DBAB80#Cinder Wolf#Player-84-061C0E66#Will#154952#Fixate#DEBUFF#nil", -- [11821]
+"<253.41 14:21:17> [CLEU] SPELL_AURA_REMOVED#Creature-0-3017-1205-30555-76794-00005BAB80#Cinder Wolf#Player-84-061BDB6C#Zarastro#154952#Fixate#DEBUFF#nil", -- [11825]
+"<253.41 14:21:17> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-00005BAB80#Cinder Wolf#Player-84-061C0E66#Will#154952#Fixate#DEBUFF#nil", -- [11826]
+"<253.41 14:21:17> [CLEU] SPELL_AURA_REMOVED#Creature-0-3017-1205-30555-76794-0000DBAB80#Cinder Wolf#Player-84-061C0456#Gligz#154952#Fixate#DEBUFF#nil", -- [11827]
+"<253.41 14:21:17> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0000DBAB80#Cinder Wolf#Player-84-07148F4E#Zevoa#154952#Fixate#DEBUFF#nil", -- [11828]
+"<253.41 14:21:17> [CLEU] SPELL_AURA_REMOVED#Creature-0-3017-1205-30555-76794-0001DBAB80#Cinder Wolf#Player-84-061C0E66#Will#154952#Fixate#DEBUFF#nil", -- [11829]
+"<253.41 14:21:17> [CLEU] SPELL_AURA_APPLIED#Creature-0-3017-1205-30555-76794-0001DBAB80#Cinder Wolf#Player-84-07148F4E#Zevoa#154952#Fixate#DEBUFF#nil", -- [11830]
+"<253.93 14:21:18> DBM_Announce#Fixate on >Gligz<, >Zarastro<, >Will<, >Zevoa<", -- [34]
+--]]
