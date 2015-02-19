@@ -1,9 +1,27 @@
 ------------------------------------------------------------------------
-r519 | tiker | 2015-02-10 02:58:40 +0000 (Tue, 10 Feb 2015) | 1 line
+r523 | tiker | 2015-02-18 01:41:22 +0000 (Wed, 18 Feb 2015) | 1 line
 Changed paths:
-   A /tags/6.0.18 (from /trunk:518)
+   A /tags/6.0.19 (from /trunk:522)
 
-Tagging as 6.0.18
+Tagging as 6.0.19
+------------------------------------------------------------------------
+r522 | tiker | 2015-02-18 01:41:04 +0000 (Wed, 18 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+TOC version updated to 6.0.19 for release
+------------------------------------------------------------------------
+r521 | tiker | 2015-02-18 01:38:32 +0000 (Wed, 18 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Fixed problem where GoGoMount would summon ground mounts only the first time after zoning from a non-flyable area to a flyable area.
+------------------------------------------------------------------------
+r520 | tiker | 2015-02-10 03:01:18 +0000 (Tue, 10 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Just a comment in the code... no functionality change
 ------------------------------------------------------------------------
 r518 | tiker | 2015-02-10 02:57:48 +0000 (Tue, 10 Feb 2015) | 1 line
 Changed paths:

@@ -362,11 +362,12 @@ function GoGo_ChooseMount()
 		GoGo_DebugAddLine("GoGo_ChooseMount: ** Searched all areas for mounts and found " .. (table.getn(GoGo_Variables.FilteredMounts) or 0) .. " mounts.")
 	end --if
 
+	GoGo_ZoneCheck()  -- Checking to see what we can and can not do in zones
+
 	if GoGo_Prefs.AutoExcludeFlyingMounts and not GoGo_Variables.ZoneExclude.CanFly then
 		GoGo_Variables.SkipFlyingMount = true
 	end --if
 
-	GoGo_ZoneCheck()  -- Checking to see what we can and can not do in zones
 	GoGo_UpdateMountData()  -- update mount information with changes from talents, glyphs, etc.
 
 	if GoGo_Variables.EngineeringLevel <= 299 then
@@ -803,7 +804,7 @@ function GoGo_BuildMountList()
 					if GoGo_Variables.Debug >= 10 then 
 						GoGo_DebugAddLine("GoGo_BuildMountList: " .. SpellID .. " has been added to the list of mounts available.")
 					end --if
-					table.insert(GoGo_MountList, SpellID)
+					table.insert(GoGo_MountList, SpellID)  -- copy this line to the 'else' statement below to find new mounts on the ptr
 			else
 					if GoGo_Variables.Debug >= 10 then 
 						GoGo_DebugAddLine("GoGo_BuildMountList: " .. SpellID .. " has not been added to the list of mounts available.")
