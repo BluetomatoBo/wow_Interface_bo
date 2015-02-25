@@ -1,3 +1,6 @@
+[b]2.07[/b]
+*toc update for WoD 6.1
+
 [b]2.06[/b]
 *Fixed main panel layering level when placed above minimap.
 *LibTourist update to 6r1
