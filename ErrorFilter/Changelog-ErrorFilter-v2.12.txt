@@ -1,0 +1,12 @@
+tag v2.12
+ef0d04cd69846291f34388d539f581264e3455b1
+Ciprian Mihai Coman <ciprianmihai.coman@gmail.com>
+2015-02-25 07:59:48 +0200
+
+Tag as v2.12
+
+
+--------------------
+
+Ciprian Mihai Coman:
+	- update interface for patch 6.1
