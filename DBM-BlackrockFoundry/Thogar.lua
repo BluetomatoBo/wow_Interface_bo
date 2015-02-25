@@ -1,11 +1,12 @@
 local mod	= DBM:NewMod(1147, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12936 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 12994 $"):sub(12, -3))
 mod:SetCreatureID(76906)--81315 Crack-Shot, 81197 Raider, 77487 Grom'kar Firemender, 80791 Grom'kar Man-at-Arms, 81318 Iron Gunnery Sergeant, 77560 Obliterator Cannon, 81612 Deforester
 mod:SetEncounterID(1692)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 2, 1)
+mod:SetHotfixNoticeRev(12936)
 
 mod:RegisterCombat("combat")
 
@@ -51,6 +52,8 @@ local timerTrainCD					= mod:NewNextCountTimer("d15", 176312)
 --local timerCauterizingBoltCD		= mod:NewNextTimer(30, 160140)
 local timerIronbellowCD				= mod:NewCDTimer(10, 163753)
 
+local berserkTimer					= mod:NewBerserkTimer(492)
+
 local countdownTrain				= mod:NewCountdown(5, 176312)
 
 local voiceTrain					= mod:NewVoice(176312) --see mythicVoice{} otherVoice{} tables for more details
@@ -61,7 +64,7 @@ mod:AddSetIconOption("SetIconOnAdds", "ej9549", false, true)
 
 mod.vb.trainCount = 0
 mod.vb.infoCount = 0
-local GetTime = GetTime
+local GetTime, UnitPosition = GetTime, UnitPosition
 local MovingTrain = GetSpellInfo(176312)
 local Train = GetSpellInfo(174806)
 local Cannon = GetSpellInfo(62357)
@@ -106,10 +109,12 @@ local mythicTrains = {
 	[29] = { [1] = Train, [4] = Train },--+20 after 28.(06:47) (1 train is guessed)
 	[30] = { [1] = Reinforcements, [4] = Deforester },--+15 after 29.(07:02)
 	[31] = { [2] = Train },--+10 after 30.(07:12)
-	[32] = { [3] = Deforester },--+10 after 31.(07:22)
-	[33] = { [2] = Train },--+5 after 32.(07:27) (not correctly saw)
-	[34] = { [1] = ManOArms },--+15 after 33.(07:42)
-	[35] = { ["specialw"] = L.threeTrains, ["speciali"] = L.threeRandom, [1] = Train, [2] = Train, [3] = Train, [4] = Train },--+10 after 34.(07:52) (or 1,3 train?)
+	[32] = { [1] = Train },--+5 after 31.(07:17)
+	[33] = { [3] = Deforester },--+5 after 32.(07:22)
+	[34] = { [2] = Train },--+10 after 33.(07:32)
+	[35] = { [1] = ManOArms },--+10 after 34.(07:42)
+	[36] = { ["specialw"] = L.threeTrains, ["speciali"] = L.threeRandom, [1] = Train, [2] = Train, [3] = Train, [4] = Train },--+10 after 35.(07:52)
+	[37] = { [1] = Train, [2] = Train, [3] = Train, [4] = Train },--+15 after 36.(08:07)--berserk.
 }
 
 --https://www.youtube.com/watch?v=yUgrmvksk7g
@@ -149,6 +154,7 @@ local otherTrains = {
 	[32] = { [3] = Train },--+4 after 31 (8:01)
 	[33] = { [2] = Train },--+4 after 32 (8:05)
 	[34] = { [1] = Train },--+4 after 33 (8:09)
+	[35] = { [1] = Train, [2] = Train, [3] = Train, [4] = Train },--+? after 34 (8:??)
 }
 
 local function fakeTrainYell(self)
@@ -197,10 +203,11 @@ local mythicVoice = {
 	[29] = "A14",
 	[30] = "B1E4",
 	[31] = "A2",
-	[32] = "E3",
-	[33] = "A2",
-	[34] = "D1",
-	[35] = "F",--need to review
+	[32] = "A1",
+	[33] = "E3",
+	[34] = "A2",
+	[35] = "D1",
+	[36] = "F",--need to review
 }
 
 local otherVoice = {
@@ -273,11 +280,8 @@ local function showTrainWarning(self)
 	warnTrain:Show(train, text)
 end
 
-local function laneCheck(self)
+local function lanePos()
 	local posX = UnitPosition("player")--room is perfrect square, y coord not needed.
-	local train = self.vb.trainCount
-	local trainTable = self:IsMythic() and mythicTrains or otherTrains
-	if not trainTable[train] then return end
 	local playerLane
 	-- map coord from http://mysticalos.com/images/DBM/ThogarData/1.jpeg http://mysticalos.com/images/DBM/ThogarData/2.jpeg http://mysticalos.com/images/DBM/ThogarData/3.jpeg http://mysticalos.com/images/DBM/ThogarData/4.jpeg
 	if posX > 577.8 then
@@ -289,7 +293,14 @@ local function laneCheck(self)
 	else
 		playerLane = 4
 	end
-	if trainTable[train][playerLane] then
+	return playerLane
+end
+
+local function laneCheck(self)
+	local trainTable = self:IsMythic() and mythicTrains or otherTrains
+	local train = self.vb.trainCount
+	local playerLane = lanePos()
+	if trainTable[train] and trainTable[train][playerLane] then
 		specWarnTrain:Show()
 	end
 end
@@ -297,7 +308,7 @@ end
 local lines = {}
 
 local function sortInfoFrame(a, b)
-	local rexp = "^"..L.lane.." ".."%d"
+	local rexp = L.lane.." ".."%d"
 	local c = string.match(a, rexp)
 	local d = string.match(b, rexp)
 	if c and not d then
@@ -316,11 +327,13 @@ local function updateInfoFrame()
 	local train = mod.vb.infoCount
 	local trainTable = mod:IsMythic() and mythicTrains or otherTrains
 	if trainTable[train] then
+		local playerLane = lanePos()
 		for i = 1, 4 do
+			local lanetext = (playerLane == i and "|cff00ffff" or "")..L.lane.." "..i..(playerLane == i and "|r" or "")
 			if trainTable[train][i] then
-				lines[L.lane.." "..i] = trainTable[train][i]
+				lines[lanetext] = trainTable[train][i]
 			else
-				lines[L.lane.." "..i] = ""
+				lines[lanetext] = ""
 			end
 		end
 		if trainTable[train]["speciali"] then
@@ -340,11 +353,12 @@ local function showInfoFrame()
 	end
 end
 
+--/run DBM:GetModByName(1147):test(4)
 function mod:test(num)
 	self.vb.trainCount = num
 	showTrainWarning(self)
-	DBM.InfoFrame:SetHeader(MovingTrain.." ("..(self.vb.trainCount + 1)..")")
-	DBM.InfoFrame:Show(5, "function", updateInfoFrame, sortInfoFrame)
+	laneCheck(self)
+	showInfoFrame()
 end
 
 function mod:BombTarget(targetname, uId)
@@ -369,6 +383,7 @@ function mod:OnCombatStart(delay)
 	if self:IsMythic() then
 		self:Schedule(9.5, fakeTrainYell, self)
 		timerTrainCD:Start(12-delay, 1)
+		berserkTimer:Start()
 	else
 		self:Schedule(14.5, fakeTrainYell, self)
 		timerTrainCD:Start(17-delay, 1)
@@ -436,7 +451,8 @@ function mod:UNIT_DIED(args)
 end
 
 function mod:CHAT_MSG_MONSTER_YELL(msg, npc, _, _, target)
-	if target == L.Train then
+	local trainLimit = self:IsMythic() and 37 or 35
+	if target == L.Train and self.vb.trainCount <= trainLimit then
 		local adjusted = (GetTime() - fakeYellTime) < 2-- yell followed by fakeyell within 2 sec. this should realyell of scheduled fakeyell. so do not increase count and only do adjust.
 		self:Unschedule(fakeTrainYell)--Always unschedule
 		if not adjusted then--do not adjust visible warn to prevent confusing. (although fakeyell worked early, maximum 3.5 sec. this is no matter. only adjust scheduled things.)
@@ -462,11 +478,11 @@ function mod:CHAT_MSG_MONSTER_YELL(msg, npc, _, _, target)
 				voiceTrain:Play("Thogar\\"..mythicVoice[count])
 			end
 			local expectedTime
-			if count == 1 or count == 2 or count == 11 or count == 12 or count == 13 or count == 25 or count == 26 or count == 32 then
+			if count == 1 or count == 2 or count == 11 or count == 12 or count == 13 or count == 25 or count == 26 or count == 31 or count == 32 then
 				expectedTime = 5
-			elseif count == 6 or count == 14 or count == 22 or count == 30 or count == 31 or count == 34 then
+			elseif count == 6 or count == 14 or count == 22 or count == 30 or count == 33 or count == 34 or count == 35 then
 				expectedTime = 10
-			elseif count == 3 or count == 5 or count == 7 or count == 8 or count == 16 or count == 17 or count == 20 or count == 23 or count == 24 or count == 29 or count == 33 then
+			elseif count == 3 or count == 5 or count == 7 or count == 8 or count == 16 or count == 17 or count == 20 or count == 23 or count == 24 or count == 29 then
 				expectedTime = 15
 				if count == 20 then
 					specWarnSplitSoon:Cancel()
@@ -489,12 +505,13 @@ function mod:CHAT_MSG_MONSTER_YELL(msg, npc, _, _, target)
 				self:Schedule(expectedTime + 1.5, fakeTrainYell, self)--Schedule fake yell 1.5 seconds after we should have seen one.
 				timerTrainCD:Unschedule(count+1)
 				timerTrainCD:Schedule(5, expectedTime, count+1)
-			else
-				print("Train Set: "..count..". DBM has no train data beyond this point. Send us videos if you can.")
-				timerTrainCD:Start(5, count)
 			end
 			if (count == 1 or count == 18 or count == 21 or count == 34) and not adjusted then
 				specWarnManOArms:Show()
+				if self.Options.SetIconOnAdds then
+					self:ScanForMobs(80791, 0, 8, 2, 0.2, 15)--Man At Arms scanner marking 8 down
+					self:ScanForMobs(77487, 1, 1, 2, 0.2, 15)--Fire Mender scanner marking 1 up
+				end
 			end
 		else
 			if otherVoice[count] and not adjusted then
@@ -534,9 +551,6 @@ function mod:CHAT_MSG_MONSTER_YELL(msg, npc, _, _, target)
 				self:Schedule(expectedTime + 1.5, fakeTrainYell, self)--Schedule fake yell 1.5 seconds after we should have seen one.
 				timerTrainCD:Unschedule(count+1)
 				timerTrainCD:Schedule(5, expectedTime, count+1)
-			else
-				print("Train Set: "..count..". DBM has no train data beyond this point. Send us videos if you can.")
-				timerTrainCD:Start(5, count)--Show timer for incoming train for current yell if we have no data for next
 			end
 			if (count == 7 or count == 17 or count == 23 or count == 28) and not adjusted then--I'm sure they spawn again sometime later, find that data
 				specWarnManOArms:Show()

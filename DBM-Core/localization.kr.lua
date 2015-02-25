@@ -131,7 +131,7 @@ DBM_CORE_VERSIONCHECK_OUTDATED		= "구버전 애드온 사용중: %d명 - %s"
 DBM_CORE_YOUR_VERSION_OUTDATED      = "사용중인 DBM 버전이 오래되었습니다! DBM 사용자 포럼에 오셔서 최신 버전을 다운로드 받으세요."
 DBM_CORE_VOICE_PACK_OUTDATED		= "현재 설치되어 있는 음성안내는 이 버전의 DBM에서 지원하는 음성 중 일부가 빠져 있습니다. 특수 경고 소리 끄기 기능이 비활성화 됩니다. 음성안내의 새 버전을 설치하시거나 음성안내 제작자에게 문의하여 업데이트가 가능한지 확인바랍니다."
 DBM_CORE_VOICE_MISSING				= "설정되어 있는 음성안내를 찾을 수 없습니다. 음성안내 설정이 'None' 으로 초기화 됩니다. 이 메세지가 오류라고 생각되면, 음성안내가 제대로 설치되어 있고 애드온 목록에서 활성화 되어 있는지 확인해 보시기 바랍니다."
-DBM_CORE_VOICE_COUNT_MISSING		= "%d번째 초세기 소리 설정이 설정되어 있는 음성안내와 맞지 않습니다. 기본 설정으로 초기화 됩니다."
+DBM_CORE_VOICE_COUNT_MISSING		= "%d번째 초세기 소리를 음성안내 또는 초세기 애드온에서 찾을 수 없습니다. 기본 설정으로 초기화 됩니다."
 --DBM_BIG_WIGS (Same as English locales)
 --DBM_BIG_WIGS_ALPHA (Same as English locales)
 
@@ -220,7 +220,9 @@ DBM_CORE_ANNOUNCE_BREAK_OVER		= "쉬는시간이 종료되었습니다."
 DBM_CORE_TIMER_PULL					= "전투 예정"
 DBM_CORE_ANNOUNCE_PULL				= "%d초 뒤 시작 합니다. (%s|1이;가; 보냄)"
 DBM_CORE_ANNOUNCE_PULL_NOW			= "시작합니다. 긴장하세요.!"
-DBM_CORE_GEAR_WARNING				= "경고: 착용 장비를 확인하세요. 착용 장비 레벨이 가방 장비 레벨보다 %d 낮습니다."
+DBM_CORE_GEAR_WARNING				= "경고: 장비를 확인하세요. 착용 장비가 최대 아이템 레벨보다 %d 낮습니다."
+DBM_CORE_GEAR_WARNING_WEAPON		= "경고: 주 장비가 제대로 장착되어 있는지 확인하세요."
+DBM_CORE_GEAR_FISHING_POLE			= "낚싯대"
 
 DBM_CORE_ACHIEVEMENT_TIMER_SPEED_KILL = "Speed Kill(업적)"--BATTLE_PET_SOURCE_6
 
@@ -346,7 +348,9 @@ DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT		= "$spell:%s 이전에 초세기 듣기"
 DBM_CORE_AUTO_COUNTDOWN_OPTION_TEXT2	= "$spell:%s 남은시간 초세기 듣기"
 DBM_CORE_AUTO_COUNTOUT_OPTION_TEXT		= "$spell:%s 진행시간 초세기 듣기"
 DBM_CORE_AUTO_YELL_OPTION_TEXT			= "$spell:%s 대상이 된 경우 대화로 알리기"
-DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT		= UnitName("player").."에게 %s!"
+DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT.yell	= UnitName("player").."에게 %s!"
+DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT.count	= UnitName("player").."에게 %s! (%%d)"
+DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT.fade	= "%s %%d초 후 사라짐!"
 DBM_CORE_AUTO_HUD_OPTION_TEXT			= "$spell:%s 범위 정보를 화면에서 보기"
 DBM_CORE_AUTO_HUD_OPTION_TEXT_MULTI		= "다양한 범위 정보를 화면에서 보기"
 DBM_CORE_AUTO_RANGE_OPTION_TEXT			= "$spell:%2$s 관련 거리 창 보기(%1$sm)"

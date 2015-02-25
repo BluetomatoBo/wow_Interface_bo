@@ -1,11 +1,12 @@
 local mod	= DBM:NewMod(959, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12955 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13059 $"):sub(12, -3))
 mod:SetCreatureID(77325)--68168
 mod:SetEncounterID(1704)
 mod:SetZone()
 mod:SetUsedIcons(2, 1)
+mod:SetHotfixNoticeRev(12813)
 
 mod:RegisterCombat("combat")
 
@@ -24,7 +25,7 @@ mod:RegisterEventsInCombat(
 --Stage One: The Blackrock Forge
 local warnMarkedforDeath			= mod:NewTargetAnnounce(156096, 4)--If not in combat log, find a RAID_BOSS_WHISPER event.
 --Stage Two: Storage Warehouse
-local warnSiegemaker				= mod:NewSpellAnnounce("ej9571", 3, 156667)
+local warnSiegemaker				= mod:NewCountAnnounce("ej9571", 3, 156667)
 local warnFixate					= mod:NewTargetAnnounce(156653, 4)
 --Stage Three: Iron Crucible
 local warnAttachSlagBombs			= mod:NewTargetAnnounce(157000, 4)
@@ -32,13 +33,14 @@ local warnAttachSlagBombs			= mod:NewTargetAnnounce(157000, 4)
 --Stage One: The Blackrock Forge
 local specWarnDemolition			= mod:NewSpecialWarningSpell(156425, nil, nil, nil, 2, nil, 2)
 local specWarnMarkedforDeath		= mod:NewSpecialWarningYou(156096, nil, nil, nil, 3, nil, 2)
+local specWarnMarkedforDeathOther	= mod:NewSpecialWarningTarget(156096, false)
 local yellMarkedforDeath			= mod:NewYell(156096)
 local specWarnThrowSlagBombs		= mod:NewSpecialWarningMove(156030, nil, nil, nil, nil, nil, 2)
 local specWarnShatteringSmash		= mod:NewSpecialWarningCount(155992, "Melee", nil, nil, nil, nil, 2)
 local specWarnMoltenSlag			= mod:NewSpecialWarningMove(156401)
 --Stage Two: Storage Warehouse
-local specWarnSiegemaker			= mod:NewSpecialWarningSpell("ej9571", false)--Kiter switch. off by default. 
-local specWarnSiegemakerPlatingFades= mod:NewSpecialWarningFades(156667, "Dps")--Plating removed, NOW dps switch
+local specWarnSiegemaker			= mod:NewSpecialWarningCount("ej9571", false)--Kiter switch. off by default. 
+local specWarnSiegemakerPlatingFades= mod:NewSpecialWarningFades("OptionVersion2", 156667, "Ranged")--Plating removed, NOW dps switch
 local specWarnFixate				= mod:NewSpecialWarningRun(156653, nil, nil, nil, 4)
 local yellFixate					= mod:NewYell(156653)
 --Stage Three: Iron Crucible
@@ -57,7 +59,7 @@ local timerShatteringSmashCD		= mod:NewCDCountTimer(45.5, 155992)--power based, 
 local timerImpalingThrow			= mod:NewCastTimer(5, 156111)--How long marked target has to aim throw at Debris Pile or Siegemaker
 --Stage Two: Storage Warehouse
 mod:AddTimerLine(SCENARIO_STAGE:format(2))
-local timerSiegemakerCD				= mod:NewNextTimer(50, "ej9571", nil, nil, nil, 156667)
+local timerSiegemakerCD				= mod:NewNextCountTimer(50, "ej9571", nil, nil, nil, 156667)
 --Stage Three: Iron Crucible
 mod:AddTimerLine(SCENARIO_STAGE:format(3))
 local timerSlagEruptionCD			= mod:NewCDCountTimer(32.5, 156928)
@@ -70,7 +72,7 @@ local countdownMarkedforDeath		= mod:NewCountdown("AltTwo25", 156096, "-Tank")
 local countdownMarkedforDeathFades	= mod:NewCountdownFades("AltTwo5", 156096)--Same voice should be fine, never will overlap, and both for same spell, so people will understand
 
 local voicePhaseChange				= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_TEXT)
-local voiceSiegemaker				= mod:NewVoice("ej9571", "Dps") -- ej9571.ogg tank coming
+local voiceSiegemaker				= mod:NewVoice("OptionVersion2", "ej9571", "Ranged") -- ej9571.ogg tank coming
 local voiceShatteringSmash			= mod:NewVoice(155992, "Melee") --carefly
 local voiceMarkedforDeath			= mod:NewVoice(156096) --target: findshelter; else: 156096.ogg marked for death
 local voiceDemolition				= mod:NewVoice(156425) --AOE
@@ -84,9 +86,25 @@ mod:AddHudMapOption("HudMapOnMFD", 156096)
 mod.vb.phase = 1
 mod.vb.SlagEruption = 0
 mod.vb.smashCount = 0
-local UnitDebuff = UnitDebuff
+mod.vb.siegemaker = 0
+local smashTank = nil
+local UnitDebuff, UnitName = UnitDebuff, UnitName
 local DBMHudMap = DBMHudMap
-local MFDMarkers={}
+local tankFilter
+do
+	tankFilter = function(uId)
+		if UnitName(uId) == smashTank then
+			return true
+		end
+	end
+end
+
+local function massiveOver(self)
+	smashTank = nil
+	if not UnitDebuff("player", GetSpellInfo(157000)) and not UnitDebuff("player", GetSpellInfo(159179)) then
+		DBM.RangeCheck:Hide()
+	end
+end
 
 function mod:OnCombatStart(delay)
 	self.vb.phase = 1
@@ -102,18 +120,16 @@ function mod:OnCombatStart(delay)
 	timerMarkedforDeathCD:Start(36-delay)
 	countdownMarkedforDeath:Start(36-delay)
 	if self.Options.HudMapOnMFD then
-		table.wipe(MFDMarkers)
-		self:EnableHudMap()
+		DBMHudMap:Enable()
 	end
 end
 
 function mod:OnCombatEnd()
---	self:UnregisterShortTermEvents()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
 	if self.Options.HudMapOnMFD then
-		self:DisableHudMap()
+		DBMHudMap:Disable()
 	end
 end
 
@@ -139,15 +155,22 @@ function mod:SPELL_CAST_START(args)
 		specWarnSlagEruption:Show(self.vb.SlagEruption)
 		timerSlagEruptionCD:Start(nil, self.vb.SlagEruption+1)
 	elseif spellId == 158054 then
+		smashTank = UnitName("boss1target")
 		self.vb.smashCount = self.vb.smashCount + 1
 		specWarnMassiveShatteringSmash:Show(self.vb.smashCount)
 		timerShatteringSmashCD:Start(25, self.vb.smashCount+1)--Use this cd bar in phase 3 as well, because text for "Massive Shattering Smash" too long.
 		countdownShatteringSmash:Start(25)
 		voiceShatteringSmash:Play("carefly")
---		self:RegisterShortTermEvents(
---			"SPELL_DAMAGE",
---			"SPELL_MISSED"
---		)
+		if self.Options.RangeFrame and smashTank then
+			--Open regular range frame if you are the smash tank, even if you are a bomb, because now you don't have a choice.
+			if smashTank == UnitName("player") then
+				DBM.RangeCheck:Show(6)
+			--Don't open radar for massive smash if you are one of bomb targets
+			elseif not UnitDebuff("player", GetSpellInfo(157000)) and not UnitDebuff("player", GetSpellInfo(159179)) then
+				DBM.RangeCheck:Show(6, tankFilter)
+			end
+			self:Schedule(4, massiveOver, self)
+		end
 	end
 end
 
@@ -161,7 +184,11 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
 	if spellId == 156096 then
-		warnMarkedforDeath:CombinedShow(0.5, args.destName)
+		if self.Options.SpecWarn156096target then
+			specWarnMarkedforDeathOther:CombinedShow(0.5, args.destName)
+		else
+			warnMarkedforDeath:CombinedShow(0.5, args.destName)
+		end
 		if args:IsPlayer() then
 			specWarnMarkedforDeath:Show()
 			yellMarkedforDeath:Yell()
@@ -171,7 +198,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self:AntiSpam(2, 3) then
 			local timer
 			if self.vb.phase == 3 then
-				timer = 21.5
+				timer = 20.5
 			else
 				timer = 15.5
 			end
@@ -181,11 +208,12 @@ function mod:SPELL_AURA_APPLIED(args)
 			countdownMarkedforDeath:Start(timer)
 			if DBM.Options.DebugMode then--Experimental smash timer adjusting for marked for death delays
 				DBM:Debug("Running experimental timerShatteringSmashCD adjust because debugmode is enabled", 2)
-				local elapsed, total = timerShatteringSmashCD:GetTime()
+				local elapsed, total = timerShatteringSmashCD:GetTime(self.vb.smashCount+1)
 				local remaining = total - elapsed
+				DBM:Debug("Smash Elapsed: "..elapsed.." Smash Total: "..total.." Smash Remaining: "..remaining.." MFD Timer: "..timer, 2)
 				if (remaining > timer) and (remaining < timer+5) then--Marked for death will come off cd before timerShatteringSmashCD comes off cd and delay the cast
-					DBM:Debug("Delay detected, updating smash timer now")
 					local extend = (timer+5)-remaining
+					DBM:Debug("Delay detected, updating smash timer now. Extend: "..extend)
 					timerShatteringSmashCD:Update(elapsed, total+extend, self.vb.smashCount+1)
 					countdownShatteringSmash:Cancel()
 					countdownShatteringSmash:Start(remaining+extend)
@@ -196,8 +224,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetSortedIcon(1, args.destName, 1, 2)
 		end
 		if self.Options.HudMapOnMFD then
-			if DBM.Options.FilterSelfHud and args:IsPlayer() then return end
-			MFDMarkers[args.destName] = self:RegisterMarker(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 5, 5, 1, 0, 0, 0.5):Pulse(0.5, 0.5))
+			DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 5, 5, 1, 1, 0, 0.5, nil, true):Pulse(0.5, 0.5)
 		end
 	elseif spellId == 157000 or spellId == 159179 then--Combine tank version with non tank version
 		warnAttachSlagBombs:CombinedShow(0.5, args.destName)
@@ -222,12 +249,13 @@ function mod:SPELL_AURA_APPLIED(args)
 			voiceAttachSlagBombs:Play("changemt")
 		end
 	elseif spellId == 156667 then
+		self.vb.siegemaker = self.vb.siegemaker + 1
 		if not self.Options.SpecWarnej9571spell then
-			warnSiegemaker:Show()
+			warnSiegemaker:Show(self.vb.siegemaker)
 		else
-			specWarnSiegemaker:Show()
+			specWarnSiegemaker:Show(self.vb.siegemaker)
 		end
-		timerSiegemakerCD:Start()
+		timerSiegemakerCD:Start(nil, self.vb.siegemaker+1)
 	elseif spellId == 156401 and args:IsPlayer() and self:AntiSpam(2, 1) then
 		specWarnMoltenSlag:Show()
 	elseif spellId == 156653 then
@@ -244,9 +272,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
 	if spellId == 156096 then
 		if self.Options.HudMapOnMFD then
-			if MFDMarkers[args.destName] then
-				MFDMarkers[args.destName] = self:FreeMarker(MFDMarkers[args.destName])
-			end
+			DBMHudMap:FreeEncounterMarkerByTarget(spellId, args.destName)
 		end
 		timerImpalingThrow:Cancel()
 		if self.Options.SetIconOnMarked then
@@ -265,6 +291,7 @@ end
 
 function mod:SPELL_ENERGIZE(_, _, _, _, destGUID, _, _, _, spellId, _, _, amount)
 	if spellId == 104915 and destGUID == UnitGUID("boss1") then
+		--TODO, even more complex marked for death checks here to factor that into energy updating.
 		DBM:Debug("SPELL_ENERGIZE fired on Blackhand, 4 targets not hit? Amount: "..amount)
 		local bossPower = UnitPower("boss1")
 		bossPower = bossPower / 4--4 energy per second, smash every 25 seconds there abouts.
@@ -295,11 +322,12 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	elseif spellId == 161347 then--Phase 2 Trigger
 		self.vb.phase = 2
 		self.vb.smashCount = 0
+		self.vb.siegemaker = 0
 		timerDemolitionCD:Cancel()
 		countdownSlagBombs:Cancel()
 		countdownSlagBombs:Start(11)
 		timerThrowSlagBombsCD:Start(11)--11-12.5
-		timerSiegemakerCD:Start(15)
+		timerSiegemakerCD:Start(15, 1)
 		countdownShatteringSmash:Cancel()
 		countdownShatteringSmash:Start(21)
 		timerShatteringSmashCD:Start(21, 1)--21-23 variation. Boss power is set to 66/100 automatically by transitions

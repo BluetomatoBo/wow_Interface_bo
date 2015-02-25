@@ -1,10 +1,11 @@
 local mod	= DBM:NewMod(1123, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12912 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13045 $"):sub(12, -3))
 mod:SetCreatureID(76814)--76794 Cinder Wolf, 80590 Aknor Steelbringer
 mod:SetEncounterID(1689)
 mod:SetZone()
+mod:SetHotfixNoticeRev(12869)
 
 mod:RegisterCombat("combat")
 
@@ -35,7 +36,7 @@ local warnCharringBreath				= mod:NewStackAnnounce(155074, 2, nil, "Tank")
 local specWarnLavaSlash					= mod:NewSpecialWarningMove(155318, nil, nil, nil, nil, nil, 2)
 local specWarnMoltenTorrent				= mod:NewSpecialWarningYou(154932, nil, nil, nil, nil, nil, 2)
 local specWarnMoltenTorrentOther		= mod:NewSpecialWarningMoveTo(154932, false)--Strat dependant. most strats i saw ran these into meleee instead of running to the meteor target.
-local yellMoltenTorrent					= mod:NewYell(154932, L.TorrentYell)
+local yellMoltenTorrent					= mod:NewFadesYell(154932)
 local specWarnCinderWolves				= mod:NewSpecialWarningSpell(155776, nil, nil, nil, nil, nil, 2)
 local specWarnOverheated				= mod:NewSpecialWarningSwitch(154950, "Tank")
 local specWarnFixate					= mod:NewSpecialWarningYou(154952, nil, nil, nil, 3, nil, 2)
@@ -76,6 +77,7 @@ local voiceLavaSlash					= mod:NewVoice(155318) --runaway
 
 mod:AddRangeFrameOption("10/6")
 mod:AddArrowOption("TorrentArrow", 154932, false, true)--Depend strat arrow useful if ranged run to torrent person strat. arrow useless if run torrent into melee strat.
+mod:AddHudMapOption("HudMapOnFixate", 154952, false)
 
 function mod:OnCombatStart(delay)
 	timerLavaSlashCD:Start(11-delay)
@@ -85,6 +87,9 @@ function mod:OnCombatStart(delay)
 	if self.Options.RangeFrame and self:IsRanged() then
 		DBM.RangeCheck:Show(6)
 	end
+	if self.Options.HudMapOnFixate then
+		DBMHudMap:Enable()
+	end
 end
 
 function mod:OnCombatEnd()
@@ -93,6 +98,9 @@ function mod:OnCombatEnd()
 	end
 	if self.Options.TorrentArrow then
 		DBM.Arrow:Hide()
+	end
+	if self.Options.HudMapOnFixate then
+		DBMHudMap:Disable()
 	end
 end
 
@@ -152,6 +160,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			if self:AntiSpam(1, 2) then
 				--Nothing. Just a timestamp
 			end
+		end
+		if self.Options.HudMapOnFixate then
+			DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 3.5, 10, 1, 1, 0, 0.5, nil, true):Pulse(0.5, 0.5)
 		end
 	elseif spellId == 163284 then
 		local amount = args.amount or 1
@@ -239,6 +250,9 @@ function mod:SPELL_AURA_REMOVED(args)
 			if self:AntiSpam(1, 2) then--And, avoid firing this warning on a dog changed mind bug as well
 				specWarnFixateEnded:Show()
 			end
+		end
+		if self.Options.HudMapOnFixate then
+			DBMHudMap:FreeEncounterMarkerByTarget(spellId, args.destName)
 		end
 	elseif spellId == 155493 then
 		specWarnFireStormEnded:Show()

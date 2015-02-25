@@ -1,11 +1,12 @@
 local mod	= DBM:NewMod(1161, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12912 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13031 $"):sub(12, -3))
 mod:SetCreatureID(76877)
 mod:SetEncounterID(1691)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 4, 2, 1)
+mod:SetHotfixNoticeRev(12859)
 
 mod:RegisterCombat("combat")
 
@@ -72,16 +73,9 @@ do
 end
 local DBMHudMap = DBMHudMap
 local hudEnabled = false--Only to avoid calling self.Options.HudMapOnShatter 20x in under a second when shatter goes out (20x SPELL_AURA_APPLIED events)
-local ShatterMarker = {}
 
 local function clearRampage(self)
 	self.vb.rampage = false
-end
-
-local function clearRangeFrame(self)
-	if self.Options.RangeFrame then
-		DBM.RangeCheck:Hide()
-	end
 end
 
 function mod:OnCombatStart(delay)
@@ -108,8 +102,7 @@ function mod:OnCombatStart(delay)
 	timerRampageCD:Start(-delay)--Variable. But seen as low as 108 in LFR, normal, mythic
 	if self.Options.HudMapOnShatter then
 		hudEnabled = true
-		table.wipe(ShatterMarker)
-		self:EnableHudMap()
+		DBMHudMap:Enable()
 	end
 end
 
@@ -120,7 +113,7 @@ function mod:OnCombatEnd()
 	end
 	if hudEnabled then
 		hudEnabled = false
-		self:DisableHudMap()
+		DBMHudMap:Disable()
 	end
 end 
 
@@ -140,7 +133,9 @@ function mod:SPELL_CAST_START(args)
 			timerInfernoSliceCD:Start(nil, self.vb.sliceCount+1)
 			countdownInfernoSlice:Start()
 		end
-		voiceInfernoSlice:Play("gathershare")
+		if not UnitDebuff("player", GetSpellInfo(155323)) then
+			voiceInfernoSlice:Play("gathershare")
+		end
 	elseif spellId == 155301 then
 		self.vb.smashCount = self.vb.smashCount + 1
 		specWarnOverheadSmash:Show(self.vb.smashCount)
@@ -149,8 +144,7 @@ function mod:SPELL_CAST_START(args)
 			timerOverheadSmashCD:Start(nil, self.vb.smashCount+1)--First usually 25-32, second 33-40
 		end
 	elseif spellId == 155326 and self.Options.RangeFrame and not self:IsMythic() then--On mythic everyone gets debuff so no reason to ever show this radar first
-		DBM.RangeCheck:Show(8, debuffFilter)--Show filtered frame at first for all, then update to unfiltered for those affected.
-		self:Schedule(10, clearRangeFrame, self)
+		DBM.RangeCheck:Show(8, debuffFilter, nil, nil, nil, 10)--Show filtered frame at first for all, then update to unfiltered for those affected.
 	end
 end
 
@@ -179,7 +173,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			voiceShatter:Play("scatter")
 		end
 		if hudEnabled then
-			ShatterMarker[args.destName] = self:RegisterMarker(DBMHudMap:PlaceRangeMarkerOnPartyMember("timer", args.destName, 8, 10, 0, 1, 0, 0.6):Appear():RegisterForAlerts():Rotate(360, 9.5))
+			DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "timer", args.destName, 8, 10, 0, 1, 0, 0.6):Appear():RegisterForAlerts():Rotate(360, 9.5)
 		end
 	elseif spellId == 155539 then
 		self.vb.rampage = true
@@ -208,9 +202,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			DBM.RangeCheck:Hide()
 		end
 		if hudEnabled then
-			if ShatterMarker[args.destName] then
-				ShatterMarker[args.destName] = self:FreeMarker(ShatterMarker[args.destName])
-			end
+			DBMHudMap:FreeEncounterMarkerByTarget(spellId, args.destName)
 		end
 	elseif spellId == 155539 then
 		specWarnRampageEnded:Show()

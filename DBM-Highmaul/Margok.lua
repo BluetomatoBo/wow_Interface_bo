@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1197, "DBM-Highmaul", nil, 477)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12955 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13032 $"):sub(12, -3))
 mod:SetCreatureID(77428, 78623)
 mod:SetEncounterID(1705)
 mod:SetZone()
@@ -183,8 +183,6 @@ local chogallName = EJ_GetEncounterInfo(167)
 local inter1 = EJ_GetSectionInfo(9891)
 local inter2 = EJ_GetSectionInfo(9893)
 local DBMHudMap = DBMHudMap
-local markOfChaosMarkers={}
-local brandedMarkers={}
 
 local debuffFilterMark, debuffFilterBranded, debuffFilterFixate, debuffFilterGaze
 do
@@ -228,7 +226,7 @@ local function updateRangeFrame(self, markPreCast)
 		end
 		return--Other crap doesn't happen in phase 4 mythic so stop here.
 	end
-	if not self:IsTank() and self.vb.brandedActive > 0 then--Active branded out there, not a tank. Branded is always prioritized over mark for non tanks since 90% of time tanks handle this on their own, while rest of raid must ALWAYS handle branded
+	if not self:IsTank() and self.vb.brandedActive > 0 and not self:IsLFR() then--Active branded out there, not a tank. Branded is always prioritized over mark for non tanks since 90% of time tanks handle this on their own, while rest of raid must ALWAYS handle branded
 		local distance = self.vb.jumpDistance
 		if self.vb.playerHasBranded then--Player has Branded debuff
 			if self.vb.markActive and self:CheckNearby(36, self.vb.lastMarkedTank) then
@@ -320,9 +318,7 @@ function mod:OnCombatStart(delay)
 		self:SetBossHPInfoToHighest(1)
 	end
 	if self.Options.HudMapOnMarkOfChaos or self.Options.HudMapOnBranded then
-		table.wipe(markOfChaosMarkers)
-		table.wipe(brandedMarkers)
-		self:EnableHudMap()
+		DBMHudMap:Enable()
 	end
 end
 
@@ -335,7 +331,7 @@ function mod:OnCombatEnd()
 	end
 	self:UnregisterShortTermEvents()
 	if self.Options.HudMapOnMarkOfChaos or self.Options.HudMapOnBranded then
-		self:DisableHudMap()
+		DBMHudMap:Disable()
 	end
 end
 
@@ -586,7 +582,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 			updateRangeFrame(self)
 		end
-	elseif args:IsSpellID(156225, 164004, 164005, 164006) then
+	elseif args:IsSpellID(156225, 164004, 164005, 164006) and not self:IsLFR() then
 		self.vb.brandedActive = self.vb.brandedActive + 1
 		local name = args.destName
 		local uId = DBM:GetRaidUnitId(name)
@@ -604,11 +600,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		--Yell for all stacks
 		if args:IsPlayer() then
 			self.vb.playerHasBranded = true
-			if not self:IsLFR() then
-				yellBranded:Yell(currentStack, self.vb.jumpDistance)
-				self:Schedule(1, updateRangeFrame, self)
-				self:Schedule(2, updateRangeFrame, self)
-			end
+			yellBranded:Yell(currentStack, self.vb.jumpDistance)
+			self:Schedule(1, updateRangeFrame, self)
+			self:Schedule(2, updateRangeFrame, self)
 		end
 		--General warnings after 3 stacks
 		if currentStack > 2 then
@@ -658,9 +652,8 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 			end
 			updateRangeFrame(self)--Update it here cause we don't need it before stacks get to relevant levels.
-			if self.Options.HudMapOnBranded and not brandedMarkers[args.destName] then
-				if DBM.Options.FilterSelfHud and args:IsPlayer() then return end
-				brandedMarkers[args.destName] = self:RegisterMarker(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 4, 5, 0, 0, 1, 0.5):Pulse(0.5, 0.5))
+			if self.Options.HudMapOnBranded then
+				DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 4, 5, 0, 0, 1, 0.5, nil, true):Pulse(0.5, 0.5)
 			end
 		end
 	elseif spellId == 158553 then
@@ -696,7 +689,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		self.vb.lastMarkedTank = args.destName
 		local uId = DBM:GetRaidUnitId(args.destName)
 		local _, _, _, _, _, duration, expires, _, _ = UnitDebuff(uId, args.spellName)
-		timerMarkOfChaos:Start(duration, args.destName)
+		timerMarkOfChaos:Start(expires-GetTime(), args.destName)
 		if args:IsPlayer() then
 			self.vb.playerHasMark = true
 			if spellId == 164176 then 
@@ -721,9 +714,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		updateRangeFrame(self)
-		if self.Options.HudMapOnMarkOfChaos and not markOfChaosMarkers[args.destName] then
-			if DBM.Options.FilterSelfHud and args:IsPlayer() then return end
-			markOfChaosMarkers[args.destName] = self:RegisterMarker(DBMHudMap:PlaceRangeMarkerOnPartyMember("highlight", args.destName, 5, 7, 1, 0, 0, 0.5):Pulse(0.5, 0.5))
+		if self.Options.HudMapOnMarkOfChaos then
+			DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 5, 7, 1, 0, 0, 0.5, nil, true):Pulse(0.5, 0.5)
 		end
 	elseif spellId == 157801 and self:CheckDispelFilter() then
 		specWarnSlow:CombinedShow(1, args.destName)
@@ -789,12 +781,12 @@ function mod:SPELL_AURA_REMOVED(args)
 		if spellId == 164178 then
 			self:Unschedule(trippleMarkCheck)
 		end
-		if self.Options.HudMapOnMarkOfChaos and markOfChaosMarkers[args.destName] then
-			markOfChaosMarkers[args.destName] = self:FreeMarker(markOfChaosMarkers[args.destName])
+		if self.Options.HudMapOnMarkOfChaos then
+			DBMHudMap:FreeEncounterMarkerByTarget(spellId, args.destName)
 		end
 	elseif spellId == 157763 and args:IsPlayer() and self.Options.RangeFrame then
 		updateRangeFrame(self)
-	elseif args:IsSpellID(156225, 164004, 164005, 164006) then
+	elseif args:IsSpellID(156225, 164004, 164005, 164006) and not self:IsLFR() then
 		self.vb.brandedActive = self.vb.brandedActive - 1
 		if args:IsPlayer() then
 			self.vb.playerHasBranded = false
@@ -803,8 +795,8 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 		updateRangeFrame(self)
-		if self.Options.HudMapOnBranded and brandedMarkers[args.destName] then
-			brandedMarkers[args.destName] = self:FreeMarker(brandedMarkers[args.destName])
+		if self.Options.HudMapOnBranded then
+			DBMHudMap:FreeEncounterMarkerByTarget(spellId, args.destName)
 		end
 	elseif spellId == 165102 and self.Options.SetIconOnInfiniteDarkness then
 		self:SetIcon(args.destName, 0)

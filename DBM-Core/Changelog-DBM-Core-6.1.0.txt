@@ -1,0 +1,157 @@
+tag 6.1.0
+db69d1022b49160d7e83835a9e5bde9f0c4621a9
+subversion <svn@deadlybossmods.com>
+2015-02-24 17:56:39 +0100
+
+Tagging as 6.1.0
+
+
+--------------------
+
+subversion:
+	- increment version number to 6.1.0
+	- Omega via svn r13101: Better fix
+	- Omega via svn r13100: Revert shit change. this is what SetReCombatTime was created for. ENCOUNTER_START bug still exists and should never EVER ignore block. your 2nd commit fixed the problem correctly.
+	- nbluewiz via svn r13099: # also fix this to prevent bad.
+	- nbluewiz via svn r13098: # ignore combat block stuff for encounter_start event. (to fix mythic blast furnace pull bug.)
+	- TOM_RUS via svn r13097: ruRU update
+	- Omega via svn r13096: For good measure make that even longer Show hansgar and franzog phase change warnings on mythic too. Important to see warnings. Fix voice filter for them as well, they have a voice option.
+	- Omega via svn r13095: Tweak darmac breath.
+	- Omega via svn r13094: Forgot this
+	- Omega via svn r13093: Change supplex for 6.1 (3 second pre warn instead of 9 second, stun will be gone). Re-enable 6.1 version of "defense" since it'll be in combat log now.
+	- Omega via svn r13092: 1 hour is close enough, I'm going to bed before realms go down. Bumping TOCs
+	- Omega via svn r13091: Add jump slam timer
+	- Omega via svn r13090: Support pre made party too (uncommon i know, but it does happen).
+	- Omega via svn r13089: Send syncs to transcriptor too. and remove the callback hack now that transcriptor has an actual method for DBMs whisper snooping.
+	- nbluewiz via svn r13088: # anti spam for bomb.
+	- nbluewiz via svn r13087: # new return to dock warning.
+	- Omega via svn r13086: This should hopefully fix boat issue
+	- nbluewiz via svn r13085: # fix blast furnace adds timer.
+	- Omega via svn r13084: shorten hud duration on darmac, works good but present too long
+	- Omega via svn r13083: make first scan even longer. had 5 second delay this pull
+	- nbluewiz via svn r13082: # fix blast furnace bug.
+	- nbluewiz via svn r13081: # volatile yell fix.
+	- Omega via svn r13080: Fix bug where interrupt count wasn't in right catagory
+	- nbluewiz via svn r13079: # add countdown for volatile fire.
+	- Omega via svn r13078: CD changes
+	- Omega via svn r13077: Fix leaked global in CN
+	- nbluewiz via svn r13076: # correct fix.
+	- Omega via svn r13075: Fix lua errors
+	- Omega via svn r13074: user report from TOM_RUS that sometimes, bile scan finds no target at all, so make scan longer to see if resolves
+	- Omega via svn r13073: Fix lua error if for some reason a user decided to delete DefaultSkin
+	- nbluewiz via svn r13072: # fix mythic shield timer.
+	- nbluewiz via svn r13071: # fix mythic blast cd.
+	- nbluewiz via svn r13070: # fix mythic timer for blast furnace.
+	- nbluewiz via svn r13069: # add countdown option for mythic Volatile Fire. most mythic raid teams spread later for this debuff, countdown is needed. (can see also in video)
+	- nbluewiz via svn r13068: # remove debug tag in jump warning.
+	- nbluewiz via svn r13067: # little fix and tweak.
+	- Omega via svn r13066: This may be better overall
+	- Omega via svn r13065: changes so far that have all seem to have made improvement
+	- nbluewiz via svn r13064: # change DBM:GetUnitFullName to native function.
+	- nbluewiz via svn r13063: # small fix for scanner, can't find main reason.
+	- nbluewiz via svn r13062: # DEBUG FOR TEST PURPOSE. SHOULD BE REMOVED LATER.
+	- Omega via svn r13061: Small optimize
+	- nbluewiz via svn r13060: # scan bossN first.
+	- Omega via svn r13059: Add massive smash radar for finding and position around correct tank.
+	- Omega via svn r13058: CN update
+	- Omega via svn r13057: Fix acid torrent countdown
+	- TOM_RUS via svn r13056: Fix missing arguments
+	- Omega via svn r13055: ptBR update
+	- ultrashining via svn r13054: zhTW update
+	- nbluewiz via svn r13053: # fix lua error in blast furnace.
+	- nbluewiz via svn r13052: # fix bad Conflagration dispel warning.
+	- Omega via svn r13051: 6.1 debug prep
+	- nbluewiz via svn r13050: # koKR update.
+	- nbluewiz via svn r13049: # fix error.
+	- nbluewiz via svn r13048: # also check main weapon in check gear function.
+	- nbluewiz via svn r13047: # blackhand - add count for siege maker, optional special waring for marked for death other.
+	- Omega via svn r13046: Add icon option for blast furnace fixates
+	- Omega via svn r13045: Another option, for fixates
+	- Omega via svn r13044: Add optional hudmap for bombs, mostly for raid leaders to watch if bomb movement is correct. so off by default Added static hud for breath on darmac, marking orientation of breath from dreadwing.
+	- nbluewiz via svn r13043: # toc fix.
+	- nbluewiz via svn r13042: # fix rapid fire warning.
+	- Omega via svn r13041: Missed one
+	- Omega via svn r13040: user submitted ptbr update (white space is a mess) Add missing turret timer on iron maidens. (it shouldn't need boat recovery, if you are getting turrets and boats you did something seriously wrong)
+	- Omega via svn r13039: Move non english to bottom
+	- Omega via svn r13038: Add heroes of the storm sounds english sounds. Non english sounds will be externalized into an optional module when TOM_RUS finishes extracting them from CASC.
+	- nbluewiz via svn r13037: # actually fix dead text.
+	- nbluewiz via svn r13036: # fix dead unit shown as unknown in dbm health bar.
+	- nbluewiz via svn r13035: # fix error.
+	- nbluewiz via svn r13034: # fix text range frame flash when multiple call :show()
+	- nbluewiz via svn r13033: # fix impale cd.
+	- nbluewiz via svn r13032: # completely disable branded stuff in LFR.
+	- nbluewiz via svn r13031: # update mod range frame if range frame already exist.
+	- nbluewiz via svn r13030: # tweak and fix.
+	- nbluewiz via svn r13029: # do not use scheduler for range frame hidetime.
+	- nbluewiz via svn r13028: # fix health bar text.
+	- Omega via svn r13027: Fix bugs, improve code, eliminate bad code duplication. auto hide code belongs in rangecheck function with how frequently it's used.
+	- nbluewiz via svn r13026: # faster berserker rush warning.
+	- nbluewiz via svn r13025: # remove lfr berserk in blast furnace.
+	- nbluewiz via svn r13024: # Blast Furnace update. - Some lfr player do not understand this fight and using gather strat. So announce Heat Regulator progress. - Range frame for bomb to prevent damaging other player that have bomb. (Near Heat Regulator.) - Do not show bomb related announce on phase 2. (exclude personal warning) - Add missing bomb id (174716 is manually clicked) - lfr can reduce blast cd. timer update for that.
+	- nbluewiz via svn r13023: # change Volatile Fire voice schedule. # koKR update.
+	- Omega via svn r13022: More deflating
+	- Omega via svn r13021: Resampled koltrane to reduce file size
+	- Omega via svn r13020: More tweaks
+	- Omega via svn r13019: Some countdown sounds refactoring to make it even more extendable.
+	- Omega via svn r13018: Do not tell people to gather and spread at same time on gruul.
+	- Omega via svn r13017: add voice request
+	- nbluewiz via svn r13016: # more fix for blast furnace.
+	- nbluewiz via svn r13015: # fix lua error in blast furnace. # increase Retched Blackrock nearby range. # always warn 100 ore.
+	- nbluewiz via svn r13014: # fix range frame bug.
+	- nbluewiz via svn r13013: # missed this.
+	- nbluewiz via svn r13012: # Blast Furnace update - fix bad health reporting - Rupture and Melt yell (working like Expel Magic: Fel) - Slag Pool GTFO. - Improve range frame for Volatile Fire. - Give an icon for Elementalists warning. # Other fixes for highmaul trash and Margok.
+	- nbluewiz via svn r13011: # fix lua error in blast furnace.
+	- Omega via svn r13010: Breath scan needs to be really fast or still misses some. reviewing video. boss can spend only 0.1 seconds looking at target sometimes
+	- Omega via svn r13009: Missed one also, add countdown
+	- Omega via svn r13008: Kill useless warnings.
+	- Omega via svn r13007: Longer scan is needed, if target dies during cast. Also fix bug so it works for everyone, not just debug mode
+	- Omega via svn r13006: tweaks
+	- Omega via svn r13005: commit faster scanning, and disable dodge timers that are broken
+	- Omega via svn r13004: Fix another bad arg
+	- Omega via svn r13003: All works, remove unused event, remove debug
+	- Omega via svn r13002: change speed back
+	- Omega via svn r13001: fix another bug
+	- Omega via svn r13000: GDI, wrong cid, no wonder
+	- nbluewiz via svn r12999: # oops, missed it (blast furnace)
+	- nbluewiz via svn r12998: # fix health stuff bug in blast furnace.
+	- Omega via svn r12997: Test faster breath warning
+	- nbluewiz via svn r12996: # add new yell generic. fades, count.
+	- nbluewiz via svn r12995: # improve scan for mob.
+	- nbluewiz via svn r12994: # Thogar Update: - do not show final train cd on mythic. instead, add generic berserk bar. - remove data request message. all completed. - fix mythic add icon setting not working.
+	- nbluewiz via svn r12993: # done thogar mythic.
+	- nbluewiz via svn r12992: # fix mythic train again.
+	- Omega via svn r12991: tweak
+	- nbluewiz via svn r12990: # mythic fix for Thogar. # coloring current lane in Thogar info frame.
+	- Omega via svn r12989: Verified heroic add spawns by video, these values look good.
+	- Omega via svn r12988: Tweak extend code based on video data so it works more accurately in phase 3. it should now auto account for any smash that will be delayed by marked for death.
+	- Omega via svn r12987: I bet this works now that i unbroke target filter logic
+	- Omega via svn r12986: Breath scan too fast. boss looks slow, so try slower/longer scan. Fix bug in blackhand extend code. working good so far. but want more tests before enable all users. Other debug
+	- Omega via svn r12985: Mythic too (assumed, based on reports)
+	- Omega via svn r12984: No timer, but add info for all 4 trains at once in set 35
+	- Omega via svn r12983: Experimental breath target scanning for darmac
+	- nbluewiz via svn r12982: # koKR update.
+	- Omega via svn r12981: new voices.
+	- Omega via svn r12980: Ah LFR reminds me why some warnings need to be more specific. Even if they require localized text
+	- Omega via svn r12979: Fix some stupid
+	- Omega via svn r12978: Improve blast furnace add timers
+	- nbluewiz via svn r12977: # do not enable dual profile by default mage, hunter, rogue and warlock.
+	- nbluewiz via svn r12976: # change dual profile default. # try to fix koragh arcane target warning.
+	- Omega via svn r12975: Push hotfix update to Darmac Set SetHotfixNoticeRev on all mods for what min revision each fight should be running. if users don't understand update notification popup, maybe they'll understand when they see all the notices on what fights will be broken by not being up to date.
+	- Omega via svn r12974: add more debug for blackhand update experiment
+	- Omega via svn r12973: More blast furnace timer fixes
+	- Omega via svn r12972: Fix mythic engineer timers take 2
+	- Omega via svn r12971: Fix mythic engineer timers
+	- Omega via svn r12970: Fix a wrong spellid bug. this cd is for spines, not barrage. confusing players since wrong spellid :\
+	- Omega via svn r12969: I think this will fix hansgar and franzok faster scan method, but need to verify it wed
+	- Omega via svn r12968: Change hud color to yellow on blackhand. Red can be hard to see in a room that's very red.
+	- Omega via svn r12967: And reset this one, because when it was changed to healer it was never reset, so everyones still seeing it.
+	- Omega via svn r12966: bad option default
+	- Omega via svn r12965: cancel everything on 20%.
+	- Omega via svn r12964: Fix bug with icons not being removed
+	- nbluewiz via svn r12963: # fix Retched Blackrock Target actually.
+	- Omega via svn r12962: tweak
+	- Omega via svn r12961: double scan timing on oregorger
+	- TOM_RUS via svn r12960: HudMap for Expel Magic: Fel on Ko'ragh
+	- nbluewiz via svn r12959: # koKR update.
+	- TOM_RUS via svn r12958: HudMap stuff
+	- tandanu via svn r12957: increment version
