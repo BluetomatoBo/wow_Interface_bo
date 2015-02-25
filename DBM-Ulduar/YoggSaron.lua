@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 182 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 188 $"):sub(12, -3))
 mod:SetCreatureID(33288)
 mod:SetEncounterID(1143)
 mod:SetModelID(28817)
@@ -70,8 +70,10 @@ local targetWarningsShown			= {}
 local brainLinkTargets = {}
 local brainLinkIcon = 7
 local Guardians = 0
+local numberOfPlayers = 1
 
 function mod:OnCombatStart(delay)
+	numberOfPlayers = DBM:GetNumRealGroupMembers()
 	Guardians = 0
 	phase = 1
 	enrageTimer:Start()
@@ -236,9 +238,13 @@ function mod:OnSync(msg)
 		warnBrainPortalSoon:Cancel()
 		timerMaladyCD:Cancel()
 		timerBrainLinkCD:Cancel()
-        timerEmpower:Start()
+		timerEmpower:Start()
+		if numberOfPlayers == 1 then
+			timerMadness:Cancel()
+			specWarnMadnessOutNow:Cancel()
+		end
 		warnP3:Show()
-        warnEmpowerSoon:Schedule(40)
+		warnEmpowerSoon:Schedule(40)
 		timerNextDeafeningRoar:Start(30)
 		warnDeafeningRoarSoon:Schedule(25)
 	end
