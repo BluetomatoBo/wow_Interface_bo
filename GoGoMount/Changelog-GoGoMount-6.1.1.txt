@@ -1,9 +1,21 @@
 ------------------------------------------------------------------------
-r523 | tiker | 2015-02-18 01:41:22 +0000 (Wed, 18 Feb 2015) | 1 line
+r526 | tiker | 2015-02-24 12:30:10 +0000 (Tue, 24 Feb 2015) | 1 line
 Changed paths:
-   A /tags/6.0.19 (from /trunk:522)
+   A /tags/6.1.1 (from /trunk:525)
 
-Tagging as 6.0.19
+Tagging as 6.1.1
+------------------------------------------------------------------------
+r525 | tiker | 2015-02-24 12:29:38 +0000 (Tue, 24 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated TOC versions for Warcraft patch 6.1
+------------------------------------------------------------------------
+r524 | tiker | 2015-02-23 23:05:09 +0000 (Mon, 23 Feb 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Misc. comment changes and sorted a bit.
 ------------------------------------------------------------------------
 r522 | tiker | 2015-02-18 01:41:04 +0000 (Wed, 18 Feb 2015) | 1 line
 Changed paths:
