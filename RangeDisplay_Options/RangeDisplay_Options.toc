@@ -1,14 +1,14 @@
-## Interface: 60000
+## Interface: 60100
 ## Title: RangeDisplay Options
 ## Author: mitch0
-## Version: v4.3.1
+## Version: v4.3.2
 ## Notes: Configuration options for RangeDisplay
 ## OptionalDeps: AceGUI-3.0-SharedMediaWidgets
 ## Dependencies: RangeDisplay
 ## LoadOnDemand: 1
 ## X-License: Public Domain
 ## X-RelSite-WoWI: 7297
-## X-Curse-Packaged-Version: v4.3.1
+## X-Curse-Packaged-Version: v4.3.2
 ## X-Curse-Project-Name: RangeDisplay
 ## X-Curse-Project-ID: range-display
 ## X-Curse-Repository-ID: wow/range-display/mainline
