@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1154, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13101 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13129 $"):sub(12, -3))
 mod:SetCreatureID(76809, 76806)--76809 foreman feldspar, 76806 heart of the mountain, 76809 Security Guard, 76810 Furnace Engineer, 76811 Bellows Operator, 76815 Primal Elementalist, 78463 Slag Elemental, 76821 Firecaller
 mod:SetEncounterID(1690)
 mod:SetZone()
 mod:SetUsedIcons(6, 5, 4, 3, 2, 1)
-mod:SetHotfixNoticeRev(12973)
+mod:SetHotfixNoticeRev(13129)
 
 mod:RegisterCombat("combat")
 
@@ -146,30 +146,22 @@ local function Engineers(self)
 		self:Schedule(35, Engineers, self)
 		countdownEngineer:Start(35)
 	elseif self:IsHeroic() then
-		timerEngineer:Start(41)
-		self:Schedule(41, Engineers, self)
-		countdownEngineer:Start(41)
+		timerEngineer:Start(40.5)
+		self:Schedule(40.5, Engineers, self)
+		countdownEngineer:Start(40.5)
 	end
 end
 
 local function SecurityGuard(self)
 	warnSecurityGuard:Show()
 	voiceSecurityGuard:Play("ej9648")
-	if self:IsMythic() then
+	if self:IsDifficulty("mythic", "heroic") then
 		if self.vb.phase == 1 then
-			timerSecurityGuard:Start(30)
-			self:Schedule(30, SecurityGuard, self)
+			timerSecurityGuard:Start(30.5)
+			self:Schedule(30.5, SecurityGuard, self)
 		else
 			timerSecurityGuard:Start(40)
 			self:Schedule(40, SecurityGuard, self)
-		end
-	elseif self:IsHeroic() then
-		if self.vb.phase == 1 then
-			timerSecurityGuard:Start(46)
-			self:Schedule(46, SecurityGuard, self)
-		else
-			timerSecurityGuard:Start(55)
-			self:Schedule(55, SecurityGuard, self)
 		end
 	elseif self:IsNormal() then
 		if self.vb.phase == 1 then
@@ -185,9 +177,11 @@ end
 local function FireCaller(self)
 	warnFireCaller:Show()
 	voiceFireCaller:Play("ej9659")
-	if self:IsMythic() then
+	if self:IsDifficulty("mythic", "heroic") then
+		--Important note, sometimes both side not spawn same time. one side might lag like 2-3 behind other.
+		--But timer good for first one spawning always. 2 always spawn, 1 at timer and 2nd maybe a couple seconds later.
 		timerFireCaller:Start(45)
-		self:Schedule(45, FireCaller, self)
+		self:Schedule(45.5, FireCaller, self)
 	else
 		timerFireCaller:Start(55)
 		self:Schedule(55, FireCaller, self)
@@ -325,7 +319,7 @@ function mod:SPELL_CAST_START(args)
 		specWarnCauterizeWounds:Show(args.sourceName)
 	elseif spellId == 156937 and self:CheckInterruptFilter(args.sourceGUID) then
 		specWarnPyroclasm:Show(args.sourceName)
-	elseif spellId == 177756 and self:CheckTankDistance(args.sourceGUID, 30) then
+	elseif spellId == 177756 and self:CheckTankDistance(args.sourceGUID, 30) and self:AntiSpam(3.5, 7) then
 		specWarnDeafeningRoar:Show()
 	elseif spellId == 160379 and self:CheckTankDistance(args.sourceGUID, 30) then--Requires 6.1. The events on live don't work for this
 		specWarnDefense:Show()
@@ -449,6 +443,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			specWarnMeltYou:Show()
 			yellMelt:Schedule(5)--yell after 5 sec to warn nearby player (aoe actually after 6 sec). like expel magic: fel
+			voiceMelt:Play("runout")
 		elseif self:CheckNearby(8, args.destName) then
 			specWarnMeltNear:Show()
 		end
@@ -458,6 +453,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			specWarnRuptureOn:Show()
 			yellRupture:Schedule(4)--yell after 4 sec to warn nearby player (aoe actually after 5 sec).  like expel magic: fel
+			voiceRupture:Play("runout")
 		end
 	elseif spellId == 155173 and not args:IsDestTypePlayer() then
 		specWarnEarthShield:Show(args.destName)
@@ -519,7 +515,6 @@ function mod:UNIT_DIED(args)
 		end
 	elseif cid == 76808 then--Regulators
 		self.vb.machinesDead = self.vb.machinesDead + 1
-		warnRegulators:Show(2 - self.vb.machinesDead)
 		if self.vb.machinesDead == 2 then
 			self.vb.phase = 2
 			activePrimal = 0
@@ -535,8 +530,8 @@ function mod:UNIT_DIED(args)
 			--Start adds timers. Seem same in all modes.
 			if not self:IsLFR() then-- LFR do not have Slag Elemental.
 				timerSlagElemental:Start(15, 1)
-				self:Schedule(71, SecurityGuard, self)
-				timerSecurityGuard:Start(71)
+				self:Schedule(72, SecurityGuard, self)
+				timerSecurityGuard:Start(72)
 				self:Schedule(78, FireCaller, self)
 				timerFireCaller:Start(78)
 			end
@@ -549,6 +544,8 @@ function mod:UNIT_DIED(args)
 			if self.Options.HudMapOnBomb then
 				DBMHudMap:Disable()
 			end
+		else--Only announce 1 remaining. 0 remaining not needed, because have phase2 warn. double warn no good
+			warnRegulators:Show(2 - self.vb.machinesDead)
 		end
 	elseif cid == 76809 then
 		timerRuptureCD:Cancel()

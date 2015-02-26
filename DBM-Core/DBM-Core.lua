@@ -53,9 +53,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 13101 $"):sub(12, -3)),
-	DisplayVersion = "6.1.0", -- the string that is shown as version
-	ReleaseRevision = 13101 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 13132 $"):sub(12, -3)),
+	DisplayVersion = "6.1.1", -- the string that is shown as version
+	ReleaseRevision = 13132 -- the revision of the latest stable version that is available
 }
 
 -- support for git svn which doesn't support svn keyword expansion
@@ -137,6 +137,7 @@ DBM.DefaultOptions = {
 	UseMasterVolume = true,
 	LFDEnhance = true,
 	WorldBossNearAlert = false,
+	RLReadyCheckSound = true,
 	AFKHealthWarning = false,
 	HideObjectivesFrame = true,
 	HideGarrisonUpdates = true,
@@ -345,7 +346,7 @@ local iconSetRevision = {}
 local iconSetPerson = {}
 local addsGUIDs = {}
 
-local fakeBWRevision = 12756
+local fakeBWRevision = 12858
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -907,8 +908,12 @@ do
 	function DBM:COMBAT_LOG_EVENT_UNFILTERED(timestamp, event, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags, ...)
 		--Dirty, but has to be here, because we want to see this debug even if SPELL_CAST_SUCCESS isn't in registeredEvents
 		local firstExtraArg = ...
-		if type(firstExtraArg) == "number" and firstExtraArg == 181113 then
-			self:Debug("Encounter Spawn spellid Detected: 181113")
+		if type(firstExtraArg) == "number" then
+			if firstExtraArg == 181113 then
+				self:Debug("Encounter Spawn spellid Detected: 181113")
+			elseif firstExtraArg == 181089 then
+				self:Debug("Encounter Event spellid Detected: 181089")
+			end
 		end
 		if not registeredEvents[event] then return end
 		local eventSub6 = event:sub(0, 6)
@@ -1114,6 +1119,7 @@ do
 				"LFG_PROPOSAL_SHOW",
 				"LFG_PROPOSAL_FAILED",
 				"LFG_PROPOSAL_SUCCEEDED",
+				"READY_CHECK",
 				"LFG_LIST_APPLICANT_LIST_UPDATED",
 				"UPDATE_BATTLEFIELD_STATUS",
 				"CINEMATIC_START",
@@ -2931,6 +2937,13 @@ do
 		-- set this with a short delay to prevent issues with other addons also trying to do the same thing with another position ;)
 		DBM:Schedule(5, DBM.SetRaidWarningPositon, DBM)
 		DBM:Schedule(20, DBM.SetRaidWarningPositon, DBM)--A second attempt after we are sure all other mods are loaded, so we can work around issues with movemanything or other mods.
+		--Fix old options that use .wav instead of .ogg, to prevent no sounds bug as of 6.1+
+		--Check file paths for .wav, but make sure file path does not contain Interface\\AddOns, because wav there is still valid. Only blizzard .wav is gone.
+		if DBM.Options.RaidWarningSound:find(".wav") then DBM.Options.RaidWarningSound = DBM.DefaultOptions.RaidWarningSound end
+		if DBM.Options.SpecialWarningSound:find(".wav") then DBM.Options.SpecialWarningSound = DBM.DefaultOptions.SpecialWarningSound end
+		if DBM.Options.SpecialWarningSound2:find(".wav") then DBM.Options.SpecialWarningSound2 = DBM.DefaultOptions.SpecialWarningSound2 end
+		if DBM.Options.SpecialWarningSound3:find(".wav") then DBM.Options.SpecialWarningSound3 = DBM.DefaultOptions.SpecialWarningSound3 end
+		if DBM.Options.SpecialWarningSound4:find(".wav") then DBM.Options.SpecialWarningSound4 = DBM.DefaultOptions.SpecialWarningSound4 end
 	end
 end
 
@@ -2957,6 +2970,12 @@ end
 
 function DBM:LFG_PROPOSAL_SUCCEEDED()
 	self.Bars:CancelBar(DBM_LFG_INVITE)
+end
+
+function DBM:READY_CHECK()
+	if self.Options.RLReadyCheckSound and not BINDING_HEADER_oRA3 then--readycheck sound, if ora3 not installed (bad to have 2 mods do it)
+		PlaySoundFile("Sound\\interface\\levelup2.ogg", "Master")--Because regular sound uses SFX channel which is too low of volume most of time
+	end
 end
 
 do
