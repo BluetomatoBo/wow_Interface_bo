@@ -1,16 +1,10 @@
 --[[--------------------------------------------------------------------
 	HandyNotes: Higher Learning
 	Shows the books you still need for the Higher Learning achievement.
-	Copyright (c) 2014 Phanx <addons@phanx.net>. All rights reserved.
+	Copyright (c) 2014-2015 Phanx <addons@phanx.net>. All rights reserved.
 	http://www.wowinterface.com/downloads/info23267-HandyNotes-HigherLearning.html
 	http://www.curse.com/addons/wow/handynotes-higher-learning
-
-	Please DO NOT upload this addon to other websites, or post modified
-	versions of it. However, you are welcome to use any/all of its code
-	in your own addon, as long as you do not use my name or the name of
-	this addon ANYWHERE in your addon outside of an optional attribution.
-	You are also welcome to include a copy of this addon WITHOUT CHANGES
-	in compilations uploaded on Curse and/or WoWInterface.
+	https://github.com/Phanx/HandyNotes_HigherLearning
 ----------------------------------------------------------------------]]
 
 local ADDON_NAME = ...
@@ -27,10 +21,10 @@ local L = {
 }
 if GetLocale() == "deDE" then
 	L["<Right-Click to set a waypoint in TomTom.>"] = "<Rechtsklick, um eine Zielpunkt in TomTom zu setzen.>"
-	L["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<STRG-Rechtsklick, um Zielpunkte für allen ungelesenen Bücher zu setzen.>"
+	L["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<STRG-Rechtsklick, um Zielpunkte für alle ungelesenen Bücher zu setzen.>"
 elseif GetLocale():match("^es") then
 	L["<Right-Click to set a waypoint in TomTom.>"] = "<Clic derecho para establecer un waypoint en TomTom.>"
-	L["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<Ctrl-clic derecho para waypoints de todos libros no leídos.>"
+	L["<Ctrl-Right-Click to set waypoints for all unread books.>"] = "<Ctrl-clic derecho para establecer waypoints de todos libros no leídos.>"
 end
 
 local books = {
@@ -93,7 +87,7 @@ do
 		if button ~= "RightButton" or not TomTom then
 			return
 		end
-		if IsCtrlKeyDown() then
+		if IsControlKeyDown() then
 			for coord in pairs(books) do
 				setWaypoint(coord)
 			end
@@ -145,8 +139,8 @@ function Addon:CRITERIA_COMPLETE(...)
 			--print("COMPLETED:", name)
 			books[coord] = nil
 			if waypoints[coord] then
-				if TomTom:IsValidWaypoint(waypoints[coord]) then
-					TomTomTom:RemoveWaypoint(waypoints[coord])
+				if TomTom and TomTom:IsValidWaypoint(waypoints[coord]) then
+					TomTom:RemoveWaypoint(waypoints[coord])
 				end
 				waypoints[coord] = nil
 			end
