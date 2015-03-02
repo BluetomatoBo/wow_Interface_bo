@@ -4,7 +4,6 @@
 --]]
 
 local ADDON, Addon = ...
-local Addon = LibStub('AceAddon-3.0'):GetAddon(ADDON)
 local L = LibStub('AceLocale-3.0'):GetLocale(ADDON)
 local OptionsToggle = Addon:NewClass('OptionsToggle', 'Button')
 
@@ -14,7 +13,7 @@ local NORMAL_TEXTURE_SIZE = 64 * (SIZE/36)
 
 --[[ Constructor ]]--
 
-function OptionsToggle:New(frameID, parent)
+function OptionsToggle:New(parent)
 	local b = self:Bind(CreateFrame('Button', nil, parent))
 	b:SetWidth(SIZE)
 	b:SetHeight(SIZE)
@@ -44,18 +43,17 @@ function OptionsToggle:New(frameID, parent)
 	b:SetScript('OnClick', b.OnClick)
 	b:SetScript('OnEnter', b.OnEnter)
 	b:SetScript('OnLeave', b.OnLeave)
-	b:SetFrameID(frameID)
 
 	return b
 end
 
 
---[[ Frame Events ]]--
+--[[ Interaction ]]--
 
 function OptionsToggle:OnClick()
 	if LoadAddOn(ADDON .. '_Config') then
-		Addon.FrameOptions:ShowFrame(self:GetFrameID())
-		Addon.FrameOptions:ShowFrame(self:GetFrameID())
+		Addon.FrameOptions.frameID = self:GetFrameID()
+		Addon.FrameOptions:Open()
 	end
 end
 
@@ -65,33 +63,12 @@ function OptionsToggle:OnEnter()
 	else
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 	end
-	self:UpdateTooltip()
+	
+	GameTooltip:SetText(L.TipShowFrameConfig)
 end
 
 function OptionsToggle:OnLeave()
 	if GameTooltip:IsOwned(self) then
 		GameTooltip:Hide()
 	end
-end
-
-
---[[ Update Methods ]]--
-
-function OptionsToggle:UpdateTooltip()
-	if GameTooltip:IsOwned(self) then
-		GameTooltip:SetText(L.TipShowFrameConfig)
-	end
-end
-
-
---[[ Properties ]]--
-
-function OptionsToggle:SetFrameID(frameID)
-	if self:GetFrameID() ~= frameID then
-		self.frameID = frameID
-	end
-end
-
-function OptionsToggle:GetFrameID()
-	return self.frameID
 end

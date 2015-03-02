@@ -1,9 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="dialogs.lua"/>
-	<Script file="savedFrameSettings.lua"/>
 	
-	<Script file="itemFrame.lua"/>
 	<Script file="item.lua"/>
+	<Script file="itemFrame.lua"/>
 	<Script file="transferFrame.lua"/>
 	<Script file="transferButton.lua"/>
 

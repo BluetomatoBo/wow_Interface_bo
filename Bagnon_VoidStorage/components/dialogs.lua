@@ -4,7 +4,6 @@
 --]]
 
 local L = LibStub('AceLocale-3.0'):GetLocale('Bagnon-VoidStorage')
-local Bagnon = LibStub('AceAddon-3.0'):GetAddon('Bagnon')
 Bagnon.VAULT_COST = 100 * 100 * 100
 
 StaticPopupDialogs['BAGNON_VAULT_PURCHASE'] = {
@@ -40,11 +39,11 @@ StaticPopupDialogs['BAGNON_COMFIRM_TRANSFER'] = {
 	
 	OnAccept = function(dialog, frame)
 		ExecuteVoidTransfer()
-		frame:SendMessage('SHOW_ITEM_FRAME')
+		frame:ShowTransferFrame(false)
 	end,
 	
 	OnCancel = function(dialog, frame)
-		frame:SendMessage('SHOW_ITEM_FRAME')
+		frame:ShowTransferFrame(false)
 	end,
 	
 	timeout = 0, preferredIndex = STATICPOPUP_NUMDIALOGS,

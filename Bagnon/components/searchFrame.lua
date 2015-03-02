@@ -6,6 +6,7 @@
 local ADDON, Addon = ...
 local L = LibStub('AceLocale-3.0'):GetLocale(ADDON)
 local SearchFrame = Addon:NewClass('SearchFrame', 'EditBox')
+
 SearchFrame.backdrop = {
 	edgeFile = [[Interface\Tooltips\UI-Tooltip-Border]],
 	bgFile = [[Interface\ChatFrame\ChatFrameBackground]],
@@ -23,7 +24,7 @@ SearchFrame.backdrop = {
 
 --[[ Constructor ]]--
 
-function SearchFrame:New(frameID, parent)
+function SearchFrame:New(parent)
 	local f = self:Bind(CreateFrame('EditBox', nil, parent))
 	f:SetToplevel(true)
 	f:Hide()
@@ -41,45 +42,24 @@ function SearchFrame:New(frameID, parent)
 	f:SetScript('OnTextChanged', f.OnTextChanged)
 	f:SetScript('OnEscapePressed', f.OnEscapePressed)
 	f:SetScript('OnEnterPressed', f.OnEnterPressed)
-
-	f:SetFrameID(frameID)
-	f:UpdateEvents()
 	f:SetAutoFocus(false)
 
 	return f
 end
 
---[[ Messages ]]--
 
-function SearchFrame:TEXT_SEARCH_ENABLE(msg, frameID)
-	if self:GetFrameID() == frameID then
-		self:UpdateShown()
-	end
-end
-
-function SearchFrame:TEXT_SEARCH_DISABLE(msg, frameID)
-	if self:GetFrameID() == frameID then
-		self:UpdateShown()
-	end
-end
-
-function SearchFrame:TEXT_SEARCH_UPDATE(msg, search)
-	self:UpdateText()
-end
-
-
---[[ Frame Events ]]--
+--[[ Events ]]--
 
 function SearchFrame:OnShow()
 	self:SetSearch(self:GetLastSearch())
 	self:UpdateText()
-	self:UpdateEvents()
+	self:UpdateVisibility()
 	self:HighlightText()
 	self:SetFocus()
 end
 
 function SearchFrame:OnHide()
-	self:UpdateEvents()
+	self:UpdateVisibility()
 	self:ClearFocus()
 	self:SetSearch('')
 end
@@ -89,33 +69,36 @@ function SearchFrame:OnTextChanged()
 end
 
 function SearchFrame:OnEscapePressed()
-	self:DisableSearch()
+	self:Hide()
 end
 
 function SearchFrame:OnEnterPressed()
-	self:DisableSearch()
+	self:Hide()
 end
 
 
---[[ Update Methods ]]--
+--[[ Actions ]]--
 
-function SearchFrame:UpdateEvents()
-	self:UnregisterAllMessages()
-	self:RegisterMessage('TEXT_SEARCH_ENABLE')
-	self:RegisterMessage('TEXT_SEARCH_DISABLE')
-	
-	if self:IsVisible() then
-		self:RegisterMessage('TEXT_SEARCH_UPDATE')
-	end
-end
-
-function SearchFrame:UpdateShown()
-	if self:IsSearchEnabled() then
+function SearchFrame:SetShown(shown)
+	if shown then
 		if not self:IsShown() then
 			UIFrameFadeIn(self, 0.1)
 		end
 	else
 		self:Hide()
+	end
+end
+
+function SearchFrame:UpdateVisibility()
+	local toggle = self:GetParent().searchToggle
+	if toggle then
+		toggle:SetChecked(self:IsShown())
+	end
+	
+	if self:IsVisible() then
+		self:RegisterMessage('SEARCH_UPDATE', 'UpdateText')
+	else
+		self:UnregisterMessages()
 	end
 end
 
@@ -127,47 +110,18 @@ function SearchFrame:UpdateText()
 end
 
 
---[[ Propertiesish ]]--
-
-function SearchFrame:SetFrameID(frameID)
-	if self:GetFrameID() ~= frameID then
-		self.frameID = frameID
-		self:UpdateShown()
-		self:UpdateText()
-	end
-end
-
-function SearchFrame:GetFrameID()
-	return self.frameID
-end
-
-
---[[ Frame Settings ]]--
-
-function SearchFrame:GetSettings()
-	return Addon.FrameSettings:Get(self:GetFrameID())
-end
+--[[ Static ]]--
 
 function SearchFrame:SetSearch(search)
-	Addon.Settings:SetTextSearch(search)
+	Addon.lastSearch = search ~= '' and search or self:GetSearch()
+	Addon.search = search
+	Addon:SendMessage('SEARCH_UPDATE', search)
 end
 
 function SearchFrame:GetSearch()
-	return Addon.Settings:GetTextSearch()
+	return Addon.search or ''
 end
 
 function SearchFrame:GetLastSearch()
-	return Addon.Settings:GetLastTextSearch()
-end
-
-function SearchFrame:EnableSearch()
-	self:GetSettings():EnableTextSearch()
-end
-
-function SearchFrame:DisableSearch()
-	self:GetSettings():DisableTextSearch()
-end
-
-function SearchFrame:IsSearchEnabled()
-	return self:GetSettings():IsTextSearchEnabled()
+	return Addon.lastSearch or ''
 end

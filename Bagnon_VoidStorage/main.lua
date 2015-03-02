@@ -3,17 +3,16 @@
 		The bagnon driver thingy
 --]]
 
-local Bagnon = LibStub('AceAddon-3.0'):GetAddon('Bagnon')
-local VoidStorage = Bagnon:NewModule('VoidStorage', 'AceEvent-3.0')
+local Vault = Bagnon:NewModule('Vault', 'AceEvent-3.0')
 
-function VoidStorage:OnEnable()
+function Vault:OnEnable()
 	self:RegisterEvent('VOID_STORAGE_CLOSE')
 	self:RegisterEvent('VOID_STORAGE_OPEN')
 end
 
-function VoidStorage:VOID_STORAGE_OPEN()
+function Vault:VOID_STORAGE_OPEN()
 	IsVoidStorageReady()
-	Bagnon:ShowFrame('voidstorage')
+	Bagnon:ShowFrame('vault')
 	
 	if not CanUseVoidStorage() then
 		if Bagnon.VAULT_COST > GetMoney() then
@@ -24,6 +23,6 @@ function VoidStorage:VOID_STORAGE_OPEN()
 	end
 end
 
-function VoidStorage:VOID_STORAGE_CLOSE()
-	Bagnon:HideFrame('voidstorage')
+function Vault:VOID_STORAGE_CLOSE()
+	Bagnon:HideFrame('vault')
 end

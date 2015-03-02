@@ -14,7 +14,7 @@ local NORMAL_TEXTURE_SIZE = 64 * (SIZE/36)
 
 --[[ Constructor ]]--
 
-function BagToggle:New(frameID, parent)
+function BagToggle:New(parent)
 	local b = self:Bind(CreateFrame('CheckButton', nil, parent))
 	b:SetWidth(SIZE)
 	b:SetHeight(SIZE)
@@ -50,35 +50,20 @@ function BagToggle:New(frameID, parent)
 	b:SetScript('OnClick', b.OnClick)
 	b:SetScript('OnEnter', b.OnEnter)
 	b:SetScript('OnLeave', b.OnLeave)
-	b:SetScript('OnShow', b.OnShow)
-	b:SetScript('OnHide', b.OnHide)
-
-	b:SetFrameID(frameID)
+	b:SetScript('OnShow', b.Update)
+	b:Update()
 
 	return b
 end
 
 
---[[ Messages ]]--
-
-function BagToggle:FRAME_BAGS_SHOW(msg, frameID)
-	if frameID == self:GetFrameID() then
-		self:Update()
-	end
-end
-
-function BagToggle:FRAME_BAGS_HIDE(msg, frameID)
-	if frameID == self:GetFrameID() then
-		self:Update()
-	end
-end
-
-
---[[ Frame Events ]]--
+--[[ Events ]]--
 
 function BagToggle:OnClick(button)
 	if button == 'LeftButton' then
-		self:GetSettings():ToggleBagFrame()
+		local sets = self:GetSettings()
+		sets.showBags = not sets.showBags or nil
+		self:GetFrame():Layout()
 	else
 		local menu = {}
 		local function addLine(id, name, addon)
@@ -95,10 +80,10 @@ function BagToggle:OnClick(button)
 
 		addLine('inventory', INVENTORY_TOOLTIP)
 		addLine('bank', BANK)
-		addLine('voidstorage', VOID_STORAGE, ADDON .. '_VoidStorage')
+		addLine('vault', VOID_STORAGE, ADDON .. '_VoidStorage')
 
-		if self:GetSettings():GetGuild() then
-			addLine('guildbank', GUILD_BANK, ADDON .. '_GuildBank')
+		if Addon.Cache:GetPlayerGuild(self:GetPlayer()) then
+			addLine('guild', GUILD_BANK, ADDON .. '_GuildBank')
 		end
 		
 		if #menu > 1 then
@@ -115,53 +100,9 @@ function BagToggle:OnEnter()
 	else
 		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
 	end
-	self:UpdateTooltip()
-end
 
-function BagToggle:OnLeave()
-	GameTooltip:Hide()
-end
-
-function BagToggle:OnShow()
-	self:UpdateEvents()
-	self:Update()
-end
-
-function BagToggle:OnHide()
-	self:UpdateEvents()
-	self:Update()
-end
-
-
---[[ Open Frames ]]--
-
-function BagToggle:OpenFrame(id, addon)
-	if not addon or LoadAddOn(addon) then
-		Addon.FrameSettings:Get(id):SetPlayerFilter(self:GetSettings():GetPlayerFilter())
-		Addon:ToggleFrame(id)
-	end
-end
-
-
---[[ Update Methods ]]--
-
-function BagToggle:Update()
-	self:SetChecked(self:IsBagFrameShown())
-end
-
-function BagToggle:UpdateEvents()
-	if self:IsVisible() then
-		self:RegisterMessage('FRAME_BAGS_SHOW')
-		self:RegisterMessage('FRAME_BAGS_HIDE')
-	end
-end
-
-function BagToggle:UpdateTooltip()
-	if not GameTooltip:IsOwned(self) then
-		return
-	end
-	
 	GameTooltip:SetText(L.TipBags)
+
 	if self:IsBagFrameShown() then
 		GameTooltip:AddLine(L.TipHideBags, 1,1,1)
 	else
@@ -172,27 +113,25 @@ function BagToggle:UpdateTooltip()
 	GameTooltip:Show()
 end
 
+function BagToggle:OnLeave()
+	GameTooltip:Hide()
+end
 
---[[ Properties ]]--
 
-function BagToggle:SetFrameID(frameID)
-	if self:GetFrameID() ~= frameID then
-		self.frameID = frameID
-		self:Update()
+--[[ API ]]--
+
+function BagToggle:OpenFrame(id, addon)
+	if not addon or LoadAddOn(addon) then
+		local frame = Addon:CreateFrame(id)
+		frame.player = self:GetPlayer()
+		frame:ShowFrame()
 	end
 end
 
-function BagToggle:GetFrameID()
-	return self.frameID
-end
-
-
---[[ Settings ]]--
-
-function BagToggle:GetSettings()
-	return Addon.FrameSettings:Get(self:GetFrameID())
+function BagToggle:Update()
+	self:SetChecked(self:IsBagFrameShown())
 end
 
 function BagToggle:IsBagFrameShown()
-	return self:GetSettings():IsBagFrameShown()
+	return self:GetSettings().showBags
 end

@@ -1,5 +1,5 @@
 --[[
-Copyright 2011-2014 João Cardoso
+Copyright 2011-2015 João Cardoso
 LibItemCache is distributed under the terms of the GNU General Public License.
 You can redistribute it and/or modify it under the terms of the license as
 published by the Free Software Foundation.
@@ -33,8 +33,7 @@ function Cache:GetBag(realm, player, bag, tab, slot)
 	if tab then
 		local tab = self:GetGuildTab(realm, player, tab)
 		if tab then
-			local name, icon, view, deposit, withdraws, remaining = unpack(tab.info or {})
-			return name, icon, view, deposit, withdraws, remaining, true
+			return tab.name, tab.icon, tab.view, tab.deposit, tab.withdraw, nil, true
 		end
 	elseif slot then
 		return self:GetItem(realm, player, 'equip', nil, slot)
@@ -50,7 +49,7 @@ function Cache:GetItem(realm, player, bag, tab, slot)
 		bag = self:GetNormalBag(realm, player, bag)
 	end
 	
-	item = bag and bag[slot]
+	local item = bag and bag[slot]
 	if item then
 		return strsplit(';', item)
 	end

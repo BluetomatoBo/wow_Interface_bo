@@ -3,17 +3,15 @@
 		A money frame object
 --]]
 
-local Bagnon = LibStub('AceAddon-3.0'):GetAddon('Bagnon')
-local MoneyFrame = Bagnon:NewClass('MoneyFrame', 'Frame')
-local L = LibStub('AceLocale-3.0'):GetLocale('Bagnon')
-local Cache = LibStub('LibItemCache-1.1')
+local ADDON, Addon = ...
+local L = LibStub('AceLocale-3.0'):GetLocale(ADDON)
+local MoneyFrame = Addon:NewClass('MoneyFrame', 'Frame')
 
 
 --[[ Constructor ]]--
 
-function MoneyFrame:New(frameID, parent)
+function MoneyFrame:New(parent)
 	local f = self:Bind(CreateFrame('Button', parent:GetName() .. 'MoneyFrame', parent, 'SmallMoneyFrameTemplate'))
-	f:SetFrameID(frameID)
 	f:SetHeight(24)
 	
 	local click = CreateFrame('Button', f:GetName() .. 'Click', f)
@@ -25,24 +23,17 @@ function MoneyFrame:New(frameID, parent)
 	click:SetScript('OnEnter', function() f:OnEnter() end)
 	click:SetScript('OnLeave', function() f:OnLeave() end)
 
-	f:SetScript('OnShow', f.UpdateEverything)
-	f:SetScript('OnHide', f.UpdateEvents)
-	f:SetScript('OnEvent', f.UpdateValue)
+	f:SetScript('OnShow', f.RegisterEvents)
+	f:SetScript('OnHide', f.UnregisterEvents)
+	f:SetScript('OnEvent', nil)
+	f:UnregisterAllEvents()
+	f:RegisterEvents()
 
 	return f
 end
 
 
---[[ Events ]]--
-
-function MoneyFrame:PLAYER_UPDATE(msg, frameID, player)
-	if self:GetFrameID() == frameID then
-		self:UpdateValue()
-	end
-end
-
-
---[[ Frame Events ]]--
+--[[ Interaction ]]--
 
 function MoneyFrame:OnClick()
 	local name = self:GetName()
@@ -62,14 +53,14 @@ function MoneyFrame:OnClick()
 end
 
 function MoneyFrame:OnEnter()
-	if not Cache:HasCache() then
+	if not Addon.Cache:HasCache() then
     	return
   	end
 
 	-- Total
 	local total = 0
-	for i, player in Cache:IteratePlayers() do
-		total = total + Cache:GetPlayerMoney(player)
+	for i, player in Addon.Cache:IteratePlayers() do
+		total = total + Addon.Cache:GetPlayerMoney(player)
 	end
 
 	GameTooltip:SetOwner(self, 'ANCHOR_BOTTOM')
@@ -77,10 +68,10 @@ function MoneyFrame:OnEnter()
 	GameTooltip:AddLine(' ')
 	
 	-- Each player
-	for i, player in Cache:IteratePlayers() do
-		local money = Cache:GetPlayerMoney(player)
+	for i, player in Addon.Cache:IteratePlayers() do
+		local money = Addon.Cache:GetPlayerMoney(player)
 		if money > 0 then
-			local color = Bagnon:GetPlayerColor(player)
+			local color = Addon:GetPlayerColor(player)
 			local coins = self:GetCoinsText(money)
 
 			GameTooltip:AddDoubleLine(player, coins, color.r, color.g, color.b, 1,1,1)
@@ -95,55 +86,23 @@ function MoneyFrame:OnLeave()
 end
 
 
---[[ Update Methods ]]--
+--[[ Update ]]--
 
-function MoneyFrame:UpdateEverything()
-	self:UpdateEvents()
-	self:UpdateValue()
+function MoneyFrame:RegisterEvents()
+	self:RegisterEvent('PLAYER_MONEY', 'Update')
+	self:Update()
 end
 
-function MoneyFrame:UpdateValue()
-	if self:IsVisible() then
-		MoneyFrame_Update(self:GetName(), self:GetMoney())
-	end
-end
-
-function MoneyFrame:UpdateEvents()
-	self:UnregisterAllMessages()
-
-	if self:IsVisible() then
-		self:RegisterMessage('PLAYER_UPDATE')
-	end
+function MoneyFrame:Update()
+	MoneyFrame_Update(self:GetName(), self:GetMoney())
 end
 
 
---[[ Properties ]]--
-
-function MoneyFrame:GetSettings()
-	return Bagnon.FrameSettings:Get(self:GetFrameID())
-end
-
-function MoneyFrame:GetPlayer()
-	return self:GetSettings():GetPlayerFilter()
-end
-
-function MoneyFrame:SetFrameID(frameID)
-	if self:GetFrameID() ~= frameID then
-		self.frameID = frameID
-		self:UpdateEverything()
-	end
-end
-
-function MoneyFrame:GetFrameID()
-	return self.frameID
-end
+--[[ API ]]--
 
 function MoneyFrame:GetMoney()
-	return Cache:GetPlayerMoney(self:GetPlayer())
+	return Addon.Cache:GetPlayerMoney(self:GetPlayer())
 end
-
-
---[[ Methods ]]--
 
 function MoneyFrame:GetCoinsText(money)
 	local gold, silver, copper = self:GetCoins(money)

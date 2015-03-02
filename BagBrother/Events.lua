@@ -1,5 +1,5 @@
 --[[
-Copyright 2011-2014 João Cardoso
+Copyright 2011-2015 João Cardoso
 BagBrother is distributed under the terms of the GNU General Public License (Version 3).
 As a special exception, the copyright holders of this addon do not give permission to
 redistribute and/or modify it.
@@ -113,7 +113,8 @@ function BagBrother:GUILDBANKBAGSLOTS_CHANGED()
 
 		for i=1, GetNumGuildBankTabs() do
 			tabs[i] = tabs[i] or {}
-			tabs[i].info = {GetGuildBankTabInfo(i)}
+			tabs[i].name, tabs[i].icon, tabs[i].view, tabs[i].deposit, tabs[i].withdraw = GetGuildBankTabInfo(i)
+			tabs[i].info = nil
 		end
 
 		local items = tabs[tab]

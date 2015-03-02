@@ -4,9 +4,7 @@
 --]]
 
 local L = LibStub('AceLocale-3.0'):GetLocale('Bagnon-VoidStorage')
-local Bagnon = LibStub('AceAddon-3.0'):GetAddon('Bagnon')
 local TransferButton = Bagnon:NewClass('TransferButton', 'Button', Bagnon.MoneyFrame)
-
 TransferButton.ICON_SIZE = 30
 TransferButton.ICON_OFF = 8
 
@@ -18,7 +16,6 @@ function TransferButton:New (...)
 	local b = CreateFrame('Button', nil, f)
 	b:SetPoint('RIGHT', self.ICON_SIZE - 3, 0)
 	b:SetSize(self.ICON_SIZE, self.ICON_SIZE)
-	
 	b:SetScript('OnClick', function() f:OnClick() end)
 	b:SetScript('OnEnter', function() f:OnEnter() end)
 	b:SetScript('OnLeave', function() f:OnLeave() end)
@@ -40,16 +37,19 @@ function TransferButton:New (...)
 	f.icon = icon
 	f.info = MoneyTypeInfo["STATIC"]
 	f:SetHeight(self.ICON_SIZE + self.ICON_OFF * 2)
-	f:UpdateValue()
+	f:SetScript('OnHide', self.UnregisterEvents)
+	f:SetScript('OnShow', self.RegisterEvents)
+	f:Update()
+
 	return f
 end
 
 
---[[ Frame Events ]]--
+--[[ Interaction ]]--
 
 function TransferButton:OnClick ()
 	if self:HasTransfer() then
-		self:SendMessage('SHOW_TRANSFER_FRAME')
+		self:GetParent():ShowTransferFrame(true)
 	end
 end
 
@@ -74,25 +74,19 @@ function TransferButton:OnEnter ()
 end
 
 
---[[ Actions ]]--
+--[[ Update ]]--
 
-function TransferButton:UpdateEvents()
-	self:UnregisterAllEvents()
-	
-	if self:IsVisible() then
-		self:RegisterEvent('VOID_STORAGE_DEPOSIT_UPDATE')
-		self:RegisterEvent('VOID_STORAGE_CONTENTS_UPDATE')
-		self:RegisterEvent('VOID_TRANSFER_DONE')
-	end
+function TransferButton:RegisterEvents()
+	self:RegisterEvent('VOID_STORAGE_DEPOSIT_UPDATE', 'Update')
+	self:RegisterEvent('VOID_STORAGE_CONTENTS_UPDATE', 'Update')
+	self:RegisterEvent('VOID_TRANSFER_DONE', 'Update')
 end
 
-function TransferButton:UpdateValue()
-	if self:IsVisible() then
-		MoneyFrame_Update(self:GetName(), GetVoidTransferCost())
-		
-		if self.icon then
-			self.icon:SetDesaturated(not self:HasTransfer())
-		end
+function TransferButton:Update()
+	MoneyFrame_Update(self:GetName(), GetVoidTransferCost())
+	
+	if self.icon then
+		self.icon:SetDesaturated(not self:HasTransfer())
 	end
 end
 
