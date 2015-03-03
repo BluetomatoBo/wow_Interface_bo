@@ -109,7 +109,7 @@
 		<Scripts>
 			<OnLoad>
 				self.TimeSinceLastUpdate = 0;
-				Atr_LoadOptionsSubPanel (self, ZT("Basic Options"));
+				Atr_LoadOptionsSubPanel (self, gAtr_ZT("Basic Options"));
 			</OnLoad>
 		</Scripts>
 
@@ -118,14 +118,14 @@
 			<Frame name="AuctionatorOption_Enable_Alt" inherits="Atr_SingleOptionTemplate">
 				<Anchors><Anchor point="TOP"><Offset><AbsDimension y="-80"/></Offset></Anchor></Anchors>
 				<Scripts>
-					<OnLoad>	AuctionatorOption_Enable_Alt_CB_Text:SetText (ZT("Enable alt-key shortcut"));	</OnLoad>
+					<OnLoad>	AuctionatorOption_Enable_Alt_CB_Text:SetText (gAtr_ZT("Enable alt-key shortcut"));	</OnLoad>
 				</Scripts>
 			</Frame>
 
 			<Frame name="AuctionatorOption_Open_All_Bags" inherits="Atr_SingleOptionTemplate">
 				<Anchors><Anchor point="TOP"><Offset><AbsDimension y="-115"/></Offset></Anchor></Anchors>
 				<Scripts>
-					<OnLoad>	AuctionatorOption_Open_All_Bags_CB_Text:SetText (ZT("Automatically open all bags"));	</OnLoad>
+					<OnLoad>	AuctionatorOption_Open_All_Bags_CB_Text:SetText (gAtr_ZT("Automatically open all bags"));	</OnLoad>
 				</Scripts>
 			</Frame>
 
@@ -133,7 +133,7 @@
 			<Frame name="AuctionatorOption_Show_StartingPrice" inherits="Atr_SingleOptionTemplate">
 				<Anchors><Anchor point="TOP"><Offset><AbsDimension y="-150"/></Offset></Anchor></Anchors>
 				<Scripts>
-					<OnLoad>	AuctionatorOption_Show_StartingPrice_CB_Text:SetText (ZT("Show Starting Price on the Sell Tab"));	</OnLoad>
+					<OnLoad>	AuctionatorOption_Show_StartingPrice_CB_Text:SetText (gAtr_ZT("Show Starting Price on the Sell Tab"));	</OnLoad>
 				</Scripts>
 			</Frame>
 
@@ -223,7 +223,7 @@
 
 		<Scripts>
 			<OnLoad>
-				Atr_LoadOptionsSubPanel (self, ZT("Tooltips"));
+				Atr_LoadOptionsSubPanel (self, gAtr_ZT("Tooltips"));
 			</OnLoad>
 		</Scripts>
 
@@ -243,21 +243,21 @@
 			<Frame name="ATR_tipsVendorOpt" inherits="Atr_SingleOptionTemplate">
 				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-70"/></Offset></Anchor></Anchors>
 				<Scripts>
-					<OnLoad>	ATR_tipsVendorOpt_CB_Text:SetText (ZT("Show vendor prices in tooltips"));	</OnLoad>
+					<OnLoad>	ATR_tipsVendorOpt_CB_Text:SetText (gAtr_ZT("Show vendor prices in tooltips"));	</OnLoad>
 				</Scripts>
 			</Frame>
 
 			<Frame name="ATR_tipsAuctionOpt" inherits="Atr_SingleOptionTemplate">
 				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-95"/></Offset></Anchor></Anchors>
 				<Scripts>
-					<OnLoad>	ATR_tipsAuctionOpt_CB_Text:SetText (ZT("Show auction house prices in tooltips"));	</OnLoad>
+					<OnLoad>	ATR_tipsAuctionOpt_CB_Text:SetText (gAtr_ZT("Show auction house prices in tooltips"));	</OnLoad>
 				</Scripts>
 			</Frame>
 
 			<Frame name="ATR_tipsDisenchantOpt" inherits="Atr_SingleOptionTemplate">
 				<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="20" y="-120"/></Offset></Anchor></Anchors>
 				<Scripts>
-					<OnLoad>	ATR_tipsDisenchantOpt_CB_Text:SetText (ZT("Show disenchant prices in tooltips"));	</OnLoad>
+					<OnLoad>	ATR_tipsDisenchantOpt_CB_Text:SetText (gAtr_ZT("Show disenchant prices in tooltips"));	</OnLoad>
 				</Scripts>
 			</Frame>
 			
@@ -305,7 +305,7 @@
 
 		<Scripts>
 			<OnLoad>
-				Atr_LoadOptionsSubPanel (self, ZT("Undercutting"));
+				Atr_LoadOptionsSubPanel (self, gAtr_ZT("Undercutting"));
 			</OnLoad>
 		</Scripts>
 
@@ -366,7 +366,7 @@
 
 		<Scripts>
 			<OnLoad>
-				Atr_LoadOptionsSubPanel (self, ZT("Selling"), nil, ZT("Configure how you typically like to sell the items listed below."));
+				Atr_LoadOptionsSubPanel (self, gAtr_ZT("Selling"), nil, gAtr_ZT("Configure how you typically like to sell the items listed below."));
 			</OnLoad>
 		</Scripts>
 
@@ -565,7 +565,7 @@
 
 		<Scripts>
 			<OnLoad>
-				Atr_LoadOptionsSubPanel (self, ZT("Database"));
+				Atr_LoadOptionsSubPanel (self, gAtr_ZT("Database"));
 			</OnLoad>
 		</Scripts>
 
@@ -656,7 +656,7 @@
 
 		<Scripts>
 			<OnLoad>
-				Atr_LoadOptionsSubPanel (self, ZT("Clears"), ZT("Clears"), ZT("The features below will help you clear out data that Auctionator stores.  Typically you would only need this in the event that that data gets corrupted."));
+				Atr_LoadOptionsSubPanel (self, gAtr_ZT("Clears"), gAtr_ZT("Clears"), gAtr_ZT("The features below will help you clear out data that Auctionator stores.  Typically you would only need this in the event that that data gets corrupted."));
 			</OnLoad>
 		</Scripts>
 
@@ -733,7 +733,7 @@
 
 		<Scripts>
 			<OnLoad>
-				Atr_LoadOptionsSubPanel (self, ZT("Shopping Lists"), ZT("Shopping Lists"));
+				Atr_LoadOptionsSubPanel (self, gAtr_ZT("Shopping Lists"), gAtr_ZT("Shopping Lists"));
 			</OnLoad>
 			<OnUpdate>
 				Atr_ShpList_Options_Update (self, elapsed);
@@ -971,7 +971,7 @@
 			<CheckButton name="Atr_SList_Conflict_CreateNew" inherits="UIRadioButtonTemplate">
 				<Anchors><Anchor point="BOTTOMLEFT" x="30" y="240"/></Anchors>
 				<Scripts>
-					<OnLoad> Atr_SList_Conflict_SetRB (self, ZT("Create new shopping lists with new names")) </OnLoad>
+					<OnLoad> Atr_SList_Conflict_SetRB (self, gAtr_ZT("Create new shopping lists with new names")) </OnLoad>
 					<OnClick function="Atr_SList_Conflict_OnClick"/>
 				</Scripts>
 			</CheckButton>
@@ -979,7 +979,7 @@
 			<CheckButton name="Atr_SList_Conflict_Overwrite" inherits="UIRadioButtonTemplate">
 				<Anchors><Anchor point="BOTTOMLEFT" x="30" y="170"/></Anchors>
 				<Scripts>
-					<OnLoad> Atr_SList_Conflict_SetRB (self, ZT("Overwrite the existing shopping lists with the imported lists.")) </OnLoad>
+					<OnLoad> Atr_SList_Conflict_SetRB (self, gAtr_ZT("Overwrite the existing shopping lists with the imported lists.")) </OnLoad>
 					<OnClick function="Atr_SList_Conflict_OnClick"/>
 				</Scripts>
 			</CheckButton>
@@ -988,7 +988,7 @@
 			<CheckButton name="Atr_SList_Conflict_Abort" inherits="UIRadioButtonTemplate">
 				<Anchors><Anchor point="BOTTOMLEFT" x="30" y="100"/></Anchors>
 				<Scripts>
-					<OnLoad> Atr_SList_Conflict_SetRB (self, ZT("Abort the import.  You can hand-edit the import text to change the names and then try again.")) </OnLoad>
+					<OnLoad> Atr_SList_Conflict_SetRB (self, gAtr_ZT("Abort the import.  You can hand-edit the import text to change the names and then try again.")) </OnLoad>
 					<OnClick function="Atr_SList_Conflict_OnClick"/>
 				</Scripts>
 			</CheckButton>
@@ -1010,7 +1010,7 @@
 
 		<Scripts>
 			<OnLoad>
-				Atr_LoadOptionsSubPanel (self, ZT("About"), ZT("About Auctionator"));
+				Atr_LoadOptionsSubPanel (self, gAtr_ZT("About"), gAtr_ZT("About Auctionator"));
 			</OnLoad>
 		</Scripts>
 

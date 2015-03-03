@@ -6,6 +6,35 @@ local _
 
 -----------------------------------------
 
+local ztt = {}
+
+addonTable.ztt = ztt;
+
+-----------------------------------------
+
+function ztt.ZT (s)
+
+	if (s == nil or s == "") then
+		return s;
+	end
+	
+	if (AtrL) then
+		local s1 = AtrL[s];
+		if (s1 and s1 ~= "" and not zc.StringStartsWith ("XXXXX")) then		
+			return s1;
+		end
+	end
+		
+	return s;
+end
+
+
+-----------------------------------------
+
+local ZT = addonTable.ztt.ZT;
+
+gAtr_ZT = addonTable.ztt.ZT;
+
 AtrL = {};
 
 -----------------------------------------
@@ -27,24 +56,6 @@ end
 
 Atr_PickLocalizationTable (GetLocale());
 --Atr_PickLocalizationTable ("esES");
-
------------------------------------------
-
-function ZT (s)
-
-	if (s == nil or s == "") then
-		return s;
-	end
-	
-	if (AtrL) then
-		local s1 = AtrL[s];
-		if (s1 and s1 ~= "" and not zc.StringStartsWith ("XXXXX")) then		
-			return s1;
-		end
-	end
-		
-	return s;
-end
 
 
 -----------------------------------------

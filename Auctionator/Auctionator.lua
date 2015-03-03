@@ -1,9 +1,9 @@
 
--- 3.2.2
+-- 3.2.3
 
--- distinguish items based on bonus ids
--- substring AH search for crafted armor or weapons
--- added taladite to list of raw gems
+-- change truncate length to 127
+-- fixed a couple of possible taints on local variables
+-- 
 
 
 AuctionatorVersion = "???";		-- set from toc upon loading
@@ -13,6 +13,7 @@ AuctionatorLoaded = false;
 AuctionatorInited = false;
 
 local addonName, addonTable = ...; 
+local ZT = addonTable.ztt.ZT;
 local zc = addonTable.zc;
 local zz = zc.md;
 local _

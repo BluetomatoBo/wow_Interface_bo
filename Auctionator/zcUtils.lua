@@ -266,6 +266,7 @@ end
 
 -----------------------------------------
 
+--[[
 function ZF (s)
 	BuildDecTable();
 
@@ -289,6 +290,7 @@ function ZF (s)
 	return s2;
 
 end
+]]--
 
 -----------------------------------------
 
@@ -789,7 +791,7 @@ function zc.msg_ex (options, ...)
 
 	local msg = "";
 
-	local i;
+	local i, m;
 	local num = select("#", ...);
 	
 	for i = 1, num do

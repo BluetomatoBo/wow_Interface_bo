@@ -1,5 +1,6 @@
 
 local addonName, addonTable = ...; 
+local ZT = addonTable.ztt.ZT;
 local zc = addonTable.zc;
 local zz = zc.md
 local _

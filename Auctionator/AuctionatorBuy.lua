@@ -1,5 +1,6 @@
 
 local addonName, addonTable = ...
+local ZT = addonTable.ztt.ZT;
 local zc = addonTable.zc
 local zz = zc.md
 local _
@@ -152,7 +153,7 @@ function Atr_Buy_SendQuery ()
 
 		Atr_Buy_ClearMatchList();
 		
-		local queryString = zc.UTF8_Truncate (gAtr_Buy_ItemName,63);	-- attempting to reduce number of disconnects
+		local queryString = zc.UTF8_Truncate (gAtr_Buy_ItemName,127);	-- attempting to reduce number of disconnects
 
 		exactMatch = true
 
