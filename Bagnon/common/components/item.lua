@@ -218,8 +218,8 @@ function ItemSlot:Update()
 	self:SetLocked(locked)
 	self:SetReadable(readable)
 	self:UpdateBorder()
-	self:UpdateCooldown()
 	self:UpdateSlotColor()
+	self:UpdateCooldown()
 	self:UpdateSearch()
 
 	if GameTooltip:IsOwned(self) then
@@ -247,7 +247,31 @@ function ItemSlot:GetEmptyItemIcon()
 end
 
 
---[[ Slot Color ]]--
+--[[ Locked ]]--
+
+function ItemSlot:UpdateLocked()
+	self:SetLocked(self:IsLocked())
+end
+
+function ItemSlot:SetLocked(locked)
+	SetItemButtonDesaturated(self, locked)
+end
+
+function ItemSlot:IsLocked()
+	return select(3, self:GetInfo())
+end
+
+
+--[[ Other ]]--
+
+function ItemSlot:UpdateCooldown()
+	if self:GetItem() and (not self:IsCached()) then
+		ContainerFrame_UpdateCooldown(self:GetBag(), self)
+	else
+		self.Cooldown:Hide()
+		CooldownFrame_SetTimer(self.Cooldown, 0, 0, 0)
+	end
+end
 
 function ItemSlot:UpdateSlotColor()
 	if not self:GetItem() and Addon.sets.colorSlots then
@@ -269,21 +293,6 @@ end
 
 function ItemSlot:SetReadable(readable)
 	self.readable = readable
-end
-
-
---[[ Locked ]]--
-
-function ItemSlot:UpdateLocked()
-	self:SetLocked(self:IsLocked())
-end
-
-function ItemSlot:SetLocked(locked)
-	SetItemButtonDesaturated(self, locked)
-end
-
-function ItemSlot:IsLocked()
-	return select(3, self:GetInfo())
 end
 
 
@@ -349,19 +358,6 @@ function ItemSlot:HideBorder()
 end
 
 
---[[ Cooldown ]]--
-
-function ItemSlot:UpdateCooldown()
-	if self:GetItem() and (not self:IsCached()) then
-		ContainerFrame_UpdateCooldown(self:GetBag(), self)
-	else
-		self.Cooldown:Hide()
-		CooldownFrame_SetTimer(self.Cooldown, 0, 0, 0)
-		SetItemButtonTextureVertexColor(self, 1, 1, 1)
-	end
-end
-
-
 --[[ Search ]]--
 
 function ItemSlot:UpdateSearch()
@@ -371,7 +367,6 @@ function ItemSlot:UpdateSearch()
 	if matches then
 		self:SetAlpha(1)
 		self:UpdateLocked()
-		self:UpdateSlotColor()
 		self:UpdateBorder()
 	else
 		self:SetLocked(true)

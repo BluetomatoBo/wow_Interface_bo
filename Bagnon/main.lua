@@ -184,6 +184,7 @@ function Addon:RegisterDisplayEvents(setting, showEvent, hideEvent)
 end
 
 function Addon:BANK_OPENED()
+	self.Cache.atBank = true -- attempt to find source of bank issue
 	self:ShowFrame('bank')
 
 	if self.sets.displayBank then

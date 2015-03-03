@@ -11,12 +11,6 @@ end
 
 sort(SLOT_COLOR_TYPES)
 tinsert(SLOT_COLOR_TYPES, 1, 'normal')
-StaticPopupDialogs['BAGNON_REQUIRES_RESTART'] = {
-	text = L.RequiresRestart,
-	button1 = OKAY,
-	timeout = 0, exclusive = 1, hideOnEscape = 1,
-	preferredIndex = STATICPOPUP_NUMDIALOGS - 2
-}
 
 
 --[[ Panels ]]--
@@ -27,9 +21,7 @@ Bagnon.GeneralOptions = Bagnon.Options:NewPanel(nil, 'Bagnon', L.GeneralDesc, fu
 	self:CreateCheck('tipCount')
 	self:CreateCheck('flashFind')
 	self:CreateCheck('emptySlots')
-	self:CreateCheck('useBlizzard', function()
-		StaticPopup_Show('BAGNON_REQUIRES_RESTART')
-	end)
+	self:CreateCheck('useBlizzard', ReloadUI)
 end)
 
 Bagnon.FrameOptions = Bagnon.Options:NewPanel('Bagnon', L.FrameSettings, L.FrameSettingsDesc, function(self)
@@ -65,8 +57,11 @@ Bagnon.FrameOptions = Bagnon.Options:NewPanel('Bagnon', L.FrameSettings, L.Frame
 			row:CreateCheck('sort')
 			row:CreateCheck('search')
 			row:CreateCheck('options')
-			row:CreateCheck('money')
 			row:CreateCheck('broker')
+
+			if self.frameID ~= 'vault' then
+				row:CreateCheck('money')
+			end
 		end)
 
 		-- Appearance
