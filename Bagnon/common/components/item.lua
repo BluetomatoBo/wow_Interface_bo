@@ -9,7 +9,6 @@ ItemSlot.dummyBags = {}
 ItemSlot.unused = {}
 ItemSlot.nextID = 0
 
-local Cache = LibStub('LibItemCache-1.1')
 local ItemSearch = LibStub('LibItemSearch-1.2')
 local Unfit = LibStub('Unfit-1.0')
 local QuestSearch = format('t:%s|%s', select(10, GetAuctionItemClasses()), 'quest')
@@ -22,8 +21,8 @@ function ItemSlot:New()
 end
 
 function ItemSlot:Create()
-	local id = self:GetNextItemSlotID()
-	local item = self:Bind(self:GetBlizzardItemSlot(id) or self:ConstructNewItemSlot(id))
+	local id = self:GetNextID()
+	local item = self:Bind(self:GetBlizzard(id) or self:Construct(id))
 	local name = item:GetName()
 
 	-- add a quality border texture
@@ -65,12 +64,17 @@ function ItemSlot:Create()
 	return item
 end
 
-function ItemSlot:ConstructNewItemSlot(id)
+function ItemSlot:GetNextID()
+	self.nextID = self.nextID + 1
+	return self.nextID
+end
+
+function ItemSlot:Construct(id)
 	return CreateFrame('Button', ('%s%s%d'):format(ADDON, self.Name, id), nil, 'ContainerFrameItemButtonTemplate')
 end
 
-function ItemSlot:GetBlizzardItemSlot(id)
-	if not Addon:AreBasicFramesEnabled() or not Addon.sets.useBlizzard then
+function ItemSlot:GetBlizzard(id)
+	if Addon.sets.displayBlizzard or not Addon:AreBasicFramesEnabled() then
 		return
 	end
 
@@ -89,16 +93,10 @@ function ItemSlot:Restore()
 	return tremove(self.unused)
 end
 
-function ItemSlot:GetNextItemSlotID()
-  self.nextID = self.nextID + 1
-  return self.nextID
-end
-
 function ItemSlot:Free()
 	self:Hide()
 	self:SetParent(nil)
-	self.depositSlot = nil
-	self.frame = nil
+	self.frame, self.depositSlot = nil
 	tinsert(self.unused, self)
 end
 
@@ -129,7 +127,7 @@ end
 
 function ItemSlot:OnPreClick(button)
 	if not IsModifiedClick() and button == 'RightButton' then
-		if Cache.atBank and IsReagentBankUnlocked() and GetContainerNumFreeSlots(REAGENTBANK_CONTAINER) > 0 and ItemSearch:TooltipPhrase(self:GetItem(), PROFESSIONS_USED_IN_COOKING) then
+		if Addon.Cache.AtBank and IsReagentBankUnlocked() and GetContainerNumFreeSlots(REAGENTBANK_CONTAINER) > 0 and ItemSearch:TooltipPhrase(self:GetItem(), PROFESSIONS_USED_IN_COOKING) then
 			return UseContainerItem(self:GetBag(), self:GetID(), nil, true)
 		end
 
@@ -438,7 +436,7 @@ function ItemSlot:IsPaid()
 end
 
 function ItemSlot:GetInfo()
-	return Cache:GetItemInfo(self:GetPlayer(), self:GetBag(), self:GetID())
+	return Addon.Cache:GetItemInfo(self:GetPlayer(), self:GetBag(), self:GetID())
 end
 
 function ItemSlot:IsSlot(bag, slot)

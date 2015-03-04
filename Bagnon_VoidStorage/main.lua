@@ -12,6 +12,7 @@ end
 
 function Vault:VOID_STORAGE_OPEN()
 	IsVoidStorageReady()
+	Bagnon.Cache.AtVault = true
 	Bagnon:ShowFrame('vault')
 	
 	if not CanUseVoidStorage() then
@@ -24,5 +25,6 @@ function Vault:VOID_STORAGE_OPEN()
 end
 
 function Vault:VOID_STORAGE_CLOSE()
+	Bagnon.Cache.AtVault = nil
 	Bagnon:HideFrame('vault')
 end

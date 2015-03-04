@@ -19,6 +19,13 @@ function ItemSlot:Create()
 	return item
 end
 
+function ItemSlot:Construct(id)
+	return CreateFrame('Button', 'BagnonVaultItemSlot' .. id, nil, 'ContainerFrameItemButtonTemplate')
+end
+
+function ItemSlot:GetBlizzard()
+end
+
 
 --[[ Interaction ]]--
 
