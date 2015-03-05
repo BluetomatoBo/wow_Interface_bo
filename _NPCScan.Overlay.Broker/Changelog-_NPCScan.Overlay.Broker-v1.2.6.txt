@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------
-r28 | burnum | 2014-10-15 06:03:30 +0000 (Wed, 15 Oct 2014) | 1 line
+r30 | burnum | 2015-03-04 19:25:09 +0000 (Wed, 04 Mar 2015) | 1 line
 Changed paths:
-   A /tags/v1.2.5 (from /trunk:27)
+   A /tags/v1.2.6 (from /trunk:29)
 
-Tagging as v1.2.5
+Tagging as v1.2.6
 ------------------------------------------------------------------------
-r27 | burnum | 2014-10-15 05:59:35 +0000 (Wed, 15 Oct 2014) | 1 line
+r29 | burnum | 2015-03-04 19:18:45 +0000 (Wed, 04 Mar 2015) | 1 line
 Changed paths:
    M /trunk/Readme.html
    M /trunk/_NPCScan.Overlay.Broker.toc
 
--- TOC 60000
+-update TOC for 6.1
 ------------------------------------------------------------------------
