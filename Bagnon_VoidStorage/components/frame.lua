@@ -60,3 +60,7 @@ function Frame:GetSpecialButtons() end
 function Frame:HasMoneyFrame()
 	return true
 end
+
+function Frame:HasBagFrame()
+	return false
+end

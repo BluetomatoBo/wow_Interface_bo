@@ -3,14 +3,13 @@
 		The bagnon driver thingy
 --]]
 
-local Vault = Bagnon:NewModule('Vault', 'AceEvent-3.0')
+local Vault = Bagnon:NewModule('VoidStorage', 'AceEvent-3.0')
 
 function Vault:OnEnable()
-	self:RegisterEvent('VOID_STORAGE_CLOSE')
-	self:RegisterEvent('VOID_STORAGE_OPEN')
+	self:RegisterEvent('VOID_STORAGE_CLOSE', 'OnClosed')
 end
 
-function Vault:VOID_STORAGE_OPEN()
+function Vault:OnOpen()
 	IsVoidStorageReady()
 	Bagnon.Cache.AtVault = true
 	Bagnon:ShowFrame('vault')
@@ -24,7 +23,7 @@ function Vault:VOID_STORAGE_OPEN()
 	end
 end
 
-function Vault:VOID_STORAGE_CLOSE()
+function Vault:OnClosed()
 	Bagnon.Cache.AtVault = nil
 	Bagnon:HideFrame('vault')
 end

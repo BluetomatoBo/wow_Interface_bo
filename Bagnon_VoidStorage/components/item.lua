@@ -30,7 +30,12 @@ end
 --[[ Interaction ]]--
 
 function ItemSlot:OnClick(button)
-	if self.bag == 'vault' and not self:IsCached() then
+	if IsModifiedClick() then
+		local _,_,_,_,_,_, link = self:GetInfo()
+		if link then
+			HandleModifiedItemClick(link)
+		end
+	elseif self.bag == 'vault' and not self:IsCached() then
 		local isRight = button == 'RightButton'
 		local type, _, link = GetCursorInfo()
 		local cursor = self.Cursor

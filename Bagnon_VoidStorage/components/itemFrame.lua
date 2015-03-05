@@ -25,6 +25,7 @@ function ItemFrame:RegisterEvents()
 			self:RegisterEvent('VOID_STORAGE_CONTENTS_UPDATE', 'RequestLayout')
 		else
 			self:RegisterEvent('VOID_STORAGE_CONTENTS_UPDATE', 'ForAll', 'Update')
+			self:RegisterEvent('VOID_STORAGE_UPDATE', 'ForAll', 'Update')
 			self:RegisterEvent('VOID_TRANSFER_DONE', 'ForAll', 'Update')
 		end
 	end
