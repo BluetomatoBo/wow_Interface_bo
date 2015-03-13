@@ -1,25 +1,36 @@
-local mod	= DBM:NewMod("GarrisonInvasions", "DBM-WorldEvents", 2)
+local mod	= DBM:NewMod("GarrisonInvasions", "DBM-WorldEvents", 3)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 12421 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13240 $"):sub(12, -3))
 mod:SetZone(DBM_DISABLE_ZONE_DETECTION)
 
 mod:RegisterEvents(
+	"SPELL_CAST_SUCCESS 181098",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"CHAT_MSG_MONSTER_YELL"
 )
 mod.noStatistics = true
 mod.isTrashMod = true--Flag as trash mod to at least disable mod during raid combat, since it stays active at all times after loaded. Doing same way as pvp mods wouldn't save any cpu really considering we'd need ZONE_CHANGED too, not just ZONE_CHANGED_NEW_AREA and this fires a ton even in raids.
 
+--Generic
 local specWarnRylak				= mod:NewSpecialWarning("specWarnRylak")
 local specWarnWorker			= mod:NewSpecialWarning("specWarnWorker")
 local specWarnSpy				= mod:NewSpecialWarning("specWarnSpy")
 local specWarnBuilding			= mod:NewSpecialWarning("specWarnBuilding")
 
+--Generic
 --local timerCombatStart			= mod:NewCombatTimer(44)--rollplay for first pull
 
 mod:RemoveOption("HealthFrame")
 mod:RemoveOption("SpeedKillTimer")
+
+function mod:SPELL_CAST_SUCCESS(args)
+	if not self.Options.Enabled then return end
+	local spellId = args.spellId
+	if spellId == 181098 then--Ammihilon Summon
+		DBM:StartCombat(DBM:GetModByName("Annihilon"), 0, "SPELL_CAST_SUCCESS")
+	end
+end
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
 	if msg == L.rylakSpawn or msg:find(L.rylakSpawn) then
