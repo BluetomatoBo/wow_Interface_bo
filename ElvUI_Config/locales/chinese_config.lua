@@ -24,7 +24,7 @@ Specific Searching:
     • s:[set] or set:[set]. For example, s:fire will find all items in equipment sets you have with names that start with fire.
     • tt:[search], tip:[search] or tooltip:[search]. For instance, tt:binds will find all items that can be bound to account, on equip, or on pickup.
 
-	
+
 Search Operators:
     • ! : Negates a search. For example, !q:epic will find all items that are NOT epic.
     • | : Joins two searches. Typing q:epic | t:weapon will find all items that are either epic OR weapons.
@@ -502,6 +502,7 @@ L["BG Score"] = "战场记分"
 L['Black Market AH'] = "黑市"
 L["Calendar Frame"] = "日历框架"
 L["Character Frame"] = "角色"
+L["Death Recap"] = true;
 L["Debug Tools"] = "除错工具"
 L["Dressing Room"] = "试衣间"
 L["Encounter Journal"] = "地城导览"

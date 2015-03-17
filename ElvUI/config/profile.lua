@@ -1833,6 +1833,11 @@ P['unitframe'] = {
 				['yOffset'] = 10,
 			},
 		},
+		['bodyguard'] = {
+			['enable'] = true,
+			['width'] = 120,
+			['height'] = 28
+		},
 		['tank'] = {
 			['enable'] = true,
 			['threatStyle'] = 'GLOW',

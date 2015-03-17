@@ -322,7 +322,7 @@ function AB:CreateVehicleLeave()
 	vehicle:SetHighlightTexture("Interface\\AddOns\\ElvUI\\media\\textures\\vehicleexit")
 	vehicle:SetTemplate("Default")
 	vehicle:RegisterForClicks("AnyUp")
-	
+
 	vehicle:SetScript("OnClick", Vehicle_OnClick)
 	vehicle:SetScript("OnEnter", MainMenuBarVehicleLeaveButton_OnEnter)
 	vehicle:SetScript("OnLeave", GameTooltip_Hide)
@@ -333,7 +333,7 @@ function AB:CreateVehicleLeave()
 	vehicle:RegisterEvent("UNIT_EXITED_VEHICLE");
 	vehicle:RegisterEvent("VEHICLE_UPDATE");
 	vehicle:SetScript("OnEvent", Vehicle_OnEvent)
-	
+
 	vehicle:Hide()
 end
 
@@ -736,8 +736,8 @@ end
 function AB:UpdateButtonConfig(bar, buttonName)
 	if InCombatLockdown() then self:RegisterEvent('PLAYER_REGEN_ENABLED'); return; end
 	if not bar.buttonConfig then bar.buttonConfig = { hideElements = {}, colors = {} } end
-	bar.buttonConfig.hideElements.macro = self.db.macrotext
-	bar.buttonConfig.hideElements.hotkey = self.db.hotkeytext
+	bar.buttonConfig.hideElements.macro = not self.db.macrotext
+	bar.buttonConfig.hideElements.hotkey = not self.db.hotkeytext
 	bar.buttonConfig.showGrid = self.db.showGrid
 	bar.buttonConfig.clickOnDown = self.db.keyDown
 	SetModifiedClick("PICKUPACTION", self.db.movementModifier)

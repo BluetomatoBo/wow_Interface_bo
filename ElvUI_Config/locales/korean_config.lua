@@ -24,7 +24,7 @@ Specific Searching:
     • s:[set] or set:[set]. For example, s:fire will find all items in equipment sets you have with names that start with fire.
     • tt:[search], tip:[search] or tooltip:[search]. For instance, tt:binds will find all items that can be bound to account, on equip, or on pickup.
 
-	
+
 Search Operators:
     • ! : Negates a search. For example, !q:epic will find all items that are NOT epic.
     • | : Joins two searches. Typing q:epic | t:weapon will find all items that are either epic OR weapons.
@@ -527,6 +527,7 @@ L["BG Score"] = "전장 점수판"
 L["Black Market AH"] = "암시장"
 L["Calendar Frame"] = "달력"
 L["Character Frame"] = "캐릭터 창"
+L["Death Recap"] = true;
 L["Debug Tools"] = "오류 확인 창"
 L["Dressing Room"] = "아이템 미리보기 창"
 L["Encounter Journal"] = "던전 도감"
