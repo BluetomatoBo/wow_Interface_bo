@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1123, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13273 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13335 $"):sub(12, -3))
 mod:SetCreatureID(76814)--76794 Cinder Wolf, 80590 Aknor Steelbringer
 mod:SetEncounterID(1689)
 mod:SetZone()
@@ -61,6 +61,8 @@ local timerBlazingRadianceCD			= mod:NewCDTimer(12, 155277, nil, false)--somewha
 local timerFireStormCD					= mod:NewNextTimer(63, 155493)
 local timerFireStorm					= mod:NewBuffActiveTimer(12, 155493)
 
+local berserkTimer						= mod:NewBerserkTimer(420)
+
 local countdownCinderWolves				= mod:NewCountdown(74, 155776)
 local countdownFireStorm				= mod:NewCountdown(63, 155493)--Same voice as wolves cause never happen at same time, in fact they alternate.
 local countdownEnchantedArmaments		= mod:NewCountdown("OptionVersion2", "Alt45", 156724, false)
@@ -97,6 +99,9 @@ function mod:OnCombatStart(delay)
 	timerMoltenTorrentCD:Start(30-delay)
 	timerSummonCinderWolvesCD:Start(60-delay)
 	countdownCinderWolves:Start(60-delay)
+	if self:IsMythic() then
+		berserkTimer:Start(-delay)
+	end
 	if self.Options.RangeFrame and self:IsRanged() then
 		DBM.RangeCheck:Show(6)
 	end
