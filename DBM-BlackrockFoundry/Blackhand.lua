@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(959, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13416 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13435 $"):sub(12, -3))
 mod:SetCreatureID(77325)--68168
 mod:SetEncounterID(1704)
 mod:SetZone()
 mod:SetUsedIcons(3, 2, 1)
-mod:SetHotfixNoticeRev(12813)
+mod:SetHotfixNoticeRev(13427)
 
 mod:RegisterCombat("combat")
 
@@ -152,12 +152,11 @@ function mod:OnCombatStart(delay)
 	end
 	timerMarkedforDeathCD:Start(36-delay, 1)
 	countdownMarkedforDeath:Start(36-delay)
+	yellMarkedforDeath	= self:NewYell(156096)
 	if self:IsMythic() then
-		yellMarkedforDeath	= mod:NewYell(156096, L.customMFDSay)
-		yellAttachSlagBombs	= mod:NewYell("OptionVersion2", 157000, L.customSlagSay)
+		yellAttachSlagBombs	= self:NewYell("OptionVersion2", 157000, L.customSlagSay)
 	else--In case do mythic first, heroic after, reset to non custom on pull
-		yellMarkedforDeath	= mod:NewYell(156096)
-		yellAttachSlagBombs	= mod:NewYell("OptionVersion2", 157000)
+		yellAttachSlagBombs	= self:NewYell("OptionVersion2", 157000)
 	end
 end
 
@@ -310,24 +309,24 @@ local function checkSlag(self)
 		if playerIsMelee and ((tempTable[1] == playerName) or (tempTable[2] == playerName)) then
 			if self.Options.SpecWarn157000you then
 				specWarnSlagPosition:Show(L.middle)
-				yellMarkedforDeath:Yell(L.middle, playerName)
+				yellAttachSlagBombs:Yell(L.middle, playerName)
 			end
 		elseif not playerIsMelee and ((tempTable[1] == playerName) or (tempTable[2] == playerName)) then
 			if self.Options.SpecWarn157000you then
 				specWarnSlagPosition:Show(BACK)
-				yellMarkedforDeath:Yell(BACK, playerName)
+				yellAttachSlagBombs:Yell(BACK, playerName)
 			end
 		end	
 	else--Just use roster order
 		if tempTable[1] == playerName then
 			if self.Options.SpecWarn157000you then
 				specWarnSlagPosition:Show(L.middle)
-				yellMarkedforDeath:Yell(L.middle, playerName)
+				yellAttachSlagBombs:Yell(L.middle, playerName)
 			end
 		elseif tempTable[2] == playerName then
 			if self.Options.SpecWarn157000you then
 				specWarnSlagPosition:Show(BACK)
-				yellMarkedforDeath:Yell(BACK, playerName)
+				yellAttachSlagBombs:Yell(BACK, playerName)
 			end
 		end	
 	end
@@ -578,6 +577,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		voicePhaseChange:Play("pthree")
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
+		end
+		if not self:IsLFR() then
+			yellMarkedforDeath	= self:NewYell(156096, L.customMFDSay)
 		end
 	end
 end

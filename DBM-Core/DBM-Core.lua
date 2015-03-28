@@ -53,9 +53,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 13418 $"):sub(12, -3)),
-	DisplayVersion = "6.1.3", -- the string that is shown as version
-	ReleaseRevision = 13418 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 13435 $"):sub(12, -3)),
+	DisplayVersion = "6.1.4", -- the string that is shown as version
+	ReleaseRevision = 13435 -- the revision of the latest stable version that is available
 }
 
 -- support for git svn which doesn't support svn keyword expansion
@@ -1731,16 +1731,16 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 				return
 			end
 			if hudType:upper() == "GREEN" then
-				DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "highlight", UnitName(uId), 5, hudDuration, 0, 1, 0, 0.5, nil, false):Pulse(0.5, 0.5)
+				DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "highlight", UnitName(uId), 3.5, hudDuration, 0, 1, 0, 0.5, nil, false):Pulse(0.5, 0.5)
 				success = true
 			elseif hudType:upper() == "RED" then
-				DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "highlight", UnitName(uId), 5, hudDuration, 1, 0, 0, 0.5, nil, false):Pulse(0.5, 0.5)
+				DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "highlight", UnitName(uId), 3.5, hudDuration, 1, 0, 0, 0.5, nil, false):Pulse(0.5, 0.5)
 				success = true
 			elseif hudType:upper() == "YELLOW" then
-				DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "highlight", UnitName(uId), 5, hudDuration, 1, 1, 0, 0.5, nil, false):Pulse(0.5, 0.5)
+				DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "highlight", UnitName(uId), 3.5, hudDuration, 1, 1, 0, 0.5, nil, false):Pulse(0.5, 0.5)
 				success = true
 			elseif hudType:upper() == "BLUE" then
-				DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "highlight", UnitName(uId), 5, hudDuration, 0, 0, 1, 0.5, nil, false):Pulse(0.5, 0.5)
+				DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "highlight", UnitName(uId), 3.5, hudDuration, 0, 0, 1, 0.5, nil, false):Pulse(0.5, 0.5)
 				success = true
 			elseif hudType:upper() == "ICON" then
 				local icon = GetRaidTargetIndex(uId)
@@ -1749,21 +1749,21 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 					return
 				end
 				if icon == 8 then
-					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "skull", UnitName(uId), 5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "skull", UnitName(uId), 3.5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
 				elseif icon == 7 then
-					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "cross", UnitName(uId), 5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "cross", UnitName(uId), 3.5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
 				elseif icon == 6 then
-					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "square", UnitName(uId), 5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "square", UnitName(uId), 3.5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
 				elseif icon == 5 then
-					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "moon", UnitName(uId), 5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "moon", UnitName(uId), 3.5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
 				elseif icon == 4 then
-					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "triangle", UnitName(uId), 5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "triangle", UnitName(uId), 3.5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
 				elseif icon == 3 then
-					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "diamond", UnitName(uId), 5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "diamond", UnitName(uId), 3.5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
 				elseif icon == 2 then
-					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "circle", UnitName(uId), 5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "circle", UnitName(uId), 3.5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
 				elseif icon == 1 then
-					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "star", UnitName(uId), 5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "star", UnitName(uId), 3.5, hudDuration, 1, 1, 1, 0.5, nil, false):Pulse(0.5, 0.5)
 				end
 				success = true
 			else
@@ -3392,6 +3392,7 @@ function DBM:LoadMod(mod, force)
 		if instanceType ~= "pvp" and #inCombat == 0 and IsInGroup() then--do timer recovery only mod load
 			timerRequestInProgress = true
 			-- Request timer to 3 person to prevent failure.
+			self.Unschedule(self.RequestTimers)--Unschedule the 3 requests done on dbm first load, so 6 requests aren't sent when reloading inside an instance
 			self:Schedule(8, self.RequestTimers, self, 3)
 			self:Schedule(10, self.RequestTimers, self, 2)
 			self:Schedule(12, self.RequestTimers, self, 1)
