@@ -1011,7 +1011,7 @@ function E:RestoreAprilFools()
 	self.db.general.backdropcolor = {r = c.r, g = c.g, b = c.b}
 
 	c = self.db.tempSettings.backdropfadecolor
-	self.db.general.backdropfadecolor = {r = c.r, g = c.g, b = c.b}
+	self.db.general.backdropfadecolor = {r = c.r, g = c.g, b = c.b, a = (c.a or 0.8)}
 
 	c = self.db.tempSettings.bordercolor
 	self.db.general.bordercolor = {r = c.r, g = c.g, b = c.b}
@@ -1157,7 +1157,7 @@ function E:Initialize()
 	if(self:CheckForFoolsDayFuckup()) then
 		E:AprilFoolsFuckupFix()
 	elseif E:IsFoolsDay() and not self.db.general.kittys then
-		E:StaticPopup_Show('APRIL_FOOLS')
+		--E:StaticPopup_Show('APRIL_FOOLS')
 	end
 
 	self:UpdateMedia()
