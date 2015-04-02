@@ -5,7 +5,7 @@
 ## Version: 6.1.0.150331
 ## DefaultState: enabled
 ## SavedVariables: BattlePetTabsDB3
-## X-Curse-Packaged-Version: v6.0.1.150331
+## X-Curse-Packaged-Version: v6.1.0.150401
 ## X-Curse-Project-Name: Battle Pet Tabs
 ## X-Curse-Project-ID: battlepettabs
 ## X-Curse-Repository-ID: wow/battlepettabs/mainline
