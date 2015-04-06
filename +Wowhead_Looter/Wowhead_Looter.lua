@@ -3,16 +3,16 @@
 --     W o w h e a d   L o o t e r     --
 --                                     --
 --                                     --
---    Patch: 6.0.3                     --
---    Updated: November 25, 2014       --
+--    Patch: 6.1.0                     --
+--    Updated: March 18, 2015          --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 60005;
-local WL_VERSION_PATCH = 3;
+local WL_VERSION = 60009;
+local WL_VERSION_PATCH = 1;
 
 
 -- SavedVariables
@@ -20,13 +20,15 @@ wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
 wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
 wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
 wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability, wlItemBonuses = {}, {}, {}, {}, {}, {}, {}, {};
+wlDailies = "";
 
 -- SavedVariablesPerCharacter
 wlSetting = {};
 wlScans = {
 	guid = nil,
-	glyphs = "",
-	archaeology = {},
+    toys = "",
+    followers = "",
+    heirlooms = "",
 	timePlayedTotal = 0,
 };
 wlPetBlacklist = nil;
@@ -64,7 +66,9 @@ local WL_LOOT_TOAST_BAGS = {
     [171513] = 116414,  -- Pet Supplies
     [175767] = 118697,  -- Big Bag of Pet Supplies
     [178508] = 120321,  -- Mystery Bag
+    [181405] = 122535,  -- Traveler's Pet Supplies
 };
+
 local WL_REP_MODS = {
 	[GetSpellInfo(61849)] = {nil, 0.1},
 	[GetSpellInfo(24705)] = {nil, 0.1},
@@ -91,13 +95,13 @@ local WL_AREAID_TO_DUNGEONID = {
         [765] = 258,
         [704] = 258,
         [769] = 300,
-        [876] = 463,
+        [528] = 261,
         [521] = 261,
         [964] = 788,
         [525] = 261,
+        [876] = 463,
         [536] = 261,
-        [528] = 261,
-        [798] = 259,
+        [750] = 258,
         [533] = 261,
         [732] = 259,
         [726] = 259,
@@ -105,7 +109,7 @@ local WL_AREAID_TO_DUNGEONID = {
         [730] = 259,
         [984] = 788,
         [797] = 259,
-        [750] = 258,
+        [798] = 259,
         [722] = 259,
         [534] = 261,
         [759] = 300,
@@ -163,16 +167,16 @@ local WL_AREAID_TO_DUNGEONID = {
         [1008] = 789,
         [993] = 789,
         [885] = 462,
-        [747] = 301,
+        [898] = 462,
         [793] = 301,
         [871] = 462,
         [887] = 462,
-        [874] = 462,
-        [764] = 301,
-        [995] = 789,
         [964] = 789,
+        [764] = 301,
+        [874] = 462,
+        [747] = 301,
         [781] = 301,
-        [898] = 462,
+        [995] = 789,
         [875] = 462,
         [984] = 789,
         [969] = 789,
@@ -220,13 +224,79 @@ local WL_REP_DISCOUNT = {
 local WL_ZONE_EXCEPTION = {
     ["ShrineofSevenStars"]  = 905,
     ["ShrineofTwoMoons"]    = 903,
-}
+};
+local WL_SALVAGE_ITEMS = {
+    [168178] = 114116, -- Bag of Salvaged Goods
+    [168179] = 114119, -- Crate of Salvage
+    [168180] = 114120, -- Big Crate of Salvage
+};
+local WL_SPECIAL_CONTAINERS = {
+    [50301] = true, -- Landro's Pet Box
+    [54218] = true, -- Landro's Gift Box
+    [97565] = true, -- Unclaimed Black Market Container
+    [102137] = true, -- Unclaimed Black Market Container
+    [104260] = true, -- Satchel of Savage Mysteries
+    [105751] = true, -- Kor'kron Shaman's Treasure
+    [110592] = true, -- Unclaimed Black Market Container
+    [111598] = true, -- Gold Strongbox
+    [111599] = true, -- Silver Strongbox
+    [111600] = true, -- Bronze Strongbox
+    [114634] = true, -- Icy Satchel of Helpful Goods
+    [114641] = true, -- Icy Satchel of Helpful Goods
+    [114648] = true, -- Scorched Satchel of Helpful Goods
+    [114655] = true, -- Scorched Satchel of Helpful Goods
+    [114662] = true, -- Tranquil Satchel of Helpful Goods
+    [114669] = true, -- Tranquil Satchel of Helpful Goods
+    [116980] = true, -- Invader's Forgotten Treasure
+    [118065] = true, -- Gleaming Ashmaul Strongbox
+    [118066] = true, -- Ashmaul Strongbox
+    [118093] = true, -- Dented Ashmaul Strongbox
+    [118094] = true, -- Dented Ashmaul Strongbox
+    [118529] = true, -- Cache of Highmaul Treasures
+    [118530] = true, -- Cache of Highmaul Treasures
+    [118531] = true, -- Cache of Highmaul Treasures
+    [119000] = true, -- Highmaul Lockbox
+    [119032] = true, -- Challenger's Strongbox
+    [119036] = true, -- Box of Storied Treasures
+    [119037] = true, -- Supply of Storied Rarities
+    [119040] = true, -- Cache of Mingled Treasures
+    [119041] = true, -- Strongbox of Mysterious Treasures
+    [119042] = true, -- Crate of Valuable Treasures
+    [119043] = true, -- Trove of Smoldering Treasures
+    [119330] = true, -- Steel Strongbox
+    [120142] = true, -- Coliseum Champion's Spoils
+    [120151] = true, -- Gleaming Ashmaul Strongbox
+    [120184] = true, -- Ashmaul Strongbox
+    [120319] = true, -- Invader's Damaged Cache
+    [120320] = true, -- Invader's Abandoned Sack
+    [120353] = true, -- Steel Strongbox
+    [120354] = true, -- Gold Strongbox
+    [120355] = true, -- Silver Strongbox
+    [120356] = true, -- Bronze Strongbox
+    [122163] = true, -- Routed Invader's Crate of Spoils
+    [122241] = true, -- Bounty Payout
+    [122242] = true, -- Relic Acquisition Compensatory Package
+    [122478] = true, -- Scouting Report: Frostfire Ridge
+    [122479] = true, -- Scouting Report: Shadowmoon Valley
+    [122480] = true, -- Scouting Report: Gorgrond
+    [122481] = true, -- Scouting Report: Talador
+    [122482] = true, -- Scouting Report: Spires of Arak
+    [122483] = true, -- Scouting Report: Nagrand
+    [122484] = true, -- Blackrock Foundry Spoils
+    [122485] = true, -- Blackrock Foundry Spoils
+    [122486] = true, -- Blackrock Foundry Spoils
+    [122579] = true, -- Rush Orders Ledger
+    [122608] = true, -- Garrison Resource Shipment
+    [122718] = true, -- Clinking Present
+    [123857] = true, -- Runic Pouch
+    [123858] = true, -- Follower Retraining Scroll Case
+    [123975] = true, -- Greater Bounty Spoils
+};
 
 -- Speed optimizations
 local CheckInteractDistance = CheckInteractDistance;
 local DungeonUsesTerrainMap = DungeonUsesTerrainMap;
 local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo;
-local GetArtifactInfoByRace = GetArtifactInfoByRace;
 local GetCurrentMapDungeonLevel = GetCurrentMapDungeonLevel;
 local GetCursorPosition = GetCursorPosition;
 local GetFactionInfo = GetFactionInfo;
@@ -241,8 +311,6 @@ local GetMerchantItemCostItem = GetMerchantItemCostItem;
 local GetMerchantItemInfo = GetMerchantItemInfo;
 local GetMerchantItemLink = GetMerchantItemLink;
 local GetNetStats = GetNetStats;
-local GetNumArchaeologyRaces = GetNumArchaeologyRaces;
-local GetNumArtifactsByRace = GetNumArtifactsByRace;
 local GetNumDungeonMapLevels = GetNumDungeonMapLevels;
 local GetNumLootItems = GetNumLootItems;
 local GetNumPartyMembers = GetNumPartyMembers;
@@ -328,8 +396,9 @@ local wlLootToastSourceId = nil;
 local wlCurrentLootToastEventId = nil;
 local wlQuestLog, wlQuestObjectives, wlCurrentQuestObj = {}, { {}, {} }, 1;
 local wlNumQuestCompleted = 0;
-local spellCastID = nil;
+local wlSpellCastID = nil;
 local wlTrackerClearedTime = 0;
+local wlChatLootIsBlocked = false;
 
 local isBetaClient = false;
 --[[if (tonumber(select(4, GetBuildInfo())) >= 60000) then
@@ -427,7 +496,6 @@ function wlEvent_PLAYER_LOGIN(self)
 
 	wlNumQuestCompleted = wlGetNumLoremasterQuestCompleted();
 
-	-- We're not going to use historical data for the uploads anymore
 	-- If a field is "" in the upload, the server will not touch
 	-- the database for that field.  (i.e. we didn't scan that data)
 	-- If a field is "-1", it means we've scanned for the data, but
@@ -436,12 +504,12 @@ function wlEvent_PLAYER_LOGIN(self)
 	-- Otherwise, the field will contain ALL the pertinent data, so the
 	-- server wipes what it had and replaces it with what's in the upload
 
-	wlScans = {};
 	wlScans.guid = UnitGUID("player");
-	wlScans.glyphs = "";
-	wlScans.archaeology = {};
-	wlScans.timePlayedTotal = 0;
-	
+	wlScans.toys = wlScans.toys or "";
+	wlScans.followers = wlScans.followers or "";
+	wlScans.heirlooms = wlScans.heirlooms or "";
+	wlScans.timePlayedTotal = wlScans.timePlayedTotal or 0;
+
 	-- to make sure bag info is available
 	wlTimers.itemDurability = wlGetTime() + 20000;
 
@@ -452,6 +520,11 @@ function wlEvent_PLAYER_LOGIN(self)
             WL_CURRENCIES[currencyName:lower()] = i;
         end
     end
+    wlScanCurrencies();
+
+    wlScanToys();
+    wlScanFollowers();
+    wlScanHeirlooms();
 
 	wlMessage(WL_LOADED:format(WL_NAME, WL_VERSION), true);
 end
@@ -679,6 +752,7 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_GOSSIP_SHOW(self)
+    wlEvent_BlockChatLoot(self);
 	wlClearTracker("gossipNpc");
 	local gossips = { GetGossipOptions() };
 
@@ -692,12 +766,14 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_AUCTION_HOUSE_SHOW(self)
+    wlEvent_BlockChatLoot(self);
 	wlRegisterUnitGossip("auctioneer");
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_BANKFRAME_OPENED(self)
+    wlEvent_BlockChatLoot(self);
 	wlRegisterUnitGossip("banker");
 end
 
@@ -808,6 +884,7 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_MERCHANT_SHOW(self)
+    wlEvent_BlockChatLoot(self);
 	wlRegisterUnitGossip("vendor");
 	wlEvent_MERCHANT_UPDATE(self);
 end
@@ -1020,7 +1097,7 @@ end
 function wlCheckUnitForRep(guid, name)
 	wlClearTracker("rep");
 		
-	local id = wlParseGUID(guid);
+	local id, kind = wlParseGUID(guid);
 	local now = wlGetTime();
 	
 	-- npc check
@@ -1036,7 +1113,17 @@ function wlCheckUnitForRep(guid, name)
 		if creatureType:match(WL_CRITTER) then
 			return id, now;
 		end
-	end
+    end
+
+    local mapAreaID = wlGetCurrentMapAreaID();
+    local taskInfo = C_TaskQuest.GetQuestsForPlayerByMapID(mapAreaID);
+    local numTaskPOIs = 0;
+    if (taskInfo ~= nil) then
+        numTaskPOIs = #taskInfo;
+    end
+    if numTaskPOIs > 0 then -- some bonus objectives reward rep
+        return id, now;
+    end
 	
 	if wlNpcInfo[name] and wlNpcInfo[name].id == id and wlIsValidInterval(wlNpcInfo[name].time, now, 15000) then
 		wlTracker.rep.time = now;
@@ -1067,7 +1154,7 @@ function wlEvent_COMBAT_LOG_EVENT_UNFILTERED(self, timestamp, event, hideCaster,
 		wlTracker.spell.action = 30427;
 
 	elseif event == "SPELL_CAST_START" or event == "SPELL_CAST_SUCCESS" or event == "SPELL_AURA_APPLIED" then
-		local unitId = wlParseGUID(sourceGUID);
+		local unitId, kind = wlParseGUID(sourceGUID);
 		local spellId, spellName = ...;
 		
 		-- Spell ID is blacklisted
@@ -1078,7 +1165,7 @@ function wlEvent_COMBAT_LOG_EVENT_UNFILTERED(self, timestamp, event, hideCaster,
 		-- npc check
 		if not unitId or unitId == 0 or kind ~= "npc" then
 			return;
-		end
+        end
 		
 		if bit_band(WL_NPC_FLAGS, sourceFlags) ~= 0 and bit_band(WL_NPC_CONTROL_FLAGS, sourceFlags) == WL_NPC_CONTROL_FLAGS then
 		
@@ -1212,7 +1299,11 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_MAIL_SHOW(self)
-	wlRegisterObject(wlUnitGUID("npc"));
+    wlEvent_BlockChatLoot(self);
+    local id, kind = wlUnitGUID("npc");
+    if id and kind == "object" then
+        wlRegisterObject(wlConcat("mail", id, "dummy"));
+    end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -1383,7 +1474,23 @@ function wlEvent_QUEST_DETAIL(self)
 	wlTracker.quest.targetkind = kind;
 	wlTracker.quest.targetid = id;
 
+    if QuestIsDaily() or QuestIsWeekly() then
+        wlSeenDaily(wlTracker.quest.id)
+    end
+
 	-- ...Wait for the quest log refresh to register the quest
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_QUEST_ACCEPTED(self, _, questId)
+    if (questId) then
+        -- only way to pick up apexis daily quests from table, when they are auto-accepted
+        local apexis = { 36524,36525,36526,36542,36543,36544,36648,36649,36667,36669,36674,36675,36676,36677,36678,36679,36680,36681,36682,36683,36684,36685,36686,36687,36688,36689,36690,36691,36692,36693,36694,36695,36696,36697,36698,36699,36700,36701 }
+        if tContains(apexis, questId) then
+            wlSeenDaily(questId)
+        end
+    end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -1396,6 +1503,15 @@ function wlEvent_QUEST_PROGRESS(self)
 
 	wlTracker.quest.time = wlGetTime();
 	wlTracker.quest.action = "progress";
+
+    if QuestIsDaily() then
+        -- we want to pick up garrison profession trader dailies, but they don't fire quest_detail
+        -- also, we don't want in-progress quests from other days to get picked up, so only prof dailies can trigger "seen" on progress event
+        if tContains({ 38243, 38290, 38293, 38287, 38296 }, wlTracker.quest.id) then
+            wlSeenDaily(wlTracker.quest.id)
+        end
+    end
+
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -1546,6 +1662,69 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
+function wlSeenDaily(questId)
+    local weekday, month, day, year = CalendarGetDate()
+    local hours, minutes = GetGameTime()
+    local resetTime = GetQuestResetTime() -- seconds
+    minutes = minutes + floor(resetTime / 60) + 5 -- pretend that dailies reset at x:05 in case server clock off by a couple minutes
+    hours = hours + (minutes / 60)
+    if hours < 24 then
+        -- to find "today"'s daily quests, we want dailies to reset "tomorrow"
+        -- if adding the seconds until quest reset doesn't roll the clock over to tomorrow,
+        -- then dailies will reset soon, and we're somewhen between midnight and early AM (daily reset time)
+        -- so roll "today" back a day because it's really yesterday's quests we're still seeing
+        day = day - 1
+        if day == 0 then
+            CalendarSetAbsMonth(month, year) -- assert today's month/year, so we can get prev month's days
+            local _, _, numDays = CalendarGetMonth(-1) -- get num of days for prev month
+            day = numDays
+            month = month - 1
+            if month == 0 then
+                month = 12
+                year = year - 1
+            end
+        end
+    end
+
+    local today = year..'-'..month..'-'..day..','
+    local toAdd = questId..','
+
+    local guid = wlScans.guid
+    local realmId = 0
+    if guid then
+        realmId = tonumber(strmatch(guid, "^Player%-(%d+)"))
+    end
+
+    local key = 'r'..realmId..'='
+
+    local s, e = strfind(wlDailies, key.."[^;]*;");
+
+    if s then
+        -- seen this realm ID before, pull string from savedvar
+        local value = strsub(wlDailies, s + strlen(key), e - 1);
+        if strsub(value, 1, strlen(today)) ~= today then
+            -- different day, wipe the var
+            value = today..toAdd
+        else
+            -- same day, add if we didn't see this quest already
+            if not strfind(value, ','..toAdd) then
+                value = value..toAdd
+            else
+                -- wipe value so we don't overwrite needlessly
+                value = nil
+            end
+        end
+        if value then
+            wlDailies = wlDailies:gsub(key.."[^;]*", key..value); -- replace
+        end
+    else
+        -- haven't seen this realm ID before, just save it
+        wlDailies = wlDailies..key..today..toAdd..";";
+    end
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
 
 -------------------------
 -------------------------
@@ -1573,6 +1752,7 @@ local wlSpells = {
 	Skinning = { GetSpellInfo(8613) or "", WL_NPC, 1 },
 	MindControl = { GetSpellInfo(605) or "", WL_NPC, nil },
 	Archaeology = { GetSpellInfo(73979) or "", WL_OBJECT, 1 },
+    Logging = { GetSpellInfo(167895) or "", WL_OBJECT, nil },
 	-- BeastLore = { GetSpellInfo(1462) or "", WL_NPC, nil },
 	-- PickLocking = { GetSpellInfo(1804) or "", WL_OBJECT, 1 }, 
 };
@@ -1592,9 +1772,9 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_UNIT_SPELLCAST_SENT(self, unit, spell, rank, target, lineID)
-	if unit ~= "player" or not target or spellCastID then
+	if unit ~= "player" or not target or wlSpellCastID then
 		return;
-	end
+    end
 
 	local spellId = wlFindSpell(spell);
 
@@ -1650,8 +1830,6 @@ function wlEvent_UNIT_SPELLCAST_SENT(self, unit, spell, rank, target, lineID)
 			end
 
 			local zone, x, y, dl = wlGetLocation();
-
-			-- wlRegisterObject(wlConcat(spellId, zone, target)); moved to LOOT_OPENED for more precision
 			
 			wlTracker.spell.kind = "object";
 			wlTracker.spell.name = target;
@@ -1684,8 +1862,8 @@ function wlEvent_UNIT_SPELLCAST_SENT(self, unit, spell, rank, target, lineID)
 		wlTracker.spell.action = spellId;
 		
 		-- associate unit_spellcast_* events
-		spellCastID = lineID;
-	end
+        wlSpellCastID = lineID;
+    end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -1694,11 +1872,11 @@ function wlEvent_UNIT_SPELLCAST_SUCCEEDED(self, unit, spell, rank, lineID, spell
 	if unit ~= "player" then
 		return;
 	end
-	
-	spellCastID = nil;
-	
-	local now = wlGetTime();
+
+    wlSpellCastID = nil;
+
 	if WL_LOOT_TOAST_BAGS[spellId] then
+        local now = wlGetTime();
 		wlClearTracker("spell");
 		wlTrackerClearedTime = now;
 		wlLootToastSourceId = WL_LOOT_TOAST_BAGS[spellId];
@@ -1707,16 +1885,32 @@ function wlEvent_UNIT_SPELLCAST_SUCCEEDED(self, unit, spell, rank, lineID, spell
 		return;
 	end
 
-	if wlForgeSpells[spellId] then
-		wlRegisterObject(WL_FORGE_ID);
-	end
-	if wlAnvilSpells[spellId] then
-		wlRegisterObject(WL_ANVIL_ID);
-	end
+    if not wlChatLootIsBlocked and WL_SALVAGE_ITEMS[spellId] ~= nil then
+        local now = wlGetTime();
+        wlClearTracker("spell");
+        wlTrackerClearedTime = now;
+        wlTracker.spell.id = spellId;
+        wlTracker.spell.time = now;
+        wlTracker.spell.specialEventId = nil;
+        wlTimers.clearSpecialLoot = now + 500;
+        return;
+    end
+
+    if wlForgeSpells[spellId] then
+        wlRegisterObject(WL_FORGE_ID);
+    end
+    if wlAnvilSpells[spellId] then
+        wlRegisterObject(WL_ANVIL_ID);
+    end
 	
 	if wlTracker.spell.time and wlTracker.spell.event == "SENT" and wlTracker.spell.action == wlFindSpell(spell) then
 		wlTracker.spell.event = "SUCCEEDED";
 		wlTracker.spell.time = wlGetTime();
+        if wlTracker.spell.action == "Logging" and wlTracker.spell.name then -- save location here since that action won't trigger a loot frame
+            wlRegisterObject(wlConcat(wlTracker.spell.action, "_", wlTracker.spell.name));
+            wlClearTracker("spell");
+            wlTrackerClearedTime = wlGetTime();
+        end
 	end
 end
 
@@ -1724,8 +1918,8 @@ end
 
 function wlEvent_UNIT_SPELLCAST_FAILED(self, unit, spell, rank, lineID, spellID)
 	-- only reset wlTracker.spell if the 'failed' comes from an associated 'sent'
-	if unit == "player" and spellCastID == lineID then
-		spellCastID = nil;
+	if unit == "player" and wlSpellCastID == lineID then
+        wlSpellCastID = nil;
 		wlClearTracker("spell");
 		wlTrackerClearedTime = wlGetTime();
 	end
@@ -1775,9 +1969,6 @@ function wlEvent_SHOW_LOOT_TOAST(self, typeIdentifier, itemLink, quantity, specI
 		wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", #wlEvent[wlId][wlN][eventId]["drop"] + 1, "set", wlConcat(typeId, quantity));
 		
 	end
-	
-	wlClearTracker("spell");
-	wlTrackerClearedTime = wlGetTime();
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -1812,15 +2003,18 @@ function wlBagItemOnUse(link, bag, slot)
 			for i=2, wlGameTooltip:NumLines() do
 				local text = _G["wlGameTooltipTextLeft"..i]:GetText();
 				if text == ITEM_OPENABLE then
-					wlClearTracker("spell");
-					wlTrackerClearedTime = now;
-
-					wlTracker.spell.time = now;
-					wlTracker.spell.event = "SUCCEEDED";
-					wlTracker.spell.action = "Opening";
-					wlTracker.spell.kind = "item";
-					wlTracker.spell.id = id;
-					wlTracker.spell.name = wlGameTooltipTextLeft1:GetText();
+                    wlClearTracker("spell");
+                    wlTrackerClearedTime = now;
+                    wlTracker.spell.time = now;
+                    wlTracker.spell.event = "SUCCEEDED";
+                    wlTracker.spell.action = "Opening";
+                    wlTracker.spell.kind = "item";
+                    wlTracker.spell.id = id;
+                    wlTracker.spell.name = wlGameTooltipTextLeft1:GetText();
+                    if not wlChatLootIsBlocked and WL_SPECIAL_CONTAINERS[id] then
+                        wlTracker.spell.specialEventId = nil;
+                        wlTimers.clearSpecialLoot = now + 500;
+                    end
 					break;
 				end
 			end
@@ -1888,7 +2082,7 @@ function wlEvent_LOOT_OPENED(self)
 		if v < now - 300000 then -- 5min
 			wlLootCooldown[k] = nil;
 		end
-	end
+    end
 	
 	if wlTracker.spell.time then
 
@@ -2135,6 +2329,76 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
+function wlEvent_BlockChatLoot(self)
+    wlClearTracker("spell");
+    wlTrackerClearedTime = wlGetTime();
+    wlChatLootIsBlocked = true;
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_UnBlockChatLoot(self)
+    wlChatLootIsBlocked = false;
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+
+local LOOT_ITEM_PUSHED_SELF = LOOT_ITEM_PUSHED_SELF:gsub("%%s", "(.+)");
+local LOOT_ITEM_PUSHED_SELF_MULTIPLE = LOOT_ITEM_PUSHED_SELF_MULTIPLE:gsub("%%s", "(.+)");
+LOOT_ITEM_PUSHED_SELF_MULTIPLE = LOOT_ITEM_PUSHED_SELF_MULTIPLE:gsub("%%d", "(%%d+)");
+function wlEvent_CHAT_MSG_LOOT(self, msg)
+    local now = wlGetTime();
+    if not wlTracker.spell.id or not wlTracker.spell.time or not wlIsValidInterval(wlTracker.spell.time or 0, now, 500) then
+        return;
+    end
+
+    if not WL_SALVAGE_ITEMS[wlTracker.spell.id] and not WL_SPECIAL_CONTAINERS[wlTracker.spell.id] then
+        return;
+    end
+
+    local valid = true;
+    if not wlEvent or not wlId or not wlEvent[wlId] or not wlN or not wlEvent[wlId][wlN] then
+        valid = false;
+    end
+
+    local _, _, mshome, msworld = GetNetStats();
+    if mshome > WL_PING_MAX or msworld > WL_PING_MAX then
+        valid = false;
+    end
+
+    local found, _, link, qty = msg:find(LOOT_ITEM_PUSHED_SELF_MULTIPLE);
+    if not found then
+        qty, found, _, link = 1, msg:find(LOOT_ITEM_PUSHED_SELF);
+    end
+    local itemID = wlParseItemLink(link);
+    qty = tonumber(qty);
+
+    if valid and found and itemID and itemID > 0 and qty and qty > 0 then
+        local eventId = wlTracker.spell.specialEventId;
+        if not eventId then
+            eventId = wlGetNextEventId();
+            wlTracker.spell.specialEventId = eventId;
+            wlTracker.spell.action = "Opening";
+            wlTracker.spell.kind = "item";
+            wlUpdateVariable(wlEvent, wlId, wlN, eventId, "initArray", 0);
+            wlEvent[wlId][wlN][eventId].what = "loot";
+            wlTableCopy(wlEvent[wlId][wlN][eventId], wlTracker.spell);
+            wlEvent[wlId][wlN][eventId].id = WL_SALVAGE_ITEMS[wlTracker.spell.id] and WL_SALVAGE_ITEMS[wlTracker.spell.id] or wlTracker.spell.id;
+            wlEvent[wlId][wlN][eventId].dd = wlGetInstanceDifficulty();
+            wlEvent[wlId][wlN][eventId].flags = 0;
+        end
+        wlEvent[wlId][wlN][eventId]["drop"] = wlEvent[wlId][wlN][eventId]["drop"] or {};
+        wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", #wlEvent[wlId][wlN][eventId]["drop"] + 1, "set", wlConcat(itemID, qty));
+    else
+        wlClearTracker("spell");
+        wlTrackerClearedTime = now;
+        wlTimers.clearSpecialLoot = nil;
+    end
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
 function wlEvent_CHAT_MSG_ADDON(self, id, msg, channel, source)
 	if id == "WL_LOOT_COOLDOWN" and msg and msg ~= "" then
 		wlLootCooldown[msg] = wlGetTime();
@@ -2196,18 +2460,9 @@ end
 function wlCollect(userInitiated)
 	wlQueryTimePlayed();
 	
-	if wlScanArchaeology() then
-		if userInitiated then
-			wlAppendMsgCollected(WL_COLLECT_ARCHAEOLOGY);
-		end
-	end
+    wlScanToys()
+    wlScanFollowers()
 
-	if wlScanGlyphs() then
-		if userInitiated then
-			wlAppendMsgCollected(WL_COLLECT_GLYPHS);
-		end
-	end
-	
 	if userInitiated then
 		wlTimers.printCollected = wlGetTime() + 1000;
 	end
@@ -2284,7 +2539,7 @@ function wlEvent_CURRENCY_DISPLAY_UPDATE(...)
 				
 				-- make sure the player isn't capped
 				local currencyName, currentQ, currencyIcon, currencyEarnedThisWeek, currencyEarnablePerWeek, currencyCap, currencyIsDiscovered = GetCurrencyInfo(currencyId);
-				if currentQ == (currencyCap/100) or (currencyEarnablePerWeek ~= 0 and currencyEarnedThisWeek == (currencyEarnablePerWeek/100)) then
+				if currentQ == currencyCap or (currencyEarnablePerWeek ~= 0 and currencyEarnedThisWeek == currencyEarnablePerWeek) then
 					return;
 				end
 				
@@ -2415,50 +2670,6 @@ function wlScanCurrencies()
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-local wlArchaeologyProjects = {};
-function wlScanArtifacts()
-	for raceIndex=1, GetNumArchaeologyRaces() do	
-		for artifactIndex=1, GetNumArtifactsByRace(raceIndex) do
-			local name, _, _, _, _, _, _, _, completionCount = GetArtifactInfoByRace(raceIndex, artifactIndex);
-			if name and WL_ARTIFACTS[name] and completionCount > 0 then
-				wlArchaeologyProjects[WL_ARTIFACTS[name]] = completionCount;
-			end	
-		end
-	end
-
-	if next(wlArchaeologyProjects) ~= nil then
-		wlScans.archaeology = wlArchaeologyProjects;
-	else
-		wlScans.archaeology = "-1"; -- WARNING - it is a string now!
-	end
-end
-
-function wlEvent_ARTIFACT_COMPLETE(...)
-	wlScanArtifacts();
-end
-
-function wlEvent_ARTIFACT_HISTORY_READY(...)
-	wlScanArtifacts();
-end
-
-function wlScanArchaeology()
-	local _, _, arch = GetProfessions();
-	if arch then
-		if not IsArtifactCompletionHistoryAvailable() then
-			-- request missing archaeology completion history
-			RequestArtifactCompletionHistory();
-		else
-			wlScanArtifacts();
-		end
-		return true;
-	else
-		-- successful scan with nothing to report
-		wlScans.archaeology = "-1"; -- WARNING - it's a string now!
-		return false;
-	end
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlQueryTimePlayed()
 	-- Don't display time played in chat frame if not queried by player
@@ -2471,6 +2682,28 @@ end
 function wlEvent_TRADE_SKILL_SHOW(self, ...)
 	-- it's okay to run this now even if we can't guarantee all the spells are available at this time
 	wlScanProfessionWindow(wlGrabTradeSkillTools);
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_TOYS_UPDATED(self, ...)
+    wlScanToys();
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_HEIRLOOMS_UPDATED(self, ...)
+    wlScanHeirlooms();
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+local wlEvent_FOLLOWERS_UPDATED_last = 0
+function wlEvent_FOLLOWERS_UPDATED(self, ...)
+    if wlEvent_FOLLOWERS_UPDATED_last + 5 <= time() then
+        wlEvent_FOLLOWERS_UPDATED_last = time()
+        wlScanFollowers()
+    end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -2544,13 +2777,17 @@ function wlScanProfessionWindow(...)
 					ExpandTradeSkillSubClass(tradeSkillIndex);
 					wlCollapsedHeaders[name] = 1;
 				end
-			else
-				local _, _, spellId = GetTradeSkillRecipeLink(tradeSkillIndex):find("^|%x+|Henchant:(.+)|h%[.+%]");
-
-				-- run the handlers for this trade skill spell
-				for funcIndex = 1, parameterCount do
-					select(funcIndex, ...)(skillLineName, spellId, tradeSkillIndex);
-				end
+            else
+                local recipeLink = GetTradeSkillRecipeLink(tradeSkillIndex);
+                if recipeLink ~= nil then
+                    local found, _, spellId = recipeLink:find("^|%x+|Henchant:(.+)|h%[.+%]");
+                    if found then
+                        -- run the handlers for this trade skill spell
+                        for funcIndex = 1, parameterCount do
+                            select(funcIndex, ...)(skillLineName, spellId, tradeSkillIndex);
+                        end
+                    end
+                end
 			end
 		end
 	end
@@ -2575,103 +2812,150 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlScanGlyphs()
-	if not IsAddOnLoaded("Blizzard_GlyphUI") then
-		TalentFrame_LoadUI();
-		LoadAddOn("Blizzard_GlyphUI");
-	end
+local wlScanToys_processing = false
+function wlScanToys()
+    if wlScanToys_processing then -- toys_updated events might fire when we change filters
+        return
+    end
+    wlScanToys_processing = true
 
-	local ids = "";
+    local ids = ""
 
-	local filterText = GlyphFrameSearchBox:GetText();
-	SetGlyphNameFilter("");
+    local fCollected, fUncollected = C_ToyBox.GetFilterCollected(), C_ToyBox.GetFilterUncollected()
+    local fSources = {}
+    local numSources = C_PetJournal.GetNumPetSources() -- yes, pet sources used for toy source list
 
-	local filterKnown, filterUnknown = IsGlyphFlagSet(GLYPH_FILTER_KNOWN), IsGlyphFlagSet(GLYPH_FILTER_UNKNOWN);
+    for i=1,numSources do
+        fSources[i] = C_ToyBox.IsSourceTypeFiltered(i)
+        C_ToyBox.SetFilterSourceType(i,false)
+    end
+    C_ToyBox.SetFilterCollected(true)
+    C_ToyBox.SetFilterUncollected(false)
+    C_ToyBox.SetFilterString("")
+    C_ToyBox.FilterToys()
 
-	--	That function is bugged, so I use ToggleGlyphFilter instead... +o(
-	--	SetGlyphFilter(GLYPH_FILTER_KNOWN, true);
-	--	SetGlyphFilter(GLYPH_FILTER_UNKNOWN, true);
+    local toyItem = 1
+    local i = 1
+    local toyTable = {}
+    local toyTableIdx = #toyTable
+    while (toyItem > 0) and (i < 1000) do
+        toyItem = C_ToyBox.GetToyFromIndex(i)
+        if (toyItem > 0) then
+            toyTableIdx = toyTableIdx + 1
+            if (C_ToyBox.GetIsFavorite(toyItem)) then
+                toyTable[toyTableIdx] = toyItem .. ':1'
+            else
+                toyTable[toyTableIdx] = toyItem .. ':0'
+            end
+        end
+        i = i + 1
+    end
 
-	if not filterKnown then
-		ToggleGlyphFilter(GLYPH_FILTER_KNOWN); -- Show
-	end
+    ids = table.concat(toyTable,',')
 
-	if filterKnown then
-		ToggleGlyphFilter(GLYPH_FILTER_UNKNOWN); -- Hide
-	end
+    -- reset user prefs
+    if (ToyBox and ToyBox.searchString and type(ToyBox.searchString) == "string") then
+        C_ToyBox.SetFilterString(ToyBox.searchString)
+    end
+    C_ToyBox.SetFilterCollected(fCollected)
+    C_ToyBox.SetFilterUncollected(fUncollected)
+    for i=1,numSources do
+        C_ToyBox.SetFilterSourceType(i,fSources[i])
+    end
+    C_ToyBox.FilterToys()
 
-	local toggleFilter1, toggleFilter2, toggleFilter4 = not IsGlyphFlagSet(1), not IsGlyphFlagSet(2), not IsGlyphFlagSet(4);
-	ToggleGlyphFilter((toggleFilter1 and 1 or 0) + (toggleFilter2 and 2 or 0) + (toggleFilter4 and 4 or 0));
+    wlScanToys_processing = false
 
-	local i = 1;
-	while i <= GetNumGlyphs() do
-		local name, _, isKnown, _, castSpell = GetGlyphInfo(i);
+    if ids ~= "" then
+        wlScans.toys = ids;
+        return true;
+    else
+        -- skip resetting toys, perhaps server didn't send them down yet. toys never go completely away.
+        -- wlScans.toys = "-1";
+        return false;
+    end
+end
 
-		if name ~= "header" and isKnown then
-			if ids:len() ~= 0 then
-				ids = ids..",";
-			end
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-			ids = ids..castSpell;
-		end
+function wlScanHeirlooms()
+    local ids = ""
 
-		i = i + 1;
-	end
+    local heirloomTable = {}
+    local heirloomTableIdx = #heirloomTable
+    for i = 1, C_Heirloom.GetNumHeirlooms() do
+        local itemID = C_Heirloom.GetHeirloomItemIDFromIndex(i);
+        if (itemID and C_Heirloom.PlayerHasHeirloom(itemID)) then
+            local name, itemEquipLoc, isPvP, itemTexture, upgradeLevel, source, searchFiltered, effectiveLevel, minLevel, maxLevel = C_Heirloom.GetHeirloomInfo(itemID);
+            heirloomTableIdx = heirloomTableIdx + 1
+            heirloomTable[heirloomTableIdx] = itemID .. ':' .. upgradeLevel
+        end
+    end
 
-	ToggleGlyphFilter((toggleFilter1 and 1 or 0) + (toggleFilter2 and 2 or 0) + (toggleFilter4 and 4 or 0));
+    ids = table.concat(heirloomTable,',')
 
-	--	That function is bugged, so I use ToggleGlyphFilter instead... +o(
-	--	SetGlyphFilter(GLYPH_FILTER_KNOWN, true);
-	--	SetGlyphFilter(GLYPH_FILTER_UNKNOWN, true);
+    if ids ~= "" then
+        wlScans.heirlooms = ids;
+        return true;
+    else
+        -- skip resetting heirlooms, perhaps server didn't send them down yet. heirlooms never go completely away.
+        -- wlScans.heirlooms = "-1";
+        return false;
+    end
+end
 
-	if not filterKnown then
-		ToggleGlyphFilter(GLYPH_FILTER_KNOWN); -- Hide
-	end
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-	if filterKnown then
-		ToggleGlyphFilter(GLYPH_FILTER_UNKNOWN); -- Show
-	end
+function wlScanFollowers()
+    local Match = string.match
+    local Concat = table.concat
+    local GetStatus = C_Garrison.GetFollowerStatus
+    local GetLink = C_Garrison.GetFollowerLink
+    local GetItems = C_Garrison.GetFollowerItems
+    local INACTIVE = GARRISON_FOLLOWER_INACTIVE
 
-	if filterText ~= SEARCH then
-		SetGlyphNameFilter(filterText);
-	end
+    local followerTable = {}
+    local followerTableIdx = #followerTable
 
-	if ids ~= "" then
-		wlScans.glyphs = ids;
-		return true;
-	else
-		-- Tell the server we scanned the glyphs, and found none (Update this field by: Delete All, Add Nothing)
-		wlScans.glyphs = "-1";
-		return false;
-	end
+    local followers = C_Garrison.GetFollowers();
+    for i=1,#followers do
+        if (followers[i].isCollected) then
+            local id = followers[i].followerID
+            local followerString = Match(GetLink(id), "garrfollower:([%-?%d:]+)")
+
+            if (followerString) then
+                local isActive
+                if GetStatus(id) ~= INACTIVE then isActive = 1 else isActive = 0 end
+
+                local _,weaponLevel,_,armorLevel = GetItems(id)
+
+                followerTableIdx = followerTableIdx + 1
+                followerTable[followerTableIdx] = Concat({isActive, weaponLevel, armorLevel, followerString}, ':')
+            end
+        end
+    end
+
+    if followerTableIdx > 0 then
+        wlScans.followers = Concat(followerTable, ',')
+        return true
+    else
+        -- skip resetting followers, perhaps server didn't send them down yet. followers never go completely away.
+        -- wlScans.followers = "-1"
+        return false
+    end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlGetExportDataValue()
-	local projects = "";
-	if "string" == type(wlScans.archaeology) then
-		projects = wlScans.archaeology; -- should be "-1", a.k.a. 'seen it, no data to report'
-	elseif "table" == type(wlScans.archaeology) then
-		-- [<projectSpellId>,<projectSpellId>,...:<projectCompletionCount>,<projectCompletionCount>,...]
-		local archKeys, archVals, first = "", "", true;
-		for k, v in pairs(wlScans.archaeology) do
-			if first then
-				archKeys = k;
-				archVals = v;
-				first = false;
-			else
-				archKeys = archKeys..","..k;
-				archVals = archVals..","..v;
-			end
-		end
-		projects = archKeys..":"..archVals;
-		if archKeys == "" and archVals == "" then
-			projects = "";
-		end
-	end
-	local value = "&glyphs="..wlScans.glyphs.."&projects="..projects.."&timePlayedTotal="..wlScans.timePlayedTotal;
-	return value;
+    local guid = wlScans.guid
+    local realmId = 0
+    if guid then
+        realmId = tonumber(strmatch(guid, "^Player%-(%d+)"))
+    end
+
+    local value = "&realmId="..realmId.."&timePlayedTotal="..wlScans.timePlayedTotal.."&toys="..wlScans.toys.."&followers="..wlScans.followers.."&heirlooms="..wlScans.heirlooms;
+    return value;
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -2858,11 +3142,25 @@ local wlEvents = {
 	LOOT_CLOSED = wlEvent_LOOT_CLOSED,
 	SHOW_LOOT_TOAST = wlEvent_SHOW_LOOT_TOAST,
 	CHAT_MSG_ADDON = wlEvent_CHAT_MSG_ADDON,
+    CHAT_MSG_LOOT = wlEvent_CHAT_MSG_LOOT,
 	UNIT_SPELLCAST_SENT = wlEvent_UNIT_SPELLCAST_SENT,
 	UNIT_SPELLCAST_SUCCEEDED = wlEvent_UNIT_SPELLCAST_SUCCEEDED,
 	UNIT_SPELLCAST_FAILED = wlEvent_UNIT_SPELLCAST_FAILED,
 	UNIT_SPELLCAST_INTERRUPTED = wlEvent_UNIT_SPELLCAST_FAILED,
 	UNIT_SPELLCAST_FAILED_QUIET = wlEvent_UNIT_SPELLCAST_FAILED,
+
+    -- chat loot blocking
+    GARRISON_MISSION_NPC_CLOSED = wlEvent_UnBlockChatLoot,
+    GARRISON_MISSION_NPC_OPENED = wlEvent_BlockChatLoot,
+    AUCTION_HOUSE_CLOSED = wlEvent_UnBlockChatLoot,
+    BANKFRAME_CLOSED = wlEvent_UnBlockChatLoot,
+    GOSSIP_CLOSED = wlEvent_UnBlockChatLoot,
+    MAIL_CLOSED = wlEvent_UnBlockChatLoot,
+    MERCHANT_CLOSED = wlEvent_UnBlockChatLoot,
+    GUILDBANKFRAME_CLOSED = wlEvent_UnBlockChatLoot,
+    GUILDBANKFRAME_OPENED = wlEvent_BlockChatLoot,
+    TRADE_CLOSED = wlEvent_UnBlockChatLoot,
+    TRADE_SHOW = wlEvent_BlockChatLoot,
 
 	-- object
 	ITEM_TEXT_BEGIN = wlEvent_ITEM_TEXT_BEGIN,
@@ -2870,6 +3168,7 @@ local wlEvents = {
 
 	-- quest
 	QUEST_DETAIL = wlEvent_QUEST_DETAIL,
+    QUEST_ACCEPTED = wlEvent_QUEST_ACCEPTED,
 	QUEST_PROGRESS = wlEvent_QUEST_PROGRESS,
 	QUEST_COMPLETE = wlEvent_QUEST_COMPLETE,
 	QUEST_LOG_UPDATE = wlEvent_QUEST_LOG_UPDATE,
@@ -2884,9 +3183,13 @@ local wlEvents = {
 	-- completist
 	TRADE_SKILL_SHOW = wlEvent_TRADE_SKILL_SHOW,
 	CURRENCY_DISPLAY_UPDATE = wlEvent_CURRENCY_DISPLAY_UPDATE,
-	ARTIFACT_HISTORY_READY = wlEvent_ARTIFACT_HISTORY_READY,
-	ARTIFACT_COMPLETE = wlEvent_ARTIFACT_COMPLETE,
-	
+	TOYS_UPDATED = wlEvent_TOYS_UPDATED,
+	GARRISON_FOLLOWER_ADDED = wlEvent_FOLLOWERS_UPDATED,
+	GARRISON_FOLLOWER_LIST_UPDATE = wlEvent_FOLLOWERS_UPDATED,
+	GARRISON_FOLLOWER_REMOVED = wlEvent_FOLLOWERS_UPDATED,
+	GARRISON_FOLLOWER_XP_CHANGED = wlEvent_FOLLOWERS_UPDATED,
+	HEIRLOOMS_UPDATED = wlEvent_HEIRLOOMS_UPDATED,
+
 	BLACK_MARKET_ITEM_UPDATE = wlEvent_BLACK_MARKET_ITEM_UPDATE,
 };
 
@@ -3316,7 +3619,11 @@ function wl_OnUpdate(self, elapsed)
 				elseif name == "clearLootToastSource" then
 					wlLootToastSourceId = nil;
 					wlCurrentLootToastEventId = nil;
-					
+
+                elseif name == "clearSpecialLoot" then
+                    wlClearTracker("spell");
+                    wlTrackerClearedTime = now;
+
 				elseif name == "itemDurability" then
 					wlGetItemDurability();
 
