@@ -54,9 +54,9 @@ Formats de la Vie / des Ressources:
 'deficit' - Affiche la valeur du déficit, n'affichera rien si il n'y a pas de déficit
 
 Format des Noms:
-'name:short' - Nom limité à 10 charactères
-'name:medium' - Nom limité à 15 charactères
-'name:long' - Nom limité à 20 charactères
+'name:short' - Nom limité à 10 caractères
+'name:medium' - Nom limité à 15 caractères
+'name:long' - Nom limité à 20 caractères
 
 Pour désactiver, laisser le champs vide. Pour plus d'information, merci de visiter http://www.tukui.org]=];
 
@@ -133,11 +133,14 @@ L["Condensed"] = "Condensé";
 L["Currency Format"] = "Format monétaire"
 L["Descending"] = "Descendant"
 L["Direction the bag sorting will use to allocate the items."] = "Direction du tri du sac qui sera utilisé pour allouer les objets."
+L["Display Item Level"] = true;
+L["Displays item level on equippable items."] = true;
 L["Enable/Disable the all-in-one bag."] = "Activer / désactiver le sac tout-en-un."
 L["Enable/Disable the Bag-Bar."] = "Activer / Désactiver la barre des sacs."
 L["Full"] = "Complet";
 L["Icons and Text"] = "Icônes et textes"
 L["Ignore Items"] = "Objets ignorés"
+L["Item Level Threshold"] = "Seuil de niveau d'objet";
 L["Item Level"] = "Niveau d'objet";
 L["List of items to ignore when sorting. If you wish to add multiple items you must seperate the word with a comma."] = "Liste des objets à ignorer pendant le tri. Si vous voulez ajouter plusieurs objets, vous devez séparer les mots par une virgule."
 L["Money Format"] = "Format monétaire";
@@ -156,6 +159,7 @@ L["The direction that the bag frames will grow from the anchor."] = "La directio
 L["The display format of the currency icons that get displayed below the main bag. (You have to be watching a currency for this to display)"] = "Le format d'affichage des icônes de devises qui sont affichés dans les sacs. (Vous devez montrer cette devise pour l'afficher)"
 L["The display format of the money text that is shown at the top of the main bag."] = "Le format d'affichage de l'argent que vous avez visible en haut du sac principal.";
 L["The frame is not shown unless you mouse over the frame."] = "Le cadre est invisible tant que vous n'avez pas passé votre souris dessus."
+L["The minimum item level required for it to be shown."] = "Le niveau d'objet minimum requis pour être affiché";
 L["The size of the individual buttons on the bag frame."] = "La taille des boutons individuels sur la fenêtre du sac."
 L["The size of the individual buttons on the bank frame."] = "La taille des boutons individuels sur la fenêtre de la banque."
 L["The spacing between buttons."] = "Espacement entre deux boutons."
@@ -843,6 +847,7 @@ L["Spark"] = "Lueur"
 L["Spec Icon"] = 'Icône de spécialisation'
 L["Spell not found in list."] = "Sort non trouvé dans la liste."
 L["Spells"] = "Sorts"
+L["Stack Threshold"] = "Seuil de stack";
 L["Stagger Bar"] = "Barre de Report"
 L["Start Near Center"] = 'Démarrer près du centre'
 L["StatusBar Texture"] = "Texture de la barre d'état."
@@ -860,8 +865,9 @@ L["Text Toggle On NPC"] = "Afficher le texte des PNJ"
 L["Text xOffset"] =  "Décalage de l'axe X du texte"
 L["Text yOffset"] = "Décalage de l'axe Y du texte"
 L["Text"] = "Texte"
-L["Textured Icon"] = "Texture de l'icône" --Need review
+L["Textured Icon"] = "Texture de l'icône"
 L["The alpha to set units that are out of range to."] = "Règle la transparence des unités hors de portée."
+L["The debuff needs to reach this amount of stacks before it is shown. Set to 0 to always show the debuff."] = "Le debuff doit atteindre ce nombre de stacks pour être affiché. Mettre à 0 pour toujours afficher le débuff";
 L["The following macro must be true in order for the group to be shown, in addition to any filter that may already be set."] = "La macro suivante doit être cochée pour que le groupe soit affiché, en plus de la configuration des filtres."
 L["The font that the unitframes will use."] = "Police utilisée par défaut pour les cadres d'unités."
 L["The initial group will start near the center and grow out."] = "Le premier groupe commence à proximité du centre et s'en développe hors."
