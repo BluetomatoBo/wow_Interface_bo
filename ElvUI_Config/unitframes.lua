@@ -1198,7 +1198,7 @@ local function GetOptionsTable_Power(hasDetatchOption, updateFunc, groupName, nu
 				type = 'range',
 				name = L["Height"],
 				order = 2,
-				min = 3, max = 50, step = 1,
+				min = 1, max = 50, step = 1,
 			},
 			offset = {
 				type = 'range',
@@ -2745,6 +2745,7 @@ E.Options.args.unitframe.args.pet = {
 		name = GetOptionsTable_Name(UF.CreateAndUpdateUF, 'pet'),
 		buffs = GetOptionsTable_Auras(true, 'buffs', false, UF.CreateAndUpdateUF, 'pet'),
 		debuffs = GetOptionsTable_Auras(true, 'debuffs', false, UF.CreateAndUpdateUF, 'pet'),
+		castbar = GetOptionsTable_Castbar(false, UF.CreateAndUpdateUF, 'pet'),
 	},
 }
 
