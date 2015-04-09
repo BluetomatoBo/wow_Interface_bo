@@ -187,7 +187,7 @@ function UF:Update_ArenaFrames(frame, db)
 		elseif USE_INSET_POWERBAR then
 			health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, BORDER)
 		else
-			health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, ((BORDER + SPACING)*2) + POWERBAR_HEIGHT)
+			health:Point("BOTTOMLEFT", frame, "BOTTOMLEFT", BORDER, (USE_POWERBAR and ((BORDER + SPACING)*2) or BORDER) + POWERBAR_HEIGHT)
 		end
 
 		health.bg:ClearAllPoints()
@@ -246,7 +246,7 @@ function UF:Update_ArenaFrames(frame, db)
 				power:SetFrameStrata("MEDIUM")
 				power:SetFrameLevel(frame:GetFrameLevel() + 3)
 			else
-				power:Point("TOPLEFT", frame.Health.backdrop, "BOTTOMLEFT", BORDER, -(E.PixelMode and 0 or BORDER))
+				power:Point("TOPLEFT", frame.Health.backdrop, "BOTTOMLEFT", BORDER, -(E.PixelMode and 0 or (BORDER + SPACING)))
 				power:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -(BORDER + PVPINFO_WIDTH), BORDER)
 			end
 		elseif frame:IsElementEnabled('Power') then
