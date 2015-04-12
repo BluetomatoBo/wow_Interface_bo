@@ -233,7 +233,7 @@ function B:UpdateSlot(bagID, slotID)
 		end
 
 		-- color slot according to item quality
-		if questId and not isActive then
+		if questId and not isActiveQuest then
 			slot:SetBackdropBorderColor(1.0, 0.3, 0.3);
 			if(slot.questIcon) then
 				slot.questIcon:Show();
@@ -449,8 +449,8 @@ function B:Layout(isBank)
 					f.Bags[bagID][slotID].Count:ClearAllPoints();
 					f.Bags[bagID][slotID].Count:Point('BOTTOMRIGHT', 0, 2);
 
-					if(f.Bags[bagID][slotID].questIcon) then
-						f.Bags[bagID][slotID].questIcon = _G[f.Bags[bagID][slotID]:GetName()..'IconQuestTexture'];
+					if not(f.Bags[bagID][slotID].questIcon) then
+						f.Bags[bagID][slotID].questIcon = _G[f.Bags[bagID][slotID]:GetName()..'IconQuestTexture'] or _G[f.Bags[bagID][slotID]:GetName()].IconQuestTexture
 						f.Bags[bagID][slotID].questIcon:SetTexture(TEXTURE_ITEM_QUEST_BANG);
 						f.Bags[bagID][slotID].questIcon:SetInside(f.Bags[bagID][slotID]);
 						f.Bags[bagID][slotID].questIcon:SetTexCoord(unpack(E.TexCoords));
