@@ -31,13 +31,15 @@ L:SetOptionLocalization({
 	warnRegulators		= "提示熱能調節閥還剩多少體力",
 	warnBlastFrequency	= "提示$spell:155209施放頻率增加",
 	InfoFrame			= "為$spell:155192和$spell:155196顯示訊息框架",
-	VFYellType			= "設定烈性之火的大喊方式 (只有傳奇模式)",
+	VFYellType2			= "設定烈性之火的大喊方式 (只有傳奇模式)",
 	Countdown			= "倒數直到消失",
 	Apply				= "只有中了時候"
 })
 
 L:SetMiscLocalization({
-	heatRegulator		= "熱能調節閥"
+	heatRegulator		= "熱能調節閥",
+	Regulator			= "調節閥%d",
+	bombNeeded			= "%d炸彈"
 })
 
 ------------------
@@ -77,7 +79,8 @@ L:SetOptionLocalization({
 	specWarnSplitSoon	= "團隊分開10秒前顯示特別警告",
 	InfoFrameSpeed		= "設定何時訊息框架顯示下一次列車的資訊",
 	Immediately			= "車門一開後立即顯示此班列車",
-	Delayed				= "在此班列車出站之後" 
+	Delayed				= "在此班列車出站之後",
+	HudMapUseIcons		= "為HudMap使用團隊圖示而非綠圈"
 })
 
 L:SetMiscLocalization({
@@ -121,10 +124,7 @@ L:SetWarningLocalization({
 
 L:SetMiscLocalization({
 	customMFDSay	= "%2$s中了死亡標記(%1$s)",
-	customSlagSay	= "%2$s中了裝置熔渣彈(%1$s)",
-	left			= "左",
-	middle			= "中",
-	right			= "右"
+	customSlagSay	= "%2$s中了裝置熔渣彈(%1$s)"
 })
 
 -------------
