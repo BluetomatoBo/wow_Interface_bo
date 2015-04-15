@@ -1,8 +1,8 @@
-## Interface: 60000
+## Interface: 60100
 ## Title: Tidy Plates
 ## Notes: Enjoys long walks on Darkshore
 ## Author: Binbwen and Friends
-## Version: 6.15.3
+## Version: 6.16.0
 ## SavedVariablesPerCharacter: TidyPlatesOptions
 
 TidyPlates.xml

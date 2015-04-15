@@ -474,7 +474,7 @@ do
 		regions.highlight:Hide()
 
 		-- Widgets/Extensions
-		if activetheme.OnInitialize then activetheme.OnInitialize(extended) end
+		if activetheme.OnInitialize then activetheme.OnInitialize(extended, activetheme) end
 
 		-- Initial Data Gather
 		-- 6.12.Beta3: Disabled initial Data Gather because certain units are showing up with Target Alpha on the first cycle.
@@ -643,6 +643,8 @@ do
 
         -- UpdateUnitContext: Updates Target/Mouseover
 	function UpdateUnitContext(plate)
+		local guid
+
 		UpdateReferences(plate)
 
 		unit.isMouseover = plate.isMouseover
@@ -653,26 +655,30 @@ do
 			unit.alpha = 1
 		end
 
-
-
 		unit.isMouseover = isHighlighted(plate)
 
 		unit.isTarget = HasTarget and unit.alpha == 1
 
-
 		if unit.isMouseover then
 			visual.highlight:Show()
-			if (not unit.guid) then
-				unit.guid = UnitGUID("mouseover")
-				if unit.guid then GUID[unit.guid] = plate end
-			end
+			guid = UnitGUID("mouseover")
 		else visual.highlight:Hide() end
 
 		if unit.isTarget then
-			if not unit.guid then
-				-- UpdateCurrentGUID
-				unit.guid = UnitGUID("target")
-				if unit.guid then GUID[unit.guid] = plate end
+			guid = UnitGUID("target")
+		end
+
+		-- Update and verify guid
+		if unit.guid then
+			if guid and (unit.guid ~= guid) then
+				GUID[unit.guid] = nil		-- Clear out old GUID
+				GUID[guid] = plate			-- Update new GUID
+				unit.guid = guid
+			end
+		else
+			if guid then
+				unit.guid = guid
+				GUID[guid] = plate
 			end
 		end
 
@@ -694,7 +700,7 @@ do
 		unit.isInCombat = GetUnitCombatStatus(regions.name:GetTextColor())
 		unit.class = ClassReference[ColorToString(unit.red, unit.green, unit.blue)] or "UNKNOWN"
 
-		unit.health = bars.health:GetValue() or 0
+		unit.health = tonumber(bars.health:GetValue()) or 0
 		unit.healthmax = select(2, bars.health:GetMinMaxValues())
 
 		unit.isMarked = regions.raidicon:IsShown() or false
@@ -912,7 +918,6 @@ do
 		local castbar = extended.visual.castbar
 
 		if not unit.health then return end
-		--if unit.reaction == "FRIENDLY" then	return end
 
 		OnUpdateCastbar(bar)
 		castbar:Show()

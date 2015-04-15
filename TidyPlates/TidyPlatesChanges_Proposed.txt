@@ -1,0 +1,37 @@
+- Make a new feature within the DropDownMenu, which references ByID, rather than ByName or ByIndex
+- Grey, Quatre, and Graphite are now available.
+
+- Add: TIDYPLATESHUB_RESETCHECK
+- Removed localization tables
+- Migrate to "AddHubFunction"
+- Remove Menus.lua
+
+-- Headline on Mini-mobs/Trivials, Friendly NPCs, and Non-Elite Hostiles inside instances
+
+In LUA, short strings are hashed and referenced into a global table, so strings can be compared quickly.
+a = "Text" and b = "Text"... both get the same pointer value, so using, a == b, means that the system compares the pointer rather than each letter in the string.
+
+
+Black Ox Statue
+
+- Show Warning Glow on Hostile Players?  How to differentiate from Friendly and Enemy Class Colors
+
+!! Remove "Hostile Player" color choice from HUB
+!! ScaleIgnoreNonEliteUnits in instances
+!! Improve aura widget Player name search
+!! Headline Status Text  (Always show something?)
+!! Need to make the function/token system completely robust
+!! Friendly Name Color program (need a unique function set to remove "By Threat")
+
+
+- Experimental Tank-Target detection;  Now treats any NPC as a tank, which should help Monks with statues, and other pet classes.
+
+- Numerous threat fixes
+- Migration of Mode Variables to Tokens
+
+- Exclude neutral units from Low Threat warning... just show as Neutral unless they are attacking you
+
+- Your configuration is likely going to be messed up, unless you play with defaults...
+Here's the reason: In the past, your choices were listed as number (1,2,3,etc.) which corresponded to a specific function.  If the order of those functions changed, your configuration would get futzed-up.
+I've changed the way that your choices are stored, so it now corresponds directly to a function, ex. "AlphaByThreat".
+Sorry for the inconvenience, but this will make for a better addon in the long-run!

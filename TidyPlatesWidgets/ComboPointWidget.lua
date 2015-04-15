@@ -93,10 +93,11 @@ end
 -- Context
 local function UpdateWidgetContext(frame, unit)
 	local guid = unit.guid
-	frame.guid = guid
 
 	-- Add to Widget List
 	if guid then
+		if frame.guid then WidgetList[frame.guid] = nil end
+		frame.guid = guid
 		WidgetList[guid] = frame
 	end
 
@@ -121,10 +122,11 @@ local WatcherFrame = CreateFrame("Frame", nil, WorldFrame )
 local isEnabled = false
 WatcherFrame:RegisterEvent("UNIT_COMBO_POINTS")
 WatcherFrame:RegisterEvent("UNIT_AURA")
+WatcherFrame:RegisterEvent("UNIT_FLAGS")
 
 local function WatcherFrameHandler(frame, event, unitid)
 		local guid = UnitGUID("target")
-		if guid then
+		if UnitExists("target") then
 			local widget = WidgetList[guid]
 			if widget then UpdateWidgetFrame(widget) end				-- To update all, use: for guid, widget in pairs(WidgetList) do UpdateWidgetFrame(widget) end
 		end

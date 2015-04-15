@@ -21,7 +21,7 @@ local artwidth = 90
 local barwidth = 90
 local borderheight = 16
 local barheight = 16
-local widthfactor = .85
+local widthfactor = 1 -- .85
 local heightfactor = 1.2
 
 local StyleDefault = {}
@@ -71,13 +71,15 @@ StyleDefault.highlight = {
 }
 
 StyleDefault.threatborder = {
-	--texture = path.."Graphite2_ThreatGlow",
-	texture = EmptyTexture,
-	width = artwidth*widthfactor*1.2,
-	height = borderheight*heightfactor,
+	texture = path.."ThreatBorderSingleDot",
+	--texture = path.."ThreatBorderDoubleDot",
+	--texture = EmptyTexture,
+	width = artwidth*widthfactor*2,
+	height = borderheight*heightfactor*2,
 	x = 0,
 	y = 0,
 	anchor = "CENTER",
+	show = true
 }
 
 StyleDefault.castbar = {
@@ -209,7 +211,9 @@ StyleTextOnly.skullicon.show = false
 StyleTextOnly.eliteicon.show = false
 StyleTextOnly.highlight.texture = "Interface\\Addons\\TidyPlatesHub\\shared\\Highlight"
 
-
+-- Active Styles
+Theme["Default"] = StyleDefault
+Theme["NameOnly"] = StyleTextOnly
 
 local WidgetConfig = {}
 WidgetConfig.ClassIcon = { anchor = "TOP" , x = 0,y = 26 }		-- Above Name
@@ -224,69 +228,12 @@ if (UnitClassBase("player") == "Druid") or (UnitClassBase("player") == "Rogue") 
 	WidgetConfig.DebuffWidgetPlus = { anchor = "TOP" , x = 15 ,y = 26.5 }
 end
 
-local DamageThemeName = ThemeName.."/|cFFFF4400Damage"
-local TankThemeName = ThemeName.."/|cFF3782D1Tank"
-
-Theme["Default"] = StyleDefault
-Theme["NameOnly"] = StyleTextOnly			-- (6.2)
+WidgetConfig._meta = true		-- tells the parser to ignore this table; ie. don't convert to "style" template
+Theme.WidgetConfig = WidgetConfig
+local ThemeName = "Graphite"
 
 ---------------------------------------------
 -- Tidy Plates Hub Integration
 ---------------------------------------------
-
-TidyPlatesThemeList[DamageThemeName] = Theme
-local LocalVars = TidyPlatesHubDamageVariables
-
-local ApplyThemeCustomization = TidyPlatesHubFunctions.ApplyThemeCustomization
-
-local function ApplyDamageCustomization()
-	ApplyThemeCustomization(Theme)
-end
-
-local function OnInitialize(plate)
-	TidyPlatesHubFunctions.OnInitializeWidgets(plate, WidgetConfig)
-end
-
-local function OnActivateTheme(themeTable)
-		if Theme == themeTable then
-			LocalVars = TidyPlatesHubFunctions:UseDamageVariables()
-			ApplyDamageCustomization()
-		end
-end
-
-Theme.SetNameColor = TidyPlatesHubFunctions.SetNameColor
-Theme.SetScale = TidyPlatesHubFunctions.SetScale
-Theme.SetAlpha = TidyPlatesHubFunctions.SetAlpha
-Theme.SetHealthbarColor = TidyPlatesHubFunctions.SetHealthbarColor
-Theme.SetThreatColor = TidyPlatesHubFunctions.SetThreatColor
-Theme.SetCastbarColor = TidyPlatesHubFunctions.SetCastbarColor
-Theme.SetCustomText = TidyPlatesHubFunctions.SetCustomText
-Theme.OnUpdate = TidyPlatesHubFunctions.OnUpdate
-Theme.OnContextUpdate = TidyPlatesHubFunctions.OnContextUpdate
-Theme.ShowConfigPanel = ShowTidyPlatesHubDamagePanel
-Theme.SetStyle = TidyPlatesHubFunctions.SetStyleBinary
-Theme.SetCustomText = TidyPlatesHubFunctions.SetCustomTextBinary
-Theme.OnInitialize = OnInitialize		-- Need to provide widget positions
-Theme.OnActivateTheme = OnActivateTheme -- called by Tidy Plates Core, Theme Loader
-Theme.OnApplyThemeCustomization = ApplyDamageCustomization -- Called By Hub Panel
-
-do
-	local TankTheme = CopyTable(Theme)
-	TidyPlatesThemeList[TankThemeName] = TankTheme
-
-	local function ApplyTankCustomization()
-		ApplyThemeCustomization(TankTheme)
-	end
-
-	local function OnActivateTheme(themeTable)
-		if TankTheme == themeTable then
-			LocalVars = TidyPlatesHubFunctions:UseTankVariables()
-			ApplyTankCustomization()
-		end
-	end
-
-	TankTheme.OnActivateTheme = OnActivateTheme -- called by Tidy Plates Core, Theme Loader
-	TankTheme.OnApplyThemeCustomization = ApplyTankCustomization -- Called By Hub Panel
-	TankTheme.ShowConfigPanel = ShowTidyPlatesHubTankPanel
-end
-
+TidyPlatesThemeList[ThemeName] = Theme
+TidyPlatesHubFunctions.ApplyHubFunctions(Theme)

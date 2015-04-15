@@ -1,0 +1,81 @@
+
+
+
+
+7.0
+---------------------------
+
+ollapse the Hub panels (Damage/Healer/Tank) into a single unified panel, with a dropdown menu to select the working profile set.
+- Need an "Edit" Button
+
+
+* Hub: Cleaning & Refresh
+* Core/Panel: Profile
+* Hub: Reorganization of files
+* Hub: Function Registry
+
+When registering a Hub function, it must
+	1. Add the function to the Menu List
+	2. Add the function to the Function List
+
+When Registering a Panel Widget, it must
+	1. Add the widget
+	2. Add the variable to the Defaults
+	3. Store a default value
+
+* Main Panel: Profile selector: Added a new set of dropdowns, to select the Hub profile.  (If you're not using a Hub theme, these will be disabled.)
+* Bundled Themes: No More "/Damage" or "/Tank".... use the PROFILE selector!
+
+* I want ONE function to add a theme to the Hub/Profile system
+
+1.
+function ApplyHubFunctions()
+
+"Hub"
+* A procedure for adding the profile choices to a list
+* A procedure for building the profile menu
+* A procedure for changing the variable set (integrated to the TidyPlatesPanel system)
+	* If the theme has a ApplyProfile() function, enable the profile menu
+	* Build/use the profile menu from GetProfileList() function
+* A procedure for checking to see if the theme is a Hub-Compatible Theme
+*
+
+** Hub: Colors: Trivial Unit Color
+** Hub: Filter: Override Filter for Marked Units.
+
+Use "Tapped" color for Tapped mobs, regardless of Threat, etc.... this condition will never be found in dungeons, so it's fine to use elsewhere
+
+** Bar Width
+
+
+Combo Widget - Resource Widget
+* Holy Power
+* Chi
+* Balance Bar
+
+* Combo Widget Update
+
+
+
+Only Display 'Level' in 'Level and Health' when in open world, not in raids
+Adjust combo widget on Neon
+Raid icon widget... moves position if...
+
+
+Beta version!  Things may get broken or removed.
+Need to prune down the Headline Mode thing...
+Need to make it understandable.  Maybe a Graphic?
+
+
+---------------------------
+6.16
+---------------------------
+
+[[  Ok, guys and gals... bear with me...  ]]
+
+This is a major update to Tidy Plates, and many little things have changed.
+
+Localization:  This would be nice to have.  It's on my list.
+
+
+
