@@ -1,0 +1,13 @@
+tag 6.1.2.2
+4a070955b7cf416fb5085ce4b66613c814138fb2
+James D. Callahan III <jcallahan@curse.com>
+2015-04-18 19:18:15 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Store and update CurrentMapID, instead of relying on error-prone name-to-ID lookups. Fixes minimap overlays in certain Outland zones.
+	- Since we're doing math on the return values, make sure private.GetMapSize() returns 0 rather than nil.
+	- Minor reorganization.
