@@ -3,6 +3,12 @@
 -----------------------------------------------------------------------
 local _G = getfenv(0)
 
+-- Functions
+
+-- Libraries
+local math = _G.math
+local table = _G.table
+
 -----------------------------------------------------------------------
 -- AddOn namespace.
 -----------------------------------------------------------------------
@@ -271,7 +277,6 @@ do
 
 		local COORD_MAX = 2 ^ 16 - 1
 		local BYTES_PER_TRIANGLE = 2 * 2 * 3
-		local wipe = wipe
 		local Ax, Ax2, Ay, Ay2, Bx, Bx2, By, By2, Cx, Cx2, Cy, Cy2
 		local ABx, ABy, BCx, BCy, ACx, ACy
 		local AInside, BInside, CInside
@@ -352,7 +357,7 @@ do
 
 
 							if #Points > 0 then
-								wipe(Points)
+								table.wipe(Points)
 							end
 							LastExitPoint = nil
 
@@ -468,7 +473,7 @@ do
 	function panel:Paint(Map, NewX, NewY, NewFacing)
 		private.TextureRemoveAll(self)
 
-		Quadrants = MinimapShapes[GetMinimapShape and GetMinimapShape()] or MinimapShapes["ROUND"]
+		Quadrants = MinimapShapes[_G.GetMinimapShape and _G.GetMinimapShape()] or MinimapShapes["ROUND"]
 
 		-- Minimap shape changed
 		if Quadrants ~= LastQuadrants then
@@ -476,7 +481,7 @@ do
 			UpdateRangeRing = true
 
 			-- Cache split points
-			wipe(SplitPoints)
+			table.wipe(SplitPoints)
 
 			for Quadrant = 1, 4 do
 				if Quadrants[Quadrant] then
@@ -485,14 +490,14 @@ do
 						-- Transition from previous
 						local Angle = (Quadrant - 1) * math.pi / 2
 						-- Round coords to exactly 0 or 0.5 Necessary for later comparisons
-						SplitPoints[#SplitPoints + 1] = floor(Cos(Angle) + 0.5) * 0.5
-						SplitPoints[#SplitPoints + 1] = floor(Sin(Angle) + 0.5) * -0.5
+						SplitPoints[#SplitPoints + 1] = math.floor(Cos(Angle) + 0.5) * 0.5
+						SplitPoints[#SplitPoints + 1] = math.floor(Sin(Angle) + 0.5) * -0.5
 					end
 					if not Quadrants[Quadrant % 4 + 1] then
 						-- Transition to next
 						local Angle = Quadrant * math.pi / 2
-						SplitPoints[#SplitPoints + 1] = floor(Cos(Angle) + 0.5) * 0.5
-						SplitPoints[#SplitPoints + 1] = floor(Sin(Angle) + 0.5) * -0.5
+						SplitPoints[#SplitPoints + 1] = math.floor(Cos(Angle) + 0.5) * 0.5
+						SplitPoints[#SplitPoints + 1] = math.floor(Sin(Angle) + 0.5) * -0.5
 					end
 				else
 					-- Square
@@ -554,12 +559,15 @@ end
 --- Force a repaint when the minimap swaps between indoor and outdoor zoom.
 function panel:MINIMAP_UPDATE_ZOOM()
 	local Zoom = Minimap:GetZoom()
-	if GetCVar("minimapZoom") == GetCVar("minimapInsideZoom") then
+	local insideZoomValue = _G.GetCVar("minimapInsideZoom")
+
+	if _G.GetCVar("minimapZoom") == insideZoomValue then
 		-- Indeterminate case
 		-- Any change to make the cvars unequal
 		Minimap:SetZoom(Zoom > 0 and Zoom - 1 or Zoom + 1)
 	end
-	IsInside = Minimap:GetZoom() == GetCVar("minimapInsideZoom") + 0
+
+	IsInside = Minimap:GetZoom() == insideZoomValue + 0
 	Minimap:SetZoom(Zoom)
 	UpdateForce = true
 	Radius = nil
@@ -571,6 +579,9 @@ function panel:MINIMAP_UPDATE_ZOOM()
 end
 
 local function SetCurrentZoneMapID()
+	if _G.WorldMapFrame:IsVisible() then
+		return
+	end
 	local originalMapID = _G.GetCurrentMapAreaID()
 
 	_G.SetMapToCurrentZone()
@@ -698,7 +709,7 @@ do
 
 	-- Initializes the canvas after its dependencies load.
 	function panel:OnLoad()
-		self.ScrollFrame = CreateFrame("ScrollFrame")
+		self.ScrollFrame = _G.CreateFrame("ScrollFrame")
 		self.ScrollFrame:Hide()
 		self.ScrollFrame:SetScrollChild(self)
 
@@ -707,16 +718,16 @@ do
 		self:SetScript("OnUpdate", self.OnUpdate)
 		self:SetScript("OnEvent", private.Modules.OnEvent)
 		self:RegisterEvent("MINIMAP_UPDATE_ZOOM")
-		hooksecurefunc(Minimap, "SetZoom", SetZoom)
+		_G.hooksecurefunc(Minimap, "SetZoom", SetZoom)
 
 		-- [ Quadrant ] = Texture
-		local RangeRing = CreateFrame("Frame", nil, self.ScrollFrame)
+		local RangeRing = _G.CreateFrame("Frame", nil, self.ScrollFrame)
 		self.RangeRing = RangeRing
 
 		-- Setup the range ring's textures
 		RangeRing:SetAllPoints()
 		RangeRing:SetAlpha(0.8)
-		local Color = NORMAL_FONT_COLOR
+		local color = _G.NORMAL_FONT_COLOR
 
 		for Index = 1, 4 do
 			local Texture = RangeRing:CreateTexture()
@@ -729,7 +740,7 @@ do
 			Texture:SetPoint("BOTTOM", RangeRing, Top and "CENTER" or "BOTTOM")
 			Texture:SetTexture([[SPELLS\CIRCLE]])
 			Texture:SetBlendMode("ADD")
-			Texture:SetVertexColor(Color.r, Color.g, Color.b)
+			Texture:SetVertexColor(color.r, color.g, color.b)
 		end
 
 		self:SetMinimapFrame(Minimap)
@@ -770,7 +781,7 @@ end
 private.Modules.Register("Minimap", panel, private.L.MODULE_MINIMAP)
 
 local Config = panel.Config
-local Checkbox = CreateFrame("CheckButton", "$parentRangeRing", Config, "InterfaceOptionsCheckButtonTemplate")
+local Checkbox = _G.CreateFrame("CheckButton", "$parentRangeRing", Config, "InterfaceOptionsCheckButtonTemplate")
 Config.RangeRing = Checkbox
 
 function Checkbox.setFunc(Enable)
@@ -789,11 +800,6 @@ Config:AddControl(Checkbox)
 
 Config:SetHeight(Config:GetHeight() + Checkbox:GetHeight())
 
-function Minimap_Toggle()
-	local enable = _NPCScanOverlayOptions.Modules.Minimap
-	if enable then
-		private.Modules.Disable("Minimap")
-	else
-		private.Modules.Enable("Minimap")
-	end
+function _G.NPCScanOverlayMinimap_Toggle()
+	private.Modules[_G._NPCScanOverlayOptions.Modules.Minimap and "Disable" or "Enable"]("Minimap")
 end
