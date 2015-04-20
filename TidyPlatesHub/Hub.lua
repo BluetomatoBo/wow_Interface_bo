@@ -330,7 +330,7 @@ local function CreateInterfacePanelWidgets(panel)
 	--]]
 
     -- Column 2
-	panel.EnableOffTankHighlight = CreateQuickCheckbutton(objectName.."EnableOffTankHighlight", "Highlight Mobs Tanked by other Tanks", AlignmentColumn, panel.ThreatLabel, OffsetColumnB)
+	panel.EnableOffTankHighlight = CreateQuickCheckbutton(objectName.."EnableOffTankHighlight", "(Broken) Highlight Mobs Tanked by other Tanks", AlignmentColumn, panel.ThreatLabel, OffsetColumnB)
 	panel.ColorAttackingOtherTank = CreateQuickColorbox(objectName.."ColorAttackingOtherTank", "Attacking another Tank", AlignmentColumn, panel.EnableOffTankHighlight , 16+OffsetColumnB)
 
 	panel.ColorShowPartyAggro = CreateQuickCheckbutton(objectName.."ColorShowPartyAggro", "Highlight Group Members holding Aggro", AlignmentColumn, panel.ColorAttackingOtherTank, OffsetColumnB)
@@ -499,19 +499,19 @@ end
 
 	-- Create Instances of Panels
 	-- [[
-	local TankPanel = CreateInterfacePanel( "HubPanelSettingsTank", "Tidy Plates Hub: |cFF3782D1Tank", nil )
+	local TankPanel = CreateInterfacePanel( "HubPanelSettingsTank", "Tidy Plates: |cFF3782D1Tank", nil )
 	CreateInterfacePanelWidgets(TankPanel)
 	InterfaceOptions_AddCategory(TankPanel)
 	function ShowTidyPlatesHubTankPanel() TidyPlatesUtility.OpenInterfacePanel(TankPanel) end
 	--]]
 
-	local DamagePanel = CreateInterfacePanel( "HubPanelSettingsDamage", "Tidy Plates Hub: |cFFFF1100Damage", nil )
+	local DamagePanel = CreateInterfacePanel( "HubPanelSettingsDamage", "Tidy Plates: |cFFFF1100Damage", nil )
 	CreateInterfacePanelWidgets(DamagePanel)
 	InterfaceOptions_AddCategory(DamagePanel)
 	function ShowTidyPlatesHubDamagePanel() TidyPlatesUtility.OpenInterfacePanel(DamagePanel) end
 
 
-	local HealerPanel = CreateInterfacePanel( "HubPanelSettingsHealer", "Tidy Plates Hub: |cFF44DD55Healer", nil )
+	local HealerPanel = CreateInterfacePanel( "HubPanelSettingsHealer", "Tidy Plates: |cFF44DD55Healer", nil )
 	CreateInterfacePanelWidgets(HealerPanel)
 	InterfaceOptions_AddCategory(HealerPanel)
 	function ShowTidyPlatesHubHealerPanel() InterfaceOptionsFrame_OpenToCategory(HealerPanel) end

@@ -1,7 +1,11 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
-6.16.Release
+
+---------------------------
+6.16.1
+---------------------------
+- Threat System: Disabled 'Other Tank' functions, for now; They're broken, and causing secondary issues to develop.
 
 ---------------------------
 6.16.Beta: Quick Notes
@@ -25,6 +29,8 @@ I sincerely apologize for any inconvenience these changes may cause...
 
 Think of this: Changes mean that this addon is being actively developed and
 	maintained, rather than withering, as many addons do...
+
+
 
 --------------------------------------
 6.16.Beta8
