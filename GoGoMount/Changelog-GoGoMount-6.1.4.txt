@@ -1,0 +1,25 @@
+------------------------------------------------------------------------
+r533 | tiker | 2015-04-21 15:04:19 +0000 (Tue, 21 Apr 2015) | 1 line
+Changed paths:
+   A /tags/6.1.4 (from /trunk:532)
+
+Tagging as 6.1.4
+------------------------------------------------------------------------
+r532 | tiker | 2015-04-21 15:03:58 +0000 (Tue, 21 Apr 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated version for 6.1.4 tag
+------------------------------------------------------------------------
+r531 | tiker | 2015-04-21 15:02:39 +0000 (Tue, 21 Apr 2015) | 7 lines
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Felsteel Annihilator"
+Added support for "Corrupted Dreadwing"
+Added support for "Vicious War Mechanostrider"
+Added support for "Vicious War Kodo"
+Added support for "Infernal Direwolf"
+
+
+------------------------------------------------------------------------

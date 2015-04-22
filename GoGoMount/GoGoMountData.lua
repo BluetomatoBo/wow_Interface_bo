@@ -507,15 +507,15 @@ function GoGo_GetMountDB()
 		[44153] = {[9] = true, [36] = true, [45] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Flying Machine
 		[55531] = {[2] = true, [38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Mechano-hog
 		[60424] = {[2] = true, [38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Mekgineer's Chopper
-		[63796] = {[9] = true, [36] = true, [300]=true, [301]=true, [403]=true, [10003]=250},  -- Mimiron's Head
+		[63796] = {[9] = true, [36] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Mimiron's Head
 		[66393] = {[7] = true, [10002]=200, [50000]=46856}, -- Keys to the Hot Rod
 		[76203] = {[55] = true, [200] = true, [10004]=286, [50000]=55121},  -- River Boat
 		[87090] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67}, -- Goblin Trike
 		[87091] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67}, -- Goblin Turbo-Trike
 		[134359] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Sky Golem (The Sky Claw)
 		[171845] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Warlord's Deathwheel
-		[179244] = {[39] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Summon Chauffeur
-		[179245] = {[39] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Summon Chauffeur
+		[179244] = {[39] = true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Summon Chauffeur
+		[179245] = {[39] = true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Summon Chauffeur
 
 		[61309] = {[9] = true, [49] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Magnificent Flying Carpet
 		[61442] = {[9] = true, [47] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Swift Mooncloth Carpet
@@ -666,6 +666,13 @@ function GoGo_GetMountDB()
 		[171837] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Warsong Direfang
 		[171633] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Wild Goretusk
 		[171616] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Witherhide Cliffstomper
+
+-- 6.2
+		[182912] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Felsteel Annihilator
+		[183117] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Corrupted Dreadwing
+		[183889] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Vicious War Mechanostrider
+		[185052] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Vicious War Kodo
+		[186305] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Infernal Direwolf
 		
 		
 --		[123456] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Standard Ground Mount template
