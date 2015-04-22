@@ -29,6 +29,7 @@ function UF:Construct_PartyFrames(unitGroup)
 		self.Buffs = UF:Construct_Buffs(self)
 		self.Debuffs = UF:Construct_Debuffs(self)
 		self.AuraWatch = UF:Construct_AuraWatch(self)
+		self.RaidDebuffs = UF:Construct_RaidDebuffs(self)
 		self.DebuffHighlight = UF:Construct_DebuffHighlight(self)
 		self.ResurrectIcon = UF:Construct_ResurectionIcon(self)
 		self.LFDRole = UF:Construct_RoleIcon(self)
@@ -460,6 +461,32 @@ function UF:Update_PartyFrames(frame, db)
 				UF:UpdateAuraIconSettings(debuffs)
 			else
 				debuffs:Hide()
+			end
+		end
+		
+		--RaidDebuffs
+		do
+			local rdebuffs = frame.RaidDebuffs
+			local stackColor = db.rdebuffs.stack.color
+			local durationColor = db.rdebuffs.duration.color
+			if db.rdebuffs.enable then
+				frame:EnableElement('RaidDebuffs')
+
+				rdebuffs:Size(db.rdebuffs.size)
+				rdebuffs:Point('BOTTOM', frame, 'BOTTOM', db.rdebuffs.xOffset, db.rdebuffs.yOffset)
+				
+				rdebuffs.count:FontTemplate(nil, db.rdebuffs.fontSize, 'OUTLINE')
+				rdebuffs.count:ClearAllPoints()
+				rdebuffs.count:Point(db.rdebuffs.stack.position, db.rdebuffs.stack.xOffset, db.rdebuffs.stack.yOffset)
+				rdebuffs.count:SetTextColor(stackColor.r, stackColor.g, stackColor.b)
+				
+				rdebuffs.time:FontTemplate(nil, db.rdebuffs.fontSize, 'OUTLINE')
+				rdebuffs.time:ClearAllPoints()
+				rdebuffs.time:Point(db.rdebuffs.duration.position, db.rdebuffs.duration.xOffset, db.rdebuffs.duration.yOffset)
+				rdebuffs.time:SetTextColor(durationColor.r, durationColor.g, durationColor.b)
+			else
+				frame:DisableElement('RaidDebuffs')
+				rdebuffs:Hide()
 			end
 		end
 

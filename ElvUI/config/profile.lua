@@ -1477,6 +1477,25 @@ P['unitframe'] = {
 				['size'] = 8,
 				['fontSize'] = 10,
 			},
+			['rdebuffs'] = {
+				['enable'] = false,
+				['fontSize'] = 10,
+				['size'] = 26,
+				['xOffset'] = 0,
+				['yOffset'] = 0,
+				['duration'] = {
+					['position'] = "CENTER",
+					['xOffset'] = 0,
+					['yOffset'] = 0,
+					['color'] = {r = 1, g = 0.9, b = 0}
+				},
+				['stack'] = {
+					['position'] = "BOTTOMRIGHT",
+					['xOffset'] = 0,
+					['yOffset'] = 2,
+					['color'] = {r = 1, g = 0.9, b = 0}
+				},
+			},
 			['roleIcon'] = {
 				['enable'] = true,
 				['position'] = 'CENTER',
@@ -1620,6 +1639,20 @@ P['unitframe'] = {
 				['enable'] = true,
 				['fontSize'] = 10,
 				['size'] = 26,
+				['xOffset'] = 0,
+				['yOffset'] = 0,
+				['duration'] = {
+					['position'] = "CENTER",
+					['xOffset'] = 0,
+					['yOffset'] = 0,
+					['color'] = {r = 1, g = 0.9, b = 0}
+				},
+				['stack'] = {
+					['position'] = "BOTTOMRIGHT",
+					['xOffset'] = 0,
+					['yOffset'] = 2,
+					['color'] = {r = 1, g = 0.9, b = 0}
+				},
 			},
 			['roleIcon'] = {
 				['enable'] = true,
@@ -1731,6 +1764,20 @@ P['unitframe'] = {
 				['enable'] = false,
 				['fontSize'] = 10,
 				['size'] = 22,
+				['xOffset'] = 0,
+				['yOffset'] = 0,
+				['duration'] = {
+					['position'] = "CENTER",
+					['xOffset'] = 0,
+					['yOffset'] = 0,
+					['color'] = {r = 1, g = 0.9, b = 0}
+				},
+				['stack'] = {
+					['position'] = "BOTTOMRIGHT",
+					['xOffset'] = 0,
+					['yOffset'] = 2,
+					['color'] = {r = 1, g = 0.9, b = 0}
+				},
 			},
 			['roleIcon'] = {
 				['enable'] = false,
@@ -1845,6 +1892,18 @@ P['unitframe'] = {
 				['size'] = 26,
 				['xOffset'] = 0,
 				['yOffset'] = 2,
+				['duration'] = {
+					['position'] = "CENTER",
+					['xOffset'] = 0,
+					['yOffset'] = 0,
+					['color'] = {r = 1, g = 0.9, b = 0}
+				},
+				['stack'] = {
+					['position'] = "BOTTOMRIGHT",
+					['xOffset'] = 0,
+					['yOffset'] = 2,
+					['color'] = {r = 1, g = 0.9, b = 0}
+				},
 			},
 			['raidicon'] = {
 				['enable'] = true,

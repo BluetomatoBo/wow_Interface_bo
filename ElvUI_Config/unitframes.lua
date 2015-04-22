@@ -3470,8 +3470,162 @@ E.Options.args.unitframe.args.party = {
 		name = GetOptionsTable_Name(UF.CreateAndUpdateHeaderGroup, 'party'),
 		buffs = GetOptionsTable_Auras(true, 'buffs', true, UF.CreateAndUpdateHeaderGroup, 'party'),
 		debuffs = GetOptionsTable_Auras(true, 'debuffs', true, UF.CreateAndUpdateHeaderGroup, 'party'),
-		petsGroup = {
+		rdebuffs = {
 			order = 800,
+			type = 'group',
+			name = L["RaidDebuff Indicator"],
+			get = function(info) return E.db.unitframe.units['party']['rdebuffs'][ info[#info] ] end,
+			set = function(info, value) E.db.unitframe.units['party']['rdebuffs'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('party') end,
+			args = {
+				enable = {
+					type = 'toggle',
+					name = L["Enable"],
+					order = 1,
+				},
+				size = {
+					type = 'range',
+					name = L["Size"],
+					order = 2,
+					min = 8, max = 35, step = 1,
+				},
+				fontSize = {
+					type = 'range',
+					name = L["Font Size"],
+					order = 3,
+					min = 7, max = 22, step = 1,
+				},
+				xOffset = {
+					order = 4,
+					type = 'range',
+					name = L["xOffset"],
+					min = -300, max = 300, step = 1,
+				},
+				yOffset = {
+					order = 5,
+					type = 'range',
+					name = L["yOffset"],
+					min = -300, max = 300, step = 1,
+				},
+				configureButton = {
+					type = 'execute',
+					name = L["Configure Auras"],
+					func = function() E:SetToFilterConfig('RaidDebuffs') end,
+					order = 7
+				},
+				duration = {
+					order = 11,
+					type = "group",
+					guiInline = true,
+					name = L["Duration Text"],
+					get = function(info) return E.db.unitframe.units['party']['rdebuffs']['duration'][ info[#info] ] end,
+					set = function(info, value) E.db.unitframe.units['party']['rdebuffs']['duration'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('party') end,
+					args = {
+						position = {
+							order = 1,
+							type = "select",
+							name = L["Position"],
+							values = {
+								["TOP"] = "TOP",
+								["LEFT"] = "LEFT",
+								["RIGHT"] = "RIGHT",
+								["BOTTOM"] = "BOTTOM",
+								["CENTER"] = "CENTER",
+								["TOPLEFT"] = "TOPLEFT",
+								["TOPRIGHT"] = "TOPRIGHT",
+								["BOTTOMLEFT"] = "BOTTOMLEFT",
+								["BOTTOMRIGHT"] = "BOTTOMRIGHT",
+							},
+						},
+						xOffset = {
+							order = 2,
+							type = "range",
+							name = L["xOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						yOffset = {
+							order = 3,
+							type = "range",
+							name = L["yOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						color = {
+							order = 4,
+							type = "color",
+							name = L["Color"],
+							hasAlpha = false,
+							get = function(info)
+								local c = E.db.unitframe.units.party.rdebuffs.duration.color
+								local d = P.unitframe.units.party.rdebuffs.duration.color
+								return c.r, c.g, c.b, c.a, d.r, d.g, d.b
+							end,
+							set = function(info, r, g, b)
+								E.db.unitframe.units.party.rdebuffs.duration.color = {}
+								local c = E.db.unitframe.units.party.rdebuffs.duration.color
+								c.r, c.g, c.b = r, g, b
+								UF:CreateAndUpdateHeaderGroup('party')
+							end,
+						},
+					},
+				},
+				stack = {
+					order = 11,
+					type = "group",
+					guiInline = true,
+					name = L["Stack Counter"],
+					get = function(info) return E.db.unitframe.units['party']['rdebuffs']['stack'][ info[#info] ] end,
+					set = function(info, value) E.db.unitframe.units['party']['rdebuffs']['stack'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('party') end,
+					args = {
+						position = {
+							order = 1,
+							type = "select",
+							name = L["Position"],
+							values = {
+								["TOP"] = "TOP",
+								["LEFT"] = "LEFT",
+								["RIGHT"] = "RIGHT",
+								["BOTTOM"] = "BOTTOM",
+								["CENTER"] = "CENTER",
+								["TOPLEFT"] = "TOPLEFT",
+								["TOPRIGHT"] = "TOPRIGHT",
+								["BOTTOMLEFT"] = "BOTTOMLEFT",
+								["BOTTOMRIGHT"] = "BOTTOMRIGHT",
+							},
+						},
+						xOffset = {
+							order = 2,
+							type = "range",
+							name = L["xOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						yOffset = {
+							order = 3,
+							type = "range",
+							name = L["yOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						color = {
+							order = 4,
+							type = "color",
+							name = L["Color"],
+							hasAlpha = false,
+							get = function(info)
+								local c = E.db.unitframe.units.party.rdebuffs.stack.color
+								local d = P.unitframe.units.party.rdebuffs.stack.color
+								return c.r, c.g, c.b, c.a, d.r, d.g, d.b
+							end,
+							set = function(info, r, g, b)
+								E.db.unitframe.units.party.rdebuffs.stack.color = {}
+								local c = E.db.unitframe.units.party.rdebuffs.stack.color
+								c.r, c.g, c.b = r, g, b
+								UF:CreateAndUpdateHeaderGroup('party')
+							end,
+						},
+					},
+				},
+			},
+		},
+		petsGroup = {
+			order = 850,
 			type = 'group',
 			name = L["Party Pets"],
 			get = function(info) return E.db.unitframe.units['party']['petsGroup'][ info[#info] ] end,
@@ -4021,6 +4175,114 @@ E.Options.args.unitframe.args['raid'] = {
 					func = function() E:SetToFilterConfig('RaidDebuffs') end,
 					order = 7
 				},
+				duration = {
+					order = 11,
+					type = "group",
+					guiInline = true,
+					name = L["Duration Text"],
+					get = function(info) return E.db.unitframe.units['raid']['rdebuffs']['duration'][ info[#info] ] end,
+					set = function(info, value) E.db.unitframe.units['raid']['rdebuffs']['duration'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raid') end,
+					args = {
+						position = {
+							order = 1,
+							type = "select",
+							name = L["Position"],
+							values = {
+								["TOP"] = "TOP",
+								["LEFT"] = "LEFT",
+								["RIGHT"] = "RIGHT",
+								["BOTTOM"] = "BOTTOM",
+								["CENTER"] = "CENTER",
+								["TOPLEFT"] = "TOPLEFT",
+								["TOPRIGHT"] = "TOPRIGHT",
+								["BOTTOMLEFT"] = "BOTTOMLEFT",
+								["BOTTOMRIGHT"] = "BOTTOMRIGHT",
+							},
+						},
+						xOffset = {
+							order = 2,
+							type = "range",
+							name = L["xOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						yOffset = {
+							order = 3,
+							type = "range",
+							name = L["yOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						color = {
+							order = 4,
+							type = "color",
+							name = L["Color"],
+							get = function(info)
+								local c = E.db.unitframe.units.raid.rdebuffs.duration.color
+								local d = P.unitframe.units.raid.rdebuffs.duration.color
+								return c.r, c.g, c.b, c.a, d.r, d.g, d.b
+							end,
+							set = function(info, r, g, b)
+								E.db.unitframe.units.raid.rdebuffs.duration.color = {}
+								local c = E.db.unitframe.units.raid.rdebuffs.duration.color
+								c.r, c.g, c.b = r, g, b
+								UF:CreateAndUpdateHeaderGroup('raid')
+							end,
+						},
+					},
+				},
+				stack = {
+					order = 11,
+					type = "group",
+					guiInline = true,
+					name = L["Stack Counter"],
+					get = function(info) return E.db.unitframe.units['raid']['rdebuffs']['stack'][ info[#info] ] end,
+					set = function(info, value) E.db.unitframe.units['raid']['rdebuffs']['stack'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raid') end,
+					args = {
+						position = {
+							order = 1,
+							type = "select",
+							name = L["Position"],
+							values = {
+								["TOP"] = "TOP",
+								["LEFT"] = "LEFT",
+								["RIGHT"] = "RIGHT",
+								["BOTTOM"] = "BOTTOM",
+								["CENTER"] = "CENTER",
+								["TOPLEFT"] = "TOPLEFT",
+								["TOPRIGHT"] = "TOPRIGHT",
+								["BOTTOMLEFT"] = "BOTTOMLEFT",
+								["BOTTOMRIGHT"] = "BOTTOMRIGHT",
+							},
+						},
+						xOffset = {
+							order = 2,
+							type = "range",
+							name = L["xOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						yOffset = {
+							order = 3,
+							type = "range",
+							name = L["yOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						color = {
+							order = 4,
+							type = "color",
+							name = L["Color"],
+							get = function(info)
+								local c = E.db.unitframe.units.raid.rdebuffs.stack.color
+								local d = P.unitframe.units.raid.rdebuffs.stack.color
+								return c.r, c.g, c.b, c.a, d.r, d.g, d.b
+							end,
+							set = function(info, r, g, b)
+								E.db.unitframe.units.raid.rdebuffs.stack.color = {}
+								local c = E.db.unitframe.units.raid.rdebuffs.stack.color
+								c.r, c.g, c.b = r, g, b
+								UF:CreateAndUpdateHeaderGroup('raid')
+							end,
+						},
+					},
+				},
 			},
 		},
 		raidicon = GetOptionsTable_RaidIcon(UF.CreateAndUpdateHeaderGroup, 'raid'),
@@ -4406,6 +4668,114 @@ E.Options.args.unitframe.args['raid40'] = {
 					func = function() E:SetToFilterConfig('RaidDebuffs') end,
 					order = 7
 				},
+				duration = {
+					order = 11,
+					type = "group",
+					guiInline = true,
+					name = L["Duration Text"],
+					get = function(info) return E.db.unitframe.units['raid40']['rdebuffs']['duration'][ info[#info] ] end,
+					set = function(info, value) E.db.unitframe.units['raid40']['rdebuffs']['duration'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raid40') end,
+					args = {
+						position = {
+							order = 1,
+							type = "select",
+							name = L["Position"],
+							values = {
+								["TOP"] = "TOP",
+								["LEFT"] = "LEFT",
+								["RIGHT"] = "RIGHT",
+								["BOTTOM"] = "BOTTOM",
+								["CENTER"] = "CENTER",
+								["TOPLEFT"] = "TOPLEFT",
+								["TOPRIGHT"] = "TOPRIGHT",
+								["BOTTOMLEFT"] = "BOTTOMLEFT",
+								["BOTTOMRIGHT"] = "BOTTOMRIGHT",
+							},
+						},
+						xOffset = {
+							order = 2,
+							type = "range",
+							name = L["xOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						yOffset = {
+							order = 3,
+							type = "range",
+							name = L["yOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						color = {
+							order = 4,
+							type = "color",
+							name = L["Color"],
+							get = function(info)
+								local c = E.db.unitframe.units.raid40.rdebuffs.duration.color
+								local d = P.unitframe.units.raid40.rdebuffs.duration.color
+								return c.r, c.g, c.b, c.a, d.r, d.g, d.b
+							end,
+							set = function(info, r, g, b)
+								E.db.unitframe.units.raid40.rdebuffs.duration.color = {}
+								local c = E.db.unitframe.units.raid40.rdebuffs.duration.color
+								c.r, c.g, c.b = r, g, b
+								UF:CreateAndUpdateHeaderGroup('raid40')
+							end,
+						},
+					},
+				},
+				stack = {
+					order = 11,
+					type = "group",
+					guiInline = true,
+					name = L["Stack Counter"],
+					get = function(info) return E.db.unitframe.units['raid40']['rdebuffs']['stack'][ info[#info] ] end,
+					set = function(info, value) E.db.unitframe.units['raid40']['rdebuffs']['stack'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raid40') end,
+					args = {
+						position = {
+							order = 1,
+							type = "select",
+							name = L["Position"],
+							values = {
+								["TOP"] = "TOP",
+								["LEFT"] = "LEFT",
+								["RIGHT"] = "RIGHT",
+								["BOTTOM"] = "BOTTOM",
+								["CENTER"] = "CENTER",
+								["TOPLEFT"] = "TOPLEFT",
+								["TOPRIGHT"] = "TOPRIGHT",
+								["BOTTOMLEFT"] = "BOTTOMLEFT",
+								["BOTTOMRIGHT"] = "BOTTOMRIGHT",
+							},
+						},
+						xOffset = {
+							order = 2,
+							type = "range",
+							name = L["xOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						yOffset = {
+							order = 3,
+							type = "range",
+							name = L["yOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						color = {
+							order = 4,
+							type = "color",
+							name = L["Color"],
+							get = function(info)
+								local c = E.db.unitframe.units.raid40.rdebuffs.stack.color
+								local d = P.unitframe.units.raid40.rdebuffs.stack.color
+								return c.r, c.g, c.b, c.a, d.r, d.g, d.b
+							end,
+							set = function(info, r, g, b)
+								E.db.unitframe.units.raid40.rdebuffs.stack.color = {}
+								local c = E.db.unitframe.units.raid40.rdebuffs.stack.color
+								c.r, c.g, c.b = r, g, b
+								UF:CreateAndUpdateHeaderGroup('raid40')
+							end,
+						},
+					},
+				},
 			},
 		},
 		raidicon = GetOptionsTable_RaidIcon(UF.CreateAndUpdateHeaderGroup, 'raid40'),
@@ -4724,6 +5094,114 @@ E.Options.args.unitframe.args.raidpet = {
 					name = L["Configure Auras"],
 					func = function() E:SetToFilterConfig('RaidDebuffs') end,
 					order = 7
+				},
+				duration = {
+					order = 11,
+					type = "group",
+					guiInline = true,
+					name = L["Duration Text"],
+					get = function(info) return E.db.unitframe.units['raidpet']['rdebuffs']['duration'][ info[#info] ] end,
+					set = function(info, value) E.db.unitframe.units['raidpet']['rdebuffs']['duration'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raidpet') end,
+					args = {
+						position = {
+							order = 1,
+							type = "select",
+							name = L["Position"],
+							values = {
+								["TOP"] = "TOP",
+								["LEFT"] = "LEFT",
+								["RIGHT"] = "RIGHT",
+								["BOTTOM"] = "BOTTOM",
+								["CENTER"] = "CENTER",
+								["TOPLEFT"] = "TOPLEFT",
+								["TOPRIGHT"] = "TOPRIGHT",
+								["BOTTOMLEFT"] = "BOTTOMLEFT",
+								["BOTTOMRIGHT"] = "BOTTOMRIGHT",
+							},
+						},
+						xOffset = {
+							order = 2,
+							type = "range",
+							name = L["xOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						yOffset = {
+							order = 3,
+							type = "range",
+							name = L["yOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						color = {
+							order = 4,
+							type = "color",
+							name = L["Color"],
+							get = function(info)
+								local c = E.db.unitframe.units.raidpet.rdebuffs.duration.color
+								local d = P.unitframe.units.raidpet.rdebuffs.duration.color
+								return c.r, c.g, c.b, c.a, d.r, d.g, d.b
+							end,
+							set = function(info, r, g, b)
+								E.db.unitframe.units.raidpet.rdebuffs.duration.color = {}
+								local c = E.db.unitframe.units.raidpet.rdebuffs.duration.color
+								c.r, c.g, c.b = r, g, b
+								UF:CreateAndUpdateHeaderGroup('raidpet')
+							end,
+						},
+					},
+				},
+				stack = {
+					order = 11,
+					type = "group",
+					guiInline = true,
+					name = L["Stack Counter"],
+					get = function(info) return E.db.unitframe.units['raidpet']['rdebuffs']['stack'][ info[#info] ] end,
+					set = function(info, value) E.db.unitframe.units['raidpet']['rdebuffs']['stack'][ info[#info] ] = value; UF:CreateAndUpdateHeaderGroup('raidpet') end,
+					args = {
+						position = {
+							order = 1,
+							type = "select",
+							name = L["Position"],
+							values = {
+								["TOP"] = "TOP",
+								["LEFT"] = "LEFT",
+								["RIGHT"] = "RIGHT",
+								["BOTTOM"] = "BOTTOM",
+								["CENTER"] = "CENTER",
+								["TOPLEFT"] = "TOPLEFT",
+								["TOPRIGHT"] = "TOPRIGHT",
+								["BOTTOMLEFT"] = "BOTTOMLEFT",
+								["BOTTOMRIGHT"] = "BOTTOMRIGHT",
+							},
+						},
+						xOffset = {
+							order = 2,
+							type = "range",
+							name = L["xOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						yOffset = {
+							order = 3,
+							type = "range",
+							name = L["yOffset"],
+							min = -10, max = 10, step = 1,
+						},
+						color = {
+							order = 4,
+							type = "color",
+							name = L["Color"],
+							get = function(info)
+								local c = E.db.unitframe.units.raidpet.rdebuffs.stack.color
+								local d = P.unitframe.units.raidpet.rdebuffs.stack.color
+								return c.r, c.g, c.b, c.a, d.r, d.g, d.b
+							end,
+							set = function(info, r, g, b)
+								E.db.unitframe.units.raidpet.rdebuffs.stack.color = {}
+								local c = E.db.unitframe.units.raidpet.rdebuffs.stack.color
+								c.r, c.g, c.b = r, g, b
+								UF:CreateAndUpdateHeaderGroup('raidpet')
+							end,
+						},
+					},
 				},
 			},
 		},
