@@ -33,7 +33,7 @@
 --    * Arta
 --    * Tennberg (a lot of fixes in the enGB/enUS localization)
 --    * nBlueWiz (a lot of fixes in the koKR localization as well as boss mod work) Contact: everfinale@gmail.com
---
+-- 
 --
 -- The code of this addon is licensed under a Creative Commons Attribution-Noncommercial-Share Alike 3.0 License. (see license.txt)
 -- All included textures and sounds are copyrighted by their respective owners, license information for these media files can be found in the modules that make use of them.
@@ -52,9 +52,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 13591 $"):sub(12, -3)),
-	DisplayVersion = "6.1.6", -- the string that is shown as version
-	ReleaseRevision = 13591 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 13634 $"):sub(12, -3)),
+	DisplayVersion = "6.1.7", -- the string that is shown as version
+	ReleaseRevision = 13634 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -119,10 +119,10 @@ DBM.DefaultOptions = {
 	AutoRespond = true,
 	StatusEnabled = true,
 	WhisperStats = false,
+	DisableStatusWhisper = false,
 	HideBossEmoteFrame = true,
 	SpamBlockBossWhispers = true,
 	ShowMinimapButton = false,
---	BlockVersionUpdateNotice2 = false,
 	ShowSpecialWarnings = true,
 	ShowFlashFrame = true,
 	CustomSounds = 0,
@@ -350,9 +350,10 @@ local iconSetPerson = {}
 local addsGUIDs = {}
 local targetEventsRegistered = false
 local targetMonitor = nil
+local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 
-local fakeBWRevision = 13032
+local fakeBWRevision = 13052
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -3314,7 +3315,7 @@ do
 		if instanceType == "none" or C_Garrison:IsOnGarrisonMap() then
 			LastInstanceType = "none"
 			if not targetEventsRegistered then
-				DBM:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT", "SCENARIO_UPDATE")
+				DBM:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT")
 				targetEventsRegistered = true
 			end
 		else
@@ -3539,6 +3540,7 @@ do
 	-- II = Instance Info
 	-- WBE = World Boss engage info
 	-- WBD = World Boss defeat info
+	-- DSW = Disable Send Whisper
 
 	syncHandlers["M"] = function(sender, mod, revision, event, ...)
 		mod = DBM:GetModByName(mod or "")
@@ -3575,6 +3577,12 @@ do
 				end
 			end
 		end
+	end
+	
+	syncHandlers["DSW"] = function(sender)
+		if (DBM:GetRaidRank(sender) ~= 2 or not IsInGroup()) then return end--If not on group, we're probably sender, don't disable status. IF not leader, someone is trying to spoof this, block that too
+		statusWhisperDisabled = true
+		DBM:Debug("Raid leader has disabled status whispers")
 	end
 
 	syncHandlers["HF"] = function(sender, mod, modRevision)
@@ -4592,21 +4600,6 @@ do
 		end
 	end
 	
-	function DBM:SCENARIO_UPDATE()
-		if not C_Garrison:IsOnGarrisonMap() then return end
-		local name = C_Scenario.GetInfo()
-		if not name then return end-- fix false mod load when visiting other player garrision.
-		local enabled = GetAddOnEnableState(playerName, "DBM-WorldEvents")
-		if not IsAddOnLoaded("DBM-WorldEvents") and enabled ~= 0 then
-			for i, v in ipairs(self.AddOns) do
-				if v.modId == "DBM-WorldEvents" then
-					self:LoadMod(v, true)
-					break
-				end
-			end
-		end
-	end
-	
 	function DBM:UNIT_TARGETABLE_CHANGED(uId)
 		if DBM.Options.DebugLevel > 2 or (Transcriptor and Transcriptor:IsLogging()) then
 			local active = UnitExists(uId) and "true" or "false"
@@ -5078,6 +5071,9 @@ do
 				if not synced then
 					sendSync("C", (delay or 0).."\t"..modId.."\t"..(mod.revision or 0).."\t"..startHp.."\t"..DBM.Revision)
 				end
+				if self.Options.DisableStatusWhisper and UnitIsGroupLeader("player") and (difficultyIndex == 8 or difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 or difficultyIndex == 23) then
+					sendSync("DSW")
+				end
 				--show bigbrother check
 				if self.Options.ShowBigBrotherOnCombatStart and BigBrother and type(BigBrother.ConsumableCheck) == "function" then
 					if self.Options.BigBrotherAnnounceToRaid then
@@ -5224,6 +5220,7 @@ do
 				local totalKills = mod.stats[statVarTable[savedDifficulty].."Kills"]
 				if thisTime < 30 then -- Normally, one attempt will last at least 30 sec.
 					totalPulls = totalPulls - 1
+					mod.stats[statVarTable[savedDifficulty].."Pulls"] = totalPulls
 					if self.Options.ShowWipeMessage then
 						if scenario then
 							self:AddMsg(DBM_CORE_SCENARIO_ENDED_AT:format(difficultyText..name, strFromTime(thisTime)))
@@ -5408,6 +5405,7 @@ do
 			end
 			if mod.OnCombatEnd then mod:OnCombatEnd(wipe) end
 			if #inCombat == 0 then--prevent error if you pulled multiple boss. (Earth, Wind and Fire)
+				statusWhisperDisabled = false
 				self:Schedule(10, self.StopLogging, self)--small delay to catch kill/died combatlog events
 				self:HideBlizzardEvents(0)
 				self:Unschedule(checkBossHealth)
@@ -5902,6 +5900,7 @@ do
 
 	-- sender is a presenceId for real id messages, a character name otherwise
 	local function onWhisper(msg, sender, isRealIdMessage)
+		if statusWhisperDisabled then return end--RL has disabled status whispers for entire raid.
 		if msg == "status" and #inCombat > 0 and DBM.Options.StatusEnabled then
 			if not difficultyText then -- prevent error when timer recovery function worked and etc (StartCombat not called)
 				difficultyText = select(2, DBM:GetCurrentInstanceDifficulty())

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1203, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13563 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13608 $"):sub(12, -3))
 mod:SetCreatureID(77557, 77231, 77477)
 mod:SetEncounterID(1695)
 mod:SetZone()
@@ -9,7 +9,7 @@ mod:SetBossHPInfoToHighest()
 mod:SetUsedIcons(5, 4, 3, 2, 1)
 mod:SetModelSound("sound\\creature\\marak\\vo_60_ironmaidens_marak_08.ogg", "sound\\creature\\marak\\vo_60_ironmaidens_marak_08.ogg")
 mod:SetHotfixNoticeRev(13439)
---mod:SetRespawnTime(20)--Need to verify. def a lot higher than 10. Not sure if 20 or 30
+mod:SetRespawnTime(30)
 
 mod:RegisterCombat("combat")
 
@@ -131,7 +131,7 @@ local voicePenetratingShot				= mod:NewVoice(164271) --stack
 mod:AddSetIconOption("SetIconOnRapidFire", 156626, true)
 mod:AddSetIconOption("SetIconOnBloodRitual", 158078, true)
 mod:AddSetIconOption("SetIconOnHeartSeeker", 158010, true)
-mod:AddHudMapOption("HudMapOnRapidFire", 156631)--Green markers
+mod:AddHudMapOption("HudMapOnRapidFire", 156631)--Yellow markers
 mod:AddHudMapOption("HudMapOnBloodRitual", 158078)--Red markers
 mod:AddBoolOption("filterBladeDash3", false)
 mod:AddBoolOption("filterBloodRitual3", false)
