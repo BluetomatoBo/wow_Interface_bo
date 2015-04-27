@@ -9,7 +9,8 @@ local types = {
     quest       = "QuestID:",
     talent      = "TalentID:",
     achievement = "AchievementID:",
-    ability     = "AbilityID:"
+    ability     = "AbilityID:",
+    currency    = "CurrencyID:"
 }
 
 local function addLine(tooltip, id, type)
@@ -29,7 +30,7 @@ local function addLine(tooltip, id, type)
     end
 end
 
--- All types, primarily for linked tooltips
+-- All types, primarily for detached tooltips
 local function onSetHyperlink(self, link)
     local type, id = string.match(link,"^(%a+):(%d+)")
     if not type or not id then return end
@@ -45,6 +46,8 @@ local function onSetHyperlink(self, link)
         addLine(self, id, types.achievement)
     elseif type == "item" then
         addLine(self, id, types.item)
+    elseif type == "currency" then
+        addLine(self, id, types.currency)
     end
 end
 
@@ -135,11 +138,11 @@ end)
 
 -- Pet battle buttons
 hooksecurefunc("PetBattleAbilityButton_OnEnter", function(self)
-    local petIndex = C_PetBattles.GetActivePet(LE_BATTLE_PET_ALLY);
+    local petIndex = C_PetBattles.GetActivePet(LE_BATTLE_PET_ALLY)
     if ( self:GetEffectiveAlpha() > 0 ) then
-        local id = select(1, C_PetBattles.GetAbilityInfo(LE_BATTLE_PET_ALLY, petIndex, self:GetID()));
+        local id = select(1, C_PetBattles.GetAbilityInfo(LE_BATTLE_PET_ALLY, petIndex, self:GetID()))
         if id then
-            local oldText = PetBattlePrimaryAbilityTooltip.Description:GetText(id);
+            local oldText = PetBattlePrimaryAbilityTooltip.Description:GetText(id)
             PetBattlePrimaryAbilityTooltip.Description:SetText(oldText .. "\r\r" .. types.ability .. "|cffffffff " .. id .. "|r")
         end
     end
@@ -147,10 +150,24 @@ end)
 
 -- Pet battle auras
 hooksecurefunc("PetBattleAura_OnEnter", function(self)
-    local parent = self:GetParent();
+    local parent = self:GetParent()
     local id = select(1, C_PetBattles.GetAuraInfo(parent.petOwner, parent.petIndex, self.auraIndex))
     if id then
-        local oldText = PetBattlePrimaryAbilityTooltip.Description:GetText(id);
+        local oldText = PetBattlePrimaryAbilityTooltip.Description:GetText(id)
         PetBattlePrimaryAbilityTooltip.Description:SetText(oldText .. "\r\r" .. types.ability .. "|cffffffff " .. id .. "|r")
     end
+end)
+
+-- Currencies
+hooksecurefunc(GameTooltip, "SetCurrencyToken", function(self, index)
+	local id = tonumber(string.match(GetCurrencyListLink(index),"currency:(%d+)"))
+	if id then addLine(self, id, types.currency) end
+end)
+
+hooksecurefunc(GameTooltip, "SetCurrencyByID", function(self, id)
+   if id then addLine(self, id, types.currency) end
+end)
+
+hooksecurefunc(GameTooltip, "SetCurrencyTokenByID", function(self, id)
+   if id then addLine(self, id, types.currency) end
 end)
