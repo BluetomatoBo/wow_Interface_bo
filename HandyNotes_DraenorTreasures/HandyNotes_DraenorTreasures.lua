@@ -15,11 +15,14 @@ local PlayerFaction, _ = UnitFactionGroup("player")
 DraenorTreasures.nodes = { }
 local nodes = DraenorTreasures.nodes
 local isTomTomloaded = false
+local isDBMloaded = false
 
 if (IsAddOnLoaded("TomTom")) then 
 	isTomTomloaded = true
 end
-
+if (IsAddOnLoaded("DBM-Core")) then 
+	isDBMloaded = true
+end
 
 nodes["ShadowmoonValleyDR"] = {
 --SMV Treasures
@@ -619,7 +622,7 @@ nodes["Talador"][61107170]={ "34116", "Norana's Cache", "i564 Agility Neck", "",
 nodes["Gorgrond"][51206360]={ "35818", "Roardan the Sky Terror", "Quest Item for XP", "Flies around a lot, Coordinates are just somewhere on his route!You must finish the quest before this element gets removed from the map", "rare", "GorgrondRares","113459"}
 end
 
- function GetItem(ID)
+local function GetItem(ID)
 	if (ID == "824" or ID == "823") then
 		local currency, _, _ = GetCurrencyInfo(ID)
 		if (currency ~= nil) then
@@ -636,7 +639,7 @@ end
 		end
 	end
 end	
- function GetIcon(ID)
+local function GetIcon(ID)
 	if (ID == "824" or ID == "823") then
 		local _, _, icon = GetCurrencyInfo(ID)
 		if (icon ~= nil) then
@@ -708,6 +711,17 @@ local function generateMenu(button, level)
 			info.func = addtoTomTom
 			info.arg1 = clickedMapFile
 			info.arg2 = clickedCoord
+			UIDropDownMenu_AddButton(info, level)
+		end
+		if isDBMloaded == true then
+			info.text = "Add this treasure as DBM Arrow"
+			info.func = AddDBMArrow
+			info.arg1 = clickedMapFile
+			info.arg2 = clickedCoord
+			UIDropDownMenu_AddButton(info, level)
+			
+			info.text = "Hide DBM Arrow"
+			info.func = HideDBMArrow
 			UIDropDownMenu_AddButton(info, level)
 		end
 
@@ -1067,7 +1081,7 @@ function DraenorTreasures:OnInitialize()
   profile = {
    icon_scale_treasures = 1.5,
    icon_scale_rares = 2.0,
-   icon_alpha = 1.00,
+   icon_alpha = 0.50,
    alwaysshow = false,
    save = true,
    SMVTreasures = true,
@@ -1260,4 +1274,44 @@ function addtoTomTom(button, mapFile, coord)
 			world = true
 		})
 	end
+end
+
+if isDBMloaded == true then
+			local ArrowDesc = DBMArrow:CreateFontString(nil, "OVERLAY", "GameTooltipText")
+			ArrowDesc:SetWidth(400)
+			ArrowDesc:SetHeight(100)
+			ArrowDesc:SetPoint("CENTER", DBMArrow, "CENTER", 0, -35)
+			ArrowDesc:SetTextColor(1, 1, 1, 1)
+			ArrowDesc:SetJustifyH("CENTER")
+			DBMArrow.Desc = ArrowDesc
+end
+
+function AddDBMArrow(button, mapFile, coord)
+	if isDBMloaded == true then
+			local mapId = HandyNotes:GetMapFiletoMapID(mapFile)
+			local x, y = HandyNotes:getXY(coord)
+			local desc = nodes[mapFile][coord][2];
+			if (nodes[mapFile][coord][3] ~= nil) and (DraenorTreasures.db.profile.show_loot == true) then
+				if ((nodes[mapFile][coord][7] ~= nil) and (nodes[mapFile][coord][7] ~= "")) then
+					desc = desc.."\nLoot: " .. GetItem(nodes[mapFile][coord][7]);
+					desc = desc.."\nLootinfo: " .. nodes[mapFile][coord][3];
+				else
+					desc = desc.."\nLoot: " .. nodes[mapFile][coord][3];
+				end
+			end
+			if (nodes[mapFile][coord][4] ~= "") and (DraenorTreasures.db.profile.show_notes == true) then
+				desc = desc.."\nNotes: " .. nodes[mapFile][coord][4]
+			end
+			if not DBMArrow.Desc:IsShown() then
+				DBMArrow.Desc:Show()
+			end
+			x = x*100
+			y = y*100
+			DBMArrow.Desc:SetText(desc)
+			DBM.Arrow:ShowRunTo(x, y, nil, nil, true)
+	end
+end
+
+function HideDBMArrow()
+	DBM.Arrow:Hide(true)
 end
