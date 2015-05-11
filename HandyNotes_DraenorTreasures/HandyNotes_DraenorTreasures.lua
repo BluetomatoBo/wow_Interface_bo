@@ -1081,7 +1081,7 @@ function DraenorTreasures:OnInitialize()
   profile = {
    icon_scale_treasures = 1.5,
    icon_scale_rares = 2.0,
-   icon_alpha = 0.50,
+   icon_alpha = 1.00,
    alwaysshow = false,
    save = true,
    SMVTreasures = true,
