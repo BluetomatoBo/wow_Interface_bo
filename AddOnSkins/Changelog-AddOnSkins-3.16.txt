@@ -1,0 +1,24 @@
+tag 3.16
+cdb5f6e6f192a578f38b1c614259551fd8fc15c1
+Azilroka <darktemplar9900@yahoo.com>
+2015-05-08 22:40:50 -0500
+
+
+
+--------------------
+
+Azilroka:
+	- 3.16
+	- DeathRecap / Altoholic
+	- API Changes
+ChihChung Ma:
+	- update Taiwan locale
+Azilroka:
+	- Auction House Changes for 6.1.2
+Merathilis:
+	- Add ASL.OptionsPanel.ElvUIDesc to German Locale
+	- German Locale
+Azilroka:
+	- Altoholic Issue #220
+	- Slight Changes
+	- World Map / Encounter Journal
