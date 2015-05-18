@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Halion", "DBM-ChamberOfAspects", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 182 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 195 $"):sub(12, -3))
 mod:SetCreatureID(39863)--40142 (twilight form)
 mod:SetEncounterID(1150)
 mod:SetModelID(31952)
@@ -55,7 +55,6 @@ local timerFieryBreathCD			= mod:NewCDTimer(19, 74525, nil, "Tank|Healer")--But 
 local berserkTimer					= mod:NewBerserkTimer(480)
 
 mod:AddBoolOption("AnnounceAlternatePhase", true, "announce")
-mod:AddBoolOption("WhisperOnConsumption", false, "announce")
 mod:AddBoolOption("SetIconOnConsumption", true)
 
 local warned_preP2 = false
@@ -121,9 +120,6 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 		end
 		if not self.Options.AnnounceAlternatePhase then
 			warningShadowConsumption:Show(args.destName)
-			if DBM:GetRaidRank() > 1 and self.Options.WhisperOnConsumption then
-				self:SendWhisper(L.WhisperConsumption, args.destName)
-			end
 		end
 		if self.Options.SetIconOnConsumption then
 			self:SetIcon(args.destName, 7)
@@ -138,9 +134,6 @@ function mod:SPELL_AURA_APPLIED(args)--We don't use spell cast success for actua
 		end
 		if not self.Options.AnnounceAlternatePhase then
 			warningFieryCombustion:Show(args.destName)
-			if DBM:GetRaidRank() > 1 and self.Options.WhisperOnConsumption then
-				self:SendWhisper(L.WhisperCombustion, args.destName)
-			end
 		end
 		if self.Options.SetIconOnConsumption then
 			self:SetIcon(args.destName, 8)
@@ -234,16 +227,10 @@ function mod:OnSync(msg, target)
 	elseif msg == "ShadowTarget" then
 		if self.Options.AnnounceAlternatePhase then
 			warningShadowConsumption:Show(target)
-			if DBM:GetRaidRank() > 0 and self.Options.WhisperOnConsumption then
-				self:SendWhisper(L.WhisperConsumption, target)
-			end
 		end
 	elseif msg == "FieryTarget" then
 		if self.Options.AnnounceAlternatePhase then
 			warningFieryCombustion:Show(target)
-			if DBM:GetRaidRank() > 0 and self.Options.WhisperOnConsumption then
-				self:SendWhisper(L.WhisperCombustion, target)
-			end
 		end
 	elseif msg == "ShadowCD" then
 		if self.Options.AnnounceAlternatePhase then
