@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Festergut", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 183 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 200 $"):sub(12, -3))
 mod:SetCreatureID(36626)
 mod:SetEncounterID(1097)
 mod:SetModelID(31006)
@@ -19,7 +19,6 @@ local warnInhaledBlight		= mod:NewStackAnnounce(69166, 3)
 local warnGastricBloat		= mod:NewStackAnnounce(72219, 2, nil, "Tank|Healer")
 local warnGasSpore			= mod:NewTargetAnnounce(69279, 4)
 local warnVileGas			= mod:NewTargetAnnounce(69240, 3)
-local warnGoo				= mod:NewSpellAnnounce(72297, 4)
 
 local specWarnPungentBlight	= mod:NewSpecialWarningSpell(69195)
 local specWarnGasSpore		= mod:NewSpecialWarningYou(69279)
@@ -123,7 +122,6 @@ end
 function mod:OnSync(event, arg)
 	if event == "Goo" then
 		if self:AntiSpam(5, 2) then
-			warnGoo:Show()
 			specWarnGoo:Show()
 			if self:IsDifficulty("heroic25") then
 				timerGooCD:Start()
@@ -168,7 +166,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		local amount = args.amount or 1
 		warnInhaledBlight:Show(args.destName, amount)
 		if amount >= 3 then
-			specWarnInhaled3:Show(amount)
+			if not self:IsTrivial(100) then
+				specWarnInhaled3:Show(amount)
+			end
 			timerPungentBlight:Start()
 		else	--Prevent timer from starting after 3rd stack since he won't cast it a 4th time, he does Pungent instead.
 			timerInhaledBlight:Start()
