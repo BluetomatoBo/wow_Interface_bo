@@ -1,0 +1,12 @@
+tag 6.1.2.4
+ff653dc0f7110659e380238f9e1a91a2cd391d82
+James D. Callahan III <jcallahan@curse.com>
+2015-05-30 23:01:50 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Don't call SetCurrentZoneMapID() in the OnUpdate - this is handled by ZONE_CHANGED_NEW_AREA and PLAYER_LOGIN. Should solve ticket #50
+	- Variable renames and minor refactoring.

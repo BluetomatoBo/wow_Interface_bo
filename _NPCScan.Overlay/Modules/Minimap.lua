@@ -56,7 +56,7 @@ do
 			local ArcSegmentLength, TwoPi = math.pi / 20, math.pi * 2
 			local Atan2, Cos, Sin = math.atan2, math.cos, math.sin
 
-			--- Fills the triangle's intersection with round minimap borders.
+			-- Fills the triangle's intersection with round minimap borders.
 			-- @param EndX..EndY Intersection point to fill to from (LastRoundX,LastRoundY).
 			function AddRoundSplit(EndX, EndY)
 				AngleStart, AngleEnd = Atan2(-LastRoundY, LastRoundX), Atan2(-EndY, EndX)
@@ -93,7 +93,7 @@ do
 			local Distance2
 			local ForStart, ForEnd, ForStep
 
-			--- Adds split points between the last exit intersection and the most recent entrance intersection.
+			-- Adds split points between the last exit intersection and the most recent entrance intersection.
 			-- @param WrapToStart True if (EndX,EndY) is the first point and doesn't need to be re-added to the Points list.
 			function AddSplit(EndX, EndY, WrapToStart)
 				StartX, StartY = Points[LastExitPoint], Points[LastExitPoint + 1]
@@ -469,7 +469,8 @@ do
 	local RadiiInside = { 150, 120, 90, 60, 40, 25 }
 	local RadiiOutside = { 233 + 1 / 3, 200, 166 + 2 / 3, 133 + 1 / 3, 100, 66 + 2 / 3 }
 	local Cos, Sin = math.cos, math.sin
-	--- Draws paths on the minimap from a given player position and direction.
+
+	-- Draws paths on the minimap from a given player position and direction.
 	function panel:Paint(Map, NewX, NewY, NewFacing)
 		private.TextureRemoveAll(self)
 
@@ -483,25 +484,26 @@ do
 			-- Cache split points
 			table.wipe(SplitPoints)
 
-			for Quadrant = 1, 4 do
-				if Quadrants[Quadrant] then
+			for quadrant = 1, 4 do
+				if Quadrants[quadrant] then
 					-- Round
-					if not Quadrants[(Quadrant - 2) % 4 + 1] then
+					if not Quadrants[(quadrant - 2) % 4 + 1] then
 						-- Transition from previous
-						local Angle = (Quadrant - 1) * math.pi / 2
+						local Angle = (quadrant - 1) * math.pi / 2
 						-- Round coords to exactly 0 or 0.5 Necessary for later comparisons
 						SplitPoints[#SplitPoints + 1] = math.floor(Cos(Angle) + 0.5) * 0.5
 						SplitPoints[#SplitPoints + 1] = math.floor(Sin(Angle) + 0.5) * -0.5
 					end
-					if not Quadrants[Quadrant % 4 + 1] then
+
+					if not Quadrants[quadrant % 4 + 1] then
 						-- Transition to next
-						local Angle = Quadrant * math.pi / 2
+						local Angle = quadrant * math.pi / 2
 						SplitPoints[#SplitPoints + 1] = math.floor(Cos(Angle) + 0.5) * 0.5
 						SplitPoints[#SplitPoints + 1] = math.floor(Sin(Angle) + 0.5) * -0.5
 					end
 				else
 					-- Square
-					local Left, Top = Quadrant == 2 or Quadrant == 3, Quadrant <= 2
+					local Left, Top = quadrant == 2 or quadrant == 3, quadrant <= 2
 					SplitPoints[#SplitPoints + 1] = Left and -0.5 or 0.5
 					SplitPoints[#SplitPoints + 1] = Top and -0.5 or 0.5
 				end
@@ -515,21 +517,24 @@ do
 		end
 
 		if private.Options.ModulesExtra["Minimap"].RangeRing then
+			-- Re-fit ring quadrants to minimap shape and size
 			if UpdateRangeRing then
-				-- Re-fit ring quadrants to minimap shape and size
 				UpdateRangeRing = nil
-				local RingRadius = Radius / private.DetectionRadius / 2
-				local Min, Max = 0.5 - RingRadius, 0.5 + RingRadius
 
-				for Index = 1, 4 do
-					local Texture = self.RangeRing[Index]
-					if Quadrants[Index] and Radius < private.DetectionRadius then
+				local radius = Radius / private.DetectionRadius / 2
+				local minRadius = 0.5 - radius
+				local maxRadius = 0.5 + radius
+
+				for index = 1, 4 do
+					local texture = self.RangeRing[index]
+					if Quadrants[index] and Radius < private.DetectionRadius then
 						-- Round and too large to fit
-						Texture:Hide()
+						texture:Hide()
 					else
-						local Left, Top = Index == 2 or Index == 3, Index <= 2
-						Texture:SetTexCoord(Left and Min or 0.5, Left and 0.5 or Max, Top and Min or 0.5, Top and 0.5 or Max)
-						Texture:Show()
+						local isLeft = index == 2 or index == 3
+						local isTop = index <= 2
+						texture:SetTexCoord(isLeft and minRadius or 0.5, isLeft and 0.5 or maxRadius, isTop and minRadius or 0.5, isTop and 0.5 or maxRadius)
+						texture:Show()
 					end
 				end
 			end
@@ -553,22 +558,19 @@ do
 	end
 end
 
-
-
-
---- Force a repaint when the minimap swaps between indoor and outdoor zoom.
+-- Force a repaint when the minimap swaps between indoor and outdoor zoom.
 function panel:MINIMAP_UPDATE_ZOOM()
-	local Zoom = Minimap:GetZoom()
+	local zoomLevel = Minimap:GetZoom()
 	local insideZoomValue = _G.GetCVar("minimapInsideZoom")
 
 	if _G.GetCVar("minimapZoom") == insideZoomValue then
 		-- Indeterminate case
 		-- Any change to make the cvars unequal
-		Minimap:SetZoom(Zoom > 0 and Zoom - 1 or Zoom + 1)
+		Minimap:SetZoom(zoomLevel > 0 and zoomLevel - 1 or zoomLevel + 1)
 	end
 
 	IsInside = Minimap:GetZoom() == insideZoomValue + 0
-	Minimap:SetZoom(Zoom)
+	Minimap:SetZoom(zoomLevel)
 	UpdateForce = true
 	Radius = nil
 
@@ -596,14 +598,16 @@ function panel:ZONE_CHANGED_NEW_AREA()
 	UpdateForce = true
 end
 
+panel.PLAYER_LOGIN = panel.ZONE_CHANGED_NEW_AREA
+
 do
-	local previousMapID
+	local PreviousMapID
 
 	-- Force a repaint if world map swaps back to the current zone (making player coordinates available).
 	function panel:WORLD_MAP_UPDATE()
 		local mapID = _G.GetCurrentMapAreaID()
-		if previousMapID ~= mapID then
-			previousMapID = mapID
+		if PreviousMapID ~= mapID then
+			PreviousMapID = mapID
 
 			if mapID == CurrentMapID then
 				UpdateForce = true
@@ -624,17 +628,16 @@ do
 	local UpdateNext = 0
 	local LastX, LastY, LastFacing
 
-	function panel:OnUpdate(Elapsed)
-		UpdateNext = UpdateNext - Elapsed
+	function panel:OnUpdate(elapsed)
+		UpdateNext = UpdateNext - elapsed
+
 		if UpdateForce or UpdateNext <= 0 then
 			UpdateNext = UpdateRate
 
-			SetCurrentZoneMapID()
-
-			local X, Y = GetPlayerMapPosition("player")
+			local playerX, playerY = GetPlayerMapPosition("player")
 
 			-- If the coordinates are for wrong map
-			if not CurrentMapID or (X == 0 and Y == 0) or X < 0 or X > 1 or Y < 0 or Y > 1 or CurrentMapID ~= GetCurrentMapAreaID() then
+			if not CurrentMapID or (playerX == 0 and playerY == 0) or playerX < 0 or playerX > 1 or playerY < 0 or playerY > 1 or CurrentMapID ~= GetCurrentMapAreaID() then
 				UpdateForce = nil
 				self.RangeRing:Hide()
 				private.TextureRemoveAll(self)
@@ -644,26 +647,28 @@ do
 			RotateMinimap = GetCVarBool("rotateMinimap")
 			UpdateRate = self[RotateMinimap and "UpdateRateRotating" or "UpdateRateDefault"]
 
-			local Facing = RotateMinimap and GetPlayerFacing() or 0
-			local Width, Height = private.GetMapSize(CurrentMapID)
-			X, Y = X * Width, Y * Height
+			local playerFacing = RotateMinimap and GetPlayerFacing() or 0
+			local mapWidth, mapHeight = private.GetMapSize(CurrentMapID)
+			playerX = playerX * mapWidth
+			playerY = playerY * mapHeight
 
-			if UpdateForce or Facing ~= LastFacing or (X - LastX) ^ 2 + (Y - LastY) ^ 2 >= self.UpdateDistance then
+			if UpdateForce or playerFacing ~= LastFacing or (playerX - LastX) ^ 2 + (playerY - LastY) ^ 2 >= self.UpdateDistance then
 				UpdateForce = nil
-				LastX, LastY = X, Y
-				LastFacing = Facing
+				LastX, LastY = playerX, playerY
+				LastFacing = playerFacing
 
-				return self:Paint(CurrentMapID, X, Y, Facing)
+				return self:Paint(CurrentMapID, playerX, playerY, playerFacing)
 			end
 		end
 	end
 end
 
 do
-	local Backup = panel.SetAlpha
+	local FrameSetAlpha = panel.SetAlpha
+
 	-- Fades overlay when indoors.
-	function panel:SetAlpha(Alpha, ...)
-		return Backup(self, IsInside and Alpha * panel.InsideAlphaMultiplier or Alpha, ...)
+	function panel:SetAlpha(alpha, ...)
+		return FrameSetAlpha(self, IsInside and alpha * panel.InsideAlphaMultiplier or alpha, ...)
 	end
 end
 
@@ -679,7 +684,7 @@ function panel:SetMinimapFrame(Frame)
 	end
 end
 
---- Force a repaint if shown paths change.
+-- Force a repaint if shown paths change.
 -- @param mapID AreaID that changed, or nil if all zones must update.
 function panel:OnMapUpdate(mapID)
 	if not mapID or mapID == CurrentMapID then
@@ -691,6 +696,7 @@ function panel:OnEnable()
 	self.ScrollFrame:Show()
 	self:RegisterEvent("WORLD_MAP_UPDATE")
 	self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	self:RegisterEvent("PLAYER_LOGIN")
 end
 
 function panel:OnDisable()
@@ -700,51 +706,51 @@ function panel:OnDisable()
 	self:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
 end
 
-do
+-- Initializes the canvas after its dependencies load.
+function panel:OnLoad()
+	self.ScrollFrame = _G.CreateFrame("ScrollFrame")
+	self.ScrollFrame:Hide()
+	self.ScrollFrame:SetScrollChild(self)
+
+	self:SetAllPoints()
+	self:SetScript("OnShow", self.OnShow)
+	self:SetScript("OnUpdate", self.OnUpdate)
+	self:SetScript("OnEvent", private.Modules.OnEvent)
+	self:RegisterEvent("MINIMAP_UPDATE_ZOOM")
+
 	-- Hook to force a repaint when minimap zoom changes.
-	local function SetZoom(self, Zoom, ...)
+	_G.hooksecurefunc(Minimap, "SetZoom", function(self, zoom, ...)
 		UpdateForce = true
 		Radius = nil
+	end)
+
+	-- [ Quadrant ] = Texture
+	local rangeRing = _G.CreateFrame("Frame", nil, self.ScrollFrame)
+	self.RangeRing = rangeRing
+
+	-- Setup the range ring's textures
+	rangeRing:SetAllPoints()
+	rangeRing:SetAlpha(0.8)
+
+	local color = _G.NORMAL_FONT_COLOR
+
+	for index = 1, 4 do
+		local isLeft = index == 2 or index == 3
+		local isTop = index <= 2
+
+		local texture = rangeRing:CreateTexture()
+		texture:SetPoint("LEFT", rangeRing, isLeft and "LEFT" or "CENTER")
+		texture:SetPoint("RIGHT", rangeRing, isLeft and "CENTER" or "RIGHT")
+		texture:SetPoint("TOP", rangeRing, isTop and "TOP" or "CENTER")
+		texture:SetPoint("BOTTOM", rangeRing, isTop and "CENTER" or "BOTTOM")
+		texture:SetTexture([[SPELLS\CIRCLE]])
+		texture:SetBlendMode("ADD")
+		texture:SetVertexColor(color.r, color.g, color.b)
+
+		rangeRing[index] = texture
 	end
 
-	-- Initializes the canvas after its dependencies load.
-	function panel:OnLoad()
-		self.ScrollFrame = _G.CreateFrame("ScrollFrame")
-		self.ScrollFrame:Hide()
-		self.ScrollFrame:SetScrollChild(self)
-
-		self:SetAllPoints()
-		self:SetScript("OnShow", self.OnShow)
-		self:SetScript("OnUpdate", self.OnUpdate)
-		self:SetScript("OnEvent", private.Modules.OnEvent)
-		self:RegisterEvent("MINIMAP_UPDATE_ZOOM")
-		_G.hooksecurefunc(Minimap, "SetZoom", SetZoom)
-
-		-- [ Quadrant ] = Texture
-		local RangeRing = _G.CreateFrame("Frame", nil, self.ScrollFrame)
-		self.RangeRing = RangeRing
-
-		-- Setup the range ring's textures
-		RangeRing:SetAllPoints()
-		RangeRing:SetAlpha(0.8)
-		local color = _G.NORMAL_FONT_COLOR
-
-		for Index = 1, 4 do
-			local Texture = RangeRing:CreateTexture()
-			RangeRing[Index] = Texture
-
-			local Left, Top = Index == 2 or Index == 3, Index <= 2
-			Texture:SetPoint("LEFT", RangeRing, Left and "LEFT" or "CENTER")
-			Texture:SetPoint("RIGHT", RangeRing, Left and "CENTER" or "RIGHT")
-			Texture:SetPoint("TOP", RangeRing, Top and "TOP" or "CENTER")
-			Texture:SetPoint("BOTTOM", RangeRing, Top and "CENTER" or "BOTTOM")
-			Texture:SetTexture([[SPELLS\CIRCLE]])
-			Texture:SetBlendMode("ADD")
-			Texture:SetVertexColor(color.r, color.g, color.b)
-		end
-
-		self:SetMinimapFrame(Minimap)
-	end
+	self:SetMinimapFrame(Minimap)
 end
 
 function panel:OnUnload()
@@ -761,6 +767,7 @@ function panel:OnUnregister()
 	self.MINIMAP_UPDATE_ZOOM = nil
 	self.ZONE_CHANGED_NEW_AREA = nil
 	self.WORLD_MAP_UPDATE = nil
+	self.PLAYER_LOGIN = nil
 end
 
 function panel.RangeRingSetEnabled(Enable)
