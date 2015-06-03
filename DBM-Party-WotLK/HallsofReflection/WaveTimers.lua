@@ -1,7 +1,7 @@
 local mod = DBM:NewMod("HoRWaveTimer", "DBM-Party-WotLK", 16)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 168 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 201 $"):sub(12, -3))
 mod:SetCreatureID(30658)
 mod:SetZone()
 
@@ -19,7 +19,6 @@ mod:AddBoolOption("ShowAllWaveWarnings", true, "announce")
 mod:AddBoolOption("ShowAllWaveTimers", false, "timer")
 
 mod:RemoveOption("HealthFrame")
-mod:RemoveOption("SpeedKillTimer")
 
 local lastWave = 0
 local FalricDead = false

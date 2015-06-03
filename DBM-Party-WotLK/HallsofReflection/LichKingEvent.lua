@@ -1,7 +1,7 @@
 local mod = DBM:NewMod(603, "DBM-Party-WotLK", 16, 276)
 local L = mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 155 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 201 $"):sub(12, -3))
 --mod:SetEncounterID(843, 844)
 
 mod:RegisterEvents(
@@ -14,7 +14,6 @@ local WarnWave		= mod:NewAnnounce("WarnWave", 2)
 local timerEscape	= mod:NewAchievementTimer(360, 4526, "achievementEscape")
 
 mod:RemoveOption("HealthFrame")
-mod:RemoveOption("SpeedKillTimer")
 
 local ragingGoul = EJ_GetSectionInfo(7276)
 local witchDoctor = EJ_GetSectionInfo(7278)
