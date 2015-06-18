@@ -7,7 +7,7 @@
 end)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 38 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 42 $"):sub(12, -3))
 mod:SetZone()
 
 --mod:RegisterCombat("scenario", 1148)
@@ -76,7 +76,6 @@ local voiceHealIllusion		= mod:NewVoice(142238)
 local voicePowerfulSlam		= mod:NewVoice(144401)
 
 mod:RemoveOption("HealthFrame")
-mod:RemoveOption("SpeedKillTimer")
 
 local started = false
 
