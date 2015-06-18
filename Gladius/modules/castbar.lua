@@ -32,7 +32,7 @@ local CastBar = Gladius:NewModule("CastBar", true, true, {
 	castBarColorUninterruptible = {r = 1, g = 0, b = 0, a = 1},
 	castBarBackgroundColor = {r = 1, g = 1, b = 1, a = 0.3},
 	castBarTexture = "Minimalist",
-	castBarTextureUninterruptible = "CastBarLockFull",
+	castBarTextureUninterruptible = "Bars",
 	castIcon = true,
 	castIconPosition = "LEFT",
 	castText = true,
@@ -260,7 +260,7 @@ function CastBar:CreateBar(unit)
 		return
 	end
 	-- create bar + text
-	self.frame[unit] = CreateFrame("STATUSBAR", "Gladius"..self.name..unit, button)
+	self.frame[unit] = CreateFrame("StatusBar", "Gladius"..self.name..unit, button)
 	self.frame[unit].background = self.frame[unit]:CreateTexture("Gladius"..self.name..unit.."Background", "BACKGROUND")
 	self.frame[unit].highlight = self.frame[unit]:CreateTexture("Gladius"..self.name.."Highlight"..unit, "OVERLAY")
 	self.frame[unit].castText = self.frame[unit]:CreateFontString("Gladius"..self.name.."CastText"..unit, "OVERLAY")
@@ -357,7 +357,11 @@ function CastBar:Update(unit)
 		if not Gladius:GetModule(Gladius.db.castBarAttachTo).frame or not Gladius:GetModule(Gladius.db.castBarAttachTo).frame[unit] then
 			Gladius:GetModule(Gladius.db.castBarAttachTo):Update(unit)
 		end
-		width = width + Gladius:GetModule(Gladius.db.castBarAttachTo).frame[unit]:GetWidth()
+		if Gladius.db.castBarAttachTo == "ClassIcon" then
+			width = width + Gladius:GetModule(Gladius.db.castBarAttachTo).frame[unit]:GetWidth() - Gladius.db.classIconOffsetX
+		else
+			width = width + Gladius:GetModule(Gladius.db.castBarAttachTo).frame[unit]:GetWidth()
+		end
 	end
 	self.frame[unit]:SetHeight(Gladius.db.castBarHeight)
 		self.frame[unit]:SetWidth(width)
