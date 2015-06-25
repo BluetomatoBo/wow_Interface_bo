@@ -1,3 +1,4 @@
+﻿if GetLocale() ~= "zhTW" then return end
 local L
 
 ---------------
@@ -95,9 +96,9 @@ L= DBM:GetModLocalization(1447)
 
 L:SetOptionLocalization({
 	ChainsBehavior		= "Set Fel Chains warning behavior",
-	Cast				= "Only give original target on cast start. Timer syncs to cast start.",
-	Applied				= "Only give targets affected on cast end. Timer syncs to cast end.",
-	Both				= "Give original target on cast start and targets affected on cast end. Timer syncs to cast start."
+	Cast				= "Only give orininal target on begin cast. Timer syncs to cast start.",
+	Applied				= "Only give all targets affected on cast finish. Timer syncs to cast finish.",
+	Both				= "Give original target on cast start and all affected targets on cast finish. Timer syncs to cast start."
 })
 
 --------------------------
@@ -152,5 +153,5 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("HellfireCitadelTrash")
 
 L:SetGeneralLocalization({
-	name =	"Hellfire Citadel Trash"
+	name =	"地獄火堡壘小怪"
 })
