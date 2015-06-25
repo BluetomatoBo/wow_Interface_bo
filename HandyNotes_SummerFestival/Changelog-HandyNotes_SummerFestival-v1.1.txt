@@ -1,0 +1,19 @@
+tag v1.1
+d53a30e2ec0c42cb574a353d9cbf7f36201b8435
+Ethan Centaurai <ethancentaurai@outlook.com>
+2015-06-21 23:06:53 +0100
+
+Tagging as v1.1.
+
+
+--------------------
+
+Ethan Centaurai:
+	- Added Zidormi to Dustwallow Marsh.
+	- Added Zidormi to the Blasted Lands and improved tooltips.
+	- Force the questID to a number and fixed a copy/paste fail.
+	- Fix regex fail.
+	- Bump Interface number to 60100.
+	- Use the new "engine" to automatically enable/disable the addon. Also added missing Astrolabe lookup. Derp.
+	- Use a custom iterator to place marker pins on the continent map.
+	- Killed Cartographer support and fixed TomTom waypoints.

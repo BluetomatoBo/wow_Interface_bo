@@ -10,48 +10,6 @@ local points = SummerFestival.points
 ----------------------
 -- Eastern Kingdoms --
 ----------------------
-points["Azeroth"] = {
-	-- honour these flames
-	[55331543] = "11848:H",	-- Falconwing Square, Eversong Woods
-	[55492166] = "11850:H",	-- Tranquillien, Ghostlands
-	[43483277] = "11862:H",	-- Brill, Tirisfal Glade
-	[41253901] = "11584:H",	-- The Sepulcher, Silverpine Forest
-	[46653473] = "28931:H",	-- The Bulwark, Western Plaguelands
-	[55714281] = "11860:H",	-- Revantusk Village, The Hinterlands
-	[53274535] = "11840:H",	-- Hammerfall, Arathi Highlands
-	[46574167] = "11853:H",	-- Tarren Mill, Hillsbrad Foothills
-	[51096553] = "11842:H",	-- New Kargath, Badlands
-	[51708143] = "28930:H",	-- Dreadmaul Hold, Blasted Lands
-	[49736915] = "11844:H",	-- Flame Crest, Burning Steppes
-	[54447716] = "11857:H",	-- Bogpaddle (east), Swamp of Sorrows
-	[44428696] = "28924:H",	-- Grom'gol Base Camp, Northern Stranglethorn
-	[44329412] = "11837:H",	-- Wild Shore (south), Southern Stranglethorn
-	[57485512] = "28946:H",	-- Bloodgulch, Twilight Highlands
-
-	-- desecrate these fires
-	[51154562] = "11732:D",	-- Refuge Pointe, Arathi Highlands
-	[49824050] = "11755:D",	-- Aerie Peak, The Hinterlands
-	[48173746] = "11756:D",	-- Chillwind Camp, Western Plaguelands
-	[46935386] = "11757:D",	-- Menethil Harbour, Wetlands
-	[45836112] = "11742:D",	-- Kharanos, Dun Morogh
-	[51706047] = "11749:D",	-- Thelsamar, Loch Modan
-	[50706696] = "28912:D",	-- Dragon's Mouth, Badlands
-	[41048112] = "11581:D",	-- Moonbrook, Westfall
-	[44547575] = "11744:D",	-- Goldshire, Elwynn Forest
-	[49807589] = "11751:D",	-- Lakeshire, Redridge
-	[47448058] = "11743:D",	-- Darkshire, Duskwood
-	[52538149] = "11737:D",	-- Nethergarde Keep, Blasted Lands
-	[51037159] = "11739:D",	-- Morgan's Vigil, Burning Steppes
-	[54047726] = "28916:D",	-- Bogpaddle (west), Swamp of Sorrows
-	[45568814] = "28910:D",	-- Fort Livingston, Northern Stranglethorn
-	[44469382] = "11761:D",	-- Wild Shore (north), Southern Stranglethorn
-	[56705286] = "28943:D",	-- Thundermar, Twilight Highlands
-
-	-- stealing the enemy's flame
-	[42497372] = "9330:C",	-- Stealing Stormwind's Flame
-	[47615847] = "9331:C",	-- Stealing Ironforge's Flame
-}
-
 
 points["Arathi"] = {
 	[44304603] = "11732:D",	-- Refuge Pointe
@@ -64,6 +22,7 @@ points["Badlands"] = {
 }
 
 points["BlastedLands"] = {
+	[48160728] = "Zidormi",
 	[46361426] = "28930:H",	-- Dreadmaul Hold
 	[55531488] = "11737:D",	-- Nethergarde Keep
 }
@@ -167,48 +126,6 @@ points["Wetlands"] = {
 --------------
 -- Kalimdor --
 --------------
-points["Kalimdor"] = {
-	-- honour these flames
-	[58782422] = "11839:H",	-- Everlook (west), Winterspring
-	[64603826] = "28923:H",	-- Bilgewater Harbour, Azshara
-	[59185158] = "11846:H",	-- Razor Hill, Durotar
-	[49844358] = "11841:H",	-- Silverwind Refuge, Ashenvale
-	[53615328] = "11859:H",	-- The Crossroads, Northern Barrens
-	[44274828] = "11856:H",	-- Sun Rock Retreat, Stonetalon Mountains
-	[38085978] = "11845:H",	-- Silverprey Village, Desolace
-	[48096166] = "11852:H",	-- Bloodhoof Village, Mulgore
-	[50886490] = "28927:H",	-- Desolation Point, Southern Barrens
-	[53776485] = "11847:H",	-- Brackenwall Village, Dustwallow Marsh
-	[45277080] = "11849:H",	-- Camp Mojache, Feralas
-	[56328122] = "11838:H",	-- Gadgetzan (west), Tanaris
-	[50608311] = "28933:H",	-- Marshal's Stand (west), Un'goro Crater
-	[43888072] = "11836:H",	-- Cenarion Hold (south), Silithus
-	[56152954] = "29030:H",	-- Nordrassil, Mount Hyjal
-	[34086369] = "29031:H",	-- Silver Tide Hollow, Vashj'ir Ruins
-	[48659073] = "28949:H",	-- Ramkahen (south), Uldum
-
-	-- desecrate these fires
-	[43631230] = "11753:D",	-- Dolanaar, Teldrassil
-	[32002807] = "11735:D",	-- Azure Watch, Azuremyst Isle
-	[30881998] = "11738:D",	-- Blood Watch, Bloodmyst Isle
-	[46742264] = "11740:D",	-- Lor'danel, Darkshore
-	[59312423] = "11763:D",	-- Everlook (east), Winterspring
-	[55383968] = "11734:D",	-- Forest Song, Ashenvale
-	[43684653] = "28915:D",	-- Mirkfallon Lake, Stonetalon Mountains
-	[42955242] = "11741:D",	-- Nijel's Point, Desolace
-	[54236589] = "28913:D",	-- Fort Triumph, Southern Barrens
-	[57856623] = "11744:D",	-- Theramore Isle, Dustwallow Marsh
-	[40437007] = "11746:D",	-- Feathermoon Stronghold, Feralas
-	[56868163] = "11762:D",	-- Gadgetzan (east), Tanaris
-	[50958285] = "28921:D",	-- Marshal's Stand (east), Un'goro Crater
-	[44927981] = "11760:D",	-- Cenarion Hold (east), Silithus
-	[48769026] = "28947:D",	-- Ramkahen (north), Uldum
-
-	-- stealing the enemy's flame
-	[40381148] = "9332:C",	-- Stealing Darnassus' Flame
-	[29812632] = "11933:C",	-- Stealing the Exodar's Flame
-}
-
 
 points["Ashenvale"] = {
 	[51606675] = "11841:H",	-- Silverwind Refuge
@@ -250,6 +167,7 @@ points["Durotar"] = {
 }
 
 points["Dustwallow"] = {
+	[55804960] = "Zidormi",
 	[33233077] = "11847:H",	-- Brackenwall Village
 	[61824046] = "11744:D",	-- Theramore Isle
 }
@@ -306,27 +224,6 @@ points["Winterspring"] = {
 -------------
 -- Outland --
 -------------
-points["Expansion01"] = {
-	-- honour these flames
-	[59614963] = "11851:H",	-- Thrallmar, Hellfire Peninsula
-	[49917196] = "11858:H",	-- Stonebreaker Hold, Terokkar Forest
-	[30404830] = "11863:H",	-- Zabra'jin, Zangarmarsh
-	[31636038] = "11854:H",	-- Garadar, Nagrand
-	[60787627] = "11855:H",	-- Shadowmoon Village, Shadowmoon Valley
-	[39313047] = "11843:H",	-- Thunderlord Stronghold, Blade's Edge Mountains
-	[53332495] = "11835:H",	-- Area 52 (south), Netherstorm
-
-	-- desecrate these fires
-	[61085452] = "11747:D",	-- Honour Hold, Hellfire Peninsula
-	[50577576] = "11754:D",	-- Allerian Stronghold, Terokkar Forest
-	[39964833] = "11758:D",	-- Telredor, Zangarmarsh
-	[31167162] = "11750:D",	-- Telaar, Nagrand
-	[62708394] = "11752:D",	-- Wildhammer Stronghold, Shadowmoon Valley
-	[36683261] = "11736:D",	-- Sylvanaar, Blade's Edge Mountains
-	[52982314] = "11759:D",	-- Area 52 (north-west), Netherstorm
-
-}
-
 
 points["BladesEdgeMountains"] = {
 	[41576590] = "11736:D",	-- Sylvanaar
@@ -367,28 +264,6 @@ points["Zangarmarsh"] = {
 ---------------
 -- Northrend --
 ---------------
-points["Northrend"] = {
-	-- honour these flames
-	[20215198] = "13493:H",	-- Bor'gorok Outpost, Borean Tundra
-	[24514305] = "13494:H",	-- River's Heart (north), Sholazar Basin
-	[43665765] = "13495:H",	-- Agmar's Hammer, Dragonblight
-	[76276773] = "13496:H",	-- Camp Winterhoof, Howling Fjord
-	[63826108] = "13497:H",	-- Conquest Hold, Grizzly Hills
-	[57713763] = "13498:H",	-- K3 (west), The Storm Peaks
-	[56134264] = "13499:H",	-- Sunreaver's Command, Crystalsong Forest
-	[67484476] = "13500:H",	-- The Argent Stand (south-east), Zul'Drak
-
-	-- desecrate these fires
-	[21535461] = "13440:D",	-- Fizzcrank Airstrip, Borean Tundra
-	[24694422] = "13442:D",	-- River's Heart (south), Sholazar Basin
-	[55285625] = "13443:D",	-- Wintergarde Keep, Dragonblight
-	[79496867] = "13444:D",	-- Fort Wildervar, Howling Fjord
-	[68216078] = "13445:D",	-- Amberpine Lodge, Grizzly Hills
-	[58153808] = "13446:D",	-- K3 (east), The Storm Peaks
-	[55784606] = "13447:D",	-- Windrunner's Overlook, Crystalsong Forest
-	[66664196] = "13449:D",	-- The Argent Stand (north), Zul'Drak
-}
-
 
 points["BoreanTundra"] = {
 	[51031186] = "13493:H",	-- Bor'gorok Outpost
@@ -434,6 +309,7 @@ points["ZulDrak"] = {
 ---------------
 -- Cataclysm --
 ---------------
+
 points["Deepholm"] = {
 	[49405132] = "29036:H",	-- Temple of Earth
 }
@@ -464,20 +340,6 @@ points["VashjirRuins"] = {
 --------------
 -- Pandaria --
 --------------
-points["Pandaria"] = {
-	-- honour these flames
-	[36197488] = "32497:H",	-- Soggy's Gamble, Dread Wastes
-	[68295050] = "32498:H",	-- Dawn's Blossom, The Jade Forest
-	[59776851] = "32499:H",	-- Zhu's Watch, Krasarang Wilds
-	[53924691] = "32500:H",	-- Binan Village, Kun-Lai Summit
-	[37274134] = "32501:H",	-- Longying Outpost, Townlong Steppes
-	[52256696] = "32502:H",	-- Halfhill, Valley of the Four Winds
-	[53125129] = "32509:H",	-- Shrine of Two Moons, Vale of Eternal Blossoms
-
-	-- desecrate these fires
-	[53435182] = "32503:D",	-- Shrine of Seven Stars, Vale of Eternal Blossoms
-}
-
 
 points["DreadWastes"] = {
 	[56076958] = "32497:H",	-- Soggy's Gamble
@@ -507,3 +369,8 @@ points["ValeofEternalBlossoms"] = {
 points["ValleyoftheFourWinds"] = {
 	[51825133] = "32502:H",	-- Halfhill
 }
+
+
+-------------
+-- Draenor --
+-------------
