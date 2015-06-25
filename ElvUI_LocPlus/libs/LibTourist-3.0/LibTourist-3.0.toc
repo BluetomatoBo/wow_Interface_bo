@@ -1,10 +1,10 @@
-﻿## Interface: 60000
+﻿## Interface: 60100
 ## LoadOnDemand: 1
 ## Title: Lib: Tourist-3.0
 ## Notes: A library to provide information about zones and instances.
 ## Author: ckknight, Arrowmaster, Odica
 ## X-Category: Library
-## X-Curse-Packaged-Version: WoW-6.0-release1
+## X-Curse-Packaged-Version: r180
 ## X-Curse-Project-Name: LibTourist-3.0
 ## X-Curse-Project-ID: libtourist-3-0
 ## X-Curse-Repository-ID: wow/libtourist-3-0/mainline

@@ -1,6 +1,6 @@
 ﻿--[[
 Name: LibTourist-3.0
-Revision: $Rev: 178 $
+Revision: $Rev: 180 $
 Author(s): ckknight (ckknight@gmail.com), Arrowmaster, Odica (maintainer)
 Website: http://ckknight.wowinterface.com/
 Documentation: http://www.wowace.com/addons/libtourist-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibTourist-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 178 $"):match("(%d+)"))
+local MINOR_VERSION = 90000 + tonumber(("$Revision: 180 $"):match("(%d+)"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub") end
 
@@ -6765,7 +6765,7 @@ do
 		paths = BZ["Forstfire Ridge"],
 		groupSize = 5,
 		type = "Instance",
---		entrancePortal = { BZ["Forstfire Ridge"], 0.00, 0.00 },   TODO
+		entrancePortal = { BZ["Forstfire Ridge"], 50.0, 24.8 }, 
 	}	
 	
 	zones[BZ["Shadowmoon Burial Grounds"]] = {
@@ -6785,7 +6785,7 @@ do
 		paths = BZ["Gorgrond"],
 		groupSize = 5,
 		type = "Instance",
---		entrancePortal = { BZ["Gorgrond"], 0.00, 0.00 },   TODO
+		entrancePortal = { BZ["Gorgrond"], 45.2, 13.7 },
 	}	
 	
 	zones[BZ["Grimrail Depot"]] = {
@@ -6826,7 +6826,7 @@ do
 		paths = BZ["Talador"],
 		groupSize = 5,
 		type = "Instance",
---		entrancePortal = { BZ["Talador"], 0.00, 0.00 },   TODO
+		entrancePortal = { BZ["Talador"], 43.6, 74.1 },
 	}
 	
 	zones[BZ["Skyreach"]] = {
@@ -6836,7 +6836,7 @@ do
 		paths = BZ["Spires of Arak"],
 		groupSize = 5,
 		type = "Instance",
---		entrancePortal = { BZ["Spires of Arak"], 0.00, 0.00 },   TODO
+		entrancePortal = { BZ["Spires of Arak"], 35.6, 33.5 }, 
 	}
 	
 	zones[BZ["Highmaul"]] = {
