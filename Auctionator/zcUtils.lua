@@ -531,7 +531,10 @@ function zc.ItemIDStrfromLink (itemLink)		-- important function that should gene
 
 			local b;
 			for b = 1,bonusIDcount do
+				if (bonus[b] == nil) then 
+				else
 				idString = idString..":"..bonus[b]
+				end
 			end
 		end
 
