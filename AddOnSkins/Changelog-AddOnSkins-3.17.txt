@@ -1,0 +1,41 @@
+tag 3.17
+cba316f978c0c026b81efe99b26d810e1dce407c
+Azilroka <darktemplar9900@yahoo.com>
+2015-06-24 01:05:38 -0500
+
+
+
+--------------------
+
+Azilroka:
+	- 3.17
+	- AMR Removed. Personally looks good the way it is.
+Torch/behub:
+	- Merge issue from changes from original. fixed.
+	- Default settings for DBM Transparent Radar
+Azilroka:
+	- BigWigs
+	- Achievement / Archeology
+Torch/behub:
+	- Transparent DBM Radar - Similar to BigWigs ability to turn off the background. Might be outside the scope of AddonSkins. Still need to work out how to make a box pop-up saying a reloadui is required.
+Azilroka:
+	- BGDefender / DTC
+	- BigWigs
+	- KeepingTabs / Updates
+	- Same as previous
+	- NPCScan
+	- NPCScan / Auction
+Torch/behub:
+	- Move bind text to correct location (top right). Previous SetPoint() had it in the bottom right corner. Tested with different key binds lengths.
+Azilroka:
+	- NPCScan
+	- Macro
+	- DeathRecap
+	- Cleanup on Archeology
+	- CloseButton
+	- Fix Icon Size / Position
+	- Achievement
+	- Achievement Highlights
+	- Achievement / CloseButton
+	- Achievements / Loot
+	- TimeManager / Collections

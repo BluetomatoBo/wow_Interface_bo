@@ -26,6 +26,7 @@ local Defaults = {
 	['DBMFont'] = 'Tukui',
 	['DBMFontSize'] = 12,
 	['DBMFontFlag'] = 'OUTLINE',
+	['DBMRadarTrans'] = false,
 	['WeakAuraAuraBar'] = false,
 	['WeakAuraIconCooldown'] = false,
 	['SkinTemplate'] = 'Transparent',
@@ -162,11 +163,10 @@ function AS:GetOptions()
 						name = ASL["DBM|VEM Half-bar Skin"],
 						order = 4,
 					},
-					BigWigsHalfBar = {
+					DBMRadarTrans = {
 						type = "toggle",
-						name = ASL["BigWigs Half-Bar"],
-						order = 4,
-						disabled = function() return not AS:CheckOption("BigWigs", "BigWigs") end
+						name = ASL["DBM Transparent Radar"],
+						order = 5,
 					},
 				},
 			},
