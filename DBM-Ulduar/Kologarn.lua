@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Kologarn", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 178 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 202 $"):sub(12, -3))
 mod:SetCreatureID(32930)--, 32933, 32934
 mod:SetEncounterID(1137)
 mod:SetModelID(28638)
@@ -18,6 +18,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_DAMAGE",
 	"SPELL_MISSED",
 	"RAID_BOSS_WHISPER",
+	"CHAT_MSG_ADDON",
 	"UNIT_DIED"
 )
 
@@ -79,19 +80,16 @@ function mod:RAID_BOSS_WHISPER(msg)
 	if msg:find(L.FocusedEyebeam) then
 		specWarnEyebeam:Show()
 		yellBeam:Yell()
-		self:SendSync("EyeBeamOn", UnitGUID("player"))
 	end
 end
 
-function mod:OnSync(msg, guid)
-	local target
-	if guid then
-		target = DBM:GetFullPlayerNameByGUID(guid)
-	end
-	if msg == "EyeBeamOn" and guid then
-		timerNextEyebeam:Start()
-		if target then
-			warnFocusedEyebeam:Show()
+--per usual, use transcriptor message to get messages from both bigwigs and DBM, all without adding comms to this mod at all
+function mod:CHAT_MSG_ADDON(prefix, msg, channel, targetName)
+	if prefix ~= "Transcriptor" then return end
+	if msg:find(L.FocusedEyebeam) then--
+		targetName = Ambiguate(targetName, "none")
+		if self:AntiSpam(5, targetName) then--Antispam sync by target name, since this doesn't use dbms built in onsync handler.
+			warnFocusedEyebeam:Show(targetName)
 			if self.Options.SetIconOnEyebeamTarget then
 				self:SetIcon(target, 5, 8) 
 			end
