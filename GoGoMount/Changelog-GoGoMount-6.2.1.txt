@@ -1,9 +1,15 @@
 ------------------------------------------------------------------------
-r544 | tiker | 2015-06-15 00:14:38 +0000 (Mon, 15 Jun 2015) | 1 line
+r546 | tiker | 2015-06-24 17:20:11 +0000 (Wed, 24 Jun 2015) | 1 line
 Changed paths:
-   A /tags/6.1.5 (from /trunk:543)
+   A /tags/6.2.1 (from /trunk:545)
 
-Tagging as 6.1.5
+Tagging as 6.2.1
+------------------------------------------------------------------------
+r545 | tiker | 2015-06-24 17:19:50 +0000 (Wed, 24 Jun 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+- Updated TOC version for World of Warcaft 6.2
 ------------------------------------------------------------------------
 r543 | tiker | 2015-06-15 00:13:53 +0000 (Mon, 15 Jun 2015) | 1 line
 Changed paths:
