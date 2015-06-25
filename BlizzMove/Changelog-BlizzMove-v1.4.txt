@@ -1,14 +1,13 @@
 ------------------------------------------------------------------------
-r61 | yess | 2015-05-04 02:03:36 +0000 (Mon, 04 May 2015) | 1 line
+r63 | yess | 2015-06-24 18:05:19 +0000 (Wed, 24 Jun 2015) | 1 line
 Changed paths:
-   A /tags/v1.3.9 (from /trunk:60)
+   A /tags/v1.4 (from /trunk:62)
 
-Tagging as v1.3.9
+Tagging as v1.4
 ------------------------------------------------------------------------
-r60 | yess | 2015-05-04 01:53:55 +0000 (Mon, 04 May 2015) | 2 lines
+r62 | yess | 2015-06-24 18:01:21 +0000 (Wed, 24 Jun 2015) | 1 line
 Changed paths:
-   M /trunk/BlizzMove.lua
+   M /trunk/BlizzMove.toc
 
-Fixed quest and collections frame. 
-
+update toc
 ------------------------------------------------------------------------
