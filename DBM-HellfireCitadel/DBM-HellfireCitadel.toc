@@ -5,6 +5,7 @@
 ## Title-zhCN:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0地狱火堡垒|r
 ## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0지옥불 성채|r
 ## Title-zhTW:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0地獄火堡壘|r
+## Title-ruRU:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Цитадель адского пламени|r
 ## Author: MysticalOS
 ## LoadOnDemand: 1
 ## RequiredDeps: DBM-Core
@@ -16,7 +17,7 @@
 ## X-DBM-Mod-Has-Mythic : 1
 ## X-DBM-Mod-Sort: 100
 ## X-DBM-Mod-MapID: 1448
-## X-Curse-Packaged-Version: 6.2.0
+## X-Curse-Packaged-Version: 6.2.1
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline
@@ -25,6 +26,7 @@ localization.de.lua
 localization.cn.lua
 localization.kr.lua
 localization.tw.lua
+localization.ru.lua
 HellfireAssault.lua
 IronReaver.lua
 Kormrok.lua
@@ -38,3 +40,4 @@ Xhulhorac.lua
 Velhari.lua
 Mannoroth.lua
 Archimonde.lua
+HellfireCitadelTrash.lua

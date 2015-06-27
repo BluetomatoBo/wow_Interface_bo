@@ -52,9 +52,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 13904 $"):sub(12, -3)),
-	DisplayVersion = "6.2.0", -- the string that is shown as version
-	ReleaseRevision = 13904 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 13933 $"):sub(12, -3)),
+	DisplayVersion = "6.2.1", -- the string that is shown as version
+	ReleaseRevision = 13933 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -388,7 +388,7 @@ local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 local dbmToc = 0
 
-local fakeBWRevision = 13200
+local fakeBWRevision = 13225
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -8398,6 +8398,7 @@ do
 			return
 		end
 		if type(spellId) == "string" and spellId:match("OptionVersion") then
+			DBM:Debug("Voice for "..spellId.." is using OptionVersion hack. this is not needed, this only has 4 args, do this properly", 2)
 			local temp = optionVersion
 			optionVersion = string.sub(spellId, 14)
 			spellId, optionDefault, optionName = optionDefault, optionName, temp

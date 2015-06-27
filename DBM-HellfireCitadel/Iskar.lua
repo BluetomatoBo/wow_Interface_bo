@@ -1,13 +1,14 @@
 local mod	= DBM:NewMod(1433, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13888 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13933 $"):sub(12, -3))
 mod:SetCreatureID(90316)
 mod:SetEncounterID(1788)
 mod:DisableESCombatDetection()--Remove if blizz fixes trash firing ENCOUNTER_START
 mod:SetMinSyncRevision(13887)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)--Unknown full spectrum of icons yet. Don't know how many debuffs go out.
+mod:SetHotfixNoticeRev(13912)
 mod:SetRespawnTime(15)
 mod:DisableRegenDetection()--Boss returns true on UnitAffectingCombat when fighting his trash, making boss pre mature pull by REGEN method
 
@@ -27,6 +28,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
+--(ability.id = 181912 or ability.id = 181827 or ability.id = 187998 or ability.id = 181873) and type = "begincast" or (ability.id = 182178 or ability.id = 181956 or ability.id = 181912 or ability.id = 185510) and type = "cast" or (ability.id = 181824 or ability.id = 187990 or ability.id = 181753) and type = "applydebuff"
 local warnEyeofAnzu						= mod:NewTargetAnnounce(179202, 1, nil, false)--Important, but spammy, Will do something fancy with infoframe to show target instead of spamming screen with warnings
 local warnPhantasmalWinds				= mod:NewTargetAnnounce(181957, 4)--Announce to all, for things like life grips, body and soul, etc to keep them on platform while anzu person helps clear them.
 local warnPhantasmalWounds				= mod:NewTargetAnnounce(182325, 2, nil, "Healer")
@@ -38,6 +40,7 @@ local warnFelChakram					= mod:NewTargetAnnounce(182178, 4)
 local warnLaser							= mod:NewTargetAnnounce(182582, 3)
 local warnFelConduit					= mod:NewCastAnnounce(181827, 3, nil, nil, "-Healer")
 
+local specWarnEyeofAnzu					= mod:NewSpecialWarningYou(179202)
 local specWarnThrowAnzu					= mod:NewSpecialWarning("specWarnThrowAnzu", nil, nil, nil, 1, 5)
 local specWarnFocusedBlast				= mod:NewSpecialWarningCount(181912, nil, nil, nil, 2)
 local specWarnPhantasmalWinds			= mod:NewSpecialWarningYou(181957, nil, nil, nil, 3)
@@ -58,9 +61,9 @@ local specWarnFelChakram				= mod:NewSpecialWarningMoveAway(182178, nil, nil, ni
 local specWarnFelChakramTank			= mod:NewSpecialWarningTaunt(182178, nil, nil, nil, 1, 2)
 local specWarnFelConduit				= mod:NewSpecialWarningInterrupt(181827, nil, nil, nil, 1, 2)--On for everyone, filtered by eye of anzu, if this person can't interrupt, then they better pass it to someone who can
 
-local timerFelLaserCD					= mod:NewCDTimer(19.5, 182582)--19.5-22. Never pauses, used all phases
-local timerChakramCD					= mod:NewCDTimer(24.5, 182178)
-local timerPhantasmalWindsCD			= mod:NewCDTimer(37, 181957)
+local timerFelLaserCD					= mod:NewCDTimer(16, 182582)--16-22. Never pauses, used all phases
+local timerChakramCD					= mod:NewCDTimer(33, 182178)
+local timerPhantasmalWindsCD			= mod:NewCDTimer(35, 181957)
 local timerPhantasmalWoundsCD			= mod:NewCDTimer(30.5, 182325, nil, "Healer")--30.5-32
 local timerFocusedBlast					= mod:NewCastTimer(11, 181912)--Doesn't realy need a cd timer. he casts it twice back to back, then lands
 local timerDarkBindingsCD				= mod:NewCDTimer(34, 185456)
@@ -69,7 +72,7 @@ local timerFelBombCD					= mod:NewCDTimer(18.5, 181753)
 local timerFelConduitCD					= mod:NewCDTimer(15, 181827)
 local timerPhantasmalCorruptionCD		= mod:NewCDTimer(14, 181824, nil, "Tank")--14-18
 
-local countdownPhantasmalWinds			= mod:NewCountdown(17, 181957)
+local countdownPhantasmalWinds			= mod:NewCountdown(35, 181957)
 local countdownFelBomb					= mod:NewCountdown("Alt18", 181753)
 local countdownCorruption				= mod:NewCountdown("AltTwo14", 181824, "Tank")
 
@@ -187,11 +190,7 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 182178 then
-		if self:IsNormal() then
-			timerChakramCD:Start(35)
-		else
-			timerChakramCD:Start()
-		end
+		timerChakramCD:Start()
 	elseif spellId == 181956 then
 		if self:IsNormal() then
 			timerPhantasmalWindsCD:Start(46)
@@ -222,6 +221,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetIcon(args.destName, 1)
 		end
 		if args:IsPlayer() then
+			specWarnEyeofAnzu:Show()
 			playerHasAnzu = true
 		end
 	elseif spellId == 181957 then
@@ -273,8 +273,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnPhantasmalFelBomb:CombinedShow(0.3, args.destName)
 		if args:IsPlayer() then
 			updateRangeFrame(self)
-			specWarnPhantasmalFelBomb:Show()
-			yellPhantasmalFelBomb:Yell()
+			specWarnPhantasmalFelBomb:Schedule(0.3)
+			yellPhantasmalFelBomb:Schedule(0.3)
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(15)
 			end
@@ -290,6 +290,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		if args:IsPlayer() then
 			updateRangeFrame(self)
+			specWarnPhantasmalFelBomb:Cancel()
+			yellPhantasmalFelBomb:Cancel()
 			specWarnFelBomb:Show()
 			yellFelBomb:Yell()
 			if self.Options.RangeFrame then
@@ -344,7 +346,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		if args:IsPlayer() then
 			playerHasAnzu = false
 		end
-	elseif spellId == 181957 and self.Options.SetIconOnWind then
+	elseif spellId == 181957 and self.Options.SetIconOnWinds then
 		self:SetIcon(args.destName, 0)
 	elseif (spellId == 181824 or spellId == 187990) then
 		if args:IsPlayer() then

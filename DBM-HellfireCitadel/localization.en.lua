@@ -48,6 +48,18 @@ L:SetMiscLocalization({
 --------------------
 L= DBM:GetModLocalization(1372)
 
+L:SetTimerLocalization({
+	SoDDPS		= "Next Shadows (%s)",
+	SoDTank		= "Next Shadows (%s)",
+	SoDHealer	= "Next Shadows (%s)"
+})
+
+L:SetOptionLocalization({
+	SoDDPS		= "Show timer for next $spell:179864 affecting Damagers",
+	SoDTank		= "Show timer for next $spell:179864 affecting Tanks",
+	SoDHealer	= "Show timer for next $spell:179864 affecting Healers"
+})
+
 --------------------------
 -- Shadow-Lord Iskar --
 --------------------------
@@ -75,6 +87,7 @@ L:SetOptionLocalization({
 	Iconed				= "Skull, Cross, Square, Moon, Triangle. Usuable for any strat using flare positions",--Default
 	Numbered			= "1, 2, 3, 4, 5. Usable for any strat using numbered positions.",
 	DirectionLine		= "Left, Middle Left, Middle, Middle Right, Right. Typical for straight line strat",
+	FreeForAll			= "Free for all. Assign no positions, just use basic yell",
 	--Currently these 3 below are unused unless I see anyone want/need them
 	CrossPerception		= "Front, Back, Left, Right, Middle. Typical for Cross strat",--Unsure if viable with 5 targets/will remain
 	CrossCardinal		= "North, South, East, West, Middle. Typical for Cross strat",--Unsure if viable 5 targets/will remain
@@ -97,7 +110,7 @@ L:SetOptionLocalization({
 	ChainsBehavior		= "Set Fel Chains warning behavior",
 	Cast				= "Only give original target on cast start. Timer syncs to cast start.",
 	Applied				= "Only give targets affected on cast end. Timer syncs to cast end.",
-	Both				= "Give original target on cast start and targets affected on cast end. Timer syncs to cast start."
+	Both				= "Give original target on cast start and targets affected on cast end."
 })
 
 --------------------------

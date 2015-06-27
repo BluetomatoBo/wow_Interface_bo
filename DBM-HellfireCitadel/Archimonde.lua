@@ -1,11 +1,12 @@
 local mod	= DBM:NewMod(1438, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13828 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13915 $"):sub(12, -3))
 mod:SetCreatureID(91331)--Doomfire Spirit (92208), Hellfire Deathcaller (92740), Felborne Overfiend (93615), Dreadstalker (93616), Infernal doombringer (94412)
 mod:SetEncounterID(1799)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 4, 2, 1)
+mod:SetHotfixNoticeRev(13908)
 --mod:SetRespawnTime(20)
 
 mod:RegisterCombat("combat")
@@ -586,7 +587,7 @@ function mod:OnSync(msg)
 		timerFelBurstCD:Cancel()
 		timerDesecrateCD:Cancel()
 		timerDoomfireCD:Cancel()
-		timerAllureofFlamesCD()--Reset to 35.5
+		timerAllureofFlamesCD:Cancel()--Reset to 35.5
 		timerAllureofFlamesCD:Start(35.5)
 		timerShackledTormentCD:Start(12)
 	elseif msg == "phase25" and self.vb.phase < 2.5 then

@@ -1,20 +1,21 @@
 local mod	= DBM:NewMod(1372, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13880 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13922 $"):sub(12, -3))
 mod:SetCreatureID(90199)
 mod:SetEncounterID(1783)
 mod:SetZone()
 mod:SetUsedIcons(2, 1)
+mod:SetHotfixNoticeRev(13911)
 mod:SetRespawnTime(30)
 
 mod:RegisterCombat("combat")
 
-
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 181973 181582 187814",
 	"SPELL_CAST_SUCCESS 179977 182170 181085",
-	"SPELL_AURA_APPLIED 179864 179977 179909 179908 180148 181295 185982 189434",
+	"SPELL_AURA_APPLIED 179864 179977 179909 179908 180148 181295 185982 189434 185190",
+	"SPELL_AURA_APPLIED_DOSE 185190",
 	"SPELL_AURA_REMOVED 179909 179908 181295 181973 185982",
 	"SPELL_PERIODIC_DAMAGE 179995",
 	"SPELL_ABSORBED 179995",
@@ -42,12 +43,16 @@ local specWarnFeastofSoulsEnded			= mod:NewSpecialWarningEnd(181973)
 local specWarnHungerforLife				= mod:NewSpecialWarningRun(180148, nil, nil, nil, 4, 2)
 local specWarnEnragedSpirit				= mod:NewSpecialWarningSwitch("ej11378", "-Healer")
 local specWarnGoreboundSpirit			= mod:NewSpecialWarningSwitch("ej11020", "-Healer")
+local specWarnBurning					= mod:NewSpecialWarningStack(185190, nil, 5)
+local specWarnBurningOther				= mod:NewSpecialWarningTaunt(185190, nil, nil, nil, nil, 2)
 local specWarnBellowingShout			= mod:NewSpecialWarningInterrupt(181582, "-Healer", nil, nil, 1, 2)
 
-local timerShadowofDeathCD				= mod:NewNextCountTimer(30, 179864)--Sequenced timer, uses table.
+local timerShadowofDeathCDDps			= mod:NewTimer(30, "SoDDPS", 179864, "Dps")
+local timerShadowofDeathCDTank			= mod:NewTimer(30, "SoDTank", 179864, "Tank")
+local timerShadowofDeathCDHealer		= mod:NewTimer(30, "SoDHealer", 179864, "Healer")
 local timerTouchofDoomCD				= mod:NewCDTimer(18, 179977)--25 seconds in LFR, tested after heroic. changed? VERIFY
 local timerSharedFateCD					= mod:NewNextCountTimer(29, 179909)--29-31
-local timerCrushingDarknessCD			= mod:NewNextTimer(10, 180017, nil, "Melee")--Actually 16, but i delay start by 6 seconds for reduced spam
+local timerCrushingDarknessCD			= mod:NewNextTimer("OptionVersion2", 10, 180017, nil, false)--Actually 16, but i delay start by 6 seconds for reduced spam
 local timerFeastofSouls					= mod:NewNextTimer(123.5, 181973)--Probably next timer too, or close to it, depends how consistent energy gains are, may have small variation, like gruul
 
 local timerDigest						= mod:NewCastTimer(40, 181295)
@@ -63,6 +68,7 @@ local voiceHungerforLife				= mod:NewVoice(180148)--justrun
 local voiceBellowingShout				= mod:NewVoice(181582, "-Healer")--kickcast
 local voiceShadowofDeath				= mod:NewVoice(179864)--teleyou, new voice, teleport into a new phase phase
 local voiceSharedFate					= mod:NewVoice(179909)--linegather, new voice, like Blood-Queen Lana'thel's Pact of the Darkfallen, line gather will be better.
+local voiceBurning						= mod:NewVoice(185190) --changemt
 
 mod:AddSetIconOption("SetIconOnFate", 179909)
 mod:AddHudMapOption("HudMapOnSharedFate", 179909)--Smart hud, distinquishes rooted from non rooted by color coding.
@@ -75,9 +81,8 @@ mod.vb.shadowOfDeathCount = 0
 mod.vb.sharedFateCount = 0
 local playerDown = false
 local playersCount = 0
-
+local sharedFateTimers = {19, 28, 25, 22}
 --[[
-TODO, update shadow of death timers for role and count
 Time   Player Role   # of players sent, if your raid size is...
                           10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29
 0:02      DPS             1   1   1   2   2   2   2   2   2   3   3   3   3   3   3   4   4   4   4   4
@@ -100,7 +105,6 @@ Mythic
 --local shadowofDeathTimers = {2, 11, 17, 7, 28, 8}
 --local shadowofDeathTimers10 = {2, 11, 17, 7, 36}--Special case, 1:05 cast doesn't happen with exactly 10 players.
 --local shadowofDeathTimersMythic = {2, 6, 12, 9, 27, 8, 3, 15}
-local sharedFateTimers = {19, 28, 25, 22}
 
 function mod:OnCombatStart(delay)
 	self.vb.rootedFate = nil
@@ -113,9 +117,9 @@ function mod:OnCombatStart(delay)
 		DBM.RangeCheck:Show(5)
 	end
 	if self:IsMythic() then
-		timerShadowofDeathCD:Start(2-delay, "2x"..DBM_CORE_DAMAGE_ICON)
-		timerShadowofDeathCD:Start(9-delay, "1x"..DBM_CORE_TANK_ICON)
-		timerShadowofDeathCD:Start(21-delay, "2x"..DBM_CORE_HEALER_ICON)
+		timerShadowofDeathCDDps:Start(2-delay, "2x"..DBM_CORE_DAMAGE_ICON)
+		timerShadowofDeathCDTank:Start(9-delay, "1x"..DBM_CORE_TANK_ICON)
+		timerShadowofDeathCDHealer:Start(21-delay, "2x"..DBM_CORE_HEALER_ICON)
 	else
 		local numDpsPlayers = 1
 		local numHealerPlayers = 1
@@ -128,9 +132,9 @@ function mod:OnCombatStart(delay)
 			numDpsPlayers = 4
 		end
 		if playersCount >= 20 then numHealerPlayers = 2 end--2 healers 20 players or over
-		timerShadowofDeathCD:Start(2-delay, numDpsPlayers.."x"..DBM_CORE_DAMAGE_ICON)
-		timerShadowofDeathCD:Start(13-delay, "1x"..DBM_CORE_TANK_ICON)
-		timerShadowofDeathCD:Start(30-delay, numHealerPlayers.."x"..DBM_CORE_HEALER_ICON)
+		timerShadowofDeathCDDps:Start(2-delay, numDpsPlayers.."x"..DBM_CORE_DAMAGE_ICON, 1)
+		timerShadowofDeathCDTank:Start(13-delay, "1x"..DBM_CORE_TANK_ICON, 2)
+		timerShadowofDeathCDHealer:Start(30-delay, numHealerPlayers.."x"..DBM_CORE_HEALER_ICON, 3)
 	end
 	timerCrushingDarknessCD:Start(5-delay)
 	timerTouchofDoomCD:Start(9-delay)
@@ -192,11 +196,11 @@ function mod:SPELL_AURA_APPLIED(args)
 			local count = self.vb.shadowOfDeathCount
 			if self:IsMythic() then
 				if count == 1 or count == 4 or count == 5 then--DPS 4x (3 timers)
-					timerShadowofDeathCD:Start(27, "2x"..DBM_CORE_DAMAGE_ICON)
+					timerShadowofDeathCDDps:Start(27, "2x"..DBM_CORE_DAMAGE_ICON)
 				elseif count == 2 then--Tank 2x (1 timer)
-					timerShadowofDeathCD:Start(60, "1x"..DBM_CORE_TANK_ICON)
+					timerShadowofDeathCDTank:Start(60, "1x"..DBM_CORE_TANK_ICON)
 				elseif count == 3 then--Healer 2x (1 timer)
-					timerShadowofDeathCD:Start(45, "2x"..DBM_CORE_HEALER_ICON)
+					timerShadowofDeathCDHealer:Start(45, "2x"..DBM_CORE_HEALER_ICON)
 				end	
 			else
 				if count == 1 or count == 4 then--DPS 3x (2 timers)
@@ -213,14 +217,14 @@ function mod:SPELL_AURA_APPLIED(args)
 					if count == 4 and (playersCount == 15 or playersCount == 16 or playersCount == 21 or playersCount == 22 or playersCount == 25 or playersCount == 26) then--subtrack 1 from above for 2nd cast
 						numPlayers = numPlayers - 1
 					end
-					timerShadowofDeathCD:Start(36, numPlayers.."x"..DBM_CORE_DAMAGE_ICON)
+					timerShadowofDeathCDDps:Start(36, numPlayers.."x"..DBM_CORE_DAMAGE_ICON)
 				elseif count == 2 then--Tank 1x (0 timers)
 					--Do nothing, only one tank is sent
-					--timerShadowofDeathCD:Start(60, "1x"..DBM_CORE_TANK_ICON)
+					--timerShadowofDeathCDTank:Start(60, "1x"..DBM_CORE_TANK_ICON)
 				elseif count == 3 and playersCount > 10 then--Healer 2x (1 timer). Only gets a 2nd one if > 10 players
 					local numPlayers = 1--Only one healer for 11-28 players
 					if playersCount >= 29 then numPlayers = 2 end--Only 2 healers for player count 29 and 30
-					timerShadowofDeathCD:Start(36, numPlayers.."x"..DBM_CORE_HEALER_ICON)
+					timerShadowofDeathCDHealer:Start(36, numPlayers.."x"..DBM_CORE_HEALER_ICON)
 				end
 			end
 		end
@@ -287,9 +291,21 @@ function mod:SPELL_AURA_APPLIED(args)
 		playerDown = true
 	elseif spellId == 185982 and not playerDown then--Cast when a Enraged Spirit in stomach reaches 70%
 		warnGoreboundSpiritSoon:Show()
+	elseif spellId == 185190 then
+		local amount = args.amount or 1
+		if (amount >= 5) and self:AntiSpam(3, 5) then
+			voiceBurning:Play("changemt")
+			if args:IsPlayer() then
+				specWarnBurning:Show(amount)
+			else--Taunt as soon as stacks are clear, regardless of stack count.
+				if not UnitDebuff("player", GetSpellInfo(185190)) and not UnitIsDeadOrGhost("player") then
+					specWarnBurningOther:Show(args.destName)
+				end
+			end
+		end
 	end
 end
---mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
+mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 
 function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
@@ -318,9 +334,9 @@ function mod:SPELL_AURA_REMOVED(args)
 		specWarnFeastofSoulsEnded:Show()
 		--Timers exactly same as pull
 		if self:IsMythic() then
-			timerShadowofDeathCD:Start(2, "2x"..DBM_CORE_DAMAGE_ICON)
-			timerShadowofDeathCD:Start(9, "1x"..DBM_CORE_TANK_ICON)
-			timerShadowofDeathCD:Start(21, "2x"..DBM_CORE_HEALER_ICON)
+			timerShadowofDeathCDDps:Start(2, "2x"..DBM_CORE_DAMAGE_ICON)
+			timerShadowofDeathCDTank:Start(9, "1x"..DBM_CORE_TANK_ICON)
+			timerShadowofDeathCDHealer:Start(21, "2x"..DBM_CORE_HEALER_ICON)
 		else
 			local numDpsPlayers = 1
 			local numHealerPlayers = 1
@@ -333,9 +349,9 @@ function mod:SPELL_AURA_REMOVED(args)
 				numDpsPlayers = 4
 			end
 			if playersCount >= 20 then numHealerPlayers = 2 end--2 healers 20 players or over
-			timerShadowofDeathCD:Start(2, numDpsPlayers.."x"..DBM_CORE_DAMAGE_ICON)
-			timerShadowofDeathCD:Start(13, "1x"..DBM_CORE_TANK_ICON)
-			timerShadowofDeathCD:Start(30, numHealerPlayers.."x"..DBM_CORE_HEALER_ICON)
+			timerShadowofDeathCDDps:Start(2, numDpsPlayers.."x"..DBM_CORE_DAMAGE_ICON)
+			timerShadowofDeathCDTank:Start(13, "1x"..DBM_CORE_TANK_ICON)
+			timerShadowofDeathCDHealer:Start(30, numHealerPlayers.."x"..DBM_CORE_HEALER_ICON)
 		end
 		timerCrushingDarknessCD:Start(5)
 		timerTouchofDoomCD:Start(9)

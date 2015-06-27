@@ -1,11 +1,12 @@
 local mod	= DBM:NewMod(1395, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13899 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13923 $"):sub(12, -3))
 mod:SetCreatureID(91349)--91305 Fel Iron Summoner
 mod:SetEncounterID(1795)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 4, 2, 1)
+mod:SetHotfixNoticeRev(13912)
 --mod:SetRespawnTime(20)
 
 mod:RegisterCombat("combat")
@@ -25,6 +26,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
+--(ability.id = 181557 or ability.id = 181948 or ability.id = 181799 or ability.id = 182084 or ability.id = 186348) and type = "begincast" or (ability.id = 181597 or ability.id = 182006) and type = "cast" or (ability.id = 185147 or ability.id = 182212 or ability.id = 185175) and type = "removebuff"
 --TODO, get timer for 2nd doom lord spawning, if some group decides to do portals in a bad order and not kill that portal summoner first
 --TODO, get longer phase 4 log because log i have isn't long enough to see why felstorm has a longer cd in phase 4
 --TODO, custom voice for shadowforce? It works almost identical to helm of command from lei shen. Did that have a voice usuable here?
@@ -39,6 +41,9 @@ local warnFelImplosion				= mod:NewCountAnnounce(181255, 3)--Spawn
 local warnInferno					= mod:NewCountAnnounce(181180, 3)--Spawn
 local warnFelStreak					= mod:NewSpellAnnounce(181190, 3, nil, "Melee")--Change to target scan/personal/near warning if possible
 --Mannoroth
+local warnPhase2					= mod:NewPhaseAnnounce(2)
+local warnPhase3					= mod:NewPhaseAnnounce(3)
+local warnPhase4					= mod:NewPhaseAnnounce(4)
 local warnGaze						= mod:NewTargetAnnounce(181597, 3)
 local warnFelseeker					= mod:NewCountAnnounce(181735, 3)
 
@@ -109,12 +114,12 @@ mod.vb.phase = 1
 mod.vb.impCount = 0
 mod.vb.infernalCount = 0
 local phase1ImpTimers = {15, 33, 24, 15, 10}--Spawn 33% faster each wave, but cannot confirm it goes lower than 10, if it does, next would be 6.6
-local phase1ImpTimersN = {15, 33, 24, 24}--Normal doesn't go below 24? need larger sample size
+local phase1ImpTimersN = {15, 32.2, 24, 24}--Normal doesn't go below 24? need larger sample size
 local phase2ImpTimers = {7, 27.6, 46.2, 43.8}--Probably out of date
 local phase2ImpTimersN = {7, 36.5, 40, 39.5, 30.5, 30}--Confirmed normal on final PTR testing
 local phase1InfernalTimers = {18.4, 40, 30, 30}--Verify heroic same way, unlike imps, seems to match earlier heroic data
 local phase2InfernalTimers = {53.3, 50}
-local phase2InfernalTimersN = {68.56, 44.8, 44.8, 35}
+local phase2InfernalTimersN = {7, 62, 44.8, 44.8, 35}--62
 local phase3InfernalTimers = {43.2, 34.8}
 local phase3InfernalTimersN = {46.1, 34.8, 35}
 local portalDestroyed = false--Temp hack to prevent timer error on guessed mechanic
@@ -197,9 +202,10 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 181738 or spellId == 182040 then--Ranged (35)
 		warnFelseeker:Show(35)
 	elseif spellId == 181799 or spellId == 182084 then
-		specWarnShadowForce:Show()
 		timerShadowForceCD:Start()
 		countdownShadowForce:Start(52.5)
+		if self:IsTank() and self.vb.phase == 3 then return end--Doesn't target tanks in phase 3, ever.
+		specWarnShadowForce:Show()
 	elseif spellId == 186348 then
 		specWarnWrathofGuldan:Show()
 		timerWrathofGuldanCD:Start()
@@ -302,7 +308,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
-
+ 
 function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
 	if spellId == 181099 then
@@ -314,24 +320,6 @@ function mod:SPELL_AURA_REMOVED(args)
 	elseif spellId == 185147 or spellId == 182212 or spellId == 185175 then--Portals
 		--Note, if they don't die on mythic, switch to UNIT_died on the humanoid adds
 		self.vb.portalsLeft = self.vb.portalsLeft - 1
-		if self.vb.portalsLeft == 0 and self:AntiSpam(10, 4) then
-			self.vb.phase = 2
-			timerFelHellfireCD:Start(29)
-			timerGazeCD:Start(41)
-			timerGlaiveComboCD:Start(43)
-			timerFelSeekerCD:Start(59)
-			voicePhaseChange:Play("ptwo")
-			self.vb.impCount = 0
-			self.vb.infernalCount = 0
-			timerFelImplosionCD:Start(7, 1)--VERIFY all modes on live
-			timerInfernoCD:Start(68.5, 1)--VERIFY all modes on live
-			if self:IsMythic() then
-				timerWrathofGuldanCD:Start(2)
-				if portalDestroyed then--Temp, to make AI timer work better
-					timerCurseofLegionCD:Start(2)--No idea if it works this way. doesn't say when he restores the portal, or if portal is every destroyed in first place.
-				end
-			end
-		end
 		if spellId == 185147 then--Doom Lords Portal
 			timerCurseofLegionCD:Cancel()
 			portalDestroyed = true
@@ -341,6 +329,25 @@ function mod:SPELL_AURA_REMOVED(args)
 			timerInfernoCD:Cancel()
 		elseif spellId == 185175 then--Imps Portal
 			timerFelImplosionCD:Cancel()
+		end
+		if self.vb.portalsLeft == 0 and self:AntiSpam(10, 4) then
+			self.vb.phase = 2
+			timerFelHellfireCD:Start(28)
+			timerGazeCD:Start(40)
+			timerGlaiveComboCD:Start(43)
+			timerFelSeekerCD:Start(59)
+			warnPhase2:Show()
+			voicePhaseChange:Play("ptwo")
+			self.vb.impCount = 0
+			self.vb.infernalCount = 0
+			timerFelImplosionCD:Start(7, 1)--VERIFY all modes on live. TODO, figure out how to detect when he skips the 7 second one and waits for 2nd to start
+			timerInfernoCD:Start(7, 1)--VERIFY all modes on live. TODO, figure out how to detect when he skips the 7 second one and waits for 2nd to start
+			if self:IsMythic() then
+				timerWrathofGuldanCD:Start(2)
+				if portalDestroyed then--Temp, to make AI timer work better
+					timerCurseofLegionCD:Start(2)--No idea if it works this way. doesn't say when he restores the portal, or if portal is every destroyed in first place.
+				end
+			end
 		end
 	elseif spellId == 181597 or spellId == 182006 then
 		if self.Options.HudMapOnGaze then
@@ -408,6 +415,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc)
 				timerInfernoCD:Start(46.1, 1)--VERIFY
 				timerFelSeekerCD:Start(58)
 			end
+			warnPhase3:Show()
 			voicePhaseChange:Play("pthree")
 		elseif self.vb.phase == 4 then
 			timerFelHellfireCD:Cancel()
@@ -432,6 +440,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc)
 				countdownShadowForce:Start(45)
 				timerFelSeekerCD:Start(58.2)
 			end
+			warnPhase4:Show()
 			voicePhaseChange:Play("pfour")
 		end
 	end
@@ -480,6 +489,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerWrathofGuldanCD:Cancel()
 			timerWrathofGuldanCD:Start(3)
 		end
+		warnPhase3:Show()
+		voicePhaseChange:Play("pthree")
 	elseif spellId == 185690 and self.vb.phase == 3 then--Phase 4
 		self.vb.phase = 4
 		timerFelHellfireCD:Cancel()
@@ -509,6 +520,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerWrathofGuldanCD:Cancel()
 			timerWrathofGuldanCD:Start(4)
 		end
+		warnPhase4:Show()
+		voicePhaseChange:Play("pfour")
 	elseif spellId == 181354 then--183377 or 185831 also usable with SPELL_CAST_START but i like this way more, cleaner.
 		specWarnGlaiveCombo:Show()
 		timerGlaiveComboCD:Start()
