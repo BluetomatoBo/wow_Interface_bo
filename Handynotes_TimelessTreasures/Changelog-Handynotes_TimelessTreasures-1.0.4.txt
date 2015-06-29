@@ -1,0 +1,12 @@
+tag 1.0.4
+09935ede2c83bc896ed5f3bf18ee2523718f8bce
+Rainrider <dev@null.fake>
+2015-06-28 23:11:37 +0200
+
+Tagging version 1.0.4
+
+
+--------------------
+
+Rainrider:
+	- Mark 6.2 compatibility
