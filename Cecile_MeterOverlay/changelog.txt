@@ -1,7 +1,9 @@
+v1.1.4
+- Patch 6.2 TOC update
 v1.1.3
 - Patch 6.1 TOC update
 v1.1.2
-- Change actor:GetDisplayName fro actor:Name since can  have realm name removed
+- Change actor:GetDisplayName fro actor:Name since can have realm name removed
 v1.1.1
 - Adding support for "Details" combat meter by shadowphoenix
 v1.1.0
