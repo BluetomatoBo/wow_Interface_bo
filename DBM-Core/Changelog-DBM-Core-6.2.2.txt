@@ -1,0 +1,54 @@
+tag 6.2.2
+db253101bc27aff8b146c0acc6c729da57815c30
+subversion <svn@deadlybossmods.com>
+2015-06-30 12:52:24 +0200
+
+Tagging as 6.2.2
+
+
+--------------------
+
+subversion:
+	- increment version number to 6.2.2
+	- TOM_RUS via svn r13976: ruRU update
+	- Omega via svn r13975: bump bw version
+	- nbluewiz via svn r13974: # koKR update.
+	- Omega via svn r13973: Remove unused locals. shorten zakuun message.
+	- Omega via svn r13972: Archimond Update *Fix radar not showing for FIRST demonic feedback On archimond *Move special warning for demonic feedback earlier, and up importance of it *Fix regression causing yells to no longer show for shackles. *Disabled yells in LFR Mannorth Update *Do to the issue with the first imp and infernal spawns in phase 2 being variable and sometimes not happening at all, to make sure rest of phase timers are accurate, the first casts of both have to be ignored. *Added respawn for mannoroth *Added more timers for imps and infernals with more data *Fixed a bug where infernal count didn?\226?\128?\153t reset on phase 3 if emote triggered, which resulted in bad counts and no timers *Cleaned up old code that?\226?\128?\153s no longer needed. *Changed yells for gaze and doom to numbered *Couple timer tweaks that were about a half second long
+	- Omega via svn r13971: Archimond Update *Fix radar not showing for FIRST demonic feedback On archimond *Move special warning for demonic feedback earlier, and up importance of it Mannorth Update *Do to the issue with the first imp and infernal spawns in phase 2 being variable and sometimes not happening at all, to make sure rest of phase timers are accurate, the first casts of both have to be ignored. *Added respawn for mannoroth *Added more timers for imps and infernals with more data *Fixed a bug where infernal count didn?\226?\128?\153t reset on phase 3 if emote triggered, which resulted in bad counts and no timers *Cleaned up old code that?\226?\128?\153s no longer needed.
+	- Omega via svn r13970: Push this for now I?\226?\128?\153ll clean it up later, but heroic def uses same normal
+	- Omega via svn r13969: #Archimond *Add auto marking for infernals
+	- Omega via svn r13968: #Archimond *Add interrupt warning with count to nether add *Added GTFO for Nether Storm Removed useless core function that only added redundancy. Probably do more of those eventually.
+	- TOM_RUS via svn r13967: ruRU update
+	- Omega via svn r13966: Actually close range frame when phase 2 ends
+	- Omega via svn r13965: BLock syncs from older mods since phase 3 trigger was changed and old syncs could screw up timers
+	- Omega via svn r13964: *Fix lua error in Zakuun #Archimond Update *Phase changes now more accurate on live. *Rain of chaos is in combat log so added warnings for it in phase 3.5 *Fixed icon setting for shackled torment so it works even if icon setter isn?\226?\128?\153t one of the tormented *Added counts to a few warnings *Cleaned up some redundancy in warnings vs special warning to reduce spam some *Fixed demonic feedback radar from not showing. It doesn?\226?\128?\153t apply a debuff (I swear it did on ptr, but live is live and ptr is ptr) *Improved Brand warning to distinguish defensive from taunt, for voice pack users. *Changed radar priority from Nether > TOuch of legion > demonic feedback to demonic feedbakc> touch of legion, nether portal *Fixed a bug where touch of legion filter was using nether filter by mistake *Fixed first death brand timer being too long on pull (original timer was for applied, new timer is for cast start) *Hide fel burst near warning for tanks, tanks have enough to worry about.
+	- Omega via svn r13963: fix cuople things
+	- Omega via svn r13962: Some countdown options, more tweaks later
+	- nbluewiz via svn r13961: # koKR update.
+	- Omega via svn r13960: Bump HF
+	- Omega via svn r13959: adjust demonic feedback timer. was nerfed to 35. Most other timers still look perfect from PTR data
+	- TOM_RUS via svn r13958: Fix typo
+	- Omega via svn r13957: Raise min time for timerFelBurstCD to 52, 47 was observed on PTR but 52 seems lowest now from log crawling. it?\226?\128?\153s still a horrible timer, 52-70 variation.
+	- Omega via svn r13956: Commit some requests from TOM_RUS, mostly soon warnings
+	- TOM_RUS via svn r13955: ruRU update
+	- Omega via svn r13954: Ensure a player affcted by fel burst never gets the fel burst near warning
+	- Omega via svn r13953: Fix error
+	- TOM_RUS via svn r13952: Silence this LUA error
+	- TOM_RUS via svn r13951: ruRU update
+	- Omega via svn r13950: Recovery the kazzak mod from old branch, i never merged it into 6.1 and it was lost. Add 52 second timer as well based on screen shot on twitter (real log soon i hope, i been lazy and haven?\226?\128?\153t logged it myself yet)
+	- TOM_RUS via svn r13949: ruRU update
+	- Omega via svn r13948: Sort names in target warning too
+	- Omega via svn r13947: Fix a bad bug
+	- Omega via svn r13946: Bump HF revision
+	- Omega via svn r13945: Actually, change icons again to match numbered assignments. Also, set max assignments to 4 for heroic and less. 30 player heroic only had 4 seeds. only mythic has 5. So assume 4 is max for all non mythic difficulties.
+	- Omega via svn r13944: Make icons match the alphabetical sorting
+	- Omega via svn r13943: Improve Combat rez timer code to not start goofy timers in 5 man dungeons
+	- Omega via svn r13942: Fix some errors
+	- Omega via svn r13941: Change ghastly fixate to not be a run away warning. you do not run away you actually sit still. running away would be a disaster
+	- Omega via svn r13940: Missed a line removal Set hotfix revisions
+	- Omega via svn r13939: Zakuun fixes re-enable radar for befouled with the new spellids in combat log Changed seeds assignments to match bigwigs alphabetical sorting instead of raid roster sorting. Switched archimond to BW sorting method as well, in case they add that too.
+	- Omega via svn r13938: Shorten exert cd by 1 second
+	- Omega via svn r13937: Fix lua error
+	- Omega via svn r13936: Increase alpha before alpha users get bad notifications
+	- ebmor via svn r13935: deDE update (Hellfire Citadel, without triggers)

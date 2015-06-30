@@ -85,7 +85,7 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	SeedsBehavior		= "씨앗 위치 알림 방법 설정(공격대장 권한 필요)",
-	Iconed				= "해골, 엑스, 동그라미, 달, 역삼각형(기둥 위치를 사용할 경우)",--Default
+	Iconed				= "별, 동그라미, 다이아, 역삼각형, 달(기둥 위치를 사용할 경우)",--Default
 	Numbered			= "1, 2, 3, 4, 5(번호로 지정된 위치를 사용할 경우)",
 	DirectionLine		= "왼쪽, 중앙 왼쪽, 중앙, 중앙 오른쪽, 오른쪽.(일직선 진형을 사용할 경우)",
 	FreeForAll			= "위지 지정하지 않음. 기본 대화 알림 사용",
@@ -97,8 +97,7 @@ L:SetOptionLocalization({
 
 L:SetMiscLocalization({
 	DBMConfigMsg		= "씨앗 위치 알림 방법이 공격대장 설정과 동일하게 하기 위해 %s로 설정되었습니다.",
-	BWConfigMsg			= "공격대장이 BigWigs를 사용합니다, 씨앗 경고를 맞추기 위해 BigWigs에게 기능 좀 추가하라고 하세요!",
-	customSeedsSay		= "%s 에게 씨앗!(%s)"
+	BWConfigMsg			= "공격대장이 BigWigs를 사용합니다. BigWigs와 동일한 경고를 하기 위해 번호 알림으로 설정됩니다."
 	--TODO, talk to some guilds, maybe trim list above, add finalized directions here
 })
 
@@ -150,14 +149,13 @@ L:SetOptionLocalization({
 L:SetMiscLocalization({
 	phase2				= "I grow tired of this pointless game. You face the immortal Legion, scourge of a thousand worlds.",--1 second faster than CLEU. Probably not needed, but just in case
 	phase2point5		= "Look upon the endless forces of the Burning Legion and know the folly of your resistance.",--3 seconds faster than CLEU, used as primary, slower CLEU secondary
-	phase3				= "Enough! Your meaningless struggle ends now!",--6 seconds faster than CLEU, used as primary, slower CLEU secondary
+	phase3				= "Lok'tar ogar! They are pushed back! To the portal! Gul'dan is mine!",--11 seconds faster than CLEU, used as primary, slower CLEU secondary
 	phase3point5		= "I will shatter this pathetic world! Its broken husk will be torn apart in the twisting nether for all time!",--Not currently used. seems fire at same time as UNIT event that's present. Here only in case things change from now and live
 	First				= "첫번째",
 	Second				= "두번째",
 	Third				= "세번째",
 	Fourth				= "네번째",--Just in case, not sure how many targets in 30 man raid
-	Fifth				= "다섯번째",--Just in case, not sure how many targets in 30 man raid
-	customShackledSay	= "%s Shackle on %s"
+	Fifth				= "다섯번째"--Just in case, not sure how many targets in 30 man raid
 })
 
 -------------

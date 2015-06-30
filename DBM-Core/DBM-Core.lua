@@ -52,9 +52,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 13933 $"):sub(12, -3)),
-	DisplayVersion = "6.2.1", -- the string that is shown as version
-	ReleaseRevision = 13933 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 13976 $"):sub(12, -3)),
+	DisplayVersion = "6.2.2", -- the string that is shown as version
+	ReleaseRevision = 13976 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -388,7 +388,7 @@ local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 local dbmToc = 0
 
-local fakeBWRevision = 13225
+local fakeBWRevision = 13290
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -5312,17 +5312,25 @@ do
 						speedTimer:Start()
 					end
 				end
-				if self.Options.CRT_Enabled and savedDifficulty ~= "worldboss" and not self.Options.DontShowBossTimers then
-					if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 17 then--Flexible difficulties
+				--Combat Rez timer, if not a world boss or 5 man dungeon.
+				if self.Options.CRT_Enabled and difficultyIndex ~= 0 and difficultyIndex ~= 1 and difficultyIndex ~= 2 and difficultyIndex ~= 19 and difficultyIndex ~= 24 and not self.Options.DontShowBossTimers then
+					local charges, maxCharges, started, duration = GetSpellCharges(20484)
+					if charges then
+						local time = duration - (GetTime() - started)
+						loopCRTimer(time, mod)
+						self:Debug("CRT started by charges", 2)
+					elseif difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 17 then--Flexible difficulties
 						local time = 90/LastGroupSize
 						time = time * 60
 						loopCRTimer(time, mod)
+						self:Debug("CRT started by Flexible code", 2)
 					else--Fixed difficulties (LastGroupSize cannot be trusted, this INCLUDES mythic. If you underman mythic then it is NOT 90/20)
 						local realGroupSize = self:GetNumRealPlayersInZone()
 						if realGroupSize > 1 then
 							local time = 90/realGroupSize
 							time = time * 60
 							loopCRTimer(time, mod)
+							self:Debug("CRT started by iffy fixed size code", 2)
 						end
 					end
 				end
@@ -6828,6 +6836,16 @@ end
 
 function bossModPrototype:LatencyCheck()
 	return select(4, GetNetStats()) < DBM.Options.LatencyThreshold
+end
+
+function bossModPrototype:CheckBigWigs(name)
+	if raid[name].bwrevision then
+		return raid[name].bwrevision
+	elseif raid[name].bwarevision then
+		return raid[name].bwarevision
+	else
+		return false
+	end
 end
 
 bossModPrototype.AntiSpam = DBM.AntiSpam
@@ -8664,6 +8682,10 @@ do
 	function bossModPrototype:NewFadesYell(...)
 		return newYell(self, "fade", ...)
 	end
+	
+	function bossModPrototype:NewPosYell(...)
+		return newYell(self, "position", ...)
+	end
 end
 
 ------------------------------
@@ -10295,10 +10317,6 @@ end
 
 function bossModPrototype:SetHotfixNoticeRev(revision)
 	self.hotfixNoticeRev = revision
-end
-
-function bossModPrototype:SetRespawnTime(time)
-	self.respawnTime = time
 end
 
 -----------------

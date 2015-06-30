@@ -1,13 +1,13 @@
 local mod	= DBM:NewMod(1432, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13922 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13968 $"):sub(12, -3))
 mod:SetCreatureID(92142, 92144, 92146)--Blademaster Jubei'thos (92142). Dia Darkwhisper (92144). Gurthogg Bloodboil (92146) 
 mod:SetEncounterID(1778)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 4, 2, 1)
 mod:SetBossHPInfoToHighest()
---mod:SetRespawnTime(20)
+--mod.respawnTime = 20
 
 mod:RegisterCombat("combat")
 
