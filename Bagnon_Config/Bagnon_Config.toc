@@ -1,10 +1,10 @@
-## Interface: 60100
+## Interface: 60200
 ## Title: Bagnon Config
 ## Notes: Load on demand configuration for Bagnon
 ## Author: Tuller & Jaliborc (João Cardoso)
 ## Dependencies: Bagnon
 ## LoadOnDemand: 1
-## Version: 6.1.7
+## Version: 6.2.0
 
 ..\Bagnon\libs\Poncho-1.0\Poncho-1.0.xml
 ..\Bagnon\libs\Sushi-3.0\Sushi-3.0.xml
