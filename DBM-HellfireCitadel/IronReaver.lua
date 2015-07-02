@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1425, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13968 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13989 $"):sub(12, -3))
 mod:SetCreatureID(90284)
 mod:SetEncounterID(1785)
 mod:SetZone()
@@ -104,7 +104,7 @@ do
 end
 
 local function updateRangeFrame(self)
-	if not self.Options.RangeFrame then return end
+	if not self.Options.RangeFrame or not self:IsInCombat() then return end
 	if (self:IsTank() or not self.vb.groundPhase) and self.vb.artilleryActive > 0 then--Artillery
 		if UnitDebuff("player", debuffName) then
 			DBM.RangeCheck:Show(30, nil)

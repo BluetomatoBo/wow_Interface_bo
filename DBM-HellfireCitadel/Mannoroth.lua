@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1395, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13972 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13988 $"):sub(12, -3))
 mod:SetCreatureID(91349)--91305 Fel Iron Summoner
 mod:SetEncounterID(1795)
 mod:SetZone()
 mod:SetUsedIcons(3, 2, 1)
-mod:SetHotfixNoticeRev(13912)
+mod:SetHotfixNoticeRev(13988)
 mod.respawnTime = 30
 mod:RegisterCombat("combat")
 
@@ -371,7 +371,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		elseif spellId == 185175 then--Imps Portal
 			timerFelImplosionCD:Cancel()
 		end
-		if self.vb.portalsLeft == 0 and self:AntiSpam(10, 4) and self:IsIncombat() then
+		if self.vb.portalsLeft == 0 and self:AntiSpam(10, 4) and self:IsInCombat() then
 			self.vb.phase = 2
 			timerFelHellfireCD:Start(28)
 			timerGazeCD:Start(40)

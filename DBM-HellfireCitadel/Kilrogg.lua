@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1396, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13968 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13994 $"):sub(12, -3))
 mod:SetCreatureID(90378)
 mod:SetEncounterID(1786)
 mod:SetZone()
@@ -22,6 +22,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
+--(ability.id - 180199 or ability.id = 180224 or ability.id = 182428 or ability.id = 180163 or ability.id = 183917) and type = "begincast" or (ability.id = 180410 or ability.id = 180413) and type = "cast" or ability.id = 188929 and type = "applydebuff"
 --TODO, more stuff for the eyes phase adds if merited
 --Boss
 local warnDemonicPossession			= mod:NewTargetAnnounce(180313, 4)
@@ -55,7 +56,7 @@ local timerHeartseekerCD			= mod:NewCDTimer(25, 180372)
 local timerVisionofDeathCD			= mod:NewCDCountTimer(75, 181488)
 local timerDeathThroesCD			= mod:NewCDCountTimer(40, 180224)
 --Adds
-local timerBloodthirsterCD			= mod:NewCDCountTimer(70.5, "ej11266", nil, nil, nil, 131150)
+local timerBloodthirsterCD			= mod:NewCDCountTimer(70.3, "ej11266", nil, nil, nil, 131150)
 --local timerRendingHowlCD				= mod:NewCDTimer(30, 183917)
 
 --local berserkTimer					= mod:NewBerserkTimer(360)

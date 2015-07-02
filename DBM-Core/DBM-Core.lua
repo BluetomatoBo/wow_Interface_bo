@@ -52,9 +52,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 13976 $"):sub(12, -3)),
-	DisplayVersion = "6.2.2", -- the string that is shown as version
-	ReleaseRevision = 13976 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 13998 $"):sub(12, -3)),
+	DisplayVersion = "6.2.3", -- the string that is shown as version
+	ReleaseRevision = 13998 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -388,7 +388,7 @@ local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 local dbmToc = 0
 
-local fakeBWRevision = 13290
+local fakeBWRevision = 13310
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -5517,6 +5517,10 @@ do
 				if mod.vb.phase then
 					wipeHP = wipeHP.." ("..SCENARIO_STAGE:format(mod.vb.phase)..")"
 				end
+				if mod.numBoss then
+					local bossesKilled = mod.numBoss - mod.vb.bossLeft
+					wipeHP = wipeHP.." ("..BOSSES_KILLED:format(bossesKilled, mod.numBoss)..")"
+				end
 				local totalPulls = mod.stats[statVarTable[savedDifficulty].."Pulls"]
 				local totalKills = mod.stats[statVarTable[savedDifficulty].."Kills"]
 				if thisTime < 30 then -- Normally, one attempt will last at least 30 sec.
@@ -5556,29 +5560,13 @@ do
 						if scenario then
 							msg = msg or chatPrefixShort..DBM_CORE_WHISPER_SCENARIO_END_WIPE_STATS:format(playerName, difficultyText..(name or ""), totalPulls - totalKills)
 						else
-							local hpText = wipeHP
-							if mod.vb.phase then
-								hpText = hpText.." ("..SCENARIO_STAGE:format(mod.vb.phase)..")"
-							end
-							if mod.numBoss then
-								local bossesKilled = mod.numBoss - mod.vb.bossLeft
-								hpText = hpText.." ("..BOSSES_KILLED:format(bossesKilled, mod.numBoss)..")"
-							end
-							msg = msg or chatPrefixShort..DBM_CORE_WHISPER_COMBAT_END_WIPE_STATS_AT:format(playerName, difficultyText..(name or ""), hpText, totalPulls - totalKills)
+							msg = msg or chatPrefixShort..DBM_CORE_WHISPER_COMBAT_END_WIPE_STATS_AT:format(playerName, difficultyText..(name or ""), wipeHP, totalPulls - totalKills)
 						end
 					else
 						if scenario then
 							msg = msg or chatPrefixShort..DBM_CORE_WHISPER_SCENARIO_END_WIPE:format(playerName, difficultyText..(name or ""))
 						else
-							local hpText = wipeHP
-							if mod.vb.phase then
-								hpText = hpText.." ("..SCENARIO_STAGE:format(mod.vb.phase)..")"
-							end
-							if mod.numBoss then
-								local bossesKilled = mod.numBoss - mod.vb.bossLeft
-								hpText = hpText.." ("..BOSSES_KILLED:format(bossesKilled, mod.numBoss)..")"
-							end
-							msg = msg or chatPrefixShort..DBM_CORE_WHISPER_COMBAT_END_WIPE_AT:format(playerName, difficultyText..(name or ""), hpText)
+							msg = msg or chatPrefixShort..DBM_CORE_WHISPER_COMBAT_END_WIPE_AT:format(playerName, difficultyText..(name or ""), wipeHP)
 						end
 					end
 					sendWhisper(k, msg)

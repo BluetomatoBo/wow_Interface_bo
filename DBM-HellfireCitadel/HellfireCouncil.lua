@@ -1,11 +1,12 @@
 local mod	= DBM:NewMod(1432, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13968 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 13995 $"):sub(12, -3))
 mod:SetCreatureID(92142, 92144, 92146)--Blademaster Jubei'thos (92142). Dia Darkwhisper (92144). Gurthogg Bloodboil (92146) 
 mod:SetEncounterID(1778)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 4, 2, 1)
+mod:SetHotfixNoticeRev(13990)
 mod:SetBossHPInfoToHighest()
 --mod.respawnTime = 20
 
@@ -25,12 +26,12 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3"
 )
 
-local Jubei		= EJ_GetSectionInfo(11488)
 local Dia		= EJ_GetSectionInfo(11489)
+local Jubei		= EJ_GetSectionInfo(11488)
 local Gurtogg	= EJ_GetSectionInfo(11490)
 
+--(ability.id = 184657 or ability.id = 184476 or ability.id = 184355) and type = "begincast" or (ability.id = 184449 or ability.id = 183480 or ability.id = 184357) and type = "cast" or (ability.id = 183701 or ability.id = 184360 or ability.id = 184365) and type = "applydebuff" or (target.id = 92142 or target.id = 92144 or target.id = 92146) and type = "death" or ability.id = 184674
 --TODO, add bloodboil. mythic only?
---TODO, All 3 150 second cooldown abilities are silly and unpredictable. I don't think they will go live this way. Timers disabled for them all for now. ESPECIALLy mirror image which goes from being 150 second cd to NO cd below 30%
 --Blademaster Jubei'thos
 local warnMirrorImage				= mod:NewSpellAnnounce(183885, 2)
 --Dia Darkwhisper
@@ -55,22 +56,23 @@ local specWarnDemolishingLeap		= mod:NewSpecialWarningDodge(184366, nil, nil, ni
 mod:AddTimerLine(Jubei)
 --Blademaster Jubei'thos
 --local timerFelstormCD				= mod:NewCDTimer(30.5, 183701)
-local timerMirrorImageCD			= mod:NewCDTimer(150, 183885)--Same as demo leap. the cd is so long that the timer is quite useless.
+local timerMirrorImageCD			= mod:NewCDTimer(75, 183885)
 mod:AddTimerLine(Dia)
 --Dia Darkwhisper
 local timerMarkofNecroCD			= mod:NewCDTimer(60.5, 184449, nil, "Healer")
-local timerReapCD					= mod:NewCDTimer(64.6, 184476)--66-71
+local timerReapCD					= mod:NewCDTimer(61.6, 184476)--66-71
 local timerNightmareVisageCD		= mod:NewCDTimer(30, 184657, nil, "Tank")
-local timerDarknessCD				= mod:NewCDTimer(150, 184681)--Also bleh in consistency. I suspect all the 150 second abilities are undertuned and will all need fixing.
+local timerDarknessCD				= mod:NewCDTimer(75, 184681)
 mod:AddTimerLine(Gurtogg)
 --Gurtogg Bloodboil
 local timerRelRageCD				= mod:NewCDCountTimer(62, 184360)--62-84 (maybe this is HP based, cause this variation is stupid)
-local timerDemoLeapCD				= mod:NewCDTimer(150, 184366)--I think ability was flat broken, he used it like 1 out of 6 pulls. and when he did it was 2 and a half minute cd?
+local timerDemoLeapCD				= mod:NewCDTimer(75, 184366)--Most will never see this ability since he's 3rd in the special rotation and he dies first in most strats
 local timerTaintedBloodCD			= mod:NewNextCountTimer(15.8, 184357)
 local timerBloodBoilCD				= mod:NewCDTimer(7.3, 184355, nil, false)
 
 local berserkTimer					= mod:NewBerserkTimer(600)
 
+local countdownSpecial				= mod:NewCountdown(75, 184681)--spellid is only one of 3 specials but whatever
 local countdownReap					= mod:NewCountdownFades("Alt4", 184476)
 
 local voiceFelstorm					= mod:NewVoice(183701)--aesoon
@@ -82,6 +84,9 @@ local voiceDemolishingLeap			= mod:NewVoice(184366)--runaway (Stll not sure I li
 mod.vb.DiaPushed = false
 mod.vb.taintedBloodCount = 0
 mod.vb.felRageCount = 0
+mod.vb.diaDead = false
+mod.vb.jubeiDead = false
+mod.vb.bloodboilDead = false
 local UnitExists, UnitGUID, UnitDetailedThreatSituation = UnitExists, UnitGUID, UnitDetailedThreatSituation
 local markofNecroDebuff = GetSpellInfo(184449)--Spell name should work, without knowing what right spellid is, For this anyways.
 
@@ -99,6 +104,9 @@ end--]]
 
 function mod:OnCombatStart(delay)
 	self.vb.DiaPushed = false
+	self.vb.diaDead = false
+	self.vb.jubeiDead = false
+	self.vb.bloodboilDead = false
 	self.vb.taintedBloodCount = 0
 	self.vb.felRageCount = 0
 	timerMarkofNecroCD:Start(7-delay)--7-13
@@ -107,8 +115,6 @@ function mod:OnCombatStart(delay)
 	timerRelRageCD:Start(30.5-delay, 1)
 	timerReapCD:Start(50-delay)--50-73 variation on pull, likely blizzard was tinkering/hotfixing it between pulls. verify on later testing
 	timerDarknessCD:Start(75-delay)
-	timerMirrorImageCD:Start(-delay)--First one is 150-160 into fight, unless he hits 30% first, then he uses it earlier and spams rest of fight.
-	timerDemoLeapCD:Start(230-delay)--First one 230 into fight. if you kill him first you NEVER see it.
 	berserkTimer:Start(-delay)
 end
 
@@ -150,9 +156,16 @@ function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 184449 then--Confirmed correct CAST spellid for heroic
 		timerMarkofNecroCD:Start()
-	elseif spellId == 183480 and self:AntiSpam(8, 1) then--Once he pushes 30%, he just spams this, so stop warning
+	elseif spellId == 183480 and self:AntiSpam(8, 1) then
 		warnMirrorImage:Show()
-		timerMirrorImageCD:Cancel()--Just cancel it first time he casts it, after he starts using ability he keeps using it Timer is strictly for when he starts using it
+		countdownSpecial:Start()
+		if not self.vb.bloodboilDead then--Leap is next if bloodboil not dead
+			timerDemoLeapCD:Start()
+		elseif not self.vb.diaDead then--Bloodboil is dead but dia isn't, darkness next
+			timerDarknessCD:Start()
+		else--Only Jubei left, mirror images will be next
+			timerMirrorImageCD:Start()
+		end
 	elseif spellId == 184357 then
 		self.vb.taintedBloodCount = self.vb.taintedBloodCount + 1
 		timerTaintedBloodCD:Start(nil, self.vb.taintedBloodCount+1)
@@ -181,8 +194,15 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 184365 and not args:IsDestTypePlayer() then--IsDestTypePlayer because it could be wrong spellid and one applied to players when he lands on them, so to avoid spammy mess, filter
 		specWarnDemolishingLeap:Show()
-		--timerDemoLeapCD:Start()
 		voiceDemolishingLeap:Play("runaway")
+		countdownSpecial:Start()
+		if not self.vb.diaDead then--Dia is next in natural order, unless dead
+			timerDarknessCD:Start()
+		elseif not self.vb.jubeiDead then--Jubi if dia is dead.
+			timerMirrorImageCD:Start()
+		else--Only bloodboil is left, leap will repeat
+			timerDemoLeapCD:Start()
+		end
 	elseif spellId == 184449 then--Confirmed correct CAST spellid for heroic.
 		warnMarkoftheNecromancer:CombinedShow(0.3, args.destName)
 	end
@@ -201,23 +221,64 @@ end--]]
 
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
-	if cid == 92142 then--Blademaster Jubei'thosr
-		--timerFelstormCD:Cancel()
-		timerMirrorImageCD:Cancel()
-	elseif cid == 92144 then--Dia Darkwhisper
+	if cid == 92144 then--Dia Darkwhisper
+		self.vb.diaDead = true
 		timerMarkofNecroCD:Cancel()
 		timerNightmareVisageCD:Cancel()
+		local elapsed, total = timerDarknessCD:GetTime()
+		timerDarknessCD:Cancel()
+		if elapsed > 0 then--Timer existed, which means it was next
+			DBM:Debug("updating specials timer", 2)
+			--So now we update next based on remaining bosses
+			if not self.vb.jubeiDead then--Images next if jubei lives
+				timerMirrorImageCD:Update(elapsed, total)
+			else--Only bloodboil left, leap
+				timerDemoLeapCD:Update(elapsed, total)
+			end
+		end
+	elseif cid == 92142 then--Blademaster Jubei'thosr
+		self.vb.jubeiDead = true
+		--timerFelstormCD:Cancel()
+		local elapsed, total = timerMirrorImageCD:GetTime()
+		timerMirrorImageCD:Cancel()
+		if elapsed > 0 then--Timer existed, which means it was next
+			DBM:Debug("updating specials timer", 2)
+			--So now we update next based on remaining bosses
+			if not self.vb.bloodboilDead then--Leap is next if bloodboil not dead
+				timerDemoLeapCD:Start(elapsed, total)
+			else--Only dia left left, darkness will be next
+				timerDarknessCD:Start(elapsed, total)
+			end
+		end
 	elseif cid == 92146 then--Gurthogg Bloodboil
+		self.vb.bloodboilDead = true
 		timerRelRageCD:Cancel()
-		timerDemoLeapCD:Cancel()
 		timerTaintedBloodCD:Cancel()
+		local elapsed, total = timerDemoLeapCD:GetTime()
+		timerDemoLeapCD:Cancel()
+		if elapsed > 0 then--Timer existed, which means it was next
+			DBM:Debug("updating specials timer", 2)
+			--So now we update next based on remaining bosses
+			if not self.vb.diaDead then--Dia lives, darkness next
+				timerDarknessCD:Start(elapsed, total)
+			else--Only jubei left, images.
+				timerMirrorImageCD:Start(elapsed, total)
+			end
+		end
 	end
 end
 
 function mod:RAID_BOSS_EMOTE(msg)
 	if msg:find("spell:184681") then
 		specWarnDarkness:Show()
-		timerDarknessCD:Start()
+		countdownSpecial:Start()
+		if not self.vb.jubeiDead then--jubei is next in natural order, unless dead
+			timerMirrorImageCD:Start()
+		elseif not self.vb.bloodboilDead then--Bloodboil wasn't dead but jubei is, leap is next
+			timerDemoLeapCD:Start()
+		else--Only dia is left, darkness will repeat
+			timerDarknessCD:Start()
+		end
 	end
 end
 
