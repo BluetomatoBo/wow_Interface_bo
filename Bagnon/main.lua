@@ -65,7 +65,7 @@ function Addon:ShowBag(frame, bag)
 end
 
 function Addon:ControlsBag(frame, bag)
-	return not Addon.sets.useBlizzard or self:IsFrameEnabled(frame) and not self.profile[frame].hiddenBags[bag]
+	return not Addon.sets.displayBlizzard or self:IsFrameEnabled(frame) and not self.profile[frame].hiddenBags[bag]
 end
 
 

@@ -125,10 +125,6 @@ function ItemSlot:IsNew()
 	return false
 end
 
-function ItemSlot:CanReuseBlizzardBagSlots()
-	return nil
-end
-
 
 --[[ Fake Methods ]]--
 
