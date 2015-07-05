@@ -98,11 +98,17 @@ function SummerFestival:OnLeave()
 	end
 end
 
-local function createWaypoint(button, mapFile, coord)
+local function createWaypoint(_, mapFile, coord)
 	local x, y = HandyNotes:getXY(coord)
 	local m = HandyNotes:GetMapFiletoMapID(mapFile)
 
-	TomTom:AddMFWaypoint(m, nil, x, y, { title = "Midsummer Bonfire" })
+	if not m then
+		m = HandyNotes:GetMapFiletoMapID(mapFile.."_terrain1")
+	end
+
+	local text = infoFromCoord(mapFile, coord)
+
+	TomTom:AddMFWaypoint(m, nil, x, y, { title = text })
 end
 
 do

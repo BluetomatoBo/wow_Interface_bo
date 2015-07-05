@@ -162,7 +162,6 @@ points["Durotar"] = {
 }
 
 points["Dustwallow"] = {
-	[55804960] = "Zidormi",
 	[33233077] = "11771:D",	-- Brackenwall Village
 	[61824046] = "11815:H",	-- Theramore Isle
 }
