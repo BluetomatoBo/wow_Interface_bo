@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1392, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13997 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14040 $"):sub(12, -3))
 mod:SetCreatureID(90435)
 mod:SetEncounterID(1787)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 4, 2, 1)
-mod:SetHotfixNoticeRev(13910)
+mod:SetHotfixNoticeRev(14021)
 mod.respawnTime = 18--18 is an odd one, but definitely was 18
 
 mod:RegisterCombat("combat")
@@ -44,17 +44,17 @@ local specWarnEmpFelOutpouring		= mod:NewSpecialWarningDodge(181293, nil, nil, n
 local specWarnEmpExplosiveRunes		= mod:NewSpecialWarningSpell(181297, "-Tank")
 local specWarnDraggingHands			= mod:NewSpecialWarningSwitch(181300)
 
-local timerLeapCD					= mod:NewCDTimer(113.5, 180068)--Not techincally a leap timer, timer syncs up to when he gains next buff (leap ended)
+local timerLeapCD					= mod:NewCDTimer(113.5, 180068, nil, nil, nil, 6)--Not techincally a leap timer, timer syncs up to when he gains next buff (leap ended)
 --Times here are not relevant, they are all hard coded orders based on what buff boss has, real values are under 3 different phases
-local timerPoundCD					= mod:NewNextCountTimer(42, 180244)
-local timerFelOutpouringCD			= mod:NewNextTimer(107, 181292)
-local timerExplosiveRunesCD			= mod:NewNextTimer(48, 181296)
-local timerGraspingHandsCD			= mod:NewNextTimer(107, 181299)
+local timerPoundCD					= mod:NewNextCountTimer(42, 180244, nil, nil, nil, 2)
+local timerFelOutpouringCD			= mod:NewNextTimer(107, 181292, nil, nil, nil, 2)
+local timerExplosiveRunesCD			= mod:NewNextTimer(48, 181296, nil, nil, nil, 5)
+local timerGraspingHandsCD			= mod:NewNextTimer(107, 181299, nil, nil, nil, 1)
 --Tank Debuffs. These are also hard coded, but in different place.
 mod:AddTimerLine(TANK)
-local timerExplosiveBurstCD			= mod:NewNextCountTimer(40, 181306)--Everyone needs to know these 2
-local timerFoulCrushCD				= mod:NewNextCountTimer(40, 181307)--Everyone needs to know these 2
-local timerSwatCD					= mod:NewNextCountTimer(40, 181305, nil, "Tank")
+local timerExplosiveBurstCD			= mod:NewNextCountTimer(40, 181306, nil, nil, nil, 3)--Everyone needs to know these 2
+local timerFoulCrushCD				= mod:NewNextCountTimer(40, 181307, nil, nil, nil, 1)--Everyone needs to know these 2
+local timerSwatCD					= mod:NewNextCountTimer(40, 181305, nil, "Tank", nil, 5)
 
 --local berserkTimer				= mod:NewBerserkTimer(360)--Was 8 min on heroic PTR, but that also might have been a bug so will wait to confirm
 
@@ -176,8 +176,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		local isMoreFaster = self:IsMythic() and self.vb.enraged
 		local isFaster = self:IsMythic() or self.vb.enraged
 		if self.vb.foulCrush == 1 then
-			--Mythic enraged 30/23 not confirmed. Guessed based on likeliness
-			timerFoulCrushCD:Start(isMoreFaster and 30 or isFaster and 42 or 50, 2)
+			--Mythic enraged 23 not confirmed. Guessed based on likeliness
+			timerFoulCrushCD:Start(isMoreFaster and 31 or isFaster and 42 or 50, 2)
 		elseif self.vb.foulCrush == 2 then
 			timerFoulCrushCD:Start(isMoreFaster and 23 or isFaster and 32 or 38, 3)
 		end
@@ -316,11 +316,11 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerGraspingHandsCD:Start(8)
 			countdownGraspingHands:Start(8)
 --			self:Schedule(8, delayedHands, self, 90)--101
---			timerFoulCrushCD:Start(21, 1)
---			timerPoundCD:Start(27, 1)
---			self:Schedule(27, delayedPound, self, 52)--79
---			timerFelOutpouringCD:Start(43.5)
---			timerExplosiveRunesCD:Start(69)
+			timerFoulCrushCD:Start(15, 1)
+			timerPoundCD:Start(19, 1)
+--			self:Schedule(19, delayedPound, self, 52)--79
+			timerFelOutpouringCD:Start(31)
+			timerExplosiveRunesCD:Start(50)
 			timerLeapCD:Start(96)
 		elseif (self:IsMythic() and spellId == 180117) or spellId == 186881 then
 			timerGraspingHandsCD:Start(11)

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(889, "DBM-Party-WoD", 2, 385)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13847 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14030 $"):sub(12, -3))
 mod:SetCreatureID(74790)
 mod:SetEncounterID(1654)
 mod:SetZone()
@@ -28,7 +28,7 @@ local specWarnMagmaEruption		= mod:NewSpecialWarningMove(150784)
 local specWarnMoltenCore		= mod:NewSpecialWarningDispel(150678, "MagicDispeller")
 
 local timerMagmaEruptionCD		= mod:NewCDTimer(20, 150784)
-local timerUnstableSlagCD		= mod:NewCDTimer(20, 150755)
+local timerUnstableSlagCD		= mod:NewCDTimer(20, 150755, nil, nil, nil, 1)
 
 local countdownUnstableSlag		= mod:NewCountdown(20, 150755)
 

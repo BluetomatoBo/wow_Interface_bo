@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1425, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13989 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14024 $"):sub(12, -3))
 mod:SetCreatureID(90284)
 mod:SetEncounterID(1785)
 mod:SetZone()
@@ -36,26 +36,25 @@ local specWarnFallingSlam			= mod:NewSpecialWarningSpell(182066, nil, nil, nil, 
 local specWarnFirebomb				= mod:NewSpecialWarningSwitchCount(181999, "-Healer", nil, nil, 1, 5)
 
 --mod:AddTimerLine(ALL)--Uncomment when ground phase and air phase are done, don't want to enable this line now and incorrectly flag everything as "All"
-local timerArtilleryCD				= mod:NewNextCountTimer(15, 182108)
+local timerArtilleryCD				= mod:NewNextCountTimer(15, 182108, nil, nil, nil, 3)
 --mod:AddTimerLine(ALL)--Find translation that works for "Ground Phase"
-local timerUnstableOrbCD			= mod:NewNextCountTimer(3, 182001, nil, "Ranged")
-local timerPoundingCD				= mod:NewNextCountTimer(24, 182020)
-local timerBlitzCD					= mod:NewNextCountTimer(5, 179889)
-local timerBarrageCD				= mod:NewNextCountTimer(15, 185282)
-local timerFullChargeCD				= mod:NewNextTimer(136, 182055)
+local timerUnstableOrbCD			= mod:NewNextCountTimer(3, 182001, nil, "Ranged", nil, 2)
+local timerPoundingCD				= mod:NewNextCountTimer(24, 182020, nil, nil, nil, 2)
+local timerBlitzCD					= mod:NewNextCountTimer(5, 179889, nil, nil, nil, 3)
+local timerBarrageCD				= mod:NewNextCountTimer(15, 185282, nil, nil, nil, 3)
+local timerFullChargeCD				= mod:NewNextTimer(136, 182055, nil, nil, nil, 6)
 --mod:AddTimerLine(ENCOUNTER_JOURNAL_SECTION_FLAG12)--Find translation that works for "Air Phase"
-local timerFallingSlamCD			= mod:NewNextTimer(54, 182066)
-local timerFuelLeakCD				= mod:NewNextCountTimer(15, 182668)--Fire bombs always immediately after, so no timer needed
+local timerFallingSlamCD			= mod:NewNextTimer(54, 182066, nil, nil, nil, 6)
+local timerFuelLeakCD				= mod:NewNextCountTimer(15, 182668, nil, nil, nil, 2)--Fire bombs always immediately after, so no timer needed
 --All of bomb timers are time+2 because dbm starts timers at cast start of 181999
-local timerVolatileBomb				= mod:NewCastTimer(47, 182534, nil, "Dps")--The only timer that's on normal/heroic/lfr so not too spammy to have on
+local timerVolatileBomb				= mod:NewCastTimer(47, 182534, nil, "Dps", nil, 5)--The only timer that's on normal/heroic/lfr so not too spammy to have on
 mod:AddTimerLine(ENCOUNTER_JOURNAL_SECTION_FLAG12)
-local timerQuickFuseBomb			= mod:NewCastTimer(22, 186652, nil, false)--Timer spam, optional, maybe make rangeddps only default?
-local timerBurningBomb				= mod:NewCastTimer(42, 186667, nil, false)--Timer spam, optional, maybe make meleedps only by default?
-local timerReactiveBomb				= mod:NewCastTimer(32, 186676, nil, "Tank")--Since tanks only have 1 bomb to worry about. not too spammy to have on by default.
+local timerQuickFuseBomb			= mod:NewCastTimer(22, 186652, nil, false, nil, 5)--Timer spam, optional, maybe make rangeddps only default?
+local timerBurningBomb				= mod:NewCastTimer(42, 186667, nil, false, nil, 5)--Timer spam, optional, maybe make meleedps only by default?
+local timerReactiveBomb				= mod:NewCastTimer(32, 186676, nil, "Tank", nil, 5)--Since tanks only have 1 bomb to worry about. not too spammy to have on by default.
 
 --local berserkTimer					= mod:NewBerserkTimer(600)
 
-local countdownFuelStreak			= mod:NewCountdown(15, 182668)
 local countdownBarrage				= mod:NewCountdown(15, 185282)
 local countdownArtillery			= mod:NewCountdown("AltTwo15", 182108)--Important to have different voice from fades, because they are happening at same time most of time
 local countdownArtilleryFade		= mod:NewCountdownFades("Alt13", 182280)--Duration not in spell tooltip, countdown add when duration discovered from testing
@@ -186,7 +185,6 @@ function mod:SPELL_CAST_START(args)
 		self.vb.firebombCount = 0
 		self.vb.artilleryCount = 0--Also used in air phase, with it's own air phase counter
 		timerFuelLeakCD:Start(9, 1)
-		countdownFuelStreak:Start(9)
 		timerArtilleryCD:Start(9, 1)
 		countdownArtillery:Start(9)
 		timerFallingSlamCD:Start()
@@ -196,7 +194,6 @@ function mod:SPELL_CAST_START(args)
 		warnFuelStreak:Show(self.vb.fuelCount)
 		if self.vb.fuelCount < 3 then
 			timerFuelLeakCD:Start(nil, self.vb.fuelCount+1)
-			countdownFuelStreak:Start()
 		end
 	end
 end

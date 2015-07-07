@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1210, "DBM-Party-WoD", 5, 556)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13746 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14030 $"):sub(12, -3))
 mod:SetCreatureID(83846)
 mod:SetEncounterID(1756)
 mod:SetZone()
@@ -24,9 +24,9 @@ local specWarnEntanglement		= mod:NewSpecialWarningSwitch(169251, "Dps")
 local specWarnGenesis			= mod:NewSpecialWarningSpell(169613, nil, nil, nil, nil, 2)--Everyone. "Switch" is closest generic to "run around stomping flowers"
 
 --Only timers that were consistent, others are all over the place.
-local timerFontOfLife			= mod:NewNextTimer(15, 169120)
+local timerFontOfLife			= mod:NewNextTimer(15, 169120, nil, nil, nil, 1)
 local timerGenesis				= mod:NewCastTimer(17, 169613)
-local timerGenesisCD			= mod:NewNextTimer(60.5, 169613)
+local timerGenesisCD			= mod:NewNextTimer(60.5, 169613, nil, nil, nil, 5)
 
 local voiceColossalBlow			= mod:NewVoice(169179)
 local voiceGenesis				= mod:NewVoice(169613)

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1395, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13988 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14042 $"):sub(12, -3))
 mod:SetCreatureID(91349)--91305 Fel Iron Summoner
 mod:SetEncounterID(1795)
 mod:SetZone()
@@ -72,25 +72,26 @@ local specWarnShadowForce			= mod:NewSpecialWarningSpell(181799, nil, nil, nil, 
 --Adds
 mod:AddTimerLine(OTHER)
 ----Doom Lords
-local timerCurseofLegionCD			= mod:NewAITimer(107, 181275)--Maybe see one day, in LFR or something when group is terrible or doesn't kill doom lord portal first
-local timerMarkofDoomCD				= mod:NewCDTimer(31.5, 181099, nil, "-Tank")
-local timerShadowBoltVolleyCD		= mod:NewCDTimer(12.2, 181126, nil, "-Healer")
+local timerCurseofLegionCD			= mod:NewAITimer(107, 181275, nil, nil, nil, 1)--Maybe see one day, in LFR or something when group is terrible or doesn't kill doom lord portal first
+local timerMarkofDoomCD				= mod:NewCDTimer(31.5, 181099, nil, "-Tank", nil, 3)
+local timerShadowBoltVolleyCD		= mod:NewCDTimer(12, 181126, nil, "-Healer", nil, 4)
 ----Fel Imps
-local timerFelImplosionCD			= mod:NewNextCountTimer(46, 181255)
+local timerFelImplosionCD			= mod:NewNextCountTimer(46, 181255, nil, nil, nil, 1)
 ----Infernals
-local timerInfernoCD				= mod:NewNextCountTimer(107, 181180)
+local timerInfernoCD				= mod:NewNextCountTimer(107, 181180, nil, nil, nil, 1)
 ----Gul'dan
-local timerWrathofGuldanCD			= mod:NewAITimer(107, 186348)
+local timerWrathofGuldanCD			= mod:NewAITimer(107, 186348, nil, nil, nil, 3)
 --Mannoroth
 mod:AddTimerLine(L.name)
-local timerGlaiveComboCD			= mod:NewCDTimer(30, 181354, nil, "Tank")--30 seconds unless delayed by something else
-local timerFelHellfireCD			= mod:NewCDTimer(35, 181557)--35, unless delayed by other things.
-local timerGazeCD					= mod:NewCDTimer(47.1, 181597)--As usual, some variation do to other abilities
-local timerFelSeekerCD				= mod:NewCDTimer(50, 181735)--Small sample size, confirm it's not shorter if not delayed by things.
-local timerShadowForceCD			= mod:NewCDTimer(52.2, 181799)
+local timerGlaiveComboCD			= mod:NewCDTimer(30, 181354, nil, "Tank", nil, 5)--30 seconds unless delayed by something else
+local timerFelHellfireCD			= mod:NewCDTimer(35, 181557, nil, nil, nil, 2)--35, unless delayed by other things.
+local timerGazeCD					= mod:NewCDTimer(47.1, 181597, nil, nil, nil, 3)--As usual, some variation do to other abilities
+local timerFelSeekerCD				= mod:NewCDTimer(50, 181735, nil, nil, nil, 2)--Small sample size, confirm it's not shorter if not delayed by things.
+local timerShadowForceCD			= mod:NewCDTimer(52.2, 181799, nil, nil, nil, 3)
 
 --local berserkTimer					= mod:NewBerserkTimer(360)
 
+local countdownGlaiveCombo			= mod:NewCountdown("Alt30", 181354, "Tank")
 local countdownMarkOfDoom			= mod:NewCountdownFades("Alt15", 181099)
 local countdownShadowForce			= mod:NewCountdown("AltTwo52", 181799)
 
@@ -228,7 +229,7 @@ function mod:SPELL_CAST_START(args)
 		if tanking or (status == 3) then--Player is current target
 			specWarnMassiveBlast:Show()
 		else
-			specWarnMassiveBlast:Schedule(1, targetName)
+			specWarnMassiveBlastOther:Schedule(1, targetName)
 		end
 	elseif spellId == 181793 or spellId == 182077 then--Melee (10)
 		warnFelseeker:Show(10)
@@ -375,8 +376,9 @@ function mod:SPELL_AURA_REMOVED(args)
 			self.vb.phase = 2
 			timerFelHellfireCD:Start(28)
 			timerGazeCD:Start(40)
-			timerGlaiveComboCD:Start(43)
-			timerFelSeekerCD:Start(59)
+			timerGlaiveComboCD:Start(42.5)
+			countdownGlaiveCombo:Start(42.5)
+			timerFelSeekerCD:Start(58)
 			warnPhase2:Show()
 			voicePhaseChange:Play("ptwo")
 			--First casts are often variable and sometimes don't happen at all, and messes up mod, so DBM will ignore first cast and start timers for reliable 2nd+
@@ -385,7 +387,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			self.vb.impCount = 1
 			self.vb.infernalCount = 1
 			timerFelImplosionCD:Start(42, 2)
-			timerInfernoCD:Start(66.5, 2)
+			timerInfernoCD:Start(65.5, 2)
 			if self:IsMythic() then
 				timerWrathofGuldanCD:Start(2)
 				if portalDestroyed then--Temp, to make AI timer work better
@@ -439,6 +441,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc)
 			timerShadowForceCD:Cancel()
 			countdownShadowForce:Cancel()
 			timerGlaiveComboCD:Cancel()
+			countdownGlaiveCombo:Cancel()
 			timerGazeCD:Cancel()
 			timerFelSeekerCD:Cancel()
 			timerFelHellfireCD:Start(27.8)
@@ -448,6 +451,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc)
 			--however they are BOTH 40ish, don't let one log fool
 			timerGazeCD:Start(44.5)
 			timerGlaiveComboCD:Start(44.9)
+			countdownGlaiveCombo:Start(44.9)
 			timerInfernoCD:Start(46.1, 1)
 			timerFelSeekerCD:Start(68)
 			warnPhase3:Show()
@@ -457,11 +461,13 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc)
 			timerShadowForceCD:Cancel()
 			countdownShadowForce:Cancel()
 			timerGlaiveComboCD:Cancel()
+			countdownGlaiveCombo:Cancel()
 			timerGazeCD:Cancel()
 			timerFelSeekerCD:Cancel()
 			timerInfernoCD:Cancel()
 			timerFelHellfireCD:Start(16.9)
 			timerGlaiveComboCD:Start(27.8)
+			countdownGlaiveCombo:Start(27.8)
 			timerGazeCD:Start(35.6)
 			timerShadowForceCD:Start(47.3)
 			countdownShadowForce:Start(47.3)
@@ -491,6 +497,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		timerShadowForceCD:Cancel()
 		countdownShadowForce:Cancel()
 		timerGlaiveComboCD:Cancel()
+		countdownGlaiveCombo:Cancel()
 		timerGazeCD:Cancel()
 		timerFelSeekerCD:Cancel()
 		timerFelHellfireCD:Start(22.3)
@@ -498,6 +505,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		countdownShadowForce:Start(27.1)
 		timerGazeCD:Start(39.0)
 		timerGlaiveComboCD:Start(39.4)
+		countdownGlaiveCombo:Start(39.4)
 		timerInfernoCD:Start(40.73, 1)
 		timerFelSeekerCD:Start(62.5)
 		if self:IsMythic() then
@@ -513,11 +521,13 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		timerShadowForceCD:Cancel()
 		countdownShadowForce:Cancel()
 		timerGlaiveComboCD:Cancel()
+		countdownGlaiveCombo:Cancel()
 		timerGazeCD:Cancel()
 		timerFelSeekerCD:Cancel()
 		timerInfernoCD:Cancel()
 		timerFelHellfireCD:Start(11.4)
 		timerGlaiveComboCD:Start(22.3)
+		countdownGlaiveCombo:Start(22.3)
 		timerGazeCD:Start(30.1)
 		timerShadowForceCD:Start(41.8)
 		countdownShadowForce:Start(45.8)
@@ -532,6 +542,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	elseif spellId == 181354 then--183377 or 185831 also usable with SPELL_CAST_START but i like this way more, cleaner.
 		specWarnGlaiveCombo:Show()
 		timerGlaiveComboCD:Start()
+		countdownGlaiveCombo:Start()
 		voiceGlaiveCombo:Play("defensive")
 	end
 end

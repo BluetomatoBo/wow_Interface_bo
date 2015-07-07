@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1207, "DBM-Party-WoD", 5, 556)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13746 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14002 $"):sub(12, -3))
 mod:SetCreatureID(83894, 83892, 83893)--Dulhu 83894, Gola 83892, Telu
 mod:SetEncounterID(1757)
 mod:SetBossHPInfoToHighest()
@@ -37,7 +37,7 @@ local specWarnSlash					= mod:NewSpecialWarningSpell(168383)
 local specWarnNoxious				= mod:NewSpecialWarningRun(175997, nil, nil, 2, 4)
 local specWarnBramble				= mod:NewSpecialWarningMove(167977)
 
-local timerShapersFortitude			= mod:NewTargetTimer("OptionVersion2", 15, 168520, nil, false)
+local timerShapersFortitude			= mod:NewTargetTimer(15, 168520, nil, false, 2)
 local timerNoxiousCD				= mod:NewCDTimer(16, 175997, nil, "Melee")
 local timerGraspingVineCD			= mod:NewNextTimer(31.5, 168375)
 

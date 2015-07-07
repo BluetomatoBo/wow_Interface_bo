@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1447, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13991 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14039 $"):sub(12, -3))
 mod:SetCreatureID(93068)
 mod:SetEncounterID(1800)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 4, 2, 1)
---mod.respawnTime = 20
+mod.respawnTime = 30
 
 mod:RegisterCombat("combat")
 
@@ -74,23 +74,23 @@ local specWarnEmpBlackHole			= mod:NewSpecialWarningSpell(189779, nil, nil, nil,
 
 --Fire Phase
 ----Boss
-local timerFelStrikeCD				= mod:NewCDTimer(15.8, 186271, nil, "Tank")--15.8-17
-local timerFelSurgeCD				= mod:NewCDTimer(30, 186407)
-local timerImpCD					= mod:NewNextTimer(25, "ej11694", nil, nil, nil, 112866)
+local timerFelStrikeCD				= mod:NewCDTimer(15, 186271, nil, "Tank", nil, 5)--15.8-17
+local timerFelSurgeCD				= mod:NewCDTimer(30, 186407, nil, nil, nil, 3)
+local timerImpCD					= mod:NewNextTimer(25, "ej11694", nil, nil, nil, 1, 112866)
 ----Big Add
-local timerFelBlazeFlurryCD			= mod:NewCDTimer(15.9, 186453, nil, "Tank")
-local timerFelChainsCD				= mod:NewCDTimer(15.9, 186490, nil, "-Tank" )
-local timerEmpFelChainsCD			= mod:NewAITimer(15.9, 189775, nil, "-Tank" )--Temp, so can use AI timer for it. Will combine with above when data known
+local timerFelBlazeFlurryCD			= mod:NewCDTimer(15.9, 186453, nil, "Tank", nil, 5)
+local timerFelChainsCD				= mod:NewCDTimer(15.9, 186490, nil, "-Tank", nil, 3)
+local timerEmpFelChainsCD			= mod:NewAITimer(15.9, 189775, nil, "-Tank", nil, 3)--Temp, so can use AI timer for it. Will combine with above when data known
 --Void Phase
 ----Boss
-local timerVoidStrikeCD				= mod:NewCDTimer(17, 186292, nil, "Tank")
-local timerVoidSurgeCD				= mod:NewCDTimer(30, 186333)
+local timerVoidStrikeCD				= mod:NewCDTimer(17, 186292, nil, "Tank", nil, 5)
+local timerVoidSurgeCD				= mod:NewCDTimer(30, 186333, nil, nil, nil, 3)
 ----Big Add
-local timerWitheringGazeCD			= mod:NewCDTimer(14.5, 186783)
-local timerBlackHoleCD				= mod:NewCDTimer(29.5, 186546)
-local timerEmpBlackHoleCD			= mod:NewAITimer(29.5, 189779)
+local timerWitheringGazeCD			= mod:NewCDTimer(14.5, 186783, nil, "Tank", 2, 5)
+local timerBlackHoleCD				= mod:NewCDTimer(29.5, 186546, nil, nil, nil, 5)
+local timerEmpBlackHoleCD			= mod:NewAITimer(29.5, 189779, nil, nil, nil, 5)
 --End Phase
-local timerOverwhelmingChaosCD		= mod:NewNextCountTimer(10, 187204)
+local timerOverwhelmingChaosCD		= mod:NewNextCountTimer(10, 187204, nil, nil, nil, 3)
 
 --local berserkTimer					= mod:NewBerserkTimer(360)
 
@@ -188,11 +188,7 @@ end
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 190223 then
-		if self.vb.phase >= 3 then
-			timerFelStrikeCD:Start(15)
-		else
-			timerFelStrikeCD:Start()
-		end
+		timerFelStrikeCD:Start()
 		for i = 1, 5 do
 			local bossUnitID = "boss"..i
 			if UnitExists(bossUnitID) and UnitGUID(bossUnitID) == args.sourceGUID and UnitDetailedThreatSituation("player", bossUnitID) then--We are highest threat target
@@ -384,7 +380,7 @@ function mod:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
 				end
 				timerFelBlazeFlurryCD:Start(5.5)
 			elseif cid == 94239 then--Omnus
-				timerWitheringGazeCD:Start(9)
+				timerWitheringGazeCD:Start(4)
 				timerBlackHoleCD:Start(18)
 			end
 		end
@@ -425,8 +421,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		timerFelSurgeCD:Cancel()
 		countdownFelSurge:Cancel()
 		timerVoidStrikeCD:Start(8.5)
-		timerVoidSurgeCD:Start(19)
-		countdownVoidSurge:Start(19)
+		timerVoidSurgeCD:Start(17.8)
+		countdownVoidSurge:Start(17.8)
 	elseif spellId == 189047 then--Phase 3 (Shadowfel Phasing)
 		self.vb.phase = 3
 		voicePhaseChange:Play("phasechange")

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1438, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13984 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14038 $"):sub(12, -3))
 mod:SetCreatureID(91331)--Doomfire Spirit (92208), Hellfire Deathcaller (92740), Felborne Overfiend (93615), Dreadstalker (93616), Infernal doombringer (94412)
 mod:SetEncounterID(1799)
 mod:SetMinSyncRevision(13964)
@@ -86,32 +86,32 @@ local specWarnSourceofChaosOthers	= mod:NewSpecialWarningSwitch(190703)--Maybe e
 
 --Phase 1: The Defiler
 mod:AddTimerLine(SCENARIO_STAGE:format(1))
-local timerDoomfireCD				= mod:NewCDTimer(42.1, 182826)--182826 cast, 182879 fixate. Doomfire only fixates ranged, but ALL dps switch to it.
-local timerAllureofFlamesCD			= mod:NewCDTimer(47.5, 183254)
-local timerFelBurstCD				= mod:NewCDTimer(52, 183817, nil, "Ranged")--Only targets ranged (52-70 variation)
-local timerDeathbrandCD				= mod:NewCDTimer(42.5, 183828)--Everyone, for tanks/healers to know when debuff/big hit, for dps to know add coming
-local timerDesecrateCD				= mod:NewCDTimer(27, 185590, nil, "Melee")--Only targets melee
+local timerDoomfireCD				= mod:NewCDTimer(42.1, 182826, nil, nil, nil, 1)--182826 cast, 182879 fixate. Doomfire only fixates ranged, but ALL dps switch to it.
+local timerAllureofFlamesCD			= mod:NewCDTimer(47.5, 183254, nil, nil, nil, 2)
+local timerFelBurstCD				= mod:NewCDTimer(52, 183817, nil, "Ranged", nil, 3)--Only targets ranged (52-70 variation)
+local timerDeathbrandCD				= mod:NewCDTimer(42.5, 183828, nil, nil, nil, 1)--Everyone, for tanks/healers to know when debuff/big hit, for dps to know add coming
+local timerDesecrateCD				= mod:NewCDTimer(27, 185590, nil, "Melee", nil, 2)--Only targets melee
 ----Hellfire Deathcaller
-local timerShadowBlastCD			= mod:NewCDTimer(9.7, 183864, nil, "Tank")
-local timerDemonicHavocCD			= mod:NewAITimer(107, 183865)--Mythic, timer unknown, AI timer used until known
+local timerShadowBlastCD			= mod:NewCDTimer(9.7, 183864, nil, "Tank", nil, 5)
+local timerDemonicHavocCD			= mod:NewAITimer(107, 183865, nil, nil, nil, 3)--Mythic, timer unknown, AI timer used until known
 --Phase 2: Hand of the Legion
 mod:AddTimerLine(SCENARIO_STAGE:format(2))
-local timerShackledTormentCD		= mod:NewCDTimer(31.5, 184931)
-local timerWroughtChaosCD			= mod:NewCDTimer(51.7, 184265)
+local timerShackledTormentCD		= mod:NewCDTimer(31.5, 184931, nil, nil, nil, 3)
+local timerWroughtChaosCD			= mod:NewCDTimer(51.7, 184265, nil, nil, nil, 3)
 --Phase 2.5
-local timerFelborneOverfiendCD		= mod:NewNextTimer(44.3, "ej11603", nil, nil, nil, 186662)
+local timerFelborneOverfiendCD		= mod:NewNextTimer(44.3, "ej11603", nil, nil, nil, 1, 186662)
 --Phase 3: The Twisting Nether
 mod:AddTimerLine(SCENARIO_STAGE:format(3))
-local timerDemonicFeedbackCD		= mod:NewCDTimer(35, 187180)
-local timerNetherBanishCD			= mod:NewCDCountTimer(61.9, 186961)
+local timerDemonicFeedbackCD		= mod:NewCDTimer(35, 187180, nil, nil, nil, 2)
+local timerNetherBanishCD			= mod:NewCDCountTimer(61.9, 186961, nil, nil, nil, 5)
 --Phase 3.5:
-local timerRainofChaosCD			= mod:NewCDCountTimer(62, 182225)
+local timerRainofChaosCD			= mod:NewCDCountTimer(62, 182225, nil, nil, nil, 2)
 ----The Nether
 --Mythic
-local timerSeethingCorruptionCD		= mod:NewAITimer(107, 190506)
-local timerTouchOfLegionCD			= mod:NewAITimer(107, 190400)
+local timerSeethingCorruptionCD		= mod:NewAITimer(107, 190506, nil, nil, nil, 2)
+local timerTouchOfLegionCD			= mod:NewAITimer(107, 190400, nil, nil, nil, 3)
 local timerTouchOfLegion			= mod:NewTargetTimer(12, 190400, nil, false)
-local timerSourceofChaosCD			= mod:NewAITimer(107, 190703)
+local timerSourceofChaosCD			= mod:NewAITimer(107, 190703, nil, nil, nil, 3)
 
 
 --local berserkTimer				= mod:NewBerserkTimer(360)
@@ -234,6 +234,7 @@ local function breakShackles(self)
 	end
 end
 
+--/run DBM:GetModByName("1438"):OnCombatStart(0)
 function mod:OnCombatStart(delay)
 	table.wipe(shacklesTargets)
 	self.vb.phase = 1
@@ -343,9 +344,9 @@ function mod:SPELL_CAST_START(args)
 		end
 		if self.Options.SetIconOnInfernals then
 			if self.vb.InfernalsActive > 0 then--Last set isn't dead yet, use alternate icons
-				self:ScanForMobs(94412, 2, 5, 3, 0.4, 20, "SetIconOnInfernals")
+				self:ScanForMobs(94412, 2, 5, 3, 0.4, 25, "SetIconOnInfernals")
 			else
-				self:ScanForMobs(94412, 2, 8, 3, 0.4, 20, "SetIconOnInfernals")
+				self:ScanForMobs(94412, 2, 8, 3, 0.4, 25, "SetIconOnInfernals")
 			end
 		end
 	elseif spellId == 190050 then

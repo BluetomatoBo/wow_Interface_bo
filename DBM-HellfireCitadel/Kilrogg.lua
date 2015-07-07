@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1396, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13994 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14044 $"):sub(12, -3))
 mod:SetCreatureID(90378)
 mod:SetEncounterID(1786)
 mod:SetZone()
@@ -22,7 +22,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_DIED"
 )
 
---(ability.id - 180199 or ability.id = 180224 or ability.id = 182428 or ability.id = 180163 or ability.id = 183917) and type = "begincast" or (ability.id = 180410 or ability.id = 180413) and type = "cast" or ability.id = 188929 and type = "applydebuff"
+--(ability.id = 180199 or ability.id = 180224 or ability.id = 182428 or ability.id = 180163 or ability.id = 183917) and type = "begincast" or (ability.id = 180410 or ability.id = 180413) and type = "cast" or ability.id = 188929 and type = "applydebuff"
 --TODO, more stuff for the eyes phase adds if merited
 --Boss
 local warnDemonicPossession			= mod:NewTargetAnnounce(180313, 4)
@@ -44,33 +44,33 @@ local specWarnBloodGlob				= mod:NewSpecialWarningSwitch(180459, "Dps", nil, nil
 local specWarnFelBloodGlob			= mod:NewSpecialWarningSwitch(180413, "Dps", nil, nil, 3, 5)
 local specWarnBloodthirster			= mod:NewSpecialWarningSwitch("ej11266", "Dps", nil, 2, 1, 5)--Very frequent, let specwarn be an option
 local specWarnHulkingTerror			= mod:NewSpecialWarningSwitch("ej11269", "Tank", nil, 2, 1, 5)
-local specWarnRendingHowl			= mod:NewSpecialWarningInterrupt(183917, "-Healer")
+local specWarnRendingHowl			= mod:NewSpecialWarningInterruptCount(183917, "-Healer")
 
 --Boss
 --Next timers that are delayed by other next timers. how annoying
 --CDs used for all of them because of them screwing with eachother.
 --Coding them perfectly is probably possible but VERY ugly, would require tones of calculating on the overlaps and lots of on fly adjusting.
 --Adjusting one timer like blackhand no big deal, checking time remaining on THREE other abilities any time one of these are cast, and on fly adjusting, no
-local timerShredCD					= mod:NewCDTimer(17, 180199, nil, "Tank")
-local timerHeartseekerCD			= mod:NewCDTimer(25, 180372)
-local timerVisionofDeathCD			= mod:NewCDCountTimer(75, 181488)
-local timerDeathThroesCD			= mod:NewCDCountTimer(40, 180224)
+local timerShredCD					= mod:NewCDTimer(17, 180199, nil, "Tank", nil, 5)
+local timerHeartseekerCD			= mod:NewCDTimer(25, 180372, nil, nil, nil, 3)
+local timerVisionofDeathCD			= mod:NewCDCountTimer(75, 181488, nil, nil, nil, 5)
+local timerDeathThroesCD			= mod:NewCDCountTimer(40, 180224, nil, nil, nil, 2)
 --Adds
-local timerBloodthirsterCD			= mod:NewCDCountTimer(70.3, "ej11266", nil, nil, nil, 131150)
---local timerRendingHowlCD				= mod:NewCDTimer(30, 183917)
+local timerBloodthirsterCD			= mod:NewCDCountTimer(70.3, "ej11266", nil, nil, nil, 1, 131150)
+local timerRendingHowlCD			= mod:NewNextTimer(6, 183917, nil, "-Healer", 2, 4)
 
---local berserkTimer					= mod:NewBerserkTimer(360)
+--local berserkTimer				= mod:NewBerserkTimer(360)
 
-local countdownVisionofDeathCD			= mod:NewCountdown(75, 181488, "Tank")
-local countdownVisionofDeath			= mod:NewCountdownFades("Alt60", 181488)
+local countdownVisionofDeathCD		= mod:NewCountdown(75, 181488, "Tank")
+local countdownVisionofDeath		= mod:NewCountdownFades("Alt60", 181488)
 
-local voiceShred						= mod:NewVoice(180199)--defensive
-local voiceHeartSeeker					= mod:NewVoice(180372)--runout
-local voiceDeathThroes					= mod:NewVoice(180224)--aesoon
-local voiceBloodGlob					= mod:NewVoice(180459)--180459
-local voiceFelBloodGlob					= mod:NewVoice(180413)--180199 (wrong spellID for voice do to my mistake)
-local voiceBloodthirster				= mod:NewVoice("ej11266", "Dps", nil, 2)--ej11266
-local voiceHulkingTerror				= mod:NewVoice("ej11269", "Tank", nil, 2)--ej11269
+local voiceShred					= mod:NewVoice(180199)--defensive
+local voiceHeartSeeker				= mod:NewVoice(180372)--runout
+local voiceDeathThroes				= mod:NewVoice(180224)--aesoon
+local voiceBloodGlob				= mod:NewVoice(180459)--180459
+local voiceFelBloodGlob				= mod:NewVoice(180413)--180199 (wrong spellID for voice do to my mistake)
+local voiceBloodthirster			= mod:NewVoice("ej11266", "Dps", nil, 2)--ej11266
+local voiceHulkingTerror			= mod:NewVoice("ej11269", "Tank", nil, 2)--ej11269
 
 mod:AddInfoFrameOption("ej11280")
 
@@ -81,8 +81,10 @@ local UnitExists, UnitGUID, UnitDetailedThreatSituation = UnitExists, UnitGUID, 
 local felCorruption = GetSpellInfo(182159)
 local Bloodthirster = EJ_GetSectionInfo(11266)
 local AddsSeen = {}
+local HowlByGUID = {}--Not syncable, but keeps separate count for each add cleanly
 
 function mod:OnCombatStart(delay)
+	table.wipe(HowlByGUID)
 	self.vb.berserkerCount = 0
 	self.vb.deathThrowsCount = 0
 	self.vb.visionsCount = 0
@@ -129,9 +131,14 @@ function mod:SPELL_CAST_START(args)
 		countdownVisionofDeathCD:Start()
 	elseif spellId == 180163 then
 		warnSavageStrikes:Show()
-	elseif spellId == 183917 and self:CheckInterruptFilter(args.sourceGUID) then
-		specWarnRendingHowl:Show(args.sourceName)
-		--timerRendingHowlCD:Start(args.sourceGUID)
+		timerRendingHowlCD:Start(9.8, args.sourceGUID)--Savage strikes, replaces either 2nd or 3rd Howl. When it does, next howl is always 10 seconds later
+	elseif spellId == 183917 then
+		if not HowlByGUID[args.sourceGUID] then HowlByGUID[args.sourceGUID] = 0 end
+		HowlByGUID[args.sourceGUID] = HowlByGUID[args.sourceGUID] + 1
+		if self:CheckInterruptFilter(args.sourceGUID) then
+			specWarnRendingHowl:Show(args.sourceName, HowlByGUID[args.sourceGUID])
+		end
+		timerRendingHowlCD:Start(args.sourceGUID)
 	end
 end
 
@@ -149,12 +156,15 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
 	if spellId == 188929 and args:IsDestTypePlayer() then
-		warnHeartseeker:Show(args.destName)
+		warnHeartseeker:CombinedShow(0.3, args.destName)--Multiple targets on mythic
+		timerHeartseekerCD:Cancel()
 		timerHeartseekerCD:Start()
 		if args:IsPlayer() then
 			specWarnHeartSeeker:Show()
 			yellHeartSeeker:Yell()
 			voiceHeartSeeker:Play("runout")
+		elseif self:IsMelee() then
+			voiceHeartSeeker:Play("158078")--farawayfromline
 		end
 	elseif spellId == 181488 then
 		warnVisionofDeath:CombinedShow(0.5, args.destName)
@@ -227,6 +237,7 @@ end
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 90523 then--Hulking Terror
-		--timerRendingHowlCD:Cancel(args.destGUID)
+		HowlByGUID[args.sourceGUID] = nil
+		timerRendingHowlCD:Cancel(args.destGUID)
 	end
 end

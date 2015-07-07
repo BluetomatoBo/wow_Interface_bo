@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1203, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13968 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14008 $"):sub(12, -3))
 mod:SetCreatureID(77557, 77231, 77477)
 mod:SetEncounterID(1695)
 mod:SetZone()
@@ -93,24 +93,24 @@ local yellHeartseeker					= mod:NewYell(158010, nil, false)
 
 --Ship
 mod:AddTimerLine(Ship)
-local timerShipCD						= mod:NewNextCountTimer(198, "ej10019", nil, nil, nil, 76204)
-local timerBombardmentAlphaCD			= mod:NewNextTimer(18, 157854)
-local timerWarmingUp					= mod:NewCastTimer(90, 158849)
+local timerShipCD						= mod:NewNextCountTimer(198, "ej10019", nil, nil, nil, 6, 76204)
+local timerBombardmentAlphaCD			= mod:NewNextTimer(18, 157854, nil, nil, nil, 2)
+local timerWarmingUp					= mod:NewCastTimer(90, 158849, nil, nil, nil, 6)
 --Ground
 ----Admiral Gar'an
 mod:AddTimerLine(Garan)
-local timerRapidFireCD					= mod:NewCDTimer(30, 156626)
-local timerDarkHuntCD					= mod:NewCDCountTimer(13.5, 158315, nil, false)--Important to know you have it, not very important to know it's coming soon.
-local timerPenetratingShotCD			= mod:NewCDCountTimer(28.8, 164271)--22-30 at least. maybe larger variation.
-local timerDeployTurretCD				= mod:NewCDCountTimer(20.2, 158599)--20.2-23.5
+local timerRapidFireCD					= mod:NewCDTimer(30, 156626, nil, nil, nil, 3)
+local timerDarkHuntCD					= mod:NewCDCountTimer(13.5, 158315, nil, false, nil, 3)--Important to know you have it, not very important to know it's coming soon.
+local timerPenetratingShotCD			= mod:NewCDCountTimer(28.8, 164271, nil, nil, nil, 3)--22-30 at least. maybe larger variation.
+local timerDeployTurretCD				= mod:NewCDCountTimer(20.2, 158599, nil, nil, nil, 1)--20.2-23.5
 ----Enforcer Sorka
 mod:AddTimerLine(Sorka)
-local timerBladeDashCD					= mod:NewCDCountTimer(20, 155794, nil, "Ranged|Tank")
-local timerConvulsiveShadowsCD			= mod:NewNextCountTimer(56, 156214)--Timer only enabled on mythicOn non mythic, it's just an unimportant dot. On mythic, MUCH more important because user has to run out of raid and get dispelled.
+local timerBladeDashCD					= mod:NewCDCountTimer(20, 155794, nil, "Ranged|Tank", nil, 5)
+local timerConvulsiveShadowsCD			= mod:NewNextCountTimer(56, 156214, nil, nil, nil, 3)--Timer only enabled on mythicOn non mythic, it's just an unimportant dot. On mythic, MUCH more important because user has to run out of raid and get dispelled.
 ----Marak the Blooded
 mod:AddTimerLine(Marak)
-local timerBloodRitualCD				= mod:NewCDCountTimer(20, 158078)
-local timerHeartSeekerCD				= mod:NewCDCountTimer(70, 158010, nil, "Ranged")--Seriously a 74 second cd?
+local timerBloodRitualCD				= mod:NewCDCountTimer(20, 158078, nil, nil, nil, 5)
+local timerHeartSeekerCD				= mod:NewCDCountTimer(70, 158010, nil, "Ranged", nil, 3)
 
 local countdownShip						= mod:NewCountdown(198, "ej10019")
 local countdownWarmingUp				= mod:NewCountdown(90, 158849)
@@ -119,11 +119,11 @@ local countdownBladeDash				= mod:NewCountdown("AltTwo20", 155794, "Tank")
 local countdownDarkHunt					= mod:NewCountdownFades("AltTwo8", 158315)
 
 local voiceRapidFire					= mod:NewVoice(156631) --runout
-local voiceBloodRitual					= mod:NewVoice("OptionVersion2", 158078, "MeleeDps") --158078.ogg, farawayfromline
+local voiceBloodRitual					= mod:NewVoice(158078, "MeleeDps", nil, 2) --158078.ogg, farawayfromline
 local voiceHeartSeeker					= mod:NewVoice(158010) --spread
 local voiceShip							= mod:NewVoice("ej10019") --1695uktar, 1695gorak, 1695ukurogg
 local voiceEarthenbarrier				= mod:NewVoice(158708)  --int
-local voiceDeployTurret					= mod:NewVoice("OptionVersion2", 158599, "RangedDps") --158599.ogg attack turret
+local voiceDeployTurret					= mod:NewVoice(158599, "RangedDps", nil, 2) --158599.ogg attack turret
 local voiceConvulsiveShadows			= mod:NewVoice(156214) --runaway, target
 local voiceDarkHunt						= mod:NewVoice(158315) --defensive, target
 local voicePenetratingShot				= mod:NewVoice(164271) --stack

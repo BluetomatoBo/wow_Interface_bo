@@ -1,19 +1,18 @@
 local mod	= DBM:NewMod(1391, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13972 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14040 $"):sub(12, -3))
 mod:SetCreatureID(89890)
 mod:SetEncounterID(1777)
 mod:SetZone()
 mod:SetUsedIcons(6, 5, 4, 3, 2, 1)--Seeds ever go over 5?
-mod:SetHotfixNoticeRev(13947)
+mod:SetHotfixNoticeRev(14038)
 mod.respawnTime = 30
 
 mod:RegisterCombat("combat")
 
-
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 179406 179582 179709",
+	"SPELL_CAST_START 179406 179582 181508 181515",
 	"SPELL_CAST_SUCCESS 181508 181515 179709",
 	"SPELL_AURA_APPLIED 181508 181515 182008 179670 179711 179681 179407 179667 189030 189031 189032",
 	"SPELL_AURA_REMOVED 179711 181508 181515 179667 189030 189031 189032",
@@ -47,18 +46,18 @@ local specWarnSeedPosition				= mod:NewSpecialWarning("specWarnSeedPosition", ni
 local yellSeedsofDestruction			= mod:NewYell(181508)
 
 --Armed
-local timerRumblingFissureCD			= mod:NewCDTimer(40, 179582)
-local timerBefouledCD					= mod:NewCDTimer(38, 179711)
-local timerSoulCleaveCD					= mod:NewCDTimer(40, 179406)
-local timerCavitationCD					= mod:NewCDTimer(40, 181461)
+local timerRumblingFissureCD			= mod:NewCDTimer(40, 179582, nil, nil, nil, 5)
+local timerBefouledCD					= mod:NewCDTimer(38, 179711, nil, nil, nil, 3)
+local timerSoulCleaveCD					= mod:NewCDTimer(40, 179406, nil, nil, nil, 3)
+local timerCavitationCD					= mod:NewCDTimer(40, 181461, nil, nil, nil, 2)
 --Disarmed
-local timerDisarmCD						= mod:NewCDTimer(85.8, 179667)
-local timerSeedsofDestructionCD			= mod:NewCDCountTimer(14.5, 181508)--14.5-16
+local timerDisarmCD						= mod:NewCDTimer(85.8, 179667, nil, nil, nil, 6)
+local timerSeedsofDestructionCD			= mod:NewCDCountTimer(14.5, 181508, nil, nil, nil, 3)--14.5-16
 
 --local berserkTimer					= mod:NewBerserkTimer(360)
 
 local countdownDisarm					= mod:NewCountdown(85.8, 179667)
-local countdownDisembodied				= mod:NewCountdownFades("AltTwo10", 179407, false)--Depends on whether or not you are going down.
+local countdownDisembodied				= mod:NewCountdownFades("AltTwo15", 179407, false)--Depends on whether or not you are going down.
 local countdownSeedsofDestructionCD		= mod:NewCountdown(14.5, 181508)--Seeds cannot be cast while disarm countdown is running, so this is fine.
 local countdownSeedsofDestruction		= mod:NewCountdownFades("Alt5", 181508)--Alt voice for expiring is good.
 
@@ -227,7 +226,7 @@ function mod:SPELL_CAST_START(args)
 		if self.vb.Enraged or self.vb.FissureCount == 1 then--Only casts two between phases, unless enraged
 			timerRumblingFissureCD:Start(nil, self.vb.FissureCount+1)
 		end
-	elseif spellId == 179709 then--Foul
+	elseif spellId == 181508 or spellId == 181515 then--Seeds
 		table.wipe(seedsTargets)
 	end
 end

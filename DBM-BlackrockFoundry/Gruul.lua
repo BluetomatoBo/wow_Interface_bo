@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1161, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13968 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14008 $"):sub(12, -3))
 mod:SetCreatureID(76877)
 mod:SetEncounterID(1691)
 mod:SetZone()
@@ -35,13 +35,13 @@ local specWarnOverheadSmash			= mod:NewSpecialWarningCount(155301, nil, nil, nil
 local specWarnCaveIn				= mod:NewSpecialWarningMove(173192)
 local specWarnPetrifyingSlam		= mod:NewSpecialWarningMoveAway(155326, nil, nil, nil, 3, 2)
 
-local timerInfernoSliceCD			= mod:NewCDCountTimer(11, 155080)--Variable do to energy bugs (gruul not gain power consistently)
+local timerInfernoSliceCD			= mod:NewCDCountTimer(11, 155080, nil, nil, nil, 5)--Variable do to energy bugs (gruul not gain power consistently)
 local timerSpecialCD				= mod:NewCDSpecialTimer(20.5)
-local timerPetrifyingSlamCD			= mod:NewCDCountTimer(60, 155323)--60-70 variation
+local timerPetrifyingSlamCD			= mod:NewCDCountTimer(60, 155323, nil, nil, nil, 2)--60-70 variation
 local timerOverheadSmashCD			= mod:NewCDCountTimer(20.5, 155301)--20-42 variation
 local timerShatter					= mod:NewCastTimer(8, 155529)
-local timerRampage					= mod:NewBuffActiveTimer(30, 155539)
-local timerRampageCD				= mod:NewCDTimer(107, 155539)--Variable, may be even shorter
+local timerRampage					= mod:NewBuffActiveTimer(30, 155539, nil, nil, nil, 6)
+local timerRampageCD				= mod:NewCDTimer(107, 155539, nil, nil, nil, 6)--Variable, may be even shorter
 
 local berserkTimer					= mod:NewBerserkTimer(360)
 

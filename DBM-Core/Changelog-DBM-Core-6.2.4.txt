@@ -1,0 +1,63 @@
+tag 6.2.4
+0398abaae51b130ce96d2955920296a3824f2cb5
+subversion <svn@deadlybossmods.com>
+2015-07-06 18:59:31 +0200
+
+Tagging as 6.2.4
+
+
+--------------------
+
+subversion:
+	- increment version number to 14050
+	- TOM_RUS via svn r14050: ruRU update
+	- TOM_RUS via svn r14049: ruRU update
+	- TOM_RUS via svn r14048: ruRU update
+	- Omega via svn r14047: Bw version
+	- Omega via svn r14046: Bad spelling
+	- Omega via svn r14045: Grammar
+	- Omega via svn r14044: Alert melee with voice warning to avoid heart seeker line
+	- Omega via svn r14043: Tweaks
+	- Omega via svn r14042: Fix mannoroth taunt bug Add link to Color bars setup guide
+	- Omega via svn r14041: Warn earlier for reap GTFO
+	- Omega via svn r14040: Bump HF revisions
+	- Omega via svn r14039: Backup for Jubei dying respawn for xhul
+	- Omega via svn r14038: Filter non tanks from breath warning on trash Fix seeds warning on zakuun
+	- Omega via svn r14037: Oops, fix efficiency
+	- Omega via svn r14036: Fix another issue where alternate power would set points to 0 on game end and not give calculation
+	- Omega via svn r14035: Lower antispam for hogger alerts slightly. fix max point calculations to have no limit
+	- Omega via svn r14034: Darkmoon faire gnoll now tracks using alternate power isntead of quest, so it can now track points even when not on quest, as well as track points above 30
+	- Omega via svn r14033: CN update
+	- Omega via svn r14032: Some mythic iskar and socrethar updates
+	- Omega via svn r14031: Fix error if user has no options
+	- Omega via svn r14030: Add some default colors to 5 man dungeons and brawlers guild and world events
+	- Omega via svn r14029: Text tweak TODO, allow localizing of text?
+	- Omega via svn r14028: Next leve color changing for timers. Now you can choose what classification you want timers to be, per timer, in every mod.
+	- Omega via svn r14027: Fix some nil errors with announce strip filter Start plumbing for configurable drop downs for timer colors.
+	- nbluewiz via svn r14026: # koKR update.
+	- Omega via svn r14025: Once and for all, fix all the switch warnings broken by realm name strip function. This should fix horridon, tectus, thogar, etc where adds names were always cut off at ?\226?\128?\156-?\226?\128?\156
+	- Omega via svn r14024: Tweak debuff classification into ?\226?\128?\156targeted?\226?\128?\157 instead. Add more spells under that type
+	- Omega via svn r14023: Fix debug check that was breaking timers because I forgot to raise it to 6
+	- Omega via svn r14022: Fix error
+	- Omega via svn r14021: #Kilrogg Update *Update for mythic to reflect multiple heart seeker targets *Enable and improve the rending howl timers to be quite precise. *Add count to interrupt warnings (per add) #Kormrok *More Mythic Data
+	- Omega via svn r14020: Update what?\226?\128?\153s new Will update NewsMessageShown so it?\226?\128?\153s triggered after more local updates
+	- Omega via svn r14019: Added another spellid for mid reap warn Added option to disable bar color by type
+	- Omega via svn r14018: Fix disembodied countdown.
+	- Omega via svn r14017: warn you for reap if mark jumps to you mid cast (your healers are bad). give you a warning to use remaining time to run out
+	- Omega via svn r14016: Combine 0 with terminate function, make it terminate everything.
+	- Omega via svn r14015: Allow canceling CreatePizzaTimer by 0
+	- Omega via svn r14014: bw version
+	- Omega via svn r14013: Swap aoe and role timer colors
+	- Omega via svn r14012: Revert this change, it was bad
+	- Omega via svn r14011: Tweak one of color defaults to be a little more brown and a little less orange
+	- Omega via svn r14010: Tidy that up a little
+	- Omega via svn r14009: Update test mod again
+	- Omega via svn r14008: Push 2 more types
+	- Omega via svn r14007: Push 2 more, and better color defaults for first 4
+	- Omega via svn r14006: Push what I have so far to give localizers something to start on.
+	- Omega via svn r14005: Test mod update
+	- Omega via svn r14004: Colors, and stuff, no options yet, and not all types done yet. color defaults not final either.
+	- Omega via svn r14003: Timer tweaks Add countdown to glaive combo
+	- Omega via svn r14002: Timer refactoring, there may be new bugs, particularly with timers, mod loading Old content conflicts are definitely going to happen if they aren?\226?\128?\153t updated too This test version may be buggy, but it needs testing so i can begin next feature
+	- Omega via svn r14001: Re-enable berserk for iskar, and raise it to 9 minutes, per https://www.warcraftlogs.com/reports/htgdFL1nwxzKXGya#fight=21&view=events&pins=2%24Off%24%23244F4B%24expression%24ability.name+%3D+%22Berserk%22
+	- tandanu via svn r14000: increment alpha version

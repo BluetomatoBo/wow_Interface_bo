@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1372, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13990 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14031 $"):sub(12, -3))
 mod:SetCreatureID(90199)
 mod:SetEncounterID(1783)
 mod:SetZone()
@@ -22,7 +22,7 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
---(ability.id = 181973 or ability.id = 181582 or ability.id = 187814( and type = "begincast" or (ability.id = 179977 or ability.id = 182170 or ability.id = 181085) and type = "cast" or (ability.id = 179864 or ability.id = 185982) and (type = "applydebuff" or type = "applybuff")
+--(ability.id = 181973 or ability.id = 181582 or ability.id = 187814) and type = "begincast" or (ability.id = 179977 or ability.id = 182170 or ability.id = 181085) and type = "cast" or (ability.id = 179864 or ability.id = 185982) and (type = "applydebuff" or type = "applybuff")
 --TODO, Touch of Doom was 25 seconds in LFR, tested after heroic. changed? VERIFY
 local warnShadowofDeath					= mod:NewTargetCountAnnounce(179864, 3)
 local warnTouchofDoom					= mod:NewTargetAnnounce(179978, 4)
@@ -48,13 +48,13 @@ local specWarnBurning					= mod:NewSpecialWarningStack(185190, nil, 5)
 local specWarnBurningOther				= mod:NewSpecialWarningTaunt(185190, nil, nil, nil, nil, 2)
 local specWarnBellowingShout			= mod:NewSpecialWarningInterrupt(181582, "-Healer", nil, nil, 1, 2)
 
-local timerShadowofDeathCDDps			= mod:NewTimer(30, "SoDDPS", 179864, "Dps")
-local timerShadowofDeathCDTank			= mod:NewTimer(30, "SoDTank", 179864, "Tank")
-local timerShadowofDeathCDHealer		= mod:NewTimer(30, "SoDHealer", 179864, "Healer")
-local timerTouchofDoomCD				= mod:NewCDTimer(18, 179977)--25 seconds in LFR, tested after heroic. changed? VERIFY
-local timerSharedFateCD					= mod:NewNextCountTimer(29, 179909)--29-31
-local timerCrushingDarknessCD			= mod:NewNextTimer("OptionVersion2", 10, 180017, nil, false)--Actually 16, but i delay start by 6 seconds for reduced spam
-local timerFeastofSouls					= mod:NewNextTimer(123.5, 181973)--Probably next timer too, or close to it, depends how consistent energy gains are, may have small variation, like gruul
+local timerShadowofDeathCDDps			= mod:NewTimer(30, "SoDDPS", 179864, "Dps", nil, 5)
+local timerShadowofDeathCDTank			= mod:NewTimer(30, "SoDTank", 179864, "Tank", nil, 5)
+local timerShadowofDeathCDHealer		= mod:NewTimer(30, "SoDHealer", 179864, "Healer", nil, 5)
+local timerTouchofDoomCD				= mod:NewCDTimer(18, 179977, nil, nil, nil, 3)--25 seconds in LFR, tested after heroic. changed? VERIFY
+local timerSharedFateCD					= mod:NewNextCountTimer(29, 179909, nil, nil, nil, 3)--29-31
+local timerCrushingDarknessCD			= mod:NewNextTimer(10, 180017, nil, false, 2, 2)--Actually 16, but i delay start by 6 seconds for reduced spam
+local timerFeastofSouls					= mod:NewNextTimer(123.5, 181973, nil, nil, nil, 6)--Probably next timer too, or close to it, depends how consistent energy gains are, may have small variation, like gruul
 
 local timerDigest						= mod:NewCastTimer(40, 181295)
 local timerCrushingDarkness				= mod:NewCastTimer(6, 180017, nil, false)

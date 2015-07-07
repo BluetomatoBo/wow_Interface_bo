@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1236, "DBM-Party-WoD", 4, 558)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13746 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14030 $"):sub(12, -3))
 mod:SetCreatureID(80805, 80816, 80808)
 mod:SetEncounterID(1748)
 mod:SetZone()
@@ -33,9 +33,9 @@ local specWarnOgreTraps			= mod:NewSpecialWarningSpell(163390, false, nil, 2)--P
 local specWarnBigBoom			= mod:NewSpecialWarningSpell(163379, nil, nil, nil, 2)--maybe use switch.
 
 local timerSanguineSphere		= mod:NewTargetTimer(15, 163689)
-local timerFlamingSlashCD		= mod:NewNextTimer(29, 163665)
-local timerLavaSwipeCD			= mod:NewNextTimer(29, 165152)
-local timerOgreTrapsCD			= mod:NewCDTimer(25, 163390)--25-30 variation.
+local timerFlamingSlashCD		= mod:NewNextTimer(29, 163665, nil, nil, nil, 3)
+local timerLavaSwipeCD			= mod:NewNextTimer(29, 165152, nil, nil, nil, 3)
+local timerOgreTrapsCD			= mod:NewCDTimer(25, 163390, nil, nil, nil, 3)--25-30 variation.
 
 local countdownFlamingSlash		= mod:NewCountdown(29, 163665)
 
