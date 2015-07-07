@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("YoggSaron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 188 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 205 $"):sub(12, -3))
 mod:SetCreatureID(33288)
 mod:SetEncounterID(1143)
 mod:SetModelID(28817)
@@ -46,7 +46,7 @@ local specWarnMaladyNear			= mod:NewSpecialWarningClose(63830, true)
 mod:AddBoolOption("WarningSqueeze", true, "announce")
 
 local enrageTimer					= mod:NewBerserkTimer(900)
-local timerFervor					= mod:NewTargetTimer("OptionVersion2", 15, 63138, nil, false)
+local timerFervor					= mod:NewTargetTimer(15, 63138, nil, false, 2)
 local timerMaladyCD					= mod:NewCDTimer(19, 63830)
 local timerBrainLinkCD				= mod:NewCDTimer(32, 63802)
 local brainportal					= mod:NewTimer(20, "NextPortal", 57687)
