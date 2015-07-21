@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1372, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14031 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14115 $"):sub(12, -3))
 mod:SetCreatureID(90199)
 mod:SetEncounterID(1783)
 mod:SetZone()
@@ -14,15 +14,15 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 181973 181582 187814",
 	"SPELL_CAST_SUCCESS 179977 182170 181085",
-	"SPELL_AURA_APPLIED 179864 179977 179909 179908 180148 181295 185982 189434 185190",
-	"SPELL_AURA_APPLIED_DOSE 185190",
+	"SPELL_AURA_APPLIED 179864 179977 179909 179908 180148 181295 185982 189434 185189",
+	"SPELL_AURA_APPLIED_DOSE 185189",
 	"SPELL_AURA_REMOVED 179909 179908 181295 181973 185982",
 	"SPELL_PERIODIC_DAMAGE 179995",
 	"SPELL_ABSORBED 179995",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
---(ability.id = 181973 or ability.id = 181582 or ability.id = 187814) and type = "begincast" or (ability.id = 179977 or ability.id = 182170 or ability.id = 181085) and type = "cast" or (ability.id = 179864 or ability.id = 185982) and (type = "applydebuff" or type = "applybuff")
+--(ability.id = 181973 or ability.id = 181582 or ability.id = 187814) and type = "begincast" or (ability.id = 179977 or ability.id = 182170 or ability.id = 181085) and type = "cast" or (ability.id = 179864 or ability.id = 185982 or ability.id = 189131) and (type = "applydebuff" or type = "applybuff")
 --TODO, Touch of Doom was 25 seconds in LFR, tested after heroic. changed? VERIFY
 local warnShadowofDeath					= mod:NewTargetCountAnnounce(179864, 3)
 local warnTouchofDoom					= mod:NewTargetAnnounce(179978, 4)
@@ -32,7 +32,7 @@ local warnGoreboundSpiritSoon			= mod:NewSoonAnnounce("ej11020", 3, 187814)
 local warnRagingCharge					= mod:NewSpellAnnounce(187814, 3, nil, "Melee")
 local warnCrushingDarkness				= mod:NewCastAnnounce(180017, 3, 6, nil, false)
 
-local specWarnShadowofDeath				= mod:NewSpecialWarningYou(179864, nil, nil, nil, 1, 5)
+local specWarnShadowofDeath				= mod:NewSpecialWarning("specWarnShadowofDeath", nil, nil, nil, 1, 5)
 local specWarnShadowofDeathTank			= mod:NewSpecialWarningTaunt(179864)
 local specWarnTouchofDoom				= mod:NewSpecialWarningRun(179977, nil, nil, nil, 4, 2)
 local yellTouchofDoom					= mod:NewYell(179977)
@@ -44,8 +44,8 @@ local specWarnFeastofSoulsEnded			= mod:NewSpecialWarningEnd(181973)
 local specWarnHungerforLife				= mod:NewSpecialWarningRun(180148, nil, nil, nil, 4, 2)
 local specWarnEnragedSpirit				= mod:NewSpecialWarningSwitch("ej11378", "-Healer")
 local specWarnGoreboundSpirit			= mod:NewSpecialWarningSwitch("ej11020", "-Healer")
-local specWarnBurning					= mod:NewSpecialWarningStack(185190, nil, 5)
-local specWarnBurningOther				= mod:NewSpecialWarningTaunt(185190, nil, nil, nil, nil, 2)
+local specWarnBurning					= mod:NewSpecialWarningStack(185189, nil, 5)
+local specWarnBurningOther				= mod:NewSpecialWarningTaunt(185189, nil, nil, nil, nil, 2)
 local specWarnBellowingShout			= mod:NewSpecialWarningInterrupt(181582, "-Healer", nil, nil, 1, 2)
 
 local timerShadowofDeathCDDps			= mod:NewTimer(30, "SoDDPS", 179864, "Dps", nil, 5)
@@ -69,20 +69,31 @@ local voiceHungerforLife				= mod:NewVoice(180148)--justrun
 local voiceBellowingShout				= mod:NewVoice(181582, "-Healer")--kickcast
 local voiceShadowofDeath				= mod:NewVoice(179864)--teleyou, new voice, teleport into a new phase phase
 local voiceSharedFate					= mod:NewVoice(179909)--linegather, new voice, like Blood-Queen Lana'thel's Pact of the Darkfallen, line gather will be better.
-local voiceBurning						= mod:NewVoice(185190) --changemt
+local voiceBurning						= mod:NewVoice(185189) --changemt
 
 mod:AddSetIconOption("SetIconOnFate", 179909)
 mod:AddHudMapOption("HudMapOnSharedFate", 179909)--Smart hud, distinquishes rooted from non rooted by color coding.
 mod:AddArrowOption("SharedFateArrow", 179909, true, 2)
 mod:AddRangeFrameOption(5, 182049)
+mod:AddInfoFrameOption(181295)
 
 mod.vb.rootedFate = nil
 mod.vb.rootedFate2 = nil--Just in case, but if this happens you're doing things badly
 mod.vb.shadowOfDeathCount = 0
 mod.vb.sharedFateCount = 0
+mod.vb.playersWithDigest = 0
 local playerDown = false
 local playersCount = 0
 local sharedFateTimers = {19, 28, 25, 22}
+local digestFilter
+do
+	local digestDebuff = GetSpellInfo(181295)
+	digestFilter = function(uId)
+		if not UnitDebuff(uId, digestDebuff) then
+			return true
+		end
+	end
+end
 --[[
 Time   Player Role   # of players sent, if your raid size is...
                           10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29
@@ -112,10 +123,11 @@ function mod:OnCombatStart(delay)
 	self.vb.rootedFate2 = nil
 	self.vb.shadowOfDeathCount = 0
 	self.vb.sharedFateCount = 0
+	self.vb.playersWithDigest = 0
 	playerDown = false
 	playersCount = DBM:GetGroupSize()
 	if self.Options.RangeFrame then
-		DBM.RangeCheck:Show(5)
+		DBM.RangeCheck:Show(5, digestFilter)
 	end
 	if self:IsMythic() then
 		timerShadowofDeathCDDps:Start(2-delay, "2x"..DBM_CORE_DAMAGE_ICON)
@@ -149,6 +161,9 @@ function mod:OnCombatEnd()
 	end
 	if self.Options.HudMapOnSharedFate then
 		DBMHudMap:Disable()
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
 	end
 end 
 
@@ -184,7 +199,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self.vb.sharedFateCount = self.vb.sharedFateCount + 1
 		local cooldown = sharedFateTimers[self.vb.sharedFateCount+1]
 		if cooldown then
-			timerSharedFateCD:Start(cooldown, self.vb.shadowOfDeathCount+1)
+			timerSharedFateCD:Start(cooldown, self.vb.sharedFateCount+1)
 		end
 	end
 end
@@ -231,7 +246,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 		warnShadowofDeath:CombinedShow(0.5, self.vb.shadowOfDeathCount, args.destName)
 		if args:IsPlayer() then
-			specWarnShadowofDeath:Show()
+			specWarnShadowofDeath:Show(self.vb.shadowOfDeathCount)
 			countdownShadowofDeath:Start()
 			voiceShadowofDeath:Play("teleyou")
 		end
@@ -286,20 +301,35 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnHungerforLife:Show()
 			voiceHungerforLife:Play("justrun")
 		end
-	elseif spellId == 181295 and args:IsPlayer() then
-		timerDigest:Start()
-		countdownDigest:Start()
-		playerDown = true
+	elseif spellId == 181295 then
+		self.vb.playersWithDigest = self.vb.playersWithDigest + 1
+		if args:IsPlayer() then
+			if self:IsMythic() then
+				timerDigest:Start(30)
+				countdownDigest:Start(30)
+			else
+				timerDigest:Start()
+				countdownDigest:Start()
+			end
+			playerDown = true
+			if self.Options.RangeFrame then
+				DBM.RangeCheck:Hide()
+			end
+		end
+		if self.Options.InfoFrame and self.vb.playersWithDigest == 1 then--coming from 0, open infoframe
+			DBM.InfoFrame:SetHeader(args.spellName)
+			DBM.InfoFrame:Show(10, "playerdebuffremaining", args.spellName)
+		end
 	elseif spellId == 185982 and not playerDown then--Cast when a Enraged Spirit in stomach reaches 70%
 		warnGoreboundSpiritSoon:Show()
-	elseif spellId == 185190 then
+	elseif spellId == 185189 then
 		local amount = args.amount or 1
 		if (amount >= 5) and self:AntiSpam(3, 5) then
 			voiceBurning:Play("changemt")
 			if args:IsPlayer() then
 				specWarnBurning:Show(amount)
 			else--Taunt as soon as stacks are clear, regardless of stack count.
-				if not UnitDebuff("player", GetSpellInfo(185190)) and not UnitIsDeadOrGhost("player") then
+				if not UnitDebuff("player", args.spellName) and not UnitIsDeadOrGhost("player") then
 					specWarnBurningOther:Show(args.destName)
 				end
 			end
@@ -326,10 +356,19 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.HudMapOnSharedFate then
 			DBMHudMap:FreeEncounterMarkerByTarget(179908, args.destName)
 		end
-	elseif spellId == 181295 and args:IsPlayer() then
-		timerDigest:Cancel()
-		countdownDigest:Cancel()
-		playerDown = false
+	elseif spellId == 181295 then
+		self.vb.playersWithDigest = self.vb.playersWithDigest - 1
+		if args:IsPlayer() then
+			timerDigest:Cancel()
+			countdownDigest:Cancel()
+			playerDown = false
+			if self.Options.RangeFrame and self:IsInCombat() then
+				DBM.RangeCheck:Show(5, digestFilter)
+			end
+		end
+		if self.Options.InfoFrame and self.vb.playersWithDigest == 0 then
+			DBM.InfoFrame:Hide()
+		end
 	elseif spellId == 181973 then--Phase restart
 		self.vb.shadowOfDeathCount = 0
 		specWarnFeastofSoulsEnded:Show()

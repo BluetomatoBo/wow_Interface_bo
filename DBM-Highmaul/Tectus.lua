@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1195, "DBM-Highmaul", nil, 477)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14024 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14083 $"):sub(12, -3))
 mod:SetCreatureID(78948, 80557, 80551, 99999)--78948 Tectus, 80557 Mote of Tectus, 80551 Shard of Tectus
 mod:SetEncounterID(1722)--Hopefully win will work fine off this because otherwise tracking shard deaths is crappy
 mod:SetZone()
@@ -11,7 +11,7 @@ mod:SetModelSound("sound\\creature\\tectus\\VO_60_HMR_TECTUS_AGGRO_01.ogg", "sou
 mod:SetHotfixNoticeRev(13109)
 
 mod:RegisterCombat("combat")
-mod:SetMinSyncTime(4)--Rise Mountain can occur pretty often.
+mod.syncThreshold = 4--Rise Mountain can occur pretty often.
 mod:SetWipeTime(30)
 
 mod:RegisterEventsInCombat(

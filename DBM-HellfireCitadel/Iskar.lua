@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1433, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14040 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14106 $"):sub(12, -3))
 mod:SetCreatureID(90316)
 mod:SetEncounterID(1788)
 mod:DisableESCombatDetection()--Remove if blizz fixes trash firing ENCOUNTER_START
@@ -153,7 +153,11 @@ function mod:OnCombatStart(delay)
 			timerShadowRiposteCD:Start(9.5-delay)
 		end
 	end
-	berserkTimer:Start(-delay)
+	if self:IsNormal() then--Harder berserk on normal vs all other difficulties. Kromog all over again.
+		berserkTimer:Start(480-delay)
+	else
+		berserkTimer:Start(-delay)
+	end
 end
 
 function mod:OnCombatEnd()
@@ -302,9 +306,6 @@ function mod:SPELL_AURA_APPLIED(args)
 			updateRangeFrame(self)
 			specWarnPhantasmalFelBomb:Schedule(0.3)
 			yellPhantasmalFelBomb:Schedule(0.3)
-			if self.Options.RangeFrame then
-				DBM.RangeCheck:Show(15)
-			end
 		end
 	elseif spellId == 181753 then
 		warnFelBomb:Show(args.destName)

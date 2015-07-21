@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1123, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14024 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14080 $"):sub(12, -3))
 mod:SetCreatureID(76814)--76794 Cinder Wolf, 80590 Aknor Steelbringer
 mod:SetEncounterID(1689)
 mod:SetZone()
@@ -191,7 +191,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				if args:IsPlayer() then--At this point the other tank SHOULD be clear.
 					specWarnRisingFlames:Show(amount)
 				else--Taunt as soon as stacks are clear, regardless of stack count.
-					if not UnitDebuff("player", GetSpellInfo(163284)) and not UnitIsDeadOrGhost("player") then
+					if not UnitDebuff("player", args.spellName) and not UnitIsDeadOrGhost("player") then
 						specWarnRisingFlamesOther:Show(args.destName)
 						voiceRisingFlames:Play("changemt")
 					else

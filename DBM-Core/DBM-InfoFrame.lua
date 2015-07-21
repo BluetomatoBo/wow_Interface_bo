@@ -79,6 +79,10 @@ local UnitPosition = UnitPosition
 local GetRaidRosterInfo, GetPartyAssignment, UnitGroupRolesAssigned = GetRaidRosterInfo, GetPartyAssignment, UnitGroupRolesAssigned
 local twipe = table.wipe
 local select = select
+local mfloor = math.floor
+
+-- for Phanx' Class Colors
+local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 
 ---------------------
 --  Dropdown Menu  --
@@ -287,7 +291,7 @@ end
 --Buffs that are good to have, therefor bad not to have them.
 local function updatePlayerBuffs()
 	twipe(lines)
-	local spellName = GetSpellInfo(value[1])
+	local spellName = value[1]
 	local tankIgnored = value[2]
 	for uId in DBM:GetGroupMembers() do
 		if tankIgnored and UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1) then
@@ -304,7 +308,7 @@ end
 --Debuffs that are good to have, therefor it's bad NOT to have them.
 local function updateGoodPlayerDebuffs()
 	twipe(lines)
-	local spellName = GetSpellInfo(value[1])
+	local spellName = value[1]
 	local tankIgnored = value[2]
 	for uId in DBM:GetGroupMembers() do
 		if tankIgnored and UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1) then
@@ -321,7 +325,7 @@ end
 --Debuffs that are bad to have, therefor it is bad to have them.
 local function updateBadPlayerDebuffs()
 	twipe(lines)
-	local spellName = GetSpellInfo(value[1])
+	local spellName = value[1]
 	local tankIgnored = value[2]
 	for uId in DBM:GetGroupMembers() do
 		if tankIgnored and UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1) then
@@ -335,11 +339,26 @@ local function updateBadPlayerDebuffs()
 	updateIcons()
 end
 
+--Debuffs with important durations that we track
+local function updatePlayerDebuffRemaining()
+	twipe(lines)
+	local spellName = value[1]
+	for uId in DBM:GetGroupMembers() do
+		local _, _, _, _, _, _, expires = UnitDebuff(uId, spellName)
+		if expires then
+			local debuffTime = expires - GetTime()
+			lines[UnitName(uId)] = mfloor(debuffTime)
+		end
+	end
+	updateLines()
+	updateIcons()
+end
+
 --Duplicate of updateBadPlayerDebuffs
 --needed when specific spellid must be checked because spellname for more than 1 spell
 local function updateBadPlayerDebuffsBySpellID()
 	twipe(lines)
-	local spellName = GetSpellInfo(value[1])
+	local spellName = value[1]
 	local tankIgnored = value[2]
 	for uId in DBM:GetGroupMembers() do
 		if tankIgnored and UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1) then
@@ -356,7 +375,7 @@ end
 --Debuffs that are bad to have, but we want to show players who do NOT have them
 local function updateReverseBadPlayerDebuffs()
 	twipe(lines)
-	local spellName = GetSpellInfo(value[1])
+	local spellName = value[1]
 	local tankIgnored = value[2]
 	for uId in DBM:GetGroupMembers() do
 		if tankIgnored and UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1) then
@@ -372,7 +391,7 @@ end
 
 local function updatePlayerBuffStacks()
 	twipe(lines)
-	local spellName = GetSpellInfo(value[1])
+	local spellName = value[1]
 	for uId in DBM:GetGroupMembers() do
 		if UnitBuff(uId, spellName) then
 			lines[UnitName(uId)] = select(4, UnitBuff(uId, spellName))
@@ -384,7 +403,7 @@ end
 
 local function updatePlayerDebuffStacks()
 	twipe(lines)
-	local spellName = GetSpellInfo(value[1])
+	local spellName = value[1]
 	for uId in DBM:GetGroupMembers() do
 		if UnitDebuff(uId, spellName) then
 			lines[UnitName(uId)] = select(4, UnitDebuff(uId, spellName))
@@ -451,6 +470,7 @@ local events = {
 	["playerbuff"] = updatePlayerBuffs,
 	["playergooddebuff"] = updateGoodPlayerDebuffs,
 	["playerbaddebuff"] = updateBadPlayerDebuffs,
+	["playerdebuffremaining"] = updatePlayerDebuffRemaining,
 	["playerbaddebuffbyspellid"] = updateBadPlayerDebuffsBySpellID,
 	["reverseplayerbaddebuff"] = updateReverseBadPlayerDebuffs,
 	["playeraggro"] = updatePlayerAggro,
@@ -470,6 +490,7 @@ local friendlyEvents = {
 	["playerbuff"] = true,
 	["playergooddebuff"] = true,
 	["playerbaddebuff"] = true,
+	["playerdebuffremaining"] = true,
 	["playerbaddebuffbyspellid"] = true,
 	["reverseplayerbaddebuff"] = true,
 	["playeraggro"] = true,
@@ -502,24 +523,36 @@ function onUpdate(frame)
 			local unitId = DBM:GetRaidUnitId(DBM:GetUnitFullName(leftText)) or "player"--Prevent nil logical error
 			local addedSelf
 			if unitId and select(4, UnitPosition(unitId)) == currentMapId then
+				local _, class = UnitClass(unitId)
+				if class then
+					color = RAID_CLASS_COLORS[class]
+				end
 				linesShown = linesShown + 1
 				if leftText == UnitName("player") then--It's player.
 					addedSelf = true
-					if currentEvent == "health" or currentEvent == "playerpower" or currentEvent == "playerbuff" or currentEvent == "playergooddebuff" or currentEvent == "playerbaddebuff" or currentEvent == "playerbaddebuffbyspellid" or currentEvent == "playertargets" or (currentEvent == "playeraggro" and value[1] == 3) then--Red
+					if currentEvent == "health" or currentEvent == "playerpower" or currentEvent == "playerbuff" or currentEvent == "playergooddebuff" or currentEvent == "playerbaddebuff" or currentEvent == "playerdebuffremaining" or currentEvent == "playerbaddebuffbyspellid" or currentEvent == "playertargets" or (currentEvent == "playeraggro" and value[1] == 3) then--Red
 						frame:AddDoubleLine(icon or leftText, rightText, 255, 0, 0, 255, 255, 255)-- (leftText, rightText, left.R, left.G, left.B, right.R, right.G, right.B)
 					else--Green
 						frame:AddDoubleLine(icon or leftText, rightText, 0, 255, 0, 255, 255, 255)
 					end
 				else--It's not player, do nothing special with it. Ordinary white text.
-					frame:AddDoubleLine(icon or leftText, rightText, color.R, color.G, color.B, 255, 255, 255)
+					frame:AddDoubleLine(icon or leftText, rightText, color.r, color.g, color.b, 255, 255, 255)
 				end
 			end
 			if not addedSelf and DBM.Options.InfoFrameShowSelf and currentEvent == "playerpower" then-- Only Shows on playerpower event.
-				frame:AddDoubleLine(UnitName("player"), lines[UnitName("player")], color.R, color.G, color.B, 255, 255, 255)
+				frame:AddDoubleLine(UnitName("player"), lines[UnitName("player")], color.r, color.g, color.b, 255, 255, 255)
 			end
 		else
+			local unitId = DBM:GetRaidUnitId(DBM:GetUnitFullName(leftText))
+			if unitId then
+				--Class color names in custom functions too, IF unitID exists
+				local _, class = UnitClass(unitId)
+				if class then
+					color = RAID_CLASS_COLORS[class]
+				end
+			end
 			linesShown = linesShown + 1
-			frame:AddDoubleLine(icon or leftText, rightText, color.R, color.G, color.B, 255, 255, 255)
+			frame:AddDoubleLine(icon or leftText, rightText, color.r, color.g, color.b, 255, 255, 255)
 		end
 	end
 	frame:Show()
@@ -539,8 +572,14 @@ function infoFrame:Show(maxLines, event, ...)
 	end
 	frame = frame or createFrame()
 
-	if event == "health" then
-		sortingAsc = true	-- Person who misses the most HP to be at threshold is listed on top
+	if event == "health" or event == "playerdebuffremaining" then
+		sortingAsc = true	-- Sort lowest first
+	end
+	
+	--If spellId is given as value one, convert to spell name on show instead of in every onupdate
+	--this also allows spell name to be given by mod, since value 1 verifies it's a number
+	if type(value[1]) == "number" and event ~= "health" and event ~= "function" and event ~= "playertargets" and event ~= "playeraggro" and event ~= "playerpower" and event ~= "enemypower" and event ~= "test" then
+		value[1] = GetSpellInfo(value[1])
 	end
 
 	if events[currentEvent] then

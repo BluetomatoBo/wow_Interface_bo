@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("BlackrockFoundryTrash", "DBM-BlackrockFoundry")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 13843 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14080 $"):sub(12, -3))
 --mod:SetModelID(47785)
 mod:SetZone()
 mod.isTrashMod = true
@@ -73,7 +73,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			if args:IsPlayer() then
 				specWarnBurning:Show(amount)
 			else--Taunt as soon as stacks are clear, regardless of stack count.
-				if not UnitDebuff("player", GetSpellInfo(175594)) and not UnitIsDeadOrGhost("player") then
+				if not UnitDebuff("player", args.spellName) and not UnitIsDeadOrGhost("player") then
 					specWarnBurningOther:Show(args.destName)
 				end
 			end

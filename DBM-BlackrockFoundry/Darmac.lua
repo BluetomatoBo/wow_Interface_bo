@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1122, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14024 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14080 $"):sub(12, -3))
 mod:SetCreatureID(76865)--No need to add beasts to this. It's always main boss that's engaged first and dies last.
 mod:SetEncounterID(1694)
 mod:SetZone()
@@ -328,7 +328,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				if args:IsPlayer() then
 					specWarnSearingFangs:Show(amount)
 				else
-					if not UnitDebuff("player", GetSpellInfo(155030)) and not UnitIsDeadOrGhost("player") then
+					if not UnitDebuff("player", args.spellName) and not UnitIsDeadOrGhost("player") then
 						specWarnSearingFangsOther:Show(args.destName)
 					else
 						warnSearingFangs:Show(args.destName, amount)

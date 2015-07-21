@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1395, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14042 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14114 $"):sub(12, -3))
 mod:SetCreatureID(91349)--91305 Fel Iron Summoner
 mod:SetEncounterID(1795)
 mod:SetZone()
@@ -14,7 +14,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 181126 181132 181557 183376 181793 181792 181738 181799 182084 185830 181948 182040 182076 182077 186348 181099 181597 182006",
 	"SPELL_CAST_SUCCESS 181190 181597 182006",
 	"SPELL_AURA_APPLIED 181099 181275 181191 181597 182006",
-	"SPELL_AURA_APPLIED_DOSE",
+	"SPELL_AURA_APPLIED_DOSE 181119",
 	"SPELL_AURA_REMOVED 181099 181275 185147 182212 185175 181597 182006 181275",
 --	"SPELL_PERIODIC_DAMAGE",
 --	"SPELL_ABSORBED",
@@ -34,6 +34,7 @@ mod:RegisterEventsInCombat(
 ----Doom Lords
 local warnCurseoftheLegion			= mod:NewTargetAnnounce(181275, 3)--Spawn
 local warnMarkofDoom				= mod:NewTargetAnnounce(181099, 4)
+local warnDoomSpike					= mod:NewStackAnnounce(181119, 3, nil, "Tank")
 ----Fel Imp
 local warnFelImplosion				= mod:NewCountAnnounce(181255, 3)--Spawn
 ----Dread Infernals
@@ -53,6 +54,7 @@ local yellCurseofLegion				= mod:NewFadesYell(181275)--Don't need to know when i
 local specWarnMarkOfDoom			= mod:NewSpecialWarningYou(181099, nil, nil, nil, 1, 2)
 local yellMarkOfDoom				= mod:NewPosYell(181099)--This need to know at apply, only player needs to know when it's fading
 local specWarnShadowBoltVolley		= mod:NewSpecialWarningInterrupt(181126, "-Healer", nil, nil, 1, 2)
+local specWarnDoomSpikeOther		= mod:NewSpecialWarningTaunt(181119, nil, nil, nil, 1, 2)
 ----Fel Imps
 local specWarnFelBlast				= mod:NewSpecialWarningInterrupt(181132, false, nil, 2, 1, 2)--Can be spammy, but someone may want it
 ----Dread Infernals
@@ -107,6 +109,7 @@ local voiceMassiveBlast				= mod:NewVoice(181359, "Tank")--changemt
 
 mod:AddRangeFrameOption(20, 181099)
 mod:AddHudMapOption("HudMapOnGaze", 181597)
+mod:AddInfoFrameOption(181597)
 
 mod.vb.DoomTargetCount = 0
 mod.vb.portalsLeft = 3
@@ -116,15 +119,14 @@ mod.vb.infernalCount = 0
 mod.vb.ignoreAdds = false
 local phase1ImpTimers = {15, 32.2, 24, 15, 10}--Spawn 33% faster each wave, but cannot confirm it goes lower than 10, if it does, next would be 6.6
 local phase1ImpTimersN = {15, 32.2, 24, 24}--Normal doesn't go below 24? need larger sample size. Normal differently two 24s in a row and didn't drop to 15
-local phase2ImpTimers = {42.2, 40, 39, 30.5, 30}--The same, for now
-local phase2ImpTimersN = {42.2, 40, 39, 30.5, 30}--But normal may have a lower limit, like phase 1, so coded in two tables for now.
+local phase2ImpTimers = {24.5, 39, 39, 30.5, 30}--The same, for now
+local phase2ImpTimersN = {24.5, 39, 39, 30.5, 30}--But normal may have a lower limit, like phase 1, so coded in two tables for now.
 local phase1InfernalTimers = {18.4, 40, 30, 20, 20, 20}--Confirmed this far on heroic
 local phase1InfernalTimersN = {18.4, 40, 30, 30}--Normal probably doesn't drop below 30?
-local phase2InfernalTimers = {66.5, 44.8, 44.8, 35}--So far normal and heroic same, but if phase goes on longer probably different (with normal having a higher minimum)
-local phase2InfernalTimersN = {66.5, 44.8, 44.8, 35}--So far normal and heroic same, but if phase goes on longer probably different (with normal having a higher minimum)
-local phase3InfernalTimers = {46.1, 34.8, 35, 34.8, 34.8}--Again, the same now, but two tables FOR NOW until I can confirm whether or not they differ for REALLY long pulls
-local phase3InfernalTimersN = {46.1, 34.8, 35, 34.8, 34.8}--^^
-local portalDestroyed = false--Temp hack to prevent timer error on guessed mechanic
+local phase2InfernalTimers = {47.5, 44.8, 44.8, 35}--So far normal and heroic same, but if phase goes on longer probably different (with normal having a higher minimum)
+local phase2InfernalTimersN = {47.5, 44.8, 44.8, 35}--So far normal and heroic same, but if phase goes on longer probably different (with normal having a higher minimum)
+local phase3InfernalTimers = {28, 34.8, 35, 34.8, 34.8}--Again, the same now, but two tables FOR NOW until I can confirm whether or not they differ for REALLY long pulls
+local phase3InfernalTimersN = {28, 34.8, 35, 34.8, 34.8}--^^
 
 local gazeTargets = {}
 local doomTargets = {}
@@ -154,8 +156,31 @@ local function updateRangeFrame(self)
 	end
 end
 
-local function clearIgnore(self)
-	self.vb.ignoreAdds = false
+local lines = {}
+local function sortInfoFrame(a, b) 
+	local a = lines[a]
+	local b = lines[b]
+	if not tonumber(a) then a = -1 end
+	if not tonumber(b) then b = -1 end
+	if a < b then return true else return false end
+end
+
+local gaze1, gaze2 = GetSpellInfo(181597), GetSpellInfo(182006)
+local function updateInfoFrame()
+	table.wipe(lines)
+	local total = 0
+	for i = 1, #gazeTargets do
+		local name = gazeTargets[i]
+		local uId = DBM:GetRaidUnitId(name)
+		if UnitDebuff(uId, gaze1) or UnitDebuff(uId, gaze2) then
+			total = total + 1
+			lines[name] = i
+		end
+	end
+	if total == 0 then--None found, hide infoframe because all broke
+		DBM.InfoFrame:Hide()
+	end
+	return lines
 end
 
 local function warnGazeTargts(self)
@@ -167,6 +192,9 @@ local function warnGazeTargts(self)
 		if name == playerName then
 			yellGaze:Yell(i)
 		end
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Show(5, "function", updateInfoFrame, sortInfoFrame)
 	end
 end
 
@@ -186,7 +214,6 @@ function mod:OnCombatStart(delay)
 	table.wipe(doomTargets)
 	table.wipe(gazeTargets)
 	table.wipe(AddsSeen)
-	portalDestroyed = false
 	self.vb.ignoreAdds = false
 	self.vb.impCount = 0
 	self.vb.infernalCount = 0
@@ -195,6 +222,13 @@ function mod:OnCombatStart(delay)
 	self.vb.DoomTargetCount = 0
 	timerFelImplosionCD:Start(15-delay, 1)
 	timerInfernoCD:Start(18.4-delay, 1)--Verify, seems 20 now
+	timerCurseofLegionCD:Start(1)
+	if self:IsMythic() then
+		--Start fight on phase 2?
+		--Do phase 2 or phase 1 infernal/imp timers get used on combat start?
+		timerWrathofGuldanCD:Start(1)
+		DBM:AddMsg("This mod will not work correctly on mythic. Not until someones makes their logs available for this. Or more idealy, captures logs with transcriptor so the phase change detection can be fixed.")
+	end
 end
 
 function mod:OnCombatEnd()
@@ -254,9 +288,10 @@ end
 
 function mod:SPELL_SUMMON(args)
 	local spellId = args.spellId
-	if spellId == 181255 and self:AntiSpam(7, 1) and not self.vb.ignoreAdds then--Imps
+	if spellId == 181255 and self:AntiSpam(4, 1) then--Imps
 		self.vb.impCount = self.vb.impCount + 1
 		warnFelImplosion:Show(self.vb.impCount)
+		if self.vb.ignoreAdds then return end--Ignore late sets of adds that spawn after phase transition but before summon adds script runs that updates timers for new phase
 		local nextCount = self.vb.impCount + 1
 		if self.vb.phase == 1 then
 			local timers1 = self:IsNormal() and phase1ImpTimersN[nextCount] or phase1ImpTimers[nextCount]
@@ -269,9 +304,10 @@ function mod:SPELL_SUMMON(args)
 				timerFelImplosionCD:Start(timers2, nextCount)
 			end
 		end
-	elseif spellId == 181180 and self:AntiSpam(7, 2) and not self.vb.ignoreAdds then--Infernals
+	elseif spellId == 181180 and self:AntiSpam(4, 2) then--Infernals
 		self.vb.infernalCount = self.vb.infernalCount + 1
 		warnInferno:Show(self.vb.infernalCount)
+		if self.vb.ignoreAdds then return end--Ignore late sets of adds that spawn after phase transition but before summon adds script runs that updates timers for new phase
 		local nextCount = self.vb.infernalCount + 1
 		if self.vb.phase == 1 then
 			local timers1 = self:IsNormal() and phase1InfernalTimersN[nextCount] or phase1InfernalTimers[nextCount]
@@ -347,6 +383,14 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.Options.HudMapOnGaze then
 			DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 3, 8, 1, 1, 0, 0.5, nil, true, 1):Pulse(0.5, 0.5)
 		end
+	elseif spellId == 181119 then
+		local amount = args.amount or 1
+		if amount % 3 == 0 or amount > 6 then
+			warnDoomSpike:Show(args.destName, amount)
+			if not UnitDebuff("player", args.spellName) and not UnitIsDeadOrGhost("player") and self:AntiSpam(3, 6) then
+				specWarnDoomSpikeOther:Show(args.destName)
+			end
+		end
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -360,11 +404,9 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 		updateRangeFrame(self)
 	elseif spellId == 185147 or spellId == 182212 or spellId == 185175 then--Portals
-		--Note, if they don't die on mythic, switch to UNIT_died on the humanoid adds
 		self.vb.portalsLeft = self.vb.portalsLeft - 1
 		if spellId == 185147 then--Doom Lords Portal
 			timerCurseofLegionCD:Cancel()
-			portalDestroyed = true
 			--I'd add a cancel for the Doom Lords here, but since everyone killed this portal first
 			--no one ever actually learned what the cooldown was, so no timer to cancel yet!
 		elseif spellId == 182212 then--Infernals Portal
@@ -374,26 +416,18 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 		if self.vb.portalsLeft == 0 and self:AntiSpam(10, 4) and self:IsInCombat() then
 			self.vb.phase = 2
-			timerFelHellfireCD:Start(28)
-			timerGazeCD:Start(40)
-			timerGlaiveComboCD:Start(42.5)
-			countdownGlaiveCombo:Start(42.5)
-			timerFelSeekerCD:Start(58)
+			self.vb.ignoreAdds = true
+			--These should be active already from pull on mythic
+			--Whether or not they update is unknown, better to start no timers until more info
+			if not self:IsMythic() then
+				timerFelHellfireCD:Start(28)
+				timerGazeCD:Start(40)
+				timerGlaiveComboCD:Start(42.5)
+				countdownGlaiveCombo:Start(42.5)
+				timerFelSeekerCD:Start(58)
+			end
 			warnPhase2:Show()
 			voicePhaseChange:Play("ptwo")
-			--First casts are often variable and sometimes don't happen at all, and messes up mod, so DBM will ignore first cast and start timers for reliable 2nd+
-			self.vb.ignoreAdds = true
-			self:Schedule(20, clearIgnore, self)
-			self.vb.impCount = 1
-			self.vb.infernalCount = 1
-			timerFelImplosionCD:Start(42, 2)
-			timerInfernoCD:Start(65.5, 2)
-			if self:IsMythic() then
-				timerWrathofGuldanCD:Start(2)
-				if portalDestroyed then--Temp, to make AI timer work better
-					timerCurseofLegionCD:Start(2)--No idea if it works this way. doesn't say when he restores the portal, or if portal is every destroyed in first place.
-				end
-			end
 		end
 	elseif spellId == 181597 or spellId == 182006 then
 		if self.Options.HudMapOnGaze then
@@ -436,7 +470,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc)
 	if msg:find(L.felSpire) and self:AntiSpam(10, 4) then
 		self.vb.phase = self.vb.phase + 1
 		if self.vb.phase == 3 then
-			self.vb.infernalCount = 0
 			timerFelHellfireCD:Cancel()
 			timerShadowForceCD:Cancel()
 			countdownShadowForce:Cancel()
@@ -452,7 +485,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc)
 			timerGazeCD:Start(44.5)
 			timerGlaiveComboCD:Start(44.9)
 			countdownGlaiveCombo:Start(44.9)
-			timerInfernoCD:Start(46.1, 1)
+			self.vb.ignoreAdds = true
 			timerFelSeekerCD:Start(68)
 			warnPhase3:Show()
 			voicePhaseChange:Play("pthree")
@@ -483,16 +516,28 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		specWarnFelSeeker:Show()
 		timerFelSeekerCD:Start()
 		voiceFelSeeker:Play("watchstep")
-	elseif spellId == 181301 then--Summon Adds
-		--Still needed? Doesn't work way I thought
-	elseif spellId == 182262 then--Summon Adds
-		--Still Needed?
-	--Backup phase detection. a bit slower than CHAT_MSG_RAID_BOSS_EMOTE (5.5 seconds slower)
-	elseif spellId == 182263 and self.vb.phase == 2 then--Phase 3
-		self.vb.phase = 3
+	elseif spellId == 181301 then--Summon Adds (phase 2 start)
+		DBM:Debug("Summon adds 181301 fired", 2)
+		self.vb.ignoreAdds = false
+		self.vb.impCount = 0
 		self.vb.infernalCount = 0
 		timerFelImplosionCD:Cancel()
 		timerInfernoCD:Cancel()
+		timerFelImplosionCD:Start(24.5, 1)
+		timerInfernoCD:Start(47.5, 1)
+	elseif spellId == 182262 then--Summon Adds (phase 3 start)
+		DBM:Debug("Summon adds 182262 fired", 2)
+		self.vb.ignoreAdds = false
+		self.vb.infernalCount = 0
+		timerFelImplosionCD:Cancel()
+		timerInfernoCD:Cancel()
+		timerInfernoCD:Start(28, 1)
+	elseif spellId == 181156 then--Exists on wowhead and added in 6.2, likely related to this fight but unknown purpose, probably mythic?
+		DBM:Debug("Summon adds 181156 fired", 2)
+	--Backup phase detection. a bit slower than CHAT_MSG_RAID_BOSS_EMOTE (5.5 seconds slower)
+	elseif spellId == 182263 and self.vb.phase == 2 then--Phase 3
+		self.vb.phase = 3
+		self.vb.ignoreAdds = true
 		timerFelHellfireCD:Cancel()
 		timerShadowForceCD:Cancel()
 		countdownShadowForce:Cancel()
@@ -506,7 +551,6 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		timerGazeCD:Start(39.0)
 		timerGlaiveComboCD:Start(39.4)
 		countdownGlaiveCombo:Start(39.4)
-		timerInfernoCD:Start(40.73, 1)
 		timerFelSeekerCD:Start(62.5)
 		if self:IsMythic() then
 			--Assumed it may not reset like other abilities

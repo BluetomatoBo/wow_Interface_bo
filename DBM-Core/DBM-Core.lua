@@ -52,9 +52,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14050 $"):sub(12, -3)),
-	DisplayVersion = "6.2.4", -- the string that is shown as version
-	ReleaseRevision = 14050 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 14116 $"):sub(12, -3)),
+	DisplayVersion = "6.2.5", -- the string that is shown as version
+	ReleaseRevision = 14116 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -388,7 +388,7 @@ local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 local dbmToc = 0
 
-local fakeBWRevision = 13354
+local fakeBWRevision = 13459
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -6799,6 +6799,7 @@ function bossModPrototype:IsEvent()
 end
 
 function bossModPrototype:IsTrivial(level)
+	if difficultyIndex == 24 then return false end--Timewalker dungeon, ignore level and return false for trivial
 	if playerLevel >= level then
 		return true
 	end
@@ -10339,10 +10340,6 @@ end
 
 function bossModPrototype:SetMinSyncRevision(revision)
 	self.minSyncRevision = revision
-end
-
-function bossModPrototype:SetMinSyncTime(time)
-	self.syncThreshold = time
 end
 
 function bossModPrototype:SetHotfixNoticeRev(revision)

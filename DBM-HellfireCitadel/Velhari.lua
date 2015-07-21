@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1394, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14008 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14058 $"):sub(12, -3))
 mod:SetCreatureID(90269)
 mod:SetEncounterID(1784)
 mod:SetZone()
@@ -168,6 +168,11 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 180004 then
 		specWarnEnforcersOnslaught:Show()
 		voiceEnforcerOnslaught:Play("watchorb")
+		if self:IsMythic() then
+			timerEnforcersOnslaughtCD:Start(11)
+		else
+			timerEnforcersOnslaughtCD:Start()
+		end
 		timerEnforcersOnslaughtCD:Start()
 	elseif spellId == 180025 then--No target filter, it's only interrupt onfight and it's VERY important
 		specWarnHarbingersMending:Show(args.sourceName)

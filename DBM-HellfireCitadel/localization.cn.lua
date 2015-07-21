@@ -1,6 +1,6 @@
 ﻿-- Mini Dragon(projecteurs@gmail.com)
 -- Blizzard Entertainment
--- Last update: Jul 2 2015, 6:12 UTC@13993
+-- Last update: Jul 8 2015, 23:00 UTC@14064
 
 if GetLocale() ~= "zhCN" then return end
 local L
@@ -34,6 +34,10 @@ L= DBM:GetModLocalization(1425)
 ---------------------------
 L= DBM:GetModLocalization(1432)
 
+L:SetMiscLocalization({
+	Jubeideath		=	"化为灰烬！"
+})
+
 ------------------
 -- Kormrok --
 ------------------
@@ -53,6 +57,10 @@ L:SetMiscLocalization({
 --------------------
 L= DBM:GetModLocalization(1372)
 
+L:SetWarningLocalization({
+	specWarnShadowofDeath	= "你被第%d次死亡之影点名！"
+})
+
 L:SetTimerLocalization({
 	SoDDPS		= "下一次死亡之影 (%s)",
 	SoDTank		= "下一次死亡之影 (%s)",
@@ -70,7 +78,7 @@ L:SetOptionLocalization({
 L= DBM:GetModLocalization(1433)
 
 L:SetWarningLocalization({
-	specWarnThrowAnzu =	"快传安苏之眼给%s!"
+	specWarnThrowAnzu =	"快传安苏之眼给%s！"
 })
 
 L:SetOptionLocalization({
@@ -148,10 +156,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	phase2				= "我受够这无聊的游戏了。你们将面对曾横行诸界的永生军团。",
 	phase2point5		= "面对现实吧，愚蠢的凡人。你们无法抵抗燃烧军团的无穷大军。",
-	phase3				= "他们撤退了！去传送门！古尔丹是我的！",--Lok'tar ogar! They are pushed back! To the portal! Gul'dan is mine! 听写自 /unknown/356BC09F9FDC589B_1125761.ogg
-	phase3point5		= "我要撕碎这可悲的世界！它的碎片将在扭曲虚空的不断撕扯下分崩离析！",
 	First				= "第一个",
 	Second				= "第二个",
 	Third				= "第三个",

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1162, "DBM-BlackrockFoundry", nil, 457)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14024 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14080 $"):sub(12, -3))
 mod:SetCreatureID(77692)
 mod:SetEncounterID(1713)
 mod:SetZone()
@@ -204,7 +204,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			if args:IsPlayer() then
 				specWarnWarpedArmor:Show(amount)
 			else--Taunt as soon as stacks are clear, regardless of stack count.
-				if not UnitDebuff("player", GetSpellInfo(156766)) and not UnitIsDeadOrGhost("player") then
+				if not UnitDebuff("player", args.spellName) and not UnitIsDeadOrGhost("player") then
 					specWarnWarpedArmorOther:Show(args.destName)
 				else
 					warnWarpedArmor:Show(args.destName, amount)

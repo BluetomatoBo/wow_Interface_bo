@@ -7,7 +7,7 @@ local L
 L= DBM:GetModLocalization(1426)
 
 L:SetTimerLocalization({
-	timerSiegeVehicleCD		= "След. %s машина",
+	timerSiegeVehicleCD		= "След. осад. машина %s",
 })
 
 L:SetOptionLocalization({
@@ -30,6 +30,10 @@ L= DBM:GetModLocalization(1425)
 ---------------------------
 L= DBM:GetModLocalization(1432)
 
+L:SetMiscLocalization({
+	Jubeideath		=	"Я - вечное пламя!"
+})
+
 ------------------
 -- Kormrok --
 ------------------
@@ -48,6 +52,10 @@ L:SetMiscLocalization({
 --Gorefiend --
 --------------------
 L= DBM:GetModLocalization(1372)
+
+L:SetWarningLocalization({
+	specWarnShadowofDeath	= "Тень смерти (%d) на вас"
+})
 
 L:SetTimerLocalization({
 	SoDDPS		= "След. Тени (%s)",
@@ -147,10 +155,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	phase2				= "Мне надоела эта бесцельная забава. Пред вами — бессмертный Легион, бич тысячи миров.",--1 second faster than CLEU. Probably not needed, but just in case
 	phase2point5		= "Узрите несметные войска Пылающего Легиона и осознайте всю тщетность борьбы!",--3 seconds faster than CLEU, used as primary, slower CLEU secondary
-	phase3				= "Лок'тар огар! Мы тесним их! К порталу! С Гул'даном я разберусь сам!",--11 seconds faster than CLEU, used as primary, slower CLEU secondary
-	phase3point5		= "Я разрушу этот жалкий мир! Его останки будут разбросаны по Круговерти Пустоты!",--Not currently used. seems fire at same time as UNIT event that's present. Here only in case things change from now and live
 	First				= "Первый",
 	Second				= "Второй",
 	Third				= "Третий",
