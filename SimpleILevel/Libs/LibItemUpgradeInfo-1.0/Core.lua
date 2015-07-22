@@ -1,8 +1,11 @@
-local MAJOR, MINOR = "LibItemUpgradeInfo-1.0", 6
+local MAJOR, MINOR = "LibItemUpgradeInfo-1.0", 7
 
-local lib = _G.LibStub:NewLibrary(MAJOR, MINOR)
+local lib = _G.LibStub:NewLibrary(MAJOR, MINOR) --#lib
 if not lib then return end
-
+local pp=print
+--[===[@debug@
+if LibDebug then LibDebug() end
+--@end-debug@]===]
 local upgradeTable = {
 	[  1] = { upgrade = 1, max = 1, ilevel = 8 },
 	[373] = { upgrade = 1, max = 3, ilevel = 4 },
@@ -66,7 +69,12 @@ end
 --   Number - The upgrade ID (possibly 0), or nil if the input is invalid or
 --            does not contain upgrade info
 function lib:GetUpgradeID(itemString)
-	return tonumber(itemString:match("item:%d+:%d+:%d+:%d+:%d+:%d+:%-?%d+:%-?%d+:%d+:(%d+)"))
+	--local instaid,upgradeid =itemString:match("item:%d+:%d+:%d+:%d+:%d+:%d+:%-?%d+:%-?%d+:%d+:(%d+):%d:%d:(%d)")
+	local instaid,upgradeid =itemString:match("item:%d+:%d+:%d+:%d+:%d+:%d+:%-?%d+:%-?%d+:%d+:%d+:(%d+):%d+:%d+:(%d+)")
+	instaid=tonumber(instaid) or 7
+	if instaid >0 and (instaid-4)%8==0 then
+		return tonumber(upgradeid)
+	end
 end
 
 -- GetCurrentUpgrade(id)
@@ -161,8 +169,17 @@ do
 	local scanningTooltip
 	local heirloomCache = {}
 	function lib:GetHeirloomTrueLevel(itemString)
+		if type(itemString) ~= "string" then return nil,false end
+		local scantooltip=false
+		local header,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14 = strsplit(":", itemString, 16)
+		s13=tonumber(s13) or 0
+		s14=tonumber(s14) or 0
+		scantooltip=(s13==1 and s14==615) -- Really to be better tested
 		local _, itemLink, rarity, itemLevel = GetItemInfo(itemString)
-		if rarity == _G.LE_ITEM_QUALITY_HEIRLOOM then
+		if not scantooltip then
+			scantooltip=rarity == _G.LE_ITEM_QUALITY_HEIRLOOM
+		end
+		if scantooltip then
 			local ilvl = heirloomCache[itemLink]
 			if ilvl ~= nil then
 				return ilvl, true
@@ -264,10 +281,10 @@ local function printDiffTable(t1, t2)
 		else equal = v1 == v2 end
 		if not equal then
 			if v1 then
-				print(("|cffff0000    [%d] = %s,|r"):format(k, formatTable(v1)))
+				pp(("|cffff0000    [%d] = %s,|r"):format(k, formatTable(v1)))
 			end
 			if v2 then
-				print(("|cff00ff00    [%d] = %s,|r"):format(k, formatTable(v2)))
+				pp(("|cff00ff00    [%d] = %s,|r"):format(k, formatTable(v2)))
 			end
 		end
 	end
@@ -281,9 +298,9 @@ do
 	local worker
 	local newTable
 	local debugTooltip
-	function lib:_CheckUpgradeTable()
+	function lib:_CheckUpgradeTable(itemLink)
 		if worker then
-			print("|cffff0000LibItemUpgradeInfo-1.0: upgrade check already in progress")
+			pp("|cffff0000LibItemUpgradeInfo-1.0: upgrade check already in progress")
 			return
 		end
 		if not debugFrame then
@@ -296,18 +313,18 @@ do
 					worker = nil
 				end
 				if not ok then
-					print("|cffff0000LibItemUpgradeInfo-1.0 error: " .. result .. "|r")
+					pp("|cffff0000LibItemUpgradeInfo-1.0 error: " .. result .. "|r")
 				elseif result then
-					print("LibItemUpgradeInfo-1.0: scan complete")
+					pp("LibItemUpgradeInfo-1.0: scan complete")
 					if compareTables(upgradeTable, newTable) then
-						print("LibItemUpgradeInfo-1.0: |cff00ff00No changes|r")
+						pp("LibItemUpgradeInfo-1.0: |cff00ff00No changes|r")
 					else
-						print("LibItemUpgradeInfo-1.0: |cffff0000New table:|r {")
-						printDiffTable(upgradeTable, newTable)
-						print("}")
+						pp("LibItemUpgradeInfo-1.0: |cffff0000New table:|r {")
+						ppDiffTable(upgradeTable, newTable)
+						pp("}")
 					end
 				else
-					print("LibItemUpgradeInfo-1.0: scanning " .. count .. "/" .. max)
+					pp("LibItemUpgradeInfo-1.0: scanning " .. count .. "/" .. max)
 				end
 			end)
 		end
@@ -316,7 +333,9 @@ do
 			debugTooltip:SetOwner(_G.WorldFrame, "ANCHOR_NONE")
 		end
 		newTable = {}
-		local itemLink = "|cff0070dd|Hitem:89551:0:0:0:0:0:0:0:90:0|h[Aspirant's Staff of Harmony]|h|r"
+		--local itemLink = "|cff0070dd|Hitem:89551:0:0:0:0:0:0:0:90:253:0:0:1:0|h[Aspirant's Staff of Harmony]|h|r"
+		local itemLink = itemLink or "|cff0070dd|Hitem:89551:0:0:0:0:0:0:0:100:253:4:0:0:0|h[Aspirant's Staff of Harmony]|h|r"
+-- Livello è il 9,upgradeid il 14. Al decimo posto, un valore che deve essere 4 o 4+n *8) per far scattare l'uso dell'upgradeid
 		local itemLevel = select(4, _G.GetItemInfo(itemLink))
 		assert(itemLevel, "Can't find item level for itemLink")
 		local count, max, batchsize = 0, 10000, 200
@@ -328,6 +347,9 @@ do
 				local upgrade, max
 				local curLevel, maxLevel = _G.LibItemUpgradeInfoDebugTooltipTextLeft3:GetText():match("^Upgrade Level: (%d+)/(%d+)")
 				local ilvl = tonumber(_G.LibItemUpgradeInfoDebugTooltipTextLeft2:GetText():match("Item Level (%d+)"))
+				if not ilvl then
+					ilvl = tonumber(_G.LibItemUpgradeInfoDebugTooltipTextLeft3:GetText():match("Item Level (%d+)"))
+				end
 				assert(ilvl ~= nil, "Can't find ItemLevel in tooltip: " .. _G.LibItemUpgradeInfoDebugTooltipTextLeft2:GetText())
 				if curLevel or maxLevel or ilvl ~= itemLevel then
 					newTable[i] = { upgrade = tonumber(curLevel), max = tonumber(maxLevel), ilevel = ilvl - itemLevel }

@@ -1,0 +1,18 @@
+------------------------------------------------------------------------
+r232 | scotepi | 2015-07-21 11:56:41 +0000 (Tue, 21 Jul 2015) | 1 line
+Changed paths:
+   A /tags/3.2.18 (from /trunk:231)
+
+Tagging as 3.2.18
+------------------------------------------------------------------------
+r229 | scotepi | 2015-06-28 13:58:33 +0000 (Sun, 28 Jun 2015) | 2 lines
+Changed paths:
+   M /trunk/SimpleILevel.toc
+   M /trunk/SimpleILevel_Group/SimpleILevel_Group.toc
+   M /trunk/SimpleILevel_Resilience/SimpleILevel_Resilience.toc
+   M /trunk/SimpleILevel_Social/SimpleILevel_Social.toc
+   M /trunk/settings.lua
+
+TOC Bump to 6.2
+Fixed missing hard dependency of LibItemUpgradeInfo for no-lib version
+------------------------------------------------------------------------
