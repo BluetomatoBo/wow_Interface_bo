@@ -100,11 +100,11 @@ local function getUnit(unit)
 	end
 end
 
-local function friendlyIsInRange(unit)
-	if CheckInteractDistance(unit, 1) then
+local function friendlyIsInRange(unit)	
+	if CheckInteractDistance(unit, 1) and UnitInPhase(unit) then --Inspect (28 yards) and same phase as you
 		return true
 	end
-	
+
 	if UnitIsDeadOrGhost(unit) and #resSpells > 0 then
 		for _, name in ipairs(resSpells) do
 			if IsSpellInRange(name, unit) == 1 then
