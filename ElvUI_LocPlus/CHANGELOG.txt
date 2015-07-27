@@ -1,3 +1,14 @@
+[b]2.09[/b]
+*LibTourist update r181
+- Updated TOC to 60200
+- Added Hellfire Citadel raid. Because this is a duplicate name with the Hellfire Citadel complex in Hellfire Peninsula, Outland, the raid is added to the mechanism that handles duplicate names, and is identified by LibTourist as "Hellfire Citadel (Draenor)".
+
+[b]2.08[/b]
+*toc update for WoD patch 6.2
+
+[b]2.07[/b]
+*toc update for WoD patch 6.1 
+
 [b]2.06[/b]
 *Fixed main panel layering level when placed above minimap.
 *LibTourist update to 6r1

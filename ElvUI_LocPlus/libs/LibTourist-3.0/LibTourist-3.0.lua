@@ -1,6 +1,6 @@
 ﻿--[[
 Name: LibTourist-3.0
-Revision: $Rev: 180 $
+Revision: $Rev: 181 $
 Author(s): ckknight (ckknight@gmail.com), Arrowmaster, Odica (maintainer)
 Website: http://ckknight.wowinterface.com/
 Documentation: http://www.wowace.com/addons/libtourist-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibTourist-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 180 $"):match("(%d+)"))
+local MINOR_VERSION = 90000 + tonumber(("$Revision: 181 $"):match("(%d+)"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub") end
 
@@ -244,6 +244,9 @@ function Tourist:GetUniqueZoneNameForLookup(zoneName, continentID)
 		if zoneName == BZ["Shadowmoon Valley"] or zoneName == "Shadowmoon Valley"  then
 			zoneName = BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")"
 		end
+		if zoneName == BZ["Hellfire Citadel"] or zoneName == "Hellfire Citadel"  then
+			zoneName = BZ["Hellfire Citadel"].." ("..BZ["Draenor"]..")"
+		end
 	end
 	return zoneName
 end
@@ -262,6 +265,9 @@ function Tourist:GetUniqueEnglishZoneNameForLookup(zoneName, continentID)
 		end
 		if zoneName == BZ["Shadowmoon Valley"] or zoneName == "Shadowmoon Valley" then
 			zoneName = "Shadowmoon Valley (Draenor)"
+		end
+		if zoneName == BZ["Hellfire Citadel"] or zoneName == "Hellfire Citadel" then
+			zoneName = "Hellfire Citadel (Draenor)"
 		end
 	end
 	return zoneName
@@ -2322,6 +2328,9 @@ local function AddDuplicatesToLocalizedLookup()
 
 	BZ[Tourist:GetUniqueEnglishZoneNameForLookup("Shadowmoon Valley", 7)] = Tourist:GetUniqueZoneNameForLookup("Shadowmoon Valley", 7)
 	BZR[Tourist:GetUniqueZoneNameForLookup("Shadowmoon Valley", 7)] = Tourist:GetUniqueEnglishZoneNameForLookup("Shadowmoon Valley", 7)
+	
+	BZ[Tourist:GetUniqueEnglishZoneNameForLookup("Hellfire Citadel", 7)] = Tourist:GetUniqueZoneNameForLookup("Hellfire Citadel", 7)
+	BZR[Tourist:GetUniqueZoneNameForLookup("Hellfire Citadel", 7)] = Tourist:GetUniqueEnglishZoneNameForLookup("Hellfire Citadel", 7)
 end
 
 
@@ -6654,9 +6663,9 @@ do
 		low = 100,
 		high = 100,
 		continent = Draenor,
---		instances = {
---			[BZ["Iron Citadel"]] = true,
---		},
+		instances = {
+			[BZ["Hellfire Citadel"].." ("..BZ["Draenor"]..")"] = true,
+		},
 		paths = {
 			[BZ["Talador"]] = true,
 			[BZ["Shadowmoon Valley"].." ("..BZ["Draenor"]..")"] = true,
@@ -6672,9 +6681,6 @@ do
 		high = 100,
 		continent = Draenor,
 		type = "PvP Zone",
---		instances = {
---			[BZ["Iron Citadel"]] = true,
---		},
 		paths = {
 			[BZ["Warspear"]] = true,
 			[BZ["Stormshield"]] = true,
@@ -6850,16 +6856,16 @@ do
 --		entrancePortal = { BZ["Nagrand"].." ("..BZ["Draenor"]..")", 0.00, 0.00 },   TODO
 	}
 	
---	zones[BZ["Iron Citadel"]] = {
---		low = 100,
---		high = 100,
---		continent = Draenor,
---		paths = BZ["Tanaan Jungle"],
---		groupSize = 10,
---		altGroupSize = 25,
---		type = "Instance",
+	zones[BZ["Hellfire Citadel"].." ("..BZ["Draenor"]..")"] = {
+		low = 100,
+		high = 100,
+		continent = Draenor,
+		paths = BZ["Tanaan Jungle"],
+		groupSize = 10,
+		altGroupSize = 25,
+		type = "Instance",
 --		entrancePortal = { BZ["Tanaan Jungle"], 0.00, 0.00 },   TODO
---	}
+	}
 	
 	
 	
