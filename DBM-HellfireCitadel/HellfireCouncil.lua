@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1432, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14078 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14158 $"):sub(12, -3))
 mod:SetCreatureID(92142, 92144, 92146)--Blademaster Jubei'thos (92142). Dia Darkwhisper (92144). Gurthogg Bloodboil (92146) 
 mod:SetEncounterID(1778)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 4, 2, 1)
-mod:SetHotfixNoticeRev(13990)
+mod:SetHotfixNoticeRev(14078)
 mod:SetBossHPInfoToHighest()
 --mod.respawnTime = 20
 
@@ -15,8 +15,8 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 184657 184476",
 	"SPELL_CAST_SUCCESS 184449 183480 184357 184355 184476",
-	"SPELL_AURA_APPLIED 183701 184847 184360 184365 184449 184450 185065 185066 184652",
-	"SPELL_AURA_APPLIED_DOSE 184847",
+	"SPELL_AURA_APPLIED 183701 184847 184360 184365 184449 184450 185065 185066 184652 184355",
+	"SPELL_AURA_APPLIED_DOSE 184847 184355",
 --	"SPELL_AURA_REMOVED",
 	"SPELL_PERIODIC_DAMAGE 184652",
 	"SPELL_ABSORB 184652",
@@ -52,6 +52,7 @@ local specWarnDarkness				= mod:NewSpecialWarningSpell(184681, nil, nil, nil, 2)
 --Gurtogg Bloodboil
 local specWarnFelRage				= mod:NewSpecialWarningYou(184360)
 local specWarnDemolishingLeap		= mod:NewSpecialWarningDodge(184366, nil, nil, nil, 2, 2)--Jumps around room, from side to side
+local specWarnBloodBoil				= mod:NewSpecialWarningStack(184355, nil, 3)
 
 mod:AddTimerLine(Jubei)
 --Blademaster Jubei'thos
@@ -60,7 +61,7 @@ local timerMirrorImageCD			= mod:NewCDTimer(75, 183885, nil, nil, nil, 1)
 mod:AddTimerLine(Dia)
 --Dia Darkwhisper
 local timerMarkofNecroCD			= mod:NewCDTimer(60.5, 184449, nil, "Healer", nil, 5)
-local timerReapCD					= mod:NewCDTimer(61.6, 184476, nil, nil, nil, 3)--61-71
+local timerReapCD					= mod:NewCDTimer(55, 184476, nil, nil, nil, 3)--55-71
 local timerNightmareVisageCD		= mod:NewCDTimer(30, 184657, nil, "Tank", nil, 5)
 local timerDarknessCD				= mod:NewCDTimer(75, 184681, nil, nil, nil, 2)
 mod:AddTimerLine(Gurtogg)
@@ -161,13 +162,13 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerMarkofNecroCD:Start()
 	elseif spellId == 183480 and self:AntiSpam(8, 1) then
 		warnMirrorImage:Show()
-		countdownSpecial:Start()
+		countdownSpecial:Start(72.8)
 		if not self.vb.bloodboilDead then--Leap is next if bloodboil not dead
-			timerDemoLeapCD:Start()
+			timerDemoLeapCD:Start(72.8)
 		elseif not self.vb.diaDead then--Bloodboil is dead but dia isn't, darkness next
-			timerDarknessCD:Start()
+			timerDarknessCD:Start(72.8)
 		else--Only Jubei left, mirror images will be next
-			timerMirrorImageCD:Start()
+			timerMirrorImageCD:Start(72.8)
 		end
 	elseif spellId == 184357 then
 		self.vb.taintedBloodCount = self.vb.taintedBloodCount + 1
@@ -218,6 +219,11 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 184652 and args:IsPlayer() and self:AntiSpam(2, 3) then
 		specWarnReapGTFO:Show()
 		voiceReap:Play("runaway")
+	elseif spellId == 184355 then
+		local amount = args.amount or 1
+		if not self:IsTank() and args:IsPlayer() and amount >= 3 then
+			specWarnBloodBoil:Show(amount)
+		end
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -233,7 +239,6 @@ function mod:SPELL_AURA_REMOVED(args)
 end--]]
 
 function mod:UNIT_DIED(args)
-	DBM:Debug("UNIT_DIED fired", 2)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 92144 then--Dia Darkwhisper
 		DBM:Debug("Dia died", 2)

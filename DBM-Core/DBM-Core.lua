@@ -52,9 +52,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14116 $"):sub(12, -3)),
-	DisplayVersion = "6.2.5", -- the string that is shown as version
-	ReleaseRevision = 14116 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 14159 $"):sub(12, -3)),
+	DisplayVersion = "6.2.6", -- the string that is shown as version
+	ReleaseRevision = 14159 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -106,6 +106,7 @@ DBM.DefaultOptions = {
 	WarningIconLeft = true,
 	WarningIconRight = true,
 	WarningIconChat = true,
+	WarningAlphabetical = true,
 	StripServerName = true,
 	ShowCombatLogMessage = true,
 	ShowTranscriptorMessage = true,
@@ -125,6 +126,7 @@ DBM.DefaultOptions = {
 	SpamBlockBossWhispers = true,
 	ShowMinimapButton = false,
 	ShowFlashFrame = true,
+	SWarningAlphabetical = true,
 	SWarnNameInNote = true,
 	CustomSounds = 0,
 	AlwaysShowHealthFrame = false,
@@ -388,7 +390,7 @@ local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 local dbmToc = 0
 
-local fakeBWRevision = 13459
+local fakeBWRevision = 13537
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -411,7 +413,7 @@ local DBM = DBM
 -- these global functions are accessed all the time by the event handler
 -- so caching them is worth the effort
 local ipairs, pairs, next = ipairs, pairs, next
-local tinsert, tremove, twipe, tsort = table.insert, table.remove, table.wipe, table.sort
+local tinsert, tremove, twipe, tsort, tconcat = table.insert, table.remove, table.wipe, table.sort, table.concat
 local type, select = type, select
 local GetTime = GetTime
 local bband = bit.band
@@ -1992,7 +1994,7 @@ do
 		local TotalBW = TotalUsers - NoBigwigs
 		self:AddMsg("---", false)
 		self:AddMsg(DBM_CORE_VERSIONCHECK_FOOTER:format(TotalDBM, TotalBW), false)
-		self:AddMsg(DBM_CORE_VERSIONCHECK_OUTDATED:format(OldMod, #OutdatedUsers > 0 and table.concat(OutdatedUsers, ", ") or NONE), false)
+		self:AddMsg(DBM_CORE_VERSIONCHECK_OUTDATED:format(OldMod, #OutdatedUsers > 0 and tconcat(OutdatedUsers, ", ") or NONE), false)
 		twipe(OutdatedUsers)
 		twipe(sortMe)
 		for i = #sortMe, 1, -1 do
@@ -2026,7 +2028,7 @@ do
 			end
 		end
 		if #nolagResponse > 0 then
-			self:AddMsg(DBM_CORE_LAG_FOOTER:format(table.concat(nolagResponse, ", ")), false)
+			self:AddMsg(DBM_CORE_LAG_FOOTER:format(tconcat(nolagResponse, ", ")), false)
 			for i = #nolagResponse, 1, -1 do
 				nolagResponse[i] = nil
 			end
@@ -2213,7 +2215,7 @@ end
 do
 	local old = ItemRefTooltip.SetHyperlink -- we have to hook this function since the default ChatFrame code assumes that all links except for player and channel links are valid arguments for this function
 	function ItemRefTooltip:SetHyperlink(link, ...)
-		if link:sub(0, 4) == "DBM:" then
+		if link and link:sub(0, 4) == "DBM:" then
 			return
 		end
 		return old(self, link, ...)
@@ -3949,7 +3951,7 @@ do
 							DBM:AddMsg(DBM_CORE_UPDATEREMINDER_MAJORPATCH)
 							DBM:Disable(true)
 						--Disable if revision grossly out of date even if not major patch.
-						elseif revDifference > 200 then
+						elseif revDifference > 150 then
 							if updateNotificationDisplayed < 3 then
 								updateNotificationDisplayed = 3
 								DBM:Disable(true)
@@ -4278,9 +4280,9 @@ do
 				DBM:AddMsg(DBM_INSTANCE_INFO_DETAIL_HEADER:format(v.name, (results.difftext[v.diff] or v.diff)), false)
 				for id, v in pairs(v.ids) do
 					if v.haveid then
-						DBM:AddMsg(DBM_INSTANCE_INFO_DETAIL_INSTANCE:format(id, v.progress, table.concat(v, ", ")), false)
+						DBM:AddMsg(DBM_INSTANCE_INFO_DETAIL_INSTANCE:format(id, v.progress, tconcat(v, ", ")), false)
 					else
-						DBM:AddMsg(DBM_INSTANCE_INFO_DETAIL_INSTANCE2:format(v.progress, table.concat(v, ", ")), false)
+						DBM:AddMsg(DBM_INSTANCE_INFO_DETAIL_INSTANCE2:format(v.progress, tconcat(v, ", ")), false)
 					end
 				end
 				DBM:AddMsg("---", false)
@@ -4306,13 +4308,13 @@ do
 				removeEntry(noResponse, i)
 			end
 			if #denied > 0 then
-				DBM:AddMsg(DBM_INSTANCE_INFO_STATS_DENIED:format(table.concat(denied, ", ")), false)
+				DBM:AddMsg(DBM_INSTANCE_INFO_STATS_DENIED:format(tconcat(denied, ", ")), false)
 			end
 			if #away > 0 then
-				DBM:AddMsg(DBM_INSTANCE_INFO_STATS_AWAY:format(table.concat(away, ", ")), false)
+				DBM:AddMsg(DBM_INSTANCE_INFO_STATS_AWAY:format(tconcat(away, ", ")), false)
 			end
 			if #noResponse > 0 then
-				DBM:AddMsg(DBM_INSTANCE_INFO_STATS_NO_RESPONSE:format(table.concat(noResponse, ", ")), false)
+				DBM:AddMsg(DBM_INSTANCE_INFO_STATS_NO_RESPONSE:format(tconcat(noResponse, ", ")), false)
 			end
 			results = nil
 		end
@@ -4382,7 +4384,7 @@ do
 					for i, v in ipairs(noResponse) do
 						noResponse[i] = ("|Hplayer:%s|h[%s]|h|"):format(v, v)
 					end
-					DBM:AddMsg(DBM_INSTANCE_INFO_SHOW_RESULTS:format(table.concat(noResponse, ", ")), false)
+					DBM:AddMsg(DBM_INSTANCE_INFO_SHOW_RESULTS:format(tconcat(noResponse, ", ")), false)
 				end
 			end
 		end
@@ -4938,7 +4940,7 @@ do
 	
 	function DBM:ENCOUNTER_END(encounterID, name, difficulty, size, success)
 		self:Debug("ENCOUNTER_END event fired: "..encounterID.." "..name.." "..difficulty.." "..size.." "..success)
-		if IsInRaid() then
+		if IsInRaid() and success == 0 then
 			self:Schedule(3, wipeRecoveryDelay, self)
 		end
 		for i = #inCombat, 1, -1 do
@@ -8113,7 +8115,10 @@ do
 			local colorCode = ("|cff%.2x%.2x%.2x"):format(self.color.r * 255, self.color.g * 255, self.color.b * 255)
 			if #self.combinedtext > 0 then
 				--Throttle spam.
-				local combinedText = table.concat(self.combinedtext, "<, >")
+				if DBM.Options.WarningAlphabetical then
+					tsort(self.combinedtext)
+				end
+				local combinedText = tconcat(self.combinedtext, "<, >")
 				if self.combinedcount == 1 then
 					combinedText = combinedText.." "..DBM_CORE_GENERIC_WARNING_OTHERS
 				elseif self.combinedcount > 1 then
@@ -8880,7 +8885,10 @@ do
 			local argTable = {...}
 			if #self.combinedtext > 0 then
 				--Throttle spam.
-				local combinedText = table.concat(self.combinedtext, "<, >")
+				if DBM.Options.SWarningAlphabetical then
+					tsort(self.combinedtext)
+				end
+				local combinedText = tconcat(self.combinedtext, "<, >")
 				if self.combinedcount == 1 then
 					combinedText = combinedText.." "..DBM_CORE_GENERIC_WARNING_OTHERS
 				elseif self.combinedcount > 1 then
@@ -9114,7 +9122,7 @@ do
 			if announceType == "target" or announceType == "targetcount" or announceType == "close" or announceType == "reflect" or announceType == "switch" or announceType == "switchcount" then
 				catType = "announceother"
 			--Directly affects you
-			elseif announceType == "you" or announceType == "move" or announceType == "dodge" or announceType == "moveaway" or announceType == "run" or announceType == "stack" or announceType == "moveto" then
+			elseif announceType == "you" or announceType == "youcount" or announceType == "move" or announceType == "dodge" or announceType == "moveaway" or announceType == "run" or announceType == "stack" or announceType == "moveto" then
 				catType = "announcepersonal"
 			--Things you have to do to fulfil your role
 			elseif announceType == "taunt" or announceType == "dispel" or announceType == "interrupt" or announceType == "interruptcount" then
@@ -9157,6 +9165,10 @@ do
 
 	function bossModPrototype:NewSpecialWarningYou(text, optionDefault, ...)
 		return newSpecialWarning(self, "you", text, nil, optionDefault, ...)
+	end
+	
+	function bossModPrototype:NewSpecialWarningYouCount(text, optionDefault, ...)
+		return newSpecialWarning(self, "youcount", text, nil, optionDefault, ...)
 	end
 
 	function bossModPrototype:NewSpecialWarningTarget(text, optionDefault, ...)
@@ -10422,6 +10434,54 @@ do
 		local function clearSortTable()
 			twipe(iconSortTable)
 			iconSet = 0
+		end
+
+		function bossModPrototype:SetIconByAlphaTable(returnFunc)
+			tsort(iconSortTable)--Sorted alphabetically
+			for i = 1, #iconSortTable do
+				local target = iconSortTable[i]
+				if i > 8 then 
+					DBM:Debug("Too many players to set icons, reconsider where using icons", 2)
+					return
+				end
+				if not self.iconRestore[target] then
+					local oldIcon = self:GetIcon(target) or 0
+					self.iconRestore[target] = oldIcon
+				end
+				SetRaidTarget(target, i)--Icons match number in table in alpha sort
+				if returnFunc then
+					self[returnFunc](self, target, i)--Send icon and target to returnFunc. (Generally used by announce icon targets to raid chat feature)
+				end
+			end
+			self:Schedule(1.5, clearSortTable)--Table wipe delay so if icons go out too early do to low fps or bad latency, when they get new target on table, resort and reapplying should auto correct teh icon within .2-.4 seconds at most.
+		end
+
+		function bossModPrototype:SetAlphaIcon(delay, target, maxIcon, returnFunc)
+			if not target then return end
+			if DBM.Options.DontSetIcons or not enableIcons or DBM:GetRaidRank(playerName) == 0 then
+				return
+			end
+			local uId = DBM:GetRaidUnitId(target)
+			if uId or UnitExists(target) then--target accepts uid, unitname both.
+				uId = uId or target
+				local foundDuplicate = false
+				for i = #iconSortTable, 1, -1 do
+					if iconSortTable[i] == uId then
+						foundDuplicate = true
+						break
+					end
+				end
+				if not foundDuplicate then
+					iconSet = iconSet + 1
+					tinsert(iconSortTable, uId)
+				end
+				self:UnscheduleMethod("SetIconByAlphaTable")
+				if maxIcon and iconSet == maxIcon then
+					self:SetIconByAlphaTable(returnFunc)
+				elseif self:LatencyCheck() then--lag can fail the icons so we check it before allowing.
+					self:ScheduleMethod(delay or 0.5, "SetIconByAlphaTable", returnFunc)
+				end
+			end
 		end
 
 		function bossModPrototype:SetIconBySortedTable(startIcon, reverseIcon, returnFunc)

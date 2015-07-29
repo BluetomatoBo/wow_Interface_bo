@@ -1,13 +1,13 @@
 local mod	= DBM:NewMod(1438, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14113 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14159 $"):sub(12, -3))
 mod:SetCreatureID(91331)--Doomfire Spirit (92208), Hellfire Deathcaller (92740), Felborne Overfiend (93615), Dreadstalker (93616), Infernal doombringer (94412)
 mod:SetEncounterID(1799)
 mod:SetMinSyncRevision(13964)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)
-mod:SetHotfixNoticeRev(13980)
+mod:SetHotfixNoticeRev(14087)
 --mod.respawnTime = 20
 
 mod:RegisterCombat("combat")
@@ -52,19 +52,19 @@ local specWarnDoomfire				= mod:NewSpecialWarningSwitch(189897, "Dps", nil, nil,
 local specWarnDoomfireFixate		= mod:NewSpecialWarningYou(182879, nil, nil, nil, 4)
 local yellDoomfireFixate			= mod:NewYell(182826)--Use short name for yell
 local specWarnAllureofFlames		= mod:NewSpecialWarningSpell(183254, nil, nil, nil, 2, 2)
-local specWarnDeathCaller			= mod:NewSpecialWarningSwitch("ej11582", "Dps", nil, nil, 1, 2)--Tanks don't need switch, they have death brand special warning 2 seconds earlier
+local specWarnDeathCaller			= mod:NewSpecialWarningSwitchCount("ej11582", "Dps", nil, nil, 1, 2)--Tanks don't need switch, they have death brand special warning 2 seconds earlier
 local specWarnFelBurst				= mod:NewSpecialWarningYou(183817)
 local yellFelBurst					= mod:NewYell(183817)--Change yell to countdown mayeb when better understood
 local specWarnFelBurstNear			= mod:NewSpecialWarningMoveTo(183817, nil, nil, nil, 1, 2)--Anyone near by should run in to help soak, should be mostly ranged but if it's close to melee, melee soaking too doesn't hurt
 local specWarnDesecrate				= mod:NewSpecialWarningDodge(185590, "Melee", nil, nil, 1, 2)
-local specWarnDeathBrand			= mod:NewSpecialWarningSpell(183828, "Tank", nil, nil, 1, 2)
+local specWarnDeathBrand			= mod:NewSpecialWarningCount(183828, "Tank", nil, nil, 1, 2)
 --Phase 2: Hand of the Legion
 local specWarnBreakShackle			= mod:NewSpecialWarning("specWarnBreakShackle", nil, nil, nil, 1, 5)
 local yellShackledTorment			= mod:NewPosYell(184964)
 local specWarnWroughtChaos			= mod:NewSpecialWarningMoveAway(186123, nil, nil, nil, 3, 5)
 local yellWroughtChaos				= mod:NewYell(186123)
 local specWarnFocusedChaos			= mod:NewSpecialWarningMoveAway(185014, nil, nil, nil, 3, 5)
-local yellFocusedChaos				= mod:NewYell(185014)
+local yellFocusedChaos				= mod:NewFadesYell(185014)
 local specWarnDreadFixate			= mod:NewSpecialWarningYou(186574, false)--In case it matters on mythic, it was spammy on heroic and unimportant
 --Phase 3: The Twisting Nether
 local specWarnDemonicFeedbackSoon	= mod:NewSpecialWarningSoon(187180, nil, nil, nil, 1)
@@ -92,7 +92,7 @@ mod:AddTimerLine(SCENARIO_STAGE:format(1))
 local timerDoomfireCD				= mod:NewCDTimer(42.1, 182826, nil, nil, nil, 1)--182826 cast, 182879 fixate. Doomfire only fixates ranged, but ALL dps switch to it.
 local timerAllureofFlamesCD			= mod:NewCDTimer(47.5, 183254, nil, nil, nil, 2)
 local timerFelBurstCD				= mod:NewCDTimer(52, 183817, nil, "Ranged", nil, 3)--Only targets ranged (52-70 variation)
-local timerDeathbrandCD				= mod:NewCDTimer(42.5, 183828, nil, nil, nil, 1)--Everyone, for tanks/healers to know when debuff/big hit, for dps to know add coming
+local timerDeathbrandCD				= mod:NewCDCountTimer(42.5, 183828, nil, nil, nil, 1)--Everyone, for tanks/healers to know when debuff/big hit, for dps to know add coming
 local timerDesecrateCD				= mod:NewCDTimer(27, 185590, nil, "Melee", nil, 2)--Only targets melee
 ----Hellfire Deathcaller
 local timerShadowBlastCD			= mod:NewCDTimer(9.7, 183864, nil, "Tank", nil, 5)
@@ -155,6 +155,7 @@ mod.vb.rainOfChaos = 0
 mod.vb.TouchOfShadows = 0
 mod.vb.InfernalsActive = 0
 mod.vb.wroughtWarned = 0
+mod.vb.deathBrandCount = 0
 local shacklesTargets = {}
 local playerName = UnitName("player")
 local playerBanished = false
@@ -229,6 +230,9 @@ end
 local function setDemonicFeedback(self)
 	self.vb.demonicFeedback = true
 	updateRangeFrame(self)
+	if not playerBanished or not self.Options.FilterOtherPhase then
+		specWarnDemonicFeedbackSoon:Show()
+	end
 end
 
 local function breakShackles(self)
@@ -253,18 +257,13 @@ local function breakShackles(self)
 			elseif i == 3 then
 				specWarnBreakShackle:Show(L.Third)
 				voiceShackledTorment:Play("184964c")
-			elseif i == 4 then
-				specWarnBreakShackle:Show(L.Fourth)
-				voiceShackledTorment:Play("184964d")
-			elseif i == 5 then
-				specWarnBreakShackle:Show(L.Fifth)
-				voiceShackledTorment:Play("184964e")
 			end
 		end
 		if self.Options.SetIconOnShackledTorment2 then
 			self:SetIcon(name, i)
 		end
 		if self.Options.InfoFrame then
+			DBM.InfoFrame:SetHeader(shackledDebuff)
 			DBM.InfoFrame:Show(5, "function", updateInfoFrame, sortInfoFrame)
 		end
 	end
@@ -282,9 +281,10 @@ function mod:OnCombatStart(delay)
 	self.vb.rainOfChaos = 0
 	self.vb.TouchOfShadows = 0
 	self.vb.InfernalsActive = 0
+	self.vb.deathBrandCount = 0
 	playerBanished = false
 	timerDoomfireCD:Start(6-delay)
-	timerDeathbrandCD:Start(15.5-delay)
+	timerDeathbrandCD:Start(15.5-delay, 1)
 	countdownDeathBrand:Start(15.5-delay)
 	timerAllureofFlamesCD:Start(30-delay)
 	warnAllureofFlamesSoon:Schedule(25-delay)
@@ -325,8 +325,9 @@ function mod:SPELL_CAST_START(args)
 		warnFelBurstSoon:Schedule(47)
 		timerFelBurstCD:Start()
 	elseif spellId == 183828 then
-		specWarnDeathBrand:Show()
-		timerDeathbrandCD:Start()
+		self.vb.deathBrandCount = self.vb.deathBrandCount + 1
+		specWarnDeathBrand:Show(self.vb.deathBrandCount)
+		timerDeathbrandCD:Start(nil, self.vb.deathBrandCount+1)
 		countdownDeathBrand:Start()
 		local tanking, status = UnitDetailedThreatSituation("player", "boss1")
 		if tanking or (status == 3) then
@@ -353,12 +354,16 @@ function mod:SPELL_CAST_START(args)
 		table.wipe(shacklesTargets)
 	elseif spellId == 187180 then
 		self.vb.demonicCount = self.vb.demonicCount + 1
-		specWarnDemonicFeedback:Show(self.vb.demonicCount)
+		if not playerBanished or not self.Options.FilterOtherPhase then
+			specWarnDemonicFeedback:Show(self.vb.demonicCount)
+		end
 		timerDemonicFeedbackCD:Start(nil, self.vb.demonicCount+1)
 		countdownDemonicFeedback:Start()
 	elseif spellId == 182225 then
 		self.vb.rainOfChaos = self.vb.rainOfChaos + 1
-		specWarnRainofChaos:Show(self.vb.rainOfChaos)
+		if not playerBanished or not self.Options.FilterOtherPhase then
+			specWarnRainofChaos:Show(self.vb.rainOfChaos)
+		end
 		timerRainofChaosCD:Start(nil, self.vb.rainOfChaos+1)
 		if self.vb.phase < 3.5 then
 			self.vb.phase = 3.5
@@ -390,7 +395,6 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif spellId == 187180 then
 		self.vb.demonicFeedback = false
 		self:Schedule(28, setDemonicFeedback, self)
-		specWarnDemonicFeedbackSoon:Schedule(28)
 	end
 end
 
@@ -420,9 +424,12 @@ function mod:SPELL_AURA_APPLIED(args)
 		shacklesTargets[#shacklesTargets+1] = args.destName
 		self.vb.unleashedCountRemaining = self.vb.unleashedCountRemaining + 1
 		self:Unschedule(breakShackles)
-		self:Schedule(0.3, breakShackles, self)
+		if #shacklesTargets == 3 then
+			breakShackles(self)
+		else
+			self:Schedule(0.5, breakShackles, self)
+		end
 	elseif spellId == 186123 then--Wrought Chaos
-		self.vb.wroughtWarned = self.vb.wroughtWarned + 1--Wrought is always first, so incriment count here
 		if args:IsPlayer() then
 			specWarnWroughtChaos:Show()
 			yellWroughtChaos:Yell()
@@ -430,21 +437,46 @@ function mod:SPELL_AURA_APPLIED(args)
 			voiceWroughtChaos:Play("186123") --new voice
 		end
 		if not playerBanished or not self.Options.FilterOtherPhase then
-			warnWroughtChaos:CombinedShow(0.3, self.vb.wroughtWarned, args.destName)
+			if not self:IsMythic() then
+				self.vb.wroughtWarned = self.vb.wroughtWarned + 1
+				warnWroughtChaos:CombinedShow(0.3, self.vb.wroughtWarned, args.destName)
+			else
+				if self:AntiSpam(3, 3) then
+					self.vb.wroughtWarned = self.vb.wroughtWarned + 1
+					warnWroughtChaos:Show(self.vb.wroughtWarned, FRIENDS_FRIENDS_CHOICE_EVERYONE)--"Everyone"
+				end
+			end
 			if self.Options.HudMapOnWrought then
-				DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 5, 5, 1, 1, 0, 0.5, nil, true, 2):Pulse(0.5, 0.5)--Yellow
+				if self:IsMythic() then--Entire raid gets it, must use a small hud
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 2.5, 5, 1, 1, 0, 0.5, nil, true, 1):Pulse(0.5, 0.5)--Yellow
+				else
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 5, 5, 1, 1, 0, 0.5, nil, true, 1):Pulse(0.5, 0.5)--Yellow
+				end
 			end
 		end
 	elseif spellId == 185014 then--Focused Chaos
-		warnWroughtChaos:CombinedShow(0.3, self.vb.wroughtWarned, args.destName)
 		if args:IsPlayer() then
 			specWarnFocusedChaos:Show()
 			yellFocusedChaos:Yell()
 			countdownWroughtChaos:Start()
 			voiceFocusedChaos:Play("185014")
+			yellFocusedChaos:Yell(5)
+			yellFocusedChaos:Schedule(4, 1)
+			yellFocusedChaos:Schedule(3, 2)
+			yellFocusedChaos:Schedule(2, 3)
+			yellFocusedChaos:Schedule(1, 4)
 		end
-		if self.Options.HudMapOnWrought then
-			DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 5, 5, 1, 1, 0, 0.5, nil, true, 2):Pulse(0.5, 0.5)--Red
+		if not playerBanished or not self.Options.FilterOtherPhase then
+			if not self:IsMythic() then
+				warnWroughtChaos:CombinedShow(0.3, self.vb.wroughtWarned, args.destName)
+			end
+			if self.Options.HudMapOnWrought then
+				if self:IsMythic() then--Entire raid gets it, must use a small hud
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 2.5, 5, 1, 0, 0, 0.5, nil, true, 2):Pulse(0.5, 0.5)--Red
+				else
+					DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 5, 5, 1, 0, 0, 0.5, nil, true, 2):Pulse(0.5, 0.5)--Red
+				end
+			end
 		end
 	elseif spellId == 186574 then--Dreadstalker fixate
 		warnDreadFixate:CombinedShow(0.3, args.destName)
@@ -579,7 +611,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 187621 then
 		local unitGUID = UnitGUID(uId)
 		--timerShadowBlastCD ommited because it's used near instantly on spawn.
-		specWarnDeathCaller:Show()
+		specWarnDeathCaller:Show(self.vb.deathBrandCount)
 		voiceDeathCaller:Play("ej11582")
 		if self:IsMythic() then
 			timerDemonicHavocCD:Start(1, unitGUID)
@@ -604,7 +636,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		warnPhase2:Show()
 		voicePhaseChange:Play("ptwo")
 		timerWroughtChaosCD:Start(6)
-		timerDeathbrandCD:Start(35)--35-39
+		timerDeathbrandCD:Start(35, self.vb.deathBrandCount+1)--35-39
 		countdownDeathBrand:Start(35)
 		warnAllureofFlamesSoon:Schedule(35.5)
 		timerAllureofFlamesCD:Start(40.5)--40-45

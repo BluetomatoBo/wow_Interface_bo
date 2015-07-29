@@ -39,6 +39,10 @@ L:SetMiscLocalization({
 ------------------
 L= DBM:GetModLocalization(1392)
 
+L:SetMiscLocalization({
+	ExRTNotice		= "%s 送出ExRT的位置分配。你的位置：橘:%s, 綠:%s, 紫:%s"
+})
+
 --------------
 -- Kilrogg Deadeye --
 --------------
@@ -52,10 +56,6 @@ L:SetMiscLocalization({
 --Gorefiend --
 --------------------
 L= DBM:GetModLocalization(1372)
-
-L:SetWarningLocalization({
-	specWarnShadowofDeath	= "你中了死亡之影(%d)"
-})
 
 L:SetTimerLocalization({
 	SoDDPS		= "下一次死亡之影(%s)",

@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1372, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14115 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14149 $"):sub(12, -3))
 mod:SetCreatureID(90199)
 mod:SetEncounterID(1783)
 mod:SetZone()
 mod:SetUsedIcons(2, 1)
-mod:SetHotfixNoticeRev(13911)
+mod:SetHotfixNoticeRev(14090)
 mod.respawnTime = 30
 
 mod:RegisterCombat("combat")
@@ -32,7 +32,7 @@ local warnGoreboundSpiritSoon			= mod:NewSoonAnnounce("ej11020", 3, 187814)
 local warnRagingCharge					= mod:NewSpellAnnounce(187814, 3, nil, "Melee")
 local warnCrushingDarkness				= mod:NewCastAnnounce(180017, 3, 6, nil, false)
 
-local specWarnShadowofDeath				= mod:NewSpecialWarning("specWarnShadowofDeath", nil, nil, nil, 1, 5)
+local specWarnShadowofDeath				= mod:NewSpecialWarningYouCount(179864, nil, nil, nil, 1, 5)
 local specWarnShadowofDeathTank			= mod:NewSpecialWarningTaunt(179864)
 local specWarnTouchofDoom				= mod:NewSpecialWarningRun(179977, nil, nil, nil, 4, 2)
 local yellTouchofDoom					= mod:NewYell(179977)
@@ -62,7 +62,7 @@ local timerCrushingDarkness				= mod:NewCastTimer(6, 180017, nil, false)
 --local berserkTimer					= mod:NewBerserkTimer(360)
 
 local countdownShadowofDeath			= mod:NewCountdownFades("Alt5", 179864)
-local countdownDigest					= mod:NewCountdown("Alt40", 181295)
+local countdownDigest					= mod:NewCountdown("Alt40", 181295, nil, nil, 8)
 
 local voiceTouchofDoom					= mod:NewVoice(179977)--runout
 local voiceHungerforLife				= mod:NewVoice(180148)--justrun

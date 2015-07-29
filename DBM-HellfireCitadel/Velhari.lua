@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1394, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14058 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14149 $"):sub(12, -3))
 mod:SetCreatureID(90269)
 mod:SetEncounterID(1784)
 mod:SetZone()
@@ -39,7 +39,7 @@ local warnAuraofMalice						= mod:NewSpellAnnounce(179991, 3)
 local warnBulwarkoftheTyrant				= mod:NewTargetCountAnnounce(180600, 2)
 
 --All
-local specWarnEdictofCondemnation			= mod:NewSpecialWarningYou(182459, nil, nil, nil, 1, 2)
+local specWarnEdictofCondemnation			= mod:NewSpecialWarningYouCount(182459, nil, nil, nil, 1, 2)
 local specWarnEdictofCondemnationOther		= mod:NewSpecialWarningMoveTo(185241, "Ranged")--Mythic, they can't run in, you have to run to them, they are rooted.
 local yellEdictofCondemnation				= mod:NewFadesYell(182459)
 local specWarnTouchofHarm					= mod:NewSpecialWarningTarget(180166, false)
@@ -234,7 +234,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnEdictofCondemnation:Show(self.vb.edictCount, args.destName)
 		timerEdictofCondemnationCD:Start(nil, self.vb.edictCount+1)
 		if args:IsPlayer() then
-			specWarnEdictofCondemnation:Show()
+			specWarnEdictofCondemnation:Show(self.vb.edictCount)
 			if not self:IsMythic() then
 				--If not mythic, just run it into melee, like flamebender
 				--Movement does damage to players so 1 person moving better than many
