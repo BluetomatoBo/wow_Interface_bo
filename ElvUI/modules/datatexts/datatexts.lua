@@ -179,11 +179,17 @@ function DT:AssignPanelToDataText(panel, data)
 	end
 
 	if data['onClick'] then
-		panel:SetScript('OnClick', data['onClick'])
+		panel:SetScript('OnClick', function(self, button)
+			if E.db.datatexts.noCombatClick and InCombatLockdown() then return; end
+			data['onClick'](self, button)
+		end)
 	end
 
 	if data['onEnter'] then
-		panel:SetScript('OnEnter', data['onEnter'])
+		panel:SetScript('OnEnter', function(self)
+			if E.db.datatexts.noCombatHover and InCombatLockdown() then return; end
+			data['onEnter'](self)
+		end)
 	end
 
 	if data['onLeave'] then

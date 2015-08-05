@@ -157,8 +157,19 @@ local function GetOptionsTable_AuraBars(friendlyOnly, updateFunc, groupName)
 					['HELPFUL'] = L["Buffs"],
 				},
 			},
+			uniformThreshold = {
+				order = 18,
+				type = "range",
+				name = L["Uniform Threshold"],
+				desc = L["Seconds remaining on the aura duration before the bar starts moving. Set to 0 to disable."],
+				min = 0, max = 3600, step = 1,
+			},
 		},
 	}
+	
+	if groupName == "target" then
+		config.args.attachTo.values['PLAYER_AURABARS'] = L["Player Frame Aura Bars"]
+	end
 
 	if friendlyOnly then
 		config.args.filters.args.playerOnly = {
@@ -1550,6 +1561,18 @@ E.Options.args.unitframe = {
 							desc = L["Target units on mouse down rather than mouse up. \n\n|cffFF0000Warning: If you are using the addon 'Clique' you may have to adjust your clique settings when changing this."],
 							type = "toggle",
 						},
+						auraBlacklistModifier = {
+							order = 6,
+							type = "select",
+							name = L["Blacklist Modifier"],
+							desc = L["You need to hold this modifier down in order to blacklist an aura by right-clicking the icon. Set to None to disable the blacklist functionality."],
+							values = {
+								['NONE'] = NONE,
+								['SHIFT'] = SHIFT_KEY,
+								['ALT'] = ALT_KEY,
+								['CTRL'] = CTRL_KEY,
+							},
+						}
 					},
 				},
 				barGroup = {
@@ -1686,6 +1709,13 @@ E.Options.args.unitframe = {
 									get = function(info) return E.db.unitframe.colors[ info[#info] ] end,
 									set = function(info, value) E.db.unitframe.colors[ info[#info] ] = value; UF:Update_AllFrames() end,
 								},
+								useDeadBackdrop = {
+									order = 7,
+									type = "toggle",
+									name = L["Use Dead Backdrop"],
+									get = function(info) return E.db.unitframe.colors[ info[#info] ] end,
+									set = function(info, value) E.db.unitframe.colors[ info[#info] ] = value; UF:Update_AllFrames() end,
+								},
 								health = {
 									order = 10,
 									type = 'color',
@@ -1705,6 +1735,12 @@ E.Options.args.unitframe = {
 									order = 13,
 									type = 'color',
 									name = L["Disconnected"],
+								},
+								health_backdrop_dead = {
+									order = 14,
+									type = "color",
+									name = L["Custom Dead Backdrop"],
+									desc = L["Use this backdrop color for units that are dead or ghosts."],
 								},
 							},
 						},
@@ -1823,7 +1859,15 @@ E.Options.args.unitframe = {
 									order = 0,
 									type = 'toggle',
 									name = L["Class Castbars"],
-									desc = L["Color castbars by the class or reaction type of the unit."],
+									desc = L["Color castbars by the class of player units."],
+									get = function(info) return E.db.unitframe.colors[ info[#info] ] end,
+									set = function(info, value) E.db.unitframe.colors[ info[#info] ] = value; UF:Update_AllFrames() end,
+								},
+								castReactionColor = {
+									order = 0,
+									type = 'toggle',
+									name = L["Reaction Castbars"],
+									desc = L["Color castbars by the reaction type of non-player units."],
 									get = function(info) return E.db.unitframe.colors[ info[#info] ] end,
 									set = function(info, value) E.db.unitframe.colors[ info[#info] ] = value; UF:Update_AllFrames() end,
 								},
@@ -2066,23 +2110,29 @@ E.Options.args.unitframe.args.player = {
 			desc = L["Show a incomming heal prediction bar on the unitframe. Also display a slightly different colored bar for incoming overheals."],
 			type = 'toggle',
 		},
-		restIcon = {
-			order = 9,
-			name = L["Rest Icon"],
-			desc = L["Display the rested icon on the unitframe."],
-			type = 'toggle',
-		},
 		hideonnpc = {
 			type = 'toggle',
-			order = 10,
+			order = 9,
 			name = L["Text Toggle On NPC"],
 			desc = L["Power text will be hidden on NPC targets, in addition the name text will be repositioned to the power texts anchor point."],
 			get = function(info) return E.db.unitframe.units['player']['power'].hideonnpc end,
 			set = function(info, value) E.db.unitframe.units['player']['power'].hideonnpc = value; UF:CreateAndUpdateUF('player') end,
 		},
+		restIcon = {
+			order = 10,
+			name = L["Rest Icon"],
+			desc = L["Display the rested icon on the unitframe."],
+			type = 'toggle',
+		},
+		combatIcon = {
+			order = 11,
+			name = L["Combat Icon"],
+			desc = L["Display the combat icon on the unitframe."],
+			type = 'toggle',
+		},
 		threatStyle = {
 			type = 'select',
-			order = 11,
+			order = 12,
 			name = L["Threat Display Mode"],
 			values = threatValues,
 		},
@@ -3483,6 +3533,21 @@ E.Options.args.unitframe.args.party = {
 					name = L["Size"],
 					min = 4, max = 100, step = 1,
 				},
+				tank = {
+					order = 4,
+					type = "toggle",
+					name = L["Show For Tanks"],
+				},
+				healer = {
+					order = 5,
+					type = "toggle",
+					name = L["Show For Healers"],
+				},
+				damager = {
+					order = 6,
+					type = "toggle",
+					name = L["Show For DPS"],
+				},
 			},
 		},
 		raidRoleIcons = {
@@ -4163,6 +4228,21 @@ E.Options.args.unitframe.args['raid'] = {
 					name = L["Size"],
 					min = 4, max = 100, step = 1,
 				},
+				tank = {
+					order = 4,
+					type = "toggle",
+					name = L["Show For Tanks"],
+				},
+				healer = {
+					order = 5,
+					type = "toggle",
+					name = L["Show For Healers"],
+				},
+				damager = {
+					order = 6,
+					type = "toggle",
+					name = L["Show For DPS"],
+				},
 			},
 		},
 		raidRoleIcons = {
@@ -4667,6 +4747,21 @@ E.Options.args.unitframe.args['raid40'] = {
 					order = 3,
 					name = L["Size"],
 					min = 4, max = 100, step = 1,
+				},
+				tank = {
+					order = 4,
+					type = "toggle",
+					name = L["Show For Tanks"],
+				},
+				healer = {
+					order = 5,
+					type = "toggle",
+					name = L["Show For Healers"],
+				},
+				damager = {
+					order = 6,
+					type = "toggle",
+					name = L["Show For DPS"],
 				},
 			},
 		},

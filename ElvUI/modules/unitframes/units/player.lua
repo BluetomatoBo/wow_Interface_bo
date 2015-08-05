@@ -345,6 +345,17 @@ function UF:Update_PlayerFrame(frame, db)
 		end
 	end
 
+	--Combat Icon
+	do
+		local cIcon = frame.Combat
+		if db.combatIcon and not frame:IsElementEnabled('Combat') then
+			frame:EnableElement('Combat')
+		elseif not db.combatIcon and frame:IsElementEnabled('Combat') then
+			frame:DisableElement('Combat')
+			cIcon:Hide()
+		end
+	end
+
 	--Health
 	do
 		local health = frame.Health
@@ -935,6 +946,7 @@ function UF:Update_PlayerFrame(frame, db)
 			auraBars:Show()
 			auraBars.friendlyAuraType = db.aurabar.friendlyAuraType
 			auraBars.enemyAuraType = db.aurabar.enemyAuraType
+			auraBars.scaleTime = db.aurabar.uniformThreshold
 
 			local buffColor = UF.db.colors.auraBarBuff
 			local debuffColor = UF.db.colors.auraBarDebuff
