@@ -9,9 +9,7 @@ local EmbedSystem_MainWindow, EmbedSystem_LeftWindow, EmbedSystem_RightWindow
 function AS:GetChatWindowInfo()
 	local ChatTabInfo = {['NONE'] = 'NONE'}
 	for i = 1, NUM_CHAT_WINDOWS do
-		local tab = _G["ChatFrame"..i.."Tab"];
-
-		ChatTabInfo["ChatFrame"..i] = tab:GetText()
+		ChatTabInfo["ChatFrame"..i] = _G["ChatFrame"..i.."Tab"]:GetText()
 	end
 	return ChatTabInfo
 end
@@ -19,9 +17,16 @@ end
 function AS:ToggleChatFrame(Hide)
 	if AS:CheckOption('HideChatFrame') == 'NONE' then return end
 	if Hide then
+		_G[AS:CheckOption('HideChatFrame')].OriginalParent = _G[AS:CheckOption('HideChatFrame')]:GetParent()
 		_G[AS:CheckOption('HideChatFrame')]:SetParent(AS.ChatFrameHider)
+
+		_G[AS:CheckOption('HideChatFrame')..'Tab'].OriginalParent = _G[AS:CheckOption('HideChatFrame')..'Tab']:GetParent()
+		_G[AS:CheckOption('HideChatFrame')..'Tab']:SetParent(AS.ChatFrameHider)
 	else
-		_G[AS:CheckOption('HideChatFrame')]:SetParent(UIParent)
+		if _G[AS:CheckOption('HideChatFrame')].OriginalParent then
+			_G[AS:CheckOption('HideChatFrame')]:SetParent(_G[AS:CheckOption('HideChatFrame')].OriginalParent)
+			_G[AS:CheckOption('HideChatFrame')..'Tab']:SetParent(_G[AS:CheckOption('HideChatFrame')..'Tab'].OriginalParent)
+		end
 	end
 end
 
@@ -69,6 +74,7 @@ function AS:Embed_Show()
 		if _G[EmbedSystem_LeftWindow.FrameName] then _G[EmbedSystem_LeftWindow.FrameName]:Show() end
 		if _G[EmbedSystem_RightWindow.FrameName] then _G[EmbedSystem_RightWindow.FrameName]:Show() end
 	end
+	AS:SetOption('EmbedIsHidden', false)
 	AS:ToggleChatFrame(true)
 end
 
@@ -83,6 +89,7 @@ function AS:Embed_Hide()
 		if _G[EmbedSystem_LeftWindow.FrameName] then _G[EmbedSystem_LeftWindow.FrameName]:Hide() end
 		if _G[EmbedSystem_RightWindow.FrameName] then _G[EmbedSystem_RightWindow.FrameName]:Hide() end
 	end
+	AS:SetOption('EmbedIsHidden', true)
 	AS:ToggleChatFrame(false)
 end
 
@@ -303,7 +310,7 @@ if AS:CheckAddOn('Skada') then
 				offsety = 2 + (window.db.enabletitle and window.db.title.height or 0)
 			end
 			window.db.barwidth = width - 4
-			window.db.background.height = height - (window.db.enabletitle and window.db.title.height or 0) - (IsAddOnLoaded('ElvUI') and ElvUI[1].PixelMode and 4 or 5)
+			window.db.background.height = height - (window.db.enabletitle and window.db.title.height or 0) - (AS.PixelMode and 4 or 5)
 			window.db.spark = false
 			window.db.barslocked = true
 			window.bargroup.ClearAllPoints = nil
