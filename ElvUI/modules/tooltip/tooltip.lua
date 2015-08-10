@@ -700,6 +700,46 @@ function TT:CheckBackdropColor()
 	end
 end
 
+function TT:SetTooltipFonts()
+	local font = E.LSM:Fetch("font", E.db.tooltip.font)
+	local fontOutline = E.db.tooltip.fontOutline
+	local headerSize = E.db.tooltip.headerFontSize
+	local textSize = E.db.tooltip.textFontSize
+	local smallTextSize = E.db.tooltip.smallTextFontSize
+	
+	GameTooltipHeaderText:SetFont(font, headerSize, fontOutline)
+	GameTooltipText:SetFont(font, textSize, fontOutline)
+	GameTooltipTextSmall:SetFont(font, smallTextSize, fontOutline)
+	if GameTooltip.hasMoney then
+		for i = 1, GameTooltip.numMoneyFrames do
+			_G["GameTooltipMoneyFrame"..i.."PrefixText"]:SetFont(font, textSize, fontOutline)
+			_G["GameTooltipMoneyFrame"..i.."SuffixText"]:SetFont(font, textSize, fontOutline)
+			_G["GameTooltipMoneyFrame"..i.."GoldButtonText"]:SetFont(font, textSize, fontOutline)
+			_G["GameTooltipMoneyFrame"..i.."SilverButtonText"]:SetFont(font, textSize, fontOutline)
+			_G["GameTooltipMoneyFrame"..i.."CopperButtonText"]:SetFont(font, textSize, fontOutline)
+		end
+	end
+	
+	--These show when you compare items ("Currently Equipped", name of item, item level)
+	--Since they appear at the top of the tooltip, we set it to use the header font size.
+	ShoppingTooltip1TextLeft1:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip1TextLeft2:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip1TextLeft3:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip1TextLeft4:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip1TextRight1:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip1TextRight2:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip1TextRight3:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip1TextRight4:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip2TextLeft1:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip2TextLeft2:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip2TextLeft3:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip2TextLeft4:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip2TextRight1:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip2TextRight2:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip2TextRight3:SetFont(font, headerSize, fontOutline)
+	ShoppingTooltip2TextRight4:SetFont(font, headerSize, fontOutline)
+end
+
 function TT:Initialize()
 	self.db = E.db.tooltip
 
@@ -721,12 +761,14 @@ function TT:Initialize()
 	GameTooltipStatusBar.text:Point("CENTER", GameTooltipStatusBar, 0, -3)
 	GameTooltipStatusBar.text:FontTemplate(E.LSM:Fetch("font", self.db.healthBar.font), self.db.healthBar.fontSize, "OUTLINE")
 	
-	--Tooltip Font Sizes
-	local font = E.LSM:Fetch("font", E.db.tooltip.font)
-	local fontOutline = E.db.tooltip.fontOutline
-	GameTooltipHeaderText:SetFont(font, E.db.tooltip.headerFontSize, fontOutline)
-	GameTooltipText:SetFont(font, E.db.tooltip.textFontSize, fontOutline)
-    GameTooltipTextSmall:SetFont(font, E.db.tooltip.smallTextFontSize, fontOutline)
+	--Tooltip Fonts
+	if not GameTooltip.hasMoney then
+		 --Force creation of the money lines, so we can set font for it
+		SetTooltipMoney(GameTooltip, 1, nil, "", "")
+		SetTooltipMoney(GameTooltip, 1, nil, "", "")
+		GameTooltip_ClearMoney(GameTooltip)
+	end
+	self:SetTooltipFonts()
 
 	local GameTooltipAnchor = CreateFrame('Frame', 'GameTooltipAnchor', E.UIParent)
 	GameTooltipAnchor:Point('BOTTOMRIGHT', RightChatToggleButton, 'BOTTOMRIGHT')
