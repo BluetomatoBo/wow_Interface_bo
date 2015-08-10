@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(581, "DBM-Party-WotLK", 1, 271)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 112 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 207 $"):sub(12, -3))
 mod:SetCreatureID(29308)
 mod:SetEncounterID(213, 260)
 mod:SetZone()
@@ -18,7 +18,7 @@ local warningEmbrace	= mod:NewTargetAnnounce(55959, 2)
 local warningFlame		= mod:NewSpellAnnounce(55931, 3)
 
 local timerEmbrace		= mod:NewTargetTimer(20, 55959)
-local timerFlameCD		= mod:NewCDTimer(17, 55959)
+local timerFlameCD		= mod:NewCDTimer(15, 55959)
 
 
 function mod:SPELL_CAST_START(args)

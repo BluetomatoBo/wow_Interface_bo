@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Rotface", "DBM-Icecrown", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 199 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 208 $"):sub(12, -3))
 mod:SetCreatureID(36627)
 mod:SetEncounterID(1104)
 mod:SetModelID(31005)
@@ -39,10 +39,10 @@ local specWarnVileGas			= mod:NewSpecialWarningYou(72272)
 
 local timerStickyOoze			= mod:NewNextTimer(16, 69774, nil, "Tank")
 local timerWallSlime			= mod:NewNextTimer(20, 69789)
-local timerSlimeSpray			= mod:NewNextTimer(21, 69508)
+local timerSlimeSpray			= mod:NewNextTimer(21, 69508, nil, nil, nil, 3)
 local timerMutatedInfection		= mod:NewTargetTimer(12, 69674)
-local timerOozeExplosion		= mod:NewCastTimer(4, 69839)
-local timerVileGasCD			= mod:NewNextTimer(30, 72272)
+local timerOozeExplosion		= mod:NewCastTimer(4, 69839, nil, nil, nil, 2)
+local timerVileGasCD			= mod:NewNextTimer(30, 72272, nil, nil, nil, 3)
 
 mod:AddBoolOption("RangeFrame", "Ranged")
 mod:AddBoolOption("InfectionIcon", true)
