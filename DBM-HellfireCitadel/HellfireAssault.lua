@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1426, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14127 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14198 $"):sub(12, -3))
 mod:SetCreatureID(90019)--Main ID is door, door death= win. 94515 Siegemaster Mar'tak
 mod:SetEncounterID(1778)
 mod:SetZone()
@@ -24,6 +24,8 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_MONSTER_YELL",
 	"UNIT_SPELLCAST_SUCCEEDED"--Have to register all unit ids to catch the boss when she casts haste
 )
+
+mod:SetBossHealthInfo(90019, 94515)
 
 --ability.id = 180927 and type = "applybuff" or overkill > 0 and target.name in ("Felfire Crusher", "Felfire Artillery", "Felfire Demolisher", "Felfire Flamebelcher")
 --Siegemaster Mar'tak
@@ -358,6 +360,9 @@ end
 function mod:OnSync(msg)
 	if not self:IsInCombat() then return end
 	if msg == "BossLeaving" and self:AntiSpam(20, 5) then
+		if DBM.BossHealth:IsShown() then
+			DBM.BossHealth:RemoveBoss(94515)
+		end
 		timerHowlingAxeCD:Cancel()
 		countdownHowlingAxe:Cancel()
 		timerShockwaveCD:Cancel()

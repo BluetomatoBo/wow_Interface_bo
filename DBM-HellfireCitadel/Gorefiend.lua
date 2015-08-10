@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1372, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14149 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14286 $"):sub(12, -3))
 mod:SetCreatureID(90199)
 mod:SetEncounterID(1783)
 mod:SetZone()
 mod:SetUsedIcons(2, 1)
-mod:SetHotfixNoticeRev(14090)
+mod:SetHotfixNoticeRev(14270)
 mod.respawnTime = 30
 
 mod:RegisterCombat("combat")
@@ -72,8 +72,7 @@ local voiceSharedFate					= mod:NewVoice(179909)--linegather, new voice, like Bl
 local voiceBurning						= mod:NewVoice(185189) --changemt
 
 mod:AddSetIconOption("SetIconOnFate", 179909)
-mod:AddHudMapOption("HudMapOnSharedFate", 179909)--Smart hud, distinquishes rooted from non rooted by color coding.
-mod:AddArrowOption("SharedFateArrow", 179909, true, 2)
+mod:AddHudMapOption("HudMapOnSharedFate", 179909)--Smart hud, distinquishes rooted from non rooted by larger dot/font and lines/arrows
 mod:AddRangeFrameOption(5, 182049)
 mod:AddInfoFrameOption(181295)
 
@@ -114,9 +113,16 @@ Mythic
 69s: 1 tank
 84s: 2 DPS
 --]]
---local shadowofDeathTimers = {2, 11, 17, 7, 28, 8}
---local shadowofDeathTimers10 = {2, 11, 17, 7, 36}--Special case, 1:05 cast doesn't happen with exactly 10 players.
---local shadowofDeathTimersMythic = {2, 6, 12, 9, 27, 8, 3, 15}
+
+local function sharedFateDelay(self)
+	if self.vb.rootedFate2 then--Check this first, assume you are linked to most recent
+		specWarnSharedFate:Show(self.vb.rootedFate2)
+		voiceSharedFate:Play("linegather")
+	elseif self.vb.rootedFate then
+		specWarnSharedFate:Show(self.vb.rootedFate)
+		voiceSharedFate:Play("linegather")
+	end
+end
 
 function mod:OnCombatStart(delay)
 	self.vb.rootedFate = nil
@@ -167,20 +173,14 @@ function mod:OnCombatEnd()
 	end
 end 
 
-local function sharedFateDelay(self)
-	if self.vb.rootedFate2 then--Check this first, assume you are linked to most recent
-		specWarnSharedFate:Show(self.vb.rootedFate2)
-		voiceSharedFate:Play("linegather")
-	elseif self.vb.rootedFate then
-		specWarnSharedFate:Show(self.vb.rootedFate)
-		voiceSharedFate:Play("linegather")
-	end
-end
-
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 181973 then
+		timerTouchofDoomCD:Cancel()
 		specWarnFeastofSouls:Show()
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Hide()
+		end
 	elseif spellId == 181582 and self:CheckInterruptFilter(args.sourceGUID) then
 		specWarnBellowingShout:Show(args.sourceName)
 		voiceBellowingShout:Play("kickcast")
@@ -230,7 +230,7 @@ function mod:SPELL_AURA_APPLIED(args)
 						numPlayers = 4
 					end
 					--Adjust count for 3rd cast off the 2nd cast above
-					if count == 4 and (playersCount == 15 or playersCount == 16 or playersCount == 21 or playersCount == 22 or playersCount == 25 or playersCount == 26) then--subtrack 1 from above for 2nd cast
+					if count == 4 and (playersCount == 15 or playersCount == 16 or playersCount == 21 or playersCount == 22) then--subtrack 1 from above for 2nd cast
 						numPlayers = numPlayers - 1
 					end
 					timerShadowofDeathCDDps:Start(36, numPlayers.."x"..DBM_CORE_DAMAGE_ICON)
@@ -282,7 +282,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		if self.Options.HudMapOnSharedFate and not playerDown then
-			DBMHudMap:RegisterRangeMarkerOnPartyMember(179909, "highlight", args.destName, 3.5, 900, 1, 0, 0, 0.5, nil, true, 2):Pulse(0.5, 0.5)--Red
+			DBMHudMap:RegisterRangeMarkerOnPartyMember(179909, "party", args.destName, 0.75, 600, nil, nil, nil, 0.8, nil, true):Appear():SetLabel(args.destName, nil, nil, nil, nil, nil, 0.8, nil, -17, 11, nil)
 		end
 		if args:IsPlayer() then
 			yellSharedFate:Yell()
@@ -293,7 +293,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:Schedule(0.5, sharedFateDelay, self)--Just in case rooted ID fires after non rooted ones
 		end
 		if self.Options.HudMapOnSharedFate and not playerDown then
-			DBMHudMap:RegisterRangeMarkerOnPartyMember(179908, "highlight", args.destName, 3.5, 900, 1, 1, 0, 0.5, nil, true, 1):Pulse(0.5, 0.5)--Yellow
+			DBMHudMap:RegisterRangeMarkerOnPartyMember(179908, "party", args.destName, 0.5, 600, nil, nil, nil, 0.8, nil, true):Appear():SetLabel(args.destName, nil, nil, nil, nil, nil, 0.8, nil, -16, 9, nil)
+			DBMHudMap:AddEdge(1, 1, 0, 0.5, 600, args.destName, self.vb.rootedFate2 or self.vb.rootedFate)
 		end
 	elseif spellId == 180148 then
 		warnHungerforLife:CombinedShow(0.5, args.destName)
@@ -348,6 +349,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 		if self.Options.HudMapOnSharedFate then
 			DBMHudMap:FreeEncounterMarkerByTarget(179909, args.destName)
+			DBMHudMap:ClearAllEdges()
 		end
 		if self.Options.SetIconOnFate then
 			self:SetIcon(args.destName, 0)
@@ -397,6 +399,9 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerTouchofDoomCD:Start(9)
 		timerSharedFateCD:Start(19, 1)
 		timerFeastofSouls:Start()
+		if self.Options.RangeFrame and self:IsInCombat() then
+			DBM.RangeCheck:Show(5, digestFilter)
+		end
 	elseif spellId == 185982 and not playerDown then
 		--When it fades, it means it's casting Expel Soul and returning to surface as a Gorebound Spirit
 		--This is cleaner than IEEU and fires at same time

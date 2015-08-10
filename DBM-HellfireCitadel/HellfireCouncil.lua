@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1432, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14158 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14303 $"):sub(12, -3))
 mod:SetCreatureID(92142, 92144, 92146)--Blademaster Jubei'thos (92142). Dia Darkwhisper (92144). Gurthogg Bloodboil (92146) 
 mod:SetEncounterID(1778)
 mod:SetZone()
@@ -18,13 +18,17 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 183701 184847 184360 184365 184449 184450 185065 185066 184652 184355",
 	"SPELL_AURA_APPLIED_DOSE 184847 184355",
 --	"SPELL_AURA_REMOVED",
+	"SPELL_DAMAGE 186993",
+	"SPELL_MISSED 186993",
 	"SPELL_PERIODIC_DAMAGE 184652",
-	"SPELL_ABSORB 184652",
+	"SPELL_PERIODIC_MISSED 184652",
 	"UNIT_DIED",
 	"CHAT_MSG_MONSTER_YELL",
 	"RAID_BOSS_EMOTE",
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3"
 )
+
+mod:SetBossHealthInfo(92142, 92144, 92146)
 
 local Dia		= EJ_GetSectionInfo(11489)
 local Jubei		= EJ_GetSectionInfo(11488)
@@ -44,7 +48,7 @@ local warnFelRage					= mod:NewTargetCountAnnounce(184360, 4)
 --Blademaster Jubei'thos
 local specWarnFelstorm				= mod:NewSpecialWarningSpell(183701, nil, nil, nil, 2, 2)
 --Dia Darkwhisper
-local specWarnNightmareVisage		= mod:NewSpecialWarningSpell(184657)--Doesn't option default, only warns highest threat
+local specWarnNightmareVisage		= mod:NewSpecialWarningCount(184657)--Doesn't option default, only warns highest threat
 local specWarnReap					= mod:NewSpecialWarningMoveAway(184476, nil, nil, nil, 3, 2)--Everyone with Mark of Necromancer is going to drop void zones that last forever, they MUST get the hell out
 local specWarnReapGTFO				= mod:NewSpecialWarningMove(30533, nil, DBM_CORE_AUTO_SPEC_WARN_OPTIONS.move:format(184652), nil, 1, 2)--On the ground version (GTFO)
 local yellReap						= mod:NewYell(184476)
@@ -57,10 +61,12 @@ local specWarnBloodBoil				= mod:NewSpecialWarningStack(184355, nil, 3)
 mod:AddTimerLine(Jubei)
 --Blademaster Jubei'thos
 --local timerFelstormCD				= mod:NewCDTimer(30.5, 183701, nil, nil, nil, 2)
+local timerMirrorImage				= mod:NewBuffActiveTimer(52, 183885, nil, nil, nil, 6)--About 52
 local timerMirrorImageCD			= mod:NewCDTimer(75, 183885, nil, nil, nil, 1)
+local timerWickedStrikeCD			= mod:NewCDTimer(11, 186993, nil, nil, nil, 2)
 mod:AddTimerLine(Dia)
 --Dia Darkwhisper
-local timerMarkofNecroCD			= mod:NewCDTimer(60.5, 184449, nil, "Healer", nil, 5)
+local timerMarkofNecroCD			= mod:NewCDTimer(60, 184449, nil, "Healer", nil, 5)
 local timerReapCD					= mod:NewCDTimer(55, 184476, nil, nil, nil, 3)--55-71
 local timerNightmareVisageCD		= mod:NewCDTimer(30, 184657, nil, "Tank", nil, 5)
 local timerDarknessCD				= mod:NewCDTimer(75, 184681, nil, nil, nil, 2)
@@ -80,7 +86,7 @@ local voiceFelstorm					= mod:NewVoice(183701)--aesoon
 local voiceReap						= mod:NewVoice(184476)--runout/runaway
 local voiceDemolishingLeap			= mod:NewVoice(184366)--runaway (Stll not sure I like run away for this. You may not have to move at all, run away implies you need to react, but this boss jumps to random spot in room, you have to check ground whether or not you need to move)
 
---mod:AddRangeFrameOption(8, 155530)
+mod:AddRangeFrameOption(8, 184476)
 
 mod.vb.DiaPushed = false
 mod.vb.taintedBloodCount = 0
@@ -89,20 +95,17 @@ mod.vb.diaDead = false
 mod.vb.jubeiDead = false
 mod.vb.bloodboilDead = false
 mod.vb.reapActive = false
+mod.vb.firstReap = false
+mod.vb.vissageCount = 0
 local UnitExists, UnitGUID, UnitDetailedThreatSituation = UnitExists, UnitGUID, UnitDetailedThreatSituation
 local markofNecroDebuff = GetSpellInfo(184449)--Spell name should work, without knowing what right spellid is, For this anyways.
 
---[[
-local debuffFilter
-do
-	local debuffName = GetSpellInfo(155323)
-	local UnitDebuff = UnitDebuff
-	debuffFilter = function(uId)
-		if UnitDebuff(uId, debuffName) then
-			return true
-		end
+local function delayedReapCheck(self)
+	--Fires 55 seconds after combat start, unless 50 second reap happens.
+	if not self.vb.firstReap then--reap wasn't cast at 50 seconds, it'll be cast at 65+
+		timerReapCD:Start(10)--Start 10 second timer for 65 second reap
 	end
-end--]]
+end
 
 function mod:OnCombatStart(delay)
 	self.vb.DiaPushed = false
@@ -110,15 +113,18 @@ function mod:OnCombatStart(delay)
 	self.vb.jubeiDead = false
 	self.vb.bloodboilDead = false
 	self.vb.reapActive = false
+	self.vb.firstReap = false
 	self.vb.taintedBloodCount = 0
 	self.vb.felRageCount = 0
+	self.vb.vissageCount = 0
 	timerMarkofNecroCD:Start(7-delay)--7-13
 	timerNightmareVisageCD:Start(15-delay)
 --	timerFelstormCD:Start(20.5-delay)--Review
-	timerRelRageCD:Start(30.5-delay, 1)
-	timerReapCD:Start(50-delay)--50-73 variation on pull, likely blizzard was tinkering/hotfixing it between pulls. verify on later testing
+	timerRelRageCD:Start(30-delay, 1)
+	timerReapCD:Start(50-delay)--50-73 variation on pull. It's USUALLY between 65-67, but every so often, it's 50 for some reason https://www.warcraftlogs.com/reports/HN42ftpvVk3BYQjJ#fight=5&type=summary&view=events&pins=2%24Off%24%23244F4B%24expression%24(target.id+%3D+92142+or+target.id+%3D+92144+or+target.id+%3D+92146)+and+type+%3D+%22death%22+or+(ability.id+%3D+184657+or+ability.id+%3D+184476+or+ability.id+%3D+184355)+and+type+%3D+%22begincast%22+or+(ability.id+%3D+184449+or+ability.id+%3D+183480+or+ability.id+%3D+184357)+and+type+%3D+%22cast%22+or+(ability.id+%3D+183701+or+ability.id+%3D+184360+or+ability.id+%3D+184365)+and+type+%3D+%22applydebuff%22+or+ability.id+%3D+184674
 	timerDarknessCD:Start(75-delay)
 	berserkTimer:Start(-delay)
+	self:Schedule(55, delayedReapCheck, self)
 end
 
 function mod:OnCombatEnd()
@@ -130,15 +136,20 @@ end
 function mod:SPELL_CAST_START(args)
 	local spellId = args.spellId
 	if spellId == 184657 then
-		timerNightmareVisageCD:Start()
+		self.vb.vissageCount = self.vb.vissageCount + 1
+		timerNightmareVisageCD:Start(nil, self.vb.vissageCount+1)
 		for i = 1, 5 do--Maybe only 1-3 needed, but don't know if any adds take boss IDs, plus, it'll abort when it finds right one anyways
 			local bossUnitID = "boss"..i
 			if UnitExists(bossUnitID) and UnitGUID(bossUnitID) == args.sourceGUID and UnitDetailedThreatSituation("player", bossUnitID) then--We are highest threat target
-				specWarnNightmareVisage:Show()--Show warning only to the tank she's on, not both tanks, avoid confusion
+				specWarnNightmareVisage:Show(self.vb.vissageCount)--Show warning only to the tank she's on, not both tanks, avoid confusion
 				break
 			end
 		end
 	elseif spellId == 184476 then
+		if not self.vb.firstReap then
+			self.vb.firstReap = true
+			self:Unschedule(delayedReapCheck)
+		end
 		self.vb.reapActive = true
 		if not self.vb.DiaPushed then--Don't start cd timer for her final reap she casts at 30%
 			timerReapCD:Start()
@@ -148,6 +159,9 @@ function mod:SPELL_CAST_START(args)
 			yellReap:Yell()
 			countdownReap:Start()
 			voiceReap:Play("runout")
+			if self.Options.RangeFrame then
+				DBM.RangeCheck:Show(8)
+			end
 		else
 			warnReap:Show()
 		end
@@ -163,6 +177,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif spellId == 183480 and self:AntiSpam(8, 1) then
 		warnMirrorImage:Show()
 		countdownSpecial:Start(72.8)
+		timerMirrorImage:Start()
 		if not self.vb.bloodboilDead then--Leap is next if bloodboil not dead
 			timerDemoLeapCD:Start(72.8)
 		elseif not self.vb.diaDead then--Bloodboil is dead but dia isn't, darkness next
@@ -175,6 +190,9 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerTaintedBloodCD:Start(nil, self.vb.taintedBloodCount+1)
 	elseif spellId == 184476 then
 		self.vb.reapActive = false
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Hide()
+		end
 	end
 end
 
@@ -211,11 +229,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 184449 then--Confirmed correct CAST spellid (new targets from boss)
 		warnMarkoftheNecromancer:CombinedShow(0.3, args.destName)
-	elseif (spellId == 184450 or spellId == 185065 or spellId == 185066) and self.vb.reapActive and args:IsPlayer() then--Dispel IDs.
-		--Your idiot healer dipselled mark in middle of reap cast, warn you to run out and hope you have less than 0.5 seconds to do it.
+	elseif (spellId == 184450 or spellId == 185065 or spellId == 185066) and self.vb.reapActive and args:IsPlayer() and self:AntiSpam(5, 5) then--Dispel IDs.
 		specWarnReap:Show()
 		yellReap:Yell()
 		voiceReap:Play("runout")
+		if self.Options.RangeFrame then
+			DBM.RangeCheck:Show(8)--Guessed, could be 10
+		end
 	elseif spellId == 184652 and args:IsPlayer() and self:AntiSpam(2, 3) then
 		specWarnReapGTFO:Show()
 		voiceReap:Play("runaway")
@@ -306,22 +326,9 @@ function mod:RAID_BOSS_EMOTE(msg)
 end
 
 --Probably temporary. IEEU or UTC will probably be usuable but i need a transcriptor log to verify. I deleted all mine
-function mod:CHAT_MSG_MONSTER_YELL(msg)
-	if (msg:find(L.Jubeideath) or msg == L.Jubeideath) and not self.vb.jubeiDead then
-		DBM:Debug("Jubei died (Yell)", 2)
-		self.vb.jubeiDead = true
-		--timerFelstormCD:Cancel()
-		local elapsed, total = timerMirrorImageCD:GetTime()
-		timerMirrorImageCD:Cancel()
-		if elapsed > 0 then--Timer existed, which means it was next
-			DBM:Debug("updating specials timer", 2)
-			--So now we update next based on remaining bosses
-			if not self.vb.bloodboilDead then--Leap is next if bloodboil not dead
-				timerDemoLeapCD:Update(elapsed, total)
-			else--Only dia left left, darkness will be next
-				timerDarknessCD:Update(elapsed, total)
-			end
-		end
+function mod:CHAT_MSG_MONSTER_YELL(msg, npc, _, _, target)
+	if npc == Jubei and target == Dia then--Jubei yells "Your darkness burns within me!" with Dia as target when returning from mirror images
+		timerMirrorImage:Cancel()
 	end
 end
 
@@ -334,6 +341,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	elseif spellId == 190618 and not self.vb.jubeiDead then--Jubei Dying
 		DBM:Debug("Jubei died (UNIT_SPELLCAST_SUCCEEDED)", 2)
 		self.vb.jubeiDead = true
+		if DBM.BossHealth:IsShown() then
+			DBM.BossHealth:RemoveBoss(92142)
+		end
 		--timerFelstormCD:Cancel()
 		local elapsed, total = timerMirrorImageCD:GetTime()
 		timerMirrorImageCD:Cancel()
@@ -349,10 +359,18 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	end
 end
 
+--Have to use damave event for wickedstrike because the Unit event becomes invisible once he dies.
+function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
+	if spellId == 186993 and destGUID == UnitGUID("player") and self:AntiSpam(2, 4) then
+		timerWickedStrikeCD:Start()
+	end
+end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
+
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 184652 and destGUID == UnitGUID("player") and self:AntiSpam(2, 3) then
 		specWarnReapGTFO:Show()
 		voiceReap:Play("runaway")
 	end
 end
-mod.SPELL_ABSORB = mod.SPELL_PERIODIC_DAMAGE
+mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE

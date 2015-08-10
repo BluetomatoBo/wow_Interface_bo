@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1395, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14147 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14305 $"):sub(12, -3))
 mod:SetCreatureID(91349)--91305 Fel Iron Summoner
 mod:SetEncounterID(1795)
 mod:SetZone()
@@ -110,7 +110,8 @@ local voiceGlaiveCombo				= mod:NewVoice(181354, "Tank")--Defensive
 local voiceMassiveBlast				= mod:NewVoice(181359, "Tank")--changemt
 
 mod:AddRangeFrameOption(20, 181099)
-mod:AddHudMapOption("HudMapOnGaze", 181597)
+mod:AddSetIconOption("SetIconOnGaze", 181597, false)
+mod:AddHudMapOption("HudMapOnGaze2", 181597, false)
 mod:AddInfoFrameOption(181597)
 
 mod.vb.DoomTargetCount = 0
@@ -179,7 +180,7 @@ local function updateInfoFrame()
 		local uId = DBM:GetRaidUnitId(name)
 		if UnitDebuff(uId, gaze1) or UnitDebuff(uId, gaze2) then
 			total = total + 1
-			lines[name] = i
+			lines["|cFF9932CD"..name.."|r"] = i
 		end
 	end
 	--Mythic, show guldan targets and number of charges left
@@ -205,11 +206,14 @@ local function warnGazeTargts(self)
 	for i = 1, #gazeTargets do
 		local name = gazeTargets[i]
 		if name == playerName then
-			yellGaze:Yell(i)
+			yellGaze:Yell(i, i, i)
+		end
+		if self.Options.SetIconOnGaze then
+			self:SetIcon(name, i)
 		end
 	end
 	if self.Options.InfoFrame and not DBM.InfoFrame:IsShown() then
-		--DBM.InfoFrame:SetHeader(gaze1)
+		DBM.InfoFrame:SetHeader(gaze1)
 		DBM.InfoFrame:Show(8, "function", updateInfoFrame, sortInfoFrame)
 	end
 end
@@ -221,7 +225,7 @@ local function breakDoom(self)
 	for i = 1, #doomTargets do
 		local name = doomTargets[i]
 		if name == playerName then
-			yellMarkOfDoom:Yell(i)
+			yellMarkOfDoom:Yell(i, i, i)
 		end
 	end
 end
@@ -261,7 +265,7 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
-	if self.Options.HudMapOnGaze then
+	if self.Options.HudMapOnGaze2 then
 		DBMHudMap:Disable()
 	end
 end 
@@ -406,8 +410,8 @@ function mod:SPELL_AURA_APPLIED(args)
 				voiceGaze:Schedule(0.3, "gathershare")
 			end
 		end
-		if self.Options.HudMapOnGaze then
-			DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 3, 8, 1, 1, 0, 0.5, nil, true, 1):Pulse(0.5, 0.5)
+		if self.Options.HudMapOnGaze2 then
+			DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 8, 8, nil, nil, nil, 0.5, nil, true):Appear():SetLabel(args.destName)
 		end
 	elseif spellId == 181119 then
 		local amount = args.amount or 1
@@ -424,8 +428,11 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnWrathofGuldan:Show()
 			yellWrathofGuldan:Yell()
 		end
-		if self.Options.InfoFrame and not DBM.InfoFrame:IsShown() then
-			DBM.InfoFrame:Show(8, "function", updateInfoFrame, sortInfoFrame)
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:SetHeader(args.spellName)--Always set header to wrath if wrath is present
+			if not DBM.InfoFrame:IsShown() then
+				DBM.InfoFrame:Show(8, "function", updateInfoFrame, sortInfoFrame)
+			end
 		end
 	end
 end
@@ -466,8 +473,11 @@ function mod:SPELL_AURA_REMOVED(args)
 			end
 		end
 	elseif spellId == 181597 or spellId == 182006 then
-		if self.Options.HudMapOnGaze then
+		if self.Options.HudMapOnGaze2 then
 			DBMHudMap:FreeEncounterMarkerByTarget(spellId, args.destName)
+		end
+		if self.Options.SetIconOnGaze then
+			self:SetIcon(args.destName, 0)
 		end
 	elseif spellId == 181275 then
 		if args:IsPlayer() then

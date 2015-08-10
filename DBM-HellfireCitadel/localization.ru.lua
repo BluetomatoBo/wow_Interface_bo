@@ -30,14 +30,14 @@ L= DBM:GetModLocalization(1425)
 ---------------------------
 L= DBM:GetModLocalization(1432)
 
-L:SetMiscLocalization({
-	Jubeideath		=	"Я - вечное пламя!"
-})
-
 ------------------
 -- Kormrok --
 ------------------
 L= DBM:GetModLocalization(1392)
+
+L:SetMiscLocalization({
+	ExRTNotice		= "%s отправил присвоенные позиции ExRT. Ваши позиции: оранж.:%s, зел.:%s, фиол.:%s"
+})
 
 --------------
 -- Kilrogg Deadeye --
@@ -89,8 +89,8 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	SeedsBehavior		= "Поведение крика для Семя разрушения (требуется лидер рейда)",
-	Iconed				= "Звезда, Круг, Ромб, Треугольник, Луна. Применимо для любой стратегии, использующей метки на полу",--Default
-	Numbered			= "1, 2, 3, 4, 5. Применимо для любой стратегии, использующей нумерованные позиции",
+	Iconed				= "Метки на полу: Звезда, Круг, Ромб, Треугольник, Луна",--Default
+	Numbered			= "Нумерованные позиции: 1, 2, 3, 4, 5",
 	DirectionLine		= "Лево, Слева от середины, Середина, Справа от середины, Право. Для стратегии в одну линию",
 	FreeForAll			= "Свободное. Позиция не задается, используется обычный крик",
 	--Currently these 3 below are unused unless I see anyone want/need them
@@ -147,6 +147,9 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	specWarnBreakShackle	= "Спец-предупреждение для $spell:184964. Это предупреждение автоматически назначает последовательность разрывания, чтобы минимизировать урон.",
+	ExtendWroughtHud2		= "Продлять линии HUD за цель $spell:185014 (может уменьшить точность линии)",
+	AlternateHudLine		= "Использовать альтернативную текстуру линии для линий HUD между целями $spell:185014",
+	NamesWroughtHud			= "Отображать имена игроков для целей $spell:185014",
 	FilterOtherPhase		= "Фильтровать предупреждения для событий из другой фазы"
 })
 

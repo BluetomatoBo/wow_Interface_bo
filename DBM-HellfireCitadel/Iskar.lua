@@ -1,14 +1,14 @@
 local mod	= DBM:NewMod(1433, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14140 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14286 $"):sub(12, -3))
 mod:SetCreatureID(90316)
 mod:SetEncounterID(1788)
 mod:DisableESCombatDetection()--Remove if blizz fixes trash firing ENCOUNTER_START
 mod:SetMinSyncRevision(13887)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)--Unknown full spectrum of icons yet. Don't know how many debuffs go out.
-mod:SetHotfixNoticeRev(14106)
+mod:SetHotfixNoticeRev(14182)
 mod.respawnTime = 15
 mod:DisableRegenDetection()--Boss returns true on UnitAffectingCombat when fighting his trash, making boss pre mature pull by REGEN method
 
@@ -16,11 +16,11 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 181912 181827 187998 181873 185345",
-	"SPELL_CAST_SUCCESS 182178 181956 185510",
+	"SPELL_CAST_SUCCESS 182178 181956 185510 181912",
 	"SPELL_AURA_APPLIED 179202 181957 182325 187990 181824 179219 185510 181753 182178 182200",
-	"SPELL_AURA_REMOVED 179202 181957 182325 187990 181824 179219 185510 181753",
---	"SPELL_PERIODIC_DAMAGE",
---	"SPELL_ABSORBED",
+	"SPELL_AURA_REMOVED 179202 181957 182325 187990 181824 179219 185510 181753 182178 182200",
+	"SPELL_PERIODIC_DAMAGE 182600",
+	"SPELL_PERIODIC_MISSED 182600",
 	"RAID_BOSS_WHISPER",
 	"CHAT_MSG_ADDON",
 	"INSTANCE_ENCOUNTER_ENGAGE_UNIT",
@@ -55,6 +55,7 @@ local yellPhantasmalWinds				= mod:NewYell(181957)--So person with eye can see w
 local specWarnPhantasmalWounds			= mod:NewSpecialWarningYou(182325, false)
 local yellPhantasmalWounds				= mod:NewYell(182325, nil, false)--Can't see much reason to have THIS one on by default, but offered as an option.
 local specWarnFelLaser					= mod:NewSpecialWarningMoveAway(182582, nil, nil, nil, 1, 2)
+local specWarnFelLaserGTFO				= mod:NewSpecialWarningMove(182600, nil, nil, nil, 1, 2)
 local yellFelLaser						= mod:NewYell(182582)
 local specWarnShadowRiposte				= mod:NewSpecialWarningSpell(185345, nil, nil, nil, 3)--Has eye of anzu, they need to know this badly.
 --Adds
@@ -97,17 +98,20 @@ mod:AddRangeFrameOption(15)--Both aoes are 15 yards, ref 187991 and 181748
 mod:AddSetIconOption("SetIconOnAnzu", 179202, false)
 mod:AddSetIconOption("SetIconOnWinds", 181957, true)
 mod:AddSetIconOption("SetIconOnFelBomb", 181753, true)
+mod:AddHudMapOption("HudMapOnChakram", 182178)
 
 mod.vb.focusedBlast = 0
 mod.vb.savedChakram = nil
 mod.vb.savedWinds = nil
 mod.vb.savedWounds = nil
 mod.vb.savedRiposte = nil
+local chakramTargets = {}
 local playerHasAnzu = false
 local corruption = GetSpellInfo(181824)
 local phantasmalFelBomb = GetSpellInfo(179219)
 local realFelBomb = GetSpellInfo(181753)
 local darkBindings = GetSpellInfo(185510)
+local playerName = UnitName("player")
 local AddsSeen = {}
 
 local debuffFilter
@@ -130,6 +134,42 @@ local function updateRangeFrame(self)
 	end
 end
 
+local function showChakram(self)
+	warnFelChakram:Show(table.concat(chakramTargets, "<, >"))
+	--Chakram is always thrown ranged-->melee-->Tank
+	--Need to determine roles for the hud
+	if not self.Options.HudMapOnChakram then return end
+	local ranged, melee, tank = nil, nil, nil
+	for i = 1, #chakramTargets do
+		local name = chakramTargets[i]
+		local uId = DBM:GetRaidUnitId(name)
+		if not uId then return end--Prevent errors if person leaves group
+		if self:IsMeleeDps(uId) then--Melee
+			melee = chakramTargets[i]
+			DBM:Debug("Melee Chakram found: "..melee, 2)
+		elseif self:IsTanking(uId, "boss1") then--Tank
+			tank = chakramTargets[i]
+			DBM:Debug("Tank Chakram found: "..tank, 2)
+		else--Ranged
+			ranged = chakramTargets[i]
+			DBM:Debug("Ranged Chakram found: "..ranged, 2)
+		end
+	end
+	if ranged and melee and tank then
+		DBM:Debug("All Chakram found!", 2)
+		DBMHudMap:RegisterRangeMarkerOnPartyMember(182178, "party", ranged, 0.75, 6, nil, nil, nil, 0.8, nil, false):Appear():SetLabel(ranged, nil, nil, nil, nil, nil, 0.8, nil, -16, 9, nil)
+		DBMHudMap:RegisterRangeMarkerOnPartyMember(182178, "party", melee, 0.75, 6, nil, nil, nil, 0.8, nil, false):Appear():SetLabel(melee, nil, nil, nil, nil, nil, 0.8, nil, -16, 9, nil)
+		DBMHudMap:RegisterRangeMarkerOnPartyMember(182178, "party", tank, 0.75, 6, nil, nil, nil, 0.8, nil, false):Appear():SetLabel(tank, nil, nil, nil, nil, nil, 0.8, nil, -16, 9, nil)
+		if playerName == melee or playerName == ranged or playerName == tank then--Player in it, green lines
+			DBMHudMap:AddEdge(0, 1, 0, 0.5, 6, ranged, melee, nil, nil, nil, nil)
+			DBMHudMap:AddEdge(0, 1, 0, 0.5, 6, melee, tank, nil, nil, nil, nil)
+		else--Yellow lines
+			DBMHudMap:AddEdge(1, 1, 0, 0.5, 6, ranged, melee, nil, nil, nil, nil)
+			DBMHudMap:AddEdge(1, 1, 0, 0.5, 6, melee, tank, nil, nil, nil, nil)
+		end
+	end
+end
+
 function mod:OnCombatStart(delay)
 	self.vb.focusedBlast = 0
 	self.vb.savedChakram = nil
@@ -138,6 +178,7 @@ function mod:OnCombatStart(delay)
 	self.vb.savedRiposte = nil
 	playerHasAnzu = false
 	table.wipe(AddsSeen)
+	table.wipe(chakramTargets)
 	updateRangeFrame(self)
 	timerChakramCD:Start(5-delay)--Seems still 5 in all modes
 	if self:IsNormal() then--Normal timers are about 40% slower on pull, 20% slower rest of fight
@@ -165,6 +206,9 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
+	if self.Options.HudMapOnChakram then
+		DBMHudMap:Disable()
+	end
 end 
 
 function mod:SPELL_CAST_START(args)
@@ -179,7 +223,7 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 181827 or spellId == 187998 then--Both versions of it. I assume the 5 second version is probably LFR/Normal
 		timerFelConduitCD:Start(args.sourceGUID)
 		if playerHasAnzu then--Able to interrupt
-			specWarnFelConduit:Show()
+			specWarnFelConduit:Show(args.sourceName)
 			if self:IsHealer() then--It's still on healer that did last dispel, they need to throw to better interruptor, probably tank
 				specWarnThrowAnzu:Show(TANK)
 				voiceThrowAnzu:Play("179202m") --throw to melee (maybe change to throw to tank, in strat i saw, it was best to bounce eye between tank and healer since throwing to tank also made immune to Phantasmal Corruption as added bonus)
@@ -218,6 +262,7 @@ end
 function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 182178 then
+		table.wipe(chakramTargets)
 		timerChakramCD:Start()
 	elseif spellId == 181956 then
 		if self:IsNormal() then
@@ -345,12 +390,18 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			specWarnDarkBindings:Show()
 		end
-		if playerHasAnzu and self:AntiSpam(3, 1) then
+		if playerHasAnzu and self:AntiSpam(3, 3) then
 			specWarnThrowAnzu:Show(args.spellName)
 			voiceThrowAnzu:Play("179202")
 		end
 	elseif spellId == 182178 or spellId == 182200 then
-		warnFelChakram:CombinedShow(0.3, args.destName)
+		chakramTargets[#chakramTargets+1] = args.destName
+		self:Unschedule(showChakram)
+		if #chakramTargets == 3 then
+			showChakram(self)
+		else
+			self:Schedule(0.5, showChakram, self)
+		end
 		if args:IsPlayer() then
 			specWarnFelChakram:Show()
 			voiceFelChakram:Play("runout")
@@ -393,8 +444,20 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.SetIconOnFelBomb then
 			self:SetIcon(args.destName, 0)
 		end
+	elseif spellId == 182178 or spellId == 182200 then
+--		if self.Options.HudMapOnChakram then
+--			DBMHudMap:FreeEncounterMarkerByTarget(182178, args.destName)
+--		end
 	end
 end
+
+function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
+	if spellId == 182600 and destGUID == UnitGUID("player") and self:AntiSpam(2, 4) then
+		specWarnFelLaserGTFO:Show()
+		voiceFelLaser:Play("runaway")
+	end
+end
+mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
 function mod:RAID_BOSS_WHISPER(msg)
 	if msg:find("spell:182582") then
@@ -460,12 +523,3 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		end
 	end
 end
-
---[[
-function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
-	if spellId == 173192 and destGUID == UnitGUID("player") and self:AntiSpam(2, 3) then
-
-	end
-end
-mod.SPELL_ABSORBED = mod.SPELL_PERIODIC_DAMAGE
---]]

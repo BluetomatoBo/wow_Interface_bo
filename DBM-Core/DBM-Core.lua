@@ -52,9 +52,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14159 $"):sub(12, -3)),
-	DisplayVersion = "6.2.6", -- the string that is shown as version
-	ReleaseRevision = 14159 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 14306 $"):sub(12, -3)),
+	DisplayVersion = "6.2.7", -- the string that is shown as version
+	ReleaseRevision = 14306 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -270,8 +270,8 @@ DBM.DefaultOptions = {
 	CRT_Enabled = false,
 	ShowRespawn = true,
 	ShowQueuePop = true,
-	HelpMessageShown3 = false,
-	NewsMessageShown = 2,
+	HelpMessageVersion = 1,
+	NewsMessageShown = 3,
 	MoviesSeen = {},
 	MovieFilter = "AfterFirst",
 	LastRevision = 0,
@@ -390,7 +390,7 @@ local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 local dbmToc = 0
 
-local fakeBWRevision = 13537
+local fakeBWRevision = 13588
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -1216,6 +1216,17 @@ do
 		end
 	end
 
+	function DBM:IsCallbackRegistered(event, f)
+		if not event or type(f) ~= "function" then
+			error("Usage: IsCallbackRegistered(event, callbackFunc)", 2)
+		end
+		if not callbacks[event] then return end
+		for i = 1, #callbacks[event] do
+			if callbacks[event][i] == f then return true end
+		end
+		return false
+	end
+
 	function DBM:RegisterCallback(event, f)
 		if not event or type(f) ~= "function" then
 			error("Usage: DBM:RegisterCallback(event, callbackFunc)", 2)
@@ -1225,9 +1236,19 @@ do
 		return #callbacks[event]
 	end
 
-	function DBM:UnregisterCallback(event)
+	function DBM:UnregisterCallback(event, f)
 		if not event or not callbacks[event] then return end
-		callbacks[event] = nil
+		if f then
+			if type(f) ~= "function" then
+				error("Usage: UnregisterCallback(event, callbackFunc)", 2)
+			end
+			--> checking from the end to start and not stoping after found one result in case of a func being twice registered.
+			for i = #callbacks[event], 1, -1 do
+				if callbacks[event][i] == f then tremove (callbacks[event], i) end
+			end
+		else
+			callbacks[event] = nil
+		end
 	end
 end
 
@@ -1591,6 +1612,8 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		DBM:ShowVersions(true)
 	elseif cmd == "unlock" or cmd == "move" then
 		DBM.Bars:ShowMovableBar()
+	elseif cmd == "help2" then
+		for i, v in ipairs(DBM_CORE_SLASHCMD_HELP2) do DBM:AddMsg(v) end
 	elseif cmd == "help" then
 		for i, v in ipairs(DBM_CORE_SLASHCMD_HELP) do DBM:AddMsg(v) end
 	elseif cmd:sub(1, 13) == "timer endloop" then
@@ -1598,7 +1621,8 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 	elseif cmd:sub(1, 5) == "timer" then
 		local time, text = msg:match("^%w+ ([%d:]+) (.+)$")
 		if not (time and text) then
-			DBM:AddMsg(DBM_PIZZA_ERROR_USAGE)
+			for i, v in ipairs(DBM_CORE_TIMER_USAGE) do DBM:AddMsg(v) end
+			--DBM:AddMsg(DBM_PIZZA_ERROR_USAGE)
 			return
 		end
 		local min, sec = string.split(":", time)
@@ -1788,7 +1812,14 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 				DBM:AddMsg(DBM_CORE_HUD_INVALID_SELF)
 				return
 			end
-			if hudType:upper() == "GREEN" then
+			if hudType:upper() == "ARROW" then
+				local _, targetClass = UnitClass(uId)
+				local color2 = RAID_CLASS_COLORS[targetClass]
+				local m1 = DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "party", playerName, 0.1, hudDuration, 0, 1, 0, 1, nil, false):Appear()
+				local m2 = DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "party", UnitName(uId), 0.75, hudDuration, color2.r, color2.g, color2.b, 1, nil, false):Appear()
+				m2:EdgeTo(m1, nil, hudDuration, 0, 1, 0, 1)
+				success = true
+			elseif hudType:upper() == "GREEN" then
 				DBMHudMap:RegisterRangeMarkerOnPartyMember(12345, "highlight", UnitName(uId), 3.5, hudDuration, 0, 1, 0, 0.5, nil, false):Pulse(0.5, 0.5)
 				success = true
 			elseif hudType:upper() == "RED" then
@@ -1909,11 +1940,16 @@ do
 	end
 	SLASH_DBMRANGE1 = "/range"
 	SLASH_DBMRANGE2 = "/distance"
+	SLASH_DBMHUDAR1 = "/hudar"
 	SLASH_DBMRRANGE1 = "/rrange"
 	SLASH_DBMRRANGE2 = "/rdistance"
 	SlashCmdList["DBMRANGE"] = function(msg)
 		local r = tonumber(msg) or 10
 		updateRangeFrame(r, false)
+	end
+	SlashCmdList["DBMHUDAR"] = function(msg)
+		local r = tonumber(msg) or 10
+		DBMHudMap:ToggleHudar(r)
 	end
 	SlashCmdList["DBMRRANGE"] = function(msg)
 		local r = tonumber(msg) or 10
@@ -2186,6 +2222,8 @@ do
 			showPopupConfirmIgnore(ignore, cancel)
 		elseif arg1 == "update" then
 			DBM:ShowUpdateReminder(arg2, arg3) -- displayVersion, revision
+		elseif arg == "localizersneeded" then
+			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG, "http://forums.elitistjerks.com/topic/132449-dbm-localizers-needed/")
 		elseif arg1 == "forumsnews" then
 			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG_NEWS, "http://forums.elitistjerks.com/topic/133665-new-feature-color-bars-by-type/")
 		elseif arg1 == "forums" then
@@ -3718,6 +3756,7 @@ do
 	local dummyMod -- dummy mod for the pull timer
 	local dummyMod2 -- dummy mod for the break timer
 	syncHandlers["PT"] = function(sender, timer, lastMapID)
+		if DBM.Options.DontShowUserTimers then return end
 		if (DBM:GetRaidRank(sender) == 0 and IsInGroup()) or select(2, IsInInstance()) == "pvp" or IsEncounterInProgress() then
 			return
 		end
@@ -3746,7 +3785,7 @@ do
 		end
 		dummyMod.text:Cancel()
 		if timer == 0 then return end--"/dbm pull 0" will strictly be used to cancel the pull timer (which is why we let above part of code run but not below)
-		if not DBM.Options.DontShowPT2 and not DBM.Options.DontShowUserTimers then
+		if not DBM.Options.DontShowPT2 then
 			DBM.Bars:CreateBar(timer, DBM_CORE_TIMER_PULL, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 		end
 		if not DBM.Options.DontPlayPTCountdown then
@@ -3785,6 +3824,7 @@ do
 	end
 	
 	syncHandlers["BT"] = function(sender, timer)
+		if DBM.Options.DontShowUserTimers then return end
 		if (DBM:GetRaidRank(sender) == 0 and IsInGroup()) or select(2, IsInInstance()) == "pvp" or IsEncounterInProgress() then
 			return
 		end
@@ -3808,7 +3848,7 @@ do
 		end
 		dummyMod2.text:Cancel()
 		if timer == 0 then return end--"/dbm break 0" will strictly be used to cancel the break timer (which is why we let above part of code run but not below)
-		if not DBM.Options.DontShowPT2 and not DBM.Options.DontShowUserTimers then
+		if not DBM.Options.DontShowPT2 then
 			DBM.Bars:CreateBar(timer, DBM_CORE_TIMER_BREAK, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 		end
 		if not DBM.Options.DontPlayPTCountdown then
@@ -6126,11 +6166,11 @@ end
 do
 	function DBM:PLAYER_ENTERING_WORLD()
 		if GetLocale() == "ptBR" or GetLocale() == "frFR" or GetLocale() == "esES" or GetLocale() == "esMX" or GetLocale() == "itIT" then
-			self:Schedule(10, function() if not self.Options.HelpMessageShown3 then self.Options.HelpMessageShown3 = true self:AddMsg(DBM_CORE_NEED_SUPPORT) end end)
+			self:Schedule(10, function() if self.Options.HelpMessageVersion < 2 then self.Options.HelpMessageVersion = 2 self:AddMsg(DBM_CORE_NEED_SUPPORT) end end)
 		end
 		self:Schedule(20, function() if not self.Options.ForumsMessageShown then self.Options.ForumsMessageShown = self.ReleaseRevision self:AddMsg(DBM_FORUMS_MESSAGE) end end)
 		self:Schedule(30, function() if not self.Options.SettingsMessageShown then self.Options.SettingsMessageShown = true self:AddMsg(DBM_HOW_TO_USE_MOD) end end)
-		self:Schedule(40, function() if DBM.Options.NewsMessageShown < 3 then DBM.Options.NewsMessageShown = 3 self:AddMsg(DBM_CORE_WHATS_NEW) end end)
+		self:Schedule(40, function() if self.Options.NewsMessageShown < 4 then self.Options.NewsMessageShown = 4 self:AddMsg(DBM_CORE_WHATS_NEW) end end)
 		if type(RegisterAddonMessagePrefix) == "function" then
 			if not RegisterAddonMessagePrefix("D4") then -- main prefix for DBM4
 				self:AddMsg("Error: unable to register DBM addon message prefix (reached client side addon message filter limit), synchronization will be unavailable") -- TODO: confirm that this actually means that the syncs won't show up
@@ -6205,7 +6245,11 @@ do
 	-- sender is a presenceId for real id messages, a character name otherwise
 	local function onWhisper(msg, sender, isRealIdMessage)
 		if statusWhisperDisabled then return end--RL has disabled status whispers for entire raid.
-		if msg == "status" and #inCombat > 0 and DBM.Options.StatusEnabled then
+		if msg:find(chatPrefix) and not InCombatLockdown() and DBM:AntiSpam(60, "Ogron") then
+			--Might need more validation if people figure out they can just whisper people with chatPrefix to trigger it.
+			--However if I have to add more validation it probably won't work in most languages :\ So lets hope antispam and combat check is enough
+			DBM:PlaySoundFile("sound\\creature\\aggron1\\VO_60_HIGHMAUL_AGGRON_1_AGGRO_1.ogg")
+		elseif msg == "status" and #inCombat > 0 and DBM.Options.StatusEnabled then
 			if not difficultyText then -- prevent error when timer recovery function worked and etc (StartCombat not called)
 				difficultyText = select(2, DBM:GetCurrentInstanceDifficulty())
 			end
@@ -6379,7 +6423,7 @@ end
 --  Misc. Functions  --
 -----------------------
 function DBM:AddMsg(text, prefix)
-	local tag = prefix or (self.localization and self.localization.general.name) or "Deadly Boss Mods"
+	local tag = prefix or (self.localization and self.localization.general.name) or "DBM"
 	local frame = _G[tostring(DBM.Options.ChatFrame)]
 	frame = frame and frame:IsShown() and frame or DEFAULT_CHAT_FRAME
 	if prefix ~= false then
@@ -8661,7 +8705,7 @@ do
 		elseif not (optionName == false) then
 			obj.option = "Yell"..(spellId or yellText)..(yellType ~= "yell" and yellType or "")..(optionVersion or "")
 			self:AddBoolOption(obj.option, optionDefault, "misc")
-			self.localization.options[obj.option] = DBM_CORE_AUTO_YELL_OPTION_TEXT:format(spellId)
+			self.localization.options[obj.option] = DBM_CORE_AUTO_YELL_OPTION_TEXT[yellType]:format(spellId)
 		end
 		return obj
 	end

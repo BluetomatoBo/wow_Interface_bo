@@ -30,14 +30,14 @@ L= DBM:GetModLocalization(1425)
 ---------------------------
 L= DBM:GetModLocalization(1432)
 
-L:SetMiscLocalization({
-	Jubeideath		=	"난 영원히 타오른다!"
-})
-
 ------------------
 -- Kormrok --
 ------------------
 L= DBM:GetModLocalization(1392)
+
+L:SetMiscLocalization({
+	ExRTNotice		= "ExRT 애드온으로부터 위치 받음 (%s|1이;가; 보냄). 당신의 위치 - 주황색: %s, 녹색: %s, 보라색: %s"
+})
 
 --------------
 -- Kilrogg Deadeye --
@@ -147,6 +147,9 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	specWarnBreakShackle	= "$spell:184964 대상이 된 경우 특수 경고 보기(빠지는 순서가 자동으로 할당됩니다.)",
+	ExtendWroughtHud2		= "$spell:185014 대상에게 범위정보 연장(선모양이 부정확할 수 있습니다.)",
+	AlternateHudLine		= "$spell:185014 대상에게 다른 범위정보 무늬 사용",
+	NamesWroughtHud			= "$spell:185014 대상 이름을 포함한 범위정보 보기",
 	FilterOtherPhase		= "당신과 다른 위상에 있는 주문 경고 숨기기"
 })
 

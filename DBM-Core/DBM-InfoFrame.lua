@@ -78,7 +78,7 @@ local GetSpellInfo = GetSpellInfo
 local UnitPosition = UnitPosition
 local GetRaidRosterInfo, GetPartyAssignment, UnitGroupRolesAssigned = GetRaidRosterInfo, GetPartyAssignment, UnitGroupRolesAssigned
 local twipe = table.wipe
-local select = select
+local select, tonumber = select, tonumber
 local mfloor = math.floor
 
 -- for Phanx' Class Colors
@@ -159,7 +159,7 @@ function createFrame()
 	end)
 	frame:SetScript("OnDragStop", function(self)
 		self:StopMovingOrSizing()
-		ValidateFramePosition(self)
+		--ValidateFramePosition(self)
 		local point, _, _, x, y = self:GetPoint(1)
 		DBM.Options.InfoFrameX = x
 		DBM.Options.InfoFrameY = y
@@ -347,7 +347,13 @@ local function updatePlayerDebuffRemaining()
 		local _, _, _, _, _, _, expires = UnitDebuff(uId, spellName)
 		if expires then
 			local debuffTime = expires - GetTime()
-			lines[UnitName(uId)] = mfloor(debuffTime)
+		--	if debuffTime < 5 then
+			--	lines[UnitName(uId)] = "|cffff0000"..mfloor(debuffTime).."|r"--Red
+			--elseif debuffTime < 10 then
+			--	lines[UnitName(uId)] = "|cff990000"..mfloor(debuffTime).."|r"--Orange
+			--else
+				lines[UnitName(uId)] = mfloor(debuffTime)
+			--end
 		end
 	end
 	updateLines()
@@ -535,8 +541,18 @@ function onUpdate(frame)
 					else--Green
 						frame:AddDoubleLine(icon or leftText, rightText, 0, 255, 0, 255, 255, 255)
 					end
-				else--It's not player, do nothing special with it. Ordinary white text.
-					frame:AddDoubleLine(icon or leftText, rightText, color.r, color.g, color.b, 255, 255, 255)
+				else--It's not player, do nothing special with it. Ordinary class colored text.
+					if currentEvent == "playerdebuffremaining" then
+						if tonumber(rightText) < 6 then
+							frame:AddDoubleLine(icon or leftText, rightText, color.r, color.g, color.b, 255, 0, 0)--Red
+						elseif tonumber(rightText) < 11 then
+							frame:AddDoubleLine(icon or leftText, rightText, color.r, color.g, color.b, 255, 127.5, 0)--Orange
+						else
+							frame:AddDoubleLine(icon or leftText, rightText, color.r, color.g, color.b, 255, 255, 255)--White
+						end
+					else
+						frame:AddDoubleLine(icon or leftText, rightText, color.r, color.g, color.b, 255, 255, 255)
+					end
 				end
 			end
 			if not addedSelf and DBM.Options.InfoFrameShowSelf and currentEvent == "playerpower" then-- Only Shows on playerpower event.

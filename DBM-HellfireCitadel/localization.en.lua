@@ -29,10 +29,6 @@ L= DBM:GetModLocalization(1425)
 ---------------------------
 L= DBM:GetModLocalization(1432)
 
-L:SetMiscLocalization({
-	Jubeideath		=	"I am everburning!"
-})
-
 ------------------
 -- Kormrok --
 ------------------
@@ -150,6 +146,9 @@ L:SetWarningLocalization({
 
 L:SetOptionLocalization({
 	specWarnBreakShackle	= "Show special warning when affected by $spell:184964. This warning auto assigns break order to minimize similtanious damage.",
+	ExtendWroughtHud2		= "Extend the HUD lines beyond the $spell:185014 target (May diminish line accuracy)",
+	AlternateHudLine		= "Use alternate line texture for HUD lines between $spell:185014 targets",
+	NamesWroughtHud			= "Show player names HUD for $spell:185014 targets",
 	FilterOtherPhase		= "Filter out warnings for events not in same phase as you"
 })
 

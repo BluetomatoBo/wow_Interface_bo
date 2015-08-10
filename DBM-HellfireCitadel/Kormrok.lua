@@ -1,19 +1,19 @@
 local mod	= DBM:NewMod(1392, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14154 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14296 $"):sub(12, -3))
 mod:SetCreatureID(90435)
 mod:SetEncounterID(1787)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 4, 2, 1)
-mod:SetHotfixNoticeRev(14096)
+mod:SetHotfixNoticeRev(14154)
 mod.respawnTime = 18--18 is an odd one, but definitely was 18
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 181292 181293 181296 181297 181299 181300 180244 181305",
-	"SPELL_CAST_SUCCESS 181307",
+	"SPELL_CAST_SUCCESS 181307 181299 181300",
 	"SPELL_AURA_APPLIED 181306 186882 180115 180116 180117 189197 189198 189199 186879 186880 186881",
 	"SPELL_AURA_REMOVED 181306 180244"
 --	"SPELL_PERIODIC_DAMAGE",
@@ -36,7 +36,7 @@ local warnEnrage					= mod:NewSpellAnnounce(186882, 3)
 
 local specWarnPound					= mod:NewSpecialWarningCount(180244, nil, nil, nil, 2, 2)
 local specWarnSwat					= mod:NewSpecialWarningCount(181305, "Tank", nil, nil, 1, 2)
-local specWarnExplosiveBurst		= mod:NewSpecialWarningYou(181306)
+local specWarnExplosiveBurst		= mod:NewSpecialWarningYouCount(181306)
 local yellExplosiveBurst			= mod:NewYell(181306)
 local specWarnExplosiveBurstNear	= mod:NewSpecialWarningClose(181306, nil, nil, nil, 3, 2)
 local specWarnFoulCrush				= mod:NewSpecialWarningSwitch(181307, "Dps|Tank")--Tweak it as needed once can figure out how to detect what tank it's on
@@ -65,7 +65,7 @@ local timerSwatCD					= mod:NewNextCountTimer(40, 181305, nil, "Tank", nil, 5)
 local countdownGraspingHands		= mod:NewCountdown(40, 181299)
 local countdownExplosiveBurst		= mod:NewCountdown("Alt10", 181306)
 
-local voicePound					= mod:NewVoice(180244)--aesoon
+local voicePound					= mod:NewVoice(180244)--scatter
 local voiceFelOutpouring			= mod:NewVoice(181292)--watchwave
 local voiceExplosiveBurst			= mod:NewVoice(181306)--runout
 local voiceGraspingHands			= mod:NewVoice(181299)--gather
@@ -84,14 +84,15 @@ mod.vb.swatCount = 0
 mod.vb.enraged = false
 local debuffName = GetSpellInfo(181306)
 local UnitDebuff = UnitDebuff
+local playerName = UnitName("player")
 local playerOrangeX, playerOrangeY = nil, nil
 local playerGreenX, playerGreenY = nil, nil
 local playerPurpleX, playerPurpleY = nil, nil
 
 --Not local functions, so they can also be used as a test functions as well
---/run DBM:GetModByName("1392"):RuneStart(181293)
-function mod:RuneStart(spellId)
-	if not self:IsMythic() then return end
+--/run DBM:GetModByName("1392"):RuneStart(181293, true)
+function mod:RuneStart(spellId, force)
+	if not self:IsMythic() and not force then return end
 	local playerX, playerY
 	if spellId == 181293 then
 		playerX, playerY = playerPurpleX, playerPurpleY
@@ -105,7 +106,9 @@ function mod:RuneStart(spellId)
 	--		DBM.Arrow:ShowRunTo(playerX, playerY, 0)
 	--	end
 		if self.Options.HudMapForRune then
-			DBMHudMap:RegisterPositionMarker(spellId, "HudMapForRune", "highlight", playerX, playerY, 3, 8, 0, 1, 0, 0.5, nil, 4):Pulse(0.5, 0.5)
+			local m1 = DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", playerName, 0.1, 8, 0, 1, 0, 0.5):Appear()--tiny dot for self, to create line PoO
+			local m2 = DBMHudMap:RegisterPositionMarker(spellId, "HudMapForRune", "highlight", playerX, playerY, 3, 8, 0, 1, 0, 0.5, nil, 4):Pulse(0.5, 0.5)--Rune location
+			m2:EdgeTo(m1, nil, 8, 0, 1, 0, 1)--Now draw line between player and rune
 		end
 	end
 end
@@ -128,8 +131,7 @@ do
 	end
 end
 
---Change range to 30 yards in 6.2.1, or on live if it's confirmed to be 30 yards on live
-local function updateRangeCheck(self)
+local function updateRangeCheck(self, force)
 	if not self.Options.RangeFrame then return end
 	if self.vb.explodingTank then
 		if UnitDebuff("player", debuffName) then
@@ -139,7 +141,7 @@ local function updateRangeCheck(self)
 		else--No pound, tank still active, keep filtered radar up to prevent walking back into tank
 			DBM.RangeCheck:Show(30, debuffFilter)
 		end
-	elseif self.vb.poundActive then--Just pound, no tank debuff.
+	elseif self.vb.poundActive or force then--Just pound, no tank debuff.
 		DBM.RangeCheck:Show(4)
 	else
 		DBM.RangeCheck:Hide()
@@ -198,19 +200,17 @@ function mod:SPELL_CAST_START(args)
 		else
 			specWarnGraspingHands:Show()
 		end
+		updateRangeCheck(self, true)
 	elseif spellId == 180244 then
 		self.vb.poundActive = true
 		self.vb.poundCount = self.vb.poundCount + 1
 		specWarnPound:Show(self.vb.poundCount)
-		voicePound:Play("aesoon")
+		voicePound:Play("scatter")
 		updateRangeCheck(self)
 	elseif spellId == 181305 then
 		self.vb.swatCount = self.vb.swatCount + 1
 		specWarnSwat:Show(self.vb.swatCount)
 		voiceSwat:Play("carefly")
-		local isMoreFaster = self:IsMythic() and self.vb.enraged
-		local isFaster = self:IsMythic() or self.vb.enraged
-		timerSwatCD:Start(isMoreFaster and 23 or isFaster and 32 or 38, self.vb.swatCount+1)
 	end
 end
 
@@ -219,14 +219,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 	if spellId == 181307 then
 		self.vb.foulCrush = self.vb.foulCrush + 1
 		specWarnFoulCrush:Show(self.vb.foulCrush)
-		local isMoreFaster = self:IsMythic() and self.vb.enraged
-		local isFaster = self:IsMythic() or self.vb.enraged
-		if self.vb.foulCrush == 1 then
-			--Mythic enraged 23 not confirmed. Guessed based on likeliness
-			timerFoulCrushCD:Start(isMoreFaster and 31 or isFaster and 42 or 50, 2)
-		elseif self.vb.foulCrush == 2 then
-			timerFoulCrushCD:Start(isMoreFaster and 23 or isFaster and 32 or 38, 3)
-		end
+	elseif spellId == 181299 or spellId == 181300 then
+		updateRangeCheck(self)
 	end
 end
 
@@ -250,6 +244,18 @@ local function delayedFelOutpouring(self, time)
 	timerFelOutpouringCD:Start(time)
 end
 
+local function delayedSwat(self, time, count)
+	timerSwatCD:Start(time, count)
+end
+
+local function delayedFowlCrush(self, time, count)
+	timerFoulCrushCD:Start(time, count)
+end
+
+local function delayedExplosiveBurst(self, time, count)
+	timerExplosiveBurstCD:Start(time, count)
+end
+
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
 	if spellId == 181306 then
@@ -257,7 +263,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		self.vb.explodingTank = args.destName
 		countdownExplosiveBurst:Start()
 		if args:IsPlayer() then
-			specWarnExplosiveBurst:Show()
+			specWarnExplosiveBurst:Show(self.vb.explosiveBurst)
 			yellExplosiveBurst:Yell()
 		else
 			if self:CheckNearby(31, args.destName) then
@@ -270,14 +276,6 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:Schedule(3, trippleBurstCheck, self, args.destName, true)
 		end
 		updateRangeCheck(self)
-		local isMoreFaster = self:IsMythic() and self.vb.enraged
-		local isFaster = self:IsMythic() or self.vb.enraged
-		if self.vb.explosiveBurst == 1 then
-			--Mythic enraged 23/30 total guess, don't know it yet for sure.
-			timerExplosiveBurstCD:Start(isMoreFaster and 23 or isFaster and 32 or 38, 2)
-		elseif self.vb.explosiveBurst == 2 then
-			timerExplosiveBurstCD:Start(isMoreFaster and 30 or isFaster and 42 or 50, 3)
-		end
 	--Each energy has it's own hard coded sequence of events/timers.
 	--So all timers need to be scheduled here, they aren't started by any ability casts
 	elseif spellId == 180115 or spellId == 186879 then--Shadow Energy (186879 enraged version)
@@ -289,6 +287,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerFelOutpouringCD:Start(8)
 			self:Schedule(8, delayedFelOutpouring, self, 65)--73
 			timerSwatCD:Start(23, 1)
+			self:Schedule(23, delayedSwat, self, 23, 2)
+			self:Schedule(46, delayedSwat, self, 23, 3)
 			timerPoundCD:Start(26, 1)
 			self:Schedule(26, delayedPound, self, 30)--57
 			timerExplosiveRunesCD:Start(39)
@@ -299,6 +299,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerFelOutpouringCD:Start(11)
 			self:Schedule(11, delayedFelOutpouring, self, 84)--95
 			timerSwatCD:Start(31, 1)
+			self:Schedule(31, delayedSwat, self, 32, 2)
+			self:Schedule(53, delayedSwat, self, 32, 3)
 			timerPoundCD:Start(37, 1)
 			self:Schedule(37, delayedPound, self, 48)--85
 			timerExplosiveRunesCD:Start(53)
@@ -309,6 +311,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerFelOutpouringCD:Start(13)
 			self:Schedule(13, delayedFelOutpouring, self, 100)--113
 			timerSwatCD:Start(37, 1)
+			self:Schedule(37, delayedSwat, self, 38, 2)
+			self:Schedule(75, delayedSwat, self, 38, 3)
 			timerPoundCD:Start(45, 1)
 			self:Schedule(45, delayedPound, self, 50)--95
 			timerExplosiveRunesCD:Start(63)
@@ -326,18 +330,22 @@ function mod:SPELL_AURA_APPLIED(args)
 		self:RuneStart(181297)
 		if (self:IsMythic() and spellId == 186880) then
 			timerExplosiveRunesCD:Start(8)
---			self:Schedule(8, delayedExplosiveRunes, self, 48)--59
+			self:Schedule(8, delayedExplosiveRunes, self, 40)--48
 			timerExplosiveBurstCD:Start(15, 1)
+			self:Schedule(15, delayedExplosiveBurst, self, 23, 2)
+			self:Schedule(38, delayedExplosiveBurst, self, 30, 3)
 			timerPoundCD:Start(19, 1)
---			self:Schedule(19, delayedPound, self, 42)--69
---			timerGraspingHandsCD:Start(43)
---			countdownGraspingHands:Start(43)
---			timerFelOutpouringCD:Start(59)
+			self:Schedule(19, delayedPound, self, 35)--54
+			timerGraspingHandsCD:Start(35)
+			countdownGraspingHands:Start(35)
+			timerFelOutpouringCD:Start(49)
 			timerLeapCD:Start(96)
 		elseif (self:IsMythic() and spellId == 180116) or spellId == 186880 then
 			timerExplosiveRunesCD:Start(11)
 			self:Schedule(11, delayedExplosiveRunes, self, 48)--59
 			timerExplosiveBurstCD:Start(21, 1)
+			self:Schedule(21, delayedExplosiveBurst, self, 32, 2)
+			self:Schedule(53, delayedExplosiveBurst, self, 42, 3)
 			timerPoundCD:Start(27, 1)
 			self:Schedule(27, delayedPound, self, 42)--69
 			timerGraspingHandsCD:Start(43)
@@ -348,6 +356,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			timerExplosiveRunesCD:Start(13)
 			self:Schedule(13, delayedExplosiveRunes, self, 58)--71
 			timerExplosiveBurstCD:Start(25, 1)
+			self:Schedule(25, delayedExplosiveBurst, self, 38, 2)
+			self:Schedule(63, delayedExplosiveBurst, self, 50, 3)
 			timerPoundCD:Start(33, 1)
 			self:Schedule(33, delayedPound, self, 62)--95
 			voiceGraspingHands:Schedule(46, "gather")
@@ -364,10 +374,12 @@ function mod:SPELL_AURA_APPLIED(args)
 		if (self:IsMythic() and spellId == 186881) then
 			timerGraspingHandsCD:Start(8)
 			countdownGraspingHands:Start(8)
---			self:Schedule(8, delayedHands, self, 90)--101
+			self:Schedule(8, delayedHands, self, 75)--83
 			timerFoulCrushCD:Start(15, 1)
+			self:Schedule(15, delayedFowlCrush, self, 31, 2)
+			self:Schedule(46, delayedFowlCrush, self, 23, 3)
 			timerPoundCD:Start(19, 1)
---			self:Schedule(19, delayedPound, self, 52)--79
+			self:Schedule(19, delayedPound, self, 43)--62
 			timerFelOutpouringCD:Start(31)
 			timerExplosiveRunesCD:Start(50)
 			timerLeapCD:Start(96)
@@ -376,6 +388,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			countdownGraspingHands:Start(11)
 			self:Schedule(11, delayedHands, self, 90)--101
 			timerFoulCrushCD:Start(21, 1)
+			self:Schedule(21, delayedFowlCrush, self, 42, 2)
+			self:Schedule(63, delayedFowlCrush, self, 32, 3)
 			timerPoundCD:Start(27, 1)
 			self:Schedule(27, delayedPound, self, 52)--79
 			timerFelOutpouringCD:Start(43.5)
@@ -387,6 +401,8 @@ function mod:SPELL_AURA_APPLIED(args)
 			countdownGraspingHands:Start(13)
 			self:Schedule(13, delayedHands, self, 108)--121
 			timerFoulCrushCD:Start(25, 1)
+			self:Schedule(25, delayedFowlCrush, self, 50, 2)
+			self:Schedule(75, delayedFowlCrush, self, 38, 3)
 			timerPoundCD:Start(33, 1)
 			self:Schedule(33, delayedPound, self, 62)--95
 			timerFelOutpouringCD:Start(51)
