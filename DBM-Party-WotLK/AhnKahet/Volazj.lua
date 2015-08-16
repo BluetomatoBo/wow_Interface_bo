@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(584, "DBM-Party-WotLK", 1, 271)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 124 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 209 $"):sub(12, -3))
 mod:SetCreatureID(29311)
 mod:SetEncounterID(215, 263)
 mod:SetZone()
@@ -13,7 +13,8 @@ mod:RegisterEventsInCombat(
 )
 
 local warningInsanity	= mod:NewCastAnnounce(57496, 3)--Not currently working, no CLEU for it
-local timerInsanity		= mod:NewCastTimer(5, 57496)--Not currently working, no CLEU for it
+
+local timerInsanity		= mod:NewCastTimer(5, 57496, nil, nil, nil, 6)--Not currently working, no CLEU for it
 local timerAchieve		= mod:NewAchievementTimer(120, 1862, "TimerSpeedKill") 
 
 function mod:OnCombatStart(delay)
