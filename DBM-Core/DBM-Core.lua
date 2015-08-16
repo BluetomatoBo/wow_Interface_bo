@@ -52,9 +52,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14306 $"):sub(12, -3)),
-	DisplayVersion = "6.2.7", -- the string that is shown as version
-	ReleaseRevision = 14306 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 14339 $"):sub(12, -3)),
+	DisplayVersion = "6.2.8", -- the string that is shown as version
+	ReleaseRevision = 14339 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -144,6 +144,7 @@ DBM.DefaultOptions = {
 	WorldBossNearAlert = false,
 	RLReadyCheckSound = true,
 	AFKHealthWarning = false,
+	AutoReplySound = true,
 	HideObjectivesFrame = true,
 	HideGarrisonToasts = true,
 	HideGuildChallengeUpdates = true,
@@ -266,6 +267,8 @@ DBM.DefaultOptions = {
 	ForumsMessageShown = false,
 	PGMessageShown = false,
 	MCMessageShown = false,
+	BCTWMessageShown = false,
+	WOTLKTWMessageShown = false,
 	AlwaysShowSpeedKillTimer = true,
 	CRT_Enabled = false,
 	ShowRespawn = true,
@@ -390,7 +393,7 @@ local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 local dbmToc = 0
 
-local fakeBWRevision = 13588
+local fakeBWRevision = 13616
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -3396,12 +3399,29 @@ end
 --  Load Boss Mods on Demand  --
 --------------------------------
 do
-	local function FixForShittyComputers()
+	local function checkMods(self)
+		if LastInstanceMapID == 1148 and not self.Options.PGMessageShown and not GetAddOnInfo("DBM-ProvingGrounds") then
+			self.Options.PGMessageShown = true
+			self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-ProvingGrounds"))
+		elseif LastInstanceMapID == 409 and not self.Options.MCMessageShown and not GetAddOnInfo("DBM-MC") then
+			self.Options.MCMessageShown = true
+			self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-MC"))
+		--Surely a less shitty way of checking "this is a BC dungeon"?
+		elseif (LastInstanceMapID == 540 or LastInstanceMapID == 558 or LastInstanceMapID == 556 or LastInstanceMapID == 555 or LastInstanceMapID == 542 or LastInstanceMapID == 546 or LastInstanceMapID == 545 or LastInstanceMapID == 547 or LastInstanceMapID == 553 or LastInstanceMapID == 554 or LastInstanceMapID == 552 or LastInstanceMapID == 557 or LastInstanceMapID == 269 or LastInstanceMapID == 560 or LastInstanceMapID == 543 or LastInstanceMapID == 585) and difficultyIndex == 24 and not self.Options.BCTWMessageShown and not GetAddOnInfo("DBM-Party-BC") then
+			self.Options.BCTWMessageShown = true
+			self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-BC"))
+		--Surely a less shitty way of checking "this is a wrath dungeon"?
+		elseif (LastInstanceMapID == 619 or LastInstanceMapID == 601 or LastInstanceMapID == 595 or LastInstanceMapID == 600 or LastInstanceMapID == 604 or LastInstanceMapID == 602 or LastInstanceMapID == 599 or LastInstanceMapID == 576 or LastInstanceMapID == 578 or LastInstanceMapID == 574 or LastInstanceMapID == 575 or LastInstanceMapID == 608 or LastInstanceMapID == 658 or LastInstanceMapID == 632 or LastInstanceMapID == 668 or LastInstanceMapID == 650) and difficultyIndex == 24 and not self.Options.WOTLKTWMessageShown and not GetAddOnInfo("DBM-Party-WotLK") then
+			self.Options.WOTLKTWMessageShown = true
+			self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-WotLK"))
+		end
+	end
+	local function FixForShittyComputers(self)
 		timerRequestInProgress = false
 		local _, instanceType, difficulty, _, _, _, _, mapID, instanceGroupSize = GetInstanceInfo()
-		DBM:Debug("Instance Check fired with mapID "..mapID.." and difficulty "..difficulty)
+		self:Debug("Instance Check fired with mapID "..mapID.." and difficulty "..difficulty)
 		if LastInstanceMapID == mapID then
-			DBM:Debug("No action taken because mapID hasn't changed since last check")
+			self:Debug("No action taken because mapID hasn't changed since last check")
 			return
 		end--ID hasn't changed, don't waste cpu doing anything else (example situation, porting into garrosh phase 4 is a loading screen)
 		LastInstanceMapID = mapID
@@ -3410,37 +3430,31 @@ do
 		if instanceType == "none" or C_Garrison:IsOnGarrisonMap() then
 			LastInstanceType = "none"
 			if not targetEventsRegistered then
-				DBM:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT")
+				self:RegisterShortTermEvents("UPDATE_MOUSEOVER_UNIT")
 				targetEventsRegistered = true
 			end
 		else
 			LastInstanceType = instanceType
 			if targetEventsRegistered then
-				DBM:UnregisterShortTermEvents()
+				self:UnregisterShortTermEvents()
 				targetEventsRegistered = false
 			end
 			if savedDifficulty == "worldboss" then
 				for i = #inCombat, 1, -1 do
-					DBM:EndCombat(inCombat[i], true)
+					self:EndCombat(inCombat[i], true)
 				end
 			end
 		end
 		-- LoadMod
-		DBM:LoadModsOnDemand("mapId", mapID)
-		if not DBM.Options.PGMessageShown and LastInstanceMapID == 1148 and not GetAddOnInfo("DBM-ProvingGrounds") then
-			DBM.Options.PGMessageShown = true
-			DBM:AddMsg(DBM_CORE_PROVINGGROUNDS_AD)
-		elseif not DBM.Options.MCMessageShown and LastInstanceMapID == 409 and not GetAddOnInfo("DBM-MC") then
-			DBM.Options.MCMessageShown = true
-			DBM:AddMsg(DBM_CORE_MOLTENCORE_AD)
-		end
+		checkMods(self)
+		self:LoadModsOnDemand("mapId", mapID)
 	end
 	--Faster and more accurate loading for instances, but useless outside of them
 	function DBM:LOADING_SCREEN_DISABLED()
 		self:Debug("LOADING_SCREEN_DISABLED fired")
-		FixForShittyComputers()
+		FixForShittyComputers(self)
 		self:Unschedule(FixForShittyComputers)
-		self:Schedule(5, FixForShittyComputers, DBM)
+		self:Schedule(5, FixForShittyComputers, self)
 	end
 
 	function DBM:LoadModsOnDemand(checkTable, checkValue)
@@ -5045,19 +5059,19 @@ do
 	end
 
 	-- called for all mob chat events
-	local function onMonsterMessage(type, msg)
+	local function onMonsterMessage(self, type, msg)
 		-- pull detection
 		if combatInfo[LastInstanceMapID] then
 			for i, v in ipairs(combatInfo[LastInstanceMapID]) do
 				if v.type == type and checkEntry(v.msgs, msg) or v.type == type .. "_regex" and checkExpressionList(v.msgs, msg) then
-					DBM:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
+					self:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
 				elseif v.type == "combat_" .. type .. "find" and findEntry(v.msgs, msg) or v.type == "combat_" .. type and checkEntry(v.msgs, msg) then
 					if IsInInstance() then--Indoor boss that uses both combat and yell for combat, so in other words (such as hodir), don't require "target" of boss for yell like scanForCombat does for World Bosses
-						DBM:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
+						self:StartCombat(v.mod, 0, "MONSTER_MESSAGE")
 					else--World Boss
 						scanForCombat(v.mod, v.mob, 0)
-						if (DBM.Options.WorldBossNearAlert or v.mod.Options.ReadyCheck) and not IsQuestFlaggedCompleted(v.mod.readyCheckQuestId) then
-							DBM:PlaySoundFile("Sound\\interface\\levelup2.ogg", true)
+						if v.mod.readyCheckQuestId and (self.Options.WorldBossNearAlert or v.mod.Options.ReadyCheck) and not IsQuestFlaggedCompleted(v.mod.readyCheckQuestId) then
+							self:PlaySoundFile("Sound\\interface\\levelup2.ogg", true)
 						end
 					end
 				end
@@ -5079,20 +5093,20 @@ do
 			local targetName = target or "nil"
 			self:Debug("CHAT_MSG_MONSTER_YELL from "..npc.." while looking at "..targetName, 2)
 		end
-		return onMonsterMessage("yell", msg)
+		return onMonsterMessage(self, "yell", msg)
 	end
 
 	function DBM:CHAT_MSG_MONSTER_EMOTE(msg)
-		return onMonsterMessage("emote", msg)
+		return onMonsterMessage(self, "emote", msg)
 	end
 
 	function DBM:CHAT_MSG_RAID_BOSS_EMOTE(msg, ...)
-		onMonsterMessage("emote", msg)
+		onMonsterMessage(self, "emote", msg)
 		return self:FilterRaidBossEmote(msg, ...)
 	end
 
 	function DBM:RAID_BOSS_EMOTE(msg, ...)--This is a mirror of above prototype only it has less args, both still exist for some reason.
-		onMonsterMessage("emote", msg)
+		onMonsterMessage(self, "emote", msg)
 		return self:FilterRaidBossEmote(msg, ...)
 	end
 	
@@ -5105,7 +5119,7 @@ do
 	end
 
 	function DBM:CHAT_MSG_MONSTER_SAY(msg)
-		return onMonsterMessage("say", msg)
+		return onMonsterMessage(self, "say", msg)
 	end
 end
 
@@ -6245,7 +6259,7 @@ do
 	-- sender is a presenceId for real id messages, a character name otherwise
 	local function onWhisper(msg, sender, isRealIdMessage)
 		if statusWhisperDisabled then return end--RL has disabled status whispers for entire raid.
-		if msg:find(chatPrefix) and not InCombatLockdown() and DBM:AntiSpam(60, "Ogron") then
+		if msg:find(chatPrefix) and not InCombatLockdown() and DBM:AntiSpam(60, "Ogron") and DBM.Options.AutoReplySound then
 			--Might need more validation if people figure out they can just whisper people with chatPrefix to trigger it.
 			--However if I have to add more validation it probably won't work in most languages :\ So lets hope antispam and combat check is enough
 			DBM:PlaySoundFile("sound\\creature\\aggron1\\VO_60_HIGHMAUL_AGGRON_1_AGGRO_1.ogg")

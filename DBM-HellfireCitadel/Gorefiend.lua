@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1372, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14286 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14339 $"):sub(12, -3))
 mod:SetCreatureID(90199)
 mod:SetEncounterID(1783)
 mod:SetZone()
@@ -12,7 +12,7 @@ mod.respawnTime = 30
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 181973 181582 187814",
+	"SPELL_CAST_START 181973 181582 187814 181085",
 	"SPELL_CAST_SUCCESS 179977 182170 181085",
 	"SPELL_AURA_APPLIED 179864 179977 179909 179908 180148 181295 185982 189434 185189",
 	"SPELL_AURA_APPLIED_DOSE 185189",
@@ -48,9 +48,9 @@ local specWarnBurning					= mod:NewSpecialWarningStack(185189, nil, 5)
 local specWarnBurningOther				= mod:NewSpecialWarningTaunt(185189, nil, nil, nil, nil, 2)
 local specWarnBellowingShout			= mod:NewSpecialWarningInterrupt(181582, "-Healer", nil, nil, 1, 2)
 
-local timerShadowofDeathCDDps			= mod:NewTimer(30, "SoDDPS", 179864, "Dps", nil, 5)
-local timerShadowofDeathCDTank			= mod:NewTimer(30, "SoDTank", 179864, "Tank", nil, 5)
-local timerShadowofDeathCDHealer		= mod:NewTimer(30, "SoDHealer", 179864, "Healer", nil, 5)
+local timerShadowofDeathCDDps			= mod:NewTimer(30, "SoDDPS2", 179864, "Dps", nil, 5)
+local timerShadowofDeathCDTank			= mod:NewTimer(30, "SoDTank2", 179864, "Tank", nil, 5)
+local timerShadowofDeathCDHealer		= mod:NewTimer(30, "SoDHealer2", 179864, "Healer", nil, 5)
 local timerTouchofDoomCD				= mod:NewCDTimer(18, 179977, nil, nil, nil, 3)--25 seconds in LFR, tested after heroic. changed? VERIFY
 local timerSharedFateCD					= mod:NewNextCountTimer(29, 179909, nil, nil, nil, 3)--29-31
 local timerCrushingDarknessCD			= mod:NewNextTimer(10, 180017, nil, false, 2, 2)--Actually 16, but i delay start by 6 seconds for reduced spam
@@ -73,17 +73,20 @@ local voiceBurning						= mod:NewVoice(185189) --changemt
 
 mod:AddSetIconOption("SetIconOnFate", 179909)
 mod:AddHudMapOption("HudMapOnSharedFate", 179909)--Smart hud, distinquishes rooted from non rooted by larger dot/font and lines/arrows
+mod:AddBoolOption("ShowOnlyPlayer", true)
 mod:AddRangeFrameOption(5, 182049)
 mod:AddInfoFrameOption(181295)
 
 mod.vb.rootedFate = nil
-mod.vb.rootedFate2 = nil--Just in case, but if this happens you're doing things badly
 mod.vb.shadowOfDeathCount = 0
 mod.vb.sharedFateCount = 0
 mod.vb.playersWithDigest = 0
 local playerDown = false
 local playersCount = 0
 local sharedFateTimers = {19, 28, 25, 22}
+local sharedFateTargets = {}
+local playerHasFate = false
+local playerName = UnitName("player")
 local digestFilter
 do
 	local digestDebuff = GetSpellInfo(181295)
@@ -115,22 +118,37 @@ Mythic
 --]]
 
 local function sharedFateDelay(self)
-	if self.vb.rootedFate2 then--Check this first, assume you are linked to most recent
-		specWarnSharedFate:Show(self.vb.rootedFate2)
-		voiceSharedFate:Play("linegather")
-	elseif self.vb.rootedFate then
-		specWarnSharedFate:Show(self.vb.rootedFate)
-		voiceSharedFate:Play("linegather")
+	if self.vb.rootedFate then
+		if self.Options.HudMapOnSharedFate and not playerDown and (playerHasFate or not self.Options.ShowOnlyPlayer) then
+			local marker1 = DBMHudMap:RegisterRangeMarkerOnPartyMember(179909, "party", self.vb.rootedFate, 0.6, 10, nil, nil, nil, 0.5):Appear():SetLabel(self.vb.rootedFate, nil, nil, nil, nil, nil, 0.8, nil, -17, 11, nil)
+		end
+		for i = 1, #sharedFateTargets do
+			local name = sharedFateTargets[i]
+			if name == playerName then
+				specWarnSharedFate:Show(self.vb.rootedFate)
+				voiceSharedFate:Play("linegather")
+			end
+			if marker1 then
+				local marker2 = DBMHudMap:RegisterRangeMarkerOnPartyMember(179908, "party", name, 0.4, 10, nil, nil, nil, 0.5):Appear():SetLabel(name, nil, nil, nil, nil, nil, 0.8, nil, -16, 9, nil)
+				if name == playerName or self.vb.rootedFate == playerName then--Green line since player is in link
+					marker1:EdgeTo(marker2, nil, 10, 0, 1, 0, 0.5)
+					--DBMHudMap:AddEdge(0, 1, 0, 0.5, 10, sharedFateTargets[i], self.vb.rootedFate)
+				else--Yellow Line since player is not in link
+					marker1:EdgeTo(marker2, nil, 10, 1, 1, 0, 0.5)
+					--DBMHudMap:AddEdge(1, 1, 0, 0.5, 10, sharedFateTargets[i], self.vb.rootedFate)
+				end
+			end
+		end
 	end
 end
 
 function mod:OnCombatStart(delay)
 	self.vb.rootedFate = nil
-	self.vb.rootedFate2 = nil
 	self.vb.shadowOfDeathCount = 0
 	self.vb.sharedFateCount = 0
 	self.vb.playersWithDigest = 0
 	playerDown = false
+	playerHasFate = false
 	playersCount = DBM:GetGroupSize()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Show(5, digestFilter)
@@ -157,7 +175,9 @@ function mod:OnCombatStart(delay)
 	end
 	timerCrushingDarknessCD:Start(5-delay)
 	timerTouchofDoomCD:Start(9-delay)
-	timerSharedFateCD:Start(19-delay, 1)
+	if not self:IsLFR() then
+		timerSharedFateCD:Start(19-delay, 1)
+	end
 	timerFeastofSouls:Start(-delay)
 end
 
@@ -186,6 +206,8 @@ function mod:SPELL_CAST_START(args)
 		voiceBellowingShout:Play("kickcast")
 	elseif spellId == 187814 then
 		warnRagingCharge:Show(args.sourceName)
+	elseif spellId == 181085 then
+		table.wipe(sharedFateTargets)
 	end
 end
 
@@ -260,41 +282,37 @@ function mod:SPELL_AURA_APPLIED(args)
 		if not playerDown then
 			warnTouchofDoom:CombinedShow(0.5, args.destName)
 		end
-		if args:IsPlayer() then
+		if args:IsPlayer() and not self:IsLFR() then
 			specWarnTouchofDoom:Show()
 			voiceTouchofDoom:Play("runout")
 			yellTouchofDoom:Yell()
 		end
 	elseif spellId == 179909 then--Root version
-		if not playerDown then
-			warnSharedFate:CombinedShow(0.5, args.destName)
-		end
-		if self.vb.rootedFate then--One already exists
-			self.vb.rootedFate2 = args.destName
-		else
-			self.vb.rootedFate = args.destName
-		end
-		if self.Options.SetIconOnFate then
-			if self.vb.rootedFate2 then
-				self:SetIcon(args.destName, 2)
-			else
-				self:SetIcon(args.destName, 1)
-			end
-		end
-		if self.Options.HudMapOnSharedFate and not playerDown then
-			DBMHudMap:RegisterRangeMarkerOnPartyMember(179909, "party", args.destName, 0.75, 600, nil, nil, nil, 0.8, nil, true):Appear():SetLabel(args.destName, nil, nil, nil, nil, nil, 0.8, nil, -17, 11, nil)
-		end
 		if args:IsPlayer() then
+			playerHasFate = true
 			yellSharedFate:Yell()
 		end
-	elseif spellId == 179908 then--Non root version (must run to rooted player)
-		warnSharedFate:CombinedShow(0.5, self.vb.sharedFateCount, args.destName)
-		if args:IsPlayer() then
-			self:Schedule(0.5, sharedFateDelay, self)--Just in case rooted ID fires after non rooted ones
+		if not playerDown then
+			warnSharedFate:CombinedShow(0.5, self.vb.sharedFateCount, args.destName)
 		end
-		if self.Options.HudMapOnSharedFate and not playerDown then
-			DBMHudMap:RegisterRangeMarkerOnPartyMember(179908, "party", args.destName, 0.5, 600, nil, nil, nil, 0.8, nil, true):Appear():SetLabel(args.destName, nil, nil, nil, nil, nil, 0.8, nil, -16, 9, nil)
-			DBMHudMap:AddEdge(1, 1, 0, 0.5, 600, args.destName, self.vb.rootedFate2 or self.vb.rootedFate)
+		self.vb.rootedFate = args.destName
+		if self.Options.SetIconOnFate then
+			self:SetIcon(args.destName, 1)
+		end
+	elseif spellId == 179908 then--Non root version (must run to rooted player)
+		if args:IsPlayer() then
+			playerHasFate = true
+		end
+		if not playerDown then
+			warnSharedFate:CombinedShow(0.5, self.vb.sharedFateCount, args.destName)
+		end
+		sharedFateTargets[#sharedFateTargets+1] = args.destName
+		local expectedTargets = self:IsMythic() and 4 or 3
+		self:Unschedule(sharedFateDelay)
+		if #sharedFateTargets == expectedTargets then
+			sharedFateDelay(self)
+		else
+			self:Schedule(0.5, sharedFateDelay, self)
 		end
 	elseif spellId == 180148 then
 		warnHungerforLife:CombinedShow(0.5, args.destName)
@@ -342,19 +360,21 @@ mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
 function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
 	if spellId == 179909 then--Root version
-		if self.vb.rootedFate == args.destName then
-			self.vb.rootedFate = nil
-		elseif self.vb.rootedFate2 == args.destName then
-			self.vb.rootedFate2 = nil
+		if args:IsPlayer() then
+			playerHasFate = false
 		end
+		self.vb.rootedFate = nil
 		if self.Options.HudMapOnSharedFate then
 			DBMHudMap:FreeEncounterMarkerByTarget(179909, args.destName)
-			DBMHudMap:ClearAllEdges()
+			--fDBMHudMap:ClearAllEdges()
 		end
 		if self.Options.SetIconOnFate then
 			self:SetIcon(args.destName, 0)
 		end
 	elseif spellId == 179908 then--Non root version (must run to rooted player)
+		if args:IsPlayer() then
+			playerHasFate = false
+		end
 		if self.Options.HudMapOnSharedFate then
 			DBMHudMap:FreeEncounterMarkerByTarget(179908, args.destName)
 		end
@@ -397,7 +417,9 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 		timerCrushingDarknessCD:Start(5)
 		timerTouchofDoomCD:Start(9)
-		timerSharedFateCD:Start(19, 1)
+		if not self:IsLFR() then
+			timerSharedFateCD:Start(19, 1)
+		end
 		timerFeastofSouls:Start()
 		if self.Options.RangeFrame and self:IsInCombat() then
 			DBM.RangeCheck:Show(5, digestFilter)

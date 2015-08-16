@@ -43,7 +43,7 @@
 --
 
 
-local revision =("$Revision: 14210 $"):sub(12, -3)
+local revision =("$Revision: 14313 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
@@ -3510,6 +3510,7 @@ local function CreateOptionsMenu()
 		local WorldBossNearAlert	= soundAlertsArea:CreateCheckButton(L.WorldBossNearAlert, true, nil, "WorldBossNearAlert")
 		local RLReadyCheckSound		= soundAlertsArea:CreateCheckButton(L.RLReadyCheckSound, true, nil, "RLReadyCheckSound")
 		local AFKHealthWarning		= soundAlertsArea:CreateCheckButton(L.AFKHealthWarning, true, nil, "AFKHealthWarning")
+		local AutoReplySound		= soundAlertsArea:CreateCheckButton(L.AutoReplySound, true, nil, "AutoReplySound")
 
 		local generaltimeroptions	= extraFeaturesPanel:CreateArea(L.TimerGeneral, nil, 125, true)
 

@@ -29,6 +29,14 @@ L= DBM:GetModLocalization(1425)
 ---------------------------
 L= DBM:GetModLocalization(1432)
 
+L:SetWarningLocalization({
+	reapDelayed =	"Reap after Visage ends"
+})
+
+L:SetOptionLocalization({
+	reapDelayed =	DBM_CORE_AUTO_ANNOUNCE_TEXTS.soon:format(184476)
+})
+
 ------------------
 -- Kormrok --
 ------------------
@@ -53,15 +61,16 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(1372)
 
 L:SetTimerLocalization({
-	SoDDPS		= "Next Shadows (%s)",
-	SoDTank		= "Next Shadows (%s)",
-	SoDHealer	= "Next Shadows (%s)"
+	SoDDPS2		= "Next Shadows (%s)",
+	SoDTank2	= "Next Shadows (%s)",
+	SoDHealer2	= "Next Shadows (%s)"
 })
 
 L:SetOptionLocalization({
-	SoDDPS					= "Show timer for next $spell:179864 affecting Damagers",
-	SoDTank					= "Show timer for next $spell:179864 affecting Tanks",
-	SoDHealer				= "Show timer for next $spell:179864 affecting Healers"
+	SoDDPS2			= "Show timer for next $spell:179864 affecting Damagers",
+	SoDTank2		= "Show timer for next $spell:179864 affecting Tanks",
+	SoDHealer2		= "Show timer for next $spell:179864 affecting Healers",
+	ShowOnlyPlayer	= "Only show HudMap for $spell:179909 if you are a participant"
 })
 
 --------------------------

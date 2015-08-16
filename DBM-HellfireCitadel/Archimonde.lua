@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1438, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14298 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14331 $"):sub(12, -3))
 mod:SetCreatureID(91331)--Doomfire Spirit (92208), Hellfire Deathcaller (92740), Felborne Overfiend (93615), Dreadstalker (93616), Infernal doombringer (94412)
 mod:SetEncounterID(1799)
 mod:SetMinSyncRevision(13964)
@@ -197,12 +197,12 @@ mod.vb.twistedDarknessCast = 0
 mod.vb.seethingCorruptionCount = 0
 mod.vb.darkConduit = false
 --Mythic sequence timers for phase 3 (Made by video, subject to inaccuracies until logs available)
-local legionTimers = {20, 63, 60, 60, 50, 45}--Verified up to second 60, rest by video
-local darkConduitTimers = {8, 123, 95, 55, 50}-- Verified up to 95, Rest by video
-local infernalTimers = {35, 63, 63, 55, 68, 40}--Verified by log up to 55. Rest by video
-local sourceofChaosTimers = {49, 58, 76, 78}--Verified by log up to 76. Rest by video
-local twistedDarknessTimers = {75, 78, 42, 40, 72}--Verifed up to 40 by logs, rest by video
-local seethingCorruptionTimers = {61, 58, 52, 70, 30, 40}--Verified up to 70 by log, rest by video
+local legionTimers = {20, 63, 60, 60, 48, 46, 47}--All verified by log
+local darkConduitTimers = {8, 123, 95, 56, 52}-- All verified by log
+local infernalTimers = {35, 63, 63, 55, 68, 41}--All verified by log
+local sourceofChaosTimers = {49, 58, 76, 78}--All verified by log
+local twistedDarknessTimers = {75, 78, 42, 40, 72}--All verified by log
+local seethingCorruptionTimers = {61, 58, 52, 70, 30, 41}--All verified by log
 --Range frame/filter shit
 local shacklesTargets = {}
 local legionTargets = {}
@@ -244,7 +244,7 @@ local function updateInfoFrame()
 		if i == 9 then break end--It's a wipe, plus can't do more than 8 of these with icons
 		local name = felburstTargets[i]
 		local uId = DBM:GetRaidUnitId(name)
-		if UnitDebuff(uId, felburstDebuff) then
+		if uId and UnitDebuff(uId, felburstDebuff) then
 			total = total + 1
 			lines[name] = i
 		end
@@ -252,7 +252,7 @@ local function updateInfoFrame()
 	for i = 1, #shacklesTargets do
 		local name = shacklesTargets[i]
 		local uId = DBM:GetRaidUnitId(name)
-		if UnitDebuff(uId, shackledDebuff) then
+		if uId and UnitDebuff(uId, shackledDebuff) then
 			total = total + 1
 			lines[name] = i
 		end
@@ -428,14 +428,12 @@ local function breakShackles(self, spellName)
 		end
 	end
 	if self.Options.HudMapOnShackledTorment2 and self:IsMythic() then
-		if playerHasShackle then
-			DBMHudMap:RegisterStaticMarkerOnPartyMember(184964, "highlight", shacklesTargets[1], 25, nil, 0, 1, 0, 0.3):Appear():RegisterForAlerts(spellName, shacklesTargets[1])
-			DBMHudMap:RegisterStaticMarkerOnPartyMember(184964, "highlight", shacklesTargets[2], 25, nil, 0, 1, 0, 0.3):Appear():RegisterForAlerts(spellName, shacklesTargets[2])
-			DBMHudMap:RegisterStaticMarkerOnPartyMember(184964, "highlight", shacklesTargets[3], 25, nil, 0, 1, 0, 0.3):Appear():RegisterForAlerts(spellName, shacklesTargets[3])
-		else
-			DBMHudMap:RegisterStaticMarkerOnPartyMember(184964, "highlight", shacklesTargets[1], 25, nil, 0, 1, 0, 0.3):Appear():RegisterForAlerts(nil, shacklesTargets[1])
-			DBMHudMap:RegisterStaticMarkerOnPartyMember(184964, "highlight", shacklesTargets[2], 25, nil, 0, 1, 0, 0.3):Appear():RegisterForAlerts(nil, shacklesTargets[2])
-			DBMHudMap:RegisterStaticMarkerOnPartyMember(184964, "highlight", shacklesTargets[3], 25, nil, 0, 1, 0, 0.3):Appear():RegisterForAlerts(nil, shacklesTargets[3])
+		for i = 1, #shacklesTargets do
+			if playerHasShackle then
+				DBMHudMap:RegisterStaticMarkerOnPartyMember(184964, "highlight", shacklesTargets[i], 25, nil, 0, 1, 0, 0.3):Appear():RegisterForAlerts(spellName, shacklesTargets[i])
+			else
+				DBMHudMap:RegisterStaticMarkerOnPartyMember(184964, "highlight", shacklesTargets[i], 25, nil, 0, 1, 0, 0.3):Appear():RegisterForAlerts(nil, shacklesTargets[i])
+			end
 		end
 	end
 end
@@ -534,12 +532,23 @@ function mod:SPELL_CAST_START(args)
 		specWarnDesecrate:Show()
 		timerDesecrateCD:Start()
 		if self.vb.phase < 1.5 then
-			DBM:Debug("Phase 1 begin CLEU")
+			DBM:Debug("Phase 1 begin CLEU", 2)
 			self.vb.phase = 1.5--85%
 		end
 	elseif spellId == 184265 then
 		self.vb.wroughtWarned = 0--Reset Counter
 		timerWroughtChaosCD:Start()
+		--Timer extender. Encounter failsafe. If < 7 seconds remaining on torment when wrought is cast, it's extended to 7 seconds
+		local elapsed, total = timerShackledTormentCD:GetTime(self.vb.tormentCast+1)
+		local remaining = total - elapsed
+		timerShackledTormentCD:Cancel()
+		if total > 0 and remaining < 7 then
+			DBM:Debug("timerShackledTormentCD extender activated. Time remaining less than 7 when wrought chaos started")
+			local extend = 7 - remaining
+			timerShackledTormentCD:Update(elapsed, total+extend, self.vb.tormentCast+1)
+			countdownShackledTorment:Cancel()
+			countdownShackledTorment:Start(7)
+		end
 	elseif spellId == 183864 then
 		timerShadowBlastCD:Start(args.sourceGUID)
 	elseif spellId == 190506 then
@@ -639,8 +648,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif spellId == 184931 then
 		self.vb.tormentCast = self.vb.tormentCast + 1
 		if self.vb.phase < 3 then
-			timerShackledTormentCD:Start(37, self.vb.tormentCast+1)
-			countdownShackledTorment:Start(37)
+			timerShackledTormentCD:Start(36.5, self.vb.tormentCast+1)
+			countdownShackledTorment:Start(36.5)
 		else
 			timerShackledTormentCD:Start(31, self.vb.tormentCast+1)
 			countdownShackledTorment:Start(31)
@@ -735,19 +744,19 @@ function mod:SPELL_AURA_APPLIED(args)
 					warnWroughtChaos:CombinedShow(0.1, self.vb.wroughtWarned, args.destName)
 					if UnitIsUnit("player", sourceUId) then
 						if self.Options.NamesWroughtHud then
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.sourceName, 0.9, 5.5, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger (no label on player dot)
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.destName, 0.5, 5.5, nil, nil, nil, 0.5, nil, false):Appear():SetLabel(args.destName, nil, nil, nil, nil, nil, 0.8, nil, -13, 10, nil)
+							DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.9, 5.25, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger (no label on player dot)
+							DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.5, 5.25, nil, nil, nil, 0.5, nil, false):Appear():SetLabel(args.destName, nil, nil, nil, nil, nil, 0.8, nil, -13, 10, nil)
 						else
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.sourceName, 0.9, 5.5, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.destName, 0.5, 5.5, nil, nil, nil, 0.5, nil, false):Appear()
+							DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.9, 5.2, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger
+							DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.5, 5.25, nil, nil, nil, 0.5, nil, false):Appear()
 						end
 					else
 						if self.Options.NamesWroughtHud then
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.sourceName, 0.5, 5.5, nil, nil, nil, 0.5, nil, false):Appear():SetLabel(args.sourceName, nil, nil, nil, nil, nil, 0.8, nil, -13, 10, nil)
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.destName, 0.9, 5.5, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger (no label on player dot)
+							DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.5, 5.25, nil, nil, nil, 0.5, nil, false):Appear():SetLabel(args.sourceName, nil, nil, nil, nil, nil, 0.8, nil, -13, 10, nil)
+							DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.9, 5.25, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger (no label on player dot)
 						else
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.sourceName, 0.5, 5.5, nil, nil, nil, 0.5, nil, false):Appear()
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.destName, 0.9, 5.5, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger
+							DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.5, 5.25, nil, nil, nil, 0.5, nil, false):Appear()
+							DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.9, 5.25, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger
 						end
 					end
 					--create line
@@ -767,11 +776,11 @@ function mod:SPELL_AURA_APPLIED(args)
 				else--red lines for non player lines
 					--Create Points
 					if self.Options.NamesWroughtHud then
-						DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.sourceName, 0.5, 5, nil, nil, nil, 0.5, nil, false):Appear():SetLabel(args.sourceName, nil, nil, nil, nil, nil, 0.8, nil, -13, 10, nil)
-						DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.destName, 0.5, 5, nil, nil, nil, 0.5, nil, false):Appear():SetLabel(args.destName, nil, nil, nil, nil, nil, 0.8, nil, -13, 10, nil)
+						DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.5, 5.25, nil, nil, nil, 0.5, nil, false):Appear():SetLabel(args.sourceName, nil, nil, nil, nil, nil, 0.8, nil, -13, 10, nil)
+						DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.5, 5.25, nil, nil, nil, 0.5, nil, false):Appear():SetLabel(args.destName, nil, nil, nil, nil, nil, 0.8, nil, -13, 10, nil)
 					else
-						DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.sourceName, 0.5, 5, nil, nil, nil, 0.5, nil, false):Appear()
-						DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "party", args.destName, 0.5, 5, nil, nil, nil, 0.5, nil, false):Appear()
+						DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.5, 5.25, nil, nil, nil, 0.5, nil, false):Appear()
+						DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.5, 5.25, nil, nil, nil, 0.5, nil, false):Appear()
 					end
 					--Create Line
 					if self.Options.ExtendWroughtHud2 then
@@ -820,13 +829,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnOverfiend:Show(self.vb.overfiendCount)
 		timerFelborneOverfiendCD:Start(nil, self.vb.overfiendCount+1)
 		if self.vb.phase < 2.5 then--First spawn is about 4 seconds after phase 2.5 trigger yell
-			DBM:Debug("Phase 2.5 begin CLEU")
+			DBM:Debug("Phase 2.5 begin CLEU", 2)
 			self.vb.phase = 2.5
---			local elapsed, total = timerShackledTormentCD:GetTime()
---			if elapsed > 0 and total > 0 then
---				DBM:Debug("timerShackledTormentCD updated", 2)
---				timerShackledTormentCD:Update(elapsed, total+5)--5 seconds is added to timer on 2.5 transition (give or take, need to know exact addition but need to see more data, since timer is variable as is)
---			end
 		end
 	elseif spellId == 186952 and args:IsPlayer() then
 		playerBanished = true
@@ -841,7 +845,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:Schedule(0.5, showMarkOfLegion, self, args.spellName)
 		end
 		local uId = DBM:GetRaidUnitId(args.destName)
-		local _, _, _, _, _, duration, expires, _, _ = UnitDebuff(uId, args.spellName)--Find out what our specific seed timer is
+		local _, _, _, _, _, duration, expires, _, _ = UnitDebuff(uId, args.spellName)
 		if expires then
 			if args:IsPlayer() then
 				local remaining = expires-GetTime()
@@ -935,8 +939,10 @@ function mod:SPELL_SUMMON(args)
 			if self.Options.SetIconOnInfernals2 then
 				if self.vb.InfernalsCast < 3 then--Only 3 infernals expected
 					self:ScanForMobs(94412, 0, 5, 3, 0.2, 20, "SetIconOnInfernals2")
-				else--4 expected
+				elseif self.vb.InfernalsCast < 6 then--4 infernals expected
 					self:ScanForMobs(94412, 0, 5, 4, 0.2, 20, "SetIconOnInfernals2")
+				else--5 expected
+					self:ScanForMobs(94412, 0, 5, 5, 0.2, 20, "SetIconOnInfernals2")
 				end
 			end
 		end
@@ -993,8 +999,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		countdownDeathBrand:Start(35)
 		warnAllureofFlamesSoon:Schedule(35.5)
 		timerAllureofFlamesCD:Start(40.5)--40-45
-		timerShackledTormentCD:Start(17)--17-25 (almost always 25, but sometimes it comes earlier, unsure why)
-		countdownShackledTorment:Start(17)
+		timerShackledTormentCD:Start(25)--17-25 (almost always 25, but sometimes it comes earlier, unsure why)
+		countdownShackledTorment:Start(25)
 		updateRangeFrame(self)
 --	"<301.70 23:49:52> [UNIT_SPELLCAST_SUCCEEDED] Archimonde(Omegal) [[boss1:Allow Phase 3 Spells::0:190118]]", -- [8737]
 --	"<301.70 23:49:52> [CHAT_MSG_MONSTER_YELL] CHAT_MSG_MONSTER_YELL#Lok'tar ogar! They are pushed back! To the portal! Gul'dan is mine!#Grommash Hellscream###Grommash H
@@ -1036,13 +1042,8 @@ end
 
 function mod:OnSync(msg)
 	if msg == "phase25" and self.vb.phase < 2.5 then
-		DBM:Debug("Phase 2.5 begin yell")
+		DBM:Debug("Phase 2.5 begin yell", 2)
 		self.vb.phase = 2.5
---		local elapsed, total = timerShackledTormentCD:GetTime()
---		if elapsed > 0 and total > 0 then
---			DBM:Debug("timerShackledTormentCD updated", 2)
---			timerShackledTormentCD:Update(elapsed, total+5)--5 seconds is added to timer on 2.5 transition (give or take, need to know exact addition but need to see more data, since timer is variable as is)
---		end
 	end
 end
 
