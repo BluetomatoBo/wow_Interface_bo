@@ -1,7 +1,7 @@
-tag 6.2.0.3
-8744a958f9d6a85dfb92b1b90b034ff02c6b5ab1
+tag 6.2.0.4
+7565b40b832bb6096d8422283ac65eaef2ffc4c2
 James D. Callahan III <jcallahan@curse.com>
-2015-07-27 17:43:46 -0500
+2015-08-14 19:56:55 -0500
 
 Localization updates.
 
