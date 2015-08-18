@@ -113,7 +113,7 @@ end
 
 function Addon:IsFrameShown(id)
 	local frame = self:GetFrame(id)
-	return frame and frame:IsFrameShown()
+	return frame and frame:IsShown()
 end
 
 function Addon:IsFrameEnabled(id)
