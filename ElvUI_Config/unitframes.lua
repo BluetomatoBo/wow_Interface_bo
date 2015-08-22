@@ -6,7 +6,7 @@ local ElvUF = ns.oUF
 local tinsert = table.insert
 local twipe = table.wipe
 
-local ACD = LibStub("AceConfigDialog-3.0")
+local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 local fillValues = {
 	['fill'] = L["Filled"],
 	['spaced'] = L["Spaced"],
@@ -2146,7 +2146,7 @@ E.Options.args.unitframe.args.player = {
 			name = L["Smart Aura Position"],
 			desc = L["Will show Buffs in the Debuff position when there are no Debuffs active, or vice versa."],
 			values = {
-				["DISABLED"] = "Disabled",
+				["DISABLED"] = L["Disabled"],
 				["BUFFS_ON_DEBUFFS"] = L["Position Buffs on Debuffs"],
 				["DEBUFFS_ON_BUFFS"] = L["Position Debuffs on Buffs"],
 			},
