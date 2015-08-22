@@ -1,6 +1,6 @@
-## Interface: 60100
-## Version: 6.1.0.3
-## X-Curse-Packaged-Version: 6.1.0.3
+## Interface: 60200
+## Version: 6.2.0.4
+## X-Curse-Packaged-Version: 6.2.0.4
 ## X-Curse-Project-Name: HandyNotes: Higher Learning
 ## X-Curse-Project-ID: handynotes-higher-learning
 ## X-Curse-Repository-ID: wow/handynotes-higher-learning/mainline
