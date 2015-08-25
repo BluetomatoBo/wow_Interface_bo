@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1394, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14303 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14421 $"):sub(12, -3))
 mod:SetCreatureID(90269)
 mod:SetEncounterID(1784)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 4, 2, 1)
-mod:SetHotfixNoticeRev(14260)
+mod:SetHotfixNoticeRev(14406)
 mod.respawnTime = 39--Def less than 40 but much greater than 30. i have a video of a 38 second respawn
 
 mod:RegisterCombat("combat")
@@ -63,7 +63,7 @@ local specWarnAncientHarbinger				= mod:NewSpecialWarningSwitch("ej11163", "-Hea
 local specWarnHarbingersMending				= mod:NewSpecialWarningInterrupt(180025, "-Healer", nil, nil, 1, 2)
 local specWarnHarbingersMendingDispel		= mod:NewSpecialWarningDispel(180025, "MagicDispeller")--if interrupt is missed (likely at some point, cast gets faster each time). Then it MUST be dispelled
 --Stage Three: Malice
-local specWarnDespoiledGround				= mod:NewSpecialWarningMove(180604)
+local specWarnDespoiledGround				= mod:NewSpecialWarningMove(180604, nil, nil, nil, 1, 1)
 local specWarnGaveloftheTyrant				= mod:NewSpecialWarningCount(180608, nil, nil, nil, 2, 2)
 ----Ancient Sovereign
 local specWarnAncientSovereign				= mod:NewSpecialWarningSwitch("ej11170", "-Healer")
@@ -99,10 +99,11 @@ local voiceHarbingersMending				= mod:NewVoice(180025)--kickcast/dispelboss
 local voiceGaveloftheTyrant					= mod:NewVoice(180608)--carefly
 local voiceEnforcerOnslaught				= mod:NewVoice(180004)--watchorb
 local voiceSealofDecay						= mod:NewVoice(180000)--tauntboss
+local voiceVoidZone							= mod:NewVoice(180604)--runaway
 
 mod:AddRangeFrameOption("5/4")
 mod:AddHudMapOption("HudMapOnStrike", 180260)
-mod:AddHudMapOption("HudMapEdict", 182459)
+mod:AddHudMapOption("HudMapEdict2", 182459, false)
 
 mod.vb.touchofHarmCount = 0
 mod.vb.edictCount = 0
@@ -116,12 +117,17 @@ local AncientHarbinger = EJ_GetSectionInfo(11163)
 local AncientSovereign = EJ_GetSectionInfo(11170)
 local TyrantVelhari = EJ_GetEncounterInfo(1394)
 
-local debuffFilter
+local debuffFilter, debuffFilter2
 local UnitDebuff = UnitDebuff
 local debuffName = GetSpellInfo(180526)
 do
 	debuffFilter = function(uId)
 		if UnitDebuff(uId, debuffName) then
+			return true
+		end
+	end
+	debuffFilter2 = function(uId)
+		if not UnitDebuff(uId, debuffName) then
 			return true
 		end
 	end
@@ -141,7 +147,7 @@ function mod:AnnTarget(targetname, uId)
 		warnAnnihilationStrike:Show(self.vb.annihilationCount, targetname)
 	end
 	if self.Options.HudMapOnStrike then
-		DBMHudMap:RegisterRangeMarkerOnPartyMember(180260, "highlight", targetname, 5, 4, 1, 0, 0, 0.5, nil, true, 2):Pulse(0.5, 0.5)
+		DBMHudMap:RegisterRangeMarkerOnPartyMember(180260, "highlight", targetname, 4, 4, 1, 0, 0, 0.5, nil, true, 2):Pulse(0.5, 0.5)
 	end
 end
 
@@ -163,7 +169,7 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
-	if self.Options.HudMapOnStrike or self.Options.HudMapEdict then
+	if self.Options.HudMapOnStrike or self.Options.HudMapEdict2 then
 		DBMHudMap:Disable()
 	end
 end 
@@ -274,7 +280,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				voiceEdictofCondemnation:Schedule(5, "gather")
 			end
 		end
-		if self.Options.HudMapEdict then
+		if self.Options.HudMapEdict2 then
 			DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 3, 9, 1, 1, 0, 0.5, nil, true, 1):Pulse(0.5, 0.5)
 		end
 	elseif args:IsSpellID(180166, 185237) then--Casts
@@ -302,7 +308,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnFontofCorruption:Show()
 			yellFontofCorruption:Yell()
 			if self.Options.RangeFrame then
-				DBM.RangeCheck:Show(5, not debuffFilter)
+				DBM.RangeCheck:Show(5, debuffFilter2)
 			end
 		end
 	elseif spellId == 180025 then
@@ -348,7 +354,7 @@ function mod:SPELL_AURA_REMOVED(args)
 	local spellId = args.spellId
 	if spellId == 182459 or spellId == 185241 then
 		--For icon option, or something.
-		if self.Options.HudMapEdict then
+		if self.Options.HudMapEdict2 then
 			DBMHudMap:FreeEncounterMarkerByTarget(spellId, args.destName)
 		end
 	elseif spellId == 180526 then
@@ -367,6 +373,7 @@ end
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 180604 and destGUID == UnitGUID("player") and self:AntiSpam(2, 1) then
 		specWarnDespoiledGround:Show()
+		voiceVoidZone:Play("runaway")
 	end
 end
 mod.SPELL_ABSORBED = mod.SPELL_PERIODIC_DAMAGE

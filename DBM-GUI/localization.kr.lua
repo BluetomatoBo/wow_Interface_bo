@@ -14,6 +14,7 @@ L.OTabBosses	= "우두머리"
 --L.OTabOptions	= GAMEOPTIONS_MENU
 
 L.TabCategory_Options		= "전역 설정"
+L.TabCategory_LEG	 		= "군단"
 L.TabCategory_PVP	 		= "PvP"
 L.TabCategory_OTHER			= "기타 우두머리 경보"
 
@@ -122,7 +123,7 @@ L.BarSetup  				= "바"
 L.BarTexture 				= "바 무늬"
 L.BarStyle 					= "바 작동 방식"
 L.BarDBM					= "DBM"
-L.BarBigWigs				= "BigWigs(애니메이션 없음)"
+L.BarSimple					= "Simple(애니메이션 없음)"
 L.BarStartColor	 			= "시작 색상"
 L.BarEndColor 				= "종료 색상"
 L.Bar_Font					= "바 글꼴"
@@ -303,6 +304,7 @@ L.LFDEnhance				= "전장/공격대 찾기 입장, 역할 확인 소리를 주 �
 L.WorldBossNearAlert		= "근처에서 야외 우두머리 전투가 시작된 경우 전투 준비 소리 듣기(우두머리별 설정 무시)"
 L.RLReadyCheckSound			= "전투 준비 소리를 주 음량 또는 대화 음량에 맞추어 듣기"
 L.AFKHealthWarning			= "자리 비움 상태 도중 체력이 줄면 경고음 듣기"
+L.AutoReplySound			= "자동 응답 귓속말을 보낼 때 경고음 듣기"
 --
 L.TimerGeneral 				= "DBM 바 설정"
 L.SKT_Enabled				= "최고 기록 바 보기"

@@ -1,14 +1,14 @@
 local mod	= DBM:NewMod(1433, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14286 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14421 $"):sub(12, -3))
 mod:SetCreatureID(90316)
 mod:SetEncounterID(1788)
 mod:DisableESCombatDetection()--Remove if blizz fixes trash firing ENCOUNTER_START
 mod:SetMinSyncRevision(13887)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)--Unknown full spectrum of icons yet. Don't know how many debuffs go out.
-mod:SetHotfixNoticeRev(14182)
+mod:SetHotfixNoticeRev(14372)
 mod.respawnTime = 15
 mod:DisableRegenDetection()--Boss returns true on UnitAffectingCombat when fighting his trash, making boss pre mature pull by REGEN method
 
@@ -197,6 +197,8 @@ function mod:OnCombatStart(delay)
 	end
 	if self:IsNormal() then--Harder berserk on normal vs all other difficulties. Kromog all over again.
 		berserkTimer:Start(480-delay)
+	elseif self:IsMythic() then
+		berserkTimer:Start(510-delay)
 	else
 		berserkTimer:Start(-delay)
 	end

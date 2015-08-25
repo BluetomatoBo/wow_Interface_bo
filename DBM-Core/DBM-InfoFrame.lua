@@ -61,9 +61,11 @@ local currentEvent
 local headerText = "DBM Info Frame"	-- this is only used if DBM.InfoFrame:SetHeader(text) is not called before :Show()
 local lines = {}
 local sortingAsc
+local noSort
 local sortedLines = {}
 local icons = {}
 local value = {}
+local playerName = UnitName("player")
 
 -------------------
 -- Local Globals --
@@ -76,10 +78,10 @@ local UnitDebuff, UnitBuff = UnitDebuff, UnitBuff
 local UnitIsDeadOrGhost, UnitThreatSituation = UnitIsDeadOrGhost, UnitThreatSituation
 local GetSpellInfo = GetSpellInfo
 local UnitPosition = UnitPosition
-local GetRaidRosterInfo, GetPartyAssignment, UnitGroupRolesAssigned = GetRaidRosterInfo, GetPartyAssignment, UnitGroupRolesAssigned
 local twipe = table.wipe
 local select, tonumber = select, tonumber
 local mfloor = math.floor
+local getGroupId = DBM.GetGroupId
 
 -- for Phanx' Class Colors
 local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
@@ -187,12 +189,16 @@ local updateCallbacks = {}
 local function sortFuncDesc(a, b) return lines[a] > lines[b] end
 local function sortFuncAsc(a, b) return lines[a] < lines[b] end
 local function namesortFuncAsc(a, b) return a < b end
+local function sortGroupId(a, b) return getGroupId(DBM, a) < getGroupId(DBM, b) end
 local function updateLines()
 	twipe(sortedLines)
 	for i in pairs(lines) do
 		sortedLines[#sortedLines + 1] = i
 	end
-	if sortingAsc then
+	if noSort then
+		-- noSort actually means: sort by group id
+		table.sort(sortedLines, sortGroupId)
+	elseif sortingAsc then
 		table.sort(sortedLines, sortFuncAsc)
 	else
 		table.sort(sortedLines, sortFuncDesc)
@@ -268,8 +274,8 @@ local function updatePlayerPower()
 			lines[UnitName(uId)] = UnitPower(uId, powerType)
 		end
 	end
-	if DBM.Options.InfoFrameShowSelf and not lines[UnitName("player")] and UnitPower("player", powerType) > 0 then
-		lines[UnitName("player")] = UnitPower("player", powerType)
+	if DBM.Options.InfoFrameShowSelf and not lines[playerName] and UnitPower("player", powerType) > 0 then
+		lines[playerName] = UnitPower("player", powerType)
 	end
 	updateLines()
 	updateIcons()
@@ -294,7 +300,7 @@ local function updatePlayerBuffs()
 	local spellName = value[1]
 	local tankIgnored = value[2]
 	for uId in DBM:GetGroupMembers() do
-		if tankIgnored and UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1) then
+		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
 			if not UnitBuff(uId, spellName) and not UnitIsDeadOrGhost(uId) then
 				lines[UnitName(uId)] = ""
@@ -311,7 +317,7 @@ local function updateGoodPlayerDebuffs()
 	local spellName = value[1]
 	local tankIgnored = value[2]
 	for uId in DBM:GetGroupMembers() do
-		if tankIgnored and UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1) then
+		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
 			if not UnitDebuff(uId, spellName) and not UnitIsDeadOrGhost(uId) then
 				lines[UnitName(uId)] = ""
@@ -328,7 +334,7 @@ local function updateBadPlayerDebuffs()
 	local spellName = value[1]
 	local tankIgnored = value[2]
 	for uId in DBM:GetGroupMembers() do
-		if tankIgnored and UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1) then
+		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
 			if UnitDebuff(uId, spellName) and not UnitIsDeadOrGhost(uId) then
 				lines[UnitName(uId)] = ""
@@ -347,13 +353,7 @@ local function updatePlayerDebuffRemaining()
 		local _, _, _, _, _, _, expires = UnitDebuff(uId, spellName)
 		if expires then
 			local debuffTime = expires - GetTime()
-		--	if debuffTime < 5 then
-			--	lines[UnitName(uId)] = "|cffff0000"..mfloor(debuffTime).."|r"--Red
-			--elseif debuffTime < 10 then
-			--	lines[UnitName(uId)] = "|cff990000"..mfloor(debuffTime).."|r"--Orange
-			--else
-				lines[UnitName(uId)] = mfloor(debuffTime)
-			--end
+			lines[UnitName(uId)] = mfloor(debuffTime)
 		end
 	end
 	updateLines()
@@ -367,7 +367,7 @@ local function updateBadPlayerDebuffsBySpellID()
 	local spellName = value[1]
 	local tankIgnored = value[2]
 	for uId in DBM:GetGroupMembers() do
-		if tankIgnored and UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1) then
+		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
 			if select(11, UnitDebuff(uId, spellName)) == value[1] and not UnitIsDeadOrGhost(uId) then
 				lines[UnitName(uId)] = ""
@@ -384,7 +384,7 @@ local function updateReverseBadPlayerDebuffs()
 	local spellName = value[1]
 	local tankIgnored = value[2]
 	for uId in DBM:GetGroupMembers() do
-		if tankIgnored and UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1) then
+		if tankIgnored and (UnitGroupRolesAssigned(uId) == "TANK" or GetPartyAssignment("MAINTANK", uId, 1)) then
 		else
 			if not UnitDebuff(uId, spellName) and not UnitIsDeadOrGhost(uId) and not UnitDebuff(uId, GetSpellInfo(27827)) then--27827 Spirit of Redemption. This particular info frame wants to ignore this
 				lines[UnitName(uId)] = ""
@@ -534,7 +534,7 @@ function onUpdate(frame)
 					color = RAID_CLASS_COLORS[class]
 				end
 				linesShown = linesShown + 1
-				if leftText == UnitName("player") then--It's player.
+				if leftText == playerName then--It's player.
 					addedSelf = true
 					if currentEvent == "health" or currentEvent == "playerpower" or currentEvent == "playerbuff" or currentEvent == "playergooddebuff" or currentEvent == "playerbaddebuff" or currentEvent == "playerdebuffremaining" or currentEvent == "playerbaddebuffbyspellid" or currentEvent == "playertargets" or (currentEvent == "playeraggro" and value[1] == 3) then--Red
 						frame:AddDoubleLine(icon or leftText, rightText, 255, 0, 0, 255, 255, 255)-- (leftText, rightText, left.R, left.G, left.B, right.R, right.G, right.B)
@@ -556,7 +556,7 @@ function onUpdate(frame)
 				end
 			end
 			if not addedSelf and DBM.Options.InfoFrameShowSelf and currentEvent == "playerpower" then-- Only Shows on playerpower event.
-				frame:AddDoubleLine(UnitName("player"), lines[UnitName("player")], color.r, color.g, color.b, 255, 255, 255)
+				frame:AddDoubleLine(playerName, lines[playerName], color.r, color.g, color.b, 255, 255, 255)
 			end
 		else
 			local unitId = DBM:GetRaidUnitId(DBM:GetUnitFullName(leftText))
@@ -590,6 +590,14 @@ function infoFrame:Show(maxLines, event, ...)
 
 	if event == "health" or event == "playerdebuffremaining" then
 		sortingAsc = true	-- Sort lowest first
+	else
+		sortingAsc = nil
+	end
+	
+	if event == "playerbuff" or event == "playerbaddebuff" or event == "playergooddebuff" then
+		noSort = value[3]
+	else
+		noSort = nil
 	end
 	
 	--If spellId is given as value one, convert to spell name on show instead of in every onupdate
@@ -639,6 +647,8 @@ function infoFrame:Hide()
 		frame:Hide()
 	end
 	currentEvent = nil
+	noSort = nil
+	sortingAsc = nil
 end
 
 function infoFrame:IsShown()

@@ -1,6 +1,6 @@
 ﻿-- Mini Dragon(projecteurs@gmail.com)
 -- Blizzard Entertainment
--- Last update: Aug 12 2015, 9:29 UTC@14330
+-- Last update: Aug 18 2015, 15:13 UTC@14354
 
 if GetLocale() ~= "zhCN" then return end
 local L
@@ -96,16 +96,12 @@ L:SetOptionLocalization({
 	Iconed				= "星星, 大饼, 菱形, 三角, 月亮。 适合分散式开场。",--Default
 	Numbered			= "1, 2, 3, 4, 5. 适合已分区的开场。",
 	DirectionLine		= "左, 左偏中, 中, 右偏中, 右. 适合直线式开场。",
-	FreeForAll			= "自由发挥. 不分配位置, 只大喊。",
-	CrossPerception		= "前, 后, 左, 右, 中. 适合十字形开场。",--Unsure if viable with 5 targets/will remain
-	CrossCardinal		= "北, 南, 东, 西, 中. 适合十字形开场。",--Unsure if viable 5 targets/will remain
-	ExCardinal			= "东北, 东南, 西北, 西南, 中. 适合十字形开场。"--Unsure if viable 5 targets/will remain
+	FreeForAll			= "自由发挥. 不分配位置, 只大喊。"
 })
 
 L:SetMiscLocalization({
 	DBMConfigMsg		= "团长已经将种子喊叫方式设定为 %s。",
 	BWConfigMsg			= "团长在用Bigwigs, DBM将会使用数字来提示。"
-	--TODO, talk to some guilds, maybe trim list above, add finalized directions here
 })
 
 --------------------------
@@ -124,6 +120,14 @@ L:SetOptionLocalization({
 -- Socrethar the Eternal --
 --------------------------
 L= DBM:GetModLocalization(1427)
+
+L:SetOptionLocalization({
+	InterruptBehavior	= "设置打断方式 (需要团长权限)",
+	Count3Resume		= "3人循环打断, 邪能壁垒后继续计数",--Default
+	Count3Reset			= "3人循环打断, 邪能壁垒时重置计数",
+	Count4Resume		= "4人循环打断, 邪能壁垒后继续计数",
+	Count4Reset			= "4人循环打断, 邪能壁垒时重置计数"
+})
 
 --------------------------
 -- Tyrant Velhari --

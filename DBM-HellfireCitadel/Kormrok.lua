@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1392, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14296 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14388 $"):sub(12, -3))
 mod:SetCreatureID(90435)
 mod:SetEncounterID(1787)
 mod:SetZone()
@@ -48,7 +48,7 @@ local specWarnEmpFelOutpouring		= mod:NewSpecialWarningDodge(181293, nil, nil, n
 local specWarnEmpExplosiveRunes		= mod:NewSpecialWarningSpell(181297, "-Tank")
 local specWarnDraggingHands			= mod:NewSpecialWarningSwitch(181300)
 
-local timerLeapCD					= mod:NewCDTimer(113.5, 180068, nil, nil, nil, 6)--Not techincally a leap timer, timer syncs up to when he gains next buff (leap ended)
+local timerLeapCD					= mod:NewPhaseTimer(113.5)--Not techincally a leap timer, timer syncs up to when he gains next buff (leap ended)
 --Times here are not relevant, they are all hard coded orders based on what buff boss has, real values are under 3 different phases
 local timerPoundCD					= mod:NewNextCountTimer(42, 180244, nil, nil, nil, 2)
 local timerFelOutpouringCD			= mod:NewNextTimer(107, 181292, nil, nil, nil, 2)
@@ -464,7 +464,6 @@ end
 
 do
 	RegisterAddonMessagePrefix("EXRTADD")
-	local playerName = UnitName("player")
 	local Ambiguate = Ambiguate
 	local assignedPositionOrange, assignedPositionGreen, assignedPositionPurple
 	local function delayedNotice(self, sender)
