@@ -1,0 +1,11 @@
+tag v1.5.2b
+d4c6d425743cbf64aeb6487f16136333c0c0d12a
+Hendrik Leppkes <h.leppkes@gmail.com>
+2015-08-23 23:56:10 +0200
+
+Tag as v1.5.2b
+
+
+--------------------
+
+No changelog
