@@ -1,0 +1,17 @@
+tag v1.3
+43c092d0f7cd1ed67161001c3b7ff7b5adb0f785
+Ethan Centaurai <ethancentaurai@outlook.com>
+2015-08-23 13:22:19 +0100
+
+Tagging as v1.3.
+
+
+--------------------
+
+Ethan Centaurai:
+	- Bump Interface number to 60200.
+Hendrik Leppkes:
+	- Use HandyNotes continent lists instead of accessing Astrolabe directly
+Ethan Centaurai:
+	- Corrected co-ordinates for Elder Stonefort and removed duplicate entry.
+	- Corrected co-ordinates for Elder Morndeep and removed duplicate entry.

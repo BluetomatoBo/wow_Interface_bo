@@ -26,8 +26,7 @@ points["BlastedLands"] = {
 points["BurningSteppes"] = {
 	[70114539] = { 8636, 912, 9 }, -- Elder Rumblerock
 	[52382394] = { 8683, 912, 10 }, -- Elder Dawnstrider
-	[24332563] = { 8644, 910, 4 }, -- Elder Stonefort in Blackrock Spire
-	[14610912] = { 8619, 910, 5 }, -- Elder Morndeep in Blackrock Depths
+	[27592544] = { 8644, 910, 4 }, -- Elder Stonefort in Lower Blackrock Spire
 }
 
 points["DunMorogh"] = {
@@ -59,8 +58,7 @@ points["LochModan"] = {
 
 points["SearingGorge"] = {
 	[21307911] = { 8651, 912, 12 }, -- Elder Ironband
-	[40719570] = { 8644, 910, 4 }, -- Elder Stonefort in Blackrock Spire
-	[26997241] = { 8619, 910, 5 }, -- Elder Morndeep in Blackrock Depths
+	[26937262] = { 8619, 910, 5 }, -- Elder Morndeep in Blackrock Depths
 }
 
 points["Silverpine"] = {
