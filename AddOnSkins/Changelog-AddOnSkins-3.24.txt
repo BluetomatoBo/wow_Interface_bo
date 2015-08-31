@@ -1,0 +1,21 @@
+tag 3.24
+0e39460b879363a9e89232588a2906f4d9e8245d
+Azilroka <darktemplar9900@yahoo.com>
+2015-08-30 01:40:08 -0500
+
+
+
+--------------------
+
+Azilroka:
+	- 3.24
+	- LALALA
+	- BigWigs
+	- BigWIgs: Somehow not keeping the Transparent Template.
+	- BigWigs
+	- Issue #231
+	- Tome of Teleportation
+	- oRA3 Ready Check error.
+Michael Tindal:
+	- Fix indention in the pet tracker file.
+	- Hide AffDots during Pet Battles and fix PetTracker ability buttons.

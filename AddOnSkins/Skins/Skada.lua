@@ -28,6 +28,8 @@ function AS:Skada()
 		skada:SetBackdrop(nil)
 		if win.db.enabletitle then
 			AS:SkinTitleBar(skada.button, 'Default', true)
+			local color = win.db.title.color
+			skada.button:SetBackdropColor(color.r, color.g, color.b, color.a or 1)
 		end
 		if not skada.Backdrop then
 			AS:SkinBackdropFrame(skada)
@@ -48,8 +50,10 @@ function AS:Skada()
 		if not (AS:CheckEmbed('Skada') and AS.EmbedSystemCreated) then return end
 		for i, win in ipairs(Skada:GetWindows()) do
 			if win:IsShown() then
+				AS:SetOption('EmbedIsHidden', false)
 				EmbedSystem_MainWindow:Show()
 			else
+				AS:SetOption('EmbedIsHidden', true)
 				EmbedSystem_MainWindow:Hide()
 			end
 		end

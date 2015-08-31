@@ -74,7 +74,6 @@ function AS:Embed_Show()
 		if _G[EmbedSystem_LeftWindow.FrameName] then _G[EmbedSystem_LeftWindow.FrameName]:Show() end
 		if _G[EmbedSystem_RightWindow.FrameName] then _G[EmbedSystem_RightWindow.FrameName]:Show() end
 	end
-	AS:SetOption('EmbedIsHidden', false)
 	AS:ToggleChatFrame(true)
 end
 
@@ -89,7 +88,6 @@ function AS:Embed_Hide()
 		if _G[EmbedSystem_LeftWindow.FrameName] then _G[EmbedSystem_LeftWindow.FrameName]:Hide() end
 		if _G[EmbedSystem_RightWindow.FrameName] then _G[EmbedSystem_RightWindow.FrameName]:Hide() end
 	end
-	AS:SetOption('EmbedIsHidden', true)
 	AS:ToggleChatFrame(false)
 end
 
@@ -447,7 +445,7 @@ if AS:CheckAddOn('Details') then
 					window:SetSize(width-3, height - 20)
 				else
 					if NumberToEmbed == 1 then
-						window:SetSize(width-6, height - 20)
+						window:SetSize(width-2, height - 20)
 					else
 						window:SetSize(width-2, height - 20)
 					end
