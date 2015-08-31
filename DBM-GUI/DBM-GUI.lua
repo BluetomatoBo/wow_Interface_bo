@@ -43,7 +43,7 @@
 --
 
 
-local revision =("$Revision: 14379 $"):sub(12, -3)
+local revision =("$Revision: 14428 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
@@ -971,7 +971,6 @@ DBM_GUI_Options = CreateNewFauxScrollFrameList()
 
 
 local UpdateAnimationFrame, CreateAnimationFrame
-
 function UpdateAnimationFrame(mod)
 	DBM_BossPreview.currentMod = mod
 	local displayId = nil
@@ -2273,7 +2272,6 @@ local function CreateOptionsMenu()
 		HugeBarOffsetYSlider:SetPoint("TOPLEFT", HugeBarOffsetXSlider, "BOTTOMLEFT", 0, -10)
 		HugeBarOffsetYSlider:SetScript("OnShow", createDBTOnShowHandler("HugeBarYOffset"))
 		HugeBarOffsetYSlider:HookScript("OnValueChanged", createDBTOnValueChangedHandler("HugeBarYOffset"))
-
 
 		BarSetupPanel:SetMyOwnHeight()
 	end
@@ -3695,14 +3693,16 @@ do
 				local savedVarsName = addon.modId:gsub("-", "").."_AllSavedVars"
 				for charname, charTable in pairs(_G[savedVarsName]) do
 					for bossid, optionTable in pairs(charTable) do
-						for i = 0, 3 do
-							if optionTable[i] then
-								local displayText = (i == 0 and charname.." ("..ALL..")") or charname.." ("..SPECIALIZATION..i.."-"..(charTable["talent"..i] or "")..")"
-								local dropdown = { text = displayText, value = charname.."|"..tostring(i) }
-								tinsert(modProfileDropdown, dropdown)
+						if type(optionTable) == "table" then
+							for i = 0, 3 do
+								if optionTable[i] then
+									local displayText = (i == 0 and charname.." ("..ALL..")") or charname.." ("..SPECIALIZATION..i.."-"..(charTable["talent"..i] or "")..")"
+									local dropdown = { text = displayText, value = charname.."|"..tostring(i) }
+									tinsert(modProfileDropdown, dropdown)
+								end
 							end
+							break
 						end
-						break
 					end
 				end
 			end)

@@ -15,7 +15,7 @@ DBM_CORE_LOAD_GUI_COMBAT			= "GUI cannot be initially loaded in combat. GUI will
 DBM_CORE_BAD_LOAD					= "DBM has detected your mod for this instance failed to fully load correctly because of combat. As soon as you are out of combat, please do /console reloadui as soon as possible."
 DBM_CORE_LOAD_MOD_VER_MISMATCH		= "%s could not be loaded because your DBM-Core does not meet requirements. An updated version is required"
 
-DBM_CORE_WHATS_NEW					= "New in this version: Several mods have been updated to make better use of HUD, especially Archimonde. Also worked directly with guilds to make Archimonde Mythic mod the best mod possible for the encounter."
+DBM_CORE_WHATS_NEW					= "New in this version: Improved callbacks to allow 3rd party mods a lot more access to information from DBM events."
 --DBM_CORE_WHATS_NEW_LINK			= "New in this version: DBM timers now support multiple colors based on what type of spell the timer is for. To learn more about this feature you can read about it by |HDBM:forumsnews|h|cff3588ffclicking here|r"
 
 DBM_CORE_DYNAMIC_DIFFICULTY_CLUMP	= "DBM has disabled dynamic range frame on this fight do to insufficient information about number of players needed to affect clump check for a group of your size."
@@ -238,6 +238,7 @@ DBM_CORE_MIDDLE						= "Middle"
 DBM_CORE_FRONT						= "Front"
 DBM_CORE_INTERMISSION				= "Intermission"--No blizz global for this, and will probably be used in most end tier fights with intermission phases
 
+DBM_CORE_BREAK_USAGE				= "Break timer cannot be longer than 60 minutes. Make sure you're inputting time in minutes and not seconds."
 DBM_CORE_BREAK_START				= "Break starting now -- you have %s minute(s)! (Sent by %s)"
 DBM_CORE_BREAK_MIN					= "Break ends in %s minute(s)!"
 DBM_CORE_BREAK_SEC					= "Break ends in %s seconds!"

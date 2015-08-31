@@ -40,9 +40,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14421 $"):sub(12, -3)),
-	DisplayVersion = "6.2.9", -- the string that is shown as version
-	ReleaseRevision = 14421 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 14445 $"):sub(12, -3)),
+	DisplayVersion = "6.2.10", -- the string that is shown as version
+	ReleaseRevision = 14445 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -261,7 +261,7 @@ DBM.DefaultOptions = {
 	ShowRespawn = true,
 	ShowQueuePop = true,
 	HelpMessageVersion = 1,
-	NewsMessageShown = 3,
+	NewsMessageShown = 4,
 	MoviesSeen = {},
 	MovieFilter = "AfterFirst",
 	LastRevision = 0,
@@ -1053,14 +1053,14 @@ do
 		end
 		--Break timer recovery
 		--Try local settings
-		if self.Options.tempBreak then
-			local timer, startTime = string.split("/", self.Options.tempBreak)
-			local elapsed = GetTime() - tonumber(startTime)
+		if self.Options.tempBreak2 then
+			local timer, startTime = string.split("/", self.Options.tempBreak2)
+			local elapsed = time() - tonumber(startTime)
 			local remaining = timer - elapsed
 			if remaining > 0 then
-				SendAddonMessage("D4", "BTR2\t"..remaining, "WHISPER", playerName)
+				SendAddonMessage("D4", "BTR3\t"..remaining, "WHISPER", playerName)
 			else--It must have ended while we were offline, kill variable.
-				self.Options.tempBreak = nil
+				self.Options.tempBreak2 = nil
 			end
 		--Try asking top two DBM version in group
 		elseif IsInGroup() and not timerRequestInProgress then
@@ -1820,7 +1820,11 @@ SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 			return
 		end
 		local timer = tonumber(cmd:sub(6)) or 5
-		local timer = timer * 60
+		if timer > 60 then
+			DBM:AddMsg(DBM_CORE_BREAK_USAGE)
+			return
+		end
+		timer = timer * 60
 		sendSync("BT", timer)
 	elseif cmd:sub(1, 4) == "pull" then
 		if (DBM:GetRaidRank(playerName) == 0 and IsInGroup()) or IsEncounterInProgress() then
@@ -2459,7 +2463,7 @@ do
 
 	--	save playerinfo into raid table on load. (for solo raid)
 	DBM:RegisterOnLoadCallback(function()
-		C_TimerAfter(5, function()
+		C_TimerAfter(6, function()
 			if not raid[playerName] then
 				raid[playerName] = {}
 				raid[playerName].name = playerName
@@ -2474,7 +2478,7 @@ do
 				raid[playerName].displayVersion = DBM.DisplayVersion
 				raid[playerName].locale = GetLocale()
 				raid[playerName].enabledIcons = tostring(not DBM.Options.DontSetIcons)
-				raidGuids[UnitGUID("player")] = playerName
+				raidGuids[UnitGUID("player") or ""] = playerName
 			end
 		end)
 	end)
@@ -3488,7 +3492,7 @@ do
 			self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-WotLK"))
 		end
 	end
-	local function FixForShittyComputers(self)
+	local function SecondaryLoadCheck(self)
 		local _, instanceType, difficulty, _, _, _, _, mapID, instanceGroupSize = GetInstanceInfo()
 		self:Debug("Instance Check fired with mapID "..mapID.." and difficulty "..difficulty)
 		if LastInstanceMapID == mapID then
@@ -3524,9 +3528,9 @@ do
 	--Faster and more accurate loading for instances, but useless outside of them
 	function DBM:LOADING_SCREEN_DISABLED()
 		self:Debug("LOADING_SCREEN_DISABLED fired")
-		FixForShittyComputers(self)
-		self:Unschedule(FixForShittyComputers)
-		self:Schedule(5, FixForShittyComputers, self)
+		SecondaryLoadCheck(self)
+		self:Unschedule(SecondaryLoadCheck)
+		self:Schedule(5, SecondaryLoadCheck, self)
 	end
 
 	function DBM:LoadModsOnDemand(checkTable, checkValue)
@@ -3612,19 +3616,20 @@ function DBM:LoadMod(mod, force)
 		if DBM_GUI then
 			DBM_GUI:UpdateModList()
 		end
-		local _, instanceType, difficultyID, _, _, _, _, mapID = GetInstanceInfo()
-		if difficultyID == 8 then
+		if difficultyIndex == 8 then
 			RequestChallengeModeMapInfo()
-			RequestChallengeModeLeaders(mapID)
+			RequestChallengeModeLeaders(LastInstanceMapID)
 		end
 		if instanceType ~= "pvp" and #inCombat == 0 and IsInGroup() then--do timer recovery only mod load
-			timerRequestInProgress = true
-			-- Request timer to 3 person to prevent failure.
-			self:Unschedule(self.RequestTimers)--Unschedule the requests done on dbm first load or if two mods loaded at same time (or if user manually loaded a bunch of mods at once)
-			self:Schedule(7, self.RequestTimers, self, 1)
-			self:Schedule(10, self.RequestTimers, self, 2)
-			self:Schedule(13, self.RequestTimers, self, 3)
-			C_TimerAfter(15, function() timerRequestInProgress = false end)
+			if not timerRequestInProgress then
+				timerRequestInProgress = true
+				-- Request timer to 3 person to prevent failure.
+				self:Unschedule(self.RequestTimers)
+				self:Schedule(7, self.RequestTimers, self, 1)
+				self:Schedule(10, self.RequestTimers, self, 2)
+				self:Schedule(13, self.RequestTimers, self, 3)
+				C_TimerAfter(15, function() timerRequestInProgress = false end)
+			end
 		end
 		if not InCombatLockdown() then--We loaded in combat because a raid boss was in process, but lets at least delay the garbage collect so at least load mod is half as bad, to do our best to avoid "script ran too long"
 			collectgarbage("collect")
@@ -3910,7 +3915,7 @@ do
 	end
 
 	local function breakTimerStart(self, timer, sender)
-		self.Options.tempBreak = timer.."/"..GetTime()
+		self.Options.tempBreak2 = timer.."/"..time()
 		if not self.Options.DontShowPT2 then
 			self.Bars:CreateBar(timer, DBM_CORE_TIMER_BREAK, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 		end
@@ -3933,11 +3938,13 @@ do
 			if timer/60 > 1 then dummyMod2.text:Schedule(timer - 1*60, DBM_CORE_BREAK_MIN:format(1)) end
 			dummyMod2.text:Schedule(timer, DBM_CORE_ANNOUNCE_BREAK_OVER)
 		end
-		C_TimerAfter(timer, function() self.Options.tempBreak = nil end)
+		C_TimerAfter(timer, function() self.Options.tempBreak2 = nil end)
 	end
 
 	syncHandlers["BT"] = function(sender, timer)
 		if DBM.Options.DontShowUserTimers then return end
+		timer = tonumber(timer or 0)
+		if timer > 3600 then return end
 		if (DBM:GetRaidRank(sender) == 0 and IsInGroup()) or select(2, IsInInstance()) == "pvp" or IsEncounterInProgress() then
 			return
 		end
@@ -3959,14 +3966,16 @@ do
 			TimerTracker_OnEvent(TimerTracker, "PLAYER_ENTERING_WORLD")--easiest way to nil out timers on TimerTracker frame. This frame just has no actual star/stop functions
 		end
 		dummyMod2.text:Cancel()
-		DBM.Options.tempBreak = nil
-		timer = tonumber(timer or 0)
+		DBM.Options.tempBreak2 = nil
 		if timer == 0 then return end--"/dbm break 0" will strictly be used to cancel the break timer (which is why we let above part of code run but not below)
 		breakTimerStart(DBM, timer, sender)
 	end
 	
-	whisperSyncHandlers["BTR2"] = function(sender, timer)
-		DBM:Unschedule(DBM.RequestTimers)--IF we got BTR2 sync, then we know immediately RequestTimers was successful, so abort others
+	whisperSyncHandlers["BTR3"] = function(sender, timer)
+		if DBM.Options.DontShowUserTimers then return end
+		timer = tonumber(timer or 0)
+		if timer > 3600 then return end
+		DBM:Unschedule(DBM.RequestTimers)--IF we got BTR3 sync, then we know immediately RequestTimers was successful, so abort others
 		if #inCombat >= 1 then return end
 		if DBM.Bars:GetBar(DBM_CORE_TIMER_BREAK) then return end--Already recovered. Prevent duplicate recovery
 		if not dummyMod2 then
@@ -3975,7 +3984,6 @@ do
 			dummyMod2.countdown = dummyMod2:NewCountdown(0, 0, nil, nil, nil, true)
 			dummyMod2.text = dummyMod2:NewAnnounce("%s", 1, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 		end
-		timer = tonumber(timer or 0)
 		breakTimerStart(DBM, timer, sender)
 	end
 
@@ -4072,7 +4080,7 @@ do
 					end
 				end
 			end
-			if DBM.DisplayVersion:find("alpha") and #newerVersionPerson < 2 and #newerRevisionPerson < 2 and updateNotificationDisplayed < 2 and (revision - DBM.Revision) > 40 then--Revision 20 can be increased in 1 day, so raised it to 40. Requires 2 person.
+			if DBM.DisplayVersion:find("alpha") and #newerVersionPerson < 2 and #newerRevisionPerson < 2 and updateNotificationDisplayed < 2 and (revision - DBM.Revision) > 30 then--Revision 20 can be increased in 1 day, so raised it to 30. Requires 2 person.
 				if not checkEntry(newerRevisionPerson, sender) then
 					newerRevisionPerson[#newerRevisionPerson + 1] = sender
 					DBM:Debug("Newer revision detected from "..sender.." : Rev - "..revision..", Ver - "..version..", Rev Diff - "..(revision - DBM.Revision))
@@ -4559,7 +4567,7 @@ do
 			return
 		end
 		local handler
-		if channel == "WHISPER" and (sender ~= playerName or prefix == "BTR2") then -- separate between broadcast and unicast, broadcast must not be sent as unicast or vice-versa
+		if channel == "WHISPER" and (sender ~= playerName or prefix == "BTR3") then -- separate between broadcast and unicast, broadcast must not be sent as unicast or vice-versa
 			handler = whisperSyncHandlers[prefix]
 		else
 			handler = syncHandlers[prefix]
@@ -6184,7 +6192,7 @@ do
 			--But only if we are not in combat with a boss
 			if self.Bars:GetBar(DBM_CORE_TIMER_BREAK) then
 				local remaining = self.Bars:GetBar(DBM_CORE_TIMER_BREAK).timer
-				SendAddonMessage("D4", "BTR2\t"..remaining, "WHISPER", target)
+				SendAddonMessage("D4", "BTR3\t"..remaining, "WHISPER", target)
 			end
 			return
 		end
@@ -6250,7 +6258,7 @@ do
 		end
 		C_TimerAfter(20, function() if not self.Options.ForumsMessageShown then self.Options.ForumsMessageShown = self.ReleaseRevision self:AddMsg(DBM_FORUMS_MESSAGE) end end)
 		C_TimerAfter(30, function() if not self.Options.SettingsMessageShown then self.Options.SettingsMessageShown = true self:AddMsg(DBM_HOW_TO_USE_MOD) end end)
-		C_TimerAfter(40, function() if self.Options.NewsMessageShown < 4 then self.Options.NewsMessageShown = 4 self:AddMsg(DBM_CORE_WHATS_NEW) end end)
+		C_TimerAfter(40, function() if self.Options.NewsMessageShown < 5 then self.Options.NewsMessageShown = 5 self:AddMsg(DBM_CORE_WHATS_NEW) end end)
 		if type(RegisterAddonMessagePrefix) == "function" then
 			if not RegisterAddonMessagePrefix("D4") then -- main prefix for DBM4
 				self:AddMsg("Error: unable to register DBM addon message prefix (reached client side addon message filter limit), synchronization will be unavailable") -- TODO: confirm that this actually means that the syncs won't show up
@@ -8311,8 +8319,12 @@ do
 			if self.sound then
 				DBM:PlaySoundFile(DBM.Options.RaidWarningSound)
 			end
-			--This callback sucks, it needs useful information for external mods to listen to it better, such as mod and spellid
-			fireEvent("DBM_Announce", message)
+			--Message: Full message text
+			--Icon: Texture path for icon
+			--Type: Announce type
+			--SpellId: Raw spell or encounter journal Id if available.
+			--Mod ID: Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
+			fireEvent("DBM_Announce", message, self.icon, self.type, self.spellId, self.mod.id)
 		else
 			self.combinedcount = 0
 			self.combinedtext = {}
@@ -8421,6 +8433,8 @@ do
 				mod = self,
 				icon = (type(icon) == "string" and icon:match("ej%d+") and select(4, EJ_GetSectionInfo(string.sub(icon, 3))) ~= "" and select(4, EJ_GetSectionInfo(string.sub(icon, 3)))) or (type(icon) == "number" and GetSpellTexture(icon)) or icon or "Interface\\Icons\\Spell_Nature_WispSplode",
 				sound = not noSound,
+				type = announceType,
+				spellId = unparsedId,
 			},
 			mt
 		)
@@ -9109,8 +9123,11 @@ do
 					DBM.Flash:Show(DBM.Options.SpecialWarningFlashCol4[1],DBM.Options.SpecialWarningFlashCol4[2], DBM.Options.SpecialWarningFlashCol4[3], DBM.Options.SpecialWarningFlashDura4, DBM.Options.SpecialWarningFlashAlph3, repeatCount)
 				end
 			end
-			--This callback sucks, it needs useful information for external mods to listen to it better, such as mod and spellid
-			fireEvent("DBM_Announce", text)
+			--Text: Full message text
+			--Type: Announce type
+			--SpellId: Raw spell or encounter journal Id if available.
+			--Mod ID: Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
+			fireEvent("DBM_Announce", text, self.type, self.spellId, self.mod.id)
 			if self.sound then
 				local soundId = self.option and self.mod.Options[self.option .. "SWSound"] or self.flash
 				if noteHasName and type(soundId) == "number" then soundId = noteHasName end--Change number to 5 if it's not a custom sound, else, do nothing with it
@@ -9212,6 +9229,7 @@ do
 			hasVoice = 2
 		end
 		local spellName
+		local unparsedId = spellId
 		if type(spellId) == "string" and spellId:match("ej%d+") then
 			spellName = EJ_GetSectionInfo(string.sub(spellId, 3)) or DBM_CORE_UNKNOWN
 		else
@@ -9237,6 +9255,8 @@ do
 				sound = runSound>0,
 				flash = runSound,--Set flash color to hard coded runsound (even if user sets custom sounds)
 				hasVoice = hasVoice,
+				type = announceType,
+				spellId = unparsedId,
 			},
 			mt
 		)
@@ -9613,8 +9633,15 @@ do
 			end
 			msg = msg:gsub(">.-<", stripServerName)
 			bar:SetText(msg)
-			--This callback sucks, it needs useful information for external mods to listen to it better, such as mod and spellid
-			fireEvent("DBM_TimerStart", id, msg, timer..DBM_CORE_SEC)
+			--ID: Internal DBM timer ID
+			--msg: Timer Text
+			--timer: Raw timer value (number).
+			--Icon: Texture Path for Icon
+			--type: Timer type (Cooldowns: cd, cdcount, nextcount, nextsource, cdspecial, nextspecial, phase, ai. Durations: target, active, fades, roleplay. Casting: cast)
+			--spellId: Raw spellid if available (most timers will have spellId or EJ ID unless it's a specific timer not tied to ability such as pull or combat start or rez timers.
+			--colorID: Type classification (1-Add, 2-Aoe, 3-targeted ability, 4-Interrupt, 5-Role, 6-Phase)
+			--Mod ID: Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
+			fireEvent("DBM_TimerStart", id, msg, timer, self.icon, self.type, self.spellId, colorId, self.mod.id)
 			tinsert(self.startedTimers, id)
 			self.mod:Unschedule(removeEntry, self.startedTimers, id)
 			self.mod:Schedule(timer, removeEntry, self.startedTimers, id)

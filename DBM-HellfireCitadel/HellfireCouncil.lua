@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1432, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14421 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14442 $"):sub(12, -3))
 mod:SetCreatureID(92142, 92144, 92146)--Blademaster Jubei'thos (92142). Dia Darkwhisper (92144). Gurthogg Bloodboil (92146) 
 mod:SetEncounterID(1778)
 mod:SetZone()
@@ -186,7 +186,7 @@ function mod:SPELL_CAST_START(args)
 		if not self.vb.DiaPushed then--Don't start cd timer for her final reap she casts at 30%
 			timerReapCD:Start()
 		end
-		if UnitDebuff("player", markofNecroDebuff) then
+		if UnitDebuff("player", markofNecroDebuff) and self:AntiSpam(5, 5) then
 			specWarnReap:Show()
 			yellReap:Yell()
 			countdownReap:Start()
