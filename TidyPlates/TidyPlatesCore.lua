@@ -281,12 +281,12 @@ do
 		regions.name:Hide()
 
 		regions.castborder:SetTexture(nil)
-		regions.castnostop:SetTexture(nil)
-		regions.spellicon:SetTexCoord( 0, 0, 0, 0 )
-		regions.spellicon:SetWidth(.001)
-		regions.spellshadow:SetTexture(nil)
-		regions.spellshadow:Hide()
-		regions.spelltext:Hide()
+		--regions.castnostop:SetTexture(nil)
+		--regions.spellicon:SetTexCoord( 0, 0, 0, 0 )
+		--regions.spellicon:SetWidth(.001)
+		--regions.spellshadow:SetTexture(nil)
+		--regions.spellshadow:Hide()
+		--regions.spelltext:Hide()
 		--]]
 
         -- Tidy Plates Frame
