@@ -1,6 +1,7 @@
-local MAJOR, MINOR = "LibItemUpgradeInfo-1.0", 7
-
-local lib = _G.LibStub:NewLibrary(MAJOR, MINOR) --#lib
+local MAJOR, MINOR = "LibItemUpgradeInfo-1.0", 8
+local type,tonumber,GetItemInfoFromHyperlink=type,tonumber,GetItemInfoFromHyperlink
+local library,previous = _G.LibStub:NewLibrary(MAJOR, MINOR) 
+local lib=library --#lib Needed to keep Eclipse LDT happy
 if not lib then return end
 local pp=print
 --[===[@debug@
@@ -174,7 +175,7 @@ do
 		local header,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14 = strsplit(":", itemString, 16)
 		s13=tonumber(s13) or 0
 		s14=tonumber(s14) or 0
-		scantooltip=(s13==1 and s14==615) -- Really to be better tested
+		scantooltip=((s13==1 or s13==2) and s14==615) -- Really to be better tested
 		local _, itemLink, rarity, itemLevel = GetItemInfo(itemString)
 		if not scantooltip then
 			scantooltip=rarity == _G.LE_ITEM_QUALITY_HEIRLOOM
@@ -231,6 +232,82 @@ function lib:GetUpgradedItemLevel(itemString)
 	end
 	return ilvl
 end
+local GetItemInfo=GetItemInfo
+lib.itemcache=lib.itemcache or
+	setmetatable({miss=0,tot=0},{
+		__index=function(table,key)
+			if (not key) then return "" end
+			if (key=="miss") then return 0 end
+			if (key=="tot") then return 0 end
+			local cached={GetItemInfo(key)}
+			if #cached==0 then return nil end
+			local itemLink=cached[2]
+			if not itemLink then return nil end
+			local itemID=lib:GetItemID(itemLink)
+			local name=cached[1]
+			rawset(table,itemLink,cached)
+			rawset(table,itemID,cached)
+			rawset(table,name,cached)
+			table.miss=table.miss+1
+			return cached
+		end
+
+	})
+local CachedGetItemInfo	--#function
+do
+	local cache,select,unpack=lib.itemcache,select,unpack
+	function CachedGetItemInfo(key,index)
+		index=index or 1
+		cache.tot=cache.tot+1
+		local cached=cache[key]
+		if (cached) then
+			return select(index,unpack(cached))
+		end
+	end
+end
+---
+-- Parses an itemlink and returns itemId without calling API again
+-- @param #Lib self
+-- @param #string itemlink
+-- @return #number itemId or 0
+function lib:GetItemID(itemlink)
+	if (type(itemlink)=="string") then
+			local itemid,context=GetItemInfoFromHyperlink(itemlink)
+			return tonumber(itemid) or 0
+			--return tonumber(itemlink:match("Hitem:(%d+):")) or 0
+	else
+			return 0
+	end
+end
+
+---
+--
+-- Returns a caching version of GetItemInfo. Can be used to override the original one.
+-- Adds a second parameter to directly retrieving a specific value
+-- (Note: internally uses select so it's actually like calling select(n,GetItemInfo(itemID)) 
+--
+-- Arguments:
+--   self #lib self
+--
+-- Returns:
+--   #function The new function	
+function lib:GetCachingGetItemInfo()
+	return CachedGetItemInfo
+end
+function lib:GetCacheStats()
+	local c=lib.itemcache
+	local h=c.tot-c.miss
+	local perc=( h>0) and h/c.tot*100 or 0
+	return c.miss,h,perc
+end
+lib.itemframe=lib.itemframe or CreateFrame("Frame",nil,nil)
+lib.itemframe:UnregisterEvent('GET_ITEM_INFO_RECEIVED')
+lib.itemframe:RegisterEvent('GET_ITEM_INFO_RECEIVED',
+	function(itemID)
+		CachedGetItemInfo(itemID)
+	end
+)
+
 
 --[===========[ ]===========]
 --[===[ Debug utilities ]===]
