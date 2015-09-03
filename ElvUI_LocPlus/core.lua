@@ -54,14 +54,17 @@ local currency = {
 	--776,	-- Warforged Seal
 	
 	-- WoD
-	821,	-- Draenor Clans Archaeology Fragment
-	828,	-- Ogre Archaeology Fragment
-	829,	-- Arakkoa Archaeology Fragment
 	824,	-- Garrison Resources
 	823,	-- Apexis Crystal (for gear, like the valors)
 	994,	-- Seal of Tempered Fate (Raid loot roll)
 	980,	-- Dingy Iron Coins (rogue only, from pickpocketing)
 	944,	-- Artifact Fragment (PvP)
+	1101,	-- Oil
+	1129,	-- Seal of Inevitable Fate
+	821,	-- Draenor Clans Archaeology Fragment
+	828,	-- Ogre Archaeology Fragment
+	829,	-- Arakkoa Archaeology Fragment
+	1166, 	-- Timewarped Badge (6.22)
 }
 ------------------------
 -- end of Currency Table
@@ -423,14 +426,7 @@ local function UpdateTooltip()
 		for i, id in ipairs(currency) do
 			local name, amount, icon, _, _, totalMax, isDiscovered = GetCurrencyInfo(id)
 			icon = ("|T%s:12:12:1:0|t"):format(icon)
-			if(name and amount > 0) then
-				-- max fix
-				if id == 392 or id == 395 then
-					totalMax = 4000
-				elseif id == 396 then
-					totalMax = 3000
-				end
-				
+			if(name and amount > 0) then	
 				if totalMax == 0 then
 					GameTooltip:AddDoubleLine(icon..format(" %s : ", name), format("%s", amount ), 1, 1, 1, selectioncolor)
 				else
@@ -936,7 +932,10 @@ function LPB:Initialize()
 	LocationPlusPanel:RegisterEvent("PLAYER_REGEN_ENABLED")
 	LocationPlusPanel:RegisterEvent("PET_BATTLE_CLOSE")
 	LocationPlusPanel:RegisterEvent("PET_BATTLE_OPENING_START")
-	print(L["Location Plus "]..format("v|cff33ffff%s|r",LPB.version)..L[" is loaded. Thank you for using it."])
+
+	if E.db.locplus.LoginMsg then
+		print(L["Location Plus "]..format("v|cff33ffff%s|r",LPB.version)..L[" is loaded. Thank you for using it."])
+	end
 end
 
 E:RegisterModule(LPB:GetName())
