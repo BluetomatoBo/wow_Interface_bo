@@ -29,6 +29,7 @@ function UF:Construct_TargetFrame(frame)
 	frame.CPoints = self:Construct_Combobar(frame)
 	frame.HealPrediction = self:Construct_HealComm(frame)
 	frame.DebuffHighlight = self:Construct_DebuffHighlight(frame)
+	frame.GPS = self:Construct_GPS(frame)
 
 	frame.AuraBars = self:Construct_AuraBarHeader(frame)
 	frame.Range = UF:Construct_Range(frame)
@@ -249,6 +250,13 @@ function UF:Update_TargetFrame(frame, db)
 			else
 				power:Point("TOPLEFT", frame.Health.backdrop, "BOTTOMLEFT", BORDER, -(E.PixelMode and 0 or (BORDER + SPACING)))
 				power:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -(BORDER + PORTRAIT_WIDTH), BORDER)
+			end
+			
+			if db.power.strataAndLevel.useCustomStrata then
+				power:SetFrameStrata(db.power.strataAndLevel.frameStrata)
+			end
+			if db.power.strataAndLevel.useCustomLevel then
+				power:SetFrameLevel(db.power.strataAndLevel.frameLevel)
 			end
 		elseif frame:IsElementEnabled('Power') then
 			frame:DisableElement('Power')
@@ -646,6 +654,26 @@ function UF:Update_TargetFrame(frame, db)
 		else
 			if frame:IsElementEnabled('HealPrediction') then
 				frame:DisableElement('HealPrediction')
+			end
+		end
+	end
+	
+	--GPSArrow
+	do
+		local GPS = frame.GPS
+		if db.GPSArrow.enable then
+			if not frame:IsElementEnabled('GPS') then
+				frame:EnableElement('GPS')
+			end
+
+			GPS:Size(db.GPSArrow.size)
+			GPS.onMouseOver = db.GPSArrow.onMouseOver
+			GPS.outOfRange = db.GPSArrow.outOfRange
+
+			GPS:SetPoint("CENTER", frame, "CENTER", db.GPSArrow.xOffset, db.GPSArrow.yOffset)
+		else
+			if frame:IsElementEnabled('GPS') then
+				frame:DisableElement('GPS')
 			end
 		end
 	end
