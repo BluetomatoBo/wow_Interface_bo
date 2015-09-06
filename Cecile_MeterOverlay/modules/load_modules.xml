@@ -1,8 +1,8 @@
-﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">	
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="debug.lua"/>
 	<Script file="version.lua"/>
-	<Script file="datatext.lua"/>	
-	<Script file="meter.lua"/>	
+	<Script file="datatext.lua"/>
+	<Script file="meter.lua"/>
 	<Script file="skada.lua"/>
 	<Script file="recount.lua"/>
 	<Script file="TinyDPS.lua"/>
@@ -10,4 +10,6 @@
 	<Script file="elvui.lua"/>
 	<Script file="Tukui.lua"/>
 	<Script file="encounters.lua"/>
+	<Script file="ldb.lua"/>
+	<Script file="numeration.lua"/>
 </Ui>

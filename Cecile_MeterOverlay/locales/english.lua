@@ -177,6 +177,16 @@ L["ENCOUNTERS_NEW_RECORD_DPS_OVER"]="- new |c%s%s|r |cffff2020%s DPS|r, was |c%s
 L["ENCOUNTERS_NEW_RECORD_HPS_OVER"]="- new |c%s%s|r |cff44ff44%s HPS|r, was |c%s%s|r |cff44ff44%s HPS|r"
 L["ENCOUNTERS_FAIL_RECORD_DPS"]="- retained |c%s%s|r |cffff2020%s DPS|r, attempt |c%s%s|r |cffff2020%s DPS|r"
 L["ENCOUNTERS_FAIL_RECORD_HPS"]="- retained |c%s%s|r |cff44ff44%s HPS|r, attempt |c%s%s|r |cff44ff44%s HPS|r"
+L["STRATA_BACKGROUND"] = "Background"
+L["STRATA_LOW"] = "Low"
+L["STRATA_MEDIUM"] = "Medium"
+L["STRATA_HIGH"] = "High"
+L["STRATA_DIALOG"] = "Dialog"
+L["STRATA_FULLSCREEN"] = "Full Screen"
+L["STRATA_FULLSCREEN_DIALOG"] = "Full Screen Dialog"
+L["STRATA_TOOLTIP"] = "Tooltip"
+L["STRATA_TYPE"] = "Frame Strata"
+L["STRATA_TYPE_DESC"] = "Change the datatext frame strata"
 
 --get ordinal sufix for a number (1st,2nd,3rd,4th...) (english locale)
 function Engine:OrdinalSuffix(number)

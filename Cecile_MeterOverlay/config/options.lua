@@ -189,6 +189,30 @@ Engine.ReportTypeList[Engine.REPORT_SELF ] 		= L["REPORT_SELF"];
 Engine.ReportTypeList[Engine.REPORT_GUILD ] 	= L["REPORT_GUILD"];
 Engine.ReportTypeList[Engine.REPORT_INSTANCE ] 	= L["REPORT_INSTANCE"];
 
+--strata types
+
+Engine.STRATA_BACKGROUND 		= "BACKGROUND"
+Engine.STRATA_LOW 				= "LOW"
+Engine.STRATA_MEDIUM 			= "MEDIUM"
+Engine.STRATA_HIGH 				= "HIGH"
+Engine.STRATA_DIALOG 			= "DIALOG"
+Engine.STRATA_FULLSCREEN 		= "FULLSCREEN"
+Engine.STRATA_FULLSCREEN_DIALOG	= "FULLSCREEN_DIALOG"
+Engine.STRATA_TOOLTIP 			= "TOOLTIP"
+
+
+--list of strata types for options UI
+Engine.StrataModesList={}
+
+Engine.StrataModesList[Engine.STRATA_BACKGROUND] 		= L["STRATA_BACKGROUND"]
+Engine.StrataModesList[Engine.STRATA_LOW] 				= L["STRATA_LOW"]
+Engine.StrataModesList[Engine.STRATA_MEDIUM] 			= L["STRATA_MEDIUM"]
+Engine.StrataModesList[Engine.STRATA_HIGH] 				= L["STRATA_HIGH"]
+Engine.StrataModesList[Engine.STRATA_DIALOG] 			= L["STRATA_DIALOG"]
+Engine.StrataModesList[Engine.STRATA_FULLSCREEN] 		= L["STRATA_FULLSCREEN"]
+Engine.StrataModesList[Engine.STRATA_FULLSCREEN_DIALOG] = L["STRATA_FULLSCREEN_DIALOG"]
+Engine.StrataModesList[Engine.STRATA_TOOLTIP] 			= L["STRATA_TOOLTIP"]
+
 
 --defaults
 Engine.Defaults = {
@@ -216,7 +240,8 @@ Engine.Defaults = {
 				},			
 			},
 			hideOOC = false,
-			hideOCCMode = Engine.DATATEXT_HIDE_FADE
+			hideOCCMode = Engine.DATATEXT_HIDE_FADE,
+			strata = Engine.STRATA_TOOLTIP,			
 		},
 		encounters = {
 			store = false,
@@ -241,7 +266,7 @@ Engine.Defaults = {
 				b = 0,
 				a = 0.65,
 			},
-			hide = Engine.OVERLAY_HIDE_FADE,
+			hide = Engine.OVERLAY_HIDE_FADE,			
 		}		
 	}
 }
@@ -441,9 +466,9 @@ Engine.Options = {
 					set = function(key, value)
 						Engine.Profile.overlay.hide = value;
 					end,
-				},				
+				},							
 				elvtukoverride = {
-					order = 9,
+					order = 10,
 					type = "toggle",
 					name = L["ELV_TUK_OVERRIDE"],
 					desc = L["ELV_TUK_OVERRIDE_DESC"],
@@ -746,6 +771,25 @@ Engine.Options = {
 					end,
 					disabled = function()
 						return not (Engine.Profile.datatext.enable and Engine.Profile.datatext.hideOOC);
+					end,						
+				},	
+				strata = {
+					order = 10,
+					type = "select",
+					name = L["STRATA_TYPE"],
+					desc = L["STRATA_TYPE_DESC"],
+					values = Engine.StrataModesList,
+					get = function()
+						return Engine.Profile.datatext.strata;
+					end,
+					set = function(key, value)
+						Engine.Profile.datatext.strata = value;
+
+						local datatext = Engine.AddOn:GetModule("datatext");
+						datatext:Reset();
+					end,
+					disabled = function()
+						return not (Engine.Profile.datatext.enable);
 					end,						
 				},				
 			}

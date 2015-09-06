@@ -179,6 +179,16 @@ L["ENCOUNTERS_NEW_RECORD_DPS_OVER"]="- nuevo |c%s%s|r |cffff2020%s DPS|r, era |c
 L["ENCOUNTERS_NEW_RECORD_HPS_OVER"]="- nuevo |c%s%s|r |cff44ff44%s HPS|r, era |c%s%s|r |cff44ff44%s HPS|r"
 L["ENCOUNTERS_FAIL_RECORD_DPS"]="- mantenido |c%s%s|r |cffff2020%s DPS|r, intento |c%s%s|r |cffff2020%s DPS|r"
 L["ENCOUNTERS_FAIL_RECORD_HPS"]="- mantenido |c%s%s|r |cff44ff44%s HPS|r, intento |c%s%s|r |cff44ff44%s HPS|r"
+L["STRATA_BACKGROUND"] = "Fondo"
+L["STRATA_LOW"] = "Baja"
+L["STRATA_MEDIUM"] = "Media"
+L["STRATA_HIGH"] = "Alta"
+L["STRATA_DIALOG"] = "Dialogo"
+L["STRATA_FULLSCREEN"] = "Pantalla Completa"
+L["STRATA_FULLSCREEN_DIALOG"] = "Dialog sobre Pantalla Completa"
+L["STRATA_TOOLTIP"] = "Flotante"
+L["STRATA_TYPE"] = "Prioridad Visual"
+L["STRATA_TYPE_DESC"] = "Cambia la prioridad visual del texto flotante"
 
 --get ordinal sufix for a number (1o,2o,3o,4o...) (spanish locale)
 function Engine:OrdinalSuffix(number)    
