@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(581, "DBM-Party-WotLK", 1, 271)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 207 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 212 $"):sub(12, -3))
 mod:SetCreatureID(29308)
 mod:SetEncounterID(213, 260)
 mod:SetZone()
@@ -9,9 +9,9 @@ mod:SetZone()
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START",
-	"SPELL_AURA_APPLIED",
-	"SPELL_AURA_REMOVED"
+	"SPELL_CAST_START 55931",
+	"SPELL_AURA_APPLIED 55959 59513",
+	"SPELL_AURA_REMOVED 55959 59513"
 )
 
 local warningEmbrace	= mod:NewTargetAnnounce(55959, 2)
