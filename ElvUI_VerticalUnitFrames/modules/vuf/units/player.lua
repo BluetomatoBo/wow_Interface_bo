@@ -39,6 +39,7 @@ function VUF:ConstructPlayerFrame(frame,unit)
 
 	if E.myclass == "MONK" then
 		frame.Harmony = self:ConstructHarmony(frame)
+		frame.Stagger = self:ConstructStagger(frame)
 		frame.ClassBar = 'Harmony'
 	end
 

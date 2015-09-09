@@ -1,0 +1,8 @@
+2015-09-08  Michael Tindal  <mj.tindal@icloud.com>
+
+[95235d057136] [6.09]
+* ElvUI_VerticalUnitFrames.toc:
+
+Version 6.09, 6.2 TOC file
+
+

@@ -457,6 +457,7 @@ local function combatOptions(unit) return VUF:GenerateElementOptionTable(unit,'c
 local function pvpOptions(unit) return VUF:GenerateElementOptionTable(unit,'pvp',1100,'PVP Text',true,false,false,true,false) end
 local function healcommOptions(unit) return VUF:GenerateElementOptionTable(unit,'healcomm',1200,'Heal Prediction',false,false,false,false,false) end
 local function mushroomOptions(unit) return VUF:GenerateElementOptionTable(unit,'mushroom',550,'Wild Mushroom Tracker',true,true,false,false,true) end
+local function staggerOptions(unit) return VUF:GenerateElementOptionTable(unit,'stagger', 650, 'Stagger Bar',true,true,false,false,true) end
 local function gcdOptions(unit) return VUF:GenerateElementOptionTable(unit,'gcd',1300,'GCD Spark',true,true,false,false,false) end
 local function buffOptions(unit) return VUF:GenerateElementOptionTable(unit,'buffs',725,'Buffs',true,true,false,false,false) end
 local function debuffOptions(unit) return VUF:GenerateElementOptionTable(unit,'debuffs',750,'Debuffs',true,true,false,false,false) end
@@ -477,6 +478,7 @@ local elementOptions = {
 	['pvp'] = pvpOptions,
 	['healcomm'] = healcommOptions,
     ['mushroom'] = mushroomOptions,
+    ['stagger'] = staggerOptions,
     ['gcd'] = gcdOptions,
     ['buffs'] = buffOptions,
     ['debuffs'] = debuffOptions,

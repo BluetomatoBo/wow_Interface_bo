@@ -174,7 +174,7 @@ function VUF:Enable()
             end
         end
     end
-
+    
     self:RegisterEvent("PLAYER_TARGET_CHANGED");
     VUF:ScheduleTimer('AuraBarsSuck',5)
 end
@@ -225,6 +225,16 @@ function VUF:UNIT_HEALTH(event, unit)
 
         C_Timer.After(timeToDisplay, function() if (not UnitAffectingCombat("player") and not  InCombatLockdown() and (UnitHealth(unit) == healthSeen)) then VUF:Hide(f, "PLAYER_REGEN_ENABLED") end end);
     end
+end
+
+function VUF:ResetFramePositions()
+    E:ResetMovers('Focus Vertical Unit Frame');
+    E:ResetMovers('Focus Target Vertical Unit Frame');
+    E:ResetMovers('Pet Vertical Unit Frame');
+    E:ResetMovers('Pet Target Vertical Unit Frame');
+    E:ResetMovers('Player Vertical Unit Frame');
+    E:ResetMovers('Target Vertical Unit Frame');
+    E:ResetMovers('Target Target Vertical Unit Frame');
 end
 
 function VUF:PLAYER_ENTERING_WORLD()

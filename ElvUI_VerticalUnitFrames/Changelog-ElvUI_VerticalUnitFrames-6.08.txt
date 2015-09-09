@@ -1,8 +1,0 @@
-2014-11-25  Michael Tindal  <mj.tindal@icloud.com>
-
-[fe3f37ba144c] [6.08]
-* ElvUI_VerticalUnitFrames.toc, core/core.lua, modules/vuf/vuf.lua:
-
-Fix a bug with font strings thats been there since forever, and make the time a frame displays when health changes to 5 seconds minimum.
-
-

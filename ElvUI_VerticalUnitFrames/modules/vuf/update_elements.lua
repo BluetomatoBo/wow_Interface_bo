@@ -268,7 +268,7 @@ function VUF:UpdateClassBarAnchors(frame,element)
 	end
 end
 
-local he = { ["castbar"] = true, ["aurabars"] = true }
+local he = { ["castbar"] = true, ["aurabars"] = true, ["stagger"] = true }
 
 function VUF:UpdateElement(frame,element)
 	if element == 'castbar' then
@@ -399,6 +399,7 @@ function VUF:UpdateElementAnchor(frame,element)
 	end
  	local anchor = config['anchor']
 	if element == 'cpoints' and not (E.myclass == "ROGUE" or E.myclass == "DRUID") then return end;
+	if element == 'stagger' and not (E.myclass == "MONK") then return end;
 	if element == 'mushroom' then
 		local WMFrame = CreateFrame('Frame',nil,frame)
 		WMFrame:RegisterEvent('PLAYER_TALENT_UPDATE')
@@ -430,6 +431,7 @@ function VUF:UpdateElementAnchor(frame,element)
 			anchor = anchor['default']
 		end
 	end
+
 	local hasAnchor = anchor ~= nil
 	if element == 'castbar' then
 		if frame.unit == 'player' or frame.unit == 'target' then
@@ -439,6 +441,10 @@ function VUF:UpdateElementAnchor(frame,element)
 		end
 	end
 
+	if element == 'stagger' then
+		enabled = GetSpecialization() == 1;
+	end
+	
 	if hasAnchor then
 		local pointFrom = anchor['pointFrom']
 		local attachTo = VUF:GetAnchor(frame,anchor['attachTo'])
@@ -1438,6 +1444,20 @@ function VUF:PostUpdateEclipseBar(event)
 
 	self.SolarBar:SetAlpha(alpha);
 	self.LunarBar:SetAlpha(alpha);
+end
+
+function VUF:PostUpdateStaggerBar(event)
+	local talentSpecialization = GetSpecialization();
+
+	local alpha;
+
+	if(talentSpecialization ~= 1) then
+		alpha = 0;
+	else
+		alpha = 1;
+	end
+
+	self:SetAlpha(alpha);
 end
 
 function VUF:PostUpdateArcaneChargeBar(event, arcaneCharges, maxCharges)

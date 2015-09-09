@@ -37,7 +37,7 @@ function VUF:GenerateOptions()
                 order = 2,
                 name = L["Reset Settings"],
                 desc = L["Reset the settings of this addon to their defaults."],
-                func = function() E:CopyTable(E.db.unitframe.vuf,P.unitframe.vuf); VUF:Enable(); VUF:UpdateHideSetting(); VUF:UpdateAllFrames(); VUF:UpdateMouseSetting(); end
+                func = function() E:CopyTable(E.db.unitframe.vuf,P.unitframe.vuf); VUF:Enable(); VUF:ResetFramePositions(); VUF:UpdateHideSetting(); VUF:UpdateAllFrames(); VUF:UpdateMouseSetting(); end
             },
             oldDefault = {
                 type = 'execute',

@@ -168,10 +168,10 @@ function VUF:ConstructCastbar(frame)
     frame.HorizCastbar = hcastbar
 
     if frame.unit ~= 'target' then
-        hcastbar:HookScript("OnShow", function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() then VUF:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
-        hcastbar:HookScript("OnHide", function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() then VUF:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
-        vcastbar:HookScript("OnShow", function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() then VUF:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
-        vcastbar:HookScript("OnHide", function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() then VUF:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+        hcastbar:HookScript("OnShow", function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() then frame.casting = true; VUF:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
+        hcastbar:HookScript("OnHide", function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() then frame.casting = false; VUF:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+        vcastbar:HookScript("OnShow", function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() then frame.casting = true; VUF:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
+        vcastbar:HookScript("OnHide", function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() then frame.casting = false; VUF:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
     end
     
     if (frame.unit ~= 'player' and frame.unit ~= 'target') or not self.db.units[frame.unit].horizCastbar then
@@ -241,6 +241,19 @@ function VUF:ConstructEclipseBar(frame)
     eclipseBar.Text = eclipseBarText
 
     return eclipseBar
+end
+
+function VUF:ConstructStagger(frame)
+    self:AddElement(frame, 'stagger');
+
+    local staggerBar = self:ConfigureStatusBar(frame,'stagger', frame, 'staggerbar');
+    staggerBar:SetFrameStrata("MEDIUM")
+    staggerBar:SetTemplate("Default")
+    staggerBar:SetFrameLevel(8)
+    staggerBar:SetBackdropBorderColor(0,0,0,0)
+    staggerBar.PostUpdate = VUF.PostUpdateStaggerBar
+    
+    return staggerBar;
 end
 
 function VUF:ConstructSubBars(frame,element,name,num)

@@ -98,6 +98,7 @@ local elements = {
 	['pvp'] = 'PvPText',
 	['healcomm'] = 'HealPrediction',
 	['mushroom'] = 'WildMushroom',
+	['stagger'] = 'Stagger',
 	['gcd'] = 'GCD',
 	['buffs'] = 'Buffs',
 	['debuffs'] = 'Debuffs',
@@ -208,7 +209,7 @@ function VUF:ConstructVerticalUnitFrame(frame,unit)
 	frame:SetScript('OnLeave', UnitFrame_OnLeave)	
 	if frame.unit ~= 'target' then
 		frame:HookScript("OnEnter",function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then VUF:Hide(frame,"PLAYER_REGEN_DISABLED") end end)
-	    frame:HookScript("OnLeave",function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() and UnitExists(self.unit) then VUF:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
+	    frame:HookScript("OnLeave",function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() and UnitExists(self.unit) and not self.casting then VUF:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
 	    frame:HookScript("OnShow",function(self) if E.db.unitframe.vuf.hideOOC and not InCombatLockdown() then VUF:Hide(frame,"PLAYER_REGEN_ENABLED") end end)
 	end
 	frame.menu = UF.SpawnMenu

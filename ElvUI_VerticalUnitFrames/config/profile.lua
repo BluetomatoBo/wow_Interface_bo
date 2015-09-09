@@ -174,6 +174,25 @@ P['unitframe']['vuf']['units'] = {
                 ['width'] = 7,
             },
         },
+        ['stagger'] = {
+            ['enabled'] = true,
+            ['anchor'] = {
+                ['pointFrom'] = 'TOPLEFT',
+                ['attachTo'] = 'health',
+                ['pointTo'] = 'BOTTOMLEFT',
+                ['xOffset'] = 0,
+                ['yOffset'] = -2,
+            },
+            ['spaced'] = true,
+            ['spacesettings'] = {
+                ['offset'] = 4,
+                ['spacing'] = 6,
+            },
+            ['size'] = {
+                ['height'] = 7,
+                ['width'] = 50,
+            },
+        },
         ['cpoints'] = {
             ['enabled'] = false,
             ['anchor'] = {
