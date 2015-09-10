@@ -1,0 +1,11 @@
+tag 6.2.2.1
+2775a7a489d695356c08e9ac20bc0269fc2e718c
+James D. Callahan III <jcallahan@curse.com>
+2015-09-09 22:39:07 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Disable the WORLD_MAP_UPDATE alerts until either SLOKnightfall has the time to fix it or I have the inclination to figure out what the code is actually supposed to be doing.
