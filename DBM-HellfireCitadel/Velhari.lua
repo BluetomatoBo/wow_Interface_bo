@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1394, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14421 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14474 $"):sub(12, -3))
 mod:SetCreatureID(90269)
 mod:SetEncounterID(1784)
 mod:SetZone()
@@ -60,7 +60,7 @@ local specWarnFontofCorruptionOver			= mod:NewSpecialWarningEnd(180526)
 local yellFontofCorruption					= mod:NewYell(180526)
 ----Ancient Harbinger
 local specWarnAncientHarbinger				= mod:NewSpecialWarningSwitch("ej11163", "-Healer")
-local specWarnHarbingersMending				= mod:NewSpecialWarningInterrupt(180025, "-Healer", nil, nil, 1, 2)
+local specWarnHarbingersMending				= mod:NewSpecialWarningInterruptCount(180025, "-Healer", nil, nil, 1, 2)
 local specWarnHarbingersMendingDispel		= mod:NewSpecialWarningDispel(180025, "MagicDispeller")--if interrupt is missed (likely at some point, cast gets faster each time). Then it MUST be dispelled
 --Stage Three: Malice
 local specWarnDespoiledGround				= mod:NewSpecialWarningMove(180604, nil, nil, nil, 1, 1)
@@ -79,7 +79,7 @@ local timerInfernalTempestCD				= mod:NewNextCountTimer(10, 180300, nil, nil, ni
 local timerEnforcersOnslaughtCD				= mod:NewCDTimer(18, 180004, nil, "Tank", nil, 5)
 mod:AddTimerLine(SCENARIO_STAGE:format(2))--Stage Two: Contempt
 local timerTaintedShadowsCD					= mod:NewNextTimer(5, 180533, nil, "Tank", nil, 5)
-local timerFontofCorruptionCD				= mod:NewNextTimer(20, 180526, nil, nil, nil, 3)
+local timerFontofCorruptionCD				= mod:NewNextTimer(19.6, 180526, nil, nil, nil, 3)
 ----Ancient Harbinger
 local timerHarbingersMendingCD				= mod:NewCDTimer(11, 180025, nil, nil, nil, 4)
 mod:AddTimerLine(SCENARIO_STAGE:format(3))--Stage Three: Malice
@@ -112,6 +112,7 @@ mod.vb.annihilationCount = 0
 mod.vb.bulwarkCount = 0
 mod.vb.gavelCount = 0
 mod.vb.phase = 1
+mod.vb.interruptCount = 0
 local AncientEnforcer = EJ_GetSectionInfo(11155)
 local AncientHarbinger = EJ_GetSectionInfo(11163)
 local AncientSovereign = EJ_GetSectionInfo(11170)
@@ -147,7 +148,7 @@ function mod:AnnTarget(targetname, uId)
 		warnAnnihilationStrike:Show(self.vb.annihilationCount, targetname)
 	end
 	if self.Options.HudMapOnStrike then
-		DBMHudMap:RegisterRangeMarkerOnPartyMember(180260, "highlight", targetname, 4, 4, 1, 0, 0, 0.5, nil, true, 2):Pulse(0.5, 0.5)
+		DBMHudMap:RegisterRangeMarkerOnPartyMember(180260, "highlight", targetname, 3, 4, 1, 0, 0, 0.5, nil, true, 2):Pulse(0.5, 0.5)
 	end
 end
 
@@ -159,6 +160,7 @@ function mod:OnCombatStart(delay)
 	self.vb.bulwarkCount = 0
 	self.vb.gavelCount = 0
 	self.vb.phase = 1
+	self.vb.interruptCount = 0
 	timerSealofDecayCD:Start(3.5-delay)
 	timerAnnihilatingStrikeCD:Start(10-delay, 1)
 	timerTouchofHarmCD:Start(16.8-delay, 1)
@@ -390,7 +392,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
 			DBM.BossHealth:AddBoss(90271, AncientHarbinger)
 		end
 		specWarnAncientHarbinger:Show()
-		timerHarbingersMendingCD:Start(19)
+		timerHarbingersMendingCD:Start(19)--VERIFY
 	elseif npc == AncientSovereign then
 		if DBM.BossHealth:IsShown() then
 			DBM.BossHealth:AddBoss(90272, AncientSovereign)
@@ -401,10 +403,15 @@ end
 
 function mod:UNIT_SPELLCAST_START(uId, _, _, _, spellId)
 	if spellId == 180025 then
-		specWarnHarbingersMending:Show(AncientHarbinger)
+		if self.vb.interruptCount == 2 then self.vb.interruptCount = 0 end
+		self.vb.interruptCount = self.vb.interruptCount + 1
+		local count = self.vb.interruptCount
+		specWarnHarbingersMending:Show(AncientHarbinger, self.vb.interruptCount)
 		timerHarbingersMendingCD:Start()
-		if not self:IsHealer() then
-			voiceHarbingersMending:Play("kickcast")
+		if count == 1 then
+			voiceHarbingersMending:Play("kick1r.ogg")
+		elseif count == 2 then
+			voiceHarbingersMending:Play("kick2r.ogg")
 		end
 	end
 end

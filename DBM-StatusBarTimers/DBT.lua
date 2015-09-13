@@ -70,6 +70,21 @@ local ipairs, pairs, next, type = ipairs, pairs, next, type
 local tinsert = table.insert
 local GetTime = GetTime
 
+--Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
+--http://forums.elitistjerks.com/topic/133901-bug-report-hudmap/#entry2282069
+local standardFont = STANDARD_TEXT_FONT
+if (LOCALE_koKR) then
+	standardFont = "Fonts\\2002.TTF"
+elseif (LOCALE_zhCN) then
+	standardFont = "Fonts\\ARKai_T.ttf"
+elseif (LOCALE_zhTW) then
+	standardFont = "Fonts\\blei00d.TTF"
+elseif (LOCALE_ruRU) then
+	standardFont = "Fonts\\FRIZQT___CYR.TTF"
+else
+	standardFont = "Fonts\\FRIZQT__.TTF"
+end
+
 
 -----------------------
 --  Default Options  --
@@ -387,7 +402,7 @@ options = {
 	},
 	Font = {
 		type = "string",
-		default = STANDARD_TEXT_FONT,
+		default = standardFont,
 	},
 	FontFlag = {
 		type = "string",
@@ -573,6 +588,9 @@ do
 		self.options = setmetatable(DBT_AllPersistentOptions[_G["DBM_UsedProfile"]][id], optionMT)
 		self:Rearrange()
 		DBM:Schedule(2, delaySkinCheck, self)
+		if not self.options.Font then--Fix font if it's nil
+			self.options.Font = standardFont
+		end
 	end
 
 	function DBT:CreateProfile(id)

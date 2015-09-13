@@ -1,14 +1,14 @@
 local mod	= DBM:NewMod(1433, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14421 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14475 $"):sub(12, -3))
 mod:SetCreatureID(90316)
 mod:SetEncounterID(1788)
 mod:DisableESCombatDetection()--Remove if blizz fixes trash firing ENCOUNTER_START
 mod:SetMinSyncRevision(13887)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)--Unknown full spectrum of icons yet. Don't know how many debuffs go out.
-mod:SetHotfixNoticeRev(14372)
+mod:SetHotfixNoticeRev(14463)
 mod.respawnTime = 15
 mod:DisableRegenDetection()--Boss returns true on UnitAffectingCombat when fighting his trash, making boss pre mature pull by REGEN method
 
@@ -74,7 +74,7 @@ local timerChakramCD					= mod:NewCDTimer(33, 182178, nil, nil, nil, 3)
 local timerPhantasmalWindsCD			= mod:NewCDTimer(35, 181957, nil, nil, nil, 3)
 local timerPhantasmalWoundsCD			= mod:NewCDTimer(30.5, 182325, nil, "Healer", 2, 5)--30.5-32
 local timerFocusedBlast					= mod:NewCastTimer(11, 181912, nil, nil, nil, 2)--Doesn't realy need a cd timer. he casts it twice back to back, then lands
-local timerShadowRiposteCD				= mod:NewCDTimer(26, 185345, nil, nil, nil, 3)
+local timerShadowRiposteCD				= mod:NewCDTimer(23.5, 185345, nil, nil, nil, 3)
 --Adds
 local timerFelBombCD					= mod:NewCDTimer(18.5, 181753, nil, nil, nil, 3)
 local timerFelConduitCD					= mod:NewCDTimer(15, 181827, nil, nil, nil, 4)
@@ -98,13 +98,17 @@ mod:AddRangeFrameOption(15)--Both aoes are 15 yards, ref 187991 and 181748
 mod:AddSetIconOption("SetIconOnAnzu", 179202, false)
 mod:AddSetIconOption("SetIconOnWinds", 181957, true)
 mod:AddSetIconOption("SetIconOnFelBomb", 181753, true)
+mod:AddSetIconOption("SetIconOnAdds", 181873, false, true)
 mod:AddHudMapOption("HudMapOnChakram", 182178)
 
+mod.vb.escapeCount = 0
 mod.vb.focusedBlast = 0
 mod.vb.savedChakram = nil
 mod.vb.savedWinds = nil
 mod.vb.savedWounds = nil
 mod.vb.savedRiposte = nil
+mod.vb.windsTargets = 0
+mod.vb.bombActive = nil
 local chakramTargets = {}
 local playerHasAnzu = false
 local corruption = GetSpellInfo(181824)
@@ -171,11 +175,14 @@ local function showChakram(self)
 end
 
 function mod:OnCombatStart(delay)
+	self.vb.escapeCount = 0
 	self.vb.focusedBlast = 0
 	self.vb.savedChakram = nil
 	self.vb.savedWinds = nil
 	self.vb.savedWounds = nil
 	self.vb.savedRiposte = nil
+	self.vb.windsTargets = 0
+	self.vb.bombActive = nil
 	playerHasAnzu = false
 	table.wipe(AddsSeen)
 	table.wipe(chakramTargets)
@@ -236,6 +243,7 @@ function mod:SPELL_CAST_START(args)
 			warnFelConduit:Show()
 		end
 	elseif spellId == 181873 then--Air phase start (Shadow Escape)
+		self.vb.escapeCount = self.vb.escapeCount + 1
 		self.vb.focusedBlast = 0
 		--Timers pause, save times
 		self.vb.savedChakram = timerChakramCD:GetRemaining()
@@ -243,6 +251,26 @@ function mod:SPELL_CAST_START(args)
 		self.vb.savedWounds = timerPhantasmalWoundsCD:GetRemaining()
 		if self:IsMythic() then
 			self.vb.savedRiposte = timerShadowRiposteCD:GetRemaining()
+			if self.Options.SetIconOnAdds then
+				self:ScanForMobs(93625, 2, 8, 1, 0.2, 15)--Mythic Add
+				self:ScanForMobs(91543, 2, 7, 1, 0.2, 15)--Bomb Add
+				if self.vb.escapeCount >= 2 then
+					self:ScanForMobs(91541, 2, 6, 1, 0.2, 15)--Construct Add
+				end
+				if self.vb.escapeCount == 3 then
+					self:ScanForMobs(91539, 2, 5, 1, 0.2, 15)--Raven Add
+				end
+			end
+		else
+			if self.Options.SetIconOnAdds then
+				self:ScanForMobs(91543, 2, 8, 1, 0.2, 15)--Bomb Add
+				if self.vb.escapeCount >= 2 then
+					self:ScanForMobs(91541, 2, 7, 1, 0.2, 15)--Construct Add
+				end
+				if self.vb.escapeCount == 3 then
+					self:ScanForMobs(91539, 2, 6, 1, 0.2, 15)--Raven Add
+				end
+			end
 		end
 		--Clear. Sure I could just do GetTime+39 and call it a day, but this is prettier
 		timerChakramCD:Cancel()
@@ -251,8 +279,7 @@ function mod:SPELL_CAST_START(args)
 		timerPhantasmalWoundsCD:Cancel()
 		timerDarkBindingsCD:Cancel()
 		timerShadowRiposteCD:Cancel()
-	elseif spellId == 185345 then
-		timerShadowRiposteCD:Start()
+	elseif spellId == 185345 and not args:IsSrcTypePlayer() then
 		if playerHasAnzu then
 			specWarnShadowRiposte:Show()
 		else
@@ -289,6 +316,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 		self.vb.savedRiposte = nil
 	elseif spellId == 185510 then
 		timerDarkBindingsCD:Start(args.sourceGUID)
+	elseif spellId == 185345 and not args:IsSrcTypePlayer() then
+		timerShadowRiposteCD:Start()
 	end
 end
 
@@ -300,11 +329,26 @@ function mod:SPELL_AURA_APPLIED(args)
 			self:SetIcon(args.destName, 1)
 		end
 		if args:IsPlayer() then
-			specWarnEyeofAnzu:Show()
 			playerHasAnzu = true
+			--Check for bombs or winds and show action warnings
+			if self.vb.bombActive then
+				if self:IsHealer() then--Can dispel
+					specWarnFelBombDispel:Show(self.vb.bombActive)
+					voiceFelBombDispel:Play("dispelnow")
+				else--Cannot dispel, get eye to a healer asap!
+					specWarnThrowAnzu:Show(HEALER)
+					voiceThrowAnzu:Play("179202h")
+				end
+			elseif self.vb.windsTargets > 0 then
+				specWarnThrowAnzu:Show(GetSpellInfo(181957))
+				voiceThrowAnzu:Play("179202")
+			else--No bombs or winds, show generic "eye on you" warning
+				specWarnEyeofAnzu:Show()
+			end
 		end
 	elseif spellId == 181957 then
 		warnPhantasmalWinds:CombinedShow(0.3, args.destName)
+		self.vb.windsTargets = self.vb.windsTargets + 1
 		if args:IsPlayer() then
 			specWarnPhantasmalWinds:Show()
 			yellPhantasmalWinds:Yell()
@@ -356,6 +400,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			yellPhantasmalFelBomb:Schedule(0.3)
 		end
 	elseif spellId == 181753 then
+		self.vb.bombActive = args.destName
 		warnFelBomb:Show(args.destName)
 		if self:IsNormal() then
 			timerFelBombCD:Start(23, args.sourceGUID)
@@ -430,6 +475,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			playerHasAnzu = false
 		end
 	elseif spellId == 181957 and self.Options.SetIconOnWinds then
+		self.vb.windsTargets = self.vb.windsTargets - 1
 		self:SetIcon(args.destName, 0)
 	elseif (spellId == 181824 or spellId == 187990) then
 		if args:IsPlayer() then
@@ -440,6 +486,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			updateRangeFrame(self)
 		end
 	elseif spellId == 181753 then
+		self.vb.bombActive = nil
 		if args:IsPlayer() then
 			updateRangeFrame(self)
 		end

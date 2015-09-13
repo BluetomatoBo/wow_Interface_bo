@@ -40,9 +40,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14445 $"):sub(12, -3)),
-	DisplayVersion = "6.2.10", -- the string that is shown as version
-	ReleaseRevision = 14445 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 14486 $"):sub(12, -3)),
+	DisplayVersion = "6.2.11", -- the string that is shown as version
+	ReleaseRevision = 14486 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -59,6 +59,21 @@ if class == "MAGE" or class == "WARLOCK" and class == "HUNTER" and class == "ROG
 	DBM_UseDualProfile = false
 end
 DBM_CharSavedRevision = 1
+
+--Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
+--http://forums.elitistjerks.com/topic/133901-bug-report-hudmap/#entry2282069
+local standardFont = STANDARD_TEXT_FONT
+if (LOCALE_koKR) then
+	standardFont = "Fonts\\2002.TTF"
+elseif (LOCALE_zhCN) then
+	standardFont = "Fonts\\ARKai_T.ttf"
+elseif (LOCALE_zhTW) then
+	standardFont = "Fonts\\blei00d.TTF"
+elseif (LOCALE_ruRU) then
+	standardFont = "Fonts\\FRIZQT___CYR.TTF"
+else
+	standardFont = "Fonts\\FRIZQT__.TTF"
+end
 
 DBM.DefaultOptions = {
 	WarningColors = {
@@ -163,7 +178,7 @@ DBM.DefaultOptions = {
 	WarningPoint = "CENTER",
 	WarningX = 0,
 	WarningY = 260,
-	WarningFont = STANDARD_TEXT_FONT,
+	WarningFont = standardFont,
 	WarningFontSize = 20,
 	WarningFontStyle = "None",
 	WarningFontShadow = true,
@@ -171,7 +186,7 @@ DBM.DefaultOptions = {
 	SpecialWarningPoint = "CENTER",
 	SpecialWarningX = 0,
 	SpecialWarningY = 75,
-	SpecialWarningFont = STANDARD_TEXT_FONT,
+	SpecialWarningFont = standardFont,
 	SpecialWarningFontSize = 50,
 	SpecialWarningFontStyle = "THICKOUTLINE",
 	SpecialWarningFontShadow = false,
@@ -383,7 +398,7 @@ local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 local dbmToc = 0
 
-local fakeBWRevision = 13662
+local fakeBWRevision = 13678
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -1491,13 +1506,11 @@ do
 		if not nextTask and foundModFunctions == 0 then--Nothing left, stop scheduler
 			schedulerFrame:SetScript("OnUpdate", nil)
 			schedulerFrame:Hide()
-			DBM:Debug("DBM Scheduler Deactivated", 2)
 		end
 	end
 
 	function startScheduler()
 		if not schedulerFrame:IsShown() then
-			DBM:Debug("DBM Scheduler Activated", 2)
 			schedulerFrame:Show()
 			schedulerFrame:SetScript("OnUpdate", onUpdate)
 		end
@@ -1646,7 +1659,7 @@ function DBM:RepositionFrames()
 		DBMRangeCheck:SetPoint(self.Options.RangeFramePoint, UIParent, self.Options.RangeFramePoint, self.Options.RangeFrameX, self.Options.RangeFrameY)
 	end
 	if DBMRangeCheckRadar then
-		DBMInfoFrame:ClearAllPoints()
+		DBMRangeCheckRadar:ClearAllPoints()
 		DBMRangeCheckRadar:SetPoint(self.Options.RangeFrameRadarPoint, UIParent, self.Options.RangeFrameRadarPoint, self.Options.RangeFrameRadarX, self.Options.RangeFrameRadarY)
 	end
 	if DBMInfoFrame then
@@ -2836,7 +2849,7 @@ function DBM:LoadModOptions(modId, inCombat, first)
 		local mod = DBM:GetModByName(id)
 		-- migrate old option
 		if _G[oldSavedVarsName] and _G[oldSavedVarsName][id] then
-			self:Debug("LoadModOptions: Found old options, importing")
+			self:Debug("LoadModOptions: Found old options, importing", 2)
 			local oldTable = _G[oldSavedVarsName][id]
 			_G[oldSavedVarsName][id] = nil
 			savedOptions[id][profileNum] = oldTable
@@ -3620,7 +3633,7 @@ function DBM:LoadMod(mod, force)
 			RequestChallengeModeMapInfo()
 			RequestChallengeModeLeaders(LastInstanceMapID)
 		end
-		if instanceType ~= "pvp" and #inCombat == 0 and IsInGroup() then--do timer recovery only mod load
+		if LastInstanceType ~= "pvp" and #inCombat == 0 and IsInGroup() then--do timer recovery only mod load
 			if not timerRequestInProgress then
 				timerRequestInProgress = true
 				-- Request timer to 3 person to prevent failure.
@@ -4601,7 +4614,7 @@ do
 				local spellId = string.match(msg, "spell:(%d+)") or UNKNOWN
 				local spellName = string.match(msg, "h%[(.-)%]|h") or UNKNOWN
 				local message = "RAID_BOSS_WHISPER on "..sender.." with spell of "..spellName.." ("..spellId..")"
-				DBM:Debug(message)
+				self:Debug(message)
 			end
 		end
 	end
@@ -6056,9 +6069,10 @@ function DBM:GetGroupSize()
 end
 
 function DBM:PlaySoundFile(path, ignoreSFX)
-	if self.Options.UseSoundChannel == "Dialog" then
+	local soundSetting = self.Options.UseSoundChannel
+	if soundSetting == "Dialog" then
 		PlaySoundFile(path, "Dialog")
-	elseif ignoreSFX or self.Options.UseSoundChannel == "Master" then
+	elseif ignoreSFX or soundSetting == "Master" then
 		PlaySoundFile(path, "Master")
 	else
 		PlaySoundFile(path)
@@ -6066,9 +6080,10 @@ function DBM:PlaySoundFile(path, ignoreSFX)
 end
 
 function DBM:PlaySound(path)
-	if self.Options.UseSoundChannel == "Master" then
+	local soundSetting = self.Options.UseSoundChannel
+	if soundSetting == "Master" then
 		PlaySound(path, "Master")
-	elseif self.Options.UseSoundChannel == "Dialog" then
+	elseif soundSetting == "Dialog" then
 		PlaySound(path, "Dialog")
 	else
 		PlaySound(path)
@@ -9638,7 +9653,7 @@ do
 			--timer: Raw timer value (number).
 			--Icon: Texture Path for Icon
 			--type: Timer type (Cooldowns: cd, cdcount, nextcount, nextsource, cdspecial, nextspecial, phase, ai. Durations: target, active, fades, roleplay. Casting: cast)
-			--spellId: Raw spellid if available (most timers will have spellId or EJ ID unless it's a specific timer not tied to ability such as pull or combat start or rez timers.
+			--spellId: Raw spellid if available (most timers will have spellId or EJ ID unless it's a specific timer not tied to ability such as pull or combat start or rez timers. EJ id will be in format ej%d
 			--colorID: Type classification (1-Add, 2-Aoe, 3-targeted ability, 4-Interrupt, 5-Role, 6-Phase)
 			--Mod ID: Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
 			fireEvent("DBM_TimerStart", id, msg, timer, self.icon, self.type, self.spellId, colorId, self.mod.id)

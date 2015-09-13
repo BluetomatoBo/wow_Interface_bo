@@ -53,7 +53,7 @@ DBM_CORE_TRANSCRIPTOR_LOG_END		= "Transcriptor logging ended."
 
 DBM_CORE_COMBAT_STARTED_AI_TIMER	= "My CPU is a neural net processor; a learning computer. (This fight will use the new timer AI feature to generate timer approximations)"
 
-DBM_CORE_PROFILE_NOT_FOUND			= "<Deadly Boss Mods> Your current profile is corrupted. DBM will load 'Default' profile."
+DBM_CORE_PROFILE_NOT_FOUND			= "<DBM> Your current profile is corrupted. DBM will load 'Default' profile."
 DBM_CORE_PROFILE_CREATED			= "'%s' profile created."
 DBM_CORE_PROFILE_CREATE_ERROR		= "Create profile failed. Invalid profile name."
 DBM_CORE_PROFILE_CREATE_ERROR_D		= "Create profile failed. '%s' profile already exists."
@@ -243,7 +243,7 @@ DBM_CORE_BREAK_START				= "Break starting now -- you have %s minute(s)! (Sent by
 DBM_CORE_BREAK_MIN					= "Break ends in %s minute(s)!"
 DBM_CORE_BREAK_SEC					= "Break ends in %s seconds!"
 DBM_CORE_TIMER_BREAK				= "Break time!"
-DBM_CORE_ANNOUNCE_BREAK_OVER		= "Break time is over"
+DBM_CORE_ANNOUNCE_BREAK_OVER		= "Break has ended"
 
 DBM_CORE_TIMER_PULL					= "Pull in"
 DBM_CORE_ANNOUNCE_PULL				= "Pull in %d sec. (Sent by %s)"
