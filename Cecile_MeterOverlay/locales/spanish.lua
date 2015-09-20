@@ -9,9 +9,9 @@ local AddOnName, Engine = ...;
 local L = LibStub("AceLocale-3.0"):NewLocale(AddOnName, "esES")
 if not L then
 	L = LibStub("AceLocale-3.0"):NewLocale(AddOnName, "esMX");
-	if not L then 
-		return; 
-	end 
+	if not L then
+		return;
+	end
 end
 
 --set the localized strings
@@ -32,7 +32,7 @@ L["OPEN_CONFIG"] = "Abrir Configuración"
 L["OPEN_CONFIG_DESC"] = "Abre la ventana de configuración."
 L["CONFIG_WINDOW"] = "%s (version |cff0070de%s|r) herramienta de configuración."
 L["NO_DATA"] = "Sin Datos"
-L["NO_METER"] = "No tiene activado ningún medido de combate, por favor active Details, Recount, Skada o TinyDPS."
+L["NO_METER"] = "No tiene activado ningún medido de combate, por favor active Details, Recount, Skada, TinyDPS o Numeration."
 L["OVERALL_DATA"] = "Datos Totales"
 L["CURRENT_DATA"] = "Combate Actual"
 L["LAST_DATA"] = "Último Combate"
@@ -147,8 +147,8 @@ L["REPORT_GUILD"]="El chat de hermandad";
 L["REPORT_INSTANCE"]="El chat de instancia";
 L["ENCOUNTERS_STORE"]="Almacenar encuentros"
 L["ENCOUNTERS_STORE_DESC"]="Activa el almacenar los encuentros con jefes"
-L["ENCOUNTERS_WIPE"]="Borrar datos"
-L["ENCOUNTERS_WIPE_DESC"]="Borra todos los datos almacenados de los encuentros"
+L["ENCOUNTERS_WIPE"]="Borrar todos"
+L["ENCOUNTERS_WIPE_DESC"]="Borra todos los datos almacenados de todos los encuentros"
 L["ENCOUNTERS_INSTANCE"]="Instancia"
 L["ENCOUNTERS_INSTANCE_DESC"]="Selecciona instancia"
 L["ENCOUNTERS_DIFFICULTY"]="Dificultad"
@@ -156,21 +156,21 @@ L["ENCOUNTERS_DIFFICULTY_DESC"]="Selecciona dificultad"
 L["ENCOUNTERS_CHOOSE"]="Encuentro"
 L["ENCOUNTERS_CHOOSE_DESC"]="Selecciona encuentro"
 L["ENCOUNTERS_BROWSE"]="Explorar encuentros salvados"
-L["ENCOUNTERS_TOP_RECORDS_DESC"]="Récords máximos"
-L["ENCOUNTERS_PLAYER_RECORDS_DESC"]="Récords del Jugador"
+L["ENCOUNTERS_TOP_RECORDS_DESC"]="Récords"
+L["ENCOUNTERS_PLAYER_RECORDS_DESC"]="Récords personales"
 L["ENCOUNTERS_RECORD_DPS_LINE"]="|c%s%s|r |cffff2020%s DPS |r el |cff0070de%s|r con un grupo de |cff0070de%s|r"
 L["ENCOUNTERS_RECORD_HPS_LINE"]="|c%s%s|r |cff44ff44%s HPS |r el |cff0070de%s|r con un grupo de |cff0070de%s|r"
 L["REPORT_NOW"]="Reportar ahora"
-L["REPORT_NOW_TOP_DESC"]="Reportar los récords máximos ahora"
-L["REPORT_NOW_PLAYER_DESC"]="Reportar los récords del jugador ahora"
+L["REPORT_NOW_TOP_DESC"]="Reportar los récords ahora"
+L["REPORT_NOW_PLAYER_DESC"]="Reportar los récords personales ahora"
 L["REPORT_NOW_TO"]="Report ahora en.."
 L["REPORT_TO_DESC"]="Selecciona el canal a reportar"
 L["REPORT_ENCOUNTER_RECORDS_TOP"]="|cfffff569%s|r máximos récords para |cff0070de%s|r (%s):"
-L["REPORT_ENCOUNTER_RECORDS_PLAYER"]="|cfffff569%s|r récords del jugador para |cff0070de%s|r (%s):"
-L["ENCOUNTERS_AUTO_REPORT_TOP"]="Autoreportar récords máximos"
-L["ENCOUNTERS_AUTO_REPORT_TOP_DESC"]="Activar el autoreportar los récords máximos"
-L["ENCOUNTERS_AUTO_REPORT_PLAYER"]="Autoreportar récords del jugador"
-L["ENCOUNTERS_AUTO_REPORT_PLAYER_DESC"]="Activar el autoreportar los récords del jugador"
+L["REPORT_ENCOUNTER_RECORDS_PLAYER"]="|cfffff569%s|r récords personal para |cff0070de%s|r (%s):"
+L["ENCOUNTERS_AUTO_REPORT_TOP"]="Autoreportar récords"
+L["ENCOUNTERS_AUTO_REPORT_TOP_DESC"]="Activar el autoreportar los récords"
+L["ENCOUNTERS_AUTO_REPORT_PLAYER"]="Autoreportar personales"
+L["ENCOUNTERS_AUTO_REPORT_PLAYER_DESC"]="Activar el autoreportar los récords personales"
 L["ENCOUNTERS_AUTO_REPORT_TYPE"]="Autoreportar en.."
 L["ENCOUNTERS_AUTO_REPORT_TYPE_DESC"]="Selecciona el canal a autoreportar"
 L["ENCOUNTERS_NEW_RECORD_DPS"]="- nuevo |c%s%s|r |cffff2020%s DPS|r"
@@ -189,8 +189,35 @@ L["STRATA_FULLSCREEN_DIALOG"] = "Dialog sobre Pantalla Completa"
 L["STRATA_TOOLTIP"] = "Flotante"
 L["STRATA_TYPE"] = "Prioridad Visual"
 L["STRATA_TYPE_DESC"] = "Cambia la prioridad visual del texto flotante"
+L["COLOR"] = "Colores del texto de datos"
+L["COLOR_DESC"] = "Cambia los colores del texto de datos"
+L["DATATEXT_GENERAL_COLOR"] = "Color general"
+L["DATATEXT_GENERAL_COLOR_DESC"] = "Cambia el color del texto general"
+L["DATATEXT_DAMAGE_COLOR"] = "Color de etiquetas de daño"
+L["DATATEXT_DAMAGE_COLOR_DESC"] = "Cambia el color de las etiquetas de daño"
+L["DATATEXT_HEALING_COLOR"] = "Color de etiquetas de sanación"
+L["DATATEXT_HEALING_COLOR_DESC"] = "Cambia el color de las etiquetas de sanación"
+L["DATATEXT_OTHER_COLOR"] = "Color para otras etiquetas"
+L["DATATEXT_OTHER_COLOR_DESC"] = "Cambia el color para otras etiquetas"
+L["BROWSE_RECORDS"] = "Ver records"
+L["BROWSE_RECORDS_DESC"] = "Abre una ventana para ver los récords grabados"
+L["BROWSE_RECORDS_WINDOW"] = "Récords de Encuentros"
+L["BROWSE_RECORDS_STATUS"] = "Explorando Récords de Encuentros grabados"
+L["HEADER_RECORDS_INSTANCE"] = "Récords para |cff0070de%s|r"
+L["HEADER_RECORDS_INSTANCE_DIFFICULT"] = "Récords para |cff0070de%s|r (|cffffff00%s|r)"
+L["HEADER_RECORDS_INSTANCE_DIFFICULT_ENCOUNTER"] = "Récords para |cff0070de%s|r (|cffffff00%s|r) : |cffff7f3f%s|r"
+L["RECORDS_INSTANCE_DESC"] = "Tienes |cffff7f3f%d|r récords de encuentros en esta instancia."
+L["RECORDS_INSTANCE_DIFIFICULT_DESC"] = "Tienes |cffff7f3f%d|r récords de encuentro en esta instancia y dificultad."
+L["RECORDS_TREE_INSTANCE_FORMAT"] = "|cff0070de%s|r"
+L["RECORDS_TREE_DIFFICULT_FORMAT"] = "|cffffff00%s|r"
+L["RECORDS_TREE_ENCOUNTER_FORMAT"] = "|cffff7f3f%s|r"
+L["RECORD_WARNING_WIPE_ALL"] = [[
+|cffff2020Borrator todo|r los datos eliminara todos los récords de encuentro grabados.
+
+¿Está seguro que quiere |cffff2020borrar todos los datos|r?"
+]]
 
 --get ordinal sufix for a number (1o,2o,3o,4o...) (spanish locale)
-function Engine:OrdinalSuffix(number)    
+function Engine:OrdinalSuffix(number)
        return "o";
 end

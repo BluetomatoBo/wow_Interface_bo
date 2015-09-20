@@ -1,0 +1,7 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+	<Script file="elvui.lua"/>
+	<Script file="Tukui.lua"/>
+	<Script file="ldb.lua"/>
+	<Script file="dbm.lua"/>
+	<Script file="bigwigs.lua"/>
+</Ui>
