@@ -3,15 +3,15 @@ function AtrBuildLTable_enUS ()
 AtrL = {};
 
 AtrL["SCAN_EXPLANATION"] =  "<br/>"
-							.."Scanning the auction house builds a database of prices that Auctionator uses for two purposes: to display in item tooltips "
-							.."when you're away from the Auction House and to recommend a price when you're posting an item for which there are no other "
-							.."auctions at that moment."
-							.."<br/><br/>"
-							..""
-							.."If scanning causes your computer to disconnect, go to |cFFffd100auctionatoraddon.com/faq|r for possible solutions."
-							.."  If scanning causes other problems, you can try |cFFff5555slow scanning|r instead.  Just hold down the Control key before clicking "
-							.."the Start Scanning button."
-							.."<br/><br/>"
+              .."Scanning the auction house builds a database of prices that Auctionator uses for two purposes: to display in item tooltips "
+              .."when you're away from the Auction House and to recommend a price when you're posting an item for which there are no other "
+              .."auctions at that moment."
+              .."<br/><br/>"
+              ..""
+              .."If scanning causes your computer to disconnect, go to |cFFffd100auctionatoraddon.com/faq|r for possible solutions."
+              .."  If scanning causes other problems, you can try |cFFff5555slow scanning|r instead.  Just hold down the Control key before clicking "
+              .."the Start Scanning button."
+              .."<br/><br/>"
 
 
 
