@@ -12,7 +12,7 @@ local Debug_Frame = 4; -- Which frame should be used for the debug msg (1-7)
 ---------------------------------------------------------
 HandyNotes_SpecialNPCsEtc = LibStub("AceAddon-3.0"):NewAddon("HandyNotes_SpecialNPCsEtc","AceEvent-3.0")
 local HNS = HandyNotes_SpecialNPCsEtc
-local Astrolabe = DongleStub("Astrolabe-1.0")
+local HBD = LibStub("HereBeDragons-1.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("HandyNotes_SpecialNPCsEtc")
 
 
@@ -777,9 +777,10 @@ function HNS:Opened_NPC(sType)
 	local vGUID = UnitGUID("npc")
 	local vNpcid = "";
 	
-	if (not(vGUID == nil)) then
-		vNpcid = tonumber(vGUID:sub(-12, -7), 16);
-	end;
+	if vGUID then
+	    local type, zero, server_id, instance_id, zone_uid, npc_id, spawn_uid = strsplit("-", vGUID)
+	    vNpcid = tonumber(npc_id, 16)
+    end
 	
 	Msg("VGuild = "..tostring(VGuild),true,DebugTxt);
 	if ((vGuild == nil) and (sType ~= nil or strlen(sType) > 0)) then
@@ -915,7 +916,7 @@ function HNS:AddSpecialNPCsEtcNote(vNpcid, vName, vGuild, vType)
 	
 	Msg("HNS:AddSpecialNPCsEtcNote: "..tostring(vName),true,DebugTxt);
     
-    local mapID, floor, x, y = Astrolabe:GetCurrentPlayerPosition()
+	local x, y , mapID, floor = HBD:GetPlayerZonePosition()	
 	if not vName or not mapID then
 		Msg("HNS:AddSpecialNPCsEtcNote: not vName("..tostring(vName)..") or not mapID("..tostring(mapID)..")",true,DebugTxt);
 		return
@@ -930,8 +931,7 @@ function HNS:AddSpecialNPCsEtcNote(vNpcid, vName, vGuild, vType)
 		for coords, name in pairs(db.faction.nodes[mapFile]) do
 			if vInfo1 == name or vInfo2 == name then
 				local cx, cy = HandyNotes:getXY(coords)
-                local dist = Astrolabe:ComputeDistance(mapID, floor, x, y, mapID, floor, cx, cy)
-				-- SpecialNPCsEtc already exists here
+				local dist = HBD:GetZoneDistance(mapID, floor, x, y, mapID, floor, cx, cy)				-- SpecialNPCsEtc already exists here
                 if dist <= thres then
 					-- Let's not move, just update vInfo
                     coord = coords

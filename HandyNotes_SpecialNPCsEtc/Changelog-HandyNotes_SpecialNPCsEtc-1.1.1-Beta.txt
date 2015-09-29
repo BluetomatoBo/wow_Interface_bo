@@ -1,0 +1,8 @@
+2015-09-28  Benjamin Staneck  <staneck@gmail.com>
+
+[57488586edb5] [1.1.1-Beta]
+* HandyNotes_SpecialNPCsEtc.lua, HandyNotes_SpecialNPCsEtc.toc:
+
+Update to latest HandyNotes version
+
+
