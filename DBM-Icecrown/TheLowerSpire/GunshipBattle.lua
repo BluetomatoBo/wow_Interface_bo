@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("GunshipBattle", "DBM-Icecrown", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 208 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 213 $"):sub(12, -3))
 local addsIcon
 local bossID
 --mod:SetEncounterID(1099)--No ES fires this combat
@@ -42,7 +42,7 @@ local warnBelowZero			= mod:NewSpellAnnounce(69705, 4)
 local warnExperienced		= mod:NewTargetAnnounce(71188, 1, nil, false)		-- might be spammy
 local warnVeteran			= mod:NewTargetAnnounce(71193, 2, nil, false)		-- might be spammy
 local warnElite				= mod:NewTargetAnnounce(71195, 3, nil, false)		-- might be spammy
-local warnBattleFury		= mod:NewStackAnnounce("OptionVersion2", 69638, 2, nil, "Tank|Healer")
+local warnBattleFury		= mod:NewStackAnnounce(69638, 2, nil, "Tank|Healer", 2)
 local warnBladestorm		= mod:NewSpellAnnounce(69652, 3, nil, "Melee")
 local warnWoundingStrike	= mod:NewTargetAnnounce(69651, 2)
 local warnAddsSoon			= mod:NewAnnounce("WarnAddsSoon", 2, addsIcon)
