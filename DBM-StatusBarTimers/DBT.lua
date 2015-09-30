@@ -126,6 +126,10 @@ options = {
 		type = "boolean",
 		default = true,
 	},
+	InlineIcons = {
+		type = "boolean",
+		default = true,
+	},
 	IconLeft = {
 		type = "boolean",
 		default = true,
@@ -315,6 +319,39 @@ options = {
 	EndColorPB = {
 		type = "number",
 		default = 0.285,
+	},
+	--Type 7 (Important/User set only)
+	StartColorUIR = {
+		type = "number",
+		default = 1,
+	},
+	StartColorUIG = {
+		type = "number",
+		default = 1,
+	},
+	StartColorUIB = {
+		type = "number",
+		default = 0.0627450980392157,
+	},
+	EndColorUIR = {
+		type = "number",
+		default = 1,
+	},
+	EndColorUIG = {
+		type = "number",
+		default = 0.92156862745098,
+	},
+	EndColorUIB = {
+		type = "number",
+		default = 0.0117647058823529,
+	},
+	Bar7ForceLarge = {
+		type = "boolean",
+		default = false,
+	},
+	Bar7CustomInline = {
+		type = "boolean",
+		default = true,
 	},
 	TextColorR = {
 		type = "number",
@@ -680,7 +717,7 @@ do
 	end
 	local mt = {__index = barPrototype}
 
-	function DBT:CreateBar(timer, id, icon, huge, small, color, isDummy, colorType)
+	function DBT:CreateBar(timer, id, icon, huge, small, color, isDummy, colorType, inlineIcon)
 		if timer <= 0 then return end
 		if (self.numBars or 0) >= 15 and not isDummy then return end
 		--Most efficient place to block it, nil colorType instead of checking option every update
@@ -715,6 +752,7 @@ do
 				newBar.color = color
 				newBar.colorType = colorType
 				newBar.flashing = nil
+				newBar.inlineIcon = inlineIcon
 			else  -- duplicate code ;(
 				newBar = setmetatable({
 					frame = newFrame,
@@ -729,6 +767,7 @@ do
 					color = color,
 					flashing = nil,
 					colorType = colorType,
+					inlineIcon = inlineIcon,
 					lastUpdate = GetTime()
 				}, mt)
 			end
@@ -736,7 +775,8 @@ do
 			self.numBars = (self.numBars or 0) + 1
 			totalBars = self.numBars
 			local enlargeTime = self.options.BarStyle ~= "NoAnim" and self.options.EnlargeBarTime or 11
-			if (timer <= enlargeTime or huge) and self:GetOption("HugeBarsEnabled") then -- starts enlarged?
+			local importantBar = colorType and colorType == 7 and self:GetOption("Bar7ForceLarge")
+			if (importantBar or (timer <= enlargeTime or huge)) and self:GetOption("HugeBarsEnabled") then -- start enlarged
 				newBar.enlarged = true
 				newBar.huge = true
 				self.hugeBars:Append(newBar)
@@ -767,10 +807,10 @@ do
 		self.flashing = nil
 		_G[self.frame:GetName().."BarSpark"]:SetAlpha(1)
 	end
-	function DBT:CreateDummyBar(colorType)
+	function DBT:CreateDummyBar(colorType, inlineIcon)
 		dummyBars = dummyBars + 1
-		local dummy = self:CreateBar(25, "dummy"..dummyBars, "Interface\\Icons\\Spell_Nature_WispSplode", nil, true, nil, true, colorType)
-		dummy:SetText("Dummy")
+		local dummy = self:CreateBar(25, "dummy"..dummyBars, "Interface\\Icons\\Spell_Nature_WispSplode", nil, true, nil, true, colorType, inlineIcon)
+		dummy:SetText("Dummy", inlineIcon)
 		dummy:Cancel()
 		self.bars[dummy] = true
 		unusedBars[#unusedBars] = nil
@@ -879,8 +919,11 @@ function barPrototype:SetElapsed(elapsed)
 	self:Update(0)
 end
 
-function barPrototype:SetText(text)
-	_G[self.frame:GetName().."BarName"]:SetText(text)
+function barPrototype:SetText(text, inlineIcon)
+	if not self.owner.options.InlineIcons then inlineIcon = nil end
+	--Force change color type 7 yo custom inlineIcon
+	local forcedIcon = (self.colorType and self.colorType == 7 and self.owner.options.Bar7CustomInline) and DBM_CORE_IMPORTANT_ICON or inlineIcon or ""
+	_G[self.frame:GetName().."BarName"]:SetText(forcedIcon..text)
 end
 
 function barPrototype:SetIcon(icon)
@@ -920,6 +963,7 @@ function barPrototype:Update(elapsed)
 	local timerValue = self.timer
 	local totaltimeValue = self.totalTime
 	local colorCount = self.colorType
+	local enlargeHack = false
 	if barOptions.DynamicColor and not self.color then
 		local r, g, b
 		if colorCount and colorCount >= 1 then
@@ -947,6 +991,13 @@ function barPrototype:Update(elapsed)
 				r = barOptions.StartColorPR  + (barOptions.EndColorPR - barOptions.StartColorPR) * (1 - timerValue/totaltimeValue)
 				g = barOptions.StartColorPG  + (barOptions.EndColorPG - barOptions.StartColorPG) * (1 - timerValue/totaltimeValue)
 				b = barOptions.StartColorPB  + (barOptions.EndColorPB - barOptions.StartColorPB) * (1 - timerValue/totaltimeValue)
+			elseif colorCount == 7 then--Important
+				if barOptions.Bar7ForceLarge then
+					enlargeHack = true
+				end
+				r = barOptions.StartColorUIR  + (barOptions.EndColorUIR - barOptions.StartColorUIR) * (1 - timerValue/totaltimeValue)
+				g = barOptions.StartColorUIG  + (barOptions.EndColorUIG - barOptions.StartColorUIG) * (1 - timerValue/totaltimeValue)
+				b = barOptions.StartColorUIB  + (barOptions.EndColorUIB - barOptions.StartColorUIB) * (1 - timerValue/totaltimeValue)
 			end
 		else
 			r = barOptions.StartColorR  + (barOptions.EndColorR - barOptions.StartColorR) * (1 - timerValue/totaltimeValue)
@@ -962,13 +1013,13 @@ function barPrototype:Update(elapsed)
 		return self:Cancel()
 	else
 		if barOptions.FillUpBars then
-			if currentStyle == "NoAnim" and isEnlarged then
+			if currentStyle == "NoAnim" and isEnlarged and not enlargeHack then
 				bar:SetValue(1 - timerValue/(totaltimeValue < 11 and totaltimeValue or 11))
 			else
 				bar:SetValue(1 - timerValue/totaltimeValue)
 			end
 		else
-			if currentStyle == "NoAnim" and isEnlarged then
+			if currentStyle == "NoAnim" and isEnlarged and not enlargeHack then
 				bar:SetValue(timerValue/(totaltimeValue < 11 and totaltimeValue or 11))
 			else
 				bar:SetValue(timerValue/totaltimeValue)
@@ -1171,6 +1222,8 @@ function barPrototype:ApplyStyle()
 				barStartRed, barStartGreen, barStartBlue = barOptions.StartColorRR, barOptions.StartColorRG, barOptions.StartColorRB
 			elseif colorCount == 6 then--Phase
 				barStartRed, barStartGreen, barStartBlue = barOptions.StartColorPR, barOptions.StartColorPG, barOptions.StartColorPB
+			elseif colorCount == 7 then--Important
+				barStartRed, barStartGreen, barStartBlue = barOptions.StartColorUIR, barOptions.StartColorUIG, barOptions.StartColorUIB
 			end
 		else
 			barStartRed, barStartGreen, barStartBlue = barOptions.StartColorR, barOptions.StartColorG, barOptions.StartColorB

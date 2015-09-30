@@ -16,8 +16,8 @@ DBM_CORE_LOAD_GUI_COMBAT			= "전투 중에는 설정창을 불러올 수 없습
 DBM_CORE_BAD_LOAD					= "DBM이 현재 인스턴스의 경고를 완전히 불러오지 못한 것을 발견했습니다. 전투가 종료된 후에, /console reloadui 명령어를 입력하여 경고를 다시 불러오시기 바랍니다."
 DBM_CORE_LOAD_MOD_VER_MISMATCH		= "현재 사용중인 DBM 버전은 '%s' 경보에 필요한 기능이 없습니다. 새로운 DBM을 설치하셔야 이 경보를 불러올 수 있습니다."
 
-DBM_CORE_WHATS_NEW					= "DBM 바 및 경고가 다른 애드온에게 더 많은 정보를 제공하도록 개선되었습니."
---DBM_CORE_WHATS_NEW_LINK			= "이 버전의 새로운 기능: 바가 갖고 있는 정보별로 다른 바 색상을 지정하는 기능이 추가되었습니다. 바 설정에서 색상을 변경 가능합니다."
+--DBM_CORE_WHATS_NEW				= "바 내부 아이콘 표시 기능 및 사용자 설정 기능이 추가되었습니다."
+DBM_CORE_WHATS_NEW_LINK				= "바 내부 아이콘 표시 기능 및 사용자 설정 기능이 추가되었습니다. |HDBM:forumsnews|h|cff3588ff여기|r를 클릭하면 좀 더 자세한 내용을 볼 수 있습니다.(영문)"
 
 DBM_CORE_DYNAMIC_DIFFICULTY_CLUMP	= "현재 공격대원 숫자에 맞는 근접판정 정보를 알 수 없기 때문에 DBM이 이 전투에서 거리 창을 비활성화 했습니다."
 DBM_CORE_DYNAMIC_ADD_COUNT			= "현재 공격대원 숫자에 맞는 쫄 소환 정보를 알 수 없기 때문에 DBM이 이 전투에서 소환 횟수 정보를 비활성화 했습니다."
@@ -96,9 +96,9 @@ DBM_CORE_MOD_DEFAULT_LOADED			= "현재 전투의 기본 설정을 불러왔습�
 DBM_CORE_WORLDBOSS_ENGAGED			= "현재 서버의 %s 전투가 약 %s 퍼센트의 체력으로 시작된 것으로 보입니다. %s|1이;가; 정보를 보냈습니다."
 DBM_CORE_WORLDBOSS_DEFEATED			= "현재 서버의 %s 우두머리가 처치된 것으로 보입니다. %s|1이;가; 정보를 보냈습니다."
 
-DBM_CORE_TIMER_FORMAT_SECS			= "%d|4초:초;"
+DBM_CORE_TIMER_FORMAT_SECS			= "%s|4초:초;"
 DBM_CORE_TIMER_FORMAT_MINS			= "%d|4분:분;"
-DBM_CORE_TIMER_FORMAT				= "%d|4분:분; %d|4초:초;"
+DBM_CORE_TIMER_FORMAT				= "%d|4분:분; %s|4초:초;"
 
 DBM_CORE_MIN						= "분"
 DBM_CORE_MIN_FMT					= "%d분"
@@ -242,7 +242,7 @@ DBM_CORE_FRONT						= "앞쪽"
 DBM_CORE_INTERMISSION				= "사잇 단계"
 
 DBM_CORE_BREAK_USAGE				= "쉬는 시간은 60분을 초과할 수 없습니다. 쉬는시간은 초단위가 아니라 분단위로 입력하셔야 합니다."
-DBM_CORE_BREAK_START				= "쉬는시간 시작 -- %s분 남았습니다! (%s|1이;가; 보냄)"
+DBM_CORE_BREAK_START				= "쉬는시간 시작 -- %s 남았습니다! (%s|1이;가; 보냄)"
 DBM_CORE_BREAK_MIN					= "%s분 후 쉬는시간이 끝납니다!"
 DBM_CORE_BREAK_SEC					= "%s초 후 쉬는시간이 끝납니다!"
 DBM_CORE_TIMER_BREAK				= "쉬는시간"
@@ -251,12 +251,15 @@ DBM_CORE_ANNOUNCE_BREAK_OVER		= "쉬는시간이 종료되었습니다."
 DBM_CORE_TIMER_PULL					= "전투 예정"
 DBM_CORE_ANNOUNCE_PULL				= "%d초 뒤 시작 합니다. (%s|1이;가; 보냄)"
 DBM_CORE_ANNOUNCE_PULL_NOW			= "시작합니다. 긴장하세요.!"
+DBM_CORE_ANNOUNCE_PULL_TARGET		= "%s 전투를 %d초 뒤 시작 합니다. (%s|1이;가; 보냄)"
+DBM_CORE_ANNOUNCE_PULL_NOW_TARGET	= "%s 전투를 시작합니다. 긴장하세요.!"
 DBM_CORE_GEAR_WARNING				= "경고: 장비를 확인하세요. 착용 장비가 최대 아이템 레벨보다 %d 낮습니다."
 DBM_CORE_GEAR_WARNING_WEAPON		= "경고: 주 장비가 제대로 장착되어 있는지 확인하세요."
 DBM_CORE_GEAR_FISHING_POLE			= "낚싯대"
 
 DBM_CORE_ACHIEVEMENT_TIMER_SPEED_KILL = "Speed Kill(업적)"--BATTLE_PET_SOURCE_6
 
+DBM_CORE_AUTO_ANNOUNCE_TEXTS.you			= "당신에게 %s"
 DBM_CORE_AUTO_ANNOUNCE_TEXTS.target			= "%s: >%%s<"
 DBM_CORE_AUTO_ANNOUNCE_TEXTS.targetcount	= "%s (%%s): >%%s<"
 DBM_CORE_AUTO_ANNOUNCE_TEXTS.spell			= "%s"
@@ -272,6 +275,7 @@ DBM_CORE_AUTO_ANNOUNCE_TEXTS.prephase		= "곧 %s 단계"
 DBM_CORE_AUTO_ANNOUNCE_TEXTS.count			= "%s (%%s)"
 DBM_CORE_AUTO_ANNOUNCE_TEXTS.stack			= "%s: >%%s< (%%d)"
 
+DBM_CORE_AUTO_ANNOUNCE_OPTIONS.you			= "당신이 $spell:%s 대상이 된 경우 알림 보기"
 DBM_CORE_AUTO_ANNOUNCE_OPTIONS.target		= "$spell:%s 대상 알림 보기"
 DBM_CORE_AUTO_ANNOUNCE_OPTIONS.targetcount	= "$spell:%s 대상 알림 보기(횟수 포함)"
 DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell		= "$spell:%s 알림 보기"

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1438, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14481 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14539 $"):sub(12, -3))
 mod:SetCreatureID(91331)--Doomfire Spirit (92208), Hellfire Deathcaller (92740), Felborne Overfiend (93615), Dreadstalker (93616), Infernal doombringer (94412)
 mod:SetEncounterID(1799)
 mod:SetMinSyncRevision(13964)
@@ -14,10 +14,10 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 183254 189897 183817 183828 185590 184265 183864 190506 184931 187180 182225 190050 190394 190686 190821 186663 188514 186961",
-	"SPELL_CAST_SUCCESS 183865 187180 188514 183254",
-	"SPELL_AURA_APPLIED 182879 183634 183865 184964 186574 186961 189895 186123 186662 186952 190703 187255 185014 187050",
+	"SPELL_CAST_SUCCESS 183865 187180 188514 183254 185590",
+	"SPELL_AURA_APPLIED 182879 183634 183865 184964 186574 186961 189895 186123 186662 186952 190703 187255 185014 187050 183963",
 	"SPELL_AURA_APPLIED_DOSE",
-	"SPELL_AURA_REMOVED 186123 185014 186961 186952 184964 187050 183634",
+	"SPELL_AURA_REMOVED 186123 185014 186961 186952 184964 187050 183634 183963",
 	"SPELL_SUMMON 187108",
 	"SPELL_PERIODIC_DAMAGE 187255",
 	"SPELL_ABSORBED 187255",
@@ -37,6 +37,7 @@ local warnFelBurstSoon				= mod:NewSoonAnnounce(183817, 3)
 local warnFelBurstCast				= mod:NewCastAnnounce(183817, 3)
 local warnFelBurst					= mod:NewTargetAnnounce(183817, 3)
 local warnDemonicHavoc				= mod:NewTargetAnnounce(183865, 3)--Mythic
+local warnLight						= mod:NewYouAnnounce(183963, 1)
 --Phase 2: Hand of the Legion
 local warnPhase2					= mod:NewPhaseAnnounce(2, 2)
 local warnShackledTorment			= mod:NewTargetCountAnnounce(184964, 3)
@@ -101,16 +102,17 @@ local specWarnTwistedDarkness		= mod:NewSpecialWarningSwitchCount(190821, "Range
 mod:AddTimerLine(SCENARIO_STAGE:format(1))
 local timerDoomfireCD				= mod:NewCDTimer(42.1, 182826, nil, nil, nil, 1)--182826 cast, 182879 fixate. Doomfire only fixates ranged, but ALL dps switch to it.
 local timerAllureofFlamesCD			= mod:NewCDTimer(47.5, 183254, nil, nil, nil, 2)
-local timerFelBurstCD				= mod:NewCDTimer(52, 183817, nil, "Ranged", nil, 3)--Only targets ranged (52-70 variation)
+local timerFelBurstCD				= mod:NewCDTimer(52, 183817, nil, nil, 2, 3, nil, DBM_CORE_DEADLY_ICON)
 local timerDeathbrandCD				= mod:NewCDCountTimer(42.5, 183828, nil, nil, nil, 1)--Everyone, for tanks/healers to know when debuff/big hit, for dps to know add coming
-local timerDesecrateCD				= mod:NewCDTimer(27, 185590, nil, "Melee", nil, 2)--Only targets melee
+local timerDesecrateCD				= mod:NewCDTimer(27, 185590, nil, nil, 2, 2)
+local timerLightCD					= mod:NewNextTimer(10, 183963, nil, nil, nil, 5)
 ----Hellfire Deathcaller
 local timerShadowBlastCD			= mod:NewCDTimer(9.7, 183864, nil, "Tank", nil, 5)
 local timerDemonicHavocCD			= mod:NewAITimer(107, 183865, nil, nil, nil, 3)--Mythic, timer unknown, AI timer used until known. I'm not sure this ability still exists
 --Phase 2: Hand of the Legion
 mod:AddTimerLine(SCENARIO_STAGE:format(2))
 local timerShackledTormentCD		= mod:NewCDCountTimer(31.5, 184931, nil, nil, nil, 3)
-local timerWroughtChaosCD			= mod:NewCDTimer(51.7, 184265, nil, nil, nil, 3)
+local timerWroughtChaosCD			= mod:NewCDTimer(51.7, 184265, nil, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON)
 --Phase 2.5
 local timerFelborneOverfiendCD		= mod:NewNextCountTimer(44.3, "ej11603", nil, nil, nil, 1, 186662)
 --Phase 3: The Twisting Nether
@@ -127,18 +129,18 @@ local timerMarkOfLegionCD			= mod:NewCDCountTimer(107, 187050, nil, nil, nil, 3)
 local timerInfernalsCD				= mod:NewCDCountTimer(107, 187111, nil, nil, nil, 1, 1122)
 local timerSourceofChaosCD			= mod:NewCDCountTimer(107, 190703, nil, nil, 2, 1)
 local timerTwistedDarknessCD		= mod:NewCDCountTimer(107, 190821, nil, nil, nil, 1)
-local timerSeethingCorruptionCD		= mod:NewCDCountTimer(107, 190506, nil, nil, nil, 2)
+local timerSeethingCorruptionCD		= mod:NewCDCountTimer(107, 190506, nil, nil, nil, 2, nil, DBM_CORE_DEADLY_ICON)
 
 --local berserkTimer				= mod:NewBerserkTimer(360)
 
 --countdowns kind of blow with this fights timer variations.
 --Everything but overfiend is a CD
 --I don't want to use a countdown on something thats 47-56 like allure or 52-70 like felburst
-local countdownWroughtChaos			= mod:NewCountdownFades("AltTwo5", 184265)
-local countdownNetherBanish			= mod:NewCountdown(61.9, 186961)
-local countdownDemonicFeedback		= mod:NewCountdown("Alt35", 186961)
-local countdownDeathBrand			= mod:NewCountdown("AltTwo42", 183828)
-local countdownShackledTorment		= mod:NewCountdown("AltTwo42", 184931, "-Tank")
+local countdownWroughtChaos			= mod:NewCountdownFades("AltTwo5", 184265, nil, nil, 3)
+local countdownNetherBanish			= mod:NewCountdown(61.9, 186961, nil, nil, 3)
+local countdownDemonicFeedback		= mod:NewCountdown("Alt35", 186961, nil, nil, 3)
+local countdownDeathBrand			= mod:NewCountdown("AltTwo42", 183828, nil, nil, 3)
+local countdownShackledTorment		= mod:NewCountdown("AltTwo42", 184931, "-Tank", nil, 3)
 local countdownSeethingCorruption	= mod:NewCountdown(61.9, 190506)
 local countdownSourceofChaos		= mod:NewCountdown("Alt35", 190703, "Tank")
 
@@ -146,8 +148,8 @@ local voicePhaseChange				= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_T
 local voiceDeathBrand				= mod:NewVoice(183828, "Tank")--defensive/tauntboss
 local voiceFelBurst					= mod:NewVoice(183817)--Gathershare
 local voiceShackledTorment			= mod:NewVoice(184964)--new voice: break torment first, etc
-local voiceDoomfire					= mod:NewVoice(189897, "Dps")--189897.ogg
-local voiceDeathCaller				= mod:NewVoice("ej11582", "Dps")--ej11582.ogg
+local voiceDoomfire					= mod:NewVoice(189897, "Dps")--189897
+local voiceDeathCaller				= mod:NewVoice("ej11582", "Dps")--ej11582
 local voiceWroughtChaos				= mod:NewVoice(186123) --new voice
 local voiceFocusedChaos				= mod:NewVoice(185014) --new voice
 local voiceFlamesofArgus			= mod:NewVoice(186663, "-Healer") --kickcast
@@ -314,7 +316,7 @@ local function showMarkOfLegion(self, spellName)
 	--5,7,9,11 seconds. Sorted lowest to highest
 	--5, 7 on melee, 9, 11 on ranged (if enough alive anyways)
 	--DBM auto sorts icons to 1-5, 2-7, 3-9, 4-11
-	--Yell format is "<icon>Mark (expireTime) on <playername><icon>" . Icon assignments should be more than enough
+	--Yell format is "Mark (expireTime) on <icon><playername><icon>" . Icon assignments should be more than enough
 	--MELEE, RANGED, DBM_CORE_LEFT, DBM_CORE_RIGHT (http://puu.sh/jsyr5/7014c50cb3.jpg)
 	--Melee/ranged left/right is still an idea but i don't think will be needed. Not with fixed icons/debuff durations being assigned consistently.
 	warnMarkOfLegion:Show(self.vb.markOfLegionCast, table.concat(legionTargets, "<, >"))
@@ -335,6 +337,7 @@ local function showMarkOfLegion(self, spellName)
 					DBMHudMap:RegisterRangeMarkerOnPartyMember(187050, "highlight", name, 10, 12, 1, 1, 0, 0.5):Appear():SetLabel(name)--Yellow to match Star
 				end
 				if name == playerName then
+					specWarnMarkOfLegion:Show(roundedTime.."-"..RAID_TARGET_1)
 					yellMarkOfLegionPoS:Yell(roundedTime, 1, 1)
 				end
 			elseif roundedTime == 7 then
@@ -345,6 +348,7 @@ local function showMarkOfLegion(self, spellName)
 					DBMHudMap:RegisterRangeMarkerOnPartyMember(187050, "highlight", name, 10, 12, 1, 0.5, 0, 0.5):Appear():SetLabel(name)--Orange to match Circle
 				end
 				if name == playerName then
+					specWarnMarkOfLegion:Show(roundedTime.."-"..RAID_TARGET_2)
 					yellMarkOfLegionPoS:Yell(roundedTime, 2, 2)
 				end
 			elseif roundedTime == 9 then
@@ -355,6 +359,7 @@ local function showMarkOfLegion(self, spellName)
 					DBMHudMap:RegisterRangeMarkerOnPartyMember(187050, "highlight", name, 10, 12, 1, 0, 1, 0.5):Appear():SetLabel(name)--Purple to match Diamond
 				end
 				if name == playerName then
+					specWarnMarkOfLegion:Show(roundedTime.."-"..RAID_TARGET_3)
 					yellMarkOfLegionPoS:Yell(roundedTime, 3, 3)
 				end
 			else
@@ -365,6 +370,7 @@ local function showMarkOfLegion(self, spellName)
 					DBMHudMap:RegisterRangeMarkerOnPartyMember(187050, "highlight", name, 10, 12, 0, 1, 0, 0.5):Appear():SetLabel(name)--Green to match Triangle
 				end
 				if name == playerName then
+					specWarnMarkOfLegion:Show(roundedTime.."-"..RAID_TARGET_4)
 					yellMarkOfLegionPoS:Yell(roundedTime, 4, 4)
 				end
 			end
@@ -716,9 +722,9 @@ function mod:SPELL_CAST_START(args)
 			local count = self.vb.TouchOfShadows
 			specWarnTouchofShadows:Show(args.sourceName, count)
 			if count == 1 then
-				voiceTouchofShadows:Play("kick1r.ogg")
+				voiceTouchofShadows:Play("kick1r")
 			else
-				voiceTouchofShadows:Play("kick2r.ogg")
+				voiceTouchofShadows:Play("kick2r")
 			end
 		end
 	elseif spellId == 190394 then
@@ -783,6 +789,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 	elseif spellId == 183254 then
 		specWarnAllureofFlames:Show()
 		voiceAllureofFlamesCD:Play("justrun")
+	elseif spellId == 185590 then
+		timerLightCD:Start()
 	end
 end
 
@@ -978,8 +986,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		if expires then
 			if args:IsPlayer() then
 				local remaining = expires-GetTime()
-				local rounded = math.floor(remaining+0.5)
-				specWarnMarkOfLegion:Show(rounded)
 				yellMarkOfLegion:Schedule(remaining-1, 1)
 				yellMarkOfLegion:Schedule(remaining-2, 2)
 				yellMarkOfLegion:Schedule(remaining-3, 3)
@@ -1000,6 +1006,8 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 187255 and args:IsPlayer() and self:AntiSpam(2, 2) then
 		specWarnNetherStorm:Show()
+	elseif spellId == 183963 and args:IsPlayer() and self:AntiSpam(5, 6) then
+		warnLight:Show()
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
