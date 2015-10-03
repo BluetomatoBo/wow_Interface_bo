@@ -1304,7 +1304,7 @@ private.L["CONFIG_TEST_DESC"] = "Simule une alerte |cff808080“PNJ trouvé”|r
 private.L["CONFIG_TEST_HELP_FORMAT"] = "Cliquez sur le cadre d'alerte ou utilisez le raccourci clavier prédéfini pour cibler le monstre trouvé. Maintenez enfoncé |cffffffff<%s>|r et saisissez le cadre d'alerte pour déplacer ce dernier. Notez que si un PNJ est trouvé quand vous êtes en combat, le cadre d'alerte n'apparaitra qu'une fois que vous serez hors combat."
 private.L["CONFIG_TEST_NAME"] = "Vous ! (Test)"
 private.L["CONFIG_TITLE"] = "_|cffCCCC88NPCScan|r"
-private.L["DYNAMIC_TARGET_MACRO_KEYBIND"] = "Macro de ciblage dynamique" -- Needs review
+private.L["DYNAMIC_TARGET_MACRO_KEYBIND"] = "Macro de ciblage dynamique"
 private.L["EVENT_ACTIVE"] = "%s est apparu(e)!"
 private.L["FOUND_FORMAT"] = "|cff808080“%s”|r trouvé !"
 private.L["FOUND_TAMABLE_FORMAT"] = "|cff808080“%s”|r trouvé ! |cffff2020(Note : monstre domptable, il s'agit peut être d'un familier.)|r"
@@ -1347,7 +1347,7 @@ private.L["TIME_FORMAT"] = "|cff808080[%H:%M:%S]|r "
 private.L["TOOLS_TITLE"] = "|cff808080Outils|r"
 private.L["VIGNETTE_SCAN"] = "Afficher les alertes des monstres Vignette"
 private.L["VIGNETTE_SCAN_DESC"] = "Affiche les alertes des montres Vignette. Cette fonctionnalité est en bêta : il n'a actuellement aucun moyen de filtrer les monstres, elles seront donc toujours déclenchées même si un monstre n'est pas surveillé ou ignoré."
-private.L["WOD_CHANGES"] = "À cause de changements au cache du jeu à WoD, NPCScan ne peut plus auto-détecter les mobs comme avant la 6.0. Désormais les alertes ne peuvent être déclenchées automatiquement que par les vignettes rares de MoP et WoD. Les mobs rares des extensions précédentes ne peuvent plus être détectés qu'en passant la souris dessus ou avec la macro de ciblage dynamique. Pour plus d'informations voyez la page de NPCScan sur Curse.com." -- Needs review
+private.L["WOD_CHANGES"] = "À cause de changements au cache du jeu à WoD, NPCScan ne peut plus auto-détecter les mobs comme avant la 6.0. Désormais les alertes ne peuvent être déclenchées automatiquement que par les vignettes rares de MoP et WoD. Les mobs rares des extensions précédentes ne peuvent plus être détectés qu'en passant la souris dessus ou avec la macro de ciblage dynamique. Pour plus d'informations voyez la page de NPCScan sur Curse.com."
 
 
 _G[ "BINDING_NAME_CLICK _NPCScanButton:LeftButton" ] = [=[Cibler dernier monstre trouvé
