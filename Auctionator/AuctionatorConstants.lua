@@ -4,6 +4,7 @@ Auctionator.Constants = {
     TYPE = 1,
     ID = 2,
     ENCHANT = 3,
+    PET_LEVEL = 3,
     GEM_1 = 4,
     GEM_2 = 5,
     GEM_3 = 6,
@@ -28,5 +29,25 @@ Auctionator.Constants = {
     BONUS_ID_11 = 25, -- Unknown
     BONUS_ID_12 = 26, -- Unknown
     BONUS_ID_13 = 27, -- Unknown
+
+    Tiers = { -- One possible use of Bonus ID
+      [564] = 'Heroic', -- with prismatic gem slot
+      [565] = 'Mythic', -- with prismatic gem slot
+      [566] = 'Heroic',
+      [567] = 'Mythic'
+    },
+    Stages = { -- One possible use of Bonus ID
+      [525] = 1,
+      [526] = 2,
+      [558] = 2,
+      [527] = 3,
+      [559] = 3,
+      [593] = 4,
+      [594] = 4,
+      [617] = 5,
+      [619] = 5,
+      [618] = 6,
+      [620] = 6
+    }
   }
 }

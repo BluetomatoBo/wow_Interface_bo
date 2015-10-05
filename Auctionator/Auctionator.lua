@@ -1485,7 +1485,7 @@ end
 -----------------------------------------
 
 function Atr_StackSize ()
-  Auctionator.Debug.Message( 'Atr_StackSize' )
+  -- Auctionator.Debug.Message( 'Atr_StackSize' )
 
   return Atr_Batch_Stacksize:GetNumber();
 end
@@ -2017,8 +2017,6 @@ function Atr_OnAuctionUpdate (...)
     Atr_FullScanAnalyze()           -- handle here since it's just one page
     return
   end
-
-
 
   if (not Atr_IsTabSelected()) then
     Atr_ClearScanCache()    -- if not our tab, we have no idea what happened so must flush all caches
@@ -2715,7 +2713,7 @@ end
 -----------------------------------------
 
 function Atr_ShowRecTooltip ()
-  Auctionator.Debug.Message( 'Atr_ShowRecTooltip' )
+  -- Auctionator.Debug.Message( 'Atr_ShowRecTooltip' )
 
   local link = gCurrentPane.activeScan.itemLink;
   local num  = Atr_StackSize();
@@ -4170,9 +4168,14 @@ function Atr_DoesAuctionMatch (list, i, name, buyout, stacksize)
 
   local aname, _, astacksize, _, _, _, _, _, _, abuyout, _, _, _ = GetAuctionItemInfo (list, i);
 
+  Auctionator.Debug.Message( 'Atr_DoesAuctionMatch', aname, astacksize, abuyout )
+
   if (aname and aname == name and abuyout == buyout and astacksize == stacksize) then
+    Auctionator.Debug.Message( 'Atr_DoesAuctionMatch', true )
     return true;
   end
+
+  Auctionator.Debug.Message( 'Atr_DoesAuctionMatch', false )
 
   return false;
 
@@ -4246,6 +4249,7 @@ function Atr_CancelAuction_ByIndex(index)
 
   -- build a list of indices if we don't currently have one
 
+  Auctionator.Debug.Message( 'Atr_CancelAuction_ByIndex', itemLink, itemName )
   if (#gAtr_Owner_Item_Indices == 0) then
 
     local numInList = Atr_GetNumAuctionItems ("owner");
@@ -4260,6 +4264,8 @@ function Atr_CancelAuction_ByIndex(index)
       end
     end
   end
+
+  Auctionator.Util.Print( gAtr_Owner_Item_Indices, 'Owner Items' )
 
   -- cancel the last item in the list and remove it
 
