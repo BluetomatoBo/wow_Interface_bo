@@ -60,6 +60,18 @@ local auraBarsSortValues = {
 	['NONE'] = NONE,
 }
 
+local auraSortValues = {
+	['TIME_REMAINING'] = L["Time Remaining"],
+	['DURATION'] = L["Duration"],
+	['NAME'] = NAME,
+	['INDEX'] = L["Index"],
+}
+
+local auraSortMethodValues = {
+	['ASCENDING'] = L["Ascending"],
+	['DESCENDING'] = L["Descending"]
+}
+
 local CUSTOMTEXT_CONFIGS = {}
 
 -----------------------------------------------------------------------
@@ -459,6 +471,20 @@ local function GetOptionsTable_Auras(friendlyUnitOnly, auraType, isGroupFrame, u
 				desc = L["Ignore mouse events."],
 				type = 'toggle',
 			},
+			sortMethod = {
+				order = 16,
+				name = L["Sort By"],
+				desc = L["Method to sort by."],
+				type = 'select',
+				values = auraSortValues,
+			},
+			sortDirection = {
+				order = 16,
+				name = L["Sort Direction"],
+				desc = L["Ascending or Descending order."],
+				type = 'select',
+				values = auraSortMethodValues,
+			},			
 			filters = {
 				name = L["Filters"],
 				guiInline = true,
@@ -1646,7 +1672,12 @@ E.Options.args.unitframe = {
 							order = 3,
 							name = L["Debuff Highlighting"],
 							desc = L["Color the unit healthbar if there is a debuff that can be dispelled by you."],
-							type = 'toggle',
+							type = 'select',
+							values = {
+								['NONE'] = NONE,
+								['GLOW'] = L['Glow'],
+								['FILL'] = L['Fill']
+							},
 						},
 						smartRaidFilter = {
 							order = 4,
