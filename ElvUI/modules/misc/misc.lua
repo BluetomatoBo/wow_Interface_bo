@@ -24,6 +24,17 @@ function M:COMBAT_LOG_EVENT_UNFILTERED(_, _, event, _, sourceGUID, _, _, _, _, d
 	local inGroup, inRaid, inPartyLFG = IsInGroup(), IsInRaid(), IsPartyLFG()
 	if not inGroup then return end -- not in group, exit.
 
+	--Skirmish/non-rated arenas need to use INSTANCE_CHAT but IsPartyLFG() returns "false"
+	local _, instanceType = IsInInstance()
+	if instanceType and instanceType == "arena" then
+		local skirmish = IsArenaSkirmish()
+		local _, isRegistered = IsActiveBattlefieldArena()
+		if skirmish or not isRegistered then
+			inPartyLFG = true
+		end
+		inRaid = false --IsInRaid() returns true for arenas and they should not be considered a raid
+	end
+
 	if E.db.general.interruptAnnounce == "PARTY" then
 		SendChatMessage(format(interruptMsg, destName, spellID, spellName), inPartyLFG and "INSTANCE_CHAT" or "PARTY")
 	elseif E.db.general.interruptAnnounce == "RAID" then
