@@ -3,6 +3,12 @@ Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.j
 
 
 ---------------------------
+6.17.0
+---------------------------
+- Partially updated the core to the new internal Blizzard nameplate layout.  Seems to fix a bunch of things for me.  ymmv
+- Not sure what some of the new bits and pieces are for... futher investigation is needed.
+
+---------------------------
 6.16.1
 ---------------------------
 - Threat System: Disabled 'Other Tank' functions, for now; They're broken, and causing secondary issues to develop.
