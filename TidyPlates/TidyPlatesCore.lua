@@ -223,62 +223,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------
 do
 
---[[
-	local function DumpNameplateInfo(plate)
-		local ListChildren
-
-		local function ListRegions(object, indent)
-			local count = object:GetNumRegions()
-
-			if count > 0 then print(indent, "Regions of ", object:GetName()) end
-
-			for i = 1, count do
-				local region = select(i,object:GetRegions())
-
-				local name = region:GetName()
-				local otype = region:GetObjectType()
-				local extra = ""
-
-				if otype == "FontString" then extra = region:GetText()
-				elseif otype == "Texture" then extra = region:GetTexture()
-				end
-
-				print(indent, i, otype, name, extra)
-
-			end
-		end
-
-
-		ListChildren = function(object, indent)
-
-			local count = select('#',object:GetChildren())
-
-			if count > 0 then print(indent, "Children of ", object:GetName()) end
-
-			for i = 1, count do
-				local child = select(i,object:GetChildren())
-				local name = child:GetName()
-				local otype = child:GetObjectType()
-				local extra
-				local sublevels = child:GetNumChildren()
-				local subregions = child:GetNumRegions()
-
-				if otype == "StatusBar" then extra = child:GetStatusBarTexture() 
-				end
-
-				print(indent, i, otype, name, extra, sublevels, subregions)
-				ListRegions(child, indent.."  ")
-
-				ListChildren(child, indent.."    ") 
-			end
-		end
-
-		ListChildren(plate, "")
-
-	end
-
-	--]]
-
 	-- ApplyPlateExtesion
 	function OnNewNameplate(plate)
 		Plates[plate] = true
@@ -287,10 +231,11 @@ do
 		--------------------------------
 		local bars, regions = {}, {}
 		local bargroup, namegroup = plate:GetChildren()
-		local health, oddbar, cast = bargroup:GetChildren()
+		local health, absorb, cast = bargroup:GetChildren()
 
 		bars.health = health
 		bars.cast = cast
+		bars.absorb = absorb
 		bars.group = bargroup
 
 		health.parentPlate = plate		-- Needed for OnHealthUpdate Hook
@@ -305,10 +250,10 @@ do
 		regions.skullicon,
 		regions.raidicon,
 		regions.eliteicon
-			= bargroup:GetRegions()		-- Good For 6.2
+			= bargroup:GetRegions()	
 
 		regions.name
-			= namegroup:GetRegions()	-- Good For 6.2
+			= namegroup:GetRegions()	
 
 		regions.castborder,
 		regions.castnostop,
@@ -317,17 +262,16 @@ do
 		regions.spellshadow
 			= select(2, cast:GetRegions())
 
-		-- oddbar?
-			--[[
-			Regions
-				Shield-Fill
-				Shield-Overlay
-			]]
+
+		regions.absorbfill,
+		regions.absorboverlay
+			= absorb:GetRegions()
 
 
 		-- Make Blizzard Plate invisible
 		health:SetStatusBarTexture(EMPTY_TEXTURE)
 		cast:SetStatusBarTexture(EMPTY_TEXTURE)
+		absorb:SetStatusBarTexture(EMPTY_TEXTURE)
 
 		health:Hide()
 		namegroup:Hide()
@@ -352,6 +296,9 @@ do
 		regions.spellshadow:SetTexture(nil)
 		regions.spellshadow:Hide()
 		regions.spelltext:Hide()
+
+		regions.absorbfill:SetTexture(nil)
+		regions.absorboverlay:SetTexture(nil)
 
         -- Tidy Plates Frame
         --------------------------------
@@ -637,15 +584,15 @@ do
 	local function GetUnitAggroStatus( threatRegion )
 		if not  threatRegion:IsShown() then return "LOW", 0 end
 
-
-
 		local red, green, blue, alpha = threatRegion:GetVertexColor()
 		local opacity = threatRegion:GetVertexColor()
 
 
 		if threatRegion:IsShown() and (alpha < .9 or opacity < .9) then
 		--if threatRegion:IsShown() and alpha > .9 then
-			print(unit.name, alpha, opacity)
+			--print(unit.name, alpha, opacity)
+
+			-- Unfinished
 
 		end
 
@@ -726,10 +673,16 @@ do
 		if unit.isMouseover then
 			visual.highlight:Show()
 			guid = UnitGUID("mouseover")
+
+				-- Cache Health Data  (Hopefully Temporary!)  		-- 6.2.2 Mess
+				unit.healthmaxCached = UnitHealthMax("mouseover")
 		else visual.highlight:Hide() end
 
 		if unit.isTarget then
 			guid = UnitGUID("target")
+
+			-- Cache Health Data  (Hopefully Temporary!)		 	-- 6.2.2 Mess
+			unit.healthmaxCached = UnitHealthMax("target")
 		end
 
 		-- Update and verify guid
@@ -764,8 +717,21 @@ do
 		unit.isInCombat = GetUnitCombatStatus(regions.name:GetTextColor())
 		unit.class = ClassReference[ColorToString(unit.red, unit.green, unit.blue)] or "UNKNOWN"
 
-		unit.health = tonumber(bars.health:GetValue()) or 0
-		unit.healthmax = select(2, bars.health:GetMinMaxValues())
+
+		-- Pre-6.2 Method...
+		--unit.health = tonumber(bars.health:GetValue()) or 0
+		--unit.healthmax = select(2, bars.health:GetMinMaxValues())
+
+		-- Post 6.2 Method...
+		local health = tonumber(bars.health:GetValue()) or 0
+
+		if unit.healthmaxCached then
+			unit.health = health * unit.healthmaxCached
+			unit.healthmax = unit.healthmaxCached
+		else
+			unit.health = health * 100
+			unit.healthmax = 100
+		end
 
 		unit.isMarked = regions.raidicon:IsShown() or false
 
