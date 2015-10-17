@@ -42,11 +42,13 @@ function UF:UpdateHoly(event, unit, powerType)
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_WIDTH = db.portrait.width
+	local USE_POWERBAR = db.power.enable
 	local POWERBAR_DETACHED = db.power.detachFromFrame
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR and not POWERBAR_DETACHED
+	local POWERBAR_OFFSET = db.power.offset
 	local CLASSBAR_HEIGHT = db.classbar.height
 	local DETACHED = db.classbar.detachFromFrame
-	local HEALTH_OFFSET_Y = DETACHED and 0 or USE_MINI_CLASSBAR and (BORDER+(CLASSBAR_HEIGHT/2)) or (BORDER+CLASSBAR_HEIGHT+SPACING)
+	local HEALTH_OFFSET_Y = DETACHED and BORDER or USE_MINI_CLASSBAR and (BORDER+(CLASSBAR_HEIGHT/2)) or (BORDER+CLASSBAR_HEIGHT+SPACING)
 
 	if USE_PORTRAIT_OVERLAY or not USE_PORTRAIT then
 		PORTRAIT_WIDTH = 0
@@ -58,7 +60,9 @@ function UF:UpdateHoly(event, unit, powerType)
 	end
 
 	if USE_POWERBAR_OFFSET then
-		CLASSBAR_WIDTH = CLASSBAR_WIDTH - db.power.offset
+		CLASSBAR_WIDTH = CLASSBAR_WIDTH - POWERBAR_OFFSET
+	else
+		POWERBAR_OFFSET = 0
 	end
 
 	if USE_MINI_CLASSBAR then
@@ -73,11 +77,11 @@ function UF:UpdateHoly(event, unit, powerType)
 
 	if numHolyPower == 0 and db.classbar.autoHide then
 		self.HolyPower:Hide()
-		self.Health:Point("TOPRIGHT", self, "TOPRIGHT", -BORDER, -BORDER)
+		self.Health:Point("TOPRIGHT", self, "TOPRIGHT", -(BORDER+POWERBAR_OFFSET), -BORDER)
 		self.Health:Point("TOPLEFT", self, "TOPLEFT", BORDER+PORTRAIT_WIDTH, -BORDER)
 	else
 		self.HolyPower:Show()
-		self.Health:Point("TOPRIGHT", self, "TOPRIGHT", -BORDER, -HEALTH_OFFSET_Y)
+		self.Health:Point("TOPRIGHT", self, "TOPRIGHT", -(BORDER+POWERBAR_OFFSET), -HEALTH_OFFSET_Y)
 		self.Health:Point("TOPLEFT", self, "TOPLEFT", BORDER+PORTRAIT_WIDTH, -HEALTH_OFFSET_Y)
 
 		for i = 1, MAX_HOLY_POWER do
@@ -174,6 +178,7 @@ function UF:UpdateHarmony()
 
 	if USE_POWERBAR_OFFSET then
 		CLASSBAR_WIDTH = CLASSBAR_WIDTH - POWERBAR_OFFSET
+		HEALTH_OFFSET_X = HEALTH_OFFSET_X + POWERBAR_OFFSET
 	end
 
 	if db.classbar.fill == 'spaced' then
@@ -441,6 +446,7 @@ function UF:UpdateShadowOrbs(event, unit, powerType)
 	local USE_PORTRAIT = db.portrait.enable
 	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
 	local PORTRAIT_WIDTH = db.portrait.width
+	local USE_POWERBAR = db.power.enable
 	local POWERBAR_DETACHED = db.power.detachFromFrame
 	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR and not POWERBAR_DETACHED
 
