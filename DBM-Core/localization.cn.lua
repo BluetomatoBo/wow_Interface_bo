@@ -2,7 +2,7 @@
 -- Diablohu(diablohudream@gmail.com)
 -- yleaf(yaroot@gmail.com)
 -- Mini Dragon(projecteurs@gmail.com)
--- Last update: Sep 23 2015, 06:46 UTC@14543
+-- Last update: Oct 16 2015, 00:46 UTC@14597
 
 if GetLocale() ~= "zhCN" then return end
 
@@ -101,9 +101,9 @@ DBM_CORE_MOD_DEFAULT_LOADED			= "将会使用默认设置来进行本场战斗"
 DBM_CORE_WORLDBOSS_ENGAGED			= "世界Boss-%s可能正在作战。当前还有%s的生命值。 (由%s的DBM发送)"
 DBM_CORE_WORLDBOSS_DEFEATED			= "世界Boss-%s可能战斗结束了。 (由%s的DBM发送)"
 
-DBM_CORE_TIMER_FORMAT_SECS			= "%s秒"
+DBM_CORE_TIMER_FORMAT_SECS			= "%.2f秒"
 DBM_CORE_TIMER_FORMAT_MINS			= "%d分钟"
-DBM_CORE_TIMER_FORMAT				= "%d分%s秒"
+DBM_CORE_TIMER_FORMAT				= "%d分%.2f秒"
 
 DBM_CORE_MIN						= "分"
 DBM_CORE_MIN_FMT					= "%d分"
@@ -312,6 +312,7 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS.interrupt			= "%s - 快打断"
 DBM_CORE_AUTO_SPEC_WARN_TEXTS.interruptcount	= "%s - 快打断 (%%d)"
 DBM_CORE_AUTO_SPEC_WARN_TEXTS.you				= "你中了%s"
 DBM_CORE_AUTO_SPEC_WARN_TEXTS.youcount			= "你中了%s (%%s)"
+DBM_CORE_AUTO_SPEC_WARN_TEXTS.youpos			= "你中了%s (位置:%%s)"
 DBM_CORE_AUTO_SPEC_WARN_TEXTS.target			= ">%%s<中了%s"
 DBM_CORE_AUTO_SPEC_WARN_TEXTS.targetcount		= ">%%s<中了%s (%%d)"
 DBM_CORE_AUTO_SPEC_WARN_TEXTS.taunt				= ">%%s<中了%s - 快嘲讽"
@@ -340,6 +341,7 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS.interrupt		= "特殊警报：需要打断$spell:
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.interruptcount	= "特殊警报：需要打断$spell:%s(带计数)"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.you				= "特殊警报：当你受到$spell:%s影响时"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.youcount		= "特殊警报：当你受到$spell:%s影响时(带计数)"
+DBM_CORE_AUTO_SPEC_WARN_OPTIONS.youpos			= "特殊警报：当你受到$spell:%s影响时(带位置)"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.target			= "特殊警报：当他人受到$spell:%s影响时"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.targetcount		= "特殊警报：当他人受到$spell:%s影响时(带计数)"
 DBM_CORE_AUTO_SPEC_WARN_OPTIONS.taunt 			= "特殊警报：当另外一个T中了$spell:%s并需要你嘲讽时"

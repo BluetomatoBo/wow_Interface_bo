@@ -95,9 +95,9 @@ DBM_CORE_MOD_DEFAULT_LOADED			= "Default options for this fight have been loaded
 DBM_CORE_WORLDBOSS_ENGAGED			= "%s was possibly engaged on your realm at %s percent health. (Sent by %s)"
 DBM_CORE_WORLDBOSS_DEFEATED			= "%s was possibly defeated on your realm (Sent by %s)."
 
-DBM_CORE_TIMER_FORMAT_SECS			= "%s |4second:seconds;"
+DBM_CORE_TIMER_FORMAT_SECS			= "%.2f |4second:seconds;"
 DBM_CORE_TIMER_FORMAT_MINS			= "%d |4minute:minutes;"
-DBM_CORE_TIMER_FORMAT				= "%d |4minute:minutes; and %s |4second:seconds;"
+DBM_CORE_TIMER_FORMAT				= "%d |4minute:minutes; and %.2f |4second:seconds;"
 
 DBM_CORE_MIN						= "min"
 DBM_CORE_MIN_FMT					= "%d min"
@@ -306,6 +306,7 @@ DBM_CORE_AUTO_SPEC_WARN_TEXTS = {
 	interruptcount	= "%s - interrupt >%%s<! (%%d)",
 	you				= "%s on you",
 	youcount		= "%s (%%s) on you",
+	youpos			= "%s (Position: %%s) on you",
 	target			= "%s on >%%s<",
 	targetcount		= "%s (%%s) on >%%s< ",
 	taunt			= "%s on >%%s< - taunt now",
@@ -335,6 +336,7 @@ DBM_CORE_AUTO_SPEC_WARN_OPTIONS = {
 	interruptcount	= "Show special warning (with count) to interrupt $spell:%s",
 	you 			= "Show special warning when you are affected by $spell:%s",
 	youcount		= "Show special warning (with count) when you are affected by $spell:%s",
+	youpos			= "Show special warning (with position) when you are affected by $spell:%s",
 	target 			= "Show special warning when someone is affected by $spell:%s",
 	targetcount 	= "Show special warning (with count) when someone is affected by $spell:%s",
 	taunt 			= "Show special warning to taunt when other tank affected by $spell:%s",

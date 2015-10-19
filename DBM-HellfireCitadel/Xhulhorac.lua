@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1447, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14565 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14601 $"):sub(12, -3))
 mod:SetCreatureID(93068)
 mod:SetEncounterID(1800)
 mod:SetZone()
@@ -13,8 +13,8 @@ mod:RegisterCombat("combat")
 
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 190223 186453 190224 186783 186546 186490 189775 189779",
-	"SPELL_CAST_SUCCESS 186407 186333 186490 189775 186453 186783 190223 190224",
+	"SPELL_CAST_START 190223 186453 190224 186783 186546 186490 189775 189779 188939",
+	"SPELL_CAST_SUCCESS 186407 186333 186490 189775 186453 186783 186271 186292",
 	"SPELL_AURA_APPLIED 186073 186063 186134 186135 186407 186333 186500 189777 186448 187204 186785",
 	"SPELL_AURA_APPLIED_DOSE 186073 186063 186448 186785 187204",
 	"SPELL_AURA_REMOVED 189777",
@@ -29,6 +29,7 @@ mod:RegisterEventsInCombat(
 local warnFelPortal					= mod:NewSpellAnnounce(187003, 2)
 local warnFelSurge					= mod:NewTargetAnnounce(186407, 3)
 local warnFelStrike					= mod:NewSpellAnnounce(186271, 3, nil, "Tank")
+local warnImps						= mod:NewCountAnnounce("ej11694", 2, 112866, "Melee")
 ----Adds
 local warnFelChains					= mod:NewTargetAnnounce(186490, 3)
 local warnEmpoweredFelChains		= mod:NewTargetAnnounce(189775, 3)--Mythic
@@ -51,12 +52,11 @@ local specWarnPhasing				= mod:NewSpecialWarningTaunt(189047, nil, nil, nil, 1, 
 --Fire Phase
 ----Boss
 local specWarnFelStrike				= mod:NewSpecialWarningSpell(186271, "Tank")
-local specWarnEmpoweredFelStrike	= mod:NewSpecialWarningTaunt(188092, false)--Maybe redundant
 local specWarnFelSurge				= mod:NewSpecialWarningYou(186407, nil, nil, nil, 1, 2)
 local yellFelSurge					= mod:NewYell(186407)
 local specWarnImps					= mod:NewSpecialWarningSwitchCount("ej11694", "Dps")
 ----Adds
-local specWarnFelBlazeFlurry		= mod:NewSpecialWarningSpell(186453, "Tank", nil, nil, 1, 2)
+local specWarnFelBlazeFlurry		= mod:NewSpecialWarningSpell(186453, "Tank", nil, nil, 3, 2)
 local specWarnFelChains				= mod:NewSpecialWarningYou(186490)
 local specWarnEmpoweredFelChains	= mod:NewSpecialWarningYou(189775)
 local yellFelChains					= mod:NewYell(186490)
@@ -65,6 +65,7 @@ local yellFelChains					= mod:NewYell(186490)
 local specWarnVoidStrike			= mod:NewSpecialWarningSpell(186292, "Tank")
 local specWarnVoidSurge				= mod:NewSpecialWarningYou(186333, nil, nil, nil, 1, 5)
 local yellVoidSurge					= mod:NewYell(186333)
+local specWarnVoids					= mod:NewSpecialWarningCount("ej11714", "Ranged")
 ----Adds
 local specWarnWitheringGaze			= mod:NewSpecialWarningSpell(186783, "Tank", nil, nil, 1, 2)
 local specWarnBlackHole				= mod:NewSpecialWarningCount(186546, nil, nil, nil, 2)
@@ -120,6 +121,7 @@ mod.vb.impCount = 0
 mod.vb.impActive = 0
 mod.vb.voidCount = 0
 mod.vb.blackHoleCount = 0
+mod.vb.bothDead = 0
 local playerTanking = 0--1 Vanguard, 2 void walker
 local UnitExists, UnitGUID, UnitDetailedThreatSituation = UnitExists, UnitGUID, UnitDetailedThreatSituation
 local AddsSeen = {}
@@ -154,7 +156,11 @@ end
 local function ImpRepeater(self)
 	self.vb.impCount = self.vb.impCount + 1
 	self.vb.impActive = self.vb.impActive + 3
-	specWarnImps:Show(self.vb.impCount)
+	if self.Options.SpecWarnej11694switchcount then
+		specWarnImps:Show(self.vb.impCount)
+	else
+		warnImps:Show(self.vb.impCount)
+	end
 	timerImpCD:Start(nil, self.vb.impCount+1)
 	countdownImps:Start()
 	self:Schedule(25, ImpRepeater, self)
@@ -169,9 +175,18 @@ end
 
 local function VoidsRepeater(self)
 	self.vb.voidCount = self.vb.voidCount + 1
-	warnVoids:Show(self.vb.voidCount)
+	if self.Options.SpecWarnej11714count then
+		specWarnVoids:Show(self.vb.voidCount)
+	else
+		warnVoids:Show(self.vb.voidCount)
+	end
 	timerVoidsCD:Start(nil, self.vb.voidCount+1)
 	self:Schedule(30, VoidsRepeater, self)
+end
+
+function mod:VoidTarget(targetname, uId)
+	if not targetname then return end
+	DBM:Debug("Void teleport on: "..targetname, 2)
 end
 
 function mod:FelChains(targetname, uId)
@@ -201,6 +216,7 @@ function mod:OnCombatStart(delay)
 	self.vb.impActive = 0
 	self.vb.voidCount = 0
 	self.vb.blackHoleCount = 0
+	self.vb.bothDead = 0
 	playerTanking = 0
 	table.wipe(AddsSeen)
 	timerFelStrikeCD:Start(8-delay)
@@ -219,18 +235,38 @@ function mod:SPELL_CAST_START(args)
 	if spellId == 190223 then
 		for i = 1, 5 do
 			local bossUnitID = "boss"..i
-			if UnitExists(bossUnitID) and UnitGUID(bossUnitID) == args.sourceGUID and UnitDetailedThreatSituation("player", bossUnitID) then--We are highest threat target
-				specWarnFelStrike:Show()--So show tank warning
-				return
+			if UnitExists(bossUnitID) and UnitGUID(bossUnitID) == args.sourceGUID then
+				if UnitDetailedThreatSituation("player", bossUnitID) then--We are highest threat target
+					specWarnFelStrike:Show()--So show tank warning
+					return
+				else
+					--Not Tanking
+					if playerTanking == 1 and not UnitDebuff("player", GetSpellInfo(186135)) then--Vanguard Tank
+						--You're the Vanguard tank and do NOT have aggro for this strike or void debuff, taunt NOW
+						local targetName = UnitName(bossUnitID.."target") or DBM_CORE_UNKNOWN
+						specWarnPhasing:Show(targetName)
+						voicePhasing:Play("tauntboss")
+					end
+				end
 			end
 		end
 		warnFelStrike:Show()--Should not show if specWarnFelStrike did
 	elseif spellId == 190224 then
 		for i = 1, 5 do
 			local bossUnitID = "boss"..i
-			if UnitExists(bossUnitID) and UnitGUID(bossUnitID) == args.sourceGUID and UnitDetailedThreatSituation("player", bossUnitID) then--We are highest threat target
-				specWarnVoidStrike:Show()--So show tank warning
-				return
+			if UnitExists(bossUnitID) and UnitGUID(bossUnitID) == args.sourceGUID then
+				if UnitDetailedThreatSituation("player", bossUnitID) then--We are highest threat target
+					specWarnVoidStrike:Show()--So show tank warning
+					return
+				else
+					--Not Tanking
+					if playerTanking == 2 and not UnitDebuff("player", GetSpellInfo(186134)) then--VoidWalker Tank
+						--You're the void walker tank and do NOT have aggro for this strike or fel debuff, taunt NOW
+						local targetName = UnitName(bossUnitID.."target") or DBM_CORE_UNKNOWN
+						specWarnPhasing:Show(targetName)
+						voicePhasing:Play("tauntboss")
+					end
+				end
 			end
 		end
 		warnVoidStrike:Show()--Should not show if specWarnVoidStrike did
@@ -278,6 +314,8 @@ function mod:SPELL_CAST_START(args)
 		if self.Options.ChainsBehavior ~= "Applied" then--Start timer and scanner if method is Both or Cast. Both prefers cast over applied, for the timer.
 			self:ScheduleMethod(0.1, "BossTargetScanner", args.sourceGUID, "EmpoweredFelChains", 0.1, 16)
 		end
+	elseif spellId == 188939 then
+		self:ScheduleMethod(0.2, "BossTargetScanner", args.sourceGUID, "VoidTarget", 0.1, 16)
 	end
 end
 
@@ -305,37 +343,37 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerFelBlazeFlurryCD:Start()
 	elseif spellId == 186783 then
 		timerWitheringGazeCD:Start()
-	elseif spellId == 190223 then
+	elseif spellId == 186271 then--190223 is not valid, because it returns target boss had at cast start, even if a taunt happened mid cast.
 		timerFelStrikeCD:Start()
 		if self.vb.phase >= 3 then
-			if not self:IsMythic() or playerTanking == 0 then
+			if playerTanking == 2 then--VoidWalker Tank
+				--Fel strike just finished, void strike next so voidwalker tank needs to take it
+				specWarnPhasing:Show(args.destName)
+				voicePhasing:Play("tauntboss")
+			elseif self.vb.bothDead == 2 or (not self:IsMythic() and playerTanking == 0) then
 				if not args:IsPlayer() then--Just warn whoever THIS strike didn't hit
 					specWarnPhasing:Show(args.destName)
 					voicePhasing:Play("tauntboss")
 				else
 					voicePhasing:Play("changemt")
 				end
-			elseif playerTanking == 2 then--VoidWalker Tank
-				--Fel strike just finished, void strike next so voidwalker tank needs to take it
-				specWarnPhasing:Show(args.destName)
-				voicePhasing:Play("tauntboss")
 			else
 				voicePhasing:Play("changemt")
 			end
 		end
-	elseif spellId == 190224 then
+	elseif spellId == 186292 then--190224 is not valid, because it returns target boss had at cast start, even if a taunt happened mid cast.
 		if self.vb.phase >= 3 then
-			if not self:IsMythic() or playerTanking == 0 then--Just warn whoever THIS strike didn't hit
+			if playerTanking == 1 then--Vanguard Tank
+				--void strike just finished, fel strike next so vanguard tank needs to take it
+				specWarnPhasing:Show(args.destName)
+				voicePhasing:Play("tauntboss")
+			elseif self.vb.bothDead == 2 or (not self:IsMythic() and playerTanking == 0) then
 				if not args:IsPlayer() then
 					specWarnPhasing:Show(args.destName)
 					voicePhasing:Play("tauntboss")
 				else
 					voicePhasing:Play("changemt")
 				end
-			elseif playerTanking == 1 then--Vanguard Tank
-				--void strike just finished, fel strike next so vanguard tank needs to take it
-				specWarnPhasing:Show(args.destName)
-				voicePhasing:Play("tauntboss")
 			else
 				voicePhasing:Play("changemt")
 			end
@@ -438,28 +476,32 @@ end
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 94185 then--Vanguard Akkelion
+		self.vb.bothDead = self.vb.bothDead + 1
 		timerFelBlazeFlurryCD:Cancel()
 		timerFelChainsCD:Cancel()
 		if self:IsMythic() then
 			timerEmpFelChainsCD:Start(28)
+		else
+			if playerTanking == 1 then
+				playerTanking = 0--Vanguard died, set player tanking to 0
+			end
 		end
 		if DBM.BossHealth:IsShown() then
 			DBM.BossHealth:RemoveBoss(cid)
 		end
-		if playerTanking == 1 then
-			playerTanking = 0--Vanguard died, set player tanking to 0
-		end
 	elseif cid == 94239 then--Omnus
+		self.vb.bothDead = self.vb.bothDead + 1
 		timerWitheringGazeCD:Cancel()
 		timerBlackHoleCD:Cancel()
 		if self:IsMythic() then
 			timerEmpBlackHoleCD:Start(18, self.vb.blackHoleCount+1)
+		else
+			if playerTanking == 2 then
+				playerTanking = 0--Omnus died, set player tanking to 0
+			end
 		end
 		if DBM.BossHealth:IsShown() then
 			DBM.BossHealth:RemoveBoss(cid)
-		end
-		if playerTanking == 2 then
-			playerTanking = 0--Omnus died, set player tanking to 0
 		end
 	elseif cid == 94231 then--Imps
 		self.vb.impActive = self.vb.impActive - 1
@@ -509,8 +551,10 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	elseif spellId == 187209 then--Overwhelming Chaos (Activation)
 		self.vb.phase = 4
 		timerImpCD:Cancel()
+		timerVoidsCD:Cancel()
 		countdownImps:Cancel()
 		self:Unschedule(ImpRepeater)
+		self:Unschedule(VoidsRepeater)
 		timerOverwhelmingChaosCD:Start(nil, 1)
 	end
 end

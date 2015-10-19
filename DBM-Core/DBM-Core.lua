@@ -40,9 +40,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14565 $"):sub(12, -3)),
-	DisplayVersion = "6.2.12", -- the string that is shown as version
-	ReleaseRevision = 14565 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 14606 $"):sub(12, -3)),
+	DisplayVersion = "6.2.13", -- the string that is shown as version
+	ReleaseRevision = 14606 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -266,6 +266,7 @@ DBM.DefaultOptions = {
 	MCMessageShown = false,
 	BCTWMessageShown = false,
 	WOTLKTWMessageShown = false,
+	CATATWMessageShown = false,
 	AlwaysShowSpeedKillTimer = true,
 	CRT_Enabled = false,
 	ShowRespawn = true,
@@ -393,7 +394,7 @@ local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 local dbmToc = 0
 
-local fakeBWRevision = 13686
+local fakeBWRevision = 13693
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -1061,6 +1062,7 @@ do
 			self:AddMsg(DBM_CORE_VOICE_COUNT_MISSING:format(3))
 			self.Options.CountdownVoice3v2 = self.DefaultOptions.CountdownVoice3v2
 		end
+		self:BuildVoiceCountdownCache()
 		--Break timer recovery
 		--Try local settings
 		if self.Options.tempBreak2 then
@@ -3517,20 +3519,27 @@ end
 --------------------------------
 do
 	local function checkMods(self)
-		if LastInstanceMapID == 1148 and not self.Options.PGMessageShown and not GetAddOnInfo("DBM-ProvingGrounds") then
-			self.Options.PGMessageShown = true
-			self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-ProvingGrounds"))
-		elseif LastInstanceMapID == 409 and not self.Options.MCMessageShown and not GetAddOnInfo("DBM-MC") then
-			self.Options.MCMessageShown = true
-			self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-MC"))
-		--Surely a less shitty way of checking "this is a BC dungeon"?
-		elseif (LastInstanceMapID == 540 or LastInstanceMapID == 558 or LastInstanceMapID == 556 or LastInstanceMapID == 555 or LastInstanceMapID == 542 or LastInstanceMapID == 546 or LastInstanceMapID == 545 or LastInstanceMapID == 547 or LastInstanceMapID == 553 or LastInstanceMapID == 554 or LastInstanceMapID == 552 or LastInstanceMapID == 557 or LastInstanceMapID == 269 or LastInstanceMapID == 560 or LastInstanceMapID == 543 or LastInstanceMapID == 585) and difficultyIndex == 24 and not self.Options.BCTWMessageShown and not GetAddOnInfo("DBM-Party-BC") then
-			self.Options.BCTWMessageShown = true
-			self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-BC"))
-		--Surely a less shitty way of checking "this is a wrath dungeon"?
-		elseif (LastInstanceMapID == 619 or LastInstanceMapID == 601 or LastInstanceMapID == 595 or LastInstanceMapID == 600 or LastInstanceMapID == 604 or LastInstanceMapID == 602 or LastInstanceMapID == 599 or LastInstanceMapID == 576 or LastInstanceMapID == 578 or LastInstanceMapID == 574 or LastInstanceMapID == 575 or LastInstanceMapID == 608 or LastInstanceMapID == 658 or LastInstanceMapID == 632 or LastInstanceMapID == 668 or LastInstanceMapID == 650) and difficultyIndex == 24 and not self.Options.WOTLKTWMessageShown and not GetAddOnInfo("DBM-Party-WotLK") then
-			self.Options.WOTLKTWMessageShown = true
-			self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-WotLK"))
+		if difficultyIndex == 24 then
+			--Surely a less shitty way of checking "this is a BC dungeon"?
+			if (LastInstanceMapID == 540 or LastInstanceMapID == 558 or LastInstanceMapID == 556 or LastInstanceMapID == 555 or LastInstanceMapID == 542 or LastInstanceMapID == 546 or LastInstanceMapID == 545 or LastInstanceMapID == 547 or LastInstanceMapID == 553 or LastInstanceMapID == 554 or LastInstanceMapID == 552 or LastInstanceMapID == 557 or LastInstanceMapID == 269 or LastInstanceMapID == 560 or LastInstanceMapID == 543 or LastInstanceMapID == 585) and not self.Options.BCTWMessageShown and not GetAddOnInfo("DBM-Party-BC") then
+				self.Options.BCTWMessageShown = true
+				self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-BC"))
+			--Surely a less shitty way of checking "this is a wrath dungeon"?
+			elseif (LastInstanceMapID == 619 or LastInstanceMapID == 601 or LastInstanceMapID == 595 or LastInstanceMapID == 600 or LastInstanceMapID == 604 or LastInstanceMapID == 602 or LastInstanceMapID == 599 or LastInstanceMapID == 576 or LastInstanceMapID == 578 or LastInstanceMapID == 574 or LastInstanceMapID == 575 or LastInstanceMapID == 608 or LastInstanceMapID == 658 or LastInstanceMapID == 632 or LastInstanceMapID == 668 or LastInstanceMapID == 650) and not self.Options.WOTLKTWMessageShown and not GetAddOnInfo("DBM-Party-WotLK") then
+				self.Options.WOTLKTWMessageShown = true
+				self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-WotLK"))
+			elseif (LastInstanceMapID == 755 or LastInstanceMapID == 645 or LastInstanceMapID == 36 or LastInstanceMapID == 670 or LastInstanceMapID == 644 or LastInstanceMapID == 33 or LastInstanceMapID == 643 or LastInstanceMapID == 725 or LastInstanceMapID == 657 or LastInstanceMapID == 309 or LastInstanceMapID == 859 or LastInstanceMapID == 568 or LastInstanceMapID == 938 or LastInstanceMapID == 940 or LastInstanceMapID == 939) and not self.Options.CATATWMessageShown and not GetAddOnInfo("DBM-Party-Cataclysm") then
+				self.Options.CATATWMessageShown = true-- 
+				self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-Cataclysm"))
+			end
+		else
+			if LastInstanceMapID == 1148 and not self.Options.PGMessageShown and not GetAddOnInfo("DBM-ProvingGrounds") then
+				self.Options.PGMessageShown = true
+				self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-ProvingGrounds"))
+			elseif LastInstanceMapID == 409 and not self.Options.MCMessageShown and not GetAddOnInfo("DBM-MC") then
+				self.Options.MCMessageShown = true
+				self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-MC"))
+			end
 		end
 	end
 	local function SecondaryLoadCheck(self)
@@ -3563,8 +3572,8 @@ do
 			end
 		end
 		-- LoadMod
-		checkMods(self)
 		self:LoadModsOnDemand("mapId", mapID)
+		checkMods(self)
 	end
 	--Faster and more accurate loading for instances, but useless outside of them
 	function DBM:LOADING_SCREEN_DISABLED()
@@ -3919,6 +3928,7 @@ do
 		if timer == 0 then return end--"/dbm pull 0" will strictly be used to cancel the pull timer (which is why we let above part of code run but not below)
 		if not DBM.Options.DontShowPT2 then
 			DBM.Bars:CreateBar(timer, DBM_CORE_TIMER_PULL, "Interface\\Icons\\Spell_Holy_BorrowedTime")
+			fireEvent("DBM_TimerStart", "pull", DBM_CORE_TIMER_PULL, timer, "Interface\\Icons\\Spell_Holy_BorrowedTime")--Most args missing because pull timer simply doesn't have them.
 		end
 		if not DBM.Options.DontPlayPTCountdown then
 			dummyMod.countdown:Start(timer)
@@ -3964,6 +3974,7 @@ do
 		self.Options.tempBreak2 = timer.."/"..time()
 		if not self.Options.DontShowPT2 then
 			self.Bars:CreateBar(timer, DBM_CORE_TIMER_BREAK, "Interface\\Icons\\Spell_Holy_BorrowedTime")
+			fireEvent("DBM_TimerStart", "break", DBM_CORE_TIMER_BREAK, timer, "Interface\\Icons\\Spell_Holy_BorrowedTime")
 		end
 		if not self.Options.DontPlayPTCountdown then
 			dummyMod2.countdown:Start(timer)
@@ -5214,7 +5225,7 @@ do
 	end
 
 	function DBM:CHAT_MSG_MONSTER_YELL(msg, npc, _, _, target)
-		if IsEncounterInProgress() then
+		if IsEncounterInProgress() or (IsInInstance() and InCombatLockdown()) then--Too many 5 mans/old raids don't properly return encounterinprogress
 			local targetName = target or "nil"
 			self:Debug("CHAT_MSG_MONSTER_YELL from "..npc.." while looking at "..targetName, 2)
 		end
@@ -6950,6 +6961,14 @@ function bossModPrototype:IsLFR()
 	return false
 end
 
+function bossModPrototype:IsFaceroll()
+	local diff = DBM:GetCurrentInstanceDifficulty()
+	if diff == "normal" or diff == "lfr" then
+		return true
+	end
+	return false
+end
+
 function bossModPrototype:IsNormal()
 	local diff = DBM:GetCurrentInstanceDifficulty()
 	if diff == "normal" or diff == "normal5" or diff == "normal10" or diff == "normal25" then
@@ -7035,6 +7054,13 @@ function bossModPrototype:CheckBigWigs(name)
 		return raid[name].bwarevision
 	else
 		return false
+	end
+end
+
+do
+	local iconStrings = {[1] = RAID_TARGET_1, [2] = RAID_TARGET_2, [3] = RAID_TARGET_3, [4] = RAID_TARGET_4, [5] = RAID_TARGET_5, [6] = RAID_TARGET_6, [7] = RAID_TARGET_7, [8] = RAID_TARGET_8,}
+	function bossModPrototype:IconNumToString(number)
+		return iconStrings[number]
 	end
 end
 
@@ -7895,6 +7921,18 @@ function bossModPrototype:IsTanking(unit, boss)
 	return false
 end
 
+function bossModPrototype:GetNumAliveTanks()
+	if not IsInGroup() then return 1 end--Solo raid, you're the "tank"
+	local count = 0
+	local uId = (IsInRaid() and "raid") or "party"
+	for i = 1, DBM:GetNumRealGroupMembers() do
+		if UnitGroupRolesAssigned(uId..i) == "TANK" and not UnitIsDeadOrGhost(uId..i) then
+			count = count + 1
+		end
+	end
+	return count
+end
+
 ----------------------------
 --  Boss Health Function  --
 ----------------------------
@@ -8432,7 +8470,7 @@ do
 	end
 
 	-- new constructor (auto-localized warnings and options, yay!)
-	local function newAnnounce(self, announceType, spellId, color, icon, optionDefault, optionName, castTime, preWarnTime, noSound, oldOptionVersion)
+	local function newAnnounce(self, announceType, spellId, color, icon, optionDefault, optionName, castTime, preWarnTime, noSound)
 		if not spellId then
 			error("newAnnounce: you must provide spellId", 2)
 			return
@@ -8442,10 +8480,9 @@ do
 			optionVersion = optionName
 			optionName = nil
 		end
-		if type(spellId) == "string" and spellId:match("OptionVersion") then--LEGACY hack, remove when new DBM core and other mods released
-			DBM:Debug("newAnnounce for "..spellId.." is using OptionVersion hack. this is depricated", 2)
-			local temp = oldOptionVersion
-			spellId, color, icon, optionDefault, optionName, castTime, preWarnTime, noSound = color, icon, optionDefault, optionName, castTime, preWarnTime, noSound, temp
+		if type(spellId) == "string" and spellId:match("OptionVersion") then
+			print("newAnnounce for "..color.." is using OptionVersion hack. this is depricated")
+			return
 		end
 		local unparsedId = spellId
 		local spellName
@@ -8546,34 +8583,34 @@ do
 		return newAnnounce(self, "stack", spellId, color or 2, ...)
 	end
 
-	function bossModPrototype:NewCastAnnounce(spellId, color, castTime, icon, optionDefault, optionName, noArg, noSound, oldOptionVersion)
+	function bossModPrototype:NewCastAnnounce(spellId, color, castTime, icon, optionDefault, optionName, noArg, noSound)
 		local optionVersion
 		if type(optionName) == "number" then
 			optionVersion = optionName
 			optionName = nil
 		end
 		if type(spellId) == "string" and spellId:match("OptionVersion") then--LEGACY hack, remove when new DBM core and other mods released
-			local temp = oldOptionVersion
-			spellId, color, castTime, icon, optionDefault, optionName, noArg, noSound = color, castTime, icon, optionDefault, optionName, noArg, noSound, temp
+			print("NewCastAnnounce is using OptionVersion and this is depricated for "..color)
+			return
 		end
-		return newAnnounce(self, "cast", spellId, color or 3, icon, optionDefault, optionName, castTime, nil, noSound, optionVersion)
+		return newAnnounce(self, "cast", spellId, color or 3, icon, optionDefault, optionName, castTime, nil, noSound)
 	end
 
 	function bossModPrototype:NewSoonAnnounce(spellId, color, ...)
 		return newAnnounce(self, "soon", spellId, color or 1, ...)
 	end
 
-	function bossModPrototype:NewPreWarnAnnounce(spellId, time, color, icon, optionDefault, optionName, noArg, noSound, oldOptionVersion)
+	function bossModPrototype:NewPreWarnAnnounce(spellId, time, color, icon, optionDefault, optionName, noArg, noSound)
 		local optionVersion
 		if type(optionName) == "number" then
 			optionVersion = optionName
 			optionName = nil
 		end
 		if type(spellId) == "string" and spellId:match("OptionVersion") then--LEGACY hack, remove when new DBM core and other mods released
-			local temp = oldOptionVersion
-			spellId, time, color, icon, optionDefault, optionName, noArg, noSound = time, color, icon, optionDefault, optionName, noArg, noSound, temp
+			print("NewCastAnnounce is using OptionVersion and this is depricated for "..color)
+			return
 		end
-		return newAnnounce(self, "prewarn", spellId, color or 1, icon, optionDefault, optionName, nil, time, noSound, optionVersion)
+		return newAnnounce(self, "prewarn", spellId, color or 1, icon, optionDefault, optionName, nil, time, noSound)
 	end
 
 	function bossModPrototype:NewPhaseAnnounce(phase, color, icon, ...)
@@ -8631,14 +8668,12 @@ do
 	local mt = { __index = soundPrototype2 }
 	function bossModPrototype:NewVoice(spellId, optionDefault, optionName, optionVersion)
 		if not spellId and not optionName then
-			error("NewVoice: you must provide either spellId or optionName", 2)
+			print("NewVoice: you must provide either spellId or optionName", 2)
 			return
 		end
 		if type(spellId) == "string" and spellId:match("OptionVersion") then
-			DBM:Debug("Voice for "..spellId.." is using OptionVersion hack. this is not needed, this only has 4 args, do this properly", 2)
-			local temp = optionVersion
-			optionVersion = string.sub(spellId, 14)
-			spellId, optionDefault, optionName = optionDefault, optionName, temp
+			print("NewVoice for "..optionDefault.." is using OptionVersion hack. this is not needed, this only has 4 args, do this properly")
+			return
 		end
 		self.numSounds = self.numSounds and self.numSounds + 1 or 1
 		local obj = setmetatable(
@@ -8691,7 +8726,34 @@ end
 ----------------------------
 do
 	local countdownProtoType = {}
+	local voice1, voice2, voice3 = nil, nil, nil
+	local voice1max, voice2max, voice3max = 5, 5, 5
+	local path1, path2, path3 = nil, nil, nil
 	local mt = {__index = countdownProtoType}
+	
+	function DBM:BuildVoiceCountdownCache()
+		voice1 = self.Options.CountdownVoice
+		voice2 = self.Options.CountdownVoice2
+		voice3 = self.Options.CountdownVoice3v2
+		local voicesFound = 0
+		for i = 1, #self.Counts do
+			if voicesFound == 3 then return end
+			local curVoice = self.Counts[i]
+			if curVoice.value == voice1 then
+				path1 = curVoice.path
+				voice1max = curVoice.max
+				voicesFound = voicesFound + 1
+			elseif curVoice.value == voice2 then
+				path2 = curVoice.path
+				voice2max = curVoice.max
+				voicesFound = voicesFound + 1
+			elseif curVoice.value == voice3 then
+				path3 = curVoice.path
+				voice3max = curVoice.max
+				voicesFound = voicesFound + 1
+			end
+		end
+	end
 
 	local function showCountdown(timer)
 		TimerTracker_OnEvent(TimerTracker, "START_TIMER", 2, timer, timer)
@@ -8716,23 +8778,23 @@ do
 				end
 			end
 			if DBM.Options.DontPlayCountdowns then return end
-			local voice = DBM.Options.CountdownVoice
-			local voice2 = DBM.Options.CountdownVoice2
-			local voice3 = DBM.Options.CountdownVoice3v2
+			if not path1 then
+				DBM:Debug("Voice cache not built at time of countdownProtoType:Start. On fly caching.")
+				DBM:BuildVoiceCountdownCache()
+			end
+			local voice, maxCount, path
 			if self.alternateVoice == 2 then
 				voice = voice2
-			end
-			if self.alternateVoice == 3 then
+				maxCount = voice2max
+				path = path2
+			elseif self.alternateVoice == 3 then
 				voice = voice3
-			end
-			local path
-			local maxCount = 5
-			for i = 1, #DBM.Counts do
-				if DBM.Counts[i].value == voice then
-					path = DBM.Counts[i].path
-					maxCount = DBM.Counts[i].max
-					break
-				end
+				maxCount = voice3max
+				path = path3
+			else
+				voice = voice1 or DBM.Options.CountdownVoice
+				maxCount = voice1max
+				path = path1
 			end
 			if self.type == "Countout" then
 				for i = 1, timer do
@@ -8765,24 +8827,31 @@ do
 	end
 	countdownProtoType.Stop = countdownProtoType.Cancel
 
-	local function newCountdown(self, countdownType, timer, spellId, optionDefault, optionName, count, textDisabled, altVoice, optionVersion)
+	local function newCountdown(self, countdownType, timer, spellId, optionDefault, optionName, count, textDisabled, altVoice)
 		if not spellId and not optionName then
-			error("NewCountdown: you must provide either spellId or optionName", 2)
+			print("NewCountdown: you must provide either spellId or optionName", 2)
 			return
 		end
 		if type(timer) == "string" and timer:match("OptionVersion") then
-			local temp = optionVersion
-			optionVersion = string.sub(timer, 14)
-			timer, spellId, optionDefault, optionName, count, textDisabled, altVoice = spellId, optionDefault, optionName, count, textDisabled, altVoice, temp
+			print("OptionVersion depricated for newCountdown :"..optionDefault)
+			return
+		end
+		local optionVersion
+		if type(optionName) == "number" then
+			optionVersion = optionName
+			optionName = nil
 		end
 		if altVoice == true then altVoice = 2 end--Compat
-		if type(timer) == "string" and timer:match("AltTwo") then
-			altVoice = 3
-			timer = tonumber(string.sub(timer, 7))
-		elseif type(timer) == "string" and timer:match("Alt") then
-			altVoice = 2
-			timer = tonumber(string.sub(timer, 4))
+		if type(timer) == "string" then
+			if timer:match("AltTwo") then
+				altVoice = 3
+				timer = tonumber(string.sub(timer, 7))
+			elseif timer:match("Alt") then
+				altVoice = 2
+				timer = tonumber(string.sub(timer, 4))
+			end
 		end
+		--TODO, maybe make this not use an entire sound object?
 		local sound5 = self:NewSound(5, true, false)
 		timer = timer or 10
 		count = count or 5
@@ -8837,15 +8906,19 @@ end
 do
 	local yellPrototype = {}
 	local mt = { __index = yellPrototype }
-	local function newYell(self, yellType, spellId, yellText, optionDefault, optionName, chatType, optionVersion)
+	local function newYell(self, yellType, spellId, yellText, optionDefault, optionName, chatType)
 		if not spellId and not yellText then
 			error("NewYell: you must provide either spellId or yellText", 2)
 			return
 		end
 		if type(spellId) == "string" and spellId:match("OptionVersion") then
-			local temp = optionVersion
-			optionVersion = string.sub(spellId, 14)
-			spellId, yellText, optionDefault, optionName, chatType = yellText, optionDefault, optionName, chatType, temp
+			print("newYell for: "..yellText.." is using OptionVersion hack. This is depricated")
+			return
+		end
+		local optionVersion
+		if type(optionName) == "number" then
+			optionVersion = optionName
+			optionName = nil
 		end
 		local displayText
 		if not yellText then
@@ -9241,7 +9314,7 @@ do
 			return
 		end
 		if type(text) == "string" and text:match("OptionVersion") then
-			error("NewSpecialWarning: you must provide remove optionversion hack", 2)
+			print("NewSpecialWarning: you must provide remove optionversion hack for "..optionDefault)
 			return
 		end
 		if runSound == true then
@@ -9280,7 +9353,7 @@ do
 			return
 		end
 		if type(spellId) == "string" and spellId:match("OptionVersion") then
-			error("NewSpecialWarning: you must provide remove optionversion hack", 2)
+			print("NewSpecialWarning: you must provide remove optionversion hack for"..stacks)
 			return
 		end
 		if runSound == true then
@@ -9389,6 +9462,10 @@ do
 	function bossModPrototype:NewSpecialWarningYouCount(text, optionDefault, ...)
 		return newSpecialWarning(self, "youcount", text, nil, optionDefault, ...)
 	end
+	
+	function bossModPrototype:NewSpecialWarningYouPos(text, optionDefault, ...)
+		return newSpecialWarning(self, "youpos", text, nil, optionDefault, ...)
+	end
 
 	function bossModPrototype:NewSpecialWarningTarget(text, optionDefault, ...)
 		return newSpecialWarning(self, "target", text, nil, optionDefault, ...)
@@ -9440,7 +9517,7 @@ do
 
 	function bossModPrototype:NewSpecialWarningStack(text, optionDefault, stacks, ...)
 		if type(text) == "string" and text:match("OptionVersion") then
-			error("NewSpecialWarning: you must provide remove optionversion hack", 2)
+			print("NewSpecialWarning: you must provide remove optionversion hack for "..optionDefault)
 		end
 		return newSpecialWarning(self, "stack", text, stacks, optionDefault, ...)
 	end
@@ -9455,7 +9532,7 @@ do
 
 	function bossModPrototype:NewSpecialWarningPreWarn(text, optionDefault, time, ...)
 		if type(text) == "string" and text:match("OptionVersion") then
-			error("NewSpecialWarning: you must provide remove optionversion hack", 2)
+			print("NewSpecialWarning: you must provide remove optionversion hack for "..optionDefault)
 		end
 		return newSpecialWarning(self, "prewarn", text, time, optionDefault, ...)
 	end

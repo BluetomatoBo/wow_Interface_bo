@@ -1,13 +1,13 @@
 local mod	= DBM:NewMod(1438, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14539 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14604 $"):sub(12, -3))
 mod:SetCreatureID(91331)--Doomfire Spirit (92208), Hellfire Deathcaller (92740), Felborne Overfiend (93615), Dreadstalker (93616), Infernal doombringer (94412)
 mod:SetEncounterID(1799)
 mod:SetMinSyncRevision(13964)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)
-mod:SetHotfixNoticeRev(14407)
+mod:SetHotfixNoticeRev(14584)
 --mod.respawnTime = 29--roughly, needs verifying
 
 mod:RegisterCombat("combat")
@@ -35,7 +35,7 @@ local warnDoomfireFixate			= mod:NewTargetAnnounce(182879, 3)
 local warnAllureofFlames			= mod:NewCastAnnounce(183254, 2)
 local warnFelBurstSoon				= mod:NewSoonAnnounce(183817, 3)
 local warnFelBurstCast				= mod:NewCastAnnounce(183817, 3)
-local warnFelBurst					= mod:NewTargetAnnounce(183817, 3)
+local warnFelBurst					= mod:NewTargetAnnounce(183817, 3, nil, true, 2)
 local warnDemonicHavoc				= mod:NewTargetAnnounce(183865, 3)--Mythic
 local warnLight						= mod:NewYouAnnounce(183963, 1)
 --Phase 2: Hand of the Legion
@@ -81,7 +81,7 @@ local specWarnNetherBanishOther		= mod:NewSpecialWarningTargetCount(186961, nil,
 local yellNetherBanish				= mod:NewFadesYell(186961)
 ----The Nether
 local specWarnTouchofShadows		= mod:NewSpecialWarningInterruptCount(190050, nil, nil, nil, 1, 5)
-local specWarnVoidStarFixate		= mod:NewSpecialWarningYou(189895)--Maybe move away? depends how often it changes fixate targets
+local specWarnVoidStarFixate		= mod:NewSpecialWarningYou(189895, nil, nil, nil, 1, 5)
 local yellVoidStarFixate			= mod:NewYell(189895, nil, false)
 local specWarnNetherStorm			= mod:NewSpecialWarningMove(187255)
 --Phase 3.5
@@ -89,7 +89,7 @@ local specWarnRainofChaos			= mod:NewSpecialWarningCount(189953, nil, nil, nil, 
 --Mythic
 local specWarnDarkConduitSoon		= mod:NewSpecialWarningSoon(190394, "Ranged", nil, nil, 1, 2)
 local specWarnSeethingCorruption	= mod:NewSpecialWarningCount(190506, nil, nil, nil, 2, 2)
-local specWarnMarkOfLegion			= mod:NewSpecialWarningYouCount(187050)--Somehow i suspect this replaces fel burst. It's basically same mechanic, but on multiple people and slightly larger
+local specWarnMarkOfLegion			= mod:NewSpecialWarningYouPos(187050, nil, nil, 2, 3, 5)
 local yellMarkOfLegion				= mod:NewFadesYell(187050, 28836)
 local yellMarkOfLegionPoS			= mod:NewPosYell(187050, 28836)
 local specWarnSourceofChaosYou		= mod:NewSpecialWarningYou(190703)
@@ -159,6 +159,8 @@ local voiceNetherBanish				= mod:NewVoice(186961) --teleyou
 local voiceTouchofShadows			= mod:NewVoice(190050) --kick1r/kick2r
 local voiceDarkConduit				= mod:NewVoice(190394, "Ranged") --spread/scatter
 local voiceSeethingCorruption		= mod:NewVoice(190506) --watch step
+local voiceMarkOfLegion				= mod:NewVoice(187050) --mmX
+local voiceVoidStarFixate			= mod:NewVoice(189895) --orbrun
 
 mod:AddRangeFrameOption("6/8/10")
 mod:AddSetIconOption("SetIconOnFelBurst", 183634, true)
@@ -339,6 +341,7 @@ local function showMarkOfLegion(self, spellName)
 				if name == playerName then
 					specWarnMarkOfLegion:Show(roundedTime.."-"..RAID_TARGET_1)
 					yellMarkOfLegionPoS:Yell(roundedTime, 1, 1)
+					voiceMarkOfLegion:Play("mm1")
 				end
 			elseif roundedTime == 7 then
 				if self.Options.SetIconOnMarkOfLegion then
@@ -350,6 +353,7 @@ local function showMarkOfLegion(self, spellName)
 				if name == playerName then
 					specWarnMarkOfLegion:Show(roundedTime.."-"..RAID_TARGET_2)
 					yellMarkOfLegionPoS:Yell(roundedTime, 2, 2)
+					voiceMarkOfLegion:Play("mm2")
 				end
 			elseif roundedTime == 9 then
 				if self.Options.SetIconOnMarkOfLegion then
@@ -361,6 +365,7 @@ local function showMarkOfLegion(self, spellName)
 				if name == playerName then
 					specWarnMarkOfLegion:Show(roundedTime.."-"..RAID_TARGET_3)
 					yellMarkOfLegionPoS:Yell(roundedTime, 3, 3)
+					voiceMarkOfLegion:Play("mm3")
 				end
 			else
 				if self.Options.SetIconOnMarkOfLegion then
@@ -372,6 +377,7 @@ local function showMarkOfLegion(self, spellName)
 				if name == playerName then
 					specWarnMarkOfLegion:Show(roundedTime.."-"..RAID_TARGET_4)
 					yellMarkOfLegionPoS:Yell(roundedTime, 4, 4)
+					voiceMarkOfLegion:Play("mm4")
 				end
 			end
 		end
@@ -434,6 +440,7 @@ local function breakShackles(self, spellName)
 		end
 	end
 	if self.Options.HudMapOnShackledTorment2 and self:IsMythic() then
+		DBMHudMap:RegisterRangeMarkerOnPartyMember(1849642, "party", playerName, 0.9, 30, nil, nil, nil, 1, nil, false):Appear()
 		for i = 1, #shacklesTargets do
 			local name = shacklesTargets[i]
 			if not name then break end
@@ -458,11 +465,6 @@ local function sourceOfChaosCheck(self)
 		--Schedule Late check for 5 seconds AFTER cast
 		self:Schedule(cooldown, sourceOfChaosCheck, self)
 	end
-end
-
-function mod:DebugYells()
-	yellMarkOfLegion:Yell(1)
-	yellMarkOfLegionPoS:Yell(5, 1, 1)
 end
 
 --Ugly as shit, but it vastly improves timer accuracy by accounting for archimonds ICD code
@@ -532,7 +534,7 @@ local function updateAllTimers(self, ICD)
 			countdownShackledTorment:Cancel()
 			countdownShackledTorment:Start(ICD)
 		end
-		if timerWroughtChaosCD:GetRemaining() < ICD then
+		if not self:IsFaceroll() and timerWroughtChaosCD:GetRemaining() < ICD then
 			local elapsed, total = timerWroughtChaosCD:GetTime()
 			local extend = ICD - (total-elapsed)
 			DBM:Debug("timerWroughtChaosCD extended by: "..extend, 2)
@@ -558,7 +560,7 @@ local function updateAllTimers(self, ICD)
 			countdownShackledTorment:Cancel()
 			countdownShackledTorment:Start(ICD)
 		end
-		if timerWroughtChaosCD:GetRemaining() < ICD then
+		if not self:IsFaceroll() and timerWroughtChaosCD:GetRemaining() < ICD then
 			local elapsed, total = timerWroughtChaosCD:GetTime()
 			local extend = ICD - (total-elapsed)
 			DBM:Debug("timerWroughtChaosCD extended by: "..extend, 2)
@@ -829,10 +831,6 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			self:Schedule(0.5, breakShackles, self, args.spellName)
 		end
-		if self.Options.HudMapOnShackledTorment2 and self:IsMythic() and args:IsPlayer() then
-			--Set a dot on player so they can find their orientation to their circle
-			DBMHudMap:RegisterRangeMarkerOnPartyMember(1849642, "party", args.destName, 0.9, 5, nil, nil, nil, 1, nil, false):Appear()
-		end
 	elseif spellId == 186123 then--Wrought Chaos
 		if self:AntiSpam(3, 3) then
 			self.vb.wroughtWarned = self.vb.wroughtWarned + 1
@@ -955,11 +953,14 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnNetherBanishOther:Show(self.vb.netherBanish2, args.destName)
 		end
 		updateRangeFrame(self)
-	elseif spellId == 189895 and (playerBanished or not self.Options.FilterOtherPhase) then
-		warnVoidStarFixate:CombinedShow(0.3, args.destName)--5 on mythic
+	elseif spellId == 189895 then
+		if (playerBanished or not self.Options.FilterOtherPhase) then
+			warnVoidStarFixate:CombinedShow(0.3, args.destName)--5 on mythic
+		end
 		if args:IsPlayer() then
 			specWarnVoidStarFixate:Show()
 			yellVoidStarFixate:Yell()
+			voiceVoidStarFixate:Play("orbrun")
 		end
 	elseif spellId == 186662 then--Felborne Overfiend Spawn
 		self.vb.overfiendCount = self.vb.overfiendCount + 1
@@ -1041,8 +1042,8 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 		if self.Options.HudMapOnShackledTorment2 and self:IsMythic() then
 			DBMHudMap:FreeEncounterMarkerByTarget(spellId, args.destName)
-			if args:IsPlayer() then
-				DBMHudMap:FreeEncounterMarkerByTarget(1849642, args.destName)
+			if self.vb.unleashedCountRemaining == 0 then--none remaining, remove players shackle
+				DBMHudMap:FreeEncounterMarkerByTarget(1849642, playerName)
 			end
 		end
 	elseif spellId == 187050 then
@@ -1127,7 +1128,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		--Begin phase 2
 		warnPhase2:Show()
 		voicePhaseChange:Play("ptwo")
-		timerWroughtChaosCD:Start(6)
+		if not self:IsFaceroll() then
+			timerWroughtChaosCD:Start(6)
+		end
 		timerDeathbrandCD:Start(35, self.vb.deathBrandCount+1)--35-39
 		countdownDeathBrand:Start(35)
 		timerAllureofFlamesCD:Start(40.5)--40-45
@@ -1156,6 +1159,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			timerShackledTormentCD:Start(55, self.vb.tormentCast+1)
 			countdownShackledTorment:Start(55)
 		else
+			playerBanished = true
 			--All need work, actual logs would be nice
 			table.wipe(shacklesTargets)--Just to reduce infoframe overhead
 			timerWroughtChaosCD:Cancel()
