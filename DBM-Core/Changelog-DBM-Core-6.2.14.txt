@@ -1,0 +1,26 @@
+tag 6.2.14
+9f17a1f28572ba9289159b4991aab4b0ad6af0bb
+subversion <svn@deadlybossmods.com>
+2015-10-22 22:58:48 +0200
+
+Tagging as 6.2.14
+
+
+--------------------
+
+subversion:
+	- increment version number to 6.2.14
+	- Omega via svn r14621: Curse fail
+	- tandanu via svn r14620: strip icons from timer texts when announcing them
+	- Omega via svn r14619: Rev bump
+	- Omega via svn r14618: add debug
+	- Omega via svn r14617: And tweak this
+	- Omega via svn r14616: Fix edict
+	- Omega via svn r14615: Protections against the impossible
+	- Omega via svn r14614: And this. should enable silent failing now across board.
+	- Omega via svn r14613: Couple fixes
+	- Omega via svn r14612: *Improve phase 1/2 timer accuracy on mannoroth by moving start timers from engage to Summon Adds. the timers variate from pull upwards of 5 seconds if pull is used, but if timers are started on Summon Adds, timer variation is down to about 0.5. It seem that?\226?\128?\153s where mannoroth starts gaining energy and timers can be started far more accurately here. It seems the variation is caused by the fact mannoroth can be come active varibly from encounter start. My own logs have a variation of activating at 16 seconds, through activating at 21. Starting timers this way is just strictly better to avoid issues. *Fixed missing voice pack alert for hellstorm *Fixed voice pack filter for fel seeker.
+	- Omega via svn r14611: Change icon/assignment behavior of doom on mannoroth. not compatible with old versions. but now compatible with BW. May add an option later to choose which method you prefer. sorted for consistency or applied order for speed. Since I see the merit of both.
+	- tandanu via svn r14610: use liblatency for /dbm lag
+	- tandanu via svn r14609: add liblatency
+	- tandanu via svn r14608: increment alpha version

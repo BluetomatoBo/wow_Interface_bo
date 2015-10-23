@@ -40,15 +40,15 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14606 $"):sub(12, -3)),
-	DisplayVersion = "6.2.13", -- the string that is shown as version
-	ReleaseRevision = 14606 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 14621 $"):sub(12, -3)),
+	DisplayVersion = "6.2.14", -- the string that is shown as version
+	ReleaseRevision = 14621 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
 -- support for git svn which doesn't support svn keyword expansion
+-- just use the latest release revision
 if not DBM.Revision then
-	-- just use the latest release revision
 	DBM.Revision = DBM.ReleaseRevision
 end
 
@@ -409,6 +409,16 @@ local bannedMods = { -- a list of "banned" (meaning they are replaced by another
 	"DBM-ProvingGrounds-MoP",--Renamed to DBM-ProvingGrounds in 6.0 version since blizzard updated content for WoD
 	"DBM-VPKiwiBeta",--Renamed to DBM-VPKiwi in final version.
 }
+
+
+-----------------
+--  Libraries  --
+-----------------
+local LL
+if LibStub("LibLatency", true) then
+	LL = LibStub("LibLatency")
+end
+
 
 --------------------------------------------------------
 --  Cache frequently used global variables in locals  --
@@ -1868,7 +1878,11 @@ do
 			local timer = tonumber(cmd:sub(5)) or 10
 			Pull(timer)
 		elseif cmd:sub(1, 3) == "lag" then
-			sendSync("L")
+			if not LL then
+				DBM:AddMsg(DBM_CORE_UPDATE_REQUIRES_RELAUNCH)
+				return
+			end
+			LL:RequestLatency()
 			DBM:AddMsg(DBM_CORE_LAG_CHECKING)
 			C_TimerAfter(5, function() DBM:ShowLag() end)
 		elseif cmd:sub(1, 3) == "hud" then
@@ -2134,6 +2148,8 @@ do
 	end
 end
 
+
+-- Lag checking
 do
 	local sortLag = {}
 	local nolagResponse = {}
@@ -2168,6 +2184,17 @@ do
 			sortLag[i] = nil
 		end
 	end
+	if LL then
+		LL:Register("DBM", function(homelag, worldlag, sender, channel)
+			if sender and raid[sender] then
+				raid[sender].homelag = homelag
+				raid[sender].worldlag = worldlag
+			end
+		end)
+	else
+		self:AddMsg(DBM_CORE_UPDATE_REQUIRES_RELAUNCH)
+	end
+
 end
 
 -------------------
@@ -4157,19 +4184,6 @@ do
 			end
 		end
 		DBM:GROUP_ROSTER_UPDATE()
-	end
-
-	syncHandlers["L"] = function(sender)
-		local _, _, home, world = GetNetStats()
-		sendSync("LAG", ("%d\t%d"):format(home, world))
-	end
-
-	syncHandlers["LAG"] = function(sender, homelag, worldlag)
-		homelag, worldlag = tonumber(homelag or ""), tonumber(worldlag or "")
-		if homelag and worldlag and raid[sender] then
-			raid[sender].homelag = homelag
-			raid[sender].worldlag = worldlag
-		end
 	end
 
 	syncHandlers["U"] = function(sender, time, text)
@@ -8778,7 +8792,7 @@ do
 				end
 			end
 			if DBM.Options.DontPlayCountdowns then return end
-			if not path1 then
+			if not path1 or not path2 or not path3 then
 				DBM:Debug("Voice cache not built at time of countdownProtoType:Start. On fly caching.")
 				DBM:BuildVoiceCountdownCache()
 			end
@@ -8795,6 +8809,10 @@ do
 				voice = voice1 or DBM.Options.CountdownVoice
 				maxCount = voice1max
 				path = path1
+			end
+			if not path then--Should not happen but apparently it does somehow
+				DBM:Debug("Voice path failed in countdownProtoType:Start.")
+				return
 			end
 			if self.type == "Countout" then
 				for i = 1, timer do
