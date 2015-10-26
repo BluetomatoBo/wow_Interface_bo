@@ -917,19 +917,33 @@ function UF:UpdateAllHeaders(event)
 		end
 	end
 
-	for _, header in pairs(UF['headers']) do
+	if E.private["unitframe"]["disabledBlizzardFrames"].party then
+		ElvUF:DisableBlizzard('party')
+	end
+
+	for group, header in pairs(self['headers']) do		
+		local db = self[group].db
+		if db.numGroups then
+			if db.enable ~= true then
+				UnregisterStateDriver(self[group], "visibility")
+				self[group]:Hide()
+			end
+		else
+			if db.enable ~= true then
+				UnregisterAttributeDriver(self[group], "state-visibility")
+				self[group]:Hide()
+			end
+		end
+
 		header:Update()
 		if header.Configure_Groups then
 			header:Configure_Groups()
 		end
-		if header == 'party' or header == 'raid' or header == 'raid40' then
-			--Update BuffIndicators on profile change as they might be using profile specific data
-			UF:UpdateAuraWatchFromHeader(header)
-		end
-	end
 
-	if E.private["unitframe"]["disabledBlizzardFrames"].party then
-		ElvUF:DisableBlizzard('party')
+		if group == 'party' or group == 'raid' or group == 'raid40' then
+			--Update BuffIndicators on profile change as they might be using profile specific data
+			self:UpdateAuraWatchFromHeader(group)
+		end
 	end
 end
 
