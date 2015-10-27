@@ -1,4 +1,4 @@
-﻿## Interface: 30100
+﻿## Interface: 60200
 ## Title: HandyNotes_Directions
 ## Notes: Database of locations that city guards direct you to for HandyNotes
 ## Author: Kemayo
@@ -9,7 +9,7 @@
 ## X-Credits: I totally copied the structure from HandyNotes_Mailboxes by Kagaro
 ## SavedVariables: HandyNotes_DirectionsDB
 ## RequiredDeps: HandyNotes
-## X-Curse-Packaged-Version: v2.1
+## X-Curse-Packaged-Version: v2.2
 ## X-Curse-Project-Name: HandyNotes_Directions
 ## X-Curse-Project-ID: handy-notes_directions
 ## X-Curse-Repository-ID: wow/handy-notes_directions/mainline
