@@ -1,6 +1,11 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 
-local lower = string.lower
+--Cache global variables
+local _G = _G
+local pairs, type, unpack, assert = pairs, type, unpack, assert
+local lower, tremove, tContains, tinsert, wipe = string.lower, tremove, tContains, tinsert, table.wipe
+local UnitIsDeadOrGhost, InCinematic = UnitIsDeadOrGhost, InCinematic
+local STATICPOPUP_TEXTURE_ALERT, STATICPOPUP_TEXTURE_ALERTGEAR
 
 E.PopupDialogs = {};
 E.StaticPopup_DisplayedFrames = {};
@@ -327,8 +332,6 @@ E.PopupDialogs["WARNING_BLIZZARD_ADDONS"] = {
 	hideOnEscape = false,
 	OnAccept = function() EnableAddOn("Blizzard_CompactRaidFrames"); ReloadUI(); end,
 }
-
-
 
 local MAX_STATIC_POPUPS = 4
 
@@ -860,7 +863,7 @@ function E:StaticPopup_Show(which, text_arg1, text_arg2, data)
 			tempButtonLocs[i]:Show();
 		end
 
-		table.wipe(tempButtonLocs);
+		wipe(tempButtonLocs);
 	end
 
 	-- Show or hide the alert icon
@@ -919,18 +922,6 @@ function E:StaticPopup_Hide(which, data)
 		if ( (dialog.which == which) and (not data or (data == dialog.data)) ) then
 			dialog:Hide();
 		end
-	end
-end
-
-function E:StaticPopup_CombineTables()
-	if ( not tContains(E.StaticPopup_DisplayedFrames, dialog) ) then
-		local lastFrame = E.StaticPopup_DisplayedFrames[#StaticPopup_DisplayedFrames];
-		if ( lastFrame ) then
-			dialog:SetPoint("TOP", lastFrame, "BOTTOM", 0, -4);
-		else
-			dialog:SetPoint("TOP", E.UIParent, "TOP", 0, -135);
-		end
-		tinsert(E.StaticPopup_DisplayedFrames, dialog);
 	end
 end
 
