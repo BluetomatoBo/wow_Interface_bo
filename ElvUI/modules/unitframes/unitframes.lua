@@ -4,6 +4,12 @@ local LSM = LibStub("LibSharedMedia-3.0");
 local BG = LibStub("LibBodyguard-1.0");
 UF.LSM = LSM
 
+--Cache global variables
+local _G = _G
+local select, pairs, type, unpack, assert, tostring = select, pairs, type, unpack, assert, tostring
+local MAX_RAID_MEMBERS = MAX_RAID_MEMBERS
+local MAX_BOSS_FRAMES = MAX_BOSS_FRAMES
+
 local _, ns = ...
 local ElvUF = ns.oUF
 local AceTimer = LibStub:GetLibrary("AceTimer-3.0")
@@ -623,6 +629,7 @@ function UF.groupPrototype:AdjustVisibility()
 	if not self.isForced then
 		local numGroups = self.numGroups
 		for i=1, #self.groups do
+			local group = self.groups[i]
 			if (i <= numGroups) and ((self.db.raidWideSorting and i <= 1) or not self.db.raidWideSorting) then
 				self.groups[i]:Show()
 			else
@@ -774,7 +781,7 @@ function UF:CreateAndUpdateHeaderGroup(group, groupFilter, template, headerUpdat
 
 		if db.raidWideSorting then
 			if not self[group].groups[1] then
-				self[group].groups[1] = self:CreateHeader(self[group], index, "ElvUF_"..E:StringTitle(self[group].groupName)..'Group1', template, nil, headerTemplate)
+				self[group].groups[1] = self:CreateHeader(self[group], nil, "ElvUF_"..E:StringTitle(self[group].groupName)..'Group1', template, nil, headerTemplate)
 			end
 		else
 			while numGroups > #self[group].groups do
@@ -789,6 +796,12 @@ function UF:CreateAndUpdateHeaderGroup(group, groupFilter, template, headerUpdat
 			self[group]:Configure_Groups()
 			if not self[group].isForced and not self[group].blockVisibilityChanges then
 				RegisterStateDriver(self[group], "visibility", db.visibility)
+			end
+			
+			--This fixes a bug where the party/raid frame will not appear when you enable it
+			--if it was disabled when you logged in/reloaded.
+			if not self[group].mover then
+				self[group]:Update()
 			end
 		else
 			self[group]:Configure_Groups()
@@ -916,9 +929,16 @@ function UF:UpdateAllHeaders(event)
 		ElvUF:DisableBlizzard('party')
 	end
 
+	local smartRaidFilterEnabled = self.db.smartRaidFilter
 	for group, header in pairs(self['headers']) do
 		header:Update()
-		local shouldUpdateHeader = self[group].numGroups ~= nil and true or false
+
+		local shouldUpdateHeader
+		if header.numGroups == nil or smartRaidFilterEnabled then
+			shouldUpdateHeader = false
+		elseif header.numGroups ~= nil and not smartRaidFilterEnabled then
+			shouldUpdateHeader = true
+		end
 		self:CreateAndUpdateHeaderGroup(group, nil, nil, shouldUpdateHeader)
 
 		if group == 'party' or group == 'raid' or group == 'raid40' then
@@ -928,7 +948,7 @@ function UF:UpdateAllHeaders(event)
 	end
 end
 
-function HideRaid()
+local function HideRaid()
 	if InCombatLockdown() then return end
 	CompactRaidFrameManager:Kill()
 	local compact_raid = CompactRaidFrameManager_GetSetting("IsShown")

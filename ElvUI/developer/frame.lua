@@ -1,3 +1,8 @@
+--Cache global variables
+local _G = _G
+local tostring, select = tostring, select
+local format = format
+
 --[[
 	Command to grab frame information when mouseing over a frame
 
@@ -84,7 +89,7 @@ SlashCmdList["FRAMELIST"] = function(msg)
 	end
 end
 
-function TextureList(frame)
+local function TextureList(frame)
 	frame = _G[frame] or FRAME
 	--[[for key, obj in pairs(frame) do
 		if type(obj) == "table" and obj.GetObjectType and obj:GetObjectType() == "Texture" then
