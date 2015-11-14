@@ -42,7 +42,7 @@
 		NewVersionFound = "Eine aktualisierte Version von GoGoMount ist verfügbar und wird verwendet von ",
 		NoShapeInRandom = "Gestaltwandlung und Reittiere nicht gemeinsam in einer Zufallsliste verwenden.",
 		PaladinOptions = "Paladin-Einstellungen",
-		RemoveBuffs = "Entferne Buffs die das Aufsitzen verhindern",
+		RemoveBuffs = "Entferne Buffs, die das Aufsitzen verhindern",
 		RemoveBuffs_Long = "GoGoMount wird versuchen, aus Zaubern und Gegenständen resultierende Stärkungszauber und Gestaltwandlungen zu entfernen, die das Aufsteigen verhindern. Dies funktioniert nur für bekannte Stärkungszauber und in einigen Fällen muss der GoGoMount-Button zweimal geklickt werden.",
 		ShamanOptions = "Schamanen-Optionen",
 		ShamanSingleClick = "Mit einem Klick aus der Geisterwolf-Form aufsitzen anstatt abzusitzen",

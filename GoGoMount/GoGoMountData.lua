@@ -19,7 +19,7 @@ GoGo_Variables.WaterSpeed = {}
 GoGo_Variables.WaterSurfaceSpeed = {}
 GoGo_Variables.Debug = 0
 GoGo_Variables.DebugTimer = 0
-GoGo_Variables.TestVersion = false
+GoGo_Variables.TestVersion = true
 
 ---------
 function GoGo_GetMountDB()
@@ -606,7 +606,7 @@ function GoGo_GetMountDB()
 	-- Spells, shape forms, etc
 		[40120] = {[7] = true, [9] = true, [300] = true, [403] = true, [9998] = true, ["FlightOnly"] = true, [10003]=380},  -- Druid Swift Flight Form
 		[33943] = {[7] = true, [9] = true, [300] = true, [301] = true, [403] = true, [9998] = true, ["FlightOnly"] = true, [10003]=250},  -- Druid Flight Form
-		[165962] = {[7] = true, [9] = true, [300] = true, [301] = true, [403] = true, [9998] = true, ["FlightOnly"] = true, [10003]=250},  -- Druid Flight Form  (new form that appears with Glyph of the Stag with patch 6.0)
+		[165962] = {[7] = true, [9] = true, [300] = true, [301] = true, [403] = true, [501] = true, [9998] = true, ["FlightOnly"] = true, [10003]=250},  -- Druid Flight Form  (new form that appears with Glyph of the Stag with patch 6.0)
 		[783] = {[7] = true, [500] = true, [1000]=true, [10002]=140}, -- Druid Travel Form
 		[2645] = {[7] = true, [8] = true, [500] = true, [1000] = true, ["DefaultInstance"] = true, [10002]=130}, -- Shaman Ghost Wolf Form
 		[768] = {[7] = true, [8] = true, [1000] = true, [500] = true, ["DefaultInstance"] = true, [10002]=125},  -- Druid Cat Form
@@ -681,9 +681,19 @@ function GoGo_GetMountDB()
 		[189044] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Warmongering Gladiator's Felblood Gronnling
 		[189043] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Wild Gladiator's Felblood Gronnling
 		
+-- 6.2.1
+		[194046] = {[9] = true, [35] = true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Swift Spectral Rylak  (may not be player useable, might be for dead players only.. added for now to prevent GoGoMount from detecting as misisng mount)
+		[191314] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Minion of Grumpus
+		[142910] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Ironbound Wraithcharger
+		[189998] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Illidari Felstalker
+		[189999] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Grove Warden
+		[194464] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Eclipse Dragonhawk
+
+		
+		
+		
 		
 --		[123456] = {[38] = true, [330]=true, [400]=true, [402]=true, [405]=true, [10001]=67, [10002]=160, [10004]=67},  -- Standard Ground Mount template
---		[123456] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Standard Air (only) Mount template
 --		[123456] = {[9] = true, [38] = true, [300]=true, [301]=true, [330]=true, [400]=true, [402]=true, [403]=true, [405]=true, [10001]=67, [10002]=160, [10003]=250, [10004]=67},  -- Standard Air & Ground Mount template
 
 	}
@@ -759,7 +769,6 @@ GoGo_Variables.DebuffDB = {
 	21848,	-- Snowman constume from Xmas time -- requires 2 clicks to mount
 	24347,  -- Master Angler (from Hook of the Master Angler)
 	24723,  -- Skeleton costume (from trick-or-treating in Inns)
-	24732,  -- Bat costume (from trick-or-treating in Inns)
 	24741,  -- Wisp Costume (from Hallowed Wand - Wisp during Halloween)
 --	24753,	-- Trick (from trick-or-treating in Inns)  -- can't be removed?
 --	24858,	-- Moonkin Form (Druids)  -- still needs to be removed for worgens shifting to running wild stance - handled in code
@@ -788,11 +797,15 @@ GoGo_Variables.DebuffDB = {
 	122099,  -- Bamboozled (from /love Meng Meng in SW)
 	165185,	-- Bloodclaw Charm (from Bloodmaine Claw toy)
 	167399,	-- Make Like A Tree (from Ancient's Bloom toy)  	-- requires 2 clicks to mount
-	172003,	-- Slime Costume (from trick-or-treating at inns)
-	172008,	-- Ghoul Costume (from trick-or-treating at inns)
 	172010,	-- Abomination Costume  (from trick-or-treating at the inns)
 	172015,	-- Geist Costume (from trick-or-treating at the inns)
 	172020,	-- Spider Costume (from trick-or-treating at the inns)
+--  Removed the items below now that they temporarily shift back to normal form for mounting and don't need to be removed
+--	24732,  -- Bat costume (from trick-or-treating in Inns)
+--	172003,	-- Slime Costume (from trick-or-treating at inns)
+--	172008,	-- Ghoul Costume (from trick-or-treating at inns)
+--	190968, -- Myserious Brew
+--	191211, -- Nerubian Constume (from tirick-or-treating at inns)
 }
 
 GoGo_Variables.GroundSpeed = {

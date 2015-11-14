@@ -1,0 +1,26 @@
+------------------------------------------------------------------------
+r559 | tiker | 2015-11-13 23:45:05 +0000 (Fri, 13 Nov 2015) | 1 line
+Changed paths:
+   A /tags/6.2.5 (from /trunk:558)
+
+Tagging as 6.2.5
+------------------------------------------------------------------------
+r558 | tiker | 2015-11-13 23:41:53 +0000 (Fri, 13 Nov 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated GoGoMount version for 6.2.5 tag.
+------------------------------------------------------------------------
+r557 | tiker | 2015-11-13 23:40:06 +0000 (Fri, 13 Nov 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Removed some illusions that preventing mounting in the past from GoGoMount's buff removal list since Blizzard does it for us now.
+------------------------------------------------------------------------
+r556 | tiker | 2015-11-11 15:57:23 +0000 (Wed, 11 Nov 2015) | 2 lines
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Removed flight flags for "Illdari Felstalker" since it's been reported as not able to fly (ticket 846 - http://wow.curseforge.com/addons/gogomount/tickets/846-illidari-felstalker/ )
+
+------------------------------------------------------------------------
