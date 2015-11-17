@@ -2,9 +2,15 @@ local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, Private
 local UF = E:GetModule('UnitFrames');
 
 --Cache global variables
+--Lua functions
 local _G = _G
 local pairs = pairs
 local format = format
+--WoW API / Variables
+local InCombatLockdown = InCombatLockdown
+
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS: ElvUF_Player
 
 local _, ns = ...
 local ElvUF = ns.oUF
@@ -112,11 +118,7 @@ function UF:Update_PetFrame(frame, db)
 				health.colorHealth = true
 			end
 		else
-			health.colorClass = true
-			health.colorReaction = true
-		end
-		if self.db['colors'].forcehealthreaction == true then
-			health.colorClass = false
+			health.colorClass = (not self.db['colors'].forcehealthreaction)
 			health.colorReaction = true
 		end
 

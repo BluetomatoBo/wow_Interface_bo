@@ -9,10 +9,18 @@ local S = E:GetModule('Skins');
 local tonumber, collectgarbage = tonumber, collectgarbage
 local floor = math.floor
 local format, strsub = string.format, strsub
+--WoW API / Variables
+local CreateFrame = CreateFrame
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local CALENDAR_COPY_EVENT, CALENDAR_PASTE_EVENT = CALENDAR_COPY_EVENT, CALENDAR_PASTE_EVENT
 local CLASS, DEFAULT = CLASS, DEFAULT
+
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS: ColorPickerFrame, OpacitySliderFrame, ColorPPBoxA, ColorPPBoxR, ColorPPBoxG
+-- GLOBALS: ColorPPBoxB, ColorPPBoxH, ColorSwatch, ColorPickerFrameHeader, ColorPPPaste
+-- GLOBALS: IsAddOnLoaded, ColorPickerOkayButton, ColorPickerCancelButton
+-- GLOBALS: ColorPPCopyColorSwatch, ColorPPBoxLabelA, ColorPPOldColorSwatch
 
 local initialized = nil
 local colorBuffer = {}
@@ -199,7 +207,6 @@ function B:EnhanceColorPicker()
 	b:Width(80)
 	b:Height(22)
 	b:Point("TOP", "ColorPPCopy", "BOTTOMRIGHT", 0, -7)
-	
 
 	b:SetScript('OnClick', function()
 		local color = E.myclass == 'PRIEST' and E.PriestColors or (CUSTOM_CLASS_COLORS and CUSTOM_CLASS_COLORS[E.myclass] or RAID_CLASS_COLORS[E.myclass]);
@@ -290,7 +297,7 @@ function B:EnhanceColorPicker()
 			box:SetNumeric(false)
 		else
 			box:SetMaxLetters(3)
-			box:Width(32)
+			box:Width(40)
 			box:SetNumeric(true)
 		end
 		box:SetPoint("TOP", "ColorPickerWheel", "BOTTOM", 0, -15)

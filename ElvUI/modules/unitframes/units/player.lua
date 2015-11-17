@@ -2,9 +2,12 @@ local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, Private
 local UF = E:GetModule('UnitFrames');
 
 --Cache global variables
+--Lua functions
 local _G = _G
 local unpack, pairs = unpack, pairs
 local format = format
+--WoW API / Variables
+local C_TimerAfter = C_Timer.After
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 
@@ -393,11 +396,7 @@ function UF:Update_PlayerFrame(frame, db)
 				health.colorHealth = true
 			end
 		else
-			health.colorClass = true
-			health.colorReaction = true
-		end
-		if self.db['colors'].forcehealthreaction == true then
-			health.colorClass = false
+			health.colorClass = (not self.db['colors'].forcehealthreaction)
 			health.colorReaction = true
 		end
 
@@ -1141,5 +1140,5 @@ f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:SetScript("OnEvent", function(self, event)
 	self:UnregisterEvent(event)
 	
-	C_Timer.After(5, UpdateAllRunes) --Delay it, since the WoW client updates Death Runes after PEW
+	C_TimerAfter(5, UpdateAllRunes) --Delay it, since the WoW client updates Death Runes after PEW
 end)

@@ -2,8 +2,19 @@ local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, Private
 local UF = E:GetModule('UnitFrames');
 
 --Cache global variables
+--Lua functions
 local pairs = pairs
 local tinsert = table.insert
+--WoW API / Variables
+local CreateFrame = CreateFrame
+local IsInInstance = IsInInstance
+local InCombatLockdown = InCombatLockdown
+local GetInstanceInfo = GetInstanceInfo
+local UnregisterStateDriver = UnregisterStateDriver
+local RegisterStateDriver = RegisterStateDriver
+
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS: UnitFrame_OnEnter, UnitFrame_OnLeave, ElvUF_Raid40
 
 local _, ns = ...
 local ElvUF = ns.oUF
@@ -209,12 +220,7 @@ function UF:Update_Raid40Frames(frame, db)
 					health.colorHealth = true
 				end
 			else
-				health.colorClass = true
-				health.colorReaction = true
-			end
-
-			if self.db['colors'].forcehealthreaction == true then
-				health.colorClass = false
+				health.colorClass = (not self.db['colors'].forcehealthreaction)
 				health.colorReaction = true
 			end
 		end
