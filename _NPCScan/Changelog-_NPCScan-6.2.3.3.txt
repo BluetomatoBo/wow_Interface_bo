@@ -1,0 +1,12 @@
+tag 6.2.3.3
+d39e67844f6be3ada1e85fb6ba4801c4c321854a
+SLOKnightfall <SLOKnightfall@gmail.com>
+2015-11-17 18:23:02 -0800
+
+Tagging update
+
+
+--------------------
+
+SLOKnightfall:
+	- Fix for not correctly detecting world zone player was in.
