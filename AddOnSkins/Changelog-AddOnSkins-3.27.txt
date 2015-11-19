@@ -1,0 +1,15 @@
+tag 3.27
+d17c99e6b00ef3c84f09e59f107cd97e6a856cad
+Azilroka <darktemplar9900@yahoo.com>
+2015-11-18 14:05:59 -0600
+
+
+
+--------------------
+
+Azilroka:
+	- 3.27
+	- Backup just incase it fails to load the file order correctly.
+	- Force New Version of ElvUI
+	- Bartender
+	- Leaked Global
