@@ -1,9 +1,21 @@
 ------------------------------------------------------------------------
-r559 | tiker | 2015-11-13 23:45:05 +0000 (Fri, 13 Nov 2015) | 1 line
+r562 | tiker | 2015-11-19 17:33:27 +0000 (Thu, 19 Nov 2015) | 1 line
 Changed paths:
-   A /tags/6.2.5 (from /trunk:558)
+   A /tags/6.2.6 (from /trunk:561)
 
-Tagging as 6.2.5
+Tagging as 6.2.6
+------------------------------------------------------------------------
+r561 | tiker | 2015-11-19 17:27:29 +0000 (Thu, 19 Nov 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated version in TOC for 6.2.6 release
+------------------------------------------------------------------------
+r560 | tiker | 2015-11-19 17:26:33 +0000 (Thu, 19 Nov 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Infinite Timereaver"
 ------------------------------------------------------------------------
 r558 | tiker | 2015-11-13 23:41:53 +0000 (Fri, 13 Nov 2015) | 1 line
 Changed paths:
