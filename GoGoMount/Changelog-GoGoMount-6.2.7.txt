@@ -1,9 +1,29 @@
 ------------------------------------------------------------------------
-r562 | tiker | 2015-11-19 17:33:27 +0000 (Thu, 19 Nov 2015) | 1 line
+r565 | tiker | 2015-11-24 22:18:07 +0000 (Tue, 24 Nov 2015) | 1 line
 Changed paths:
-   A /tags/6.2.6 (from /trunk:561)
+   A /tags/6.2.7 (from /trunk:564)
 
-Tagging as 6.2.6
+Tagging as 6.2.7
+------------------------------------------------------------------------
+r564 | tiker | 2015-11-24 22:17:42 +0000 (Tue, 24 Nov 2015) | 8 lines
+Changed paths:
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+First batch of new Legion mounts
+- Added support for "Demonsaber"
+- Added support for "Enchanted Chicken"
+- Added support for "Felsaber"
+- Added support for "Prestigious War Steed"
+- Added support for "Prestigious War Wolf"
+- Added support for "Spirit of Eche'ro"
+Updated TOC version for release
+------------------------------------------------------------------------
+r563 | tiker | 2015-11-19 17:34:40 +0000 (Thu, 19 Nov 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Disabled test flag - should have been done before the last few release versions.
 ------------------------------------------------------------------------
 r561 | tiker | 2015-11-19 17:27:29 +0000 (Thu, 19 Nov 2015) | 1 line
 Changed paths:
