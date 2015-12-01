@@ -1,0 +1,15 @@
+tag v1.5.3
+05c88e430b20243efa0ba902aabdfe19274eb6f2
+Hendrik Leppkes <h.leppkes@gmail.com>
+2015-11-30 13:49:51 +0100
+
+Tag as v1.5.3
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Update TOC
+	- Unify handling of zone info handling
+	- Properly use HereBeDragons for minimap data
+	This fixes a few problems with data being unavailable in some zones

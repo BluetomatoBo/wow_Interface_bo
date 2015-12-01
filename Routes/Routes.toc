@@ -1,17 +1,17 @@
-﻿## Interface: 60000
+﻿## Interface: 60200
 ## Title: Routes
 ## Notes: Routes on your worldmap and minimap!
 ## Notes-frFR: Routes sur votre carte du monde et minicarte !
 ## Notes-zhCN:Routes可以在已有采集相关数据的基础上形成采集路线，并可以优化路线，提高采集效率。
 ## Author: Grum, Xinhuan
-## Version: v1.5.2b
+## Version: v1.5.3
 ## DefaultState: enabled
 ## X-Category: Map
 ## X-eMail: routes @ grum DOT nl & xinhuan @ gmail DOT com
 ## X-Name: Routes
 ## OptionalDeps: Ace3, HereBeDragons-1.0, Cartographer, Cartographer_Notes, GatherMate, GatherMate2, Gatherer, HandyNotes
 ## SavedVariables: RoutesDB
-## X-Curse-Packaged-Version: v1.5.2b
+## X-Curse-Packaged-Version: v1.5.3
 ## X-Curse-Project-Name: Routes
 ## X-Curse-Project-ID: routes
 ## X-Curse-Repository-ID: wow/routes/mainline

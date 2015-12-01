@@ -1,6 +1,6 @@
 -- HereBeDragons is a data API for the World of Warcraft mapping system
 
-local MAJOR, MINOR = "HereBeDragons-1.0", 7
+local MAJOR, MINOR = "HereBeDragons-1.0", 15
 assert(LibStub, MAJOR .. " requires LibStub")
 
 local HereBeDragons, oldversion = LibStub:NewLibrary(MAJOR, MINOR)
@@ -17,6 +17,9 @@ HereBeDragons.microDungeons    = HereBeDragons.microDungeons or {}
 HereBeDragons.transforms       = HereBeDragons.transforms or {}
 
 HereBeDragons.callbacks        = CBH:New(HereBeDragons, nil, nil, false)
+
+-- constants
+local TERRAIN_MATCH = "_terrain%d+$"
 
 -- Lua upvalues
 local PI2 = math.pi * 2
@@ -45,6 +48,7 @@ local instanceIDOverrides = {
     [1158] = 1116, -- Alliance Garrison 1
     [1159] = 1116, -- Alliance Garrison 2
     [1160] = 1116, -- Alliance Garrison 3
+    [1191] = 1116, -- Ashran PvP Zone
     [1464] = 1116, -- Tanaan
     [1465] = 1116, -- Tanaan
 }
@@ -69,7 +73,7 @@ local function RestoreWMU()
 end
 
 -- gather map info, but only if this isn't an upgrade (or the upgrade version forces a re-map)
-if not oldversion or oldversion < 7 then
+if not oldversion or oldversion < 15 then
     -- wipe old data, if required, otherwise the upgrade path isn't triggered
     if oldversion then
         wipe(mapData)
@@ -148,9 +152,10 @@ if not oldversion or oldversion < 7 then
         end
 
         -- dimensions of the map
-        local instanceID, _, _, left, right, top, bottom = GetAreaMapInfo(id)
+        local originalInstanceID, _, _, left, right, top, bottom = GetAreaMapInfo(id)
+        local instanceID = originalInstanceID
         if (left and top and right and bottom and (left ~= 0 or top ~= 0 or right ~= 0 or bottom ~= 0)) then
-            instanceID, left, right, top, bottom = applyMapTransforms(instanceID, left, right, top, bottom)
+            instanceID, left, right, top, bottom = applyMapTransforms(originalInstanceID, left, right, top, bottom)
             mapData[id] = { left - right, top - bottom, left, top }
         else
             mapData[id] = { 0, 0, 0, 0 }
@@ -162,7 +167,7 @@ if not oldversion or oldversion < 7 then
         local mapFile = GetMapInfo()
         if mapFile then
             -- remove phased terrain from the map names
-            mapFile = mapFile:gsub("_terrain%d+$", "")
+            mapFile = mapFile:gsub(TERRAIN_MATCH, "")
 
             if not mapToID[mapFile] then mapToID[mapFile] = id end
             mapData[id].mapFile = mapFile
@@ -173,10 +178,6 @@ if not oldversion or oldversion < 7 then
         mapData[id].Z = Z or -100
 
         if mapData[id].C > 0 and mapData[id].Z >= 0 then
-            if not microDungeons[instanceID] then
-                microDungeons[instanceID] = {}
-            end
-
             -- store C/Z lookup table
             if not continentZoneMap[C] then
                 continentZoneMap[C] = {}
@@ -192,19 +193,26 @@ if not oldversion or oldversion < 7 then
             mapData[id].fakefloor = true
         end
 
-        if DungeonUsesTerrainMap() then
-            numFloors = numFloors - 1
-        end
-
         mapData[id].floors = {}
         if numFloors > 0 then
             for f = 1, numFloors do
                 SetDungeonMapLevel(f)
                 local _, right, bottom, left, top = GetCurrentMapDungeonLevel()
                 if left and top and right and bottom then
+                    instanceID, left, right, top, bottom = applyMapTransforms(originalInstanceID, left, right, top, bottom)
                     mapData[id].floors[f] = { left - right, top - bottom, left, top }
                     mapData[id].floors[f].instance = mapData[id].instance
+                elseif f == 1 and DungeonUsesTerrainMap() then
+                    mapData[id].floors[f] = { mapData[id][1], mapData[id][2], mapData[id][3], mapData[id][4] }
+                    mapData[id].floors[f].instance = mapData[id].instance
                 end
+            end
+        end
+
+        -- setup microdungeon storage if the its a zone map or has no floors of its own
+        if (mapData[id].C > 0 and mapData[id].Z > 0) or numFloors == 0 then
+            if not microDungeons[instanceID] then
+                microDungeons[instanceID] = {}
             end
         end
     end
@@ -328,17 +336,17 @@ end
 local function getMapDataTable(mapID, level)
     if not mapID then return nil end
     if type(mapID) == "string" then
-        mapID = mapID:gsub("_terrain%d+$", "")
+        mapID = mapID:gsub(TERRAIN_MATCH, "")
         mapID = mapToID[mapID]
     end
     local data = mapData[mapID]
     if not data then return nil end
 
-    if (level == nil or level == 0) and data.fakefloor then
+    if (type(level) ~= "number" or level == 0) and data.fakefloor then
         level = 1
     end
 
-    if level and level > 0 then
+    if type(level) == "number" and level > 0 then
         if data.floors[level] then
             return data.floors[level]
         elseif microDungeons[data.instance] and microDungeons[data.instance][level] then
@@ -353,7 +361,13 @@ local function UpdateCurrentPosition()
     UnregisterWMU()
 
     -- save active map and level
+    local prevContinent
     local prevMapID, prevLevel = GetCurrentMapAreaID(), GetCurrentMapDungeonLevel()
+
+    -- handle continent maps (751 is the maelstrom continent, which fails with SetMapByID)
+    if not prevMapID or prevMapID < 0 or prevMapID == 751 then
+        prevContinent = GetCurrentMapContinent()
+    end
 
     -- set current map
     SetMapToCurrentZone()
@@ -362,6 +376,11 @@ local function UpdateCurrentPosition()
     local newMapID, newLevel = GetCurrentMapAreaID(), GetCurrentMapDungeonLevel()
     local mapFile, _, _, isMicroDungeon, microFile = GetMapInfo()
 
+    -- we want to ignore any terrain phasings
+    if mapFile then
+        mapFile = mapFile:gsub(TERRAIN_MATCH, "")
+    end
+
     -- hack to update the mapfile for the garrison map (as it changes when the player updates his garrison)
     -- its not ideal to only update it when the player is in the garrison, but updates should only really happen then
     if (newMapID == 971 or newMapID == 976) and mapData[newMapID] and mapFile ~= mapData[newMapID].mapFile then
@@ -369,12 +388,16 @@ local function UpdateCurrentPosition()
     end
 
     -- restore previous map
-    if prevMapID and prevMapID ~= newMapID then
-        SetMapByID(prevMapID)
-    end
-    -- and level
-    if prevLevel and prevLevel > 0 then
-        SetDungeonMapLevel(prevLevel)
+    if prevContinent then
+        SetMapZoom(prevContinent)
+    else
+        if prevMapID and prevMapID ~= newMapID then
+            SetMapByID(prevMapID)
+        end
+        -- and level
+        if prevLevel and prevLevel > 0 then
+            SetDungeonMapLevel(prevLevel)
+        end
     end
 
     RestoreWMU()
@@ -410,7 +433,7 @@ end
 -- @param mapID numeric mapID or mapFile
 function HereBeDragons:GetLocalizedMap(mapID)
     if type(mapID) == "string" then
-        mapID = mapID:gsub("_terrain%d+$", "")
+        mapID = mapID:gsub(TERRAIN_MATCH, "")
         mapID = mapToID[mapID]
     end
     return mapData[mapID] and mapData[mapID].name or nil
@@ -420,7 +443,7 @@ end
 -- @param mapFile Map File
 function HereBeDragons:GetMapIDFromFile(mapFile)
     if mapFile then
-        mapFile = mapFile:gsub("_terrain%d+$", "")
+        mapFile = mapFile:gsub(TERRAIN_MATCH, "")
         return mapToID[mapFile]
     end
     return nil
@@ -467,7 +490,7 @@ end
 function HereBeDragons:GetNumFloors(mapID)
     if not mapID then return 0 end
     if type(mapID) == "string" then
-        mapID = mapID:gsub("_terrain%d+$", "")
+        mapID = mapID:gsub(TERRAIN_MATCH, "")
         mapID = mapToID[mapID]
     end
 
@@ -597,6 +620,20 @@ function HereBeDragons:GetWorldVector(instanceID, oX, oY, dX, dY)
     return angle, distance
 end
 
+--- Get the current world position of the specified unit
+-- The position is transformed to the current continent, if applicable
+-- NOTE: The same restrictions as for the UnitPosition() API apply,
+-- which means a very limited set of unit ids will actually work.
+-- @param unitId Unit Id
+-- @return x, y, instanceID
+function HereBeDragons:GetUnitWorldPosition(unitId)
+    -- get the current position
+    local y, x, z, instanceID = UnitPosition(unitId)
+
+    -- return transformed coordinates
+    return applyCoordinateTransforms(x, y, instanceID)
+end
+
 --- Get the current world position of the player
 -- The position is transformed to the current continent, if applicable
 -- @return x, y, instanceID
@@ -617,12 +654,13 @@ end
 
 --- Get the current position of the player on a zone level
 -- The returned values are local point coordinates, 0-1. The mapFile can represent a micro dungeon.
+-- @param allowOutOfBounds Allow coordinates to go beyond the current map (ie. outside of the 0-1 range), otherwise nil will be returned
 -- @return x, y, mapID, level, mapFile, isMicroDungeon
-function HereBeDragons:GetPlayerZonePosition()
+function HereBeDragons:GetPlayerZonePosition(allowOutOfBounds)
     if not currentPlayerZoneMapID then return nil, nil, nil, nil end
     local x, y, instanceID = self:GetPlayerWorldPosition()
 
-    x, y = self:GetZoneCoordinatesFromWorld(x, y, currentPlayerZoneMapID, currentPlayerLevel)
+    x, y = self:GetZoneCoordinatesFromWorld(x, y, currentPlayerZoneMapID, currentPlayerLevel, allowOutOfBounds)
     if x and y then
         return x, y, currentPlayerZoneMapID, currentPlayerLevel, currentMapFile, currentMapIsMicroDungeon
     end
