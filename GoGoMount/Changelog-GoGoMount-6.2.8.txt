@@ -1,9 +1,33 @@
 ------------------------------------------------------------------------
-r565 | tiker | 2015-11-24 22:18:07 +0000 (Tue, 24 Nov 2015) | 1 line
+r570 | tiker | 2015-12-06 19:28:23 +0000 (Sun, 06 Dec 2015) | 1 line
 Changed paths:
-   A /tags/6.2.7 (from /trunk:564)
+   A /tags/6.2.8 (from /trunk:569)
 
-Tagging as 6.2.7
+Tagging as 6.2.8
+------------------------------------------------------------------------
+r569 | tiker | 2015-12-06 19:27:45 +0000 (Sun, 06 Dec 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated TOC for 6.2.8 release
+------------------------------------------------------------------------
+r568 | tiker | 2015-12-06 19:27:17 +0000 (Sun, 06 Dec 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+"Grove Warden" can fly
+------------------------------------------------------------------------
+r567 | tiker | 2015-11-30 04:37:27 +0000 (Mon, 30 Nov 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Added zone 1026 - Hellfire Citadel
+------------------------------------------------------------------------
+r566 | tiker | 2015-11-24 22:20:14 +0000 (Tue, 24 Nov 2015) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Added debug information for Legion
 ------------------------------------------------------------------------
 r564 | tiker | 2015-11-24 22:17:42 +0000 (Tue, 24 Nov 2015) | 8 lines
 Changed paths:
