@@ -1359,7 +1359,7 @@ private.L["TAMEDBEASTS"] = "Bestie Addomesticabili"
 private.L["TIME_FORMAT"] = "|cff808080[%H:%M:%S]|r "
 private.L["TOOLS_TITLE"] = "|cff808080Strumenti|r"
 private.L["VIGNETTE_SCAN"] = "Mostra avvisi per i Mostri del Mistero"
-private.L["VIGNETTE_SCAN_DESC"] = "Mostra avvisi per i Mostri del Mistero. Questa è una caratteristica in beta. Al momento non c'é alcun modo per filtrare i mob, quindi verrà sempre visualizzato un'avviso anche se il mob non viene tracciato o ignorato." -- Needs review
+private.L["VIGNETTE_SCAN_DESC"] = "Mostra avvisi per i Mostri del Mistero. Questa è una caratteristica in beta. Al momento non c'é alcun modo per filtrare i mob, quindi verrà sempre visualizzato un'avviso anche se il mob non viene tracciato o ignorato."
 private.L["WOD_CHANGES"] = "A causa dei cambiamenti della cache in WoD, NPCScan non riesce più a trovare automaticamente i mob rari come prima della patch 6.0. Gli avvisi vengono attivati automaticamente solo con le vignette dei mob rari di MoP e di WoD. I mob rari delle precedenti espansioni possono essere rilevati solo tramite lo spostamento del mouse sul mob in questione (mouse over) oppure con la Macro Bersaglio Dinamica. Per ulteriori informazioni visitate la pagina di NPCScan su Curse.com"
 
 

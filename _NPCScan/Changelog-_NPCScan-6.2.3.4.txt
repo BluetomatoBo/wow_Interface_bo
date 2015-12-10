@@ -1,0 +1,14 @@
+tag 6.2.3.4
+dbc21c1455ecc55996b2394d60e7305df29e5a6d
+SLOKnightfall <SLOKnightfall@gmail.com>
+2015-12-05 21:01:57 -0800
+
+Tagging updates
+
+
+--------------------
+
+SLOKnightfall:
+	- -Fix for not triggering Vignette alerts when mob is not found in DB or when the Vignette name does not match the mob name in the DB.
+	- Removed outdated manual changelog Localization update
+	- Fix to correctly determine when the player is in Deepholm
