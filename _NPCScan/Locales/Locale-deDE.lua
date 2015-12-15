@@ -1320,11 +1320,11 @@ private.L["FOUND_TAMABLE_FORMAT"] = "|cff808080“%s”|r gefunden!  |cffff2020(
 private.L["FOUND_TAMABLE_WRONGZONE_FORMAT"] = "|cffff2020Falscher Alarm:|r Zähmbarer Mob gefunden |cff808080“%s”|r in %s anstatt von %s (ID %d); mit Sicherheit ein Begleiter."
 private.L["FOUND_UNIT_DEAD"] = "%s gefunden aber ist Tod."
 private.L["FOUND_UNIT_TAXI"] = "%s gefunden während eines Fluges nähe %d, %d in %s."
-private.L["HELLBANE_SCAN"] = "Warnungen anzeigen, wenn Mobs aus 'Ein Höllenabenteuer' auf der Weltkarte erscheinen." -- Needs review
+private.L["HELLBANE_SCAN"] = "Warnungen anzeigen, wenn Mobs aus 'Ein Höllenabenteuer' auf der Weltkarte erscheinen."
 private.L["MOUSEOVER_SCAN"] = "Zeige Alarm für Kreaturen beim überfahren mit der Maus."
 private.L["MOUSEOVER_SCAN_DESC"] = "Zeigt den Alarm für Kreaturen beim überfahren mit der Maus, auch wenn er schon im Cache ist."
 private.L["NAMEPLATE_SCAN"] = "Mob-Namensplaketten verwenden, um Benachrichtigungen auszulösen"
--- private.L["NAMEPLATE_SCAN_DESC"] = "This method is not exact as the nameplate much match the name in the NPCScan database."
+private.L["NAMEPLATE_SCAN_DESC"] = "Diese Methode ist nicht genau, wie das Namensschild vieler entsprechenden Namen in der Datenbank von NPCScan."
 private.L["PRINT_FORMAT"] = "%s_|cffCCCC88NPCScan|r: %s"
 private.L["RAREMOBS"] = "Seltene Kreaturen"
 private.L["SEARCH_ACHIEVEMENTADDFOUND"] = "Suche nach NPCs abgeschlossener Erfolge"
@@ -1359,7 +1359,7 @@ private.L["TAMEDBEASTS"] = "Zähmbare Tiere"
 private.L["TIME_FORMAT"] = "|cff808080[%H:%M:%S]|r "
 private.L["TOOLS_TITLE"] = "|cff808080Werkzeuge|r"
 private.L["VIGNETTE_SCAN"] = "Warnungen für Vignette Mobs anzeigen"
-private.L["VIGNETTE_SCAN_DESC"] = "Warnungen für Vignette-Mobs anzeigen.Dies ist ein Beta-Feature: Derzeit gibt es keine Möglichkeit Mobs zu filtern, so dass es immer ausgelöst wird, selbst wenn der Mob nicht verfolgt oder ignoriert wird." -- Needs review
+private.L["VIGNETTE_SCAN_DESC"] = "Warnungen für Vignette Mobs anzeigen.Dies ist ein Beta Feature: Derzeit gibt es keine Möglichkeit Mobs zu filtern, so dass es immer ausgelöst wird, selbst wenn der Mob nicht verfolgt oder ignoriert wird."
 private.L["WOD_CHANGES"] = "Aufgrund von Änderungen am WoD-Spielecache kann NPCScan keine Mobs mehr automatisch erkennen, wie es es vor 6.0 noch konnte. Benachrichtigungen aufgrund von seltenen Mobs von MoP & WoD können jetzt nur noch durch die Vignette ausgelöst werden. Seltene Mobs aus vorherigen Erweiterungen können nur beim Überfahren mit der Maus oder von einem dynamischen Zielmakro erkannt werden. Für weitere Informationen besuche die NPCScan-Seite auf Curse.com"
 
 

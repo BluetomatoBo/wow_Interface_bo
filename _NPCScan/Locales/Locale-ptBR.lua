@@ -719,7 +719,7 @@ private.L.NPCs["70530"] = "Ra'sha"
 private.L.NPCs["7104"] = "Áridus"
 private.L.NPCs["7137"] = "Immolatus"
 private.L.NPCs["71665"] = "Mata-Gigantes Kul"
-private.L.NPCs["71721"] = "Mãe Gélida do Cânion" -- Needs review
+private.L.NPCs["71721"] = "Mãe Gélida do Cânion"
 private.L.NPCs["71864"] = "Spelurk"
 private.L.NPCs["71919"] = "Zhu-Gon, o Azedo"
 private.L.NPCs["71992"] = "Presa Lunar <Matriarca do Covil de Negraluna>"
@@ -912,7 +912,7 @@ private.L.NPCs["80725"] = "Sulfúreo"
 private.L.NPCs["80868"] = "Glut"
 private.L.NPCs["81038"] = "Gelgor, da Chama Azul"
 private.L.NPCs["81406"] = "Bahamolho"
-private.L.NPCs["81548"] = "Charl Asarruína" -- Needs review
+private.L.NPCs["81548"] = "Charl Asarruína"
 private.L.NPCs["81639"] = "Reispinho Fili"
 -- private.L.NPCs["81681"] = "Da Keeper"
 -- private.L.NPCs["81766"] = "Skagg"
@@ -1359,7 +1359,7 @@ private.L["TAMEDBEASTS"] = "Feras Domável"
 private.L["TIME_FORMAT"] = "|cff808080[%H:%M:%S]|r "
 private.L["TOOLS_TITLE"] = "|cff808080Ferramentas|r"
 private.L["VIGNETTE_SCAN"] = "Mostrar alertas para Vinheta de PNJ's"
-private.L["VIGNETTE_SCAN_DESC"] = "Mostrar alertas para Vinheta de PNJ's.  Esta é uma função BETA:  Não há atualmente nenhuma maneira de filtrar pnj's, por isso sempre irá disparar mesmo pnj não rastreado ou ignorado." -- Needs review
+private.L["VIGNETTE_SCAN_DESC"] = "Mostrar alertas para Vinheta de PNJ's.  Esta é uma função BETA:  Não há atualmente nenhuma maneira de filtrar pnj's, por isso sempre irá disparar mesmo pnj não rastreado ou ignorado."
 -- private.L["WOD_CHANGES"] = "Due to changed to the game cache in WoD, NPCScan can no longer auto detect mobs as it could pre 6.0.  Now alerts can be only be automatically triggered off of vignette rares from MoP & Wod. Rare mobs from previous expansions can only be detected via mouse over or from the dynamic target macro keybind.  For more information please see the NPCScan page on Curse.com"
 
 

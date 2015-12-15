@@ -1323,8 +1323,8 @@ private.L["FOUND_UNIT_TAXI"] = "%s trouvé(e) durant le trajet en vol près de %
 private.L["HELLBANE_SCAN"] = "Afficher les alertes quand les monstres du fléau infernal apparaissent sur la carte du monde."
 private.L["MOUSEOVER_SCAN"] = "Afficher les alertes des monstres à leur survol par la souris."
 private.L["MOUSEOVER_SCAN_DESC"] = "Affiche les alertes des monstres à leur survol par la souris, même s'ils sont déjà dans le cache."
-private.L["NAMEPLATE_SCAN"] = "Utiliser les barres de vies des monstre pour provoquer les alertes." -- Needs review
-private.L["NAMEPLATE_SCAN_DESC"] = "Cette méthode n'est pas infaillible car la barre de vie doit correspondre au nom dans la base de données NPCScan." -- Needs review
+private.L["NAMEPLATE_SCAN"] = "Utiliser les barres de vies des monstre pour provoquer les alertes."
+private.L["NAMEPLATE_SCAN_DESC"] = "Cette méthode n'est pas infaillible car la barre de vie doit correspondre au nom dans la base de données NPCScan."
 private.L["PRINT_FORMAT"] = "%s_|cffCCCC88NPCScan|r : %s"
 private.L["RAREMOBS"] = "Monstres rares"
 private.L["SEARCH_ACHIEVEMENTADDFOUND"] = "Rechercher les PNJs déjà réussis dans les hauts faits."
@@ -1359,7 +1359,7 @@ private.L["TAMEDBEASTS"] = "Bêtes domptables"
 private.L["TIME_FORMAT"] = "|cff808080[%H:%M:%S]|r "
 private.L["TOOLS_TITLE"] = "|cff808080Outils|r"
 private.L["VIGNETTE_SCAN"] = "Afficher les alertes des monstres Vignette."
-private.L["VIGNETTE_SCAN_DESC"] = "Affiche les alertes des montres Vignette. Cette fonctionnalité est en bêta : il n'a actuellement aucun moyen de filtrer les monstres, elles seront donc toujours déclenchées même si un monstre n'est pas surveillé ou ignoré." -- Needs review
+private.L["VIGNETTE_SCAN_DESC"] = "Affiche les alertes des montres Vignette. Cette fonctionnalité est en bêta : il n'a actuellement aucun moyen de filtrer les monstres, elles seront donc toujours déclenchées même si un monstre n'est pas surveillé ou ignoré."
 private.L["WOD_CHANGES"] = "À cause de changements au cache du jeu à WoD, NPCScan ne peut plus auto-détecter les mobs comme avant la 6.0. Désormais les alertes ne peuvent être déclenchées automatiquement que par les vignettes rares de MoP et WoD. Les mobs rares des extensions précédentes ne peuvent plus être détectés qu'en passant la souris dessus ou avec la macro de ciblage dynamique. Pour plus d'informations voyez la page de NPCScan sur Curse.com."
 
 
