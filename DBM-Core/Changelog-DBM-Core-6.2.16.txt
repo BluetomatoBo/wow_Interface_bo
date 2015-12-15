@@ -1,0 +1,51 @@
+tag 6.2.16
+07defddfb48f74b6f0041ecc28979e88dafd76a4
+subversion <svn@deadlybossmods.com>
+2015-12-15 11:26:14 +0100
+
+Tagging as 6.2.16
+
+
+--------------------
+
+subversion:
+	- increment version number to 6.2.16
+	- Omega via svn r14712: adjust archimonde line/dot scales with new anchor. the other fights will need review next week
+	- Omega via svn r14711: CN update
+	- Omega via svn r14710: This has more chance to work
+	- Omega via svn r14709: Force hud on by default for mark of legion Change it to turn red if you walk into it so you know which ones you are in range of Show player dot as well This may be completely broken, if it is, sorry. It?\226?\128?\153s near impossible to test.
+	- Omega via svn r14708: Add more strict blocks to prevent combat with bosses tamed by hunters.
+	- ultrashining via svn r14707: zhTW update
+	- ultrashining via svn r14706: zhTW update
+	- Omega via svn r14705: uncomment this. it seems accurate enough. It?\226?\128?\153s on a boss it doesn?\226?\128?\153t really matter on though.
+	- Omega via svn r14704: Make hudar match radar behavior of +0.5 buffer
+	- Omega via svn r14703: move entire hud to worldframe instead of uiparent. This should make it work correctly with viewpoints. It needs testing to ensure no regressions though.
+	- Omega via svn r14702: Add 1 yard of buffer to shackle radius
+	- Omega via svn r14701: fix lua error
+	- Omega via svn r14700: Fix the wipe messages correctly
+	- Omega via svn r14699: Bump HF revision
+	- Omega via svn r14698: Add a global disable while at it, for those that just prefer to use a custom WA solution.
+	- Omega via svn r14697: Better fix for shackle spam on phase changes.
+	- Omega via svn r14696: don?\226?\128?\153t announce unleashed torment while banished
+	- Omega via svn r14695: German update
+	- Omega via svn r14694: CN update
+	- Omega via svn r14693: Text tweaks
+	- Omega via svn r14692: Use localized name though not number
+	- Omega via svn r14691: Change mark of legion a bit to support variable configs. Numbered by default (matching BW), location based with melee left/right and ranged left/right that puts short debuffs in melee and long at ranged, and location based with melee left/right and ranged left/right that puts short debuffs in ranged and long in melee. Method used is chosen by raid leader and synced to raid for uniformity. If no sync from raid leader is sent then it always defaults to numbered, on assumption RL is using BW.
+	- Omega via svn r14690: Use SetFromAlpha/SetToAlpha like blizzard does, since they removed SetChange in legion
+	- Omega via svn r14689: Possibly fix issues where users don?\226?\128?\153t see wipe messages
+	- Omega via svn r14688: Avoid death brand count increasing when boss recasts because target died. Avoid double warning for demonic feedback Avoid soon warnings firing at incorrect time after timer updates
+	- Omega via svn r14687: torment and allure also have special ICD treatment.
+	- Omega via svn r14686: Minor tweaks
+	- Omega via svn r14685: Antispam for flames of argus
+	- Omega via svn r14684: and fix bug with countdown while at it
+	- Omega via svn r14683: Been meaning to fix this for week. fixed logic code in grim rail enforcers where the more rapid flaming slash timer was only applied to heroic but not mythic or CM difficulty. the slow timer should be normal only.
+	- Omega via svn r14682: Move default voices around a bit to reduce overlaps and provide better distinctions
+	- Omega via svn r14681: Another tweak
+	- Omega via svn r14680: tweak
+	- Omega via svn r14679: Fix it so wrought chaos warning actually IS fixed so it?\226?\128?\153s not spammy
+	- ebmor via svn r14678: deDE update
+	- Omega via svn r14677: Switch mark of legion yells to location based, instead of expire time Changed wrought warning to only fire once on mythic, not for every set to reduce spam Changed countdown default for death brand to be off by default for non tanks. changed chaos warnings from ?\226?\128?\156move away?\226?\128?\157 to ?\226?\128?\156you?\226?\128?\157 warnings.
+	- Omega via svn r14676: Fix another case of glad stance nil in 7.0
+	- Omega via svn r14675: Add Havok and vengeance demon hunter specs to role recognition Add nil check for gladiator stance check to prevent errors in 7.0 No other issues found in preliminary 7.0 mod test
+	- tandanu via svn r14674: increment alpha version

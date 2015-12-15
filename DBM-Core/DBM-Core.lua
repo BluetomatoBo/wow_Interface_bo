@@ -40,9 +40,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14672 $"):sub(12, -3)),
-	DisplayVersion = "6.2.15", -- the string that is shown as version
-	ReleaseRevision = 14672 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 14712 $"):sub(12, -3)),
+	DisplayVersion = "6.2.16", -- the string that is shown as version
+	ReleaseRevision = 14712 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -435,7 +435,7 @@ local floor, mhuge, mmin, mmax = math.floor, math.huge, math.min, math.max
 local GetNumGroupMembers, GetRaidRosterInfo = GetNumGroupMembers, GetRaidRosterInfo
 local UnitName, GetUnitName = UnitName, GetUnitName
 local IsInRaid, IsInGroup, IsInInstance = IsInRaid, IsInGroup, IsInInstance
-local UnitAffectingCombat, InCombatLockdown, IsEncounterInProgress = UnitAffectingCombat, InCombatLockdown, IsEncounterInProgress
+local UnitAffectingCombat, InCombatLockdown, IsEncounterInProgress, UnitPlayerOrPetInRaid, UnitPlayerOrPetInParty = UnitAffectingCombat, InCombatLockdown, IsEncounterInProgress, UnitPlayerOrPetInRaid, UnitPlayerOrPetInParty
 local UnitGUID, UnitHealth, UnitHealthMax, UnitBuff = UnitGUID, UnitHealth, UnitHealthMax, UnitBuff
 local UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit, UnitIsAFK = UnitExists, UnitIsDead, UnitIsFriend, UnitIsUnit, UnitIsAFK
 local GetSpellInfo, EJ_GetSectionInfo, GetSpellTexture, GetActiveSpecGroup, GetSpellCooldown = GetSpellInfo, EJ_GetSectionInfo, GetSpellTexture, GetActiveSpecGroup, GetSpellCooldown
@@ -2998,7 +2998,7 @@ function DBM:LoadModOptions(modId, inCombat, first)
 	end
 	_G[savedVarsName][fullname] = savedOptions
 	if profileNum > 0 then
-		_G[savedVarsName][fullname]["talent"..profileNum] = profileNum == 3 and gladStance or currentSpecName
+		_G[savedVarsName][fullname]["talent"..profileNum] = profileNum == 3 and (gladStance or "Glad Stance Temp") or currentSpecName
 		self:Debug("LoadModOptions: Finished loading ".._G[savedVarsName][fullname]["talent"..profileNum])
 	end
 	_G[savedStatsName] = savedStats
@@ -4975,7 +4975,7 @@ do
 		if not checkEntry(inCombat, mob) then
 			buildTargetList()
 			if targetList[mob] then
-				if delay > 0 and UnitAffectingCombat(targetList[mob]) then
+				if delay > 0 and UnitAffectingCombat(targetList[mob]) and not (UnitPlayerOrPetInRaid(targetList[mob]) or UnitPlayerOrPetInParty(targetList[mob])) then
 					DBM:StartCombat(mod, delay, "PLAYER_REGEN_DISABLED")
 				elseif (delay == 0) then
 					DBM:StartCombat(mod, 0, "PLAYER_REGEN_DISABLED_AND_MESSAGE")
@@ -5684,7 +5684,7 @@ do
 		end
 		if not health or health < 5 then return end -- no worthy of combat start if health is below 5%
 		if dbmIsEnabled and InCombatLockdown() then
-			if cId ~= 0 and not bossHealth[cId] and bossIds[cId] and UnitAffectingCombat(uId) and healthCombatInitialized then -- StartCombat by UNIT_HEALTH.
+			if cId ~= 0 and not bossHealth[cId] and bossIds[cId] and UnitAffectingCombat(uId) and not (UnitPlayerOrPetInRaid(uId) or UnitPlayerOrPetInParty(uId)) and healthCombatInitialized then -- StartCombat by UNIT_HEALTH.
 				if combatInfo[LastInstanceMapID] then
 					for i, v in ipairs(combatInfo[LastInstanceMapID]) do
 						if v.mod.Options.Enabled and not v.mod.disableHealthCombat and v.type:find("combat") and (v.multiMobPullDetection and checkEntry(v.multiMobPullDetection, cId) or v.mob == cId) then
@@ -5755,7 +5755,7 @@ do
 				if thisTime < 30 then -- Normally, one attempt will last at least 30 sec.
 					totalPulls = totalPulls - 1
 					mod.stats[statVarTable[savedDifficulty].."Pulls"] = totalPulls
-					if self.Options.ShowWipeMessage then
+					if self.Options.ShowDefeatMessage then
 						if scenario then
 							self:AddMsg(DBM_CORE_SCENARIO_ENDED_AT:format(difficultyText..name, strFromTime(thisTime)))
 						else
@@ -5764,7 +5764,7 @@ do
 						end
 					end
 				else
-					if self.Options.ShowWipeMessage then
+					if self.Options.ShowDefeatMessage then
 						if scenario then
 							self:AddMsg(DBM_CORE_SCENARIO_ENDED_AT_LONG:format(difficultyText..name, strFromTime(thisTime), totalPulls - totalKills))
 						else
@@ -6064,7 +6064,7 @@ do
 end
 
 function DBM:SetCurrentSpecInfo()
-	if UnitBuff("player", gladStance) then 
+	if gladStance and UnitBuff("player", gladStance) then 
 		currentSpecGroup = 3 -- give 3rd spec option only for glad stance.
 		currentSpecID = 74 -- temp id for glad warrior, bliz not uses it
 	else
@@ -6698,7 +6698,7 @@ function DBM:RoleCheck(ignoreLoot)
 	local _, _, _, _, _, lootrole = GetSpecializationInfoByID(specID)
 	if not InCombatLockdown() and ((IsPartyLFG() and (difficultyIndex == 14 or difficultyIndex == 15)) or not IsPartyLFG()) then
 		local tempRole--Use temp role because we still want Role to be "tank" for loot check comparison at bottom (gladiators still use tank gear)
-		if role == "TANK" and UnitBuff("player", gladStance) then--Special handling for gladiator stance
+		if gladStance and role == "TANK" and UnitBuff("player", gladStance) then--Special handling for gladiator stance
 			currentSpecGroup = 3 -- give 3rd spec option only for glad stance.
 			currentSpecID = 74 -- temp id for glad warrior, bliz not uses it
 			tempRole = "DAMAGER"
@@ -7734,6 +7734,17 @@ do
 			["RaidCooldown"] = true,--Revival
 			["RemovePoison"] = true,
 			["RemoveDisease"] = true,
+		},
+		[577] = {	--Havok Demon Hunter
+			["Dps"] = true,
+			["Melee"] = true,
+			["MeleeDps"] = true,
+			["Physical"] = true,
+		},
+		[581] = {	--Vengeance Demon Hunter
+			["Tank"] = true,
+			["Melee"] = true,
+			["Physical"] = true,
 		},
 	}
 	specRoleTable[63] = specRoleTable[62]--Frost Mage
@@ -10574,6 +10585,10 @@ end
 
 function bossModPrototype:IsInCombat()
 	return self.inCombat
+end
+
+function bossModPrototype:IsAlive()
+	return not UnitIsDeadOrGhost("player")
 end
 
 function bossModPrototype:SetMinCombatTime(t)
