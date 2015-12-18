@@ -1,0 +1,19 @@
+tag 6.2.17
+e68f2c15939c9eb031fb0043a49c06548b51202e
+subversion <svn@deadlybossmods.com>
+2015-12-17 00:56:09 +0100
+
+Tagging as 6.2.17
+
+
+--------------------
+
+subversion:
+	- increment version number to 6.2.17
+	- Omega via svn r14720: Remove tehse too
+	- Omega via svn r14719: Remove grumpus mod. he didn?\226?\128?\153t end up being a boss.
+	- Omega via svn r14718: Tweak default voices for mannoroth so it actually uses all 3
+	- Omega via svn r14717: Slight iskar tweeks to hud pixel widths
+	- Omega via svn r14716: tweak
+	- Omega via svn r14715: Fix icon description text, I forgot, I did flip the icons too. blah.
+	- tandanu via svn r14714: increase alpha version

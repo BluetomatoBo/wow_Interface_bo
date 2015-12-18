@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1438, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14712 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14717 $"):sub(12, -3))
 mod:SetCreatureID(91331)--Doomfire Spirit (92208), Hellfire Deathcaller (92740), Felborne Overfiend (93615), Dreadstalker (93616), Infernal doombringer (94412)
 mod:SetEncounterID(1799)
 mod:SetMinSyncRevision(13964)
@@ -206,7 +206,7 @@ mod.vb.MarkBehavior = "Numbered"
 local legionTimers = {20, 63, 60, 60, 48, 46, 47}--All verified by log
 local darkConduitTimers = {8, 123, 95, 56, 52}-- All verified by log
 local infernalTimers = {35, 62.5, 63, 55, 68, 41}--All verified by log
-local sourceofChaosTimers = {49, 58, 76, 78}--All verified by log
+local sourceofChaosTimers = {49, 58, 75.5, 78}--All verified by log
 local twistedDarknessTimers = {75, 78, 42, 40, 72}--All verified by log
 local seethingCorruptionTimers = {61, 58, 52, 70, 30, 41}--All verified by log
 --Range frame/filter shit
@@ -865,13 +865,14 @@ function mod:SPELL_CAST_START(args)
 		self.vb.netherBanish2 = self.vb.netherBanish2 + 1
 		timerNetherBanishCD:Start(nil, self.vb.netherBanish2+1)
 --		updateAllTimers(self, 7)--Inconclusive logs. Could not find any data supporting this extention
-	elseif spellId == 190313 then
+	elseif spellId == 190313 then--Nether Ascention
 		playerBanished = true
-		timerAllureofFlamesCD:Cancel()--Done for rest of fight
-		timerDeathbrandCD:Cancel()--Done for rest of fight
-		timerShackledTormentCD:Cancel()--Resets to 55 on non mythic, no longer cast on mythic
+		timerAllureofFlamesCD:Cancel()
+		timerDeathbrandCD:Cancel()
+		timerShackledTormentCD:Cancel()
 		countdownShackledTorment:Cancel()
 		countdownDeathBrand:Cancel()
+		timerWroughtChaosCD:Cancel()
 	end
 end
 
@@ -1279,7 +1280,6 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			countdownShackledTorment:Start(55)
 		else
 			table.wipe(shacklesTargets)--Just to reduce infoframe overhead
-			timerWroughtChaosCD:Cancel()
 			timerDarkConduitCD:Start(8, 1)
 			setDarkConduit(self)
 			timerMarkOfLegionCD:Start(20, 1)

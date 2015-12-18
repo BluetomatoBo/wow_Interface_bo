@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1395, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14658 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14718 $"):sub(12, -3))
 mod:SetCreatureID(91349)--91305 Fel Iron Summoner
 mod:SetEncounterID(1795)
 mod:SetZone()
@@ -97,8 +97,8 @@ local timerShadowForceCD			= mod:NewCDTimer(52.2, 181799, nil, nil, nil, 3, nil,
 --local berserkTimer					= mod:NewBerserkTimer(360)
 
 local countdownGlaiveCombo			= mod:NewCountdown("Alt30", 181354, "Tank")
-local countdownMarkOfDoom			= mod:NewCountdownFades("Alt15", 181099)
-local countdownShadowForce			= mod:NewCountdown("AltTwo52", 181799)
+local countdownMarkOfDoom			= mod:NewCountdownFades("AltTwo15", 181099)
+local countdownShadowForce			= mod:NewCountdown(52, 181799)
 
 local voicePhaseChange				= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_TEXT)
 local voiceGaze						= mod:NewVoice(181597, false) --gather share
