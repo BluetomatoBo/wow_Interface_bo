@@ -10,6 +10,7 @@ ns.defaults = {
         icon_alpha = 1.0,
         icon_item = true,
         tooltip_item = true,
+        hide_if_map = false,
     },
     char = {
         hidden = {
@@ -70,6 +71,12 @@ ns.options = {
                     desc = "Show the full tooltips for items",
                     order = 10,
                 },
+                hide_if_map = {
+                    type = "toggle",
+                    name = "Hide if you own the map",
+                    desc = "Hide all items in zones for which you own the official treasure map",
+                    order = 15,
+                },
                 -- show_junk = {
                 --     type = "toggle",
                 --     name = "Junk",
@@ -122,6 +129,9 @@ ns.should_show_point = function(coord, point, currentZone, currentLevel)
         return false
     end
     if point.faction and point.faction ~= player_faction then
+        return false
+    end
+    if ns.db.hide_if_map and ns.map_questids[currentZone] and not (point.junk or point.npc or point.follower) and IsQuestFlaggedCompleted(ns.map_questids[currentZone]) then
         return false
     end
     if (not ns.db.found) then

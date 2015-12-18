@@ -1,3 +1,9 @@
+### Changed in v11
+
+* New option: hide treasures in zones whose map you own
+* Added: Ancestral Greataxe
+* Include Fen Tao in the Horde side of Ashran as well
+
 ### Changed in v10
 
 * The Pepes for I Found Pepe are now listed
