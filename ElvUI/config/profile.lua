@@ -15,6 +15,7 @@ P['general'] = {
 	['autoAcceptInvite'] = false,
 	['bottomPanel'] = true,
 	['hideErrorFrame'] = true,
+	['enhancedPvpMessages'] = true,
 	['objectiveFrameHeight'] = 480,
 	['bonusObjectivePosition'] = "LEFT",
 
@@ -535,6 +536,7 @@ P['unitframe'] = {
 					["useCustomLevel"] = false,
 					["frameLevel"] = 1,
 				},
+				["parent"] = "FRAME",
 			},
 			['name'] = {
 				['position'] = 'CENTER',
@@ -566,7 +568,7 @@ P['unitframe'] = {
 				['anchorPoint'] = 'TOPLEFT',
 				['fontSize'] = 10,
 				['sortMethod'] = 'TIME_REMAINING',
-				['sortDirection'] = 'DESCENDING',				
+				['sortDirection'] = 'DESCENDING',
 				['clickThrough'] = false,
 				['playerOnly'] = true,
 				['noConsolidated'] = true,
@@ -683,6 +685,7 @@ P['unitframe'] = {
 					["useCustomLevel"] = false,
 					["frameLevel"] = 1,
 				},
+				["parent"] = "FRAME",
 			},
 			['name'] = {
 				['position'] = 'CENTER',
@@ -1467,7 +1470,7 @@ P['unitframe'] = {
 			['rangeCheck'] = true,
 			['growthDirection'] = 'DOWN',
 			["smartAuraPosition"] = "DISABLED",
-			['spacing'] = 25,		
+			['spacing'] = 25,
 			['width'] = 240,
 			['height'] = 47,
 			['pvpSpecIcon'] = true,

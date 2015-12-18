@@ -73,6 +73,7 @@ local function LoadSkin()
 	MasterLooterFrame:StripTextures()
 	MasterLooterFrame:SetTemplate()
 	MasterLooterFrame:SetFrameStrata('FULLSCREEN_DIALOG')
+	MasterLooterFrame:SetFrameLevel(10)
 
 	hooksecurefunc("MasterLooterFrame_Show", function()
 		local b = MasterLooterFrame.Item
@@ -121,6 +122,8 @@ local function LoadSkin()
 	S:HandleCloseButton(LootFrameCloseButton)
 
 	LootFrame:SetTemplate("Transparent")
+	LootFrame:SetFrameStrata("FULLSCREEN")
+	LootFrame:SetFrameLevel(1)
 	LootFramePortraitOverlay:SetParent(E.HiddenFrame)
 
 	for i=1, LootFrame:GetNumRegions() do
