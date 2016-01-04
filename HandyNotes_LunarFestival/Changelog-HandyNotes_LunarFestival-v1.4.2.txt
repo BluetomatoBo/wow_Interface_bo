@@ -1,0 +1,12 @@
+tag v1.4.2
+155ecda6c2b79d1ac746643f89d3fe486cf0bacc
+Ethan Centaurai <ethancentaurai@outlook.com>
+2016-01-03 13:50:49 +0000
+
+Tagging as v1.4.2.
+
+
+--------------------
+
+Ethan Centaurai:
+	- Fixed another dumb copy/paste fail.

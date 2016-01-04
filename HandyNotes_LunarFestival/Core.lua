@@ -26,17 +26,14 @@ local CalendarGetDayEvent = _G.CalendarGetDayEvent
 local CalendarGetMonth = _G.CalendarGetMonth
 local CalendarGetNumDayEvents = _G.CalendarGetNumDayEvents
 local CalendarSetAbsMonth = _G.CalendarSetAbsMonth
-local CloseDropDownMenus = _G.CloseDropDownMenus
 local GameTooltip = _G.GameTooltip
 local GetAchievementCriteriaInfo = _G.GetAchievementCriteriaInfo
 local GetGameTime = _G.GetGameTime
 local GetQuestsCompleted = _G.GetQuestsCompleted
 local gsub = _G.string.gsub
+local IsControlKeyDown = _G.IsControlKeyDown
 local LibStub = _G.LibStub
 local next = _G.next
-local pairs = _G.pairs
-local ToggleDropDownMenu = _G.ToggleDropDownMenu
-local UIDropDownMenu_AddButton = _G.UIDropDownMenu_AddButton
 local UIParent = _G.UIParent
 local WorldMapButton = _G.WorldMapButton
 local WorldMapTooltip = _G.WorldMapTooltip
@@ -78,6 +75,11 @@ function LunarFestival:OnEnter(mapFile, coord)
 		tooltip:AddLine("Talk to the Time Keeper to change the zone's phase if you can't find the Elder.", 1, 1, 1)
 	end
 
+	if TomTom then
+		tooltip:AddLine("Right-click to set a waypoint.", 1, 1, 1)
+		tooltip:AddLine("Control-Right-click to set waypoints to every Elder.", 1, 1, 1)
+	end
+
 	tooltip:Show()
 end
 
@@ -89,81 +91,37 @@ function LunarFestival:OnLeave()
 	end
 end
 
-local function createWaypoint(_, mapFile, coord)
+
+local function createWaypoint(mapFile, coord)
 	local x, y = HandyNotes:getXY(coord)
 	local m = HandyNotes:GetMapFiletoMapID(mapFile)
 
 	local nameOfElder = infoFromCoord(mapFile, coord)
 
 	TomTom:AddMFWaypoint(m, nil, x, y, { title = nameOfElder })
+	TomTom:SetClosestWaypoint()
 end
 
-do
-	-- context menu generator
-	local info = {}
-	local currentZone, currentCoord, nameOfElder
-
-	local function close()
-		-- we need to do this to avoid "for initial value must be a number" errors
-		CloseDropDownMenus()
-	end
-
-	local function generateMenu(button, level)
-		if not level then return end
-
-		for k in pairs(info) do info[k] = nil end
-
-		if level == 1 then
-			-- create the title of the menu
-			info.isTitle = 1
-			info.text = nameOfElder
-			info.notCheckable = 1
-
-			UIDropDownMenu_AddButton(info, level)
-
-			if TomTom then
-				-- waypoint menu item
-				info.notCheckable = nil
-				info.disabled = nil
-				info.isTitle = nil
-				info.icon = nil
-				info.text = "Create waypoint"
-				info.func = createWaypoint
-				info.arg1 = currentZone
-				info.arg2 = currentCoord
-
-				UIDropDownMenu_AddButton(info, level)
+local function createAllWaypoints()
+	for mapFile, coords in next, points do
+		for coord, questID in next, coords do
+			if coord and (db.completed or not completedQuests[questID]) then
+				createWaypoint(mapFile, coord)
 			end
-
-			-- close menu item
-			info.text = "Close"
-			info.func = close
-			info.arg1 = nil
-			info.arg2 = nil
-			info.icon = nil
-			info.isTitle = nil
-			info.disabled = nil
-			info.notCheckable = 1
-
-			UIDropDownMenu_AddButton(info, level)
-		end
-	end
-
-	local dropdown = CreateFrame("Frame", "HandyNotes_LunarFestivalDropdownMenu")
-	dropdown.displayMode = "MENU"
-	dropdown.initialize = generateMenu
-
-	function LunarFestival:OnClick(button, down, mapFile, coord)
-		if button == "RightButton" and not down then
-			currentZone = mapFile
-			currentCoord = coord
-
-			nameOfElder = infoFromCoord(mapFile, coord)
-
-			ToggleDropDownMenu(1, nil, dropdown, self, 0, 0)
 		end
 	end
 end
+
+function LunarFestival:OnClick(button, down, mapFile, coord)
+	if TomTom and button == "RightButton" and not down then
+		if IsControlKeyDown() then
+			createAllWaypoints()
+		else
+			createWaypoint(mapFile, coord)
+		end
+	end
+end
+
 
 do
 	-- custom iterator we use to iterate over every node in a given zone
@@ -305,6 +263,8 @@ local function CheckEventActive()
 	end
 
 	if setEnabled and not LunarFestival.isEnabled then
+		completedQuests = GetQuestsCompleted(completedQuests)
+
 		LunarFestival.isEnabled = true
 		LunarFestival:Refresh()
 		LunarFestival:RegisterEvent("QUEST_TURNED_IN", "Refresh")
@@ -324,13 +284,18 @@ end
 function LunarFestival:OnEnable()
 	self.isEnabled = false
 
+	local HereBeDragons = LibStub("HereBeDragons-1.0", true)
+	if not HereBeDragons then
+		HandyNotes:Print("Your installed copy of HandyNotes is out of date and the Lunar Festival plug-in will not work correctly.  Please update HandyNotes to version 1.4.0 or newer.")
+		return
+	end
+
 	local _, month, _, year = CalendarGetDate()
 	CalendarSetAbsMonth(month, year)
 
 	C_Timer_NewTicker(15, CheckEventActive)
 	HandyNotes:RegisterPluginDB("LunarFestival", self, options)
 
-	completedQuests = GetQuestsCompleted(completedQuests)
 	db = LibStub("AceDB-3.0"):New("HandyNotes_LunarFestivalDB", defaults, "Default").profile
 end
 
