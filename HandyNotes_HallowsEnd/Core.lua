@@ -27,13 +27,12 @@ local CalendarGetMonth = _G.CalendarGetMonth
 local CalendarGetNumDayEvents = _G.CalendarGetNumDayEvents
 local CalendarSetAbsMonth = _G.CalendarSetAbsMonth
 local GameTooltip = _G.GameTooltip
-local GetAchievementCriteriaInfo = _G.GetAchievementCriteriaInfo
 local GetGameTime = _G.GetGameTime
 local GetQuestsCompleted = _G.GetQuestsCompleted
 local gsub = _G.string.gsub
+local IsControlKeyDown = _G.IsControlKeyDown
 local LibStub = _G.LibStub
 local next = _G.next
-local pairs = _G.pairs
 local UIParent = _G.UIParent
 local WorldMapButton = _G.WorldMapButton
 local WorldMapTooltip = _G.WorldMapTooltip
@@ -277,7 +276,7 @@ function HallowsEnd:OnEnable()
 end
 
 function HallowsEnd:Refresh(_, questID)
-	if questID then completedQuests[tonumber(questID)] = true end
+	if questID then completedQuests[questID] = true end
 	self:SendMessage("HandyNotes_NotifyUpdate", "HallowsEnd")
 end
 
