@@ -131,16 +131,16 @@ function VUF:AddCustomText(unit,name)
 		if not E.db.unitframe.vuf.units[unit].customTexts then E.db.unitframe.vuf.units[unit].customTexts = {} end
 		E.db.unitframe.vuf.units[unit].customTexts[name] = true
 	end
-	if E.Options.args.vuf.args[unit] then
-		E.Options.args.vuf.args[unit].args[name] = VUF:GenerateElementOptionTable(unit,name,4000,E:StringTitle(name),true,false,false,true,false,false,true,false)
-		E.Options.args.vuf.args[unit].args[name].args['delete'] = {
+	if E.Options.args.unitframe.args.vuf.args[unit] then
+		E.Options.args.unitframe.args.vuf.args[unit].args[name] = VUF:GenerateElementOptionTable(unit,name,4000,E:StringTitle(name),true,false,false,true,false,false,true,false)
+		E.Options.args.unitframe.args.vuf.args[unit].args[name].args['delete'] = {
 			type = 'execute',
 			order = 1,
 			name = DELETE,
 			func = function() 
 				E.db.unitframe.vuf.units[unit].customTexts[name] = nil;
 				E.db.unitframe.vuf.units[unit][name] = nil;
-				E.Options.args.vuf.args[unit].args[name] = nil;
+				E.Options.args.unitframe.args.vuf.args[unit].args[name] = nil;
 				frame:Tag(frame[real_name],'')
 				frame[real_name]:Hide()
 				frame[real_name] = nil

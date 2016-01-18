@@ -1,11 +1,15 @@
 ## Interface: 60200
 ## Title: |cff1784d1ElvUI |rVertical Unit Frames
 ## Author: Sortokk
-## Version: 6.09
+## Version: 6.10
 ## Notes: Vertial Unit Frames for ElvUI
 ## RequiredDeps: ElvUI
 ## X-oUF: ElvUF
 ## X-Curse-Packaged-Version: 6.09
+## X-Curse-Project-Name: ElvUI VerticalUnitFrames
+## X-Curse-Project-ID: elvui-hud
+## X-Curse-Repository-ID: wow/elvui-hud/mainline
+## X-Curse-Packaged-Version: 6.10
 ## X-Curse-Project-Name: ElvUI VerticalUnitFrames
 ## X-Curse-Project-ID: elvui-hud
 ## X-Curse-Repository-ID: wow/elvui-hud/mainline
