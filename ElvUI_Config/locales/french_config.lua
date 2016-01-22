@@ -59,6 +59,16 @@ Format des Noms:
 'name:long' - Nom limité à 20 caractères
 
 Pour désactiver, laisser le champs vide. Pour plus d'information, merci de visiter http://www.tukui.org]=];
+L["IGNORE_ITEMS_DESC"] = [=[Valid entries:
+
+Item links or item names
+
+Terms from Search Syntax. Examples:
+q:epic
+s:Tank Set
+q:epic&lvl:>300
+
+See "Bags->Search Syntax" for more.]=];
 
 --ActionBars
 L["Action Paging"] = "Pagination d'action"
@@ -127,6 +137,7 @@ L["Adjust the width of the bank frame."] = "Ajuster la largeur de la fenêtre du
 L["Align the width of the bag frame to fit inside the chat box."] = "Aligner la largeur de la fenêtre du sac pour s'adapter à l'intérieur de la zone de chat."
 L["Align To Chat"] = "Aligner sur le Chat"
 L["Ascending"] = "Ascendant"
+L["Bag Sorting"] = true;
 L["Bag-Bar"] = "Barre des sacs"
 L["Bar Direction"] = "Direction de la barre"
 L["Blizzard Style"] = "Style Blizzard";
@@ -138,6 +149,7 @@ L["Currency Format"] = "Format monétaire"
 L["Descending"] = "Descendant"
 L["Direction the bag sorting will use to allocate the items."] = "Direction du tri du sac qui sera utilisé pour allouer les objets."
 L["Display Item Level"] = "Afficher le niveau d'objet";
+L["Display the junk icon on all grey items that can be vendored."] = true;
 L["Displays item level on equippable items."] = "Afficher le niveau d'objet sur les objets qui peuvent être équipés.";
 L["Enable/Disable the all-in-one bag."] = "Activer / désactiver le sac tout-en-un."
 L["Enable/Disable the Bag-Bar."] = "Activer / Désactiver la barre des sacs."
@@ -147,7 +159,7 @@ L["Ignore Items"] = "Objets ignorés"
 L["Item Count Font"] = true;
 L["Item Level Threshold"] = "Seuil de niveau d'objet";
 L["Item Level"] = "Niveau d'objet";
-L["List of items to ignore when sorting. If you wish to add multiple items you must seperate the word with a comma."] = "Liste des objets à ignorer pendant le tri. Si vous voulez ajouter plusieurs objets, vous devez séparer les mots par une virgule."
+L["Items in this list or items that match any Search Syntax query in this list will be ignored when sorting. Separate each entry with a comma."] = true;
 L["Money Format"] = "Format monétaire";
 L["Panel Width (Bags)"] = "Largeur du panneau (Sac)"
 L["Panel Width (Bank)"] = "Largeur du panneau (Banque)"
@@ -156,6 +168,7 @@ L["Set the size of your bag buttons."] = "Définissez la taille de vos boutons d
 L["Short (Whole Numbers)"] = "Court (nombres entiers)";
 L["Short"] = "Court";
 L["Show Coins"] = "Afficher les pièces";
+L["Show Junk Icon"] = true;
 L["Smart"] = "Intelligent";
 L["Sort Direction"] = "Type de direction" --Also used in Buffs and Debuffs
 L["Sort Inverted"] = "Tri inversé"
@@ -523,8 +536,32 @@ L["X-Offset"] = "Décalage X";
 L["Y-Offset"] = "Décalage Y";
 L["You can't remove a default name from the filter, disabling the name."] = "Vous ne pouvez pas supprimer un nom qui est par défaut, cependant celui-ci est désormais désactivé."
 
+--Profiles Export/Import
+L["Choose Export Format"] = true;
+L["Choose What To Export"] = true;
+L["Decode Text"] = true;
+L["Error decoding data. Import string may be corrupted!"] = true;
+L["Error exporting profile!"] = true;
+L["Export Now"] = true;
+L["Export Profile"] = true;
+L["Exported"] = true;
+L["Filters (All)"] = true;
+L["Filters (NamePlates)"] = true;
+L["Filters (UnitFrames)"] = true;
+L["Global (Account Settings)"] = true;
+L["Import Now"] = true;
+L["Import Profile"] = true;
+L["Importing"] = true;
+L["Plugin"] = true;
+L["Private (Character Settings)"] = true;
+L["Profile imported successfully!"] = true;
+L["Profile Name"] = true;
+L["Profile"] = true;
+L["Table"] = true;
+
 --Skins
 L["Achievement Frame"] = "Fenêtre des Hauts Faits"
+L["AddOn Manager"] = true;
 L["Alert Frames"] = "Fenêtre d'Alerte"
 L["Archaeology Frame"] = "Fenêtre d'Archéologie"
 L["Auction Frame"] = "Fenêtre de l'Hôtel des ventes"
@@ -555,6 +592,7 @@ L["Loss Control"] = "Perte de contrôle"
 L["Macro Frame"] = "Fenêtre de Macro"
 L["Mail Frame"] = "Fenêtre du Courrier"
 L["Merchant Frame"] = "Marchand"
+L["Mirror Timers"] = true;
 L["Misc Frames"] = "Divers"
 L["Mounts & Pets"] = "Montures et Mascottes"
 L["Non-Raid Frame"] = "Info Raid"

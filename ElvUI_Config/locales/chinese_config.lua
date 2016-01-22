@@ -59,6 +59,16 @@ L["TEXT_FORMAT_DESC"] = [=[提供一个更改文字格式的方式
 'name:long' - 姓名显示限制于20字节内
 
 空白则为禁用. 如需技术支援请至 http://www.tukui.org]=];
+L["IGNORE_ITEMS_DESC"] = [=[Valid entries:
+
+Item links or item names
+
+Terms from Search Syntax. Examples:
+q:epic
+s:Tank Set
+q:epic&lvl:>300
+
+See "Bags->Search Syntax" for more.]=];
 
 --ActionBars
 L["Action Paging"] = "快捷列翻页"
@@ -127,6 +137,7 @@ L["Adjust the width of the bank frame."] = '调整银行框架宽度'
 L["Align the width of the bag frame to fit inside the chat box."] = '调整背包框的宽度以适应对话框'
 L["Align To Chat"] = '对齐到对话框'
 L["Ascending"] = "升序"
+L["Bag Sorting"] = true;
 L["Bag-Bar"] = "背包条"
 L["Bar Direction"] = "背包条排序方向"
 L["Blizzard Style"] = true;
@@ -138,6 +149,7 @@ L["Currency Format"] = "货币格式"
 L["Descending"] = "降序"
 L["Direction the bag sorting will use to allocate the items."] = '整理背包时物品排序方向.'
 L["Display Item Level"] = true;
+L["Display the junk icon on all grey items that can be vendored."] = true;
 L["Displays item level on equippable items."] = true;
 L["Enable/Disable the all-in-one bag."] = "开/关整合背包。"
 L["Enable/Disable the Bag-Bar."] = "启用/禁用 背包条."
@@ -147,7 +159,7 @@ L["Ignore Items"] = "忽略项目"
 L["Item Count Font"] = true;
 L["Item Level Threshold"] = true;
 L["Item Level"] = true;
-L["List of items to ignore when sorting. If you wish to add multiple items you must seperate the word with a comma."] = "忽略清单中的项目，如果你想添加多个项目，你必须用逗号将它们分开."
+L["Items in this list or items that match any Search Syntax query in this list will be ignored when sorting. Separate each entry with a comma."] = true;
 L["Money Format"] = true;
 L["Panel Width (Bags)"] = '背包面板宽度'
 L["Panel Width (Bank)"] = '银行面板宽度'
@@ -156,6 +168,7 @@ L["Set the size of your bag buttons."] = "设置背包按钮尺寸."
 L["Short (Whole Numbers)"] = true;
 L["Short"] = true;
 L["Show Coins"] = true;
+L["Show Junk Icon"] = true;
 L["Smart"] = true;
 L["Sort Direction"] = "排列方向"
 L["Sort Inverted"] = "倒序"
@@ -523,8 +536,32 @@ L["X-Offset"] = true;
 L["Y-Offset"] = true;
 L["You can't remove a default name from the filter, disabling the name."] = "你不能删除过滤器的预设筛选名, 仅能停用此筛选名"
 
+--Profiles Export/Import
+L["Choose Export Format"] = true;
+L["Choose What To Export"] = true;
+L["Decode Text"] = true;
+L["Error decoding data. Import string may be corrupted!"] = true;
+L["Error exporting profile!"] = true;
+L["Export Now"] = true;
+L["Export Profile"] = true;
+L["Exported"] = true;
+L["Filters (All)"] = true;
+L["Filters (NamePlates)"] = true;
+L["Filters (UnitFrames)"] = true;
+L["Global (Account Settings)"] = true;
+L["Import Now"] = true;
+L["Import Profile"] = true;
+L["Importing"] = true;
+L["Plugin"] = true;
+L["Private (Character Settings)"] = true;
+L["Profile imported successfully!"] = true;
+L["Profile Name"] = true;
+L["Profile"] = true;
+L["Table"] = true;
+
 --Skins
 L["Achievement Frame"] = "成就"
+L["AddOn Manager"] = true;
 L["Alert Frames"] = "警报"
 L["Archaeology Frame"] = "考古学框架"
 L["Auction Frame"] = "拍卖"
@@ -555,6 +592,7 @@ L["Loss Control"] = "失去控制"
 L["Macro Frame"] = "巨集"
 L["Mail Frame"] = "信箱"
 L["Merchant Frame"] = "商人"
+L["Mirror Timers"] = true;
 L["Misc Frames"] = "其他"
 L["Mounts & Pets"] = "宠物"
 L["Non-Raid Frame"] = "非团队框架"

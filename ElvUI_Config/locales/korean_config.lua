@@ -96,6 +96,16 @@ L["TEXT_FORMAT_DESC"] = [=[글자가 표시되는 형식을 변경할 수 있습
 |cffceff00name:long|r : 최대 20글자
 
 표시하고 싶지 않으면 빈칸으로 두면 되며, 자세한 정보는 |cff2eb7e4www.tukui.org|r 에서 확인하세요.]=];
+L["IGNORE_ITEMS_DESC"] = [=[Valid entries:
+
+Item links or item names
+
+Terms from Search Syntax. Examples:
+q:epic
+s:Tank Set
+q:epic&lvl:>300
+
+See "Bags->Search Syntax" for more.]=];
 
 --ActionBars
 L["Action Paging"] = "페이지 자동전환 조건"
@@ -174,6 +184,7 @@ L["Adjust the width of the bank frame."] = "통합은행 프레임의 가로길�
 L["Align the width of the bag frame to fit inside the chat box."] = "통합은행 프레임의 가로길이를 좌측 패널, 통합가방 프레임의 가로길이를 우측 패널 각각의 가로길이에 맞춥니다."
 L["Align To Chat"] = "패널에 맞춤"
 L["Ascending"] = "오름차순"
+L["Bag Sorting"] = true;
 L["Bag-Bar"] = "가방바"
 L["Bar Direction"] = "바 방향"
 L["Blizzard Style"] = "블리자드 기본"
@@ -185,6 +196,7 @@ L["Currency Format"] = "화폐 표시방법"
 L["Descending"] = "내림차순"
 L["Direction the bag sorting will use to allocate the items."] = "정렬기능을 실행할 때 체크 시 아이템이 가방칸의 우측하단을, 체크 해제 시 좌측상단을 기준으로 모아서 정렬됩니다."
 L["Display Item Level"] = "템렙 표시";
+L["Display the junk icon on all grey items that can be vendored."] = true;
 L["Displays item level on equippable items."] = "착용 가능한 아이템의 경우 아이템 슬롯에 템렙을 표시합니다."
 L["Enable/Disable the all-in-one bag."] = "통합가방 기능을 사용할지 여부를 결정합니다."
 L["Enable/Disable the Bag-Bar."] = "가방바를 사용할지 여부를 결정합니다."
@@ -194,7 +206,7 @@ L["Ignore Items"] = "정렬 예외 아이템 목록"
 L["Item Count Font"] = true;
 L["Item Level Threshold"] = "템렙표시 커트라인"
 L["Item Level"] = "아이템 레벨"
-L["List of items to ignore when sorting. If you wish to add multiple items you must seperate the word with a comma."] = "정렬기능이 실행될 때 여기에 적힌 아이템은 정렬하지 않고 놔둡니다. 여러 아이템을 등록할 수 있으며 쉼표(,)로 이어서 쓰세요."
+L["Items in this list or items that match any Search Syntax query in this list will be ignored when sorting. Separate each entry with a comma."] = true;
 L["Money Format"] = "소지금 표시방법"
 L["Panel Width (Bags)"] = "통합가방 프레임 가로길이"
 L["Panel Width (Bank)"] = "통합은행 프레임 가로길이"
@@ -203,6 +215,7 @@ L["Set the size of your bag buttons."] = "가방바에서 슬롯의 크기를 �
 L["Short (Whole Numbers)"] = "골드만"
 L["Short"] = "짧게"
 L["Show Coins"] = "동전 이미지로 보기"
+L["Show Junk Icon"] = true;
 L["Smart"] = "스마트"
 L["Sort Direction"] = "정렬 방법"
 L["Sort Inverted"] = "아래로 정렬"
@@ -571,8 +584,32 @@ L["X-Offset"] = "위치 x 좌표"
 L["Y-Offset"] = "위치 y 좌표"
 L["You can't remove a default name from the filter, disabling the name."] = "기본으로 있었던 이름 필터는 제거할 수 없습니다. 비활성화 처리하세요."
 
+--Profiles Export/Import
+L["Choose Export Format"] = true;
+L["Choose What To Export"] = true;
+L["Decode Text"] = true;
+L["Error decoding data. Import string may be corrupted!"] = true;
+L["Error exporting profile!"] = true;
+L["Export Now"] = true;
+L["Export Profile"] = true;
+L["Exported"] = true;
+L["Filters (All)"] = true;
+L["Filters (NamePlates)"] = true;
+L["Filters (UnitFrames)"] = true;
+L["Global (Account Settings)"] = true;
+L["Import Now"] = true;
+L["Import Profile"] = true;
+L["Importing"] = true;
+L["Plugin"] = true;
+L["Private (Character Settings)"] = true;
+L["Profile imported successfully!"] = true;
+L["Profile Name"] = true;
+L["Profile"] = true;
+L["Table"] = true;
+
 --Skins
 L["Achievement Frame"] = "업적창"
+L["AddOn Manager"] = true;
 L["Alert Frames"] = "알림 프레임"
 L["Archaeology Frame"] = "고고학 창"
 L["Auction Frame"] = "경매장"
@@ -603,6 +640,7 @@ L["Loss Control"] = "제어손실 표시 창"
 L["Macro Frame"] = "매크로 창"
 L["Mail Frame"] = "우편함"
 L["Merchant Frame"] = "상인 창"
+L["Mirror Timers"] = true;
 L["Misc Frames"] = "기타 프레임"
 L["Mounts & Pets"] = "탈것과 애완동물 창"
 L["Non-Raid Frame"] = "비공격대 프레임"

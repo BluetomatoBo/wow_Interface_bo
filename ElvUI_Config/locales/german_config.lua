@@ -59,6 +59,16 @@ Namensformate:
 'name:long' - Name auf 20 Zeichen beschränkt
 
 Zum Deaktvieren lasse das Feld leer. Brauchst du mehr Informationen besuche http://www.tukui.org]=];
+L["IGNORE_ITEMS_DESC"] = [=[Gültige Einträge:
+
+Gegenstandslinks oder Gegenstandsnamen
+
+Bedingungen vom Suchsyntax. Beispiele:
+q:epic
+s:Tank Set
+q:epic&lvl:>300
+
+Siehe "Taschen->Suchsyntax" für mehr.]=];
 
 --ActionBars
 L["Action Paging"] = "Seitenwechsel der Aktionsleisten"
@@ -127,6 +137,7 @@ L["Adjust the width of the bank frame."] = "Passe die Breite des Bankfensters an
 L["Align the width of the bag frame to fit inside the chat box."] = "Passt die Breite der Taschenfenster an, damit diese innerhalb des Chatfensters passen."
 L["Align To Chat"] = "Zum Chat ausrichten"
 L["Ascending"] = "Aufsteigend"
+L["Bag Sorting"] = "Taschen Sortierung"
 L["Bag-Bar"] = "Taschenleiste"
 L["Bar Direction"] = "Ausrichtung Leiste"
 L["Blizzard Style"] = "Blizzard Stil"
@@ -138,6 +149,7 @@ L["Currency Format"] = "Währungsformat"
 L["Descending"] = "Absteigend"
 L["Direction the bag sorting will use to allocate the items."] = "Die Richtung, in welche die Gegenstände in den Taschen sortiert werden."
 L["Display Item Level"] = "Itemlevel anzeigen"
+L["Display the junk icon on all grey items that can be vendored."] = "Zeigt das Müll Symbol auf allen grauen Gegenständen an die verkauft werden können."
 L["Displays item level on equippable items."] = "Zeigt das Itemlevel für ausrüstbare Gegenstände an."
 L["Enable/Disable the all-in-one bag."] = "Einschalten/Ausschalten der zusammengefassten Tasche."
 L["Enable/Disable the Bag-Bar."] = "Aktiviere/Deaktiviere die Taschenleiste."
@@ -147,7 +159,7 @@ L["Ignore Items"] = "Ignoriere Items"
 L["Item Count Font"] = "Gegenstandszähler Schriftart"
 L["Item Level Threshold"] = "Itemlevel Schwellenwert"
 L["Item Level"] = "Itemlevel"
-L["List of items to ignore when sorting. If you wish to add multiple items you must seperate the word with a comma."] = "Liste von Items die beim sortieren ignoriert werden. Wenn du willst kannst du auch mehrere Items hinzufügen du musst nur nachdem Wort ein Komma setzen."
+L["Items in this list or items that match any Search Syntax query in this list will be ignored when sorting. Separate each entry with a comma."] = "Gegenstände in dieser Liste oder Gegenstände die auf den Suchsyntax zutreffen werden ignoriert beim Sortieren. Trenne jeden Eintrag mit einem Komma."
 L["Money Format"] = "Geldformat"
 L["Panel Width (Bags)"] = "Leistenbreite (Taschen)"
 L["Panel Width (Bank)"] = "Leistenbreite (Bank)"
@@ -156,6 +168,7 @@ L["Set the size of your bag buttons."] = "Setze die Größe der Taschenbuttons."
 L["Short (Whole Numbers)"] = "Kurz (ganze Zahlen)"
 L["Short"] = "Kurz"
 L["Show Coins"] = "Währungssymbole anzeigen"
+L["Show Junk Icon"] = "Zeige Müll Symbol"
 L["Smart"] = "Elegant"
 L["Sort Direction"] = "Sortierrichtung" --Also used in Buffs and Debuffs
 L["Sort Inverted"] = "Umgekehrtes sortieren"
@@ -524,8 +537,32 @@ L["X-Offset"] = "X-Versatz"
 L["Y-Offset"] = "Y-Versatz"
 L["You can't remove a default name from the filter, disabling the name."] = "Du kannst keinen Standardnamen entfernen, schalte den Namen aus."
 
+--Profiles Export/Import
+L["Choose Export Format"] = "Wähle Export Format"
+L["Choose What To Export"] = "Wähle aus, was exportiert werden soll"
+L["Decode Text"] = "Entschlüsselter Text"
+L["Error decoding data. Import string may be corrupted!"] = "Fehler beim entschlüsseln der Daten. Die importierende Zeichenfolge scheint beschädigt zu sein!"
+L["Error exporting profile!"] = "Fehler beim Exportieren des Profils!"
+L["Export Now"] = "Jetzt exportieren"
+L["Export Profile"] = "Exportiere Profil"
+L["Exported"] = "Exportiert"
+L["Filters (All)"] = "Filter (Alle)"
+L["Filters (NamePlates)"] = "Filter (Namensplaketten)"
+L["Filters (UnitFrames)"] = "Filter (Einheitenfenster)"
+L["Global (Account Settings)"] = "Globale (Account Einstellungen)"
+L["Import Now"] = "Jetzt importieren"
+L["Import Profile"] = "Importiere Profil"
+L["Importing"] = "Importiere"
+L["Plugin"] = true; -- no need to translate this
+L["Private (Character Settings)"] = "Private (Charakter Einstellungen)"
+L["Profile imported successfully!"] = "Profil erfolgreich importiert!"
+L["Profile Name"] = "Profil Name"
+L["Profile"] = "Profil"
+L["Table"] = "Tabelle"
+
 --Skins
 L["Achievement Frame"] = "Erfolgsfenster"
+L["AddOn Manager"] = true;
 L["Alert Frames"] = "Alarmfenster"
 L["Archaeology Frame"] = "Archäologiefenster"
 L["Auction Frame"] = "Auktionsfenster"
@@ -556,6 +593,7 @@ L["Loss Control"] = "Kontrollverlust"
 L["Macro Frame"] = "Makro Fenster"
 L["Mail Frame"] = "Post Fenster"
 L["Merchant Frame"] = "Handelsfenster"
+L["Mirror Timers"] = "Spiegel Zeitgeber"
 L["Misc Frames"] = "Verschiedene Fenster"
 L["Mounts & Pets"] = "Reittiere & Haustiere"
 L["Non-Raid Frame"] = "Kein-Raid Fenster"
