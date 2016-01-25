@@ -233,7 +233,7 @@ function UF:Update_PetFrame(frame, db)
 				portrait:Show()
 				portrait.backdrop:Show()
 				portrait.backdrop:ClearAllPoints()
-				portrait.backdrop:SetPoint("TOPRIGHT", frame, "TOPRIGHT", (E.PixelMode and -1 or 0) - POWERBAR_OFFSET, 0)
+				portrait.backdrop:Point("TOPRIGHT", frame, "TOPRIGHT", (E.PixelMode and -1 or 0) - POWERBAR_OFFSET, 0)
 	
 				if db.portrait.style == '3D' then
 					portrait:SetFrameLevel(frame:GetFrameLevel() + 5)
@@ -275,7 +275,7 @@ function UF:Update_PetFrame(frame, db)
 				threat.glow:Point("BOTTOMLEFT", frame.Power.backdrop, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
 				threat.glow:Point("BOTTOMRIGHT", frame.Power.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 
-				if USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or USE_INSET_POWERBAR then
+				if (not USE_POWERBAR) or USE_MINI_POWERBAR or USE_POWERBAR_OFFSET or USE_INSET_POWERBAR then
 					threat.glow:Point("BOTTOMLEFT", frame.Health.backdrop, "BOTTOMLEFT", -SHADOW_SPACING, -SHADOW_SPACING)
 					threat.glow:Point("BOTTOMRIGHT", frame.Health.backdrop, "BOTTOMRIGHT", SHADOW_SPACING, -SHADOW_SPACING)
 				end
@@ -290,7 +290,7 @@ function UF:Update_PetFrame(frame, db)
 				point = point:gsub("ICON", "")
 
 				threat.texIcon:ClearAllPoints()
-				threat.texIcon:SetPoint(point, frame.Health, point)
+				threat.texIcon:Point(point, frame.Health, point)
 			end
 		elseif frame:IsElementEnabled('Threat') then
 			frame:DisableElement('Threat')
@@ -320,9 +320,9 @@ function UF:Update_PetFrame(frame, db)
 		local rows = db.buffs.numrows
 
 		if USE_POWERBAR_OFFSET then
-			buffs:SetWidth(UNIT_WIDTH - POWERBAR_OFFSET)
+			buffs:Width(UNIT_WIDTH - POWERBAR_OFFSET)
 		else
-			buffs:SetWidth(UNIT_WIDTH)
+			buffs:Width(UNIT_WIDTH)
 		end
 
 		buffs.forceShow = frame.forceShowAuras
@@ -330,7 +330,7 @@ function UF:Update_PetFrame(frame, db)
 		buffs.size = db.buffs.sizeOverride ~= 0 and db.buffs.sizeOverride or ((((buffs:GetWidth() - (buffs.spacing*(buffs.num/rows - 1))) / buffs.num)) * rows)
 
 		if db.buffs.sizeOverride and db.buffs.sizeOverride > 0 then
-			buffs:SetWidth(db.buffs.perrow * db.buffs.sizeOverride)
+			buffs:Width(db.buffs.perrow * db.buffs.sizeOverride)
 		end
 
 		local x, y = E:GetXYOffset(db.buffs.anchorPoint)
@@ -362,9 +362,9 @@ function UF:Update_PetFrame(frame, db)
 		local rows = db.debuffs.numrows
 
 		if USE_POWERBAR_OFFSET then
-			debuffs:SetWidth(UNIT_WIDTH - POWERBAR_OFFSET)
+			debuffs:Width(UNIT_WIDTH - POWERBAR_OFFSET)
 		else
-			debuffs:SetWidth(UNIT_WIDTH)
+			debuffs:Width(UNIT_WIDTH)
 		end
 
 		debuffs.forceShow = frame.forceShowAuras
@@ -372,7 +372,7 @@ function UF:Update_PetFrame(frame, db)
 		debuffs.size = db.debuffs.sizeOverride ~= 0 and db.debuffs.sizeOverride or ((((debuffs:GetWidth() - (debuffs.spacing*(debuffs.num/rows - 1))) / debuffs.num)) * rows)
 
 		if db.debuffs.sizeOverride and db.debuffs.sizeOverride > 0 then
-			debuffs:SetWidth(db.debuffs.perrow * db.debuffs.sizeOverride)
+			debuffs:Width(db.debuffs.perrow * db.debuffs.sizeOverride)
 		end
 
 		local x, y = E:GetXYOffset(db.debuffs.anchorPoint)
@@ -429,9 +429,10 @@ function UF:Update_PetFrame(frame, db)
 		local castbar = frame.Castbar
 		castbar:Width(db.castbar.width - (BORDER * 2))
 		castbar:Height(db.castbar.height)
-		castbar.Holder:Width(db.castbar.width)
-		castbar.Holder:Height(db.castbar.height + (E.PixelMode and 2 or (BORDER * 2)))
-		castbar.Holder:GetScript('OnSizeChanged')(castbar.Holder)
+        local holder = castbar.Holder
+		holder:Width(db.castbar.width)
+		holder:Height(db.castbar.height + (E.Border + E.Spacing*4))
+		holder:GetScript('OnSizeChanged')(holder)
 
 		--Latency
 		if db.castbar.latency then
@@ -448,7 +449,7 @@ function UF:Update_PetFrame(frame, db)
 			castbar.Icon.bg:Width(db.castbar.height + (E.Border * 2))
 			castbar.Icon.bg:Height(db.castbar.height + (E.Border * 2))
 
-			castbar:Width(db.castbar.width - castbar.Icon.bg:GetWidth() - (E.PixelMode and 1 or 5))
+			castbar:Width(db.castbar.width - castbar.Icon.bg:GetWidth() - (E.Border + E.Spacing*3))
 			castbar.Icon.bg:Show()
 		else
 			castbar.ButtonIcon.bg:Hide()
@@ -544,7 +545,7 @@ function UF:Update_PetFrame(frame, db)
 			frame:Tag(frame.customTexts[objectName], objectDB.text_format or '')
 			frame.customTexts[objectName]:SetJustifyH(objectDB.justifyH or 'CENTER')
 			frame.customTexts[objectName]:ClearAllPoints()
-			frame.customTexts[objectName]:SetPoint(objectDB.justifyH or 'CENTER', frame, objectDB.justifyH or 'CENTER', objectDB.xOffset, objectDB.yOffset)
+			frame.customTexts[objectName]:Point(objectDB.justifyH or 'CENTER', frame, objectDB.justifyH or 'CENTER', objectDB.xOffset, objectDB.yOffset)
 		end
 	end
 
