@@ -121,11 +121,12 @@ function UF:UpdateHoly(event, unit, powerType)
 			else
 				if USE_MINI_CLASSBAR then
 					self.HolyPower[i]:Point("LEFT", self.HolyPower[i-1], "RIGHT", maxHolyPower == 5 and 7 or 13, 0)
-				elseif i == maxHolyPower then
-                    self.HolyPower[i]:Point("LEFT", self.HolyPower[i-1], "RIGHT", E.Border-E.Spacing, 0)
-                    self.HolyPower[i]:Point("RIGHT", self.HolyPower)
                 else
 					self.HolyPower[i]:Point("LEFT", self.HolyPower[i-1], "RIGHT", E.Border-E.Spacing, 0)
+				end
+
+				if i == maxHolyPower then
+					self.HolyPower[i]:Point("RIGHT", self.HolyPower)
 				end
 			end
 
