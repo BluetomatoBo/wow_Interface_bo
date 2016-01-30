@@ -28,6 +28,7 @@ local DoEmote = DoEmote
 local SendChatMessage = SendChatMessage
 local GetFunctionCPUUsage = GetFunctionCPUUsage
 local GetMapNameByID = GetMapNameByID
+local GetBonusBarOffset = GetBonusBarOffset
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local COMBAT_RATING_RESILIENCE_PLAYER_DAMAGE_TAKEN = COMBAT_RATING_RESILIENCE_PLAYER_DAMAGE_TAKEN
@@ -61,6 +62,7 @@ E.LSM = LSM
 --Tables
 E["media"] = {};
 E["frames"] = {};
+E["statusBars"] = {};
 E["texts"] = {};
 E['snapBars'] = {}
 E["RegisteredModules"] = {}
@@ -194,7 +196,7 @@ function E:GetColorTable(data)
 	if not data.r or not data.g or not data.b then
 		error("Could not unpack color values.")
 	end
-	
+
 	if data.r > 1 or data.r < 0 then data.r = 1 end
 	if data.g > 1 or data.g < 0 then data.g = 1 end
 	if data.b > 1 or data.b < 0 then data.b = 1 end
@@ -423,6 +425,20 @@ function E:UpdateFontTemplates()
 	end
 end
 
+function E:RegisterStatusBar(statusBar)
+	tinsert(self.statusBars, statusBar)
+end
+
+function E:UpdateStatusBars()
+	for _, statusBar in pairs(self.statusBars) do
+		if statusBar and statusBar:GetObjectType() == "StatusBar" then
+			statusBar:SetStatusBarTexture(self.media.normTex)
+		elseif statusBar and statusBar:GetObjectType() == "Texture" then
+			statusBar:SetTexture(self.media.normTex)
+		end
+	end
+end
+
 --This frame everything in ElvUI should be anchored to for Eyefinity support.
 E.UIParent = CreateFrame('Frame', 'ElvUIParent', UIParent);
 E.UIParent:SetFrameLevel(UIParent:GetFrameLevel());
@@ -485,7 +501,8 @@ function E:CheckRole()
 		role = self.ClassRole[self.myclass][talentTree]
 	end
 
-	if role == "Tank" and IsInPvPGear then
+	--Check for PvP gear or gladiator stance
+	if role == "Tank" and (IsInPvPGear or (E.myclass == "WARRIOR" and GetBonusBarOffset() == 3)) then
 		role = "Melee"
 	end
 
@@ -608,7 +625,7 @@ function E:RemoveTableDuplicates(cleanTable, checkTable)
 		E:Print("Bad argument #2 to 'RemoveTableDuplicates' (table expected)")
 		return
 	end
-	
+
 	local cleaned = {}
 	for option, value in pairs(cleanTable) do
 		if type(value) == "table" and checkTable[option] and type(checkTable[option]) == "table" then
@@ -620,7 +637,7 @@ function E:RemoveTableDuplicates(cleanTable, checkTable)
 			end
 		end
 	end
-	
+
 	--Clean out empty sub-tables
 	self:RemoveEmptySubTables(cleaned)
 
@@ -694,7 +711,7 @@ function E:ProfileTableToPluginFormat(inTable, profileType)
 	local returnString = ""
 	local lineStructure = ""
 	local sameLine = false
-	
+
 	local function buildLineStructure()
 		local str = profileText
 		for _, v in ipairs(lineStructureTable) do
@@ -704,7 +721,7 @@ function E:ProfileTableToPluginFormat(inTable, profileType)
 				str = str.."["..v.."]"
 			end
 		end
-		
+
 		return str
 	end
 
@@ -731,7 +748,7 @@ function E:ProfileTableToPluginFormat(inTable, profileType)
 			else
 				sameLine = false
 				returnString = returnString.."] = ";
-				
+
 				if type(v) == "number" then
 					returnString = returnString..v.."\n"
 				elseif type(v) == "string" then
@@ -747,11 +764,11 @@ function E:ProfileTableToPluginFormat(inTable, profileType)
 				end
 			end
 		end
-		
+
 		tremove(lineStructureTable)
 		lineStructure = buildLineStructure()
 	end
-	
+
 	if inTable and profileType then
 		recurse(inTable);
 	end
@@ -912,7 +929,8 @@ function E:UpdateAll(ignoreInstall)
 
 	self:UpdateBorderColors()
 	self:UpdateBackdropColors()
-	--self:UpdateFrameTemplates()
+	self:UpdateFrameTemplates()
+	self:UpdateStatusBars()
 
 	local LO = E:GetModule('Layout')
 	LO:ToggleChatPanels()
@@ -1025,13 +1043,13 @@ function E:DBConversions()
 					end
 				end
 			end
-			
+
 			if not matchFound then
 				E.global.unitframe['aurafilters']['RaidDebuffs']['spells'][k].stackThreshold = 0
 			end
 		end
 	end
-	
+
 	--Convert spellIDs saved as strings to numbers
 	if E.global.unitframe['aurafilters']['Whitelist (Strict)'].spells then
 		for k, v in pairs(E.global.unitframe['aurafilters']['Whitelist (Strict)'].spells) do
@@ -1056,13 +1074,13 @@ function E:DBConversions()
 		E.db.general.reputation.height = P.general.reputation.height
 		E:Print("Reputation bar appears to be an odd shape. Resetting to default size.")
 	end
-	
+
 	--Turns out that a chat height lower than 58 will cause the following error: Message: ..\FrameXML\FloatingChatFrame.lua line 1147: attempt to perform arithmetic on a nil value
 	--This only happens if the datatext panel for the respective chat panel is enabled, leaving no room for the chat frame.
 	--Minimum height has been increased to 60, convert any setting lower than this to the new minimum height.
 	if E.db.chat.panelHeight < 60 then E.db.chat.panelHeight = 60 end
 	if E.db.chat.panelHeightRight < 60 then E.db.chat.panelHeightRight = 60 end
-	
+
 	--Boss Frame auras have been changed to support friendly/enemy filters in case there is an encounter with a friendly boss
 	--Try to convert any filter settings the user had to the new format
 	if not E.db.bossAuraFiltersConverted then
@@ -1101,10 +1119,10 @@ function E:DBConversions()
 				end
 			end
 		end
-		
+
 		E.db.bossAuraFiltersConverted = true
 	end
-	
+
 	--Convert stored mover strings to use the new comma delimiter
 	if E.db.movers then
 		for mover, moverString in pairs(E.db.movers) do
@@ -1114,7 +1132,7 @@ function E:DBConversions()
 		   end
 		end
 	end
-	
+
 	--Convert stored BuffIndicator key/value pairs to use spellID as key
 	if not E.global.unitframe.buffwatchBackup then E.global.unitframe.buffwatchBackup = {} end
 	local shouldRemove
