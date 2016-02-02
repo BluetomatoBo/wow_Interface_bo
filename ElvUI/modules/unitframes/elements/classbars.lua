@@ -24,14 +24,18 @@ local ElvUF = ns.oUF
 assert(ElvUF, "ElvUI was unable to locate oUF.")
 
 
+local SPELL_POWER = {
+	PALADIN = SPELL_POWER_HOLY_POWER
+}
+
 -------------------------------------------------------------
 -- PALADIN
 -------------------------------------------------------------
 
-function UF:Construct_PaladinResourceBar(frame)
+function UF:Construct_ResourceBar(frame)
 	local bars = CreateFrame("Frame", nil, frame)
 	bars:CreateBackdrop('Default')
-
+	
 	for i = 1, UF['classMaxResourceBar'][E.myclass] do
 		bars[i] = CreateFrame("StatusBar", frame:GetName().."ClassBarButton"..i, bars)
 		bars[i]:SetStatusBarTexture(E['media'].blankTex) --Dummy really, this needs to be set so we can change the color
@@ -42,102 +46,47 @@ function UF:Construct_PaladinResourceBar(frame)
 		bars[i].backdrop:SetParent(bars)
 	end
 
-	bars.Override = UF.UpdateHoly
+	bars.Override = UF.UpdateClassBar
 
 	return bars
 end
 
-function UF:UpdateHoly(event, unit, powerType)
-	if (self.unit ~= unit or (powerType and powerType ~= 'HOLY_POWER')) then return end
+
+function UF:UpdateClassBar(event, unit, powerType)
 	local db = self.db
 	if not db then return; end
+	local numPower = UnitPower('player', SPELL_POWER[E.myclass]);
+	local maxPower = UnitPowerMax('player', SPELL_POWER[E.myclass]);
 
-	local BORDER = E.Border
-	local SPACING = E.Spacing
-	local numHolyPower = UnitPower('player', SPELL_POWER_HOLY_POWER);
-	local maxHolyPower = UnitPowerMax('player', SPELL_POWER_HOLY_POWER);
-	local MAX_HOLY_POWER = UF['classMaxResourceBar'][E.myclass]
-	local USE_MINI_CLASSBAR = db.classbar.fill == "spaced" and db.classbar.enable
-	local USE_PORTRAIT = db.portrait.enable
-	local USE_PORTRAIT_OVERLAY = db.portrait.overlay and USE_PORTRAIT
-	local PORTRAIT_WIDTH = db.portrait.width
-	local USE_POWERBAR = db.power.enable
-	local POWERBAR_DETACHED = db.power.detachFromFrame
-	local USE_POWERBAR_OFFSET = db.power.offset ~= 0 and USE_POWERBAR and not POWERBAR_DETACHED
-	local POWERBAR_OFFSET = db.power.offset
-	local CLASSBAR_HEIGHT = db.classbar.height
-	local DETACHED = db.classbar.detachFromFrame
-	local HEALTH_OFFSET_Y = DETACHED and BORDER or USE_MINI_CLASSBAR and (BORDER+(CLASSBAR_HEIGHT/2)) or (BORDER+CLASSBAR_HEIGHT+SPACING)
-
-	if USE_PORTRAIT_OVERLAY or not USE_PORTRAIT then
-		PORTRAIT_WIDTH = 0
-	end
-
-	local CLASSBAR_WIDTH = db.width - (BORDER * 2)
-	if USE_PORTRAIT then
-		CLASSBAR_WIDTH = ceil((db.width - (BORDER*2)) - PORTRAIT_WIDTH)
-	end
-
-	if USE_POWERBAR_OFFSET then
-		CLASSBAR_WIDTH = CLASSBAR_WIDTH - POWERBAR_OFFSET
+	local bars = self[self.ClassBar]
+	local isShown = bars:IsShown()
+	if numPower == 0 and db.classbar.autoHide then
+		if isShown then
+			bars:Hide()
+			bars.changedState = true
+		end
 	else
-		POWERBAR_OFFSET = 0
-	end
-
-	if USE_MINI_CLASSBAR then
-		CLASSBAR_WIDTH = CLASSBAR_WIDTH * (maxHolyPower - 1) / maxHolyPower
-	end
-
-	if db.classbar.detachFromFrame then
-		CLASSBAR_WIDTH = db.classbar.detachedWidth - (BORDER*2)
-	end
-
-	self.HolyPower:Width(CLASSBAR_WIDTH)
-
-	if numHolyPower == 0 and db.classbar.autoHide then
-		self.HolyPower:Hide()
-		self.Health:Point("TOPRIGHT", self, "TOPRIGHT", -(BORDER+POWERBAR_OFFSET), -BORDER)
-		self.Health:Point("TOPLEFT", self, "TOPLEFT", BORDER+PORTRAIT_WIDTH, -BORDER)
-	else
-		self.HolyPower:Show()
-		self.Health:Point("TOPRIGHT", self, "TOPRIGHT", -(BORDER+POWERBAR_OFFSET), -HEALTH_OFFSET_Y)
-		self.Health:Point("TOPLEFT", self, "TOPLEFT", BORDER+PORTRAIT_WIDTH, -HEALTH_OFFSET_Y)
-
-		for i = 1, MAX_HOLY_POWER do
-			if(i <= numHolyPower) then
-				self.HolyPower[i]:SetAlpha(1)
+		if not isShown then
+			bars:Show()
+			bars.changedState = true
+		end
+		for i = 1, maxPower do
+			if(i <= numPower) then
+				bars[i]:SetAlpha(1)
 			else
-				self.HolyPower[i]:SetAlpha(.2)
-			end
-			if db.classbar.fill == "spaced" then
-				self.HolyPower[i]:Width((CLASSBAR_WIDTH - ((maxHolyPower == 5 and 7 or 13)*(maxHolyPower - 1))) / maxHolyPower)
-			else
-				self.HolyPower[i]:Width((CLASSBAR_WIDTH - (maxHolyPower*(BORDER-SPACING))+(BORDER-SPACING)) / maxHolyPower)
-			end
-
-			self.HolyPower[i]:ClearAllPoints()
-			if i == 1 then
-				self.HolyPower[i]:Point("LEFT", self.HolyPower)
-			else
-				if USE_MINI_CLASSBAR then
-					self.HolyPower[i]:Point("LEFT", self.HolyPower[i-1], "RIGHT", maxHolyPower == 5 and 7 or 13, 0)
-				else
-					self.HolyPower[i]:Point("LEFT", self.HolyPower[i-1], "RIGHT", E.Border-E.Spacing, 0)
-				end
-
-				if i == maxHolyPower then
-					self.HolyPower[i]:Point("RIGHT", self.HolyPower)
-				end
-			end
-
-			if i > maxHolyPower then
-				self.HolyPower[i]:Hide()
-				self.HolyPower[i].backdrop:SetAlpha(0)
-			else
-				self.HolyPower[i]:Show()
-				self.HolyPower[i].backdrop:SetAlpha(1)
+				bars[i]:SetAlpha(.2)
 			end
 		end
+	end
+	
+	self.USE_CLASSBAR = bars:IsShown()
+	self.CLASSBAR_HEIGHT = self.USE_CLASSBAR and db.classbar.height or 0
+	self.CLASSBAR_YOFFSET = not self.USE_CLASSBAR and 0 or (self.USE_MINI_CLASSBAR and ((self.SPACING+(self.CLASSBAR_HEIGHT/2))) or self.CLASSBAR_HEIGHT)
+	--Lets only run this if it's state has changed.
+	if(bars.changedState ~= false) then
+		UF:SizeAndPosition_HealthBar(self)
+		UF:SizeAndPosition_Portrait(self)
+		UF:SizeAndPosition_Threat(self)
 	end
 end
 
@@ -427,6 +376,9 @@ function UF:UpdateShardBar(spec)
 		self[i]:ClearAllPoints()
 		if i == 1 then
 			self[i]:Point("LEFT", self)
+		elseif i == maxBars then
+			self[i]:Point("LEFT", self[i-1], "RIGHT", SPACING, 0)
+			self[i]:Point("RIGHT", self)
 		else
 			self[i]:Point("LEFT", self[i-1], "RIGHT", SPACING, 0)
 		end
