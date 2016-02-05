@@ -1,0 +1,62 @@
+tag 6.2.18
+4ec99ba39909bf7200a449116c1e55ddb8b22fc9
+subversion <svn@deadlybossmods.com>
+2016-02-04 09:50:22 +0100
+
+Tagging as 6.2.18
+
+
+--------------------
+
+subversion:
+	- increment version number to 6.2.18
+	- Omega via svn r14770: Show alert label always, instead of only when it?\226?\128?\153s red
+	- Omega via svn r14769: Try to prevent nil errors if someone leaves group
+	- TOM_RUS via svn r14768: ruRU update
+	- ultrashining via svn r14767: zhTW update
+	- Omega via svn r14766: German update
+	- Omega via svn r14765: Skorpyron Update
+	- Omega via svn r14764: Change default countdown audio to be 4 seconds, down from 5. (mods that already use less than 4 will continue to do so) Nythendra update
+	- Omega via svn r14763: Fix range frame for demon hunters
+	- Omega via svn r14762: Fix spam
+	- Omega via svn r14761: More ai timers
+	- Omega via svn r14760: Fix lua error on wipes
+	- Omega via svn r14759: Add some mod drycodes to two test bosses
+	- Omega via svn r14758: Also stub in Il?\226?\128?\153gynoth
+	- Omega via svn r14757: Push some renames and add guldan stub
+	- Omega via svn r14756: CN update
+	- Omega via svn r14755: Add auto localized warning for jump
+	- Omega via svn r14754: Allow warning duration to be set as low as 1 second, down from 3.
+	- Omega via svn r14753: CN update
+	- Omega via svn r14752: Push Darkheart Thicket mods
+	- Omega via svn r14751: Push Kurtalos and smashspite as well
+	- Omega via svn r14750: Push Illysanna and Amalgam mods
+	- Omega via svn r14749: Further refine add cancel timers on mannoroth Fixed player yell/warning not playing if icons are disabled and role option is enabled. Reduce yell spam of countdown for mark of legion to start at 3 seconds instead of 5
+	- update .pkgmeta to include legion mods
+	- Omega via svn r14748: Fix boss sort orders
+	- Omega via svn r14747: rest of the dungeon stubs
+	- Omega via svn r14746: Commit progress so far with dungeon stubs. this fully supports combat detection and auto loading for 4 of the 10 5 man dungeons (all 3 of current open ones are covered in first 4). Actual mods don?\226?\128?\153t have warnings yet. I will add that after Finishing other 6 stubs.
+	- Omega via svn r14745: Further work on request timers
+	- Omega via svn r14744: Try to deal with timer recovery not working. likely because even though it requests from 3 diff people, it actually ignores 2 of the answers since it was only built to accept from one requestedFrom
+	- Omega via svn r14743: head extraction from ass
+	- Omega via svn r14742: Improve finddungeonIDs function since GetDungeonInfo can return nil when GetRealZoneText still returns valid dungeon names Add in stubs for the encounters in journal so far for Suramar Raid. There are a lot of encounters not in journal yet so can?\226?\128?\153t make stubs yet.
+	- Omega via svn r14741: fix lua error on blackhand for voice pack users
+	- Omega via svn r14740: Update LibChatAnims
+	- Omega via svn r14739: CN update
+	- Omega via svn r14738: that?\226?\128?\153s enough for now, I want to at least push the mostly done mod.
+	- Omega via svn r14737: Some stubs for emerald nightmare
+	- ultrashining via svn r14736: zhTW update
+	- ebmor via svn r14735: deDE update
+	- Omega via svn r14734: CN Update
+	- ebmor via svn r14733: deDE update
+	- Omega via svn r14732: Bump HF revision
+	- Omega via svn r14731: Bump HF revision
+	- Omega via svn r14730: Don?\226?\128?\153t buffer own shackle
+	- Omega via svn r14729: Add move mark sounds for wrath of guldan
+	- Omega via svn r14728: Make more robust and RL controlled only
+	- Omega via svn r14727: For extra lag buffer
+	- Omega via svn r14726: Untested custom wrath icon code.
+	- Omega via svn r14725: Fix mark of legion dot to not show if hud is disabled.
+	- Omega via svn r14724: Some more antispam protections
+	- Omega via svn r14723: Fix a bug on xhul where it warned to swap BEFORE boss was actually phasing.
+	- tandanu via svn r14722: increment alpha version
