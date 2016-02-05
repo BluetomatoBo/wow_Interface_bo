@@ -459,6 +459,10 @@ L["When you go AFK display the AFK screen."] = "자리비움 시 UI가 자리비
 L["World Map Coordinates"] = true;
 
 --Media
+L["Applies the font and font size settings throughout the entire user interface. Note: Some font size settings will be skipped due to them having a smaller font size by default."] = true;
+L["Applies the primary texture to all statusbars."] = true;
+L["Apply Font To All"] = true;
+L["Apply Texture To All"] = true;
 L["Backdrop color of transparent frames"] = "ElvUI에서 생성하는 모든 반투명한 프레임의 배경 색상과 투명도를 결정합니다."
 L["Backdrop Color"] = "배경 색상"
 L["Backdrop Faded Color"] = "반투명 배경 색상"
@@ -975,6 +979,7 @@ L["Shadow Orbs"] = "어둠의 구슬"
 L["Show a incomming heal prediction bar on the unitframe. Also display a slightly different colored bar for incoming overheals."] = "생명력바에 예상 치유량을 표시합니다."
 L["Show Aura From Other Players"] = "다른 유저가 걸어준 버프도 표시"
 L["Show Auras"] = "오라아이콘 표시"
+L["Show Dispellable Debuffs"] = true;
 L["Show For DPS"] = true;
 L["Show For Healers"] = true;
 L["Show For Tanks"] = true;
