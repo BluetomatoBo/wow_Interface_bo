@@ -154,6 +154,7 @@ L["Displays item level on equippable items."] = "Отображает урове
 L["Enable/Disable the all-in-one bag."] = 'Включить/выключить режим сумки "все в одной". '
 L["Enable/Disable the Bag-Bar."] = "Включить/выключить панель сумок"
 L["Full"] = "Полный"
+L["Icons and Text (Short)"] = true;
 L["Icons and Text"] = "Иконки и текст"
 L["Ignore Items"] = "Игнорировать предметы"
 L["Item Count Font"] = "Шрифт кол-ва предметов"
@@ -411,10 +412,10 @@ L["When you go AFK display the AFK screen."] = "Отображать специ�
 L["World Map Coordinates"] = "Координаты карты мира"
 
 --Media
-L["Applies the font and font size settings throughout the entire user interface. Note: Some font size settings will be skipped due to them having a smaller font size by default."] = true;
-L["Applies the primary texture to all statusbars."] = true;
-L["Apply Font To All"] = true;
-L["Apply Texture To All"] = true;
+L["Applies the font and font size settings throughout the entire user interface. Note: Some font size settings will be skipped due to them having a smaller font size by default."] = "Пименить этот шрифт ко всем элементам интерфейса. Некоторые шрифты будут попущены из-за более мелкого азмера по умолчанию."
+L["Applies the primary texture to all statusbars."] = "Пименяет основную текстуу ко всем полосам состояния."
+L["Apply Font To All"] = "Применить ко всем шрифтам"
+L["Apply Texture To All"] = "Применить ко всем текстурам"
 L["Backdrop color of transparent frames"] = "Цвет фона прозрачных фреймов"
 L["Backdrop Color"] = "Цвет фона"
 L["Backdrop Faded Color"] = "Цвет прозрачного фона"
