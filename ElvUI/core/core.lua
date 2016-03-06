@@ -43,6 +43,7 @@ local NUM_PET_ACTION_SLOTS = NUM_PET_ACTION_SLOTS
 -- GLOBALS: ElvUI_StaticPopup1, ElvUI_StaticPopup1Button1, LeftChatToggleButton, RightChatToggleButton
 -- GLOBALS: ElvUI_StanceBar, ObjectiveTrackerFrame, GameTooltip, Minimap
 
+
 --Constants
 E.myclass = select(2, UnitClass("player"));
 E.myspec = GetSpecialization()
@@ -165,7 +166,7 @@ E.ClassRole = {
 E.noop = function() end;
 
 function E:Print(...)
-	print(self["media"].hexvaluecolor..'ElvUI:|r', ...)
+	print(self["media"].hexvaluecolor..self.UIName..':|r', ...)
 end
 
 --Workaround for people wanting to use white and it reverting to their class color.
@@ -231,6 +232,11 @@ function E:UpdateMedia()
 	elseif E.PixelMode then
 		border = {r = 0, g = 0, b = 0}
 	end
+	
+	if(self.global.tukuiMode) then
+		border = {r=0.6, g = 0.6, b = 0.6}
+	end
+	
 	self["media"].bordercolor = {border.r, border.g, border.b}
 
 	--Backdrop Color
@@ -248,6 +254,11 @@ function E:UpdateMedia()
 		self.db['general'].valuecolor.g = value.g
 		self.db['general'].valuecolor.b = value.b
 	end
+	
+	if(self.global.tukuiMode) then
+		value = {r = 1, g = 1, b = 1}
+	end
+	
 	self["media"].hexvaluecolor = self:RGBToHex(value.r, value.g, value.b)
 	self["media"].rgbvaluecolor = {value.r, value.g, value.b}
 
@@ -818,13 +829,15 @@ end
 local myName = E.myname.."-"..E.myrealm;
 myName = myName:gsub("%s+", "")
 local frames = {}
+
 local function SendRecieve(self, event, prefix, message, channel, sender)
+	
 	if event == "CHAT_MSG_ADDON" then
 		if(sender == myName) then return end
-
+		
 		if prefix == "ELVUI_VERSIONCHK" and not E.recievedOutOfDateMessage then
 			if(tonumber(message) ~= nil and tonumber(message) > tonumber(E.version)) then
-				E:Print(L["ElvUI is out of date. You can download the newest version from www.tukui.org. Get premium membership and have ElvUI automatically updated with the Tukui Client!"])
+				E:Print(L["ElvUI is out of date. You can download the newest version from www.tukui.org. Get premium membership and have ElvUI automatically updated with the Tukui Client!"]:gsub("ElvUI", E.UIName))
 
 				if((tonumber(message) - tonumber(E.version)) >= 0.05) then
 					E:StaticPopup_Show("ELVUI_UPDATE_AVAILABLE")
@@ -1031,6 +1044,37 @@ end
 
 --DATABASE CONVERSIONS
 function E:DBConversions()
+	--Font Conversions
+
+	local fonts = {
+		["ElvUI Alt-Font"] = "Continuum Medium",
+		["ElvUI Alt-Combat"] = "Die Die Die!",
+		["ElvUI Combat"] = "Action Man",
+		["ElvUI Font"] = "PT Sans Narrow",
+		["ElvUI Pixel"] = "Homespun"
+	}	
+	
+	if fonts[E.db.general.font] then E.db.general.font = fonts[E.db.general.font] end
+	if fonts[E.db.general.itemLevelFont] then E.db.general.itemLevelFont = fonts[E.db.general.itemLevelFont] end
+	if fonts[E.db.general.countFont] then E.db.general.itemLevelFont = fonts[E.db.general.countFont] end
+	if fonts[E.db.nameplate.font] then E.db.nameplate.font = fonts[E.db.nameplate.font] end
+	if fonts[E.db.nameplate.buffs.font] then E.db.nameplate.buffs.font = fonts[E.db.nameplate.buffs.font] end
+	if fonts[E.db.nameplate.debuffs.font] then E.db.nameplate.debuffs.font = fonts[E.db.nameplate.debuffs.font] end
+	if fonts[E.db.bags.itemLevelFont] then E.db.bags.itemLevelFont = fonts[E.db.bags.itemLevelFont] end
+	if fonts[E.db.bags.countFont] then E.db.bags.countFont = fonts[E.db.bags.countFont] end
+	if fonts[E.db.auras.font] then E.db.auras.font = fonts[E.db.auras.font] end
+	if fonts[E.db.auras.consolidatedBuffs.font] then E.db.auras.consolidatedBuffs.font = fonts[E.db.auras.consolidatedBuffs.font] end
+	if fonts[E.db.chat.font] then E.db.chat.font = fonts[E.db.chat.font] end
+	if fonts[E.db.chat.tabFont] then E.db.chat.tabFont = fonts[E.db.chat.tabFont] end
+	if fonts[E.db.datatexts.font] then E.db.datatexts.font = fonts[E.db.datatexts.font] end
+	if fonts[E.db.tooltip.font] then E.db.tooltip.font = fonts[E.db.tooltip.font] end
+	if fonts[E.db.tooltip.healthBar.font] then E.db.tooltip.healthBar.font = fonts[E.db.tooltip.healthBar.font] end
+	if fonts[E.db.unitframe.font] then E.db.unitframe.font = fonts[E.db.unitframe.font] end
+	if fonts[E.db.unitframe.units.party.rdebuffs.font] then E.db.unitframe.units.party.rdebuffs.font = fonts[E.db.unitframe.units.party.rdebuffs.font] end
+	if fonts[E.db.unitframe.units.raid.rdebuffs.font] then E.db.unitframe.units.raid.rdebuffs.font = fonts[E.db.unitframe.units.raid.rdebuffs.font] end
+	if fonts[E.db.unitframe.units.raid40.rdebuffs.font] then E.db.unitframe.units.raid40.rdebuffs.font = fonts[E.db.unitframe.units.raid40.rdebuffs.font] end
+	
+	
 	--Add missing Stack Threshold
 	if E.global.unitframe['aurafilters']['RaidDebuffs'].spells then
 		local matchFound
@@ -1258,7 +1302,11 @@ function E:Initialize()
 	if(self:HelloKittyFixCheck()) then
 		self:HelloKittyFix()
 	end
-
+	
+	if(self.global.tukuiMode) then
+		self.UIName = "Tukui"	
+	end
+	
 	self:UpdateMedia()
 	self:UpdateFrameTemplates()
 	self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "CheckRole");
@@ -1285,7 +1333,19 @@ function E:Initialize()
 	self:RefreshModulesDB()
 	collectgarbage("collect");
 
-	if self.db.general.loginmessage then
-		print(select(2, E:GetModule('Chat'):FindURL("CHAT_MSG_DUMMY", format(L["LOGIN_MSG"], self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version)))..'.')
+	if self:IsFoolsDay() and not E.global.aprilFools and not self.global.tukuiMode then
+		self:StaticPopup_Show("TUKUI_MODE")
 	end
+
+
+	if self.db.general.loginmessage then
+		print(select(2, E:GetModule('Chat'):FindURL("CHAT_MSG_DUMMY", format(L["LOGIN_MSG"]:gsub("ElvUI", E.UIName), self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version)))..'.')
+	end
+	
+	if self.global.tukuiMode then
+		if(self:IsFoolsDay()) then
+			self:ShowTukuiFrame()
+		end
+		self:Print("Thank you for being a good sport, type /aprilfools to revert the changes.")
+	end	
 end
