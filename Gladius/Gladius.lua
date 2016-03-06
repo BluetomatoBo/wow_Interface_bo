@@ -118,14 +118,14 @@ function Gladius:NewModule(key, bar, attachTo, defaults, templates)
 	-- module status
 	module.Enable = function(self)
 		if not self.enabled then
-			self.enabled = true	
+			self.enabled = true
 			if type(self.OnEnable) == "function" then
 				self:OnEnable()
 			end
 		end
 	end
 	module.Disable = function(self)
-		if (self.enabled) then
+		if self.enabled then
 			self.enabled = false
 			if type(self.OnDisable) == "function" then
 				self:OnDisable()
@@ -139,7 +139,7 @@ function Gladius:NewModule(key, bar, attachTo, defaults, templates)
 	module.RegisterMessage = function(self, event, func)
 		self.eventHandler.messages[event] = func or self[event]
 	end
-	
+
 	module.SendMessage = function(self, event, ...)
 		for _, module in pairs(Gladius.modules) do
 			self:Call(module, module.eventHandler.messages[event], ...)
@@ -302,7 +302,7 @@ function Gladius:OnEnable()
 	-- clique
 	--[[if IsAddOnLoaded("Clique") then
 		SlashCmdList["GLADIUS"]("test 5")
-		SlashCmdList["GLADIUS"]("hide")	
+		SlashCmdList["GLADIUS"]("hide")
 		ClickCastFrames = ClickCastFrames or { }
 		ClickCastFrames[self.buttons.arena1.secure] = true
 		ClickCastFrames[self.buttons.arena2.secure] = true
@@ -388,7 +388,7 @@ end
 
 function Gladius:LeftArena()
 	self:HideFrame()
-	
+
 	-- reset units
 	for unit, _ in pairs(self.buttons) do
 		Gladius.buttons[unit]:RegisterForDrag()
@@ -415,6 +415,22 @@ function Gladius:UNIT_NAME_UPDATE(event, unit)
 end
 
 function Gladius:ARENA_OPPONENT_UPDATE(event, unit, type)
+	if not self:IsValidUnit(unit) then
+		return
+	end
+	if not self.buttons[unit] then
+		self:CreateButton(unit)
+		local id = string.match(unit, "arena(%d)")
+		local specID = GetArenaOpponentSpec(id)
+		if specID and specID > 0 then
+			local id, name, description, icon, background, role, class = GetSpecializationInfoByID(specID)
+			self.buttons[unit].spec = name
+			self.buttons[unit].specIcon = icon
+			self.buttons[unit].class = class
+		end
+		self:UpdateUnit(unit)
+		self:ShowUnit(unit)
+	end
 	-- enemy seen
 	if type == "seen" or type == "destroyed" then
 		self:ShowUnit(unit, false, nil, true)
@@ -427,18 +443,18 @@ function Gladius:ARENA_OPPONENT_UPDATE(event, unit, type)
 	end
 end
 
-function Gladius:ARENA_PREP_OPPONENT_SPECIALIZATIONS(event)
+function Gladius:ARENA_PREP_OPPONENT_SPECIALIZATIONS()
 	-- Update spec from API
 	for i = 1, GetNumArenaOpponentSpecs() do
 		local unit = "arena"..i
 		local specID = GetArenaOpponentSpec(i)
 		if specID and specID > 0 then
-			local _, spec, _, specIcon, _, _, class = GetSpecializationInfoByID(specID)
+			local id, name, description, icon, background, role, class = GetSpecializationInfoByID(specID)
 			if not self.buttons[unit] then
 				self:CreateButton(unit)
 			end
-			self.buttons[unit].spec = spec
-			self.buttons[unit].specIcon = specIcon
+			self.buttons[unit].spec = name
+			self.buttons[unit].specIcon = icon
 			self.buttons[unit].class = class
 			self:UpdateUnit(unit)
 			self:ShowUnit(unit)
@@ -846,7 +862,7 @@ function Gladius:UNIT_HEALTH(event, unit)
 	if not self:IsValidUnit(unit) then
 		return
 	end
-	
+
 	-- update unit
 	self:ShowUnit(unit)
 
