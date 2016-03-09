@@ -68,7 +68,7 @@ function UF:Configure_Power(frame)
 		power.value:Point(db.power.position, attachPoint, db.power.position, db.power.xOffset, db.power.yOffset)
 		frame:Tag(power.value, db.power.text_format)
 
-		if db.power.attachTextToPower then
+		if db.power.attachTextTo == "Power" then
 			power.value:SetParent(power)
 		else
 			power.value:SetParent(frame.RaisedElementParent)
@@ -86,12 +86,20 @@ function UF:Configure_Power(frame)
 		end
 
 		--Fix height in case it is lower than the theme allows
-		if not self.thinBorders and frame.POWERBAR_HEIGHT < 7 then --A height of 7 means 6px for borders and just 1px for the actual power statusbar
+		local heightChanged = false
+		if (not self.thinBorders and not E.PixelMode) and frame.POWERBAR_HEIGHT < 7 then --A height of 7 means 6px for borders and just 1px for the actual power statusbar
 			frame.POWERBAR_HEIGHT = 7
 			if db.power then db.power.height = 7 end
-		elseif self.thinBorders and frame.POWERBAR_HEIGHT < 3 then --A height of 3 means 2px for borders and just 1px for the actual power statusbar
+			heightChanged = true
+		elseif (self.thinBorders or E.PixelMode) and frame.POWERBAR_HEIGHT < 3 then --A height of 3 means 2px for borders and just 1px for the actual power statusbar
 			frame.POWERBAR_HEIGHT = 3
 			if db.power then db.power.height = 3 end
+			heightChanged = true
+		end
+		if heightChanged then
+			--Update health size
+			frame.BOTTOM_OFFSET = UF:GetHealthBottomOffset(frame)
+			UF:Configure_HealthBar(frame)
 		end
 
 		--Position
@@ -126,8 +134,8 @@ function UF:Configure_Power(frame)
 				power:Point("TOPRIGHT", frame.Health, "TOPRIGHT", frame.POWERBAR_OFFSET + frame.STAGGER_WIDTH, -frame.POWERBAR_OFFSET)
 				power:Point("BOTTOMLEFT", frame.Health, "BOTTOMLEFT", frame.POWERBAR_OFFSET, -frame.POWERBAR_OFFSET)
 			elseif frame.ORIENTATION == "MIDDLE" then
-				power:Point("TOPLEFT", frame, "TOPLEFT", frame.BORDER, -frame.POWERBAR_OFFSET -frame.CLASSBAR_YOFFSET)
-				power:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -frame.BORDER, frame.BORDER)
+				power:Point("TOPLEFT", frame, "TOPLEFT", frame.BORDER + frame.SPACING, -frame.POWERBAR_OFFSET -frame.CLASSBAR_YOFFSET)
+				power:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -frame.BORDER - frame.SPACING, frame.BORDER)
 			else
 				power:Point("TOPLEFT", frame.Health, "TOPLEFT", -frame.POWERBAR_OFFSET - frame.STAGGER_WIDTH, -frame.POWERBAR_OFFSET)
 				power:Point("BOTTOMRIGHT", frame.Health, "BOTTOMRIGHT", -frame.POWERBAR_OFFSET, -frame.POWERBAR_OFFSET)
@@ -201,7 +209,7 @@ function UF:Configure_Power(frame)
 			frame.DruidAltMana:Hide()
 		end
 	end
-	
+
 	--Transparency Settings
 	UF:ToggleTransparentStatusBar(UF.db.colors.transparentPower, frame.Power, frame.Power.bg)
 end

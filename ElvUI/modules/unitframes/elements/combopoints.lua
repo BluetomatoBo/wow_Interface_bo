@@ -15,6 +15,7 @@ function UF:Construct_Combobar(frame)
 	local CPoints = CreateFrame("Frame", nil, frame)
 	CPoints:CreateBackdrop('Default', nil, nil, UF.thinBorders)
 	CPoints.Override = UF.UpdateComboDisplay
+	CPoints.origParent = frame
 
 	for i = 1, MAX_COMBO_POINTS do
 		CPoints[i] = CreateFrame("StatusBar", frame:GetName().."ComboBarButton"..i, CPoints)
@@ -42,25 +43,34 @@ function UF:Configure_ComboPoints(frame)
 		CPoints:SetParent(E.UIParent)
 	end
 
-	if not frame.USE_CLASSBAR or db.combobar.autoHide then
+	--Fix height in case it is lower than the theme allows
+	if (not self.thinBorders and not E.PixelMode) and frame.CLASSBAR_HEIGHT < 7 then --A height of 7 means 6px for borders and just 1px for the actual power statusbar
+		frame.CLASSBAR_HEIGHT = 7
+		if db.combobar then db.combobar.height = 7 end
+		UF.ToggleResourceBar(CPoints)  --Trigger update to health if needed
+	elseif (self.thinBorders or E.PixelMode) and frame.CLASSBAR_HEIGHT < 3 then --A height of 3 means 2px for borders and just 1px for the actual power statusbar
+		frame.CLASSBAR_HEIGHT = 3
+		if db.combobar then db.combobar.height = 3 end
+		UF.ToggleResourceBar(CPoints)  --Trigger update to health if needed
+	end
+
+	if not frame.USE_CLASSBAR then
 		CPoints:Hide()
 	end
-	
+
 	local CLASSBAR_WIDTH = frame.CLASSBAR_WIDTH
 	if frame.USE_MINI_CLASSBAR and not frame.CLASSBAR_DETACHED then
 		CPoints:Point("CENTER", frame.Health.backdrop, "TOP", 0, 0)
 		CLASSBAR_WIDTH = CLASSBAR_WIDTH * (frame.MAX_CLASS_BAR - 1) / frame.MAX_CLASS_BAR
 		CPoints:SetFrameStrata("MEDIUM")
 		if CPoints.Holder and CPoints.Holder.mover then
-			CPoints.Holder.mover:SetScale(0.000001)
-			CPoints.Holder.mover:SetAlpha(0)
+			E:DisableMover(CPoints.Holder.mover:GetName())
 		end
 	elseif not frame.CLASSBAR_DETACHED then
 		CPoints:Point("BOTTOMLEFT", frame.Health.backdrop, "TOPLEFT", frame.BORDER, (frame.SPACING*3))
 		CPoints:SetFrameStrata("LOW")
 		if CPoints.Holder and CPoints.Holder.mover then
-			CPoints.Holder.mover:SetScale(0.000001)
-			CPoints.Holder.mover:SetAlpha(0)
+			E:DisableMover(CPoints.Holder.mover:GetName())
 		end
 	else
 		CLASSBAR_WIDTH = db.combobar.detachedWidth - ((frame.BORDER+frame.SPACING)*2)
@@ -78,8 +88,7 @@ function UF:Configure_ComboPoints(frame)
 			CPoints.Holder:Size(db.combobar.detachedWidth, db.combobar.height)
 			CPoints:ClearAllPoints()
 			CPoints:Point("BOTTOMLEFT", CPoints.Holder.mover, "BOTTOMLEFT", frame.BORDER+frame.SPACING, frame.BORDER+frame.SPACING)
-			CPoints.Holder.mover:SetScale(1)
-			CPoints.Holder.mover:SetAlpha(1)
+			E:EnableMover(CPoints.Holder.mover:GetName())
 		end
 
 		CPoints:SetFrameStrata("LOW")
@@ -102,7 +111,7 @@ function UF:Configure_ComboPoints(frame)
 			CPoints[i]:Point("LEFT", CPoints)
 		else
 			if frame.USE_MINI_CLASSBAR then
-				CPoints[i]:Point("LEFT", CPoints[i-1], "RIGHT", (5 + frame.BORDER*2 + frame.SPACING*2), 0) 
+				CPoints[i]:Point("LEFT", CPoints[i-1], "RIGHT", (5 + frame.BORDER*2 + frame.SPACING*2), 0)
 			elseif i == frame.MAX_CLASS_BAR then
 				CPoints[i]:Point("LEFT", CPoints[i-1], "RIGHT", frame.BORDER-frame.SPACING, 0)
 				CPoints[i]:Point("RIGHT", CPoints)
@@ -130,6 +139,11 @@ function UF:Configure_ComboPoints(frame)
 		frame:DisableElement('CPoints')
 		CPoints:Hide()
 	end
+
+	--OnHide will not execute if Target Frame is not shown (logging in / reloading), so force an update
+	if not frame:IsShown() then
+		CPoints:ForceUpdate()
+	end
 end
 
 function UF:UpdateComboDisplay(event, unit)
@@ -142,9 +156,10 @@ function UF:UpdateComboDisplay(event, unit)
 	--Some bosses require the old API and return 0 constantly with the new API (Malygos is one example)
 	local cpOldApi = (UnitHasVehicleUI("player") or UnitHasVehicleUI("vehicle")) and GetComboPoints('vehicle', 'target') or GetComboPoints('player', 'target')
 	if cpOldApi and cp and (cpOldApi > cp) then cp = cpOldApi end
-	
+
 	if cp == 0 and db.combobar.autoHide then
 		cpoints:Hide()
+		UF.ToggleResourceBar(cpoints) --Call update manually too, as the OnShow/OnHide will not execute if there is currently no target
 	else
 		cpoints:Show()
 		for i=1, MAX_COMBO_POINTS do
@@ -154,5 +169,6 @@ function UF:UpdateComboDisplay(event, unit)
 				cpoints[i]:SetAlpha(.2)
 			end
 		end
+		UF.ToggleResourceBar(cpoints)
 	end
 end

@@ -148,7 +148,7 @@ function M:GetLocTextColor()
 	elseif pvpType == "combat" then
 		return 0.84, 0.03, 0.03
 	else
-		return 0.84, 0.03, 0.03
+		return 0.9, 0.85, 0.05
 	end
 end
 
