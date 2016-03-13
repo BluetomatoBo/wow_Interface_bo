@@ -3,16 +3,16 @@
 --     W o w h e a d   L o o t e r     --
 --                                     --
 --                                     --
---    Patch: 6.1.0                     --
---    Updated: March 18, 2015          --
+--    Patch: 6.2.3                     --
+--    Updated: January 25, 2016       --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 60009;
-local WL_VERSION_PATCH = 1;
+local WL_VERSION = 60014;
+local WL_VERSION_PATCH = 0;
 
 
 -- SavedVariables
@@ -27,8 +27,12 @@ wlSetting = {};
 wlScans = {
 	guid = nil,
     toys = "",
+    mounts = "",
+    titles = "",
+    achievements = "",
     followers = "",
     heirlooms = "",
+    projects = "",
 	timePlayedTotal = 0,
 };
 wlPetBlacklist = nil;
@@ -87,7 +91,7 @@ local WL_REP_MODS = {
 };
 -- Map currency name to currency ID
 local WL_CURRENCIES = {};
-local WL_CURRENCIES_MAXID = 1020;
+local WL_CURRENCIES_MAXID = 1226;
 -- Random Dungeon IDs extracted from LFGDungeons.dbc
 local WL_AREAID_TO_DUNGEONID = {
     [1] = {
@@ -291,7 +295,26 @@ local WL_SPECIAL_CONTAINERS = {
     [123857] = true, -- Runic Pouch
     [123858] = true, -- Follower Retraining Scroll Case
     [123975] = true, -- Greater Bounty Spoils
+    [127853] = true, [127854] = true, [127855] = true, [128391] = true, -- iron horde caches (6.2 raid rewards)
+    [126901] = true, [126906] = true, [126909] = true, [126914] = true, [126917] = true, [126918] = true, [126919] = true, [126920] = true, [126921] = true, [126922] = true, [126923] = true, [126924] = true, [126902] = true, [126907] = true, [126910] = true, [126915] = true, [127831] = true, [126903] = true, [126904] = true, [126905] = true, [126908] = true, [126911] = true, [126912] = true, [126913] = true, [126916] = true, [128213] = true, [128214] = true, [128215] = true, [128216] = true, -- Ashran and CM boxes
+    [127751] = true, -- fel-touched-pet-supplies
+    [128327] = true, -- small-pouch-of-coins
 };
+
+-- garrison trading post NPCs, for today in draenor tracking
+-- strings, since that's what wlUnitGuid returns
+local WL_DAILY_NPCS = {
+    '87200', '87201', '87203', '87202', '87204', '86777', '86779', '86778', '86776', '86683', -- alliance and horde trading post NPCs
+    '85517', '85557', '85622', '85624', '85625', '85626', '85627', '85628', '85629', '85630', '85631', '85632', '85633', '85634', '85635', '85685', '85659', '85650', '79751', '79179', -- pet battle challenge posts and single NPCs
+    '90675', '91014', '91015', '91016', '91017', '91361', '91026', '91364', '91363', '91362', -- erris/kura battle pet NPCs
+};
+
+-- garrison daily quests, for today in draenor tracking
+local WL_DAILY_APEXIS = {
+    36524,36525,36526,36542,36543,36544,36648,36649,36667,36669,36674,36675,36676,36677,36678,36679,36680,36681,36682,36683,36684,36685,36686,36687,36688,36689,36690,36691,36692,36693,36694,36695,36696,36697,36698,36699,36700,36701, -- apexis
+    37891,37940,37968,38044,38045,38046,38047,38250,38252,38440,38441,38449,38585,38586, -- tanaan
+};
+local WL_DAILY_PROFESSION_TRADER_QUESTS = { 38243, 38290, 38293, 38287, 38296 }
 
 -- Speed optimizations
 local CheckInteractDistance = CheckInteractDistance;
@@ -314,6 +337,9 @@ local GetNetStats = GetNetStats;
 local GetNumDungeonMapLevels = GetNumDungeonMapLevels;
 local GetNumLootItems = GetNumLootItems;
 local GetNumPartyMembers = GetNumPartyMembers;
+local GetArtifactInfoByRace = GetArtifactInfoByRace;
+local GetNumArchaeologyRaces = GetNumArchaeologyRaces;
+local GetNumArtifactsByRace = GetNumArtifactsByRace;
 local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards;
 local GetNumQuestLogEntries = GetNumQuestLogEntries;
 local GetNumRaidMembers = GetNumRaidMembers;
@@ -352,6 +378,7 @@ local UnitIsFriend = UnitIsFriend;
 local UnitIsPlayer = UnitIsPlayer;
 local UnitIsTapped = UnitIsTapped;
 local UnitIsTappedByPlayer = UnitIsTappedByPlayer;
+local UnitIsTapDenied = UnitIsTapDenied;
 local UnitIsTrivial = UnitIsTrivial;
 local UnitLevel = UnitLevel;
 local UnitManaMax = UnitManaMax;
@@ -399,11 +426,12 @@ local wlNumQuestCompleted = 0;
 local wlSpellCastID = nil;
 local wlTrackerClearedTime = 0;
 local wlChatLootIsBlocked = false;
+local wlLastShipmentContainer = nil;
 
 local isBetaClient = false;
---[[if (tonumber(select(4, GetBuildInfo())) >= 60000) then
+if (tonumber(select(4, GetBuildInfo())) >= 70000) then
 	isBetaClient = true;
-end]]
+end
 
 -- Hooks
 local wlDefaultGetQuestReward;
@@ -506,8 +534,12 @@ function wlEvent_PLAYER_LOGIN(self)
 
 	wlScans.guid = UnitGUID("player");
 	wlScans.toys = wlScans.toys or "";
+	wlScans.mounts = wlScans.mounts or "";
+	wlScans.titles = wlScans.titles or "";
+	wlScans.achievements = wlScans.achievements or "";
 	wlScans.followers = wlScans.followers or "";
 	wlScans.heirlooms = wlScans.heirlooms or "";
+    wlScans.projects = wlScans.projects or "";
 	wlScans.timePlayedTotal = wlScans.timePlayedTotal or 0;
 
 	-- to make sure bag info is available
@@ -523,6 +555,9 @@ function wlEvent_PLAYER_LOGIN(self)
     wlScanCurrencies();
 
     wlScanToys();
+    wlScanMounts();
+    wlScanTitles();
+    wlScanAchievements();
     wlScanFollowers();
     wlScanHeirlooms();
 
@@ -594,6 +629,16 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
+function wlPlayerCanHaveTap(unit)
+    if isBetaClient then
+        return not UnitIsTapDenied(unit);
+    else
+        return (not UnitIsTapped(unit)) or UnitIsTappedByPlayer(unit);
+    end
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
 function wlUnitGUID(unit)
 	local name = wlUnitName(unit);
 	local id, kind = wlParseGUID(UnitGUID(unit));
@@ -621,6 +666,11 @@ function wlEvent_PLAYER_TARGET_CHANGED(self)
 		return;
 	end
 
+    -- daily garrison npc tracking
+    if tContains(WL_DAILY_NPCS, id) then
+        wlSeenDaily('n'..id)
+    end
+
 	wlUpdateVariable(wlUnit, id, "init", {
 		class = select(2, UnitClass("target")),
 		isPvp = UnitIsPVP("target") and true or false,
@@ -646,6 +696,27 @@ function wlEvent_PLAYER_TARGET_CHANGED(self)
 		powermax = UnitManaMax("target"),
 		powertype = UnitPowerType("target"),
 	});
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_UPDATE_MOUSEOVER_UNIT(self)
+
+    if not UnitExists("mouseover") or UnitPlayerControlled("mouseover") or wlIsDrunk then
+        return;
+    end
+
+    local id, kind = wlUnitGUID("mouseover");
+
+    if not id or kind ~= "npc" then
+        return;
+    end
+
+    -- daily garrison npc tracking
+    if tContains(WL_DAILY_NPCS, id) then
+        wlSeenDaily('n'..id)
+    end
+
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -1340,6 +1411,52 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
+---------------------------
+---------------------------
+--                       --
+--   SHIPMENT FUNCTIONS  --
+--                       --
+---------------------------
+---------------------------
+
+function wlEvent_SHIPMENT_CRAFTER_OPENED(self, containerId)
+    wlLastShipmentContainer = containerId
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_SHIPMENT_CRAFTER_INFO(self)
+    if (not wlLastShipmentContainer) then
+        return
+    end
+    local reagents = {}
+    for i = 1, C_Garrison.GetNumShipmentReagents() do
+        local name, _, _, needed, _, itemID = C_Garrison.GetShipmentReagentInfo(i)
+        if (not name) then
+            break
+        end
+        reagents[i] = needed..'x'..itemID
+    end
+
+    -- 6.2 changed how currencies are attached to shipments, but we don't use them right now anyway, so we can skip them
+    --[[
+    for i = 1, C_Garrison.GetNumShipmentCurrencies() do
+        local currencyID, currencyNeeded = C_Garrison.GetShipmentReagentCurrencyInfo(i);
+        if (currencyID and currencyNeeded) then
+            table.insert(reagents, currencyNeeded..'y'..currencyID)
+        end
+    end
+    ]]
+
+    local dailyLine = 'w'..wlLastShipmentContainer..'.'..table.concat(reagents, '.')
+    wlSeenDaily(dailyLine)
+
+    -- event fires often while window is open, so nil out the container id we just saw to ignore repeats
+    wlLastShipmentContainer = nil
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
 
 
 --------------------------
@@ -1486,8 +1603,7 @@ end
 function wlEvent_QUEST_ACCEPTED(self, _, questId)
     if (questId) then
         -- only way to pick up apexis daily quests from table, when they are auto-accepted
-        local apexis = { 36524,36525,36526,36542,36543,36544,36648,36649,36667,36669,36674,36675,36676,36677,36678,36679,36680,36681,36682,36683,36684,36685,36686,36687,36688,36689,36690,36691,36692,36693,36694,36695,36696,36697,36698,36699,36700,36701 }
-        if tContains(apexis, questId) then
+        if tContains(WL_DAILY_APEXIS, questId) then
             wlSeenDaily(questId)
         end
     end
@@ -1507,7 +1623,7 @@ function wlEvent_QUEST_PROGRESS(self)
     if QuestIsDaily() then
         -- we want to pick up garrison profession trader dailies, but they don't fire quest_detail
         -- also, we don't want in-progress quests from other days to get picked up, so only prof dailies can trigger "seen" on progress event
-        if tContains({ 38243, 38290, 38293, 38287, 38296 }, wlTracker.quest.id) then
+        if tContains(WL_DAILY_PROFESSION_TRADER_QUESTS, wlTracker.quest.id) then
             wlSeenDaily(wlTracker.quest.id)
         end
     end
@@ -1633,6 +1749,9 @@ function wlEvent_COMBAT_TEXT_UPDATE(self, messageType, param1, param2)
 		local repMod = 1;
 		if IsSpellKnown(20599) then -- Diplomacy
 			repMod = repMod + 0.1;
+        end
+        if IsSpellKnown(170200) then -- Trading Pact
+            repMod = repMod + 0.2;
         end
 		for buffName, factMod in pairs(WL_REP_MODS) do
 			if UnitBuff("player", buffName) then
@@ -2118,7 +2237,7 @@ function wlEvent_LOOT_OPENED(self)
 		wlTracker.spell.time = nil;
 		wlTracker.spell.event = nil;
 
-	elseif wlIsValidName(UnitName("target")) and UnitIsTappedByPlayer("target") and wlUnitIsClose("target") and UnitIsDead("target") and not UnitIsFriend("player", "target") and not fromFishing then
+	elseif wlIsValidName(UnitName("target")) and wlPlayerCanHaveTap("target") and wlUnitIsClose("target") and UnitIsDead("target") and not UnitIsFriend("player", "target") and not fromFishing then
 		if UnitIsPlayer("target") then
 			-- not used
 			-- wlTracker.spell.action = "Killing";
@@ -2458,10 +2577,18 @@ end
 -------------------------------
 
 function wlCollect(userInitiated)
-	wlQueryTimePlayed();
+    if (not userInitiated) and (UnitAffectingCombat("player") or InCombatLockdown()) then
+        return;
+    end
+
+    wlQueryTimePlayed();
 	
     wlScanToys()
+    wlScanMounts()
+    wlScanTitles()
+    wlScanAchievements(userInitiated)
     wlScanFollowers()
+    wlScanArchaeology()
 
 	if userInitiated then
 		wlTimers.printCollected = wlGetTime() + 1000;
@@ -2671,6 +2798,44 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
+function wlScanArtifacts()
+    local temp = {};
+    for raceIndex=1, GetNumArchaeologyRaces() do
+        if WL_ARTIFACTS[raceIndex] then
+            for artifactIndex=1, GetNumArtifactsByRace(raceIndex) do
+                local name, _, _, _, _, _, _, _, completionCount = GetArtifactInfoByRace(raceIndex, artifactIndex);
+                if name and WL_ARTIFACTS[raceIndex][name] and completionCount > 0 then
+                    table.insert(temp, WL_ARTIFACTS[raceIndex][name] .. ":" .. completionCount);
+                end
+            end
+        end
+    end
+    if #temp > 0 then
+        wlScans.projects = table.concat(temp, ',');
+    end
+end
+
+function wlEvent_ARTIFACT_COMPLETE(...)
+    wlScanArtifacts();
+end
+
+function wlEvent_ARTIFACT_HISTORY_READY(...)
+    wlScanArtifacts();
+end
+
+function wlScanArchaeology()
+    local _, _, arch = GetProfessions();
+    if arch then
+        if not IsArtifactCompletionHistoryAvailable() then
+            RequestArtifactCompletionHistory();
+        else
+            wlScanArtifacts();
+        end
+    end
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
 function wlQueryTimePlayed()
 	-- Don't display time played in chat frame if not queried by player
 	wlTimePlayed_SkipNext = true;
@@ -2681,13 +2846,45 @@ end
 
 function wlEvent_TRADE_SKILL_SHOW(self, ...)
 	-- it's okay to run this now even if we can't guarantee all the spells are available at this time
-	wlScanProfessionWindow(wlGrabTradeSkillTools);
+    if not isBetaClient then
+        wlScanProfessionWindow(wlGrabTradeSkillTools);
+    end
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_TRADE_SKILL_DATA_SOURCE_CHANGED(self, ...)
+    -- it's okay to run this now even if we can't guarantee all the spells are available at this time
+    if isBetaClient then
+        wlScanProfessionWindow(wlGrabTradeSkillTools);
+    end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_TOYS_UPDATED(self, ...)
     wlScanToys();
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_ACHIEVEMENTS_UPDATED(self, ...)
+    wlScanAchievements();
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_MOUNTS_UPDATED(self, ...)
+    local companionType = ...;
+    if (not companionType or companionType == "MOUNT") then
+        wlScanMounts();
+    end
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_TITLES_UPDATED(self, ...)
+    wlScanTitles();
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -2711,7 +2908,12 @@ end
 -- a trade skill spell handler
 function wlGrabTradeSkillTools(skillLineName, spellId, tradeSkillIndex)
 	-- Process Anvil and Forge detection
-	local tools = GetTradeSkillTools(tradeSkillIndex);
+	local tools = "";
+    if isBetaClient then
+        tools = C_TradeSkillUI.GetRecipeTools(tradeSkillIndex);
+    else
+        tools = GetTradeSkillTools(tradeSkillIndex);
+    end
 
 	if tools then
 		if tools:find("Anvil") ~= nil then
@@ -2738,76 +2940,104 @@ function wlScanProfessionWindow(...)
 		end
 	end
 
-	local skillLineName = GetTradeSkillLine();
+	if isBetaClient then
 
-	-- plow through the display list
+        local tradeSkillID, skillLineName =  C_TradeSkillUI.GetTradeSkillLine();
 
-	local wlCollapsedHeaders = {};
-	TradeSkillFrame:UnregisterEvent("TRADE_SKILL_UPDATE");
+        local showMakeable = C_TradeSkillUI.GetOnlyShowMakeableRecipes();
+        local showSkillups = C_TradeSkillUI.GetOnlyShowSkillUpRecipes();
+        C_TradeSkillUI.SetOnlyShowMakeableRecipes(false);
+        C_TradeSkillUI.SetOnlyShowSkillUpRecipes(false);
 
-	-- Clear all filters
-	TradeSkillOnlyShowMakeable(false);
-	TradeSkillOnlyShowSkillUps(false);
+        local recipes = C_TradeSkillUI.GetFilteredRecipeIDs();
+        for i, recipeID in ipairs(recipes) do
+            local recipeLink = C_TradeSkillUI.GetRecipeLink(recipeID);
+            if recipeLink ~= nil then
+                local found, _, spellId = recipeLink:find("^|%x+|Henchant:(.+)|h%[.+%]");
+                if found then
+                    -- run the handlers for this trade skill spell
+                    for funcIndex = 1, parameterCount do
+                        select(funcIndex, ...)(skillLineName, spellId, recipeID);
+                    end
+                end
+            end
+        end
 
-	local invSlot = 0;
-	for i=0, select("#", GetTradeSkillInvSlots()) - 1 do
-		if GetTradeSkillInvSlotFilter(i) then
-			invSlot = i;
-			break;
-		end
-	end
+        C_TradeSkillUI.SetOnlyShowMakeableRecipes(showMakeable);
+        C_TradeSkillUI.SetOnlyShowSkillUpRecipes(showSkillups);
 
-	local subClass = 0;
-	for i=0, select("#", GetTradeSkillSubClasses()) - 1 do
-		if GetTradeSkillCategoryFilter(i) then
-			subClass = i;
-			break;
-		end
-	end
+    else
 
-	TradeSkillOnlyShowMakeable(false);
-	SetTradeSkillCategoryFilter(0);
-	SetTradeSkillInvSlotFilter(0, 1, 1);
+        local skillLineName = GetTradeSkillLine();
 
-	for tradeSkillIndex = 1, GetNumTradeSkills() do
-		local name, category, _, isExpanded = GetTradeSkillInfo(tradeSkillIndex);
-		if name then
-			if category == "header" or category == "subheader" then
-				if not isExpanded then
-					ExpandTradeSkillSubClass(tradeSkillIndex);
-					wlCollapsedHeaders[name] = 1;
-				end
-            else
-                local recipeLink = GetTradeSkillRecipeLink(tradeSkillIndex);
-                if recipeLink ~= nil then
-                    local found, _, spellId = recipeLink:find("^|%x+|Henchant:(.+)|h%[.+%]");
-                    if found then
-                        -- run the handlers for this trade skill spell
-                        for funcIndex = 1, parameterCount do
-                            select(funcIndex, ...)(skillLineName, spellId, tradeSkillIndex);
+        local wlCollapsedHeaders = {};
+        TradeSkillFrame:UnregisterEvent("TRADE_SKILL_UPDATE");
+
+        -- Clear all filters
+        TradeSkillOnlyShowMakeable(false);
+        TradeSkillOnlyShowSkillUps(false);
+
+        local invSlot = 0;
+        for i=0, select("#", GetTradeSkillInvSlots()) - 1 do
+            if GetTradeSkillInvSlotFilter(i) then
+                invSlot = i;
+                break;
+            end
+        end
+
+        local subClass = 0;
+        for i=0, select("#", GetTradeSkillSubClasses()) - 1 do
+            if GetTradeSkillCategoryFilter(i) then
+                subClass = i;
+                break;
+            end
+        end
+
+        TradeSkillOnlyShowMakeable(false);
+        SetTradeSkillCategoryFilter(0);
+        SetTradeSkillInvSlotFilter(0, 1, 1);
+
+        for tradeSkillIndex = 1, GetNumTradeSkills() do
+            local name, category, _, isExpanded = GetTradeSkillInfo(tradeSkillIndex);
+            if name then
+                if category == "header" or category == "subheader" then
+                    if not isExpanded then
+                        ExpandTradeSkillSubClass(tradeSkillIndex);
+                        wlCollapsedHeaders[name] = 1;
+                    end
+                else
+                    local recipeLink = GetTradeSkillRecipeLink(tradeSkillIndex);
+                    if recipeLink ~= nil then
+                        local found, _, spellId = recipeLink:find("^|%x+|Henchant:(.+)|h%[.+%]");
+                        if found then
+                            -- run the handlers for this trade skill spell
+                            for funcIndex = 1, parameterCount do
+                                select(funcIndex, ...)(skillLineName, spellId, tradeSkillIndex);
+                            end
                         end
                     end
                 end
-			end
-		end
-	end
+            end
+        end
 
-	-- Restore headers
-	for i=1, GetNumTradeSkills() do
-		local name, category, _, isExpanded = GetTradeSkillInfo(i);
+        -- Restore headers
+        for i=1, GetNumTradeSkills() do
+            local name, category, _, isExpanded = GetTradeSkillInfo(i);
 
-		if name and (category == "header" or category == "subheader") and wlCollapsedHeaders[name] then
-			CollapseTradeSkillSubClass(i);
-		end
-	end
+            if name and (category == "header" or category == "subheader") and wlCollapsedHeaders[name] then
+                CollapseTradeSkillSubClass(i);
+            end
+        end
 
-	-- Restore filters
-	TradeSkillOnlyShowMakeable(TradeSkillFrame.filterTbl.hasMaterials);
-	TradeSkillOnlyShowSkillUps(TradeSkillFrame.filterTbl.hasSkillUp);
-	SetTradeSkillCategoryFilter(subClass);
-	SetTradeSkillInvSlotFilter(invSlot, 1, 1);
+        -- Restore filters
+        TradeSkillOnlyShowMakeable(TradeSkillFrame.filterTbl.hasMaterials);
+        TradeSkillOnlyShowSkillUps(TradeSkillFrame.filterTbl.hasSkillUp);
+        SetTradeSkillCategoryFilter(subClass);
+        SetTradeSkillInvSlotFilter(invSlot, 1, 1);
 
-	TradeSkillFrame:RegisterEvent("TRADE_SKILL_UPDATE");
+        TradeSkillFrame:RegisterEvent("TRADE_SKILL_UPDATE");
+
+    end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -2821,48 +3051,97 @@ function wlScanToys()
 
     local ids = ""
 
-    local fCollected, fUncollected = C_ToyBox.GetFilterCollected(), C_ToyBox.GetFilterUncollected()
-    local fSources = {}
-    local numSources = C_PetJournal.GetNumPetSources() -- yes, pet sources used for toy source list
+    if (isBetaClient) then
 
-    for i=1,numSources do
-        fSources[i] = C_ToyBox.IsSourceTypeFiltered(i)
-        C_ToyBox.SetFilterSourceType(i,false)
-    end
-    C_ToyBox.SetFilterCollected(true)
-    C_ToyBox.SetFilterUncollected(false)
-    C_ToyBox.SetFilterString("")
-    C_ToyBox.FilterToys()
+        local fCollected, fUncollected = C_ToyBox.GetCollectedShown(), C_ToyBox.GetUncollectedShown()
+        local fSources = {}
+        local numSources = C_PetJournal.GetNumPetSources() -- yes, pet sources used for toy source list
 
-    local toyItem = 1
-    local i = 1
-    local toyTable = {}
-    local toyTableIdx = #toyTable
-    while (toyItem > 0) and (i < 1000) do
-        toyItem = C_ToyBox.GetToyFromIndex(i)
-        if (toyItem > 0) then
-            toyTableIdx = toyTableIdx + 1
-            if (C_ToyBox.GetIsFavorite(toyItem)) then
-                toyTable[toyTableIdx] = toyItem .. ':1'
-            else
-                toyTable[toyTableIdx] = toyItem .. ':0'
-            end
+        for i=1,numSources do
+            fSources[i] = C_ToyBox.IsSourceTypeFilterChecked(i)
+            C_ToyBox.SetSourceTypeFilter(i,false)
         end
-        i = i + 1
-    end
+        C_ToyBox.SetCollectedShown(true)
+        C_ToyBox.SetUncollectedShown(false)
+        C_ToyBox.SetFilterString("")
+        C_ToyBox.ForceToyRefilter()
 
-    ids = table.concat(toyTable,',')
+        local toyItem = 1
+        local i = 1
+        local toyTable = {}
+        local toyTableIdx = #toyTable
+        while (toyItem > 0) and (i < 1000) do
+            toyItem = C_ToyBox.GetToyFromIndex(i)
+            if (toyItem > 0) then
+                toyTableIdx = toyTableIdx + 1
+                if (C_ToyBox.GetIsFavorite(toyItem)) then
+                    toyTable[toyTableIdx] = toyItem .. ':1'
+                else
+                    toyTable[toyTableIdx] = toyItem .. ':0'
+                end
+            end
+            i = i + 1
+        end
 
-    -- reset user prefs
-    if (ToyBox and ToyBox.searchString and type(ToyBox.searchString) == "string") then
-        C_ToyBox.SetFilterString(ToyBox.searchString)
+        ids = table.concat(toyTable,',')
+
+        -- reset user prefs
+        if (ToyBox and ToyBox.searchString and type(ToyBox.searchString) == "string") then
+            C_ToyBox.SetFilterString(ToyBox.searchString)
+        end
+        C_ToyBox.SetCollectedShown(fCollected)
+        C_ToyBox.SetUncollectedShown(fUncollected)
+        for i=1,numSources do
+            C_ToyBox.SetSourceTypeFilter(i,fSources[i])
+        end
+        C_ToyBox.ForceToyRefilter()
+
+    else
+
+        local fCollected, fUncollected = C_ToyBox.GetFilterCollected(), C_ToyBox.GetFilterUncollected()
+        local fSources = {}
+        local numSources = C_PetJournal.GetNumPetSources() -- yes, pet sources used for toy source list
+
+        for i=1,numSources do
+            fSources[i] = C_ToyBox.IsSourceTypeFiltered(i)
+            C_ToyBox.SetFilterSourceType(i,false)
+        end
+        C_ToyBox.SetFilterCollected(true)
+        C_ToyBox.SetFilterUncollected(false)
+        C_ToyBox.SetFilterString("")
+        C_ToyBox.FilterToys()
+
+        local toyItem = 1
+        local i = 1
+        local toyTable = {}
+        local toyTableIdx = #toyTable
+        while (toyItem > 0) and (i < 1000) do
+            toyItem = C_ToyBox.GetToyFromIndex(i)
+            if (toyItem > 0) then
+                toyTableIdx = toyTableIdx + 1
+                if (C_ToyBox.GetIsFavorite(toyItem)) then
+                    toyTable[toyTableIdx] = toyItem .. ':1'
+                else
+                    toyTable[toyTableIdx] = toyItem .. ':0'
+                end
+            end
+            i = i + 1
+        end
+
+        ids = table.concat(toyTable,',')
+
+        -- reset user prefs
+        if (ToyBox and ToyBox.searchString and type(ToyBox.searchString) == "string") then
+            C_ToyBox.SetFilterString(ToyBox.searchString)
+        end
+        C_ToyBox.SetFilterCollected(fCollected)
+        C_ToyBox.SetFilterUncollected(fUncollected)
+        for i=1,numSources do
+            C_ToyBox.SetFilterSourceType(i,fSources[i])
+        end
+        C_ToyBox.FilterToys()
+
     end
-    C_ToyBox.SetFilterCollected(fCollected)
-    C_ToyBox.SetFilterUncollected(fUncollected)
-    for i=1,numSources do
-        C_ToyBox.SetFilterSourceType(i,fSources[i])
-    end
-    C_ToyBox.FilterToys()
 
     wlScanToys_processing = false
 
@@ -2878,17 +3157,165 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
+local wlAchievementsCompleted = -1
+function wlScanAchievements(userInitiated)
+    local ids = ""
+
+    local _, completed = GetNumCompletedAchievements()
+    if (not userInitiated) and ((wlAchievementsCompleted == completed) or UnitAffectingCombat("player") or InCombatLockdown()) then
+        return false -- skip exhaustive scan if no new achievements or if in combat
+    end
+    wlAchievementsCompleted = completed
+
+    local catList = GetCategoryList()
+
+    local achievementTable = {}
+    local achievementTableIdx = #achievementTable
+
+    for _, cat in pairs(catList) do
+        local total = GetCategoryNumAchievements(cat, true)
+        for i=1, total do
+            local id = GetAchievementInfo(cat, i)
+            while id do
+                local _, _, _, completed, month, day, year, _, _, _, _, isGuild = GetAchievementInfo(id)
+                if (completed and not isGuild) then
+                    achievementTableIdx = achievementTableIdx + 1
+                    if year < 10 then
+                        year = '0'..year
+                    end
+                    if month < 10 then
+                        month = '0'..month
+                    end
+                    if day < 10 then
+                        day = '0'..day
+                    end
+                    achievementTable[achievementTableIdx] = id .. ':' .. year .. month .. day
+
+                    id = GetPreviousAchievement(id)
+                else
+                    id = nil
+                end
+            end
+        end
+    end
+
+    ids = table.concat(achievementTable,',')
+
+    if ids ~= "" then
+        wlScans.achievements = ids;
+        return true;
+    else
+        -- skip resetting achievements, perhaps server didn't send them down yet. achievements never go completely away.
+        -- wlScans.achievements = "-1";
+        return false;
+    end
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlScanMounts()
+    local ids = ""
+    local mountSpell = 1
+    local mountTable = {}
+    local mountTableIdx = #mountTable
+
+    if isBetaClient then
+        local mountIds = C_MountJournal.GetMountIDs();
+        for i=1, #mountIds do
+            if (mountIds[i] ~= nil) then
+                local _, mountSpell, _, _, _, _, isFavorite, _, _, hideOnChar, isCollected = C_MountJournal.GetMountInfoByID(mountIds[i])
+                if (mountSpell > 0) and (not hideOnChar) and (isCollected) then
+                    mountTableIdx = mountTableIdx + 1
+                    if (isFavorite) then
+                        mountTable[mountTableIdx] = mountSpell .. ':1'
+                    else
+                        mountTable[mountTableIdx] = mountSpell .. ':0'
+                    end
+                end
+            end
+        end
+    else
+        for i=1, C_MountJournal.GetNumMounts() do
+            local _, mountSpell, _, _, _, _, isFavorite, _, _, hideOnChar, isCollected = C_MountJournal.GetMountInfo(i)
+            if (mountSpell > 0) and (not hideOnChar) and (isCollected) then
+                mountTableIdx = mountTableIdx + 1
+                if (isFavorite) then
+                    mountTable[mountTableIdx] = mountSpell .. ':1'
+                else
+                    mountTable[mountTableIdx] = mountSpell .. ':0'
+                end
+            end
+        end
+    end
+
+    ids = table.concat(mountTable,',')
+
+    if ids ~= "" then
+        wlScans.mounts = ids;
+        return true;
+    else
+        -- skip resetting mounts, perhaps server didn't send them down yet. mounts never go completely away.
+        -- wlScans.mounts = "-1";
+        return false;
+    end
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlScanTitles()
+    local ids = ""
+    local titleTable = {}
+    local titleTableIdx = #titleTable
+    local currentTitle = GetCurrentTitle()
+    for i=1, GetNumTitles() do
+        if IsTitleKnown(i) then
+            titleTableIdx = titleTableIdx + 1
+            if (currentTitle == i) then
+                titleTable[titleTableIdx] = i .. ':1'
+            else
+                titleTable[titleTableIdx] = i .. ':0'
+            end
+        end
+    end
+
+    ids = table.concat(titleTable,',')
+
+    if ids ~= "" then
+        wlScans.titles = ids;
+        return true;
+    else
+        -- skip resetting titles, perhaps server didn't send them down yet. titles never go completely away.
+        -- wlScans.titles = "-1";
+        return false;
+    end
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
 function wlScanHeirlooms()
     local ids = ""
 
     local heirloomTable = {}
     local heirloomTableIdx = #heirloomTable
-    for i = 1, C_Heirloom.GetNumHeirlooms() do
-        local itemID = C_Heirloom.GetHeirloomItemIDFromIndex(i);
-        if (itemID and C_Heirloom.PlayerHasHeirloom(itemID)) then
-            local name, itemEquipLoc, isPvP, itemTexture, upgradeLevel, source, searchFiltered, effectiveLevel, minLevel, maxLevel = C_Heirloom.GetHeirloomInfo(itemID);
-            heirloomTableIdx = heirloomTableIdx + 1
-            heirloomTable[heirloomTableIdx] = itemID .. ':' .. upgradeLevel
+
+    if (isBetaClient) then
+        local heirloomIDs = C_Heirloom.GetHeirloomItemIDs();
+        for i = 1, #heirloomIDs do
+            local itemID = heirloomIDs[i];
+            if (itemID and C_Heirloom.PlayerHasHeirloom(itemID)) then
+                local name, itemEquipLoc, isPvP, itemTexture, upgradeLevel, source, searchFiltered, effectiveLevel, minLevel, maxLevel = C_Heirloom.GetHeirloomInfo(itemID);
+                heirloomTableIdx = heirloomTableIdx + 1
+                heirloomTable[heirloomTableIdx] = itemID .. ':' .. upgradeLevel
+            end
+        end
+    else
+        for i = 1, C_Heirloom.GetNumHeirlooms() do
+            local itemID = C_Heirloom.GetHeirloomItemIDFromIndex(i);
+            if (itemID and C_Heirloom.PlayerHasHeirloom(itemID)) then
+                local name, itemEquipLoc, isPvP, itemTexture, upgradeLevel, source, searchFiltered, effectiveLevel, minLevel, maxLevel = C_Heirloom.GetHeirloomInfo(itemID);
+                heirloomTableIdx = heirloomTableIdx + 1
+                heirloomTable[heirloomTableIdx] = itemID .. ':' .. upgradeLevel
+            end
         end
     end
 
@@ -2917,20 +3344,29 @@ function wlScanFollowers()
     local followerTable = {}
     local followerTableIdx = #followerTable
 
-    local followers = C_Garrison.GetFollowers();
-    for i=1,#followers do
-        if (followers[i].isCollected) then
-            local id = followers[i].followerID
-            local followerString = Match(GetLink(id), "garrfollower:([%-?%d:]+)")
+    local followerTypes = {1, LE_FOLLOWER_TYPE_SHIPYARD_6_2, LE_FOLLOWER_TYPE_GARRISON_7_0 };
 
-            if (followerString) then
-                local isActive
-                if GetStatus(id) ~= INACTIVE then isActive = 1 else isActive = 0 end
+    for ftIdx=1,#followerTypes do
+        local ft = followerTypes[ftIdx];
+        if (ft ~= nil) then
+            local followers = C_Garrison.GetFollowers(ft);
+            if (followers ~= nil) then
+                for i=1,#followers do
+                    if (followers[i].isCollected) then
+                        local id = followers[i].followerID
+                        local followerString = Match(GetLink(id), "garrfollower:([%-?%d:]+)")
 
-                local _,weaponLevel,_,armorLevel = GetItems(id)
+                        if (followerString) then
+                            local isActive
+                            if GetStatus(id) ~= INACTIVE then isActive = 1 else isActive = 0 end
 
-                followerTableIdx = followerTableIdx + 1
-                followerTable[followerTableIdx] = Concat({isActive, weaponLevel, armorLevel, followerString}, ':')
+                            local _,weaponLevel,_,armorLevel = GetItems(id)
+
+                            followerTableIdx = followerTableIdx + 1
+                            followerTable[followerTableIdx] = Concat({isActive, weaponLevel, armorLevel, followerString}, ':')
+                        end
+                    end
+                end
             end
         end
     end
@@ -2954,7 +3390,8 @@ function wlGetExportDataValue()
         realmId = tonumber(strmatch(guid, "^Player%-(%d+)"))
     end
 
-    local value = "&realmId="..realmId.."&timePlayedTotal="..wlScans.timePlayedTotal.."&toys="..wlScans.toys.."&followers="..wlScans.followers.."&heirlooms="..wlScans.heirlooms;
+    local value = "&realmId="..realmId.."&timePlayedTotal="..wlScans.timePlayedTotal.."&achievements="..wlScans.achievements.."&toys="..wlScans.toys.."&mounts="..wlScans.mounts.."&titles="..wlScans.titles.."&followers="..wlScans.followers.."&heirlooms="..wlScans.heirlooms;
+    value = value .. "&projects=" .. wlScans.projects;
     return value;
 end
 
@@ -3136,6 +3573,7 @@ local wlEvents = {
 	MERCHANT_UPDATE = wlEvent_MERCHANT_UPDATE,
 	TRAINER_SHOW = wlEvent_TRAINER_SHOW,
 	COMBAT_LOG_EVENT_UNFILTERED = wlEvent_COMBAT_LOG_EVENT_UNFILTERED,
+    UPDATE_MOUSEOVER_UNIT = wlEvent_UPDATE_MOUSEOVER_UNIT,
 
 	-- drops
 	LOOT_OPENED = wlEvent_LOOT_OPENED,
@@ -3166,6 +3604,10 @@ local wlEvents = {
 	ITEM_TEXT_BEGIN = wlEvent_ITEM_TEXT_BEGIN,
 	MAIL_SHOW = wlEvent_MAIL_SHOW,
 
+    -- shipment (garrison work orders)
+    SHIPMENT_CRAFTER_OPENED = wlEvent_SHIPMENT_CRAFTER_OPENED,
+    SHIPMENT_CRAFTER_INFO = wlEvent_SHIPMENT_CRAFTER_INFO,
+
 	-- quest
 	QUEST_DETAIL = wlEvent_QUEST_DETAIL,
     QUEST_ACCEPTED = wlEvent_QUEST_ACCEPTED,
@@ -3182,8 +3624,20 @@ local wlEvents = {
 
 	-- completist
 	TRADE_SKILL_SHOW = wlEvent_TRADE_SKILL_SHOW,
+	TRADE_SKILL_DATA_SOURCE_CHANGED = wlEvent_TRADE_SKILL_DATA_SOURCE_CHANGED,
 	CURRENCY_DISPLAY_UPDATE = wlEvent_CURRENCY_DISPLAY_UPDATE,
+    ARTIFACT_HISTORY_READY = wlEvent_ARTIFACT_HISTORY_READY,
+    ARTIFACT_COMPLETE = wlEvent_ARTIFACT_COMPLETE,
+    RESEARCH_ARTIFACT_HISTORY_READY = wlEvent_ARTIFACT_HISTORY_READY,
+    RESEARCH_ARTIFACT_COMPLETE = wlEvent_ARTIFACT_COMPLETE,
 	TOYS_UPDATED = wlEvent_TOYS_UPDATED,
+    COMPANION_LEARNED = wlEvent_MOUNTS_UPDATED,
+    COMPANION_UNLEARNED = wlEvent_MOUNTS_UPDATED,
+    COMPANION_UPDATE = wlEvent_MOUNTS_UPDATED,
+    KNOWN_TITLES_UPDATE = wlEvent_TITLES_UPDATED,
+    NEW_TITLE_EARNED = wlEvent_TITLES_UPDATED,
+    OLD_TITLE_LOST = wlEvent_TITLES_UPDATED,
+    ACHIEVEMENT_EARNED = wlEvent_ACHIEVEMENTS_UPDATED,
 	GARRISON_FOLLOWER_ADDED = wlEvent_FOLLOWERS_UPDATED,
 	GARRISON_FOLLOWER_LIST_UPDATE = wlEvent_FOLLOWERS_UPDATED,
 	GARRISON_FOLLOWER_REMOVED = wlEvent_FOLLOWERS_UPDATED,
@@ -3643,7 +4097,7 @@ function wl_OnUpdate(self, elapsed)
 		wlTimeSinceLastUpdate = 0;
 		
 		-- filter out unwanted NPC location collection
-		if not UnitExists("target") or UnitPlayerControlled("target") or UnitIsTapped("target") or not wlUnitIsClose("target") or wlIsDrunk then
+		if not UnitExists("target") or UnitPlayerControlled("target") or not wlPlayerCanHaveTap("target") or not wlUnitIsClose("target") or wlIsDrunk then
 			return;
 		end
 		
@@ -3900,16 +4354,16 @@ end
 --------------------------
 --------------------------
 
---	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : (upgradeId) : (bonusContext) : (numBonus) (: ...bonusIds...) : (name)
-local WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+):(%-?%d+)([^|]*)|h%[(.+)%]|h|r";
+--	(color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : (specId) : (upgradeType) : (bonusContext) : (numBonus) (: ...bonusIds...) : (upgradeId) : (name)
+local WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*)([^|]*)|h%[(.+)%]|h|r";
 
 function wlParseItemLink(link)
 	if link then
 
-		local found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, upgradeId, bonusContext, numBonus, bonuses, name = link:find(WL_ITEMLINK);
+		local found, _, color, id, enchant, socket1, socket2, socket3, socket4, subId, guid, pLevel, specId, upgradeType, bonusContext, numBonus, bonuses, name = link:find(WL_ITEMLINK);
 
 		if found then
-			id, subId, guid = tonumber(id), tonumber(subId), tonumber(guid);
+			id, subId, guid = tonumber(id), tonumber(subId) or 0, tonumber(guid) or 0;
 
 			if subId ~= 0 then
 				wlUpdateVariable(wlItemSuffix, id, subId, "add", 1);
@@ -3919,7 +4373,7 @@ function wlParseItemLink(link)
 				end
             end
 
-            bonusContext, numBonus = tonumber(bonusGroup), tonumber(numBonus);
+            bonusContext, numBonus = tonumber(bonusGroup) or 0, tonumber(numBonus) or 0;
             if bonusContext and bonusContext ~= 0 then
                 wlUpdateVariable(wlItemBonuses, id, bonusContext, "add", 1);
             end
@@ -3938,7 +4392,7 @@ function wlParseItemLink(link)
                 end
             end
 
-			return id, subId, tonumber(enchant), tonumber(socket1), tonumber(socket2), tonumber(socket3), tonumber(socket4), name, color, guid, tonumber(pLevel);
+			return id, subId, tonumber(enchant) or 0, tonumber(socket1) or 0, tonumber(socket2) or 0, tonumber(socket3) or 0, tonumber(socket4) or 0, name, color, guid, tonumber(pLevel) or 0;
 		end
 	end
 
@@ -3950,12 +4404,12 @@ end
 -- |cffffff00|Hquest:10002:64|h[The Firewing Liaison]|h|r
 -- |cffffff00|Hquest:11506:-1|h[Spirits of Auchindoun]|h|r
 -- (color) : (id) : (level) : (name)
-local WL_QUESTLINK = "|c(%x+)|Hquest:(%d+):(-?%d+)|h%[(.+)%]|h|r";
+local WL_QUESTLINK = "|c(%x+)|Hquest:(%d+):(-?%d*)|h%[(.+)%]|h|r";
 
 function wlParseQuestLink(link)
 	if link then
 		for color, id, level, name in link:gmatch(WL_QUESTLINK) do
-			return tonumber(id), tonumber(level), name, color;
+			return tonumber(id), tonumber(level) or 0, name, color;
 		end
 	end
 
