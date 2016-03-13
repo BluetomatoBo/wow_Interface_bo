@@ -1,0 +1,57 @@
+------------------------------------------------------------------------
+r579 | tiker | 2016-03-11 18:40:00 +0000 (Fri, 11 Mar 2016) | 1 line
+Changed paths:
+   A /tags/6.2.11 (from /trunk:578)
+
+Tagging as 6.2.11
+------------------------------------------------------------------------
+r578 | tiker | 2016-03-10 16:54:37 +0000 (Thu, 10 Mar 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+listing "Warforged Nightmare" to watch for now
+------------------------------------------------------------------------
+r577 | tiker | 2016-03-10 15:21:18 +0000 (Thu, 10 Mar 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+Removed test flag, updated toc version for release
+------------------------------------------------------------------------
+r576 | tiker | 2016-03-10 15:13:37 +0000 (Thu, 10 Mar 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Updated flags for "Solar Spirehawk" flagging it as a flying mount - ticket 850
+------------------------------------------------------------------------
+r575 | tiker | 2016-03-10 15:09:30 +0000 (Thu, 10 Mar 2016) | 11 lines
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+- Added support for "Predatory Bloodgazer"
+- Added support for "Snowfeather Hunter"
+- Added support for "Brilliant Direbeak"
+- Added support for "Viridian Sharptalon"
+- Added support for "Llothien Prowler"
+- Added support for "Felblaze Infernal"
+- Added support for "Hellfire Infernal"
+- Added support for "Flarecore Infernal"
+- Added support for "Coldflame Infernal"
+- Added support for "Frostshard Infernal"
+
+------------------------------------------------------------------------
+r573 | tiker | 2016-03-04 18:42:03 +0000 (Fri, 04 Mar 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Updated "Cindermane Charger" flagging it as a flying mount (even though it's not listed as such on sites) - ticket 851
+------------------------------------------------------------------------
+r571 | tiker | 2016-02-23 15:58:49 +0000 (Tue, 23 Feb 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Testing fix for low level druids getting errors from GoGoMount
+------------------------------------------------------------------------
