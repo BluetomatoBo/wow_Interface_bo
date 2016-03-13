@@ -126,7 +126,7 @@ L= DBM:GetModLocalization(1673)
 L= DBM:GetModLocalization(1687)
 
 -----------------------
--- <<<Suramar Catacombs>>> --
+-- <<<The Arcway>>> --
 -----------------------
 -----------------------
 -- Ivanyr --
@@ -143,6 +143,10 @@ L= DBM:GetModLocalization(1498)
 -----------------------
 L= DBM:GetModLocalization(1499)
 
+L:SetMiscLocalization({
+	batSpawn		=	"Reinforcements to me! NOW!"
+})
+
 -----------------------
 -- Nal'tira --
 -----------------------
@@ -154,20 +158,20 @@ L= DBM:GetModLocalization(1500)
 L= DBM:GetModLocalization(1501)
 
 -----------------------
--- <<<Suramar Noble District>>> --
+-- <<<Court of Stars>>> --
 -----------------------
 -----------------------
--- Patrol Captain Volendis --
+-- Patrol Captain Gerdo --
 -----------------------
 L= DBM:GetModLocalization(1718)
 
 -----------------------
--- Talixae --
+-- Talixae Flamewreath --
 -----------------------
 L= DBM:GetModLocalization(1719)
 
 -----------------------
--- High Councillor Gerdo --
+-- Advisor Melandrus --
 -----------------------
 L= DBM:GetModLocalization(1720)
 

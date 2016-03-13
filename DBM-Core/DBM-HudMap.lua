@@ -29,7 +29,6 @@ local GetInstanceInfo = GetInstanceInfo
 local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 
 --Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
---http://forums.elitistjerks.com/topic/133901-bug-report-hudmap/#entry2282069
 local standardFont = STANDARD_TEXT_FONT
 if (LOCALE_koKR) then
 	standardFont = "Fonts\\2002.TTF"
@@ -923,7 +922,7 @@ do
 			b = bool and self.alert.b or self.normal.b or 1
 			a = bool and self.alert.a or self.normal.a or 1
 			self.texture:SetVertexColor(r, g, b, a)
-			if self.alertLabel then
+			if bool then
 				self:SetLabel(self.alertLabel, nil, nil, nil, nil, nil, 0.8)
 			end
 			return self

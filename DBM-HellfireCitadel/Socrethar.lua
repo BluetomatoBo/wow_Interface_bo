@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1427, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14617 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14851 $"):sub(12, -3))
 mod:SetCreatureID(92330)
 mod:SetEncounterID(1794)
 mod:SetZone()
@@ -53,11 +53,11 @@ local specWarnFelCharge				= mod:NewSpecialWarningTarget(182051, "Melee", nil, n
 local specWarnApocalypticFelburst	= mod:NewSpecialWarningCount(188693, nil, nil, nil, 2, 2)--Mythic
 local specWarnSoulstalker			= mod:NewSpecialWarningCount("ej11778", nil, nil, nil, 2, 2)
 --Socrethar
-local specWarnExertDominance		= mod:NewSpecialWarningInterruptCount(183331, "-Healer", nil, nil, 1, 2)
+local specWarnExertDominance		= mod:NewSpecialWarningInterruptCount(183331, "HasInterrupt", nil, 2, 1, 2)
 local specWarnApocalypse			= mod:NewSpecialWarningSpell(183329, nil, nil, nil, 2, 2)
 --Adds
 local specWarnShadowWordAgony		= mod:NewSpecialWarningInterrupt(184239, false, nil, nil, 1, 2)
-local specWarnShadowBoltVolley		= mod:NewSpecialWarningInterrupt(182392, "-Healer", nil, nil, 1, 2)
+local specWarnShadowBoltVolley		= mod:NewSpecialWarningInterrupt(182392, "HasInterrupt", nil, 2, 1, 2)
 local specWarnSouls					= mod:NewSpecialWarningCount("ej11462", nil, nil, nil, 1)
 local specWarnGhastlyFixation		= mod:NewSpecialWarningYou(182769, nil, nil, nil, 1)--You don't run out or kite. you position yourself so ghosts go through fire dropped by construct
 local specWarnSargereiDominator		= mod:NewSpecialWarningSwitchCount("ej11456", "-Healer", nil, nil, 3)
@@ -67,20 +67,20 @@ local specWarnEternalHunger			= mod:NewSpecialWarningRun(188666, nil, nil, nil, 
 local yellEternalHunger				= mod:NewYell(188666, nil, false)
 
 --Soulbound Construct
-local timerReverberatingBlowCD		= mod:NewCDCountTimer(17, 180008, nil, nil, nil, 5, nil, DBM_CORE_TANK_ICON)--Seems changed to 17, formerly 11, review in later tests/live
+local timerReverberatingBlowCD		= mod:NewCDCountTimer(17, 180008, nil, "Tank|Healer", 2, 5, nil, DBM_CORE_TANK_ICON)
 local timerFelPrisonCD				= mod:NewCDTimer(29, 182994, nil, nil, nil, 3)--29-33
-local timerVolatileFelOrbCD			= mod:NewCDTimer(23, 180221, nil, nil, nil, 3)
+local timerVolatileFelOrbCD			= mod:NewCDTimer(23, 180221, 186532, nil, nil, 3)
 local timerFelChargeCD				= mod:NewCDTimer(23, 182051, nil, nil, nil, 3)
-local timerApocalypticFelburstCD	= mod:NewCDCountTimer(30, 188693, nil, nil, nil, 2, nil, DBM_CORE_HEROIC_ICON)
+local timerApocalypticFelburstCD	= mod:NewCDCountTimer(30, 188693, 206388, nil, nil, 2, nil, DBM_CORE_HEROIC_ICON)
 --Socrethar
 local timerExertDominanceCD			= mod:NewCDCountTimer(4.5, 183331, nil, "-Healer", nil, 4, nil, DBM_CORE_INTERRUPT_ICON)
 local timerApocalypseCD				= mod:NewCDTimer(46, 183329, nil, nil, nil, 2)
 --Adds
-local timerSargereiDominatorCD		= mod:NewNextCountTimer(60, "ej11456", nil, nil, nil, 1, 184053)--CD needs verifying, no log saw 2 of them in a phase. phase always ended or boss died before 2nd add, i know it's at least longer than 60 sec tho
+local timerSargereiDominatorCD		= mod:NewNextCountTimer(60, "ej11456", nil, nil, nil, 1, 184053)
 local timerHauntingSoulCD			= mod:NewCDCountTimer(29, "ej11462", nil, nil, nil, 1, 182769)
 local timerGiftofManariCD			= mod:NewCDTimer(11, 184124, nil, nil, nil, 3)
 --Mythic
-local timerVoraciousSoulstalkerCD	= mod:NewCDCountTimer(59.5, "ej11778", nil, nil, nil, 1, 190776, DBM_CORE_HEROIC_ICON)
+local timerVoraciousSoulstalkerCD	= mod:NewCDCountTimer(59.5, "ej11778", 151869, nil, nil, 1, 190776, DBM_CORE_HEROIC_ICON)
 
 --local berserkTimer				= mod:NewBerserkTimer(360)
 
@@ -96,11 +96,11 @@ local voiceFelBurst					= mod:NewVoice(188693)--watchstep
 local voiceVoraciousSoulstalker		= mod:NewVoice("ej11778")--watchstep
 --Socrethar
 local timerTransition				= mod:NewPhaseTimer(6.5)
-local voiceExertDominance			= mod:NewVoice(183331, "-Healer")--kickcast
+local voiceExertDominance			= mod:NewVoice(183331, "HasInterrupt")--kickcast
 local voiceApocalypse				= mod:NewVoice(183329)--aesoon
 --Adds
 local voiceShadowWordAgony			= mod:NewVoice(184239, false)--kickcast
-local voiceShadowBoltVolley			= mod:NewVoice(182392, "-Healer")--kickcast
+local voiceShadowBoltVolley			= mod:NewVoice(182392, "HasInterrupt")--kickcast
 --local voiceGhastlyFixation			= mod:NewVoice(182769)--runout/keepmove
 local voiceGiftoftheManari			= mod:NewVoice(184124)--scatter
 local voiceEternalHunger			= mod:NewVoice(188666)--runout/keepmove

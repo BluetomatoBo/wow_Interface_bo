@@ -23,6 +23,11 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(1738)
 
 ---------------------------
+-- Elerethe Renferal --
+---------------------------
+L= DBM:GetModLocalization(1744)
+
+---------------------------
 -- Ursoc --
 ---------------------------
 L= DBM:GetModLocalization(1667)
@@ -31,6 +36,11 @@ L= DBM:GetModLocalization(1667)
 -- Dragons of Nightmare --
 ---------------------------
 L= DBM:GetModLocalization(1704)
+
+------------------
+-- Cenarius --
+------------------
+L= DBM:GetModLocalization(1750)
 
 ------------------
 -- Xavius --

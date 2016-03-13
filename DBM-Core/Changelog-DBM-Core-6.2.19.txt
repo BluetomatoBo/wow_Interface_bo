@@ -1,0 +1,97 @@
+tag 6.2.19
+a62730e9a12938cee2a6138d7babbc137c267a2f
+subversion <svn@deadlybossmods.com>
+2016-03-11 21:17:28 +0100
+
+Tagging as 6.2.19
+
+
+--------------------
+
+subversion:
+	- increment version number to 6.2.19
+	- Omega via svn r14852: Also,not sure why these were still set as ?\226?\128?\156CD?\226?\128?\157. they are next timers
+	- Omega via svn r14851: Apply a few shorter timer texts across HFC
+	- Omega via svn r14850: Fix bug in short timer code, seems to work well now.
+	- Omega via svn r14849: Fix
+	- Omega via svn r14848: This might break timers, hard to say. But untested functionality for shortened timer text when available
+	- Omega via svn r14847: Fix typo
+	- Omega via svn r14846: Allow this duration lower too
+	- Omega via svn r14845: Couple more tweaks
+	- Omega via svn r14844: Some halls of valor fixes
+	- Omega via svn r14843: Disable sounds in Legion as PlaySoundFile instantly crashes it.
+	- Omega via svn r14842: Fix loading bug
+	- Omega via svn r14841: Defaults tweak
+	- Omega via svn r14840: Push with pkg meta update
+MysticalOS:
+	- pkgmeta Update
+subversion:
+	- Omega via svn r14839: Note updates
+	- Omega via svn r14838: More renames/fixes
+	- Omega via svn r14837: Update encounter Ids
+	- Omega via svn r14836: update variables too
+	- Omega via svn r14835: Rename Suramar to Nighthold Add two new bosses
+	- Omega via svn r14834: Rename Noble district to CourtofStars
+	- Omega via svn r14833: Trilliax Mod
+	- Omega via svn r14832: Push Chrono mod. Fix bug in harbaron mod
+	- Omega via svn r14831: Bump rev
+	- Omega via svn r14830: Fix bug
+	- Omega via svn r14829: Fix broken isles toc
+	- Omega via svn r14828: Trilliax Mod
+	- Omega via svn r14827: Push Chrono Anomaly mod
+	- Omega via svn r14826: Missed a couple
+	- Omega via svn r14825: Remove Unneeded toc checks. load on demand is prevented by core via TOC files directly.
+	- Omega via svn r14824: Push final arcway mod so zone is complete Add better option defaults for interrupts going forward. Ported them back to HFC but too much work to port further back then that.
+	- Omega via svn r14823: Push Nal?\226?\128?\153tira
+	- Omega via svn r14822: Push General Xakal
+	- Omega via svn r14821: Corstilax mod
+	- Omega via svn r14820: Push Ivanyr mod, rename sentry to Corstilax
+	- Omega via svn r14819: Rename suramar catacombs to The Arcway
+	- Omega via svn r14818: Use this voice
+	- Omega via svn r14817: light debug
+	- Omega via svn r14816: cleanup unused. don?\226?\128?\153t calculate total marks more than needed
+	- Omega via svn r14815: Finish Grove of Wardens
+	- update pkgmeta
+	- Omega via svn r14814: Ash golm Tirathon Tormentorum
+	- Omega via svn r14813: Load conditions
+	- Omega via svn r14812: Broken Isles stubs
+	- Omega via svn r14811: Add spellbinder Aluriel stub
+	- Omega via svn r14810: Finish eye of azshara with wrath of azshara mod
+	- Omega via svn r14809: Bump revision
+	- Omega via svn r14808: Fix logic error
+	- Omega via svn r14807: Push kingdeepbeard and serpentrix
+	- Omega via svn r14806: Push hatecoil and Parjesh mods.
+	- Omega via svn r14805: Fix auto accept invites in 6.2.4/7.x
+	- Omega via svn r14804: Add debug for good measure but the error SHOULD be fixed
+	- Omega via svn r14803: Slight code improvement to avoid pointless mod reloading.
+	- Omega via svn r14802: HF revision
+	- Omega via svn r14801: Fix icon bug
+	- Omega via svn r14800: Add Cenarius stub now that it?\226?\128?\153s in encounter journal
+	- Omega via svn r14799: CN update
+	- ultrashining via svn r14798: zhTW update
+	- Omega via svn r14797: Add some debug
+	- Omega via svn r14796: Fix typo and layout
+	- Omega via svn r14795: Take 2
+	- Omega via svn r14794: Sometimes encounterinprogress returns false when its true, if checked during login, so add extra redundant noDelay to make sure mods load after a DC during a boss fight and don?\226?\128?\153t trigger the load delay.
+	- Omega via svn r14793: Rest of Neltharions lair
+	- Omega via svn r14792: Push Ularogg and Naraxas
+	- Omega via svn r14791: Maw of Souls mods
+	- Omega via svn r14790: Push rest of halls of valor
+	- Omega via svn r14789: Update encounter ID for Renferal
+	- Omega via svn r14788: tweak
+	- Omega via svn r14787: Push hymdall mod, will do more later.
+	- Omega via svn r14786: Add in more stubs
+	- Omega via svn r14785: tweaks
+	- Omega via svn r14784: That didn?\226?\128?\153t work and it?\226?\128?\153s too complicated to test, so will just have to scrap that idea
+	- Omega via svn r14783: revert
+	- Omega via svn r14782: Push fix
+	- Omega via svn r14781: Allow archimonde MoL disable to be overrided by expert users (not in GUI)
+	- Omega via svn r14780: Prevent load conflicts caused by DPMCore, too many users have reported these errors because they try to run a discontinued 3rd party mod from 4 years ago
+	- Omega via svn r14779: Fix lua error in moveEnd
+	- Omega via svn r14778: CN update
+	- Omega via svn r14777: re-enable voice for that but use these
+	- Omega via svn r14776: disable voice alerts for that, they won?\226?\128?\153t match
+	- Omega via svn r14775: Don?\226?\128?\153t reload options every level, just the level range of learning specs
+	- Omega via svn r14774: add auto assignments to archimonde. On by default but can be disabled. This makes mark of legion all in one solution and no one needs nay WA of any kind now for archimonde
+	- Omega via svn r14773: Fix typo
+	- tandanu via svn r14772: increase alpha version
