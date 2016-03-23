@@ -5,7 +5,7 @@ local Search = LibStub('LibItemSearch-1.2-ElvUI')
 --Cache global variables
 --Lua functions
 local _G = _G
-local type, ipairs, pairs, unpack, select, assert = type, ipairs, pairs, unpack, select, assert
+local type, ipairs, pairs, unpack, select, assert, pcall, tonumber = type, ipairs, pairs, unpack, select, assert, pcall, tonumber
 local tinsert = table.insert
 local floor, abs, ceil = math.floor, math.abs, math.ceil
 local len, sub, find, format, gsub = string.len, string.sub, string.find, string.format, string.gsub
@@ -52,6 +52,7 @@ local StaticPopup_Show = StaticPopup_Show
 local SortReagentBankBags = SortReagentBankBags
 local DepositReagentBank = DepositReagentBank
 local C_NewItemsIsNewItem = C_NewItems.IsNewItem
+local C_Timer_After = C_Timer.After
 local SEARCH = SEARCH
 local REAGENTBANK_CONTAINER = REAGENTBANK_CONTAINER
 local NUM_CONTAINER_FRAMES = NUM_CONTAINER_FRAMES
@@ -326,6 +327,15 @@ function B:UpdateCountDisplay()
 		end
 		if bagFrame.UpdateAllSlots then
 			bagFrame:UpdateAllSlots()
+		end
+	end
+end
+
+function B:UpdateBagTypes(isBank)
+	local f = self:GetContainerFrame(isBank);
+	for _, bagID in ipairs(f.BagIDs) do
+		if f.Bags[bagID] then
+			f.Bags[bagID].type = select(2, GetContainerNumFreeSlots(bagID));
 		end
 	end
 end
@@ -1506,7 +1516,7 @@ end
 
 function B:PLAYER_ENTERING_WORLD()
 	self:UpdateGoldText()
-	self:Layout() --Update bag types for bagslot coloring
+	C_Timer_After(2, function() B:UpdateBagTypes() end) --Update bag types for bagslot coloring
 end
 
 function B:Initialize()
