@@ -33,15 +33,18 @@ function Addon:NewClass(name, type, parent)
 		end
 
 		class.IsCached = function(self)
-			return self:GetFrame():IsCached()
+			local frame = self:GetFrame()
+			return frame and frame:IsCached()
 		end
 
 		class.GetProfile = function(self)
-			return self:GetFrame():GetProfile()
+			local frame = self:GetFrame()
+			return frame and frame:GetProfile()
 		end
 
 		class.GetPlayer = function(self)
-			return self:GetFrame():GetPlayer()
+			local frame = self:GetFrame()
+			return frame and frame:GetPlayer()
 		end
 
 		class.GetFrameID = function(self)

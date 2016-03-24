@@ -82,8 +82,11 @@ function Frame:OnHide()
 	PlaySound(self.CloseSound)
 	self:UnregisterMessages()
 
-	if self:IsFrameShown() then -- for when a frame is hidden not via bagnon
+	if self:IsFrameShown() then
 		self:HideFrame()
+	end
+
+	if Addon.sets.resetPlayer then
 		self:SetPlayer(nil)
 	end
 end
@@ -184,7 +187,7 @@ function Frame:FadeInFrame(frame, alpha)
 	if Addon.sets.fading then
 		UIFrameFadeIn(frame, 0.2, 0, alpha or 1)
 	end
-	
+
 	frame:Show()
 end
 
@@ -429,7 +432,7 @@ function Frame:PlaceBagFrame()
 	end
 
 	return 0, 0
-end 
+end
 
 
 -- title frame

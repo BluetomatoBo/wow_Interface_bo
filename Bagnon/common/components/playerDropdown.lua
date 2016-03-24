@@ -27,6 +27,16 @@ local function DeletePlayer(self)
     CloseDropDownMenus()
 end
 
+local function ShowPlayer(player)
+    UIDropDownMenu_AddButton {
+        text = format('|T%s:14:14:-3:0|t', Addon:GetPlayerIcon(player)) .. Addon:GetPlayerColorString(player):format(player),
+        hasArrow = Cache:IsPlayerCached(player),
+        checked = player == CurrentFrame:GetPlayer(),
+        func = SetPlayer,
+        value = player
+    }
+end
+
 local function UpdateDropdown(self, level)
     if level == 2 then
         UIDropDownMenu_AddButton({
@@ -36,16 +46,18 @@ local function UpdateDropdown(self, level)
             func = DeletePlayer
         }, 2)
     else
-        local selected = CurrentFrame:GetPlayer()
+		ShowPlayer(Cache.PLAYER)
 
         for i, player in Cache:IteratePlayers() do
-            UIDropDownMenu_AddButton {
-                text = format('|T%s:14:14:-3:0|t', Addon:GetPlayerIcon(player)) .. Addon:GetPlayerColorString(player):format(player),
-                hasArrow = Cache:IsPlayerCached(player),
-                checked = player == selected,
-                func = SetPlayer,
-                value = player
-            }
+			if player ~= Cache.PLAYER then
+				UIDropDownMenu_AddButton {
+					text = format('|T%s:14:14:-3:0|t', Addon:GetPlayerIcon(player)) .. Addon:GetPlayerColorString(player):format(player),
+					hasArrow = Cache:IsPlayerCached(player),
+					checked = player == selected,
+					func = SetPlayer,
+					value = player
+				}
+            end
         end
     end
 end

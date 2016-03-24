@@ -44,6 +44,20 @@ end
 
 function BagBrother:ParseItem(link, count)
 	if link then
+		local id = tonumber(link:match('item:(%d+):')) -- check for profession window bug
+		if id == 0 and TradeSkillFrame then
+			local focus = GetMouseFocus():GetName()
+
+			if focus == 'TradeSkillSkillIcon' then 
+				link = GetTradeSkillItemLink(TradeSkillFrame.selectedSkill)
+			else
+				local i = focus:match('TradeSkillReagent(%d+)')
+				if i then
+					link = GetTradeSkillReagentItemLink(TradeSkillFrame.selectedSkill, tonumber(i))
+				end
+			end
+		end
+
 		if link:find('0:0:0:0:0:%d+:%d+:%d+:0:0') then
 			link = link:match('|H%l+:(%d+)')
 		else

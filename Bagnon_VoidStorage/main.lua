@@ -10,6 +10,10 @@ function Vault:OnEnable()
 end
 
 function Vault:OnOpen()
+	if Bagnon:GetFrame('vault') then
+		Bagnon:GetFrame('vault'):SetPlayer(nil)
+	end
+
 	IsVoidStorageReady()
 	Bagnon.Cache.AtVault = true
 	Bagnon:ShowFrame('vault')
