@@ -26,7 +26,7 @@
 ## X-DBM-Mod-Sort: 060
 ## X-DBM-Mod-MapID: 1501, 1466, 1456, 1477, 1458, 1516, 1571, 1492, 1544, 1493
 ## X-DBM-Mod-MinCoreRevision: 14737
-## X-Curse-Packaged-Version: 6.2.19
+## X-Curse-Packaged-Version: 6.2.21
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline
@@ -35,6 +35,7 @@ BlackRookHold\AmalgamSouls.lua
 BlackRookHold\Illysanna.lua
 BlackRookHold\Smashspite.lua
 BlackRookHold\Kurtalos.lua
+BlackRookHold\BRHTrash.lua
 DarkheartThicket\Glaidalis.lua
 DarkheartThicket\Oakheart.lua
 DarkheartThicket\Dresaron.lua
@@ -64,6 +65,7 @@ CourtofStars\Melandrus.lua
 MawOfSouls\Ymiron.lua
 MawOfSouls\Harbaron.lua
 MawOfSouls\Helya.lua
+MawOfSouls\MawTrash.lua
 VioletHold\MindflayerKaahrj.lua
 VioletHold\MillificentManastorm.lua
 VioletHold\Festerface.lua
