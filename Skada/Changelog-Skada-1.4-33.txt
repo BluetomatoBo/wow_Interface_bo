@@ -1,0 +1,23 @@
+------------------------------------------------------------------------
+r622 | oscarucb | 2016-03-23 06:54:26 +0000 (Wed, 23 Mar 2016) | 1 line
+Changed paths:
+   A /tags/1.4-33 (from /trunk:621)
+
+Tagging as 1.4-33
+------------------------------------------------------------------------
+r621 | oscarucb | 2016-03-23 04:08:41 +0000 (Wed, 23 Mar 2016) | 3 lines
+Changed paths:
+   M /trunk/Menus.lua
+   M /trunk/Skada.lua
+
+fix 6.2.4 lua error with battle.net whisper reporting
+rename "RealID" to "Battle.net"
+
+------------------------------------------------------------------------
+r620 | oscarucb | 2016-03-09 21:52:13 +0000 (Wed, 09 Mar 2016) | 2 lines
+Changed paths:
+   M /trunk/Menus.lua
+
+fix whisper target reports for cross-realm
+
+------------------------------------------------------------------------
