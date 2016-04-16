@@ -508,7 +508,8 @@ function NP:ColorizeAndScale(myPlate)
 			end
 		end
 	end
-	if(not self.customScale and not self.isSmall and myPlate.healthBar:GetWidth() ~= w) then
+	if(not self.customScale and not self.isSmall and (not myPlate.healthBar.prevWidth or (myPlate.healthBar.prevWidth ~= w or myPlate.healthBar.prevHeight ~= h))) then
+		myPlate.healthBar.prevWidth, myPlate.healthBar.prevHeight = w, h
 		myPlate.healthBar:SetSize(w, h)
 		myPlate.castBar.icon:SetSize(NP.db.castBar.height + h + 5, NP.db.castBar.height + h + 5)
 	end
@@ -924,7 +925,12 @@ function NP:UpdateSettings()
 
 	--HealthBar
 	if not self.customScale and not self.isSmall then
-		myPlate.healthBar:SetSize(NP.db.healthBar.width, NP.db.healthBar.height)
+		local width, height = NP.db.healthBar.width, NP.db.healthBar.height
+		if NP.db.healthBar.lowHPScale.enable and myPlate.lowHealth:IsShown() then
+			width = NP.db.healthBar.lowHPScale.width
+			height = NP.db.healthBar.lowHPScale.height
+		end
+		myPlate.healthBar:SetSize(width, height)
 	end
 
 	myPlate.healthBar:SetStatusBarTexture(E.media.normTex)
