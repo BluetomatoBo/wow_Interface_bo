@@ -1,0 +1,13 @@
+tag 1.0.6
+3cb57d497f41fc31ee41c9276539957dc7d3c47c
+Rainrider <Rainrider@users.noreply.github.com>
+2016-04-16 16:38:31 +0200
+
+Version 1.0.6
+
+
+--------------------
+
+Rainrider:
+	- Spanish translation fix
+	Needs review
