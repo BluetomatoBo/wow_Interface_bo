@@ -286,15 +286,16 @@ do
 		local Denominator, U, V
 		local Texture, Left, Top
 		--- Callback to ApplyZone to clip and paint all path triangles to the minimap.
-		-- @see Overlay.ApplyZone
+		-- @see Overlay.ApplyZone'
+	
 		function PaintPath(self, PathData, FoundX, FoundY, R, G, B)
-			if FoundX then
+			if FoundX and (private.Options.ModulesExtra["Minimap"].DetectionRing) then
 				FoundX, FoundY = FoundX * Width - X, FoundY * Height - Y
 				if RotateMinimap then
 					FoundX, FoundY = FoundX * FacingCos - FoundY * FacingSin, FoundX * FacingSin + FoundY * FacingCos
 				end
 				--Do Not remove.  Disabled to unclutter map untill good way to limit number can be fount
-				--Overlay.DrawFound( self, FoundX + 0.5, FoundY + 0.5, Overlay.DetectionRadius / ( Radius * 2 ), "OVERLAY", R, G, B )
+				private.DrawFound( self, FoundX + 0.5, FoundY + 0.5, private.DetectionRadius / ( Radius * 2 ), "OVERLAY", R, G, B )
 			end
 
 			local PointsOffset, LinesOffset, TrianglesOffset = private.GetPathPrimitiveOffsets(PathData)
@@ -630,7 +631,7 @@ do
 
 	function panel:OnUpdate(elapsed)
 		UpdateNext = UpdateNext - elapsed
-
+		private.Modules.WorldMapTemplate.MouseOverCheck(self)
 		if UpdateForce or UpdateNext <= 0 then
 			UpdateNext = UpdateRate
 
@@ -781,8 +782,14 @@ function panel.RangeRingSetEnabled(Enable)
 	end
 end
 
+function panel.DetectionRingSetEnabled(Enable)
+	private.Options.ModulesExtra["Minimap"].DetectionRing = Enable
+	panel.Config.DetectionRing:SetChecked(Enable)
+end
+
 function panel:OnSynchronize(OptionsExtra)
 	self.RangeRingSetEnabled(OptionsExtra.RangeRing ~= false)
+	self.DetectionRingSetEnabled(OptionsExtra.DetectionRing ~= false)
 end
 
 private.Modules.Register("Minimap", panel, private.L.MODULE_MINIMAP)
@@ -790,9 +797,15 @@ private.Modules.Register("Minimap", panel, private.L.MODULE_MINIMAP)
 local Config = panel.Config
 local Checkbox = _G.CreateFrame("CheckButton", "$parentRangeRing", Config, "InterfaceOptionsCheckButtonTemplate")
 Config.RangeRing = Checkbox
+local DetectionRing = _G.CreateFrame("CheckButton", "$parentDetectionRing", Config, "InterfaceOptionsCheckButtonTemplate")
+Config.DetectionRing =  DetectionRing
 
 function Checkbox.setFunc(Enable)
 	panel.RangeRingSetEnabled(Enable == "1")
+end
+
+function DetectionRing.setFunc(Enable)
+	panel.DetectionRingSetEnabled(Enable == "1")
 end
 
 Checkbox:SetPoint("TOPLEFT", Config.Enabled, "BOTTOMLEFT")
@@ -805,7 +818,18 @@ Checkbox.SetEnabled = private.Config.ModuleCheckboxSetEnabled
 Checkbox.tooltipText = private.L.MODULE_RANGERING_DESC
 Config:AddControl(Checkbox)
 
-Config:SetHeight(Config:GetHeight() + Checkbox:GetHeight())
+DetectionRing:SetPoint("TOPLEFT", Checkbox, "BOTTOMLEFT")
+local Label = _G[DetectionRing:GetName() .. "Text"]
+Label:SetPoint("RIGHT", Config, "RIGHT", -6, 0)
+Label:SetJustifyH("LEFT")
+Label:SetFormattedText(private.L.MODULE_DETECTIONRING_FORMAT, private.DetectionRadius)
+DetectionRing:SetHitRectInsets(4, 4 - Label:GetStringWidth(), 4, 4)
+DetectionRing.SetEnabled = private.Config.DetectionRingSetEnabled
+--DetectionRing.tooltipText = private.L.MODULE_RANGERING_DESC
+Config:AddControl(DetectionRing)
+
+
+Config:SetHeight(Config:GetHeight() + Checkbox:GetHeight() + DetectionRing:GetHeight())
 
 function _G.NPCScanOverlayMinimap_Toggle()
 	private.Modules[_G._NPCScanOverlayOptions.Modules.Minimap and "Disable" or "Enable"]("Minimap")

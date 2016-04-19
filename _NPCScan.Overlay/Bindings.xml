@@ -10,7 +10,4 @@
 	<Binding name="MINIMAP_PATH _NPCScan.Overlay.Button:LeftButton" category="ADDONS">
 		NPCScanOverlayMinimap_Toggle()
 	</Binding>
-
-
-	<ModifiedClick action="_NPCSCAN_BUTTONDRAG" default="CTRL"/>
 </Bindings>

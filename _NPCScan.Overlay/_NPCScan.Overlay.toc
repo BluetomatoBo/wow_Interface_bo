@@ -29,17 +29,17 @@
 ## X-Credits-ruRU: Localization: The_DimoK, Sarymian, dartraiden
 ## X-Credits-zhCN: Localization: tss1398383123, zhTW, ananhaid, dh0000
 ## X-Credits-zhTW: Localization: s8095324, pepper_ep, zhTW, alpha2009, BNSSNB, titanium0107
-## Version: 6.2.4.1
-## X-Date: 2015-07-07T01:44:07Z
+## Version: 6.2.4.2
+## X-Date: 2016-04-17T22:35:32Z
 ## X-Category: Map
 ## X-License: GPLv3
 ## X-Email: jcallahan@curse.com
 ## X-WoWI-ID: 14686
 ## X-Localizations: deDE, enCN, enTW, enUS, esES, esMX, frFR, koKR, ptBR, ptPT, ruRU, zhCN, zhTW
 ## X-CompatibleLocales: deDE, enCN, enTW, enUS, esES, esMX, frFR, koKR, ptBR, ptPT, ruRU, zhCN, zhTW
-## SavedVariables: _NPCScanOverlayOptions, _NPCScanMiniMapIcon, _NPCScanOverlayKeyColors
+## SavedVariables: _NPCScanOverlayOptions, _NPCScanOverlayKeyColors
 ## OptionalDeps: Ace3, _NPCScan, OmegaMap, Carbonite, LibQTip-1.0
-## X-Curse-Packaged-Version: 6.2.4.1
+## X-Curse-Packaged-Version: 6.2.4.2
 ## X-Curse-Project-Name: _NPCScan.Overlay
 ## X-Curse-Project-ID: npcscan-overlay
 ## X-Curse-Repository-ID: wow/npcscan-overlay/mainline
@@ -50,6 +50,7 @@ Libs\AceEvent-3.0\AceEvent-3.0.xml
 Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
 Libs\LibDBIcon-1.0\LibDBIcon-1.0.lua
 Libs\LibQTip-1.0\lib.xml
+Libs\LibSharedMedia-3.0\lib.xml
 
 # See http://wow.curseforge.com/addons/npcscan-overlay/localization/
 Locales\Locale-enUS.lua

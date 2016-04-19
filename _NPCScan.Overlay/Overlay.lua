@@ -24,32 +24,32 @@ local L = private.L
 _G._NPCScan.Overlay = private
 
 local LibQTip = LibStub('LibQTip-1.0')
-
-_NPCScanMiniMapIcon = {}
+private.LDBI = LibStub("LibDBIcon-1.0")
 
 private.Version = _G.GetAddOnMetadata(FOLDER_NAME, "Version"):match("^([%d.]+)")
 
-_NPCScanOverlayOptions = {
+_NPCScanOverlayOptions = {}
+
+local OptionsDefault = {
 	Version = private.Version,
 	Modules = {},
 	ModulesAlpha = {},
 	ModulesExtra = {},
-	MiniMapIcon = {},
+	MiniMapIcon = {
+		hide = true
+		},
 	ShowAll = false,
 	ShowKey = true,
 	LockSwap = false,
+	KeyAutoHide = false,
+	KeyAutoHideAlpha = .25,
+	KeyMaxSize = .75,
+	MouseoverText = false,
+	KeyFont = private.DEFAULT_FONT_NAME,
+	KeyFontSize = private.DEFAULT_FONT_SIZE,
 }
 
-private.OptionsDefault = {
-	Version = private.Version,
-	Modules = {},
-	ModulesAlpha = {},
-	ModulesExtra = {},
-	MiniMapIcon = {},
-	ShowAll = false,
-	ShowKey = true,
-	LockSwap = false,
-}
+local RING_CLEAR_DELAY = 30
 
 private.TextureTable = {}
 private.CurrentTexture = nil
@@ -78,19 +78,23 @@ function private:TextureCreate(Layer, R, G, B, A)
 	local texture = #TexturesUnused > 0 and TexturesUnused[#TexturesUnused]
 	if texture then
 		TexturesUnused[#TexturesUnused] = nil
+		texture.id = nil
 		texture:SetParent(self)
 		texture:SetDrawLayer(Layer)
 		texture:ClearAllPoints()
 		texture:Show()
+		
 	else
 		texture = self:CreateTexture("ScannerOverlayMobTexture" .. TextureCount, Layer)
 	end
 	texture:SetVertexColor(R, G, B, A or 1)
 	texture:SetBlendMode("BLEND")
+	texture.id = private.CurrentTextureMob
 
 	self[#self + 1] = texture
 	return texture
 end
+
 
 do
 	local ApplyTransform
@@ -104,6 +108,7 @@ do
 			end
 			return coordinate
 		end
+
 
 		-- Applies an affine transformation to Texture.
 		-- @param texture Texture to set TexCoords for.
@@ -134,6 +139,7 @@ do
 			return texture:SetTexCoord(ULx, ULy, LLx, LLy, URx, URy, LRx, LRy)
 		end
 	end
+
 
 	-- Removes one-pixel transparent border
 	local BORDER_OFFSET = -1 / 512
@@ -211,6 +217,7 @@ do
 	end
 end
 
+
 -- Recycles all textures added to a frame using TextureCreate.
 function private:TextureRemoveAll()
 	for index = #self, 1, -1 do
@@ -223,6 +230,7 @@ function private:TextureRemoveAll()
 	end
 end
 
+
 do
 	local DWORD_LENGTH = 4
 	-- @return DWORD read from binary Data at Offset.
@@ -231,6 +239,7 @@ do
 		return B1 * 2 ^ 24 + B2 * 2 ^ 16 + B3 * 2 ^ 8 + B4 -- Big-endian
 	end
 
+
 	-- @return Offset of points, lines, and triangles within PathData.
 	function private.GetPathPrimitiveOffsets(PathData)
 		return ReadDWord(PathData, 0) + 1, -- Points
@@ -238,6 +247,7 @@ do
 		ReadDWord(PathData, DWORD_LENGTH * 2) + 1 -- Triangles
 	end
 end
+
 
 do
 	local COORD_MAX = 2 ^ 16 - 1
@@ -269,6 +279,7 @@ do
 	end
 end
 
+
 do
 	local TEXTURE_INDEX_MAX = 3
 	local GLOW_WIDTH = 1.25
@@ -281,6 +292,9 @@ do
 	-- @param X..Y Relative coordinate to center circle on.  (0,0) is top-left, (1,1) is bottom-right.
 	-- @param RadiusX Radius relative to the frame's width.  That is, 0.5 for a circle as wide as the frame.
 	function private:DrawFound(x, y, radiusX, layer, r, g, b)
+
+		local textureIndex = self.textureIndex or 0
+		local FoundTextures = self.FoundTextures or  {}
 		textureIndex = textureIndex + 1
 		if textureIndex > TEXTURE_INDEX_MAX then
 			textureIndex = 1
@@ -288,8 +302,8 @@ do
 
 		local oldTexture = FoundTextures[textureIndex]
 		if oldTexture then
-			oldTexture[1]:Hide()
-			oldTexture[2]:Hide()
+			oldTexture.ring:Hide()
+			oldTexture.glow:Hide()
 		end
 
 		local width, height = self:GetSize()
@@ -303,6 +317,7 @@ do
 		foundRing:SetBlendMode("ADD")
 		foundRing:SetPoint("CENTER", self, "TOPLEFT", x, y)
 		foundRing:SetSize(Size * RING_WIDTH, Size * RING_WIDTH)
+		foundRing:Show()
 
 		local foundGlow = private.TextureCreate(self, layer, r, g, b, 0.5)
 		foundGlow:SetTexture([[Textures\SunCenter]])
@@ -310,13 +325,20 @@ do
 		foundGlow:SetBlendMode("ADD")
 		foundGlow:SetPoint("CENTER", self, "TOPLEFT", x, y)
 		foundGlow:SetSize(Size * GLOW_WIDTH, Size * GLOW_WIDTH)
+		foundGlow:Show()
 
 		FoundTextures[textureIndex] = {
-			foundRing,
-			foundGlow
+			ring = foundRing,
+			glow = foundGlow,
 		}
+	--end
+	self.textureIndex = textureIndex
+	self.FoundTextures = FoundTextures
+	private.SetAutoHideDelay(self, FoundTextures[textureIndex], RING_CLEAR_DELAY)
+
 	end
 end
+
 
 -- Cache achievement NPC names
 local AchievementNPCNames = {}
@@ -342,10 +364,10 @@ function private:ApplyZone(mapID, callbackFunc)
 	local npcList = {} --Index of Mob Name to MobIDs
 
 	--Sorts Mobs in current zone by name
-	for npcID, pathX in pairs(mapData) do
+	for npcID, _ in pairs(mapData) do
 		local npcName = AchievementNPCNames[npcID] or L.NPCs[tostring(npcID)] or npcID
 		npcList[npcName] = npcID
-		table.insert(alphaList, npcName)
+		table.insert(alphaList, tostring(npcName))
 	end
 	table.sort(alphaList)
 
@@ -361,11 +383,12 @@ function private:ApplyZone(mapID, callbackFunc)
 			if type(found) == "table" then
 				foundX, foundY = unpack(found)
 			end
-
-			callbackFunc(self, pathData, foundX, foundY, color.r, color.g, color.b, npcID)
+			private.CurrentTextureMob = npcID;
+			callbackFunc(self, pathData, foundX, foundY, color.r, color.g, color.b)
 		end
 	end
 end
+
 
 -- @return Aliased NPC ID, or original if not aliased.
 local function GetRealNpcID(NpcID)
@@ -378,6 +401,7 @@ local function GetRealNpcID(NpcID)
 	return NpcID
 end
 
+
 -- @return First Map ID that NpcID can be found on or nil if unknown.
 function private.GetNPCMapID(NpcID)
 	local maps = private.NPCMaps[GetRealNpcID(NpcID)]
@@ -386,6 +410,7 @@ function private.GetNPCMapID(NpcID)
 		return (next(maps))
 	end
 end
+
 
 -- Enables an NPC map overlay by NpcID.
 local function NPCAdd(npcID)
@@ -401,6 +426,7 @@ local function NPCAdd(npcID)
 		end
 	end
 end
+
 
 -- Disables an NPC map overlay by NpcID.
 local function NPCRemove(npcID)
@@ -420,6 +446,7 @@ local function NPCRemove(npcID)
 	end
 end
 
+
 local NPCFound
 do
 	-- Saves the position of NpcID on Map and updates displays.
@@ -436,6 +463,7 @@ do
 			private.Modules.UpdateMap(mapID)
 		end
 	end
+
 
 	-- Saves an NPC's last seen position at the given position or the player.
 	function NPCFound(npcID, mapID, x, y)
@@ -482,8 +510,9 @@ do
 	end
 end
 
+
 do
-	-- See <http://sites.google.com/site/wowsaiket/Add-Ons/NPCScanOverlay/API>
+	-- See <http://www.wowace.com/addons/npcscan-overlay/pages/map-control-api/>
 	-- for Overlay message documentation.
 	local ScannerAddOn
 	-- Grants exclusive control of mob path visibility to the first addon that registers.
@@ -513,6 +542,7 @@ do
 		end
 	end
 
+
 	-- Removes a mob's path if it has already been shown.
 	-- @param NpcID Numeric creature ID to remove.
 	-- @param AddOn Identifier used in registration message.
@@ -522,6 +552,7 @@ do
 				"Remove message NpcID must be numeric."))
 		end
 	end
+
 
 	-- Saves an NPC's last seen position at the given position or at the player.
 	-- Will fail if the given or current zone doesn't have path data.
@@ -534,30 +565,6 @@ do
 	end
 end
 
--- Enables always showing all paths.
-function private.SetShowAll(enable)
-	if enable == true then
-		-- Update all affected maps
-		for Map, MapData in pairs(private.PathData) do
-			-- If a map has a disabled path, it must be redrawn
-			for NpcID in pairs(MapData) do
-				if not private.NPCCounts[NpcID] then
-					private.Modules.UpdateMap(Map)
-					break
-				end
-			end
-		end
-	end
-	private.Options.ShowAll = enable
-	private.Config.ShowAll:SetChecked(enable)
-end
-
--- Enables always showing all paths.
--- @return True if changed.
-function private.SetLockSwap(Enable)
-	private.Options.LockSwap = Enable
-	private.Config.LockSwap:SetChecked(Enable)
-end
 
 --Creates LDB icon and click actions
 local function ConfigEntry_OnMouseUp(tooltipCell, configEntry, button)
@@ -588,8 +595,9 @@ local function ConfigEntry_OnMouseUp(tooltipCell, configEntry, button)
 	end
 end
 
+
 local LDB = _G.LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("_NPCScan.Overlay", {
-	type = "launcher",
+	type = "data source",
 	text = "_NPCScan.Overlay",
 	icon = "Interface\\Icons\\INV_Misc_EngGizmos_20",
 	OnClick = function(_, button)
@@ -634,6 +642,7 @@ local LDB = _G.LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("_NPCScan.O
 	end,
 })
 
+
 do
 	private.GetMapName = _G.GetMapNameByID -- For backwards compatibility with older versions of _NPCScan
 	local MapIDs = {} -- [ LocalizedZoneName ] = MapID
@@ -644,12 +653,13 @@ do
 		return MapIDs[Name]
 	end
 
-	local MapWidths, MapHeights = {}, {}
 
+	local MapWidths, MapHeights = {}, {}
 	-- @return Width and height of Map in yards or nil if unavailable.
 	function private.GetMapSize(Map)
 		return MapWidths[Map] or 0, MapHeights[Map] or 0
 	end
+
 
 	-- Loads defaults, validates settings, and begins listening for Overlay API messages.
 	function private.Events:ADDON_LOADED(eventName, addonName)
@@ -667,13 +677,13 @@ do
 			local needed = private.KeyColorTotal - #private.OverlayKeyColors
 			local startingID = #private.OverlayKeyColors
 			for i=1, needed do
-				print(startingID+i)
 				private.OverlayKeyColors[startingID + i] = private.OverlayKeyColors[i]
 			end
 		end
 
-		if not private.Options then
-			private.Options = private.OptionsDefault
+	--Updates Options table to add any missing 
+		for var, value in pairs(OptionsDefault) do
+			private.Options[var] = private.Options[var] == nil and value or private.Options[var]
 		end
 
 		-- Build a reverse lookup of NpcIDs to zones, and add them all by default
@@ -700,14 +710,23 @@ do
 		if private.Options and not private.Options.ModulesExtra then -- 3.3.5.1: Moved module options to options sub-tables
 			private.Options.ModulesExtra = {}
 		end
+		private.LDBI:Register(FOLDER_NAME, LDB, private.Options.MiniMapIcon)
 
-		private.SetShowAll(private.Options.ShowAll)
-		private.SetLockSwap(private.Options.LockSwap)
+		private.Config.ShowAll:SetChecked(private.Options.ShowAll)
+		private.Config.LockSwap:SetChecked(private.Options.LockSwap)
+		private.Config.KeyAutoHide:SetChecked(private.Options.KeyAutoHide)
+		private.Config.KeySize.setFunc(private.Options.KeyMaxSize)
+		private.Config.KeyAutoHideAlpha.setFunc(private.Options.KeyAutoHideAlpha)
+		private.Config.MouseoverText:SetChecked(private.Options.MouseoverText)
+		private.Config.MiniMapIcon:SetChecked(private.Options.MiniMapIcon.hide)
+		private.Config.KeyFontSize:SetValue(private.Options.KeyFontSize)
 		private.Modules.OnSynchronize(private.Options)
 		private.SetKeyIconTexture()
 		private.SetPathIconTexture()
 		self:RegisterMessage(MESSAGE_REGISTER)
 		self:RegisterMessage(MESSAGE_FOUND)
+		private.SetPanelFont(private.Options.KeyFont, private.Options.KeyFontSize)
+		_G.UIDropDownMenu_SetText(private.Config.KeyFont, private.Options.KeyFont == private.DEFAULT_FONT_NAME and "Default" or private.Options.KeyFont)
 	end
 end
 
@@ -715,6 +734,7 @@ local FlashTable = {}
 
 --Flashes selected Mob route
 function private.FlashRoute(npcID)
+	wipe(FlashTable)
 	for ID, npcData in pairs(private.TextureTable) do
 		if npcID == ID then
 			for text in pairs(npcData) do
@@ -740,11 +760,103 @@ function private.FlashRoute(npcID)
 	end
 end
 
+
 --Stops the Slected route from flashing
 function private.FlashStop(MobID)
 	for text, flash in pairs(FlashTable) do
 		flash:Finish()
 	end
 end
+
+
+function private.ShowTooltip(self, Message)
+		--if LibQTip:IsAcquired(FOLDER_NAME) then
+			--return
+		--end
+	local tooltip = LibQTip:Acquire(FOLDER_NAME, 3)
+	tooltip:SetAutoHideDelay(0.1, self)
+	tooltip:SmartAnchorTo(self)
+	tooltip:Clear()
+	tooltip:SetCell(tooltip:AddLine(), 1, Message, "CENTER", 0)
+	tooltip:Show()
+end
+
+
+function private.HideTooltip(self)
+	-- Release the tooltip
+	LibQTip:Release(self.tooltip)
+	self.tooltip = nil
+end
+
+------------------------------------------------------------------------------
+-- Frame cache
+------------------------------------------------------------------------------
+local frameHeap =  {}
+
+local function AcquireFrame(parent)
+	local frame = tremove(frameHeap) or CreateFrame("Frame")
+	frame:SetParent(parent)
+	--[===[@debug@
+	--usedFrames = usedFrames + 1
+	--@end-debug@]===]
+	return frame
+end
+
+local function ReleaseFrame(frame)
+	frame:Hide()
+	frame:SetParent(nil)
+	frame:ClearAllPoints()
+	frame:SetBackdrop(nil)
+	frame:SetScript("OnUpdate", nil)
+	tinsert(frameHeap, frame)
+	--[===[@debug@
+	--usedFrames = usedFrames - 1
+	--@end-debug@]===]
+end
+
+
+-- Clears a NPC's saved Found status
+local function ClearFound(NPCID)
+	for map, found in pairs(private.NPCMaps[NPCID]) do
+		private.NPCMaps[NPCID][map] = true
+	end
+	--print("clearing rings for "..NPCID)
+end
+
+
+-- Script of the auto-hiding child frame
+local function AutoHideTimerFrame_OnUpdate(self, elapsed)
+	self.checkElapsed = self.checkElapsed + elapsed
+	if self.checkElapsed >= self.delay then
+		self.checkElapsed = 0
+		self.parent.autoHideTimerFrame = nil
+		self:SetScript("OnUpdate", nil)
+		ReleaseFrame(self)
+		ClearFound(self.target.ring.id)
+		private.Modules.UpdateMap(nil)
+	end
+end
+
+
+--Sets an auto hide delay when displaying mob found rings.
+function private.SetAutoHideDelay(self, target, delay)
+	local timerFrame = self.autoHideTimerFrame
+	delay = tonumber(delay) or 0
+
+	if not timerFrame then
+		timerFrame = AcquireFrame(self)
+		
+		self.autoHideTimerFrame = timerFrame
+	end
+	timerFrame:SetScript("OnUpdate", AutoHideTimerFrame_OnUpdate)
+	timerFrame:SetParent(UIParent)
+	timerFrame.parent = UIParent
+	timerFrame.target = target
+	timerFrame.checkElapsed = 0
+	timerFrame.elapsed = 0
+	timerFrame.delay = delay
+	timerFrame:Show()
+end
+
 
 private.Events:RegisterEvent("ADDON_LOADED")
