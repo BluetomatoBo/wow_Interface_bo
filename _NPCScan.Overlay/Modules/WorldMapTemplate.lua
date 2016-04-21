@@ -72,7 +72,8 @@ end
 
 
 local MapUpdate;
-local MapNeedsUpdate = false;
+--local MapNeedsUpdate = false;
+private.forceKeyUpdate = false
 do
 	local GetCurrentMapAreaID = _G.GetCurrentMapAreaID;
 	local GetCurrentMapDungeonLevel = _G.GetCurrentMapDungeonLevel;
@@ -80,8 +81,8 @@ do
 	local function OnUpdate ( self )
 		--self:SetScript( "OnUpdate", nil );
 		panel.MouseOverCheck(self)
-		if MapNeedsUpdate then
-			MapNeedsUpdate = false
+		if self.MapNeedsUpdate then
+			self.MapNeedsUpdate = false
 			local Map = GetCurrentMapAreaID();
 			local MapLevel = GetCurrentMapDungeonLevel();
 			if ( Map ~= self.MapLast or MapLevel ~= self.MapLevelLast ) then
@@ -108,7 +109,8 @@ do
 			self.MapLevelLast = nil;
 		end
 		self:SetScript( "OnUpdate", OnUpdate );
-		MapNeedsUpdate = true
+		self.MapNeedsUpdate = true
+		private.forceKeyUpdate = false
 	end
 end
 
@@ -118,12 +120,12 @@ function panel:WORLD_MAP_UPDATE ()
 	MapUpdate( self );
 end
 
-private.forceKeyUpdate = false
+
 --- Immediately update the map when shown.
 function panel:OnShow ()
 	MapUpdate( self, private.forceKeyUpdate);
-	private.forceKeyUpdate  = false
 end
+
 
 --- Force an update if shown paths change.
 -- @param Map  AreaID that changed, or nil if all zones must update.
@@ -155,6 +157,7 @@ function panel:OnLoad ()
 	self:SetAllPoints();
 	self:SetScript( "OnShow", self.OnShow );
 	self:SetScript( "OnEvent", private.Modules.OnEvent );
+	self.MapNeedsUpdate = false;
 end
 
 

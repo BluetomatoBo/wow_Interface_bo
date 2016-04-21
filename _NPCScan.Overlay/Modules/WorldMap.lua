@@ -167,6 +167,7 @@ function panel:KeyValidateSize()
 	else
 		self.Scrollbar:Hide()
 	end
+	private.forceKeyUpdate = true
 end
 
 
@@ -567,6 +568,7 @@ function panel.RangeRingSetEnabled(Enable)
 	end
 end
 
+
 function panel.DetectionRingSetEnabled(Enable)
 	private.Options.ModulesExtra["WorldMap"].DetectionRing = Enable
 	panel.Config.DetectionRing:SetChecked(Enable)
@@ -593,9 +595,11 @@ function Checkbox.setFunc(Enable)
 	panel.RangeRingSetEnabled(Enable == "1")
 end
 
+
 function DetectionRing.setFunc(Enable)
 	panel.DetectionRingSetEnabled(Enable == "1")
 end
+
 
 Checkbox:SetPoint("TOPLEFT", Config.Enabled, "BOTTOMLEFT")
 local Label = _G[Checkbox:GetName().."Text"]
