@@ -1,4 +1,4 @@
-DraenorTreasures = LibStub("AceAddon-3.0"):NewAddon("DraenorTreasures", "AceBucket-3.0", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
+﻿DraenorTreasures = LibStub("AceAddon-3.0"):NewAddon("DraenorTreasures", "AceBucket-3.0", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
 
 if not HandyNotes then return end
@@ -126,6 +126,8 @@ nodes["ShadowmoonValleyDR"] = {
     [41907570]={ "99999901", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
     [48706990]={ "99999901", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
     [43207100]={ "99999901", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [46607000]={ "99999901", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [50307130]={ "99999901", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
 }
 
 nodes["FrostfireRidge"] = {
@@ -206,22 +208,23 @@ nodes["FrostfireRidge"] = {
     [58001840]={ "99999902", "Gorok", "", "", "skull_orange", "mount_go", "116674"},
     [15804900]={ "99999903", "Nok-Karosh", "", "Location is approximate", "skull_yellow", "mount_no", "116794"},
     [51001990]={ "99999904", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
-    [52301830]={ "99999904", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
-    [53001700]={ "99999904", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [52501780]={ "99999904", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [53801730]={ "99999904", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [47702750]={ "99999904", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
 }
 
 nodes["BladespireFortress"] = {
-    [26613949]={ "35370", "Doorogs Secret Stash", "Gold + Trash Item", "Second floor of Bladespire Citadel, outside", "default", "treasure_ffr_bsf","113189"},
-    [26403642]={ "35367", "Gorr'thogg's Personal Reserve", "Alcoholic Beverages", "Top floor of Bladespire Citadel, next to the throne", "default", "treasure_ffr_bsf","118108"},
-    [26603520]={ "35347", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
-    [28293440]={ "35368", "Ogre Booty", "Gold", "First floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
-    [27783917]={ "35369", "Ogre Booty", "Gold", "First floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
-    [27603382]={ "35371", "Ogre Booty", "Gold", "Second floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
-    [27173763]={ "35373", "Ogre Booty", "Gold", "Second floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
-    [28093409]={ "35567", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
-    [30723869]={ "35568", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
-    [30083927]={ "35569", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
-    [27283876]={ "35570", "Ogre Booty", "Gold", "First floor of Bladespire Citadel", "default", "treasure_ffr_bsf",""},
+    [37106980]={ "35370", "Doorogs Secret Stash", "Gold + Trash Item", "Second floor of Bladespire Citadel, outside", "default", "treasure_ffr_bsf","113189"},
+    [31406670]={ "35367", "Gorr'thogg's Personal Reserve", "Alcoholic Beverages", "Top floor of Bladespire Citadel, next to the throne", "default", "treasure_ffr_bsf","118108"},
+    [36402880]={ "35347", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
+    [53102790]={ "35368", "Ogre Booty", "Gold", "First floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
+    [49106790]={ "35369", "Ogre Booty", "Gold", "First floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
+    [46201560]={ "35371", "Ogre Booty", "Gold", "Second floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
+    [51301790]={ "35373", "Ogre Booty", "Gold", "Second floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
+    [36402880]={ "35567", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
+    [76806220]={ "35568", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
+    [70506780]={ "35569", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
+    [44706450]={ "35570", "Ogre Booty", "Gold", "First floor of Bladespire Citadel", "default", "treasure_ffr_bsf",""},
 }
 
 nodes["Gorgrond"] = {
@@ -295,6 +298,7 @@ nodes["Gorgrond"] = {
     [56004000]={ "99999906", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
     [51603880]={ "99999906", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
     [54004500]={ "99999906", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [43403440]={ "99999906", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
 }
 
 nodes["Talador"] = {
@@ -386,6 +390,9 @@ nodes["Talador"] = {
     [55608060]={ "99999907", "Silthide", "", "", "skull_orange", "mount_si", "116767"},
     [47004800]={ "99999908", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
     [39705540]={ "99999908", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [52002600]={ "99999908", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [46205260]={ "99999908", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [51904120]={ "99999908", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
 }
 
 nodes["SpiresOfArak"] = {
@@ -477,6 +484,8 @@ nodes["SpiresOfArak"] = {
     [72903090]={ "37359", "Voidreaver Urnae", "i620 Agility 1H Axe", "!!! Level 100 !!!", "skull_blue", "rare_h_soa","119392"},
     [47002000]={ "99999909", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
     [50400610]={ "99999909", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [36551820]={ "99999909", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
+    [60801120]={ "99999909", "Void Talon", "Random Portal Spawn", "", "skull_purple", "mount_vt", "121815"},
 }
 
 nodes["NagrandDraenor"] = {
@@ -733,7 +742,7 @@ nodes["TanaanJungle"] = {
     [83504380]={ "40105", "Drakum", "Toy", "", "skull_green", "rare_h_tj","108631"},
     [80405680]={ "40106", "Gondar", "Toy", "", "skull_green", "rare_h_tj","108633"},
     [40705630]={ "40107", "Fel Overseer Mudlump", "Dismounting item", "", "skull_green", "rare_h_tj","129295"},
-    [15406340]={ "39288", "Terrorfist", "Mounts + Oil", "His spawn will be announced by Frogan: A massive gronnling is heading for Rangari Refuge! We are going to require some assistance!", "skull_red", "mount_tj",""},
+    [13505900]={ "39288", "Terrorfist", "Mounts + Oil", "His spawn will be announced by Frogan: A massive gronnling is heading for Rangari Refuge! We are going to require some assistance!", "skull_red", "mount_tj",""},
     [23204040]={ "39287", "Deathtalon", "Mounts + Oil", "His spawn will be announced by Shadow Lord Iskar: Behind the veil, all you find is death!", "skull_red", "mount_tj",""},
     [32407400]={ "39290", "Vengeance", "Mounts + Oil", "His spawn will be announced by Tyrant Velhari: Insects deserve to be crushed!", "skull_red", "mount_tj",""},
     [47005260]={ "39289", "Doomroller", "Mounts + Oil", "His spawn will be announced by Siegemaster Mar'tak: Hah-ha! Trample their corpses!", "skull_red", "mount_tj",""},
@@ -1498,7 +1507,7 @@ function DraenorTreasures:RegisterWithHandyNotes()
 
             while state do
                 if (value[1] and self.db.profile[value[6]] and not DraenorTreasures:HasBeenLooted(value)) and (value[6] == "rare_h_tj") then
-                    if (self.db.profile.TanaanHundredAchievement) then
+                    if (self.db.profile.rare_a_tj) then
                         if ((value[8] ~= nil) and (value[8] ~= "")) then
                             local _, _, completed, _, _, _, _, _, _, _, _ = GetAchievementCriteriaInfoByID(10070, value[8])
 
@@ -1576,8 +1585,8 @@ function ResetDB()
 end
 
 function DraenorTreasures:HasBeenLooted(value)
-    if (self.db.profile.alwaysshowtreasures and (string.find(value[6], "Treasures") ~= nil)) then return false end
-    if (self.db.profile.alwaysshowrares and (string.find(value[6], "Treasures") == nil)) then return false end
+    if (self.db.profile.alwaysshowtreasures and (string.find(value[6], "treasure") ~= nil)) then return false end
+    if (self.db.profile.alwaysshowrares and (string.find(value[6], "treasure") == nil)) then return false end
     if (DraenorTreasures.db.char[value[1]] and self.db.profile.save) then return true end
     if (IsQuestFlaggedCompleted(value[1])) then
         return true
