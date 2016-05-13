@@ -26,7 +26,7 @@
 ## X-DBM-Mod-Sort: 060
 ## X-DBM-Mod-MapID: 1501, 1466, 1456, 1477, 1458, 1516, 1571, 1492, 1544, 1493
 ## X-DBM-Mod-MinCoreRevision: 14737
-## X-Curse-Packaged-Version: 6.2.21
+## X-Curse-Packaged-Version: 6.2.22
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline
@@ -50,6 +50,7 @@ HallsOfValor\Hyrja.lua
 HallsOfValor\Fenryr.lua
 HallsOfValor\KingSkovald.lua
 HallsOfValor\Odyn.lua
+HallsOfValor\HoVTrash.lua
 NeltharionsLair\Rokmora.lua
 NeltharionsLair\Ularogg.lua
 NeltharionsLair\Naraxas.lua
@@ -59,9 +60,11 @@ TheArcway\Corstilax.lua
 TheArcway\GeneralXakal.lua
 TheArcway\Naltira.lua
 TheArcway\Vandros.lua
+TheArcway\ArcwayTrash.lua
 CourtofStars\Gerdo.lua
 CourtofStars\Talixae.lua
 CourtofStars\Melandrus.lua
+CourtofStars\CoSTrash.lua
 MawOfSouls\Ymiron.lua
 MawOfSouls\Harbaron.lua
 MawOfSouls\Helya.lua
@@ -74,6 +77,7 @@ VioletHold\PrincessThalena.lua
 VioletHold\Anubesset.lua
 VioletHold\Saelorn.lua
 VioletHold\FelLordBetrug.lua
+VioletHold\AVHTrash.lua
 GroveOfWarden\TirathonSaltheril.lua
 GroveOfWarden\Tormentorum.lua
 GroveOfWarden\Ashgolm.lua

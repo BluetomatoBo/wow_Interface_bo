@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1687, "DBM-Party-Legion", 5, 767)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14793 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14928 $"):sub(12, -3))
 mod:SetCreatureID(91007)
 mod:SetEncounterID(1793)
 mod:SetZone()
@@ -15,7 +15,7 @@ mod:RegisterEventsInCombat(
 
 local warnCrystalSpikes				= mod:NewSpellAnnounce(200551, 2)
 
-local specWarnMoltenCrash			= mod:NewSpecialWarningSpell(200732, "Tank", nil, nil, 3, 2)
+local specWarnMoltenCrash			= mod:NewSpecialWarningDefensive(200732, "Tank", nil, nil, 3, 2)
 local specWarnLandSlide				= mod:NewSpecialWarningSpell(200700, "Tank", nil, nil, 1, 2)
 local specWarnMagmaSculptor			= mod:NewSpecialWarningSwitch(200637, "Dps", nil, nil, 1, 2)
 local specWarnMagmaWave				= mod:NewSpecialWarningMoveTo(200637, nil, DBM_CORE_AUTO_SPEC_WARN_OPTIONS.spell:format(200637), nil, 2, 2)
@@ -60,7 +60,8 @@ function mod:SPELL_CAST_START(args)
 end
 
 local spikeName = GetSpellInfo(200551)
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
+	local _, _, _, _, spellId = strsplit("-", spellGUID)
 	if spellId == 200418 then--Magma Wave (1 second faster than combat log)
 		specWarnMagmaWave:Show(spikeName)
 		voiceMagmaWave:Play("findshelter")

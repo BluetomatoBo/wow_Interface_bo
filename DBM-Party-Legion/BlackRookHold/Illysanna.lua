@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1653, "DBM-Party-Legion", 1, 740)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14860 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14928 $"):sub(12, -3))
 mod:SetCreatureID(98696)
 mod:SetEncounterID(1833)
 mod:SetZone()
@@ -27,7 +27,7 @@ local warnEyeBeam					= mod:NewTargetAnnounce(197687, 2)
 
 local specWarnBrutalGlaive			= mod:NewSpecialWarningMoveAway(197546, nil, nil, nil, 1, 2)
 local yellBrutalGlaive				= mod:NewYell(197546)
-local specWarnVengefulGlaive		= mod:NewSpecialWarningSpell(197418, "Tank", nil, nil, 3, 2)
+local specWarnVengefulGlaive		= mod:NewSpecialWarningDefensive(197418, "Tank", nil, nil, 3, 2)
 local specWarnDarkRush				= mod:NewSpecialWarningYou(197478, nil, nil, nil, 1, 2)
 local specWarnEyeBeam				= mod:NewSpecialWarningRun(197687, nil, nil, nil, 4, 2)
 local yellEyeBeam					= mod:NewYell(197687)
@@ -130,7 +130,8 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE--]]
 
-function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
+function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
+	local _, _, _, _, spellId = strsplit("-", spellGUID)
 	if spellId == 197622 then--Phase 2 Jump
 		timerBrutalGlaiveCD:Cancel()
 		timerVengefulGlaiveCD:Cancel()

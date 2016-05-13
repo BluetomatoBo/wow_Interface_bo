@@ -112,6 +112,15 @@ L= DBM:GetModLocalization(1488)
 L= DBM:GetModLocalization(1489)
 
 -----------------------
+--Halls of Valor Trash
+-----------------------
+L = DBM:GetModLocalization("HoVTrash")
+
+L:SetGeneralLocalization({
+	name =	"Halls of Valor Trash"
+})
+
+-----------------------
 -- <<<Neltharion's Lair>>> --
 -----------------------
 -----------------------
@@ -167,6 +176,15 @@ L= DBM:GetModLocalization(1500)
 L= DBM:GetModLocalization(1501)
 
 -----------------------
+--The Arcway Trash
+-----------------------
+L = DBM:GetModLocalization("ArcwayTrash")
+
+L:SetGeneralLocalization({
+	name =	"The Arcway Trash"
+})
+
+-----------------------
 -- <<<Court of Stars>>> --
 -----------------------
 -----------------------
@@ -183,6 +201,15 @@ L= DBM:GetModLocalization(1719)
 -- Advisor Melandrus --
 -----------------------
 L= DBM:GetModLocalization(1720)
+
+-----------------------
+--Court of Stars Trash
+-----------------------
+L = DBM:GetModLocalization("CoSTrash")
+
+L:SetGeneralLocalization({
+	name =	"Court of Stars Trash"
+})
 
 -----------------------
 -- <<<The Maw of Souls>>> --
@@ -212,7 +239,7 @@ L:SetGeneralLocalization({
 })
 
 -----------------------
--- <<<The Violet Hold>>> --
+-- <<<Assault Violet Hold>>> --
 -----------------------
 -----------------------
 -- Mindflayer Kaahrj --
@@ -253,6 +280,15 @@ L= DBM:GetModLocalization(1697)
 -- Fel Lord Betrug --
 -----------------------
 L= DBM:GetModLocalization(1711)
+
+-----------------------
+--Assault Violet Hold Trash
+-----------------------
+L = DBM:GetModLocalization("AVHTrash")
+
+L:SetGeneralLocalization({
+	name =	"Assault Violet Hold Trash"
+})
 
 -----------------------
 -- <<<Vault of the Wardens>>> --

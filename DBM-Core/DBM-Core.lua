@@ -6,7 +6,7 @@
 -- This addon is written and copyrighted by:
 --    * Paul Emmerich (Tandanu @ EU-Aegwynn) (DBM-Core)
 --    * Martin Verges (Nitram @ EU-Azshara) (DBM-GUI)
---    * Adam Williams (Omegal @ US-Whisperwind) (Primary boss mod author & DBM maintainer) Contact: Twitter @MysticalOS)
+--    * Adam Williams (Omegal @ US-Whisperwind) (Primary boss mod author & DBM maintainer)
 --
 -- The localizations are written by:
 --    * enGB/enUS: Omegal				Twitter @MysticalOS
@@ -40,9 +40,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14865 $"):sub(12, -3)),
+	Revision = tonumber(("$Revision: 14943 $"):sub(12, -3)),
 	DisplayVersion = "6.2.22", -- the string that is shown as version
-	ReleaseRevision = 14865 -- the revision of the latest stable version that is available
+	ReleaseRevision = 14943 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -50,6 +50,10 @@ DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected,
 -- just use the latest release revision
 if not DBM.Revision then
 	DBM.Revision = DBM.ReleaseRevision
+end
+
+if IsTestBuild() then
+	DBM.ReleaseRevision = DBM.Revision
 end
 
 -- dual profile setup
@@ -3433,15 +3437,10 @@ do
 	end
 
 	function DBM:PARTY_INVITE_REQUEST(sender)
-		self:Debug("PARTY_INVITE_REQUEST fired with sender: "..sender)
 		--First off, if you are in queue for something, lets not allow guildies or friends boot you from it.
 		if (IsInInstance() and not C_Garrison:IsOnGarrisonMap()) or GetLFGMode(1) or GetLFGMode(2) or GetLFGMode(3) or GetLFGMode(4) or GetLFGMode(5) then return end
 		--First check realID
 		if self.Options.AutoAcceptFriendInvite then
-			self:Debug("AutoAcceptFriendInvite is true", 2)
-			--if BNet_GetToonPresenceID(sender) then--6.2.2
-			--	AcceptPartyInvite()
-			--end
 			local _, numBNetOnline = BNGetNumFriends()
 			for i = 1, numBNetOnline do
 				local presenceID, _, _, _, _, _, _, isOnline = BNGetFriendInfo(i)
@@ -3449,19 +3448,25 @@ do
 				for i=1, BNGetNumFriendGameAccounts(friendIndex) do
 					local _, toonName, client = BNGetFriendGameAccountInfo(friendIndex, i)
 					if toonName and client == BNET_CLIENT_WOW then--Check if toon name exists and if client is wow. If yes to both, we found right client
-						self:Debug("Found a wow tooname: "..toonName, 3)
 						if toonName == sender then--Now simply see if this is sender
-							self:Debug("Found toonname match to invite sender: "..toonName)
 							AcceptPartyInvite()
 							return
 						end
 					end
 				end
 			end
+            -- Check regular non-BNet friends
+            local nf = GetNumFriends()
+			for i = 1, nf do
+				local toonName = GetFriendInfo(i)
+				if toonName == sender then
+					AcceptPartyInvite()
+					return
+				end
+			end
 		end
 		--Second check guildies
 		if self.Options.AutoAcceptGuildInvite then
-			self:Debug("AutoAcceptGuildInvite is true", 2)
 			local totalMembers, numOnlineGuildMembers, numOnlineAndMobileMembers = GetNumGuildMembers()
 			local scanTotal = GetGuildRosterShowOffline() and totalMembers or numOnlineAndMobileMembers
 			for i=1, scanTotal do
@@ -3470,10 +3475,8 @@ do
 				--therefor, this feature is just a "yes/no" for if sender is a guildy
 				local name, rank, rankIndex = GetGuildRosterInfo(i)
 				if not name then break end
-				self:Debug("Found name for guildy: "..name, 3)
 				name = Ambiguate(name, "none")
 				if sender == name then
-					self:Debug("Found name match to invite sender: "..name)
 					AcceptPartyInvite()
 					return
 				end
@@ -3539,6 +3542,7 @@ end
 
 function DBM:CHALLENGE_MODE_START(mapID)
 	self:Debug("CHALLENGE_MODE_START fired for mapID "..mapID)
+	if wowTOC >= 70000 then return end
 	if self.Options.ChallengeBest == "None" then return end
 	if self.Options.DontShowBossTimers then return end
 	RequestChallengeModeMapInfo()
@@ -5085,8 +5089,15 @@ do
 		end
 	end
 
-	function DBM:UNIT_SPELLCAST_SUCCEEDED(uId, spellName, _, _, spellId)
-		self:Debug("UNIT_SPELLCAST_SUCCEEDED fired: "..UnitName(uId).."'s "..spellName.."("..spellId..")", 3)
+	function DBM:UNIT_SPELLCAST_SUCCEEDED(uId, spellName, _, spellGUID, spellId)
+		local correctSpellId = 0
+		if wowTOC >= 70000 then--in Legion spellId arg is canned as of latest build, it existed until talarn testing.
+			local _, _, _, _, legSpellId = strsplit("-", spellGUID)
+			correctSpellId = legSpellId
+		else
+			correctSpellId = spellId
+		end
+		self:Debug("UNIT_SPELLCAST_SUCCEEDED fired: "..UnitName(uId).."'s "..spellName.."("..correctSpellId..")", 3)
 	end
 
 	function DBM:ENCOUNTER_START(encounterID, name, difficulty, size)
@@ -5474,7 +5485,7 @@ do
 				end
 				--When hiding objectives frame in challenge modes, start our own timer to show medal time remaining
 				local _, elapsedTime, worldTimerType = GetWorldElapsedTime(1)--Should always be 1, with only one world state timer active. if it's not, use GetWorldElapsedTimers() to find correct one
-				if worldTimerType == 2 then--Challenge mode
+				if wowTOC < 70000 and worldTimerType == 2 then--Challenge mode
 					local bronze, silver, gold = GetChallengeModeMapTimes(LastInstanceMapID)
 					local remaining
 					if elapsedTime < gold then
@@ -5925,6 +5936,7 @@ do
 				bossuIdFound = false
 				eeSyncSender = {}
 				eeSyncReceived = 0
+				targetMonitor = nil
 				self:CreatePizzaTimer(time, "", nil, nil, nil, nil, true)--Auto Terminate infinite loop timers on combat end
 			elseif self.BossHealth:IsShown() then
 				if mod.bossHealthInfo then
@@ -6298,7 +6310,40 @@ function DBM:SendVariableInfo(mod, target)
 end
 
 do
+	local soundFiles = {
+		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event01.ogg",--5
+		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event02.ogg",--5
+		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event03.ogg",--5.5
+		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event04.ogg",--9
+		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event05.ogg",--4
+		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event06.ogg",--10
+		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event07.ogg",--15
+		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event08.ogg",
+	}
+	local function playDelay(self, count)
+		self:PlaySoundFile(soundFiles[count])
+	end
+
+	function DBM:AprilFools()
+		self:Unschedule(self.AprilFools)
+		SetMapToCurrentZone()
+		local currentMapId = GetCurrentMapAreaID()
+		self:Schedule(180 + math.random(0, 600) , self.AprilFools, self)
+		if currentMapId ~= 1014 then return end--Legion Dalaran
+		playDelay(self, 1)
+		self:Schedule(5, playDelay, self, 2)
+		self:Schedule(10, playDelay, self, 3)
+		self:Schedule(15.5, playDelay, self, 4)
+		self:Schedule(24.5, playDelay, self, 5)
+		self:Schedule(28, playDelay, self, 6)
+		self:Schedule(37.5, playDelay, self, 7)
+		self:Schedule(50.5, playDelay, self, 8)
+	end
 	function DBM:PLAYER_ENTERING_WORLD()
+		local weekday, month, day, year = CalendarGetDate()--Must be called after PLAYER_ENTERING_WORLD
+		if month == 4 and day == 1 then--April 1st
+			self:Schedule(180 + math.random(0, 600) , self.AprilFools, self)
+		end
 		if GetLocale() == "ptBR" or GetLocale() == "frFR" or GetLocale() == "esES" or GetLocale() == "esMX" or GetLocale() == "itIT" then
 			C_TimerAfter(10, function() if self.Options.HelpMessageVersion < 3 then self.Options.HelpMessageVersion = 3 self:AddMsg(DBM_CORE_NEED_SUPPORT) end end)
 		end
@@ -7067,7 +7112,7 @@ end
 do
 	local iconStrings = {[1] = RAID_TARGET_1, [2] = RAID_TARGET_2, [3] = RAID_TARGET_3, [4] = RAID_TARGET_4, [5] = RAID_TARGET_5, [6] = RAID_TARGET_6, [7] = RAID_TARGET_7, [8] = RAID_TARGET_8,}
 	function bossModPrototype:IconNumToString(number)
-		return iconStrings[number]
+		return iconStrings[number] or number
 	end
 end
 
@@ -7276,6 +7321,42 @@ function bossModPrototype:CheckNearby(range, targetname)
 	return false
 end
 
+do
+	local bossCache = {}
+	local lastTank = nil
+
+	function bossModPrototype:GetCurrentTank(cidOrGuid)
+		if lastTank and GetTime() - (bossCache[cidOrGuid] or 0) < 2 then -- return last tank within 2 seconds of call
+			return lastTank
+		else	
+			local cidOrGuid = cidOrGuid or self.creatureId--GetBossTarget supports GUID or CID and it will automatically return correct values with EITHER ONE
+			local uId
+			local _, fallbackuId, mobuId = self:GetBossTarget(cidOrGuid)
+			if mobuId then--Have a valid mob unit ID
+				--First, use trust threat more than fallbackuId and see what we pull from it first.
+				--This is because for GetCurrentTank we want to know who is tanking it, not who it's targeting.
+				local unitId = (IsInRaid() and "raid") or "party"
+				for i = 0, GetNumGroupMembers() do
+					local id = (i == 0 and "target") or unitId..i
+					local tanking, status = UnitDetailedThreatSituation(id, mobuId)--Tanking may return 0 if npc is temporarily looking at an NPC (IE fracture) but status will still be 3 on true tank
+					if tanking or (status == 3) then uId = id end--Found highest threat target, make them uId
+					if uId then break end
+				end
+				--Did not get anything useful from threat, so use who the boss was looking at, at time of cast (ie fallbackuId)
+				if fallbackuId and not uId then
+					uId = fallbackuId
+				end
+			end
+			if uId then--Now we have a valid uId
+				bossCache[cidOrGuid] = GetTime()
+				lastTank = UnitName(uId)
+				return UnitName(lastTank)
+			end
+			return false
+		end
+	end
+end
+
 --Now this function works perfectly. But have some limitation due to DBM.RangeCheck:GetDistance() function.
 --Unfortunely, DBM.RangeCheck:GetDistance() function cannot reflects altitude difference. This makes range unreliable.
 --So, we need to cafefully check range in difference altitude (Especially, tower top and bottom)
@@ -7298,7 +7379,7 @@ do
 			local _, fallbackuId, mobuId = self:GetBossTarget(cidOrGuid)
 			if mobuId then--Have a valid mob unit ID
 				--First, use trust threat more than fallbackuId and see what we pull from it first.
-				--This is because for CheckTankDistance we want to know who is tanking it, not who it's targeting it.
+				--This is because for CheckTankDistance we want to know who is tanking it, not who it's targeting.
 				local unitId = (IsInRaid() and "raid") or "party"
 				for i = 0, GetNumGroupMembers() do
 					local id = (i == 0 and "target") or unitId..i
@@ -7514,7 +7595,7 @@ do
 		["RemoveEnrage"] = true,
 		["RemoveCurse"] = true,
 		["MagicDispeller"] = true--Buffs on targets, not debuffs on players
-		["HasInterrupt"] = true,--Has an interrupt that is 15 seconds or less CD. Excludes long cd interrupts that aren't fitting for a 2-3 person rotation
+		["HasInterrupt"] = true,--Has an interrupt that is 24 seconds or less CD.
 	}]]
 
 	local specRoleTable = {
@@ -7527,6 +7608,7 @@ do
 			["RaidCooldown"] = true,--Amplify Magic
 			["RemoveCurse"] = true,
 			["MagicDispeller"] = true,
+			["HasInterrupt"] = true,
 		},
 		[65] = {	--Holy Paladin
 			["Healer"] = true,
@@ -7536,7 +7618,7 @@ do
 			["RaidCooldown"] = true,--Devotion Aura
 			["RemovePoison"] = true,
 			["RemoveDisease"] = true,
-			["HasInterrupt"] = true,
+			["HasInterrupt"] = true,--REMOVE IN LEGION?
 		},
 		[66] = {	--Protection Paladin
 			["Tank"] = true,
@@ -7545,7 +7627,7 @@ do
 			["Physical"] = true,
 			["RemovePoison"] = true,
 			["RemoveDisease"] = true,
-			["HasInterrupt"] = true,--REMOVE IN LEGION
+			["HasInterrupt"] = true,--REMOVE IN LEGION?
 		},
 		[70] = {	--Retribution Paladin
 			["Dps"] = true,
@@ -7569,10 +7651,9 @@ do
 			["Tank"] = true,
 			["Melee"] = true,
 			["Physical"] = true,
-			["MagicDispeller"] = true,--REMOVE IN LEGION
 			["HasInterrupt"] = true,
 		},
-		[74] = {	--Gladiator Warrior
+		[74] = {	--Gladiator Warrior --REMOVE IN LEGION?
 			["Dps"] = true,
 			["Melee"] = true,
 			["MeleeDps"] = true,
@@ -7635,6 +7716,7 @@ do
 			["Ranged"] = true,
 			["RangedDps"] = true,
 			["Physical"] = true,
+			["HasInterrupt"] = true,
 			["RemoveEnrage"] = true,--REMOVE IN LEGION
 			["MagicDispeller"] = true,--REMOVE IN LEGION
 		},
@@ -7756,7 +7838,7 @@ do
 	specRoleTable[72] = specRoleTable[71]--Fury Warrior
 	specRoleTable[252] = specRoleTable[251]--Unholy DK
 	specRoleTable[254] = specRoleTable[253]--Markmanship Hunter
-	specRoleTable[255] = specRoleTable[253]--Survival Hunter
+	specRoleTable[255] = specRoleTable[253]--Survival Hunter (REMOVE IN LEGION)
 	specRoleTable[257] = specRoleTable[256]--Holy Priest
 	specRoleTable[260] = specRoleTable[259]--Combat Rogue
 	specRoleTable[261] = specRoleTable[259]--Subtlety Rogue
@@ -8749,8 +8831,6 @@ do
 		if (name == "changemt" or name == "tauntboss") and DBM.Options.FilterTankSpec and not self.mod:IsTank() and not always then return end
 		if not self.option or self.mod.Options[self.option] or always then
 			local path = customPath or "Interface\\AddOns\\DBM-VP"..voice.."\\"..name..".ogg"
-			--Example "Interface\\AddOns\\DBM-VPHenry\\dispelnow.ogg"
-			--Usage: voiceBerserkerRush:Play("dispelnow")
 			DBM:PlaySoundFile(path)
 		end
 	end
@@ -9527,7 +9607,11 @@ do
 	function bossModPrototype:NewSpecialWarningTargetCount(text, optionDefault, ...)
 		return newSpecialWarning(self, "targetcount", text, nil, optionDefault, ...)
 	end
-	
+
+	function bossModPrototype:NewSpecialWarningDefensive(text, optionDefault, ...)
+		return newSpecialWarning(self, "defensive", text, nil, optionDefault, ...)
+	end
+
 	function bossModPrototype:NewSpecialWarningTaunt(text, optionDefault, ...)
 		return newSpecialWarning(self, "taunt", text, nil, optionDefault, ...)
 	end
@@ -9840,7 +9924,7 @@ do
 			--Icon: Texture Path for Icon
 			--type: Timer type (Cooldowns: cd, cdcount, nextcount, nextsource, cdspecial, nextspecial, phase, ai. Durations: target, active, fades, roleplay. Casting: cast)
 			--spellId: Raw spellid if available (most timers will have spellId or EJ ID unless it's a specific timer not tied to ability such as pull or combat start or rez timers. EJ id will be in format ej%d
-			--colorID: Type classification (1-Add, 2-Aoe, 3-targeted ability, 4-Interrupt, 5-Role, 6-Phase)
+			--colorID: Type classification (1-Add, 2-Aoe, 3-targeted ability, 4-Interrupt, 5-Role, 6-Phase, 7-User(custom))
 			--Mod ID: Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
 			fireEvent("DBM_TimerStart", id, msg, timer, self.icon, self.type, self.spellId, colorId, self.mod.id)
 			tinsert(self.startedTimers, id)

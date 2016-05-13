@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1438, "DBM-HellfireCitadel", nil, 669)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14856 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14938 $"):sub(12, -3))
 mod:SetCreatureID(91331)--Doomfire Spirit (92208), Hellfire Deathcaller (92740), Felborne Overfiend (93615), Dreadstalker (93616), Infernal doombringer (94412)
 mod:SetEncounterID(1799)
 mod:SetMinSyncRevision(13964)
@@ -61,7 +61,7 @@ local specWarnFelBurst				= mod:NewSpecialWarningYou(183817)
 local yellFelBurst					= mod:NewPosYell(183817)
 local specWarnFelBurstNear			= mod:NewSpecialWarningMoveTo(183817, nil, nil, nil, 1, 2)--Anyone near by should run in to help soak, should be mostly ranged but if it's close to melee, melee soaking too doesn't hurt
 local specWarnDesecrate				= mod:NewSpecialWarningDodge(185590, "Melee", nil, nil, 1, 2)
-local specWarnDeathBrand			= mod:NewSpecialWarningCount(183828, "Tank", nil, nil, 1, 2)
+local specWarnDeathBrand			= mod:NewSpecialWarningCount(183828, "Tank", nil, 2, 1, 2)
 --Phase 2: Hand of the Legion
 local specWarnBreakShackle			= mod:NewSpecialWarning("specWarnBreakShackle", nil, nil, nil, 1, 5)
 local yellShackledTorment			= mod:NewPosYell(184964)
@@ -123,7 +123,7 @@ local timerRainofChaosCD			= mod:NewCDCountTimer(62, 182225, 23426, nil, nil, 2)
 ----The Nether
 --Mythic
 mod:AddTimerLine(ENCOUNTER_JOURNAL_SECTION_FLAG12)
-local timerDarkConduitCD			= mod:NewNextCountTimer(107, 190394, 199787, "-Melee", 2, 3)
+local timerDarkConduitCD			= mod:NewNextCountTimer(107, 190394, nil, "-Melee", 2, 3)
 local timerMarkOfLegionCD			= mod:NewNextCountTimer(107, 187050, 28836, nil, nil, 3)
 local timerInfernalsCD				= mod:NewNextCountTimer(107, 187111, 23426, nil, nil, 1, 1122)
 local timerSourceofChaosCD			= mod:NewNextCountTimer(107, 190703, nil, nil, 2, 1)
@@ -317,7 +317,6 @@ local function setDemonicFeedback(self)
 	end
 end
 
-local iconedAssignments = {RAID_TARGET_1, RAID_TARGET_2, RAID_TARGET_3, RAID_TARGET_4}
 local function showMarkOfLegion(self, spellName)
 	--5,7,9,11 seconds. Sorted lowest to highest
 	--5, 7 on melee, 9, 11 on ranged (if enough alive anyways)
@@ -340,7 +339,7 @@ local function showMarkOfLegion(self, spellName)
 			end
 			local message = position.."-"..DBM_CORE_LEFT
 			if localMarkBehavior == "Numbered" then
-				message = iconedAssignments[number]
+				message = self:IconNumToString(number)
 			end
 			if self.Options.SetIconOnMarkOfLegion2 then
 				self:SetIcon(name, number)
@@ -372,7 +371,7 @@ local function showMarkOfLegion(self, spellName)
 			end
 			local message = position.."-"..DBM_CORE_RIGHT
 			if localMarkBehavior == "Numbered" then
-				message = iconedAssignments[number]
+				message = self:IconNumToString(number)
 			end
 			if self.Options.SetIconOnMarkOfLegion2 then
 				self:SetIcon(name, number)
@@ -404,7 +403,7 @@ local function showMarkOfLegion(self, spellName)
 			end
 			local message = position.."-"..DBM_CORE_LEFT
 			if localMarkBehavior == "Numbered" then
-				message = iconedAssignments[number]
+				message = self:IconNumToString(number)
 			end
 			if self.Options.SetIconOnMarkOfLegion2 then
 				self:SetIcon(name, number)
@@ -436,7 +435,7 @@ local function showMarkOfLegion(self, spellName)
 			end
 			local message = position.."-"..DBM_CORE_RIGHT
 			if localMarkBehavior == "Numbered" then
-				message = iconedAssignments[number]
+				message = self:IconNumToString(number)
 			end
 			if self.Options.SetIconOnMarkOfLegion2 then
 				self:SetIcon(name, number)
@@ -1009,35 +1008,33 @@ function mod:SPELL_AURA_APPLIED(args)
 			else
 				time = 6
 			end
-			if self.Options.HudMapOnWrought then
+			if self.Options.HudMapOnWrought and args.sourceName and args.destName then
 				local sourceUId, destUId = DBM:GetRaidUnitId(args.sourceName), DBM:GetRaidUnitId(args.destName)
 				if not sourceUId or not destUId then return end--They left raid? prevent nil error. this will probably only happen in LFR
-				if UnitIsUnit("player", sourceUId) or UnitIsUnit("player", destUId) then--Player is in connection, green line
+				if UnitIsUnit("player", sourceUId) or UnitIsUnit("player", destUId) then--Player is in connection, yellow line
 					--create points for your own line
 					warnWroughtChaos:CombinedShow(0.1, self.vb.wroughtWarned, args.sourceName)
 					warnWroughtChaos:CombinedShow(0.1, self.vb.wroughtWarned, args.destName)
 					if UnitIsUnit("player", sourceUId) then
+						DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.7, time, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger (no label on player dot)
 						if self.Options.NamesWroughtHud then
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.7, time, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger (no label on player dot)
 							DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.35, time, nil, nil, nil, 0.5, nil, false):Appear():SetLabel(args.destName, nil, nil, nil, nil, nil, 0.8, nil, -13, 8, nil)
 						else
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.7, time, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger
 							DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.35, time, nil, nil, nil, 0.5, nil, false):Appear()
 						end
 					else
+						DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.7, time, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger (no label on player dot)
 						if self.Options.NamesWroughtHud then
 							DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.35, time, nil, nil, nil, 0.5, nil, false):Appear():SetLabel(args.sourceName, nil, nil, nil, nil, nil, 0.8, nil, -13, 8, nil)
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.7, time, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger (no label on player dot)
 						else
 							DBMHudMap:RegisterRangeMarkerOnPartyMember(186123, "party", args.sourceName, 0.35, time, nil, nil, nil, 0.5, nil, false):Appear()
-							DBMHudMap:RegisterRangeMarkerOnPartyMember(185014, "party", args.destName, 0.7, time, nil, nil, nil, 1, nil, false):Appear()--Players own dot bigger
 						end
 					end
 					--create line
 					if self.Options.ExtendWroughtHud3 then
-						DBMHudMap:AddEdge(0, 1, 0, 0.5, time, args.sourceName, args.destName, nil, nil, nil, nil, 135, nil, true)
+						DBMHudMap:AddEdge(1, 1, 0, 0.5, time, args.sourceName, args.destName, nil, nil, nil, nil, 135, nil, true)
 					else
-						DBMHudMap:AddEdge(0, 1, 0, 0.5, time, args.sourceName, args.destName, nil, nil, nil, nil, 135)
+						DBMHudMap:AddEdge(1, 1, 0, 0.5, time, args.sourceName, args.destName, nil, nil, nil, nil, 135)
 					end
 				else--red lines for non player lines
 					--Create Points
