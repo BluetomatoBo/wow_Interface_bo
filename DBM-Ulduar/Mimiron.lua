@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Mimiron", "DBM-Ulduar")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 222 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 228 $"):sub(12, -3))
 mod:SetCreatureID(33432)
 mod:SetEncounterID(1138)
 mod:DisableESCombatDetection()
@@ -103,7 +103,7 @@ function mod:OnCombatEnd()
 --		else
 --			SetLootMethod(lootmethod)
 --		end
-	end
+--	end
 end
 
 function mod:SPELL_SUMMON(args)
