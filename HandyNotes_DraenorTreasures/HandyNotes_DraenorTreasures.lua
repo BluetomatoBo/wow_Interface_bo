@@ -1,4 +1,4 @@
-﻿DraenorTreasures = LibStub("AceAddon-3.0"):NewAddon("DraenorTreasures", "AceBucket-3.0", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
+DraenorTreasures = LibStub("AceAddon-3.0"):NewAddon("DraenorTreasures", "AceBucket-3.0", "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0")
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes", true)
 
 if not HandyNotes then return end
@@ -1256,7 +1256,7 @@ local options = {
                         },
                         rareATJ = {
                             type = "toggle",
-                            arg = "rare_a_tj",
+                            arg = "rare_a_tj_new",
                             name = "Rares still needed for the [Jungle Stalker] achievement",
                             desc = "This has priority over the option [Always show already looted Rares]",
                             width = "full",
@@ -1403,7 +1403,7 @@ function DraenorTreasures:OnInitialize()
             rare_h_tj = true,
             rare_s_gg = true,
             rare_s_ng = true,
-            rare_a_tj = true,
+            rare_a_tj_new = false,
             mount_tj = true,
             mount_pr = true,
             mount_go = true,
@@ -1507,7 +1507,7 @@ function DraenorTreasures:RegisterWithHandyNotes()
 
             while state do
                 if (value[1] and self.db.profile[value[6]] and not DraenorTreasures:HasBeenLooted(value)) and (value[6] == "rare_h_tj") then
-                    if (self.db.profile.rare_a_tj) then
+                    if (self.db.profile.rare_a_tj_new) then
                         if ((value[8] ~= nil) and (value[8] ~= "")) then
                             local _, _, completed, _, _, _, _, _, _, _, _ = GetAchievementCriteriaInfoByID(10070, value[8])
 
