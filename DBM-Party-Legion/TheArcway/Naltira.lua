@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1500, "DBM-Party-Legion", 6, 726)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 14928 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 14989 $"):sub(12, -3))
 mod:SetCreatureID(98207)
 mod:SetEncounterID(1826)
 mod:SetZone()
@@ -57,7 +57,6 @@ function mod:BlinkTarget(targetname, uId)
 	else
 		warnBlink:Show(targetname)--No reason to show this if you got a special warning. so reduce spam and display this only to let you know jump is far away and you're safe
 	end
-	self:BossUnitTargetScanner("boss1", "BlinkTarget", 4.5)
 	--self:BossTargetScanner(98207, "BlinkTarget", 0.1, 20, true, nil, nil, targetname)
 --	if self.Options.HudMapOnBlink then
 --		--Static marker, boss doesn't move once a target is picked. it's aimed at static location player WAS
@@ -116,7 +115,7 @@ mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 --"<54.03 00:02:07> [UNIT_SPELLCAST_CHANNEL_START] Nal'tira(Dayani) - spell_mage_arcaneorb - 2.5sec [[boss1:Blink Strikes::0-0-0-0-0-0000000000:199811]]", -- [201]
 --It's not that much slower to just use UNIT_SPELLCAST_CHANNEL_START target and ditch scanning Will leave it this way for now for the .6 second gain though
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
-	local _, _, _, _, spellId = strsplit("-", spellGUID)
+	local spellId = tonumber(select(5, strsplit("-", spellGUID)), 10)
 	if spellId == 199809 then--Blink Strikes begin
 		timerBlinkCD:Start()
 		self.vb.blinkCount = 0
@@ -125,12 +124,14 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
 	end
 end
 
-function mod:UNIT_SPELLCAST_CHANNEL_STOP(uId, _, _, _, spellId)
+function mod:UNIT_SPELLCAST_CHANNEL_STOP(uId, _, _, spellGUID)
+	local spellId = tonumber(select(5, strsplit("-", spellGUID)), 10)
 	if spellId == 199811 then--Blink Strikes Channel ending
 		self.vb.blinkCount = self.vb.blinkCount + 1
 		if self.vb.blinkCount == 2 then
 			self:BossUnitTargetScannerAbort()
-			--self:BossTargetScannerAbort(98207, "JumpTarget")
+		elseif self.vb.blinkCount == 1 then
+			self:BossUnitTargetScanner(uId, "BlinkTarget")
 		end
 	end
 end

@@ -10,7 +10,7 @@
 --
 -- The localizations are written by:
 --    * enGB/enUS: Omegal				Twitter @MysticalOS
---    * deDE: Ebmor						http://forums.elitistjerks.com/user/616736-ebmor/
+--    * deDE: Ebmor						http://www.deadlybossmods.com/forum/memberlist.php?mode=viewprofile&u=79
 --    * ruRU: TOM_RUS					http://www.curseforge.com/profiles/TOM_RUS/
 --    * zhTW: Whyv						ultrashining@gmail.com
 --    * koKR: nBlueWiz					everfinale@gmail.com
@@ -40,9 +40,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14943 $"):sub(12, -3)),
-	DisplayVersion = "6.2.22", -- the string that is shown as version
-	ReleaseRevision = 14943 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 14998 $"):sub(12, -3)),
+	DisplayVersion = "6.2.23", -- the string that is shown as version
+	ReleaseRevision = 14998 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -52,8 +52,9 @@ if not DBM.Revision then
 	DBM.Revision = DBM.ReleaseRevision
 end
 
+local testBuild = false
 if IsTestBuild() then
-	DBM.ReleaseRevision = DBM.Revision
+	testBuild = true
 end
 
 -- dual profile setup
@@ -303,6 +304,31 @@ DBM.Counts = {
 	{	text	= "Koltrane (Male)",value 	= "Kolt", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Kolt\\", max = 10},
 	{	text	= "Pewsey (Male)",value 	= "Pewsey", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Pewsey\\", max = 10},
 	{	text	= "Bear (Male Child)",value = "Bear", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Bear\\", max = 10},
+	{	text	= "Overwatch: Announcer",	value 	= "Overwatch", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Announcer\\", max = 10},
+	{	text	= "Overwatch: Bastion",	value 	= "Bastion", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Bastion\\", max = 5},
+	{	text	= "Overwatch: D.Va",	value 	= "DVa", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\DVa\\", max = 5},
+	{	text	= "Overwatch: D.Va (Korean)",	value 	= "DVakr", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\DVa\\kr\\", max = 5},
+	{	text	= "Overwatch: Genji",	value 	= "Genji", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Genji\\", max = 5},
+	{	text	= "Overwatch: Genji (Japanese)",	value 	= "Genjijp", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Genji\\jp\\", max = 5},
+	{	text	= "Overwatch: Hanzo",	value 	= "Hanzo", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Hanzo\\", max = 5},
+	{	text	= "Overwatch: Junkrat",	value 	= "Junkrat", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Junkrat\\", max = 5},
+	{	text	= "Overwatch: Lucio",	value 	= "Lucio", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Lucio\\", max = 5},
+	{	text	= "Overwatch: Mccree",	value 	= "Mccree", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Mccree\\", max = 5},
+	{	text	= "Overwatch: Mei",	value 	= "Mei", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Mei\\", max = 5},
+	{	text	= "Overwatch: Mei (Chinese)",	value 	= "Meicn", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Mei\\cn\\", max = 5},
+	{	text	= "Overwatch: Mercy",	value 	= "Mercy", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Mercy\\", max = 5},
+	{	text	= "Overwatch: Pharah",	value 	= "Pharah", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Pharah\\", max = 5},
+	{	text	= "Overwatch: Reaper",	value 	= "Reaper", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Reaper\\", max = 5},
+	{	text	= "Overwatch: Reinhardt",	value 	= "Reinhardt", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Reinhardt\\", max = 5},
+	{	text	= "Overwatch: Roadhog",	value 	= "Roadhog", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Roadhog\\", max = 5},
+	{	text	= "Overwatch: Soldier",	value 	= "Soldier", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Soldier\\", max = 5},
+	{	text	= "Overwatch: Symmetra",	value 	= "Symmetra", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Symmetra\\", max = 5},
+	{	text	= "Overwatch: Torbjorn",	value 	= "Torbjorn", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Torbjorn\\", max = 5},
+	{	text	= "Overwatch: Tracer",	value 	= "Tracer", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Tracer\\", max = 5},
+	{	text	= "Overwatch: Widowmaker",	value 	= "Widowmaker", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Widowmaker\\", max = 5},
+	{	text	= "Overwatch: Winston",	value 	= "Winston", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Winston\\", max = 5},
+	{	text	= "Overwatch: Zarya",	value 	= "Zarya", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Zarya\\", max = 5},
+	{	text	= "Overwatch: Zenyatta",	value 	= "Zenyatta", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Overwatch\\Zenyatta\\", max = 5},
 	{	text	= "HoTS: Default",	value 	= "HoTS_D", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Heroes\\Default\\", max = 5},
 	{	text	= "HoTS: Blackheart",	value 	= "HoTS_B", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Heroes\\Blackheart\\", max = 5},
 	{	text	= "HoTS: Gardens",	value 	= "HoTS_G", path = "Interface\\AddOns\\DBM-Core\\Sounds\\Heroes\\Gardens\\", max = 5},
@@ -454,7 +480,7 @@ local LoadAddOn, GetAddOnInfo, GetAddOnEnableState, GetAddOnMetadata, GetNumAddO
 local PlaySoundFile, PlaySound = PlaySoundFile, PlaySound
 local Ambiguate = Ambiguate
 local C_TimerNewTicker, C_TimerAfter = C_Timer.NewTicker, C_Timer.After
-local BNGetGameAccountInfo = BNGetToonInfo or BNGetGameAccountInfo
+local BNGetGameAccountInfo = BNGetGameAccountInfo
 
 -- for Phanx' Class Colors
 local RAID_CLASS_COLORS = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
@@ -638,7 +664,7 @@ do
 			local zones = v.zones
 			local handler = v[event]
 			local modEvents = v.registeredUnitEvents
-			if handler and (not isUnitEvent or not modEvents or modEvents[event .. ...])  and (not zones or zones[LastInstanceMapID]) and not (v.isTrashMod and IsEncounterInProgress()) then
+			if handler and (not isUnitEvent or not modEvents or modEvents[event .. ...])  and (not zones or zones[LastInstanceMapID]) and not (v.isTrashMod and #inCombat > 0) then
 				handler(v, ...)
 			end
 		end
@@ -1715,17 +1741,21 @@ do
 	end
 	
 	SLASH_DEADLYBOSSMODS1 = "/dbm"
+	SLASH_DEADLYBOSSMODSRPULL1 = "/rpull"
 	if not BigWigs then
 		--Register pull and break slash commands for BW converts, if BW isn't loaded
 		--This shouldn't raise an issue since BW SHOULD load before DBM in any case they are both present.
-		SLASH_DEADLYBOSSMODPULL1 = "/pull"
-		SLASH_DEADLYBOSSMODBREAK1 = "/break"
-		SlashCmdList["DEADLYBOSSMODPULL"] = function(msg)
+		SLASH_DEADLYBOSSMODSPULL1 = "/pull"
+		SLASH_DEADLYBOSSMODSBREAK1 = "/break"
+		SlashCmdList["DEADLYBOSSMODSPULL"] = function(msg)
 			Pull(tonumber(msg) or 10)
 		end
-		SlashCmdList["DEADLYBOSSMODBREAK"] = function(msg)
+		SlashCmdList["DEADLYBOSSMODSBREAK"] = function(msg)
 			Break(tonumber(msg) or 10)
 		end
+	end
+	SlashCmdList["DEADLYBOSSMODSRPULL"] = function(msg)
+		Pull(30)
 	end
 	SlashCmdList["DEADLYBOSSMODS"] = function(msg)
 		local cmd = msg:lower()
@@ -1888,6 +1918,8 @@ do
 		elseif cmd:sub(1, 4) == "pull" then
 			local timer = tonumber(cmd:sub(5)) or 10
 			Pull(timer)
+		elseif cmd:sub(1, 5) == "rpull" then
+			Pull(30)
 		elseif cmd:sub(1, 3) == "lag" then
 			if not LL then
 				DBM:AddMsg(DBM_CORE_UPDATE_REQUIRES_RELAUNCH)
@@ -2373,9 +2405,9 @@ do
 		elseif arg1 == "update" then
 			DBM:ShowUpdateReminder(arg2, arg3) -- displayVersion, revision
 		elseif arg == "localizersneeded" then
-			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG, "http://forums.elitistjerks.com/topic/132449-dbm-localizers-needed/")
+			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG, "http://www.deadlybossmods.com/forum/viewtopic.php?f=3&t=5")
 		elseif arg1 == "forumsnews" then
-			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG_NEWS, "http://forums.elitistjerks.com/topic/133665-new-feature-color-bars-by-type-updated-9-18-15/")
+			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG_NEWS, "http://www.deadlybossmods.com/forum/viewtopic.php?f=7&t=10")
 		elseif arg1 == "forums" then
 			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG)
 		elseif arg1 == "showRaidIdResults" then
@@ -2970,6 +3002,11 @@ function DBM:LoadModOptions(modId, inCombat, first)
 						if savedOptions[id][profileNum][option] and (type(savedOptions[id][profileNum][option]) == "boolean") then
 							savedOptions[id][profileNum][option] = mod.DefaultOptions[option].value
 						end
+					--Fix default options for colored bar by type that were set to 0 because no defaults existed at time they were created, but do now.
+					elseif option:find("TColor") then
+						if savedOptions[id][profileNum][option] and savedOptions[id][profileNum][option] == 0 and mod.DefaultOptions[option] and mod.DefaultOptions[option] ~= 0 then
+							savedOptions[id][profileNum][option] = mod.DefaultOptions[option]
+						end
 					end
 				end
 			end
@@ -3421,9 +3458,6 @@ end
 --REMOVE IN LEGION
 
 do
-	--TODO: REMOVE COMPAT CODE IN LEGION/6.2.4
-	local BNGetFriendGameAccountInfo = BNGetFriendToonInfo or BNGetFriendGameAccountInfo
-	local BNGetNumFriendGameAccounts = BNGetNumFriendToons or BNGetNumFriendGameAccounts
 	local function AcceptPartyInvite()
 		AcceptGroup()
 		for i=1, STATICPOPUP_NUMDIALOGS do
@@ -4194,12 +4228,12 @@ do
 						local revDifference = mmin((raid[newerVersionPerson[1]].revision - DBM.Revision), (raid[newerVersionPerson[2]].revision - DBM.Revision), (raid[newerVersionPerson[3]].revision - DBM.Revision))
 						--The following code requires at least THREE people to send that higher revision (I just upped it from 2). That should be more than adaquate.
 						--Disable if out of date and it's a major patch.
-						if dbmToc < wowTOC then
+						if not testBuild and dbmToc < wowTOC then
 							updateNotificationDisplayed = 3
 							DBM:AddMsg(DBM_CORE_UPDATEREMINDER_MAJORPATCH)
 							DBM:Disable(true)
 						--Disable if revision grossly out of date even if not major patch.
-						elseif revDifference > 150 then
+						elseif revDifference > 180 then
 							if updateNotificationDisplayed < 3 then
 								updateNotificationDisplayed = 3
 								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_DISABLE)
@@ -4209,14 +4243,21 @@ do
 					end
 				end
 			end
-			if DBM.DisplayVersion:find("alpha") and #newerVersionPerson < 2 and #newerRevisionPerson < 2 and updateNotificationDisplayed < 2 and (revision - DBM.Revision) > 30 then--Revision 20 can be increased in 1 day, so raised it to 30. Requires 2 person.
+			if DBM.DisplayVersion:find("alpha") and #newerVersionPerson < 2 and #newerRevisionPerson < 2 and updateNotificationDisplayed < 2 and (revision - DBM.Revision) > 20 then
 				if not checkEntry(newerRevisionPerson, sender) then
 					newerRevisionPerson[#newerRevisionPerson + 1] = sender
 					DBM:Debug("Newer revision detected from "..sender.." : Rev - "..revision..", Ver - "..version..", Rev Diff - "..(revision - DBM.Revision))
 				end
 				if #newerRevisionPerson == 2 then
-					updateNotificationDisplayed = 2
-					DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER_ALPHA:format(revision - DBM.Revision))
+					local revDifference = mmin((raid[newerRevisionPerson[1]].revision - DBM.Revision), (raid[newerRevisionPerson[2]].revision - DBM.Revision))
+					if testBuild and revDifference > 5 then
+						updateNotificationDisplayed = 3
+						DBM:AddMsg(DBM_CORE_UPDATEREMINDER_DISABLE)
+						DBM:Disable(true)
+					else
+						updateNotificationDisplayed = 2
+						DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER_ALPHA:format(revDifference))
+					end
 				end
 			end
 		end
@@ -4375,9 +4416,9 @@ do
 			end
 		end
 		
-		syncHandlers["GCE"] = function(sender, modId, ver, wipe, time, wipeHP, difficulty)
+		syncHandlers["GCE"] = function(sender, modId, ver, wipe, time, difficulty, wipeHP)
 			if not DBM.Options.ShowGuildMessages or not difficulty then return end
-			if not ver or not (ver == "2") then return end--Ignore old versions
+			if not ver or not (ver == "3") then return end--Ignore old versions
 			if DBM:AntiSpam(5, "GCE") then
 				if IsInInstance() then return end--Simple filter, if you are inside an instance, just filter it, if not in instance, good to go.
 				local bossName = EJ_GetEncounterInfo(modId) or UNKNOWN
@@ -5092,8 +5133,7 @@ do
 	function DBM:UNIT_SPELLCAST_SUCCEEDED(uId, spellName, _, spellGUID, spellId)
 		local correctSpellId = 0
 		if wowTOC >= 70000 then--in Legion spellId arg is canned as of latest build, it existed until talarn testing.
-			local _, _, _, _, legSpellId = strsplit("-", spellGUID)
-			correctSpellId = legSpellId
+			correctSpellId = tonumber(select(5, strsplit("-", spellGUID)), 10)
 		else
 			correctSpellId = spellId
 		end
@@ -5566,7 +5606,7 @@ do
 						end
 					end
 				end
-				if IsTestBuild() and difficultyIndex == 16 then
+				if testBuild and difficultyIndex == 16 then
 					self:AddMsg(DBM_CORE_NEED_LOGS)
 				end
 				--call OnCombatStart
@@ -5746,7 +5786,7 @@ do
 							self:AddMsg(DBM_CORE_COMBAT_ENDED_AT_LONG:format(difficultyText..name, wipeHP, strFromTime(thisTime), totalPulls - totalKills))
 							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 then
 								if InGuildParty() then--Guild Group
-									SendAddonMessage("D4", "GCE\t"..modId.."\t2\t1\t"..strFromTime(thisTime).."\t"..wipeHP.."\t"..difficultyIndex, "GUILD")
+									SendAddonMessage("D4", "GCE\t"..modId.."\t3\t1\t"..strFromTime(thisTime).."\t"..difficultyIndex.."\t"..wipeHP, "GUILD")
 								end
 							end
 						end
@@ -5816,7 +5856,7 @@ do
 							msg = DBM_CORE_BOSS_DOWN:format(difficultyText..name, strFromTime(thisTime))
 							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 then
 								if InGuildParty() then--Guild Group
-									SendAddonMessage("D4", "GCE\t"..modId.."\t2\t0\t"..strFromTime(thisTime).."\t"..difficultyIndex, "GUILD")
+									SendAddonMessage("D4", "GCE\t"..modId.."\t3\t0\t"..strFromTime(thisTime).."\t"..difficultyIndex, "GUILD")
 								end
 							end
 						end
@@ -5827,7 +5867,7 @@ do
 							msg = DBM_CORE_BOSS_DOWN_NR:format(difficultyText..name, strFromTime(thisTime), strFromTime(bestTime), totalKills)
 							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 then
 								if InGuildParty() then--Guild Group
-									SendAddonMessage("D4", "GCE\t"..modId.."\t2\t0\t"..strFromTime(thisTime).."\t"..difficultyIndex, "GUILD")
+									SendAddonMessage("D4", "GCE\t"..modId.."\t3\t0\t"..strFromTime(thisTime).."\t"..difficultyIndex, "GUILD")
 								end
 							end
 						end
@@ -5838,7 +5878,7 @@ do
 							msg = DBM_CORE_BOSS_DOWN_L:format(difficultyText..name, strFromTime(thisTime), strFromTime(lastTime), strFromTime(bestTime), totalKills)
 							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 then
 								if InGuildParty() then--Guild Group
-									SendAddonMessage("D4", "GCE\t"..modId.."\t2\t0\t"..strFromTime(thisTime).."\t"..difficultyIndex, "GUILD")
+									SendAddonMessage("D4", "GCE\t"..modId.."\t3\t0\t"..strFromTime(thisTime).."\t"..difficultyIndex, "GUILD")
 								end
 							end
 						end
@@ -6094,6 +6134,8 @@ function DBM:GetCurrentInstanceDifficulty()
 		return "mythic", difficultyName.." - ", difficulty, instanceGroupSize
 	elseif difficulty == 24 then
 		return "timewalker", difficultyName.." - ", difficulty, instanceGroupSize
+--	elseif difficulty == 25 then--Used by Ashran in 7.x.
+--		return "pvpscenario", difficultyName.." - ", difficulty, instanceGroupSize
 	else--failsafe
 		return "normal5", "", difficulty, instanceGroupSize
 	end
@@ -6328,7 +6370,7 @@ do
 		self:Unschedule(self.AprilFools)
 		SetMapToCurrentZone()
 		local currentMapId = GetCurrentMapAreaID()
-		self:Schedule(180 + math.random(0, 600) , self.AprilFools, self)
+		self:Schedule(120 + math.random(0, 600) , self.AprilFools, self)
 		if currentMapId ~= 1014 then return end--Legion Dalaran
 		playDelay(self, 1)
 		self:Schedule(5, playDelay, self, 2)
@@ -6345,11 +6387,11 @@ do
 			self:Schedule(180 + math.random(0, 600) , self.AprilFools, self)
 		end
 		if GetLocale() == "ptBR" or GetLocale() == "frFR" or GetLocale() == "esES" or GetLocale() == "esMX" or GetLocale() == "itIT" then
-			C_TimerAfter(10, function() if self.Options.HelpMessageVersion < 3 then self.Options.HelpMessageVersion = 3 self:AddMsg(DBM_CORE_NEED_SUPPORT) end end)
+			C_TimerAfter(10, function() if self.Options.HelpMessageVersion < 3 then self.Options.HelpMessageVersion = 3 self:AddMsg(DBM_CORE_NEED_LOCALS) end end)
 		end
 		C_TimerAfter(20, function() if not self.Options.ForumsMessageShown then self.Options.ForumsMessageShown = self.ReleaseRevision self:AddMsg(DBM_FORUMS_MESSAGE) end end)
 		C_TimerAfter(30, function() if not self.Options.SettingsMessageShown then self.Options.SettingsMessageShown = true self:AddMsg(DBM_HOW_TO_USE_MOD) end end)
-		C_TimerAfter(40, function() if self.Options.NewsMessageShown < 5 then self.Options.NewsMessageShown = 5 self:AddMsg(DBM_CORE_WHATS_NEW_LINK) end end)
+		C_TimerAfter(40, function() if self.Options.NewsMessageShown < 5 then self.Options.NewsMessageShown = 5 self:AddMsg(DBM_CORE_WHATS_NEW) end end)
 		if type(RegisterAddonMessagePrefix) == "function" then
 			if not RegisterAddonMessagePrefix("D4") then -- main prefix for DBM4
 				self:AddMsg("Error: unable to register DBM addon message prefix (reached client side addon message filter limit), synchronization will be unavailable") -- TODO: confirm that this actually means that the syncs won't show up
@@ -6791,7 +6833,7 @@ function DBM:FindEncounterIDs(instanceID, diff)
 end
 
 --Taint the script that disables /run /dump, etc
-ScriptsDisallowedForBeta = function() return false end
+--ScriptsDisallowedForBeta = function() return false end
 
 -------------------
 --  Movie Filter --
@@ -7350,7 +7392,7 @@ do
 			if uId then--Now we have a valid uId
 				bossCache[cidOrGuid] = GetTime()
 				lastTank = UnitName(uId)
-				return UnitName(lastTank)
+				return UnitName(lastTank), uId
 			end
 			return false
 		end

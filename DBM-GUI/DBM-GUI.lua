@@ -43,7 +43,7 @@
 --
 
 
-local revision =("$Revision: 14848 $"):sub(12, -3)
+local revision =("$Revision: 14995 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
@@ -1506,7 +1506,7 @@ local function CreateOptionsMenu()
 		RaidWarnSoundDropDown:SetPoint("TOPLEFT", FontStyleDropDown, "BOTTOMLEFT", 0, -10)
 
 		-- RaidWarn Font Size
-		local fontSizeSlider = raidwarnoptions:CreateSlider(L.Warn_FontSize, 14, 60, 1, 200)
+		local fontSizeSlider = raidwarnoptions:CreateSlider(L.Warn_FontSize, 8, 60, 1, 200)
 		fontSizeSlider:SetPoint('TOPLEFT', FontDropDown, "TOPLEFT", 20, -130)
 		do
 			local firstshow = true
@@ -2174,11 +2174,11 @@ local function CreateOptionsMenu()
 		end
 
 		local Textures = MixinSharedMedia3("statusbar", {
-			{	text	= "Default",	value 	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.tga", 	texture	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.tga"	},
+			{	text	= "Default",	value 	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.blp", 	texture	= "Interface\\AddOns\\DBM-DefaultSkin\\textures\\default.blp"	},
 			{	text	= "Blizzad",	value 	= "Interface\\PaperDollInfoFrame\\UI-Character-Skills-Bar", 	texture	= "Interface\\PaperDollInfoFrame\\UI-Character-Skills-Bar"	},
-			{	text	= "Glaze",	value 	= "Interface\\AddOns\\DBM-Core\\textures\\glaze.tga", 		texture	= "Interface\\AddOns\\DBM-Core\\textures\\glaze.tga"	},
-			{	text	= "Otravi",	value 	= "Interface\\AddOns\\DBM-Core\\textures\\otravi.tga", 		texture	= "Interface\\AddOns\\DBM-Core\\textures\\otravi.tga"	},
-			{	text	= "Smooth",	value 	= "Interface\\AddOns\\DBM-Core\\textures\\smooth.tga", 		texture	= "Interface\\AddOns\\DBM-Core\\textures\\smooth.tga"	}
+			{	text	= "Glaze",	value 	= "Interface\\AddOns\\DBM-Core\\textures\\glaze.blp", 		texture	= "Interface\\AddOns\\DBM-Core\\textures\\glaze.blp"	},
+			{	text	= "Otravi",	value 	= "Interface\\AddOns\\DBM-Core\\textures\\otravi.blp", 		texture	= "Interface\\AddOns\\DBM-Core\\textures\\otravi.blp"	},
+			{	text	= "Smooth",	value 	= "Interface\\AddOns\\DBM-Core\\textures\\smooth.blp", 		texture	= "Interface\\AddOns\\DBM-Core\\textures\\smooth.blp"	}
 		})
 
 		local TextureDropDown = BarSetup:CreateDropdown(L.BarTexture, Textures, "DBT", "Texture", function(value)
@@ -2467,7 +2467,7 @@ local function CreateOptionsMenu()
 		end)
 		FontShadow:SetPoint("LEFT", FontStyleDropDown, "RIGHT", -35, 25)
 
-		local fontSizeSlider = specArea:CreateSlider(L.SpecWarn_FontSize, 16, 60, 1, 150)
+		local fontSizeSlider = specArea:CreateSlider(L.SpecWarn_FontSize, 8, 60, 1, 150)
 		fontSizeSlider:SetPoint('TOPLEFT', FontDropDown, "TOPLEFT", 20, -45)
 		do
 			local firstshow = true
