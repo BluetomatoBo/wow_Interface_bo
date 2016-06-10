@@ -219,9 +219,9 @@ nodes["BladespireFortress"] = {
     [36402880]={ "35347", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
     [53102790]={ "35368", "Ogre Booty", "Gold", "First floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
     [49106790]={ "35369", "Ogre Booty", "Gold", "First floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
-    [46201560]={ "35371", "Ogre Booty", "Gold", "Second floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
-    [51301790]={ "35373", "Ogre Booty", "Gold", "Second floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
-    [36402880]={ "35567", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
+    [46201560]={ "35371", "Ogre Booty", "Gold", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf",""},
+    [52605200]={ "35373", "Ogre Booty", "Gold", "Second floor of Bladespire Citadel; have to climb some crates to reach the chest", "default", "treasure_ffr_bsf",""},
+    [51301790]={ "35567", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
     [76806220]={ "35568", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
     [70506780]={ "35569", "Ogre Booty", "Garrison Resources", "Second floor of Bladespire Citadel", "default", "treasure_ffr_bsf","824"},
     [44706450]={ "35570", "Ogre Booty", "Gold", "First floor of Bladespire Citadel", "default", "treasure_ffr_bsf",""},
@@ -1441,7 +1441,7 @@ function DraenorTreasures:QuestCheck()
         end
         if (IsQuestFlaggedCompleted(36249) or IsQuestFlaggedCompleted(36250)) then
             --Gorgrond Lumber Mill is active if either of these Quest IDs are true
-            nodes["Gorgrond"][49074846]={ "950000", "Aged Stone Container", "", "QuestID is missing, will stay active until manually disabled", "default", "treasure_gg_l","824"}
+            nodes["Gorgrond"][49074846]={ "35952", "Aged Stone Container", "", "QuestID is missing, will stay active until manually disabled", "default", "treasure_gg_l","824"}
             nodes["Gorgrond"][42345477]={ "36003", "Aged Stone Container", "", "", "default", "treasure_gg_l","824"}
             nodes["Gorgrond"][47514363]={ "36717", "Aged Stone Container", "", "", "default", "treasure_gg_l","824"}
             nodes["Gorgrond"][53354679]={ "35701", "Ancient Titan Chest", "", "", "default", "treasure_gg_l","824"}
