@@ -8,7 +8,7 @@
 -------------------------------------------------------------------------------
 local FOLDER_NAME, private = ...
 local L = private.L
-local panel = private.Modules.WorldMapTemplate.Embed(CreateFrame("Frame", nil, WorldMapDetailFrame))
+local panel = private.Modules.WorldMapTemplate.Embed(CreateFrame("Frame", nil, _G.WorldMapDetailFrame))
 
 panel.KeyMinScale = 0.50 -- Minimum effective scale to render the key at
 
@@ -18,12 +18,13 @@ function panel:OnHide(...)
 end
 
 
-local WorldMapMinimized = false
 local Points = {"BOTTOMLEFT", "BOTTOMRIGHT", "TOPRIGHT"}
 local Point = 0
 
 local WorldMapFrame = _G.WorldMapFrame
 local WorldMapDetailFrame = _G.WorldMapDetailFrame
+local WorldMapScrollFrame = _G.WorldMapScrollFrame
+local WorldMapMinimized = false
 
 function panel:OnShow(...)
 	local keyparentlevel = WorldMapDetailFrame:GetFrameLevel()
@@ -32,13 +33,11 @@ function panel:OnShow(...)
 
 	if isWindowed and not WorldMapMinimized then
 		WorldMapMinimized = true
-		self.KeyParent:SetParent(WorldMapFrame)
 		self.KeyParent.Key:ClearAllPoints()
-		self.KeyParent.Key:SetPoint("BOTTOMLEFT", WorldMapDetailFrame, "BOTTOMRIGHT")
+		self.KeyParent.Key:SetPoint("BOTTOMLEFT", WorldMapScrollFrame, "BOTTOMRIGHT")
 	elseif not isWindowed and WorldMapMinimized then
-		self.KeyParent:SetParent(WorldMapDetailFrame)
 		self.KeyParent.Key:ClearAllPoints()
-		self.KeyParent.Key:SetPoint(Points[Point % #Points + 1], WorldMapDetailFrame)
+		self.KeyParent.Key:SetPoint(Points[Point % #Points + 1], WorldMapScrollFrame)
 		WorldMapMinimized = false
 	end
 	return self.super.OnShow(self, ...)
@@ -50,7 +49,7 @@ do
 	function panel:KeyOnEnter()
 		if (private.Options.LockSwap and not IsShiftKeyDown()) or (not private.Options.LockSwap and IsShiftKeyDown())then
 			self:ClearAllPoints()
-			self:SetPoint(Points[Point % #Points + 1], WorldMapDetailFrame)
+			self:SetPoint(Points[Point % #Points + 1], WorldMapScrollFrame)
 			Point = Point + 1
 		end
 	end
@@ -353,7 +352,7 @@ end
 --- Adds a custom key frame to the world map template.
 function panel:OnLoad(...)
 	-- Add key frame to map
-	local KeyParent = CreateFrame("Frame", "_NPCScanOverlayKeyParent", WorldMapDetailFrame)
+	local KeyParent = CreateFrame("Frame", "_NPCScanOverlayKeyParent", WorldMapScrollFrame)
 
 	self.KeyParent = KeyParent
 	KeyParent:Hide()
@@ -536,7 +535,7 @@ end
 	self:SetAlpha(1)
 		if (private.Options.LockSwap and not IsShiftKeyDown()) or (not private.Options.LockSwap and IsShiftKeyDown())then
 			self:ClearAllPoints()
-			self:SetPoint(Points[Point % #Points + 1], WorldMapDetailFrame)
+			self:SetPoint(Points[Point % #Points + 1], WorldMapScrollFrame)
 			Point = Point + 1
 		end
 	end

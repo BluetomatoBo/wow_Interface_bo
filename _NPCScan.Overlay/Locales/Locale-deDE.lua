@@ -1204,6 +1204,6 @@ private.L["MODULE_WORLDMAP"] = "Hauptweltkarte"
 private.L["MODULE_WORLDMAP_KEY_FORMAT"] = "• %s"
 private.L["MODULE_WORLDMAP_KEYTOGGLE"] = "Legende ein-/ausschalten"
 private.L["MODULE_WORLDMAP_KEYTOGGLE_DESC"] = "Taste zum An/Ausschalten der Pfade"
-private.L["MODULE_WORLDMAP_TOGGLE"] = "Pfade verfolger Kreaturen ein-/ausschalten"
+private.L["MODULE_WORLDMAP_TOGGLE"] = "Pfade verfolgter Kreaturen ein-/ausschalten"
 private.L["MODULE_WORLDMAP_TOGGLE_DESC"] = "_|cffCCCC88NPCScan|r.Overlays Pfade für verfolgte NSCs ein-/ausschalten."
 

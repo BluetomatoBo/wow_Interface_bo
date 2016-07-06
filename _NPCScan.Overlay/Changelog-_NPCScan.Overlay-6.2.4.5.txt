@@ -1,0 +1,11 @@
+tag 6.2.4.5
+2b8700a699bdb2221fb50c34bc4044d0f09a9388
+James D. Callahan III <jcallahan@curse.com>
+2016-07-01 15:52:14 -0500
+
+
+
+--------------------
+
+SLOKnightfall:
+	- Fix for key moving when world maps is zoomed.  Ticket 42
