@@ -11,6 +11,11 @@ local format, gsub, split, strfind = string.format, string.gsub, string.split, s
 --WoW API / Variables
 local hooksecurefunc = hooksecurefunc
 local CreateFrame = CreateFrame
+local UnitHealth = UnitHealth
+local UnitHealthMax = UnitHealthMax
+local UnitCastingInfo = UnitCastingInfo
+local UnitChannelInfo = UnitChannelInfo
+local UnitAffectingCombat = UnitAffectingCombat
 local UnitExists = UnitExists
 local UnitOnTaxi = UnitOnTaxi
 local VehicleExit = VehicleExit
@@ -38,6 +43,10 @@ local GetCVarBool, SetCVar = GetCVarBool, SetCVar
 local C_PetBattlesIsInBattle = C_PetBattles.IsInBattle
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
 local LE_ACTIONBAR_STATE_MAIN = LE_ACTIONBAR_STATE_MAIN
+local BOTTOMLEFT_ACTIONBAR_PAGE = BOTTOMLEFT_ACTIONBAR_PAGE
+local BOTTOMRIGHT_ACTIONBAR_PAGE = BOTTOMRIGHT_ACTIONBAR_PAGE
+local RIGHT_ACTIONBAR_PAGE = RIGHT_ACTIONBAR_PAGE
+local LEFT_ACTIONBAR_PAGE = LEFT_ACTIONBAR_PAGE
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS: LeaveVehicleButton, Minimap, SpellFlyout, SpellFlyoutHorizontalBackground
@@ -53,7 +62,37 @@ local LE_ACTIONBAR_STATE_MAIN = LE_ACTIONBAR_STATE_MAIN
 -- GLOBALS: InterfaceOptionsActionBarsPanelLockActionBars
 -- GLOBALS: InterfaceOptionsActionBarsPanelPickupActionKeyDropDown
 -- GLOBALS: InterfaceOptionsStatusTextPanelXP
--- GLOBALS: PlayerTalentFrame, SpellFlyoutBackgroundEnd
+-- GLOBALS: PlayerTalentFrame, SpellFlyoutBackgroundEnd, UIParent
+-- GLOBALS: VIEWABLE_ACTION_BAR_PAGES, SHOW_MULTI_ACTIONBAR_1, SHOW_MULTI_ACTIONBAR_2
+-- GLOBALS: SHOW_MULTI_ACTIONBAR_3, SHOW_MULTI_ACTIONBAR_4
+
+--This is a modified version of the Blizzard equivalent, which leaves out the check for "IsNormalActionBarState()"
+--Without this the available action pages update to incorrect values when exiting a vehicle
+function AB:MultiActionBar_Update()
+	if ( SHOW_MULTI_ACTIONBAR_1 ) then
+		MultiBarBottomLeft.isShowing = 1;
+		VIEWABLE_ACTION_BAR_PAGES[BOTTOMLEFT_ACTIONBAR_PAGE] = nil;
+	else
+		MultiBarBottomLeft.isShowing = nil;
+		VIEWABLE_ACTION_BAR_PAGES[BOTTOMLEFT_ACTIONBAR_PAGE] = 1;
+	end
+	if ( SHOW_MULTI_ACTIONBAR_2 ) then
+		VIEWABLE_ACTION_BAR_PAGES[BOTTOMRIGHT_ACTIONBAR_PAGE] = nil;
+	else
+		VIEWABLE_ACTION_BAR_PAGES[BOTTOMRIGHT_ACTIONBAR_PAGE] = 1;
+	end
+	if ( SHOW_MULTI_ACTIONBAR_3 ) then
+		VIEWABLE_ACTION_BAR_PAGES[RIGHT_ACTIONBAR_PAGE] = nil;
+	else
+		VIEWABLE_ACTION_BAR_PAGES[RIGHT_ACTIONBAR_PAGE] = 1;
+	end
+	if ( SHOW_MULTI_ACTIONBAR_3 and SHOW_MULTI_ACTIONBAR_4 ) then
+		VIEWABLE_ACTION_BAR_PAGES[LEFT_ACTIONBAR_PAGE] = nil;
+	else
+		VIEWABLE_ACTION_BAR_PAGES[LEFT_ACTIONBAR_PAGE] = 1;
+	end
+end
+
 
 local Sticky = LibStub("LibSimpleSticky-1.0");
 local _LOCK
@@ -323,6 +362,12 @@ function AB:CreateBar(id)
 			newstate = GetTempShapeshiftBarIndex() or newstate
 		end
 
+		--Don't change to vehicle page if vehicle has no spells
+		--Instead we use self:GetAttribute("state") to capture the current page
+		if newstate == 12 and not HasVehicleActionBar() then
+			newstate = self:GetAttribute("state")
+		end
+
 		if newstate ~= 0 then
 			self:SetAttribute("state", newstate)
 			control:ChildUpdate("state", newstate)
@@ -349,7 +394,7 @@ function AB:PLAYER_REGEN_ENABLED()
 end
 
 local function Vehicle_OnEvent(self, event)
-	if ( CanExitVehicle() and ActionBarController_GetCurrentActionBarState() == LE_ACTIONBAR_STATE_MAIN ) and not E.db.general.minimap.icons.vehicleLeave.hide then
+	if ( CanExitVehicle() ) and not E.db.general.minimap.icons.vehicleLeave.hide then
 		self:Show()
 		self:GetNormalTexture():SetVertexColor(1, 1, 1)
 		self:EnableMouse(true)
@@ -790,6 +835,7 @@ function AB:DisableBlizzard()
 	InterfaceOptionsStatusTextPanelXP:SetAlpha(0)
 	InterfaceOptionsStatusTextPanelXP:SetScale(0.00001)
 	self:SecureHook('BlizzardOptionsPanel_OnEvent')
+	self:SecureHook("MultiActionBar_Update")
 	--InterfaceOptionsFrameCategoriesButton6:SetScale(0.00001)
 	if PlayerTalentFrame then
 		PlayerTalentFrame:UnregisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
@@ -1055,7 +1101,7 @@ function AB:Initialize()
 
 	--We handle actionbar lock for regular bars, but the lock on PetBar needs to be handled by WoW so make some necessary updates
 	SetCVar('lockActionBars', (self.db.lockActionBars == true and 1 or 0))
-	LOCK_ACTIONBAR = (value == true and "1" or "0")
+	LOCK_ACTIONBAR = (self.db.lockActionBars == true and "1" or "0")
 
 	SpellFlyout:HookScript("OnShow", SetupFlyoutButton)
 end
