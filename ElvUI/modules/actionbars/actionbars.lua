@@ -66,34 +66,6 @@ local LEFT_ACTIONBAR_PAGE = LEFT_ACTIONBAR_PAGE
 -- GLOBALS: VIEWABLE_ACTION_BAR_PAGES, SHOW_MULTI_ACTIONBAR_1, SHOW_MULTI_ACTIONBAR_2
 -- GLOBALS: SHOW_MULTI_ACTIONBAR_3, SHOW_MULTI_ACTIONBAR_4
 
---This is a modified version of the Blizzard equivalent, which leaves out the check for "IsNormalActionBarState()"
---Without this the available action pages update to incorrect values when exiting a vehicle
-function AB:MultiActionBar_Update()
-	if ( SHOW_MULTI_ACTIONBAR_1 ) then
-		MultiBarBottomLeft.isShowing = 1;
-		VIEWABLE_ACTION_BAR_PAGES[BOTTOMLEFT_ACTIONBAR_PAGE] = nil;
-	else
-		MultiBarBottomLeft.isShowing = nil;
-		VIEWABLE_ACTION_BAR_PAGES[BOTTOMLEFT_ACTIONBAR_PAGE] = 1;
-	end
-	if ( SHOW_MULTI_ACTIONBAR_2 ) then
-		VIEWABLE_ACTION_BAR_PAGES[BOTTOMRIGHT_ACTIONBAR_PAGE] = nil;
-	else
-		VIEWABLE_ACTION_BAR_PAGES[BOTTOMRIGHT_ACTIONBAR_PAGE] = 1;
-	end
-	if ( SHOW_MULTI_ACTIONBAR_3 ) then
-		VIEWABLE_ACTION_BAR_PAGES[RIGHT_ACTIONBAR_PAGE] = nil;
-	else
-		VIEWABLE_ACTION_BAR_PAGES[RIGHT_ACTIONBAR_PAGE] = 1;
-	end
-	if ( SHOW_MULTI_ACTIONBAR_3 and SHOW_MULTI_ACTIONBAR_4 ) then
-		VIEWABLE_ACTION_BAR_PAGES[LEFT_ACTIONBAR_PAGE] = nil;
-	else
-		VIEWABLE_ACTION_BAR_PAGES[LEFT_ACTIONBAR_PAGE] = 1;
-	end
-end
-
-
 local Sticky = LibStub("LibSimpleSticky-1.0");
 local _LOCK
 local LAB = LibStub("LibActionButton-1.0-ElvUI")
@@ -295,6 +267,57 @@ function AB:PositionAndSizeBar(barName)
 		bar:Show()
 		RegisterStateDriver(bar, "visibility", self.db[barName].visibility); -- this is ghetto
 		RegisterStateDriver(bar, "page", page);
+		bar:SetAttribute("page", page)
+
+		RegisterStateDriver(bar.vehicleFix, "vehicleFix", "[vehicleui] 1;0")
+		bar.vehicleFix:SetAttribute("_onstate-vehicleFix", [[
+			local bar = self:GetParent()
+			local ParsedText = SecureCmdOptionParse(self:GetParent():GetAttribute("page"))
+
+			if newstate == 1 then
+				if(HasVehicleActionBar()) then
+					bar:SetAttribute("state", 12)
+					bar:ChildUpdate("state", 12)
+					self:GetFrameRef("MainMenuBarArtFrame"):SetAttribute("actionpage", 12) --Update MainMenuBarArtFrame too. See http://www.tukui.org/forums/topic.php?id=35332
+				else
+					if HasTempShapeshiftActionBar() and self:GetAttribute("hasTempBar") then
+						ParsedText = GetTempShapeshiftBarIndex() or ParsedText
+					end
+
+					if ParsedText ~= 0 then
+						bar:SetAttribute("state", ParsedText)
+						bar:ChildUpdate("state", ParsedText)
+						self:GetFrameRef("MainMenuBarArtFrame"):SetAttribute("actionpage", ParsedText)
+					else
+						local newCondition = bar:GetAttribute("newCondition")
+						if newCondition then
+							newstate = SecureCmdOptionParse(newCondition)
+							bar:SetAttribute("state", newstate)
+							bar:ChildUpdate("state", newstate)
+							self:GetFrameRef("MainMenuBarArtFrame"):SetAttribute("actionpage", newstate)
+						end
+					end
+				end
+			else
+				if HasTempShapeshiftActionBar() and self:GetAttribute("hasTempBar") then
+					ParsedText = GetTempShapeshiftBarIndex() or ParsedText
+				end
+
+				if ParsedText ~= 0 then
+					bar:SetAttribute("state", ParsedText)
+					bar:ChildUpdate("state", ParsedText)
+					self:GetFrameRef("MainMenuBarArtFrame"):SetAttribute("actionpage", ParsedText)
+				else
+					local newCondition = bar:GetAttribute("newCondition")
+					if newCondition then
+						newstate = SecureCmdOptionParse(newCondition)
+						bar:SetAttribute("state", newstate)
+						bar:ChildUpdate("state", newstate)
+						self:GetFrameRef("MainMenuBarArtFrame"):SetAttribute("actionpage", newstate)
+					end
+				end
+			end
+		]]);	
 
 		if not bar.initialized then
 			bar.initialized = true;
@@ -315,6 +338,10 @@ end
 
 function AB:CreateBar(id)
 	local bar = CreateFrame('Frame', 'ElvUI_Bar'..id, E.UIParent, 'SecureHandlerStateTemplate');
+	bar.vehicleFix = CreateFrame("Frame", nil, bar, "SecureHandlerStateTemplate")
+	bar:SetFrameRef("MainMenuBarArtFrame", MainMenuBarArtFrame)
+	bar.vehicleFix:SetFrameRef("MainMenuBarArtFrame", MainMenuBarArtFrame)
+	
 	local point, anchor, attachTo, x, y = split(',', self['barDefaults']['bar'..id].position)
 	bar:Point(point, anchor, attachTo, x, y)
 	bar.id = id
@@ -357,30 +384,26 @@ function AB:CreateBar(id)
 		bar:SetAttribute("hasTempBar", false)
 	end
 
+
 	bar:SetAttribute("_onstate-page", [[
 		if HasTempShapeshiftActionBar() and self:GetAttribute("hasTempBar") then
 			newstate = GetTempShapeshiftBarIndex() or newstate
 		end
-
-		--Don't change to vehicle page if vehicle has no spells
-		--Instead we use self:GetAttribute("state") to capture the current page
-		if newstate == 12 and not HasVehicleActionBar() then
-			newstate = self:GetAttribute("state")
-		end
-
+		
 		if newstate ~= 0 then
 			self:SetAttribute("state", newstate)
 			control:ChildUpdate("state", newstate)
+			self:GetFrameRef("MainMenuBarArtFrame"):SetAttribute("actionpage", newstate) --Update MainMenuBarArtFrame too. See http://www.tukui.org/forums/topic.php?id=35332
 		else
 			local newCondition = self:GetAttribute("newCondition")
 			if newCondition then
 				newstate = SecureCmdOptionParse(newCondition)
 				self:SetAttribute("state", newstate)
 				control:ChildUpdate("state", newstate)
+				self:GetFrameRef("MainMenuBarArtFrame"):SetAttribute("actionpage", newstate)
 			end
 		end
 	]]);
-
 
 	self["handledBars"]['bar'..id] = bar;
 	E:CreateMover(bar, 'ElvAB_'..id, L["Bar "]..id, nil, nil, nil,'ALL,ACTIONBARS')
@@ -490,9 +513,9 @@ end
 
 function AB:UpdateBar1Paging()
 	if self.db.bar6.enabled then
-		E.ActionBars.barDefaults.bar1.conditions = format("[vehicleui] %d; [possessbar] %d; [overridebar] %d; [shapeshift] 13; [form,noform] 0; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6;", GetVehicleBarIndex(), GetVehicleBarIndex(), GetOverrideBarIndex())
+		E.ActionBars.barDefaults.bar1.conditions = format("[possessbar] %d; [overridebar] %d; [shapeshift] 13; [form,noform] 0; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6;", GetVehicleBarIndex(), GetOverrideBarIndex())
 	else
-		E.ActionBars.barDefaults.bar1.conditions = format("[vehicleui] %d; [possessbar] %d; [overridebar] %d; [shapeshift] 13; [form,noform] 0; [bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6;", GetVehicleBarIndex(), GetVehicleBarIndex(), GetOverrideBarIndex())
+		E.ActionBars.barDefaults.bar1.conditions = format("[possessbar] %d; [overridebar] %d; [shapeshift] 13; [form,noform] 0; [bar:2] 2; [bar:3] 3; [bar:4] 4; [bar:5] 5; [bar:6] 6;", GetVehicleBarIndex(), GetOverrideBarIndex())
 	end
 
 	if (E.private.actionbar.enable ~= true or InCombatLockdown()) or not self.isInitialized then return; end
@@ -767,11 +790,8 @@ function AB:DisableBlizzard()
 		_G['MultiCastActionButton'..i]:SetAttribute("statehidden", true)
 	end
 
-	--MainMenuBarArtFrame:GetAttribute("actionpage") will not update unless ActionBarController gets to update
-	--I don't think there will be any unwanted side effects from keeping it active
-	--This is in reference to 2nd part of http://www.tukui.org/forums/topic.php?id=35332
-	-- ActionBarController:UnregisterAllEvents()
-	-- ActionBarController:RegisterEvent('UPDATE_EXTRA_ACTIONBAR')
+	ActionBarController:UnregisterAllEvents()
+	ActionBarController:RegisterEvent('UPDATE_EXTRA_ACTIONBAR')
 
 	MainMenuBar:EnableMouse(false)
 	MainMenuBar:SetAlpha(0)
@@ -835,7 +855,6 @@ function AB:DisableBlizzard()
 	InterfaceOptionsStatusTextPanelXP:SetAlpha(0)
 	InterfaceOptionsStatusTextPanelXP:SetScale(0.00001)
 	self:SecureHook('BlizzardOptionsPanel_OnEvent')
-	self:SecureHook("MultiActionBar_Update")
 	--InterfaceOptionsFrameCategoriesButton6:SetScale(0.00001)
 	if PlayerTalentFrame then
 		PlayerTalentFrame:UnregisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
