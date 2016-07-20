@@ -73,5 +73,6 @@ TargetCharms_LayoutDefaults =	{{"Standard", ">1>5v6<2v3>7v8<4v_>0"},
 Flare_LayoutDefaults =	{{"Standard", ">D>XVW<RvB>SvP<GvO>Y"},
 				{"3x3",">D>R>W>SvB<G<PvO>Y>X"},
 				{"Horizontal",">D>R>W>S>B>G>P>O>Y>X"},
-				{"Vertical",">DvRvWvSvBvGvPvOvYvX"}};
+				{"Vertical",">DvRvWvSvBvGvPvOvYvX"},
+				{"Classic",">DVY>SVB<OVP>RVW<GV_>X"}};
 				

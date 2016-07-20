@@ -1,5 +1,5 @@
 TARGETCHARMS_VERSION = GetAddOnMetadata("TargetCharms", "Version");
-TARGETCHARMS_DB_VERSION = "1.6.1";
+TARGETCHARMS_DB_VERSION = "1.6.2";
 
 local Defaults =
 { 
@@ -506,7 +506,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 				_G[button:GetName().."TextureIcon"]:SetTexture();
 			end
 			local textureColor = _G[button:GetName().."TextureColor"];
-			textureColor:SetTexture(0,.5,1);
+			textureColor:SetColorTexture(0,.5,1);
 			button:SetAttribute("macrotext", "/cwm 1\n/wm 1");	
 			button:Show();
 		elseif typeNum == TARGETCHARMS_GREENFLARE then
@@ -518,7 +518,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 				_G[button:GetName().."TextureIcon"]:SetTexture();
 			end
 			local textureColor = _G[button:GetName().."TextureColor"];
-			textureColor:SetTexture(0,1,.2);
+			textureColor:SetColorTexture(0,1,.2);
 			button:SetAttribute("macrotext", "/cwm 2\n/wm 2");
 			button:Show();
 		elseif typeNum == TARGETCHARMS_PURPLEFLARE then
@@ -530,7 +530,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 				_G[button:GetName().."TextureIcon"]:SetTexture();
 			end
 			local textureColor = _G[button:GetName().."TextureColor"];
-			textureColor:SetTexture(.5,0,1);
+			textureColor:SetColorTexture(.5,0,1);
 			button:SetAttribute("macrotext", "/cwm 3\n/wm 3");
 			button:Show();
 		elseif typeNum == TARGETCHARMS_REDFLARE then
@@ -542,7 +542,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 				_G[button:GetName().."TextureIcon"]:SetTexture();
 			end
 			local textureColor = _G[button:GetName().."TextureColor"];
-			textureColor:SetTexture(1,0,0);
+			textureColor:SetColorTexture(1,0,0);
 			button:SetAttribute("macrotext", "/cwm 4\n/wm 4");
 			button:Show();
 		elseif typeNum == TARGETCHARMS_YELLOWFLARE then
@@ -554,7 +554,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 				_G[button:GetName().."TextureIcon"]:SetTexture();
 			end
 			local textureColor = _G[button:GetName().."TextureColor"];
-			textureColor:SetTexture(1,1,0);
+			textureColor:SetColorTexture(1,1,0);
 			button:SetAttribute("macrotext", "/cwm 5\n/wm 5");			
 			button:Show();
 		elseif typeNum == TARGETCHARMS_ORANGEFLARE then
@@ -566,7 +566,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 				_G[button:GetName().."TextureIcon"]:SetTexture();
 			end
 			local textureColor = _G[button:GetName().."TextureColor"];
-			textureColor:SetTexture(1,.5,0);
+			textureColor:SetColorTexture(1,.5,0);
 			button:SetAttribute("macrotext", "/cwm 6\n/wm 6");	
 			button:Show();
 		elseif typeNum == TARGETCHARMS_SILVERFLARE then
@@ -578,7 +578,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 				_G[button:GetName().."TextureIcon"]:SetTexture();
 			end
 			local textureColor = _G[button:GetName().."TextureColor"];
-			textureColor:SetTexture(.5,.5,.5);
+			textureColor:SetColorTexture(.5,.5,.5);
 			button:SetAttribute("macrotext", "/cwm 7\n/wm 7");
 			button:Show();
 		elseif typeNum == TARGETCHARMS_WHITEFLARE then
@@ -590,7 +590,7 @@ function FormatButton(frame, buttonNum ,posChar, typeNum, xSpacing, ySpacing)
 				_G[button:GetName().."TextureIcon"]:SetTexture();
 			end
 			local textureColor = _G[button:GetName().."TextureColor"];
-			textureColor:SetTexture(1,1,1);
+			textureColor:SetColorTexture(1,1,1);
 			button:SetAttribute("macrotext", "/cwm 8\n/wm 8");		
 			button:Show();
 		elseif typeNum == TARGETCHARMS_CLEARFLARE then
@@ -669,7 +669,7 @@ end
 function MoveFlares()
 	local frame = _G[frameNames[5]];
 	frame:EnableMouse(true);
-	_G[frameNames[5].."_Tex"]:SetTexture(0,1,0);
+	_G[frameNames[5].."_Tex"]:SetColorTexture(0,1,0);
 	_G[frameNames[5].."Text"]:SetText(TARGETCHARMS_OPTIONS_FLARE_MOVE_TEXT);
 
 	for buttonNum=1,20 do
