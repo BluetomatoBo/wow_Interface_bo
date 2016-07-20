@@ -225,90 +225,60 @@ function Atr_IsCutGem (itemLink)
   return true;
 end
 
------------------------------------------
+function Atr_IsWeaponType( classID )
+  -- Auctionator.Debug.Message( 'Atr_IsWeaponType', classID )
+  return classID == LE_ITEM_CLASS_WEAPON
+end
 
-local function Atr_Check1ClassMapping (class, subclass, name)
+function Atr_IsArmorType( classID )
+  -- Auctionator.Debug.Message( 'Atr_IsArmorType', classID )
+  return classID == LE_ITEM_CLASS_ARMOR
+end
 
-  local foundname = "????"
+function Atr_IsBattlePetType( classID )
+  -- Auctionator.Debug.Message( 'Atr_IsBattlePetType', classID )
+  return classID == LE_ITEM_CLASS_BATTLEPET
+end
 
-  local itemClassArray = Atr_GetAuctionClasses()
+function Atr_IsGlyph( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_GLYPH )
+end
 
-  if (itemClassArray) then
-    if (subclass) then
-      itemSubclassArray = Atr_GetAuctionSubclasses(class)
-      if (itemSubclassArray) then
-        foundname = itemSubclassArray[subclass]
-      end
-    else
-      foundname = itemClassArray[class]
-    end
-  end
+function Atr_IsGem( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_GEM )
+end
 
-  if (GetLocale() == "enUS" and foundname ~= name) then
-    zc.msg_anm ("|cffff0000class mapping mismatch:", class, subclass, "expected:", name, "   found:", foundname)
-  end
+function Atr_IsItemEnhancement( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_ITEM_ENHANCEMENT )
+end
 
+function Atr_IsPotion( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_CONSUMABLE, Auctionator.Constants.SubClasses.ITEM_CLASS_POTION )
+end
+
+function Atr_IsElixir( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_CONSUMABLE, Auctionator.Constants.SubClasses.ITEM_CLASS_ELIXIR )
+end
+
+function Atr_IsFlask( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_CONSUMABLE, Auctionator.Constants.SubClasses.ITEM_CLASS_FLASK )
+end
+
+function Atr_IsHerb( itemLink )
+  return Atr_IsClass( itemLink, LE_ITEM_CLASS_TRADEGOODS, Auctionator.Constants.SubClasses.ITEM_CLASS_HERB )
 end
 
 -----------------------------------------
 
-function Atr_CheckClassMappings ()
-
-  Atr_Check1ClassMapping (1, nil,   "Weapon")
-  Atr_Check1ClassMapping (2, nil,   "Armor")
-  Atr_Check1ClassMapping (5, nil,   "Glyph")
-  Atr_Check1ClassMapping (8, nil,   "Gem")
-  Atr_Check1ClassMapping (4, 6,   "Item Enhancement")
-  Atr_Check1ClassMapping (4, 2,   "Potion")
-  Atr_Check1ClassMapping (4, 3,   "Elixir")
-  Atr_Check1ClassMapping (4, 4,   "Flask")
-  Atr_Check1ClassMapping (6, 6,   "Herb")
-end
-
------------------------------------------
-
-function Atr_IsGlyph        (itemLink)    return (Atr_IsClass (itemLink, 5));   end
-function Atr_IsGem          (itemLink)    return (Atr_IsClass (itemLink, 8));   end
-function Atr_IsItemEnhancement    (itemLink)    return (Atr_IsClass (itemLink, 4, 6));  end
-function Atr_IsPotion       (itemLink)    return (Atr_IsClass (itemLink, 4, 2));  end
-function Atr_IsElixir       (itemLink)    return (Atr_IsClass (itemLink, 4, 3));  end
-function Atr_IsFlask        (itemLink)    return (Atr_IsClass (itemLink, 4, 4));  end
-function Atr_IsHerb         (itemLink)    return (Atr_IsClass (itemLink, 6, 6));  end
-
------------------------------------------
--- if Blizz introduces new auction classes this might need to change
-
-function Atr_IsWeaponType       (itemType)    return (Atr_ItemType2AuctionClass (itemType) == 1);   end
-function Atr_IsArmorType        (itemType)    return (Atr_ItemType2AuctionClass (itemType) == 2);   end
-function Atr_IsBattlePetType      (itemType)    return (Atr_ItemType2AuctionClass (itemType) == 11);  end
-
------------------------------------------
-
-function Atr_IsClass (itemLink, class, subclass)
-
-  if (itemLink == nil) then
-    return false;
+function Atr_IsClass( itemLink, classID, subClassID )
+  -- TODO: Would love to get rid of passing nil around... where can itemLink be nil from?
+  if itemLink == nil then
+    return false
   end
 
-  local _, _, _, _, _, itemType, itemSubType = GetItemInfo (itemLink);
+  local _, _, _, _, _, _, _, _, _, _, _, itemClassID, itemSubClassID = GetItemInfo( itemLink )
 
-  local itemClass = Atr_ItemType2AuctionClass (itemType);
-  local itemSubClass;
-
-  if (itemClass == class) then
-
-    if (subclass == nil) then
-      return true;
-    end
-
-    itemSubClass = Atr_SubType2AuctionSubclass (itemClass, itemSubType)
-
-    if (subclass == itemSubClass) then
-      return true;
-    end
-  end
-
-  return false;
+  return classID == itemClassID and ( subClassID == nil or subClassID == itemSubClassID )
 end
 
 -----------------------------------------
@@ -319,12 +289,7 @@ local gItemSubClasses;
 -----------------------------------------
 
 function Atr_GetAuctionClasses()
-
-  if (gItemClasses == nil) then
-    gItemClasses = { GetAuctionItemClasses() };
-  end
-
-  return gItemClasses;
+  return Auctionator.Constants.ItemClasses
 end
 
 -----------------------------------------
@@ -337,13 +302,6 @@ function Atr_GetAuctionSubclasses (auctionClass)
 
   if (gItemSubClasses[auctionClass] == nil) then
     gItemSubClasses[auctionClass] = { GetAuctionItemSubClasses(auctionClass) };
-
---    zz ("-----");
---    for x, itemSubClass in pairs(gItemSubClasses[auctionClass]) do
---      zz (x, itemSubClass)
---    end
-
-
   end
 
   return gItemSubClasses[auctionClass];
@@ -352,8 +310,9 @@ end
 -----------------------------------------
 
 function Atr_ItemType2AuctionClass(itemType)
+  Auctionator.Debug.Message( 'Atr_ItemType2AuctionClass', itemType )
 
-  local itemClasses = Atr_GetAuctionClasses();
+  local itemClasses = { Atr_GetAuctionClasses() }
 
   if #itemClasses > 0 then
   local itemClass;

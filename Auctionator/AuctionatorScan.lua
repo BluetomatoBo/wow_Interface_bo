@@ -5,27 +5,9 @@ local zc = addonTable.zc
 local zz = zc.md
 local _
 
-KM_NULL_STATE = 0;
-KM_PREQUERY   = 1;
-KM_INQUERY    = 2;
-KM_POSTQUERY  = 3;
-KM_ANALYZING  = 4;
-KM_SETTINGSORT  = 5;
-
-local AUCTION_CLASS_WEAPON     = 1;
-local AUCTION_CLASS_ARMOR      = 2;
-local AUCTION_CLASS_BATTLEPET  = 11;
-
 local gAllScans = {};
 
-local BATTLE_PET_ITEMID = 82800
-
 local BIGNUM = 999999999999;
-
-local ATR_SORTBY_NAME_ASC = 0;
-local ATR_SORTBY_NAME_DES = 1;
-local ATR_SORTBY_PRICE_ASC = 2;
-local ATR_SORTBY_PRICE_DES = 3;
 
 gScanHistDayZero = time({year=2010, month=11, day=15, hour=0});   -- never ever change
 
@@ -68,6 +50,7 @@ end
 -----------------------------------------
 
 function AtrSearch:Init (searchText, IDstring, itemLink, rescanThreshold)
+  Auctionator.Debug.Message( 'AtrSearch:Init', searchText, IDstring, itemLink, rescanThreshold )
 
   if (searchText == nil) then
     searchText = ""
@@ -86,18 +69,21 @@ function AtrSearch:Init (searchText, IDstring, itemLink, rescanThreshold)
   end
 
   self.IDstring     = IDstring
-  self.processing_state = KM_NULL_STATE
+  self.processing_state = Auctionator.Constants.SearchStates.NULL
   self.current_page   = -1
   self.items        = {}
   self.query        = Atr_NewQuery()
   self.sortedScans    = nil
-  self.sortHow      = ATR_SORTBY_PRICE_ASC
+  self.sortHow      = Auctionator.Constants.Sort.PRICE_ASCENDING
   self.shopListIndex    = 1
   self.shplist      = Atr_GetShoppingListFromSearchText (self.searchText)
 
-  if (Atr_IsCompoundSearch(self.searchText)) then
-    _, _, _, _, _, self.minItemLevel, self.maxItemLevel = Atr_ParseCompoundSearch (self.searchText);
+
+  if Atr_IsCompoundSearch( self.searchText ) then
+    _, _, _, _, self.minItemLevel, self.maxItemLevel = Atr_ParseCompoundSearch( self.searchText )
   end
+
+  Auctionator.Util.Print( self, 'AtrSearch:Init' )
 
   if (IDstring) then
 
@@ -122,6 +108,7 @@ end
 -----------------------------------------
 
 function Atr_FindScanAndInit (IDstring, itemName)
+  Auctionator.Debug.Message( 'Atr_FindScanAndInit', IDstring, itemName )
 
   return Atr_FindScan (IDstring, itemName, true);
 end
@@ -129,6 +116,7 @@ end
 -----------------------------------------
 
 function Atr_FindScan (IDstring, itemName, init)
+  Auctionator.Debug.Message( 'Atr_FindScan', IDstring, itemName, init )
 
   if (IDstring == nil or IDstring == "" or IDstring == "0") then
     IDstring = "0";
@@ -140,12 +128,9 @@ function Atr_FindScan (IDstring, itemName, init)
     setmetatable (scn, AtrScan);
     gAllScans[IDstring] = scn;
     init = true;
---    zz ("creating scan: ", IDstring, itemName);
   end
 
   if (init and gAllScans[IDstring] ~= nil) then
---    zz ("initing scan: ", IDstring, itemName);
-
     gAllScans[IDstring]:Init (IDstring, itemName);
   end
 
@@ -194,6 +179,7 @@ end
 -----------------------------------------
 
 function AtrScan:UpdateItemLink (itemLink)
+  Auctionator.Debug.Message( itemLink )
 
   if (itemLink and self.itemLink == nil) then
 
@@ -208,14 +194,30 @@ function AtrScan:UpdateItemLink (itemLink)
       iLevel  = level;
       quality = breedQuality;
 
-      self.itemClass    = AUCTION_CLASS_BATTLEPET;
+      self.itemClass    = LE_ITEM_CLASS_BATTLEPET;
       self.itemSubclass = 0;
 
     else
-      _, _, quality, iLevel, _, sType, sSubType = GetItemInfo(itemLink);
+      Auctionator.Util.Print( { GetItemInfo( itemLink ) }, 'GET ITEM INFO' .. itemLink )
+      -- TODO: Capture this knowledge somewhere
+      -- 1: name
+      -- 2: itemLink
+      -- 3: quality
+      -- 4: iLevel
+      -- 5: required Level
+      -- 6: itemClass String
+      -- 7: subClass String
+      -- 8: ? (int)
+      -- 9: WTF String
+      -- 10: big int
+      -- 11: big int
+      -- 12: itemClass int
+      -- 13: subClass int
 
-      self.itemClass    = Atr_ItemType2AuctionClass (sType);
-      self.itemSubclass = Atr_SubType2AuctionSubclass (self.itemClass, sSubType);
+      _, _, quality, iLevel, _, sType, sSubType, _, _, _, _, itemClass, itemSubClass = GetItemInfo(itemLink);
+
+      self.itemClass    = itemClass
+      self.itemSubclass = itemSubClass
     end
 
     self.itemQuality  = quality;
@@ -282,21 +284,15 @@ end
 -----------------------------------------
 
 function AtrSearch:Start ()
+  Auctionator.Debug.Message( 'AtrSearch:Start' )
+  Auctionator.Util.Print( self, 'AtrSearch:Start' )
 
-  if (self.searchText == "") then
-    return;
+  if self.searchText == "" then
+    return
   end
 
-  if (Atr_IsCompoundSearch (self.searchText)) then
-
-    local _, itemClass = Atr_ParseCompoundSearch (self.searchText);
-
-    if (itemClass == 0) then
-      Atr_Error_Display (ZT("The first part of this compound\n\nsearch is not a valid category."));
-      return;
-    end
-
-    self.sortHow = ATR_SORTBY_PRICE_DES;
+  if Atr_IsCompoundSearch( self.searchText ) then
+    self.sortHow = Auctionator.Constants.Sort.PRICE_DESCENDING
   end
 
   -- make sure all the matches in the scan db are in memory
@@ -334,7 +330,7 @@ function AtrSearch:Start ()
 
   gNumNilItemLinks = 0
 
-  self.processing_state = KM_SETTINGSORT;
+  self.processing_state = Auctionator.Constants.SearchStates.SETTING_SORT;
 
   if (Atr_ILevelHist_Init) then
     Atr_ILevelHist_Init()
@@ -342,10 +338,12 @@ function AtrSearch:Start ()
 
   SortAuctionClearSort ("list");
 
-  BrowseName:SetText (self.searchText);   -- not necessary but nice when user switches to Browse tab
+  -- not necessary but nice when user switches to Browse tab
+  local displayText = Atr_ParseCompoundSearch( self.searchText )
+  BrowseName:SetText( displayText )
 
   self.current_page   = 0;
-  self.processing_state = KM_PREQUERY;
+  self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY;
 
   self:Continue();
 
@@ -355,11 +353,11 @@ end
 
 function AtrSearch:Abort ()
 
-  if (self.processing_state == KM_NULL_STATE) then
+  if (self.processing_state == Auctionator.Constants.SearchStates.NULL) then
     return;
   end
 
-  self.processing_state = KM_NULL_STATE;
+  self.processing_state = Auctionator.Constants.SearchStates.NULL;
   self:Init();
 end
 
@@ -380,7 +378,7 @@ function AtrSearch:CheckForDuplicatePage ()
 
   if (isDup) then
     self.current_page   = self.current_page - 1;   -- requery the page
-    self.processing_state = KM_PREQUERY;
+    self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY;
   end
 
   return isDup;
@@ -389,101 +387,109 @@ end
 
 -----------------------------------------
 
-function AtrSearch:AnalyzeResultsPage()
-
-  self.processing_state = KM_ANALYZING;
-
-  if (self.query.numDupPages > 50) then    -- hopefully this will never happen but need check to avoid looping
-    return true;             -- done
+function AtrSearch:ShouldAnalyze()
+  -- hopefully this will never happen but need check to avoid looping
+  if self.query.numDupPages > 50 then
+    return false
   end
 
-  local q = self.query;
-
-  if (self.current_page == 1 and q.totalAuctions > 5000) then -- give Blizz servers a break (100 pages)
-    Atr_Error_Display (ZT("Too many results\n\nPlease narrow your search"));
-    return true;  -- done
+  -- give Blizz servers a break (200 pages)
+  if self.current_page == 1 and self.query.totalAuctions > 10000 then
+    Atr_Error_Display( ZT( "Too many results\n\nPlease narrow your search" ))
+    return false
   end
 
-  local msg
+  return true
+end
 
-  local slistItemName = Atr_GetShoppingListItem (self)
-  if (slistItemName) then
+function AtrSearch:SetScanningMessage()
+  local shoppingListItemName = Atr_GetShoppingListItem( self )
+  local message = nil
 
-    local pageText = "";
-    if (self.current_page > 1) then
-      pageText = string.format (ZT(": page %d"), self.current_page)
+  if shoppingListItemName then
+    local pageText = ""
+
+    if self.current_page > 1 then
+      pageText = string.format( ZT( ": page %d" ), self.current_page)
     else
       pageText = "             "
     end
 
-    msg = string.format (ZT("Scanning auctions for %s%s"), slistItemName, pageText);
-  elseif (q.totalAuctions >= 50) then
-    msg = string.format (ZT("Scanning auctions: page %d"), self.current_page);
+    message = string.format( ZT( "Scanning auctions for %s%s"), shoppingListItemName, pageText )
+  elseif self.query.totalAuctions >= 50 then
+    message = string.format(
+      ZT( "Scanning auctions: page %d of %d"), self.current_page,
+        ceil( self.query.totalAuctions / NUM_AUCTION_ITEMS_PER_PAGE
+      )
+    )
   end
 
-  if (msg) then
-    Atr_SetMessage (msg)
+  if message then
+    Atr_SetMessage( message )
+  end
+end
+
+function AtrSearch:AnalyzeResultsPage()
+  Auctionator.Debug.Message( 'AnalyzeResultsPage:', self.query.totalAuctions )
+
+  self.processing_state = Auctionator.Constants.SearchStates.ANALYZING;
+
+  if not self:ShouldAnalyze() then
+    return true
   end
 
-  --zz (slistItemName, "current_page: ", self.current_page, "numBatchAuctions: ", numBatchAuctions)
+  self:SetScanningMessage()
 
   -- analyze
 
-  local k, g, f
   local numNilOwners = 0
 
-  if (q.curPageInfo.numOnPage > 0) then
+  if self.query.curPageInfo.numOnPage > 0 then
 
-    local x;
+    for x = 1, self.query.curPageInfo.numOnPage do
+      local item = self.query.curPageInfo.auctionInfo[ x ]
 
-    for x = 1, q.curPageInfo.numOnPage do
-      local ax = q.curPageInfo.auctionInfo[x];
+      if item.itemLink then
+        local item_link = Auctionator.ItemLink:new({ item_link = item.itemLink })
 
-      local itemLink = ax.itemLink;
-
-      if (itemLink) then
-        local item_link = Auctionator.ItemLink:new({ item_link = itemLink })
-
-        if (Atr_ILevelHist_Update) then
-          Atr_ILevelHist_Update(itemLink)
+        if Atr_ILevelHist_Update then
+          Atr_ILevelHist_Update( item.itemLink )
         end
 
-        local isBattlePet = zc.IsBattlePetLink(itemLink);
-
-        if (isBattlePet) then
+        if zc.IsBattlePetLink( item.itemLink ) then
           Auctionator.Debug.Message( 'AtrSearch:AnalyzeResultsPage isBattlePet ', item_link:IdString() )
           Auctionator.Util.Print( item_link, 'Battle Pet Item Link')
-          ATR_AddToBattlePetIconCache (itemLink, ax.texture);
+          ATR_AddToBattlePetIconCache( item.itemLink, item.texture )
         end
 
         local OKitemLevel = true
-        if (self.minItemLevel or self.maxItemLevel) then
-          local _, _, _, iLevel = GetItemInfo(itemLink);
 
-          if ((self.minItemLevel and iLevel < self.minItemLevel) or (self.maxItemLevel and iLevel > self.maxItemLevel)) then
-            OKitemLevel = false
-          end
+        if self.minItemLevel or self.maxItemLevel then
+          local _, _, _, iLevel = GetItemInfo( item.itemLink )
+
+          OKitemLevel = not (
+            ( self.minItemLevel and iLevel < self.minItemLevel ) or
+            ( self.maxItemLevel and iLevel > self.maxItemLevel )
+          )
         end
 
-        if (OKitemLevel) then
-          if (owner == nil) then
-            numNilOwners = numNilOwners + 1
+        if OKitemLevel and owner == nil then
+          numNilOwners = numNilOwners + 1
+        end
+
+        if OKitemLevel and ( self.exactMatchText == nil or zc.StringSame( item.name, self.exactMatchText )) then
+
+          if self.items[ item_link:IdString() ] == nil then
+            self.items[ item_link:IdString() ] = Atr_FindScanAndInit( item_link:IdString(), item.name )
           end
 
-          if (self.exactMatchText == nil or zc.StringSame (ax.name, self.exactMatchText)) then
+          local scn = self.items[ item_link:IdString() ]
 
-            if (self.items[ item_link:IdString() ] == nil) then
-              self.items[ item_link:IdString() ] = Atr_FindScanAndInit( item_link:IdString(), ax.name )
-            end
+          if scn then
+            local curpage = tonumber( self.current_page ) - 1
 
-            local curpage = (tonumber(self.current_page)-1)
-
-            local scn = self.items[ item_link:IdString() ]
-
-            if (scn) then
-              scn:AddScanItem (ax.count, ax.buyoutPrice, ax.owner, 1, curpage)
-              scn:UpdateItemLink (itemLink)
-            end
+            scn:AddScanItem( item.count, item.buyoutPrice, item.owner, 1, curpage )
+            scn:UpdateItemLink( item.itemLink )
           end
         end
       else
@@ -492,25 +498,24 @@ function AtrSearch:AnalyzeResultsPage()
     end
   end
 
-  local done = (q.curPageInfo.numOnPage < 50);
+  local done = self.query.curPageInfo.numOnPage < 50
 
-  if (done) then
-    if (self.shplist) then
-      self.shopListIndex = self.shopListIndex + 1
-      local nextSearchItem = Atr_GetShoppingListItem (self)
-      if (nextSearchItem) then
-        self.current_page   = 0
-        self.exactMatchText   = nil
-        done = false
-      end
+  if done and self.shplist then
+    self.shopListIndex = self.shopListIndex + 1
+    local nextSearchItem = Atr_GetShoppingListItem( self )
+
+    if nextSearchItem then
+      self.current_page = 0
+      self.exactMatchText = nil
+      done = false
     end
   end
 
-  if (not done) then
-    self.processing_state = KM_PREQUERY;
+  if not done then
+    self.processing_state = Auctionator.Constants.SearchStates.PRE_QUERY
   end
 
-  return done;
+  return done
 end
 
 -----------------------------------------
@@ -601,12 +606,15 @@ end
 -----------------------------------------
 
 function Atr_IsCompoundSearch (searchString)
+  Auctionator.Debug.Message( 'Atr_IsCompoundSearch', searchString )
 
   if (searchString == nil) then
     return false;
   end
 
-  return zc.StringContains (searchString, ">") or zc.StringContains (searchString, "/");
+  Auctionator.Debug.Message( 'Atr_IsCompoundSearch', zc.StringContains (searchString, ">") or zc.StringContains (searchString, ":") )
+
+  return zc.StringContains (searchString, ">") or zc.StringContains (searchString, ":");
 end
 
 -----------------------------------------
@@ -622,98 +630,64 @@ end
 
 -----------------------------------------
 
-function Atr_ParseCompoundSearch (searchString)
+function Atr_ParseCompoundSearch( searchString )
+  local delimiter = ":"
 
-  local delim = "/";
-
-  if (zc.StringContains (searchString, ">")) then
-    delim = ">";
+  if zc.StringContains( searchString, ">" ) then
+    delimiter = ">"
   end
 
-  local tbl = { strsplit (delim, searchString) };
+  local queryString, filterKey, minLevel, maxLevel, minItemLevel, maxItemLevel =
+    strsplit( delimiter, searchString )
 
-  local queryString = "";
-  local itemClass   = 0;
-  local itemSubclass  = 0;
-  local minLevel    = nil;
-  local maxLevel    = nil;
-  local minItemLevel  = nil;
-  local maxItemLevel  = nil;
-  local prevWasItemClass;
-  local n;
+  local filter = Auctionator.FilterLookup[ filterKey ]
 
-  for n = 1,#tbl do
-    local s = tbl[n];
+  -- TODO: Make this into an object when this works (sort of is as query, but needs a lot of work
+  -- to incorporate everywhere)
+  minLevel = tonumber( minLevel )
+  maxLevel = tonumber( maxLevel )
+  minItemLevel = tonumber( minItemLevel )
+  maxItemLevel = tonumber( maxItemLevel )
 
-    local handled = false;
-
-
-    if (not handled and tonumber(s)) then
-      if (minLevel == nil) then
-        minLevel = tonumber(s);
-      elseif (maxLevel == nil) then
-        maxLevel = tonumber(s);
-      end
-
-      handled = true;
-      prevWasItemClass = false;
-    end
-
-    if (not handled and toItemLevel(s)) then
-      if (minItemLevel == nil) then
-        minItemLevel = toItemLevel(s);
-      elseif (maxItemLevel == nil) then
-        maxItemLevel = toItemLevel(s);
-      end
-
-      handled = true;
-      prevWasItemClass = false;
-    end
-
-    if (not handled and prevWasItemClass and itemSubclass == 0) then
-      itemSubclass = Atr_SubType2AuctionSubclass (itemClass, s);
-      if (itemSubclass > 0) then
-        handled = true;
-        prevWasItemClass = false;
-      end
-    end
-
-    if (not handled and itemClass == 0) then
-
-      itemClass = Atr_ItemType2AuctionClass (s);
-
-      if (itemClass > 0) then
-        prevWasItemClass = true;
-        handled = true;
-      end
-    end
-
-    if (not handled) then
-      queryString = s;
-      handled = true;
-    end
+  if minLevel == 0 then
+    minLevel = nil
   end
 
-  return queryString, itemClass, itemSubclass, minLevel, maxLevel, minItemLevel, maxItemLevel;
+  if maxLevel == 0 then
+    maxLevel = nil
+  end
+
+  if minItemLevel == 0 then
+    minItemLevel = nil
+  end
+
+  if maxItemLevel == 0 then
+    maxItemLevel = nil
+  end
+
+  return queryString, filter, minLevel, maxLevel, minItemLevel, maxItemLevel
 end
 
 -----------------------------------------
 
 function AtrSearch:Continue()
+  local canQuery = CanSendAuctionQuery()
 
-  if (CanSendAuctionQuery()) then
+  Auctionator.Debug.Message( 'AtrSearch:Continue', canQuery )
+
+
+  if canQuery then
 
     self.processing_state = KM_IN_QUERY;
 
     local queryString;
 
-    local itemClass   = 0;
-    local itemSubclass  = 0;
+    local filterData = nil
     local minLevel    = nil;
     local maxLevel    = nil;
 
     if (Atr_IsCompoundSearch(self.searchText)) then
-      queryString, itemClass, itemSubclass, minLevel, maxLevel = Atr_ParseCompoundSearch (self.searchText);
+      queryString, filterData, minLevel, maxLevel = Atr_ParseCompoundSearch (self.searchText);
 
     elseif (self.shplist) then
       queryString = Atr_GetShoppingListItem (self)
@@ -742,14 +716,23 @@ function AtrSearch:Continue()
 
     local exactMatch = (self.exactMatchText ~= nil or self.IDstring ~= nil)
 
-    queryString = zc.UTF8_Truncate (queryString,127); -- attempting to reduce number of disconnects
+    local filter = nil
+    if filterData ~= nil then
+      filter = filterData.filter
+    end
 
-    zz ("Exact: ", exactMatch)
+    queryString = Auctionator.Util.UTF8_Truncate( queryString ) -- attempting to reduce number of disconnects
 
-    QueryAuctionItems (queryString, minLevel, maxLevel, nil, itemClass, itemSubclass, self.current_page, nil, nil, false, exactMatch);
+    Auctionator.Util.Print( filter )
+
+    Auctionator.Util.Print(
+      { queryString, minLevel, maxLevel, self.current_page, nil, nil, false, exactMatch, filter },
+      'QUERY AUCTION ITEMS PARAMS'
+    )
+    QueryAuctionItems (queryString, minLevel, maxLevel, self.current_page, nil, nil, false, exactMatch, filter )
 
     self.query_sent_when  = gAtr_ptime;
-    self.processing_state = KM_POSTQUERY;
+    self.processing_state = Auctionator.Constants.SearchStates.POST_QUERY;
 
     self.current_page   = self.current_page + 1;
   end
@@ -764,8 +747,8 @@ local gSortScansBy;
 
 local function Atr_SortScans (x, y)
 
-  if (gSortScansBy == ATR_SORTBY_NAME_ASC) then   return string.lower (x.itemName) < string.lower (y.itemName); end
-  if (gSortScansBy == ATR_SORTBY_NAME_DES) then   return string.lower (x.itemName) > string.lower (y.itemName); end
+  if (gSortScansBy == Auctionator.Constants.Sort.NAME_ASCENDING) then   return string.lower (x.itemName) < string.lower (y.itemName); end
+  if (gSortScansBy == Auctionator.Constants.Sort.NAME_DESCENDING) then   return string.lower (x.itemName) > string.lower (y.itemName); end
 
   local xprice = 0;
   local yprice = 0;
@@ -773,8 +756,8 @@ local function Atr_SortScans (x, y)
   if (x.absoluteBest) then  xprice = zc.round(x.absoluteBest.buyoutPrice/x.absoluteBest.stackSize);   end;
   if (y.absoluteBest) then  yprice = zc.round(y.absoluteBest.buyoutPrice/y.absoluteBest.stackSize);   end;
 
-  if (gSortScansBy == ATR_SORTBY_PRICE_ASC) then    return xprice < yprice;   end
-  if (gSortScansBy == ATR_SORTBY_PRICE_DES) then    return xprice > yprice;   end
+  if (gSortScansBy == Auctionator.Constants.Sort.PRICE_ASCENDING) then    return xprice < yprice;   end
+  if (gSortScansBy == Auctionator.Constants.Sort.PRICE_DESCENDING) then    return xprice > yprice;   end
 
 end
 
@@ -784,7 +767,7 @@ function AtrSearch:Finish()
 
   local finishTime = time();
 
-  self.processing_state = KM_NULL_STATE;
+  self.processing_state = Auctionator.Constants.SearchStates.NULL;
   self.current_page   = -1;
   self.query_sent_when  = nil;
 
@@ -906,10 +889,10 @@ end
 
 function AtrSearch:ClickPriceCol()
 
-  if (self.sortHow == ATR_SORTBY_PRICE_ASC) then
-    self.sortHow = ATR_SORTBY_PRICE_DES;
+  if (self.sortHow == Auctionator.Constants.Sort.PRICE_ASCENDING) then
+    self.sortHow = Auctionator.Constants.Sort.PRICE_DESCENDING;
   else
-    self.sortHow = ATR_SORTBY_PRICE_ASC;
+    self.sortHow = Auctionator.Constants.Sort.PRICE_ASCENDING;
   end
 
   gSortScansBy = self.sortHow;
@@ -921,10 +904,10 @@ end
 
 function AtrSearch:ClickNameCol()
 
-  if (self.sortHow == ATR_SORTBY_NAME_ASC) then
-    self.sortHow = ATR_SORTBY_NAME_DES;
+  if (self.sortHow == Auctionator.Constants.Sort.NAME_ASCENDING) then
+    self.sortHow = Auctionator.Constants.Sort.NAME_DESCENDING;
   else
-    self.sortHow = ATR_SORTBY_NAME_ASC;
+    self.sortHow = Auctionator.Constants.Sort.NAME_ASCENDING;
   end
 
   gSortScansBy = self.sortHow;
@@ -938,16 +921,16 @@ function AtrSearch:UpdateArrows()
   Atr_Col1_Heading_ButtonArrow:Hide();
   Atr_Col3_Heading_ButtonArrow:Hide();
 
-  if (self.sortHow == ATR_SORTBY_PRICE_ASC) then
+  if (self.sortHow == Auctionator.Constants.Sort.PRICE_ASCENDING) then
     Atr_Col1_Heading_ButtonArrow:Show();
     Atr_Col1_Heading_ButtonArrow:SetTexCoord(0, 0.5625, 0, 1.0);
-  elseif (self.sortHow == ATR_SORTBY_PRICE_DES) then
+  elseif (self.sortHow == Auctionator.Constants.Sort.PRICE_DESCENDING) then
     Atr_Col1_Heading_ButtonArrow:Show();
     Atr_Col1_Heading_ButtonArrow:SetTexCoord(0, 0.5625, 1.0, 0);
-  elseif (self.sortHow == ATR_SORTBY_NAME_ASC) then
+  elseif (self.sortHow == Auctionator.Constants.Sort.NAME_ASCENDING) then
     Atr_Col3_Heading_ButtonArrow:Show();
     Atr_Col3_Heading_ButtonArrow:SetTexCoord(0, 0.5625, 0, 1.0);
-  elseif (self.sortHow == ATR_SORTBY_NAME_DES) then
+  elseif (self.sortHow == Auctionator.Constants.Sort.NAME_DESCENDING) then
     Atr_Col3_Heading_ButtonArrow:Show();
     Atr_Col3_Heading_ButtonArrow:SetTexCoord(0, 0.5625, 1.0, 0);
   end

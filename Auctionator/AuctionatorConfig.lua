@@ -83,7 +83,7 @@ end
 function Atr_SetupOptionsFrame()
 
   local expText = "<html><body>"
-          .."<p>"..ZT("The latest information on Auctionator can be found at").." auctionator-addon.com.".."</p>"
+          .."<p>"..ZT("The latest information on Auctionator can be found at").." http://mods.curse.com/addons/wow/auctionator .".."</p>"
           .."<p><br/>"
           .."MoP disenchanting data courtesy of the Norganna's AddOns (the Auctioneer folks)"
           .."</p>"
@@ -124,10 +124,9 @@ function Atr_BasicOptionsFrame_Save (frame)
     return;
   end
 
-  local origValues = zc.msg_str (AUCTIONATOR_ENABLE_ALT, AUCTIONATOR_OPEN_ALL_BAGS, AUCTIONATOR_SHOW_ST_PRICE, AUCTIONATOR_DEFTAB, AUCTIONATOR_DEF_DURATION);
+  local origValues = zc.msg_str (AUCTIONATOR_ENABLE_ALT, AUCTIONATOR_SHOW_ST_PRICE, AUCTIONATOR_DEFTAB, AUCTIONATOR_DEF_DURATION);
 
   AUCTIONATOR_ENABLE_ALT    = zc.BoolToNum(AuctionatorOption_Enable_Alt_CB:GetChecked ());
-  AUCTIONATOR_OPEN_ALL_BAGS = zc.BoolToNum(AuctionatorOption_Open_All_Bags_CB:GetChecked ());
   AUCTIONATOR_SHOW_ST_PRICE = zc.BoolToNum(AuctionatorOption_Show_StartingPrice_CB:GetChecked ());
 
   AUCTIONATOR_DEFTAB      = UIDropDownMenu_GetSelectedValue(AuctionatorOption_Deftab);
@@ -138,7 +137,7 @@ function Atr_BasicOptionsFrame_Save (frame)
   if (Atr_RB_M:GetChecked())  then  AUCTIONATOR_DEF_DURATION = "M"; end;
   if (Atr_RB_L:GetChecked())  then  AUCTIONATOR_DEF_DURATION = "L"; end;
 
-  local newValues = zc.msg_str (AUCTIONATOR_ENABLE_ALT, AUCTIONATOR_OPEN_ALL_BAGS, AUCTIONATOR_SHOW_ST_PRICE, AUCTIONATOR_DEFTAB, AUCTIONATOR_DEF_DURATION);
+  local newValues = zc.msg_str (AUCTIONATOR_ENABLE_ALT, AUCTIONATOR_SHOW_ST_PRICE, AUCTIONATOR_DEFTAB, AUCTIONATOR_DEF_DURATION);
 
   if (origValues ~= newValues) then
     zc.msg_anm (ZT ("basic options saved"));
@@ -155,7 +154,6 @@ function Atr_SetupBasicOptionsFrame()
   Atr_BasicOptionsFrame_BTitle:SetText (string.format (ZT("Basic Options for %s"), "|cffffff55"..UnitName("player")));
 
   AuctionatorOption_Enable_Alt_CB:SetChecked      (zc.NumToBool(AUCTIONATOR_ENABLE_ALT));
-  AuctionatorOption_Open_All_Bags_CB:SetChecked   (zc.NumToBool(AUCTIONATOR_OPEN_ALL_BAGS));
   AuctionatorOption_Show_StartingPrice_CB:SetChecked  (zc.NumToBool(AUCTIONATOR_SHOW_ST_PRICE));
   AuctionatorOption_Enable_Debug_CB:SetChecked( AUCTIONATOR_SAVEDVARS.DEBUG_MODE );
 
@@ -169,7 +167,7 @@ function Atr_SetupTooltipsOptionsFrame ()
 
   ATR_tipsVendorOpt_CB:SetChecked   (zc.NumToBool(AUCTIONATOR_V_TIPS));
   ATR_tipsAuctionOpt_CB:SetChecked  (zc.NumToBool(AUCTIONATOR_A_TIPS));
-  ATR_tipsDisenchantOpt_CB:SetChecked (zc.NumToBool(AUCTIONATOR_D_TIPS));
+  -- ATR_tipsDisenchantOpt_CB:SetChecked (zc.NumToBool(AUCTIONATOR_D_TIPS));
 end
 
 
@@ -185,10 +183,10 @@ function Atr_TooltipsOptionsFrame_Save(frame)
 
   AUCTIONATOR_V_TIPS    = zc.BoolToNum(ATR_tipsVendorOpt_CB:GetChecked ());
   AUCTIONATOR_A_TIPS    = zc.BoolToNum(ATR_tipsAuctionOpt_CB:GetChecked ());
-  AUCTIONATOR_D_TIPS    = zc.BoolToNum(ATR_tipsDisenchantOpt_CB:GetChecked ());
+  -- AUCTIONATOR_D_TIPS    = zc.BoolToNum(ATR_tipsDisenchantOpt_CB:GetChecked ());
 
   AUCTIONATOR_SHIFT_TIPS    = UIDropDownMenu_GetSelectedValue(Atr_tipsShiftDD);
-  AUCTIONATOR_DE_DETAILS_TIPS = UIDropDownMenu_GetSelectedValue(Atr_deDetailsDD);
+  -- AUCTIONATOR_DE_DETAILS_TIPS = UIDropDownMenu_GetSelectedValue(Atr_deDetailsDD);
 
   local newValues = zc.msg_str (AUCTIONATOR_V_TIPS, AUCTIONATOR_A_TIPS, AUCTIONATOR_D_TIPS, AUCTIONATOR_SHIFT_TIPS, AUCTIONATOR_DE_DETAILS_TIPS);
 
@@ -650,8 +648,6 @@ function Atr_SONumStacks_OnClick(self)
   Atr_Mem_stacksOf_text:SetText (ZT ((self.value == 1) and "stack of" or "stacks of"));
 end
 
-
-
 -----------------------------------------
 
 function Atr_ShowOptionTooltip (elem)
@@ -669,10 +665,6 @@ function Atr_ShowOptionTooltip (elem)
 
   if (zc.StringContains (name, "Open_BUY")) then
     text = ZT("If this option is checked, the Auctionator BUY panel will display first whenever you open the Auction House window.");
-  end
-
-  if (zc.StringContains (name, "Open_All_Bags")) then
-    text = ZT("If this option is checked, ALL your bags will be opened when you first open the Auctionator panel.");
   end
 
   if (zc.StringContains (name, "Def_Duration")) then

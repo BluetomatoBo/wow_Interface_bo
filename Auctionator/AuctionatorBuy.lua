@@ -144,23 +144,19 @@ end
 
 -----------------------------------------
 
-function Atr_Buy_SendQuery ()
+function Atr_Buy_SendQuery()
+  Auctionator.Debug.Message( 'Atr_Buy_SendQuery' )
+  gAtr_NextMatchIndex = 0
 
-  gAtr_NextMatchIndex = 0;
+  if CanSendAuctionQuery() then
+    gBuyState = ATR_BUY_QUERY_SENT
 
-  if (CanSendAuctionQuery()) then
+    Atr_Buy_ClearMatchList()
 
-    gBuyState = ATR_BUY_QUERY_SENT;
-
-    Atr_Buy_ClearMatchList();
-
-    local queryString = zc.UTF8_Truncate (gAtr_Buy_ItemName,127); -- attempting to reduce number of disconnects
-
-    exactMatch = true
-
-    QueryAuctionItems (queryString, "", "", nil, 0, 0, gAtr_Buy_CurPage, nil, nil, false, exactMatch);
+    -- attempting to reduce number of disconnects
+    local queryString = Auctionator.Util.UTF8_Truncate( gAtr_Buy_ItemName )
+    QueryAuctionItems( queryString, nil, nil, gAtr_Buy_CurPage, nil, nil, false, false, nil )
   end
-
 end
 
 -----------------------------------------

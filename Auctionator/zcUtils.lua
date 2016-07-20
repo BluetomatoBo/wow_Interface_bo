@@ -1,8 +1,5 @@
-
 -- Zirco's utilities
-
 -- This module should contain no globals as it is intended to be "linked" in to each of Zirco's addons
-
 
 local addonName, addonTable = ...;
 local zc = {};
@@ -130,28 +127,6 @@ function zc.PrintKeysSorted (t)
 
   for x = 1, #ta do
     zc.msg_pink (x.."   "..ta[x]);
-  end
-
-end
-
------------------------------------------
-
-function zc.UTF8_Truncate (s, newlen)
-
-  if (s:len() <= newlen) then
-    return s;
-  end
-
-  local x, c;
-
-  for x = newlen, 1, -1 do
-
-    c = s:byte(x+1);
-
-    if (bit.band (c, 0xC0) == 0x80) then
-      return s:sub (1, x-1);
-    end
-
   end
 
 end
@@ -1007,7 +982,7 @@ end
 -----------------------------------------
 
 function zc.CopyDeep (dest, src)
-  Auctionator.Debug.Message( 'zc.CopyDeep', dest, src )
+  -- Auctionator.Debug.Message( 'zc.CopyDeep', dest, src )
 
   if type(src) == 'table' then
 

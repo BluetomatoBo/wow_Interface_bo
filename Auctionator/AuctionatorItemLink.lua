@@ -38,7 +38,13 @@ function Auctionator.ItemLink:ParsedItemLink()
 end
 
 function Auctionator.ItemLink:GetField( field_id )
-  return (self:ParsedItemLink() or {})[ field_id ] or 0
+  local field_value = (self:ParsedItemLink() or {})[ field_id ]
+
+  if field_value == nil or field_value == '' then
+    return 0
+  else
+    return field_value
+  end
 end
 
 function Auctionator.ItemLink:IdString()
@@ -121,4 +127,10 @@ end
 
 function Auctionator.ItemLink:BonusIdCount()
   return tonumber( self:GetField( Auctionator.Constants.ItemLink.BONUS_ID_COUNT ) )
+end
+
+function Auctionator.ItemLink:IsBattlePet()
+  local item_type = self:GetField( Auctionator.Constants.ItemLink.TYPE )
+
+  return item_type == 'battlepet'
 end

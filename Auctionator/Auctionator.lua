@@ -1,13 +1,6 @@
 
--- 3.2.3
-
--- change truncate length to 127
--- fixed a couple of possible taints on local variables
---
-
-
 AuctionatorVersion = "???";   -- set from toc upon loading
-AuctionatorAuthor  = "Zirco";
+AuctionatorAuthor  = "Borjamacare";
 
 AuctionatorLoaded = false;
 AuctionatorInited = false;
@@ -20,16 +13,10 @@ local _
 
 gAtrZC = addonTable.zc;   -- share with AuctionatorDev
 
-
 -----------------------------------------
-
-local WEAPON = 1;
-local ARMOR  = 2;
-
 local recommendElements     = {};
 
 AUCTIONATOR_ENABLE_ALT    = 1;
-AUCTIONATOR_OPEN_ALL_BAGS = 1;
 AUCTIONATOR_SHOW_ST_PRICE = 0;
 AUCTIONATOR_SHOW_TIPS   = 1;
 AUCTIONATOR_DEF_DURATION  = "N";    -- none
@@ -54,8 +41,7 @@ local BUY_TAB     = 3;
 
 -- saved variables - amounts to undercut
 
-local auctionator_savedvars_defaults =
-  {
+local auctionator_savedvars_defaults = {
   ["_5000000"]      = 10000;  -- amount to undercut buyouts over 500 gold
   ["_1000000"]      = 2500;
   ["_200000"]       = 1000;
@@ -64,9 +50,8 @@ local auctionator_savedvars_defaults =
   ["_2000"]       = 100;
   ["_500"]        = 5;
   ["STARTING_DISCOUNT"] = 5;  -- PERCENT
-  ["LOG_DE_DATA"]     = nil;  -- obsolete
   ["LOG_DE_DATA_X"]   = true;
-  };
+}
 
 
 -----------------------------------------
@@ -82,7 +67,6 @@ local gForceMsgAreaUpdate = true;
 local gAtr_ClickAuctionSell = false;
 local gAtr_echoAddonChat = false
 
-local gOpenAllBags    = AUCTIONATOR_OPEN_ALL_BAGS;
 local gTimeZero;
 local gTimeTightZero;
 
@@ -198,7 +182,6 @@ function Atr_EventHandler(self, event, ...)
   if (event == "UNIT_SPELLCAST_SENT")     then  Atr_OnSpellCastSent(...);     end;
   if (event == "UNIT_SPELLCAST_SUCCEEDED")  then  Atr_OnSpellCastSucess(...);     end;
   if (event == "BAG_UPDATE")          then  Atr_OnBagUpdate(...);     end;
-
 end
 
 
@@ -473,9 +456,9 @@ local function Atr_DumpDElog()
     msg = msg..AUCTIONATOR_DE_DATA_BAK[n].."\n"
   end
 
-  Atr_LUA_ErrorMsg:SetText (msg)
+  -- Atr_LUA_ErrorMsg:SetText (msg)
 
-  Atr_LUA_Error:Show()
+  -- Atr_LUA_Error:Show()
 
 end
 
@@ -575,10 +558,6 @@ local function Atr_SlashCmdFunction(msg)
     gAtr_echoAddonChat = not gAtr_echoAddonChat
     zz ("gAtr_echoAddonChat is now", gAtr_echoAddonChat)
 
-  elseif (cmd == "showdi") then
-
-    Atr_Error_Handler ("xxx");
-
   elseif (cmd == "delog") then
 
     AUCTIONATOR_SAVEDVARS.LOG_DE_DATA_X = zc.Negate (AUCTIONATOR_SAVEDVARS.LOG_DE_DATA_X)
@@ -668,18 +647,20 @@ local function Atr_OnClickTradeSkillBut()
 
   Atr_SelectPane (BUY_TAB);
 
-  local index = GetTradeSkillSelectionIndex()
-  local link = GetTradeSkillItemLink(index)
+  local index = TradeSkillFrame.RecipeList:GetSelectedRecipeID()
+
+
+  local link = C_TradeSkillUI.GetRecipeItemLink(index)
 
   local _, _, _, _, _, itemType = GetItemInfo (link);
 
+  local numReagents = C_TradeSkillUI.GetRecipeNumReagents(index)
 
-  local numReagents = GetTradeSkillNumReagents (index)
   local reagentId
 
   local shoppingListName = GetItemInfo (link)
   if (shoppingListName == nil) then
-    shoppingListName = GetTradeSkillInfo (index)
+    shoppingListName = C_TradeSkillUI.GetRecipeInfo(index).name
   end
 
   local items = {}
@@ -691,7 +672,7 @@ local function Atr_OnClickTradeSkillBut()
 --  zz (shoppingListName)
 
   for reagentId = 1, numReagents do
-    local reagentName = GetTradeSkillReagentInfo(index, reagentId)
+    local reagentName = C_TradeSkillUI.GetRecipeReagentInfo(index, reagentId)
     if (reagentName and not zc.StringSame(reagentName, "Crystal Vial")) then
       table.insert (items, reagentName)
     end
@@ -711,11 +692,13 @@ local function Atr_ModTradeSkillFrame()
 
   if (TradeSkillFrame) then
     gTradeSkillFrameModded = true
---    local button = CreateFrame("BUTTON", "Auctionator_Search", TradeSkillFrame, "UIPanelButtonTemplate");
---    button:SetPoint("TOPRIGHT", "TradeSkillFrameCloseButton", "TOPLEFT", 0, -8);
-    local button = CreateFrame("BUTTON", "Auctionator_Search", TradeSkillDetailScrollChildFrame, "UIPanelButtonTemplate");
-    button:SetPoint("TOPRIGHT", "TradeSkillDetailScrollChildFrame", "TOPRIGHT", -1, -24);
-    button:SetHeight (16)
+--    local button = CreateFrame("BUTTON", "Auctionator_Search", TradeSkillFrameScrollChild, "UIPanelButtonTemplate");
+--    button:SetPoint("TOPRIGHT", "TradeSkillFrameScrollChild", "TOPRIGHT", -3, -5);
+
+    local button = CreateFrame("BUTTON", "Auctionator_Search", TradeSkillFrame, "UIPanelButtonTemplate");
+    button:SetPoint("RIGHT", "TradeSkillFrame", "RIGHT", -35, 100);
+
+    button:SetHeight (20)
     button:SetText("AH")
     button:SetNormalFontObject(_G["GameFontNormalSmall"])
     button:SetHighlightFontObject(_G["GameFontNormalSmall"])
@@ -729,7 +712,6 @@ local function Atr_ModTradeSkillFrame()
 
 
 end
-
 -----------------------------------------
 
 function Atr_InitScanDB()
@@ -903,29 +885,14 @@ function Atr_OnLoad()
     zc.msg_anm ("Unable to create AtrScanningTooltip");
   end
   AtrScanningTooltip:SetOwner( WorldFrame, "ANCHOR_NONE" );
-  -- Allow tooltip SetX() methods to dynamically add new lines based on these
---  AtrScanningTooltip:AddFontStrings(
---  AtrScanningTooltip:CreateFontString( "$parentTextLeft1", nil, "GameTooltipText" ),
---  AtrScanningTooltip:CreateFontString( "$parentTextRight1", nil, "GameTooltipText" ) );
-
-  -- a second scanning tooltip for use by zc.PullItemIntoMemory
-  -- fixed a bug to separate this out from the original one (above)
 
   local atrtt2 = CreateFrame( "GameTooltip", "AtrScanningTooltip2", nil, "GameTooltipTemplate" ); -- Tooltip name cannot be nil
   if (atrtt2 == nil) then
     zc.msg_anm ("Unable to create AtrScanningTooltip2");
   end
   AtrScanningTooltip2:SetOwner( WorldFrame, "ANCHOR_NONE" );
-  -- Allow tooltip SetX() methods to dynamically add new lines based on these
---  AtrScanningTooltip2:AddFontStrings(
---  AtrScanningTooltip2:CreateFontString( "$parentTextLeft1", nil, "GameTooltipText" ),
---  AtrScanningTooltip2:CreateFontString( "$parentTextRight1", nil, "GameTooltipText" ) );
 
   ------------------
-
-  Atr_CheckClassMappings()
-
-  Atr_InitDETable()
 
   Atr_ShoppingListsInit();
 
@@ -957,8 +924,6 @@ function Atr_OnAddonLoaded(...)
 
   local now = time();
 
---  zz (addonName.."   time: "..now - gStartingTime);
-
   gPrevTime = now;
 
   if (zc.StringSame (addonName, "blizzard_tradeskillui")) then
@@ -977,23 +942,17 @@ function Atr_OnPlayerEnteringWorld()
 
   zz ("auctionatorInited = ", auctionatorInited);
 
-
   if (auctionatorInited == false) then
     auctionatorInited = true;
 
     Atr_InitOptionsPanels()
-    Atr_Install_Error_Handler()
-
     Atr_InitToolTips()
 
     if (RegisterAddonMessagePrefix) then
       RegisterAddonMessagePrefix ("ATR")
     end
 
-  --  Atr_MakeOptionsFrameOpaque();
-
   end
-
 end
 
 -----------------------------------------
@@ -1020,9 +979,9 @@ function Atr_ScanBags (mats, gear)
       if (itemLink) then
         local texture, itemCount, locked, quality = GetContainerItemInfo(bagID, slotID);
 
-        local itemName, _, itemRarity, itemLevel, _, itemType, itemSubType = GetItemInfo (itemLink);
+        local itemName, _, itemRarity, itemLevel, _, itemType, itemSubType, _, _, _, _, itemClassID, itemSubClassID = GetItemInfo( itemLink )
 
-        if ((itemType == "Armor" or itemType == "Weapon") and itemLevel > 271) then
+        if ( Atr_IsWeaponType( itemClassID ) or Atr_IsArmorType( itemClassID ) ) and itemLevel > 271 then
           local key = itemType.."_"..itemSubType.."_"..itemRarity.."_"..itemLevel;
           if (gear[key]) then
             gear[key].count = gear[key].count + 1;
@@ -1078,19 +1037,6 @@ function Atr_OnSpellCastSucess (...)
   end
 
   gDisenchantTime = time();
-
---[[  local k, m, g;
-
-  zz ("-----")
-  for k, g in pairs (preDEgear) do
-    zz (g.t, g.s, g.q, g.lev, g.count)
-  end
-
-  zz ("-----")
-  for k, m in pairs (preDEmats) do
-    zz (k, m.count)
-  end
-]]--
 end
 
 -----------------------------------------
@@ -1175,7 +1121,6 @@ function Atr_OnBagUpdate (...)
     tm = math.floor (tm / 3600)
 
     local s = tm.."_"..result.matcount.."_"..matname.."_"..itemClassAbbrev.."_"..itemSubclass.."_"..result.q.."_"..result.lev;
---    zz (s);
 
     gDisenchantTime = 0;
 
@@ -1187,9 +1132,6 @@ function Atr_OnBagUpdate (...)
 
     AUCTIONATOR_DE_DATA_BAK = nil
   end
-
-
-
 end
 
 -----------------------------------------
@@ -1206,9 +1148,6 @@ function Atr_Init()
   if (AUCTIONATOR_SAVEDVARS == nil) then
     Atr_ResetSavedVars()
   end
-
-  --Bump_MaxButton_Hack();
-
 
   gShopPane = Atr_AddSellTab (ZT("Buy"),      BUY_TAB);
   gSellPane = Atr_AddSellTab (ZT("Sell"),     SELL_TAB);
@@ -1260,7 +1199,6 @@ function Atr_ShowHide_StartingPrice()
   end
 end
 
-
 -----------------------------------------
 
 function Atr_GetSellItemInfo ()
@@ -1270,7 +1208,6 @@ function Atr_GetSellItemInfo ()
 
   Auctionator.Debug.Message( "GetAuctionSellItemInfo()", auctionItemName, auctionTexture, auctionCount, auctionQuality )
 
-
   if (auctionItemName == nil) then
     auctionItemName = "";
     auctionCount  = 0;
@@ -1279,11 +1216,7 @@ function Atr_GetSellItemInfo ()
   local auctionItemLink = nil;
 
   -- only way to get sell itemlink that I can figure
-
   if (auctionItemName ~= "") then
-
-    -- in 5.0 GameTooltip:SetAuctionSellItem was changed to RETURN values if the auction item is a Battle Pet.  Go figure.
-
     local hasCooldown, speciesID, level, breedQuality, maxHealth, power, speed, name = GameTooltip:SetAuctionSellItem();
 
     if (speciesID and speciesID > 0) then   -- if it's a battle pet, construct a fake battlepet link
@@ -1293,9 +1226,6 @@ function Atr_GetSellItemInfo ()
       auctionItemLink = "|cffcccccc|Hbattlepet:"..speciesID..":"..level..":"..breedQuality..":"..maxHealth..":"..power..":"..speed..":"..battlePetID.."|h["..name.."]|h|r";
 
       ATR_AddToBattlePetIconCache (auctionItemLink, auctionTexture);
-
-      --zz ((auctionItemLink));
-
     else
       AtrScanningTooltip:SetAuctionSellItem();
 
@@ -1309,13 +1239,8 @@ function Atr_GetSellItemInfo ()
 
   end
 
---zz (auctionItemName, auctionCount, auctionItemLink);
---zz ("-----------------------------");
-
   return auctionItemName, auctionCount, auctionItemLink;
-
 end
-
 
 -----------------------------------------
 
@@ -1326,12 +1251,9 @@ function Atr_ResetSavedVars ()
   zc.CopyDeep (AUCTIONATOR_SAVEDVARS, auctionator_savedvars_defaults);
 end
 
-
 --------------------------------------------------------------------------------
 
 function Atr_FindTabIndex (whichTab)
-  -- Auctionator.Debug.Message( 'Atr_FindTabIndex', whichTab )
-
   local i;
   for i = 4,20  do
     local tab = _G['AuctionFrameTab'..i];
@@ -1344,10 +1266,7 @@ function Atr_FindTabIndex (whichTab)
   return 0
 end
 
-
-
 -----------------------------------------
-
 
 function Atr_AuctionFrameTab_OnClick (self, index, down)
   Auctionator.Debug.Message( 'Atr_AuctionFrameTab_OnClick', self, index, down )
@@ -1375,7 +1294,6 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
       if (AP_ShowBid) then  AP_ShowHide_Bid_Button(1);  end;
       if (AP_ShowBO)  then  AP_ShowHide_BO_Button(1); end;
     end
-
 
   elseif (Atr_IsAuctionatorTab(index)) then
 
@@ -1448,7 +1366,6 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
       Atr_Adv_Search_Button:Show();
       Atr_Exact_Search_Button:Show();
       AuctionFrameMoneyFrame:Show();
---      Atr_BuildGlobalHistoryList(true);
       Atr_AddToSListButton:Show();
       Atr_RemFromSListButton:Show();
       Atr_NewSListButton:Show();
@@ -1472,22 +1389,15 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
     _G["Atr_Main_Panel"]:Show();
 
     gCurrentPane.UINeedsUpdate = true;
-
-    if (gOpenAllBags == 1) then
-      OpenAllBags();
-      gOpenAllBags = 0;
-    end
-
   end
-
 end
 
 -----------------------------------------
 
 function Atr_StackSize ()
-  -- Auctionator.Debug.Message( 'Atr_StackSize' )
+  Auctionator.Debug.Message( 'Atr_StackSize' )
 
-  return Atr_Batch_Stacksize:GetNumber();
+  return math.max( Atr_Batch_Stacksize:GetNumber(), 1 )
 end
 
 -----------------------------------------
@@ -2027,7 +1937,7 @@ function Atr_OnAuctionUpdate (...)
     return
   end
 
-  if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == KM_POSTQUERY) then
+  if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == Auctionator.Constants.SearchStates.POST_QUERY) then
 
     gCurrentPane.activeSearch:CapturePageInfo();
 
@@ -2485,7 +2395,7 @@ function Atr_UpdateRecommendation (updatePrices)
 
   elseif (Atr_IsSelectedTab_Current()) then
 
-    if (gCurrentPane:GetProcessingState() ~= KM_NULL_STATE) then
+    if (gCurrentPane:GetProcessingState() ~= Auctionator.Constants.SearchStates.NULL) then
       return;
     end
 
@@ -2774,8 +2684,6 @@ end
 function Atr_OnAuctionHouseShow()
   Auctionator.Debug.Message( 'Atr_OnAuctionHouseShow' )
 
-  gOpenAllBags = AUCTIONATOR_OPEN_ALL_BAGS;
-
   if (AUCTIONATOR_DEFTAB == 1) then   Atr_SelectPane (SELL_TAB);  end
   if (AUCTIONATOR_DEFTAB == 2) then   Atr_SelectPane (BUY_TAB); end
   if (AUCTIONATOR_DEFTAB == 3) then   Atr_SelectPane (MORE_TAB);  end
@@ -2865,12 +2773,6 @@ function Atr_OnUpdate(self, elapsed)
     zc.CheckDeferredCall();
   end
 
-  -- make sure all dusts and essences are in memory
-
-  if (gAtr_dustCacheIndex > 0) then
-    Atr_GetNextDustIntoCache();
-  end
-
   -- special idle routine for full scan analyze phase gets called more often
 
 --  if (Atr_FullScanFrameIdle == nil) then
@@ -2932,7 +2834,7 @@ function Atr_Idle(self, elapsed)
     return;
   end
 
-  if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == KM_PREQUERY) then   ------- check whether to send a new auction query to get the next page -------
+  if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state == Auctionator.Constants.SearchStates.PRE_QUERY) then   ------- check whether to send a new auction query to get the next page -------
     gCurrentPane.activeSearch:Continue();
   end
 
@@ -3112,7 +3014,7 @@ function Atr_UpdateUI_SellPane (needsUpdate)
 
   if (needsUpdate) then
 
-    if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state ~= KM_NULL_STATE) then
+    if (gCurrentPane.activeSearch and gCurrentPane.activeSearch.processing_state ~= Auctionator.Constants.SearchStates.NULL) then
       Atr_CreateAuctionButton:Disable();
       Atr_FullScanButton:Disable();
       Auctionator1Button:Disable();
@@ -3418,7 +3320,7 @@ end
 function Atr_ListTabOnClick (id)
   Auctionator.Debug.Message( 'Atr_ListTabOnClick', id )
 
-  if (gCurrentPane.activeSearch.processing_state ~= KM_NULL_STATE) then   -- if we're scanning auctions don't respond
+  if (gCurrentPane.activeSearch.processing_state ~= Auctionator.Constants.SearchStates.NULL) then   -- if we're scanning auctions don't respond
     return;
   end
 
@@ -3689,7 +3591,7 @@ function Atr_ShowSearchSummary()
     end
 
     Auctionator.Debug.Message( 'Atr_ShowSearchSummary line ', line )
-    Auctionator.Util.Print( scn, 'Scan ' .. line )
+    -- Auctionator.Util.Print( scn, 'Scan ' .. line )
 
 
     if (dataOffset > numrows or not scn) then
@@ -3725,13 +3627,13 @@ function Atr_ShowSearchSummary()
       lineEntry_text:SetTextColor (r, g, b)
       lineEntry_stack:SetTextColor (1, 1, 1)
 
-      Auctionator.Util.Print( scn, "Atr_ShowSearchSummary Scan" )
+      -- Auctionator.Util.Print( scn, "Atr_ShowSearchSummary Scan" )
       local icon = Atr_GetUCIcon( scn.itemLink )
 
       if (not scn:IsNil()) then
 
         iLevelStr = ""
-        if (scn.itemClass == WEAPON or scn.itemClass == ARMOR) then
+        if scn.itemClass == LE_ITEM_CLASS_WEAPON or scn.itemClass == LE_ITEM_CLASS_ARMOR then
           iLevelStr = " ("..scn.itemLevel..")"
         end
 
@@ -4596,11 +4498,6 @@ local _atr_info = {};   -- table reuse
 function Atr_Dropdown_AddPick (frame, text, value, func)
   Auctionator.Debug.Message( 'Atr_Dropdown_AddPick', frame, text, value, func )
 
---  if (_atr_info == nil) then
---    _atr_info = {}
-    --zc.CopyDeep (_atr_info, UIDropDownMenu_CreateInfo());
---  end
-
   _atr_info.owner     = frame;
   _atr_info.text      = text;
   _atr_info.value     = value;
@@ -4613,9 +4510,6 @@ function Atr_Dropdown_AddPick (frame, text, value, func)
   end
 
   UIDropDownMenu_AddButton(_atr_info);
-
-  --zc.md (UIDROPDOWNMENU_MAXBUTTONS);
-
 end
 
 -----------------------------------------
