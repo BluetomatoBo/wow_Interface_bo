@@ -1,0 +1,11 @@
+tag v7.0.0.160628
+dd5d84e9320d7868ddebb698bafcb50fec3dd471
+Vladinator89 <vladix@gmail.com>
+2016-06-28 09:54:01 +0100
+
+v7.0.0.160628
+
+
+--------------------
+
+No changelog
