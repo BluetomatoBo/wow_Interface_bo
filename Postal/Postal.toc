@@ -1,9 +1,9 @@
-## Interface: 60200
+## Interface: 70000
 ## Title: Postal
-## Version: v3.5.6
-## X-Build: 393
-## X-ReleaseDate: 2016-03-23T01:51:25Z
-## X-Revision: $Revision: 392 $
+## Version: v3.5.7
+## X-Build: 398
+## X-ReleaseDate: 2016-07-19T06:44:41Z
+## X-Revision: $Revision: 398 $
 ## Author: Xinhuan
 ## X-Credits: Ammo, Rabbit, Grennon, Mikk, oscarucb
 ## X-Category: Mail
@@ -16,7 +16,7 @@
 ## Notes-ptBR: Postal: Apoio caixa reforçada
 ## OptionalDeps: Ace3, !BlizzBugsSuck, !ClassColors
 ## SavedVariables: Postal3DB
-## X-Curse-Packaged-Version: v3.5.6
+## X-Curse-Packaged-Version: v3.5.7
 ## X-Curse-Project-Name: Postal
 ## X-Curse-Project-ID: postal
 ## X-Curse-Repository-ID: wow/postal/mainline
