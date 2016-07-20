@@ -910,6 +910,7 @@ function addon:IsFrameBlacklisted(frame)
     if type(frame) == "table" then
         name = frame.GetName and frame:GetName()
     end
+
     return self.settings.blacklist[name]
 end
 
