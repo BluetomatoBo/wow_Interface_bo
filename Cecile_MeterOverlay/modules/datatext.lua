@@ -15,6 +15,9 @@ local debug = Engine.AddOn:GetModule("debug");
 --sharemedia
 local LSM = LibStub("LibSharedMedia-3.0");
 
+--Version
+local Version = Engine.AddOn:GetModule("version");
+
 --mouse down in the datatext
 function mod.DataTextDown(self,button)
 
@@ -247,10 +250,22 @@ function mod:ControlVisibility()
 
 			mod.frame.bg:SetAllPoints(mod.frame);
 			mod.frame.bg:SetBlendMode("BLEND");
-			mod.frame.bg:SetTexture(	Engine.Profile.datatext.background.color.r,
-										Engine.Profile.datatext.background.color.g,
-										Engine.Profile.datatext.background.color.b,
-										Engine.Profile.datatext.background.color.a);
+
+
+		  if Version.Legion then
+  			mod.frame.bg:SetColorTexture(	Engine.Profile.datatext.background.color.r,
+					Engine.Profile.datatext.background.color.g,
+					Engine.Profile.datatext.background.color.b,
+					Engine.Profile.datatext.background.color.a);
+
+		  else
+  			mod.frame.bg:SetTexture(	Engine.Profile.datatext.background.color.r,
+					Engine.Profile.datatext.background.color.g,
+					Engine.Profile.datatext.background.color.b,
+					Engine.Profile.datatext.background.color.a);
+
+		  end
+
 		else
 			if mod.frame.bg then
 				mod.frame.bg:SetTexture(nil);
@@ -468,10 +483,22 @@ function mod:OnInitialize()
 
 			self.bg:SetAllPoints(self);
 			self.bg:SetBlendMode("BLEND");
-			self.bg:SetTexture(	Engine.Profile.overlay.color.r,
-								Engine.Profile.overlay.color.g,
-								Engine.Profile.overlay.color.b,
-								Engine.Profile.overlay.color.a);
+
+			if Version.Legion then
+
+				self.bg:SetColorTexture(	Engine.Profile.overlay.color.r,
+					Engine.Profile.overlay.color.g,
+					Engine.Profile.overlay.color.b,
+					Engine.Profile.overlay.color.a);
+
+  		else
+
+				self.bg:SetTexture(	Engine.Profile.overlay.color.r,
+					Engine.Profile.overlay.color.g,
+					Engine.Profile.overlay.color.b,
+					Engine.Profile.overlay.color.a);
+
+  		end
 
 		end)
 
