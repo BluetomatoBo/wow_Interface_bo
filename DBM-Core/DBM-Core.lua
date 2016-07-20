@@ -1,6 +1,7 @@
 -- *********************************************************
 -- **               Deadly Boss Mods - Core               **
 -- **            http://www.deadlybossmods.com            **
+-- **        https://www.patreon.com/deadlybossmods       **
 -- *********************************************************
 --
 -- This addon is written and copyrighted by:
@@ -40,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 14998 $"):sub(12, -3)),
-	DisplayVersion = "6.2.23", -- the string that is shown as version
-	ReleaseRevision = 14998 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 15061 $"):sub(12, -3)),
+	DisplayVersion = "7.0.0", -- the string that is shown as version
+	ReleaseRevision = 15061 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -93,7 +94,6 @@ DBM.DefaultOptions = {
 	SpecialWarningSound4 = "Sound\\Creature\\HoodWolf\\HoodWolfTransformPlayer01.ogg",
 	SpecialWarningSound5 = "Sound\\Creature\\Loathstare\\Loa_Naxx_Aggro02.ogg",
 	ModelSoundValue = "Short",
-	ChallengeBest = "Realm",
 	CountdownVoice = "Corsica",
 	CountdownVoice2 = "Kolt",
 	CountdownVoice3v2 = "HoTS_R",
@@ -386,7 +386,6 @@ local fireEvent
 local playerName = UnitName("player")
 local playerLevel = UnitLevel("player")
 local playerRealm = GetRealmName()
-local gladStance = GetSpellInfo(156291)
 local connectedServers = GetAutoCompleteRealms()
 local LastInstanceMapID = -1
 local LastGroupSize = 0
@@ -1282,9 +1281,6 @@ do
 				"CHALLENGE_MODE_RESET",
 				"CHALLENGE_MODE_END",
 				"ACTIVE_TALENT_GROUP_CHANGED",
-				--REMOVE IN LEGION
-				"UPDATE_SHAPESHIFT_FORM",
-				--REMOVE IN LEGION
 				"PARTY_INVITE_REQUEST",
 				"LOADING_SCREEN_DISABLED",
 				"SCENARIO_CRITERIA_UPDATE"
@@ -3023,6 +3019,7 @@ function DBM:LoadModOptions(modId, inCombat, first)
 			stats.heroicPulls = stats.heroicPulls or 0
 			stats.challengeKills = stats.challengeKills or 0
 			stats.challengePulls = stats.challengePulls or 0
+			stats.challengeBestRank = stats.challengeBestRank or 0
 			stats.mythicKills = stats.mythicKills or 0
 			stats.mythicPulls = stats.mythicPulls or 0
 			stats.normal25Kills = stats.normal25Kills or 0
@@ -3054,7 +3051,7 @@ function DBM:LoadModOptions(modId, inCombat, first)
 	end
 	_G[savedVarsName][fullname] = savedOptions
 	if profileNum > 0 then
-		_G[savedVarsName][fullname]["talent"..profileNum] = profileNum == 3 and (gladStance or "Glad Stance Temp") or currentSpecName
+		_G[savedVarsName][fullname]["talent"..profileNum] = currentSpecName
 		self:Debug("LoadModOptions: Finished loading "..(_G[savedVarsName][fullname]["talent"..profileNum] or DBM_CORE_UNKNOWN))
 	end
 	_G[savedStatsName] = savedStats
@@ -3323,6 +3320,7 @@ function DBM:ClearAllStats(modId)
 		defaultStats.heroicPulls = 0
 		defaultStats.challengeKills = 0
 		defaultStats.challengePulls = 0
+		defaultStats.challengeBestRank = 0
 		defaultStats.mythicKills = 0
 		defaultStats.mythicPulls = 0
 		defaultStats.normal25Kills = 0
@@ -3449,14 +3447,6 @@ function DBM:ACTIVE_TALENT_GROUP_CHANGED()
 	end
 end
 
---REMOVE IN LEGION
-function DBM:UPDATE_SHAPESHIFT_FORM()
-	if class == "WARRIOR" and self:AntiSpam(0.5, "STANCE") then--check for stance changes for prot warriors that might be specced into Gladiator Stance
-		self:ACTIVE_TALENT_GROUP_CHANGED()
-	end
-end
---REMOVE IN LEGION
-
 do
 	local function AcceptPartyInvite()
 		AcceptGroup()
@@ -3574,46 +3564,19 @@ function DBM:SCENARIO_CRITERIA_UPDATE()
 	end
 end
 
+--REFACTOR IN LEGION
 function DBM:CHALLENGE_MODE_START(mapID)
 	self:Debug("CHALLENGE_MODE_START fired for mapID "..mapID)
-	if wowTOC >= 70000 then return end
-	if self.Options.ChallengeBest == "None" then return end
-	if self.Options.DontShowBossTimers then return end
-	RequestChallengeModeMapInfo()
-	local maps = GetChallengeModeMapTable()
-	for i = 1, 8 do
-		local _, mapIDVerify = GetChallengeModeMapInfo(maps[i])--Even though we get mapid from CHALLENGE_MODE_START, we still need CM index since GetChallengeModeMapPlayerStats doesn't take mapID :\
-		if mapID == mapIDVerify then
-			RequestChallengeModeLeaders(mapID)
-			local guildBest, realmBest = GetChallengeBestTime(mapID)
-			local lastTime, bestTime, medal = GetChallengeModeMapPlayerStats(maps[i])
-			if bestTime and self.Options.ChallengeBest == "Personal" then
-				self.Bars:CreateBar(ceil(bestTime / 1000), DBM_SPEED_CLEAR_TIMER_TEXT, "Interface\\Icons\\Spell_Holy_BorrowedTime")
-			elseif guildBest and self.Options.ChallengeBest == "Guild" then
-				self.Bars:CreateBar(ceil(guildBest / 1000), DBM_SPEED_CLEAR_TIMER_TEXT, "Interface\\Icons\\Spell_Holy_BorrowedTime")
-			elseif realmBest and self.Options.ChallengeBest == "Realm" then
-				self.Bars:CreateBar(ceil(realmBest / 1000), DBM_SPEED_CLEAR_TIMER_TEXT, "Interface\\Icons\\Spell_Holy_BorrowedTime")
-			end
-			break
-		end
-	end
 end
 
 function DBM:CHALLENGE_MODE_RESET()
 	self:Debug("CHALLENGE_MODE_RESET fired")
-	if self.Options.ChallengeBest == "None" then return end
-	if self.Bars:GetBar(DBM_SPEED_CLEAR_TIMER_TEXT) then
-		self.Bars:CancelBar(DBM_SPEED_CLEAR_TIMER_TEXT)
-	end
 end
 
 function DBM:CHALLENGE_MODE_END(mapID, success, medal, completionTime)
 	self:Debug("CHALLENGE_MODE_END fired for mapID "..mapID)
-	if self.Options.ChallengeBest == "None" then return end
-	if self.Bars:GetBar(DBM_SPEED_CLEAR_TIMER_TEXT) then
-		self.Bars:CancelBar(DBM_SPEED_CLEAR_TIMER_TEXT)
-	end
 end
+--REFACTOR IN LEGION
 
 --------------------------------
 --  Load Boss Mods on Demand  --
@@ -3829,10 +3792,16 @@ do
 		end
 		--Active BossUnitTargetScanner
 		if targetMonitor and UnitExists(uId.."target") then
+			self:Debug("targetMonitor exists, target exists", 2)
 			local modId, unitId, returnFunc = string.split("\t", targetMonitor)
+			self:Debug("targetMonitor: "..modId..", "..unitId..", "..returnFunc, 2)
 			local tanking, status = UnitDetailedThreatSituation(unitId, unitId.."target")--Tanking may return 0 if npc is temporarily looking at an NPC (IE fracture) but status will still be 3 on true tank
-			if tanking or (status == 3) then return end--It's a tank/highest threat, this method ignores tanks
+			if tanking or (status == 3) then
+				self:Debug("targetMonitor ending, it's a tank", 2)
+				return
+			end--It's a tank/highest threat, this method ignores tanks
 			local mod = self:GetModByName(modId)
+			self:Debug("targetMonitor success, a valid target that's not a tank", 2)
 			mod[returnFunc](mod, self:GetUnitFullName(unitId.."target"), unitId.."target", unitId)--Return results to warning function with all variables.
 			targetMonitor = nil
 		end
@@ -4007,7 +3976,7 @@ do
 			dummyMod = DBM:NewMod("PullTimerCountdownDummy")
 			DBM:GetModLocalization("PullTimerCountdownDummy"):SetGeneralLocalization{ name = DBM_CORE_MINIMAP_TOOLTIP_HEADER }
 			dummyMod.countdown = dummyMod:NewCountdown(0, 0, nil, nil, adjustedThreshold, true)
-			dummyMod.text = dummyMod:NewAnnounce("%s", 1, 2457)
+			dummyMod.text = dummyMod:NewAnnounce("%s", 1, "Interface\\Icons\\ability_warrior_offensivestance")
 			dummyMod.geartext = dummyMod:NewSpecialWarning("  %s  ", nil, nil, nil, 3)
 		end
 		--Cancel any existing pull timers before creating new ones, we don't want double countdowns or mismatching blizz countdown text (cause you can't call another one if one is in progress)
@@ -5518,27 +5487,18 @@ do
 			--process global options
 			self:HideBlizzardEvents(1)
 			self:StartLogging(0, nil)
-			if self.Options.HideObjectivesFrame and mod.addon.type ~= "SCENARIO" and GetNumTrackedAchievements() == 0 then
+			if self.Options.HideObjectivesFrame and mod.addon.type ~= "SCENARIO" and GetNumTrackedAchievements() == 0 and difficultyIndex ~= 8 then
 				if ObjectiveTrackerFrame:IsVisible() then
 					ObjectiveTrackerFrame:Hide()
 					watchFrameRestore = true
 				end
 				--When hiding objectives frame in challenge modes, start our own timer to show medal time remaining
-				local _, elapsedTime, worldTimerType = GetWorldElapsedTime(1)--Should always be 1, with only one world state timer active. if it's not, use GetWorldElapsedTimers() to find correct one
+				--REFACTOR IN LEGION FOR MYTHIC+ timer replacement
+				--[[local _, elapsedTime, worldTimerType = GetWorldElapsedTime(1)--Should always be 1, with only one world state timer active. if it's not, use GetWorldElapsedTimers() to find correct one
 				if wowTOC < 70000 and worldTimerType == 2 then--Challenge mode
 					local bronze, silver, gold = GetChallengeModeMapTimes(LastInstanceMapID)
 					local remaining
-					if elapsedTime < gold then
-						remaining = gold - elapsedTime
-						self.Bars:CreateBar(remaining, CHALLENGE_MODE_MEDAL3, "Interface\\Icons\\Spell_Holy_BorrowedTime")
-					elseif elapsedTime < silver then
-						remaining = silver - elapsedTime
-						self.Bars:CreateBar(remaining, CHALLENGE_MODE_MEDAL2, "Interface\\Icons\\Spell_Holy_BorrowedTime")
-					elseif elapsedTime < bronze then
-						remaining = bronze - elapsedTime
-						self.Bars:CreateBar(remaining, CHALLENGE_MODE_MEDAL1, "Interface\\Icons\\Spell_Holy_BorrowedTime")
-					end
-				end
+				end--]]
 			end
 			fireEvent("pull", mod, delay, synced, startHp)
 			self:FlashClientIcon()
@@ -5551,6 +5511,7 @@ do
 				end
 				--show speed timer
 				if self.Options.AlwaysShowSpeedKillTimer and mod.stats and not mod.ignoreBestkill then
+					--TODO, add code here to only pull best kull for CURRENT mythic+ rank
 					local bestTime = mod.stats[statVarTable[savedDifficulty].."BestTime"]
 					if bestTime and bestTime > 0 then
 						local speedTimer = mod:NewTimer(bestTime, DBM_SPEED_KILL_TIMER_TEXT, "Interface\\Icons\\Spell_Holy_BorrowedTime", nil, false)
@@ -5784,10 +5745,8 @@ do
 							self:AddMsg(DBM_CORE_SCENARIO_ENDED_AT_LONG:format(difficultyText..name, strFromTime(thisTime), totalPulls - totalKills))
 						else
 							self:AddMsg(DBM_CORE_COMBAT_ENDED_AT_LONG:format(difficultyText..name, wipeHP, strFromTime(thisTime), totalPulls - totalKills))
-							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 then
-								if InGuildParty() then--Guild Group
-									SendAddonMessage("D4", "GCE\t"..modId.."\t3\t1\t"..strFromTime(thisTime).."\t"..difficultyIndex.."\t"..wipeHP, "GUILD")
-								end
+							if (difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16) and InGuildParty() then--Maybe add mythic plus/CM?
+								SendAddonMessage("D4", "GCE\t"..modId.."\t3\t1\t"..strFromTime(thisTime).."\t"..difficultyIndex.."\t"..wipeHP, "GUILD")
 							end
 						end
 					end
@@ -5831,7 +5790,21 @@ do
 					if bestTime and bestTime > 0 and bestTime < 1.5 then
 						mod.stats[statVarTable[savedDifficulty].."BestTime"] = thisTime
 					else
-						mod.stats[statVarTable[savedDifficulty].."BestTime"] = mmin(bestTime or mhuge, thisTime)
+						if difficultyIndex == 8 then--Mythic+/Challenge Mode
+							--TODO, figure out how to get current mythic plus rank, compare to our best rank.
+							local currentMPRank = 0--0 is temp, until know api to call to get actual rank
+							local bestMPRank = mod.stats.challengeBestRank or 0
+							if mod.stats.challengeBestRank > currentMPRank then--Don't save stats at all
+								--DO nothing
+							elseif mod.stats.challengeBestRank < currentMPRank then--Update best time and best rank, even if best time is lower (for a lower rank)
+								mod.stats.challengeBestRank = currentMPRank--Update best rank
+								mod.stats[statVarTable[savedDifficulty].."BestTime"] = thisTime--Write this time no matter what.
+							else--Best rank must match current rank, so update time normally
+								mod.stats[statVarTable[savedDifficulty].."BestTime"] = mmin(bestTime or mhuge, thisTime)
+							end
+						else
+							mod.stats[statVarTable[savedDifficulty].."BestTime"] = mmin(bestTime or mhuge, thisTime)
+						end
 					end
 				end
 				local totalKills = mod.stats[statVarTable[savedDifficulty].."Kills"]
@@ -5947,12 +5920,11 @@ do
 				if self.Options.HideObjectivesFrame and watchFrameRestore and not scenario then
 					ObjectiveTrackerFrame:Show()
 					watchFrameRestore = false
-					if difficultyIndex == 8 then
-						--Cancel any and all CM medal when unhiding objectives frame
+					--REFACTOR in LEGION
+					--[[if difficultyIndex == 8 then
 						self.Bars:CancelBar(CHALLENGE_MODE_MEDAL1)
-						self.Bars:CancelBar(CHALLENGE_MODE_MEDAL2)
-						self.Bars:CancelBar(CHALLENGE_MODE_MEDAL3)
-					end
+					end--]]
+					--REFACTOR in LEGION
 				end
 				if tooltipsHidden then
 					--Better or cleaner way?
@@ -6080,14 +6052,9 @@ do
 end
 
 function DBM:SetCurrentSpecInfo()
-	if gladStance and UnitBuff("player", gladStance) then 
-		currentSpecGroup = 3 -- give 3rd spec option only for glad stance.
-		currentSpecID = 74 -- temp id for glad warrior, bliz not uses it
-	else
-		currentSpecGroup = GetActiveSpecGroup()
-		currentSpecID, currentSpecName = GetSpecializationInfo(GetSpecialization() or 1)--give temp first spec id for non-specialization char. no one should use dbm with no specialization, below level 10, should not need dbm.
-		currentSpecID = tonumber(currentSpecID)
-	end
+	currentSpecGroup = GetActiveSpecGroup()
+	currentSpecID, currentSpecName = GetSpecializationInfo(GetSpecialization() or 1)--give temp first spec id for non-specialization char. no one should use dbm with no specialization, below level 10, should not need dbm.
+	currentSpecID = tonumber(currentSpecID)
 end
 
 function DBM:GetCurrentInstanceDifficulty()
@@ -6751,15 +6718,8 @@ function DBM:RoleCheck(ignoreLoot)
 	local specID = GetLootSpecialization()
 	local _, _, _, _, _, lootrole = GetSpecializationInfoByID(specID)
 	if not InCombatLockdown() and ((IsPartyLFG() and (difficultyIndex == 14 or difficultyIndex == 15)) or not IsPartyLFG()) then
-		local tempRole--Use temp role because we still want Role to be "tank" for loot check comparison at bottom (gladiators still use tank gear)
-		if gladStance and role == "TANK" and UnitBuff("player", gladStance) then--Special handling for gladiator stance
-			currentSpecGroup = 3 -- give 3rd spec option only for glad stance.
-			currentSpecID = 74 -- temp id for glad warrior, bliz not uses it
-			tempRole = "DAMAGER"
-		end
-		local whatToCheck = tempRole or role
-		if UnitGroupRolesAssigned("player") ~= whatToCheck then
-			UnitSetRole("player", whatToCheck)
+		if UnitGroupRolesAssigned("player") ~= role then
+			UnitSetRole("player", role)
 		end
 	end
 	--Loot reminder even if spec isn't known or we are in LFR where we have a valid for role without us being ones that set us.
@@ -7634,7 +7594,7 @@ do
 		["RaidCooldown"] = true,
 		["RemovePoison"] = true,
 		["RemoveDisease"] = true,
-		["RemoveEnrage"] = true,
+		["RemoveEnrage"] = true,--Depricated, no one can remove enrage anymore
 		["RemoveCurse"] = true,
 		["MagicDispeller"] = true--Buffs on targets, not debuffs on players
 		["HasInterrupt"] = true,--Has an interrupt that is 24 seconds or less CD.
@@ -7647,8 +7607,6 @@ do
 			["RangedDps"] = true,
 			["ManaUser"] = true,
 			["SpellCaster"] = true,
-			["RaidCooldown"] = true,--Amplify Magic
-			["RemoveCurse"] = true,
 			["MagicDispeller"] = true,
 			["HasInterrupt"] = true,
 		},
@@ -7660,7 +7618,6 @@ do
 			["RaidCooldown"] = true,--Devotion Aura
 			["RemovePoison"] = true,
 			["RemoveDisease"] = true,
-			["HasInterrupt"] = true,--REMOVE IN LEGION?
 		},
 		[66] = {	--Protection Paladin
 			["Tank"] = true,
@@ -7669,7 +7626,7 @@ do
 			["Physical"] = true,
 			["RemovePoison"] = true,
 			["RemoveDisease"] = true,
-			["HasInterrupt"] = true,--REMOVE IN LEGION?
+			["HasInterrupt"] = true,
 		},
 		[70] = {	--Retribution Paladin
 			["Dps"] = true,
@@ -7695,20 +7652,12 @@ do
 			["Physical"] = true,
 			["HasInterrupt"] = true,
 		},
-		[74] = {	--Gladiator Warrior --REMOVE IN LEGION?
-			["Dps"] = true,
-			["Melee"] = true,
-			["MeleeDps"] = true,
-			["Physical"] = true,
-			["HasInterrupt"] = true,
-		},
 		[102] = {	--Balance Druid
 			["Dps"] = true,
 			["Ranged"] = true,
 			["RangedDps"] = true,
 			["ManaUser"] = true,
 			["SpellCaster"] = true,
-			["RemoveEnrage"] = true,
 			["RemoveCurse"] = true,
 			["RemovePoison"] = true,
 		},
@@ -7717,7 +7666,6 @@ do
 			["Melee"] = true,
 			["MeleeDps"] = true,
 			["Physical"] = true,
-			["RemoveEnrage"] = true,
 			["RemoveCurse"] = true,
 			["RemovePoison"] = true,
 			["HasInterrupt"] = true,
@@ -7736,7 +7684,6 @@ do
 			["ManaUser"] = true,
 			["SpellCaster"] = true,
 			["RaidCooldown"] = true,--Tranquility
-			["RemoveEnrage"] = true,
 			["RemoveCurse"] = true,
 			["RemovePoison"] = true,
 		},
@@ -7759,16 +7706,14 @@ do
 			["RangedDps"] = true,
 			["Physical"] = true,
 			["HasInterrupt"] = true,
-			["RemoveEnrage"] = true,--REMOVE IN LEGION
-			["MagicDispeller"] = true,--REMOVE IN LEGION
 		},
---[[		[255] = {	--Survival Hunter (Legion)
+		[255] = {	--Survival Hunter (Legion)
 			["Dps"] = true,
 			["Melee"] = true,
 			["MeleeDps"] = true,
 			["Physical"] = true,
 			["HasInterrupt"] = true,
-		},--]]
+		},
 		[256] = {	--Discipline Priest
 			["Healer"] = true,
 			["Ranged"] = true,
@@ -7790,9 +7735,7 @@ do
 			["Dps"] = true,
 			["Melee"] = true,
 			["MeleeDps"] = true,
-			["RaidCooldown"] = true,--Smoke Bomb
 			["Physical"] = true,
-			["RemoveEnrage"] = true,
 			["HasInterrupt"] = true,
 		},
 		[262] = {	--Elemental Shaman
@@ -7859,7 +7802,6 @@ do
 			["RaidCooldown"] = true,--Revival
 			["RemovePoison"] = true,
 			["RemoveDisease"] = true,
-			["HasInterrupt"] = true,--REMOVE IN LEGION
 		},
 		[577] = {	--Havok Demon Hunter
 			["Dps"] = true,
@@ -7880,7 +7822,6 @@ do
 	specRoleTable[72] = specRoleTable[71]--Fury Warrior
 	specRoleTable[252] = specRoleTable[251]--Unholy DK
 	specRoleTable[254] = specRoleTable[253]--Markmanship Hunter
-	specRoleTable[255] = specRoleTable[253]--Survival Hunter (REMOVE IN LEGION)
 	specRoleTable[257] = specRoleTable[256]--Holy Priest
 	specRoleTable[260] = specRoleTable[259]--Combat Rogue
 	specRoleTable[261] = specRoleTable[259]--Subtlety Rogue
@@ -7935,8 +7876,11 @@ do
 				return true
 			end
 			--Inspect throttle exists, so have to do it this way
-			if class == "DRUID" or class == "SHAMAN" or class == "PALADIN" or class == "MONK" then
-				if UnitPowerMax(uId) < 35000 then
+			if class == "DRUID" or class == "SHAMAN" or class == "PALADIN" or class == "MONK" or class == "HUNTER" then
+				local unitMaxPower = UnitPowerMax(uId)
+				--Mark and beast have 120 base focus, survival has 100 base focus. Not sure if this is best way to do it or if it breaks with talent/artifact weapon
+				--Elemental shaman have 100 unit power base, while enhancement have 150 power base, so a shaman with > 150 but less tha 35000 is the melee one
+				if (unitMaxPower < 101 and class == "HUNTER") or (unitMaxPower >= 150 and class == "SHAMAN" and unitMaxPower < 35000) or unitMaxPower < 35000 then
 					return true
 				end
 			end
