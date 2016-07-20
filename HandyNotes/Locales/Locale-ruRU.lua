@@ -6,7 +6,7 @@ local L = LibStub("AceLocale-3.0"):NewLocale("HandyNotes", "ruRU")
 if not L then return end
 
 L["Add Handy Note"] = "Добавить HandyNote"
-L["Add this location to TomTom waypoints"] = "Добавить это местоположение в точки назначения TomTom"
+L["Add this location to TomTom waypoints"] = "Добавить это местоположение как точку назначения TomTom"
 L[ [=[
 Alt+Right Click To Add a HandyNote]=] ] = "Alt+ПКМ, чтобы добавить HandyNote"
 L["|cFF00FF00Hint: |cffeda55fCtrl+Shift+LeftDrag|cFF00FF00 to move a note"] = "|cFF00FF00Подсказка: |cffeda55fCtrl+Shift+ЛКМ|cFF00FF00 для перемещения заметки"
@@ -24,7 +24,7 @@ L["Minimap Icon Alpha"] = "Прозрачность значка миникар�
 L["Minimap Icon Scale"] = "Масштаб значка миникарты"
 L["(No Title)"] = "(без названия)"
 L["Overall settings"] = "Общие настройки"
-L["Overall settings that affect every database"] = "Общие установки действуют на все базы данных"
+L["Overall settings that affect every database"] = "Общие настройки действуют на все базы данных"
 L["Plugin databases"] = "Базы данных плагинов"
 L["Plugins"] = "Плагины"
 L["Portal"] = "Портал"

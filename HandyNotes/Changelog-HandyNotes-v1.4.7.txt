@@ -1,0 +1,19 @@
+------------------------------------------------------------------------
+r267 | nevcairiel | 2016-07-19 06:54:45 +0000 (Tue, 19 Jul 2016) | 1 line
+Changed paths:
+   A /tags/v1.4.7 (from /trunk:266)
+
+Tag as v1.4.7
+------------------------------------------------------------------------
+r266 | nevcairiel | 2016-07-19 06:54:05 +0000 (Tue, 19 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/HandyNotes.toc
+
+Update TOC for 7.0
+------------------------------------------------------------------------
+r265 | nevcairiel | 2016-05-28 08:15:27 +0000 (Sat, 28 May 2016) | 1 line
+Changed paths:
+   M /trunk/HandyNotes_HandyNotes.lua
+
+Fix missing table creation
+------------------------------------------------------------------------
