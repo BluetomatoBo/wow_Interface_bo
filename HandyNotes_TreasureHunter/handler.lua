@@ -344,6 +344,26 @@ function HL:OnInitialize()
     self:RegisterEvent("LOOT_CLOSED")
 end
 
+function HL:OnEnable()
+    -- Temporary for the Legion pre-patch:
+    if select(5, GetAddOnInfo("HandyNotes_LegionTreasures")) == 'MISSING' then
+        local myfullname = GetAddOnMetadata(myname, "Title")
+        print("|cFF33FF99".. myfullname .. "|r: During the Legion pre-patch, the |cffA330C9Demon Hunter|r starting zone treasures will be included in this addon. Go get |cFF33FF99HandyNotes_LegionTreasures|r on curse.com or wowace.com for all the new Legion zones.")
+
+        ns.points["MardumtheShatteredAbyss"] = {
+            [34857020] = {quest=39970, item=129210, label="Small Treasure Chest"},
+            [45017785] = {quest=39971, item=129192, label="Small Treasure Chest"},
+            [41763761] = {quest=40759, item=129196, label="Small Treasure Chest"},
+            [51135079] = {quest=40743, item=129210, label="Small Treasure Chest"},
+            [76243899] = {quest=40338, item=129210, label="Small Treasure Chest"},
+            [82075043] = {quest=40820, item=129196, label="Small Treasure Chest"},
+            [78755047] = {quest=40274, item=129210, label="Small Treasure Chest"},
+            [73494892] = {quest=39975, item=129195, label="Small Treasure Chest"},
+            [42194916] = {quest=40223, item=129210, label="Small Treasure Chest"},
+        }
+    end
+end
+
 function HL:Refresh()
     self:SendMessage("HandyNotes_NotifyUpdate", myname:gsub("HandyNotes_", ""))
 end

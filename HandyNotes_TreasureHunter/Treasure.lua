@@ -149,6 +149,10 @@ ns.points = {
         [67205600]={ quest=36711, npc=82746, follower=209, note="Rebuild his fishing rod by gathering the pieces @ 38.4,49.3, 65.8,61.1, 85.4,38.7", }, -- Abu'gar
         -- pepe!
         [80105040]={ quest=39265, item=127865, achievement=10053, }, -- Viking Pepe
+        -- Voidtalon
+        [57302670]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [45903140]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [40504750]={ quest=37864, item=121815, note="Occasionally spawning portal", },
     },
     --[[
     -- TODO: need the name
@@ -247,6 +251,13 @@ ns.points = {
         [68208480]={ quest=37410, currency=823, npc=85568, }, -- Avalanche
         -- followers
         [42804040]={ quest=35614, follower=179, npc=74741, faction="Alliance", note="Do the crystal defense event here to get him", }, -- Artificer Romuul
+        -- Voidtalon
+        [49607160]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [43207100]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [50907250]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [41907570]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [48706990]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [46607000]={ quest=37864, item=121815, note="Occasionally spawning portal", },
     },
     ["BloodthornCave"] = {
         [55544974]={ quest=33572, item=113373, note="Rotting Basket", level=15, },
@@ -345,6 +356,11 @@ ns.points = {
         [39602800]={ quest=34733, follower=32, note="Rescue Dagg from the other cage first, then find him outside your garrison", }, -- Dagg
         [68001900]={ quest=34464, follower=190, note="Mysterious Boots; collect all the Mysterious items across Draenor", }, -- Archmage Vargoth
         [65906080]={ quest=34733, follower=32, note="Rescue Dagg from the cage, then go to his other location", }, -- Dagg
+        -- Voidtalon
+        [51001990]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [52301830]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [53841721]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [47702750]={ quest=37864, item=121815, note="Occasionally spawning portal", },
     },
     ["BladespireFortress"] = {
         [44806480]={ quest=35570, label="Ogre Booty", note="Gold", level=1, },
@@ -428,6 +444,11 @@ ns.points = {
         [42809090]={ quest=34279, npc=78030, follower=189, note="Follow the path up and fight him", }, -- Blook
         -- pepe!
         [47504130]={ quest=39267, item=127867, achievement=10053, }, -- Ninja Pepe
+        -- Voidtalon
+        [51603880]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [54004500]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [56004000]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [43203420]={ quest=37864, item=121815, note="Occasionally spawning portal", },
     },
     ["Talador"] = {
         -- treasures
@@ -520,6 +541,11 @@ ns.points = {
         [56802600]={ quest=36522, follower=208, note="Complete his quest", }, -- Ahm
         -- pepe!
         [51006330]={ quest=39266, item=127869, achievement=10053, }, -- Knight Pepe
+        -- Voidtalon
+        [47004800]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [39705540]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [51904120]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [46205260]={ quest=37864, item=121815, note="Occasionally spawning portal", },
     },
     ["TombofSouls"] = {
         [67602320]={ quest=34671, npc=79543, item=112370, }, -- Shirzir
@@ -617,6 +643,11 @@ ns.points = {
         [55306850]={ quest=37168, follower=219, note="Follow the trail up the hill to 64.9,65.4, find him in the cave", }, -- Leorajh
         -- pepe!
         [54108360]={ quest=39268, item=127870, achievement=10053, }, -- Pirate Pepe
+        -- Voidtalon
+        [47002010]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [50400610]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [60801120]={ quest=37864, item=121815, note="Occasionally spawning portal", },
+        [36501820]={ quest=37864, item=121815, note="Occasionally spawning portal", },
     },
     -- Garrisons!
     ["garrisonsmvalliance_tier1"] = {

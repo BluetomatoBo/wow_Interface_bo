@@ -1,4 +1,4 @@
-## Interface: 60200
+## Interface: 70000
 ## Title: HandyNotes_TreasureHunter
 ## Notes: Where the Treasure Hunter objects are in Draenor
 ## Author: Kemayo
@@ -8,7 +8,7 @@
 ## X-eMail: kemayo @ gmail DOT com
 ## SavedVariables: HandyNotes_TreasureHunterDB
 ## RequiredDeps: HandyNotes
-## X-Curse-Packaged-Version: v11
+## X-Curse-Packaged-Version: v12
 ## X-Curse-Project-Name: HandyNotes_TreasureHunter
 ## X-Curse-Project-ID: handynotes_treasurehunter
 ## X-Curse-Repository-ID: wow/handynotes_treasurehunter/mainline
