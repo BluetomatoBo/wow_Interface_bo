@@ -1458,7 +1458,6 @@ end
 -- Create map of power types that are handled uniquely.
 uniquePowerTypes[powerTypes["HOLY_POWER"]] = true
 uniquePowerTypes[powerTypes["CHI"]] = true
-uniquePowerTypes[powerTypes["SHADOW_ORBS"]] = true
 
 -- Create damage type and damage color profile maps.
 CreateDamageMaps()
