@@ -235,6 +235,7 @@ L["Attempt to lock the left and right chat frame positions. Disabling this optio
 L["Below Chat"] = '對話框下方'
 L["Chat EditBox Position"] = '對話輸入框位置'
 L["Chat History"] = "對話記錄"
+L["Class Color Mentions"] = true;
 L["Copy Text"] = "複製文字"
 L["Display LFG Icons in group chat."] = true;
 L["Display the hyperlink tooltip while hovering over a hyperlink."] = "滑鼠懸停在超鏈接上時顯示鏈接提示框."
@@ -286,6 +287,7 @@ L["Toggle showing of the left and right chat panels."] = "顯示/隱藏左、右
 L["Toggle the chat tab panel backdrop."] = "顯示/隱藏對話框架標籤面板背景."
 L["URL Links"] = "網址連結"
 L["Use Alt Key"] = true;
+L["Use class color for the names of players when they are mentioned."] = true;
 L["When opening the Chat Editbox to type a message having this option set means it will retain the last channel you spoke in. If this option is turned off opening the Chat Editbox should always default to the SAY channel."] = "打開此選項將會保存你的輸入框為上一次輸入的頻道, 關閉此選項輸入框將始終保持在說的頻道."
 L["Whisper Alert"] = "密語警報"
 L[ [=[Specify a filename located inside the World of Warcraft directory. Textures folder that you wish to have set as a panel background.
@@ -363,7 +365,7 @@ L["Sends your current profile to your target."] = "發送你的配置文件到�
 L["Sends your filter settings to your target."] = "發送你的過濾器配置到當前目標."
 L["Share Current Profile"] = "分享當前的配置文件"
 L["Share Filters"] = "分享過濾器配置"
-L["This feature will allow you to transfer, settings to other characters."] = "此功能將使你設置轉移給其他角色."
+L["This feature will allow you to transfer settings to other characters."] = "此功能將使你設置轉移給其他角色."
 L["You must be targeting a player."] = "你必須以一名玩家為目標."
 
 --General
