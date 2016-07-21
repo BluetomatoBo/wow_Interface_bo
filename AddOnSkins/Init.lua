@@ -16,7 +16,9 @@ AddOn.MyRealm = GetRealmName()
 AddOn.Noop = function() end
 AddOn.TexCoords = {.08, .92, .08, .92}
 AddOn.UIScale = UIParent:GetScale()
-AddOn.Resolution = GetCVar("gxResolution")
+
+AddOn.Resolution = GetCVar("gxWindowedResolution")
+
 AddOn.ScreenHeight = tonumber(strmatch(AddOn.Resolution, "%d+x(%d+)"))
 AddOn.ScreenWidth = tonumber(strmatch(AddOn.Resolution, "(%d+)x+%d"))
 AddOn.Mult = 1

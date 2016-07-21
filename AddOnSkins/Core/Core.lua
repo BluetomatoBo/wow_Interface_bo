@@ -197,7 +197,7 @@ function AS:StartSkinning(event)
 		ES = ElvUI[1]:GetModule('EnhancedShadows', true)
 	end
 
-	AS.Mult = 768/string.match(GetCVar("gxResolution"), "%d+x(%d+)")/UIParent:GetScale()
+	AS.Mult = 768/AS.ScreenHeight/UIParent:GetScale()
 	AS.ParchmentEnabled = AS:CheckOption('Parchment')
 
 	if not AS:CheckAddOn('ElvUI') then
@@ -228,7 +228,9 @@ function AS:StartSkinning(event)
 	
 	AS:EmbedInit()
 
-	AS:Print(format("Version: |cFF1784D1%s|r Loaded!", AS.Version))
+	if AS:CheckOption('LoginMsg') then 
+		AS:Print(format("Version: |cFF1784D1%s|r Loaded!", AS.Version))
+	end
 	AS:UnregisterEvent(event)
 end
 

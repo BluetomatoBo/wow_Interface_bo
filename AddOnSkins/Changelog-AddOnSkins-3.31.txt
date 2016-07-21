@@ -1,0 +1,31 @@
+tag 3.31
+974c4c80f5953affb31e4e0a50bc769d8f6163c3
+Azilroka <darktemplar9900@yahoo.com>
+2016-07-19 18:53:35 -0500
+
+
+
+--------------------
+
+Azilroka:
+	- 3.31 Legion Pre-Patch
+Michael Tindal:
+	- Fix the parchment remover hooks for quest info.
+Paweł Jastrzębski:
+	- Added REPorter skin
+Michael Tindal:
+	- Fix lua error in parchment remover.
+	- Adding support for ElvUI Shadow & Light faction icons with the MyRolePlay tooltip.
+	- Update the BigWigs half-bar skin so it looks like the DBM skin.
+Azilroka:
+	- Nothing Important.
+	- More Beta
+	- Right and Left Chat toggle's are not in ElvUI Beta atm
+	- Fix Logic
+	- Beta Compatability
+Merathilis:
+	- miss the default for the LoginMsg
+	- Add an option to enable the Login Message
+Azilroka:
+	- Issue #299
+	- Issue #301

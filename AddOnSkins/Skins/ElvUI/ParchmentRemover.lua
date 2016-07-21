@@ -178,6 +178,23 @@ function AS:ParchmentRemover(event, addon)
 				end
 			end
 
+			if (QuestInfoRewardsFrame.spellHeaderPool) then
+				for _, pool in pairs({"followerRewardPool", "spellRewardPool"}) do
+					QuestInfoRewardsFrame[pool]._acquire = QuestInfoRewardsFrame[pool].Acquire;
+					QuestInfoRewardsFrame[pool].Acquire = function(self)
+						local frame = QuestInfoRewardsFrame[pool]:_acquire();
+						frame.Name:SetTextColor(1, 1, 1);
+						return frame;
+					end
+				end
+				QuestInfoRewardsFrame.spellHeaderPool._acquire = QuestInfoRewardsFrame.spellHeaderPool.Acquire;
+				QuestInfoRewardsFrame.spellHeaderPool.Acquire = function(self)
+					local frame = self:_acquire();
+					frame:SetTextColor(1, 1, 1);
+					return frame;
+				end
+			end
+
 			hooksecurefunc('QuestInfo_Display', function(template, parentFrame, acceptButton, material)
 				QuestInfoTitleHeader:SetTextColor(1, 1, 0)
 				QuestInfoDescriptionHeader:SetTextColor(1, 1, 0)
@@ -189,7 +206,9 @@ function AS:ParchmentRemover(event, addon)
 				QuestInfoRewardText:SetTextColor(1, 1, 1)
 				QuestInfoRewardsFrame.ItemChooseText:SetTextColor(1, 1, 1);
 				QuestInfoRewardsFrame.ItemReceiveText:SetTextColor(1, 1, 1);
-				QuestInfoRewardsFrame.SpellLearnText:SetTextColor(1, 1, 1);
+				if (QuestInfoRewardsFrame.SpellLearnText) then
+					QuestInfoRewardsFrame.SpellLearnText:SetTextColor(1, 1, 1);
+				end
 				QuestInfoRewardsFrame.PlayerTitleText:SetTextColor(1, 1, 1);
 				QuestInfoRewardsFrame.XPFrame.ReceiveText:SetTextColor(1, 1, 1);
 				local numObjectives = GetNumQuestLeaderBoards()

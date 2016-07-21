@@ -32,6 +32,7 @@ local Defaults = {
 	['SkinTemplate'] = 'Transparent',
 	['HideChatFrame'] = 'NONE',
 	['SkinDebug'] = false,
+	['LoginMsg'] = true,
 }
 
 AddOnSkinsOptions = CopyTable(Defaults)
@@ -330,6 +331,11 @@ function AS:GetOptions()
 						type = "toggle",
 						name = ASL["Enable Skin Debugging"],
 						order = 3,
+					},
+					LoginMsg = {
+						type = "toggle",
+						name = ASL["Enable the Login Message"],
+						order = 4,
 					},
 				},
 			},
