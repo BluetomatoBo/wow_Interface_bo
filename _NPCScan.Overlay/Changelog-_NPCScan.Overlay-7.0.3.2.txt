@@ -1,0 +1,11 @@
+tag 7.0.3.2
+eb47d19b04f4a0c75ab77b568a762be164dd6b1d
+James D. Callahan III <jcallahan@curse.com>
+2016-07-20 20:15:58 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Bump ToC Interface version to 70000

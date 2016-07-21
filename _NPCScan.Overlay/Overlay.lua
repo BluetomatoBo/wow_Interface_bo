@@ -83,7 +83,7 @@ function private:TextureCreate(Layer, R, G, B, A)
 		texture:SetDrawLayer(Layer)
 		texture:ClearAllPoints()
 		texture:Show()
-		
+
 	else
 		texture = self:CreateTexture("ScannerOverlayMobTexture" .. TextureCount, Layer)
 	end
@@ -681,7 +681,7 @@ do
 			end
 		end
 
-	--Updates Options table to add any missing 
+	--Updates Options table to add any missing
 		for var, value in pairs(OptionsDefault) do
 			private.Options[var] = private.Options[var] == nil and value or private.Options[var]
 		end
@@ -743,12 +743,14 @@ function private.FlashRoute(npcID)
 
 				local fade1 = flasher:CreateAnimation("Alpha")
 				fade1:SetDuration(0.25)
-				fade1:SetChange(1)
+				fade1:SetFromAlpha(0)
+				fade1:SetToAlpha(1)
 				fade1:SetOrder(1)
 
 				local fade2 = flasher:CreateAnimation("Alpha")
 				fade2:SetDuration(0.25)
-				fade2:SetChange(-1)
+				fade2:SetFromAlpha(1)
+				fade2:SetToAlpha(0)
 				fade2:SetOrder(2)
 
 				flasher:SetLooping("BOUNCE")
@@ -845,7 +847,7 @@ function private.SetAutoHideDelay(self, target, delay)
 
 	if not timerFrame then
 		timerFrame = AcquireFrame(self)
-		
+
 		self.autoHideTimerFrame = timerFrame
 	end
 	timerFrame:SetScript("OnUpdate", AutoHideTimerFrame_OnUpdate)
