@@ -13,6 +13,7 @@
       </OnShow>
     </Scripts>
   </Frame>
+
   <!-- Template for a single option "box" containing a checkbox -->
   <Frame name="Atr_SingleOptionTemplate" virtual="true">
     <Size>
@@ -31,8 +32,8 @@
       </Anchor>
     </Anchors>
     <Scripts>
-      <OnEnter>Atr_ShowOptionTooltip(self);  </OnEnter>
-      <OnLeave>GameTooltip:Hide();   </OnLeave>
+      <OnEnter>Atr_ShowOptionTooltip( self )</OnEnter>
+      <OnLeave>GameTooltip:Hide()</OnLeave>
     </Scripts>
     <Frames>
       <CheckButton inherits="UICheckButtonTemplate" name="$parent_CB">
@@ -57,13 +58,14 @@
           </Layer>
         </Layers>
         <Scripts>
-          <OnEnter>Atr_ShowOptionTooltip(self:GetParent());  </OnEnter>
-          <OnLeave>GameTooltip:Hide();   </OnLeave>
-          <OnClick>Atr_Option_OnClick (self);  </OnClick>
+          <OnEnter>Atr_ShowOptionTooltip( self:GetParent() )</OnEnter>
+          <OnLeave>GameTooltip:Hide()</OnLeave>
+          <OnClick>Atr_Option_OnClick( self )</OnClick>
         </Scripts>
       </CheckButton>
     </Frames>
   </Frame>
+
   <!-- Template for auctionator options panels -->
   <Frame name="Atr_OptionsPanelTemplate" virtual="true">
     <Backdrop bgFile="Interface\CharacterFrame\UI-Party-Background" tile="true">
@@ -298,12 +300,14 @@
       </Frame>
     </Frames>
   </Frame>
+
   <!-- The Tooltips Options screen -->
   <Frame enableMouse="true" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_TooltipsOptionsFrame" parent="UIParent">
     <Scripts>
       <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT("Tooltips"));
       </OnLoad>
     </Scripts>
+
     <Layers>
       <Layer level="BACKGROUND">
         <FontString inherits="GameFontNormal" text="When SHIFT is down show">
@@ -322,6 +326,7 @@
         </FontString>
       </Layer>
     </Layers>
+
     <Frames>
       <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsVendorOpt">
         <Anchors>
@@ -335,6 +340,7 @@
           <OnLoad>ATR_tipsVendorOpt_CB_Text:SetText (gAtr_ZT("Show vendor prices in tooltips"));  </OnLoad>
         </Scripts>
       </Frame>
+
       <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsAuctionOpt">
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -347,6 +353,7 @@
           <OnLoad>ATR_tipsAuctionOpt_CB_Text:SetText (gAtr_ZT("Show auction house prices in tooltips"));  </OnLoad>
         </Scripts>
       </Frame>
+
       <Frame inherits="Atr_SingleOptionTemplate" name="ATR_tipsDisenchantOpt">
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -359,6 +366,7 @@
           <OnLoad>ATR_tipsDisenchantOpt_CB_Text:SetText (gAtr_ZT("Show disenchant prices in tooltips"));  </OnLoad>
         </Scripts>
       </Frame>
+
       <Frame inherits="UIDropDownMenuTemplate" name="Atr_tipsShiftDD">
         <Anchors>
           <Anchor point="TOPLEFT">
@@ -534,7 +542,7 @@
     </Frames>
   </Frame>
   <!-- The Sell Stacking screen -->
-  <Frame enableMouse="true" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_StackingOptionsFrame" parent="UIParent">
+  <Frame enableMouse="true" frameStrata="MEDIUM" hidden="true" inherits="Atr_OptionsPanelTemplate" name="Atr_StackingOptionsFrame" parent="InterfaceOptionsFrame">
     <Scripts>
       <OnLoad>Atr_LoadOptionsSubPanel (self, gAtr_ZT("Selling"), nil, gAtr_ZT("Configure how you typically like to sell the items listed below."));
       </OnLoad>
@@ -586,7 +594,7 @@
           </EdgeSize>
         </Backdrop>
       </Frame>
-      <Button inherits="Atr_SmallButtonTemplate" name="$parent_Edit" text="Edit">
+      <Button inherits="Atr_SmallButtonTemplate" name="$parent_Edit" parent="Atr_StackingOptionsFrame" text="Edit">
         <Size>
           <AbsDimension x="80" y="18"/>
         </Size>
@@ -601,7 +609,7 @@
           <OnClick>Atr_StackingList_Edit_OnClick()</OnClick>
         </Scripts>
       </Button>
-      <Button inherits="Atr_SmallButtonTemplate" name="$parent_New" text="New">
+      <Button inherits="Atr_SmallButtonTemplate" name="$parent_New" parent="Atr_StackingOptionsFrame" text="New">
         <Size>
           <AbsDimension x="80" y="18"/>
         </Size>
@@ -681,14 +689,14 @@
     </Scripts>
   </Button>
   <!-- Memorize Stacking screen -->
-  <Frame enableMouse="true" frameStrata="FULLSCREEN_DIALOG" hidden="true" name="Atr_MemorizeFrame" parent="Atr_StackingOptionsFrame" toplevel="true">
+  <Frame enableMouse="true" frameStrata="DIALOG" hidden="true" name="Atr_MemorizeFrame" parent="InterfaceOptionsFrame" toplevel="true">
     <Size>
       <AbsDimension x="430" y="250"/>
     </Size>
     <Anchors>
-      <Anchor point="TOPLEFT">
+      <Anchor point="CENTER">
         <Offset>
-          <AbsDimension x="-100" y="-30"/>
+          <AbsDimension x="10" y="50"/>
         </Offset>
       </Anchor>
     </Anchors>
