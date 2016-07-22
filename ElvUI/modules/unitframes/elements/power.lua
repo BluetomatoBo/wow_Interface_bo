@@ -49,6 +49,7 @@ end
 function UF:Configure_Power(frame)
 	local db = frame.db
 	local power = frame.Power
+	power.origParent = frame
 
 	if frame.USE_POWERBAR then
 		if not frame:IsElementEnabled('Power') then
@@ -205,7 +206,7 @@ end
 local tokens = { [0] = "MANA", "RAGE", "FOCUS", "ENERGY", "RUNIC_POWER" }
 function UF:PostUpdatePower(unit, min, max)
 	local pType, _, altR, altG, altB = UnitPowerType(unit)
-	local parent = self:GetParent()
+	local parent = self.origParent or self:GetParent()
 
 	if parent.isForced then
 		min = random(1, max)
@@ -223,5 +224,10 @@ function UF:PostUpdatePower(unit, min, max)
 	local db = parent.db
 	if db and db.power and db.power.hideonnpc then
 		UF:PostNamePosition(parent, unit)
+	end
+
+	--Force update to AdditionalPower in order to reposition text if necessary
+	if parent:IsElementEnabled("AdditionalPower") then
+		parent.AdditionalPower:ForceUpdate()
 	end
 end

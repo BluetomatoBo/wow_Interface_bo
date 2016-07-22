@@ -278,7 +278,7 @@ local function GetUnitSettings(unit, name)
 						name = L["Icon Base Height"],
 						desc = L["Base Height for the Aura Icon"],
 						type = "range",
-						min = 6, max = 30, step = 1,
+						min = 6, max = 60, step = 1,
 						get = function(info) return E.db.nameplates.units[unit].buffs[ info[#info] ] end,
 						set = function(info, value) E.db.nameplates.units[unit].buffs[ info[#info] ] = value; NP:ConfigureAll() end,						
 					},										
@@ -355,7 +355,7 @@ local function GetUnitSettings(unit, name)
 						name = L["Icon Base Height"],
 						desc = L["Base Height for the Aura Icon"],
 						type = "range",
-						min = 6, max = 30, step = 1,
+						min = 6, max = 60, step = 1,
 						get = function(info) return E.db.nameplates.units[unit].debuffs[ info[#info] ] end,
 						set = function(info, value) E.db.nameplates.units[unit].debuffs[ info[#info] ] = value; NP:ConfigureAll() end,						
 					},							
@@ -529,6 +529,33 @@ E.Options.args.nameplate = {
 					name = L["StatusBar Texture"],
 					values = AceGUIWidgetLSMlists.statusbar,
 				},	
+				showEnemyCombat = {
+					order = 7,
+					type = "select",
+					name = L["Enemy Combat Toggle"],
+					desc = L["Control enemy nameplates toggling on or off when in combat."],
+					values = {
+						["DISABLED"] = L["Disabled"],
+						["TOGGLE_ON"] = L["Toggle On While In Combat"],
+						["TOGGLE_OFF"] = L["Toggle Off While In Combat"],
+					},
+					set = function(info, value) 
+						E.db.nameplates[ info[#info] ] = value; 
+						NP:PLAYER_REGEN_ENABLED()
+					end,
+				},
+				showFriendlyCombat = {
+					order = 7,
+					type = "select",
+					name = L["Friendly Combat Toggle"],
+					desc = L["Control friendly nameplates toggling on or off when in combat."],
+					values = {
+						["DISABLED"] = L["Disabled"],
+						["TOGGLE_ON"] = L["Toggle On While In Combat"],
+						["TOGGLE_OFF"] = L["Toggle Off While In Combat"],
+					},					
+					set = function(info, value) E.db.nameplates[ info[#info] ] = value; NP:PLAYER_REGEN_ENABLED() end,
+				},				
 				fontGroup = {
 					order = 100,
 					type = 'group',

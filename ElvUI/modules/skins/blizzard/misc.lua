@@ -17,6 +17,7 @@ local function LoadSkin()
 		"StaticPopup1",
 		"StaticPopup2",
 		"StaticPopup3",
+		"StaticPopup4",
 		"GameMenuFrame",
 		"InterfaceOptionsFrame",
 		"VideoOptionsFrame",
@@ -255,9 +256,6 @@ local function LoadSkin()
 		for i=1, 6 do
 			S:HandleCheckBox(_G["MovieRecordingOptionsFrameCheckButton"..i])
 		end
-
-		S:HandleCheckBox(iTunesRemoteOptionsFrameCheckButton7)
-		S:HandleCheckBox(iTunesRemoteOptionsFrameCheckButton8)
 
 		S:HandleCheckBox(MacKeyboardOptionsFrameCheckButton9)
 		S:HandleCheckBox(MacKeyboardOptionsFrameCheckButton10)
@@ -804,6 +802,7 @@ local function LoadSkin()
 		"Advanced_MaxFPSBKCheckBox",
 		"Advanced_UseUIScale",
 		"Advanced_ShowHDModels",
+		"Advanced_DesktopGamma",
 		--Network
 		"NetworkOptionsPanelAdvancedCombatLogging",
 		-- Audio
@@ -957,10 +956,14 @@ local function LoadSkin()
 		"Graphics_EnvironmentalDetailSlider",
 		"Graphics_GroundClutterSlider",
 		"RaidGraphics_Quality",
+		"RaidGraphics_EnvironmentalDetailSlider",
+		"RaidGraphics_GroundClutterSlider",
+		"RaidGraphics_ViewDistanceSlider",
 		"Advanced_UIScaleSlider",
 		"Advanced_MaxFPSSlider",
 		"Advanced_MaxFPSBKSlider",
 		"Advanced_RenderScaleSlider",
+		"Advanced_GammaSlider",
 		"AudioOptionsSoundPanelMasterVolume",
 		"AudioOptionsSoundPanelSoundVolume",
 		"AudioOptionsSoundPanelMusicVolume",
