@@ -19,8 +19,10 @@ local table = _G.table
 -------------------------------------------------------------------------------
 local FOLDER_NAME, private = ...
 
-local Dialog = _G.LibStub("LibDialog-1.0")
-local Toast = _G.LibStub("LibToast-1.0")
+local LibStub = _G.LibStub
+local Dialog = LibStub("LibDialog-1.0")
+local HereBeDragons = LibStub("HereBeDragons-1.0")
+local Toast = LibStub("LibToast-1.0")
 
 local L = private.L
 _G._NPCScan = private
@@ -844,6 +846,7 @@ function private.AntiSpam(time, id)
 end
 
 
+local OnFound
 do
 	local PetList = {}
 
@@ -864,39 +867,6 @@ do
 	end
 
 
-	-- @return True if the tamable mob is in its correct zone, else false with an optional reason string.
-	local function OnFoundTamable(npc_id, npc_name)
-		local tamable_zone_name = private.TAMABLE_ID_TO_MAP_NAME[npc_id]
-		local expected_zone_id = tamable_zone_name and private.ZONE_IDS[private.ZONE_NAME_TO_LABEL[tamable_zone_name]]
-		local current_zone_id = _G.GetCurrentMapAreaID()
-
-		_G.SetMapToCurrentZone()
-		local in_correct_zone = expected_zone_id == _G.GetCurrentMapAreaID()
-		local invalid_reason
-
-		if not in_correct_zone then
-			if _G.IsResting() then
-				PetList[npc_id] = npc_name -- Suppress error message until the player stops resting
-			else
-				-- GetMapNameByID returns nil for continent maps
-				local expected_zone_name = expected_zone_id and _G.GetMapNameByID(expected_zone_id) or nil
-				if not expected_zone_name then
-					_G.SetMapByID(expected_zone_id)
-
-					local map_continent = _G.GetCurrentMapContinent()
-					if map_continent >= 1 then
-						expected_zone_name = select(map_continent * 2, _G.GetMapContinents())
-					end
-				end
-				invalid_reason = L.FOUND_TAMABLE_WRONGZONE_FORMAT:format(npc_name, _G.GetRealZoneText(), expected_zone_name or _G.UNKNOWN, expected_zone_id)
-			end
-		end
-		_G.SetMapByID(current_zone_id)
-
-		return in_correct_zone, invalid_reason
-	end
-
-
 	local function GetScanSource(npc_id)
 		local custom_name = private.GlobalOptions.NPCs[npc_id]
 
@@ -912,45 +882,50 @@ do
 	end
 
 	-- Validates found mobs before showing alerts.
-	function private.OnFound(npcID, npcName)
-		local is_valid = true
-		local is_tamable = private.TAMABLE_ID_TO_NAME[npcID]
-		local invalid_reason
-
-		if is_tamable then
-			is_valid, invalid_reason = OnFoundTamable(npcID, npcName)
-		end
-
-		-- Checks to see if player is on flightpath, this will block possible cross realm alerts
+	function OnFound(npcID, npcName, sourceText)
 		if private.CharacterOptions.FlightSupress and _G.UnitOnTaxi("player") then
-			is_valid = false
 			_G.SetMapToCurrentZone()
 			_G.PlaySound("TellMessage", "master")
 
 			local x, y = _G.GetPlayerMapPosition("player")
-			invalid_reason = L.FOUND_UNIT_TAXI:format(npcName, x * 100, y * 100, _G.GetZoneText())
+			private.Print(L.FOUND_UNIT_TAXI:format(npcName, x * 100, y * 100, _G.GetZoneText()))
+
+			return
 		end
 
-		-- Checks to see if alert for mob has allready been displayed recently
-		is_valid = private.AntiSpam(private.ANTI_SPAM_DELAY, npcName)
+		local isTamable = private.TAMABLE_ID_TO_NAME[npcID] or false
+		if isTamable then
+			local currentZoneID = HereBeDragons:GetPlayerZone()
+			local tamableZoneName = private.TAMABLE_ID_TO_MAP_NAME[npcID]
+			local tamableZoneID = tamableZoneName and private.ZONE_IDS[private.ZONE_NAME_TO_LABEL[tamableZoneName]]
 
-		if is_valid then
-			local alert_text = L[is_tamable and "FOUND_TAMABLE_FORMAT" or "FOUND_FORMAT"]:format(npcName)
+			if not tamableZoneID == currentZoneID then
+				-- Suppress error message until the player stops resting
+				if _G.IsResting() then
+					PetList[npcID] = npcName
+					return
+				end
+
+				local expected_zone_name = tamableZoneID and _G.GetMapNameByID(tamableZoneID) or _G.UNKNOWN
+				private.Print(L.FOUND_TAMABLE_WRONGZONE_FORMAT:format(npcName, _G.GetRealZoneText(), expected_zone_name or _G.UNKNOWN, tamableZoneID))
+				return
+			end
+		end
+
+		if private.AntiSpam(private.ANTI_SPAM_DELAY, npcName) then
+			local alertText = ("%s %s"):format(L[isTamable and "FOUND_TAMABLE_FORMAT" or "FOUND_FORMAT"]:format(npcName), _G.PARENS_TEMPLATE:format(sourceText))
 
 			if private.CharacterOptions.ShowAlertAsToast then
-				Toast:Spawn("_NPCScanAlertToast", alert_text)
+				Toast:Spawn("_NPCScanAlertToast", alertText)
 			else
-				private.Print(alert_text, _G.GREEN_FONT_COLOR)
+				private.Print(alertText, _G.GREEN_FONT_COLOR)
 			end
+
 			private.Button:SetNPC(npcID, npcName, GetScanSource(npcID)) -- Sends added and found overlay messages
-		elseif invalid_reason then
-			private.Print(invalid_reason)
 		end
 	end
 
-
 	local criteria_updated_bucket
-
 
 	function EventFrame:CRITERIA_UPDATE()
 		criteria_updated_bucket = true
@@ -980,7 +955,7 @@ do
 		for npc_id in pairs(private.ScanIDs) do
 			local npc_name = private.NPCNameFromCache(npc_id)
 			if npc_name then
-				private.OnFound(npc_id, npc_name)
+				OnFound(npc_id, npc_name, _G.UNKNOWN)
 			end
 		end
 	end
@@ -1348,7 +1323,7 @@ function EventFrame:NAME_PLATE_UNIT_ADDED(eventName, nameplateUnitToken)
 
 	local unitID = UnitTokenToCreatureID(nameplateUnitToken)
 	if private.ScanIDs[unitID] and not _G._NPCScanOptions.IgnoreList.NPCs[unitID] then
-		private.OnFound(unitID, _G.UnitName(nameplateUnitToken))
+		OnFound(unitID, _G.UnitName(nameplateUnitToken), _G.UNIT_NAMEPLATES)
 	end
 end
 
@@ -1363,7 +1338,7 @@ function EventFrame:UPDATE_MOUSEOVER_UNIT()
 	local mouseoverID = UnitTokenToCreatureID("mouseover")
 	local targetID = UnitTokenToCreatureID("target")
 	if mouseoverID ~= targetID and private.ScanIDs[mouseoverID] and not _G._NPCScanOptions.IgnoreList.NPCs[mouseoverID] then
-		private.OnFound(mouseoverID, _G.UnitName("mouseover"))
+		OnFound(mouseoverID, _G.UnitName("mouseover"), _G.MOUSE_LABEL)
 	end
 end
 
@@ -1378,9 +1353,8 @@ target_button:Hide()
 target_button:SetAttribute("type", "macro")
 target_button:SetAttribute("macrotext", private.macrotext)
 target_button:RegisterEvent("PLAYER_ENTERING_WORLD")
-target_button:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-target_button:RegisterEvent("VARIABLES_LOADED")
 target_button:RegisterEvent("PLAYER_REGEN_ENABLED")
+target_button:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 target_button:SetScript("OnEvent", function(self, event_name, ...)
 	if event_name == "PLAYER_REGEN_ENABLED" then
 		-- Only needs to trigger after combat if a delay was set
@@ -1389,42 +1363,47 @@ target_button:SetScript("OnEvent", function(self, event_name, ...)
 		end
 		MacroDelay = false
 	end
+
 	private.GenerateTargetMacro()
 end)
 
-
-function private.GenerateTargetMacro(instanceid)
+function private.GenerateTargetMacro(instanceID)
 	if _G.InCombatLockdown() then
 		MacroDelay = true
 		return
 	end
 
-	_G.SetMapToCurrentZone()
-	local map_id = _G.GetCurrentMapAreaID()
-	local zone_name = _G.GetMapNameByID(map_id)
-	local continent_id = _G.GetCurrentMapContinent()
+	local mapID = HereBeDragons:GetPlayerZone()
+	if not mapID then
+		return
+	end
+
+	local zoneName = _G.GetMapNameByID(mapID)
+	local continentID = HereBeDragons:GetCZFromMapID(mapID)
 
 	private.macrotext = "/cleartarget"
 
-	-- Generate target macro with tracked mobs in zone
-	for npc_id, map_zone_name in pairs(private.NPC_ID_TO_MAP_NAME) do
-		if zone_name == map_zone_name and not _G._NPCScanOptions.IgnoreList.NPCs[npc_id] and private.ScanIDs[npc_id] then
-			private.macrotext = private.MACRO_FORMAT:format(private.macrotext, private.NPC_ID_TO_NAME[npc_id])
+	for npcID, mapZoneName in pairs(private.NPC_ID_TO_MAP_NAME) do
+		if zoneName == mapZoneName and not _G._NPCScanOptions.IgnoreList.NPCs[npcID] and private.ScanIDs[npcID] then
+			private.macrotext = private.MACRO_FORMAT:format(private.macrotext, private.NPC_ID_TO_NAME[npcID])
 		end
 	end
 
-	--Checks for custom mobs and then add them
 	if _G._NPCScanOptions.NPCs then
-		for npc_id, npc_name in pairs(_G._NPCScanOptions.NPCs) do
-			if not _G._NPCScanOptions.IgnoreList.NPCs[npc_id] and _G._NPCScanOptions.NPCWorldIDs[npc_id] == private.LOCALIZED_CONTINENT_NAMES[continent_id] then
-				private.macrotext = private.MACRO_FORMAT_CUSTOM_MOB:format(private.macrotext, npc_name)
+		for npcID, npcName in pairs(_G._NPCScanOptions.NPCs) do
+			if not _G._NPCScanOptions.IgnoreList.NPCs[npcID] then
+				local npcWorldID = _G._NPCScanOptions.NPCWorldIDs[npcID]
+
+				if not npcWorldID or npcWorldID == private.LOCALIZED_CONTINENT_NAMES[continentID] then
+					private.macrotext = private.MACRO_FORMAT_CUSTOM_MOB:format(private.macrotext, npcName)
+				end
 			end
 		end
 	end
 
 	--Add Zandalari Warscout & Warbringer due to them appearing in multiple zones but in only one in the data file.
 	--Ignore if not in Pandaria or on the Timeless Isle
-	if continent_id == private.CONTINENT_IDS.PANDARIA and map_id ~= private.ZONE_IDS.TIMELESS_ISLE then
+	if continentID == private.CONTINENT_IDS.PANDARIA and mapID ~= private.ZONE_IDS.TIMELESS_ISLE then
 		for index = 1, #private.MANUAL_PANDARIA_ADDITIONS do
 			if last_vignette_id ~= private.MANUAL_PANDARIA_ADDITIONS[index] then
 				private.macrotext = private.MACRO_FORMAT:format(private.macrotext, private.NPC_ID_TO_NAME[private.MANUAL_PANDARIA_ADDITIONS[index]])
@@ -1432,14 +1411,13 @@ function private.GenerateTargetMacro(instanceid)
 		end
 	end
 
-	if instanceid then
+	if instanceID then
 		private.macrotext = private.macrotext .. "\n/run _G._NPCScan.SetVignetteTarget()"
 	else
 		private.macrotext = private.macrotext .. "\n/run _G._NPCScan.CheckMacroTarget()"
 	end
 
 	target_button:SetAttribute("macrotext", private.macrotext)
-	return true
 end
 
 
@@ -1452,7 +1430,7 @@ function private.CheckMacroTarget()
 	local targetID = UnitTokenToCreatureID("target")
 
 	if private.ScanIDs[targetID] and not _G._NPCScanOptions.IgnoreList.NPCs[targetID] then
-		private.OnFound(targetID, _G.UnitName("target"))
+		OnFound(targetID, _G.UnitName("target"), _G.TARGET)
 
 		if _G.GetRaidTargetIndex("target") ~= private.CharacterOptions.TargetIcon and (not _G.IsInRaid() or (_G.UnitIsGroupAssistant("player") or _G.UnitIsGroupLeader("player"))) then
 			_G.SetRaidTarget("target", private.CharacterOptions.TargetIcon)

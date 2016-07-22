@@ -1,0 +1,11 @@
+tag 7.0.3.3-1
+cd694ac745a2fc44c9e9a7563ef112c282e37693
+James D. Callahan III <jcallahan@curse.com>
+2016-07-22 04:38:55 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Add HereBeDragons-1.0 to and remove LibNameplateRegistry-1.0 from OptionalDeps.
