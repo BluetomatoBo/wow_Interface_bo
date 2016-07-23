@@ -11,7 +11,7 @@
 	},
 	String = {
 		AutoExcludeFlyingMountsInNoFlyAreas = "Flugreittiere in Zonen, in denen diese nicht erlaubt sind, ausschließen",
-		AutoExcludeFlyingMountsInNoFlyAreas_Long = "Ist diese Option aktiviert, wird GoGoMount automatisch alle Flugreittiere aus der Zufallsliste entfernen, wenn angenommen wird, dass du hier nicht fliegen kannst. Dies ist im Grunde das gleiche, wie die Tastenzuweisung #2 von GoGoMount zu verwenden. Dies ist während des Levelns, in Schlachtfeldern usw. sinnvoll. Beachte, wenn deine Liste nur Flugreittiere enthält und du versuchst in einem Schlachtfeld ein Reittier zu benutzen, du gar nicht aufsteigen wirst.", -- Needs review
+		AutoExcludeFlyingMountsInNoFlyAreas_Long = "Ist diese Option aktiviert, wird GoGoMount automatisch alle Flugreittiere aus der Zufallsliste entfernen, wenn angenommen wird, dass du hier nicht fliegen kannst. Dies ist im Grunde das gleiche, wie die Tastenzuweisung #2 von GoGoMount zu verwenden. Dies ist während des Levelns, in Schlachtfeldern usw. sinnvoll. Beachte, dass du gar nicht aufsteigen wirst, wenn deine Liste nur Flugreittiere enthält und du versuchst in einem Schlachtfeld ein Reittier zu benutzen.", -- Needs review
 		AutomaticallyRemoveBuffs = "Zauber, die das Aufsitzen verhindern, automatisch entfernen",
 		AutoStartCrusaderAura = "Aura des Kreuzfahrers automatisch verwenden",
 		AutoStartCrusaderAura_Long = "Aktiviert automatisch die Aura des Kreuzfahrers, wenn GoGoMount zum Aufsteigen verwendet wird.",

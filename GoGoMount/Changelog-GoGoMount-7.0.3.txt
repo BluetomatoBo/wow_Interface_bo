@@ -1,0 +1,34 @@
+------------------------------------------------------------------------
+r588 | tiker | 2016-07-22 11:53:45 +0000 (Fri, 22 Jul 2016) | 1 line
+Changed paths:
+   A /tags/7.0.3 (from /trunk:587)
+
+Tagging as 7.0.3
+------------------------------------------------------------------------
+r587 | tiker | 2016-07-22 11:53:25 +0000 (Fri, 22 Jul 2016) | 6 lines
+Changed paths:
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+- Added support for "Bloodfang Widow"
+- Added support for "Steelbound Devourer"
+- Added support for "Ratstallion"
+- Added support for "Prestigious Bronze Courser"
+- Added support for "Long-Forgotten Hippogryph"
+- Removed testing flag
+------------------------------------------------------------------------
+r585 | tiker | 2016-07-19 15:07:18 +0000 (Tue, 19 Jul 2016) | 2 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+Updated SVN repository with 7.0.x changes now that the 7.0 pre-release patch updating the Warcraft client has gone live
+
+------------------------------------------------------------------------
+r584 | tiker | 2016-06-01 21:55:19 +0000 (Wed, 01 Jun 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added new mount "Great Northern Elderhorn"
+------------------------------------------------------------------------
