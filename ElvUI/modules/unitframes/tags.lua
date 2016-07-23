@@ -75,7 +75,7 @@ local DEAD = DEAD
 local PVP = PVP
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
--- GLOBALS: Hex
+-- GLOBALS: Hex, PowerBarColor
 
 ------------------------------------------------------------------------
 --	Tags
@@ -361,6 +361,16 @@ ElvUF.Tags.Methods['power:max'] = function(unit)
 	local max = UnitPowerMax(unit, UnitPowerType(unit))
 
 	return E:GetFormattedText('CURRENT', max, max)
+end
+
+ElvUF.Tags.Methods['manacolor'] = function(unit)
+	local altR, altG, altB = PowerBarColor["MANA"]
+	local color = ElvUF['colors'].power["MANA"]
+	if color then
+		return Hex(color[1], color[2], color[3])
+	else
+		return Hex(altR, altG, altB)
+	end
 end
 
 ElvUF.Tags.Events['mana:current'] = 'UNIT_POWER_FREQUENT UNIT_MAXPOWER'
@@ -929,4 +939,18 @@ ElvUF.Tags.Methods['classificationcolor'] = function(unit)
 	elseif(c == 'rareelite' or c == 'worldboss') then
 		return Hex(1, 0, 0) --Red
 	end
+end
+
+ElvUF.Tags.Events['guild'] = 'PLAYER_GUILD_UPDATE'
+ElvUF.Tags.Methods['guild'] = function(unit)
+	local guildName = GetGuildInfo(unit)
+
+	return guildName or ""
+end
+
+ElvUF.Tags.Events['guild:brackets'] = 'PLAYER_GUILD_UPDATE'
+ElvUF.Tags.Methods['guild:brackets'] = function(unit)
+	local guildName = GetGuildInfo(unit)
+
+	return guildName and format("<%s>", guildName) or ""
 end

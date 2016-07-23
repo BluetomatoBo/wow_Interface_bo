@@ -92,18 +92,15 @@ local function LoadSkin()
 		slot:SetFrameLevel(slot:GetFrameLevel() + 2)
 		slot:CreateBackdrop("Default")
 		slot.backdrop:SetAllPoints()
-	end
 
-	hooksecurefunc('InspectPaperDollItemSlotButton_Update', function(button)
-		local unit = InspectFrame.unit;
-		local quality = GetInventoryItemQuality(unit, button:GetID())
-		if quality and button.backdrop then
-			local r, g, b = GetItemQualityColor(quality)
-			button.backdrop:SetBackdropBorderColor(r, g ,b)
-		elseif button.backdrop then
-			button.backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
-		end
-	end)
+		hooksecurefunc(slot.IconBorder, 'SetVertexColor', function(self, r, g, b)
+			self:GetParent():SetBackdropBorderColor(r,g,b)
+			self:SetTexture("")
+		end)
+		hooksecurefunc(slot.IconBorder, 'Hide', function(self)
+			self:GetParent():SetBackdropBorderColor(unpack(E.media.bordercolor))
+		end)
+	end
 
 	InspectPVPFrame.BG:Kill()
 	InspectGuildFrameBG:Kill()
