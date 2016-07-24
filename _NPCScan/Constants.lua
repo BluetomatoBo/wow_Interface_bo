@@ -28,6 +28,7 @@ local CONTINENT_IDS = {
 	THE_MAELSTROM = 5,
 	PANDARIA = 6,
 	DRAENOR = 7,
+	BROKEN_ISLES = 8,
 }
 
 private.CONTINENT_IDS = CONTINENT_IDS
@@ -154,7 +155,6 @@ private.ZONE_IDS = {
 	GORGROND = 949,
 	NAGRAND = 950,
 	DRAENOR = 962,
-	TANAAN_JUNGLE2 = 970,
 	LUNARFALL = 971,
 	FROSTWALL = 976,
 	ASHRAN = 978,
@@ -181,6 +181,7 @@ private.ZONE_NAMES.NORTHREND = continentNames[CONTINENT_IDS.NORTHREND]
 private.ZONE_NAMES.THE_MAELSTROM = continentNames[CONTINENT_IDS.THE_MAELSTROM]
 private.ZONE_NAMES.PANDARIA = continentNames[CONTINENT_IDS.PANDARIA]
 private.ZONE_NAMES.DRAENOR = continentNames[CONTINENT_IDS.DRAENOR]
+private.ZONE_NAMES.BROKEN_ISLES = continentNames[CONTINENT_IDS.BROKEN_ISLES]
 
 local VIRTUAL_CONTINENTS = {
 	[CONTINENT_IDS.THE_MAELSTROM] = true
@@ -220,16 +221,16 @@ do
 		[private.ACHIEVEMENT_IDS.BLOODY_RARE]			= { WorldID = private.ZONE_NAMES.OUTLAND },
 		[private.ACHIEVEMENT_IDS.FROSTBITTEN]			= { WorldID = private.ZONE_NAMES.NORTHREND },
 		[private.ACHIEVEMENT_IDS.ONE_MANY_ARMY]			= { WorldID = private.ZONE_NAMES.PANDARIA },
-		[private.ACHIEVEMENT_IDS.GLORIOUS]				= { WorldID = private.ZONE_NAMES.PANDARIA },
-		[private.ACHIEVEMENT_IDS.CHAMPIONS_OF_LEI_SHEN]	= { WorldID = private.ZONE_NAMES.PANDARIA },
+		[private.ACHIEVEMENT_IDS.GLORIOUS]			= { WorldID = private.ZONE_NAMES.PANDARIA },
+		[private.ACHIEVEMENT_IDS.CHAMPIONS_OF_LEI_SHEN]         = { WorldID = private.ZONE_NAMES.PANDARIA },
 		[private.ACHIEVEMENT_IDS.TIMELESS_CHAMPION]		= { WorldID = private.ZONE_NAMES.PANDARIA },
 		[private.ACHIEVEMENT_IDS.GORGROND_MONSTER_HUNTER]	= { WorldID = private.ZONE_NAMES.DRAENOR },
 		[private.ACHIEVEMENT_IDS.HIGH_VALUE_TARGETS_ASHRAN]	= { WorldID = private.ZONE_NAMES.DRAENOR },
 		[private.ACHIEVEMENT_IDS.CUT_OFF_THE_HEAD] 		= { WorldID = private.ZONE_NAMES.DRAENOR },
-		[private.ACHIEVEMENT_IDS.HERALDS_OF_THE_LEGION]	= { WorldID = private.ZONE_NAMES.DRAENOR },
+		[private.ACHIEVEMENT_IDS.HERALDS_OF_THE_LEGION]         = { WorldID = private.ZONE_NAMES.DRAENOR },
 		[private.ACHIEVEMENT_IDS.FIGHT_THE_POWER]		= { WorldID = private.ZONE_NAMES.DRAENOR },
 		[private.ACHIEVEMENT_IDS.ANCIENT_NO_MORE]		= { WorldID = private.ZONE_NAMES.DRAENOR },
-		[private.ACHIEVEMENT_IDS.HELLBANE]				= { WorldID = private.ZONE_NAMES.DRAENOR },
+		[private.ACHIEVEMENT_IDS.HELLBANE]			= { WorldID = private.ZONE_NAMES.DRAENOR },
 		[private.ACHIEVEMENT_IDS.JUNGLE_STALKER]		= { WorldID = private.ZONE_NAMES.DRAENOR },
 	}
 
@@ -259,7 +260,8 @@ end -- do-block
 private.macrotext = "/cleartarget"
 private.MACRO_FORMAT = "%s\n/targetexact %s"
 private.MACRO_FORMAT_CUSTOM_MOB = "%s\n/target %s"
---Mobs that appear in more that one zone
+
+-- Mobs that appear in more that one zone
 private.MANUAL_PANDARIA_ADDITIONS = {
 	69768, -- Zandalari Warscout
 	69769, -- Zandalari Warbringer

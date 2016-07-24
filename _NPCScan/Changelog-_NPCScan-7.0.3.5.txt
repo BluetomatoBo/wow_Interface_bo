@@ -1,0 +1,17 @@
+tag 7.0.3.5
+de1388b5982667cf494af4fcaf07cb672eb7fa1a
+James D. Callahan III <jcallahan@curse.com>
+2016-07-23 14:53:12 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Added detection of new Legion vignetteID.
+	- Use HereBeDragons for grabbing the correct continent ID, instead of Broken Isles, during PLAYER_ENTERING_WORLD so detection will work again for Tanaan. Tightened up some logic for continent ID -1.
+	- Add Broken Isles.
+	- Formatting fixes.
+	- Remove TANAAN_JUNGLE2, whatever the hell that was supposed to be. Wasn't used anywhere.
+	- Remove all unnecessary Debug calls. Minor cleanup for VIGNETTE_ADDED.
+	- Corrected spelling for two method names - "avtivate" versus "activate".
