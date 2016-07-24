@@ -555,8 +555,10 @@ L["Targeted Nameplate"] = true;
 L["Threat"] = "Menace"
 L["Toggle Off While In Combat"] = true;
 L["Toggle On While In Combat"] = true;
+L["Use Class Color"] = true;
 L["Use Tanked Color when a nameplate is being effectively tanked by another tank."] = true;
 L["Use Target Scale"] = true;
+L["Use Threat Color"] = true;
 
 --Profiles Export/Import
 L["Choose Export Format"] = "Choisissez le format d'exportation";
@@ -637,6 +639,7 @@ L["Taxi Frame"] = "Trajets aériens"
 L["Time Manager"] = "Chronomètre"
 L["Trade Frame"] = "Fenêtre d'échange"
 L["TradeSkill Frame"] = "Métiers"
+L["Trainer Frame"] = "Entraîneur"
 L["Transmogrify Frame"] = "Fenêtre de Transmogrification"
 L["Void Storage"] = "Chambre du vide"
 L["World Map"] = "Carte du monde"

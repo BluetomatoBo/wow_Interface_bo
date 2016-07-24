@@ -304,19 +304,19 @@ local function GetUnitSettings(unit, name)
 								name = L["Maximum Duration"],
 								min = 5, max = 3000, step = 1,
 							},
-							filter = {
-								order = 4,
-								type = "select",
-								name = L["Filter"],
-								values = function()
-									local filters = {}
-									filters[''] = NONE
-									for filter in pairs(E.global.unitframe['aurafilters']) do
-										filters[filter] = filter
-									end
-									return filters
-								end,
-							},
+							-- filter = {
+								-- order = 4,
+								-- type = "select",
+								-- name = L["Filter"],
+								-- values = function()
+									-- local filters = {}
+									-- filters[''] = NONE
+									-- for filter in pairs(E.global.unitframe['aurafilters']) do
+										-- filters[filter] = filter
+									-- end
+									-- return filters
+								-- end,
+							-- },
 						},
 					},
 				},
@@ -381,19 +381,19 @@ local function GetUnitSettings(unit, name)
 								name = L["Maximum Duration"],
 								min = 5, max = 3000, step = 1,
 							},
-							filter = {
-								order = 4,
-								type = "select",
-								name = L["Filter"],
-								values = function()
-									local filters = {}
-									filters[''] = NONE
-									for filter in pairs(E.global.unitframe['aurafilters']) do
-										filters[filter] = filter
-									end
-									return filters
-								end,
-							},
+							-- filter = {
+								-- order = 4,
+								-- type = "select",
+								-- name = L["Filter"],
+								-- values = function()
+									-- local filters = {}
+									-- filters[''] = NONE
+									-- for filter in pairs(E.global.unitframe['aurafilters']) do
+										-- filters[filter] = filter
+									-- end
+									-- return filters
+								-- end,
+							-- },
 						},
 					},
 				},
@@ -434,12 +434,23 @@ local function GetUnitSettings(unit, name)
 				set = function(info, value) E.db.nameplates.units.ENEMY_PLAYER[ info[#info] ] = value; NP:PLAYER_ENTERING_WORLD(); NP:ConfigureAll() end,
 			}
 		end
+		group.args.healthGroup.args.useClassColor = {
+			order = 4,
+			type = "toggle",
+			name = L["Use Class Color"],
+		}
 	elseif unit == "ENEMY_NPC" then
 		group.args.minors = {
 			order = 0,
 			name = L["Display Minor Units"],
 			desc = OPTION_TOOLTIP_UNIT_NAMEPLATES_SHOW_ENEMY_MINUS,
 			type = "toggle",
+		}
+	elseif unit == "HEALER" then
+		group.args.healthGroup.args.useClassColor = {
+			order = 4,
+			type = "toggle",
+			name = L["Use Class Color"],
 		}
 	end
 
@@ -634,48 +645,60 @@ E.Options.args.nameplate = {
 						t.r, t.g, t.b = r, g, b
 					end,
 					args = {
+						useThreatColor = {
+							order = 1,
+							type = "toggle",
+							name = L["Use Threat Color"],
+							get = function(info) return E.db.nameplates.threat.useThreatColor end,
+							set = function(info, value) E.db.nameplates.threat.useThreatColor = value; end,
+						},
 						goodColor = {
 							type = "color",
-							order = 1,
+							order = 2,
 							name = L["Good Color"],
 							hasAlpha = false,
+							disabled = function() return not E.db.nameplates.threat.useThreatColor end,
 						},
 						badColor = {
 							name = L["Bad Color"],
-							order = 2,
+							order = 3,
 							type = 'color',
 							hasAlpha = false,
+							disabled = function() return not E.db.nameplates.threat.useThreatColor end,
 						},
 						goodTransition = {
 							type = "color",
-							order = 3,
+							order = 4,
 							name = L["Good Transition Color"],
 							hasAlpha = false,
+							disabled = function() return not E.db.nameplates.threat.useThreatColor end,
 						},
 						badTransition = {
 							name = L["Bad Transition Color"],
-							order = 4,
+							order = 5,
 							type = 'color',
 							hasAlpha = false,
+							disabled = function() return not E.db.nameplates.threat.useThreatColor end,
 						},
 						beingTankedByTank = {
 							name = L["Color Tanked"],
 							desc = L["Use Tanked Color when a nameplate is being effectively tanked by another tank."],
-							order = 5,
+							order = 6,
 							type = "toggle",
 							get = function(info) return E.db.nameplates.threat[ info[#info] ] end,
 							set = function(info, value) E.db.nameplates.threat[ info[#info] ] = value; end,
+							disabled = function() return not E.db.nameplates.threat.useThreatColor end,
 						},
 						beingTankedByTankColor = {
 							name = L["Tanked Color"],
-							order = 6,
+							order = 7,
 							type = 'color',
 							hasAlpha = false,
-							disabled = function() return not E.db.nameplates.threat.beingTankedByTank end,
+							disabled = function() return (not E.db.nameplates.threat.beingTankedByTank or not E.db.nameplates.threat.useThreatColor) end,
 						},		
 						goodScale = {
 							name = L["Good Scale"],
-							order = 7,
+							order = 8,
 							type = 'range',
 							get = function(info) return E.db.nameplates.threat[ info[#info] ] end,
 							set = function(info, value) E.db.nameplates.threat[ info[#info] ] = value; end,
@@ -684,7 +707,7 @@ E.Options.args.nameplate = {
 						},
 						badScale = {
 							name = L["Bad Scale"],
-							order = 8,
+							order = 9,
 							type = 'range',
 							get = function(info) return E.db.nameplates.threat[ info[#info] ] end,
 							set = function(info, value) E.db.nameplates.threat[ info[#info] ] = value; end,

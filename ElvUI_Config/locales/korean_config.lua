@@ -604,8 +604,10 @@ L["Targeted Nameplate"] = true;
 L["Threat"] = "위협"
 L["Toggle Off While In Combat"] = true;
 L["Toggle On While In Combat"] = true;
+L["Use Class Color"] = true;
 L["Use Tanked Color when a nameplate is being effectively tanked by another tank."] = true;
 L["Use Target Scale"] = true;
+L["Use Threat Color"] = true;
 
 --Profiles Export/Import
 L["Choose Export Format"] = true;
@@ -686,6 +688,7 @@ L["Taxi Frame"] = "그리폰/와이번 창"
 L["Time Manager"] = "시계 창"
 L["Trade Frame"] = "거래창"
 L["TradeSkill Frame"] = "전문기술 창"
+L["Trainer Frame"] = "기술전문가 창"
 L["Transmogrify Frame"] = "형상변환 창"
 L["Void Storage"] = "공허 보관소"
 L["World Map"] = "세계 지도"
