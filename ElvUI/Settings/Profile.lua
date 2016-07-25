@@ -194,6 +194,7 @@ P["nameplates"] = {
 	["lowHealthThreshold"] = 0.4,
 	["showFriendlyCombat"] = "DISABLED",
 	["showEnemyCombat"] = "DISABLED",
+	["showNPCTitles"] = true,
 	["classbar"] = {
 		["enable"] = true,
 		["attachTo"] = "TARGET",
@@ -601,6 +602,7 @@ P['chat'] = {
 	['fadeTabsNoBackdrop'] = true,
 	["useAltKey"] = false,
 	["classColorMentionsChat"] = true,
+	["numAllowedCombatRepeat"] = 5,
 
 	['tabFont'] = 'PT Sans Narrow',
 	['tabFontSize'] = 12,

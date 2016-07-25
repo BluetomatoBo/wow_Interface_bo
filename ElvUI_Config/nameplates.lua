@@ -21,6 +21,7 @@ local positionValues = {
 	BOTTOM = 'BOTTOM',
 };
 
+--[[This has not been implemented (yet?)
 local function UpdateFilterGroup()
 	if not selectedFilter or not E.global['nameplate']['filter'][selectedFilter] then
 		E.Options.args.nameplate.args.filters.args.filterGroup = nil
@@ -83,6 +84,7 @@ local function UpdateFilterGroup()
 		},
 	}
 end
+]]
 
 local ORDER = 100
 local function GetUnitSettings(unit, name)
@@ -189,6 +191,34 @@ local function GetUnitSettings(unit, name)
 						name = L["Width"],
 						type = "range",
 						min = 50, max = 200, step = 1,
+					},
+					textGroup = {
+						order = 100,
+						type = "group",
+						name = L["Text"],
+						guiInline = true,
+						get = function(info) return E.db.nameplates.units[unit].healthbar.text[ info[#info] ] end,
+						set = function(info, value) E.db.nameplates.units[unit].healthbar.text[ info[#info] ] = value; NP:ConfigureAll() end,						
+						args = {
+							enable = {
+								order = 1,
+								name = L["Enable"],
+								type = "toggle",
+							},
+							format = {
+								order = 2,
+								name = L["Format"],
+								type = "select",
+								values = {
+									['CURRENT'] = L["Current"],
+									['CURRENT_MAX'] = L["Current / Max"],
+									['CURRENT_PERCENT'] =  L["Current - Percent"],
+									['CURRENT_MAX_PERCENT'] = L["Current - Max | Percent"],
+									['PERCENT'] = L["Percent"],
+									['DEFICIT'] = L["Deficit"],
+								},
+							},
+						},
 					},
 				},
 			},
@@ -566,7 +596,13 @@ E.Options.args.nameplate = {
 						["TOGGLE_OFF"] = L["Toggle Off While In Combat"],
 					},					
 					set = function(info, value) E.db.nameplates[ info[#info] ] = value; NP:PLAYER_REGEN_ENABLED() end,
-				},				
+				},		
+				showNPCTitles = {
+					order = 8,
+					type = "toggle",
+					name = L["Show NPC Titles"],
+					desc = L["Display NPC Titles whenever healthbars arent displayed and names are."]
+				},		
 				fontGroup = {
 					order = 100,
 					type = 'group',
@@ -804,6 +840,7 @@ E.Options.args.nameplate = {
 		enemyPlayerGroup = GetUnitSettings("ENEMY_PLAYER", L["Enemy Player Frames"]),
 		friendlyNPCGroup = GetUnitSettings("FRIENDLY_NPC", L["Friendly NPC Frames"]),
 		enemyNPCGroup = GetUnitSettings("ENEMY_NPC", L["Enemy NPC Frames"]),
+		--[[Not implemented (yet?)
 		filters = {
 			type = "group",
 			order = -100,
@@ -865,5 +902,6 @@ E.Options.args.nameplate = {
 				},
 			},
 		},
+		]]
 	},
 }
