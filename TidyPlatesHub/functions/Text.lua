@@ -95,15 +95,15 @@ local function TextFunctionMana(unit)
 end
 
 local function GetHealth(unit)
-	if unit.healthmaxCached then 
+	--if unit.healthmaxCached then 
 		return unit.health
-	else return nil end
+	--else return nil end
 end
 
 local function GetHealthMax(unit)
-	if unit.healthmaxCached then 
+	--if unit.healthmaxCached then 
 		return unit.healthmax
-	else return nil end
+	--else return nil end
 end
 
 -- None
