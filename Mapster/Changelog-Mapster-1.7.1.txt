@@ -1,0 +1,13 @@
+tag 1.7.1
+ea3acc82652ecd45e76787e7cb685ff7bdd37824
+Hendrik Leppkes <h.leppkes@gmail.com>
+2016-07-26 11:02:50 +0200
+
+Tag as 1.7.1
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Fix accidentally leaked global
+	- Update localization script
