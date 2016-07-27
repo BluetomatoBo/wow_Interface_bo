@@ -104,11 +104,11 @@ local SPELLID_AUTOSHOT = 75
 
 -- Spell names.
 local SPELL_BLINK					= GetSkillName(1953)
-local SPELL_BLIZZARD				= GetSkillName(10)
+--local SPELL_BLIZZARD				= GetSkillName(10)
 local SPELL_BLOOD_STRIKE			= GetSkillName(60945)
-local SPELL_BLOOD_STRIKE_OFF_HAND	= GetSkillName(66215)
-local SPELL_HELLFIRE				= GetSkillName(1949)
-local SPELL_HURRICANE				= GetSkillName(16914)
+--local SPELL_BLOOD_STRIKE_OFF_HAND	= GetSkillName(66215)
+--local SPELL_HELLFIRE				= GetSkillName(1949)
+--local SPELL_HURRICANE				= GetSkillName(16914)
 local SPELL_RAIN_OF_FIRE			= GetSkillName(5740)
 
 
@@ -1467,15 +1467,15 @@ if (string_find(GetLocale(), "en..")) then isEnglish = true end
  
 -- Add auras to always ignore.
 ignoreAuras[SPELL_BLINK] = true
-ignoreAuras[SPELL_BLIZZARD] = true
-ignoreAuras[SPELL_HELLFIRE] = true
-ignoreAuras[SPELL_HURRICANE] = true
+--ignoreAuras[SPELL_BLIZZARD] = true
+--ignoreAuras[SPELL_HELLFIRE] = true
+--ignoreAuras[SPELL_HURRICANE] = true
 ignoreAuras[SPELL_RAIN_OF_FIRE] = true
 
 -- Get localized off-hand trailer and convert to a lua search pattern.
-if (SPELL_BLOOD_STRIKE ~= UNKNOWN and SPELL_BLOOD_STRIKE_OFF_HAND ~= UNKNOWN) then
- offHandTrailer = string_gsub(SPELL_BLOOD_STRIKE_OFF_HAND, SPELL_BLOOD_STRIKE, "")
- offHandPattern = string_gsub(offHandTrailer, "([%^%(%)%.%[%]%*%+%-%?])", "%%%1")
+if (SPELL_BLOOD_STRIKE ~= UNKNOWN) then
+ --offHandTrailer = string_gsub(SPELL_BLOOD_STRIKE_OFF_HAND, SPELL_BLOOD_STRIKE, "")
+ offHandPattern = string_gsub(SPELL_BLOOD_STRIKE, "([%^%(%)%.%[%]%*%+%-%?])", "%%%1")
 end
 
 
