@@ -1,9 +1,21 @@
 ------------------------------------------------------------------------
-r588 | tiker | 2016-07-22 11:53:45 +0000 (Fri, 22 Jul 2016) | 1 line
+r591 | tiker | 2016-07-27 03:14:09 +0000 (Wed, 27 Jul 2016) | 1 line
 Changed paths:
-   A /tags/7.0.3 (from /trunk:587)
+   A /tags/7.0.4 (from /trunk:590)
 
-Tagging as 7.0.3
+Tagging as 7.0.4
+------------------------------------------------------------------------
+r590 | tiker | 2016-07-27 03:05:57 +0000 (Wed, 27 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated version for release
+------------------------------------------------------------------------
+r589 | tiker | 2016-07-27 02:21:13 +0000 (Wed, 27 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Hopefully fixed the issue where GoGoMount won't summon mounts after upgrading Garrisons (unless you leave the Garrison first).
 ------------------------------------------------------------------------
 r587 | tiker | 2016-07-22 11:53:25 +0000 (Fri, 22 Jul 2016) | 6 lines
 Changed paths:
