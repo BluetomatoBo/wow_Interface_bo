@@ -2,6 +2,19 @@ Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
 ---------------------------
+6.18.Beta7
+---------------------------
+Personal resource bar should work on it's own.
+
+Class widget repair
+
+Cast bar alpha
+Tradeskill bypass on castbar
+
+Tank autoswap may work correctly on your class;  Works fine for druids!
+
+
+---------------------------
 6.18.Beta6
 ---------------------------
 Level coloring + text should be improved.

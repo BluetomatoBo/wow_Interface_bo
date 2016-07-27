@@ -591,7 +591,7 @@ end
 
 function panelevents:PLAYER_ENTERING_WORLD()
 	-- This messes things up if allowed to change
-	InterfaceOptionsNamesPanelUnitNameplatesMakeLarger:Disable()
+	--InterfaceOptionsNamesPanelUnitNameplatesMakeLarger:Disable()
 
 	local fallBackTheme
 

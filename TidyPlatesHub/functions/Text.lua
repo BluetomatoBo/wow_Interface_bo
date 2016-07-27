@@ -148,9 +148,14 @@ local function HealthFunctionTotal(unit)
 end
 -- TargetOf
 local function HealthFunctionTargetOf(unit)
+	if unit.reaction ~= "FRIENDLY" and unit.isInCombat then 
+		return UnitName(unitid.."target")
+	end
+	--[[
 	if unit.isTarget then return UnitName("targettarget")
 	elseif unit.isMouseover then return UnitName("mouseovertarget")
 	else return "" end
+	--]]
 end
 -- Level
 local function HealthFunctionLevel(unit)
@@ -360,8 +365,8 @@ local function TextRoleGuildLevel(unit)
 		end
 
 	elseif unit.type == "PLAYER" then
-		description = CachedUnitGuild(unit.name)
-		r, g, b = .5, .5, .7
+		description = GetGuildInfo(unit.unitid)
+		r, g, b = .7, .7, .9
 	end
 
 	return description, r, g, b, .70
@@ -376,8 +381,9 @@ local function TextRoleGuild(unit)
 		description = CachedUnitDescription(unit.name)
 
 	elseif unit.type == "PLAYER" then
-		description = CachedUnitGuild(unit.name)
-		r, g, b = .5, .5, .7
+		description = GetGuildInfo(unit.unitid)
+		--description = CachedUnitGuild(unit.name)
+		r, g, b = .7, .7, .9
 	end
 
 	return description, r, g, b, .70

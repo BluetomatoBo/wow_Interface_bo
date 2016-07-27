@@ -212,6 +212,14 @@ local TankStances = {
 local function UpdatePlayerRole()
 	local spellID, name, _
 	local tankAura = false
+
+	if UnitClass("player") ~= "DRUID" then
+		if GetSpecializationRole(GetSpecialization()) == "TANK" then
+			tankAura = true
+		end
+	end
+
+	-- [[
 	-- Check Auras
 	for i = 1, 40 do
 		name, _, _, _, _, _, _, _, _, _, spellID = UnitBuff("player", i)	-- 11th
@@ -227,6 +235,13 @@ local function UpdatePlayerRole()
 	if GetShapeshiftFormID() == 23 then -- Stance of the Sturdy Ox (Monk)
 		tankAura = true
 	end
+	--]]
+
+	-- GetSpecializationInfo(specID, isInspect, isPet, "inspectTarget", gender)
+	-- id, name, description, icon, background, role, primaryStat = GetSpecializationInfo
+	-- /run print(GetSpecializationInfo(GetSpecialization()))
+	-- /run print(GetSpecializationRole(GetSpecialization()))
+	-- /run GetSpecializationRole
 
 	if TidyPlatesWidgets.IsTankingAuraActive ~= tankAura then
 		TidyPlatesWidgets.IsTankingAuraActive = tankAura

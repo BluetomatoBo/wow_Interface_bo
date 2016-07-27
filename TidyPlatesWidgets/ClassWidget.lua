@@ -39,23 +39,16 @@ local function UpdateClassWidget(self, unit, showFriendly)
 
 
 		if showFriendly and unit.reaction == "FRIENDLY" and unit.type == "PLAYER" then
-			--class = TidyPlatesUtility.GroupMembers.Class[unit.name]
-			class = CachedUnitClass(unit.name) or TidyPlatesUtility.GroupMembers.Class[unit.name]
+			class = unit.class
 		elseif unit.type == "PLAYER" then class = unit.class end
 
-		--class = "DRUID"
-
-		if class and class ~= "UNKNOWN" then
+		if class then
 			--self.Icon:SetTexture(ClassIconTable[class])
 			self.Icon:SetTexture(classWidgetPath..class)
 			self:Show()
 		else self:Hide() end
 	end
 
-	--[[ Testing
-	self.Icon:SetTexture(classWidgetPath.."WARRIOR")
-	self:Show()
-	--]]
 end
 
 local function CreateClassWidget(parent)
