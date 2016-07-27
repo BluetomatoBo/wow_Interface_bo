@@ -912,8 +912,6 @@ function Atr_OnLoad()
 
   Atr_ShoppingListsInit();
 
-  zc.msg_anm ("Read the FAQ at |cFF4499FF http://auctionatoraddon.com/faq")
-
   EnableDisableDElogging ()
 
   if ( IsAddOnLoaded("Blizzard_AuctionUI") ) then   -- need this for AH_QuickSearch since that mod forces Blizzard_AuctionUI to load at a startup
@@ -1811,7 +1809,7 @@ function auctionator_ChatEdit_InsertLink(text)
       item = GetItemInfo(text);
     end
     if ( item ) then
-      Atr_SetSearchText (zc.QuoteString(item)); -- quote to make it exact
+      Atr_SetSearchText( item )
       Atr_Search_Onclick ();
       return true;
     end
