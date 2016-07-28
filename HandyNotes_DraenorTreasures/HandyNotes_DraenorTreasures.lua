@@ -1160,6 +1160,14 @@ local options = {
                             name = "Sparring Arena",
                             desc = "Treasures for the Sparring Arena Outpost",
                             order = 25,
+						},
+						overrideGG = {
+                            type = "toggle",
+                            arg = "gorgrond_override",
+                            name = "Force Lumber Mill/Sparring Arena",
+                            desc = "Always show Lumber Mill/Sparring Arena treasures depending on the selection to the left and not by questID. This selection will require an interface reload to take effect.",
+							width = "full",
+                            order = 26,
                         },  
                         groupTD = {
                             type = "header",
@@ -1472,6 +1480,7 @@ function DraenorTreasures:OnInitialize()
             mount_na = true,
             mount_lu = true,
             mount_vt = true,
+			gorgrond_override = false,
             world_bosses = true,
             show_loot = true,
             show_notes = true,
@@ -1487,7 +1496,7 @@ function DraenorTreasures:WorldEnter()
     self:ScheduleTimer("QuestCheck", 5)
     self:ScheduleTimer("RegisterWithHandyNotes", 8)
 	self:ScheduleTimer("LoadCheck",6)
-	self:ScheduleTimer("LoginMessage", 10)
+	--self:ScheduleTimer("LoginMessage", 10)
 end
 
 function DraenorTreasures:QuestCheck()
@@ -1500,7 +1509,7 @@ function DraenorTreasures:QuestCheck()
             nodes["SpiresOfArak"][55602200]={ "36400", "Elixir of Shadow Sight 5", "Elixir of Shadow Sight", "Elixir can be used at Shrine of Terrok for 1 of 6 i585 Weapons (see Gift of Anzu) Object will be removed as soon as you loot all Gifts of Anzu", "default", "treasure_soa","115463"}
             nodes["SpiresOfArak"][53108450]={ "36401", "Elixir of Shadow Sight 6", "Elixir of Shadow Sight", "Elixir can be used at Shrine of Terrok for 1 of 6 i585 Weapons (see Gift of Anzu) Object will be removed as soon as you loot all Gifts of Anzu", "default", "treasure_soa","115463"}
         end
-        if (IsQuestFlaggedCompleted(36249) or IsQuestFlaggedCompleted(36250)) then
+        if (IsQuestFlaggedCompleted(36249) or IsQuestFlaggedCompleted(36250) or DraenorTreasures.db.profile.gorgrond_override == true) then
             --Gorgrond Lumber Mill is active if either of these Quest IDs are true
             nodes["Gorgrond"][49074846]={ "35952", "Aged Stone Container", "", "QuestID is missing, will stay active until manually disabled", "default", "treasure_gg_l","824"}
             nodes["Gorgrond"][42345477]={ "36003", "Aged Stone Container", "", "", "default", "treasure_gg_l","824"}
@@ -1528,7 +1537,7 @@ function DraenorTreasures:QuestCheck()
             nodes["Gorgrond"][53007906]={ "36713", "Unknown Petrified Egg", "", "", "default", "treasure_gg_l","824"}
             nodes["Gorgrond"][47245180]={ "36718", "Unknown Petrified Egg", "", "", "default", "treasure_gg_l","824"}
         end
-        if (IsQuestFlaggedCompleted(36251) or IsQuestFlaggedCompleted(36252)) then
+        if (IsQuestFlaggedCompleted(36251) or IsQuestFlaggedCompleted(36252) or DraenorTreasures.db.profile.gorgrond_override == true) then
             --Gorgrond Sparring Arena is active if either of these Quest IDs are true
             nodes["Gorgrond"][45634931]={ "36722", "Aged Stone Container", "", "", "default", "treasure_gg_b","824"}
             nodes["Gorgrond"][43224574]={ "36723", "Aged Stone Container", "", "", "default", "treasure_gg_b","824"}
