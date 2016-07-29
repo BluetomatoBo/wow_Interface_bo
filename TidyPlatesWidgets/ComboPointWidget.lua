@@ -16,9 +16,6 @@ local monkOffset = 10
 
 local WidgetList = {}
 
---local Anticipation =  GetSpellInfo(115190)
-local Anticipation =  GetSpellInfo(114015)
-
 local function GetDruidPoints()
 	local points = GetComboPoints("player", "target")
 
@@ -28,6 +25,7 @@ end
 local function GetRoguePoints()
 	local points = GetComboPoints("player", "target")
 
+--[[
 	if points and points > 0 then
 
 		-- Anticipation
@@ -39,6 +37,7 @@ local function GetRoguePoints()
 			end
 		end
 	end
+	--]]
 
 	return points
 end

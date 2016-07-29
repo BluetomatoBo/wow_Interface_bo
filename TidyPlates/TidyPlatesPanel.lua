@@ -19,9 +19,9 @@ local OUT_OF_COMBAT = "Hide when Combat starts, Show when Combat ends"
 local font = "Interface\\Addons\\TidyPlates\\Media\\DefaultFont.ttf"
 local yellow, blue, red, orange = "|cffffff00", "|cFF3782D1", "|cFFFF1100", "|cFFFF6906"
 
-local function SetSoftTransitions(enable)
-	if enable then TidyPlates:EnableFadeIn()
-		else TidyPlates:DisableFadeIn() end
+local function SetCastBars(enable)
+	if enable then TidyPlates:EnableCastBars()
+		else TidyPlates:DisableCastBars() end
 end
 
 local EnableCompatibilityMode = TidyPlates.EnableCompatibilityMode
@@ -47,7 +47,7 @@ TidyPlatesOptions = {
 
 	FriendlyAutomation = NO_AUTOMATION,
 	EnemyAutomation = NO_AUTOMATION,
-	DisableSoftTransitions = false,
+	DisableCastBars = false,
 	CompatibilityMode = false,
 	WelcomeShown = false,
 }
@@ -187,7 +187,7 @@ local ThemeDropdownMenuItems = {}
 
 
 local function ApplyAutomationSettings()
-	SetSoftTransitions(not TidyPlatesOptions.DisableSoftTransitions)
+	SetCastBars(not TidyPlatesOptions.DisableCastBars)
 
 	if TidyPlatesOptions.CompatibilityMode then EnableCompatibilityMode() end
 
@@ -227,7 +227,7 @@ local function GetPanelValues(panel)
 	TidyPlatesOptions.SecondaryTheme = panel.SecondaryThemeDropdown:GetValue()
 	TidyPlatesOptions.FriendlyAutomation = panel.AutoShowFriendly:GetValue()
 	TidyPlatesOptions.EnemyAutomation = panel.AutoShowEnemy:GetValue()
-	TidyPlatesOptions.DisableSoftTransitions = panel.DisableSoftTransitions:GetChecked()
+	TidyPlatesOptions.DisableCastBars = panel.DisableCastBars:GetChecked()
 	TidyPlatesOptions.CompatibilityMode = panel.CompatibilityMode:GetChecked()
 	TidyPlatesOptions.PrimaryProfile = panel.PrimaryProfileDropdown:GetValue()
 	TidyPlatesOptions.SecondaryProfile = panel.SecondaryProfileDropdown:GetValue()
@@ -316,7 +316,7 @@ local function OnRefresh(panel)
 
 	panel.PrimaryThemeDropdown:SetValue(TidyPlatesOptions.PrimaryTheme)
 	panel.SecondaryThemeDropdown:SetValue(TidyPlatesOptions.SecondaryTheme)
-	panel.DisableSoftTransitions:SetChecked(TidyPlatesOptions.DisableSoftTransitions)
+	panel.DisableCastBars:SetChecked(TidyPlatesOptions.DisableCastBars)
 	panel.CompatibilityMode:SetChecked(TidyPlatesOptions.CompatibilityMode)
 	panel.AutoShowFriendly:SetValue(TidyPlatesOptions.FriendlyAutomation)
 	panel.AutoShowEnemy:SetValue(TidyPlatesOptions.EnemyAutomation)
@@ -526,14 +526,14 @@ local function CreateTidyPlatesInterfacePanel(panel)
 	BlizzOptionsButton:SetWidth(260)
 	BlizzOptionsButton:SetText("Nameplate Motion & Visibility")
 
-	-- Soft Transitions
-	panel.DisableSoftTransitions = PanelHelpers:CreateCheckButton("TidyPlatesOptions_DisableSoftTransitions", panel, "Disable Transition Effects")
-	panel.DisableSoftTransitions:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
-	panel.DisableSoftTransitions:SetScript("OnClick", function(self) SetSoftTransitions(not self:GetChecked()) end)
+	-- Cast Bars
+	panel.DisableCastBars = PanelHelpers:CreateCheckButton("TidyPlatesOptions_DisableCastBars", panel, "Disable Cast Bars")
+	panel.DisableCastBars:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
+	panel.DisableCastBars:SetScript("OnClick", function(self) SetCastBars(not self:GetChecked()) end)
 
 	-- CompatibilityMode
-	panel.CompatibilityMode = PanelHelpers:CreateCheckButton("TidyPlatesOptions_CompatibilityMode", panel, "Compatibility Mode (Requires UI Reload)")
-	panel.CompatibilityMode:SetPoint("TOPLEFT", panel.DisableSoftTransitions, "TOPLEFT", 0, -35)
+	panel.CompatibilityMode = PanelHelpers:CreateCheckButton("TidyPlatesOptions_CompatibilityMode", panel, "Compatibility Mode")
+	panel.CompatibilityMode:SetPoint("TOPLEFT", panel.DisableCastBars, "TOPLEFT", 0, -35)
 	panel.CompatibilityMode:SetScript("OnClick", function(self) if self:GetChecked() then EnableCompatibilityMode() end; end)
 
 	-- Reset
@@ -636,9 +636,6 @@ function panelevents:PLAYER_LOGIN()
 		SetCVar("nameplateShowAll", 1)		-- 
 
 		
-		
-
-
 		SetCVar("nameplateShowEnemies", 1)
 		SetCVar("nameplateShowFriends", 0)
 		SetCVar("threatWarning", 3)		-- Required for threat/aggro detection

@@ -1,6 +1,14 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
+
+---------------------------
+6.18.Beta8
+---------------------------
+Aura Widget is now about 80% complete
+
+Under the Tidy Plates options panel, you can now disable cast bars
+
 ---------------------------
 6.18.Beta7
 ---------------------------

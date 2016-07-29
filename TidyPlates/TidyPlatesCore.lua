@@ -24,7 +24,8 @@ local unit, unitcache, style, stylename, unitchanged				    			-- Temp/Local Ref
 local numChildren = -1                                                              -- Cache the current number of plates
 local activetheme = {}                                                              -- Table Placeholder
 local InCombat, HasTarget, HasMouseover = false, false, false					    -- Player State Data
-local EnableFadeIn = true                                                           -- Enables Alpha Effects
+local EnableFadeIn = true  
+local ShowCastBars = true  
 local EMPTY_TEXTURE = "Interface\\Addons\\TidyPlates\\Media\\Empty"
 local ResetPlates, UpdateAll = false, false
 local CompatibilityMode = false
@@ -555,8 +556,8 @@ do
 		end
 		--]]
 
-		unit.health = UnitHealth(unitid)
-		unit.healthmax = UnitHealthMax(unitid)
+		unit.health = UnitHealth(unitid) or 0
+		unit.healthmax = UnitHealthMax(unitid) or 1
 
 		unit.threatValue = UnitThreatSituation("player", unitid) or 0
 		unit.threatSituation = ThreatReference[unit.threatValue]
@@ -839,7 +840,8 @@ do
 
 
 	function OnUpdateCastMidway(plate, unitid)
-
+		if not ShowCastBars then return end
+		
 		local currentTime = GetTime() * 1000
 
 		-- Check to see if there's a spell being cast
@@ -861,7 +863,7 @@ do
 	local events = {}
 	local function EventHandler(self, event, ...)
 		events[event](event, ...)
-		
+
 	end
 
 	local TidyPlatesCore = CreateFrame("Frame", nil, WorldFrame)
@@ -958,6 +960,7 @@ do
 
 
 	function events:UNIT_SPELLCAST_START(...)
+		if not ShowCastBars then return end
 		local unitid = ...
 
 		local plate = GetNamePlateForUnit(unitid);
@@ -968,6 +971,7 @@ do
 
 
 	 function events:UNIT_SPELLCAST_STOP(...)
+	 	if not ShowCastBars then return end
 		local unitid = ...
 
 		local plate = GetNamePlateForUnit(unitid);
@@ -981,6 +985,7 @@ do
 	 
 
 	function events:UNIT_SPELLCAST_CHANNEL_START(...)
+		if not ShowCastBars then return end
 		local unitid = ...
 
 		local plate = GetNamePlateForUnit(unitid);
@@ -990,6 +995,7 @@ do
 	end
 
 	function events:UNIT_SPELLCAST_CHANNEL_STOP(...)
+		if not ShowCastBars then return end
 		local unitid = ...
 
 		local plate = GetNamePlateForUnit(unitid);
@@ -1124,6 +1130,9 @@ end
 -- External Commands: Allows widgets and themes to request updates to the plates.
 -- Useful to make a theme respond to externally-captured data (such as the combat log)
 --------------------------------------------------------------------------------------------------------------
+function TidyPlates:DisableCastBars() ShowCastBars = false end
+function TidyPlates:EnableCastBars() ShowCastBars = true end
+
 function TidyPlates:ForceUpdate() ForEachPlate(OnResetNameplate) end
 function TidyPlates:Update() SetUpdateAll() end
 function TidyPlates:RequestWidgetUpdate(plate) if plate then SetUpdateMe(plate) else SetUpdateAll() end end

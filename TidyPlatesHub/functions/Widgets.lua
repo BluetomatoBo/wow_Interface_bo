@@ -148,9 +148,12 @@ local function SmartFilterMode(aura)
 	local AuraPriority = 20
 
 
+	--print(aura.name, aura.caster, aura.unit, aura.type)
+	--ignite player nameplate1 Magic
+
 
 	-- My own Buffs and Debuffs
-	if aura.caster == UnitGUID("player") and aura.duration and aura.duration < 150 then
+	if aura.caster == "player" and aura.duration and aura.duration < 150 then
 		if LocalVars.WidgetsMyBuff and aura.type == AURA_TYPE_BUFF then
 			ShowThisAura = true
 		elseif LocalVars.WidgetsMyDebuff and aura.type ~= AURA_TYPE_BUFF then
@@ -180,11 +183,11 @@ end
 local DebuffFilterModes = {
 	-- My Debuffs
 	function(aura)
-		if aura.caster == UnitGUID("player") and aura.type ~= AURA_TYPE_BUFF then return true, 20 end
+		if aura.caster == "player" and aura.type ~= AURA_TYPE_BUFF then return true, 20 end
 	end,
 	-- My Buffs
 	function(aura)
-		if aura.caster == UnitGUID("player") and aura.type == AURA_TYPE_BUFF and aura.duration < 120 then return true, 20 end
+		if aura.caster == "player" and aura.type == AURA_TYPE_BUFF and aura.duration < 120 then return true, 20 end
 	end,
 	-- By Prefix
 	function(aura)
