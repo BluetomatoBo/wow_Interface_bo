@@ -720,7 +720,7 @@ do -- Counter-follower lists
 		end
 	end)
 	GarrisonMissionMechanicTooltip:HookScript("OnShow", function(self)
-		local mech = self:GetParent().CloseMission and G.GetMechanicInfo(self.Icon:GetTexture() or "")
+		local mech = self:GetParent().CloseMission and G.GetMechanicInfo(tostring(self.Icon:GetTexture()))
 		if mech then
 			itip:ActivateFor(self, "TOPLEFT", self.Description, "BOTTOMLEFT", -10, 16)
 			G.SetThreatTooltip(itip, mech, nil, self.missionLevel, nil, true)
@@ -878,20 +878,6 @@ do -- Garrison Resources in shipyard
 	hooksecurefunc(GarrisonShipyardFrame, "UpdateCurrency", sync)
 	EV.GARRISON_SHIPYARD_NPC_OPENED = sync
 	mf:HookScript("OnShow", sync)
-end
-do -- Scary follower warning
-	local fol = MISSION_PAGE_FRAME.Followers
-	for i=1,#fol do
-		fol[i]:HookScript("OnEnter", function(self)
-			local mi, td = MISSION_PAGE_FRAME.missionInfo, GarrisonFollowerTooltip.lastShownData
-			if td and mi and self.info and td.underBiased and mi.level <= self.info.level and self.info.quality < 4 then
-				local ub = GarrisonFollowerTooltip.UnderBiased
-				local oh = ub:GetHeight()
-				ub:SetText(GARRISON_FOLLOWER_BELOW_LEVEL_MAX_XP_TOOLTIP)
-				GarrisonFollowerTooltip:SetHeight(GarrisonFollowerTooltip:GetHeight()-oh+ub:GetHeight())
-			end
-		end)
-	end
 end
 
 do -- Reward item tooltips

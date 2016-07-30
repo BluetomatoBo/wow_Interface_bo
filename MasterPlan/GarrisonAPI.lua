@@ -101,7 +101,7 @@ local tentativeState, tentativeParties = {}, {} do
 		dissolve(tentativeState[f3], true)
 		notifyChange()
 	end
-	function EV:GARRISON_MISSION_STARTED(id)
+	function EV:GARRISON_MISSION_STARTED(_tid, id)
 		dissolve(id)
 	end
 end
@@ -336,7 +336,7 @@ local dropFollowers, missionEndTime = {}, {} do -- Start/Available capture
 	function api.GetNumPendingMissionStarts()
 		return startQueueSize
 	end
-	function EV:GARRISON_MISSION_STARTED(id)
+	function EV:GARRISON_MISSION_STARTED(_tid, id)
 		if startQueue[id] then
 			startQueueSize, startQueue[id] = startQueueSize - 1
 			EV("MP_MISSION_START_QUEUE", startQueueSize)
@@ -612,12 +612,8 @@ function api.GetFMLevel(fmInfo, mentor)
 	return fmInfo and (mentor and mentor >= fmInfo.iLevel and mentor or fmInfo.level == 100 and fmInfo.iLevel > 600 and fmInfo.iLevel or fmInfo.level) or 0
 end
 function api.GetLevelEfficiency(fLevel, mLevel)
-	if (mLevel or 0) <= fLevel then
-		return 1
-	elseif mLevel - fLevel <= (mLevel > 100 and 14 or 2) then
-		return 0.5
-	end
-	return 0.1
+	local ld, md = (mLevel or 0) - fLevel, mLevel and (mLevel > 600 and 15 or 3) or 0
+	return ld <= 0 and 1 or ld < md and (md-ld)/md or 0
 end
 function api.GetFollowerLevelDescription(fid, mlvl, fi, mentor, mid, gi)
 	local fi = fi or api.GetFollowerInfo()[fid]
@@ -1136,14 +1132,14 @@ function api.GetFollowerXPGain(fi, mlvl, base, bonus, mentor)
 	if fi.quality >= 4 and fi.level == 100 then
 		base, bonus = 0, 0
 	elseif base > 0 or bonus > 0 then
-		fi = fi.traits and fi or api.GetFollowerInfo()[fi.followerID] or fi
-		local flvl = mentor and 100 or fi.level
-		local tmul, ld = fi.traits and fi.traits[29] and 1.50 or 1, (mlvl > 100 and 100 or mlvl) - flvl
-		local emul = ld < 1 and 1 or (ld > 2 and 0.1 or 0.5)
+		mentor, fi = mentor or 0, fi.traits and fi or api.GetFollowerInfo()[fi.followerID] or fi
+		local flvl = fi.level == 100 and fi.iLevel or fi.level
+		local tmul = fi.traits and fi.traits[29] and 1.50 or 1
+		local emul = api.GetLevelEfficiency(mentor > flvl and mentor or flvl, mlvl)
 		if base > 0 then
 			base = base * tmul * emul
-			if fi.xp + base > fi.levelXP and flvl < 100 then
-				emul = ld < 2 and 1 or (ld > 3 and 0.1 or 0.5)
+			if flvl < 100 and fi.xp + base > fi.levelXP then
+				emul = api.GetLevelEfficiency(mentor > (flvl+1) and mentor or (flvl == 99 and 600 or (flvl+1)), mlvl)
 			end
 		end
 		bonus = bonus * tmul * emul

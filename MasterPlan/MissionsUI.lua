@@ -1355,9 +1355,7 @@ local availUI = CreateFrame("Frame", nil, missionList) do
 		function EV:MP_MISSION_REJECT(mid)
 			syncLater()
 			G.GetMissionParty(mid, true)
-			if false then --FIXME
-				PlaySound("igQuestFailed")
-			end
+			PlaySound("igQuestFailed")
 		end
 	end
 	api.roamingParty = roamingParty
