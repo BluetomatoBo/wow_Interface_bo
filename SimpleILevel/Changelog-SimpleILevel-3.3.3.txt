@@ -1,0 +1,68 @@
+------------------------------------------------------------------------
+r250 | scotepi | 2016-07-29 23:02:22 +0000 (Fri, 29 Jul 2016) | 2 lines
+Changed paths:
+   A /tags/3.3.3 (from /trunk:249)
+
+Tagging as 3.3.3
+- Retagging 3.3.3-beta
+------------------------------------------------------------------------
+r248 | scotepi | 2016-07-27 22:13:07 +0000 (Wed, 27 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+   M /trunk/SimpleILevel_Resilience/SimpleILevel_Resilience.lua
+
+Fixed paperdoll on SIL Resilience as well
+------------------------------------------------------------------------
+r247 | scotepi | 2016-07-27 21:56:46 +0000 (Wed, 27 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Toggling paperdoll will work for SIL
+------------------------------------------------------------------------
+r246 | scotepi | 2016-07-27 21:37:29 +0000 (Wed, 27 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Fixed bug when Paperdoll is turned off
+------------------------------------------------------------------------
+r244 | scotepi | 2016-07-26 02:03:35 +0000 (Tue, 26 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+   M /trunk/SimpleILevel_Resilience/SimpleILevel_Resilience.lua
+   M /trunk/settings.lua
+
+Added back to the paperdoll frame
+------------------------------------------------------------------------
+r243 | scotepi | 2016-07-26 01:43:41 +0000 (Tue, 26 Jul 2016) | 2 lines
+Changed paths:
+   M /trunk/Locals/enUS.lua
+   M /trunk/SimpleILevel.lua
+   M /trunk/settings.lua
+
+Added mouseover scanning as an option
+Disabled paperdoll option ui until it is fixed
+------------------------------------------------------------------------
+r241 | scotepi | 2016-07-25 00:47:48 +0000 (Mon, 25 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/settings.lua
+
+Pre-Loaded colors for Legion, thanks Torsin! Issues #30
+------------------------------------------------------------------------
+r240 | scotepi | 2016-07-25 00:19:36 +0000 (Mon, 25 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Fixed issue in SIL:FormatScore when score is less then 0
+------------------------------------------------------------------------
+r238 | scotepi | 2016-07-23 01:06:25 +0000 (Sat, 23 Jul 2016) | 2 lines
+Changed paths:
+   M /trunk/SimpleILevel.lua
+   M /trunk/SimpleILevel.toc
+   M /trunk/SimpleILevel_Group/SimpleILevel_Group.toc
+   M /trunk/SimpleILevel_Resilience/SimpleILevel_Resilience.lua
+   M /trunk/SimpleILevel_Resilience/SimpleILevel_Resilience.toc
+   M /trunk/SimpleILevel_Social/SimpleILevel_Social.toc
+
+TOC update for 7.0
+Removed paperdoll for now
+------------------------------------------------------------------------

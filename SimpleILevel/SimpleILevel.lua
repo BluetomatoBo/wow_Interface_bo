@@ -16,7 +16,7 @@ SIL = LibStub("AceAddon-3.0"):NewAddon(L.core.name, "AceEvent-3.0", "AceConsole-
 SIL.category = GetAddOnMetadata("SimpleILevel", "X-Category");
 SIL.version = GetAddOnMetadata("SimpleILevel", "Version");
 SIL.versionMajor = 3;                    -- Used for cache DB versioning
-SIL.versionRev = 'r235';    -- Used for version information
+SIL.versionRev = 'r248';    -- Used for version information
 SIL.action = {};        -- DB of unitGUID->function to run when a update comes through
 SIL.hooks = {};         -- List of hooks in [type][] = function;
 SIL.autoscan = 0;       -- time() value of last autoscan, must be more then 1sec
@@ -101,17 +101,20 @@ function SIL:OnInitialize()
     
     -- Events
     self:RegisterEvent("PLAYER_TARGET_CHANGED", function() if CanInspect('target') then SIL:GetScoreTarget('target'); end end);
-    self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", function() SIL:ShowTooltip(); end);
     self:RegisterEvent("PLAYER_EQUIPMENT_CHANGED", function() SIL:StartScore('player'); end);
     self:RegisterEvent("PLAYER_ENTERING_WORLD", function() SIL:UpdateLDB(); end);
     self:RegisterEvent("GROUP_ROSTER_UPDATE", function() SIL:UpdateGroup() end);
+	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT", function() 
+		if SIL:GetMouseOver() and CanInspect('mouseover') then
+			SIL:Debug('mouseover', UnitName('mouseover'));
+			SIL:GetScoreTarget('mouseover'); 
+		end
+		SIL:ShowTooltip();
+	end);
     
-    -- Add to Paperdoll - not relevent as of 4.3, well see
-    table.insert(PAPERDOLL_STATCATEGORIES["GENERAL"].stats, L.core.name);
+    -- Add to Paperdoll
 	if self:GetPaperdoll() then
-		PAPERDOLL_STATINFO[L.core.name] = { updateFunc = function(...) SIL:UpdatePaperDollFrame(...); end };
-	else
-		PAPERDOLL_STATINFO[L.core.name] = nil;
+		self:RegisterPaperdoll();
 	end
     
     -- GuildMemberInfo
@@ -772,7 +775,8 @@ end
 function SIL:FormatScore(score, items, color)
     if not items then items = self.grayScore + 1; end
     if type(color) == 'nil' then color = true; end
-    
+    if score < 0 then score = 0; end	-- Ticket #29, thanks Torsin
+	
     if tonumber(score) and tonumber(items) then
         local scoreR
         
@@ -961,6 +965,7 @@ function SIL:SetLDBrefresh(v) self.db.global.ldbRefresh = v; self:LDBSetAuto() e
 function SIL:SetTTCombat(v) self.db.global.ttCombat = v; end
 function SIL:SetColorScore(v) self.db.global.color = v; end
 function SIL:SetRoundScore(v) self.db.global.round = v; end
+function SIL:SetMouseOver(v) self.db.global.mouseover = v; end
 function SIL:SetDebug(v) self.db.char.debug = v; end
 
 -- Get
@@ -977,6 +982,7 @@ function SIL:GetLDBrefresh() return self.db.global.ldbRefresh; end
 function SIL:GetTTCombat() return self.db.global.ttCombat; end
 function SIL:GetColorScore() return self.db.global.color; end
 function SIL:GetRoundScore() return self.db.global.round; end
+function SIL:GetMouseOver() return self.db.global.mouseover; end
 function SIL:GetModule(m) return self.db.char.module[m]; end
 function SIL:GetDebug(m) return self.db.char.debug; end
 
@@ -990,6 +996,7 @@ function SIL:ToggleLDBlabel() self:SetLDBlabel(not self:GetLDBlabel()); end
 function SIL:ToggleTTCombat() self:SetTTCombat(not self:GetTTCombat()); end
 function SIL:ToggleColorScore() self:SetColorScore(not self:GetColorScore()); end
 function SIL:ToggleRoundScore() self:SetRoundScore(not self:GetRoundScore()); end
+function SIL:ToggleMouseOver() self:SetMouseOver(not self:GetMouseOver()); end
 function SIL:ToggleColorScore(m) self:SetModule(m, not self:GetModule(m)); end
 function SIL:ToggleDebug(m) self:SetDebug(not self:GetDebug()); end
 
@@ -1013,9 +1020,9 @@ function SIL:SetPaperdoll(v)
 	self.db.global.cinfo = v;
 	
 	if v then
-		PAPERDOLL_STATINFO[L.core.name] = { updateFunc = function(...) SIL:UpdatePaperDollFrame(...); end };
+		self:RegisterPaperdoll()
 	else
-		PAPERDOLL_STATINFO[L.core.name] = nil;
+		self:UnregisterPaperdoll()
 	end
 end
 
@@ -1282,4 +1289,25 @@ function SIL:GroupDest(dest, to)
     end
     
 	return dest, to, color;
+end
+
+function SIL:RegisterPaperdoll()
+	if not self:GetPaperdoll() then return false; end
+	
+	table.insert(PAPERDOLL_STATCATEGORIES[1].stats, {
+		  stat = 'SIL',
+	});
+	PAPERDOLL_STATINFO['SIL'] = { updateFunc = function(...) SIL:UpdatePaperDollFrame(...); end };
+end
+
+function SIL:UnregisterPaperdoll()
+	if self:GetPaperdoll() then return false; end
+	
+	table.foreach(PAPERDOLL_STATCATEGORIES[1].stats, function(k, v)
+		if v.stat == 'SIL' then
+			table.remove(PAPERDOLL_STATCATEGORIES[1].stats, k);
+		end
+	end);
+	
+	PAPERDOLL_STATINFO['SIL'] = { updateFunc = function(...) return false; end };
 end

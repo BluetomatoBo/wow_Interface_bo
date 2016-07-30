@@ -17,12 +17,9 @@ function SIL_Resil:OnInitialize()
     SIL:AddHook('tooltip', function(...) SIL_Resil:Tooltip(...); end);
     SIL:AddHook('inspect', function(...) SIL_Resil:Inspect(...); end);
     
-    -- Paperdoll
-    table.insert(PAPERDOLL_STATCATEGORIES["GENERAL"].stats, 'SIL_Resil');
+    -- Add to Paperdoll
 	if self:GetPaperdoll() then
-		PAPERDOLL_STATINFO['SIL_Resil'] = { updateFunc = function(...) SIL_Resil:UpdatePaperDollFrame(...); end };
-	else
-		PAPERDOLL_STATINFO['SIL_Resil'] = nil;
+		self:RegisterPaperdoll();
 	end
     
     -- GuildMemberInfo
@@ -363,11 +360,32 @@ function SIL_Resil:SetTooltipZero(v) self.db.global.tooltipZero = v; end
 function SIL_Resil:SetPaperdoll(v) 
     self.db.global.paperdoll = v; 
     
-    if v then
-		PAPERDOLL_STATINFO['SIL_Resil'] = { updateFunc = function(...) SIL_Resil:UpdatePaperDollFrame(...); end };
+	if v then
+		self:RegisterPaperdoll()
 	else
-		PAPERDOLL_STATINFO['SIL_Resil'] = nil;
+		self:UnregisterPaperdoll()
 	end
+end
+
+function SIL_Resil:RegisterPaperdoll()
+	if not self:GetPaperdoll() then return false; end
+	
+	table.insert(PAPERDOLL_STATCATEGORIES[1].stats, {
+		  stat = 'SIL_Resil',
+	});
+	PAPERDOLL_STATINFO['SIL_Resil'] = { updateFunc = function(...) SIL_Resil:UpdatePaperDollFrame(...); end };
+end
+
+function SIL_Resil:UnregisterPaperdoll()
+	if self:GetPaperdoll() then return false; end
+	
+	table.foreach(PAPERDOLL_STATCATEGORIES[1].stats, function(k, v)
+		if v.stat == 'SIL_Resil' then
+			table.remove(PAPERDOLL_STATCATEGORIES[1].stats, k);
+		end
+	end);
+	
+	PAPERDOLL_STATINFO['SIL_Resil'] = { updateFunc = function(...) return false; end };
 end
 
 SILResil_Options = {
@@ -414,3 +432,4 @@ SILResil_Defaults = {
         paperdoll = true;
     },
 };
+
