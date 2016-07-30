@@ -282,7 +282,8 @@ local function EnableWatcherFrame(arg)
 end
 
 -- Widget Creation
-local function CreateWidgetFrame(parent)
+local function CreateWidgetFrame(extended)
+local parent = extended.widgetFrame
 	-- Required Widget Code
 	local frame = CreateFrame("Frame", nil, parent)
 	frame:Hide()

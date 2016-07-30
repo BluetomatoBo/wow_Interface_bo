@@ -125,11 +125,12 @@ local DebuffPrefixModes = {
 	end,
 	-- My
 	function(aura)
-		if aura.caster == UnitGUID("player") then return true end
+		if aura.caster == "player" then return true end
 	end,
 	-- Other
 	function(aura)
-		if aura.caster ~= UnitGUID("player") then return true end
+		--print(aura.caster, aura.name)
+		if aura.caster ~= "player" then return true end
 	end,
 	-- CC
 	function(aura)
@@ -166,6 +167,8 @@ local function SmartFilterMode(aura)
 	-- If the aura is mentioned in the list, evaluate the instruction...
 	if prefix then
 		local show = DebuffPrefixModes[prefix](aura)
+
+		--print(aura.name, show, prefix, priority)
 		if show == true then
 			return true, 20 + (priority or 0), r, g, b
 		else

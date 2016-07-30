@@ -9,8 +9,8 @@ local LocalVars = TidyPlatesHubDefaults
 ------------------------------------------------------------------------------
 local InCombatLockdown = InCombatLockdown
 local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
-local IsTankedByAnotherTank = HubData.Functions.IsTankedByAnotherTank
-local IsTankingAuraActive = HubData.Functions.IsTankingAuraActive
+local IsTankedByAnotherTank = TidyPlatesWidgets.IsTankedByAnotherTank
+local IsTankingAuraActive = TidyPlatesWidgets.IsPlayerTank
 local IsHealer = TidyPlatesUtility.IsHealer
 local UnitFilter = TidyPlatesHubFunctions.UnitFilter
 local IsAuraShown = TidyPlatesWidgets.IsAuraShown

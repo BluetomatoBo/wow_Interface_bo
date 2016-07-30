@@ -31,11 +31,9 @@ local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
 local IsFriend = TidyPlatesUtility.IsFriend
 local IsHealer = TidyPlatesUtility.IsHealer
 local IsGuildmate = TidyPlatesUtility.IsGuildmate
-local IsTankedByAnotherTank = HubData.Functions.IsTankedByAnotherTank
-local IsTankingAuraActive = HubData.Functions.IsTankingAuraActive
+local IsTankedByAnotherTank = TidyPlatesWidgets.IsTankedByAnotherTank
+local IsTankingAuraActive = TidyPlatesWidgets.IsPlayerTank
 local InCombatLockdown = InCombatLockdown
-local GetFriendlyClass = HubData.Functions.GetFriendlyClass
-local GetEnemyClass = HubData.Functions.GetEnemyClass
 local StyleDelegate = TidyPlatesHubFunctions.SetStyleNamed
 local AddHubFunction = TidyPlatesHubHelpers.AddHubFunction
 
@@ -93,6 +91,8 @@ end
 
 local function ColorFunctionDamage(unit)
 
+	--if IsTankedByAnotherTank(unit) then return LocalVars.ColorAttackingOtherTank end
+
 	if unit.threatValue > 1 then return LocalVars.ColorThreatWarning				-- When player is unit's target		-- Warning
 	elseif unit.threatValue == 1 then return LocalVars.ColorThreatTransition											-- Transition
 	else return LocalVars.ColorThreatSafe end																	-- Safe
@@ -139,7 +139,7 @@ local function ColorFunctionByThreat(unit)
 
 		if unit.reaction == "NEUTRAL" and unit.threatValue < 2 then return ReactionColors[unit.reaction][unit.type] end
 
-		if (LocalVars.ThreatWarningMode == "Tank") or (LocalVars.ThreatWarningMode == "Auto" and TidyPlatesWidgets.IsTankingAuraActive) then
+		if (LocalVars.ThreatWarningMode == "Tank") or (LocalVars.ThreatWarningMode == "Auto" and IsTankingAuraActive()) then
 			return ColorFunctionTankSwapColors(unit)
 		--elseif LocalVars.ThreatWarningMode == "Tank" then
 		--	return ColorFunctionRawTank(unit)
@@ -294,7 +294,7 @@ local function WarningBorderFunctionByThreat(unit)
 	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" then
 		if unit.reaction == "NEUTRAL" and unit.threatValue < 2 then return end
 
-		if (LocalVars.ThreatWarningMode == "Auto" and TidyPlatesWidgets.IsTankingAuraActive)
+		if (LocalVars.ThreatWarningMode == "Auto" and IsTankingAuraActive())
 			or LocalVars.ThreatWarningMode == "Tank" then
 				if IsTankedByAnotherTank(unit) then return
 				elseif unit.threatValue == 2 then return LocalVars.ColorThreatTransition

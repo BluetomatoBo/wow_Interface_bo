@@ -8,14 +8,14 @@ local LocalVars = TidyPlatesHubDefaults
 
 local InCombatLockdown = InCombatLockdown
 local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
-local IsTankedByAnotherTank = HubData.Functions.IsTankedByAnotherTank
-local IsTankingAuraActive = HubData.Functions.IsTankingAuraActive
+local IsTankedByAnotherTank = TidyPlatesWidgets.IsTankedByAnotherTank
+local IsTankingAuraActive = TidyPlatesWidgets.IsPlayerTank
 local IsHealer = TidyPlatesUtility.IsHealer
 local IsAuraShown = TidyPlatesWidgets.IsAuraShown
 
 
 local function IsUnitActive(unit)
-	return (unit.health < unit.healthmax) or (unit.threatValue > 1) or unit.isInCombat or unit.isMarked
+	return (unit.health < unit.healthmax) or (unit.threatValue > 1) or unit.isMarked	-- or unit.isInCombat
 end
 
 
@@ -44,7 +44,7 @@ end
 
 -- Bars when unit is active or damaged
 local function StyleBarsOnActive(unit)
-	if (unit.health < unit.healthmax) or (unit.threatValue > 1) or unit.isInCombat or unit.isMarked then
+	if (unit.health < unit.healthmax) or (unit.threatValue > 1) or unit.isMarked then 	--or unit.isInCombat
 		return BARMODE
 	end
 	return HEADLINEMODE

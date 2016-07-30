@@ -35,48 +35,9 @@ local IsFriend = TidyPlatesUtility.IsFriend
 local IsGuildmate = TidyPlatesUtility.IsGuildmate
 
 
-local isTanked = TidyPlatesWidgets.IsTankedByAnotherTank
-local function IsTankedByAnotherTank(...)
-
---[[
-	-- Testing
-	if LocalVars.EnableOffTankHighlight then
-		local unit = ...
-		if not unit.isTarget then return true end
-	end
---]]
-
-
-	--if LocalVars.EnableOffTankHighlight and isTanked(...) then return true end
-	return 
-end
-
-HubData.Functions.IsTankedByAnotherTank = IsTankedByAnotherTank
-
-local function IsTankingAuraActive()
-	return TidyPlatesWidgets.IsTankingAuraActive
-end
-
-HubData.Functions.IsTankingAuraActive = IsTankingAuraActive
 
 -- General
 local function DummyFunction() return end
-
-local function GetFriendlyClass(name)
-	local class = TidyPlatesUtility.GroupMembers.Class[name]
-
-	if (not IsInInstance()) and (not class) and LocalVars.AdvancedEnableUnitCache then
-		class = CachedUnitClass(name) end
-	return class
-end
-
-local function GetEnemyClass(name)
-	if LocalVars.AdvancedEnableUnitCache then
-			return CachedUnitClass(name) end
-end
-
-HubData.Functions.GetFriendlyClass = GetFriendlyClass
-HubData.Functions.GetEnemyClass = GetEnemyClass
 
 -- Define the Menu for Threat Modes
 TidyPlatesHubDefaults.ThreatWarningMode = "Auto"
@@ -85,11 +46,6 @@ TidyPlatesHubMenus.ThreatWarningModes = {
 					{ text = "Tank", value = "Tank",} ,
 					{ text = "DPS/Healer", value = "DPS",} ,
 					}
-
-
---local NormalGrey = {r = .5, g = .5, b = .5, a = .3}
---local EliteGrey = {r = .8, g = .7, b = .4, a = .5}
---local BossGrey = {r = .8, g = .6, b = .1, a = 1}
 
 local NormalGrey = {r = .65, g = .65, b = .65, a = .4}
 local EliteGrey = {r = .9, g = .7, b = .3, a = .5}

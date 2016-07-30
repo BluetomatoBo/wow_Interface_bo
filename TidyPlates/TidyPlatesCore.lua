@@ -173,12 +173,15 @@ do
 		local healthbar = CreateTidyPlatesStatusbar(extended)
 		local castbar = CreateTidyPlatesStatusbar(extended)
 		local textFrame = CreateFrame("Frame", nil, healthbar)
-		--local widgetFrame = CreateFrame("Frame", nil, healthbar)
+		local widgetFrame = CreateFrame("Frame", nil, textFrame)
 
 		healthbar:SetFrameStrata("BACKGROUND")
 		castbar:SetFrameStrata("BACKGROUND")
+		widgetFrame:SetFrameStrata("LOW")
+
 		textFrame:SetAllPoints()
 
+		extended.widgetFrame = widgetFrame
 		visual.healthbar = healthbar
 		visual.castbar = castbar
 		bars.healthbar = healthbar		-- For Threat Plates Compatibility
@@ -300,11 +303,11 @@ do
 
 	-- OnShowNameplate
 	function OnShowNameplate(plate, unitid)
-
+		-- or unitid = plate.namePlateUnitToken
 		UpdateReferences(plate)
 
 		carrier:Show()
-		extended:Show()
+		--extended:Show()
 		extended:SetAlpha(1)
 
 		PlatesVisible[plate] = unitid
@@ -355,7 +358,7 @@ do
 
 	-- OnHideNameplate
 	function OnHideNameplate(plate, unitid)
-		plate.extended:Hide()
+		--plate.extended:Hide()
 		plate.carrier:Hide()
 
 		UpdateReferences(plate)
@@ -377,6 +380,9 @@ do
 
 	-- OnUpdateNameplate
 	function OnUpdateNameplate(plate)
+		-- And stay down!
+		plate:GetChildren():Hide()
+
 		-- Gather Information
 		unitid = PlatesVisible[plate]
 		UpdateReferences(plate)
@@ -778,6 +784,9 @@ do
 	-- OnShowCastbar
 	function OnStartCasting(plate, unitid, channeled)
 		UpdateReferences(plate)
+		--if not extended:IsShown() then return end
+		if not extended:IsShown() then return end
+
 		local castBar = extended.visual.castbar
 
 		local name, subText, text, texture, startTime, endTime, isTradeSkill, castID, notInterruptible
@@ -827,6 +836,8 @@ do
 	function OnStopCasting(plate)
 
 		UpdateReferences(plate)
+		
+		if not extended:IsShown() then return end
 		local castBar = extended.visual.castbar
 
 		castBar:Hide()
@@ -841,7 +852,7 @@ do
 
 	function OnUpdateCastMidway(plate, unitid)
 		if not ShowCastBars then return end
-		
+
 		local currentTime = GetTime() * 1000
 
 		-- Check to see if there's a spell being cast
@@ -942,9 +953,10 @@ do
 
 
 	-- Spell Casting Function
-
-	local function UNIT_CAST_EVENT_START(...)
+	local function UNIT_SPELLCAST_MIDWAY(...)
 		local unitid = ...
+
+		if UnitIsUnit("player", unitid) or not ShowCastBars then return end
 
 		local plate = GetNamePlateForUnit(unitid);
 
@@ -953,17 +965,18 @@ do
 		end
 	 end
 
-	 events.UNIT_SPELLCAST_DELAYED = UNIT_CAST_EVENT_START
-	 events.UNIT_SPELLCAST_CHANNEL_UPDATE = UNIT_CAST_EVENT_START
-	 events.UNIT_SPELLCAST_INTERRUPTIBLE = UNIT_CAST_EVENT_START
-	 events.UNIT_SPELLCAST_NOT_INTERRUPTIBLE = UNIT_CAST_EVENT_START
+	 events.UNIT_SPELLCAST_DELAYED = UNIT_SPELLCAST_MIDWAY
+	 events.UNIT_SPELLCAST_CHANNEL_UPDATE = UNIT_SPELLCAST_MIDWAY
+	 events.UNIT_SPELLCAST_INTERRUPTIBLE = UNIT_SPELLCAST_MIDWAY
+	 events.UNIT_SPELLCAST_NOT_INTERRUPTIBLE = UNIT_SPELLCAST_MIDWAY
 
 
 	function events:UNIT_SPELLCAST_START(...)
-		if not ShowCastBars then return end
 		local unitid = ...
+		if UnitIsUnit("player", unitid) or not ShowCastBars then return end
 
-		local plate = GetNamePlateForUnit(unitid);
+		local plate = GetNamePlateForUnit(unitid)
+
 		if plate then 
 			OnStartCasting(plate, unitid, false)
 		end
@@ -971,37 +984,37 @@ do
 
 
 	 function events:UNIT_SPELLCAST_STOP(...)
-	 	if not ShowCastBars then return end
 		local unitid = ...
+		if UnitIsUnit("player", unitid) or not ShowCastBars then return end
 
-		local plate = GetNamePlateForUnit(unitid);
+		local plate = GetNamePlateForUnit(unitid)
 
 		if plate then 
-			OnStopCasting(plate, unitid, false)
+			OnStopCasting(plate)
 		end
-
 	 end
 
 	 
 
 	function events:UNIT_SPELLCAST_CHANNEL_START(...)
-		if not ShowCastBars then return end
 		local unitid = ...
+		if UnitIsUnit("player", unitid) or not ShowCastBars then return end
 
-		local plate = GetNamePlateForUnit(unitid);
+		local plate = GetNamePlateForUnit(unitid)
+
 		if plate then 
 			OnStartCasting(plate, unitid, true)
 		end
 	end
 
 	function events:UNIT_SPELLCAST_CHANNEL_STOP(...)
-		if not ShowCastBars then return end
 		local unitid = ...
+		if UnitIsUnit("player", unitid) or not ShowCastBars then return end
 
-		local plate = GetNamePlateForUnit(unitid);
+		local plate = GetNamePlateForUnit(unitid)
 
 		if plate then 
-			OnStopCasting(plate, unitid, true)
+			OnStopCasting(plate)
 		end
 	end
 
