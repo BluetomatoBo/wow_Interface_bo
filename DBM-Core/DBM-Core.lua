@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 15061 $"):sub(12, -3)),
-	DisplayVersion = "7.0.0", -- the string that is shown as version
-	ReleaseRevision = 15061 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 15086 $"):sub(12, -3)),
+	DisplayVersion = "7.0.1", -- the string that is shown as version
+	ReleaseRevision = 15086 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -61,10 +61,10 @@ end
 -- dual profile setup
 local _, class = UnitClass("player")
 DBM_UseDualProfile = true
-if class == "MAGE" or class == "WARLOCK" and class == "HUNTER" and class == "ROGUE" then
+if class == "MAGE" or class == "WARLOCK" and class == "ROGUE" then
 	DBM_UseDualProfile = false
 end
-DBM_CharSavedRevision = 1
+DBM_CharSavedRevision = 2
 
 --Hard code STANDARD_TEXT_FONT since skinning mods like to taint it (or worse, set it to nil, wtf?)
 local standardFont = STANDARD_TEXT_FONT
@@ -407,7 +407,7 @@ local updateNotificationDisplayed = 0
 local showConstantReminder = 0
 local tooltipsHidden = false
 local SWFilterDisabed = 3
-local currentSpecGroup = GetActiveSpecGroup()
+local currentSpecGroup = GetSpecialization() or 1
 local currentSpecID, currentSpecName
 local cSyncSender = {}
 local cSyncReceived = 0
@@ -423,7 +423,7 @@ local statusWhisperDisabled = false
 local wowTOC = select(4, GetBuildInfo())
 local dbmToc = 0
 
-local fakeBWRevision = 13712
+local fakeBWRevision = 13799
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 local guiRequested = false
@@ -588,7 +588,7 @@ local function stripServerName(cap)
 end
 
 local function countDownTextDelay(timer)
-	TimerTracker_OnEvent(TimerTracker, "START_TIMER", 2, timer, timer)
+	TimerTracker_OnEvent(TimerTracker, "START_TIMER", 2, timer+1, timer+1)
 end
 
 --------------
@@ -1280,7 +1280,7 @@ do
 				"CHALLENGE_MODE_START",
 				"CHALLENGE_MODE_RESET",
 				"CHALLENGE_MODE_END",
-				"ACTIVE_TALENT_GROUP_CHANGED",
+				"PLAYER_SPECIALIZATION_CHANGED",
 				"PARTY_INVITE_REQUEST",
 				"LOADING_SCREEN_DISABLED",
 				"SCENARIO_CRITERIA_UPDATE"
@@ -3072,7 +3072,7 @@ end
 function DBM:PLAYER_LEVEL_UP()
 	playerLevel = UnitLevel("player")
 	if playerLevel < 15 and playerLevel > 9 then
-		self:ACTIVE_TALENT_GROUP_CHANGED()
+		self:PLAYER_SPECIALIZATION_CHANGED()
 	end
 end
 
@@ -3363,7 +3363,7 @@ do
 
 		-- force enable dual profile (change default)
 		if DBM_CharSavedRevision < 12976 then
-			if class ~= "MAGE" and class ~= "WARLOCK" and class ~= "HUNTER" and class ~= "ROGUE" then
+			if class ~= "MAGE" and class ~= "WARLOCK" and class ~= "ROGUE" then
 				DBM_UseDualProfile = true
 			end
 		end
@@ -3436,7 +3436,7 @@ do
 	end
 end
 
-function DBM:ACTIVE_TALENT_GROUP_CHANGED()
+function DBM:PLAYER_SPECIALIZATION_CHANGED()
 	local lastSpecID = currentSpecID
 	self:SetCurrentSpecInfo()
 	if currentSpecID ~= lastSpecID then--Don't fire specchanged unless spec actually has changed.
@@ -4001,12 +4001,7 @@ do
 			dummyMod.countdown:Start(timer)
 		end
 		if not DBM.Options.DontShowPTCountdownText then
-			local threshold = DBM.Options.PTCountThreshold
-			if timer > threshold then
-				DBM:Schedule(timer-threshold, countDownTextDelay, threshold)
-			else
-				TimerTracker_OnEvent(TimerTracker, "START_TIMER", 2, timer, timer)
-			end
+			TimerTracker_OnEvent(TimerTracker, "START_TIMER", 2, timer, timer)
 		end
 		if not DBM.Options.DontShowPTText then
 			if target then
@@ -6007,10 +6002,18 @@ end
 do
 	local autoLog = false
 	local autoTLog = false
+	
+	local function isCurrentContent()
+		if LastInstanceMapID == 1205 or LastInstanceMapID == 1228 or LastInstanceMapID == 1448 or --Draenor (Remove August 30th)
+		LastInstanceMapID == 1520 or LastInstanceMapID == 1530 or LastInstanceMapID == 1220 then--Legion
+			return true
+		end
+		return false
+	end
 
 	function DBM:StartLogging(timer, checkFunc)
 		self:Unschedule(DBM.StopLogging)
-		if self.Options.LogOnlyRaidBosses and ((LastInstanceType ~= "raid") or IsPartyLFG()) then return end
+		if self.Options.LogOnlyRaidBosses and ((LastInstanceType ~= "raid") or IsPartyLFG() or not isCurrentContent()) then return end
 		if self.Options.AutologBosses then--Start logging here to catch pre pots.
 			if not LoggingCombat() then
 				autoLog = true
@@ -6052,8 +6055,8 @@ do
 end
 
 function DBM:SetCurrentSpecInfo()
-	currentSpecGroup = GetActiveSpecGroup()
-	currentSpecID, currentSpecName = GetSpecializationInfo(GetSpecialization() or 1)--give temp first spec id for non-specialization char. no one should use dbm with no specialization, below level 10, should not need dbm.
+	currentSpecGroup = GetSpecialization() or 1
+	currentSpecID, currentSpecName = GetSpecializationInfo(currentSpecGroup)--give temp first spec id for non-specialization char. no one should use dbm with no specialization, below level 10, should not need dbm.
 	currentSpecID = tonumber(currentSpecID)
 end
 
@@ -6335,8 +6338,11 @@ do
 
 	function DBM:AprilFools()
 		self:Unschedule(self.AprilFools)
-		SetMapToCurrentZone()
-		local currentMapId = GetCurrentMapAreaID()
+		local currentMapId = GetPlayerMapAreaID("player")
+		if not currentMapId then
+			SetMapToCurrentZone()
+			currentMapId = GetCurrentMapAreaID()
+		end
 		self:Schedule(120 + math.random(0, 600) , self.AprilFools, self)
 		if currentMapId ~= 1014 then return end--Legion Dalaran
 		playDelay(self, 1)
@@ -6399,8 +6405,11 @@ do
 
 	local function getNumRealAlivePlayers()
 		local alive = 0
-		SetMapToCurrentZone()
-		local currentMapId = GetCurrentMapAreaID()
+		local currentMapId = GetPlayerMapAreaID("player")
+		if not currentMapId then
+			SetMapToCurrentZone()
+			currentMapId = GetCurrentMapAreaID()
+		end
 		local currentMapName = GetMapNameByID(currentMapId)
 		if IsInRaid() then
 			for i = 1, GetNumGroupMembers() do
@@ -10306,7 +10315,7 @@ do
 
 	function bossModPrototype:NewCombatTimer(timer, text, barText, barIcon)
 		timer = timer or 10
-		local bar = self:NewTimer(timer, barText or DBM_CORE_GENERIC_TIMER_COMBAT, barIcon or 2457, nil, "timer_combat")
+		local bar = self:NewTimer(timer, barText or DBM_CORE_GENERIC_TIMER_COMBAT, barIcon or "Interface\\Icons\\ability_warrior_offensivestance", nil, "timer_combat")
 		local countdown = self:NewCountdown(0, 0, nil, false, nil, true)
 		local obj = setmetatable(
 			{
