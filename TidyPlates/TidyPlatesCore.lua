@@ -1,5 +1,6 @@
 -- Tidy Plates - SMILE! :-D
-
+-- /script SetCVar("nameplateMaxDistance", 45)
+-- https://www.reddit.com/r/wow/comments/4ukmg2/nameplates_distance_back_to_prelegion_settings/
 
 
 TidyPlatesDebug = false

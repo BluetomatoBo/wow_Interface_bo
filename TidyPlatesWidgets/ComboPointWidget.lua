@@ -10,7 +10,7 @@
 --]]
 local comboWidgetPath = "Interface\\Addons\\TidyPlatesWidgets\\ComboWidget\\"
 local artpath = "Interface\\Addons\\TidyPlatesWidgets\\ComboWidget\\"
-local artfile = artpath.."PointArt.tga"
+local artfile = artpath.."PointArtLegion.tga"
 local grid = .0625
 local monkOffset = 10
 
@@ -129,6 +129,8 @@ end
 local WatcherFrame = CreateFrame("Frame", nil, WorldFrame )
 local isEnabled = false
 WatcherFrame:RegisterEvent("UNIT_COMBO_POINTS")
+WatcherFrame:RegisterEvent("UNIT_POWER")
+WatcherFrame:RegisterEvent("UNIT_DISPLAYPOWER")
 WatcherFrame:RegisterEvent("UNIT_AURA")
 WatcherFrame:RegisterEvent("UNIT_FLAGS")
 

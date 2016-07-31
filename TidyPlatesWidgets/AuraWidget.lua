@@ -317,7 +317,9 @@ local function UpdateWidgetContext(frame, unit)
 end
 
 local function ClearWidgetContext(frame)
-	WidgetList[frame.unitid] = nil
+	
+	-- fix me!
+	--WidgetList[frame.unitid] = nil
 end
 
 local function ExpireFunction(icon)

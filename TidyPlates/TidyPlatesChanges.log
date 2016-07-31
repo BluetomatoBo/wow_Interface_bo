@@ -3,6 +3,12 @@ Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.j
 
 
 ---------------------------
+6.18.Beta10
+---------------------------
+Combo Point Widget should now update properly.
+
+
+---------------------------
 6.18.Beta9
 ---------------------------
 Aura Widget is now about 90% complete
