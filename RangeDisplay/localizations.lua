@@ -76,13 +76,13 @@ end
 
 L = AL:NewLocale(AppName, "ruRU")
 if L then
-L["|cffeda55fControl + Left Click|r to lock frames"] = "|cffeda55f[Control + Левый клик]|r фиксирует фрейм"
+L["|cffeda55fControl + Left Click|r to lock frames"] = "|cffeda55f[Control + Щелчок левой кнопкой]|r закрепляет фреймы"
 L["|cffeda55fDrag|r to move the frame"] = "|cffeda55f[Двигайте]|r для перемещения окна"
-L["|cffeda55fLeft Click|r to lock/unlock frames"] = "|cffeda55f[Левый клик]|r фиксирует/освобождает фреймы"
-L["|cffeda55fRight Click|r to open the configuration window"] = "|cffeda55f[Правый клик]|r открывает окно настроек"
-L["|cffeda55fShift + Left Click|r to toggle sound"] = "|cffeda55fShift + Левый клик|r - переключить звук"
+L["|cffeda55fLeft Click|r to lock/unlock frames"] = "|cffeda55f[Щелчок левой кнопкой]|r закрепляет/освобождает фреймы"
+L["|cffeda55fRight Click|r to open the configuration window"] = "|cffeda55f[Щелчок правой кнопкой]|r открывает окно настроек"
+L["|cffeda55fShift + Left Click|r to toggle sound"] = "|cffeda55fShift + Щелчок левой кнопкой|r — переключить звук"
 L["focus"] = "Фокус"
-L["mouseover"] = "Mouseover"
+L["mouseover"] = "Наведение курсора"
 L["pet"] = "Питомец"
 L["playertarget"] = "Цель"
 
@@ -104,13 +104,13 @@ end
 
 L = AL:NewLocale(AppName, "zhTW")
 if L then
-L["|cffeda55fControl + Left Click|r to lock frames"] = "|cffeda55fCtrl+點擊|r鎖定所有框架"
+L["|cffeda55fControl + Left Click|r to lock frames"] = "|cffeda55fCtrl+左鍵|r 鎖定所有框架"
 L["|cffeda55fDrag|r to move the frame"] = "|cffeda55f拖拽|r 移動位置"
-L["|cffeda55fLeft Click|r to lock/unlock frames"] = "|cffeda55f點擊|r鎖定/解鎖框架"
-L["|cffeda55fRight Click|r to open the configuration window"] = "|cffeda55f右擊|r打開設置視窗"
-L["|cffeda55fShift + Left Click|r to toggle sound"] = "|cffeda55fShift + 左鍵點擊|r切換聲音"
-L["focus"] = "焦點"
-L["mouseover"] = "鼠標懸停"
+L["|cffeda55fLeft Click|r to lock/unlock frames"] = "|cffeda55f左鍵|r 鎖定/解鎖框架"
+L["|cffeda55fRight Click|r to open the configuration window"] = "|cffeda55f右鍵|r 開啟設定視窗"
+L["|cffeda55fShift + Left Click|r to toggle sound"] = "|cffeda55fShift + 左鍵|r 切換音效"
+L["focus"] = "專注目標"
+L["mouseover"] = "滑鼠目標"
 L["pet"] = "寵物"
 L["playertarget"] = "目標"
 
