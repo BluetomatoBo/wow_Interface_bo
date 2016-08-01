@@ -90,7 +90,6 @@ local function DefaultFilterFunction(debuff)
 end
 
 
-
 -----------------------------------------------------
 -- General Events
 -----------------------------------------------------
@@ -101,11 +100,7 @@ local function EventUnitAura(unitid)
 
 	if unitid then frame = WidgetList[unitid] end
 
-	if frame then 
-		---print(unitid)
-		UpdateWidget(frame)
-		--UpdateIconGrid(frame, unitid)
-	end
+	if frame then UpdateWidget(frame) end
 
 end
 
@@ -118,16 +113,6 @@ end
 local AuraEvents = {
 	--["UNIT_TARGET"] = EventUnitTarget,
 	["UNIT_AURA"] = EventUnitAura,
-
---[[
-	["PLAYER_ENTERING_WORLD"] = EventPlayerEnterWorld,
-	["PLAYER_REGEN_ENABLED"] = CleanAuraLists,
-
-	["SPELL_UPDATE_USABLE"] = EventPlayerAbilityUpdated,
-	["SPELL_UPDATE_COOLDOWN"] = EventPlayerAbilityUpdated,
-	["SPELL_COOLDOWN_READY"] = EventPlayerAbilityUpdated,
-	["SPELL_COOLDOWN_STARTED"] = EventPlayerAbilityUpdated,
-	--]]
 }
 
 local function AuraEventHandler(frame, event, ...)
@@ -138,16 +123,7 @@ local function AuraEventHandler(frame, event, ...)
 		eventFunction(...)
 	end
 
-	--[[
-	if unitid == "target" then
-		UpdateAurasByUnitID("target")
-	end
-	--]]
 end
-
-
--- CallForWidgetUpdate(destGUID, raidicon, name)
-
 
 -------------------------------------------------------------
 -- Widget Object Functions
@@ -202,6 +178,11 @@ end
 
 local function UpdateIconGrid(frame, unitid)
 
+		if not unitid then return end
+
+		local unitReaction
+		if UnitIsFriend("player", unitid) then unitReaction = AURA_TARGET_FRIENDLY
+		else unitReaction = AURA_TARGET_HOSTILE end
 
 		local AuraIconFrames = frame.AuraIconFrames
 		local storedAuras = {}
@@ -229,9 +210,11 @@ local function UpdateIconGrid(frame, unitid)
 			
 				aura.name = name
 				aura.texture = icon
-				aura.count = stacks
-				aura.type = AuraType_Index[auraType]
+				aura.stacks = stacks
+				aura.type = auraType
+				aura.effect = auraFilter
 				aura.duration = duration
+				aura.reaction = unitReaction
 				aura.expiration = expiration
 				aura.caster = caster
 				aura.spellid = spellid

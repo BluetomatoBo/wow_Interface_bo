@@ -78,30 +78,7 @@ local AURA_TARGET_FRIENDLY = 2
 local AURA_TYPE = { "Buff", "Curse", "Disease", "Magic", "Poison", "Debuff", }
 local AURA_TYPE_COLORS = { nil, {1,0,1}, {.5, .2, 0}, {0,.4,1}, {0,1,0}, nil, }
 
---[[
-local AURA_TYPE_ALTS = {
-	{"BUFF", "Buff", "Buffs"},
-	{"CURSE", "Curse", },
-	{"DISEASE", "Disease", },
-	{"MAGIC", "Magic",},
-	{"POISON", "Poison",},
-	{"DEBUFF", "Debuff", "Debuffs"},
-}
 
-local function PrefixLookupByType(auratype)
-	local names = AURA_TYPE_ALTS[auratype]
-	local prefix
-	for i = 1, #names do
-		prefix = LocalVars.WidgetsDebuffLookup[ (names[i]) ]
-		if prefix then return prefix end
-	end
-end
-
-
-local function PriorityLookupByType(auratype)
-	return LocalVars.WidgetsDebuffPriority[ (AURA_TYPE[auratype]) ] or LocalVars.WidgetsDebuffPriority[ (AURA_TYPE_CAPS[auratype]) ]
-end
---]]
 
 local function GetPrefixPriority(aura)
 	local spellid = tostring(aura.spellid)
@@ -143,21 +120,16 @@ local DebuffPrefixModes = {
 	end
 }
 
--- [[
 local function SmartFilterMode(aura)
 	local ShowThisAura = false
 	local AuraPriority = 20
 
 
-	--print(aura.name, aura.caster, aura.unit, aura.type)
-	--ignite player nameplate1 Magic
-
-
 	-- My own Buffs and Debuffs
 	if aura.caster == "player" and aura.duration and aura.duration < 150 then
-		if LocalVars.WidgetsMyBuff and aura.type == AURA_TYPE_BUFF then
+		if LocalVars.WidgetsMyBuff and aura.effect == "HELPFUL" then
 			ShowThisAura = true
-		elseif LocalVars.WidgetsMyDebuff and aura.type ~= AURA_TYPE_BUFF then
+		elseif LocalVars.WidgetsMyDebuff and aura.effect == "HARMFUL" then
 			ShowThisAura = true
 		end
 	end
@@ -180,54 +152,8 @@ local function SmartFilterMode(aura)
 	end
 
 end
---]]
 
 
-local DebuffFilterModes = {
-	-- My Debuffs
-	function(aura)
-		if aura.caster == "player" and aura.type ~= AURA_TYPE_BUFF then return true, 20 end
-	end,
-	-- My Buffs
-	function(aura)
-		if aura.caster == "player" and aura.type == AURA_TYPE_BUFF and aura.duration < 120 then return true, 20 end
-	end,
-	-- By Prefix
-	function(aura)
-		local prefix, priority = GetPrefixPriority(aura)
-		if prefix then
-			local show, r, g, b = DebuffPrefixModes[prefix](aura)
-			return show, priority + 20, r, g, b
-		end
-
-	end,
-	-- Smart Filter
-	--SmartFilterMode,
-}
-
-
---[[
-Auras 3.0
-
-	My Debuffs
-	My Buffs
-	Smart Search
-	Custom
-
-	Smart Search
-
-	My Debuffs + Any buffs added to the list, or blacklisted
-	My Buffs + Any debuffs added to the list, or blacklisted
-	Smart Search = Debuffs on Enemies, Buffs on Friendlies, + List
-
-
-Auras 4.0
-
-	CC Database
-	Cooldown Counter
-	Ability Counter
-
---]]
 
 
 local DispelTypeHandlers = {
@@ -256,48 +182,15 @@ local function TrackDispelType(auratype)
 	end
 end
 
-
-
-
 local function DebuffFilter(aura)
-	--print(aura.name, aura.caster, aura.type, UnitGUID("player"))
 	if LocalVars.WidgetAuraTrackDispelFriendly and aura.reaction == AURA_TARGET_FRIENDLY then
-		if TrackDispelType(AURA_TYPE[aura.type]) then
+		if TrackDispelType(aura.type) then
 		local r, g, b = GetAuraColor(aura)
 		return true, 10, r, g, b end
 	end
 
-
-	-- Filter Mode
-	--local func = DebuffFilterModes[LocalVars.WidgetsAuraMode] or DummyFunction
-	--return func(aura)
 	return SmartFilterMode(aura)
 end
-
-
-
-local function Prefilter(spellid, spellname, auratype, auratargetreaction)
-	-- Store debuffs on friendly units.
-	if (auratargetreaction == AURA_TARGET_FRIENDLY) and (AURA_TYPE[auratype] ~= AURA_TYPE_BUFF) then return true end
-	-- Store auras marked in lookup
-	return ((LocalVars.WidgetsDebuffLookup[tostring(spellid)] or LocalVars.WidgetsDebuffLookup[spellname]) ~= nil)
-end
-
---[[
-local function BasicPrefilter(spellid, spellname, auratype, auratargetreaction)
-	-- Store debuffs on friendly units.
-	if (auratargetreaction == AURA_TARGET_FRIENDLY) and (AURA_TYPE[auratype] ~= AURA_TYPE_BUFF) then return true end
-	-- Store auras marked in lookup
-	return ((LocalVars.WidgetsDebuffLookup[tostring(spellid)] or LocalVars.WidgetsDebuffLookup[spellname]) ~= nil)
-end
-
-local function SmartPrefilter(spellid, spellname, auratype, auratargetreaction)
-	-- Store debuffs on friendly units.
-	if (auratargetreaction == AURA_TARGET_FRIENDLY) and (AURA_TYPE[auratype] ~= AURA_TYPE_BUFF) then return true end
-	-- Store auras marked in lookup
-	return ((LocalVars.WidgetsDebuffLookup[tostring(spellid)] or LocalVars.WidgetsDebuffLookup[spellname]) ~= nil)
-end
---]]
 
 
 ---------------------------------------------------------------------------------------------------------

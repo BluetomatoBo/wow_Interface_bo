@@ -1,6 +1,11 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
 
+---------------------------
+6.18.Beta11
+---------------------------
+More futzing with the Aura widget.  Stacks should show up.  Dispellable stuff might show up.
+
 
 ---------------------------
 6.18.Beta10
@@ -14,8 +19,6 @@ Combo Point Widget should now update properly.
 Aura Widget is now about 90% complete
 
 Fixed some errors when Personal Resource Frame is used (alpha.lua:30)
-
-
 
 
 ---------------------------
