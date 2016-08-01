@@ -8,8 +8,9 @@ if not L then return end
 L["Add Handy Note"] = "Notiz hinzufügen"
 L["Add this location to TomTom waypoints"] = "Diese Stelle zu TomTom hinzufügen"
 L[ [=[
-Alt+Right Click To Add a HandyNote]=] ] = "Alt+Rechtsklick, um ein HandyNote hinzuzufügen"
-L["|cFF00FF00Hint: |cffeda55fCtrl+Shift+LeftDrag|cFF00FF00 to move a note"] = "|cFF00FF00Hinweis: |cffeda55fStrg+Shift+Linksklick|cFF00FF00, um eine Notiz zu bewegen"
+Alt+Right Click To Add a HandyNote]=] ] = [=[
+Alt-Rechtsklick, um ein HandyNote hinzuzufügen]=]
+L["|cFF00FF00Hint: |cffeda55fCtrl+Shift+LeftDrag|cFF00FF00 to move a note"] = "|cFF00FF00Hinweis: |cffeda55fStrg-Umschalt-Linksklick|cFF00FF00, um eine Notiz zu bewegen"
 L["Configuration for each individual plugin database."] = "Konfiguration für jede Plugin-Datenbank."
 L["Delete Handy Note"] = "Notiz löschen"
 L["Description/Notes:"] = "Beschreibung/Notizen:"

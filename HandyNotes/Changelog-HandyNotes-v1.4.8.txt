@@ -1,9 +1,15 @@
 ------------------------------------------------------------------------
-r267 | nevcairiel | 2016-07-19 06:54:45 +0000 (Tue, 19 Jul 2016) | 1 line
+r269 | nevcairiel | 2016-08-01 08:45:37 +0000 (Mon, 01 Aug 2016) | 1 line
 Changed paths:
-   A /tags/v1.4.7 (from /trunk:266)
+   A /tags/v1.4.8 (from /trunk:268)
 
-Tag as v1.4.7
+Tagging as v1.4.8
+------------------------------------------------------------------------
+r268 | nevcairiel | 2016-07-30 09:23:46 +0000 (Sat, 30 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/HandyNotes.lua
+
+Remove unused upvalue
 ------------------------------------------------------------------------
 r266 | nevcairiel | 2016-07-19 06:54:05 +0000 (Tue, 19 Jul 2016) | 1 line
 Changed paths:
