@@ -1,7 +1,7 @@
 ﻿--[[
 ********************************************************************************
 Routes
-v1.5.3
+v1.5.4
 16 October 2014
 (Originally written for Live Servers v4.3.0.15050)
 (Hotfixed for v6.0.2.19034)
@@ -186,8 +186,8 @@ for cID_new, cname in next, {GetMapContinents()} do
 	if type(cname) == "string" then
 		local cID = cID_new / 2
 		for zID, zname in pairs(ZoneInfo(GetMapZones(cID))) do
-			-- old SMV/Nagrand in outlands
-			if zID == 473 or zID == 477 then
+			-- old SMV/Nagrand in outlands, Dalaran in Northrend
+			if zID == 473 or zID == 477 or zID == 504 then
 				zname = ("%s (%s)"):format(zname, cname)
 			end
 			Routes.LZName[zname] = {Routes.Dragons:GetMapFileFromID(zID), zID, cID, Routes.Dragons:GetCZFromMapID(zID)}
@@ -199,6 +199,8 @@ local function GetZoneName(mapFile)
 	local name = Routes.Dragons:GetLocalizedMap(mapFile)
 	if (mapFile == 473 or mapFile == 477 or mapFile == "Nagrand" or mapFile == "ShadowmoonValley") then
 		name = format("%s (%s)", name, Routes.Dragons:GetLocalizedMap("Expansion01"))
+	elseif (mapFile == 504 or mapFile == "Dalaran") then
+		name = format("%s (%s)", name, Routes.Dragons:GetLocalizedMap("Northrend"))
 	end
 	return name
 end
@@ -2893,7 +2895,6 @@ do
 	local TabooHandler = {}
 	function TabooHandler:EditTaboo(info)
 		local zone = info[2]
-		WorldMapButton:SetParent(WorldMapFrame) --Moves WorldMapButton out of its current parent which is a scroll frame. This allows the point to be smoothly dragged.
 
 		-- make a copy of the taboo for editing
 		local taboo_data
@@ -2954,7 +2955,6 @@ do
 		SetMapByID(Routes.Dragons:GetMapIDFromFile(zone))
 	end
 	function TabooHandler:SaveEditTaboo(info)
-		WorldMapButton:SetParent(WorldMapDetailFrame) --Returning the WorldMapButton to its original parent
 		local zone = info[2]
 		if info[1] == "routes_group" then
 			local route = Routes.routekeys[zone][ info[3] ]
@@ -2991,7 +2991,6 @@ do
 		throttleFrame:Show()  -- Redraw the changes
 	end
 	function TabooHandler:CancelEditTaboo(info)
-		WorldMapButton:SetParent(WorldMapDetailFrame) --Returning the WorldMapButton to its original parent
 		local zone = info[2]
 		local taboo
 		if info[1] == "routes_group" then

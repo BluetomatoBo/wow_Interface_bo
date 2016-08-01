@@ -14,23 +14,21 @@ L["An updated copy of TomTom is required for TomTom integration to work"] = "Se 
 L["Archaeology"] = "Arqueología"
 L["Are you sure you want to delete this route?"] = "¿Estás seguro de que deseas eliminar esta ruta?"
 L["Are you sure you want to delete this taboo? This action will also remove the taboo from all routes that use it."] = "¿Estás seguro de que deseas eliminar este tabú? Esta acción quitará el tabú para todas las rutas que lo usen."
--- L["Are you sure you want to recreate this route? This will delete all customized settings for this route."] = "Are you sure you want to recreate this route? This will delete all customized settings for this route."
+L["Are you sure you want to recreate this route? This will delete all customized settings for this route."] = "¿Está seguro de que desea volver a crear esta ruta? Esto eliminará todos los ajustes personalizados para esta ruta."
 L["A route with that name already exists. Overwrite?"] = "Una ruta con el mismo nombre ya existe. ¿Sobreescribir?"
 L["A taboo with that name already exists. Overwrite?"] = "Un tabú con el mismo nombre ya existe. ¿Sobreescribir?"
 L["Automatic route updating"] = "Actualizar ruta/s automáticamente"
---[==[ L["AUTOMATIC_UPDATE_TEXT"] = [=[
-Routes will automatically update your routes and insert/remove nodes as required when you use |cffffff78GatherMate|r or |cffffff78Cartographer_<Profs>|r as your data sources. |cffffff78Gatherer/HandyNotes|r is not supported as it currently does not support callbacks.
+L["AUTOMATIC_UPDATE_TEXT"] = [=[Routes actualizará automáticamente tus rutas e insertará/eliminará nodos como si se requiere al utilizar |cffffff78GatherMate|r o |cffffff78Cartographer_<Profs>|r como fuente de datos. |cffffff78Gatherer/HandyNotes|r no es compatible en la actualidad con las devoluciones de llamada.
 
-When you find a new node in either of these addons, Routes will search the zone for existing routes with that node type and insert it in the best location in the route. SImilarly, when you delete a node in those addons, Routes will also remove the node from the relevant routes.
+Cuando encuentre un nuevo nodo cualquiera de estos complementos, Routes buscará en la zona las rutas existentes con ese tipo de nodo y la inserta en la mejor ubicación. Del mismo modo, cuando se elimina un nodo en esos complementos, Routes también eliminará el nodo de las rutas pertinentes.
 
-Moving an existing node's location by a few yards is handled by a node deletion followed by an node insertion. In fact, this is exactly how GatherMate and Cartographer_<Profs> handles it internally.
+Si cambia la ubicación de un nodo existente por un par de yardas, es eliminado el nodo anterior y creado uno nuevo. De hecho, es lo que realiza internamente GatherMate and Cartographer_<Profs>.
 
-To stop this automatic updating behavior, you can turn off the option by following these steps:
+Puede desactivar esta automatización siguiendo estos pasos:
 
-|cffffff781.|r Navigate to the |cffffff78Routes|r root tree on the left side of the configuration screen.
+|cffffff781.|r Vaya a la |cffffff78Routes|r raíz de árbol en el lado izquierdo de la pantalla de configuración.
 
-|cffffff782.|r Uncheck the boxes for each data source.
-]=] ]==]
+|cffffff782.|r desactive las casillas de cada fuente de datos.]=]
 L["Auto show and hide routes based on your professions"] = "Mostrar/Ocultar automáticamente las rutas basadas en tus profesiones"
 L["Auto show/hide"] = "Mostrar/Ocultar automáticamente"
 L["Auto Show/Hide per route type"] = "Mostrar/Ocultar automáticamente por tipo de ruta"
@@ -56,24 +54,23 @@ L["Create Bare Route"] = "Crear ruta pelada"
 L["CREATE_BARE_ROUTE_DESC"] = "Esto creará una ruta con sólo 3 puntos iniciales, y no utiliza ningún dato. Puede modificar manualmente la ruta para insertar y mover nodos."
 L["Create Route"] = "Crear Ruta"
 L["Create Route from Data Sources"] = "Crear ruta de la Fuente de Datos"
---[==[ L["CREATE_ROUTE_TEXT"] = [=[
-Creating a route has 4 simple steps. First, navigate to the |cffffff78Add|r section on the left side.
+L["CREATE_ROUTE_TEXT"] = [=[Para crear una ruta realiza 4 sencillos pasos. En primer lugar, vaya a la sección |cffffff78Add|r en el lado izquierdo .
 
-|cffffff781.|r Type in a name for the route and press |cffffff78ENTER|r or click the |cffffff78OK|r button.
+|cffffff781.|r Escriba un nombre para la ruta y pulse |cffffff78ENTER|r o haga clic en el botón |cffffff78OK|r.
 
-|cffffff782.|r Select a zone to create the route in.
+|cffffff782.|r Seleccione una zona donde crear la ruta.
 
-|cffffff783.|r Select the sources of data.
+|cffffff783.|r Seleccione las fuentes de datos.
 
-|cffffff784.|r Select the type of data you wish to use in your route.
+|cffffff784.|r Seleccione el tipo de datos que desea utilizar en su ruta.
 
 
 |cffffd200Notes:|r
 
-* It is important to press the |cffffff78ENTER|r or click the |cffffff78OK|r button when entering the route name, otherwise the name will not be saved.
+* Es importante presionar el |cffffff78ENTER|r o hacer clic en el botón |cffffff78OK|r al introducir el nombre de la ruta, de lo contrario, no se guardará.
 
-* If the route creation is successful, you will see pink lines running all over your world map in the selected zone. A route entry will be created on the left side under Routes for each route. This initial route is unoptimized and will need optimization.
-]=] ]==]
+* Si la creación de rutas se realiza correctamente, verá líneas de color rosa que recorren todo el mapa en la zona seleccionada. Se creará en el lado izquierdo debajo de Routes, una nueva ruta. Esta ruta inicial esta sin optimizar y necesitará optimización.
+]=]
 L["Create Taboo"] = "Crear Tabú"
 --[==[ L["CREATE_TABOOS_TEXT"] = [=[
 |cffffff78Taboo regions|r are areas (2D polygons) on the World Map that you can define easily to tell Routes to ignore. When such areas are defined, Routes will actively ignore any nodes that lie in these areas, and take extra effort such that the generated route does not cross these areas. This is very useful for marking places that are out of the way such as floating islands, caves, tall mountains, enemy towns and so on.
@@ -213,7 +210,7 @@ L["GatherMate2Archaeology"] = "Arqueología"
 L["GatherMate2Extract Gas"] = "Extraer Gas"
 L["GatherMate2Fishing"] = "Pesca"
 L["GatherMate2Herb Gathering"] = "Herbología"
--- L["GatherMate2Logging"] = "GatherMate2Logging"
+L["GatherMate2Logging"] = "GatherMate2Logging"
 L["GatherMate2Mining"] = "Minería"
 L["GatherMate2Treasure"] = "Tesoro"
 L["Help File"] = "Archivo de Ayuda"
@@ -282,12 +279,12 @@ L["Overview"] = "Visión general"
 
 The |cffffff78Travelling Salesman Problem|r (TSP) is a traditional problem where given N cities and the distances between any pair of cities, find the shortest tour that visits all of the cities exactly once and return to the starting city. The same problem is applied to the gathering nodes in World of Warcraft to find the shortest possible route to visit every known spawn point in a circuit.
 ]=] ]==]
--- L["Pass %d: %d%%"] = "Pass %d: %d%%"
--- L["Pass %d: %d%% - %d yards"] = "Pass %d: %d%% - %d yards"
+L["Pass %d: %d%%"] = "Pasar %d: %d%%"
+L["Pass %d: %d%% - %d yards"] = "Pasar %d: %d%% - %d yardas"
 L["Path with %d nodes found with length %.2f yards after %d iterations in %.2f seconds."] = "Ruta con %d nodos encontrada con una longitud de %.2f yardas/metros después de %d interacciones en %.2f segundos."
 L["Permanently delete a route"] = "Borrar una ruta permanentemente"
--- L["Recreate Route"] = "Recreate Route"
--- L["Recreate this route with the same creation settings. NOTE: This only works for data from GatherMate2 and Gatherer."] = "Recreate this route with the same creation settings. NOTE: This only works for data from GatherMate2 and Gatherer."
+L["Recreate Route"] = "Recrear ruta"
+L["Recreate this route with the same creation settings. NOTE: This only works for data from GatherMate2 and Gatherer."] = "Recrear esta ruta con la misma configuración de creación. NOTA: Esto sólo funciona con los datos de GatherMate2 y GatherMate"
 L["Reset"] = "Reiniciar"
 L["Reset the line settings to defaults"] = "Reiniciar los ajustes de línea a los de por defecto"
 L["Route Clustering"] = "Agrupando Ruta"
