@@ -4,7 +4,7 @@
 ## Notes: Single window display for your void storage
 ## RequiredDeps: Bagnon
 ## LoadOnDemand: 1
-## Version: 7.0.3
+## Version: 7.0.4
 
 localization\localization.xml
 components\components.xml
