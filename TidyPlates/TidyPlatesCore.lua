@@ -1,7 +1,10 @@
 -- Tidy Plates - SMILE! :-D
 -- /script SetCVar("nameplateMaxDistance", 45)
 -- https://www.reddit.com/r/wow/comments/4ukmg2/nameplates_distance_back_to_prelegion_settings/
-
+-- /script NamePlateDriverFrame:SetBaseNamePlateSize(150, 45)
+-- Trivial Mobs
+-- Tapped mobs
+-- mini mobs
 
 TidyPlatesDebug = false
 DebugCount = 1
@@ -270,8 +273,9 @@ do
 
 	-- ProcessUnitChanges
 	local function ProcessUnitChanges()
-			-- Unit Cache
+			-- Unit Cache: Determine if data has changed
 			unitchanged = false
+
 			for key, value in pairs(unit) do
 				if unitcache[key] ~= value then
 					unitchanged = true
@@ -279,7 +283,7 @@ do
 			end
 
 			-- Update Style/Indicators
-			if unitchanged or (not style)then
+			if unitchanged or UpdateAll or (not style)then --
 				CheckNameplateStyle()
 				UpdateIndicator_Standard()
 				UpdateIndicator_HealthBar()
@@ -517,6 +521,7 @@ do
 		unit.guid = UnitGUID(unitid)
 
 		UpdateUnitCondition(plate, unitid)	-- This updates a bunch of properties
+
 		if activetheme.OnContextUpdate then activetheme.OnContextUpdate(extended, unit) end
 		if activetheme.OnUpdate then activetheme.OnUpdate(extended, unit) end
 	end
@@ -581,7 +586,8 @@ do
 		end
 		
 		-- Unfinished....
-		unit.isTapped = false		--not UnitIsTappedByPlayer(unitid)
+		unit.isTapped = UnitIsTapDenied(unitid)
+
 		--unit.isInCombat = false
 		--unit.platetype = 2 -- trivial mini mob
 		
@@ -885,7 +891,7 @@ do
 	-- Events
 	function events:PLAYER_ENTERING_WORLD() 
 		TidyPlatesCore:SetScript("OnUpdate", OnUpdate);
-
+		NamePlateDriverFrame:SetBaseNamePlateSize( 160, 50 )
 		--NamePlateDriverFrame:UnregisterAllEvents();					-- DH Method
 
 	end

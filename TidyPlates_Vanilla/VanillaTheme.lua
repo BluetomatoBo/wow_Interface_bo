@@ -11,8 +11,8 @@ local font =					NAMEPLATE_FONT
 local EMPTY_TEXTURE = defaultArtPath.."\\Empty"
 
 TemplateTheme.hitbox = {
-	width = 160,
-	height = 45,
+	width = 149,
+	height = 40,
 }
 
 TemplateTheme.highlight = {

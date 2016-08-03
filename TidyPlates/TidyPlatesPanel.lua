@@ -628,6 +628,7 @@ function panelevents:PLAYER_LOGIN()
 	CreateMenuTables()
 	CreateTidyPlatesInterfacePanel(TidyPlatesInterfacePanel)
 	InterfaceOptions_AddCategory(TidyPlatesInterfacePanel);
+	--NamePlateDriverFrame:SetBaseNamePlateSize(150, 45)
 
 	if not TidyPlatesOptions.WelcomeShown then
 

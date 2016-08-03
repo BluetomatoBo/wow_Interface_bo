@@ -102,12 +102,12 @@ local DebuffPrefixModes = {
 	end,
 	-- My
 	function(aura)
-		if aura.caster == "player" then return true end
+		if aura.caster == "player" or aura.caster == "pet" then return true end
 	end,
 	-- Other
 	function(aura)
 		--print(aura.caster, aura.name)
-		if aura.caster ~= "player" then return true end
+		if (aura.caster ~= "player" or aura.caster ~= "pet") then return true end
 	end,
 	-- CC
 	function(aura)
@@ -126,7 +126,7 @@ local function SmartFilterMode(aura)
 
 
 	-- My own Buffs and Debuffs
-	if aura.caster == "player" and aura.duration and aura.duration < 150 then
+	if (aura.caster == "player" or aura.caster == "pet") and aura.duration and aura.duration < 150 then
 		if LocalVars.WidgetsMyBuff and aura.effect == "HELPFUL" then
 			ShowThisAura = true
 		elseif LocalVars.WidgetsMyDebuff and aura.effect == "HARMFUL" then
@@ -328,7 +328,7 @@ local function OnInitializeWidgets(plate, configTable)
 	--AddThreatWheelWidget(plate, LocalVars.WidgetsThreatIndicator and (LocalVars.WidgetsThreatIndicatorMode == 2), configTable.ThreatWheelWidget)
 	AddThreatLineWidget(plate, LocalVars.WidgetsThreatIndicator, configTable.ThreatLineWidget)		-- Tug-o-Threat
 	AddComboPoints(plate, LocalVars.WidgetsComboPoints, configTable.ComboWidget )
-	AddRangeWidget(plate, LocalVars.WidgetsRangeIndicator, configTable.RangeWidget )
+	--AddRangeWidget(plate, LocalVars.WidgetsRangeIndicator, configTable.RangeWidget )
 	if LocalVars.WidgetsComboPoints and configTable.DebuffWidgetPlus then -- If the combo widget is active, it often overlaps the debuff widget "DebuffWidgetPlus" will provide an alternative
 		AddDebuffWidget(plate, LocalVars.WidgetsDebuff, configTable.DebuffWidgetPlus )
 	else AddDebuffWidget(plate, LocalVars.WidgetsDebuff, configTable.DebuffWidget ) end
@@ -352,7 +352,7 @@ end
 
 local function OnUpdateDelegate(plate, unit)
 	local Widgets = plate.widgets
-	if LocalVars.WidgetsRangeIndicator then Widgets.RangeWidget:Update(unit,RangeModeRef[LocalVars.RangeMode])  end
+	--if LocalVars.WidgetsRangeIndicator then Widgets.RangeWidget:Update(unit,RangeModeRef[LocalVars.RangeMode])  end
 	if (LocalVars.ClassEnemyIcon and unit.reaction ~= "FRIENDLY") or (LocalVars.ClassPartyIcon and unit.reaction == "FRIENDLY") then Widgets.ClassIcon:Update(unit, LocalVars.ClassPartyIcon) end
 	if LocalVars.WidgetsTotemIcon then Widgets.TotemIcon:Update(unit)  end
 	--if (LocalVars.WidgetsThreatIndicatorMode == 2) and LocalVars.WidgetsThreatIndicator then plate.widgets.ThreatWheelWidget:Update(unit) end 		-- Threat Wheel

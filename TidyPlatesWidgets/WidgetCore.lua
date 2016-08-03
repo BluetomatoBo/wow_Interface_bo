@@ -42,7 +42,7 @@ end
 ----------------------
 
 do
-	local updateInterval = 1
+	local updateInterval = .5
 	local PolledHideIn
 	local Framelist = {}			-- Key = Frame, Value = Expiration Time
 	local Watcherframe = CreateFrame("Frame")
