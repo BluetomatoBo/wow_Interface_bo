@@ -587,7 +587,6 @@ do
 		
 		-- Unfinished....
 		unit.isTapped = UnitIsTapDenied(unitid)
-
 		--unit.isInCombat = false
 		--unit.platetype = 2 -- trivial mini mob
 		
@@ -891,7 +890,7 @@ do
 	-- Events
 	function events:PLAYER_ENTERING_WORLD() 
 		TidyPlatesCore:SetScript("OnUpdate", OnUpdate);
-		NamePlateDriverFrame:SetBaseNamePlateSize( 160, 50 )
+		--NamePlateDriverFrame:SetBaseNamePlateSize( 160, 50 )
 		--NamePlateDriverFrame:UnregisterAllEvents();					-- DH Method
 
 	end

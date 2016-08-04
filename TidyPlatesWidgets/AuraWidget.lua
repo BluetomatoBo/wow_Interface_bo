@@ -392,6 +392,7 @@ local function CreateWideAuraIconFrame(parent)
 	frame.Cooldown = CreateFrame("Cooldown", nil, frame, "TidyPlatesAuraWidgetCooldown")
 	frame.Cooldown:SetAllPoints(frame)
 	frame.Cooldown:SetReverse(true)
+	frame.Cooldown:SetHideCountdownNumbers(true)
 
 	-- Border
 	frame.Border = frame:CreateTexture(nil, "ARTWORK")
@@ -451,6 +452,7 @@ local function CreateSquareAuraIconFrame(parent)
 	frame.Cooldown = CreateFrame("Cooldown", nil, frame, "TidyPlatesAuraWidgetCooldown")
 	frame.Cooldown:SetAllPoints(frame)
 	frame.Cooldown:SetReverse(true)
+	frame.Cooldown:SetHideCountdownNumbers(true)
 
 	-- Border
 	frame.Border = frame:CreateTexture(nil, "ARTWORK")
