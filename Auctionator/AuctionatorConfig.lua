@@ -91,7 +91,7 @@ function Atr_SetupOptionsFrame()
           .."</p>"
           .."<p><br/>"
           .."|cffaaaaaa"..string.format (ZT("German translation courtesy of %s"),  "|rCkaotik").."<br/>"
-          .."|cffaaaaaa"..string.format (ZT("Russian translation courtesy of %s"), "|rStingerSoft").."<br/>"
+          .."|cffaaaaaa"..string.format (ZT("Russian translation courtesy of %s"), "|rStingerSoft, Wetxius").."<br/>"
           .."|cffaaaaaa"..string.format (ZT("Swedish translation courtesy of %s"), "|rHellManiac").."<br/>"
           .."|cffaaaaaa"..string.format (ZT("French translation courtesy of %s"),  "|rKiskewl").."<br/>"
           .."|cffaaaaaa"..string.format (ZT("Spanish translation courtesy of %s"),  "|rElfindor").."<br/>"
@@ -559,6 +559,8 @@ function Atr_Memorize_Show (isNew)
 
   Atr_MemorizeFrame:Show();
 
+  StaticPopup_Hide ("ATR_MEMORIZE_TEXT_BLANK");
+
 end
 
 -----------------------------------------
@@ -579,6 +581,23 @@ end
 
 -----------------------------------------
 
+StaticPopupDialogs[ "ATR_MEMORIZE_TEXT_BLANK" ] = {
+  text = "",
+  button1 = OKAY,
+  OnAccept = function( self )
+    Atr_StackingList_New_OnClick();
+    return
+  end,
+  OnShow = function( self )
+    local s = string.format (ZT("Item Name must not be blank"));
+    self.text:SetText("\n"..s.."\n");
+  end,
+  timeout = 0,
+  exclusive = 1,
+  whileDead = 1,
+  hideOnEscape = 1
+};
+
 function Atr_Memorize_Save()
 
   zz ("Saving stacking configuration");
@@ -588,7 +607,7 @@ function Atr_Memorize_Save()
 
   local key = Atr_Mem_EB_itemName:GetText();
   if (key == nil or key == "") then
-    key = plist[x].sortkey;
+    StaticPopup_Show( "ATR_MEMORIZE_TEXT_BLANK" )
   end
 
   if (key and key ~= "") then
