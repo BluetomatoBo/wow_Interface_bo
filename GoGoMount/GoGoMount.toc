@@ -1,6 +1,6 @@
 ## Interface: 70000
 ## Title: GoGoMount
-## Version: 7.0.4
+## Version: 7.0.6
 ## Notes: One-key solution for mounting/dismounting, supports spells, shapeshifting
 ## Notes-enGB: One-key solution for mounting/dismounting, supports spells, shapeshifting
 ## Notes-deDE: Ein-Tasten-Lösung für das Auf- und Absitzen von Reittieren, unterstützt auch Zaubersprüche und Gestaltwandlung
@@ -13,7 +13,7 @@
 ## Author: Gadgets (Tiker) @ Bleeding Hollow
 ## SavedVariablesPerCharacter: GoGo_Prefs GoGo_DebugLog
 ## SavedVariables: GoGo_Prefs_Template
-## X-Curse-Packaged-Version: 7.0.4
+## X-Curse-Packaged-Version: 7.0.6
 ## X-Curse-Project-Name: GoGoMount
 ## X-Curse-Project-ID: gogomount
 ## X-Curse-Repository-ID: wow/gogomount/mainline

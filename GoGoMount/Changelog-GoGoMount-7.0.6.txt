@@ -1,9 +1,34 @@
 ------------------------------------------------------------------------
-r591 | tiker | 2016-07-27 03:14:09 +0000 (Wed, 27 Jul 2016) | 1 line
+r597 | tiker | 2016-08-06 15:42:36 +0000 (Sat, 06 Aug 2016) | 1 line
 Changed paths:
-   A /tags/7.0.4 (from /trunk:590)
+   A /tags/7.0.6 (from /trunk:596)
 
-Tagging as 7.0.4
+Tagging as 7.0.6
+------------------------------------------------------------------------
+r596 | tiker | 2016-08-06 15:41:39 +0000 (Sat, 06 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+fixed typo in version
+------------------------------------------------------------------------
+r595 | tiker | 2016-08-06 15:40:56 +0000 (Sat, 06 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated version for release
+------------------------------------------------------------------------
+r594 | tiker | 2016-08-06 15:40:11 +0000 (Sat, 06 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Fix for older zone preferences
+------------------------------------------------------------------------
+r592 | tiker | 2016-07-27 13:10:58 +0000 (Wed, 27 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+
+Fix the error when logging
 ------------------------------------------------------------------------
 r590 | tiker | 2016-07-27 03:05:57 +0000 (Wed, 27 Jul 2016) | 1 line
 Changed paths:
