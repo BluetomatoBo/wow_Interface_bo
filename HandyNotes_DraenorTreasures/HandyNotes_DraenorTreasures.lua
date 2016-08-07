@@ -791,6 +791,10 @@ nodes["MardumtheShatteredAbyss"] = {
 	[78755047]={ "40274", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
 	[73494892]={ "39975", "Small Treasure Chest", "", "", "default", "treasure_dh", "129195"},
 	[42194916]={ "40223", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
+	[23065389]={ "40797", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
+	[66922767]={ "39974", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
+	[74285453]={ "39977", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
+	--[99999999]={ "39976", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
 	
 	[68852759]={ "40234", "General Volroth", "", "", "skull_grey", "rare_dh", "128947"},
 	[81034124]={ "40233", "Overseer Brutarg", "", "", "skull_grey", "rare_dh", "133580"},
