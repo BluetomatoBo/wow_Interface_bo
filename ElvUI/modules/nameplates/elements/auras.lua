@@ -205,8 +205,8 @@ function mod:UpdateAuraIcons(auras)
 	local maxAuras = auras.db.numAuras
 	local numCurrentAuras = #auras.icons
 	if numCurrentAuras > maxAuras then
-		for i = auras.db.numAuras, #auras.icons do
-			tinsert(auras.icons[i], auraCache)
+		for i = maxAuras, numCurrentAuras do
+			tinsert(auraCache, auras.icons[i])
 			auras.icons[i]:Hide()
 			auras.icons[i] = nil
 		end
