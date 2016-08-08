@@ -313,7 +313,7 @@ do
 
 		carrier:Show()
 		--extended:Show()
-		extended:SetAlpha(1)
+		--extended:SetAlpha(1)		-- do we need this?  might cause a flash
 
 		PlatesVisible[plate] = unitid
 		PlatesByUnit[unitid] = plate

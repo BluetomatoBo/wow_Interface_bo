@@ -43,6 +43,8 @@ local DebuffColumns = 3
 local DebuffLimit = 6
 local inArena = false
 
+local function DummyFunction() end
+
 local GetCombatEventResults = TidyPlatesUtility.GetCombatEventResults
 
 local function DefaultPreFilterFunction() return true end
@@ -57,6 +59,10 @@ local AURA_TARGET_FRIENDLY = 2
 
 local AURA_TYPE_BUFF = 1
 local AURA_TYPE_DEBUFF = 6
+
+-- Get a clean version of the function...  Avoid OmniCC interference
+local CooldownNative = CreateFrame("Cooldown", nil, WorldFrame)
+local SetCooldown = CooldownNative.SetCooldown
 
 local _
 
@@ -189,7 +195,8 @@ local function UpdateIcon(frame, texture, duration, expiration, stacks, r, g, b)
 
 		-- Cooldown
 		if duration and duration > 0 and expiration and expiration > 0 then
-			frame.Cooldown:SetCooldown(expiration-duration, duration+.25)
+			SetCooldown(frame.Cooldown, expiration-duration, duration+.25)
+			--frame.Cooldown:SetCooldown(expiration-duration, duration+.25)
 		end
 
 		-- Expiration
@@ -393,6 +400,9 @@ local function CreateWideAuraIconFrame(parent)
 	frame.Cooldown:SetAllPoints(frame)
 	frame.Cooldown:SetReverse(true)
 	frame.Cooldown:SetHideCountdownNumbers(true)
+	--frame.Cooldown:SetHideCountdownNumbers(true)
+	--frame.Cooldown._HideCountdown = frame.Cooldown.SetHideCountdownNumbers
+	--frame.Cooldown.SetHideCountdownNumbers = DummyFunction
 
 	-- Border
 	frame.Border = frame:CreateTexture(nil, "ARTWORK")
@@ -404,6 +414,7 @@ local function CreateWideAuraIconFrame(parent)
 	frame.Highlight:SetAllPoints(frame.Border)
 	frame.Highlight:SetTexture(WideHighlightArt)
 	--  Time Text
+	--frame.TimeLeft = frame:CreateFontString(nil, "OVERLAY")
 	frame.TimeLeft = frame.Cooldown:CreateFontString(nil, "OVERLAY")
 	frame.TimeLeft:SetFont(AuraFont ,9, "OUTLINE")
 	frame.TimeLeft:SetShadowOffset(1, -1)
@@ -413,6 +424,7 @@ local function CreateWideAuraIconFrame(parent)
 	frame.TimeLeft:SetHeight(16)
 	frame.TimeLeft:SetJustifyH("RIGHT")
 	--  Stacks
+	--frame.Stacks = frame:CreateFontString(nil, "OVERLAY")
 	frame.Stacks = frame.Cooldown:CreateFontString(nil, "OVERLAY")
 	frame.Stacks:SetFont(AuraFont,10, "OUTLINE")
 	frame.Stacks:SetShadowOffset(1, -1)
@@ -449,10 +461,12 @@ local function CreateSquareAuraIconFrame(parent)
 	frame.Icon:SetTexCoord(.10, 1-.07, .12, 1-.12)  -- obj:SetTexCoord(left,right,top,bottom)
 
 	--Spinning Cooldown Frame
+	-- [[
 	frame.Cooldown = CreateFrame("Cooldown", nil, frame, "TidyPlatesAuraWidgetCooldown")
 	frame.Cooldown:SetAllPoints(frame)
 	frame.Cooldown:SetReverse(true)
 	frame.Cooldown:SetHideCountdownNumbers(true)
+	--]]
 
 	-- Border
 	frame.Border = frame:CreateTexture(nil, "ARTWORK")
@@ -464,6 +478,7 @@ local function CreateSquareAuraIconFrame(parent)
 	frame.Highlight:SetAllPoints(frame.Border)
 	frame.Highlight:SetTexture(SquareHighlightArt)
 	--  Time Text
+	--frame.TimeLeft = frame:CreateFontString(nil, "OVERLAY")
 	frame.TimeLeft = frame.Cooldown:CreateFontString(nil, "OVERLAY")
 	frame.TimeLeft:SetFont(AuraFont ,9, "OUTLINE")
 	frame.TimeLeft:SetShadowOffset(1, -1)
@@ -473,6 +488,7 @@ local function CreateSquareAuraIconFrame(parent)
 	frame.TimeLeft:SetHeight(16)
 	frame.TimeLeft:SetJustifyH("RIGHT")
 	--  Stacks
+	--frame.Stacks = frame:CreateFontString(nil, "OVERLAY")
 	frame.Stacks = frame.Cooldown:CreateFontString(nil, "OVERLAY")
 	frame.Stacks:SetFont(AuraFont,10, "OUTLINE")
 	frame.Stacks:SetShadowOffset(1, -1)

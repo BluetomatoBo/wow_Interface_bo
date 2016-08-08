@@ -1,5 +1,15 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
+---------------------------
+6.18.Beta15
+---------------------------
+Cooldown fixes, perhaps?  
+
+---------------------------
+6.18.Beta13
+---------------------------
+Aura Widget..  made it so OmniCC and the like won't mess with cooldown animations.
+
 
 ---------------------------
 6.18.Beta11

@@ -8,6 +8,8 @@ local LocalVars = TidyPlatesHubDefaults
 ------------------------------------------------------------------
 -- References
 ------------------------------------------------------------------
+local RaidClassColors = RAID_CLASS_COLORS
+
 local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
 local IsFriend = TidyPlatesUtility.IsFriend
 local IsGuildmate = TidyPlatesUtility.IsGuildmate
@@ -63,7 +65,7 @@ local function ShortenNumber(number)
 	if not number then return "" end
 
 	if number > 1000000 then
-		return (ceil((number/10000))/100).." M"
+		return (ceil((number/1000000))).." M"
 	elseif number > 1000 then
 		return (ceil((number/10))/100).." k"
 	else
@@ -207,7 +209,8 @@ local function HealthFunctionArenaID(unit)
 		end
 	end
 
-	local healthstring = "|cffffffff"..tostring(ceil(unit.health/1000)).."k|cff0088ff"
+	local health = ShortenNumber(GetHealth(unit))
+	local healthstring = "|cffffffff"..health.."|cff0088ff"
 
 --[[
 -- Test Strings
@@ -361,7 +364,8 @@ local function TextRoleGuildLevel(unit)
 
 		if not description then --  and unit.reaction ~= "FRIENDLY" then
 			description =  GetLevelDescription(unit)
-			r, g, b = unit.levelcolorRed, unit.levelcolorGreen, unit.levelcolorBlue
+			r, g, b = .7, .7, .9
+			--r, g, b = unit.levelcolorRed, unit.levelcolorGreen, unit.levelcolorBlue
 		end
 
 	elseif unit.type == "PLAYER" then
@@ -388,6 +392,26 @@ local function TextRoleGuild(unit)
 
 	return description, r, g, b, .70
 end
+
+local function TextRoleClass(unit)
+	local description, faction
+	local r, g, b = 1,1,1
+
+	if unit.type == "NPC" then
+		description = CachedUnitDescription(unit.name)
+		if not description then
+			faction, description = UnitFactionGroup(unit.unitid)
+		end
+
+	elseif unit.type == "PLAYER" then
+		description = UnitClassBase(unit.unitid)
+		local classColor = RaidClassColors[unit.class]
+		r, g, b = classColor.r, classColor.g, classColor.b
+	end
+
+	return description, r, g, b, .70
+end
+
 
 -- NPC Role
 local function TextNPCRole(unit)
@@ -423,6 +447,7 @@ AddHubFunction(EnemyNameSubtextFunctions, TidyPlatesHubMenus.EnemyNameSubtextMod
 AddHubFunction(EnemyNameSubtextFunctions, TidyPlatesHubMenus.EnemyNameSubtextModes, TextHealthPercentColored, "Percent Health", "PercentHealth")
 AddHubFunction(EnemyNameSubtextFunctions, TidyPlatesHubMenus.EnemyNameSubtextModes, TextRoleGuildLevel, "Role, Guild or Level", "RoleGuildLevel")
 AddHubFunction(EnemyNameSubtextFunctions, TidyPlatesHubMenus.EnemyNameSubtextModes, TextRoleGuild, "Role or Guild", "RoleGuild")
+--AddHubFunction(EnemyNameSubtextFunctions, TidyPlatesHubMenus.EnemyNameSubtextModes, TextRoleClass, "Role or Class", "RoleClass")
 AddHubFunction(EnemyNameSubtextFunctions, TidyPlatesHubMenus.EnemyNameSubtextModes, TextNPCRole, "NPC Role", "Role")
 AddHubFunction(EnemyNameSubtextFunctions, TidyPlatesHubMenus.EnemyNameSubtextModes, TextLevelColored, "Level", "Level")
 AddHubFunction(EnemyNameSubtextFunctions, TidyPlatesHubMenus.EnemyNameSubtextModes, TextAll, "Role, Guild, Level or Health Percent", "RoleGuildLevelHealth")
