@@ -1,9 +1,18 @@
 ------------------------------------------------------------------------
-r597 | tiker | 2016-08-06 15:42:36 +0000 (Sat, 06 Aug 2016) | 1 line
+r599 | tiker | 2016-08-09 02:15:06 +0000 (Tue, 09 Aug 2016) | 1 line
 Changed paths:
-   A /tags/7.0.6 (from /trunk:596)
+   A /tags/7.0.7 (from /trunk:598)
 
-Tagging as 7.0.6
+Tagging as 7.0.7
+------------------------------------------------------------------------
+r598 | tiker | 2016-08-09 02:12:54 +0000 (Tue, 09 Aug 2016) | 2 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+Now supports summoning "Ratstallion Harness" in (Legion) Dalaran / Underbelly if the item is in the player's bag.
+Updated TOC version for next release
 ------------------------------------------------------------------------
 r596 | tiker | 2016-08-06 15:41:39 +0000 (Sat, 06 Aug 2016) | 1 line
 Changed paths:
