@@ -79,6 +79,12 @@ P['general'] = {
 				['yOffset'] = 2,
 				["hide"] = false,
 			},
+			['ticket'] = {
+				['scale'] = 1,
+				['position'] = "TOPRIGHT",
+				['xOffset'] = 0,
+				['yOffset'] = 0,
+			},
 		}
 	},
 	['threat'] = {
@@ -227,6 +233,7 @@ P["nameplates"] = {
 		['PLAYER'] = {
 			['enable'] = false,
 			["alwaysShow"] = false,
+			["clickthrough"] = false,
 			['healthbar'] = {
 				['enable'] = true,
 				['height'] = 10,
