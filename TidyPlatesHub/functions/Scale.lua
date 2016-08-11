@@ -9,7 +9,7 @@ local LocalVars = TidyPlatesHubDefaults
 ------------------------------------------------------------------------------
 local InCombatLockdown = InCombatLockdown
 local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
-local IsTankedByAnotherTank = TidyPlatesWidgets.IsTankedByAnotherTank
+local IsOffTanked = TidyPlatesHubFunctions.IsOffTanked
 local IsTankingAuraActive = TidyPlatesWidgets.IsPlayerTank
 local IsHealer = TidyPlatesUtility.IsHealer
 local UnitFilter = TidyPlatesHubFunctions.UnitFilter
@@ -49,7 +49,7 @@ end
 -- By Threat (Low) Tank Mode
 local function ScaleFunctionByThreatLow(unit)
 	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" then
-		if IsTankedByAnotherTank(unit) then return end
+		if IsOffTanked(unit) then return end
 		if unit.type == "NPC" and unit.health > 2 and unit.threatValue < 2 then return LocalVars.ScaleSpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
 		if GetAggroCondition(unit.rawName) then return LocalVars.ScaleSpotlight end

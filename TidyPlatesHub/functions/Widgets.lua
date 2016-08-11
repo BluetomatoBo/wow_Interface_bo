@@ -342,7 +342,7 @@ end
 
 local function OnContextUpdateDelegate(plate, unit)
 	local Widgets = plate.widgets
-	if LocalVars.WidgetsComboPoints and Widgets.ComboWidget then Widgets.ComboWidget:UpdateContext(unit) end
+	if LocalVars.WidgetsComboPoints and Widgets.ComboWidget then Widgets.ComboWidget:UpdateContext(plate, unit) end
 	-- if (LocalVars.WidgetsThreatIndicatorMode == 1) and LocalVars.WidgetsThreatIndicator then Widgets.ThreatLineWidget:UpdateContext(unit) end		-- Tug-O-Threat
 	if LocalVars.WidgetsThreatIndicator and Widgets.ThreatLineWidget then Widgets.ThreatLineWidget:UpdateContext(unit) end		-- Tug-O-Threat
 	if LocalVars.WidgetsDebuff and Widgets.DebuffWidget then Widgets.DebuffWidget:UpdateContext(unit) end

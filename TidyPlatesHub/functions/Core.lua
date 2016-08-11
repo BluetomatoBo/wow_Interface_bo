@@ -13,6 +13,8 @@ local CallbackList = {}
 function HubData.RegisterCallback(func) CallbackList[func] = true end
 function HubData.UnRegisterCallback(func) CallbackList[func] = nil end
 
+local CurrentProfileName = nil 
+
 local InCombatLockdown = InCombatLockdown
 
 local WidgetLib = TidyPlatesWidgets
@@ -33,6 +35,18 @@ local CachedUnitGuild = TidyPlatesUtility.CachedUnitGuild
 local CachedUnitClass = TidyPlatesUtility.CachedUnitClass
 local IsFriend = TidyPlatesUtility.IsFriend
 local IsGuildmate = TidyPlatesUtility.IsGuildmate
+
+
+
+-- Combat 
+local IsEnemyTanked = TidyPlatesWidgets.IsEnemyTanked
+
+local function IsOffTanked(unit)
+	
+	if LocalVars.EnableOffTankHighlight and IsEnemyTanked(unit) then
+		return true
+	end
+end
 
 
 
@@ -178,12 +192,18 @@ local function UseVariables(profileName)
 	local suffix = profileName or "Damage"
 	if suffix then
 
-		local objectName = "HubPanelSettings"..suffix
-		---ocal objectName = "HubProfileSettings"..suffix
+		if CurrentProfileName ~= suffix then 	-- Stop repeat loading
 
-		LocalVars = TidyPlatesHubSettings[objectName] or CreateVariableSet(objectName)
+			local objectName = "HubPanelSettings"..suffix
 
-		CallbackUpdate()
+			--print(objectName, TidyPlatesHubSettings[objectName])
+
+			LocalVars = TidyPlatesHubSettings[objectName] or CreateVariableSet(objectName)
+
+			CurrentProfileName = suffix
+
+			CallbackUpdate()
+		end
 
 		--EnableWatchers()
 		return LocalVars
@@ -319,7 +339,7 @@ end
 ---------------------------------------------
 -- Function List
 ---------------------------------------------
-
+TidyPlatesHubFunctions.IsOffTanked = IsOffTanked
 
 TidyPlatesHubFunctions.UseDamageVariables = UseDamageVariables
 TidyPlatesHubFunctions.UseTankVariables = UseTankVariables

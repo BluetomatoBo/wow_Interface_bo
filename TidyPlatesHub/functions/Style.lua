@@ -8,7 +8,7 @@ local LocalVars = TidyPlatesHubDefaults
 
 local InCombatLockdown = InCombatLockdown
 local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
-local IsTankedByAnotherTank = TidyPlatesWidgets.IsTankedByAnotherTank
+local IsOffTanked = TidyPlatesHubFunctions.IsOffTanked
 local IsTankingAuraActive = TidyPlatesWidgets.IsPlayerTank
 local IsHealer = TidyPlatesUtility.IsHealer
 local IsAuraShown = TidyPlatesWidgets.IsAuraShown
@@ -68,7 +68,7 @@ end
 -- low threat
 local function StyleBarsOnLowThreat(unit)
 	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" then
-		if IsTankedByAnotherTank(unit) then return HEADLINEMODE end
+		if IsOffTanked(unit) then return HEADLINEMODE end
 		if unit.threatValue < 2 and unit.health > 0 then return BARMODE end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
 		if GetAggroCondition(unit.rawName) == true then return BARMODE end
@@ -113,7 +113,7 @@ end
 	--[[
 	-- Low Threat
 	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" then
-		if IsTankedByAnotherTank(unit) then return "NameOnly" end
+		if IsOffTanked(unit) then return "NameOnly" end
 		if unit.threatValue < 2 and unit.health > 0 then return "Default" end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
 		if GetAggroCondition(unit.rawName) == true then return "Default" end

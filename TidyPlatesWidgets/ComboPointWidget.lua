@@ -99,7 +99,7 @@ local function UpdateWidgetFrame(frame)
 end
 
 -- Context
-local function UpdateWidgetContext(frame, unit)
+local function UpdateWidgetContext(frame, plate, unit)
 	local guid = unit.guid
 
 	-- Add to Widget List

@@ -1,5 +1,25 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
-Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp
+Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   *.zip
+
+---------------------------
+6.18.Beta18
+---------------------------
+Panel fix
+
+
+---------------------------
+6.18.Beta17
+---------------------------
+Off-Tank Highlighting is back!  (/hub, jump to "Threat")
+
+Specialization Profiles are Back!
+
+And with them, new errors to find.  
+
+Also, it's painful to look at code that I haven't touched in 5 years
+
+
+
 ---------------------------
 6.18.Beta15
 ---------------------------

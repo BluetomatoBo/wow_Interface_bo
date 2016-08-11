@@ -187,6 +187,7 @@ end
 TidyPlatesWidgets.EnableTankWatch = EnableTankWatch
 TidyPlatesWidgets.DisableTankWatch = DisableTankWatch
 TidyPlatesWidgets.IsTankedByAnotherTank = IsEnemyTanked
+TidyPlatesWidgets.IsEnemyTanked = IsEnemyTanked
 TidyPlatesWidgets.IsPlayerTank = IsPlayerTank
 
 --TidyPlatesWidgets.GetRecentDamageTarget = GetRecentDamageTarget

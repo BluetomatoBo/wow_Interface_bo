@@ -10,8 +10,6 @@ local copytable = TidyPlatesUtility.copyTable
 local mergetable = TidyPlatesUtility.mergeTable
 local PanelHelpers = TidyPlatesUtility.PanelHelpers
 
-
-
 local NO_AUTOMATION = "No Automation"
 local DURING_COMBAT = "Show during Combat, Hide when Combat ends"
 local OUT_OF_COMBAT = "Hide when Combat starts, Show when Combat ends"
@@ -21,7 +19,8 @@ local yellow, blue, red, orange = "|cffffff00", "|cFF3782D1", "|cFFFF1100", "|cF
 
 local function SetCastBars(enable)
 	if enable then TidyPlates:EnableCastBars()
-		else TidyPlates:DisableCastBars() end
+		else TidyPlates:DisableCastBars() 
+	end
 end
 
 local EnableCompatibilityMode = TidyPlates.EnableCompatibilityMode
@@ -36,14 +35,15 @@ local DefaultProfile = "Damage"
 local ActiveProfile = "None"
 local ActiveThemeName = ""
 local ActiveSpec = "Primary"
-local ActiveSpecVarReference = "PrimaryTheme"
 
 TidyPlatesOptions = {
-	PrimaryTheme = FirstTryTheme,
-	SecondaryTheme = FirstTryTheme,
 
-	PrimaryProfile = DefaultProfile,
-	SecondaryProfile = DefaultProfile,
+	ActiveTheme = FirstTryTheme,
+
+	FirstSpecProfile = DefaultProfile,
+	SecondSpecProfile = DefaultProfile,
+	ThirdSpecProfile = DefaultProfile,
+	FourthSpecProfile = DefaultProfile,
 
 	FriendlyAutomation = NO_AUTOMATION,
 	EnemyAutomation = NO_AUTOMATION,
@@ -86,26 +86,6 @@ local function SetCVarCombatCondition(cvar, mode, combat)
 		end
 	end
 end
---[[
-
-local function ConfigureTheme(spec)
-	local themename = TidyPlatesOptions[spec]
-	if themename then
-		local theme = TidyPlatesThemeList[themename]
-		--print("Opening Interface Panel for", themename, theme)
-		if theme and theme.ShowConfigPanel and type(theme.ShowConfigPanel) == 'function' then theme.ShowConfigPanel() end
-	end
-end
-
-local function ThemeHasPanelLink(themename)
-	if themename then
-		local theme = TidyPlatesThemeList[themename]
-		if theme and theme.ShowConfigPanel and type(theme.ShowConfigPanel) == 'function' then return true end
-	end
-end
---]]
-
-
 
 -------------------------------------------------------------------------------------
 -- Pre-Processor
@@ -160,7 +140,7 @@ local function LoadTheme(incomingtheme)
 
 		-- This block falls back to the template, and leaves the field blank...
 		ActiveThemeName = nil
-		TidyPlatesOptions[ActiveSpecVarReference] = ""
+		TidyPlatesOptions.ActiveThemeName = ""
 		TidyPlates:ActivateTheme(TidyPlates.Template)
 
 		return nil
@@ -174,7 +154,7 @@ TidyPlates.LoadTheme = LoadTheme
 TidyPlates._LoadTheme = LoadTheme
 
 function TidyPlates:ReloadTheme()
-	LoadTheme(TidyPlatesOptions[ActiveSpecVarReference])
+	LoadTheme(ActiveThemeName)
 	TidyPlates:ForceUpdate()
 end
 
@@ -200,84 +180,84 @@ local function ApplyAutomationSettings()
 end
 
 local function ApplyThemeSettings()
-	--[[
-	Right now, the profile system assumes that there's a fixed set of profiles, defined within this file.
-	In the future, this will be expanded; Right now, it's simple and dumb
-	--]]
 
-	local ActiveSpec = "Primary"
-	if TidyPlatesUtility.GetSpec(false, false) == 2 then ActiveSpec = "Secondary" end
+	--print("ApplyThemeSettings", "Configuration")
 
-	ActiveSpecVarReference = ActiveSpec.."Theme"
-	ActiveProfile = TidyPlatesOptions[ActiveSpec.."Profile"] or DefaultProfile
-
-	LoadTheme(TidyPlatesOptions[ActiveSpecVarReference])
-
-	-- Update/Apply
+	-- Theme
+	LoadTheme(TidyPlatesOptions.ActiveTheme or FirstTryTheme)
 	local Theme = TidyPlatesThemeList[ActiveThemeName]
+
+	-- Load Hub Profile 
+	ActiveProfile = DefaultProfile
+
+	local currentSpec = GetSpecialization()
+	
+	if currentSpec == 4 then
+		ActiveProfile = TidyPlatesOptions.FourthSpecProfile
+	elseif currentSpec == 3 then
+		ActiveProfile = TidyPlatesOptions.ThirdSpecProfile
+	elseif currentSpec == 2 then
+		ActiveProfile = TidyPlatesOptions.SecondSpecProfile
+	else 
+		ActiveProfile = TidyPlatesOptions.FirstSpecProfile
+	end
+
+	local _, specname = GetSpecializationInfo(currentSpec)
+
 	if Theme and Theme.OnChangeProfile then Theme.OnChangeProfile(ActiveProfile) end
 
+	-- Store it for external usage
+	TidyPlatesOptions.ActiveProfile = ActiveProfile
 
+	-- Reset Widgets
 	if TidyPlatesWidgets then TidyPlatesWidgets:ResetWidgets() end
 	TidyPlates:ForceUpdate()
 end
 
 local function GetPanelValues(panel)
-	TidyPlatesOptions.PrimaryTheme = panel.PrimaryThemeDropdown:GetValue()
-	TidyPlatesOptions.SecondaryTheme = panel.SecondaryThemeDropdown:GetValue()
+	TidyPlatesOptions.ActiveTheme = panel.ActiveThemeDropdown:GetValue()
+	--TidyPlatesOptions.SecondaryTheme = panel.SecondaryThemeDropdown:GetValue()
 	TidyPlatesOptions.FriendlyAutomation = panel.AutoShowFriendly:GetValue()
 	TidyPlatesOptions.EnemyAutomation = panel.AutoShowEnemy:GetValue()
 	TidyPlatesOptions.DisableCastBars = panel.DisableCastBars:GetChecked()
 	TidyPlatesOptions.CompatibilityMode = panel.CompatibilityMode:GetChecked()
-	TidyPlatesOptions.PrimaryProfile = panel.PrimaryProfileDropdown:GetValue()
-	TidyPlatesOptions.SecondaryProfile = panel.SecondaryProfileDropdown:GetValue()
+	TidyPlatesOptions.PrimaryProfile = panel.FirstSpecDropdown:GetValue()
+
+	TidyPlatesOptions.FirstSpecProfile = panel.FirstSpecDropdown:GetValue()
+	TidyPlatesOptions.SecondSpecProfile = panel.SecondSpecDropdown:GetValue()
+	TidyPlatesOptions.ThirdSpecProfile = panel.ThirdSpecDropdown:GetValue()
+	TidyPlatesOptions.FourthSpecProfile = panel.FourthSpecDropdown:GetValue()
+
+	--  /run for i,v in pairs(TidyPlatesOptions) do print(i,v) end
+	--print("Second",  panel.SecondSpecDropdown:GetValue(), TidyPlatesOptions.SecondSpecProfile)
+
+
 end
 
-local function isProfileCompatible(themeName, profile)
-	local theme = TidyPlatesThemeList[themeName]
-	if theme and theme.OnChangeProfile then
-		return true
-	end
+local function SetPanelValues(panel)
+	panel.ActiveThemeDropdown:SetValue(TidyPlatesOptions.ActiveTheme)
+
+	panel.FirstSpecDropdown:SetValue(TidyPlatesOptions.FirstSpecProfile)
+	panel.SecondSpecDropdown:SetValue(TidyPlatesOptions.SecondSpecProfile)
+	panel.ThirdSpecDropdown:SetValue(TidyPlatesOptions.ThirdSpecProfile)
+	panel.FourthSpecDropdown:SetValue(TidyPlatesOptions.FourthSpecProfile)
+
+	panel.DisableCastBars:SetChecked(TidyPlatesOptions.DisableCastBars)
+	panel.CompatibilityMode:SetChecked(TidyPlatesOptions.CompatibilityMode)
+	panel.AutoShowFriendly:SetValue(TidyPlatesOptions.FriendlyAutomation)
+	panel.AutoShowEnemy:SetValue(TidyPlatesOptions.EnemyAutomation)
+
 end
 
-local function ValidateProfiles(panel)
-	-- Check Profile Availability
-	if isProfileCompatible(TidyPlatesOptions.PrimaryTheme) then
-		panel.PrimaryProfileDropdown.Button:Enable()
-	else
-		panel.PrimaryProfileDropdown.Button:Disable()
-	end
-
-	if isProfileCompatible(TidyPlatesOptions.SecondaryTheme) then
-		panel.SecondaryProfileDropdown.Button:Enable()
-	else
-		panel.SecondaryProfileDropdown.Button:Disable()
-	end
-end
 
 
 local function OnValueChange(object)
 	local panel = object:GetParent()
-
-	-- Get Panel Values
 	GetPanelValues(panel)
-
-	ValidateProfiles(panel)
-
-	-- Apply Theme Settings
+	--ValidateProfiles(panel)
 	ApplyThemeSettings()
-
-	-- Update the profile List
-	--print(panel.PrimaryProfileDropdown:GetValue())
-
-	--ActiveProfile = panel.PrimaryProfileDropdown:GetValue()
-	-- Check to see if theme is profile enabled
-
-	-- Update Edit Button
-
-	--if ThemeHasPanelLink(TidyPlatesOptions["PrimaryTheme"]) then panel.PrimaryThemeEditButton:Show() else panel.PrimaryThemeEditButton:Hide() end
-	--if ThemeHasPanelLink(TidyPlatesOptions["SecondaryTheme"]) then panel.SecondaryThemeEditButton:Show() else panel.SecondaryThemeEditButton:Hide() end
 end
+
 
 local function OnOkay(panel)
 	GetPanelValues(panel)
@@ -285,51 +265,64 @@ local function OnOkay(panel)
 	ApplyAutomationSettings()
 end
 
+
 -- Loads values from the saved vars, and preps for display of the panel
 local function OnRefresh(panel)
 
-	-- GetNumSpecializations()
-	local primarySpec = GetSpecialization(false, false, 1)
-	local secondarySpec = GetSpecialization(false, false, 2)
-	local activeGroup = GetActiveSpecGroup()
+	if not panel then return end
 
-	local primarySpecName = "Primary"
-	local secondarySpecName = "Secondary"
+	--print("OnRefresh")
+	SetPanelValues(panel)
 
-	if primarySpec then
-		local id, name, desc, icon = GetSpecializationInfo(primarySpec)
-		primarySpecName = name
+	------------------------
+	-- Spec Notes
+	------------------------
+	local currentSpec = GetSpecialization()
+	--print(currentSpec)
+
+	-- Yeah, this is brute, but it works.
+
+	------------------------
+	-- First Spec Details
+	------------------------
+	local id, name = GetSpecializationInfo(1)
+
+	if name then 
+		if currentSpec == 1 then name = name.." (Active)" end
+		panel.FirstSpecLabel:SetText(name)
+	end
+	------------------------
+	-- Second Spec Details
+	------------------------
+	local id, name = GetSpecializationInfo(2)
+
+	if name then 
+		if currentSpec == 2 then name = name.." (Active)" end
+		panel.SecondSpecLabel:SetText(name)
+	end
+	------------------------
+	-- Third Spec Details
+	------------------------
+	local id, name = GetSpecializationInfo(3)
+
+	if name then 
+		if currentSpec == 3 then name = name.." (Active)" end
+		panel.ThirdSpecLabel:SetText(name)
+		panel.ThirdSpecLabel:Show()
+		panel.ThirdSpecDropdown:Show()
+	end
+	------------------------
+	-- Fourth Spec Details
+	------------------------
+	local id, name = GetSpecializationInfo(4)
+
+	if name then 
+		if currentSpec == 4 then name = name.." (Active)" end
+		panel.FourthSpecLabel:SetText(name)
+		panel.FourthSpecLabel:Show()
+		panel.FourthSpecDropdown:Show()
 	end
 
-	if secondarySpec then
-		local id, name, desc, icon = GetSpecializationInfo(secondarySpec)
-		secondarySpecName = name
-	end
-
-	panel.PrimaryProfileLabel:SetText(primarySpecName.. " Profile:")
-	panel.PrimaryThemeLabel:SetText(primarySpecName.. " Theme:")
-
-	panel.SecondaryProfileLabel:SetText(secondarySpecName.. " Profile:")
-	panel.SecondaryThemeLabel:SetText(secondarySpecName.. " Theme:")
-
-	ValidateProfiles(panel)
-
-	panel.PrimaryThemeDropdown:SetValue(TidyPlatesOptions.PrimaryTheme)
-	panel.SecondaryThemeDropdown:SetValue(TidyPlatesOptions.SecondaryTheme)
-	panel.DisableCastBars:SetChecked(TidyPlatesOptions.DisableCastBars)
-	panel.CompatibilityMode:SetChecked(TidyPlatesOptions.CompatibilityMode)
-	panel.AutoShowFriendly:SetValue(TidyPlatesOptions.FriendlyAutomation)
-	panel.AutoShowEnemy:SetValue(TidyPlatesOptions.EnemyAutomation)
-	panel.PrimaryProfileDropdown:SetValue(TidyPlatesOptions.PrimaryProfile)
-	panel.SecondaryProfileDropdown:SetValue(TidyPlatesOptions.SecondaryProfile)
-
-	-- Update the profile List
-	--print(panel.PrimaryProfileDropdown:GetValue())
-	-- Check to see if theme is profile enabled
-
-	-- Edit link
-	--if ThemeHasPanelLink(TidyPlatesOptions["PrimaryTheme"]) then panel.PrimaryThemeEditButton:Show() else panel.PrimaryThemeEditButton:Hide() end
-	--if ThemeHasPanelLink(TidyPlatesOptions["SecondaryTheme"]) then panel.SecondaryThemeEditButton:Show() else panel.SecondaryThemeEditButton:Hide() end
 end
 
 
@@ -386,139 +379,121 @@ local function CreateTidyPlatesInterfacePanel(panel)
 	panel.DividerLine:SetSize( 500, 12)
 	panel.DividerLine:SetPoint("TOPLEFT", panel.Label, "BOTTOMLEFT", -6, -12)
 
-	----------------------
-	-- Spec
-	----------------------
-	--  Dropdown
-	panel.PrimaryThemeDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesChooserDropdown", panel, ThemeDropdownMenuItems, TidyPlatesDefaultThemeName, nil, true)
-	panel.PrimaryThemeDropdown:SetPoint("TOPLEFT", 16-8, -110)
-
-	-- Label
-	panel.PrimaryThemeLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-	panel.PrimaryThemeLabel:SetPoint("BOTTOMLEFT", panel.PrimaryThemeDropdown,"TOPLEFT", 20, 5)
-	panel.PrimaryThemeLabel:SetWidth(170)
-	panel.PrimaryThemeLabel:SetJustifyH("LEFT")
-	panel.PrimaryThemeLabel:SetText("Primary Specialization:")
+	----------------------------------------------
+	-- Theme
+	----------------------------------------------
+	panel.ThemeCategoryTitle = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+	panel.ThemeCategoryTitle:SetFont(font, 22)
+	panel.ThemeCategoryTitle:SetText("Theme")
+	panel.ThemeCategoryTitle:SetPoint("TOPLEFT", 20, -70)
+	panel.ThemeCategoryTitle:SetTextColor(255/255, 105/255, 6/255)
 
 	-- Dropdown
-	panel.SecondaryThemeDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesChooserDropdown2", panel, ThemeDropdownMenuItems, TidyPlatesDefaultThemeName, nil, true)
-	panel.SecondaryThemeDropdown:SetPoint("TOPLEFT",panel.PrimaryThemeDropdown, "TOPRIGHT", 65, 0)
+	panel.ActiveThemeDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesChooserDropdown", panel, ThemeDropdownMenuItems, TidyPlatesDefaultThemeName, nil, true)
+	panel.ActiveThemeDropdown:SetPoint("TOPLEFT", panel.ThemeCategoryTitle, "BOTTOMLEFT", -20, -4)
 
-	-- Label
-	panel.SecondaryThemeLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-	panel.SecondaryThemeLabel:SetPoint("BOTTOMLEFT", panel.SecondaryThemeDropdown,"TOPLEFT", 20, 5)
-	panel.SecondaryThemeLabel:SetWidth(170)
-	panel.SecondaryThemeLabel:SetJustifyH("LEFT")
-	panel.SecondaryThemeLabel:SetText("Secondary Specialization:")
-
-	panel.SecondaryThemeDropdown:Hide()
-	panel.SecondaryThemeLabel:Hide()
-
-
-	panel.ThemeLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-	panel.ThemeLabel:SetFont(font, 22)
-	panel.ThemeLabel:SetText("Theme")
-	panel.ThemeLabel:SetPoint("BOTTOMLEFT", panel.PrimaryThemeDropdown, "TOPLEFT", 16+4, 22)
-	panel.ThemeLabel:SetTextColor(255/255, 105/255, 6/255)
-
--- [[
-	----------------------
+	----------------------------------------------
 	-- Profiles
-	----------------------
-
-	--  Primary Dropdown
-	panel.PrimaryProfileDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesPrimaryProfileDropdown", panel, ProfileList, DefaultProfile, nil, true)
-	--panel.PrimaryProfileDropdown:SetPoint("TOPLEFT", panel.PrimaryThemeDropdown, "TOPLEFT", 16-8, -85)
-	panel.PrimaryProfileDropdown:SetPoint("TOPLEFT", panel.PrimaryThemeDropdown, "TOPLEFT", 0, -90)
-
-	-- Label
-	panel.PrimaryProfileLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-	panel.PrimaryProfileLabel:SetPoint("BOTTOMLEFT", panel.PrimaryProfileDropdown,"TOPLEFT", 20, 5)
-	panel.PrimaryProfileLabel:SetWidth(170)
-	panel.PrimaryProfileLabel:SetJustifyH("LEFT")
-	panel.PrimaryProfileLabel:SetText("Primary Specialization:")
-
-	-- [[ Button
-	panel.EditPrimaryProfile = CreateFrame("Button", "TidyPlatesOptions_EditPrimaryProfile", panel)
-	panel.EditPrimaryProfile:SetPoint("TOPLEFT", panel.PrimaryProfileDropdown, "TOPRIGHT", 29, 2)
-	panel.EditPrimaryProfile:SetWidth(32)
-	panel.EditPrimaryProfile:SetHeight(32)
-
-	panel.EditPrimaryProfile:SetNormalTexture("Interface\\Buttons\\UI-SpellbookIcon-NextPage-Up")
-	panel.EditPrimaryProfile:SetPushedTexture("Interface\\Buttons\\UI-SpellbookIcon-NextPage-Down")
-	panel.EditPrimaryProfile:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight")
-	panel.EditPrimaryProfile:SetScript("OnClick", function() ShowTidyPlatesHubPanel(TidyPlatesOptions.PrimaryProfile) end)
-
-	-- Secondary Dropdown
-	panel.SecondaryProfileDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesSecondaryProfileDropdown", panel, ProfileList, DefaultProfile, nil, true)
-	panel.SecondaryProfileDropdown:SetPoint("TOPLEFT",panel.PrimaryProfileDropdown, "TOPRIGHT", 65, 0)
-
-	-- Label
-	panel.SecondaryProfileLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-	panel.SecondaryProfileLabel:SetPoint("BOTTOMLEFT", panel.SecondaryProfileDropdown,"TOPLEFT", 20, 5)
-	panel.SecondaryProfileLabel:SetWidth(170)
-	panel.SecondaryProfileLabel:SetJustifyH("LEFT")
-	panel.SecondaryProfileLabel:SetText("Secondary Specialization:")
-
+	----------------------------------------------
 	panel.ProfileLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
 	panel.ProfileLabel:SetFont(font, 22)
-	panel.ProfileLabel:SetText("Profile")
-	panel.ProfileLabel:SetPoint("BOTTOMLEFT", panel.PrimaryProfileDropdown, "TOPLEFT", 16+4, 22)
+	panel.ProfileLabel:SetText("Profiles")
+	panel.ProfileLabel:SetPoint("TOPLEFT", panel.ActiveThemeDropdown, "BOTTOMLEFT", 20, -20)
 	panel.ProfileLabel:SetTextColor(255/255, 105/255, 6/255)
 
-	-- [[ Button
-	panel.EditSecondaryProfile = CreateFrame("Button", "TidyPlatesOptions_EditSecondaryProfile", panel)
-	panel.EditSecondaryProfile:SetPoint("TOPLEFT", panel.SecondaryProfileDropdown, "TOPRIGHT", 29, 2)
-	panel.EditSecondaryProfile:SetWidth(32)
-	panel.EditSecondaryProfile:SetHeight(32)
-	panel.EditSecondaryProfile:SetText("Edit...")
-	panel.EditSecondaryProfile:SetNormalTexture("Interface\\Buttons\\UI-SpellbookIcon-NextPage-Up")
-	panel.EditSecondaryProfile:SetPushedTexture("Interface\\Buttons\\UI-SpellbookIcon-NextPage-Down")
-	panel.EditSecondaryProfile:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight")
-	panel.EditSecondaryProfile:SetScript("OnClick", function() ShowTidyPlatesHubPanel(TidyPlatesOptions.SecondaryProfile) end)
+	---------------
+	-- Column 1
+	---------------
+	-- Spec 1
+	panel.FirstSpecLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+	panel.FirstSpecLabel:SetPoint("TOPLEFT", panel.ProfileLabel,"BOTTOMLEFT", 0, -4)
+	panel.FirstSpecLabel:SetWidth(170)
+	panel.FirstSpecLabel:SetJustifyH("LEFT")
+	panel.FirstSpecLabel:SetText("First Spec")
 
-	panel.SecondaryProfileDropdown:Hide()
-	panel.SecondaryProfileLabel:Hide()
-	panel.EditSecondaryProfile:Hide()
+	panel.FirstSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesFirstSpecDropdown", panel, ProfileList, DefaultProfile, nil, true)
+	panel.FirstSpecDropdown:SetPoint("TOPLEFT", panel.FirstSpecLabel, "BOTTOMLEFT", -20, -2)
+
+	-- Spec 3
+	panel.ThirdSpecLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+	panel.ThirdSpecLabel:SetPoint("TOPLEFT", panel.FirstSpecDropdown,"BOTTOMLEFT", 20, -8)
+	panel.ThirdSpecLabel:SetWidth(170)
+	panel.ThirdSpecLabel:SetJustifyH("LEFT")
+	panel.ThirdSpecLabel:SetText("Third Spec")
+	panel.ThirdSpecLabel:Hide()
+
+	panel.ThirdSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesThirdSpecDropdown", panel, ProfileList, DefaultProfile, nil, true)
+	panel.ThirdSpecDropdown:SetPoint("TOPLEFT", panel.ThirdSpecLabel, "BOTTOMLEFT", -20, -2)
+	panel.ThirdSpecLabel:Hide()
+
+	---------------
+	-- Column 2
+	---------------
+	-- Spec 2
+	panel.SecondSpecLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+	panel.SecondSpecLabel:SetPoint("TOPLEFT", panel.FirstSpecLabel,"TOPLEFT", 180, 0)
+	panel.SecondSpecLabel:SetWidth(170)
+	panel.SecondSpecLabel:SetJustifyH("LEFT")
+	panel.SecondSpecLabel:SetText("Second Spec")
+
+	panel.SecondSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesSecondSpecDropdown", panel, ProfileList, DefaultProfile, nil, true)
+	panel.SecondSpecDropdown:SetPoint("TOPLEFT",panel.SecondSpecLabel, "BOTTOMLEFT", -20, -2)
+
+	-- Spec 4
+	panel.FourthSpecLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+	panel.FourthSpecLabel:SetPoint("TOPLEFT", panel.SecondSpecDropdown,"BOTTOMLEFT", 20, -8)
+	panel.FourthSpecLabel:SetWidth(170)
+	panel.FourthSpecLabel:SetJustifyH("LEFT")
+	panel.FourthSpecLabel:SetText("Fourth Spec")
+	panel.FourthSpecLabel:Hide()
+
+	panel.FourthSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesFourthSpecDropdown", panel, ProfileList, DefaultProfile, nil, true)
+	panel.FourthSpecDropdown:SetPoint("TOPLEFT",panel.FourthSpecLabel, "BOTTOMLEFT", -20, -2)
+	panel.FourthSpecDropdown:Hide()
 
 
-	----------------------
+	----------------------------------------------
 	-- Automation
-	----------------------
+	----------------------------------------------
+	panel.AutomationLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
+	panel.AutomationLabel:SetFont(font, 22)
+	panel.AutomationLabel:SetText("Automation")
+	panel.AutomationLabel:SetPoint("TOPLEFT", panel.ThirdSpecDropdown, "BOTTOMLEFT", 20, -20)
+	panel.AutomationLabel:SetTextColor(255/255, 105/255, 6/255)
+
+
+	---------------
+	-- Column 1
+	---------------
 	-- Enemy Visibility
-	panel.AutoShowEnemy = PanelHelpers:CreateDropdownFrame("TidyPlatesAutoShowEnemy", panel, AutomationDropdownItems, NO_AUTOMATION, nil, true)
-	--panel.AutoShowEnemy:SetPoint("TOPLEFT", panel.PrimaryThemeDropdown, "TOPLEFT", 0, -75)
-	panel.AutoShowEnemy:SetPoint("TOP", panel.PrimaryProfileDropdown, "BOTTOM", 0, -65)
-	panel.AutoShowEnemy:SetPoint("LEFT", panel.PrimaryProfileDropdown, "LEFT", 0, 0)
-	--panel.AutoShowEnemy:SetPoint("TOPLEFT", panel.PrimaryProfileDropdown, "TOPLEFT", 0, -120)
-	--
 	panel.AutoShowEnemyLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-	panel.AutoShowEnemyLabel:SetPoint("BOTTOMLEFT", panel.AutoShowEnemy,"TOPLEFT", 20, 5)
+	panel.AutoShowEnemyLabel:SetPoint("TOPLEFT", panel.AutomationLabel,"BOTTOMLEFT", 0, -4)
 	panel.AutoShowEnemyLabel:SetWidth(170)
 	panel.AutoShowEnemyLabel:SetJustifyH("LEFT")
 	panel.AutoShowEnemyLabel:SetText("Enemy Nameplates:")
 
-	-- Friendly Visibility
-	panel.AutoShowFriendly = PanelHelpers:CreateDropdownFrame("TidyPlatesAutoShowFriendly", panel, AutomationDropdownItems, NO_AUTOMATION, nil, true)
-	--panel.AutoShowFriendly:SetPoint("TOPLEFT", panel.PrimaryThemeDropdown, "TOPLEFT", 0, -75)
-	panel.AutoShowFriendly:SetPoint("TOPLEFT",panel.AutoShowEnemy, "TOPRIGHT", 65, 0)
+	panel.AutoShowEnemy = PanelHelpers:CreateDropdownFrame("TidyPlatesAutoShowEnemy", panel, AutomationDropdownItems, NO_AUTOMATION, nil, true)
+	panel.AutoShowEnemy:SetPoint("TOPLEFT",panel.AutoShowEnemyLabel, "BOTTOMLEFT", -20, -2)
 
+
+	---------------
+	-- Column 2
+	---------------
+	-- Friendly Visibility
 	panel.AutoShowFriendlyLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-	panel.AutoShowFriendlyLabel:SetPoint("BOTTOMLEFT", panel.AutoShowFriendly,"TOPLEFT", 20, 5)
+	panel.AutoShowFriendlyLabel:SetPoint("TOPLEFT", panel.AutoShowEnemyLabel,"TOPLEFT", 180, 0)
 	panel.AutoShowFriendlyLabel:SetWidth(170)
 	panel.AutoShowFriendlyLabel:SetJustifyH("LEFT")
 	panel.AutoShowFriendlyLabel:SetText("Friendly Nameplates:")
 
+	panel.AutoShowFriendly = PanelHelpers:CreateDropdownFrame("TidyPlatesAutoShowFriendly", panel, AutomationDropdownItems, NO_AUTOMATION, nil, true)
+	panel.AutoShowFriendly:SetPoint("TOPLEFT", panel.AutoShowFriendlyLabel,"BOTTOMLEFT", -20, -2)
 
-	panel.AutomationLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
-	panel.AutomationLabel:SetFont(font, 22)
-	panel.AutomationLabel:SetText("Automation")
-	panel.AutomationLabel:SetPoint("BOTTOMLEFT", panel.AutoShowEnemy, "TOPLEFT", 16+4, 22)
-	panel.AutomationLabel:SetTextColor(255/255, 105/255, 6/255)
 
-	----------------------
+
+	----------------------------------------------
 	-- Other Options
-	----------------------
+	----------------------------------------------
 	-- Blizz Button
 	local BlizzOptionsButton = CreateFrame("Button", "TidyPlatesOptions_BlizzOptionsButton", panel, "TidyPlatesPanelButtonTemplate")
 	--BlizzOptionsButton:SetPoint("TOPRIGHT", ResetButton, "TOPLEFT", -8, 0)
@@ -545,10 +520,13 @@ local function CreateTidyPlatesInterfacePanel(panel)
 	-- Update Functions
 	panel.okay = OnOkay
 	panel.refresh = OnRefresh
-	panel.PrimaryThemeDropdown.OnValueChanged = OnValueChange
-	panel.SecondaryThemeDropdown.OnValueChanged = OnValueChange
-	panel.PrimaryProfileDropdown.OnValueChanged = OnValueChange
-	panel.SecondaryProfileDropdown.OnValueChanged = OnValueChange
+	panel.ActiveThemeDropdown.OnValueChanged = OnValueChange
+
+	panel.FirstSpecDropdown.OnValueChanged = OnValueChange
+	panel.SecondSpecDropdown.OnValueChanged = OnValueChange
+	panel.ThirdSpecDropdown.OnValueChanged = OnValueChange
+	panel.FourthSpecDropdown.OnValueChanged = OnValueChange
+
 
 
 	-- Blizzard Nameplate Options Button
@@ -558,10 +536,9 @@ local function CreateTidyPlatesInterfacePanel(panel)
 
 	-- Reset Button
 	ResetButton:SetScript("OnClick", function()
-		--SetCVar("ShowClassColorInNameplate", 1)		-- Required for Class Detection
 		SetCVar("nameplateShowEnemies", 1)
 		SetCVar("threatWarning", 3)		-- Required for threat/aggro detection
-		--_G["InterfaceOptionsNamesPanelUnitNameplatesFriends"]:SetChecked(false)
+
 
 		if IsShiftKeyDown() then
 			TidyPlatesOptions = wipe(TidyPlatesOptions)
@@ -585,31 +562,27 @@ end
 -------------------------------------------------------------------------------------
 local panelevents = {}
 
-function panelevents:ACTIVE_TALENT_GROUP_CHANGED()
+function panelevents:ACTIVE_TALENT_GROUP_CHANGED(self)
 	ApplyThemeSettings()
+	--OnRefresh(TidyPlatesInterfacePanel)
 end
 
 function panelevents:PLAYER_ENTERING_WORLD()
-	-- This messes things up if allowed to change
-	--InterfaceOptionsNamesPanelUnitNameplatesMakeLarger:Disable()
-
 	local fallBackTheme
 
+	-- Try to use the default theme, otherwise choose the first available
 	if TidyPlatesThemeList[FirstTryTheme] then
 		fallBackTheme = FirstTryTheme
 	else
 		for i,v in pairs(TidyPlatesThemeList) do fallBackTheme = i break; end
 	end
 
-	-- Check to make sure the selected themes exist, and replace with first available
-	if not TidyPlatesThemeList[TidyPlatesOptions.PrimaryTheme] then
-		TidyPlatesOptions.PrimaryTheme = fallBackTheme end
-	if not TidyPlatesThemeList[TidyPlatesOptions.SecondaryTheme] then
-		TidyPlatesOptions.SecondaryTheme = fallBackTheme end
+	-- Check to make sure the selected themes exist; if not, replace with fallback 
+	if not TidyPlatesThemeList[TidyPlatesOptions.ActiveTheme] then
+		TidyPlatesOptions.ActiveTheme = fallBackTheme end
 
 	ApplyThemeSettings()
 	ApplyAutomationSettings()
-	--SetCVar("repositionfrequency", 0)
 end
 
 function panelevents:PLAYER_REGEN_ENABLED()
@@ -624,15 +597,13 @@ end
 
 function panelevents:PLAYER_LOGIN()
 
-
-	CreateMenuTables()
+	-- Setup the interface panels
+	CreateMenuTables()				-- Look at the theme table and get names
 	CreateTidyPlatesInterfacePanel(TidyPlatesInterfacePanel)
 	InterfaceOptions_AddCategory(TidyPlatesInterfacePanel);
-	--NamePlateDriverFrame:SetBaseNamePlateSize(150, 45)
 
+	-- First time setup
 	if not TidyPlatesOptions.WelcomeShown then
-
-
 		SetCVar("nameplateShowSelf", 0)		-- 
 		SetCVar("nameplateShowAll", 1)		-- 
 
@@ -642,11 +613,10 @@ function panelevents:PLAYER_LOGIN()
 		SetCVar("threatWarning", 3)		-- Required for threat/aggro detection
 		TidyPlatesOptions.WelcomeShown = true
 	end
+
 end
 
-
-
-TidyPlatesInterfacePanel:SetScript("OnEvent", function(self, event, ...) panelevents[event]() end)
+TidyPlatesInterfacePanel:SetScript("OnEvent", function(self, event, ...) panelevents[event](self, ...) end)
 for eventname in pairs(panelevents) do TidyPlatesInterfacePanel:RegisterEvent(eventname) end
 
 
