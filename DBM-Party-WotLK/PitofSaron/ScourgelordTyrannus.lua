@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(610, "DBM-Party-WotLK", 15, 278)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 218 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 233 $"):sub(12, -3))
 mod:SetCreatureID(36658, 36661)
 mod:SetEncounterID(837, 838)
 mod:DisableESCombatDetection()
@@ -75,7 +75,7 @@ function mod:SPELL_AURA_APPLIED(args)
 	if args.spellId == 69172 then							-- Overlord's Brand
 		timerOverlordsBrandCD:Start()
 		if args:IsPlayer() then
-			specWarnOverlordsBrand:Show()
+			specWarnOverlordsBrand:Show(args.sourceName)
 			timerOverlordsBrand:Start()
 		else
 			warnOverlordsBrand:Show(args.destName)
