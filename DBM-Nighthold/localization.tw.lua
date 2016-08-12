@@ -1,3 +1,4 @@
+if GetLocale() ~= "zhTW" then return end
 local L
 
 ---------------
@@ -15,7 +16,7 @@ L:SetOptionLocalization({
 })
 
 L:SetMiscLocalization({
-	NoDebuff	= "No %s"
+	NoDebuff	= "無%s"
 })
 
 ---------------------------
@@ -39,9 +40,9 @@ L= DBM:GetModLocalization(1751)
 L= DBM:GetModLocalization(1762)
 
 L:SetMiscLocalization({
-	First				= "First",
-	Second				= "Second",
-	Third				= "Third"
+	First				= "第一",
+	Second				= "第二",
+	Third				= "第三"
 })
 
 ------------------
@@ -55,15 +56,15 @@ L= DBM:GetModLocalization(1713)
 L= DBM:GetModLocalization(1761)
 
 L:SetWarningLocalization({
-	warnStarLow				= "Plasma Sphere is low"
+	warnStarLow				= "電漿球低血量"
 })
 
 L:SetOptionLocalization({
-	warnStarLow				= "Show special warning when Plasma Sphere is low (at ~15%)"
+	warnStarLow				= "為電漿球血量變低時(15%)顯示特別警告"
 })
 
 L:SetMiscLocalization({
-	RadarMessage			= "Use Radar to find a non debuff partner and HUD to avoid other debuffs. I hope to improve this function over time and provide more options than this."
+	RadarMessage			= "使用雷達找到無減益的夥伴加上HUD去閃避減益。未來希望能加強此功能並提供更多選項。"
 })
 
 ------------------
@@ -72,18 +73,14 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(1732)
 
 L:SetOptionLocalization({
-	ShowNeutralColor		= "Show white circles on HUD around players that have no star sign, until all signs are cleared.",
-	FilterOtherSigns		= "Filter target announces for Star Signs you are not affected by."
+	ShowNeutralColor		= "為沒有星之記號的玩家顯示HUB的白圈，直到所有記號被清除。",
+	FilterOtherSigns		= "過濾與你無關的星之記號點名。"
 })
 
 ------------------
 -- Grand Magistrix Elisande --
 ------------------
 L= DBM:GetModLocalization(1743)
-
-L:SetMiscLocalization({
-	noCLEU4EchoRings		= "Let the waves of time crash over you!"
-})
 
 ------------------
 -- Gul'dan --
@@ -96,5 +93,5 @@ L= DBM:GetModLocalization(1737)
 L = DBM:GetModLocalization("NightholdTrash")
 
 L:SetGeneralLocalization({
-	name =	"Nighthold Trash"
+	name =	"暗夜堡小怪"
 })

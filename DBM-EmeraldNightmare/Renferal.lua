@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1744, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15039 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15105 $"):sub(12, -3))
 mod:SetCreatureID(106087)
 mod:SetEncounterID(1876)
 mod:SetZone()
@@ -310,7 +310,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
 		timerDarkStormCD:Start()--26
 		timerRakingTalonsCD:Start(52, 1)
 		timerRazorWingCD:Start(59, 1)
-		timerSpiderFormCD:Start()--No longer known. No long enough pull. At least 90
+		timerSpiderFormCD:Start()
 		countdownPhase:Start(127)
 	elseif spellId == 226055 then--Spider Transform
 		self.vb.venomCast = 0

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1667, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15045 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15097 $"):sub(12, -3))
 mod:SetCreatureID(100497)
 mod:SetEncounterID(1841)
 mod:SetZone()
@@ -21,6 +21,7 @@ mod:RegisterEventsInCombat(
 )
 
 --TODO, find a good voice for roaring. Maybe watch step? move away?
+--TODO, multiple auto assignments. Assign by group regardless of debuff status. Assign by smart mode (current default). Maybe other options?
 local warnFocusedGaze				= mod:NewTargetCountAnnounce(198006, 3)
 local warnBloodFrenzy				= mod:NewSpellAnnounce(198388, 4)
 

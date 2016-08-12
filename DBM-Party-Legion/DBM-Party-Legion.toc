@@ -28,13 +28,14 @@
 ## X-DBM-Mod-Sort: 060
 ## X-DBM-Mod-MapID: 1501, 1466, 1456, 1477, 1458, 1516, 1571, 1492, 1544, 1493
 ## X-DBM-Mod-MinCoreRevision: 14737
-## X-Curse-Packaged-Version: 7.0.1
+## X-Curse-Packaged-Version: 7.0.2
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline
 localization.en.lua
 localization.cn.lua
 localization.de.lua
+localization.tw.lua
 BlackRookHold\AmalgamSouls.lua
 BlackRookHold\Illysanna.lua
 BlackRookHold\Smashspite.lua

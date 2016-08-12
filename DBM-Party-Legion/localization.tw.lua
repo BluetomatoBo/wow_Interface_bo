@@ -1,9 +1,4 @@
--- Mini Dragon(projecteurs@gmail.com)
--- 夏一可
--- Blizzard Entertainment
--- Last update: Aug 11 2016, 02:04 UTC@15097
-
-if GetLocale() ~= "zhCN" then return end
+if GetLocale() ~= "zhTW" then return end
 local L
 
 -----------------------
@@ -35,7 +30,7 @@ L= DBM:GetModLocalization(1672)
 L = DBM:GetModLocalization("BRHTrash")
 
 L:SetGeneralLocalization({
-	name =	"黑鸦堡垒小怪"
+	name =	"玄鴉堡小怪"
 })
 
 -----------------------
@@ -67,8 +62,9 @@ L= DBM:GetModLocalization(1657)
 L = DBM:GetModLocalization("DHTTrash")
 
 L:SetGeneralLocalization({
-	name =	"黑心林地小怪"
+	name =	"暗心灌木林小怪"
 })
+
 
 -----------------------
 -- <<<Eye of Azshara>>> --
@@ -104,7 +100,7 @@ L= DBM:GetModLocalization(1492)
 L = DBM:GetModLocalization("EoATrash")
 
 L:SetGeneralLocalization({
-	name =	"艾萨拉之眼小怪"
+	name =	"艾薩拉之眼小怪"
 })
 
 -----------------------
@@ -141,7 +137,7 @@ L= DBM:GetModLocalization(1489)
 L = DBM:GetModLocalization("HoVTrash")
 
 L:SetGeneralLocalization({
-	name =	"英灵殿小怪"
+	name =	"英靈殿小怪"
 })
 
 -----------------------
@@ -173,7 +169,7 @@ L= DBM:GetModLocalization(1687)
 L = DBM:GetModLocalization("NLTrash")
 
 L:SetGeneralLocalization({
-	name =	"奈萨里奥的巢穴小怪"
+	name =	"奈薩里奧巢穴小怪"
 })
 
 -----------------------
@@ -195,7 +191,7 @@ L= DBM:GetModLocalization(1498)
 L= DBM:GetModLocalization(1499)
 
 L:SetMiscLocalization({
-	batSpawn		=	"援助我！快！" --offical
+	batSpawn		=	"Reinforcements to me! NOW!"
 })
 
 -----------------------
@@ -214,7 +210,7 @@ L= DBM:GetModLocalization(1501)
 L = DBM:GetModLocalization("ArcwayTrash")
 
 L:SetGeneralLocalization({
-	name =	"魔法回廊小怪"
+	name =	"幽暗地道小怪"
 })
 
 -----------------------
@@ -241,7 +237,7 @@ L= DBM:GetModLocalization(1720)
 L = DBM:GetModLocalization("CoSTrash")
 
 L:SetGeneralLocalization({
-	name =	"群星庭院小怪"
+	name =	"眾星之廷小怪"
 })
 
 -----------------------
@@ -268,7 +264,7 @@ L= DBM:GetModLocalization(1663)
 L = DBM:GetModLocalization("MawTrash")
 
 L:SetGeneralLocalization({
-	name =	"噬魂之喉小怪"
+	name =	"靈魂之喉小怪"
 })
 
 -----------------------
@@ -320,28 +316,28 @@ L= DBM:GetModLocalization(1711)
 L = DBM:GetModLocalization("AVHTrash")
 
 L:SetGeneralLocalization({
-	name =	"突袭紫罗兰监狱小怪"
+	name =	"紫羅蘭堡之襲小怪"
 })
 
 L:SetWarningLocalization({
-	WarningPortalSoon	= "准备开门",
-	WarningPortalNow	= "第%d个传送门",
-	WarningBossNow		= "Boss来了"
+	WarningPortalSoon	= "準備開門",
+	WarningPortalNow	= "第%d個傳送門",
+	WarningBossNow		= "首領來了"
 })
 
 L:SetTimerLocalization({
-	TimerPortal			= "传送门CD"
+	TimerPortal			= "傳送門冷卻"
 })
 
 L:SetOptionLocalization({
-	WarningPortalNow		= "警报：新的传送门",
-	WarningPortalSoon		= "警报：准备开门",
-	WarningBossNow			= "警报：Boss来了",
-	TimerPortal				= "计时条：Boss后的下一个门"
+	WarningPortalNow		= "為新的傳送門顯示警告",
+	WarningPortalSoon		= "為新的傳送門顯示準備警告",
+	WarningBossNow			= "為首領到來顯示警告",
+	TimerPortal				= "為擊殺首領後的傳送門顯示計時器"
 })
 
 L:SetMiscLocalization({
-	Malgath		=	"督军马尔加斯" --offical
+	Malgath		=	"Lord Malgath"
 })
 
 -----------------------
@@ -371,12 +367,3 @@ L= DBM:GetModLocalization(1469)
 -- Cordana --
 -----------------------
 L= DBM:GetModLocalization(1470)
-
------------------------
---Vault of the Wardens Trash
------------------------
---L = DBM:GetModLocalization("")
-
---L:SetGeneralLocalization({
---	name =	"守望者地窟小怪"
---})
