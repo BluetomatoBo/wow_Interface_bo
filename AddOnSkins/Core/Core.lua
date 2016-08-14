@@ -181,8 +181,7 @@ function AS:UnregisterSkinEvent(skinName, event)
 end
 
 function AS:StartSkinning(event)
-	if AS.enteredworld then return end
-	AS.enteredworld = true
+	AS:UnregisterEvent(event)
 
 	local EP = LibStub('LibElvUIPlugin-1.0', true)
 	if EP then
@@ -231,7 +230,6 @@ function AS:StartSkinning(event)
 	if AS:CheckOption('LoginMsg') then 
 		AS:Print(format("Version: |cFF1784D1%s|r Loaded!", AS.Version))
 	end
-	AS:UnregisterEvent(event)
 end
 
 function AS:UpdateMedia()
