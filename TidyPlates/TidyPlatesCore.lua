@@ -1,16 +1,9 @@
 -- Tidy Plates - SMILE! :-D
--- /script SetCVar("nameplateMaxDistance", 45)
--- https://www.reddit.com/r/wow/comments/4ukmg2/nameplates_distance_back_to_prelegion_settings/
--- /script NamePlateDriverFrame:SetBaseNamePlateSize(150, 45)
--- Trivial Mobs
--- Tapped mobs
--- mini mobs
 
-TidyPlatesDebug = false
-DebugCount = 1
 ---------------------------------------------------------------------------------------------------------------------
 -- Variables and References
 ---------------------------------------------------------------------------------------------------------------------
+local addonName, TidyPlatesInternal = ...
 TidyPlates = {}
 
 -- Local References
@@ -28,8 +21,8 @@ local unit, unitcache, style, stylename, unitchanged				    			-- Temp/Local Ref
 local numChildren = -1                                                              -- Cache the current number of plates
 local activetheme = {}                                                              -- Table Placeholder
 local InCombat, HasTarget, HasMouseover = false, false, false					    -- Player State Data
-local EnableFadeIn = true  
-local ShowCastBars = true  
+local EnableFadeIn = true
+local ShowCastBars = true
 local EMPTY_TEXTURE = "Interface\\Addons\\TidyPlates\\Media\\Empty"
 local ResetPlates, UpdateAll = false, false
 local CompatibilityMode = false
@@ -40,10 +33,10 @@ local RaidIconCoordinate = {
 		["CIRCLE"] = { x = 0.25, y = 0 },
 		["DIAMOND"] = { x = 0.5, y = 0 },
 		["TRIANGLE"] = { x = 0.75, y = 0},
-		["MOON"] = { x = 0, y = 0.25}, 
+		["MOON"] = { x = 0, y = 0.25},
 		["SQUARE"] = { x = .25, y = 0.25},
 		["CROSS"] = { x = .5, y = 0.25},
-		["SKULL"] = { x = .75, y = 0.25}, 
+		["SKULL"] = { x = .75, y = 0.25},
 }
 
 ---------------------------------------------------------------------------------------------------------------------
@@ -117,9 +110,9 @@ do
         local plate, curChildren
 
         -- Detect when cursor leaves the mouseover unit
-		if HasMouseover and not UnitExists("mouseover") then 
+		if HasMouseover and not UnitExists("mouseover") then
 			HasMouseover = false
-			SetUpdateAll() 
+			SetUpdateAll()
 		end
 
 		for plate in pairs(PlatesVisible) do
@@ -140,7 +133,6 @@ do
 				plate.UpdateHealth = false
 
 				extended:SetAlpha(extended.requestedAlpha)
-
 			end
 		end
 
@@ -148,7 +140,7 @@ do
 		UpdateAll = false
 	end
 
-	
+
 end
 
 ---------------------------------------------------------------------------------------------------------------------
@@ -462,7 +454,7 @@ do
 		end
 		return "HOSTILE", "PLAYER"
 	end
-		
+
 	local EliteReference = {
 		["elite"] = true,
 		["rareelite"] = true,
@@ -502,8 +494,8 @@ do
 		if UnitIsPlayer(unitid) then
 			_, unit.class = UnitClass(unitid)
 			unit.type = "PLAYER"
-		else 
-			unit.class = "" 
+		else
+			unit.class = ""
 			unit.type = "NPC"
 		end
 	end
@@ -517,7 +509,7 @@ do
 
 		unit.isMouseover = UnitIsUnit("mouseover", unitid)
 		unit.isTarget = UnitIsUnit("target", unitid)
-		
+
 		unit.guid = UnitGUID(unitid)
 
 		UpdateUnitCondition(plate, unitid)	-- This updates a bunch of properties
@@ -530,7 +522,7 @@ do
 	function UpdateUnitCondition(plate, unitid)
 		UpdateReferences(plate)
 
-		unit.level = UnitEffectiveLevel(unitid) 
+		unit.level = UnitEffectiveLevel(unitid)
 		local c = GetCreatureDifficultyColor(unit.level)
 		unit.levelcolorRed, unit.levelcolorGreen, unit.levelcolorBlue = c.r, c.g, c.b
 
@@ -574,22 +566,22 @@ do
 		unit.threatValue = UnitThreatSituation("player", unitid) or 0
 		unit.threatSituation = ThreatReference[unit.threatValue]
 		unit.isInCombat = UnitAffectingCombat(unitid)
-		
+
 
 		local raidIconIndex = GetRaidTargetIndex(unitid)
 
-		if raidIconIndex then 
-			unit.raidIcon = RaidIconList[raidIconIndex] 
+		if raidIconIndex then
+			unit.raidIcon = RaidIconList[raidIconIndex]
 			unit.isMarked = true
 		else
 			unit.isMarked = false
 		end
-		
+
 		-- Unfinished....
 		unit.isTapped = UnitIsTapDenied(unitid)
 		--unit.isInCombat = false
 		--unit.platetype = 2 -- trivial mini mob
-		
+
 	end
 
 	-- OnRequestWidgetUpdate: Calls Update on just the Widgets
@@ -785,7 +777,7 @@ do
 		self:SetValue((endTime + startTime) - currentTime)
 	end
 
-	
+
 
 	-- OnShowCastbar
 	function OnStartCasting(plate, unitid, channeled)
@@ -796,7 +788,7 @@ do
 		local castBar = extended.visual.castbar
 
 		local name, subText, text, texture, startTime, endTime, isTradeSkill, castID, notInterruptible
-		
+
 		if channeled then
 			name, subText, text, texture, startTime, endTime, isTradeSkill, notInterruptible = UnitChannelInfo(unitid)
 			castBar:SetScript("OnUpdate", OnUpdateCastBarReverse)
@@ -829,7 +821,7 @@ do
 		if unit.spellIsShielded then
 			   visual.castnostop:Show(); visual.castborder:Hide()
 		else visual.castnostop:Hide(); visual.castborder:Show() end
-		
+
 		UpdateIndicator_CustomScaleText()
 		UpdateIndicator_CustomAlpha()
 
@@ -842,7 +834,7 @@ do
 	function OnStopCasting(plate)
 
 		UpdateReferences(plate)
-		
+
 		if not extended:IsShown() then return end
 		local castBar = extended.visual.castbar
 
@@ -878,9 +870,9 @@ end -- End Indicator section
 --------------------------------------------------------------------------------------------------------------
 do
 	local events = {}
+
 	local function EventHandler(self, event, ...)
 		events[event](event, ...)
-
 	end
 
 	local TidyPlatesCore = CreateFrame("Frame", nil, WorldFrame)
@@ -888,11 +880,10 @@ do
 	TidyPlatesCore:SetScript("OnEvent", EventHandler)
 
 	-- Events
-	function events:PLAYER_ENTERING_WORLD() 
+	function events:PLAYER_ENTERING_WORLD()
 		TidyPlatesCore:SetScript("OnUpdate", OnUpdate);
 		--NamePlateDriverFrame:SetBaseNamePlateSize( 160, 50 )
 		--NamePlateDriverFrame:UnregisterAllEvents();					-- DH Method
-
 	end
 
 	function events:NAME_PLATE_CREATED(...)
@@ -901,33 +892,33 @@ do
 		OnNewNameplate(plate)
 	 end
 
-	function events:NAME_PLATE_UNIT_ADDED(...) 
+	function events:NAME_PLATE_UNIT_ADDED(...)
 		local unitid = ...
 		local plate = GetNamePlateForUnit(unitid);
 
 		--if plate then OnShowNameplate(plate, unitid) end
-													
+
 		if UnitIsUnit("player", unitid) then 		-- DH Method
 			plate:GetChildren():Show()
 		else
 			plate:GetChildren():Hide()
 			OnShowNameplate(plate, unitid)
 		end
-		
+
 	end
-	
-	function events:NAME_PLATE_UNIT_REMOVED(...) 
+
+	function events:NAME_PLATE_UNIT_REMOVED(...)
 		local unitid = ...
 		local plate = GetNamePlateForUnit(unitid);
 
 		OnHideNameplate(plate, unitid)
 	end
 
-	function events:PLAYER_TARGET_CHANGED() 
-		HasTarget = UnitExists("target") == true; 
-		SetUpdateAll() 
+	function events:PLAYER_TARGET_CHANGED()
+		HasTarget = UnitExists("target") == true;
+		SetUpdateAll()
 
-	end	
+	end
 
 	function events:UNIT_HEALTH_FREQUENT(...)
 		local unitid = ...
@@ -936,20 +927,20 @@ do
 		if plate then OnHealthUpdate(plate) end
 	end
 
-	function events:PLAYER_REGEN_ENABLED() 
+	function events:PLAYER_REGEN_ENABLED()
 		InCombat = false
-		SetUpdateAll() 
+		SetUpdateAll()
 	end
 
-	function events:PLAYER_REGEN_DISABLED() 
+	function events:PLAYER_REGEN_DISABLED()
 		InCombat = true
-		SetUpdateAll() 
+		SetUpdateAll()
 	end
 
-	function events:UPDATE_MOUSEOVER_UNIT(...) 
-		if UnitExists("mouseover") then 
+	function events:UPDATE_MOUSEOVER_UNIT(...)
+		if UnitExists("mouseover") then
 			HasMouseover = true
-			SetUpdateAll() 
+			SetUpdateAll()
 		end
 	end
 
@@ -966,7 +957,7 @@ do
 
 		local plate = GetNamePlateForUnit(unitid);
 
-		if plate then 
+		if plate then
 			OnUpdateCastMidway(plate, unitid)
 		end
 	 end
@@ -983,7 +974,7 @@ do
 
 		local plate = GetNamePlateForUnit(unitid)
 
-		if plate then 
+		if plate then
 			OnStartCasting(plate, unitid, false)
 		end
 	end
@@ -995,12 +986,12 @@ do
 
 		local plate = GetNamePlateForUnit(unitid)
 
-		if plate then 
+		if plate then
 			OnStopCasting(plate)
 		end
 	 end
 
-	 
+
 
 	function events:UNIT_SPELLCAST_CHANNEL_START(...)
 		local unitid = ...
@@ -1008,7 +999,7 @@ do
 
 		local plate = GetNamePlateForUnit(unitid)
 
-		if plate then 
+		if plate then
 			OnStartCasting(plate, unitid, true)
 		end
 	end
@@ -1019,22 +1010,15 @@ do
 
 		local plate = GetNamePlateForUnit(unitid)
 
-		if plate then 
+		if plate then
 			OnStopCasting(plate)
 		end
 	end
 
-
-
-	--events.UNIT_SPELLCAST_SUCCEEDED = events.UNIT_SPELLCAST_STOP
-
-	--[[
-
-	function events:PLAYER_CONTROL_LOST() SetUpdateAll() end
-	events.PLAYER_CONTROL_GAINED = events.PLAYER_CONTROL_LOST
-	events.UNIT_FACTION = events.PLAYER_CONTROL_LOST
-
-	--]]
+	-- Disabled events
+	-- function events:PLAYER_CONTROL_LOST() SetUpdateAll() end
+	-- events.PLAYER_CONTROL_GAINED = events.PLAYER_CONTROL_LOST
+	-- events.UNIT_FACTION = events.PLAYER_CONTROL_LOST
 
 	-- Registration of Blizzard Events
 	for eventname in pairs(events) do TidyPlatesCore:RegisterEvent(eventname) end
@@ -1146,6 +1130,24 @@ do
 end
 
 --------------------------------------------------------------------------------------------------------------
+-- Theme Handling
+--------------------------------------------------------------------------------------------------------------
+local function UseTheme(theme)
+	if theme and type(theme) == 'table' and not theme.IsShown then
+		activetheme = theme 						-- Store a local copy
+		ResetPlates = true
+	end
+end
+
+TidyPlatesInternal.UseTheme = UseTheme
+
+local function GetTheme()
+	return activetheme
+end
+
+TidyPlates.GetTheme = GetTheme
+
+--------------------------------------------------------------------------------------------------------------
 -- External Commands: Allows widgets and themes to request updates to the plates.
 -- Useful to make a theme respond to externally-captured data (such as the combat log)
 --------------------------------------------------------------------------------------------------------------
@@ -1154,13 +1156,16 @@ function TidyPlates:EnableCastBars() ShowCastBars = true end
 
 function TidyPlates:ForceUpdate() ForEachPlate(OnResetNameplate) end
 function TidyPlates:Update() SetUpdateAll() end
+
 function TidyPlates:RequestWidgetUpdate(plate) if plate then SetUpdateMe(plate) else SetUpdateAll() end end
 function TidyPlates:RequestDelegateUpdate(plate) if plate then SetUpdateMe(plate) else SetUpdateAll() end end
+
 function TidyPlates:ActivateTheme(theme) if theme and type(theme) == 'table' then TidyPlates.ActiveThemeTable, activetheme = theme, theme; ResetPlates = true; end end
+
+-- Out-of-date - Just here to avoid errors
 function TidyPlates:EnableFadeIn() EnableFadeIn = true; end
 function TidyPlates:DisableFadeIn() EnableFadeIn = nil; end
 function TidyPlates:EnableCompatibilityMode() CompatibilityMode = true; end
-TidyPlates.NameplatesByGUID, TidyPlates.NameplatesAll, TidyPlates.NameplatesByVisible = GUID, Plates, PlatesVisible
 
 
 

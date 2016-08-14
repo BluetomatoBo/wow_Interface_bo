@@ -217,19 +217,11 @@
             </Frames>
     </Frame>
 
-
-	<Script file="TidyPlatesCubeframe.lua"/>
-	<Script file="TidyPlatesCustomStatusbar.lua"/>
-
-	<!-- For Testing -->
-	<!--
-	<Script file="TidyPlatesCore_6_9_Trial.lua"/>
-	<Script file="MetasequoiaCore.lua"/>
-	-->
+	<Script file="TidyPlatesStatusbar.lua"/>
 	<Script file="TidyPlatesCore.lua"/>
-
 	<Script file="TidyPlatesUtility.lua"/>
-	<Script file="TidyPlatesDefaults.lua"/>
+	<Script file="TidyPlatesTemplate.lua"/>
+	<Script file="TidyPlatesParser.lua"/>
 	<Script file="TidyPlatesPanel.lua"/>
 	<Script file="TidyPlatesMinimapButton.lua"/>
 </Ui>

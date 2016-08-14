@@ -2,10 +2,32 @@ Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   *.zip
 
 ---------------------------
+6.18.Beta19
+---------------------------
+Isolated the theme parser to TidyPlatesParser.lua
+
+Loading themes via functions:
+	TidyPlates:SetTheme(themeNameString)
+	TidyPlates:GetTheme()
+
+Deprecated:		(Converted to Dummy functions, will be removed)
+	TidyPlates:ActivateTheme(themeNameString)
+	TidyPlates:ReloadTheme()
+
+Moved "Use Default Blizzard Font" down to the bottom of the Settings page
+	Didn't seem to be in the right place under "Health Bars"
+Advanced is now "Funky Stuff".  Why?  Because I've been drinking?  Perhaps..
+Hub: Fixed Unit Filter Alpha
+Rejiggered some things in the Panels
+	Hub/Profile Panels are now under the Tidy Plates tree
+Renamed some of the Core files
+Cleaned up some old rotten code in Core and Panel
+
+
+---------------------------
 6.18.Beta18
 ---------------------------
 Panel fix
-
 
 ---------------------------
 6.18.Beta17
@@ -14,7 +36,7 @@ Off-Tank Highlighting is back!  (/hub, jump to "Threat")
 
 Specialization Profiles are Back!
 
-And with them, new errors to find.  
+And with them, new errors to find.
 
 Also, it's painful to look at code that I haven't touched in 5 years
 
@@ -23,7 +45,7 @@ Also, it's painful to look at code that I haven't touched in 5 years
 ---------------------------
 6.18.Beta15
 ---------------------------
-Cooldown fixes, perhaps?  
+Cooldown fixes, perhaps?
 
 ---------------------------
 6.18.Beta13
@@ -109,7 +131,7 @@ The new Cast Bars have been written.  Hopefully they work.  I've only been testi
 Class Colors should be working.  On health bars, at least.  I briefly tested them.
 Nameplates are not (and can not be) generated for enemies who are not in pvp conditions.  (This has been the case for years)
 
-Cast bars..  Early next week, I hope.  
+Cast bars..  Early next week, I hope.
 
 Calm down, take a deep breath.  It's Friday, July 22nd!  It's time for beverages!
 
@@ -134,13 +156,13 @@ Nameplate-pocalypse!!!!!!!
 
 99% of the previous nameplate system has been replaced by Blizzard for Legion.
 
-Rebuilding has been slow, since I'm (apparently) a grown-up, now. ;-)  
+Rebuilding has been slow, since I'm (apparently) a grown-up, now. ;-)
 
-BUT, progress is indeed being made!  
+BUT, progress is indeed being made!
 
 The internal widgets are disabled, which means the Aura timers are not working.  I'm rewriting the entire bloody system because we now have a good way to capture that data without all the trickery that was previously required.  (Blizzard does love us!)
 
-Again, progress is being made!  
+Again, progress is being made!
 
 Many things are broken, so I expect that many of you might want to check back with Tidy Plates in a week or so.
 
@@ -150,7 +172,7 @@ Happy questing!
 ---------------------------
 6.17.1
 ---------------------------
-- Core: New value: unit.healthmaxCached, which is updated on target and mouseover.  
+- Core: New value: unit.healthmaxCached, which is updated on target and mouseover.
 	(This uses the UnitHealthMax API function to store real health data.)
 - Core: Where available, uses the healthmaxCached to create real numbers.
 - Core: Figured out what the other statusbar is.. incoming heals.  But you guys already knew that.  Hiding that stuff, for now.

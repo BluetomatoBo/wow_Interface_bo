@@ -153,7 +153,8 @@ local function AlphaDelegate(...)
 
 	else
 		-- Filter
-		if UnitFilter(unit) then alpha = LocalVars.OpacityFiltered
+		if UnitFilter(unit) then
+			alpha = LocalVars.OpacityFiltered
 		-- Spotlight
 		else
 			local func = DummyFunction
@@ -168,7 +169,7 @@ local function AlphaDelegate(...)
 		end
 	end
 
-	if (not UnitExists("target")) and LocalVars.OpacityFullNoTarget then return Diminish(LocalVars.OpacityTarget) end
+	if not (UnitExists("target") or alpha) and LocalVars.OpacityFullNoTarget then return Diminish(LocalVars.OpacityTarget) end
 
 	if alpha then return Diminish(alpha)
 	else return Diminish(LocalVars.OpacityNonTarget) end

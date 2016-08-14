@@ -1,13 +1,20 @@
+---------------------------------------------------------------------------------------------------------------------
+-- Tidy Plates Interface Panel
+---------------------------------------------------------------------------------------------------------------------
 
--------------------------------------------------------------------------------------
+local addonName, TidyPlatesInternal = ...
+TidyPlatesPanel = {}
 
+local SetTheme = TidyPlatesInternal.SetTheme	-- Use the protected version
 
+local version = GetAddOnMetadata("TidyPlates", "version")
+local versionString = "|cFF666666"..version
 
-local TidyPlatesInterfacePanel = PanelHelpers:CreatePanelFrame( "TidyPlatesInterfaceOptions", "Tidy Plates", titleString )
+local TidyPlatesInterfacePanel = PanelHelpers:CreatePanelFrame( "TidyPlatesInterfacePanel", "Tidy Plates", nil )
+InterfaceOptions_AddCategory(TidyPlatesInterfacePanel);
 
 local CallIn = TidyPlatesUtility.CallIn
 local copytable = TidyPlatesUtility.copyTable
-local mergetable = TidyPlatesUtility.mergeTable
 local PanelHelpers = TidyPlatesUtility.PanelHelpers
 
 local NO_AUTOMATION = "No Automation"
@@ -19,7 +26,7 @@ local yellow, blue, red, orange = "|cffffff00", "|cFF3782D1", "|cFFFF1100", "|cF
 
 local function SetCastBars(enable)
 	if enable then TidyPlates:EnableCastBars()
-		else TidyPlates:DisableCastBars() 
+		else TidyPlates:DisableCastBars()
 	end
 end
 
@@ -32,9 +39,8 @@ local EnableCompatibilityMode = TidyPlates.EnableCompatibilityMode
 
 local FirstTryTheme = "Neon"
 local DefaultProfile = "Damage"
+
 local ActiveProfile = "None"
-local ActiveThemeName = ""
-local ActiveSpec = "Primary"
 
 TidyPlatesOptions = {
 
@@ -52,26 +58,26 @@ TidyPlatesOptions = {
 	WelcomeShown = false,
 }
 
+local TidyPlatesOptionsDefaults = copytable(TidyPlatesOptions)
+local TidyPlatesThemeNames = {}
+
 local AutomationDropdownItems = {
 					{ text = NO_AUTOMATION, value = NO_AUTOMATION } ,
 					{ text = DURING_COMBAT, value = DURING_COMBAT } ,
 					{ text = OUT_OF_COMBAT, value = OUT_OF_COMBAT } ,
 					}
 
-local ProfileList = {
-	{ text = "Damage", r = 1 , g =.1 , b = 0, value = "Damage" },
-	{ text = "Healer", value = "Healer"},
-	{ text = "Tank", value = "Tank"},
-}
+local HubProfileList = {}
 
 
 
-local TidyPlatesOptionsDefaults = copytable(TidyPlatesOptions)
-local TidyPlatesThemeNames = {}
-local warned = {}
+function TidyPlatesPanel.AddProfile(self, profileName )
+	if  profileName then
+		HubProfileList[#HubProfileList+1] = { text = profileName, value = profileName, }
+	end
+end
 
-
-local function SetCVarCombatCondition(cvar, mode, combat)
+local function SetNameplateVisibility(cvar, mode, combat)
 	if mode == DURING_COMBAT then
 		if combat then
 			SetCVar(cvar, 1)
@@ -87,84 +93,19 @@ local function SetCVarCombatCondition(cvar, mode, combat)
 	end
 end
 
--------------------------------------------------------------------------------------
--- Pre-Processor
--------------------------------------------------------------------------------------
-
-local function LoadTheme(incomingtheme)
-
-	local theme, style, stylename, newvalue, propertyname, oldvalue
-
-	-- Sends a reset notification to all available themes, if possible.
-	for themename, themetable in pairs(TidyPlatesThemeList) do
-		if themetable.OnActivateTheme then themetable.OnActivateTheme(nil, nil) end
-	end
-
-	-- Get theme table
-	if type(TidyPlatesThemeList) == "table" then
-		if type(incomingtheme) == 'string' then
-			theme = TidyPlatesThemeList[incomingtheme]
-		end
-	end
-
-	-- Scrub theme data, and attempt to load
-	if type(theme) == 'table' then
-		if theme.SetStyle and type(theme.SetStyle) == "function" then
-			-- Multi-Style Theme
-			for stylename, style in pairs(theme) do
-				if type(style) == "table" and style._meta then						-- _meta tag skips parsing
-					theme[stylename] = copytable(style)
-				elseif type(style) == "table" then									-- merge style with template style
-					theme[stylename] = mergetable(TidyPlates.Template, style)		-- ie. fill in the blanks
-				end
-			end
-		else
-			-- Single-Style Theme
-			for propertyname, oldvalue in pairs(TidyPlates.Template) do
-				newvalue = theme[propertyname]
-				if type(newvalue) == "table" then theme[propertyname] = mergetable(oldvalue, newvalue)
-				else theme[propertyname] = copytable(oldvalue) end
-			end
-		end
-
-		-- Choices: Overwrite incomingtheme as it's processed, or Overwrite after the processing is done
-		TidyPlates:ActivateTheme(theme)
-
-		-- ie. (Theme Table, Theme Name) -- nil is sent for all themes, to reset everything, and then the current theme is activated
-		if theme.OnActivateTheme then theme.OnActivateTheme(theme, ActiveProfile) end
-
-		ActiveThemeName = incomingtheme
-
-		return theme
-	else
-
-		-- This block falls back to the template, and leaves the field blank...
-		ActiveThemeName = nil
-		TidyPlatesOptions.ActiveThemeName = ""
-		TidyPlates:ActivateTheme(TidyPlates.Template)
-
-		return nil
-	end
-
-
-end
-
---TidyPlates.PostLoadTheme = function() end
-TidyPlates.LoadTheme = LoadTheme
-TidyPlates._LoadTheme = LoadTheme
-
+--[[
 function TidyPlates:ReloadTheme()
-	LoadTheme(ActiveThemeName)
+	SetTheme(TidyPlatesInternal.activeThemeName)
+	TidyPlatesOptions.ActiveTheme = TidyPlatesInternal.activeThemeName
 	TidyPlates:ForceUpdate()
 end
+--]]
 
 
 -------------------------------------------------------------------------------------
 -- Panel
 -------------------------------------------------------------------------------------
 local ThemeDropdownMenuItems = {}
-
-
 
 local function ApplyAutomationSettings()
 	SetCastBars(not TidyPlatesOptions.DisableCastBars)
@@ -181,24 +122,24 @@ end
 
 local function ApplyThemeSettings()
 
-	--print("ApplyThemeSettings", "Configuration")
-
 	-- Theme
-	LoadTheme(TidyPlatesOptions.ActiveTheme or FirstTryTheme)
-	local Theme = TidyPlatesThemeList[ActiveThemeName]
+	SetTheme(TidyPlatesOptions.ActiveTheme or FirstTryTheme)
+	TidyPlatesOptions.ActiveTheme = TidyPlatesInternal.activeThemeName
 
-	-- Load Hub Profile 
+	local Theme = TidyPlatesThemeList[TidyPlatesInternal.activeThemeName]
+
+	-- Load Hub Profile
 	ActiveProfile = DefaultProfile
 
 	local currentSpec = GetSpecialization()
-	
+
 	if currentSpec == 4 then
 		ActiveProfile = TidyPlatesOptions.FourthSpecProfile
 	elseif currentSpec == 3 then
 		ActiveProfile = TidyPlatesOptions.ThirdSpecProfile
 	elseif currentSpec == 2 then
 		ActiveProfile = TidyPlatesOptions.SecondSpecProfile
-	else 
+	else
 		ActiveProfile = TidyPlatesOptions.FirstSpecProfile
 	end
 
@@ -214,9 +155,10 @@ local function ApplyThemeSettings()
 	TidyPlates:ForceUpdate()
 end
 
+
 local function GetPanelValues(panel)
 	TidyPlatesOptions.ActiveTheme = panel.ActiveThemeDropdown:GetValue()
-	--TidyPlatesOptions.SecondaryTheme = panel.SecondaryThemeDropdown:GetValue()
+
 	TidyPlatesOptions.FriendlyAutomation = panel.AutoShowFriendly:GetValue()
 	TidyPlatesOptions.EnemyAutomation = panel.AutoShowEnemy:GetValue()
 	TidyPlatesOptions.DisableCastBars = panel.DisableCastBars:GetChecked()
@@ -227,12 +169,8 @@ local function GetPanelValues(panel)
 	TidyPlatesOptions.SecondSpecProfile = panel.SecondSpecDropdown:GetValue()
 	TidyPlatesOptions.ThirdSpecProfile = panel.ThirdSpecDropdown:GetValue()
 	TidyPlatesOptions.FourthSpecProfile = panel.FourthSpecDropdown:GetValue()
-
-	--  /run for i,v in pairs(TidyPlatesOptions) do print(i,v) end
-	--print("Second",  panel.SecondSpecDropdown:GetValue(), TidyPlatesOptions.SecondSpecProfile)
-
-
 end
+
 
 local function SetPanelValues(panel)
 	panel.ActiveThemeDropdown:SetValue(TidyPlatesOptions.ActiveTheme)
@@ -246,7 +184,6 @@ local function SetPanelValues(panel)
 	panel.CompatibilityMode:SetChecked(TidyPlatesOptions.CompatibilityMode)
 	panel.AutoShowFriendly:SetValue(TidyPlatesOptions.FriendlyAutomation)
 	panel.AutoShowEnemy:SetValue(TidyPlatesOptions.EnemyAutomation)
-
 end
 
 
@@ -254,7 +191,6 @@ end
 local function OnValueChange(object)
 	local panel = object:GetParent()
 	GetPanelValues(panel)
-	--ValidateProfiles(panel)
 	ApplyThemeSettings()
 end
 
@@ -271,23 +207,19 @@ local function OnRefresh(panel)
 
 	if not panel then return end
 
-	--print("OnRefresh")
 	SetPanelValues(panel)
 
 	------------------------
 	-- Spec Notes
 	------------------------
 	local currentSpec = GetSpecialization()
-	--print(currentSpec)
-
-	-- Yeah, this is brute, but it works.
 
 	------------------------
 	-- First Spec Details
 	------------------------
 	local id, name = GetSpecializationInfo(1)
 
-	if name then 
+	if name then
 		if currentSpec == 1 then name = name.." (Active)" end
 		panel.FirstSpecLabel:SetText(name)
 	end
@@ -296,7 +228,7 @@ local function OnRefresh(panel)
 	------------------------
 	local id, name = GetSpecializationInfo(2)
 
-	if name then 
+	if name then
 		if currentSpec == 2 then name = name.." (Active)" end
 		panel.SecondSpecLabel:SetText(name)
 	end
@@ -305,7 +237,7 @@ local function OnRefresh(panel)
 	------------------------
 	local id, name = GetSpecializationInfo(3)
 
-	if name then 
+	if name then
 		if currentSpec == 3 then name = name.." (Active)" end
 		panel.ThirdSpecLabel:SetText(name)
 		panel.ThirdSpecLabel:Show()
@@ -316,7 +248,7 @@ local function OnRefresh(panel)
 	------------------------
 	local id, name = GetSpecializationInfo(4)
 
-	if name then 
+	if name then
 		if currentSpec == 4 then name = name.." (Active)" end
 		panel.FourthSpecLabel:SetText(name)
 		panel.FourthSpecLabel:Show()
@@ -327,13 +259,6 @@ end
 
 
 
-local version = GetAddOnMetadata("TidyPlates", "version")
---local versionString = string.gsub(string.gsub(string.gsub(version, "%$", ""), "%(", ""), "%)", "")
-local versionString = "|cFF666666"..version
---local versionString = string.gsub(version, "%$", "")
-local addonString = GetAddOnMetadata("TidyPlates", "title")
-local titleString = addonString			-- .." |cFF444444"..versionString
-local firstShow = true
 
 
 local function CreateMenuTables()
@@ -357,7 +282,7 @@ local function CreateMenuTables()
 
 end
 
-local function CreateTidyPlatesInterfacePanel(panel)
+local function BuildInterfacePanel(panel)
 	panel:SetBackdrop({bgFile = "Interface/Tooltips/UI-Tooltip-Background", insets = { left = 2, right = 2, top = 2, bottom = 2 },})
 	panel:SetBackdropColor(0.06, 0.06, 0.06, .7)
 
@@ -397,7 +322,7 @@ local function CreateTidyPlatesInterfacePanel(panel)
 	----------------------------------------------
 	panel.ProfileLabel = panel:CreateFontString(nil, 'ARTWORK', 'GameFontNormal')
 	panel.ProfileLabel:SetFont(font, 22)
-	panel.ProfileLabel:SetText("Profiles")
+	panel.ProfileLabel:SetText("Profile")
 	panel.ProfileLabel:SetPoint("TOPLEFT", panel.ActiveThemeDropdown, "BOTTOMLEFT", 20, -20)
 	panel.ProfileLabel:SetTextColor(255/255, 105/255, 6/255)
 
@@ -411,7 +336,7 @@ local function CreateTidyPlatesInterfacePanel(panel)
 	panel.FirstSpecLabel:SetJustifyH("LEFT")
 	panel.FirstSpecLabel:SetText("First Spec")
 
-	panel.FirstSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesFirstSpecDropdown", panel, ProfileList, DefaultProfile, nil, true)
+	panel.FirstSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesFirstSpecDropdown", panel, HubProfileList, DefaultProfile, nil, true)
 	panel.FirstSpecDropdown:SetPoint("TOPLEFT", panel.FirstSpecLabel, "BOTTOMLEFT", -20, -2)
 
 	-- Spec 3
@@ -422,7 +347,7 @@ local function CreateTidyPlatesInterfacePanel(panel)
 	panel.ThirdSpecLabel:SetText("Third Spec")
 	panel.ThirdSpecLabel:Hide()
 
-	panel.ThirdSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesThirdSpecDropdown", panel, ProfileList, DefaultProfile, nil, true)
+	panel.ThirdSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesThirdSpecDropdown", panel, HubProfileList, DefaultProfile, nil, true)
 	panel.ThirdSpecDropdown:SetPoint("TOPLEFT", panel.ThirdSpecLabel, "BOTTOMLEFT", -20, -2)
 	panel.ThirdSpecLabel:Hide()
 
@@ -436,7 +361,7 @@ local function CreateTidyPlatesInterfacePanel(panel)
 	panel.SecondSpecLabel:SetJustifyH("LEFT")
 	panel.SecondSpecLabel:SetText("Second Spec")
 
-	panel.SecondSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesSecondSpecDropdown", panel, ProfileList, DefaultProfile, nil, true)
+	panel.SecondSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesSecondSpecDropdown", panel, HubProfileList, DefaultProfile, nil, true)
 	panel.SecondSpecDropdown:SetPoint("TOPLEFT",panel.SecondSpecLabel, "BOTTOMLEFT", -20, -2)
 
 	-- Spec 4
@@ -447,7 +372,7 @@ local function CreateTidyPlatesInterfacePanel(panel)
 	panel.FourthSpecLabel:SetText("Fourth Spec")
 	panel.FourthSpecLabel:Hide()
 
-	panel.FourthSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesFourthSpecDropdown", panel, ProfileList, DefaultProfile, nil, true)
+	panel.FourthSpecDropdown = PanelHelpers:CreateDropdownFrame("TidyPlatesFourthSpecDropdown", panel, HubProfileList, DefaultProfile, nil, true)
 	panel.FourthSpecDropdown:SetPoint("TOPLEFT",panel.FourthSpecLabel, "BOTTOMLEFT", -20, -2)
 	panel.FourthSpecDropdown:Hide()
 
@@ -577,7 +502,7 @@ function panelevents:PLAYER_ENTERING_WORLD()
 		for i,v in pairs(TidyPlatesThemeList) do fallBackTheme = i break; end
 	end
 
-	-- Check to make sure the selected themes exist; if not, replace with fallback 
+	-- Check to make sure the selected themes exist; if not, replace with fallback
 	if not TidyPlatesThemeList[TidyPlatesOptions.ActiveTheme] then
 		TidyPlatesOptions.ActiveTheme = fallBackTheme end
 
@@ -586,28 +511,27 @@ function panelevents:PLAYER_ENTERING_WORLD()
 end
 
 function panelevents:PLAYER_REGEN_ENABLED()
-	SetCVarCombatCondition("nameplateShowEnemies", TidyPlatesOptions.EnemyAutomation, false)
-	SetCVarCombatCondition("nameplateShowFriends", TidyPlatesOptions.FriendlyAutomation, false)
+	SetNameplateVisibility("nameplateShowEnemies", TidyPlatesOptions.EnemyAutomation, false)
+	SetNameplateVisibility("nameplateShowFriends", TidyPlatesOptions.FriendlyAutomation, false)
 end
 
 function panelevents:PLAYER_REGEN_DISABLED()
-	SetCVarCombatCondition("nameplateShowEnemies", TidyPlatesOptions.EnemyAutomation, true)
-	SetCVarCombatCondition("nameplateShowFriends", TidyPlatesOptions.FriendlyAutomation, true)
+	SetNameplateVisibility("nameplateShowEnemies", TidyPlatesOptions.EnemyAutomation, true)
+	SetNameplateVisibility("nameplateShowFriends", TidyPlatesOptions.FriendlyAutomation, true)
 end
 
 function panelevents:PLAYER_LOGIN()
 
 	-- Setup the interface panels
 	CreateMenuTables()				-- Look at the theme table and get names
-	CreateTidyPlatesInterfacePanel(TidyPlatesInterfacePanel)
-	InterfaceOptions_AddCategory(TidyPlatesInterfacePanel);
+	BuildInterfacePanel(TidyPlatesInterfacePanel)
 
 	-- First time setup
 	if not TidyPlatesOptions.WelcomeShown then
-		SetCVar("nameplateShowSelf", 0)		-- 
-		SetCVar("nameplateShowAll", 1)		-- 
+		SetCVar("nameplateShowSelf", 0)		--
+		SetCVar("nameplateShowAll", 1)		--
 
-		
+
 		SetCVar("nameplateShowEnemies", 1)
 		SetCVar("nameplateShowFriends", 0)
 		SetCVar("threatWarning", 3)		-- Required for threat/aggro detection
@@ -619,15 +543,11 @@ end
 TidyPlatesInterfacePanel:SetScript("OnEvent", function(self, event, ...) panelevents[event](self, ...) end)
 for eventname in pairs(panelevents) do TidyPlatesInterfacePanel:RegisterEvent(eventname) end
 
-
-
 -------------------------------------------------------------------------------------
 -- Slash Commands
 -------------------------------------------------------------------------------------
 
 TidyPlatesSlashCommands = {}
---TidyPlatesSlashCommands.reset = function() print("Tidy Plates: Variables have been reset"); TidyPlatesOptions = copytable(TidyPlatesOptionsDefaults); LoadTheme(TidyPlatesOptions[ActiveSpec]) end
-
 
 function slash_TidyPlates(arg)
 	if type(TidyPlatesSlashCommands[arg]) == 'function' then
@@ -641,4 +561,6 @@ end
 SLASH_TIDYPLATES1 = '/tidyplates'
 SLASH_TIDYPLATES2 = '/tp'
 SlashCmdList['TIDYPLATES'] = slash_TidyPlates;
+
+
 

@@ -13,7 +13,7 @@ local CallbackList = {}
 function HubData.RegisterCallback(func) CallbackList[func] = true end
 function HubData.UnRegisterCallback(func) CallbackList[func] = nil end
 
-local CurrentProfileName = nil 
+local CurrentProfileName = nil
 
 local InCombatLockdown = InCombatLockdown
 
@@ -38,11 +38,11 @@ local IsGuildmate = TidyPlatesUtility.IsGuildmate
 
 
 
--- Combat 
+-- Combat
 local IsEnemyTanked = TidyPlatesWidgets.IsEnemyTanked
 
 local function IsOffTanked(unit)
-	
+
 	if LocalVars.EnableOffTankHighlight and IsEnemyTanked(unit) then
 		return true
 	end
@@ -164,7 +164,7 @@ end
 local CreateVariableSet = TidyPlatesHubRapidPanel.CreateVariableSet
 
 
--- [[
+--[[
 -- TidyPlatesHubSettings["HubPanelSettingsDamage"]
 local function UseDamageVariables()
 	local objectName = "HubPanelSettingsDamage"
