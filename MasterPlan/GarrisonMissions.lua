@@ -107,9 +107,9 @@ end
 
 local GarrisonFollower_OnDoubleClick do -- Adding followers to missions
 	local old = GarrisonFollowerListButton_OnClick
-	local function resetAndReturn(followerFrame, ...)
-		followerFrame.FollowerList.canExpand = true
-		followerFrame.FollowerList:UpdateData()
+	local function resetAndReturn(followerList, ...)
+		followerList.canExpand = true
+		followerList:UpdateData()
 		return ...
 	end
 	local function AddToMission(fi)
@@ -144,10 +144,10 @@ local GarrisonFollower_OnDoubleClick do -- Adding followers to missions
 		end
 	end
 	function GarrisonFollowerListButton_OnClick(self, ...)
-		local followerFrame = self:GetParent():GetParent().followerFrame
 		if self.PortraitFrame and self.PortraitFrame:IsMouseOver() and MISSION_PAGE_FRAME.missionInfo and MISSION_PAGE_FRAME:IsShown() then
-			followerFrame.FollowerList.canExpand = false
-			return resetAndReturn(followerFrame, old(self, ...))
+			local followerList = self:GetFollowerList()
+			followerList.canExpand = false
+			return resetAndReturn(followerList, old(self, ...))
 		end
 		return old(self, ...)
 	end
