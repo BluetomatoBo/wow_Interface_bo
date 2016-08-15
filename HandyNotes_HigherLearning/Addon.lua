@@ -1,9 +1,9 @@
 --[[--------------------------------------------------------------------
 	HandyNotes: Higher Learning
 	Shows the books you still need for the Higher Learning achievement.
-	Copyright (c) 2014-2015 Phanx <addons@phanx.net>. All rights reserved.
+	Copyright (c) 2014-2016 Phanx <addons@phanx.net>. All rights reserved.
 	http://www.wowinterface.com/downloads/info23267-HandyNotes-HigherLearning.html
-	http://www.curse.com/addons/wow/handynotes-higher-learning
+	https://mods.curse.com/addons/wow/handynotes-higher-learning
 	https://github.com/Phanx/HandyNotes_HigherLearning
 ----------------------------------------------------------------------]]
 
@@ -11,23 +11,23 @@ local L = {}
 if GetLocale() == "deDE" then
 	L["<Right-Click to set a waypoint in TomTom>"] = "<Rechtsklick, um eine Zielpunkt in TomTom zu setzen>"
 	L["<Ctrl-Right-Click to set waypoints for all unread books>"] = "<STRG-Rechtsklick, um Zielpunkte für alle ungelesenen Bücher zu setzen>"
-	L["On the floor next to the bookshelf"] = "Auf dem Boden neben dem Bücherregal"
-	L["On the floor next to the table"] = "Auf dem Boden neben dem Tisch"
+	L["In the Teleportation Crystal room, on the floor next to the bookshelf"] = "Im Teleportationskristallsraum, auf dem Boden neben dem Bücherregal"
+	L["Downstairs, on the floor next to the table"] = "Im Erdgeschoss, auf dem Boden neben dem Tisch"
 	L["On the bookshelf on the left"] = "Auf dem linken Bücherregal"
 	L["Upstairs, on the floor to the left of the Caverns of Time portal"] = "Nach oben, auf dem Boden links von dem Portal zum Höhlen der Zeit"
 	L["On a crate on the balcony"] = "Auf einer Kiste auf dem Balkon"
-	L["On the crate next to the purple wine glass"] = "Auf der Kiste neben dem violetten Weinglas"
+	L["On the crate next to the wine glass"] = "Auf der Kiste neben dem Weinglas"
 	L["Upstairs, on the bookshelf in the west bedroom"] = "Nach oben, auf dem Bücherregal in dem westlichen Schlafzimmer"
 	L["Downstairs, on the bookshelf in the west corner"] = "Im Erdgeschoss, auf dem Bücherregal in der westlichen Ecke"
 elseif GetLocale():match("^es") then
 	L["<Right-Click to set a waypoint in TomTom>"] = "<Clic derecho para establecer un waypoint en TomTom>"
 	L["<Ctrl-Right-Click to set waypoints for all unread books>"] = "<Ctrl-clic derecho para establecer waypoints de todos libros no leídos>"
-	L["On the floor next to the bookshelf"] = "En el piso al lado de la estantería"
-	L["On the floor next to the table"] = "En el piso al lado de la mesa"
+	L["In the Teleportation Crystal room, on the floor next to the bookshelf"] = "En la sala del Cristal de Teletransporte, en el piso al lado de la estantería"
+	L["Downstairs, on the floor next to the table"] = "En la planta baja, en el piso al lado de la mesa"
 	L["On the bookshelf on the left"] = "En la estantería a la izquierda"
 	L["Upstairs, on the floor to the left of the Caverns of Time portal"] = "En la planta alta, en el piso a la izquierda del portal a las Cavernas del Tiempo"
 	L["On a crate on the balcony"] = "En un cajón en el balcón"
-	L["On the crate next to the purple wine glass"] = "En el cajón al lado del vaso de vino purpúreo"
+	L["On the crate next to the wine glass"] = "En el cajón al lado del vaso de vino"
 	L["Upstairs, on the bookshelf in the west bedroom"] = "En la planta alta, en la estantería en el dormitorio occidental"
 	L["Downstairs, on the bookshelf in the west corner"] = "En la planta baja, en la estantería en la esquina occidental"
 end
@@ -35,12 +35,12 @@ end
 ------------------------------------------------------------------------
 
 local books = {
-	[56684560] = { 7236, "Introduction",  "On the floor next to the bookshelf" },
-	[52385476] = { 7237, "Abjuration",    "On the floor next to the table" },
+	[56684560] = { 7236, "Introduction",  "In the Teleportation Crystal room, on the floor next to the bookshelf" },
+	[52385476] = { 7237, "Abjuration",    "Downstairs, on the floor next to the table" },
 	[30784589] = { 7238, "Conjuration",   "On the bookshelf on the left" },
 	[26525220] = { 7239, "Divination",    "Upstairs, on the floor to the left of the Caverns of Time portal" },
 	[43564671] = { 7240, "Enchantment",   "On a crate on the balcony" },
-	[64425237] = { 7241, "Illusion",      "On the crate next to the purple wine glass" },
+	[64425237] = { 7241, "Illusion",      "On the crate next to the wine glass" },
 	[46693905] = { 7242, "Necromancy",    "Upstairs, on the bookshelf in the west bedroom" },
 	[46834001] = { 7243, "Transmutation", "Downstairs, on the bookshelf in the west corner" },
 }
@@ -157,8 +157,17 @@ Addon:SetScript("OnEvent", function(self, event, ...) return self[event](self, .
 function Addon:PLAYER_LOGIN()
 	--print("PLAYER_LOGIN")
 	HandyNotes:RegisterPluginDB(ACHIEVEMENT_NAME, pluginHandler)
-	self:RegisterEvent("CRITERIA_COMPLETE")
+	self:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	self:CRITERIA_COMPLETE()
+end
+
+function Addon:ZONE_CHANGED_NEW_AREA()
+	--print("ZONE_CHANGED_NEW_AREA", GetCurrentMapAreaID(), GetZoneText())
+	if GetCurrentMapAreaID() == 504 or GetZoneText() == GetMapNameByID(504) then
+		self:RegisterEvent("CRITERIA_COMPLETE")
+	else
+		self:UnregisterEvent("CRITERIA_COMPLETE")
+	end
 end
 
 function Addon:CRITERIA_COMPLETE(...)
