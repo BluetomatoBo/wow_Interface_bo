@@ -578,7 +578,13 @@ function TI_AddNPCToTempList(name, list)
 	local temp = {};
 	temp.name = name;
 	temp.list = list;
-	temp.location = GetSubZoneText() .. ", " .. GetRealZoneText();
+	local subZone = GetSubZoneText();
+	local realZone = GetRealZoneText();
+	if(subZone == "") then
+		temp.location = realZone;
+	else
+		temp.location = subZone .. ", " .. realZone;
+	end
 	table.insert(TI_TempNPCList, 1, temp);
 	if(#TI_TempNPCList > TI_TempNPCListMaxSize) then
 		table.remove(TI_TempNPCList, TI_TempNPCListMaxSize);
@@ -625,7 +631,7 @@ end
 function TI_TabulateGossipAvailableQuests(...)
 	local x = {};
 	
-	for i=1, select("#", ...), 6 do
+	for i=1, select("#", ...), 7 do
 		local temp = {};
 		temp.name = select(i, ...);
 		
@@ -633,6 +639,7 @@ function TI_TabulateGossipAvailableQuests(...)
 		local isDaily = select(i+3, ...);
 		local isRepeatable = select(i+4, ...);
 		local isLegendary = select(i+5, ...);
+		local isIgnored = select(i+6, ...);
 		if ( isDaily ) then
 			temp.icon = "Interface\\GossipFrame\\DailyQuestIcon";
 		elseif ( isRepeatable ) then
@@ -651,7 +658,7 @@ end
 function TI_TabulateGossipActiveQuests(...)
 	local x = {};
 	
-	for i=1, select("#", ...), 5 do
+	for i=1, select("#", ...), 6 do
 		local temp = {};
 		temp.name = select(i, ...);
 		

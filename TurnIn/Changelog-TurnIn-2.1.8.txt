@@ -1,0 +1,21 @@
+------------------------------------------------------------------------
+r47 | sabindeus | 2016-08-13 15:25:58 +0000 (Sat, 13 Aug 2016) | 3 lines
+Changed paths:
+   A /tags/2.1.8 (from /trunk:46)
+
+Tagging as 2.1.8
+
+Fixes the NPC display bug
+------------------------------------------------------------------------
+r46 | sabindeus | 2016-08-13 15:24:34 +0000 (Sat, 13 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/TurnIn.lua
+
+Quest functions changed return lists again
+------------------------------------------------------------------------
+r44 | sabindeus | 2016-07-31 13:57:57 +0000 (Sun, 31 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/TurnIn.toc
+
+Updated toc to 70000
+------------------------------------------------------------------------
