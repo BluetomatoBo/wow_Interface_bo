@@ -47,7 +47,7 @@ local function SetTheme(...)
 		else
 			-- Single-Style Theme  (Old School!)
 			local newvalue, propertyname, oldvalue
-			
+
 			for propertyname, oldvalue in pairs(TidyPlatesInternal.ThemeTemplate) do
 				newvalue = theme[propertyname]
 				if type(newvalue) == "table" then theme[propertyname] = mergetable(oldvalue, newvalue)
@@ -60,20 +60,24 @@ local function SetTheme(...)
 
 		-- ie. (Theme Table, Theme Name) -- nil is sent for all themes, to reset everything, and then the current theme is activated
 		if theme.OnActivateTheme then theme.OnActivateTheme(theme, ActiveProfile) end
-
 		TidyPlatesInternal.activeThemeName = themeName
 
+		TidyPlatesOptions.ActiveTheme = TidyPlatesInternal.activeThemeName
+		TidyPlates:ForceUpdate()
 		return theme
 	else
-
 		-- This block falls back to the template, and leaves the field blank...
 		TidyPlatesInternal.activeThemeName = nil
-		UseTheme(TidyPlatesInternal.ThemeTemplate)
+		TidyPlatesOptions.ActiveTheme = ""
 
+		UseTheme(TidyPlatesInternal.ThemeTemplate)
 		return nil
 	end
+
+
 end
 
+-- /run TidyPlates:SetTheme("Neon")
 
 TidyPlates.SetTheme = SetTheme
 TidyPlatesInternal.SetTheme = SetTheme

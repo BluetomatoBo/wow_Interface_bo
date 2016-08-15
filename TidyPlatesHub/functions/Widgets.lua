@@ -199,7 +199,7 @@ end
 
 
 local function AddClassIcon(plate, enable, config)
-	if enable then
+	if enable and config then
 		if not plate.widgets.ClassIcon then
 			local widget
 			widget = CreateClassWidget(plate)
@@ -214,7 +214,7 @@ local function AddClassIcon(plate, enable, config)
 end
 
 local function AddTotemIcon(plate, enable, config)
-	if enable then
+	if enable and config then
 		if not plate.widgets.TotemIcon then
 			local widget
 			widget = CreateTotemIconWidget(plate)
@@ -229,7 +229,7 @@ local function AddTotemIcon(plate, enable, config)
 end
 
 local function AddComboPoints(plate, enable, config)
-	if enable then
+	if enable and config then
 		if not plate.widgets.ComboWidget then
 			local widget
 			widget = CreateComboPointWidget(plate)
@@ -244,7 +244,7 @@ local function AddComboPoints(plate, enable, config)
 end
 
 local function AddThreatLineWidget(plate, enable, config)
-	if enable then
+	if enable and config then
 		if not plate.widgets.ThreatLineWidget then
 			local widget
 			widget = CreateThreatLineWidget(plate)
@@ -262,7 +262,7 @@ local function AddThreatLineWidget(plate, enable, config)
 end
 
 local function AddThreatWheelWidget(plate, enable, config)
-	if enable then
+	if enable and config then
 		if not plate.widgets.ThreatWheelWidget then
 			local widget
 			widget = WidgetLib.CreateThreatWheelWidget(plate)
@@ -278,7 +278,7 @@ end
 
 local RangeModeRef = { 9, 15, 28, 40 }
 local function AddRangeWidget(plate, enable, config)
-	if enable then
+	if enable and config then
 		if not plate.widgets.RangeWidget then
 			local widget
 			widget = CreateRangeWidget(plate)
@@ -292,7 +292,7 @@ local function AddRangeWidget(plate, enable, config)
 end
 
 local function AddDebuffWidget(plate, enable, config)
-	if enable then
+	if enable and config then
 		if not plate.widgets.DebuffWidget then
 			local widget
 			widget =  CreateAuraWidget(plate)

@@ -124,6 +124,8 @@ local function ApplyThemeSettings()
 
 	-- Theme
 	SetTheme(TidyPlatesOptions.ActiveTheme or FirstTryTheme)
+
+	-- This is here in case the theme couldn't be loaded, and the core falls back to defaults
 	TidyPlatesOptions.ActiveTheme = TidyPlatesInternal.activeThemeName
 
 	local Theme = TidyPlatesThemeList[TidyPlatesInternal.activeThemeName]
@@ -188,8 +190,8 @@ end
 
 
 
-local function OnValueChange(object)
-	local panel = object:GetParent()
+local function OnValueChange(self)
+	local panel = self:GetParent()
 	GetPanelValues(panel)
 	ApplyThemeSettings()
 end

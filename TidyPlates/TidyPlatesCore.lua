@@ -51,6 +51,10 @@ local function SetUpdateMe(plate) plate.UpdateMe = true end
 local function SetUpdateAll() UpdateAll = true end
 local function SetUpdateHealth(source) source.parentPlate.UpdateHealth = true end
 
+-- Overriding
+local function BypassFunction() return true end
+local ShowBlizzardPlate		-- Holder for later
+
 -- Style
 local UpdateStyle
 
@@ -304,8 +308,6 @@ do
 		UpdateReferences(plate)
 
 		carrier:Show()
-		--extended:Show()
-		--extended:SetAlpha(1)		-- do we need this?  might cause a flash
 
 		PlatesVisible[plate] = unitid
 		PlatesByUnit[unitid] = plate
@@ -341,11 +343,6 @@ do
 		-- Widgets/Extensions
 		-- This goes here because a user might change widget settings after nameplates have been created
 		if activetheme.OnInitialize then activetheme.OnInitialize(extended, activetheme) end
-
-		-- Initial Data Gather
-		--UpdateUnitIdentity(unitid)
-		--UpdateUnitContext(plate, unitid)
-		--ProcessUnitChanges()
 
 		-- Skip the initial data gather and let the second cycle do the work.
 		plate.UpdateMe = true
@@ -883,12 +880,13 @@ do
 	function events:PLAYER_ENTERING_WORLD()
 		TidyPlatesCore:SetScript("OnUpdate", OnUpdate);
 		--NamePlateDriverFrame:SetBaseNamePlateSize( 160, 50 )
-		--NamePlateDriverFrame:UnregisterAllEvents();					-- DH Method
 	end
 
 	function events:NAME_PLATE_CREATED(...)
 		local plate = ...
-
+		local BlizzardFrame = plate:GetChildren()
+		BlizzardFrame._Show = BlizzardFrame.Show	-- Store this for later
+		BlizzardFrame.Show = BypassFunction			-- Try this to keep the plate from showing up
 		OnNewNameplate(plate)
 	 end
 
@@ -896,10 +894,10 @@ do
 		local unitid = ...
 		local plate = GetNamePlateForUnit(unitid);
 
-		--if plate then OnShowNameplate(plate, unitid) end
-
-		if UnitIsUnit("player", unitid) then 		-- DH Method
-			plate:GetChildren():Show()
+		-- Personal Display
+		if UnitIsUnit("player", unitid) then
+			plate:GetChildren():_Show()
+		-- Normal Plates
 		else
 			plate:GetChildren():Hide()
 			OnShowNameplate(plate, unitid)
@@ -1040,8 +1038,10 @@ do
 	-- SetObjectShadow:
 	local function SetObjectShadow(object, shadow)
 		if shadow then
-			object:SetShadowColor(0,0,0, tonumber(shadow) or 1)
-			object:SetShadowOffset(.5, -.5)
+			--object:SetShadowColor(0,0,0, tonumber(shadow) or 1)
+			object:SetShadowColor(0,0,0,  1)
+			--object:SetShadowOffset(.5, -.5)
+			object:SetShadowOffset(1, -1)
 		else object:SetShadowColor(0,0,0,0) end
 	end
 

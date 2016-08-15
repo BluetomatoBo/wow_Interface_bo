@@ -2,6 +2,14 @@ Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   *.zip
 
 ---------------------------
+6.18.Beta20
+---------------------------
+Aura Widget typo fix
+Hopefully final fix for Blizzard Bars appearing
+Temporarily restored the outdated UseTankVariables and UseDamageVariables functions
+Tinkered with the ShadowOffset
+
+---------------------------
 6.18.Beta19
 ---------------------------
 Isolated the theme parser to TidyPlatesParser.lua

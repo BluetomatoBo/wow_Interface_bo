@@ -14,10 +14,10 @@ TestCooldown:SetHideCountdownNumbers(false)
 
 -- performs a complete cooldown "sweep" animation over 10 seconds
 /run TestCooldown:SetCooldown(GetTime(), 10)
- 
+
 -- performs the same animation, starting halfway in (5 seconds)
 TestCooldown:SetCooldown(GetTime() - 5, 10)
- 
+
 -- performs only the "flash" animation normally seen at the end of a cooldown
 TestCooldown:SetCooldown(0,0)
 --]]
@@ -129,7 +129,7 @@ end
 
 
 local function EventUnitAura(unitid)
-	local frame 
+	local frame
 
 	if unitid then frame = WidgetList[unitid] end
 
@@ -210,8 +210,8 @@ local function UpdateIcon(frame, texture, duration, expiration, stacks, r, g, b)
 end
 
 
-local function AuraSortFunction(a,b) 
-	return a.priority < b.priority 
+local function AuraSortFunction(a,b)
+	return a.priority < b.priority
 end
 
 
@@ -238,7 +238,7 @@ local function UpdateIconGrid(frame, unitid)
 		local auraFilter = "HARMFUL"
 
 		--print(UnitName(unitid), unitid )
-		repeat 
+		repeat
 
 			auraIndex = auraIndex + 1
 
@@ -246,7 +246,7 @@ local function UpdateIconGrid(frame, unitid)
 
 			do
 				local name, _, icon, stacks, auraType, duration, expiration, caster, _, _, spellid = UnitAura(unitid, auraIndex, auraFilter)		-- UnitaAura
-			
+
 				aura.name = name
 				aura.texture = icon
 				aura.stacks = stacks
@@ -261,7 +261,7 @@ local function UpdateIconGrid(frame, unitid)
 
 				--if name == "Gnaw" then print(name, _, icon, stacks, auraType, duration, expiration, caster, _, _, spellid) end
 			end
-			
+
 			-- Gnaw , false, icon, 0 stacks, nil type, duration 1, expiration 8850.436, caster pet, false, false, 91800
 
 
@@ -282,9 +282,9 @@ local function UpdateIconGrid(frame, unitid)
 					storedAuras[storedAuraCount] = aura
 				end
 			else
-				if auraFilter == "HARMFUL" then 
-					searchedDebuffs = true 
-					auraFilter = "HELFUL"
+				if auraFilter == "HARMFUL" then
+					searchedDebuffs = true
+					auraFilter = "HELPFUL"
 					auraIndex = 0
 				else
 					searchedBuffs = true
@@ -308,7 +308,7 @@ local function UpdateIconGrid(frame, unitid)
 
 					-- Call function to display the aura
 					UpdateIcon(AuraIconFrames[AuraSlotCount], aura.texture, aura.duration, aura.expiration, aura.stacks, aura.r, aura.g, aura.b)
-					
+
 					AuraSlotCount = AuraSlotCount + 1
 					frame.currentAuraCount = index
 				end
@@ -346,7 +346,7 @@ local function UpdateWidgetContext(frame, unit)
 end
 
 local function ClearWidgetContext(frame)
-	
+
 	-- fix me!
 	--WidgetList[frame.unitid] = nil
 end
@@ -389,7 +389,7 @@ local function CreateWideAuraIconFrame(parent)
 	frame.unit = nil
 	frame.Parent = parent
 	frame:SetWidth(26.5); frame:SetHeight(14.5)
-	
+
 	-- Icon
 	frame.Icon = frame:CreateTexture(nil, "BACKGROUND")
 	frame.Icon:SetAllPoints(frame)
