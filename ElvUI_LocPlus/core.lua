@@ -94,6 +94,7 @@ local currency = {
 	-- Legion
 	1155,	-- Ancient Mana
 	1220,	-- Order Resources
+	1226,	-- Nethershard (Invasion scenarios)
 	1172,	-- Highborne Archaeology Fragment
 	1173,	-- Highmountain Tauren Archaeology Fragment
 	1174,	-- Demonic Archaeology Fragment
@@ -768,7 +769,7 @@ function LPB:TransparentPanels()
 	local panelsToAddTrans = {LocationPlusPanel, XCoordsPanel, YCoordsPanel, LeftCoordDtPanel, RightCoordDtPanel}
 	
 	for _, frame in pairs(panelsToAddTrans) do
-		frame:StripTextures(frame)
+		frame:SetTemplate('NoBackdrop')
 		if not E.db.locplus.noback then 
 			E.db.locplus.shadow = false
 		elseif E.db.locplus.trans then

@@ -1,3 +1,7 @@
+[b]2.16[/b]
+*Update LibTourist to r184. This contains the Broken Isles continent
+*Added the Nethershard tokens
+
 [b]2.15[/b]
 *Added Legion currencies
 
