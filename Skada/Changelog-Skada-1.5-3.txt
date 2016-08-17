@@ -1,9 +1,15 @@
 ------------------------------------------------------------------------
-r646 | zarnivoop | 2016-08-15 08:10:48 +0000 (Mon, 15 Aug 2016) | 1 line
+r648 | zarnivoop | 2016-08-16 10:05:25 +0000 (Tue, 16 Aug 2016) | 1 line
 Changed paths:
-   A /tags/1.5-2 (from /trunk:645)
+   A /tags/1.5-3 (from /trunk:647)
 
-Tagging as 1.5-2
+Tagging as 1.5-3
+------------------------------------------------------------------------
+r647 | zarnivoop | 2016-08-15 14:37:43 +0000 (Mon, 15 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/BarDisplay.lua
+
+fix for tooltip not hiding properly anymore
 ------------------------------------------------------------------------
 r645 | zarnivoop | 2016-08-15 08:07:29 +0000 (Mon, 15 Aug 2016) | 1 line
 Changed paths:
