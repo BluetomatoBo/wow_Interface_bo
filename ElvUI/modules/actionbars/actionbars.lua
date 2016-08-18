@@ -1077,6 +1077,15 @@ function AB:VehicleFix()
 	end
 end
 
+local color
+--Update text color when button is updated
+function AB:LAB_ButtonUpdate(button)
+	color = AB.db.fontColor
+	button.Count:SetTextColor(color.r, color.g, color.b)
+	button.HotKey:SetTextColor(color.r, color.g, color.b)
+end
+LAB.RegisterCallback(AB, "OnButtonUpdate", AB.LAB_ButtonUpdate)
+
 function AB:Initialize()
 	self.db = E.db.actionbar
 	if E.private.actionbar.enable ~= true then return; end

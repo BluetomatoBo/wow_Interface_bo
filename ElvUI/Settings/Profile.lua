@@ -204,6 +204,7 @@ P["nameplates"] = {
 	["showNPCTitles"] = true,
 	["clampToScreen"] = false,
 	["loadDistance"] = 40,
+	["useTargetGlow"] = true,
 	["classbar"] = {
 		["enable"] = true,
 		["attachTo"] = "TARGET",
@@ -229,6 +230,7 @@ P["nameplates"] = {
 		["badScale"] = 1.2,
 		["useThreatColor"] = true,
 	},
+
 	['units'] = {
 		['PLAYER'] = {
 			['enable'] = false,
@@ -255,11 +257,13 @@ P["nameplates"] = {
 				['text'] = {
 					['enable'] = false,
 					['format'] = 'CURRENT',
-				}
+				},
 			},
 			['castbar'] = {
 				['enable'] = true,
 				['height'] = 8,
+				["hideSpellName"] = false,
+				["hideTime"] = false,
 			},
 			['buffs'] = {
 				['enable'] = true,
@@ -309,11 +313,13 @@ P["nameplates"] = {
 				['text'] = {
 					['enable'] = false,
 					['format'] = 'CURRENT',
-				}
+				},
 			},
 			['castbar'] = {
 				['enable'] = true,
 				['height'] = 8,
+				["hideSpellName"] = false,
+				["hideTime"] = false,
 			},
 			['buffs'] = {
 				['enable'] = true,
@@ -365,11 +371,13 @@ P["nameplates"] = {
 				['text'] = {
 					['enable'] = false,
 					['format'] = 'CURRENT',
-				}
+				},
 			},
 			['castbar'] = {
 				['enable'] = true,
 				['height'] = 8,
+				["hideSpellName"] = false,
+				["hideTime"] = false,
 			},
 			['buffs'] = {
 				['enable'] = true,
@@ -420,11 +428,13 @@ P["nameplates"] = {
 				['text'] = {
 					['enable'] = false,
 					['format'] = 'CURRENT',
-				}
+				},
 			},
 			['castbar'] = {
 				['enable'] = true,
 				['height'] = 8,
+				["hideSpellName"] = false,
+				["hideTime"] = false,
 			},
 			['buffs'] = {
 				['enable'] = true,
@@ -473,11 +483,13 @@ P["nameplates"] = {
 				['text'] = {
 					['enable'] = false,
 					['format'] = 'CURRENT',
-				}
+				},
 			},
 			['castbar'] = {
 				['enable'] = false,
 				['height'] = 8,
+				["hideSpellName"] = false,
+				["hideTime"] = false,
 			},
 			['buffs'] = {
 				['enable'] = true,
@@ -524,11 +536,13 @@ P["nameplates"] = {
 				['text'] = {
 					['enable'] = false,
 					['format'] = 'CURRENT',
-				}
+				},
 			},
 			['castbar'] = {
 				['enable'] = true,
 				['height'] = 8,
+				["hideSpellName"] = false,
+				["hideTime"] = false,
 			},
 			['buffs'] = {
 				['enable'] = true,
@@ -626,6 +640,8 @@ P['chat'] = {
 	["useAltKey"] = false,
 	["classColorMentionsChat"] = true,
 	["numAllowedCombatRepeat"] = 5,
+	["useCustomTimeColor"] = true,
+	["customTimeColor"] = {r = 0.7, g = 0.7, b = 0.7},
 
 	['tabFont'] = 'PT Sans Narrow',
 	['tabFontSize'] = 12,
