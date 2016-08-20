@@ -1,9 +1,88 @@
 ------------------------------------------------------------------------
-r648 | zarnivoop | 2016-08-16 10:05:25 +0000 (Tue, 16 Aug 2016) | 1 line
+r660 | zarnivoop | 2016-08-19 17:51:05 +0000 (Fri, 19 Aug 2016) | 1 line
 Changed paths:
-   A /tags/1.5-3 (from /trunk:647)
+   A /tags/1.5-4 (from /trunk:659)
 
-Tagging as 1.5-3
+Tagging as 1.5-4
+------------------------------------------------------------------------
+r659 | zarnivoop | 2016-08-19 16:58:16 +0000 (Fri, 19 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/InlineDisplay.lua
+   M /trunk/Skada.lua
+
+a few more config cleanups
+------------------------------------------------------------------------
+r658 | zarnivoop | 2016-08-19 15:26:17 +0000 (Fri, 19 Aug 2016) | 2 lines
+Changed paths:
+   M /trunk/BarDisplay.lua
+   M /trunk/BrokerDisplay.lua
+   M /trunk/InlineDisplay.lua
+   M /trunk/Options.lua
+   M /trunk/Skada.lua
+   M /trunk/locale/enUS.lua
+
+bit of config cleanup
+added a simple optional frame for the broker display
+------------------------------------------------------------------------
+r657 | zarnivoop | 2016-08-18 21:12:03 +0000 (Thu, 18 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/modules/Deaths.lua
+
+fix for error in death view
+------------------------------------------------------------------------
+r656 | zarnivoop | 2016-08-18 20:29:35 +0000 (Thu, 18 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/Skada.lua
+
+fix for the recent change with Total segment
+------------------------------------------------------------------------
+r655 | zarnivoop | 2016-08-18 20:27:24 +0000 (Thu, 18 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/modules/Tweaks.lua
+
+fix for GBOM handling
+------------------------------------------------------------------------
+r654 | zarnivoop | 2016-08-18 18:00:49 +0000 (Thu, 18 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/Skada.lua
+
+Total segment is now merged together at startup, and not persisted; should cut down on memory usage quite a bit for muppets that never reset
+------------------------------------------------------------------------
+r653 | zarnivoop | 2016-08-18 10:12:18 +0000 (Thu, 18 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/modules/Damage.lua
+   M /trunk/modules/DamageTaken.lua
+
+removed multistrike stuff
+------------------------------------------------------------------------
+r652 | zarnivoop | 2016-08-17 14:33:30 +0000 (Wed, 17 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/BrokerDisplay.lua
+   M /trunk/InlineDisplay.lua
+   M /trunk/locale/enUS.lua
+
+made Inline and Broker displays optional modules
+------------------------------------------------------------------------
+r651 | zarnivoop | 2016-08-16 19:11:53 +0000 (Tue, 16 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/modules/Tweaks.lua
+
+fix for Stormlash, attempt 2
+------------------------------------------------------------------------
+r650 | zarnivoop | 2016-08-16 12:01:06 +0000 (Tue, 16 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/modules/Tweaks.lua
+
+fixed messed up Stormlash tweaks
+------------------------------------------------------------------------
+r649 | zarnivoop | 2016-08-16 10:36:14 +0000 (Tue, 16 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/Skada.lua
+   M /trunk/locale/enUS.lua
+   A /trunk/modules/Tweaks.lua
+   M /trunk/modules.xml
+
+new tweaks module, used for modifying CL events (new GBOM/Stormlash for now)
 ------------------------------------------------------------------------
 r647 | zarnivoop | 2016-08-15 14:37:43 +0000 (Mon, 15 Aug 2016) | 1 line
 Changed paths:
