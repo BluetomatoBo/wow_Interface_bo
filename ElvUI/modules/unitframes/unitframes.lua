@@ -1214,6 +1214,7 @@ end
 local ignoreSettings = {
 	['position'] = true,
 	['playerOnly'] = true,
+	["selfBuffs"] = true,
 	['useBlacklist'] = true,
 	['useWhitelist'] = true,
 	['noDuration'] = true,
