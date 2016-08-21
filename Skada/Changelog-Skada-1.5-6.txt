@@ -1,9 +1,84 @@
 ------------------------------------------------------------------------
-r660 | zarnivoop | 2016-08-19 17:51:05 +0000 (Fri, 19 Aug 2016) | 1 line
+r667 | oscarucb | 2016-08-20 16:03:05 +0000 (Sat, 20 Aug 2016) | 3 lines
 Changed paths:
-   A /tags/1.5-4 (from /trunk:659)
+   A /tags/1.5-6 (from /trunk:666)
 
-Tagging as 1.5-4
+Tagging as 1.5-6
+
+Re-tagging, last tag was bugged
+------------------------------------------------------------------------
+r666 | zarnivoop | 2016-08-20 15:56:02 +0000 (Sat, 20 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/Options.lua
+   M /trunk/Skada.lua
+
+revert the recent change to the Total segment; instead warning when memory usage is high
+------------------------------------------------------------------------
+r664 | zarnivoop | 2016-08-20 14:19:31 +0000 (Sat, 20 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/BrokerDisplay.lua
+   M /trunk/InlineDisplay.lua
+
+fixed incorrect strata usage
+------------------------------------------------------------------------
+r663 | zarnivoop | 2016-08-20 12:52:19 +0000 (Sat, 20 Aug 2016) | 2 lines
+Changed paths:
+   M /trunk/BrokerDisplay.lua
+   M /trunk/Skada.lua
+   D /trunk/fonts
+   A /trunk/media
+   A /trunk/media/background
+   A /trunk/media/background/copper.tga
+   A /trunk/media/border
+   A /trunk/media/border/glowTex.tga
+   A /trunk/media/border/roth.tga
+   A /trunk/media/fonts
+   A /trunk/media/fonts/ABF.ttf
+   A /trunk/media/fonts/Accidental Presidency.ttf
+   A /trunk/media/fonts/Adventure.ttf
+   A /trunk/media/fonts/Avqest.ttf
+   A /trunk/media/fonts/VeraSe.ttf
+   A /trunk/media/statusbar
+   A /trunk/media/statusbar/Aluminium.tga
+   A /trunk/media/statusbar/Armory.tga
+   A /trunk/media/statusbar/BantoBar.tga
+   A /trunk/media/statusbar/Glaze2.tga
+   A /trunk/media/statusbar/Gloss.tga
+   A /trunk/media/statusbar/Graphite.tga
+   A /trunk/media/statusbar/Grid.tga
+   A /trunk/media/statusbar/Healbot.tga
+   A /trunk/media/statusbar/LiteStep.tga
+   A /trunk/media/statusbar/Minimalist.tga
+   A /trunk/media/statusbar/Otravi.tga
+   A /trunk/media/statusbar/Outline.tga
+   A /trunk/media/statusbar/Perl.tga
+   A /trunk/media/statusbar/Round.tga
+   A /trunk/media/statusbar/Smooth.tga
+   A /trunk/media/statusbar/normTex.tga
+   D /trunk/statusbar
+
+reorganized media and added a few default textures
+fixed font settings for data text display
+------------------------------------------------------------------------
+r662 | zarnivoop | 2016-08-20 11:45:14 +0000 (Sat, 20 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/BarDisplay.lua
+   M /trunk/lib/SpecializedLibBars-1.0/SpecializedLibBars-1.0.lua
+
+fixed up reverse growth, and right to left orientation
+------------------------------------------------------------------------
+r661 | zarnivoop | 2016-08-20 10:57:56 +0000 (Sat, 20 Aug 2016) | 2 lines
+Changed paths:
+   M /trunk/BarDisplay.lua
+   M /trunk/BrokerDisplay.lua
+   M /trunk/InlineDisplay.lua
+   M /trunk/Options.lua
+   M /trunk/Skada.lua
+   M /trunk/locale/enUS.lua
+   M /trunk/modules/Deaths.lua
+
+another fix for deathlog (not reproduced, just added a safety check)
+added descriptions for the base display systems
 ------------------------------------------------------------------------
 r659 | zarnivoop | 2016-08-19 16:58:16 +0000 (Fri, 19 Aug 2016) | 1 line
 Changed paths:
@@ -216,16 +291,4 @@ Changed paths:
    M /trunk/Skada.toc
 
 TOC Bump for 7.0
-------------------------------------------------------------------------
-r625 | oscarucb | 2016-05-05 18:50:28 +0000 (Thu, 05 May 2016) | 6 lines
-Changed paths:
-   M /trunk/Menus.lua
-   M /trunk/Skada.lua
-
-GUI improvements to the report dialog window
-Clamp to screen, auto-compute the window height
-Only show the whisper target name editbox for relevant channels
-Auto-trim whitespace from whisper targets, and improve error reporting for invalid entries
-Add an escape handler (also to the reset dialog)
-
 ------------------------------------------------------------------------

@@ -10,7 +10,8 @@ local libwindow = LibStub("LibWindow-1.1")
 local media = LibStub("LibSharedMedia-3.0")
 
 mod.name = name
-Skada.displays["broker"] = mod
+mod.description = L["Data text acts as an LDB data feed. It can be integrated in any LDB display such as Titan Panel or ChocolateBar. It also has an optional internal frame."]
+Skada:AddDisplaySystem("broker", mod)
 
 local function sortDataset(win)
     table.sort(win.dataset, function (a, b)
@@ -224,7 +225,6 @@ function mod:ApplySettings(win)
         fbackdrop.tileSize = db.background.tilesize
         win.frame:SetBackdrop(fbackdrop)
         win.frame:SetBackdropColor(db.background.color.r,db.background.color.g,db.background.color.b,db.background.color.a)
-        if db.background.strata then win.frame:SetFrameStrata(db.background.strata) end
 
         Skada:ApplyBorder(win.frame, db.background.bordertexture, db.background.bordercolor, db.background.borderthickness)            
 
@@ -268,7 +268,7 @@ function mod:AddDisplayOptions(win, options)
                     type="toggle",
                     name=L["Class color text"],
                     desc=L["When possible, bar text will be colored according to player class."],
-                    order=31,
+                    order=0.1,
                     get=function() return db.isusingclasscolors end,
                     set=function()
                             db.isusingclasscolors = not db.isusingclasscolors
@@ -288,8 +288,50 @@ function mod:AddDisplayOptions(win, options)
                         db.textcolor = {["r"] = r, ["g"] = g, ["b"] = b, ["a"] = a}
                         Skada:ApplySettings()
                     end,
-                order=21,
+                order=4,
             },
+            
+            barfont = {
+                type = 'select',
+                dialogControl = 'LSM30_Font',
+                name = L["Bar font"],
+                desc = L["The font used by all bars."],
+                values = AceGUIWidgetLSMlists.font,
+                get = function() return db.barfont end,
+                set = function(win,key)
+                    db.barfont = key
+                    Skada:ApplySettings()
+                end,
+                order=1,
+            },
+
+            barfontsize = {
+                type="range",
+                name=L["Bar font size"],
+                desc=L["The font size of all bars."],
+                min=7,
+                max=40,
+                step=1,
+                get=function() return db.barfontsize end,
+                set=function(win, size)
+                    db.barfontsize = size
+                    Skada:ApplySettings()
+                end,
+                order=2,
+            },
+
+            barfontflags = {
+                type = 'select',
+                name = L["Font flags"],
+                desc = L["Sets the font flags."],
+                values = {[""] = L["None"], ["OUTLINE"] = L["Outline"], ["THICKOUTLINE"] = L["Thick outline"], ["MONOCHROME"] = L["Monochrome"], ["OUTLINEMONOCHROME"] = L["Outlined monochrome"]},
+                get = function() return db.barfontflags end,
+                set = function(win,key)
+                    db.barfontflags = key
+                    Skada:ApplySettings()
+                end,
+                order=3,
+            },            
 
         }
     }

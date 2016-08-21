@@ -15,7 +15,8 @@ local libwindow = LibStub("LibWindow-1.1")
 local media = LibStub("LibSharedMedia-3.0")
 
 mod.name = name
-Skada.displays["inline"] = mod
+mod.description = L["Inline display is a horizontal window style."]
+Skada:AddDisplaySystem("inline", mod)
 
 function serial(val, name, skipnewlines, depth)
     skipnewlines = skipnewlines or false
@@ -516,7 +517,7 @@ function mod:ApplySettings(win)
         fbackdrop.tileSize = p.background.tilesize
         f:SetBackdrop(fbackdrop)
         f:SetBackdropColor(p.background.color.r,p.background.color.g,p.background.color.b,p.background.color.a)
-        if p.strata then f:SetFrameStrata(p.strata) end
+        f:SetFrameStrata(p.strata)
 
         Skada:ApplyBorder(f, p.background.bordertexture, p.background.bordercolor, p.background.borderthickness)
     end

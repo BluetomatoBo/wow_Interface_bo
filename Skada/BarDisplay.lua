@@ -18,7 +18,8 @@ local media = LibStub("LibSharedMedia-3.0")
 
 -- Add to Skada's enormous list of display providers.
 mod.name = L["Bar display"]
-Skada.displays["bar"] = mod
+mod.description = L["Bar display is the normal bar window used by most damage meters. It can be extensively styled."]
+Skada:AddDisplaySystem("bar", mod)
 
 -- Called when a Skada window starts using this display provider.
 function mod:Create(window)
@@ -375,7 +376,11 @@ function mod:Update(win)
 			end
 
 			if win.metadata.showspots and Skada.db.profile.showranks and not data.ignore then
-				bar:SetLabel(("%2u. %s"):format(nr, data.label))
+                if win.db.barorientation == 1 then
+                    bar:SetLabel(("%2u. %s"):format(nr, data.label))
+                else
+                    bar:SetLabel(("%s %2u"):format(data.label, nr))
+                end
 			else
 				bar:SetLabel(data.label)
 			end
@@ -568,8 +573,9 @@ function mod:ApplySettings(win)
 	g:ShowButton(L["Stop"], p.buttons.stop)
 
 	-- Window
-    local padtop = (p.enabletitle and p.title.height)
-    Skada:ApplyBorder(g, p.background.bordertexture, p.background.bordercolor, p.background.borderthickness, padtop)
+    local padtop = (p.enabletitle and not p.reversegrowth and p.title.height)
+    local padbottom = (p.enabletitle and p.reversegrowth and p.title.height)
+    Skada:ApplyBorder(g, p.background.bordertexture, p.background.bordercolor, p.background.borderthickness, padtop, padbottom)
     
 	windowbackdrop.bgFile = p.background.texturepath or media:Fetch("background", p.background.texture)
 	windowbackdrop.tile = false

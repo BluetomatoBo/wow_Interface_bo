@@ -42,7 +42,7 @@ do
 		tile = true, tileSize = 16, edgeSize = 16,
 		insets = {left = 1, right = 1, top = 1, bottom = 1}}
 	)
-	popup:SetSize(250, 70)
+	popup:SetSize(250, 100)
 	popup:SetPoint("CENTER", UIParent, "CENTER")
 	popup:SetFrameStrata("DIALOG")
 	popup:Hide()
@@ -56,21 +56,21 @@ do
         end)
 
 	local text = popup:CreateFontString(nil, "ARTWORK", "ChatFontNormal")
-	text:SetPoint("TOP", popup, "TOP", 0, -10)
+	text:SetPoint("TOP", popup, "TOP", 0, -15)
 	text:SetText(L["Do you want to reset Skada?"])
 
 	local accept = CreateFrame("Button", nil, popup)
 	accept:SetNormalTexture("Interface\\Buttons\\UI-CheckBox-Check")
 	accept:SetHighlightTexture("Interface\\Buttons\\UI-CheckBox-Highlight", "ADD")
 	accept:SetSize(50, 50)
-	accept:SetPoint("BOTTOM", popup, "BOTTOM", -50, 0)
+	accept:SetPoint("BOTTOM", popup, "BOTTOM", -50, 5)
 	accept:SetScript("OnClick", function(f) Skada:Reset() f:GetParent():Hide() end)
 
 	local close = CreateFrame("Button", nil, popup)
 	close:SetNormalTexture("Interface\\Buttons\\UI-Panel-MinimizeButton-Up")
 	close:SetHighlightTexture("Interface\\Buttons\\UI-Panel-MinimizeButton-Highlight", "ADD")
 	close:SetSize(50, 50)
-	close:SetPoint("BOTTOM", popup, "BOTTOM", 50, 0)
+	close:SetPoint("BOTTOM", popup, "BOTTOM", 50, 5)
 	close:SetScript("OnClick", function(f) f:GetParent():Hide() end)
 	function Skada:ShowPopup()
 		popup:SetPropagateKeyboardInput(true)
@@ -1121,7 +1121,8 @@ function Skada:Reset()
 	end
 	if self.total ~= nil then
 		wipe(self.total)
-        Skada:SetupTotal()
+		self.total = createSet(L["Total"])
+		self.char.total = self.total
 	end
 	self.last = nil
 
@@ -1151,6 +1152,7 @@ end
 function Skada:DeleteSet(set)
 	if not set then return end
 
+
 	for i, s in ipairs(self.char.sets) do
 		if s == set then
 			wipe(table.remove(self.char.sets, i))
@@ -1173,39 +1175,8 @@ function Skada:DeleteSet(set)
 		end
 	end
     
-    self:SetupTotal()
-    
 	self:Wipe()
 	self:UpdateDisplay(true)
-end
-
-local skipmerge = {
-    ["spellid"] = true,
-    ["id"] = true,
-    ["last"] = true,
-    ["max"] = true,
-    ["min"] = true
-}
-local function mergeTable(t1, t2)
-    for k, v in pairs(t2) do
-        if type(v) == "table" and (type(t1[k] or false) == "table") then
-           mergeTable(t1[k], t2[k])
-        elseif type(v) == "number" and (type(t1[k] or "number") == "number") and not skipmerge[k] then
-            t1[k] = (t1[k] or 0) + v
-        else
-            t1[k] = v
-        end
-    end
-    return t1
-end
-
--- Merges all sets into a fresh Total set.
-function Skada:SetupTotal()
-    local set = createSet(L["Total"])
-	for i=table.maxn(self.char.sets), 1, -1 do
-        set = mergeTable(set, self.char.sets[i])
-	end
-    Skada.total = set
 end
 
 function Skada:ReloadSettings()
@@ -1221,7 +1192,7 @@ function Skada:ReloadSettings()
 		self:CreateWindow(win.name, win)
 	end
 
-    Skada:SetupTotal()
+	self.total = self.char.total
 
 	Skada:ClearAllIndexes()
 
@@ -1507,7 +1478,8 @@ function Skada:StartCombat()
 
 	-- Also start the total set if it is nil.
 	if self.total == nil then
-        self:SetupTotal()
+		self.total = createSet(L["Total"])
+		self.char.total = self.total
 	end
 
 	-- Auto-switch set/mode if configured.
@@ -1728,7 +1700,7 @@ cleuFrame:SetScript("OnEvent", function(frame, event, timestamp, eventtype, hide
 
 			-- Also create total set if needed.
 			if not Skada.total then
-                Skada:SetupTotal()
+				Skada.total = createSet(L["Total"])
 			end
 
 			-- Schedule an end to this tentative combat situation in 3 seconds.
@@ -2124,6 +2096,20 @@ local function scan_for_columns(mode)
 			end
 		end
 	end
+end
+
+-- Register a display system
+local numorder = 5
+function Skada:AddDisplaySystem(key, mod)
+    self.displays[key] = mod
+    if mod.description then
+        Skada.options.args.windows.args[key.."desc"] = {
+            type = "description",
+            name = mod.description,
+            order = numorder
+        }
+        numorder = numorder + 1
+    end
 end
 
 -- Register a mode.
@@ -2671,42 +2657,45 @@ do
 
 	function Skada:OnInitialize()
 		-- Register some SharedMedia goodies.
-		media:Register("font", "Adventure",				[[Interface\Addons\Skada\fonts\Adventure.ttf]])
-		media:Register("font", "ABF",					[[Interface\Addons\Skada\fonts\ABF.ttf]])
-		media:Register("font", "Vera Serif",			[[Interface\Addons\Skada\fonts\VeraSe.ttf]])
-		media:Register("font", "Diablo",				[[Interface\Addons\Skada\fonts\Avqest.ttf]])
-		media:Register("font", "Accidental Presidency",	[[Interface\Addons\Skada\fonts\Accidental Presidency.ttf]])
-		media:Register("statusbar", "Aluminium",		[[Interface\Addons\Skada\statusbar\Aluminium]])
-		media:Register("statusbar", "Armory",			[[Interface\Addons\Skada\statusbar\Armory]])
-		media:Register("statusbar", "BantoBar",			[[Interface\Addons\Skada\statusbar\BantoBar]])
-		media:Register("statusbar", "Glaze2",			[[Interface\Addons\Skada\statusbar\Glaze2]])
-		media:Register("statusbar", "Gloss",			[[Interface\Addons\Skada\statusbar\Gloss]])
-		media:Register("statusbar", "Graphite",			[[Interface\Addons\Skada\statusbar\Graphite]])
-		media:Register("statusbar", "Grid",				[[Interface\Addons\Skada\statusbar\Grid]])
-		media:Register("statusbar", "Healbot",			[[Interface\Addons\Skada\statusbar\Healbot]])
-		media:Register("statusbar", "LiteStep",			[[Interface\Addons\Skada\statusbar\LiteStep]])
-		media:Register("statusbar", "Minimalist",		[[Interface\Addons\Skada\statusbar\Minimalist]])
-		media:Register("statusbar", "Otravi",			[[Interface\Addons\Skada\statusbar\Otravi]])
-		media:Register("statusbar", "Outline",			[[Interface\Addons\Skada\statusbar\Outline]])
-		media:Register("statusbar", "Perl",				[[Interface\Addons\Skada\statusbar\Perl]])
-		media:Register("statusbar", "Smooth",			[[Interface\Addons\Skada\statusbar\Smooth]])
-		media:Register("statusbar", "Round",			[[Interface\Addons\Skada\statusbar\Round]])
-		media:Register("statusbar", "TukTex",			[[Interface\Addons\Skada\statusbar\normTex]])
+		media:Register("font", "Adventure",				[[Interface\Addons\Skada\media\fonts\Adventure.ttf]])
+		media:Register("font", "ABF",					[[Interface\Addons\Skada\media\fonts\ABF.ttf]])
+		media:Register("font", "Vera Serif",			[[Interface\Addons\Skada\media\fonts\VeraSe.ttf]])
+		media:Register("font", "Diablo",				[[Interface\Addons\Skada\media\fonts\Avqest.ttf]])
+		media:Register("font", "Accidental Presidency",	[[Interface\Addons\Skada\media\fonts\Accidental Presidency.ttf]])
+		media:Register("statusbar", "Aluminium",      [[Interface\Addons\Skada\media\statusbar\Aluminium]])
+		media:Register("statusbar", "Armory",         [[Interface\Addons\Skada\media\statusbar\Armory]])
+		media:Register("statusbar", "BantoBar",       [[Interface\Addons\Skada\media\statusbar\BantoBar]])
+		media:Register("statusbar", "Glaze2",         [[Interface\Addons\Skada\media\statusbar\Glaze2]])
+		media:Register("statusbar", "Gloss",          [[Interface\Addons\Skada\media\statusbar\Gloss]])
+		media:Register("statusbar", "Graphite",       [[Interface\Addons\Skada\media\statusbar\Graphite]])
+		media:Register("statusbar", "Grid",           [[Interface\Addons\Skada\media\statusbar\Grid]])
+		media:Register("statusbar", "Healbot",        [[Interface\Addons\Skada\media\statusbar\Healbot]])
+		media:Register("statusbar", "LiteStep",       [[Interface\Addons\Skada\media\statusbar\LiteStep]])
+		media:Register("statusbar", "Minimalist",     [[Interface\Addons\Skada\media\statusbar\Minimalist]])
+		media:Register("statusbar", "Otravi",         [[Interface\Addons\Skada\media\statusbar\Otravi]])
+		media:Register("statusbar", "Outline",        [[Interface\Addons\Skada\media\statusbar\Outline]])
+		media:Register("statusbar", "Perl",           [[Interface\Addons\Skada\media\statusbar\Perl]])
+		media:Register("statusbar", "Smooth",         [[Interface\Addons\Skada\media\statusbar\Smooth]])
+		media:Register("statusbar", "Round",          [[Interface\Addons\Skada\media\statusbar\Round]])
+		media:Register("statusbar", "TukTex",         [[Interface\Addons\Skada\media\statusbar\normTex]])
+		media:Register("border", "Glow",              [[Interface\Addons\Skada\media\border\glowTex]])
+		media:Register("border", "Roth",              [[Interface\Addons\Skada\media\border\roth]])
+		media:Register("background", "Copper",        [[Interface\Addons\Skada\media\background\copper]])
 
 		-- Some sounds (copied from Omen).
-		media:Register("sound", "Rubber Ducky", [[Sound\Doodad\Goblin_Lottery_Open01.ogg]])
-		media:Register("sound", "Cartoon FX", [[Sound\Doodad\Goblin_Lottery_Open03.ogg]])
-		media:Register("sound", "Explosion", [[Sound\Doodad\Hellfire_Raid_FX_Explosion05.ogg]])
-		media:Register("sound", "Shing!", [[Sound\Doodad\PortcullisActive_Closed.ogg]])
-		media:Register("sound", "Wham!", [[Sound\Doodad\PVP_Lordaeron_Door_Open.ogg]])
-		media:Register("sound", "Simon Chime", [[Sound\Doodad\SimonGame_LargeBlueTree.ogg]])
-		media:Register("sound", "War Drums", [[Sound\Event Sounds\Event_wardrum_ogre.ogg]])
-		media:Register("sound", "Cheer", [[Sound\Event Sounds\OgreEventCheerUnique.ogg]])
-		media:Register("sound", "Humm", [[Sound\Spells\SimonGame_Visual_GameStart.ogg]])
-		media:Register("sound", "Short Circuit", [[Sound\Spells\SimonGame_Visual_BadPress.ogg]])
-		media:Register("sound", "Fel Portal", [[Sound\Spells\Sunwell_Fel_PortalStand.ogg]])
-		media:Register("sound", "Fel Nova", [[Sound\Spells\SeepingGaseous_Fel_Nova.ogg]])
-		media:Register("sound", "You Will Die!", [[Sound\Creature\CThun\CThunYouWillDie.ogg]])
+		media:Register("sound", "Rubber Ducky",       [[Sound\Doodad\Goblin_Lottery_Open01.ogg]])
+		media:Register("sound", "Cartoon FX",         [[Sound\Doodad\Goblin_Lottery_Open03.ogg]])
+		media:Register("sound", "Explosion",          [[Sound\Doodad\Hellfire_Raid_FX_Explosion05.ogg]])
+		media:Register("sound", "Shing!",             [[Sound\Doodad\PortcullisActive_Closed.ogg]])
+		media:Register("sound", "Wham!",              [[Sound\Doodad\PVP_Lordaeron_Door_Open.ogg]])
+		media:Register("sound", "Simon Chime",        [[Sound\Doodad\SimonGame_LargeBlueTree.ogg]])
+		media:Register("sound", "War Drums",          [[Sound\Event Sounds\Event_wardrum_ogre.ogg]])
+		media:Register("sound", "Cheer",              [[Sound\Event Sounds\OgreEventCheerUnique.ogg]])
+		media:Register("sound", "Humm",               [[Sound\Spells\SimonGame_Visual_GameStart.ogg]])
+		media:Register("sound", "Short Circuit",      [[Sound\Spells\SimonGame_Visual_BadPress.ogg]])
+		media:Register("sound", "Fel Portal",         [[Sound\Spells\Sunwell_Fel_PortalStand.ogg]])
+		media:Register("sound", "Fel Nova",           [[Sound\Spells\SeepingGaseous_Fel_Nova.ogg]])
+		media:Register("sound", "You Will Die!",      [[Sound\Creature\CThun\CThunYouWillDie.ogg]])
 
 		-- DB
 		self.db = LibStub("AceDB-3.0"):New("SkadaDB", self.defaults, "Default")
@@ -2746,9 +2735,6 @@ do
 			self.db.profile.total = nil
 			self.db.profile.sets = nil
 		end
-        if self.char.total then
-            self.char.total = nil
-        end
 	end
 end
 
@@ -2783,6 +2769,17 @@ function Skada:OnEnable()
 	-- Instead of listening for callbacks on SharedMedia we simply wait a few seconds and then re-apply settings
 	-- to catch any missing media. Lame? Yes.
 	self:ScheduleTimer("ApplySettings", 2)
+    
+    -- Memory usage warning
+	self:ScheduleTimer("MemoryCheck", 3)
+end
+
+function Skada:MemoryCheck()
+    UpdateAddOnMemoryUsage()
+    local mem = GetAddOnMemoryUsage("Skada")
+    if mem > 30000 then
+        self:Print(L["Memory usage is high. You may want to reset Skada, and enable one of the automatic reset options."])
+    end
 end
 
 function Skada:AddLoadableModule(name, func)
