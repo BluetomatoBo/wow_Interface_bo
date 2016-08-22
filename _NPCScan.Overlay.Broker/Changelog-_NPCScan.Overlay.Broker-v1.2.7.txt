@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------
-r30 | burnum | 2015-03-04 19:25:09 +0000 (Wed, 04 Mar 2015) | 1 line
+r32 | burnum | 2016-08-21 18:41:20 +0000 (Sun, 21 Aug 2016) | 1 line
 Changed paths:
-   A /tags/v1.2.6 (from /trunk:29)
+   A /tags/v1.2.7 (from /trunk:31)
 
-Tagging as v1.2.6
+Tagging as v1.2.7 - TOC updated for 7.0.3
 ------------------------------------------------------------------------
-r29 | burnum | 2015-03-04 19:18:45 +0000 (Wed, 04 Mar 2015) | 1 line
+r31 | burnum | 2016-08-20 19:30:53 +0000 (Sat, 20 Aug 2016) | 1 line
 Changed paths:
    M /trunk/Readme.html
    M /trunk/_NPCScan.Overlay.Broker.toc
 
--update TOC for 6.1
+— update TOC for 7.0.3  investigating a report of lag issue ASAP
 ------------------------------------------------------------------------
