@@ -3,9 +3,6 @@ local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
 local L = AceLocale:NewLocale("ElvUI", "zhTW")
 if not L then return end
 
---TEMP
-L["A taint has occured that is preventing you from using the queue system. Please reload your user interface and try again."] = "發生一個錯誤導致你無法使用隊列系統,請重新加載你的用戶界面,然後再試一次."
-
 --*_ADDON locales
 L["INCOMPATIBLE_ADDON"] = "插件 %s 與 ElvUI 的 %s 模組不相容。請停用不相容的插件，或停用模組."
 
@@ -170,7 +167,6 @@ L["Layout"] = "介面佈局"
 L["Lock"] = "鎖定"
 L["Low Resolution"] = "低解析度"
 L["low"] = "低"
-L["Movers unlocked. Move them now and click Lock when you are done."] = "解除框架移動鎖定. 現在可以移動它們, 移好後請點擊「鎖定」."
 L["Nudge"] = "微調"
 L["Physical DPS"] = "物理輸出"
 L["Please click the button below so you can setup variables and ReloadUI."] = "請按下方按鈕設定變數並重載介面."
@@ -281,6 +277,12 @@ L["TargetTarget Frame"] = "目標的目標框架" --Also used in UnitFrames
 L["TargetTargetTarget Frame"] = true;
 L["Tooltip"] = "浮動提示"
 L["Vehicle Seat Frame"] = "載具座位框"
+L["DESC_MOVERCONFIG"] = [=[解除框架移動鎖定. 現在可以移動它們, 移好後請點擊「鎖定」.
+
+Options:
+  Shift + RightClick - Hides mover temporarily.
+  Ctrl + RightClick - Resets mover position to default.
+]=]
 
 --Plugin Installer
 L["ElvUI Plugin Installation"] = true;

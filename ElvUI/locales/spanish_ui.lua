@@ -3,9 +3,6 @@ local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
 local L = AceLocale:NewLocale("ElvUI", "esES") or AceLocale:NewLocale("ElvUI", "esMX")
 if not L then return end
 
---TEMP
-L["A taint has occured that is preventing you from using the queue system. Please reload your user interface and try again."] = "Un error ha ocurrido que te impide usar el sistema de cola. Recarga tu interfaz y trata nuevamente."
-
 --*_ADDON locales
 L["INCOMPATIBLE_ADDON"] = "The addon %s is not compatible with ElvUI's %s module. Please select either the addon or the ElvUI module to disable."
 
@@ -170,7 +167,6 @@ L["Layout"] = "Distribución"
 L["Lock"] = "Bloquear"
 L["Low Resolution"] = "Baja Resolución"
 L["low"] = "baja"
-L["Movers unlocked. Move them now and click Lock when you are done."] = "Fijadores desbloqueados. Muévelos ahora y haz click en Bloquear cuando termines."
 L["Nudge"] = "Ajuste Fino"
 L["Physical DPS"] = "DPS Físico"
 L["Please click the button below so you can setup variables and ReloadUI."] = "Haz clic en el botón de abajo para configurar variables y recargar la interfaz."
@@ -281,6 +277,12 @@ L["TargetTarget Frame"] = "Marco de Objetivo de Objetivo"
 L["TargetTargetTarget Frame"] = true;
 L["Tooltip"] = "Descripción Emergente"
 L["Vehicle Seat Frame"] = "Marco del Asiento del Vehículo"
+L["DESC_MOVERCONFIG"] = [=[Fijadores desbloqueados. Muévelos ahora y haz click en Bloquear cuando termines.
+
+Options:
+  Shift + RightClick - Hides mover temporarily.
+  Ctrl + RightClick - Resets mover position to default.
+]=]
 
 --Plugin Installer
 L["ElvUI Plugin Installation"] = true;

@@ -3,9 +3,6 @@ local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
 local L = AceLocale:NewLocale("ElvUI", "enUS", true, true);
 if not L then return; end
 
---TEMP
-L["A taint has occured that is preventing you from using the queue system. Please reload your user interface and try again."] = true;
-
 --*_ADDON locales
 L["INCOMPATIBLE_ADDON"] = "The addon %s is not compatible with ElvUI's %s module. Please select either the addon or the ElvUI module to disable."
 
@@ -281,6 +278,12 @@ L["TargetTarget Frame"] = true; --Also used in UnitFrames
 L["TargetTargetTarget Frame"] = true; --Also used in UnitFrames
 L["Tooltip"] = true;
 L["Vehicle Seat Frame"] = true;
+L["DESC_MOVERCONFIG"] = [=[Movers unlocked. Move them now and click Lock when you are done.
+
+Options:
+  Shift + RightClick - Hides mover temporarily.
+  Ctrl + RightClick - Resets mover position to default.
+]=]
 
 --Plugin Installer
 L["ElvUI Plugin Installation"] = true;

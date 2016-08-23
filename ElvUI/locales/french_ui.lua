@@ -3,9 +3,6 @@ local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
 local L = AceLocale:NewLocale("ElvUI", "frFR");
 if not L then return; end
 
---TEMP
-L["A taint has occured that is preventing you from using the queue system. Please reload your user interface and try again."] = "Une altération s'est produite et vous empêche d'utiliser la file d'attente. Veuillez recharger votre interface utilisateur et essayer à nouveau."
-
 --*_ADDON locales
 L["INCOMPATIBLE_ADDON"] = "L'addon %s n'est pas compatible avec le module %s d'ElvUI. Merci de sélectionner soit l'addon ou le module d'ElvUI pour le désactiver."
 
@@ -170,7 +167,6 @@ L["Layout"] = "Disposition"
 L["Lock"] = "Verrouiller"
 L["Low Resolution"] = "Basse résolution"
 L["low"] = "Faible"
-L["Movers unlocked. Move them now and click Lock when you are done."] = "Cadres déverrouillés. Déplacez-les et cliquez sur Verrouiller une fois terminé."
 L["Nudge"] = 'Pousser'
 L["Physical DPS"] = "DPS Physique"
 L["Please click the button below so you can setup variables and ReloadUI."] = "Pour configurer les variables et recharger l'interface, cliquez sur le bouton ci-dessous."
@@ -281,6 +277,12 @@ L["TargetTarget Frame"] = "Cadre de la cible de votre cible" --Also used in Unit
 L["TargetTargetTarget Frame"] = "Cadre de la cible de la cible de la cible";
 L["Tooltip"] = "Infobulle"
 L["Vehicle Seat Frame"] = "Cadre de siège du véhicule"
+L["DESC_MOVERCONFIG"] = [=[Cadres déverrouillés. Déplacez-les et cliquez sur Verrouiller une fois terminé.
+
+Options:
+  Shift + RightClick - Hides mover temporarily.
+  Ctrl + RightClick - Resets mover position to default.
+]=]
 
 --Plugin Installer
 L["ElvUI Plugin Installation"] = true;
