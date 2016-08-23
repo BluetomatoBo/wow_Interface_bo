@@ -786,15 +786,15 @@ nodes["MardumtheShatteredAbyss"] = {
 	[45017785]={ "39971", "Small Treasure Chest", "Reusable Flask", "", "default", "treasure_dh", "129192"},
 	[41763761]={ "40759", "Small Treasure Chest", "", "", "default", "treasure_dh", "129196"},
 	[51135079]={ "40743", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
-	[76243899]={ "40338", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
+	[76243899]={ "40338", "Small Treasure Chest", "", "cave entrance at 77.0 to 41.4", "default", "treasure_dh", "129210"},
 	[82075043]={ "40820", "Small Treasure Chest", "", "", "default", "treasure_dh", "129196"},
 	[78755047]={ "40274", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
 	[73494892]={ "39975", "Small Treasure Chest", "", "", "default", "treasure_dh", "129195"},
 	[42194916]={ "40223", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
-	[23065389]={ "40797", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
+	[23065389]={ "40797", "Small Treasure Chest", "", "cave entrance at 23.6 to 54.2", "default", "treasure_dh", "129210"},
 	[66922767]={ "39974", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
-	[74285453]={ "39977", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
-	--[99999999]={ "39976", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
+	[74285453]={ "39977", "Small Treasure Chest", "", "cave entrance at 70.7 to 54.0", "default", "treasure_dh", "129210"},
+	[69704240]={ "39976", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
 	
 	[68852759]={ "40234", "General Volroth", "", "", "skull_grey", "rare_dh", "128947"},
 	[81034124]={ "40233", "Overseer Brutarg", "", "", "skull_grey", "rare_dh", "133580"},
@@ -808,7 +808,7 @@ nodes["CrypticHollow"] = {
 
 nodes["SoulEngine"] = {
 	[50304964]={ "40772", "Small Treasure Chest", "", "", "default", "treasure_dh", "129210"},
-	[51235740]={ "40231", "Lord Nefarious", "", "", "skull_grey", "rare_dh", "128948"},
+	[51235740]={ "40231", "Count Nefarious", "", "", "skull_grey", "rare_dh", "128948"},
 }
 
 nodes["VaultOfTheWardensDH"] = {
@@ -821,9 +821,8 @@ nodes["VaultOfTheWardensDH"] = {
 	[24421005]={ "40915", "Small Treasure Chest", "", "Third Stage", "default", "treasure_dh", "129210"},
 	[23268157]={ "40916", "Small Treasure Chest", "", "Third Stage", "default", "treasure_dh", "129210"},
 	
-	[68743628]={ "40301", "Wrath-Lord Lekos", "", "First Stage", "skull_grey", "rare_dh", "128958"},
-	[49543284]={ "40251", "Kethrazor", "", "First Stage", "skull_grey", "rare_dh", "128945"},
-	[74475731]={ "40232", "King Voras", "", "", "skull_grey", "rare_dh", "128944"},
+	[68743628]={ "40301", "Wrath-Lord Lekos", "", "", "skull_grey", "rare_dh", "128958"},
+	[49543284]={ "40251", "Kethrazor", "", "", "skull_grey", "rare_dh", "128945"},
 }
 
 if (PlayerFaction == "Alliance") then
