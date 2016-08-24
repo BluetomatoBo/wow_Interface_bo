@@ -6,6 +6,8 @@
 		= (number) return value is the modified itemLevel based on the item's upgrade
 		= (nil) invalid input
 	Changelog:
+	* REV-11 (16.08.24) Patch 7.0.3:	Fixed upgradeID pattern not having a capture group.
+	* REV-10 (16.08.22) Patch 7.0.3:	Added more Timewarped Warforged IDs. (thanks again Cidrei)
 	* REV-09 (16.07.23)	Patch 7.0.3:	Now supports itemStrings with omitted zeros.
 	* REV-08 (15.09.08) Patch 6.2.3:	Added patterns, tables, etc for Timewarped and Timewarped Warforged items to work. (Cidrei)
 	* REV-07 (15.07.02) Patch 6.2:		A new field in the item string was added "specializationID", pushing the "upgradeId" field to the 11th place.
@@ -17,20 +19,22 @@
 --]]
 
 -- Make sure we do not override a newer revision. NOTE: Make sure to ALWAYS increase the REVISION number when changing code
-local REVISION = 9;
+local REVISION = 11;
 if (type(GET_UPGRADED_ITEM_LEVEL_REV) == "number") and (GET_UPGRADED_ITEM_LEVEL_REV >= REVISION) then
 	return;
 end
 GET_UPGRADED_ITEM_LEVEL_REV = REVISION;
 
 --[[
-	[Item links data change in 6.0, WoD]
+	[Item links data change in 6.0/WoD]
 		itemID:enchant:gem1:gem2:gem3:gem4:suffixID:uniqueID:level:reforgeId:upgradeId
 		itemID:enchant:gem1:gem2:gem3:gem4:suffixID:uniqueID:level:upgradeId:instanceDifficultyID:numBonusIDs:bonusID1:bonusID2
 	[ItemStrings in 6.2 -- Added: 10th param, specializationID]
 		itemID:enchant:gem1:gem2:gem3:gem4:suffixID:uniqueID:level:specializationID:upgradeId:instanceDifficultyID:numBonusIDs:bonusID1:bonusID2
 	[ItemStrings in 6.2.x -- Added: numBonusIDs? -- The number of bonus IDs are now dynamic, the 13th parameter tells how many there are -- Total Count (???): 14 + numBonusIDs (???)]
 		itemID:enchant:gemID1:gemID2:gemID3:gemID4:suffixID:uniqueID:linkLevel:specializationID:upgradeTypeID:instanceDifficultyID:numBonusIDs:bonusID1:bonusID2:...:upgradeValue
+	[Item links data change in 7.0.3/Legion -- ItemString properties with a zero value can now be omitted]
+		EXAMPLE: item:128955:::-55:::::99:577::11::::1
 --]]
 
 -- Extraction pattern for the complete itemString, including all its properties
@@ -41,6 +45,8 @@ local ITEMSTRING_PATTERN_UPGRADE = "item:"..("[^:]*:"):rep(10).."(%d*)";
 local ITEMSTRING_PATTERN_TIMEWARP = "item:"..("[^:]*:"):rep(13).."(%d*)";
 -- Matches the 15th property, which is used for Timewarped Warforged items.
 local ITEMSTRING_PATTERN_TWWF = "item:"..("[^:]*:"):rep(14).."(%d*)";
+-- Last property of an itemString
+local ITEMSTRING_PATTERN_UPGRADEID = "(%d+)$";
 
 -- Table for adjustment of levels due to upgrade -- Source: http://www.wowinterface.com/forums/showthread.php?t=45388
 local UPGRADED_LEVEL_ADJUST = {
@@ -111,6 +117,36 @@ local TIMEWARPED_LEVEL_ADJUST = {
 -- Table for adjustment of levels due to Timewarped Warforged. These are fixed itemLevels, not upgrade amounts.
 local TIMEWARPED_WARFORGED_LEVEL_ADJUST = {
 	-- Patch 6.2 --
+	-- Cidrei: Yes, this really is a table of all levels between 71 and 99. The scaling matches Heirlooms up to level 97, where they diverge for... reasons.
+	[071] = 151,
+	[072] = 155,
+	[073] = 159,
+	[074] = 163,
+	[075] = 167,
+	[076] = 171,
+	[077] = 175,
+	[078] = 179,
+	[079] = 183,
+	[080] = 187,
+	[081] = 279,
+	[082] = 293,
+	[083] = 306,
+	[084] = 320,
+	[085] = 333,
+	[086] = 384,
+	[087] = 404,
+	[088] = 424,
+	[089] = 443,
+	[090] = 463,
+	[091] = 530,
+	[092] = 540,
+	[093] = 550,
+	[094] = 560,
+	[095] = 570,
+	[096] = 580,
+	[097] = 590,
+	[098] = 598,
+	[099] = 605,
 	[656] = 675, -- Dungeon drops.
 };
 
@@ -124,10 +160,10 @@ function GetUpgradedItemLevelFromItemLink(itemString)
 		return nil;
 	end
 
-	-- obtain the itemString upgrade and bonus IDs
-	local upgradeId	= tonumber(itemString:match(ITEMSTRING_PATTERN_UPGRADE));
+	-- obtain the bonus IDs & upgradeID
 	local timewarp	= tonumber(itemString:match(ITEMSTRING_PATTERN_TIMEWARP));
 	local warforged	= tonumber(itemString:match(ITEMSTRING_PATTERN_TWWF));
+	local upgradeId	= tonumber(itemString:match(ITEMSTRING_PATTERN_UPGRADEID));	-- Az: I think this is the upgradeTypeID, and not the actual upgradeValue
 
 	-- Return the actual itemLevel based on the itemString properties
 	if (itemLevel >= 450) and (UPGRADED_LEVEL_ADJUST[upgradeId]) then

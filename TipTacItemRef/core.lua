@@ -19,7 +19,7 @@ local cfg = {
 	if_iconSize = 42,
 };
 
--- Tooltips to Hook into
+-- Tooltips to Hook into -- MUST be a GameTooltip widget -- If the main TipTac is installed, the TT_TipsToModify is used instead
 local tipsToModify = {
 	"GameTooltip",
 	"ItemRefTooltip",
@@ -77,7 +77,7 @@ ttif:RegisterEvent("VARIABLES_LOADED");
 
 -- OnEvent
 ttif:SetScript("OnEvent",function(self,event,...)
-	-- What tipsToModify to use?
+	-- What tipsToModify to use, TipTac's main addon, or our own?
 	if (TipTac and TipTac.tipsToModify) then
 		tipsToModify = TipTac.tipsToModify;
 	else
@@ -193,10 +193,10 @@ local function OnTooltipCleared(self)
 	end
 end
 
--- HOOK: SetHyperlink
+-- HOOK: Apply hooks for all the tooltips to modify -- Only hook GameTooltips
 function ttif:DoHooks()
 	for index, tip in ipairs(tipsToModify) do
-		if (type(tip) == "table") then
+		if (type(tip) == "table") and (type(tip.GetObjectType) == "function") and (tip:GetObjectType() == "GameTooltip") then
 			if (tipsToAddIcon[tip:GetName()]) then
 				self:CreateTooltipIcon(tip);
 			end
@@ -215,6 +215,7 @@ end
 --                                        Smart Icon Evaluation                                       --
 --------------------------------------------------------------------------------------------------------
 
+-- returns true if an icon should be displayed
 local function SmartIconEvaluation(tip,linkToken)
 	local owner = tip:GetOwner();
 	-- No Owner?
@@ -393,7 +394,7 @@ function TipTypeFuncs:achievement(link,linkToken,id,guid,completed,month,day,yea
 					--myDone1 = select(3,GetAchievementCriteriaInfo(id,i));
 					if (i + 1 <= #criteriaList) then
 						local success, _, _, completed = pcall(GetAchievementCriteriaInfo,id,i + 1);
-						myDone2 = (success and completed); 
+						myDone2 = (success and completed);
 						--myDone2 = select(3,GetAchievementCriteriaInfo(id,i + 1));
 					end
 				end

@@ -244,7 +244,7 @@ if (TipTacItemRef) then
 --		{ type = "Check", var = "if_showAchievementIdAndCategory", label = "Show Achievement ID & Category", tip = "On achievement tooltips, the achievement ID as well as the category will be shown" },
 		{ type = "Check", var = "if_showQuestLevelAndId", label = "Show Quest Level & ID", tip = "For quest tooltips, show their questLevel and questID" },
 		{ type = "Check", var = "if_modifyAchievementTips", label = "Modify Achievement Tooltips", tip = "Changes the achievement tooltips to show a bit more information\nWarning: Might conflict with other achievement addons" },
-		{ type = "Check", var = "if_showIcon", label = "Show Icon Texture and Count (when available)", tip = "Shows an icon next to the tooltip" },
+		{ type = "Check", var = "if_showIcon", label = "Show Icon Texture and Stack Count (when available)", tip = "Shows an icon next to the tooltip. For items, the stack count will also be shown" },
 		{ type = "Check", var = "if_smartIcons", label = "Smart Icon Appearance", tip = "When enabled, TipTacItemRef will determine if an icon is needed, based on where the tip is shown. It will not be shown on actionbars or bag slots for example, as they already show an icon" },
 		{ type = "Check", var = "if_borderlessIcons", label = "Borderless Icons", tip = "Turn off the border on icons" },
 		{ type = "Slider", var = "if_iconSize", label = "Icon Size", min = 16, max = 128, step = 1 },

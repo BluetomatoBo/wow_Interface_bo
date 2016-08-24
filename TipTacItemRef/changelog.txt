@@ -1,3 +1,7 @@
+TipTacItemRef Changes | 2016 Aug 24
+-----------------------------------
+- GetUpgradedItemLevel: Fixed upgradeID pattern not having a capture group.
+
 TipTacItemRef Changes | 2016 Jul 23
 -----------------------------------
 - Small update of the "GetUpgradedItemLevel" library to support itemStrings with omitted zeros.
