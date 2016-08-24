@@ -294,6 +294,7 @@ local missionList = CreateFrame("Frame", "MasterPlanMissionList", GarrisonMissio
 	missionList:SetAllPoints()
 	local hidden = CreateFrame("Frame", nil, missionList) do
 		hidden:Hide()
+		hidden.Tab1, hidden.Tab2 = GarrisonMissionFrameMissionsTab1, GarrisonMissionFrameMissionsTab2
 		missionList:SetScript("OnShow", function()
 			GarrisonMissionFrameMissionsTab1:SetParent(hidden)
 			GarrisonMissionFrameMissionsTab2:SetParent(hidden)
