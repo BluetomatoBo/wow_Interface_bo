@@ -1,6 +1,6 @@
 -- Changelog:
 
--- 0.4.0    - Version and toc file interface bump for wow 6.0.2 (World of Draenor)
+-- 7.0.0	- Version and toc file interface bump for wow 7.0 (Legion pre-patch). Resurrected the project since i started again with WoW. From now on we use the same versioning as the wow client.
 -- 0.3.3    - Version and toc file interface bump for wow 5.4 (Siege of Orgrimmar)
 -- 0.3.2    - Version and toc file interface bump for wow 5.2
 -- 0.3.1    - Version and toc file interface bump for wow 5.1 

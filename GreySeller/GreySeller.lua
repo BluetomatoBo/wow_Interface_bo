@@ -1,6 +1,7 @@
 --
 --
--- GreySeller by Elba @ Nemesis - Europe
+-- GreySeller by Elba @ Pozzo Dell'Eternità - Europe
+--
 -- A wow addon that simply tries to sell any grey item to every vendor
 -- you will encounter.
 -- This will hopefully help you in keeping your bags to become cluttered
@@ -16,7 +17,6 @@
 -- ===========================================================================
 -- Initial housekeeping and addon-wide global constants
 -- ===========================================================================
-
 
 -- The addon name... as constant
 local GS_NAME = "GreySeller"
@@ -39,6 +39,7 @@ local GS_DEFAULT_CHAT_TEXT_MSG_COLOR = {r = .7, g = .7, b = .7 }
 -- A small collection of function with an utility role: printing to the 
 -- default chat frame, looping over, bags, doing string pattern matching...
 -- and the like.
+
 
 -- Helper to print to the chat frame with a given prefix
 local function GS_logToChatWithPrefix(prefix, text, color)
