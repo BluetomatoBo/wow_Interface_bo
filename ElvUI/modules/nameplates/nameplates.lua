@@ -74,7 +74,7 @@ function mod:CheckArenaHealers()
 	local numOpps = GetNumArenaOpponentSpecs()
 	if not (numOpps > 1) then return end
 
-	for i=1, 5 do
+	for i=1, 3 do
 		local name = UnitName(format('arena%d', i))
 		if name and name ~= UNKNOWN then
 			local s = GetArenaOpponentSpec(i)
@@ -260,11 +260,13 @@ function mod:SetTargetFrame(frame)
 
 	mod:ClassBar_Update(frame)
 
-	--WoW shows nameplates for any unit which is in combat with you, even when nameplateShowAll is set to 0
-	if frame.isTarget then
-		frame:Show()
-	elseif self.db.onlyShowTarget then
-		frame:Hide()
+	if (frame.UnitType ~= "PLAYER") then --We don't want to show/hide player nameplate
+		--WoW shows nameplates for any unit which is in combat with you, even when nameplateShowAll is set to 0
+		if frame.isTarget then
+			frame:Show()
+		elseif self.db.onlyShowTarget then
+			frame:Hide()
+		end
 	end
 end
 
@@ -363,11 +365,13 @@ function mod:NAME_PLATE_UNIT_ADDED(event, unit, frame)
 	self:RegisterEvents(frame.UnitFrame, unit)
 	self:UpdateElement_All(frame.UnitFrame, unit)
 
-	-- WoW shows nameplates for all units that are in combat with you, even if nameplateShowAll is set to 0.
-	if ((self.db.onlyShowTarget and frame.UnitFrame.isTarget) or not self.db.onlyShowTarget) then
-		frame.UnitFrame:Show()
-	else
-		frame.UnitFrame:Hide()
+	if (frame.UnitFrame.UnitType ~= "PLAYER") then --We don't want to show/hide player nameplate
+		-- WoW shows nameplates for all units that are in combat with you, even if nameplateShowAll is set to 0.
+		if ((self.db.onlyShowTarget and frame.UnitFrame.isTarget) or not self.db.onlyShowTarget) then
+			frame.UnitFrame:Show()
+		else
+			frame.UnitFrame:Hide()
+		end
 	end
 end
 
