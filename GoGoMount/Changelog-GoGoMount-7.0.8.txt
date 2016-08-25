@@ -1,0 +1,113 @@
+------------------------------------------------------------------------
+r610 | tiker | 2016-08-25 00:47:51 +0000 (Thu, 25 Aug 2016) | 1 line
+Changed paths:
+   A /tags/7.0.8 (from /trunk:609)
+
+Tagging as 7.0.8
+------------------------------------------------------------------------
+r609 | tiker | 2016-08-25 00:46:55 +0000 (Thu, 25 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated version for release
+------------------------------------------------------------------------
+r608 | tiker | 2016-08-25 00:46:25 +0000 (Thu, 25 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Vicious Warstrider"
+------------------------------------------------------------------------
+r607 | tiker | 2016-08-25 00:44:15 +0000 (Thu, 25 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Vicious War Trike"
+------------------------------------------------------------------------
+r606 | tiker | 2016-08-25 00:42:06 +0000 (Thu, 25 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Vicious Gilnean Warhorse"
+------------------------------------------------------------------------
+r605 | tiker | 2016-08-25 00:30:56 +0000 (Thu, 25 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Prestigious Ivory Courser"
+------------------------------------------------------------------------
+r604 | tiker | 2016-08-25 00:28:09 +0000 (Thu, 25 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Mechanized Lumber Extractor"
+------------------------------------------------------------------------
+r603 | tiker | 2016-08-25 00:09:10 +0000 (Thu, 25 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+minor code change
+------------------------------------------------------------------------
+r602 | tiker | 2016-08-17 13:24:50 +0000 (Wed, 17 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Added zone IDs:  1100, 1076, 1015, 1052
+------------------------------------------------------------------------
+r601 | tiker | 2016-08-09 13:26:58 +0000 (Tue, 09 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Spelling fix
+------------------------------------------------------------------------
+r600 | tiker | 2016-08-09 13:22:35 +0000 (Tue, 09 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Added information for zone IDs 1015 & 1052
+------------------------------------------------------------------------
+r598 | tiker | 2016-08-09 02:12:54 +0000 (Tue, 09 Aug 2016) | 2 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+   M /trunk/GoGoMountData.lua
+
+Now supports summoning "Ratstallion Harness" in (Legion) Dalaran / Underbelly if the item is in the player's bag.
+Updated TOC version for next release
+------------------------------------------------------------------------
+r596 | tiker | 2016-08-06 15:41:39 +0000 (Sat, 06 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+fixed typo in version
+------------------------------------------------------------------------
+r595 | tiker | 2016-08-06 15:40:56 +0000 (Sat, 06 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated version for release
+------------------------------------------------------------------------
+r594 | tiker | 2016-08-06 15:40:11 +0000 (Sat, 06 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Fix for older zone preferences
+------------------------------------------------------------------------
+r592 | tiker | 2016-07-27 13:10:58 +0000 (Wed, 27 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+
+Fix the error when logging
+------------------------------------------------------------------------
+r590 | tiker | 2016-07-27 03:05:57 +0000 (Wed, 27 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated version for release
+------------------------------------------------------------------------
+r589 | tiker | 2016-07-27 02:21:13 +0000 (Wed, 27 Jul 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Hopefully fixed the issue where GoGoMount won't summon mounts after upgrading Garrisons (unless you leave the Garrison first).
+------------------------------------------------------------------------
