@@ -601,14 +601,21 @@ function Window:RightClick(group, button)
 	end
 end
 
-function Skada:tcopy(to, from)
+function Skada:tcopy(to, from, ...)
 	for k,v in pairs(from) do
-	if(type(v)=="table") then
-		to[k] = {}
-		Skada:tcopy(to[k], v);
-	else
-		to[k] = v;
-	end
+    
+        local skip = false
+        if ... then
+            for i, j in ipairs(...) do if j == k then skip = true end end
+        end
+        if not skip then
+            if(type(v)=="table") then
+                to[k] = {}
+                Skada:tcopy(to[k], v, ...);
+            else
+                to[k] = v;
+            end
+        end
 	end
 end
 
@@ -2269,6 +2276,15 @@ function Skada:SetTooltipPosition(tooltip, frame)
 	elseif p == "topright" then
 		tooltip:SetOwner(frame, "ANCHOR_NONE")
 		tooltip:SetPoint("TOPLEFT", frame, "TOPRIGHT")
+	elseif p == "smart" and frame then
+        -- Choose anchor point depending on frame position
+        if frame:GetLeft() < (GetScreenWidth() / 2) then
+            tooltip:SetOwner(frame, "ANCHOR_NONE")
+            tooltip:SetPoint("TOPLEFT", frame, "TOPRIGHT", 10, 0)
+        else
+            tooltip:SetOwner(frame, "ANCHOR_NONE")
+            tooltip:SetPoint("TOPRIGHT", frame, "TOPLEFT", -10, 0)
+        end
 	end
 end
 
@@ -2381,7 +2397,6 @@ end
 function Skada:ShowTooltip(win, id, label)
 	local t = GameTooltip
 	if Skada.db.profile.tooltips and (win.metadata.click1 or win.metadata.click2 or win.metadata.click3 or win.metadata.tooltip) then
-		Skada:SetTooltipPosition(t, win.bargroup)
 	    t:ClearLines()
 
 		local hasClick = win.metadata.click1 or win.metadata.click2 or win.metadata.click3
@@ -2782,10 +2797,10 @@ function Skada:MemoryCheck()
     end
 end
 
-function Skada:AddLoadableModule(name, func)
+function Skada:AddLoadableModule(name, description, func)
 	if not self.moduleList then self.moduleList = {} end
 	self.moduleList[#self.moduleList+1] = func
-	self:AddLoadableModuleCheckbox(name, L[name])
+	self:AddLoadableModuleCheckbox(name, L[name], description and L[description])
 end
 
 
