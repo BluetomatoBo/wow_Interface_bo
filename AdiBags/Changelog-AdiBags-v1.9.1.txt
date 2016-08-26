@@ -1,0 +1,34 @@
+tag v1.9.1
+6c0e5d50c2e19ba156868f928c3001c7eaa40a3e
+Talyrius <contact@talyrius.net>
+2016-08-25 10:43:26 -0700
+
+Bugfixes for Legion.
+
+
+--------------------
+
+Adirelle:
+	- Update README.textile
+	Removed obsolete comments.
+	- More trailing whitespace removed.
+	- Fixed Gitter webhook.
+	- Removed trailing whitespaces.
+	- Fixed whitespaces.
+	- CI: do not fail on globals.
+	- Setup SSH.
+	- Added badges to README.
+	[skip ci]
+	- Setting up travis CI.
+Antonio Lobato:
+	- offset currency icons slightly
+	- Updated Config TOC
+	- Fix for Tradeskill, again.
+	- Removed misleading tooltip
+	- Bags re-layout on open and not on item destroy.
+	- Fixed a bug where layout was not updated upon item removal.
+	- Fixed items not updating when swapping equipment out.
+	- Fix for tradeskills subcat splitting.
+	- Possible fix for SetPoint bug, fix for some BR translations.
+	- Moved some more state code into the container proto.
+	- Moved container picking logic into local state variables for each call instead of a local state for entire file.
