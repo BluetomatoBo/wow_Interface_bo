@@ -1,9 +1,33 @@
 ------------------------------------------------------------------------
-r610 | tiker | 2016-08-25 00:47:51 +0000 (Thu, 25 Aug 2016) | 1 line
+r615 | tiker | 2016-08-26 17:44:15 +0000 (Fri, 26 Aug 2016) | 1 line
 Changed paths:
-   A /tags/7.0.8 (from /trunk:609)
+   A /tags/7.0.9 (from /trunk:614)
 
-Tagging as 7.0.8
+Tagging as 7.0.9
+------------------------------------------------------------------------
+r614 | tiker | 2016-08-26 17:42:55 +0000 (Fri, 26 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.toc
+
+Updated version for release
+------------------------------------------------------------------------
+r613 | tiker | 2016-08-26 13:53:57 +0000 (Fri, 26 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Arcadian War Turtle"
+------------------------------------------------------------------------
+r612 | tiker | 2016-08-26 13:49:46 +0000 (Fri, 26 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Leyfeather Hippogryph"
+------------------------------------------------------------------------
+r611 | tiker | 2016-08-26 13:42:25 +0000 (Fri, 26 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMountData.lua
+
+Added support for "Vicious War Elekk"
 ------------------------------------------------------------------------
 r609 | tiker | 2016-08-25 00:46:55 +0000 (Thu, 25 Aug 2016) | 1 line
 Changed paths:
