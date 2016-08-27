@@ -152,9 +152,16 @@ local function LoadSkin()
 		SetLargeGuildTabardTextures("player", EmblemIcon, nil, nil)
 	end
 
-	-- local function SkinInvasionAlert(frame)
-		
-	-- end
+	local function SkinInvasionAlert(frame)
+		frame:SetAlpha(1)
+		if not frame.hooked then hooksecurefunc(frame, "SetAlpha", forceAlpha);frame.hooked = true end
+
+		if not frame.backdrop then
+			frame:CreateBackdrop("Transparent")
+			frame.backdrop:Point("TOPLEFT", frame, "TOPLEFT", 4, 4)
+			frame.backdrop:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -7, 6)
+		end
+	end
 
 	local function SkinScenarioAlert(frame)
 		frame:SetAlpha(1)
@@ -195,10 +202,19 @@ local function LoadSkin()
 		end
 	end
 
-	-- local function SkinWorldQuestCompleteAlert(frame)
-		
-	-- end
-	
+	local function SkinWorldQuestCompleteAlert(frame)
+		frame:SetAlpha(1)
+		if not frame.hooked then hooksecurefunc(frame, "SetAlpha", forceAlpha);frame.hooked = true end
+
+		if not frame.backdrop then
+			frame:CreateBackdrop("Transparent")
+			frame.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -6)
+			frame.backdrop:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -14, 6)
+		end
+
+		frame.shine:Kill()
+	end
+
 	local function SkinGarrisonFollowerAlert(frame, _, _, _, quality)
 		local color = ITEM_QUALITY_COLORS[quality]
 		if color then
@@ -207,7 +223,7 @@ local function LoadSkin()
 			frame.PortraitFrame.squareBG:SetBackdropBorderColor(0, 0, 0)
 		end
 	end
-	
+
 	local function SkinGarrisonRandomMissionAlert(frame, _, _, _, _, _, quality)
 		local color = ITEM_QUALITY_COLORS[quality]
 		if color then
@@ -216,15 +232,15 @@ local function LoadSkin()
 			frame.PortraitFrame.squareBG:SetBackdropBorderColor(0, 0, 0)
 		end
 	end
-	
+
 	-- local function SkinGarrisonShipFollowerAlert(frame)
 	
 	-- end
-	
+
 	-- local function SkinGarrisonTalentAlert(frame)
 		
 	-- end
-	
+
 	local function SkinLegendaryItemAlert(frame, itemLink)
 		local _, _, itemRarity = GetItemInfo(itemLink)
 		local color = ITEM_QUALITY_COLORS[itemRarity]
@@ -234,7 +250,7 @@ local function LoadSkin()
 			frame.Icon.b:SetBackdropBorderColor(0, 0, 0)
 		end
 	end
-	
+
 	local function SkinLootWonAlert(frame)
 		frame:SetAlpha(1)
 		if not frame.hooked then hooksecurefunc(frame, "SetAlpha", forceAlpha);frame.hooked = true end
@@ -263,7 +279,7 @@ local function LoadSkin()
 			frame.backdrop:Point('BOTTOMRIGHT', frame.Icon.b, 'BOTTOMRIGHT', 180, -4)
 		end
 	end
-	
+
 	local function SkinLootUpgradeAlert(frame)
 		frame:SetAlpha(1)
 		if not frame.hooked then hooksecurefunc(frame, "SetAlpha", forceAlpha);frame.hooked = true end
@@ -290,7 +306,7 @@ local function LoadSkin()
 			frame.backdrop:Point('BOTTOMRIGHT', frame.Icon.b, 'BOTTOMRIGHT', 180, -8)
 		end
 	end
-	
+
 	local function SkinMoneyWonAlert(frame)
 		frame:SetAlpha(1)
 		if not frame.hooked then hooksecurefunc(frame, "SetAlpha", forceAlpha);frame.hooked = true end
@@ -313,18 +329,82 @@ local function LoadSkin()
 			frame.backdrop:Point('BOTTOMRIGHT', frame.Icon.b, 'BOTTOMRIGHT', 180, -4)
 		end
 	end
-	
-	-- local function SkinStorePurchaseAlert(frame)
-	
-	-- end
 
-	-- local function SkinDigsiteCompleteAlert(frame)
-	
-	-- end
+	local function SkinStorePurchaseAlert(frame)
+		frame:SetAlpha(1)
+		if not frame.hooked then hooksecurefunc(frame, "SetAlpha", forceAlpha);frame.hooked = true end
 
-	-- local function SkinNewRecipeLearnedAlert(frame)
-	
-	-- end
+		if not frame.backdrop then
+			frame:CreateBackdrop("Transparent")
+			frame.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -6)
+			frame.backdrop:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -14, 6)
+		end
+
+		-- Background
+		frame.Background:Kill()
+		frame.glow:Kill()
+		frame.shine:Kill()
+
+		-- Icon
+		frame.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		frame.Icon:ClearAllPoints()
+		frame.Icon:SetPoint("LEFT", frame.backdrop, 9, 0)
+
+		-- Icon border
+		if not frame.Icon.b then
+			frame.Icon.b = CreateFrame("Frame", nil, frame)
+			frame.Icon.b:SetTemplate("Default")
+			frame.Icon.b:SetPoint("TOPLEFT", frame.Icon, "TOPLEFT", -2, 2)
+			frame.Icon.b:SetPoint("BOTTOMRIGHT", frame.Icon, "BOTTOMRIGHT", 2, -2)
+			frame.Icon:SetParent(frame.Icon.b)
+		end
+	end
+
+	local function SkinDigsiteCompleteAlert(frame)
+		frame:SetAlpha(1)
+		if not frame.hooked then hooksecurefunc(frame, "SetAlpha", forceAlpha);frame.hooked = true end
+
+		if not frame.backdrop then
+			frame:CreateBackdrop("Transparent")
+			frame.backdrop:SetPoint("TOPLEFT", frame, "TOPLEFT", -16, -6)
+			frame.backdrop:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 13, 6)
+		end
+
+		frame.glow:Kill()
+		frame.shine:Kill()
+		frame:GetRegions():Hide()
+		frame.DigsiteTypeTexture:SetPoint("LEFT", -10, -14)
+	end
+
+	local function SkinNewRecipeLearnedAlert(frame)
+		frame:SetAlpha(1)
+		if not frame.hooked then hooksecurefunc(frame, "SetAlpha", forceAlpha);frame.hooked = true end
+
+		if not frame.backdrop then
+			frame:CreateBackdrop("Transparent")
+			frame.backdrop:Point('TOPLEFT', frame, 'TOPLEFT', 19, -6)
+			frame.backdrop:Point('BOTTOMRIGHT', frame, 'BOTTOMRIGHT', -23, 6)
+		end
+
+		frame.glow:Kill()
+		frame.shine:Kill()
+		frame:GetRegions():Hide()
+
+		frame.Icon:SetMask("")
+		frame.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
+		frame.Icon:SetDrawLayer("BORDER", 5)
+		frame.Icon:ClearAllPoints()
+		frame.Icon:SetPoint("LEFT", frame.backdrop, 9, 0)
+
+		-- Icon border
+		if not frame.Icon.b then
+			frame.Icon.b = CreateFrame("Frame", nil, frame)
+			frame.Icon.b:SetTemplate("Default")
+			frame.Icon.b:SetPoint("TOPLEFT", frame.Icon, "TOPLEFT", -2, 2)
+			frame.Icon.b:SetPoint("BOTTOMRIGHT", frame.Icon, "BOTTOMRIGHT", 2, -2)
+			frame.Icon:SetParent(frame.Icon.b)
+		end
+	end
 
 	--[[ HOOKS ]]--
 	-- Achievements
@@ -334,9 +414,9 @@ local function LoadSkin()
 	-- Encounters
 	hooksecurefunc(DungeonCompletionAlertSystem, "setUpFunction", SkinDungeonCompletionAlert)
 	hooksecurefunc(GuildChallengeAlertSystem, "setUpFunction", SkinGuildChallengeAlert)
-	-- hooksecurefunc(InvasionAlertSystem, "setUpFunction", SkinInvasionAlert)
+	hooksecurefunc(InvasionAlertSystem, "setUpFunction", SkinInvasionAlert)
 	hooksecurefunc(ScenarioAlertSystem, "setUpFunction", SkinScenarioAlert)
-	-- hooksecurefunc(WorldQuestCompleteAlertSystem, "setUpFunction", SkinWorldQuestCompleteAlert)
+	hooksecurefunc(WorldQuestCompleteAlertSystem, "setUpFunction", SkinWorldQuestCompleteAlert)
 
 	-- Garrisons
 	hooksecurefunc(GarrisonFollowerAlertSystem, "setUpFunction", SkinGarrisonFollowerAlert)
@@ -348,10 +428,10 @@ local function LoadSkin()
 	hooksecurefunc(LootAlertSystem, "setUpFunction", SkinLootWonAlert)
 	hooksecurefunc(LootUpgradeAlertSystem, "setUpFunction", SkinLootUpgradeAlert)
 	hooksecurefunc(MoneyWonAlertSystem, "setUpFunction", SkinMoneyWonAlert)
-	-- hooksecurefunc(StorePurchaseAlertSystem, "setUpFunction", SkinStorePurchaseAlert)
+	hooksecurefunc(StorePurchaseAlertSystem, "setUpFunction", SkinStorePurchaseAlert)
 	-- Professions
-	-- hooksecurefunc(DigsiteCompleteAlertSystem, "setUpFunction", SkinDigsiteCompleteAlert)
-	-- hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", SkinNewRecipeLearnedAlert)
+	hooksecurefunc(DigsiteCompleteAlertSystem, "setUpFunction", SkinDigsiteCompleteAlert)
+	hooksecurefunc(NewRecipeLearnedAlertSystem, "setUpFunction", SkinNewRecipeLearnedAlert)
 
 
 	--[[ STATIC SKINNING ]]--
