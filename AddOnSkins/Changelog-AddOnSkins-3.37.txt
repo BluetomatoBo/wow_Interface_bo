@@ -1,0 +1,23 @@
+tag 3.37
+9fb755ad086416dc312412a0979144dad93203f6
+Azilroka <darktemplar9900@yahoo.com>
+2016-08-27 21:25:12 -0500
+
+
+
+--------------------
+
+Azilroka:
+	- 3.37
+	- PetTracker (Still broken but this stops the error)
+	- Fixed Skada Window Border in Embed. ElvUI Skin Styling & Adjust for Pixel Perfect. Still need to go through skins to apply adjusting.
+Jens Jacobsen:
+	- Add compatibility for ServerHop 3.0.3
+Merathilis:
+	- gnarf
+	- Allow to change the position for "Label" & "Duration" in the BigWigs AddOnSkins
+Azilroka:
+	- Altoholic Issue #356
+	- Skillet (Still needs things skinned but the editbox is fixed)
+	- GHI
+	- http://www.tukui.org/forums/topic.php?id=37152
