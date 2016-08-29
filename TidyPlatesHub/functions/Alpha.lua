@@ -147,7 +147,8 @@ local function AlphaDelegate(...)
 	end
 
 	if unit.isTarget then return Diminish(LocalVars.OpacityTarget)
-	elseif unit.isCasting and unit.reaction == "HOSTILE" and LocalVars.OpacitySpotlightSpell then alpha = LocalVars.OpacitySpotlight
+	--elseif unit.isCasting and unit.reaction == "HOSTILE" and LocalVars.OpacitySpotlightSpell then alpha = LocalVars.OpacitySpotlight
+	elseif unit.isCasting and LocalVars.OpacitySpotlightSpell then alpha = LocalVars.OpacitySpotlight
 	elseif unit.isMouseover and LocalVars.OpacitySpotlightMouseover then alpha = LocalVars.OpacitySpotlight
 	elseif unit.isMarked and LocalVars.OpacitySpotlightRaidMarked then alpha = LocalVars.OpacitySpotlight
 
@@ -169,8 +170,9 @@ local function AlphaDelegate(...)
 		end
 	end
 
-	if not (UnitExists("target") or alpha) and LocalVars.OpacityFullNoTarget then return Diminish(LocalVars.OpacityTarget) end
+	if not (alpha or UnitExists("target") ) and LocalVars.OpacityFullNoTarget then return Diminish(LocalVars.OpacityTarget) end
 
+	--print("Alpha", alpha)
 	if alpha then return Diminish(alpha)
 	else return Diminish(LocalVars.OpacityNonTarget) end
 end

@@ -4,20 +4,27 @@
 ----------------------------------
 
 local function CallForStyleUpdate()
-	for name, theme in pairs(TidyPlatesThemeList) do
-		if theme.OnApplyThemeCustomization then theme:OnApplyThemeCustomization() end
+
+	-- This happens when the Okay button is pressed, or a UI element is used
+
+	--print("CallForStyleUpdate")
+
+	local theme = TidyPlates:GetTheme()
+	--print("CallForStyleUpdate, Theme,", theme)
+
+	if theme.ApplyProfileSettings
+		then theme:ApplyProfileSettings("From CallForStyleUpdate")
 	end
+
 end
 
 local function GetPanelValues(panel, targetTable)
-	local index
-	for index in pairs(targetTable) do
-		if panel[index] then
-			targetTable[index] = panel[index]:GetValue()
-	--for index, widget in pairs(panel) do
-		--if widget.GetValue then
-			--targetTable[index] = widget:GetValue()
-
+	if panel and targetTable then
+		local index
+		for index in pairs(targetTable) do
+			if panel[index] then
+				targetTable[index] = panel[index]:GetValue()
+			end
 		end
 	end
 end

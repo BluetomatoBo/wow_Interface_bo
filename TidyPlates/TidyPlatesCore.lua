@@ -25,7 +25,7 @@ local EnableFadeIn = true
 local ShowCastBars = true
 local EMPTY_TEXTURE = "Interface\\Addons\\TidyPlates\\Media\\Empty"
 local ResetPlates, UpdateAll = false, false
-local CompatibilityMode = false
+local OverrideFonts = false
 
 -- Raid Icon Reference
 local RaidIconCoordinate = {
@@ -136,8 +136,14 @@ do
 				plate.UpdateMe = false
 				plate.UpdateHealth = false
 
-				extended:SetAlpha(extended.requestedAlpha)
+
 			end
+
+		-- This would be useful for alpha fades
+		-- But right now it's just going to get set directly
+		-- extended:SetAlpha(extended.requestedAlpha)
+
+
 		end
 
 		-- Reset Mass-Update Flag
@@ -151,6 +157,8 @@ end
 --  Nameplate Extension: Applies scripts, hooks, and adds additional frame variables and regions
 ---------------------------------------------------------------------------------------------------------------------
 do
+
+	local topFrameLevel = 0
 
 	-- ApplyPlateExtesion
 	function OnNewNameplate(plate, plateid)
@@ -174,10 +182,6 @@ do
 		local castbar = CreateTidyPlatesStatusbar(extended)
 		local textFrame = CreateFrame("Frame", nil, healthbar)
 		local widgetFrame = CreateFrame("Frame", nil, textFrame)
-
-		healthbar:SetFrameStrata("BACKGROUND")
-		castbar:SetFrameStrata("BACKGROUND")
-		widgetFrame:SetFrameStrata("LOW")
 
 		textFrame:SetAllPoints()
 
@@ -208,20 +212,32 @@ do
 		visual.raidicon:SetTexture("Interface\\TargetingFrame\\UI-RaidTargetingIcons")
 		visual.highlight:SetAllPoints(visual.healthborder)
 		visual.highlight:SetBlendMode("ADD")
+
 		extended:SetFrameStrata("BACKGROUND")
 		healthbar:SetFrameStrata("BACKGROUND")
-		healthbar:SetFrameStrata("BACKGROUND")
-		healthbar:SetFrameLevel(0)
-		extended:SetFrameLevel(1)
-		castbar:SetFrameLevel(0)
+		castbar:SetFrameStrata("BACKGROUND")
+		textFrame:SetFrameStrata("BACKGROUND")
+		widgetFrame:SetFrameStrata("BACKGROUND")
+
+		topFrameLevel = topFrameLevel + 3
+		extended.defaultLevel = topFrameLevel
+		extended:SetFrameLevel(topFrameLevel)
+		--widgetFrame:SetFrameLevel(topFrameLevel+2)
+		--
+		--healthbar:SetFrameLevel(topFrameLevel)
+		--castbar:SetFrameLevel(topFrameLevel)
+
+
 		castbar:Hide()
 		castbar:SetStatusBarColor(1,.8,0)
 		carrier:SetSize(16, 16)
+
 		-- Default Fonts
-		visual.customtext:SetFont(STANDARD_TEXT_FONT, 12, "NONE")
-		visual.name:SetFont(STANDARD_TEXT_FONT, 12, "NONE")
-		visual.level:SetFont(STANDARD_TEXT_FONT, 12, "NONE")
-		visual.spelltext:SetFont(STANDARD_TEXT_FONT, 12, "NONE")
+		visual.customtext:SetFontObject("SpellFont_Small")
+		--visual.name:SetFont(STANDARD_TEXT_FONT, 12, "NONE")
+		visual.name:SetFontObject("SpellFont_Small")
+		visual.level:SetFontObject("SpellFont_Small")
+		visual.spelltext:SetFontObject("SpellFont_Small")
 
 		-- Tidy Plates Frame References
 		extended.regions = regions
@@ -253,13 +269,17 @@ do
 
 	-- CheckNameplateStyle
 	local function CheckNameplateStyle()
-		if activetheme.SetStyle then
-			stylename = activetheme.SetStyle(unit); extended.style = activetheme[stylename]
-		else extended.style = activetheme; stylename = tostring(activetheme) end
+		if activetheme.SetStyle then				-- If the active theme has a style selection function, run it..
+			stylename = activetheme.SetStyle(unit)
+			extended.style = activetheme[stylename]
+		else 										-- If no style function, use the base table
+			extended.style = activetheme;
+			stylename = tostring(activetheme)
+		end
 
 		style = extended.style
 
-		if extended.stylename ~= stylename then
+		if style and (extended.stylename ~= stylename) then
 			UpdateStyle()
 			extended.stylename = stylename
 			unit.style = stylename
@@ -330,7 +350,7 @@ do
 		-- For Fading In
 		PlatesFading[plate] = EnableFadeIn
 		extended.requestedAlpha = 0
-		extended.visibleAlpha = 0
+		--extended.visibleAlpha = 0
 		extended:Hide()		-- Yes, it seems counterintuitive, but...
 		extended:SetAlpha(0)
 
@@ -705,13 +725,14 @@ do
 	-- UpdateIndicator_CustomAlpha: Calls the alpha delegate to get the requested alpha
 	function UpdateIndicator_CustomAlpha(event)
 		if activetheme.SetAlpha then
-			local previousAlpha = extended.requestedAlpha
+			--local previousAlpha = extended.requestedAlpha
 			extended.requestedAlpha = activetheme.SetAlpha(unit) or previousAlpha or unit.alpha or 1
 		else
 			extended.requestedAlpha = unit.alpha or 1
 		end
 
 		if extended.requestedAlpha > 0 then
+			extended:SetAlpha(extended.requestedAlpha)
 			if nameplate:IsShown() then extended:Show() end
 		else
 			extended:Hide()        -- FRAME HIDE TEST
@@ -719,12 +740,13 @@ do
 
 		-- Better Layering
 		if unit.isTarget then
-			extended:SetFrameLevel(3)
+			extended:SetFrameLevel(100)
 		elseif unit.isMouseover then
-			extended:SetFrameLevel(2)
+			extended:SetFrameLevel(101)
 		else
-			extended:SetFrameLevel(0)
+			extended:SetFrameLevel(extended.defaultLevel)
 		end
+
 	end
 
 
@@ -1029,11 +1051,19 @@ end
 do
 	-- Helper Functions
 	local function SetObjectShape(object, width, height) object:SetWidth(width); object:SetHeight(height) end
-	local function SetObjectFont(object,  font, size, flags) if not object:SetFont(font, size, flags) then object:SetFont("FONTS\\ARIALN.TTF", size or 12, flags) end end
 	local function SetObjectJustify(object, horz, vert) object:SetJustifyH(horz); object:SetJustifyV(vert) end
 	local function SetObjectAnchor(object, anchor, anchorTo, x, y) object:ClearAllPoints();object:SetPoint(anchor, anchorTo, anchor, x, y) end
 	local function SetObjectTexture(object, texture) object:SetTexture(texture) end
 	local function SetObjectBartexture(obj, tex, ori, crop) obj:SetStatusBarTexture(tex); obj:SetOrientation(ori); end
+
+	local function SetObjectFont(object,  font, size, flags)
+		if (not OverrideFonts) and font then
+			object:SetFont(font, size or 10, flags)
+		--else
+		--	object:SetFontObject("SpellFont_Small")
+		end
+	end --FRIZQT__ or ARIALN.ttf  -- object:SetFont("FONTS\\FRIZQT__.TTF", size or 12, flags)
+
 
 	-- SetObjectShadow:
 	local function SetObjectShadow(object, shadow)
@@ -1048,7 +1078,7 @@ do
 	-- SetFontGroupObject
 	local function SetFontGroupObject(object, objectstyle)
 		if objectstyle then
-			SetObjectFont(object, objectstyle.typeface or "FONTS\\ARIALN.TTF",  objectstyle.size or 12, objectstyle.flags or "NONE")
+			SetObjectFont(object, objectstyle.typeface, objectstyle.size, objectstyle.flags)
 			SetObjectJustify(object, objectstyle.align or "CENTER", objectstyle.vertical or "BOTTOM")
 			SetObjectShadow(object, objectstyle.shadow or 1)
 		end
@@ -1099,25 +1129,41 @@ do
 	-- UpdateStyle:
 	function UpdateStyle()
 		local index
-		local objectstyle, objectname, objectregion, objectenable
 
 		-- Frame
 		SetAnchorGroupObject(extended, style.frame, carrier)
 
 		-- Anchorgroup
 		for index = 1, #anchorgroup do
-			objectname = anchorgroup[index]; SetAnchorGroupObject(visual[objectname], style[objectname], extended)
-			objectenable = style[objectname].show
-			if objectenable then visual[objectname]:Show() else visual[objectname]:Hide() end
+			local objectname = anchorgroup[index]
+			local object, objectstyle = visual[objectname], style[objectname]
+			if objectstyle and objectstyle.show then
+				SetAnchorGroupObject(object, objectstyle, extended)
+				visual[objectname]:Show()
+			else visual[objectname]:Hide() end
 		end
 		-- Bars
-		for index = 1, #bargroup do objectname = bargroup[index]; SetBarGroupObject(visual[objectname], style[objectname], extended) end
+		for index = 1, #bargroup do
+			local objectname = bargroup[index]
+			local object, objectstyle = visual[objectname], style[objectname]
+			if objectstyle then SetBarGroupObject(object, objectstyle, extended) end
+		end
 		-- Texture
-		for index = 1, #texturegroup do objectname = texturegroup[index]; SetTextureGroupObject(visual[objectname], style[objectname]) end
+		for index = 1, #texturegroup do
+			local objectname = texturegroup[index]
+			local object, objectstyle = visual[objectname], style[objectname]
+			SetTextureGroupObject(object, objectstyle)
+		end
 		-- Raid Icon Texture
-		visual.raidicon:SetTexture(style.raidicon.texture)
+		if style and style.raidicon and style.raidicon.texture then
+			visual.raidicon:SetTexture(style.raidicon.texture)
+		end
 		-- Font Group
-		for index = 1, #fontgroup do objectname = fontgroup[index];SetFontGroupObject(visual[objectname], style[objectname]) end
+		for index = 1, #fontgroup do
+			local objectname = fontgroup[index]
+			local object, objectstyle = visual[objectname], style[objectname]
+			SetFontGroupObject(object, objectstyle)
+		end
 		-- Hide Stuff
 		if unit.isElite then visual.eliteicon:Hide() else visual.eliteicon:Hide() end
 		if unit.isBoss then visual.level:Hide() else visual.skullicon:Hide() end
@@ -1125,7 +1171,6 @@ do
 		if not unit.isMarked then visual.raidicon:Hide() end
 
 	end
-
 
 end
 
@@ -1161,11 +1206,13 @@ function TidyPlates:RequestWidgetUpdate(plate) if plate then SetUpdateMe(plate) 
 function TidyPlates:RequestDelegateUpdate(plate) if plate then SetUpdateMe(plate) else SetUpdateAll() end end
 
 function TidyPlates:ActivateTheme(theme) if theme and type(theme) == 'table' then TidyPlates.ActiveThemeTable, activetheme = theme, theme; ResetPlates = true; end end
+function TidyPlates.OverrideFonts( enable) OverrideFonts = enable; end
 
 -- Out-of-date - Just here to avoid errors
 function TidyPlates:EnableFadeIn() EnableFadeIn = true; end
 function TidyPlates:DisableFadeIn() EnableFadeIn = nil; end
-function TidyPlates:EnableCompatibilityMode() CompatibilityMode = true; end
+
+
 
 
 

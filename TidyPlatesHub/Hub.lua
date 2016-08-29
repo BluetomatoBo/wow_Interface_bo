@@ -405,9 +405,9 @@ local function BuildHubPanel(panel)
 	------------------------------
 	panel.AdvancedLabel, F = CreateQuickHeadingLabel(nil, "Funky Stuff", AlignmentColumn, panel.WidgetsComboPoints, 0, 5)
 
-	panel.TextUseBlizzardFont, F = CreateQuickCheckbutton(objectName.."TextUseBlizzardFont", "Use Default Blizzard Font", AlignmentColumn, F, 0)
+	--panel.TextUseBlizzardFont, F = CreateQuickCheckbutton(objectName.."TextUseBlizzardFont", "Use Default Blizzard Font", AlignmentColumn, F, 0)
 
-	panel.AdvancedEnableUnitCache, F = CreateQuickCheckbutton(objectName.."AdvancedEnableUnitCache", "Enable Class & Title Caching ", AlignmentColumn, F)
+	panel.AdvancedEnableUnitCache, F = CreateQuickCheckbutton(objectName.."AdvancedEnableUnitCache", "Enable Title Caching ", AlignmentColumn, F)
 	panel.FrameVerticalPosition, F = CreateQuickSlider(objectName.."FrameVerticalPosition", "Vertical Position of Artwork: (May cause targeting problems)", AlignmentColumn, F, 0, 4)
 	panel.FrameBarWidth, F = CreateQuickSlider(objectName.."FrameBarWidth", "Health Bar Width (%)", AlignmentColumn, F, 0, 4)
 
@@ -469,7 +469,7 @@ local function BuildHubPanel(panel)
 	SetSliderMechanics(panel.ScaleSpotlight, 1, .5, 2.2, .01)
 
 	SetSliderMechanics(panel.FrameVerticalPosition, .5, 0, 1, .02)
-	SetSliderMechanics(panel.FrameBarWidth, .5, 0, 1.2, .02)
+	SetSliderMechanics(panel.FrameBarWidth, 1, .3, 1.7, .02)
 
 	SetSliderMechanics(panel.HighHealthThreshold, .7, .5, 1, .01)
 	SetSliderMechanics(panel.LowHealthThreshold, .3, 0, .5, .01)
@@ -481,6 +481,7 @@ local function BuildHubPanel(panel)
 	local CallForStyleUpdate = TidyPlatesHubHelpers.CallForStyleUpdate
 
 	function panel.RefreshSettings(LocalVars)
+		--print("RefreshSettings", panel:IsShown())
 		CallForStyleUpdate()
 		-- Convert Debuff Filter Strings
 		ConvertDebuffListTable(LocalVars.WidgetsDebuffTrackList, LocalVars.WidgetsDebuffLookup, LocalVars.WidgetsDebuffPriority)
@@ -488,6 +489,8 @@ local function BuildHubPanel(panel)
 		ConvertStringToTable(LocalVars.OpacityFilterList, LocalVars.OpacityFilterLookup)
 		ConvertStringToTable(LocalVars.UnitSpotlightList, LocalVars.UnitSpotlightLookup)
 	end
+
+	--panel:Hide()
 end
 
 
@@ -502,6 +505,7 @@ local DamagePanel = CreateHubInterfacePanel( "HubPanelSettingsDamage", "|cFFFF11
 TidyPlatesPanel:AddProfile("Damage")
 BuildHubPanel(DamagePanel)
 function ShowTidyPlatesHubDamagePanel() TidyPlatesUtility.OpenInterfacePanel(DamagePanel) end
+
 
 
 local HealerPanel = CreateHubInterfacePanel( "HubPanelSettingsHealer", "|cFF44DD55Healer Profile", "Tidy Plates"  )

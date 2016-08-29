@@ -293,7 +293,6 @@ local OnMouseWheelScrollFrame = TidyPlatesHubRapidPanel.OnMouseWheelScrollFrame
 ---------------
 local yellow, blue, red, orange = "|cffffff00", "|cFF3782D1", "|cFFFF1100", "|cFFFF6906"
 
---local CallForStyleUpdate = TidyPlatesHubHelpers.CallForStyleUpdate
 local GetPanelValues = TidyPlatesHubHelpers.GetPanelValues
 local SetPanelValues = TidyPlatesHubHelpers.SetPanelValues
 local GetSavedVariables = TidyPlatesHubHelpers.GetSavedVariables
@@ -334,21 +333,32 @@ local function GetCacheSet(objectName)
 end
 
 local function CreateVariableSet(objectName)
-	-- New Behavior
-	-- Check to see if there's a table for this objectName
-	-- If not, check to see if there's a template
-
+	--print("CreateVariableSet", objectName)
+	-- New Behavior: Check for a template
 	local cacheSet = GetCacheSet("SavedTemplate")
-	-- cacheName = "SavedTemplate"
-
-	--if cacheSet then print("Using cached values", objectName) end
-
 	TidyPlatesHubSettings[objectName] = CopyTable(cacheSet or TidyPlatesHubDefaults)
+
+	-- Old Behavior: Just load defaults
+	--TidyPlatesHubSettings[objectName] = CopyTable( TidyPlatesHubDefaults)
+
 	return TidyPlatesHubSettings[objectName]
 end
 
 local function GetVariableSet(panel)
-	return TidyPlatesHubSettings[panel.objectName]
+	if panel then
+
+		local objectName = panel.objectName
+
+		local settings = TidyPlatesHubSettings[objectName]
+		if not settings then
+
+			settings = CreateVariableSet(objectName)
+		end
+		--print("GetVariableSet", panel, objectName, settings)
+		return settings
+	else
+		--return TidyPlatesHubDefaults
+	end
 end
 
 
@@ -358,19 +368,6 @@ local function ClearVariableSet(panel)
 	TidyPlatesHubSettings[panel.objectName] = nil
 	ReloadUI()
 end
-
-
---[[
-local function RefreshSettings(LocalVars)
-	CallForStyleUpdate()
-	-- Convert Debuff Filter Strings
-	ConvertDebuffListTable(LocalVars.WidgetsDebuffTrackList, LocalVars.WidgetsDebuffLookup, LocalVars.WidgetsDebuffPriority)
-	-- Convert Unit Filter Strings
-	ConvertStringToTable(LocalVars.OpacityFilterList, LocalVars.OpacityFilterLookup)
-	-- Convert Custom Code...
-
-end
---]]
 
 local function OnPanelItemChange(panel)
 	local LocalVars = GetVariableSet(panel)
@@ -383,16 +380,6 @@ local yellow, blue, red, orange = "|cffffff00", "|cFF5599EE", "|cFFFF1100", "|cF
 
 local function PasteSettings(panel)
 	local cacheName, LocalVars
-
---[[
-	if IsShiftKeyDown() then
-		cacheName = panel.objectName
-		--print(orange.."Settings pasted from the "..yellow..panel.name..orange.." clipboard.")
-	else
-		cacheName = "GlobalClipboard"
-		--print(orange.."Settings pasted from the clipboard.")
-	end
---]]
 
 	print(blue.."Settings Retrieved")
 
@@ -567,7 +554,10 @@ local function CreateInterfacePanel( objectName, panelTitle, parentFrameName)
 	-----------------
 	-- Panel Event Handler
 	-----------------
-	panel:SetScript("OnEvent", function()
+
+
+	--panel:SetScript("OnEvent", function()
+	panel:SetScript("OnShow", function()
 		-- Check for Variable Set
 		if not GetVariableSet(panel) then CreateVariableSet(objectName) end
 		-- Verify Variable Integrity
@@ -575,7 +565,10 @@ local function CreateInterfacePanel( objectName, panelTitle, parentFrameName)
 		-- Refresh Panel based on loaded variables
 		if panel.RefreshSettings then panel.RefreshSettings(GetVariableSet(panel)) end
 	end)
-	panel:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+	--panel:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+
 
 	-----------------
 	-- Config Management Buttons

@@ -18,9 +18,9 @@ local function SetTheme(...)
 
 	local theme 	-- This will store the pointer to the theme table
 
-	-- Sends a reset notification to all available themes, if possible.
+	-- Sends a reset notification to all available themes, ie. nil
 	for themename, themetable in pairs(TidyPlatesThemeList) do
-		if themetable.OnActivateTheme then themetable.OnActivateTheme(nil, nil) end
+		if themetable.OnActivateTheme then themetable.OnActivateTheme(nil) end
 	end
 
 	-- Get theme table
@@ -58,8 +58,8 @@ local function SetTheme(...)
 		-- Choices: Overwrite themeName as it's processed, or Overwrite after the processing is done
 		UseTheme(theme)
 
-		-- ie. (Theme Table, Theme Name) -- nil is sent for all themes, to reset everything, and then the current theme is activated
-		if theme.OnActivateTheme then theme.OnActivateTheme(theme, ActiveProfile) end
+		-- ie. (Theme Table, Theme Name) -- nil is sent for all themes, to reset everything (^ above ^) and then the current theme is activated
+		if theme.OnActivateTheme then theme.OnActivateTheme(theme) end
 		TidyPlatesInternal.activeThemeName = themeName
 
 		TidyPlatesOptions.ActiveTheme = TidyPlatesInternal.activeThemeName

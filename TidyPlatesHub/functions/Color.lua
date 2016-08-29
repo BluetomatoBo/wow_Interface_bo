@@ -31,6 +31,8 @@ local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
 local IsFriend = TidyPlatesUtility.IsFriend
 local IsHealer = TidyPlatesUtility.IsHealer
 local IsGuildmate = TidyPlatesUtility.IsGuildmate
+
+
 local IsOffTanked = TidyPlatesHubFunctions.IsOffTanked
 local IsTankingAuraActive = TidyPlatesWidgets.IsPlayerTank
 local InCombatLockdown = InCombatLockdown
@@ -110,7 +112,7 @@ local function ColorFunctionRawTank(unit)
 		return LocalVars.ColorThreatWarning							-- When player is solid target, ie. Safe
 	else
 		if IsOffTanked(unit) then return LocalVars.ColorAttackingOtherTank		-- When unit is tanked by another
-		
+
 		elseif unit.threatValue == 2 then return LocalVars.ColorThreatTransition				-- Transition
 		else return LocalVars.ColorThreatSafe end										-- Warning
 	end
@@ -153,7 +155,7 @@ local function ColorFunctionByThreat(unit)
 
 	else
 		return ReactionColors[unit.reaction][unit.type]
-		
+
 	end
 
 end
@@ -219,7 +221,7 @@ local function HealthColorDelegate(unit)
 		color = func(unit)
 	end
 
-	
+
 	--if LocalVars.UnitSpotlightBarEnable and LocalVars.UnitSpotlightLookup[unit.name] then
 	--	color = LocalVars.UnitSpotlightColor
 	--end
@@ -439,9 +441,9 @@ local function NameColorByClass(unit)
 	local color = RaidClassColors[unit.class]
 
 	if color then
-		return color 
-	else 
-		return NameColorByReaction(unit) 
+		return color
+	else
+		return NameColorByReaction(unit)
 	end
 
 end
@@ -509,9 +511,9 @@ local function SetNameColorDelegate(unit)
 		end
 	-- Bar Mode
 	else
-		if isFriendly then 
+		if isFriendly then
 			colorMode = LocalVars.FriendlyNameColorMode
-		else 
+		else
 			colorMode = LocalVars.EnemyNameColorMode
 		end
 	end

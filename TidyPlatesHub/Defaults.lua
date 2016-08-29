@@ -111,7 +111,7 @@ TidyPlatesHubDefaults = {
 	-- Text
 	---------------------------------------
 	TextShowLevel = false,
-	TextUseBlizzardFont = false,
+	--TextUseBlizzardFont = false,		-- Deprecated
 	TextHealthTextMode = 1,
 	TextShowOnlyOnTargets = false,
 

@@ -11,8 +11,10 @@ local LocalVars = TidyPlatesHubDefaults
 local RaidClassColors = RAID_CLASS_COLORS
 
 local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
+
 local IsFriend = TidyPlatesUtility.IsFriend
 local IsGuildmate = TidyPlatesUtility.IsGuildmate
+
 local IsOffTanked = TidyPlatesHubFunctions.IsOffTanked
 local IsTankingAuraActive = TidyPlatesWidgets.IsPlayerTank
 local InCombatLockdown = InCombatLockdown
@@ -21,8 +23,11 @@ local GetEnemyClass = HubData.Functions.GetEnemyClass
 local StyleDelegate = TidyPlatesHubFunctions.SetStyleNamed
 local ColorFunctionByHealth = HubData.Functions.ColorFunctionByHealth
 local CachedUnitDescription = TidyPlatesUtility.CachedUnitDescription
-local CachedUnitGuild = TidyPlatesUtility.CachedUnitGuild
-local CachedUnitClass = TidyPlatesUtility.CachedUnitClass
+
+local GetUnitSubtitle = TidyPlatesUtility.GetUnitSubtitle
+
+--local CachedUnitGuild = TidyPlatesUtility.CachedUnitGuild
+--local CachedUnitClass = TidyPlatesUtility.CachedUnitClass
 
 local AddHubFunction = TidyPlatesHubHelpers.AddHubFunction
 
@@ -75,7 +80,7 @@ end
 
 local function SepThousands(number)
 	if not number then return "" end
-	local n = tonumber(number) 
+	local n = tonumber(number)
 
 	local left, num, right = string.match(n, '^([^%d]*%d)(%d*)(.-)')
 	return left..(num:reverse():gsub('(%d%d%d)', '%1,'):reverse())..right
@@ -97,13 +102,13 @@ local function TextFunctionMana(unit)
 end
 
 local function GetHealth(unit)
-	--if unit.healthmaxCached then 
+	--if unit.healthmaxCached then
 		return unit.health
 	--else return nil end
 end
 
 local function GetHealthMax(unit)
-	--if unit.healthmaxCached then 
+	--if unit.healthmaxCached then
 		return unit.healthmax
 	--else return nil end
 end
@@ -150,7 +155,7 @@ local function HealthFunctionTotal(unit)
 end
 -- TargetOf
 local function HealthFunctionTargetOf(unit)
-	if unit.reaction ~= "FRIENDLY" and unit.isInCombat then 
+	if unit.reaction ~= "FRIENDLY" and unit.isInCombat then
 		return UnitName(unitid.."target")
 	end
 	--[[
@@ -350,7 +355,7 @@ end
 ------------------------------------------------------------------------------------
 local function RoleOrGuildText(unit)
 	if unit.type == "NPC" then
-		return (CachedUnitDescription(unit.name) or GetLevelDescription(unit) or "") , 1, 1, 1, .70
+		return (GetUnitSubtitle(unit) or GetLevelDescription(unit) or "") , 1, 1, 1, .70
 	end
 end
 
@@ -360,7 +365,7 @@ local function TextRoleGuildLevel(unit)
 	local r, g, b = 1,1,1
 
 	if unit.type == "NPC" then
-		description = CachedUnitDescription(unit.name)
+		description = GetUnitSubtitle(unit)
 
 		if not description then --  and unit.reaction ~= "FRIENDLY" then
 			description =  GetLevelDescription(unit)
@@ -382,7 +387,7 @@ local function TextRoleGuild(unit)
 	local r, g, b = 1,1,1
 
 	if unit.type == "NPC" then
-		description = CachedUnitDescription(unit.name)
+		description = GetUnitSubtitle(unit)
 
 	elseif unit.type == "PLAYER" then
 		description = GetGuildInfo(unit.unitid)
@@ -398,7 +403,7 @@ local function TextRoleClass(unit)
 	local r, g, b = 1,1,1
 
 	if unit.type == "NPC" then
-		description = CachedUnitDescription(unit.name)
+		description = GetUnitSubtitle(unit)
 		if not description then
 			faction, description = UnitFactionGroup(unit.unitid)
 		end
@@ -416,7 +421,7 @@ end
 -- NPC Role
 local function TextNPCRole(unit)
 	if unit.type == "NPC" then
-		return CachedUnitDescription(unit.name)
+		return GetUnitSubtitle(unit)
 	end
 end
 

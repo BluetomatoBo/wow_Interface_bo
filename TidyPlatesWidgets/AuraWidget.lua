@@ -400,6 +400,8 @@ local function CreateWideAuraIconFrame(parent)
 	frame.Cooldown:SetAllPoints(frame)
 	frame.Cooldown:SetReverse(true)
 	frame.Cooldown:SetHideCountdownNumbers(true)
+	frame.Cooldown:SetDrawEdge(false)
+	--frame.Cooldown:SetEdgeTexture( "Interface\\AddOns\\TidyPlatesWidgets\\Aura\\cooldownedge")
 	--frame.Cooldown:SetHideCountdownNumbers(true)
 	--frame.Cooldown._HideCountdown = frame.Cooldown.SetHideCountdownNumbers
 	--frame.Cooldown.SetHideCountdownNumbers = DummyFunction

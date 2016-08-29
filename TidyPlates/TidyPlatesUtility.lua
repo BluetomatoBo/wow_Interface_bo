@@ -101,6 +101,61 @@ TidyPlatesUtility.copyTable = copytable
 TidyPlatesUtility.mergeTable = mergetable
 TidyPlatesUtility.updateTable = updatetable
 
+------------------------------------------
+-- GameTooltipScanner
+------------------------------------------
+local ScannerName = "TidyPlatesScanningTooltip"
+local TooltipScanner = CreateFrame( "GameTooltip", ScannerName , nil, "GameTooltipTemplate" ); -- Tooltip name cannot be nil
+TooltipScanner:SetOwner( WorldFrame, "ANCHOR_NONE" );
+
+------------------------------------------
+-- Unit Subtitles/NPC Roles
+------------------------------------------
+local UnitSubtitles = {}
+local function GetUnitSubtitle(unit)
+	local unitid = unit.unitid
+
+	-- Bypass caching while in an instance
+	--if inInstance or (not UnitExists(unitid)) then return end
+	if ( UnitIsPlayer(unitid) or UnitPlayerControlled(unitid) or (not UnitExists(unitid))) then return end
+
+	--local guid = UnitGUID(unitid)
+	local name = unit.name
+	local subTitle = UnitSubtitles[name]
+
+	if not subTitle then
+		TooltipScanner:ClearLines()
+ 		TooltipScanner:SetUnit(unitid)
+
+ 		local TooltipTextLeft1 = _G[ScannerName.."TextLeft1"]
+ 		local TooltipTextLeft2 = _G[ScannerName.."TextLeft2"]
+
+ 		name = TooltipTextLeft1:GetText()
+
+		if name then name = gsub( gsub( (name), "|c........", "" ), "|r", "" ) else return end	-- Strip color escape sequences: "|c"
+		if name ~= UnitName(unitid) then return end	-- Avoid caching information for the wrong unit
+
+
+		-- Tooltip Format Priority:  Faction, Description, Level
+		local toolTipText = TooltipTextLeft2:GetText() or "UNKNOWN"
+
+		if string.match(toolTipText, UNIT_LEVEL_TEMPLATE) then
+			subTitle = ""
+		else
+			subTitle = toolTipText
+		end
+
+		UnitSubtitles[name] = subTitle
+	end
+
+	-- Maintaining a cache allows us to avoid the hit
+	if subTitle == "" then return nil
+	else return subTitle end
+
+end
+
+TidyPlatesUtility.GetUnitSubtitle = GetUnitSubtitle
+
 ------------------------
 -- Threat Function
 ------------------------

@@ -30,8 +30,6 @@ local function SetCastBars(enable)
 	end
 end
 
-local EnableCompatibilityMode = TidyPlates.EnableCompatibilityMode
-
 
 -------------------------------------------------------------------------------------
 --  Default Options
@@ -54,7 +52,7 @@ TidyPlatesOptions = {
 	FriendlyAutomation = NO_AUTOMATION,
 	EnemyAutomation = NO_AUTOMATION,
 	DisableCastBars = false,
-	CompatibilityMode = false,
+	ForceBlizzardFont = false,
 	WelcomeShown = false,
 }
 
@@ -69,6 +67,12 @@ local AutomationDropdownItems = {
 
 local HubProfileList = {}
 
+
+local function GetProfile()
+	return ActiveProfile
+end
+
+TidyPlates.GetProfile = GetProfile
 
 
 function TidyPlatesPanel.AddProfile(self, profileName )
@@ -109,8 +113,7 @@ local ThemeDropdownMenuItems = {}
 
 local function ApplyAutomationSettings()
 	SetCastBars(not TidyPlatesOptions.DisableCastBars)
-
-	if TidyPlatesOptions.CompatibilityMode then EnableCompatibilityMode() end
+	TidyPlates.OverrideFonts( TidyPlatesOptions.ForceBlizzardFont)
 
 	if TidyPlatesOptions._EnableMiniButton then
 		TidyPlatesUtility:CreateMinimapButton()
@@ -120,15 +123,14 @@ local function ApplyAutomationSettings()
 	TidyPlates:ForceUpdate()
 end
 
-local function ApplyThemeSettings()
+local function ApplyPanelSettings()
 
 	-- Theme
 	SetTheme(TidyPlatesOptions.ActiveTheme or FirstTryTheme)
 
 	-- This is here in case the theme couldn't be loaded, and the core falls back to defaults
-	TidyPlatesOptions.ActiveTheme = TidyPlatesInternal.activeThemeName
-
-	local Theme = TidyPlatesThemeList[TidyPlatesInternal.activeThemeName]
+	--TidyPlatesOptions.ActiveTheme = TidyPlatesInternal.activeThemeName
+	--local theme = TidyPlatesThemeList[TidyPlatesInternal.activeThemeName]
 
 	-- Load Hub Profile
 	ActiveProfile = DefaultProfile
@@ -147,15 +149,21 @@ local function ApplyThemeSettings()
 
 	local _, specname = GetSpecializationInfo(currentSpec)
 
-	if Theme and Theme.OnChangeProfile then Theme.OnChangeProfile(ActiveProfile) end
+	local theme = TidyPlates:GetTheme()
+
+	if theme and theme.OnChangeProfile then theme:OnChangeProfile(ActiveProfile) end
 
 	-- Store it for external usage
-	TidyPlatesOptions.ActiveProfile = ActiveProfile
+	--TidyPlatesOptions.ActiveProfile = ActiveProfile
+	-- ** Use TidyPlates:GetProfile()
 
 	-- Reset Widgets
 	if TidyPlatesWidgets then TidyPlatesWidgets:ResetWidgets() end
 	TidyPlates:ForceUpdate()
 end
+
+
+
 
 
 local function GetPanelValues(panel)
@@ -164,7 +172,7 @@ local function GetPanelValues(panel)
 	TidyPlatesOptions.FriendlyAutomation = panel.AutoShowFriendly:GetValue()
 	TidyPlatesOptions.EnemyAutomation = panel.AutoShowEnemy:GetValue()
 	TidyPlatesOptions.DisableCastBars = panel.DisableCastBars:GetChecked()
-	TidyPlatesOptions.CompatibilityMode = panel.CompatibilityMode:GetChecked()
+	TidyPlatesOptions.ForceBlizzardFont = panel.ForceBlizzardFont:GetChecked()
 	TidyPlatesOptions.PrimaryProfile = panel.FirstSpecDropdown:GetValue()
 
 	TidyPlatesOptions.FirstSpecProfile = panel.FirstSpecDropdown:GetValue()
@@ -183,7 +191,7 @@ local function SetPanelValues(panel)
 	panel.FourthSpecDropdown:SetValue(TidyPlatesOptions.FourthSpecProfile)
 
 	panel.DisableCastBars:SetChecked(TidyPlatesOptions.DisableCastBars)
-	panel.CompatibilityMode:SetChecked(TidyPlatesOptions.CompatibilityMode)
+	panel.ForceBlizzardFont:SetChecked(TidyPlatesOptions.ForceBlizzardFont)
 	panel.AutoShowFriendly:SetValue(TidyPlatesOptions.FriendlyAutomation)
 	panel.AutoShowEnemy:SetValue(TidyPlatesOptions.EnemyAutomation)
 end
@@ -193,13 +201,13 @@ end
 local function OnValueChange(self)
 	local panel = self:GetParent()
 	GetPanelValues(panel)
-	ApplyThemeSettings()
+	ApplyPanelSettings()
 end
 
 
 local function OnOkay(panel)
 	GetPanelValues(panel)
-	ApplyThemeSettings()
+	ApplyPanelSettings()
 	ApplyAutomationSettings()
 end
 
@@ -433,10 +441,10 @@ local function BuildInterfacePanel(panel)
 	panel.DisableCastBars:SetPoint("TOPLEFT", BlizzOptionsButton, "TOPLEFT", 0, -35)
 	panel.DisableCastBars:SetScript("OnClick", function(self) SetCastBars(not self:GetChecked()) end)
 
-	-- CompatibilityMode
-	panel.CompatibilityMode = PanelHelpers:CreateCheckButton("TidyPlatesOptions_CompatibilityMode", panel, "Compatibility Mode")
-	panel.CompatibilityMode:SetPoint("TOPLEFT", panel.DisableCastBars, "TOPLEFT", 0, -35)
-	panel.CompatibilityMode:SetScript("OnClick", function(self) if self:GetChecked() then EnableCompatibilityMode() end; end)
+	-- ForceBlizzardFont
+	panel.ForceBlizzardFont = PanelHelpers:CreateCheckButton("TidyPlatesOptions_ForceBlizzardFont", panel, "Force Blizzard Font (Requires /reload)")
+	panel.ForceBlizzardFont:SetPoint("TOPLEFT", panel.DisableCastBars, "TOPLEFT", 0, -35)
+	panel.ForceBlizzardFont:SetScript("OnClick", function(self) TidyPlates.OverrideFonts( self:GetChecked()); end)
 
 	-- Reset
 	ResetButton = CreateFrame("Button", "TidyPlatesOptions_ResetButton", panel, "TidyPlatesPanelButtonTemplate")
@@ -476,7 +484,7 @@ local function BuildInterfacePanel(panel)
 			TidyPlatesOptions = wipe(TidyPlatesOptions)
 			for i, v in pairs(TidyPlatesOptionsDefaults) do TidyPlatesOptions[i] = v end
 			OnRefresh(panel)
-			ApplyThemeSettings()
+			ApplyPanelSettings()
 			print(yellow.."Resetting "..orange.."Tidy Plates"..yellow.." Theme Selection to Default")
 			print(yellow.."Holding down "..blue.."Shift"..yellow.." while clicking "..red.."Reset Configuration"..yellow.." will clear your saved settings, AND reload the user interface.")
 		end
@@ -490,14 +498,17 @@ end
 local panelevents = {}
 
 function panelevents:ACTIVE_TALENT_GROUP_CHANGED(self)
-	ApplyThemeSettings()
+	--print("Panel:Talent Group Changed")
+	ApplyPanelSettings()
 	--OnRefresh(TidyPlatesInterfacePanel)
 end
 
 function panelevents:PLAYER_ENTERING_WORLD()
+	--print("Panel:Player Entering World")
+	-- Tihs may happen every time a loading screen is shown
 	local fallBackTheme
 
-	-- Try to use the default theme, otherwise choose the first available
+	-- Locate a fallback theme
 	if TidyPlatesThemeList[FirstTryTheme] then
 		fallBackTheme = FirstTryTheme
 	else
@@ -508,7 +519,7 @@ function panelevents:PLAYER_ENTERING_WORLD()
 	if not TidyPlatesThemeList[TidyPlatesOptions.ActiveTheme] then
 		TidyPlatesOptions.ActiveTheme = fallBackTheme end
 
-	ApplyThemeSettings()
+	ApplyPanelSettings()
 	ApplyAutomationSettings()
 end
 
@@ -523,6 +534,7 @@ function panelevents:PLAYER_REGEN_DISABLED()
 end
 
 function panelevents:PLAYER_LOGIN()
+	-- This happens only once a session
 
 	-- Setup the interface panels
 	CreateMenuTables()				-- Look at the theme table and get names

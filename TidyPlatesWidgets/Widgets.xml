@@ -13,7 +13,7 @@
 	<Script file="GroupCache.lua"/>
 	<Script file="Tanks.lua"/>
 	<Script file="Aggro.lua"/>
-	<Script file="UnitCache.lua"/>
+	<Script file="UnitCacheLegion.lua"/>
 
 	<Script file="ClassWidget.lua"/>
 	<Script file="ComboPointWidget.lua"/>
@@ -23,9 +23,9 @@
 	<Script file="AuraWidget.lua"/>
 	<Script file="RangeWidget.lua"/>
 	<Script file="TotemIconWidget.lua"/>
-	
+
 	<Script file="SelectionWidget.lua"/>
-	
+
 
 	<Script file="HealerTrack.lua"/>
 

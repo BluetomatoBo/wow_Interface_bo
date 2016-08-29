@@ -333,9 +333,6 @@ local function OnInitializeWidgets(plate, configTable)
 		AddDebuffWidget(plate, LocalVars.WidgetsDebuff, configTable.DebuffWidgetPlus )
 	else AddDebuffWidget(plate, LocalVars.WidgetsDebuff, configTable.DebuffWidget ) end
 
-	--testing HealerWidget
-	--plate.widgets.HealerWidget = CreateHealerWidget(plate)
-	--plate.widgets.HealerWidget:SetPoint("CENTER", -50, 2) --0, 0)
 
 	if LocalVars.WidgetsEnableExternal and TidyPlatesGlobal_OnInitialize then TidyPlatesGlobal_OnInitialize(plate) end
 end

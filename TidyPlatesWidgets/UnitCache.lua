@@ -36,6 +36,53 @@ local ScannerName = "TidyPlatesScanningTooltip"
 local TooltipScanner = CreateFrame( "GameTooltip", ScannerName , nil, "GameTooltipTemplate" ); -- Tooltip name cannot be nil
 TooltipScanner:SetOwner( WorldFrame, "ANCHOR_NONE" );
 
+local UnitSubtitles = {}
+local function GetUnitSubtitle(unitid)
+
+	-- Bypass caching while in an instance
+	if inInstance or (not UnitExists(unitid)) then return end
+
+	local guid = UnitGUID(unitid)
+	local subTitle = UnitSubtitles[guid]
+
+	if subTitle then return subTitle end
+
+	-- Player
+	------------------------------------
+	if not UnitIsPlayer( unitid ) then
+		TooltipScanner:ClearLines()
+ 		TooltipScanner:SetUnit(unitid)
+
+ 		local TooltipTextLeft1 = _G[ScannerName.."TextLeft1"]
+ 		local TooltipTextLeft2 = _G[ScannerName.."TextLeft2"]
+
+ 		name = TooltipTextLeft1:GetText()
+ 		class = "NPC"
+
+		if name then name = gsub( gsub( (name), "|c........", "" ), "|r", "" ) else return end	-- Strip color escape sequences: "|c"
+		if name ~= UnitName(unitid) then return end	-- Avoid caching information for the wrong unit
+		if UnitPlayerControlled(unitid) then return end	-- Avoid caching pet names
+
+		-- Tooltip Format Priority:  Faction, Description, Level
+		--local toolTip2, toolTip3 = TPUnitScanTextLeft2:GetText(), TPUnitScanTextLeft3:GetText()
+		local toolTipText = TooltipTextLeft2:GetText() or "UNKNOWN"
+
+		if string.match(toolTipText, UNIT_LEVEL_TEMPLATE) then	-- If the description line is a "Level", use the next line
+			description = nil
+		else
+			description = toolTipText
+		end
+
+		if TidyPlatesWidgetData.UnitGuild[name] ~= description then
+			unitadded = true
+		end
+	end
+
+
+end
+
+
+
 -- Do I even need this line?
 --[[
 TooltipScanner:AddFontStrings(
