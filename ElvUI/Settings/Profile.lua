@@ -114,6 +114,7 @@ P['databars'] = {
 		["reverseFill"] = false,
 		["hideAtMaxLevel"] = true,
 		["hideInVehicle"] = false,
+		["hideInCombat"] = false,
 	},
 	['reputation'] = {
 		['enable'] = false,
@@ -125,7 +126,7 @@ P['databars'] = {
 		['orientation'] = 'VERTICAL',
 		["reverseFill"] = false,
 		["hideInVehicle"] = false,
-		["combat"] = false,
+		["hideInCombat"] = false,
 	},
 	['artifact'] = {
 		['enable'] = true,
@@ -137,6 +138,7 @@ P['databars'] = {
 		['orientation'] = 'VERTICAL',
 		["reverseFill"] = false,
 		["hideInVehicle"] = false,
+		["hideInCombat"] = false,
 	},
 	['honor'] = {
 		['enable'] = true,
@@ -148,6 +150,7 @@ P['databars'] = {
 		['orientation'] = 'VERTICAL',
 		["reverseFill"] = false,
 		["hideInVehicle"] = false,
+		["hideInCombat"] = false,
 	},
 }
 
@@ -470,6 +473,11 @@ P["nameplates"] = {
 				['width'] = 150,
 				['healPrediction'] = true,
 				['glowStyle'] = "TARGET_THREAT",
+				['eliteIcon'] = {
+					['enable'] = false,
+					['xoffset'] = 0,
+					['yoffset'] = 0,
+				},
 				['text'] = {
 					['enable'] = false,
 					['format'] = 'CURRENT',
@@ -523,6 +531,11 @@ P["nameplates"] = {
 				['width'] = 150,
 				['healPrediction'] = true,
 				['glowStyle'] = "TARGET_THREAT",
+				['eliteIcon'] = {
+					['enable'] = false,
+					['xoffset'] = 0,
+					['yoffset'] = 0,
+				},
 				['text'] = {
 					['enable'] = false,
 					['format'] = 'CURRENT',

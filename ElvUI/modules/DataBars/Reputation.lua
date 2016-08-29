@@ -9,12 +9,12 @@ local format = format
 --WoW API / Variables
 local GetWatchedFactionInfo, GetNumFactions, GetFactionInfo = GetWatchedFactionInfo, GetNumFactions, GetFactionInfo
 local GetFriendshipReputation = GetFriendshipReputation
-
 local REPUTATION, STANDING = REPUTATION, STANDING
 local FACTION_BAR_COLORS = FACTION_BAR_COLORS
---Global variables that we don't cache, list them here for mikk's FindGlobals script
--- GLOBALS: GameTooltip, RightChatPanel
+local InCombatLockdown = InCombatLockdown
 
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS: GameTooltip, RightChatPanel, CreateFrame
 
 local backupColor = FACTION_BAR_COLORS[1]
 local FactionStandingLabelUnknown = UNKNOWN
@@ -28,23 +28,15 @@ function mod:UpdateReputation(event)
 	local name, reaction, min, max, value = GetWatchedFactionInfo()
 	local numFactions = GetNumFactions();
 
-	if not name then
+	if not name or (event == "PLAYER_REGEN_DISABLED" and self.db.reputation.hideInCombat) then
 		bar:Hide()
-	else
+	elseif name and (not self.db.reputation.hideInCombat or not InCombatLockdown()) then
 		bar:Show()
 		
 		if self.db.reputation.hideInVehicle then
 			E:RegisterObjectForVehicleLock(bar, E.UIParent)
 		else
 			E:UnregisterObjectForVehicleLock(bar)
-		end
-
-		if self.db.reputation.combat then
-			if event == "PLAYER_REGEN_DISABLED" then
-				bar:Hide()
-			end
-		elseif event == "PLAYER_REGEN_ENABLED" then
-			bar:Show()
 		end
 
 		local text = ''
@@ -135,8 +127,12 @@ function mod:LoadReputationBar()
 	self.repBar = self:CreateBar('ElvUI_ReputationBar', self.ReputationBar_OnEnter, 'RIGHT', RightChatPanel, 'LEFT', E.Border - E.Spacing*3, 0)
 	E:RegisterStatusBar(self.repBar.statusBar)
 
-	self:RegisterEvent("PLAYER_REGEN_DISABLED", "UpdateReputation")
-	self:RegisterEvent("PLAYER_REGEN_ENABLED", "UpdateReputation")
+	self.repBar.eventFrame = CreateFrame("Frame")
+	self.repBar.eventFrame:Hide()
+	self.repBar.eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
+	self.repBar.eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self.repBar.eventFrame:SetScript("OnEvent", function(self, event) mod:UpdateReputation(event) end)
+
 	self:UpdateReputationDimensions()
 
 	E:CreateMover(self.repBar, "ReputationBarMover", L["Reputation Bar"])

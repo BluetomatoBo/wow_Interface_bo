@@ -11,9 +11,10 @@ local GetPetExperience, UnitXP, UnitXPMax = GetPetExperience, UnitXP, UnitXPMax
 local UnitLevel = UnitLevel
 local IsXPUserDisabled, GetXPExhaustion = IsXPUserDisabled, GetXPExhaustion
 local GetExpansionLevel = GetExpansionLevel
-
 local MAX_PLAYER_LEVEL = MAX_PLAYER_LEVEL
 local MAX_PLAYER_LEVEL_TABLE = MAX_PLAYER_LEVEL_TABLE
+local InCombatLockdown = InCombatLockdown
+
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS: GameTooltip, LeftChatPanel, CreateFrame
 
@@ -29,14 +30,15 @@ function mod:UpdateExperience(event)
 	if not mod.db.experience.enable then return end
 
 	local bar = self.expBar
+	local hideXP = ((UnitLevel('player') == MAX_PLAYER_LEVEL and self.db.experience.hideAtMaxLevel) or IsXPUserDisabled())
 
-	if (UnitLevel('player') == MAX_PLAYER_LEVEL and self.db.experience.hideAtMaxLevel) or IsXPUserDisabled() then
+	if hideXP or (event == "PLAYER_REGEN_DISABLED" and self.db.experience.hideInCombat) then
 		E:DisableMover(self.expBar.mover:GetName())
 		bar:Hide()
-	else
+	elseif not hideXP and (not self.db.experience.hideInCombat or not InCombatLockdown()) then
 		E:EnableMover(self.expBar.mover:GetName())
 		bar:Show()
-		
+
 		if self.db.experience.hideInVehicle then
 			E:RegisterObjectForVehicleLock(bar, E.UIParent)
 		else
@@ -108,7 +110,7 @@ function mod:UpdateExperienceDimensions()
 
 	self.expBar.text:FontTemplate(nil, self.db.experience.textSize)
 	self.expBar.rested:SetOrientation(self.db.experience.orientation)
-	self.expBar.statusBar:SetReverseFill(self.db.experience.reverseFill)	
+	self.expBar.statusBar:SetReverseFill(self.db.experience.reverseFill)
 
 	self.expBar.statusBar:SetOrientation(self.db.experience.orientation)
 	self.expBar.rested:SetReverseFill(self.db.experience.reverseFill)
@@ -117,7 +119,7 @@ function mod:UpdateExperienceDimensions()
 		self.expBar:SetAlpha(0)
 	else
 		self.expBar:SetAlpha(1)
-	end	
+	end
 end
 
 function mod:EnableDisable_ExperienceBar()
@@ -149,6 +151,12 @@ function mod:LoadExperienceBar()
 	self.expBar.rested:SetStatusBarTexture(E.media.normTex)
 	E:RegisterStatusBar(self.expBar.rested)
 	self.expBar.rested:SetStatusBarColor(1, 0, 1, 0.2)
+
+	self.expBar.eventFrame = CreateFrame("Frame")
+	self.expBar.eventFrame:Hide()
+	self.expBar.eventFrame:RegisterEvent("PLAYER_REGEN_DISABLED")
+	self.expBar.eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+	self.expBar.eventFrame:SetScript("OnEvent", function(self, event) mod:UpdateExperience(event) end)
 
 	self:UpdateExperienceDimensions()
 
