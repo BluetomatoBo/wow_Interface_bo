@@ -473,11 +473,6 @@ P["nameplates"] = {
 				['width'] = 150,
 				['healPrediction'] = true,
 				['glowStyle'] = "TARGET_THREAT",
-				['eliteIcon'] = {
-					['enable'] = false,
-					['xoffset'] = 0,
-					['yoffset'] = 0,
-				},
 				['text'] = {
 					['enable'] = false,
 					['format'] = 'CURRENT',
@@ -521,6 +516,13 @@ P["nameplates"] = {
 					['maxDuration'] = 120,
 					['filter'] = 'CCDebuffs'
 				},
+			},
+			['eliteIcon'] = {
+				['enable'] = false,
+				['size'] = 20,
+				["position"] = "RIGHT",
+				['xOffset'] = 15,
+				['yOffset'] = 0,
 			},
 		},
 		['ENEMY_NPC'] = {
@@ -531,11 +533,6 @@ P["nameplates"] = {
 				['width'] = 150,
 				['healPrediction'] = true,
 				['glowStyle'] = "TARGET_THREAT",
-				['eliteIcon'] = {
-					['enable'] = false,
-					['xoffset'] = 0,
-					['yoffset'] = 0,
-				},
 				['text'] = {
 					['enable'] = false,
 					['format'] = 'CURRENT',
@@ -579,6 +576,13 @@ P["nameplates"] = {
 					['maxDuration'] = 120,
 					['filter'] = 'CCDebuffs'
 				},
+			},
+			['eliteIcon'] = {
+				['enable'] = false,
+				['size'] = 20,
+				["position"] = "RIGHT",
+				['xOffset'] = 15,
+				['yOffset'] = 0,
 			},
 		},
 	},
