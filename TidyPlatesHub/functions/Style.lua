@@ -133,11 +133,9 @@ Threat Value
 
 local function StyleNameDelegate(unit)
 
-	-- Bars on Targets
 	if LocalVars.StyleForceBarsOnTargets and unit.isTarget then return "Default" end
-
-	-- Out-of-Combat Units
 	if LocalVars.StyleHeadlineOutOfCombat and (not InCombatLockdown()) then return "NameOnly" end
+	if LocalVars.StyleHeadlineMiniMobs and unit.isMini then return "NameOnly" end
 
 	-- Friendly and Hostile
 	if unit.reaction == "FRIENDLY" then

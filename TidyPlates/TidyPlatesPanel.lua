@@ -442,7 +442,7 @@ local function BuildInterfacePanel(panel)
 	panel.DisableCastBars:SetScript("OnClick", function(self) SetCastBars(not self:GetChecked()) end)
 
 	-- ForceBlizzardFont
-	panel.ForceBlizzardFont = PanelHelpers:CreateCheckButton("TidyPlatesOptions_ForceBlizzardFont", panel, "Force Blizzard Font (Requires /reload)")
+	panel.ForceBlizzardFont = PanelHelpers:CreateCheckButton("TidyPlatesOptions_ForceBlizzardFont", panel, "Force Multi-Lingual Font (Requires /reload)")
 	panel.ForceBlizzardFont:SetPoint("TOPLEFT", panel.DisableCastBars, "TOPLEFT", 0, -35)
 	panel.ForceBlizzardFont:SetScript("OnClick", function(self) TidyPlates.OverrideFonts( self:GetChecked()); end)
 

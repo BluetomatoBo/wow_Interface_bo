@@ -21,6 +21,9 @@ local CopyTable = TidyPlatesUtility.copyTable
 
 local WidgetLib = TidyPlatesWidgets
 local valueToString = TidyPlatesUtility.abbrevNumber
+
+local MergeProfileValues = TidyPlatesHubHelpers.MergeProfileValues
+
 local EnableTankWatch = TidyPlatesWidgets.EnableTankWatch
 local DisableTankWatch = TidyPlatesWidgets.DisableTankWatch
 local EnableAggroWatch = TidyPlatesWidgets.EnableAggroWatch
@@ -193,8 +196,6 @@ end
 
 local function UseVariables(profileName)
 
-	--print("Hub/Core:UseVariables", profileName)
-
 	local suffix = profileName or "Damage"
 	if suffix then
 
@@ -203,6 +204,8 @@ local function UseVariables(profileName)
 			local objectName = "HubPanelSettings"..suffix
 
 			LocalVars = TidyPlatesHubSettings[objectName] or CreateVariableSet(objectName)
+
+			MergeProfileValues(LocalVars, TidyPlatesHubDefaults)		-- If the value doesn't exist in the settings, create it.
 
 			CurrentProfileName = suffix
 
@@ -216,11 +219,23 @@ end
 ---------------
 -- Apply customization
 ---------------
-local blizzfont =				STANDARD_TEXT_FONT;
-
-local function ApplyFontCustomization(style)
+local function ApplyFontCustomization(style, defaults)
 	if not style then return end
 	style.frame.y = ((LocalVars.FrameVerticalPosition-.5)*50)-16
+
+	if LocalVars.TextUseBlizzardFont then
+		style.name.typeface = STANDARD_TEXT_FONT
+		style.level.typeface = STANDARD_TEXT_FONT
+		style.spelltext.typeface = STANDARD_TEXT_FONT
+		style.customtext.typeface = STANDARD_TEXT_FONT
+	else
+		style.name.typeface = defaults.name.typeface
+		style.level.typeface = defaults.level.typeface
+		style.spelltext.typeface = defaults.spelltext.typeface
+		style.customtext.typeface = defaults.customtext.typeface
+	end
+
+
 end
 
 local function ApplyCustomBarSize(style, defaults)
@@ -243,7 +258,7 @@ local function ApplyStyleCustomization(style, defaults)
 	style.eliteicon.show = (LocalVars.WidgetEliteIndicator == true)
 
  	ApplyCustomBarSize(style, defaults)
-	ApplyFontCustomization(style)
+	ApplyFontCustomization(style, defaults)
 end
 
 
@@ -267,8 +282,8 @@ local function ApplyProfileSettings(theme, ...)
 	NameReactionColors.NEUTRAL.NPC = LocalVars.TextColorNeutral
 
 	EnableWatchers()
-	ApplyStyleCustomization(theme["Default"], theme["Backup"])
-	ApplyFontCustomization(theme["NameOnly"])
+	ApplyStyleCustomization(theme["Default"], theme["DefaultBackup"])
+	ApplyFontCustomization(theme["NameOnly"], theme["NameOnlyBackup"])
 
 	--ApplyUserProgram(theme["Default"], theme["NameOnly"])
 
@@ -324,9 +339,9 @@ local function ApplyHubFunctions(theme)
 	theme.ApplyProfileSettings = ApplyProfileSettings
 	theme.OnChangeProfile = OnChangeProfile
 
-	local barStyle = theme["Default"]
-	local backupStyle = CopyTable(barStyle)
-	theme["Backup"] = backupStyle
+	-- Make Backup Copies of the default settings of the theme styles
+	theme["DefaultBackup"] = CopyTable(theme["Default"])
+	theme["NameOnlyBackup"] = CopyTable(theme["NameOnly"])
 
 	if barStyle then
 		backupStyle.threatborder.default_width = barStyle.threatborder.width

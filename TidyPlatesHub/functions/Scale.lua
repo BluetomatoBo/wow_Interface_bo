@@ -145,8 +145,8 @@ local function ScaleDelegate(...)
 	elseif LocalVars.ScaleIgnoreNeutralUnits and unit.reaction == "NEUTRAL" then
 	elseif LocalVars.ScaleIgnoreInactive and not ( (unit.health < unit.healthmax) or (unit.isInCombat or unit.threatValue > 0) or (unit.isCasting == true) ) then
 	elseif LocalVars.ScaleCastingSpotlight and unit.reaction == "HOSTILE" and unit.isCasting then scale = LocalVars.ScaleSpotlight
-	elseif LocalVars.ScaleMiniMobs and unit.isMini then
-		scale = MiniMobScale
+	--elseif LocalVars.ScaleMiniMobs and unit.isMini then
+	--	scale = MiniMobScale
 	else
 		-- Filter
 		if (LocalVars.FilterScaleLock or (not unit.isTarget)) and UnitFilter(unit) then scale = LocalVars.ScaleFiltered

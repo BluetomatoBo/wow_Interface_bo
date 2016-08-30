@@ -233,11 +233,11 @@ do
 		carrier:SetSize(16, 16)
 
 		-- Default Fonts
-		visual.customtext:SetFontObject("SpellFont_Small")
-		--visual.name:SetFont(STANDARD_TEXT_FONT, 12, "NONE")
-		visual.name:SetFontObject("SpellFont_Small")
-		visual.level:SetFontObject("SpellFont_Small")
-		visual.spelltext:SetFontObject("SpellFont_Small")
+		visual.name:SetFontObject("TidyPlatesFontNormal")
+		visual.level:SetFontObject("TidyPlatesFontSmall")
+		visual.spelltext:SetFontObject("TidyPlatesFontNormal")
+		visual.customtext:SetFontObject("TidyPlatesFontSmall")
+
 
 		-- Tidy Plates Frame References
 		extended.regions = regions
@@ -506,7 +506,8 @@ do
 
 		unit.isElite = EliteReference[classification]
 		unit.isRare = RareReference[classification]
-		unit.isTrivial = UnitIsTrivial(unitid)
+		unit.isMini = classification == "minus"
+		--unit.isPet = UnitIsOtherPlayersPet(unitid)
 
 		if UnitIsPlayer(unitid) then
 			_, unit.class = UnitClass(unitid)

@@ -19,6 +19,10 @@ local function CallForStyleUpdate()
 end
 
 local function GetPanelValues(panel, targetTable)
+	-- First, clean up the target table
+	-- Not yet implemented
+
+	-- Update with values
 	if panel and targetTable then
 		local index
 		for index in pairs(targetTable) do
@@ -37,11 +41,12 @@ local function SetPanelValues(panel, sourceTable)
 	end
 end
 
-local function GetSavedVariables(targetTable, cloneTable)
+
+local function MergeProfileValues(target, defaults)
 	local i, v
-	for i, v in pairs(targetTable) do
-		if cloneTable[i] ~= nil then
-			targetTable[i] = cloneTable[i]
+	for i, v in pairs(defaults) do
+		if target[i] == nil then
+			target[i] = v
 		end
 	end
 end
@@ -111,22 +116,11 @@ TidyPlatesHubHelpers = {}
 TidyPlatesHubHelpers.CallForStyleUpdate = CallForStyleUpdate
 TidyPlatesHubHelpers.GetPanelValues = GetPanelValues
 TidyPlatesHubHelpers.SetPanelValues = SetPanelValues
-TidyPlatesHubHelpers.GetSavedVariables = GetSavedVariables
+TidyPlatesHubHelpers.MergeProfileValues = MergeProfileValues
 TidyPlatesHubHelpers.ListToTable = ListToTable
 TidyPlatesHubHelpers.ConvertStringToTable = ConvertStringToTable
 TidyPlatesHubHelpers.ConvertDebuffListTable = ConvertDebuffListTable
 TidyPlatesHubHelpers.AddHubFunction = AddHubFunction
-
---[[
-local CallForStyleUpdate = TidyPlatesHubHelpers.CallForStyleUpdate
-local GetPanelValues = TidyPlatesHubHelpers.GetPanelValues
-local SetPanelValues = TidyPlatesHubHelpers.SetPanelValues
-local GetSavedVariables = TidyPlatesHubHelpers.GetSavedVariables
-local ListToTable = TidyPlatesHubHelpers.ListToTable
-local ConvertStringToTable = TidyPlatesHubHelpers.ConvertStringToTable
-local ConvertDebuffListTable = TidyPlatesHubHelpers.ConvertDebuffListTable
---]]
-
 
 
 local function fromCSV (s)

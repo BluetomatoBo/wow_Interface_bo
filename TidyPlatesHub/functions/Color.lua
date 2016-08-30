@@ -32,7 +32,6 @@ local IsFriend = TidyPlatesUtility.IsFriend
 local IsHealer = TidyPlatesUtility.IsHealer
 local IsGuildmate = TidyPlatesUtility.IsGuildmate
 
-
 local IsOffTanked = TidyPlatesHubFunctions.IsOffTanked
 local IsTankingAuraActive = TidyPlatesWidgets.IsPlayerTank
 local InCombatLockdown = InCombatLockdown

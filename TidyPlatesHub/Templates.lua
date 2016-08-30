@@ -295,7 +295,6 @@ local yellow, blue, red, orange = "|cffffff00", "|cFF3782D1", "|cFFFF1100", "|cF
 
 local GetPanelValues = TidyPlatesHubHelpers.GetPanelValues
 local SetPanelValues = TidyPlatesHubHelpers.SetPanelValues
-local GetSavedVariables = TidyPlatesHubHelpers.GetSavedVariables
 local ListToTable = TidyPlatesHubHelpers.ListToTable
 --local ConvertStringToTable = TidyPlatesHubHelpers.ConvertStringToTable
 --local ConvertDebuffListTable = TidyPlatesHubHelpers.ConvertDebuffListTable

@@ -1,6 +1,21 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   *.zip
 
+
+---------------------------
+6.18.2 - Happy Legion Day!
+---------------------------
+* Typo in Quest display
+
+---------------------------
+6.18.1 - Happy Legion Day!
+---------------------------
+* RESTORED the "Use Blizzard Font" from the Hub/Profile panel.  This will use the STANDARD_TEXT_FONT
+* Note: "Force Blizzard Font" has been renamed to "Force Multi-lingual Font" to make its purpose clear.
+* Renamed/Repurposed "Filter NPC" to "Filter Enemy NPC"
+* Added: "Filter Non-Titled Friendly NPC".. Which hides friendly NPCs that DON'T have a title, such as "Innkeeper".
+* Added: Experimental: Quest display on Headline Status Text.
+
 ---------------------------
 6.18.Beta21
 ---------------------------

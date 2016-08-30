@@ -134,6 +134,7 @@ local function SmartFilterMode(aura)
 		end
 	end
 
+
 	-- Evaluate for further filtering
 	local prefix, priority = GetPrefixPriority(aura)
 	-- If the aura is mentioned in the list, evaluate the instruction...
@@ -142,13 +143,13 @@ local function SmartFilterMode(aura)
 
 		--print(aura.name, show, prefix, priority)
 		if show == true then
-			return true, 20 + (priority or 0), r, g, b
+			return true, 20 + (priority or 0)		-- , r, g, b
 		else
 			return false
 		end
 	--- When no prefix is mentioned, return the aura.
 	else
-		return ShowThisAura, 20, r, g, b
+		return ShowThisAura, 20		-- , r, g, b
 	end
 
 end

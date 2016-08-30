@@ -1,28 +1,3 @@
- --[[
--- creates a Cooldown object over the player portrait
-local TestCooldown = CreateFrame("Cooldown", "TestCooldown", PlayerFrame, "TidyPlatesAuraWidgetCooldown")
-TestCooldown:SetAllPoints(PlayerPortrait)
-
-TestCooldown:SetReverse(true)
-TestCooldown:SetHideCountdownNumbers(false)
-
--- /run TestCooldown:SetCooldown(GetTime(), 10)
---TestCooldown:SetSwipeColor(0,0,0,1)
---TestCooldown:SetDrawEdge(false)
---TestCooldown:SetDrawBling(false)
-
-
--- performs a complete cooldown "sweep" animation over 10 seconds
-/run TestCooldown:SetCooldown(GetTime(), 10)
-
--- performs the same animation, starting halfway in (5 seconds)
-TestCooldown:SetCooldown(GetTime() - 5, 10)
-
--- performs only the "flash" animation normally seen at the end of a cooldown
-TestCooldown:SetCooldown(0,0)
---]]
-
-
 
 
 
@@ -188,16 +163,17 @@ local function UpdateIcon(frame, texture, duration, expiration, stacks, r, g, b)
 
 		-- Highlight Coloring
 		if r then
-			frame.Highlight:SetVertexColor(r, g or 1, b or 1)
-			frame.Highlight:Show()
+			frame.BorderHighlight:SetVertexColor(r, g or 1, b or 1)
+			frame.BorderHighlight:Show()
 			frame.Border:Hide()
-		else frame.Highlight:Hide(); frame.Border:Show()	end
+		else frame.BorderHighlight:Hide(); frame.Border:Show()	end
 
-		-- Cooldown
+		--[[ Cooldown
 		if duration and duration > 0 and expiration and expiration > 0 then
 			SetCooldown(frame.Cooldown, expiration-duration, duration+.25)
 			--frame.Cooldown:SetCooldown(expiration-duration, duration+.25)
 		end
+		--]]
 
 		-- Expiration
 		UpdateWidgetTime(frame, expiration)
@@ -237,7 +213,6 @@ local function UpdateIconGrid(frame, unitid)
 		local searchedDebuffs, searchedBuffs = false, false
 		local auraFilter = "HARMFUL"
 
-		--print(UnitName(unitid), unitid )
 		repeat
 
 			auraIndex = auraIndex + 1
@@ -258,13 +233,9 @@ local function UpdateIconGrid(frame, unitid)
 				aura.caster = caster
 				aura.spellid = spellid
 				aura.unit = unitid 		-- unitid of the plate
-
-				--if name == "Gnaw" then print(name, _, icon, stacks, auraType, duration, expiration, caster, _, _, spellid) end
 			end
 
 			-- Gnaw , false, icon, 0 stacks, nil type, duration 1, expiration 8850.436, caster pet, false, false, 91800
-
-
 
 			-- Auras are evaluated by an external function
 			-- Pre-filtering before the icon grid is populated
@@ -396,11 +367,14 @@ local function CreateWideAuraIconFrame(parent)
 	frame.Icon:SetTexCoord(.07, 1-.07, .23, 1-.23)  -- obj:SetTexCoord(left,right,top,bottom)
 
 	--Spinning Cooldown Frame
+	--[[
 	frame.Cooldown = CreateFrame("Cooldown", nil, frame, "TidyPlatesAuraWidgetCooldown")
 	frame.Cooldown:SetAllPoints(frame)
 	frame.Cooldown:SetReverse(true)
 	frame.Cooldown:SetHideCountdownNumbers(true)
 	frame.Cooldown:SetDrawEdge(false)
+	--]]
+
 	--frame.Cooldown:SetEdgeTexture( "Interface\\AddOns\\TidyPlatesWidgets\\Aura\\cooldownedge")
 	--frame.Cooldown:SetHideCountdownNumbers(true)
 	--frame.Cooldown._HideCountdown = frame.Cooldown.SetHideCountdownNumbers
@@ -412,12 +386,12 @@ local function CreateWideAuraIconFrame(parent)
 	frame.Border:SetPoint("CENTER", 1, -2)
 	frame.Border:SetTexture(WideArt)
 	-- Highlight
-	frame.Highlight = frame:CreateTexture(nil, "ARTWORK")
-	frame.Highlight:SetAllPoints(frame.Border)
-	frame.Highlight:SetTexture(WideHighlightArt)
+	frame.BorderHighlight = frame:CreateTexture(nil, "ARTWORK")
+	frame.BorderHighlight:SetAllPoints(frame.Border)
+	frame.BorderHighlight:SetTexture(WideHighlightArt)
 	--  Time Text
-	--frame.TimeLeft = frame:CreateFontString(nil, "OVERLAY")
-	frame.TimeLeft = frame.Cooldown:CreateFontString(nil, "OVERLAY")
+	frame.TimeLeft = frame:CreateFontString(nil, "OVERLAY")
+	--frame.TimeLeft = frame.Cooldown:CreateFontString(nil, "OVERLAY")
 	frame.TimeLeft:SetFont(AuraFont ,9, "OUTLINE")
 	frame.TimeLeft:SetShadowOffset(1, -1)
 	frame.TimeLeft:SetShadowColor(0,0,0,1)
@@ -426,8 +400,8 @@ local function CreateWideAuraIconFrame(parent)
 	frame.TimeLeft:SetHeight(16)
 	frame.TimeLeft:SetJustifyH("RIGHT")
 	--  Stacks
-	--frame.Stacks = frame:CreateFontString(nil, "OVERLAY")
-	frame.Stacks = frame.Cooldown:CreateFontString(nil, "OVERLAY")
+	frame.Stacks = frame:CreateFontString(nil, "OVERLAY")
+	--frame.Stacks = frame.Cooldown:CreateFontString(nil, "OVERLAY")
 	frame.Stacks:SetFont(AuraFont,10, "OUTLINE")
 	frame.Stacks:SetShadowOffset(1, -1)
 	frame.Stacks:SetShadowColor(0,0,0,1)
@@ -463,7 +437,7 @@ local function CreateSquareAuraIconFrame(parent)
 	frame.Icon:SetTexCoord(.10, 1-.07, .12, 1-.12)  -- obj:SetTexCoord(left,right,top,bottom)
 
 	--Spinning Cooldown Frame
-	-- [[
+	--[[
 	frame.Cooldown = CreateFrame("Cooldown", nil, frame, "TidyPlatesAuraWidgetCooldown")
 	frame.Cooldown:SetAllPoints(frame)
 	frame.Cooldown:SetReverse(true)
@@ -476,12 +450,12 @@ local function CreateSquareAuraIconFrame(parent)
 	frame.Border:SetPoint("CENTER", 0, -2)
 	frame.Border:SetTexture(SquareArt)
 	-- Highlight
-	frame.Highlight = frame:CreateTexture(nil, "ARTWORK")
-	frame.Highlight:SetAllPoints(frame.Border)
-	frame.Highlight:SetTexture(SquareHighlightArt)
+	frame.BorderHighlight = frame:CreateTexture(nil, "ARTWORK")
+	frame.BorderHighlight:SetAllPoints(frame.Border)
+	frame.BorderHighlight:SetTexture(SquareHighlightArt)
 	--  Time Text
-	--frame.TimeLeft = frame:CreateFontString(nil, "OVERLAY")
-	frame.TimeLeft = frame.Cooldown:CreateFontString(nil, "OVERLAY")
+	frame.TimeLeft = frame:CreateFontString(nil, "OVERLAY")
+	--frame.TimeLeft = frame.Cooldown:CreateFontString(nil, "OVERLAY")
 	frame.TimeLeft:SetFont(AuraFont ,9, "OUTLINE")
 	frame.TimeLeft:SetShadowOffset(1, -1)
 	frame.TimeLeft:SetShadowColor(0,0,0,1)
@@ -490,8 +464,8 @@ local function CreateSquareAuraIconFrame(parent)
 	frame.TimeLeft:SetHeight(16)
 	frame.TimeLeft:SetJustifyH("RIGHT")
 	--  Stacks
-	--frame.Stacks = frame:CreateFontString(nil, "OVERLAY")
-	frame.Stacks = frame.Cooldown:CreateFontString(nil, "OVERLAY")
+	frame.Stacks = frame:CreateFontString(nil, "OVERLAY")
+	--frame.Stacks = frame.Cooldown:CreateFontString(nil, "OVERLAY")
 	frame.Stacks:SetFont(AuraFont,10, "OUTLINE")
 	frame.Stacks:SetShadowOffset(1, -1)
 	frame.Stacks:SetShadowColor(0,0,0,1)

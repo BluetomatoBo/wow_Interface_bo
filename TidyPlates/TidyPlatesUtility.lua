@@ -129,6 +129,8 @@ local function GetUnitSubtitle(unit)
 
  		local TooltipTextLeft1 = _G[ScannerName.."TextLeft1"]
  		local TooltipTextLeft2 = _G[ScannerName.."TextLeft2"]
+ 		local TooltipTextLeft3 = _G[ScannerName.."TextLeft3"]
+ 		local TooltipTextLeft4 = _G[ScannerName.."TextLeft4"]
 
  		name = TooltipTextLeft1:GetText()
 
@@ -155,6 +157,51 @@ local function GetUnitSubtitle(unit)
 end
 
 TidyPlatesUtility.GetUnitSubtitle = GetUnitSubtitle
+
+------------------------------------------
+-- Quest Info
+------------------------------------------
+local function GetTooltipLineText(lineNumber)
+        local tooltipLine = _G[ScannerName .. "TextLeft" .. lineNumber]
+        local tooltipText = tooltipLine:GetText()
+        local r, g, b = tooltipLine:GetTextColor()
+
+        return tooltipText, r, g, b
+end
+
+local function GetUnitQuestInfo(unit)
+    local unitid = unit.unitid
+    local questName
+    local questProgress
+
+    -- Tooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
+    TooltipScanner:ClearLines()
+    TooltipScanner:SetUnit(unitid)
+
+    for line = 3, TooltipScanner:NumLines() do
+        local tooltipText, r, g, b = GetTooltipLineText( line )
+
+        -- If the Quest Name exists, the following tooltip lines list quest progress
+        if questName then
+            -- Strip out the name of the player that is on the quest.
+            local playerName, questNote = string.match(tooltipText, "(%g*) ?%- (.*)")
+
+            if (playerName == "") or (playerName == UnitName("player")) then
+                questProgress = questNote
+                break
+            end
+
+        elseif b == 0 and r > 0.99 and g > 0.82 then
+            -- Note: Quest Name Heading is colored Yellow
+            questName = tooltipText
+        end
+    end
+
+    return questName, questProgress
+end
+
+
+TidyPlatesUtility.GetUnitQuestInfo = GetUnitQuestInfo
 
 ------------------------
 -- Threat Function
