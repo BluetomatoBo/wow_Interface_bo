@@ -6,21 +6,13 @@ L.MainFrame	= "Deadly Boss Mods"
 
 L.TranslationByPrefix		= "翻譯:"
 L.TranslationBy 			= "Imbav@聖光之願"
-L.Website					= "拜訪我們的討論與支援論壇:|cFF73C2FBwww.deadlybossmods.com|r 在推特上關注主要開發者@MysticalOS"
+L.Website					= "拜訪討論/支援論壇:|cFF73C2FBwww.deadlybossmods.com|r 請在推特上關注@deadlybossmods或@MysticalOS"
 L.WebsiteButton				= "論壇"
 
 L.OTabBosses	= "首領模組"
 L.OTabOptions	= GAMEOPTIONS_MENU
 
 L.TabCategory_Options		= "綜合設置"
-L.TabCategory_LEG	 		= "軍臨天下"
-L.TabCategory_WoD	 		= EXPANSION_NAME5
-L.TabCategory_MOP	 		= EXPANSION_NAME4
-L.TabCategory_CATA	 		= EXPANSION_NAME3
-L.TabCategory_WOTLK 		= EXPANSION_NAME2
-L.TabCategory_BC 			= EXPANSION_NAME1
-L.TabCategory_CLASSIC		= EXPANSION_NAME0
-L.TabCategory_PVP 			= PVP
 L.TabCategory_OTHER			= "其它首領模組"
 
 L.BossModLoaded				= "%s狀態"
@@ -291,13 +283,13 @@ L.HideGarrisonUpdates		= "首領戰鬥時隱藏要塞任務完成提示"
 L.HideGuildChallengeUpdates	= "首領戰鬥時隱藏公會挑戰完成提示"
 L.HideTooltips				= "首領戰鬥時隱藏滑鼠提示"
 L.DisableSFX				= "首領戰鬥時禁用音效頻道"
-L.HideApplicantAlerts		= "在預組隊伍停止報名的訊息"
-L.HideApplicantAlertsFull	= "如果隊伍已滿"
-L.HideApplicantAlertsNotL	= "就算不是隊伍隊長(如果你是隊伍隊長則啟用隊伍已滿選項)"
 L.SpamBlockSayYell			= "從聊天頻道隱藏聊天泡泡提示"
 L.DisableCinematics			= "禁用遊戲中的過場動畫"
 L.AfterFirst				= "在每次動畫播放一次之後"
 L.Always					= ALWAYS
+L.DisableTalkingHead		= "停用NPC講話視窗"
+L.CombatOnly				= "在任何戰鬥中停用"
+L.RaidCombat				= "只在首領戰鬥中停用"
 
 L.Panel_ExtraFeatures		= "額外功能"
 --
