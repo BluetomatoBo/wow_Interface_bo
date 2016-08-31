@@ -239,7 +239,7 @@ if (TipTacItemRef) then
 		{ type = "Check", var = "if_itemQualityBorder", label = "Show Item Tips with Quality Colored Border", tip = "When enabled and the tip is showing an item, the tip border will have the color of the item's quality" },
 		{ type = "Check", var = "if_showAuraCaster", label = "Show Aura Tooltip Caster", tip = "When showing buff and debuff tooltips, it will add an extra line, showing who cast the specific aura" },
 		{ type = "Check", var = "if_showItemLevelAndId", label = "Show Item Level & ID", tip = "For item tooltips, show their itemLevel and itemID" },
-		{ type = "Check", var = "if_showSpellIdAndRank", label = "Show Spell ID & Rank", tip = "For spell tooltips, show their spellID and spellRank" },
+		{ type = "Check", var = "if_showSpellIdAndRank", label = "Show Spell ID & Rank", tip = "For spell and aura tooltips, show their spellID and spellRank" },
 --		{ type = "Check", var = "if_showCurrencyId", label = "Show Currency ID", tip = "Currency items will now show their ID" },
 --		{ type = "Check", var = "if_showAchievementIdAndCategory", label = "Show Achievement ID & Category", tip = "On achievement tooltips, the achievement ID as well as the category will be shown" },
 		{ type = "Check", var = "if_showQuestLevelAndId", label = "Show Quest Level & ID", tip = "For quest tooltips, show their questLevel and questID" },
