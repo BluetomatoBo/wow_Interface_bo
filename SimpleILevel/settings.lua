@@ -17,47 +17,26 @@ local L = LibStub("AceLocale-3.0"):GetLocale("SimpleILevel", true);
 ]]--
 
 -- This should bump the day the expantion goes live
-local expansionID = GetExpansionLevel();
+-- local expansionID = GetExpansionLevel();
 
-SIL_ColorIndex = {0,463,615,695,740,785,1000};
+SIL_ColorIndex = {0,630,700,825,880,895,1000};
 SIL_Colors = {
-    -- White base color
-    [0] =       {['r']=255,     ['g']=255,      ['b']=255,      ['rgb']='FFFFFF',   ['p']=0,},
-    -- Yellow for MoP dungeon gear
-    [463] =     {['r']=255,     ['g']=255,      ['b']=0,        ['rgb']='FFFF00',   ['p']=0,},
-    -- Green for WoD dungeon gear
-    [615] =     {['r']=0,       ['g']=255,      ['b']=0,        ['rgb']='00FF00',   ['p']=463,},
-    -- Teal for Mythic T17
-    [695] =     {['r']=0,       ['g']=255,      ['b']=255,      ['rgb']='00FFFF',   ['p']=615,},
-    -- Blue for Mythic T18
-    [740] =     {['r']=0,       ['g']=102,      ['b']=255,      ['rgb']='0066ff',   ['p']=695,},
-    -- Purple for Mythic T19
-    [785] =     {['r']=255,     ['g']=0,        ['b']=255,      ['rgb']='FF00FF',   ['p']=740,},
-    -- Red for a max score
-    [1000] =    {['r']=255,     ['g']=0,        ['b']=0,        ['rgb']='FF0000',   ['p']=785,},
+	-- White base color
+	[0] =       {['r']=255,     ['g']=255,      ['b']=255,      ['rgb']='FFFFFF',   ['p']=0,},
+	-- Yellow for WoD dungeon gear
+	[630] =     {['r']=255,     ['g']=255,      ['b']=0,        ['rgb']='FFFF00',   ['p']=0,},
+	-- Green for Legion dungeon gear
+	[700] =     {['r']=0,       ['g']=255,      ['b']=0,        ['rgb']='00FF00',   ['p']=630,},
+	-- Teal for Legion Heroic
+	[825] =     {['r']=0,       ['g']=255,      ['b']=255,      ['rgb']='00FFFF',   ['p']=700,},
+	-- Blue for Mythic
+	[880] =     {['r']=0,       ['g']=102,      ['b']=255,      ['rgb']='0066ff',   ['p']=825,},
+	-- Purple for Legendary
+	[895] =     {['r']=255,     ['g']=0,        ['b']=255,      ['rgb']='FF00FF',   ['p']=880,},
+	-- Red for a max score
+	[1000] =    {['r']=255,     ['g']=0,        ['b']=0,        ['rgb']='FF0000',   ['p']=895,},
 };
 
--- Pre-loading colors for Legion, thanks Torsin! Issues #30
-if (expansionID == 6) then
-	SIL_ColorIndex = {0,630,700,825,880,895,1000};
-	SIL_Colors = {
-		-- White base color
-		[0] =       {['r']=255,     ['g']=255,      ['b']=255,      ['rgb']='FFFFFF',   ['p']=0,},
-		-- Yellow for WoD dungeon gear
-		[630] =     {['r']=255,     ['g']=255,      ['b']=0,        ['rgb']='FFFF00',   ['p']=0,},
-		-- Green for Legion dungeon gear
-		[700] =     {['r']=0,       ['g']=255,      ['b']=0,        ['rgb']='00FF00',   ['p']=630,},
-		-- Teal for Legion Heroic
-		[825] =     {['r']=0,       ['g']=255,      ['b']=255,      ['rgb']='00FFFF',   ['p']=700,},
-		-- Blue for Mythic
-		[880] =     {['r']=0,       ['g']=102,      ['b']=255,      ['rgb']='0066ff',   ['p']=825,},
-		-- Purple for Legendary
-		[895] =     {['r']=255,     ['g']=0,        ['b']=255,      ['rgb']='FF00FF',   ['p']=880,},
-		-- Red for a max score
-		[1000] =    {['r']=255,     ['g']=0,        ['b']=0,        ['rgb']='FF0000',   ['p']=895,},
-	};
-
-end
 
 -- Supported channel localization table
 SIL_Channels = {
