@@ -3124,9 +3124,9 @@ function GoGo_ZoneCheck()
 		-- can ride = true
 		if GetCurrentMapDungeonLevel() == 11 then
 			-- We're in the Underbelly area, enable the item mount
-			GoGo_Variables.MountDB[220123][10002] = 200
-			GoGo_Variables.MountDB[220123][7] = true
-			GoGo_Variables.MountDB[220123][8] = true
+			GoGo_Variables.MountDB[220124][10002] = 200
+			GoGo_Variables.MountDB[220124][7] = true
+			GoGo_Variables.MountDB[220124][8] = true
 		end --if
 	elseif GoGo_Variables.Player.ZoneID == 1015 then
 		if GoGo_Variables.Debug >= 10 then
@@ -3135,9 +3135,7 @@ function GoGo_ZoneCheck()
 		GoGo_Variables.ZoneExclude.CanFly = false
 		-- can ride = true
 	elseif GoGo_Variables.Player.ZoneID == 1021 then
---	"240609.26499668 Information: Location = Dalaran - Dalaran -  - Dalaran", -- [130]
---	"240609.36767671 Information: Current zone area ID as per GetCurrentMapAreaID(): 1021", -- [131]
--- Fell through hole in new Dalaran to an area below the city to get this...
+		-- Broken Isles Dalaran - Rooms used for scenarios as part of the various class specific quests
 		if GoGo_Variables.Debug >= 10 then
 			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Dalaran")
 		end --if
@@ -3155,6 +3153,20 @@ function GoGo_ZoneCheck()
 		end --if
 		GoGo_Variables.ZoneExclude.CanFly = false
 		-- can ride = true
+	elseif GoGo_Variables.Player.ZoneID == 1054 then
+		-- Broken Isles version of Dalaran - The Violet Hold instance (scenario) for mages starting their quest line for the 7.0 expansion
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for The Violet Hold")
+		end --if
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = false
+	elseif GoGo_Variables.Player.ZoneID == 1068 then
+		-- Mage hangout area in (Broken Isles) Dalaran
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Hall of the Guardian")
+		end --if
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = false
 	elseif GoGo_Variables.Player.ZoneID == 1076 then
 		-- The Ulduar scenario as part of the quest line for the pre-release events to Warcraft 7 - Legion
 		if GoGo_Variables.Debug >= 10 then

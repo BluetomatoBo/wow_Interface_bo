@@ -1,9 +1,38 @@
 ------------------------------------------------------------------------
-r632 | tiker | 2016-08-30 02:36:13 +0000 (Tue, 30 Aug 2016) | 1 line
+r637 | tiker | 2016-08-31 02:20:02 +0000 (Wed, 31 Aug 2016) | 1 line
 Changed paths:
-   A /tags/7.0.11 (from /trunk:631)
+   A /tags/7.0.12 (from /trunk:636)
 
-Tagging as 7.0.11
+Tagging as 7.0.12
+------------------------------------------------------------------------
+r636 | tiker | 2016-08-31 02:19:46 +0000 (Wed, 31 Aug 2016) | 3 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+   M /trunk/GoGoMount.toc
+
+Updated version for release
+Comment changes...
+
+------------------------------------------------------------------------
+r635 | tiker | 2016-08-31 02:13:04 +0000 (Wed, 31 Aug 2016) | 2 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Added zone id 1068
+
+------------------------------------------------------------------------
+r634 | tiker | 2016-08-31 02:11:07 +0000 (Wed, 31 Aug 2016) | 2 lines
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Add zone id 1054
+
+------------------------------------------------------------------------
+r633 | tiker | 2016-08-31 02:04:22 +0000 (Wed, 31 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/GoGoMount.lua
+
+Fixed error when attempting to mount in (Broken Isles) Dalaran - Underbelly
 ------------------------------------------------------------------------
 r631 | tiker | 2016-08-30 02:35:47 +0000 (Tue, 30 Aug 2016) | 2 lines
 Changed paths:
