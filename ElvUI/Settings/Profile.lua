@@ -172,7 +172,7 @@ P['bags'] = {
 	["junkIcon"] = false,
 	['ignoreItems'] = '',
 	['itemLevel'] = true,
-	["useTooltipScanning"] = false,
+	["useTooltipScanning"] = true,
 	['itemLevelThreshold'] = 1,
 	['itemLevelFont'] = 'Homespun',
 	['itemLevelFontSize'] = 10,
@@ -234,6 +234,9 @@ P["nameplates"] = {
 		["badScale"] = 1.2,
 		["useThreatColor"] = true,
 	},
+
+	["clickableWidth"] = 150,
+	["clickableHeight"] = 50,
 
 	['units'] = {
 		['PLAYER'] = {
