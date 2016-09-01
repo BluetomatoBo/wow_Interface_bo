@@ -1,9 +1,50 @@
 ------------------------------------------------------------------------
-r673 | zarnivoop | 2016-08-25 11:21:06 +0000 (Thu, 25 Aug 2016) | 1 line
+r680 | zarnivoop | 2016-08-31 19:16:54 +0000 (Wed, 31 Aug 2016) | 1 line
 Changed paths:
-   A /tags/1.5-7 (from /trunk:672)
+   A /tags/1.5-8 (from /trunk:679)
 
-Tagging as 1.5-7
+Tagging as 1.5-8
+------------------------------------------------------------------------
+r679 | zarnivoop | 2016-08-28 14:28:30 +0000 (Sun, 28 Aug 2016) | 3 lines
+Changed paths:
+   M /trunk/Options.lua
+   M /trunk/locale/enUS.lua
+
+added missing localization string
+reverted default segments to keep setting change
+
+------------------------------------------------------------------------
+r678 | funkydude | 2016-08-27 22:06:39 +0000 (Sat, 27 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/Skada.lua
+
+Fix whitespace inconsistency.
+------------------------------------------------------------------------
+r677 | funkydude | 2016-08-27 21:59:57 +0000 (Sat, 27 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/locale/enUS.lua
+
+Fix missing localization string (and add it to wowace)
+------------------------------------------------------------------------
+r676 | zarnivoop | 2016-08-27 10:07:55 +0000 (Sat, 27 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/modules/Debuffs.lua
+
+removed acetimer from Debuffs.lua
+------------------------------------------------------------------------
+r675 | zarnivoop | 2016-08-27 10:00:03 +0000 (Sat, 27 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/modules/Debuffs.lua
+
+buff/debuff modes optimizations
+------------------------------------------------------------------------
+r674 | zarnivoop | 2016-08-26 19:30:43 +0000 (Fri, 26 Aug 2016) | 1 line
+Changed paths:
+   M /trunk/BarDisplay.lua
+   M /trunk/Skada.lua
+   M /trunk/lib/SpecializedLibBars-1.0/SpecializedLibBars-1.0.lua
+
+minor optimizations
 ------------------------------------------------------------------------
 r672 | zarnivoop | 2016-08-25 10:49:35 +0000 (Thu, 25 Aug 2016) | 2 lines
 Changed paths:
@@ -303,40 +344,4 @@ Changed paths:
    M /trunk/lib/SpecializedLibBars-1.0/SpecializedLibBars-1.0.lua
 
 minor optimization for "always show self" option
-------------------------------------------------------------------------
-r632 | zarnivoop | 2016-07-26 19:49:13 +0000 (Tue, 26 Jul 2016) | 1 line
-Changed paths:
-   M /trunk/modules/Damage.lua
-
-fix for Warlock's Soul Effigy (untested)
-------------------------------------------------------------------------
-r631 | zarnivoop | 2016-07-26 18:15:50 +0000 (Tue, 26 Jul 2016) | 1 line
-Changed paths:
-   M /trunk/Skada.lua
-
-removed old module upgrade popup notice
-------------------------------------------------------------------------
-r630 | zarnivoop | 2016-07-26 18:01:44 +0000 (Tue, 26 Jul 2016) | 1 line
-Changed paths:
-   M /trunk/BarDisplay.lua
-   M /trunk/Options.lua
-   M /trunk/lib/SpecializedLibBars-1.0/SpecializedLibBars-1.0.lua
-   M /trunk/locale/enUS.lua
-
-added option to always show self
-------------------------------------------------------------------------
-r629 | oscarucb | 2016-07-25 09:13:29 +0000 (Mon, 25 Jul 2016) | 2 lines
-Changed paths:
-   M /trunk/Menus.lua
-
-fix ticket 455: lua error with old report settings
-
-------------------------------------------------------------------------
-r628 | stanzilla | 2016-07-22 22:37:07 +0000 (Fri, 22 Jul 2016) | 3 lines
-Changed paths:
-   M /trunk/lib/SpecializedLibBars-1.0/SpecializedLibBars-1.0.lua
-
-fix spell icons not showing
-
-patch by avi90
 ------------------------------------------------------------------------

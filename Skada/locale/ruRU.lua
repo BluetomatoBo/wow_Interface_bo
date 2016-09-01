@@ -208,6 +208,7 @@ L["Mana gain spell list"] = "Список способностей получе�
 L["Margin"] = "Граница"
 L["Max bars"] = "Макс полос"
 L["Maximum hit:"] = "Максимальное попадание:"
+-- L["Memory usage is high. You may want to reset Skada, and enable one of the automatic reset options."] = ""
 L["Merge pets"] = "Объединять питомцев"
 L["Merges pets with their owners. Changing this only affects new data."] = "Считать урон от атак питомцев вместе с их хозяевами. Изменение опции повлияет только на новые данные."
 L["Minimum hit:"] = "Минимальное попадание:"
