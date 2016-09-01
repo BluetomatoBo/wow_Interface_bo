@@ -1,13 +1,15 @@
 ------------------------------------------------------------------------
-r33 | nagboy87 | 2016-07-24 04:00:57 +0000 (Sun, 24 Jul 2016) | 1 line
+r35 | caliaha | 2016-08-31 20:26:22 +0000 (Wed, 31 Aug 2016) | 1 line
 Changed paths:
-   A /tags/1.14 (from /trunk:32)
+   A /tags/1.15 (from /trunk:34)
 
-TOC Bump
+Removed unnecessary library
 ------------------------------------------------------------------------
-r32 | nagboy87 | 2016-07-24 03:47:57 +0000 (Sun, 24 Jul 2016) | 1 line
+r34 | caliaha | 2016-08-31 20:07:30 +0000 (Wed, 31 Aug 2016) | 1 line
 Changed paths:
+   M /trunk/.pkgmeta
    M /trunk/HandyNotes_TimelessIsleChests.toc
+   D /trunk/embeds.xml
 
-TOC Bump
+Removed unnecessary library
 ------------------------------------------------------------------------
