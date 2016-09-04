@@ -37,7 +37,12 @@ The following search keywords can also be used:
     • bou : Bind on use items.
     • boe : Bind on equip items.
     • boa : Bind on account items.
-    • quest : Quest bound items.]=];
+    • quest : Quest bound items.
+    • reagents, reagent, crafting : Profession reagents.
+    • naval : Naval equipment.
+    • follower, followe, follow : Follower items.
+    • relic, reli, rel : Artifact Relics.
+    • power, powe, pow : Items granting Artifact Power.]=];
 L["TEXT_FORMAT_DESC"] = [=[Provide a string to change the text format.
 
 Examples:
@@ -73,8 +78,10 @@ L["Button Spacing"] = true; --Also used in Bags
 L["Buttons Per Row"] = true;
 L["Buttons"] = true;
 L["Change the alpha level of the frame."] = true;
+L["Color of the actionbutton when not usable."] = true;
 L["Color of the actionbutton when out of power (Mana, Rage, Focus, Holy Power)."] = true;
 L["Color of the actionbutton when out of range."] = true;
+L["Color of the actionbutton when usable."] = true;
 L["Color when the text is about to expire"] = true;
 L["Color when the text is in the days format."] = true;
 L["Color when the text is in the hours format."] = true;
@@ -104,6 +111,7 @@ L["Masque Support"] = true;
 L["Minutes"] = true;
 L["Mouse Over"] = true; --Also used in Bags
 L["Multiply the backdrops height or width by this value. This is usefull if you wish to have more than one bar behind a backdrop."] = true;
+L["Not Usable"] = true;
 L["Out of Power"] = true;
 L["Out of Range"] = true;
 L["Restore Bar"] = true;
@@ -120,6 +128,7 @@ L["This setting will be updated upon changing stances."] = true;
 L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"] = true;
 L["Toggles the display of the actionbars backdrop."] = true;
 L["Transparency level when not in combat, no target exists, full health, not casting, and no focus target exists."] = true;
+L["Usable"] = true;
 L["Visibility State"] = true;
 L["Width Multiplier"] = true;
 L[ [=[This works like a macro, you can run different situations to get the actionbar to page differently.
@@ -301,6 +310,7 @@ L["Testing:"] = true;
 
 --DataBars
 L["DATABAR_DESC"] = "Setup on-screen display of information bars."
+L["Current - Remaining"] = true;
 L["DataBars"] = true;
 L["Hide in Combat"] = true;
 

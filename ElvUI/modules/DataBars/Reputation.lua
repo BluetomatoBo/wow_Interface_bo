@@ -7,11 +7,12 @@ local _G = _G
 local format = format
 
 --WoW API / Variables
-local GetWatchedFactionInfo, GetNumFactions, GetFactionInfo = GetWatchedFactionInfo, GetNumFactions, GetFactionInfo
 local GetFriendshipReputation = GetFriendshipReputation
-local REPUTATION, STANDING = REPUTATION, STANDING
-local FACTION_BAR_COLORS = FACTION_BAR_COLORS
+local GetWatchedFactionInfo, GetNumFactions, GetFactionInfo = GetWatchedFactionInfo, GetNumFactions, GetFactionInfo
 local InCombatLockdown = InCombatLockdown
+local ToggleCharacter = ToggleCharacter
+local FACTION_BAR_COLORS = FACTION_BAR_COLORS
+local REPUTATION, STANDING = REPUTATION, STANDING
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS: GameTooltip, RightChatPanel, CreateFrame
@@ -65,13 +66,19 @@ function mod:UpdateReputation(event)
 		else
 			standingLabel = FactionStandingLabelUnknown
 		end
-
+		
 		if textFormat == 'PERCENT' then
 			text = format('%s: %d%% [%s]', name, ((value - min) / (max - min) * 100), isFriend and friendText or standingLabel)
 		elseif textFormat == 'CURMAX' then
 			text = format('%s: %s - %s [%s]', name, E:ShortValue(value - min), E:ShortValue(max - min), isFriend and friendText or standingLabel)
 		elseif textFormat == 'CURPERC' then
 			text = format('%s: %s - %d%% [%s]', name, E:ShortValue(value - min), ((value - min) / (max - min) * 100), isFriend and friendText or standingLabel)
+		elseif textFormat == 'CUR' then
+			text = format('%s: %s [%s]', name, E:ShortValue(value - min), isFriend and friendText or standingLabel)
+		elseif textFormat == 'REM' then
+			text = format('%s: %s [%s]', name, E:ShortValue((max - min) - (value-min)), isFriend and friendText or standingLabel)
+		elseif textFormat == 'CURREM' then
+			text = format('%s: %s - %s [%s]', name, E:ShortValue(value - min), E:ShortValue((max - min) - (value-min)), isFriend and friendText or standingLabel)
 		end
 
 		bar.text:SetText(text)

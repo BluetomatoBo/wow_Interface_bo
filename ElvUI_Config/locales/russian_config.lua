@@ -37,7 +37,12 @@ L["SEARCH_SYNTAX_DESC"] = [=[С добавлением библиотеки LibI
     • bou : персональные при использовании.
     • boe : персональные при одевании.
     • boa : привязоные к учетной записи.
-    • quest : специальные предметы для заданий.]=];
+    • quest : специальные предметы для заданий.
+    • reagents, reagent, crafting : Реагенты профессий.
+    • naval : Оборудование флота.
+    • follower, followe, follow : Предметы последователей.
+    • relic, reli, rel : Реликвии артефактов.
+    • power, powe, pow : Предметы, дающие силу артефакта.]=];
 L["TEXT_FORMAT_DESC"] = [=[Строка для изменения вида текста.
 
 Примеры:
@@ -73,8 +78,10 @@ L["Button Spacing"] = "Отступ кнопок"
 L["Buttons Per Row"] = "Кнопок в ряду"
 L["Buttons"] = "Кнопок"
 L["Change the alpha level of the frame."] = "Изменяет прозрачность этого элемента"
+L["Color of the actionbutton when not usable."] = true;
 L["Color of the actionbutton when out of power (Mana, Rage, Focus, Holy Power)."] = "Цвет кнопок на панелях команд, когда не хватает ресурса (маны, ярости, концентрации, силы света)"
 L["Color of the actionbutton when out of range."] = "Цвет кнопок панелей команд, когда цель вне радиуса действия"
+L["Color of the actionbutton when usable."] = true;
 L["Color when the text is about to expire"] = "Цвет текста почти завершившегося восстановления."
 L["Color when the text is in the days format."] = "Цвет текста времени восстановления в днях."
 L["Color when the text is in the hours format."] = "Цвет текста времени восстановления в часах."
@@ -104,6 +111,7 @@ L["Masque Support"] = "Поддержка Masque"
 L["Minutes"] = "Минуты"
 L["Mouse Over"] = "При наведении" --Also used in Bags
 L["Multiply the backdrops height or width by this value. This is usefull if you wish to have more than one bar behind a backdrop."] = "Умножает высоту или ширину фона панели на это значение. Это полезно, когда Вы хотите иметь более одной панели на данном фоне."
+L["Not Usable"] = true;
 L["Out of Power"] = "Мало ресурса"
 L["Out of Range"] = "Вне радиуса"
 L["Restore Bar"] = "Восстановить панель"
@@ -120,6 +128,7 @@ L["This setting will be updated upon changing stances."] = "Эта настро�
 L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"] = "Время, после которого текст станет красным и начнет отображать доли секунды. Установите -1, чтобы не отображать текст в такой форме."
 L["Toggles the display of the actionbars backdrop."] = "Включить отображение фона панели команд."
 L["Transparency level when not in combat, no target exists, full health, not casting, and no focus target exists."] = "Уровень прозрачности вне боя, без цели, без фокуса, с полным здоровьем и без произношения заклинаний."
+L["Usable"] = true;
 L["Visibility State"] = "Статус отображения"
 L["Width Multiplier"] = "Множитель ширины"
 L[ [=[This works like a macro, you can run different situations to get the actionbar to page differently.
@@ -130,8 +139,8 @@ L[ [=[This works like a macro, you can run different situations to get the actio
  Пример: '[combat] show;hide']=]
 
 --Bags
-L["Add an item or search syntax to the ignored list. Items matching the search syntax will be ignored."] = true;
-L["Add Item or Search Syntax"] = true;
+L["Add an item or search syntax to the ignored list. Items matching the search syntax will be ignored."] = "Добавить предмет или синтаксис поиска в список игнорируемых. Предметы, соответствующие синтаксису, буду игнорироваться."
+L["Add Item or Search Syntax"] = "Добавить предмет или синтаксис поиска"
 L["Adjust the width of the bag frame."] = "Установить размер фрейма сумок"
 L["Adjust the width of the bank frame."] = "Установить размер фрейма банка"
 L["Align the width of the bag frame to fit inside the chat box."] = "Установить размер сумок/банка по ширине чата"
@@ -153,10 +162,10 @@ L["Displays item level on equippable items."] = "Отображает урове
 L["Enable/Disable the all-in-one bag."] = 'Включить/выключить режим сумки "все в одной". '
 L["Enable/Disable the Bag-Bar."] = "Включить/выключить панель сумок"
 L["Full"] = "Полный"
-L["Here you can add items or search terms that you want to be excluded from sorting. To remove an item just click on its name in the list."] = true;
+L["Here you can add items or search terms that you want to be excluded from sorting. To remove an item just click on its name in the list."] = "Здесь вы можете добавить предметы или запросы поиска, которые вы хотите исключить из сортировки. Для удаления предмета просто кликните на его имени в списке."
 L["Icons and Text (Short)"] = "Иконки и текст (короткий)"
 L["Icons and Text"] = "Иконки и текст"
-L["Ignored Items and Search Syntax"] = true;
+L["Ignored Items and Search Syntax"] = "Игнорируемые предметы и синтаксис"
 L["Item Count Font"] = "Шрифт кол-ва предметов"
 L["Item Level Threshold"] = "Ограничение уровня предметов"
 L["Item Level"] = "Уровень предметов"
@@ -312,6 +321,7 @@ L["Testing:"] = "Тестирование:"
 
 --DataBars
 L["DATABAR_DESC"] = "Контролирует отображение информационных полос."
+L["Current - Remaining"] = true;
 L["DataBars"] = "Инфо-полосы"
 L["Hide in Combat"] = "Скрывать в бою"
 
@@ -535,7 +545,7 @@ L["Filters"] = "Фильтры" --Also used in UnitFrames
 L["Friendly Combat Toggle"] = "Переключение в бою (друзья)"
 L["Friendly NPC Frames"] = "Дружественные НИП"
 L["Friendly Player Frames"] = "Дружественные игроки"
-L["General Options"] = true;
+L["General Options"] = "Общие"
 L["Good Color"] = "Хороший цвет"
 L["Good Scale"] = "Хороший масштаб"
 L["Good Transition Color"] = "Цвет хорошего перехода"
@@ -560,7 +570,7 @@ L["Scale of the nameplate that is targetted."] = "Масштаб индикат�
 L["Set Settings to Default"] = "Сбросить настройки на умолчания"
 L["Set the transparency level of nameplates that are not the target nameplate."] = "Устанавливает степень прозрачности для индикаторов юнитов, не являющихся вашей целью."
 L["Set to either stack nameplates vertically or allow them to overlap."] = "Выстраивать индикаторы в столбик или позволить им накладываться друг на друга."
-L["Shortcuts"] = true;
+L["Shortcuts"] = "Ярлыки"
 L["Show NPC Titles"] = "Титулы НИП"
 L["Tagged NPC"] = "Чужой НИП"
 L["Tanked Color"] = "Цвет танкуемого"

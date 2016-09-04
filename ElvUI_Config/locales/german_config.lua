@@ -37,7 +37,12 @@ Die folgenden Suchbegriffe können auch benutzt werden:
     • bou : Beim Benutzen gebundene Gegenstände.
     • boe : Beim Ausrüsten gebundene Gegenstände.
     • boa : An den Account gebundene Gegenstände.
-    • quest : Gebundene Quest Gegenstände.]=];
+    • quest : Gebundene Quest Gegenstände.
+    • reagents, reagent, crafting : Berufs Reagenzien.
+    • naval : Schiffsausrüstung.
+    • follower, followe, follow : Anhänger Gegenstände.
+    • relic, reli, rel : Artefakt Relikte.
+    • power, powe, pow : Gegenstände die Artefaktkraft gewähren.]=];
 L["TEXT_FORMAT_DESC"] = [=[Wähle eine Zeichenfolge um das Textformat zu ändern.
 
 Beispiele:
@@ -73,8 +78,10 @@ L["Button Spacing"] = "Abstand der Tasten" --Also used in Bags
 L["Buttons Per Row"] = "Tasten pro Zeile"
 L["Buttons"] = "Tasten"
 L["Change the alpha level of the frame."] = "Ändere den Alphakanal des Fensters."
+L["Color of the actionbutton when not usable."] = "Farbe der Aktionsleisten wenn nicht nutzbar."
 L["Color of the actionbutton when out of power (Mana, Rage, Focus, Holy Power)."] = "Die Farbe der Aktionstasten, wenn keine Kraft, wie z.B. Mana, Wut, Fokus oder Heilige Kraft, mehr vorhanden ist."
 L["Color of the actionbutton when out of range."] = "Die Farbe der Aktionstasten, wenn das Ziel außer Reichweite ist."
+L["Color of the actionbutton when usable."] = "Farbe der Aktionsleisten wenn nutzbar."
 L["Color when the text is about to expire"] = "Färbe den Text in dieser Farbe, wenn er in Kürze abläuft."
 L["Color when the text is in the days format."] = "Färbe den Text in dieser Farbe, wenn er Tagen angezeigt wird."
 L["Color when the text is in the hours format."] = "Färbe den Text in dieser Farbe, wenn er in Stunden angezeigt wird."
@@ -104,6 +111,7 @@ L["Masque Support"] = "Masque Unterstützung"
 L["Minutes"] = "Minuten"
 L["Mouse Over"] = "Mouseover" --Also used in Bags
 L["Multiply the backdrops height or width by this value. This is usefull if you wish to have more than one bar behind a backdrop."] = "Multipliziere die Höhe und die Breite des Hintergrundes. Das ist nützlich, wenn du mehr als eine Leiste hinter einem Hintergrund haben möchtest."
+L["Not Usable"] = "Nicht nutzbar"
 L["Out of Power"] = "Keine Kraft"
 L["Out of Range"] = "Außer Reichweite"
 L["Restore Bar"] = "Leiste zurücksetzen"
@@ -120,6 +128,7 @@ L["This setting will be updated upon changing stances."] = "Diese Einstellungen 
 L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"] = "CD-Schwelle bevor der Text rot wird. Setze diesen Wert auf -1, wenn er nie rot werden soll"
 L["Toggles the display of the actionbars backdrop."] = "Aktiviere den Hintergrund der Aktionsleisten."
 L["Transparency level when not in combat, no target exists, full health, not casting, and no focus target exists."] = "Transparenz Level wenn nicht im Kampf, kein Ziel ausgewählt, volle Gesundheit, nicht am Zaubern und kein Fokus existiert."
+L["Usable"] = "Nutzbar"
 L["Visibility State"] = "Sichbarkeitszustand"
 L["Width Multiplier"] = "Breitenmultiplikator"
 L[ [=[This works like a macro, you can run different situations to get the actionbar to page differently.
@@ -312,6 +321,7 @@ L["Testing:"] = "Tester:"
 
 --DataBars
 L["DATABAR_DESC"] = "Einstellung der Informationsleisten."
+L["Current - Remaining"] = "Aktuell - Verbleibend"
 L["DataBars"] = "Informationsleisten"
 L["Hide in Combat"] = "Im Kampf ausblenden"
 

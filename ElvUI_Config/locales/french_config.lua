@@ -37,7 +37,12 @@ The following search keywords can also be used:
     • bou : Bind on use items.
     • boe : Bind on equip items.
     • boa : Bind on account items.
-    • quest : Quest bound items.]=];
+    • quest : Quest bound items.
+    • reagents, reagent, crafting : Profession reagents.
+    • naval : Naval equipment.
+    • follower, followe, follow : Follower items.
+    • relic, reli, rel : Artifact Relics.
+    • power, powe, pow : Items granting Artifact Power.]=];
 L["TEXT_FORMAT_DESC"] = [=[Entrer une séquence pour changer le format du texte.
 
 Exemples:
@@ -73,8 +78,10 @@ L["Button Spacing"] = "Espacement des boutons"
 L["Buttons Per Row"] = "Boutons par ligne"
 L["Buttons"] = "Boutons"
 L["Change the alpha level of the frame."] = "Changer le niveau alpha de la fenêtre."
+L["Color of the actionbutton when not usable."] = true;
 L["Color of the actionbutton when out of power (Mana, Rage, Focus, Holy Power)."] = "Couleur du bouton d'action quand il n'y a pas ressource (Mana, Rage, Focalisation, Puissance sacrée)."
 L["Color of the actionbutton when out of range."] = "Couleur du bouton d'action quand hors de portée."
+L["Color of the actionbutton when usable."] = true;
 L["Color when the text is about to expire"] = "Couleur lorsque le texte est sur le point d'expirer."
 L["Color when the text is in the days format."] = "Couleur quand le texte est exprimé en jours."
 L["Color when the text is in the hours format."] = "Couleur quand le texte est exprimé en heure."
@@ -104,6 +111,7 @@ L["Masque Support"] = "Support de Maque";
 L["Minutes"] = "Minutes"
 L["Mouse Over"] = "Au survol"
 L["Multiply the backdrops height or width by this value. This is usefull if you wish to have more than one bar behind a backdrop."] = "Multiplie la hauteur ou la largeur de l'arrière-plan par cette valeur. Très utile si vous souhaitez avoir une barre de plus en arrière-plan."
+L["Not Usable"] = true;
 L["Out of Power"] = "Sans ressource"
 L["Out of Range"] = "Hors de portée"
 L["Restore Bar"] = "Restaurer la barre"
@@ -120,6 +128,7 @@ L["This setting will be updated upon changing stances."] = "Ce réglage sera act
 L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"] = "Seuil avant que le texte devienne rouge sous forme de décimal. Mettre -1 pour qu'il ne devienne jamais rouge."
 L["Toggles the display of the actionbars backdrop."] = "Affiche ou non la couleur de fond de la barre d'action."
 L["Transparency level when not in combat, no target exists, full health, not casting, and no focus target exists."] = true;
+L["Usable"] = true;
 L["Visibility State"] = "État de visibilité"
 L["Width Multiplier"] = "Multiplicateur largeur"
 L[ [=[This works like a macro, you can run different situations to get the actionbar to page differently.
@@ -312,6 +321,7 @@ L["Testing:"] = "Testeurs: "
 
 --DataBars
 L["DATABAR_DESC"] = "Setup on-screen display of information bars."
+L["Current - Remaining"] = true;
 L["DataBars"] = true;
 L["Hide in Combat"] = true;
 

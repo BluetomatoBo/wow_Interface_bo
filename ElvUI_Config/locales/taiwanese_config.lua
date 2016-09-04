@@ -37,7 +37,12 @@ The following search keywords can also be used:
     • bou : Bind on use items.
     • boe : Bind on equip items.
     • boa : Bind on account items.
-    • quest : Quest bound items.]=];
+    • quest : Quest bound items.
+    • reagents, reagent, crafting : Profession reagents.
+    • naval : Naval equipment.
+    • follower, followe, follow : Follower items.
+    • relic, reli, rel : Artifact Relics.
+    • power, powe, pow : Items granting Artifact Power.]=];
 L["TEXT_FORMAT_DESC"] = [=[請填入代碼以變更文字格式。
 
 範例：
@@ -73,8 +78,10 @@ L["Button Spacing"] = "按鈕間距"
 L["Buttons Per Row"] = "每行按鈕數"
 L["Buttons"] = "按鈕數"
 L["Change the alpha level of the frame."] = "改變框架透明度."
+L["Color of the actionbutton when not usable."] = true;
 L["Color of the actionbutton when out of power (Mana, Rage, Focus, Holy Power)."] = "施放能量 (法力、怒氣、集中值、聖能) 不足的技能快捷鍵顏色."
 L["Color of the actionbutton when out of range."] = "超出施放範圍的技能快捷鍵顏色."
+L["Color of the actionbutton when usable."] = true;
 L["Color when the text is about to expire"] = "即將冷卻完畢的數字顏色."
 L["Color when the text is in the days format."] = "以天顯示的文字顏色."
 L["Color when the text is in the hours format."] = "以小時顯示的文字顏色."
@@ -104,6 +111,7 @@ L["Masque Support"] = true;
 L["Minutes"] = "分"
 L["Mouse Over"] = "滑鼠滑過顯示"
 L["Multiply the backdrops height or width by this value. This is usefull if you wish to have more than one bar behind a backdrop."] = "根據此值增加背景的高度或寬度. 一般用來設定在一個背景框裡放置多條快捷列."
+L["Not Usable"] = true;
 L["Out of Power"] = "施放能量不足"
 L["Out of Range"] = "超出施放範圍"
 L["Restore Bar"] = "還原快捷列"
@@ -120,6 +128,7 @@ L["This setting will be updated upon changing stances."] = true;
 L["Threshold before text turns red and is in decimal form. Set to -1 for it to never turn red"] = "冷卻時間低於此秒數後將變為紅色數字, 並以小數顯示, 設為- 1 冷卻時間將不會變為紅色."
 L["Toggles the display of the actionbars backdrop."] = "顯示/隱藏快捷列背景框."
 L["Transparency level when not in combat, no target exists, full health, not casting, and no focus target exists."] = true;
+L["Usable"] = true;
 L["Visibility State"] = "顯示狀態"
 L["Width Multiplier"] = "寬度倍增"
 L[ [=[This works like a macro, you can run different situations to get the actionbar to page differently.
@@ -311,8 +320,9 @@ L["ELVUI_CREDITS"] = "我想透過這個特別方式, 向那些協助測試、�
 L["Testing:"] = "測試："
 
 --DataBars
-L["DATABAR_DESC"] = "Setup on-screen display of information bars."
+L["Current - Remaining"] = true;
 L["DataBars"] = true;
+L["DATABAR_DESC"] = "Setup on-screen display of information bars."
 L["Hide in Combat"] = true;
 
 --DataTexts
