@@ -1,0 +1,18 @@
+## Interface: 70000
+## Title: HandyNotes_LegionTreasures
+## Notes: Where are the hidden treasures in Legion?
+## Author: Kemayo
+## Version: 1
+## DefaultState: enabled
+## X-Category: Map
+## X-eMail: kemayo @ gmail DOT com
+## SavedVariables: HandyNotes_LegionTreasuresDB
+## RequiredDeps: HandyNotes
+## X-Curse-Packaged-Version: v3
+## X-Curse-Project-Name: HandyNotes_LegionTreasures
+## X-Curse-Project-ID: handynotes_legiontreasures
+## X-Curse-Repository-ID: wow/handynotes_legiontreasures/mainline
+
+handler.lua
+config.lua
+Treasure.lua
