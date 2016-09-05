@@ -71,9 +71,9 @@ local function ShortenNumber(number)
 	if not number then return "" end
 
 	if number > 1000000 then
-		return (ceil((number/1000000))).." M"
+		return (ceil((number/100000))/10).." M"
 	elseif number > 1000 then
-		return (ceil((number/10))/100).." k"
+		return (ceil((number/100))/10).." K"
 	else
 		return number
 	end

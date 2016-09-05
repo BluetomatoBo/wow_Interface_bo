@@ -877,7 +877,7 @@ do
 		if UnitCastingInfo(unitid) then OnStartCasting(plate, unitid, false)
 		else
 		-- See if one is being channeled...
-			if UnitCastingInfo(unitid) then OnStartCasting(plate, unitid, true) end
+			if UnitChannelInfo(unitid) then OnStartCasting(plate, unitid, true) end
 		end
 	end
 
@@ -908,6 +908,9 @@ do
 	function events:NAME_PLATE_CREATED(...)
 		local plate = ...
 		local BlizzardFrame = plate:GetChildren()
+
+		-- hooksecurefunc([table,] "function", hookfunc)
+
 		BlizzardFrame._Show = BlizzardFrame.Show	-- Store this for later
 		BlizzardFrame.Show = BypassFunction			-- Try this to keep the plate from showing up
 		OnNewNameplate(plate)
@@ -1069,9 +1072,7 @@ do
 	-- SetObjectShadow:
 	local function SetObjectShadow(object, shadow)
 		if shadow then
-			--object:SetShadowColor(0,0,0, tonumber(shadow) or 1)
-			object:SetShadowColor(0,0,0,  1)
-			--object:SetShadowOffset(.5, -.5)
+			object:SetShadowColor(0,0,0, 1)
 			object:SetShadowOffset(1, -1)
 		else object:SetShadowColor(0,0,0,0) end
 	end
@@ -1081,7 +1082,7 @@ do
 		if objectstyle then
 			SetObjectFont(object, objectstyle.typeface, objectstyle.size, objectstyle.flags)
 			SetObjectJustify(object, objectstyle.align or "CENTER", objectstyle.vertical or "BOTTOM")
-			SetObjectShadow(object, objectstyle.shadow or 1)
+			SetObjectShadow(object, objectstyle.shadow)
 		end
 	end
 

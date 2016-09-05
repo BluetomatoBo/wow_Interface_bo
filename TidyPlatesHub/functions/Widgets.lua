@@ -176,16 +176,16 @@ local DispelTypeHandlers = {
 	end,
 	}
 
-local function TrackDispelType(auratype)
-	if auratype then
-		local handlerfunction = DispelTypeHandlers[auratype]
+local function TrackDispelType(dispelType)
+	if dispelType then
+		local handlerfunction = DispelTypeHandlers[dispelType]
 		if handlerfunction then return handlerfunction() end
 	end
 end
 
 local function DebuffFilter(aura)
 	if LocalVars.WidgetAuraTrackDispelFriendly and aura.reaction == AURA_TARGET_FRIENDLY then
-		if TrackDispelType(aura.type) then
+		if aura.effect == "HARMFUL" and TrackDispelType(aura.type) then
 		local r, g, b = GetAuraColor(aura)
 		return true, 10, r, g, b end
 	end
@@ -352,7 +352,7 @@ local function OnUpdateDelegate(plate, unit)
 	local Widgets = plate.widgets
 	--if LocalVars.WidgetsRangeIndicator then Widgets.RangeWidget:Update(unit,RangeModeRef[LocalVars.RangeMode])  end
 	if (LocalVars.ClassEnemyIcon and unit.reaction ~= "FRIENDLY") or (LocalVars.ClassPartyIcon and unit.reaction == "FRIENDLY") then Widgets.ClassIcon:Update(unit, LocalVars.ClassPartyIcon) end
-	if LocalVars.WidgetsTotemIcon then Widgets.TotemIcon:Update(unit)  end
+	if LocalVars.WidgetsTotemIcon and Widgets.TotemIcon then Widgets.TotemIcon:Update(unit)  end
 	--if (LocalVars.WidgetsThreatIndicatorMode == 2) and LocalVars.WidgetsThreatIndicator then plate.widgets.ThreatWheelWidget:Update(unit) end 		-- Threat Wheel
 
 	if LocalVars.WidgetsEnableExternal and TidyPlatesGlobal_OnUpdate then TidyPlatesGlobal_OnUpdate(plate, unit) end

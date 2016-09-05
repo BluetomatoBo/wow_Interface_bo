@@ -159,6 +159,7 @@ local function ApplyPanelSettings()
 
 	-- Reset Widgets
 	if TidyPlatesWidgets then TidyPlatesWidgets:ResetWidgets() end
+
 	TidyPlates:ForceUpdate()
 end
 

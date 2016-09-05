@@ -10,7 +10,7 @@ do
 	local WatcherframeActive = false
 	local select = select
 	local timeToUpdate = 0
-	
+
 	local function CheckFramelist(self)
 		local curTime = GetTime()
 		if curTime < timeToUpdate then return end
@@ -24,17 +24,17 @@ do
 		-- If no more frames to watch, unregister the OnUpdate script
 		if framecount == 0 then Watcherframe:SetScript("OnUpdate", nil) end
 	end
-	
+
 	function TidyPlatesWidgets:HideIn(frame, expiration)
 		-- Register Frame
 		Framelist[ frame] = expiration
 		-- Init Watchframe
-		if not WatcherframeActive then 
+		if not WatcherframeActive then
 			Watcherframe:SetScript("OnUpdate", CheckFramelist)
 			WatcherframeActive = true
 		end
 	end
-	
+
 end
 
 ----------------------
@@ -49,7 +49,7 @@ do
 	local WatcherframeActive = false
 	local select = select
 	local timeToUpdate = 0
-	
+
 	local function CheckFramelist(self)
 		local curTime = GetTime()
 		if curTime < timeToUpdate then return end
@@ -58,41 +58,41 @@ do
 		-- Cycle through the watchlist, hiding frames which are timed-out
 		for frame, expiration in pairs(Framelist) do
 			-- If expired...
-			if expiration < curTime then 
+			if expiration < curTime then
 				if frame.Expire then frame:Expire() end
-				
+
 				frame:Hide()
 				Framelist[frame] = nil
 				--TidyPlates:RequestDelegateUpdate()		-- Request an Update on Delegate functions, so we can catch when auras fall off
 			-- If still active...
-			else 
+			else
 				-- Update the frame
 				if frame.Poll then frame:Poll(expiration) end
-				framecount = framecount + 1 
+				framecount = framecount + 1
 			end
 		end
 		-- If no more frames to watch, unregister the OnUpdate script
 		if framecount == 0 then Watcherframe:SetScript("OnUpdate", nil); WatcherframeActive = false end
 	end
-	
+
 	function PolledHideIn(frame, expiration)
-	
-		if expiration == 0 then 
-			
+
+		if expiration == 0 then
+
 			frame:Hide()
 			Framelist[frame] = nil
 		else
 			--print("Hiding in", expiration - GetTime())
 			Framelist[frame] = expiration
 			frame:Show()
-			
-			if not WatcherframeActive then 
+
+			if not WatcherframeActive then
 				Watcherframe:SetScript("OnUpdate", CheckFramelist)
 				WatcherframeActive = true
 			end
 		end
 	end
-	
+
 	TidyPlatesWidgets.PolledHideIn = PolledHideIn
 end
 
@@ -101,6 +101,7 @@ end
 ---------------------
 do
 	local Plate, plateIndex, WorldFrameChildren, WidgetChildren, widgetIndex
+
 	local function ResetWidgets()
 		WorldFrameChildren = {WorldFrame:GetChildren()}
 		for plateIndex = 1, #WorldFrameChildren do
@@ -115,10 +116,10 @@ do
 	end
 	TidyPlatesWidgets.ResetWidgets = ResetWidgets
 end
-		
+
 ---------------------
 -- Reset/Nil Tidy Plates Widget Frames
----------------------	
+---------------------
 local function GetCombatEventResults(...)
 	local timestamp, combatevent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlag, spellid, spellname  = ...
 	local auraType, stackCount = select(15, ...)

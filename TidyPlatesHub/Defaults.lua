@@ -12,7 +12,7 @@ TidyPlatesHubDefaults = {
 	-- Style
 	---------------------------------------
 	StyleHeadlineOutOfCombat = false,
-	StyleHeadlineNeutral = true,
+
 
 	StyleFriendlyBarsOnActive = true,
 	StyleFriendlyBarsOnElite = false,
@@ -27,7 +27,9 @@ TidyPlatesHubDefaults = {
 	StyleEnemyBarsOnNPC = true,
 
 	StyleForceBarsOnTargets = false,
-	StyleHeadlineMiniMobs = true,
+
+	StyleHeadlineNeutral = false,
+	StyleHeadlineMiniMobs = false,
 
 	ColorEnemyBarMode =  1,
 	ColorEnemyNameMode = 1,

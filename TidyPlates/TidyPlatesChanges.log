@@ -3,6 +3,15 @@ Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.j
 
 
 ---------------------------
+6.18.3
+---------------------------
+* Mini Mob Headline is now Off by Default
+* Neutral Unit Headline is now Off by Default
+* Neon Level Text field width increased (to fix 100+ not being displayed correctly)
+* Fixed TotemIcon nil field error
+
+
+---------------------------
 6.18.2 - Happy Legion Day!
 ---------------------------
 * Typo in Quest display

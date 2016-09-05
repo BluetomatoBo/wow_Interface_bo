@@ -16,7 +16,7 @@ local playerTankAura = false
 local cachedAura = false
 local cachedRole = false
 
-local function IsEnemyTanked(unit) 
+local function IsEnemyTanked(unit)
 	local enemyUnitid = unit.unitid
 	if enemyUnitid and tostring(enemyUnitid) then
 		local enemyTargetGUID = UnitGUID(enemyUnitid.."target")
@@ -27,7 +27,7 @@ local function IsEnemyTanked(unit)
 	end
 end
 
-local function IsPlayerTank() 
+local function IsPlayerTank()
 	return (playerTankRole or playerTankAura)
 end
 
@@ -44,7 +44,9 @@ local function UpdatePlayerRole()
 	local playerTankAura = false
 
 	-- Look at the Player's Specialization
-	if GetSpecializationRole(GetSpecialization()) == "TANK" then
+	local specializationIndex = tonumber(GetSpecialization())
+
+	if specializationIndex and GetSpecializationRole(specializationIndex) == "TANK" then
 		playerTankRole = true
 	else
 		playerTankRole = false
@@ -68,7 +70,9 @@ local function UpdatePlayerRole()
 	end
 
 
-	local activeTank = (tankAura or playerTankAura)
+	local activeTank = (playerTankRole or playerTankAura)
+
+	--print("Tank", playerTankRole , playerTankAura)
 
 	if TidyPlatesWidgets.IsTankingAuraActive ~= activeTank then
 		TidyPlatesWidgets.IsTankingAuraActive = activeTank
