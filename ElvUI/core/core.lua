@@ -47,6 +47,7 @@ local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 -- GLOBALS: ElvUIPlayerBuffs, ElvUIPlayerDebuffs, LeftChatPanel, RightChatPanel
 -- GLOBALS: ElvUI_StaticPopup1, ElvUI_StaticPopup1Button1, OrderHallCommandBar
 -- GLOBALS: ElvUI_StanceBar, ObjectiveTrackerFrame, GameTooltip, Minimap
+-- GLOBALS: ElvUIParent, ElvUI_TopPanel, hooksecurefunc, InterfaceOptionsCameraPanelMaxDistanceSlider
 
 
 --Constants
@@ -492,9 +493,8 @@ end
 --This frame everything in ElvUI should be anchored to for Eyefinity support.
 E.UIParent = CreateFrame('Frame', 'ElvUIParent', UIParent);
 E.UIParent:SetFrameLevel(UIParent:GetFrameLevel());
-E.UIParent:SetPoint('BOTTOM', UIParent, 'BOTTOM');
+E.UIParent:SetPoint('CENTER', UIParent, 'CENTER');
 E.UIParent:SetSize(UIParent:GetSize());
-E.UIParent.origHeight = E.UIParent:GetHeight()
 E['snapBars'][#E['snapBars'] + 1] = E.UIParent
 
 E.HiddenFrame = CreateFrame('Frame')
@@ -1245,14 +1245,6 @@ function E:DBConversions()
 	if E.db.nameplate then
 		E.db.nameplate = nil
 	end
-
-	--We have changed the required separator from a comma to a semicolon.
-	--Because there is no good way to determine if a comma is part of an item string or not,
-	--we just have to reset it all and let people build a new list.
-	if not E.db.bagSortIgnoreItemsReset then
-		E.db.bags.ignoreItems = ""
-		E.db.bagSortIgnoreItemsReset = true
-	end
 end
 
 local CPU_USAGE = {}
@@ -1393,25 +1385,24 @@ function E:Initialize()
 		print(select(2, E:GetModule('Chat'):FindURL("CHAT_MSG_DUMMY", format(L["LOGIN_MSG"]:gsub("ElvUI", E.UIName), self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version)))..'.')
 	end
 
-	--Resize ElvUIParent when entering/leaving Class Hall (stupid Class Hall Command Bar)
-	local function HookForResize()
-		OrderHallCommandBar:HookScript("OnShow", function()
-			local height = E.UIParent.origHeight - OrderHallCommandBar:GetHeight()
-			E.UIParent:SetHeight(height)
-		end)
-		OrderHallCommandBar:HookScript("OnHide", function()
-			E.UIParent:SetHeight(E.UIParent.origHeight)
-		end)
+	--Disable OrderHall Bar if needed
+	local function HandleCommandBar()
+		if E.global.general.disableOrderHallBar then
+			local bar = OrderHallCommandBar
+			bar:UnregisterAllEvents()
+			bar:SetScript("OnShow", bar.Hide)
+			bar:Hide()
+			UIParent:UnregisterEvent("UNIT_AURA")--Only used for OrderHall Bar
+		end
 	end
-
 	if OrderHallCommandBar then
-		HookForResize()
+		HandleCommandBar()
 	else
 		local f = CreateFrame("Frame")
 		f:RegisterEvent("ADDON_LOADED")
 		f:SetScript("OnEvent", function(self, event, addon)
 			if addon == "Blizzard_OrderHallUI" then
-				HookForResize()
+				HandleCommandBar()
 			end
 		end)
 	end

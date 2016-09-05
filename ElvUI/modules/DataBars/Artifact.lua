@@ -15,6 +15,7 @@ local MainMenuBar_GetNumArtifactTraitsPurchasableFromXP = MainMenuBar_GetNumArti
 local ShowUIPanel = ShowUIPanel
 local SocketInventoryItem = SocketInventoryItem
 local ARTIFACT_POWER = ARTIFACT_POWER
+local ARTIFACT_POWER_TOOLTIP_BODY = ARTIFACT_POWER_TOOLTIP_BODY
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS: GameTooltip, CreateFrame, ArtifactFrame
@@ -49,7 +50,7 @@ function mod:UpdateArtifact(event)
 		elseif textFormat == 'CURPERC' then
 			text = format('%s - %d%%', E:ShortValue(xp), xp / xpForNextPoint * 100)
 		elseif textFormat == 'CUR' then
-			text = format('%s', E:ShortValue(xp))
+			text = format('%s', E:ShortValue(totalXP))
 		elseif textFormat == 'REM' then
 			text = format('%s', E:ShortValue(xpForNextPoint - xp))
 		elseif textFormat == 'CURREM' then
@@ -74,7 +75,9 @@ function mod:ArtifactBar_OnEnter()
 	local numPointsAvailableToSpend, xp, xpForNextPoint = MainMenuBar_GetNumArtifactTraitsPurchasableFromXP(pointsSpent, totalXP);
 
 	GameTooltip:AddDoubleLine(L["XP:"], format(' %d / %d (%d%%)', xp, xpForNextPoint, xp/xpForNextPoint * 100), 1, 1, 1)
-	GameTooltip:AddDoubleLine(L["Remaining:"], format(' %d (%d%% - %d '..L["Bars"]..')', xpForNextPoint - xp, (xpForNextPoint - xp) / xpForNextPoint * 100, 20 * (xpForNextPoint - xp) / xpForNextPoint), 1, 1, 1)
+	GameTooltip:AddDoubleLine(L["Remaining:"], format(' %d (%d%% - %d %s)', xpForNextPoint - xp, (xpForNextPoint - xp) / xpForNextPoint * 100, 20 * (xpForNextPoint - xp) / xpForNextPoint, L["Bars"]), 1, 1, 1)
+	GameTooltip:AddLine(" ")
+	GameTooltip:AddLine(format(ARTIFACT_POWER_TOOLTIP_BODY, numPointsAvailableToSpend), nil, nil, nil, true)
 
 	GameTooltip:Show()
 end
