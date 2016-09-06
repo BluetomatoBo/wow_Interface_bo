@@ -509,7 +509,7 @@ function private:UpdateCooldownsFrame()
 
 		local totalNeeded = 0
 		for _, pc in pairs(potentialCrafts) do
-			if pc.item == info.name then
+			if craft and pc.item == info.name then
 				totalNeeded = totalNeeded + pc.need
 			end
 		end
@@ -549,6 +549,7 @@ function private.SetBlizzardProfessionFrameVisible(visible)
 		TradeSkillFrame_LoadUI()
 		TradeSkillFrame:SetScript("OnHide", private.BlizzardProfessionFrameOnHide)
 		ShowUIPanel(TradeSkillFrame)
+		TradeSkillFrame:OnDataSourceChanged()
 		private:CreateSwitchButton()
 		private.switchBtn:Show()
 		private.switchBtn:Update()
