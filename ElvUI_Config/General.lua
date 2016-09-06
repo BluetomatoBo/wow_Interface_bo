@@ -164,15 +164,8 @@ E.Options.args.general = {
 					get = function(info) return E.global.general.disableTutorialButtons end,
 					set = function(info, value) E.global.general.disableTutorialButtons = value; E:StaticPopup_Show("GLOBAL_RL") end,
 				},
-				disableOrderHallBar = {
-					order = 19,
-					type = "toggle",
-					name = L["Disable OrderHall Bar"],
-					get = function(info) return E.global.general.disableOrderHallBar end,
-					set = function(info, value) E.global.general.disableOrderHallBar = value; E:StaticPopup_Show("GLOBAL_RL") end,
-				},
 				autoScale = {
-					order = 20,
+					order = 19,
 					name = L["Auto Scale"],
 					desc = L["Automatically scale the User Interface based on your screen resolution"],
 					type = "toggle",
@@ -180,7 +173,7 @@ E.Options.args.general = {
 					set = function(info, value) E.global.general[ info[#info] ] = value; E:StaticPopup_Show("GLOBAL_RL") end
 				},
 				minUiScale = {
-					order = 21,
+					order = 20,
 					type = "range",
 					name = L["Lowest Allowed UI Scale"],
 					min = 0.32, max = 0.64, step = 0.01,
@@ -188,7 +181,7 @@ E.Options.args.general = {
 					set = function(info, value) E.global.general.minUiScale = value; E:StaticPopup_Show("GLOBAL_RL") end
 				},
 				talkingHeadFrameScale = {
-					order = 22,
+					order = 21,
 					type = "range",
 					name = L["Talking Head Scale"],
 					isPercent = true,
@@ -200,12 +193,26 @@ E.Options.args.general = {
 					order = 22,
 					type = "select",
 					name = L["Number Prefix"],
+					desc = L["The unit prefixes you want to use when values are shortened in ElvUI. This is mostly used on UnitFrames."],
 					get = function(info) return E.db.general.numberPrefixStyle end,
 					set = function(info, value) E.db.general.numberPrefixStyle = value; E:StaticPopup_Show("CONFIG_RL") end,
 					values = {
 						["METRIC"] = "k, M, G",
 						["ENGLISH"] = "K, M, B",
 						["CHINESE"] = "W, Y",
+					},
+				},
+				commandBarSetting = {
+					order = 23,
+					type = "select",
+					name = L["Order Hall Command Bar"],
+					get = function(info) return E.global.general.commandBarSetting end,
+					set = function(info, value) E.global.general.commandBarSetting = value; E:StaticPopup_Show("GLOBAL_RL") end,
+					width = "normal",
+					values = {
+						["DISABLED"] = L["Disable"],
+						["ENABLED"] = L["Enable"],
+						["ENABLED_RESIZEPARENT"] = L["Enable + Adjust Movers"],
 					},
 				},
 			},

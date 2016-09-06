@@ -9,12 +9,11 @@ local tonumber, pairs, ipairs, error, unpack, select, tostring = tonumber, pairs
 local assert, print, type, collectgarbage, pcall, date = assert, print, type, collectgarbage, pcall, date
 local twipe, tinsert, tremove = table.wipe, tinsert, tremove
 local floor = floor
-local format, find, split, match, strrep, len, sub, gsub = string.format, string.find, string.split, string.match, strrep, string.len, string.sub, string.gsub
+local format, find, strrep, len, sub = string.format, string.find, strrep, string.len, string.sub
 --WoW API / Variables
 local CreateFrame = CreateFrame
 local C_Timer_After = C_Timer.After
 local C_PetBattles_IsInBattle = C_PetBattles.IsInBattle
-local DoEmote = DoEmote
 local GetBonusBarOffset = GetBonusBarOffset
 local GetCombatRatingBonus = GetCombatRatingBonus
 local GetCVar, SetCVar, GetCVarBool = GetCVar, SetCVar, GetCVarBool
@@ -27,10 +26,8 @@ local GetSpellInfo = GetSpellInfo
 local InCombatLockdown = InCombatLockdown
 local IsAddOnLoaded = IsAddOnLoaded
 local IsInInstance, IsInGroup, IsInRaid = IsInInstance, IsInGroup, IsInRaid
-local PlayMusic, StopMusic = PlayMusic, StopMusic
 local RequestBattlefieldScoreData = RequestBattlefieldScoreData
 local SendAddonMessage = SendAddonMessage
-local SendChatMessage = SendChatMessage
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitHasVehicleUI = UnitHasVehicleUI
 local UnitLevel, UnitStat, UnitAttackPower = UnitLevel, UnitStat, UnitAttackPower
@@ -39,7 +36,6 @@ local CUSTOM_CLASS_COLORS = CUSTOM_CLASS_COLORS
 local ERR_NOT_IN_COMBAT = ERR_NOT_IN_COMBAT
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 local LE_PARTY_CATEGORY_INSTANCE = LE_PARTY_CATEGORY_INSTANCE
-local NUM_PET_ACTION_SLOTS = NUM_PET_ACTION_SLOTS
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 --Global variables that we don't cache, list them here for the mikk's Find Globals script
@@ -286,7 +282,7 @@ function E:UpdateMedia()
 end
 
 E.LockedCVars = {}
-function E:PLAYER_REGEN_ENABLED(event)
+function E:PLAYER_REGEN_ENABLED(_)
 	if(self.CVarUpdate) then
 		for cvarName, value in pairs(self.LockedCVars) do
 			if(GetCVar(cvarName) ~= value) then
@@ -333,7 +329,7 @@ local MasqueGroupToTableElement = {
 	["Debuffs"] = {"auras", "debuffs"},
 }
 
-local function MasqueCallback(Addon, Group, SkinID, Gloss, Backdrop, Colors, Disabled)
+local function MasqueCallback(_, Group, _, _, _, _, Disabled)
 	if not E.private then return; end
 	local element = MasqueGroupToTableElement[Group]
 
@@ -495,6 +491,7 @@ E.UIParent = CreateFrame('Frame', 'ElvUIParent', UIParent);
 E.UIParent:SetFrameLevel(UIParent:GetFrameLevel());
 E.UIParent:SetPoint('CENTER', UIParent, 'CENTER');
 E.UIParent:SetSize(UIParent:GetSize());
+E.UIParent.origHeight = E.UIParent:GetHeight()
 E['snapBars'][#E['snapBars'] + 1] = E.UIParent
 
 E.HiddenFrame = CreateFrame('Frame')
@@ -853,7 +850,6 @@ function E:SplitString(s, delim)
 end
 
 function E:SendMessage()
-	local _, instanceType = IsInInstance()
 	if IsInRaid() then
 		SendAddonMessage("ELVUI_VERSIONCHK", E.version, (not IsInRaid(LE_PARTY_CATEGORY_HOME) and IsInRaid(LE_PARTY_CATEGORY_INSTANCE)) and "INSTANCE_CHAT" or "RAID")
 	elseif IsInGroup() then
@@ -868,9 +864,8 @@ end
 
 local myName = E.myname.."-"..E.myrealm;
 myName = myName:gsub("%s+", "")
-local frames = {}
 
-local function SendRecieve(self, event, prefix, message, channel, sender)
+local function SendRecieve(_, event, prefix, message, _, sender)
 
 	if event == "CHAT_MSG_ADDON" then
 		if(sender == myName) then return end
@@ -1013,7 +1008,7 @@ function E:RemoveNonPetBattleFrames()
 	self:RegisterEvent("PLAYER_REGEN_DISABLED", "AddNonPetBattleFrames")
 end
 
-function E:AddNonPetBattleFrames(event)
+function E:AddNonPetBattleFrames()
 	if InCombatLockdown() then return end
 	for object, data in pairs(E.FrameLocks) do
 		local obj = _G[object] or object
@@ -1077,7 +1072,7 @@ function E:UnregisterPetBattleHideFrames(object)
 	E.FrameLocks[object] = nil
 end
 
-function E:EnterVehicleHideFrames(event, unit)
+function E:EnterVehicleHideFrames(_, unit)
 	if unit ~= "player" then return; end
 	
 	for object in pairs(E.VehicleLocks) do
@@ -1085,7 +1080,7 @@ function E:EnterVehicleHideFrames(event, unit)
 	end
 end
 
-function E:ExitVehicleShowFrames(event, unit)
+function E:ExitVehicleShowFrames(_, unit)
 	if unit ~= "player" then return; end
 	
 	for object, originalParent in pairs(E.VehicleLocks) do
@@ -1385,14 +1380,23 @@ function E:Initialize()
 		print(select(2, E:GetModule('Chat'):FindURL("CHAT_MSG_DUMMY", format(L["LOGIN_MSG"]:gsub("ElvUI", E.UIName), self["media"].hexvaluecolor, self["media"].hexvaluecolor, self.version)))..'.')
 	end
 
-	--Disable OrderHall Bar if needed
+	--Disable OrderHall Bar or resize ElvUIParent if needed
 	local function HandleCommandBar()
-		if E.global.general.disableOrderHallBar then
+		if E.global.general.commandBarSetting == "DISABLED" then
 			local bar = OrderHallCommandBar
 			bar:UnregisterAllEvents()
 			bar:SetScript("OnShow", bar.Hide)
 			bar:Hide()
 			UIParent:UnregisterEvent("UNIT_AURA")--Only used for OrderHall Bar
+		elseif E.global.general.commandBarSetting == "ENABLED_RESIZEPARENT" then
+			E.UIParent:SetPoint("BOTTOM", UIParent, "BOTTOM");
+			OrderHallCommandBar:HookScript("OnShow", function()
+				local height = E.UIParent.origHeight - OrderHallCommandBar:GetHeight()
+				E.UIParent:SetHeight(height)
+			end)
+			OrderHallCommandBar:HookScript("OnHide", function()
+				E.UIParent:SetHeight(E.UIParent.origHeight)
+			end)
 		end
 	end
 	if OrderHallCommandBar then
@@ -1400,7 +1404,7 @@ function E:Initialize()
 	else
 		local f = CreateFrame("Frame")
 		f:RegisterEvent("ADDON_LOADED")
-		f:SetScript("OnEvent", function(self, event, addon)
+		f:SetScript("OnEvent", function(_, _, addon)
 			if addon == "Blizzard_OrderHallUI" then
 				HandleCommandBar()
 			end

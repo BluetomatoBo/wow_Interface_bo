@@ -5,7 +5,7 @@ local E, L, V, P, G, _ = unpack(select(2, ...)); --Engine
 local print, unpack, select, pairs = print, unpack, select, pairs
 local lower = string.lower
 --WoW API / Variables
-local GetSpellInfo, IsSpellKnown = GetSpellInfo, IsSpellKnown
+local GetSpellInfo = GetSpellInfo
 local UnitClass, IsEquippedItem = UnitClass, IsEquippedItem
 
 local function SpellName(id)
@@ -542,7 +542,6 @@ G.unitframe.aurafilters['RaidDebuffs'] = {
 				[156934] = Defaults(), --Rupture
 				[175104] = Defaults(), --Melt Armor
 				[176121] = Defaults(), --Volatile Fire
-				[158702] = Defaults(), --Fixate
 				[155225] = Defaults(), --Melt
 
 			--Hans'gar and Franzok
@@ -712,7 +711,7 @@ G.unitframe.aurafilters['RaidDebuffs'] = {
 				[212494] = Defaults(), -- Annihilated (Main Tank debuff)
 				[212587] = Defaults(), -- Mark of Frost
 				[212531] = Defaults(), -- Mark of Frost (marked)
-				[212530] = Defaults(), -- Replicate: Mark of Frost 
+				[212530] = Defaults(), -- Replicate: Mark of Frost
 				[212647] = Defaults(), -- Frostbitten
 				[212736] = Defaults(), -- Pool of Frost
 				[213085] = Defaults(), -- Frozen Tempest
@@ -917,7 +916,7 @@ G.unitframe.buffwatch = {
 	MONK = {
 		[119611] = ClassBuff(119611, "TOPLEFT", {0.8, 0.4, 0.8}),	 --Renewing Mist
 		[116849] = ClassBuff(116849, "TOPRIGHT", {0.2, 0.8, 0.2}),	 -- Life Cocoon
-		[132120] = ClassBuff(132120, "BOTTOMLEFT", {0.4, 0.8, 0.2}), -- Enveloping Mist
+		[124682] = ClassBuff(124682, "BOTTOMLEFT", {0.4, 0.8, 0.2}), -- Enveloping Mist
 		[124081] = ClassBuff(124081, "BOTTOMRIGHT", {0.7, 0.4, 0}), -- Zen Sphere
 	},
 	ROGUE = {
@@ -970,7 +969,7 @@ local priestTier17 = {115560,115561,115562,115563,115564}
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_ENTERING_WORLD")
 f:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
-f:SetScript("OnEvent", function(self, event)
+f:SetScript("OnEvent", function()
 	local class = select(2, UnitClass("player"))
 	if lower(class) ~= "priest" then return; end
 
@@ -1046,7 +1045,7 @@ G.oldBuffWatch = {
 	MONK = {
 		ClassBuff(119611, "TOPLEFT", {0.8, 0.4, 0.8}),	 --Renewing Mist
 		ClassBuff(116849, "TOPRIGHT", {0.2, 0.8, 0.2}),	 -- Life Cocoon
-		ClassBuff(132120, "BOTTOMLEFT", {0.4, 0.8, 0.2}), -- Enveloping Mist
+		ClassBuff(124682, "BOTTOMLEFT", {0.4, 0.8, 0.2}), -- Enveloping Mist
 		ClassBuff(124081, "BOTTOMRIGHT", {0.7, 0.4, 0}), -- Zen Sphere
 	},
 	ROGUE = {
