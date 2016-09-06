@@ -1,0 +1,13 @@
+## Interface: 60200
+## Title: |cff00ff00TradeSkillMaster_Additions|r
+## Notes: Provides a handful of small quality of life features.
+## Author: Sapu94, Bart39
+## Version: v2.2
+## SavedVariables: TradeSkillMaster_AdditionsDB
+## Dependency: TradeSkillMaster
+## X-Curse-Packaged-Version: v2.2
+## X-Curse-Project-Name: TradeSkillMaster_Additions
+## X-Curse-Project-ID: tradeskillmaster_additions
+## X-Curse-Repository-ID: wow/tradeskillmaster_additions/mainline
+
+TradeSkillMaster_Additions.lua
