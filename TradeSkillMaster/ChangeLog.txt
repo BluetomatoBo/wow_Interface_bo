@@ -1,3 +1,6 @@
+v3.5.7
+*Switched to Roseate Pigment for ink vendor trades.
+
 v3.5.6
 *Added soulbound materials added in Legion.
 
