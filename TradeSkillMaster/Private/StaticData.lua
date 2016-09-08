@@ -1046,7 +1046,6 @@ TSM.STATIC_DATA.predefinedConversions = {
 	["i:129100"] = { -- Gem Chip - mostly trash but limited use in some professions
 		{"i:123918", 0.2, "prospect"},
 		{"i:123919", 0.2, "prospect"},
-		{"i:124101", 0.03, "mill"},
 	},
 	-- ========================================== Rare Gems ========================================
 	["i:23440"] = { -- Dawnstone

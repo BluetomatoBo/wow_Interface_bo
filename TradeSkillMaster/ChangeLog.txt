@@ -1,3 +1,6 @@
+v3.5.8
+*Fixed a bug preventing legion ores from showing as prospectable.
+
 v3.5.7
 *Switched to Roseate Pigment for ink vendor trades.
 
