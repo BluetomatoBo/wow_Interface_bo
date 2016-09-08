@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1743, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15156 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15190 $"):sub(12, -3))
 mod:SetCreatureID(106643)
 mod:SetEncounterID(1872)
 mod:SetZone()
@@ -495,7 +495,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
 			timerEpochericOrbCD:Stop()
 			timerAblativePulseCD:Start(22)
 			timerPermaliativeTormentCD:Start(140)--really likely cast more often in not faceroll mode. need more data
-			if not self:IsFaceroll() then
+			if not self:IsEasy() then
 				--Wasn't used in LFR, assume normal is same way since that's generally how it is
 				--Timer itself may need updating but been so long since seen heroic or mythic of this fight.
 				timerConflexiveBurstCD:Start(31.6, 1)
