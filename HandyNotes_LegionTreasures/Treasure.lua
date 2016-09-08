@@ -8,15 +8,24 @@ local CHEST = 'Treasure Chest'
 local CHEST_SM = 'Small Treasure Chest'
 local CHEST_GLIM = 'Glimmering Treasure Chest'
 local REQ_GRAPPLE = 'Requires: Stormforged Grapple Launcher'
-local path = function(questid, label, atlas)
+local path = function(questid, label, atlas, note, scale)
     label = label or "Path to treasure"
     atlas = atlas or "map-icon-SuramarDoor.tga" -- 'PortalPurple'
-    return {quest=questid, label=label, atlas=atlas, path=true}
+    return {
+        quest = questid,
+        label = label,
+        atlas = atlas,
+        path = true,
+        scale = scale,
+        note = note,
+    }
 end
-local grapple = function(questid)
+ns.path = path
+local grapple = function(questid, note)
     -- 'Vehicle-SilvershardMines-Arrow'
-    return path(questid, "Grapple start point", 'MiniMap-DeadArrow')
+    return path(questid, "Grapple start point", 'MiniMap-DeadArrow', note, 1.5)
 end
+ns.grapple = grapple
 
 ns.points = {
     --[[ structure:
@@ -192,8 +201,9 @@ ns.points = {
         [73975858] = {quest=43237, currency=ARTIFACT, label=CHEST_SM},
         [74414182] = {quest=43306, currency=ARTIFACT, label=CHEST_SM, note=REQ_GRAPPLE},
         [75164949] = {quest=42629, currency=ARTIFACT, label=CHEST, note="On top of the mast"},
-        [75676060] = {quest=43304, currency=ARTIFACT, label=CHEST_SM},
+        [75676060] = {quest=43304, currency=ARTIFACT, label=CHEST_SM, note=REQ_GRAPPLE},
         [78427138] = {quest=43307, currency=ARTIFACT, label=CHEST, note="*Really* requires the Stormforged Grapple Launcher"},
+        [75846406] = grapple(43307, "Route *requires* taking some falling damage, I think."),
         [81876750] = {quest=40099, currency=ARTIFACT, label=CHEST},
         [82405451] = {quest=43191, currency=ARTIFACT, label=CHEST_SM},
     },
@@ -307,7 +317,6 @@ ns.points = {
         [50905168] = {quest=39086, currency=ARTIFACT, label=CHEST_GLIM, note="Top of wall @ 41.4, 45.6"},
     },
     ["Helheim"] = { -- Stormheim
-        [28186375] = {quest=39870, npc=97630, item=129188, pet=true}, -- Soulthirster
     },
     ["StormDrakeDen"] = { -- Stormheim
         [20134125] = {quest=38529, currency=ARTIFACT, label=CHEST},

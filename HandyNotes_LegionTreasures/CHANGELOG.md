@@ -1,5 +1,11 @@
 # Changelog
 
+## Changed in v6
+
+* Added rares to all zones, because I got tired of people complaining and it's not like I don't have the dataset available from [SilverDragon](https://mods.curse.com/addons/WoW/silver-dragon).
+* Added more Highmountain grapple points.
+* Made grapple point icon more visible.
+
 ## Changed in v5
 
 * Show item previews in an attached tooltip rather than squeezing them into the main tooltip.

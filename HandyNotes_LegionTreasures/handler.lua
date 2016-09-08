@@ -68,19 +68,19 @@ local function work_out_label(point)
     if point.label then
         return point.label
     end
-    if point.item then
-        local _, link, _, _, _, _, _, _, _, texture = GetItemInfo(point.item)
-        if link then
-            return link
-        end
-        fallback = 'item:'..point.item
-    end
     if point.npc then
         local name = mob_name(point.npc)
         if name then
             return name
         end
         fallback = 'npc:'..point.npc
+    end
+    if point.item then
+        local _, link, _, _, _, _, _, _, _, texture = GetItemInfo(point.item)
+        if link then
+            return link
+        end
+        fallback = 'item:'..point.item
     end
     if point.currency then
         if point.currency == 'ARTIFACT' then
@@ -161,7 +161,7 @@ local get_point_info = function(point)
         elseif point.junk then
             category = "junk"
         end
-        return label, icon, category, point.quest, point.faction
+        return label, icon, category, point.quest, point.faction, point.scale
     end
 end
 local get_point_info_by_coord = function(mapFile, coord)
@@ -174,6 +174,9 @@ local function handle_tooltip(tooltip, point)
         -- major:
         if point.label then
             tooltip:AddLine(point.label)
+        end
+        if point.npc then
+            tooltip:AddLine(mob_name(point.npc) or ("npc:"..point.npc))
         end
         if point.item then
             local name, link = GetItemInfo(point.item)
@@ -189,9 +192,6 @@ local function handle_tooltip(tooltip, point)
             else
                 tooltip:AddLine(UNKNOWN, 1, 0, 0)
             end
-        end
-        if point.npc then
-            tooltip:AddDoubleLine(CREATURE, mob_name(point.npc) or point.npc)
         end
         if point.currency then
             local name
@@ -227,7 +227,7 @@ local function handle_tooltip(tooltip, point)
             tooltip:AddDoubleLine("QuestID", quest or UNKNOWN)
         end
 
-        if ns.db.tooltip_item and (point.item or point.npc) then
+        if (ns.db.tooltip_item or IsShiftKeyDown()) and (point.item or point.npc) then
             local comparison = ShoppingTooltip1
 
             do
@@ -393,8 +393,8 @@ do
         local state, value = next(t, prestate)
         while state do -- Have we reached the end of this zone?
             if value and ns.should_show_point(state, value, currentZone, currentLevel) then
-                local label, icon = get_point_info(value)
-                local scale = (point and point.scale or 1) * (icon and icon.scale or 1) * ns.db.icon_scale
+                local label, icon, _, _, _, scale = get_point_info(value)
+                scale = (scale or 1) * (icon and icon.scale or 1) * ns.db.icon_scale
                 return state, nil, icon, scale, ns.db.icon_alpha
             end
             state, value = next(t, state) -- Get next data
