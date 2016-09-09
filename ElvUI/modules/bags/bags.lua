@@ -376,8 +376,8 @@ function B:UpdateSlot(bagID, slotID)
 	if B.ProfessionColors[bagType] then
 		slot:SetBackdropBorderColor(unpack(B.ProfessionColors[bagType]))
 	elseif (clink) then
-		local iLvl, itemEquipLoc
-		slot.name, _, _, iLvl, _, _, _, _, itemEquipLoc = GetItemInfo(clink);
+		local iLvl, itemEquipLoc, itemClassID, itemSubClassID
+		slot.name, _, _, iLvl, _, _, _, _, itemEquipLoc, _, _, itemClassID, itemSubClassID = GetItemInfo(clink);
 
 		local isQuestItem, questId, isActiveQuest = GetContainerItemQuestInfo(bagID, slotID);
 		local r, g, b
@@ -393,7 +393,7 @@ function B:UpdateSlot(bagID, slotID)
 		end
 
 		--Item Level
-		if iLvl and B.db.itemLevel and (itemEquipLoc ~= nil and itemEquipLoc ~= "" and itemEquipLoc ~= "INVTYPE_BAG" and itemEquipLoc ~= "INVTYPE_QUIVER" and itemEquipLoc ~= "INVTYPE_TABARD") and (slot.rarity and slot.rarity > 1) then
+		if iLvl and B.db.itemLevel and ((itemClassID == 3 and itemSubClassID == 11) or (itemEquipLoc ~= nil and itemEquipLoc ~= "" and itemEquipLoc ~= "INVTYPE_BAG" and itemEquipLoc ~= "INVTYPE_QUIVER" and itemEquipLoc ~= "INVTYPE_TABARD") and (slot.rarity and slot.rarity > 1)) then
 			if (iLvl >= E.db.bags.itemLevelThreshold) then
 				slot.itemLevel:SetText(iLvl)
 				slot.itemLevel:SetTextColor(r, g, b)
@@ -1076,13 +1076,13 @@ function B:ContructContainerFrame(name, isBank)
 	f:SetMovable(true)
 	f:RegisterForDrag("LeftButton", "RightButton")
 	f:RegisterForClicks("AnyUp");
-	f:SetScript("OnDragStart", function(self) self:StartMoving() end)
+	f:SetScript("OnDragStart", function(self) if IsShiftKeyDown() then self:StartMoving() end end)
 	f:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
 	f:SetScript("OnClick", function(self) if IsControlKeyDown() then B.PostBagMove(self.mover) end end)
 	f:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 4)
 		GameTooltip:ClearLines()
-		GameTooltip:AddDoubleLine(DRAG_MODEL, L["Temporary Move"], 1, 1, 1)
+		GameTooltip:AddDoubleLine(L["Hold Shift + Drag:"], L["Temporary Move"], 1, 1, 1)
 		GameTooltip:AddDoubleLine(L["Hold Control + Right Click:"], L["Reset Position"], 1, 1, 1)
 
 		GameTooltip:Show()
@@ -1698,8 +1698,8 @@ function B:Initialize()
 	BankFrame:Point("TOPLEFT")
 	BankFrame:SetScript("OnShow", nil)
 
-	--Disable "Loot to left most bag", as the interface option has been removed
-	SetInsertItemsLeftToRight(false)
+	--Enable/Disable "Loot to Leftmost Bag"
+	SetInsertItemsLeftToRight(E.db.bags.reverseLoot)
 end
 
 E:RegisterModule(B:GetName())
