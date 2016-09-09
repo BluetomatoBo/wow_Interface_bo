@@ -1,3 +1,6 @@
+v3.5.9
+*Fixed some issues related to items with various bonuses.
+
 v3.5.8
 *Fixed a bug preventing legion ores from showing as prospectable.
 
