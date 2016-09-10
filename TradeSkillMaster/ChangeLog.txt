@@ -1,3 +1,6 @@
+v3.5.10
+*Added bonus ids related to item suffixes and sockets back.
+
 v3.5.9
 *Fixed some issues related to items with various bonuses.
 
