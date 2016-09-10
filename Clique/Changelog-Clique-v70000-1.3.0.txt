@@ -1,0 +1,12 @@
+tag v70000-1.3.0
+9994db92280063745ea5e40408b342d7fbc4983e
+Jim Whitehead <jnwhiteh@gmail.com>
+2016-09-09 22:22:38 +0200
+
+Tagging v70000-1.3.0
+
+
+--------------------
+
+Jim Whitehead:
+	- Trigger bindings changed on P_E_W

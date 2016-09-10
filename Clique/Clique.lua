@@ -195,6 +195,7 @@ function addon:Initialize()
     self:RegisterEvent("PLAYER_REGEN_DISABLED", "EnteringCombat")
     self:RegisterEvent("PLAYER_REGEN_ENABLED", "LeavingCombat")
     self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "TalentGroupChanged")
+    self:RegisterEvent("PLAYER_ENTERING_WORLD", "PlayerEnteringWorld")
 
     -- Register for Clique-based messages for settings updates, etc.
     self:RegisterMessage("BINDINGS_CHANGED")
@@ -806,6 +807,14 @@ function addon:TalentGroupChanged()
 
     self:FireMessage("BINDINGS_CHANGED")
 end
+
+-- Ensure we trigger a bindings change the first time the player enters the
+-- world.
+function addon:PlayerEnteringWorld()
+    self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+    self:FireMessage("BINDINGS_CHANGED")
+end
+
 
 function addon:UpdateCombatWatch()
     if self.settings.fastooc then
