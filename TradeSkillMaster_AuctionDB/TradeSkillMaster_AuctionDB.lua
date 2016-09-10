@@ -189,7 +189,7 @@ function TSM:OnEnable()
 
 	-- check if we can load EU region data from the app
 	if regionAppDataEU and regionAppDataEU.downloadTime >= TSM.db.global.lastUpdateEU then
-		TSM.updatedRegionDataUS = (regionAppDataEU.downloadTime > TSM.db.global.lastUpdateEU)
+		TSM.updatedRegionDataEU = (regionAppDataEU.downloadTime > TSM.db.global.lastUpdateEU)
 		TSM.db.global.lastUpdateEU = regionAppDataEU.downloadTime
 		TSM.regionDataEU = {}
 		local fields = regionAppDataEU.fields
