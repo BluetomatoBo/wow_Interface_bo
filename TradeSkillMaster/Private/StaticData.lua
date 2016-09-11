@@ -143,6 +143,11 @@ TSM.STATIC_DATA.soulboundMats = {
 	["i:137595"] = true, -- Viscous Transmutagen
 	["i:137596"] = true, -- Black Transmutagen
 	["i:137597"] = true, -- Oily Transmutagen
+	["i:140785"] = true, -- Hardened Circuitboard Plating
+	["i:140781"] = true, -- X-87 Battle Circuit
+	["i:140782"] = true, -- Neural Net Detangler
+	["i:140783"] = true, -- Predictive Combat Operations Databank
+	["i:140784"] = true, -- Fel Piston Stabilizer
 }
 
 

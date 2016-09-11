@@ -234,7 +234,7 @@ private.AuctionRecordDatabaseView = setmetatable({}, {
 
 private.AuctionRecordDatabase = setmetatable({}, {
 	__call = function(self)
-		local new = setmetatable({records={}}, getmetatable(self))
+		local new = setmetatable({}, getmetatable(self))
 		new.records = {}
 		new.updateCounter = 0
 		new.marketValueFunc = nil

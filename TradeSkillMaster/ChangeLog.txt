@@ -1,3 +1,11 @@
+v3.5.12
+*Fixed issue with pet imports.
+*Fixed issues related to unknown item message.
+*Fixed issues related to Legion material destroy searches.
+
+v3.5.11
+*Added missing BoP Engineering only items.
+
 v3.5.10
 *Added bonus ids related to item suffixes and sockets back.
 

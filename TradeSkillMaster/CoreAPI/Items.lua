@@ -11,7 +11,7 @@
 local TSM = select(2, ...)
 local Items = TSM:NewModule("Items", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("TradeSkillMaster") -- loads the localization table
-local private = {itemInfo={}, bonusIdCache={}, bonusIdTemp={}, scanTooltip=nil, newItems={}, numPending=0}
+local private = {itemInfo={}, bonusIdCache={}, bonusIdTemp={}, scanTooltip=nil, newItems={}, numPending=0, itemLevelCache = {}}
 local STATIC_DATA = {classLookup={}, classIdLookup={}, inventorySlotIdLookup={}}
 STATIC_DATA.weaponClassName = GetItemClassInfo(LE_ITEM_CLASS_WEAPON)
 STATIC_DATA.armorClassName = GetItemClassInfo(LE_ITEM_CLASS_ARMOR)
@@ -514,11 +514,14 @@ end
 function private.GetCachedItemInfo(itemString)
 	if not itemString then return end
 	if not private.itemInfo[itemString] then
-		private.newItems[itemString] = 1
 		private.itemInfo[itemString] = {}
 		if strmatch(itemString, "^p:") then
 			-- pets don't have a variant of GetItemInfoInstant, so just pretend we already got it
+			local speciesId = tonumber(strmatch(itemString, "^p:(%d+)"))
+			private.StoreGetPetInfoResult(itemString, private.GetPetInfo(speciesId))
 			private.itemInfo[itemString]._getInfoInstantResult = true
+		else 
+			private.newItems[itemString] = 1
 		end
 	end
 	return private.itemInfo[itemString]
@@ -705,13 +708,7 @@ function TSMAPI.Item:GetName(itemString)
 	end
 	local name = nil
 	if strmatch(itemString, "^p:") or (info and itemString == baseItemString) then
-		if not info then
-			-- looking up pet info should be safe
-			local speciesId = strmatch(itemString, "^p:(%d+)")
-			private.StoreGetPetInfoResult(baseItemString, private.GetPetInfo(speciesId))
-		end
-		-- This is either a base item or a pet. In the latter case, only the speciesId determines the pet name.
-		-- Just return what we have.
+		-- This is either a pet or base item, just return what we have.
 		name = info.name
 	elseif info and info._getInfoResult then
 		-- we have the base item info, so should be able to call GetItemInfo() for this version of the item
@@ -728,6 +725,9 @@ function TSMAPI.Item:GetName(itemString)
 			if name == "" then
 				name = nil
 			end
+		end
+		if name == "Unknown Item" then
+			name = nil
 		end
 	end
 	return name
@@ -809,6 +809,9 @@ function TSMAPI.Item:GetItemLevel(itemString)
 		return tonumber(itemLevel) or 0
 	elseif itemString ~= baseItemString and info and info._getInfoResult then
 		if private.GetUpgradeValue(itemString) then
+			if private.itemLevelCache[itemString] then
+				return private.itemLevelCache[itemString]
+			end
 			-- we need to do tooltip scanning to get the correct item level
 			local scanTooltip = private.GetScanTooltip()
 			scanTooltip:SetHyperlink(private.ToWoWItemString(itemString))
@@ -816,7 +819,8 @@ function TSMAPI.Item:GetItemLevel(itemString)
 				local text = _G[scanTooltip:GetName().."TextLeft" .. id]
 				local itemLevel = text and strmatch(text:GetText(), gsub(ITEM_LEVEL, "%%d", "([0-9]+)"))
 				if itemLevel then
-					return tonumber(itemLevel)
+					private.itemLevelCache[itemString] = tonumber(itemLevel)
+					return private.itemLevelCache[itemString]
 				end
 			end
 			-- failed to get the item level from the tooltip

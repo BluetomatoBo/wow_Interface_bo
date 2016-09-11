@@ -13,7 +13,7 @@ local private = {callbackHandler=nil, scanThreadId=nil, database=nil, currentMod
 -- some constants
 local SCAN_THREAD_PRIORITY = 0.8
 local SCAN_RESULT_DELAY = 0.1
-local MAX_SOFT_RETRIES = 10
+local MAX_SOFT_RETRIES = 20
 local MAX_HARD_RETRIES = 2
 
 
@@ -240,7 +240,7 @@ function private:IsAuctionPageValid(resolveSellers)
 	if totalAuctions <= NUM_AUCTION_ITEMS_PER_PAGE and numAuctions ~= totalAuctions then
 		-- there are cases where we get (0, 1) from the API - no idea why and it'll cause bugs later, so we should count it as invalid
 		TSM:LOG_ERR("Unexpected number of auctions (%d, %d)", numAuctions, totalAuctions)
-		return false, true
+		return false
 	end
 	if numAuctions == 0 then return true end
 
@@ -251,10 +251,12 @@ function private:IsAuctionPageValid(resolveSellers)
 		local _, _, stackSize, _, _, _, _, minBid, minIncrement, buyout, bid, highBidder, _, seller, seller_full = GetAuctionItemInfo("list", i)
 		seller = TSM:GetAuctionPlayer(seller, seller_full)
 		local timeLeft = GetAuctionItemTimeLeft("list", i)
-		local link = GetAuctionItemLink("list", i)
+		local link = TSMAPI.Item:GeneralizeLink(GetAuctionItemLink("list", i))
 		local itemString = TSMAPI.Item:ToItemString(link)
-		if not itemString or not buyout or not stackSize then
-			return false, true
+		local name = TSMAPI.Item:GetName(link)
+		local itemLevel = TSMAPI.Item:GetItemLevel(link)
+		if not itemString or not buyout or not stackSize or not itemLevel or not name then
+			return false
 		elseif not seller and resolveSellers and buyout ~= 0 then
 			return false
 		end
@@ -264,7 +266,7 @@ function private:IsAuctionPageValid(resolveSellers)
 end
 
 function private:GetAuctionRecord(index)
-	local name, texture, stackSize, _, _, _, _, minBid, minIncrement, buyout, bid, highBidder, _, seller, seller_full = GetAuctionItemInfo("list", index)
+	local _, texture, stackSize, _, _, _, _, minBid, minIncrement, buyout, bid, highBidder, _, seller, seller_full = GetAuctionItemInfo("list", index)
 	local timeLeft = GetAuctionItemTimeLeft("list", index)
 	local rawLink = GetAuctionItemLink("list", index)
 	local link = TSMAPI.Item:GeneralizeLink(rawLink)

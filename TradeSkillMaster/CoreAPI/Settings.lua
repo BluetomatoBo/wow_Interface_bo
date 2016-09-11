@@ -71,7 +71,7 @@ function TSMAPI.Settings:Init(svTableName, settingsInfo, upgradeCallback)
 					-- add this scope key to the list of scope keys and set all the settings to their default values
 					if scopeType ~= "global" and not tContains(context.db._scopeKeys[scopeType], oldScopeKey) then
 						tinsert(context.db._scopeKeys[scopeType], oldScopeKey)
-						private:SetScropeDefaults(context.db, settingsInfo, strjoin(KEY_SEP, SCOPE_TYPES[scopeType], TSMAPI.Util:StrEscape(oldScopeKey), ".+"))
+						private:SetScopeDefaults(context.db, settingsInfo, strjoin(KEY_SEP, SCOPE_TYPES[scopeType], TSMAPI.Util:StrEscape(oldScopeKey), ".+"))
 					end
 					-- go through all the new settings and if it existed in the old DB (as the same type), copy it over, else leave it as the default
 					for settingKey, info in pairs(scopeSettings) do
@@ -175,15 +175,15 @@ private.SettingsDB = setmetatable({}, {
 			isValid = false
 		elseif not private:ValidateDB(db) then
 			-- corrupted DB
-			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.5.10", "DB is not valid!")
+			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.5.12", "DB is not valid!")
 			isValid = false
 		elseif db._version == version and db._hash ~= hash then
 			-- the hash didn't match
-			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.5.10", "Invalid settings hash! Did you forget to increase the version?")
+			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.5.12", "Invalid settings hash! Did you forget to increase the version?")
 			isValid = false
 		elseif db._version > version then
 			-- this is a downgrade
-			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.5.10", "Unexpected DB version! If you really want to downgrade, comment out this line (remember to uncomment before committing).")
+			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.5.12", "Unexpected DB version! If you really want to downgrade, comment out this line (remember to uncomment before committing).")
 			isValid = false
 		end
 		if not isValid then
@@ -202,7 +202,7 @@ private.SettingsDB = setmetatable({}, {
 		for scopeType, scopeKey in pairs(currentScopeKeys) do
 			if scopeType ~= "global" and not tContains(db._scopeKeys[scopeType], scopeKey) then
 				tinsert(db._scopeKeys[scopeType], scopeKey)
-				private:SetScropeDefaults(db, settingsInfo, strjoin(KEY_SEP, SCOPE_TYPES[scopeType], TSMAPI.Util:StrEscape(scopeKey), ".+"))
+				private:SetScopeDefaults(db, settingsInfo, strjoin(KEY_SEP, SCOPE_TYPES[scopeType], TSMAPI.Util:StrEscape(scopeKey), ".+"))
 			end
 		end
 
@@ -235,7 +235,7 @@ private.SettingsDB = setmetatable({}, {
 					for settingKey, info in pairs(scopeInfo) do
 						if not processedKeys[scope..KEY_SEP..settingKey] and (info.lastModifiedVersion > db._version or version < db._version) then
 							-- this is either a new setting or was changed and previously set to nil or this is a downgrade - either way set it to the default value
-							private:SetScropeDefaults(db, settingsInfo, strjoin(KEY_SEP, SCOPE_TYPES[scope], ".+", settingKey), removedKeys)
+							private:SetScopeDefaults(db, settingsInfo, strjoin(KEY_SEP, SCOPE_TYPES[scope], ".+", settingKey), removedKeys)
 						end
 					end
 				end
@@ -329,7 +329,7 @@ private.SettingsDBMethods = {
 		if not tContains(context.db._scopeKeys.profile, profileName) then
 			tinsert(context.db._scopeKeys.profile, profileName)
 			-- this is a new profile, so set all the settings to their default values
-			private:SetScropeDefaults(context.db, context.settingsInfo, strjoin(KEY_SEP, SCOPE_TYPES.profile, TSMAPI.Util:StrEscape(profileName), ".+"))
+			private:SetScopeDefaults(context.db, context.settingsInfo, strjoin(KEY_SEP, SCOPE_TYPES.profile, TSMAPI.Util:StrEscape(profileName), ".+"))
 			isNew = true
 		end
 
@@ -340,7 +340,7 @@ private.SettingsDBMethods = {
 
 	ResetProfile = function(self)
 		local context = private.context[self]
-		private:SetScropeDefaults(context.db, context.settingsInfo, strjoin(KEY_SEP, SCOPE_TYPES.profile, TSMAPI.Util:StrEscape(context.currentScopeKeys.profile), ".+"))
+		private:SetScopeDefaults(context.db, context.settingsInfo, strjoin(KEY_SEP, SCOPE_TYPES.profile, TSMAPI.Util:StrEscape(context.currentScopeKeys.profile), ".+"))
 		if context.callbacks.OnProfileUpdated then
 			context.callbacks.OnProfileUpdated(true)
 		end
@@ -494,7 +494,7 @@ function private:ValidateDB(db)
 	return true
 end
 
-function private:SetScropeDefaults(db, settingsInfo, searchPattern, removedKeys)
+function private:SetScopeDefaults(db, settingsInfo, searchPattern, removedKeys)
 	-- remove any existing entries for matching keys
 	for key in pairs(db) do
 		if strmatch(key, searchPattern) then

@@ -418,7 +418,7 @@ function private.RunScheduler(_, elapsed)
 	-- run lower priority threads first so that higher priority threads can potentially get extra time
 	sort(queue, private.threadSort)
 	local remainingTime = min(elapsed * 1000 * 0.75, MAX_QUANTUM_MS)
-	if(InCombatLockdown()) then
+	if InCombatLockdown() then
 		-- reduce the remaining time if player is in combat
 		remainingTime = min(elapsed * 1000 * 0.10, MAX_COMBAT_QUANTUM_MS)
 	end
