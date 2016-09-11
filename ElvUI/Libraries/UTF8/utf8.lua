@@ -293,6 +293,7 @@ local function utf8reverse(s)
 	local pos = bytes
 	local charbytes
 	local newstr = ""
+	local c
 
 	while pos > 0 do
 		c = strbyte(s, pos)
