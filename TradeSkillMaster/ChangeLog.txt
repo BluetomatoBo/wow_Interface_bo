@@ -1,3 +1,6 @@
+v3.5.13
+*Improved performance of soulbound item detection.
+
 v3.5.12
 *Fixed issue with pet imports.
 *Fixed issues related to unknown item message.

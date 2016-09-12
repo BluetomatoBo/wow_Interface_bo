@@ -11,7 +11,7 @@
 local TSM = select(2, ...)
 local Items = TSM:NewModule("Items", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("TradeSkillMaster") -- loads the localization table
-local private = {itemInfo={}, bonusIdCache={}, bonusIdTemp={}, scanTooltip=nil, newItems={}, numPending=0, itemLevelCache = {}}
+local private = {itemInfo={}, bonusIdCache={}, bonusIdTemp={}, scanTooltip=nil, newItems={}, numPending=0, itemLevelCache = {}, soulboundCache = {}}
 local STATIC_DATA = {classLookup={}, classIdLookup={}, inventorySlotIdLookup={}}
 STATIC_DATA.weaponClassName = GetItemClassInfo(LE_ITEM_CLASS_WEAPON)
 STATIC_DATA.armorClassName = GetItemClassInfo(LE_ITEM_CLASS_ARMOR)
@@ -194,9 +194,12 @@ function TSMAPI.Item:IsSoulbound(...)
 	else
 		TSMAPI:Assert(false, "Invalid arguments")
 	end
-
+	local itemLink = bag and slot and GetContainerItemLink(bag, slot)
+	if itemLink and private.soulboundCache[itemLink] then
+		return private.soulboundCache[itemLink]
+	end
+	
 	local scanTooltip = private.GetScanTooltip()
-
 	local result = nil
 	if itemString then
 		-- it's an itemString
@@ -236,6 +239,11 @@ function TSMAPI.Item:IsSoulbound(...)
 			end
 		end
 	end
+	
+	if itemLink then
+		private.soulboundCache[itemLink] = result
+	end
+	
 	return result
 end
 
