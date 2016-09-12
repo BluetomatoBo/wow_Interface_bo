@@ -3,8 +3,6 @@ local AddOnName = ...
 local ES
 local FoundError
 
-AS:UpdateLocale()
-
 function AS:CheckOption(optionName, ...)
 	for i = 1, select('#', ...) do
 		local addon = select(i, ...)
@@ -183,6 +181,8 @@ end
 function AS:StartSkinning(event)
 	AS:UnregisterEvent(event)
 
+	AS:UpdateLocale()
+
 	local EP = LibStub('LibElvUIPlugin-1.0', true)
 	if EP then
 		EP:RegisterPlugin(AddOnName, AS.GetOptions)
@@ -239,7 +239,7 @@ function AS:UpdateMedia()
 	AS.ActionBarFont = LSM:Fetch('font', "Arial Narrow")
 	AS.PixelFont = LSM:Fetch('font', "Arial Narrow")
 	AS.NormTex = LSM:Fetch('statusbar', "Blizzard Character Skills Bar")
-	AS.BackdropColor = { 1, 1, 1 }
+	AS.BackdropColor = { 0, 0, 0 }
 	AS.BorderColor = { 1, 1, 1 }
 	AS.PixelPerfect = false
 	AS.HideShadows = false
@@ -249,7 +249,7 @@ function AS:Init(event, addon)
 	if event == 'ADDON_LOADED' and addon == AddOnName then
 		AS:UpdateMedia()
 		if AS:CheckAddOn('ElvUI') then
-			local ElvUIVersion, MinElvUIVersion = tonumber(GetAddOnMetadata('ElvUI', 'Version')), 8.38
+			local ElvUIVersion, MinElvUIVersion = tonumber(GetAddOnMetadata('ElvUI', 'Version')), 10.00
 			if ElvUIVersion < MinElvUIVersion then
 				AS:AcceptFrame(format('%s - Required ElvUI Version %s. You currently have %s.\n Download ElvUI @ %s', AS.Title, MinElvUIVersion, ElvUIVersion, AS:PrintURL('http://www.tukui.org/dl.php')), function(self) print(AS:PrintURL('http://www.tukui.org/dl.php')) self:Hide() end)
 				AS:Print('Loading Aborted')
