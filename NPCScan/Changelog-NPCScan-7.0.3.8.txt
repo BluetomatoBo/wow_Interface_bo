@@ -1,0 +1,141 @@
+tag 7.0.3.8
+b0817049c3b39cbe74292006a1bd838d93f34934
+James D. Callahan III <jcallahan@curse.com>
+2016-09-12 04:51:28 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Move initialization of lookup tables from OnInitialize to OnEnable so quest and achievement data will be available upon a fresh start of the game.
+	- Add Dungeons tab next to Zone tab for Rare and Tameable preferences.
+	- MapNPCs.lua => MapData.lua
+	- Implement preferences for Continent and Zone blacklisting, with cleanups along the way.
+	- Implement preferences for Rare and Tameable NPCs, with miscellaneous cleanups along the way.
+	- Move some things around.
+	- Assign npcID to the npcData
+	- Dead code removal.
+	- Logic simplification.
+	- Add Ignored tab under NPCs preferences tab, and slightly improved the output for the Custom tab.
+	- Remove blacklist checking for user defined NPCs - they'll never be on it - and add check for their detection being enabled.
+	- Move detection toggle for user defined NPCs from the Detection tab to the NPCs/Custom tab.
+	- Reorganization.
+	- Fix display of achievement name on targeting button.
+	- Add the ability to ignore detection per continent.
+	- Renames.
+	- Add the ability to enable, disable, or customize the tracking of NPCs for an achievement.
+	- Remove unused LibTextTable-1.1
+	- Implement preliminary version of Achievement NPCs list.
+	- Set the width of the text for the targeting button anchor so it doesn't go outside of the frame when setting the scale, and center the title text.
+	- Implement target button size scaling.
+	- Move miscellaneous inits to after the lookup tables are built, so that data is available.
+	- Register every NPC in the NPCData table, and assign its name and map ID.
+	- Dismiss active targeting buttons when a matching user defined NPC is removed from the list.
+	- Implement user defined NPC scanning.
+	- Cleanup.
+	- Disable right-click target button dismissal and the display of the tooltip hint for it while in combat.
+	- Be more proactive with the pausedDismissal flag.
+	- Call UpdateScanListAchievementCriteria and UpdateScanListQuestObjectives, if applicable, in TargetButton.Deactivate if self.isDead is true.
+	- Change QueueNPCForUntracking to not put every npcID in the same table slot, so it actually works.
+	- Move the body of NPCScan:LOOT_CLOSED out into UpdateScanListQuestObjectives
+	- Change event throttle for CRITERIA_UPDATE from 0.5 seconds to 5 seconds.
+	- Improve logic for handling target button dismissal animations during combat.
+	- Add Coura, Mistress of Arcana.
+	- Change remaining instances of NUM_RAID_ICONS to the locally-defined version. Fixes ticket #145
+	- Add vignette name for Syphonus
+	- Add vignette name for Sinister Leyrunner and Devious Sunrunner.
+	- Somehow itIT wasn't ever added. Fixed.
+	- Use localized vignette names for detection when they don't match the NPC name, since quest names may not match in other locales, sometimes don't in English anyway, and some vignette names simply have no direct in-game correlation.
+	- Simplify vignette detection code via reuse.
+	- Fake completed achievement criteria on NPC death to update the target button text color, since CRITERIA_UPDATE doesn't fire until afterward.
+	- Attempt to process Quest IDs from world map landmarks first, so quests which have multiple NPCs will alert for them all.
+	- Assign proper achievement criteria data for NPCs that are criteria via a quest.
+	- Whitespace cleanup and dead code removal.
+	- Add SpecialText FontString to the normal style targeting button, so the achievement name will be shown for formerly-rare Legion NPCs. Various style tweaks to all targeting button styles.
+	- Stylistic changes.
+	- Fix a race condition on load.
+	- Define local version of NUM_RAID_ICONS, since the global version doesn't exist until after Blizzard_CompactRaidFrames is loaded.
+	- Add additional elements to the kill animation.
+	- Change default vignette-generated target button style from "rareelite" to "rare" since most in Legion aren't elite thusfar.
+	- Ignore mute when pressing the sound Preview button.
+	- Add "Ignore Mute" preference option - will enable sound before playing alert sounds, then disable sound (if applicable) after 5 seconds.
+	- Add preview button for screen flash.
+	- Remove the pausedAnimations in TargetButton:Deactivate so they don't start playing after leaving combat on a subsequent call to TargetButton:Activate
+	- Restrict the target button macro to the LeftButton, so clicking with the RightButton to dismiss it will not first target the NPC.
+	- Just use InCombatLockdown directly instead of using PLAYER_REGEN_DISABLED and PLAYER_REGEN_ENABLED to store on each target button whether combat is happening.
+	- Add data for Horux and Zorux.
+	- Attempt to process Quest IDs from vignettes first, so quests which have multiple NPCs will alert for them all.
+	- Make the sound throttle actually work.
+	- Don't do anything in TargetButtonManager.RespawnAsClassification while in combat.
+	- Move check for target button replacement from TargetButton.SetUnitData to TargetButton.UpdateData.
+	- Add npcID to debug output.
+	- Add data for Warbringer Mox'na, Arcana Stalker, and Ambusher Daggerfang
+	- Don't attempt to update the target button while in combat.
+	- Replaced the screen edge flash with a customizable screen flash.
+	- Fix for dismissAnimationGroup.
+	- Massive cleanup and simplification for detection data.
+	- Pass the unitToken when replacing a target button so the proper raid icon will be set, rather than requiring a second pass of unit information to do so.
+	- Replace vignette-generated target buttons when unit data is available, if the default rareelite classification is incorrect.
+	- Name fix.
+	- Play the durationFadeAnimationGroup whenever a target button is activated, not just when the mouse isn't over the target button.
+	- Stop durationFadeAnimationGroup when a target button is deactivated; stopping only its animIn animation would sometimes cause the target button to hide immediately after being shown.
+	- Reverse centralization of registrations.
+	- Updates for NPC data.
+	- Attempt to fix target buttons sometimes not appearing.
+	- Standardize queue code into the TargetButtonManager.ProcessQueue method, and centralize event and message registrations.
+	- Move things around to make life easier for myself.
+	- Add new NPCs and add/update data.
+	- Add missing reference for LibWindow-1.1
+	- Add vignetteQuestID for Perrexx.
+	- Throttle the alert sound interval to once per two seconds, so multiple detections in that span don't have overlapping sounds.
+	- Add questID for Mad Henryk.
+	- Update the scan list immediately upon changing the value of ignoreCompletedAchievementCriteria or ignoreCompletedQuestObjectives
+	- Simplify things a bit.
+	- Ditch registration for NPCScan_DetectionOptionsChanged message; it's unnecessary.
+	- Use currentMapID instead of the passed-in mapID, since there are cases where it won't be passed in.
+	- Add quest data for Jinikki the Puncturer, and introduce the concept for vignetteQuestID for NPCs which have one that is separate from their completion questID.
+	- If an NPC's completion quest is the criteria of an achievement, assign that achievement to the NPC so its name is displayed in the target button.
+	- Add Llorian.
+	- Fix XML error and path for LibTextDump-1.0 in embeds.xml
+	- Lop "Vignette: " off of the beginning of quest names, if applicable, for a better chance of matching it to the NPC via vignette. Example: "Painmistress Selora's" vignette name is "Invasion Point: Devastation" and her completion quest is named "Vignette: Invasion Point: Devastation" This will, of course, only improve the English detection.
+	- ChatCommand fix.
+	- Threw everything away and started over. This is not finished, but if you don't care about adding/removing custom NPCs, ignoring NPCs, or toggling entire achievements of NPCs on or off, it works a hell of a lot better than the old version.
+	- Missed a line.
+	- Move definition of TextDump into the do block with the rest of the debug code.
+	- Cleanup.
+	- Improvements for the debug frame: Self-instantiating, added private.GetDebugger which also instantiates if non-existent, increased width and height, and use the new LibTextDump-1.0 dateFormat parameter for timestamps.
+	- Reformatting.
+	- Drop the leading underscore from the AddOn's name.
+	- Add Core.lua as step 1 of full rewrite.
+	- Tidy up the ToC - reorganize and remove extraneous information that isn't referenced anywhere (and is out of date).
+	- Consolidate declarations for faction/tamable code that is currently completely unused - may be an oversight.
+	- Remove localization phrases and tables that are no longer used.
+	- Remove check for tamable rare not being in its expected zone since that is no longer a possibility.
+	- Rewrite of scanner code - round one.
+	- Assign the configured raid icon in OnFound so it will be automatic for any detection method.
+	- Pass the unitToken to OnFound instead of the results of UnitName(unitToken) - the name is assigned within.
+	- Renames.
+	- Remove MANUAL_PANDARIA_ADDITIONS and place (all of) the correct NPC IDs in the MapNPCs table for each of the zones they can be found in
+	- Remove warning that cache-scanning is no longer a thing; it's been almost two years.
+	- Yank some unnecessary/unused event registrations.
+	- Add alias for private.IsNPCQuestComplete so _NPCScan.Overlay doesn't explode. The fact that this even works shows that someone doesn't know what the fucking word "private" means, and has opened everything in that table to the global namespace. Which, as the name implies, was not the goddamn plan. To be fixed with extreme prejudice.
+	- ... and do likewise in the .toc
+	- Move NPCData.lua into the Data directory.
+	- Data initialization fixes.
+	- Rename NPCQuestIsComplete to IsNPCQuestComplete, and move it to before its first occurrence in the file it's defined in so the private table lookup can be omitted there.
+	- Also remove ISLE_OF_THUNDER_MAP_ID as unnecessary, and was wrong as well; I have no idea what 1064 is supposed to be, but the actual map ID is either 928 or 933.
+	- Remove DARKMOON_ISLAND_MAP_ID - not only is it no longer longer needed due to switching entirely to map IDs, but it was completely wrong - it should have been 823, but was set to 947 which is Draenor's Shadowmoon Valley...
+	- Rewrite lookup table initialization to use the new NPCData table, and remove all the X_TO_WORLD_NAME tables.
+	- Remove private.CUSTOM_NPC_NAME_TO_ID table - was only ever assigned to and never referenced.
+	- Completely divorce location data from NPC data, using map IDs instead of continent and zone names. Allows more precise tracking, especially since names can be duplicated and NPCs can exist in more than one zone/area.
+	- Cleanups, even though I'm 100% certain I'm going to completely rip this code out soon.
+	- Rewrite dump code for new data formats.
+	- Cleanups.
+	- Dead code removal.
+	- Purge unnecessary cruft from NPC_DATA table.
+	- Fix for ZONE_NAMES.SHADOWMOON_VALLEY_OUTLAND
+	- Fix up zone names in preparation for data dump to the new format.
+	- Remove all code relating to the "cache" which was irrevocably broken upon the release of WoW 6.x
+	- Dead code removal.
+	- Move unnecessary GeneralNPCUpdate parameter inline.
