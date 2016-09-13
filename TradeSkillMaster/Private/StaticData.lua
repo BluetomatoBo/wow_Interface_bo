@@ -114,6 +114,10 @@ TSM.STATIC_DATA.preloadedVendorCosts = {
 	["i:46796"] = 25, -- Ripe Tirisfal Pumpkin
 	["i:46797"] = 25, -- Mulgore Sweet Potato
 	["i:79740"] = 23, -- Plain Wooden Staff
+	["i:136632"] = 210800, -- Chaos Blaster
+	["i:136631"] = 450000, -- Surface-to-Infernal Rocket Launcher
+	["i:136630"] = 118500, -- Twirling Bottom Repeater
+	["i:136629"] = 173300, -- Felgibber Shotgun
 }
 
 
@@ -148,6 +152,10 @@ TSM.STATIC_DATA.soulboundMats = {
 	["i:140782"] = true, -- Neural Net Detangler
 	["i:140783"] = true, -- Predictive Combat Operations Databank
 	["i:140784"] = true, -- Fel Piston Stabilizer
+	["i:136632"] = true, -- Chaos Blaster
+	["i:136631"] = true, -- Surface-to-Infernal Rocket Launcher
+	["i:136630"] = true, -- Twirling Bottom Repeater
+	["i:136629"] = true, -- Felgibber Shotgun
 }
 
 
