@@ -28,10 +28,11 @@ local isDBMloaded = false
 nodes["Azsuna"] = {
 	[58381229]={ "37980", "Treasure Chest", "Artifact Power", "You need to use a ley portal at 58.7 to 14.1", "default", "treasure_azs","131751"},
     [57901220]={ "37958", "Treasure Chest", "Artifact Power", "", "default", "treasure_azs","138783"},
-	[51562005]={ "42289", "Treasure Chest", "Artifact Power", "Inside a cave, entrance is at 47.8 to 23.7", "default", "treasure_azs","138783"},
+	[51502435]={ "42289", "Treasure Chest", "Artifact Power", "Inside a cave, entrance is at 47.8 to 23.7", "default", "treasure_azs","138783"},
 	[56443481]={ "38251", "Treasure Chest", "Artifact Power", "", "default", "treasure_azs","132950"},
 	[58364378]={ "37830", "Glimmering Treasure Chest", "Artifact Power", "", "default", "treasure_azs","138783"},
 	[53543982]={ "42284", "Small Treasure Chest", "Artifact Power", "There are two treasures in the temple", "default", "treasure_azs","131795"},
+	[53543982]={ "42285", "Small Treasure Chest", "Artifact Power", "There are two treasures in the temple", "default", "treasure_azs","131795"},
     [42600810]={ "38367", "Treasure Chest", "Artifact Power", "", "default", "treasure_azs","138783"},
 	[55905690]={ "38365", "Disputed Treasure", "Artifact Power", "", "default", "treasure_azs","138783"},
 	[62405840]={ "42273", "Small Treasure Chest", "Artifact Power", "", "default", "treasure_azs","138783"},
@@ -69,8 +70,6 @@ nodes["Azsuna"] = {
 	[41393075]={ "42292", "Treasure Chest", "Artifact Power", "", "default", "treasure_azs", "138783"},
 	[34583556]={ "44102", "Small Treasure Chest", "Artifact Power", "", "default", "treasure_azs", "138783"},
 	[43392242]={ "42297", "Glimmering Treasure Chest", "Artifact Power", "the path up the mountain starts at 39.14 to 32.84", "default", "treasure_azs", "138783"},
-	[62028381]={ "42284", "Small Treasure Chest", "Artifact Power", "Inside the temple", "default", "treasure_azs", "138783"},
-	[71212211]={ "42285", "Small Treasure Chest", "Artifact Power", "You need to do a questline to open the door leading to the treasure", "default", "treasure_azs", "138783"},
 	[52842059]={ "42339", "Treasure Chest", "Artifact Power", "cave entrance is at 53.95 to 22.43 | The bears will keep sleeping unless you disturb them", "default", "treasure_azs", "138783"},
 
 	[52382304]={ "38268", "Cailyn Paledoom", "Haste/Mastery Leather Helmet", "", "skull_grey", "rare_azs", "129063"},
@@ -100,6 +99,7 @@ nodes["Azsuna"] = {
 	[65164000]={ "37820", "Golza the Iron Fin", "Agility/Mastery Trinket", "", "skull_grey", "rare_azs","129091"},
 	[59304630]={ "38212", "Brogozog", "Haste/Mastery Mail Shoulder", "on top of the mountain", "skull_grey", "rare_azs", "129068"},
 	[33404120]={ "44670", "Broodmother Lizax", "Haste/Mastery Leather Chest", "", "skull_grey", "rare_azs", "141869"},
+	[43572444]={ "42069", "Felwing", "Crit/Mastery Leather Bracer", "the path up the mountain starts at 39.14 to 32.84", "skull_grey", "rare_azs", "129087"},
 }
 
 nodes["Valsharah"] = {
@@ -208,15 +208,15 @@ nodes["Highmountain"] = {
 	[54394112]={ "40414", "Devouring Darkness", "Haste/Mastery Cloth Boots", "Cave entrace at 55.1 to 44.3 | Blow out the candles to summon it", "skull_grey", "rare_hmn","131780"},
 	[53755123]={ "39872", "Taurson", "Crit/Haste Plate Belt", "His loot is in his chest", "skull_grey", "rare_hmn","131800"},
 	[41513184]={ "40175", "Slumber", "Crit/Haste Necklace", "", "skull_grey", "rare_hmn","131921"},
-	[46643144]={ "39646", "Majestic Elderhorn", "Mount Buff for Highmountain", "Click on the abandoned Fishing Pole", "skull_grey", "rare_hmn","131900"},
+	[46643144]={ "39646", "Majestic Elderhorn", "Mount Buff for Highmountain", "", "skull_grey", "rare_hmn","131900"},
 	[49202709]={ "40242", "Mellok, Son of Torok", "Artifact Power", "", "skull_grey", "rare_hmn","131808"},	
-	[40975775]={ "39993", "Flamescale", "Haste/Mastery Mail Chest", "Click on the abandoned Fishing Pole", "skull_grey", "rare_hmn","131773"},
+	[40975775]={ "39963", "Flamescale", "Haste/Mastery Mail Chest", "Click on the abandoned Fishing Pole", "skull_grey", "rare_hmn","131773"},
 	[45705500]={ "40681", "Sekhan", "Haste/Mastery Leather Belt", "", "skull_grey", "rare_hmn","131730"},
 	[51074825]={ "39802", "Hartli the Snatcher", "Artifact Power", "", "skull_grey", "rare_hmn","138783"},
 	[43164800]={ "40413", "Amateur hunters", "Crit/Mastery Plate Boots", "Their loot is in a chest", "skull_grey", "rare_hmn","131781"},
 	[54447454]={ "40773", "Frostshard", "Order Resources", "!!! LEVEL 110 !!!", "skull_blue", "rare_hmn","1220"},
 	[51463189]={ "39465", "Skullhat", "Crit/Versatility Cloth Bracer", "", "skull_grey", "rare_hmn","131769"},
-	[41944149]={ "39782", "Tenpak Flametotem", "Pet", "Click on the abandoned Fishing Pole", "skull_grey", "rare_hmn","129175"},
+	[41944149]={ "39782", "Tenpak Flametotem", "Pet", "", "skull_grey", "rare_hmn","129175"},
 	[48605000]={ "39784", "Beastmaster Pao'lek", "Crit/Haste Mail Gloves", "", "skull_grey", "rare_hmn","131756"},
 	[37704570]={ "40405", "Bristlemaul", "Haste/Mastery Leather Helmet", "", "skull_grey", "rare_hmn","131761"},
 	[44201210]={ "39994", "Crab Rider Grmlrml", "Haste/Mastery Leather Chest", "He roams the area", "skull_grey", "rare_hmn","131798"},
@@ -364,6 +364,13 @@ nodes["Suramar"] = {
 	[31956249]={ "43831", "Small Treasure Chest", "Artifact Power", "", "default", "treasure_sur", "138783"},
 	[44803100]={ "43986", "Enchanted Burial Urn", "+100 maximum ancient mana", "", "default", "treasure_sur", "140326"},
 	[26877073]={ "43987", "Kyrtos's Research Notes", "+100 maximum ancient mana", "cave entrance at 27.29 to 72.87", "default", "treasure_sur", "140327"},
+	[76876150]={ "43860", "Small Treasure Chest", "Artifact Power", "in a shipwreck", "default", "treasure_sur", "138783"},
+	[71464975]={ "43859", "Small Treasure Chest", "Artifact Power", "on the tower", "default", "treasure_sur", "138783"},
+	[52292990]={ "43854", "Small Treasure Chest", "Artifact Power", "cave entrance at 49.5 to 33.9", "default", "treasure_sur", "138783"},
+	[81965745]={ "43861", "Small Treasure Chest", "Artifact Power", "entrance at 79.3 to 57.4", "default", "treasure_sur", "138783"},
+	[63654911]={ "43857", "Small Treasure Chest", "Artifact Power", "", "default", "treasure_sur", "138783"},
+	[19791604]={ "43845", "Small Treasure Chest", "Artifact Power", "cave entrance at 19.4 to 19.4", "default", "treasure_sur", "138783"},
+	[32277708]={ "43834", "Treasure Chest", "Artifact Power", "Only available after completing Breaking the Lightbreaker Suramar campaign. Otherwise you can't use the portal at 31.0 to 85.1", "default", "treasure_sur", "138783"},
 	
 	[24393517]={ "44071", "Maia the White Wolf", "Crit/Haste Cloak", "", "skull_grey", "rare_sur", "139897"},
 	[16532656]={ "43996", "Shadowquill", "Ancient Mana", "", "skull_grey", "rare_sur", "140401"},
@@ -511,13 +518,16 @@ nodes["StormDrakeDen"] = {
 }
 
 nodes["NarthalasAcademy"] = {
-	[35525280]={ "43988", "Volatile Leyline Crystal", "+100 maximum Ancient Mana", "bottom floor", "default", "treasure_sur", "140328"},
-	[38605414]={ "43838", "Small Treasure Chest", "Artifact Power", "bottom floor", "default", "treasure_sur", "138783"},
+	[53643981]={ "42284", "Small Treasure Chest", "Artifact Power", "Inside the temple", "default", "treasure_azs", "138783"},
+	[54413487]={ "42285", "Small Treasure Chest", "Artifact Power", "You need to do a questline to open the door leading to the treasure", "default", "treasure_azs", "138783"},
 }
 
 nodes["FalanaarTunnels"] = {
 	[35513253]={ "43747", "Manachest", "Ancient Mana", "", "default", "treasure_sur", "139786"},
 	[48644258]={ "43839", "Small Treasure Chest", "Artifact Power", "up a ledge reachable via the spider webs", "default", "treasure_sur", "138783"},
+	[23354815]={ "43840", "Treasure Chest", "Artifact Power", "", "default", "treasure_sur", "138783"},
+	[35525280]={ "99999", "Volatile Leyline Crystal", "+100 maximum Ancient Mana", "bottom floor in the temple of fal'adora | can't display it correctly right now, sorry!", "default", "treasure_sur", "140328"},
+	[38605414]={ "43838", "Small Treasure Chest", "Artifact Power", "bottom floor in the temple of fal'adora | can't display it correctly right now, sorry!", "default", "treasure_sur", "138783"},
 }
 
 
@@ -561,7 +571,8 @@ local function GetIcon(ID)
             return "Interface\\Icons\\inv_misc_questionmark"
         end
     else
-        local _, _, _, _, _, _, _, _, _, icon = GetItemInfo(ID)
+		local _, _, _, _, icon = GetItemInfoInstant(ID)
+        --local _, _, _, _, _, _, _, _, _, icon = GetItemInfo(ID)
 
         if (icon ~= nil) then
             return icon
