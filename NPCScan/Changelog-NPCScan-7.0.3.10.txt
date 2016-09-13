@@ -1,0 +1,12 @@
+tag 7.0.3.10
+1d60c4483a10db2cb30da9819e8fc85626d6de2c
+James D. Callahan III <jcallahan@curse.com>
+2016-09-12 18:31:38 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- NPC data updates.
+	- Load AceGUI-3.0 before AceGUI-3.0-SharedMediaWidgets
