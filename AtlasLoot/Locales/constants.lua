@@ -269,6 +269,7 @@ AL["Purple Gems"] = true
 AL["Ratings"] = true
 AL["Reagents"] = true
 AL["Red Gems"] = true
+AL["Relic"] = true
 AL["Ring"] = true
 AL["Rings"] = true
 AL["Scopes"] = true

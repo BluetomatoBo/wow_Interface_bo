@@ -5,6 +5,7 @@ local data = AtlasLoot.ItemDB:Add(addonname)
 local AL = AtlasLoot.Locales
 local ALIL = AtlasLoot.IngameLocales
 
+local LEGION_DIFF = data:AddDifficulty(AL["Legion"])
 local WOD_DIFF = data:AddDifficulty(AL["Warlords of Draenor"])
 local MOP_DIFF = data:AddDifficulty(AL["Mists of Pandaria"])
 local CATA_DIFF = data:AddDifficulty(AL["Cataclysm"])
@@ -29,6 +30,23 @@ data["Alchemy"] = {
 	items = {
 		{	--AlchemyFlask
 			name = AL["Flasks"],
+			[LEGION_DIFF] = {
+				{ 1, 127851, 188349 }, -- Spirit Cauldron
+				{ 2, 127851, 188350 }, -- Spirit Cauldron
+				{ 3, 127851, 188351 }, -- Spirit Cauldron
+				{ 5, 127847, 188337 }, -- Flask of the Whispered Pact
+				{ 6, 127847, 188338 }, -- Flask of the Whispered Pact
+				{ 7, 127847, 188339 }, -- Flask of the Whispered Pact
+				{ 9, 127848, 188340 }, -- Flask of the Seventh Demon
+				{ 10, 127848, 188341 }, -- Flask of the Seventh Demon
+				{ 11, 127848, 188342 }, -- Flask of the Seventh Demon
+				{ 16, 127849, 188343 }, -- Flask of the Countless Armies
+				{ 17, 127849, 188344 }, -- Flask of the Countless Armies
+				{ 18, 127849, 188345 }, -- Flask of the Countless Armies
+				{ 20, 127850, 188346 }, -- Flask of Ten Thousand Scars
+				{ 21, 127850, 188347 }, -- Flask of Ten Thousand Scars
+				{ 22, 127850, 188348 }, -- Flask of Ten Thousand Scars
+			},
 			[WOD_DIFF] = {
 				{ 1, 109153, 156569, [PRICE_EXTRA_ITTYPE] = "118700:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Greater Draenic Agility Flask (Sold, Ashran)
 				{ 2, 109155, 156571, [PRICE_EXTRA_ITTYPE] = "118700:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Greater Draenic Intellect Flask (Sold, Ashran)
@@ -74,6 +92,38 @@ data["Alchemy"] = {
 		},
 		{	--AlchemyPotions
 			name = AL["Potions"],
+			[LEGION_DIFF] = {
+				{ 1, 127834, 188297 }, -- Ancient Healing Potion
+				{ 2, 127834, 188299 }, -- Ancient Healing Potion
+				{ 3, 127834, 188300 }, -- Ancient Healing Potion
+				{ 5, 127835, 188301 }, -- Ancient Mana Potion
+				{ 6, 127835, 188302 }, -- Ancient Mana Potion
+				{ 7, 127835, 188303 }, -- Ancient Mana Potion
+				{ 9, 127836, 188304 }, -- Ancient Rejuvenation Potion
+				{ 10, 127836, 188305 }, -- Ancient Rejuvenation Potion
+				{ 11, 127836, 188306 }, -- Ancient Rejuvenation Potion
+				{ 13, 127837, 188307 }, -- Draught of Raw Magic
+				{ 14, 127837, 188308 }, -- Draught of Raw Magic
+				{ 15, 127837, 188309 }, -- Draught of Raw Magic
+				{ 16, 127843, 188325 }, -- Potion of Deadly Grace
+				{ 17, 127843, 188326 }, -- Potion of Deadly Grace
+				{ 18, 127843, 188327 }, -- Potion of Deadly Grace
+				{ 20, 127844, 188328 }, -- Potion of the Old War
+				{ 21, 127844, 188329 }, -- Potion of the Old War
+				{ 22, 127844, 188330 }, -- Potion of the Old War
+				{ 24, 127845, 188331 }, -- Unbending Potion
+				{ 25, 127845, 188332 }, -- Unbending Potion
+				{ 26, 127845, 188333 }, -- Unbending Potion
+				{ 28, 127846, 188334 }, -- Leytorrent Potion
+				{ 29, 127846, 188335 }, -- Leytorrent Potion
+				{ 30, 127846, 188336 }, -- Leytorrent Potion
+				{ 101, 127840, 188316 }, -- Skaggldrynk
+				{ 102, 127840, 188317 }, -- Skaggldrynk
+				{ 103, 127840, 188318 }, -- Skaggldrynk
+				{ 105, 127841, 188319 }, -- Skystep Potion
+				{ 106, 127841, 188320 }, -- Skystep Potion
+				{ 107, 127841, 188321 }, -- Skystep Potion
+			},
 			[WOD_DIFF] = {
 				{ 1, 109222, 156582 },	-- Draenic Mana Potion (Learnt by item 109558)
 				{ 2, 116268, 175865 },	-- Draenic Invisibility Potion (Learnt by item 109558)
@@ -205,6 +255,11 @@ data["Alchemy"] = {
 		},
 		{	--AlchemyMisc
 			name = AL["Miscellaneous"],
+			[LEGION_DIFF] = {
+				{ 1, 127842, 188322 }, -- Infernal Alchemist Stone
+				{ 2, 127842, 188323 }, -- Infernal Alchemist Stone
+				{ 3, 127842, 188324 }, -- Infernal Alchemist Stone
+			},
 			[WOD_DIFF] = {
 				{ 1, 109262, 156560, [PRICE_EXTRA_ITTYPE] = "118700:1" },	-- Draenic Philosopher's Stone (Sold, Ashran)
 				{ 3, 108996, 156587, [ATLASLOOT_IT_AMOUNT1] = "8+" },	-- Alchemical Catalyst (Learnt by item 109558)
@@ -265,6 +320,14 @@ data["Alchemy"] = {
 		},
 		{	--AlchemyElixirs
 			name = AL["Elixirs"],
+			[LEGION_DIFF] = {
+				{ 1, 127838, 188310 }, -- Sylvan Elixir
+				{ 2, 127838, 188311 }, -- Sylvan Elixir
+				{ 3, 127838, 188312 }, -- Sylvan Elixir
+				{ 5, 127839, 188313 }, -- Avalanche Elixir
+				{ 6, 127839, 188314 }, -- Avalanche Elixir
+				{ 7, 127839, 188315 }, -- Avalanche Elixir
+			},
 			[WOD_DIFF] = {
 				{ 1, 112090, 162403, [PRICE_EXTRA_ITTYPE] = "118700:1", [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Transmorphic Tincture (Sold, Ashran)
 				{ 3, 116271, 175866 },	-- Draenic Water Breathing Elixir (Learnt by item 109558)
@@ -375,6 +438,21 @@ data["Alchemy"] = {
 		},
 		{	--AlchemyTransmute
 			name = AL["Transmutes"],
+			[LEGION_DIFF] = {
+				{ 1, 141323, 188800 }, -- Wild Transmutation
+				{ 2, 141323, 188801 }, -- Wild Transmutation
+				{ 3, 141323, 188802 }, -- Wild Transmutation
+				{ 5, 137590, 213248 }, -- Transmute: Ore to Cloth
+				{ 6, 137591, 213249 }, -- Transmute: Cloth to Skins
+				{ 7, 137592, 213250 }, -- Transmute: Skins to Ore
+				{ 8, 137593, 213251 }, -- Transmute: Ore to Herbs
+				{ 9, 137593, 213252 }, -- Transmute: Cloth to Herbs
+				{ 10, 137593, 213253 }, -- Transmute: Skins to Herbs
+				{ 11, 137594, 213254 }, -- Transmute: Fish to Gems
+				{ 12, 137600, 213255 }, -- Transmute: Meat to Pants
+				{ 13, 137599, 213256 }, -- Transmute: Meat to Pet
+				{ 14, 124124, 213257 }, -- Transmute: Blood of Sargeras
+			},
 			[WOD_DIFF] = {
 				{ 1, 113261, 181634, [PRICE_EXTRA_ITTYPE] = "113262:10:108996:4", [ATLASLOOT_IT_AMOUNT1] = 10 },	-- Transmute: Sorcerous Water to Fire
 				{ 2, 113261, 181632, [PRICE_EXTRA_ITTYPE] = "113263:10:108996:4", [ATLASLOOT_IT_AMOUNT1] = 10 },	-- Transmute: Sorcerous Earth to Fire
@@ -477,6 +555,56 @@ data["Blacksmithing"] = {
 	items = {
 		{	--SmithingArmor
 			name = AL["Armor"],
+			[LEGION_DIFF] = {
+				{ 1, 123913, 182948 }, -- Demonsteel Helm
+				{ 2, 123913, 182978 }, -- Demonsteel Helm
+				{ 3, 123913, 182986 }, -- Demonsteel Helm
+				{ 5, 123915, 182946 }, -- Demonsteel Pauldrons
+				{ 6, 123915, 182976 }, -- Demonsteel Pauldrons
+				{ 7, 123915, 182984 }, -- Demonsteel Pauldrons
+				{ 9, 123910, 182951 }, -- Demonsteel Breastplate
+				{ 10, 123910, 182981 }, -- Demonsteel Breastplate
+				{ 11, 123910, 182989 }, -- Demonsteel Breastplate
+				{ 13, 123917, 182944 }, -- Demonsteel Armguards
+				{ 14, 123917, 182974 }, -- Demonsteel Armguards
+				{ 15, 123917, 182982 }, -- Demonsteel Armguards
+				{ 16, 123912, 182949 }, -- Demonsteel Gauntlets
+				{ 17, 123912, 182979 }, -- Demonsteel Gauntlets
+				{ 18, 123912, 182987 }, -- Demonsteel Gauntlets
+				{ 20, 123916, 182945 }, -- Demonsteel Waistguard
+				{ 21, 123916, 182975 }, -- Demonsteel Waistguard
+				{ 22, 123916, 182983 }, -- Demonsteel Waistguard
+				{ 24, 123914, 182947 }, -- Demonsteel Greaves
+				{ 25, 123914, 182977 }, -- Demonsteel Greaves
+				{ 26, 123914, 182985 }, -- Demonsteel Greaves
+				{ 28, 123911, 182950 }, -- Demonsteel Boots
+				{ 29, 123911, 182980 }, -- Demonsteel Boots
+				{ 30, 123911, 182988 }, -- Demonsteel Boots
+				{ 101, 123894, 182932 }, -- Leystone Helm
+				{ 102, 123894, 182966 }, -- Leystone Helm
+				{ 103, 123894, 191929 }, -- Leystone Helm
+				{ 105, 123896, 182930 }, -- Leystone Pauldrons
+				{ 106, 123896, 182964 }, -- Leystone Pauldrons
+				{ 107, 123896, 182972 }, -- Leystone Pauldrons
+				{ 109, 123891, 182935 }, -- Leystone Breastplate
+				{ 110, 123891, 182969 }, -- Leystone Breastplate
+				{ 111, 123891, 182973 }, -- Leystone Breastplate
+				{ 113, 123898, 182928 }, -- Leystone Armguards
+				{ 114, 123898, 182962 }, -- Leystone Armguards
+				{ 115, 123898, 182970 }, -- Leystone Armguards
+				{ 116, 123893, 182933 }, -- Leystone Gauntlets
+				{ 117, 123893, 182967 }, -- Leystone Gauntlets
+				{ 118, 123893, 191930 }, -- Leystone Gauntlets
+				{ 120, 123897, 182929 }, -- Leystone Waistguard
+				{ 121, 123897, 182963 }, -- Leystone Waistguard
+				{ 122, 123897, 182971 }, -- Leystone Waistguard
+				{ 124, 123895, 182931 }, -- Leystone Greaves
+				{ 125, 123895, 182965 }, -- Leystone Greaves
+				{ 126, 123895, 191931 }, -- Leystone Greaves
+				{ 128, 123892, 182934 }, -- Leystone Boots
+				{ 129, 123892, 182968 }, -- Leystone Boots
+				{ 130, 123892, 191928 }, -- Leystone Boots
+			},
 			[WOD_DIFF] = {
 				{ 1, "114230:Stage6", 187515 },		-- Truesteel Helm (Stage 6)
 				{ 10, "114230:Stage5", 187491 },	-- Truesteel Helm (Stage 5)
@@ -1310,8 +1438,23 @@ data["Blacksmithing"] = {
 				{ 30, 3239, 3115 },	-- Rough Weightstone : =ds=#sr# 1 : =ds=AtlasLoot["Trainer"]
 			},
 		},
+		{	--SmithingRelic
+			name = AL["Relic"],
+			[LEGION_DIFF] = {
+				{ 1, 136685, 209498 }, -- Consecrated Spike
+				{ 2, 136686, 209499 }, -- Flamespike
+				{ 3, 136684, 209497 }, -- Gleaming Iron Spike
+				{ 4, 136683, 209496 }, -- Terrorspike
+			},
+		},
 		{	--SmithingMisc
 			name = AL["Miscellaneous"],
+			[LEGION_DIFF] = {
+				{ 1, 137686, 213916 }, -- Fel Core Hound Harness
+				{ 3, 136708, 209564 }, -- Demonsteel Stirrups
+				{ 4, 123956, 182999 }, -- Leystone Hoofplates
+				{ 6, 124461, 184442 }, -- Demonsteel Bar
+			},
 			[NORMAL_DIFF] = {
 				{ 1, 119328, 177169, [PRICE_EXTRA_ITTYPE] = "118720:1" },	-- Soul of the Forge (Sold, Ashran)
 				{ 3, 108257, 171690, [ATLASLOOT_IT_AMOUNT1] = "8+" },	-- Truesteel Ingot (Learnt by item 115356)

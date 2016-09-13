@@ -16,6 +16,191 @@ local QUEST_EXTRA_ITTYPE = data:AddExtraItemTableType("Quest")
 
 local FACTION_CONTENT = data:AddContentType(AL["Factions"], ATLASLOOT_FACTION_COLOR)
 
+data["LEGIONFACTIONS"] = {
+	name = AL["Legion"],
+	ContentType = FACTION_CONTENT,
+	items = {
+		{	--TheNightfallen
+			FactionID = 1859,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				{ 1, "f1859rep5" },
+				{ 2, 121736, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Nightfall Slippers
+				{ 3, 121738, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Irongrove Refugee Boots
+				{ 4, 139979, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Footpads of the Nightrunners
+				{ 5, 140015, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Scavenged Felsoul Sabatons
+				{ 7, "f1859rep6" },
+				{ 8, 139600, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, -- Braided Manastring Cinch
+				{ 9, 140218, [PRICE_EXTRA_ITTYPE] = "money:1000000" }, -- Boon of the Manaseeker
+				{ 10, 140324, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Mobile Telemancy Beacon
+				{ 11, 140746, [PRICE_EXTRA_ITTYPE] = "money:200000" }, -- Treasure Map: Suramar
+				{ 16, "f1859rep7" },
+				{ 17, 136899, "pet1717", [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Extinguished Eye
+				{ 18, 139604, [PRICE_EXTRA_ITTYPE] = "money:50000000" }, -- Mana-Soaked Amethyst Pendant
+				{ 19, 140325, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Home Made Party Mask
+				{ 21, "f1859rep8" },
+				{ 22, 128600, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Formula: Enchant Ring - Binding of Critical Strike
+				{ 23, 128602, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Formula: Enchant Ring - Binding of Mastery
+				{ 24, 128603, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Formula: Enchant Ring - Binding of Versatility
+				{ 25, 128609, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Formula: Enchant Cloak - Binding of Intellect
+				{ 26, 137850, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Design: Subtle Shadowruby Pendant
+				{ 27, 137973, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Pattern: Imbued Silkweave Bracers
+				{ 28, 137976, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Pattern: Imbued Silkweave Pantaloons
+				{ 29, 137979, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Pattern: Imbued Silkweave Slippers
+				{ 30, 140575, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Nightfallen Tabard
+			},
+		},
+		{	--Valarjar
+			FactionID = 1948,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				{ 1, "f1948rep4" },
+				{ 2, 123952, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Demonsteel Helm
+				{ 4, "f1948rep5" },
+				{ 6, "f1948rep6" },
+				{ 7, 129367, [PRICE_EXTRA_ITTYPE] = "money:100000" }, -- Vrykul Toy Boat
+				{ 8, 136698, [PRICE_EXTRA_ITTYPE] = "money:5500000" }, -- Recipe: Consecrated Spike
+				{ 9, 137910, [PRICE_EXTRA_ITTYPE] = "money:5500000" }, -- Recipe: Battlebound Warhelm
+				{ 10, 137915, [PRICE_EXTRA_ITTYPE] = "money:5500000" }, -- Recipe: Battlebound Hauberk
+				{ 11, 140743, [PRICE_EXTRA_ITTYPE] = "money:200000" }, -- Treasure Map: Stormheim
+				{ 16, "f1948rep7" },
+				{ 17, 129149, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Death's Door Charm
+				{ 18, 136920, "pet1885", [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Sunborne Val'kyr
+				{ 19, 139602, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, -- Valarjar Runepriest's Vesture
+				{ 20, 140217, [PRICE_EXTRA_ITTYPE] = "money:1500000" }, -- Boon of the Salvager
+				{ 22, "f1948rep8" },
+				{ 23, 123951, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Demonsteel Greaves
+				{ 24, 123954, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Demonsteel Boots
+				{ 25, 137927, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Gravenscale Leggings
+				{ 26, 137928, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Gravenscale Warhelm
+				{ 27, 139598, [PRICE_EXTRA_ITTYPE] = "money:50000000" }, -- Legplates of Forgotten Myth
+				{ 28, 140656, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Rod of the Ascended
+				{ 29, 140579, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Valarjar Tabard
+			},
+		},
+		{	--The Wardens
+			FactionID = 1894,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				{ 1, "f1894rep5" },
+				{ 3, "f1894rep6" },
+				{ 4, 130191, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Trapped Treasure Chest Kit
+				{ 5, 137713, [PRICE_EXTRA_ITTYPE] = "money:5500000" }, -- Schematic: Bolt-Action Headgun
+				{ 6, 137714, [PRICE_EXTRA_ITTYPE] = "money:5500000" }, -- Schematic: Reinforced Headgun
+				{ 8, "f1894rep7" },
+				{ 9, 130157, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Syxsehnz Rod
+				{ 10, 136898, "pet1716", [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Fledgling Warden Owl
+				{ 11, 137773, [PRICE_EXTRA_ITTYPE] = "money:9000000" }, -- Vantus Rune Technique: Cenarius
+				{ 12, 137777, [PRICE_EXTRA_ITTYPE] = "money:9000000" }, -- Vantus Rune Technique: Spellblade Aluriel
+				{ 13, 137781, [PRICE_EXTRA_ITTYPE] = "money:9000000" }, -- Vantus Rune Technique: Star Augur Etraeus
+				{ 14, 139603, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, -- Vault Patroller's Warboots
+				{ 15, 140219, [PRICE_EXTRA_ITTYPE] = "money:2000000" }, -- Boon of the Bloodhunter
+				{ 16, "f1894rep8" },
+				{ 17, 137715, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Schematic: Semi-Automagic Cranial Cannon
+				{ 18, 137716, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Schematic: Sawed-Off Cranial Cannon
+				{ 19, 137849, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Design: Twisted Pandemonite Choker
+				{ 20, 139607, [PRICE_EXTRA_ITTYPE] = "money:50000000" }, -- Drape of the Patient Hunter
+				{ 21, 140580, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Warden's Tabard
+			},
+		},
+		{	--Dreamweavers
+		
+			FactionID = 1883,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				{ 1, "f1883rep5" },
+				{ 2, 130158, [PRICE_EXTRA_ITTYPE] = "money:1000000" }, -- Path of Elothir
+				{ 4, "f1883rep6" },
+				{ 5, 128599, [PRICE_EXTRA_ITTYPE] = "money:5500000" }, -- Formula: Enchant Ring - Word of Versatility
+				{ 6, 130170, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Tear of the Green Aspect
+				{ 7, 137883, [PRICE_EXTRA_ITTYPE] = "money:5500000" }, -- Recipe: Warhide Jerkin
+				{ 8, 140214, [PRICE_EXTRA_ITTYPE] = "money:1000000" }, -- Boon of the Harvester
+				{ 9, 140745, [PRICE_EXTRA_ITTYPE] = "money:200000" }, -- Treasure Map: Val'sharah
+				{ 11, "f1883rep7" },
+				{ 12, 23712, "pet1927", [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Ash'ana
+				{ 13, 130232, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Moonfeather Statue
+				{ 14, 139605, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, -- Pendant of the Moon Temple
+				{ 16, "f1883rep8" },
+				{ 17, 128593, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Formula: Enchant Neck - Mark of the Claw
+				{ 18, 128601, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Formula: Enchant Ring - Binding of Haste
+				{ 19, 128608, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Formula: Enchant Cloak - Binding of Agility
+				{ 20, 137895, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Dreadleather Pants
+				{ 21, 137896, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Dreadleather Mask
+				{ 22, 137898, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Dreadleather Footpads
+				{ 23, 139596, [PRICE_EXTRA_ITTYPE] = "money:50000000" }, -- Pauldrons of Entwined Roots
+				{ 24, 140652, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Seed of Solar Fire
+				{ 25, 140578, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Dreamweaver Initiate's Tabard
+				{ 26, 140667, [PRICE_EXTRA_ITTYPE] = "money:6000000" }, -- Tabard of the Dreamweavers
+			},
+		},
+		{	--HighmountainTribe
+			FactionID = 1828,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				{ 1, 140336, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Brulfist Idol
+				{ 3, "f1828rep5" },
+				{ 4, 131814, [PRICE_EXTRA_ITTYPE] = "money:1000000" }, -- Whitewater Carp
+				{ 6, "f1828rep6" },
+				{ 7, 140215, [PRICE_EXTRA_ITTYPE] = "money:1000000" }, -- Boon of the Butcher
+				{ 8, 140731, [PRICE_EXTRA_ITTYPE] = "money:200000" }, -- Treasure Map: Highmountain
+				{ 9, 137839, [PRICE_EXTRA_ITTYPE] = "money:5500000" }, -- Design: Skystone Loop
+				{ 10, 136697, [PRICE_EXTRA_ITTYPE] = "money:5500000" }, -- Recipe: Gleaming Iron Spike
+				{ 12, "f1828rep7" },
+				{ 13, 131812, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Darkshard Fragment
+				{ 14, 136919, "pet1884", [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Baby Elderhorn
+				{ 15, 139601, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, -- Harpy-Hunter's Gloves
+				{ 16, "f1828rep8" },
+				{ 17, 139597, [PRICE_EXTRA_ITTYPE] = "money:50000000" }, -- Mountainforged Chain Hauberk
+				{ 18, 140576, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Tabard of the Highmountain Tribe
+				{ 19, 137844, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Design: Prophetic Band
+				{ 20, 137846, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Design: Dawnlight Band
+				{ 21, 137855, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Design: Ancient Maelstrom Amulet
+				{ 22, 123948, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Demonsteel Armguards
+				{ 23, 123953, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Demonsteel Gauntlets
+				{ 24, 123955, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Recipe: Demonsteel Breastplate
+				{ 101, "f1828rep5" },
+				{ 102, 140333, [PRICE_EXTRA_ITTYPE] = "money:1000000" }, -- Bloodtotem War Harness
+				{ 104, "f1828rep6" },
+				{ 105, 140330, [PRICE_EXTRA_ITTYPE] = "money:100000" }, -- Windfall Totem
+				{ 106, 140332, [PRICE_EXTRA_ITTYPE] = "money:1000000" }, -- Rivermane War Harness
+				{ 108, "f1828rep7" },
+				{ 109, 140331, [PRICE_EXTRA_ITTYPE] = "money:1000000" }, -- Skyhorn War Harness
+				{ 110, 140655, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Log
+				{ 112, "f1828rep8" },
+				{ 113, 140334, [PRICE_EXTRA_ITTYPE] = "money:1000000" }, -- Highmountain War Harness
+				{ 114, 140335, [PRICE_EXTRA_ITTYPE] = "money:22000000" }, -- Totem Tote
+			},
+		},
+		{	--CourtOfFarondis
+		FactionID = 1900,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				{ 1, "f1900rep5" },
+				{ 3, "f1900rep6" },
+				{ 4, 129279, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Enchanted Stone Whistle
+				{ 5, 138015, [PRICE_EXTRA_ITTYPE] = "money:5500000" }, -- Pattern: Silkweave Pantaloons
+				{ 6, 139631, [PRICE_EXTRA_ITTYPE] = "money:1500000" }, -- Vainglorious Draught
+				{ 7, 140744, [PRICE_EXTRA_ITTYPE] = "money:200000" }, -- Treasure Map: Azsuna
+				{ 9, "f1900rep7" },
+				{ 10, 129276, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Beginner's Guide to Dimensional Rifting
+				{ 11, 137774, [PRICE_EXTRA_ITTYPE] = "money:9000000" }, -- Vantus Rune Technique: Skorpyron
+				{ 12, 137776, [PRICE_EXTRA_ITTYPE] = "money:9000000" }, -- Vantus Rune Technique: Trilliax
+				{ 13, 137779, [PRICE_EXTRA_ITTYPE] = "money:9000000" }, -- Vantus Rune Technique: High Botanist Tel'arn
+				{ 14, 139556, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Syriel Crescentfall's Notes: Ravenguard
+				{ 15, 139606, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, -- Cadet's Gaudy Scarf
+				{ 16, 140213, [PRICE_EXTRA_ITTYPE] = "money:1500000" }, -- Boon of the Gemfinder
+				{ 17, 140672, "pet1931", [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Court Scribe
+				{ 19, "f1900rep8" },
+				{ 20, 137977, [PRICE_EXTRA_ITTYPE] = "money:90000" }, -- Pattern: Imbued Silkweave Hood
+				{ 21, 137978, [PRICE_EXTRA_ITTYPE] = "money:90000" }, -- Pattern: Imbued Silkweave Gloves
+				{ 22, 137980, [PRICE_EXTRA_ITTYPE] = "money:90000" }, -- Pattern: Imbued Silkweave Robe
+				{ 23, 139595, [PRICE_EXTRA_ITTYPE] = "money:50000000" }, -- Once-Fashionable Nar'thalas Leggings
+				{ 24, 140577, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Court of Farondis Tabard
+			},
+		},
+	},
+}
+	
 data["WODFACTIONS"] = {
 	name = AL["Warlords of Draenor"],
 	ContentType = FACTION_CONTENT,

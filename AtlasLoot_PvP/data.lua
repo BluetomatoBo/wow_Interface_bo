@@ -445,6 +445,7 @@ data["WODS3SETS"] = {
 		},
 	},
 }
+
 data["WODS3NONSETGEAR"] = {
 	name = string.format(AL["Warlords Season %d"], 3).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
@@ -1088,12 +1089,11 @@ data["WODS3NONSETGEAR"] = {
 	},
 }
 
---[[
 data["WODS3WEAPONS"] = {
 	name = string.format(AL["Warlords Season %d"], 3).." "..AL["Weapons"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
-		{
+--[[		{
 			name = string.format(AL["ilvl %d"], 705).." "..AL["Elite"],
 			[ALLIANCE_DIFF] = {
 			},
@@ -1101,23 +1101,158 @@ data["WODS3WEAPONS"] = {
 				GetItemsFromDiff = ALLIANCE_DIFF,
 			},
 		},
+]]
 		{
-			name = string.format(AL["ilvl %d"], 705).." (735)",
+			name = string.format(AL["ilvl %d"], 710).." (740)",
 			[ALLIANCE_DIFF] = {
+				{ 1, 125789, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Cleaver
+				{ 2, 125951, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Hacker
+				{ 3, 125792, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Pummeler
+				{ 4, 125841, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Gavel
+				{ 5, 125953, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Bonecracker
+				{ 6, 125793, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Quickblade
+				{ 7, 125842, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Mageblade
+				{ 8, 125954, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Slicer
+				{ 9, 125791, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Ripper
+				{ 10, 125952, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Render
+				{ 11, 125790, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Shanker
+				{ 12, 125840, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Spellblade
+				-- Two-Hand
+				{ 16, 125955, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Decapitator
+				{ 17, 125956, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Bonegrinder
+				{ 18, 125797, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Pike
+				{ 19, 125957, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Greatsword
+				{ 20, 125798, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Staff
+				{ 21, 125845, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Battle Staff
+				{ 22, 125846, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Energy Staff
+				-- Ranged
+				{ 24, 125794, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Longbow
+				{ 25, 125796, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Rifle
+				{ 26, 125795, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Heavy Crossbow
+				{ 27, 125843, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Baton of Light
+				{ 28, 125844, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Touch of Defeat
+				-- Shield
+				{ 101, 125862, [PRICE_EXTRA_ITTYPE] = "conquest:1250" }, -- Warmongering Gladiator's Redoubt
+				{ 102, 125863, [PRICE_EXTRA_ITTYPE] = "conquest:1250" }, -- Warmongering Gladiator's Barrier
+				{ 103, 125965, [PRICE_EXTRA_ITTYPE] = "conquest:1250" }, -- Warmongering Gladiator's Shield Wall
+				-- Off-Hand
+				{ 116, 125855, [PRICE_EXTRA_ITTYPE] = "conquest:1250" }, -- Warmongering Gladiator's Endgame
+				{ 117, 125856, [PRICE_EXTRA_ITTYPE] = "conquest:1250" }, -- Warmongering Gladiator's Reprieve
 			},
 			[HORDE_DIFF] = {
+				{ 1, 126268, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Cleaver
+				{ 2, 126430, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Hacker
+				{ 3, 126271, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Pummeler
+				{ 4, 126320, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Gavel
+				{ 5, 126432, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Bonecracker
+				{ 6, 126272, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Quickblade
+				{ 7, 126321, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Mageblade
+				{ 8, 126433, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Slicer
+				{ 9, 126270, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Ripper
+				{ 10, 126431, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Render
+				{ 11, 126269, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Shanker
+				{ 12, 126319, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Spellblade
+				-- Two Hand
+				{ 16, 126434, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Decapitator
+				{ 17, 126435, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Bonegrinder
+				{ 18, 126276, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Pike
+				{ 19, 126436, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Greatsword
+				{ 20, 126277, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Staff
+				{ 21, 126324, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Battle Staff
+				{ 22, 126325, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Energy Staff
+				-- Ranged
+				{ 24, 126273, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Longbow
+				{ 25, 126275, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Rifle
+				{ 26, 126274, [PRICE_EXTRA_ITTYPE] = "conquest:3500" }, -- Warmongering Gladiator's Heavy Crossbow
+				{ 27, 126322, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Baton of Light
+				{ 28, 126323, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Touch of Defeat
+				-- Shield
+				{ 101, 126341, [PRICE_EXTRA_ITTYPE] = "conquest:1250" }, -- Warmongering Gladiator's Redoubt
+				{ 102, 126342, [PRICE_EXTRA_ITTYPE] = "conquest:1250" }, -- Warmongering Gladiator's Barrier
+				{ 103, 126444, [PRICE_EXTRA_ITTYPE] = "conquest:1250" }, -- Warmongering Gladiator's Shield Wall
+				-- Off-Hand
+				{ 116, 126334, [PRICE_EXTRA_ITTYPE] = "conquest:1250" }, -- Warmongering Gladiator's Endgame
+				{ 117, 126335, [PRICE_EXTRA_ITTYPE] = "conquest:1250" }, -- Warmongering Gladiator's Reprieve
 			},
 		},
 		{
-			name = string.format(AL["ilvl %d"], 680).." (710)",
+			name = string.format(AL["ilvl %d"], 700).." (730)",
 			[ALLIANCE_DIFF] = {
+				{ 1, 125999, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Cleaver
+				{ 2, 126129, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Hacker
+				{ 3, 127379, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Chopper
+				{ 4, 126002, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Pummeler
+				{ 5, 126043, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Warmongering Combatant's Gavel
+				{ 6, 126131, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Bonecracker
+				{ 7, 126003, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Quickblade
+				{ 8, 126044, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Warmongering Combatant's Mageblade
+				{ 9, 126132, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Slicer
+				{ 10, 126001, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Ripper
+				{ 11, 126130, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Render
+				{ 12, 126000, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Shanker
+				{ 13, 126042, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Warmongering Combatant's Spellblade
+				-- Two Hand
+				{ 16, 126133, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Decapitator
+				{ 17, 126134, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Bonegrinder
+				{ 18, 126007, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Pike
+				{ 19, 126135, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Greatsword
+				{ 20, 126008, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Staff
+				{ 21, 126047, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Battle Staff
+				{ 22, 126048, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Energy Staff
+				-- Ranged
+				{ 24, 126004, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Longbow
+				{ 25, 126006, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Rifle
+				{ 26, 126005, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Heavy Crossbow
+				{ 27, 126045, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Warmongering Combatant's Baton of Light
+				{ 28, 126046, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Warmongering Combatant's Touch of Defeat
+				-- Shield
+				{ 101, 126064, [PRICE_EXTRA_ITTYPE] = "honor:1250" }, -- Warmongering Combatant's Redoubt
+				{ 102, 126065, [PRICE_EXTRA_ITTYPE] = "honor:1250" }, -- Warmongering Combatant's Barrier
+				{ 103, 126143, [PRICE_EXTRA_ITTYPE] = "honor:1000" }, -- Warmongering Combatant's Shield Wall
+				-- Off-Hand
+				{ 116, 126057, [PRICE_EXTRA_ITTYPE] = "honor:1250" }, -- Warmongering Combatant's Endgame
+				{ 117, 126058, [PRICE_EXTRA_ITTYPE] = "honor:1250" }, -- Warmongering Combatant's Reprieve
 			},
 			[HORDE_DIFF] = {
+				{ 1, 126476, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Cleaver
+				{ 2, 126606, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Hacker
+				{ 3, 127378, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Chopper
+				{ 4, 126479, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Pummeler
+				{ 5, 126520, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Warmongering Combatant's Gavel
+				{ 6, 126608, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Bonecracker
+				{ 7, 126480, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Quickblade
+				{ 8, 126521, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Warmongering Combatant's Mageblade
+				{ 9, 126609, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Slicer
+				{ 10, 126478, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Ripper
+				{ 11, 126607, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Render
+				{ 12, 126477, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Warmongering Combatant's Shanker
+				{ 13, 126519, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Warmongering Combatant's Spellblade
+				-- Two Hand
+				{ 16, 126610, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Decapitator
+				{ 17, 126611, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Bonegrinder
+				{ 18, 126484, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Pike
+				{ 19, 126612, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Greatsword
+				{ 20, 126485, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Staff
+				{ 21, 126524, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Battle Staff
+				{ 22, 126525, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Energy Staff
+				-- Ranged
+				{ 24, 126481, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Longbow
+				{ 25, 126483, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Rifle
+				{ 26, 126482, [PRICE_EXTRA_ITTYPE] = "honor:3500" }, -- Warmongering Combatant's Heavy Crossbow
+				{ 27, 126522, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Warmongering Combatant's Baton of Light
+				{ 28, 126523, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Warmongering Combatant's Touch of Defeat
+				-- Shield
+				{ 101, 126541, [PRICE_EXTRA_ITTYPE] = "honor:1250" }, -- Warmongering Combatant's Redoubt
+				{ 102, 126542, [PRICE_EXTRA_ITTYPE] = "honor:1250" }, -- Warmongering Combatant's Barrier
+				{ 103, 126620, [PRICE_EXTRA_ITTYPE] = "honor:1000" }, -- Warmongering Combatant's Shield Wall
+				-- Off-Hand
+				{ 116, 126534, [PRICE_EXTRA_ITTYPE] = "honor:1250" }, -- Warmongering Combatant's Endgame
+				{ 117, 126535, [PRICE_EXTRA_ITTYPE] = "honor:1250" }, -- Warmongering Combatant's Reprieve
 			},
 		},
 	},
 }
-]]
+
 data["WODS2SETS"] = {
 	name = string.format(AL["Warlords Season %d"], 2).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
@@ -1542,6 +1677,7 @@ data["WODS2SETS"] = {
 		},
 	},
 }
+
 data["WODS2NONSETGEAR"] = {
 	name = string.format(AL["Warlords Season %d"], 2).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
@@ -3419,9 +3555,7 @@ data["WODS1WEAPONS"] = {
 		},
 	},
 }
-
 -- Mists of Pandaria Season 15
-
 data["MOPS15SETS"] = {
 	name = string.format(AL["Season %d"], 15).." "..AL["Class Sets"].." ("..AL["Mists of Pandaria"]..")",
 	ContentType = NORMAL_ITTYPE,
@@ -3690,6 +3824,1801 @@ data["MOPS15SETS"] = {
 		},
 	},
 }
+-- Classic Season 13
+data["CLASSICS13SETS"] = {
+	name = string.format(AL["Season %d"], 13).." "..AL["Class Sets"].." ("..AL["Mists of Pandaria"]..")",
+	ContentType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91151 }, -- Tyrannical Gladiator's Dreadplate Helm
+				{ 2, 91155 }, -- Tyrannical Gladiator's Dreadplate Shoulders
+				{ 3, 91147 }, -- Tyrannical Gladiator's Dreadplate Chestpiece
+				{ 4, 91149 }, -- Tyrannical Gladiator's Dreadplate Gauntlets
+				{ 5, 91153 }, -- Tyrannical Gladiator's Dreadplate Legguards
+				{ 16, 91504, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Dreadplate Helm
+				{ 17, 91508, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Dreadplate Shoulders
+				{ 18, 91500, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Dreadplate Chestpiece
+				{ 19, 91502, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Dreadplate Gauntlets
+				{ 20, 91506, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Dreadplate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94429 }, -- Tyrannical Gladiator's Dreadplate Helm
+				{ 2, 94366 }, -- Tyrannical Gladiator's Dreadplate Shoulders
+				{ 3, 94392 }, -- Tyrannical Gladiator's Dreadplate Chestpiece
+				{ 4, 94364 }, -- Tyrannical Gladiator's Dreadplate Gauntlets
+				{ 5, 94365 }, -- Tyrannical Gladiator's Dreadplate Legguards
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91159 }, -- Tyrannical Gladiator's Dragonhide Helm
+				{ 2, 91165 }, -- Tyrannical Gladiator's Dragonhide Spaulders
+				{ 3, 91163 }, -- Tyrannical Gladiator's Dragonhide Robes
+				{ 4, 91157 }, -- Tyrannical Gladiator's Dragonhide Gloves
+				{ 5, 91161 }, -- Tyrannical Gladiator's Dragonhide Legguards
+				{ 7, 91174 }, -- Tyrannical Gladiator's Kodohide Helm
+				{ 8, 91180 }, -- Tyrannical Gladiator's Kodohide Spaulders
+				{ 9, 91178 }, -- Tyrannical Gladiator's Kodohide Robes
+				{ 10, 91172 }, -- Tyrannical Gladiator's Kodohide Gloves
+				{ 11, 91176 }, -- Tyrannical Gladiator's Kodohide Legguards
+				{ 16, 91191 }, -- Tyrannical Gladiator's Wyrmhide Helm
+				{ 17, 91197 }, -- Tyrannical Gladiator's Wyrmhide Spaulders
+				{ 18, 91195 }, -- Tyrannical Gladiator's Wyrmhide Robes
+				{ 19, 91189 }, -- Tyrannical Gladiator's Wyrmhide Gloves
+				{ 20, 91193 }, -- Tyrannical Gladiator's Wyrmhide Legguards
+				{ 101, 91512, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Dragonhide Helm
+				{ 102, 91518, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Dragonhide Spaulders
+				{ 103, 91516, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Dragonhide Robes
+				{ 104, 91510, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Dragonhide Gloves
+				{ 105, 91514, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Dragonhide Legguards
+				{ 107, 91527, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Kodohide Helm
+				{ 108, 91533, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Kodohide Spaulders
+				{ 109, 91531, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Kodohide Robes
+				{ 110, 91525, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Kodohide Gloves
+				{ 111, 91529, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Kodohide Legguards
+				{ 116, 91544, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Wyrmhide Helm
+				{ 117, 91550, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Wyrmhide Spaulders
+				{ 118, 91548, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Wyrmhide Robes
+				{ 119, 91542, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Wyrmhide Gloves
+				{ 120, 91546, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Wyrmhide Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94367 }, -- Tyrannical Gladiator's Dragonhide Helm
+				{ 2, 94457 }, -- Tyrannical Gladiator's Dragonhide Spaulders
+				{ 3, 94456 }, -- Tyrannical Gladiator's Dragonhide Robes
+				{ 4, 94455 }, -- Tyrannical Gladiator's Dragonhide Gloves
+				{ 5, 94368 }, -- Tyrannical Gladiator's Dragonhide Legguards
+				{ 7, 94492 }, -- Tyrannical Gladiator's Kodohide Helm
+				{ 8, 94372 }, -- Tyrannical Gladiator's Kodohide Spaulders
+				{ 9, 94437 }, -- Tyrannical Gladiator's Kodohide Robes
+				{ 10, 94371 }, -- Tyrannical Gladiator's Kodohide Gloves
+				{ 11, 94477 }, -- Tyrannical Gladiator's Kodohide Legguards
+				{ 16, 94347 }, -- Tyrannical Gladiator's Wyrmhide Helm
+				{ 17, 94416 }, -- Tyrannical Gladiator's Wyrmhide Spaulders
+				{ 18, 94327 }, -- Tyrannical Gladiator's Wyrmhide Robes
+				{ 19, 94412 }, -- Tyrannical Gladiator's Wyrmhide Gloves
+				{ 20, 94483 }, -- Tyrannical Gladiator's Wyrmhide Legguards
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91226 }, -- Tyrannical Gladiator's Chain Helm
+				{ 2, 91230 }, -- Tyrannical Gladiator's Chain Spaulders
+				{ 3, 91222 }, -- Tyrannical Gladiator's Chain Armor
+				{ 4, 91224 }, -- Tyrannical Gladiator's Chain Gauntlets
+				{ 5, 91228 }, -- Tyrannical Gladiator's Chain Leggings
+				{ 16, 91579, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Chain Helm
+				{ 17, 91583, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Chain Spaulders
+				{ 18, 91575, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Chain Armor
+				{ 19, 91577, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Chain Gauntlets
+				{ 20, 91581, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Chain Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94406 }, -- Tyrannical Gladiator's Chain Helm
+				{ 2, 94450 }, -- Tyrannical Gladiator's Chain Spaulders
+				{ 3, 94405 }, -- Tyrannical Gladiator's Chain Armor
+				{ 4, 94453 }, -- Tyrannical Gladiator's Chain Gauntlets
+				{ 5, 94384 }, -- Tyrannical Gladiator's Chain Leggings
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91234 }, -- Tyrannical Gladiator's Silk Cowl
+				{ 2, 91240 }, -- Tyrannical Gladiator's Silk Amice
+				{ 3, 91238 }, -- Tyrannical Gladiator's Silk Robe
+				{ 4, 91232 }, -- Tyrannical Gladiator's Silk Handguards
+				{ 5, 91236 }, -- Tyrannical Gladiator's Silk Trousers
+				{ 16, 91587, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Silk Cowl
+				{ 17, 91593, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Silk Amice
+				{ 18, 91591, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Silk Robe
+				{ 19, 91585, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Silk Handguards
+				{ 20, 91589, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Silk Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94381 }, -- Tyrannical Gladiator's Silk Cowl
+				{ 2, 94389 }, -- Tyrannical Gladiator's Silk Amice
+				{ 3, 94431 }, -- Tyrannical Gladiator's Silk Robe
+				{ 4, 94451 }, -- Tyrannical Gladiator's Silk Handguards
+				{ 5, 94362 }, -- Tyrannical Gladiator's Silk Trousers
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91259 }, -- Tyrannical Gladiator's Copperskin Helm
+				{ 2, 91263 }, -- Tyrannical Gladiator's Copperskin Spaulders
+				{ 3, 91265 }, -- Tyrannical Gladiator's Copperskin Tunic
+				{ 4, 91257 }, -- Tyrannical Gladiator's Copperskin Gloves
+				{ 5, 91261 }, -- Tyrannical Gladiator's Copperskin Legguards
+				{ 16, 91249 }, -- Tyrannical Gladiator's Ironskin Helm
+				{ 17, 91253 }, -- Tyrannical Gladiator's Ironskin Spaulders
+				{ 18, 91255 }, -- Tyrannical Gladiator's Ironskin Tunic
+				{ 19, 91247 }, -- Tyrannical Gladiator's Ironskin Gloves
+				{ 20, 91251 }, -- Tyrannical Gladiator's Ironskin Legguards
+				{ 7, 91612, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Copperskin Helm
+				{ 8, 91616, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Copperskin Spaulders
+				{ 9, 91618, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Copperskin Tunic
+				{ 10, 91610, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Copperskin Gloves
+				{ 11, 91614, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Copperskin Legguards
+				{ 22, 91602, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Ironskin Helm
+				{ 23, 91606, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Ironskin Spaulders
+				{ 24, 91608, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Ironskin Tunic
+				{ 25, 91600, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Ironskin Gloves
+				{ 26, 91604, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Ironskin Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94341 }, -- Tyrannical Gladiator's Copperskin Helm
+				{ 2, 94493 }, -- Tyrannical Gladiator's Copperskin Spaulders
+				{ 3, 94479 }, -- Tyrannical Gladiator's Copperskin Tunic
+				{ 4, 94340 }, -- Tyrannical Gladiator's Copperskin Gloves
+				{ 5, 94478 }, -- Tyrannical Gladiator's Copperskin Legguards
+				{ 16, 94428 }, -- Tyrannical Gladiator's Ironskin Helm
+				{ 17, 94339 }, -- Tyrannical Gladiator's Ironskin Spaulders
+				{ 18, 94436 }, -- Tyrannical Gladiator's Ironskin Tunic
+				{ 19, 94391 }, -- Tyrannical Gladiator's Ironskin Gloves
+				{ 20, 94370 }, -- Tyrannical Gladiator's Ironskin Legguards
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91291 }, -- Tyrannical Gladiator's Ornamented Headcover
+				{ 2, 91295 }, -- Tyrannical Gladiator's Ornamented Spaulders
+				{ 3, 91287 }, -- Tyrannical Gladiator's Ornamented Chestguard
+				{ 4, 91289 }, -- Tyrannical Gladiator's Ornamented Gloves
+				{ 5, 91293 }, -- Tyrannical Gladiator's Ornamented Legplates
+				{ 16, 91271 }, -- Tyrannical Gladiator's Scaled Helm
+				{ 17, 91275 }, -- Tyrannical Gladiator's Scaled Shoulders
+				{ 18, 91267 }, -- Tyrannical Gladiator's Scaled Chestpiece
+				{ 19, 91269 }, -- Tyrannical Gladiator's Scaled Gauntlets
+				{ 20, 91273 }, -- Tyrannical Gladiator's Scaled Legguards
+				{ 7, 91644, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Ornamented Headcover
+				{ 8, 91648, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Ornamented Spaulders
+				{ 9, 91640, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Ornamented Chestguard
+				{ 10, 91642, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Ornamented Gloves
+				{ 11, 91646, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Ornamented Legplates
+				{ 22, 91624, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Scaled Helm
+				{ 23, 91628, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Scaled Shoulders
+				{ 24, 91620, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Scaled Chestpiece
+				{ 25, 91622, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Scaled Gauntlets
+				{ 26, 91626, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Scaled Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94348 }, -- Tyrannical Gladiator's Ornamented Headcover
+				{ 2, 94413 }, -- Tyrannical Gladiator's Ornamented Spaulders
+				{ 3, 94345 }, -- Tyrannical Gladiator's Ornamented Chestguard
+				{ 4, 94438 }, -- Tyrannical Gladiator's Ornamented Gloves
+				{ 5, 94484 }, -- Tyrannical Gladiator's Ornamented Legplates
+				{ 16, 94495 }, -- Tyrannical Gladiator's Scaled Helm
+				{ 17, 94460 }, -- Tyrannical Gladiator's Scaled Shoulders
+				{ 18, 94463 }, -- Tyrannical Gladiator's Scaled Chestpiece
+				{ 19, 94343 }, -- Tyrannical Gladiator's Scaled Gauntlets
+				{ 20, 94496 }, -- Tyrannical Gladiator's Scaled Legguards
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91311 }, -- Tyrannical Gladiator's Mooncloth Helm
+				{ 2, 91317 }, -- Tyrannical Gladiator's Mooncloth Mantle
+				{ 3, 91315 }, -- Tyrannical Gladiator's Mooncloth Robe
+				{ 4, 91309 }, -- Tyrannical Gladiator's Mooncloth Gloves
+				{ 5, 91313 }, -- Tyrannical Gladiator's Mooncloth Leggings
+				{ 16, 91321 }, -- Tyrannical Gladiator's Satin Hood
+				{ 17, 91327 }, -- Tyrannical Gladiator's Satin Mantle
+				{ 18, 91325 }, -- Tyrannical Gladiator's Satin Robe
+				{ 19, 91319 }, -- Tyrannical Gladiator's Satin Gloves
+				{ 20, 91323 }, -- Tyrannical Gladiator's Satin Leggings
+				{ 7, 91664, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Mooncloth Helm
+				{ 8, 91670, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Mooncloth Mantle
+				{ 9, 91668, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Mooncloth Robe
+				{ 10, 91662, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Mooncloth Gloves
+				{ 11, 91666, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Mooncloth Leggings
+				{ 22, 91674, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Satin Hood
+				{ 23, 91680, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Satin Mantle
+				{ 24, 91678, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Satin Robe
+				{ 25, 91672, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Satin Gloves
+				{ 26, 91676, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Satin Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94419 }, -- Tyrannical Gladiator's Mooncloth Helm
+				{ 2, 94466 }, -- Tyrannical Gladiator's Mooncloth Mantle
+				{ 3, 94397 }, -- Tyrannical Gladiator's Mooncloth Robe
+				{ 4, 94328 }, -- Tyrannical Gladiator's Mooncloth Gloves
+				{ 5, 94420 }, -- Tyrannical Gladiator's Mooncloth Leggings
+				{ 16, 94467 }, -- Tyrannical Gladiator's Satin Hood
+				{ 17, 94385 }, -- Tyrannical Gladiator's Satin Mantle
+				{ 18, 94335 }, -- Tyrannical Gladiator's Satin Robe
+				{ 19, 94423 }, -- Tyrannical Gladiator's Satin Gloves
+				{ 20, 94334 }, -- Tyrannical Gladiator's Satin Leggings
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91344 }, -- Tyrannical Gladiator's Leather Helm
+				{ 2, 91348 }, -- Tyrannical Gladiator's Leather Spaulders
+				{ 3, 91340 }, -- Tyrannical Gladiator's Leather Tunic
+				{ 4, 91342 }, -- Tyrannical Gladiator's Leather Gloves
+				{ 5, 91346 }, -- Tyrannical Gladiator's Leather Legguards
+				{ 16, 91697, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Leather Helm
+				{ 17, 91701, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Leather Spaulders
+				{ 18, 91693, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Leather Tunic
+				{ 19, 91695, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Leather Gloves
+				{ 20, 91699, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Leather Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94426 }, -- Tyrannical Gladiator's Leather Helm
+				{ 2, 94447 }, -- Tyrannical Gladiator's Leather Spaulders
+				{ 3, 94443 }, -- Tyrannical Gladiator's Leather Tunic
+				{ 4, 94377 }, -- Tyrannical Gladiator's Leather Gloves
+				{ 5, 94446 }, -- Tyrannical Gladiator's Leather Legguards
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91372 }, -- Tyrannical Gladiator's Linked Helm
+				{ 2, 91376 }, -- Tyrannical Gladiator's Linked Spaulders
+				{ 3, 91368 }, -- Tyrannical Gladiator's Linked Armor
+				{ 4, 91370 }, -- Tyrannical Gladiator's Linked Gauntlets
+				{ 5, 91374 }, -- Tyrannical Gladiator's Linked Leggings
+				{ 7, 91384 }, -- Tyrannical Gladiator's Mail Helm
+				{ 8, 91388 }, -- Tyrannical Gladiator's Mail Spaulders
+				{ 9, 91380 }, -- Tyrannical Gladiator's Mail Armor
+				{ 10, 91382 }, -- Tyrannical Gladiator's Mail Gauntlets
+				{ 11, 91386 }, -- Tyrannical Gladiator's Mail Leggings
+				{ 16, 91362 }, -- Tyrannical Gladiator's Ringmail Helm
+				{ 17, 91366 }, -- Tyrannical Gladiator's Ringmail Spaulders
+				{ 18, 91358 }, -- Tyrannical Gladiator's Ringmail Armor
+				{ 19, 91360 }, -- Tyrannical Gladiator's Ringmail Gauntlets
+				{ 20, 91364 }, -- Tyrannical Gladiator's Ringmail Leggings
+				{ 101, 91725, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Linked Helm
+				{ 102, 91729, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Linked Spaulders
+				{ 103, 91721, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Linked Armor
+				{ 104, 91723, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Linked Gauntlets
+				{ 105, 91727, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Linked Leggings
+				{ 107, 91737, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Mail Helm
+				{ 108, 91741, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Mail Spaulders
+				{ 109, 91733, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Mail Armor
+				{ 110, 91735, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Mail Gauntlets
+				{ 111, 91739, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Mail Leggings
+				{ 116, 91715, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Ringmail Helm
+				{ 117, 91719, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Ringmail Spaulders
+				{ 118, 91711, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Ringmail Armor
+				{ 119, 91713, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Ringmail Gauntlets
+				{ 120, 91717, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Ringmail Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94430 }, -- Tyrannical Gladiator's Linked Helm
+				{ 2, 94342 }, -- Tyrannical Gladiator's Linked Spaulders
+				{ 3, 94475 }, -- Tyrannical Gladiator's Linked Armor
+				{ 4, 94458 }, -- Tyrannical Gladiator's Linked Gauntlets
+				{ 5, 94494 }, -- Tyrannical Gladiator's Linked Leggings
+				{ 7, 94409 }, -- Tyrannical Gladiator's Mail Helm
+				{ 8, 94350 }, -- Tyrannical Gladiator's Mail Spaulders
+				{ 9, 94459 }, -- Tyrannical Gladiator's Mail Armor
+				{ 10, 94408 }, -- Tyrannical Gladiator's Mail Gauntlets
+				{ 11, 94497 }, -- Tyrannical Gladiator's Mail Leggings
+				{ 16, 94434 }, -- Tyrannical Gladiator's Ringmail Helm
+				{ 17, 94369 }, -- Tyrannical Gladiator's Ringmail Spaulders
+				{ 18, 94433 }, -- Tyrannical Gladiator's Ringmail Armor
+				{ 19, 94490 }, -- Tyrannical Gladiator's Ringmail Gauntlets
+				{ 20, 94435 }, -- Tyrannical Gladiator's Ringmail Leggings
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91422 }, -- Tyrannical Gladiator's Felweave Cowl
+				{ 2, 91428 }, -- Tyrannical Gladiator's Felweave Amice
+				{ 3, 91426 }, -- Tyrannical Gladiator's Felweave Raiment
+				{ 4, 91420 }, -- Tyrannical Gladiator's Felweave Handguards
+				{ 5, 91424 }, -- Tyrannical Gladiator's Felweave Trousers
+				{ 16, 91775, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Felweave Cowl
+				{ 17, 91781, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Felweave Amice
+				{ 18, 91779, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Felweave Raiment
+				{ 19, 91773, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Felweave Handguards
+				{ 20, 91777, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Felweave Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94442 }, -- Tyrannical Gladiator's Felweave Cowl
+				{ 2, 94398 }, -- Tyrannical Gladiator's Felweave Amice
+				{ 3, 94375 }, -- Tyrannical Gladiator's Felweave Raiment
+				{ 4, 94441 }, -- Tyrannical Gladiator's Felweave Handguards
+				{ 5, 94471 }, -- Tyrannical Gladiator's Felweave Trousers
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 91434 }, -- Tyrannical Gladiator's Plate Helm
+				{ 2, 91438 }, -- Tyrannical Gladiator's Plate Shoulders
+				{ 3, 91430 }, -- Tyrannical Gladiator's Plate Chestpiece
+				{ 4, 91432 }, -- Tyrannical Gladiator's Plate Gauntlets
+				{ 5, 91436 }, -- Tyrannical Gladiator's Plate Legguards
+				{ 16, 91787, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Plate Helm
+				{ 17, 91791, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Plate Shoulders
+				{ 18, 91783, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Plate Chestpiece
+				{ 19, 91785, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Malevolent Gladiator's Plate Gauntlets
+				{ 20, 91789, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Malevolent Gladiator's Plate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 94332 }, -- Tyrannical Gladiator's Plate Helm
+				{ 2, 94401 }, -- Tyrannical Gladiator's Plate Shoulders
+				{ 3, 94444 }, -- Tyrannical Gladiator's Plate Chestpiece
+				{ 4, 94331 }, -- Tyrannical Gladiator's Plate Gauntlets
+				{ 5, 94448 }, -- Tyrannical Gladiator's Plate Legguards
+			},
+		},
+	},
+}
+-- Classic Season 12
+data["CLASSICS12SETS"] = {
+	name = string.format(AL["Season %d"], 12).." "..AL["Class Sets"].." ("..AL["Mists of Pandaria"]..")",
+	ContentType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84853 }, -- Malevolent Gladiator's Dreadplate Helm
+				{ 2, 84918 }, -- Malevolent Gladiator's Dreadplate Shoulders
+				{ 3, 84795 }, -- Malevolent Gladiator's Dreadplate Chestpiece
+				{ 4, 84835 }, -- Malevolent Gladiator's Dreadplate Gauntlets
+				{ 5, 84872 }, -- Malevolent Gladiator's Dreadplate Legguards
+				{ 16, 84374, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Dreadplate Helm
+				{ 17, 84376, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Dreadplate Shoulders
+				{ 18, 84372, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Dreadplate Chestpiece
+				{ 19, 84373, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Dreadplate Gauntlets
+				{ 20, 84375, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Dreadplate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84852 }, -- Malevolent Gladiator's Dragonhide Helm
+				{ 2, 84916 }, -- Malevolent Gladiator's Dragonhide Spaulders
+				{ 3, 84901 }, -- Malevolent Gladiator's Dragonhide Robes
+				{ 4, 84832 }, -- Malevolent Gladiator's Dragonhide Gloves
+				{ 5, 84871 }, -- Malevolent Gladiator's Dragonhide Legguards
+				{ 7, 84850 }, -- Malevolent Gladiator's Kodohide Helm
+				{ 8, 84927 }, -- Malevolent Gladiator's Kodohide Spaulders
+				{ 9, 84907 }, -- Malevolent Gladiator's Kodohide Robes
+				{ 10, 84833 }, -- Malevolent Gladiator's Kodohide Gloves
+				{ 11, 84882 }, -- Malevolent Gladiator's Kodohide Legguards
+				{ 16, 84861 }, -- Malevolent Gladiator's Wyrmhide Helm
+				{ 17, 84925 }, -- Malevolent Gladiator's Wyrmhide Spaulders
+				{ 18, 84906 }, -- Malevolent Gladiator's Wyrmhide Robes
+				{ 19, 84843 }, -- Malevolent Gladiator's Wyrmhide Gloves
+				{ 20, 84880 }, -- Malevolent Gladiator's Wyrmhide Legguards
+				{ 101, 84378, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Dragonhide Helm
+				{ 102, 84381, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Dragonhide Spaulders
+				{ 103, 84380, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Dragonhide Robes
+				{ 104, 84377, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Dragonhide Gloves
+				{ 105, 84379, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Dragonhide Legguards
+				{ 107, 84386, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Kodohide Helm
+				{ 109, 84389, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Kodohide Spaulders
+				{ 110, 84388, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Kodohide Robes
+				{ 111, 84385, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Kodohide Gloves
+				{ 112, 84387, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Kodohide Legguards
+				{ 116, 84394, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Wyrmhide Helm
+				{ 117, 84397, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Wyrmhide Spaulders
+				{ 118, 84396, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Wyrmhide Robes
+				{ 119, 84393, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Wyrmhide Gloves
+				{ 120, 84395, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Wyrmhide Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84858 }, -- Malevolent Gladiator's Chain Helm
+				{ 2, 84921 }, -- Malevolent Gladiator's Chain Spaulders
+				{ 3, 84796 }, -- Malevolent Gladiator's Chain Armor
+				{ 4, 84841 }, -- Malevolent Gladiator's Chain Gauntlets
+				{ 5, 84874 }, -- Malevolent Gladiator's Chain Leggings
+				{ 16, 84410, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Chain Helm
+				{ 17, 84412, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Chain Spaulders
+				{ 18, 84408, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Chain Armor
+				{ 19, 84409, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Chain Gauntlets
+				{ 20, 84411, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Chain Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84855 }, -- Malevolent Gladiator's Silk Cowl
+				{ 2, 84917 }, -- Malevolent Gladiator's Silk Amice
+				{ 3, 84904 }, -- Malevolent Gladiator's Silk Robe
+				{ 4, 84837 }, -- Malevolent Gladiator's Silk Handguards
+				{ 5, 84875 }, -- Malevolent Gladiator's Silk Trousers
+				{ 16, 84414, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Silk Cowl
+				{ 17, 84417, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Silk Amice
+				{ 18, 84416, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Silk Robe
+				{ 19, 84413, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Silk Handguards
+				{ 20, 84415, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Silk Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84854 }, -- Malevolent Gladiator's Copperskin Helm
+				{ 2, 84920 }, -- Malevolent Gladiator's Copperskin Spaulders
+				{ 3, 84903 }, -- Malevolent Gladiator's Copperskin Tunic
+				{ 4, 84836 }, -- Malevolent Gladiator's Copperskin Gloves
+				{ 5, 84873 }, -- Malevolent Gladiator's Copperskin Legguards
+				{ 7, 84857 }, -- Malevolent Gladiator's Ironskin Helm
+				{ 8, 84919 }, -- Malevolent Gladiator's Ironskin Spaulders
+				{ 9, 84902 }, -- Malevolent Gladiator's Ironskin Tunic
+				{ 10, 84839 }, -- Malevolent Gladiator's Ironskin Gloves
+				{ 11, 84877 }, -- Malevolent Gladiator's Ironskin Legguards
+				{ 16, 84549, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Copperskin Helm
+				{ 17, 84552, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Copperskin Spaulders
+				{ 18, 84551, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Copperskin Tunic
+				{ 19, 84548, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Copperskin Gloves
+				{ 20, 84550, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Copperskin Legguards
+				{ 22, 84544, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Ironskin Helm
+				{ 23, 84547, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Ironskin Spaulders
+				{ 24, 84546, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Ironskin Tunic
+				{ 25, 84543, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Ironskin Gloves
+				{ 26, 84545, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Ironskin Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84849 }, -- Malevolent Gladiator's Ornamented Headcover
+				{ 2, 84914 }, -- Malevolent Gladiator's Ornamented Spaulders
+				{ 3, 84793 }, -- Malevolent Gladiator's Ornamented Chestguard
+				{ 4, 84831 }, -- Malevolent Gladiator's Ornamented Gloves
+				{ 5, 84869 }, -- Malevolent Gladiator's Ornamented Legplates
+				{ 7, 84851 }, -- Malevolent Gladiator's Scaled Helm
+				{ 8, 84915 }, -- Malevolent Gladiator's Scaled Shoulders
+				{ 9, 84794 }, -- Malevolent Gladiator's Scaled Chestpiece
+				{ 10, 84834 }, -- Malevolent Gladiator's Scaled Gauntlets
+				{ 11, 84870 }, -- Malevolent Gladiator's Scaled Legguards
+				{ 16, 84431, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Ornamented Headcover
+				{ 17, 84433, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Ornamented Spaulders
+				{ 18, 84429, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Ornamented Chestguard
+				{ 19, 84430, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Ornamented Gloves
+				{ 20, 84432, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Ornamented Legplates
+				{ 22, 84420, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Scaled Helm
+				{ 23, 84422, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Scaled Shoulders
+				{ 24, 84418, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Scaled Chestpiece
+				{ 25, 84419, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Scaled Gauntlets
+				{ 26, 84421, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Scaled Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84863 }, -- Malevolent Gladiator's Mooncloth Helm
+				{ 2, 84928 }, -- Malevolent Gladiator's Mooncloth Mantle
+				{ 3, 84908 }, -- Malevolent Gladiator's Mooncloth Robe
+				{ 4, 84846 }, -- Malevolent Gladiator's Mooncloth Gloves
+				{ 5, 84883 }, -- Malevolent Gladiator's Mooncloth Leggings
+				{ 7, 84864 }, -- Malevolent Gladiator's Satin Hood
+				{ 8, 84929 }, -- Malevolent Gladiator's Satin Mantle
+				{ 9, 84909 }, -- Malevolent Gladiator's Satin Robe
+				{ 10, 84838 }, -- Malevolent Gladiator's Satin Gloves
+				{ 11, 84884 }, -- Malevolent Gladiator's Satin Leggings
+				{ 16, 84441, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Mooncloth Helm
+				{ 17, 84444, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Mooncloth Mantle
+				{ 18, 84443, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Mooncloth Robe
+				{ 19, 84440, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Mooncloth Gloves
+				{ 20, 84442, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Mooncloth Leggings
+				{ 22, 84446, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Satin Hood
+				{ 23, 84449, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Satin Mantle
+				{ 24, 84448, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Satin Robe
+				{ 25, 84445, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Satin Gloves
+				{ 26, 84447, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Satin Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84848 }, -- Malevolent Gladiator's Leather Helm
+				{ 2, 84913 }, -- Malevolent Gladiator's Leather Spaulders
+				{ 3, 84792 }, -- Malevolent Gladiator's Leather Tunic
+				{ 4, 84830 }, -- Malevolent Gladiator's Leather Gloves
+				{ 5, 84868 }, -- Malevolent Gladiator's Leather Legguards
+				{ 16, 84464, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Leather Helm
+				{ 17, 84466, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Leather Spaulders
+				{ 18, 84462, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Leather Tunic
+				{ 19, 84463, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Leather Gloves
+				{ 20, 84465, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Leather Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84862 }, -- Malevolent Gladiator's Linked Helm
+				{ 2, 84926 }, -- Malevolent Gladiator's Linked Spaulders
+				{ 3, 84799 }, -- Malevolent Gladiator's Linked Armor
+				{ 4, 84844 }, -- Malevolent Gladiator's Linked Gauntlets
+				{ 5, 84881 }, -- Malevolent Gladiator's Linked Leggings
+				{ 7, 84860 }, -- Malevolent Gladiator's Mail Helm
+				{ 8, 84924 }, -- Malevolent Gladiator's Mail Spaulders
+				{ 9, 84798 }, -- Malevolent Gladiator's Mail Armor
+				{ 10, 84845 }, -- Malevolent Gladiator's Mail Gauntlets
+				{ 11, 84879 }, -- Malevolent Gladiator's Mail Leggings
+				{ 16, 84865 }, -- Malevolent Gladiator's Ringmail Helm
+				{ 17, 84930 }, -- Malevolent Gladiator's Ringmail Spaulders
+				{ 18, 84800 }, -- Malevolent Gladiator's Ringmail Armor
+				{ 19, 84847 }, -- Malevolent Gladiator's Ringmail Gauntlets
+				{ 20, 84885 }, -- Malevolent Gladiator's Ringmail Leggings
+				{ 101, 84479, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Linked Helm
+				{ 102, 84481, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Linked Spaulders
+				{ 103, 84477, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Linked Armor
+				{ 104, 84478, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Linked Gauntlets
+				{ 205, 84480, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Linked Leggings
+				{ 107, 84485, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Mail Helm
+				{ 108, 84487, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Mail Spaulders
+				{ 109, 84483, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Mail Armor
+				{ 110, 84484, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Mail Gauntlets
+				{ 111, 84486, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Mail Leggings
+				{ 116, 84474, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Ringmail Helm
+				{ 117, 84476, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Ringmail Spaulders
+				{ 118, 84472, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Ringmail Armor
+				{ 119, 84473, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Ringmail Gauntlets
+				{ 120, 84475, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Ringmail Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84859 }, -- Malevolent Gladiator's Felweave Cowl
+				{ 2, 84923 }, -- Malevolent Gladiator's Felweave Amice
+				{ 3, 84905 }, -- Malevolent Gladiator's Felweave Raiment
+				{ 4, 84842 }, -- Malevolent Gladiator's Felweave Handguards
+				{ 5, 84878 }, -- Malevolent Gladiator's Felweave Trousers
+				{ 16, 84500, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Felweave Cowl
+				{ 17, 84503, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Felweave Amice
+				{ 18, 84502, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Felweave Raiment
+				{ 19, 84499, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Felweave Handguards
+				{ 20, 84501, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Felweave Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 84856 }, -- Malevolent Gladiator's Plate Helm
+				{ 2, 84922 }, -- Malevolent Gladiator's Plate Shoulders
+				{ 3, 84797 }, -- Malevolent Gladiator's Plate Chestpiece
+				{ 4, 84840 }, -- Malevolent Gladiator's Plate Gauntlets
+				{ 5, 84876 }, -- Malevolent Gladiator's Plate Legguards
+				{ 16, 84506, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Plate Helm
+				{ 17, 84508, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Plate Shoulders
+				{ 18, 84504, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Plate Chestpiece
+				{ 19, 84505, [PRICE_EXTRA_ITTYPE] = "honor:1750" }, -- Dreadful Gladiator's Plate Gauntlets
+				{ 20, 84507, [PRICE_EXTRA_ITTYPE] = "honor:2250" }, -- Dreadful Gladiator's Plate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+	},
+}
+-- Classic Season 11
+data["CLASSICS11SETS"] = {
+	name = string.format(AL["Season %d"], 11).." "..AL["Class Sets"].." ("..AL["Cataclysm"]..")",
+	ContentType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 73618, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Dreadplate Helm
+				{ 2, 73616, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Dreadplate Shoulders
+				{ 3, 73620, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Dreadplate Chestpiece
+				{ 4, 73619, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Dreadplate Gauntlets
+				{ 5, 73617, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Dreadplate Legguards
+				{ 16, 72334, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dreadplate Helm
+				{ 17, 72336, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Dreadplate Shoulders
+				{ 18, 72332, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dreadplate Chestpiece
+				{ 19, 72333, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Dreadplate Gauntlets
+				{ 20, 72335, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dreadplate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 73614, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Dragonhide Helm
+				{ 2, 73611, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Dragonhide Spaulders
+				{ 3, 73612, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Dragonhide Robes
+				{ 4, 73615, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Dragonhide Gloves
+				{ 5, 73613, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Dragonhide Legguards
+				{ 7, 73606, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Kodohide Helm
+				{ 8, 73603, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Kodohide Spaulders
+				{ 9, 73604, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Kodohide Robes
+				{ 10, 73607, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Kodohide Gloves
+				{ 11, 73605, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Kodohide Legguards
+				{ 16, 73598, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Wyrmhide Helm
+				{ 17, 73595, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Wyrmhide Spaulders
+				{ 18, 73596, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Wyrmhide Robes
+				{ 19, 73599, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Wyrmhide Gloves
+				{ 20, 73597, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Wyrmhide Legguards
+				{ 22, 72338, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dragonhide Helm
+				{ 23, 72341, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Dragonhide Spaulders
+				{ 24, 72340, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dragonhide Robes
+				{ 25, 72337, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Dragonhide Gloves
+				{ 26, 72339, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dragonhide Legguards
+				{ 27, 72346, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Kodohide Helm
+				{ 101, 72349, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Kodohide Spaulders
+				{ 102, 72348, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Kodohide Robes
+				{ 103, 72345, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Kodohide Gloves
+				{ 104, 72347, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Kodohide Legguards
+				{ 116, 72354, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Wyrmhide Helm
+				{ 117, 72357, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Wyrmhide Spaulders
+				{ 118, 72356, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Wyrmhide Robes
+				{ 119, 72353, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Wyrmhide Gloves
+				{ 120, 72355, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Wyrmhide Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 73582, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Chain Helm
+				{ 2, 73580, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Chain Spaulders
+				{ 3, 73584, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Chain Armor
+				{ 4, 73583, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Chain Gauntlets
+				{ 5, 73581, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Chain Leggings
+				{ 16, 72370, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Chain Helm
+				{ 17, 72372, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Chain Spaulders
+				{ 18, 72368, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Chain Armor
+				{ 19, 72369, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Chain Gauntlets
+				{ 20, 72371, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Chain Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 73575, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Silk Cowl
+				{ 2, 73572, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Silk Amice
+				{ 3, 73573, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Silk Robe
+				{ 4, 73576, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Silk Handguards
+				{ 5, 73574, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Silk Trousers
+				{ 16, 72374, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Silk Cowl
+				{ 17, 72377, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Silk Amice
+				{ 18, 72376, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Silk Robe
+				{ 19, 72373, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Silk Handguards
+				{ 20, 72375, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Silk Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 73558, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Ornamented Headcover
+				{ 2, 73556, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Ornamented Spaulders
+				{ 3, 73560, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Ornamented Chestguard
+				{ 3, 88170, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Ornamented Battlerobe
+				{ 4, 73559, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Ornamented Gloves
+				{ 5, 73557, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Ornamented Legplates
+				{ 7, 73569, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Scaled Helm
+				{ 8, 73567, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Scaled Shoulders
+				{ 9, 73571, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Scaled Chestpiece
+				{ 10, 73570, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Scaled Gauntlets
+				{ 11, 73568, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Scaled Legguards
+				{ 16, 72391, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ornamented Headcover
+				{ 17, 72393, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Ornamented Spaulders
+				{ 18, 72389, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ornamented Chestguard
+				{ 19, 72390, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Ornamented Gloves
+				{ 20, 72392, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ornamented Legplates
+				{ 22, 72380, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Scaled Helm
+				{ 23, 72382, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Scaled Shoulders
+				{ 24, 72378, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Scaled Chestpiece
+				{ 25, 72379, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Scaled Gauntlets
+				{ 26, 72381, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Scaled Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 73548, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Mooncloth Helm
+				{ 2, 73545, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Mooncloth Mantle
+				{ 3, 73546, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Mooncloth Robe
+				{ 4, 73549, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Mooncloth Gloves
+				{ 5, 73547, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Mooncloth Leggings
+				{ 7, 73543, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Satin Hood
+				{ 8, 73540, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Satin Mantle
+				{ 9, 73541, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Satin Robe
+				{ 10, 73544, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Satin Gloves
+				{ 11, 73542, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Satin Leggings
+				{ 16, 72401, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mooncloth Helm
+				{ 17, 72404, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Mooncloth Mantle
+				{ 18, 72403, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mooncloth Robe
+				{ 19, 72400, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Mooncloth Gloves
+				{ 20, 72402, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mooncloth Leggings
+				{ 22, 72406, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Satin Hood
+				{ 23, 72409, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Satin Mantle
+				{ 24, 72408, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Satin Robe
+				{ 25, 72405, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Satin Gloves
+				{ 26, 72407, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Satin Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 73525, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Leather Helm
+				{ 2, 73523, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Leather Spaulders
+				{ 3, 73527, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Leather Tunic
+				{ 4, 73526, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Leather Gloves
+				{ 5, 73524, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Leather Legguards
+				{ 16, 72424, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Leather Helm
+				{ 17, 72426, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Leather Spaulders
+				{ 18, 72422, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Leather Tunic
+				{ 19, 72423, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Leather Gloves
+				{ 20, 72425, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Leather Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 73510, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Linked Helm
+				{ 2, 73508, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Linked Spaulders
+				{ 3, 73512, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Linked Armor
+				{ 4, 73511, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Linked Gauntlets
+				{ 5, 73509, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Linked Leggings
+				{ 7, 73504, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Mail Helm
+				{ 8, 73502, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Mail Spaulders
+				{ 9, 73506, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Mail Armor
+				{ 10, 73505, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Mail Gauntlets
+				{ 11, 73503, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Mail Leggings
+				{ 16, 73515, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Ringmail Helm
+				{ 17, 73513, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Ringmail Spaulders
+				{ 18, 73517, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Ringmail Armor
+				{ 19, 73516, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Ringmail Gauntlets
+				{ 20, 73514, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Ringmail Leggings
+				{ 22, 72439, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Linked Helm
+				{ 23, 72441, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Linked Spaulders
+				{ 24, 72437, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Linked Armor
+				{ 25, 72438, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Linked Gauntlets
+				{ 26, 72440, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Linked Leggings
+				{ 101, 72445, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mail Helm
+				{ 102, 72447, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Mail Spaulders
+				{ 103, 72443, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mail Armor
+				{ 104, 72444, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Mail Gauntlets
+				{ 105, 72446, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mail Leggings
+				{ 116, 72434, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ringmail Helm
+				{ 117, 72436, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Ringmail Spaulders
+				{ 118, 72432, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ringmail Armor
+				{ 119, 72433, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Ringmail Gauntlets
+				{ 120, 72435, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ringmail Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 73486, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Felweave Cowl
+				{ 2, 73483, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Felweave Amice
+				{ 3, 73484, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Felweave Raiment
+				{ 4, 73487, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Felweave Handguards
+				{ 5, 73485, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Felweave Trousers
+				{ 16, 72460, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Felweave Cowl
+				{ 17, 72463, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Felweave Amice
+				{ 18, 72462, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Felweave Raiment
+				{ 19, 72459, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Felweave Handguards
+				{ 20, 72461, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Felweave Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 73480, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Plate Helm
+				{ 2, 73478, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Plate Shoulders
+				{ 3, 73482, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Plate Chestpiece
+				{ 4, 73481, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Plate Gauntlets
+				{ 5, 73479, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Plate Legguards
+				{ 16, 72466, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Plate Helm
+				{ 17, 72468, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Plate Shoulders
+				{ 18, 72464, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Plate Chestpiece
+				{ 19, 72465, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Plate Gauntlets
+				{ 20, 72467, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Plate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+	},
+}
+-- Classic Season 10
+data["CLASSICS10SETS"] = {
+	name = string.format(AL["Season %d"], 10).." "..AL["Class Sets"].." ("..AL["Cataclysm"]..")",
+	ContentType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 70246, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dreadplate Helm
+				{ 2, 70248, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Dreadplate Shoulders
+				{ 3, 70244, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dreadplate Chestpiece
+				{ 4, 70245, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Dreadplate Gauntlets
+				{ 5, 70247, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dreadplate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 70280, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dragonhide Helm
+				{ 2, 70283, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Dragonhide Spaulders
+				{ 3, 70282, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dragonhide Robes
+				{ 4, 70279, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Dragonhide Gloves
+				{ 5, 70281, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dragonhide Legguards
+				{ 7, 70285, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Kodohide Helm
+				{ 8, 70288, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Kodohide Spaulders
+				{ 9, 70287, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Kodohide Robes
+				{ 10, 70284, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Kodohide Gloves
+				{ 11, 70286, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Kodohide Legguards
+				{ 16, 70290, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Wyrmhide Helm
+				{ 17, 70293, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Wyrmhide Spaulders
+				{ 18, 70292, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Wyrmhide Robes
+				{ 19, 70289, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Wyrmhide Gloves
+				{ 20, 70291, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Wyrmhide Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 70261, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Chain Helm
+				{ 2, 70263, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Chain Spaulders
+				{ 3, 70259, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Chain Armor
+				{ 4, 70260, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Chain Gauntlets
+				{ 5, 70262, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Chain Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 70300, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Silk Cowl
+				{ 2, 70303, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Silk Amice
+				{ 3, 70302, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Silk Robe
+				{ 4, 70299, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Silk Handguards
+				{ 5, 70301, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Silk Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 70355, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ornamented Headcover
+				{ 2, 70357, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Ornamented Spaulders
+				{ 3, 70353, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ornamented Chestguard
+				{ 4, 70354, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Ornamented Gloves
+				{ 5, 70356, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ornamented Legplates
+				{ 16, 70251, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Scaled Helm
+				{ 17, 70253, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Scaled Shoulders
+				{ 18, 70249, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Scaled Chestpiece
+				{ 19, 70250, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Scaled Gauntlets
+				{ 20, 70252, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Scaled Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 70305, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mooncloth Helm
+				{ 2, 70308, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Mooncloth Mantle
+				{ 3, 70307, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mooncloth Robe
+				{ 4, 70304, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Mooncloth Gloves
+				{ 5, 70306, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mooncloth Leggings
+				{ 16, 70310, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Satin Hood
+				{ 17, 70313, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Satin Mantle
+				{ 18, 70312, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Satin Robe
+				{ 19, 70309, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Satin Gloves
+				{ 20, 70311, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Satin Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 70296, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Leather Helm
+				{ 2, 70298, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Leather Spaulders
+				{ 3, 70294, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Leather Tunic
+				{ 4, 70295, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Leather Gloves
+				{ 5, 70297, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Leather Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 70271, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Linked Helm
+				{ 2, 70273, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Linked Spaulders
+				{ 3, 70269, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Linked Armor
+				{ 4, 70270, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Linked Gauntlets
+				{ 5, 70272, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Linked Leggings
+				{ 7, 70276, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mail Helm
+				{ 8, 70278, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Mail Spaulders
+				{ 9, 70274, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mail Armor
+				{ 10, 70275, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Mail Gauntlets
+				{ 11, 70277, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mail Leggings
+				{ 16, 70266, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ringmail Helm
+				{ 17, 70268, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Ringmail Spaulders
+				{ 18, 70264, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ringmail Armor
+				{ 19, 70265, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Ringmail Gauntlets
+				{ 20, 70267, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ringmail Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 70315, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Felweave Cowl
+				{ 2, 70318, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Felweave Amice
+				{ 3, 70317, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Felweave Raiment
+				{ 4, 70314, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Felweave Handguards
+				{ 5, 70316, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Felweave Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 70256, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Plate Helm
+				{ 2, 70258, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Plate Shoulders
+				{ 3, 70254, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Plate Chestpiece
+				{ 4, 70255, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Plate Gauntlets
+				{ 5, 70257, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Plate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+	},
+}
+
+-- Classic Season 9
+data["CLASSICS9SETS"] = {
+	name = string.format(AL["Season %d"], 9).." "..AL["Class Sets"].." ("..AL["Cataclysm"]..")",
+	ContentType = NORMAL_ITTYPE,
+	items = {
+			{
+			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 60410, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Dreadplate Helm
+				{ 2, 60412, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Dreadplate Shoulders
+				{ 3, 60408, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Dreadplate Chestpiece
+				{ 4, 60409, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Dreadplate Gauntlets
+				{ 5, 60411, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Dreadplate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 60444, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Dragonhide Helm
+				{ 2, 60447, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Dragonhide Spaulders
+				{ 3, 60446, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Dragonhide Robes
+				{ 4, 60443, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Dragonhide Gloves
+				{ 5, 60445, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Dragonhide Legguards
+				{ 7, 60449, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Kodohide Helm
+				{ 8, 60452, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Kodohide Spaulders
+				{ 9, 60451, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Kodohide Robes
+				{ 10, 60448, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Kodohide Gloves
+				{ 11, 60450, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Kodohide Legguards
+				{ 16, 60454, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Wyrmhide Helm
+				{ 17, 60457, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Wyrmhide Spaulders
+				{ 18, 60456, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Wyrmhide Robes
+				{ 19, 60453, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Wyrmhide Gloves
+				{ 20, 60455, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Wyrmhide Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 60425, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Chain Helm
+				{ 2, 60427, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Chain Spaulders
+				{ 3, 60423, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Chain Armor
+				{ 4, 60424, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Chain Gauntlets
+				{ 5, 60426, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Chain Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 60464, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Silk Cowl
+				{ 2, 60467, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Silk Amice
+				{ 3, 60466, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Silk Robe
+				{ 4, 60463, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Silk Handguards
+				{ 5, 60465, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Silk Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 60603, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Ornamented Headcover
+				{ 2, 60605, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Ornamented Spaulders
+				{ 3, 60601, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Ornamented Chestguard
+				{ 4, 60602, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Ornamented Gloves
+				{ 5, 60604, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Ornamented Legplates
+				{ 16, 60415, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Scaled Helm
+				{ 17, 60417, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Scaled Shoulders
+				{ 18, 60413, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Scaled Chestpiece
+				{ 19, 60414, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Scaled Gauntlets
+				{ 20, 60416, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Scaled Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 60469, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Mooncloth Helm
+				{ 2, 60472, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Mooncloth Mantle
+				{ 3, 60471, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Mooncloth Robe
+				{ 4, 60468, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Mooncloth Gloves
+				{ 5, 60470, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Mooncloth Leggings
+				{ 16, 60474, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Satin Hood
+				{ 17, 60477, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Satin Mantle
+				{ 18, 60476, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Satin Robe
+				{ 19, 60473, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Satin Gloves
+				{ 20, 60475, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Satin Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 60460, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Leather Helm
+				{ 2, 60462, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Leather Spaulders
+				{ 3, 60458, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Leather Tunic
+				{ 4, 60459, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Leather Gloves
+				{ 5, 60461, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Leather Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 60435, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Linked Helm
+				{ 2, 60437, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Linked Spaulders
+				{ 3, 60433, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Linked Armor
+				{ 4, 60434, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Linked Gauntlets
+				{ 5, 60436, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Linked Leggings
+				{ 7, 60440, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Mail Helm
+				{ 8, 60442, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Mail Spaulders
+				{ 9, 60438, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Mail Armor
+				{ 10, 60439, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Mail Gauntlets
+				{ 11, 60441, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Mail Leggings
+				{ 16, 60430, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Ringmail Helm
+				{ 17, 60432, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Ringmail Spaulders
+				{ 18, 60428, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Ringmail Armor
+				{ 19, 60429, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Ringmail Gauntlets
+				{ 20, 60431, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Ringmail Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 60479, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Felweave Cowl
+				{ 2, 60482, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Felweave Amice
+				{ 3, 60481, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Felweave Raiment
+				{ 4, 60478, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Felweave Handguards
+				{ 5, 60480, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Felweave Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 60420, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Plate Helm
+				{ 2, 60422, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Plate Shoulders
+				{ 3, 60418, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Plate Chestpiece
+				{ 4, 60419, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Plate Gauntlets
+				{ 5, 60421, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Plate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+	},
+}
+-- Classic Season 8
+data["CLASSICS8SETS"] = {
+	name = string.format(AL["Season %d"], 8).." "..AL["Class Sets"].." ("..AL["Wrath of the Lich King"]..")",
+	ContentType = NORMAL_ITTYPE,
+	items = {
+			{
+			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 51415, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Dreadplate Helm
+				{ 2, 51418, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Dreadplate Shoulders
+				{ 3, 51413, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Dreadplate Chestpiece
+				{ 4, 51414, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Dreadplate Gauntlets
+				{ 5, 51416, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Dreadplate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 51427, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Dragonhide Helm
+				{ 2, 51430, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Dragonhide Spaulders
+				{ 3, 51425, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Dragonhide Robes
+				{ 4, 51426, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Dragonhide Gloves
+				{ 5, 51428, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Dragonhide Legguards
+				{ 7, 51421, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Kodohide Helm
+				{ 8, 51424, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Kodohide Spaulders
+				{ 9, 51419, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Kodohide Robes
+				{ 10, 51420, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Kodohide Gloves
+				{ 11, 51422, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Kodohide Legguards
+				{ 16, 51435, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Wyrmhide Helm
+				{ 17, 51438, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Wyrmhide Spaulders
+				{ 18, 51433, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Wyrmhide Robes
+				{ 19, 51434, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Wyrmhide Gloves
+				{ 20, 51436, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Wyrmhide Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 51460, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Chain Helm
+				{ 2, 51462, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Chain Spaulders
+				{ 3, 51458, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Chain Armor
+				{ 4, 51459, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Chain Gauntlets
+				{ 5, 51461, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Chain Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 51465, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Silk Cowl
+				{ 2, 51467, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Silk Amice
+				{ 3, 51463, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Silk Raiment
+				{ 4, 51464, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Silk Handguards
+				{ 5, 51466, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Silk Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 51470, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Ornamented Headcover
+				{ 2, 51473, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Ornamented Spaulders
+				{ 3, 51468, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Ornamented Chestguard
+				{ 4, 51469, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Ornamented Gloves
+				{ 5, 51471, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Ornamented Legplates
+				{ 16, 51476, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Scaled Helm
+				{ 17, 51479, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Scaled Shoulders
+				{ 18, 51474, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Scaled Chestpiece
+				{ 19, 51475, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Scaled Gauntlets
+				{ 20, 51477, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Scaled Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 51484, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Mooncloth Hood
+				{ 2, 51486, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Mooncloth Mantle
+				{ 3, 51482, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Mooncloth Robe
+				{ 4, 51483, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Mooncloth Gloves
+				{ 5, 51485, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Mooncloth Leggings
+				{ 16, 51489, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Satin Hood
+				{ 17, 51491, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Satin Mantle
+				{ 18, 51487, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Satin Robe
+				{ 19, 51488, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Satin Gloves
+				{ 20, 51490, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Satin Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 51494, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Leather Helm
+				{ 2, 51496, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Leather Spaulders
+				{ 3, 51492, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Leather Tunic
+				{ 4, 51493, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Leather Gloves
+				{ 5, 51495, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Leather Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 51505, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Linked Helm
+				{ 2, 51508, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Linked Spaulders
+				{ 3, 51503, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Linked Armor
+				{ 4, 51504, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Linked Gauntlets
+				{ 5, 51506, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Linked Leggings
+				{ 7, 51511, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Mail Helm
+				{ 8, 51514, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Mail Spaulders
+				{ 9, 51509, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Mail Armor
+				{ 10, 51510, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Mail Gauntlets
+				{ 11, 51512, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Mail Leggings
+				{ 16, 51499, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Ringmail Helm
+				{ 17, 51502, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Ringmail Spaulders
+				{ 18, 51497, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Ringmail Armor
+				{ 19, 51498, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Ringmail Gauntlets
+				{ 20, 51500, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Ringmail Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 51538, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Felweave Cowl
+				{ 2, 51540, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Felweave Amice
+				{ 3, 51536, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Felweave Raiment
+				{ 4, 51537, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Felweave Handguards
+				{ 5, 51539, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Felweave Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 51543, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Plate Helm
+				{ 2, 51545, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Plate Shoulders
+				{ 3, 51541, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Plate Chestpiece
+				{ 4, 51542, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Plate Gauntlets
+				{ 5, 51544, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Plate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+	},
+}
+-- Classic Season 7
+data["CLASSICS7SETS"] = {
+	name = string.format(AL["Season %d"], 7).." "..AL["Class Sets"].." ("..AL["Wrath of the Lich King"]..")",
+	ContentType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 40830, [PRICE_EXTRA_ITTYPE] = "money:1713600" }, --Relentless Gladiator's Dreadplate Helm
+				{ 2, 40871, [PRICE_EXTRA_ITTYPE] = "money:1719300" }, --Relentless Gladiator's Dreadplate Shoulders
+				{ 3, 40791, [PRICE_EXTRA_ITTYPE] = "money:2239200" }, --Relentless Gladiator's Dreadplate Chestpiece
+				{ 4, 40811, [PRICE_EXTRA_ITTYPE] = "money:1155400" }, --Relentless Gladiator's Dreadplate Gauntlets
+				{ 5, 40851, [PRICE_EXTRA_ITTYPE] = "money:2297000" }, --Relentless Gladiator's Dreadplate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41679, [PRICE_EXTRA_ITTYPE] = "money:1578700" }, --Relentless Gladiator's Dragonhide Helm
+				{ 2, 41716, [PRICE_EXTRA_ITTYPE] = "money:1725900" }, --Relentless Gladiator's Dragonhide Spaulders
+				{ 3, 41662, [PRICE_EXTRA_ITTYPE] = "money:2133700" }, --Relentless Gladiator's Dragonhide Robes
+				{ 4, 41774, [PRICE_EXTRA_ITTYPE] = "money:1068800" }, --Relentless Gladiator's Dragonhide Gloves
+				{ 5, 41668, [PRICE_EXTRA_ITTYPE] = "money:2182500" }, --Relentless Gladiator's Dragonhide Legguards
+				{ 7, 41322, [PRICE_EXTRA_ITTYPE] = "money:1713100" }, --Relentless Gladiator's Kodohide Helm
+				{ 8, 41276, [PRICE_EXTRA_ITTYPE] = "money:1677000" }, --Relentless Gladiator's Kodohide Spaulders
+				{ 9, 41311, [PRICE_EXTRA_ITTYPE] = "money:2199100" }, --Relentless Gladiator's Kodohide Robes
+				{ 10, 41288, [PRICE_EXTRA_ITTYPE] = "money:1064100" }, --Relentless Gladiator's Kodohide Gloves
+				{ 11, 41299, [PRICE_EXTRA_ITTYPE] = "money:2264400" }, --Relentless Gladiator's Kodohide Legguards
+				{ 16, 41328, [PRICE_EXTRA_ITTYPE] = "money:1627600" }, --Relentless Gladiator's Wyrmhide Helm
+				{ 17, 41282, [PRICE_EXTRA_ITTYPE] = "money:1713500" }, --Relentless Gladiator's Wyrmhide Spaulders
+				{ 18, 41317, [PRICE_EXTRA_ITTYPE] = "money:2247800" }, --Relentless Gladiator's Wyrmhide Robes
+				{ 19, 41294, [PRICE_EXTRA_ITTYPE] = "money:1118200" }, --Relentless Gladiator's Wyrmhide Gloves
+				{ 20, 41305, [PRICE_EXTRA_ITTYPE] = "money:2313100" }, --Relentless Gladiator's Wyrmhide Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41158, [PRICE_EXTRA_ITTYPE] = "money:1602500" }, --Relentless Gladiator's Chain Helm
+				{ 2, 41218, [PRICE_EXTRA_ITTYPE] = "money:1645800" }, --Relentless Gladiator's Chain Spaulders
+				{ 3, 41088, [PRICE_EXTRA_ITTYPE] = "money:2223400" }, --Relentless Gladiator's Chain Armor
+				{ 4, 41144, [PRICE_EXTRA_ITTYPE] = "money:1101200" }, --Relentless Gladiator's Chain Gauntlets
+				{ 5, 41206, [PRICE_EXTRA_ITTYPE] = "money:2264200" }, --Relentless Gladiator's Chain Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41947, [PRICE_EXTRA_ITTYPE] = "money:1590400" }, --Relentless Gladiator's Silk Cowl
+				{ 2, 41966, [PRICE_EXTRA_ITTYPE] = "money:1628100" }, --Relentless Gladiator's Silk Amice
+				{ 3, 41954, [PRICE_EXTRA_ITTYPE] = "money:2240300" }, --Relentless Gladiator's Silk Raiment
+				{ 4, 41972, [PRICE_EXTRA_ITTYPE] = "money:1118200" }, --Relentless Gladiator's Silk Handguards
+				{ 5, 41960, [PRICE_EXTRA_ITTYPE] = "money:2289000" }, --Relentless Gladiator's Silk Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 40934, [PRICE_EXTRA_ITTYPE] = "money:1614800" }, --Relentless Gladiator's Ornamented Headcover
+				{ 2, 40964, [PRICE_EXTRA_ITTYPE] = "money:1719400" }, --Relentless Gladiator's Ornamented Spaulders
+				{ 3, 40910, [PRICE_EXTRA_ITTYPE] = "money:2124900" }, --Relentless Gladiator's Ornamented Chestguard
+				{ 4, 40928, [PRICE_EXTRA_ITTYPE] = "money:1060100" }, --Relentless Gladiator's Ornamented Gloves
+				{ 5, 40940, [PRICE_EXTRA_ITTYPE] = "money:2264600" }, --Relentless Gladiator's Ornamented Legplates
+				{ 16, 40831, [PRICE_EXTRA_ITTYPE] = "money:1719600" }, --Relentless Gladiator's Scaled Helm
+				{ 17, 40872, [PRICE_EXTRA_ITTYPE] = "money:1725200" }, --Relentless Gladiator's Scaled Shoulders
+				{ 18, 40792, [PRICE_EXTRA_ITTYPE] = "money:2247400" }, --Relentless Gladiator's Scaled Chestpiece
+				{ 19, 40812, [PRICE_EXTRA_ITTYPE] = "money:1159400" }, --Relentless Gladiator's Scaled Gauntlets
+				{ 20, 40852, [PRICE_EXTRA_ITTYPE] = "money:2305200" }, --Relentless Gladiator's Scaled Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41855, [PRICE_EXTRA_ITTYPE] = "money:1640200" }, --Relentless Gladiator's Mooncloth Hood
+				{ 2, 41870, [PRICE_EXTRA_ITTYPE] = "money:1609500" }, --Relentless Gladiator's Mooncloth Mantle
+				{ 3, 41860, [PRICE_EXTRA_ITTYPE] = "money:2231800" }, --Relentless Gladiator's Mooncloth Robe
+				{ 4, 41875, [PRICE_EXTRA_ITTYPE] = "money:1101700" }, --Relentless Gladiator's Mooncloth Gloves
+				{ 5, 41865, [PRICE_EXTRA_ITTYPE] = "money:2272600" }, --Relentless Gladiator's Mooncloth Leggings
+				{ 16, 41916, [PRICE_EXTRA_ITTYPE] = "money:1645600" }, --Relentless Gladiator's Satin Hood
+				{ 17, 41935, [PRICE_EXTRA_ITTYPE] = "money:1683300" }, --Relentless Gladiator's Satin Mantle
+				{ 18, 41922, [PRICE_EXTRA_ITTYPE] = "money:2306100" }, --Relentless Gladiator's Satin Robe
+				{ 19, 41941, [PRICE_EXTRA_ITTYPE] = "money:1155200" }, --Relentless Gladiator's Satin Gloves
+				{ 20, 41928, [PRICE_EXTRA_ITTYPE] = "money:2133100" }, --Relentless Gladiator's Satin Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41673, [PRICE_EXTRA_ITTYPE] = "money:1664200" }, --Relentless Gladiator's Leather Helm
+				{ 2, 41684, [PRICE_EXTRA_ITTYPE] = "money:1609200" }, --Relentless Gladiator's Leather Spaulders
+				{ 3, 41651, [PRICE_EXTRA_ITTYPE] = "money:2207000" }, --Relentless Gladiator's Leather Tunic
+				{ 4, 41768, [PRICE_EXTRA_ITTYPE] = "money:1126200" }, --Relentless Gladiator's Leather Gloves
+				{ 5, 41656, [PRICE_EXTRA_ITTYPE] = "money:2247800" }, --Relentless Gladiator's Leather Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41152, [PRICE_EXTRA_ITTYPE] = "money:1732000" }, --Relentless Gladiator's Linked Helm
+				{ 2, 41212, [PRICE_EXTRA_ITTYPE] = "money:1609300" }, --Relentless Gladiator's Linked Spaulders
+				{ 3, 41082, [PRICE_EXTRA_ITTYPE] = "money:2174700" }, --Relentless Gladiator's Linked Armor
+				{ 4, 41138, [PRICE_EXTRA_ITTYPE] = "money:1076700" }, --Relentless Gladiator's Linked Gauntlets
+				{ 5, 41200, [PRICE_EXTRA_ITTYPE] = "money:2215200" }, --Relentless Gladiator's Linked Leggings
+				{ 7, 41020, [PRICE_EXTRA_ITTYPE] = "money:1738300" }, --Relentless Gladiator's Mail Helm
+				{ 8, 41045, [PRICE_EXTRA_ITTYPE] = "money:1602500" }, --Relentless Gladiator's Mail Spaulders
+				{ 9, 40995, [PRICE_EXTRA_ITTYPE] = "money:2223200" }, --Relentless Gladiator's Mail Armor
+				{ 10, 41008, [PRICE_EXTRA_ITTYPE] = "money:1089100" }, --Relentless Gladiator's Mail Gauntlets
+				{ 11, 41034, [PRICE_EXTRA_ITTYPE] = "money:2273000" }, --Relentless Gladiator's Mail Leggings
+				{ 16, 41014, [PRICE_EXTRA_ITTYPE] = "money:1657900" }, --Relentless Gladiator's Ringmail Helm
+				{ 17, 41039, [PRICE_EXTRA_ITTYPE] = "money:1732000" }, --Relentless Gladiator's Ringmail Spaulders
+				{ 18, 40994, [PRICE_EXTRA_ITTYPE] = "money:2215000" }, --Relentless Gladiator's Ringmail Armor
+				{ 19, 41002, [PRICE_EXTRA_ITTYPE] = "money:1064600" }, --Relentless Gladiator's Ringmail Gauntlets
+				{ 20, 41028, [PRICE_EXTRA_ITTYPE] = "money:2165600" }, --Relentless Gladiator's Ringmail Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41994, [PRICE_EXTRA_ITTYPE] = "money:1676500" }, --Relentless Gladiator's Felweave Cowl
+				{ 2, 42012, [PRICE_EXTRA_ITTYPE] = "money:1664200" }, --Relentless Gladiator's Felweave Amice
+				{ 3, 41999, [PRICE_EXTRA_ITTYPE] = "money:2117300" }, --Relentless Gladiator's Felweave Raiment
+				{ 4, 42018, [PRICE_EXTRA_ITTYPE] = "money:1060500" }, --Relentless Gladiator's Felweave Handguards
+				{ 5, 42006, [PRICE_EXTRA_ITTYPE] = "money:2174300" }, --Relentless Gladiator's Felweave Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 40829, [PRICE_EXTRA_ITTYPE] = "money:1707500" }, --Relentless Gladiator's Plate Helm
+				{ 2, 40870, [PRICE_EXTRA_ITTYPE] = "money:1713100" }, --Relentless Gladiator's Plate Shoulders
+				{ 3, 40790, [PRICE_EXTRA_ITTYPE] = "money:2231000" }, --Relentless Gladiator's Plate Chestpiece
+				{ 4, 40810, [PRICE_EXTRA_ITTYPE] = "money:1151200" }, --Relentless Gladiator's Plate Gauntlets
+				{ 5, 40850, [PRICE_EXTRA_ITTYPE] = "money:2288800" }, --Relentless Gladiator's Plate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+	},
+}
+-- Classic Season 6
+data["CLASSICS6SETS"] = {
+	name = string.format(AL["Season %d"], 6).." "..AL["Class Sets"].." ("..AL["Wrath of the Lich King"]..")",
+	ContentType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 40827, [PRICE_EXTRA_ITTYPE] = "money:1611900" }, --Furious Gladiator's Dreadplate Helm
+				{ 2, 40868, [PRICE_EXTRA_ITTYPE] = "money:1617200" }, --Furious Gladiator's Dreadplate Shoulders
+				{ 3, 40787, [PRICE_EXTRA_ITTYPE] = "money:2098100" }, --Furious Gladiator's Dreadplate Chestpiece
+				{ 4, 40809, [PRICE_EXTRA_ITTYPE] = "money:1090700" }, --Furious Gladiator's Dreadplate Gauntlets
+				{ 5, 40848, [PRICE_EXTRA_ITTYPE] = "money:2160800" }, --Furious Gladiator's Dreadplate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41678, [PRICE_EXTRA_ITTYPE] = "money:1653000" }, --Furious Gladiator's Dragonhide Helm
+				{ 2, 41715, [PRICE_EXTRA_ITTYPE] = "money:1635200" }, --Furious Gladiator's Dragonhide Spaulders
+				{ 3, 41661, [PRICE_EXTRA_ITTYPE] = "money:2021000" }, --Furious Gladiator's Dragonhide Robes
+				{ 4, 41773, [PRICE_EXTRA_ITTYPE] = "money:1012300" }, --Furious Gladiator's Dragonhide Gloves
+				{ 5, 41667, [PRICE_EXTRA_ITTYPE] = "money:2067300" }, --Furious Gladiator's Dragonhide Legguards
+				{ 7, 41321, [PRICE_EXTRA_ITTYPE] = "money:1623000" }, --Furious Gladiator's Kodohide Helm
+				{ 8, 41275, [PRICE_EXTRA_ITTYPE] = "money:1588700" }, --Furious Gladiator's Kodohide Spaulders
+				{ 9, 41310, [PRICE_EXTRA_ITTYPE] = "money:2083100" }, --Furious Gladiator's Kodohide Robes
+				{ 10, 41287, [PRICE_EXTRA_ITTYPE] = "money:1007900" }, --Furious Gladiator's Kodohide Gloves
+				{ 11, 41298, [PRICE_EXTRA_ITTYPE] = "money:2145200" }, --Furious Gladiator's Kodohide Legguards
+				{ 16, 41327, [PRICE_EXTRA_ITTYPE] = "money:1541900" }, --Furious Gladiator's Wyrmhide Helm
+				{ 17, 41281, [PRICE_EXTRA_ITTYPE] = "money:1623500" }, --Furious Gladiator's Wyrmhide Spaulders
+				{ 18, 41316, [PRICE_EXTRA_ITTYPE] = "money:2129500" }, --Furious Gladiator's Wyrmhide Robes
+				{ 19, 41293, [PRICE_EXTRA_ITTYPE] = "money:1059300" }, --Furious Gladiator's Wyrmhide Gloves
+				{ 20, 41304, [PRICE_EXTRA_ITTYPE] = "money:2191800" }, --Furious Gladiator's Wyrmhide Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41157, [PRICE_EXTRA_ITTYPE] = "money:1518000" }, --Furious Gladiator's Chain Helm
+				{ 2, 41217, [PRICE_EXTRA_ITTYPE] = "money:1559200" }, --Furious Gladiator's Chain Spaulders
+				{ 3, 41087, [PRICE_EXTRA_ITTYPE] = "money:2106300" }, --Furious Gladiator's Chain Armor
+				{ 4, 41143, [PRICE_EXTRA_ITTYPE] = "money:1043100" }, --Furious Gladiator's Chain Gauntlets
+				{ 5, 41205, [PRICE_EXTRA_ITTYPE] = "money:2145000" }, --Furious Gladiator's Chain Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41946, [PRICE_EXTRA_ITTYPE] = "money:1506400" }, --Furious Gladiator's Silk Cowl
+				{ 2, 41965, [PRICE_EXTRA_ITTYPE] = "money:1500400" }, --Furious Gladiator's Silk Amice
+				{ 3, 41953, [PRICE_EXTRA_ITTYPE] = "money:2122300" }, --Furious Gladiator's Silk Raiment
+				{ 4, 41971, [PRICE_EXTRA_ITTYPE] = "money:1059200" }, --Furious Gladiator's Silk Handguards
+				{ 5, 41959, [PRICE_EXTRA_ITTYPE] = "money:2168800" }, --Furious Gladiator's Silk Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 40933, [PRICE_EXTRA_ITTYPE] = "money:1529600" }, --Furious Gladiator's Ornamented Headcover
+				{ 2, 40963, [PRICE_EXTRA_ITTYPE] = "money:1629000" }, --Furious Gladiator's Ornamented Spaulders
+				{ 3, 40907, [PRICE_EXTRA_ITTYPE] = "money:2208000" }, --Furious Gladiator's Ornamented Chestguard
+				{ 4, 40927, [PRICE_EXTRA_ITTYPE] = "money:1110200" }, --Furious Gladiator's Ornamented Gloves
+				{ 5, 40939, [PRICE_EXTRA_ITTYPE] = "money:2145700" }, --Furious Gladiator's Ornamented Legplates
+				{ 16, 40828, [PRICE_EXTRA_ITTYPE] = "money:1617700" }, --Furious Gladiator's Scaled Helm
+				{ 17, 40869, [PRICE_EXTRA_ITTYPE] = "money:1623000" }, --Furious Gladiator's Scaled Shoulders
+				{ 18, 40788, [PRICE_EXTRA_ITTYPE] = "money:2105900" }, --Furious Gladiator's Scaled Chestpiece
+				{ 19, 40808, [PRICE_EXTRA_ITTYPE] = "money:1058700" }, --Furious Gladiator's Scaled Gauntlets
+				{ 20, 40849, [PRICE_EXTRA_ITTYPE] = "money:2168400" }, --Furious Gladiator's Scaled Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41854, [PRICE_EXTRA_ITTYPE] = "money:1553800" }, --Furious Gladiator's Mooncloth Hood
+				{ 2, 41869, [PRICE_EXTRA_ITTYPE] = "money:1640700" }, --Furious Gladiator's Mooncloth Mantle
+				{ 3, 41859, [PRICE_EXTRA_ITTYPE] = "money:2114300" }, --Furious Gladiator's Mooncloth Robe
+				{ 4, 41874, [PRICE_EXTRA_ITTYPE] = "money:1043600" }, --Furious Gladiator's Mooncloth Gloves
+				{ 5, 41864, [PRICE_EXTRA_ITTYPE] = "money:2153000" }, --Furious Gladiator's Mooncloth Leggings
+				{ 16, 41915, [PRICE_EXTRA_ITTYPE] = "money:1558900" }, --Furious Gladiator's Satin Hood
+				{ 17, 41934, [PRICE_EXTRA_ITTYPE] = "money:1594700" }, --Furious Gladiator's Satin Mantle
+				{ 18, 41921, [PRICE_EXTRA_ITTYPE] = "money:2184800" }, --Furious Gladiator's Satin Robe
+				{ 19, 41940, [PRICE_EXTRA_ITTYPE] = "money:1094600" }, --Furious Gladiator's Satin Gloves
+				{ 20, 41927, [PRICE_EXTRA_ITTYPE] = "money:2020400" }, --Furious Gladiator's Satin Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41672, [PRICE_EXTRA_ITTYPE] = "money:1576500" }, --Furious Gladiator's Leather Helm
+				{ 2, 41683, [PRICE_EXTRA_ITTYPE] = "money:1524200" }, --Furious Gladiator's Leather Spaulders
+				{ 3, 41650, [PRICE_EXTRA_ITTYPE] = "money:2090900" }, --Furious Gladiator's Leather Tunic
+				{ 4, 41767, [PRICE_EXTRA_ITTYPE] = "money:1067000" }, --Furious Gladiator's Leather Gloves
+				{ 5, 41655, [PRICE_EXTRA_ITTYPE] = "money:2129500" }, --Furious Gladiator's Leather Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41151, [PRICE_EXTRA_ITTYPE] = "money:1641000" }, --Furious Gladiator's Linked Helm
+				{ 2, 41211, [PRICE_EXTRA_ITTYPE] = "money:1524400" }, --Furious Gladiator's Linked Spaulders
+				{ 3, 41081, [PRICE_EXTRA_ITTYPE] = "money:2004100" }, --Furious Gladiator's Linked Armor
+				{ 4, 41137, [PRICE_EXTRA_ITTYPE] = "money:1019800" }, --Furious Gladiator's Linked Gauntlets
+				{ 5, 41199, [PRICE_EXTRA_ITTYPE] = "money:2098700" }, --Furious Gladiator's Linked Leggings
+				{ 7, 41019, [PRICE_EXTRA_ITTYPE] = "money:1647000" }, --Furious Gladiator's Mail Helm
+				{ 8, 41044, [PRICE_EXTRA_ITTYPE] = "money:1518000" }, --Furious Gladiator's Mail Spaulders
+				{ 9, 40993, [PRICE_EXTRA_ITTYPE] = "money:2098300" }, --Furious Gladiator's Mail Armor
+				{ 10, 41007, [PRICE_EXTRA_ITTYPE] = "money:1031700" }, --Furious Gladiator's Mail Gauntlets
+				{ 11, 41033, [PRICE_EXTRA_ITTYPE] = "money:2097900" }, --Furious Gladiator's Mail Leggings
+				{ 16, 41013, [PRICE_EXTRA_ITTYPE] = "money:1570500" }, --Furious Gladiator's Ringmail Helm
+				{ 17, 41038, [PRICE_EXTRA_ITTYPE] = "money:1641000" }, --Furious Gladiator's Ringmail Spaulders
+				{ 18, 40992, [PRICE_EXTRA_ITTYPE] = "money:2090500" }, --Furious Gladiator's Ringmail Armor
+				{ 19, 41001, [PRICE_EXTRA_ITTYPE] = "money:1086200" }, --Furious Gladiator's Ringmail Gauntlets
+				{ 20, 41027, [PRICE_EXTRA_ITTYPE] = "money:2051300" }, --Furious Gladiator's Ringmail Leggings
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 41993, [PRICE_EXTRA_ITTYPE] = "money:1588400" }, --Furious Gladiator's Felweave Cowl
+				{ 2, 42011, [PRICE_EXTRA_ITTYPE] = "money:1576500" }, --Furious Gladiator's Felweave Amice
+				{ 3, 41998, [PRICE_EXTRA_ITTYPE] = "money:2005400" }, --Furious Gladiator's Felweave Raiment
+				{ 4, 42017, [PRICE_EXTRA_ITTYPE] = "money:1110400" }, --Furious Gladiator's Felweave Handguards
+				{ 5, 42005, [PRICE_EXTRA_ITTYPE] = "money:2059500" }, --Furious Gladiator's Felweave Trousers
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 40826, [PRICE_EXTRA_ITTYPE] = "money:1606200" }, --Furious Gladiator's Plate Helm
+				{ 2, 40866, [PRICE_EXTRA_ITTYPE] = "money:1605700" }, --Furious Gladiator's Plate Shoulders
+				{ 3, 40789, [PRICE_EXTRA_ITTYPE] = "money:2113400" }, --Furious Gladiator's Plate Chestpiece
+				{ 4, 40807, [PRICE_EXTRA_ITTYPE] = "money:1054900" }, --Furious Gladiator's Plate Gauntlets
+				{ 5, 40847, [PRICE_EXTRA_ITTYPE] = "money:2153000" }, --Furious Gladiator's Plate Legguards
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+	},
+}
+--[[data["CLASSICS6NONSET"] = {
+	name = string.format(AL["Season %d"], 6).." "..AL["Non-Set Gear"].." ("..AL["Wrath of the Lich King"]..")",
+	ContentType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = ALIL["Cloth"],
+			[ALLIANCE_DIFF] = {
+			},
+			[HORDE_DIFF] = {
+			},
+		},
+		{
+			name = ALIL["Leather"],
+			[ALLIANCE_DIFF] = {
+			},
+			[HORDE_DIFF] = {
+			},
+		},
+		{
+			name = ALIL["Mail"],
+			[ALLIANCE_DIFF] = {
+			},
+			[HORDE_DIFF] = {
+			},
+		},
+		{
+			name = ALIL["Plate"],
+			[ALLIANCE_DIFF] = {
+			},
+			[HORDE_DIFF] = {
+			},
+		},
+		{
+			name = AL["Amulets"],
+			[ALLIANCE_DIFF] = {
+			},
+			[HORDE_DIFF] = {
+			},
+		},
+		{
+			name = AL["Cloaks"],
+			[ALLIANCE_DIFF] = {
+			},
+			[HORDE_DIFF] = {
+			},
+		},
+		{
+			name = AL["Rings"],
+			[ALLIANCE_DIFF] = {
+			},
+			[HORDE_DIFF] = {
+			},
+		},
+		{
+			name = AL["Trinkets"],
+			[ALLIANCE_DIFF] = {
+			},
+			[HORDE_DIFF] = {
+			},
+		},
+		{
+			name = AL["Miscellaneous"],
+			[ALLIANCE_DIFF] = {
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+	},
+}
+]]
 -- Classic Season 5
 data["CLASSICS5SETS"] = {
 	name = string.format(AL["Season %d"], 5).." "..AL["Class Sets"].." ("..AL["Wrath of the Lich King"]..")",
