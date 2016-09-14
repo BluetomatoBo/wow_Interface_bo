@@ -526,7 +526,7 @@ nodes["FalanaarTunnels"] = {
 	[35513253]={ "43747", "Manachest", "Ancient Mana", "", "default", "treasure_sur", "139786"},
 	[48644258]={ "43839", "Small Treasure Chest", "Artifact Power", "up a ledge reachable via the spider webs", "default", "treasure_sur", "138783"},
 	[23354815]={ "43840", "Treasure Chest", "Artifact Power", "", "default", "treasure_sur", "138783"},
-	[35525280]={ "99999", "Volatile Leyline Crystal", "+100 maximum Ancient Mana", "bottom floor in the temple of fal'adora | can't display it correctly right now, sorry!", "default", "treasure_sur", "140328"},
+	[35525280]={ "43988", "Volatile Leyline Crystal", "+100 maximum Ancient Mana", "bottom floor in the temple of fal'adora | can't display it correctly right now, sorry!", "default", "treasure_sur", "140328"},
 	[38605414]={ "43838", "Small Treasure Chest", "Artifact Power", "bottom floor in the temple of fal'adora | can't display it correctly right now, sorry!", "default", "treasure_sur", "138783"},
 }
 
