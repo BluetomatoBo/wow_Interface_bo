@@ -75,6 +75,19 @@ function NPCScan:OnInitialize()
 
 	private.db = db
 
+	-- ----------------------------------------------------------------------------
+	-- DB migrations
+	-- ----------------------------------------------------------------------------
+	local sharedMediaNames = db.profile.alert.sound.sharedMediaNames
+
+	for index = 1, 50 do
+		local actualName = sharedMediaNames[index]
+		if actualName then
+			sharedMediaNames[actualName] = true
+			sharedMediaNames[index] = nil
+		end
+	end
+
 	self:RegisterChatCommand("npcscan", "ChatCommand")
 end
 
@@ -90,7 +103,10 @@ function NPCScan:OnEnable()
 				private.NPCData[npcID] = npcData
 			end
 
+			-- This is technically incorrect, since NPCs can be in several locations, but it's primarily used for informational purposes where an
+			-- NPC _should_ ever only have a single location. For now.
 			npcData.mapID = mapID
+
 			npcData.npcID = npcID
 
 			local npcName = self:GetNPCNameFromID(npcID)
@@ -233,6 +249,8 @@ function NPCScan:OnEnable()
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 	self:RegisterEvent("VIGNETTE_ADDED")
 	self:RegisterBucketEvent("WORLD_MAP_UPDATE", 0.5)
+
+	self:RegisterMessage("NPCScan_TargetButtonActivated", "DispatchSensoryCues")
 
 	HereBeDragons.RegisterCallback(NPCScan, "PlayerZoneChanged", "UpdateScanList")
 

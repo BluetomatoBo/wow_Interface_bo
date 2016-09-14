@@ -1,0 +1,13 @@
+tag 7.0.3.14
+a752ce29a322cc7cffa14fca501cfe161c67d5db
+James D. Callahan III <jcallahan@curse.com>
+2016-09-13 18:25:12 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Correct .pkgmeta file to fix certain libraries.
+	- Show continent names in the tooltips of Zones and Dungeons under the Rare and Tameable preferences panes.
+	- Map Molten Front, Throne of Thunder, and Helheim to their containing map's continent - side-effect is they'll be properly categorized as Dungeons in the preferences panes.
