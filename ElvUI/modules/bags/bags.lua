@@ -1270,7 +1270,13 @@ function B:ContructContainerFrame(name, isBank)
 			end
 		end)
 
-		f:SetScript('OnHide', CloseBankFrame)
+		f:SetScript('OnHide', function()
+			CloseBankFrame()
+
+			if E.db.bags.clearSearchOnClose then
+				B.ResetAndClear(f.editBox);
+			end
+		end)
 
 
 		--Search
@@ -1410,6 +1416,10 @@ function B:ContructContainerFrame(name, isBank)
 				for _, bagButton in pairs(ElvUIBags.buttons) do
 					bagButton:SetChecked(false)
 				end
+			end
+
+			if E.db.bags.clearSearchOnClose then
+				B.ResetAndClear(f.editBox);
 			end
 		end)
 	end
