@@ -212,7 +212,7 @@ local function UpdateRareNPCOptions()
 		for npcID in pairs(private.MapNPCs[mapID]) do
 			local npcData = private.NPCData[npcID]
 
-			if not npcData.isTameable and not npcData.achievementID and npcData.factionGroup ~= private.PlayerFactionGroup then
+			if not npcData.isTameable and npcData.factionGroup ~= private.PlayerFactionGroup then
 				npcNames[npcID] = npcData.name
 				npcIDs[#npcIDs + 1] = npcID
 			end
@@ -466,7 +466,7 @@ end
 -- ----------------------------------------------------------------------------
 local NPCOptions
 
-local function GetNPCOptions()
+local function GetOrUpdateNPCOptions()
 	profile = private.db.profile
 
 	NPCOptions = NPCOptions or {
@@ -643,4 +643,4 @@ local function GetNPCOptions()
 	return NPCOptions
 end
 
-private.GetNPCOptions = GetNPCOptions
+private.GetOrUpdateNPCOptions = GetOrUpdateNPCOptions
