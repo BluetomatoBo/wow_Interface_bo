@@ -11,7 +11,7 @@
 local TSM = select(2, ...)
 local Items = TSM:NewModule("Items", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("TradeSkillMaster") -- loads the localization table
-local private = {itemInfo={}, bonusIdCache={}, bonusIdTemp={}, scanTooltip=nil, newItems={}, numPending=0, itemLevelCache = {}, soulboundCache = {}}
+local private = {itemInfo={}, bonusIdCache={}, bonusIdTemp={}, scanTooltip=nil, newItems={}, numPending=0, itemLevelCache = {}, soulboundCache = {}, minLevelCache = {}}
 local STATIC_DATA = {classLookup={}, classIdLookup={}, inventorySlotIdLookup={}}
 STATIC_DATA.weaponClassName = GetItemClassInfo(LE_ITEM_CLASS_WEAPON)
 STATIC_DATA.armorClassName = GetItemClassInfo(LE_ITEM_CLASS_ARMOR)
@@ -842,7 +842,25 @@ function TSMAPI.Item:GetItemLevel(itemString)
 end
 
 function TSMAPI.Item:GetMinLevel(itemString)
-	return private.GetItemInfoKey(itemString, "minLevel")
+	itemString = TSMAPI.Item:ToItemString(itemString)
+	if not itemString then return end
+	if private.minLevelCache[itemString] then
+		return private.minLevelCache[itemString]
+	end
+	if strmatch(itemString, "^p:") then
+		return private.GetItemInfoKey(itemString, "minLevel")
+	end
+	local baseItemString = TSMAPI.Item:ToBaseItemString(itemString)
+	local info = private.GetCachedItemInfo(baseItemString)
+	if itemString ~= baseItemString and info and info._getInfoResult then
+		-- we have the base item info, so should be able to call GetItemInfo() for this version of the item
+		local minLevel = select(5, GetItemInfo(private.ToWoWItemString(itemString)))
+		if minLevel then
+			private.minLevelCache[itemString] = minLevel
+		end
+		return private.minLevelCache[itemString] or info.minLevel
+	end
+	return info and info.minLevel
 end
 
 function TSMAPI.Item:GetMaxStack(itemString)

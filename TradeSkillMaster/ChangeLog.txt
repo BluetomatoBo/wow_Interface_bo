@@ -1,3 +1,6 @@
+v3.5.15
+*Fixed some issues relating to legion items and required levels.
+
 v3.5.14
 *Added a few more missing BoP Engineering materials and their vendor prices.
 
