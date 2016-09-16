@@ -38,7 +38,7 @@ merge(ns.points["Azsuna"], {
 merge(ns.points["Highmountain"], {
     [36751635] = {quest=40084, npc=98299, item=131799}, -- Bodash the Hoarder
     [37704570] = {quest=40405, npc=97449, item=131761}, -- Bristlemaul
-    [40955775] = {quest=39993, npc=97793, item=131773, note="Abandoned Fishing Pole"}, -- Flamescale
+    [40955775] = {quest=39963, npc=97793, item=131773, note="Abandoned Fishing Pole"}, -- Flamescale
     [41503185] = {quest=40175, npc=98890, item=131921}, -- Slumber
     [41954150] = {quest=39782, npc=97203, item=129175, note="Abandoned Fishing Pole"}, -- Tenpak Flametotem
     [43164800] = {quest=40413, npc=100230, item=131781, note="Loot chest afterwards"}, -- Amateur hunters (100230, 100231, 100232)
@@ -84,7 +84,7 @@ merge(ns.points["Stormheim"], {
     [67303990] = {quest=38685, npc=92763, item=129041}, -- The Nameless King
     [72504990] = {quest=38837, npc=93371, item=129035}, -- Mordvigbjorn
     [73454765] = {quest=40109, npc=98421, item=138419}, -- Kottr Vondyr
-    [73906060] = {quest=43343, npc=94347, item=130134}, -- Dread-Rider Cortis
+    [73906060] = {quest=43343, npc=94347, item=130134, faction="Alliance"}, -- Dread-Rider Cortis
     [78606115] = {quest=40113, npc=98503, item=138421}, -- Grrvrgull the Conqueror
 })
 merge(ns.points["Suramar"], {
