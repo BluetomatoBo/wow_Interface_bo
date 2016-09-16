@@ -252,16 +252,16 @@ function AuctionTabUtil:ParseFilterString(searchQuery)
 	return filters
 end
 
-function AuctionTabUtil:GetMatchingFilter(queries, itemString)
+function AuctionTabUtil:GetMatchingFilter(queries, auctionRecord)
 	-- figure out which query this item matches
-	local name = TSMAPI.Item:GetName(itemString)
+	local name = auctionRecord.name
 	if not name then return end
 	name = strlower(name)
-	local quality = TSMAPI.Item:GetQuality(itemString)
-	local level = TSMAPI.Item:GetMinLevel(itemString)
-	local classId = TSMAPI.Item:GetClassId(itemString)
-	local subClassId = TSMAPI.Item:GetSubClassId(itemString)
-	local invType = GetItemInventoryType(_G[TSMAPI.Item:GetEquipSlot(itemString)])
+	local quality = auctionRecord.quality
+	local level = auctionRecord.minLevel
+	local classId = TSMAPI.Item:GetClassId(auctionRecord.itemString)
+	local subClassId = TSMAPI.Item:GetSubClassId(auctionRecord.itemString)
+	local invType = GetItemInventoryType(_G[TSMAPI.Item:GetEquipSlot(auctionRecord.itemString)])
 	for _, query in ipairs(queries) do
 		local isValid = strfind(name, TSMAPI.Util:StrEscape(strlower(query.name))) and true or false
 		isValid = isValid and (not query.quality or query.quality == 0 or quality >= query.quality)

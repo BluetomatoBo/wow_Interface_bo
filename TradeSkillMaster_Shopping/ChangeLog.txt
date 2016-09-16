@@ -1,3 +1,6 @@
+v3.3.9
+*Fixed bug with displaying search results.
+
 v3.3.8
 *Increased max disenchant search iLvl to 905 to support Legion.
 

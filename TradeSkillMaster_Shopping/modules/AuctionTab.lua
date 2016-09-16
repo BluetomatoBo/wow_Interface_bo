@@ -336,11 +336,11 @@ function private.BuyAuctionsThread(self, auctionInfo)
 						TSM:Print(L["Failed to buy this auction. Skipping it."])
 						self:SendMsgToSelf("BUYOUT_FAILED")
 					end
-					private:SetMaxQuantity(auctionRecord.itemString, private:GetMaxQuantity(auctionRecord.itemString) - buyoutInfo.perBuyQuantity)
+					private:SetMaxQuantity(auctionRecord, private:GetMaxQuantity(auctionRecord) - buyoutInfo.perBuyQuantity)
 				end
 				private.frame.content.result.confirmation.buyout.buyoutBtn:Disable()
 				private.frame.content.result.confirmation.buyout.closeBtn:Disable()
-				if private:GetMaxQuantity(auctionRecord.itemString) > 0 and #indexList > 0 then
+				if private:GetMaxQuantity(auctionRecord) > 0 and #indexList > 0 then
 					-- wait one frame before re-enabling the buttons
 					self:Yield(true)
 					private.frame.content.result.confirmation.buyout.buyoutBtn:Enable()
@@ -354,7 +354,7 @@ function private.BuyAuctionsThread(self, auctionInfo)
 				return
 			elseif event == "BUYOUT_PLACED" or event == "BUYOUT_FAILED" then
 				if event == "BUYOUT_FAILED" then
-					private:SetMaxQuantity(auctionRecord.itemString, private:GetMaxQuantity(auctionRecord.itemString) + buyoutInfo.perBuyQuantity)
+					private:SetMaxQuantity(auctionRecord, private:GetMaxQuantity(auctionRecord) + buyoutInfo.perBuyQuantity)
 					local temp = buyoutInfo.progress
 					buyoutInfo.progress = temp + 1
 					private.frame.UpdateConfirmation("buyout", auctionRecord, buyoutInfo)
@@ -366,7 +366,7 @@ function private.BuyAuctionsThread(self, auctionInfo)
 				confirmProgress = confirmProgress + 1
 				TSM:LOG_INFO("buy progress: %d %d %d", buyProgress, confirmProgress, #indexList)
 				if confirmProgress == buyProgress then
-					if private:GetMaxQuantity(auctionRecord.itemString) <= 0 then
+					if private:GetMaxQuantity(auctionRecord) <= 0 then
 						-- we've bought the max quantity
 						break
 					end
@@ -382,7 +382,7 @@ function private.BuyAuctionsThread(self, auctionInfo)
 		end
 		TSM:LOG_INFO("Removing auction after buying.")
 		private.frame.content.result.rt:RemoveSelectedRecord(buyProgress)
-		if buyoutInfo.progress >= auctionInfo.numAuctions or private:GetMaxQuantity(auctionRecord.itemString) <= 0 then
+		if buyoutInfo.progress >= auctionInfo.numAuctions or private:GetMaxQuantity(auctionRecord) <= 0 then
 			self:Yield(true)
 			break
 		else
@@ -719,33 +719,33 @@ end
 -- Main Thread + Helpers
 -- ============================================================================
 
-function private:GetMaxQuantity(itemString)
+function private:GetMaxQuantity(auctionRecord)
 	local value = nil
 	if type(private.extraInfo.maxQuantity) == "number" then
 		-- global max quantity
 		value = private.extraInfo.maxQuantity
 	elseif type(private.extraInfo.maxQuantity) == "table" then
 		-- per-item max quantity
-		value = private.extraInfo.maxQuantity[itemString]
+		value = private.extraInfo.maxQuantity[auctionRecord.itemString]
 	elseif private.extraInfo.queries then
 		-- per-query max quantity
-		value = TSM.AuctionTabUtil:GetMatchingFilter(private.extraInfo.queries, itemString).maxQuantity
+		value = TSM.AuctionTabUtil:GetMatchingFilter(private.extraInfo.queries, auctionRecord).maxQuantity
 	end
 	return value or math.huge
 end
 
-function private:SetMaxQuantity(itemString, value)
+function private:SetMaxQuantity(auctionRecord, value)
 	if private.extraInfo and private.extraInfo.maxQuantity then
 		if type(private.extraInfo.maxQuantity) == "number" then
 			-- global max quantity
 			private.extraInfo.maxQuantity = value
 		elseif type(private.extraInfo.maxQuantity) == "table" and private.extraInfo.maxQuantity[itemString] then
 			-- per-item max quantity
-			private.extraInfo.maxQuantity[itemString] = value
+			private.extraInfo.maxQuantity[auctionRecord.itemString] = value
 		end
 	elseif private.extraInfo.queries then
 		-- per-query max quantity
-		TSM.AuctionTabUtil:GetMatchingFilter(private.extraInfo.queries, itemString).maxQuantity = value
+		TSM.AuctionTabUtil:GetMatchingFilter(private.extraInfo.queries, auctionRecord).maxQuantity = value
 	end
 end
 
@@ -827,7 +827,7 @@ function private.ValidateDatabaseRecord(record, auctionInfo)
 	-- run query-based filters
 	local query = private.extraInfo.queryCache[record.itemString]
 	if query == nil then
-		query = TSM.AuctionTabUtil:GetMatchingFilter(private.extraInfo.queries, record.itemString)
+		query = TSM.AuctionTabUtil:GetMatchingFilter(private.extraInfo.queries, record)
 
 		if not query then
 			private.extraInfo.queryCache[record.itemString] = false
@@ -859,7 +859,7 @@ function private.ValidateDatabaseRecord(record, auctionInfo)
 	end
 
 	-- filter by max quantity
-	if private:GetMaxQuantity(record.itemString) <= 0 then
+	if private:GetMaxQuantity(record) <= 0 then
 		return
 	end
 
@@ -1148,7 +1148,7 @@ function private.AuctionTabThread(self)
 			-- confirmation thread should now be closed
 			TSMAPI:Assert(not TSMAPI.Threading:IsValid(confirmThreadId))
 			confirmThreadId = nil
-			if private:GetMaxQuantity(auctionInfo.record.itemString) <= 0 then
+			if private:GetMaxQuantity(auctionInfo.record) <= 0 then
 				TSM:Print(L["Purchased the maximum quantity of this item!"])
 			end
 			private.frame.UpdateConfirmation()
