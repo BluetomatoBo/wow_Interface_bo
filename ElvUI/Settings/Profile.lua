@@ -178,6 +178,8 @@ P['bags'] = {
 	["countFontColor"] = {r = 1, g = 1, b = 1},
 	["reverseLoot"] = false,
 	["clearSearchOnClose"] = false,
+	["disableBagSort"] = false,
+	["disableBankSort"] = false,
 	['bagBar'] = {
 		['growthDirection'] = 'VERTICAL',
 		['sortDirection'] = 'ASCENDING',
@@ -595,6 +597,9 @@ P["nameplates"] = {
 				["position"] = "RIGHT",
 				['xOffset'] = 15,
 				['yOffset'] = 0,
+			},
+			["detection"] = {
+				["enable"] = true,
 			},
 		},
 	},
