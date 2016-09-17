@@ -29,6 +29,7 @@ end
 -- ============================================================================
 
 function GroupOptions:Load(parent)
+	TSM:AnalyticsEvent("GROUP_OPTIONS_OPEN")
 	private.groupTreeGroup = AceGUI:Create("TSMTreeGroup")
 	private.groupTreeGroup:SetLayout("Fill")
 	private.groupTreeGroup:SetCallback("OnGroupSelected", function(...) private:SelectTree(...) end)
@@ -114,6 +115,7 @@ function private:SelectTree(treeGroup, _, selection)
 	if #selection == 1 then
 		private:DrawNewGroup(treeGroup)
 	else
+		TSM:AnalyticsEvent("GROUP_SELECTED")
 		local group = selection[#selection]
 		local tabGroup =  AceGUI:Create("TSMTabGroup")
 		tabGroup:SetLayout("Fill")
@@ -173,6 +175,7 @@ function private:DrawNewGroup(container)
 									if TSM.db.profile.groups[value] then
 										return TSM:Printf(L["Error creating group. Group with name '%s' already exists."], value)
 									end
+									TSM:AnalyticsEvent("GROUP_CREATED")
 									TSM.Groups:Create(value)
 									GroupOptions:UpdateTree()
 									if TSM.db.profile.gotoNewGroup then
@@ -278,6 +281,7 @@ function private:DrawGroupOperationsPage(container, groupPath)
 					value = operations.override,
 					relativeWidth = 1,
 					callback = function(_,_,value)
+							TSM:AnalyticsEvent("GROUP_OVERRIDE_OPERATION")
 							TSM.Groups:SetOperationOverride(groupPath, moduleName, value)
 							container:Reload()
 						end,
@@ -296,6 +300,7 @@ function private:DrawGroupOperationsPage(container, groupPath)
 					relativeWidth = 0.6,
 					disabled = isSubGroup and not operations.override,
 					callback = function(_,_,value)
+						TSM:AnalyticsEvent("GROUP_CHANGE_OPERATION")
 						if value == "" then
 							TSM.Groups:SetOperation(groupPath, moduleName, nil, i)
 						elseif value == "\001" then
@@ -313,6 +318,7 @@ function private:DrawGroupOperationsPage(container, groupPath)
 						text = L["View Operation Options"],
 						relativeWidth = 0.39,
 						callback = function()
+							TSM:AnalyticsEvent("GROUP_VIEW_OPERATION")
 							TSMAPI.Operations:ShowOptions(moduleName, operations[i])
 						end,
 						tooltip = L["Click this button to configure the currently selected operation."],
@@ -323,6 +329,7 @@ function private:DrawGroupOperationsPage(container, groupPath)
 						text = L["Create New Operation"],
 						relativeWidth = 0.39,
 						callback = function()
+							TSM:AnalyticsEvent("GROUP_CREATE_OPERATION")
 							TSMAPI.Operations:ShowOptions(moduleName, "", groupPath)
 						end,
 						tooltip = L["Click this button to create a new operation for this module."],
@@ -436,12 +443,14 @@ function private:DrawGroupItemsPage(container, groupPath)
 					rightTitle = titleInfo.rightTitleList,
 					listCallback = GetItemList,
 					OnAddClicked = function(_,_,selected)
+						TSM:AnalyticsEvent("GROUP_ADD_ITEMS")
 						for i=#selected, 1, -1 do
 							TSM.Groups:AddItem(selected[i], groupPath)
 						end
 						container:Reload()
 					end,
 					OnRemoveClicked = function(_,_,selected)
+						TSM:AnalyticsEvent("GROUP_REMOVE_ITEMS")
 						if parentPath and IsShiftKeyDown() then
 							for i=#selected, 1, -1 do
 								TSM.Groups:MoveItem(selected[i], parentPath)
@@ -481,6 +490,7 @@ function private:DrawGroupImportExportPage(container, groupPath)
 							label = L["Import String"],
 							relativeWidth = 1,
 							callback = function(self, _, value)
+								TSM:AnalyticsEvent("GROUP_IMPORT_ITEMS", TSM.db.profile.moveImportedItems)
 								TSMAPI.Threading:Start(private.ImportGroupThread, 0.7, nil, {self, value, groupPath})
 							end,
 							tooltip = L["Paste the exported items into this box and hit enter or press the 'Okay' button. The recommended format for the list of items is a comma separated list of itemIDs for general items. For battle pets, the entire battlepet string should be used. For randomly enchanted items, the format is <itemID>:<randomEnchant> (ex: 38472:-29)."],
@@ -666,6 +676,7 @@ function private:DrawGroupManagementPage(container, groupPath)
 									if TSM.db.profile.groups[newPath] then
 										return TSM:Printf(L["Error renaming group. Group with name '%s' already exists."], value)
 									end
+									TSM:AnalyticsEvent("GROUP_RENAME")
 									TSM.Groups:Move(groupPath, newPath)
 									GroupOptions:UpdateTree()
 									private:SelectGroup(newPath)
@@ -686,6 +697,7 @@ function private:DrawGroupManagementPage(container, groupPath)
 									timeout = 0,
 									OnAccept = function()
 										local groupPath = StaticPopupDialogs["TSM_DELETE_GROUP"].tsmInfo
+										TSM:AnalyticsEvent("GROUP_DELETE")
 										TSM.Groups:Delete(groupPath)
 										GroupOptions:UpdateTree()
 										local parent = TSM.Groups:SplitGroupPath(groupPath)
@@ -731,6 +743,7 @@ function private:DrawGroupManagementPage(container, groupPath)
 									if TSM.db.profile.groups[newPath] then
 										return TSM:Printf(L["Error creating subgroup. Subgroup with name '%s' already exists."], value)
 									end
+									TSM:AnalyticsEvent("GROUP_CREATE_SUBGROUP")
 									TSM.Groups:Create(newPath)
 									GroupOptions:UpdateTree()
 									if TSM.db.profile.gotoNewGroup then
@@ -780,6 +793,7 @@ function private:DrawGroupManagementPage(container, groupPath)
 									end
 
 									TSM:Printf(L["Moved %s to %s."], TSMAPI.Groups:FormatPath(groupPath, true), TSMAPI.Groups:FormatPath(value, true))
+									TSM:AnalyticsEvent("GROUP_NEW_PARENT")
 									TSM.Groups:Move(groupPath, newPath)
 									GroupOptions:UpdateTree()
 									private:SelectGroup(newPath)
@@ -799,6 +813,7 @@ function private:DrawGroupManagementPage(container, groupPath)
 								end
 
 								TSM:Printf(L["Moved %s to %s."], TSMAPI.Groups:FormatPath(groupPath, true), TSMAPI.Groups:FormatPath(newPath, true))
+								TSM:AnalyticsEvent("GROUP_NEW_PARENT")
 								TSM.Groups:Move(groupPath, newPath)
 								GroupOptions:UpdateTree()
 								private:SelectGroup(newPath)

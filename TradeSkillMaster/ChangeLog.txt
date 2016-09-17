@@ -1,3 +1,9 @@
+v3.5.17
+*No change.
+
+v3.5.16
+*Added some analytic events.
+
 v3.5.15
 *Fixed some issues relating to legion items and required levels.
 
