@@ -461,8 +461,7 @@ function private.ScanLastPageThread(self)
 	-- wait for the AH to be ready
 	self:Sleep(0.1)
 	while not CanSendAuctionQuery() do self:Yield(true) end
-
-
+	
 	-- get to the last page of the AH
 	local lastPage = private:GetLastPage()
 	local query = {name="", page=lastPage}
@@ -474,7 +473,18 @@ function private.ScanLastPageThread(self)
 		onLastPage = (query.page == lastPage)
 		query.page = lastPage
 	end
-
+	
+	-- check the result
+	for j=0, MAX_SOFT_RETRIES do
+		-- wait a small delay and then try and get the result
+		self:Sleep(SCAN_RESULT_DELAY)
+		-- get result
+		if private:IsAuctionPageValid() then
+			-- result is valid, so break and store the result
+			break
+		end
+	end
+	
 	-- scan the page and store the results then do the callback
 	private:StorePageResults()
 	private:DoCallback("SCAN_COMPLETE")

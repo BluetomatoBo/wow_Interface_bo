@@ -1,3 +1,6 @@
+v3.5.18
+*Validate when scanning last page to prevent issues with unknown items (affecting Sniper).
+
 v3.5.17
 *No change.
 
