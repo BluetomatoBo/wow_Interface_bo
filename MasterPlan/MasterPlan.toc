@@ -4,12 +4,10 @@
 ## Author: foxlit
 ## X-Website: https://www.townlong-yak.com/master-plan/
 ## LoadOnDemand: 1
-## LoadWith: Blizzard_GarrisonUI
 ## RequiredDeps: Blizzard_GarrisonUI, MasterPlanA
 ## SavedVariablesPerCharacter: MasterPlanPC
-## Version: 0.101
-## X-Version-Key: night
-## Globe-Pre: MasterPlanA
+## Version: 0.102
+## X-Version-Key: vault
 Libs/Evie.lua
 Libs/Reframe.lua
 Locale.lua
