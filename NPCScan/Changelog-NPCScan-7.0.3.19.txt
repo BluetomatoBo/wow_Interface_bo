@@ -1,0 +1,17 @@
+tag 7.0.3.19
+30dc434137f7950926cdea8ba380e8a2fd6f533f
+James D. Callahan III <jcallahan@curse.com>
+2016-09-19 04:03:41 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Implement add and remove commands; /npcscan add 22943 - also accepts "mouseover" and "target" instead of an NPC ID.
+	- Go back to using UNKNOWN instead of SEARCH_LOADING_TEXT - there are more places where the latter makes absolutely no sense.
+	- Add a description to the NPCs➜Custom input box, and account for people who will include the quotes when typing "mouseover" and "target" - they are Legion. >.>
+	- Display the sourceText in the detection notification.
+	- Remove the queue notification toast.
+	- Add Blood Seeker and Xariona, since I've been assured they are still in the game despite WoWDB and WoWHead having absolutely no location data for them.
+	- Remove apparently invalid questID for Levantus, Captain Dargun, and Calamir.

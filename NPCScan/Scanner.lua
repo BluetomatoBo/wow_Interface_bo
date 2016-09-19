@@ -75,7 +75,7 @@ do
 		data.npcName = data.npcName or NPCScan:GetNPCNameFromID(npcID)
 		data.unitClassification = data.unitClassification or "rare"
 
-		NPCScan:Pour(_G.ERR_ZONE_EXPLORED:format(data.npcName), 0, 1, 0)
+		NPCScan:Pour(_G.ERR_ZONE_EXPLORED:format(("%s %s"):format(data.npcName, _G.PARENS_TEMPLATE:format(data.sourceText))), 0, 1, 0)
 		NPCScan:SendMessage("NPCScan_DetectedNPC", data)
 
 		-- TODO: Make the Overlays object listen for the NPCScan_DetectedNPC message and run its own methods
@@ -307,22 +307,24 @@ do
 
 	local function ProcessVignetteNameDetection(vignetteName, sourceText)
 		for npcID in pairs(private.VignetteNPCs[vignetteName]) do
-			ProcessDetection({
-				npcID = npcID,
-				sourceText = sourceText
-			})
+			if npcScanList[npcID] then
+				ProcessDetection({
+					npcID = npcID,
+					sourceText = sourceText
+				})
+			end
 		end
 	end
 
 	local function ProcessVignette(vignetteName, sourceText)
-		local questID = private.QuestIDFromName[vignetteName]
-		if questID then
-			ProcessQuestDetection(questID, sourceText)
+		if private.VignetteNPCs[vignetteName] then
+			ProcessVignetteNameDetection(vignetteName, sourceText)
 			return true
 		end
 
-		if private.VignetteNPCs[vignetteName] then
-			ProcessVignetteNameDetection(vignetteName, sourceText)
+		local questID = private.QuestIDFromName[vignetteName]
+		if questID then
+			ProcessQuestDetection(questID, sourceText)
 			return true
 		end
 
@@ -343,7 +345,7 @@ do
 		local x, y, vignetteName, iconID = _G.C_Vignettes.GetVignetteInfoFromInstanceID(instanceID)
 
 		if not ProcessVignette(vignetteName, _G.MINIMAP_LABEL) then
-			private.Debug("Unknown vignette: %s with iconID %s", vignetteName, tostring(iconID))
+			private.Debug("Unknown vignette: %s with iconID %s", vignetteName or _G.UNKNOWN, tostring(iconID))
 		end
 	end
 
