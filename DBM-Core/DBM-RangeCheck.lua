@@ -187,6 +187,13 @@ do
 				info.arg1 = 5
 				info.checked = (mainFrame.range == 5)
 				UIDropDownMenu_AddButton(info, 2)
+				
+				info = UIDropDownMenu_CreateInfo()
+				info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(8)
+				info.func = setRange
+				info.arg1 = 8
+				info.checked = (mainFrame.range == 8)
+				UIDropDownMenu_AddButton(info, 2)
 
 				info = UIDropDownMenu_CreateInfo()
 				info.text = DBM_CORE_RANGECHECK_SETRANGE_TO:format(10)
@@ -579,10 +586,13 @@ do
 				if restricted then--API restrictions are in play, so pretend we're back in BC
 					--Start at bottom and work way up.
 					--Definitely not most efficient way of doing it. Refactor later when 7.1 hits PTR
-					if IsItemInRange(37727, uId) then range = 5
+					--All ranges aer tested and compared against UnitDistanceSquared.
+					--Worgsaw has a tooltip of 6 but doesn't factor in hitboxes/etc. It doesn't return false until UnitDistanceSquared of 8. bandages 18 even though spell range is 15, etc. Acorn actually is 5 in both though
+					if IsItemInRange(37727, uId) then range = 5--Ruby Acorn
+					elseif IsItemInRange(63427, uId) then range = 8--Worgsaw
 					elseif CheckInteractDistance(uId, 3) then range = 10
 					elseif CheckInteractDistance(uId, 2) then range = 11
-					elseif IsItemInRange(6450, uId) then range = 18
+					elseif IsItemInRange(6450, uId) then range = 18--Bandages. (despite popular sites saying it's 15 yards, it's actually 18 yards erified even by UnitDistanceSquared
 					elseif CheckInteractDistance(uId, 1) then range = 30
 					elseif UnitInRange(uId) then range = 43
 					else range = 1000 end--Just so it has a numeric value, even if it's unknown to protect from nil errors
@@ -686,6 +696,7 @@ local getDistanceBetween
 do
 	local function itsBCAgain(uId)
 		if IsItemInRange(37727, uId) then return 5
+		elseif IsItemInRange(63427, uId) then return 8
 		elseif CheckInteractDistance(uId, 3) then return 10
 		elseif CheckInteractDistance(uId, 2) then return 11
 		elseif IsItemInRange(6450, uId) then return 18
@@ -695,7 +706,7 @@ do
 	end
 	--TODO, add some check in 7.1 to return before calling UnitPosition, if in restricted area.
 	function getDistanceBetween(uId, x, y)
-		local restrictionsActive = DBM.Options.EnablePatchRestrictions and IsInInstance()
+		local restrictionsActive = DBM:HasMapRestrictions()
 		if not x then--If only one arg then 2nd arg is always assumed to be player
 			if restrictionsActive then
 				return itsBCAgain(uId)
@@ -748,11 +759,15 @@ function rangeCheck:Show(range, filter, forceshow, redCircleNumPlayers, reverse,
 	redCircleNumPlayers = redCircleNumPlayers or 1
 	textFrame = textFrame or createTextFrame()
 	radarFrame = radarFrame or createRadarFrame()
-	local restrictionsActive = DBM.Options.EnablePatchRestrictions and IsInInstance()
+	local restrictionsActive = DBM:HasMapRestrictions()
 	if (DBM.Options.RangeFrameFrames == "text" or DBM.Options.RangeFrameFrames == "both" or restrictionsActive) and not textFrame.isShown then
 		if restrictionsActive then
 			if range <= 5 then
 				range = 5
+			elseif range <= 6 then
+				range = 6
+			elseif range <= 8 then
+				range = 8
 			elseif range <= 10 then
 				range = 10
 			elseif range <= 11 then

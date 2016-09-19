@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1751, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15156 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15211 $"):sub(12, -3))
 mod:SetCreatureID(104881)
 mod:SetEncounterID(1871)
 mod:SetZone()
@@ -283,7 +283,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			voiceSearingBrand:Play("scatter")
 			countdownSearingBrand:Start()
 		end
-		if self.Options.HudMapOnBrandCharge and not DBM.Options.EnablePatchRestrictions then
+		if self.Options.HudMapOnBrandCharge and not self:HasMapRestrictions() then
 			self:Unschedule(hudDelay)
 			if not tContains(args.destName, args.destName) then
 				chargeTable[#chargeTable+1] = args.destName

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1489, "DBM-Party-Legion", 4, 721)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15186 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15224 $"):sub(12, -3))
 mod:SetCreatureID(95676)
 mod:SetEncounterID(1809)
 mod:SetZone()
@@ -16,7 +16,6 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
---TODO, add HUD option/arrows when I have map data collected for rune locations
 --http://legion.wowhead.com/icons/name:boss_odunrunes_
 --["198263-Radiant Tempest"] = "pull:8.0, 72.0, 40.0", huh?
 local warnSpear						= mod:NewSpellAnnounce(198072, 2)--Target not available so no target warning.
