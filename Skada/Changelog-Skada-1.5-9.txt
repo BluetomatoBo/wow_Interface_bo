@@ -1,9 +1,56 @@
 ------------------------------------------------------------------------
-r680 | zarnivoop | 2016-08-31 19:16:54 +0000 (Wed, 31 Aug 2016) | 1 line
+r687 | zarnivoop | 2016-09-19 17:18:48 +0000 (Mon, 19 Sep 2016) | 1 line
 Changed paths:
-   A /tags/1.5-8 (from /trunk:679)
+   A /tags/1.5-9 (from /trunk:686)
 
-Tagging as 1.5-8
+Tagging as 1.5-9
+------------------------------------------------------------------------
+r686 | zarnivoop | 2016-09-19 16:58:18 +0000 (Mon, 19 Sep 2016) | 1 line
+Changed paths:
+   M /trunk/modules/Power.lua
+
+make power gains numbers prettier
+------------------------------------------------------------------------
+r685 | zarnivoop | 2016-09-15 18:04:50 +0000 (Thu, 15 Sep 2016) | 1 line
+Changed paths:
+   M /trunk/locale/enUS.lua
+   M /trunk/modules/Damage.lua
+
+added spell hit/crit details
+------------------------------------------------------------------------
+r684 | zarnivoop | 2016-09-11 19:16:06 +0000 (Sun, 11 Sep 2016) | 1 line
+Changed paths:
+   M /trunk/Menus.lua
+   M /trunk/Skada.lua
+   M /trunk/locale/enUS.lua
+   M /trunk/modules/Power.lua
+
+added a few more power gain modes
+------------------------------------------------------------------------
+r683 | zarnivoop | 2016-09-11 14:56:51 +0000 (Sun, 11 Sep 2016) | 1 line
+Changed paths:
+   M /trunk/locale/enUS.lua
+
+fixed missing localization string (a first!)
+------------------------------------------------------------------------
+r682 | zarnivoop | 2016-09-11 11:02:57 +0000 (Sun, 11 Sep 2016) | 1 line
+Changed paths:
+   M /trunk/BarDisplay.lua
+
+fixed title text color changes not taking effect
+------------------------------------------------------------------------
+r681 | zarnivoop | 2016-09-11 11:00:17 +0000 (Sun, 11 Sep 2016) | 1 line
+Changed paths:
+   M /trunk/Menus.lua
+   M /trunk/Skada.lua
+   M /trunk/modules/Damage.lua
+   M /trunk/modules/DamageTaken.lua
+   M /trunk/modules/Enemies.lua
+   M /trunk/modules/Healing.lua
+   M /trunk/modules/Overhealing.lua
+   M /trunk/modules/TotalHealing.lua
+
+added mode categories for un-messifying the mode selection menu
 ------------------------------------------------------------------------
 r679 | zarnivoop | 2016-08-28 14:28:30 +0000 (Sun, 28 Aug 2016) | 3 lines
 Changed paths:
@@ -199,149 +246,4 @@ Changed paths:
    M /trunk/modules/Deaths.lua
 
 fix for error in death view
-------------------------------------------------------------------------
-r656 | zarnivoop | 2016-08-18 20:29:35 +0000 (Thu, 18 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/Skada.lua
-
-fix for the recent change with Total segment
-------------------------------------------------------------------------
-r655 | zarnivoop | 2016-08-18 20:27:24 +0000 (Thu, 18 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/modules/Tweaks.lua
-
-fix for GBOM handling
-------------------------------------------------------------------------
-r654 | zarnivoop | 2016-08-18 18:00:49 +0000 (Thu, 18 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/Skada.lua
-
-Total segment is now merged together at startup, and not persisted; should cut down on memory usage quite a bit for muppets that never reset
-------------------------------------------------------------------------
-r653 | zarnivoop | 2016-08-18 10:12:18 +0000 (Thu, 18 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/modules/Damage.lua
-   M /trunk/modules/DamageTaken.lua
-
-removed multistrike stuff
-------------------------------------------------------------------------
-r652 | zarnivoop | 2016-08-17 14:33:30 +0000 (Wed, 17 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/BrokerDisplay.lua
-   M /trunk/InlineDisplay.lua
-   M /trunk/locale/enUS.lua
-
-made Inline and Broker displays optional modules
-------------------------------------------------------------------------
-r651 | zarnivoop | 2016-08-16 19:11:53 +0000 (Tue, 16 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/modules/Tweaks.lua
-
-fix for Stormlash, attempt 2
-------------------------------------------------------------------------
-r650 | zarnivoop | 2016-08-16 12:01:06 +0000 (Tue, 16 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/modules/Tweaks.lua
-
-fixed messed up Stormlash tweaks
-------------------------------------------------------------------------
-r649 | zarnivoop | 2016-08-16 10:36:14 +0000 (Tue, 16 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/Skada.lua
-   M /trunk/locale/enUS.lua
-   A /trunk/modules/Tweaks.lua
-   M /trunk/modules.xml
-
-new tweaks module, used for modifying CL events (new GBOM/Stormlash for now)
-------------------------------------------------------------------------
-r647 | zarnivoop | 2016-08-15 14:37:43 +0000 (Mon, 15 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/BarDisplay.lua
-
-fix for tooltip not hiding properly anymore
-------------------------------------------------------------------------
-r645 | zarnivoop | 2016-08-15 08:07:29 +0000 (Mon, 15 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/BarDisplay.lua
-   M /trunk/Skada.lua
-
-fix for missing config on existing windows
-------------------------------------------------------------------------
-r643 | zarnivoop | 2016-08-14 19:56:09 +0000 (Sun, 14 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/BarDisplay.lua
-   M /trunk/InlineDisplay.lua
-   M /trunk/Options.lua
-   M /trunk/Skada.lua
-
-fixed up inline display borders
-------------------------------------------------------------------------
-r642 | zarnivoop | 2016-08-14 18:22:55 +0000 (Sun, 14 Aug 2016) | 2 lines
-Changed paths:
-   M /trunk/BarDisplay.lua
-   M /trunk/BrokerDisplay.lua
-   M /trunk/InlineDisplay.lua
-   M /trunk/Options.lua
-   M /trunk/locale/enUS.lua
-
-window defaults improved (or at least, changed)
-window/title borders fixed for bar display; margins option removed (seemed to be completely broken anyway)
-------------------------------------------------------------------------
-r641 | zarnivoop | 2016-08-13 18:37:07 +0000 (Sat, 13 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/locale/enUS.lua
-
-added a few missing localization strings
-------------------------------------------------------------------------
-r640 | zarnivoop | 2016-08-13 18:33:26 +0000 (Sat, 13 Aug 2016) | 1 line
-Changed paths:
-   A /trunk/BrokerDisplay.lua
-   M /trunk/InlineDisplay.lua
-   M /trunk/Options.lua
-   M /trunk/Skada.toc
-   M /trunk/locale/enUS.lua
-
-added a new LDB display system
-------------------------------------------------------------------------
-r639 | zarnivoop | 2016-08-13 18:31:19 +0000 (Sat, 13 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/modules/Debuffs.lua
-
-fixed debuffs mode giving errors on new segment while showing a specific player
-------------------------------------------------------------------------
-r638 | zarnivoop | 2016-08-08 16:47:14 +0000 (Mon, 08 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/InlineDisplay.lua
-
-fixed bar placements for Inline display
-------------------------------------------------------------------------
-r637 | zarnivoop | 2016-08-07 21:28:48 +0000 (Sun, 07 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/BarDisplay.lua
-
-fixed BarDisplay's font flags not quite sticking (#431)
-------------------------------------------------------------------------
-r636 | zarnivoop | 2016-08-07 20:43:14 +0000 (Sun, 07 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/BarDisplay.lua
-   M /trunk/InlineDisplay.lua
-   M /trunk/locale/enUS.lua
-
-added strata option for BarDisplay
-------------------------------------------------------------------------
-r635 | zarnivoop | 2016-08-07 20:31:19 +0000 (Sun, 07 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/BarDisplay.lua
-   A /trunk/InlineDisplay.lua
-   M /trunk/Options.lua
-   M /trunk/Skada.lua
-   M /trunk/Skada.toc
-
-added new Inline display type (based on Skada Inline by gosuexac) - currently looks a little iffy if you are not using ElvUI
-------------------------------------------------------------------------
-r634 | zarnivoop | 2016-08-07 20:27:02 +0000 (Sun, 07 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/lib/SpecializedLibBars-1.0/SpecializedLibBars-1.0.lua
-
-minor optimization for "always show self" option
 ------------------------------------------------------------------------
