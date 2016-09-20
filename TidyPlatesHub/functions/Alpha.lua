@@ -91,15 +91,14 @@ end
 
 
 local function AlphaFunctionGroupMembers(unit)
-	local class = TidyPlatesUtility.GroupMembers.Class[unit.name]
-	if class then return LocalVars.OpacitySpotlight end
+	local unitid = unit.unitid
+	if UnitInParty(unitid) then return LocalVars.OpacitySpotlight end
 end
 
 
 local function AlphaFunctionByPlayers(unit)
 	if unit.type == "PLAYER" then return LocalVars.OpacitySpotlight end
 end
-
 
 
 --  Hub functions

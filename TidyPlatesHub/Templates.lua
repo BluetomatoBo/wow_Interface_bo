@@ -420,13 +420,6 @@ local function ResetSettings(panel)
 	if IsShiftKeyDown() then
 		ClearVariableSet(panel)
 		CreateVariableSet(panel.objectName)
-		for index, obj in pairs(TidyPlatesWidgetData) do
-			if type(obj) == 'table' then
-				for subIndex in pairs(obj) do
-					TidyPlatesWidgetData[index][subIndex] = nil
-				end
-			end
-		end
 		ReloadUI()
 	else
 		SetPanelValues(panel, TidyPlatesHubDefaults)

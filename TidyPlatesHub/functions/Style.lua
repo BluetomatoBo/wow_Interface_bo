@@ -15,7 +15,20 @@ local IsAuraShown = TidyPlatesWidgets.IsAuraShown
 
 
 local function IsUnitActive(unit)
-	return (unit.health < unit.healthmax) or (unit.threatValue > 1) or unit.isMarked	-- or unit.isInCombat
+	local unitid = unit.unitid
+
+	if unit.type == "NPC" then
+		--(unit.threatValue > 1)
+		--if ((not unit.isTapped) and UnitExists(unitid.."target")) or unit.isMarked then
+		if ((not unit.isTapped) and unit.isInCombat) or unit.isMarked then
+			return true
+		end
+	else	-- unit.type == "PLAYER"
+		if (unit.health < unit.healthmax) then
+			return true
+		end
+	end
+
 end
 
 

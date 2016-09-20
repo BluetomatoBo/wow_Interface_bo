@@ -18,7 +18,7 @@ local function SetTheme(...)
 
 	local theme 	-- This will store the pointer to the theme table
 
-	-- Sends a reset notification to all available themes, ie. nil
+	-- Sends a nil notification to all available themes to encourage cleanup
 	for themename, themetable in pairs(TidyPlatesThemeList) do
 		if themetable.OnActivateTheme then themetable.OnActivateTheme(nil) end
 	end

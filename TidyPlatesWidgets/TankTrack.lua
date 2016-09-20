@@ -74,7 +74,7 @@ local function UpdatePlayerRole()
 
 	if TidyPlatesWidgets.IsTankingAuraActive ~= activeTank then
 		TidyPlatesWidgets.IsTankingAuraActive = activeTank
-		TidyPlates:RequestDelegateUpdate()
+		TidyPlates:RequestUpdate()
 	end
 end
 
@@ -116,12 +116,7 @@ local function UpdateGroupRoles()
 		end
 	end
 
-	--print("Tank List Update")
-	--for i,v in pairs(RaidTankList) do print(i,v) end
-
 end
-
-
 
 local function TankWatcherEvents(frame, event, ...)
 
@@ -137,61 +132,29 @@ local function TankWatcherEvents(frame, event, ...)
 	end
 end
 
+if not TankWatcher then TankWatcher = CreateFrame("Frame") end
+TankWatcher:RegisterEvent("GROUP_ROSTER_UPDATE")
+TankWatcher:RegisterEvent("PLAYER_ENTERING_WORLD")
+TankWatcher:RegisterEvent("PARTY_MEMBERS_CHANGED")
+TankWatcher:RegisterEvent("UNIT_PET")
+TankWatcher:RegisterEvent("PET_BAR_UPDATE_USABLE")
+TankWatcher:RegisterEvent("PARTY_CONVERTED_TO_RAID")
+TankWatcher:RegisterEvent("UNIT_AURA")
+TankWatcher:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
+TankWatcher:SetScript("OnEvent", TankWatcherEvents)
 
 
-
-local enabled = false
-
-local function EnableTankWatch()
-
-	if enabled then return end
-
-	-- Party Tanks
-	if not TankWatcher then TankWatcher = CreateFrame("Frame") end
-	TankWatcher:RegisterEvent("GROUP_ROSTER_UPDATE")
-	TankWatcher:RegisterEvent("PLAYER_ENTERING_WORLD")
-	TankWatcher:RegisterEvent("PARTY_MEMBERS_CHANGED")
-	TankWatcher:RegisterEvent("UNIT_PET")
-	TankWatcher:RegisterEvent("PET_BAR_UPDATE_USABLE")
-	TankWatcher:RegisterEvent("PARTY_CONVERTED_TO_RAID")
-	TankWatcher:RegisterEvent("UNIT_AURA")
-	TankWatcher:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
-	TankWatcher:SetScript("OnEvent", TankWatcherEvents)
-
-	TankWatcherEvents()
-
-	enabled = true
-	--print("Tank Watch On")
-end
-
-local function DisableTankWatch()
-	if enabled then
-		-- Target-Of Watcher
-		if TargetWatcher then
-			TargetWatcher:SetScript("OnEvent", nil)
-			TargetWatcher:UnregisterAllEvents()
-			TargetWatcher = nil
-		end
-
-		-- Party Tanks
-		if TankWatcher then
-			TankWatcher:SetScript("OnEvent", nil)
-			TankWatcher:UnregisterAllEvents()
-			TankWatcher = nil
-		end
-
-		enabled = false
-	end
-
-	--print("Tank Watch Off")
-end
-
-TidyPlatesWidgets.EnableTankWatch = EnableTankWatch
-TidyPlatesWidgets.DisableTankWatch = DisableTankWatch
-TidyPlatesWidgets.IsTankedByAnotherTank = IsEnemyTanked
 TidyPlatesWidgets.IsEnemyTanked = IsEnemyTanked
 TidyPlatesWidgets.IsPlayerTank = IsPlayerTank
 
---TidyPlatesWidgets.GetRecentDamageTarget = GetRecentDamageTarget
+
+--[[
+local function Dummy() end
+TidyPlatesWidgets.EnableTankWatch = Dummy
+TidyPlatesWidgets.DisableTankWatch = Dummy
+--]]
+
+
+
 
 

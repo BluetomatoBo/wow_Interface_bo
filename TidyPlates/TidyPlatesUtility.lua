@@ -15,6 +15,11 @@ copytable = function(original)
 	return duplicate
 end
 
+
+TidyPlatesUtility.IsFriend = function(...) end
+--TidyPlatesUtility.IsHealer =
+TidyPlatesUtility.IsGuildmate = function(...) end
+
 local function RaidMemberCount()
 	if UnitInRaid("player") then
 		return GetNumGroupMembers()

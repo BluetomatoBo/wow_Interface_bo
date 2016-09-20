@@ -1,5 +1,4 @@
 TidyPlatesWidgets = {}
-TidyPlatesWidgetData = {}
 
 ----------------------
 -- HideIn() - Registers a callback, which hides the specified frame in X seconds
@@ -96,37 +95,18 @@ do
 	TidyPlatesWidgets.PolledHideIn = PolledHideIn
 end
 
----------------------
--- Reset/Nil Tidy Plates Widget Frames
----------------------
-do
-	local Plate, plateIndex, WorldFrameChildren, WidgetChildren, widgetIndex
 
-	local function ResetWidgets()
-		WorldFrameChildren = {WorldFrame:GetChildren()}
-		for plateIndex = 1, #WorldFrameChildren do
-			Plate = WorldFrameChildren[plateIndex]
-			if Plate.extended and Plate.extended.widgets then
-				for widgetIndex, widget in pairs(Plate.extended.widgets) do
-					widget:Hide()
-					Plate.extended.widgets[widgetIndex] = nil
-				end
-			end
-		end
-	end
-	TidyPlatesWidgets.ResetWidgets = ResetWidgets
-end
 
----------------------
--- Reset/Nil Tidy Plates Widget Frames
----------------------
-local function GetCombatEventResults(...)
-	local timestamp, combatevent, hideCaster, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlag, spellid, spellname  = ...
-	local auraType, stackCount = select(15, ...)
-	return timestamp, combatevent, sourceGUID, destGUID, destName, destFlags, destRaidFlag, auraType, spellid, spellname, stackCount
-end
 
---if (tonumber((select(2, GetBuildInfo()))) >= 14299) then else end
-TidyPlatesUtility.GetCombatEventResults = GetCombatEventResults
+-- For compatibility:
+local DummyFunction = function() end
+TidyPlatesWidgets.ResetWidgets = TidyPlates.ResetWidgets
+TidyPlatesWidgets.EnableTankWatch = DummyFunction
+TidyPlatesWidgets.DisableTankWatch = DummyFunction
+TidyPlatesWidgets.EnableAggroWatch = DummyFunction
+
+
+
+
 
 

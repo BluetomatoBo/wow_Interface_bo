@@ -427,14 +427,7 @@ local function BuildHubPanel(panel)
 	ClearCacheButton:SetText("Clear Cache")
 	ClearCacheButton:SetScript("OnClick", function()
 			local count = 0
-			for index, obj in pairs(TidyPlatesWidgetData) do
-				if type(obj) == 'table' then
-					for subIndex in pairs(obj) do
-						count = count + 1
-						TidyPlatesWidgetData[index][subIndex] = nil
-					end
-				end
-			end
+
 			print("Tidy Plates Hub: Cleared", count, "entries from cache.")
 		end)
 

@@ -3,14 +3,6 @@
 ---------------
 local classWidgetPath = "Interface\\Addons\\TidyPlatesWidgets\\ClassWidget\\"
 
---[[
-f.icon:SetTexture("Interface\\GLUES\\CHARACTERCREATE\\UI-CHARACTERCREATE-CLASSES"); -- this is the image containing all class icons
-local coords = CLASS_ICON_TCOORDS[class]; -- get the coordinates of the class icon we want
-f.icon:SetTexCoord(unpack(coords)); -- cut out the region with our class icon according to coords
---]]
-
-local CachedUnitClass = TidyPlatesUtility.CachedUnitClass
-
 local function UpdateClassWidget(self, unit, showFriendly)
 	local class
 
@@ -30,9 +22,9 @@ end
 
 local function CreateClassWidget(parent)
 
-	local frame = CreateFrame("Frame", nil, parent.widgetFrame)
+	local frame = CreateFrame("Frame", nil, parent)
 	frame:SetWidth(24); frame:SetHeight(24)
-	
+
 	frame.Icon = frame:CreateTexture(nil, "ARTWORK")
 	frame.Icon:SetAllPoints(frame)
 	frame:Hide()

@@ -98,8 +98,7 @@ TidyPlatesHubDefaults = {
 	OpacityFilterFriendlyNPC = false,
 	OpacityFilterInactive = false,
 	OpacityFilterMini = false,
-
-	OpacityFilterUntitledFriendlyNPC = true,
+	OpacityFilterUntitledFriendlyNPC = false,
 
 	OpacityFilterList = "Fanged Pit Viper\nLiberated Karabor Prisoner",
 	OpacityFilterLookup = {},

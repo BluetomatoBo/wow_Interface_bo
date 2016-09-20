@@ -35,26 +35,15 @@ local IsAuraShown = TidyPlatesWidgets.IsAuraShown
 local IsHealer = TidyPlatesUtility.IsHealer
 local InstanceStatus = TidyPlatesUtility.InstanceStatus
 
---[[
-local CachedUnitDescription = TidyPlatesUtility.CachedUnitDescription
-local CachedUnitGuild = TidyPlatesUtility.CachedUnitGuild
-local CachedUnitClass = TidyPlatesUtility.CachedUnitClass
-local IsFriend = TidyPlatesUtility.IsFriend
-local IsGuildmate = TidyPlatesUtility.IsGuildmate
---]]
-
-
 
 -- Combat
 local IsEnemyTanked = TidyPlatesWidgets.IsEnemyTanked
 
 local function IsOffTanked(unit)
-
 	if LocalVars.EnableOffTankHighlight and IsEnemyTanked(unit) then
 		return true
 	end
 end
-
 
 
 -- General
@@ -138,19 +127,6 @@ HubData.Colors.NameReactionColors = NameReactionColors
 -- Helper Functions
 ------------------------------------------------------------------------------------
 
-local function GetFriendlyClass(name)
-	local class = TidyPlatesUtility.GroupMembers.Class[name]
-
-	if (not IsInInstance() ) and (not class) and LocalVars.AdvancedEnableUnitCache then
-		class = CachedUnitClass(name) end
-	return class
-end
-
-local function GetEnemyClass(name)
-	if LocalVars.AdvancedEnableUnitCache then
-			return CachedUnitClass(name) end
-end
-
 local function CallbackUpdate()
 			for func in pairs(CallbackList) do
 				func(LocalVars)
@@ -159,40 +135,15 @@ end
 
 local function EnableWatchers()
 	if LocalVars.WidgetsDebuffStyle == 2 then TidyPlatesWidgets.UseSquareDebuffIcon() else TidyPlatesWidgets.UseWideDebuffIcon()end
-	TidyPlatesUtility:EnableGroupWatcher()
-	--if LocalVars.AdvancedEnableUnitCache then TidyPlatesUtility:EnableUnitCache() else TidyPlatesUtility:DisableUnitCache() end
-
+	--TidyPlatesUtility:EnableGroupWatcher()
 	TidyPlatesUtility:EnableHealerTrack()
-	TidyPlatesWidgets:EnableTankWatch()
+	--TidyPlatesWidgets:EnableTankWatch()
 
 	CallbackUpdate()
 end
 
 local CreateVariableSet = TidyPlatesHubRapidPanel.CreateVariableSet
 
-
---[[
--- TidyPlatesHubSettings["HubPanelSettingsDamage"]
-local function UseDamageVariables()
-	local objectName = "HubPanelSettingsDamage"
-	LocalVars = TidyPlatesHubSettings[objectName] or CreateVariableSet(objectName)
-
-	CallbackUpdate()
-
-	--EnableWatchers()
-	return LocalVars
-end
-
-local function UseTankVariables()
-	local objectName = "HubPanelSettingsTank"
-	LocalVars = TidyPlatesHubSettings[objectName] or CreateVariableSet(objectName)
-
-	CallbackUpdate()
-
-	--EnableWatchers()
-	return LocalVars
-end
---]]
 
 local function UseVariables(profileName)
 
@@ -264,10 +215,7 @@ end
 
 local function ApplyProfileSettings(theme, ...)
 	-- When nil is passed, the theme is being deactivated
-
 	if not theme then return end
-	--print("Hub/Core:ApplyProfileSettings", ...)
-	--print(theme, TidyPlates:GetTheme())
 
 	ReactionColors.FRIENDLY.NPC = LocalVars.ColorFriendlyNPC
 	ReactionColors.FRIENDLY.PLAYER = LocalVars.ColorFriendlyPlayer
@@ -285,8 +233,6 @@ local function ApplyProfileSettings(theme, ...)
 	ApplyStyleCustomization(theme["Default"], theme["DefaultBackup"])
 	ApplyFontCustomization(theme["NameOnly"], theme["NameOnlyBackup"])
 
-	--ApplyUserProgram(theme["Default"], theme["NameOnly"])
-
 	TidyPlates:ForceUpdate()
 	RaidClassColors = CUSTOM_CLASS_COLORS or RAID_CLASS_COLORS
 end
@@ -302,7 +248,9 @@ local function OnInitialize(plate, theme)
 end
 
 local function OnActivateTheme(theme)
-	-- Does nothing at the moment
+
+	-- This gets called when switching themes.
+	-- Ideally, it should clear out old widget data when nil is reported.
 end
 
 local function OnChangeProfile(theme, profile)
@@ -358,19 +306,11 @@ end
 -- Function List
 ---------------------------------------------
 TidyPlatesHubFunctions.IsOffTanked = IsOffTanked
-
 TidyPlatesHubFunctions.UseDamageVariables = UseDamageVariables
 TidyPlatesHubFunctions.UseTankVariables = UseTankVariables
 TidyPlatesHubFunctions.UseVariables = UseVariables
 TidyPlatesHubFunctions.EnableWatchers = EnableWatchers
-
--- Beta21: Commented these out
---TidyPlatesHubFunctions.ApplyFontCustomization = ApplyFontCustomization
---TidyPlatesHubFunctions.ApplyStyleCustomization = ApplyStyleCustomization
---TidyPlatesHubFunctions.ApplyProfileSettings = ApplyProfileSettings
-
 TidyPlatesHubFunctions.ApplyHubFunctions = ApplyHubFunctions
-
 
 
 

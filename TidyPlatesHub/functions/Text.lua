@@ -3,8 +3,6 @@ local AddonName, HubData = ...;
 local LocalVars = TidyPlatesHubDefaults
 
 
--- CachedUnitDescription, CachedUnitGuild, GetLevelDescription
-
 ------------------------------------------------------------------
 -- References
 ------------------------------------------------------------------
@@ -27,8 +25,6 @@ local CachedUnitDescription = TidyPlatesUtility.CachedUnitDescription
 local GetUnitSubtitle = TidyPlatesUtility.GetUnitSubtitle
 local GetUnitQuestInfo = TidyPlatesUtility.GetUnitQuestInfo
 
---local CachedUnitGuild = TidyPlatesUtility.CachedUnitGuild
---local CachedUnitClass = TidyPlatesUtility.CachedUnitClass
 
 local AddHubFunction = TidyPlatesHubHelpers.AddHubFunction
 

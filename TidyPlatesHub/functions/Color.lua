@@ -201,7 +201,7 @@ local function HealthColorDelegate(unit)
 			--if GetAggroCondition(unit.rawName) then color = LocalVars.ColorPartyAggro end
 		end
 	-- Tapped Color Priority
-	elseif unit.reaction == "TAPPED" then
+	elseif unit.isTapped then
 		color = LocalVars.ColorTapped
 	end
 
@@ -524,7 +524,13 @@ local function SetNameColorDelegate(unit)
 		func = EnemyNameColorFunctions[colorMode or 1] or NameColorDefault
 	end
 
-	color = func(unit)
+		-- Tapped Color Priority
+	--if unit.isTapped then
+	--	color = LocalVars.ColorTapped
+	--else
+		color = func(unit)
+	--end
+
 
 	if color then
 		return color.r, color.g, color.b , ((color.a or 1) * alphaFade)

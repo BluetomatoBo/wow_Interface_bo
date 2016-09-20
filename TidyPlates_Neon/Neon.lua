@@ -176,12 +176,12 @@ StyleDefault.eliteicon = {
 
 StyleDefault.skullicon = {
 	texture = ArtworkPath.."Skull_Icon_White",
-	width = 14,
-	height = 14,
+	width = 13,
+	height = 13,
 	x = -32,
-	y = VerticalAdjustment + 5,
+	y = VerticalAdjustment + 5.5,
 	anchor = "CENTER",
-	show = false,
+	show = true,
 }
 
 
@@ -198,23 +198,42 @@ StyleDefault.name = {
 	shadow = true,
 	flags = "NONE",
 }
-
+--[[
 StyleDefault.level = {
 	typeface = font,
-	size = fontsize-1,
+	size = fontsize,
 	width = 40,
 	height = 11,
 	--x = 5,		-- for Star
-	x = 5+6,		-- For Echelon
+	x = 12,		-- For Echelon
 	--y = VerticalAdjustment + 5,		-- For star
-	y = VerticalAdjustment + 5,		-- For echelon
+	y = VerticalAdjustment + 6,		-- For echelon
 	align = "LEFT",
 	anchor = "LEFT",
-	vertical = "CENTER",
+	vertical = "TOP",
 	flags = "OUTLINE",
 	shadow = false,
 	show = false,
 }
+--]]
+
+StyleDefault.level = {
+	typeface = font,
+	size = fontsize,
+	width = 40,
+	height = 12,
+	--x = 5,		-- for Star
+	x = -18,		-- For Echelon
+	--y = VerticalAdjustment + 5,		-- For star
+	y = VerticalAdjustment + 4,		-- For echelon
+	align = "LEFT",
+	anchor = "CENTER",
+	vertical = "TOP",
+	flags = "OUTLINE",
+	shadow = false,
+	show = false,
+}
+
 
 StyleDefault.customart = {
 	width = 14,
