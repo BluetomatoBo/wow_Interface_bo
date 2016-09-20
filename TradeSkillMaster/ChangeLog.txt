@@ -1,3 +1,7 @@
+v3.6
+*Added brand new optimization to dramatically increase scan speed, primarily for high-volume items.
+*Fixed bug which potentially affected buying of auctions (with TSM_Shopping).
+
 v3.5.18
 *Validate when scanning last page to prevent issues with unknown items (affecting Sniper).
 

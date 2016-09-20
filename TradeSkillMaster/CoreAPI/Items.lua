@@ -11,7 +11,7 @@
 local TSM = select(2, ...)
 local Items = TSM:NewModule("Items", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("TradeSkillMaster") -- loads the localization table
-local private = {itemInfo={}, bonusIdCache={}, bonusIdTemp={}, scanTooltip=nil, newItems={}, numPending=0, itemLevelCache = {}, soulboundCache = {}, minLevelCache = {}}
+local private = {itemInfo={}, bonusIdCache={}, bonusIdTemp={}, scanTooltip=nil, newItems={}, numPending=0, itemLevelCache = {}, soulboundCache = {}, minLevelCache = {}, canUseCache = {}}
 local STATIC_DATA = {classLookup={}, classIdLookup={}, inventorySlotIdLookup={}}
 STATIC_DATA.weaponClassName = GetItemClassInfo(LE_ITEM_CLASS_WEAPON)
 STATIC_DATA.armorClassName = GetItemClassInfo(LE_ITEM_CLASS_ARMOR)
@@ -198,7 +198,7 @@ function TSMAPI.Item:IsSoulbound(...)
 	if itemLink and private.soulboundCache[itemLink] then
 		return private.soulboundCache[itemLink]
 	end
-	
+
 	local scanTooltip = private.GetScanTooltip()
 	local result = nil
 	if itemString then
@@ -229,8 +229,7 @@ function TSMAPI.Item:IsSoulbound(...)
 	end
 
 	for id=1, scanTooltip:NumLines() do
-		local text = _G[scanTooltip:GetName().."TextLeft" .. id]
-		text = text and text:GetText()
+		local text = private.GetTooltipText(_G[scanTooltip:GetName().."TextLeft"..id])
 		if text then
 			if (text == ITEM_BIND_ON_PICKUP and id < 4) or text == ITEM_SOULBOUND or text == ITEM_BIND_QUEST then
 				result = true
@@ -239,11 +238,11 @@ function TSMAPI.Item:IsSoulbound(...)
 			end
 		end
 	end
-	
+
 	if itemLink then
 		private.soulboundCache[itemLink] = result
 	end
-	
+
 	return result
 end
 
@@ -263,8 +262,7 @@ function TSMAPI.Item:IsCraftingReagent(itemLink)
 
 	local result = nil
 	for id = 1, scanTooltip:NumLines() do
-		local text = _G[scanTooltip:GetName().."TextLeft" .. id]
-		text = text and text:GetText()
+		local text = private.GetTooltipText(_G[scanTooltip:GetName().."TextLeft"..id])
 		if text and (text == PROFESSIONS_USED_IN_COOKING) then
 			result = true
 			break
@@ -504,6 +502,50 @@ function private.LoadItemCache()
 	return result
 end
 
+function TSMAPI.Item:CanUse(itemString)
+	itemString = TSMAPI.Item:ToItemString(itemString)
+	if not itemString then return end
+	if private.canUseCache[itemString] ~= nil then return private.canUseCache[itemString] end
+	local classId = TSMAPI.Item:GetClassId(itemString)
+	local subClassId = TSMAPI.Item:GetSubClassId(itemString)
+	if not classId or not subClassId then return end
+
+	local result = true
+	if classId == LE_ITEM_CLASS_BATTLEPET or classId == LE_ITEM_CLASS_RECIPE or classId == LE_ITEM_CLASS_MISCELLANEOUS or (classId == LE_ITEM_CLASS_CONSUMABLE and subClassId == 8) then
+		-- can't currently determine if these are usable based on tooltip scanning
+		result = false
+	else
+		local scanTooltip = private.GetScanTooltip()
+		scanTooltip:SetHyperlink(private.ToWoWItemString(itemString))
+		local prevR, prevG, prevB = 0, 0, 0
+		for id = 1, scanTooltip:NumLines() do
+			local lText, lR, lG, lB = private.GetTooltipText(_G[scanTooltip:GetName().."TextLeft"..id])
+			local rText, rR, rG, rB = private.GetTooltipText(_G[scanTooltip:GetName().."TextRight"..id])
+			if lText and lR == 255 and lG == 32 and lB == 32 then
+				if id == 1 and scanTooltip:NumLines() == 1 then
+					-- probably still retrieving item info
+					return
+				end
+				if id <= 3 or prevR ~= 255 or prevG ~= 210 or prevB ~= 0 then
+					result = false
+					break
+				end
+			end
+			if rText and rR == 255 and rG == 32 and rB == 32 then
+				result = false
+				break
+			end
+			if lText then
+				prevR = lR
+				prevG = lG
+				prevB = lB
+			end
+		end
+	end
+	private.canUseCache[itemString] = result
+	return result
+end
+
 
 
 -- ============================================================================
@@ -528,7 +570,7 @@ function private.GetCachedItemInfo(itemString)
 			local speciesId = tonumber(strmatch(itemString, "^p:(%d+)"))
 			private.StoreGetPetInfoResult(itemString, private.GetPetInfo(speciesId))
 			private.itemInfo[itemString]._getInfoInstantResult = true
-		else 
+		else
 			private.newItems[itemString] = 1
 		end
 	end
@@ -824,8 +866,8 @@ function TSMAPI.Item:GetItemLevel(itemString)
 			local scanTooltip = private.GetScanTooltip()
 			scanTooltip:SetHyperlink(private.ToWoWItemString(itemString))
 			for id = 1, scanTooltip:NumLines() do
-				local text = _G[scanTooltip:GetName().."TextLeft" .. id]
-				local itemLevel = text and strmatch(text:GetText(), gsub(ITEM_LEVEL, "%%d", "([0-9]+)"))
+				local text = private.GetTooltipText(_G[scanTooltip:GetName().."TextLeft"..id])
+				local itemLevel = text and strmatch(text, gsub(ITEM_LEVEL, "%%d", "([0-9]+)"))
 				if itemLevel then
 					private.itemLevelCache[itemString] = tonumber(itemLevel)
 					return private.itemLevelCache[itemString]
@@ -905,14 +947,20 @@ end
 
 function private:GetTooltipCharges(scanTooltip)
 	for id = 1, scanTooltip:NumLines() do
-		local text = _G[scanTooltip:GetName().."TextLeft" .. id]
-		if text and text:GetText() then
-			local maxCharges = strmatch(text:GetText(), "^([0-9]+) Charges?$")
-			if maxCharges then
-				return maxCharges
-			end
+		local text = private.GetTooltipText(_G[scanTooltip:GetName().."TextLeft"..id])
+		local maxCharges = text and strmatch(text, "^([0-9]+) Charges?$")
+		if maxCharges then
+			return maxCharges
 		end
 	end
+end
+
+function private.GetTooltipText(text)
+	local textStr = (text and text:GetText() or ""):trim()
+	if textStr == "" then return end
+
+	local r, g, b = text:GetTextColor()
+	return textStr, floor(r * 256), floor(g * 256), floor(b * 256)
 end
 
 function private.ToWoWItemString(itemString)

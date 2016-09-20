@@ -101,7 +101,7 @@ private.AuctionRecord = setmetatable({}, {
 			end
 			local texture, stackSize, minBid, minIncrement, buyout, bid, isHighBidder, seller, seller_full = TSMAPI.Util:Select({2, 3, 8, 9, 10, 11, 12, 14, 15}, GetAuctionItemInfo(auctionType, index))
 			local timeLeft = GetAuctionItemTimeLeft(auctionType, index)
-			local itemLink = TSMAPI.Item:GetLink(TSMAPI.Item:ToItemString(GetAuctionItemLink(auctionType, index))) -- generalize the link
+			local itemLink = TSMAPI.Item:GeneralizeLink(GetAuctionItemLink(auctionType, index))
 			seller = TSM:GetAuctionPlayer(seller, seller_full) or "?"
 			isHighBidder = isHighBidder and true or false
 			local testAuction = {itemLink=itemLink, texture=texture, stackSize=stackSize, minBid=minBid, minIncrement=minIncrement, buyout=buyout, bid=bid, seller=seller, timeLeft=timeLeft, isHighBidder=isHighBidder, rawItemLink=self.rawItemLink}
