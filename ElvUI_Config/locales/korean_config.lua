@@ -169,6 +169,7 @@ L["Use Position Override"] = true;
 L["Visibility State"] = "표시 자동전환 조건"
 L["When enabled it will use the Anchor Point setting to determine growth direction, otherwise it will be determined by where the bar is positioned."] = true;
 L["Width Multiplier"] = "배경 가로길이 배율"
+L["Zone Ability"] = true;
 L[ [=[This works like a macro, you can run different situations to get the actionbar to page differently.
  Example: '[combat] 2;']=] ] = [=[이곳에 작성한 조건(예를 들어 전투여부)에 따라 이 행동단축바의 페이지를 자동으로 전환시킬 수 있습니다.
 
@@ -381,6 +382,7 @@ L["Hide in Combat"] = true;
 
 --DataTexts
 L["24-Hour Time"] = "24시제로 표시"
+L["Add Currency ID"] = true;
 L["Battleground Texts"] = "전장에서 표시전환"
 L["Block Combat Click"] = true;
 L["Block Combat Hover"] = true;
@@ -389,6 +391,8 @@ L["Blocks datatext tooltip from showing in combat."] = true;
 L["BottomLeftMiniPanel"] = "Minimap BottomLeft (Inside)"
 L["BottomMiniPanel"] = "Minimap Bottom (Inside)"
 L["BottomRightMiniPanel"] = "Minimap BottomRight (Inside)"
+L["Custom Currencies"] = true;
+L["Custom Currency"] = true;
 L["Datatext Panel (Left)"] = "좌측 정보문자 탭 사용"
 L["Datatext Panel (Right)"] = "우측 정보문자 탭 사용"
 L["DataTexts"] = "정보문자"
@@ -410,10 +414,12 @@ L["RightChatDataPanel"] = "우측 패널 정보문자 탭"
 L["RightMiniPanel"] = "미니맵 오른쪽 정보문자"
 L["Small Panels"] = true;
 L["The display format of the money text that is shown in the gold datatext and its tooltip."] = "정보문자와 툴팁에서 표시될 골드의 형식을 결정합니다."
+L["This allows you to create a new datatext which will track the currency with the supplied currency ID. The datatext can be added to a panel immediately after creation."] = true;
 L["Toggle 24-hour mode for the time datatext."] = "시간을 24시제 표기법으로 표시합니다. 체크 해제 시 오전/오후 로 표시합니다."
 L["TopLeftMiniPanel"] = "Minimap TopLeft (Inside)"
 L["TopMiniPanel"] = "Minimap Top (Inside)"
 L["TopRightMiniPanel"] = "Minimap TopRight (Inside)"
+L["Use Tooltip"] = true;
 L["When inside a battleground display personal scoreboard information on the main datatext bars."] = "전장 안에 있는 경우 주 정보문자에 자신의 각종 점수들을 표시하게 합니다."
 L["Word Wrap"] = true;
 

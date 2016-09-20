@@ -133,6 +133,7 @@ L["Use Position Override"] = true;
 L["Visibility State"] = "Estado de Visibilidade"
 L["When enabled it will use the Anchor Point setting to determine growth direction, otherwise it will be determined by where the bar is positioned."] = true;
 L["Width Multiplier"] = "Multiplicador de Comprimento"
+L["Zone Ability"] = true;
 L[ [=[This works like a macro, you can run different situations to get the actionbar to page differently.
 Example: '[combat] 2;']=] ] = [=[Isto funciona como uma macro, você pode executar várias situações para que a barra de ação pagine de forma diferente.
 Exemplo: '[combat] 2;']=];
@@ -334,6 +335,7 @@ L["Hide in Combat"] = true;
 
 --DataTexts
 L["24-Hour Time"] = "24 horas"
+L["Add Currency ID"] = true;
 L["Battleground Texts"] = "Textos do Campo de Batalha"
 L["Block Combat Click"] = true;
 L["Block Combat Hover"] = true;
@@ -342,6 +344,8 @@ L["Blocks datatext tooltip from showing in combat."] = true;
 L["BottomLeftMiniPanel"] = "Minimap BottomLeft (Inside)"
 L["BottomMiniPanel"] = "Minimap Bottom (Inside)"
 L["BottomRightMiniPanel"] = "Minimap BottomRight (Inside)"
+L["Custom Currencies"] = true;
+L["Custom Currency"] = true;
 L["Datatext Panel (Left)"] = "Painel de Textos Informativos (Esquerdo)"
 L["Datatext Panel (Right)"] = "Painel de Textos Informativos (Direito)"
 L["DataTexts"] = "Textos Informativos"
@@ -363,10 +367,12 @@ L["RightChatDataPanel"] = "Bate-papo direito"
 L["RightMiniPanel"] = "Minimapa - direita"
 L["Small Panels"] = true;
 L["The display format of the money text that is shown in the gold datatext and its tooltip."] = true;
+L["This allows you to create a new datatext which will track the currency with the supplied currency ID. The datatext can be added to a panel immediately after creation."] = true;
 L["Toggle 24-hour mode for the time datatext."] = "Ativar formato 24 horas para o texto informativo de hora"
 L["TopLeftMiniPanel"] = "Minimap TopLeft (Inside)"
 L["TopMiniPanel"] = "Minimap Top (Inside)"
 L["TopRightMiniPanel"] = "Minimap TopRight (Inside)"
+L["Use Tooltip"] = true;
 L["When inside a battleground display personal scoreboard information on the main datatext bars."] = "Exibir informação do placar pessoal nos textos informativos principais quando dentro de um Campo de Batalha"
 L["Word Wrap"] = true;
 

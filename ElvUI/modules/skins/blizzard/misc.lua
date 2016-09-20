@@ -918,14 +918,12 @@ local function LoadSkin()
 		"RecordLoopbackSoundButton",
 		"PlayLoopbackSoundButton",
 		"AudioOptionsVoicePanelChatMode1KeyBindingButton",
-		"CompactUnitFrameProfilesSaveButton",
-		"CompactUnitFrameProfilesDeleteButton",
 		"InterfaceOptionsSocialPanelTwitterLoginButton",
 		"InterfaceOptionsDisplayPanelResetTutorials",
 		"InterfaceOptionsSocialPanelRedockChat"
 	}
 	for _, button in pairs(buttons) do
-		if button then
+		if _G[button] then
 			S:HandleButton(_G[button])
 		end
 	end
@@ -934,6 +932,8 @@ local function LoadSkin()
 	if CompactUnitFrameProfiles then --Some addons disable the Blizzard addon
 		S:HandleCheckBox(CompactUnitFrameProfilesRaidStylePartyFrames)
 		S:HandleButton(CompactUnitFrameProfilesGeneralOptionsFrameResetPositionButton)
+		S:HandleButton(CompactUnitFrameProfilesSaveButton)
+		S:HandleButton(CompactUnitFrameProfilesDeleteButton)
 	end
 	GraphicsButton:StripTextures()
 	RaidButton:StripTextures()

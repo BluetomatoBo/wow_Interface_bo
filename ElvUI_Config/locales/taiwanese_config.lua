@@ -133,6 +133,7 @@ L["Use Position Override"] = true;
 L["Visibility State"] = "顯示狀態"
 L["When enabled it will use the Anchor Point setting to determine growth direction, otherwise it will be determined by where the bar is positioned."] = true;
 L["Width Multiplier"] = "寬度倍增"
+L["Zone Ability"] = true;
 L[ [=[This works like a macro, you can run different situations to get the actionbar to page differently.
  Example: '[combat] 2;']=] ] = [=[此功能與巨集概念類似，可根據不同情境，切換至不同的快捷列設置。
 例如：'[combat] 2;']=]
@@ -334,6 +335,7 @@ L["Hide in Combat"] = true;
 
 --DataTexts
 L["24-Hour Time"] = "24小時制"
+L["Add Currency ID"] = true;
 L["Battleground Texts"] = "戰場資訊"
 L["Block Combat Click"] = true;
 L["Block Combat Hover"] = true;
@@ -342,6 +344,8 @@ L["Blocks datatext tooltip from showing in combat."] = true;
 L["BottomLeftMiniPanel"] = "Minimap BottomLeft (Inside)"
 L["BottomMiniPanel"] = "Minimap Bottom (Inside)"
 L["BottomRightMiniPanel"] = "Minimap BottomRight (Inside)"
+L["Custom Currencies"] = true;
+L["Custom Currency"] = true;
 L["Datatext Panel (Left)"] = "左側資訊框"
 L["Datatext Panel (Right)"] = "右側資訊框"
 L["DataTexts"] = "資訊文字"
@@ -363,10 +367,12 @@ L["RightChatDataPanel"] = "右對話框"
 L["RightMiniPanel"] = "小地圖右側"
 L["Small Panels"] = true;
 L["The display format of the money text that is shown in the gold datatext and its tooltip."] = true;
+L["This allows you to create a new datatext which will track the currency with the supplied currency ID. The datatext can be added to a panel immediately after creation."] = true;
 L["Toggle 24-hour mode for the time datatext."] = "切換時間顯示為24小時制."
 L["TopLeftMiniPanel"] = "Minimap TopLeft (Inside)"
 L["TopMiniPanel"] = "Minimap Top (Inside)"
 L["TopRightMiniPanel"] = "Minimap TopRight (Inside)"
+L["Use Tooltip"] = true;
 L["When inside a battleground display personal scoreboard information on the main datatext bars."] = "處於戰場時, 在主資訊文字條顯示你的戰場得分訊息."
 L["Word Wrap"] = true;
 
