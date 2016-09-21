@@ -212,6 +212,28 @@ TidyPlatesUtility.GetUnitQuestInfo = GetUnitQuestInfo
 -- Threat Function
 ------------------------
 
+-- /run print(UnitThreatSituation("party1"), UnitAffectingCombat("party1"))
+--local function GetThreatCondition(name)
+local function GetFriendlyThreat(unitid)
+
+	if unitid then
+		local isUnitInParty = UnitPlayerOrPetInParty(unit)
+		local isUnitInRaid = UnitInRaid(unit)
+		local isUnitPet = (unit == "pet")
+
+		--if isUnitInParty then
+			local unitaggro = UnitThreatSituation(unitid)
+			if unitaggro and unitaggro > 1 then return true end
+		--end
+	end
+end
+
+TidyPlatesUtility.GetFriendlyThreat = GetFriendlyThreat
+
+------------------------
+-- Threat Function
+------------------------
+
 do
 
 	local function GetRelativeThreat(enemyUnitid)		-- 'enemyUnitid' is a target/enemy

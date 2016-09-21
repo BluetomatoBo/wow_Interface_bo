@@ -27,7 +27,7 @@ local NameReactionColors = HubData.Colors.NameReactionColors
 ------------------------------------------------------------------
 -- References
 ------------------------------------------------------------------
-local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
+local GetFriendlyThreat = TidyPlatesUtility.GetFriendlyThreat
 local IsFriend = TidyPlatesUtility.IsFriend
 local IsHealer = TidyPlatesUtility.IsHealer
 local IsGuildmate = TidyPlatesUtility.IsGuildmate
@@ -198,7 +198,7 @@ local function HealthColorDelegate(unit)
 	-- Group Member Aggro Coloring
 	if unit.reaction == "FRIENDLY"  then
 		if LocalVars.ColorShowPartyAggro and LocalVars.ColorPartyAggroBar then
-			--if GetAggroCondition(unit.rawName) then color = LocalVars.ColorPartyAggro end
+			--if GetFriendlyThreat(unit.unitid) then color = LocalVars.ColorPartyAggro end
 		end
 	-- Tapped Color Priority
 	elseif unit.isTapped then
@@ -325,7 +325,7 @@ local function ThreatColorDelegate(unit)
 
 	-- Friendly Unit Aggro
 	if LocalVars.ColorShowPartyAggro and LocalVars.ColorPartyAggroGlow and unit.reaction == "FRIENDLY" then
-		if GetAggroCondition(unit.rawName) then color = LocalVars.ColorPartyAggro end
+		if GetFriendlyThreat(unit.unitid) then color = LocalVars.ColorPartyAggro end
 
 	-- Enemy Units
 	else
@@ -497,7 +497,7 @@ local function SetNameColorDelegate(unit)
 
 	-- Party Aggro Coloring, if enabled
 	if isFriendly and LocalVars.ColorShowPartyAggro and LocalVars.ColorPartyAggroText then
-		if GetAggroCondition(unit.rawName) then return LocalVars.ColorPartyAggro end
+		if GetFriendlyThreat(unit.unitid) then return LocalVars.ColorPartyAggro end
 	end
 
 	-- Headline Mode

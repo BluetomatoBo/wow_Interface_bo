@@ -29,7 +29,7 @@ local DisableTankWatch = TidyPlatesWidgets.DisableTankWatch
 local EnableAggroWatch = TidyPlatesWidgets.EnableAggroWatch
 local DisableAggroWatch = TidyPlatesWidgets.DisableAggroWatch
 
-local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
+local GetFriendlyThreat = TidyPlatesUtility.GetFriendlyThreat
 local IsTotem = TidyPlatesUtility.IsTotem
 local IsAuraShown = TidyPlatesWidgets.IsAuraShown
 local IsHealer = TidyPlatesUtility.IsHealer

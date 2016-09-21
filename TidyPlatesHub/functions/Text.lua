@@ -8,7 +8,7 @@ local LocalVars = TidyPlatesHubDefaults
 ------------------------------------------------------------------
 local RaidClassColors = RAID_CLASS_COLORS
 
-local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
+local GetFriendlyThreat = TidyPlatesUtility.GetFriendlyThreat
 
 local IsFriend = TidyPlatesUtility.IsFriend
 local IsGuildmate = TidyPlatesUtility.IsGuildmate

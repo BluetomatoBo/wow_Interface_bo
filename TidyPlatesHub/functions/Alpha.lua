@@ -7,7 +7,7 @@ local LocalVars = TidyPlatesHubDefaults
 -- References
 ------------------------------------------------------------------------------
 local InCombatLockdown = InCombatLockdown
-local GetAggroCondition = TidyPlatesWidgets.GetThreatCondition
+local GetFriendlyThreat = TidyPlatesUtility.GetFriendlyThreat
 local IsOffTanked = TidyPlatesHubFunctions.IsOffTanked
 local IsTankingAuraActive = TidyPlatesWidgets.IsPlayerTank
 local IsHealer = function() return false end
@@ -29,7 +29,7 @@ local function AlphaFunctionByThreatHigh (unit)
 	if InCombatLockdown() and unit.reaction ~= "FRIENDLY" then
 		if unit.threatValue > 1 and unit.health > 0 then return LocalVars.OpacitySpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
-		if GetAggroCondition(unit.rawName) then return LocalVars.OpacitySpotlight end
+		if GetFriendlyThreat(unit.unitid) then return LocalVars.OpacitySpotlight end
 	end
 end
 
@@ -39,7 +39,7 @@ local function AlphaFunctionByThreatLow (unit)
 		if IsOffTanked(unit) then return end
 		if unit.threatValue < 2 and unit.health > 0 then return LocalVars.OpacitySpotlight end
 	elseif LocalVars.ColorShowPartyAggro and unit.reaction == "FRIENDLY" then
-		if GetAggroCondition(unit.rawName) then return LocalVars.OpacitySpotlight end
+		if GetFriendlyThreat(unit.unitid) then return LocalVars.OpacitySpotlight end
 	end
 end
 
