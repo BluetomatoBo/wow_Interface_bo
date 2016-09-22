@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1703, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15197 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15243 $"):sub(12, -3))
 mod:SetCreatureID(102672)
 mod:SetEncounterID(1853)
 mod:SetZone()
@@ -16,6 +16,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_CAST_SUCCESS 204463",
 	"SPELL_AURA_APPLIED 204463 203096 205043",
 	"SPELL_AURA_REMOVED 204463 203096 203552",
+	"SPELL_DAMAGE 203646",
+	"SPELL_MISSED 203646",
 	"SPELL_PERIODIC_DAMAGE 203045",
 	"SPELL_PERIODIC_MISSED 203045",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
@@ -28,6 +30,7 @@ mod:RegisterEventsInCombat(
 local warnVolatileRot				= mod:NewTargetAnnounce(204463, 4)
 local warnRot						= mod:NewTargetAnnounce(203096, 3)
 local warnHeartofSwarm				= mod:NewSpellAnnounce(203552, 2)
+local warnHeartofSwarmEnd			= mod:NewEndAnnounce(203552, 2)
 local warnInfestedMind				= mod:NewTargetAnnounce(205043, 4)
 
 local specWarnBreath				= mod:NewSpecialWarningDodge(202977, nil, nil, nil, 2, 2)
@@ -37,6 +40,7 @@ local yellVolatileRot				= mod:NewFadesYell(204463)
 local specWarnRot					= mod:NewSpecialWarningRun(203096, nil, nil, nil, 1, 2)
 local yellRot						= mod:NewFadesYell(203096)
 local specWarnInfestedGround		= mod:NewSpecialWarningMove(203045, nil, nil, nil, 1, 2)
+local specWarnBurst					= mod:NewSpecialWarningMove(203646, nil, nil, nil, 1, 2)
 local specWarnInfestedMind			= mod:NewSpecialWarningSwitch(205043, "Dps", nil, nil, 1, 2)
 local specWarnSpreadInfestation		= mod:NewSpecialWarningInterrupt(205070, "HasInterrupt", nil, nil, 1, 2)
 
@@ -46,6 +50,8 @@ local timerRotCD					= mod:NewCDCountTimer(15, 203096, nil, nil, nil, 3)
 local timerSwarm					= mod:NewBuffActiveTimer(23, 203552, nil, nil, nil, 6)
 local timerSwarmCD					= mod:NewCDCountTimer(98, 203552, nil, nil, nil, 6)--Needs new sample size
 
+local berserkTimer					= mod:NewBerserkTimer(600)
+
 local countdownBreath				= mod:NewCountdown(36, 202977, false)--Can't in good concious have a countdown on by default for something with a 6 second variation
 local countdownVolatileRot			= mod:NewCountdown("Alt20.5", 204463, "Tank")
 
@@ -53,6 +59,7 @@ local voiceBreath					= mod:NewVoice(202977)--breathsoon
 local voiceRot						= mod:NewVoice(203096)--runout
 local voiceVolatileRot				= mod:NewVoice(204463)--runout/TauntBoss
 local voiceInfestedGround			= mod:NewVoice(203045)--runaway
+local voiceBurst					= mod:NewVoice(203646)--runaway
 local voiceInfestedMind				= mod:NewVoice(205043, "Dps")--findmc
 local voiceSpreadInfestation		= mod:NewVoice(205070, "HasInterrupt")--kickcast
 
@@ -93,6 +100,7 @@ function mod:OnCombatStart(delay)
 	else--Boss started at 0 energy and will go right into swarm phase after about 5 seconds
 		timerSwarmCD:Start(5-delay, 1)
 	end
+	berserkTimer:Start(-delay)
 	if self.Options.InfoFrame and self:IsMythic() then
 		DBM.InfoFrame:SetHeader(GetSpellInfo(204506))
 		DBM.InfoFrame:Show(5, "playerdebuffstacks", 204506)
@@ -213,16 +221,25 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 	elseif spellId == 203552 then--Heart of swarm ending
+		warnHeartofSwarmEnd:Show()
 		self.vb.breathCount = 0
 		self.vb.rotCast = 0
 		self.vb.volatileRotCast = 0
 		timerRotCD:Start(12, 1)
-		timerVolatileRotCD:Start(30, 1)--30-31
+		timerVolatileRotCD:Start(28, 1)--28-31
 		timerBreathCD:Start(43, 1)
 		countdownBreath:Start(43)
 		timerSwarmCD:Start(nil, self.vb.swarmCast+1)
 	end
 end
+
+function mod:SPELL_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
+	if spellId == 203646 and destGUID == UnitGUID("player") and self:AntiSpam(2, 3) then
+		specWarnBurst:Show()
+		voiceBurst:Play("runaway")
+	end
+end
+mod.SPELL_MISSED = mod.SPELL_DAMAGE
 
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 203045 and destGUID == UnitGUID("player") and self:AntiSpam(2, 1) then
@@ -239,16 +256,6 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
 		if self.vb.rotCast < 5 then
 			timerRotCD:Start(nil, self.vb.rotCast+1)
 		end
-		--Assumed obsolete
---[[		if self.vb.rotCast == 1 then
---			if self:IsMythic() then
-				timerRotCD:Start(45, 2)
---			else
---				timerRotCD:Start(33, 2)--33-36
---			end
-		elseif not self:IsMythic() and self.vb.rotCast == 2 then
-			timerRotCD:Start(18.5, 3)--18.5-22
-		end--]]
 	elseif spellId == 202968 then--Infested Breath (CAST_SUCCESS and CAST_START pruned from combat log)
 		self.vb.breathCount = self.vb.breathCount + 1
 		specWarnBreath:Show(self.vb.breathCount)

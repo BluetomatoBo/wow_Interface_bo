@@ -78,6 +78,11 @@ L= DBM:GetModLocalization(1480)
 -----------------------
 L= DBM:GetModLocalization(1490)
 
+L:SetWarningLocalization({
+	specWarnStaticNova			= "Static Nova - move to land",
+	specWarnFocusedLightning	= "Focused Lightning - move to water"
+})
+
 -----------------------
 -- King Deepbeard --
 -----------------------

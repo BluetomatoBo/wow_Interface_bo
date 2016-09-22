@@ -1,11 +1,11 @@
 local mod	= DBM:NewMod(1738, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15226 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15244 $"):sub(12, -3))
 mod:SetCreatureID(105393)
 mod:SetEncounterID(1873)
 mod:SetZone()
---mod:SetUsedIcons(8, 7, 6, 3, 2, 1)
+mod:SetUsedIcons(4, 3, 2, 1)
 mod:SetHotfixNoticeRev(15123)
 mod.respawnTime = 29
 
@@ -14,10 +14,10 @@ mod.syncThreshold = 30
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 210931 209471 208697 208929 208689 210781 208685 218415 223121",
-	"SPELL_CAST_SUCCESS 210984 215128 209387",
+	"SPELL_CAST_SUCCESS 210984 215128 209387 208929",
 	"SPELL_AURA_APPLIED 209915 210099 210984 215234 215128 212886",
 	"SPELL_AURA_APPLIED_DOSE 210984",
-	"SPELL_AURA_REMOVED 209915 215128",
+	"SPELL_AURA_REMOVED 209915 215128 208929",
 	"SPELL_PERIODIC_DAMAGE 212886",
 	"SPELL_PERIODIC_MISSED 212886",
 	"INSTANCE_ENCOUNTER_ENGAGE_UNIT",
@@ -27,9 +27,8 @@ mod:RegisterEventsInCombat(
 	"CHAT_MSG_ADDON"
 )
 
---TODO, figure out how often Eye Of Fate is cast to determine swap count for tanks
 --TODO, figure out voice to use for specWarnHeartPhaseBegin
---TODO, more adds timers if needed
+--TODO, more adds timers (especially corruptors/deathglarers)
 --TODO, improve spew corruption to work like thogar bombs (continous alerts/yells)
 --TODO, Death Blossom timer for first cast afer a heart phase.
 --Stage One: The Ruined Ground
@@ -38,7 +37,8 @@ local warnNightmareGaze				= mod:NewSpellAnnounce(210931, 3, nil, false)--Someth
 local warnFixate					= mod:NewTargetAnnounce(210099, 2, nil, false)--Spammy so default off
 local warnNightmareExplosion		= mod:NewCastAnnounce(209471, 3)
 local warnEyeOfFate					= mod:NewStackAnnounce(210984, 2, nil, "Tank")
-local warnSpewCorruption			= mod:NewTargetAnnounce(208929, 3, nil, false)--Spammy so default off
+local warnSpewCorruption			= mod:NewTargetAnnounce(208929, 3, nil, true, 2)
+local warnSpewCorruptionSoon		= mod:NewSoonAnnounce(208929, 3)
 local warnGroundSlam				= mod:NewTargetAnnounce(208689, 2)--Figure this out later
 local warnDeathBlossom				= mod:NewCastAnnounce(218415, 4)
 --Stage Two: The Heart of Corruption
@@ -50,7 +50,7 @@ local specWarnFixate				= mod:NewSpecialWarningMoveTo(210099, nil, DBM_CORE_AUTO
 local specWarnNightmareHorror		= mod:NewSpecialWarningSwitch("ej13188", "-Healer", nil, nil, 1, 2)--spellId for summon 210289
 local specWarnEyeOfFate				= mod:NewSpecialWarningStack(210984, nil, 2)
 local specWarnEyeOfFateOther		= mod:NewSpecialWarningTaunt(210984, nil, nil, nil, 1, 2)
-local specWarnMindFlay				= mod:NewSpecialWarningInterrupt(208697, nil, nil, nil, 1, 2)
+local specWarnMindFlay				= mod:NewSpecialWarningInterrupt(208697, "HasInterrupt", nil, 2, 1, 2)
 local specWarnSpewCorruption		= mod:NewSpecialWarningRun(208929, nil, nil, nil, 4, 2)
 local yellSpewCorruption			= mod:NewYell(208929)
 local specWarnNightmarishFury		= mod:NewSpecialWarningDefensive(215234, "Tank", nil, nil, 3, 2)
@@ -81,18 +81,19 @@ local timerCursedBloodCD			= mod:NewNextTimer(15, 215128, nil, nil, nil, 3)
 local countdownNightmareHorror		= mod:NewCountdown("Alt50", 210289)
 local countdownDeathBlossom			= mod:NewCountdown("AltTwo15", 218415)
 --Stage Two: The Heart of Corruption
-local countdownDarkRecon			= mod:NewCountdown("Alt50", 210781)
+local countdownDarkRecon			= mod:NewCountdown("Alt50", 210781, nil, nil, 10)
 
 --Stage One: The Ruined Ground
 local voiceNightmareCorruption		= mod:NewVoice(212886)--runaway
 local voiceFixate					= mod:NewVoice(210099)--targetyou
 local voiceNightmareHorror			= mod:NewVoice("ej13188", "-Healer")--bigmob
 local voiceEyeOfFate				= mod:NewVoice(210984)--changemt
-local voiceMindFlay					= mod:NewVoice(208697)--kickcast
+local voiceMindFlay					= mod:NewVoice(208697, "HasInterrupt", nil, 2)--kickcast
 local voiceSpewCorruption			= mod:NewVoice(208929)--runout
 local voiceNightmarishFury			= mod:NewVoice(210984)--defensive
 local voiceGroundSlam				= mod:NewVoice(208689)--targetyou/watchwave
 
+mod:AddSetIconOption("SetIconOnSpew", 208929, false)
 mod:AddRangeFrameOption(8, 215128)
 mod:AddInfoFrameOption(210099)
 mod:AddDropdownOption("InfoFrameBehavior", {"Fixates", "Adds"}, "Fixates", "misc")
@@ -149,11 +150,8 @@ end
 
 function mod:SpewCorruptionTarget(targetname, uId)
 	if not targetname then return end
-	warnSpewCorruption:CombinedShow(1, targetname)
 	if targetname == UnitName("player") then
-		specWarnSpewCorruption:Show()
-		voiceSpewCorruption:Play("runout")
-		yellSpewCorruption:Yell()
+		warnSpewCorruptionSoon:Show()
 	end
 end
 
@@ -171,7 +169,7 @@ function mod:OnCombatStart(delay)
 		timerDeathBlossomCD:Start(55)
 	end
 	if self.Options.InfoFrame then
-		if self.Options.InfoFrameSpeed == "Fixates" then
+		if self.Options.InfoFrameBehavior == "Fixates" then
 			DBM.InfoFrame:SetHeader(GetSpellInfo(210099))
 			DBM.InfoFrame:Show(10, "playerbaddebuff", 210099)
 		else
@@ -179,7 +177,7 @@ function mod:OnCombatStart(delay)
 			DBM.InfoFrame:Show(5, "function", updateInfoFrame, sortInfoFrame)
 		end
 	end
-	if self:AntiSpam(10, 2) then
+	if self:AntiSpam(15, 2) then
 		--Do nothing. Just to avoid spam on pull
 	end
 end
@@ -225,8 +223,8 @@ function mod:SPELL_CAST_START(args)
 		countdownDeathBlossom:Start()
 		timerDeathBlossomCD:Start()
 	elseif spellId == 223121 then
-		timerFinalTorpor:Start()
-		countdownDarkRecon:Start()
+		timerFinalTorpor:Start(90)
+		countdownDarkRecon:Start(90)
 	elseif spellId == 208689 and self:AntiSpam(2, 6) then
 		timerGroundSlamCD:Start()
 	end
@@ -238,6 +236,16 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerEyeOfFateCD:Start(nil, args.sourceGUID)
 	elseif spellId == 209387 then--First thing Nightmare Horror casts that can give us GUID
 		timerEyeOfFateCD:Start(14, args.sourceGUID)
+	elseif spellId == 208929 then
+		warnSpewCorruption:CombinedShow(0.5, args.destName)
+		if args:IsPlayer() then
+			specWarnSpewCorruption:Show()
+			voiceSpewCorruption:Play("runout")
+			yellSpewCorruption:Yell()
+		end
+		if self.Options.SetIconOnSpew then
+			self:SetAlphaIcon(0.5, args.destName)--Number of icons is 2 3 or 4. 4 only if fight is too long really.
+		end
 	end
 end
 
@@ -324,6 +332,8 @@ function mod:SPELL_AURA_REMOVED(args)
 		if self.Options.RangeFrame then
 			DBM.RangeCheck:Hide()
 		end
+	elseif spellId == 208929 and self.Options.SetIconOnSpew then
+		self:SetIcon(args.destName, 0)
 	end
 end
 
