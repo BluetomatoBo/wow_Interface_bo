@@ -1762,6 +1762,26 @@ data["Enchanting"] = {
 		},
 		{	--EnchantingCloak
 			name = AL["Cloak"],
+			[LEGION_DIFF] = {
+				{ 1, 128549, 190878 }, -- Binding of Agility
+				{ 2, 128549, 191004 }, -- Binding of Agility
+				{ 3, 128549, 191021 }, -- Binding of Agility
+				{ 5, 128550, 190879 }, -- Binding of Intellect
+				{ 6, 128550, 191005 }, -- Binding of Intellect
+				{ 7, 128550, 191022 }, -- Binding of Intellect
+				{ 9, 128548, 190877 }, -- Binding of Strength
+				{ 10, 128548, 191003 }, -- Binding of Strength
+				{ 11, 128548, 191020 }, -- Binding of Strength
+				{ 16, 128546, 190875 }, -- Word of Agility
+				{ 17, 128546, 191001 }, -- Word of Agility
+				{ 18, 128546, 191018 }, -- Word of Agility
+				{ 20, 128547, 190876 }, -- Word of Intellect
+				{ 21, 128547, 191002 }, -- Word of Intellect
+				{ 22, 128547, 191019 }, -- Word of Intellect
+				{ 24, 128545, 190874 }, -- Word of Strength
+				{ 25, 128545, 191000 }, -- Word of Strength
+				{ 26, 128545, 191017 }, -- Word of Strength
+			},
 			[WOD_DIFF] = {
 				{ 1, 110652, 158884, [PRICE_EXTRA_ITTYPE] = "119293:1" },	-- Enchant Cloak - Gift of Critical Strike (Sold, Ashran)
 				{ 2, 110653, 158885, [PRICE_EXTRA_ITTYPE] = "119293:1" },	-- Enchant Cloak - Gift of Haste (Sold, Ashran)
@@ -1820,6 +1840,12 @@ data["Enchanting"] = {
 		},
 		{	--EnchantingGloves
 			name = AL["Gloves"],
+			[LEGION_DIFF] = {
+				{ 1, 128558, 190988 }, -- Legion Herbalism
+				{ 2, 128559, 190989 }, -- Legion Mining
+				{ 3, 128560, 190990 }, -- Legion Skinning
+				{ 4, 128561, 190991 }, -- Legion Surveying
+			},
 			[MOP_DIFF] = {
 				{ 1, 74721, 104419 },	-- Enchant Gloves - Super Strength : =ds=#sr# 575 : =ds=AtlasLoot["Trainer"]
 				{ 2, 74722, 104420 },	-- Enchant Gloves - Superior Mastery : =ds=#sr# 575 : =ds=AtlasLoot["Trainer"]
@@ -1876,6 +1902,26 @@ data["Enchanting"] = {
 		},
 		{	--EnchantingNeck
 			name = AL["Neck"],
+			[LEGION_DIFF] = {
+				{ 1, 141910, 228408 }, -- Mark of the Ancient Priestess
+				{ 2, 141910, 228409 }, -- Mark of the Ancient Priestess
+				{ 3, 141910, 228410 }, -- Mark of the Ancient Priestess
+				{ 5, 128551, 190892 }, -- Mark of the Claw
+				{ 6, 128551, 191006 }, -- Mark of the Claw
+				{ 7, 128551, 191023 }, -- Mark of the Claw
+				{ 8, 128552, 190893 }, -- Mark of the Distant Army
+				{ 10, 128552, 191007 }, -- Mark of the Distant Army
+				{ 11, 128552, 191024 }, -- Mark of the Distant Army
+				{ 16, 141908, 228402 }, -- Mark of the Heavy Hide
+				{ 17, 141908, 228403 }, -- Mark of the Heavy Hide
+				{ 18, 141908, 228404 }, -- Mark of the Heavy Hide
+				{ 20, 128553, 190894 }, -- Mark of the Hidden Satyr
+				{ 21, 128553, 191008 }, -- Mark of the Hidden Satyr
+				{ 22, 128553, 191025 }, -- Mark of the Hidden Satyr
+				{ 24, 141909, 228405 }, -- Mark of the Trained Soldier
+				{ 25, 141909, 228406 }, -- Mark of the Trained Soldier
+				{ 26, 141909, 228407 }, -- Mark of the Trained Soldier
+			},
 			[WOD_DIFF] = {
 				{ 1, 110645, 158899, [PRICE_EXTRA_ITTYPE] = "119293:1" },	-- Enchant Neck - Gift of Critical Strike (Sold, Ashran)
 				{ 2, 110646, 158900, [PRICE_EXTRA_ITTYPE] = "119293:1" },	-- Enchant Neck - Gift of Haste (Sold, Ashran)
@@ -1889,8 +1935,41 @@ data["Enchanting"] = {
 				{ 20, 110628, 158896, [PRICE_EXTRA_ITTYPE] = "119293:1" },	-- Enchant Neck - Breath of Versatility (Sold, Ashran)
 			},
 		},
+		{	--EnchantingRelic
+			name = AL["Relic"],
+			[LEGION_DIFF] = {
+				{ 1, 136689, 209507 }, -- Soul Fibril
+				{ 2, 136691, 209509 }, -- Immaculate Fibril
+			},
+		},
 		{	--EnchantingRing
 			name = AL["Ring"],
+			[LEGION_DIFF] = {
+				{ 1, 128541, 190870 }, -- Binding of Critical Strike
+				{ 2, 128541, 190996 }, -- Binding of Critical Strike
+				{ 3, 128541, 191013 }, -- Binding of Critical Strike
+				{ 5, 128542, 190871 }, -- Binding of Haste
+				{ 6, 128542, 190997 }, -- Binding of Haste
+				{ 7, 128542, 191014 }, -- Binding of Haste
+				{ 8, 128543, 190872 }, -- Binding of Mastery
+				{ 10, 128543, 190998 }, -- Binding of Mastery
+				{ 11, 128543, 191015 }, -- Binding of Mastery
+				{ 13, 128544, 190873 }, -- Binding of Versatility
+				{ 14, 128544, 190999 }, -- Binding of Versatility
+				{ 15, 128544, 191016 }, -- Binding of Versatility
+				{ 16, 128537, 190866 }, -- Word of Critical Strike
+				{ 17, 128537, 190992 }, -- Word of Critical Strike
+				{ 18, 128537, 191009 }, -- Word of Critical Strike
+				{ 20, 128538, 190867 }, -- Word of Haste
+				{ 21, 128538, 190993 }, -- Word of Haste
+				{ 22, 128538, 191010 }, -- Word of Haste
+				{ 24, 128539, 190868 }, -- Word of Mastery
+				{ 25, 128539, 190994 }, -- Word of Mastery
+				{ 26, 128539, 191011 }, -- Word of Mastery
+				{ 28, 128540, 190869 }, -- Word of Versatility
+				{ 29, 128540, 190995 }, -- Word of Versatility
+				{ 30, 128540, 191012 }, -- Word of Versatility
+			},
 			[WOD_DIFF] = {
 				{ 1, 110638, 158914, [PRICE_EXTRA_ITTYPE] = "119293:1" },	-- Enchant Ring - Gift of Critical Strike (Sold, Ashran)
 				{ 2, 110639, 158915, [PRICE_EXTRA_ITTYPE] = "119293:1" },	-- Enchant Ring - Gift of Haste (Sold, Ashran)
@@ -1929,6 +2008,12 @@ data["Enchanting"] = {
 				{ 20, 38792, 13485 },	-- Enchant Shield - Lesser Spirit : =ds=#sr# 130 : =ds=AtlasLoot["Trainer"]
 				{ 21, 38791, 13464 },	-- Enchant Shield - Lesser Protection : =ds=#sr# 115 : =ds=AtlasLoot["World Drop"]
 				{ 22, 38787, 13378 },	-- Enchant Shield - Minor Stamina : =ds=#sr# 105 : =ds=AtlasLoot["Trainer"]
+			},
+		},
+		{	--EnchantingShoulder
+			name = AL["Shoulder"],
+			[NORMAL_DIFF] = {
+				{ 1, 128554, 190954 }, -- Enchant Shoulder - Boon of the Scavenger
 			},
 		},
 		{	--EnchantingWeapon
@@ -2035,6 +2120,13 @@ data["Enchanting"] = {
 		},
 		{	--EnchantingMisc
 			name = AL["Miscellaneous"],
+			[LEGION_DIFF] = {
+				{ 1, 128533, 191074 }, -- Enchanted Cauldron
+				{ 2, 128534, 191075 }, -- Enchanted Torch
+				{ 3, 128535, 191076 }, -- Enchanted Pen
+				{ 5, 128536, 191078 }, -- Leylight Brazier
+				{ 16, 124440, 224199 }, -- Ley Shatter
+			},
 			[WOD_DIFF] = {
 				{ 1, 112321, 162948 },	-- Enchanted Dust (Learnt by item 111922)
 				{ 3, 113588, 169092 },	-- Temporal Crystal (Learnt by item 111922)
@@ -2043,6 +2135,7 @@ data["Enchanting"] = {
 				{ 7, 111245, 169091 },	-- Luminous Shard (Learnt by item 111922)
 				{ 8, 115502, 170440 },	-- Small Luminous Shard
 				{ 10, 119293, 177043 },	-- Secrets of Draenor Enchanting (Learnt by item 111922)
+				{ 16, 138795, 217655 }, -- Tome of Illusions: Draenor
 			},
 			[MOP_DIFF] = {
 				{ 1, 74248, 116499 },	-- Sha Crystal : =ds=#sr# 600 : =ds=AtlasLoot["Trainer"]
@@ -2051,14 +2144,19 @@ data["Enchanting"] = {
 				{ 4, 74247, 116498 },	-- Ethereal Shard : =ds=#sr# 550 : =ds=AtlasLoot["Trainer"]
 				{ 5, 74249, 118237, [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Mysterious Diffusion : =ds=#sr# 535 : =ds=AtlasLoot["Trainer"]
 				{ 6, 74250, 116497 },	-- Mysterious Essence : =ds=#sr# 500 : =ds=AtlasLoot["Trainer"]
+				{ 8, 138793, 217650 }, -- Tome of Illusions: Pandaria
+				{ 9, 138794, 217651 }, -- Tome of Illusions: Secrets of the Shado-Pan
 			},
 			[CATA_DIFF] = {
 				{ 1, 67275, 93843 },	-- Magic Lamp : =ds=#sr# 525 : =ds=AtlasLoot["Vendor"], ALLIANCE "20 #hypnoticdust#"
 				{ 2, 67274, 93841 },	-- Enchanted Lantern : =ds=#sr# 525 : =ds=AtlasLoot["Vendor"], HORDE "20 #hypnoticdust#"
 				{ 4, 52721, 104698, [ATLASLOOT_IT_AMOUNT1] = 2 },	-- Maelstrom Shatter : =ds=#sr# 515 : =ds=AtlasLoot["Trainer"]
+				{ 6, 138791, 217645 }, -- Tome of Illusions: Cataclysm
+				{ 7, 138792, 217649 }, -- Tome of Illusions: Elemental Lords
 			},
 			[WOTLK_DIFF] = {
 				{ 1, 89738, 69412 },	-- Abyssal Shatter : =ds=#sr# 445 : =ds=AtlasLoot["Trainer"]
+				{ 3, 138790, 217644 }, -- Tome of Illusions: Northrend
 			},
 			[BC_DIFF] = {
 				{ 1, 22449, 45765, [ATLASLOOT_IT_AMOUNT1] = 2 },	-- Void Shatter : =ds=#sr# 360 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Isle of Quel'Danas"]
@@ -2066,6 +2164,7 @@ data["Enchanting"] = {
 				{ 3, 22448, 42615, [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Small Prismatic Shard : =ds=#sr# 335 : =ds=AtlasLoot["Trainer"]
 				{ 5, 22459, 28028 },	-- Void Sphere : =ds=#sr# 350 : =ds=AtlasLoot["Trainer"]
 				{ 6, 22460, 28027 },	-- Prismatic Sphere : =ds=#sr# 325 : =ds=AtlasLoot["Trainer"]
+				{ 8, 138789, 217641 }, -- Tome of Illusions: Outland
 				{ 16, 22522, 28019 },	-- Superior Wizard Oil : =ds=#sr# 340 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Shattrath City"]
 				{ 17, 22521, 28016 },	-- Superior Mana Oil : =ds=#sr# 310 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Shattrath City"]
 			},
@@ -2084,6 +2183,7 @@ data["Enchanting"] = {
 				{ 17, 11289, 14809 },	-- Lesser Mystic Wand : =ds=#sr# 155 : =ds=AtlasLoot["Trainer"]
 				{ 18, 11288, 14807 },	-- Greater Magic Wand : =ds=#sr# 70 : =ds=AtlasLoot["Trainer"]
 				{ 19, 11287, 14293 },	-- Lesser Magic Wand : =ds=#sr# 10 : =ds=AtlasLoot["Trainer"]
+				{ 21, 138787, 217637 }, -- Tome of Illusions: Azeroth
 			},
 		},
 	}
@@ -2096,6 +2196,32 @@ data["Engineering"] = {
 	items = {
 		{	--EngineeringArmorWeapons
 			name = AL["Armor"].." & "..AL["Weapons"],
+			[LEGION_DIFF] = {
+				{ 1, 132500, 198939 }, -- Blink-Trigger Headgun
+				{ 2, 132500, 198991 }, -- Blink-Trigger Headgun
+				{ 3, 132500, 199005 }, -- Blink-Trigger Headgun
+				{ 5, 132502, 198966 }, -- Bolt-Action Headgun
+				{ 6, 132502, 198993 }, -- Bolt-Action Headgun
+				{ 7, 132502, 199007 }, -- Bolt-Action Headgun
+				{ 9, 132506, 198970 }, -- Double-Barreled Cranial Cannon
+				{ 10, 132506, 198997 }, -- Double-Barreled Cranial Cannon
+				{ 11, 132506, 199011 }, -- Double-Barreled Cranial Cannon
+				{ 13, 132507, 198971 }, -- Ironsight Cranial Cannon
+				{ 14, 132507, 198998 }, -- Ironsight Cranial Cannon
+				{ 15, 132507, 199012 }, -- Ironsight Cranial Cannon
+				{ 16, 132503, 198967 }, -- Reinforced Headgun
+				{ 17, 132503, 198994 }, -- Reinforced Headgun
+				{ 18, 132503, 199008 }, -- Reinforced Headgun
+				{ 20, 132505, 198969 }, -- Sawed-Off Cranial Cannon
+				{ 21, 132505, 198996 }, -- Sawed-Off Cranial Cannon
+				{ 22, 132505, 199010 }, -- Sawed-Off Cranial Cannon
+				{ 24, 132504, 198968 }, -- Semi-Automagic Cranial Cannon
+				{ 25, 132504, 198995 }, -- Semi-Automagic Cranial Cannon
+				{ 26, 132504, 199009 }, -- Semi-Automagic Cranial Cannon
+				{ 28, 132501, 198965 }, -- Tactical Headgun
+				{ 29, 132501, 198992 }, -- Tactical Headgun
+				{ 30, 132501, 199006 }, -- Tactical Headgun
+			},
 			[WOD_DIFF] = {
 				{ 1, "109172:Stage6", 187521 },	-- Plasma Mechshades (Stage 6)				
 				{ 2, "109172:Stage5", 187497 },	-- Plasma Mechshades (Stage 5)
@@ -2420,19 +2546,20 @@ data["Engineering"] = {
 		{	--EngineeringMountsPets
 			name = AL["Mounts"].." & "..AL["Pets"],
 			[NORMAL_DIFF] = {
-				{ 1, 112057, 162210, [PRICE_EXTRA_ITTYPE] = "119299:1" },	-- Lifelike Mechanical Frostboar (Sold, Ashran)
-				{ 2, 111402, 162209, [PRICE_EXTRA_ITTYPE] = "119299:1" },	-- Mechanical Axebeak (Sold, Ashran)
-				{ 3, 118741, 176732, [PRICE_EXTRA_ITTYPE] = "119299:1" },	-- Mechanical Scorpid (Sold, Ashran)
-				{ 4, 94903, 139196 },	-- Pierre : =ds=#sr# 600 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Pandaria"]
-				{ 5, 100905, 143714 },	-- Rascal-Bot : =ds=#sr# 600 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Pandaria"]
-				{ 6, 87526, 127135 },	-- Mechanical Pandaren Dragonling : =ds=#sr# 575 : =ds=AtlasLoot["Trainer"]
-				{ 7, 60216, 84413 },	-- De-Weaponized Mechanical Companion : =ds=#sr# 475 : =ds=AtlasLoot["Trainer"], #p17#
-				{ 8, 59597, 84412 },	-- Personal World Destroyer : =ds=#sr# 475 : =ds=AtlasLoot["Trainer"], #p18#
-				{ 9, 15996, 19793 },	-- Lifelike Mechanical Toad : =ds=#sr# 265 : =ds=AtlasLoot["World Drop"]
-				{ 10, 21277, 26011 },	-- Tranquil Mechanical Yeti : =ds=#sr# 250 : =ds=AtlasLoot["Quest Reward"]
-				{ 11, 11826, 15633 },	-- Lil' Smoky : =ds=#sr# 205 : =ds=AtlasLoot_IngameLocales["Gnomeregan"]
-				{ 12, 11825, 15628 },	-- Pet Bombling : =ds=#sr# 205 : =ds=AtlasLoot_IngameLocales["Gnomeregan"]
-				{ 13, 4401, 3928 },	-- Mechanical Squirrel Box : =ds=#sr# 75 : =ds=AtlasLoot["World Drop"]
+				{ 1, 132519, 198981 }, -- Trigger
+				{ 3, 112057, 162210, [PRICE_EXTRA_ITTYPE] = "119299:1" },	-- Lifelike Mechanical Frostboar (Sold, Ashran)
+				{ 4, 111402, 162209, [PRICE_EXTRA_ITTYPE] = "119299:1" },	-- Mechanical Axebeak (Sold, Ashran)
+				{ 5, 118741, 176732, [PRICE_EXTRA_ITTYPE] = "119299:1" },	-- Mechanical Scorpid (Sold, Ashran)
+				{ 6, 94903, 139196 },	-- Pierre : =ds=#sr# 600 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Pandaria"]
+				{ 7, 100905, 143714 },	-- Rascal-Bot : =ds=#sr# 600 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Pandaria"]
+				{ 8, 87526, 127135 },	-- Mechanical Pandaren Dragonling : =ds=#sr# 575 : =ds=AtlasLoot["Trainer"]
+				{ 9, 60216, 84413 },	-- De-Weaponized Mechanical Companion : =ds=#sr# 475 : =ds=AtlasLoot["Trainer"], #p17#
+				{ 10, 59597, 84412 },	-- Personal World Destroyer : =ds=#sr# 475 : =ds=AtlasLoot["Trainer"], #p18#
+				{ 11, 15996, 19793 },	-- Lifelike Mechanical Toad : =ds=#sr# 265 : =ds=AtlasLoot["World Drop"]
+				{ 12, 21277, 26011 },	-- Tranquil Mechanical Yeti : =ds=#sr# 250 : =ds=AtlasLoot["Quest Reward"]
+				{ 13, 11826, 15633 },	-- Lil' Smoky : =ds=#sr# 205 : =ds=AtlasLoot_IngameLocales["Gnomeregan"]
+				{ 14, 11825, 15628 },	-- Pet Bombling : =ds=#sr# 205 : =ds=AtlasLoot_IngameLocales["Gnomeregan"]
+				{ 15, 4401, 3928 },	-- Mechanical Squirrel Box : =ds=#sr# 75 : =ds=AtlasLoot["World Drop"]
 				{ 16, 95416, 139192 },	-- Sky Golem : =ds=#sr# 600 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Pandaria"]
 				{ 17, 87251, 127139 },	-- Geosynchronous World Spinner : =ds=#sr# 600 : =ds=AtlasLoot["Trainer"], #p17#
 				{ 18, 87250, 127138 },	-- Depleted-Kyparium Rocket : =ds=#sr# 600 : =ds=AtlasLoot["Trainer"], #p18#
@@ -2501,6 +2628,13 @@ data["Engineering"] = {
 				{ 23, 4357, 3918 },	-- Rough Blasting Powder : =ds=#sr# 1 : =ds=AtlasLoot["Trainer"]
 			},
 		},
+		{	--EngineeringRelic
+			name = AL["Relic"],
+			[LEGION_DIFF] = {
+				{ 1, 136687, 209501 }, -- "The Felic"
+				{ 2, 136688, 209502 }, -- Shockinator
+			},
+		},
 		{	--EngineeringScopes
 			name = AL["Scopes"],
 			[NORMAL_DIFF] = {
@@ -2529,6 +2663,29 @@ data["Engineering"] = {
 		},
 		{	--EngineeringTinker
 			name = AL["Tinker"],
+			[LEGION_DIFF] = {
+				{ 1, 132509, 198972 }, -- Deployable Bullet Dispenser
+				{ 2, 132509, 198999 }, -- Deployable Bullet Dispenser
+				{ 3, 132509, 199013 }, -- Deployable Bullet Dispenser
+				{ 5, 132510, 198973 }, -- Gunpowder Charge
+				{ 6, 132510, 199000 }, -- Gunpowder Charge
+				{ 7, 132510, 199014 }, -- Gunpowder Charge
+				{ 9, 132511, 198974 }, -- Pump-Action Bandage Gun
+				{ 10, 132511, 199001 }, -- Pump-Action Bandage Gun
+				{ 11, 132511, 199015 }, -- Pump-Action Bandage Gun
+				{ 16, 132514, 198976 }, -- Auto-Hammer
+				{ 17, 132514, 199003 }, -- Auto-Hammer
+				{ 18, 132514, 199017 }, -- Auto-Hammer
+				{ 20, 132515, 198977 }, -- Failure Detection Pylon
+				{ 21, 132515, 199004 }, -- Failure Detection Pylon
+				{ 22, 132515, 199018 }, -- Failure Detection Pylon
+				{ 24, 132513, 198975 }, -- Gunpack
+				{ 25, 132513, 199002 }, -- Gunpack
+				{ 26, 132513, 199016 }, -- Gunpack
+				{ 27, 132516, 198978 }, -- Gunshoes
+				{ 29, 136606, 209645 }, -- Leystone Buoy
+				{ 30, 134125, 209646 }, -- Mecha-Bond Imprint Matrix
+			},
 			[WOD_DIFF] = {
 				{ 1, 109076, 162204, [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Goblin Glider Kit (Learnt by item 111921)
 				{ 2, 118007, 173308, [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Mecha-Blast Rocket (Learnt by item 111921)
@@ -2578,6 +2735,19 @@ data["Engineering"] = {
 		},
 		{	--EngineeringMisc
 			name = AL["Miscellaneous"],
+			[LEGION_DIFF] = {
+				{ 1, 132517, 198979 }, -- Intra-Dalaran Wormhole Generator
+				{ 3, 132518, 198980 }, -- Blingtron's Circuit Design Tutorial
+				{ 5, 132982, 200466 }, -- Sonic Environment Enhancer
+				{ 16, 132523, 198982 }, -- Reaves Battery
+				{ 17, 132524, 198983 }, -- Reaves Module: Wormhole Generator Mode
+				{ 18, 132525, 198984 }, -- Reaves Module: Repair Mode
+				{ 19, 132526, 198985 }, -- Reaves Module: Failure Detection Mode
+				{ 20, 132528, 198987 }, -- Reaves Module: Fireworks Display Mode
+				{ 21, 132529, 198988 }, -- Reaves Module: Snack Distribution Mode
+				{ 22, 132530, 198989 }, -- Reaves Module: Bling Mode
+				{ 23, 132531, 198990 }, -- Reaves Module: Piloted Combat Mode
+			},
 			[WOD_DIFF] = {
 				{ 1, 111821, 162218, [PRICE_EXTRA_ITTYPE] = "119299:1" },	-- Blingtron 5000 (Sold, Ashran)
 				{ 2, 109167, 162205, [PRICE_EXTRA_ITTYPE] = "119299:1" },	-- Findle's Loot-a-Rang (Sold, Ashran)
@@ -2671,428 +2841,151 @@ data["Inscription"] = {
 		{	--InscriptionDeathKnight
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
 			[NORMAL_DIFF] = {
-				{ 1, 110800, 162805 },	-- Glyph of Absorb Magic (Research item 113992)
-				{ 2, 110803, 162808 },	-- Glyph of Empowerment (Research item 113992)
-				{ 3, 110801, 162806 },	-- Glyph of Ice Reaper (Research item 113992)
-				{ 4, 110802, 162807 },	-- Glyph of Icy Runes (Research item 113992)
-				{ 5, 110805, 162810 },	-- Glyph of Raise Ally (Research item 113992)
-				{ 6, 110806, 162811 },	-- Glyph of Rune Tap (Research item 113992)
-				{ 7, 110807, 162812 },	-- Glyph of Runic Power (Research item 113992)
-				{ 8, 43553, 57226 },	-- Glyph of Pillar of Frost : Skill 500 : Research: Ink of Dreams (165467)
-				{ 9, 43554, 57227 },	-- Glyph of Vampiric Blood : Skill 500 : Research: Ink of Dreams (165467)
-				{ 10, 43533, 57207 },	-- Glyph of Anti-Magic Shell : Skill 290 : Research: Ethereal Ink (165464)
-				{ 11, 45800, 64298 },	-- Glyph of Dark Simulacrum : Skill 290 : Research: Ethereal Ink (165464)
-				{ 12, 43537, 57211 },	-- Glyph of Chains of Ice : Skill 250 : Research: Shimmering Ink (165463)
-				{ 16, 43536, 57210 },	-- Glyph of Icebound Fortitude : Skill 250 : Research: Shimmering Ink (165463)
-				{ 17, 43547, 57220 },	-- Glyph of Enduring Infection : Skill 200 : Research: Celestial Ink (165461)
-				{ 18, 43546, 57219 },	-- Glyph of Icy Touch : Skill 200 : Research: Celestial Ink (165461)
-				{ 19, 43826, 59339 },	-- Glyph of Outbreak : Skill 200 : Research: Celestial Ink (165461)
-				{ 20, 45799, 64297 },	-- Glyph of Dancing Rune Weapon : Skill 150 : Research: Jadefire Ink (165460)
-				{ 21, 104046, 148255 },	-- Glyph of Swift Death : Skill 150 : Research: Jadefire Ink (165460)
-				{ 22, 104048, 148257 },	-- Glyph of Regenerative Magic : Skill 100 : Research: Lion's Ink (165456)
-				{ 23, 43552, 57225 },	-- Glyph of Strangulate : Skill 100 : Research: Lion's Ink (165456)
-				{ 24, 45804, 64266 },	-- Glyph of Death Coil : Skill 75 : Research: Midnight Ink (165304)
-				{ 25, 43548, 57221 },	-- Glyph of Blood Boil : Skill 25 : Research: Moonglow Ink (165564)
-				{ 26, 43549, 57222 },	-- Glyph of Mind Freeze : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 43673, 57228 },	-- Glyph of Death Gate : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 102, 43544, 57217 },	-- Glyph of Horn of Winter : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 103, 43671, 57229 },	-- Glyph of Path of Frost : Skill 350 : Research: Ink of the Sea (165465)
-				{ 104, 43672, 57230 },	-- Glyph of Resilient Grip : Skill 350 : Research: Ink of the Sea (165465)
-				{ 105, 43827, 59340 },	-- Glyph of Corpse Explosion : Skill 290 : Research: Ethereal Ink (165464)
-				{ 106, 45806, 64300 },	-- Glyph of Tranquil Grip : Skill 250 : Research: Shimmering Ink (165463)
-				{ 116, 43550, 57223 },	-- Glyph of Army of the Dead : Skill 150 : Research: Jadefire Ink (165460)
-				{ 117, 43535, 57209 },	-- Glyph of the Geist : Skill 100 : Research: Lion's Ink (165456)
-				{ 118, 43539, 57215 },	-- Glyph of Death's Embrace : Skill 75 : Research: Midnight Ink (165304)
-				{ 119, 104099, 148266 },	-- Glyph of the Skeleton : Skill 75 : Research: Midnight Ink (165304)
-				{ 120, 43551, 57224 },	-- Glyph of Foul Menagerie : Skill 25 : Research: Moonglow Ink (165564)
+				{ 1, 43535, 57209 }, -- Glyph of the Geist
+				{ 2, 43551, 57224 }, -- Glyph of Foul Menagerie
+				{ 3, 104099, 148266 }, -- Glyph of the Skeleton
+				{ 4, 137274, 225522 }, -- Glyph of Cracked Ice
+				{ 5, 139270, 225525 }, -- Glyph of the Crimson Shell
+				{ 6, 139271, 225524 }, -- Glyph of the Chilled Shell
+				{ 7, 139272, 225523 }, -- Glyph of the Blood Wraith
+				{ 8, 139273, 225526 }, -- Glyph of the Unholy Wraith
+				{ 9, 139274, 192848 }, -- Glyph of the Wraith Walker
+			},
+		},
+		{	--InscriptionDemonHunter
+			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["DEMONHUNTER"],
+			[NORMAL_DIFF] = {
+				{ 1, 133796 }, -- Glyph of Fearsome Metamorphosis
+				{ 2, 139362, 225529 }, -- Glyph of Mana Touched Souls
+				{ 3, 139417, 192851 }, -- Glyph of Fallow Wings
+				{ 4, 139435, 225527 }, -- Glyph of Fel Wings
+				{ 5, 139436, 192852 }, -- Glyph of Tattered Wings
+				{ 6, 139437, 225528 }, -- Glyph of Fel-Enemies
+				{ 7, 139438, 225530 }, -- Glyph of Shadow-Enemies
 			},
 		},
 		{	--InscriptionDruid
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["DRUID"],
 			[NORMAL_DIFF] = {
-				{ 1, 110808, 162813 },	-- Glyph of Astral Communion (Research item 113992)
-				{ 2, 110813, 162818 },	-- Glyph of Celestial Alignment (Research item 113992)
-				{ 3, 110810, 162815 },	-- Glyph of Enchanted Bark (Research item 113992)
-				{ 4, 110809, 162814 },	-- Glyph of Imbued Bark (Research item 113992)
-				{ 5, 110815, 162820 },	-- Glyph of Maim (Research item 113992)
-				{ 6, 110817, 162822 },	-- Glyph of Moonwarding (Research item 113992)
-				{ 7, 110814, 162819 },	-- Glyph of Nature's Cure (Research item 113992)
-				{ 8, 110812, 162817 },	-- Glyph of Ninth Life (Research item 113992)
-				{ 9, 110816, 162821 },	-- Glyph of Savagery (Research item 113992)
-				{ 10, 120300, 178448 },	-- Glyph of the Shapemender (Research item 113992)
-				{ 11, 43331, 58288 },	-- Glyph of Blooming : Skill 500 : Research: Ink of Dreams (165467)
-				{ 16, 45622, 64258 },	-- Glyph of Cyclone : Skill 500 : Research: Ink of Dreams (165467)
-				{ 17, 40916, 56959 },	-- Glyph of Guided Stars : Skill 500 : Research: Ink of Dreams (165467)
-				{ 18, 45623, 64256 },	-- Glyph of Barkskin : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 19, 40903, 56952 },	-- Glyph of Rake : Skill 350 : Research: Ink of the Sea (165465)
-				{ 20, 40920, 56946 },	-- Glyph of Hurricane : Skill 250 : Research: Shimmering Ink (165463)
-				{ 21, 45604, 64307 },	-- Glyph of Stampeding Roar : Skill 200 : Research: Celestial Ink (165461)
-				{ 22, 40912, 56954 },	-- Glyph of Regrowth : Skill 150 : Research: Jadefire Ink (165460)
-				{ 23, 40921, 56958 },	-- Glyph of Skull Bash : Skill 75 : Research: Midnight Ink (165304)
-				{ 24, 45601, 64268 },	-- Glyph of Survival Instincts : Skill 75 : Research: Midnight Ink (165304)
-				{ 25, 45602, 64270 },	-- Glyph of Wild Growth : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 118573, 175186 },	-- Glyph of the Flapping Owl (Research item 113992)
-				{ 102, 110818, 162823 },	-- Glyph of Travel (Research item 113992)
-				{ 103, 43335, 58296 },	-- Glyph of Charm Woodland Creature : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 104, 43334, 58287 },	-- Glyph of the Chameleon : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 105, 40919, 56948 },	-- Glyph of the Orca : Skill 350 : Research: Ink of the Sea (165465)
-				{ 106, 67486, 94404 },	-- Glyph of the Predator : Skill 350 : Research: Ink of the Sea (165465)
-				{ 107, 43316, 58286 },	-- Glyph of Aquatic Form : Skill 290 : Research: Ethereal Ink (165464)
-				{ 116, 68039, 95215 },	-- Glyph of the Treant : Skill 290 : Research: Ethereal Ink (165464)
-				{ 117, 89868, 131152 },	-- Glyph of the Cheetah : Skill 250 : Research: Shimmering Ink (165463)
-				{ 118, 40900, 56950 },	-- Glyph of the Stag : Skill 200 : Research: Celestial Ink (165461)
-				{ 119, 104102, 148268 },	-- Glyph of the Sprouting Mushroom : Skill 150 : Research: Jadefire Ink (165460)
-				{ 120, 43332, 58289 },	-- Glyph of Grace : Skill 100 : Research: Lion's Ink (165456)
-				{ 121, 104103, 148269 },	-- Glyph of One with Nature : Skill 100 : Research: Lion's Ink (165456)
-				{ 122, 44922, 56965 },	-- Glyph of Stars : Skill 25 : Research: Moonglow Ink (165564)
+				{ 1, 40919, 56948 }, -- Glyph of the Orca
+				{ 2, 43334, 58287 }, -- Glyph of the Ursol Chameleon
+				{ 3, 89868, 131152 }, -- Glyph of the Cheetah
+				{ 4, 118061, 182158 }, -- Glyph of the Sun
+				{ 5, 129021, 192842 }, -- Glyph of the Sentinel
+				{ 6, 136825, 225532 }, -- Glyph of the Feral Chameleon
+				{ 7, 136826, 225534 }, -- Glyph of the Storm
+				{ 8, 139278, 225533 }, -- Glyph of the Forest Path
+				{ 9, 140630, 225531 }, -- Glyph of the Doe
 			},
 		},
 		{	--InscriptionHunter
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
 			[NORMAL_DIFF] = {
-				{ 1, 110821, 162826 },	-- Glyph of Quick Revival (Research item 113992)
-				{ 2, 110822, 162827 },	-- Glyph of Snake Trap (Research item 113992)
-				{ 3, 42901, 56998 },	-- Glyph of Distracting Shot : Skill 500 : Research: Ink of Dreams (165467)
-				{ 4, 45735, 64246 },	-- Glyph of Mirrored Blades : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 5, 42898, 56995 },	-- Glyph of Camouflage : Skill 350 : Research: Ink of the Sea (165465)
-				{ 6, 42908, 57005 },	-- Glyph of Explosive Trap : Skill 290 : Research: Ethereal Ink (165464)
-				{ 7, 104270, 148487 },	-- Glyph of the Lean Pack : Skill 290 : Research: Ethereal Ink (165464)
-				{ 8, 104276, 148489 },	-- Glyph of Enduring Deceit : Skill 250 : Research: Shimmering Ink (165463)
-				{ 9, 42905, 57002 },	-- Glyph of Freezing Trap : Skill 250 : Research: Shimmering Ink (165463)
-				{ 16, 42915, 57012 },	-- Glyph of Mend Pet : Skill 200 : Research: Celestial Ink (165461)
-				{ 17, 45731, 64273 },	-- Glyph of Tranquilizing Shot : Skill 200 : Research: Celestial Ink (165461)
-				{ 18, 42903, 57000 },	-- Glyph of Deterrence : Skill 150 : Research: Jadefire Ink (165460)
-				{ 19, 42902, 56999 },	-- Glyph of Endless Wrath : Skill 150 : Research: Jadefire Ink (165460)
-				{ 20, 42904, 57001 },	-- Glyph of Disengage : Skill 100 : Research: Lion's Ink (165456)
-				{ 21, 42910, 57007 },	-- Glyph of No Escape : Skill 100 : Research: Lion's Ink (165456)
-				{ 22, 42917, 57014 },	-- Glyph of Solace : Skill 75 : Research: Midnight Ink (165304)
-				{ 23, 42906, 57003 },	-- Glyph of Ice Trap : Skill 25 : Research: Moonglow Ink (165564)
-				{ 24, 45733, 64253 },	-- Glyph of Master's Call : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 110819, 162824 },	-- Glyph of Play Dead (Research item 113992)
-				{ 102, 43350, 58301 },	-- Glyph of Lesser Proportion : Skill 500 : Research: Ink of Dreams (165467)
-				{ 103, 45732, 64304 },	-- Glyph of Aspect of the Cheetah : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 104, 85683, 124442 },	-- Glyph of Aspect of the Beast : Skill 350 : Research: Ink of the Sea (165465)
-				{ 105, 87393, 126801 },	-- Glyph of Fetch : Skill 250 : Research: Shimmering Ink (165463)
-				{ 106, 42897, 56994 },	-- Glyph of Aspects : Skill 200 : Research: Celestial Ink (165461)
-				{ 116, 43351, 58302 },	-- Glyph of Fireworks : Skill 150 : Research: Jadefire Ink (165460)
-				{ 117, 43338, 58299 },	-- Glyph of Revive Pet : Skill 100 : Research: Lion's Ink (165456)
-				{ 118, 43355, 58297 },	-- Glyph of Aspect of the Pack : Skill 75 : Research: Midnight Ink (165304)
-				{ 119, 42912, 57009 },	-- Glyph of Tame Beast : Skill 75 : Research: Midnight Ink (165304)
-				{ 120, 43356, 58298 },	-- Glyph of Stampede : Skill 25 : Research: Moonglow Ink (165564)
+				{ 1, 43350, 58301 }, -- Glyph of Lesser Proportion
+				{ 2, 137194, 225537 }, -- Glyph of the Bullseye
+				{ 3, 137238, 225543 }, -- Glyph of the Trident
+				{ 4, 137239, 225541 }, -- Glyph of the Hook
+				{ 5, 137240, 225540 }, -- Glyph of the Headhunter
+				{ 6, 137249, 225535 }, -- Glyph of Arachnophobia
+				{ 7, 137250, 225536 }, -- Glyph of Nesingwary's Nemeses
+				{ 8, 137261, 225542 }, -- Glyph of the Skullseye
+				{ 9, 137267, 225539 }, -- Glyph of the Goblin Anti-Grav Flare
+				{ 10, 137269, 192845 }, -- Glyph of Stellar Flare
+				{ 11, 139288, 225538 }, -- Glyph of the Dire Stable
 			},
 		},
 		{	--InscriptionMage
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["MAGE"],
 			[NORMAL_DIFF] = {
-				{ 1, 110824, 162829 },	-- Glyph of Dragon's Breath (Research item 113992)
-				{ 2, 110825, 162830 },	-- Glyph of Regenerative Ice (Research item 113992)
-				{ 3, 42746, 56981 },	-- Glyph of Cone of Cold : Skill 500 : Research: Ink of Dreams (165467)
-				{ 4, 42744, 56979 },	-- Glyph of Ice Block : Skill 500 : Research: Ink of Dreams (165467)
-				{ 5, 45740, 64257 },	-- Glyph of Deep Freeze : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 6, 42736, 56972 },	-- Glyph of Arcane Explosion : Skill 350 : Research: Ink of the Sea (165465)
-				{ 7, 42753, 56988 },	-- Glyph of Icy Veins : Skill 350 : Research: Ink of the Sea (165465)
-				{ 8, 44955, 56991 },	-- Glyph of Arcane Power : Skill 290 : Research: Ethereal Ink (165464)
-				{ 16, 44920, 56990 },	-- Glyph of Remove Curse : Skill 290 : Research: Ethereal Ink (165464)
-				{ 17, 63539, 94000 },	-- Glyph of Inferno Blast : Skill 200 : Research: Celestial Ink (165461)
-				{ 18, 42739, 56975 },	-- Glyph of Combustion : Skill 100 : Research: Lion's Ink (165456)
-				{ 19, 50045, 71101 },	-- Glyph of Counterspell : Skill 75 : Research: Midnight Ink (165304)
-				{ 20,  42745, 56980 },	-- Glyph of Splitting Ice : Skill 75 : Research: Midnight Ink (165304)
-				{ 21, 42748, 56983 },	-- Glyph of Rapid Displacement : Skill 25 : Research: Moonglow Ink (165564)
-				{ 22, 42754, 56989 },	-- Glyph of Spellsteal : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 43359, 58306 },	-- Glyph of Conjure Familiar : Skill 500 : Research: Ink of Dreams (165467)
-				{ 102, 42751, 56986 },	-- Glyph of Crittermorph : =Skill 425 : Research: Blackfallow Ink (165466)
-				{ 103, 42743, 56978 },	-- Glyph of Momentum : Skill 290 : Research: Ethereal Ink (165464)
-				{ 104, 63416, 95710 },	-- Glyph of Rapid Teleportation : Skill 250 : Research: Shimmering Ink (165463)
-				{ 105, 43364, 58308 },	-- Glyph of Arcane Language : Skill 200 : Research: Celestial Ink (165461)
-				{ 116, 104104, 148270 },	-- Glyph of the Unbound Elemental : Skill 150 : Research: Jadefire Ink (165460)
-				{ 117, 104105, 148271 },	-- Glyph of Evaporation : Skill 100 : Research: Lion's Ink (165456)
-				{ 118, 104106, 148272 },	-- Glyph of Condensation : Skill 75 : Research: Midnight Ink (165304)
-				{ 119, 45738, 64276 },	-- Glyph of Illusion : Skill 25 : Research: Moonglow Ink (165564)
+				{ 1, 42751, 56986 }, -- Glyph of Crittermorph
+				{ 2, 104104, 148270 }, -- Glyph of the Unbound Elemental
+				{ 3, 104105, 148271 }, -- Glyph of Evaporation
+				{ 4, 129019, 192840 }, -- Glyph of Sparkles
+				{ 5, 139348, 225546 }, -- Glyph of Smolder
+				{ 6, 139352, 225545 }, -- Glyph of Polymorphic Proportions
 			},
 		},
 		{	--InscriptionMonk
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["MONK"],
 			[NORMAL_DIFF] = {
-				{ 1, 110826, 162831 },	-- Glyph of Expel Harm (Research item 113992)
-				{ 2, 110827, 162832 },	-- Glyph of Floating Butterfly (Research item 113992)
-				{ 3, 110828, 162833 },	-- Glyph of Flying Serpent (Research item 113992)
-				{ 4, 110832, 162837 },	-- Glyph of Freedom Roll (Research item 113992)
-				{ 5, 110829, 162834 },	-- Glyph of Keg Smash (Research item 113992)
-				{ 6, 110830, 162835 },	-- Glyph of Renewed Tea (Research item 113992)
-				{ 7, 110833, 162838 },	-- Glyph of Soothing Mist (Research item 113992)
-				{ 8, 110834, 162839 },	-- Glyph of Zen Focus (Research item 113992)
-				{ 9, 87901, 112458 },	-- Glyph of Detoxing : Skill 500 : Research: Ink of Dreams (165467)
-				{ 10, 87893, 112457 },	-- Glyph of Fortifying Brew : Skill 350 : Research: Ink of the Sea (165465)
-				{ 11, 85696, 124452 },	-- Glyph of Renewing Mist : Skill 290 : Research: Ethereal Ink (165464)
-				{ 16, 85699, 124455 },	-- Glyph of Surging Mist : Skill 290 : Research: Ethereal Ink (165464)
-				{ 17, 85700, 124456 },	-- Glyph of Touch of Death : Skill 200 : Research: Celestial Ink (165461)
-				{ 18, 85691, 124449 },	-- Glyph of Guard : Skill 150 : Research: Jadefire Ink (165460)
-				{ 19, 85695, 124451 },	-- Glyph of Zen Meditation : Skill 150 : Research: Jadefire Ink (165460)
-				{ 20, 87895, 112442 },	-- Glyph of Life Cocoon : Skill 100 : Research: Lion's Ink (165456)
-				{ 21, 87897, 112440 },	-- Glyph of Paralysis : Skill 100 : Research: Lion's Ink (165456)
-				{ 22, 84652, 124457 },	-- Glyph of Transcendence : Skill 100 : Research: Lion's Ink (165456)
-				{ 23, 87894, 112450 },	-- Glyph of Leer of the Ox : Skill 75 : Research: Midnight Ink (165304)
-				{ 24, 87900, 112444 },	-- Glyph of Touch of Karma : Skill 75 : Research: Midnight Ink (165304)
-				{ 25, 87899, 112454 },	-- Glyph of Detox : Skill 25 : Research: Moonglow Ink (165564)
-				{ 26, 87880, 112437 },	-- Glyph of Nimble Brew : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 87890, 112460 },	-- Glyph of Zen Flight : Skill 500 : Research: Ink of Dreams (165467)
-				{ 102, 87881, 112462 },	-- Glyph of Crackling Tiger Lightning : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 103, 87889, 112461 },	-- Glyph of Water Roll : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 104, 87888, 112469 },	-- Glyph of Fighting Pose : Skill 350 : Research: Ink of the Sea (165465)
-				{ 105, 87883, 112464 },	-- Glyph of Honor : Skill 350 : Research: Ink of the Sea (165465)
-				{ 116, 87884, 112465 },	-- Glyph of Jab : Skill 290 : Research: Ethereal Ink (165464)
-				{ 117, 87885, 112466 },	-- Glyph of Rising Tiger Kick : Skill 250 : Research: Shimmering Ink (165463)
-				{ 118, 87882, 112463 },	-- Glyph of Flying Serpent Kick : Skill 200 : Research: Celestial Ink (165461)
-				{ 119, 87887, 112468 },	-- Glyph of Spirit Roll : Skill 150 : Research: Jadefire Ink (165460)
+				{ 1, 87881, 112462 }, -- Glyph of Crackling Tiger Lightning
+				{ 2, 87883, 112464 }, -- Glyph of Honor
+				{ 3, 87885, 112466 }, -- Glyph of Rising Tiger Kick
+				{ 4, 87888, 112469 }, -- Glyph of Fighting Pose
+				{ 5, 139338, 192843 }, -- Glyph of Crackling Crane Lightning
+				{ 6, 139339, 225547 }, -- Glyph of Yu'lon's Grace
 			},
 		},
 		{	--InscriptionPaladin
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
 			[NORMAL_DIFF] = {
-				{ 1, 110835, 162840 },	-- Glyph of Ardent Defender (Research item 113992)
-				{ 2, 110836, 162841 },	-- Glyph of Consecrator (Research item 113992)
-				{ 3, 110837, 162842 },	-- Glyph of Divine Wrath (Research item 113992)
-				{ 4, 110839, 162844 },	-- Glyph of Hand of Freedom (Research item 113992)
-				{ 5, 110840, 162845 },	-- Glyph of Judgment (Research item 113992)
-				{ 6, 110838, 162843 },	-- Glyph of Liberator (Research item 113992)
-				{ 7, 45741, 64277 },	-- Glyph of Beacon of Light : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 8, 41108, 57031 },	-- Glyph of Divinity : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 9, 83107, 122030 },	-- Glyph of Mass Exorcism : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 10, 41101, 57019 },	-- Glyph of Focused Shield : Skill 350 : Research: Ink of the Sea (165465)
-				{ 11, 41094, 57033 },	-- Glyph of Devotion Aura : Skill 290 : Research: Ethereal Ink (165464)
-				{ 16, 41099, 57023 },	-- Glyph of Consecration : Skill 250 : Research: Shimmering Ink (165463)
-				{ 17, 81956, 119481 },	-- Glyph of the Battle Healer : Skill 250 : Research: Shimmering Ink (165463)
-				{ 18, 41110, 57034 },	-- Glyph of Blessed Life : Skill 200 : Research: Celestial Ink (165461)
-				{ 19, 41102, 57036 },	-- Glyph of Burden of Guilt : Skill 150 : Research: Jadefire Ink (165460)
-				{ 20, 41096, 57022 },	-- Glyph of Divine Protection : Skill 150 : Research: Jadefire Ink (165460)
-				{ 21, 43869, 59561 },	-- Glyph of Immediate Truth : Skill 150 : Research: Jadefire Ink (165460)
-				{ 22, 41095, 57027 },	-- Glyph of Holy Wrath : Skill 100 : Research: Lion's Ink (165456)
-				{ 23, 66918, 95825 },	-- Glyph of Protector of the Innocent : Skill 100 : Research: Lion's Ink (165456)
-				{ 24, 104050, 148259 },	-- Glyph of Divine Shield : Skill 75 : Research: Midnight Ink (165304)
-				{ 25, 104051, 148260 },	-- Glyph of Hand of Sacrifice : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 80586, 112266 },	-- Glyph of Bladed Judgment : Skill 500 : Research: Ink of Dreams (165467)
-				{ 102, 104108, 148274 },	-- Glyph of Pillar of Light : Skill 500 : Research: Ink of Dreams (165467)
-				{ 103, 43365, 58311 },	-- Glyph of Contemplation : Skill 350 : Research: Ink of the Sea (165465)
-				{ 104, 43368, 58315 },	-- Glyph of Seal of Blood : Skill 290 : Research: Ethereal Ink (165464)
-				{ 105, 41100, 57032 },	-- Glyph of the Luminous Charger : Skill 250 : Research: Shimmering Ink (165463)
-				{ 106, 43369, 58316 },	-- Glyph of Fire From the Heavens : Skill 200 : Research: Celestial Ink (165461)
-				{ 116, 104107, 148273 },	-- Glyph of the Exorcist : Skill 200 : Research: Celestial Ink (165461)
-				{ 117, 80581, 57037 },	-- Glyph of Focused Wrath : Skill 100 : Research: Lion's Ink (165456)
-				{ 118, 80584, 112264 },	-- Glyph of the Falling Avenger : Skill 75 : Research: Midnight Ink (165304)
-				{ 119, 43366, 58312 },	-- Glyph of Winged Vengeance : Skill 75 : Research: Midnight Ink (165304)
-				{ 120, 80585, 112265 },	-- Glyph of Righteous Retreat : Skill 25 : Research: Moonglow Ink (165564)
-				{ 121, 43340, 58314 },	-- Glyph of the Mounted King : Skill 25 : Research: Moonglow Ink (165564)
+				{ 1, 41100, 57032 }, -- Glyph of the Luminous Charger
+				{ 2, 43366, 58312 }, -- Glyph of Winged Vengeance
+				{ 3, 43369, 58316 }, -- Glyph of Fire From the Heavens
+				{ 4, 104108, 148274 }, -- Glyph of Pillar of Light
+				{ 5, 137293, 192846 }, -- Glyph of the Queen
 			},
 		},
 		{	--InscriptionPriest
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
 			[NORMAL_DIFF] = {
-				{ 1, 110842, 162847 },	-- Glyph of Delayed Coalescence (Research item 113992)
-				{ 2, 110841, 162846 },	-- Glyph of Free Action (Research item 113992)
-				{ 3, 110843, 162848 },	-- Glyph of Guardian Spirit (Research item 113992)
-				{ 4, 110846, 162851 },	-- Glyph of Inquisitor (Research item 113992)
-				{ 5, 110845, 162850 },	-- Glyph of Miraculous Dispelling (Research item 113992)
-				{ 6, 110844, 162849 },	-- Glyph of Restored Faith (Research item 113992)
-				{ 7, 110849, 162854 },	-- Glyph of Shadow Magic (Research item 113992)
-				{ 8, 110847, 162852 },	-- Glyph of Silence (Research item 113992)
-				{ 9, 110848, 162853 },	-- Glyph of Spirit of Redemption (Research item 113992)
-				{ 10, 42403, 57189 },	-- Glyph of Deep Wells : Skill 500 : Research: Ink of Dreams (165467)
-				{ 11, 42408, 57194 },	-- Glyph of Power Word: Shield : Skill 500 : Research: Ink of Dreams (165467)
-				{ 12, 79514, 124461 },	-- Glyph of Shadow Word: Death : Skill 500 : Research: Ink of Dreams (165467)
-				{ 13, 42404, 57190 },	-- Glyph of Mass Dispel : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 14, 42410, 57196 },	-- Glyph of Psychic Scream : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 15, 42407, 57193 },	-- Glyph of Weakened Soul : Skill 350 : Research: Ink of the Sea (165465)
-				{ 16, 42409, 57195 },	-- Glyph of Spirit of Redemption : Skill 290 : Research: Ethereal Ink (165464)
-				{ 17, 45755, 64281 },	-- Glyph of Leap of Faith : Skill 250 : Research: Shimmering Ink (165463)
-				{ 18, 42412, 57198 },	-- Glyph of Scourge Imprisonment : Skill 250 : Research: Shimmering Ink (165463)
-				{ 19, 45760, 64259 },	-- Glyph of Binding Heal : Skill 200 : Research: Celestial Ink (165461)
-				{ 20, 45758, 64283 },	-- Glyph of Mind Spike : Skill 200 : Research: Celestial Ink (165461)
-				{ 21, 42396, 57181 },	-- Glyph of Circle of Healing : Skill 150 : Research: Jadefire Ink (165460)
-				{ 22, 42415, 57200 },	-- Glyph of Dispel Magic : Skill 150 : Research: Jadefire Ink (165460)
-				{ 23, 87902, 127625 },	-- Glyph of Lightwell : Skill 150 : Research: Jadefire Ink (165460)
-				{ 24, 42405, 57191 },	-- Glyph of Psychic Horror : Skill 100 : Research: Lion's Ink (165456)
-				{ 25, 42397, 57183 },	-- Glyph of Purify : Skill 100 : Research: Lion's Ink (165456)
-				{ 26, 45757, 64309 },	-- Glyph of Focused Mending : Skill 75 : Research: Midnight Ink (165304)
-				{ 27, 79513, 124459 },	-- Glyph of Mind Flay : Skill 75 : Research: Midnight Ink (165304)
-				{ 28, 42417, 57202 },	-- Glyph of Prayer of Mending : Skill 75 : Research: Midnight Ink (165304)
-				{ 29, 42399, 57185 },	-- Glyph of Fear Ward : Skill 25 : Research: Moonglow Ink (165564)
-				{ 30, 79515, 124460 },	-- Glyph of Vampiric Embrace : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 87277, 126696 },	-- Glyph of the Val'kyr : Skill 500 : Research: Ink of Dreams (165467)
-				{ 102, 87392, 126800 },	-- Glyph of Shadowy Friends : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 103, 79538, 124466 },	-- Glyph of the Heavens : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 104, 104109, 148275 },	-- Glyph of Angels : Skill 350 : Research: Ink of the Sea (165465)
-				{ 105, 86541, 126153 },	-- Glyph of Confession : Skill 350 : Research: Ink of the Sea (165465)
-				{ 106, 43342, 58317 },	-- Glyph of Shadow Ravens : Skill 350 : Research: Ink of the Sea (165465)
-				{ 107, 43371, 58318 },	-- Glyph of Borrowed Time : Skill 290 : Research: Ethereal Ink (165464)
-				{ 116, 104120, 148276 },	-- Glyph of the Sha : Skill 290 : Research: Ethereal Ink (165464)
-				{ 117, 43373, 58320 },	-- Glyph of Shackle Undead : Skill 250 : Research: Shimmering Ink (165463)
-				{ 118, 77101, 107907 },	-- Glyph of Shadow : Skill 200 : Research: Celestial Ink (165461)
-				{ 119, 43374, 58322 },	-- Glyph of Dark Archangel : Skill 100 : Research: Lion's Ink (165456)
-				{ 120, 87276, 126687 },	-- Glyph of Holy Resurrection : Skill 25 : Research: Moonglow Ink (165564)
-				{ 121, 104122, 148278 },	-- Glyph of Inspired Hymns : Skill 25 : Research: Moonglow Ink (165564)
+				{ 1, 43373, 58320 }, -- Glyph of Shackle Undead
+				{ 2, 79538, 124466 }, -- Glyph of the Heavens
+				{ 3, 87277, 126696 }, -- Glyph of the Val'kyr
+				{ 4, 87392, 126800 }, -- Glyph of Shadowy Friends
+				{ 5, 104120, 148276 }, -- Glyph of the Sha
+				{ 6, 104122, 148278 }, -- Glyph of Inspired Hymns
+				{ 7, 129017, 192838 }, -- Glyph of Ghostly Fade
 			},
 		},
 		{	--InscriptionRogue
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
 			[NORMAL_DIFF] = {
-				{ 1, 110853, 162858 },	-- Glyph of Disappearance (Research item 113992)
-				{ 2, 110851, 162856 },	-- Glyph of Elusiveness (Research item 113992)
-				{ 3, 110850, 162855 },	-- Glyph of Energy (Research item 113992)
-				{ 4, 110852, 162857 },	-- Glyph of Energy Flows (Research item 113992)
-				{ 5, 45769, 64303 },	-- Glyph of Cloak of Shadows : Skill 500 : Research: Ink of Dreams (165467)
-				{ 6, 42964, 57123 },	-- Glyph of Garrote : Skill 500 : Research: Ink of Dreams (165467)
-				{ 7, 42974, 57133 },	-- Glyph of Sprint : Skill 500 : Research: Ink of Dreams (165467)
-				{ 8, 63420, 94711 },	-- Glyph of Vanish : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 9, 42971, 57130 },	-- Glyph of Kick : Skill 350 : Research: Ink of the Sea (165465)
-				{ 10, 42957, 57115 },	-- Glyph of Blade Flurry : Skill 290 : Research: Ethereal Ink (165464)
-				{ 16, 42966, 57125 },	-- Glyph of Gouge : Skill 290 : Research: Ethereal Ink (165464)
-				{ 17, 42970, 57129 },	-- Glyph of Hemorrhaging Veins : Skill 250 : Research: Shimmering Ink (165463)
-				{ 18, 64493, 92579 },	-- Glyph of Blind : Skill 200 : Research: Celestial Ink (165461)
-				{ 19, 42960, 57119 },	-- Glyph of Evasion : Skill 150 : Research: Jadefire Ink (165460)
-				{ 20, 42968, 57127 },	-- Glyph of Smoke Bomb : Skill 150 : Research: Jadefire Ink (165460)
-				{ 21, 42973, 57132 },	-- Glyph of Shiv : Skill 100 : Research: Lion's Ink (165456)
-				{ 22, 42963, 57122 },	-- Glyph of Feint : Skill 75 : Research: Midnight Ink (165304)
-				{ 23, 45761, 64284 },	-- Glyph of Vendetta : Skill 75 : Research: Midnight Ink (165304)
-				{ 24, 42961, 57120 },	-- Glyph of Recovery : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 45768, 64260 },	-- Glyph of Disguise : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 102, 43376, 58324 },	-- Glyph of Distract : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 103, 43380, 58328 },	-- Glyph of Poisons : Skill 350 : Research: Ink of the Sea (165465)
-				{ 104, 43378, 58327 },	-- Glyph of Safe Fall : Skill 290 : Research: Ethereal Ink (165464)
-				{ 105, 42965, 57124 },	-- Glyph of Detection : Skill 250 : Research: Shimmering Ink (165463)
-				{ 106, 43377, 58325 },	-- Glyph of Pick Lock : Skill 250 : Research: Shimmering Ink (165463)
-				{ 107, 42956, 57114 },	-- Glyph of Decoy : Skill 200 : Research: Celestial Ink (165461)
-				{ 116, 42967, 57126 },	-- Glyph of Hemorrhage : Skill 200 : Research: Celestial Ink (165461)
-				{ 117, 104123, 148279 },	-- Glyph of Headhunting : Skill 150 : Research: Jadefire Ink (165460)
-				{ 118, 43379, 58323 },	-- Glyph of Blurred Speed : Skill 100 : Research: Lion's Ink (165456)
-				{ 119, 104124, 148280 },	-- Glyph of Improved Distraction : Skill 100 : Research: Lion's Ink (165456)
-				{ 120, 43343, 58326 },	-- Glyph of Pick Pocket : Skill 75 : Research: Midnight Ink (165304)
-				{ 121, 45762, 64285 },	-- Glyph of Killing Spree : Skill 25 : Research: Moonglow Ink (165564)
+				{ 1, 45768, 64260 }, -- Glyph of Disguise
+				{ 2, 129020, 225549 }, -- Glyph of Flash Bang
+				{ 3, 139358, 192841 }, -- Glyph of Blackout
+				{ 4, 139442, 225548 }, -- Glyph of Burnout
 			},
 		},
 		{	--InscriptionShaman
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
 			[NORMAL_DIFF] = {
-				{ 1, 110854, 162859 },	-- Glyph of Ephemeral Spirits (Research item 113992)
-				{ 2, 110856, 162861 },	-- Glyph of Grounding (Research item 113992)
-				{ 3, 110857, 162862 },	-- Glyph of Lava Spread (Research item 113992)
-				{ 4, 110858, 162863 },	-- Glyph of Reactive Shielding (Research item 113992)
-				{ 5, 110859, 162864 },	-- Glyph of Shamanistic Resolve (Research item 113992)
-				{ 6, 110860, 162865 },	-- Glyph of Shocks (Research item 113992)
-				{ 7, 110862, 162867 },	-- Glyph of Spiritwalker's Aegis (Research item 113992)
-				{ 8, 110861, 162866 },	-- Glyph of Spiritwalker's Focus (Research item 113992)
-				{ 9, 43725, 59326 },	-- Glyph of Ghost Wolf : Skill 500 : Research: Ink of Dreams (165467)
-				{ 10, 45776, 64262 },	-- Glyph of Shamanistic Rage : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 11, 41518, 57233 },	-- Glyph of Chain Lightning : Skill 350 : Research: Ink of the Sea (165465)
-				{ 12, 41524, 57234 },	-- Glyph of Spirit Walk : Skill 290 : Research: Ethereal Ink (165464)
-				{ 13, 41527, 57236 },	-- Glyph of Purge : Skill 250 : Research: Shimmering Ink (165463)
-				{ 14, 41517, 57232 },	-- Glyph of Unstable Earth : Skill 250 : Research: Shimmering Ink (165463)
-				{ 16, 41526, 57235 },	-- Glyph of Capacitor Totem : Skill 200 : Research: Celestial Ink (165461)
-				{ 17, 41542, 57252 },	-- Glyph of Cleansing Waters : Skill 200 : Research: Celestial Ink (165461)
-				{ 18, 45771, 64288 },	-- Glyph of Feral Spirit : Skill 150 : Research: Jadefire Ink (165460)
-				{ 19, 41529, 57237 },	-- Glyph of Fire Elemental Totem : Skill 150 : Research: Jadefire Ink (165460)
-				{ 20, 104052, 148261 },	-- Glyph of Purging : Skill 150 : Research: Jadefire Ink (165460)
-				{ 21, 45778, 64247 },	-- Glyph of Totemic Vigor : Skill 150 : Research: Jadefire Ink (165460)
-				{ 22, 41530, 57238 },	-- Glyph of Fire Nova : Skill 100 : Research: Lion's Ink (165456)
-				{ 23, 41538, 57247 },	-- Glyph of Grounding Totem : Skill 100 : Research: Lion's Ink (165456)
-				{ 24, 45772, 64289 },	-- Glyph of Riptide : Skill 100 : Research: Lion's Ink (165456)
-				{ 25, 41552, 57250 },	-- Glyph of Chaining : Skill 75 : Research: Midnight Ink (165304)
-				{ 26, 41533, 57242 },	-- Glyph of Healing Stream Totem : Skill 75 : Research: Midnight Ink (165304)
-				{ 27, 41532, 57240 },	-- Glyph of Wind Shear : Skill 75 : Research: Midnight Ink (165304)
-				{ 28, 41541, 57251 },	-- Glyph of Water Shield : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 110855, 162860 },	-- Glyph of Ghostly Speed (Research item 113992)
-				{ 102, 45775, 64261 },	-- Glyph of Deluge : Skill 500 : Research: Ink of Dreams (165467)
-				{ 103, 104130, 148285 },	-- Glyph of the Compy : Skill 500 : Research: Ink of Dreams (165467)
-				{ 104, 104131, 148286 },	-- Glyph of Elemental Familiars : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 105, 41540, 57249 },	-- Glyph of Lava Lash : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 106, 104133, 148287 },	-- Glyph of Astral Fixation : Skill 350 : Research: Ink of the Sea (165465)
-				{ 107, 43381, 58329 },	-- Glyph of Astral Recall : Skill 350 : Research: Ink of the Sea (165465)
-				{ 108, 43385, 58330 },	-- Glyph of Far Sight : Skill 290 : Research: Ethereal Ink (165464)
-				{ 109, 104134, 148288 },	-- Glyph of Rain of Frogs : Skill 290 : Research: Ethereal Ink (165464)
-				{ 116, 104129, 148284 },	-- Glyph of Flaming Serpent : Skill 250 : Research: Shimmering Ink (165463)
-				{ 117, 43388, 58333 },	-- Glyph of Totemic Encirclement : Skill 250 : Research: Shimmering Ink (165463)
-				{ 118, 41537, 57246 },	-- Glyph of the Lakestrider : Skill 200 : Research: Celestial Ink (165461)
-				{ 119, 44923, 57253 },	-- Glyph of Thunderstorm : Skill 200 : Research: Celestial Ink (165461)
-				{ 120, 104126, 148281 },	-- Glyph of Spirit Raptors : Skill 100 : Research: Lion's Ink (165456)
-				{ 121, 104127, 148282 },	-- Glyph of Lingering Ancestors : Skill 75 : Research: Midnight Ink (165304)
-				{ 122, 104128, 148283 },	-- Glyph of Spirit Wolf : : Skill 25 : Research: Moonglow Ink (165564)
-				{ 123, 43386, 58332 },	-- Glyph of the Spectral Wolf : Skill 25 : Research: Moonglow Ink (165564)
+				{ 1, 43386, 58332 }, -- Glyph of the Spectral Wolf
+				{ 2, 45775, 64261 }, -- Glyph of Deluge
+				{ 3, 104126, 148281 }, -- Glyph of Spirit Raptors
+				{ 4, 104127, 148282 }, -- Glyph of Lingering Ancestors
+				{ 5, 137287, 192844 }, -- Glyph of the Spectral Raptor
+				{ 6, 137288, 225552 }, -- Glyph of Pebbles
+				{ 7, 137289, 225551 }, -- Glyph of Flickering
+				{ 8, 139289, 225550 }, -- Glyph of Critterhex
 			},
 		},
 		{	--InscriptionWarlock
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
 			[NORMAL_DIFF] = {
-				{ 1, 110864, 162869 },	-- Glyph of Dark Soul (Research item 113992)
-				{ 2, 110866, 162871 },	-- Glyph of Life Pact (Research item 113992)
-				{ 3, 110868, 162873 },	-- Glyph of Shadowflame (Research item 113992)
-				{ 4, 110869, 162874 },	-- Glyph of Soul Swap (Research item 113992)
-				{ 5, 110871, 162876 },	-- Glyph of Strengthened Resolve (Research item 113992)
-				{ 6, 42465, 57269 },	-- Glyph of Imp Swarm : Skill 500 : Research: Ink of Dreams (165467)
-				{ 7, 43390, 58337 },	-- Glyph of Soul Consumption : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 8, 42466, 57270 },	-- Glyph of Havoc : Skill 350 : Research: Ink of the Sea (165465)
-				{ 16, 45785, 64248 },	-- Glyph of Life Tap : Skill 350 : Research: Ink of the Sea (165465)
-				{ 17, 42470, 57274 },	-- Glyph of Soulstone : Skill 290 : Research: Ethereal Ink (165464)
-				{ 18, 42472, 57276 },	-- Glyph of Unstable Affliction : Skill 200 : Research: Celestial Ink (165461)
-				{ 19, 45783, 64311 },	-- Glyph of Unending Resolve : Skill 100 : Research: Lion's Ink (165456)
-				{ 20, 42454, 57258 },	-- Glyph of Conflagrate : Skill 75 : Research: Midnight Ink (165304)
-				{ 21, 45782, 64317 },	-- Glyph of Demonic Circle : Skill 75 : Research: Midnight Ink (165304)
-				{ 22, 50077, 71102 },	-- Glyph of Eternal Resolve : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 110867, 162872 },	-- Glyph of Metamorphosis (Research item 113992)
-				{ 102, 43393, 58339 },	-- Glyph of Enslave Demon : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 103, 42453, 57257 },	-- Glyph of Hand of Gul'dan : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 104, 42456, 57260 },	-- Glyph of Verdant Spheres : Skill 350 : Research: Ink of the Sea (165465)
-				{ 105, 42459, 57263 },	-- Glyph of Felguard : Skill 290 : Research: Ethereal Ink (165464)
-				{ 106, 42461, 57265 },	-- Glyph of Health Funnel : Skill 290 : Research: Ethereal Ink (165464)
-				{ 107, 42463, 57267 },	-- Glyph of Subtlety : Skill 250 : Research: Shimmering Ink (165463)
-				{ 108, 43389, 58336 },	-- Glyph of Unending Breath : Skill 250 : Research: Shimmering Ink (165463)
-				{ 116, 43391, 58340 },	-- Glyph of Eye of Kilrogg : Skill 200 : Research: Celestial Ink (165461)
-				{ 117, 45789, 64250 },	-- Glyph of Crimson Banish : Skill 150 : Research: Jadefire Ink (165460)
-				{ 118, 43394, 58341 },	-- Glyph of Soulwell : Skill 150 : Research: Jadefire Ink (165460)
-				{ 119, 93202, 135561 },	-- Glyph of Gateway Attunement : Skill 100 : Research: Lion's Ink (165456)
-				{ 120, 42467, 57271 },	-- Glyph of Shadow Bolt : Skill 75 : Research: Midnight Ink (165304)
-				{ 121, 42473, 57277 },	-- Glyph of Falling Meteor : Skill 25 : Research: Moonglow Ink (165564)
-				{ 122, 42457, 57261 },	-- Glyph of Nightmares : Skill 25 : Research: Moonglow Ink (165564)
+				{ 1, 42459, 57263 }, -- Glyph of Felguard
+				{ 2, 43394, 58341 }, -- Glyph of Soulwell
+				{ 3, 45789, 64250 }, -- Glyph of Crimson Banish
+				{ 4, 129018, 192839 }, -- Glyph of Fel Imp
+				{ 5, 137191, 225554 }, -- Glyph of the Inquisitor's Eye
+				{ 6, 139310, 225556 }, -- Glyph of the Shivarra
+				{ 7, 139311, 225558 }, -- Glyph of the Voidlord
+				{ 8, 139312, 225555 }, -- Glyph of the Observer
+				{ 9, 139315 }, -- Glyph of Wrathguard
 			},
 		},
 		{	--InscriptionWarrior
 			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
 			[NORMAL_DIFF] = {
-				{ 1, 110872, 162877 },	-- Glyph of Cleave (Research item 113992)
-				{ 2, 110873, 162878 },	-- Glyph of Drawn Sword (Research item 113992)
-				{ 3, 110879, 162884 },	-- Glyph of Flawless Defense (Research item 113992)
-				{ 4, 110874, 162879 },	-- Glyph of Heroic Leap (Research item 113992)
-				{ 5, 110875, 162880 },	-- Glyph of Mocking Banner (Research item 113992)
-				{ 6, 110876, 162881 },	-- Glyph of Raging Blow (Research item 113992)
-				{ 7, 110877, 162882 },	-- Glyph of Rallying Cry (Research item 113992)
-				{ 8, 110878, 162883 },	-- Glyph of Shattering Throw (Research item 113992)
-				{ 9, 43421, 57160 },	-- Glyph of Mortal Strike : Skill 500 : Research: Ink of Dreams (165467)
-				{ 10, 43425, 57152 },	-- Glyph of Shield Slam : Skill 500 : Research: Ink of Dreams (165467)
-				{ 11, 43414, 57154 },	-- Glyph of Hindering Strikes : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 12, 43419, 57159 },	-- Glyph of Blitz : Skill 350 : Research: Ink of the Sea (165465)
-				{ 16, 43430, 57164 },	-- Glyph of Resonating Power : Skill 290 : Research: Ethereal Ink (165464)
-				{ 17, 43428, 57168 },	-- Glyph of Sweeping Strikes : Skill 250 : Research: Shimmering Ink (165463)
-				{ 18, 43399, 58346 },	-- Glyph of Unending Rage : Skill 250 : Research: Shimmering Ink (165463)
-				{ 19, 43432, 57172 },	-- Glyph of Raging Wind : Skill 200 : Research: Celestial Ink (165461)
-				{ 20, 43417, 57157 },	-- Glyph of Rude Interruption : Skill 200 : Research: Celestial Ink (165461)
-				{ 21, 43422, 57161 },	-- Glyph of Die by the Sword : Skill 100 : Research: Lion's Ink (165456)
-				{ 22, 45790, 64295 },	-- Glyph of Wind and Thunder : Skill 100 : Research: Lion's Ink (165456)
-				{ 23, 45792, 64296 },	-- Glyph of Death From Above : Skill 75 : Research: Midnight Ink (165304)
-				{ 24, 67483, 94405 },	-- Glyph of Recklessness : Skill 75 : Research: Midnight Ink (165304)
-				{ 25, 45795, 64302 },	-- Glyph of Spell Reflection : Skill 25 : Research: Moonglow Ink (165564)
-				{ 26, 45793, 64255 },	-- Glyph of Victorious Throw : Skill 25 : Research: Moonglow Ink (165564)
-				{ 101, 45794, 64312 },	-- Glyph of Intimidating Shout : Skill 500 : Research: Ink of Dreams (165467)
-				{ 102, 80588, 112430 },	-- Glyph of Burning Anger : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 103, 49084, 68166 },	-- Glyph of Thunder Strike : Skill 425 : Research: Blackfallow Ink (165466)
-				{ 104, 43395, 58342 },	-- Glyph of Mystic Shout : Skill 350 : Research: Ink of the Sea (165465)
-				{ 105, 104135, 148289 },	-- Glyph of the Raging Whirlwind : Skill 350 : Research: Ink of the Sea (165465)
-				{ 106, 43396, 58343 },	-- Glyph of Bloodcurdling Shout : Skill 290 : Research: Ethereal Ink (165464)
-				{ 107, 104136, 148290 },	-- Glyph of the Subtle Defender : Skill 290 : Research: Ethereal Ink (165464)
-				{ 116, 104137, 148291 },	-- Glyph of the Watchful Eye : Skill 250 : Research: Shimmering Ink (165463)
-				{ 117, 43412, 57153 },	-- Glyph of Bloody Healing : Skill 200 : Research: Celestial Ink (165461)
-				{ 118, 104138, 148292 },	-- Glyph of the Weaponmaster : Skill 200 : Research: Celestial Ink (165461)
-				{ 119, 80587, 112429 },	-- Glyph of Crow Feast : Skill 150 : Research: Jadefire Ink (165460)
-				{ 120, 43398, 58345 },	-- Glyph of Gushing Wound : Skill 150 : Research: Jadefire Ink (165460)
-				{ 121, 43400, 58347 },	-- Glyph of Mighty Victory : Skill 150 : Research: Jadefire Ink (165460)
-				{ 122, 85221, 123781 },	-- Glyph of the Blazing Trail : Skill 100 : Research: Lion's Ink (165456)
+				{ 1, 43398, 58345 }, -- Glyph of Gushing Wound
+				{ 2, 43400, 58347 }, -- Glyph of Mighty Victory
+				{ 3, 49084, 68166 }, -- Glyph of Thunder Strike
+				{ 4, 80587, 112429 }, -- Glyph of Hawk Feast
+				{ 5, 80588, 112430 }, -- Glyph of Burning Anger
+				{ 6, 85221, 123781 }, -- Glyph of the Blazing Trail
+				{ 7, 104138, 148292 }, -- Glyph of the Weaponmaster
+				{ 8, 137188, 225560 }, -- Glyph of the Blazing Savior
+				{ 9, 141898, 228381 }, -- Glyph of Falling Thunder
 			},
 		},
 		{	--InscriptionOffHand
@@ -3165,6 +3058,18 @@ data["Inscription"] = {
 		},
 		{	--InscriptionTrinketsDarkmoonFaireCards
 			name = AL["Trinkets"].." / "..AL["Darkmoon Cards"],
+			[LEGION_DIFF] = {
+				{ 1, 128712, 191659 }, -- Darkmoon Card of the Legion
+				{ 2, 128712, 192859 }, -- Darkmoon Card of the Legion
+				{ 3, 128712, 192890 }, -- Darkmoon Card of the Legion
+				{ 5, 128978, 192854 }, -- Prophecy Tarot
+				{ 6, 128978, 192855 }, -- Prophecy Tarot
+				{ 7, 128978, 192856 }, -- Prophecy Tarot
+				{ 16, 128705 }, -- Darkmoon Deck: Dominion
+				{ 17, 128709 }, -- Darkmoon Deck: Hellfire
+				{ 18, 128710 }, -- Darkmoon Deck: Promises
+				{ 19, 128711 }, -- Darkmoon Deck: Immortality
+			},
 			[WOD_DIFF] = {
 				{ 101, 112270, 163294, [PRICE_EXTRA_ITTYPE] = "119297:5" },	-- Darkmoon Card of Draenor (Sold, Ashran)
 
@@ -3251,6 +3156,15 @@ data["Inscription"] = {
 		},
 		{	--InscriptionReagents
 			name = AL["Reagents"],
+			[LEGION_DIFF] = {
+				{ 1, 129100, 209658 }, -- Mass Mill Aethril
+				{ 2, 136926, 209659 }, -- Mass Mill Dreamleaf
+				{ 3, 128304, 209660 }, -- Mass Mill Foxflower
+				{ 4, 129032, 209661 }, -- Mass Mill Fjarnskaggl
+				{ 5, 129032, 209662 }, -- Mass Mill Starlight Rose
+				{ 6, 129034, 209664 }, -- Mass Mill Felwort
+				{ 7, 129032, 210116 }, -- Mass Mill Yseralline Seeds
+			},
 			[NORMAL_DIFF] = {
 				{ 1, 112377, 169081, [ATLASLOOT_IT_AMOUNT1] = "8+" },	-- War Paints (Learnt by item 111923)
 				{ 2, 112377, 182125, [PRICE_EXTRA_ITTYPE] = "114931:20" }, -- War Paints (Sold, Garrison)
@@ -3276,6 +3190,78 @@ data["Inscription"] = {
 				{ 28, 39469, 52843 },	-- Moonglow Ink : =ds=#sr# 35 : =ds=AtlasLoot["Trainer"]
 			},
 		},
+		{	--InscriptionRelic
+			name = AL["Relic"],
+			[LEGION_DIFF] = {
+				{ 1, 136692, 209510 }, -- Aqual Mark
+				{ 2, 136693, 209511 }, -- Straszan Mark
+			},
+		},
+		{	--InscriptionRunes
+			name = AL["Runes"],
+			[LEGION_DIFF] = {
+				{ 1, 128987, 192808 }, -- Vantus Rune: Ursoc
+				{ 2, 128987, 192860 }, -- Vantus Rune: Ursoc
+				{ 3, 128987, 192891 }, -- Vantus Rune: Ursoc
+				{ 5, 128988, 192809 }, -- Vantus Rune: Nythendra
+				{ 6, 128988, 192861 }, -- Vantus Rune: Nythendra
+				{ 7, 128988, 192892 }, -- Vantus Rune: Nythendra
+				{ 9, 128989, 192810 }, -- Vantus Rune: Il'gynoth, The Heart of Corruption
+				{ 10, 128989, 192862 }, -- Vantus Rune: Il'gynoth, The Heart of Corruption
+				{ 11, 128989, 192893 }, -- Vantus Rune: Il'gynoth, The Heart of Corruption
+				{ 13, 128990, 192811 }, -- Vantus Rune: Dragons of Nightmare
+				{ 14, 128990, 192863 }, -- Vantus Rune: Dragons of Nightmare
+				{ 15, 128990, 192894 }, -- Vantus Rune: Dragons of Nightmare
+				{ 16, 128991, 192812 }, -- Vantus Rune: Xavius
+				{ 17, 128991, 192864 }, -- Vantus Rune: Xavius
+				{ 18, 128991, 192895 }, -- Vantus Rune: Xavius
+				{ 20, 128992, 192813 }, -- Vantus Rune: Elerethe Renferal
+				{ 21, 128992, 192865 }, -- Vantus Rune: Elerethe Renferal
+				{ 22, 128992, 192896 }, -- Vantus Rune: Elerethe Renferal
+				{ 24, 128993, 192814 }, -- Vantus Rune: Cenarius
+				{ 25, 128993, 192866 }, -- Vantus Rune: Cenarius
+				{ 26, 128993, 192897 }, -- Vantus Rune: Cenarius
+				{ 28, 128994, 192815 }, -- Vantus Rune: Skorpyron
+				{ 29, 128994, 192867 }, -- Vantus Rune: Skorpyron
+				{ 30, 128994, 192898 }, -- Vantus Rune: Skorpyron
+				{ 101, 128995, 192816 }, -- Vantus Rune: Chronomatic Anomaly
+				{ 102, 128995, 192868 }, -- Vantus Rune: Chronomatic Anomaly
+				{ 103, 128995, 192899 }, -- Vantus Rune: Chronomatic Anomaly
+				{ 105, 128996, 192817 }, -- Vantus Rune: Trilliax
+				{ 106, 128996, 192869 }, -- Vantus Rune: Trilliax
+				{ 108, 128996, 192900 }, -- Vantus Rune: Trilliax
+				{ 109, 128997, 192818 }, -- Vantus Rune: Spellblade Aluriel
+				{ 110, 128997, 192870 }, -- Vantus Rune: Spellblade Aluriel
+				{ 111, 128997, 192901 }, -- Vantus Rune: Spellblade Aluriel
+				{ 113, 128998, 192819 }, -- Vantus Rune: Tichondrius
+				{ 114, 128998, 192871 }, -- Vantus Rune: Tichondrius
+				{ 115, 128998, 192902 }, -- Vantus Rune: Tichondrius
+				{ 116, 128999, 192820 }, -- Vantus Rune: High Botanist Tel'arn
+				{ 117, 128999, 192872 }, -- Vantus Rune: High Botanist Tel'arn
+				{ 118, 128999, 192903 }, -- Vantus Rune: High Botanist Tel'arn
+				{ 120, 129000, 192821 }, -- Vantus Rune: Krosus
+				{ 121, 129000, 192873 }, -- Vantus Rune: Krosus
+				{ 122, 129000, 192904 }, -- Vantus Rune: Krosus
+				{ 124, 129001, 192822 }, -- Vantus Rune: Star Augur Etraeus
+				{ 125, 129001, 192874 }, -- Vantus Rune: Star Augur Etraeus
+				{ 126, 129001, 192905 }, -- Vantus Rune: Star Augur Etraeus
+				{ 128, 129002, 192823 }, -- Vantus Rune: Grand Magistrix Elisande
+				{ 129, 129002, 192875 }, -- Vantus Rune: Grand Magistrix Elisande
+				{ 130, 129002, 192906 }, -- Vantus Rune: Grand Magistrix Elisande
+				{ 201, 129003, 192824 }, -- Vantus Rune: Gul'dan
+				{ 202, 129003, 192876 }, -- Vantus Rune: Gul'dan
+				{ 203, 129003, 192907 }, -- Vantus Rune: Gul'dan
+				{ 205, 142101, 229177 }, -- Vantus Rune: Odyn
+				{ 206, 142101, 229180 }, -- Vantus Rune: Odyn
+				{ 207, 142101, 229183 }, -- Vantus Rune: Odyn
+				{ 216, 142102, 229178 }, -- Vantus Rune: Guarm
+				{ 217, 142102, 229181 }, -- Vantus Rune: Guarm
+				{ 218, 142102, 229184 }, -- Vantus Rune: Guarm
+				{ 220, 142103, 229179 }, -- Vantus Rune: Helya
+				{ 221, 142103, 229182 }, -- Vantus Rune: Helya
+				{ 222, 142103, 229185 }, -- Vantus Rune: Helya
+			},
+		},
 		{	--InscriptionMisc
 			name = AL["Miscellaneous"],
 			[NORMAL_DIFF] = {
@@ -3297,7 +3283,7 @@ data["Inscription"] = {
 				{ 23, 63246, 86646 },	-- Origami Beetle : =ds=#sr# 500 : =ds=AtlasLoot["World Drop"]
 				{ 24, 62238, 86645 },	-- Origami Rock : =ds=#sr# 490 : =ds=AtlasLoot["World Drop"]
 				{ 25, 62239, 86644 },	-- Origami Slime : =ds=#sr# 480 : =ds=AtlasLoot["World Drop"]
-				{ 26, 63388, 92027, [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Dust of Disappearance : =ds=#sr# 475 : =ds=AtlasLoot["Trainer"]
+				--{ 26, 63388, 92027, [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Dust of Disappearance : =ds=#sr# 475 : =ds=AtlasLoot["Trainer"]
 				{ 27, 43850, 59387 },	-- Certificate of Ownership : =ds=#sr# 200 : =ds=AtlasLoot["Trainer"]
 				{ 28, 64670, 92026 },	-- Vanishing Powder : =ds=#sr# 75 : =ds=AtlasLoot["Trainer"]
 				{ 29, 38682, 52739, [ATLASLOOT_IT_AMOUNT1] = 2 },	-- Enchanting Vellum : =ds=#sr# 35 : =ds=AtlasLoot["Trainer"]
@@ -3305,6 +3291,20 @@ data["Inscription"] = {
 		},
 		{	--InscriptionScrolls
 			name = AL["Scrolls"],
+			[LEGION_DIFF] = {
+				{ 1, 128979, 222408 }, -- Unwritten Legend
+				{ 2, 128980, 192802 }, -- Scroll of Forgotten Knowledge
+				{ 3, 129211, 192804 }, -- Steamy Romance Novel Kit
+				{ 5, 136852, 210653 }, -- Songs of Battle
+				{ 6, 136856, 210654 }, -- Songs of Peace
+				{ 7, 136857, 210656 }, -- Songs of the Legion
+				{ 8, 140567, 223940 }, -- Songs of the Horde
+				{ 9, 140568, 223941 }, -- Songs of the Alliance
+				{ 11, 141333, 226248 }, -- Codex of the Tranquil Mind
+				{ 12, 141333, 227239 }, -- Codex of the Tranquil Mind
+				{ 13, 141333, 227240 }, -- Codex of the Tranquil Mind
+				{ 15, 141446, 227043 }, -- Tome of the Tranquil Mind
+			},
 			[NORMAL_DIFF] = {
 				{ 1, 79731, 112996 },	-- Scroll of Wisdom : =ds=#sr# 525 : =ds=AtlasLoot["Trainer"]
 				{ 2, 63308, 89373, [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Scroll of Protection IX : =ds=#sr# 450 : =ds=AtlasLoot["Trainer"]
@@ -3371,7 +3371,21 @@ data["Jewelcrafting"] = {
 	items = {
 		{	--JewelPrismatic
 			name = AL["Prismatic Gems"],
-			[NORMAL_DIFF] = {
+			[LEGION_DIFF] = {
+				{ 1, 130248, 195880 }, -- Saber's Eye of Intellect
+				{ 2, 130247, 195879 }, -- Saber's Eye of Agility
+				{ 3, 130246, 195878 }, -- Saber's Eye of Strength
+				{ 5, 130219, 195852 }, -- Deadly Eye of Prophecy
+				{ 6, 130215, 195848 }, -- Deadly Deep Amber
+				{ 8, 130222, 195855 }, -- Masterful Shadowruby
+				{ 9, 130218, 195851 }, -- Masterful Queen's Opal
+				{ 11, 130220, 195853 }, -- Quick Dawnlight
+				{ 12, 130216, 195849 }, -- Quick Azsunite
+				{ 14, 130221, 195854 }, -- Versatile Maelstrom Sapphire
+				{ 15, 130217, 195850 }, -- Versatile Skystone
+				{ 16, 130245, 195877 }, -- Saber's Eye
+			},
+			[WOD_DIFF] = {
 				{ 1, 127760, 187634, [PRICE_EXTRA_ITTYPE] = "127771:1" },	-- Immaculate Critical Strike Taladite (Learnd by Item 127771)
 				{ 2, 127761, 187635, [PRICE_EXTRA_ITTYPE] = "127772:1" },	-- Immaculate Haste Taladite (Learnd by Item 127772)
 				{ 3, 127762, 187636, [PRICE_EXTRA_ITTYPE] = "127773:1" },	-- Immaculate Mastery Taladite (Learnd by Item 127773)
@@ -3392,7 +3406,8 @@ data["Jewelcrafting"] = {
 				{ 26, 115806, 170722, [PRICE_EXTRA_ITTYPE] = "118723:1" },	-- Multistrike Taladite (Sold, Ashran)
 				{ 27, 115808, 170724, [PRICE_EXTRA_ITTYPE] = "118723:1" },	-- Stamina Taladite (Sold, Ashran)
 				{ 28, 115807, 170723, [PRICE_EXTRA_ITTYPE] = "118723:1" },	-- Versatility Taladite (Sold, Ashran)
-
+			},
+			[NORMAL_DIFF] = {
 				{ 11, 49110, 68253 },	-- Nightmare Tear : =ds=#sr# 450 : #DALARANJW:4#AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Dalaran"]
 				{ 12, 42702, 56531 },	-- Enchanted Tear : =ds=#sr# 390 : =ds=AtlasLoot["Trainer"]				
 				{ 14, 42701, 56530 },	-- Enchanted Pearl : =ds=#sr# 350 : =ds=AtlasLoot["Trainer"]
@@ -3401,6 +3416,56 @@ data["Jewelcrafting"] = {
 		},
 		{	--JewelNecks
 			name = AL["Necklaces"],
+			[LEGION_DIFF] = {
+				{ 1, 136712, 209604 }, -- Queen's Opal Pendant
+				{ 2, 136712, 209607 }, -- Queen's Opal Pendant
+				{ 3, 136712, 209610 }, -- Queen's Opal Pendant
+				{ 5, 130244, 195876 }, -- Grim Furystone Gorget
+				{ 6, 130244, 195922 }, -- Grim Furystone Gorget
+				{ 7, 130244, 195943 }, -- Grim Furystone Gorget
+				{ 9, 130243, 195875 }, -- Raging Furystone Gorget
+				{ 10, 130243, 195921 }, -- Raging Furystone Gorget
+				{ 11, 130243, 195942 }, -- Raging Furystone Gorget
+				{ 13, 130242, 195874 }, -- Righteous Dawnlight Medallion
+				{ 14, 130242, 195920 }, -- Righteous Dawnlight Medallion
+				{ 15, 130242, 195941 }, -- Righteous Dawnlight Medallion
+				{ 16, 130241, 195873 }, -- Ancient Maelstrom Amulet
+				{ 17, 130241, 195919 }, -- Ancient Maelstrom Amulet
+				{ 18, 130241, 195940 }, -- Ancient Maelstrom Amulet
+				{ 20, 130240, 195872 }, -- Intrepid Necklace of Prophecy
+				{ 21, 130240, 195918 }, -- Intrepid Necklace of Prophecy
+				{ 22, 130240, 195939 }, -- Intrepid Necklace of Prophecy
+				{ 24, 130239, 195871 }, -- Sylvan Maelstrom Amulet
+				{ 25, 130239, 195917 }, -- Sylvan Maelstrom Amulet
+				{ 26, 130239, 195938 }, -- Sylvan Maelstrom Amulet
+				{ 28, 130238, 195870 }, -- Vindictive Pandemonite Choker
+				{ 29, 130238, 195916 }, -- Vindictive Pandemonite Choker
+				{ 30, 130238, 195937 }, -- Vindictive Pandemonite Choker
+				{ 101, 130237, 195869 }, -- Tranquil Necklace of Prophecy
+				{ 101, 130237, 195915 }, -- Tranquil Necklace of Prophecy
+				{ 103, 130237, 195936 }, -- Tranquil Necklace of Prophecy
+				{ 105, 130236, 195868 }, -- Subtle Shadowruby Pendant
+				{ 106, 130236, 195914 }, -- Subtle Shadowruby Pendant
+				{ 107, 130236, 195935 }, -- Subtle Shadowruby Pendant
+				{ 109, 130235, 195867 }, -- Twisted Pandemonite Choker
+				{ 110, 130235, 195913 }, -- Twisted Pandemonite Choker
+				{ 111, 130235, 195934 }, -- Twisted Pandemonite Choker
+				{ 113, 130234, 195866 }, -- Blessed Dawnlight Medallion
+				{ 114, 130234, 195912 }, -- Blessed Dawnlight Medallion
+				{ 115, 130234, 195933 }, -- Blessed Dawnlight Medallion
+				{ 116, 130233, 195865 }, -- Sorcerous Shadowruby Pendant
+				{ 117, 130233, 195911 }, -- Sorcerous Shadowruby Pendant
+				{ 118, 130233, 195932 }, -- Sorcerous Shadowruby Pendant
+				{ 120, 130228, 195861 }, -- Azsunite Pendant
+				{ 121, 130228, 195907 }, -- Azsunite Pendant
+				{ 122, 130228, 195928 }, -- Azsunite Pendant
+				{ 124, 130227, 195860 }, -- Skystone Pendant
+				{ 125, 130227, 195906 }, -- Skystone Pendant
+				{ 126, 130227, 195927 }, -- Skystone Pendant
+				{ 128, 130226, 195859 }, -- Deep Amber Pendant
+				{ 129, 130226, 195905 }, -- Deep Amber Pendant
+				{ 130, 130226, 195926 }, -- Deep Amber Pendant
+			},
 			[WOD_DIFF] = {
 				{ 1, "115799:Stage6", 187517 },	-- Glowing Taladite Pendant (Stage 6)
 				{ 2, "115799:Stage5", 187493 },	-- Glowing Taladite Pendant (Stage 5)
@@ -3497,6 +3562,32 @@ data["Jewelcrafting"] = {
 		},
 		{	--JewelRings
 			name = AL["Rings"],
+			[LEGION_DIFF] = {
+				{ 1, 136713, 209605 }, -- Shadowruby Band
+				{ 2, 136713, 209608 }, -- Shadowruby Band
+				{ 3, 136713, 209611 }, -- Shadowruby Band
+				{ 5, 136711, 209603 }, -- Queen's Opal Loop
+				{ 6, 136711, 209606 }, -- Queen's Opal Loop
+				{ 7, 136711, 209609 }, -- Queen's Opal Loop
+				{ 9, 130231, 195864 }, -- Dawnlight Band
+				{ 10, 130231, 195910 }, -- Dawnlight Band
+				{ 11, 130231, 195931 }, -- Dawnlight Band
+				{ 13, 130230, 195863 }, -- Maelstrom Band
+				{ 14, 130230, 195909 }, -- Maelstrom Band
+				{ 15, 130230, 195930 }, -- Maelstrom Band
+				{ 16, 130229, 195862 }, -- Prophetic Band
+				{ 17, 130229, 195908 }, -- Prophetic Band
+				{ 18, 130229, 195929 }, -- Prophetic Band
+				{ 20, 130225, 195858 }, -- Azsunite Loop
+				{ 21, 130225, 195904 }, -- Azsunite Loop
+				{ 22, 130225, 195925 }, -- Azsunite Loop
+				{ 24, 130224, 195857 }, -- Skystone Loop
+				{ 25, 130224, 195903 }, -- Skystone Loop
+				{ 26, 130224, 195924 }, -- Skystone Loop
+				{ 28, 130223, 195856 }, -- Deep Amber Loop
+				{ 29, 130223, 195902 }, -- Deep Amber Loop
+				{ 30, 130223, 195923 }, -- Deep Amber Loop
+			},
 			[WOD_DIFF] = {
 				{ 1, "115794:Stage6", 187517 },	-- Glowing Taladite Ring (Stage 6)
 				{ 2, "115794:Stage5", 187493 },	-- Glowing Taladite Ring (Stage 5)
@@ -3628,6 +3719,13 @@ data["Jewelcrafting"] = {
 		},
 		{	--JewelMisc
 			name = AL["Miscellaneous"],
+			[LEGION_DIFF] = {
+				{ 1, 130250, 195881 }, -- Jeweled Lockpick
+				{ 3, 130251, 195882 }, -- JewelCraft
+				{ 4, 130254, 195883 }, -- Chatterstone
+				{ 16, 130172, 225902 }, -- Mass Prospect Leystone
+				{ 17, 130172, 225904 }, -- Mass Prospect Felslate
+			},
 			[WOD_DIFF] = {
 				{ 1, 115524, 170700, [ATLASLOOT_IT_AMOUNT1] = "8+" },	-- Taladite Crystal (Learnt by item 115359)
 				{ 2, 115524, 182127, [PRICE_EXTRA_ITTYPE] = "109119:60" },	-- Taladite Crystal (Sold, Garrison)
@@ -4473,6 +4571,56 @@ data["Leatherworking"] = {
 	items = {
 		{	--LeatherLeatherArmor
 			name = ALIL["Leather"].." "..AL["Armor"],
+			[LEGION_DIFF] ={
+				{ 1, 128891, 194719 }, -- Dreadleather Bindings
+				{ 2, 128891, 194727 }, -- Dreadleather Bindings
+				{ 3, 128891, 194787 }, -- Dreadleather Bindings
+				{ 5, 128890, 194720 }, -- Dreadleather Belt
+				{ 6, 128890, 194728 }, -- Dreadleather Belt
+				{ 7, 128890, 194788 }, -- Dreadleather Belt
+				{ 9, 128889, 194721 }, -- Dreadleather Shoulderguard
+				{ 10, 128889, 194729 }, -- Dreadleather Shoulderguard
+				{ 11, 128889, 194789 }, -- Dreadleather Shoulderguard
+				{ 13, 128888, 194722 }, -- Dreadleather Pants
+				{ 14, 128888, 194730 }, -- Dreadleather Pants
+				{ 15, 128888, 194786 }, -- Dreadleather Pants
+				{ 16, 128887, 194723 }, -- Dreadleather Mask
+				{ 17, 128887, 194731 }, -- Dreadleather Mask
+				{ 18, 128887, 194784 }, -- Dreadleather Mask
+				{ 20, 128886, 194724 }, -- Dreadleather Gloves
+				{ 21, 128886, 194732 }, -- Dreadleather Gloves
+				{ 22, 128886, 194790 }, -- Dreadleather Gloves
+				{ 24, 128885, 194725 }, -- Dreadleather Footpads
+				{ 25, 128885, 194733 }, -- Dreadleather Footpads
+				{ 26, 128885, 194785 }, -- Dreadleather Footpads
+				{ 28, 128884, 194726 }, -- Dreadleather Jerkin
+				{ 29, 128884, 194734 }, -- Dreadleather Jerkin
+				{ 30, 128884, 194791 }, -- Dreadleather Jerkin
+				{ 101, 128883, 194695 }, -- Warhide Bindings
+				{ 102, 128883, 194703 }, -- Warhide Bindings
+				{ 103, 128883, 194711 }, -- Warhide Bindings
+				{ 105, 128882, 194696 }, -- Warhide Belt
+				{ 106, 128882, 194704 }, -- Warhide Belt
+				{ 107, 128882, 194716 }, -- Warhide Belt
+				{ 109, 128881, 194697 }, -- Warhide Shoulderguard
+				{ 110, 128881, 194705 }, -- Warhide Shoulderguard
+				{ 111, 128881, 194717 }, -- Warhide Shoulderguard
+				{ 113, 128880, 194698 }, -- Warhide Pants
+				{ 114, 128880, 194706 }, -- Warhide Pants
+				{ 115, 128880, 194712 }, -- Warhide Pants
+				{ 116, 128879, 194699 }, -- Warhide Mask
+				{ 117, 128879, 194707 }, -- Warhide Mask
+				{ 118, 128879, 194713 }, -- Warhide Mask
+				{ 120, 128878, 194700 }, -- Warhide Gloves
+				{ 121, 128878, 194708 }, -- Warhide Gloves
+				{ 122, 128878, 194714 }, -- Warhide Gloves
+				{ 124, 128877, 194701 }, -- Warhide Footpads
+				{ 125, 128877, 194709 }, -- Warhide Footpads
+				{ 126, 128877, 194715 }, -- Warhide Footpads
+				{ 128, 128876, 194702 }, -- Warhide Jerkin
+				{ 129, 128876, 194710 }, -- Warhide Jerkin
+				{ 130, 128876, 194718 }, -- Warhide Jerkin
+			},
 			[WOD_DIFF] = {
 				{ 1, "116177:Stage6", 187513 },	-- Supple Helm (Stage 6)
 				{ 10, "116177:Stage5", 187489 },	-- Supple Helm (Stage 5)
@@ -4985,6 +5133,56 @@ data["Leatherworking"] = {
 		},
 		{	--LeatherMailArmor
 			name = ALIL["Mail"].." "..AL["Armor"],
+			[LEGION_DIFF] = {
+				{ 1, 128907, 194759 }, -- Gravenscale Armbands
+				{ 2, 128907, 194767 }, -- Gravenscale Armbands
+				{ 3, 128907, 194796 }, -- Gravenscale Armbands
+				{ 5, 128906, 194760 }, -- Gravenscale Girdle
+				{ 6, 128906, 194768 }, -- Gravenscale Girdle
+				{ 7, 128906, 194797 }, -- Gravenscale Girdle
+				{ 9, 128905, 194761 }, -- Gravenscale Spaulders
+				{ 10, 128905, 194769 }, -- Gravenscale Spaulders
+				{ 11, 128905, 194798 }, -- Gravenscale Spaulders
+				{ 13, 128904, 194762 }, -- Gravenscale Leggings
+				{ 14, 128904, 194770 }, -- Gravenscale Leggings
+				{ 15, 128904, 194792 }, -- Gravenscale Leggings
+				{ 16, 128903, 194763 }, -- Gravenscale Warhelm
+				{ 17, 128903, 194771 }, -- Gravenscale Warhelm
+				{ 18, 128903, 194794 }, -- Gravenscale Warhelm
+				{ 20, 128902, 194764 }, -- Gravenscale Grips
+				{ 21, 128902, 194772 }, -- Gravenscale Grips
+				{ 22, 128902, 194799 }, -- Gravenscale Grips
+				{ 24, 128901, 194765 }, -- Gravenscale Treads
+				{ 25, 128901, 194773 }, -- Gravenscale Treads
+				{ 26, 128901, 194793 }, -- Gravenscale Treads
+				{ 28, 128900, 194766 }, -- Gravenscale Hauberk
+				{ 29, 128900, 194774 }, -- Gravenscale Hauberk
+				{ 30, 128900, 194795 }, -- Gravenscale Hauberk
+				{ 101, 128899, 194735 }, -- Battlebound Armbands
+				{ 102, 128899, 194743 }, -- Battlebound Armbands
+				{ 103, 128899, 194751 }, -- Battlebound Armbands
+				{ 105, 128898, 194736 }, -- Battlebound Girdle
+				{ 106, 128898, 194744 }, -- Battlebound Girdle
+				{ 107, 128898, 194756 }, -- Battlebound Girdle
+				{ 109, 128897, 194737 }, -- Battlebound Spaulders
+				{ 110, 128897, 194745 }, -- Battlebound Spaulders
+				{ 111, 128897, 194757 }, -- Battlebound Spaulders
+				{ 113, 128896, 194738 }, -- Battlebound Leggings
+				{ 114, 128896, 194746 }, -- Battlebound Leggings
+				{ 115, 128896, 194752 }, -- Battlebound Leggings
+				{ 116, 128895, 194739 }, -- Battlebound Warhelm
+				{ 117, 128895, 194747 }, -- Battlebound Warhelm
+				{ 118, 128895, 194753 }, -- Battlebound Warhelm
+				{ 120, 128894, 194740 }, -- Battlebound Grips
+				{ 121, 128894, 194748 }, -- Battlebound Grips
+				{ 122, 128894, 194754 }, -- Battlebound Grips
+				{ 124, 128893, 194741 }, -- Battlebound Treads
+				{ 125, 128893, 194749 }, -- Battlebound Treads
+				{ 126, 128893, 194755 }, -- Battlebound Treads
+				{ 128, 128892, 194742 }, -- Battlebound Hauberk
+				{ 129, 128892, 194750 }, -- Battlebound Hauberk
+				{ 130, 128892, 194758 }, -- Battlebound Hauberk
+			},
 			[WOD_DIFF] = {
 				{ 1, "116188:Stage6", 187513 },	-- Wayfaring Helm (Stage 6)
 				{ 10, "116188:Stage5", 187489 },	-- Wayfaring Helm (Stage 5)
@@ -5475,6 +5673,17 @@ data["Leatherworking"] = {
 		},
 		{	--LeatherMiscellaneous
 			name = AL["Miscellaneous"],
+			[LEGION_DIFF] = {
+				{ 1, 142406, 230936 }, -- Drums of the Mountain
+				{ 2, 142406, 230954 }, -- Drums of the Mountain
+				{ 3, 142406, 230955 }, -- Drums of the Mountain
+				{ 5, 129956, 194779 }, -- Leather Love Seat
+				{ 6, 129958, 194778 }, -- Leather Pet Leash
+				{ 7, 129961, 194775 }, -- Flaming Hoop
+				{ 8, 129960, 194776 }, -- Leather Pet Bed
+				{ 10, 131746, 196648 }, -- Stonehide Leather Barding
+				{ 16, 129962, 194780 }, -- Elderhorn Riding Harness
+			},
 			[WOD_DIFF] = {
 				{ 1, 108883, 171291, [PRICE_EXTRA_ITTYPE] = "118721:5" },	-- Riding Harness (Sold, Ashran)
 				{ 3, 116261, 171290, [PRICE_EXTRA_ITTYPE] = "118721:5" },	-- Burnished Inscription Bag (Sold, Ashran)
@@ -5594,6 +5803,72 @@ data["Tailoring"] = {
 	items = {
 		{	--TailoringArmor
 			name = AL["Armor"],
+			[LEGION_DIFF] = {
+				{ 1, 127034, 186109 }, -- Imbued Silkweave Flourish
+				{ 2, 127034, 186110 }, -- Imbued Silkweave Flourish
+				{ 3, 127034, 186111 }, -- Imbued Silkweave Flourish
+				{ 5, 127033, 186106 }, -- Imbued Silkweave Shade
+				{ 6, 127033, 186107 }, -- Imbued Silkweave Shade
+				{ 7, 127033, 186108 }, -- Imbued Silkweave Shade
+				{ 9, 127020, 186115 }, -- Imbued Silkweave Drape
+				{ 10, 127020, 186116 }, -- Imbued Silkweave Drape
+				{ 11, 127020, 186117 }, -- Imbued Silkweave Drape
+				{ 13, 127019, 186112 }, -- Imbued Silkweave Cover
+				{ 14, 127019, 186113 }, -- Imbued Silkweave Cover
+				{ 15, 127019, 186114 }, -- Imbued Silkweave Cover
+				{ 16, 127017, 186100 }, -- Silkweave Drape
+				{ 17, 127032, 186094 }, -- Silkweave Flourish
+				{ 18, 127031, 186091 }, -- Silkweave Shade
+				{ 19, 127016, 186097 }, -- Silkweave Cover
+				{ 101, 127002, 185926 }, -- Imbued Silkweave Bracers
+				{ 102, 127002, 185946 }, -- Imbued Silkweave Bracers
+				{ 103, 127002, 185954 }, -- Imbued Silkweave Bracers
+				{ 105, 127001, 185927 }, -- Imbued Silkweave Cinch
+				{ 106, 127001, 185947 }, -- Imbued Silkweave Cinch
+				{ 107, 127001, 185955 }, -- Imbued Silkweave Cinch
+				{ 109, 127000, 185928 }, -- Imbued Silkweave Epaulets
+				{ 110, 127000, 185948 }, -- Imbued Silkweave Epaulets
+				{ 111, 127000, 185956 }, -- Imbued Silkweave Epaulets
+				{ 113, 126999, 185929 }, -- Imbued Silkweave Pantaloons
+				{ 114, 126999, 185949 }, -- Imbued Silkweave Pantaloons
+				{ 115, 126999, 185957 }, -- Imbued Silkweave Pantaloons
+				{ 116, 126998, 185930 }, -- Imbued Silkweave Hood
+				{ 117, 126998, 185950 }, -- Imbued Silkweave Hood
+				{ 118, 126998, 185958 }, -- Imbued Silkweave Hood
+				{ 120, 126997, 185931 }, -- Imbued Silkweave Gloves
+				{ 121, 126997, 185951 }, -- Imbued Silkweave Gloves
+				{ 122, 126997, 185959 }, -- Imbued Silkweave Gloves
+				{ 124, 126996, 185932 }, -- Imbued Silkweave Slippers
+				{ 125, 126996, 185952 }, -- Imbued Silkweave Slippers
+				{ 126, 126996, 185960 }, -- Imbued Silkweave Slippers
+				{ 128, 126995, 185933 }, -- Imbued Silkweave Robe
+				{ 129, 126995, 185953 }, -- Imbued Silkweave Robe
+				{ 130, 126995, 185961 }, -- Imbued Silkweave Robe
+				{ 201, 126994, 185918 }, -- Silkweave Bracers
+				{ 202, 126994, 185934 }, -- Silkweave Bracers
+				{ 203, 126994, 185942 }, -- Silkweave Bracers
+				{ 205, 126993, 185919 }, -- Silkweave Cinch
+				{ 206, 126993, 185935 }, -- Silkweave Cinch
+				{ 207, 126993, 185943 }, -- Silkweave Cinch
+				{ 209, 126992, 185920 }, -- Silkweave Epaulets
+				{ 210, 126992, 185936 }, -- Silkweave Epaulets
+				{ 211, 126992, 185944 }, -- Silkweave Epaulets
+				{ 213, 126991, 185921 }, -- Silkweave Pantaloons
+				{ 214, 126991, 185937 }, -- Silkweave Pantaloons
+				{ 215, 126991, 208353 }, -- Silkweave Pantaloons
+				{ 216, 126990, 185922 }, -- Silkweave Hood
+				{ 217, 126990, 185938 }, -- Silkweave Hood
+				{ 218, 126990, 208351 }, -- Silkweave Hood
+				{ 220, 126989, 185923 }, -- Silkweave Gloves
+				{ 221, 126989, 185939 }, -- Silkweave Gloves
+				{ 222, 126989, 208350 }, -- Silkweave Gloves
+				{ 224, 126988, 185924 }, -- Silkweave Slippers
+				{ 225, 126988, 185940 }, -- Silkweave Slippers
+				{ 226, 126988, 208352 }, -- Silkweave Slippers
+				{ 228, 126987, 185925 }, -- Silkweave Robe
+				{ 229, 126987, 185941 }, -- Silkweave Robe
+				{ 230, 126987, 185945 }, -- Silkweave Robe
+			},
 			[WOD_DIFF] = {
 				{ 1, "114810:Stage6", 187516 },		-- Hexweave Cowl (Stage 6)
 				{ 2, "114809:Stage6", 187516 },		-- Hexweave Mantle (Stage 6)
@@ -6168,46 +6443,50 @@ data["Tailoring"] = {
 		{	--TailoringBags
 			name = AL["Bags"],
 			[NORMAL_DIFF] = {
-				{ 1, 114821, 168848, [PRICE_EXTRA_ITTYPE] = "118722:5" },	-- Hexweave Bag (Sold, Ashran)
-				{ 2, 82446, 125556 },	-- Royal Satchel : =ds=#sr# 600 : =ds=AtlasLoot_IngameLocales["The August Celestials"] - AtlasLoot["Exalted"]
-				{ 3, 54444, 75308 },	-- Illusionary Bag : =ds=#sr# 525 : =ds=AtlasLoot["Vendor"] "1 #dreamcloth#"
-				{ 4, 70138, 100585 },	-- Luxurious Silk Gem Bag : =ds=#sr# 515 : =ds=AtlasLoot_IngameLocales["Molten Front"]
-				{ 5, 54446, 75268 },	-- Hyjal Expedition Bag : =ds=#sr# 490 : =ds=AtlasLoot["Trainer"]
-				{ 6, 54443, 75264 },	-- Embersilk Bag : =ds=#sr# 480 : =ds=AtlasLoot["Trainer"]
-				{ 7, 54445, 75265 },	-- Otherworldly Bag : =ds=#sr# 480 : =ds=AtlasLoot["Trainer"]
-				{ 8, 41599, 56007 },	-- Frostweave Bag : =ds=#sr# 410 : =ds=AtlasLoot["Trainer"]
-				{ 9, 41600, 56005 },	-- Glacial Bag : =ds=#sr# 445 : =ds=AtlasLoot_IngameLocales["The Sons of Hodir"] - AtlasLoot["Exalted"]
-				{ 10, 41598, 56006 },	-- Mysterious Bag : =ds=#sr# 440 : =ds=AtlasLoot_IngameLocales["The Wyrmrest Accord"] - AtlasLoot["Revered"]
-				{ 11, 41597, 56004 },	-- Abyssal Bag : =ds=#sr# 435 : =ds=AtlasLoot_IngameLocales["Knights of the Ebon Blade"] - AtlasLoot["Revered"]
-				{ 12, 45773, 63924 },	-- Emerald Bag : =ds=#sr# 435 : =ds=AtlasLoot_IngameLocales["The Kalu'ak"] - AtlasLoot["Revered"]
-				{ 13, 21872, 26759 },	-- Ebon Shadowbag : =ds=#sr# 375 : =ds=AtlasLoot["Vendor"]
-				{ 14, 38225, 50194 },	-- Mycah's Botanical Bag : =ds=#sr# 375 : =ds=AtlasLoot_IngameLocales["Sporeggar"] - AtlasLoot["Revered"]
-				{ 15, 21876, 26763 },	-- Primal Mooncloth Bag : =ds=#sr# 375 : =ds=AtlasLoot["Vendor"]
-				{ 16, 21858, 26755 },	-- Spellfire Bag : =ds=#sr# 375 : =ds=AtlasLoot["Vendor"]
-				{ 17, 24270, 31459 },	-- Bag of Jewels : =ds=#sr# 340 : =ds=AtlasLoot["Vendor"]
-				{ 18, 21843, 26749 },	-- Imbued Netherweave Bag : =ds=#sr# 340 : =ds=AtlasLoot["Vendor"]
-				{ 19, 21841, 26746 },	-- Netherweave Bag : =ds=#sr# 315 : =ds=AtlasLoot["Trainer"]
-				{ 20, 21342, 26087 },	-- Core Felcloth Bag : =ds=#sr# 300 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Molten Core"]
-				{ 21, 14156, 18455 },	-- Bottomless Bag : =ds=#sr# 300 : =ds=AtlasLoot["Drop"]
-				{ 22, 22249, 27660 },	-- Big Bag of Enchantment : =ds=#sr# 300 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Dire Maul"]
-				{ 23, 14155, 18445 },	-- Mooncloth Bag : =ds=#sr# 300 : =ds=AtlasLoot["Drop"]
-				{ 24, 22252, 27725 },	-- Satchel of Cenarius : =ds=#sr# 300 : =ds=AtlasLoot_IngameLocales["Cenarion Circle"] - AtlasLoot["Revered"]
-				{ 25, 21341, 26086 },	-- Felcloth Bag : =ds=#sr# 280 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Scholomance"]
-				{ 26, 22248, 27659 },	-- Enchanted Runecloth Bag : =ds=#sr# 275 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Silithus"]
-				{ 27, 22251, 27724 },	-- Cenarion Herb Bag : =ds=#sr# 275 : =ds=AtlasLoot_IngameLocales["Cenarion Circle"] - AtlasLoot["Friendly"]
-				{ 28, 21340, 26085 },	-- Soul Pouch : =ds=#sr# 260 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Tanaris"]
-				{ 29, 22246, 27658 },	-- Enchanted Mageweave Pouch : =ds=#sr# 225 : =ds=AtlasLoot["Vendor"]
-				{ 30, 14046, 18405 },	-- Runecloth Bag : =ds=#sr# 260 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Winterspring"]
-				{ 101, 10051, 12079 },	-- Red Mageweave Bag : =ds=#sr# 235 : =ds=AtlasLoot["Trainer"]
-				{ 102, 10050, 12065 },	-- Mageweave Bag : =ds=#sr# 225 : =ds=AtlasLoot["Trainer"]
-				{ 103, 5765, 6695 },	-- Black Silk Pack : =ds=#sr# 185 : =ds=AtlasLoot["Drop"]
-				{ 104, 5764, 6693 },	-- Green Silk Pack : =ds=#sr# 175 : =ds=AtlasLoot["Drop"]
-				{ 105, 4245, 3813 },	-- Small Silk Pack : =ds=#sr# 150 : =ds=AtlasLoot["Trainer"]
-				{ 106, 5763, 6688 },	-- Red Woolen Bag : =ds=#sr# 115 : =ds=AtlasLoot["Vendor"]
-				{ 107, 4241, 3758 },	-- Green Woolen Bag : =ds=#sr# 95 : =ds=AtlasLoot["Drop"]
-				{ 108, 4240, 3757 },	-- Woolen Bag : =ds=#sr# 80 : =ds=AtlasLoot["Trainer"]
-				{ 109, 5762, 6686 },	-- Red Linen Bag : =ds=#sr# 70 : =ds=AtlasLoot["Vendor"]
-				{ 110, 4238, 3755 },	-- Linen Bag : =ds=#sr# 45 : =ds=AtlasLoot["Trainer"]
+				{ 1, 142075, 229041 }, -- Imbued Silkweave Bag
+				{ 2, 142075, 229043 }, -- Imbued Silkweave Bag
+				{ 3, 142075, 229045 }, -- Imbued Silkweave Bag
+				{ 4, 127035, 186388 }, -- Silkweave Satchel
+				{ 5, 114821, 168848, [PRICE_EXTRA_ITTYPE] = "118722:5" },	-- Hexweave Bag (Sold, Ashran)
+				{ 6, 82446, 125556 },	-- Royal Satchel : =ds=#sr# 600 : =ds=AtlasLoot_IngameLocales["The August Celestials"] - AtlasLoot["Exalted"]
+				{ 7, 54444, 75308 },	-- Illusionary Bag : =ds=#sr# 525 : =ds=AtlasLoot["Vendor"] "1 #dreamcloth#"
+				{ 8, 70138, 100585 },	-- Luxurious Silk Gem Bag : =ds=#sr# 515 : =ds=AtlasLoot_IngameLocales["Molten Front"]
+				{ 9, 54446, 75268 },	-- Hyjal Expedition Bag : =ds=#sr# 490 : =ds=AtlasLoot["Trainer"]
+				{ 10, 54443, 75264 },	-- Embersilk Bag : =ds=#sr# 480 : =ds=AtlasLoot["Trainer"]
+				{ 11, 54445, 75265 },	-- Otherworldly Bag : =ds=#sr# 480 : =ds=AtlasLoot["Trainer"]
+				{ 12, 41599, 56007 },	-- Frostweave Bag : =ds=#sr# 410 : =ds=AtlasLoot["Trainer"]
+				{ 13, 41600, 56005 },	-- Glacial Bag : =ds=#sr# 445 : =ds=AtlasLoot_IngameLocales["The Sons of Hodir"] - AtlasLoot["Exalted"]
+				{ 14, 41598, 56006 },	-- Mysterious Bag : =ds=#sr# 440 : =ds=AtlasLoot_IngameLocales["The Wyrmrest Accord"] - AtlasLoot["Revered"]
+				{ 15, 41597, 56004 },	-- Abyssal Bag : =ds=#sr# 435 : =ds=AtlasLoot_IngameLocales["Knights of the Ebon Blade"] - AtlasLoot["Revered"]
+				{ 16, 45773, 63924 },	-- Emerald Bag : =ds=#sr# 435 : =ds=AtlasLoot_IngameLocales["The Kalu'ak"] - AtlasLoot["Revered"]
+				{ 17, 21872, 26759 },	-- Ebon Shadowbag : =ds=#sr# 375 : =ds=AtlasLoot["Vendor"]
+				{ 18, 38225, 50194 },	-- Mycah's Botanical Bag : =ds=#sr# 375 : =ds=AtlasLoot_IngameLocales["Sporeggar"] - AtlasLoot["Revered"]
+				{ 19, 21876, 26763 },	-- Primal Mooncloth Bag : =ds=#sr# 375 : =ds=AtlasLoot["Vendor"]
+				{ 20, 21858, 26755 },	-- Spellfire Bag : =ds=#sr# 375 : =ds=AtlasLoot["Vendor"]
+				{ 21, 24270, 31459 },	-- Bag of Jewels : =ds=#sr# 340 : =ds=AtlasLoot["Vendor"]
+				{ 22, 21843, 26749 },	-- Imbued Netherweave Bag : =ds=#sr# 340 : =ds=AtlasLoot["Vendor"]
+				{ 23, 21841, 26746 },	-- Netherweave Bag : =ds=#sr# 315 : =ds=AtlasLoot["Trainer"]
+				{ 24, 21342, 26087 },	-- Core Felcloth Bag : =ds=#sr# 300 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Molten Core"]
+				{ 25, 14156, 18455 },	-- Bottomless Bag : =ds=#sr# 300 : =ds=AtlasLoot["Drop"]
+				{ 26, 22249, 27660 },	-- Big Bag of Enchantment : =ds=#sr# 300 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Dire Maul"]
+				{ 27, 14155, 18445 },	-- Mooncloth Bag : =ds=#sr# 300 : =ds=AtlasLoot["Drop"]
+				{ 28, 22252, 27725 },	-- Satchel of Cenarius : =ds=#sr# 300 : =ds=AtlasLoot_IngameLocales["Cenarion Circle"] - AtlasLoot["Revered"]
+				{ 29, 21341, 26086 },	-- Felcloth Bag : =ds=#sr# 280 : =ds=AtlasLoot["Drop"]: AtlasLoot_IngameLocales["Scholomance"]
+				{ 30, 22248, 27659 },	-- Enchanted Runecloth Bag : =ds=#sr# 275 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Silithus"]
+				{ 101, 22251, 27724 },	-- Cenarion Herb Bag : =ds=#sr# 275 : =ds=AtlasLoot_IngameLocales["Cenarion Circle"] - AtlasLoot["Friendly"]
+				{ 102, 21340, 26085 },	-- Soul Pouch : =ds=#sr# 260 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Tanaris"]
+				{ 103, 22246, 27658 },	-- Enchanted Mageweave Pouch : =ds=#sr# 225 : =ds=AtlasLoot["Vendor"]
+				{ 104, 14046, 18405 },	-- Runecloth Bag : =ds=#sr# 260 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Winterspring"]
+				{ 105, 10051, 12079 },	-- Red Mageweave Bag : =ds=#sr# 235 : =ds=AtlasLoot["Trainer"]
+				{ 106, 10050, 12065 },	-- Mageweave Bag : =ds=#sr# 225 : =ds=AtlasLoot["Trainer"]
+				{ 107, 5765, 6695 },	-- Black Silk Pack : =ds=#sr# 185 : =ds=AtlasLoot["Drop"]
+				{ 108, 5764, 6693 },	-- Green Silk Pack : =ds=#sr# 175 : =ds=AtlasLoot["Drop"]
+				{ 109, 4245, 3813 },	-- Small Silk Pack : =ds=#sr# 150 : =ds=AtlasLoot["Trainer"]
+				{ 110, 5763, 6688 },	-- Red Woolen Bag : =ds=#sr# 115 : =ds=AtlasLoot["Vendor"]
+				{ 111, 4241, 3758 },	-- Green Woolen Bag : =ds=#sr# 95 : =ds=AtlasLoot["Drop"]
+				{ 112, 4240, 3757 },	-- Woolen Bag : =ds=#sr# 80 : =ds=AtlasLoot["Trainer"]
+				{ 113, 5762, 6686 },	-- Red Linen Bag : =ds=#sr# 70 : =ds=AtlasLoot["Vendor"]
+				{ 114, 4238, 3755 },	-- Linen Bag : =ds=#sr# 45 : =ds=AtlasLoot["Trainer"]
 			},
 		},
 		{	--TailoringArmorEnhancements
@@ -6244,21 +6523,28 @@ data["Tailoring"] = {
 		{	--TailoringMisc
 			name = AL["Miscellaneous"],
 			[NORMAL_DIFF] = {
-				{ 1, 115363, 168850, [PRICE_EXTRA_ITTYPE] = "118722:5" },	-- Creeping Carpet (Sold, Ashran)
-				{ 2, 54797, 75597 },	-- Frosty Flying Carpet : =ds=#sr# 425 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Dalaran"]
-				{ 3, 44558, 60971 },	-- Magnificent Flying Carpet : =ds=#sr# 425 : =ds=AtlasLoot["Trainer"]
-				{ 4, 44554, 60969 },	-- Flying Carpet : =ds=#sr# 300 : =ds=AtlasLoot["Trainer"]
-				{ 6, 118722, 176058 },	-- Secrets of Draenor Tailoring (Learnt by item 115357)
-				{ 8, 54442, 75247, [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Embersilk Net : =ds=#sr# 425 : =ds=AtlasLoot["Trainer"]
-				{ 9, 41509, 55898, [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Frostweave Net : =ds=#sr# 360 : =ds=AtlasLoot["Trainer"]
-				{ 10, 24268, 31460, [ATLASLOOT_IT_AMOUNT1] = 2 },	-- Netherweave Net : =ds=#sr# 300 : =ds=AtlasLoot["Trainer"]
-				{ 16, 113216, 168849, [PRICE_EXTRA_ITTYPE] = "118722:5" },	-- Elekk Plushie (Sold, Ashran)
-				{ 17, 90900, 125557 },	-- Imperial Moth : =ds=#sr# 550 : =ds=AtlasLoot["Trainer"]
-				{ 18, 90902, 125557 },	-- Imperial Silkworm : =ds=#sr# 550 : =ds=AtlasLoot["Trainer"]
+				{ 1, 139503, 220511 }, -- Bloodtotem Saddle Blanket
+				{ 3, 137558, 213037 }, -- Clothes Chest: Molten Core
+				{ 4, 137557, 213036 }, -- Clothes Chest: Karazhan Opera House
+				{ 5, 137556, 213035 }, -- Clothes Chest: Dalaran Citizens
+				{ 7, 115363, 168850, [PRICE_EXTRA_ITTYPE] = "118722:5" },	-- Creeping Carpet (Sold, Ashran)
+				{ 8, 54797, 75597 },	-- Frosty Flying Carpet : =ds=#sr# 425 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Dalaran"]
+				{ 9, 44558, 60971 },	-- Magnificent Flying Carpet : =ds=#sr# 425 : =ds=AtlasLoot["Trainer"]
+				{ 10, 44554, 60969 },	-- Flying Carpet : =ds=#sr# 300 : =ds=AtlasLoot["Trainer"]
+				{ 12, 118722, 176058 },	-- Secrets of Draenor Tailoring (Learnt by item 115357)
+				{ 16, 54442, 75247, [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Embersilk Net : =ds=#sr# 425 : =ds=AtlasLoot["Trainer"]
+				{ 17, 41509, 55898, [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Frostweave Net : =ds=#sr# 360 : =ds=AtlasLoot["Trainer"]
+				{ 18, 24268, 31460, [ATLASLOOT_IT_AMOUNT1] = 2 },	-- Netherweave Net : =ds=#sr# 300 : =ds=AtlasLoot["Trainer"]
+				{ 20, 113216, 168849, [PRICE_EXTRA_ITTYPE] = "118722:5" },	-- Elekk Plushie (Sold, Ashran)
+				{ 21, 90900, 125557 },	-- Imperial Moth : =ds=#sr# 550 : =ds=AtlasLoot["Trainer"]
+				{ 22, 90902, 125557 },	-- Imperial Silkworm : =ds=#sr# 550 : =ds=AtlasLoot["Trainer"]
 			},
 		},
 		{	--TailoringCloth
 			name = ALIL["Cloth"],
+			[LEGION_DIFF] = {
+				{ 1, 127004, 185962 }, -- Imbued Silkweave
+			},
 			[WOD_DIFF] = {
 				{ 1, 111556, 168835, [ATLASLOOT_IT_AMOUNT1] = "8+" },	-- Hexweave Cloth (Learnt by item 115357)
 				{ 2, 111556, 182123, [PRICE_EXTRA_ITTYPE] = "111557:60" }	-- Hexweave Cloth (Sold in Garrison)	

@@ -21,6 +21,528 @@ local PRICE_EXTRA_ITTYPE = data:AddExtraItemTableType("Price")
 
 local PVP_CONTENT = data:AddContentType(AL["PvP"], ATLASLOOT_PVP_COLOR)
 
+data["LEGION1SETS"] = {
+	name = string.format(AL["Legion"].." "..AL["Season %d"], 1).." "..AL["Class Sets"],
+	ContentType = NORMAL_ITTYPE,
+	items = {
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135594 }, -- Vindictive Gladiator's Dreadplate Helm
+				{ 2, 135596 }, -- Vindictive Gladiator's Dreadplate Shoulders
+				{ 3, 135591 }, -- Vindictive Gladiator's Dreadplate Chestpiece
+				{ 4, 135598 }, -- Vindictive Gladiator's Dreadplate Wristplates
+				{ 5, 135593 }, -- Vindictive Gladiator's Dreadplate Gauntlets
+				{ 6, 135597 }, -- Vindictive Gladiator's Dreadplate Girdle
+				{ 7, 135595 }, -- Vindictive Gladiator's Dreadplate Legguards
+				{ 8, 135592 }, -- Vindictive Gladiator's Dreadplate Sabatons
+				{ 9, 135679 }, -- Vindictive Gladiator's Dreadcloak
+				{ 16, 135820 }, -- Vindictive Combatant's Dreadplate Helm
+				{ 17, 135822 }, -- Vindictive Combatant's Dreadplate Shoulders
+				{ 18, 135817 }, -- Vindictive Combatant's Dreadplate Chestpiece
+				{ 19, 135824 }, -- Vindictive Combatant's Dreadplate Wristplates
+				{ 20, 135819 }, -- Vindictive Combatant's Dreadplate Gauntlets
+				{ 21, 135823 }, -- Vindictive Combatant's Dreadplate Girdle
+				{ 22, 135821 }, -- Vindictive Combatant's Dreadplate Legguards
+				{ 23, 135818 }, -- Vindictive Combatant's Dreadplate Sabatons
+				{ 24, 135905 }, -- Vindictive Combatant's Dreadcloak
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135707 }, -- Vindictive Gladiator's Dreadplate Helm
+				{ 2, 135709 }, -- Vindictive Gladiator's Dreadplate Shoulders
+				{ 3, 135704 }, -- Vindictive Gladiator's Dreadplate Chestpiece
+				{ 4, 135711 }, -- Vindictive Gladiator's Dreadplate Wristplates
+				{ 5, 135706 }, -- Vindictive Gladiator's Dreadplate Gauntlets
+				{ 6, 135710 }, -- Vindictive Gladiator's Dreadplate Girdle
+				{ 7, 135708 }, -- Vindictive Gladiator's Dreadplate Legguards
+				{ 8, 135705 }, -- Vindictive Gladiator's Dreadplate Sabatons
+				{ 9, 135792 }, -- Vindictive Gladiator's Dreadcloak
+				{ 16, 135933 }, -- Vindictive Combatant's Dreadplate Helm
+				{ 17, 135935 }, -- Vindictive Combatant's Dreadplate Shoulders
+				{ 18, 135930 }, -- Vindictive Combatant's Dreadplate Chestpiece
+				{ 19, 135937 }, -- Vindictive Combatant's Dreadplate Wristplates
+				{ 20, 135932 }, -- Vindictive Combatant's Dreadplate Gauntlets
+				{ 21, 135936 }, -- Vindictive Combatant's Dreadplate Girdle
+				{ 22, 135934 }, -- Vindictive Combatant's Dreadplate Legguards
+				{ 23, 135931 }, -- Vindictive Combatant's Dreadplate Sabatons
+				{ 24, 136018 }, -- Vindictive Combatant's Dreadcloak
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DEMONHUNTER"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 136281 }, -- Vindictive Gladiator's Felskin Helm
+				{ 2, 136284 }, -- Vindictive Gladiator's Felskin Spaulders
+				{ 3, 136283 }, -- Vindictive Gladiator's Felskin Tunic
+				{ 4, 136286 }, -- Vindictive Gladiator's Felskin Wristguards
+				{ 5, 136280 }, -- Vindictive Gladiator's Felskin Gloves
+				{ 6, 136285 }, -- Vindictive Gladiator's Felskin Belt
+				{ 7, 136282 }, -- Vindictive Gladiator's Felskin Legguards
+				{ 8, 136279 }, -- Vindictive Gladiator's Felskin Boots
+				{ 16, 136297 }, -- Vindictive Combatant's Felskin Helm
+				{ 17, 136300 }, -- Vindictive Combatant's Felskin Spaulders
+				{ 18, 136299 }, -- Vindictive Combatant's Felskin Tunic
+				{ 19, 136302 }, -- Vindictive Combatant's Felskin Wristguards
+				{ 20, 136296 }, -- Vindictive Combatant's Felskin Gloves
+				{ 21, 136301 }, -- Vindictive Combatant's Felskin Belt
+				{ 22, 136298 }, -- Vindictive Combatant's Felskin Legguards
+				{ 23, 136295 }, -- Vindictive Combatant's Felskin Boots
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 136289 }, -- Vindictive Gladiator's Felskin Helm
+				{ 2, 136292 }, -- Vindictive Gladiator's Felskin Spaulders
+				{ 3, 136291 }, -- Vindictive Gladiator's Felskin Tunic
+				{ 4, 136294 }, -- Vindictive Gladiator's Felskin Wristguards
+				{ 5, 136288 }, -- Vindictive Gladiator's Felskin Gloves
+				{ 6, 136293 }, -- Vindictive Gladiator's Felskin Belt
+				{ 7, 136290 }, -- Vindictive Gladiator's Felskin Legguards
+				{ 8, 136287 }, -- Vindictive Gladiator's Felskin Boots
+				{ 16, 136305 }, -- Vindictive Combatant's Felskin Helm
+				{ 17, 136308 }, -- Vindictive Combatant's Felskin Spaulders
+				{ 18, 136307 }, -- Vindictive Combatant's Felskin Tunic
+				{ 19, 136310 }, -- Vindictive Combatant's Felskin Wristguards
+				{ 20, 136304 }, -- Vindictive Combatant's Felskin Gloves
+				{ 21, 136309 }, -- Vindictive Combatant's Felskin Belt
+				{ 22, 136306 }, -- Vindictive Combatant's Felskin Legguards
+				{ 23, 136303 }, -- Vindictive Combatant's Felskin Boots
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135601 }, -- Vindictive Gladiator's Dragonhide Helm
+				{ 2, 135604 }, -- Vindictive Gladiator's Dragonhide Spaulders
+				{ 3, 135603 }, -- Vindictive Gladiator's Dragonhide Robe
+				{ 4, 135606 }, -- Vindictive Gladiator's Dragonhide Wristguards
+				{ 5, 135600 }, -- Vindictive Gladiator's Dragonhide Gloves
+				{ 6, 135605 }, -- Vindictive Gladiator's Dragonhide Belt
+				{ 7, 135602 }, -- Vindictive Gladiator's Dragonhide Legguards
+				{ 8, 135599 }, -- Vindictive Gladiator's Dragonhide Moccasins
+				{ 9, 135680 }, -- Vindictive Gladiator's Dragonhide Cloak
+				{ 16, 135827 }, -- Vindictive Combatant's Dragonhide Helm
+				{ 17, 135830 }, -- Vindictive Combatant's Dragonhide Spaulders
+				{ 18, 135829 }, -- Vindictive Combatant's Dragonhide Tunic
+				{ 19, 135832 }, -- Vindictive Combatant's Dragonhide Wristguards
+				{ 20, 135826 }, -- Vindictive Combatant's Dragonhide Gloves
+				{ 21, 135831 }, -- Vindictive Combatant's Dragonhide Belt
+				{ 22, 135828 }, -- Vindictive Combatant's Dragonhide Legguards
+				{ 23, 135825 }, -- Vindictive Combatant's Dragonhide Moccasins
+				{ 24, 135909 }, -- Vindictive Combatant's Dragonhide Cloak
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135714 }, -- Vindictive Gladiator's Dragonhide Helm
+				{ 2, 135717 }, -- Vindictive Gladiator's Dragonhide Spaulders
+				{ 3, 135716 }, -- Vindictive Gladiator's Dragonhide Robe
+				{ 4, 135719 }, -- Vindictive Gladiator's Dragonhide Wristguards
+				{ 5, 135713 }, -- Vindictive Gladiator's Dragonhide Gloves
+				{ 6, 135718 }, -- Vindictive Gladiator's Dragonhide Belt
+				{ 7, 135715 }, -- Vindictive Gladiator's Dragonhide Legguards
+				{ 8, 135712 }, -- Vindictive Gladiator's Dragonhide Moccasins
+				{ 9, 135796 }, -- Vindictive Gladiator's Dragonhide Cloak
+				{ 16, 135940 }, -- Vindictive Combatant's Dragonhide Helm
+				{ 17, 135943 }, -- Vindictive Combatant's Dragonhide Spaulders
+				{ 18, 135942 }, -- Vindictive Combatant's Dragonhide Tunic
+				{ 19, 135945 }, -- Vindictive Combatant's Dragonhide Wristguards
+				{ 20, 135939 }, -- Vindictive Combatant's Dragonhide Gloves
+				{ 21, 135944 }, -- Vindictive Combatant's Dragonhide Belt
+				{ 22, 135941 }, -- Vindictive Combatant's Dragonhide Legguards
+				{ 23, 135938 }, -- Vindictive Combatant's Dragonhide Moccasins
+				{ 24, 136022 }, -- Vindictive Combatant's Dragonhide Cloak
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135610 }, -- Vindictive Gladiator's Chain Helm
+				{ 2, 135612 }, -- Vindictive Gladiator's Chain Spaulders
+				{ 3, 135607 }, -- Vindictive Gladiator's Chain Armor
+				{ 4, 135614 }, -- Vindictive Gladiator's Chain Armband
+				{ 5, 135609 }, -- Vindictive Gladiator's Chain Gauntlets
+				{ 6, 135613 }, -- Vindictive Gladiator's Chain Clasp
+				{ 7, 135611 }, -- Vindictive Gladiator's Chain Leggings
+				{ 8, 135608 }, -- Vindictive Gladiator's Chain Treads
+				{ 16, 135836 }, -- Vindictive Combatant's Chain Helm
+				{ 17, 135838 }, -- Vindictive Combatant's Chain Spaulders
+				{ 18, 135833 }, -- Vindictive Combatant's Chain Armor
+				{ 19, 135840 }, -- Vindictive Combatant's Chain Armband
+				{ 20, 135835 }, -- Vindictive Combatant's Chain Gauntlets
+				{ 21, 135839 }, -- Vindictive Combatant's Chain Clasp
+				{ 22, 135837 }, -- Vindictive Combatant's Chain Leggings
+				{ 23, 135834 }, -- Vindictive Combatant's Chain Treads
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135723 }, -- Vindictive Gladiator's Chain Helm
+				{ 2, 135725 }, -- Vindictive Gladiator's Chain Spaulders
+				{ 3, 135720 }, -- Vindictive Gladiator's Chain Armor
+				{ 4, 135727 }, -- Vindictive Gladiator's Chain Armband
+				{ 5, 135722 }, -- Vindictive Gladiator's Chain Gauntlets
+				{ 6, 135726 }, -- Vindictive Gladiator's Chain Clasp
+				{ 7, 135724 }, -- Vindictive Gladiator's Chain Leggings
+				{ 8, 135721 }, -- Vindictive Gladiator's Chain Treads
+				{ 16, 135949 }, -- Vindictive Combatant's Chain Helm
+				{ 17, 135951 }, -- Vindictive Combatant's Chain Spaulders
+				{ 18, 135946 }, -- Vindictive Combatant's Chain Armor
+				{ 19, 135953 }, -- Vindictive Combatant's Chain Armband
+				{ 20, 135948 }, -- Vindictive Combatant's Chain Gauntlets
+				{ 21, 135952 }, -- Vindictive Combatant's Chain Clasp
+				{ 22, 135950 }, -- Vindictive Combatant's Chain Leggings
+				{ 23, 135947 }, -- Vindictive Combatant's Chain Treads
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135617 }, -- Vindictive Gladiator's Silk Cowl
+				{ 2, 135620 }, -- Vindictive Gladiator's Silk Amice
+				{ 3, 135619 }, -- Vindictive Gladiator's Silk Robe
+				{ 4, 135622 }, -- Vindictive Gladiator's Silk Bracers
+				{ 5, 135616 }, -- Vindictive Gladiator's Silk Handguards
+				{ 6, 135621 }, -- Vindictive Gladiator's Silk Cord
+				{ 7, 135618 }, -- Vindictive Gladiator's Silk Trousers
+				{ 8, 135615 }, -- Vindictive Gladiator's Silk Treads
+				{ 9, 135684 }, -- Vindictive Gladiator's Silken Shawl
+				{ 16, 135843 }, -- Vindictive Combatant's Silk Cowl
+				{ 17, 135846 }, -- Vindictive Combatant's Silk Amice
+				{ 18, 135845 }, -- Vindictive Combatant's Silk Robe
+				{ 19, 135848 }, -- Vindictive Combatant's Silk Bracers
+				{ 20, 135842 }, -- Vindictive Combatant's Silk Handguards
+				{ 21, 135847 }, -- Vindictive Combatant's Silk Cord
+				{ 22, 135844 }, -- Vindictive Combatant's Silk Trousers
+				{ 23, 135841 }, -- Vindictive Combatant's Silk Treads
+				{ 24, 135906 }, -- Vindictive Combatant's Silken Shawl
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135730 }, -- Vindictive Gladiator's Silk Cowl
+				{ 2, 135733 }, -- Vindictive Gladiator's Silk Amice
+				{ 3, 135732 }, -- Vindictive Gladiator's Silk Robe
+				{ 4, 135735 }, -- Vindictive Gladiator's Silk Bracers
+				{ 5, 135729 }, -- Vindictive Gladiator's Silk Handguards
+				{ 6, 135734 }, -- Vindictive Gladiator's Silk Cord
+				{ 7, 135731 }, -- Vindictive Gladiator's Silk Trousers
+				{ 8, 135728 }, -- Vindictive Gladiator's Silk Treads
+				{ 9, 135793 }, -- Vindictive Gladiator's Silken Shawl
+				{ 16, 135956 }, -- Vindictive Combatant's Silk Cowl
+				{ 17, 135959 }, -- Vindictive Combatant's Silk Amice
+				{ 18, 135958 }, -- Vindictive Combatant's Silk Robe
+				{ 19, 135961 }, -- Vindictive Combatant's Silk Bracers
+				{ 20, 135955 }, -- Vindictive Combatant's Silk Handguards
+				{ 21, 135960 }, -- Vindictive Combatant's Silk Cord
+				{ 22, 135957 }, -- Vindictive Combatant's Silk Trousers
+				{ 23, 135954 }, -- Vindictive Combatant's Silk Treads
+				{ 24, 136019 }, -- Vindictive Combatant's Silken Shawl
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135625 }, -- Vindictive Gladiator's Ironskin Helm
+				{ 2, 135627 }, -- Vindictive Gladiator's Ironskin Spaulders
+				{ 3, 135628 }, -- Vindictive Gladiator's Ironskin Tunic
+				{ 4, 135630 }, -- Vindictive Gladiator's Ironskin Wristguards
+				{ 5, 135624 }, -- Vindictive Gladiator's Ironskin Gloves
+				{ 6, 135629 }, -- Vindictive Gladiator's Ironskin Belt
+				{ 7, 135626 }, -- Vindictive Gladiator's Ironskin Legguards
+				{ 8, 135623 }, -- Vindictive Gladiator's Ironskin Spaulders
+				{ 16, 135851 }, -- Vindictive Combatant's Ironskin Helm
+				{ 17, 135853 }, -- Vindictive Combatant's Ironskin Spaulders
+				{ 18, 135854 }, -- Vindictive Combatant's Ironskin Tunic
+				{ 19, 135856 }, -- Vindictive Combatant's Ironskin Wristguards
+				{ 20, 135850 }, -- Vindictive Combatant's Ironskin Gloves
+				{ 21, 135855 }, -- Vindictive Combatant's Ironskin Belt
+				{ 22, 135852 }, -- Vindictive Combatant's Ironskin Legguards
+				{ 23, 135849 }, -- Vindictive Combatant's Ironskin Spaulders
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135738 }, -- Vindictive Gladiator's Ironskin Helm
+				{ 2, 135740 }, -- Vindictive Gladiator's Ironskin Spaulders
+				{ 3, 135741 }, -- Vindictive Gladiator's Ironskin Tunic
+				{ 4, 135743 }, -- Vindictive Gladiator's Ironskin Wristguards
+				{ 5, 135737 }, -- Vindictive Gladiator's Ironskin Gloves
+				{ 6, 135742 }, -- Vindictive Gladiator's Ironskin Belt
+				{ 7, 135739 }, -- Vindictive Gladiator's Ironskin Legguards
+				{ 8, 135736 }, -- Vindictive Gladiator's Ironskin Spaulders
+				{ 16, 135964 }, -- Vindictive Combatant's Ironskin Helm
+				{ 17, 135966 }, -- Vindictive Combatant's Ironskin Spaulders
+				{ 18, 135967 }, -- Vindictive Combatant's Ironskin Tunic
+				{ 19, 135969 }, -- Vindictive Combatant's Ironskin Wristguards
+				{ 20, 135963 }, -- Vindictive Combatant's Ironskin Gloves
+				{ 21, 135968 }, -- Vindictive Combatant's Ironskin Belt
+				{ 22, 135965 }, -- Vindictive Combatant's Ironskin Legguards
+				{ 23, 135962 }, -- Vindictive Combatant's Ironskin Spaulders
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135634 }, -- Vindictive Gladiator's Scaled Helm
+				{ 2, 135636 }, -- Vindictive Gladiator's Scaled Shoulders
+				{ 3, 135631 }, -- Vindictive Gladiator's Scaled Battlerobe
+				{ 4, 135638 }, -- Vindictive Gladiator's Scaled Wristplates
+				{ 5, 135633 }, -- Vindictive Gladiator's Scaled Gauntlets
+				{ 6, 135637 }, -- Vindictive Gladiator's Scaled Girdle
+				{ 7, 135635 }, -- Vindictive Gladiator's Scaled Legguards
+				{ 8, 135632 }, -- Vindictive Gladiator's Scaled Sabatons
+				{ 9, 135688 }, -- Vindictive Gladiator's Greatcloak of Faith
+				{ 16, 135860 }, -- Vindictive Combatant's Scaled Helm
+				{ 17, 135862 }, -- Vindictive Combatant's Scaled Shoulders
+				{ 18, 135857 }, -- Vindictive Combatant's Scaled Chestpiece
+				{ 19, 135864 }, -- Vindictive Combatant's Scaled Wristplates
+				{ 20, 135859 }, -- Vindictive Combatant's Scaled Gauntlets
+				{ 21, 135863 }, -- Vindictive Combatant's Scaled Girdle
+				{ 22, 135861 }, -- Vindictive Combatant's Scaled Legguards
+				{ 23, 135858 }, -- Vindictive Combatant's Scaled Sabatons
+				{ 24, 135914 }, -- Vindictive Combatant's Greatcloak of Faith
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135747 }, -- Vindictive Gladiator's Scaled Helm
+				{ 2, 135749 }, -- Vindictive Gladiator's Scaled Shoulders
+				{ 3, 135744 }, -- Vindictive Gladiator's Scaled Battleplate
+				{ 4, 135751 }, -- Vindictive Gladiator's Scaled Wristplates
+				{ 5, 135746 }, -- Vindictive Gladiator's Scaled Gauntlets
+				{ 6, 135750 }, -- Vindictive Gladiator's Scaled Girdle
+				{ 7, 135748 }, -- Vindictive Gladiator's Scaled Legguards
+				{ 8, 135745 }, -- Vindictive Gladiator's Scaled Sabatons
+				{ 9, 135801 }, -- Vindictive Gladiator's Greatcloak of Faith
+				{ 16, 135973 }, -- Vindictive Combatant's Scaled Helm
+				{ 17, 135975 }, -- Vindictive Combatant's Scaled Shoulders
+				{ 18, 135970 }, -- Vindictive Combatant's Scaled Chestpiece
+				{ 19, 135977 }, -- Vindictive Combatant's Scaled Wristplates
+				{ 20, 135972 }, -- Vindictive Combatant's Scaled Gauntlets
+				{ 21, 135976 }, -- Vindictive Combatant's Scaled Girdle
+				{ 22, 135974 }, -- Vindictive Combatant's Scaled Legguards
+				{ 23, 135971 }, -- Vindictive Combatant's Scaled Sabatons
+				{ 24, 136027 }, -- Vindictive Combatant's Greatcloak of Faith
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135641 }, -- Vindictive Gladiator's Satin Hood
+				{ 2, 135644 }, -- Vindictive Gladiator's Satin Mantle
+				{ 3, 135643 }, -- Vindictive Gladiator's Satin Robe
+				{ 4, 135646 }, -- Vindictive Gladiator's Satin Bracers
+				{ 5, 135640 }, -- Vindictive Gladiator's Satin Gloves
+				{ 6, 135645 }, -- Vindictive Gladiator's Satin Cord
+				{ 7, 135642 }, -- Vindictive Gladiator's Satin Leggings
+				{ 8, 135639 }, -- Vindictive Gladiator's Satin Treads
+				{ 9, 136861 }, -- Vindictive Gladiator's Drape of Piety
+				{ 16, 135867 }, -- Vindictive Combatant's Satin Hood
+				{ 17, 135870 }, -- Vindictive Combatant's Satin Mantle
+				{ 18, 135869 }, -- Vindictive Combatant's Satin Robe
+				{ 19, 135872 }, -- Vindictive Combatant's Satin Bracers
+				{ 20, 135866 }, -- Vindictive Combatant's Satin Gloves
+				{ 21, 135871 }, -- Vindictive Combatant's Satin Cord
+				{ 22, 135868 }, -- Vindictive Combatant's Satin Leggings
+				{ 23, 135865 }, -- Vindictive Combatant's Satin Treads
+				{ 24, 136867 }, -- Vindictive Combatant's Drape of Piety
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135754 }, -- Vindictive Gladiator's Satin Hood
+				{ 2, 135757 }, -- Vindictive Gladiator's Satin Mantle
+				{ 3, 135756 }, -- Vindictive Gladiator's Satin Robe
+				{ 4, 135759 }, -- Vindictive Gladiator's Satin Bracers
+				{ 5, 135753 }, -- Vindictive Gladiator's Satin Gloves
+				{ 6, 135758 }, -- Vindictive Gladiator's Satin Cord
+				{ 7, 135755 }, -- Vindictive Gladiator's Satin Leggings
+				{ 8, 135752 }, -- Vindictive Gladiator's Satin Treads
+				{ 9, 136864 }, -- Vindictive Gladiator's Drape of Piety
+				{ 16, 135980 }, -- Vindictive Combatant's Satin Hood
+				{ 17, 135983 }, -- Vindictive Combatant's Satin Mantle
+				{ 18, 135982 }, -- Vindictive Combatant's Satin Robe
+				{ 19, 135985 }, -- Vindictive Combatant's Satin Bracers
+				{ 20, 135979 }, -- Vindictive Combatant's Satin Gloves
+				{ 21, 135984 }, -- Vindictive Combatant's Satin Cord
+				{ 22, 135981 }, -- Vindictive Combatant's Satin Leggings
+				{ 23, 135978 }, -- Vindictive Combatant's Satin Treads
+				{ 24, 136870 }, -- Vindictive Combatant's Drape of Piety
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135650 }, -- Vindictive Gladiator's Leather Helm
+				{ 2, 135652 }, -- Vindictive Gladiator's Leather Spaulders
+				{ 3, 135647 }, -- Vindictive Gladiator's Leather Tunic
+				{ 4, 135654 }, -- Vindictive Gladiator's Leather Wristguards
+				{ 5, 135649 }, -- Vindictive Gladiator's Leather Gloves
+				{ 6, 135653 }, -- Vindictive Gladiator's Leather Belt
+				{ 7, 135651 }, -- Vindictive Gladiator's Leather Legguards
+				{ 8, 135648 }, -- Vindictive Gladiator's Leather Slippers
+				{ 9, 136862 }, -- Vindictive Gladiator's Shadowcape
+				{ 16, 135876 }, -- Vindictive Combatant's Leather Helm
+				{ 17, 135878 }, -- Vindictive Combatant's Leather Spaulders
+				{ 18, 135873 }, -- Vindictive Combatant's Leather Tunic
+				{ 19, 135880 }, -- Vindictive Combatant's Leather Wristguards
+				{ 20, 135875 }, -- Vindictive Combatant's Leather Gloves
+				{ 21, 135879 }, -- Vindictive Combatant's Leather Belt
+				{ 22, 135877 }, -- Vindictive Combatant's Leather Legguards
+				{ 23, 135874 }, -- Vindictive Combatant's Leather Slippers
+				{ 24, 136868 }, -- Vindictive Combatant's Shadowcape
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135763 }, -- Vindictive Gladiator's Leather Helm
+				{ 2, 135765 }, -- Vindictive Gladiator's Leather Spaulders
+				{ 3, 135760 }, -- Vindictive Gladiator's Leather Tunic
+				{ 4, 135767 }, -- Vindictive Gladiator's Leather Wristguards
+				{ 5, 135762 }, -- Vindictive Gladiator's Leather Gloves
+				{ 6, 135766 }, -- Vindictive Gladiator's Leather Belt
+				{ 7, 135764 }, -- Vindictive Gladiator's Leather Legguards
+				{ 8, 135761 }, -- Vindictive Gladiator's Leather Slippers
+				{ 9, 136865 }, -- Vindictive Gladiator's Shadowcape
+				{ 16, 135989 }, -- Vindictive Combatant's Leather Helm
+				{ 17, 135991 }, -- Vindictive Combatant's Leather Spaulders
+				{ 18, 135986 }, -- Vindictive Combatant's Leather Tunic
+				{ 19, 135993 }, -- Vindictive Combatant's Leather Wristguards
+				{ 20, 135988 }, -- Vindictive Combatant's Leather Gloves
+				{ 21, 135992 }, -- Vindictive Combatant's Leather Belt
+				{ 22, 135990 }, -- Vindictive Combatant's Leather Legguards
+				{ 23, 135987 }, -- Vindictive Combatant's Leather Slippers
+				{ 24, 136871 }, -- Vindictive Combatant's Shadowcape
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135658 }, -- Vindictive Gladiator's Ringmail Helm
+				{ 2, 135660 }, -- Vindictive Gladiator's Ringmail Spaulders
+				{ 3, 135655 }, -- Vindictive Gladiator's Ringmail Armor
+				{ 4, 135662 }, -- Vindictive Gladiator's Ringmail Armband
+				{ 5, 135657 }, -- Vindictive Gladiator's Ringmail Gauntlets
+				{ 6, 135661 }, -- Vindictive Gladiator's Ringmail Clasp
+				{ 7, 135659 }, -- Vindictive Gladiator's Ringmail Kilt
+				{ 8, 135656 }, -- Vindictive Gladiator's Ringmail Boots
+				{ 9, 136863 }, -- Vindictive Gladiator's Totemic Cloak
+				{ 16, 135884 }, -- Vindictive Combatant's Ringmail Helm
+				{ 17, 135886 }, -- Vindictive Combatant's Ringmail Spaulders
+				{ 18, 135881 }, -- Vindictive Combatant's Ringmail Armor
+				{ 19, 135888 }, -- Vindictive Combatant's Ringmail Armband
+				{ 20, 135883 }, -- Vindictive Combatant's Ringmail Gauntlets
+				{ 21, 135887 }, -- Vindictive Combatant's Ringmail Clasp
+				{ 22, 135885 }, -- Vindictive Combatant's Ringmail Kilt
+				{ 23, 135882 }, -- Vindictive Combatant's Ringmail Boots
+				{ 24, 136869 }, -- Vindictive Combatant's Totemic Cloak
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135771 }, -- Vindictive Gladiator's Ringmail Helm
+				{ 2, 135773 }, -- Vindictive Gladiator's Ringmail Spaulders
+				{ 3, 135768 }, -- Vindictive Gladiator's Ringmail Armor
+				{ 4, 135775 }, -- Vindictive Gladiator's Ringmail Armband
+				{ 5, 135770 }, -- Vindictive Gladiator's Ringmail Gauntlets
+				{ 6, 135774 }, -- Vindictive Gladiator's Ringmail Clasp
+				{ 7, 135772 }, -- Vindictive Gladiator's Ringmail Kilt
+				{ 8, 135769 }, -- Vindictive Gladiator's Ringmail Boots
+				{ 9, 136866 }, -- Vindictive Gladiator's Totemic Cloak
+				{ 16, 135997 }, -- Vindictive Combatant's Ringmail Helm
+				{ 17, 135999 }, -- Vindictive Combatant's Ringmail Spaulders
+				{ 18, 135994 }, -- Vindictive Combatant's Ringmail Armor
+				{ 19, 136001 }, -- Vindictive Combatant's Ringmail Armband
+				{ 20, 135996 }, -- Vindictive Combatant's Ringmail Gauntlets
+				{ 21, 136000 }, -- Vindictive Combatant's Ringmail Clasp
+				{ 22, 135998 }, -- Vindictive Combatant's Ringmail Kilt
+				{ 23, 135995 }, -- Vindictive Combatant's Ringmail Boots
+				{ 24, 136872 }, -- Vindictive Combatant's Totemic Cloak
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135665 }, -- Vindictive Gladiator's Felweave Cowl
+				{ 2, 135668 }, -- Vindictive Gladiator's Felweave Amice
+				{ 3, 135667 }, -- Vindictive Gladiator's Felweave Raiment
+				{ 4, 135670 }, -- Vindictive Gladiator's Felweave Bracers
+				{ 5, 135664 }, -- Vindictive Gladiator's Felweave Handguards
+				{ 6, 135669 }, -- Vindictive Gladiator's Felweave Cord
+				{ 7, 135666 }, -- Vindictive Gladiator's Felweave Trousers
+				{ 8, 135663 }, -- Vindictive Gladiator's Felweave Treads
+				{ 9, 136879 }, -- Vindictive Gladiator's Felweave Cloak
+				{ 16, 135891 }, -- Vindictive Combatant's Felweave Cowl
+				{ 17, 135894 }, -- Vindictive Combatant's Felweave Amice
+				{ 18, 135893 }, -- Vindictive Combatant's Felweave Raiment
+				{ 19, 135896 }, -- Vindictive Combatant's Felweave Bracers
+				{ 20, 135890 }, -- Vindictive Combatant's Felweave Handguards
+				{ 21, 135895 }, -- Vindictive Combatant's Felweave Cord
+				{ 22, 135892 }, -- Vindictive Combatant's Felweave Trousers
+				{ 23, 135889 }, -- Vindictive Combatant's Felweave Treads
+				{ 24, 136881 }, -- Vindictive Combatant's Felweave Cloak
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135778 }, -- Vindictive Gladiator's Felweave Cowl
+				{ 2, 135781 }, -- Vindictive Gladiator's Felweave Amice
+				{ 3, 135780 }, -- Vindictive Gladiator's Felweave Raiment
+				{ 4, 135783 }, -- Vindictive Gladiator's Felweave Bracers
+				{ 5, 135777 }, -- Vindictive Gladiator's Felweave Handguards
+				{ 6, 135782 }, -- Vindictive Gladiator's Felweave Cord
+				{ 7, 135779 }, -- Vindictive Gladiator's Felweave Trousers
+				{ 8, 135776 }, -- Vindictive Gladiator's Felweave Treads
+				{ 9, 136880 }, -- Vindictive Gladiator's Felweave Cloak
+				{ 16, 136004 }, -- Vindictive Combatant's Felweave Cowl
+				{ 17, 136007 }, -- Vindictive Combatant's Felweave Amice
+				{ 18, 136006 }, -- Vindictive Combatant's Felweave Raiment
+				{ 19, 136009 }, -- Vindictive Combatant's Felweave Bracers
+				{ 20, 136003 }, -- Vindictive Combatant's Felweave Handguards
+				{ 21, 136008 }, -- Vindictive Combatant's Felweave Cord
+				{ 22, 136005 }, -- Vindictive Combatant's Felweave Trousers
+				{ 23, 136002 }, -- Vindictive Combatant's Felweave Treads
+				{ 24, 136882 }, -- Vindictive Combatant's Felweave Cloak
+			},
+		},
+		{
+			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			[ALLIANCE_DIFF] = {
+				{ 1, 135674 }, -- Vindictive Gladiator's Plate Helm
+				{ 2, 135676 }, -- Vindictive Gladiator's Plate Shoulders
+				{ 3, 135671 }, -- Vindictive Gladiator's Plate Chestpiece
+				{ 4, 135678 }, -- Vindictive Gladiator's Plate Wristplates
+				{ 5, 135673 }, -- Vindictive Gladiator's Plate Gauntlets
+				{ 6, 135677 }, -- Vindictive Gladiator's Plate Girdle
+				{ 7, 135675 }, -- Vindictive Gladiator's Plate Legguards
+				{ 8, 135672 }, -- Vindictive Gladiator's Plate Warboots
+				{ 9, 136885 }, -- Vindictive Gladiator's Cloak of Battle
+				{ 16, 135900 }, -- Vindictive Combatant's Plate Helm
+				{ 17, 135902 }, -- Vindictive Combatant's Plate Shoulders
+				{ 18, 135897 }, -- Vindictive Combatant's Plate Chestpiece
+				{ 19, 135904 }, -- Vindictive Combatant's Plate Wristplates
+				{ 20, 135899 }, -- Vindictive Combatant's Plate Gauntlets
+				{ 21, 135903 }, -- Vindictive Combatant's Plate Girdle
+				{ 22, 135901 }, -- Vindictive Combatant's Plate Legguards
+				{ 23, 135898 }, -- Vindictive Combatant's Plate Warboots
+				{ 24, 136887 }, -- Vindictive Combatant's Cloak of Battle
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, 135787 }, -- Vindictive Gladiator's Plate Helm
+				{ 2, 135789 }, -- Vindictive Gladiator's Plate Shoulders
+				{ 3, 135784 }, -- Vindictive Gladiator's Plate Chestpiece
+				{ 4, 135791 }, -- Vindictive Gladiator's Plate Wristplates
+				{ 5, 135786 }, -- Vindictive Gladiator's Plate Gauntlets
+				{ 6, 135790 }, -- Vindictive Gladiator's Plate Girdle
+				{ 7, 135788 }, -- Vindictive Gladiator's Plate Legguards
+				{ 8, 135785 }, -- Vindictive Gladiator's Plate Warboots
+				{ 9, 136886 }, -- Vindictive Gladiator's Cloak of Battle
+				{ 16, 136013 }, -- Vindictive Combatant's Plate Helm
+				{ 17, 136015 }, -- Vindictive Combatant's Plate Shoulders
+				{ 18, 136010 }, -- Vindictive Combatant's Plate Chestpiece
+				{ 19, 136017 }, -- Vindictive Combatant's Plate Wristplates
+				{ 20, 136012 }, -- Vindictive Combatant's Plate Gauntlets
+				{ 21, 136016 }, -- Vindictive Combatant's Plate Girdle
+				{ 22, 136014 }, -- Vindictive Combatant's Plate Legguards
+				{ 23, 136011 }, -- Vindictive Combatant's Plate Warboots
+				{ 24, 136888 }, -- Vindictive Combatant's Cloak of Battle
+			},
+		},
+	},
+}
 data["WODS3SETS"] = {
 	name = string.format(AL["Warlords Season %d"], 3).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,

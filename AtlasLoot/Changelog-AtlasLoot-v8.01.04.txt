@@ -1,22 +1,48 @@
 ------------------------------------------------------------------------
-r4445 | proteyer | 2016-09-13 10:54:28 +0000 (Tue, 13 Sep 2016) | 14 lines
+r4462 | proteyer | 2016-09-21 11:51:48 +0000 (Wed, 21 Sep 2016) | 14 lines
 Changed paths:
-   A /tags/v8.01.02 (from /trunk:4444)
+   A /tags/v8.01.04 (from /trunk:4461)
 
-Tagging as v8.01.02
--- Legion --
-- added faction "The Nightfallen"
-- added faction "Valarjar"
-- added faction "The Wardens"
-- added faction "Dreamweavers"
-- added faction "Highmountain Tribe"
-- added faction "Court Of Farondis"
-- updated profession alchemie to Legion
-- updated profession blacksmithing to Legion
-- added "Relic" as constant
--- WOD --
-- added PvP WODSeason 3 Weapons
-- added PvP Season 13 Class-Sets
+Tagging as v8.01.04
+
+- added PvP Legion Season 1 Class-Sets
+- updated profession tailoring to Legion
+- updated profession leatherworking to Legion
+- updated profession jewelcrafting to Legion
+- updated profession inscription to Legion
+- updated profession engineering to Legion
+- updated profession enchanting to Legion
+**(known issue: not all created enchants are shown, but the spell)**
+
+- added "rune" and "runes" as constant
+- added "shoulder" as constant
+- added zhTW description to AtlasLoot_Legion.toc by arith
+------------------------------------------------------------------------
+r4461 | proteyer | 2016-09-21 11:46:57 +0000 (Wed, 21 Sep 2016) | 2 lines
+Changed paths:
+   M /trunk
+   M /trunk/AtlasLoot/Locales/constants.de.lua
+   M /trunk/AtlasLoot/Locales/constants.lua
+   M /trunk/AtlasLoot_Crafting/data.lua
+   M /trunk/AtlasLoot_PvP/data.lua
+
+- merged legion branch in (professions, PvP Season 1)
+
+------------------------------------------------------------------------
+r4458 | arith | 2016-09-21 07:37:04 +0000 (Wed, 21 Sep 2016) | 1 line
+Changed paths:
+   M /trunk/AtlasLoot_Legion/AtlasLoot_Legion.toc
+
+added zhTW description
+------------------------------------------------------------------------
+r4449 | proteyer | 2016-09-14 12:47:47 +0000 (Wed, 14 Sep 2016) | 1 line
+Changed paths:
+   M /trunk
+   M /trunk/AtlasLoot/Locales/constants.de.lua
+   M /trunk/AtlasLoot/Locales/constants.lua
+   M /trunk/AtlasLoot_Crafting/data.lua
+
+- merged legion branch in (profession: enchanting)
 ------------------------------------------------------------------------
 r4444 | proteyer | 2016-09-13 10:43:16 +0000 (Tue, 13 Sep 2016) | 1 line
 Changed paths:
