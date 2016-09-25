@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CoSTrash", "DBM-Party-Legion", 7, 800)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15208 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15251 $"):sub(12, -3))
 --mod:SetModelID(47785)
 mod:SetZone()
 
@@ -76,7 +76,7 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	if not self.Options.Enabled then return end
 	local spellId = args.spellId
-	if spellId == 209033 then
+	if spellId == 209033 and not args:IsDestTypePlayer() then
 		specWarnFortification:Show(args.destName)
 		voiceFortification:Play("dispelnow")
 	elseif spellId == 209512 and args:IsPlayer() then

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1703, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15243 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15256 $"):sub(12, -3))
 mod:SetCreatureID(102672)
 mod:SetEncounterID(1853)
 mod:SetZone()
@@ -88,19 +88,16 @@ function mod:OnCombatStart(delay)
 	self.vb.volatileRotCast = 0
 	self.vb.swarmCast = 0
 	--Only start timers if boss isn't starting at 0 energy
-	if UnitExists("boss1") and UnitPower("boss1") > 80 then
-		timerRotCD:Start(5.2, 1)
-		timerVolatileRotCD:Start(20, 1)--20-25.8
-		timerBreathCD:Start(35-delay, 1)--35-40
-		countdownBreath:Start(35-delay)
-		timerSwarmCD:Start(86-delay, 1)--86-91
-		if self:IsHeroic() then
-			DBM:AddMsg("Note, pull timers are subject to inaccuracies since they were changed after heroic was tested BUT didn't work right during mythic testing do to energy bug")
-		end
-	else--Boss started at 0 energy and will go right into swarm phase after about 5 seconds
-		timerSwarmCD:Start(5-delay, 1)
+	timerRotCD:Start(5.2, 1)
+	timerVolatileRotCD:Start(20, 1)--20-25.8
+	timerBreathCD:Start(35-delay, 1)--35-40
+	countdownBreath:Start(35-delay)
+	timerSwarmCD:Start(86-delay, 1)--86-91
+	if self:IsEasy() then
+		berserkTimer:Start(-delay)
+	else
+		berserkTimer:Start(480-delay)
 	end
-	berserkTimer:Start(-delay)
 	if self.Options.InfoFrame and self:IsMythic() then
 		DBM.InfoFrame:SetHeader(GetSpellInfo(204506))
 		DBM.InfoFrame:Show(5, "playerdebuffstacks", 204506)

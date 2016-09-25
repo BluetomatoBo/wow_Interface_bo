@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 15244 $"):sub(12, -3)),
-	DisplayVersion = "7.0.6", -- the string that is shown as version
-	ReleaseRevision = 15244 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 15263 $"):sub(12, -3)),
+	DisplayVersion = "7.0.7", -- the string that is shown as version
+	ReleaseRevision = 15263 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -419,7 +419,7 @@ local dbmToc = 0
 local isTalkingHeadLoaded = false
 local talkingHeadUnregistered = false
 
-local fakeBWVersion, fakeBWHash = 10, "96f9c89"
+local fakeBWVersion, fakeBWHash = 11, "8d2614b"
 local versionQueryString, versionResponseString = "Q:%d-%s", "V:%d-%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -1750,32 +1750,30 @@ do
 	
 	SLASH_DEADLYBOSSMODS1 = "/dbm"
 	SLASH_DEADLYBOSSMODSRPULL1 = "/rpull"
-	if GetAddOnEnableState(playerName, "TomTom") == 0 then
-		SLASH_DEADLYBOSSMODSWAY1 = "/way"--/way not used because DBM would load before TomTom and can't check 
-		SlashCmdList["DEADLYBOSSMODSWAY"] = function(msg)
-			if DBM:HasMapRestrictions() then
-				DBM:AddMsg(DBM_CORE_NO_ARROW)
-				return
-			end
-			local x, y = string.split(" ", msg:sub(1):trim())
-			local xNum, yNum = tonumber(x or ""), tonumber(y or "")
-			local success
+	SLASH_DEADLYBOSSMODSDWAY1 = "/dway"--/way not used because DBM would load before TomTom and can't check 
+	SlashCmdList["DEADLYBOSSMODSDWAY"] = function(msg)
+		if DBM:HasMapRestrictions() then
+			DBM:AddMsg(DBM_CORE_NO_ARROW)
+			return
+		end
+		local x, y = string.split(" ", msg:sub(1):trim())
+		local xNum, yNum = tonumber(x or ""), tonumber(y or "")
+		local success
+		if xNum and yNum then
+			DBM.Arrow:ShowRunTo(xNum, yNum, 0.5, nil, true)
+			success = true
+		else--Check if they used , instead of space.
+			x, y = string.split(",", msg:sub(1):trim())
+			xNum, yNum = tonumber(x or ""), tonumber(y or "")
 			if xNum and yNum then
 				DBM.Arrow:ShowRunTo(xNum, yNum, 0.5, nil, true)
 				success = true
-			else--Check if they used , instead of space.
-				x, y = string.split(",", msg:sub(1):trim())
-				xNum, yNum = tonumber(x or ""), tonumber(y or "")
-				if xNum and yNum then
-					DBM.Arrow:ShowRunTo(xNum, yNum, 0.5, nil, true)
-					success = true
-				end
 			end
-			if not success then
-				DBM:AddMsg(DBM_ARROW_WAY_USAGE)
-			else
-				DBM:AddMsg(DBM_ARROW_WAY_SUCCESS)
-			end
+		end
+		if not success then
+			DBM:AddMsg(DBM_ARROW_WAY_USAGE)
+		else
+			DBM:AddMsg(DBM_ARROW_WAY_SUCCESS)
 		end
 	end
 	if not BigWigs then
@@ -7392,7 +7390,7 @@ end
 
 function bossModPrototype:CheckNearby(range, targetname)
 	local uId = DBM:GetRaidUnitId(targetname)
-	if uId then
+	if uId and not UnitIsUnit("player", uId) then
 		local inRange = DBM.RangeCheck:GetDistance(uId)
 		if inRange and inRange < range then
 			return true
