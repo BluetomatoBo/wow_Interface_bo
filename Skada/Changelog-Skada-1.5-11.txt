@@ -1,9 +1,21 @@
 ------------------------------------------------------------------------
-r689 | zarnivoop | 2016-09-21 19:16:37 +0000 (Wed, 21 Sep 2016) | 1 line
+r692 | zarnivoop | 2016-09-24 18:07:03 +0000 (Sat, 24 Sep 2016) | 1 line
 Changed paths:
-   A /tags/1.5-10 (from /trunk:688)
+   A /tags/1.5-11 (from /trunk:691)
 
-Tagging as 1.5-10
+Tagging as 1.5-11
+------------------------------------------------------------------------
+r691 | zarnivoop | 2016-09-24 12:03:26 +0000 (Sat, 24 Sep 2016) | 1 line
+Changed paths:
+   M /trunk/modules/Debuffs.lua
+
+fix for debuffs module bugging out in rare circumstance
+------------------------------------------------------------------------
+r690 | zarnivoop | 2016-09-24 11:11:55 +0000 (Sat, 24 Sep 2016) | 1 line
+Changed paths:
+   M /trunk/modules/Damage.lua
+
+added player details subviews to the long-neglected DPS mode
 ------------------------------------------------------------------------
 r688 | zarnivoop | 2016-09-21 18:05:32 +0000 (Wed, 21 Sep 2016) | 1 line
 Changed paths:
@@ -140,19 +152,4 @@ Changed paths:
    M /trunk/modules/Tweaks.lua
 
 added descriptions to modules
-------------------------------------------------------------------------
-r669 | zarnivoop | 2016-08-21 19:15:28 +0000 (Sun, 21 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/modules/Themes.lua
-
-added a couple of basic themes
-------------------------------------------------------------------------
-r668 | zarnivoop | 2016-08-21 13:09:20 +0000 (Sun, 21 Aug 2016) | 1 line
-Changed paths:
-   M /trunk/Skada.lua
-   M /trunk/locale/enUS.lua
-   A /trunk/modules/Themes.lua
-   M /trunk/modules.xml
-
-added a theme module
 ------------------------------------------------------------------------
