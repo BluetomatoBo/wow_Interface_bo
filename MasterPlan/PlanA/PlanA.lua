@@ -110,6 +110,7 @@ function E:ADDON_LOADED(addon)
 	if addon == "Blizzard_GarrisonUI" then
 		LoadMPOnShow(GarrisonMissionFrame)
 		LoadMPOnShow(GarrisonShipyardFrame)
+		LoadMPOnShow(GarrisonRecruiterFrame)
 	end
 end
 function E:SHOW_LOOT_TOAST(rt, rl, q, _4, _5, _6, source)

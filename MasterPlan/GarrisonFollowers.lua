@@ -711,7 +711,7 @@ function EV:MP_RECRUIT_PROSPECTS_READY(data)
 		end
 	end
 end
-hooksecurefunc("GarrisonRecruitSelectFrame_UpdateRecruits", function(waiting)
+local function Recruit_ProspectsUpdate(waiting)
 	if not waiting then
 		local followers, rf, tinfo = C_Garrison.GetAvailableRecruits(), GarrisonRecruitSelectFrame.FollowerSelection, G.GetFollowerTraits()
 		for i=1,3 do
@@ -734,7 +734,11 @@ hooksecurefunc("GarrisonRecruitSelectFrame_UpdateRecruits", function(waiting)
 			EV("MP_RECRUIT_PROSPECTS_READY", data)
 		end
 	end
-end)
+end
+hooksecurefunc("GarrisonRecruitSelectFrame_UpdateRecruits", Recruit_ProspectsUpdate)
+if GarrisonRecruitSelectFrame.FollowerSelection:IsVisible() then
+	Recruit_ProspectsUpdate(GarrisonRecruitSelectFrame.FollowerSelection.WaitText:IsShown())
+end
 hooksecurefunc("GarrisonMissionPortrait_SetFollowerPortrait", function(port, fi)
 	if not (port == GarrisonMissionFrame.FollowerTab.PortraitFrame or port == GarrisonLandingPage.FollowerTab.PortraitFrame) or (fi and fi.followerTypeID or 3) > 2 then
 		return
@@ -777,12 +781,13 @@ hooksecurefunc("GarrisonMissionPortrait_SetFollowerPortrait", function(port, fi)
 	end
 end)
 local function Portrait_OnShow(self)
-	if self:GetParent():IsVisible() and SpecAffinityFrame:GetParent() ~= self then
+	local p = self:GetParent()
+	if p:IsVisible() and SpecAffinityFrame:GetParent() ~= self then
 		if self == GarrisonLandingPage.FollowerTab.PortraitFrame and GarrisonLandingPage.garrTypeID == 3 then
-			SpecAffinityFrame:ReleaseFor(self:GetParent())
+			SpecAffinityFrame:ReleaseFor(p)
 			return
 		end
-		SpecAffinityFrame:ShowFor(self:GetParent(), self.info or C_Garrison.GetFollowerInfo(self:GetParent().followerID))
+		SpecAffinityFrame:ShowFor(p, self.info or (p.followerID and C_Garrison.GetFollowerInfo(p.followerID)))
 	end
 end
 GarrisonMissionFrame.FollowerTab.MPSpecOffsetX, GarrisonMissionFrame.FollowerTab.MPSpecOffsetY = 5, -6
@@ -815,7 +820,7 @@ local function Recruiter_ShowCounterTooltip(self)
 	G.SetThreatTooltip(GameTooltip, self.value)
 	GameTooltip:Show()
 end
-hooksecurefunc("GarrisonRecruiterFrame_Init", function(_, level)
+local function Recruiter_DropDownInitHook(_, level)
 	local lf, bn
 	if level == 2 then
 		lf, bn = DropDownList2, "DropDownList2Button"
@@ -829,7 +834,11 @@ hooksecurefunc("GarrisonRecruiterFrame_Init", function(_, level)
 			b.tooltipOnButton, b.tooltipTitle, b.tooltipText = level == 2 and Recruiter_ShowTraitTooltip or Recruiter_ShowCounterTooltip
 		end
 	end
-end)
+end
+hooksecurefunc("GarrisonRecruiterFrame_Init", Recruiter_DropDownInitHook)
+if GarrisonRecruiterFramePickThreatDropDown:IsVisible() then
+	hooksecurefunc(GarrisonRecruiterFramePickThreatDropDown, "initialize", Recruiter_DropDownInitHook)
+end
 
 local GarrisonFollowerList_SortFollowers = GarrisonFollowerList_SortFollowers
 local specialSearchQueries = {["duplicate counters"]="dup", [(L"Duplicate counters"):lower()]="dup", ["upgradable gear"]="up", [(L"Upgradable gear"):lower()]="up", ["redundant"]="red", [(L"Redundant"):lower()]="red"} do
