@@ -1,0 +1,12 @@
+tag 7.0.3.20
+66badf2d5447a9f6a228afaf6652b9805f5b2e7e
+James D. Callahan III <jcallahan@curse.com>
+2016-09-25 02:51:07 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Data update - add Lagertha, Chief Treasurer Jabrill, and Lytheron.
+	- Remove Pet from ValidUnitTypeNames - it's actually matching on Hunter pets if the GUID resolves to an NPC ID that's supposed to be in the current zone, and was likely false data I'd picked up when deciding to add it as a match.
