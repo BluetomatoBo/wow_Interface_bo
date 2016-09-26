@@ -369,7 +369,7 @@ end
 local function NameColorBySignificance(unit)
 	-- [[
 	if unit.reaction ~= "FRIENDLY" then
-		if unit.isTarget then return White
+		if (unit.isTarget or (LocalVars.FocusAsTarget and unit.isFocus)) then return White
 		elseif unit.isBoss or unit.isMarked then return BossGrey
 		elseif unit.isElite or (unit.levelcolorRed > .9 and unit.levelcolorGreen < .9) then return EliteGrey
 		else return NormalGrey end

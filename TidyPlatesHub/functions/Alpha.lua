@@ -63,6 +63,10 @@ local function AlphaFunctionByActive(unit)
 	if (unit.health < unit.healthmax) or (unit.threatValue > 1) or unit.isInCombat or unit.isMarked then return LocalVars.OpacitySpotlight end
 end
 
+local function AlphaFunctionByDamaged(unit)
+	if (unit.health < unit.healthmax) or unit.isMarked then return LocalVars.OpacitySpotlight end
+end
+
 local function AlphaFunctionByActiveAuras(unit)
 	local widget = unit.frame.widgets.DebuffWidget
 	--local widget = TidyPlatesWidgets.GetAuraWidgetByGUID(unit.guid)
@@ -121,9 +125,9 @@ local AlphaFunctionsFriendly = {}
 TidyPlatesHubDefaults.FriendlyAlphaSpotlightMode = "None"			-- Sets the default function
 AddHubFunction(AlphaFunctionsFriendly, TidyPlatesHubMenus.FriendlyOpacityModes, DummyFunction, "None", "None")
 AddHubFunction(AlphaFunctionsFriendly, TidyPlatesHubMenus.FriendlyOpacityModes, AlphaFunctionByLowHealth, "On Low-Health Units", "OnLowHealth")
-AddHubFunction(AlphaFunctionsFriendly, TidyPlatesHubMenus.FriendlyOpacityModes, AlphaFunctionGroupMembers, "On Group Members", "OnGroupMembers")
-AddHubFunction(AlphaFunctionsFriendly, TidyPlatesHubMenus.FriendlyOpacityModes, AlphaFunctionByPlayers, "OnPlayers", "OnPlayers")
-AddHubFunction(AlphaFunctionsFriendly, TidyPlatesHubMenus.FriendlyOpacityModes, AlphaFunctionByActive, "On Active/Damaged Units", "OnActiveUnits")
+AddHubFunction(AlphaFunctionsFriendly, TidyPlatesHubMenus.FriendlyOpacityModes, AlphaFunctionGroupMembers, "On Party Members", "OnGroupMembers")
+AddHubFunction(AlphaFunctionsFriendly, TidyPlatesHubMenus.FriendlyOpacityModes, AlphaFunctionByPlayers, "On Players", "OnPlayers")
+AddHubFunction(AlphaFunctionsFriendly, TidyPlatesHubMenus.FriendlyOpacityModes, AlphaFunctionByDamaged, "On Damaged Units", "OnActiveUnits")
 
 
 
@@ -145,7 +149,7 @@ local function AlphaDelegate(...)
 		return LocalVars.UnitSpotlightOpacity
 	end
 
-	if unit.isTarget then return Diminish(LocalVars.OpacityTarget)
+	if (unit.isTarget or (LocalVars.FocusAsTarget and unit.isFocus)) then return Diminish(LocalVars.OpacityTarget)
 	--elseif unit.isCasting and unit.reaction == "HOSTILE" and LocalVars.OpacitySpotlightSpell then alpha = LocalVars.OpacitySpotlight
 	elseif unit.isCasting and LocalVars.OpacitySpotlightSpell then alpha = LocalVars.OpacitySpotlight
 	elseif unit.isMouseover and LocalVars.OpacitySpotlightMouseover then alpha = LocalVars.OpacitySpotlight

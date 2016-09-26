@@ -268,6 +268,8 @@ local function UpdateIconGrid(frame, unitid)
 				end
 			end
 
+		else
+			frame:Hide()
 		end
 
 		-- Clear Extra Slots
@@ -324,6 +326,11 @@ local function Disable()
 	AuraMonitor:SetScript("OnEvent", nil)
 	AuraMonitor:UnregisterAllEvents()
 	WatcherIsEnabled = false
+
+	for unitid, widget in pairs(WidgetList) do
+		if frame == widget then WidgetList[unitid] = nil end
+	end
+
 end
 
 
@@ -442,10 +449,17 @@ local function UpdateIconConfig(frame)
 		-- Set Anchors
 		iconTable[1]:ClearAllPoints()
 		iconTable[1]:SetPoint("LEFT", frame)
-		for index = 2, DebuffColumns do iconTable[index]:SetPoint("LEFT", iconTable[index-1], "RIGHT", 5, 0) end
+		for index = 2, DebuffColumns do
+		  iconTable[index]:ClearAllPoints()
+		  iconTable[index]:SetPoint("LEFT", iconTable[index-1], "RIGHT", 5, 0)
+		end
+
 		iconTable[DebuffColumns+1]:ClearAllPoints()
 		iconTable[DebuffColumns+1]:SetPoint("BOTTOMLEFT", iconTable[1], "TOPLEFT", 0, 8)
-		for index = (DebuffColumns+2), DebuffLimit do iconTable[index]:SetPoint("LEFT", iconTable[index-1], "RIGHT", 5, 0) end
+		for index = (DebuffColumns+2), DebuffLimit do
+		  iconTable[index]:ClearAllPoints()
+		  iconTable[index]:SetPoint("LEFT", iconTable[index-1], "RIGHT", 5, 0)
+		end
 	end
 end
 
@@ -505,7 +519,6 @@ end
 -----------------------------------------------------
 -- TidyPlatesWidgets.GetAuraWidgetByGUID = GetAuraWidgetByGUID
 TidyPlatesWidgets.IsAuraShown = IsAuraShown
-
 
 TidyPlatesWidgets.UseSquareDebuffIcon = UseSquareDebuffIcon
 TidyPlatesWidgets.UseWideDebuffIcon = UseWideDebuffIcon

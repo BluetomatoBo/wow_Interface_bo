@@ -95,7 +95,6 @@ local ReactionColors = {
 		["NPC"] = {r = 1, g = 1, b = 0,},
 	},
 	["TAPPED"] = {
-		--["NPC"] = {r = .53, g = .53, b = 1,},
 		["NPC"] = {r = .45, g = .45, b = .45,},
 	},
 }
@@ -249,6 +248,9 @@ end
 
 local function OnActivateTheme(theme)
 
+	if not theme then
+		TidyPlatesWidgets.DisableAuraWatcher()
+	end
 	-- This gets called when switching themes.
 	-- Ideally, it should clear out old widget data when nil is reported.
 end

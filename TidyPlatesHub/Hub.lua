@@ -409,6 +409,7 @@ local function BuildHubPanel(panel)
 	------------------------------
 	panel.AdvancedLabel, F = CreateQuickHeadingLabel(nil, "Funky Stuff", AlignmentColumn, panel.WidgetsComboPoints, 0, 5)
 	panel.TextUseBlizzardFont, F = CreateQuickCheckbutton(objectName.."TextUseBlizzardFont", "Use Blizzard Font", AlignmentColumn, F, 0)
+	panel.FocusAsTarget, F = CreateQuickCheckbutton(objectName.."FocusAsTarget", "Treat Focus as a Target", AlignmentColumn, F, 0)
 	panel.AdvancedEnableUnitCache, F = CreateQuickCheckbutton(objectName.."AdvancedEnableUnitCache", "Enable Title Caching ", AlignmentColumn, F)
 	panel.FrameVerticalPosition, F = CreateQuickSlider(objectName.."FrameVerticalPosition", "Vertical Position of Artwork: (May cause targeting problems)", AlignmentColumn, F, 0, 4)
 	panel.FrameBarWidth, F = CreateQuickSlider(objectName.."FrameBarWidth", "Health Bar Width (%)", AlignmentColumn, F, 0, 4)
@@ -444,15 +445,8 @@ local function BuildHubPanel(panel)
 	------------------------------
 	panel.MainFrame:SetHeight(2800)
 
-	-- Edit Box Widths
-	--panel.AdvancedCustomCodeTextbox:SetWidth(300)
 	panel.OpacityFilterList:SetWidth(200)
 	panel.WidgetsDebuffTrackList:SetWidth(200)
-
-
-	-- Slider Ranges
-	--SetSliderMechanics(panel.UnitSpotlightOpacity, 1, 0, 1, .01)
-	--SetSliderMechanics(panel.UnitSpotlightScale, 1, .1, 2.5, .01)
 
 	SetSliderMechanics(panel.OpacityTarget, 1, 0, 1, .01)
 	SetSliderMechanics(panel.OpacityNonTarget, 1, 0, 1, .01)
@@ -466,8 +460,8 @@ local function BuildHubPanel(panel)
 	SetSliderMechanics(panel.FrameVerticalPosition, .5, 0, 1, .02)
 	SetSliderMechanics(panel.FrameBarWidth, 1, .3, 1.7, .02)
 
-	SetSliderMechanics(panel.HighHealthThreshold, .7, .5, 1, .01)
-	SetSliderMechanics(panel.LowHealthThreshold, .3, 0, .5, .01)
+	SetSliderMechanics(panel.HighHealthThreshold, .7, .01, 1, .01)
+	SetSliderMechanics(panel.LowHealthThreshold, .3, .01, 1, .01)
 
 	-- "RefreshSettings" is called; A) When PLAYER_ENTERING_WORLD is called, and; B) When changes are made to settings
 

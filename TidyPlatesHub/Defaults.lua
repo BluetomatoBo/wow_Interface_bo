@@ -223,6 +223,7 @@ TidyPlatesHubDefaults = {
 	---------------------------------------
 	FrameVerticalPosition = .7,
 	AdvancedEnableUnitCache = true,
+	FocusAsTarget = false,
 	FrameBarWidth = 1,
 	--AdvancedHealthTextList = [[return unit.health]],
 }

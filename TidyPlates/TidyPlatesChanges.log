@@ -1,7 +1,14 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   *.zip
 
-
+---------------------------
+6.18.9
+---------------------------
+* Utility: Replaced GetAggroCondition()
+* Core: Added RAID_TARGET_UPDATE event to core
+* Aura Widget: Added some missing ClearAllPoints()
+* Core: Updated unit.reaction function.  Now uses UnitReaction().  What a concept!
+* Threat Line Widget: Fixed anchor point..  the widget itself needs some work, though.
 
 ---------------------------
 6.18.7

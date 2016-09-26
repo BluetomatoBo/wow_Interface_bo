@@ -73,7 +73,7 @@ end
 
 -- Current Target
 local function StyleBarsOnTarget(unit)
-	if unit.isTarget == true then
+	if (unit.isTarget or (LocalVars.FocusAsTarget and unit.isFocus)) == true then
 		return BARMODE
 	else return HEADLINEMODE end
 end
@@ -146,7 +146,7 @@ Threat Value
 
 local function StyleNameDelegate(unit)
 
-	if LocalVars.StyleForceBarsOnTargets and unit.isTarget then return "Default" end
+	if LocalVars.StyleForceBarsOnTargets and (unit.isTarget or (LocalVars.FocusAsTarget and unit.isFocus)) then return "Default" end
 	if LocalVars.StyleHeadlineOutOfCombat and (not InCombatLockdown()) then return "NameOnly" end
 	if LocalVars.StyleHeadlineMiniMobs and unit.isMini then return "NameOnly" end
 

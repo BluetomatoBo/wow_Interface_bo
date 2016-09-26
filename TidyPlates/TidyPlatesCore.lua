@@ -461,21 +461,39 @@ do
 		end
 	end
 
-	-- GetUnitReaction: Determines the reaction, and type of unit from the health bar color
-	local function GetUnitReaction(red, green, blue)
-		if red < .01 then 	-- Friendly
-			if blue < .01 and green > .99 then return "FRIENDLY", "NPC"
-			elseif blue > .99 and green < .01 then return "FRIENDLY", "PLAYER"
-			end
-		elseif red > .99 then
-			if blue < .01 and green > .99 then return "NEUTRAL", "NPC"
-			elseif blue < .01 and green < .01 then return "HOSTILE", "NPC"
-			end
-		--elseif red > .5 and red < .6 then
-		--	if green > .5 and green < .6 and blue > .5 and blue < .6 then return "TAPPED", "NPC" end 	-- .533, .533, .99	-- Tapped Mob
-		else
-			return "HOSTILE", "PLAYER"
-		end
+	local function GetUnitReaction(unitid)
+		--[[
+		UnitReaction("player", unitid)
+
+		1 - Hated
+		2 - Hostile
+		3 - Unfriendly
+		4 - Neutral
+		5 - Friendly
+		6 - Honored
+		7 - Revered
+		8 - Exalted
+
+		--]]
+
+		local reactionNumber = UnitReaction("player", unitid)
+
+		if reactionNumber > 4 then return "FRIENDLY"
+		elseif reactionNumber < 4 then return "HOSTILE"
+		else return "NEUTRAL" end
+
+		-- UnitCanAttack("unit", "unit")
+		-- UnitFactionGroup("name")
+		--UnitCanAttack("player", unit)
+		--isFriends = UnitIsFriend("unit", "unit")
+
+		--[[
+				if UnitCanAttack("player", unitid) then
+					unit.reaction = "HOSTILE"
+				else
+					unit.reaction = "FRIENDLY"
+				end
+		--]]
 
 	end
 
@@ -535,6 +553,7 @@ do
 
 		unit.isMouseover = UnitIsUnit("mouseover", unitid)
 		unit.isTarget = UnitIsUnit("target", unitid)
+		unit.isFocus = UnitIsUnit("focus", unitid)
 
 		unit.guid = UnitGUID(unitid)
 
@@ -548,30 +567,13 @@ do
 	function UpdateUnitCondition(plate, unitid)
 		UpdateReferences(plate)
 
+		unit.reaction = GetUnitReaction(unitid)
 		unit.level = UnitEffectiveLevel(unitid)
+
 		local c = GetCreatureDifficultyColor(unit.level)
 		unit.levelcolorRed, unit.levelcolorGreen, unit.levelcolorBlue = c.r, c.g, c.b
 
 		unit.red, unit.green, unit.blue = UnitSelectionColor(unitid)
-
-		--- Working on this...  there's a better way to do it.
-		unit.reaction = GetUnitReaction(unit.red, unit.green, unit.blue)
-
-
-		-- UnitCanAttack("unit", "unit")
-		-- UnitFactionGroup("name")
-		--UnitCanAttack("player", unit)
-		--isFriends = UnitIsFriend("unit", "unit")
-
-		--[[
-				if UnitCanAttack("player", unitid) then
-					unit.reaction = "HOSTILE"
-				else
-					unit.reaction = "FRIENDLY"
-				end
-		--]]
-
-
 
 		unit.health = UnitHealth(unitid) or 0
 		unit.healthmax = UnitHealthMax(unitid) or 1
@@ -579,7 +581,6 @@ do
 		unit.threatValue = UnitThreatSituation("player", unitid) or 0
 		unit.threatSituation = ThreatReference[unit.threatValue]
 		unit.isInCombat = UnitAffectingCombat(unitid)
-
 
 		local raidIconIndex = GetRaidTargetIndex(unitid)
 
@@ -1051,7 +1052,9 @@ do
 	CoreEvents.RAID_TARGET_UPDATE = UnitConditionChanged
 	CoreEvents.UNIT_THREAT_SITUATION_UPDATE = UnitConditionChanged
 	CoreEvents.UNIT_FACTION = UnitConditionChanged
+	CoreEvents.RAID_TARGET_UPDATE = UnitConditionChanged
 
+	CoreEvents.PLAYER_FOCUS_CHANGED = WorldConditionChanged
 	CoreEvents.PLAYER_CONTROL_LOST = WorldConditionChanged
 	CoreEvents.PLAYER_CONTROL_GAINED = WorldConditionChanged
 
