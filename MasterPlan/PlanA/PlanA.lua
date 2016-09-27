@@ -95,6 +95,11 @@ GarrisonLandingPageMinimapButton:HookScript("OnClick", function(self, b)
 		LoadMP()
 	end
 end)
+hooksecurefunc("ShowGarrisonLandingPage", function(pg)
+	if pg ~= 3 then
+		LoadMP()
+	end
+end)
 
 function E:ADDON_LOADED(addon)
 	if addon == addonName then

@@ -1353,6 +1353,10 @@ do -- Equipment
 			return "remove"
 		end
 	end
+	for i=1,2 do
+		AddEquipmentProxy(GarrisonShipyardFrame.FollowerTab.EquipmentFrame.Equipment[i])
+		AddEquipmentProxy(GarrisonLandingPage.ShipFollowerTab.EquipmentFrame.Equipment[i])
+	end
 end
 
 do -- Ship equipment

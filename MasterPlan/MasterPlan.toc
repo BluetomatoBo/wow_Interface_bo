@@ -6,8 +6,8 @@
 ## LoadOnDemand: 1
 ## RequiredDeps: Blizzard_GarrisonUI, MasterPlanA
 ## SavedVariablesPerCharacter: MasterPlanPC
-## Version: 0.103
-## X-Version-Key: treasure
+## Version: 0.104
+## X-Version-Key: grim
 Libs/Evie.lua
 Libs/Reframe.lua
 Locale.lua
