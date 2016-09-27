@@ -268,8 +268,6 @@ local function UpdateIconGrid(frame, unitid)
 				end
 			end
 
-		else
-			frame:Hide()
 		end
 
 		-- Clear Extra Slots

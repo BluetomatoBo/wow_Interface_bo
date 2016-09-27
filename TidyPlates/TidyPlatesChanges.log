@@ -1,6 +1,14 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   *.zip
 
+
+---------------------------
+6.18.10
+---------------------------
+* Core: RAID_TARGET_UPDATE, Full update
+* Core: Reverted unit.reaction gather function to using UnitSelectionColor.
+* Aura Widget: Removed the wonky Hide call.
+
 ---------------------------
 6.18.9
 ---------------------------

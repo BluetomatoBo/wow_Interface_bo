@@ -2,6 +2,74 @@
 local GetRelativeThreat = TidyPlatesUtility.GetRelativeThreat
 local GetGroupInfo = TidyPlatesUtility.GetGroupInfo
 
+
+--[[
+
+------------------------
+-- Threat Function
+------------------------
+
+do
+
+	local function GetRelativeThreat(enemyUnitid)		-- 'enemyUnitid' is a target/enemy
+		if not UnitExists(enemyUnitid) then return end
+
+		local allyUnitid, allyThreat = nil, 0
+		local playerIsTanking, playerSituation, playerThreat = UnitDetailedThreatSituation("player", enemyUnitid)
+		if not playerThreat then return end
+
+		-- Get Group Type
+		local evalUnitid, evalIndex, evalThreat
+		local groupType, size, startAt = nil, nil, 1
+		if UnitInRaid("player") then
+			groupType = "raid"
+			groupSize = TidyPlatesUtility:GetNumRaidMembers()
+			startAt = 2
+		elseif UnitInParty("player") then
+			groupType = "party"
+			groupSize = TidyPlatesUtility:GetNumPartyMembers()
+		else groupType = nil end
+
+		-- Cycle through Group, picking highest threat holder
+		if groupType then
+			for allyIndex = startAt, groupSize do
+				evalUnitid = groupType..allyIndex
+				evalThreat = select(3, UnitDetailedThreatSituation(evalUnitid, enemyUnitid))
+				if evalThreat and evalThreat > allyThreat then
+					allyThreat = evalThreat
+					allyUnitid = evalUnitid
+				end
+			end
+		end
+
+		-- Request Pet Threat (if possible)
+		if HasPetUI() and UnitExists("pet") then
+			evalThreat = select(3, UnitDetailedThreatSituation("pet", enemyUnitid)) or 0
+			if evalThreat > allyThreat then
+				allyThreat = evalThreat
+				allyUnitid = "pet"
+			end
+		end
+
+
+
+		-- Return the appropriate value
+		if playerThreat and allyThreat and allyUnitid then
+			if playerThreat >= 100 then 	-- The enemy is attacking you. You are tanking. 	Returns: 1. Your threat, plus your lead over the next highest person, 2. Your Unitid (since you're tanking)
+				return tonumber(playerThreat + (100-allyThreat)), "player"
+			else 	-- The enemy is not attacking you.  Returns: 1. Your scaled threat percent, 2. Who is On Top
+				return tonumber(playerThreat), allyUnitid
+			end
+		end
+
+	end
+
+	TidyPlatesUtility.GetRelativeThreat = GetRelativeThreat
+end
+
+--]]
+
+
 ----------------------
 -- FadeLater() - Registers a callback, which hides the specified frame in X seconds
 ----------------------

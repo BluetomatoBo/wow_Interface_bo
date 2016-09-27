@@ -461,7 +461,7 @@ do
 		end
 	end
 
-	local function GetUnitReaction(unitid)
+	local function GetReactionFail(unitid)
 		--[[
 		UnitReaction("player", unitid)
 
@@ -474,6 +474,7 @@ do
 		7 - Revered
 		8 - Exalted
 
+		-- This doesn't work as expected.
 		--]]
 
 		local reactionNumber = UnitReaction("player", unitid)
@@ -496,6 +497,27 @@ do
 		--]]
 
 	end
+
+
+	-- GetUnitReaction: Determines the reaction, and type of unit from the health bar color
+	local function GetReactionByColor(red, green, blue)
+
+		if red < .01 then 	-- Friendly
+			if blue < .01 and green > .99 then return "FRIENDLY", "NPC"
+			elseif blue > .99 and green < .01 then return "FRIENDLY", "PLAYER"
+			end
+		elseif red > .99 then
+			if blue < .01 and green > .99 then return "NEUTRAL", "NPC"
+			elseif blue < .01 and green < .01 then return "HOSTILE", "NPC"
+			end
+		elseif red > .5 and red < .6 then
+			if green > .5 and green < .6 and blue > .5 and blue < .6 then return "HOSTILE", "NPC" end 	-- .533, .533, .99	-- Tapped Mob
+		else
+			return "HOSTILE", "PLAYER"
+		end
+
+	end
+
 
 	local EliteReference = {
 		["elite"] = true,
@@ -545,7 +567,7 @@ do
 	end
 
 
-        -- UpdateUnitContext: Updates Target/Mouseover
+    -- UpdateUnitContext: Updates Target/Mouseover
 	function UpdateUnitContext(plate, unitid)
 		local guid
 
@@ -567,13 +589,15 @@ do
 	function UpdateUnitCondition(plate, unitid)
 		UpdateReferences(plate)
 
-		unit.reaction = GetUnitReaction(unitid)
 		unit.level = UnitEffectiveLevel(unitid)
 
 		local c = GetCreatureDifficultyColor(unit.level)
 		unit.levelcolorRed, unit.levelcolorGreen, unit.levelcolorBlue = c.r, c.g, c.b
 
 		unit.red, unit.green, unit.blue = UnitSelectionColor(unitid)
+
+		--unit.reaction = GetUnitReaction(unitid)
+		unit.reaction = GetReactionByColor(unit.red, unit.green, unit.blue)
 
 		unit.health = UnitHealth(unitid) or 0
 		unit.healthmax = UnitHealthMax(unitid) or 1
@@ -1049,11 +1073,10 @@ do
 	CoreEvents.UNIT_SPELLCAST_NOT_INTERRUPTIBLE = UnitSpellcastMidway
 
 	CoreEvents.UNIT_LEVEL = UnitConditionChanged
-	CoreEvents.RAID_TARGET_UPDATE = UnitConditionChanged
 	CoreEvents.UNIT_THREAT_SITUATION_UPDATE = UnitConditionChanged
 	CoreEvents.UNIT_FACTION = UnitConditionChanged
-	CoreEvents.RAID_TARGET_UPDATE = UnitConditionChanged
 
+	CoreEvents.RAID_TARGET_UPDATE = WorldConditionChanged
 	CoreEvents.PLAYER_FOCUS_CHANGED = WorldConditionChanged
 	CoreEvents.PLAYER_CONTROL_LOST = WorldConditionChanged
 	CoreEvents.PLAYER_CONTROL_GAINED = WorldConditionChanged
