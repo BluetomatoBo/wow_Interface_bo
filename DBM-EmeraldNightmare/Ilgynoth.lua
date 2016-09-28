@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1738, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15259 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15279 $"):sub(12, -3))
 mod:SetCreatureID(105393)
 mod:SetEncounterID(1873)
 mod:SetZone()
@@ -68,9 +68,9 @@ local yellCursedBlood				= mod:NewFadesYell(215128)
 
 --Stage One: The Ruined Ground
 mod:AddTimerLine(SCENARIO_STAGE:format(1))
-local timerDeathGlareCD				= mod:NewNextTimer(220, "ej13190", nil, nil, nil, 1, 208697)
-local timerCorruptorTentacleCD		= mod:NewNextTimer(220, "ej13191", nil, nil, nil, 1, 208929)
-local timerNightmareHorrorCD		= mod:NewNextTimer(220, "ej13188", nil, nil, nil, 1, 210289)
+local timerDeathGlareCD				= mod:NewCDTimer(220, "ej13190", nil, nil, nil, 1, 208697)
+local timerCorruptorTentacleCD		= mod:NewCDTimer(220, "ej13191", nil, nil, nil, 1, 208929)
+local timerNightmareHorrorCD		= mod:NewCDTimer(220, "ej13188", nil, nil, nil, 1, 210289)
 local timerEyeOfFateCD				= mod:NewCDTimer(10, 210984, nil, "Tank", nil, 5)
 local timerNightmareishFuryCD		= mod:NewNextTimer(10.9, 215234, nil, "Tank", nil, 5)
 local timerGroundSlamCD				= mod:NewNextTimer(21.9, 208689, nil, nil, nil, 3)
@@ -115,11 +115,11 @@ mod.vb.CorruptorSpawn = 0
 local UnitExists, UnitGUID, UnitDetailedThreatSituation = UnitExists, UnitGUID, UnitDetailedThreatSituation
 local eyeName = EJ_GetSectionInfo(13185)
 local addsTable = {}
-local phase1Deathglares = {26, 69}--Probably 25, 70 but numbers actually detectable by combat log are used.
-local phase1Corruptors = {90}
+local phase1Deathglares = {26, 69, 85, 55}
+local phase1Corruptors = {90, 95, 35}
 
-local phase2Deathglares = {21.5, 95, 130}
-local phase2Corruptors = {45, 95, 35}
+local phase2Deathglares = {21.5, 90, 130}--it's usually 21, 95, 130 but sometimes it can be 26 90, 130. As such timers have to use 21, 90, 130 to avoid a "slow timer". Scheduling may reduce impact of this problem a little
+local phase2Corruptors = {45, 95, 35, 85, 40}
 
 local updateInfoFrame, sortInfoFrame
 do

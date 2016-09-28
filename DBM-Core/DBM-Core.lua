@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 15263 $"):sub(12, -3)),
-	DisplayVersion = "7.0.7", -- the string that is shown as version
-	ReleaseRevision = 15263 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 15283 $"):sub(12, -3)),
+	DisplayVersion = "7.0.8", -- the string that is shown as version
+	ReleaseRevision = 15283 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -179,9 +179,10 @@ DBM.DefaultOptions = {
 	SpecialWarningX = 0,
 	SpecialWarningY = 75,
 	SpecialWarningFont = standardFont,
-	SpecialWarningFontSize = 50,
+	SpecialWarningFontSize2 = 40,
 	SpecialWarningFontStyle = "THICKOUTLINE",
 	SpecialWarningFontShadow = false,
+	SpecialWarningIcon = true,
 	SpecialWarningFontCol = {1.0, 0.7, 0.0},--Yellow, with a tint of orange
 	SpecialWarningFlashCol1 = {1.0, 1.0, 0.0},--Yellow
 	SpecialWarningFlashCol2 = {1.0, 0.5, 0.0},--Orange
@@ -419,7 +420,7 @@ local dbmToc = 0
 local isTalkingHeadLoaded = false
 local talkingHeadUnregistered = false
 
-local fakeBWVersion, fakeBWHash = 11, "8d2614b"
+local fakeBWVersion, fakeBWHash = 12, "3f0df6d"
 local versionQueryString, versionResponseString = "Q:%d-%s", "V:%d-%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -1280,7 +1281,7 @@ do
 				"PLAYER_LEVEL_UP",
 				"CHALLENGE_MODE_START",
 				"CHALLENGE_MODE_RESET",
-				"CHALLENGE_MODE_END",
+				"CHALLENGE_MODE_COMPLETED",
 				"PLAYER_SPECIALIZATION_CHANGED",
 				"PARTY_INVITE_REQUEST",
 				"LOADING_SCREEN_DISABLED",
@@ -3603,8 +3604,8 @@ function DBM:CHALLENGE_MODE_RESET()
 	self:Debug("CHALLENGE_MODE_RESET fired")
 end
 
-function DBM:CHALLENGE_MODE_END(mapID, success, medal, completionTime)
-	self:Debug("CHALLENGE_MODE_END fired for mapID "..mapID)
+function DBM:CHALLENGE_MODE_COMPLETED()
+	self:Debug("CHALLENGE_MODE_COMPLETED fired for mapID "..LastInstanceMapID)
 end
 --REFACTOR IN LEGION
 
@@ -5501,18 +5502,23 @@ do
 			--process global options
 			self:HideBlizzardEvents(1)
 			self:StartLogging(0, nil)
-			if self.Options.HideObjectivesFrame and mod.addon.type ~= "SCENARIO" and GetNumTrackedAchievements() == 0 and difficultyIndex ~= 8 then
+			if self.Options.HideObjectivesFrame and mod.addon.type ~= "SCENARIO" and GetNumTrackedAchievements() == 0 then
 				if ObjectiveTrackerFrame:IsVisible() then
 					ObjectiveTrackerFrame:Hide()
 					watchFrameRestore = true
 				end
-				--When hiding objectives frame in challenge modes, start our own timer to show medal time remaining
-				--REFACTOR IN LEGION FOR MYTHIC+ timer replacement
-				--[[local _, elapsedTime, worldTimerType = GetWorldElapsedTime(1)--Should always be 1, with only one world state timer active. if it's not, use GetWorldElapsedTimers() to find correct one
-				if wowTOC < 70000 and worldTimerType == 2 then--Challenge mode
-					local bronze, silver, gold = GetChallengeModeMapTimes(LastInstanceMapID)
-					local remaining
-				end--]]
+				--When hiding objectives frame in Mythic+, start our own timer to show time remaining during boss fight
+				if difficultyIndex == 8 then
+					local _, elapsedTime = GetWorldElapsedTime(1)--Should always be 1, with only one world state timer active.
+					local _, _, maxTime = C_ChallengeMode.GetMapInfo(LastInstanceMapID);
+					local remaining = (maxTime or 0) - (elapsedTime or 0)
+					if remaining and remaining > 0 then--No remaining, already failed timer, do nothing
+						self.Bars:CreateBar(remaining, PLAYER_DIFFICULTY6.."+")
+					end
+					--Maybe do more with this later
+					--local threeChests = maxTime * 0.6
+					--local twoChests = maxTime * 0.8;
+				end
 			end
 			fireEvent("pull", mod, delay, synced, startHp)
 			self:FlashClientIcon()
@@ -5934,11 +5940,9 @@ do
 				if self.Options.HideObjectivesFrame and watchFrameRestore and not scenario then
 					ObjectiveTrackerFrame:Show()
 					watchFrameRestore = false
-					--REFACTOR in LEGION
-					--[[if difficultyIndex == 8 then
-						self.Bars:CancelBar(CHALLENGE_MODE_MEDAL1)
-					end--]]
-					--REFACTOR in LEGION
+					if difficultyIndex == 8 then
+						self.Bars:CancelBar(PLAYER_DIFFICULTY6.."+")
+					end
 				end
 				if tooltipsHidden then
 					--Better or cleaner way?
@@ -9227,8 +9231,8 @@ do
 	function DBM:UpdateSpecialWarningOptions()
 		frame:ClearAllPoints()
 		frame:SetPoint(self.Options.SpecialWarningPoint, UIParent, self.Options.SpecialWarningPoint, self.Options.SpecialWarningX, self.Options.SpecialWarningY)
-		font1:SetFont(self.Options.SpecialWarningFont, self.Options.SpecialWarningFontSize, self.Options.SpecialWarningFontStyle == "None" and nil or self.Options.SpecialWarningFontStyle)
-		font2:SetFont(self.Options.SpecialWarningFont, self.Options.SpecialWarningFontSize, self.Options.SpecialWarningFontStyle == "None" and nil or self.Options.SpecialWarningFontStyle)
+		font1:SetFont(self.Options.SpecialWarningFont, self.Options.SpecialWarningFontSize2, self.Options.SpecialWarningFontStyle == "None" and nil or self.Options.SpecialWarningFontStyle)
+		font2:SetFont(self.Options.SpecialWarningFont, self.Options.SpecialWarningFontSize2, self.Options.SpecialWarningFontStyle == "None" and nil or self.Options.SpecialWarningFontStyle)
 		font1:SetTextColor(unpack(self.Options.SpecialWarningFontCol))
 		font2:SetTextColor(unpack(self.Options.SpecialWarningFontCol))
 		if self.Options.SpecialWarningFontShadow then
@@ -9345,6 +9349,8 @@ do
 		end
 		return cap
 	end
+	
+	local textureCode = " |T%s:12:12|t "
 
 	function specialWarningPrototype:Show(...)
 		if not DBM.Options.DontShowSpecialWarnings and (not self.option or self.mod.Options[self.option]) and not moving and frame then
@@ -9368,7 +9374,12 @@ do
 					end
 				end
 			end
-			local text = pformat(self.text, unpack(argTable))
+			local message = pformat(self.text, unpack(argTable))
+			local text = ("%s%s%s"):format(
+				(DBM.Options.SpecialWarningIcon and self.icon and textureCode:format(self.icon)) or "",
+				message,
+				(DBM.Options.SpecialWarningIcon and self.icon and textureCode:format(self.icon)) or ""
+			)
 			local noteHasName = false
 			if self.option then
 				local noteText = self.mod.Options[self.option .. "SWNote"]
@@ -9574,6 +9585,7 @@ do
 				hasVoice = hasVoice,
 				type = announceType,
 				spellId = unparsedId,
+				icon = (type(spellId) == "string" and spellId:match("ej%d+") and select(4, EJ_GetSectionInfo(string.sub(spellId, 3))) ~= "" and select(4, EJ_GetSectionInfo(string.sub(spellId, 3)))) or (type(spellId) == "number" and GetSpellTexture(spellId)) or nil
 			},
 			mt
 		)
