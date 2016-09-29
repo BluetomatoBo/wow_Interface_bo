@@ -26,6 +26,7 @@ merge(ns.points["Azsuna"], {
     [52402305] = {quest=38268, npc=91289, item=129063}, -- Cailyn Paledoom
     [53404400] = {quest=37821, npc=89846, item=129066}, -- Captain Volo'ren
     [55104590] = {quest=42450, npc=107127, item=129086}, -- Brawlgoth
+    [55476980] = {quest=42699, npc=108255, item=141877}, -- Coura, Mistress of Arcana
     [56102905] = {quest=38061, npc=90901, item=138395}, -- Pridelord Meowl
     [59304630] = {quest=38212, npc=91100, item=129068, note="Top of the mountain"}, -- Brogozog
     [59601230] = {quest=37932, npc=90244, item=129085, note="Unbound rift"}, -- Arcavellus
@@ -46,7 +47,7 @@ merge(ns.points["Highmountain"], {
     [45705500] = {quest=40681, npc=101077, item=131730}, -- Sekhan
     [46500745] = {quest=40096, npc=98311, item=131797}, -- Mrrklr
     [46653145] = {quest=39646, npc=96410, item=131900, note="Abandoned Fishing Pole"}, -- Majestic Elderhorn
-    [48404015] = {quest=39806, npc=97345, item=131809}, -- Crawshuk the Hungry
+    [48404015] = {quest=39806, npc=97345, item=131809, note="1/4 of slow fall toy", toy=true}, -- Crawshuk the Hungry
     [48502545] = {quest=39646, npc=96410, item=131900, note="Wanders a bit"}, -- Majestic Elderhorn
     [48605000] = {quest=39784, npc=97215, item=131756, note="Help him tame Arru, loot inside the cave afterwards"}, -- Beastmaster Pao'lek
     [49202710] = {quest=40242, npc=96621, item=131808}, -- Mellok, Son of Torok 
@@ -61,6 +62,7 @@ merge(ns.points["Highmountain"], {
     [54504060] = {quest=39866, npc=97593, item=131792, note="Top of mountain"}, -- Mynta Talonscreech
     [56357250] = {quest=39235, npc=94877, item=138396}, -- Brogrul the Mighty
     [56406050] = {quest=40347, npc=96590, item=131775, note="Wanders a bit"}, -- Gurbog da Basher
+    [52405850] = {quest=40423, npc=109498, item=131767, note="Use the Seemingly Unguarded Treasure to summon the Unethical Adventurers"}, -- Unethical Adventurers
 })
 merge(ns.points["Stormheim"], {
     [36505250] = {quest=38472, npc=92152, item=138418}, -- Whitewater Typhoon
@@ -151,6 +153,9 @@ merge(ns.points["Valsharah"], {
 merge(ns.points["Helheim"], {
     [28156375] = {quest=39870, npc=97630, item=129188, pet=true}, -- Soulthirster
     [85105030] = {quest=38461, npc=92040, item=129044}, -- Fenri
+})
+merge(ns.points["TempleofaThousandLights"], {
+    [62303090] = {quest=42699, npc=108255, item=141877}, -- Coura, Mistress of Arcana
 })
 
 -- DH starter:
