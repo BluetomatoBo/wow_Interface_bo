@@ -1,3 +1,6 @@
+v3.6.1
+*Fixed a bug with scan speed optimization for some items.
+
 v3.6
 *Added brand new optimization to dramatically increase scan speed, primarily for high-volume items.
 *Fixed bug which potentially affected buying of auctions (with TSM_Shopping).

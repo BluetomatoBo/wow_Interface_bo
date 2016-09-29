@@ -462,6 +462,33 @@ function private.ScanAllPagesThread(self, query)
 				-- there are more pages to scan, but we don't know how many
 				numPages = math.huge
 			end
+			-- in some cases, the usable filter is broken, so liberally default to regular scanning if we think that has happened (once we've gone through all pages)
+			local usableBroken = nil
+			if query.page == numPages and query.items then
+				-- check if any items have no results (likely due to the bug)
+				for _, itemString in ipairs(query.items) do
+					local found = false
+					itemString = TSMAPI.Item:ToBaseItemString(itemString)
+					for _, record in ipairs(private.database.records) do
+						if record.baseItemString == itemString then
+							found = true
+							break
+						end
+					end
+					if not found then
+						usableBroken = itemString
+						break
+					end
+				end
+			end
+			if usableBroken then
+				-- revert to a normal scan
+				TSM:LOG_WARN("Usable broken (%s)", usableBroken)
+				private.usableOptimize = nil
+				query.usable = nil
+				query.page = 0
+				numPages = math.huge
+			end
 		else
 			-- do a normal scan of this page
 			private:ScanCurrentPageThread(self, query, tempData)
