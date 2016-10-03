@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 15286 $"):sub(12, -3)),
-	DisplayVersion = "7.0.10", -- the string that is shown as version
-	ReleaseRevision = 15286 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 15307 $"):sub(12, -3)),
+	DisplayVersion = "7.0.11", -- the string that is shown as version
+	ReleaseRevision = 15307 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -162,6 +162,7 @@ DBM.DefaultOptions = {
 	InfoFrameX = 75,
 	InfoFrameY = -75,
 	InfoFrameShowSelf = false,
+	InfoFrameLines = 0,
 	HPFramePoint = "CENTER",
 	HPFrameX = -50,
 	HPFrameY = 50,
@@ -420,7 +421,7 @@ local dbmToc = 0
 local isTalkingHeadLoaded = false
 local talkingHeadUnregistered = false
 
-local fakeBWVersion, fakeBWHash = 12, "3f0df6d"
+local fakeBWVersion, fakeBWHash = 14, "bb2513a"
 local versionQueryString, versionResponseString = "Q:%d-%s", "V:%d-%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM

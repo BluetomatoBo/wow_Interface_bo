@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1726, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15283 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15292 $"):sub(12, -3))
 mod:SetCreatureID(103769)
 mod:SetEncounterID(1864)
 mod:SetZone()
@@ -346,7 +346,7 @@ function mod:SPELL_AURA_APPLIED(args)
 						end
 					end
 				end
-				if not filterWarning then
+				if not filterWarning and not UnitDebuff("player", GetSpellInfo(205612)) then
 					specWarnBlackeningSoulOther:Show(args.destName)
 					voiceBlackeningSoul:Play("tauntboss")
 				end

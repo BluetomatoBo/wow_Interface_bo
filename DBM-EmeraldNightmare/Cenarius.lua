@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1750, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15279 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15307 $"):sub(12, -3))
 mod:SetCreatureID(104636)
 mod:SetEncounterID(1877)
 mod:SetZone()
@@ -73,6 +73,7 @@ local timerRottenBreathCD			= mod:NewCDTimer(25, 211192, nil, nil, nil, 3)
 --Cenarius
 local countdownForcesOfNightmare	= mod:NewCountdown(78.8, 212726)
 local countdownNightmareBrambles	= mod:NewCountdown("Alt30", 210290, "Ranged")--Never once saw this target melee
+local countdownNightmareBlast		= mod:NewCountdown("Alt32", 213162, "Tank")
 ----Forces of Nightmare
 
 --Cenarius
@@ -94,6 +95,23 @@ mod:AddHudMapOption("HudMapOnBreath", 211192)
 mod.vb.phase = 1
 mod.vb.addsCount = 0
 local scornedWarned = false
+local scanForAWhile = 0
+
+local function findTheGodDamnBrambles(self)
+	scanForAWhile = scanForAWhile + 1
+	for uId in DBM:GetGroupMembers() do
+		-- Has aggro on something, but not a tank
+		if uId and not self:IsTanking(uId) and UnitThreatSituation(uId) == 3 then
+			local targetName = UnitName(uId)
+			if targetName then
+				DBM:Debug(targetName.." has aggro and is not tanking", 2)
+			end
+		end
+	end
+	if scanForAWhile < 20 then
+		self:Schedule(1, findTheGodDamnBrambles, self)
+	end
+end
 
 function mod:BreathTarget(targetname, uId)
 	if not targetname then return end
@@ -117,7 +135,8 @@ function mod:OnCombatStart(delay)
 	timerNightmareBramblesCD:Start(27.5-delay)--Cast finish. Cast start is actually a yell and not worth using anyways since DBM doesn't warn spawn point until cast finish
 	countdownNightmareBrambles:Start(27.5-delay)
 	if self:IsMythic() then
-		timerNightmareBlastCD:Start(31.2-delay)
+		timerNightmareBlastCD:Start(30.5-delay)
+		countdownNightmareBlast:Start(30.5-delay)
 	end
 	if not self.Options.AlertedBramble then
 		DBM:AddMsg(L.BrambleMessage)
@@ -169,13 +188,14 @@ function mod:SPELL_CAST_START(args)
 		end
 	elseif spellId == 213162 then
 		timerNightmareBlastCD:Start()
+		countdownNightmareBlast:Start(32.8)
 		local targetName, uId, bossuid = self:GetBossTarget(104636, true)
 		local tanking, status = UnitDetailedThreatSituation("player", bossuid)
 		if tanking or (status == 3) then--Player is current target
 			specWarnNightmareBlast:Show()
 			voiceNightmareBlast:Play("defensive")
 		else
-			if self:GetNumAliveTanks() >= 3 and not self:CheckNearby(21, targetName) then return end--You are not near current tank, you're probably 3rd tank on Doom Guards that never taunts massive blast
+			if self:GetNumAliveTanks() >= 3 and not self:CheckNearby(21, targetName) then return end--You are not near current tank, you're probably 3rd tank on Adds that never taunts nightmare blast
 			specWarnNightmareBlastOther:Schedule(2, targetName)
 			voiceNightmareBlast:Schedule(2, "tauntboss")
 		end
@@ -188,7 +208,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnBeastsOfNightmare:Show()
 		timerBeastsOfNightmareCD:Start()
 	elseif spellId == 214529 and not args:IsPlayer() then
-		if self:GetNumAliveTanks() >= 3 and not self:CheckNearby(21, args.destName) then return end--You are not near current tank, you're probably 3rd tank on Doom Guards that never taunts massive blast
+		if self:GetNumAliveTanks() >= 3 and not self:CheckNearby(21, args.destName) then return end--You are not near current tank, you're probably 3rd tank on Adds that never taunts nightmare blast
 		specWarnSpearOfNightmaresOther:Show(args.destName)
 		voiceSpearOfNightmares:Play("tauntboss")
 	end
@@ -259,12 +279,17 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
 			warnNightmareBrambles:Show(targetName)
 		end
 		timerNightmareBramblesCD:Start()
+		scanForAWhile = 0
+		if DBM.Options.DebugMode then
+			self:Schedule(1, findTheGodDamnBrambles, self)
+		end
 	elseif spellId == 217368 then--Overwhelming Nightmare (Phase 2)
 		self.vb.phase = 2
 		warnPhase2:Show()
 		voicePhaseChange:Play("ptwo")
 		timerForcesOfNightmareCD:Stop()
 		timerNightmareBlastCD:Stop()
+		countdownNightmareBlast:Cancel()
 		timerDreadThornsCD:Stop()
 		timerNightmareBramblesCD:Stop()
 		timerCleansingGroundCD:Stop()
