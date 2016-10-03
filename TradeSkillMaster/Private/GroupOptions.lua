@@ -887,7 +887,7 @@ function private.ImportGroupAndOperationsThread(self, value, groupPath)
 	end
 
 	-- import the group
-	local num = private.ImportGroup(info.groupExport, groupPath)
+	local num = private.ImportGroupHelperThread(self, info.groupExport, groupPath)
 	if not num then
 		return
 	end
@@ -913,12 +913,15 @@ end
 function private.ImportGroupThread(self, args)
 	self:SetThreadName("IMPORT_GROUP_THREAD")
 	local editbox, value, groupPath = unpack(args)
+	editbox:SetDisabled(true)
+	editbox:SetText("Processing...")
 	local num = nil
 	if strsub(value, 1, 1) == "^" then
 		num = private.ImportGroupAndOperationsThread(self, value, groupPath)
 	else
-		num = private.ImportGroup(value, groupPath)
+		num = private.ImportGroupHelperThread(self, value, groupPath)
 	end
+	editbox:SetDisabled(false)
 	if not num then
 		TSM:Print(L["Invalid import string."])
 		return editbox:SetFocus()
@@ -929,7 +932,7 @@ function private.ImportGroupThread(self, args)
 	private:SelectGroup(groupPath)
 end
 
-function private.ImportGroup(importStr, groupPath)
+function private.ImportGroupHelperThread(self, importStr, groupPath)
 	if not importStr then return end
 	importStr = importStr:trim()
 	if importStr == "" then return end
@@ -938,7 +941,7 @@ function private.ImportGroup(importStr, groupPath)
 	if strfind(importStr, "^|c") then
 		local itemString = TSMAPI.Item:ToItemString(importStr)
 		if not itemString then return end
-		if TSMAPI.Item:IsSoulbound(itemString) then return 0 end
+		if TSMAPI.Item:IsSoulbound(itemString, true) then return 0 end
 		if parentPath and TSM.db.profile.importParentOnly and TSM.db.profile.items[itemString] ~= parentPath then return 0 end
 		if TSM.db.profile.items[itemString] and TSM.db.profile.moveImportedItems then
 			TSM.Groups:MoveItem(itemString, groupPath)
@@ -978,7 +981,7 @@ function private.ImportGroup(importStr, groupPath)
 		if subPath then
 			currentSubPath = subPath
 		elseif itemString then
-			if not TSMAPI.Item:IsSoulbound(itemString) then
+			if not TSMAPI.Item:IsSoulbound(itemString, true) then
 				local isValid = false
 				if strmatch(itemString, "^p:") then
 					-- validate this pet import
@@ -993,6 +996,9 @@ function private.ImportGroup(importStr, groupPath)
 			end
 		else
 			return
+		end
+		if self then
+			self:Yield()
 		end
 	end
 
@@ -1016,6 +1022,9 @@ function private.ImportGroup(importStr, groupPath)
 				TSM.Groups:AddItem(itemString, path)
 				num = num + 1
 			end
+		end
+		if self then
+			self:Yield()
 		end
 	end
 	return num
@@ -1114,7 +1123,7 @@ function private.CreateGroupWithItems(groupName, importStr, moveImportedItems)
 	local tempMoveImportedItems = TSM.db.profile.moveImportedItems
 	TSM.db.profile.importParentOnly = false
 	TSM.db.profile.moveImportedItems = moveImportedItems
-	local success, num = pcall(function() return private.ImportGroup(importStr, groupName) end)
+	local success, num = pcall(function() return private.ImportGroupHelperThread(nil, importStr, groupName) end)
 	TSM.db.profile.importParentOnly = tempImportParentOnly
 	TSM.db.profile.moveImportedItems = tempMoveImportedItems
 	return success and num or nil

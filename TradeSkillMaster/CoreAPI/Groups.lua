@@ -46,7 +46,7 @@ end
 -- Takes a list of itemString/groupPath k,v pairs and adds them to new groups.
 function TSMAPI.Groups:CreatePreset(itemList, moduleName, operationInfo)
 	for itemString, groupPath in pairs(itemList) do
-		if not TSM.db.profile.items[itemString] and not TSMAPI.Item:IsSoulbound(itemString) then
+		if not TSM.db.profile.items[itemString] and not TSMAPI.Item:IsSoulbound(itemString, true) then
 			local pathParts = {TSM.GROUP_SEP:split(groupPath)}
 			for i=1, #pathParts do
 				local path = table.concat(pathParts, TSM.GROUP_SEP, 1, i)

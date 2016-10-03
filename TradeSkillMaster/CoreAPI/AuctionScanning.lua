@@ -484,6 +484,7 @@ function private.ScanAllPagesThread(self, query)
 			if usableBroken then
 				-- revert to a normal scan
 				TSM:LOG_WARN("Usable broken (%s)", usableBroken)
+				private.database:WipeRecords()
 				private.usableOptimize = nil
 				query.usable = nil
 				query.page = 0

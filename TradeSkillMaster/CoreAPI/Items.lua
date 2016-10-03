@@ -1005,7 +1005,6 @@ function private:FixItemString(itemString)
 			if lastExtraPart < UPGRADE_VALUE_SHIFT then
 				lastExtraPart = lastExtraPart + UPGRADE_VALUE_SHIFT
 			end
-			-- itemString = gsub(itemString, ":"..count..":", ":"..(count+1)..":")
 			itemString = itemString..":"..lastExtraPart
 		end
 		itemString = private.RemoveExtra(itemString)
