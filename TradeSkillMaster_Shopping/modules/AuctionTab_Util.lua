@@ -17,7 +17,14 @@ local L = LibStub("AceLocale-3.0"):GetLocale("TradeSkillMaster_Shopping") -- loa
 -- ============================================================================
 
 function AuctionTabUtil:GetNumInBags(itemString)
-	return TSMAPI.Inventory:GetBagQuantity(itemString)
+	local num = 0
+	local targetBaseItemString = TSMAPI.Item:ToBaseItemString(itemString)
+	for _, _, itemString, quantity in TSMAPI.Inventory:BagIterator() do
+		if TSMAPI.Item:ToBaseItemString(itemString) == targetBaseItemString then
+			num = num + quantity
+		end
+	end
+	return num
 end
 
 function AuctionTabUtil:GetItemLocation(targetItemString)

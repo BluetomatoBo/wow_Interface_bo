@@ -936,28 +936,23 @@ function private.AuctionTabThread(self)
 						end
 						self:Sleep(0.1)
 					end
-					if type(searchInfo.item) == "table" then
-						local names = {}
-						auctionInfo.searchItemsLookup = {}
-						for _, item in ipairs(searchInfo.item) do
-							auctionInfo.searchItemsLookup[item] = true
-							local name = TSMAPI.Item:GetName(item)
-							if name then
-								tinsert(names, name .. "/exact")
-							else
-								TSM:Printf(L["Could not lookup item info for '%s' so skipping it."], item)
-							end
-						end
-						searchFilter = table.concat(names, ";")
-						auctionInfo.searchItems = searchInfo.item
-						scanThreadId = TSMAPI.Threading:Start(private.ItemScanThread, 0.7, nil, searchInfo.item, self:GetThreadId())
-					else
-						searchFilter = TSMAPI.Item:GetName(searchInfo.item) .. "/exact"
-						auctionInfo.searchItems = { searchInfo.item }
-						auctionInfo.searchItemsLookup = {}
-						auctionInfo.searchItemsLookup[searchInfo.item] = true
-						scanThreadId = TSMAPI.Threading:Start(private.FilterScanThread, 0.7, nil, searchFilter, self:GetThreadId())
+					if type(searchInfo.item) ~= "table" then
+						searchInfo.item = { searchInfo.item }
 					end
+					local names = {}
+					auctionInfo.searchItemsLookup = {}
+					for _, item in ipairs(searchInfo.item) do
+						auctionInfo.searchItemsLookup[item] = true
+						local name = TSMAPI.Item:GetName(item)
+						if name then
+							tinsert(names, name .. "/exact")
+						else
+							TSM:Printf(L["Could not lookup item info for '%s' so skipping it."], item)
+						end
+					end
+					searchFilter = table.concat(names, ";")
+					auctionInfo.searchItems = searchInfo.item
+					scanThreadId = TSMAPI.Threading:Start(private.ItemScanThread, 0.7, nil, searchInfo.item, self:GetThreadId())
 					private.frame.header.searchBox:SetText(searchInfo.searchBoxText or searchFilter)
 				elseif searchInfo.filter then
 					private.frame.header.searchBox:SetText(searchInfo.searchBoxText or searchInfo.filter)
