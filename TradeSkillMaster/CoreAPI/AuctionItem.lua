@@ -280,5 +280,14 @@ private.AuctionRecordDatabase = setmetatable({}, {
 			wipe(self.records)
 			self.updateCounter = self.updateCounter + 1
 		end,
+
+		RemoveRecords = function(self, toRemove)
+			for i=#self.records, 1, -1 do
+				if toRemove[self.records[i]] then
+					tremove(self.records, i)
+				end
+			end
+			self.updateCounter = self.updateCounter + 1
+		end,
 	},
 })
