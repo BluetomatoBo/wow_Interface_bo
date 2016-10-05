@@ -19,7 +19,8 @@ local private = {
 	playerData = {}, -- reference to all characters on this realm (and connected realms) - kept in sync
 	guildData = {}, -- reference to all guilds on this realm (and connected realms)
 	inventoryChangeCallbacks = {},
-	petSpeciesCache={},
+	petSpeciesCache = {},
+	bagIteratorCache = { items = {}, hasData = nil, hasSoulbound = nil, hasSoulboundBOA = nil },
 }
 local PLAYER_NAME = UnitName("player")
 local PLAYER_GUILD = nil
@@ -33,42 +34,56 @@ local GUILD_VAULT_SLOTS_PER_TAB = 98
 -- ============================================================================
 
 function TSMAPI.Inventory:BagIterator(autoBaseItems, includeSoulbound, includeBOA)
-	local b, s = 0, 0
+	if not private.bagIteratorCache.hasData then
+		private.bagIteratorCache.hasSoulbound = nil
+		private.bagIteratorCache.hasSoulboundBOA = nil
+		wipe(private.bagIteratorCache.items)
+		local isValid = true
+		for b = 0, NUM_BAG_SLOTS do
+			for s = 0, GetContainerNumSlots(b) do
+				local link = GetContainerItemLink(b, s)
+				if link then
+					isValid = isValid and not strmatch(link, "\124h%[%]\124h")
+					local _, quantity, locked = GetContainerItemInfo(b, s)
+					tinsert(private.bagIteratorCache.items, {
+						bag = b,
+						slot = s,
+						link = link,
+						quantity = quantity,
+						locked = locked
+					})
+				end
+			end
+		end
+		if isValid then
+			private.bagIteratorCache.hasData = true
+		end
+	end
 
+	local index = 1
 	local iter
 	iter = function()
-		if s < GetContainerNumSlots(b) then
-			s = s + 1
+		local info = private.bagIteratorCache.items[index]
+		index = index + 1
+		if not info then return end
+
+		local shouldInclude = nil
+		if includeSoulbound then
+			-- include all items
+			shouldInclude = true
+		elseif includeBOA then
+			-- include BOA items
+			shouldInclude = not TSMAPI.Item:IsSoulbound(info.bag, info.slot, true)
 		else
-			s = 1
-			b = b + 1
-			if b > NUM_BAG_SLOTS then return end
+			-- include non-soulbound items
+			shouldInclude = not TSMAPI.Item:IsSoulbound(info.bag, info.slot)
 		end
-
-		local link = GetContainerItemLink(b, s)
-		if not link then
-			-- no item here, try the next slot
-			return iter()
-		end
-		local itemString
-		if autoBaseItems then
-			itemString = TSMAPI.Item:ToBaseItemString(link, true)
-		else
-			itemString = TSMAPI.Item:ToItemString(link)
-		end
-
-		if not itemString then
-			-- ignore invalid item
+		if not shouldInclude then
 			return iter()
 		end
 
-		if not includeSoulbound and TSMAPI.Item:IsSoulbound(b, s, includeBOA) then
-			-- ignore soulbound item
-			return iter()
-		end
-
-		local _, quantity, locked = GetContainerItemInfo(b, s)
-		return b, s, itemString, quantity, locked
+		local itemString = autoBaseItems and TSMAPI.Item:ToBaseItemString(info.link, true) or TSMAPI.Item:ToItemString(info.link)
+		return info.bag, info.slot, itemString, info.quantity, info.locked
 	end
 
 	return iter
@@ -394,6 +409,7 @@ function private.EventHandler(event, data)
 	elseif event == "BANKFRAME_CLOSED" then
 		private.isOpen.bank = nil
 	elseif event == "BAG_UPDATE" then
+		private.bagIteratorCache.hasData = nil
 		if data < 0 or data > NUM_BAG_SLOTS then
 			private.lastUpdate.bank = GetTime()
 		else

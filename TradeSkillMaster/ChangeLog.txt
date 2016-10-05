@@ -1,3 +1,7 @@
+v3.6.4
+*Added caching of bag inventory.
+*Fixed issues with detecting soulbound BOA items.
+
 v3.6.3
 *Fixed issue with scan results getting cleared.
 
