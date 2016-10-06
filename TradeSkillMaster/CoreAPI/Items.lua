@@ -195,14 +195,15 @@ function TSMAPI.Item:IsSoulbound(...)
 		TSMAPI:Assert(false, "Invalid arguments")
 	end
 	local itemLink = bag and slot and GetContainerItemLink(bag, slot)
-	if itemLink then
-		if not private.soulboundCache[itemLink] then
-			private.soulboundCache[itemLink] = { result = nil, resultIgnoreBOA = nil }
+	local cacheItem = bag and slot and itemLink or itemString
+	if cacheItem then
+		if not private.soulboundCache[cacheItem] then
+			private.soulboundCache[cacheItem] = { result = nil, resultIgnoreBOA = nil }
 		end
-		if ignoreBOA and private.soulboundCache[itemLink].resultIgnoreBOA ~= nil then
-			return private.soulboundCache[itemLink].resultIgnoreBOA
-		elseif not ignoreBOA and private.soulboundCache[itemLink].result ~= nil then
-			return private.soulboundCache[itemLink].result
+		if ignoreBOA and private.soulboundCache[cacheItem].resultIgnoreBOA ~= nil then
+			return private.soulboundCache[cacheItem].resultIgnoreBOA
+		elseif not ignoreBOA and private.soulboundCache[cacheItem].result ~= nil then
+			return private.soulboundCache[cacheItem].result
 		end
 	end
 
@@ -247,11 +248,11 @@ function TSMAPI.Item:IsSoulbound(...)
 		end
 	end
 
-	if itemLink and numLines > 2 then
+	if cacheItem and numLines > 2 then
 		if ignoreBOA then
-			private.soulboundCache[itemLink].resultIgnoreBOA = result
+			private.soulboundCache[cacheItem].resultIgnoreBOA = result
 		elseif not ignoreBOA then
-			private.soulboundCache[itemLink].result = result
+			private.soulboundCache[cacheItem].result = result
 		end
 	end
 
