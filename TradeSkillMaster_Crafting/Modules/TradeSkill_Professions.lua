@@ -210,7 +210,7 @@ function Professions:GetFrameInfo()
 				key = "st",
 				stCols = { { name = L["Name"], width = 0.8 }, { name = private:GetProfessionsTabPriceColumnText(), width = 0.2 } },
 				points = { { "TOPLEFT", 5, -70 }, { "BOTTOMRIGHT", -5, 177 } },
-				scripts = { "OnClick", "OnColumnClick" },
+				scripts = { "OnClick", "OnColumnClick", "OnEnter", "OnLeave" },
 			},
 			{
 				type = "Frame",
@@ -523,7 +523,19 @@ function Professions:GetFrameInfo()
 						private.priceTextCache.lastClear = time()
 						Professions:UpdateST()
 					end
-				end
+				end,
+				OnEnter = function(self, data, col)
+					if not data.spellId then return end
+					local info = C_TradeSkillUI.GetRecipeInfo(data.spellId)
+					TradeSkillFrame_GenerateRankLinks(info)
+					local totalRanks, currentRank = TradeSkillFrame_CalculateRankInfoFromRankLinks(info);
+					if totalRanks == 1 or not currentRank then return end
+					GameTooltip:SetOwner(col, "ANCHOR_RIGHT")
+					GameTooltip:SetRecipeRankInfo(data.spellId, currentRank);
+				end,
+				OnLeave = function(self)
+					GameTooltip:Hide()
+				end,
 			},
 			-- craft info frame handlers
 			craftInfoFrame = {

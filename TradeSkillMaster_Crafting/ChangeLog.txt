@@ -1,3 +1,7 @@
+v3.1.16
+*Fixed bug with removing lower ranked recipes.
+*Added mouseover tooltip for rank info to recipe list.
+
 v3.1.15
 *Fixed bug with smart crafts and ranked recipes.
 *Fixed bug with changing professions in the default UI

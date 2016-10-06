@@ -149,15 +149,17 @@ function private.ScanCurrentProfessionThread(self, args)
 		local numMissing = 0
 		for _, spellId in ipairs(C_TradeSkillUI.GetFilteredRecipeIDs()) do
 			local recipeInfo = C_TradeSkillUI.GetRecipeInfo(spellId)
-			if recipeInfo.learned and not toRemove[spellId] then
-				professionCrafts[spellId] = professionCrafts[spellId] or private:GetCraftInfo(spellId)
-				if not professionCrafts[spellId] then
-					numMissing = numMissing + 1
-				end
+			if recipeInfo.learned then
 				-- check if we have skilled up and have lower ranked recipes to remove
 				if recipeInfo.previousRecipeID then
 					toRemove[recipeInfo.previousRecipeID] = true
 					professionCrafts[recipeInfo.previousRecipeID] = nil
+				end
+				if not toRemove[spellId] then
+					professionCrafts[spellId] = professionCrafts[spellId] or private:GetCraftInfo(spellId)
+					if not professionCrafts[spellId] then
+						numMissing = numMissing + 1
+					end
 				end
 			end
 			self:Yield()
