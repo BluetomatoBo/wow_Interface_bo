@@ -1,0 +1,13 @@
+tag 7.0.3.23
+2c111f7089e6f4eaf5729fed38f2b78a04ce8477
+James D. Callahan III <jcallahan@curse.com>
+2016-10-07 21:16:44 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Implement Preferences ➜ Targeting ➜ Hide During Combat. Defaults to false.
+	- When the TargetButton is shown, call its PortraitModel's SetPortraitZoom method to ensure the model's visibility.
+	- Fix the "Reset Position" code.

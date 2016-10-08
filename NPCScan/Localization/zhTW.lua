@@ -16,6 +16,7 @@ if not L then return end
 -- L["Drag to set the spawn point for targeting buttons."] = "Drag to set the spawn point for targeting buttons."
 -- L["Duration"] = "Duration"
 -- L["Hide Anchor"] = "Hide Anchor"
+-- L["Hide During Combat"] = "Hide During Combat"
 -- L["Horizontal offset from the anchor point."] = "Horizontal offset from the anchor point."
 -- L["Ignore Mute"] = "Ignore Mute"
 -- L["Interval"] = "Interval"

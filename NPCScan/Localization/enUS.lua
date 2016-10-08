@@ -17,6 +17,7 @@ L["Detection"] = true
 L["Drag to set the spawn point for targeting buttons."] = true
 L["Duration"] = true
 L["Hide Anchor"] = true
+L["Hide During Combat"] = true
 L["Horizontal offset from the anchor point."] = true
 L["Ignore Mute"] = true
 L["Interval"] = true

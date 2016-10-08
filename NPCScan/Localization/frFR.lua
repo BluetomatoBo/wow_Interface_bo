@@ -16,6 +16,7 @@ L["Detection"] = "Détection"
 L["Drag to set the spawn point for targeting buttons."] = "Faire glisser pour définir le lieu d'apparition des boutons de ciblage." -- Needs review
 L["Duration"] = "Durée"
 L["Hide Anchor"] = "Cacher l'ancre" -- Needs review
+-- L["Hide During Combat"] = "Hide During Combat"
 L["Horizontal offset from the anchor point."] = "Décalage horizontal du point d'ancrage."
 L["Ignore Mute"] = "Ignorer la sourdine" -- Needs review
 L["Interval"] = "Intervalle"
