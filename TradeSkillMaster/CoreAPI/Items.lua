@@ -183,6 +183,7 @@ function TSMAPI.Item:IsSoulbound(...)
 	if type(firstArg) == "string" then
 		TSMAPI:Assert(numArgs <= 2, "Too many arguments provided with itemString")
 		itemString, ignoreBOA = ...
+		itemString = TSMAPI.Item:ToItemString(itemString)
 		if strmatch(itemString, "^p:") then
 			-- battle pets are not soulbound
 			return
