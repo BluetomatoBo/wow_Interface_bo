@@ -40,7 +40,7 @@ function TSMAPI.Inventory:BagIterator(autoBaseItems, includeSoulbound, includeBO
 		wipe(private.bagIteratorCache.items)
 		local isValid = true
 		for b = 0, NUM_BAG_SLOTS do
-			for s = 0, GetContainerNumSlots(b) do
+			for s = 1, GetContainerNumSlots(b) do
 				local link = GetContainerItemLink(b, s)
 				if link then
 					isValid = isValid and not strmatch(link, "\124h%[%]\124h")

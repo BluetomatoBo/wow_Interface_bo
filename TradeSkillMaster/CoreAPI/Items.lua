@@ -195,16 +195,14 @@ function TSMAPI.Item:IsSoulbound(...)
 	else
 		TSMAPI:Assert(false, "Invalid arguments")
 	end
-	local itemLink = bag and slot and GetContainerItemLink(bag, slot)
-	local cacheItem = bag and slot and itemLink or itemString
-	if cacheItem then
-		if not private.soulboundCache[cacheItem] then
-			private.soulboundCache[cacheItem] = { result = nil, resultIgnoreBOA = nil }
+	if itemString then
+		if not private.soulboundCache[itemString] then
+			private.soulboundCache[itemString] = { result = nil, resultIgnoreBOA = nil }
 		end
-		if ignoreBOA and private.soulboundCache[cacheItem].resultIgnoreBOA ~= nil then
-			return private.soulboundCache[cacheItem].resultIgnoreBOA
-		elseif not ignoreBOA and private.soulboundCache[cacheItem].result ~= nil then
-			return private.soulboundCache[cacheItem].result
+		if ignoreBOA and private.soulboundCache[itemString].resultIgnoreBOA ~= nil then
+			return private.soulboundCache[itemString].resultIgnoreBOA
+		elseif not ignoreBOA and private.soulboundCache[itemString].result ~= nil then
+			return private.soulboundCache[itemString].result
 		end
 	end
 
@@ -249,11 +247,11 @@ function TSMAPI.Item:IsSoulbound(...)
 		end
 	end
 
-	if cacheItem and numLines > 2 then
+	if itemString and numLines > 2 then
 		if ignoreBOA then
-			private.soulboundCache[cacheItem].resultIgnoreBOA = result
+			private.soulboundCache[itemString].resultIgnoreBOA = result
 		elseif not ignoreBOA then
-			private.soulboundCache[cacheItem].result = result
+			private.soulboundCache[itemString].result = result
 		end
 	end
 
@@ -369,9 +367,9 @@ function Items:ScanMerchant(event)
 	for i=1, GetMerchantNumItems() do
 		local itemString = TSMAPI.Item:ToItemString(GetMerchantItemLink(i))
 		if itemString then
-			local price, _, _, _, extendedCost = select(3, GetMerchantItemInfo(i))
+			local price, quantity, _, _, extendedCost = select(3, GetMerchantItemInfo(i))
 			if price > 0 and not extendedCost then
-				TSM.db.global.vendorItems[itemString] = price
+				TSM.db.global.vendorItems[itemString] = TSMAPI.Util:Round(price / quantity)
 			else
 				TSM.db.global.vendorItems[itemString] = nil
 			end
