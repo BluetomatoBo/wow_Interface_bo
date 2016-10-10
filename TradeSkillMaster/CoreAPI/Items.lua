@@ -247,7 +247,10 @@ function TSMAPI.Item:IsSoulbound(...)
 		end
 	end
 
-	if itemString and numLines > 2 then
+	if not result and numLines <= 1 then
+		-- the tooltip didn't fully load
+		return nil
+	elseif itemString then
 		if ignoreBOA then
 			private.soulboundCache[itemString].resultIgnoreBOA = result
 		elseif not ignoreBOA then

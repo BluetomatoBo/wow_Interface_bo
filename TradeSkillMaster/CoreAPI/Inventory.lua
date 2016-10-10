@@ -73,10 +73,16 @@ function TSMAPI.Inventory:BagIterator(autoBaseItems, includeSoulbound, includeBO
 			shouldInclude = true
 		elseif includeBOA then
 			-- include BOA items
-			shouldInclude = not TSMAPI.Item:IsSoulbound(info.bag, info.slot, true)
+			if info.isSoulboundBOA == nil then
+				info.isSoulboundBOA = TSMAPI.Item:IsSoulbound(info.bag, info.slot, true)
+			end
+			shouldInclude = not info.isSoulboundBOA
 		else
 			-- include non-soulbound items
-			shouldInclude = not TSMAPI.Item:IsSoulbound(info.bag, info.slot)
+			if info.isSoulbound == nil then
+				info.isSoulbound = TSMAPI.Item:IsSoulbound(info.bag, info.slot)
+			end
+			shouldInclude = not info.isSoulbound
 		end
 		if not shouldInclude then
 			return iter()
