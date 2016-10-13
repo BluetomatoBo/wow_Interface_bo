@@ -1,12 +1,12 @@
 ﻿## Interface: 70000
 ## Title: ErrorFilter
 ## Notes: Filters the errors displayed in the UIErrorsFrame.
-## Version: 2.15
+## Version: v3.0
 ## Author: iceeagle
 ## OptionalDeps: Ace3, LibSink-2.0
 ## SavedVariables: ErrorFilterDB
 ## DefaultState: enabled
-## X-Curse-Packaged-Version: v1.15
+## X-Curse-Packaged-Version: v3.0
 ## X-Curse-Project-Name: ErrorFilter
 ## X-Curse-Project-ID: errorfilter
 ## X-Curse-Repository-ID: wow/errorfilter/mainline

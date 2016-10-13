@@ -338,6 +338,23 @@ local lastDisplay = {}
 --------------------------------------------------------------------------------------------------------
 --                                   ErrorFilter options panel                                        --
 --------------------------------------------------------------------------------------------------------
+local function GetCvarToggle(info)
+	local value = GetCVar(info.arg)
+	if value == "1" then
+		return true
+	else
+		return false
+	end
+end
+
+local function SetCvarToggle(info, value)
+	if InCombatLockdown() then
+		print("We're unable to change this while in combat")
+	else
+		SetCVar(info.arg,value)
+	end
+end
+
 addon.options = {
 	type = "group",
 	name = MODNAME,
@@ -358,6 +375,7 @@ addon.options = {
 					end,
 					set = function(key, value)
 						profileDB.removeFrame = value
+						addon:UpdateEvents()
 					end,
 				},
 				warning1 = {
@@ -368,203 +386,199 @@ addon.options = {
 						return not profileDB.removeFrame
 					end,
 				},
-				separator1 = {
-					order = 3,
-					type = "description",
-					name = "\n",
-				},
-				-- error messages
-				header1 = {
+				errorMessages = {
 					order = 10,
-					type = "header",
+					type = "group",
 					name = L["Error messages"],
-				},
-				mode = {
-					order = 11,
-					type = "select",
-					style = "dropdown",
-					name = L["Operation mode:"],
-					desc = L["Choose how do you want ErrorFilter to work."],
-					get = function()
-						return profileDB.mode
-					end,
-					set = function(key, value)
-						profileDB.mode = value
-						addon:UpdateEvents()
-					end,
-					values = function()
-						return {
-							[DO_NOTHING] = L["Do nothing"],
-							[FILTER_ONLY] = L["Filter only ..."],
-							[ALLOW_ONLY] = L["Allow only ..."],
-							[FILTER_ALL] = L["Filter all errors"],
-							[ALLOW_ALL] = L["Allow all errors"],
-						}
-					end,
+					inline = true,
 					disabled = function()
 						return profileDB.removeFrame
 					end,
+					args = {
+						mode = {
+							order = 1,
+							type = "select",
+							style = "dropdown",
+							name = L["Operation mode:"],
+							desc = L["Choose how do you want ErrorFilter to work."],
+							get = function()
+								return profileDB.mode
+							end,
+							set = function(key, value)
+								profileDB.mode = value
+								addon:UpdateEvents()
+							end,
+							values = function()
+								return {
+									[DO_NOTHING] = L["Do nothing"],
+									[FILTER_ONLY] = L["Filter only ..."],
+									[ALLOW_ONLY] = L["Allow only ..."],
+									[FILTER_ALL] = L["Filter all errors"],
+									[ALLOW_ALL] = L["Allow all errors"],
+								}
+							end,
+						},
+						warning1 = {
+							order = 2,
+							type = "execute",
+							name = L["Set filters"],
+							desc = L["Open the menu to set custom filters."],
+							func = function()
+								InterfaceOptionsFrame_OpenToCategory(addon.optionsFrames.filters)
+							end,
+							hidden = function()
+								return profileDB.mode ~= FILTER_ONLY
+							end,
+						},
+						warning2 = {
+							order = 3,
+							type = "execute",
+							name = L["Set filters"],
+							desc = L["Open the menu to set custom filters."],
+							func = function()
+								InterfaceOptionsFrame_OpenToCategory(addon.optionsFrames.allows)
+							end,
+							hidden = function()
+								return profileDB.mode ~= ALLOW_ONLY
+							end,
+						},
+						separator1 = {
+							order = 4,
+							type = "description",
+							name = "",
+						},
+						warning3 = {
+							order = 5,
+							type = "description",
+							name = "|cFFFF0202"..L["Warning! This will prevent all error messages from appearing."].."|r",
+							hidden = function()
+								return profileDB.mode ~= FILTER_ALL
+							end,
+						},
+						warning4 = {
+							order = 6,
+							type = "description",
+							name = "|cFFFF0202"..L["Warning! This will allow all error messages to the selected output."].."|r",
+							hidden = function()
+								return profileDB.mode ~= ALLOW_ALL
+							end,
+						},
+						combat = {
+							order = 7,
+							type = "toggle",
+							name = L["Filter only in combat."],
+							desc = L["Toggle to stop filtering while out of combat."],
+							get = function()
+								return profileDB.updateOnlyInCombat
+							end,
+							set = function(key, value)
+								profileDB.updateOnlyInCombat = value
+							end,
+							hidden = function()
+								return profileDB.mode == DO_NOTHING or profileDB.mode == ALLOW_ALL
+							end,
+						},
+						throttle = {
+							order = 8,
+							type = "toggle",
+							name = L["Throttle messages."],
+							desc = L["Toggle to allow each message only once every 5 seconds."],
+							get = function()
+								return profileDB.throttle
+							end,
+							set = function(key, value)
+								profileDB.throttle = value
+							end,
+							hidden = function()
+								return profileDB.mode == DO_NOTHING
+							end,
+						},
+					},
 				},
-				warning2 = {
-					order = 12,
-					type = "execute",
-					name = L["Set filters"],
-					desc = L["Open the menu to set custom filters."],
-					func = function()
-						InterfaceOptionsFrame_OpenToCategory(addon.optionsFrames.filters)
-					end,
-					hidden = function()
-						return profileDB.mode ~= FILTER_ONLY
-					end,
-					disabled = function()
-						return profileDB.removeFrame
-					end,
-				},
-				warning3 = {
-					order = 13,
-					type = "execute",
-					name = L["Set filters"],
-					desc = L["Open the menu to set custom filters."],
-					func = function()
-						InterfaceOptionsFrame_OpenToCategory(addon.optionsFrames.allows)
-					end,
-					hidden = function()
-						return profileDB.mode ~= ALLOW_ONLY
-					end,
-					disabled = function()
-						return profileDB.removeFrame
-					end,
-				},
-				separator2 = {
-					order = 14,
-					type = "description",
-					name = "",
-				},
-				warning4 = {
-					order = 15,
-					type = "description",
-					name = "|cFFFF0202"..L["Warning! This will prevent all error messages from appearing."].."|r",
-					hidden = function()
-						return profileDB.mode ~= FILTER_ALL
-					end,
-				},
-				warning5 = {
-					order = 16,
-					type = "description",
-					name = "|cFFFF0202"..L["Warning! This will allow all error messages to the selected output."].."|r",
-					hidden = function()
-						return profileDB.mode ~= ALLOW_ALL
-					end,
-				},
-				combat = {
-					order = 21,
-					type = "toggle",
-					name = L["Filter only in combat."],
-					desc = L["Toggle to stop filtering while out of combat."],
-					get = function()
-						return profileDB.updateOnlyInCombat
-					end,
-					set = function(key, value)
-						profileDB.updateOnlyInCombat = value
-					end,
-					hidden = function()
-						return profileDB.mode == DO_NOTHING or profileDB.mode == ALLOW_ALL
-					end,
-					disabled = function()
-						return profileDB.removeFrame
-					end,
-				},
-				throttle = {
-					order = 22,
-					type = "toggle",
-					name = L["Throttle messages."],
-					desc = L["Toggle to allow each message only once every 5 seconds."],
-					get = function()
-						return profileDB.throttle
-					end,
-					set = function(key, value)
-						profileDB.throttle = value
-					end,
-					hidden = function()
-						return profileDB.mode == DO_NOTHING
-					end,
-					disabled = function()
-						return profileDB.removeFrame
-					end,
-				},
-				separator3 = {
-					order = 23,
-					type = "description",
-					name = "\n",
-				},
-				-- quest messages
-				q_sheader1 = {
-					order = 50,
-					type = "header",
+				questMessages = {
+					order = 20,
+					type = "group",
 					name = L["Quest messages"],
-				},
-				q_mode = {
-					order = 51,
-					type = "select",
-					style = "dropdown",
-					name = L["Operation mode:"],
-					desc = L["Choose how do you want ErrorFilter to work."],
-					get = function()
-						return profileDB.q_mode
-					end,
-					set = function(key, value)
-						profileDB.q_mode = value
-						addon:UpdateEvents()
-					end,
-					values = function()
-						return {
-							[DO_NOTHING] = L["Do nothing"],
-							[FILTER_ALL] = L["Filter all messages"],
-							[ALLOW_ALL] = L["Allow all messages"],
-						}
-					end,
+					inline = true,
 					disabled = function()
 						return profileDB.removeFrame
 					end,
+					args = {
+						mode = {
+							order = 1,
+							type = "select",
+							style = "dropdown",
+							name = L["Operation mode:"],
+							desc = L["Choose how do you want ErrorFilter to work."],
+							get = function()
+								return profileDB.q_mode
+							end,
+							set = function(key, value)
+								profileDB.q_mode = value
+								addon:UpdateEvents()
+							end,
+							values = function()
+								return {
+									[DO_NOTHING] = L["Do nothing"],
+									[FILTER_ALL] = L["Filter all messages"],
+									[ALLOW_ALL] = L["Allow all messages"],
+								}
+							end,
+						},
+						separator = {
+							order = 2,
+							type = "description",
+							name = "",
+						},
+						warning1 = {
+							order = 3,
+							type = "description",
+							name = "|cFFFF0202"..L["Warning! This will prevent all quest messages from appearing."].."|r",
+							hidden = function()
+								return profileDB.q_mode ~= FILTER_ALL
+							end,
+						},
+						warning2 = {
+							order = 4,
+							type = "description",
+							name = "|cFFFF0202"..L["Warning! This will allow all quest messages to the selected output."].."|r",
+							hidden = function()
+								return profileDB.q_mode ~= ALLOW_ALL
+							end,
+						},
+						combat = {
+							order = 5,
+							type = "toggle",
+							name = L["Filter only in combat."],
+							desc = L["Toggle to stop filtering while out of combat."],
+							get = function()
+								return profileDB.q_updateOnlyInCombat
+							end,
+							set = function(key, value)
+								profileDB.q_updateOnlyInCombat = value
+							end,
+							hidden = function()
+								return profileDB.q_mode == DO_NOTHING or profileDB.q_mode == ALLOW_ALL
+							end,
+						},
+					},
 				},
-				q_separator2 = {
-					order = 52,
-					type = "description",
-					name = "",
-				},
-				q_warning1 = {
-					order = 53,
-					type = "description",
-					name = "|cFFFF0202"..L["Warning! This will prevent all quest messages from appearing."].."|r",
-					hidden = function()
-						return profileDB.q_mode ~= FILTER_ALL
-					end,
-				},
-				q_warning2 = {
-					order = 54,
-					type = "description",
-					name = "|cFFFF0202"..L["Warning! This will allow all quest messages to the selected output."].."|r",
-					hidden = function()
-						return profileDB.q_mode ~= ALLOW_ALL
-					end,
-				},
-				q_combat = {
-					order = 55,
-					type = "toggle",
-					name = L["Filter only in combat."],
-					desc = L["Toggle to stop filtering while out of combat."],
-					get = function()
-						return profileDB.q_updateOnlyInCombat
-					end,
-					set = function(key, value)
-						profileDB.q_updateOnlyInCombat = value
-					end,
-					hidden = function()
-						return profileDB.q_mode == DO_NOTHING or profileDB.q_mode == ALLOW_ALL
-					end,
-					disabled = function()
-						return profileDB.removeFrame
-					end,
+				sound = {
+					order = 30,
+					type = "group",
+					name = L["Sound Settings"],
+					inline = true,
+					args = {
+						enableErrorSpeech = {
+							order = 1,
+							type = "toggle",
+							name = L["Enable Error Speech."],
+							desc = L["Toggle to enable the game's sound option error speech."],
+							get = GetCvarToggle,
+							set = SetCvarToggle,
+							arg = "Sound_EnableErrorSpeech",
+						},
+					},
 				},
 			},
 		},
@@ -773,7 +787,7 @@ function addon:OnInfoMessage(self, event, messageType, message)
 	if (profileDB.q_mode == FILTER_ALL) and ((state == IN_COMBAT) or not profileDB.q_updateOnlyInCombat) then
 		return
 	end
-	addon:Pour(message, 1.0, 1.0, 0.0)
+	addon:OutputMessage(messageType, message, 1.0, 1.0, 0.0)
 end
 
 function addon:OnErrorMessage(self, event, messageType, message)
@@ -782,7 +796,7 @@ function addon:OnErrorMessage(self, event, messageType, message)
 		lastDisplay[message] = GetTime()
 	end
 	if ((state == OUT_OF_COMBAT) and profileDB.updateOnlyInCombat) or (profileDB.mode == ALLOW_ALL) then
-		addon:Pour(message, 1.0, 0.1, 0.1)
+		addon:OutputMessage(messageType, message, 1.0, 0.1, 0.1)
 		return
 	end
 	if profileDB.mode == FILTER_ONLY then
@@ -796,17 +810,17 @@ function addon:OnErrorMessage(self, event, messageType, message)
 				return
 			end
 		end
-		addon:Pour(message, 1.0, 0.1, 0.1)
+		addon:OutputMessage(messageType, message, 1.0, 0.1, 0.1)
 	elseif profileDB.mode == ALLOW_ONLY then
 		-- check default allows
 		if profileDB.allows[message] then
-			addon:Pour(message, 1.0, 0.1, 0.1)
+			addon:OutputMessage(messageType, message, 1.0, 0.1, 0.1)
 			return
 		end
 		-- check custom allows
 		for k, v in next, profileDB.custom_allows do
 			if string.find(string.lower(message), v) then
-				addon:Pour(message, 1.0, 0.1, 0.1)
+				addon:OutputMessage(messageType, message, 1.0, 0.1, 0.1)
 				return
 			end
 		end
@@ -831,6 +845,8 @@ end
 
 -- Open config window
 function addon:ShowConfig()
+	-- call twice to workaround a bug in Blizzard's function
+	InterfaceOptionsFrame_OpenToCategory(addon.optionsFrames.profile)
 	InterfaceOptionsFrame_OpenToCategory(addon.optionsFrames.profile)
 	InterfaceOptionsFrame_OpenToCategory(addon.optionsFrames.general)
 end
@@ -859,5 +875,16 @@ function addon:UpdateEvents()
 			UIErrorsFrame:UnregisterEvent("UI_ERROR_MESSAGE")
 			self:RegisterEvent("UI_ERROR_MESSAGE","OnErrorMessage", self)
 		end
+	end
+end
+
+function addon:OutputMessage(messageType, message, r, g, b)
+	addon:Pour(message, r, g, b)
+
+	local errorName, soundKitID, voiceID = GetGameMessageInfo(messageType);
+	if voiceID then
+		PlayVocalErrorSoundID(voiceID);
+	elseif soundKitID then
+		PlaySoundKitID(soundKitID);
 	end
 end
