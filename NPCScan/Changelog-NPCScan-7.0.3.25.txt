@@ -1,0 +1,11 @@
+tag 7.0.3.25
+a885411af53d1b0b23392e80d98f581ba4704d5a
+James D. Callahan III <jcallahan@curse.com>
+2016-10-14 19:41:53 -0500
+
+
+
+--------------------
+
+James D. Callahan III:
+	- Fix typo in TOOLTIP_ANCHORS table.
