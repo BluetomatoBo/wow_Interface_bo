@@ -1,3 +1,7 @@
+v3.0.17
+*Fixed issue with recording trades.
+*Fixed issue with recording bonus gold from class hall missions.
+
 v3.0.16
 *Made scanning of listed auctions less aggressive.
 

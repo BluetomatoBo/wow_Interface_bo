@@ -33,7 +33,8 @@ function private.MissionComplete(_, missionId)
 	local moneyAward = 0
 	local info = C_Garrison.GetBasicMissionInfo(missionId)
 	if not info then return end
-	for _, reward in pairs(info.rewards) do
+	local rewards = info.rewards or info.overMaxRewards
+	for _, reward in pairs(rewards) do
 		if reward.title == GARRISON_REWARD_MONEY and reward.currencyID == 0 then
 			moneyAward = moneyAward + reward.quantity
 		end

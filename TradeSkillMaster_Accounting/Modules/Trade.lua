@@ -57,7 +57,7 @@ end
 
 function private.OnChatMsg(_, msg)
 	if not TSM.db.global.trackTrades then return end
-	if msg == ERR_TRADE_COMPLETE and private.tradeInfo then
+	if msg == LE_GAME_ERR_TRADE_COMPLETE and private.tradeInfo then
 		-- trade went through
 		if private.tradeInfo.player.money > 0 and #private.tradeInfo.player == 0 and private.tradeInfo.target.money == 0 and #private.tradeInfo.target > 0 then
 			-- player bought items
