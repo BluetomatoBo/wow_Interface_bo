@@ -1,0 +1,12 @@
+tag v1.2.4
+d0a4fcd19d19e131c7362ba92c693a0757759827
+Ethan Centaurai <ethancentaurai@outlook.com>
+2016-10-16 00:19:33 +0100
+
+Tagging as v1.2.4.
+
+
+--------------------
+
+Ethan Centaurai:
+	- Bump Interface number to 70000.
