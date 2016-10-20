@@ -1,14 +1,14 @@
 local mod	= DBM:NewMod("EmeraldNightmareTrash", "DBM-EmeraldNightmare")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15304 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15358 $"):sub(12, -3))
 --mod:SetModelID(47785)
 mod:SetZone()
 mod.isTrashMod = true
 
 mod:RegisterEvents(
 --	"SPELL_CAST_START 222719",
-	"SPELL_AURA_APPLIED 221028 222719",
+	"SPELL_AURA_APPLIED 221028 222719 223946",
 	"SPELL_AURA_REMOVED 221028 222719"
 )
 
@@ -17,10 +17,12 @@ local warnUnstableDecay				= mod:NewTargetAnnounce(221028, 3)
 local specWarnUnstableDecay			= mod:NewSpecialWarningMoveAway(221028, nil, nil, nil, 1, 2)
 local yellUnstableDecay				= mod:NewYell(221028)
 local specWarnBefoulment			= mod:NewSpecialWarningMoveTo(222719, nil, nil, nil, 1, 2)
-local yellBefoulment				= mod:NewFadesYell(221028)
+local yellBefoulment				= mod:NewFadesYell(222719)
+local specWarnDarkLightning			= mod:NewSpecialWarningMove(223946, nil, nil, nil, 1, 2)
 
 local voiceUnstableDecay			= mod:NewVoice(221028)--runout
 local voiceBefoulment				= mod:NewVoice(222719)--gathershare
+local voiceDarkLightning			= mod:NewVoice(223946)--runaway
 
 mod:RemoveOption("HealthFrame")
 mod:AddRangeFrameOption(10, 221028)
@@ -61,6 +63,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			yellBefoulment:Schedule(13, 2)
 			yellBefoulment:Schedule(12, 3)
 		end
+	elseif spellId == 223946 and args:IsPlayer() then--No damage events for trash mod, this should be enough
+		specWarnDarkLightning:Show()
+		voiceDarkLightning:Play("runaway")
 	end
 end
 --mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED

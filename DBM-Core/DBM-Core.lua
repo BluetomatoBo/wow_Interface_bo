@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 15307 $"):sub(12, -3)),
-	DisplayVersion = "7.0.11", -- the string that is shown as version
-	ReleaseRevision = 15307 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 15369 $"):sub(12, -3)),
+	DisplayVersion = "7.0.12", -- the string that is shown as version
+	ReleaseRevision = 15369 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -144,6 +144,7 @@ DBM.DefaultOptions = {
 	HideObjectivesFrame = true,
 	HideGarrisonToasts = true,
 	HideGuildChallengeUpdates = true,
+	HideQuestTooltips = true,
 	HideTooltips = false,
 	DisableSFX = false,
 	EnableModels = true,
@@ -421,7 +422,7 @@ local dbmToc = 0
 local isTalkingHeadLoaded = false
 local talkingHeadUnregistered = false
 
-local fakeBWVersion, fakeBWHash = 14, "bb2513a"
+local fakeBWVersion, fakeBWHash = 19, "1a21137"
 local versionQueryString, versionResponseString = "Q:%d-%s", "V:%d-%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -3602,10 +3603,12 @@ function DBM:CHALLENGE_MODE_START(mapID)
 end
 
 function DBM:CHALLENGE_MODE_RESET()
+	self.Bars:CancelBar(PLAYER_DIFFICULTY6.."+")
 	self:Debug("CHALLENGE_MODE_RESET fired")
 end
 
 function DBM:CHALLENGE_MODE_COMPLETED()
+	self.Bars:CancelBar(PLAYER_DIFFICULTY6.."+")
 	self:Debug("CHALLENGE_MODE_COMPLETED fired for mapID "..LastInstanceMapID)
 end
 --REFACTOR IN LEGION
@@ -4132,7 +4135,7 @@ do
 	end
 	
 	whisperSyncHandlers["BTR3"] = function(sender, timer)
-		if DBM.Options.DontShowUserTimers then return end
+		if DBM.Options.DontShowUserTimers or not DBM:GetRaidUnitId(sender) then return end
 		timer = tonumber(timer or 0)
 		if timer > 3600 then return end
 		DBM:Unschedule(DBM.RequestTimers)--IF we got BTR3 sync, then we know immediately RequestTimers was successful, so abort others
@@ -4488,6 +4491,7 @@ do
 		local updateInstanceInfo, showResults
 
 		whisperSyncHandlers["II"] = function(sender, result, name, id, diff, maxPlayers, progress, textDiff)
+			if not DBM:GetRaidUnitId(sender) then return end
 			if GetTime() - lastRequest > 62 or not results then
 				return
 			end
@@ -4685,10 +4689,18 @@ do
 	end
 
 	whisperSyncHandlers["RT"] = function(sender)
+		if not DBM:GetRaidUnitId(sender) then
+			DBM:Debug(sender.." attempted to request timers but isn't in your group")
+			return
+		end
 		DBM:SendTimers(sender)
 	end
 
 	whisperSyncHandlers["CI"] = function(sender, mod, time)
+		if not DBM:GetRaidUnitId(sender) then
+			DBM:Debug(sender.." attempted to send you combat info but isn't in your group")
+			return
+		end
 		mod = DBM:GetModByName(mod or "")
 		time = tonumber(time or 0)
 		if mod and time then
@@ -4697,6 +4709,7 @@ do
 	end
 
 	whisperSyncHandlers["TI"] = function(sender, mod, timeLeft, totalTime, id, ...)
+		if not DBM:GetRaidUnitId(sender) then return end
 		mod = DBM:GetModByName(mod or "")
 		timeLeft = tonumber(timeLeft or 0)
 		totalTime = tonumber(totalTime or 0)
@@ -4706,6 +4719,7 @@ do
 	end
 
 	whisperSyncHandlers["VI"] = function(sender, mod, name, value)
+		if not DBM:GetRaidUnitId(sender) then return end
 		mod = DBM:GetModByName(mod or "")
 		value = tonumber(value) or value
 		if mod and name and value then
@@ -4718,7 +4732,7 @@ do
 			return
 		end
 		local handler
-		if channel == "WHISPER" and (sender ~= playerName or prefix == "BTR3") then -- separate between broadcast and unicast, broadcast must not be sent as unicast or vice-versa
+		if channel == "WHISPER" and sender ~= playerName then -- separate between broadcast and unicast, broadcast must not be sent as unicast or vice-versa
 			handler = whisperSyncHandlers[prefix]
 		else
 			handler = syncHandlers[prefix]
@@ -5427,6 +5441,10 @@ do
 			--set mod default info
 			savedDifficulty, difficultyText, difficultyIndex, LastGroupSize = self:GetCurrentInstanceDifficulty()
 			local name = mod.combatInfo.name
+			if type(name) == "table" then
+				for i, v in pairs(name) do print(i, v) end
+				name = tostring(name)--Silence error for now
+			end
 			local modId = mod.id
 			if C_Scenario.IsInScenario() and (mod.addon.type == "SCENARIO") then
 				mod.inScenario = true
@@ -5733,6 +5751,10 @@ do
 				return--Don't run any further, stats are nil on a bad load so rest of this code will also error out.
 			end
 			local name = mod.combatInfo.name
+			if type(name) == "table" then
+				for i, v in pairs(name) do print(i, v) end
+				name = tostring(name)--Silence error for now
+			end
 			local modId = mod.id
 			if wipe then
 				mod.lastWipeTime = GetTime()
@@ -5941,9 +5963,7 @@ do
 				if self.Options.HideObjectivesFrame and watchFrameRestore and not scenario then
 					ObjectiveTrackerFrame:Show()
 					watchFrameRestore = false
-					if difficultyIndex == 8 then
-						self.Bars:CancelBar(PLAYER_DIFFICULTY6.."+")
-					end
+					self.Bars:CancelBar(PLAYER_DIFFICULTY6.."+")
 				end
 				if tooltipsHidden then
 					--Better or cleaner way?
@@ -6588,6 +6608,9 @@ do
 	function DBM:HideBlizzardEvents(toggle, custom)
 		if toggle == 1 and not blizzEventsUnregistered then
 			blizzEventsUnregistered = true
+			if self.Options.HideQuestTooltips then
+				SetCVar("showQuestTrackingTooltips", 0)
+			end
 			if self.Options.HideBossEmoteFrame or custom then
 				RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_EMOTE")
 				RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_WHISPER")
@@ -6608,6 +6631,9 @@ do
 			end
 		elseif toggle == 0 and blizzEventsUnregistered then
 			blizzEventsUnregistered = false
+			if self.Options.HideQuestTooltips then
+				SetCVar("showQuestTrackingTooltips", 1)
+			end
 			if self.Options.HideBossEmoteFrame or custom then
 				RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_EMOTE")
 				RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_WHISPER")
@@ -6794,6 +6820,14 @@ end
 
 function DBM:TalkingHeadStatus()
 	return talkingHeadUnregistered, isTalkingHeadLoaded
+end
+
+function DBM:SetTalkingHeadState(disabled)
+	if disabled then
+		talkingHeadUnregistered = true
+	else
+		talkingHeadUnregistered = false
+	end
 end
 
 function DBM:FlashClientIcon()
@@ -7231,6 +7265,17 @@ do
 			end
 		end
 		if name or scanOnlyBoss then return name, uid, bossuid end
+		-- Now lets check nameplates
+		for i = 1, 40 do
+			if UnitGUID("nameplate"..i) == guid then
+				bossuid = "nameplate"..i
+				name = DBM:GetUnitFullName("nameplate"..i.."target")
+				uid = "nameplate"..i.."target"
+				bossuIdCache[guid] = bossuid
+				break
+			end
+		end
+		if name then return name, uid, bossuid end
 		-- failed to detect from default uIds, scan all group members's target.
 		if IsInRaid() then
 			for i = 1, GetNumGroupMembers() do
@@ -10889,12 +10934,14 @@ do
 		if uId or UnitExists(target) then--target accepts uid, unitname both.
 			uId = uId or target
 			--save previous icon into a table.
+			local oldIcon = self:GetIcon(uId) or 0
 			if not self.iconRestore[uId] then
-				local oldIcon = self:GetIcon(uId) or 0
 				self.iconRestore[uId] = oldIcon
 			end
 			--set icon
-			SetRaidTarget(uId, self.iconRestore[uId] and icon == 0 and self.iconRestore[uId] or icon)
+			if oldIcon ~= icon then--Don't set icon if it's already set to what we're setting it to
+				SetRaidTarget(uId, self.iconRestore[uId] and icon == 0 and self.iconRestore[uId] or icon)
+			end
 			--schedule restoring old icon if timer enabled.
 			if timer then
 				self:ScheduleMethod(timer, "SetIcon", target, 0)
@@ -11046,8 +11093,8 @@ do
 		return false
 	end
 
-	local mobUids = {"mouseover", "boss1", "boss2", "boss3", "boss4", "boss5"}
-	function bossModPrototype:ScanForMobs(creatureID, iconSetMethod, mobIcon, maxIcon, scanInterval, scanningTime, optionName)
+	local mobUids = {"mouseover", "boss1", "boss2", "boss3", "boss4", "boss5", "nameplate1", "nameplate2", "nameplate3", "nameplate4", "nameplate5", "nameplate6", "nameplate7", "nameplate8", "nameplate9", "nameplate10", "nameplate11", "nameplate12", "nameplate13", "nameplate14", "nameplate15", "nameplate16", "nameplate17", "nameplate18", "nameplate19", "nameplate20"}
+	function bossModPrototype:ScanForMobs(creatureID, iconSetMethod, mobIcon, maxIcon, scanInterval, scanningTime, optionName, isFriendly, secondCreatureID)
 		if not optionName then optionName = self.findFastestComputer[1] end
 		if canSetIcons[optionName] then
 			--Declare variables.
@@ -11070,6 +11117,8 @@ do
 			if not addsIconSet[scanID] then addsIconSet[scanID] = 0 end
 			if not scanExpires[scanID] then scanExpires[scanID] = timeNow + scanningTime end
 			local maxIcon = maxIcon or 8 --We only have 8 icons.
+			local isFriendly = isFriendly or false
+			local secondCreatureID = secondCreatureID or 0
 			local scanInterval = scanInterval or 0.2
 			local scanningTime = scanningTime or 8
 			--DO SCAN NOW
@@ -11081,95 +11130,109 @@ do
 				local unitid = uId.."target"
 				local guid = UnitGUID(unitid)
 				local cid = self:GetCIDFromGUID(guid)
-				if guid and type(creatureID) == "table" and creatureID[cid] and not addsGUIDs[guid] then
-					if type(creatureID[cid]) == "number" then
-						SetRaidTarget(unitid, creatureID[cid])
-					else
-						SetRaidTarget(unitid, addsIcon[scanID])
-						if iconSetMethod == 1 then
-							addsIcon[scanID] = addsIcon[scanID] + 1
+				local isEnemy = UnitIsEnemy("player", unitid)
+				local isFiltered = false
+				if not isFriendly and not isEnemy then
+					isFiltered = true
+				end
+				if not isFiltered then
+					if guid and type(creatureID) == "table" and creatureID[cid] and not addsGUIDs[guid] then
+						if type(creatureID[cid]) == "number" then
+							SetRaidTarget(unitid, creatureID[cid])
 						else
-							addsIcon[scanID] = addsIcon[scanID] - 1
+							SetRaidTarget(unitid, addsIcon[scanID])
+							if iconSetMethod == 1 then
+								addsIcon[scanID] = addsIcon[scanID] + 1
+							else
+								addsIcon[scanID] = addsIcon[scanID] - 1
+							end
 						end
-					end
-					addsGUIDs[guid] = true
-					addsIconSet[scanID] = addsIconSet[scanID] + 1
-					if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
-						--clear variables
-						scanExpires[scanID] = nil
-						addsIcon[scanID] = nil
-						addsIconSet[scanID] = nil
-						return
-					end
-				elseif guid and ((guid == creatureID) or (cid == creatureID)) and not addsGUIDs[guid] then
-					if iconSetMethod == 2 then
-						SetRaidTarget(unitid, mobIcon)
-					else
-						SetRaidTarget(unitid, addsIcon[scanID])
-						if iconSetMethod == 1 then
-							addsIcon[scanID] = addsIcon[scanID] + 1
+						addsGUIDs[guid] = true
+						addsIconSet[scanID] = addsIconSet[scanID] + 1
+						if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
+							--clear variables
+							scanExpires[scanID] = nil
+							addsIcon[scanID] = nil
+							addsIconSet[scanID] = nil
+							return
+						end
+					elseif guid and ((guid == creatureID) or (cid == creatureID or cid == secondCreatureID)) and not addsGUIDs[guid] then
+						if iconSetMethod == 2 then
+							SetRaidTarget(unitid, mobIcon)
 						else
-							addsIcon[scanID] = addsIcon[scanID] - 1
+							SetRaidTarget(unitid, addsIcon[scanID])
+							if iconSetMethod == 1 then
+								addsIcon[scanID] = addsIcon[scanID] + 1
+							else
+								addsIcon[scanID] = addsIcon[scanID] - 1
+							end
 						end
-					end
-					addsGUIDs[guid] = true
-					addsIconSet[scanID] = addsIconSet[scanID] + 1
-					if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
-						--clear variables
-						scanExpires[scanID] = nil
-						addsIcon[scanID] = nil
-						addsIconSet[scanID] = nil
-						return
+						addsGUIDs[guid] = true
+						addsIconSet[scanID] = addsIconSet[scanID] + 1
+						if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
+							--clear variables
+							scanExpires[scanID] = nil
+							addsIcon[scanID] = nil
+							addsIconSet[scanID] = nil
+							return
+						end
 					end
 				end
 			end
 			for _, unitid2 in ipairs(mobUids) do
 				local guid2 = UnitGUID(unitid2)
 				local cid2 = self:GetCIDFromGUID(guid2)
-				if guid2 and type(creatureID) == "table" and creatureID[cid2] and not addsGUIDs[guid2] then
-					if type(creatureID[cid2]) == "number" then
-						SetRaidTarget(unitid2, creatureID[cid2])
-					else
-						SetRaidTarget(unitid2, addsIcon[scanID])
-						if iconSetMethod == 1 then
-							addsIcon[scanID] = addsIcon[scanID] + 1
+				local isEnemy = UnitIsEnemy("player", unitid2)
+				local isFiltered = false
+				if not isFriendly and not isEnemy then
+					isFiltered = true
+				end
+				if not isFiltered then
+					if guid2 and type(creatureID) == "table" and creatureID[cid2] and not addsGUIDs[guid2] then
+						if type(creatureID[cid2]) == "number" then
+							SetRaidTarget(unitid2, creatureID[cid2])
 						else
-							addsIcon[scanID] = addsIcon[scanID] - 1
+							SetRaidTarget(unitid2, addsIcon[scanID])
+							if iconSetMethod == 1 then
+								addsIcon[scanID] = addsIcon[scanID] + 1
+							else
+								addsIcon[scanID] = addsIcon[scanID] - 1
+							end
 						end
-					end
-					addsGUIDs[guid2] = true
-					addsIconSet[scanID] = addsIconSet[scanID] + 1
-					if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
-						--clear variables
-						scanExpires[scanID] = nil
-						addsIcon[scanID] = nil
-						addsIconSet[scanID] = nil
-						return
-					end
-				elseif guid2 and ((guid2 == creatureID) or (cid2 == creatureID)) and not addsGUIDs[guid2] then
-					if iconSetMethod == 2 then
-						SetRaidTarget(unitid2, mobIcon)
-					else
-						SetRaidTarget(unitid2, addsIcon[scanID])
-						if iconSetMethod == 1 then
-							addsIcon[scanID] = addsIcon[scanID] + 1
+						addsGUIDs[guid2] = true
+						addsIconSet[scanID] = addsIconSet[scanID] + 1
+						if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
+							--clear variables
+							scanExpires[scanID] = nil
+							addsIcon[scanID] = nil
+							addsIconSet[scanID] = nil
+							return
+						end
+					elseif guid2 and ((guid2 == creatureID) or (cid2 == creatureID or cid == secondCreatureID)) and not addsGUIDs[guid2] then
+						if iconSetMethod == 2 then
+							SetRaidTarget(unitid2, mobIcon)
 						else
-							addsIcon[scanID] = addsIcon[scanID] - 1
+							SetRaidTarget(unitid2, addsIcon[scanID])
+							if iconSetMethod == 1 then
+								addsIcon[scanID] = addsIcon[scanID] + 1
+							else
+								addsIcon[scanID] = addsIcon[scanID] - 1
+							end
 						end
-					end
-					addsGUIDs[guid2] = true
-					addsIconSet[scanID] = addsIconSet[scanID] + 1
-					if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
-						--clear variables
-						scanExpires[scanID] = nil
-						addsIcon[scanID] = nil
-						addsIconSet[scanID] = nil
-						return
+						addsGUIDs[guid2] = true
+						addsIconSet[scanID] = addsIconSet[scanID] + 1
+						if addsIconSet[scanID] >= maxIcon then--stop scan immediately to save cpu
+							--clear variables
+							scanExpires[scanID] = nil
+							addsIcon[scanID] = nil
+							addsIconSet[scanID] = nil
+							return
+						end
 					end
 				end
 			end
 			if timeNow < scanExpires[scanID] then--scan for limited times.
-				self:ScheduleMethod(scanInterval, "ScanForMobs", creatureID, iconSetMethod, mobIcon, maxIcon, scanInterval, scanningTime, optionName)
+				self:ScheduleMethod(scanInterval, "ScanForMobs", creatureID, iconSetMethod, mobIcon, maxIcon, scanInterval, scanningTime, optionName, isFriendly, secondCreatureID)
 			else
 				DBM:Debug("Stopping ScanForMobs for: "..(optionName or "nil"), 2)
 				--clear variables

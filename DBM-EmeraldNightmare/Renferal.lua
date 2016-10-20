@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1744, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15305 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15357 $"):sub(12, -3))
 mod:SetCreatureID(106087)
 mod:SetEncounterID(1876)
 mod:SetZone()
@@ -374,9 +374,9 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
 		timerDarkStormCD:Start()--26
 		timerSpiderFormCD:Start()
 		countdownPhase:Start(132)--132-135 (used to be 127, so keep an eye on it)
-		if self:IsMythic() and self.vb.platformCount == 2 then--Only happens platform 2, platform 4 (roc form second cast behaves like non mythic()
+		if self:IsMythic() and self.vb.platformCount == 2 then--Only happens platform 2, platform 4 (roc form second cast behaves like non mythic
 			self.vb.ViolentWindsPlat = true
-			timerViolentWindsCD:Start(16)--10 plus 6 second cast
+			timerViolentWindsCD:Start(56)--50 plus 6 second cast
 			timerRakingTalonsCD:Start(66, 1)
 			timerRazorWingCD:Start(73, 1)
 		else

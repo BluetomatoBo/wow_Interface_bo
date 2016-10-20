@@ -1,3 +1,4 @@
+if GetLocale() ~= "koKR" then return end
 local L
 
 -----------------------
@@ -29,7 +30,7 @@ L= DBM:GetModLocalization(1672)
 L = DBM:GetModLocalization("BRHTrash")
 
 L:SetGeneralLocalization({
-	name =	"Black Rook Hold Trash"
+	name =	"검은 떼까마귀 요새 일반몹"
 })
 
 -----------------------
@@ -61,7 +62,7 @@ L= DBM:GetModLocalization(1657)
 L = DBM:GetModLocalization("DHTTrash")
 
 L:SetGeneralLocalization({
-	name =	"Darkheart Thicket Trash"
+	name =	"어둠심장 숲 일반몹"
 })
 
 
@@ -79,8 +80,8 @@ L= DBM:GetModLocalization(1480)
 L= DBM:GetModLocalization(1490)
 
 L:SetWarningLocalization({
-	specWarnStaticNova			= "Static Nova - move to land",
-	specWarnFocusedLightning	= "Focused Lightning - move to water"
+	specWarnStaticNova			= "정전기 회오리 - 땅으로 이동",
+	specWarnFocusedLightning	= "집중된 번개 - 물로 이동"
 })
 
 -----------------------
@@ -104,7 +105,7 @@ L= DBM:GetModLocalization(1492)
 L = DBM:GetModLocalization("EoATrash")
 
 L:SetGeneralLocalization({
-	name =	"Eye of Azshara Trash"
+	name =	"아즈샤라의 눈 일반몹"
 })
 
 -----------------------
@@ -136,7 +137,7 @@ L= DBM:GetModLocalization(1488)
 L= DBM:GetModLocalization(1489)
 
 L:SetMiscLocalization({
-	tempestModeMessage		=	"Not tempest sequence: %s. Rechecking in 8 seconds."
+	tempestModeMessage		=	"폭풍우 시퀀스 아님: %s. 8초 후 다시 체크합니다."
 })
 
 -----------------------
@@ -145,7 +146,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("HoVTrash")
 
 L:SetGeneralLocalization({
-	name =	"Halls of Valor Trash"
+	name =	"용맹의 전당 일반몹"
 })
 
 -----------------------
@@ -177,7 +178,7 @@ L= DBM:GetModLocalization(1687)
 L = DBM:GetModLocalization("NLTrash")
 
 L:SetGeneralLocalization({
-	name =	"Neltharion's Lair Trash"
+	name =	"넬타리온의 둥지 일반몹"
 })
 
 -----------------------
@@ -218,7 +219,7 @@ L= DBM:GetModLocalization(1501)
 L = DBM:GetModLocalization("ArcwayTrash")
 
 L:SetGeneralLocalization({
-	name =	"The Arcway Trash"
+	name =	"비전로 일반몹"
 })
 
 -----------------------
@@ -245,11 +246,7 @@ L= DBM:GetModLocalization(1720)
 L = DBM:GetModLocalization("CoSTrash")
 
 L:SetGeneralLocalization({
-	name =	"Court of Stars Trash"
-})
-
-L:SetOptionLocalization({
-	SpyHelper	= "Help identify the spy"
+	name =	"별의 궁정 일반몹"
 })
 
 -----------------------
@@ -276,7 +273,7 @@ L= DBM:GetModLocalization(1663)
 L = DBM:GetModLocalization("MawTrash")
 
 L:SetGeneralLocalization({
-	name =	"Maw of Souls Trash"
+	name =	"영혼의 아귀 일반몹"
 })
 
 -----------------------
@@ -328,28 +325,28 @@ L= DBM:GetModLocalization(1711)
 L = DBM:GetModLocalization("AVHTrash")
 
 L:SetGeneralLocalization({
-	name =	"Assault Violet Hold Trash"
+	name =	"보랏빛 요새 침공 일반몹"
 })
 
 L:SetWarningLocalization({
-	WarningPortalSoon	= "New portal soon",
-	WarningPortalNow	= "Portal #%d",
-	WarningBossNow		= "Boss incoming"
+	WarningPortalSoon	= "곧 새 차원문 열림",
+	WarningPortalNow	= "차원문 #%d",
+	WarningBossNow		= "우두머리 등장"
 })
 
 L:SetTimerLocalization({
-	TimerPortal			= "Portal CD"
+	TimerPortal			= "차원문 가능"
 })
 
 L:SetOptionLocalization({
-	WarningPortalNow		= "Show warning for new portal",
-	WarningPortalSoon		= "Show pre-warning for new portal",
-	WarningBossNow			= "Show warning for boss incoming",
-	TimerPortal				= "Show timer for next portal (after Boss)"
+	WarningPortalNow		= "새 차원문 등장시 경고 표시",
+	WarningPortalSoon		= "새 차원문 사전 경고 표시",
+	WarningBossNow			= "우두머리 등장 경고 표시",
+	TimerPortal				= "다음 차원문 타이머 표시 (우두머리 처치 이후)"
 })
 
 L:SetMiscLocalization({
-	Malgath		=	"Lord Malgath"
+	Malgath		=	"군주 말가스"
 })
 
 -----------------------
@@ -386,7 +383,7 @@ L= DBM:GetModLocalization(1470)
 L = DBM:GetModLocalization("VoWTrash")
 
 L:SetGeneralLocalization({
-	name =	"Vault of Wardens Trash"
+	name =	"감시관의 금고 일반몹"
 })
 
 -----------------------
@@ -448,5 +445,5 @@ L= DBM:GetModLocalization(1838)
 L = DBM:GetModLocalization("RTKTrash")
 
 L:SetGeneralLocalization({
-	name =	"Return To Karazhan Trash"
+	name =	"다시 찾은 카라잔 일반몹"
 })
