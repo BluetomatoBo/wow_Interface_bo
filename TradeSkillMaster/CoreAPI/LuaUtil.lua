@@ -38,14 +38,15 @@ end
 function TSMAPI.Util:SafeStrSplit(str, sep)
 	local parts = {}
 	local s = 1
+	local sepLength = #sep
 	while true do
 		local e = strfind(str, sep, s)
 		if not e then
 			tinsert(parts, strsub(str, s))
 			break
 		end
-		tinsert(parts, strsub(str, s, e-1))
-		s = e + 1
+		tinsert(parts, strsub(str, s, e - 1))
+		s = e + sepLength
 	end
 	return parts
 end

@@ -1,3 +1,12 @@
+v3.6.11
+*Fixed bug causing AuctionDB to not properly load some region statistics.
+
+v3.6.10
+*Fixed a bug with parsing app data
+
+v3.6.9
+*Set twitter integration disabled by default.
+
 v3.6.8
 *Fixed bug causing interface lag in certain situations.
 
