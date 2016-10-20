@@ -120,13 +120,13 @@ function TSM:OnEnable()
 			local realm, data = unpack(info)
 			local downloadTime = "?"
 			if realm == "US" then
-				regionAppDataUS = assert(loadstring(data))()
+				regionAppDataUS = TSM:ProcessAppData(data)
 				downloadTime = SecondsToTime(time() - regionAppDataUS.downloadTime).." ago"
 			elseif realm == "EU" then
-				regionAppDataEU = assert(loadstring(data))()
+				regionAppDataEU = TSM:ProcessAppData(data)
 				downloadTime = SecondsToTime(time() - regionAppDataEU.downloadTime).." ago"
 			elseif TSMAPI.AppHelper:IsCurrentRealm(realm) then
-				realmAppData = assert(loadstring(data))()
+				realmAppData = TSM:ProcessAppData(data)
 				downloadTime = SecondsToTime(time() - realmAppData.downloadTime).." ago"
 			end
 			TSM:LOG_INFO("Got AppData for %s (isCurrent=%s, %s)", realm, tostring(TSMAPI.AppHelper:IsCurrentRealm(realm)), downloadTime)
@@ -219,6 +219,27 @@ function TSM:OnEnable()
 	if not next(TSM.realmData) then
 		TSMAPI.Util:ShowStaticPopupDialog("TSM_AUCTIONDB_NO_DATA_POPUP")
 	end
+end
+
+function TSM:ProcessAppData(rawData)
+	if #rawData < 3500000 then
+		-- we can safely just use loadstring() for strings below 3.5M
+		return assert(loadstring(rawData)())
+	end
+	-- We'll manually load the data part, since that might be too big for loadstring() to process
+	local leader, itemData, trailer = strmatch(rawData, "^(.+)data={{(.+)}}(.+)$")
+	__AUCTIONDB_IMPORT_TEMP = {}
+	for _, part in ipairs(TSMAPI.Util:SafeStrSplit(itemData, "},{")) do
+		local entry = {(","):split(part)}
+		for j = 1, #entry do
+			entry[j] = entry[j]:trim("\"")
+			entry[j] = tonumber(entry[j]) or (entry[j] ~= "" and entry[j]) or nil
+		end
+		tinsert(__AUCTIONDB_IMPORT_TEMP, entry)
+	end
+	local result = assert(loadstring(leader.."data=__AUCTIONDB_IMPORT_TEMP"..trailer)())
+	__AUCTIONDB_IMPORT_TEMP = nil
+	return result
 end
 
 function TSM:OnTSMDBShutdown()

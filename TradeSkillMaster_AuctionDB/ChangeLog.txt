@@ -1,3 +1,9 @@
+v3.1.15
+*Fixed bug with loading of data from the TSM Desktop Application.
+
+v3.1.14
+*Fixed issue with loading of large amounts of data from the TSM Desktop Application.
+
 v3.1.13
 *Fixed typo.
 
