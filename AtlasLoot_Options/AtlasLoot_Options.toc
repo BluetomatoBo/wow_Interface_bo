@@ -1,18 +1,20 @@
-﻿## Interface: 70000
+﻿## Interface: 70100
 ## Author: Hegarol	
-## Version: v8.01.04
+## Version: v8.01.06
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
-## X-Curse-Packaged-Version: v8.01.04
+## X-Curse-Packaged-Version: v8.01.06
 ## X-Curse-Project-Name: AtlasLoot Enhanced
 ## X-Curse-Project-ID: atlasloot-enhanced
 ## X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline
 
 ## Title: AtlasLoot |cFF0099FF[Options]|r
 ## Title-deDE: AtlasLoot |cFF0099FF[Einstellungen]|r
+## Title-zhTW: AtlasLoot |cFF0099FF[選項]|r
 
 ## Notes: AtlasLoot options module
 ## Notes-deDE: AtlasLoot Modul für Einstellungen
+## Notes-zhTW: AtlasLoot 選項設定模組
 
 ## X-eMail: manager@atlasloot.net
 ## X-Category: Map

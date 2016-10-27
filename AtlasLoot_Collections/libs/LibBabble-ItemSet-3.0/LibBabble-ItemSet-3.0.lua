@@ -1,7 +1,7 @@
 ﻿--[[
-$Id: LibBabble-ItemSet-3.0.lua 86 2016-07-18 17:48:22Z arith $
+$Id: LibBabble-ItemSet-3.0.lua 90 2016-10-26 11:39:54Z arith $
 Name: LibBabble-ItemSet-3.0
-Revision: $Rev: 86 $
+Revision: $Rev: 90 $
 Maintainers: arith
 Last updated by: $Author: arith $
 Website: http://www.wowace.com/addons/libbabble-itemset-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-ItemSet-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 86 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 90 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -22,6 +22,7 @@ local GAME_LOCALE = GetLocale()
 -- To revise translation, please visit: http://www.wowace.com/addons/libbabble-itemset-3-0/localization/
 
 lib:SetBaseTranslations 
+
 {
 	["Absolution Regalia"] = "Absolution Regalia",
 	["Adamantite Battlegear"] = "Adamantite Battlegear",
@@ -120,6 +121,7 @@ lib:SetBaseTranslations
 	["Bonescythe Battlegear"] = "Bonescythe Battlegear",
 	["Borean Embrace"] = "Borean Embrace",
 	["Brewfest Garb"] = "Brewfest Garb",
+	["Burden of Power"] = "Burden of Power",
 	["Burning Rage"] = "Burning Rage",
 	["Cadaverous Garb"] = "Cadaverous Garb",
 	["Cataclysm Harness"] = "Cataclysm Harness",
@@ -732,6 +734,7 @@ lib:SetBaseTranslations
 	["Zanzil's Concentration"] = "Zanzil's Concentration",
 }
 
+
 if GAME_LOCALE == "enUS" then
 	lib:SetCurrentTranslations(true)
 elseif GAME_LOCALE == "deDE" then
@@ -835,6 +838,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Bonescythe Battlegear"] = "Schlachtrüstung der Knochensense",
 	["Borean Embrace"] = "Boreanische Umarmung",
 	["Brewfest Garb"] = "Braufesttracht",
+	["Burden of Power"] = "Bürde der Macht",
 	["Burning Rage"] = "Brennender Zorn",
 	["Cadaverous Garb"] = "Leichenhaftes Gewand",
 	["Cataclysm Harness"] = "Harnisch der Verheerung",
@@ -1548,6 +1552,7 @@ elseif GAME_LOCALE == "esES" then
 	["Bonescythe Battlegear"] = "Equipo de batalla Segahuesos",
 	["Borean Embrace"] = "Abrazo boreal",
 	["Brewfest Garb"] = "Atuendo de la Fiesta de la Cerveza",
+	["Burden of Power"] = "Carga de poder",
 	["Burning Rage"] = "Ira ardiente",
 	["Cadaverous Garb"] = "Atuendo de cadáver",
 	["Cataclysm Harness"] = "Arnés de cataclismo",
@@ -2261,6 +2266,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Bonescythe Battlegear"] = "Equipo de batalla Segahuesos",
 	["Borean Embrace"] = "Abrazo boreal",
 	["Brewfest Garb"] = "Atuendo de la Fiesta de la Cerveza",
+	["Burden of Power"] = "Peso del poder",
 	["Burning Rage"] = "Ira ardiente",
 	["Cadaverous Garb"] = "Atuendo de cadáver",
 	["Cataclysm Harness"] = "Arnés de cataclismo",
@@ -2921,7 +2927,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Battlegear of the Red Crane"] = "Tenue de combat de la Grue rouge",
 	["Battlegear of the Saurok Stalker"] = "Tenue de combat du traqueur saurok",
 	["Battlegear of the Savage Hunt"] = "Tenue de combat de la chasse sauvage",
-	["Battlegear of the Shattered Abyss"] = "Tenue de combat des abysses brisées",
+	["Battlegear of the Shattered Abyss"] = "Tenue de combat des abysses Brisées",
 	["Battlegear of the Shattered Vale"] = "Tenue de combat du val brisé",
 	["Battlegear of the Somber Gaze"] = "Tenue de combat du regard sombre",
 	["Battlegear of the Thousandfold Blades"] = "Tenue de combat des mille lames",
@@ -2974,6 +2980,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Bonescythe Battlegear"] = "Tenue de combat de la faucheuse d'os",
 	["Borean Embrace"] = "Etreinte boréenne",
 	["Brewfest Garb"] = "Atours de la fête des Brasseurs",
+	["Burden of Power"] = "Fardeau du pouvoir",
 	["Burning Rage"] = "Rage ardente",
 	["Cadaverous Garb"] = "Atours cadavériques",
 	["Cataclysm Harness"] = "Harnais du cataclysme",
@@ -3305,7 +3312,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Nightsong Battlegear"] = "Tenue de combat chantenuit",
 	["Nightsong Garb"] = "Atours chantenuit",
 	["Nightsong Regalia"] = "Tenue de parade chantenuit",
-	["Nightwell Arcanum"] = "Arcanum du puits de la Nuit",
+	["Nightwell Arcanum"] = "Arcanum du Puits de la nuit",
 	["Nine-Tail Battlegear"] = "Tenue de combat à neuf queues",
 	["Nobundo's Battlegear"] = "Tenue de combat de Nobundo",
 	["Nobundo's Garb"] = "Atours de Nobundo",
@@ -3687,6 +3694,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Bonescythe Battlegear"] = "Tenuta Feroce della Falce Ossuta",
 	["Borean Embrace"] = "Abbraccio Boreale",
 	["Brewfest Garb"] = "Abiti della Festa della Birra",
+	-- ["Burden of Power"] = "",
 	["Burning Rage"] = "Rabbiacciaio",
 	["Cadaverous Garb"] = "Abiti Cadaverici",
 	["Cataclysm Harness"] = "Bardatura del Cataclisma",
@@ -4400,6 +4408,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Bonescythe Battlegear"] = "해골사신 전투장비",
 	["Borean Embrace"] = "북풍의 은총",
 	["Brewfest Garb"] = "가을 축제 예복",
+	["Burden of Power"] = "힘의 무게",
 	["Burning Rage"] = "불타는 분노",
 	["Cadaverous Garb"] = "시체 수의",
 	["Cataclysm Harness"] = "대격변 갑옷",
@@ -5113,6 +5122,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Bonescythe Battlegear"] = "Equipamento de Batalha Ceifa-ossos",
 	["Borean Embrace"] = "Abraço Boreano",
 	["Brewfest Garb"] = "Trajes da CervaFest",
+	["Burden of Power"] = "Fardo do Poder",
 	["Burning Rage"] = "Raiva Ardente",
 	["Cadaverous Garb"] = "Trajes Cadavérico",
 	["Cataclysm Harness"] = "Arnês do Cataclismo",
@@ -5826,6 +5836,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Bonescythe Battlegear"] = "Броня костяной косы",
 	["Borean Embrace"] = "Борейское облачение",
 	["Brewfest Garb"] = "Наряд участника Хмельного фестиваля",
+	["Burden of Power"] = "Бремя силы",
 	["Burning Rage"] = "Пламенная ярость",
 	["Cadaverous Garb"] = "Трупный наряд",
 	["Cataclysm Harness"] = "Облачение Катаклизма",
@@ -6539,6 +6550,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Bonescythe Battlegear"] = "骨镰战甲",
 	["Borean Embrace"] = "北风的拥抱",
 	["Brewfest Garb"] = "美酒节套装",
+	-- ["Burden of Power"] = "",
 	["Burning Rage"] = "钢铁之怒",
 	["Cadaverous Garb"] = "苍白",
 	["Cataclysm Harness"] = "灾难甲胄",
@@ -7252,6 +7264,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Bonescythe Battlegear"] = "骨鐮戰裝",
 	["Borean Embrace"] = "北風之擁",
 	["Brewfest Garb"] = "啤酒節裝束",
+	["Burden of Power"] = "力量的重擔",
 	["Burning Rage"] = "燃燒狂怒",
 	["Cadaverous Garb"] = "蒼白裝束",
 	["Cataclysm Harness"] = "裂地戰馭套裝",

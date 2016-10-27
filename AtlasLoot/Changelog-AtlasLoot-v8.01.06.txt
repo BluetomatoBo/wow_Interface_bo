@@ -1,0 +1,48 @@
+------------------------------------------------------------------------
+r4472 | proteyer | 2016-10-27 07:09:28 +0000 (Thu, 27 Oct 2016) | 4 lines
+Changed paths:
+   A /tags/v8.01.06 (from /trunk:4471)
+
+Tagging as v8.01.06
+
+- added missing boss "Shade of Medivh" to "Return to Karazhan"
+- changed order of bosses in Legion to reflect the Adventure Guide
+------------------------------------------------------------------------
+r4471 | proteyer | 2016-10-27 07:05:24 +0000 (Thu, 27 Oct 2016) | 2 lines
+Changed paths:
+   M /trunk
+   M /trunk/AtlasLoot_Legion/data.lua
+   M /trunk/AtlasLoot_WorldEvents/data.lua
+
+- merged branch Legion into Trunk
+
+------------------------------------------------------------------------
+r4467 | proteyer | 2016-10-26 09:54:18 +0000 (Wed, 26 Oct 2016) | 1 line
+Changed paths:
+   M /trunk
+   M /trunk/AtlasLoot/AtlasLoot.toc
+   M /trunk/AtlasLoot/Core/ItemString.lua
+   M /trunk/AtlasLoot/Libs/LibStub/LibStub.toc
+   M /trunk/AtlasLoot_BurningCrusade/AtlasLoot_BurningCrusade.toc
+   M /trunk/AtlasLoot_Cataclysm/AtlasLoot_Cataclysm.toc
+   M /trunk/AtlasLoot_Classic/AtlasLoot_Classic.toc
+   M /trunk/AtlasLoot_Collections/AtlasLoot_Collections.toc
+   M /trunk/AtlasLoot_Crafting/AtlasLoot_Crafting.toc
+   M /trunk/AtlasLoot_Factions/AtlasLoot_Factions.toc
+   M /trunk/AtlasLoot_Legion/AtlasLoot_Legion.toc
+   M /trunk/AtlasLoot_Legion/data.lua
+   M /trunk/AtlasLoot_MistsofPandaria/AtlasLoot_MistsofPandaria.toc
+   M /trunk/AtlasLoot_Options/AtlasLoot_Options.toc
+   M /trunk/AtlasLoot_PvP/AtlasLoot_PvP.toc
+   M /trunk/AtlasLoot_WarlordsofDraenor/AtlasLoot_WarlordsofDraenor.toc
+   M /trunk/AtlasLoot_WorldEvents/AtlasLoot_WorldEvents.toc
+   M /trunk/AtlasLoot_WrathoftheLichKing/AtlasLoot_WrathoftheLichKing.toc
+
+- merged branch Legion into Trunk
+------------------------------------------------------------------------
+r4463 | arith | 2016-09-22 03:43:02 +0000 (Thu, 22 Sep 2016) | 1 line
+Changed paths:
+   M /trunk/AtlasLoot_Options/AtlasLoot_Options.toc
+
+added zhTW description to TOC
+------------------------------------------------------------------------

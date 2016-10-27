@@ -733,11 +733,11 @@ data["LoveisintheAir"] = {
 		{	--LoveisintheAirTrio
 			name = BB["Apothecary Hummel"].." ("..ALIL["Shadowfang Keep"]..")",
 			[NORMAL_DIFF] = {
-				{ 1, "117369:553" },	-- Choker of the Pure Heart
-				{ 2, "117366:553" },	-- Heartbreak Charm
-				{ 3, "117370:553" },	-- Shard of Pirouetting Happiness
-				{ 4, "117368:553" },	-- Sweet Perfume Broach
-				{ 5, "117367:553" },	-- Winking Eye of Love
+				{ 1, "117369:1800" },	-- Choker of the Pure Heart
+				{ 2, "117366:1800" },	-- Heartbreak Charm
+				{ 3, "117370:1800" },	-- Shard of Pirouetting Happiness
+				{ 4, "117368:1800" },	-- Sweet Perfume Broach
+				{ 5, "117367:1800" },	-- Winking Eye of Love
 				{ 16, 54537 },	-- Heart-Shaped Box
 				{ 17, 50250, "mount" },	-- Big Love Rocket
 				{ 18, 50446, "pet251" },	-- Toxic Wasteling
@@ -963,11 +963,11 @@ data["MidsummerFireFestival"] = {
 		{	--MidsummerFireFestivalAhune
 			name = BB["Ahune"].." ("..ALIL["The Slave Pens"]..")",
 			[NORMAL_DIFF] = {
-				{ 1, "117372:557" },	-- Cloak of the Frigid Winds
-				{ 2, "117374:557" },	-- Icebound Cloak
-				{ 3, "117375:557" },	-- Shroud of Winter's Chill
-				{ 4, "117376:557" },	-- The Frost Lord's Battle Shroud
-				{ 5, "117377:557" },	-- The Frost Lord's War Cloak
+				{ 1, "117372:1800" },	-- Cloak of the Frigid Winds
+				{ 2, "117374:1800" },	-- Icebound Cloak
+				{ 3, "117375:1800" },	-- Shroud of Winter's Chill
+				{ 4, "117376:1800" },	-- The Frost Lord's Battle Shroud
+				{ 5, "117377:1800" },	-- The Frost Lord's War Cloak
 				{ 7, 35498 },	-- Formula: Enchant Weapon - Deathfrost (p4 350)
 				{ 9, 35557 },	-- Huge Snowball
 				{ 10, 35720 },	-- Lord of Frost's Private Label
@@ -975,7 +975,7 @@ data["MidsummerFireFestival"] = {
 				{ 13, 35280, [QUEST_EXTRA_ITTYPE] = 11972 },	-- Tabard of Summer Flames
 				{ 14, 35279, [QUEST_EXTRA_ITTYPE] = 11972 },	-- Tabard of Summer Skies
 				{ 16, 117394 },	-- Satchel of Chilled Goods
-				{ 17, "117373:557" },	-- Frostscythe of Lord Ahune
+				{ 17, "117373:1800" },	-- Frostscythe of Lord Ahune
 				{ 18, 53641, "pet253" },	-- Ice Chip
 				{ 19, 23247 },	-- Burning Blossom
 			},
@@ -1039,16 +1039,16 @@ data["Brewfest"] = {
 		{	--BrewfestCorenDirebrew
 			name = BB["Coren Direbrew"].." ("..ALIL["Blackrock Depths"]..")",
 			[NORMAL_DIFF] = {
-				{ 1, "117361:557" },	-- Bitterest Balebrew Charm
-				{ 2, "117357:557" },	-- Brawler's Statue
-				{ 3, "117391:557" },	-- Bubbliest Brightbrew Charm
-				{ 4, "117360:557" },	-- Coren's Cold Chromium Coaster
-				{ 5, "117358:557" },	-- Mithril Wristwatch
-				{ 6, "117359:557" },	-- Thousand-Year Pickled Egg
+				{ 1, "117361:1800" },	-- Bitterest Balebrew Charm
+				{ 2, "117357:1800" },	-- Brawler's Statue
+				{ 3, "117391:1800" },	-- Bubbliest Brightbrew Charm
+				{ 4, "117360:1800" },	-- Coren's Cold Chromium Coaster
+				{ 5, "117358:1800" },	-- Mithril Wristwatch
+				{ 6, "117359:1800" },	-- Thousand-Year Pickled Egg
 				{ 8, [ATLASLOOT_IT_ALLIANCE] = 38281, [ATLASLOOT_IT_HORDE] = 38280 },	-- Direbrew's Dire Brew
 				{ 16, 117393 },	-- Keg-Shaped Treasure Chest (Daily reward)
-				{ 17, "117378:557" },	-- Direbrew's Bloodied Shanker
-				{ 18, "117379:557" },	-- Tremendous Tankard O' Terror
+				{ 17, "117378:1800" },	-- Direbrew's Bloodied Shanker
+				{ 18, "117379:1800" },	-- Tremendous Tankard O' Terror
 				{ 19, 37828, "mount" },	-- Great Brewfest Kodo
 				{ 20, 33977, "mount" },	-- Swift Brewfest Ram
 				{ 21, 37863 },	-- Direbrew's Remote
@@ -1066,23 +1066,26 @@ data["Brewfest"] = {
 				{ 7, 71137, [PRICE_EXTRA_ITTYPE] = "brewfest:200" },	-- Brewfest Keg Pony
 				{ 8, 90427, [PRICE_EXTRA_ITTYPE] = "brewfest:100" },	-- Pandaren Brewpack
 				{ 9, 116757, [PRICE_EXTRA_ITTYPE] = "brewfest:200" },	-- Steamworks Sausage Grill
-				{ 11, 37816, [PRICE_EXTRA_ITTYPE] = "brewfest:20" },	-- Preserved Brewfest Hops
-				{ 12, 90426, [PRICE_EXTRA_ITTYPE] = "brewfest:2" },	-- Brewhelm
-				{ 13, 37750, [PRICE_EXTRA_ITTYPE] = "brewfest:2" },	-- Fresh Brewfest Hops
-				{ 14, [ATLASLOOT_IT_ALLIANCE] = 39477, [ATLASLOOT_IT_HORDE] = 39476, [PRICE_EXTRA_ITTYPE] = "brewfest:5" },	-- Fresh Dwarven Brewfest Hops / Fresh Goblin Brewfest Hops
+				{ 10, 138900, [PRICE_EXTRA_ITTYPE] = "brewfest:100" }, -- Gravil Goldbraid's Famous Sausage Hat
+				{ 12, 37816, [PRICE_EXTRA_ITTYPE] = "brewfest:20" },	-- Preserved Brewfest Hops
+				{ 13, 90426, [PRICE_EXTRA_ITTYPE] = "brewfest:2" },	-- Brewhelm
+				{ 15, 37750, [PRICE_EXTRA_ITTYPE] = "brewfest:2" },	-- Fresh Brewfest Hops
+				{ 15, [ATLASLOOT_IT_ALLIANCE] = 39477, [ATLASLOOT_IT_HORDE] = 39476, [PRICE_EXTRA_ITTYPE] = "brewfest:5" },	-- Fresh Dwarven Brewfest Hops / Fresh Goblin Brewfest Hops
 				{ 16, [ATLASLOOT_IT_ALLIANCE] = 33047, [ATLASLOOT_IT_HORDE] = 34008, [PRICE_EXTRA_ITTYPE] = "brewfest:100" },	-- Belbi's Eyesight Enhancing Romance Goggles / Blix's Eyesight Enhancing Romance Goggles
-				{ 17, 33968, [PRICE_EXTRA_ITTYPE] = "brewfest:50" },	-- Blue Brewfest Hat
-				{ 18, 33864, [PRICE_EXTRA_ITTYPE] = "brewfest:50" },	-- Brown Brewfest Hat
-				{ 19, 33967, [PRICE_EXTRA_ITTYPE] = "brewfest:50" },	-- Green Brewfest Hat
-				{ 20, 33969, [PRICE_EXTRA_ITTYPE] = "brewfest:50" },	-- Purple Brewfest Hat
-				{ 21, 33863, [PRICE_EXTRA_ITTYPE] = "brewfest:200" },	-- Brewfest Dress
-				{ 22, 33862, [PRICE_EXTRA_ITTYPE] = "brewfest:200" },	-- Brewfest Regalia
-				{ 23, 33868, [PRICE_EXTRA_ITTYPE] = "brewfest:100" },	-- Brewfest Boots
-				{ 24, 33966, [PRICE_EXTRA_ITTYPE] = "brewfest:100" },	-- Brewfest Slippers
-				{ 26, 37599, [PRICE_EXTRA_ITTYPE] = "brewfest:200" },	-- "Brew of the Month" Club Membership Form
-				{ 27, 119209, [PRICE_EXTRA_ITTYPE] = "brewfest:50" },	-- Angry Brewfest Letter
-				{ 29, 122339, [PRICE_EXTRA_ITTYPE] = "brewfest:300" },	-- Ancient Heirloom Scabbard
-				{ 30, 122341, [PRICE_EXTRA_ITTYPE] = "brewfest:500" },	-- Timeworn Heirloom Scabbard
+				{ 17, 138730, [PRICE_EXTRA_ITTYPE] = "brewfest:200" }, -- Synthebrew Goggles XL
+				{ 19, 33968, [PRICE_EXTRA_ITTYPE] = "brewfest:50" },	-- Blue Brewfest Hat
+				{ 20, 33864, [PRICE_EXTRA_ITTYPE] = "brewfest:50" },	-- Brown Brewfest Hat
+				{ 21, 33967, [PRICE_EXTRA_ITTYPE] = "brewfest:50" },	-- Green Brewfest Hat
+				{ 22, 33969, [PRICE_EXTRA_ITTYPE] = "brewfest:50" },	-- Purple Brewfest Hat
+				{ 24, 33863, [PRICE_EXTRA_ITTYPE] = "brewfest:200" },	-- Brewfest Dress
+				{ 25, 33862, [PRICE_EXTRA_ITTYPE] = "brewfest:200" },	-- Brewfest Regalia
+				{ 26, 33868, [PRICE_EXTRA_ITTYPE] = "brewfest:100" },	-- Brewfest Boots
+				{ 27, 33966, [PRICE_EXTRA_ITTYPE] = "brewfest:100" },	-- Brewfest Slippers
+				{ 29, 37599, [PRICE_EXTRA_ITTYPE] = "brewfest:200" },	-- "Brew of the Month" Club Membership Form
+				{ 30, 119209, [PRICE_EXTRA_ITTYPE] = "brewfest:50" },	-- Angry Brewfest Letter
+				{ 101, 122339, [PRICE_EXTRA_ITTYPE] = "brewfest:300" },	-- Ancient Heirloom Scabbard
+				{ 102, 122341, [PRICE_EXTRA_ITTYPE] = "brewfest:500" },	-- Timeworn Heirloom Scabbard
+				{ 104, 138884 } --Throwing Sausage
 			},
 		},
 		{	--BrewfestFoodDrinks
@@ -1143,14 +1146,14 @@ data["HallowsEnd"] = {
 		{	--HallowsEndHeadlessHorseman
 			name = BB["Headless Horseman"].." ("..ALIL["Scarlet Monastery"]..")",
 			[NORMAL_DIFF] = {
-				{ 1, "117363:573" },	-- Band of the Petrified Pumpkin
-				{ 2, "117364:573" },	-- Seal of Ghoulish Glee
-				{ 3, "117365:573" },	-- The Horseman's Ring
-				{ 4, "117362:573" },	-- Wicked Witch's Signet
+				{ 1, "117363:3493" },	-- Band of the Petrified Pumpkin
+				{ 2, "117364:3493" },	-- Seal of Ghoulish Glee
+				{ 3, "117365:3493" },	-- The Horseman's Ring
+				{ 4, "117362:3493" },	-- Wicked Witch's Signet
 				{ 6, 34068 },	-- Weighted Jack-o'-Lantern
 				{ 16, 54516 },	-- Loot-Filled Pumpkin
-				{ 17, "117355:573" },	-- The Horseman's Horrific Hood
-				{ 18, "117356:573" },	-- The Horseman's Sinister Slicer
+				{ 17, "117355:3493" },	-- The Horseman's Horrific Hood
+				{ 18, "117356:3493" },	-- The Horseman's Sinister Slicer
 				{ 19, 37012, "mount" },	-- The Horseman's Reins
 				{ 20, 33292 },	-- Hallowed Helm
 				{ 21, 37011 },	-- Magic Broom
@@ -1170,7 +1173,8 @@ data["HallowsEnd"] = {
 				{ 9, 116811, [PRICE_EXTRA_ITTYPE] = "trickytreat:5" },	-- "Lil' Starlet" Costume
 				{ 10, 116810, [PRICE_EXTRA_ITTYPE] = "trickytreat:5" },	-- "Mad Alchemist" Costume
 				{ 11, 116812, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- "Yipp-Saron" Costume
-				{ 13, 33292, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Hallowed Helm
+				{ 12, 138990, [PRICE_EXTRA_ITTYPE] = "trickytreat:200" },	-- Exquisite Costume Set: "Grommash"
+				{ 14, 33292, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Hallowed Helm
 				{ 15, 37011, [PRICE_EXTRA_ITTYPE] = "trickytreat:150" },	-- Magic Broom
 				{ 16, 37585, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Chewy Fel Taffy
 				{ 17, 37583, [PRICE_EXTRA_ITTYPE] = "trickytreat:2", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- G.N.E.R.D.S.
@@ -1241,12 +1245,16 @@ data["HallowsEnd"] = {
 				{ 5, 116850, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Ghoul
 				{ 6, 20399, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Leper Gnome
 				{ 7, 20398, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Ninja
+				{ 8, 128644, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Wight
+				{ 9, 128645, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Gargoyle
 				{ 16, 20397, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Pirate
 				{ 17, 20413, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Random
 				{ 18, 20411, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Skeleton
 				{ 19, 116848, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Slime
 				{ 20, 116854, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Spider
 				{ 21, 20414, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Wisp
+				{ 22, 128646, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Nerubian
+				{ 23, 139004, [PRICE_EXTRA_ITTYPE] = "trickytreat:2" },	-- Hallowed Wand - Banshee
 			},
 		},
 	}
@@ -1334,7 +1342,7 @@ data["Winterveil"] = {
 			name = ALIL["Stolen Present"],
 			[NORMAL_DIFF] = {
 				{ 1, 116762, [QUEST_EXTRA_ITTYPE] = "1:7043" },	-- Stolen Present
-				{ 2, "117371:553" },	-- Miniature Winter Veil Tree
+				{ 2, "117371:1800" },	-- Miniature Winter Veil Tree
 				{ 3, 70923 },	-- Gaudy Winter Veil Sweater
 				{ 5, 54436, "pet254" },	-- Blue Clockwork Rocket Bot
 				{ 6, 34425, "pet191" },	-- Clockwork Rocket Bot

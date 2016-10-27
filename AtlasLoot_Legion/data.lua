@@ -42,6 +42,14 @@ local MYTHICD_DUNGEON_DIFF = data:AddDifficulty(AL["Mythic"], "MythicDungeonWith
 		autoCompleteItem2 = true,
 	},
 })
+local MYTHICD2_DIFF = data:AddDifficulty(AL["Mythic"], "h", nil, 3)
+local MYTHICD2_DUNGEON_DIFF = data:AddDifficulty(AL["Mythic"], "MythicDungeon2WithPreset", {
+	Item = {
+		item1bonus = "LegionMDungeon2",
+		item2bonus = "LegionMDungeon2Titanforged",
+		autoCompleteItem2 = true,
+	},
+})
 local HEROIC_PRE_DIFF = data:AddDifficulty(AL["Heroic"], "HeroicWithPreset", {
 	Item = {
 		item1bonus = "LegionHeroicRaid",
@@ -127,26 +135,6 @@ data["AssaultOnVioletHold"] = {
 	MapID = 1066,
 	ContentType = DUNGEON_CONTENT,
 	items = {
-		{	--Shivermaw
-			EncounterJournalID = 1694,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 134411 }, -- Iceblood Shroud
-				{  2, 134445 }, -- Frostcarver Grips
-				{  3, 134434 }, -- Cinch of Freezing Fog
-				{  4, 137466 }, -- Frostwyrm Heart
-				{  5, 137468 }, -- Bonecrushing Hail
-				{  6, 137440 }, -- Shivermaw's Jawbone
-				{  7, 134476 }, -- Wyrmwing Kilt
-				{  8, 134523 }, -- Etched Dragonbone Warboots
-				{  9, 134493 }, -- Band of Crystalline Bone
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-		},
 		{	--Festerface
 			EncounterJournalID = 1693,
 			[NORMAL_DUNGEON_DIFF] = {
@@ -165,6 +153,26 @@ data["AssaultOnVioletHold"] = {
 			[HEROIC_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 				--{ 125, "ac9023" },
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+			},
+		},
+		{	--Shivermaw
+			EncounterJournalID = 1694,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 134411 }, -- Iceblood Shroud
+				{  2, 134445 }, -- Frostcarver Grips
+				{  3, 134434 }, -- Cinch of Freezing Fog
+				{  4, 137466 }, -- Frostwyrm Heart
+				{  5, 137468 }, -- Bonecrushing Hail
+				{  6, 137440 }, -- Shivermaw's Jawbone
+				{  7, 134476 }, -- Wyrmwing Kilt
+				{  8, 134523 }, -- Etched Dragonbone Warboots
+				{  9, 134493 }, -- Band of Crystalline Bone
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
@@ -332,6 +340,29 @@ data["BlackRookHold"] = {
 	MapID = 1081,
 	ContentType = DUNGEON_CONTENT,
 	items = {
+		{	--The Amalgam of Souls
+			EncounterJournalID = 1518,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 134437 }, -- Harrowing Soulspun Bracers
+				{  2, 134469 }, -- Midnight Reaper Handwraps
+				{  3, 139241 }, -- Rook Footman's Warboots
+				{  4, 139245 }, -- Shadow Archer's Spaulders
+				{  5, 136714 }, -- Amalgam's Seventh Spine
+				{  6, 134442 }, -- Tooled Rivermoor Boots
+				{  7, 136977 }, -- Shadowfeather Shawl
+				{  8, 136719 }, -- Curdled Soul Essence
+				{  9, 139246 }, -- Ravencourt Formal Robes
+				{  10, 139242 }, -- Raven's Veil Gloves
+				{  11, 137270 }, -- Howling Echoes
+				{  12, 136976 }, -- Etheldrin's Breastplate
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+			},
+		},
 		{	--Illysanna Ravencrest
 			EncounterJournalID = 1653,
 			[NORMAL_DUNGEON_DIFF] = {
@@ -367,29 +398,6 @@ data["BlackRookHold"] = {
 				{  9, 134373 }, -- Felbat Leather Vest
 				{  10, 134390 }, -- Mardum Chain Vest
 				{  11, 134426 }, -- Collar of Raking Claws
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-		},
-		{	--The Amalgam of Souls
-			EncounterJournalID = 1518,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 134437 }, -- Harrowing Soulspun Bracers
-				{  2, 134469 }, -- Midnight Reaper Handwraps
-				{  3, 139241 }, -- Rook Footman's Warboots
-				{  4, 139245 }, -- Shadow Archer's Spaulders
-				{  5, 136714 }, -- Amalgam's Seventh Spine
-				{  6, 134442 }, -- Tooled Rivermoor Boots
-				{  7, 136977 }, -- Shadowfeather Shawl
-				{  8, 136719 }, -- Curdled Soul Essence
-				{  9, 139246 }, -- Ravencourt Formal Robes
-				{  10, 139242 }, -- Raven's Veil Gloves
-				{  11, 137270 }, -- Howling Echoes
-				{  12, 136976 }, -- Etheldrin's Breastplate
 			},
 			[HEROIC_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
@@ -449,6 +457,39 @@ data["CourtOfStars"] = {
 	MapID = 1087,
 	ContentType = DUNGEON_CONTENT,
 	items = {
+		{	--Patrol Captain Gerdo
+			EncounterJournalID = 1718,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{  1, 137482 }, -- Duskwatch Guard's Boots
+				{  2, 137484 }, -- Flask of the Solemn Night
+				{  3, 134308 }, -- Manawracker Sandals
+				{  4, 134280 }, -- Swordsinger's Wristguards
+				{  5, 137483 }, -- Cape of the Duskwatch
+				{  6, 137490 }, -- Self-Forging Credentials
+				{  7, 134480 }, -- Epaulets of Deceitful Intent
+				{  8, 134296 }, -- Ley Dragoon's Wristbraces
+				{  9, 134268 }, -- Arcane Defender's Gauntlets
+				{  10, 137480 }, -- Guileful Intruder Handguards
+				{  11, 134415 }, -- Arcanist's Resonant Robes
+			},
+		},
+		{	--Talixae Flamewreath
+			EncounterJournalID = 1719,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{  1, 134392 }, -- Netherwhisper Hood
+				{  2, 134529 }, -- Chain of Scorched Bones
+				{  3, 134503 }, -- Inferno Breastplate
+				{  4, 134385 }, -- Mardum Chain Gloves
+				{  5, 137492 }, -- Flamewreath Spark
+				{  6, 134374 }, -- Felbat Leather Pauldrons
+				{  7, 137485 }, -- Infernal Writ
+				{  8, 134460 }, -- Fevermelt Legguards
+				{  9, 137491 }, -- Felsworn Covenant
+				{  10, 137488 }, -- Cord of Wicked Pyromania
+				{  11, 134360 }, -- Portalguard Shoulders
+				{  12, 134473 }, -- Collar of Fiery Allegiance
+			},
+		},
 		{	--Advisor Melandrus
 			EncounterJournalID = 1720,
 			[MYTHICD_DUNGEON_DIFF] = {
@@ -469,39 +510,6 @@ data["CourtOfStars"] = {
 				{  15, 134542 }, -- Jeweled Signet of Melandrus
 				{  16, 134271 }, -- Arcane Defender's Pants
 				{  17, 134513 }, -- Helmet of Reverent Loyalty
-			},
-		},
-		{	--Talixae Flamewreath
-			EncounterJournalID = 1719,
-			[MYTHICD_DUNGEON_DIFF] = {
-				{  1, 134392 }, -- Netherwhisper Hood
-				{  2, 134529 }, -- Chain of Scorched Bones
-				{  3, 134503 }, -- Inferno Breastplate
-				{  4, 134385 }, -- Mardum Chain Gloves
-				{  5, 137492 }, -- Flamewreath Spark
-				{  6, 134374 }, -- Felbat Leather Pauldrons
-				{  7, 137485 }, -- Infernal Writ
-				{  8, 134460 }, -- Fevermelt Legguards
-				{  9, 137491 }, -- Felsworn Covenant
-				{  10, 137488 }, -- Cord of Wicked Pyromania
-				{  11, 134360 }, -- Portalguard Shoulders
-				{  12, 134473 }, -- Collar of Fiery Allegiance
-			},
-		},
-		{	--Patrol Captain Gerdo
-			EncounterJournalID = 1718,
-			[MYTHICD_DUNGEON_DIFF] = {
-				{  1, 137482 }, -- Duskwatch Guard's Boots
-				{  2, 137484 }, -- Flask of the Solemn Night
-				{  3, 134308 }, -- Manawracker Sandals
-				{  4, 134280 }, -- Swordsinger's Wristguards
-				{  5, 137483 }, -- Cape of the Duskwatch
-				{  6, 137490 }, -- Self-Forging Credentials
-				{  7, 134480 }, -- Epaulets of Deceitful Intent
-				{  8, 134296 }, -- Ley Dragoon's Wristbraces
-				{  9, 134268 }, -- Arcane Defender's Gauntlets
-				{  10, 137480 }, -- Guileful Intruder Handguards
-				{  11, 134415 }, -- Arcanist's Resonant Robes
 			},
 		},
 --[[		
@@ -545,6 +553,55 @@ data["DarkheartThicket"] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 			},
 		},
+		{	--Oakheart
+			EncounterJournalID = 1655,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 134452 }, -- Epaulets of Dessicated Foliage
+				{  2, 137304 }, -- Oakheart's Trunkwarmers
+				{  3, 137306 }, -- Oakheart's Gnarled Root
+				{  4, 137308 }, -- Clotted Sap of the Grove
+				{  5, 121325 }, -- Terrorweave Gloves
+				{  6, 137305 }, -- Blighted Grasp Bracers
+				{  7, 137307 }, -- Corrupted Knot
+				{  8, 121319 }, -- Vilescale Helm
+				{  9, 121299 }, -- Dreadhide Girdle
+				{  10, 134531 }, -- Band of Twisted Bark
+				{  11, 121280 }, -- Wracksoul Legplates
+				{  12, 134500 }, -- Breastplate of Preservation
+				--{ 216, "ac9038" },
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 217, "ac9047" },
+				--{ 218, "ac9082" },
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 217, "ac10079" },
+			},
+		},
+		{	--Dresaron
+			EncounterJournalID = 1656,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 139089 }, -- Night Dreamer Robe
+				{  2, 137310 }, -- Greatbelt of Disruption
+				{  3, 139082 }, -- Bramblemail Greaves
+				{  4, 134464 }, -- Whelp Handler's Lined Boots
+				{  5, 139056 }, -- Nightsfall Gauntlets
+				{  6, 137312 }, -- Nightmare Egg Shell
+				{  7, 137309 }, -- Slipstream Shoulderpads
+				{  8, 137311 }, -- Chain of the Green Flight
+				{  9, 137313 }, -- Roiling Fog
+				{  10, 139070 }, -- Tranquil Bough Hood
+				{  11, 134461 }, -- Thermal Bindings
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+			},
+		},
 		{	--Shade of Xavius
 			EncounterJournalID = 1657,
 			[NORMAL_DUNGEON_DIFF] = {
@@ -573,55 +630,6 @@ data["DarkheartThicket"] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 			},
 		},
-		{	--Dresaron
-			EncounterJournalID = 1656,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 139089 }, -- Night Dreamer Robe
-				{  2, 137310 }, -- Greatbelt of Disruption
-				{  3, 139082 }, -- Bramblemail Greaves
-				{  4, 134464 }, -- Whelp Handler's Lined Boots
-				{  5, 139056 }, -- Nightsfall Gauntlets
-				{  6, 137312 }, -- Nightmare Egg Shell
-				{  7, 137309 }, -- Slipstream Shoulderpads
-				{  8, 137311 }, -- Chain of the Green Flight
-				{  9, 137313 }, -- Roiling Fog
-				{  10, 139070 }, -- Tranquil Bough Hood
-				{  11, 134461 }, -- Thermal Bindings
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-		},
-		{	--Oakheart
-			EncounterJournalID = 1655,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 134452 }, -- Epaulets of Dessicated Foliage
-				{  2, 137304 }, -- Oakheart's Trunkwarmers
-				{  3, 137306 }, -- Oakheart's Gnarled Root
-				{  4, 137308 }, -- Clotted Sap of the Grove
-				{  5, 121325 }, -- Terrorweave Gloves
-				{  6, 137305 }, -- Blighted Grasp Bracers
-				{  7, 137307 }, -- Corrupted Knot
-				{  8, 121319 }, -- Vilescale Helm
-				{  9, 121299 }, -- Dreadhide Girdle
-				{  10, 134531 }, -- Band of Twisted Bark
-				{  11, 121280 }, -- Wracksoul Legplates
-				{  12, 134500 }, -- Breastplate of Preservation
-				--{ 216, "ac9038" },
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 217, "ac9047" },
-				--{ 218, "ac9082" },
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 217, "ac10079" },
-			},
-		},
 --[[
 		{	--Challenge Mode Gear
 			name = AL["Challenge Mode Gear"],
@@ -639,6 +647,31 @@ data["EyeOfAzshara"] = {
 	MapID = 1046,
 	ContentType = DUNGEON_CONTENT,
 	items = {
+		{	--Warlord Parjesh
+			EncounterJournalID = 1480,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 137362 }, -- Parjesh's Medallion
+				{  2, 134484 }, -- Crestrider Conduit Bracers
+				{  3, 134261 }, -- Seawitch Gloves
+				{  4, 134492 }, -- Hatecoil Commander's Amulet
+				{  5, 137361 }, -- Roaring Shellbreaker Greatbelt
+				{  6, 137363 }, -- Bloodied Spearhead
+				{  7, 134441 }, -- Shellshock Footguards
+				{  8, 134251 }, -- Sea Stalker's Cinch
+				{  9, 134223 }, -- Coralplate Chestguard
+				{  10, 137360 }, -- Shoulderpads of Crashing Waves
+				{  11, 134240 }, -- Brinewashed Leather Cowl
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 220, "ac9054" },
+				--{ 221, "ac9026" },
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 220, "ac10084" },
+			},
+		},
 		{	--Lady Hatecoil
 			EncounterJournalID = 1490,
 			[NORMAL_DUNGEON_DIFF] = {
@@ -706,31 +739,6 @@ data["EyeOfAzshara"] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 			},
 		},
-		{	--Warlord Parjesh
-			EncounterJournalID = 1480,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 137362 }, -- Parjesh's Medallion
-				{  2, 134484 }, -- Crestrider Conduit Bracers
-				{  3, 134261 }, -- Seawitch Gloves
-				{  4, 134492 }, -- Hatecoil Commander's Amulet
-				{  5, 137361 }, -- Roaring Shellbreaker Greatbelt
-				{  6, 137363 }, -- Bloodied Spearhead
-				{  7, 134441 }, -- Shellshock Footguards
-				{  8, 134251 }, -- Sea Stalker's Cinch
-				{  9, 134223 }, -- Coralplate Chestguard
-				{  10, 137360 }, -- Shoulderpads of Crashing Waves
-				{  11, 134240 }, -- Brinewashed Leather Cowl
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 220, "ac9054" },
-				--{ 221, "ac9026" },
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 220, "ac10084" },
-			},
-		},
 		{	--Wrath of Azshara
 			EncounterJournalID = 1492,
 			[NORMAL_DUNGEON_DIFF] = {
@@ -776,6 +784,61 @@ data["HallsOfValor"] = {
 	MapID = 1041,
 	ContentType = DUNGEON_CONTENT,
 	items = {
+		{	--Hymdall
+			EncounterJournalID = 1485,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 133642 }, -- Horn of Valor
+				{  2, 134216 }, -- Bonespeaker Cowl
+				{  3, 136774 }, -- Cushioned Treads of Glory
+				{  4, 133628 }, -- Battleborne Sentinel Gauntlets
+				{  5, 134194 }, -- Biornskin Leggings
+				{  6, 136973 }, -- Burden of Vigilance
+				{  7, 134213 }, -- Tideskorn Mantle
+				{  8, 133621 }, -- Adorned Guardian's Bracers
+				{  9, 134179 }, -- Skoldiir Breastplate
+				{  10, 133805 }, -- Thundercaller's Chain
+				{  11, 133763 }, -- Key to the Halls
+				--{ 221, "114780:0", false, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Pure Solium Band
+				--{ 223, "ac8843" },
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 224, "ac8844" },
+				--{ 225, "ac9036" },
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 224, "ac10081" },
+			},
+		},
+		{	--Hyrja
+			EncounterJournalID = 1486,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 136974 }, -- Empowerment of Thunder
+				{  2, 134186 }, -- Skoldiir Bracers
+				{  3, 133620 }, -- Amice of the Enlightened
+				{  4, 133622 }, -- Thunderfused Val'kyr Hauberk
+				{  5, 134209 }, -- Tideskorn Gauntlets
+				{  6, 134196 }, -- Biornskin Hood
+				{  7, 133613 }, -- Solsten's Arcing Runecord
+				{  8, 134219 }, -- Bonespeaker Robes
+				{  9, 136771 }, -- Eyir's Blessing
+				{  10, 133646 }, -- Mote of Sanctification
+				{  11, 133679 }, -- Val'kyr Ascension Signet
+				{  12, 136772 }, -- Valkyra Protector Greatboots
+				--{ 221, "114780:0", false, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Pure Solium Band
+				--{ 223, "ac8843" },
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 224, "ac8844" },
+				--{ 225, "ac9036" },
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 224, "ac10081" },
+			},
+		},
 		{	--Fenryr
 			EncounterJournalID = 1487,
 			[NORMAL_DUNGEON_DIFF] = {
@@ -848,61 +911,6 @@ data["HallsOfValor"] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 			},
 		},
-		{	--Hymdall
-			EncounterJournalID = 1485,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 133642 }, -- Horn of Valor
-				{  2, 134216 }, -- Bonespeaker Cowl
-				{  3, 136774 }, -- Cushioned Treads of Glory
-				{  4, 133628 }, -- Battleborne Sentinel Gauntlets
-				{  5, 134194 }, -- Biornskin Leggings
-				{  6, 136973 }, -- Burden of Vigilance
-				{  7, 134213 }, -- Tideskorn Mantle
-				{  8, 133621 }, -- Adorned Guardian's Bracers
-				{  9, 134179 }, -- Skoldiir Breastplate
-				{  10, 133805 }, -- Thundercaller's Chain
-				{  11, 133763 }, -- Key to the Halls
-				--{ 221, "114780:0", false, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Pure Solium Band
-				--{ 223, "ac8843" },
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 224, "ac8844" },
-				--{ 225, "ac9036" },
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 224, "ac10081" },
-			},
-		},
-		{	--Hyrja
-			EncounterJournalID = 1486,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 136974 }, -- Empowerment of Thunder
-				{  2, 134186 }, -- Skoldiir Bracers
-				{  3, 133620 }, -- Amice of the Enlightened
-				{  4, 133622 }, -- Thunderfused Val'kyr Hauberk
-				{  5, 134209 }, -- Tideskorn Gauntlets
-				{  6, 134196 }, -- Biornskin Hood
-				{  7, 133613 }, -- Solsten's Arcing Runecord
-				{  8, 134219 }, -- Bonespeaker Robes
-				{  9, 136771 }, -- Eyir's Blessing
-				{  10, 133646 }, -- Mote of Sanctification
-				{  11, 133679 }, -- Val'kyr Ascension Signet
-				{  12, 136772 }, -- Valkyra Protector Greatboots
-				--{ 221, "114780:0", false, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Pure Solium Band
-				--{ 223, "ac8843" },
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 224, "ac8844" },
-				--{ 225, "ac9036" },
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 224, "ac10081" },
-			},
-		},
 --[[		
 		{	--Challenge Mode Gear
 			name = AL["Challenge Mode Gear"],
@@ -920,6 +928,30 @@ data["MawOfSouls"] = {
 	MapID = 1042,
 	ContentType = DUNGEON_CONTENT,
 	items = {
+		{	--Ymiron, the Fallen King
+			EncounterJournalID = 1502,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 133644 }, -- Memento of Angerboda
+				{  2, 133616 }, -- Legwraps of Unworthy Souls
+				{  3, 133637 }, -- Utgarde Royal Signet
+				{  4, 134179 }, -- Skoldiir Breastplate
+				{  5, 133629 }, -- Crown of Fallen Kings
+				{  6, 134210 }, -- Tideskorn Sabatons
+				{  7, 134217 }, -- Bonespeaker Gloves
+				{  8, 133682 }, -- Northern Gale
+				{  9, 137326 }, -- Fragmented Meteorite Whetstone
+				{  10, 134199 }, -- Biornskin Belt
+				{  11, 133625 }, -- Shoulderguards of Bane
+				{  12, 133614 }, -- Frost-Stricken Cuffs
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 120, "ac9493" },
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+			},
+		},
 		{	--Harbaron
 			EncounterJournalID = 1512,
 			[NORMAL_DUNGEON_DIFF] = {
@@ -967,30 +999,6 @@ data["MawOfSouls"] = {
 			},
 			[HEROIC_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-		},
-		{	--Ymiron, the Fallen King
-			EncounterJournalID = 1502,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 133644 }, -- Memento of Angerboda
-				{  2, 133616 }, -- Legwraps of Unworthy Souls
-				{  3, 133637 }, -- Utgarde Royal Signet
-				{  4, 134179 }, -- Skoldiir Breastplate
-				{  5, 133629 }, -- Crown of Fallen Kings
-				{  6, 134210 }, -- Tideskorn Sabatons
-				{  7, 134217 }, -- Bonespeaker Gloves
-				{  8, 133682 }, -- Northern Gale
-				{  9, 137326 }, -- Fragmented Meteorite Whetstone
-				{  10, 134199 }, -- Biornskin Belt
-				{  11, 133625 }, -- Shoulderguards of Bane
-				{  12, 133614 }, -- Frost-Stricken Cuffs
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 120, "ac9493" },
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
@@ -1061,6 +1069,27 @@ data["Neltharion'sLair"] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 			},
 		},
+		{	--Naraxas
+			EncounterJournalID = 1673,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 137349 }, -- Naraxas' Spiked Tongue
+				{  2, 137351 }, -- Noxious Entrails
+				{  3, 134458 }, -- Wristbands of Rousing Violence
+				{  4, 134524 }, -- Band of the Wyrm Matron
+				{  5, 134511 }, -- Subterranean Horror Faceguard
+				{  6, 137348 }, -- Gauntlets of Innumerable Barbs
+				{  7, 137350 }, -- Monstrous Gluttony
+				{  8, 134416 }, -- Offal Galoshes
+				{  9, 134408 }, -- Putrid Carapace
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 126, "ac9056" },
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+			},
+		},
 		{	--Dargrul the Underking
 			EncounterJournalID = 1687,
 			[NORMAL_DUNGEON_DIFF] = {
@@ -1088,27 +1117,6 @@ data["Neltharion'sLair"] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 			},
 		},
-		{	--Naraxas
-			EncounterJournalID = 1673,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 137349 }, -- Naraxas' Spiked Tongue
-				{  2, 137351 }, -- Noxious Entrails
-				{  3, 134458 }, -- Wristbands of Rousing Violence
-				{  4, 134524 }, -- Band of the Wyrm Matron
-				{  5, 134511 }, -- Subterranean Horror Faceguard
-				{  6, 137348 }, -- Gauntlets of Innumerable Barbs
-				{  7, 137350 }, -- Monstrous Gluttony
-				{  8, 134416 }, -- Offal Galoshes
-				{  9, 134408 }, -- Putrid Carapace
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 126, "ac9056" },
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-		},
 --[[
 		{	--Challenge Mode Gear
 			name = AL["Challenge Mode Gear"],
@@ -1121,11 +1129,222 @@ data["Neltharion'sLair"] = {
 	}
 }
 
+data["ReturnToKarazhan"] = {
+	EncounterJournalID = 860,
+	MapID = 1115,
+	ContentType = DUNGEON_CONTENT,
+	items = {
+		{	--Opera Hall: Wikket
+			EncounterJournalID = 1820,
+			[MYTHICD2_DUNGEON_DIFF] = {
+				{ 1, 142179 }, -- Memory of Betrayal
+				{ 2, 142198 }, -- Inordinately Wonderous Wristguards
+				{ 3, 142204 }, -- Boots of False Promises
+				{ 4, 142296 }, -- Wikket Witch's Hat
+				{ 5, 142298 }, -- Astonishingly Scarlet Slippers
+				{ 6, 142300 }, -- Greaves of Miraculous Magnificence
+				{ 7, 142137 }, -- Short Jibbet Waistguard
+				{ 8, 142175 }, -- Arcanum of Weightlessness
+				{ 9, 142194 }, -- Gloomy Vortex
+				{ 10, 142205 }, -- Jabber Grookin' Gauntlets
+				{ 11, 142299 }, -- Horkin' Stuff-Lobbers
+			},
+		},
+		{	--Opera Hall: Westfall Story
+			EncounterJournalID = 1826,
+			[MYTHICD2_DUNGEON_DIFF] = {
+				{ 1, 142164 }, -- Toe Knee's Promise
+				{ 2, 142146 }, -- Blackfin Wristband
+				{ 3, 142178 }, -- Ruffian's Poisoned Blade
+				{ 4, 142302 }, -- Armguards of Burning Passion
+				{ 5, 142154 }, -- Bracelets of the Sorrowful Bride
+				{ 6, 142201 }, -- Mantle of Conflicted Loyalties
+				{ 7, 142190 }, -- Love's Intermission
+				{ 8, 142160 }, -- Mrrgria's Favor
+				{ 9, 142186 }, -- Mrrmgmrl Grmmlmglrg
+			},
+		},
+		{	--Opera Hall: Beautiful Beast
+			EncounterJournalID = 1827,
+			[MYTHICD2_DUNGEON_DIFF] = {
+				{ 1, 142192 }, -- Ghastly Curse
+				{ 2, 142196 }, -- Cinch of Improbable Desire
+				{ 3, 142168 }, -- Majordomo's Dinner Bell
+				{ 4, 142202 }, -- Trousers of Royal Vanity
+				{ 5, 142206 }, -- Cloak of Sweltering Flame
+				{ 6, 142197 }, -- Legguards of Imprisonment
+				{ 7, 142304 }, -- Visage of Brutish Iron
+				{ 8, 142188 }, -- Spellbound Rose Petal
+				{ 9, 142184 }, -- Candle of Flickering Lumens
+			},
+		},
+		{	--Maiden of Virtue
+			EncounterJournalID = 1825,
+			[MYTHICD2_DUNGEON_DIFF] = {
+				{ 1, 142193 }, -- Begrudging Confessions
+				{ 2, 142187 }, -- Virtuous Directive
+				{ 3, 142139 }, -- Vest of Wanton Deeds
+				{ 4, 142138 }, -- Confiscated Manacles
+				{ 5, 142153 }, -- Cord of the Penitent
+				{ 6, 142170 }, -- Drape of Shame
+				{ 7, 142124 }, -- Treads of the Depraved
+				{ 8, 142158 }, -- Faith's Crucible
+			},
+		},
+		{	--Attumen the Huntsman
+			EncounterJournalID = 1835,
+			[MYTHICD2_DUNGEON_DIFF] = {
+				{ 1, 142136 }, -- Mantle of Hideous Trophies
+				{ 2, 142183 }, -- Lava-Quenched Hoofplate
+				{ 3, 142185 }, -- Fear of Predation
+				{ 4, 142174 }, -- Choker of Barbed Reins
+				{ 5, 142191 }, -- Dirge of the Hunted
+				{ 6, 142148 }, -- Wilderness Stalker's Softsoles
+				{ 7, 142126 }, -- Helm of Phantasmal Scars
+				{ 8, 142236 }, -- Midnight's Eternal Reins
+				{ 9, 142140 }, -- Calliard's Galoshes
+				{ 10, 142161 }, -- Inescapable Dread
+			},
+		},
+		{	--Moroes
+			EncounterJournalID = 1837,
+			[MYTHICD2_DUNGEON_DIFF] = {
+				{ 1, 142147 }, -- Robes of Wicked Modesty
+				{ 2, 142134 }, -- Castellan's Blinders
+				{ 3, 142123 }, -- Breastplate of Obligation
+				{ 4, 138797 }, -- Illusion: Mongoose
+				{ 5, 142189 }, -- Perfectly Preserved Apple
+				{ 6, 142171 }, -- Seal of Darkshire Nobility
+				{ 7, 142143 }, -- Willbreaker Legguards
+				{ 8, 142177 }, -- Jagged Emerald
+				{ 9, 142159 }, -- Bloodstained Handkerchief
+			},
+		},
+		{	--The Curator
+			EncounterJournalID = 1836,
+			[MYTHICD2_DUNGEON_DIFF] = {
+				{ 1, 142149 }, -- Gloves of Arcane Confluence
+				{ 2, 142181 }, -- Seeping Corruption
+				{ 3, 142125 }, -- Repurposed Golem Grips
+				{ 4, 142172 }, -- Terestian's Signet Ring
+				{ 5, 142309 }, -- Fauna Analysis Widget
+				{ 6, 142176 }, -- Arcing Static Charge
+				{ 7, 142133 }, -- Gauntlets of Confinement
+				{ 8, 142165 }, -- Deteriorated Construct Core
+				{ 9, 142141 }, -- Custodian's Soothing Touch
+				{ 10, 142130 }, -- Bite-Marked Wristplates
+			},
+		},
+		{	--Shade of Medivh
+			EncounterJournalID = 1817,
+			[MYTHICD2_DUNGEON_DIFF] = {
+				{ 1, 142207 }, -- Amulet of the Last Guardian
+				{ 2, 142157 }, -- Aran's Relaxing Ruby
+				{ 3, 142129 }, -- Spellwarding Waistguard
+				{ 4, 142131 }, -- Frozen-Link Chestguard
+				{ 5, 142152 }, -- Shoulderpads of Chaotic Thought
+				{ 6, 142169 }, -- Raven Eidolon
+				{ 7, 142310 }, -- Anthology of Horrors
+				{ 8, 142308 }, -- Ageless Winter
+				{ 9, 142145 }, -- Girdle of Ghostly Exclusion
+			},
+		},
+		{	--Mana Devourer
+			EncounterJournalID = 1818,
+			[MYTHICD2_DUNGEON_DIFF] = {
+				{ 1, 142162 }, -- Fluctuating Energy
+				{ 2, 142305 }, -- Suffused Manapearl
+				{ 3, 142307 }, -- Miniature Bonfire
+				{ 4, 142144 }, -- Unending Horizon Spaulders
+				{ 5, 142150 }, -- Hood of Uncanny Perspectives
+				{ 6, 142135 }, -- Legguards of Countless Hours
+				{ 7, 142128 }, -- Pauldrons of Encroaching Limits
+				{ 8, 142215 }, -- Wine-Stained Mantle
+				{ 9, 142180 }, -- Grisly Schism
+			},
+		},
+		{	--Viz'aduum the Watcher
+			EncounterJournalID = 1838,
+			[MYTHICD2_DUNGEON_DIFF] = {
+				{ 1, 142151 }, -- Leggings of Countless Worlds
+				{ 2, 142306 }, -- Rift Stabilization Shard
+				{ 3, 142132 }, -- Doomstride Footguards
+				{ 4, 142182 }, -- Viz'aduum's Mindstone
+				{ 5, 142127 }, -- Tassets of Perpetual Despair
+				{ 6, 142142 }, -- Unbound Reality Mask
+				{ 7, 142173 }, -- Ring of Collapsing Futures
+				{ 8, 142167 }, -- Eye of Command
+			},
+		},
+	}
+}
+
 data["TheArcway"] = {
 	EncounterJournalID = 726,
 	MapID = 1079,
 	ContentType = DUNGEON_CONTENT,
 	items = {
+		{	--Ivanyr
+			EncounterJournalID = 1497,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{  1, 134467 }, -- Nether Mindsnappers
+				{  2, 134501 }, -- Crackling Overcharge Chestguard
+				{  3, 137398 }, -- Portable Manacracker
+				{  4, 134280 }, -- Swordsinger's Wristguards
+				{  5, 134269 }, -- Arcane Defender's Belt
+				{  6, 134421 }, -- Ink-Smudged Handwraps
+				{  7, 137397 }, -- Tunnel Trudger Footguards
+				{  8, 134309 }, -- Manawracker Shoulders
+				{  9, 134298 }, -- Ley Dragoon's Stompers
+				{  10, 134526 }, -- Gnawed Thumb Ring
+				{  11, 137399 }, -- Ivanyr's Hunger
+			},
+		},
+		{	--Corstilax
+			EncounterJournalID = 1498,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{  1, 134424 }, -- Collar of Enclosure
+				{  2, 134488 }, -- Stabilized Energy Pendant
+				{  3, 137400 }, -- Coagulated Nightwell Residue
+				{  4, 137402 }, -- Cleansing Isotope
+				{  5, 134453 }, -- Spaulders of Aberrant Inhibition
+				{  6, 134522 }, -- Detention Wristclamps
+				{  7, 134463 }, -- Decontaminated Chain Tunic
+				{  8, 134402 }, -- Cape of Rigid Order
+				{  9, 137403 }, -- Quarantine Catalyst
+			},
+		},
+		{	--General Xakal
+			EncounterJournalID = 1499,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{  1, 137407 }, -- Sealed Fel Fissure
+				{  2, 134396 }, -- Netherwhisper Slippers
+				{  3, 134533 }, -- Ring of Looming Menace
+				{  4, 134387 }, -- Mardum Chain Helm
+				{  5, 134449 }, -- Bloodclaw Leggings
+				{  6, 137406 }, -- Terrorbound Nexus
+				{  7, 137408 }, -- Xakal's Determination
+				{  8, 134359 }, -- Portalguard Legplates
+				{  9, 137404 }, -- Legwraps of Reverberating Shadows
+				{  10, 134373 }, -- Felbat Leather Vest
+				{  11, 137405 }, -- Remorseless Chain Armbands
+				{  12, 134509 }, -- Fists of the Legion
+			},
+		},
+		{	--Nal'tira
+			EncounterJournalID = 1500,
+			[MYTHICD_DUNGEON_DIFF] = {
+				{  1, 137409 }, -- Manafang Waistguard
+				{  2, 137411 }, -- Nal'tira's Venom Gland
+				{  3, 137410 }, -- Greathelm of Barbed Chelicerae
+				{  4, 137412 }, -- Fistful of Eyes
+				{  5, 133766 }, -- Nether Anti-Toxin
+				{  6, 134472 }, -- Arcane Exterminator's Shoulderguards
+				{  7, 134410 }, -- Cloak of Mana-Spun Silk
+				{  8, 134540 }, -- Ring of Twisted Webbing
+				{  9, 134435 }, -- Tunnel Fiend Bracers
+			},
+		},
 		{	--Advisor Vandros
 			EncounterJournalID = 1501,
 			[MYTHICD_DUNGEON_DIFF] = {
@@ -1147,67 +1366,6 @@ data["TheArcway"] = {
 				{  16, 137415 }, -- Gaze of Fleeting Hours
 			},
 		},
-		{	--Nal'tira
-			EncounterJournalID = 1500,
-			[MYTHICD_DUNGEON_DIFF] = {
-				{  1, 137409 }, -- Manafang Waistguard
-				{  2, 137411 }, -- Nal'tira's Venom Gland
-				{  3, 137410 }, -- Greathelm of Barbed Chelicerae
-				{  4, 137412 }, -- Fistful of Eyes
-				{  5, 133766 }, -- Nether Anti-Toxin
-				{  6, 134472 }, -- Arcane Exterminator's Shoulderguards
-				{  7, 134410 }, -- Cloak of Mana-Spun Silk
-				{  8, 134540 }, -- Ring of Twisted Webbing
-				{  9, 134435 }, -- Tunnel Fiend Bracers
-			},
-		},
-		{	--Corstilax
-			EncounterJournalID = 1498,
-			[MYTHICD_DUNGEON_DIFF] = {
-				{  1, 134424 }, -- Collar of Enclosure
-				{  2, 134488 }, -- Stabilized Energy Pendant
-				{  3, 137400 }, -- Coagulated Nightwell Residue
-				{  4, 137402 }, -- Cleansing Isotope
-				{  5, 134453 }, -- Spaulders of Aberrant Inhibition
-				{  6, 134522 }, -- Detention Wristclamps
-				{  7, 134463 }, -- Decontaminated Chain Tunic
-				{  8, 134402 }, -- Cape of Rigid Order
-				{  9, 137403 }, -- Quarantine Catalyst
-			},
-		},
-		{	--Ivanyr
-			EncounterJournalID = 1497,
-			[MYTHICD_DUNGEON_DIFF] = {
-				{  1, 134467 }, -- Nether Mindsnappers
-				{  2, 134501 }, -- Crackling Overcharge Chestguard
-				{  3, 137398 }, -- Portable Manacracker
-				{  4, 134280 }, -- Swordsinger's Wristguards
-				{  5, 134269 }, -- Arcane Defender's Belt
-				{  6, 134421 }, -- Ink-Smudged Handwraps
-				{  7, 137397 }, -- Tunnel Trudger Footguards
-				{  8, 134309 }, -- Manawracker Shoulders
-				{  9, 134298 }, -- Ley Dragoon's Stompers
-				{  10, 134526 }, -- Gnawed Thumb Ring
-				{  11, 137399 }, -- Ivanyr's Hunger
-			},
-		},
-		{	--General Xakal
-			EncounterJournalID = 1499,
-			[MYTHICD_DUNGEON_DIFF] = {
-				{  1, 137407 }, -- Sealed Fel Fissure
-				{  2, 134396 }, -- Netherwhisper Slippers
-				{  3, 134533 }, -- Ring of Looming Menace
-				{  4, 134387 }, -- Mardum Chain Helm
-				{  5, 134449 }, -- Bloodclaw Leggings
-				{  6, 137406 }, -- Terrorbound Nexus
-				{  7, 137408 }, -- Xakal's Determination
-				{  8, 134359 }, -- Portalguard Legplates
-				{  9, 137404 }, -- Legwraps of Reverberating Shadows
-				{  10, 134373 }, -- Felbat Leather Vest
-				{  11, 137405 }, -- Remorseless Chain Armbands
-				{  12, 134509 }, -- Fists of the Legion
-			},
-		},
 	}
 }
 
@@ -1216,79 +1374,6 @@ data["VaultOfTheWardens"] = {
 	MapID = 1045,
 	ContentType = DUNGEON_CONTENT,
 	items = {
-		{	--Cordana Felsong
-			EncounterJournalID = 1470,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 137514 }, -- Chestguard of Insidious Desire
-				{  2, 134356 }, -- Portalguard Gauntlets
-				{  3, 137522 }, -- Bracers of Twisted Revelation
-				{  4, 137507 }, -- Waistband of Spiritual Doom
-				{  5, 137515 }, -- Warden's Martial Greaves
-				{  6, 137550 }, -- Moonglaive Dervish
-				{  7, 134392 }, -- Netherwhisper Hood
-				{  8, 137531 }, -- Cloak of Enthralling Darkness
-				{  9, 137508 }, -- Shadewalker Footwraps
-				{  10, 137528 }, -- Legguards of Illusory Burdens
-				{  11, 134386 }, -- Mardum Chain Boots
-				{  12, 137521 }, -- Shoulderguards of Shunned Duty
-				{  13, 137529 }, -- Pathfinders of Dark Omens
-				{  14, 134371 }, -- Felbat Leather Gloves
-				{  15, 137548 }, -- Elune's Light
-				{  16, 137541 }, -- Moonlit Prism
-				{  17, 137549 }, -- Shade of the Vault
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 126, "ac9056" },
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-		},
-		{	--Glazer
-			EncounterJournalID = 1469,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 137547 }, -- Pulsing Prism
-				{  2, 137527 }, -- Polished Jade Chestguard
-				{  3, 137533 }, -- Ring of Minute Mirrors
-				{  4, 137506 }, -- Gloves of Unseen Evil
-				{  5, 137513 }, -- Girdle of Lidless Sight
-				{  6, 137536 }, -- Pendant of the Watchful Eye
-				{  7, 137516 }, -- Collar of Blindsight
-				{  8, 137540 }, -- Concave Reflecting Lens
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 126, "ac9056" },
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-		},
-		{	--Ash'golm
-			EncounterJournalID = 1468,
-			[NORMAL_DUNGEON_DIFF] = {
-				{  1, 137512 }, -- Flame Juggler's Armbands
-				{  2, 137546 }, -- Molten Giant's Eye
-				{  3, 137535 }, -- Lavadrip Pendant
-				{  4, 137539 }, -- Faulty Countermeasure
-				{  5, 137526 }, -- Crown of Ash
-				{  6, 137545 }, -- Flashfrozen Ember
-				{  7, 137505 }, -- Leggings of the Third Degree
-				{  8, 137504 }, -- Flameheart Vestment
-				{  9, 137520 }, -- Permafrost Waistband
-				{  10, 137523 }, -- Magmacrusher Girdle
-				{  11, 137510 }, -- Charskin Mantle
-				{  12, 137519 }, -- Lavabreaker Gauntlets
-			},
-			[HEROIC_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-				--{ 126, "ac9056" },
-			},
-			[MYTHICD_DUNGEON_DIFF] = {
-				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
-			},
-		},
 		{	--Tirathon Saltheril
 			EncounterJournalID = 1467,
 			[NORMAL_DUNGEON_DIFF] = {
@@ -1332,6 +1417,79 @@ data["VaultOfTheWardens"] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 			},
 		},
+		{	--Ash'golm
+			EncounterJournalID = 1468,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 137512 }, -- Flame Juggler's Armbands
+				{  2, 137546 }, -- Molten Giant's Eye
+				{  3, 137535 }, -- Lavadrip Pendant
+				{  4, 137539 }, -- Faulty Countermeasure
+				{  5, 137526 }, -- Crown of Ash
+				{  6, 137545 }, -- Flashfrozen Ember
+				{  7, 137505 }, -- Leggings of the Third Degree
+				{  8, 137504 }, -- Flameheart Vestment
+				{  9, 137520 }, -- Permafrost Waistband
+				{  10, 137523 }, -- Magmacrusher Girdle
+				{  11, 137510 }, -- Charskin Mantle
+				{  12, 137519 }, -- Lavabreaker Gauntlets
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 126, "ac9056" },
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+			},
+		},
+		{	--Glazer
+			EncounterJournalID = 1469,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 137547 }, -- Pulsing Prism
+				{  2, 137527 }, -- Polished Jade Chestguard
+				{  3, 137533 }, -- Ring of Minute Mirrors
+				{  4, 137506 }, -- Gloves of Unseen Evil
+				{  5, 137513 }, -- Girdle of Lidless Sight
+				{  6, 137536 }, -- Pendant of the Watchful Eye
+				{  7, 137516 }, -- Collar of Blindsight
+				{  8, 137540 }, -- Concave Reflecting Lens
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 126, "ac9056" },
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+			},
+		},
+		{	--Cordana Felsong
+			EncounterJournalID = 1470,
+			[NORMAL_DUNGEON_DIFF] = {
+				{  1, 137514 }, -- Chestguard of Insidious Desire
+				{  2, 134356 }, -- Portalguard Gauntlets
+				{  3, 137522 }, -- Bracers of Twisted Revelation
+				{  4, 137507 }, -- Waistband of Spiritual Doom
+				{  5, 137515 }, -- Warden's Martial Greaves
+				{  6, 137550 }, -- Moonglaive Dervish
+				{  7, 134392 }, -- Netherwhisper Hood
+				{  8, 137531 }, -- Cloak of Enthralling Darkness
+				{  9, 137508 }, -- Shadewalker Footwraps
+				{  10, 137528 }, -- Legguards of Illusory Burdens
+				{  11, 134386 }, -- Mardum Chain Boots
+				{  12, 137521 }, -- Shoulderguards of Shunned Duty
+				{  13, 137529 }, -- Pathfinders of Dark Omens
+				{  14, 134371 }, -- Felbat Leather Gloves
+				{  15, 137548 }, -- Elune's Light
+				{  16, 137541 }, -- Moonlit Prism
+				{  17, 137549 }, -- Shade of the Vault
+			},
+			[HEROIC_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				--{ 126, "ac9056" },
+			},
+			[MYTHICD_DUNGEON_DIFF] = {
+				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+			},
+		},
 	}
 }			
 
@@ -1340,17 +1498,17 @@ data["BrokenIsles"] = {
 	MapID = 0,
 	ContentType = RAID_CONTENT,
 	items = {
-		{	--Levantus
-			EncounterJournalID = 1769,
+		{	--Ana-Mouz
+			EncounterJournalID = 1790,
 			[NORMAL_RAID_DIFF] = {
-				{  1, 141431 }, -- Hook-Fingered Gauntlets
-				{  2, 141523 }, -- Fel-Scented Bait
-				{  3, 141440 }, -- Seaweed \"Leather\" Mitts
-				{  4, 141441 }, -- Chum-Chopper Gauntlets
-				{  5, 141435 }, -- Whirlpool Gloves
-				{  6, 141545 }, -- Ring of Deep Sea Pearls
-				{  7, 141473 }, -- Krakentooth Necklace
-				--{ 22, "ac9423" },
+				{  1, 141423 }, -- Crop Top Chain Hauberk
+				{  2, 141486 }, -- Demonic Birthstone Ring
+				{  3, 141419 }, -- Skimpy Demonleather Tunic
+				{  4, 141413 }, -- Low-Cut Chestplate
+				{  5, 141427 }, -- Sheer Felthreaded Robe
+				{  6, 141520 }, -- Imp-Eye Diamond
+				{  7, 141448 }, -- Imp Mother's Loincloth
+				-- { 16, "ac9423" },
 			},
 		},
 		{	--Calamir
@@ -1364,32 +1522,6 @@ data["BrokenIsles"] = {
 				{  6, 141443 }, -- Sandals of Frozen Ash
 				{  7, 141438 }, -- Pendant of Cold Flame
 				--{ 24, "ac9425" },
-			},
-		},
-		{	--The Soultakers
-			EncounterJournalID = 1756,
-			[NORMAL_RAID_DIFF] = {
-				{  1, 141444 }, -- Hel-Cursed Belt
-				{  2, 141537 }, -- Thrice-Accursed Compass
-				{  3, 141436 }, -- Helchain Waistguard
-				{  4, 141434 }, -- Cord of Kept Souls
-				{  5, 141442 }, -- Sea-Reaver's Girdle
-				{  6, 141506 }, -- Soultrapper's Pendant
-				{  7, 141514 }, -- Barnacled Mistcaller Orb
-				--{ 16, "ac9423" },
-			},
-		},
-		{	--Humongris
-			EncounterJournalID = 1770,
-			[NORMAL_RAID_DIFF] = {
-				{  1, 141416 }, -- Padawsen's Squished Pauldrons
-				{  2, 141536 }, -- Padawsen's Unlucky Charm
-				{  3, 141426 }, -- Shoulderplates of Oversized Sorcery
-				{  4, 141445 }, -- Mantle of the Aspiring Spellgiant
-				{  5, 141540 }, -- Coerced Wizard's Cloak
-				{  6, 141422 }, -- Shoulderguards of Unimaginative Magic
-				{  7, 141521 }, -- Sea Giant Toothpick Fragment
-				-- { 16, "ac9423" },
 			},
 		},
 		{	--Drugon the Frostblood
@@ -1418,29 +1550,42 @@ data["BrokenIsles"] = {
 				-- { 16, "ac9423" },
 			},
 		},
-		{	--Withered J'im
-			EncounterJournalID = 1796,
+		{	--Humongris
+			EncounterJournalID = 1770,
 			[NORMAL_RAID_DIFF] = {
-				{  1, 141459 }, -- Manacrystal-Adorned Helmet
-				{  2, 141453 }, -- Magic-Warped Hood
-				{  3, 141482 }, -- Unstable Arcanocrystal
-				{  4, 141455 }, -- Cave Skulker's Helm
-				{  5, 141449 }, -- Mana Scavenger's Mask
-				{  6, 141492 }, -- Dingy Suramar Mercantile Signet
-				{  7, 141543 }, -- Drape of the Mana-Starved
+				{  1, 141416 }, -- Padawsen's Squished Pauldrons
+				{  2, 141536 }, -- Padawsen's Unlucky Charm
+				{  3, 141426 }, -- Shoulderplates of Oversized Sorcery
+				{  4, 141445 }, -- Mantle of the Aspiring Spellgiant
+				{  5, 141540 }, -- Coerced Wizard's Cloak
+				{  6, 141422 }, -- Shoulderguards of Unimaginative Magic
+				{  7, 141521 }, -- Sea Giant Toothpick Fragment
 				-- { 16, "ac9423" },
 			},
 		},
-		{	--Shar'thos
-			EncounterJournalID = 1763,
+		{	--Levantus
+			EncounterJournalID = 1769,
 			[NORMAL_RAID_DIFF] = {
-				{  1, 141542 }, -- Despoiled Dreamthread Cloak
-				{  2, 141487 }, -- Tunic of Waking Nightmares
-				{  3, 141481 }, -- Chestplate of Blackened Emeralds
-				{  4, 141518 }, -- Decaying Dragonfang
-				{  5, 141547 }, -- Choker of Dreamthorns
-				{  6, 141495 }, -- Robe of Fever Dreams
-				{  7, 141491 }, -- Hauberk of the Snarled Vale
+				{  1, 141431 }, -- Hook-Fingered Gauntlets
+				{  2, 141523 }, -- Fel-Scented Bait
+				{  3, 141440 }, -- Seaweed \"Leather\" Mitts
+				{  4, 141441 }, -- Chum-Chopper Gauntlets
+				{  5, 141435 }, -- Whirlpool Gloves
+				{  6, 141545 }, -- Ring of Deep Sea Pearls
+				{  7, 141473 }, -- Krakentooth Necklace
+				--{ 22, "ac9423" },
+			},
+		},
+		{	--Na'zak the Fiend
+			EncounterJournalID = 1783,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 141515 }, -- Leystone Nugget
+				{ 2, 141425 }, -- Avalanche Resistant Legplates
+				{ 3, 141488 }, -- Mana-Dowsing Ring
+				{ 4, 141534 }, -- Loop of Polished Pebbles
+				{ 5, 141421 }, -- Venomscarred Chain Leggings
+				{ 6, 141415 }, -- Na'zak's Dusty Pantaloons
+				{ 7, 141417 }, -- Dessicated Leather Pants
 				-- { 16, "ac9423" },
 			},
 		},
@@ -1457,29 +1602,42 @@ data["BrokenIsles"] = {
 				-- { 16, "ac9423" },
 			},
 		},
-		{	--Ana-Mouz
-			EncounterJournalID = 1790,
+		{	--Shar'thos
+			EncounterJournalID = 1763,
 			[NORMAL_RAID_DIFF] = {
-				{  1, 141423 }, -- Crop Top Chain Hauberk
-				{  2, 141486 }, -- Demonic Birthstone Ring
-				{  3, 141419 }, -- Skimpy Demonleather Tunic
-				{  4, 141413 }, -- Low-Cut Chestplate
-				{  5, 141427 }, -- Sheer Felthreaded Robe
-				{  6, 141520 }, -- Imp-Eye Diamond
-				{  7, 141448 }, -- Imp Mother's Loincloth
+				{  1, 141542 }, -- Despoiled Dreamthread Cloak
+				{  2, 141487 }, -- Tunic of Waking Nightmares
+				{  3, 141481 }, -- Chestplate of Blackened Emeralds
+				{  4, 141518 }, -- Decaying Dragonfang
+				{  5, 141547 }, -- Choker of Dreamthorns
+				{  6, 141495 }, -- Robe of Fever Dreams
+				{  7, 141491 }, -- Hauberk of the Snarled Vale
 				-- { 16, "ac9423" },
 			},
 		},
-		{	--Na'zak the Fiend
-			EncounterJournalID = 1783,
+		{	--The Soultakers
+			EncounterJournalID = 1756,
 			[NORMAL_RAID_DIFF] = {
-				{ 1, 141515 }, -- Leystone Nugget
-				{ 2, 141425 }, -- Avalanche Resistant Legplates
-				{ 3, 141488 }, -- Mana-Dowsing Ring
-				{ 4, 141534 }, -- Loop of Polished Pebbles
-				{ 5, 141421 }, -- Venomscarred Chain Leggings
-				{ 6, 141415 }, -- Na'zak's Dusty Pantaloons
-				{ 7, 141417 }, -- Dessicated Leather Pants
+				{  1, 141444 }, -- Hel-Cursed Belt
+				{  2, 141537 }, -- Thrice-Accursed Compass
+				{  3, 141436 }, -- Helchain Waistguard
+				{  4, 141434 }, -- Cord of Kept Souls
+				{  5, 141442 }, -- Sea-Reaver's Girdle
+				{  6, 141506 }, -- Soultrapper's Pendant
+				{  7, 141514 }, -- Barnacled Mistcaller Orb
+				--{ 16, "ac9423" },
+			},
+		},
+		{	--Withered J'im
+			EncounterJournalID = 1796,
+			[NORMAL_RAID_DIFF] = {
+				{  1, 141459 }, -- Manacrystal-Adorned Helmet
+				{  2, 141453 }, -- Magic-Warped Hood
+				{  3, 141482 }, -- Unstable Arcanocrystal
+				{  4, 141455 }, -- Cave Skulker's Helm
+				{  5, 141449 }, -- Mana Scavenger's Mask
+				{  6, 141492 }, -- Dingy Suramar Mercantile Signet
+				{  7, 141543 }, -- Drape of the Mana-Starved
 				-- { 16, "ac9423" },
 			},
 		},
@@ -1492,6 +1650,64 @@ data["TheEmeraldNightmare"] = {
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
 	items = {
+		{	--Nythendra
+			EncounterJournalID = 1703,
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 139252 }, -- Preserved Worldseed
+				{ 2, 139224 }, -- Insect-Etched Chestplate
+				{ 3, 139320 }, -- Ravaged Seed Pod
+				{ 4, 139200 }, -- Stained Maggot Squishers
+				{ 5, 139249 }, -- Shaladrassil's Blossom
+				{ 6, 139251 }, -- Despoiled Dragonscale
+				{ 7, 139235 }, -- Wristclamps of Mad Dreams
+				{ 8, 139197 }, -- Lifeless Buckled Girdle
+				{ 9, 139212 }, -- Creeping String of Larva
+				{ 10, 139214 }, -- Greyed Dragonscale Coif
+				{ 11, 139321 }, -- Swarming Plaguehive
+				{ 12, 139236 }, -- Grubby Silver Ring
+				{ 13, 139250 }, -- Unwaking Slumber
+				{ 14, 139191 }, -- Ancient Dreamwoven Mantle
+				--{ 24, "ac10013" },
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				--{ 25, "ac10033" },
+			},
+		},
+		{	--Il'gynoth, Heart of Corruption
+			EncounterJournalID = 1738,
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 139237 }, -- Dreadful Cyclopean Signet
+				{ 2, 139326 }, -- Wriggling Sinew
+				{ 3, 139256 }, -- Sloshing Core of Hatred
+				{ 4, 139258 }, -- Radiating Metallic Shard
+				{ 5, 139215 }, -- Singular Chain Leggings
+				{ 6, 139202 }, -- Dreamsculptor's Gloves
+				{ 7, 139324 }, -- Goblet of Nightmarish Ichor
+				{ 8, 139206 }, -- Otherworldy Leather Mantle
+				{ 9, 139227 }, -- Waistplate of Nameless Horror
+				{ 10, 139188 }, -- Celestially Aligned Hood
+				{ 11, 139257 }, -- Gore-Drenched Fetish
+				{ 12, 139259 }, -- Cube of Malice
+				{ 13, 139213 }, -- Gauntlets of Malevolent Intent
+				{ 14, 139233 }, -- Pauldrons of Shifting Runes
+				{ 15, 139325 }, -- Spontaneous Appendages
+				{ 16, 139187 }, -- Cinch of Cosmic Insignficance
+				--{ 25, "ac9972" },
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				--{ 26, "ac10035" },
+			},
+		},
 		{	--Elerethe Renferal
 			EncounterJournalID = 1744,
 			[RF_DIFF] = {
@@ -1549,32 +1765,61 @@ data["TheEmeraldNightmare"] = {
 				--{ 25, "ac10032" },
 			},
 		},
-		{	--Nythendra
-			EncounterJournalID = 1703,
+		{	--Dragons of Nightmare
+			EncounterJournalID = 1704,
 			[RF_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
+
 			},
 			[NORMAL_RAID_DIFF] = {
-				{ 1, 139252 }, -- Preserved Worldseed
-				{ 2, 139224 }, -- Insect-Etched Chestplate
-				{ 3, 139320 }, -- Ravaged Seed Pod
-				{ 4, 139200 }, -- Stained Maggot Squishers
-				{ 5, 139249 }, -- Shaladrassil's Blossom
-				{ 6, 139251 }, -- Despoiled Dragonscale
-				{ 7, 139235 }, -- Wristclamps of Mad Dreams
-				{ 8, 139197 }, -- Lifeless Buckled Girdle
-				{ 9, 139212 }, -- Creeping String of Larva
-				{ 10, 139214 }, -- Greyed Dragonscale Coif
-				{ 11, 139321 }, -- Swarming Plaguehive
-				{ 12, 139236 }, -- Grubby Silver Ring
-				{ 13, 139250 }, -- Unwaking Slumber
-				{ 14, 139191 }, -- Ancient Dreamwoven Mantle
-				--{ 24, "ac10013" },
+				{ 1, 138219 }, -- Dragonspur Wristguards
+				{ 2, 138212 }, -- Handwraps of Delusional Power
+				{ 3, 138215 }, -- Dreamscale Inlaid Vestments
+				{ 4, 138225 }, -- Phantasmal Echo
+				{ 5, 138227 }, -- Entrancing Stone
+				{ 6, 138214 }, -- Gauntlets of the Demented Mind
+				{ 7, 138216 }, -- Horror Inscribed Chestguard
+				{ 8, 138218 }, -- Dragonbone Wristclamps
+				{ 9, 138220 }, -- Mindrend Band
+				{ 10, 138222 }, -- Vial of Nightmare Fog
+				{ 11, 138224 }, -- Unstable Horrorslime
+				{ 12, 138211 }, -- Malignant Sabatons
+				{ 13, 138228 }, -- Bioluminescent Mushroom
+				{ 14, 139205 }, -- Cowl of Fright
+				{ 15, 138226 }, -- Nightmare Engulfed Jewel
+				--{ 28, "ac9988" },
 			},
 			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
 			[MYTHIC_PRE_DIFF] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				--{ 25, "ac10033" },
+				--{ 29, "ac10037" },
+			},
+		},
+		{	--Cenarius
+			EncounterJournalID = 1750,
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 139207 }, -- Tunic of the Grove Keeper
+				{ 2, 139194 }, -- Cozy Dryad Hoof-Socks
+				{ 3, 139211 }, -- Laughing Sister's Pouch-Chain
+				{ 4, 139333 }, -- Horn of Cenarius
+				{ 5, 139264 }, -- Uplifting Emerald
+				{ 6, 139192 }, -- Mantle of Perpetual Bloom
+				{ 7, 139263 }, -- Blessing of Cenarius
+				{ 8, 139225 }, -- Fitted Ironbark Gauntlets
+				{ 9, 139248 }, -- Evergreen Vinewrap Drape
+				{ 10, 139334 }, -- Nature's Call
+				{ 11, 139231 }, -- Crown of Steely Brambles
+				{ 12, 139218 }, -- Thorny Bramblemail Pauldrons
+				{ 13, 139265 }, -- Radiant Dragon Egg
+				{ 14, 139198 }, -- Forest-Lord's Waistwrap
+				--{ 24, "ac9979" },
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				--{ 25, "ac10253" },
 			},
 		},
 		{	--Xavius
@@ -1607,93 +1852,6 @@ data["TheEmeraldNightmare"] = {
 				--{ 26, "ac10034" },
 			},
 		},
-		{	--Il'gynoth, Heart of Corruption
-			EncounterJournalID = 1738,
-			[RF_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-			},
-			[NORMAL_RAID_DIFF] = {
-				{ 1, 139237 }, -- Dreadful Cyclopean Signet
-				{ 2, 139326 }, -- Wriggling Sinew
-				{ 3, 139256 }, -- Sloshing Core of Hatred
-				{ 4, 139258 }, -- Radiating Metallic Shard
-				{ 5, 139215 }, -- Singular Chain Leggings
-				{ 6, 139202 }, -- Dreamsculptor's Gloves
-				{ 7, 139324 }, -- Goblet of Nightmarish Ichor
-				{ 8, 139206 }, -- Otherworldy Leather Mantle
-				{ 9, 139227 }, -- Waistplate of Nameless Horror
-				{ 10, 139188 }, -- Celestially Aligned Hood
-				{ 11, 139257 }, -- Gore-Drenched Fetish
-				{ 12, 139259 }, -- Cube of Malice
-				{ 13, 139213 }, -- Gauntlets of Malevolent Intent
-				{ 14, 139233 }, -- Pauldrons of Shifting Runes
-				{ 15, 139325 }, -- Spontaneous Appendages
-				{ 16, 139187 }, -- Cinch of Cosmic Insignficance
-				--{ 25, "ac9972" },
-			},
-			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
-			[MYTHIC_PRE_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				--{ 26, "ac10035" },
-			},
-		},
-		{	--Cenarius
-			EncounterJournalID = 1750,
-			[RF_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-			},
-			[NORMAL_RAID_DIFF] = {
-				{ 1, 139207 }, -- Tunic of the Grove Keeper
-				{ 2, 139194 }, -- Cozy Dryad Hoof-Socks
-				{ 3, 139211 }, -- Laughing Sister's Pouch-Chain
-				{ 4, 139333 }, -- Horn of Cenarius
-				{ 5, 139264 }, -- Uplifting Emerald
-				{ 6, 139192 }, -- Mantle of Perpetual Bloom
-				{ 7, 139263 }, -- Blessing of Cenarius
-				{ 8, 139225 }, -- Fitted Ironbark Gauntlets
-				{ 9, 139248 }, -- Evergreen Vinewrap Drape
-				{ 10, 139334 }, -- Nature's Call
-				{ 11, 139231 }, -- Crown of Steely Brambles
-				{ 12, 139218 }, -- Thorny Bramblemail Pauldrons
-				{ 13, 139265 }, -- Radiant Dragon Egg
-				{ 14, 139198 }, -- Forest-Lord's Waistwrap
-				--{ 24, "ac9979" },
-			},
-			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
-			[MYTHIC_PRE_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				--{ 25, "ac10253" },
-			},
-		},
-		{	--Dragons of Nightmare
-			EncounterJournalID = 1704,
-			[RF_DIFF] = {
-
-			},
-			[NORMAL_RAID_DIFF] = {
-				{ 1, 138219 }, -- Dragonspur Wristguards
-				{ 2, 138212 }, -- Handwraps of Delusional Power
-				{ 3, 138215 }, -- Dreamscale Inlaid Vestments
-				{ 4, 138225 }, -- Phantasmal Echo
-				{ 5, 138227 }, -- Entrancing Stone
-				{ 6, 138214 }, -- Gauntlets of the Demented Mind
-				{ 7, 138216 }, -- Horror Inscribed Chestguard
-				{ 8, 138218 }, -- Dragonbone Wristclamps
-				{ 9, 138220 }, -- Mindrend Band
-				{ 10, 138222 }, -- Vial of Nightmare Fog
-				{ 11, 138224 }, -- Unstable Horrorslime
-				{ 12, 138211 }, -- Malignant Sabatons
-				{ 13, 138228 }, -- Bioluminescent Mushroom
-				{ 14, 139205 }, -- Cowl of Fright
-				{ 15, 138226 }, -- Nightmare Engulfed Jewel
-				--{ 28, "ac9988" },
-			},
-			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
-			[MYTHIC_PRE_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				--{ 29, "ac10037" },
-			},
-		},
 --[[		{	--Tier 18 Sets
 			name = format(AL["Tier %d Sets"], 18),
 			ExtraList = true,
@@ -1713,6 +1871,69 @@ data["TheNighthold"] = {
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
 	items = {
+		{	--Skorpyron
+			EncounterJournalID = 1706,
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 140902 }, -- Jagged Carapace Wristclamps
+				{ 2, 140876 }, -- Stinger Resistant Bracers
+				{ 3, 140790 }, -- Claw of the Crystalline Scorpid
+				{ 4, 140789 }, -- Animated Exoskeleton
+				{ 5, 140884 }, -- Leystone-Toe Kickers
+				{ 6, 140901 }, -- Vintage Suramar Nobility Hat
+				{ 7, 140888 }, -- Scorpid Handler's Gloves
+				{ 8, 140875 }, -- Arcanochitin Hauberk
+				{ 9, 140862 }, -- Gnawed Nightfallen Britches
+				{ 10, 140849 }, -- Antiquated Highborne Cinch
+				{ 11, 140815 }, -- Infused Chitin Fragment
+				{ 12, 140898 }, -- Radiant String of Scorpid Eyes
+				{ 13, 140840 }, -- Chittering Mandible
+				{ 14, 140827 }, -- Manatoxin Gland
+				--{ 27, "ac8988" },
+				--{ 28, "ac8977" },
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				--{ 29, "ac8965" },
+			},
+		},
+		{	--Chronomatic Anomaly
+			EncounterJournalID = 1725,
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				{ 13, 138828, false, [ATLASLOOT_IT_FILTERIGNORE] = true }, -- Illusion: Chronos
+			},
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 140872 }, -- Pauldrons of Warped Memory
+				{ 2, 140831 }, -- Suspended Nightwell Droplet
+				{ 3, 140848 }, -- Robes of Fluctuating Energy
+				{ 4, 140882 }, -- Chrono-Tempered Legplates
+				{ 5, 140792 }, -- Erratic Metronome
+				{ 6, 140863 }, -- Temporally Displaced Gloves
+				{ 7, 140853 }, -- Chaos-Scarred Mantle
+				{ 8, 140903 }, -- Hood of Fading Opportunity
+				{ 9, 140860 }, -- Stutterstep Treads
+				{ 10, 140791 }, -- Royal Dagger Haft
+				{ 11, 140879 }, -- Gauntlets of Fractured Eons
+				{ 12, 140821 }, -- Precipice of Eternity
+				{ 13, 138828, false, [ATLASLOOT_IT_FILTERIGNORE] = true }, -- Illusion: Chronos
+				{ 14, 140894 }, -- Zealous Timestone Pendant
+				{ 15, 140843 }, -- Flickering Timespark
+				--{ 22, "ac8976" },
+			},
+			[HEROIC_PRE_DIFF] = {
+			GetItemsFromDiff = NORMAL_RAID_DIFF,
+				{ 13, 138828, false, [ATLASLOOT_IT_FILTERIGNORE] = true }, -- Illusion: Chronos
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				{ 13, 138828, false, [ATLASLOOT_IT_FILTERIGNORE] = true }, -- Illusion: Chronos
+				--{ 23, "ac8964" },
+			},
+		},
 		{	--Trilliax
 			EncounterJournalID = 1731,
 			[RF_DIFF] = {
@@ -1750,6 +1971,70 @@ data["TheNighthold"] = {
 			[MYTHIC_PRE_DIFF] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
 				--{ 24, "ac8949" },
+			},
+		},
+		{	--Spellblade Aluriel
+			EncounterJournalID = 1751,
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 140852 }, -- Master Warmage's Leggings
+				{ 2, 140878 }, -- Duskwatch Plate Bracers
+				{ 3, 140895 }, -- Spellblade's Gemmed Signet
+				{ 4, 140867 }, -- Sabatons of Burning Steps
+				{ 5, 140832 }, -- Heart of Frost
+				{ 6, 140796 }, -- Entwined Elemental Foci
+				{ 7, 140813 }, -- Arcana Crux
+				{ 8, 140905 }, -- Gloves of Synchronus Elements
+				{ 9, 140877 }, -- Captain's Parade Breastplate
+				{ 10, 140834 }, -- Soul of Flame
+				{ 11, 140866 }, -- Nightborne Battle-Magus Hood
+				{ 12, 140868 }, -- Emblazoned Duskwatch Belt
+				{ 13, 140795 }, -- Aluriel's Mirror
+				{ 14, 140850 }, -- Bracers of Harnessed Flame
+				--{ 24, "ac8958" },
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				--{ 25, "ac8963" },
+			},
+		},
+		{	--Tichondrius
+			EncounterJournalID = 1762,
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 138363 }, -- Shoulderplates of the Obsidian Aspect
+				{ 2, 138336 }, -- Mantle of the Astral Warden
+				{ 3, 140855 }, -- Dreadlord's Tattered Wingcover
+				{ 4, 138348 }, -- Pauldrons of Bound Elements
+				{ 5, 138321 }, -- Mantle of Everburning Knowledge
+				{ 6, 140844 }, -- Archaic Nathrezim Keepsake
+				{ 7, 138337 }, -- Pauldrons of Enveloped Dissonance
+				{ 8, 138380 }, -- Shoulderguards of Second Sight
+				{ 9, 138322 }, -- Purifier's Mantle
+				{ 10, 138361 }, -- Dreadwyrm Shoulderguards
+				{ 11, 138338 }, -- Doomblade Spaulders
+				{ 12, 140798 }, -- Icon of Rot
+				{ 13, 140892 }, -- Goresmeared Abyssal Waistplate
+				{ 14, 138323 }, -- Pauldrons of Azj'Aqir
+				{ 15, 140797 }, -- Fang of Tichcondrius
+				{ 16, 138362 }, -- Pauldrons of the Highlord
+				{ 17, 140906 }, -- Ring of Exclusive Servitude
+				{ 18, 140819 }, -- Vampiric Fetish
+				{ 19, 140859 }, -- Girdle of Nefarious Strategy
+				{ 20, 138347 }, -- Eagletalon Spaulders
+				{ 21, 140824 }, -- Writ of Subjugation
+				--{ 27, "ac8988" },
+				--{ 28, "ac8977" },
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				--{ 29, "ac8965" },
 			},
 		},
 		{	--Krosus
@@ -1851,68 +2136,6 @@ data["TheNighthold"] = {
 				--{ 24, "ac8962" },
 			},
 		},
-		{	--Spellblade Aluriel
-			EncounterJournalID = 1751,
-			[RF_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-			},
-			[NORMAL_RAID_DIFF] = {
-				{ 1, 140852 }, -- Master Warmage's Leggings
-				{ 2, 140878 }, -- Duskwatch Plate Bracers
-				{ 3, 140895 }, -- Spellblade's Gemmed Signet
-				{ 4, 140867 }, -- Sabatons of Burning Steps
-				{ 5, 140832 }, -- Heart of Frost
-				{ 6, 140796 }, -- Entwined Elemental Foci
-				{ 7, 140813 }, -- Arcana Crux
-				{ 8, 140905 }, -- Gloves of Synchronus Elements
-				{ 9, 140877 }, -- Captain's Parade Breastplate
-				{ 10, 140834 }, -- Soul of Flame
-				{ 11, 140866 }, -- Nightborne Battle-Magus Hood
-				{ 12, 140868 }, -- Emblazoned Duskwatch Belt
-				{ 13, 140795 }, -- Aluriel's Mirror
-				{ 14, 140850 }, -- Bracers of Harnessed Flame
-				--{ 24, "ac8958" },
-			},
-			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
-			[MYTHIC_PRE_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				--{ 25, "ac8963" },
-			},
-		},
-		{	--Chronomatic Anomaly
-			EncounterJournalID = 1725,
-			[RF_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				{ 13, 138828, false, [ATLASLOOT_IT_FILTERIGNORE] = true }, -- Illusion: Chronos
-			},
-			[NORMAL_RAID_DIFF] = {
-				{ 1, 140872 }, -- Pauldrons of Warped Memory
-				{ 2, 140831 }, -- Suspended Nightwell Droplet
-				{ 3, 140848 }, -- Robes of Fluctuating Energy
-				{ 4, 140882 }, -- Chrono-Tempered Legplates
-				{ 5, 140792 }, -- Erratic Metronome
-				{ 6, 140863 }, -- Temporally Displaced Gloves
-				{ 7, 140853 }, -- Chaos-Scarred Mantle
-				{ 8, 140903 }, -- Hood of Fading Opportunity
-				{ 9, 140860 }, -- Stutterstep Treads
-				{ 10, 140791 }, -- Royal Dagger Haft
-				{ 11, 140879 }, -- Gauntlets of Fractured Eons
-				{ 12, 140821 }, -- Precipice of Eternity
-				{ 13, 138828, false, [ATLASLOOT_IT_FILTERIGNORE] = true }, -- Illusion: Chronos
-				{ 14, 140894 }, -- Zealous Timestone Pendant
-				{ 15, 140843 }, -- Flickering Timespark
-				--{ 22, "ac8976" },
-			},
-			[HEROIC_PRE_DIFF] = {
-			GetItemsFromDiff = NORMAL_RAID_DIFF,
-				{ 13, 138828, false, [ATLASLOOT_IT_FILTERIGNORE] = true }, -- Illusion: Chronos
-			},
-			[MYTHIC_PRE_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				{ 13, 138828, false, [ATLASLOOT_IT_FILTERIGNORE] = true }, -- Illusion: Chronos
-				--{ 23, "ac8964" },
-			},
-		},
 		{	--Grand Magistrix Elisande
 			EncounterJournalID = 1743,
 			[RF_DIFF] = {
@@ -1990,71 +2213,6 @@ data["TheNighthold"] = {
 				--{ 29, "ac8965" },
 			},
 		},
-		{	--Tichondrius
-			EncounterJournalID = 1762,
-			[RF_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-			},
-			[NORMAL_RAID_DIFF] = {
-				{ 1, 138363 }, -- Shoulderplates of the Obsidian Aspect
-				{ 2, 138336 }, -- Mantle of the Astral Warden
-				{ 3, 140855 }, -- Dreadlord's Tattered Wingcover
-				{ 4, 138348 }, -- Pauldrons of Bound Elements
-				{ 5, 138321 }, -- Mantle of Everburning Knowledge
-				{ 6, 140844 }, -- Archaic Nathrezim Keepsake
-				{ 7, 138337 }, -- Pauldrons of Enveloped Dissonance
-				{ 8, 138380 }, -- Shoulderguards of Second Sight
-				{ 9, 138322 }, -- Purifier's Mantle
-				{ 10, 138361 }, -- Dreadwyrm Shoulderguards
-				{ 11, 138338 }, -- Doomblade Spaulders
-				{ 12, 140798 }, -- Icon of Rot
-				{ 13, 140892 }, -- Goresmeared Abyssal Waistplate
-				{ 14, 138323 }, -- Pauldrons of Azj'Aqir
-				{ 15, 140797 }, -- Fang of Tichcondrius
-				{ 16, 138362 }, -- Pauldrons of the Highlord
-				{ 17, 140906 }, -- Ring of Exclusive Servitude
-				{ 18, 140819 }, -- Vampiric Fetish
-				{ 19, 140859 }, -- Girdle of Nefarious Strategy
-				{ 20, 138347 }, -- Eagletalon Spaulders
-				{ 21, 140824 }, -- Writ of Subjugation
-				--{ 27, "ac8988" },
-				--{ 28, "ac8977" },
-			},
-			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
-			[MYTHIC_PRE_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				--{ 29, "ac8965" },
-			},
-		},
-		{	--Skorpyron
-			EncounterJournalID = 1706,
-			[RF_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-			},
-			[NORMAL_RAID_DIFF] = {
-				{ 1, 140902 }, -- Jagged Carapace Wristclamps
-				{ 2, 140876 }, -- Stinger Resistant Bracers
-				{ 3, 140790 }, -- Claw of the Crystalline Scorpid
-				{ 4, 140789 }, -- Animated Exoskeleton
-				{ 5, 140884 }, -- Leystone-Toe Kickers
-				{ 6, 140901 }, -- Vintage Suramar Nobility Hat
-				{ 7, 140888 }, -- Scorpid Handler's Gloves
-				{ 8, 140875 }, -- Arcanochitin Hauberk
-				{ 9, 140862 }, -- Gnawed Nightfallen Britches
-				{ 10, 140849 }, -- Antiquated Highborne Cinch
-				{ 11, 140815 }, -- Infused Chitin Fragment
-				{ 12, 140898 }, -- Radiant String of Scorpid Eyes
-				{ 13, 140840 }, -- Chittering Mandible
-				{ 14, 140827 }, -- Manatoxin Gland
-				--{ 27, "ac8988" },
-				--{ 28, "ac8977" },
-			},
-			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
-			[MYTHIC_PRE_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				--{ 29, "ac8965" },
-			},
-		},
 --[[		
 		{	--HighmaulTrash
 			name = AL["Trash Mobs"],
@@ -2076,4 +2234,88 @@ data["TheNighthold"] = {
 ]]		
 		LEGION_RAID1_AC_TABLE,
 	},
+}
+
+data["TrialOfValor"] = {
+	EncounterJournalID = 861,
+	MapID = 1114,
+	ContentType = RAID_CONTENT,
+	TableType = RAID_ITTYPE,
+	items = {
+		{	--Odyn
+			EncounterJournalID = 1819,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 142419 }, -- Sky-Valiant's Wristguards
+				{ 2, 142511 }, -- Unforged Titansteel
+				{ 3, 142410 }, -- Robes of Celestial Adornment
+				{ 4, 142425 }, -- Goldrune Legplates
+				{ 5, 142519 }, -- Favor of the Prime Designate
+				{ 6, 142431 }, -- Gleaming Val'kyr Cuirass
+				{ 7, 142508 }, -- Chains of the Valorous
+				{ 8, 142540 }, -- Mantle of the Victorious Dead
+				{ 9, 142422 }, -- Radiant Soul Sabatons
+				{ 10, 142514 }, -- Ravens' Sight
+				{ 11, 142411 }, -- Cinch of Light
+				{ 12, 142430 }, -- Gloves of Issued Challenge
+				{ 13, 142520 }, -- Ring of Ascended Glory
+				{ 14, 142421 }, -- Leggings of the Undaunted
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+		},
+		{	--Guarm
+			EncounterJournalID = 1830,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 142432 }, -- Helbeast Skin Tunic
+				{ 2, 142434 }, -- Kvaldir Exult's Grips
+				{ 3, 142423 }, -- Bite-Resistant Wristclamps
+				{ 4, 142515 }, -- Chilled Incisor
+				{ 5, 142412 }, -- Windwhipped Sailcloth
+				{ 6, 142506 }, -- Eye of Guarm
+				{ 7, 142435 }, -- Reinforced Hound-Handler's Gauntlets
+				{ 8, 142512 }, -- Accursed Cuspid
+				{ 9, 142426 }, -- Lead-Soled Seabed Striders
+				{ 10, 142516 }, -- Sizzling Fang
+				{ 11, 142413 }, -- Leggings of the Lower Planes
+				{ 12, 142415 }, -- Helhound Hair Bracers
+				{ 13, 142417 }, -- Moccasins of Silent Passage
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+		},
+		{	--Helya
+			EncounterJournalID = 1829,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 142507 }, -- Brinewater Slime in a Bottle
+				{ 2, 142518 }, -- Fury of the Sea
+				{ 3, 142513 }, -- Token of the Lightning Keeper
+				{ 4, 142427 }, -- Calcareous Wristclamps
+				{ 5, 142517 }, -- Swell of the Tides
+				{ 6, 142429 }, -- Oiled Rigger's Handwraps
+				{ 7, 142521 }, -- Drape of the Unworthy
+				{ 8, 142418 }, -- Sucker-Scarred Leggings
+				{ 9, 142510 }, -- Phylactery of Unwilling Servitude
+				{ 10, 142416 }, -- Strand of Whelk Shells
+				{ 11, 142424 }, -- Krakenbone Waistplate
+				{ 12, 142420 }, -- Anchor Chain Waistguard
+				{ 13, 142428 }, -- Sea Fan Pendant
+				{ 14, 142433 }, -- Corroded Val'kyr Chainmail
+				{ 15, 142414 }, -- Treads of the Drowned
+			},
+			[HEROIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+		},
+	}
 }
