@@ -40,7 +40,6 @@ function TSMAPI.Auction:GetItemQueryInfo(itemString)
 		maxLevel = level,
 		class = classId,
 		subClass = subClassId,
-		usable = TSMAPI.Item:CanUse(itemString)
 	}
 end
 
@@ -195,9 +194,6 @@ function private.GenerateQueriesThread(self, itemList)
 	for i = 1, 30 do
 		hasItemInfo = true
 		for _, itemString in ipairs(itemList) do
-			if TSMAPI.Item:CanUse(itemString) == nil then
-				hasItemInfo = false
-			end
 			if not private.HasInfo(itemString) then
 				hasItemInfo = false
 			end
@@ -271,9 +267,9 @@ function private.GenerateQueriesThread(self, itemList)
 		end
 		if totalPages.raw > 0 then
 			-- get the number of pages if we group by class
-			local minQuality, minLevel, maxLevel, usable = private:GetCommonInfo(items)
+			local minQuality, minLevel, maxLevel = private:GetCommonInfo(items)
 			totalPages.class = private:NumAuctionsToNumPages(private.db:GetNumAuctions({class=classId, quality=minQuality, minLevel=minLevel, maxLevel=maxLevel}))
-			tinsert(tempQueries.class, {items=items, name="", class=classId, subClass=nil, invType=nil, quality=minQuality, minLevel=minLevel, maxLevel=maxLevel, usable=usable})
+			tinsert(tempQueries.class, {items=items, name="", class=classId, subClass=nil, invType=nil, quality=minQuality, minLevel=minLevel, maxLevel=maxLevel})
 			self:Yield()
 		end
 		TSM:LOG_INFO("Scanning %d items by class (%d) would be %d pages instead of %d", #items, classId, totalPages.class, totalPages.raw)
@@ -351,16 +347,14 @@ end
 
 function private:GetCommonInfo(items)
 	local minQuality, minLevel, maxLevel = nil, nil, nil
-	local usable = true
 	for _, itemString in ipairs(items) do
 		local quality = TSMAPI.Item:GetQuality(itemString)
 		local level = TSMAPI.Item:GetMinLevel(itemString)
 		minQuality = min(minQuality or quality, quality)
 		minLevel = min(minLevel or level, level)
 		maxLevel = max(maxLevel or level, level)
-		usable = usable and TSMAPI.Item:CanUse(itemString)
 	end
-	return minQuality or 0, minLevel or 0, maxLevel or 0, usable
+	return minQuality or 0, minLevel or 0, maxLevel or 0
 end
 
 function private:GetCommonName(items)

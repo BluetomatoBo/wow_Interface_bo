@@ -1,3 +1,10 @@
+v3.6.13
+*Fixed bug with scans not returning all results.
+
+v3.6.12
+*Updated TOC version for patch 7.1.
+*Fixed bug on non-connected realms caused by 7.1 changes.
+
 v3.6.11
 *Fixed bug causing AuctionDB to not properly load some region statistics.
 

@@ -817,23 +817,23 @@ function TSMAPI:GetChatFrame()
 end
 
 function TSMAPI:GetConnectedRealms()
-	if private.cachedConnectedRealms then return private.cachedConnectedRealms end
-	local currentRealm = gsub(GetRealmName(), "[ %-]", "")
-	local connectedRealms = GetAutoCompleteRealms()
+	if not private.cachedConnectedRealms then
+		local currentRealm = gsub(GetRealmName(), "[ %-]", "")
+		local connectedRealms = GetAutoCompleteRealms() or {}
 
-	if connectedRealms then
-		for i, realm in ipairs(connectedRealms) do
-			if realm == currentRealm then
-				private.cachedConnectedRealms = connectedRealms
-				tremove(private.cachedConnectedRealms, i)
-				return private.cachedConnectedRealms
+		if #connectedRealms > 0 then
+			local currentRealmIndex = nil
+			for i, realm in ipairs(connectedRealms) do
+				if realm == currentRealm then
+					currentRealmIndex = i
+					break
+				end
 			end
+			TSMAPI:Assert(currentRealmIndex, "Could not find current realm")
 		end
-		TSMAPI:Assert(false, "Could not find connected realm")
-	else
-		private.cachedConnectedRealms = {}
-		return private.cachedConnectedRealms
+		private.cachedConnectedRealms = connectedRealms
 	end
+	return private.cachedConnectedRealms
 end
 
 function TSMAPI:GetRegion()
