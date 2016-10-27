@@ -1,5 +1,12 @@
 # Changelog
 
+## Changed in v9
+
+* TOC for 7.1.
+* Include Emerald Winds, even though it's not technically a treasure.
+* Some helpful notes clarifying positions.
+* Missing Suramar treasure.
+
 ## Changed in v8
 
 * Added more treasures to Suramar.

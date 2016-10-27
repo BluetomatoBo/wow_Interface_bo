@@ -101,7 +101,7 @@ ns.points = {
         [39307621] = {quest=40473, currency=ARTIFACT, label=CHEST, note="Hard to reach; try from behind the totem"},
         [39376229] = {quest=40474, currency=ARTIFACT, label=CHEST},
         [39555744] = {quest=39812, currency=ARTIFACT, label=CHEST},
-        [39704830] = {quest=39494, currency=ARTIFACT, label="Floating Treasure", note="On river surface"},
+        [39704830] = {quest=39494, currency=ARTIFACT, item=131763, label="Floating Treasure", note="On river surface, moves"},
         [42203482] = {quest=40480, currency=ARTIFACT, label=CHEST_SM},
         [42212730] = {quest=40479, currency=ARTIFACT, label=CHEST},
         [43582510] = {quest=40478, currency=ARTIFACT, label=CHEST, note="Cave entrance @ 42.5, 25.4"},
@@ -138,6 +138,7 @@ ns.points = {
         [44707230] = path({39606, 40508, 40509}, "Neltharion's Vault"),
         [51603740] = path({40496, 40497, 40406}, "Rockcrawler Chasm"),
         [48103390] = path({40496, 40497, 40406}, "Rockcrawler Chasm"),
+        [32206680] = {achievement=10774, item=139773, toy=true}, -- Emerald Winds
     },
     ["Stormheim"] = {
         [27335749] = {quest=38529, currency=ARTIFACT, label=CHEST, note="Cave entrance @ 31.4, 57.1"},
@@ -243,10 +244,10 @@ ns.points = {
         [42203000] = path(43856),
         [44302289] = {quest=43850, currency=ARTIFACT, label=CHEST},
         [44387587] = {quest=43869, currency=ARTIFACT, label=CHEST_SM},
-        [44803100] = {quest=43986, item=140326, label="Enchanted Burial Urn"},
+        [44803100] = {quest=43986, item=140326, label="Enchanted Burial Urn", note="Doesn't stand out much; by the bench, upper level"},
         [46552599] = {quest=43744, item=141655, label="Shimmering Ancient Mana Cluster"},
         [48117321] = {quest=43865, currency=ARTIFACT, label=CHEST_SM, note="Grapple to it"},
-        [48143399] = {quest=43853, item=141655, label=CHEST_SM},
+        [48143399] = {quest=43853, currency=ARTIFACT, label=CHEST_SM},
         [48288261] = {quest=43866, currency=ARTIFACT, label=CHEST_SM, note="Grapple from 48.4, 82.2"},
         [48408220] = grapple(43866),
         [48297121] = {quest=44324, currency=ARTIFACT, label=CHEST, note="Jumping puzzle! I recommend starting on the bookshelf."},
@@ -267,6 +268,7 @@ ns.points = {
         [60356851] = {quest=43876, item=139786, label=CHEST_GLIM},
         [61365550] = {quest=43872, currency=ARTIFACT, label=CHEST},
         [63654911] = {quest=43857, currency=ARTIFACT, label=CHEST_SM},
+        [65814191] = {quest=43743, item=141655, label="Shimmering Ancient Mana Cluster", note="At the back of the leyline cave"},
         [67315511] = {quest=43858, currency=ARTIFACT, label=CHEST},
         [71464975] = {quest=43859, currency=ARTIFACT, label=CHEST_SM},
         [76886150] = {quest=43860, currency=ARTIFACT, label=CHEST_SM, note="Underwater, in a sunken ship"},
@@ -398,6 +400,9 @@ ns.points = {
         -- Temple of Fal'adora:
         [35525280] = {quest=43988, item=140328, label="Volatile Leyline Crystal", note="Downstairs", level=32},
         [38605414] = {quest=43838, currency=ARTIFACT, label=CHEST_SM, note="Downstairs", level=32},
+    },
+    ["LeylineMicro01"] = { -- Elor'shan
+        [49301730] = {quest=43743, item=141655, label="Shimmering Ancient Mana Cluster"},
     },
 
     -- DH starter
