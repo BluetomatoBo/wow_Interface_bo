@@ -548,8 +548,12 @@ local function CreateCoords()
 		dig = 0
 	end
 	
-	x = tonumber(E:Round(100 * x, dig))
-	y = tonumber(E:Round(100 * y, dig))
+	if x then
+		x = tonumber(E:Round(100 * x, dig))
+	end
+	if y then
+		y = tonumber(E:Round(100 * y, dig))
+	end
 	
 	return x, y
 end
@@ -860,7 +864,7 @@ function LPB:UpdateCoords()
 	local x, y = CreateCoords()
 	local xt,yt
 
-	if x == 0 and y == 0 then
+	if (x == 0 or x == nil) and (y == 0 or y == nil) then
 		XCoordsPanel.Text:SetText("-")
 		YCoordsPanel.Text:SetText("-")
 	else
@@ -946,6 +950,16 @@ function LPB:LocPlusDefaults()
 	end	
 end
 
+function LPB:ToggleBlizZoneText()
+	if E.db.locplus.zonetext then
+		ZoneTextFrame:UnregisterAllEvents()
+	else
+		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+		ZoneTextFrame:RegisterEvent("ZONE_CHANGED_INDOORS")
+		ZoneTextFrame:RegisterEvent("ZONE_CHANGED")	
+	end
+end
+
 function LPB:TimerUpdate()
 	self:ScheduleRepeatingTimer('UpdateCoords', E.db.locplus.timer)
 end
@@ -967,6 +981,7 @@ function LPB:Initialize()
 	CreateCoordPanels()
 	self:LocPlusUpdate()
 	self:TimerUpdate()
+	self:ToggleBlizZoneText()
 	self:ScheduleRepeatingTimer('UpdateLocation', 0.5)
 	EP:RegisterPlugin(addon, LPB.AddOptions)
 	LocationPlusPanel:RegisterEvent("PLAYER_REGEN_DISABLED")
