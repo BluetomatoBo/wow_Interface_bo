@@ -504,6 +504,13 @@ function GoGo_ChooseMount()
 		end --if
 	end --if
 
+	if GoGo_Variables.ZoneExclude.LegionZones then
+		GoGo_Variables.FilteredMounts = GoGo_FilterMountsOut(GoGo_Variables.FilteredMounts, 203) or {}
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ChooseMount: Eliminated mounts requiring Legion zones - " .. (table.getn(GoGo_Variables.FilteredMounts) or 0) .. " mounts left.")
+		end --if
+	end --if
+
 	if not GoGo_Variables.SwimSurface then
 		GoGo_Variables.FilteredMounts = GoGo_FilterMountsOut(GoGo_Variables.FilteredMounts, 55) or {}
 		if GoGo_Variables.Debug >= 10 then
@@ -1490,6 +1497,7 @@ function GoGo_ZoneCheck()
 	GoGo_Variables.ZoneExclude.CanFly = false
 	GoGo_Variables.ZoneExclude.UseMountGroup = nil
 	GoGo_Variables.InBattleground = false
+	GoGo_Variables.ZoneExclude.LegionZones = true
 	GoGo_Variables.Player.ZoneID = GetCurrentMapAreaID()
 
 	if GoGo_Variables.Debug >= 10 then
@@ -3132,6 +3140,21 @@ function GoGo_ZoneCheck()
 		if GoGo_Variables.Debug >= 10 then
 			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Azsuna")
 		end --if
+		GoGo_Variables.ZoneExclude.LegionZones = false
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = true
+	elseif GoGo_Variables.Player.ZoneID == 1017 then
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Stormheim")
+		end --if
+		GoGo_Variables.ZoneExclude.LegionZones = false
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = true
+	elseif GoGo_Variables.Player.ZoneID == 1018 then
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Val'sharah")
+		end --if
+		GoGo_Variables.ZoneExclude.LegionZones = false
 		GoGo_Variables.ZoneExclude.CanFly = false
 		-- can ride = true
 	elseif GoGo_Variables.Player.ZoneID == 1021 then
@@ -3141,9 +3164,29 @@ function GoGo_ZoneCheck()
 		end --if
 		GoGo_Variables.ZoneExclude.CanFly = false
 		-- can ride = true
+	elseif GoGo_Variables.Player.ZoneID == 1024 then
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Highmountain")
+		end --if
+		GoGo_Variables.ZoneExclude.LegionZones = false
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = true
 	elseif GoGo_Variables.Player.ZoneID == 1026 then
 		if GoGo_Variables.Debug >= 10 then
 			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Hellfire Citadel (instance)")
+		end --if
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = true
+	elseif GoGo_Variables.Player.ZoneID == 1033 then
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Suramar")
+		end --if
+		GoGo_Variables.ZoneExclude.LegionZones = false
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = true
+	elseif GoGo_Variables.Player.ZoneID == 1047 then
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Niskara (instance)")
 		end --if
 		GoGo_Variables.ZoneExclude.CanFly = false
 		-- can ride = true
@@ -3160,6 +3203,18 @@ function GoGo_ZoneCheck()
 		end --if
 		GoGo_Variables.ZoneExclude.CanFly = false
 		-- can ride = false
+	elseif GoGo_Variables.Player.ZoneID == 1065 then
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Neltharion's Lair (instance)")
+		end --if
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = true
+	elseif GoGo_Variables.Player.ZoneID == 1067 then
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Darkheart Thicket (instance)")
+		end --if
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = true
 	elseif GoGo_Variables.Player.ZoneID == 1068 then
 		-- Mage hangout area in (Broken Isles) Dalaran
 		if GoGo_Variables.Debug >= 10 then
@@ -3167,10 +3222,24 @@ function GoGo_ZoneCheck()
 		end --if
 		GoGo_Variables.ZoneExclude.CanFly = false
 		-- can ride = false
+	elseif GoGo_Variables.Player.ZoneID == 1072 then
+		-- Hunter's Hall
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Trueshot Lodge")
+		end --if
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = true
 	elseif GoGo_Variables.Player.ZoneID == 1076 then
 		-- The Ulduar scenario as part of the quest line for the pre-release events to Warcraft 7 - Legion
 		if GoGo_Variables.Debug >= 10 then
 			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for Ulduar (scenario)")
+		end --if
+		GoGo_Variables.ZoneExclude.CanFly = false
+		-- can ride = true
+	elseif GoGo_Variables.Player.ZoneID == 1091 then
+		-- Single player scenario
+		if GoGo_Variables.Debug >= 10 then
+			GoGo_DebugAddLine("GoGo_ZoneCheck: Setting up for The Exodar (scenario")
 		end --if
 		GoGo_Variables.ZoneExclude.CanFly = false
 		-- can ride = true
@@ -4557,6 +4626,8 @@ function GoGo_Settings_Default(Class)
 		GoGo_SetPref("AutoExcludeFlyingMounts", false, true)
 		GoGo_SetPref("DruidDisableInCombat", false, true)
 		GoGo_SetPref("ShamanClickForm", false, true)
+		GoGo_Prefs.PrefVer = 1
+
 	end --if
 end --function
 
@@ -4595,6 +4666,8 @@ function GoGo_Settings_SetUpdates()
 	GoGo_Prefs.checkspells = nil
 	GoGo_Prefs.PaliUseCrusader = nil
 	GoGo_Prefs.PaladinUseCrusaderAura = nil
+	
+	GoGo_Prefs.PrefVer = 1
 
 end --function
 
