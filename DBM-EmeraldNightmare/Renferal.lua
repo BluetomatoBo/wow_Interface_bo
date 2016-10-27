@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1744, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15357 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15372 $"):sub(12, -3))
 mod:SetCreatureID(106087)
 mod:SetEncounterID(1876)
 mod:SetZone()
@@ -56,7 +56,6 @@ local specWarnRakingTalonOther		= mod:NewSpecialWarningTaunt(215582, nil, nil, n
 ----Mythic
 local specViolentWinds				= mod:NewSpecialWarningYou(218124, nil, nil, nil, 3, 2)
 local yellViolentWinds				= mod:NewYell(218124)
-local specWarnViolentWindsOther		= mod:NewSpecialWarningTaunt(218124, nil, nil, nil, 1, 2)
 
 --Spider Form
 mod:AddTimerLine(GetSpellInfo(210326))
@@ -259,9 +258,6 @@ function mod:SPELL_AURA_APPLIED(args)
 				voiceViolentWinds:Play("justrun")
 				voiceViolentWinds:Schedule(1, "keepmove")
 				yellViolentWinds:Yell()
-			elseif self.Options.SpecWarn218124taunt then
-				specWarnViolentWindsOther:Show(args.destName)
-				voiceViolentWinds:Play("tauntboss")
 			else
 				warnViolentWinds:Show(args.destName)
 			end

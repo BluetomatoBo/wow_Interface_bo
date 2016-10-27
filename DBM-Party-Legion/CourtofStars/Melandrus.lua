@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1720, "DBM-Party-Legion", 7, 800)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15368 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15404 $"):sub(12, -3))
 mod:SetCreatureID(104218)
 mod:SetEncounterID(1870)
 mod:SetZone()
@@ -19,7 +19,7 @@ local warnSurge						= mod:NewTargetAnnounce(209602, 4)
 local specWarnSurge					= mod:NewSpecialWarningYou(209602, nil, nil, nil, 1, 2)
 local yellSurge						= mod:NewYell(209602)
 local specWarnSlicingMaelstrom		= mod:NewSpecialWarningSpell(209676, nil, nil, nil, 2, 2)
-local specWarnGale					= mod:NewSpecialWarningDodge(209676, nil, nil, nil, 2, 2)
+local specWarnGale					= mod:NewSpecialWarningDodge(209628, nil, nil, nil, 2, 2)
 
 local timerSurgeCD					= mod:NewCDTimer(17, 153396, nil, nil, nil, 3)
 local timerMaelstromCD				= mod:NewCDTimer(17, 209676, nil, nil, nil, 3)
@@ -50,7 +50,10 @@ function mod:OnCombatStart(delay)
 	timerMaelstromCD:Start(10.9-delay)
 	timerSurgeCD:Start(17-delay)
 	--Not ideal to do every pull, but cleanest way to ensure it's done
-	if trashmod.Options.SpyHelper then
+	if not trashmod then
+		trashmod = DBM:GetModByName("CoSTrash")
+	end
+	if trashmod and trashmod.Options.SpyHelper then
 		trashmod:ResetGossipState()
 	end
 end

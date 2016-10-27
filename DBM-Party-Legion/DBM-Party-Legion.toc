@@ -1,5 +1,5 @@
-﻿## Interface: 70000
-## X-Min-Interface: 70000
+﻿## Interface: 70100
+## X-Min-Interface: 70100
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Party-Legion|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Gruppe-Legion|r
 ## Title-frFR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Groupe-Legion|r
@@ -31,7 +31,7 @@
 ## X-DBM-Mod-Sort: 060
 ## X-DBM-Mod-MapID: 1501, 1466, 1456, 1477, 1458, 1516, 1571, 1492, 1544, 1493, 1651
 ## X-DBM-Mod-MinCoreRevision: 14737
-## X-Curse-Packaged-Version: 7.0.12
+## X-Curse-Packaged-Version: 7.1.1
 ## X-Curse-Project-Name: Deadly Boss Mods
 ## X-Curse-Project-ID: deadly-boss-mods
 ## X-Curse-Repository-ID: wow/deadly-boss-mods/mainline
@@ -107,4 +107,5 @@ ReturnToKarazhan\Curator.lua
 ReturnToKarazhan\Medivh.lua
 ReturnToKarazhan\ManaDevourer.lua
 ReturnToKarazhan\Vizaduum.lua
+ReturnToKarazhan\Nightbane.lua
 ReturnToKarazhan\RTKTrash.lua

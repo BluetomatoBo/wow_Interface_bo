@@ -1,7 +1,7 @@
-local mod	= DBM:NewMod("CoSTrash", "DBM-Party-Legion", 7, 800)
+local mod	= DBM:NewMod("CoSTrash", "DBM-Party-Legion", 7)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15367 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15399 $"):sub(12, -3))
 --mod:SetModelID(47785)
 mod:SetZone()
 
@@ -196,9 +196,9 @@ do
 		end
 	end
 	
-	function mod:OnSync(msg, arg)
-		if msg == "CoS" and self.Options.SpyHelper then
-			clues[arg] = true
+	function mod:OnSync(msg, clue)
+		if msg == "CoS" and clue and self.Options.SpyHelper then
+			hints[clue] = true
 			DBM.InfoFrame:Show(5, "function", updateInfoFrame)
 		end
 	end

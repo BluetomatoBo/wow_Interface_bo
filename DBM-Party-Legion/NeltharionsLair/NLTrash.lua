@@ -1,7 +1,7 @@
-local mod	= DBM:NewMod("NLTrash", "DBM-Party-Legion", 5, 767)
+local mod	= DBM:NewMod("NLTrash", "DBM-Party-Legion", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15367 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15403 $"):sub(12, -3))
 --mod:SetModelID(47785)
 mod:SetZone()
 
@@ -43,7 +43,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			warnBurningHatred:Show(args.destName)
 		end
-	elseif spellId == 183407 and args:IsPlayer() then
+	elseif spellId == 183407 and args:IsPlayer() and self:AntiSpam(3, 1) then
 		specWarnAcidSplatter:Show()
 		voiceAcidSplatter:Play("runaway")
 	end

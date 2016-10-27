@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1750, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15364 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15394 $"):sub(12, -3))
 mod:SetCreatureID(104636)
 mod:SetEncounterID(1877)
 mod:SetZone()
@@ -93,6 +93,7 @@ local voiceScornedTouch				= mod:NewVoice(211471)--runout
 mod:AddRangeFrameOption(8, 211471)
 mod:AddSetIconOption("SetIconOnWisps", "ej13348", false, true)
 mod:AddHudMapOption("HudMapOnBreath", 211192)
+mod:AddInfoFrameOption(210279)
 
 mod.vb.phase = 1
 mod.vb.addsCount = 0
@@ -133,6 +134,10 @@ function mod:OnCombatStart(delay)
 	self:RegisterShortTermEvents(
 		"INSTANCE_ENCOUNTER_ENGAGE_UNIT"
 	)
+	if self.Options.InfoFrame and not self:IsLFR() then
+		DBM.InfoFrame:SetHeader(GetSpellInfo(210279))
+		DBM.InfoFrame:Show(8, "playerdebuffstacks", 210279)
+	end
 end
 
 function mod:OnCombatEnd()
@@ -146,6 +151,9 @@ function mod:OnCombatEnd()
 	if not self.Options.AlertedBramble then
 		DBM:AddMsg(L.BrambleMessage)
 		self.Options.AlertedBramble = true
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
 	end
 end
 
