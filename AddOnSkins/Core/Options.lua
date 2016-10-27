@@ -1,43 +1,44 @@
 local AS, ASL = unpack(AddOnSkins)
 local tinsert, sort, pairs, format, gsub, strfind = tinsert, sort, pairs, format, gsub, strfind
 
-local Defaults = {
--- Embeds
-	['EmbedOoC'] = false,
-	['EmbedOoCDelay'] = 10,
-	['EmbedCoolLine'] = false,
-	['EmbedSexyCooldown'] = false,
-	['EmbedSystem'] = false,
-	['EmbedSystemDual'] = false,
-	['EmbedMain'] = 'Skada',
-	['EmbedLeft'] = 'Skada',
-	['EmbedRight'] = 'Skada',
-	['EmbedRightChat'] = true,
-	['EmbedLeftWidth'] = 200,
-	['EmbedBelowTop'] = false,
-	['TransparentEmbed'] = false,
--- Misc
-	['RecountBackdrop'] = true,
-	['SkadaBackdrop'] = true,
-	['OmenBackdrop'] = true,
-	['DetailsBackdrop'] = true,
-	['MiscFixes'] = true,
-	['DBMSkinHalf'] = false,
-	['DBMFont'] = 'Tukui',
-	['DBMFontSize'] = 12,
-	['DBMFontFlag'] = 'OUTLINE',
-	['DBMRadarTrans'] = false,
-	['WeakAuraAuraBar'] = false,
-	['WeakAuraIconCooldown'] = false,
-	['SkinTemplate'] = 'Transparent',
-	['HideChatFrame'] = 'NONE',
-	['SkinDebug'] = false,
-	['LoginMsg'] = true,
-	['EmbedSystemMessage'] = true,
-	['ElvUISkinModule'] = false,
+local defaults = {
+	profile = {
+	-- Embeds
+		['EmbedOoC'] = false,
+		['EmbedOoCDelay'] = 10,
+		['EmbedCoolLine'] = false,
+		['EmbedSexyCooldown'] = false,
+		['EmbedSystem'] = false,
+		['EmbedSystemDual'] = false,
+		['EmbedMain'] = 'Skada',
+		['EmbedLeft'] = 'Skada',
+		['EmbedRight'] = 'Skada',
+		['EmbedRightChat'] = true,
+		['EmbedLeftWidth'] = 200,
+		['EmbedBelowTop'] = false,
+		['TransparentEmbed'] = false,
+		['EmbedIsHidden'] = false,
+	-- Misc
+		['RecountBackdrop'] = true,
+		['SkadaBackdrop'] = true,
+		['OmenBackdrop'] = true,
+		['DetailsBackdrop'] = true,
+		['MiscFixes'] = true,
+		['DBMSkinHalf'] = false,
+		['DBMFont'] = 'Tukui',
+		['DBMFontSize'] = 12,
+		['DBMFontFlag'] = 'OUTLINE',
+		['DBMRadarTrans'] = false,
+		['WeakAuraAuraBar'] = false,
+		['WeakAuraIconCooldown'] = false,
+		['SkinTemplate'] = 'Transparent',
+		['HideChatFrame'] = 'NONE',
+		['SkinDebug'] = false,
+		['LoginMsg'] = true,
+		['EmbedSystemMessage'] = true,
+		['ElvUISkinModule'] = false,
+	},
 }
-
-AddOnSkinsOptions = CopyTable(Defaults)
 
 local DEVELOPER_STRING = ""
 local LINE_BREAK = "\n"
@@ -85,6 +86,13 @@ local DEVELOPERS = {
 sort(DEVELOPERS, function(a, b) return strlower(a) < strlower(b) end)
 for _, devName in pairs(DEVELOPERS) do
 	DEVELOPER_STRING = DEVELOPER_STRING..LINE_BREAK..devName
+end
+
+function AS:SetupProfile()
+	self.data = LibStub("AceDB-3.0"):New("AddOnSkinsDB", defaults);
+	self.data.RegisterCallback(self, "OnProfileChanged", "SetupProfile");
+	self.data.RegisterCallback(self, "OnProfileCopied", "SetupProfile");
+	self.db = self.data.profile;
 end
 
 function AS:GetOptions()
@@ -235,7 +243,7 @@ function AS:GetOptions()
 					},
 					EmbedSystemMessage = {
 						type = "toggle",
-						name = ASL["Enable the Embed System Message"],
+						name = ASL["Embed System Message"],
 						order = 9,
 					},
 					EmbedOoCDelay = {
@@ -341,7 +349,7 @@ function AS:GetOptions()
 					},
 					LoginMsg = {
 						type = "toggle",
-						name = ASL["Enable the Login Message"],
+						name = ASL["Login Message"],
 						order = 4,
 					},
 				},
@@ -417,24 +425,6 @@ function AS:GetOptions()
 						get = function(info) return "http://www.tukui.org/forums/topic.php?id=28550" end,
 						order = 5,
 					},
-					header = {
-						order = 6,
-						type = 'header',
-						name = '',
-					},
-					desc = {
-						order = 7,
-						type = "description",
-						fontSize = "medium",
-						name = CONFIRM_RESET_SETTINGS,
-					},
-					resetsettings = {
-						type = 'execute',
-						order = 8,
-						name = ASL['Reset Settings'],
-						confirm = true,
-						func = function() AddOnSkinsOptions = CopyTable(Defaults) end,
-					},
 				},
 			},
 		},
@@ -459,14 +449,16 @@ function AS:GetOptions()
 			disabled = function() return not AS:CheckOption("WeakAuras", "WeakAuras") end,
 		}
 
-		Options.args.about.args.resetsettings.func = function() ElvUI[1].private.addonskins = CopyTable(Defaults) end
-
 		Options.args.misc.args.ElvUISkinModule = {
 			type = "toggle",
 			name = 'Use ElvUI Skin Styling',
 			order = 5,
 		}
 	end
+
+	Options.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(AS.data);
+	Options.args.profiles.order = -2;
+	LibStub("AceConfigRegistry-3.0"):RegisterOptionsTable("AddOnSkinsProfiles", Options.args.profiles);
 
 	local EP = LibStub('LibElvUIPlugin-1.0', true)
 	if EP then

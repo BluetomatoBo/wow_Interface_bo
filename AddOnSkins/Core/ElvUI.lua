@@ -4,32 +4,6 @@ if not AS:CheckAddOn('ElvUI') then return end
 local E, L, V, P, G, LSM, ES, S
 local select = select
 
-function AS:CheckOption(optionName, ...)
-	for i = 1, select('#', ...) do
-		local addon = select(i, ...)
-		if not addon then break end
-		if not IsAddOnLoaded(addon) then return false end
-	end
-
-	return E.private.addonskins[optionName]
-end
-
-function AS:SetOption(optionName, value)
-	E.private.addonskins[optionName] = value
-end
-
-function AS:ToggleOption(optionName)
-	E.private.addonskins[optionName] = not E.private.addonskins[optionName]
-end
-
-function AS:DisableOption(optionName)
-	AS:SetOption(optionName, false)
-end
-
-function AS:EnableOption(optionName)
-	AS:SetOption(optionName, true)
-end
-
 local ElvUISkinTable = {
 	['Blizzard_CharacterFrame'] = {
 		['blizzard'] = 'character'
@@ -41,61 +15,6 @@ function AS:DisableElvUIOption(skin)
 		for location, option in pairs(ElvUISkinTable[skin]) do
 			E.private.skins[location][option] = false
 		end
-	end
-end
-
-function AS:InjectProfile()
-	E, L, V, P, G = unpack(ElvUI)
-
-	V['addonskins'] = {
-	-- Embeds
-		['EmbedOoC'] = false, 
-		['EmbedOoCDelay'] = 10,
-		['EmbedCoolLine'] = false,
-		['EmbedSexyCooldown'] = false,
-		['EmbedSystem'] = false,
-		['EmbedSystemDual'] = false,
-		['EmbedMain'] = 'Skada',
-		['EmbedLeft'] = 'Skada',
-		['EmbedRight'] = 'Skada',
-		['EmbedRightChat'] = true,
-		['EmbedLeftWidth'] = 200,
-		['EmbedBelowTop'] = false,
-		['EmbedIsHidden'] = false,
-		['TransparentEmbed'] = false,
-	-- Misc
-		['RecountBackdrop'] = true,
-		['SkadaBackdrop'] = true,
-		['OmenBackdrop'] = true,
-		['DetailsBackdrop'] = true,
-		['MiscFixes'] = true,
-		['DBMSkinHalf'] = false,
-		['DBMFont'] = 'ElvUI Norm',
-		['DBMFontSize'] = 12,
-		['DBMFontFlag'] = 'OUTLINE',
-		['WeakAuraAuraBar'] = false,
-		['WeakAuraIconCooldown'] = true,
-		['AuctionHouse'] = true,
-		['SkinTemplate'] = 'Transparent',
-		['HideChatFrame'] = 'NONE',
-		['SkinDebug'] = false,
-		['Parchment'] = true,
-		['LoginMsg'] = true,
-		['EmbedSystemMessage'] = true,
-		['ElvUISkinModule'] = true,
-	}
-
-	do
-		for k, _ in pairs(AS.register) do
-			if not V['addonskins'][k] then
-				if strfind(k, 'Blizzard_') then
-					V['addonskins'][k] = false
-				else
-					V['addonskins'][k] = true
-				end
-			end
-		end
-		V['addonskins']['ParchmentRemover'] = false
 	end
 end
 

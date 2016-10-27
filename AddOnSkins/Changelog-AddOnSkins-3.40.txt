@@ -1,0 +1,27 @@
+tag 3.40
+7980e70c2b70a948866e46cd43b4d5f127766d04
+Azilroka <darktemplar9900@yahoo.com>
+2016-10-24 17:49:51 -0500
+
+
+
+--------------------
+
+Azilroka:
+	- 3.40
+	- DressUp, Inspect, LFG, Loot, Others, Quest, WorldMap, ArtifactPowerUser
+	- Issue #404
+	- Extra Buttons
+	- ElvUI Changes
+	- Skillet
+	- AceDBOptions Library
+	- AddOnSkins Profile - Removing HydraUI
+	- Add Check
+	- Rename options.
+	- Breaking Things. Removing.
+	- Needed moved down more.
+	- Issue #390
+	- ElvUI - ADDON_LOADED Changes
+	- Testing.
+Merathilis:
+	- Change the QuestInfoItemHighlight to show around the button. Like ElvUI.

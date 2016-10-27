@@ -9,11 +9,12 @@ function AS:CheckOption(optionName, ...)
 		if not addon then break end
 		if not IsAddOnLoaded(addon) then return false end
 	end
-	return AddOnSkinsOptions[optionName]
+
+	return self.db[optionName]
 end
 
 function AS:SetOption(optionName, value)
-	AddOnSkinsOptions[optionName] = value
+	self.db[optionName] = value
 end
 
 function AS:DisableOption(optionName)
@@ -25,7 +26,7 @@ function AS:EnableOption(optionName)
 end
 
 function AS:ToggleOption(optionName)
-	AddOnSkinsOptions[optionName] = not AddOnSkinsOptions[optionName]
+	self.db[optionName] = not self.db[optionName]
 end
 
 function AS:Scale(Number)
@@ -144,6 +145,16 @@ function AS:RegisteredSkin(skinName, priority, func, events)
 	end
 end
 
+function AS:RegisterForPreload(skinName, skinFunc, addonName)
+	AS.preload[addonName] = { func = skinFunc, addon = skinName }
+end
+
+function AS:RunPreload(addonName)
+	if AS.preload[addonName] and AS:CheckOption(AS.preload[addonName].addon) then
+		AS:CallSkin(AS.preload[addonName].addon, AS.preload[addonName].func, 'ADDON_LOADED', addonName)
+	end
+end
+
 function AS:CallSkin(skin, func, event, ...)
 	local pass, errormsg = pcall(func, self, event, ...)
 	if not pass then
@@ -181,8 +192,6 @@ end
 function AS:StartSkinning(event)
 	AS:UnregisterEvent(event)
 
-	AS:UpdateLocale()
-
 	local EP = LibStub('LibElvUIPlugin-1.0', true)
 	if EP then
 		EP:RegisterPlugin(AddOnName, AS.GetOptions)
@@ -198,14 +207,6 @@ function AS:StartSkinning(event)
 
 	AS.Mult = 768/AS.ScreenHeight/UIParent:GetScale()
 	AS.ParchmentEnabled = AS:CheckOption('Parchment')
-
-	if not AS:CheckAddOn('ElvUI') then
-		for skin, alldata in pairs(AS.register) do
-			if AS:CheckOption(skin) == nil then
-				AS:EnableOption(skin)
-			end
-		end
-	end
 
 	for skin, alldata in pairs(AS.register) do
 		for _, data in pairs(alldata) do
@@ -247,7 +248,21 @@ end
 
 function AS:Init(event, addon)
 	if event == 'ADDON_LOADED' and addon == AddOnName then
+		AS:SetupProfile()
+
+		for skin, alldata in pairs(AS.register) do
+			if (AS:CheckOption(skin) == nil) then
+				if AS:CheckAddOn('ElvUI') and strfind(skin, 'Blizzard_') then
+					AS:DisableOption(skin)
+				else
+					AS:EnableOption(skin)
+				end
+			end
+		end
+
 		AS:UpdateMedia()
+		AS:UpdateLocale()
+
 		if AS:CheckAddOn('ElvUI') then
 			local ElvUIVersion, MinElvUIVersion = tonumber(GetAddOnMetadata('ElvUI', 'Version')), 10.00
 			if ElvUIVersion < MinElvUIVersion then
@@ -256,9 +271,12 @@ function AS:Init(event, addon)
 				AS:UnregisterAllEvents()
 				return
 			end
-			AS:InjectProfile()
 		end
+
 		AS:CreateDataText()
+	end
+	if event == 'ADDON_LOADED' and IsAddOnLoaded(AddOnName) then
+		AS:RunPreload(addon)
 	end
 	if event == 'PLAYER_LOGIN' then
 		AS:UpdateMedia()

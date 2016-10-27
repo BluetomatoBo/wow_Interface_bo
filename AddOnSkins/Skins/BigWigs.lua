@@ -16,7 +16,7 @@ function AS:BigWigs(event, addon)
 		end
 	end
 
-	if IsAddOnLoaded('BigWigs_Plugins') or (addon == 'BigWigs_Plugins') then
+	if event == 'ADDON_LOADED' and addon == 'BigWigs_Plugins' then
 		AS:UnregisterSkinEvent('BigWigs', "ADDON_LOADED")
 
 		local buttonsize = 19
@@ -195,3 +195,4 @@ function AS:BigWigs(event, addon)
 end
 
 AS:RegisterSkin('BigWigs', AS.BigWigs, 'ADDON_LOADED')
+AS:RegisterForPreload('BigWigs', AS.BigWigs, 'BigWigs_Plugins')
