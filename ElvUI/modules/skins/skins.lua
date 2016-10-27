@@ -41,6 +41,8 @@ function S:HandleButton(f, strip)
 	if f.Left then f.Left:SetAlpha(0) end
 	if f.Middle then f.Middle:SetAlpha(0) end
 	if f.Right then f.Right:SetAlpha(0) end
+	if f.LeftSeparator then f.LeftSeparator:SetAlpha(0) end
+	if f.RightSeparator then f.RightSeparator:SetAlpha(0) end
 
 	if f.SetNormalTexture then f:SetNormalTexture("") end
 
@@ -556,6 +558,44 @@ function S:HandleShipFollowerPage(followerTab)
 		if followerTab.isLandingPage then
 			icon:SetTexCoord(unpack(E.TexCoords))
 		end
+	end
+end
+
+function S:HandleIconSelectionFrame(frame, numIcons, buttonNameTemplate, frameNameOverride)
+	assert(frame, "HandleIconSelectionFrame: frame argument missing")
+	assert(numIcons and type(numIcons) == "number", "HandleIconSelectionFrame: numIcons argument missing or not a number")
+	assert(buttonNameTemplate and type(buttonNameTemplate) == "string", "HandleIconSelectionFrame: buttonNameTemplate argument missing or not a string")
+
+	local frameName = frameNameOverride or frame:GetName() --We need override in case Blizzard fucks up the naming (guild bank)
+	local scrollFrame = _G[frameName.."ScrollFrame"]
+	local editBox = _G[frameName.."EditBox"]
+	local okayButton = _G[frameName.."OkayButton"] or _G[frameName.."Okay"]
+	local cancelButton = _G[frameName.."CancelButton"] or _G[frameName.."Cancel"]
+
+	frame:StripTextures()
+	frame.BorderBox:StripTextures()
+	scrollFrame:StripTextures()
+	editBox:DisableDrawLayer("BACKGROUND") --Removes textures around it
+
+	frame:SetTemplate("Transparent")
+	frame:Height(frame:GetHeight() + 10)
+	scrollFrame:Height(scrollFrame:GetHeight() + 10)
+
+	S:HandleButton(okayButton)
+	S:HandleButton(cancelButton)
+	S:HandleEditBox(editBox)
+
+	cancelButton:ClearAllPoints()
+	cancelButton:Point("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -5, 5)
+
+	for i = 1, numIcons do
+		local button = _G[buttonNameTemplate..i]
+		local icon = _G[button:GetName().."Icon"]
+		button:StripTextures()
+		button:SetTemplate("Default")
+		button:StyleButton(true)
+		icon:SetInside()
+		icon:SetTexCoord(unpack(E.TexCoords))
 	end
 end
 

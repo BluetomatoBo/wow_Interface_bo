@@ -295,6 +295,13 @@ local function GetUnitSettings(unit, name)
 							["REMAINING"] = L["Remaining"],
 						},
 					},
+					timeToHold = {
+						order = 7,
+						type = "range",
+						name = L["Time To Hold"],
+						desc = L["How many seconds the castbar should stay visible after the cast failed or was interrupted."],
+						min = 0, max = 4, step = 0.1,
+					},
 				},
 			},
 			buffsGroup = {
@@ -507,8 +514,8 @@ local function GetUnitSettings(unit, name)
 		}
 		group.args.alwaysShow = {
 			order = -13,
-			name = L["Always Display"],
-			desc = L["By forcing the nameplate to always show it will not move on the screen to stay below your characters feet."],
+			name = L["Use Static Position"],
+			desc = L["When enabled the nameplate will stay visible in a locked position."],
 			type = "toggle"
 		}
 		group.args.clickthrough = {

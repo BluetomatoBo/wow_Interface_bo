@@ -51,10 +51,6 @@ local function LoadSkin()
 		"WhoFrameColumnHeader4",
 		"ChannelListScrollFrame",
 		"ChannelRoster",
-		"FriendsFramePendingButton1",
-		"FriendsFramePendingButton2",
-		"FriendsFramePendingButton3",
-		"FriendsFramePendingButton4",
 		"ChannelFrameDaughterFrame",
 		"AddFriendFrame",
 		"AddFriendNoteFrame",
@@ -86,14 +82,6 @@ local function LoadSkin()
 		"ChannelFrameNewButton",
 		"FriendsFrameIgnorePlayerButton",
 		"FriendsFrameUnsquelchButton",
-		"FriendsFramePendingButton1AcceptButton",
-		"FriendsFramePendingButton1DeclineButton",
-		"FriendsFramePendingButton2AcceptButton",
-		"FriendsFramePendingButton2DeclineButton",
-		"FriendsFramePendingButton3AcceptButton",
-		"FriendsFramePendingButton3DeclineButton",
-		"FriendsFramePendingButton4AcceptButton",
-		"FriendsFramePendingButton4DeclineButton",
 		"ChannelFrameDaughterFrameOkayButton",
 		"ChannelFrameDaughterFrameCancelButton",
 		"AddFriendEntryFrameAcceptButton",
@@ -240,10 +228,8 @@ local function LoadSkin()
 	FriendsTabHeaderRecruitAFriendButtonIcon:SetInside()
 
 	S:HandleScrollBar(FriendsFrameIgnoreScrollFrameScrollBar, 4)
-	S:HandleScrollBar(FriendsFramePendingScrollFrameScrollBar, 4)
 
 	IgnoreListFrame:StripTextures()
-	PendingListFrame:StripTextures()
 
 	ScrollOfResurrectionFrame:StripTextures()
 	S:HandleButton(ScrollOfResurrectionFrameAcceptButton)
@@ -264,6 +250,16 @@ local function LoadSkin()
 	S:HandleEditBox(RecruitAFriendNameEditBox)
 	RecruitAFriendNoteFrame:StripTextures()
 	S:HandleEditBox(RecruitAFriendNoteFrame)
+
+	--Quick join
+	S:HandleScrollBar(QuickJoinScrollFrameScrollBar)
+	S:HandleButton(QuickJoinFrame.JoinQueueButton)
+	QuickJoinFrame.JoinQueueButton:SetSize(131, 21)  --Match button on other tab
+	QuickJoinFrame.JoinQueueButton:ClearAllPoints()
+	QuickJoinFrame.JoinQueueButton:Point("BOTTOMRIGHT", QuickJoinFrame, "BOTTOMRIGHT", -6, 4)
+	QuickJoinScrollFrameTop:SetTexture(nil)
+	QuickJoinScrollFrameBottom:SetTexture(nil)
+	QuickJoinScrollFrameMiddle:SetTexture(nil)
 end
 
 S:AddCallback("Friends", LoadSkin)
