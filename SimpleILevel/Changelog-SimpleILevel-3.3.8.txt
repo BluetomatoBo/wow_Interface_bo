@@ -1,0 +1,41 @@
+------------------------------------------------------------------------
+r264 | scotepi | 2016-10-28 01:26:03 +0000 (Fri, 28 Oct 2016) | 1 line
+Changed paths:
+   A /tags/3.3.8 (from /trunk:263)
+
+Tagging as 3.3.8
+------------------------------------------------------------------------
+r263 | scotepi | 2016-10-28 01:23:14 +0000 (Fri, 28 Oct 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Fixed an issue where Lib Item Upgrade would cache the ilevel
+------------------------------------------------------------------------
+r260 | scotepi | 2016-10-28 00:45:24 +0000 (Fri, 28 Oct 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Added some debug help for the Artifacts issues
+------------------------------------------------------------------------
+r258 | scotepi | 2016-10-28 00:30:44 +0000 (Fri, 28 Oct 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Fixed issue #35, attempt to compare boolean with number
+------------------------------------------------------------------------
+r257 | scotepi | 2016-10-28 00:24:01 +0000 (Fri, 28 Oct 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.toc
+   M /trunk/SimpleILevel_Group/SimpleILevel_Group.toc
+   M /trunk/SimpleILevel_Resilience/SimpleILevel_Resilience.toc
+   M /trunk/SimpleILevel_Social/SimpleILevel_Social.toc
+
+TOC bump to 7.1 70100
+------------------------------------------------------------------------
+r256 | scotepi | 2016-10-28 00:18:58 +0000 (Fri, 28 Oct 2016) | 1 line
+Changed paths:
+   D /trunk/Locals/inIT.lua
+   A /trunk/Locals/itIT.lua (from /trunk/Locals/inIT.lua:255)
+
+Fixed issue #38, bad reference to itIT locals
+------------------------------------------------------------------------
