@@ -9,7 +9,7 @@
 local TSM = select(2, ...)
 local AuctionTabUtil = TSM:NewModule("AuctionTabUtil", "AceHook-3.0", "AceEvent-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("TradeSkillMaster_Shopping") -- loads the localization table
-
+local private = {rateCache={}}
 
 
 -- ============================================================================
@@ -63,20 +63,22 @@ function AuctionTabUtil:GetCraftingFilterString(targetItem, ignoreDisenchant)
 	return table.concat(filters, ";")
 end
 
-function AuctionTabUtil:GetConvertRate(targetItem, sourceItem)
+function AuctionTabUtil:GetConvertRate(targetItem, sourceItem, record)
 	if targetItem == sourceItem then return 1 end
+	if private.rateCache[targetItem.."-"..sourceItem] then return private.rateCache[targetItem.."-"..sourceItem] end
 	local sourceItems = TSMAPI.Conversions:GetSourceItems(targetItem)
 	if not sourceItems then return end
 	if sourceItems.convert and sourceItems.convert[sourceItem] then
 		return sourceItems.convert[sourceItem].rate, sourceItems.convert[sourceItem].requiresFive
 	elseif sourceItems and sourceItems.disenchant then
 		if not TSMAPI.Item:IsDisenchantable(sourceItem) then return end
-		local quality = TSMAPI.Item:GetQuality(sourceItem)
-		local ilvl = TSMAPI.Item:GetItemLevel(sourceItem)
+		local quality = record and record.quality or TSMAPI.Item:GetQuality(sourceItem)
+		local ilvl = record and record.itemLevel or TSMAPI.Item:GetItemLevel(sourceItem)
 		local iType = GetItemClassInfo(TSMAPI.Item:GetClassId(sourceItem))
 		for _, deData in ipairs(sourceItems.disenchant.sourceInfo) do
 			if deData.itemType == iType and deData.rarity == quality and ilvl >= deData.minItemLevel and ilvl <= deData.maxItemLevel then
-				return deData.amountOfMats
+				private.rateCache[targetItem.."-"..sourceItem] = deData.amountOfMats
+				return private.rateCache[targetItem.."-"..sourceItem]
 			end
 		end
 	end

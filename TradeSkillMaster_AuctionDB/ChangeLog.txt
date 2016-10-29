@@ -1,3 +1,6 @@
+v3.1.16
+*Updated TOC version for patch 7.1.
+
 v3.1.15
 *Fixed bug with loading of data from the TSM Desktop Application.
 

@@ -124,7 +124,7 @@ function data:unIndexRestockGroupTree(grpInfo, src)
 			TSMAPI.Operations:Update("Warehousing", opName)
 			local opSettings = TSM.operations[opName]
 			if not opSettings then
-				-- operation doesn't exist anymore in Crafting
+				-- operation doesn't exist anymore in warehousing
 				TSM:Printf(L["'%s' has a Warehousing operation of '%s' which no longer exists."], groupName, opName)
 			else
 				-- it's a valid operation

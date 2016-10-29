@@ -288,7 +288,7 @@ function private.BuyAuctionsThread(self, auctionInfo)
 
 	local buyoutInfo = { progress = 0, totalNum = auctionInfo.numAuctions, perBuyQuantity = auctionRecord.stackSize }
 	if private.searchMode == "crafting" then
-		local rate = TSM.AuctionTabUtil:GetConvertRate(private.targetItem, auctionRecord.itemString)
+		local rate = TSM.AuctionTabUtil:GetConvertRate(private.targetItem, auctionRecord.itemString, auctionRecord)
 		buyoutInfo.perBuyQuantity = auctionRecord.stackSize * rate
 	end
 	while true do
@@ -778,7 +778,7 @@ function private.ValidateDatabaseRecord(record, auctionInfo)
 		return private.extraInfo.filterFunc(record)
 	end
 	-- filter out unexpected items in crafting mode
-	if private.targetItem and record.itemString ~= private.targetItem and not TSM.AuctionTabUtil:GetConvertRate(private.targetItem, record.itemString) then
+	if private.targetItem and record.itemString ~= private.targetItem and not TSM.AuctionTabUtil:GetConvertRate(private.targetItem, record.itemString, record) then
 		return
 	end
 	-- filter group search results
@@ -814,7 +814,7 @@ function private.ValidateDatabaseRecord(record, auctionInfo)
 
 	-- apply crafting mode evenOnly filter
 	if private.searchMode == "crafting" and private.extraInfo.evenOnly then
-		local num, requiresFive = TSM.AuctionTabUtil:GetConvertRate(private.targetItem, record.itemString)
+		local num, requiresFive = TSM.AuctionTabUtil:GetConvertRate(private.targetItem, record.itemString, record)
 		if requiresFive then
 			num = 0.2
 		end

@@ -1,3 +1,9 @@
+v3.6.15
+*Updated destroy ratios for Legion ore / herbs
+
+v3.6.14
+*Fixed issue with item name changes not being detected after a patch update.
+
 v3.6.13
 *Fixed bug with scans not returning all results.
 

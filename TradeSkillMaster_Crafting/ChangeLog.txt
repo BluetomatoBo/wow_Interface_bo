@@ -1,3 +1,6 @@
+v3.1.17
+*Updated TOC version for patch 7.1.
+
 v3.1.16
 *Fixed bug with removing lower ranked recipes.
 *Added mouseover tooltip for rank info to recipe list.

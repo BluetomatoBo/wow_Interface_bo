@@ -175,15 +175,15 @@ private.SettingsDB = setmetatable({}, {
 			isValid = false
 		elseif not private:ValidateDB(db) then
 			-- corrupted DB
-			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.6.13", "DB is not valid!")
+			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.6.15", "DB is not valid!")
 			isValid = false
 		elseif db._version == version and db._hash ~= hash then
 			-- the hash didn't match
-			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.6.13", "Invalid settings hash! Did you forget to increase the version?")
+			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.6.15", "Invalid settings hash! Did you forget to increase the version?")
 			isValid = false
 		elseif db._version > version then
 			-- this is a downgrade
-			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.6.13", "Unexpected DB version! If you really want to downgrade, comment out this line (remember to uncomment before committing).")
+			TSMAPI:Assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "v3.6.15", "Unexpected DB version! If you really want to downgrade, comment out this line (remember to uncomment before committing).")
 			isValid = false
 		end
 		if not isValid then

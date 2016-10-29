@@ -879,7 +879,7 @@ local rtPriceInfoDefaults = {
 		defaultPctHeader = L["% Target Value"],
 		apiGatheringPctHeader = L["% Mat Price"],
 		GetRowPrices = function(record, isPerItem)
-			local rate = TSM.AuctionTabUtil:GetConvertRate(private.targetItem, record.itemString)
+			local rate = TSM.AuctionTabUtil:GetConvertRate(private.targetItem, record.itemString, record)
 			if isPerItem then
 				return record.itemBuyout, record.itemBuyout/rate
 			else

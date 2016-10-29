@@ -1,11 +1,11 @@
-﻿## Interface: 70000
+﻿## Interface: 70100
 ## Title: |cff00ff00TradeSkillMaster_Crafting|r
 ## Notes: Provides a rich profession interface complete with a powerful crafting queue.
 ## Author: Sapu94, Bart39
-## Version: v3.1.16
+## Version: v3.1.17
 ## SavedVariables: TradeSkillMaster_CraftingDB
 ## Dependency: TradeSkillMaster
-## X-Curse-Packaged-Version: v3.1.16
+## X-Curse-Packaged-Version: v3.1.17
 ## X-Curse-Project-Name: TradeSkillMaster_Crafting
 ## X-Curse-Project-ID: tradeskillmaster_crafting
 ## X-Curse-Repository-ID: wow/tradeskillmaster_crafting/mainline

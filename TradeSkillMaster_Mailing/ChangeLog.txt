@@ -1,3 +1,6 @@
+v3.0.13
+*Updated TOC version for patch 7.1.
+
 v3.0.12
 *Fixed bug with quick sending COD mail.
 

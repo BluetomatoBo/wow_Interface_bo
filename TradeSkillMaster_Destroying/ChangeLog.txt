@@ -1,3 +1,6 @@
+v3.1.5
+*Updated TOC version for patch 7.1.
+
 v3.1.4
 *Consolidate the different gem chip colors for destroying log / averages.
 

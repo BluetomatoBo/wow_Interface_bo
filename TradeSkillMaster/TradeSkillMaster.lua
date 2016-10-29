@@ -56,8 +56,10 @@ TSM.designDefaults = {
 -- Changelog:
 -- [6] added 'global.locale' key
 -- [7] changed default value of 'tsmItemTweetEnabled' to false
+-- [8] added 'global.itemCacheVersion' key
+
 local settingsInfo = {
-	version = 7,
+	version = 8,
 	global = {
 		vendorItems = { type = "table", default = {}, lastModifiedVersion = 1 },
 		ignoreRandomEnchants = { type = "boolean", default = false, lastModifiedVersion = 1 },
@@ -80,6 +82,7 @@ local settingsInfo = {
 		moveDelay = { type = "number", default = 0, lastModifiedVersion = 1 },
 		appMessageId = { type = "number", default = 0, lastModifiedVersion = 4 },
 		locale = { type = "string", default = "", lastModifiedVersion = 6 },
+		itemCacheVersion = { type = "number", default = 0, lastModifiedVersion = 8 },
 	},
 	profile = {
 		design = { type = "table", default = nil, lastModifiedVersion = 1 },
