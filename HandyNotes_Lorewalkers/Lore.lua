@@ -73,7 +73,7 @@ local points = {
         [71726302] = {6847, 3}, -- The Song of the Yaungol, Yaungoil
         [40904250] = {6855, 7}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 7
         [77559533] = {6716, 2}, -- Between a Saurok and a Hard Place, The Defiant
-        [67764833] = {6855, 6}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 6
+        [67764833] = {6855, 4}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 6
         [74488355] = {6846, 4}, -- Fish Tails, Role Call
         [44705237] = {7230, 3}, -- Legend of the Brewfathers, Ren Yun the Blind
         [50307930] = {6847, 1}, -- The Song of the Yaungol, Yaungol Tactics
@@ -127,7 +127,7 @@ local points = {
         [42261747] = {6754, 3}, -- The Dark Heart of the Mogu, Spirit Binders
         [37303012] = {7230, 2}, -- Legend of the Brewfathers, Xin Wo Yin the Broken Hearted
         [66018756] = {6846, 1}, -- Fish Tails, Watersmithing
-        [55885685] = {6855, 3}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 3
+        [55885685] = {6855, 2}, -- The Seven Burdens of Shaohao, The Emperor's Burden - Part 3
     },
     ["IsleoftheThunderKing"] = {
         [35107010] = {8049, 1}, -- Zandalari Prophecy, Coming of Age
