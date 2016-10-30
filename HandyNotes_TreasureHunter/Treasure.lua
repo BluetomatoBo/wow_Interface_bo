@@ -173,7 +173,7 @@ ns.points = {
         [45802460]={ quest=33570, currency=824, label="Shadowmoon Exile Treasure", note="cave below Exile Rise", },
         [52902490]={ quest=37254, currency=824, label="Mushroom-Covered Chest", },
         [57904530]={ quest=33568, currency=824, label="Kaliri Egg", },
-        [28303930]={ quest=33571, currency=824, label="Shadowmoon Treasure", note="It's in the tent-y building. Currently bugged so it won't show as complete.", },
+        [28303930]={ quest=33883, currency=824, label="Shadowmoon Treasure", },
         [42106130]={ quest=33041, currency=824, label="Iron Horde Cargo Shipment", },
         [84504470]={ quest=33885, currency=824, label="Cargo of the Raven Queen", },
         -- treasures

@@ -78,6 +78,19 @@ local function work_out_label(point)
     return UNKNOWN
 end
 local function work_out_texture(point)
+    if point.atlas then
+        if not icon_cache[point.atlas] then
+            local texture, _, _, left, right, top, bottom = GetAtlasInfo(point.atlas)
+            icon_cache[point.atlas] = {
+                icon = texture,
+                tCoordLeft = left,
+                tCoordRight = right,
+                tCoordTop = top,
+                tCoordBottom = bottom,
+            }
+        end
+        return icon_cache[point.atlas]
+    end
     if point.item and ns.db.icon_item then
         local texture = select(10, GetItemInfo(point.item))
         if texture then
@@ -98,41 +111,38 @@ local function work_out_texture(point)
     end
     if point.follower then
         if not follower_texture then
-            local left, right, top, bottom = GetObjectIconTextureCoords(4738)
+            local texture, _, _, left, right, top, bottom = GetAtlasInfo("GreenCross")
             follower_texture = {
-                icon = [[Interface\Minimap\ObjectIconsAtlas]],
-                tCoordLeft = left + 0.008,
-                tCoordRight = right - 0.008,
-                tCoordTop = top + 0.008,
-                tCoordBottom = bottom - 0.008,
-                r = 0,
-                g = 1,
-                b = 0,
+                icon = texture,
+                tCoordLeft = left,
+                tCoordRight = right,
+                tCoordTop = top,
+                tCoordBottom = bottom,
             }
         end
         return follower_texture
     end
     if point.npc then
         if not npc_texture then
-            local left, right, top, bottom = GetObjectIconTextureCoords(4707)
+            local texture, _, _, left, right, top, bottom = GetAtlasInfo("DungeonSkull")
             npc_texture = {
-                icon = [[Interface\Minimap\ObjectIconsAtlas]],
-                tCoordLeft = left + 0.008,
-                tCoordRight = right - 0.008,
-                tCoordTop = top + 0.005,
-                tCoordBottom = bottom - 0.008,
+                icon = texture,
+                tCoordLeft = left,
+                tCoordRight = right,
+                tCoordTop = top,
+                tCoordBottom = bottom,
             }
         end
         return npc_texture
     end
     if not default_texture then
-        local left, right, top, bottom = GetObjectIconTextureCoords(4715)
+        local texture, _, _, left, right, top, bottom = GetAtlasInfo("VignetteLoot")
         default_texture = {
-            icon = [[Interface\Minimap\ObjectIconsAtlas]],
-            tCoordLeft = left + 0.008,
-            tCoordRight = right - 0.008,
-            tCoordTop = top + 0.005,
-            tCoordBottom = bottom - 0.008,
+            icon = texture,
+            tCoordLeft = left,
+            tCoordRight = right,
+            tCoordTop = top,
+            tCoordBottom = bottom,
         }
     end
     return default_texture
@@ -342,26 +352,7 @@ function HL:OnInitialize()
 
     -- watch for LOOT_CLOSED
     self:RegisterEvent("LOOT_CLOSED")
-end
-
-function HL:OnEnable()
-    -- Temporary for the Legion pre-patch:
-    if select(5, GetAddOnInfo("HandyNotes_LegionTreasures")) == 'MISSING' then
-        local myfullname = GetAddOnMetadata(myname, "Title")
-        print("|cFF33FF99".. myfullname .. "|r: During the Legion pre-patch, the |cffA330C9Demon Hunter|r starting zone treasures will be included in this addon. Go get |cFF33FF99HandyNotes_LegionTreasures|r on curse.com or wowace.com for all the new Legion zones.")
-
-        ns.points["MardumtheShatteredAbyss"] = {
-            [34857020] = {quest=39970, item=129210, label="Small Treasure Chest"},
-            [45017785] = {quest=39971, item=129192, label="Small Treasure Chest"},
-            [41763761] = {quest=40759, item=129196, label="Small Treasure Chest"},
-            [51135079] = {quest=40743, item=129210, label="Small Treasure Chest"},
-            [76243899] = {quest=40338, item=129210, label="Small Treasure Chest"},
-            [82075043] = {quest=40820, item=129196, label="Small Treasure Chest"},
-            [78755047] = {quest=40274, item=129210, label="Small Treasure Chest"},
-            [73494892] = {quest=39975, item=129195, label="Small Treasure Chest"},
-            [42194916] = {quest=40223, item=129210, label="Small Treasure Chest"},
-        }
-    end
+    self:RegisterEvent("GARRISON_FOLLOWER_ADDED")
 end
 
 function HL:Refresh()
@@ -369,5 +360,8 @@ function HL:Refresh()
 end
 
 function HL:LOOT_CLOSED()
+    self:Refresh()
+end
+function HL:GARRISON_FOLLOWER_ADDED()
     self:Refresh()
 end
