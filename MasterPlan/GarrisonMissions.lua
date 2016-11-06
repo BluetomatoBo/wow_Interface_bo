@@ -641,7 +641,7 @@ end
 do -- Counter-follower lists
 	local itip = CreateFrame("GameTooltip", "MPInnerTip", nil, "GameTooltipTemplate") do
 		itip:SetBackdrop(nil)
-		itip:SetPadding(0)
+		itip:SetPadding(0, 0)
 		itip:SetScript("OnHide", function(self)
 			self:Hide()
 			self:SetParent(nil)

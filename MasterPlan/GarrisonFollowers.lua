@@ -1105,9 +1105,12 @@ do -- Weapon/Armor upgrades and rerolls
 			reroll:SetScript("OnShow", function(self) self:RegisterEvent("BAG_UPDATE_DELAYED") end)
 			reroll:SetScript("OnHide", function(self) self.wasHidden = true; self:UnregisterEvent("BAG_UPDATE_DELAYED") end)
 			reroll:SetScript("OnEvent", function(self) gear:Sync() self:Sync(true) end)
-			local function TargetFollower()
+			local function TargetFollower(self)
 				if SpellCanTargetGarrisonFollower() then
-					GarrisonFollower_DisplayUpgradeConfirmation(items.followerID)
+					GarrisonFollower_AttemptUpgrade(items.followerID)
+				end
+				if GameTooltip:IsOwned(self) then
+					GameTooltip:Hide()
 				end
 			end
 			local buttons = {}
@@ -1151,6 +1154,8 @@ do -- Weapon/Armor upgrades and rerolls
 			items:Hide()
 			reroll:Hide()
 			return
+		else
+			reroll:Show()
 		end
 		if C_Garrison.GetFollowerLevel(id) < 100 then
 			gear:Hide()
