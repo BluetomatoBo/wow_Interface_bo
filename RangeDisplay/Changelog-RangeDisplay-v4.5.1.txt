@@ -1,14 +1,14 @@
 ------------------------------------------------------------------------
-r373 | mitch0 | 2016-08-01 11:06:14 +0000 (Mon, 01 Aug 2016) | 1 line
+r375 | mitch0 | 2016-11-05 17:05:49 +0000 (Sat, 05 Nov 2016) | 1 line
 Changed paths:
-   A /tags/v4.5.0 (from /trunk:372)
+   A /tags/v4.5.1 (from /trunk:374)
 
-Tagging as v4.5.0
+Tagging as v4.5.1
 ------------------------------------------------------------------------
-r372 | mitch0 | 2016-08-01 11:03:41 +0000 (Mon, 01 Aug 2016) | 1 line
+r374 | mitch0 | 2016-11-05 16:57:57 +0000 (Sat, 05 Nov 2016) | 1 line
 Changed paths:
    M /trunk/RangeDisplay.toc
    M /trunk/RangeDisplay_Options/RangeDisplay_Options.toc
 
-toc bump
+toc bump to 70100
 ------------------------------------------------------------------------
