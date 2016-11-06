@@ -46,15 +46,26 @@ function Features:OnEnable()
 			end
 		end)
 	end
-
 	-- setup BMAH scanning
 	Features:RegisterEvent("BLACK_MARKET_ITEM_UPDATE", private.ScanBMAH)
 	-- setup WoW token scaning
 	Features:RegisterEvent("AUCTION_HOUSE_SHOW", function() C_WowTokenPublic.UpdateMarketPrice() end)
 	Features:RegisterEvent("TOKEN_MARKET_PRICE_UPDATED", private.ScanWoWToken)
 	-- setup auction created / cancelled filtering
-	private.origChatFrame_OnEvent = ChatFrame_OnEvent
-	ChatFrame_OnEvent = private.ChatFrame_OnEvent
+	local ElvUIChat, ElvUIChatIsEnabled = nil, nil
+	if IsAddOnLoaded("ElvUI") then
+		ElvUIChat = ElvUI[1]:GetModule("Chat")
+		if ElvUI[3].chat.enable then
+			ElvUIChatIsEnabled = true
+		end
+	end
+	if ElvUIChatIsEnabled then
+		private.origChatFrame_OnEvent = ElvUIChat.ChatFrame_OnEvent
+		ElvUIChat.ChatFrame_OnEvent = private.ChatFrame_OnEvent
+	else
+		private.origChatFrame_OnEvent = ChatFrame_OnEvent
+		ChatFrame_OnEvent = private.ChatFrame_OnEvent
+	end
 end
 
 -- ============================================================================
@@ -64,7 +75,6 @@ end
 function private:OnAuctionOwnedListUpdate()
 	wipe(TSM.db.char.auctionPrices)
 	wipe(TSM.db.char.auctionMessages)
-
 	local auctionPrices = {}
 	for i = 1, GetNumAuctionItems("owner") do
 		local link = GetAuctionItemLink("owner", i)
@@ -73,7 +83,7 @@ function private:OnAuctionOwnedListUpdate()
 		if wasSold == 0 and itemString then
 			if buyout and buyout > 0 then
 				auctionPrices[link] = auctionPrices[link] or { name = name }
-				tinsert(auctionPrices[link], {buyout=buyout, stackSize=stackSize})
+				tinsert(auctionPrices[link], { buyout = buyout, stackSize = stackSize })
 			end
 		end
 	end
@@ -106,9 +116,9 @@ end
 
 function private.OnAuctionBidPlaced(_, index, amountPaid)
 	local link = GetAuctionItemLink("list", index)
-	local name, stackSize, buyout = TSMAPI.Util:Select({1, 3, 10}, GetAuctionItemInfo("list", index))
+	local name, stackSize, buyout = TSMAPI.Util:Select({ 1, 3, 10 }, GetAuctionItemInfo("list", index))
 	if amountPaid == buyout then
-		private.lastPurchase = {name=name, link=link, stackSize=stackSize, buyout=buyout, buyout=buyout}
+		private.lastPurchase = { name = name, link = link, stackSize = stackSize, buyout = buyout, buyout = buyout }
 	end
 end
 
@@ -129,7 +139,6 @@ function private:CreateTwitterHooks()
 			local ignored
 			name, ignored, quality = GetItemInfo(itemID)
 		end
-
 		local tsmType, tsmItemId, tsmStackSize, tsmBuyout = strmatch(context or "", "^TSM_([A-Z]+)_(%d+)_(%d+)_(%d+)$")
 		tsmItemId = tonumber(tsmItemId)
 		tsmStackSize = tonumber(tsmStackSize)
@@ -175,17 +184,17 @@ function private.ScanBMAH()
 	local numItems = C_BlackMarket.GetNumItems()
 	if not numItems then return end
 	local items = {}
-	for i=1, numItems do
-		local quantity, minBid, minIncr, currBid, numBids, timeLeft, itemLink, bmId = TSMAPI.Util:Select({3, 9, 10, 11, 13, 14, 15, 16}, C_BlackMarket.GetItemInfoByIndex(i))
+	for i = 1, numItems do
+		local quantity, minBid, minIncr, currBid, numBids, timeLeft, itemLink, bmId = TSMAPI.Util:Select({ 3, 9, 10, 11, 13, 14, 15, 16 }, C_BlackMarket.GetItemInfoByIndex(i))
 		local itemID = TSMAPI.Item:ToItemID(itemLink)
 		if itemID then
-			minBid = floor(minBid/COPPER_PER_GOLD)
-			minIncr = floor(minIncr/COPPER_PER_GOLD)
-			currBid = floor(currBid/COPPER_PER_GOLD)
-			tinsert(items, "["..table.concat({bmId, itemID, quantity, timeLeft, minBid, minIncr, currBid, numBids, time()}, ",").."]")
+			minBid = floor(minBid / COPPER_PER_GOLD)
+			minIncr = floor(minIncr / COPPER_PER_GOLD)
+			currBid = floor(currBid / COPPER_PER_GOLD)
+			tinsert(items, "[" .. table.concat({ bmId, itemID, quantity, timeLeft, minBid, minIncr, currBid, numBids, time() }, ",") .. "]")
 		end
 	end
-	TSM.Features.blackMarket = "["..table.concat(items, ",").."]"
+	TSM.Features.blackMarket = "[" .. table.concat(items, ",") .. "]"
 	TSM.Features.blackMarketTime = time()
 end
 
@@ -215,7 +224,7 @@ function private.FilterSystemMsg(_, _, msg, ...)
 			if C_Social.IsSocialEnabled() and itemId then
 				-- add tweet icon
 				local context = format("TSM_BUY_%s_%s_%s", itemId, private.lastPurchase.stackSize, private.lastPurchase.buyout)
-				private.prevLineResult = private.prevLineResult..Social_GetShareItemLink(itemId, context, true)
+				private.prevLineResult = private.prevLineResult .. Social_GetShareItemLink(itemId, context, true)
 			end
 			return nil, private.prevLineResult, ...
 		elseif link then
@@ -227,7 +236,6 @@ function private.FilterSystemMsg(_, _, msg, ...)
 				private.prevLineResult = format(ERR_AUCTION_SOLD_S, link)
 				return nil, private.prevLineResult, ...
 			end
-
 			if numAuctions == 1 then -- this was the last auction
 				TSM.db.char.auctionMessages[msg] = nil
 			end
@@ -237,7 +245,7 @@ function private.FilterSystemMsg(_, _, msg, ...)
 			if C_Social.IsSocialEnabled() and itemId then
 				-- add tweet icon
 				local context = format("TSM_SELL_%s_1_%s", itemId, price)
-				private.prevLineResult = private.prevLineResult..Social_GetShareItemLink(itemId, context, true)
+				private.prevLineResult = private.prevLineResult .. Social_GetShareItemLink(itemId, context, true)
 			end
 			return nil, private.prevLineResult, ...
 		else

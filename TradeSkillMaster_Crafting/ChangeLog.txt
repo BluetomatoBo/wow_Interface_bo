@@ -1,3 +1,6 @@
+v3.1.18
+*Fixed bug with buying vendor items with random suffixes via gathering.
+
 v3.1.17
 *Updated TOC version for patch 7.1.
 

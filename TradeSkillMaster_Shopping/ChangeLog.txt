@@ -1,3 +1,9 @@
+v3.4.5
+*Reverted previous change.
+
+v3.4.4
+*Fixed bug detecting failed buyouts.
+
 v3.4.3
 *Fixed lag issue during crafting search mode item buyout.
 

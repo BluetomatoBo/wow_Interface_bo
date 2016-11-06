@@ -23,7 +23,7 @@ local private = { shoppingItems = {} }
 
 function Gather:BuyFromMerchant(neededMats)
 	for i = 1, GetMerchantNumItems() do
-		local itemString = TSMAPI.Item:ToItemString(GetMerchantItemLink(i))
+		local itemString = TSMAPI.Item:ToBaseItemString(GetMerchantItemLink(i))
 		if neededMats[itemString] then
 			local maxStack = GetMerchantItemMaxStack(i)
 			local toBuy = neededMats[itemString]
