@@ -16,7 +16,7 @@ SIL = LibStub("AceAddon-3.0"):NewAddon(L.core.name, "AceEvent-3.0", "AceConsole-
 SIL.category = GetAddOnMetadata("SimpleILevel", "X-Category");
 SIL.version = GetAddOnMetadata("SimpleILevel", "Version");
 SIL.versionMajor = 3;                    -- Used for cache DB versioning
-SIL.versionRev = 'r263';    -- Used for version information
+SIL.versionRev = 'r270';    -- Used for version information
 SIL.action = {};        -- DB of unitGUID->function to run when a update comes through
 SIL.hooks = {};         -- List of hooks in [type][] = function;
 SIL.autoscan = 0;       -- time() value of last autoscan, must be more then 1sec
@@ -607,45 +607,73 @@ function SIL:GearSum(items, level)
 			end
 		end
 		
+		-- Artifact fix for offhand not registering correct ilevel
+		local mainHandArtifact = false;
+		local mainHandItemLevel = false;
+		local offHandArtifact = false;
+		local offHandItemLevel = false;
+		
         for i,itemLink in pairs(items) do
             if itemLink and not ( i == INVSLOT_BODY or i == INVSLOT_RANGED or i == INVSLOT_TABARD ) then
-                local name, link, itemRarity , itemLevelBlizz = GetItemInfo(itemLink);
+                local name, link, itemRarity, itemLevelBlizz, _, _, subclass = GetItemInfo(itemLink);
                 local itemLevel = self.itemUpgrade:GetUpgradedItemLevel(itemLink);
-
-                -- print(totalItems, i, itemLevel, itemRarity, itemLink);
                 
+				
+				--[[
+					subclass is localized string, not an id
+					INVTYPE_2HWEAPON == Two-Hand
+					INVTYPE_WEAPON == One-Hand
+				]]
+				
+				
                 if itemLevel then
-					--local itemRarity = select(3, GetItemInfo(itemLink));
+					
+					-- Correct itemLevel bassed on itemRarity
+					-- Artifact
 					if itemRarity == 6 then
+						self:Debug('Artifact!', itemLink, itemLevel, itemLevelBlizz);
+						
+						-- Bypass caching in LibItemUpgradeInfo-1 if need be
 						if itemLevelBlizz > itemLevel then itemLevel = itemLevelBlizz; end
-						self:Debug('Artifact!', i, itemLink, itemLevel, itemLevelBlizz)
-						-- Fix for Artifacts - Thanks Solofme
-						if totalItems == 15 then
-							-- Two handed Artifact
-							-- Count as both main hand and offhand weapons
-							totalScore = totalScore + itemLevel * 2;
-							totalItems = totalItems + 1;
-						elseif i == 16 then
-							-- Main and offhand. 
-							-- iLvl is reported wrongly for one of the two.
-							-- Keep local iLvl for artifact
-							artifactLevel = itemLevel;
-						elseif i == 17 then
-							itemLevel = max(artifactLevel,itemLevel);
-							totalScore = totalScore + itemLevel * 2;
-						end
+						
+						-- Log that the main or offhand is an artifact
+						if i == INVSLOT_MAINHAND then mainHandArtifact = true;end
+						if i == INVSLOT_OFFHAND then offHandArtifact = true; end
+					
+					-- Heirlooms
 					elseif itemRarity == 7 then
-						-- Fix for heirlooms
                         itemLevel = self:Heirloom(level, itemLink);
-						totalScore = totalScore + itemLevel;
-					else
-						-- Normal item
-						totalScore = totalScore + itemLevel;
 					end
-                end
-            end
-        end
+					
+					
+					-- Log the main hand and offhand item level
+					if i == INVSLOT_MAINHAND then mainHandItemLevel = itemLevel;
+					elseif i == INVSLOT_OFFHAND then offHandItemLevel = itemLevel;
+					end
+					
+					
+					totalScore = totalScore + itemLevel;
+                end -- End if itemLevel
+            end -- End if itemLink
+        end -- End items loop
         
+		if not offHandItemLevel and mainHandItemLevel then 
+			totalScore = totalScore + mainHandItemLevel;
+			totalItems = totalItems + 1;
+			
+			self:Debug("There is NO offhand, using mainhand", mainHandItemLevel);
+		end
+		
+		if offHandArtifact and offHandArtifact and mainHandItemLevel > offHandItemLevel then
+			local scoreDiff = mainHandItemLevel - offHandItemLevel;
+			self:Debug('mainHandItemLevel > offHandItemLevel, using score from mainHand, adding', scoreDiff, 'to the totalScore');
+			totalScore = totalScore + scoreDiff;
+		elseif offHandArtifact and offHandArtifact and mainHandItemLevel < offHandItemLevel then
+			local scoreDiff = offHandItemLevel - mainHandItemLevel;
+			self:Debug('mainHandItemLevel < offHandItemLevel, using score from mainHand, adding', scoreDiff, 'to the totalScore');
+			totalScore = totalScore + scoreDiff;
+		end
+		
         return totalScore, totalItems;
     else
         return false;

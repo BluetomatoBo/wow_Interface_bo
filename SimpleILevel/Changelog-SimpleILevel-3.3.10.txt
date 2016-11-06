@@ -1,9 +1,34 @@
 ------------------------------------------------------------------------
-r264 | scotepi | 2016-10-28 01:26:03 +0000 (Fri, 28 Oct 2016) | 1 line
+r272 | scotepi | 2016-11-04 16:56:52 +0000 (Fri, 04 Nov 2016) | 1 line
 Changed paths:
-   A /tags/3.3.8 (from /trunk:263)
+   A /tags/3.3.10 (from /trunk:271)
 
-Tagging as 3.3.8
+Tagging as 3.3.10
+------------------------------------------------------------------------
+r270 | scotepi | 2016-11-02 01:56:48 +0000 (Wed, 02 Nov 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Forgot to re-add mainHandItemLevel < offHandItemLevel
+------------------------------------------------------------------------
+r268 | scotepi | 2016-11-02 01:47:01 +0000 (Wed, 02 Nov 2016) | 2 lines
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Completely re-worked how item level is calculated to match blizzard.
+ - 2H's are now counted twice, dumb but that is how blizzard does it now
+------------------------------------------------------------------------
+r267 | scotepi | 2016-11-01 19:29:08 +0000 (Tue, 01 Nov 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Fixed an issue where offhand was getting a lower value when the main hand wasn't upgraded
+------------------------------------------------------------------------
+r265 | scotepi | 2016-10-31 02:21:18 +0000 (Mon, 31 Oct 2016) | 1 line
+Changed paths:
+   M /trunk/SimpleILevel.lua
+
+Fixed of having an offhand artifact. It now saves the ilevel for the mainhand and uses it
 ------------------------------------------------------------------------
 r263 | scotepi | 2016-10-28 01:23:14 +0000 (Fri, 28 Oct 2016) | 1 line
 Changed paths:
