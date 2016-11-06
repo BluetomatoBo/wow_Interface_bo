@@ -8,11 +8,11 @@ function AS:ACP()
 			local checkbox = _G["ACP_AddonListEntry" .. i .. "Enabled"]
 			local collapse = _G["ACP_AddonListEntry" .. i .. "Collapse"]
 			checkbox:SetPoint("LEFT", 5, 0)
-			checkbox:Size(26)
+			checkbox:SetSize(26, 26)
 	
 			if not collapse:IsShown() then
 				checkbox:SetPoint("LEFT", 15, 0)
-				checkbox:Size(20)
+				checkbox:SetSize(20, 20)
 			end
 		end
 	end
@@ -39,14 +39,14 @@ function AS:ACP()
 	ACP_AddonList_ScrollFrame:SetWidth(590)
 	ACP_AddonList_ScrollFrame:SetHeight(412)
 	ACP_AddonList:SetHeight(502)
-	ACP_AddonListEntry1:Point("TOPLEFT", ACP_AddonList, "TOPLEFT", 47, -62)
-	ACP_AddonList_ScrollFrame:Point("TOPLEFT", ACP_AddonList, "TOPLEFT", 20, -53)
-	ACP_AddonListCloseButton:Point("TOPRIGHT", ACP_AddonList, "TOPRIGHT", -7, -7)
-	ACP_AddonListSetButton:Point("BOTTOMLEFT", ACP_AddonList, "BOTTOMLEFT", 20, 8)
-	ACP_AddonListDisableAll:Point("BOTTOMLEFT", ACP_AddonList, "BOTTOMLEFT", 90, 8)
-	ACP_AddonListEnableAll:Point("BOTTOMLEFT", ACP_AddonList, "BOTTOMLEFT", 175, 8)
-	ACP_AddonList_ReloadUI:Point("BOTTOMRIGHT", ACP_AddonList, "BOTTOMRIGHT", -160, 8)
-	ACP_AddonListBottomClose:Point("BOTTOMRIGHT", ACP_AddonList, "BOTTOMRIGHT", -50, 8)
+	ACP_AddonListEntry1:SetPoint("TOPLEFT", ACP_AddonList, "TOPLEFT", 47, -62)
+	ACP_AddonList_ScrollFrame:SetPoint("TOPLEFT", ACP_AddonList, "TOPLEFT", 20, -53)
+	ACP_AddonListCloseButton:SetPoint("TOPRIGHT", ACP_AddonList, "TOPRIGHT", -7, -7)
+	ACP_AddonListSetButton:SetPoint("BOTTOMLEFT", ACP_AddonList, "BOTTOMLEFT", 20, 8)
+	ACP_AddonListDisableAll:SetPoint("BOTTOMLEFT", ACP_AddonList, "BOTTOMLEFT", 90, 8)
+	ACP_AddonListEnableAll:SetPoint("BOTTOMLEFT", ACP_AddonList, "BOTTOMLEFT", 175, 8)
+	ACP_AddonList_ReloadUI:SetPoint("BOTTOMRIGHT", ACP_AddonList, "BOTTOMRIGHT", -160, 8)
+	ACP_AddonListBottomClose:SetPoint("BOTTOMRIGHT", ACP_AddonList, "BOTTOMRIGHT", -50, 8)
 	ACP_AddonList:SetScale(UIParent:GetScale())
 end
 

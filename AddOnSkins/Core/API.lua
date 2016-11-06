@@ -187,6 +187,10 @@ function AS:SkinButton(Button, Strip)
 
 	AS:SkinFrame(Button, nil, not Strip)
 
+	if AS:CheckAddOn('ElvUI') and AS:CheckOption('ElvUISkinModule') then
+		AS:SetTemplate(Button, 'Default', true)
+	end
+
 	Button:HookScript("OnEnter", function(self)
 		if AS.ValueColor then
 			self:SetBackdropBorderColor(unpack(AS.ValueColor))
@@ -309,7 +313,7 @@ function AS:SkinCloseButton(CloseButton, Reposition)
 	CloseButton.Text:SetText('x')
 
 	if Reposition then
-		f:Point("TOPRIGHT", Reposition, "TOPRIGHT", 2, 2)
+		CloseButton:Point("TOPRIGHT", Reposition, "TOPRIGHT", 2, 2)
 	end
 
 	CloseButton.isSkinned = true
