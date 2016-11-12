@@ -337,7 +337,12 @@ function private.ScanThreadDoQuery(self, query)
 
 	-- send the query
 	if not query.filterInfoCache and (query.class or query.subClass or query.invType) then
-		query.filterInfoCache = {{classID=query.class, subClassID=query.subClass, inventoryType=query.invType}}
+		if query.invType == LE_INVENTORY_TYPE_CHEST_TYPE or query.invType == LE_INVENTORY_TYPE_ROBE_TYPE then
+			-- default AH sends in queries for both chest types, we need to mimic this when using a chest filter
+			query.filterInfoCache = {{classID=query.class, subClassID=query.subClass, inventoryType=LE_INVENTORY_TYPE_CHEST_TYPE}, {classID=query.class, subClassID=query.subClass, inventoryType=LE_INVENTORY_TYPE_ROBE_TYPE}}
+		else
+			query.filterInfoCache = {{classID=query.class, subClassID=query.subClass, inventoryType=query.invType}}
+		end		
 	end
 	QueryAuctionItems(query.name, query.minLevel, query.maxLevel, query.page, query.usable, query.quality, nil, query.exact, query.filterInfoCache)
 

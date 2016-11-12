@@ -1,3 +1,6 @@
+v3.6.20
+*Fixed bug with using chest inventory type Shopping search filters.
+
 v3.6.19
 *Fixed bug with auction buy/sell/cancel features and twitter integration when using ElvUI chat module.
 
