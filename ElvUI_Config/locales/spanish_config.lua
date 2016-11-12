@@ -270,6 +270,7 @@ L["List of words to color in chat if found in a message. If you wish to add mult
 L["Lock Positions"] = "Bloquear Posiciones"
 L["Log the main chat frames history. So when you reloadui or log in and out you see the history from your last session."] = "Guardar el historial de los marcos de chat principales. Así cuando recargues la interfaz o reconectes verás el historial de chat de tu última sesión."
 L["No Alert In Combat"] = true;
+L["Number of messages you scroll for each step."] = true;
 L["Number of repeat characters while in combat before the chat editbox is automatically closed."] = true;
 L["Number of time in seconds to scroll down to the bottom of the chat window if you are not scrolled down completely."] = "Tiempo en segundos para desplazarse al final de la ventana de chat si no se ha desplazado completamente hasta el final."
 L["Panel Backdrop"] = "Fondo del Panel"
@@ -284,6 +285,7 @@ L["Right Only"] = "Sólo el Derecho"
 L["Right Panel Height"] = true;
 L["Right Panel Width"] = true;
 L["Scroll Interval"] = "Intervalo de Desplazamiento"
+L["Scroll Messages"] = true;
 L["Separate Panel Sizes"] = true;
 L["Set the font outline."] = "Establece el contorno de fuente."
 L["Short Channels"] = "Recortar Canales"
@@ -332,10 +334,11 @@ L["ELVUI_CREDITS"] = "Quiero dar un agradecimiento especial a las siguientes per
 L["Testing:"] = "Pruebas:"
 
 --DataBars
-L["DATABAR_DESC"] = "Setup on-screen display of information bars."
 L["Current - Remaining"] = true;
 L["DataBars"] = true;
-L["Hide in Combat"] = true;
+L["Hide In Combat"] = true;
+L["Hide Outside PvP"] = true;
+L["Setup on-screen display of information bars."] = true;
 
 --DataTexts
 L["24-Hour Time"] = "Tiempo de 24 horas"
@@ -744,11 +747,13 @@ L["Add a spell to the filter. Use spell ID if you don't want to match all auras 
 L["Add a spell to the filter."] = "Añade un hechizo al filtro."
 L["Add Spell ID or Name"] = true;
 L["Add SpellID"] = "Añadir ID de Hechizo"
+L["Additional Filter Override"] = true;
 L["Additional Filter"] = "Filtro Adicional"
 L["Additional Power Text"] = true;
 L["Affliction"] = "Aflicción"
 L["Allow auras considered to be part of a boss encounter."] = true;
 L["Allow Boss Encounter Auras"] = true;
+L["Allow non-personal auras from additional filter when 'Block Non-Personal Auras' is enabled."] = true;
 L["Allow Whitelisted Auras"] = "Permitir Auras de la Lista Blanca"
 L["An X offset (in pixels) to be used when anchoring new frames."] = true;
 L["An Y offset (in pixels) to be used when anchoring new frames."] = true;

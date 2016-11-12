@@ -256,12 +256,14 @@ local specialChatIcons = {
 CH.Keywords = {};
 CH.ClassNames = {}
 
+local numScrollMessages
 local function ChatFrame_OnMouseScroll(frame, delta)
+	numScrollMessages = CH.db.numScrollMessages or 3
 	if delta < 0 then
 		if IsShiftKeyDown() then
 			frame:ScrollToBottom()
 		else
-			for i = 1, 3 do
+			for i = 1, numScrollMessages do
 				frame:ScrollDown()
 			end
 		end
@@ -269,7 +271,7 @@ local function ChatFrame_OnMouseScroll(frame, delta)
 		if IsShiftKeyDown() then
 			frame:ScrollToTop()
 		else
-			for i = 1, 3 do
+			for i = 1, numScrollMessages do
 				frame:ScrollUp()
 			end
 		end
@@ -555,7 +557,7 @@ local function removeIconFromLine(text)
 	for i=1, 8 do
 		text = gsub(text, "|TInterface\\TargetingFrame\\UI%-RaidTargetingIcon_"..i..":0|t", "{"..strlower(_G["RAID_TARGET_"..i]).."}")
 	end
-	text = gsub(text, "(|TInterface(.*)|t)", "") --We need to look at this, battle net friend online/offline message gets messed up
+	text = gsub(text, "|TInterface(.-)|t", "")
 
 	return text
 end
@@ -2104,6 +2106,9 @@ function CH:Initialize()
 	scrollArea:SetScript("OnSizeChanged", function(self)
 		CopyChatFrameEditBox:Width(self:GetWidth())
 		CopyChatFrameEditBox:Height(self:GetHeight())
+	end)
+	scrollArea:HookScript("OnVerticalScroll", function(self, offset)
+		CopyChatFrameEditBox:SetHitRectInsets(0, 0, offset, (CopyChatFrameEditBox:GetHeight() - offset - self:GetHeight()))
 	end)
 
 	local editBox = CreateFrame("EditBox", "CopyChatFrameEditBox", frame)

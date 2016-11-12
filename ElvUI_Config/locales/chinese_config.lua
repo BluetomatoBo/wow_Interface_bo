@@ -105,7 +105,7 @@ L["Inherit the global fade, mousing over, targetting, setting focus, losing heal
 L["Key Down"] = "按下施法"
 L["Keybind Mode"] = "快捷键绑定模式"
 L["Keybind Text"] = "快捷键文字"
-L["Low Threshold"] = "冷却时间阀值"
+L["Low Threshold"] = "冷却时间阈值"
 L["Macro Text"] = "宏名称"
 L["Masque Support"] = "Masque支持"
 L["Minutes"] = "分"
@@ -270,6 +270,7 @@ L["List of words to color in chat if found in a message. If you wish to add mult
 L["Lock Positions"] = '锁定位置'
 L["Log the main chat frames history. So when you reloadui or log in and out you see the history from your last session."] = '记录对话历史,当你重载,登录和退出时会恢复你最后一次会话'
 L["No Alert In Combat"] = "战斗中不警报"
+L["Number of messages you scroll for each step."] = true;
 L["Number of repeat characters while in combat before the chat editbox is automatically closed."] = "当你在战斗中按下技能键时,有可能你的输入框还处于打开状态,这个功能可以在你按下技能键并且在输入框中输入下列个数字符串却没有放出技能时帮你自动关闭输入框"
 L["Number of time in seconds to scroll down to the bottom of the chat window if you are not scrolled down completely."] = "聊天框滚动到底部所需要的滚动时间(秒)"
 L["Panel Backdrop"] = "聊天框背景"
@@ -284,6 +285,7 @@ L["Right Only"] = "仅显示右边"
 L["Right Panel Height"] = "右面板高度"
 L["Right Panel Width"] = "右面板宽度"
 L["Scroll Interval"] = "滚动间隔"
+L["Scroll Messages"] = true;
 L["Separate Panel Sizes"] = "分离框体大小"
 L["Set the font outline."] = "设定字体的描边"
 L["Short Channels"] = "隐藏频道名称"
@@ -332,10 +334,11 @@ L["ELVUI_CREDITS"] = "我想透过这个特别方式，向那些协助测试、�
 L["Testing:"] = "测试:"
 
 --DataBars
-L["DATABAR_DESC"] = "设置各种数据条"
 L["Current - Remaining"] = "当前值 - 剩余值"
 L["DataBars"] = "数据条"
-L["Hide in Combat"] = "战斗中隐藏"
+L["Hide In Combat"] = "战斗中隐藏"
+L["Hide Outside PvP"] = true;
+L["Setup on-screen display of information bars."] = "设置各种数据条"
 
 --DataTexts
 L["24-Hour Time"] = "24小时制"
@@ -586,7 +589,7 @@ L["Hide"] = "隐藏"
 L["How many seconds the castbar should stay visible after the cast failed or was interrupted."] = "在施法失败或被打断时施法条保持可见的秒数"
 L["Icon Base Height"] = "图标基础高度"
 L["Load Distance"] = "读取距离"
-L["Low Health Threshold"] = "低生命值阀值"
+L["Low Health Threshold"] = "低生命值阈值"
 L["Make the unitframe glow yellow when it is below this percent of health, it will glow red when the health value is half of this value."] = "姓名板在此设定值下会变黄色，在设定值一半以下会变红色."
 L["NamePlates"] = "姓名板(血条)"
 L["Non-Target Transparency"] = "非目标透明度"
@@ -745,11 +748,13 @@ L["Add a spell to the filter. Use spell ID if you don't want to match all auras 
 L["Add a spell to the filter."] = "添加一个技能到过滤器"
 L["Add Spell ID or Name"] = "添加技能ID或者名字"
 L["Add SpellID"] = "添加技能ID"
+L["Additional Filter Override"] = true;
 L["Additional Filter"] = '额外的过滤器'
 L["Additional Power Text"] = "额外能量文字"
 L["Affliction"] = "痛苦"
 L["Allow auras considered to be part of a boss encounter."] = "允许被认为是boss战斗中的光环"
 L["Allow Boss Encounter Auras"] = "允许Boss站的光环"
+L["Allow non-personal auras from additional filter when 'Block Non-Personal Auras' is enabled."] = true;
 L["Allow Whitelisted Auras"] = '允许白名单中的光环'
 L["An X offset (in pixels) to be used when anchoring new frames."] = "锚定新框架时的X偏移(单位:像素)"
 L["An Y offset (in pixels) to be used when anchoring new frames."] = "锚定新框架时的Y偏移(单位:像素)"
@@ -1056,7 +1061,7 @@ L["Target units on mouse down rather than mouse up. \n\n|cffFF0000Warning: If yo
 L["Text Color"] = "文字颜色"
 L["Text Format"] = "文字格式"
 L["Text Position"] = "文字位置"
-L["Text Threshold"] = "文本阀值"
+L["Text Threshold"] = "文本阈值"
 L["Text Toggle On NPC"] = "NPC 文字显示开关"
 L["Text xOffset"] = "文字X轴偏移"
 L["Text yOffset"] = "文字Y轴偏移"

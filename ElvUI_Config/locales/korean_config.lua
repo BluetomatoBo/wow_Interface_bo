@@ -314,6 +314,7 @@ L["List of words to color in chat if found in a message. If you wish to add mult
 L["Lock Positions"] = "패널에 채팅창 고정"
 L["Log the main chat frames history. So when you reloadui or log in and out you see the history from your last session."] = "애드온 리로드나 로그아웃 이전의 채팅내역을 보존하여 접속했을 때 보여줍니다."
 L["No Alert In Combat"] = true;
+L["Number of messages you scroll for each step."] = true;
 L["Number of repeat characters while in combat before the chat editbox is automatically closed."] = true;
 L["Number of time in seconds to scroll down to the bottom of the chat window if you are not scrolled down completely."] = "채팅창의 스크롤이 맨 아래가 아니라면 이 값 만큼 시간이 지났을 때 맨 아래로 자동 스크롤링 됩니다."
 L["Panel Backdrop"] = "패널 배경 표시"
@@ -328,6 +329,7 @@ L["Right Only"] = "우측 배경만 표시"
 L["Right Panel Height"] = "우측 패널 세로길이"
 L["Right Panel Width"] = "우측 패널 가로길이"
 L["Scroll Interval"] = "자동 스크롤링 시간"
+L["Scroll Messages"] = true;
 L["Separate Panel Sizes"] = "좌우패널 크기 따로설정"
 L["Set the font outline."] = "글꼴의 외곽선을 결정합니다."
 L["Short Channels"] = "채널명 요약"
@@ -379,10 +381,11 @@ L["ELVUI_CREDITS"] = "저는 이 애드온의 유지와 개발 코딩에 도움�
 L["Testing:"] = "|cff2eb7e4< 테스터 >|r"
 
 --DataBars
-L["DATABAR_DESC"] = "Setup on-screen display of information bars."
 L["Current - Remaining"] = true;
 L["DataBars"] = true;
-L["Hide in Combat"] = true;
+L["Hide In Combat"] = true;
+L["Hide Outside PvP"] = true;
+L["Setup on-screen display of information bars."] = true;
 
 --DataTexts
 L["24-Hour Time"] = "24시제로 표시"
@@ -793,11 +796,13 @@ L["Add a spell to the filter. Use spell ID if you don't want to match all auras 
 L["Add a spell to the filter."] = "필터에 주문을 추가합니다."
 L["Add Spell ID or Name"] = true;
 L["Add SpellID"] = "주문 ID 추가"
+L["Additional Filter Override"] = true;
 L["Additional Filter"] = "추가적용할 필터"
 L["Additional Power Text"] = true;
 L["Affliction"] = "고통"
 L["Allow auras considered to be part of a boss encounter."] = true;
 L["Allow Boss Encounter Auras"] = true;
+L["Allow non-personal auras from additional filter when 'Block Non-Personal Auras' is enabled."] = true;
 L["Allow Whitelisted Auras"] = "요구목록에 있는건 표시"
 L["An X offset (in pixels) to be used when anchoring new frames."] = "기준 프레임에서 가로로 얼마만큼 떨어져 있을지를 결정합니다."
 L["An Y offset (in pixels) to be used when anchoring new frames."] = "기준 프레임에서 세로로 얼마만큼 떨어져 있을지를 결정합니다."

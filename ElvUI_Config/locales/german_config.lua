@@ -270,6 +270,7 @@ L["List of words to color in chat if found in a message. If you wish to add mult
 L["Lock Positions"] = "Positionen fixieren"
 L["Log the main chat frames history. So when you reloadui or log in and out you see the history from your last session."] = "Sichert den Chatverlauf der Hauptchatfenster. Wenn du dein UI neulädst oder einloggst, siehst du den Chatverlauf der letzten Sitzung."
 L["No Alert In Combat"] = "Kein Alarm im Kampf"
+L["Number of messages you scroll for each step."] = "Anzahl der Nachrichten die mit jeden Schritt gescrollt werden."
 L["Number of repeat characters while in combat before the chat editbox is automatically closed."] = "Anzahl der wiederholten Zeichen im Kampf, bevor das Chateingabefeld automatisch schließt."
 L["Number of time in seconds to scroll down to the bottom of the chat window if you are not scrolled down completely."] = "Anzahl der Sekunden um im Chatfenster nach unten zu scrollen, wenn du nicht komplett nach unten gescrollt bist."
 L["Panel Backdrop"] = "Fensterhintergrund"
@@ -284,6 +285,7 @@ L["Right Only"] = "Nur Rechts"
 L["Right Panel Height"] = "Rechte Fensterhöhe"
 L["Right Panel Width"] = "Rechte Fensterbreite"
 L["Scroll Interval"] = "Scroll-Interval"
+L["Scroll Messages"] = "Scroll Nachrichten"
 L["Separate Panel Sizes"] = "Getrennte Chatfenster Größenoptionen"
 L["Set the font outline."] = "Setzt die Schrift auf Outline." --Also used in UnitFrames section
 L["Short Channels"] = "Kurze Kanäle"
@@ -332,10 +334,11 @@ L["ELVUI_CREDITS"] = "Ich möchte mich hier bei folgenden Personen bedanken, die
 L["Testing:"] = "Tester:"
 
 --DataBars
-L["DATABAR_DESC"] = "Einstellung der Informationsleisten."
 L["Current - Remaining"] = "Aktuell - Verbleibend"
 L["DataBars"] = "Informationsleisten"
-L["Hide in Combat"] = "Im Kampf ausblenden"
+L["Hide In Combat"] = "Im Kampf ausblenden"
+L["Hide Outside PvP"] = "Verstecke ausserhalb von PvP"
+L["Setup on-screen display of information bars."] = "Einstellung der Informationsleisten."
 
 --DataTexts
 L["24-Hour Time"] = "24-Stunden-Format"
@@ -746,11 +749,13 @@ L["Add a spell to the filter. Use spell ID if you don't want to match all auras 
 L["Add a spell to the filter."] = "Zauber zum Filter hinzufügen"
 L["Add Spell ID or Name"] = "Zauber ID oder Name hinzufügen"
 L["Add SpellID"] = "ZauberID hinzufügen"
+L["Additional Filter Override"] = "Zusätzlicher Filter überschreiben"
 L["Additional Filter"] = "Zusätzlicher Filter"
 L["Additional Power Text"] = "Zusätzlicher Kraft Text"
 L["Affliction"] = "Gebrechen"
 L["Allow auras considered to be part of a boss encounter."] = "Erlaube den Auren als Teil eines Bosskampfes betrachtet zu werden"
 L["Allow Boss Encounter Auras"] = "Erlaube Bosskampf Auren"
+L["Allow non-personal auras from additional filter when 'Block Non-Personal Auras' is enabled."] = "Erlaube nicht-persönliche Auren vom zusätzlichen Filter wenn 'Blocke Nicht-Persönliche Auren' aktiviert ist."
 L["Allow Whitelisted Auras"] = "Erlaube Whitelisted Auren"
 L["An X offset (in pixels) to be used when anchoring new frames."] = "X-Versatz (in Pixeln) der verwendet werden soll um neue Fenster zu ankern"
 L["An Y offset (in pixels) to be used when anchoring new frames."] = "Y-Versatz (in Pixeln) der verwendet werden soll um neue Fenster zu ankern"

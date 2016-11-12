@@ -270,6 +270,7 @@ L["List of words to color in chat if found in a message. If you wish to add mult
 L["Lock Positions"] = "鎖定位置"
 L["Log the main chat frames history. So when you reloadui or log in and out you see the history from your last session."] = "記錄對話歷史,當你重載,登錄和退出時會恢復你最後一次會話"
 L["No Alert In Combat"] = "戰鬥中不警報"
+L["Number of messages you scroll for each step."] = true;
 L["Number of repeat characters while in combat before the chat editbox is automatically closed."] = "當你在戰鬥中按下技能鍵時,有可能你的輸入框還處於打開狀態,這個功能可以在你按下技能鍵並且在輸入框中輸入下列個數字符串卻沒有放出技能時幫你自動關閉輸入框"
 L["Number of time in seconds to scroll down to the bottom of the chat window if you are not scrolled down completely."] = "對話框滾動到底部所需要的滾動時間(秒)."
 L["Panel Backdrop"] = "對話框背景"
@@ -284,6 +285,7 @@ L["Right Only"] = "僅顯示右框背景"
 L["Right Panel Height"] = "右面板高度"
 L["Right Panel Width"] = "右面板寬度"
 L["Scroll Interval"] = "滾動間隔"
+L["Scroll Messages"] = true;
 L["Separate Panel Sizes"] = "分離框體大小"
 L["Set the font outline."] = "字體描邊設定."
 L["Short Channels"] = "隱藏頻道名稱"
@@ -332,10 +334,11 @@ L["ELVUI_CREDITS"] = "我想透過這個特別方式, 向那些協助測試、�
 L["Testing:"] = "測試："
 
 --DataBars
-L["DATABAR_DESC"] = "設置各種數據條"
 L["Current - Remaining"] = "當前值 - 剩餘值"
 L["DataBars"] = "數據條"
-L["Hide in Combat"] = "戰鬥中隱藏"
+L["Hide In Combat"] = "戰鬥中隱藏"
+L["Hide Outside PvP"] = true;
+L["Setup on-screen display of information bars."] = "設置各種數據條"
 
 --DataTexts
 L["24-Hour Time"] = "24小時制"
@@ -745,11 +748,14 @@ L["Add a spell to the filter. Use spell ID if you don't want to match all auras 
 L["Add a spell to the filter."] = "添加一個技能到過濾器"
 L["Add Spell ID or Name"] = "添加技能ID或者名字"
 L["Add SpellID"] = "添加技能ID"
+L["Additional Filter Override"] = true;
 L["Additional Filter"] = "額外的過濾器"
+L["Additional Filter Override"] = true;
 L["Additional Filter"] = '額外的過濾器'
 L["Affliction"] = "痛苦"
 L["Allow auras considered to be part of a boss encounter."] = "允許被認為是首領戰鬥中的光環"
 L["Allow Boss Encounter Auras"] = "允許首領戰鬥中的光環"
+L["Allow non-personal auras from additional filter when 'Block Non-Personal Auras' is enabled."] = true;
 L["Allow Whitelisted Auras"] = "允許白名單中的光環"
 L["An X offset (in pixels) to be used when anchoring new frames."] = "錨定新框架時的X偏移(單位:像素)"
 L["An Y offset (in pixels) to be used when anchoring new frames."] = "錨定新框架時的Y偏移(單位:像素)"

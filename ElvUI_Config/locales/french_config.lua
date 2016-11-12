@@ -270,6 +270,7 @@ L["List of words to color in chat if found in a message. If you wish to add mult
 L["Lock Positions"] = "Verrouiller les positions"
 L["Log the main chat frames history. So when you reloadui or log in and out you see the history from your last session."] = "Active la fenêtre principale de l'historique de discussion. Ainsi quand vous rechargez l'interface ou effectuez une connexion / déconnexion, vous voyez l'historique de la dernière session"
 L["No Alert In Combat"] = "Pas d'alerte en combat";
+L["Number of messages you scroll for each step."] = true;
 L["Number of repeat characters while in combat before the chat editbox is automatically closed."] = true;
 L["Number of time in seconds to scroll down to the bottom of the chat window if you are not scrolled down completely."] = "Temps en secondes pour faire défiler vers le bas de la fenêtre de discussion si vous ne l'avez pas fait défiler jusqu'en bas."
 L["Panel Backdrop"] = "Arrière-plan de la fenêtre de discussion"
@@ -284,6 +285,7 @@ L["Right Only"] = "Droite seulement"
 L["Right Panel Height"] = "Hauteur de la fenêtre de discussion de droite";
 L["Right Panel Width"] = "Largeur de la fenêtre de discussion de droite";
 L["Scroll Interval"] = "Intervalle de défilement"
+L["Scroll Messages"] = true;
 L["Separate Panel Sizes"] = "Séparer la taille des fenêtres de discussion.";
 L["Set the font outline."] = "Configure le contour extérieur de la police." --Also used in UnitFrames section
 L["Short Channels"] = "Raccourcis canaux"
@@ -332,10 +334,11 @@ L["ELVUI_CREDITS"] = "Je voudrais remercier tout spécialement ceux qui m'ont ai
 L["Testing:"] = "Testeurs: "
 
 --DataBars
-L["DATABAR_DESC"] = "Setup on-screen display of information bars."
 L["Current - Remaining"] = true;
 L["DataBars"] = true;
-L["Hide in Combat"] = true;
+L["Hide In Combat"] = true;
+L["Hide Outside PvP"] = true;
+L["Setup on-screen display of information bars."] = true;
 
 --DataTexts
 L["24-Hour Time"] = "Mode 24 Heures"
@@ -745,11 +748,13 @@ L["Add a spell to the filter. Use spell ID if you don't want to match all auras 
 L["Add a spell to the filter."] = "Ajouter un sort au filtre."
 L["Add Spell ID or Name"] = true;
 L["Add SpellID"] = "Ajouter l'identifiant d'un sort"
+L["Additional Filter Override"] = true;
 L["Additional Filter"] = "Filtre Additionnels"
 L["Additional Power Text"] = true;
 L["Affliction"] = "Affliction"
 L["Allow auras considered to be part of a boss encounter."] = "Considérer que les Auras font partie d'un Boss.";
 L["Allow Boss Encounter Auras"] = "Autoriser les Auras des Boss";
+L["Allow non-personal auras from additional filter when 'Block Non-Personal Auras' is enabled."] = true;
 L["Allow Whitelisted Auras"] = "Permettre les Auras en Liste Blanche"
 L["An X offset (in pixels) to be used when anchoring new frames."] = "Un décalage X (en pixels) à utiliser lors d'un ancrage d'une nouvelle fenêtre."; --need review
 L["An Y offset (in pixels) to be used when anchoring new frames."] = "Un décalage Y (en pixels) à utiliser lors d'un ancrage d'une nouvelle fenêtre."; --need review
