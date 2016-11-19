@@ -1,6 +1,8 @@
-﻿if GetLocale() ~= "koKR" then return end
-local L
+-- Mini Dragon(projecteurs@gmail.com)
+-- Last update: Nov 1 2016, 6:03 UTC@15435
 
+if GetLocale() ~= "zhCN" then return end
+local L
 ---------------
 -- Odyn --
 ---------------
@@ -29,7 +31,7 @@ L= DBM:GetModLocalization(1830)
 L= DBM:GetModLocalization(1829)
 
 L:SetMiscLocalization({
-	phaseThree =	"발버둥쳐 봐야 소용 없다, 필멸자여! 오딘은 풀려나지 않아!"
+	phaseThree =	"Your efforts are for naught, mortals! Odyn will NEVER be free!" --pending
 })
 
 -------------
@@ -38,6 +40,5 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("TrialofValorTrash")
 
 L:SetGeneralLocalization({
-	name =	"용맹의 시험 일반몹"
+	name =	"勇气的试炼小怪"
 })
-
