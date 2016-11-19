@@ -7,6 +7,13 @@ local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
 local L = AceLocale:NewLocale("Routes", "frFR")
 if not L then return end
 
+L[" Data"] = "Données"
+L[" Gatherer/HandyNotes currently does not support callbacks, so this is impossible for Gatherer/HandyNotes."] = " Gatherer/HandyNotes ne supporte pas actuellement les fonctions de rappel, c'est donc impossible avec cet addon."
+L["%s - Node %d"] = "%s - Nœud %d"
+L["|cffffd200     %d|r node(s) are at |cffffd2000|r yards of a cluster point"] = "|cffffd200     %d|r nœud(s) sont à |cffffd2000|r mètres d'un point d'agrégation."
+L["|cffffd200     %d|r node(s) are between |cffffd200%d|r-|cffffd200%d|r yards of a cluster point"] = "|cffffd200     %d|r nœud(s) sont entre |cffffd200%d|r et |cffffd200%d|r mètres d'un point d'agrégation."
+L["A route with that name already exists. Overwrite?"] = "Une route portant ce nom existe déjà. L'écraser ?"
+L["A taboo with that name already exists. Overwrite?"] = "Un tabou avec ce nom existe déjà. L'écraser ?"
 L["Add"] = "Ajouter"
 L["Add node after (green)"] = "Ajouter un nœud après (vert)"
 L["Add node before (red)"] = "Ajouter un nœud avant (rouge)"
@@ -16,8 +23,10 @@ L["Archaeology"] = "Archéologie"
 L["Are you sure you want to delete this route?"] = "Êtes-vous sûr de vouloir supprimer cette route ?"
 L["Are you sure you want to delete this taboo? This action will also remove the taboo from all routes that use it."] = "Êtes-vous sûr de vouloir supprimer ce tabou ? Cette action enlèvera également le tabou de toutes les routes qui l'utilisent."
 L["Are you sure you want to recreate this route? This will delete all customized settings for this route."] = "Êtes-vous sûr de vouloir recréer cette route ? Cela supprimera tous les paramètres personnalisés de cette route."
-L["A route with that name already exists. Overwrite?"] = "Une route portant ce nom existe déjà. L'écraser ?"
-L["A taboo with that name already exists. Overwrite?"] = "Un tabou avec ce nom existe déjà. L'écraser ?"
+L["Auto show and hide routes based on your professions"] = "Affiche et masque automatiquement les routes selon vos métiers."
+L["Auto show/hide"] = "Afficher/masquer auto."
+L["Auto Show/Hide per route type"] = "Afficher/masquer auto. par type de route"
+L["Auto Show/Hide settings"] = "Paramètres de Afficher/masquer auto."
 L["Automatic route updating"] = "MÀJ auto. des routes"
 L["AUTOMATIC_UPDATE_TEXT"] = [=[
 Routes mettra automatiquement à jour vos et insérera/enlèvera les nœuds nécessaires quand vous utilisez |cffffff78GatherMate|r ou |cffffff78Cartographer_<Métiers>|r comme sources de données. |cffffff78Gatherer/HandyNotes|r n'est pas supporté car il n'accepte pas actuellement les fonctions de rappel.
@@ -32,31 +41,26 @@ Por empêcher ce comportement de mise à jour automatique, vous pouvez désactiv
 
 |cffffff782.|r Décochez les cases pour chaque source de données.
 ]=]
-L["Auto show and hide routes based on your professions"] = "Affiche et masque automatiquement les routes selon vos métiers."
-L["Auto show/hide"] = "Afficher/masquer auto."
-L["Auto Show/Hide per route type"] = "Afficher/masquer auto. par type de route"
-L["Auto Show/Hide settings"] = "Paramètres de Afficher/masquer auto."
 L["Background"] = "Arrière-plan"
 L["Background Disclaimer"] = "Ceci effectuera la génération de la route TSP en arrière-plan plus lentement, mais sans bloquer votre client WoW. Veuillez noter que votre client WoW subira tout de même une baisse de performance."
 L["Cancel route edit"] = "Annuler modifications"
 L["Cancel taboo edit"] = "Annuler l'édition du tabou"
 L["Cartographer_Waypoints module is missing or disabled"] = "Le module Cartographer_Waypoints est manquant ou désactivé."
-L["|cffffd200     %d|r node(s) are at |cffffd2000|r yards of a cluster point"] = "|cffffd200     %d|r nœud(s) sont à |cffffd2000|r mètres d'un point d'agrégation."
-L["|cffffd200     %d|r node(s) are between |cffffd200%d|r-|cffffd200%d|r yards of a cluster point"] = "|cffffd200     %d|r nœud(s) sont entre |cffffd200%d|r et |cffffd200%d|r mètres d'un point d'agrégation."
 L["Change default hidden route color"] = "Change la couleur par défaut des routes masquées."
 L["Change default route color"] = "Change la couleur par défaut des routes."
 L["Change direction (TomTom)"] = "Changer de direction (TomTom)"
 L["Change the line color"] = "Change la couleur des lignes."
 L["Cluster"] = "Agréger"
-L["CLUSTER_DESC"] = "L'agrégation d'une route permet à Routes de prendre tous les nœuds qui sont proches les uns des autres et de les combiner en un seul nœud qui servira de point de voyage. Ce processus prend un peu de temps."
 L["Cluster Radius"] = "Rayon d'agrégation"
-L["CLUSTER_RADIUS_DESC"] = "Détermine la distance maximale entre un nœud et son point d'agrégation. La valeur par défaut est de 60 mètres car le rayon de détection des compétences de suivi est de 80 mètres."
 L["Cluster this route"] = "Agrèger cette route."
+L["CLUSTER_DESC"] = "L'agrégation d'une route permet à Routes de prendre tous les nœuds qui sont proches les uns des autres et de les combiner en un seul nœud qui servira de point de voyage. Ce processus prend un peu de temps."
+L["CLUSTER_RADIUS_DESC"] = "Détermine la distance maximale entre un nœud et son point d'agrégation. La valeur par défaut est de 60 mètres car le rayon de détection des compétences de suivi est de 80 mètres."
 L["Color of lines"] = "Couleurs des lignes"
 L["Create Bare Route"] = "Créer une route vide"
-L["CREATE_BARE_ROUTE_DESC"] = "Ceci va créer une route contenant uniquement 3 points initiaux, sans utiliser de données d'une source quelconque. Vous pourrez alors manuellement éditer cette route pour insérer et déplacer des nœuds."
 L["Create Route"] = "Créer la route"
 L["Create Route from Data Sources"] = "Création d'une route à partie de sources de données"
+L["Create Taboo"] = "Créer un tabou"
+L["CREATE_BARE_ROUTE_DESC"] = "Ceci va créer une route contenant uniquement 3 points initiaux, sans utiliser de données d'une source quelconque. Vous pourrez alors manuellement éditer cette route pour insérer et déplacer des nœuds."
 L["CREATE_ROUTE_TEXT"] = [=[La création d'une route comporte 4 étapes simples. Tout d'abord, rendez-vous dans la section |cffffff78Ajouter|r affichée sur le côté gauche.
 
 |cffffff781.|r Tapez le nom d'une route et appuyez sur |cffffff78ENTRÉE|r ou cliquez sur le bouton |cffffff78OK|r.
@@ -74,7 +78,6 @@ L["CREATE_ROUTE_TEXT"] = [=[La création d'une route comporte 4 étapes simples.
 
 * Si la création de la route a réussie, vous verrez des lignes roses se balader un peu partout sur votre carte du monde dans la zone sélectionnée. Une entrée pour cette route sera créée sur le côté gauche dans l'arborescence de Routes. Cette route initiale n'est pas optimisée : il s'agit de la prochaine étape !
 ]=]
-L["Create Taboo"] = "Créer un tabou"
 L["CREATE_TABOOS_TEXT"] = [=[Les |cffffff78régions taboues|r sont des zones (polygones en 2D) de la carte du monde que vous pouvez définir facilement afin que Routes les ignore. Quand de telles zones sont définies, Routes ignorera tous les nœuds se trouvant dans ces zones et redoublera d'effort pour que la route générée ne traverse pas ces zones. Ceci est très utile pour marquer des endroits qui forcent à faire des détours tels que les îles flottantes, les cavernes, les hautes montagnes, les villes ennemies, etc.
 
 Les régions taboues peuvent être créées en suivant les étapes suivantes :
@@ -120,7 +123,6 @@ Chaque route peut être modifiée pour avoir une couleur et une épaisseur spéc
 
 Vous pouvez également opter pour l'option qui permet d'|cffffff78Afficher/masquer auto.|r les routes selon le(s) type(s) de nœuds qu'ils contiennent, comme les nœuds de minerai ou les nœuds d'herboristerie, en déterminant si les routes doivent être affichées uniquement si vous avez le métier, uniquement si le suivi est activé, si elles doivent toujours être affichées ou si elles ne doivent jamais être affichées. Si une route contient plusieurs types de nœuds, la route sera affichée tant qu'au moins un des types de nœuds satisfait la condition de l'affichage.
 ]=]
-L[" Data"] = "Données"
 L["Default route"] = "Routes par défaut"
 L["Delete"] = "Supprimer"
 L["Delete node"] = "Supprimer le nœud"
@@ -135,9 +137,9 @@ L["Edit Route Manually"] = "Éditer manuellement la route"
 L["Edit taboo region"] = "Éditer la région taboue"
 L["Edit this route on the world map"] = "Édite cette route sur la carte du monde."
 L["Edit this taboo region on the world map"] = "Édite cette région taboue sur la carte du monde."
+L["Extra optimization"] = "Extra optimisation"
 L["ExtractGas"] = "Gaz"
 L["ExtraOptDesc"] = "L'activation de cette option rendra le temps de génération 40% plus long, mais les routes générées seront -légèrement- meilleures. Il est recommandé de laisser ceci désactivé."
-L["Extra optimization"] = "Extra optimisation"
 L["FAQ"] = "FAQ"
 L["FAQ_TEXT"] = [=[
 |cffffd200
@@ -199,7 +201,6 @@ L["Fishing"] = "Pêche"
 L["Foreground"] = "Avant-plan"
 L["Foreground Disclaimer"] = "Génère un chemin pratiquement optimal pour l'ensemble des nœuds de cette route. Veuillez noter qu'en faisant ceci, votre client WoW restera 'bloqué' pendant quelques temps. Selon le nombre de nœuds (en ajouter cause une augmentation de durée pratiquement exponentielle) et la vitesse de votre CPU, vous risquez d'être déconnecté si cela prend trop longtemps."
 L["Frequently Asked Questions"] = "Foire aux questions"
-L[" Gatherer/HandyNotes currently does not support callbacks, so this is impossible for Gatherer/HandyNotes."] = " Gatherer/HandyNotes ne supporte pas actuellement les fonctions de rappel, c'est donc impossible avec cet addon."
 L["GathererHERB"] = "Herboristerie"
 L["GathererMINE"] = "Minage"
 L["GathererOPEN"] = "Trésor"
@@ -207,7 +208,7 @@ L["GatherMate2Archaeology"] = "Archéologie"
 L["GatherMate2Extract Gas"] = "Gaz"
 L["GatherMate2Fishing"] = "Pêche"
 L["GatherMate2Herb Gathering"] = "Herboristerie"
-L["GatherMate2Logging"] = "GatherMate2 Connexion" -- Needs review
+L["GatherMate2Logging"] = "GatherMate2 Connexion"
 L["GatherMate2Mining"] = "Minage"
 L["GatherMate2Treasure"] = "Trésor"
 L["Help File"] = "Aide"
@@ -283,14 +284,14 @@ L["Recreate this route with the same creation settings. NOTE: This only works fo
 L["Reset"] = "Réinitialiser"
 L["Reset the line settings to defaults"] = "Réinitialise les paramètres des lignes à leurs valeurs  par défaut."
 L["Route Clustering"] = "Agrégation de la route"
+L["Route Optimizing"] = "Optimisation de la route"
 L["ROUTE_EDIT_DESC"] = [=[
 Pour éditer une route, cliquez sur le bouton |cffffd200Éditer la route|r. La route sera alors dessinée sur la carte du monde. Saississez les nœuds pour les positionner, faites un clic gauche entre deux sommets pour ajouter des nœuds, un clic droit sur l'un d'eux pour le supprimer. Après l'édition, cliquez sur le bouton |cffffd200Sauver modifications|r pour sauvegarder vos changements, ou sur le bouton |cffffd200Annuler modifications|r pour les annuler.
 
 Veuillez noter qu'il est impossible d'éditer une route quand cette dernière est en cours d'optimisation en arrière-plan ou si la route est agrégée.
 ]=]
-L["Route Optimizing"] = "Optimisation de la route"
-L["routes"] = "routes"
 L["Routes"] = "Routes"
+L["routes"] = "routes"
 L["Routes in %s"] = "Routes dans %s"
 L["Routes Node Menu"] = "Menu des nœuds de Route"
 L["Routes with Archaeology"] = "Routes contenant des Archéologie"
@@ -316,7 +317,6 @@ L["Skill-Fishing"] = "Pêche"
 L["Skill-Herbalism"] = "Herboristerie"
 L["Skill-Mining"] = "Minage"
 L["Skip clustered node points"] = "Ignorer les agrégats"
-L["%s - Node %d"] = "%s - Nœud %d"
 L["Start using TomTom"] = "Débuter la navigation"
 L["Start using TomTom by finding the closest visible route/node in the current zone and using that as the waypoint"] = "Commence à utiliser TomTom en trouvant le nœud/la route le/la plus proche de la zone actuelle et en l'utilisant comme point de navigation."
 L["Start using Waypoints (TomTom)"] = "Débuter la navigation (TomTom)"
@@ -339,8 +339,8 @@ L["These settings control the visibility and look of the drawn route."] = "Ces p
 L["This route contains |cffffd200%d|r nodes that have been tabooed."] = "Cette route contient |cffffd200%d|r nœuds qui sont taboues."
 L["This route contains the following nodes:"] = "Cette route contient les nœuds suivants :"
 L["This route has |cffffd200%d|r nodes and is |cffffd200%d|r yards long."] = "Cette route contient |cffffd200%d|r nœuds et est longue de |cffffd200%d|r mètres."
-L["This route has nodes that belong to the following categories:"] = "Cette route contient des nœuds des catégories suivantes :"
 L["This route has no taboo regions."] = "Cette route n'a pas de région taboue."
+L["This route has nodes that belong to the following categories:"] = "Cette route contient des nœuds des catégories suivantes :"
 L["This route has the following taboo regions:"] = "Cette route contient les régions taboues suivantes :"
 L["This route is a clustered route, down from the original |cffffd200%d|r nodes."] = "Cette route est une route d'agrégation (|cffffd200%d|r nœuds à l'origine)."
 L["This route is not a clustered route."] = "Cette route n'est pas une route d'agrégation."
@@ -354,6 +354,7 @@ L["Uncluster"] = "Désagréger"
 L["Uncluster this route"] = "Désagrège cette route."
 L["Update distance"] = "Distance de mise à jour"
 L["Use Auto Show/Hide"] = "Utiliser A./m. auto."
+L["Waypoints (TomTom)"] = "Navigation (TomTom)"
 L["Waypoints Integration"] = "Intégration de la navigation"
 L["WAYPOINTS_INTEGRATION_TEXT"] = [=[
 Routes comporte un support intégré de |cffffff78Cartographer_Waypoints|r et de |cffffff78TomTom|r qui permet d'utiliser le système de points de navigation de ces addons afin de voyager rapidement le long de vos routes sans vous perdre ou vous tromper.
@@ -369,15 +370,14 @@ Pour vous aider à utiliser les points de navigation, vous pouvez facilement par
 
 * Les modules d'intégration des points de navigation sont désactivés si les addons supportés ne sont pas détectés.
 ]=]
-L["Waypoints (TomTom)"] = "Navigation (TomTom)"
 L["When the following data sources add or delete node data, update my routes automatically by inserting or removing the same node in the relevant routes."] = "Quand les sources de données suivantes ajoutent ou suppriment des données d'un nœud, mettre à jour automatiquement mes routes en insérant ou en enlevant ce même nœud des routes appropriées."
 L["Width (Map)"] = "Largeur (carte)"
 L["Width (Minimap)"] = "Largeur (minicarte)"
+L["Width (Zone Map)"] = "Largeur (carte locale)"
 L["Width of the line in the map"] = "Détermine la largeur des lignes sur la carte du monde."
 L["Width of the line in the Minimap"] = "Détermine la largeur des lignes sur la minicarte."
 L["Width of the line in the Worldmap"] = "Détermine la largeur des lignes sur la carte du monde."
 L["Width of the line in the Zone Map"] = "Détermine la largeur des lignes sur la carte locale."
-L["Width (Zone Map)"] = "Largeur (carte locale)"
 L["Worldmap"] = "Carte du monde"
 L["Worldmap drawing"] = "Dessine ou non sur la carte du monde."
 L["Yards to move before triggering a minimap update"] = "Mètres à parcourir avant de déclencher une mise à jour de la minicarte."
@@ -389,4 +389,3 @@ L["Zone Map"] = "Carte locale"
 L["Zone Map drawing"] = "Dessine ou non sur la carte locale."
 L["Zone to create route in"] = "Choisissez la zone où créer la route."
 L["Zone to create taboo in"] = "Zone où créer le tabou"
-

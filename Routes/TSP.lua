@@ -1,4 +1,4 @@
-﻿----------------------------------
+----------------------------------
 --[[
 Ant Colony Optimization (ACO) for Travelling Salesman Problem (TSP)
 for Routes (a World of Warcraft addon)

@@ -1,0 +1,12 @@
+tag 184b42e3ddebd6f77bda72ebd9e0157fbd15deae v1.5.5a
+Author:	Hendrik Leppkes <h.leppkes@gmail.com>
+Date:	Fri Nov 18 18:25:35 2016 +0100
+
+Tag as v1.5.5a
+
+commit a1af50b6e8439b9788a9febc1e481f186c2cc38d
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Fri Nov 18 10:27:20 2016 +0100
+
+    Update TOC for 7.1
+
