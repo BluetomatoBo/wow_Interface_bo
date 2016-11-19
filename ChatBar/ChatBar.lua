@@ -10,6 +10,13 @@ Graphics: Vynn, Zseton
 -Button Bar for openning chat messages of each type.
 
 Change Log:
+v 3.10 (yarko)
+- Replaced usage of Blizzard flash function with alpha animations on flash texture to solve taint problem
+v 3.9 (yarko)
+- toc to 50400
+v 3.8 (yarko)
+- Updated Traditional Chinese localization file
+- toc to 50300
 v 3.7 (yarko)
 - Updated Russian localization file
 - toc to 50200
@@ -635,7 +642,9 @@ function ChatBar_OnEvent(self, event, ...)
 		self.count = 0;
 	elseif event == "CHAT_MSG_CHANNEL" and type(chanNum) == "number" then
 		if ChatBar_BarTypes["CHANNEL"..chanNum] then
-			UIFrameFlash(_G["ChatBarFrameButton"..ChatBar_BarTypes["CHANNEL"..chanNum].."Flash"], .5, .5, 1.1);
+			ChatBar_Flash(_G["ChatBarFrameButton"..ChatBar_BarTypes["CHANNEL"..chanNum].."Flash"]);
+			-- Buhbye taint? looks like it
+			--UIFrameFlash(_G["ChatBarFrameButton"..ChatBar_BarTypes["CHANNEL"..chanNum].."Flash"], .5, .5, 1.1);
 		end
 	elseif event == "CHAT_MSG_BN_CONVERSATION" then
 		ChatBar_SetLastBNConversationInTarget(chanNum);
@@ -660,7 +669,8 @@ function ChatBar_OnEvent(self, event, ...)
 		end
 	else
 		if ChatBar_BarTypes[strsub(event,10)] then
-			UIFrameFlash(_G["ChatBarFrameButton"..ChatBar_BarTypes[strsub(event,10)].."Flash"], .5, .5, 1.1);
+			ChatBar_Flash(_G["ChatBarFrameButton"..ChatBar_BarTypes[strsub(event,10)].."Flash"]);
+			--UIFrameFlash(_G["ChatBarFrameButton"..ChatBar_BarTypes[strsub(event,10)].."Flash"], .5, .5, 1.1);
 		end
 	end
 end
@@ -829,6 +839,12 @@ function ChatBar_OnDragStop(self)
 	self:StopMovingOrSizing();
 	self.isMoving = false;
 	ChatBar_UpdateOrientationPoint(true);
+end
+
+function ChatBar_Flash(frame)
+	if (not frame.animFade:IsPlaying()) then
+		frame.animFade:Play();
+	end
 end
 
 --------------------------------------------------

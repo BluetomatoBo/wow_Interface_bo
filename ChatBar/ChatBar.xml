@@ -30,7 +30,24 @@
 				</FontString>
 				<Texture name="$parentUpTex_Spec" file="Interface\AddOns\ChatBar\Skin\ChanButton_Up_Spec"/>
 				<Texture name="$parentDownTex_Spec" file="Interface\AddOns\ChatBar\Skin\ChanButton_Down_Spec"  hidden="true" />
-				<Texture name="$parentFlash" alphaMode="ADD" file="Interface\AddOns\ChatBar\Skin\ChanButton_Glow_Alpha" hidden="true" />
+				<Texture name="$parentFlash" alphaMode="ADD" file="Interface\AddOns\ChatBar\Skin\ChanButton_Glow_Alpha" hidden="true">
+					<Animations>
+						<AnimationGroup parentKey="animFade">
+							<Alpha change="1" duration=".5" startDelay="0" order="1"/>
+							<Alpha change="-1" duration=".5" startDelay=".1" order="2"/>
+							<Scripts>
+								<OnPlay>
+									local frame = self:GetParent();
+									frame:SetAlpha(0);
+									frame:Show();
+								</OnPlay>
+								<OnFinished>
+									self:GetParent():Hide();
+								</OnFinished>
+							</Scripts>
+						</AnimationGroup>
+					</Animations>
+				</Texture>
 			</Layer>
 			<Layer level="ARTWORK">
 				<Texture name="$parentCenter" file="Interface\AddOns\ChatBar\Skin\ChanButton_Center"/>

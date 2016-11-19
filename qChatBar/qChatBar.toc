@@ -1,0 +1,7 @@
+## Interface: 50100
+## Title: qChatBar
+## Notes: qChatBar
+## Credits to: Favorit
+## Author: Qulight
+
+qChatBar.lua
