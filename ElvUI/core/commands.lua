@@ -141,16 +141,20 @@ end
 
 local BLIZZARD_ADDONS = {
 	"Blizzard_AchievementUI",
+	"Blizzard_AdventureMap",
 	"Blizzard_ArchaeologyUI",
 	"Blizzard_ArenaUI",
+	"Blizzard_ArtifactUI",
 	"Blizzard_AuctionUI",
 	"Blizzard_AuthChallengeUI",
 	"Blizzard_BarbershopUI",
 	"Blizzard_BattlefieldMinimap",
 	"Blizzard_BindingUI",
 	"Blizzard_BlackMarketUI",
+	"Blizzard_BoostTutorial",
 	"Blizzard_Calendar",
 	"Blizzard_ChallengesUI",
+	"Blizzard_ClassTrial",
 	"Blizzard_ClientSavedVariables",
 	"Blizzard_Collections",
 	"Blizzard_CombatLog",
@@ -160,6 +164,8 @@ local BLIZZARD_ADDONS = {
 	"Blizzard_DeathRecap",
 	"Blizzard_DebugTools",
 	"Blizzard_EncounterJournal",
+	"Blizzard_FlightMap",
+	"Blizzard_GarrisonTemplates",
 	"Blizzard_GarrisonUI",
 	"Blizzard_GlyphUI",
 	"Blizzard_GMChatUI",
@@ -168,25 +174,32 @@ local BLIZZARD_ADDONS = {
 	"Blizzard_GuildControlUI",
 	"Blizzard_GuildUI",
 	"Blizzard_InspectUI",
-	"Blizzard_ItemAlterationUI",
 	"Blizzard_ItemSocketingUI",
 	"Blizzard_ItemUpgradeUI",
 	"Blizzard_LookingForGuildUI",
 	"Blizzard_MacroUI",
+	"Blizzard_MapCanvas",
 	"Blizzard_MovePad",
+	"Blizzard_NamePlates",
 	"Blizzard_ObjectiveTracker",
+	"Blizzard_ObliterumUI",
+	"Blizzard_OrderHallUI",
 	"Blizzard_PetBattleUI",
 	"Blizzard_PVPUI",
 	"Blizzard_QuestChoice",
 	"Blizzard_RaidUI",
+	"Blizzard_SecureTransferUI",
+	"Blizzard_SharedMapDataProviders",
 	"Blizzard_SocialUI",
 	"Blizzard_StoreUI",
 	"Blizzard_TalentUI",
+	"Blizzard_TalkingHeadUI",
 	"Blizzard_TimeManager",
 	"Blizzard_TokenUI",
 	"Blizzard_TradeSkillUI",
 	"Blizzard_TrainerUI",
 	"Blizzard_Tutorial",
+	"Blizzard_TutorialTemplates",
 	"Blizzard_VoidStorageUI",
 	"Blizzard_WowTokenUI",
 }
@@ -198,6 +211,22 @@ function E:EnableBlizzardAddOns()
 			E:Print("The following addon was re-enabled:", addon)
 		end
 	end
+end
+
+local statusFrame
+function E:ShowStatusReport()
+	if not statusFrame then
+		statusFrame = CreateFrame("Frame", nil, E.UIParent)
+		statusFrame:Size(400, 600)
+		statusFrame:Point("CENTER", 0, 200)
+		statusFrame:SetFrameStrata("HIGH")
+		statusFrame:CreateBackdrop("Transparent", nil, true)
+		statusFrame.backdrop:SetBackdropColor(0, 0, 0, 0.8)
+		statusFrame:Hide()
+	end
+
+	statusFrame:Raise() --Set framelevel above everything else
+	statusFrame:SetShown(not statusFrame:IsShown()) --Toggle displayed state
 end
 
 function E:LoadCommands()
@@ -224,6 +253,7 @@ function E:LoadCommands()
 	self:RegisterChatCommand("resetui", "ResetUI")
 	self:RegisterChatCommand('cleanguild', 'MassGuildKick')
 	self:RegisterChatCommand('enableblizzard', 'EnableBlizzardAddOns')
+	self:RegisterChatCommand("estatus", "ShowStatusReport")
 	-- self:RegisterChatCommand('aprilfools', '') --Don't need this until next april fools
 	
 	if E.ActionBars then
