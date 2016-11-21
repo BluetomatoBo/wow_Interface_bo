@@ -2,15 +2,11 @@
 ## Title: NPCScan
 ## Notes: Uses various methods to scan your surroundings for rare or specified NPCs.
 ## Author: Torhal
-## Version: 7.1.0.1
+## Version: 7.1.0.2
 ## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, HereBeDragons-1.0, LibDialog-1.0, LibSharedMedia-3.0, LibSink-2.0, LibTextDump-1.0, LibToast-1.0, LibWindow-1.1
 ## SavedVariables: NPCScanDB
-## X-Curse-Packaged-Version: 7.1.0.1
-## X-Curse-Project-Name: NPCScan
-## X-Curse-Project-ID: npcscan
-## X-Curse-Repository-ID: wow/npcscan/mainline
 
-## X-Date: 2016-10-25T16:24:06Z
+## X-Date: 2016-10-25T21:24:06Z
 ## X-Category: Achievements
 ## X-Email: jcallahan@curse.com
 

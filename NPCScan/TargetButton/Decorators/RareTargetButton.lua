@@ -9,16 +9,18 @@ local AddOnFolderName, private = ...
 local function DecorateRareTargetButton(button)
 	button:SetSize(276, 96)
 
-	local raidIcon = button.RaidIcon
-	raidIcon:SetPoint("TOPRIGHT", -20, -18)
+	button.DismissButton:SetPoint("TOPRIGHT", -22, -38)
 
 	local portrait = button.Portrait
 	portrait:SetPoint("LEFT", 23, -1)
 
-	local portraitBorder = button:CreateTexture(nil, "OVERLAY")
+	button.RaidIcon:SetPoint("RIGHT", portrait, "LEFT", 3, 0)
+
+	local portraitBorder = button:CreateTexture(nil, "ARTWORK")
 	portraitBorder:SetSize(60, 60)
 	portraitBorder:SetPoint("CENTER", portrait, "CENTER")
 	portraitBorder:SetAtlas("loottoast-itemborder-artifact")
+	portraitBorder:SetDesaturated(true)
 
 	local modelDimension = portrait:GetWidth() - 10
 
@@ -31,6 +33,7 @@ local function DecorateRareTargetButton(button)
 	local background = button.Background
 	background:SetSize(302, 97)
 	background:SetAtlas("LootToast-MoreAwesome", true)
+	background:SetDesaturated(true)
 	background:SetPoint("CENTER")
 
 	local sourceText = button.SourceText

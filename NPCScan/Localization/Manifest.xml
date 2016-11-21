@@ -14,7 +14,7 @@
     <Script file="zhTW.lua"/>
     <Script file="esES.lua"/>
     <Script file="esES.lua"/>
-    <!--@end-non-debug@-->
+<!--    @end-non-debug@-->
 
     <!--@debug@
     <Script file="devel-enUS.lua"/>

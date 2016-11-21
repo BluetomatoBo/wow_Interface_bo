@@ -1,0 +1,22 @@
+tag 318231e2511f86c82ec2fec33059ce67b14c20a3 7.1.0.2
+Author:	James D. Callahan III <jcallahan@curse.com>
+Date:	Sun Nov 20 08:14:59 2016 -0600
+
+commit 20510369ca6e6ce9a24128a87f365a383db0ef8d
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Sun Nov 20 08:14:38 2016 -0600
+
+    Move the raid icon to the left of the portrait, and put an obvious close button to the right of the NPC name instead of having the raid icon pull double-duty.
+
+commit f8960d0f032ecb67e218baae82608a6b731c9c41
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Sun Nov 20 07:55:12 2016 -0600
+
+    Also show rare NPCs as silver instead of gold.
+
+commit 8f02258a5d1cb29ef2799ef8987c134327dcad55
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Sun Nov 20 05:42:42 2016 -0600
+
+    Show rareelite NPCs as silver instead of gold.
+
