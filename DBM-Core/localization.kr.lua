@@ -1,4 +1,4 @@
-﻿if (GetLocale() == "koKR") then
+if (GetLocale() == "koKR") then
 
 DBM_CORE_NEED_LOCALS				= "프로그래밍이나 언어에 소질이 있으신가요? 그렇다면 DBM이 다른 언어를 더 지원할 수 있게 도와주세요. 저희를 돕고 싶다면 |HDBM:localizersneeded|h|cff3588ff여기를 클릭|r해서 포럼을 방문해 주세요."
 DBM_CORE_NEED_LOGS					= "DBM이 최고의 보스 알림 애드온이 되기 위해선 Transcriptor (http://www.wowace.com/addons/transcriptor/)로 집계한 전투 기록이 필요합니다. 저희를 돕고 싶다면 보스 전투를 Transcriptor로 기록한 데이터를 저희 포럼에 올려주세요. 7.0 레이드와 던전 기록만 필요합니다."

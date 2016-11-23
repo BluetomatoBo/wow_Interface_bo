@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 15454 $"):sub(12, -3)),
-	DisplayVersion = "7.1.2", -- the string that is shown as version
-	ReleaseRevision = 15454 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 15490 $"):sub(12, -3)),
+	DisplayVersion = "7.1.3", -- the string that is shown as version
+	ReleaseRevision = 15490 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -271,6 +271,7 @@ DBM.DefaultOptions = {
 	CRT_Enabled = false,
 	ShowRespawn = true,
 	ShowQueuePop = true,
+	MythicPlusChestTimer = true,
 	HelpMessageVersion = 3,
 	NewsMessageShown = 4,
 	MoviesSeen = {},
@@ -417,8 +418,9 @@ local targetMonitor = nil
 local statusWhisperDisabled = false
 local wowVersionString, _, _, wowTOC = GetBuildInfo()
 local dbmToc = 0
+local UpdateChestTimer
 
-local fakeBWVersion, fakeBWHash = 23, "96b60fc"
+local fakeBWVersion, fakeBWHash = 24, "55aa1a7"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -3567,21 +3569,50 @@ function DBM:SCENARIO_CRITERIA_UPDATE()
 	end
 end
 
---REFACTOR IN LEGION
-function DBM:CHALLENGE_MODE_START(mapID)
-	self:Debug("CHALLENGE_MODE_START fired for mapID "..mapID)
-end
+do
+	function UpdateChestTimer(self)
+		local _, elapsedTime = GetWorldElapsedTime(1)--Should always be 1, with only one world state timer active.
+		local _, _, maxTime = C_ChallengeMode.GetMapInfo(LastInstanceMapID);
+		maxTime = maxTime * 0.8--Two chests
+		local remaining = (maxTime or 0) - (elapsedTime or 0)
+		if remaining and remaining > 0 then--Safey check in case it fails
+			self.Bars:CreateBar(remaining, "2 "..CHESTSLOT)
+			self:Schedule(remaining+1, UpdateChestTimer, self)
+		end
+	end
 
-function DBM:CHALLENGE_MODE_RESET()
-	self.Bars:CancelBar(PLAYER_DIFFICULTY6.."+")
-	self:Debug("CHALLENGE_MODE_RESET fired")
-end
+	function DBM:CHALLENGE_MODE_START(mapID)
+		self:Debug("CHALLENGE_MODE_START fired for mapID "..mapID)
+		if not self.Options.MythicPlusChestTimer then return end
+		self:Unschedule(UpdateChestTimer)
+		local _, elapsedTime = GetWorldElapsedTime(1)--Should always be 1, with only one world state timer active.
+		local _, _, maxTime = C_ChallengeMode.GetMapInfo(LastInstanceMapID);
+		maxTime = maxTime * 0.6--Three Chests
+		local remaining = (maxTime or 0) - (elapsedTime or 0)
+		if remaining and remaining > 0 then--Safey check in case it fails
+			self.Bars:CreateBar(remaining, "3 "..CHESTSLOT)
+			self:Schedule(remaining+1, UpdateChestTimer, self)
+		end
+	end
 
-function DBM:CHALLENGE_MODE_COMPLETED()
-	self.Bars:CancelBar(PLAYER_DIFFICULTY6.."+")
-	self:Debug("CHALLENGE_MODE_COMPLETED fired for mapID "..LastInstanceMapID)
+	function DBM:CHALLENGE_MODE_RESET()
+		self:Debug("CHALLENGE_MODE_RESET fired")
+		self.Bars:CancelBar(PLAYER_DIFFICULTY6.."+")
+		if not self.Options.MythicPlusChestTimer then return end
+		self:Unschedule(UpdateChestTimer)
+		self.Bars:CancelBar("3 "..CHESTSLOT)
+		self.Bars:CancelBar("2 "..CHESTSLOT)
+	end
+
+	function DBM:CHALLENGE_MODE_COMPLETED()
+		self:Debug("CHALLENGE_MODE_COMPLETED fired for mapID "..LastInstanceMapID)
+		self.Bars:CancelBar(PLAYER_DIFFICULTY6.."+")
+		if not self.Options.MythicPlusChestTimer then return end
+		self:Unschedule(UpdateChestTimer)
+		self.Bars:CancelBar("3 "..CHESTSLOT)
+		self.Bars:CancelBar("2 "..CHESTSLOT)
+	end
 end
---REFACTOR IN LEGION
 
 --------------------------------
 --  Load Boss Mods on Demand  --
@@ -5080,6 +5111,10 @@ do
 				path = "Interface\\AddOns\\DBM-VP"..voice.."\\checkhp.ogg"
 			end
 			self:PlaySoundFile(path)
+			if UnitHealthMax("player") ~= 0 then
+				local health = UnitHealth("player") / UnitHealthMax("player") * 100
+				self:AddMsg(DBM_CORE_AFK_WARNING:format(health))
+			end
 		end
 	end
 
@@ -5676,6 +5711,7 @@ do
 			end
 			if self.Options.AFKHealthWarning and UnitIsUnit(uId, "player") and (health < 85) and not IsEncounterInProgress() and UnitIsAFK("player") and self:AntiSpam(5, "AFK") then--You are afk and losing health, some griever is trying to kill you while you are afk/tabbed out.
 				self:PlaySoundFile("Sound\\Creature\\CThun\\CThunYouWillDIe.ogg")--So fire an alert sound to save yourself from this person's behavior.
+				self:AddMsg(DBM_CORE_AFK_WARNING:format(health))
 			end
 		end
 	end
@@ -6163,6 +6199,28 @@ function DBM:UNIT_DIED(args)
 	if self.Options.AFKHealthWarning and GUID == UnitGUID("player") and not IsEncounterInProgress() and UnitIsAFK("player") and self:AntiSpam(5, "AFK") then--You are afk and losing health, some griever is trying to kill you while you are afk/tabbed out.
 		self:FlashClientIcon()
 		self:PlaySoundFile("Sound\\Creature\\CThun\\CThunYouWillDIe.ogg")--So fire an alert sound to save yourself from this person's behavior.
+		self:AddMsg(DBM_CORE_AFK_WARNING:format(0))
+	end
+	--UGLY INEFFICIENT PLACE to have this. TODO see if CHALLENGE_MODE event exists for timer changing to do this more properly
+	if difficultyIndex == 8 and self.Options.MythicPlusChestTimer and bband(args.destFlags, COMBATLOG_OBJECT_TYPE_PLAYER) ~= 0 then
+		self:Unschedule(UpdateChestTimer)
+		self.Bars:CancelBar("3 "..CHESTSLOT)
+		self.Bars:CancelBar("2 "..CHESTSLOT)
+		local _, elapsedTime = GetWorldElapsedTime(1)--Should always be 1, with only one world state timer active.
+		local _, _, maxTime = C_ChallengeMode.GetMapInfo(LastInstanceMapID);
+		local threeChest = maxTime * 0.6
+		local twoChest = maxTime * 0.8
+		local remaining = (threeChest or 0) - (elapsedTime or 0)
+		if remaining and remaining > 0 then--Safey check in case it fails
+			self.Bars:CreateBar(remaining, "3 "..CHESTSLOT)
+			self:Schedule(remaining+1, UpdateChestTimer, self)
+		else
+			remaining = (twoChest or 0) - (elapsedTime or 0)
+			if remaining and remaining > 0 then--Safey check in case it fails
+				self.Bars:CreateBar(remaining, "2 "..CHESTSLOT)
+				self:Schedule(remaining+1, UpdateChestTimer, self)
+			end
+		end
 	end
 end
 DBM.UNIT_DESTROYED = DBM.UNIT_DIED
@@ -6371,7 +6429,7 @@ do
 		if month == 4 and day == 1 then--April 1st
 			self:Schedule(180 + math.random(0, 300) , self.AprilFools, self)
 		end
-		if GetLocale() == "ptBR" or GetLocale() == "frFR" or GetLocale() == "itIT" then
+		if GetLocale() == "ptBR" or GetLocale() == "frFR" or GetLocale() == "itIT" or GetLocale() == "esES" or GetLocale() == "ruRU" then
 			C_TimerAfter(10, function() if self.Options.HelpMessageVersion < 4 then self.Options.HelpMessageVersion = 4 self:AddMsg(DBM_CORE_NEED_LOCALS) end end)
 		end
 		C_TimerAfter(20, function() if not self.Options.ForumsMessageShown then self.Options.ForumsMessageShown = self.ReleaseRevision self:AddMsg(DBM_FORUMS_MESSAGE) end end)
@@ -10227,6 +10285,17 @@ do
 			return self:NewCastTimer(timer / 1000, spellId, ...)
 		end
 		return newTimer(self, "cast", timer, ...)
+	end
+	
+	function bossModPrototype:NewCastSourceTimer(timer, ...)
+		if tonumber(timer) and timer > 1000 then -- hehe :) best hack in DBM. This makes the first argument optional, so we can omit it to use the cast time from the spell id ;)
+			local spellId = timer
+			timer = select(4, GetSpellInfo(spellId)) or 1000 -- GetSpellInfo takes YOUR spell haste into account...WTF?
+			local spellHaste = select(4, GetSpellInfo(53142)) / 10000 -- 53142 = Dalaran Portal, should have 10000 ms cast time
+			timer = timer / spellHaste -- calculate the real cast time of the spell...
+			return self:NewCastSourceTimer(timer / 1000, spellId, ...)
+		end
+		return newTimer(self, "castsource", timer, ...)
 	end
 
 	function bossModPrototype:NewCDTimer(...)

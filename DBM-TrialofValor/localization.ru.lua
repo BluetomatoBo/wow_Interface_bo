@@ -1,14 +1,11 @@
+if GetLocale() ~= "ruRU" then return end
+
 local L
 
 ---------------
 -- Odyn --
 ---------------
 L= DBM:GetModLocalization(1819)
-
-L:SetMiscLocalization({
-	BrandYell = "{rt%d} %s {rt%d}"--Shouldn't need translating
-})
-
 ---------------------------
 -- Guarm --
 ---------------------------
@@ -20,14 +17,14 @@ L= DBM:GetModLocalization(1830)
 L= DBM:GetModLocalization(1829)
 
 L:SetTimerLocalization({
-	OrbsTimerText		= "Next Orbs (%d-%s)"
+	OrbsTimerText		= "След. Сфера (%d-%s)"
 })
 
 L:SetMiscLocalization({
-	phaseThree		= "Your efforts are for naught, mortals! Odyn will NEVER be free!",
-	near			= "near",
-	far				= "far",
-	multiple		= "Multiple"
+	phaseThree =	"Your efforts are for naught, mortals! Odyn will NEVER be free!",
+	near =			"Возле",
+	far =			"Вдалеке",
+	multiple =		"множественный"
 })
 
 -------------

@@ -1,0 +1,312 @@
+tag 3aed4fd061dd42928addd6fb86ffdbad04e658d6 7.1.3
+Author:	subversion <svn@deadlybossmods.com>
+Date:	Wed Nov 23 01:15:56 2016 +0100
+
+Tagging as 7.1.3
+
+commit daaa98c93a2881aff23abcc33051a940f472d7e5
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Nov 23 01:15:56 2016 +0100
+
+    increment version number to 7.1.3
+
+commit d60a1384473395a8011a49c7e976587bfc8fe5ab
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Nov 22 21:43:15 2016 +0100
+
+    Omega via svn r15490:
+    test push
+
+commit 558138ba29e98a1fbb289db487a2b3d468536add
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Nov 22 18:11:52 2016 +0100
+
+    Omega via svn r15489:
+    account for players dying updating the chest timer
+
+commit 2fc2f17ba071d6d0edd4412e013cff28fb9a5b2c
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Nov 22 10:52:24 2016 +0100
+
+    Omega via svn r15488:
+    Add volatile foam timers to guarm
+
+commit de05cd003af860b35d557d3e3303441fccf4637a
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Nov 22 01:13:04 2016 +0100
+
+    Omega via svn r15487:
+    Test something, see what happens.
+
+commit c0104d708fd23e7bb9ad354412401f2824388880
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Nov 21 23:47:48 2016 +0100
+
+    Omega via svn r15486:
+    #Helya update
+    *Fixed some bugs with ooze explosion timer still
+    *improvements to taint of sea timer on all difficulties
+
+commit 0aa57f0a2b66fa9e6b3e9fb601ac25d0e4014910
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Nov 21 18:37:39 2016 +0100
+
+    ultrashining via svn r15485:
+    zhTW update
+
+commit 69144957bf6b90ce4e90f4fd056846cbaf415326
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Nov 21 11:52:33 2016 +0100
+
+    Omega via svn r15484:
+    #Helya update
+    *Scrap yell backup pull, it just confuses updating and as a result may have even broken sone normal/heroic timers in one of previous updates by forgetting to update BOTH phase 3 triggers. bleh. Mythic still sound though! I?\226?\128?\153ll redo/fix normal/heroic tomorrow
+    *Updated orb and taint of sea timers with rest of data now that there are 5 helya kills :D
+
+commit cb5458725119bd55bc8014508e8143f6c4e5b523
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Nov 21 08:14:10 2016 +0100
+
+    Omega via svn r15483:
+    #Helya update
+    *refactor tentacle warnings for mythic to reduce spam and improve descriptions
+    *Made tentacle timers count timers
+
+commit f171365e83c7b42eae4fb684c49d948b4a94e3dd
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Nov 20 11:52:33 2016 +0100
+
+    Omega via svn r15482:
+    massively shorten tentacle strike warning text size.
+    Fix exploding ooze timer in mythic
+
+commit 74d30f8f8e6795155b46a6a5d859e1ae97841c91
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Nov 20 05:36:52 2016 +0100
+
+    Omega via svn r15481:
+    Fix draw power, mythic different spellid. Was so focused on helya overlooked this. sorry!
+
+commit e808b2868c1b529e8b4518844381a203d35f9f37
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Nov 20 05:16:17 2016 +0100
+
+    Omega via svn r15480:
+    Fix typo
+
+commit 6b20f00ceae9fb32e1fd6d3b7e3d0cb0a9111bb1
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Nov 20 05:04:36 2016 +0100
+
+    Omega via svn r15479:
+    forgot defaults
+
+commit cb25f5cd02755ab76929b1a2516dbcfa4da49634
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Nov 20 04:54:35 2016 +0100
+
+    Omega via svn r15478:
+    oh yeah bump helya HF revision
+
+commit cafc682fb2f3a6917a450c47b25f0a6ee7ac3cf2
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Nov 20 04:53:57 2016 +0100
+
+    Omega via svn r15477:
+    Add support for mythic+ 2/3 chest timers. Closes ticket #40
+
+commit cafc682fb2f3a6917a450c47b25f0a6ee7ac3cf2
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Nov 20 04:53:57 2016 +0100
+
+    Omega via svn r15477:
+    Add support for mythic+ 2/3 chest timers. Closes ticket #40
+
+commit 500b79cfc7046adc4ce6c65a337e9505cba0ee9d
+Author: MysticalOS <MysticalOS@nomail.com>
+Date:   Sat Nov 19 22:29:59 2016 -0500
+
+    Set enable-nolib-creation: no
+
+commit 416cee83d3f820e532ff700fb5d421666d23e3ce
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Nov 20 00:50:02 2016 +0100
+
+    Omega via svn r15476:
+    #Helya Update
+    *Phase 2 and Phase 3 mythic helya timer updates
+    *Updated icon code for phase 3 orbs to reflect that tanks are excluded exclusively on Mythic
+    *Updated orb timers to reflect which type of dps will be picked by orbs in next set
+    *Added counts to fury of the maw
+    *Fixed some incorrect fury of maw timers for non mythic difficulty
+    *Changed add timer to now start at fury of maw cast begin(mythic)/end(nonmythic) to show add spawns in 7 seconds instead of having a redundant add timer up entire time when it?\226?\128?\153s just same as fury of the maw.
+    *Changed taunt warning for anchor to no longer fire if other tank is > 18 yards away (mythic basically)
+    *Improved timer handling for fury of maw for non mythic difficulty so you get a timer for first one in phase 2 now.
+    *Fixed warning for mist infusion to be a cast warning now not a target warning. Added cast bars for it (per add) and antispam warning if two cast it at exact same time. Also made warning off by default since it?\226?\128?\153s quite often and quite spammy. It?\226?\128?\153s quite important too so those who need it should turn it on, but it shouldn?\226?\128?\153t spam EVERYONE if it?\226?\128?\153s not their job.
+    *Added warnings/timers for give no quarter.
+    *Disabled anchor timer in LFR (it doesn?\226?\128?\153t get cast there)
+    *Fixed normal anchor timer, it?\226?\128?\153s longer on normal than it is on heroic/mythic
+    *Fixed bug where lantern timer wasn?\226?\128?\153t canceling on mob death for Night Watch Mariner
+    *Added fetid rot timer
+    *Probably other stuff I forgot
+    *Possibly new bugs, so much code changed.
+    *Minor Text Fixes
+    
+    ****Note to localizers. The new orb timer needs localizing. Please do so ASAP. I want to get a release out soon.
+
+commit df998460ac30a2b41b725ccefcfe42288690ed55
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Nov 19 03:01:47 2016 +0100
+
+    Omega via svn r15475:
+    Add chat message when afk sound fires, so users know why it happens and how to deal with it (or disable it)
+    Improved timer options for helya and odyn to be easier to read
+    Added lantern of darkness timer to helya (needs phase 3 mythic data)
+    Fixed adds timer for phase 3 normal. it?\226?\128?\153s not same as phase 3 LFR.
+
+commit 3ed72a5e17f0923010c040345c658984b460a245
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 22:44:09 2016 +0100
+
+    Omega via svn r15474:
+    ru update
+
+commit dfe5b4193b19c875fa4269488ee59bdf6fbbd0bd
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 21:41:35 2016 +0100
+
+    Omega via svn r15473:
+    Bump bw version
+
+commit aca637436ce35df083878984256dc080064b7ef9
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 21:38:01 2016 +0100
+
+    Omega via svn r15472:
+    Changed how hyrja and hymdall entering area are detected to make 1.5 seconds faster.
+    Added a spawn warning/voice to them as well
+    Changed a bunch of timers on heroic ilgynoth. Not sure if this is right though. it could just be a overgear speedup mechanic kicking in. In which case this makes it worse for those who don?\226?\128?\153t overgear it. :\ Wish blizzard was clearer when these mechanics exist.
+
+commit bb131ed28ad8ee241b181f6798bdfa193f18fbdc
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 09:34:33 2016 +0100
+
+    Omega via svn r15471:
+    add two more languages to help message
+
+commit fd18f9526412d0c7f3cbfbcc452353cab919697f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 09:30:40 2016 +0100
+
+    Omega via svn r15470:
+    More tentacle refactoring, as well as some terrible google translations that are probably wrong. localizers please verify and update helya translations
+
+commit 600a1e871a08f2dee71a5192307a655de2f12371
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 09:03:20 2016 +0100
+
+    Omega via svn r15469:
+    Only special warn once, but generic announce all locations with regular warning and show cast bars with locations
+
+commit b1e70a8248a4d8a53dab36fc7965a8fb0136f895
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 08:48:00 2016 +0100
+
+    Omega via svn r15468:
+    Add tentacle strike cast time
+
+commit 80b8bb9b87583eab0eed91582d21d7835017a3f6
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 07:47:54 2016 +0100
+
+    Omega via svn r15467:
+    Add range frame rules for phase 3 mythic odyn
+    Add yells for branded to match BW
+    Added more trash warnings to Trials of Valor
+    Minor timer tweaks to guarm and helya
+
+commit 388c26e944d3a413374836dc7533a08f0c13060d
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 03:44:50 2016 +0100
+
+    Omega via svn r15466:
+    couple fixes
+
+commit 4687ef4c94e4ed4c0409bebede2900853a8583d2
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 02:17:05 2016 +0100
+
+    Omega via svn r15465:
+    Update odyn for mythic
+    More work to do later but was gone all day and have live raids to do now.
+
+commit 0b4f707a658063b8f646aa6ec902b7f9522c6a01
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Nov 18 00:15:26 2016 +0100
+
+    Omega via svn r15464:
+    Bump
+
+commit b45bbb640c28ccd218a48dec7aec570debad5d68
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Nov 16 21:51:40 2016 +0100
+
+    Omega via svn r15463:
+    #Helya Update
+    *Updated phase 1 mythic timers
+    *Antispam tentacles, since two spawn at a time on mythic
+
+commit e97087201cec343e4d175f4af517ad2caa7517c7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Nov 16 21:42:39 2016 +0100
+
+    Omega via svn r15462:
+    #Guarm Update
+    *Fix one of foam warnings not working on mythic
+    *Fix mythic berserk
+    *Added info frame for foams
+    *Added icon marking for foams
+    *Added audio count down for breaths and fangs
+
+commit 923a50f82554f7d58054d228227081baf0c3f48f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Nov 16 06:17:52 2016 +0100
+
+    Omega via svn r15461:
+    Timer option default tweaks, to reduce number of active timers
+
+commit 9519bf2afc2124accffe2cca2310d7162e1ea3c1
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Nov 16 06:14:44 2016 +0100
+
+    Omega via svn r15460:
+    minor tweak
+
+commit 5c3d77db47604304ba8e34b2bae2e06d1138d54f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Nov 16 03:47:03 2016 +0100
+
+    Omega via svn r15459:
+    another fix
+
+commit 0c247d7e66227eb6a1b5abd371f906b584b0e614
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Nov 16 03:43:39 2016 +0100
+
+    Omega via svn r15458:
+    minor fixes
+
+commit 1c957a6a4617f13f0939e7e10dcf3cc70b86c348
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Nov 15 23:49:17 2016 +0100
+
+    Omega via svn r15457:
+    never announce tank as target on humongris. if can?\226?\128?\153t find real target, don?\226?\128?\153t announce at all
+
+commit 7ac20021404bbe3784ba53a5a24445e442693282
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Nov 15 13:28:00 2016 +0100
+
+    tandanu via svn r15456:
+    increment alpha version
+
