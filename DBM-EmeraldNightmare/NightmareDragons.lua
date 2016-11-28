@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1704, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15461 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15495 $"):sub(12, -3))
 mod:SetCreatureID(102679)--Ysondre, 102683 (Emeriss), 102682 (Lethon), 102681 (Taerar)
 mod:SetEncounterID(1854)
 mod:SetZone()
@@ -70,7 +70,7 @@ local specWarnShadesOfTaerar		= mod:NewSpecialWarningSwitch(204100, "Tank", nil,
 local specWarnBellowingRoar			= mod:NewSpecialWarningSpell(204078, nil, nil, nil, 2, 6)
 
 --All
-local timerMarkCD					= mod:NewNextTimer(7, "ej12809", 28836, nil, nil, 3, 203102)
+local timerMarkCD					= mod:NewNextTimer(7, "ej12809", 28836, false, 2, 3, 203102)--Now off by default, to further reduce timer clutter, plus sometimes it's wrong because in rare cases the dragons desync for some reason
 local timerBreathCD					= mod:NewCDSourceTimer(27, 203028, 21131, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)--27-34 for Ysondre, Cohorts 27-29.
 --Ysondre
 mod:AddTimerLine(Ysondre)
@@ -325,7 +325,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnMark:Show(amount)
 			voiceMark:Play("stackhigh")
 		end
-		if self:AntiSpam(4, 2) then
+		if self:AntiSpam(5, 2) then
 			if self:IsMythic() then
 				timerMarkCD:Start()
 			elseif self:IsHeroic() then

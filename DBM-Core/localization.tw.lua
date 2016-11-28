@@ -249,6 +249,7 @@ DBM_CORE_MIDDLE						= "中"
 DBM_CORE_FRONT						= "前"
 DBM_CORE_INTERMISSION				= "中場時間"
 DBM_CORE_ORB						= "球"
+DBM_CHEST							= "獎勵箱"
 
 DBM_CORE_BREAK_USAGE				= "休息時間不能長於60分鐘。請確定你輸入的時間是分鐘不是秒。"
 DBM_CORE_BREAK_START				= "現在開始休息-你有%s分鐘!"
@@ -459,7 +460,7 @@ DBM_ARROW_ERROR_USAGE	= {
 DBM_SPEED_KILL_TIMER_TEXT	= "勝利紀錄"
 DBM_SPEED_CLEAR_TIMER_TEXT	= "最佳紀錄"
 DBM_COMBAT_RES_TIMER_TEXT	= "下一個戰復充能"
-DBM_CORE_TIMER_RESPAWN		= "重生"
+DBM_CORE_TIMER_RESPAWN		= "%s 重生"
 
 
 DBM_REQ_INSTANCE_ID_PERMISSION		= "%s想要查看你的副本ID和進度鎖定情況。\n你想發送該訊息給%s嗎? 在你的當前進程（除非你下線）他可以一直查閱該訊息。"
