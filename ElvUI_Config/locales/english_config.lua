@@ -393,7 +393,6 @@ L["Attempt to support eyefinity/nvidia surround."] = true;
 L["Auto Greed/DE"] = true;
 L["Auto Repair"] = true;
 L["Auto Scale"] = true;
-L["Auto"] = true;
 L["Automatically accept invites from guild/friends."] = true;
 L["Automatically repair using the following method when visiting a merchant."] = true;
 L["Automatically scale the User Interface based on your screen resolution"] = true;

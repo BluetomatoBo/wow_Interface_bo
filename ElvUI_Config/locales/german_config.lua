@@ -404,7 +404,6 @@ L["Attempt to support eyefinity/nvidia surround."] = "Versucht Eyefinity/NVIDIA 
 L["Auto Greed/DE"] = "Auto-Gier/DE"
 L["Auto Repair"] = "Auto-Reparatur"
 L["Auto Scale"] = "Auto-Skalierung"
-L["Auto"] = true;
 L["Automatically accept invites from guild/friends."] = "Automatisch Einladungen von Gildenmitgliedern/Freunden akzeptieren"
 L["Automatically repair using the following method when visiting a merchant."] = "Repariere automatisch deine Ausrüstungsgegenstände, wenn du eine der folgenden Methoden auswählst."
 L["Automatically scale the User Interface based on your screen resolution"] = "Automatische Skalierung des Interfaces, angepasst an deine Bildschirmeinstellung"
