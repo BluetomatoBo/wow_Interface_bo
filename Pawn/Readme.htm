@@ -445,7 +445,7 @@ and Pawn.</p>
 	in your SavedVariables, like names, spec IDs, and so on.&nbsp; That stuff 
 	should be dynamically created each time you log in, not saved.</li>
 	<li>When you have only one heirloom ring, Pawn doesn't show ring upgrades at 
-	all.&nbsp; (It's possible that this is no longer an issue in 2.0; I haven't 
+	all.&nbsp; (It's possible that this is no longer an issue in 7.0; I haven't 
 	re-verified it.)&nbsp;&nbsp; (<a href="https://wow.curseforge.com/addons/pawn/tickets/117-mage-not-working/">Ticket</a>)</li>
 	<li>It's been reported that Pawn's item level display when inspecting other 
 	players is wrong, and it was suggested that it was because the off-hand 
@@ -458,11 +458,13 @@ and Pawn.</p>
 </ul>
 <h3>Features I might add soon</h3>
 <ul>
-	<li>I should make the "compare item right" and left keybinds work on world 
-	quest reward tooltips.</li>
 	<li>A way to choose a spec icon to show on your item tooltips for custom 
 	scales.&nbsp; (Informal polling suggests that no one wants the ability to 
-	use a totally custom icon.)</li>
+	use a totally custom icon.)<ul>
+		<li>Step 1 is to get that working for imported scales from simulators 
+		and online guides.</li>
+	</ul>
+	</li>
 	<li>I've gotten a bunch of feedback on the way that Pawn makes assumptions 
 	about gems today.&nbsp; I may replace the existing low-level gems option with two 
 	new ones: "assume I won't use gems on anything below this level" (currently 
@@ -475,8 +477,9 @@ and Pawn.</p>
 	and Pawn doesn't normally do much of anything with item level, but it does 
 	seem potentially handy.)</li>
 	<li>In addition to upgrades, show "minor upgrade" (&lt;1%), "identical" (0%), 
-	"X% downgrade" (&gt;-20%).&nbsp; Probably don't ever show anything on grey or 
-	white items.&nbsp; Maybe add an option to show downgrades as low as -99%.<ul>
+	"X% downgrade" (&lt;0%).&nbsp; Probably don't ever show anything on grey or 
+	white items, unless your current item is grey or white (or, just don't show 
+	anything worse than -20%). <ul>
 		<li>This would help people decide on secondary items due to the lack of 
 		stat cap features.</li>
 	</ul>
@@ -486,6 +489,19 @@ and Pawn.</p>
 	<li>Integration with Storyline</li>
 </ul>
 <h2>Updates</h2>
+<h3>Version 2.1.9</h3>
+<ul>
+	<li>Performance enhancements based on suggestions from rowaasr13 of Garrison 
+	Mission Manager.</li>
+	<li>Pawn's Bag Upgrade Advisor will no longer show green arrows on items in 
+	your bags that aren't equippable yet because you don't meet the level 
+	requirement.&nbsp; (You'll still see them if you hover over the item.)</li>
+	<li>Added support for the comparison tooltips that appear when holding Shift 
+	over the point-of-interest icon for a world quest that rewards an equippable 
+	item.</li>
+	<li>The "compare item left" and "compare item right" keybinds now work on 
+	world quest rewards.</li>
+</ul>
 <h3>Version 2.1.8</h3>
 <ul>
 	<li>Updated stat weights from Ask Mr. Robot for changes in patch 7.1 and 

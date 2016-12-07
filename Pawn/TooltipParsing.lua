@@ -47,6 +47,7 @@ PawnSeparatorIgnorePrefixes =
 }
 
 -- Items that begin with any of the following strings will never be parsed.
+-- TODO: *** Remove these localized strings once we're sure we don't need them
 PawnIgnoreNames =
 {
 	L.Design,
