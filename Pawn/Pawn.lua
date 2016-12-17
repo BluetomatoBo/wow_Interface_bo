@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0109
+PawnVersion = 2.0110
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -27,7 +27,7 @@ PawnPrivateTooltipName = "PawnPrivateTooltip1"
 --	An entry in the Values table is an ordered array in the following format:
 --	{ ScaleName, Value, UnenchantedValue }
 local PawnItemCache = nil
-local PawnItemCacheMaxSize = 200 -- ...was 50; thanks to bag arrows, this should be greater than the number of possible inventory slots
+local PawnItemCacheMaxSize = 200 -- thanks to bag arrows, this should be greater than the number of possible inventory slots
 
 local PawnScaleTotals = { }
 
@@ -387,7 +387,6 @@ function PawnInitialize()
 			if not MinLevel or UnitLevel("player") < MinLevel then return nil end
 			local Item = PawnGetItemData(ItemLink)
 			if not Item then return nil end
-			--TEMPupgcounter = (TEMPupgcounter or 0) + 1 VgerCore.Message("*** Calling PawnIsItemAnUpgrade " .. TEMPupgcounter) -- ***
 			return PawnIsItemAnUpgrade(Item) ~= nil
 		else
 			return PawnOriginalIsContainerItemAnUpgrade(bagID, slot, ...)
@@ -924,6 +923,11 @@ function PawnGetItemData(ItemLink)
 	
 	-- Now, with that information, we can look up the item in the Pawn item cache.
 	local Item = PawnGetCachedItem(ItemLink, ItemName, ItemNumLines)
+	if not Item and not NewItemLink then
+		-- The item isn't in the user's WoW cache or Pawn cache.  Bail out now.
+		if PawnCommon.DebugCache then VgerCore.Message("*** Pawn debug cache: PawnGetItemData is bailing out because it didn't get item data in time for " .. ItemLink) end
+		return 
+	end
 	if Item and Item.Values then
 		return Item
 	end
@@ -1565,29 +1569,21 @@ end
 --		UnknownLines: A list of lines in the tooltip that were not understood.
 --		PrettyLink: A beautified item link, if available.
 function PawnGetStatsFromTooltip(TooltipName, DebugMessages)
-	local Stats, SocketBonusStats, UnknownLines = {}, {}, {}
-	local HadUnknown = false
-	local SocketBonusIsValid = false
 	local Tooltip = _G[TooltipName]
 	if DebugMessages == nil then DebugMessages = true end
 	
 	-- Get the item name.  It could be on line 2 if the first line is "Currently Equipped".
 	local ItemName, ItemNameLineNumber = PawnGetItemNameFromTooltip(TooltipName)
-	if (not ItemName) or (not ItemNameLineNumber) then return end
+	if (not ItemName) or (not ItemNameLineNumber) then
+		if PawnCommon.DebugCache then VgerCore.Message("*** Pawn debug cache: PawnGetStatsFromTooltip exiting because the item in " .. TooltipName .. " had no name") end
+		return
+	end
 
-	-- ***  Removing this code because the item type is not checked in PawnGetItemData. 
-
---	-- First, check for the ignored item names: for example, any item that starts with "Design:" should
---	-- be ignored, because it's a jewelcrafting design, not a real item with stats.
---	local ThisName, _
---	for _, ThisName in pairs(PawnIgnoreNames) do
---		if strfind(ItemName, ThisName, 1, true) == 1 then
---			-- This is a known ignored item name; don't return any stats.
---			return
---		end
---	end
-	
 	-- Now, read the tooltip for stats.
+	local Stats, SocketBonusStats, UnknownLines = {}, {}, {}
+	local HadUnknown = false
+	local SocketBonusIsValid = false
+
 	for i = ItemNameLineNumber + 1, Tooltip:NumLines() do
 		local LeftLine = _G[TooltipName .. "TextLeft" .. i]
 		local LeftLineText = LeftLine:GetText()
@@ -1596,9 +1592,6 @@ function PawnGetStatsFromTooltip(TooltipName, DebugMessages)
 		-- Look for this line in the "kill lines" list.  If it's there, we're done.
 		local IsKillLine = false
 		-- Dirty, dirty hack for artifacts: check the color of the text; if it's artifact gold and it's not at the beginning of the tooltip, then treat it as a kill line.
-		--local r, g, b = LeftLine:GetTextColor()
-		--local ArtifactGold = ITEM_QUALITY_COLORS[6]
-		--if (math.abs(r - ArtifactGold.r) < .01) and (math.abs(g - ArtifactGold.g) < .01) and (math.abs(b - ArtifactGold.b) < .01) then
 		if i > ItemNameLineNumber + 2 and strfind(LeftLineText, "|cFFE6CC80", 1, true) == 1 then
 			IsKillLine = true
 		end
@@ -1938,7 +1931,7 @@ function PawnGetItemNameFromTooltip(TooltipName)
 	local TooltipTopLine = _G[TooltipName .. "TextLeft1"]
 	if not TooltipTopLine then return end
 	local ItemName = TooltipTopLine:GetText()
-	if not ItemName or ItemName == "" then return end
+	if not ItemName or ItemName == "" or ItemName == RETRIEVING_ITEM_INFO then return end
 	
 	-- If this is a Currently Equipped tooltip, skip the first line.
 	if ItemName == CURRENTLY_EQUIPPED then
