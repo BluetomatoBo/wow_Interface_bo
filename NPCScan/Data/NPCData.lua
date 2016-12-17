@@ -73,6 +73,12 @@ local NPCData = {
 	[3652] = { -- Trigore the Lasher
 		isTameable = true,
 	},
+	[3735] = { -- Apothecary Falthis
+		factionGroup = "Horde",
+	},
+	[3736] = { -- Darkslayer Mordenthal
+		factionGroup = "Horde",
+	},
 	[3868] = { -- Blood Seeker
 		isTameable = true,
 	},
@@ -2085,6 +2091,8 @@ local NPCData = {
 	},
 	[92611] = { -- Ambusher Daggerfang
 		factionGroup = "Alliance",
+		questID = 38627, -- Worgen Stalkers (Horde Only)
+		vignetteName = "Worgen Stalkers",
 	},
 	[92613] = { -- Priestess Liza
 		factionGroup = "Alliance",
@@ -2108,6 +2116,8 @@ local NPCData = {
 	},
 	[92633] = { -- Assassin Huwe
 		factionGroup = "Horde",
+		questID = 38630, -- Horde Kill Squad (Alliance Only)
+		vignetteName = "Forsaken Deathsquad",
 	},
 	[92634] = { -- Apothecary Perez
 		factionGroup = "Horde",
@@ -2230,6 +2240,9 @@ local NPCData = {
 		questID = 38847, -- Berserker
 		vignetteName = "Urgev the Flayer",
 	},
+	[93622] = { -- Mortiferous
+		questID = 45516, -- Mortiferous
+	},
 	[93654] = { -- Skul'vrax
 		questID = 38887, -- 7.0 Val'sharah - Bluffs - Swiftflight - TRACKING - twh
 		vignetteName = "Elindya Featherlight",
@@ -2303,6 +2316,9 @@ local NPCData = {
 	[95872] = { -- Skullhat
 		questID = 39465, -- Skywhisker Taskmaster
 		vignetteName = "Skywhisker Taskmaster",
+	},
+	[96072] = { -- Durguth
+		questID = 45508, -- Durguth
 	},
 	[96323] = { -- Arachnis
 		questID = 39617, -- Vignette Tracking Quest
@@ -2573,9 +2589,42 @@ local NPCData = {
 		questID = 43957, -- Jade Darkhaven
 		vignetteName = "Jade Darkhaven",
 	},
+	[104481] = { -- Ala'washte
+		questID = 45514, -- Ala'washte
+	},
+	[104513] = { -- Defilia
+		questID = 45513, -- Defilia
+	},
+	[104517] = { -- Mawat'aki
+		questID = 45512, -- Mawat'aki
+	},
+	[104519] = { -- Colerian
+		questID = 45503, -- Colerian
+	},
+	[104521] = { -- Alteria
+		questID = 45504, -- Alteria
+	},
+	[104522] = { -- Selenyi
+		questID = 45502, -- Selenyi
+	},
+	[104523] = { -- Shalas'aman
+		questID = 45500, -- Shalas'aman
+	},
+	[104524] = { -- Ormagrogg
+		questID = 45510, -- Ormagrogg
+	},
+	[104698] = { -- Colerian
+		questID = 45503, -- Colerian
+	},
 	[105547] = { -- Rauren
 		questID = 43484, -- Rauren
 		vignetteName = "Rauren",
+	},
+	[105728] = { -- Scythemaster Cil'raman
+		questID = 45505, -- Scythemaster Cil'raman
+	},
+	[105899] = { -- Oglok the Furious
+		questID = 45506, -- Oglok the Furious
 	},
 	[105938] = { -- Felwing
 		questID = 42069, -- Felbats
@@ -2618,6 +2667,9 @@ local NPCData = {
 	},
 	[107170] = { -- Zorux
 		questID = 42286, -- Houndmaster Stroxis
+	},
+	[107266] = { -- Commander Soraax
+		questID = 44673, -- Commander Soraax
 	},
 	[107269] = { -- Inquisitor Tivos
 		questID = 42376, -- Inquisitor Tivos
@@ -2668,9 +2720,18 @@ local NPCData = {
 		questID = 42699, -- Coura, Master of Arcana
 		vignetteName = "Coura, Master of Arcana",
 	},
+	[108827] = { -- Fjorlag, the Grave's Chill
+		questID = 45507, -- Fjorlag, the Grave's Chill
+	},
 	[109054] = { -- Shal'an
 		questID = 42831, -- Shal'an
 		vignetteName = "Shal'an",
+	},
+	[109113] = { -- Boulderfall, the Eroded
+		questID = 40067, -- 7.0 Stormheim - Boulderfall - twh
+	},
+	[109281] = { -- Malisandra
+		questID = 45501, -- Malisandra
 	},
 	[109498] = { -- Xaander
 		questID = 40423, -- Unethical Adventurers
@@ -2685,12 +2746,48 @@ local NPCData = {
 		questID = 44108, -- Ragemaw
 		vignetteName = "Ragemaw",
 	},
+	[109575] = { -- Valakar the Thirsty
+		questID = 45515, -- Valakar the Thirsty
+	},
+	[109584] = { -- Fjordun
+		questID = 45499, -- Fjordun
+	},
+	[109594] = { -- Stormfeather
+		questID = 45497, -- Stormfeather
+	},
+	[109620] = { -- The Whisperer
+		questID = 45496, -- The Whisperer
+	},
+	[109630] = { -- Immolian
+		questID = 45495, -- Immolian
+	},
+	[109641] = { -- Arcanor Prime
+		questID = 45494, -- Arcanor Prime
+	},
+	[109648] = { -- Witchdoctor Grgl-Brgl
+		questID = 45493, -- Witchdoctor Grgl-Brgl
+	},
+	[109653] = { -- Marblub the Massive
+		questID = 45492, -- Marblub the Massive
+	},
+	[109677] = { -- Chief Treasurer Jabrill
+		questID = 45491, -- Chief Treasurer Jabrill
+	},
+	[109692] = { -- Lytheron
+		questID = 45490, -- Lytheron
+	},
+	[109702] = { -- Deepclaw
+		questID = 45489, -- Deepclaw
+	},
 	[109708] = { -- Undergrell Ringleader
 		questID = 43176, -- Grell Waves Tracking Flag
 		vignetteName = "Undgrell Attack",
 	},
 	[109954] = { -- Magister Phaedris
 		questID = 43348, -- Magister Phaedris
+	},
+	[109990] = { -- Nylaathria the Forgotten
+		questID = 45488, -- Nylaathria the Forgotten
 	},
 	[110024] = { -- Mal'Dreth the Corruptor
 		questID = 43351, -- Mal'Dreth the Corrupter
@@ -2701,9 +2798,18 @@ local NPCData = {
 		questID = 43358, -- Myonix
 		vignetteName = "Myonix",
 	},
+	[110342] = { -- Rabxach
+		questID = 45487, -- Rabxach
+	},
+	[110361] = { -- Harbinger of Screams
+		questID = 45484, -- Harbinger of Screams
+	},
 	[110363] = { -- Roteye
 		questID = 43342, -- Vignette - Roteye
 		vignetteName = "Roteye",
+	},
+	[110367] = { -- Ealdis
+		questID = 45483, -- Ealdis
 	},
 	[110438] = { -- Siegemaster Aedrin
 		questID = 43369, -- Siegemaster Aedrin
@@ -2766,6 +2872,9 @@ local NPCData = {
 	[111463] = { -- Bulvinkel
 		isTameable = true,
 	},
+	[111573] = { -- Kosumoth the Hungering
+		questID = 45479, -- Kosumoth the Hungering
+	},
 	[111649] = { -- Ambassador D'vwinn
 		questID = 43794, -- Ambassador D'vwinn
 		vignetteName = "Ambassador D'vwinn",
@@ -2777,6 +2886,9 @@ local NPCData = {
 	[111653] = { -- Miasu
 		questID = 43793, -- Miasu
 		vignetteName = "Miasu",
+	},
+	[111939] = { -- Lysanis Shadesoul
+		questID = 43956, -- Lysanis Shadesoul
 	},
 	[112497] = { -- Maia the White
 		isTameable = true,
@@ -2790,6 +2902,24 @@ local NPCData = {
 	[112637] = { -- Devious Sunrunner
 		questID = 44081, -- Treacherous Leyrunners
 		vignetteName = "Trecherous Stallions",
+	},
+	[112705] = { -- Achronos
+		questID = 45478, -- Achronos
+	},
+	[112756] = { -- Sorallus
+		questID = 45477, -- Sorallus
+	},
+	[112757] = { -- Magistrix Vilessa
+		questID = 45476, -- Magistrix Vilessa
+	},
+	[112758] = { -- Auditor Esiel
+		questID = 45475, -- Auditor Esiel
+	},
+	[112759] = { -- Az'jatar
+		questID = 45471, -- Az'jatar
+	},
+	[112760] = { -- Volshax, Breaker of Will
+		questID = 45474, -- Volshax, Breaker of Will
 	},
 	[112802] = { -- Mar'tura
 		isTameable = true,

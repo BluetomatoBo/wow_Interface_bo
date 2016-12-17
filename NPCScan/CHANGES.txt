@@ -1,22 +1,16 @@
-tag 318231e2511f86c82ec2fec33059ce67b14c20a3 7.1.0.2
+tag ddf754327bfdcac033eaf647ef0ec3000bf5220a 7.1.0.5
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Sun Nov 20 08:14:59 2016 -0600
+Date:	Mon Dec 12 23:38:38 2016 -0600
 
-commit 20510369ca6e6ce9a24128a87f365a383db0ef8d
+commit 24b17fb51ce7d373a892a0f6a577d7f86432e3d2
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Nov 20 08:14:38 2016 -0600
+Date:   Sun Dec 11 23:06:33 2016 -0600
 
-    Move the raid icon to the left of the portrait, and put an obvious close button to the right of the NPC name instead of having the raid icon pull double-duty.
+    Flag Apothecary Falthis as aligned with the Horde.
 
-commit f8960d0f032ecb67e218baae82608a6b731c9c41
+commit 9deca3a865c7522c9effc0daa559a4b74d357879
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Nov 20 07:55:12 2016 -0600
+Date:   Sun Dec 11 20:06:48 2016 -0600
 
-    Also show rare NPCs as silver instead of gold.
-
-commit 8f02258a5d1cb29ef2799ef8987c134327dcad55
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Nov 20 05:42:42 2016 -0600
-
-    Show rareelite NPCs as silver instead of gold.
+    Flag Darkslayer Mordenthal as aligned with the Horde.
 
