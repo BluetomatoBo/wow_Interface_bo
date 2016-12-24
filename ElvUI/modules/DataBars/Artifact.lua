@@ -134,14 +134,14 @@ function mod:EnableDisable_ArtifactBar()
 	if self.db.artifact.enable then
 		self:RegisterEvent('ARTIFACT_XP_UPDATE', 'UpdateArtifact')
 		self:RegisterEvent('UNIT_INVENTORY_CHANGED', 'UpdateArtifact')
-		self:RegisterEvent("CHAT_MSG_LOOT", 'UpdateArtifact')
+		self:RegisterEvent("BAG_UPDATE_DELAYED", 'UpdateArtifact')
 
 		self:UpdateArtifact()
 		E:EnableMover(self.artifactBar.mover:GetName())
 	else
 		self:UnregisterEvent('ARTIFACT_XP_UPDATE')
 		self:UnregisterEvent('UNIT_INVENTORY_CHANGED')
-		self:UnregisterEvent("CHAT_MSG_LOOT")
+		self:UnregisterEvent("BAG_UPDATE_DELAYED")
 
 		self.artifactBar:Hide()
 		E:DisableMover(self.artifactBar.mover:GetName())
@@ -153,7 +153,9 @@ end
 local apLineIndex
 local function GetAPFromTooltip(itemLink)
 	mod.artifactBar.tooltip:ClearLines()
-	mod.artifactBar.tooltip:SetHyperlink(itemLink)
+	--We need to use SetHyperlink, as SetItemByID doesn't work for items you looted before gaining Artifact Knowledge level.
+	--For those items it would display a value higher than what you would actually get.
+	mod.artifactBar.tooltip:SetHyperlink(itemLink) 
 
 	local apFound
 	if (mod.artifactBar.tooltipLines[2]:GetText() == AP_NAME) then
@@ -207,6 +209,11 @@ local function ItemGrantsAP(itemID, itemLink)
 	end
 end
 
+--Blacklisted item IDs, these cause error when used with :SetHyperlink
+local blacklistedItemID = {
+	[82800] = true, --Pet Cage
+}
+
 function mod:GetArtifactPowerInBags()
 	if InCombatLockdown() then
 		return self.artifactBar.LastKnownAP
@@ -219,7 +226,7 @@ function mod:GetArtifactPowerInBags()
 			ID = select(10, GetContainerItemInfo(bag, slot))
 			link = GetContainerItemLink(bag, slot)
 
-			if (ID and link and ItemGrantsAP(ID, link)) then
+			if (ID and link and not blacklistedItemID[ID] and ItemGrantsAP(ID, link)) then
 				AP = GetAPForItem(link)
 				self.artifactBar.BagArtifactPower = self.artifactBar.BagArtifactPower + AP
 			end
