@@ -101,6 +101,7 @@
 	<Script file="Outfitter.lua"/>
 	<Script file="Ovale.lua"/>
 	<Script file="Overachiever.lua"/>
+	<Script file="Pawn.lua"/>
 	<Script file="PetBattleTeams.lua"/>
 	<Script file="PetJournalEnhanced.lua"/>
 	<Script file="PetTracker.lua"/>
@@ -127,6 +128,7 @@
 	<Script file="ShieldBars.lua"/>
 	<Script file="ShieldMonitor.lua"/>
 	<Script file="SilverDragon.lua"/>
+	<Script file="Simulationcraft.lua"/>
 	<Script file="Skada.lua"/>
 	<Script file="Skillet.lua"/>
 	<Script file="SocialTabs.lua"/>
@@ -149,6 +151,7 @@
 	<Script file="WeakAuras.lua"/>
 	<Script file="Wholly.lua"/>
 	<Script file="WorldBossStatus.lua"/>
+	<Script file="WorldQuestTab.lua"/>
 	<Script file="WowLua.lua"/>
 	<Script file="WoWPro.lua"/>
 	<Script file="xMerchant.lua"/>

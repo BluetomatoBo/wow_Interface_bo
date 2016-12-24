@@ -1,0 +1,94 @@
+tag 6251eb263e00fb74a53bdd586560b2036ffbe95e 3.46
+Author:	Azilroka <darktemplar9900@yahoo.com>
+Date:	Tue Dec 20 16:16:17 2016 -0600
+
+commit 88749652b0314f75c9be43a0c5fcae344c20d3fa
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Tue Dec 20 16:15:56 2016 -0600
+
+    3.46
+
+commit 28394015b6c96be02b08c8e2b5780b6d31bacf07
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Dec 19 16:38:24 2016 -0600
+
+    Quest / Train-All
+
+commit 3939d885ff94c4f1ad4b94f74ebe35a59906fa11
+Author: Merathilis <neo0608@gmail.com>
+Date:   Thu Dec 15 11:50:32 2016 +0100
+
+    Add a skin for SimulationCraft
+
+commit 3939d885ff94c4f1ad4b94f74ebe35a59906fa11
+Author: Merathilis <neo0608@gmail.com>
+Date:   Thu Dec 15 11:50:32 2016 +0100
+
+    Add a skin for SimulationCraft
+
+commit 7ec79bc5e93bd145c441cd87f75146f44ec2e82d
+Author: Merathilis <neo0608@gmail.com>
+Date:   Thu Dec 15 11:15:14 2016 +0100
+
+    Skin an EditBox in Pawn
+
+commit 8555e8dbf56f2e78ce35891da6e7dcbd504d30b6
+Author: Merathilis <neo0608@gmail.com>
+Date:   Wed Dec 14 12:04:55 2016 +0100
+
+    Add skin support for Pawn
+
+commit 8555e8dbf56f2e78ce35891da6e7dcbd504d30b6
+Author: Merathilis <neo0608@gmail.com>
+Date:   Wed Dec 14 12:04:55 2016 +0100
+
+    Add skin support for Pawn
+
+commit e1a5f0a08d794e77d4129dfc3e692013d6c8008c
+Author: Merathilis <neo0608@gmail.com>
+Date:   Thu Nov 24 12:56:25 2016 +0100
+
+    Add skin for WorldQuestTab (WIP)
+
+commit e1a5f0a08d794e77d4129dfc3e692013d6c8008c
+Author: Merathilis <neo0608@gmail.com>
+Date:   Thu Nov 24 12:56:25 2016 +0100
+
+    Add skin for WorldQuestTab (WIP)
+
+commit 7300591f1200cab0b23e860db26a75c675a943e4
+Author: Merathilis <neo0608@gmail.com>
+Date:   Sat Nov 19 11:04:20 2016 +0100
+
+    Skin ServerHop HopList MainFrame
+
+commit 7300591f1200cab0b23e860db26a75c675a943e4
+Author: Merathilis <neo0608@gmail.com>
+Date:   Sat Nov 19 11:04:20 2016 +0100
+
+    Skin ServerHop HopList MainFrame
+
+commit c0394fe2775ccfed548c8c7c8190686aa0e1f935
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Nov 6 20:43:23 2016 -0600
+
+    AS:UnregisterSkin(Skin, SkinFunc(Optional))
+
+commit 7923ec9c0737e424b92b2472e4a46f89baf7dd04
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Nov 6 20:42:34 2016 -0600
+
+    Add ElvUI_CoolLine as a conflict for my CoolLine Skin.
+
+commit 1e3451b95ffe4aa7d7d7c05e95a2498340e11821
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Nov 6 20:41:54 2016 -0600
+
+    Thin Border Theme for Tukui
+
+commit 1a95999f89a8d3ba4cb0eff78aff5fd39325f802
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Thu Nov 3 19:37:28 2016 -0500
+
+    Quest
+
