@@ -26,7 +26,6 @@ L["focus"] = "Fokus"
 L["mouseover"] = "Mouseover"
 L["pet"] = "Begleiter"
 L["playertarget"] = "Ziel"
-
 end
 
 L = AL:NewLocale(AppName, "esES")
@@ -40,12 +39,10 @@ L["focus"] = "Foco"
 L["mouseover"] = "Sobre el raton"
 L["pet"] = "Mascota"
 L["playertarget"] = "Objetivo"
-
 end
 
 L = AL:NewLocale(AppName, "esMX")
 if L then
-
 end
 
 L = AL:NewLocale(AppName, "frFR")
@@ -57,7 +54,6 @@ L["|cffeda55fShift + Left Click|r to toggle sound"] = " |cffeda55fShift + Clic g
 L["focus"] = "Focus"
 L["pet"] = "Familier"
 L["playertarget"] = "Cible"
-
 end
 
 L = AL:NewLocale(AppName, "koKR")
@@ -71,7 +67,6 @@ L["focus"] = "주시 대상"
 L["mouseover"] = "마우스오버"
 L["pet"] = "소환수"
 L["playertarget"] = "대상"
-
 end
 
 L = AL:NewLocale(AppName, "ruRU")
@@ -85,7 +80,6 @@ L["focus"] = "Фокус"
 L["mouseover"] = "Наведение курсора"
 L["pet"] = "Питомец"
 L["playertarget"] = "Цель"
-
 end
 
 L = AL:NewLocale(AppName, "zhCN")
@@ -99,7 +93,6 @@ L["focus"] = "焦点"
 L["mouseover"] = "鼠标悬停"
 L["pet"] = "宠物"
 L["playertarget"] = "目标"
-
 end
 
 L = AL:NewLocale(AppName, "zhTW")
@@ -113,6 +106,5 @@ L["focus"] = "專注目標"
 L["mouseover"] = "滑鼠目標"
 L["pet"] = "寵物"
 L["playertarget"] = "目標"
-
 end
 
