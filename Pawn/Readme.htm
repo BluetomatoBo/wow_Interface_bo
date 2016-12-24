@@ -425,7 +425,7 @@ and Pawn.</p>
 	<li>tekKompare</li>
 	<li>TipTac (*reported to no longer work November 2014)</li>
 </ul>
-<h3><u>In</u>compatible addons</h3>
+<h3><span style="text-decoration: underline;">In</span>compatible addons</h3>
 <ul>
 	<li>FreeUI<ul>
 		<li>(FreeUI changes a bunch of text on tooltips that makes it impossible 
@@ -436,6 +436,13 @@ and Pawn.</p>
 	</li>
 	<li>Undermine Journal<ul>
 		<li>May prevent you from selecting scales in the Pawn UI.</li>
+	</ul>
+	</li>
+	<li>ElvUI + Bagnon (likely other bag addons)
+	<ul>
+		<li>When these bag addons support the game's built-in green arrows 
+		feature, they should work with Pawn, too.&nbsp; (Pawn doesn't add those 
+		arrow icons to your items; it just changes when the game displays them.)</li>
 	</ul>
 	</li>
 </ul>
@@ -486,9 +493,22 @@ and Pawn.</p>
 	</li>
 	<li>A way to detect if you're using FreeUI, and show a message warning you 
 	that Pawn is incompatible if you are.</li>
-	<li>Integration with Storyline</li>
+	<li>Integration with Storyline.</li>
+	<li>I should come up with a way to suggest to higher-end players who don't 
+	have any custom scales—say, anyone with an ilvl 860+—that they should 
+	consider simulating their character for better results.</li>
 </ul>
 <h2>Updates</h2>
+<h3>Version 2.1.11</h3>
+<ul>
+	<li>Added some new unverified changes that will hopefully eliminate the problem a few 
+	people are seeing where items are missing stats and causing other items to 
+	show up as upgrades when they aren't.</li>
+	<li>Fixed a bug where the Template button on the Scale tab didn't work.</li>
+	<li>Made some minor changes that should slightly improve performance with 
+	certain items that can never have stats, like artifact relics and tabards.</li>
+	<li>Updated all of the default Ask Mr. Robot scales with new stat weights.</li>
+</ul>
 <h3>Version 2.1.10</h3>
 <ul>
 	<li>Additional minor changes to help debug a problem some people are having 

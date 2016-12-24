@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0110
+PawnVersion = 2.0111
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -385,8 +385,9 @@ function PawnInitialize()
 			if not ItemLink then return nil end
 			local _, _, _, _, MinLevel = GetItemInfo(ItemLink)
 			if not MinLevel or UnitLevel("player") < MinLevel then return nil end
+			if not PawnCanItemHaveStats(ItemLink) then return false end -- If the item can never have stats, it's never an upgrade, so don't check again
 			local Item = PawnGetItemData(ItemLink)
-			if not Item then return nil end
+			if not Item then return nil end -- If we don't have stats for the item yet, have the game ask us again later
 			return PawnIsItemAnUpgrade(Item) ~= nil
 		else
 			return PawnOriginalIsContainerItemAnUpgrade(bagID, slot, ...)
@@ -671,8 +672,8 @@ end
 function PawnGetDefaultScale(ClassID, SpecID, NoStats)
 	local _
 	if ClassID == nil or SpecID == nil then
-		local ClassID = UnitClass("player")
-		local SpecID = GetSpecialization()
+		_, _, ClassID = UnitClass("player")
+		SpecID = GetSpecialization()
 	end
 	local Template = PawnFindScaleTemplate(ClassID, SpecID)
 	local ScaleValues = PawnGetStatValuesForTemplate(Template, NoStats)
@@ -891,6 +892,21 @@ function PawnRecreateAnnotationFormats()
 	PawnEnchantedAnnotationFormat = PawnUnenchantedAnnotationFormat .. "  %s(%." .. PawnCommon.Digits .. "f " .. PawnLocal.BaseValueWord .. ")"
 end
 
+function PawnCanItemHaveStats(ItemLink)
+	local _, _, _, InvType, _, ItemClassID, ItemSubClassID = GetItemInfoInstant(ItemLink)
+	if (InvType == nil or InvType == "") and not (ItemClassID == LE_ITEM_CLASS_GEM and ItemSubClassID ~= LE_ITEM_GEM_ARTIFACTRELIC) then
+		-- If the item isn't equippable don't bother parsing it, unless it's a gem.  But, artifact relics are "gems" that can't have stats,
+		-- so don't bother looking for stats on them either.
+		-- FUTURE: Also allow LE_ITEM_CLASS_RECIPE if we want to work with recipes someday. 
+		return false
+	elseif InvType == "INVTYPE_RELIC" or InvType == "INVTYPE_THROWN" or InvType == "INVTYPE_TABARD" or InvType == "INVTYPE_BAG" or InvType == "INVTYPE_BODY" then
+		-- Old (grey, pre-artifact) relics might have sockets and therefore "stats" but they aren't equippable anymore so they shouldn't get values, so just bail out now.
+		-- Thrown items, tabards, bags, and shirts (invtype_body) can also never have stats.
+		return false
+	end
+	return true
+end
+
 -- Gets the item data for a specific item link.  Retrieves the information from the cache when possible; otherwise, it gets fresh information.
 -- Return value type is the same as PawnGetCachedItem.
 function PawnGetItemData(ItemLink)
@@ -898,20 +914,14 @@ function PawnGetItemData(ItemLink)
 	
 	-- Only item links are supported; other links are not.
 	if PawnGetHyperlinkType(ItemLink) ~= "item" then return end
+
+	-- If this type of item can't ever have stats (food, for example), just bail out.
+	if not PawnCanItemHaveStats(ItemLink) then return end
 	
 	-- If we have an item link, we can extract basic data from it from the user's WoW cache (not the Pawn item cache).
 	-- We get a new, normalized version of ItemLink so that items don't end up in the cache multiple times if they're requested
 	-- using different styles of links that all point to the same item.
-	local ItemID, _, _, InvType, _, ItemClassID = GetItemInfoInstant(ItemLink)
-	if (InvType == nil or InvType == "") and (ItemClassID ~= LE_ITEM_CLASS_GEM) then
-		-- If the item isn't equippable don't bother parsing it, unless it's a gem.
-		-- FUTURE: Also allow LE_ITEM_CLASS_RECIPE if we want to work with recipes someday. 
-		return
-	elseif InvType == "INVTYPE_RELIC" or InvType == "INVTYPE_THROWN" then
-		-- Old (grey) relics might have sockets and therefore "stats" but they aren't equippable anymore so they shouldn't get values, so just bail out now.
-		return
-	end
-
+	local ItemID = GetItemInfoInstant(ItemLink)
 	local ItemName, NewItemLink, ItemRarity, ItemLevel, _, _, _, _, InvType, ItemTexture = GetItemInfo(ItemLink)
 	if NewItemLink then
 		ItemLink = NewItemLink
@@ -1007,6 +1017,19 @@ function PawnGetItemData(ItemLink)
 		if Item.Stats and Item.Stats.PrismaticSocket then
 			Item.SocketBonusStats = {}
 			Item.Stats.PrismaticSocket = nil
+		end
+
+		-- If the item doesn't have any stats, don't cache it.  This is done to work around a problem a few people were seeing where
+		-- Pawn would get item data, then fail to get it, and then cache the results anyway.  This is a pretty crappy solution, but
+		-- hopefully it works until something better can be found.  It's not as bad now that Pawn doesn't bother scanning tooltips for
+		-- items that can never have stats, like food and junk.
+		if Item.UnenchantedStats == nil or next(Item.UnenchantedStats) == nil then
+			if PawnCommon.DebugCache then
+				-- You should only see this on purely cosmetic equippable items, like stuff from Griftah, holiday gear, and and few particularly
+				-- odd trinkets.
+				VgerCore.Message("*** Not caching because the item didn't have any stats: " .. tostring(ItemLink))
+			end
+			return
 		end
 
 		-- Cache this item so we don't have to re-parse next time.

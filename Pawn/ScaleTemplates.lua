@@ -17,6 +17,8 @@ function PawnFindScaleTemplate(ClassID, SpecID)
 	for _, Template in pairs(PawnScaleTemplates) do
 		if Template.ClassID == ClassID and Template.SpecID == SpecID then return Template end
 	end
+
+	VgerCore.Fail("Failed to find a scale template for class " .. tostring(ClassID) .. " and spec " .. tostring(SpecID))
 end
 
 -- Returns a starter set of stat values for a given template row returned by PawnFindScaleTemplate.

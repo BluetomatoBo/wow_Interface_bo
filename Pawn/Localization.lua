@@ -370,7 +370,7 @@ For example, if "463", then Pawn will show gems that are appropriate for use in 
 		HelpText = [=[Pawn helps you find your best gear and identify upgrades that you come across.
 
 
-When you earn quest rewards or dungeon loot that may be better than your current equipment, Pawn will let you know with a green arrow icon.  Look for other helpful notes at the bottom of your item tooltips.
+When you earn quest rewards or dungeon loot that may be better than your current equipment, Pawn will let you know with a green arrow icon.
 
     |cff8ec3e6Fire:|r  |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% upgrade|r
 
