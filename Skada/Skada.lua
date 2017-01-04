@@ -500,10 +500,32 @@ function Window:set_mode_title()
 	self.display:SetTitle(self, name)
 end
 
+function sort_modes()
+	table_sort(modes, 
+        function(a, b) 
+            if Skada.db.profile.sortmodesbyusage and Skada.db.profile.modeclicks then
+                -- Most frequest usage order
+                return (Skada.db.profile.modeclicks[a:GetName()] or 0) > (Skada.db.profile.modeclicks[b:GetName()] or 0)
+            else
+                -- Alphabetic order
+                return a:GetName() < b:GetName()
+            end
+        end
+    )
+end
+
 local function click_on_mode(win, id, label, button)
 	if button == "LeftButton" then
 		local mode = find_mode(id)
 		if mode then
+            -- Store number of clicks on modes, for automatic sorting.
+            if Skada.db.profile.sortmodesbyusage then
+                if not Skada.db.profile.modeclicks then
+                    Skada.db.profile.modeclicks = {}
+                end
+                Skada.db.profile.modeclicks[id] = (Skada.db.profile.modeclicks[id] or 0) + 1
+                sort_modes()
+            end
 			win:DisplayMode(mode)
 		end
 	elseif button == "RightButton" then
@@ -2018,7 +2040,7 @@ function Skada:UpdateDisplay(force)
 
 					d.id = mode:GetName()
 					d.label = mode:GetName()
-					d.value = 1
+					d.value = 1    
 					if set and mode.GetSetSummary ~= nil then
 						d.valuetext = mode:GetSetSummary(set)
 					end
@@ -2027,9 +2049,14 @@ function Skada:UpdateDisplay(force)
                     end
 				end
 
-				-- Tell window to sort by our data order. Our modes are in alphabetical order already.
-				win.metadata.ordersort = true
-
+                -- Tell window to sort by our data order. Our modes are in the correct order already.
+                win.metadata.ordersort = true
+                
+                -- Let display provider/tooltip know we are showing a mode list.
+                if set then
+                    win.metadata.is_modelist = true
+                end
+                
 				-- Let window display the data.
 				win:UpdateDisplay()
 			else
@@ -2206,7 +2233,7 @@ function Skada:AddMode(mode, category)
 	end
 
 	-- Sort modes.
-	table_sort(modes, function(a, b) return a:GetName() < b:GetName() end)
+    sort_modes()
 
 	-- Remove all bars and start over to get ordering right.
 	-- Yes, this all sucks - the problem with this and the above is that I don't know when
@@ -2398,7 +2425,9 @@ function Skada:AddSubviewToTooltip(tooltip, win, mode, id, label)
 	wipe(ttwin.dataset)
 
 	-- Tell mode we are entering our real window.
-	mode:Enter(win, id, label)
+    if mode.Enter then
+        mode:Enter(win, id, label)
+    end
 
 	-- Ask mode to populate dataset in our fake window.
 	mode:Update(ttwin, win:get_selected_set())
@@ -2436,66 +2465,77 @@ function Skada:AddSubviewToTooltip(tooltip, win, mode, id, label)
 		end
 
 		-- Add an empty line.
-		tooltip:AddLine(" ")
+        if mode.Enter then
+            tooltip:AddLine(" ")
+        end
 	end
 end
 
 -- Generic tooltip function for displays
 function Skada:ShowTooltip(win, id, label)
 	local t = GameTooltip
-	if Skada.db.profile.tooltips and (win.metadata.click1 or win.metadata.click2 or win.metadata.click3 or win.metadata.tooltip) then
-		t:ClearLines()
+	if Skada.db.profile.tooltips then
+        
+        if win.metadata.is_modelist and Skada.db.profile.informativetooltips then
+            t:ClearLines()
+            
+            Skada:AddSubviewToTooltip(t, win, find_mode(id), id, label)
+            
+            t:Show()
+        elseif win.metadata.click1 or win.metadata.click2 or win.metadata.click3 or win.metadata.tooltip then
+            t:ClearLines()
 
-		local hasClick = win.metadata.click1 or win.metadata.click2 or win.metadata.click3
+            local hasClick = win.metadata.click1 or win.metadata.click2 or win.metadata.click3
 
-		-- Current mode's own tooltips.
-		if win.metadata.tooltip then
-			local numLines = t:NumLines()
-			win.metadata.tooltip(win, id, label, t)
+            -- Current mode's own tooltips.
+            if win.metadata.tooltip then
+                local numLines = t:NumLines()
+                win.metadata.tooltip(win, id, label, t)
 
-			-- Spacer
-			if t:NumLines() ~= numLines and hasClick then
-				t:AddLine(" ")
-			end
-		end
+                -- Spacer
+                if t:NumLines() ~= numLines and hasClick then
+                    t:AddLine(" ")
+                end
+            end
 
-		-- Generic informative tooltips.
-		if Skada.db.profile.informativetooltips then
-			if win.metadata.click1 then
-				Skada:AddSubviewToTooltip(t, win, win.metadata.click1, id, label)
-			end
-			if win.metadata.click2 then
-				Skada:AddSubviewToTooltip(t, win, win.metadata.click2, id, label)
-			end
-			if win.metadata.click3 then
-				Skada:AddSubviewToTooltip(t, win, win.metadata.click3, id, label)
-			end
-		end
+            -- Generic informative tooltips.
+            if Skada.db.profile.informativetooltips then
+                if win.metadata.click1 then
+                    Skada:AddSubviewToTooltip(t, win, win.metadata.click1, id, label)
+                end
+                if win.metadata.click2 then
+                    Skada:AddSubviewToTooltip(t, win, win.metadata.click2, id, label)
+                end
+                if win.metadata.click3 then
+                    Skada:AddSubviewToTooltip(t, win, win.metadata.click3, id, label)
+                end
+            end
 
-		-- Current mode's own post-tooltips.
-		if win.metadata.post_tooltip then
-			local numLines = t:NumLines()
-			win.metadata.post_tooltip(win, id, label, t)
+            -- Current mode's own post-tooltips.
+            if win.metadata.post_tooltip then
+                local numLines = t:NumLines()
+                win.metadata.post_tooltip(win, id, label, t)
 
-			-- Spacer
-			if t:NumLines() ~= numLines and hasClick then
-				t:AddLine(" ")
-			end
-		end
+                -- Spacer
+                if t:NumLines() ~= numLines and hasClick then
+                    t:AddLine(" ")
+                end
+            end
 
-		-- Click directions.
-		if win.metadata.click1 then
-			t:AddLine(L["Click for"].." "..win.metadata.click1:GetName()..".", 0.2, 1, 0.2)
-		end
-		if win.metadata.click2 then
-			t:AddLine(L["Shift-Click for"].." "..win.metadata.click2:GetName()..".", 0.2, 1, 0.2)
-		end
-		if win.metadata.click3 then
-			t:AddLine(L["Control-Click for"].." "..win.metadata.click3:GetName()..".", 0.2, 1, 0.2)
-		end
-
-		t:Show()
-	end
+            -- Click directions.
+            if win.metadata.click1 then
+                t:AddLine(L["Click for"].." "..win.metadata.click1:GetName()..".", 0.2, 1, 0.2)
+            end
+            if win.metadata.click2 then
+                t:AddLine(L["Shift-Click for"].." "..win.metadata.click2:GetName()..".", 0.2, 1, 0.2)
+            end
+            if win.metadata.click3 then
+                t:AddLine(L["Control-Click for"].." "..win.metadata.click3:GetName()..".", 0.2, 1, 0.2)
+            end
+            t:Show()
+        end
+        
+    end
 end
 
 -- Generic border

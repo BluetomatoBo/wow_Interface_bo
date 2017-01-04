@@ -1,36 +1,24 @@
 ------------------------------------------------------------------------
-r706 | zarnivoop | 2016-12-25 12:48:24 -0600 (Sun, 25 Dec 2016) | 1 line
+r710 | zarnivoop | 2016-12-30 13:55:39 -0600 (Fri, 30 Dec 2016) | 2 lines
 Changed paths:
-   M /trunk/BarDisplay.lua
    M /trunk/Options.lua
    M /trunk/Skada.lua
    M /trunk/locale/enUS.lua
-   M /trunk/modules/Damage.lua
-   M /trunk/modules/DamageTaken.lua
+   M /trunk/modules/Healing.lua
 
-added spell school colors and tooltip info
+option to sort mode list by usage (on by default)
+fixed healing mode summary being overly precise
 ------------------------------------------------------------------------
-r705 | zarnivoop | 2016-12-25 08:36:27 -0600 (Sun, 25 Dec 2016) | 1 line
-Changed paths:
-   M /trunk/BarDisplay.lua
-   M /trunk/Options.lua
-   M /trunk/lib/SpecializedLibBars-1.0/SpecializedLibBars-1.0.lua
-
-slight cosmetic tweaks
-------------------------------------------------------------------------
-r704 | zarnivoop | 2016-12-25 07:50:22 -0600 (Sun, 25 Dec 2016) | 1 line
+r709 | zarnivoop | 2016-12-27 15:16:52 -0600 (Tue, 27 Dec 2016) | 1 line
 Changed paths:
    M /trunk/Skada.lua
 
-slightly less obnoxious non-boss icon for segments
+fix for the new segment tooltip bugging out with an empty segment
 ------------------------------------------------------------------------
-r703 | zarnivoop | 2016-12-25 07:31:40 -0600 (Sun, 25 Dec 2016) | 1 line
+r708 | zarnivoop | 2016-12-26 10:46:00 -0600 (Mon, 26 Dec 2016) | 1 line
 Changed paths:
-   M /trunk
-   M /trunk/.pkgmeta
-   M /trunk/embeds.xml
-   A /trunk/lib/LibBossIDs-1.0.lua
+   M /trunk/Skada.lua
 
-fixed references; temporarily including libbossids directly
+added tooltips to mode list
 ------------------------------------------------------------------------
 
