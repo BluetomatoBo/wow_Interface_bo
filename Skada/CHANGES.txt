@@ -1,24 +1,17 @@
 ------------------------------------------------------------------------
-r710 | zarnivoop | 2016-12-30 13:55:39 -0600 (Fri, 30 Dec 2016) | 2 lines
+r713 | zarnivoop | 2017-01-04 16:02:04 -0600 (Wed, 04 Jan 2017) | 1 line
 Changed paths:
    M /trunk/Options.lua
    M /trunk/Skada.lua
+
+doubled update frequency (looks nice with smooth bars - performance testing might be needed)
+------------------------------------------------------------------------
+r712 | zarnivoop | 2017-01-04 14:59:50 -0600 (Wed, 04 Jan 2017) | 1 line
+Changed paths:
+   M /trunk/BarDisplay.lua
+   M /trunk/lib/SpecializedLibBars-1.0/SpecializedLibBars-1.0.lua
    M /trunk/locale/enUS.lua
-   M /trunk/modules/Healing.lua
 
-option to sort mode list by usage (on by default)
-fixed healing mode summary being overly precise
-------------------------------------------------------------------------
-r709 | zarnivoop | 2016-12-27 15:16:52 -0600 (Tue, 27 Dec 2016) | 1 line
-Changed paths:
-   M /trunk/Skada.lua
-
-fix for the new segment tooltip bugging out with an empty segment
-------------------------------------------------------------------------
-r708 | zarnivoop | 2016-12-26 10:46:00 -0600 (Mon, 26 Dec 2016) | 1 line
-Changed paths:
-   M /trunk/Skada.lua
-
-added tooltips to mode list
+added a smooth bars option
 ------------------------------------------------------------------------
 
