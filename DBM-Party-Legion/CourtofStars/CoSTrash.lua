@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("CoSTrash", "DBM-Party-Legion", 7)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15587 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15624 $"):sub(12, -3))
 --mod:SetModelID(47785)
 mod:SetZone()
 
@@ -48,10 +48,10 @@ mod:AddBoolOption("SpyHelper", true)
 function mod:SPELL_CAST_START(args)
 	if not self.Options.Enabled then return end
 	local spellId = args.spellId
-	if spellId == 209027 then
+	if spellId == 209027 and self:AntiSpam(2, 1) then
 		specWarnQuellingStrike:Show()
 		voiceQuellingStrike:Play("shockwave")
-	elseif spellId == 212031 then
+	elseif spellId == 212031 and self:AntiSpam(2, 2) then
 		specWarnChargedBlast:Show()
 		voiceChargedBlast:Play("shockwave")
 	elseif spellId == 209485 and self:CheckInterruptFilter(args.sourceGUID) then
@@ -180,9 +180,9 @@ do
 
 	local function updateInfoFrame()
 		local lines = {}
-
 		for hint, j in pairs(hints) do
-			lines[hintTranslations[hint]] = ""
+			local text = hintTranslations[hint] or hint
+			lines[text] = ""
 		end
 		
 		return lines

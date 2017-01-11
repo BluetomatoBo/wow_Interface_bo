@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1737, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15584 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15631 $"):sub(12, -3))
 mod:SetCreatureID(105503)--104537 (Fel Lord Kuraz'mal)
 mod:SetEncounterID(1866)
 mod:SetZone()
@@ -155,7 +155,7 @@ function mod:OnCombatStart(delay)
 	timerFelLordKurazCD:Start(11-delay)
 	timerVethrizCD:Start(25-delay)
 	timerDzorykxCD:Start(35-delay)
-	DBM:AddMsg("This mod was created using phase 1 data only. 2 and 3 are still drycodes and need updating.")
+	DBM:AddMsg("This mod was created using phase 1 data only. 2 and 3 are still drycodes and need updating as soon as live data starts coming in.")
 end
 
 function mod:OnCombatEnd()
