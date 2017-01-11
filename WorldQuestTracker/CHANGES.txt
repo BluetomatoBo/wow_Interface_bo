@@ -1,5 +1,11 @@
-changeset:   106:37cee6804300
+changeset:   107:c9cf55ffb817
 tag:         tip
+user:        Tercio
+date:        Sun Jan 08 16:24:56 2017 -0200
+summary:     - Ticket #258: make the epic quest more visible.
+
+
+changeset:   106:37cee6804300
 user:        Tercio
 date:        Thu Dec 29 19:14:57 2016 -0200
 summary:     - added integration with World Quest Group Finder.
@@ -597,11 +603,5 @@ changeset:   7:bd07eb220918
 user:        Tercio
 date:        Mon Jul 11 00:39:45 2016 -0300
 summary:     - big framework update.
-
-
-changeset:   6:98bb2d329d26
-user:        Tercio
-date:        Wed Jul 06 19:15:39 2016 -0300
-summary:     - fixed an issue with artifact power above 1.000.
 
 
