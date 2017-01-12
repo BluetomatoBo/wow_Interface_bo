@@ -2,10 +2,168 @@
 
 This mod is distributed under Version 2 of the GPL.  A copy of the GPL is included in this zip file with links to non-english translations.
 
--Hegarol
 
 Patch Notes
-v8.00.00 (Jan xx, 2015)
+
+v8.01.09 (Jan. 11, 2016)
+- added ACs to 'Trial of Valor'
+- migrate minimap button to use LibDBIcon
+- added slash command description to localization table;
+
+v8.01.08 (Dec. 23, 2016)
+- added ACs to 'The Nighthold'
+- added ACs to 'The Emerald Nightmare'
+- added AC 'Unleashed Monstrosities' to 'Broken Isles'
+- fixed 'Dragons of Nightmare' LFR loot
+
+v8.01.07 (Dec. 08, 2016)
+- added "The First Satyr's Spaulders" to the loot of Xavius
+- added LFR to Trial of Valor
+- updated QuickLootFrame with Legion raids
+- fixed some mounts' displaying issue
+- added class hall items
+- fixed armor type's localization
+- added class color
+- enhanced localization automation also added itIT
+- added artifact weapons to Collections
+- update external repositories' URL due to curseforge's migration
+
+v8.01.06 (Oct. 27, 2016)
+- added missing boss "Shade of Medivh" to "Return to Karazhan"
+- changed order of bosses in Legion to reflect the Adventure Guide
+
+v8.01.05 (Oct. 26, 2016)
+- updated TOC version to 7.1
+- added Dungeon "Return To Karazhan" to Legion Content
+- added Raid "Trial Of Valor" to Legion Content
+- added zhTW description to TOC of AtlasLoot_Options.toc
+## information for Devs
+- added 2nd mythic dungeon bonusID to ItemString.lua
+
+v8.01.04 (Sep. 21, 2016)
+- added PvP Legion Season 1 Class-Sets
+- updated profession tailoring to Legion
+- updated profession leatherworking to Legion
+- updated profession jewelcrafting to Legion
+- updated profession inscription to Legion
+- updated profession engineering to Legion
+- updated profession enchanting to Legion
+**(known issue: not all created enchants are shown, but the spell)**
+- added "rune" and "runes" as constant
+- added "shoulder" as constant
+- added zhTW description to AtlasLoot_Legion.toc by arith
+
+v8.01.03beta1 (Sep. 14, 2016)
+*tagged as BETA due to the known issue mentioned below*
+- updated profession enchanting to Legion
+(known issue: not all created enchants are shown, but the spell)
+
+v8.01.02 (Sep. 13, 2016)
+-- Legion --
+- added faction "The Nightfallen"
+- added faction "Valarjar"
+- added faction "The Wardens"
+- added faction "Dreamweavers"
+- added faction "Highmountain Tribe"
+- added faction "Court Of Farondis"
+- updated profession alchemie to Legion
+- updated profession blacksmithing to Legion
+- added "Relic" as constant
+-- WOD --
+- added PvP WODSeason 3 Weapons
+- added PvP Season 13 Class-Sets
+
+v8.01.01 (Aug. 30, 2016)
+- Added AC "Legion Dungeon Hero"
+- Added AC "Glory of the Legion Hero"
+- Added AC "Glory of the Legion Raider"
+- Added Dungeon "Assault On Violet Hold"
+- Added Dungeon "Black Rook Hold"
+- Added Dungeon "Darkheart Thicket"
+- Added Dungeon "Eye Of Azshara"
+- Added Dungeon "Court Of Stars"
+- Added Dungeon "Halls Of Valor"
+- Added Dungeon "Maw Of Souls"
+- Added Dungeon "Neltharion's Lair"
+- Added Dungeon "The Arcway"
+- Added Dungeon "Vault Of The Wardens"
+- Added Raid "The Nighthold"
+- Added Raid "The Emerald Nightmare"
+- Added Raid "Broken Isles"
+- Fixed LFR Titanforged ItemLevel
+
+v8.01.00 (Jul. 25, 2016)
+- first Legion encounter for tests (known issue: "titanforged" isn't shown correctly)
+- A lot of legion pre patch related changes
+-- fixed missing GetAuctionItemClasses
+-- fix ClassFilter
+-- fix Background Images (content frame)
+-- fix Mounts
+-- fix Bug with itemString 
+- set LibBabble-Boss-3.0 and LibBabble-ItemSet-3.0 to be external links
+- Updated TOC
+- created 1 instances and raids in data.lua
+- added bonus IDs for Legion to ItemString.lua
+- put Legion to constants.lua
+- added Legion to the loader
+- Added Legion folder
+
+v8.00.72 (Jan. 25, 2016)
+- added WoD PvP Season 3 Weapons (Elite is missing)
+- updated Mount-Tab in collection
+- added PvP Season 6 & 7 Class-Sets
+- zhCN/zhTW update
+
+v8.00.71 (Jan. 15, 2016)
+- Added mount tab in collections (drop, achievement & profession) quest and shop mounts are missing atm
+- Added prices to WoD PvP Season 3 Class-Sets
+- Added WoD PvP Season 3 NonSet Items
+
+v8.00.60 (Nov. 11, 2015)
+- fixed issue #925 (thanks to Ignifazius)
+- removed warforged Crystallized Fel
+- prepared WoD PvP Season 3 Class Sets (without prices)
+- added currency "valor"
+- added new quest item for mount to Archinmonde (hc/mythic)
+- added WoD PvP Season 3 Cloth Non-Set
+- prepared WoD PvP Season 3 NonSet Items
+- prepared WoD PvP Season 2 & 3 Weapons
+- Added WoD PvP Season 2 Amulets, Cloaks, Rings, Trinkets & Tabard
+- updated WoD PvP Season 2 NonSet Cloth
+- added WoD PvP Season 2 NonSet Leather, Mail & Plate
+
+v8.00.52 (Nov. 08, 2015)
+- fixed bug in PvP Section
+
+v8.00.51 (Oct. 01, 2015)
+- updated Brewfest ('15)
+- Added WOD Season 2 non set cloth
+- Added PVP Season 4 & 5 Class-Sets
+
+v8.00.50 (Sep. 20, 2015)
+- mythic dungeon LUA-Error should be fixed (Teicket #915, #916)
+- added zhTW translation for AtlasLoot_Options (thanks to gaspy10)
+- Added WoD Season 2 Class-Sets
+- added 6.2 Heirloom
+- added Legandary Rings
+- added class trinkets to Archimonde loot (tooltip only for own class and specialization)
+
+v8.00.40 (Jul. 19, 2015)
+- fixed wrong tier-set view on content (Ticket #921)
+- added Trash-Loot in Hellfire Citadel
+- added new Apexis-Items (old Apexis disabled, will come back with new prices)
+- fixed Bonusroll-.LUA-Error (first 7 Bosses confirmt)
+- fixed Kazzak-Loot
+- fixed Collection Tab-Title for Tier 18
+- MYTHIC BONUSROLL-ERROR STILL NOT FIXED
+
+v8.00.30 (Jun. 26, 2015)
+
+v8.00.20 (Jun. 24, 2015)
+
+v8.00.10 (Jun. 24, 2015)
+
+v8.00.00 (May 21, 2015)
 Compatible with Patch 6.0.3.
 
 v7.07.03 (May xx, 2014)

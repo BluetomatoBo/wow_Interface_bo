@@ -4852,143 +4852,143 @@ data["VaultofArchavon"] = {
 		{	--Archavon
 			name = BB["Archavon the Stone Watcher"],
 			[NORMAL_DIFF] = {
-				{ 1, "ICON_spell_deathknight_frostpresence", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ALIL["Frost"].." / "..ALIL["Unholy"] },
+				{ 1, "ICON_spell_deathknight_frostpresence", nil, ALIL["DEATHKNIGHT"], ALIL["Frost"].." / "..ALIL["Unholy"] },
 				{ 2, 39617 },	-- Heroes' Scourgeborne Battleplate
 				{ 3, 39618 },	-- Heroes' Scourgeborne Gauntlets
 				{ 4, 39620 },	-- Heroes' Scourgeborne Legplates
-				{ 6, "ICON_spell_deathknight_bloodpresence", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ALIL["Blood"] },
+				{ 6, "ICON_spell_deathknight_bloodpresence", nil, ALIL["DEATHKNIGHT"], ALIL["Blood"] },
 				{ 7, 39623 },	-- Heroes' Scourgeborne Chestguard
 				{ 8, 39624 },	-- Heroes' Scourgeborne Handguards
 				{ 9, 39626 },	-- Heroes' Scourgeborne Legguards
-				{ 16, "ICON_Spell_deathknight_classicon", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], nil },
+				{ 16, "ICON_Spell_deathknight_classicon", nil, ALIL["DEATHKNIGHT"], nil },
 				{ 17, 40781 },	-- Hateful Gladiator's Dreadplate Chestpiece
 				{ 18, 40803 },	-- Hateful Gladiator's Dreadplate Gauntlets
 				{ 19, 40841 },	-- Hateful Gladiator's Dreadplate Legguards
-				{ 101, "ICON_spell_nature_starfall", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Balance"] },
+				{ 101, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 102, 39547 },	-- Heroes' Dreamwalker Vestments
 				{ 103, 39544 },	-- Heroes' Dreamwalker Gloves
 				{ 104, 39546 },	-- Heroes' Dreamwalker Trousers
-				{ 106, "ICON_ability_druid_catform", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Feral"] },
+				{ 106, "ICON_ability_druid_catform", nil, ALIL["DRUID"], ALIL["Feral"] },
 				{ 107, 39554 },	-- Heroes' Dreamwalker Raiments
 				{ 108, 39557 },	-- Heroes' Dreamwalker Handgrips
 				{ 109, 39555 },	-- Heroes' Dreamwalker Legguards
-				{ 111, "ICON_spell_nature_healingtouch", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Restoration"] },
+				{ 111, "ICON_spell_nature_healingtouch", nil, ALIL["DRUID"], ALIL["Restoration"] },
 				{ 112, 39538 },	-- Heroes' Dreamwalker Robe
 				{ 113, 39543 },	-- Heroes' Dreamwalker Handguards
 				{ 114, 39539 },	-- Heroes' Dreamwalker Leggings
-				{ 116, "ICON_spell_nature_starfall", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Balance"] },
+				{ 116, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 117, 41314 },	-- Hateful Gladiator's Wyrmhide Robes
 				{ 118, 41291 },	-- Hateful Gladiator's Wyrmhide Gloves
 				{ 119, 41302 },	-- Hateful Gladiator's Wyrmhide Legguards
-				{ 121, "ICON_ability_druid_catform", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Feral"] },
+				{ 121, "ICON_ability_druid_catform", nil, ALIL["DRUID"], ALIL["Feral"] },
 				{ 122, 41659 },	-- Hateful Gladiator's Dragonhide Robes
 				{ 123, 41771 },	-- Hateful Gladiator's Dragonhide Gloves
 				{ 124, 41665 },	-- Hateful Gladiator's Dragonhide Legguards
-				{ 126, "ICON_spell_nature_healingtouch", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Restoration"] },
+				{ 126, "ICON_spell_nature_healingtouch", nil, ALIL["DRUID"], ALIL["Restoration"] },
 				{ 127, 41308 },	-- Hateful Gladiator's Kodohide Robes
 				{ 128, 41284 },	-- Hateful Gladiator's Kodohide Gloves
 				{ 129, 41296 },	-- Hateful Gladiator's Kodohide Legguards
-				{ 201, "ICON_inv_weapon_bow_07", nil, LOCALIZED_CLASS_NAMES_MALE["HUNTER"], nil },
+				{ 201, "ICON_inv_weapon_bow_07", nil, ALIL["HUNTER"], nil },
 				{ 202, 39579 },	-- Heroes' Crypstalker Tunic
 				{ 203, 39582 },	-- Heroes' Crypstalker Handguards
 				{ 204, 39580 },	-- Heroes' Crypstalker Legguards
-				{ 206, "ICON_inv_staff_13", nil, LOCALIZED_CLASS_NAMES_MALE["MAGE"], nil },
+				{ 206, "ICON_inv_staff_13", nil, ALIL["MAGE"], nil },
 				{ 207, 39492 },	-- Heroes' Frostfire Robe
 				{ 208, 39495 },	-- Heroes' Frostfire Gloves
 				{ 209, 39493 },	-- Heroes' Frostfire Leggings
-				{ 211, "ICON_inv_throwingknife_04", nil, LOCALIZED_CLASS_NAMES_MALE["ROGUE"], nil },
+				{ 211, "ICON_inv_throwingknife_04", nil, ALIL["ROGUE"], nil },
 				{ 212, 39558 },	-- Heroes' Bonescythe Breastplate
 				{ 213, 39560 },	-- Heroes' Bonescythe Gauntlets
 				{ 214, 39564 },	-- Heroes' Bonescythe Legplates
-				{ 216, "ICON_inv_weapon_bow_07", nil, LOCALIZED_CLASS_NAMES_MALE["HUNTER"], nil },
+				{ 216, "ICON_inv_weapon_bow_07", nil, ALIL["HUNTER"], nil },
 				{ 217, 41085 },	-- Hateful Gladiator's Chain Armor
 				{ 218, 41141 },	-- Hateful Gladiator's Chain Gauntlets
 				{ 219, 41203 },	-- Hateful Gladiator's Chain Leggings
-				{ 221, "ICON_inv_staff_13", nil, LOCALIZED_CLASS_NAMES_MALE["MAGE"], nil },
+				{ 221, "ICON_inv_staff_13", nil, ALIL["MAGE"], nil },
 				{ 222, 41950 },	-- Hateful Gladiator's Silk Raiment
 				{ 223, 41969 },	-- Hateful Gladiator's Silk Handguards
 				{ 224, 41957 },	-- Hateful Gladiator's Silk Trousers
-				{ 226, "ICON_inv_throwingknife_04", nil, LOCALIZED_CLASS_NAMES_MALE["ROGUE"], nil },
+				{ 226, "ICON_inv_throwingknife_04", nil, ALIL["ROGUE"], nil },
 				{ 227, 41648 },	-- Hateful Gladiator's Leather Tunic
 				{ 228, 41765 },	-- Hateful Gladiator's Leather Gloves
 				{ 229, 41653 },	-- Hateful Gladiator's Leather Legguards
-				{ 301, "ICON_Spell_Holy_HolyBolt", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Holy"] },
+				{ 301, "ICON_Spell_Holy_HolyBolt", nil, ALIL["PALADIN"], ALIL["Holy"] },
 				{ 302, 39629 },	-- Heroes' Redemption Tunic
 				{ 303, 39632 },	-- Heroes' Redemption Gloves
 				{ 304, 39630 },	-- Heroes' Redemption Greaves
-				{ 306, "ICON_Spell_Holy_AuraOfLight", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Retribution"] },
+				{ 306, "ICON_Spell_Holy_AuraOfLight", nil, ALIL["PALADIN"], ALIL["Retribution"] },
 				{ 307, 39633 },	-- Heroes' Redemption Chestpiece
 				{ 308, 39634 },	-- Heroes' Redemption Gauntlets
 				{ 309, 39636 },	-- Heroes' Redemption Legplates
-				{ 311, "ICON_spell_holy_devotionaura", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Protection"] },
+				{ 311, "ICON_spell_holy_devotionaura", nil, ALIL["PALADIN"], ALIL["Protection"] },
 				{ 312, 39638 },	-- Heroes' Redemption Breastplate
 				{ 313, 39639 },	-- Heroes' Redemption Handguards
 				{ 314, 39641 },	-- Heroes' Redemption Legguards
-				{ 316, "ICON_Spell_Holy_HolyBolt", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Holy"] },
+				{ 316, "ICON_Spell_Holy_HolyBolt", nil, ALIL["PALADIN"], ALIL["Holy"] },
 				{ 317, 40904 },	-- Hateful Gladiator's Ornamented Chestguard
 				{ 318, 40925 },	-- Hateful Gladiator's Ornamented Gloves
 				{ 319, 40937 },	-- Hateful Gladiator's Ornamented Legplates
-				{ 321, "ICON_Spell_Holy_AuraOfLight", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Retribution"] },
+				{ 321, "ICON_Spell_Holy_AuraOfLight", nil, ALIL["PALADIN"], ALIL["Retribution"] },
 				{ 322, 40782 },	-- Hateful Gladiator's Scaled Chestpiece
 				{ 323, 40802 },	-- Hateful Gladiator's Scaled Gauntlets
 				{ 324, 40842 },	-- Hateful Gladiator's Scaled Legguards
-				{ 401, "ICON_spell_holy_guardianspirit", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
+				{ 401, "ICON_spell_holy_guardianspirit", nil, ALIL["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
 				{ 402, 39515 },	-- Heroes' Robe of Faith
 				{ 403, 39519 },	-- Heroes' Gloves of Faith
 				{ 404, 39517 },	-- Heroes' Leggings of Faith
-				{ 406, "ICON_spell_shadow_shadowwordpain", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Shadow"] },
+				{ 406, "ICON_spell_shadow_shadowwordpain", nil, ALIL["PRIEST"], ALIL["Shadow"] },
 				{ 407, 39523 },	-- Heroes' Raiments of Faith
 				{ 408, 39530 },	-- Heroes' Handwraps of Faith
 				{ 409, 39528 },	-- Heroes' Pants of Faith
-				{ 416, "ICON_spell_holy_guardianspirit", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
+				{ 416, "ICON_spell_holy_guardianspirit", nil, ALIL["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
 				{ 417, 41857 },	-- Hateful Gladiator's Mooncloth Robe
 				{ 418, 41872 },	-- Hateful Gladiator's Mooncloth Gloves
 				{ 419, 41862 },	-- Hateful Gladiator's Mooncloth Leggings
-				{ 421, "ICON_spell_shadow_shadowwordpain", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Shadow"] },
+				{ 421, "ICON_spell_shadow_shadowwordpain", nil, ALIL["PRIEST"], ALIL["Shadow"] },
 				{ 422, 41919 },	-- Hateful Gladiator's Satin Robe
 				{ 423, 41938 },	-- Hateful Gladiator's Satin Gloves
 				{ 424, 41925 },	-- Hateful Gladiator's Satin Leggings
-				{ 501, "ICON_Spell_Nature_Lightning", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Elemental"] },
+				{ 501, "ICON_Spell_Nature_Lightning", nil, ALIL["SHAMAN"], ALIL["Elemental"] },
 				{ 502, 39592 },	-- Heroes' Earthshatter Hauberk
 				{ 503, 39593 },	-- Heroes' Earthshatter Gloves
 				{ 504, 39595 },	-- Heroes' Earthshatter Kilt
-				{ 506, "ICON_spell_nature_lightningshield", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Enhancement"] },
+				{ 506, "ICON_spell_nature_lightningshield", nil, ALIL["SHAMAN"], ALIL["Enhancement"] },
 				{ 507, 39597 },	-- Heroes' Earthshatter Chestguard
 				{ 508, 39601 },	-- Heroes' Earthshatter Grips
 				{ 509, 39603 },	-- Heroes' Earthshatter War-Kilt
-				{ 511, "ICON_spell_nature_magicimmunity", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Restoration"] },
+				{ 511, "ICON_spell_nature_magicimmunity", nil, ALIL["SHAMAN"], ALIL["Restoration"] },
 				{ 512, 39588 },	-- Heroes' Earthshatter Tunic
 				{ 513, 39591 },	-- Heroes' Earthshatter Handguards
 				{ 514, 39589 },	-- Heroes' Earthshatter Legguards
-				{ 516, "ICON_Spell_Nature_Lightning", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Elemental"] },
+				{ 516, "ICON_Spell_Nature_Lightning", nil, ALIL["SHAMAN"], ALIL["Elemental"] },
 				{ 517, 40989 },	-- Hateful Gladiator's Mail Armor
 				{ 518, 41005 },	-- Hateful Gladiator's Mail Gauntlets
 				{ 519, 41031 },	-- Hateful Gladiator's Mail Leggings
-				{ 521, "ICON_spell_nature_lightningshield", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Enhancement"] },
+				{ 521, "ICON_spell_nature_lightningshield", nil, ALIL["SHAMAN"], ALIL["Enhancement"] },
 				{ 522, 41079 },	-- Hateful Gladiator's Linked Armor
 				{ 523, 41135 },	-- Hateful Gladiator's Linked Gauntlets
 				{ 524, 41162 },	-- Hateful Gladiator's Linked Leggings
-				{ 526, "ICON_spell_nature_magicimmunity", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Restoration"] },
+				{ 526, "ICON_spell_nature_magicimmunity", nil, ALIL["SHAMAN"], ALIL["Restoration"] },
 				{ 527, 40988 },	-- Hateful Gladiator's Ringmail Armor
 				{ 528, 40999 },	-- Hateful Gladiator's Ringmail Gauntlets
 				{ 529, 41025 },	-- Hateful Gladiator's Ringmail Leggings
-				{ 601, "ICON_spell_nature_drowsy", nil, LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], nil },
+				{ 601, "ICON_spell_nature_drowsy", nil, ALIL["WARLOCK"], nil },
 				{ 602, 39497 },	-- Heroes' Plagueheart Robe
 				{ 603, 39500 },	-- Heroes' Plagueheart Gloves
 				{ 604, 39498 },	-- Heroes' Plagueheart Leggings
-				{ 606, "ICON_ability_warrior_innerrage", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ALIL["Arms"].." / "..ALIL["Fury"] },
+				{ 606, "ICON_ability_warrior_innerrage", nil, ALIL["WARRIOR"], ALIL["Arms"].." / "..ALIL["Fury"] },
 				{ 607, 39606 },	-- Heroes' Dreadnaught Battleplate
 				{ 608, 39609 },	-- Heroes' Dreadnaught Gauntlets
 				{ 609, 39607 },	-- Heroes' Dreadnaught Legplates
-				{ 611, "ICON_ability_warrior_defensivestance", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ALIL["Protection"] },
+				{ 611, "ICON_ability_warrior_defensivestance", nil, ALIL["WARRIOR"], ALIL["Protection"] },
 				{ 612, 39611 },	-- Heroes' Dreadnaught Breastplate
 				{ 613, 39622 },	-- Heroes' Dreadnaught Handguards
 				{ 614, 39612 },	-- Heroes' Dreadnaught Legguards
-				{ 616, "ICON_spell_nature_drowsy", nil, LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], nil },
+				{ 616, "ICON_spell_nature_drowsy", nil, ALIL["WARLOCK"], nil },
 				{ 617, 42001 },	-- Hateful Gladiator's Felweave Raiment
 				{ 618, 42015 },	-- Hateful Gladiator's Felweave Handguards
 				{ 619, 42003 },	-- Hateful Gladiator's Felweave Trousers
-				{ 621, "ICON_inv_sword_27", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], nil },
+				{ 621, "ICON_inv_sword_27", nil, ALIL["WARRIOR"], nil },
 				{ 622, 40783 },	-- Hateful Gladiator's Plate Chestpiece
 				{ 623, 40801 },	-- Hateful Gladiator's Plate Gauntlets
 				{ 624, 40840 },	-- Hateful Gladiator's Plate Legguards
@@ -5110,109 +5110,109 @@ data["VaultofArchavon"] = {
 		{	--Emalon
 			name = BB["Emalon the Storm Watcher"],
 			[NORMAL_DIFF] = {
-				{ 1, "ICON_spell_nature_starfall", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Balance"] },
+				{ 1, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 2, 45351 },	-- Valorous Nightsong Gloves
 				{ 3, 45353 },	-- Valorous Nightsong Trousers
-				{ 5, "ICON_ability_druid_catform", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Feral"] },
+				{ 5, "ICON_ability_druid_catform", nil, ALIL["DRUID"], ALIL["Feral"] },
 				{ 6, 45355 },	-- Valorous Nightsong Handgrips
 				{ 7, 45357 },	-- Valorous Nightsong Legguards
-				{ 9, "ICON_spell_nature_healingtouch", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Restoration"] },
+				{ 9, "ICON_spell_nature_healingtouch", nil, ALIL["DRUID"], ALIL["Restoration"] },
 				{ 10, 45345 },	-- Valorous Nightsong Handguards
 				{ 11, 45347 },	-- Valorous Nightsong Leggings
-				{ 16, "ICON_spell_nature_starfall", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Balance"] },
+				{ 16, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 17, 41292 },	-- Deadly Gladiator's Wyrmhide Gloves
 				{ 18, 41303 },	-- Deadly Gladiator's Wyrmhide Legguards
-				{ 20, "ICON_ability_druid_catform", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Feral"] },
+				{ 20, "ICON_ability_druid_catform", nil, ALIL["DRUID"], ALIL["Feral"] },
 				{ 21, 41772 },	-- Deadly Gladiator's Dragonhide Gloves
 				{ 22, 41666 },	-- Deadly Gladiator's Dragonhide Legguards
-				{ 24, "ICON_spell_nature_healingtouch", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Restoration"] },
+				{ 24, "ICON_spell_nature_healingtouch", nil, ALIL["DRUID"], ALIL["Restoration"] },
 				{ 25, 41286 },	-- Deadly Gladiator's Kodohide Gloves
 				{ 26, 41297 },	-- Deadly Gladiator's Kodohide Legguards
-				{ 101, "ICON_inv_weapon_bow_07", nil, LOCALIZED_CLASS_NAMES_MALE["HUNTER"], nil },
+				{ 101, "ICON_inv_weapon_bow_07", nil, ALIL["HUNTER"], nil },
 				{ 102, 45360 },	-- Valorous Scourgestalker Handguards
 				{ 103, 45362 },	-- Valorous Scourgestalker Legguards
-				{ 105, "ICON_inv_staff_13", nil, LOCALIZED_CLASS_NAMES_MALE["MAGE"], nil },
+				{ 105, "ICON_inv_staff_13", nil, ALIL["MAGE"], nil },
 				{ 106, 46131 },	-- Valorous Kirin Tor Gauntlets
 				{ 107, 45367 },	-- Valorous Kirin Tor Leggings
-				{ 109, "ICON_inv_throwingknife_04", nil, LOCALIZED_CLASS_NAMES_MALE["ROGUE"], nil },
+				{ 109, "ICON_inv_throwingknife_04", nil, ALIL["ROGUE"], nil },
 				{ 110, 45397 },	-- Valorous Terrorblade Gauntlets
 				{ 111, 45399 },	-- Valorous Terrorblade Legplates
-				{ 113, "ICON_spell_nature_drowsy", nil, LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], nil },
+				{ 113, "ICON_spell_nature_drowsy", nil, ALIL["WARLOCK"], nil },
 				{ 114, 45419 },	-- Valorous Deathbringer Gloves
 				{ 115, 45420 },	-- Valorous Deathbringer Leggings
-				{ 116, "ICON_inv_weapon_bow_07", nil, LOCALIZED_CLASS_NAMES_MALE["HUNTER"], nil },
+				{ 116, "ICON_inv_weapon_bow_07", nil, ALIL["HUNTER"], nil },
 				{ 117, 41142 },	-- Deadly Gladiator's Chain Gauntlets
 				{ 118, 41204 },	-- Deadly Gladiator's Chain Leggings
-				{ 120, "ICON_inv_staff_13", nil, LOCALIZED_CLASS_NAMES_MALE["MAGE"], nil },
+				{ 120, "ICON_inv_staff_13", nil, ALIL["MAGE"], nil },
 				{ 121, 41970 },	-- Deadly Gladiator's Silk Handguards
 				{ 122, 41958 },	-- Deadly Gladiator's Silk Trousers
-				{ 124, "ICON_inv_throwingknife_04", nil, LOCALIZED_CLASS_NAMES_MALE["ROGUE"], nil },
+				{ 124, "ICON_inv_throwingknife_04", nil, ALIL["ROGUE"], nil },
 				{ 125, 41766 },	-- Deadly Gladiator's Leather Gloves
 				{ 126, 41654 },	-- Deadly Gladiator's Leather Legguards
-				{ 128, "ICON_spell_nature_drowsy", nil, LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], nil },
+				{ 128, "ICON_spell_nature_drowsy", nil, ALIL["WARLOCK"], nil },
 				{ 129, 42016 },	-- Deadly Gladiator's Felweave Handguards
 				{ 130, 42004 },	-- Deadly Gladiator's Felweave Trousers
-				{ 201, "ICON_Spell_Holy_HolyBolt", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Holy"] },
+				{ 201, "ICON_Spell_Holy_HolyBolt", nil, ALIL["PALADIN"], ALIL["Holy"] },
 				{ 202, 45370 },	-- Valorous Aegis Gloves
 				{ 203, 45371 },	-- Valorous Aegis Greaves
-				{ 205, "ICON_Spell_Holy_AuraOfLight", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Retribution"] },
+				{ 205, "ICON_Spell_Holy_AuraOfLight", nil, ALIL["PALADIN"], ALIL["Retribution"] },
 				{ 206, 45376 },	-- Valorous Aegis Gauntlets
 				{ 207, 45379 },	-- Valorous Aegis Legplates
-				{ 209, "ICON_spell_holy_devotionaura", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Protection"] },
+				{ 209, "ICON_spell_holy_devotionaura", nil, ALIL["PALADIN"], ALIL["Protection"] },
 				{ 210, 45383 },	-- Valorous Aegis Handguards
 				{ 211, 45384 },	-- Valorous Aegis Legguards
-				{ 216, "ICON_Spell_Holy_HolyBolt", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Holy"] },
+				{ 216, "ICON_Spell_Holy_HolyBolt", nil, ALIL["PALADIN"], ALIL["Holy"] },
 				{ 217, 40926 },	-- Deadly Gladiator's Ornamented Gloves
 				{ 218, 40938 },	-- Deadly Gladiator's Ornamented Legplates
-				{ 220, "ICON_Spell_Holy_AuraOfLight", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Retribution"] },
+				{ 220, "ICON_Spell_Holy_AuraOfLight", nil, ALIL["PALADIN"], ALIL["Retribution"] },
 				{ 221, 40805 },	-- Deadly Gladiator's Scaled Gauntlets
 				{ 222, 40846 },	-- Deadly Gladiator's Scaled Legguards
-				{ 301, "ICON_spell_holy_guardianspirit", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
+				{ 301, "ICON_spell_holy_guardianspirit", nil, ALIL["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
 				{ 302, 45387 },	-- Valorous Gloves of Sanctification
 				{ 303, 45388 },	-- Valorous Leggings of Sanctification
-				{ 305, "ICON_spell_shadow_shadowwordpain", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Shadow"] },
+				{ 305, "ICON_spell_shadow_shadowwordpain", nil, ALIL["PRIEST"], ALIL["Shadow"] },
 				{ 306, 45392 },	-- Valorous Handwraps of Sanctification
 				{ 307, 45394 },	-- Valorous Pants of Sanctification
-				{ 316, "ICON_spell_holy_guardianspirit", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
+				{ 316, "ICON_spell_holy_guardianspirit", nil, ALIL["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
 				{ 317, 41873 },	-- Deadly Gladiator's Mooncloth Gloves
 				{ 318, 41863 },	-- Deadly Gladiator's Mooncloth Leggings
-				{ 320, "ICON_spell_shadow_shadowwordpain", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Shadow"] },
+				{ 320, "ICON_spell_shadow_shadowwordpain", nil, ALIL["PRIEST"], ALIL["Shadow"] },
 				{ 321, 41939 },	-- Deadly Gladiator's Satin Gloves
 				{ 322, 41926 },	-- Deadly Gladiator's Satin Leggings
-				{ 401, "ICON_Spell_Nature_Lightning", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Elemental"] },
+				{ 401, "ICON_Spell_Nature_Lightning", nil, ALIL["SHAMAN"], ALIL["Elemental"] },
 				{ 402, 45406 },	-- Valorous Worldbreaker Gloves
 				{ 403, 45409 },	-- Valorous Worldbreaker Kilt
-				{ 405, "ICON_spell_nature_lightningshield", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Enhancement"] },
+				{ 405, "ICON_spell_nature_lightningshield", nil, ALIL["SHAMAN"], ALIL["Enhancement"] },
 				{ 406, 45414 },	-- Valorous Worldbreaker Grips
 				{ 407, 45416 },	-- Valorous Worldbreaker War-Kilt
-				{ 409, "ICON_spell_nature_magicimmunity", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Restoration"] },
+				{ 409, "ICON_spell_nature_magicimmunity", nil, ALIL["SHAMAN"], ALIL["Restoration"] },
 				{ 410, 45401 },	-- Valorous Worldbreaker Handguards
 				{ 411, 45403 },	-- Valorous Worldbreaker Legguards
-				{ 416, "ICON_Spell_Nature_Lightning", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Elemental"] },
+				{ 416, "ICON_Spell_Nature_Lightning", nil, ALIL["SHAMAN"], ALIL["Elemental"] },
 				{ 417, 41006 },	-- Deadly Gladiator's Mail Gauntlets
 				{ 418, 41032 },	-- Deadly Gladiator's Mail Leggings
-				{ 420, "ICON_spell_nature_lightningshield", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Enhancement"] },
+				{ 420, "ICON_spell_nature_lightningshield", nil, ALIL["SHAMAN"], ALIL["Enhancement"] },
 				{ 421, 41136 },	-- Deadly Gladiator's Linked Gauntlets
 				{ 422, 41198 },	-- Deadly Gladiator's Linked Leggings
-				{ 424, "ICON_spell_nature_magicimmunity", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Restoration"] },
+				{ 424, "ICON_spell_nature_magicimmunity", nil, ALIL["SHAMAN"], ALIL["Restoration"] },
 				{ 425, 41000 },	-- Deadly Gladiator's Ringmail Gauntlets
 				{ 426, 41026 },	-- Deadly Gladiator's Ringmail Leggings
-				{ 501, "ICON_spell_deathknight_frostpresence", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ALIL["Frost"].." / "..ALIL["Unholy"] },
+				{ 501, "ICON_spell_deathknight_frostpresence", nil, ALIL["DEATHKNIGHT"], ALIL["Frost"].." / "..ALIL["Unholy"] },
 				{ 502, 45341 },	-- Valorous Darkruned Gauntlets
 				{ 503, 45343 },	-- Valorous Darkruned Legplates
-				{ 505, "ICON_spell_deathknight_bloodpresence", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ALIL["Blood"] },
+				{ 505, "ICON_spell_deathknight_bloodpresence", nil, ALIL["DEATHKNIGHT"], ALIL["Blood"] },
 				{ 506, 45337 },	-- Valorous Darkruned Handguards
 				{ 507, 45338 },	-- Valorous Darkruned Legguards
-				{ 509, "ICON_ability_warrior_innerrage", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ALIL["Arms"].." / "..ALIL["Fury"] },
+				{ 509, "ICON_ability_warrior_innerrage", nil, ALIL["WARRIOR"], ALIL["Arms"].." / "..ALIL["Fury"] },
 				{ 510, 45430 },	-- Valorous Siegebreaker Gauntlets
 				{ 511, 45432 },	-- Valorous Siegebreaker Legplates
-				{ 513, "ICON_ability_warrior_defensivestance", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ALIL["Protection"] },
+				{ 513, "ICON_ability_warrior_defensivestance", nil, ALIL["WARRIOR"], ALIL["Protection"] },
 				{ 514, 45426 },	-- Valorous Siegebreaker Handguards
 				{ 515, 45427 },	-- Valorous Siegebreaker Legguards
-				{ 516, "ICON_Spell_deathknight_classicon", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], nil },
+				{ 516, "ICON_Spell_deathknight_classicon", nil, ALIL["DEATHKNIGHT"], nil },
 				{ 517, 40806 },	-- Deadly Gladiator's Dreadplate Gauntlets
 				{ 518, 40845 },	-- Deadly Gladiator's Dreadplate Legguards
-				{ 524, "ICON_inv_sword_27", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], nil },
+				{ 524, "ICON_inv_sword_27", nil, ALIL["WARRIOR"], nil },
 				{ 525, 40804 },	-- Deadly Gladiator's Plate Gauntlets
 				{ 526, 40844 },	-- Deadly Gladiator's Plate Legguards
 				{ 601, 41908 },	-- Deadly Gladiator's Cuffs of Dominance
@@ -5391,109 +5391,109 @@ data["VaultofArchavon"] = {
 		{	--Koralon
 			name = BB["Koralon the Flame Watcher"],
 			[NORMAL_DIFF] = {
-				{ 1, "ICON_spell_nature_starfall", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Balance"] },
+				{ 1, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 2, [ATLASLOOT_IT_ALLIANCE] = 48162, [ATLASLOOT_IT_HORDE] = 48183 },	-- Stormrage's Gloves of Conquest / Runetotem's Gloves of Conquest
 				{ 3, [ATLASLOOT_IT_ALLIANCE] = 48160, [ATLASLOOT_IT_HORDE] = 48185 },	-- Stormrage's Trousers of Conquest / Runetotem's Trousers of Conquest
-				{ 5, "ICON_ability_druid_catform", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Feral"] },
+				{ 5, "ICON_ability_druid_catform", nil, ALIL["DRUID"], ALIL["Feral"] },
 				{ 6, [ATLASLOOT_IT_ALLIANCE] = 48213, [ATLASLOOT_IT_HORDE] = 48192 },	-- Stormrage's Handgrips of Conquest / Runetotem's Handgrips of Conquest
 				{ 7, [ATLASLOOT_IT_ALLIANCE] = 48215, [ATLASLOOT_IT_HORDE] = 48190 },	-- Stormrage's Legguards of Conquest / Runetotem's Legguards of Conquest
-				{ 9, "ICON_spell_nature_healingtouch", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Restoration"] },
+				{ 9, "ICON_spell_nature_healingtouch", nil, ALIL["DRUID"], ALIL["Restoration"] },
 				{ 10, [ATLASLOOT_IT_ALLIANCE] = 48132, [ATLASLOOT_IT_HORDE] = 48153 },	-- Stormrage's Handguards of Conquest / Runetotem's Handguards of Conquest
 				{ 11, [ATLASLOOT_IT_ALLIANCE] = 48130, [ATLASLOOT_IT_HORDE] = 48155 },	-- Stormrage's Leggings of Conquest / Runetotem's Leggings of Conquest
-				{ 16, "ICON_spell_nature_starfall", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Balance"] },
+				{ 16, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 17, 41293 },	-- Furious Gladiator's Wyrmhide Gloves
 				{ 18, 41304 },	-- Furious Gladiator's Wyrmhide Legguards
-				{ 20, "ICON_ability_druid_catform", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Feral"] },
+				{ 20, "ICON_ability_druid_catform", nil, ALIL["DRUID"], ALIL["Feral"] },
 				{ 21, 41773 },	-- Furious Gladiator's Dragonhide Gloves
 				{ 22, 41667 },	-- Furious Gladiator's Dragonhide Legguards
-				{ 24, "ICON_spell_nature_healingtouch", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Restoration"] },
+				{ 24, "ICON_spell_nature_healingtouch", nil, ALIL["DRUID"], ALIL["Restoration"] },
 				{ 25, 41287 },	-- Furious Gladiator's Kodohide Gloves
 				{ 26, 41298 },	-- Furious Gladiator's Kodohide Legguards
-				{ 101, "ICON_inv_weapon_bow_07", nil, LOCALIZED_CLASS_NAMES_MALE["HUNTER"], nil },
+				{ 101, "ICON_inv_weapon_bow_07", nil, ALIL["HUNTER"], nil },
 				{ 102, [ATLASLOOT_IT_ALLIANCE] = 48254, [ATLASLOOT_IT_HORDE] = 48276 },	-- Windrunner's Handguards of Conquest
 				{ 103, [ATLASLOOT_IT_ALLIANCE] = 48252, [ATLASLOOT_IT_HORDE] = 48278 },	-- Windrunner's Legguards of Conquest
-				{ 105, "ICON_inv_staff_13", nil, LOCALIZED_CLASS_NAMES_MALE["MAGE"], nil },
+				{ 105, "ICON_inv_staff_13", nil, ALIL["MAGE"], nil },
 				{ 106, [ATLASLOOT_IT_ALLIANCE] = 47752, [ATLASLOOT_IT_HORDE] = 47773 },	-- Khadgar's Gauntlets of Conquest / Sunstrider's Gauntlets of Conquest
 				{ 107, [ATLASLOOT_IT_ALLIANCE] = 47750, [ATLASLOOT_IT_HORDE] = 47775 },	-- Khadgar's Leggings of Conquest / Sunstrider's Leggings of Conquest
-				{ 109, "ICON_inv_throwingknife_04", nil, LOCALIZED_CLASS_NAMES_MALE["ROGUE"], nil },
+				{ 109, "ICON_inv_throwingknife_04", nil, ALIL["ROGUE"], nil },
 				{ 110, [ATLASLOOT_IT_ALLIANCE] = 48222, [ATLASLOOT_IT_HORDE] = 48244 },	-- VanCleef's Gauntlets of Conquest / Garona's Gauntlets of Conquest
 				{ 111, [ATLASLOOT_IT_ALLIANCE] = 48220, [ATLASLOOT_IT_HORDE] = 48246 },	-- VanCleef's Legplates of Conquest / Garona's Legplates of Conquest
-				{ 113, "ICON_spell_nature_drowsy", nil, LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], nil },
+				{ 113, "ICON_spell_nature_drowsy", nil, ALIL["WARLOCK"], nil },
 				{ 114, [ATLASLOOT_IT_ALLIANCE] = 47783, [ATLASLOOT_IT_HORDE] = 47802 },	-- Kel'Thuzad's Gloves of Conquest / Gul'dan's Gloves of Conquest
 				{ 115, [ATLASLOOT_IT_ALLIANCE] = 47785, [ATLASLOOT_IT_HORDE] = 47800 },	-- Kel'Thuzad's Leggings of Conquest / Gul'dan's Leggings of Conquest
-				{ 116, "ICON_inv_weapon_bow_07", nil, LOCALIZED_CLASS_NAMES_MALE["HUNTER"], nil },
+				{ 116, "ICON_inv_weapon_bow_07", nil, ALIL["HUNTER"], nil },
 				{ 117, 41143 },	-- Furious Gladiator's Chain Gauntlets
 				{ 118, 41205 },	-- Furious Gladiator's Chain Leggings
-				{ 120, "ICON_inv_staff_13", nil, LOCALIZED_CLASS_NAMES_MALE["MAGE"], nil },
+				{ 120, "ICON_inv_staff_13", nil, ALIL["MAGE"], nil },
 				{ 121, 41971 },	-- Furious Gladiator's Silk Handguards
 				{ 122, 41959 },	-- Furious Gladiator's Silk Trousers
-				{ 124, "ICON_inv_throwingknife_04", nil, LOCALIZED_CLASS_NAMES_MALE["ROGUE"], nil },
+				{ 124, "ICON_inv_throwingknife_04", nil, ALIL["ROGUE"], nil },
 				{ 125, 41767 },	-- Furious Gladiator's Leather Gloves
 				{ 126, 41655 },	-- Furious Gladiator's Leather Legguards
-				{ 128, "ICON_spell_nature_drowsy", nil, LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], nil },
+				{ 128, "ICON_spell_nature_drowsy", nil, ALIL["WARLOCK"], nil },
 				{ 129, 42017 },	-- Furious Gladiator's Felweave Handguards
 				{ 130, 42005 },	-- Furious Gladiator's Felweave Trousers
-				{ 201, "ICON_Spell_Holy_HolyBolt", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Holy"] },
+				{ 201, "ICON_Spell_Holy_HolyBolt", nil, ALIL["PALADIN"], ALIL["Holy"] },
 				{ 202, [ATLASLOOT_IT_ALLIANCE] = 48574, [ATLASLOOT_IT_HORDE] = 48598 },	-- Turalyon's Gloves of Conquest / Liadrin's Gloves of Conquest
 				{ 203, [ATLASLOOT_IT_ALLIANCE] = 48568, [ATLASLOOT_IT_HORDE] = 48596 },	-- Turalyon's Greaves of Conquest / Liadrin's Greaves of Conquest
-				{ 205, "ICON_Spell_Holy_AuraOfLight", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Retribution"] },
+				{ 205, "ICON_Spell_Holy_AuraOfLight", nil, ALIL["PALADIN"], ALIL["Retribution"] },
 				{ 206, [ATLASLOOT_IT_ALLIANCE] = 48603, [ATLASLOOT_IT_HORDE] = 48630 },	-- Turalyon's Gauntlets of Conquest / Liadrin's Gauntlets of Conquest
 				{ 207, [ATLASLOOT_IT_ALLIANCE] = 48605, [ATLASLOOT_IT_HORDE] = 48628 },	-- Turalyon's Legplates of Conquest / Liadrin's Legplates of Conquest
-				{ 209, "ICON_spell_holy_devotionaura", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Protection"] },
+				{ 209, "ICON_spell_holy_devotionaura", nil, ALIL["PALADIN"], ALIL["Protection"] },
 				{ 210, [ATLASLOOT_IT_ALLIANCE] = 48633, [ATLASLOOT_IT_HORDE] = 48653 },	-- Turalyon's Handguards of Conquest / Liadrin's Handguards of Conquest
 				{ 211, [ATLASLOOT_IT_ALLIANCE] = 48635, [ATLASLOOT_IT_HORDE] = 48655 },	-- Turalyon's Legguards of Conquest / Liadrin's Legguards of Conquest
-				{ 216, "ICON_Spell_Holy_HolyBolt", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Holy"] },
+				{ 216, "ICON_Spell_Holy_HolyBolt", nil, ALIL["PALADIN"], ALIL["Holy"] },
 				{ 217, 40927 },	-- Furious Gladiator's Ornamented Gloves
 				{ 218, 40939 },	-- Furious Gladiator's Ornamented Legplates
-				{ 220, "ICON_Spell_Holy_AuraOfLight", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Retribution"] },
+				{ 220, "ICON_Spell_Holy_AuraOfLight", nil, ALIL["PALADIN"], ALIL["Retribution"] },
 				{ 221, 40808 },	-- Furious Gladiator's Scaled Gauntlets
 				{ 222, 40849 },	-- Furious Gladiator's Scaled Legguards
-				{ 301, "ICON_spell_holy_guardianspirit", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
+				{ 301, "ICON_spell_holy_guardianspirit", nil, ALIL["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
 				{ 302, [ATLASLOOT_IT_ALLIANCE] = 47982, [ATLASLOOT_IT_HORDE] = 48067 },	-- Velen's Gloves of Conquest / Zabra's Gloves of Conquest
 				{ 303, [ATLASLOOT_IT_ALLIANCE] = 47980, [ATLASLOOT_IT_HORDE] = 48069 },	-- Velen's Leggings of Conquest / Zabra's Leggings of Conquest
-				{ 305, "ICON_spell_shadow_shadowwordpain", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Shadow"] },
+				{ 305, "ICON_spell_shadow_shadowwordpain", nil, ALIL["PRIEST"], ALIL["Shadow"] },
 				{ 306, [ATLASLOOT_IT_ALLIANCE] = 48072, [ATLASLOOT_IT_HORDE] = 48097 },	-- Velen's Handwraps of Conquest / Zabra's Handwraps of Conquest
 				{ 307, [ATLASLOOT_IT_ALLIANCE] = 48074, [ATLASLOOT_IT_HORDE] = 48099 },	-- Velen's Pants of Conquest / Zabra's Pants of Conquest
-				{ 316, "ICON_spell_holy_guardianspirit", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
+				{ 316, "ICON_spell_holy_guardianspirit", nil, ALIL["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
 				{ 317, 41874 },	-- Furious Gladiator's Mooncloth Gloves
 				{ 318, 41864 },	-- Furious Gladiator's Mooncloth Leggings
-				{ 320, "ICON_spell_shadow_shadowwordpain", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Shadow"] },
+				{ 320, "ICON_spell_shadow_shadowwordpain", nil, ALIL["PRIEST"], ALIL["Shadow"] },
 				{ 321, 41940 },	-- Furious Gladiator's Satin Gloves
 				{ 322, 41927 },	-- Furious Gladiator's Satin Leggings
-				{ 401, "ICON_Spell_Nature_Lightning", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Elemental"] },
+				{ 401, "ICON_Spell_Nature_Lightning", nil, ALIL["SHAMAN"], ALIL["Elemental"] },
 				{ 402, [ATLASLOOT_IT_ALLIANCE] = 48312, [ATLASLOOT_IT_HORDE] = 48337 },	-- Nobundo's Gloves of Conquest / Thrall's Gloves of Conquest
 				{ 403, [ATLASLOOT_IT_ALLIANCE] = 48314, [ATLASLOOT_IT_HORDE] = 48339 },	-- Nobundo's Kilt of Conquest / Thrall's Kilt of Conquest
-				{ 405, "ICON_spell_nature_lightningshield", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Enhancement"] },
+				{ 405, "ICON_spell_nature_lightningshield", nil, ALIL["SHAMAN"], ALIL["Enhancement"] },
 				{ 406, [ATLASLOOT_IT_ALLIANCE] = 48342, [ATLASLOOT_IT_HORDE] = 48367 },	-- Nobundo's Grips of Conquest / Thrall's Grips of Conquest
 				{ 407, [ATLASLOOT_IT_ALLIANCE] = 48344, [ATLASLOOT_IT_HORDE] = 48369 },	-- Nobundo's War-Kilt of Conquest / Thrall's War-Kilt of Conquest
-				{ 409, "ICON_spell_nature_magicimmunity", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Restoration"] },
+				{ 409, "ICON_spell_nature_magicimmunity", nil, ALIL["SHAMAN"], ALIL["Restoration"] },
 				{ 410, [ATLASLOOT_IT_ALLIANCE] = 48284, [ATLASLOOT_IT_HORDE] = 48296 },	-- Nobundo's Handguards of Conquest / Thrall's Handguards of Conquest
 				{ 411, [ATLASLOOT_IT_ALLIANCE] = 48282, [ATLASLOOT_IT_HORDE] = 48298 },	-- Nobundo's Legguards of Conquest / Thrall's Legguards of Conquest
-				{ 416, "ICON_Spell_Nature_Lightning", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Elemental"] },
+				{ 416, "ICON_Spell_Nature_Lightning", nil, ALIL["SHAMAN"], ALIL["Elemental"] },
 				{ 417, 41007 },	-- Furious Gladiator's Mail Gauntlets
 				{ 418, 41033 },	-- Furious Gladiator's Mail Leggings
-				{ 420, "ICON_spell_nature_lightningshield", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Enhancement"] },
+				{ 420, "ICON_spell_nature_lightningshield", nil, ALIL["SHAMAN"], ALIL["Enhancement"] },
 				{ 421, 41137 },	-- Furious Gladiator's Linked Gauntlets
 				{ 422, 41199 },	-- Furious Gladiator's Linked Leggings
-				{ 424, "ICON_spell_nature_magicimmunity", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Restoration"] },
+				{ 424, "ICON_spell_nature_magicimmunity", nil, ALIL["SHAMAN"], ALIL["Restoration"] },
 				{ 425, 41001 },	-- Furious Gladiator's Ringmail Gauntlets
 				{ 426, 41027 },	-- Furious Gladiator's Ringmail Leggings
-				{ 501, "ICON_spell_deathknight_frostpresence", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ALIL["Frost"].." / "..ALIL["Unholy"] },
+				{ 501, "ICON_spell_deathknight_frostpresence", nil, ALIL["DEATHKNIGHT"], ALIL["Frost"].." / "..ALIL["Unholy"] },
 				{ 502, [ATLASLOOT_IT_ALLIANCE] = 48480, [ATLASLOOT_IT_HORDE] = 48502 },	-- Thassarian's Gauntlets of Conquest / Koltira's Gauntlets of Conquest
 				{ 503, [ATLASLOOT_IT_ALLIANCE] = 48476, [ATLASLOOT_IT_HORDE] = 48504 },	-- Thassarian's Legplates of Conquest / Koltira's Legplates of Conquest
-				{ 505, "ICON_spell_deathknight_bloodpresence", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ALIL["Blood"] },
+				{ 505, "ICON_spell_deathknight_bloodpresence", nil, ALIL["DEATHKNIGHT"], ALIL["Blood"] },
 				{ 506, [ATLASLOOT_IT_ALLIANCE] = 48537, [ATLASLOOT_IT_HORDE] = 48559 },	-- Thassarian's Handguards of Conquest / Koltira's Handguards of Conquest
 				{ 507, [ATLASLOOT_IT_ALLIANCE] = 48533, [ATLASLOOT_IT_HORDE] = 48561 },	-- Thassarian's Legguards of Conquest / Koltira's Legguards of Conquest
-				{ 509, "ICON_ability_warrior_innerrage", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ALIL["Arms"].." / "..ALIL["Fury"] },
+				{ 509, "ICON_ability_warrior_innerrage", nil, ALIL["WARRIOR"], ALIL["Arms"].." / "..ALIL["Fury"] },
 				{ 510, [ATLASLOOT_IT_ALLIANCE] = 48375, [ATLASLOOT_IT_HORDE] = 48387 },	-- Wrynn's Gauntlets of Conquest / Hellscream's Gauntlets of Conquest
 				{ 511, [ATLASLOOT_IT_ALLIANCE] = 48373, [ATLASLOOT_IT_HORDE] = 48389 },	-- Wrynn's Legplates of Conquest / Hellscream's Legplates of Conquest
-				{ 513, "ICON_ability_warrior_defensivestance", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ALIL["Protection"] },
+				{ 513, "ICON_ability_warrior_defensivestance", nil, ALIL["WARRIOR"], ALIL["Protection"] },
 				{ 514, [ATLASLOOT_IT_ALLIANCE] = 48449, [ATLASLOOT_IT_HORDE] = 48457 },	-- Wrynn's Handguards of Conquest / Hellscream's Handguards of Conquest
 				{ 515, [ATLASLOOT_IT_ALLIANCE] = 48445, [ATLASLOOT_IT_HORDE] = 48459 },	-- Wrynn's Legguards of Conquest / Hellscream's Legguards of Conquest
-				{ 516, "ICON_Spell_deathknight_classicon", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], nil },
+				{ 516, "ICON_Spell_deathknight_classicon", nil, ALIL["DEATHKNIGHT"], nil },
 				{ 517, 40809 },	-- Furious Gladiator's Dreadplate Gauntlets
 				{ 518, 40848 },	-- Furious Gladiator's Dreadplate Legguards
-				{ 524, "ICON_inv_sword_27", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], nil },
+				{ 524, "ICON_inv_sword_27", nil, ALIL["WARRIOR"], nil },
 				{ 525, 40807 },	-- Furious Gladiator's Plate Gauntlets
 				{ 526, 40847 },	-- Furious Gladiator's Plate Legguards
 				{ 601, 41909 },	-- Furious Gladiator's Cuffs of Dominance
@@ -5676,109 +5676,109 @@ data["VaultofArchavon"] = {
 		{	--Toravon
 			name = BB["Toravon the Ice Watcher"],
 			[NORMAL_DIFF] = {
-				{ 1, "ICON_spell_nature_starfall", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Balance"] },
+				{ 1, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 2, 50822 },	-- Lasherweave's Gloves
 				{ 3, 50820 },	-- Lasherweave's Trousers
-				{ 5, "ICON_ability_druid_catform", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Feral"] },
+				{ 5, "ICON_ability_druid_catform", nil, ALIL["DRUID"], ALIL["Feral"] },
 				{ 6, 50827 },	-- Lasherweave's Handgrips
 				{ 7, 50825 },	-- Lasherweave's Legguards
-				{ 9, "ICON_spell_nature_healingtouch", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Restoration"] },
+				{ 9, "ICON_spell_nature_healingtouch", nil, ALIL["DRUID"], ALIL["Restoration"] },
 				{ 10, 50107 },	-- Lasherweave's Gauntlets
 				{ 11, 50109 },	-- Lasherweave's Legplates
-				{ 16, "ICON_spell_nature_starfall", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Balance"] },
+				{ 16, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 17, 41294 },	-- Relentless Gladiator's Wyrmhide Gloves
 				{ 18, 41305 },	-- Relentless Gladiator's Wyrmhide Legguards
-				{ 20, "ICON_ability_druid_catform", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Feral"] },
+				{ 20, "ICON_ability_druid_catform", nil, ALIL["DRUID"], ALIL["Feral"] },
 				{ 21, 41774 },	-- Relentless Gladiator's Dragonhide Gloves
 				{ 22, 41668 },	-- Relentless Gladiator's Dragonhide Legguards
-				{ 24, "ICON_spell_nature_healingtouch", nil, LOCALIZED_CLASS_NAMES_MALE["DRUID"], ALIL["Restoration"] },
+				{ 24, "ICON_spell_nature_healingtouch", nil, ALIL["DRUID"], ALIL["Restoration"] },
 				{ 25, 41288 },	-- Relentless Gladiator's Kodohide Gloves
 				{ 26, 41299 },	-- Relentless Gladiator's Kodohide Legguards
-				{ 101, "ICON_inv_weapon_bow_07", nil, LOCALIZED_CLASS_NAMES_MALE["HUNTER"], nil },
+				{ 101, "ICON_inv_weapon_bow_07", nil, ALIL["HUNTER"], nil },
 				{ 102, 50114 },	-- Ahn'Kahar Blood Hunter's Handguards
 				{ 103, 50116 },	-- Ahn'Kahar Blood Hunter's Legguards
-				{ 105, "ICON_inv_staff_13", nil, LOCALIZED_CLASS_NAMES_MALE["MAGE"], nil },
+				{ 105, "ICON_inv_staff_13", nil, ALIL["MAGE"], nil },
 				{ 106, 50275 },	-- Bloodmage Gloves
 				{ 107, 50277 },	-- Bloodmage Leggings
-				{ 109, "ICON_inv_throwingknife_04", nil, LOCALIZED_CLASS_NAMES_MALE["ROGUE"], nil },
+				{ 109, "ICON_inv_throwingknife_04", nil, ALIL["ROGUE"], nil },
 				{ 110, 50088 },	-- Shadowblade Gauntlets
 				{ 111, 50090 },	-- Shadowblade Legplates
-				{ 113, "ICON_spell_nature_drowsy", nil, LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], nil },
+				{ 113, "ICON_spell_nature_drowsy", nil, ALIL["WARLOCK"], nil },
 				{ 114, 50240 },	-- Dark Coven Gloves
 				{ 115, 50242 },	-- Dark Coven Leggings
-				{ 116, "ICON_inv_weapon_bow_07", nil, LOCALIZED_CLASS_NAMES_MALE["HUNTER"], nil },
+				{ 116, "ICON_inv_weapon_bow_07", nil, ALIL["HUNTER"], nil },
 				{ 117, 41144 },	-- Relentless Gladiator's Chain Gauntlets
 				{ 118, 41206 },	-- Relentless Gladiator's Chain Leggings
-				{ 120, "ICON_inv_staff_13", nil, LOCALIZED_CLASS_NAMES_MALE["MAGE"], nil },
+				{ 120, "ICON_inv_staff_13", nil, ALIL["MAGE"], nil },
 				{ 121, 41972 },	-- Relentless Gladiator's Silk Handguards
 				{ 122, 41960 },	-- Relentless Gladiator's Silk Trousers
-				{ 124, "ICON_inv_throwingknife_04", nil, LOCALIZED_CLASS_NAMES_MALE["ROGUE"], nil },
+				{ 124, "ICON_inv_throwingknife_04", nil, ALIL["ROGUE"], nil },
 				{ 125, 41768 },	-- Relentless Gladiator's Leather Gloves
 				{ 126, 41656 },	-- Relentless Gladiator's Leather Legguards
-				{ 128, "ICON_spell_nature_drowsy", nil, LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], nil },
+				{ 128, "ICON_spell_nature_drowsy", nil, ALIL["WARLOCK"], nil },
 				{ 129, 42018 },	-- Relentless Gladiator's Felweave Handguards
 				{ 130, 42006 },	-- Relentless Gladiator's Felweave Trousers
-				{ 201, "ICON_Spell_Holy_HolyBolt", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Holy"] },
+				{ 201, "ICON_Spell_Holy_HolyBolt", nil, ALIL["PALADIN"], ALIL["Holy"] },
 				{ 202, 50868 },	-- Lightsworn Gloves
 				{ 203, 50866 },	-- Lightsworn Greaves
-				{ 205, "ICON_Spell_Holy_AuraOfLight", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Retribution"] },
+				{ 205, "ICON_Spell_Holy_AuraOfLight", nil, ALIL["PALADIN"], ALIL["Retribution"] },
 				{ 206, 50327 },	-- Lightsworn Gauntlets
 				{ 207, 50325 },	-- Lightsworn Legplates
-				{ 209, "ICON_spell_holy_devotionaura", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Protection"] },
+				{ 209, "ICON_spell_holy_devotionaura", nil, ALIL["PALADIN"], ALIL["Protection"] },
 				{ 210, 50863 },	-- Lightsworn Handguards
 				{ 211, 50861 },	-- Lightsworn Legguards
-				{ 216, "ICON_Spell_Holy_HolyBolt", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Holy"] },
+				{ 216, "ICON_Spell_Holy_HolyBolt", nil, ALIL["PALADIN"], ALIL["Holy"] },
 				{ 217, 40928 },	-- Relentless Gladiator's Ornamented Gloves
 				{ 218, 40940 },	-- Relentless Gladiator's Ornamented Legplates
-				{ 220, "ICON_Spell_Holy_AuraOfLight", nil, LOCALIZED_CLASS_NAMES_MALE["PALADIN"], ALIL["Retribution"] },
+				{ 220, "ICON_Spell_Holy_AuraOfLight", nil, ALIL["PALADIN"], ALIL["Retribution"] },
 				{ 221, 40812 },	-- Relentless Gladiator's Scaled Gauntlets
 				{ 222, 40852 },	-- Relentless Gladiator's Scaled Legguards
-				{ 301, "ICON_spell_holy_guardianspirit", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
+				{ 301, "ICON_spell_holy_guardianspirit", nil, ALIL["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
 				{ 302, 50766 },	-- Crimson Acolyte Gloves
 				{ 303, 50769 },	-- Crimson Acolyte Leggings
-				{ 305, "ICON_spell_shadow_shadowwordpain", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Shadow"] },
+				{ 305, "ICON_spell_shadow_shadowwordpain", nil, ALIL["PRIEST"], ALIL["Shadow"] },
 				{ 306, 50391 },	-- Crimson Acolyte Handwraps
 				{ 307, 50393 },	-- Crimson Acolyte Pants
-				{ 316, "ICON_spell_holy_guardianspirit", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
+				{ 316, "ICON_spell_holy_guardianspirit", nil, ALIL["PRIEST"], ALIL["Discipline"].." / "..ALIL["Holy"] },
 				{ 317, 41875 },	-- Relentless Gladiator's Mooncloth Gloves
 				{ 318, 41865 },	-- Relentless Gladiator's Mooncloth Leggings
-				{ 320, "ICON_spell_shadow_shadowwordpain", nil, LOCALIZED_CLASS_NAMES_MALE["PRIEST"], ALIL["Shadow"] },
+				{ 320, "ICON_spell_shadow_shadowwordpain", nil, ALIL["PRIEST"], ALIL["Shadow"] },
 				{ 321, 41941 },	-- Relentless Gladiator's Satin Gloves
 				{ 322, 41928 },	-- Relentless Gladiator's Satin Leggings
-				{ 401, "ICON_Spell_Nature_Lightning", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Elemental"] },
+				{ 401, "ICON_Spell_Nature_Lightning", nil, ALIL["SHAMAN"], ALIL["Elemental"] },
 				{ 402, 50842 },	-- Frost Witch's Gloves
 				{ 403, 50844 },	-- Frost Witch's Kilt
-				{ 405, "ICON_spell_nature_lightningshield", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Enhancement"] },
+				{ 405, "ICON_spell_nature_lightningshield", nil, ALIL["SHAMAN"], ALIL["Enhancement"] },
 				{ 406, 50831 },	-- Frost Witch's Grips
 				{ 407, 50833 },	-- Frost Witch's War-Kilt
-				{ 409, "ICON_spell_nature_magicimmunity", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Restoration"] },
+				{ 409, "ICON_spell_nature_magicimmunity", nil, ALIL["SHAMAN"], ALIL["Restoration"] },
 				{ 410, 50836 },	-- Frost Witch's Handguards
 				{ 411, 50838 },	-- Frost Witch's Legguards
-				{ 416, "ICON_Spell_Nature_Lightning", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Elemental"] },
+				{ 416, "ICON_Spell_Nature_Lightning", nil, ALIL["SHAMAN"], ALIL["Elemental"] },
 				{ 417, 41008 },	-- Relentless Gladiator's Mail Gauntlets
 				{ 418, 41034 },	-- Relentless Gladiator's Mail Leggings
-				{ 420, "ICON_spell_nature_lightningshield", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Enhancement"] },
+				{ 420, "ICON_spell_nature_lightningshield", nil, ALIL["SHAMAN"], ALIL["Enhancement"] },
 				{ 421, 41138 },	-- Relentless Gladiator's Linked Gauntlets
 				{ 422, 41200 },	-- Relentless Gladiator's Linked Leggings
-				{ 424, "ICON_spell_nature_magicimmunity", nil, LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], ALIL["Restoration"] },
+				{ 424, "ICON_spell_nature_magicimmunity", nil, ALIL["SHAMAN"], ALIL["Restoration"] },
 				{ 425, 41002 },	-- Relentless Gladiator's Ringmail Gauntlets
 				{ 426, 41028 },	-- Relentless Gladiator's Ringmail Leggings
-				{ 501, "ICON_spell_deathknight_frostpresence", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ALIL["Frost"].." / "..ALIL["Unholy"] },
+				{ 501, "ICON_spell_deathknight_frostpresence", nil, ALIL["DEATHKNIGHT"], ALIL["Frost"].." / "..ALIL["Unholy"] },
 				{ 502, 50095 },	-- Scourgelord Gauntlets
 				{ 503, 50097 },	-- Scourgelord Legplates
-				{ 505, "ICON_spell_deathknight_bloodpresence", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], ALIL["Blood"] },
+				{ 505, "ICON_spell_deathknight_bloodpresence", nil, ALIL["DEATHKNIGHT"], ALIL["Blood"] },
 				{ 506, 50856 },	-- Scourgelord Handguards
 				{ 507, 50854 },	-- Scourgelord Legguards
-				{ 509, "ICON_ability_warrior_innerrage", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ALIL["Arms"].." / "..ALIL["Fury"] },
+				{ 509, "ICON_ability_warrior_innerrage", nil, ALIL["WARRIOR"], ALIL["Arms"].." / "..ALIL["Fury"] },
 				{ 510, 50079 },	-- Ymirjar Lord's Gauntlets
 				{ 511, 50081 },	-- Ymirjar Lord's Legplates
-				{ 513, "ICON_ability_warrior_defensivestance", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], ALIL["Protection"] },
+				{ 513, "ICON_ability_warrior_defensivestance", nil, ALIL["WARRIOR"], ALIL["Protection"] },
 				{ 514, 50849 },	-- Ymirjar Lord's Handguards
 				{ 515, 50847 },	-- Ymirjar Lord's Legguards
-				{ 516, "ICON_Spell_deathknight_classicon", nil, LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], nil },
+				{ 516, "ICON_Spell_deathknight_classicon", nil, ALIL["DEATHKNIGHT"], nil },
 				{ 517, 40811 },	-- Relentless Gladiator's Dreadplate Gauntlets
 				{ 518, 40851 },	-- Relentless Gladiator's Dreadplate Legguards
-				{ 524, "ICON_inv_sword_27", nil, LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], nil },
+				{ 524, "ICON_inv_sword_27", nil, ALIL["WARRIOR"], nil },
 				{ 525, 40810 },	-- Relentless Gladiator's Plate Gauntlets
 				{ 526, 40850 },	-- Relentless Gladiator's Plate Legguards
 				{ 601, 41910 },	-- Relentless Gladiator's Cuffs of Dominance

@@ -1,19 +1,13 @@
 ﻿## Interface: 70100
 ## Author: Hegarol	
-## Version: v8.01.06
+## Version: v8.01.09
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
-## OptionalDeps: LibBabble-ItemSet-3.0
-## X-Curse-Packaged-Version: v8.01.06
-## X-Curse-Project-Name: AtlasLoot Enhanced
-## X-Curse-Project-ID: atlasloot-enhanced
-## X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline
-
+## OptionalDeps: 
 ## Title: AtlasLoot |cFF0099FF[Collections]|r
 ## Title-deDE: AtlasLoot |cFF0099FF[Sammlungen]|r
 ## Title-zhCN: AtlasLoot |cFF0099FF[收集]|r
 ## Title-zhTW: AtlasLoot |cFF0099FF[收藏]|r
-
 ## Notes: AtlasLoot collections loot tables (e.g. Mounts & Pets)
 ## Notes-deDE: AtlasLoot Sammlungs-Beuteverzeichnisse (z.B. Reit- und Haustiere)
 ## Notes-zhCN: AtlasLoot 《收集》物品信息

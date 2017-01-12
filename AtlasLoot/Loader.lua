@@ -23,43 +23,43 @@ local GetTime = GetTime
 local ATLASLOOT_MODULE_LIST = {
 	{
 		addonName = "AtlasLoot_Legion",
-		name = AL["Legion"],
+		name = EXPANSION_NAME6,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_WarlordsofDraenor",
-		name = AL["Warlords of Draenor"],
+		name = EXPANSION_NAME5,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_MistsofPandaria",
-		name = AL["Mists of Pandaria"],
+		name = EXPANSION_NAME4,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_Cataclysm",
-		name = AL["Cataclysm"],
+		name = EXPANSION_NAME3,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_WrathoftheLichKing",
-		name = AL["Wrath of the Lich King"],
+		name = EXPANSION_NAME2,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_BurningCrusade",
-		name = AL["Burning Crusade"],
+		name = EXPANSION_NAME1,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_Classic",
-		name = AL["Classic"],
+		name = EXPANSION_NAME0,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},

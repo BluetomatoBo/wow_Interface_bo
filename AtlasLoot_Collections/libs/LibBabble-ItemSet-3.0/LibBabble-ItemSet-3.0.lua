@@ -1,7 +1,7 @@
 ﻿--[[
-$Id: LibBabble-ItemSet-3.0.lua 90 2016-10-26 11:39:54Z arith $
+$Id: LibBabble-ItemSet-3.0.lua 92 2016-10-28 08:39:32Z arith $
 Name: LibBabble-ItemSet-3.0
-Revision: $Rev: 90 $
+Revision: $Rev: 92 $
 Maintainers: arith
 Last updated by: $Author: arith $
 Website: http://www.wowace.com/addons/libbabble-itemset-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-ItemSet-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 90 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 92 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -6550,7 +6550,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Bonescythe Battlegear"] = "骨镰战甲",
 	["Borean Embrace"] = "北风的拥抱",
 	["Brewfest Garb"] = "美酒节套装",
-	-- ["Burden of Power"] = "",
+	["Burden of Power"] = "沉重的力量",
 	["Burning Rage"] = "钢铁之怒",
 	["Cadaverous Garb"] = "苍白",
 	["Cataclysm Harness"] = "灾难甲胄",

@@ -22,11 +22,11 @@ local PRICE_EXTRA_ITTYPE = data:AddExtraItemTableType("Price")
 local PVP_CONTENT = data:AddContentType(AL["PvP"], ATLASLOOT_PVP_COLOR)
 
 data["LEGION1SETS"] = {
-	name = string.format(AL["Legion"].." "..AL["Season %d"], 1).." "..AL["Class Sets"],
+	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 1).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135594 }, -- Vindictive Gladiator's Dreadplate Helm
 				{ 2, 135596 }, -- Vindictive Gladiator's Dreadplate Shoulders
@@ -70,7 +70,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEMONHUNTER"],
+			name = ALIL["DEMONHUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 136281 }, -- Vindictive Gladiator's Felskin Helm
 				{ 2, 136284 }, -- Vindictive Gladiator's Felskin Spaulders
@@ -110,7 +110,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135601 }, -- Vindictive Gladiator's Dragonhide Helm
 				{ 2, 135604 }, -- Vindictive Gladiator's Dragonhide Spaulders
@@ -154,7 +154,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135610 }, -- Vindictive Gladiator's Chain Helm
 				{ 2, 135612 }, -- Vindictive Gladiator's Chain Spaulders
@@ -194,7 +194,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135617 }, -- Vindictive Gladiator's Silk Cowl
 				{ 2, 135620 }, -- Vindictive Gladiator's Silk Amice
@@ -238,7 +238,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			name = ALIL["MONK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135625 }, -- Vindictive Gladiator's Ironskin Helm
 				{ 2, 135627 }, -- Vindictive Gladiator's Ironskin Spaulders
@@ -278,7 +278,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135634 }, -- Vindictive Gladiator's Scaled Helm
 				{ 2, 135636 }, -- Vindictive Gladiator's Scaled Shoulders
@@ -322,7 +322,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135641 }, -- Vindictive Gladiator's Satin Hood
 				{ 2, 135644 }, -- Vindictive Gladiator's Satin Mantle
@@ -366,7 +366,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135650 }, -- Vindictive Gladiator's Leather Helm
 				{ 2, 135652 }, -- Vindictive Gladiator's Leather Spaulders
@@ -410,7 +410,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135658 }, -- Vindictive Gladiator's Ringmail Helm
 				{ 2, 135660 }, -- Vindictive Gladiator's Ringmail Spaulders
@@ -454,7 +454,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135665 }, -- Vindictive Gladiator's Felweave Cowl
 				{ 2, 135668 }, -- Vindictive Gladiator's Felweave Amice
@@ -498,7 +498,7 @@ data["LEGION1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 135674 }, -- Vindictive Gladiator's Plate Helm
 				{ 2, 135676 }, -- Vindictive Gladiator's Plate Shoulders
@@ -548,7 +548,7 @@ data["WODS3SETS"] = {
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125827, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Dreadplate Helm
 				{ 2, 125829, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Dreadplate Shoulders
@@ -586,7 +586,7 @@ data["WODS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125831, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Dragonhide Helm
 				{ 2, 125834, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Dragonhide Spaulders
@@ -624,7 +624,7 @@ data["WODS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125837, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Chain Helm
 				{ 2, 125839, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Chain Spaulders
@@ -662,7 +662,7 @@ data["WODS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125884, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Silk Cowl
 				{ 2, 125887, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Silk Amice
@@ -700,7 +700,7 @@ data["WODS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			name = ALIL["MONK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125908, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Ironskin Helm
 				{ 2, 125910, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Ironskin Spaulders
@@ -738,7 +738,7 @@ data["WODS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125914, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Scaled Helm
 				{ 2, 125916, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Scaled Shoulders
@@ -776,7 +776,7 @@ data["WODS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125937, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Satin Hood
 				{ 2, 125940, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Satin Mantle
@@ -814,7 +814,7 @@ data["WODS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125943, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Leather Helm
 				{ 2, 125945, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Leather Spaulders
@@ -852,7 +852,7 @@ data["WODS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125948, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Ringmail Helm
 				{ 2, 125950, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Ringmail Spaulders
@@ -890,7 +890,7 @@ data["WODS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125990, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Felweave Cowl
 				{ 2, 125993, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Felweave Amice
@@ -928,7 +928,7 @@ data["WODS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 125996, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Plate Helm
 				{ 2, 125998, [PRICE_EXTRA_ITTYPE] = "conquest:1750" }, -- Warmongering Gladiator's Plate Shoulders
@@ -973,7 +973,7 @@ data["WODS3NONSETGEAR"] = {
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = ALIL["Cloth"],
+			name = AL["Cloth"],
 			[ALLIANCE_DIFF] = {
 				-- ilvl 710
 				{ 1, 125816, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Hood of Prowess
@@ -1052,7 +1052,7 @@ data["WODS3NONSETGEAR"] = {
 			},
 		},
 		{
-			name = ALIL["Leather"],
+			name = AL["Leather"],
 			[ALLIANCE_DIFF] = {
 				-- ilvl 710
 				{ 1, 125875, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Helm
@@ -1131,7 +1131,7 @@ data["WODS3NONSETGEAR"] = {
 			},
 		},
 		{
-			name = ALIL["Mail"],
+			name = AL["Mail"],
 			[ALLIANCE_DIFF] = {
 				-- ilvl 710
 				{ 1, 125899, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Helm
@@ -1210,7 +1210,7 @@ data["WODS3NONSETGEAR"] = {
 			},
 		},
 		{
-			name = ALIL["Plate"],
+			name = AL["Plate"],
 			[ALLIANCE_DIFF] = {
 				-- ilvl 710
 				{ 1, 125928, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Warmongering Gladiator's Plate Helmet
@@ -1780,7 +1780,7 @@ data["WODS2SETS"] = {
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124713, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Dreadplate Helm
 				{ 2, 124715, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Dreadplate Shoulders
@@ -1818,7 +1818,7 @@ data["WODS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124717, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Dragonhide Helm
 				{ 2, 124720, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Dragonhide Spaulders
@@ -1856,7 +1856,7 @@ data["WODS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124723, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Chain Helm
 				{ 2, 124725, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Chain Spaulders
@@ -1894,7 +1894,7 @@ data["WODS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124770, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Silk Cowl
 				{ 2, 124773, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Silk Amice
@@ -1932,7 +1932,7 @@ data["WODS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			name = ALIL["MONK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124794, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Ironskin Helm
 				{ 2, 124796, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Ironskin Spaulders
@@ -1970,7 +1970,7 @@ data["WODS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124800, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Scaled Helm
 				{ 2, 124802, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Scaled Shoulders
@@ -2008,7 +2008,7 @@ data["WODS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124823, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Satin Hood
 				{ 2, 124826, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Satin Mantle
@@ -2046,7 +2046,7 @@ data["WODS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124829, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Leather Helm
 				{ 2, 124831, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Leather Spaulders
@@ -2084,7 +2084,7 @@ data["WODS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124834, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Ringmail Helm
 				{ 2, 124836, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Ringmail Spaulders
@@ -2122,7 +2122,7 @@ data["WODS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124876, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Felweave Cowl
 				{ 2, 124879, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Felweave Amice
@@ -2160,7 +2160,7 @@ data["WODS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 124882, [PRICE_EXTRA_ITTYPE] = "conquest:2250"  }, -- Wild Gladiator's Plate Helm
 				{ 2, 124884, [PRICE_EXTRA_ITTYPE] = "conquest:1750"  }, -- Wild Gladiator's Plate Shoulders
@@ -2205,7 +2205,7 @@ data["WODS2NONSETGEAR"] = {
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = ALIL["Cloth"],
+			name = AL["Cloth"],
 			[ALLIANCE_DIFF] = {
 				-- ilvl 700
 				{ 1, 124761, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Wild Gladiator's Helm
@@ -2284,7 +2284,7 @@ data["WODS2NONSETGEAR"] = {
 			},
 		},
 		{
-			name = ALIL["Leather"],
+			name = AL["Leather"],
 			[ALLIANCE_DIFF] = {
 				-- ilvl 700
 				{ 1, 124761, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Wild Gladiator's Helm
@@ -2363,7 +2363,7 @@ data["WODS2NONSETGEAR"] = {
 			},
 		},
 		{
-			name = ALIL["Mail"],
+			name = AL["Mail"],
 			[ALLIANCE_DIFF] = {
 				-- ilvl 700
 				{ 1, 124785, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Wild Gladiator's Helm
@@ -2442,7 +2442,7 @@ data["WODS2NONSETGEAR"] = {
 			},
 		},
 		{
-			name = ALIL["Plate"],
+			name = AL["Plate"],
 			[ALLIANCE_DIFF] = {
 				-- ilvl 700
 				{ 1, 124814, [PRICE_EXTRA_ITTYPE] = "conquest:2250" }, -- Wild Gladiator's Plate Helmet
@@ -2874,7 +2874,7 @@ data["WODS1SETS"] = {
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115631, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Dreadplate Helm
 				{ 2, 115633, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Dreadplate Shoulders
@@ -2919,7 +2919,7 @@ data["WODS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115635, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Dragonhide Helm
 				{ 2, 115638, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Dragonhide Spaulders
@@ -2964,7 +2964,7 @@ data["WODS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115641, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Chain Helm
 				{ 2, 115643, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Chain Spaulders
@@ -3009,7 +3009,7 @@ data["WODS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115678, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Silk Cowl
 				{ 2, 115681, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Silk Amice
@@ -3054,7 +3054,7 @@ data["WODS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			name = ALIL["MONK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115692, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Ironskin Helm
 				{ 2, 115694, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Ironskin Spaulders
@@ -3099,7 +3099,7 @@ data["WODS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115698, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Scaled Helm
 				{ 2, 115700, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Scaled Shoulders
@@ -3144,7 +3144,7 @@ data["WODS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115711, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Satin Hood
 				{ 2, 115714, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Satin Mantle
@@ -3189,7 +3189,7 @@ data["WODS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115717, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Leather Helm
 				{ 2, 115719, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Leather Spaulders
@@ -3234,7 +3234,7 @@ data["WODS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115722, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Ringmail Helm
 				{ 2, 115724, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Ringmail Spaulders
@@ -3279,7 +3279,7 @@ data["WODS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115762, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Felweave Cowl
 				{ 2, 115765, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Felweave Amice
@@ -3324,7 +3324,7 @@ data["WODS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115768, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Plate Helm
 				{ 2, 115770, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Plate Shoulders
@@ -3376,7 +3376,7 @@ data["WODS1NONSETGEAR"] = {
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = ALIL["Cloth"],
+			name = AL["Cloth"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115611, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Hood of Prowess
 				{ 2, 115614, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Amice of Prowess
@@ -3449,7 +3449,7 @@ data["WODS1NONSETGEAR"] = {
 			},
 		},
 		{
-			name = ALIL["Leather"],
+			name = AL["Leather"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115775, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Helm
 				{ 2, 115777, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Spaulders
@@ -3522,7 +3522,7 @@ data["WODS1NONSETGEAR"] = {
 			},
 		},
 		{
-			name = ALIL["Mail"],
+			name = AL["Mail"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115780, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Helm
 				{ 2, 115782, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Spaulders
@@ -3595,7 +3595,7 @@ data["WODS1NONSETGEAR"] = {
 			},
 		},
 		{
-			name = ALIL["Plate"],
+			name = AL["Plate"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115738, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Plate Helm
 				{ 2, 115740, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Plate Shoulders
@@ -4079,11 +4079,11 @@ data["WODS1WEAPONS"] = {
 }
 -- Mists of Pandaria Season 15
 data["MOPS15SETS"] = {
-	name = string.format(AL["Season %d"], 15).." "..AL["Class Sets"].." ("..AL["Mists of Pandaria"]..")",
+	name = string.format(AL["Season %d"], 15).." "..AL["Class Sets"].." ("..EXPANSION_NAME4..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 102713, [PRICE_EXTRA_ITTYPE] = "honor:2250" },	-- Prideful Gladiator's Dreadplate Helm
 				{ 2, 102652, [PRICE_EXTRA_ITTYPE] = "honor:1750" },	-- Prideful Gladiator's Dreadplate Shoulders
@@ -4111,7 +4111,7 @@ data["MOPS15SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				-- Moonkin, 550 > 522
 				{ 1, 102634, [PRICE_EXTRA_ITTYPE] = "honor:2250" },	-- Prideful Gladiator's Wyrmhide Helm
@@ -4185,7 +4185,7 @@ data["MOPS15SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 102690, [PRICE_EXTRA_ITTYPE] = "honor:2250" },	-- Prideful Gladiator's Chain Helm
 				{ 2, 102734, [PRICE_EXTRA_ITTYPE] = "honor:1750" },	-- Prideful Gladiator's Chain Spaulders
@@ -4213,7 +4213,7 @@ data["MOPS15SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 102667, [PRICE_EXTRA_ITTYPE] = "honor:2250" },	-- Prideful Gladiator's Silk Cowl
 				{ 2, 102673, [PRICE_EXTRA_ITTYPE] = "honor:1750" },	-- Prideful Gladiator's Silk Amice
@@ -4241,7 +4241,7 @@ data["MOPS15SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			name = ALIL["MONK"],
 			[ALLIANCE_DIFF] = {
 				-- Windwalker, 550 > 522
 				{ 1, 102712, [PRICE_EXTRA_ITTYPE] = "honor:2250" },	-- Prideful Gladiator's Ironskin Helm
@@ -4293,7 +4293,7 @@ data["MOPS15SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				-- Retribution, 550 > 522
 				{ 1, 102779, [PRICE_EXTRA_ITTYPE] = "honor:2250" },	-- Prideful Gladiator's Scaled Helm
@@ -4348,11 +4348,11 @@ data["MOPS15SETS"] = {
 }
 -- Classic Season 13
 data["CLASSICS13SETS"] = {
-	name = string.format(AL["Season %d"], 13).." "..AL["Class Sets"].." ("..AL["Mists of Pandaria"]..")",
+	name = string.format(AL["Season %d"], 13).." "..AL["Class Sets"].." ("..EXPANSION_NAME4..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91151 }, -- Tyrannical Gladiator's Dreadplate Helm
 				{ 2, 91155 }, -- Tyrannical Gladiator's Dreadplate Shoulders
@@ -4375,7 +4375,7 @@ data["CLASSICS13SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91159 }, -- Tyrannical Gladiator's Dragonhide Helm
 				{ 2, 91165 }, -- Tyrannical Gladiator's Dragonhide Spaulders
@@ -4428,7 +4428,7 @@ data["CLASSICS13SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91226 }, -- Tyrannical Gladiator's Chain Helm
 				{ 2, 91230 }, -- Tyrannical Gladiator's Chain Spaulders
@@ -4451,7 +4451,7 @@ data["CLASSICS13SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91234 }, -- Tyrannical Gladiator's Silk Cowl
 				{ 2, 91240 }, -- Tyrannical Gladiator's Silk Amice
@@ -4474,7 +4474,7 @@ data["CLASSICS13SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			name = ALIL["MONK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91259 }, -- Tyrannical Gladiator's Copperskin Helm
 				{ 2, 91263 }, -- Tyrannical Gladiator's Copperskin Spaulders
@@ -4512,7 +4512,7 @@ data["CLASSICS13SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91291 }, -- Tyrannical Gladiator's Ornamented Headcover
 				{ 2, 91295 }, -- Tyrannical Gladiator's Ornamented Spaulders
@@ -4550,7 +4550,7 @@ data["CLASSICS13SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91311 }, -- Tyrannical Gladiator's Mooncloth Helm
 				{ 2, 91317 }, -- Tyrannical Gladiator's Mooncloth Mantle
@@ -4588,7 +4588,7 @@ data["CLASSICS13SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91344 }, -- Tyrannical Gladiator's Leather Helm
 				{ 2, 91348 }, -- Tyrannical Gladiator's Leather Spaulders
@@ -4611,7 +4611,7 @@ data["CLASSICS13SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91372 }, -- Tyrannical Gladiator's Linked Helm
 				{ 2, 91376 }, -- Tyrannical Gladiator's Linked Spaulders
@@ -4664,7 +4664,7 @@ data["CLASSICS13SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91422 }, -- Tyrannical Gladiator's Felweave Cowl
 				{ 2, 91428 }, -- Tyrannical Gladiator's Felweave Amice
@@ -4687,7 +4687,7 @@ data["CLASSICS13SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 91434 }, -- Tyrannical Gladiator's Plate Helm
 				{ 2, 91438 }, -- Tyrannical Gladiator's Plate Shoulders
@@ -4713,11 +4713,11 @@ data["CLASSICS13SETS"] = {
 }
 -- Classic Season 12
 data["CLASSICS12SETS"] = {
-	name = string.format(AL["Season %d"], 12).." "..AL["Class Sets"].." ("..AL["Mists of Pandaria"]..")",
+	name = string.format(AL["Season %d"], 12).." "..AL["Class Sets"].." ("..EXPANSION_NAME4..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84853 }, -- Malevolent Gladiator's Dreadplate Helm
 				{ 2, 84918 }, -- Malevolent Gladiator's Dreadplate Shoulders
@@ -4735,7 +4735,7 @@ data["CLASSICS12SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84852 }, -- Malevolent Gladiator's Dragonhide Helm
 				{ 2, 84916 }, -- Malevolent Gladiator's Dragonhide Spaulders
@@ -4773,7 +4773,7 @@ data["CLASSICS12SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84858 }, -- Malevolent Gladiator's Chain Helm
 				{ 2, 84921 }, -- Malevolent Gladiator's Chain Spaulders
@@ -4791,7 +4791,7 @@ data["CLASSICS12SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84855 }, -- Malevolent Gladiator's Silk Cowl
 				{ 2, 84917 }, -- Malevolent Gladiator's Silk Amice
@@ -4809,7 +4809,7 @@ data["CLASSICS12SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			name = ALIL["MONK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84854 }, -- Malevolent Gladiator's Copperskin Helm
 				{ 2, 84920 }, -- Malevolent Gladiator's Copperskin Spaulders
@@ -4837,7 +4837,7 @@ data["CLASSICS12SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84849 }, -- Malevolent Gladiator's Ornamented Headcover
 				{ 2, 84914 }, -- Malevolent Gladiator's Ornamented Spaulders
@@ -4865,7 +4865,7 @@ data["CLASSICS12SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84863 }, -- Malevolent Gladiator's Mooncloth Helm
 				{ 2, 84928 }, -- Malevolent Gladiator's Mooncloth Mantle
@@ -4893,7 +4893,7 @@ data["CLASSICS12SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84848 }, -- Malevolent Gladiator's Leather Helm
 				{ 2, 84913 }, -- Malevolent Gladiator's Leather Spaulders
@@ -4911,7 +4911,7 @@ data["CLASSICS12SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84862 }, -- Malevolent Gladiator's Linked Helm
 				{ 2, 84926 }, -- Malevolent Gladiator's Linked Spaulders
@@ -4949,7 +4949,7 @@ data["CLASSICS12SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84859 }, -- Malevolent Gladiator's Felweave Cowl
 				{ 2, 84923 }, -- Malevolent Gladiator's Felweave Amice
@@ -4967,7 +4967,7 @@ data["CLASSICS12SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 84856 }, -- Malevolent Gladiator's Plate Helm
 				{ 2, 84922 }, -- Malevolent Gladiator's Plate Shoulders
@@ -4988,11 +4988,11 @@ data["CLASSICS12SETS"] = {
 }
 -- Classic Season 11
 data["CLASSICS11SETS"] = {
-	name = string.format(AL["Season %d"], 11).." "..AL["Class Sets"].." ("..AL["Cataclysm"]..")",
+	name = string.format(AL["Season %d"], 11).." "..AL["Class Sets"].." ("..EXPANSION_NAME3..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 73618, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Dreadplate Helm
 				{ 2, 73616, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Dreadplate Shoulders
@@ -5010,7 +5010,7 @@ data["CLASSICS11SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 73614, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Dragonhide Helm
 				{ 2, 73611, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Dragonhide Spaulders
@@ -5048,7 +5048,7 @@ data["CLASSICS11SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 73582, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Chain Helm
 				{ 2, 73580, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Chain Spaulders
@@ -5066,7 +5066,7 @@ data["CLASSICS11SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 73575, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Silk Cowl
 				{ 2, 73572, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Silk Amice
@@ -5084,7 +5084,7 @@ data["CLASSICS11SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 73558, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Ornamented Headcover
 				{ 2, 73556, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Ornamented Spaulders
@@ -5113,7 +5113,7 @@ data["CLASSICS11SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 73548, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Mooncloth Helm
 				{ 2, 73545, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Mooncloth Mantle
@@ -5141,7 +5141,7 @@ data["CLASSICS11SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 73525, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Leather Helm
 				{ 2, 73523, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Leather Spaulders
@@ -5159,7 +5159,7 @@ data["CLASSICS11SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 73510, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Linked Helm
 				{ 2, 73508, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Linked Spaulders
@@ -5197,7 +5197,7 @@ data["CLASSICS11SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 73486, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Felweave Cowl
 				{ 2, 73483, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Felweave Amice
@@ -5215,7 +5215,7 @@ data["CLASSICS11SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 73480, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Cataclysmic Gladiator's Plate Helm
 				{ 2, 73478, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Cataclysmic Gladiator's Plate Shoulders
@@ -5236,11 +5236,11 @@ data["CLASSICS11SETS"] = {
 }
 -- Classic Season 10
 data["CLASSICS10SETS"] = {
-	name = string.format(AL["Season %d"], 10).." "..AL["Class Sets"].." ("..AL["Cataclysm"]..")",
+	name = string.format(AL["Season %d"], 10).." "..AL["Class Sets"].." ("..EXPANSION_NAME3..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 70246, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dreadplate Helm
 				{ 2, 70248, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Dreadplate Shoulders
@@ -5253,7 +5253,7 @@ data["CLASSICS10SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 70280, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Dragonhide Helm
 				{ 2, 70283, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Dragonhide Spaulders
@@ -5276,7 +5276,7 @@ data["CLASSICS10SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 70261, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Chain Helm
 				{ 2, 70263, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Chain Spaulders
@@ -5289,7 +5289,7 @@ data["CLASSICS10SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 70300, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Silk Cowl
 				{ 2, 70303, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Silk Amice
@@ -5302,7 +5302,7 @@ data["CLASSICS10SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 70355, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Ornamented Headcover
 				{ 2, 70357, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Ornamented Spaulders
@@ -5320,7 +5320,7 @@ data["CLASSICS10SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 70305, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Mooncloth Helm
 				{ 2, 70308, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Mooncloth Mantle
@@ -5338,7 +5338,7 @@ data["CLASSICS10SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 70296, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Leather Helm
 				{ 2, 70298, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Leather Spaulders
@@ -5351,7 +5351,7 @@ data["CLASSICS10SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 70271, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Linked Helm
 				{ 2, 70273, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Linked Spaulders
@@ -5374,7 +5374,7 @@ data["CLASSICS10SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 70315, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Felweave Cowl
 				{ 2, 70318, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Felweave Amice
@@ -5387,7 +5387,7 @@ data["CLASSICS10SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 70256, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Ruthless Gladiator's Plate Helm
 				{ 2, 70258, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Ruthless Gladiator's Plate Shoulders
@@ -5404,11 +5404,11 @@ data["CLASSICS10SETS"] = {
 
 -- Classic Season 9
 data["CLASSICS9SETS"] = {
-	name = string.format(AL["Season %d"], 9).." "..AL["Class Sets"].." ("..AL["Cataclysm"]..")",
+	name = string.format(AL["Season %d"], 9).." "..AL["Class Sets"].." ("..EXPANSION_NAME3..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 			{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 60410, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Dreadplate Helm
 				{ 2, 60412, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Dreadplate Shoulders
@@ -5421,7 +5421,7 @@ data["CLASSICS9SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 60444, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Dragonhide Helm
 				{ 2, 60447, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Dragonhide Spaulders
@@ -5444,7 +5444,7 @@ data["CLASSICS9SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 60425, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Chain Helm
 				{ 2, 60427, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Chain Spaulders
@@ -5457,7 +5457,7 @@ data["CLASSICS9SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 60464, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Silk Cowl
 				{ 2, 60467, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Silk Amice
@@ -5470,7 +5470,7 @@ data["CLASSICS9SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 60603, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Ornamented Headcover
 				{ 2, 60605, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Ornamented Spaulders
@@ -5488,7 +5488,7 @@ data["CLASSICS9SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 60469, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Mooncloth Helm
 				{ 2, 60472, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Mooncloth Mantle
@@ -5506,7 +5506,7 @@ data["CLASSICS9SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 60460, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Leather Helm
 				{ 2, 60462, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Leather Spaulders
@@ -5519,7 +5519,7 @@ data["CLASSICS9SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 60435, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Linked Helm
 				{ 2, 60437, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Linked Spaulders
@@ -5542,7 +5542,7 @@ data["CLASSICS9SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 60479, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Felweave Cowl
 				{ 2, 60482, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Felweave Amice
@@ -5555,7 +5555,7 @@ data["CLASSICS9SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 60420, [PRICE_EXTRA_ITTYPE] = "honor:1100" }, -- Vicious Gladiator's Plate Helm
 				{ 2, 60422, [PRICE_EXTRA_ITTYPE] = "honor:825" }, -- Vicious Gladiator's Plate Shoulders
@@ -5571,11 +5571,11 @@ data["CLASSICS9SETS"] = {
 }
 -- Classic Season 8
 data["CLASSICS8SETS"] = {
-	name = string.format(AL["Season %d"], 8).." "..AL["Class Sets"].." ("..AL["Wrath of the Lich King"]..")",
+	name = string.format(AL["Season %d"], 8).." "..AL["Class Sets"].." ("..EXPANSION_NAME2..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 			{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 51415, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Dreadplate Helm
 				{ 2, 51418, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Dreadplate Shoulders
@@ -5588,7 +5588,7 @@ data["CLASSICS8SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 51427, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Dragonhide Helm
 				{ 2, 51430, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Dragonhide Spaulders
@@ -5611,7 +5611,7 @@ data["CLASSICS8SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 51460, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Chain Helm
 				{ 2, 51462, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Chain Spaulders
@@ -5624,7 +5624,7 @@ data["CLASSICS8SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 51465, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Silk Cowl
 				{ 2, 51467, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Silk Amice
@@ -5637,7 +5637,7 @@ data["CLASSICS8SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 51470, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Ornamented Headcover
 				{ 2, 51473, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Ornamented Spaulders
@@ -5655,7 +5655,7 @@ data["CLASSICS8SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 51484, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Mooncloth Hood
 				{ 2, 51486, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Mooncloth Mantle
@@ -5673,7 +5673,7 @@ data["CLASSICS8SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 51494, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Leather Helm
 				{ 2, 51496, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Leather Spaulders
@@ -5686,7 +5686,7 @@ data["CLASSICS8SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 51505, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Linked Helm
 				{ 2, 51508, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Linked Spaulders
@@ -5709,7 +5709,7 @@ data["CLASSICS8SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 51538, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Felweave Cowl
 				{ 2, 51540, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Felweave Amice
@@ -5722,7 +5722,7 @@ data["CLASSICS8SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 51543, [PRICE_EXTRA_ITTYPE] = "honor:1650" }, -- Wrathful Gladiator's Plate Helm
 				{ 2, 51545, [PRICE_EXTRA_ITTYPE] = "honor:1040" }, -- Wrathful Gladiator's Plate Shoulders
@@ -5738,11 +5738,11 @@ data["CLASSICS8SETS"] = {
 }
 -- Classic Season 7
 data["CLASSICS7SETS"] = {
-	name = string.format(AL["Season %d"], 7).." "..AL["Class Sets"].." ("..AL["Wrath of the Lich King"]..")",
+	name = string.format(AL["Season %d"], 7).." "..AL["Class Sets"].." ("..EXPANSION_NAME2..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 40830, [PRICE_EXTRA_ITTYPE] = "money:1713600" }, --Relentless Gladiator's Dreadplate Helm
 				{ 2, 40871, [PRICE_EXTRA_ITTYPE] = "money:1719300" }, --Relentless Gladiator's Dreadplate Shoulders
@@ -5755,7 +5755,7 @@ data["CLASSICS7SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41679, [PRICE_EXTRA_ITTYPE] = "money:1578700" }, --Relentless Gladiator's Dragonhide Helm
 				{ 2, 41716, [PRICE_EXTRA_ITTYPE] = "money:1725900" }, --Relentless Gladiator's Dragonhide Spaulders
@@ -5778,7 +5778,7 @@ data["CLASSICS7SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41158, [PRICE_EXTRA_ITTYPE] = "money:1602500" }, --Relentless Gladiator's Chain Helm
 				{ 2, 41218, [PRICE_EXTRA_ITTYPE] = "money:1645800" }, --Relentless Gladiator's Chain Spaulders
@@ -5791,7 +5791,7 @@ data["CLASSICS7SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41947, [PRICE_EXTRA_ITTYPE] = "money:1590400" }, --Relentless Gladiator's Silk Cowl
 				{ 2, 41966, [PRICE_EXTRA_ITTYPE] = "money:1628100" }, --Relentless Gladiator's Silk Amice
@@ -5804,7 +5804,7 @@ data["CLASSICS7SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 40934, [PRICE_EXTRA_ITTYPE] = "money:1614800" }, --Relentless Gladiator's Ornamented Headcover
 				{ 2, 40964, [PRICE_EXTRA_ITTYPE] = "money:1719400" }, --Relentless Gladiator's Ornamented Spaulders
@@ -5822,7 +5822,7 @@ data["CLASSICS7SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41855, [PRICE_EXTRA_ITTYPE] = "money:1640200" }, --Relentless Gladiator's Mooncloth Hood
 				{ 2, 41870, [PRICE_EXTRA_ITTYPE] = "money:1609500" }, --Relentless Gladiator's Mooncloth Mantle
@@ -5840,7 +5840,7 @@ data["CLASSICS7SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41673, [PRICE_EXTRA_ITTYPE] = "money:1664200" }, --Relentless Gladiator's Leather Helm
 				{ 2, 41684, [PRICE_EXTRA_ITTYPE] = "money:1609200" }, --Relentless Gladiator's Leather Spaulders
@@ -5853,7 +5853,7 @@ data["CLASSICS7SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41152, [PRICE_EXTRA_ITTYPE] = "money:1732000" }, --Relentless Gladiator's Linked Helm
 				{ 2, 41212, [PRICE_EXTRA_ITTYPE] = "money:1609300" }, --Relentless Gladiator's Linked Spaulders
@@ -5876,7 +5876,7 @@ data["CLASSICS7SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41994, [PRICE_EXTRA_ITTYPE] = "money:1676500" }, --Relentless Gladiator's Felweave Cowl
 				{ 2, 42012, [PRICE_EXTRA_ITTYPE] = "money:1664200" }, --Relentless Gladiator's Felweave Amice
@@ -5889,7 +5889,7 @@ data["CLASSICS7SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 40829, [PRICE_EXTRA_ITTYPE] = "money:1707500" }, --Relentless Gladiator's Plate Helm
 				{ 2, 40870, [PRICE_EXTRA_ITTYPE] = "money:1713100" }, --Relentless Gladiator's Plate Shoulders
@@ -5905,11 +5905,11 @@ data["CLASSICS7SETS"] = {
 }
 -- Classic Season 6
 data["CLASSICS6SETS"] = {
-	name = string.format(AL["Season %d"], 6).." "..AL["Class Sets"].." ("..AL["Wrath of the Lich King"]..")",
+	name = string.format(AL["Season %d"], 6).." "..AL["Class Sets"].." ("..EXPANSION_NAME2..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 40827, [PRICE_EXTRA_ITTYPE] = "money:1611900" }, --Furious Gladiator's Dreadplate Helm
 				{ 2, 40868, [PRICE_EXTRA_ITTYPE] = "money:1617200" }, --Furious Gladiator's Dreadplate Shoulders
@@ -5922,7 +5922,7 @@ data["CLASSICS6SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41678, [PRICE_EXTRA_ITTYPE] = "money:1653000" }, --Furious Gladiator's Dragonhide Helm
 				{ 2, 41715, [PRICE_EXTRA_ITTYPE] = "money:1635200" }, --Furious Gladiator's Dragonhide Spaulders
@@ -5945,7 +5945,7 @@ data["CLASSICS6SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41157, [PRICE_EXTRA_ITTYPE] = "money:1518000" }, --Furious Gladiator's Chain Helm
 				{ 2, 41217, [PRICE_EXTRA_ITTYPE] = "money:1559200" }, --Furious Gladiator's Chain Spaulders
@@ -5958,7 +5958,7 @@ data["CLASSICS6SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41946, [PRICE_EXTRA_ITTYPE] = "money:1506400" }, --Furious Gladiator's Silk Cowl
 				{ 2, 41965, [PRICE_EXTRA_ITTYPE] = "money:1500400" }, --Furious Gladiator's Silk Amice
@@ -5971,7 +5971,7 @@ data["CLASSICS6SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 40933, [PRICE_EXTRA_ITTYPE] = "money:1529600" }, --Furious Gladiator's Ornamented Headcover
 				{ 2, 40963, [PRICE_EXTRA_ITTYPE] = "money:1629000" }, --Furious Gladiator's Ornamented Spaulders
@@ -5989,7 +5989,7 @@ data["CLASSICS6SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41854, [PRICE_EXTRA_ITTYPE] = "money:1553800" }, --Furious Gladiator's Mooncloth Hood
 				{ 2, 41869, [PRICE_EXTRA_ITTYPE] = "money:1640700" }, --Furious Gladiator's Mooncloth Mantle
@@ -6007,7 +6007,7 @@ data["CLASSICS6SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41672, [PRICE_EXTRA_ITTYPE] = "money:1576500" }, --Furious Gladiator's Leather Helm
 				{ 2, 41683, [PRICE_EXTRA_ITTYPE] = "money:1524200" }, --Furious Gladiator's Leather Spaulders
@@ -6020,7 +6020,7 @@ data["CLASSICS6SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41151, [PRICE_EXTRA_ITTYPE] = "money:1641000" }, --Furious Gladiator's Linked Helm
 				{ 2, 41211, [PRICE_EXTRA_ITTYPE] = "money:1524400" }, --Furious Gladiator's Linked Spaulders
@@ -6043,7 +6043,7 @@ data["CLASSICS6SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41993, [PRICE_EXTRA_ITTYPE] = "money:1588400" }, --Furious Gladiator's Felweave Cowl
 				{ 2, 42011, [PRICE_EXTRA_ITTYPE] = "money:1576500" }, --Furious Gladiator's Felweave Amice
@@ -6056,7 +6056,7 @@ data["CLASSICS6SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 40826, [PRICE_EXTRA_ITTYPE] = "money:1606200" }, --Furious Gladiator's Plate Helm
 				{ 2, 40866, [PRICE_EXTRA_ITTYPE] = "money:1605700" }, --Furious Gladiator's Plate Shoulders
@@ -6071,32 +6071,32 @@ data["CLASSICS6SETS"] = {
 	},
 }
 --[[data["CLASSICS6NONSET"] = {
-	name = string.format(AL["Season %d"], 6).." "..AL["Non-Set Gear"].." ("..AL["Wrath of the Lich King"]..")",
+	name = string.format(AL["Season %d"], 6).." "..AL["Non-Set Gear"].." ("..EXPANSION_NAME2..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = ALIL["Cloth"],
+			name = AL["Cloth"],
 			[ALLIANCE_DIFF] = {
 			},
 			[HORDE_DIFF] = {
 			},
 		},
 		{
-			name = ALIL["Leather"],
+			name = AL["Leather"],
 			[ALLIANCE_DIFF] = {
 			},
 			[HORDE_DIFF] = {
 			},
 		},
 		{
-			name = ALIL["Mail"],
+			name = AL["Mail"],
 			[ALLIANCE_DIFF] = {
 			},
 			[HORDE_DIFF] = {
 			},
 		},
 		{
-			name = ALIL["Plate"],
+			name = AL["Plate"],
 			[ALLIANCE_DIFF] = {
 			},
 			[HORDE_DIFF] = {
@@ -6143,11 +6143,11 @@ data["CLASSICS6SETS"] = {
 ]]
 -- Classic Season 5
 data["CLASSICS5SETS"] = {
-	name = string.format(AL["Season %d"], 5).." "..AL["Class Sets"].." ("..AL["Wrath of the Lich King"]..")",
+	name = string.format(AL["Season %d"], 5).." "..AL["Class Sets"].." ("..EXPANSION_NAME2..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 40824, [PRICE_EXTRA_ITTYPE] = "money:1418900" }, -- Deadly Gladiator's Dreadplate Helm
 				{ 2, 40863, [PRICE_EXTRA_ITTYPE] = "money:1451400" }, -- Deadly Gladiator's Dreadplate Shoulders
@@ -6160,7 +6160,7 @@ data["CLASSICS5SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41677, [PRICE_EXTRA_ITTYPE] = "money:1505300" }, -- Deadly Gladiator's Dragonhide Helm
 				{ 2, 41714, [PRICE_EXTRA_ITTYPE] = "money:1489000" }, -- Deadly Gladiator's Dragonhide Spaulders
@@ -6183,7 +6183,7 @@ data["CLASSICS5SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41156, [PRICE_EXTRA_ITTYPE] = "money:1381800" }, -- Deadly Gladiator's Chain Helm
 				{ 2, 41216, [PRICE_EXTRA_ITTYPE] = "money:1419400" }, -- Deadly Gladiator's Chain Spaulders
@@ -6196,7 +6196,7 @@ data["CLASSICS5SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41945, [PRICE_EXTRA_ITTYPE] = "money:1371200" }, -- Deadly Gladiator's Silk Cowl
 				{ 2, 41964, [PRICE_EXTRA_ITTYPE] = "money:1509900" }, -- Deadly Gladiator's Silk Amice
@@ -6209,7 +6209,7 @@ data["CLASSICS5SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 40932, [PRICE_EXTRA_ITTYPE] = "money:1392400" }, -- Deadly Gladiator's Ornamented Headcover
 				{ 2, 40962, [PRICE_EXTRA_ITTYPE] = "money:1483300" }, -- Deadly Gladiator's Ornamented Spaulders
@@ -6227,7 +6227,7 @@ data["CLASSICS5SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41853, [PRICE_EXTRA_ITTYPE] = "money:1376400" }, -- Deadly Gladiator's Mooncloth Hood
 				{ 2, 41868, [PRICE_EXTRA_ITTYPE] = "money:1493900" }, -- Deadly Gladiator's Mooncloth Mantle
@@ -6245,7 +6245,7 @@ data["CLASSICS5SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41671, [PRICE_EXTRA_ITTYPE] = "money:1435300" }, -- Deadly Gladiator's Leather Helm
 				{ 2, 41682, [PRICE_EXTRA_ITTYPE] = "money:1387500" }, -- Deadly Gladiator's Leather Spaulders
@@ -6258,7 +6258,7 @@ data["CLASSICS5SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41150, [PRICE_EXTRA_ITTYPE] = "money:1494400" }, -- Deadly Gladiator's Linked Helm
 				{ 2, 41210, [PRICE_EXTRA_ITTYPE] = "money:1493800" }, -- Deadly Gladiator's Linked Spaulders
@@ -6281,7 +6281,7 @@ data["CLASSICS5SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 41992, [PRICE_EXTRA_ITTYPE] = "money:1446100" }, -- Deadly Gladiator's Felweave Cowl
 				{ 2, 42010, [PRICE_EXTRA_ITTYPE] = "money:1435300" }, -- Deadly Gladiator's Felweave Amice
@@ -6294,7 +6294,7 @@ data["CLASSICS5SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 40823, [PRICE_EXTRA_ITTYPE] = "money:1413500" }, -- Deadly Gladiator's Plate Helm
 				{ 2, 40862, [PRICE_EXTRA_ITTYPE] = "money:1446100" }, -- Deadly Gladiator's Plate Shoulders
@@ -6310,11 +6310,11 @@ data["CLASSICS5SETS"] = {
 }
 -- Classic Season 4
 data["CLASSICS4SETS"] = {
-	name = string.format(AL["Season %d"], 4).." "..AL["Class Sets"].." ("..AL["Burning Crusade"]..")",
+	name = string.format(AL["Season %d"], 4).." "..AL["Class Sets"].." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = ALIL["DEATHKNIGHT"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 40442, [PRICE_EXTRA_ITTYPE] = "honor:175"  }, -- Brutal Gladiator's Dreadplate Helm
 				{ 2, 40444, [PRICE_EXTRA_ITTYPE] = "honor:140"  }, -- Brutal Gladiator's Dreadplate Shoulders
@@ -6328,7 +6328,7 @@ data["CLASSICS4SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 34999, [PRICE_EXTRA_ITTYPE] = "honor:175"  }, -- Brutal Gladiator's Dragonhide Helm
 				{ 2, 35001, [PRICE_EXTRA_ITTYPE] = "honor:140"  }, -- Brutal Gladiator's Dragonhide Spaulders
@@ -6351,7 +6351,7 @@ data["CLASSICS4SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 34992, [PRICE_EXTRA_ITTYPE] = "honor:175"  }, -- Brutal Gladiator's Chain Helm
 				{ 2, 34994, [PRICE_EXTRA_ITTYPE] = "honor:140"  }, -- Brutal Gladiator's Chain Spaulders
@@ -6364,7 +6364,7 @@ data["CLASSICS4SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 35097, [PRICE_EXTRA_ITTYPE] = "honor:175"  }, -- Brutal Gladiator's Silk Cowl
 				{ 2, 35096, [PRICE_EXTRA_ITTYPE] = "honor:140"  }, -- Brutal Gladiator's Silk Amice
@@ -6377,7 +6377,7 @@ data["CLASSICS4SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 35029, [PRICE_EXTRA_ITTYPE] = "honor:175"  }, -- Brutal Gladiator's Lamellar Helm
 				{ 2, 35031, [PRICE_EXTRA_ITTYPE] = "honor:140"  }, -- Brutal Gladiator's Lamellar Shoulders
@@ -6400,7 +6400,7 @@ data["CLASSICS4SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 35054, [PRICE_EXTRA_ITTYPE] = "honor:175"  }, -- Brutal Gladiator's Mooncloth Hood
 				{ 2, 35056, [PRICE_EXTRA_ITTYPE] = "honor:140"  }, -- Brutal Gladiator's Mooncloth Mantle
@@ -6418,7 +6418,7 @@ data["CLASSICS4SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 35033, [PRICE_EXTRA_ITTYPE] = "honor:175"  }, -- Brutal Gladiator's Leather Helm
 				{ 2, 35035, [PRICE_EXTRA_ITTYPE] = "honor:140"  }, -- Brutal Gladiator's Leather Spaulders
@@ -6431,7 +6431,7 @@ data["CLASSICS4SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 35044, [PRICE_EXTRA_ITTYPE] = "honor:175"  }, -- Brutal Gladiator's Linked Helm
 				{ 2, 35046, [PRICE_EXTRA_ITTYPE] = "honor:140"  }, -- Brutal Gladiator's Linked Spaulders
@@ -6454,7 +6454,7 @@ data["CLASSICS4SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 35004, [PRICE_EXTRA_ITTYPE] = "honor:175"  }, -- Brutal Gladiator's Dreadweave Hood
 				{ 2, 35006, [PRICE_EXTRA_ITTYPE] = "honor:140"  }, -- Brutal Gladiator's Dreadweave Mantle
@@ -6472,7 +6472,7 @@ data["CLASSICS4SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 35068, [PRICE_EXTRA_ITTYPE] = "honor:175"  }, -- Brutal Gladiator's Plate Helm
 				{ 2, 35070, [PRICE_EXTRA_ITTYPE] = "honor:140"  }, -- Brutal Gladiator's Plate Shoulders
@@ -6488,11 +6488,11 @@ data["CLASSICS4SETS"] = {
 }
 -- Classic Season 3
 data["CLASSICS3SETS"] = {
-	name = string.format(AL["Season %d"], 3).." "..AL["Class Sets"].." ("..AL["Burning Crusade"]..")",
+	name = string.format(AL["Season %d"], 3).." "..AL["Class Sets"].." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				--
 				{ 1, 33672, [PRICE_EXTRA_ITTYPE] = "honor:1000" },	-- Vengeful Gladiator's Dragonhide Helm
@@ -6519,7 +6519,7 @@ data["CLASSICS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 33666, [PRICE_EXTRA_ITTYPE] = "honor:1000" },	-- Vengeful Gladiator's Chain Helm
 				{ 2, 33668, [PRICE_EXTRA_ITTYPE] = "honor:750" },	-- Vengeful Gladiator's Chain Spaulders
@@ -6533,7 +6533,7 @@ data["CLASSICS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 33758, [PRICE_EXTRA_ITTYPE] = "honor:1000" },	-- Vengeful Gladiator's Silk Cowl
 				{ 2, 33757, [PRICE_EXTRA_ITTYPE] = "honor:750" },	-- Vengeful Gladiator's Silk Amice
@@ -6547,7 +6547,7 @@ data["CLASSICS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				--
 				{ 1, 33697, [PRICE_EXTRA_ITTYPE] = "honor:1000" },	-- Vengeful Gladiator's Lamellar Helm
@@ -6574,7 +6574,7 @@ data["CLASSICS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				--
 				{ 1, 33718, [PRICE_EXTRA_ITTYPE] = "honor:1000" },	-- Vengeful Gladiator's Mooncloth Hood
@@ -6594,7 +6594,7 @@ data["CLASSICS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 33701, [PRICE_EXTRA_ITTYPE] = "honor:1000" },	-- Vengeful Gladiator's Leather Helm
 				{ 2, 33703, [PRICE_EXTRA_ITTYPE] = "honor:750" },	-- Vengeful Gladiator's Leather Spaulders
@@ -6608,7 +6608,7 @@ data["CLASSICS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				--
 				{ 1, 33708, [PRICE_EXTRA_ITTYPE] = "honor:1000" },	-- Vengeful Gladiator's Linked Helm
@@ -6635,7 +6635,7 @@ data["CLASSICS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				--
 				{ 1, 33677, [PRICE_EXTRA_ITTYPE] = "honor:1000" },	-- Vengeful Gladiator's Dreadweave Hood
@@ -6656,7 +6656,7 @@ data["CLASSICS3SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 33730, [PRICE_EXTRA_ITTYPE] = "honor:1000" },	-- Vengeful Gladiator's Plate Helm
 				{ 2, 33732, [PRICE_EXTRA_ITTYPE] = "honor:750" },	-- Vengeful Gladiator's Plate Shoulders
@@ -6672,7 +6672,7 @@ data["CLASSICS3SETS"] = {
 	},
 }
 data["CLASSICS3WEAPONS"] = {
-	name = string.format(AL["Season %d"], 3).." "..AL["Weapons"].." ("..AL["Burning Crusade"]..")",
+	name = string.format(AL["Season %d"], 3).." "..AL["Weapons"].." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
@@ -6724,11 +6724,11 @@ data["CLASSICS3WEAPONS"] = {
 }
 -- Classic Season 2
 data["CLASSICS2SETS"] = {
-	name = string.format(AL["Season %d"], 2).." "..AL["Class Sets"].." ("..AL["Burning Crusade"]..")",
+	name = string.format(AL["Season %d"], 2).." "..AL["Class Sets"].." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				-- Feral / Guardian
 				{ 1, 31968, [PRICE_EXTRA_ITTYPE] = "honor:1000"  },	-- Merciless Gladiator's Dragonhide Helm
@@ -6755,7 +6755,7 @@ data["CLASSICS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 31962, [PRICE_EXTRA_ITTYPE] = "honor:1000"  },	-- Merciless Gladiator's Chain Helm
    				{ 2, 31964, [PRICE_EXTRA_ITTYPE] = "honor:750"  },	-- Merciless Gladiator's Chain Spaulders
@@ -6769,7 +6769,7 @@ data["CLASSICS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 32048, [PRICE_EXTRA_ITTYPE] = "honor:1000"  },	-- Merciless Gladiator's Silk Cowl
    				{ 2, 32047, [PRICE_EXTRA_ITTYPE] = "honor:750"  },	-- Merciless Gladiator's Silk Amice
@@ -6783,7 +6783,7 @@ data["CLASSICS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				--
 				{ 1, 31997, [PRICE_EXTRA_ITTYPE] = "honor:1000"  },	-- Merciless Gladiator's Lamellar Helm
@@ -6810,7 +6810,7 @@ data["CLASSICS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				--
 				{ 1, 32016, [PRICE_EXTRA_ITTYPE] = "honor:1000"  },	-- Merciless Gladiator's Mooncloth Hood
@@ -6831,7 +6831,7 @@ data["CLASSICS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 31999, [PRICE_EXTRA_ITTYPE] = "honor:1000"  },	-- Merciless Gladiator's Leather Helm
 				{ 2, 32001, [PRICE_EXTRA_ITTYPE] = "honor:750"  },	-- Merciless Gladiator's Leather Spaulders
@@ -6845,7 +6845,7 @@ data["CLASSICS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = ALIL["SHAMAN"],
 			[ALLIANCE_DIFF] = {
 				--
 				{ 1, 32006, [PRICE_EXTRA_ITTYPE] = "honor:1000"  },	-- Merciless Gladiator's Linked Helm
@@ -6872,7 +6872,7 @@ data["CLASSICS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				--
 				{ 1, 31974, [PRICE_EXTRA_ITTYPE] = "honor:1000"  },	-- Merciless Gladiator's Dreadweave Hood
@@ -6893,7 +6893,7 @@ data["CLASSICS2SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 30488, [PRICE_EXTRA_ITTYPE] = "honor:1000"  },	-- Merciless Gladiator's Plate Helm
 				{ 2, 30490, [PRICE_EXTRA_ITTYPE] = "honor:750"  },	-- Merciless Gladiator's Plate Shoulders
@@ -6909,7 +6909,7 @@ data["CLASSICS2SETS"] = {
 	},
 }
 data["CLASSICS2WEAPONS"] = {
-	name = string.format(AL["Season %d"], 2).." "..AL["Weapons"].." ("..AL["Burning Crusade"]..")",
+	name = string.format(AL["Season %d"], 2).." "..AL["Weapons"].." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
@@ -6949,11 +6949,11 @@ data["CLASSICS2WEAPONS"] = {
 }
 -- Classic Season 1
 data["CLASSICS1SETS"] = {
-	name = string.format(AL["Season %d"], 1).." "..AL["Class Sets"].." ("..AL["Burning Crusade"]..")",
+	name = string.format(AL["Season %d"], 1).." "..AL["Class Sets"].." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = ALIL["DRUID"],
 			[ALLIANCE_DIFF] = {
 				-- Guardian
 				{ 1, 28127 },	-- Gladiator's Dragonhide Helm
@@ -6979,7 +6979,7 @@ data["CLASSICS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = ALIL["HUNTER"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 28331 },	-- Gladiator's Chain Helm
 				{ 2, 28333 },	-- Gladiator's Chain Spaulders
@@ -6992,7 +6992,7 @@ data["CLASSICS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = ALIL["MAGE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 25855 },	-- Gladiator's Silk Cowl
 				{ 2, 25854 },	-- Gladiator's Silk Amice
@@ -7005,7 +7005,7 @@ data["CLASSICS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["SHAMAN"].." / "..LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = ALIL["SHAMAN"].." / "..ALIL["PALADIN"],
 			[ALLIANCE_DIFF] = {
 				-- Retribution
 				{ 1, 27704 },	-- Gladiator's Lamellar Helm
@@ -7050,7 +7050,7 @@ data["CLASSICS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = ALIL["PRIEST"],
 			[ALLIANCE_DIFF] = {
 				-- Holy
 				{ 1, 31410 },	-- Gladiator's Mooncloth Hood
@@ -7070,7 +7070,7 @@ data["CLASSICS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = ALIL["ROGUE"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 25830 },	-- Gladiator's Leather Helm
 				{ 2, 25832 },	-- Gladiator's Leather Spaulders
@@ -7083,7 +7083,7 @@ data["CLASSICS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = ALIL["WARLOCK"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 24553 },	-- Gladiator's Dreadweave Hood
 				{ 2, 24554 },	-- Gladiator's Dreadweave Mantle
@@ -7102,7 +7102,7 @@ data["CLASSICS1SETS"] = {
 			},
 		},
 		{
-			name = LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = ALIL["WARRIOR"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 24545 },	-- Gladiator's Plate Helm
 				{ 2, 24546 },	-- Gladiator's Plate Shoulders
@@ -7117,7 +7117,7 @@ data["CLASSICS1SETS"] = {
 	},
 }
 data["CLASSICS1WEAPONS"] = {
-	name = string.format(AL["Season %d"], 1).." "..AL["Weapons"].." ("..AL["Burning Crusade"]..")",
+	name = string.format(AL["Season %d"], 1).." "..AL["Weapons"].." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{

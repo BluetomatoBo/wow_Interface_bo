@@ -9,7 +9,7 @@ local EMPTY_FUNCTION = function() end
 -- Popup Box for first time users
 StaticPopupDialogs["ATLASLOOT_SETUP"] = {
 	preferredIndex = 3,
-	text = AL["Welcome to Atlasloot Enhanced.  Please take a moment to set your preferences."],
+	text = AL["Welcome to Atlasloot Enhanced. Please take a moment to set your preferences."],
 	button1 = AL["Setup"],
 	OnAccept = function()
 		AtlasLoot:OptionsToggle()
@@ -22,7 +22,7 @@ StaticPopupDialogs["ATLASLOOT_SETUP"] = {
 --Popup Box for an old version of Atlas
 StaticPopupDialogs["ATLASLOOT_OLD_ATLAS"] = {
 	preferredIndex = 3,
-	text = str_format(AL["It has been detected that your version of Atlas does not match the version that Atlasloot is tuned for (%s/%s).  Depending on changes, there may be the occasional error, so please visit http://www.atlasmod.com as soon as possible to update."], "InstalAtlas", "CompAtlas"),
+	text = str_format(AL["It has been detected that your version of Atlas does not match the version that Atlasloot is tuned for (%s/%s). Depending on changes, there may be the occasional error, so please visit http://www.atlasmod.com as soon as possible to update."], "InstalAtlas", "CompAtlas"),
 	button1 = AL["OK"],
 	OnAccept = function()
 		AtlasLoot:Print(AL["Incompatible Atlas Detected"])

@@ -5,13 +5,13 @@ local data = AtlasLoot.ItemDB:Add(addonname)
 local AL = AtlasLoot.Locales
 local ALIL = AtlasLoot.IngameLocales
 
-local LEGION_DIFF = data:AddDifficulty(AL["Legion"])
-local WOD_DIFF = data:AddDifficulty(AL["Warlords of Draenor"])
-local MOP_DIFF = data:AddDifficulty(AL["Mists of Pandaria"])
-local CATA_DIFF = data:AddDifficulty(AL["Cataclysm"])
-local WOTLK_DIFF = data:AddDifficulty(AL["Wrath of the Lich King"])
-local BC_DIFF = data:AddDifficulty(AL["Burning Crusade"])
-local CLASSIC_DIFF = data:AddDifficulty(AL["Classic"])
+local LEGION_DIFF = data:AddDifficulty(EXPANSION_NAME6)
+local WOD_DIFF = data:AddDifficulty(EXPANSION_NAME5)
+local MOP_DIFF = data:AddDifficulty(EXPANSION_NAME4)
+local CATA_DIFF = data:AddDifficulty(EXPANSION_NAME3)
+local WOTLK_DIFF = data:AddDifficulty(EXPANSION_NAME2)
+local BC_DIFF = data:AddDifficulty(EXPANSION_NAME1)
+local CLASSIC_DIFF = data:AddDifficulty(EXPANSION_NAME0)
 local NORMAL_DIFF = data:AddDifficulty(AL["Normal"])
 
 local NORMAL_ITTYPE = data:AddItemTableType("Item", "Item")
@@ -2839,7 +2839,7 @@ data["Inscription"] = {
 	TableType = CRAFTING_ITTYPE,
 	items = {
 		{	--InscriptionDeathKnight
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			name = AL["Glyphs"].." - "..ALIL["DEATHKNIGHT"],
 			[NORMAL_DIFF] = {
 				{ 1, 43535, 57209 }, -- Glyph of the Geist
 				{ 2, 43551, 57224 }, -- Glyph of Foul Menagerie
@@ -2853,7 +2853,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionDemonHunter
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["DEMONHUNTER"],
+			name = AL["Glyphs"].." - "..ALIL["DEMONHUNTER"],
 			[NORMAL_DIFF] = {
 				{ 1, 133796 }, -- Glyph of Fearsome Metamorphosis
 				{ 2, 139362, 225529 }, -- Glyph of Mana Touched Souls
@@ -2865,7 +2865,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionDruid
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = AL["Glyphs"].." - "..ALIL["DRUID"],
 			[NORMAL_DIFF] = {
 				{ 1, 40919, 56948 }, -- Glyph of the Orca
 				{ 2, 43334, 58287 }, -- Glyph of the Ursol Chameleon
@@ -2879,7 +2879,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionHunter
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = AL["Glyphs"].." - "..ALIL["HUNTER"],
 			[NORMAL_DIFF] = {
 				{ 1, 43350, 58301 }, -- Glyph of Lesser Proportion
 				{ 2, 137194, 225537 }, -- Glyph of the Bullseye
@@ -2895,7 +2895,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionMage
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = AL["Glyphs"].." - "..ALIL["MAGE"],
 			[NORMAL_DIFF] = {
 				{ 1, 42751, 56986 }, -- Glyph of Crittermorph
 				{ 2, 104104, 148270 }, -- Glyph of the Unbound Elemental
@@ -2906,7 +2906,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionMonk
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["MONK"],
+			name = AL["Glyphs"].." - "..ALIL["MONK"],
 			[NORMAL_DIFF] = {
 				{ 1, 87881, 112462 }, -- Glyph of Crackling Tiger Lightning
 				{ 2, 87883, 112464 }, -- Glyph of Honor
@@ -2917,7 +2917,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionPaladin
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = AL["Glyphs"].." - "..ALIL["PALADIN"],
 			[NORMAL_DIFF] = {
 				{ 1, 41100, 57032 }, -- Glyph of the Luminous Charger
 				{ 2, 43366, 58312 }, -- Glyph of Winged Vengeance
@@ -2927,7 +2927,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionPriest
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = AL["Glyphs"].." - "..ALIL["PRIEST"],
 			[NORMAL_DIFF] = {
 				{ 1, 43373, 58320 }, -- Glyph of Shackle Undead
 				{ 2, 79538, 124466 }, -- Glyph of the Heavens
@@ -2939,7 +2939,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionRogue
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = AL["Glyphs"].." - "..ALIL["ROGUE"],
 			[NORMAL_DIFF] = {
 				{ 1, 45768, 64260 }, -- Glyph of Disguise
 				{ 2, 129020, 225549 }, -- Glyph of Flash Bang
@@ -2948,7 +2948,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionShaman
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = AL["Glyphs"].." - "..ALIL["SHAMAN"],
 			[NORMAL_DIFF] = {
 				{ 1, 43386, 58332 }, -- Glyph of the Spectral Wolf
 				{ 2, 45775, 64261 }, -- Glyph of Deluge
@@ -2961,7 +2961,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionWarlock
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = AL["Glyphs"].." - "..ALIL["WARLOCK"],
 			[NORMAL_DIFF] = {
 				{ 1, 42459, 57263 }, -- Glyph of Felguard
 				{ 2, 43394, 58341 }, -- Glyph of Soulwell
@@ -2975,7 +2975,7 @@ data["Inscription"] = {
 			},
 		},
 		{	--InscriptionWarrior
-			name = AL["Glyphs"].." - "..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = AL["Glyphs"].." - "..ALIL["WARRIOR"],
 			[NORMAL_DIFF] = {
 				{ 1, 43398, 58345 }, -- Glyph of Gushing Wound
 				{ 2, 43400, 58347 }, -- Glyph of Mighty Victory
@@ -4570,7 +4570,7 @@ data["Leatherworking"] = {
 	TableType = CRAFTING_ITTYPE,
 	items = {
 		{	--LeatherLeatherArmor
-			name = ALIL["Leather"].." "..AL["Armor"],
+			name = AL["Leather"].." "..AL["Armor"],
 			[LEGION_DIFF] ={
 				{ 1, 128891, 194719 }, -- Dreadleather Bindings
 				{ 2, 128891, 194727 }, -- Dreadleather Bindings
@@ -5132,7 +5132,7 @@ data["Leatherworking"] = {
 			},
 		},
 		{	--LeatherMailArmor
-			name = ALIL["Mail"].." "..AL["Armor"],
+			name = AL["Mail"].." "..AL["Armor"],
 			[LEGION_DIFF] = {
 				{ 1, 128907, 194759 }, -- Gravenscale Armbands
 				{ 2, 128907, 194767 }, -- Gravenscale Armbands
@@ -5720,7 +5720,7 @@ data["Leatherworking"] = {
 			},
 		},
 		{	--LeatherLeather
-			name = ALIL["Leather"],
+			name = AL["Leather"],
 			[NORMAL_DIFF] = {
 				{ 1, 110611, 171391, [ATLASLOOT_IT_AMOUNT1] = "8+" },	-- Burnished Leather (Learnt by item 115358)
 				{ 2, 110611, 182121, [PRICE_EXTRA_ITTYPE] = "110609:60" },	-- Burnished Leather (Sold, Garrison)
@@ -6541,7 +6541,7 @@ data["Tailoring"] = {
 			},
 		},
 		{	--TailoringCloth
-			name = ALIL["Cloth"],
+			name = AL["Cloth"],
 			[LEGION_DIFF] = {
 				{ 1, 127004, 185962 }, -- Imbued Silkweave
 			},

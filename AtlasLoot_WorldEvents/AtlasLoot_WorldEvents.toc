@@ -1,18 +1,12 @@
 ﻿## Interface: 70100
 ## Author: Hegarol	
-## Version: v8.01.06
+## Version: v8.01.09
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
-## X-Curse-Packaged-Version: v8.01.06
-## X-Curse-Project-Name: AtlasLoot Enhanced
-## X-Curse-Project-ID: atlasloot-enhanced
-## X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline
-
 ## Title: AtlasLoot |cFF0099FF[World Events]|r
 ## Title-deDE: AtlasLoot |cFF0099FF[Weltereignisse]|r
 ## Title-zhCN: AtlasLoot |cFF0099FF[世界事件]|r
 ## Title-zhTW: AtlasLoot |cFF0099FF[世界事件]|r
-
 ## Notes: AtlasLoot loot tables from world events
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Weltereignisse
 ## Notes-zhCN: AtlasLoot 《世界事件》物品信息

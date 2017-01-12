@@ -509,7 +509,7 @@ data["DarkmoonFaire"] = {
 			},
 		},
 		{	--DarkmoonReplicasDruid
-			name = AL["Transmoggable Replicas"].." - "..LOCALIZED_CLASS_NAMES_MALE["DRUID"],
+			name = AL["Transmoggable Replicas"].." - "..ALIL["DRUID"],
 			[NORMAL_DIFF] = {
 				{ 1, 78238, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Wildheart Cowl
 				{ 2, 78239, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Wildheart Spaulders
@@ -530,7 +530,7 @@ data["DarkmoonFaire"] = {
 			},
 		},
 		{	--DarkmoonReplicasHunter
-			name = AL["Transmoggable Replicas"].." - "..LOCALIZED_CLASS_NAMES_MALE["HUNTER"],
+			name = AL["Transmoggable Replicas"].." - "..ALIL["HUNTER"],
 			[NORMAL_DIFF] = {
 				{ 1, 78275, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Beaststalker's Cap
 				{ 2, 78273, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Beaststalker's Mantle
@@ -551,7 +551,7 @@ data["DarkmoonFaire"] = {
 			},
 		},
 		{	--DarkmoonReplicasMage
-			name = AL["Transmoggable Replicas"].." - "..LOCALIZED_CLASS_NAMES_MALE["MAGE"],
+			name = AL["Transmoggable Replicas"].." - "..ALIL["MAGE"],
 			[NORMAL_DIFF] = {
 				{ 1, 78188, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Magister's Crown
 				{ 2, 78191, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Magister's Mantle
@@ -572,7 +572,7 @@ data["DarkmoonFaire"] = {
 			},
 		},
 		{	--DarkmoonReplicasPaladin
-			name = AL["Transmoggable Replicas"].." - "..LOCALIZED_CLASS_NAMES_MALE["PALADIN"],
+			name = AL["Transmoggable Replicas"].." - "..ALIL["PALADIN"],
 			[NORMAL_DIFF] = {
 				{ 1, 78307, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Lightforge Helm
 				{ 2, 78308, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Lightforge Spaulders
@@ -593,7 +593,7 @@ data["DarkmoonFaire"] = {
 			},
 		},
 		{	--DarkmoonReplicasPriest
-			name = AL["Transmoggable Replicas"].." - "..LOCALIZED_CLASS_NAMES_MALE["PRIEST"],
+			name = AL["Transmoggable Replicas"].." - "..ALIL["PRIEST"],
 			[NORMAL_DIFF] = {
 				{ 1, 78205, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Devout Crown
 				{ 2, 78204, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Devout Mantle
@@ -614,7 +614,7 @@ data["DarkmoonFaire"] = {
 			},
 		},
 		{	--DarkmoonReplicasRogue
-			name = AL["Transmoggable Replicas"].." - "..LOCALIZED_CLASS_NAMES_MALE["ROGUE"],
+			name = AL["Transmoggable Replicas"].." - "..ALIL["ROGUE"],
 			[NORMAL_DIFF] = {
 				{ 1, 78260, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Shadowcraft Cap
 				{ 2, 78261, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Shadowcraft Spaulders
@@ -635,7 +635,7 @@ data["DarkmoonFaire"] = {
 			},
 		},
 		{	--DarkmoonReplicasShaman
-			name = AL["Transmoggable Replicas"].." - "..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"],
+			name = AL["Transmoggable Replicas"].." - "..ALIL["SHAMAN"],
 			[NORMAL_DIFF] = {
 				{ 1, 78286, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Coif of Elements
 				{ 2, 78288, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Pauldrons of Elements
@@ -656,7 +656,7 @@ data["DarkmoonFaire"] = {
 			},
 		},
 		{	--DarkmoonReplicasWarlock
-			name = AL["Transmoggable Replicas"].." - "..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"],
+			name = AL["Transmoggable Replicas"].." - "..ALIL["WARLOCK"],
 			[NORMAL_DIFF] = {
 				{ 1, 78227, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Dreadmist Mask
 				{ 2, 78226, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Dreadmist Mantle
@@ -677,7 +677,7 @@ data["DarkmoonFaire"] = {
 			},
 		},
 		{	--DarkmoonReplicasWarrior
-			name = AL["Transmoggable Replicas"].." - "..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"],
+			name = AL["Transmoggable Replicas"].." - "..ALIL["WARRIOR"],
 			[NORMAL_DIFF] = {
 				{ 1, 78322, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Helm of Valor
 				{ 2, 78325, [PRICE_EXTRA_ITTYPE] = "darkmoon:75" },	-- Replica Spaulders of Valor

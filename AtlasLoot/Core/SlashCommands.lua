@@ -32,6 +32,7 @@ local CommandList = {
 local HelpList = {
 	[""] = AL["/al - Open the AtlasLoot window."],
 	["slash"] = AL["/al slash - Prints a list of all slash commands."],
+	["options"] = AL["/al options - Open AtlasLoot Options window."],
 	
 	--["reset"] = AL["/al reset - ???."],
 }

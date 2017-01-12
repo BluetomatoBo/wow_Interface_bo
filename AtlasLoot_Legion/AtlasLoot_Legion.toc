@@ -1,20 +1,14 @@
 ﻿## Interface: 70100
 ## Author: Hegarol	
-## Version: v8.01.06
+## Version: v8.01.09
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
-## X-Curse-Packaged-Version: v8.01.06
-## X-Curse-Project-Name: AtlasLoot Enhanced
-## X-Curse-Project-ID: atlasloot-enhanced
-## X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline
-
 ## Title: AtlasLoot |cFF0099FF[Legion]|r
 ## Title-deDE: AtlasLoot |cFF0099FF[Legion]|r
-## Title-zhTW: AtlasLoot |cFF0099FF[君臨天下]|r
-
+## Title-zhTW: AtlasLoot |cFF0099FF[軍臨天下]|r
 ## Notes: AtlasLoot loot tables from Legion
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Legion
-## Notes-zhTW: AtlasLoot 君臨天下資料片物品掉落資料庫
+## Notes-zhTW: AtlasLoot 軍臨天下資料片物品掉落資料庫
 
 ## X-eMail: manager@atlasloot.net
 ## X-Category: Map

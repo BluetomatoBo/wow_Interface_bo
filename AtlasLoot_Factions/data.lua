@@ -17,7 +17,7 @@ local QUEST_EXTRA_ITTYPE = data:AddExtraItemTableType("Quest")
 local FACTION_CONTENT = data:AddContentType(AL["Factions"], ATLASLOOT_FACTION_COLOR)
 
 data["LEGIONFACTIONS"] = {
-	name = AL["Legion"],
+	name = EXPANSION_NAME6,
 	ContentType = FACTION_CONTENT,
 	items = {
 		{	--TheNightfallen
@@ -202,7 +202,7 @@ data["LEGIONFACTIONS"] = {
 }
 	
 data["WODFACTIONS"] = {
-	name = AL["Warlords of Draenor"],
+	name = EXPANSION_NAME5,
 	ContentType = FACTION_CONTENT,
 	items = {
 		{	--Vol'jin's Headhunters
@@ -520,7 +520,7 @@ data["WODFACTIONS"] = {
 }
 
 data["MOPFACTIONS"] = {
-	name = AL["Mists of Pandaria"],
+	name = EXPANSION_NAME4,
 	ContentType = FACTION_CONTENT,
 	items = {
 		{	--DominanceOffensive
@@ -1035,7 +1035,7 @@ data["MOPFACTIONS"] = {
 }
 
 data["CATAFACTIONS"] = {
-	name = AL["Cataclysm"],
+	name = EXPANSION_NAME3,
 	ContentType = FACTION_CONTENT,
 	items = {
 		{	--AvengersHyjal
@@ -1325,7 +1325,7 @@ data["CATAFACTIONS"] = {
 }
 
 data["WOTLKFACTIONS"] = {
-	name = AL["Wrath of the Lich King"],
+	name = EXPANSION_NAME2,
 	ContentType = FACTION_CONTENT,
 	items = {
 		{	--AllianceVanguard
@@ -1650,7 +1650,7 @@ data["WOTLKFACTIONS"] = {
 }
 
 data["BCFACTIONS"] = {
-	name = AL["Burning Crusade"],
+	name = EXPANSION_NAME1,
 	ContentType = FACTION_CONTENT,
 	items = {
 		{	--AshtongueDeathsworn
@@ -2365,7 +2365,7 @@ data["BCFACTIONS"] = {
 }
 
 data["CLASSICFACTIONS"] = {
-	name = AL["Classic"],
+	name = EXPANSION_NAME0,
 	ContentType = FACTION_CONTENT,
 	items = {
 		{	--ArgentDawn

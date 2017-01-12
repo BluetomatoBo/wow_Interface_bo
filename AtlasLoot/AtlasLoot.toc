@@ -1,24 +1,12 @@
 ﻿## Interface: 70100
 ## Author: Hegarol
-## Version: v8.01.06
+## Version: v8.01.09
 ## SavedVariables: AtlasLootDB
 ## SavedVariablesPerCharacter: AtlasLootCharDB
-## OptionalDeps: Ace3, LibStub, LibBabble-Boss-3.0, CallbackHandler-1.0, LibDataBroker-1.1
-## X-Curse-Packaged-Version: v8.01.06
-## X-Curse-Project-Name: AtlasLoot Enhanced
-## X-Curse-Project-ID: atlasloot-enhanced
-## X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline
-
-## Title: AtlasLoot
-## Title-deDE: AtlasLoot Enhanced
-## Title-frFR: AtlasLoot Enhanced
-## Title-esES: AtlasLoot Enhanced
-## Title-koKR: AtlasLoot Enhanced
-## Title-zhCN: AtlasLoot Enhanced
-## Title-zhTW: AtlasLoot Enhanced |cFF0099FF[主程式]|r
-## RealTitle-zhCN: [地图]副本掉落物品查询
-## RealTitle-zhTW: [地圖]AtlasLoot 物品掉落[主程式]
-
+## OptionalDeps: 
+## Title: AtlasLoot |cFF0099FF[Core]|r
+## Title-zhCN: AtlasLoot |cFF0099FF[主程式]|r
+## Title-zhTW: AtlasLoot |cFF0099FF[主程式]|r
 ## Notes: Shows the possible loot from the bosses
 ## Notes-deDE: Zeigt mögliche Beute von Bossen
 ## Notes-frFR: Montre le butin possible des boss
@@ -33,8 +21,8 @@
 ## X-Category: Map
 ## X-License: GPL v2
 ## X-Website: http://www.atlasloot.net
-## X-Embeds: LibStub, LibBabble-Boss-3.0, CallbackHandler-1.0, LibDataBroker-1.1
-## X-Localizations: enUS, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU
+## X-Embeds: LibStub, LibBabble-Boss-3.0, CallbackHandler-1.0, LibDataBroker-1.1, LibSharedMedia-3.0, LibDBIcon-1.0
+## X-Localizations: enUS, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU, itIT
 
 embeds.xml
 
@@ -48,6 +36,7 @@ Locales\constants.cn.lua
 Locales\constants.de.lua
 Locales\constants.es.lua
 Locales\constants.fr.lua
+Locales\constants.it.lua
 Locales\constants.kr.lua
 Locales\constants.mx.lua
 Locales\constants.pt.lua

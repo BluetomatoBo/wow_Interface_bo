@@ -19,6 +19,7 @@ local STRING_RED = "|cffff0000"
 local STRING_GREEN = "|cff1eff00"
 
 local PRICE_INFO = {
+	["orderresources"] = { currencyID = 1220 },
 	["bfclaw"] = { itemID = 124099 },
 	["ancestrycoin"] = { itemID = 21100 },
 	["apexis"] = { currencyID = 823 },

@@ -58,7 +58,7 @@ function AtlasLoot:OnInitialize()
 	if reason ~=  "MISSING" then 
 		DisableAddOn("AtlasLoot_Loader") 
 		StaticPopupDialogs["ATLASLOOT_LOADER_ADDON_ERROR"] = {
-			text = AL["AtlasLoot_Loader is no longer in use.\nDelete it from your AddOns folder"],
+			text = AL["AtlasLoot_Loader_is_no_longer_in_use"],
 			button1 = OKAY,
 			timeout = 0,
 			exclusive = 1,
@@ -68,7 +68,8 @@ function AtlasLoot:OnInitialize()
 	end
 
 	
-	--[[ scan for pet IDs
+--scan for pet IDs
+--[[
 	self.db.PETINFO = {}
 	local petID, speciesID, owned, customName, level, favorite, isRevoked, speciesName
 	local numPets = C_PetJournal.GetNumPets()
@@ -79,26 +80,20 @@ function AtlasLoot:OnInitialize()
 			self.db.PETINFO[speciesName] = speciesID
 		end
 	end
-	]]--
-	
+]]	
+--[[
+	self.db.MOUNTINFO = {}
+	local creatureName, spellID, icon, active, isUsable, sourceType, isFavorite, isFactionSpecific, faction, hideOnChar, isCollected, mountID
+	local numMounts = C_MountJournal.GetNumMounts()
 
-	--self.db.MOUNTINFO = {}
-	--local numMounts = C_MountJournal.GetNumMounts()
-	
-	--for i=1,numMounts do
-		--print(C_MountJournal.GetMountInfo(i))
-		
-		
-	
-		--petID, speciesID, owned, customName, level, favorite, isRevoked, speciesName = C_PetJournal.GetPetInfoByIndex(i)
-		--if speciesName and speciesID then
-		--	self.db.PETINFO[speciesName] = speciesID
-		--end
-	--end
-
-	
-	
-	
+	for i=1,numMounts do
+	--print(C_MountJournal.GetMountInfoByID(i))
+		creatureName, spellID, icon, active, isUsable, sourceType, isFavorite, isFactionSpecific, faction, hideOnChar, isCollected, mountID = C_MountJournal.GetMountInfoByID(i)
+		if creatureName and mountID then
+			self.db.MOUNTINFO[creatureName] = mountID
+		end
+	end
+]]
 end
 
 function AtlasLoot:AddInitFunc(func, module)

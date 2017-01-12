@@ -1,58 +1,63 @@
 ﻿local AL = _G.AtlasLoot.Locales
 
+-- Common strings
 AL["AtlasLoot"] = true
-
-AL["Normal"] = true
-AL["Heroic"] = true
-AL["25 Player"] = true
-AL["25 Player Heroic"] = true
-AL["Raid Finder"] = true
-AL["Mythic"] = true
 
 AL["Dungeons"] = true
 AL["Raids"] = true
-AL["Professions"] = true
 AL["Removed"] = true
 
-AL["Achievements"] = true
 AL["Bonus Loot"] = true
 
+AL["Source"] = true
+AL["Set"] = true
+AL["Sets"] = true
+AL["Miscellaneous"] = true
+AL["Black Market Auction House"] = true
+AL["Entrance"] = true
+AL["ilvl %d"] = true
+AL["No longer available"] = true
+AL["Patterns/Plans"] = true
+AL["Rare"] = true
+AL["Recipes"] = true
+AL["Rewards"] = true
+AL["Shared"] = true
+AL["Shared Boss Loot"] = true
+AL["Shop"] = true
+AL["Summon"] = true
+AL["Trash Mobs"] = true
+
 -- AtlasLoot.lua
-AL["AtlasLoot_Loader is no longer in use.\nDelete it from your AddOns folder"] = true
+AL["AtlasLoot_Loader_is_no_longer_in_use"] = [=[AtlasLoot_Loader is no longer in use.
+Delete it from your AddOns folder]=]
 AL["Toggle AtlasLoot"] = true
 
--- Options module
-AL["General"] = true
-AL["General AtlasLoot options."] = true
-AL["Toggle Minimap Button"] = true
-AL["Toggles the display of the minimap icon."] = true
+-- AtlasLoot\Core\ClickHandler.lua
+AL["Link the item in chat"] = true
 
 -- Loader.lua
+AL["Achievements"] = true
 AL["Module %s is deactivated."] = true
 AL["Module %s is not installed."] = true
 AL["%s will finish loading after combat."] = true
-AL["Legion"] = true
-AL["Warlords of Draenor"] = true
-AL["Mists of Pandaria"] = true
-AL["Cataclysm"] = true
-AL["Wrath of the Lich King"] = true
-AL["Burning Crusade"] = true
-AL["Classic"] = true
 AL["Crafting"] = true
 AL["Collections"] = true
 AL["Factions"] = true
 AL["PvP"] = true
 AL["World Events"] = true
-AL["Map"] = true
 
 -- MiniMapButton.lua
-AL["|cffFF0000Click: |cffFFFFFFOpen AtlasLoot\n|cffFF0000Shift+Click: |cffFFFFFFOpen AtlasLoot-Options "] = true
+AL["AtlasLoot_Minimap_Clicks"] = [=[|cffFF0000Click: |cffFFFFFFOpen AtlasLoot
+|cffFF0000Shift+Click: |cffFFFFFFOpen AtlasLoot-Options ]=]
+AL["/al mmb - Toggle MiniMapButton"] = true
 
 -- Core\SlashCommands.lua
 AL["Command %s not found. Use '/al slash' for a full list of commands"] = true
 AL["Slash commands:"] = true
 AL["/al - Open the AtlasLoot window."] = true
 AL["/al slash - Prints a list of all slash commands."] = true
+AL["/al options - Open AtlasLoot Options window."] = true
+-- AL["/al reset - ???."] = true
 
 -- Core\ItemInfo.lua
 AL["One-Hand, Axe"] = true
@@ -73,11 +78,11 @@ AL["Fishing Pole"] = true
 AL["Shield"] = true
 
 --Core\StaticPopupDialogs.lua
-AL["It has been detected that your version of Atlas does not match the version that Atlasloot is tuned for (%s/%s).  Depending on changes, there may be the occasional error, so please visit http://www.atlasmod.com as soon as possible to update."] = true
+AL["It has been detected that your version of Atlas does not match the version that Atlasloot is tuned for (%s/%s). Depending on changes, there may be the occasional error, so please visit http://www.atlasmod.com as soon as possible to update."] = true
 AL["Incompatible Atlas Detected"] = true
 AL["OK"] = true
 AL["Setup"] = true
-AL["Welcome to Atlasloot Enhanced.  Please take a moment to set your preferences."] = true
+AL["Welcome to Atlasloot Enhanced. Please take a moment to set your preferences."] = true
 
 --GUI\GUI.lua
 AL["AtlasLoot Modules"] = true
@@ -92,6 +97,7 @@ AL["|cff00ff00Right-Click:|r Change Spec"] = true
 AL["Shows items for all %s specializations."] = true
 AL["Required module %s is currently disabled."] = true
 AL["Required module %s is not installed."] = true
+AL["/al togglebg - Toggle the background image on loottables."] = true
 
 --GUI\SoundFrame.lua
 AL["Add sound into chat"] = true
@@ -99,26 +105,32 @@ AL["Copy Box"] = true
 AL["Shows the sound in the copy box"] = true
 
 --GUI\QuickLootFrame.lua
+AL["Normal"] = true
+AL["Heroic"] = true
+AL["Mythic"] = true
+AL["25 Player"] = true
+AL["25 Player Heroic"] = true
+AL["Raid Finder"] = true
 AL["Loading Data ..."] = true
 
 --GUI\SetViewFrame.lua
 AL["AtlasLoot Set View"] = true
-AL["Source"] = true
 AL["Stats"] = true
 
--- BUTTONS
-AL["Droprate:"] = true
+-- AtlasLoot\Button\Extra_Price_type.lua
 AL["--- or ---"] = true
 
--- Item_type.lua
+-- AtlasLoot\Button\Item_type.lua
 AL["Chat Link"] = true
 AL["Add item into chat"] = true
 AL["Dress up"] = true
 AL["Shows the item in the Dressing room"] = true
+AL["Droprate:"] = true
 
 -- Profession_type.lua
 AL["Add profession link into chat"] = true
 
+-- AtlasLoot\Button\Achievement_type.lua
 AL["Add achievement link into chat"] = true
 
 -- Pet_type.lua
@@ -130,36 +142,20 @@ AL["Show Mount in Journal"] = true
 -- Addons\Search.lua
 AL["AtlasLoot Search"] = true
 
--- Common strings
-AL["Black Market Auction House"] = true
-AL["Entrance"] = true
-AL["ilvl %d"] = true
-AL["Miscellaneous"] = true
-AL["No longer available"] = true
-AL["Patterns/Plans"] = true
-AL["Rare"] = true
-AL["Recipes"] = true
-AL["Rewards"] = true
-AL["Set"] = true
-AL["Sets"] = true
-AL["Shared"] = true
-AL["Shared Boss Loot"] = true
-AL["Shop"] = true
-AL["Summon"] = true
-AL["Trash Mobs"] = true
+-- Armor type
+AL["Cloth"] = true
+AL["Leather"] = true
+AL["Mail"] = true
+AL["Plate"] = true
 
 -- Classic strings
 AL["AQ Enchants"] = true
 AL["Dire Maul North Tribute Chest"] = true
 AL["Dire Maul Books"] = true
-AL["Father Flame"] = true
 AL["Felvine Shard"] = true
 AL["Knot Thimblejack"] = true
 AL["Master Elemental Shaper Krixix"] = true
 AL["Ogre Tannin Basket"] = true
-AL["Path of the Conqueror"] = true
-AL["Path of the Invoker"] = true
-AL["Path of the Protector"] = true
 AL["Rajaxx's Captains"] = true
 AL["Shen'dralar Provisioner"] = true
 AL["The Grim Guzzler"] = true
@@ -185,7 +181,6 @@ AL["Firestone Vendor"] = true
 AL["Timed Reward Chest"] = true
 
 -- Warlords of Draenor strings
-AL["Vendors"] = true
 
 -- Collections strings
 AL["Achievement & Quest Rewards"] = true
@@ -207,21 +202,21 @@ AL["Guild"] = true
 AL["Heirloom"] = true
 AL["Legendary Items"] = true
 AL["Mounts"] = true
-AL["Pets"] = true
 AL["Primal Trader"] = true
 AL["Replica available at Darkmoon Faire"] = true
 AL["Tabards"] = true
 AL["Tier Sets"] = true
 AL["Tier %d Sets"] = true
+AL["Timewalking Dungeon Event"] = true
 AL["Unobtainable Tabards"] = true
 AL["Varlan Highbough"] = true
+AL["Vendors"] = true
 AL["Zen'Vorka"] = true
-AL["Timewalking Dungeon Event"] = true
 
 -- Crafting strings
 AL["Arakkoa"] = true
-AL["Armor"] = true
 AL["Armor Enhancements"] = true
+AL["Armor"] = true
 AL["Attack/Spell Power"] = true
 AL["Attributes"] = true
 AL["Bags"] = true
@@ -239,15 +234,14 @@ AL["Draenei"] = true
 AL["Draenor Clans"] = true
 AL["Dwarf"] = true
 AL["Elixirs"] = true
+AL["Exalted"] = true
 AL["Firework"] = true
 AL["Flasks"] = true
-AL["Food"] = true
 AL["Food without Buffs"] = true
 AL["Fossil"] = true
 AL["Gloves"] = true
 AL["Glyphs"] = true
 AL["Green Gems"] = true
-AL["Illusions"] = true
 AL["Item Enhancements"] = true
 AL["Mantid"] = true
 AL["Meta Gems"] = true
@@ -262,6 +256,7 @@ AL["Orange Gems"] = true
 AL["Orc"] = true
 AL["Other Buffs"] = true
 AL["Pandaren"] = true
+AL["Pets"] = true
 AL["Potions"] = true
 AL["Primary Professions"] = true
 AL["Prismatic Gems"] = true
@@ -272,7 +267,6 @@ AL["Red Gems"] = true
 AL["Relic"] = true
 AL["Ring"] = true
 AL["Rings"] = true
-AL["Rune"] = true
 AL["Runes"] = true
 AL["Scopes"] = true
 AL["Scrolls"] = true
@@ -289,8 +283,8 @@ AL["Transmutes"] = true
 AL["Trinkets"] = true
 AL["Troll"] = true
 AL["Vrykul"] = true
-AL["Weapons"] = true
 AL["Weapon Enhancements"] = true
+AL["Weapons"] = true
 AL["Yellow Gems"] = true
 
 -- Factions strings
@@ -308,6 +302,7 @@ AL["Season %d"] = true
 AL["Warlords Season %d"] = true
 
 -- World Events strings
+AL["Permanent/Recurring Events"] = true
 AL["Argent Tournament"] = true
 AL["Azeroth"] = true
 AL["Brew of the Month Club"] = true
@@ -320,6 +315,7 @@ AL["Day of the Dead"] = true
 AL["Drinks"] = true
 AL["Feast of Winter Veil"] = true
 AL["First Prize"] = true
+AL["Food"] = true
 AL["Gifts & Presents"] = true
 AL["Hallow's End"] = true
 AL["Harvest Festival"] = true
@@ -328,11 +324,10 @@ AL["Lunar Festival"] = true
 AL["Midsummer Fire Festival"] = true
 AL["Noblegarden"] = true
 AL["Non-Playable Race Masks"] = true
-AL["Permanent/Recurring Events"] = true
 AL["Pilgrim's Bounty"] = true
 AL["Playable Race Masks"] = true
-AL["Rare Fish"] = true
 AL["Rare Fish Rewards"] = true
+AL["Rare Fish"] = true
 AL["Seasonal Events"] = true
 AL["Smokywood Pastures Vendor"] = true
 AL["Special Rewards"] = true

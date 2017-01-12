@@ -23,6 +23,17 @@ local function GetBuildingName(id)
 	return tmp1
 end
 
+local function AtlasLoot_GetClassName(class)
+	if (not LOCALIZED_CLASS_NAMES_MALE[class]) then
+		return nil;
+	end
+	if (UnitSex("player") == "3") then
+		return LOCALIZED_CLASS_NAMES_FEMALE[class];
+	else
+		return LOCALIZED_CLASS_NAMES_MALE[class];
+	end
+end
+
 local IngameLocales = {
 	-- ######################################################################
 	-- Factions
@@ -138,6 +149,22 @@ local IngameLocales = {
 	["The Tannery"] = GetBuildingName(122),
 	
 	-- data from Core/ItemInfo.lua is generated after loading
+
+	-- ######################################################################
+	-- Class
+	-- ######################################################################
+	["DEATHKNIGHT"]	= AtlasLoot_GetClassName("DEATHKNIGHT"),
+	["DEMONHUNTER"]	= AtlasLoot_GetClassName("DEMONHUNTER"),
+	["DRUID"] 	= AtlasLoot_GetClassName("DRUID"),
+	["HUNTER"] 	= AtlasLoot_GetClassName("HUNTER"),
+	["MAGE"] 	= AtlasLoot_GetClassName("MAGE"),
+	["MONK"] 	= AtlasLoot_GetClassName("MONK"),
+	["PALADIN"] 	= AtlasLoot_GetClassName("PALADIN"),
+	["PRIEST"] 	= AtlasLoot_GetClassName("PRIEST"),
+	["ROGUE"] 	= AtlasLoot_GetClassName("ROGUE"),
+	["SHAMAN"] 	= AtlasLoot_GetClassName("SHAMAN"),
+	["WARLOCK"] 	= AtlasLoot_GetClassName("WARLOCK"),
+	["WARRIOR"] 	= AtlasLoot_GetClassName("WARRIOR"),
 }
 AtlasLoot.IngameLocales = IngameLocales
 

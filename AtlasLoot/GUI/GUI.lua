@@ -678,7 +678,7 @@ function GUI.Init()
 	end
 	
 	AtlasLoot.SlashCommands:AddResetFunction(GUI.ResetFrames, "frames", "gui")
-	AtlasLoot.SlashCommands:Add("togglebg", function() db.hideBGImage = not db.hideBGImage end, "/al togglebg - Toggle the background image on loottables.")
+	AtlasLoot.SlashCommands:Add("togglebg", function() db.hideBGImage = not db.hideBGImage end, AL["/al togglebg - Toggle the background image on loottables."])
 end
 AtlasLoot:AddInitFunc(GUI.Init)
 

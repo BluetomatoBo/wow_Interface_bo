@@ -1,18 +1,12 @@
 ﻿## Interface: 70100
 ## Author: Hegarol	
-## Version: v8.01.06
+## Version: v8.01.09
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
-## X-Curse-Packaged-Version: v8.01.06
-## X-Curse-Project-Name: AtlasLoot Enhanced
-## X-Curse-Project-ID: atlasloot-enhanced
-## X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline
-
 ## Title: AtlasLoot |cFF0099FF[Burning Crusade]|r
 ## Title-deDE: AtlasLoot |cFF0099FF[Burning Crusade]|r
 ## Title-zhCN: AtlasLoot |cFF0099FF[燃烧的远征]|r
 ## Title-zhTW: AtlasLoot |cFF0099FF[燃燒的遠征]|r
-
 ## Notes: AtlasLoot loot tables from Burning Crusade
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Burning Crusade
 ## Notes-zhCN: AtlasLoot 《燃烧的远征》物品信息

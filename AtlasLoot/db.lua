@@ -94,11 +94,18 @@ AtlasLoot.AtlasLootDBDefaults = {
 			textSize = 12,
 		},
 	},
+--[[
 	MiniMapButton = {
 		point = false,
 		shown = true,
 		locked = false,
 		lockedAroundMiniMap = true,
+	},
+]]
+	minimap = {
+		shown = true,
+		locked = false,
+		minimapPos = 218,
 	},
 	Button = {	-- Button
 		["*"] = {

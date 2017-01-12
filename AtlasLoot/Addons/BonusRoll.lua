@@ -8,10 +8,87 @@ local AL = AtlasLoot.Locales
 local match = string.match
 
 -- DB
--- /run BonusRollFrame_StartBonusRoll(145917, "", 180, 738)
+-- /run BonusRollFrame_StartBonusRoll(227131, "", 180, 1273)
 -- /run BonusRollFrame_StartBonusRoll(190156, "", 180, 738)
 -- [BonusRollID] = "tierID:instanceID:encounterID"		<- new
 local BONUS_ROLL_IDS = {
+	-- ### Legion
+	-- BrokenIsles
+	[227128] = "7:822:1790",		-- Ana-Mouz
+	[227129] = "7:822:1774",		-- Calamir
+	[227130] = "7:822:1789",		-- Drugon the Frostblood
+	[227131] = "7:822:1795",		-- Flotsam
+	[227132] = "7:822:1770",		-- Humongris
+	[227133] = "7:822:1769",		-- Levantus
+	[227134] = "7:822:1783",		-- Na'zak the Fiend
+	[227135] = "7:822:1749",		-- Nithogg
+	[227136] = "7:822:1763",		-- Shar'thos
+	[227137] = "7:822:1756",		-- The Soultakers
+	[227138] = "7:822:1796",		-- Withered J'im
+	-- EmeraldNightmare
+	[221046] = "7:768:1703",		-- Nythendra
+	[221047] = "7:768:1738",		-- Il'gynoth, Heart of Corruption
+	[221048] = "7:768:1744",		-- Elerethe Renferal
+	[221049] = "7:768:1667",		-- Ursoc
+	[221050] = "7:768:1704",		-- Dragons of Nightmare
+	[221052] = "7:768:1750",		-- Cenarius
+	[221053] = "7:768:1726",		-- Xavius
+	-- TheNighthold
+	[232436] = "7:786:1706",		-- Skorpyron
+	[232437] = "7:786:1725",		-- Chronomatic Anomaly
+	[232438] = "7:786:1731",		-- Trilliax
+	[232439] = "7:786:1751",		-- Spellblade Aluriel
+	[232440] = "7:786:1762",		-- Tichondrius
+	[232441] = "7:786:1713",		-- Krosus
+	[232442] = "7:786:1761",		-- High Botanist Tel'arn
+	[232443] = "7:786:1732",		-- Star Augur Etraeus
+	[232444] = "7:786:1743",		-- Grand Magistrix Elisande
+	[232445] = "7:786:1737",		-- Gul'dan
+	-- TrialOfValor
+	[232466] = "7:861:1819",		-- Odyn
+	[232467] = "7:861:1830",		-- Guarm
+	[232468] = "7:861:1829",		-- Helya
+	
+	-- ### WoD
+	-- BlackrockFoundry
+	[177529] = "6:457:1161",		-- Gruul
+	[177530] = "6:457:1202",		-- Oregorger
+	[177536] = "6:457:1122",		-- Beastlord Darmac
+	[177534] = "6:457:1123",		-- Flamebender Ka'graz
+	[177533] = "6:457:1155",		-- Hans'gar & Franzok
+	[177537] = "6:457:1147",		-- Operator Thogar
+	[177531] = "6:457:1154",		-- Blast Furnace
+	[177535] = "6:457:1162",		-- Kromog
+	[177538] = "6:457:1203",		-- The Iron Maidens
+	[177539] = "6:457:959",			-- Blackhand
+	-- HellfireCitadel
+	[188972] = "6:669:1426",		-- Mar'tak
+	[188973] = "6:669:1425",		-- Iron Reaver
+	[188974] = "6:669:1392",		-- Kormrok
+	[188975] = "6:669:1432",		-- Council
+	[188976] = "6:669:1396",		-- Kilrogg
+	[188977] = "6:669:1372",		-- Gorefiend
+	[188978] = "6:669:1433",		-- Iskar
+	[188979] = "6:669:1427",		-- Socrethar
+	[188980] = "6:669:1391",		-- Zakuum
+	[188981] = "6:669:1447",		-- Xhulhorac
+	[188982] = "6:669:1394",		-- Velhari
+	[188983] = "6:669:1395",		-- Mannoroth
+	[188984] = "6:669:1438",		-- Archimonde
+	-- Highmaul
+	[177521] = "6:477:1128",		-- Kargath Bladefist
+	[177522] = "6:477:971",			-- Butcher
+	[177523] = "6:477:1195",		-- Tectus
+	[177524] = "6:477:1196",		-- Brackenspore
+	[177525] = "6:477:1148",		-- Twin Ogron
+	[177526] = "6:477:1153",		-- Ko'ragh
+	[177528] = "6:477:1197",		-- Imperator Mar'gok
+	-- Draenor
+	[178847] = "6:557:1291",		-- Drov the Ruiner
+	[178851] = "6:557:1262",		-- Rukhmar
+	[178849] = "6:557:1211",		-- Tarlna the Ageless
+	[188985] = "6:557:1452",		-- Supreme Lord Kazzak	
+	
 	-- ### MoP
 	-- Mogu
 	[125144] = "5:317:679",		-- The Stone Guard
@@ -68,46 +145,6 @@ local BONUS_ROLL_IDS = {
 	[137554] = "5:322:826",		-- Oondasta
 	[148316] = "5:322:861",		-- Ordos
 	[148317] = "5:322:857",		-- Celestials	( 857 - ChiJi, 858 - YuLon, 859 - NioZao, 859 - Xuen )
-	
-	-- ### WoD
-	-- BlackrockFoundry
-	[177529] = "6:457:1161",		-- Gruul
-	[177530] = "6:457:1202",		-- Oregorger
-	[177536] = "6:457:1122",		-- Beastlord Darmac
-	[177534] = "6:457:1123",		-- Flamebender Ka'graz
-	[177533] = "6:457:1155",		-- Hans'gar & Franzok
-	[177537] = "6:457:1147",		-- Operator Thogar
-	[177531] = "6:457:1154",		-- Blast Furnace
-	[177535] = "6:457:1162",		-- Kromog
-	[177538] = "6:457:1203",		-- The Iron Maidens
-	[177539] = "6:457:959",			-- Blackhand
-	-- HellfireCitadel
-	[188972] = "6:669:1426",		-- Mar'tak
-	[188973] = "6:669:1425",		-- Iron Reaver
-	[188974] = "6:669:1392",		-- Kormrok
-	[188975] = "6:669:1432",		-- Council
-	[188976] = "6:669:1396",		-- Kilrogg
-	[188977] = "6:669:1372",		-- Gorefiend
-	[188978] = "6:669:1433",		-- Iskar
-	[188979] = "6:669:1427",		-- Socrethar
-	[188980] = "6:669:1391",		-- Zakuum
-	[188981] = "6:669:1447",		-- Xhulhorac
-	[188982] = "6:669:1394",		-- Velhari
-	[188983] = "6:669:1395",		-- Mannoroth
-	[188984] = "6:669:1438",		-- Archimonde
-	-- Highmaul
-	[177521] = "6:477:1128",		-- Kargath Bladefist
-	[177522] = "6:477:971",			-- Butcher
-	[177523] = "6:477:1195",		-- Tectus
-	[177524] = "6:477:1196",		-- Brackenspore
-	[177525] = "6:477:1148",		-- Twin Ogron
-	[177526] = "6:477:1153",		-- Ko'ragh
-	[177528] = "6:477:1197",		-- Imperator Mar'gok
-	-- Draenor
-	[178847] = "6:557:1291",		-- Drov the Ruiner
-	[178851] = "6:557:1262",		-- Rukhmar
-	[178849] = "6:557:1211",		-- Tarlna the Ageless
-	[188985] = "6:557:1452",		-- Supreme Lord Kazzak	
 }
 
 local function LoadQuickLootFrame(self)
