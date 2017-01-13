@@ -441,7 +441,7 @@ function private.SaveItemCache()
 	TSMItemCacheDB = result
 	TSM.db.global.locale = GetLocale()
 	-- store the current interface version to know whether the cache should be reset
-	TSM.db.global.itemCacheVersion = select(4, GetBuildInfo())
+	TSM.db.global.clientVersion = GetBuildInfo()
 end
 
 function private.DecodeNumber(str, length, offset)
@@ -468,10 +468,10 @@ end
 function private.LoadItemCache()
 	-- check if the locale changed, in which case we won't load the cache
 	if TSM.db.global.locale ~= "" and TSM.db.global.locale ~= GetLocale() then return end
-	
+
 	-- check if the interface version changed, in which case we won't load the cache
-	local interfaceVersion = select(4, GetBuildInfo())
-	if TSM.db.global.itemCacheVersion < interfaceVersion then return end
+	local clientVersion = GetBuildInfo()
+	if TSM.db.global.clientVersion ~= clientVersion then return end
 
 	local str = TSMItemCacheDB
 	if type(str) ~= "string" or #str < 4 then return end

@@ -57,9 +57,10 @@ TSM.designDefaults = {
 -- [6] added 'global.locale' key
 -- [7] changed default value of 'tsmItemTweetEnabled' to false
 -- [8] added 'global.itemCacheVersion' key
+-- [9] removed 'global.itemCacheVersion' key, added 'global.clientVersion' key
 
 local settingsInfo = {
-	version = 8,
+	version = 9,
 	global = {
 		vendorItems = { type = "table", default = {}, lastModifiedVersion = 1 },
 		ignoreRandomEnchants = { type = "boolean", default = false, lastModifiedVersion = 1 },
@@ -82,7 +83,7 @@ local settingsInfo = {
 		moveDelay = { type = "number", default = 0, lastModifiedVersion = 1 },
 		appMessageId = { type = "number", default = 0, lastModifiedVersion = 4 },
 		locale = { type = "string", default = "", lastModifiedVersion = 6 },
-		itemCacheVersion = { type = "number", default = 0, lastModifiedVersion = 8 },
+		clientVersion = { type = "string", default = "", lastModifiedVersion = 9 },
 	},
 	profile = {
 		design = { type = "table", default = nil, lastModifiedVersion = 1 },
@@ -396,11 +397,11 @@ function TSM:RegisterModule()
 		{ key = "profile", label = L["Changes to the specified profile (i.e. '/tsm profile Default' changes to the 'Default' profile)"], callback = "ChangeProfile" },
 		{ key = "debug", label = L["Some debug commands for TSM."], callback = "Debug:SlashCommandHandler", hidden = true },
 	}
-	--[===[@debug@
+	--@debug@
 	if TSM.Testing then
 		tinsert(TSM.slashCommands, { key = "test", label = "", callback = "Testing:SlashCommandHandler", hidden = true })
 	end
-	--@end-debug@]===]
+	--@end-debug@
 
 	TSMAPI:NewModule(TSM)
 end
