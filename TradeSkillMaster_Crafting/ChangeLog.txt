@@ -1,3 +1,7 @@
+v3.2
+*Re-implemented intermediate crafting within gathering.
+*Added new enchants in 7.1.5
+
 v3.1.18
 *Fixed bug with buying vendor items with random suffixes via gathering.
 

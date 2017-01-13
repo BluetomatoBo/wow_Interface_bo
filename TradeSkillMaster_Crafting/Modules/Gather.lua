@@ -71,7 +71,8 @@ function Gather:GatherBank(moveItems)
 		TSM:Print(L["Nothing to Gather"])
 	else
 		TSM:Print(L["Gathering Crafting Mats"])
-		TSMAPI:MoveItems(moveItems, Gather.PrintMsg)
+		local ignoreReagents = UnitName("player") == TSM.db.factionrealm.gathering.crafter and true or false
+		TSMAPI:MoveItems(moveItems, Gather.PrintMsg, false, ignoreReagents)
 		TSM.db.factionrealm.gathering.gatheredMats = true
 	end
 end
@@ -148,8 +149,7 @@ function Gather:CraftNext(spellList)
 			end
 			if numCanCraft > 0 then
 				local velName = craft.mats[TSM.VELLUM_ITEM_STRING] and (TSMAPI.Item:GetName(TSM.VELLUM_ITEM_STRING) or TSM.db.factionrealm.mats[TSM.VELLUM_ITEM_STRING].name) or nil
-				TradeSkill:CastTradeSkill(spellId, spellList[spellId], velName)
-				--TSM:Print(spellId, spellList[spellId])
+				TradeSkill:CastTradeSkill(spellId, numCanCraft, velName)
 				return
 			end
 		end
@@ -210,6 +210,33 @@ function Gather:GetItemSources(crafter, neededMats)
 	if not neededMats then return end
 	local sources = {}
 	local inkTradeItem
+	local intermediate = {}
+	-- add crafting tasks
+	if not TSM.db.factionrealm.gathering.sessionOptions.ignoreIntermediate then
+		for itemString, quantity in pairs(neededMats) do
+			local matCost = TSM.Cost:GetMatCost(itemString)
+			local cheapestSpellId, lowestCost = TSM.Cost:GetItemCraftPrices(itemString)
+			if cheapestSpellId and lowestCost <= matCost then
+				local data = TSM.db.factionrealm.crafts[cheapestSpellId]
+				if not data.hasCD then
+					local need = quantity - (TSMAPI.Inventory:GetBagQuantity(itemString, crafter) + TSMAPI.Inventory:GetBankQuantity(itemString, crafter) + TSMAPI.Inventory:GetReagentBankQuantity(itemString, crafter) + TSMAPI.Inventory:GetMailQuantity(itemString, crafter))
+					if need > 0 then
+						local spellNeed = ceil(need / data.numResult)
+						sources[itemString] = sources[itemString] or {}
+						sources[itemString]["crafting"] = sources[itemString]["crafting"] or {}
+						sources[itemString]["crafting"][cheapestSpellId] = need
+						if TSM.db.factionrealm.gathering.selectedSourceStatus[cheapestSpellId] then
+							intermediate[itemString] = true
+							sources[itemString]["selected"] = (sources[itemString]["selected"] or 0) + need
+							for mat, matQty in pairs(data.mats) do
+								neededMats[mat] = (neededMats[mat] or 0) + (matQty * spellNeed)
+							end
+						end
+					end
+				end
+			end
+		end
+	end
 
 	-- add vendor items
 	for itemString, quantity in pairs(neededMats) do
@@ -221,7 +248,7 @@ function Gather:GetItemSources(crafter, neededMats)
 				sources[itemString]["vendorBuy"]["buy"] = vendorNeed
 				sources[itemString]["selected"] = (sources[itemString]["selected"] or 0) + vendorNeed
 			end
-		elseif TSMAPI.Conversions:GetData(itemString) and TSM.db.factionrealm.gathering.sessionOptions.inkTrade then
+		elseif TSMAPI.Conversions:GetData(itemString) and TSM.db.factionrealm.gathering.sessionOptions.inkTrade and not intermediate[itemString] then
 			for tradeItemString, info in pairs(TSMAPI.Conversions:GetData(itemString)) do
 				tradeItemString = TSMAPI.Item:ToItemString(tradeItemString)
 				if info.method == "vendortrade" then
@@ -258,29 +285,6 @@ function Gather:GetItemSources(crafter, neededMats)
 --								neededMats[srcItemString] = (neededMats[srcItemString] or 0) + (quantity - totalNum) / info.rate
 --							end
 --						end
---					end
---				end
---			end
---		end
---	end
-
-	-- add crafting tasks
-	-- disabled until after 7.0 release
---	if not TSM.db.factionrealm.gathering.sessionOptions.ignoreIntermediate then
---		for itemString, quantity in pairs(neededMats) do
---			local matCost = TSM.Cost:GetMatCost(itemString)
---			local cheapestSpellId, lowestCost = TSM.Cost:GetItemCraftPrices(itemString)
---			if cheapestSpellId and lowestCost <= matCost then
---				local data = TSM.db.factionrealm.crafts[cheapestSpellId]
---				if not data.hasCD then
---					local have = max(TSMAPI.Inventory:GetTotalQuantity(itemString) - TSMAPI.Inventory:GetAuctionQuantity(itemString), 0)
---					local need = max(quantity - have, 0)
---					if need > 0 then
---						local spellNeed = ceil(need / data.numResult)
---						sources[itemString] = sources[itemString] or {}
---						sources[itemString]["crafting"] = sources[itemString]["crafting"] or {}
---						sources[itemString]["crafting"][cheapestSpellId] = need
---						sources[itemString]["selected"] = (sources[itemString]["selected"] or 0) + need
 --					end
 --				end
 --			end
@@ -379,7 +383,7 @@ function Gather:GetItemSources(crafter, neededMats)
 
 	-- add auction house tasks
 	for itemString, quantity in pairs(neededMats) do
-		if not TSMAPI.Item:IsSoulboundMat(itemString) then
+		if not TSMAPI.Item:IsSoulboundMat(itemString) and (not TSMAPI.Item:GetVendorCost(itemString) or TSM.Cost:GetMatCost(itemString) < TSMAPI.Item:GetVendorCost(itemString)) then
 			local need
 			if Gather.gatherItem == itemString and Gather.gatherQuantity then
 				need = Gather.gatherQuantity

@@ -435,4 +435,16 @@ TSM.enchantingItemIDs = {
 	[190879] = "i:128550",  -- Enchant Cloak - Binding Of Intellect Rank 1
 	[191005] = "i:128550",  -- Enchant Cloak - Binding Of Intellect Rank 2
 	[191022] = "i:128550",  -- Enchant Cloak - Binding Of Intellect Rank 3
+	[235698] = "i:144307",  -- Enchant Neck - Mark of the Deadly Rank 1
+	[235702] = "i:144307",  -- Enchant Neck - Mark of the Deadly Rank 2
+	[235706] = "i:144307",  -- Enchant Neck - Mark of the Deadly Rank 3
+	[235695] = "i:144304",  -- Enchant Neck - Mark of the Master Rank 1
+	[235699] = "i:144304",  -- Enchant Neck - Mark of the Master Rank 2
+	[235703] = "i:144304",  -- Enchant Neck - Mark of the Master Rank 3
+	[235697] = "i:144306",  -- Enchant Neck - Mark of the Quick Rank 1
+	[235701] = "i:144306",  -- Enchant Neck - Mark of the Quick Rank 2
+	[235705] = "i:144306",  -- Enchant Neck - Mark of the Quick Rank 3
+	[235696] = "i:144305",  -- Enchant Neck - Mark of the Versatile Rank 1
+	[235704] = "i:144305",  -- Enchant Neck - Mark of the Versatile Rank 2
+	[235700] = "i:144305",  -- Enchant Neck - Mark of the Versatile Rank 3	
 }
