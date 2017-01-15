@@ -1,3 +1,6 @@
+v3.2.1
+*Fixed bug with gathering tables going blank and producing an error.
+
 v3.2
 *Re-implemented intermediate crafting within gathering.
 *Added new enchants in 7.1.5
