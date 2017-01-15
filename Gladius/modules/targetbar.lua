@@ -18,7 +18,7 @@ local UnitGUID = UnitGUID
 local UnitHealth = UnitHealth
 local UnitHealthMax = UnitHealthMax
 
-local CLASS_BUTTONS = CLASS_BUTTONS
+local CLASS_BUTTONS = CLASS_ICON_TCOORDS
 local RAID_CLASS_COLORS = RAID_CLASS_COLORS
 
 local TargetBar = Gladius:NewModule("TargetBar", true, true, {
@@ -159,6 +159,9 @@ function TargetBar:UNIT_TARGET(event, unit)
 end
 
 function TargetBar:UNIT_HEALTH(event, unit)
+	if not unit then
+		return
+	end
 	local foundUnit = nil
 	for u, _ in pairs(self.frame) do
 		if UnitGUID(unit) == UnitGUID(u.."target") then

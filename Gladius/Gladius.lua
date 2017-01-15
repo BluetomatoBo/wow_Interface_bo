@@ -339,10 +339,10 @@ function Gladius:JoinedArena()
 	self:RegisterEvent("UNIT_NAME_UPDATE")
 	self:RegisterEvent("ARENA_OPPONENT_UPDATE") 
 	self:RegisterEvent("ARENA_PREP_OPPONENT_SPECIALIZATIONS")
-	self:RegisterEvent("UNIT_HEALTH") 
-	self:RegisterEvent("UNIT_MAXHEALTH", "UNIT_HEALTH")
-	self:RegisterEvent("UNIT_AURA")
-	self:RegisterEvent("UNIT_SPELLCAST_START")
+	--self:RegisterEvent("UNIT_HEALTH") 
+	--self:RegisterEvent("UNIT_MAXHEALTH", "UNIT_HEALTH")
+	--self:RegisterEvent("UNIT_AURA")
+	--self:RegisterEvent("UNIT_SPELLCAST_START")
 
 	-- reset test
 	self.test = false
@@ -413,7 +413,8 @@ function Gladius:ARENA_OPPONENT_UPDATE(event, unit, type)
 	local id = string.match(unit, "arena(%d)")
 	local specID = GetArenaOpponentSpec(id)
 	if specID and specID > 0 then
-		local id, name, description, icon, background, role, class = GetSpecializationInfoByID(specID)
+		--local id, name, description, icon, background, role, class = GetSpecializationInfoByID(specID)
+		local id, name, description, icon, role, class = GetSpecializationInfoByID(specID)
 		self.buttons[unit].spec = name
 		self.buttons[unit].specIcon = icon
 		self.buttons[unit].class = class
@@ -421,12 +422,15 @@ function Gladius:ARENA_OPPONENT_UPDATE(event, unit, type)
 	self:UpdateUnit(unit)
 	self:ShowUnit(unit)
 	-- enemy seen
-	if type == "seen" or type == "destroyed" then
-		self:ShowUnit(unit, false, nil, true)
+	if type == "seen" then
+		self:ShowUnit(unit, false, nil)
 	-- enemy stealth
 	elseif type == "unseen" then
-		self:UpdateAlpha(unit, self.db.stealthAlpha)
+		self:UpdateAlpha(unit, 0.5)
 	-- enemy left arena
+	elseif type == "destroyed" then
+		self:UpdateAlpha(unit, 0.3)
+	-- arena over
 	elseif type == "cleared" then
 		self:UpdateAlpha(unit, 0)
 	end
@@ -438,7 +442,8 @@ function Gladius:ARENA_PREP_OPPONENT_SPECIALIZATIONS()
 		local unit = "arena"..i
 		local specID = GetArenaOpponentSpec(i)
 		if specID and specID > 0 then
-			local id, name, description, icon, background, role, class = GetSpecializationInfoByID(specID)
+			--local id, name, description, icon, background, role, class = GetSpecializationInfoByID(specID)
+			local id, name, description, icon, role, class = GetSpecializationInfoByID(specID)
 			if not self.buttons[unit] then
 				self:CreateButton(unit)
 			end
@@ -755,7 +760,7 @@ end
 
 function Gladius:UpdateAlpha(unit, alpha)
 	-- update button alpha
-	alpha = alpha and alpha or 0.25
+	--alpha = alpha and alpha or 0.25
 	if self.buttons[unit] then 
 		self.buttons[unit]:SetAlpha(alpha)
 	end
@@ -851,6 +856,9 @@ function Gladius:UNIT_SPELLCAST_START(event, unit)
 end
 
 function Gladius:UNIT_HEALTH(event, unit)
+	if not unit then
+		return
+	end
 	if not self:IsValidUnit(unit) then
 		return
 	end
@@ -872,5 +880,9 @@ function Gladius:GetUnitFrame(unit)
 end
 
 function Gladius:IsValidUnit(unit)
+	if not unit then
+		return
+	end
+
 	return strfind(unit, "arena") and not strfind(unit, "pet")
 end

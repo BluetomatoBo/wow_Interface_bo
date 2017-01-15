@@ -54,6 +54,8 @@ local HealthBar = Gladius:NewModule("HealthBar", true, true, {
 	healthBarColorDeathknight = RAID_CLASS_COLORS["DEATHKNIGHT"],
 	healthBarUseDefaultColorMonk = true,
 	healthBarColorMonk = RAID_CLASS_COLORS["MONK"],
+	healthBarUseDefaultColorDemonHunter = true,
+	healthBarColorDemonHunter = RAID_CLASS_COLORS["DEMONHUNTER"],
 })
 
 function HealthBar:OnEnable()
@@ -87,6 +89,9 @@ function HealthBar:GetFrame(unit)
 end
 
 function HealthBar:UNIT_HEALTH(event, unit)
+	if not unit then
+		return
+	end
 	if not Gladius:IsValidUnit(unit) or not UnitExists(unit) then
 		return
 	end
@@ -228,6 +233,8 @@ function HealthBar:GetBarColor(class)
 		return Gladius.db.healthBarColorDeathknight
 	elseif class == "MONK" and not Gladius.db.healthBarUseDefaultColorMonk then
 		return Gladius.db.healthBarColorMonk
+	elseif class == "DEMONHUNTER" and not Gladius.db.healthBarUseDefaultColorDemonHunter then
+		return Gladius.db.healthBarColorDemonHunter
 	end
 	return RAID_CLASS_COLORS[class]
 end
@@ -257,7 +264,7 @@ function HealthBar:Show(unit)
 		self.frame[unit]:SetStatusBarColor(color.r, color.g, color.b, color.a or 1)
 	end
 
-	self.frame[unit]:SetValue(1)
+	--self.frame[unit]:SetValue(1)
 
 	-- call event
 	if not Gladius.test then
@@ -846,6 +853,35 @@ function HealthBar:GetOptions()
 						return not Gladius.dbi.profile.modules[self.name]
 					end,
 					order = 105,
+				},
+				sep11 = {
+					type = "description",
+					name = "",
+					width = "full",
+					order = 107,
+				},
+				healthBarUseDefaultColorDemonHunter = {
+					type = "toggle",
+					name = L["Default demon hunter color"],
+					desc = L["Toggle demon hunter color"],
+					disabled = function()
+						return not Gladius.dbi.profile.modules[self.name]
+					end,
+					order = 110,
+				},
+				healthBarColorDemonHunter = {
+					type = "color",
+					name = L["Demon Hunter color"],
+					get = function(info)
+						return Gladius:GetColorOption(info)
+					end,
+					set = function(info, r, g, b, a)
+						return Gladius:SetColorOption(info, r, g, b, 1)
+					end,
+					disabled = function()
+						return not Gladius.dbi.profile.modules[self.name]
+					end,
+					order = 115,
 				},
 			},
 		},

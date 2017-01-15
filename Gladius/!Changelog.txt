@@ -1,3 +1,39 @@
+**5.1.0**
+* Fixed a typo.
+
+**5.0.9**
+* Updated for 7.1.5.
+* Fix for the class icon argument changes.
+
+**5.0.8**
+* Fixed an issue with specialization announcements.
+
+**5.0.7**
+* Library updates.
+
+**5.0.6**
+* Workaround for some other broken events.
+
+**5.0.5**
+* Updated for 7.1.0.
+
+**5.0.4**
+* Stealth alpha fixes.
+* Trinket module updates.
+
+**5.0.3**
+* Trinket module updates.
+
+**5.0.2**
+* Color updates for Demon Hunters.
+
+**5.0.1**
+* Trinket fixes.
+* Library updates.
+
+**5.0.0**
+* Updated for 7.0.3.
+
 **4.3.4**
 * Click module updates.
 

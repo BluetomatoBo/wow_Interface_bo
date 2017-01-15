@@ -109,6 +109,9 @@ end
 end]]
 
 function Announcements:UNIT_HEALTH(event, unit)
+	if not unit then
+		return
+	end
 	local _, instanceType = IsInInstance()
 	if instanceType ~= "arena" or not strfind(unit, "arena") or strfind(unit, "pet") or not Gladius.db.announcements.health then
 		return
@@ -131,13 +134,17 @@ function Announcements:UNIT_AURA(event, unit)
 end
 
 function Announcements:ARENA_PREP_OPPONENT_SPECIALIZATIONS(event, ...)
+	if not Gladius.db.announcements.spec then
+		return
+	end
 	local numOpps = GetNumArenaOpponentSpecs()
 	for i = 1, numOpps do
 		--local prepFrame = _G["ArenaPrepFrame"..i]
 		--prepFrame.specPortrait = _G["ArenaPrepFrame"..i.."SpecPortrait"]
 		local specID = GetArenaOpponentSpec(i)
 		if specID > 0 then
-			local _, spec, _, specIcon, _, _, class = GetSpecializationInfoByID(specID)
+			--local _, spec, _, specIcon, _, _, class = GetSpecializationInfoByID(specID)
+			local id, name, description, icon, role, class = GetSpecializationInfoByID(specID)
 			--[[if(class) then
 				prepFrame.classPortrait:SetTexture("Interface\\TargetingFrame\\UI-Classes-Circles")
 				prepFrame.classPortrait:SetTexCoord(unpack(CLASS_ICON_TCOORDS[strupper(class)]))
@@ -146,7 +153,7 @@ function Announcements:ARENA_PREP_OPPONENT_SPECIALIZATIONS(event, ...)
 				prepFrame:Show()
 			else
 				prepFrame:Hide()]]
-			self:Send("Enemy Spec: "..spec.." "..class)
+			self:Send("Enemy Spec: "..name.." "..class)
 		end
 		--else
 		--prepFrame:Hide()
