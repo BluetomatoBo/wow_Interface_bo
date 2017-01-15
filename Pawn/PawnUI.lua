@@ -871,7 +871,7 @@ function PawnUIFrame_ScaleColorSwatch_OnClick()
 	ColorPickerFrame.previousValues = { r, g, b }
 	ColorPickerFrame.hasOpacity = false
 	ColorPickerFrame:SetColorRGB(r, g, b)
-	ColorPickerFrame:Show()
+	ShowUIPanel(ColorPickerFrame)
 end
 
 function PawnUIFrame_ScaleColorSwatch_OnChange()
@@ -2206,10 +2206,6 @@ function PawnUISwitchToTab(Tab)
 		return
 	end
 	
-	-- Hide popup UI.
-	PawnUIStringDialog:Hide()
-	ColorPickerFrame:Hide()
-	
 	-- Loop through all tab frames, showing all but the current one.
 	local TabNumber
 	for i = 1, TabCount do
@@ -2222,7 +2218,15 @@ function PawnUISwitchToTab(Tab)
 		end
 	end
 	VgerCore.Assert(TabNumber, "Oh noes, we couldn't find that tab.")
+	if TabNumber == PawnUICurrentTabNumber then
+		-- If we're already on that tab, we don't need to do anything else.
+		return
+	end
 	PawnUICurrentTabNumber = TabNumber
+	
+	-- Hide popup UI.
+	PawnUIStringDialog:Hide()
+	ColorPickerFrame:Hide()
 	
 	-- Then, update the tabstrip itself.
 	VgerCore.Assert(TabNumber, "Couldn't find the tab to show!")

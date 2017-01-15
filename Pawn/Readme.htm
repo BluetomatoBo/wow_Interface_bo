@@ -448,30 +448,22 @@ and Pawn.</p>
 </ul>
 <h2>Top known issues</h2>
 <ul>
-	<li>Pawn is currently saving too much information about the built-in scales 
-	in your SavedVariables, like names, spec IDs, and so on.&nbsp; That stuff 
-	should be dynamically created each time you log in, not saved.</li>
+	<li>Having more legendary items than you can equip at once can cause 
+	interesting problems if the "track upgrades for each scale" option is used.&nbsp; 
+	I'm not sure what a good solution for this would be—probably, just make it 
+	so that if that option is enabled, legendary items are never picked as the 
+	current best at all.</li>
 	<li>When you have only one heirloom ring, Pawn doesn't show ring upgrades at 
 	all.&nbsp; (It's possible that this is no longer an issue in 7.0; I haven't 
 	re-verified it.)&nbsp;&nbsp; (<a href="https://wow.curseforge.com/addons/pawn/tickets/117-mage-not-working/">Ticket</a>)</li>
-	<li>It's been reported that Pawn's item level display when inspecting other 
-	players is wrong, and it was suggested that it was because the off-hand 
-	artifact was always being counted as ilvl 750.</li>
-	<li>Having more legendary items than you can equip at once can cause 
-	interesting problems if the "track upgrades for each scale" option is used.&nbsp; 
-	I'm not sure what a good solution for this would be.</li>
-	<li>The scale color picker doesn't start out showing the previous color; it 
-	returns to white every time.</li>
+	<li>Pawn is currently saving an unnecessary amount of information about the 
+	built-in scales in your SavedVariables, like names, spec IDs, and so on.&nbsp; 
+	That stuff should be dynamically created each time you log in, not saved, 
+	both to keep your SavedVariables tidy, and to allow easier updates to those 
+	values in the future.</li>
 </ul>
 <h3>Features I might add soon</h3>
 <ul>
-	<li>A way to choose a spec icon to show on your item tooltips for custom 
-	scales.&nbsp; (Informal polling suggests that no one wants the ability to 
-	use a totally custom icon.)<ul>
-		<li>Step 1 is to get that working for imported scales from simulators 
-		and online guides.</li>
-	</ul>
-	</li>
 	<li>I've gotten a bunch of feedback on the way that Pawn makes assumptions 
 	about gems today.&nbsp; I may replace the existing low-level gems option with two 
 	new ones: "assume I won't use gems on anything below this level" (currently 
@@ -497,8 +489,52 @@ and Pawn.</p>
 	<li>I should come up with a way to suggest to higher-end players who don't 
 	have any custom scales—say, anyone with an ilvl 860+—that they should 
 	consider simulating their character for better results.</li>
+	<li>A way to set class, spec, and icon manually for custom scales.&nbsp; 
+	(Right now, they can be set for imported scales, but there's no way to 
+	change them through the UI.)</li>
 </ul>
 <h2>Updates</h2>
+<h3>Version 2.1.13</h3>
+<ul>
+		<li>Scales that are imported with both Class and Spec included will use 
+		spec icons and class colors by default, just like the built-in Automatic 
+		scales.&nbsp; (Pawn will automatically include them when exporting any 
+		of the built-in scales.)<ul>
+			<li>There's currently no way to change a scale's class, spec, or 
+			icon in the Pawn UI other than through the export and import 
+			features.</li>
+		</ul>
+	</li>
+	<li>Pawn scale tags can now specify a spec using its English name instead of 
+	just a number.&nbsp; For 
+	example: ( Pawn: v1: "Hunter: Beast Mastery": Class=Hunter, 
+	Spec=BeastMastery, Agility=10 )<ul>
+		<li>Scales exported in this version can't be imported into earlier 
+		versions of Pawn, so for the next few weeks while people may not have 
+		updated, if you share scales with others, you may need to remind them to 
+		upgrade.&nbsp; (Or, change Spec= to its old number form: 1 is the first 
+		spec listed in the game's Specialization window, 2 is the second, and 3 
+		is the third.)</li>
+	</ul>
+	</li>
+	<li>When using the "show item IDs" option, Pawn will once again show item 
+	IDs for items that can't be equipped (food, relics, crafting reagents, and 
+	so on).</li>
+	<li>Fixed a bug where the color picker would disappear too soon when 
+	choosing a scale color.<ul>
+		<li>There's still a bug where the initial color that appears when 
+		choosing a new color is incorrect, but that's a problem with the game 
+		itself.&nbsp; (For example, you can see the same issue with the chat 
+		window color options.)</li>
+	</ul>
+	</li>
+	<li>Worked around a problem where the item level display that appears when 
+	hovering over the Pawn button while inspecting another player would 
+	undervalue off-hand artifacts (including weapons, shields, and frill).&nbsp; 
+	(The game shows the item level of off-hand artifacts as 750 regardless of 
+	their actual level, so Pawn works around the bug by assuming that the 
+	off-hand artifact is always the same level as the main-hand artifact.)</li>
+</ul>
 <h3>Version 2.1.12</h3>
 <ul>
 	<li>New updates to the default Ask Mr. Robot scales for patch 7.1.5.</li>

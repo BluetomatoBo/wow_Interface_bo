@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0112
+PawnVersion = 2.0113
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -935,7 +935,7 @@ function PawnGetItemData(ItemLink)
 	local Item = PawnGetCachedItem(ItemLink, ItemName, ItemNumLines)
 	if not Item and not NewItemLink then
 		-- The item isn't in the user's WoW cache or Pawn cache.  Bail out now.
-		if PawnCommon.DebugCache then VgerCore.Message("*** Pawn debug cache: PawnGetItemData is bailing out because it didn't get item data in time for " .. ItemLink) end
+		if PawnCommon.DebugCache then VgerCore.Message("Pawn debug cache: PawnGetItemData is bailing out because it didn't get item data in time for " .. ItemLink) end
 		return 
 	end
 	if Item and Item.Values then
@@ -1027,7 +1027,7 @@ function PawnGetItemData(ItemLink)
 			if PawnCommon.DebugCache then
 				-- You should only see this on purely cosmetic equippable items, like stuff from Griftah, holiday gear, and and few particularly
 				-- odd trinkets.
-				VgerCore.Message("*** Not caching because the item didn't have any stats: " .. tostring(ItemLink))
+				VgerCore.Message("Not caching because the item didn't have any stats: " .. tostring(ItemLink))
 			end
 			return
 		end
@@ -1198,57 +1198,76 @@ end
 function PawnUpdateTooltip(TooltipName, MethodName, Param1, ...)
 	if not PawnCommon.Scales then return end
 	
-	-- Get information for the item in this tooltip.  This function will use item links and cached data whenever possible.
-	local Item = PawnGetItemDataFromTooltip(TooltipName, MethodName, Param1, ...)
-	-- If there's no item data, then something failed, so we can't update this tooltip.
-	if not Item then return end
-	-- Is this an upgrade?
-	local UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements
-	if PawnCommon.ShowUpgradesOnTooltips then UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements = PawnIsItemAnUpgrade(Item) end
-	
-	-- If this is the main GameTooltip, remember the item that was hovered over.
-	-- AtlasLoot compatibility: enable hover comparison for AtlasLoot tooltips too.
-	if TooltipName == "GameTooltip" or TooltipName == "AtlasLootTooltip" or TooltipName == "WorldMapTooltipTooltip" then -- "TooltipTooltip" isn't a typo; it's an embedded tooltip
-		PawnLastHoveredItem = Item.Link
-	end
-	
-	-- Now, just update the tooltip with the item data we got from the previous call.
 	local Tooltip = _G[TooltipName]
 	if not Tooltip then
 		VgerCore.Fail("Where'd the tooltip go?  I seem to have misplaced it.")
 		return
 	end
-	
-	-- If necessary, add a blank line to the tooltip.
-	local AddSpace = true
-	
-	-- Add the scale values to the tooltip.
-	if AddSpace and #Item.Values > 0 and (UpgradeInfo or BestItemFor or SecondBestItemFor or not PawnCommon.ShowValuesForUpgradesOnly) then Tooltip:AddLine(" ") AddSpace = false end
-	PawnAddValuesToTooltip(Tooltip, Item.Values, UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements, Item.InvType)
-	if PawnCommon.ColorTooltipBorder then
-		if UpgradeInfo then Tooltip:SetBackdropBorderColor(0, 1, 0) else Tooltip:SetBackdropBorderColor(1, 1, 1) end
-	end
-	
-	-- If there were unrecognized values, annotate those lines.
-	local Annotated = false
-	if Item.UnknownLines and #Item.Values > 0 then
-		Annotated = PawnAnnotateTooltipLines(TooltipName, Item.UnknownLines)
+
+	-- Get information for the item in this tooltip.  This function will use item links and cached data whenever possible.
+	local Item = PawnGetItemDataFromTooltip(TooltipName, MethodName, Param1, ...)
+
+	-- If there's no item data, then something failed, so we can't update this tooltip, except to show item IDs.
+	local TooltipWasUpdated
+	if Item then
+		-- Is this an upgrade?
+		local UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements
+		if PawnCommon.ShowUpgradesOnTooltips then UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements = PawnIsItemAnUpgrade(Item) end
+		
+		-- If this is the main GameTooltip, remember the item that was hovered over.
+		-- AtlasLoot compatibility: enable hover comparison for AtlasLoot tooltips too.
+		if TooltipName == "GameTooltip" or TooltipName == "AtlasLootTooltip" or TooltipName == "WorldMapTooltipTooltip" then -- "TooltipTooltip" isn't a typo; it's an embedded tooltip
+			PawnLastHoveredItem = Item.Link
+		end
+		
+		-- Now, just update the tooltip with the item data we got from the previous call.
+		
+		-- If necessary, add a blank line to the tooltip.
+		local AddSpace = true
+		
+		-- Add the scale values to the tooltip.
+		if AddSpace and #Item.Values > 0 and (UpgradeInfo or BestItemFor or SecondBestItemFor or not PawnCommon.ShowValuesForUpgradesOnly) then Tooltip:AddLine(" ") AddSpace = false end
+		PawnAddValuesToTooltip(Tooltip, Item.Values, UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements, Item.InvType)
+		if PawnCommon.ColorTooltipBorder then
+			if UpgradeInfo then Tooltip:SetBackdropBorderColor(0, 1, 0) else Tooltip:SetBackdropBorderColor(1, 1, 1) end
+		end
+		
+		-- If there were unrecognized values, annotate those lines.
+		local Annotated = false
+		if Item.UnknownLines and #Item.Values > 0 then
+			Annotated = PawnAnnotateTooltipLines(TooltipName, Item.UnknownLines)
+		end
+
+		TooltipWasUpdated = true
 	end
 
 	-- Add the item ID to the tooltip if known.
-	if PawnCommon.ShowItemID and Item.Link then
-		local IDs = PawnGetItemIDsForDisplay(Item.Link)
-		if IDs then
-			if PawnCommon.AlignNumbersRight then
-				Tooltip:AddDoubleLine(PawnLocal.ItemIDTooltipLine, IDs, VgerCore.Color.OrangeR, VgerCore.Color.OrangeG, VgerCore.Color.OrangeB, VgerCore.Color.OrangeR, VgerCore.Color.OrangeG, VgerCore.Color.OrangeB)
-			else
-				Tooltip:AddLine(PawnLocal.ItemIDTooltipLine .. ":  " .. IDs, VgerCore.Color.OrangeR, VgerCore.Color.OrangeG, VgerCore.Color.OrangeB)
+	if PawnCommon.ShowItemID then
+		local ItemLink
+		if Item and Item.Link then
+			-- Normal case: we have an item link, so get the IDs from that.
+			ItemLink = Item.Link
+		else
+			-- Less common case: unequippable items skip most of the code, so we don't have Item filled in.
+			-- Get the IDs in an alternate way.
+			local _
+			_, ItemLink = Tooltip:GetItem()
+		end
+		if ItemLink then
+			local IDs = PawnGetItemIDsForDisplay(ItemLink)
+			if IDs then
+				if PawnCommon.AlignNumbersRight then
+					Tooltip:AddDoubleLine(PawnLocal.ItemIDTooltipLine, IDs, VgerCore.Color.OrangeR, VgerCore.Color.OrangeG, VgerCore.Color.OrangeB, VgerCore.Color.OrangeR, VgerCore.Color.OrangeG, VgerCore.Color.OrangeB)
+				else
+					Tooltip:AddLine(PawnLocal.ItemIDTooltipLine .. ":  " .. IDs, VgerCore.Color.OrangeR, VgerCore.Color.OrangeG, VgerCore.Color.OrangeB)
+				end
+				TooltipWasUpdated = true
 			end
 		end
 	end
 	
 	-- Show the updated tooltip.	
-	Tooltip:Show()
+	if TooltipWasUpdated then Tooltip:Show() end
 end
 
 -- Returns a sorted list of all scale values for an item (and its unenchanted version, if supplied).
@@ -1421,6 +1440,7 @@ function PawnGetInventoryItemValues(UnitName)
 	local SlotStats
 	local Slot
 	local _
+	local MainHandArtifactLevel
 	for Slot = 1, 17 do
 		if Slot ~= 4 then -- Skip slots 0, 4, 18, and 19 (they're not gear).
 			local ItemID = GetInventoryItemID(UnitName, Slot)
@@ -1438,6 +1458,12 @@ function PawnGetInventoryItemValues(UnitName)
 						-- Some ranged weapons are now two-handed too.  If they're using a ranged weapon with no off-hand, count it as a two-hander.
 						ThisItemLevel = ThisItemLevel * 2
 					end
+					if Item.Rarity == 6 then MainHandArtifactLevel = Item.Level end
+				elseif Slot == 17 and MainHandArtifactLevel then
+					-- If we're checking the off-hand slot and the main-hand slot contained an artifact, use that item level instead of
+					-- what the game reports for the off-hand, because the off-hand appears as level 750 when inspecting someone, sigh.
+					-- (Bug introduced in 7.0; still present as of 7.1.5.)
+					ThisItemLevel = MainHandArtifactLevel
 				end
 				if ThisItemLevel then
 					TotalItemLevel = TotalItemLevel + ThisItemLevel
@@ -1598,7 +1624,7 @@ function PawnGetStatsFromTooltip(TooltipName, DebugMessages)
 	-- Get the item name.  It could be on line 2 if the first line is "Currently Equipped".
 	local ItemName, ItemNameLineNumber = PawnGetItemNameFromTooltip(TooltipName)
 	if (not ItemName) or (not ItemNameLineNumber) then
-		if PawnCommon.DebugCache then VgerCore.Message("*** Pawn debug cache: PawnGetStatsFromTooltip exiting because the item in " .. TooltipName .. " had no name") end
+		if PawnCommon.DebugCache then VgerCore.Message("Pawn debug cache: PawnGetStatsFromTooltip exiting because the item in " .. TooltipName .. " had no name") end
 		return
 	end
 
@@ -2353,10 +2379,13 @@ function PawnParseScaleTag(ScaleTag)
 	
 	-- Now, parse the values string for stat names and values.
 	local Values = {}
+	local SpecID
 	local function SplitStatValuePair(Pair)
 		local Pos, _, Stat, Value = strfind(Pair, "^%s*([%a%d]+)%s*=%s*(%-?[%d%.a-zA-Z]+)%s*,$")
 		if Stat == "Class" then
-			Value = PawnGetClassIDFromName(Value) or tonumber(Value)
+			Value = PawnGetClassIDFromName(Value)
+		elseif Stat == "Spec" then
+			SpecID = Value -- processed later, in case they list Spec before Class
 		else
 			Value = tonumber(Value)
 		end
@@ -2365,6 +2394,14 @@ function PawnParseScaleTag(ScaleTag)
 		end
 	end
 	gsub(ValuesString .. ",", "[^,]*,", SplitStatValuePair)
+	if SpecID and Values.Class then
+		Values.Spec = PawnGetSpecIDFromName(Values.Class, SpecID)
+	end
+	if (not Values.Class) or (not Values.Spec) then
+		-- Never return just a class without a spec.
+		Values.Spec = nil
+		Values.Class = nil
+	end
 	
 	-- Looks like everything worked.
 	return Name, Values
@@ -2374,19 +2411,77 @@ local ClassNameToIDMap =
 {
 	["WARRIOR"] = 1, ["PALADIN"] = 2, ["HUNTER"] = 3, ["ROGUE"] = 4, ["PRIEST"] = 5, ["DEATHKNIGHT"] = 6, ["SHAMAN"] = 7, ["MAGE"] = 8, ["WARLOCK"] = 9, ["MONK"] = 10, ["DRUID"] = 11, ["DEMONHUNTER"] = 12
 }
+local SpecNameToIDMap =
+{
+	[1] = { ARMS = 1, FURY = 2, PROTECTION = 3 },
+	[2] = { HOLY = 1, PROTECTION = 2, RETRIBUTION = 3 },
+	[3] = { BEASTMASTERY = 1, MARKSMANSHIP = 2, SURVIVAL = 3 },
+	[4] = { ASSASSINATION = 1, OUTLAW = 2, SUBTLETY = 3 },
+	[5] = { DISCIPLINE = 1, HOLY = 2, SHADOW = 3 },
+	[6] = { BLOOD = 1, FROST = 2, UNHOLY = 3 },
+	[7] = { ELEMENTAL = 1, ENHANCEMENT = 2, RESTORATION = 3 },
+	[8] = { ARCANE = 1, FIRE = 2, FROST = 3 },
+	[9] = { AFFLICTION = 1, DEMONOLOGY = 2, DESTRUCTION = 3 },
+	[10] = { BREWMASTER = 1, MISTWEAVER = 2, WINDWALKER = 3 },
+	[11] = { BALANCE = 1, FERAL = 2, GUARDIAN = 3, RESTORATION = 4 },
+	[12] = { HAVOC = 1, VENGEANCE = 2 },
+}
 local ClassIDToEnglishNameMap =
 {
 	[1] = "Warrior", [2] = "Paladin", [3] = "Hunter", [4] = "Rogue", [5] = "Priest", [6] = "DeathKnight", [7] = "Shaman", [8] = "Mage", [9] = "Warlock", [10] = "Monk", [11] = "Druid", [12] = "DemonHunter" 
 }
+local SpecIDToEnglishNameMap =
+{
+	[1] = { [1] = "Arms", [2] = "Fury", [3] = "Protection" },
+	[2] = { [1] = "Holy", [2] = "Protection", [3] = "Retribution" },
+	[3] = { [1] = "BeastMastery", [2] = "Marksmanship", [3] = "Survival" },
+	[4] = { [1] = "Assassination", [2] = "Outlaw", [3] = "Subtlety" },
+	[5] = { [1] = "Discipline", [2] = "Holy", [3] = "Shadow" },
+	[6] = { [1] = "Blood", [2] = "Frost", [3] = "Unholy" },
+	[7] = { [1] = "Elemental", [2] = "Enhancement", [3] = "Restoration" },
+	[8] = { [1] = "Arcane", [2] = "Fire", [3] = "Frost" },
+	[9] = { [1] = "Affliction", [2] = "Demonology", [3] = "Destruction" },
+	[10] = { [1] = "Brewmaster", [2] = "Mistweaver", [3] = "Windwalker" },
+	[11] = { [1] = "Balance", [2] = "Feral", [3] = "Guardian", [4] = "Restoration" },
+	[12] = { [1] = "Havoc", [2] = "Vengeance" },
+}
 
 -- Returns a class ID number (1-12) from the string passed in, or nil if the string isn't a class name.
 function PawnGetClassIDFromName(Name)
-	return ClassNameToIDMap[string.upper(Name)]
+	local ClassID = ClassNameToIDMap[string.upper(Name)]
+	if ClassID then return ClassID end
+
+	-- If it's not a name, try a number.
+	ClassID = tonumber(Name)
+	if ClassID and ClassIDToEnglishNameMap[ClassID] then return ClassID end -- make sure it's a real class ID
+
+	return nil
+end
+
+-- Returns a spec ID number (1-4) from the string passed in, or nil if the string isn't a spec name.
+function PawnGetSpecIDFromName(ClassID, Name)
+	local SpecTable = SpecNameToIDMap[ClassID]
+	if not SpecTable then return end
+	local SpecID = SpecTable[string.upper(Name)]
+	if SpecID then return SpecID end
+
+	-- If it's not a name, try a number.
+	SpecID = tonumber(Name)
+	if SpecID and SpecIDToEnglishNameMap[ClassID][SpecID] then return SpecID end -- make sure it's a real spec ID for this class
+
+	return nil
 end
 
 -- Returns an unlocalized English class name from the class ID number.
-function PawnGetEnglishClassNameFromID(ID)
-	return ClassIDToEnglishNameMap[ID]
+function PawnGetEnglishClassNameFromID(ClassID)
+	return ClassIDToEnglishNameMap[ClassID]
+end
+
+-- Returns an unlocalized English class name from the class and spec ID numbers.
+function PawnGetEnglishSpecNameFromID(ClassID, SpecID)
+	local SpecTable = SpecIDToEnglishNameMap[ClassID]
+	if not SpecTable then return end
+	return SpecTable[SpecID]
 end
 
 -- Escapes a string so that it can be more easily printed.
@@ -3931,7 +4026,7 @@ function PawnGetScaleTag(ScaleName)
 	local AddComma = false
 	local TemplateStats
 	if Scale.ClassID and Scale.SpecID then
-		ScaleTag = ScaleTag .. "Class=" .. PawnGetEnglishClassNameFromID(Scale.ClassID) .. ", Spec=" .. Scale.SpecID
+		ScaleTag = ScaleTag .. "Class=" .. PawnGetEnglishClassNameFromID(Scale.ClassID) .. ", Spec=" .. PawnGetEnglishSpecNameFromID(Scale.ClassID, Scale.SpecID)
 		AddComma = true
 		TemplateStats = PawnGetStatValuesForTemplate(PawnFindScaleTemplate(Scale.ClassID, Scale.SpecID), true)
 	end
@@ -3973,10 +4068,14 @@ function PawnImportScale(ScaleTag, Overwrite)
 	Values.Class = nil
 	local SpecID = Values.Spec
 	Values.Spec = nil
+	local UnlocalizedClassName, IconTexturePath, Role
 	if ClassID and not SpecID then
 		ClassID = nil
 	elseif SpecID and not ClassID then
 		SpecID = nil
+	elseif ClassID and SpecID then
+		_, UnlocalizedClassName = GetClassInfo(ClassID)
+		_, _, _, IconTexturePath, _, Role = GetSpecializationInfoForClassID(ClassID, SpecID)
 	end
 	
 	local AlreadyExists = PawnCommon.Scales[ScaleName] ~= nil
@@ -3992,6 +4091,10 @@ function PawnImportScale(ScaleTag, Overwrite)
 	if not AlreadyExists then
 		if ClassID and SpecID then
 			PawnCommon.Scales[ScaleName] = PawnGetDefaultScale(ClassID, SpecID, true)
+			local Color = strsub(RAID_CLASS_COLORS[UnlocalizedClassName].colorStr, 3)
+			-- Choose a lighter color for death knights so it's easier to read.
+			if ClassID == 6 then Color = "ff4d6b" end
+			PawnCommon.Scales[ScaleName].Color = Color
 		else
 			PawnCommon.Scales[ScaleName] = PawnGetEmptyScale()
 		end	
@@ -3999,6 +4102,10 @@ function PawnImportScale(ScaleTag, Overwrite)
 		PawnCommon.Scales[ScaleName].PerCharacterOptions[PawnPlayerFullName].Visible = true
 	end
 	local NewScale = PawnCommon.Scales[ScaleName]
+	NewScale.ClassID = ClassID
+	NewScale.SpecID = SpecID
+	NewScale.IconTexturePath = IconTexturePath
+	NewScale.Role = Role
 
 	-- Merge the scale tag's stats into the template stats.
 	local StatName, Value
