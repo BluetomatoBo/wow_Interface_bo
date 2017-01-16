@@ -2218,21 +2218,12 @@ function PawnUISwitchToTab(Tab)
 		end
 	end
 	VgerCore.Assert(TabNumber, "Oh noes, we couldn't find that tab.")
-	if TabNumber == PawnUICurrentTabNumber then
-		-- If we're already on that tab, we don't need to do anything else.
-		return
-	end
+	local ReloadingSameTab = (TabNumber == PawnUICurrentTabNumber)
 	PawnUICurrentTabNumber = TabNumber
-	
-	-- Hide popup UI.
-	PawnUIStringDialog:Hide()
-	ColorPickerFrame:Hide()
-	
-	-- Then, update the tabstrip itself.
-	VgerCore.Assert(TabNumber, "Couldn't find the tab to show!")
-	PanelTemplates_SetTab(PawnUIFrame, TabNumber)
-	
+
 	-- Show/hide the scale selector as appropriate.
+	-- (This also gets called when turning Automatic mode on or off, so we need to still re-run this even
+	-- if the tab doesn't change.)
 	if PawnUIFrameNeedsScaleSelector[PawnUICurrentTabNumber] then
 		if PawnOptions.AutoSelectScales then
 			PawnUIScaleSelectorAuto:Show()
@@ -2248,6 +2239,16 @@ function PawnUISwitchToTab(Tab)
 	
 	-- Then, update the header text.
 	PawnUIUpdateHeader()
+
+	-- If we're already on that tab, we don't need to do anything else.
+	if ReloadingSameTab then return end
+	
+	-- Hide popup UI.
+	PawnUIStringDialog:Hide()
+	ColorPickerFrame:Hide()
+	
+	-- Then, update the tabstrip itself.
+	PanelTemplates_SetTab(PawnUIFrame, TabNumber)
 end
 
 function PawnUIUpdateHeader()

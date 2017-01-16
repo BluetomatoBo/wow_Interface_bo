@@ -494,12 +494,19 @@ and Pawn.</p>
 	change them through the UI.)</li>
 </ul>
 <h2>Updates</h2>
+<h3>Version 2.1.14</h3>
+<ul>
+	<li>Fixed a bug introduced in 2.1.13 where the list of scales in the Pawn UI wouldn't show or 
+	hide immediately upon switching between Automatic and Manual mode.</li>
+</ul>
 <h3>Version 2.1.13</h3>
 <ul>
 		<li>Scales that are imported with both Class and Spec included will use 
 		spec icons and class colors by default, just like the built-in Automatic 
 		scales.&nbsp; (Pawn will automatically include them when exporting any 
 		of the built-in scales.)<ul>
+			<li>Scales you've already imported in previous versions need to be 
+			re-imported for this to work.</li>
 			<li>There's currently no way to change a scale's class, spec, or 
 			icon in the Pawn UI other than through the export and import 
 			features.</li>
@@ -626,30 +633,6 @@ and Pawn.</p>
 		<li>This feature has no effect on the WoW 7.0 live realms.</li>
 		<li>If you don't like this, and would rather go back to the old 
 		behavior, uncheck "Show bag upgrade advisor" on Pawn's Options tab.</li>
-	</ul>
-	</li>
-</ul>
-<h4>Developer features</h4>
-<p>These features are primarily useful for people developing guides and 
-simulators.</p>
-<ul>
-	<li>Pawn scale tags, used with the Import and Export feature on the Scale 
-	tab, can now specify a class and spec, such as "Class=Mage, Spec=1".&nbsp;
-	<ul>
-		<li>The spec number in the scale tag is the order in which it displays 
-		in the UI.&nbsp; (That spec number is also used internally by the game 
-		in a variety of situations.)&nbsp; For example, the specs appear as 
-		Arcane, Fire, Frost in the Mage UI, so Arcane is 1, Fire is 2, and Frost 
-		is 3.</li>
-		<li>When class and spec are included in a scale tag, Pawn will 
-		automatically add the appropriate list of unusable item types to the 
-		scale without having to painstakingly list them all out in the scale tag 
-		(IsPolearm = -10000000, etc.).</li>
-		<li>When scales that have a class and spec associated with them are 
-		exported, the resulting scale tag will be smaller than in previous 
-		versions.&nbsp; Importing those scales into old versions of Pawn will 
-		mostly work okay, but old versions of Pawn will ignore Class and Spec, 
-		so there will be subtle differences.</li>
 	</ul>
 	</li>
 </ul>
