@@ -1,5 +1,11 @@
-changeset:   107:c9cf55ffb817
+changeset:   108:e6a7ee8e6619
 tag:         tip
+user:        Tercio
+date:        Sun Jan 15 15:15:16 2017 -0200
+summary:     - clean up on old ElvUI function which isn't used any more.
+
+
+changeset:   107:c9cf55ffb817
 user:        Tercio
 date:        Sun Jan 08 16:24:56 2017 -0200
 summary:     - Ticket #258: make the epic quest more visible.
@@ -597,11 +603,5 @@ changeset:   8:ae8bdda31f3e
 user:        Tercio
 date:        Mon Jul 11 00:46:30 2016 -0300
 summary:     - weakup.
-
-
-changeset:   7:bd07eb220918
-user:        Tercio
-date:        Mon Jul 11 00:39:45 2016 -0300
-summary:     - big framework update.
 
 
