@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1830, "DBM-TrialofValor", nil, 861)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15635 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15659 $"):sub(12, -3))
 mod:SetCreatureID(114323)
 mod:SetEncounterID(1962)
 mod:SetZone()
 mod:SetUsedIcons(1, 2, 3)
-mod:SetHotfixNoticeRev(15619)
+mod:SetHotfixNoticeRev(15651)
 mod.respawnTime = 15
 mod:SetMinSyncRevision(15635)
 
@@ -197,7 +197,8 @@ function mod:SPELL_AURA_APPLIED(args)
 	if (spellId == 228744 or spellId == 228794 or spellId == 228810 or spellId == 228811 or spellId == 228818 or spellId == 228819) and args:IsDestTypePlayer() then
 		local icon = 0
 		local uId = DBM:GetRaidUnitId(args.destName)
-		if not (UnitDebuff(uId, fireFoam) or UnitDebuff(uId, frostFoam) or UnitDebuff(uId, shadowFoam)) then--Only if player doesn't already have a debuff
+		local currentIcon = GetRaidTargetIndex(uId) or 0
+		if currentIcon == 0 then--Only if player doesn't already have a debuff
 			if self.vb.one == "None" then
 				self.vb.one = args.destName
 				icon = 1
