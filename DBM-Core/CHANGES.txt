@@ -1,42 +1,184 @@
-tag eacbe2902e5cf83dff9fe6b9c51f8c8e9f241f2a 7.1.9
+tag d9a0d6161d3f4174c222bd12beddc3067d1ec0b6 7.1.10
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Thu Jan 19 20:54:11 2017 +0100
+Date:	Sun Jan 22 22:09:26 2017 +0100
 
-Tagging as 7.1.9
+Tagging as 7.1.10
 
-commit e64a0d5173de4f948013ec503e864e1cd9a34cc7
+commit f536c6dcc68e9b1d2625e34f32c6e2aec8c4b7e1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 19 20:54:11 2017 +0100
+Date:   Sun Jan 22 22:09:26 2017 +0100
 
-    Omega via svn r15690:
-    just code cleanup
+    increment version number to 7.1.10
 
-commit 5ede0dd096b0242bed294a37207b71116a6b2b9d
+commit c25ec26a02af5540daf12adf7f1e8648d03f0254
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 19 20:22:42 2017 +0100
+Date:   Sun Jan 22 21:14:37 2017 +0100
 
-    Omega via svn r15688:
-    Remove krosus arrow and directions, it looks like blizzard broke arm detection in a hotfix early this morning.
+    Omega via svn r15711:
+    Tweak scanformobs
 
-commit fae869f2e53113eabffbe581f70acdcddcb06636
+commit 38b2ec59673e8f5689849721e43abd93b673c7f3
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 19 20:10:10 2017 +0100
+Date:   Sun Jan 22 20:03:30 2017 +0100
 
-    Omega via svn r15687:
-    make krosus arrow off by default.
+    Omega via svn r15710:
+    Include healers in orb defaults
 
-commit 32194932f63c47202b09f26c9026ce75828f2766
+commit 66b8a13d8fe6e2fb6dcc20f5e92f1c30cc72ba8c
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 19 19:37:05 2017 +0100
+Date:   Sun Jan 22 06:18:33 2017 +0100
 
-    Omega via svn r15686:
-    Add text to go with countdown for slam, like what was done for shield of darkness oh so long ago.
-    Enable run away for melee for non % 3 slams too.
+    Omega via svn r15709:
+    Add encounter Ids to new zones, enabling combat detection
 
-commit aa297f7d3e0a16dc180a67bb85ef3f9ff2197e2c
+commit 06a4fa52568e7d5b2f15b06785eacb34031ea8cb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 19 13:39:53 2017 +0100
+Date:   Sat Jan 21 22:20:17 2017 +0100
 
-    tandanu via svn r15685:
+    Omega via svn r15708:
+    Fix nesting error
+
+commit 15a565915a4063adfcf7eb358bef014dfd09cccd
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 22:17:31 2017 +0100
+
+    Omega via svn r15707:
+    Fix tomb not loading on ptr (since ptr still has a toc of 70100
+
+commit e20d63fe4c547f2788356288d805c9c645368d0d
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 22:03:33 2017 +0100
+
+    Omega via svn r15706:
+    Add Tomb of Sargeras and Cathedral of Eternal Night mods for 7.2
+
+commit e20d63fe4c547f2788356288d805c9c645368d0d
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 22:03:33 2017 +0100
+
+    Omega via svn r15706:
+    Add Tomb of Sargeras and Cathedral of Eternal Night mods for 7.2
+
+commit 275ba84d3e319a318dbce588cb7dec006ae54e5b
+Author: MysticalOS <MysticalOS@nomail.com>
+Date:   Sat Jan 21 16:02:10 2017 -0500
+
+    Pkgmeta Update
+
+commit 09ce8b40e4f23a5098af49a64a51069012be20cd
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 19:35:49 2017 +0100
+
+    Omega via svn r15705:
+    Redo normal 1 and slow 1 for heroic anomaly
+
+commit 138afb21d0918c0d6c1ed58cc0aa83a1776f2545
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 10:52:48 2017 +0100
+
+    Omega via svn r15704:
+    disable heroic chronmatic timers until I can change them all, AGAIN.
+
+commit 5b04101400cecb18251d26189c2e3f97510c93d9
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 08:04:38 2017 +0100
+
+    Omega via svn r15703:
+    HF revision
+
+commit f0d8a77918874fd3da0733ca7dab15527ed10925
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 08:04:09 2017 +0100
+
+    Omega via svn r15702:
+    Improve guldan phase 2 detection by using more reliable way than UNIT_DIED
+    Improve phase 1 heroic timers on guldan
+    Added big add spawn warning to phase 2 guldan
+
+commit 7e00a3da51059f993b38161319f23f887e0ce813
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 06:56:54 2017 +0100
+
+    Omega via svn r15701:
+    Fix orb warning to actually say orb instead of beam
+    fix orb timer to not screw up when using backup method (it wouldn?\226?\128?\153t need a backup method if blizzard didn?\226?\128?\153t disable combat log event and emote in phase 3)
+    Added voice pack warning for elementals
+    Removed bad interrupt warning for exo release, it?\226?\128?\153s not interrupted anymore
+    Disable berserk timer for now. it?\226?\128?\153s not 4 minutes anymore (maybe 5 now?)
+    Extended phase 3 burst timers
+
+commit 6fbfee98687287bb707f2862336fcc4c7ced7ff6
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 04:46:22 2017 +0100
+
+    Omega via svn r15700:
+    tweaks
+
+commit 1262a6e7a7bad8575c3a9f35258c5d04965867f6
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 04:07:31 2017 +0100
+
+    Omega via svn r15699:
+    Fix another issue maybe, i need to review logs later
+
+commit 57a01fc54d0710a5c0eacced5eccfc0916bebe92
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 04:04:16 2017 +0100
+
+    Omega via svn r15698:
+    Fix bug causing rings timers/warnings not to work
+
+commit 9a4d59d07b7431bc295ad4a74e1f689ffcc8ea67
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jan 21 03:56:52 2017 +0100
+
+    Omega via svn r15697:
+    Fix some tank warnings
+
+commit c0aa0f9cf8544a088ae83c6b47a2b7ae86e59baf
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jan 20 21:41:45 2017 +0100
+
+    Omega via svn r15696:
+    Disable armageddon in LFR/Normal
+
+commit 9b78b6bcc973bed4becaff7f88a4c5b74af26df4
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jan 20 08:05:14 2017 +0100
+
+    Omega via svn r15695:
+    Two more trash warnings
+
+commit cf5e9fe154dd9e03cc5862642460e80c296df347
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jan 20 07:40:14 2017 +0100
+
+    Omega via svn r15694:
+    add stellar dust and arc well to trash
+
+commit 3285191b1224165d6853d1fc18c94c7ec0c713ed
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jan 20 07:04:20 2017 +0100
+
+    Omega via svn r15693:
+    Add slightly more elisande data
+    Added cast bar to big adds on Star auger
+    Improved tank swap warnings on telarn to not let stacks get higher than needed
+    Added tan swap warnings to elisande
+    german update
+    Korean Update
+
+commit 63f4dea73aa13c0b27f33f0b618d3391f75cd7b8
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jan 20 05:18:48 2017 +0100
+
+    Omega via svn r15692:
+    Try to increase scan time on fetter icon, it didn?\226?\128?\153t work at all.
+
+commit cf846b07f0203de8d6c6c4ce9f1d0a7c97c8760f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jan 19 20:55:11 2017 +0100
+
+    tandanu via svn r15691:
     increment alpha version
 

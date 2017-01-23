@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1761, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15683 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15693 $"):sub(12, -3))
 mod:SetCreatureID(104528)--109042
 mod:SetEncounterID(1886)
 mod:SetZone()
@@ -403,11 +403,14 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 218503 then
 		local amount = args.amount or 1
-		if amount % 3 == 0 or amount > 9 then
-			warnRecursiveStrikes:Show(args.destName, amount)
+		if amount >= 5 then
 			if not UnitDebuff("player", args.spellName) and not UnitIsDeadOrGhost("player") and self:AntiSpam(3, 1) then
 				specWarnRecursiveStrikes:Show(args.destName)
 				voiceRecursiveStrikes:Play("tauntboss")
+			else
+				if amount % 3 == 0 then
+					warnRecursiveStrikes:Show(args.destName, amount)
+				end
 			end
 		end
 	elseif spellId == 218304 then
@@ -557,7 +560,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 		if self.Options.SetIconOnFetter and not self:IsLFR() then
 			self:SetIcon(args.destName, 0)
-			self:ScanForMobs(109075, 0, 8, 2, 0.1, 10, "SetIconOnFetter")
+			self:ScanForMobs(109075, 0, 8, 2, 0.1, 15, "SetIconOnFetter")
 		end
 	end
 end
