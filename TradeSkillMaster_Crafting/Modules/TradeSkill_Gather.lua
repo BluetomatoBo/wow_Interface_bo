@@ -1170,8 +1170,8 @@ function Gather:Update(firstRun)
 	local leader = "    "
 	if availableMats and availableMats["crafting"] then
 		for profession, spells in pairs(availableMats["crafting"]) do
+			local headerAdded = false
 			for spellID, spellQuantity in pairs(spells) do
-				local headerAdded = false
 				local bagTotals = TSM:GetInventoryTotals()
 				local craft = TSM.db.factionrealm.crafts[spellID]
 				local name = craft and craft.name

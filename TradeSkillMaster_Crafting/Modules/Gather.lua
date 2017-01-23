@@ -214,7 +214,7 @@ function Gather:GetItemSources(crafter, neededMats)
 	-- add crafting tasks
 	if not TSM.db.factionrealm.gathering.sessionOptions.ignoreIntermediate then
 		for itemString, quantity in pairs(neededMats) do
-			local matCost = TSM.Cost:GetMatCost(itemString)
+			local matCost = TSM.Cost:GetMatCost(itemString) or math.huge
 			local cheapestSpellId, lowestCost = TSM.Cost:GetItemCraftPrices(itemString)
 			if cheapestSpellId and lowestCost <= matCost then
 				local data = TSM.db.factionrealm.crafts[cheapestSpellId]
@@ -383,7 +383,7 @@ function Gather:GetItemSources(crafter, neededMats)
 
 	-- add auction house tasks
 	for itemString, quantity in pairs(neededMats) do
-		if not TSMAPI.Item:IsSoulboundMat(itemString) and (not TSMAPI.Item:GetVendorCost(itemString) or TSM.Cost:GetMatCost(itemString) < TSMAPI.Item:GetVendorCost(itemString)) then
+		if not TSMAPI.Item:IsSoulboundMat(itemString) and (not TSMAPI.Item:GetVendorCost(itemString) or (TSM.Cost:GetMatCost(itemString) or math.huge) < TSMAPI.Item:GetVendorCost(itemString)) then
 			local need
 			if Gather.gatherItem == itemString and Gather.gatherQuantity then
 				need = Gather.gatherQuantity
