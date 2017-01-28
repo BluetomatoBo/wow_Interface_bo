@@ -82,6 +82,12 @@ function PawnUI_InventoryPawnButton_Move()
 			PawnUI_InspectPawnButton:SetPoint("TOPLEFT", "InspectWristSlot", "BOTTOMLEFT", 1, -8)
 			PawnUI_InspectPawnButton:Show()
 		end
+		if PawnUI_SocketingPawnButton then
+			PawnUI_SocketingPawnButton:ClearAllPoints()
+			PawnUI_SocketingPawnButton:SetPoint("TOPRIGHT", "ItemSocketingFrame", "TOPRIGHT", -14, -32)
+			--PawnUI_SocketingPawnButton:SetPoint("TOPLEFT", "ItemSocketingFrame", "TOPLEFT", 64, -32)
+			PawnUI_SocketingPawnButton:Show()
+		end
 	else
 		PawnUI_InventoryPawnButton:Hide()
 		if PawnUI_InspectPawnButton then
