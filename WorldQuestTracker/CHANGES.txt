@@ -1,5 +1,11 @@
-changeset:   110:cd43c39b0149
+changeset:   111:a449abbf1e73
 tag:         tip
+user:        Tercio
+date:        Tue Feb 07 13:50:18 2017 -0200
+summary:     - added option to show only quests that are being tracked.
+
+
+changeset:   110:cd43c39b0149
 user:        Tercio
 date:        Mon Jan 30 13:56:41 2017 -0200
 summary:     - undo Blizzard func overwrite, it might be causing taints.
@@ -597,11 +603,5 @@ changeset:   11:294f506fb9f4
 user:        Tercio
 date:        Thu Jul 14 02:06:51 2016 -0300
 summary:     -updates
-
-
-changeset:   10:d73fcbea2b72
-user:        Tercio
-date:        Thu Jul 14 01:58:34 2016 -0300
-summary:     - updates.
 
 
