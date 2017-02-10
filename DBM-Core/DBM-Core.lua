@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 15758 $"):sub(12, -3)),
-	DisplayVersion = "7.1.12", -- the string that is shown as version
-	ReleaseRevision = 15758 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 15846 $"):sub(12, -3)),
+	DisplayVersion = "7.1.13", -- the string that is shown as version
+	ReleaseRevision = 15846 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -246,6 +246,7 @@ DBM.DefaultOptions = {
 	DontRestoreRange = false,
 	DontShowInfoFrame = false,
 	DontShowHudMap2 = false,
+	DontShowNameplateIcons = false,
 	DontShowHealthFrame = false,
 	DontPlayCountdowns = false,
 	DontSendYells = false,
@@ -420,7 +421,7 @@ local dbmToc = 0
 local UpdateChestTimer
 local breakTimerStart
 
-local fakeBWVersion, fakeBWHash = 41, "be79f59"
+local fakeBWVersion, fakeBWHash = 42, "4a8915d"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -1054,6 +1055,7 @@ end
 do
 	local isLoaded = false
 	local onLoadCallbacks = {}
+	local disabledMods = {}
 	
 	local function runDelayedFunctions(self)
 		noDelay = false
@@ -1116,6 +1118,13 @@ do
 				self.Options.tempBreak2 = nil
 			end
 		end
+		if #disabledMods > 0 then
+			if #disabledMods == 1 then
+				self:AddMsg(DBM_CORE_LOAD_MOD_DISABLED:format(disabledMods[1]))
+			else
+				self:AddMsg(DBM_CORE_LOAD_MOD_DISABLED_PLURAL:format(tconcat(disabledMods, ", ")))
+			end
+		end
 	end
 
 	-- register a callback that will be executed once the addon is fully loaded (ADDON_LOADED fired, saved vars are available)
@@ -1168,55 +1177,59 @@ do
 				local addonName = GetAddOnInfo(i)
 				local enabled = GetAddOnEnableState(playerName, i)
 				local minToc = tonumber(GetAddOnMetadata(i, "X-Min-Interface"))
-				if GetAddOnMetadata(i, "X-DBM-Mod") and enabled ~= 0 then
-					if checkEntry(bannedMods, addonName) then
-						self:AddMsg("The mod " .. addonName .. " is deprecated and will not be available. Please remove the folder " .. addonName .. " from your Interface" .. (IsWindowsClient() and "\\" or "/") .. "AddOns folder to get rid of this message. Check for an updated version of " .. addonName .. " that is compatible with your game version.")
-					elseif not testBuild and minToc and minToc > wowTOC then
-						self:Debug(i.." not loaded because mod requires minimum toc of "..minToc)
-					else
-						local mapIdTable = {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-MapID") or "")}
-						tinsert(self.AddOns, {
-							sort			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Sort") or mhuge) or mhuge,
-							type			= GetAddOnMetadata(i, "X-DBM-Mod-Type") or "OTHER",
-							category		= GetAddOnMetadata(i, "X-DBM-Mod-Category") or "Other",
-							name			= GetAddOnMetadata(i, "X-DBM-Mod-Name") or GetRealZoneText(tonumber(mapIdTable[1])) or DBM_CORE_UNKNOWN,
-							mapId			= mapIdTable,
-							subTabs			= GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID"))} or GetAddOnMetadata(i, "X-DBM-Mod-SubCategories") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategories"))},
-							oneFormat		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Single-Format") or 0) == 1,
-							hasLFR			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-LFR") or 0) == 1,
-							hasChallenge	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Challenge") or 0) == 1,
-							noHeroic		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Heroic") or 0) == 1,
-							noStatistics	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Statistics") or 0) == 1,
-							hasMythic		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Mythic") or 0) == 1,
-							hasTimeWalker	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-TimeWalker") or 0) == 1,
-							isWorldBoss		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-World-Boss") or 0) == 1,
-							minRevision		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-MinCoreRevision") or 0),
-							modId			= addonName,
-						})
-						for i = #self.AddOns[#self.AddOns].mapId, 1, -1 do
-							local id = tonumber(self.AddOns[#self.AddOns].mapId[i])
-							if id then
-								self.AddOns[#self.AddOns].mapId[i] = id
-							else
-								tremove(self.AddOns[#self.AddOns].mapId, i)
-							end
-						end
-						if self.AddOns[#self.AddOns].subTabs then
-							for k, v in ipairs(self.AddOns[#self.AddOns].subTabs) do
-								local id = tonumber(self.AddOns[#self.AddOns].subTabs[k])
+				if GetAddOnMetadata(i, "X-DBM-Mod") then
+					if enabled ~= 0 then
+						if checkEntry(bannedMods, addonName) then
+							self:AddMsg("The mod " .. addonName .. " is deprecated and will not be available. Please remove the folder " .. addonName .. " from your Interface" .. (IsWindowsClient() and "\\" or "/") .. "AddOns folder to get rid of this message. Check for an updated version of " .. addonName .. " that is compatible with your game version.")
+						elseif not testBuild and minToc and minToc > wowTOC then
+							self:Debug(i.." not loaded because mod requires minimum toc of "..minToc)
+						else
+							local mapIdTable = {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-MapID") or "")}
+							tinsert(self.AddOns, {
+								sort			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Sort") or mhuge) or mhuge,
+								type			= GetAddOnMetadata(i, "X-DBM-Mod-Type") or "OTHER",
+								category		= GetAddOnMetadata(i, "X-DBM-Mod-Category") or "Other",
+								name			= GetAddOnMetadata(i, "X-DBM-Mod-Name") or GetRealZoneText(tonumber(mapIdTable[1])) or DBM_CORE_UNKNOWN,
+								mapId			= mapIdTable,
+								subTabs			= GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategoriesID"))} or GetAddOnMetadata(i, "X-DBM-Mod-SubCategories") and {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-SubCategories"))},
+								oneFormat		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Single-Format") or 0) == 1,
+								hasLFR			= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-LFR") or 0) == 1,
+								hasChallenge	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Challenge") or 0) == 1,
+								noHeroic		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Heroic") or 0) == 1,
+								noStatistics	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-No-Statistics") or 0) == 1,
+								hasMythic		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-Mythic") or 0) == 1,
+								hasTimeWalker	= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-Has-TimeWalker") or 0) == 1,
+								isWorldBoss		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-World-Boss") or 0) == 1,
+								minRevision		= tonumber(GetAddOnMetadata(i, "X-DBM-Mod-MinCoreRevision") or 0),
+								modId			= addonName,
+							})
+							for i = #self.AddOns[#self.AddOns].mapId, 1, -1 do
+								local id = tonumber(self.AddOns[#self.AddOns].mapId[i])
 								if id then
-									self.AddOns[#self.AddOns].subTabs[k] = GetRealZoneText(id):trim() or id
+									self.AddOns[#self.AddOns].mapId[i] = id
 								else
-									self.AddOns[#self.AddOns].subTabs[k] = (self.AddOns[#self.AddOns].subTabs[k]):trim()
+									tremove(self.AddOns[#self.AddOns].mapId, i)
+								end
+							end
+							if self.AddOns[#self.AddOns].subTabs then
+								for k, v in ipairs(self.AddOns[#self.AddOns].subTabs) do
+									local id = tonumber(self.AddOns[#self.AddOns].subTabs[k])
+									if id then
+										self.AddOns[#self.AddOns].subTabs[k] = GetRealZoneText(id):trim() or id
+									else
+										self.AddOns[#self.AddOns].subTabs[k] = (self.AddOns[#self.AddOns].subTabs[k]):trim()
+									end
+								end
+							end
+							if GetAddOnMetadata(i, "X-DBM-Mod-LoadCID") then
+								local idTable = {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadCID"))}
+								for i = 1, #idTable do
+									loadcIds[tonumber(idTable[i]) or ""] = addonName
 								end
 							end
 						end
-						if GetAddOnMetadata(i, "X-DBM-Mod-LoadCID") then
-							local idTable = {strsplit(",", GetAddOnMetadata(i, "X-DBM-Mod-LoadCID"))}
-							for i = 1, #idTable do
-								loadcIds[tonumber(idTable[i]) or ""] = addonName
-							end
-						end
+					else
+						disabledMods[#disabledMods+1] = addonName
 					end
 				end
 				if GetAddOnMetadata(i, "X-DBM-Voice") and enabled ~= 0 then
@@ -1277,7 +1290,9 @@ do
 				"LOADING_SCREEN_DISABLED",
 				"SCENARIO_CRITERIA_UPDATE"
 			)
-			RolePollPopup:UnregisterEvent("ROLE_POLL_BEGIN")
+			if RolePollPopup:IsEventRegistered("ROLE_POLL_BEGIN") then
+				RolePollPopup:UnregisterEvent("ROLE_POLL_BEGIN")
+			end
 			self:GROUP_ROSTER_UPDATE()
 			C_TimerAfter(1.5, function()
 				combatInitialized = true
@@ -1303,6 +1318,10 @@ do
 			local ok, err = pcall(v, event, ...)
 			if not ok then DBM:AddMsg(("Error while executing callback %s for event %s: %s"):format(tostring(v), tostring(event), err)) end
 		end
+	end
+	
+	function DBM:FireEvent(event, ...)
+		fireEvent(event, ...)
 	end
 
 	function DBM:IsCallbackRegistered(event, f)
@@ -2647,7 +2666,7 @@ do
 				self:Schedule(2, self.RoleCheck, false, self)
 				fireEvent("raidJoin", playerName)
 				if BigWigs and BigWigs.db.profile.raidicon and not self.Options.DontSetIcons then--Both DBM and bigwigs have raid icon marking turned on.
-					self:AddMsg(DBM_CORE_BIGWIGS_ICON_CONFLICT)--Warn that one of them should be turned off to prevent conflict (which they turn off is obviously up to raid leaders preference, dbm accepts either ore turned off to stop this alert)
+					self:AddMsg(DBM_CORE_BIGWIGS_ICON_CONFLICT)--Warn that one of them should be turned off to prevent conflict (which they turn off is obviously up to raid leaders preference, dbm accepts either or turned off to stop this alert)
 				end
 			end
 			for i = 1, GetNumGroupMembers() do
@@ -2827,6 +2846,10 @@ do
 
 	function DBM:GetRaidUnitId(name)
 		return raid[name] and raid[name].id
+	end
+	
+	function DBM:GetPlayerGUIDByName(name)
+		return raid[name] and raid[name].guid
 	end
 
 	function DBM:GetUnitFullName(uId)
@@ -3653,7 +3676,7 @@ do
 				if enabled ~= 0 then
 					self:LoadMod(v)
 				else
-					self:Debug("Not loading "..v.name.." because it is not enabled")
+					self:AddMsg(DBM_CORE_LOAD_MOD_DISABLED:format(v.name))
 				end
 			end
 		end
@@ -4715,6 +4738,13 @@ do
 				elseif bwPrefix == "Q" then--Version request prefix
 					self:Unschedule(SendVersion)
 					self:Schedule(3, SendVersion)
+--[[				elseif bwPrefix == "B" then--Boss Mod Sync
+					for i = 1, #inCombat do
+						local mod = inCombat[i]
+						if mod:OnBWSync then
+							mod:OnBWSync(bwMsg, extra)
+						end
+					end--]]
 				end
 			end
 		elseif prefix == "Transcriptor" and msg then
@@ -6525,48 +6555,55 @@ do
 	ChatFrame_AddMessageEventFilter("CHAT_MSG_YELL", filterSayYell)
 end
 
---Raid Boss Emote frame handler for core and BG mods.
---This completely unregisteres or registers event so frame simply does or doesn't show events
---No dirty hooking. Least invasive way to do it. Uses lowest CPU
+--This completely unregisteres or registers distruptive events so they don't obstruct combat
 --Toggle is for if we are turning off or on.
---Custom is for pvp mods to call function without needing global option turned on (such as BG mods option)
---All also handled by core so both core AND pvp mods aren't trying to hook/hide it. Should all be done HERE
+--Custom is for pvp mods to call function without duplication and allowing pvp mods custom toggle.
 do
-	local blizzEventsUnregistered = false
+	local unregisteredEvents = {}
+	local function DisableEvent(frameName, eventName)
+		if frameName:IsEventRegistered(eventName) then
+			frameName:UnregisterEvent(eventName)
+			unregisteredEvents[eventName] = true
+		end
+	end
+	local function EnableEvent(frameName, eventName)
+		if unregisteredEvents[eventName] then
+			frameName:RegisterEvent(eventName)
+			unregisteredEvents[eventName] = nil
+		end
+	end
 	function DBM:HideBlizzardEvents(toggle, custom)
-		if toggle == 1 and not blizzEventsUnregistered then
-			blizzEventsUnregistered = true
+		if toggle == 1 then
 			if self.Options.HideQuestTooltips then
 				SetCVar("showQuestTrackingTooltips", 0)
 			end
 			if self.Options.HideBossEmoteFrame or custom then
-				RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_EMOTE")
-				RaidBossEmoteFrame:UnregisterEvent("RAID_BOSS_WHISPER")
-				RaidBossEmoteFrame:UnregisterEvent("CLEAR_BOSS_EMOTES")
+				DisableEvent(RaidBossEmoteFrame, "RAID_BOSS_EMOTE")
+				DisableEvent(RaidBossEmoteFrame, "RAID_BOSS_WHISPER")
+				DisableEvent(RaidBossEmoteFrame, "CLEAR_BOSS_EMOTES")
 			end
 			if self.Options.HideGarrisonToasts or custom then
-				AlertFrame:UnregisterEvent("GARRISON_MISSION_FINISHED")
-				AlertFrame:UnregisterEvent("GARRISON_BUILDING_ACTIVATABLE")
+				DisableEvent(AlertFrame, "GARRISON_MISSION_FINISHED")
+				DisableEvent(AlertFrame, "GARRISON_BUILDING_ACTIVATABLE")
 			end
 			if self.Options.HideGuildChallengeUpdates or custom then
-				AlertFrame:UnregisterEvent("GUILD_CHALLENGE_COMPLETED")
+				DisableEvent(AlertFrame, "GUILD_CHALLENGE_COMPLETED")
 			end
-		elseif toggle == 0 and blizzEventsUnregistered then
-			blizzEventsUnregistered = false
+		elseif toggle == 0 then
 			if self.Options.HideQuestTooltips then
 				SetCVar("showQuestTrackingTooltips", 1)
 			end
 			if self.Options.HideBossEmoteFrame or custom then
-				RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_EMOTE")
-				RaidBossEmoteFrame:RegisterEvent("RAID_BOSS_WHISPER")
-				RaidBossEmoteFrame:RegisterEvent("CLEAR_BOSS_EMOTES")
+				EnableEvent(RaidBossEmoteFrame, "RAID_BOSS_EMOTE")
+				EnableEvent(RaidBossEmoteFrame, "RAID_BOSS_WHISPER")
+				EnableEvent(RaidBossEmoteFrame, "CLEAR_BOSS_EMOTES")
 			end
 			if self.Options.HideGarrisonToasts then
-				AlertFrame:RegisterEvent("GARRISON_MISSION_FINISHED")
-				AlertFrame:RegisterEvent("GARRISON_BUILDING_ACTIVATABLE")
+				EnableEvent(AlertFrame, "GARRISON_MISSION_FINISHED")
+				EnableEvent(AlertFrame, "GARRISON_BUILDING_ACTIVATABLE")
 			end
 			if self.Options.HideGuildChallengeUpdates then
-				AlertFrame:RegisterEvent("GUILD_CHALLENGE_COMPLETED")
+				EnableEvent(AlertFrame, "GUILD_CHALLENGE_COMPLETED")
 			end
 		end
 	end
@@ -7007,7 +7044,7 @@ end
 -----------------------
 
 function bossModPrototype:IsDifficulty(...)
-	local diff = DBM:GetCurrentInstanceDifficulty()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	for i = 1, select("#", ...) do
 		if diff == select(i, ...) then
 			return true
@@ -7017,7 +7054,7 @@ function bossModPrototype:IsDifficulty(...)
 end
 
 function bossModPrototype:IsLFR()
-	local diff = DBM:GetCurrentInstanceDifficulty()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	if diff == "lfr" or diff == "lfr25" then
 		return true
 	end
@@ -7025,7 +7062,7 @@ function bossModPrototype:IsLFR()
 end
 
 function bossModPrototype:IsEasy()
-	local diff = DBM:GetCurrentInstanceDifficulty()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	if diff == "normal" or diff == "lfr" then
 		return true
 	end
@@ -7033,7 +7070,7 @@ function bossModPrototype:IsEasy()
 end
 
 function bossModPrototype:IsHard()
-	local diff = DBM:GetCurrentInstanceDifficulty()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	if diff == "mythic" or diff == "challenge5" then
 		return true
 	end
@@ -7041,7 +7078,7 @@ function bossModPrototype:IsHard()
 end
 
 function bossModPrototype:IsNormal()
-	local diff = DBM:GetCurrentInstanceDifficulty()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	if diff == "normal" or diff == "normal5" or diff == "normal10" or diff == "normal25" then
 		return true
 	end
@@ -7049,7 +7086,7 @@ function bossModPrototype:IsNormal()
 end
 
 function bossModPrototype:IsHeroic()
-	local diff = DBM:GetCurrentInstanceDifficulty()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	if diff == "heroic" or diff == "heroic5" or diff == "heroic10" or diff == "heroic25" then
 		return true
 	end
@@ -7057,7 +7094,7 @@ function bossModPrototype:IsHeroic()
 end
 
 function bossModPrototype:IsMythic()
-	local diff = DBM:GetCurrentInstanceDifficulty()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	if diff == "mythic" then
 		return true
 	end
@@ -7065,7 +7102,7 @@ function bossModPrototype:IsMythic()
 end
 
 function bossModPrototype:IsEvent()
-	local diff = DBM:GetCurrentInstanceDifficulty()
+	local diff = savedDifficulty or DBM:GetCurrentInstanceDifficulty()
 	if diff == "event5" or diff == "event20" or diff == "event40" then
 		return true
 	end
@@ -9681,6 +9718,10 @@ do
 	function bossModPrototype:NewSpecialWarningSwitchCount(text, optionDefault, ...)
 		return newSpecialWarning(self, "switchcount", text, nil, optionDefault, ...)
 	end
+	
+	function bossModPrototype:NewSpecialWarningAdds(text, optionDefault, ...)
+		return newSpecialWarning(self, "Adds", text, nil, optionDefault, ...)
+	end
 
 	function bossModPrototype:NewSpecialWarningPreWarn(text, optionDefault, time, ...)
 		if type(text) == "string" and text:match("OptionVersion") then
@@ -10120,8 +10161,11 @@ do
 				colorType = 6
 			end
 		elseif timerType == "roleplay" then
-			icon = "Interface\\Icons\\Spell_Holy_BorrowedTime"
+			icon = type(texture) == "number" and GetSpellTexture(texture) or texture or type(spellId) == "string" and select(4, EJ_GetSectionInfo(string.sub(spellId, 3))) ~= "" and select(4, EJ_GetSectionInfo(string.sub(spellId, 3))) or (type(spellId) == "number" and GetSpellTexture(spellId)) or "Interface\\Icons\\Spell_Nature_WispSplode"
 			colorType = 6
+		elseif timerType == "adds" then
+			icon = type(texture) == "number" and GetSpellTexture(texture) or texture or type(spellId) == "string" and select(4, EJ_GetSectionInfo(string.sub(spellId, 3))) ~= "" and select(4, EJ_GetSectionInfo(string.sub(spellId, 3))) or (type(spellId) == "number" and GetSpellTexture(spellId)) or "Interface\\Icons\\Spell_Nature_WispSplode"
+			colorType = 1
 		else
 			if type(spellId) == "string" and spellId:match("ej%d+") then
 				spellName = EJ_GetSectionInfo(string.sub(spellId, 3)) or ""
@@ -10251,6 +10295,10 @@ do
 	
 	function bossModPrototype:NewRPTimer(...)
 		return newTimer(self, "roleplay", ...)
+	end
+	
+	function bossModPrototype:NewAddsTimer(...)
+		return newTimer(self, "adds", ...)
 	end
 	
 	function bossModPrototype:NewAITimer(...)
@@ -10461,6 +10509,19 @@ function bossModPrototype:AddHudMapOption(name, spellId, default)
 	else
 		self.localization.options[name] = DBM_CORE_AUTO_HUD_OPTION_TEXT_MULTI
 	end
+end
+
+function bossModPrototype:AddNamePlateOption(name, spellId, default)
+	if not spellId then
+		error("AddNamePlateOption must provide valid spellId", 2)
+	end
+	self.DefaultOptions[name] = (default == nil) or default
+	if default and type(default) == "string" then
+		default = self:GetRoleFlagValue(default)
+	end
+	self.Options[name] = (default == nil) or default
+	self:SetOptionCategory(name, "misc")
+	self.localization.options[name] = DBM_CORE_AUTO_NAMEPLATE_OPTION_TEXT:format(spellId)
 end
 
 function bossModPrototype:AddInfoFrameOption(spellId, default)
@@ -10758,6 +10819,16 @@ function bossModPrototype:SendSync(event, ...)
 	if not modSyncSpam[spamId] or (time - modSyncSpam[spamId]) > 8 then
 		self:ReceiveSync(event, nil, self.revision or 0, tostringall(...))
 		sendSync("M", str)
+	end
+end
+
+function bossModPrototype:SendBigWigsSync(event, msg, extra)
+	msg = "B^".. msg
+	if extra then
+		msg = msg .."^".. extra
+	end
+	if IsInGroup() then
+		SendAddonMessage("BigWigs", msg, IsInGroup(2) and "INSTANCE_CHAT" or "RAID")
 	end
 end
 

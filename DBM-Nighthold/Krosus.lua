@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1713, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15744 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15840 $"):sub(12, -3))
 mod:SetCreatureID(101002)
 mod:SetEncounterID(1842)
 mod:SetZone()
@@ -17,6 +17,7 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED_DOSE 206677",
 	"SPELL_AURA_REMOVED 205344",
 	"UNIT_DIED",
+	"CHAT_MSG_ADDON",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
@@ -37,8 +38,8 @@ local specWarnFelBlast				= mod:NewSpecialWarningInterrupt(209017, false, nil, 2
 local specWarnFelBurst				= mod:NewSpecialWarningInterrupt(206352, "HasInterrupt", nil, nil, 1, 2)
 
 local timerSearingBrand				= mod:NewTargetTimer(20, 206677, nil, "Tank", nil, 5)
-local timerFelBeamCD				= mod:NewNextCountTimer(16, 205368, nil, nil, nil, 3)
-local timerOrbDestroCD				= mod:NewNextCountTimer(16, 205344, nil, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON)--Not that deadly on non mythic but on mythic it is
+local timerFelBeamCD				= mod:NewNextCountTimer(16, 205368, 173303, nil, nil, 3)--Short text "Beam"
+local timerOrbDestroCD				= mod:NewNextCountTimer(16, 205344, DBM_CORE_ORB, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON)--Shor timer text "Orb"
 local timerBurningPitchCD			= mod:NewNextCountTimer(16, 205420, nil, nil, 2, 5)
 local timerSlamCD					= mod:NewNextCountTimer(30, 205862, nil, nil, nil, 3, nil, DBM_CORE_DEADLY_ICON)
 
@@ -58,7 +59,7 @@ local voiceFelBurst					= mod:NewVoice(206352, "HasInterrupt")--kickcast
 mod:AddRangeFrameOption(5, 206352)
 --mod:AddSetIconOption("SetIconOnMC", 163472, false)
 mod:AddInfoFrameOption(215944, false)
---mod:AddArrowOption("ArrowOnBeam3", 205368, true)
+mod:AddArrowOption("ArrowOnBeam3", 205368, true)
 
 local burningPitchDebuff = GetSpellInfo(215944)
 local mobGUIDs = {}
@@ -74,12 +75,29 @@ local mythicOrbTimers = {13, 62, 27, 25, 14.9, 15, 15, 30, 55.1, 38, 30, 12, 18}
 --Pitch
 local lolBurningPitchTimers = {38.0, 102.0, 85.0, 90.0}--LFR and Normal
 local heroicBurningPitchTimers = {49.8, 85.0, 90.0, 94}--Verified Dec 7
-local mythicBurningPitchTimers = {45.0, 90, 93.9, 78}--38.0, 102.0, 85.0, 90.0 (OLD)
+local mythicBurningPitchTimers = {45.0, 90, 93.9, 78}
 mod.vb.burningEmbers = 0
 mod.vb.slamCount = 0
 mod.vb.beamCount = 0
 mod.vb.orbCount = 0
 mod.vb.pitchCount = 0
+mod.vb.firstBeam = 0--0 Not sent, 1 Left, 2 Right
+
+--/run DBMUpdateKrosusBeam(wasLeft)
+--Global on purpose for external mod support
+function DBMUpdateKrosusBeam(wasLeft)
+	if wasLeft then
+		mod.vb.firstBeam = 1
+		if not mod:IsLFR() then
+			mod:SendBigWigsSync("firstBeamWasLeft")
+		end
+	else
+		mod.vb.firstBeam = 2
+		if not mod:IsLFR() then
+			mod:SendBigWigsSync("firstBeamWasRight")
+		end
+	end
+end
 
 function mod:OnCombatStart(delay)
 	table.wipe(mobGUIDs)
@@ -88,10 +106,11 @@ function mod:OnCombatStart(delay)
 	self.vb.beamCount = 0
 	self.vb.orbCount = 0
 	self.vb.pitchCount = 0
+	self.vb.firstBeam = 0
 	if self:IsMythic() then
 		timerFelBeamCD:Start(6-delay, 1)
 		timerOrbDestroCD:Start(13-delay, 1)
-		timerBurningPitchCD:Start(52-delay, 1)
+		timerBurningPitchCD:Start(45-delay, 1)
 		timerSlamCD:Start(-delay, 1)
 		countdownBigSlam:Start(-delay)
 		berserkTimer:Start(-delay)
@@ -130,36 +149,42 @@ function mod:SPELL_CAST_START(args)
 	if spellId == 205368 or spellId == 205370 then--205370 left, 205368 right (right no longer is used)
 		self.vb.beamCount = self.vb.beamCount + 1
 		specWarnFelBeam:Show()
-		voiceFelBeam:Play("shockwave")
---[[		if self:IsMythic() then
+		local nextCount = self.vb.beamCount + 1
+		local timerText = nextCount
+		if self.vb.firstBeam == 2 then--First Beam Right
 			if self.vb.beamCount % 2 == 0 then--Coming from left (facing boss)
 				voiceFelBeam:Play("moveright")
+				timerText = L.MoveLeft--Timer text is backwards cause it's for NEXT beam
 				if self.Options.ArrowOnBeam3 then
 					DBM.Arrow:ShowStatic(270, 4)
 				end
 			else--coming from right (facing boss)
 				voiceFelBeam:Play("moveleft")
+				timerText = L.MoveRight--Timer text is backwards cause it's for NEXT beam
 				if self.Options.ArrowOnBeam3 then
 					DBM.Arrow:ShowStatic(90, 4)
 				end
 			end
-		else
+		elseif self.vb.firstBeam == 1 then--First Beam Left
 			if self.vb.beamCount % 2 == 0 then--Coming from right (facing boss)
 				voiceFelBeam:Play("moveleft")
+				timerText = L.MoveRight--Timer text is backwards cause it's for NEXT beam
 				if self.Options.ArrowOnBeam3 then
 					DBM.Arrow:ShowStatic(90, 4)
 				end
 			else--coming from left (facing boss)
 				voiceFelBeam:Play("moveright")
+				timerText = L.MoveLeft--Timer text is backwards cause it's for NEXT beam
 				if self.Options.ArrowOnBeam3 then
 					DBM.Arrow:ShowStatic(270, 4)
 				end
 			end
-		end--]]
-		local nextCount = self.vb.beamCount + 1
+		else
+			voiceFelBeam:Play("shockwave")
+		end
 		local timers = self:IsMythic() and mythicBeamTimers[nextCount] or self:IsHeroic() and heroicBeamTimers[nextCount] or lolBeamTimers[nextCount]
 		if timers then
-			timerFelBeamCD:Start(timers, nextCount)
+			timerFelBeamCD:Start(timers, timerText)
 		end
 	elseif spellId == 205420 then
 		self.vb.pitchCount = self.vb.pitchCount+ 1
@@ -280,3 +305,33 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
 		DBM:Debug("Double Beam", 2)
 	end
 end
+
+--Listen for Krosus Assist on Bigwigs Comms to make compat with mod much easier for elvador
+function mod:CHAT_MSG_ADDON(prefix, msg, channel, targetName)
+	if prefix ~= "BigWigs" then return end
+	local bwPrefix, bwMsg, extra = strsplit("^", msg)
+	if bwPrefix == "B" then
+		if bwMsg == "firstBeamWasLeft" then
+			self.vb.firstBeam = 1
+			DBM:Debug("Recieved Left Beam Sync")
+		elseif bwMsg == "firstBeamWasRight" then
+			self.vb.firstBeam = 2
+			DBM:Debug("Recieved Right Beam Sync")
+		end
+	end
+end
+
+--[[
+--Not funcitonal yet. Might not even be worth effort to hack a handler together for something used so rarely
+function mod:OnBWSync(msg)
+	if not self:IsInCombat() then return end
+	if msg == "firstBeamWasLeft" then
+		self.vb.firstBeam = 1
+		DBM:Debug("Recieved Left Beam Sync")
+	elseif msg == "firstBeamWasRight" then
+		self.vb.firstBeam = 2
+		DBM:Debug("Recieved Right Beam Sync")
+	end
+end
+--]]
+	
