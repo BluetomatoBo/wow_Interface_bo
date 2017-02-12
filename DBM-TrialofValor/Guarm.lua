@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1830, "DBM-TrialofValor", nil, 861)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15840 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15881 $"):sub(12, -3))
 mod:SetCreatureID(114323)
 mod:SetEncounterID(1962)
 mod:SetZone()
@@ -164,7 +164,7 @@ function mod:OnCombatEnd()
 		DBM.InfoFrame:Hide()
 	end
 	if self.Options.NPAuraOnFoam and self:IsMythic() then
-		DBM.Nameplate:Hide(nil, true)
+		DBM.Nameplate:Hide(false, nil, nil, nil, true)
 	end
 end
 
@@ -297,7 +297,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				local _, _, _, _, _, _, expires, _, _ = UnitDebuff(uId, args.spellName)
 				remaining = expires-GetTime()
 			end
-			DBM.Nameplate:Show(args.destGUID, spellId, nil, remaining)
+			DBM.Nameplate:Show(false, args.destName, spellId, nil, remaining)
 		end
 	elseif spellId == 232173 then--Berserk
 		timerLeapCD:Stop()
@@ -346,7 +346,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			self:SetIcon(args.destName, 0)
 		end
 		if self.Options.NPAuraOnFoam then
-			DBM.Nameplate:Hide(args.destGUID)
+			DBM.Nameplate:Hide(false, args.destName, spellId)
 		end
 	end
 end

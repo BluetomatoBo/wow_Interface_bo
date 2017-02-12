@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1667, "DBM-EmeraldNightmare", nil, 768)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15822 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15881 $"):sub(12, -3))
 mod:SetCreatureID(100497)
 mod:SetEncounterID(1841)
 mod:SetZone()
@@ -153,7 +153,7 @@ function mod:OnCombatEnd()
 		DBM.InfoFrame:Hide()
 	end
 	if self.Options.NPAuraOnCharge then
-		DBM.Nameplate:Hide(nil, true)
+		DBM.Nameplate:Hide(false, nil, nil, nil, true)
 	end
 end
 
@@ -251,7 +251,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			GenerateSoakAssignment(self, secondCount, args.destName)
 		end
 		if self.Options.NPAuraOnCharge then
-			DBM.Nameplate:Show(args.destGUID, spellId)
+			DBM.Nameplate:Show(false, args.destName, spellId)
 		end
 	elseif spellId == 197943 then
 		warnOverwhelm:Show(args.destName, args.amount or 1)
@@ -287,7 +287,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			DBMHudMap:FreeEncounterMarkerByTarget(spellId, args.destName)
 		end
 		if self.Options.NPAuraOnCharge then
-			DBM.Nameplate:Hide(args.destGUID)
+			DBM.Nameplate:Hide(false, args.destName, spellId)
 		end
 	end
 end

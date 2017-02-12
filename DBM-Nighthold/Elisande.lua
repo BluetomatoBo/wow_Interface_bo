@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1743, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15846 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15893 $"):sub(12, -3))
 mod:SetCreatureID(106643)
 mod:SetEncounterID(1872)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)--During soft enrage will go over 8 debuffs, can't mark beyond that
-mod:SetHotfixNoticeRev(15845)
+mod:SetHotfixNoticeRev(15863)
 mod.respawnTime = 30
 
 mod:RegisterCombat("combat")
@@ -78,7 +78,7 @@ local specWarnAblativePulse			= mod:NewSpecialWarningInterrupt(209971, "HasInter
 local timerLeaveNightwell			= mod:NewCastTimer(9.8, 208863, nil, nil, nil, 6)
 local timerTimeElementalsCD			= mod:NewNextSourceTimer(16, 208887, 141872, nil, nil, 1)--"Call Elemental" short text
 local timerFastTimeBubble			= mod:NewTimer(30, "timerFastTimeBubble", 209166, nil, nil, 5)
---local timerSlowTimeBubble			= mod:NewTimer(60, "timerSlowTimeBubble", 209165, nil, nil, 5)
+local timerSlowTimeBubble			= mod:NewTimer(60, "timerSlowTimeBubble", 209165, nil, nil, 5)
 --209166
 --Time Layer 1
 mod:AddTimerLine(SCENARIO_STAGE:format(1))
@@ -147,7 +147,7 @@ local mythicP1FastElementalTimers = {8, 81.0}--Mythic Feb 5
 local mythicP2FastElementalTimers = {8, 51}--Mythic Feb 5
 local mythicP3FastElementalTimers = {8, 36, 44}--Mythic Feb 5
 local RingTimers = {34, 40, 10, 62, 9, 45}--Heroic Jan 19
-local easyRingTimers = {34, 30}--Normal Jan 26
+local easyRingTimers = {34, 30, 75, 50}--Normal Feb 8
 local mythicRingTimers = {30, 39, 15, 30, 19, 10, 25, 9, 10, 10}--Mythic Feb 5 (figure out that 25 in middle of 10s)
 local SingularityTimers = {10, 22, 36.0, 57, 65}--Heroic Jan 18
 local easySingularityTimers = {10, 22, 36.0, 46}--Normal Feb 2
@@ -223,6 +223,7 @@ function mod:OnCombatStart(delay)
 	self.vb.pos5X, self.vb.pos5Y = nil, nil
 	self.vb.pos6X, self.vb.pos6Y = nil, nil
 	self.vb.pos7X, self.vb.pos7Y = nil, nil
+	timerLeaveNightwell:Start(4)
 	timerTimeElementalsCD:Start(5-delay, SLOW)
 	timerTimeElementalsCD:Start(8-delay, FAST)
 	--timerAblationCD:Start(8.5-delay)--Verify/tweak
@@ -252,7 +253,7 @@ function mod:OnCombatEnd()
 		DBM.InfoFrame:Hide()
 	end
 	if self.Options.NPAuraOnBeam then
-		DBM.Nameplate:Hide(nil, true)
+		DBM.Nameplate:Hide(false, nil, nil, nil, true)
 	end
 end
 
@@ -433,7 +434,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		if self.Options.NPAuraOnBeam then
-			DBM.Nameplate:Show(args.destGUID, spellId)
+			DBM.Nameplate:Show(false, args.destName, spellId)
 		end
 	elseif spellId == 209973 then
 		warnAblatingExplosion:Show(args.destName)
@@ -496,7 +497,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 	elseif spellId == 209244 then
 		if self.Options.NPAuraOnBeam then
-			DBM.Nameplate:Hide(args.destGUID)
+			DBM.Nameplate:Hide(false, args.destName, spellId)
 		end
 	end
 end
@@ -538,6 +539,8 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
 		timerArcaneticRing:Stop()
 		countdownArcaneticRing:Cancel()
 		timerTimeElementalsCD:Stop()
+		timerSlowTimeBubble:Stop()
+		timerFastTimeBubble:Stop()
 		timerEpochericOrbCD:Stop()
 		countdownOrbs:Cancel()
 		timerSpanningSingularityCD:Stop()
@@ -610,7 +613,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
 		end
 	elseif spellId == 208863 then
 		self.vb.transitionActive = false
-		if self:Mythic() then 
+		if self:IsMythic() then 
 			if self.vb.phase == 3 then
 				berserkTimer:Start(194)
 			else
@@ -737,7 +740,7 @@ function mod:OnSync(msg, targetname)
 		end
 	elseif msg == "SlowAddDied" then
 		self.vb.slowBubbleCount = self.vb.slowBubbleCount + 1
-		--timerSlowTimeBubble:Start(30, self.vb.slowBubbleCount)
+		timerSlowTimeBubble:Start(60, self.vb.slowBubbleCount)
 	elseif msg == "FastAddDied" then
 		self.vb.fastBubbleCount = self.vb.fastBubbleCount + 1
 		timerFastTimeBubble:Start(30, self.vb.fastBubbleCount)

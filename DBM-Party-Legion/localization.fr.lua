@@ -1,4 +1,4 @@
-if GetLocale() ~= "deDE" then return end
+if GetLocale() ~= "frFR" then return end
 local L
 
 -----------------------
@@ -30,7 +30,7 @@ L= DBM:GetModLocalization(1672)
 L = DBM:GetModLocalization("BRHTrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash der Rabenwehr"
+	name =	"Black Rook Hold Trash"
 })
 
 -----------------------
@@ -62,7 +62,7 @@ L= DBM:GetModLocalization(1657)
 L = DBM:GetModLocalization("DHTTrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash des Finsterherzdickichts"
+	name =	"Darkheart Thicket Trash"
 })
 
 
@@ -80,8 +80,8 @@ L= DBM:GetModLocalization(1480)
 L= DBM:GetModLocalization(1490)
 
 L:SetWarningLocalization({
-	specWarnStaticNova			= "Statische Nova - geh auf Sanddüne",
-	specWarnFocusedLightning	= "Gebündelter Blitz - geh ins Wasser"
+	specWarnStaticNova			= "Static Nova - move to land",
+	specWarnFocusedLightning	= "Focused Lightning - move to water"
 })
 
 -----------------------
@@ -105,7 +105,7 @@ L= DBM:GetModLocalization(1492)
 L = DBM:GetModLocalization("EoATrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash des Auge Azsharas"
+	name =	"Eye of Azshara Trash"
 })
 
 -----------------------
@@ -137,7 +137,7 @@ L= DBM:GetModLocalization(1488)
 L= DBM:GetModLocalization(1489)
 
 L:SetMiscLocalization({
-	tempestModeMessage		=	"Nicht Orkanabfolge: %s. Prüfe erneut in 8 Sekunden."
+	tempestModeMessage		=	"Not tempest sequence: %s. Rechecking in 8 seconds."
 })
 
 -----------------------
@@ -146,7 +146,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("HoVTrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash der Hallen der Tapferkeit"
+	name =	"Halls of Valor Trash"
 })
 
 -----------------------
@@ -178,7 +178,7 @@ L= DBM:GetModLocalization(1687)
 L = DBM:GetModLocalization("NLTrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash des Neltharions Hort"
+	name =	"Neltharion's Lair Trash"
 })
 
 -----------------------
@@ -200,7 +200,7 @@ L= DBM:GetModLocalization(1498)
 L= DBM:GetModLocalization(1499)
 
 L:SetMiscLocalization({
-	batSpawn		=	"Reinforcements to me! NOW!"--translate (trigger)
+	batSpawn		=	"Reinforcements to me! NOW!"
 })
 
 -----------------------
@@ -219,7 +219,7 @@ L= DBM:GetModLocalization(1501)
 L = DBM:GetModLocalization("ArcwayTrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash des Arkus"
+	name =	"The Arcway Trash"
 })
 
 -----------------------
@@ -246,76 +246,76 @@ L= DBM:GetModLocalization(1720)
 L = DBM:GetModLocalization("CoSTrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash des Hofs der Sterne"
+	name =	"Court of Stars Trash"
 })
 
 L:SetOptionLocalization({
-	SpyHelper	= "Hilf bei der Erkennung des Spions"
+	SpyHelper	= "Help identify the spy"
 })
 
 L:SetMiscLocalization({
-Gloves1			= "Einem Gerücht zufolge trägt der Spion immer Handschuhe.",
-	Gloves2			= "Wie ich hörte, verbirgt der Spion sorgfältig die Hände.",
-	Gloves3			= "Ich hörte, dass der Spion immer Handschuhe anlegt.",
-	Gloves4			= "Jemand behauptete, dass der Spion Handschuhe trägt, um sichtbare Narben zu verbergen.",
-	NoGloves1		= "Es gibt Gerüchte, dass der Spion niemals Handschuhe trägt.",
-	NoGloves2		= "Wisst Ihr... Ich habe ein zusätzliches Paar Handschuhe im Hinterzimmer gefunden. Wahrscheinlich ist der Spion hier irgendwo mit bloßen Händen unterwegs.",
-	NoGloves3		= "Mir ist zu Ohren gekommen, dass der Spion ungern Handschuhe trägt.",
-	NoGloves4		= "Ich hörte, dass der Spion es vermeidet, Handschuhe zu tragen, falls er schnell handeln muss.",
-	Cape1			= "Jemand erwähnte, dass der Spion vorhin hier hereinkam und einen Umhang trug.",
-	Cape2			= "Mir ist zu Ohren gekommen, dass der Spion gerne Umhänge trägt.",
-	NoCape1			= "Ich hörte, dass der Spion keine Umhänge mag und sich weigert, einen zu tragen.",
-	NoCape2			= "Ich hörte, dass der Spion seinen Umhang im Palast gelassen hat, bevor er hierhergekommen ist.",
-	LightVest1		= "Der Spion bevorzugt auf jeden Fall Westen mit hellen Farben.",
-	LightVest2		= "Wie ich hörte, trägt der Spion auf der Party heute Abend eine helle Weste.",
-	LightVest3		= "Die Leute sagen, dass der Spion heute Abend keine dunkle Weste trägt.",
-	DarkVest1		= "Der Spion bevorzugt auf alle Fälle dunkle Kleidung.",
-	DarkVest2		= "Ich hörte, dass die Weste des Spions heute Abend von dunkler, kräftiger Farbe ist.",
-	DarkVest3		= "Dem Spion gefallen Westen mit dunklen Farben... dunkel wie die Nacht.",
-	DarkVest4		= "Gerüchte zufolge vermeidet der Spion es, helle Kleidung zu tragen, damit er nicht so auffällt.",
-	Female1			= "Ein Gast hat beobachtet, wie sie und Elisande vorhin gemeinsam eingetroffen sind.",
-	Female2			= "Wie ich höre, hat eine Frau sich ständig nach diesem Bezirk erkundigt...",
-	Female3			= "Jemand hat behauptet, dass unser neuester Gast nicht männlich ist.",
-	Female4			= "Man sagt, die Spionin wäre hier und sie wäre eine wahre Augenweide.",
-	Male1			= "Irgendwo habe ich gehört, dass der Spion nicht weiblich ist.",
-	Male2			= "Ich hörte, dass der Spion ein äußerst gutaussehender Herr ist.",
-	Male3			= "Ein Gast sagte, sie sah, wie ein Herr an der Seite der Großmagistrix das Anwesen betreten hat.",
-	Male4			= "Einer der Musiker sagte, er stellte unablässig Fragen über den Bezirk.",
-	ShortSleeve1	= "Mir ist zu Ohren gekommen, dass der Spion kurze Ärmel trägt, damit er seine Arme ungehindert bewegen kann.",
-	ShortSleeve2	= "Jemand sagte mir, dass der Spion lange Ärmel hasst.",
-	ShortSleeve3	= "Einer meiner Freundinnen sagte, dass sie die Kleidung des Spions gesehen hat. Er trägt keine langen Ärmel.",
-	ShortSleeve4	= "Man hat mir zugetragen, dass der Spion die kühle Luft mag und deshalb heute Abend keine langen Ärmel trägt.",
-	LongSleeve1		= "Wie ich höre, trägt der Spion heute Abend Kleidung mit langen Ärmeln.",
-	LongSleeve2		= "Jemand sagte, dass der Spion heute Abend seine Arme mit langen Ärmeln bedeckt.",
-	LongSleeve3		= "Ich habe am frühen Abend einen kurzen Blick auf die langen Ärmel des Spions erhascht.",
-	LongSleeve4		= "Einer meiner Freunde erwähnte, dass der Spion lange Ärmel trägt.",
-	Potions1		= "Ich hörte, dass der Spion Tränke mitgebracht hat... Ich frage mich wieso?",
-	Potions2		= "Von mir habt Ihr das nicht... aber der Spion verkleidet sich als Alchemist und trägt Tränke an seinem Gürtel.",
-	Potions3		= "Ich bin mir ziemlich sicher, dass der Spion Tränke am Gürtel trägt.",
-	Potions4		= "Wie ich hörte, hat der Spion einige Tränke mitgebracht... für alle Fälle.",
-	NoPotions1		= "Wie ich hörte, hat der Spion keine Tränke bei sich.",
-	NoPotions2		= "Eine Musikerin erzählte mir, dass sie gesehen hat, wie der Spion seinen letzten Trank wegwarf und jetzt keinen mehr übrig hat.",
-	Book1			= "Ich hörte, dass der Spion immer ein Buch mit niedergeschriebenen Geheimnissen am Gürtel trägt.",
-	Book2			= "Gerüchte zufolge liest der Spion gerne und trägt immer mindestens ein Buch bei sich.",
-	Pouch1			= "Ich hörte, dass der Spion immer einen magischen Beutel mit sich herumträgt.",
-	Pouch2			= "Ein Freund behauptet, dass der Spion Gold liebt und einen Gürtelbeutel voll davon hat.",
-	Pouch3			= "Ich hörte, dass der Gürtelbeutel des Spions mit ausgefallenem Garn gesäumt wurde.",
-	Pouch4			= "Mir ist zu Ohren gekommen, dass der Gürtelbeutel des Spions mit Gold gefüllt ist, um besonders extravagant zu erscheinen.",
-    --
-    Gloves        = "Handschuhe",
-    NoGloves    = "keine Handschuhe",
-    Cape        = "Umhang",
-    Nocape        = "kein Umhang",
-    LightVest    = "helle Weste",
-    DarkVest    = "dunkle Weste",
-    Female        = "weiblich",
-    Male        = "männlich",
-    ShortSleeve = "kurze Ärmel",
-    LongSleeve    = "lange Ärmel",
-    Potions        = "Tränke",
-    NoPotions    = "keine Tränke",
-    Book        = "Buch",
-    Pouch        = "Beutel"
+	Gloves1			= "On m’a raconté que la taupe portait des gants pour masquer d’affreuses cicatrices.",
+	Gloves2			= "On dit que la taupe porte toujours des gants.",
+	Gloves3			= "Le bruit court que la taupe porte toujours des gants.",
+	Gloves4			= "Il paraît que la taupe prend toujours soin de cacher ses mains.",
+	NoGloves1		= "Vous savez… J’ai trouvé une paire de gants abandonnée dans l’arrière-salle. Il faut croire que la taupe n’en porte pas.",
+	NoGloves2		= "J’ai entendu dire que la taupe évite de porter des gants, de crainte que cela ne nuise à sa dextérité.",
+	NoGloves3		= "On dit que la taupe déteste porter des gants.",
+	NoGloves4		= "Le bruit court que la taupe ne porte jamais de gants.",
+	Cape1			= "Quelqu’un affirme que la taupe portait une cape lors de son passage ici.",
+	Cape2			= "On dit que la taupe aime porter des capes.",
+	NoCape1			= "Il paraît que la taupe n’aime pas les capes et refuse d’en porter.",
+	NoCape2			= "J’ai entendu dire que la taupe avait laissé sa cape au palais avant de venir ici.",
+	LightVest1		= "On raconte que la taupe ne porte pas de gilet sombre ce soir.",
+	LightVest2		= "Il paraît que la taupe porte un gilet clair ce soir.",
+	LightVest3		= "La taupe préfère les gilets de couleur claire.",
+	DarkVest1		= "La taupe préfère les gilets sombres… comme la nuit.",
+	DarkVest2		= "J’ai entendu dire que la taupe porte un gilet de couleur sombre ce soir.",
+	DarkVest3		= "D’après les rumeurs, la taupe évite les tenues de couleur claire pour mieux se fondre dans la masse.",
+	DarkVest4		= "Une chose est sûre, la taupe préfère les vêtements sombres.",
+	Female1			= "Quelqu’un l’a vue arriver en compagnie d’Élisande.",
+	Female2			= "Le bruit court que notre hôte ne serait pas un homme.",
+	Female3			= "On dit que la taupe est ici et que c’est une vraie beauté.",
+	Female4			= "On me dit qu’une femme ne cesse de poser des questions à propos du quartier…",
+	Male1			= "À en croire la rumeur, la taupe ne serait pas une espionne.",
+	Male2			= "À en croire l’un des musiciens, il n’arrêtait pas de poser des questions sur le quartier.",
+	Male3			= "Une invitée l’aurait vu entrer dans le manoir au côté de la grande magistrice.",
+	Male4			= "Il paraît que l’espion est ici et qu’il est fort séduisant, de surcroît.",
+	ShortSleeve1	= "Quelqu’un m’a dit que la taupe détestait porter des manches longues.",
+	ShortSleeve2	= "Une de mes amies prétend avoir vu la tenue que porte notre taupe. À l’en croire, ce ne serait pas un habit à manches longues.",
+	ShortSleeve3	= "Il paraît que la taupe porte des manches courtes pour rester plus libre de ses mouvements.",
+	ShortSleeve4	= "Il paraît que la taupe aime sentir la caresse du vent sur sa peau et ne porte pas de manches longues ce soir.",
+	LongSleeve1 	= "D’après l’un de mes amis, la taupe porterait un habit à manches longues.",
+	LongSleeve2 	= "Il paraît que la taupe porte une tenue à manches longues ce soir.",
+	LongSleeve3 	= "J’ai brièvement entraperçu la taupe dans sa tenue à manches longues tout à l’heure.",
+	LongSleeve4 	= "Quelqu’un m’a dit que les bras de la taupe étaient dissimulés par un habit à manches longues, ce soir.",
+	Potions1		= "La taupe porte des potions à la ceinture. J’en mettrais ma main au feu !",
+	Potions2		= "Ça reste entre nous… La taupe se fait passer pour un alchimiste et porte des potions à sa ceinture.",
+	Potions3		= "J’ai entendu dire que la taupe a apporté quelques potions… au cas où.",
+	Potions4		= "J’ai entendu dire que la taupe a apporté quelques potions. Je me demande bien pourquoi.",
+	NoPotions1		= "Une musicienne m’a dit avoir vu la taupe jeter sa dernière potion. Il semblerait donc qu’il ne lui en reste plus.",
+	NoPotions2		= "Il paraît que la taupe ne transporte aucune potion.",
+	Book1			= "Il paraît que la taupe porte toujours un livre des secrets à sa ceinture.",
+	Book2			= "Le bruit court que la taupe adore lire et transporte toujours au moins un livre.",
+	Pouch1			= "On raconte que la taupe ne se sépare jamais de sa sacoche magique.",
+	Pouch2			= "D’après l’un de mes amis, la taupe aime l’or et les sacoches qui en sont pleines.",
+	Pouch3			= "On raconte que la sacoche de la taupe est pleine d’or. Si ça, ce n’est pas un signe extérieur de richesse…",
+	Pouch4			= "On raconte que la sacoche de la taupe est bordée d’une élégante broderie.",
+	--
+	Gloves		= "gloves",
+	NoGloves	= "no gloves",
+	Cape		= "cape",
+	Nocape		= "no cape",
+	LightVest	= "light vest",
+	DarkVest	= "dark vest",
+	Female		= "female",
+	Male		= "male",
+	ShortSleeve = "short sleeves",
+	LongSleeve	= "long sleeves",
+	Potions		= "potions",
+	NoPotions	= "no potions",
+	Book		= "book",
+	Pouch		= "pouch"
 })
 
 
@@ -343,7 +343,7 @@ L= DBM:GetModLocalization(1663)
 L = DBM:GetModLocalization("MawTrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash des Seelenschlundes"
+	name =	"Maw of Souls Trash"
 })
 
 -----------------------
@@ -395,13 +395,13 @@ L= DBM:GetModLocalization(1711)
 L = DBM:GetModLocalization("AVHTrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash des Sturms auf die VF"
+	name =	"Assault Violet Hold Trash"
 })
 
 L:SetWarningLocalization({
-	WarningPortalSoon	= "Neues Portal bald",
-	WarningPortalNow	= "Portal %d",
-	WarningBossNow		= "Boss kommt"
+	WarningPortalSoon	= "New portal soon",
+	WarningPortalNow	= "Portal #%d",
+	WarningBossNow		= "Boss incoming"
 })
 
 L:SetTimerLocalization({
@@ -409,10 +409,10 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	WarningPortalNow		= "Zeige Warnung für neues Portal",
-	WarningPortalSoon		= "Zeige Vorwarnung für neues Portal",
-	WarningBossNow			= "Zeige Warnung für neuen Boss",
-	TimerPortal				= "Zeige Timer für nächstes Portal (nach einem Boss)"
+	WarningPortalNow		= "Show warning for new portal",
+	WarningPortalSoon		= "Show pre-warning for new portal",
+	WarningBossNow			= "Show warning for boss incoming",
+	TimerPortal				= "Show timer for next portal (after Boss)"
 })
 
 L:SetMiscLocalization({
@@ -453,7 +453,7 @@ L= DBM:GetModLocalization(1470)
 L = DBM:GetModLocalization("VoWTrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash des Verlieses der Wächterinnen"
+	name =	"Vault of Wardens Trash"
 })
 
 -----------------------
@@ -515,7 +515,7 @@ L= DBM:GetModLocalization(1838)
 L = DBM:GetModLocalization("Nightbane")
 
 L:SetGeneralLocalization({
-	name =	"Schrecken der Nacht"
+	name =	"Nightbane"
 })
 
 -----------------------
@@ -524,10 +524,42 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("RTKTrash")
 
 L:SetGeneralLocalization({
-	name =	"Trash der Rückkehr nach Karazhan"
+	name =	"Return To Karazhan Trash"
 })
 
 L:SetMiscLocalization({
-	speedRun		=	"Die seltsame Kühle einer dunklen Präsenz durchweht die Luft..."
+	speedRun		=	"The strange chill of a dark presence winds through the air..."
+})
+
+-----------------------
+-- <<<Cathedral of Eternal Night >>> --
+-----------------------
+-----------------------
+-- Agronox --
+-----------------------
+L= DBM:GetModLocalization(1905)
+
+-----------------------
+-- Trashbite the Scornful  --
+-----------------------
+L= DBM:GetModLocalization(1906)
+
+-----------------------
+-- Domatrax --
+-----------------------
+L= DBM:GetModLocalization(1904)
+
+-----------------------
+-- Mephistroth  --
+-----------------------
+L= DBM:GetModLocalization(1878)
+
+-----------------------
+--Cathedral of Eternal Night Trash
+-----------------------
+L = DBM:GetModLocalization("CoENTrash")
+
+L:SetGeneralLocalization({
+	name =	"Cathedral of Eternal Night Trash"--Maybe something shorter?
 })
 

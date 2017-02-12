@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1762, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15820 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15893 $"):sub(12, -3))
 mod:SetCreatureID(103685)
 mod:SetEncounterID(1862)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)--Unknown carrions
-mod:SetHotfixNoticeRev(15736)
+mod:SetHotfixNoticeRev(15892)
 mod.respawnTime = 30
 
 mod:RegisterCombat("combat")
@@ -61,7 +61,7 @@ local timerIllusionaryNightCD		= mod:NewNextCountTimer(125, 206365, nil, nil, ni
 local timerIllusionaryNight			= mod:NewBuffActiveTimer(32, 206365, nil, nil, nil, 6)
 local timerAddsCD					= mod:NewAddsTimer(25, 216726, nil, "-Healer")
 
-local berserkTimer					= mod:NewBerserkTimer(480)
+local berserkTimer					= mod:NewBerserkTimer(470)
 
 local countdownSeekerSwarm			= mod:NewCountdown(25, 213238)
 local countdownEchoesOfVoid			= mod:NewCountdown("Alt65", 213531)
@@ -212,7 +212,7 @@ function mod:OnCombatEnd()
 		DBMHudMap:Disable()
 	end
 	if self.Options.NPAuraOnCarrionPlague then
-		DBM.Nameplate:Hide(nil, true)
+		DBM.Nameplate:Hide(false, nil, nil, nil, true)
 	end
 end
 
@@ -335,6 +335,15 @@ function mod:SPELL_CAST_START(args)
 			DBM.InfoFrame:SetHeader(essenceOfNightDebuff)
 			DBM.InfoFrame:Show(10, "playerbaddebuff", essenceOfNightDebuff, nil, true)
 		end
+		if self.Options.NPAuraOnCarrionPlague then
+			--Force kill them all going into this phase, even before debuffs are gone
+			for uId in DBM:GetGroupMembers() do
+				local Name = DBM:GetUnitFullName(uId)
+				if Name then
+					DBM.Nameplate:Hide(false, Name, 206480, 1029009)
+				end
+			end
+		end
 	elseif spellId == 216034 and self:CheckInterruptFilter(args.sourceGUID) then
 		specWarnBlastNova:Show(args.sourceName)
 		voiceBlastNova:Play("kickcast")
@@ -402,7 +411,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			voiceCarrionPlague:Play("scatter")
 		end
 		if self.Options.NPAuraOnCarrionPlague then
-			DBM.Nameplate:Show(args.destGUID, spellId)
+			DBM.Nameplate:Show(false, args.destName, spellId)
 		end
 	elseif spellId == 212794 then
 		argusTargets[#argusTargets+1] = args.destName
@@ -455,7 +464,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		DBM.RangeCheck:Hide()
 	elseif spellId == 206480 then
 		if self.Options.NPAuraOnCarrionPlague then
-			DBM.Nameplate:Hide(args.destGUID)
+			DBM.Nameplate:Hide(false, args.destName, spellId, 1029009)
 		end
 	end
 end

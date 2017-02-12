@@ -1,18 +1,18 @@
 local mod	= DBM:NewMod(1713, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15840 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15885 $"):sub(12, -3))
 mod:SetCreatureID(101002)
 mod:SetEncounterID(1842)
 mod:SetZone()
 --mod:SetUsedIcons(8, 7, 6, 3, 2, 1)
 mod:SetHotfixNoticeRev(15740)
-mod.respawnTime = 25--or 30
+mod.respawnTime = 29--or 30
 
 mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
-	"SPELL_CAST_START 205368 205370 205420 209017 206352 205862 205361",
+	"SPELL_CAST_START 205368 205370 205420 209017 206351 205862 205361",
 	"SPELL_AURA_APPLIED 206677 205344",
 	"SPELL_AURA_APPLIED_DOSE 206677",
 	"SPELL_AURA_REMOVED 205344",
@@ -35,7 +35,7 @@ local yellOrbDestro					= mod:NewFadesYell(205344)
 local specWarnBurningPitch			= mod:NewSpecialWarningCount(205420, nil, nil, nil, 2, 6)
 local specWarnSlam					= mod:NewSpecialWarningRun(205862, nil, nil, nil, 4, 2)
 local specWarnFelBlast				= mod:NewSpecialWarningInterrupt(209017, false, nil, 2, 1, 2)
-local specWarnFelBurst				= mod:NewSpecialWarningInterrupt(206352, "HasInterrupt", nil, nil, 1, 2)
+local specWarnFelBurst				= mod:NewSpecialWarningInterrupt(206351, "HasInterrupt", nil, nil, 1, 2)
 
 local timerSearingBrand				= mod:NewTargetTimer(20, 206677, nil, "Tank", nil, 5)
 local timerFelBeamCD				= mod:NewNextCountTimer(16, 205368, 173303, nil, nil, 3)--Short text "Beam"
@@ -54,11 +54,10 @@ local voiceOrbDestro				= mod:NewVoice(205344)--runout
 local voiceBurningPitch				= mod:NewVoice(205420)--watchstep/helpsoak(new)
 local voiceSlam						= mod:NewVoice(205862)--justrun
 local voiceFelBlast					= mod:NewVoice(209017, false, nil, 2)--kickcast
-local voiceFelBurst					= mod:NewVoice(206352, "HasInterrupt")--kickcast
+local voiceFelBurst					= mod:NewVoice(206351, "HasInterrupt")--kickcast
 
-mod:AddRangeFrameOption(5, 206352)
---mod:AddSetIconOption("SetIconOnMC", 163472, false)
-mod:AddInfoFrameOption(215944, false)
+mod:AddRangeFrameOption(5, 206351)
+mod:AddSetIconOption("SetIconOnAdds", "ej12914", true, true)
 mod:AddArrowOption("ArrowOnBeam3", 205368, true)
 
 local burningPitchDebuff = GetSpellInfo(215944)
@@ -85,6 +84,7 @@ mod.vb.firstBeam = 0--0 Not sent, 1 Left, 2 Right
 
 --/run DBMUpdateKrosusBeam(wasLeft)
 --Global on purpose for external mod support
+--DBM:GetModByName("1713"):SendBigWigsSync("firstBeamWasLeft")
 function DBMUpdateKrosusBeam(wasLeft)
 	if wasLeft then
 		mod.vb.firstBeam = 1
@@ -129,16 +129,9 @@ function mod:OnCombatStart(delay)
 		countdownBigSlam:Start(-delay)
 		berserkTimer:Start(-delay)
 	end
-	if self.Options.InfoFrame then
-		DBM.InfoFrame:SetHeader(burningPitchDebuff)
-		DBM.InfoFrame:Show(5, "reverseplayerbaddebuff", burningPitchDebuff)
-	end
 end
 
 function mod:OnCombatEnd()
-	if self.Options.InfoFrame then
-		DBM.InfoFrame:Hide()
-	end
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
@@ -199,15 +192,20 @@ function mod:SPELL_CAST_START(args)
 		if timers then
 			timerBurningPitchCD:Start(timers, nextCount)
 		end
-	elseif spellId == 209017 and self:CheckInterruptFilter(args.sourceGUID) then
-		specWarnFelBlast:Show(args.sourceName)
-		voiceFelBlast:Play("kickcast")
-	elseif spellId == 206352 then
+	elseif spellId == 209017 then
+		if self:CheckInterruptFilter(args.sourceGUID) then
+			specWarnFelBlast:Show(args.sourceName)
+			voiceFelBlast:Play("kickcast")
+		end
+	elseif spellId == 206351 then
 		if not mobGUIDs[args.sourceGUID] then
 			mobGUIDs[args.sourceGUID] = true
 			self.vb.burningEmbers = self.vb.burningEmbers + 1
 			if self.Options.RangeFrame and not DBM.RangeCheck:IsShown() then
 				DBM.RangeCheck:Show(5)
+			end
+			if self.Options.SetIconOnAdds then
+				self:ScanForMobs(args.sourceGUID, 0, 8, 8, 0.1, 15, "SetIconOnAdds")
 			end
 		end
 		if self:CheckInterruptFilter(args.sourceGUID) then

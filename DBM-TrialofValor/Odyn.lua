@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1819, "DBM-TrialofValor", nil, 861)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15840 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15881 $"):sub(12, -3))
 mod:SetCreatureID(114263, 114361, 114360)--114263 Odyn, 114361 Hymdall, 114360 Hyrja 
 mod:SetEncounterID(1958)
 mod:SetZone()
@@ -261,7 +261,7 @@ function mod:OnCombatEnd()
 		DBM.InfoFrame:Hide()
 	end
 	if self.Options.NPAuraOnRunicBrand and self:IsMythic() then
-		DBM.Nameplate:Hide(nil, true)
+		DBM.Nameplate:Hide(false, nil, nil, nil, true)
 	end
 end
 
@@ -484,7 +484,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			updateRangeFrame(self)
 		end
 		if self.Options.NPAuraOnRunicBrand then
-			DBM.Nameplate:Show(args.destGUID, spellId, nil, 10)
+			DBM.Nameplate:Show(false, args.destName, spellId, nil, 10)
 		end
 	end
 end
@@ -510,7 +510,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			playerDebuff = nil
 		end
 		if self.Options.NPAuraOnRunicBrand then
-			DBM.Nameplate:Hide(args.destGUID)
+			DBM.Nameplate:Hide(false, args.destName, spellId)
 		end
 	end
 end

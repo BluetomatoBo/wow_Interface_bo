@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1751, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15840 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15881 $"):sub(12, -3))
 mod:SetCreatureID(104881)
 mod:SetEncounterID(1871)
 mod:SetZone()
 mod:SetUsedIcons(8, 7, 6, 5, 4, 3, 2, 1)
-mod:SetHotfixNoticeRev(15756)
+mod:SetHotfixNoticeRev(15854)
 
 mod:RegisterCombat("combat")
 
@@ -224,7 +224,7 @@ function mod:OnCombatEnd()
 		DBM.InfoFrame:Hide()
 	end
 	if self.Options.NPAuraOnMarkOfFrost then
-		DBM.Nameplate:Hide(nil, true)
+		DBM.Nameplate:Hide(false, nil, nil, nil, true)
 	end
 end
 
@@ -386,7 +386,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			yellMarkofFrost:Yell()
 		end
 		if self.Options.NPAuraOnMarkOfFrost then
-			DBM.Nameplate:Show(args.destGUID, spellId, nil, 5)
+			DBM.Nameplate:Show(false, args.destName, spellId, nil, 5)
 		end
 	elseif spellId == 212587 then
 		if args:IsPlayer() and self:AntiSpam(7, args.destName) then
@@ -395,7 +395,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			yellMarkofFrost:Yell()
 		end
 		if self.Options.NPAuraOnMarkOfFrost then
-			DBM.Nameplate:Show(args.destGUID, spellId)
+			DBM.Nameplate:Show(false, args.destName, spellId)
 		end
 	elseif spellId == 213148 then--Searing Brand (5sec Targetting Debuff)
 		warnSearingBrandChosen:CombinedShow(0.3, args.destName)
@@ -439,7 +439,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			countdownMarkOfFrost:Cancel()
 		end
 		if self.Options.NPAuraOnMarkOfFrost then
-			DBM.Nameplate:Hide(args.destGUID, spellId)
+			DBM.Nameplate:Hide(false, args.destName, spellId)
 		end
 	elseif spellId == 213148 and args:IsPlayer() then--Searing Brand (5sec Targetting Debuff)
 		countdownSearingBrand:Cancel()
@@ -447,7 +447,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		timerFelSoul:Stop()
 	elseif spellId == 212587 then
 		if self.Options.NPAuraOnMarkOfFrost then
-			DBM.Nameplate:Hide(args.destGUID, spellId)
+			DBM.Nameplate:Hide(false, args.destName, spellId)
 		end
 	end
 end

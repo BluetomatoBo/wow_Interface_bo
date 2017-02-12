@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1732, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15846 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15881 $"):sub(12, -3))
 mod:SetCreatureID(103758)
 mod:SetEncounterID(1863)
 mod:SetZone()
@@ -17,8 +17,8 @@ mod:RegisterEventsInCombat(
 	"SPELL_AURA_APPLIED 205429 216344 216345 205445 205984 214335 214167 206585 206936 205649 207143 206398",
 	"SPELL_AURA_REMOVED 205429 216344 216345 205445 205984 214335 214167 206585 206936 205649 207143",
 	"SPELL_SUMMON 207813",
-	"SPELL_PERIODIC_DAMAGE 206398",
-	"SPELL_PERIODIC_MISSED 206398",
+--	"SPELL_PERIODIC_DAMAGE 206398",
+--	"SPELL_PERIODIC_MISSED 206398",
 	"UNIT_DIED",
 	"UNIT_SPELLCAST_SUCCEEDED boss1",
 	"UNIT_AURA player"
@@ -280,20 +280,14 @@ local function showConjunction(self, delayedAuras)
 		if delayedAuras then
 			for i = 1, #crabs do
 				local name = crabs[i]
-				local guid = DBM:GetPlayerGUIDByName(name)
-				if guid then
-					DBM.Nameplate:Show(guid, 205429, playerAffected and 236595 or nil, 10)
-				end
+				DBM.Nameplate:Show(false, name, 205429, playerAffected and 236595 or nil, 9.5)
 			end
 		end
 	else
 		if delayedAuras then
 			for i = 1, #crabs do
 				local name = crabs[i]
-				local guid = DBM:GetPlayerGUIDByName(name)
-				if guid then
-					DBM.Nameplate:Show(guid, 205429, playerAffected and 236612 or nil, 10)
-				end
+				DBM.Nameplate:Show(false, name, 205429, playerAffected and 236612 or nil, 9.5)
 			end
 		end
 	end
@@ -302,64 +296,46 @@ local function showConjunction(self, delayedAuras)
 		if delayedAuras then
 			for i = 1, #dragons do
 				local name = dragons[i]
-				local guid = DBM:GetPlayerGUIDByName(name)
-				if guid then
-					DBM.Nameplate:Show(guid, 216344, playerAffected and 236595 or nil, 10)
-				end
+				DBM.Nameplate:Show(false, name, 216344, playerAffected and 236595 or nil, 9.5)
 			end
 		end
 	else
 		if delayedAuras then
 			for i = 1, #dragons do
 				local name = dragons[i]
-				local guid = DBM:GetPlayerGUIDByName(name)
-				if guid then
-					DBM.Nameplate:Show(guid, 216344, playerAffected and 236612 or nil, 10)
-				end
+				DBM.Nameplate:Show(false, name, 216344, playerAffected and 236612 or nil, 9.5)
 			end
 		end
 	end
-	if not UnitDebuff("player", hunterDebuff) then
+	if UnitDebuff("player", hunterDebuff) then
 		warnStarSignHunter:Show(table.concat(hunters, "<, >"))
 		if delayedAuras then
 			for i = 1, #hunters do
 				local name = hunters[i]
-				local guid = DBM:GetPlayerGUIDByName(name)
-				if guid then
-					DBM.Nameplate:Show(guid, 216345, playerAffected and 236595 or nil, 10)
-				end
+				DBM.Nameplate:Show(false, name, 216345, playerAffected and 236595 or nil, 9.5)
 			end
 		end
 	else
 		if delayedAuras then
 			for i = 1, #hunters do
 				local name = hunters[i]
-				local guid = DBM:GetPlayerGUIDByName(name)
-				if guid then
-					DBM.Nameplate:Show(guid, 216345, playerAffected and 236612 or nil, 10)
-				end
+				DBM.Nameplate:Show(false, name, 216345, playerAffected and 236612 or nil, 9.5)
 			end
 		end
 	end
-	if not UnitDebuff("player", wolfDebuff) then
+	if UnitDebuff("player", wolfDebuff) then
 		warnStarSignWolf:Show(table.concat(wolves, "<, >"))
 		if delayedAuras then
 			for i = 1, #wolves do
 				local name = wolves[i]
-				local guid = DBM:GetPlayerGUIDByName(name)
-				if guid then
-					DBM.Nameplate:Show(guid, 205445, playerAffected and 236595 or nil, 10)
-				end
+				DBM.Nameplate:Show(false, name, 205445, playerAffected and 236595 or nil, 9.5)
 			end
 		end
 	else
 		if delayedAuras then
 			for i = 1, #wolves do
 				local name = wolves[i]
-				local guid = DBM:GetPlayerGUIDByName(name)
-				if guid then
-					DBM.Nameplate:Show(guid, 205445, playerAffected and 236612 or nil, 10)
-				end
+				DBM.Nameplate:Show(false, name, 205445, playerAffected and 236612 or nil, 9.5)
 			end
 		end
 	end
@@ -393,7 +369,10 @@ function mod:OnCombatEnd()
 		DBMHudMap:Disable()
 	end
 	if self.Options.NPAuraOnConjunction and self:IsMythic() then
-		DBM.Nameplate:Hide(nil, true)
+		DBM.Nameplate:Hide(false, nil, nil, nil, true)
+	end
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
 	end
 end
 
@@ -417,7 +396,7 @@ function mod:SPELL_CAST_START(args)
 			timerConjunctionCD:Start(timers, self.vb.grandConCount+1)
 		end
 		updateRangeFrame(self, true)
-		self:Schedule(5, showConjunction, self, self.Options.NPAuraOnConjunction and self.Options.ShowCustomNPAuraTextures)
+		self:Schedule(4.5, showConjunction, self, self.Options.NPAuraOnConjunction and self.Options.ShowCustomNPAuraTextures)
 		table.wipe(crabs)
 		table.wipe(dragons)
 		table.wipe(hunters)
@@ -578,7 +557,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		end
 		if self.Options.NPAuraOnConjunction and not self.Options.ShowCustomNPAuraTextures then
-			DBM.Nameplate:Show(args.destGUID, spellId, nil, 10)
+			DBM.Nameplate:Show(false, args.destName, spellId, nil, 10)
 		end
 	elseif spellId == 206464 then
 		warnCoronalEjection:CombinedShow(0.5, args.destName)
@@ -667,7 +646,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			tDeleteItem(wolves, args.destName)
 		end
 		if self.Options.NPAuraOnConjunction then
-			DBM.Nameplate:Hide(args.destGUID)
+			DBM.Nameplate:Hide(false, args.destName)--Doesn't send spell texture, because it one of 3 for any given sign, so wipe all for good measure
 		end
 	elseif spellId == 205984 or spellId == 214335 or spellId == 214167 then
 		if args:IsPlayer() then
@@ -699,6 +678,7 @@ function mod:UNIT_DIED(args)
 	end
 end
 
+--[[
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 206398 and destGUID == UnitGUID("player") and self:AntiSpam(2, 1) and not UnitDebuff("Player", gravPullDebuff) then
 		specWarnFelFlame:Show()
@@ -706,6 +686,7 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
+--]]
 
 --Phases can also be done with Nether Traversal (221875) with same timing.
 --However, this is more robust since unique spellids for each phase is better than same used for all 3

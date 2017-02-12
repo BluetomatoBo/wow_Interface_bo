@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 15846 $"):sub(12, -3)),
-	DisplayVersion = "7.1.13", -- the string that is shown as version
-	ReleaseRevision = 15846 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 15893 $"):sub(12, -3)),
+	DisplayVersion = "7.1.14", -- the string that is shown as version
+	ReleaseRevision = 15893 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -2114,14 +2114,16 @@ do
 			DBM:AddMsg("Debug Message is " .. (DBM.Options.DebugMode and "ON" or "OFF"))
 		elseif cmd:sub(1, 8) == "whereiam" or cmd:sub(1, 8) == "whereami" then
 			if DBM:HasMapRestrictions() then
-				DBM:AddMsg("Location debug not available do to instance restrictions")
-				return
+				local _, _, _, map = UnitPosition("player")
+				local mapID = GetCurrentMapAreaID()
+				DBM:AddMsg(("Location Information\nYou are at zone %u (%s).\nLocal Map ID %u (%s)"):format(map, GetRealZoneText(map), mapID, GetZoneText()))
+			else
+				local x, y, _, map = UnitPosition("player")
+				SetMapToCurrentZone()
+				local mapID = GetCurrentMapAreaID()
+				local mapx, mapy = GetPlayerMapPosition("player")
+				DBM:AddMsg(("Location Information\nYou are at zone %u (%s): x=%f, y=%f.\nLocal Map ID %u (%s): x=%f, y=%f"):format(map, GetRealZoneText(map), x, y, mapID, GetZoneText(), mapx, mapy))
 			end
-			local x, y, _, map = UnitPosition("player")
-			SetMapToCurrentZone()
-			local mapID = GetCurrentMapAreaID()
-			local mapx, mapy = GetPlayerMapPosition("player")
-			DBM:AddMsg(("Location Information\nYou are at zone %u (%s): x=%f, y=%f.\nLocal Map ID %u (%s): x=%f, y=%f"):format(map, GetRealZoneText(map), x, y, mapID, GetZoneText(), mapx, mapy))
 		elseif cmd:sub(1, 7) == "request" then
 			DBM:Unschedule(DBM.RequestTimers)
 			DBM:RequestTimers(1)
@@ -10822,7 +10824,7 @@ function bossModPrototype:SendSync(event, ...)
 	end
 end
 
-function bossModPrototype:SendBigWigsSync(event, msg, extra)
+function bossModPrototype:SendBigWigsSync(msg, extra)
 	msg = "B^".. msg
 	if extra then
 		msg = msg .."^".. extra
