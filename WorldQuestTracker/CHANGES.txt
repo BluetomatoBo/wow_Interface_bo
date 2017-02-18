@@ -1,5 +1,11 @@
-changeset:   111:a449abbf1e73
+changeset:   112:572b1468a547
 tag:         tip
+user:        Tercio
+date:        Thu Feb 16 14:57:59 2017 -0200
+summary:     - re enabled sound and animations when adding a quest to the tracker.
+
+
+changeset:   111:a449abbf1e73
 user:        Tercio
 date:        Tue Feb 07 13:50:18 2017 -0200
 summary:     - added option to show only quests that are being tracked.
@@ -597,11 +603,5 @@ changeset:   12:b9e4a0395971
 user:        Tercio
 date:        Thu Jul 14 14:25:11 2016 -0300
 summary:     updates.
-
-
-changeset:   11:294f506fb9f4
-user:        Tercio
-date:        Thu Jul 14 02:06:51 2016 -0300
-summary:     -updates
 
 
