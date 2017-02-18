@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1761, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15881 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15917 $"):sub(12, -3))
 mod:SetCreatureID(104528)--109042
 mod:SetEncounterID(1886)
 mod:SetZone()
@@ -146,7 +146,7 @@ function mod:OnCombatStart(delay)
 	self.vb.phase = 1
 	if self:IsMythic() then
 		self:SetCreatureID(109038, 109040, 109041)		
-		self.vb.globalTimer = 64--Needs updating
+		self.vb.globalTimer = 64
 		timerSolarCollapseCD:Start(5-delay)
 		timerParasiticFetterCD:Start(16-delay)--16-18
 		countdownParasiticFetter:Start(16-delay)
@@ -612,7 +612,7 @@ end
 
 function mod:UNIT_HEALTH(uId)
 	local cid = self:GetUnitCreatureId(uId)
-	if cid == 109804 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.15 then
+	if cid == 109804 and UnitHealth(uId) / UnitHealthMax(uId) <= 0.25 then
 		local guid = UnitGUID(uId)
 		if not sentLowHP[guid] then
 			sentLowHP[guid] = true

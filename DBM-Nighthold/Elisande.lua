@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1743, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15893 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15913 $"):sub(12, -3))
 mod:SetCreatureID(106643)
 mod:SetEncounterID(1872)
 mod:SetZone()
@@ -72,7 +72,7 @@ local specWarnAblationExplosionOut	= mod:NewSpecialWarningMoveAway(209615, nil, 
 local yellAblatingExplosion			= mod:NewFadesYell(209973)
 --Time Layer 3
 local specWarnConflexiveBurst		= mod:NewSpecialWarningYou(209598, nil, nil, nil, 1, 2)
-local specWarnAblativePulse			= mod:NewSpecialWarningInterrupt(209971, "HasInterrupt", nil, nil, 1, 2)
+local specWarnAblativePulse			= mod:NewSpecialWarningInterrupt(209971, "Tank", nil, 2, 1, 2)
 
 --Base
 local timerLeaveNightwell			= mod:NewCastTimer(9.8, 208863, nil, nil, nil, 6)
@@ -127,7 +127,7 @@ local voiceEpochericOrb				= mod:NewVoice(210022, "-Tank", nil, 2)--161612(catch
 local voiceAblatingExplosion		= mod:NewVoice(209973)--runout/tauntboss
 --Time Layer 3
 local voiceConflexiveBurst			= mod:NewVoice(209598)--targetyou (review for better voice)
-local voiceAblativePulse			= mod:NewVoice(209971, "HasInterrupt")--kickcast
+local voiceAblativePulse			= mod:NewVoice(209971, "Tank", nil, 2)--kickcast
 
 mod:AddRangeFrameOption(8, 209973)
 mod:AddInfoFrameOption(209598)
@@ -223,7 +223,7 @@ function mod:OnCombatStart(delay)
 	self.vb.pos5X, self.vb.pos5Y = nil, nil
 	self.vb.pos6X, self.vb.pos6Y = nil, nil
 	self.vb.pos7X, self.vb.pos7Y = nil, nil
-	timerLeaveNightwell:Start(4)
+	timerLeaveNightwell:Start(4-delay)
 	timerTimeElementalsCD:Start(5-delay, SLOW)
 	timerTimeElementalsCD:Start(8-delay, FAST)
 	--timerAblationCD:Start(8.5-delay)--Verify/tweak
@@ -393,6 +393,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			voiceDelphuricBeam:Play("targetyou")
 			yellDelphuricBeam:Yell()
 		end
+		if self.Options.NPAuraOnBeam then
+			DBM.Nameplate:Show(false, args.destName, spellId)
+		end
 		--TODO, phase 3 lines need exact location of the echo ( map coords )
 		if self.Options.HudMapOnDelphuricBeam and not self:HasMapRestrictions() then
 			self:Unschedule(checkPlayerDot)
@@ -432,9 +435,6 @@ function mod:SPELL_AURA_APPLIED(args)
 					DBMHudMap:AddEdge(1, 0, 0, 0.5, 4, nil, args.destName, EchoX, EchoY, nil, nil, 125)
 				end
 			end
-		end
-		if self.Options.NPAuraOnBeam then
-			DBM.Nameplate:Show(false, args.destName, spellId)
 		end
 	elseif spellId == 209973 then
 		warnAblatingExplosion:Show(args.destName)

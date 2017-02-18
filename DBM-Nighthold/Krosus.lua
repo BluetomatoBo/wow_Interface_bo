@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1713, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15885 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 15915 $"):sub(12, -3))
 mod:SetCreatureID(101002)
 mod:SetEncounterID(1842)
 mod:SetZone()
@@ -226,10 +226,10 @@ function mod:SPELL_CAST_START(args)
 			warnSlamSoon:Schedule(89, 1)
 		else
 			warnSlam:Show(self.vb.slamCount)
-			if self:IsMeleeDps() then
-				--Warn melee to run out of all of them
-				specWarnSlam:Show()
-				voiceSlam:Play("justrun")
+			if self:IsTank() then
+				voiceSlam:Play("helpsoak")
+			else
+				voiceSlam:Play("watchstep")
 			end
 		end
 	elseif spellId == 205361 then

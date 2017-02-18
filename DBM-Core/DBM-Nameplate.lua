@@ -10,7 +10,7 @@ local units = {}
 local num_units = 0
 local playerName, playerGUID = UnitName("player"), UnitGUID("player")--Cache these, they never change
 local GetNamePlateForUnit, GetNamePlates = C_NamePlate.GetNamePlateForUnit, C_NamePlate.GetNamePlates
-local twipe, floor = table.wipe, table.floor
+local twipe, floor = table.wipe, math.floor
 
 --------------------
 --  Create Frame  --
@@ -242,16 +242,13 @@ function nameplateFrame:Show(isGUID, unit, spellId, texture, duration, desaturat
     if not isGUID then
         local frame = GetNamePlateForUnit(unit)
         if frame then
-            local foundUnit = frame.namePlateUnitToken
-            if foundUnit then
-                Nameplate_UnitAdded(frame, foundUnit)
-            end
+            Nameplate_UnitAdded(frame, unit)
         end
     else
         --GUID, less efficient because it must scan all plates to find
         --but supports npcs/enemies
         for _, frame in pairs(GetNamePlates()) do
-            local foundUnit = frame.namePlateUnitToken
+            local foundUnit = frame.namePlateUnitToken or (frame.UnitFrame and frame.UnitFrame.unit)
             if foundUnit and UnitGUID(foundUnit) == unit then
                 Nameplate_UnitAdded(frame, foundUnit)
                 break
@@ -277,14 +274,16 @@ function nameplateFrame:Hide(isGUID, unit, spellId, texture, force)
 
     --Not running supported NP Mod, internal handling
     if unit and units[unit] then
-        for i,this_texture in ipairs(units[unit]) do
-            if this_texture == currentTexture then
-                tremove(units[unit],i)
-                break
+        if currentTexture then
+            for i,this_texture in ipairs(units[unit]) do
+                if this_texture == currentTexture then
+                    tremove(units[unit],i)
+                    break
+                end
             end
         end
 
-        if #units[unit] == 0 then
+        if not currentTexture or #units[unit] == 0 then
             units[unit] = nil
             num_units = num_units - 1
         end
@@ -295,7 +294,11 @@ function nameplateFrame:Hide(isGUID, unit, spellId, texture, force)
     if not isGUID and not force then--Only need to find one unit
         local frame = GetNamePlateForUnit(unit)
         if frame and frame.DBMAuraFrame then
-            frame.DBMAuraFrame:RemoveAura(currentTexture)
+            if not currentTexture then
+                frame.DBMAuraFrame:RemoveAll()
+            else
+                frame.DBMAuraFrame:RemoveAura(currentTexture)
+            end
         end
     else
         --We either passed force, or GUID,
@@ -305,9 +308,13 @@ function nameplateFrame:Hide(isGUID, unit, spellId, texture, force)
                 if force then
                     frame.DBMAuraFrame:RemoveAll()
                 elseif isGUID then
-                    local foundUnit = frame.namePlateUnitToken
+                    local foundUnit = frame.namePlateUnitToken or (frame.UnitFrame and frame.UnitFrame.unit)
                     if foundUnit and UnitGUID(foundUnit) == unit then
-                        frame.DBMAuraFrame:RemoveAura(currentTexture)
+                        if not currentTexture then
+                            frame.DBMAuraFrame:RemoveAll()
+                        else
+                            frame.DBMAuraFrame:RemoveAura(currentTexture)
+                        end
                     end
                 end
             end

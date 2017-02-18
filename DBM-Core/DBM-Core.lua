@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 15893 $"):sub(12, -3)),
-	DisplayVersion = "7.1.14", -- the string that is shown as version
-	ReleaseRevision = 15893 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 15924 $"):sub(12, -3)),
+	DisplayVersion = "7.1.15", -- the string that is shown as version
+	ReleaseRevision = 15924 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -420,8 +420,9 @@ local wowVersionString, _, _, wowTOC = GetBuildInfo()
 local dbmToc = 0
 local UpdateChestTimer
 local breakTimerStart
+local AddMsg
 
-local fakeBWVersion, fakeBWHash = 42, "4a8915d"
+local fakeBWVersion, fakeBWHash = 45, "2fb6605"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -1064,12 +1065,12 @@ do
 		if activeVP ~= "None" then
 			if not self.VoiceVersions[activeVP] or (self.VoiceVersions[activeVP] and self.VoiceVersions[activeVP] == 0) then--A voice pack is selected that does not belong
 				self.Options.ChosenVoicePack = "None"--Set ChosenVoicePack back to None
-				self:AddMsg(DBM_CORE_VOICE_MISSING)
+				AddMsg(DBM, DBM_CORE_VOICE_MISSING)
 			end
 		else
 			if #self.Voices > 1 then
 				--At least one voice pack installed but activeVP set to "None"
-				self:AddMsg(DBM_CORE_VOICE_DISABLED)
+				AddMsg(DBM, DBM_CORE_VOICE_DISABLED)
 			end
 		end
 		--Check if any of countdown sounds are using missing voice pack
@@ -1094,15 +1095,15 @@ do
 			end
 		end
 		if not found1 then
-			self:AddMsg(DBM_CORE_VOICE_COUNT_MISSING:format(1))
+			AddMsg(DBM, DBM_CORE_VOICE_COUNT_MISSING:format(1))
 			self.Options.CountdownVoice = self.DefaultOptions.CountdownVoice
 		end
 		if not found2 then
-			self:AddMsg(DBM_CORE_VOICE_COUNT_MISSING:format(2))
+			AddMsg(DBM, DBM_CORE_VOICE_COUNT_MISSING:format(2))
 			self.Options.CountdownVoice2 = self.DefaultOptions.CountdownVoice2
 		end
 		if not found3 then
-			self:AddMsg(DBM_CORE_VOICE_COUNT_MISSING:format(3))
+			AddMsg(DBM, DBM_CORE_VOICE_COUNT_MISSING:format(3))
 			self.Options.CountdownVoice3v2 = self.DefaultOptions.CountdownVoice3v2
 		end
 		self:BuildVoiceCountdownCache()
@@ -1116,13 +1117,6 @@ do
 				breakTimerStart(DBM, remaining, playerName)
 			else--It must have ended while we were offline, kill variable.
 				self.Options.tempBreak2 = nil
-			end
-		end
-		if #disabledMods > 0 then
-			if #disabledMods == 1 then
-				self:AddMsg(DBM_CORE_LOAD_MOD_DISABLED:format(disabledMods[1]))
-			else
-				self:AddMsg(DBM_CORE_LOAD_MOD_DISABLED_PLURAL:format(tconcat(disabledMods, ", ")))
 			end
 		end
 	end
@@ -1147,20 +1141,17 @@ do
 			loadOptions(self)
 			if GetAddOnEnableState(playerName, "VEM-Core") >= 1 then
 				self:Disable(true)
-				C_TimerAfter(10, function() self:AddMsg(DBM_CORE_VEM) end)
-				C_TimerAfter(20, function() self:AddMsg(DBM_CORE_VEM) end)
+				C_TimerAfter(15, function() AddMsg(self, DBM_CORE_VEM) end)
 				return
 			end
 			if GetAddOnEnableState(playerName, "DBM-Profiles") >= 1 then
 				self:Disable(true)
-				C_TimerAfter(10, function() self:AddMsg(DBM_CORE_3RDPROFILES) end)
-				C_TimerAfter(20, function() self:AddMsg(DBM_CORE_3RDPROFILES) end)
+				C_TimerAfter(15, function() AddMsg(self, DBM_CORE_3RDPROFILES) end)
 				return
 			end
 			if GetAddOnEnableState(playerName, "DPMCore") >= 1 then
 				self:Disable(true)
-				C_TimerAfter(10, function() self:AddMsg(DBM_CORE_DPMCORE) end)
-				C_TimerAfter(20, function() self:AddMsg(DBM_CORE_DPMCORE) end)
+				C_TimerAfter(15, function() AddMsg(self, DBM_CORE_DPMCORE) end)
 				return
 			end
 			self.Bars:LoadOptions("DBM")
@@ -1180,7 +1171,7 @@ do
 				if GetAddOnMetadata(i, "X-DBM-Mod") then
 					if enabled ~= 0 then
 						if checkEntry(bannedMods, addonName) then
-							self:AddMsg("The mod " .. addonName .. " is deprecated and will not be available. Please remove the folder " .. addonName .. " from your Interface" .. (IsWindowsClient() and "\\" or "/") .. "AddOns folder to get rid of this message. Check for an updated version of " .. addonName .. " that is compatible with your game version.")
+							AddMsg(self, "The mod " .. addonName .. " is deprecated and will not be available. Please remove the folder " .. addonName .. " from your Interface" .. (IsWindowsClient() and "\\" or "/") .. "AddOns folder to get rid of this message. Check for an updated version of " .. addonName .. " that is compatible with your game version.")
 						elseif not testBuild and minToc and minToc > wowTOC then
 							self:Debug(i.." not loaded because mod requires minimum toc of "..minToc)
 						else
@@ -1234,7 +1225,7 @@ do
 				end
 				if GetAddOnMetadata(i, "X-DBM-Voice") and enabled ~= 0 then
 					if checkEntry(bannedMods, addonName) then
-						self:AddMsg("The mod " .. addonName .. " is deprecated and will not be available. Please remove the folder " .. addonName .. " from your Interface" .. (IsWindowsClient() and "\\" or "/") .. "AddOns folder to get rid of this message. Check for an updated version of " .. addonName .. " that is compatible with your game version.")
+						AddMsg(self, "The mod " .. addonName .. " is deprecated and will not be available. Please remove the folder " .. addonName .. " from your Interface" .. (IsWindowsClient() and "\\" or "/") .. "AddOns folder to get rid of this message. Check for an updated version of " .. addonName .. " that is compatible with your game version.")
 					else
 						local voiceValue = GetAddOnMetadata(i, "X-DBM-Voice-ShortName")
 						local voiceVersion = tonumber(GetAddOnMetadata(i, "X-DBM-Voice-Version") or 0)
@@ -3600,22 +3591,22 @@ do
 			--Surely a less shitty way of checking "this is a BC dungeon"?
 			if (LastInstanceMapID == 540 or LastInstanceMapID == 558 or LastInstanceMapID == 556 or LastInstanceMapID == 555 or LastInstanceMapID == 542 or LastInstanceMapID == 546 or LastInstanceMapID == 545 or LastInstanceMapID == 547 or LastInstanceMapID == 553 or LastInstanceMapID == 554 or LastInstanceMapID == 552 or LastInstanceMapID == 557 or LastInstanceMapID == 269 or LastInstanceMapID == 560 or LastInstanceMapID == 543 or LastInstanceMapID == 585) and not self.Options.BCTWMessageShown and not GetAddOnInfo("DBM-Party-BC") then
 				self.Options.BCTWMessageShown = true
-				self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-BC"))
+				AddMsg(self, DBM_CORE_MOD_AVAILABLE:format("DBM-Party-BC"))
 			--Surely a less shitty way of checking "this is a wrath dungeon"?
 			elseif (LastInstanceMapID == 619 or LastInstanceMapID == 601 or LastInstanceMapID == 595 or LastInstanceMapID == 600 or LastInstanceMapID == 604 or LastInstanceMapID == 602 or LastInstanceMapID == 599 or LastInstanceMapID == 576 or LastInstanceMapID == 578 or LastInstanceMapID == 574 or LastInstanceMapID == 575 or LastInstanceMapID == 608 or LastInstanceMapID == 658 or LastInstanceMapID == 632 or LastInstanceMapID == 668 or LastInstanceMapID == 650) and not self.Options.WOTLKTWMessageShown and not GetAddOnInfo("DBM-Party-WotLK") then
 				self.Options.WOTLKTWMessageShown = true
-				self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-WotLK"))
+				AddMsg(self, DBM_CORE_MOD_AVAILABLE:format("DBM-Party-WotLK"))
 			elseif (LastInstanceMapID == 755 or LastInstanceMapID == 645 or LastInstanceMapID == 36 or LastInstanceMapID == 670 or LastInstanceMapID == 644 or LastInstanceMapID == 33 or LastInstanceMapID == 643 or LastInstanceMapID == 725 or LastInstanceMapID == 657 or LastInstanceMapID == 309 or LastInstanceMapID == 859 or LastInstanceMapID == 568 or LastInstanceMapID == 938 or LastInstanceMapID == 940 or LastInstanceMapID == 939) and not self.Options.CATATWMessageShown and not GetAddOnInfo("DBM-Party-Cataclysm") then
 				self.Options.CATATWMessageShown = true-- 
-				self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-Party-Cataclysm"))
+				AddMsg(self, DBM_CORE_MOD_AVAILABLE:format("DBM-Party-Cataclysm"))
 			end
 		else
 			if LastInstanceMapID == 1148 and not self.Options.PGMessageShown and not GetAddOnInfo("DBM-ProvingGrounds") then
 				self.Options.PGMessageShown = true
-				self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-ProvingGrounds"))
+				AddMsg(self, DBM_CORE_MOD_AVAILABLE:format("DBM-ProvingGrounds"))
 			elseif LastInstanceMapID == 409 and not self.Options.MCMessageShown and not GetAddOnInfo("DBM-MC") then
 				self.Options.MCMessageShown = true
-				self:AddMsg(DBM_CORE_MOD_AVAILABLE:format("DBM-MC"))
+				AddMsg(self, DBM_CORE_MOD_AVAILABLE:format("DBM-MC"))
 			end
 		end
 	end
@@ -4193,9 +4184,9 @@ do
 						end
 						--Find min revision.
 						updateNotificationDisplayed = 2
-						DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
-						DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, version))
-						DBM:AddMsg(("|HDBM:update:%s:%s|h|cff3588ff[%s]"):format(displayVersion, version, DBM_CORE_UPDATEREMINDER_URL or "http://www.deadlybossmods.com"))
+						AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
+						AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, version))
+						AddMsg(DBM, ("|HDBM:update:%s:%s|h|cff3588ff[%s]"):format(displayVersion, version, DBM_CORE_UPDATEREMINDER_URL or "http://www.deadlybossmods.com"))
 						showConstantReminder = 1
 					elseif #newerVersionPerson == 3 then--Requires 3 for force disable.
 						--Find min revision.
@@ -4204,14 +4195,14 @@ do
 						--Disable if out of date and it's a major patch.
 						--[[if not testBuild and dbmToc < wowTOC then
 							updateNotificationDisplayed = 3
-							DBM:AddMsg(DBM_CORE_UPDATEREMINDER_MAJORPATCH)
+							AddMsg(DBM, DBM_CORE_UPDATEREMINDER_MAJORPATCH)
 							DBM:Disable(true)--]]
 						--Disable if revision grossly out of date even if not major patch.
 						if revDifference > 180 then
 						--elseif revDifference > 180 then
 							if updateNotificationDisplayed < 3 then
 								updateNotificationDisplayed = 3
-								DBM:AddMsg(DBM_CORE_UPDATEREMINDER_DISABLE)
+								AddMsg(DBM, DBM_CORE_UPDATEREMINDER_DISABLE)
 								DBM:Disable(true)
 							end
 						end
@@ -4227,11 +4218,11 @@ do
 					local revDifference = mmin((raid[newerRevisionPerson[1]].revision - DBM.Revision), (raid[newerRevisionPerson[2]].revision - DBM.Revision))
 					if testBuild and revDifference > 5 then
 						updateNotificationDisplayed = 3
-						DBM:AddMsg(DBM_CORE_UPDATEREMINDER_DISABLE)
+						AddMsg(DBM, DBM_CORE_UPDATEREMINDER_DISABLE)
 						DBM:Disable(true)
 					else
 						updateNotificationDisplayed = 2
-						DBM:AddMsg(DBM_CORE_UPDATEREMINDER_HEADER_ALPHA:format(revDifference))
+						AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER_ALPHA:format(revDifference))
 					end
 				end
 			end
@@ -6640,6 +6631,7 @@ function DBM:AddMsg(text, prefix)
 		frame:AddMessage(text, 0.41, 0.8, 0.94)
 	end
 end
+AddMsg = DBM.AddMsg
 
 function DBM:Debug(text, level)
 	if not self.Options or not self.Options.DebugMode then return end

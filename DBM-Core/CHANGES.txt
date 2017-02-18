@@ -1,349 +1,227 @@
-tag de7be596f9ad2ccff9ca632191d725a3a6392633 7.1.14
+tag e8c1638be1f6f98466bb8e41de3115167f7bef15 7.1.15
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Sat Feb 11 20:33:03 2017 +0100
+Date:	Thu Feb 16 21:44:29 2017 +0100
 
-Tagging as 7.1.14
+Tagging as 7.1.15
 
-commit e499e585b139c4533073e883236f0bce778f9566
+commit d90e7418f17f36aa3243e9a4c0ac3c2540b8c323
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 20:33:03 2017 +0100
+Date:   Thu Feb 16 21:44:29 2017 +0100
 
-    increment version number to 7.1.14
+    increment version number to 7.1.15
 
-commit 080260580a57126a40a3d666b65f83d1e903d509
+commit b4bde65f2262a4500e0d43b2c0a4cdd83741f91f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 19:53:27 2017 +0100
+Date:   Thu Feb 16 21:40:13 2017 +0100
 
-    Omega via svn r15893:
-    Add a leave nightwell cast bar to elisande pull
+    Omega via svn r15924:
+    Fix a bug that caused heavenly crash warning not to work on trash
+    Bump some HF revisions
 
-commit 74fd0c1d20ccd22d03e096f5769091bf89ac56ff
+commit ffff4b8c60f9453eb4eb2407d53c953838346230
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 10:46:32 2017 +0100
+Date:   Thu Feb 16 21:14:29 2017 +0100
 
-    Omega via svn r15892:
-    Move that code to correct spot
+    tandanu via svn r15923:
+    fix AddMsg assignment
 
-commit 9d0d650b97c0494aec4af53cb469664eacf8aea9
+commit 92b69a182e4124c4b654ee2beb3bd1cbb1959ed5
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 07:59:17 2017 +0100
+Date:   Thu Feb 16 11:05:55 2017 +0100
 
-    Omega via svn r15891:
-    Add sisters of the moon drycode (this one is gonna need a lot of work)
+    Omega via svn r15922:
+    And here too
 
-commit fe6c7d29ca8770441b228622c7f6efb3908d2cce
+commit cc98968621bbcc9cc8bc5934c652a08e72994527
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 04:12:38 2017 +0100
+Date:   Thu Feb 16 10:58:56 2017 +0100
 
-    Omega via svn r15890:
-    Large goroth and harjatan update from public heroic data. Stuff not in combat log not fully supported yet.
+    Omega via svn r15921:
+    Remove message from login though, but absolutely show it on zone in to any zone
 
-commit 43c8a7fa1c12837d9bc0b1d49eb0b71aef4e4afc
+commit 25804f45ce0939cbb6c8a6b588f0ebea7c957fba
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 02:54:55 2017 +0100
+Date:   Thu Feb 16 10:51:27 2017 +0100
 
-    Omega via svn r15889:
-    enable whereami to dump mapIds even when positions are nil
+    Omega via svn r15920:
+    do V messages too
 
-commit 5caab683efa9e0b26039d4404e8d80f4695699cb
+commit 2cd36b4af36b8e0255240296292e93e07e80ba02
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 02:13:32 2017 +0100
+Date:   Thu Feb 16 10:45:43 2017 +0100
 
-    Omega via svn r15888:
-    Fix a bug where DBM didn?\226?\128?\153t load world boss mods for 108829
+    Omega via svn r15919:
+    tweaks
 
-commit 30c447c404e29f52455a07b602ad353e3df041df
+commit 7d5d355559c176c6d500fca287104f28925bda51
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 00:44:25 2017 +0100
+Date:   Thu Feb 16 10:43:34 2017 +0100
 
-    Omega via svn r15887:
-    since two rewrites, lower debug lvel back down to 2
+    Omega via svn r15918:
+    prune some duplicate messages
+    Bump BW version
 
-commit bb0caf5ca11d1a59ee2fbc583d7421d303a0f704
+commit 6bf7d6ed1d002051c79560111956e456e8801168
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 00:24:54 2017 +0100
+Date:   Thu Feb 16 07:37:38 2017 +0100
 
-    Omega via svn r15886:
-    another trash warning
+    Omega via svn r15917:
+    Most of mythic guldan stuff, but more work to do. Just want to get this much out tonight. credits to justwait for sharing most of phase 3 stuff.
+    
+    Also fix two voice pack filters in maw of souls
 
-commit 196e71966b95db80a1fa18ed463465f3a457f2da
+commit c3f23addebdde1f63f48b37f89c159edaaaec7f9
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 00:15:55 2017 +0100
+Date:   Thu Feb 16 02:28:25 2017 +0100
 
-    Omega via svn r15885:
-    Tweak krosus respawn
+    Omega via svn r15916:
+    commit locals update so people can get started there. i?\226?\128?\153mstuck in raid for next 4 hours so i can?\226?\128?\153t push guldan mythic mod until after since it?\226?\128?\153s not quite finished.
 
-commit d8be9b5e49b81c8aeb6954cf2b9fd2a151dca431
+commit 1f96c3d29720341e144bfe85de35acc7ae932cfb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Feb 11 00:15:14 2017 +0100
+Date:   Wed Feb 15 10:33:14 2017 +0100
 
-    Omega via svn r15884:
-    Add two trash warnings to Tomb of Sargeras
-    Updated Harjatan with respawn time
-    Fixed some events so warnings/timers work
-    Improved timing on rage now that energy gain rates are known
-    Improved tank swap warnings now that that info is known
+    Omega via svn r15915:
+    better voice pack warnings though for non run out slams
 
-commit 3485823989754e7f4a25eed7073dfe89a2fec7fa
+commit abae057c60a64c944b12d8f2eecb96396f23b57b
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 22:44:33 2017 +0100
+Date:   Wed Feb 15 10:23:20 2017 +0100
 
-    Omega via svn r15883:
-    Update last to support target warnings
+    Omega via svn r15914:
+    Add count to bonds of fel, by request
+    Change cd timers to next timers, they are pretty precise.
 
-commit 1915be1136d11cb9ca7637e49074514d8f29cf1a
+commit 4586a81e25c42398e0c0c2dfe0fe66207da139f2
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 22:26:57 2017 +0100
+Date:   Wed Feb 15 10:12:21 2017 +0100
 
-    Omega via svn r15882:
-    Add respawn time
-    Fix crashing comet since it?\226?\128?\153s not in combat log
+    Omega via svn r15913:
+    Change Ablative Pulse to tank only warning by default. two tanks are enough to keep it interrupted, doesn?\226?\128?\153t need to spam everyone in raid.
 
-commit c72a5e9576f57df76894b716907f07735142ee95
+commit 7e65a8e28c4445103c41c911b0ff4be8ea45d73c
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 21:58:52 2017 +0100
+Date:   Wed Feb 15 10:08:15 2017 +0100
 
-    Omega via svn r15881:
-    another large nameplate refactor
+    Omega via svn r15912:
+    NP aura for exploding scrubbers, if trilliax scrubber mod isn?\226?\128?\153t installed.
 
-commit ecae5d762a4e0a87eeb05df787302926c32f2cd2
+commit e3e512b89a69d775eb6b9563a06e2f8b34a00302
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 09:21:05 2017 +0100
+Date:   Wed Feb 15 09:25:10 2017 +0100
 
-    Omega via svn r15880:
-    Shorten tich berserk by 10 seconds
+    Omega via svn r15911:
+    fix bug where melee were told to run out on every krosus slam instead of the ones they should run out on
 
-commit a53f96aa232a157e40dce3c173fb73bcb499fd3e
+commit d07643dcf87bd565ad2c0962defbcb4f917c578d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 08:56:16 2017 +0100
+Date:   Wed Feb 15 08:52:33 2017 +0100
 
-    Omega via svn r15879:
-    Send texture in hide NP aura for better kui support. DBMs internal handling doesn?\226?\128?\153t support it yet but doesn?\226?\128?\153t mean it shouldn?\226?\128?\153t be properly handled for kui users.
+    Omega via svn r15910:
+    Update mythic anomaly timers, which changed at some point to include a fast fast that wasn?\226?\128?\153t there the first week. No idea when this change was made though. I sort of space out on this farm boss and didn?\226?\128?\153t notice it and no one reported it til today. It?\226?\128?\153s fixed now though.
 
-commit 8ff0f2a0fb0263485410ec7d389a04be6943856d
+commit a362c64e7ad4fd3e2cc77e30869b43f559b44f97
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 08:38:00 2017 +0100
+Date:   Tue Feb 14 00:15:15 2017 +0100
 
-    Omega via svn r15878:
-    Sasszine drycode
+    Omega via svn r15909:
+    Fix the fix
 
-commit 01122b71edbe0240e2112975bf30f589027fa8f9
+commit d71f3e23342e0744a53ad85f6165791b1ea21c67
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 06:10:04 2017 +0100
+Date:   Tue Feb 14 00:01:50 2017 +0100
 
-    Omega via svn r15877:
-    remove useless infoframe
+    Omega via svn r15908:
+    Make compatible with elvui
 
-commit bb60989d9d8fc3b5b26c6ecb8994efa3267a6e44
+commit 92907dd5bce07d2bd0885bfcadac7acee5a92448
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 06:08:36 2017 +0100
+Date:   Mon Feb 13 23:56:22 2017 +0100
 
-    Omega via svn r15876:
-    Switch to bool instead of string
+    Omega via svn r15907:
+    Fix stupid
 
-commit 65f655f81ba0293ae56a4dedbf334ba1f735b247
+commit 74c355b065e9046f8896d3c15bbfa6d6657560f0
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 06:03:04 2017 +0100
+Date:   Mon Feb 13 23:22:53 2017 +0100
 
-    Omega via svn r15875:
-    Remove debug, issue fixed
+    Omega via svn r15906:
+    Couple mythic timer tweaks
 
-commit de64a47a8793aebb63328392269da8c9dfd7ebd9
+commit 4ab73a36640f004b8857cae4f9ed415aa702efdf
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 04:53:18 2017 +0100
+Date:   Mon Feb 13 22:42:19 2017 +0100
 
-    Omega via svn r15874:
-    Another fix
+    Omega via svn r15905:
+    Bump BW version for version check
 
-commit b4fd860aa2ba7efa839de9616ced6ab5592f9c33
+commit d41091e0485b45c358f9b96c018e3b623976e865
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 04:44:22 2017 +0100
+Date:   Mon Feb 13 22:03:20 2017 +0100
 
-    Omega via svn r15873:
-    debug
+    Omega via svn r15904:
+    Properly handle removing of ALL textures when no texture is passed
 
-commit 217ff0007e17c96365b9c38f3f5817c293c0688c
+commit 4bcde0cf7bf65e60642db889941aca6209a2a33a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 04:38:01 2017 +0100
+Date:   Mon Feb 13 03:44:07 2017 +0100
 
-    Omega via svn r15872:
-    Fix last
+    Omega via svn r15903:
+    Maiden of Vigilance mod
 
-commit 6b67931451211c755e3930a0212dfa893c5eb247
+commit f981bc87ac5f1ae80c6fee6c6a78666fed4fbb6f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 10 04:24:42 2017 +0100
+Date:   Sun Feb 12 19:49:24 2017 +0100
 
-    Omega via svn r15871:
-    Add burning ember auto markers
+    Omega via svn r15902:
+    more mythic tweaks
 
-commit 0e962a4f990983dc448eb62db3d55636aea470a8
+commit 8152024b8057001d2218ae4831f802f7c99577aa
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 9 22:13:52 2017 +0100
+Date:   Sun Feb 12 19:43:26 2017 +0100
 
-    Omega via svn r15870:
-    update example scripts
+    Omega via svn r15901:
+    this is also 20 seconds on mythic
 
-commit 62d2885e2b3b01d47f07d50553a19bd1f723966e
+commit 71f95db046f349de274fe9b5b6fe0194b757a7ce
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 9 22:05:46 2017 +0100
+Date:   Sun Feb 12 19:33:40 2017 +0100
 
-    Omega via svn r15869:
-    Push a complete nameplate update to use names when GUIDS aren?\226?\128?\153t needed, but still support guid type for npcs/enemies via new Type arg.
-    this breaks all the KUI callbacks until update, sorry. But It?\226?\128?\153s a necessary change to maximize performance
-    Also some other minor performance improvements to DBM-Nameplate
+    Omega via svn r15900:
+    And update timerShatterEssenceCD for mythic as well (20 seconds? i guess he has a soft enrage of get it dead in under a minute then!)
 
-commit 5184a6a81c6a20fe256cfdb0c57c80b2ccab474e
+commit 30798a4b3ec40ae9e5618d54773abe3d07829d46
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 9 20:05:41 2017 +0100
+Date:   Sun Feb 12 19:24:47 2017 +0100
 
-    Omega via svn r15868:
-    Fix one english clue in spy helper
-    Add language support for br, es, mx, it, fr to spy helper.
-    Updated language support for de
+    Omega via svn r15899:
+    Another batch of mythic timers (phase 2). these are drycoded by observed mathematical differences but should be right.
 
-commit f3836d49da131a1f26be599d1e6cd1b085d26472
+commit 4a93b8c6e8277f4a0c26898170722e68e07a4763
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 9 08:52:56 2017 +0100
+Date:   Sun Feb 12 19:10:56 2017 +0100
 
-    Omega via svn r15867:
-    Fixed a bug with dispel voice warning on cenarius would never fire
-    Kill nameplate auras on tichondrius as soon as darkphase starts, instead of when debuffs fall off at end of it.
-    Added full Harjatan drycode mod for friday testing.
-    Increased debug level on DBM-Nameplate to level 3 so debug level 2 is less cluttered by it.
+    Omega via svn r15898:
+    Push first batch of mythic guldan timers since i?\226?\128?\153m being rushed :P
 
-commit 508f7dfb2dfef4e8a8ad1fc3c2cbe75048169256
+commit 83c128868fc34d38ce369a7cd1aae5b205219bc7
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 9 06:50:54 2017 +0100
+Date:   Sun Feb 12 06:21:30 2017 +0100
 
-    Omega via svn r15866:
-    Also disable this stuff on mythic guldan
+    Omega via svn r15897:
+    Change low warning to 25% instead of 15%
 
-commit ade9bccf40622482e1aff6742e1fa844223f95d8
+commit a40ebb871d399631475ce290c3a13c1f62a98647
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 9 06:48:07 2017 +0100
+Date:   Sun Feb 12 05:44:59 2017 +0100
 
-    Omega via svn r15865:
-    cleanup and redundancy elimination
+    Omega via svn r15896:
+    Push Desolate Host mod (which is ugly as sin and still will need a ton of work/refactoring based on how the phasing works)
 
-commit fc42f024d9b58e9c7a351b155e03ee3bf5679301
+commit b73796094e406a8d4231fe704f43041ab448b6b6
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 9 05:12:16 2017 +0100
+Date:   Sat Feb 11 20:33:20 2017 +0100
 
-    Omega via svn r15864:
-    I?\226?\128?\153m dumb.that should fix that finally
-
-commit cf32548837b38fa51cf885aeca4143ab783195e9
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 9 04:05:08 2017 +0100
-
-    Omega via svn r15863:
-    cancel bubble timers on phase transition
-    Fix slow bubble time
-
-commit eb003942008bdbdc90237c34de61e979e745d3b3
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 9 03:45:51 2017 +0100
-
-    Omega via svn r15862:
-    FIX LUA ERROR
-
-commit 3a2aea3071c711ea69cd14a24e36f7abfdbd9df8
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 9 01:39:03 2017 +0100
-
-    Omega via svn r15861:
-    a little more normal ring data for elisande
-    A full mod drycode for Demonic Inquisition
-
-commit 493401436947fa34ec5adfef0272c0dcafe8d5d4
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 8 22:21:06 2017 +0100
-
-    Omega via svn r15860:
-    Make fel flame less spammy
-
-commit 68d8859caa76ca2741c96cce7b4aa4b87716fa99
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 8 21:59:22 2017 +0100
-
-    Omega via svn r15859:
-    Account for delay in duration
-
-commit 53f16850a1563eb56b73406e3c1740315b81dc4e
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 8 21:49:38 2017 +0100
-
-    Omega via svn r15858:
-    speed it up a little
-
-commit 55695935bdafd4b7d8c829f3186ea200a7fd8a31
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 8 21:39:55 2017 +0100
-
-    Omega via svn r15857:
-    fix warning/icon bug with delayed custom warning function
-
-commit b9f18056bed309e340181c58ad2e14e4b0d61e48
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 8 08:01:53 2017 +0100
-
-    Omega via svn r15856:
-    Goroth Drycode
-
-commit 3f7b5d123345ce98d28e65ab0cfe332b6861e691
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 8 06:45:52 2017 +0100
-
-    Omega via svn r15855:
-    Send debuff duration for call of night to KUI
-
-commit 6aaecceaf2138700a01b9ce92ce174658c8fa239
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 8 06:33:24 2017 +0100
-
-    Omega via svn r15854:
-    Fix nameplate bug on aluriel for real.
-    also clean up some redundant left over in nameplate.lua
-
-commit f1b6ee374601c5bad8100749af13d0b0f748010a
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 8 05:56:40 2017 +0100
-
-    Omega via svn r15853:
-    Fix krosus assist
-
-commit 614e7ecd971134783a0f116dcd4b0a509642ed4a
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 8 05:35:07 2017 +0100
-
-    Omega via svn r15852:
-    Don?\226?\128?\153t wipe table until combat end period, if debuffs go out rapidly it causes issues
-
-commit f14dcd224b738be7085108f01dffd14397abf010
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 7 23:49:30 2017 +0100
-
-    Omega via svn r15851:
-    Fix another trio bug
-
-commit aa67e7caf8e37355ac2fc61a895b2de651898978
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 7 22:52:04 2017 +0100
-
-    Omega via svn r15850:
-    Re-enable unverified timerSlowTimeBubble
-
-commit 2f0516e2f0cd035d23a4496d363909436dde319f
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 7 22:48:56 2017 +0100
-
-    Omega via svn r15849:
-    Fix trio timer icons
-
-commit fb94d2d6fb8e4a85e07d52f5877d0eb9c4d4e836
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 7 22:01:24 2017 +0100
-
-    tandanu via svn r15848:
+    tandanu via svn r15895:
     increment alpha version
 
