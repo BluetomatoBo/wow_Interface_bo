@@ -1,94 +1,168 @@
-tag 6251eb263e00fb74a53bdd586560b2036ffbe95e 3.46
+tag bb6f1df3e859e2548af493fadea9a7c377e66ea3 3.47
 Author:	Azilroka <darktemplar9900@yahoo.com>
-Date:	Tue Dec 20 16:16:17 2016 -0600
+Date:	Tue Feb 21 19:07:17 2017 -0600
 
-commit 88749652b0314f75c9be43a0c5fcae344c20d3fa
+commit 8d418574bdaf51dff04b9e63983babd90d966868
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Dec 20 16:15:56 2016 -0600
+Date:   Tue Feb 21 19:06:52 2017 -0600
 
-    3.46
+    3.47
 
-commit 28394015b6c96be02b08c8e2b5780b6d31bacf07
+commit 9a4e7b03149705dd8f57b44d8ad7f932bcb6a392
+Author: Brian Thurlow <bthurlow0424@gmail.com>
+Date:   Tue Feb 21 15:01:45 2017 -0500
+
+    Update Load_Skins.xml for LuckyCharms2
+
+commit 9a4e7b03149705dd8f57b44d8ad7f932bcb6a392
+Author: Brian Thurlow <bthurlow0424@gmail.com>
+Date:   Tue Feb 21 15:01:45 2017 -0500
+
+    Update Load_Skins.xml for LuckyCharms2
+
+commit 83299ee5a79eb27ef556eec2c5fe55af261dd252
+Author: Brian Thurlow <bthurlow0424@gmail.com>
+Date:   Tue Feb 21 14:57:11 2017 -0500
+
+    Revert "Update Load_Skins.xml for LuckyCharms2"
+    
+    This reverts commit 7d3222c6932e6c5399e684fad3aa8bdcd1d4106a
+
+commit 83299ee5a79eb27ef556eec2c5fe55af261dd252
+Author: Brian Thurlow <bthurlow0424@gmail.com>
+Date:   Tue Feb 21 14:57:11 2017 -0500
+
+    Revert "Update Load_Skins.xml for LuckyCharms2"
+    
+    This reverts commit 7d3222c6932e6c5399e684fad3aa8bdcd1d4106a
+
+commit 7d3222c6932e6c5399e684fad3aa8bdcd1d4106a
+Author: Brian Thurlow <bthurlow0424@gmail.com>
+Date:   Tue Feb 21 14:56:14 2017 -0500
+
+    Update Load_Skins.xml for LuckyCharms2
+
+commit 430f4f089e7e3f94497c1908b085f471da34245f
+Author: Brian Thurlow <bthurlow0424@gmail.com>
+Date:   Tue Feb 21 14:54:06 2017 -0500
+
+    Add LuckyCharms2 Skin
+
+commit 4626c98e21bc6859dc0cc028a3af14ab2f94a64b
+Author: Blazeflack <blazeflack@hotmail.com>
+Date:   Sat Feb 4 14:59:37 2017 +0100
+
+    Store chosen template on the frame in SetTemplate for ElvUI
+    
+    This fixes issue with a transparent backdrop changing to regular backdrop when you change profile (or UpdateMedia is called in ElvUI through other means).
+
+commit 4626c98e21bc6859dc0cc028a3af14ab2f94a64b
+Author: Blazeflack <blazeflack@hotmail.com>
+Date:   Sat Feb 4 14:59:37 2017 +0100
+
+    Store chosen template on the frame in SetTemplate for ElvUI
+    
+    This fixes issue with a transparent backdrop changing to regular backdrop when you change profile (or UpdateMedia is called in ElvUI through other means).
+
+commit 402f47abf92f66ffaeed2ebf753dfcf03d7b3b7d
+Author: Michael Tindal <mj.tindal@icloud.com>
+Date:   Tue Jan 31 18:57:22 2017 -0800
+
+    This version is better.  No arbitrary depth restrictions.
+
+commit b2f05a53c32a54ddf02f102135c70d5019582b87
+Author: Michael Tindal <mj.tindal@icloud.com>
+Date:   Mon Jan 30 20:34:00 2017 -0800
+
+    Did not mean to commit this.
+
+commit 48876c579de7d9f2d7858be18e4b222de877cec8
+Author: Michael Tindal <mj.tindal@icloud.com>
+Date:   Mon Jan 30 20:32:08 2017 -0800
+
+    Fixes for SilverDragon and Altoholic.
+
+commit 19fe04ba08b579a8cc8fd47838e1b7d7660c83a5
+Author: Blazeflack <blazeflack@hotmail.com>
+Date:   Sun Jan 29 02:32:27 2017 +0100
+
+    Skinned PremadeGroupsFilter addon
+
+commit 19fe04ba08b579a8cc8fd47838e1b7d7660c83a5
+Author: Blazeflack <blazeflack@hotmail.com>
+Date:   Sun Jan 29 02:32:27 2017 +0100
+
+    Skinned PremadeGroupsFilter addon
+
+commit 8ee68d2ac9c2b368a759fb7ec97a6994d5d29d57
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Dec 19 16:38:24 2016 -0600
+Date:   Tue Jan 24 15:19:56 2017 -0600
 
-    Quest / Train-All
+    Issue #454
 
-commit 3939d885ff94c4f1ad4b94f74ebe35a59906fa11
-Author: Merathilis <neo0608@gmail.com>
-Date:   Thu Dec 15 11:50:32 2016 +0100
-
-    Add a skin for SimulationCraft
-
-commit 3939d885ff94c4f1ad4b94f74ebe35a59906fa11
-Author: Merathilis <neo0608@gmail.com>
-Date:   Thu Dec 15 11:50:32 2016 +0100
-
-    Add a skin for SimulationCraft
-
-commit 7ec79bc5e93bd145c441cd87f75146f44ec2e82d
-Author: Merathilis <neo0608@gmail.com>
-Date:   Thu Dec 15 11:15:14 2016 +0100
-
-    Skin an EditBox in Pawn
-
-commit 8555e8dbf56f2e78ce35891da6e7dcbd504d30b6
-Author: Merathilis <neo0608@gmail.com>
-Date:   Wed Dec 14 12:04:55 2016 +0100
-
-    Add skin support for Pawn
-
-commit 8555e8dbf56f2e78ce35891da6e7dcbd504d30b6
-Author: Merathilis <neo0608@gmail.com>
-Date:   Wed Dec 14 12:04:55 2016 +0100
-
-    Add skin support for Pawn
-
-commit e1a5f0a08d794e77d4129dfc3e692013d6c8008c
-Author: Merathilis <neo0608@gmail.com>
-Date:   Thu Nov 24 12:56:25 2016 +0100
-
-    Add skin for WorldQuestTab (WIP)
-
-commit e1a5f0a08d794e77d4129dfc3e692013d6c8008c
-Author: Merathilis <neo0608@gmail.com>
-Date:   Thu Nov 24 12:56:25 2016 +0100
-
-    Add skin for WorldQuestTab (WIP)
-
-commit 7300591f1200cab0b23e860db26a75c675a943e4
-Author: Merathilis <neo0608@gmail.com>
-Date:   Sat Nov 19 11:04:20 2016 +0100
-
-    Skin ServerHop HopList MainFrame
-
-commit 7300591f1200cab0b23e860db26a75c675a943e4
-Author: Merathilis <neo0608@gmail.com>
-Date:   Sat Nov 19 11:04:20 2016 +0100
-
-    Skin ServerHop HopList MainFrame
-
-commit c0394fe2775ccfed548c8c7c8190686aa0e1f935
+commit 8ee68d2ac9c2b368a759fb7ec97a6994d5d29d57
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Nov 6 20:43:23 2016 -0600
+Date:   Tue Jan 24 15:19:56 2017 -0600
 
-    AS:UnregisterSkin(Skin, SkinFunc(Optional))
+    Issue #454
 
-commit 7923ec9c0737e424b92b2472e4a46f89baf7dd04
+commit 7d9390982d3420693a347a143ae0eef74819b703
+Author: Paul <paintpauller2@yahoo.com>
+Date:   Mon Jan 23 16:42:27 2017 -0500
+
+    Update Load_Skins.xml
+    Skinned Keyed
+    https://mods.curse.com/addons/wow/keyed
+
+commit 23d54138dbdfa2c13ab1daa66c6438910bc789bc
+Author: Paul <paintpauller2@yahoo.com>
+Date:   Mon Jan 23 16:30:10 2017 -0500
+
+    Skinned Keyed
+    https://mods.curse.com/addons/wow/keyed
+
+commit 7d9390982d3420693a347a143ae0eef74819b703
+Author: Paul <paintpauller2@yahoo.com>
+Date:   Mon Jan 23 16:42:27 2017 -0500
+
+    Update Load_Skins.xml
+    Skinned Keyed
+    https://mods.curse.com/addons/wow/keyed
+
+commit 23d54138dbdfa2c13ab1daa66c6438910bc789bc
+Author: Paul <paintpauller2@yahoo.com>
+Date:   Mon Jan 23 16:30:10 2017 -0500
+
+    Skinned Keyed
+    https://mods.curse.com/addons/wow/keyed
+
+commit 3c81e079dc6ab3d2aeebd58092390ab3bafec05e
+Author: Greg Perrott <greg@perrott.net.nz>
+Date:   Thu Jan 12 05:35:37 2017 -0500
+
+    Update WorldBossStatus.lua
+
+commit 3c81e079dc6ab3d2aeebd58092390ab3bafec05e
+Author: Greg Perrott <greg@perrott.net.nz>
+Date:   Thu Jan 12 05:35:37 2017 -0500
+
+    Update WorldBossStatus.lua
+
+commit fcbbd2b9d46f27ff5ec576724be5c6ce77f7743a
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Nov 6 20:42:34 2016 -0600
+Date:   Sun Jan 1 15:10:16 2017 -0600
 
-    Add ElvUI_CoolLine as a conflict for my CoolLine Skin.
+    Make a default profile for all characters instead
 
-commit 1e3451b95ffe4aa7d7d7c05e95a2498340e11821
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Nov 6 20:41:54 2016 -0600
+commit c00f071dc312987a0534c254d3981864adb5e855
+Author: Pawe┼é Jastrz─Öbski <pawelj@iosphe.re>
+Date:   Wed Dec 28 09:53:07 2016 +0100
 
-    Thin Border Theme for Tukui
+    Updated RE* skins
 
-commit 1a95999f89a8d3ba4cb0eff78aff5fd39325f802
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Thu Nov 3 19:37:28 2016 -0500
+commit c00f071dc312987a0534c254d3981864adb5e855
+Author: Pawe┼é Jastrz─Öbski <pawelj@iosphe.re>
+Date:   Wed Dec 28 09:53:07 2016 +0100
 
-    Quest
+    Updated RE* skins
 

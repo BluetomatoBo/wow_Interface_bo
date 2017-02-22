@@ -94,6 +94,7 @@ function AS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 			R, G, B = unpack(ElvUI[1]["media"].backdropcolor)
 		end
 
+		Frame.template = Template
 		ElvUI[1]["frames"][Frame] = true
 	end
 
@@ -794,4 +795,35 @@ function AS:AdjustForPixelPerfect(number)
 	end
 
 	return number
+end
+
+local function EnumObjectsHelper(enumFuncs, yieldFunc, iobj)
+	local depth = #enumFuncs
+	local i = 1
+	local obj
+	repeat
+		if (iobj) then
+			obj = enumFuncs[1](iobj, i)
+		else
+			obj = enumFuncs[1](i)
+		end
+		if (obj) then
+			if (depth == 1) then
+				yieldFunc(obj)
+			else
+				local innerEnumFuncs = CopyTable(enumFuncs);
+				tremove(innerEnumFuncs, 1);
+				EnumObjectsHelper(innerEnumFuncs, yieldFunc, obj);
+			end
+		end
+		i = i + 1
+	until not obj
+end
+
+function AS:EnumObjects(enumFuncs, yieldFunc)
+	if (type(enumFuncs) == "function") then
+		enumFuncs = {enumFuncs}
+	end
+
+	EnumObjectsHelper(enumFuncs, yieldFunc)
 end
