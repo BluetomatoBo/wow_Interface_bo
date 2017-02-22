@@ -329,6 +329,7 @@ L["ELVUI_CREDITS"] = "Quiero dar un agradecimiento especial a las siguientes per
 L["Testing:"] = "Pruebas:"
 
 --DataBars
+L["Current - Percent (Remaining)"] = true;
 L["Current - Remaining"] = true;
 L["DataBars"] = true;
 L["Hide In Combat"] = true;
@@ -525,6 +526,7 @@ L["Version"] = "Versión"
 --NamePlates
 L["# Displayed Auras"] = true;
 L["Add Name"] = "Añadir Nombre"
+L["Always Show Target Health"] = true;
 L["Always Show"] = true;
 L["Bad Color"] = true;
 L["Bad Scale"] = true;

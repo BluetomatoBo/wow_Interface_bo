@@ -10,6 +10,9 @@ local format, match = string.format, string.match
 local CreateFrame = CreateFrame
 local C_NamePlate_GetNamePlateForUnit = C_NamePlate.GetNamePlateForUnit
 local C_NamePlate_GetNamePlates = C_NamePlate.GetNamePlates
+local C_NamePlate_SetNamePlateEnemyClickThrough = C_NamePlate.SetNamePlateEnemyClickThrough
+local C_NamePlate_SetNamePlateFriendlyClickThrough = C_NamePlate.SetNamePlateFriendlyClickThrough
+local C_NamePlate_SetNamePlateSelfClickThrough = C_NamePlate.SetNamePlateSelfClickThrough
 local C_Timer_After = C_Timer.After
 local GetArenaOpponentSpec = GetArenaOpponentSpec
 local GetBattlefieldScore = GetBattlefieldScore
@@ -222,7 +225,7 @@ function mod:SetTargetFrame(frame)
 			self:SetFrameScale(frame, self.db.targetScale)
 		end
 		frame.isTarget = true
-		if(self.db.units[frame.UnitType].healthbar.enable ~= true) then
+		if(self.db.units[frame.UnitType].healthbar.enable ~= true and self.db.alwaysShowTargetHealth) then
 			frame.Name:ClearAllPoints()
 			frame.NPCTitle:ClearAllPoints()
 			frame.Level:ClearAllPoints()
@@ -447,6 +450,26 @@ function mod:ConfigureAll()
 	self:ForEachPlate("UpdateAllFrame")
 	self:UpdateCVars()
 	self:TogglePlayerDisplayType()
+	self:SetNamePlateClickThrough()
+end
+
+function mod:SetNamePlateClickThrough()
+	self:SetNamePlateSelfClickThrough()
+	self:SetNamePlateFriendlyClickThrough()
+	self:SetNamePlateEnemyClickThrough()
+end
+
+function mod:SetNamePlateSelfClickThrough()
+	C_NamePlate_SetNamePlateSelfClickThrough(self.db.clickThrough.personal)
+	self.PlayerFrame__:EnableMouse(not self.db.clickThrough.personal)
+end
+
+function mod:SetNamePlateFriendlyClickThrough()
+	C_NamePlate_SetNamePlateFriendlyClickThrough(self.db.clickThrough.friendly)
+end
+
+function mod:SetNamePlateEnemyClickThrough()
+	C_NamePlate_SetNamePlateEnemyClickThrough(self.db.clickThrough.enemy)
 end
 
 function mod:ForEachPlate(functionToRun, ...)
@@ -493,7 +516,7 @@ function mod:UpdateInVehicle(frame, noEvents)
 end
 
 function mod:UpdateElement_All(frame, unit, noTargetFrame)
-	if(self.db.units[frame.UnitType].healthbar.enable or (self.db.displayStyle ~= "ALL") or frame.isTarget) then
+	if(self.db.units[frame.UnitType].healthbar.enable or (self.db.displayStyle ~= "ALL") or (frame.isTarget and self.db.alwaysShowTargetHealth)) then
 		mod:UpdateElement_MaxHealth(frame)
 		mod:UpdateElement_Health(frame)
 		mod:UpdateElement_HealthColor(frame)
@@ -614,7 +637,7 @@ function mod:RegisterEvents(frame, unit)
 		displayedUnit = frame.displayedUnit;
 	end
 
-	if(self.db.units[frame.UnitType].healthbar.enable or frame.isTarget) then
+	if(self.db.units[frame.UnitType].healthbar.enable or (frame.isTarget and self.db.alwaysShowTargetHealth)) then
 		frame:RegisterUnitEvent("UNIT_MAXHEALTH", unit, displayedUnit);
 		frame:RegisterUnitEvent("UNIT_HEALTH", unit, displayedUnit);
 		frame:RegisterUnitEvent("UNIT_HEALTH_FREQUENT", unit, displayedUnit);
@@ -626,7 +649,7 @@ function mod:RegisterEvents(frame, unit)
 	frame:RegisterEvent("UNIT_NAME_UPDATE");
 	frame:RegisterUnitEvent("UNIT_LEVEL", unit, displayedUnit);
 
-	if(self.db.units[frame.UnitType].healthbar.enable or frame.isTarget) then
+	if(self.db.units[frame.UnitType].healthbar.enable or (frame.isTarget and self.db.alwaysShowTargetHealth)) then
 		if(frame.UnitType == "ENEMY_NPC") then
 			frame:RegisterUnitEvent("UNIT_THREAT_LIST_UPDATE", unit, displayedUnit);
 		end
@@ -810,10 +833,6 @@ function mod:UpdateVisibility()
 	end
 end
 
-function mod:TogglePlayerMouse()
-	self.PlayerFrame__:EnableMouse(not self.db.units.PLAYER.clickthrough)
-end
-
 function mod:Initialize()
 	self.db = E.db["nameplates"]
 	if E.private["nameplates"].enable ~= true then return end
@@ -868,7 +887,7 @@ function mod:Initialize()
 	self:NAME_PLATE_UNIT_REMOVED("NAME_PLATE_UNIT_REMOVED", "player", self.PlayerFrame__)
 	E:CreateMover(self.PlayerFrame__, "PlayerNameplate", L["Player Nameplate"])
 	self:TogglePlayerDisplayType()
-	self.PlayerFrame__:EnableMouse(not self.db.units.PLAYER.clickthrough)
+	self:SetNamePlateClickThrough()
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 

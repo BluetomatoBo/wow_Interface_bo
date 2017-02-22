@@ -329,6 +329,7 @@ L["ELVUI_CREDITS"] = "我想透过这个特别方式, 向那些协助测试、�
 L["Testing:"] = "测试:"
 
 --DataBars
+L["Current - Percent (Remaining)"] = true;
 L["Current - Remaining"] = "当前值 - 剩余值"
 L["DataBars"] = "数据条"
 L["Hide In Combat"] = "战斗中隐藏"
@@ -525,6 +526,7 @@ L["Version"] = "版本"
 --NamePlates
 L["# Displayed Auras"] = "显示光环的数量"
 L["Add Name"] = "添加名称"
+L["Always Show Target Health"] = true;
 L["Always Show"] = true;
 L["Bad Color"] = "危险颜色"
 L["Bad Scale"] = "危险缩放"

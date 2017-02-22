@@ -329,6 +329,7 @@ L["ELVUI_CREDITS"] = "Ich möchte mich hier bei folgenden Personen bedanken, die
 L["Testing:"] = "Tester:"
 
 --DataBars
+L["Current - Percent (Remaining)"] = "Aktuell - Prozent (Verleibend)"
 L["Current - Remaining"] = "Aktuell - Verbleibend"
 L["DataBars"] = "Informationsleisten"
 L["Hide In Combat"] = "Im Kampf ausblenden"
@@ -526,6 +527,7 @@ L["Version"] = "Version"
 --NamePlates
 L["# Displayed Auras"] = "# angezeigte Auren"
 L["Add Name"] = "Name hinzufügen"
+L["Always Show Target Health"] = "Zeige immer Ziel Gesundheit"
 L["Always Show"] = "Immer anzeigen"
 L["Bad Color"] = "Schlechte Farbe"
 L["Bad Scale"] = "Schlechte Skalierung"

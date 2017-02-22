@@ -376,6 +376,7 @@ L["ELVUI_CREDITS"] = "저는 이 애드온의 유지와 개발 코딩에 도움�
 L["Testing:"] = "|cff2eb7e4< 테스터 >|r"
 
 --DataBars
+L["Current - Percent (Remaining)"] = true;
 L["Current - Remaining"] = true;
 L["DataBars"] = true;
 L["Hide In Combat"] = true;
@@ -572,6 +573,7 @@ L["Version"] = "버전"
 --NamePlates
 L["# Displayed Auras"] = true;
 L["Add Name"] = "이름표 필터 추가"
+L["Always Show Target Health"] = true;
 L["Always Show"] = true;
 L["Bad Color"] = true;
 L["Bad Scale"] = true;
