@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0115
+PawnVersion = 2.0116
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -792,6 +792,8 @@ function PawnClearCacheValuesOnly()
 			CachedItem[9] = nil
 		end
 	end
+	-- Then, the Compare tab's cache.
+	if PawnUI_ClearCacheValues then PawnUI_ClearCacheValues() end
 end
 
 -- Clears all calculated values and causes them to be recalculated the next time tooltips are displayed.  The stats
@@ -2617,6 +2619,10 @@ function PawnCorrectScaleErrors(ScaleName)
 	ThisScale.ResilienceRating = nil
 	ThisScale.SpellPenetration = nil
 	ThisScale.Ap = nil
+
+	-- Versions of Pawn before 2.1.16 had an error where the Role property was being incorrectly set to true/false
+	-- due to an API change.  If that happened to this scale, fix it.
+	if ThisScaleOptions.Role == true or ThisScaleOptions.Role == false then ThisScaleOptions.Role = nil end
 end
 
 -- Replaces one incorrect stat with a correct stat.
@@ -3803,6 +3809,10 @@ function PawnDuplicateScale(OldScaleName, NewScaleName)
 	-- Create the copy.
 	PawnCommon.Scales[NewScaleName] = {}
 	PawnCommon.Scales[NewScaleName].Color = PawnCommon.Scales[OldScaleName].Color
+	PawnCommon.Scales[NewScaleName].Role = PawnCommon.Scales[OldScaleName].Role
+	PawnCommon.Scales[NewScaleName].ClassID = PawnCommon.Scales[OldScaleName].ClassID
+	PawnCommon.Scales[NewScaleName].SpecID = PawnCommon.Scales[OldScaleName].SpecID
+	PawnCommon.Scales[NewScaleName].IconTexturePath = PawnCommon.Scales[OldScaleName].IconTexturePath
 	PawnCommon.Scales[NewScaleName].NormalizationFactor = PawnCommon.Scales[OldScaleName].NormalizationFactor
 	PawnCommon.Scales[NewScaleName].PerCharacterOptions = {}
 	PawnCommon.Scales[NewScaleName].PerCharacterOptions[PawnPlayerFullName] = {}
@@ -4075,7 +4085,7 @@ function PawnImportScale(ScaleTag, Overwrite)
 		SpecID = nil
 	elseif ClassID and SpecID then
 		_, UnlocalizedClassName = GetClassInfo(ClassID)
-		_, _, _, IconTexturePath, _, Role = GetSpecializationInfoForClassID(ClassID, SpecID)
+		_, _, _, IconTexturePath, Role = GetSpecializationInfoForClassID(ClassID, SpecID)
 	end
 	
 	local AlreadyExists = PawnCommon.Scales[ScaleName] ~= nil
@@ -4506,7 +4516,7 @@ function PawnAddPluginScaleFromTemplate(ProviderInternalName, ClassID, SpecID, S
 	if not PawnCommon then VgerCore.Fail("Can't add plugin scales until Pawn starts to initialize.") return end
 
 	local LocalizedClassName, UnlocalizedClassName = GetClassInfo(ClassID)
-	local _, LocalizedSpecName, _, IconTexturePath, _, Role = GetSpecializationInfoForClassID(ClassID, SpecID)
+	local _, LocalizedSpecName, _, IconTexturePath, Role = GetSpecializationInfoForClassID(ClassID, SpecID)
 
 	local Template = PawnFindScaleTemplate(ClassID, SpecID)
 	if not Template then VgerCore.Fail("Can't add this plugin scale because the class" .. tostring(LocalizedClassName) .. " ID " .. tostring(ClassID) .. " and/or spec " .. tostring(LocalizedSpecName) .. " ID " .. tostring(SpecID) .. " wasn't found.") return end

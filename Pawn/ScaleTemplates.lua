@@ -23,7 +23,7 @@ end
 
 -- Returns a starter set of stat values for a given template row returned by PawnFindScaleTemplate.
 function PawnGetStatValuesForTemplate(Template, NoStats)
-	local _, _, _, _, _, Role, PrimaryStatID = GetSpecializationInfoForClassID(Template.ClassID, Template.SpecID)
+	local _, _, _, _, Role = GetSpecializationInfoForClassID(Template.ClassID, Template.SpecID)
 	
 	local ScaleValues
 	if NoStats then

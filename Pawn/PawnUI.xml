@@ -755,10 +755,6 @@
 									</Layer>
 								</Layers>
 								<Scripts>
-									<OnShow>
-										-- Just for UI testing...
-										self.SelectedTexture:Show()
-									</OnShow>
 									<OnClick function="PawnUIFrame_AutoSelectScalesOffButton_OnClick" />
 								</Scripts>
 							</Button>
@@ -1201,7 +1197,7 @@
 				</Frames>
 				
 				<Scripts>
-					<OnShow>PawnUI_InitCompareTab()</OnShow>
+					<OnShow>PawnUI_CompareTab_Refresh()</OnShow>
 				</Scripts>
 					
 			</Frame>

@@ -948,6 +948,8 @@ function PawnUI_InitCompareTab()
 end
 
 function PawnUI_CompareTab_Refresh()
+	PawnUI_InitCompareTab()
+
 	-- Update the currently visible comparison, if any.
 	PawnUI_CompareItems()
 	-- Then, update the best in slot shortcuts.
@@ -956,6 +958,12 @@ function PawnUI_CompareTab_Refresh()
 	if Item then _, _, _, _, _, _, _, _, ItemEquipLoc = GetItemInfo(Item.Link) end
 	PawnUI_SetShortcutBestItem(3, ItemEquipLoc)
 	PawnUI_SetShortcutBestItem(4, ItemEquipLoc)
+end
+
+-- Called whenever we reset the tooltips due to a calculation change.
+function PawnUI_ClearCacheValues()
+	if PawnUIComparisonItems[1] then PawnUIComparisonItems[1].Values = nil end
+	if PawnUIComparisonItems[2] then PawnUIComparisonItems[2].Values = nil end
 end
 
 -- Sets either the left (index 1) or right (index 2) comparison item, using an item link.  If the passed item
