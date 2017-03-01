@@ -1,3 +1,6 @@
+v3.6.25
+*Added missing bonusId.
+
 v3.6.24
 *Fixed issue related to bonusIds.
 

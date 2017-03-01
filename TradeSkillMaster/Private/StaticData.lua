@@ -3114,4 +3114,5 @@ TSM.STATIC_DATA.importantBonusIdMap = {
 	[3566] = 3566,
 	[3567] = 3567,
 	[3568] = 3568,
+	[3570] = 3570,
 }
