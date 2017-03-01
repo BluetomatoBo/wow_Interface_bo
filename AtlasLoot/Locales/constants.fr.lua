@@ -6,6 +6,7 @@ if not AL then return end
 AL["--- or ---"] = "--- ou ---"
 AL["%s will finish loading after combat."] = "%s finira de se charger après le combat."
 AL["/al - Open the AtlasLoot window."] = "/al - Ouvrez la fenêtre d'AtlasLoot."
+AL["/al options - Open AtlasLoot Options window."] = "/al options - Ouvre la fenêtre d'option AtlasLoot"
 AL["/al slash - Prints a list of all slash commands."] = "/al slash - Affiche la liste de toutes les commandes slash."
 AL["|cff00ff00Right-Click:|r Change Spec"] = "|cff00ff00Clic droit :|r Changer de spécialisation"
 AL["25 Player"] = "25 Joueurs"

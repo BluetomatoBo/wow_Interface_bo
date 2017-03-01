@@ -55,11 +55,11 @@ function Item.OnSet(button, second)
 	if second and button.__atlaslootinfo.secType then
 		if type(button.__atlaslootinfo.secType[2]) == "table" then
 			button.secButton.ItemID = button.__atlaslootinfo.secType[2].itemID or tonumber(tab_remove(button.__atlaslootinfo.secType[2], 1))
-			button.secButton.ItemString = button.__atlaslootinfo.secType[2].itemString or GetItemStringWithBonus(button.secButton.ItemID, button.__atlaslootinfo.secType[2])
+			button.secButton.ItemString = button.__atlaslootinfo.secType[2].itemString or GetItemStringWithBonus(button.secButton.ItemID, button.__atlaslootinfo.secType[2], button.__atlaslootinfo.ItemDifficulty)
 		else
 			button.secButton.ItemID = button.__atlaslootinfo.secType[2]
-			if button.__atlaslootinfo.preSet and button.__atlaslootinfo.preSet.Item and button.__atlaslootinfo.preSet.Item.item2bonus then
-				button.secButton.ItemString = GetItemStringWithBonus(button.ItemID, button.__atlaslootinfo.preSet.Item.item2bonus)
+			if button.__atlaslootinfo.preSet and button.__atlaslootinfo.preSet.Item and ( button.__atlaslootinfo.preSet.Item.item2bonus or button.__atlaslootinfo.ItemDifficulty ) then
+				button.secButton.ItemString = GetItemStringWithBonus(button.ItemID, button.__atlaslootinfo.preSet.Item.item2bonus, button.__atlaslootinfo.ItemDifficulty)
 			end
 		end
 		button.secButton.Droprate = button.__atlaslootinfo.Droprate
@@ -68,11 +68,11 @@ function Item.OnSet(button, second)
 	else
 		if type(button.__atlaslootinfo.type[2]) == "table" then
 			button.ItemID = button.__atlaslootinfo.type[2].itemID or tonumber(tab_remove(button.__atlaslootinfo.type[2], 1))
-			button.ItemString = button.__atlaslootinfo.type[2].itemString or GetItemStringWithBonus(button.ItemID, button.__atlaslootinfo.type[2])
+			button.ItemString = button.__atlaslootinfo.type[2].itemString or GetItemStringWithBonus(button.ItemID, button.__atlaslootinfo.type[2], button.__atlaslootinfo.ItemDifficulty)
 		else
 			button.ItemID = button.__atlaslootinfo.type[2]
-			if button.__atlaslootinfo.preSet and button.__atlaslootinfo.preSet.Item and button.__atlaslootinfo.preSet.Item.item1bonus then
-				button.ItemString = GetItemStringWithBonus(button.ItemID, button.__atlaslootinfo.preSet.Item.item1bonus)
+			if button.__atlaslootinfo.preSet and button.__atlaslootinfo.preSet.Item and ( button.__atlaslootinfo.preSet.Item.item1bonus or button.__atlaslootinfo.ItemDifficulty ) then
+				button.ItemString = GetItemStringWithBonus(button.ItemID, button.__atlaslootinfo.preSet.Item.item1bonus, button.__atlaslootinfo.ItemDifficulty)
 			end
 		end
 		button.Droprate = button.__atlaslootinfo.Droprate

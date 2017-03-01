@@ -52,17 +52,19 @@ local MYTHICD2_DUNGEON_DIFF = data:AddDifficulty(AL["Mythic"], "MythicDungeon2Wi
 })
 local HEROIC_PRE_DIFF = data:AddDifficulty(AL["Heroic"], "HeroicWithPreset", {
 	Item = {
-		item1bonus = "LegionHeroicRaid",
+		--item1bonus = "LegionHeroicRaid",
 		item2bonus = "LegionHeroicRaidTitanforged",
 		autoCompleteItem2 = true,
+		addDifficultyBonus = true,
 	},
 }, 15)
 local MYTHIC_DIFF = data:AddDifficulty(AL["Mythic"], "m", nil, 16)
 local MYTHIC_PRE_DIFF = data:AddDifficulty(AL["Mythic"], "MyhticWithPreset", {
 	Item = {
-		item1bonus = "LegionMythicRaid",
+		--item1bonus = "LegionMythicRaid",
 		item2bonus = "LegionMythicRaidTitanforged",
 		autoCompleteItem2 = true,
+		addDifficultyBonus = true,
 	},
 }, 16)
 

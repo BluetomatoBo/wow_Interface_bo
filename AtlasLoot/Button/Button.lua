@@ -443,6 +443,10 @@ function Proto:SetContentTable(tab, formatTab, setOnlySec)
 		self.secButton.count:SetText(tab[ATLASLOOT_IT_AMOUNT2])
 		self.secButton.count:Show()
 	end
+	-- set difficulty if needed
+	if self.__atlaslootinfo.preSet and self.__atlaslootinfo.preSet.Item and self.__atlaslootinfo.preSet.Item.addDifficultyBonus then
+		self.__atlaslootinfo.ItemDifficulty = type(self.__atlaslootinfo.preSet.Item.addDifficultyBonus) == "number" and self.__atlaslootinfo.preSet.Item.addDifficultyBonus or self.__atlaslootinfo.difficulty
+	end
 	
 	
 	local formatType, curContent, buttonType
@@ -543,6 +547,9 @@ function Proto:SetExtraType(typ, val)
 	end
 end
 
+function Proto:SetDifficultyID(diffID)
+	self.__atlaslootinfo.difficulty = diffID
+end
 --################################
 -- Enhanced Description
 --################################

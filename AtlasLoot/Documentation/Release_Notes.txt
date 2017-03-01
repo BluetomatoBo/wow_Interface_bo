@@ -5,7 +5,17 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
-v8.01.09 (Jan. 11, 2016)
+v8.01.10 (Feb. 28, 2017)
+- updated class icons
+- added Legion legendary items
+- added T19 gear items
+- translation update:
+  Korean, Traditional Chinese, Simplified Chinese, French
+## information for Devs
+- fix some small bugs
+- ADD "addDifficultyBonus" for PreSets, should make the bonusID things much easier
+
+v8.01.09 (Jan. 11, 2017)
 - added ACs to 'Trial of Valor'
 - migrate minimap button to use LibDBIcon
 - added slash command description to localization table;
@@ -166,7 +176,7 @@ v8.00.10 (Jun. 24, 2015)
 v8.00.00 (May 21, 2015)
 Compatible with Patch 6.0.3.
 
-v7.07.03 (May xx, 2014)
+v7.07.03 (May 26, 2014)
 Added Patch 5.4.8 items.
 Added Timeless Isle Rare mobs.
 

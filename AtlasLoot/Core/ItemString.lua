@@ -2,6 +2,8 @@ local AtlasLoot = _G.AtlasLoot
 local ItemString = {}
 AtlasLoot.ItemString = ItemString
 
+local BonusIDInfo = AtlasLoot.BonusIDInfo
+
 -- lua
 local format = string.format
 local tbl_concat = table.concat
@@ -59,9 +61,9 @@ local ITEM_BONUS_PRESET = {
 	["LegionRaid"]						= { 1807 },
 	["LegionRaidTitanforged"]			= { 1552 },
 	["LegionHeroicRaid"] 				= { 1805 },
-	["LegionHeroicRaidTitanforged"] 	= { 1805, 1552 },
+	["LegionHeroicRaidTitanforged"] 	= { 1552 },
 	["LegionMythicRaid"] 				= { 1806 },
-	["LegionMythicRaidTitanforged"] 	= { 1806, 1552 },
+	["LegionMythicRaidTitanforged"] 	= { 1552 },
 	-- Crafting
 	["Stage1"]			= { 525 },
 	["Stage2"]			= { 526 },
@@ -104,9 +106,18 @@ function ItemString.Create(itemID, extra)
 	end
 end
 
-function ItemString.AddBonus(itemID, bonus)
+function ItemString.AddBonus(itemID, bonus, difficultyID)
 	bonus = bonus and (ITEM_BONUS_PRESET[bonus] or ITEM_BONUS_PRESET[bonus[1]]) or bonus
 	if type(bonus) == "string" then print(bonus) end
+	if difficultyID then
+		difficultyID = { BonusIDInfo.GetItemBonusIDByDiff(itemID, difficultyID) }
+		if bonus then
+			for i = 1,#bonus do
+				difficultyID[#difficultyID+1] = bonus[i]
+			end
+		end
+		bonus = difficultyID
+	end
 	return format( ITEM_FORMAT_BONUS_STRING,
 			itemID,
 			bonus and #bonus or 0,
@@ -114,4 +125,16 @@ function ItemString.AddBonus(itemID, bonus)
 		) 
 end
 
--- /run print(AtlasLoot.ItemString.AddBonus(31051, {level = 100, bonus = {566}}))
+-- difficultyID = http://wow.gamepedia.com/DifficultyID
+function ItemString.AddBonusByDifficultyID(itemID, difficultyID)
+	if not itemID then return elseif not difficultyID then return ItemString.Create(itemID) end
+	
+	return format( ITEM_FORMAT_BONUS_STRING,
+			itemID,
+			1,
+			BonusIDInfo.GetItemBonusIDByDiff(itemID, difficultyID) or 0
+		) 
+end
+
+-- /run print(AtlasLoot.ItemString.AddBonusByDifficultyID(140914, 16))
+-- /run print(GetItemInfo(AtlasLoot.ItemString.AddBonusByDifficultyID(140914, 16)))

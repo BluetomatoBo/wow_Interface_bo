@@ -13,6 +13,7 @@ local HEROIC_DIFF = Set:AddDifficulty(AL["Heroic"], "h")
 local P25_DIFF = Set:AddDifficulty(AL["25 Player"], "p25")
 local P25H_DIFF = Set:AddDifficulty(AL["25 Player Heroic"], "p25h")
 local MYTHIC_DIFF = Set:AddDifficulty(AL["Mythic"], "m")
+--local RF_PRE_DIFF = Set:AddDifficulty(AL["Raid Finder"], "rfB1", {"LegionLFR", "LegionLFRTitanforged"})
 local HEROIC_PRE_DIFF = Set:AddDifficulty(AL["Heroic"], "hB1", { "HeroicRaid", "HeroicRaidWarforged" })
 local MYTHIC_PRE_DIFF = Set:AddDifficulty(AL["Mythic"], "mB1", { "MythicRaid", "MythicRaidWarforged" })
 
@@ -1176,6 +1177,229 @@ local SetTable = {
 			},
 		},
 	},
+
+	["Tier19"] = {	-- T19 Sets
+		name = format(AL["Tier %d Sets"], 19),
+		-- Head - Elisande, instanceID = 786, encounterID = 1743
+		-- Shoulder - Tichondrius, instanceID = 786, encounterID = 1762
+		-- Chest - Krosus, instanceID = 786, encounterID = 1713
+		-- Hands - Star Augur Etraeus, instanceID = 786, encounterID = 1732
+		-- Legs - Gul'dan, instanceID = 786, encounterID = 1737
+		-- Back - Trilliax, Nighthold, instanceID = 786, encounterID = 1731
+		sourceTemplate = {
+			EJ_GetInstanceInfo(786).." - "..EJ_GetEncounterInfo(1743),	-- Head (Elisande)
+			EJ_GetInstanceInfo(786).." - "..EJ_GetEncounterInfo(1762),	-- Shoulder (Tichondrius)
+			EJ_GetInstanceInfo(786).." - "..EJ_GetEncounterInfo(1713),	-- Chest (Krosus)
+			EJ_GetInstanceInfo(786).." - "..EJ_GetEncounterInfo(1732),	-- Hands (Star Augur Etraeus)
+			EJ_GetInstanceInfo(786).." - "..EJ_GetEncounterInfo(1737),	-- Legs (Gul'dan)
+			EJ_GetInstanceInfo(786).." - "..EJ_GetEncounterInfo(1731),	-- Back (Trilliax)
+		},
+		{	-- Deathknight, Dreadwyrm Battleplate
+			name = ALIL["DEATHKNIGHT"],
+			subSetName = "dk",
+			icon = "dk",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138355,	-- Dreadwyrm Crown
+				138361,	-- Dreadwyrm Shoulderguards
+				138349,	-- Dreadwyrm Breastplate
+				138352,	-- Dreadwyrm Gauntlets
+				138358,	-- Dreadwyrm Legplates
+				138364,	-- Dreadwyrm Greatcloak
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Demon Hunter, Vestment of Second Sight
+			name = ALIL["DEMONHUNTER"],
+			subSetName = "demonhunter",
+			icon = "dh",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138378,	-- Mask of Second Sight
+				138380,	-- Shoulderguards of Second Sight
+				138376,	-- Tunic of Second Sight
+				138377,	-- Gloves of Second Sight
+				138379,	-- Legwraps of Second Sight
+				138375,	-- Cape of Second Sight
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Druid, Garb of the Astral Warden
+			name = ALIL["DRUID"],
+			subSetName = "druid",
+			icon = "druid",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138330,	-- Hood of the Astral Warden
+				138336,	-- Mantle of the Astral Warden
+				138324,	-- Robe of the Astral Warden
+				138327,	-- Gloves of the Astral Warden
+				138333,	-- Leggings of the Astral Warden
+				138366,	-- Cloak of the Astral Warden
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Hunter, Eagletalon Battlegear
+			name = ALIL["HUNTER"],
+			subSetName = "hunter",
+			icon = "hunter",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138342,	-- Eagletalon Cowl
+				138347,	-- Eagletalon Spaulders
+				138339,	-- Eagletalon Tunic
+				138340,	-- Eagletalon Gauntlets
+				138344,	-- Eagletalon Legchains
+				138368,	-- Eagletalon Cloak
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Mage, Regalia of Everburning Knowledge
+			name = ALIL["MAGE"],
+			subSetName = "mage",
+			icon = "mage",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138312,	-- Hood of Everburning Knowledge
+				138321,	-- Mantle of Everburning Knowledge
+				138318,	-- Robe of Everburning Knowledge
+				138309,	-- Gloves of Everburning Knowledge
+				138315,	-- Leggings of Everburning Knowledge
+				138365,	-- Cloak of Everburning Knowledge
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Monk, Vestments of Enveloped Dissonance
+			name = ALIL["MONK"],
+			subSetName = "monk",
+			icon = "monk",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138331,	-- Hood of Enveloped Dissonance
+				138337,	-- Pauldrons of Enveloped Dissonance
+				138325,	-- Tunic of Enveloped Dissonance
+				138328,	-- Gloves of Enveloped Dissonance
+				138334,	-- Leggings of Enveloped Dissonance
+				138367,	-- Cloak of Enveloped Dissonance
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Paladin, Battleplate of the Highlord
+			name = ALIL["PALADIN"],
+			subSetName = "paladin",
+			icon = "pala",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138356,	-- Helmet of the Highlord
+				138362,	-- Pauldrons of the Highlord
+				138350,	-- Breastplate of the Highlord
+				138353,	-- Gauntlets of the Highlord
+				138359,	-- Legplates of the Highlord
+				138369,	-- Greatmantle of the Highlord
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Priest, Vestments of the Purifier
+			name = ALIL["PRIEST"],
+			subSetName = "priest",
+			icon = "priest",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138313,	-- Purifier's Gorget
+				138322,	-- Purifier's Mantle
+				138319,	-- Purifier's Cassock
+				138310,	-- Purifier's Gloves
+				138316,	-- Purifier's Leggings
+				138370,	-- Purifier's Drape
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Rogue, Doomblade Battlegear
+			name = ALIL["ROGUE"],
+			subSetName = "rogue",
+			icon = "rogue",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138322,	-- Doomblade Cowl
+				138338,	-- Doomblade Spaulders
+				138326,	-- Doomblade Tunic
+				138329,	-- Doomblade Gauntlets
+				138335,	-- Doomblade Pants
+				138371,	-- Doomblade Shadowwrap
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Shaman, Regalia of Bound Elements
+			name = ALIL["SHAMAN"],
+			subSetName = "shaman",
+			icon = "shaman",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138343,	-- Helm of Shackled Elements
+				138348,	-- Pauldrons of Shackled Elements
+				138346,	-- Raiment of Shackled Elements
+				138341,	-- Gauntlets of Shackled Elements
+				138345,	-- Leggings of Shackled Elements
+				138372,	-- Cloak of Shackled Elements
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Warlock, Legacy of Azj'Aqir
+			name = ALIL["WARLOCK"],
+			subSetName = "warlock",
+			icon = "warlock",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138314,	-- Eyes of Azj'Aqir
+				138323,	-- Pauldrons of Azj'Aqir
+				138320,	-- Finery of Azj'Aqir
+				138311,	-- Clutch of Azj'Aqir
+				138317,	-- Leggings of Azj'Aqir
+				138373,	-- Cloak of Azj'Aqir
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Warrior, Cloak of Azj'Aqir
+			name = ALIL["WARRIOR"],
+			subSetName = "warrior",
+			icon = "warri",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				138357,	-- Warhelm of the Obsidian Aspect
+				138363,	-- Shoulderplates of the Obsidian Aspect
+				138351,	-- Chestplate of the Obsidian Aspect
+				138354,	-- Gauntlets of the Obsidian Aspect
+				138360,	-- Legplates of the Obsidian Aspect
+				138374,	-- Greatcloak of the Obsidian Aspect
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+	},
+
 	["Tier18"] = {	-- T18 Sets
 		name = format(AL["Tier %d Sets"], 18),
 		sourceTemplate = {

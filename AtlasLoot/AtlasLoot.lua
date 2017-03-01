@@ -40,12 +40,7 @@ function AtlasLoot:OnInitialize()
 		wipe(AtlasLootCharDB)
 		AtlasLootCharDB.__addonrevision = AtlasLoot.__addonrevision
 	end
-	--[[
-	self.db = LibStub("AceDB-3.0"):New("AtlasLootDB")
-	self.db:RegisterDefaults(AtlasLoot.AtlasLootDBDefaults)
-	self.chardb = LibStub("AceDB-3.0"):New("AtlasLootCharDB")
-	self.chardb:RegisterDefaults(AtlasLoot.AtlasLootDBDefaults)
-	]]--
+
 	self.db = LibStub("ALDB-1.0"):Register(AtlasLootCharDB, AtlasLootDB, AtlasLoot.AtlasLootDBDefaults)
 	
 	

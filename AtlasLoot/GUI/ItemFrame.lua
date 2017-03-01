@@ -130,6 +130,7 @@ function ItemFrame:Refresh(skipProtect)
 			item = items[i]
 			fixItemNum = item[1] - page
 			if ItemFrame.frame.ItemButtons[fixItemNum] then
+				ItemFrame.frame.ItemButtons[fixItemNum]:SetDifficultyID(diffData.difficultyID)
 				ItemFrame.frame.ItemButtons[fixItemNum]:SetPreSet(diffData.preset)
 				ItemFrame.frame.ItemButtons[fixItemNum]:SetContentTable(item, tableType)
 				--ItemFrame.frame.ItemButtons[fixItemNum]:SetAlpha(1)

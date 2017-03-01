@@ -20,6 +20,7 @@ AL["Lock minimap button around minimap."] = "锁定小地图按钮并依附在�
 AL["Lock minimap button."] = "锁定小地图按钮。"
 AL["Main Window"] = "主窗口"
 AL["Minimap Button"] = "小地图按钮"
+AL["Model"] = "模型"
 AL["Preview"] = "预览"
 AL["Quick Loot"] = "快速拾取"
 AL["Reset frame position"] = "重置框架位置"
@@ -36,4 +37,3 @@ AL["Use content color if available."] = "可用时使用内容颜色。"
 AL["Use GameTooltip"] = "使用游戏提示信息"
 AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = "使用标准游戏提示信息而不是自定义的 AltasLoot 提示信息"
 AL["Windows"] = "窗口"
-
