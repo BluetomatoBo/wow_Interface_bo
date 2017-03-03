@@ -105,6 +105,7 @@ local BLACKFATHON_DEEPS_LOOT2 = {
 data["BlackfathomDeeps"] = {
 	EncounterJournalID = 227,
 	MapID = 688,
+	AtlasMapID = "BlackfathomDeeps",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Ghamoo-ra
@@ -151,6 +152,7 @@ data["BlackfathomDeeps"] = {
 data["BlackrockDepths"] = {
 	EncounterJournalID = 228,
 	MapID = 704,
+	AtlasMapID = "BlackrockDepths",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--BRDHighInterrogatorGerstahn
@@ -448,6 +450,7 @@ data["BlackrockDepths"] = {
 data["Deadmines"] = {
 	EncounterJournalID = 63,
 	MapID = 756,
+	AtlasMapID = "TheDeadmines",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
 	items = {
@@ -533,6 +536,7 @@ local DMN_GUARD_LOOT = {
 data["DireMaul"] = {
 	EncounterJournalID = 230,
 	MapID = 699,
+	AtlasMapID = "DireMaulEnt",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--DMEZevrimThornhoof
@@ -878,6 +882,7 @@ local GNOMEREGAN_LOOT2 = {
 data["Gnomeregan"] = {
 	EncounterJournalID = 231,
 	MapID = 54,
+	AtlasMapID = "Gnomeregan",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Grubbis
@@ -916,6 +921,7 @@ data["Gnomeregan"] = {
 data["LowerBlackrockSpire"] = {
 	EncounterJournalID = 229,
 	MapID = 721,
+	AtlasMapID = "LowerBlackrockSpire",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--LBRSFelguard
@@ -1127,6 +1133,7 @@ local MARAUDON_LOOT2 = {
 data["Maraudon"] = {
 	EncounterJournalID = 232,
 	MapID = 750,
+	AtlasMapID = "Maraudon",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Noxxion
@@ -1191,6 +1198,7 @@ local RAGEFIRE_CHASM_LOOT = {
 data["RagefireChasm"] = {
 	EncounterJournalID = 226,
 	MapID = 680,
+	AtlasMapID = "RagefireChasm",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Adarogg
@@ -1256,6 +1264,7 @@ local RAZORFEN_DOWNS_LOOT2 = {
 data["RazorfenDowns"] = {
 	EncounterJournalID = 233,
 	MapID = 760,
+	AtlasMapID = "RazorfenDowns",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Aarux
@@ -1326,6 +1335,7 @@ local RAZORFEN_KRAUL_LOOT2 = {
 data["RazorfenKraul"] = {
 	EncounterJournalID = 234,
 	MapID = 761,
+	AtlasMapID = "RazorfenKraul",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Hunter Bonetusk
@@ -1364,6 +1374,7 @@ data["RazorfenKraul"] = {
 data["ScarletHalls"] = {
 	EncounterJournalID = 311,
 	MapID = 871,
+	AtlasMapID = "ScarletHalls",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
 	items = {
@@ -1414,6 +1425,7 @@ data["ScarletHalls"] = {
 data["ScarletMonastery"] = {
 	EncounterJournalID = 316,
 	MapID = 874,
+	AtlasMapID = "ScarletMonastery",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
 	items = {
@@ -1469,6 +1481,7 @@ data["ScarletMonastery"] = {
 data["Scholomance"] = {
 	EncounterJournalID = 246,
 	MapID = 898,
+	AtlasMapID = "Scholomance",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
 	items = {
@@ -1538,6 +1551,7 @@ data["Scholomance"] = {
 data["ShadowfangKeep"] = {
 	EncounterJournalID = 64,
 	MapID = 764,
+	AtlasMapID = "ShadowfangKeep",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
 	items = {
@@ -1577,8 +1591,9 @@ data["ShadowfangKeep"] = {
 				{ 2, 6642 },	-- Phantom Armor
 				{ 3, 6341 },	-- Eerie Stable Lantern
 				{ 4, 1292 },	-- Butcher's Cleaver
-				{ 6, 60876, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Walden's Elixirs
-				{ 7, 60881, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Walden's Talisman
+				{ 5, 132566 },	-- Dark Lupine Wraps
+				{ 7, 60876, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Walden's Elixirs
+				{ 8, 60881, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Walden's Talisman
 			},
 			[HEROIC_DIFF] = "AtlasLoot_Cataclysm",
 		},
@@ -1622,6 +1637,7 @@ data["ShadowfangKeep"] = {
 data["Stratholme"] = {
 	EncounterJournalID = 236,
 	MapID = 765,
+	AtlasMapID = "StratholmeCrusader",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--STRATSkull
@@ -1861,6 +1877,7 @@ local STOCKADE_LOOT = {
 data["TheStockade"] = {
 	EncounterJournalID = 238,
 	MapID = 690,
+	AtlasMapID = "TheStockade",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Hogger
@@ -1882,6 +1899,7 @@ data["TheStockade"] = {
 data["TheSunkenTemple"] = {
 	EncounterJournalID = 237,
 	MapID = 687,
+	AtlasMapID = "TheSunkenTemple",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--STAvatarofHakkar
@@ -1990,6 +2008,7 @@ local ULDAMAN_LOOT = {
 data["Uldaman"] = {
 	EncounterJournalID = 239,
 	MapID = 692,
+	AtlasMapID = "Uldaman",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--UldDwarves
@@ -2117,6 +2136,7 @@ local WAILING_CAVERNS_LOOT2 = {
 data["WailingCaverns"] = {
 	EncounterJournalID = 240,
 	MapID = 749,
+	AtlasMapID = "WailingCaverns",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Boahn
@@ -2180,6 +2200,7 @@ data["WailingCaverns"] = {
 data["ZulFarrak"] = {
 	EncounterJournalID = 241,
 	MapID = 686,
+	AtlasMapID = "ZulFarrak",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--ZFZerillis
@@ -2280,6 +2301,7 @@ local AQ_ENCHANTS = {
 data["AhnQiraj"] = {
 	name = ALIL["Ahn'Qiraj"],
 	MapID = 766,
+	AtlasMapID = "TheTempleofAhnQiraj",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--AQ40Skeram
@@ -2576,6 +2598,7 @@ data["AhnQiraj"] = {
 data["BlackwingLair"] = {
 	name = ALIL["Blackwing Lair"],
 	MapID = 755,
+	AtlasMapID = "BlackwingLair",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--BWLRazorgore
@@ -2818,6 +2841,7 @@ data["BlackwingLair"] = {
 data["MoltenCore"] = {
 	name = ALIL["Molten Core"],
 	MapID = 696,
+	AtlasMapID = "MoltenCore",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--MCLucifron
@@ -3172,6 +3196,7 @@ data["MoltenCore"] = {
 data["TheRuinsofAhnQiraj"] = {
 	name = ALIL["Ruins of Ahn'Qiraj"],
 	MapID = 717,
+	AtlasMapID = "TheRuinsofAhnQiraj",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--AQ20Kurinnaxx
@@ -3348,6 +3373,7 @@ data["TheRuinsofAhnQiraj"] = {
 data["Naxxramas"] = {
 	name = ALIL["Naxxramas"],
 	MapID = 535,
+--	AtlasMapID = "",
 	ContentType = REMOVED_CONTENT,
 	LoadDifficulty = REMOVED_DIFF,
 	TableType = REMOVED_ITTYPE,

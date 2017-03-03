@@ -1,6 +1,6 @@
 ﻿## Interface: 70100
 ## Author: Hegarol	
-## Version: v8.01.10
+## Version: v8.02.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 ## Title: AtlasLoot |cFF0099FF[Wrath of the Lich King]|r

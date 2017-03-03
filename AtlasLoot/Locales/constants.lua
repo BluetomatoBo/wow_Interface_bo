@@ -98,6 +98,8 @@ AL["Shows items for all %s specializations."] = true
 AL["Required module %s is currently disabled."] = true
 AL["Required module %s is not installed."] = true
 AL["/al togglebg - Toggle the background image on loottables."] = true
+AL["Click to open WoW instance map."] = true
+AL["Click to open Atlas instance map."] = true
 
 --GUI\SoundFrame.lua
 AL["Add sound into chat"] = true
@@ -251,6 +253,7 @@ AL["Necklaces"] = true
 AL["Nerubian"] = true
 AL["Night Elf"] = true
 AL["Off-Hands"] = true
+AL["Old Remedies"] = true
 AL["Ogre"] = true
 AL["Orange Gems"] = true
 AL["Orc"] = true

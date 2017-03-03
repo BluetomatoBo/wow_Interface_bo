@@ -164,6 +164,7 @@ name = select(2, GetAchievementInfo(10149)),
 data["Auchindoun"] = {
 	EncounterJournalID = 547,
 	MapID = 984,
+	AtlasMapID = "Auchindoun",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--AuchKaathar
@@ -424,6 +425,7 @@ data["Auchindoun"] = {
 data["BloodmaulSlagMines"] = {
 	EncounterJournalID = 385,
 	MapID = 964,
+	AtlasMapID = "BloodmaulSlagMines",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--BSMMagmolatus
@@ -682,6 +684,7 @@ data["BloodmaulSlagMines"] = {
 data["GrimrailDepot"] = {
 	EncounterJournalID = 536,
 	MapID = 993,
+	AtlasMapID = "GrimrailDepot",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--GDRocketsparkBorka
@@ -887,6 +890,7 @@ data["GrimrailDepot"] = {
 data["IronDocks"] = {
 	EncounterJournalID = 558,
 	MapID = 987,
+	AtlasMapID = "IronDocks",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--IDNokgar
@@ -1146,6 +1150,7 @@ data["IronDocks"] = {
 data["ShadowmoonBurialGrounds"] = {
 	EncounterJournalID = 537,
 	MapID = 969,
+	AtlasMapID = "ShadowmoonBurialGrounds",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--SBGBloodfury
@@ -1403,6 +1408,7 @@ data["ShadowmoonBurialGrounds"] = {
 data["Skyreach"] = {
 	EncounterJournalID = 476,
 	MapID = 989,
+	AtlasMapID = "Skyreach",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--SkyreachRanjit
@@ -1662,6 +1668,7 @@ data["Skyreach"] = {
 data["TheEverbloom"] = {
 	EncounterJournalID = 556,
 	MapID = 1008,
+	AtlasMapID = "TheEverbloomA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--EverbloomWitherbark
@@ -1975,6 +1982,7 @@ data["TheEverbloom"] = {
 data["UpperBlackrockSpire"] = {
 	EncounterJournalID = 559,
 	MapID = 995,
+	AtlasMapID = "UpperBlackrockSpire",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--UBRSGorashan
@@ -2290,6 +2298,7 @@ data["UpperBlackrockSpire"] = {
 data["BlackrockFoundry"] = {
 	EncounterJournalID = 457,
 	MapID = 988,
+	AtlasMapID = "BlackrockFoundryA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
 	items = {
@@ -2743,6 +2752,7 @@ data["BlackrockFoundry"] = {
 data["Draenor"] = {
 	EncounterJournalID = 557,
 	MapID = 949,
+	AtlasMapID = "OR_Draenor",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--DrovtheRuiner
@@ -2826,9 +2836,11 @@ data["Draenor"] = {
 		},
 	}
 }
+
 data["HellfireCitadel"] = {
 	EncounterJournalID = 669,
 	MapID = 1026,
+	AtlasMapID = "HellfireA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
 	items = {
@@ -3436,9 +3448,11 @@ data["HellfireCitadel"] = {
 		WOD_RAID2_AC_TABLE,
 	},
 }
+
 data["Highmaul"] = {
 	EncounterJournalID = 477,
 	MapID = 994,
+	AtlasMapID = "HighmaulA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
 	items = {

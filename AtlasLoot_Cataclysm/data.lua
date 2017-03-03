@@ -147,6 +147,7 @@ local CATA_RAID3_AC_TABLE = {	--[Glory of the Dragon Soul Raider]
 data["BlackrockCaverns"] = {
 	EncounterJournalID = 66,
 	MapID = 753,
+	AtlasMapID = "BlackrockCaverns",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--BlackrockCavernsRomogg
@@ -267,6 +268,7 @@ data["BlackrockCaverns"] = {
 data["Deadmines"] = {
 	EncounterJournalID = 63,
 	MapID = 756,
+	AtlasMapID = "TheDeadmines",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = HEROIC_DIFF,
 	items = {
@@ -378,6 +380,7 @@ local END_TIME_ECHO_LOOT = {
 data["CoTEndTime"] = {
 	EncounterJournalID = 184,
 	MapID = 820,
+	AtlasMapID = "CoTEndTime",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Echo of Baine
@@ -429,6 +432,7 @@ data["CoTEndTime"] = {
 data["GrimBatol"] = {
 	EncounterJournalID = 71,
 	MapID = 757,
+	AtlasMapID = "GrimBatol",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--GBUmbriss
@@ -534,6 +538,7 @@ data["GrimBatol"] = {
 data["HallsOfOrigination"] = {
 	EncounterJournalID = 70,
 	MapID = 759,
+	AtlasMapID = "HallsOfOrigination",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--HoOAnhuur
@@ -688,6 +693,7 @@ data["HallsOfOrigination"] = {
 data["CoTHourOfTwilight"] = {
 	EncounterJournalID = 186,
 	MapID = 819,
+	AtlasMapID = "CoTHourOfTwilight",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--HoTArcurion
@@ -749,6 +755,7 @@ data["CoTHourOfTwilight"] = {
 data["LostCityOfTolvir"] = {
 	EncounterJournalID = 69,
 	MapID = 747,
+	AtlasMapID = "LostCityOfTolvir",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--LostCityHusam
@@ -853,6 +860,7 @@ data["LostCityOfTolvir"] = {
 data["ShadowfangKeep"] = {
 	EncounterJournalID = 64,
 	MapID = 764,
+	AtlasMapID = "ShadowfangKeep",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = HEROIC_DIFF,
 	items = {
@@ -877,6 +885,7 @@ data["ShadowfangKeep"] = {
 				{ 3, 63444 },	-- Baron Silverlaine's Greaves
 				{ 4, 63438 },	-- Baroness Silverlaine's Locket
 				{ 5, 63441 },	-- Pendant of the Keep
+				{ 6, 132567 }, -- Blindwatcher's Chain
 			},
 		},
 		{	--ShadowfangSpringvale
@@ -934,6 +943,7 @@ data["ShadowfangKeep"] = {
 data["TheStonecore"] = {
 	EncounterJournalID = 67,
 	MapID = 768,
+	AtlasMapID = "TheStonecore",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--StonecoreCorborus
@@ -1034,6 +1044,7 @@ data["TheStonecore"] = {
 data["TheVortexPinnacle"] = {
 	EncounterJournalID = 68,
 	MapID = 769,
+	AtlasMapID = "TheVortexPinnacle",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--VPErtan
@@ -1122,6 +1133,7 @@ data["TheVortexPinnacle"] = {
 data["ThroneOfTheTides"] = {
 	EncounterJournalID = 65,
 	MapID = 767,
+	AtlasMapID = "ThroneOfTheTides",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--TotTNazjar
@@ -1223,6 +1235,7 @@ data["ThroneOfTheTides"] = {
 data["CoTWellOfEternity"] = {
 	EncounterJournalID = 185,
 	MapID = 816,
+	AtlasMapID = "CoTWellOfEternity",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--WoEPerotharn
@@ -1283,6 +1296,7 @@ data["CoTWellOfEternity"] = {
 data["ZulAman"] = {
 	EncounterJournalID = 77,
 	MapID = 781,
+	AtlasMapID = "ZulAman",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--ZAAkilZon
@@ -1413,6 +1427,7 @@ local ZUL_GURUB_MADNESS_LOOT = {
 data["ZulGurub"] = {
 	EncounterJournalID = 76,
 	MapID = 793,
+	AtlasMapID = "ZulGurub",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--ZGVenoxis
@@ -1511,6 +1526,7 @@ data["ZulGurub"] = {
 data["BaradinHold"] = {
 	EncounterJournalID = 75,
 	MapID = 752,
+	AtlasMapID = "BaradinHold",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Argaloth
@@ -2113,6 +2129,7 @@ data["BaradinHold"] = {
 data["BlackwingDescent"] = {
 	EncounterJournalID = 73,
 	MapID = 754,
+	AtlasMapID = "BlackwingDescent",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--BDMagmaw
@@ -2365,6 +2382,7 @@ data["BlackwingDescent"] = {
 data["CoTDragonSoul"] = {
 	EncounterJournalID = 187,
 	MapID = 824,
+	AtlasMapID = "CoTDragonSoulA",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--DragonSoulMorchok
@@ -2821,6 +2839,7 @@ data["CoTDragonSoul"] = {
 data["Firelands"] = {
 	EncounterJournalID = 78,
 	MapID = 800,
+	AtlasMapID = "Firelands",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--FirelandsBethtilac
@@ -3204,6 +3223,7 @@ data["Firelands"] = {
 data["TheBastionOfTwilight"] = {
 	EncounterJournalID = 72,
 	MapID = 758,
+	AtlasMapID = "TheBastionOfTwilight",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--BoTWyrmbreaker
@@ -3400,6 +3420,7 @@ data["TheBastionOfTwilight"] = {
 data["ThroneOfTheFourWinds"] = {
 	EncounterJournalID = 74,
 	MapID = 773,
+	AtlasMapID = "ThroneOfTheFourWinds",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--TFWConclave

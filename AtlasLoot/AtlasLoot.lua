@@ -268,8 +268,8 @@ local GUIDS = {
 	["Player-612-05667280"] = "author",		-- Dynarix@nerathor-eu
 	["Player-612-0566725A"] = "author",		-- Dynalowtik@nerathor-eu
 }
-local AUTHOR_STRING = "AtlasLoot Author |T"..AtlasLoot.IMAGE_PATH.."gold:0|t"
-local FRIEND_STRING = "AtlasLoot Friend |T"..AtlasLoot.IMAGE_PATH.."silver:0|t"
+local AUTHOR_STRING = "AtlasLoot Author |TInterface\\MoneyFrame\\UI-GoldIcon:0|t"
+local FRIEND_STRING = "AtlasLoot Friend |TInterface\\MoneyFrame\\UI-SilverIcon:0|t"
 function hookUnitTarget(self)
 	local name, unit = self:GetUnit()
 	if name and unit then

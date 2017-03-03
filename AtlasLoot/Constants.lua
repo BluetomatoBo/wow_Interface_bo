@@ -60,8 +60,10 @@ ALPrivate.IMAGE_PATH = "Interface\\AddOns\\"..ALName.."\\Images\\"
 
 -- Mostly used in selection template
 ALPrivate.COIN_TEXTURE = {
-	GOLD = ALPrivate.IMAGE_PATH .."gold",
-	SILVER = ALPrivate.IMAGE_PATH .."silver",
+	--GOLD = ALPrivate.IMAGE_PATH .."gold",
+	--SILVER = ALPrivate.IMAGE_PATH .."silver",
+	GOLD = "Interface\\MoneyFrame\\UI-GoldIcon",
+	SILVER = "Interface\\MoneyFrame\\UI-SilverIcon",
 	AC = "Interface\\AchievementFrame\\UI-Achievement-TinyShield",
 	REPUTATION = "Interface\\Icons\\Achievement_Reputation_08",
 }

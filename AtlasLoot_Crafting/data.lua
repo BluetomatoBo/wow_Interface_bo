@@ -13,6 +13,7 @@ local WOTLK_DIFF = data:AddDifficulty(EXPANSION_NAME2)
 local BC_DIFF = data:AddDifficulty(EXPANSION_NAME1)
 local CLASSIC_DIFF = data:AddDifficulty(EXPANSION_NAME0)
 local NORMAL_DIFF = data:AddDifficulty(AL["Normal"])
+local OLD_REMEDIES = data:AddDifficulty(AL["Old Remedies"])
 
 local NORMAL_ITTYPE = data:AddItemTableType("Item", "Item")
 local CRAFTING_ITTYPE = data:AddItemTableType("Item", "Profession")
@@ -6988,8 +6989,37 @@ data["Cooking"] = {
 	ContentType = SECPROFESSION_CONTENT,
 	TableType = CRAFTING_ITTYPE,
 	items = {
+		{	-- Legion all
+			name = EXPANSION_NAME6,
+			[LEGION_DIFF] = {
+				{ 1, 133557, 201413, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Salt and Pepper Shank
+				{ 2, 133561, 201496, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Deep-Fried Mossgill
+				{ 3, 133562, 201497, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Pickled Stormray
+				{ 4, 133563, 201498, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Faronaar Fizz
+				{ 5, 133564, 201499, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Spiced Rib Roast
+				{ 6, 133565, 201500, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Leybeque Ribs
+				{ 7, 133566, 201501, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Suramar Surf and Turf
+				{ 8, 133567, 201502, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Barracuda Mrglgagh
+				{ 9, 133568, 201503, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Koi-Scented Stormray
+				{ 10, 133569, 201504, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Drogbar-Style Salmon
+				{ 11, 133570, 201505, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- The Hungry Magister
+				{ 12, 133571, 201506, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Azshari Salad
+				{ 13, 133572, 201507, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Nightborne Delicacy Platter
+				{ 14, 133573, 201508, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Seed-Battered Fish Plate
+				{ 15, 133574, 201511, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Fishbrul Special
+				{ 16, 133575, 201512, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Dried Mackerel Strips
+				{ 17, 133576, 201513, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Bear Tartare
+				{ 18, 133577, 201514, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Fighter Chow
+				{ 19, 133578, 201515 }, -- Hearty Feast
+				{ 20, 133579, 201516 }, -- Lavish Suramar Feast
+				{ 21, 133681, 201683, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Crispy Bacon
+				{ 22, 142334, 230046 }, -- Spiced Wildfowl Omelet
+			},
+		},
 		{	--CookingAttributes
 			name = AL["Attributes"],
+		--	[LEGION_DIFF] = {
+		--	},
 			[WOD_DIFF] = {
 				{ 1, 122347, 180760 }, -- Whiptail Fillet (Sold, Garrison)
 				{ 2, 111447, 160984, [ATLASLOOT_IT_AMOUNT1] = "4+" },	-- Talador Surf and Turf (Learnt by tasting or cooking)
@@ -7059,6 +7089,24 @@ data["Cooking"] = {
 		},
 		{	--CookingRatings
 			name = AL["Ratings"],
+			[LEGION_DIFF] = {
+				-- Critical Strike
+				{ 1, 133557, 201413, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Salt and Pepper Shank
+				{ 2, 133565, 201500, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Leybeque Ribs
+				{ 3, 133570, 201505, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- The Hungry Magister
+				-- Haste
+				{ 5, 133561, 201496, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Deep-Fried Mossgill
+				{ 6, 133566, 201501, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Suramar Surf and Turf
+				{ 7, 133571, 201506, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Azshari Salad
+				-- Mastery
+				{ 9, 133562, 201497, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Pickled Stormray
+				{ 10, 133567, 201502, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Barracuda Mrglgagh
+				{ 11, 133572, 201507, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Nightborne Delicacy Platter
+				-- Versatility
+				{ 13, 133563, 201498, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Faronaar Fizz
+				{ 14, 133568, 201503, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Koi-Scented Stormray
+				{ 15, 133573, 201508, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Seed-Battered Fish Plate
+			},
 			[WOD_DIFF] = {
 				{ 1, 122345, 180758 },	-- Pickled Eel (Sold, Garrison)
 				{ 2, 111449, 160986, [ATLASLOOT_IT_AMOUNT1] = "4+" },	-- Blackrock Barbecue (Learnt by tasting or cooking)
@@ -7225,6 +7273,9 @@ data["Cooking"] = {
 		},
 		{	--CookingAPSP
 			name = AL["Attack/Spell Power"],
+			[LEGION_DIFF] = {
+				{ 1, 142334, 230046 }, -- Spiced Wildfowl Omelet
+			},
 			[NORMAL_DIFF] = {
 				{ 1, 43015, 57423 },	-- Fish Feast : =ds=#sr# 450 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Dalaran"]
 				{ 2, 34754, 45555 },	-- Mega Mammoth Meal : =ds=#sr# 400 : =ds=AtlasLoot["Vendor"]: AtlasLoot_IngameLocales["Dalaran"]
@@ -7253,6 +7304,16 @@ data["Cooking"] = {
 		},
 		{	--CookingSpecial
 			name = AL["Special"],
+			[LEGION_DIFF] = {
+				{ 1, 133564, 201499, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Spiced Rib Roast
+				{ 2, 133569, 201504, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Drogbar-Style Salmon
+				{ 3, 133574, 201511, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Fishbrul Special
+				{ 4, 133576, 201513, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Bear Tartare
+				{ 5, 133577, 201514, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Fighter Chow
+				{ 6, 133578, 201515 }, -- Hearty Feast
+				{ 7, 133579, 201516 }, -- Lavish Suramar Feast
+				{ 8, 133681, 201683, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Crispy Bacon
+			},
 			[NORMAL_DIFF] = {
 				{ 1, 62790, 88015, [ATLASLOOT_IT_AMOUNT1] = 4 },	-- Darkbrew Lager : =ds=#sr# 415 : =ds=AtlasLoot["Trainer"]
 				{ 2, 62674, 88022 },	-- Highland Spirits : =ds=#sr# 450 : =ds=AtlasLoot["Cooking Daily"]
@@ -7292,6 +7353,9 @@ data["Cooking"] = {
 		},
 		{	--CookingStandard
 			name = AL["Food without Buffs"],
+			[LEGION_DIFF] = {
+				{ 1, 133575, 201512, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Dried Mackerel Strips
+			},
 			[WOD_DIFF] = {
 				{ 1, 111456, 161002, [ATLASLOOT_IT_AMOUNT1] = "4+" },	-- Grilled Saberfish (Learnt by item 111387)
 				{ 3, 111455, 161001, [ATLASLOOT_IT_AMOUNT1] = "4+" },	-- Saberfish Broth (Learnt by item 111387)
@@ -7362,35 +7426,50 @@ data["FirstAid"] = {
 	items = {
 		{	--FirstAid
 			name = GetSpellInfo(3273),
-			[NORMAL_DIFF] = {
+			[LEGION_DIFF] = {
+				{ 1, 133940, 202853 }, -- Silkweave Bandage
+				{ 2, 136653, 221690 }, -- Silvery Salve
+				{ 3, 133942, 202854 }, -- Silkweave Splint
+
+				{ 5, 142332, 230047, [PRICE_EXTRA_ITTYPE] = "142335:10" }, -- Feathered Luffa
+				--[[ comment out until resolve the issue for now actual item exist, but only the spell
+				{ 6, 211353, 211353, [PRICE_EXTRA_ITTYPE] = "136654:3" }, -- Treat Fever
+				{ 7, 212067, 212067, [PRICE_EXTRA_ITTYPE] = "136653:3:136654:1" }, -- Treat Burns
+				{ 8, 211696, 211696, [PRICE_EXTRA_ITTYPE] = "133940:3:136654:1" }, -- Stabilize
+				{ 9, 211926, 211926, [PRICE_EXTRA_ITTYPE] = "133942:2:136654:1" }, -- Set Bone
+				]]
+			},
+			[WOD_DIFF] = {
 				{ 1, 111603, 172539, [ATLASLOOT_IT_AMOUNT1] = "4+" },	-- Antiseptic Bandage (Learnt by item 111364)
 				{ 2, 116979, 172541, [ATLASLOOT_IT_AMOUNT1] = "4+" },	-- Blackwater Anti-Venom (Learnt by item 111364)
 				{ 3, 116981, 172542, [ATLASLOOT_IT_AMOUNT1] = "4+" },	-- Fire Ammonite Oil (Learnt by item 111364)
 				{ 4, 109223, 172540, [ATLASLOOT_IT_AMOUNT1] = "4+" },	-- Healing Tonic (Learnt by item 111364)
-				{ 6, 72986, 102699 },	-- Heavy Windwool Bandage : =ds=#sr# 600 : =ds=AtlasLoot["Trainer"]
-				{ 7, 72986, 102698 },	-- Heavy Windwool Bandage : =ds=#sr# 550 : =ds=AtlasLoot["Trainer"]
-				{ 8, 72985, 102697 },	-- Windwool Bandage : =ds=#sr# 500 : =ds=AtlasLoot["Trainer"]
-				{ 9, 53051, 88893 },	-- Dense Embersilk Bandage : =ds=#sr# 525 : =ds=AtlasLoot["Trainer"]
-				{ 10, 53051, 74558 },	-- Dense Embersilk Bandage : =ds=#sr# 525 : =ds=AtlasLoot["Trainer"]
-				{ 11, 53050, 74557 },	-- Heavy Embersilk Bandage : =ds=#sr# 475 : =ds=AtlasLoot["Trainer"]
-				{ 12, 53049, 74556 },	-- Embersilk Bandage : =ds=#sr# 425 : =ds=AtlasLoot["Trainer"]
-				{ 13, 34722, 45546 },	-- Heavy Frostweave Bandage : =ds=#sr# 400 : =ds=AtlasLoot["Trainer"]
-				{ 14, 34721, 45545 },	-- Frostweave Bandage : =ds=#sr# 350 : =ds=AtlasLoot["Trainer"]
-				{ 15, 21991, 27033 },	-- Heavy Netherweave Bandage : =ds=#sr# 330 : =ds=AtlasLoot["Trainer"]
-				{ 16, 21990, 27032 },	-- Netherweave Bandage : =ds=#sr# 300 : =ds=AtlasLoot["Trainer"]
-				{ 17, 14530, 18630 },	-- Heavy Runecloth Bandage : =ds=#sr# 290 : =ds=AtlasLoot["Trainer"]
-				{ 18, 14529, 18629 },	-- Runecloth Bandage : =ds=#sr# 260 : =ds=AtlasLoot["Trainer"]
-				{ 19, 8545, 10841 },	-- Heavy Mageweave Bandage : =ds=#sr# 240 : =ds=AtlasLoot["Trainer"]
-				{ 20, 8544, 10840 },	-- Mageweave Bandage : =ds=#sr# 210 : =ds=AtlasLoot["Trainer"]
-				{ 21, 6451, 7929 },	-- Heavy Silk Bandage : =ds=#sr# 180 : =ds=AtlasLoot["Trainer"]
-				{ 22, 6450, 7928 },	-- Silk Bandage : =ds=#sr# 150 : =ds=AtlasLoot["Trainer"]
-				{ 23, 3531, 3278 },	-- Heavy Wool Bandage : =ds=#sr# 115 : =ds=AtlasLoot["Trainer"]
-				{ 24, 3530, 3277 },	-- Wool Bandage : =ds=#sr# 80 : =ds=AtlasLoot["Trainer"]
-				{ 25, 2581, 3276 },	-- Heavy Linen Bandage : =ds=#sr# 40 : =ds=AtlasLoot["Trainer"]
-				{ 26, 1251, 3275 },	-- Linen Bandage : =ds=#sr# 1 : =ds=AtlasLoot["Trainer"]
-				{ 28, 19440, 23787 },	-- Powerful Anti-Venom : =ds=#sr# 300 : =ds=AtlasLoot["Vendor"]
-				{ 29, 6453, 7935, [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Strong Anti-Venom : =ds=#sr# 130 : =ds=AtlasLoot["Drop"]
-				{ 30, 6452, 7934, [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Anti-Venom : =ds=#sr# 80 : =ds=AtlasLoot["Trainer"]
+			},
+			[OLD_REMEDIES] = {
+				{ 1, 72986, 102699 },	-- Heavy Windwool Bandage : =ds=#sr# 600 : =ds=AtlasLoot["Trainer"]
+				{ 2, 72986, 102698 },	-- Heavy Windwool Bandage : =ds=#sr# 550 : =ds=AtlasLoot["Trainer"]
+				{ 3, 72985, 102697 },	-- Windwool Bandage : =ds=#sr# 500 : =ds=AtlasLoot["Trainer"]
+				{ 4, 53051, 88893 },	-- Dense Embersilk Bandage : =ds=#sr# 525 : =ds=AtlasLoot["Trainer"]
+				{ 5, 53051, 74558 },	-- Dense Embersilk Bandage : =ds=#sr# 525 : =ds=AtlasLoot["Trainer"]
+				{ 6, 53050, 74557 },	-- Heavy Embersilk Bandage : =ds=#sr# 475 : =ds=AtlasLoot["Trainer"]
+				{ 7, 53049, 74556 },	-- Embersilk Bandage : =ds=#sr# 425 : =ds=AtlasLoot["Trainer"]
+				{ 8, 34722, 45546 },	-- Heavy Frostweave Bandage : =ds=#sr# 400 : =ds=AtlasLoot["Trainer"]
+				{ 9, 34721, 45545 },	-- Frostweave Bandage : =ds=#sr# 350 : =ds=AtlasLoot["Trainer"]
+				{ 10, 21991, 27033 },	-- Heavy Netherweave Bandage : =ds=#sr# 330 : =ds=AtlasLoot["Trainer"]
+				{ 11, 21990, 27032 },	-- Netherweave Bandage : =ds=#sr# 300 : =ds=AtlasLoot["Trainer"]
+				{ 12, 14530, 18630 },	-- Heavy Runecloth Bandage : =ds=#sr# 290 : =ds=AtlasLoot["Trainer"]
+				{ 13, 14529, 18629 },	-- Runecloth Bandage : =ds=#sr# 260 : =ds=AtlasLoot["Trainer"]
+				{ 14, 8545, 10841 },	-- Heavy Mageweave Bandage : =ds=#sr# 240 : =ds=AtlasLoot["Trainer"]
+				{ 15, 8544, 10840 },	-- Mageweave Bandage : =ds=#sr# 210 : =ds=AtlasLoot["Trainer"]
+				{ 16, 6451, 7929 },	-- Heavy Silk Bandage : =ds=#sr# 180 : =ds=AtlasLoot["Trainer"]
+				{ 17, 6450, 7928 },	-- Silk Bandage : =ds=#sr# 150 : =ds=AtlasLoot["Trainer"]
+				{ 18, 3531, 3278 },	-- Heavy Wool Bandage : =ds=#sr# 115 : =ds=AtlasLoot["Trainer"]
+				{ 19, 3530, 3277 },	-- Wool Bandage : =ds=#sr# 80 : =ds=AtlasLoot["Trainer"]
+				{ 20, 2581, 3276 },	-- Heavy Linen Bandage : =ds=#sr# 40 : =ds=AtlasLoot["Trainer"]
+				{ 21, 1251, 3275 },	-- Linen Bandage : =ds=#sr# 1 : =ds=AtlasLoot["Trainer"]
+				{ 22, 19440, 23787 },	-- Powerful Anti-Venom : =ds=#sr# 300 : =ds=AtlasLoot["Vendor"]
+				{ 23, 6453, 7935, [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Strong Anti-Venom : =ds=#sr# 130 : =ds=AtlasLoot["Drop"]
+				{ 24, 6452, 7934, [ATLASLOOT_IT_AMOUNT1] = 3 },	-- Anti-Venom : =ds=#sr# 80 : =ds=AtlasLoot["Trainer"]
 			},
 		},
 	}

@@ -76,6 +76,7 @@ local BC_RAID_AC_TABLE = {	--[Outland Raider]
 data["AuchAuchenaiCrypts"] = {
 	EncounterJournalID = 247,
 	MapID = 722,
+	AtlasMapID = "AuchAuchenaiCrypts",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--AuchCryptsShirrak
@@ -165,6 +166,7 @@ data["AuchAuchenaiCrypts"] = {
 data["HCHellfireRamparts"] = {
 	EncounterJournalID = 248,
 	MapID = 797,
+	AtlasMapID = "HCHellfireRamparts",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--HCRampWatchkeeper
@@ -288,6 +290,7 @@ data["HCHellfireRamparts"] = {
 data["MagistersTerrace"] = {
 	EncounterJournalID = 249,
 	MapID = 798,
+	AtlasMapID = "MagistersTerrace",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--SMTFireheart
@@ -403,6 +406,7 @@ data["MagistersTerrace"] = {
 data["AuchManaTombs"] = {
 	EncounterJournalID = 250,
 	MapID = 732,
+	AtlasMapID = "AuchManaTombs",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--AuchManaPandemonius
@@ -535,6 +539,7 @@ data["AuchManaTombs"] = {
 data["CoTOldHillsbrad"] = {
 	EncounterJournalID = 251,
 	MapID = 734,
+	AtlasMapID = "CoTOldHillsbrad",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--CoTHillsbradDrake
@@ -651,6 +656,7 @@ data["CoTOldHillsbrad"] = {
 data["AuchSethekkHalls"] = {
 	EncounterJournalID = 252,
 	MapID = 723,
+	AtlasMapID = "AuchSethekkHalls",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--AuchSethekkDarkweaver
@@ -758,6 +764,7 @@ data["AuchSethekkHalls"] = {
 data["AuchShadowLabyrinth"] = {
 	EncounterJournalID = 253,
 	MapID = 724,
+	AtlasMapID = "AuchShadowLabyrinth",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--AuchShadowHellmaw
@@ -904,6 +911,7 @@ data["AuchShadowLabyrinth"] = {
 data["TempestKeepArcatraz"] = {
 	EncounterJournalID = 254,
 	MapID = 731,
+	AtlasMapID = "TempestKeepArcatraz",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--TKArcUnbound
@@ -1037,6 +1045,7 @@ data["TempestKeepArcatraz"] = {
 data["CoTBlackMorass"] = {
 	EncounterJournalID = 255,
 	MapID = 733,
+	AtlasMapID = "CoTBlackMorass",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--CoTMorassDeja
@@ -1150,6 +1159,7 @@ data["CoTBlackMorass"] = {
 data["HCBloodFurnace"] = {
 	EncounterJournalID = 256,
 	MapID = 725,
+	AtlasMapID = "HCBloodFurnace",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--HCFurnaceMaker
@@ -1251,6 +1261,7 @@ data["HCBloodFurnace"] = {
 data["TempestKeepBotanica"] = {
 	EncounterJournalID = 257,
 	MapID = 729,
+	AtlasMapID = "TempestKeepBotanica",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--TKBotSarannis
@@ -1414,6 +1425,7 @@ data["TempestKeepBotanica"] = {
 data["TempestKeepMechanar"] = {
 	EncounterJournalID = 258,
 	MapID = 730,
+	AtlasMapID = "TempestKeepMechanar",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--TKMechCapacitus
@@ -1543,6 +1555,7 @@ data["TempestKeepMechanar"] = {
 data["HCTheShatteredHalls"] = {
 	EncounterJournalID = 259,
 	MapID = 710,
+	AtlasMapID = "HCTheShatteredHalls",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--HCHallsNethekurse
@@ -1682,6 +1695,7 @@ data["HCTheShatteredHalls"] = {
 data["CFRTheSlavePens"] = {
 	EncounterJournalID = 260,
 	MapID = 728,
+	AtlasMapID = "CFRTheSlavePens",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--CFRSlaveMennu
@@ -1787,6 +1801,7 @@ data["CFRTheSlavePens"] = {
 data["CFRTheSteamvault"] = {
 	EncounterJournalID = 261,
 	MapID = 727,
+	AtlasMapID = "CFRTheSteamvault",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--CFRSteamThespia
@@ -1909,6 +1924,7 @@ data["CFRTheSteamvault"] = {
 data["CFRTheUnderbog"] = {
 	EncounterJournalID = 262,
 	MapID = 726,
+	AtlasMapID = "CFRTheUnderbog",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--CFRUnderHungarfen
@@ -2027,6 +2043,7 @@ data["CFRTheUnderbog"] = {
 data["BlackTemple"] = {
 	name = ALIL["Black Temple"],
 	MapID = 796,
+	AtlasMapID = "BlackTempleStart",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--BTNajentus
@@ -2269,6 +2286,7 @@ data["BlackTemple"] = {
 data["GruulsLair"] = {
 	name = ALIL["Gruul's Lair"],
 	MapID = 776,
+	AtlasMapID = "GruulsLair",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--GruulsLairHighKingMaulgar
@@ -2318,6 +2336,7 @@ data["GruulsLair"] = {
 data["CoTHyjal"] = {
 	name = ALIL["Hyjal Summit"],
 	MapID = 775,
+	AtlasMapID = "CoTHyjal",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--MountHyjalWinterchill
@@ -2452,6 +2471,7 @@ data["CoTHyjal"] = {
 data["Karazhan"] = {
 	name = ALIL["Karazhan"],
 	MapID = 799,
+	AtlasMapID = "KarazhanStart",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--KaraNamed
@@ -2721,6 +2741,7 @@ data["Karazhan"] = {
 data["HCMagtheridonsLair"] = {
 	name = ALIL["Magtheridon's Lair"],
 	MapID = 779,
+	AtlasMapID = "HCMagtheridonsLair",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--HCMagtheridon
@@ -2763,6 +2784,7 @@ data["HCMagtheridonsLair"] = {
 data["CFRSerpentshrineCavern"] = {
 	name = ALIL["Serpentshrine Cavern"],
 	MapID = 780,
+	AtlasMapID = "CFRSerpentshrineCavern",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--CFRSerpentHydross
@@ -2917,6 +2939,7 @@ data["CFRSerpentshrineCavern"] = {
 data["SunwellPlateau"] = {
 	name = ALIL["Sunwell Plateau"],
 	MapID = 789,
+	AtlasMapID = "SunwellPlateau",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--SPKalecgos
@@ -3144,6 +3167,7 @@ data["SunwellPlateau"] = {
 data["TempestKeepTheEye"] = {
 	name = ALIL["Tempest Keep"],
 	MapID = 782,
+	AtlasMapID = "TempestKeepTheEye",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--TKEyeAlar
@@ -3275,6 +3299,7 @@ data["TempestKeepTheEye"] = {
 
 data["WorldBossesBC"] = {
 	name = AL["World Bosses"],
+--	AtlasMapID = "",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--DoomLordKazzak

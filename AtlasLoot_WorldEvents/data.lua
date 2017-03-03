@@ -82,32 +82,45 @@ data["ArgentTournament"] = {
 		{	--ArgentTournamentHeirloom
 			name = AL["Heirloom"],
 			[NORMAL_DIFF] = {
-				{ 1, 42985, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Tattered Dreadmist Mantle
-				{ 2, 42984, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Preened Ironfeather Shoulders
-				{ 3, 42952, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Stained Shadowcraft Spaulders
-				{ 4, 42950, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Champion Herod's Shoulder
-				{ 5, 42951, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Mystical Pauldrons of Elements
-				{ 6, 69890, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Burnished Pauldrons of Might
-				{ 7, 42949, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Polished Spaulders of Valor
-				{ 9, 48691, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Tattered Dreadmist Robe
-				{ 10, 48687, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Preened Ironfeather Breastplate
-				{ 11, 48689, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Stained Shadowcraft Tunic
-				{ 12, 48677, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Champion's Deathdealer Breastplate
-				{ 13, 48683, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Mystical Vest of Elements
-				{ 14, 69889, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Burnished Breastplate of Might
-				{ 15, 48685, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Polished Breastplate of Valor
-				{ 16, 42992, [PRICE_EXTRA_ITTYPE] = "championsseal:75" },	-- Discerning Eye of the Beast
-				{ 17, 42991, [PRICE_EXTRA_ITTYPE] = "championsseal:75" },	-- Swift Hand of Justice
-				{ 19, 42944, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Balanced Heartseeker
-				{ 20, 69893, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Bloodsoaked Skullforge Reaver
-				{ 21, 42945, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Venerable Dal'Rend's Sacred Charge
-				{ 22, 42943, [PRICE_EXTRA_ITTYPE] = "championsseal:95" },	-- Bloodied Arcanite Reaper
-				{ 23, 42948, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Devout Aurastone Hammer
-				{ 24, 48716, [PRICE_EXTRA_ITTYPE] = "championsseal:60" },	-- Venerable Mass of McGowan
-				{ 25, 48718, [PRICE_EXTRA_ITTYPE] = "championsseal:95" },	-- Repurposed Lava Dredger
-				{ 26, 79131, [PRICE_EXTRA_ITTYPE] = "championsseal:95" },	-- Burnished Warden Staff
-				{ 27, 42947, [PRICE_EXTRA_ITTYPE] = "championsseal:95" },	-- Dignified Headmaster's Charge
-				{ 28, 42946, [PRICE_EXTRA_ITTYPE] = "championsseal:95" },	-- Charmed Ancient Bone Bow
+				--Upgrade item for armor
+				{ 1, 122338, [PRICE_EXTRA_ITTYPE] = "championsseal:55" },	-- Ancient Heirloom Armor Casing
+				--Shoulder
+				{ 3, 122360, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Tattered Dreadmist Mantle
+				{ 4, 122359, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Preened Ironfeather Shoulders
+				{ 5, 122358, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Stained Shadowcraft Spaulders
+				{ 6, 122356, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Champion Herod's Shoulder
+				{ 7, 122357, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Mystical Pauldrons of Elements
+				{ 8, 122388, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Burnished Pauldrons of Might
+				{ 9, 122355, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Polished Spaulders of Valor
+				--Chest
+				{ 18, 122384, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Tattered Dreadmist Robe
+				{ 19, 122382, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Preened Ironfeather Breastplate
+				{ 20, 122383, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Stained Shadowcraft Tunic
+				{ 21, 122379, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Champion's Deathdealer Breastplate
+				{ 22, 122380, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Mystical Vest of Elements
+				{ 23, 122387, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Burnished Breastplate of Might
+				{ 24, 122381, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Polished Breastplate of Valor
+				--Trinket
+				{ 11, 122362, [PRICE_EXTRA_ITTYPE] = "championsseal:35" },	-- Discerning Eye of the Beast
+				{ 26, 122361, [PRICE_EXTRA_ITTYPE] = "championsseal:35" },	-- Swift Hand of Justice
+				--Upgrade item for weapons
+				{ 101, 122339, [PRICE_EXTRA_ITTYPE] = "championsseal:65" },	-- Ancient Heirloom Scabbard
+				--One-hand
+				{ 103, 122389, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Bloodsoaked Skullforge Reaver
+				{ 104, 122354, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Devout Aurastone Hammer
+				{ 105, 122350, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Balanced Heartseeker
+				{ 106, 122351, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Venerable Dal'Rend's Sacred Charge
+				{ 107, 122385, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Venerable Mass of McGowan
+				 --Offhand
+				{ 109, 122391, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Flamescarred Draconian Deflector
+				{ 110, 122392, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Weathered Observer's Shield
+				{ 111, 122390, [PRICE_EXTRA_ITTYPE] = "championsseal:25" },	-- Musty Tome of the Lost
+				--Two-hand
+				{ 118, 122349, [PRICE_EXTRA_ITTYPE] = "championsseal:40" },	-- Bloodied Arcanite Reaper
+				{ 119, 122353, [PRICE_EXTRA_ITTYPE] = "championsseal:40" },	-- Dignified Headmaster's Charge
+				{ 120, 122386, [PRICE_EXTRA_ITTYPE] = "championsseal:40" },	-- Repurposed Lava Dredger
+				{ 121, 122363, [PRICE_EXTRA_ITTYPE] = "championsseal:40" },	-- Burnished Warden Staff
+				{ 122, 122352, [PRICE_EXTRA_ITTYPE] = "championsseal:40" },	-- Charmed Ancient Bone Bow
 			},
 		},
 		{	--ArgentTournamentMounts

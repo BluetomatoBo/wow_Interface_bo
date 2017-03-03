@@ -197,6 +197,7 @@ local WOTLK_RAID3_25_AC_TABLE = {	--[Glory of the Icecrown Raider (25 player)]
 data["AhnKahet"] = {
 	EncounterJournalID = 271,
 	MapID = 522,
+	AtlasMapID = "AhnKahet",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--AhnkahetNadox
@@ -295,6 +296,7 @@ data["AhnKahet"] = {
 data["AzjolNerub"] = {
 	EncounterJournalID = 272,
 	MapID = 533,
+	AtlasMapID = "AzjolNerub",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--AzjolNerubKrikthir
@@ -369,6 +371,7 @@ data["AzjolNerub"] = {
 data["DrakTharonKeep"] = {
 	EncounterJournalID = 273,
 	MapID = 534,
+	AtlasMapID = "DrakTharonKeep",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--DrakTharonKeepTrollgore
@@ -460,6 +463,7 @@ data["DrakTharonKeep"] = {
 data["Gundrak"] = {
 	EncounterJournalID = 274,
 	MapID = 530,
+	AtlasMapID = "Gundrak",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--GundrakSladran
@@ -561,6 +565,7 @@ data["Gundrak"] = {
 data["UlduarHallsofLightning"] = {
 	EncounterJournalID = 275,
 	MapID = 525,
+	AtlasMapID = "UlduarHallsofLightning",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--HallsofLightningBjarngrim
@@ -686,6 +691,7 @@ local FH_TRASH_MOBS = {
 data["FHHallsOfReflection"] = {
 	EncounterJournalID = 276,
 	MapID = 603,
+	AtlasMapID = "FHHallsOfReflection",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--HoRFalric
@@ -766,6 +772,7 @@ data["FHHallsOfReflection"] = {
 data["UlduarHallsofStone"] = {
 	EncounterJournalID = 277,
 	MapID = 526,
+	AtlasMapID = "UlduarHallsofStone",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--HallsofStoneKrystallus
@@ -858,6 +865,7 @@ data["UlduarHallsofStone"] = {
 data["FHPitOfSaron"] = {
 	EncounterJournalID = 278,
 	MapID = 602,
+	AtlasMapID = "FHPitOfSaron",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--PoSGarfrost
@@ -941,6 +949,7 @@ data["FHPitOfSaron"] = {
 data["CoTOldStratholme"] = {
 	EncounterJournalID = 279,
 	MapID = 521,
+	AtlasMapID = "CoTOldStratholme",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--CoTStratholmeMeathook
@@ -1035,6 +1044,7 @@ data["CoTOldStratholme"] = {
 data["FHTheForgeOfSouls"] = {
 	EncounterJournalID = 280,
 	MapID = 601,
+	AtlasMapID = "FHTheForgeOfSouls",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--FoSBronjahm
@@ -1100,6 +1110,7 @@ data["FHTheForgeOfSouls"] = {
 data["TheNexus"] = {
 	EncounterJournalID = 281,
 	MapID = 520,
+	AtlasMapID = "TheNexus",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--TheNexusKolurg
@@ -1194,6 +1205,7 @@ data["TheNexus"] = {
 data["TheOculus"] = {
 	EncounterJournalID = 282,
 	MapID = 520,
+	AtlasMapID = "TheOculus",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--OcuDrakos
@@ -1298,6 +1310,7 @@ data["TheOculus"] = {
 data["VioletHold"] = {
 	EncounterJournalID = 283,
 	MapID = 536,
+	AtlasMapID = "VioletHold",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--VioletHoldErekem
@@ -1427,6 +1440,7 @@ data["VioletHold"] = {
 data["TrialOfTheChampion"] = {
 	EncounterJournalID = 284,
 	MapID = 542,
+	AtlasMapID = "TrialOfTheChampion",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--TrialoftheChampionChampions
@@ -1552,6 +1566,7 @@ data["TrialOfTheChampion"] = {
 data["UtgardeKeep"] = {
 	EncounterJournalID = 285,
 	MapID = 523,
+	AtlasMapID = "UtgardeKeep",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--UtgardeKeepKeleseth
@@ -1626,6 +1641,7 @@ data["UtgardeKeep"] = {
 data["UtgardePinnacle"] = {
 	EncounterJournalID = 286,
 	MapID = 524,
+	AtlasMapID = "UtgardePinnacle",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--UPSorrowgrave
@@ -1728,6 +1744,7 @@ data["UtgardePinnacle"] = {
 data["IcecrownCitadel"] = {
 	name = ALIL["Icecrown Citadel"],
 	MapID = 604,
+	AtlasMapID = "IcecrownCitadelA",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--ICCLordMarrowgar
@@ -2629,6 +2646,7 @@ data["IcecrownCitadel"] = {
 data["Naxxramas"] = {
 	name = ALIL["Naxxramas"],
 	MapID = 535,
+	AtlasMapID = "Naxxramas",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Naxx80AnubRekhan
@@ -3315,6 +3333,7 @@ data["Naxxramas"] = {
 data["OnyxiasLair"] = {
 	name = ALIL["Onyxia's Lair"],
 	MapID = 718,
+	AtlasMapID = "OnyxiasLair",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Onyxia
@@ -3422,6 +3441,7 @@ data["OnyxiasLair"] = {
 data["TheEyeOfEternity"] = {
 	name = ALIL["The Eye of Eternity"],
 	MapID = 527,
+	AtlasMapID = "TheEyeOfEternity",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Malygos
@@ -3493,6 +3513,7 @@ data["TheEyeOfEternity"] = {
 data["ObsidianSanctum"] = {
 	name = ALIL["The Obsidian Sanctum"],
 	MapID = 531,
+	AtlasMapID = "ObsidianSanctum",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Sartharion
@@ -3576,6 +3597,7 @@ data["ObsidianSanctum"] = {
 data["RubySanctum"] = {
 	name = ALIL["The Ruby Sanctum"],
 	MapID = 609,
+	AtlasMapID = "RubySanctum",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Halion
@@ -3655,6 +3677,7 @@ data["RubySanctum"] = {
 data["TrialoftheCrusader"] = {
 	name = ALIL["Trial of the Crusader"],
 	MapID = 543,
+	AtlasMapID = "TrialOfTheCrusader",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--TrialoftheCrusaderNorthrendBeasts
@@ -4080,6 +4103,7 @@ data["TrialoftheCrusader"] = {
 data["Ulduar"] = {
 	name = ALIL["Ulduar"],
 	MapID = 529,
+	AtlasMapID = "UlduarA",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--UlduarLeviathan
@@ -4847,6 +4871,7 @@ data["Ulduar"] = {
 data["VaultofArchavon"] = {
 	name = ALIL["Vault of Archavon"],
 	MapID = 532,
+	AtlasMapID = "VaultOfArchavon",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Archavon

@@ -155,6 +155,7 @@ name = select(2, GetAchievementInfo(11160)),
 data["AssaultOnVioletHold"] = {
 	EncounterJournalID = 777,
 	MapID = 1066,
+	AtlasMapID = "AssaultonVioletHold",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Festerface
@@ -217,7 +218,7 @@ data["AssaultOnVioletHold"] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 				--{ 120, "ac9551" },
 			},
-						[MYTHICD_DUNGEON_DIFF] = {
+			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
 			},
 		},
@@ -360,6 +361,7 @@ data["AssaultOnVioletHold"] = {
 data["BlackRookHold"] = {
 	EncounterJournalID = 740,
 	MapID = 1081,
+	AtlasMapID = "BlackRookHoldA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--The Amalgam of Souls
@@ -477,6 +479,7 @@ data["BlackRookHold"] = {
 data["CourtOfStars"] = {
 	EncounterJournalID = 800,
 	MapID = 1087,
+	AtlasMapID = "CourtofStarsA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Patrol Captain Gerdo
@@ -549,6 +552,7 @@ data["CourtOfStars"] = {
 data["DarkheartThicket"] = {
 	EncounterJournalID = 762,
 	MapID = 1067,
+	AtlasMapID = "DarkheartThicket",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Archdruid Glaidalis
@@ -667,6 +671,7 @@ data["DarkheartThicket"] = {
 data["EyeOfAzshara"] = {
 	EncounterJournalID = 716,
 	MapID = 1046,
+	AtlasMapID = "EyeofAzshara",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Warlord Parjesh
@@ -804,6 +809,7 @@ data["EyeOfAzshara"] = {
 data["HallsOfValor"] = {
 	EncounterJournalID = 721,
 	MapID = 1041,
+	AtlasMapID = "HallsofValorA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Hymdall
@@ -948,6 +954,7 @@ data["HallsOfValor"] = {
 data["MawOfSouls"] = {
 	EncounterJournalID = 727,
 	MapID = 1042,
+	AtlasMapID = "MawofSoulsA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Ymiron, the Fallen King
@@ -1041,6 +1048,7 @@ data["MawOfSouls"] = {
 data["Neltharion'sLair"] = {
 	EncounterJournalID = 767,
 	MapID = 1065,
+	AtlasMapID = "NeltharionsLair",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Rokmora
@@ -1154,6 +1162,7 @@ data["Neltharion'sLair"] = {
 data["ReturnToKarazhan"] = {
 	EncounterJournalID = 860,
 	MapID = 1115,
+--	AtlasMapID = "",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Opera Hall: Wikket
@@ -1304,6 +1313,7 @@ data["ReturnToKarazhan"] = {
 data["TheArcway"] = {
 	EncounterJournalID = 726,
 	MapID = 1079,
+	AtlasMapID = "TheArcway",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Ivanyr
@@ -1394,6 +1404,7 @@ data["TheArcway"] = {
 data["VaultOfTheWardens"] = {
 	EncounterJournalID = 707,
 	MapID = 1045,
+	AtlasMapID = "VaultoftheWardensA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Tirathon Saltheril
@@ -1518,6 +1529,7 @@ data["VaultOfTheWardens"] = {
 data["BrokenIsles"] = {
 	EncounterJournalID = 822,
 	MapID = 0,
+	AtlasMapID = "OR_BrokenIsles",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Ana-Mouz
@@ -1670,6 +1682,7 @@ data["BrokenIsles"] = {
 data["TheEmeraldNightmare"] = {
 	EncounterJournalID = 768,
 	MapID = 1094,
+	AtlasMapID = "TheEmeraldNightmareA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
 	items = {
@@ -1891,6 +1904,7 @@ data["TheEmeraldNightmare"] = {
 data["TheNighthold"] = {
 	EncounterJournalID = 786,
 	MapID = 1088,
+	AtlasMapID = "TheNightholdA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
 	items = {
@@ -2268,6 +2282,7 @@ data["TheNighthold"] = {
 data["TrialOfValor"] = {
 	EncounterJournalID = 861,
 	MapID = 1114,
+	AtlasMapID = "TrialofValorA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
 	items = {
