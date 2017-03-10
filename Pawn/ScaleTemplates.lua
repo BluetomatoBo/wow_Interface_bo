@@ -110,7 +110,7 @@ PawnScaleTemplates =
 	["ClassID"] = 11, -- Druid
 	["SpecID"] = 1, -- Balance
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsOffHand", "IsMail", "IsPlate", "IsShield" }
 },
 
 {
@@ -118,7 +118,7 @@ PawnScaleTemplates =
 	["SpecID"] = 2, -- Feral
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsFrill", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsFrill", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield" } -- ideally IsOffHand should be here as well, but the feral artifact is dual-wielded
 },
 
 {
@@ -126,14 +126,14 @@ PawnScaleTemplates =
 	["SpecID"] = 3, -- Guardian
 	["PrimaryStat"] = "Agility",
 	["HideUpgrades"] = 1, -- Hide 1H upgrades
-	["UnusableStats"] = { "IsFrill", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsFrill", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield" } -- ideally IsOffHand should be here as well, but the guardian artifact is dual-wielded
 },
 
 {
 	["ClassID"] = 11, -- Druid
 	["SpecID"] = 4, -- Restoration
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsAxe", "Is2HAxe", "IsSword", "Is2HSword", "IsWarglaive", "IsOffHand", "IsMail", "IsPlate", "IsShield" }
 },
 
 {
