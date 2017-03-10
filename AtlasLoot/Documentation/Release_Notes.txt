@@ -5,6 +5,15 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.02.10 (Mar. 10, 2017)
+- added WorldMap integration
+- added auto-select feature while in instance
+
+v8.02.01 (Mar. 09, 2017)
+- set default module and map to be Legion and Legion instance
+- translation update:
+  - German, Korean, Simplified Chinese
+
 v8.02.00 (Mar. 03, 2017)
 - added Atlas integration, now you can quickly open the Atlas instance map 
   while browsing the instance loots within AtlasLoot

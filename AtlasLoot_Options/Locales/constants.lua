@@ -6,6 +6,7 @@ AL["A window with possible loot is shown if a Bonus Roll is started."] = true
 -- Buttons
 AL["Always show item comparison."] = true
 AL["Always show quick preview."] = true
+AL["Auto select current instance's loot tables."] = true
 AL["AtlasLoot Options"] = true
 
 AL["Background color/alpha"] = true

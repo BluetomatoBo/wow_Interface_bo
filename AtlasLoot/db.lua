@@ -10,8 +10,9 @@ AtlasLoot.AtlasLootDBDefaults = {
 	GUI = {		-- GUI\GUI.lua
 		point = {"CENTER"},
 		DefaultFrameLocked = false,
-		selected = {"AtlasLoot_WarlordsofDraenor", "Highmaul", 1, 0},
+		selected = {"AtlasLoot_Legion", "AssaultOnVioletHold", 1, 0},
 		classFilter = false,
+		autoselect = true,
 
 		mainFrame = {
 			bgColor = {0.45, 0.45, 0.45, 1},

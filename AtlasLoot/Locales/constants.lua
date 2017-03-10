@@ -84,6 +84,9 @@ AL["OK"] = true
 AL["Setup"] = true
 AL["Welcome to Atlasloot Enhanced. Please take a moment to set your preferences."] = true
 
+--Core\WorldMapIntegration.lua
+AL["Click to open AtlasLoot window"] = true;
+
 --GUI\GUI.lua
 AL["AtlasLoot Modules"] = true
 AL["Custom Modules"] = true

@@ -22,6 +22,12 @@ local function atlasloot(gui, content)
 	last = gui:Add("CheckBox")
 		:Point("TOP", last, "BOTTOM")
 		:Size("full")
+		:Text(AL["Auto select current instance's loot tables."])
+		:DB(db.GUI, "autoselect")
+		
+	last = gui:Add("CheckBox")
+		:Point("TOP", last, "BOTTOM")
+		:Size("full")
 		:Text(AL["Always show quick preview."])
 		:DB(db.Button.Item, "alwaysShowPreviewTT")
 		

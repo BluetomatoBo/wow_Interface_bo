@@ -7,6 +7,7 @@ AL["A window with possible loot is shown if a Bonus Roll is started."] = "当额
 AL["Always show item comparison."] = "总是显示物品对比。"
 AL["Always show quick preview."] = "总是显示快速预览。"
 AL["AtlasLoot Options"] = "AtlasLoot 选项"
+AL["Auto select current instance's loot tables."] = "自动选择当前副本拾取列表。"
 AL["Background"] = "背景"
 AL["Background color/alpha"] = "背景颜色/透明度"
 AL["Content"] = "内容"

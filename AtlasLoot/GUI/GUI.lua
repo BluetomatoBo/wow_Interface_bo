@@ -192,6 +192,9 @@ local function FrameOnShow(self)
 		self.moduleSelect:SetSelected(db.selected[1])
 	end
 	FIRST_SHOW = false
+	if (AtlasLoot.db.GUI.autoselect) then
+		AtlasLoot:AutoSelect()
+	end
 end
 
 local function ItemButtonOnClick(self)
