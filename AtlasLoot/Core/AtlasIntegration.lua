@@ -1,16 +1,26 @@
+-- ----------------------------------------------------------------------------
+-- Localized Lua globals.
+-- ----------------------------------------------------------------------------
+-- Functions
+local _G = getfenv(0)
+
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local ALName, ALPrivate = ...
-local _G = _G
 local AtlasLoot = _G.AtlasLoot
+local Atlas = {}
+AtlasLoot.Atlas = Atlas
 
 local ATLAS_SMALLFRAME_SELECTED_ORIG
 
-function AtlasLoot:Atlas_IsEnabled()
+function Atlas.IsEnabled()
 	local loadable = select(4, GetAddOnInfo("Atlas"));
 
 	return loadable;
 end
 
-function AtlasLoot:Atlas_ShowMap(mapID)
+function Atlas.ShowMap(mapID)
 	ATLAS_SMALLFRAME_SELECTED_ORIG = ATLAS_SMALLFRAME_SELECTED;
 	ATLAS_SMALLFRAME_SELECTED = true;
 

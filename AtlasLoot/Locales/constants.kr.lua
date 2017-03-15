@@ -203,6 +203,7 @@ AL["Replica available at Darkmoon Faire"] = "다크문 축제에서 구입 가�
 AL["Required module %s is currently disabled."] = "%s 모듈이 비활성화 상태입니다."
 AL["Required module %s is not installed."] = "%s 모듈이 설치 되지 않았습니다."
 AL["Rewards"] = "보상"
+AL["Right-click to close Atlas window."] = "오른쪽 클릭으로 Atlas 창을 닫습니다."
 AL["Ring"] = "반지"
 AL["Rings"] = "반지"
 AL["Runes"] = "룬"

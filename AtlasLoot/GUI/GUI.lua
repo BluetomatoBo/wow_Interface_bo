@@ -102,7 +102,7 @@ local function UpdateFrames(noPageUpdate)
 	end
 	
 	-- AtlasMapID
-	if (AtlasLoot:Atlas_IsEnabled() and moduleData[dataID].AtlasMapID) then
+	if (AtlasLoot.Atlas.IsEnabled() and moduleData[dataID].AtlasMapID) then
 		GUI.frame.contentFrame.AtlasMapButton.AtlasMapID = moduleData[dataID].AtlasMapID
 		GUI.frame.contentFrame.AtlasMapButton:Show()
 		if (GUI.frame.contentFrame.soundsButton:IsVisible()) then
@@ -233,9 +233,17 @@ local function MapButtonOnEnter(self, owner)
 end
 
 -- Atlas
-local function AtlasMapButton_OnClick(self)
-	if (AtlasLoot:Atlas_IsEnabled() and self.AtlasMapID) then
-		AtlasLoot:Atlas_ShowMap(self.AtlasMapID);
+local function AtlasMapButton_OnClick(self, button)
+	if (AtlasLoot.Atlas.IsEnabled()) then
+		if (button == "RightButton") then
+			if ( AtlasFrameSmall:IsVisible() ) then
+				HideUIPanel(AtlasFrameSmall);
+			end
+		else
+			if (self.AtlasMapID) then
+				AtlasLoot.Atlas.ShowMap(self.AtlasMapID);
+			end
+		end
 	end
 end
 
@@ -247,7 +255,7 @@ local function AtlasMapButton_OnEnter(self, owner)
 	else
 		tooltip:SetOwner(self, "ANCHOR_RIGHT", -(self:GetWidth() * 0.5), 5)
 	end
-	tooltip:AddLine(AL["Click to open Atlas instance map."])
+	tooltip:AddLine(AL["Click to open Atlas instance map."].."\n"..AL["Right-click to close Atlas window."])
 	tooltip:Show()
 end
 
@@ -730,6 +738,11 @@ function GUI.Init()
 	
 	AtlasLoot.SlashCommands:AddResetFunction(GUI.ResetFrames, "frames", "gui")
 	AtlasLoot.SlashCommands:Add("togglebg", function() db.hideBGImage = not db.hideBGImage end, AL["/al togglebg - Toggle the background image on loottables."])
+
+	-- if auto-select is enabled, pre-load all instance modules to save the first-time AL frame's loading time
+	if (AtlasLoot.db.GUI.autoselect) then
+		AtlasLoot:PreLoadModules();
+	end
 end
 AtlasLoot:AddInitFunc(GUI.Init)
 
@@ -918,6 +931,7 @@ function GUI:Create()
 	frame.contentFrame.AtlasMapButton:SetWidth(32)
 	frame.contentFrame.AtlasMapButton:SetHeight(32)
 	frame.contentFrame.AtlasMapButton:SetPoint("RIGHT", frame.contentFrame.modelButton, "LEFT", -2, 0)
+	frame.contentFrame.AtlasMapButton:RegisterForClicks("LeftButtonDown", "RightButtonDown")
 	frame.contentFrame.AtlasMapButton:SetScript("OnClick", AtlasMapButton_OnClick)
 	frame.contentFrame.AtlasMapButton:SetScript("OnEnter", AtlasMapButton_OnEnter)
 	frame.contentFrame.AtlasMapButton:SetScript("OnLeave", function(self) GetAlTooltip():Hide() end)

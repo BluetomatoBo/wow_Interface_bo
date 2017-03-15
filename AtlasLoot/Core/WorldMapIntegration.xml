@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
 	<Script file="WorldMapIntegration.lua"/>
 
-	<Button name="AtlasLootToggleFromWorldMap" toplevel="true" parent="WorldMapFrame" frameLevel="10" hidden="false">
+	<Button name="AtlasLootToggleFromWorldMap1" toplevel="true" parent="WorldMapFrame" frameLevel="10" hidden="true">
 		<Size>
 			<AbsDimension x="32" y="32" />
 		</Size>
@@ -51,13 +51,13 @@
 		</HighlightTexture>
 		<Scripts>
 			<OnEnter>
-				AtlasLoot:ToggleFromWorldMap_OnEnter(self);
+				AtlasLoot.WorldMap.Button_OnEnter(self);
 			</OnEnter>
 			<OnLeave>
-				AtlasLoot:ToggleFromWorldMap_OnLeave(self);
+				AtlasLoot.WorldMap.Button_OnLeave(self);
 			</OnLeave>
 			<OnClick>
-				AtlasLoot:ToggleFromWorldMap_OnClick(self, button);
+				AtlasLoot.WorldMap.Button_OnClick(self, button);
 			</OnClick>
 		</Scripts>
 	</Button>

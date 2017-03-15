@@ -1,5 +1,5 @@
 
--- X-Curse-Packaged-Version: v8.02.10
+-- X-Curse-Packaged-Version: v8.02.12
 -- X-Curse-Project-Name: AtlasLoot Enhanced
 -- X-Curse-Project-ID: atlasloot-enhanced
 -- X-Curse-Repository-ID: wow/atlasloot-enhanced/mainline

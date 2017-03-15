@@ -46,6 +46,10 @@ AtlasLoot.AtlasLootDBDefaults = {
 		point = {"CENTER"},
 		locked = false,
 	},
+	WorldMap = {
+		showbutton = true,
+		buttonOnTitleBar = true,
+	},
 	QuickLootFrame = {
 		point = {"CENTER"},
 		mainFrame = {

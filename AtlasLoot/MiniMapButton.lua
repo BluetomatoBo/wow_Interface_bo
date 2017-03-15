@@ -37,31 +37,7 @@ function MiniMapButton.Init()
 	SlashCommands:AddResetFunction(MiniMapButton.ResetFrames, "frames", "mmb")
 
 	profile = AtlasLoot.db
-	local defaults = {
-		shown = true,
-		locked = false,
-		minimapPos = 218,
-	};
-	if (profile.minimap == nil) then
-		profile.minimap = defaults;
-		-- below to be removed in the later release
-		if (profile.MiniMapButton.shown == false) then
-			profile.minimap.shown = false;
-		else
-			profile.minimap.shown = true;
-		end
-		if (not profile.minimap.shown) then
-			profile.minimap.hide = true;
-		end
-		if (profile.MiniMapButton.locked == true) then
-			profile.minimap.locked = true;
-		else
-			profile.minimap.locked = false;
-		end
-		if (profile.minimap.locked) then
-			profile.minimap.lock = true;
-		end
-	end
+
 	ALButton:Register("AtlasLoot", MiniMapLDB, profile.minimap);
 end
 AtlasLoot:AddInitFunc(MiniMapButton.Init)

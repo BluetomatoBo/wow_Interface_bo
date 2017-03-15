@@ -27,6 +27,7 @@ AL["Reset position of the |cff33ff99\"%s\"|r window."] = "Setzt die Position des
 AL["Reset position of the |cff33ff99\"Minimap button\"|r."] = "Setzt die Position des |cff33ff99 Minikartenbuttons|r zurück."
 AL["Scale"] = "Skalierung"
 AL["Set View"] = "Setansicht"
+AL["Show AtlasLoot button on WorldMap."] = "AtlasLoot-Button auf der Weltkarte anzeigen."
 AL["Show background image if available."] = "Ein Hintergrundbild zeigen, falls verfügbar."
 AL["Show minimap button."] = "Minikartenbutton zeigen"
 AL["Subtitle"] = "Untertitel"
