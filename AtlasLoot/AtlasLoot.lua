@@ -147,6 +147,7 @@ function AtlasLoot:AutoSelect()
 	local o_dataID = db.selected[2];
 	local o_bossID = db.selected[3];
 	local o_diffID = db.selected[4];
+	local o_page = db.selected[5];
 	local moduleName, dataID;
 	local refresh = false;
 

@@ -1,4 +1,4 @@
-﻿local AL = _G.AtlasLoot.GetLocales("deDE")
+local AL = _G.AtlasLoot.GetLocales("deDE")
 
 if not AL then return end
 
@@ -249,6 +249,7 @@ AL["Third Fragment Guardian"] = "Wächter des dritten Teils"
 AL["Thomas Yance"] = "Thomas Yance"
 AL["Tier %d Sets"] = "Tier %d Sets"
 AL["Tier Sets"] = "Tiersets"
+AL["Tier Sets - per Class"] = "Tiersets - pro Klasse"
 AL["Timed Reward Chest"] = "Timerun Belohnungskiste"
 AL["Timewalking Dungeon Event"] = "Zeitwanderungsdungeons"
 AL["Tinker"] = "Basteln"

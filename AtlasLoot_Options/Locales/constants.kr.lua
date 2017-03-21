@@ -31,6 +31,7 @@ AL["Reset position of the |cff33ff99\"Minimap button\"|r."] = "|cff33ff99\"미�
 AL["Scale"] = "크기 비율"
 AL["Set View"] = "세트 보기"
 AL["Show AtlasLoot button on WorldMap."] = "세계 지도에 AtlasLoot 버튼을 표시합니다."
+AL["Show AtlasLoot button on WorldMap's title bar."] = "세계 지도의 제목 바에 AtlasLoot 버튼을 표시합니다."
 AL["Show background image if available."] = "가능하다면 배경 이미지를 표시합니다."
 AL["Show minimap button."] = "미니맵 버튼을 표시합니다."
 AL["Subtitle"] = "부제목"

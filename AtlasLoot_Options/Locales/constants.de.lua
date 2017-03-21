@@ -1,4 +1,4 @@
-﻿local AL = _G.AtlasLoot.GetLocales("deDE")
+local AL = _G.AtlasLoot.GetLocales("deDE")
 
 if not AL then return end
 
@@ -6,6 +6,7 @@ if not AL then return end
 AL["A window with possible loot is shown if a Bonus Roll is started."] = "Zeigt ein Fenster mit möglicher Bonusbeute an, sobald die Möglichkeit eines Bonuswurfs besteht."
 AL["Always show item comparison."] = "Gegenstandsvergleich immer zeigen."
 AL["AtlasLoot Options"] = "AtlasLoot Einstellungen"
+AL["Auto select current instance's loot tables."] = "Beute der momentanen Instanz automatisch auswählen."
 AL["Background"] = "Hintergrund"
 AL["Background color/alpha"] = "Hintergrundfarbe und -transparenz"
 AL["Content"] = "Inhalt"
@@ -28,6 +29,7 @@ AL["Reset position of the |cff33ff99\"Minimap button\"|r."] = "Setzt die Positio
 AL["Scale"] = "Skalierung"
 AL["Set View"] = "Setansicht"
 AL["Show AtlasLoot button on WorldMap."] = "AtlasLoot-Button auf der Weltkarte anzeigen."
+AL["Show AtlasLoot button on WorldMap's title bar."] = "AtlasLoot-Button in der Titelleiste anzeigen."
 AL["Show background image if available."] = "Ein Hintergrundbild zeigen, falls verfügbar."
 AL["Show minimap button."] = "Minikartenbutton zeigen"
 AL["Subtitle"] = "Untertitel"

@@ -5,6 +5,23 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.02.23 (Mar. 20, 2017)
+- handling AtlasLoot button's style on WorldMap when ElvUI is enabled
+- translation update:
+  - German
+  
+v8.02.22 (Mar. 17, 2017)
+- handling HandyNotes_WorldMapButton's position
+
+v8.02.21 (Mar. 16, 2017)
+- library update
+  - LibBabble-ItemSet-3.0
+
+v8.02.20 (Mar. 15, 2017)
+- added tier sets per class
+- translation update:
+  - Korean, Simplified Chinese
+
 v8.02.12 (Mar. 15, 2017)
 - added WorldMap button style, now you can toggle it to show on title bar
 - translation update:

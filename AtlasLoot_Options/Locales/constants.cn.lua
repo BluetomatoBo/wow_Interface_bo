@@ -31,6 +31,7 @@ AL["Reset position of the |cff33ff99\"Minimap button\"|r."] = "重置|cff33ff99\
 AL["Scale"] = "缩放"
 AL["Set View"] = "设置查看"
 AL["Show AtlasLoot button on WorldMap."] = "在世界地图上显示 AtlasLoot 按钮。"
+AL["Show AtlasLoot button on WorldMap's title bar."] = "在世界地图标题栏显示 AtlasLoot 按钮。"
 AL["Show background image if available."] = "可用时显示背景图片。"
 AL["Show minimap button."] = "显示小地图按钮。"
 AL["Subtitle"] = "副标题"

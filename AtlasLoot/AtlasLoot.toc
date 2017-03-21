@@ -1,6 +1,6 @@
 ﻿## Interface: 70100
 ## Author: Hegarol
-## Version: v8.02.12
+## Version: v8.02.23
 ## SavedVariables: AtlasLootDB
 ## SavedVariablesPerCharacter: AtlasLootCharDB
 ## OptionalDeps: 

@@ -18,18 +18,47 @@ local AL = AtlasLoot.Locales
 local GetAlTooltip = AtlasLoot.Tooltip.GetTooltip
 local profile
 
-local function AdjustMasperButton(adjust)
-	local loadable = select(4, GetAddOnInfo("Mapster"));
-	if not loadable then return; end
+local function AdjustOtherWorldMapButton(adjust)
+	profile = AtlasLoot.db.WorldMap;
+
+	local lMapster = select(4, GetAddOnInfo("Mapster"));
+	local lHandyNotes_WorldMapButton = select(4, GetAddOnInfo("HandyNotes_WorldMapButton"));
+	local ElvUI = select(4, GetAddOnInfo("ElvUI"));
+	if (not (lMapster or lHandyNotes_WorldMapButton or ElvUI)) then return; end
+	
+	if (ElvUI and profile.buttonOnTitleBar) then
+		local button = _G["AtlasLootToggleFromWorldMap2"];
+		button:SetNormalTexture("Interface\\Icons\\INV_Box_01");
+		button:SetWidth(16);
+		button:SetHeight(16);
+	end
+
+	local HandyNotesButton = _G["HandyNotesWorldMapButton"];
+	if (HandyNotesButton) then
+		if (adjust) then
+			HandyNotesButton:SetPoint("TOPRIGHT", WorldMapFrame.BorderFrame, "TOPRIGHT", -72, -3)
+		else
+			HandyNotesButton:SetPoint("TOPRIGHT", WorldMapFrame.BorderFrame, "TOPRIGHT", -48, -3);
+		end
+	end
 
 	local mapsterButton = _G["MapsterOptionsButton"];
 	if (mapsterButton and mapsterButton:IsShown()) then
 		if (adjust) then
-			mapsterButton:SetPoint("TOPRIGHT", WorldMapTitleButton, "TOPRIGHT", -20, -3)
+			if (HandyNotesButton) then
+				mapsterButton:SetPoint("TOPRIGHT", WorldMapTitleButton, "TOPRIGHT", -40, -3)
+			else
+				mapsterButton:SetPoint("TOPRIGHT", WorldMapTitleButton, "TOPRIGHT", -20, -3)
+			end
 		else
-			mapsterButton:SetPoint("TOPRIGHT", WorldMapTitleButton, "TOPRIGHT", 0, -3)
+			if (HandyNotesButton) then
+				mapsterButton:SetPoint("TOPRIGHT", WorldMapTitleButton, "TOPRIGHT", -16, -3)
+			else
+				mapsterButton:SetPoint("TOPRIGHT", WorldMapTitleButton, "TOPRIGHT", 0, -3)
+			end
 		end
 	end
+
 end
 
 local function ButtonBinding()
@@ -46,7 +75,7 @@ local function ButtonBinding()
 		button:SetScript("OnEnter", WorldMap.Button_OnEnter);
 		button:SetScript("OnLeave", WorldMap.Button_OnLeave);
 		button:SetScript("OnClick", WorldMap.Button_OnClick);
-		button:SetScript("OnShow", AdjustMasperButton);
+		button:SetScript("OnShow", AdjustOtherWorldMapButton);
 	end
 end
 
@@ -81,12 +110,12 @@ function WorldMap.ToggleButtonOnChange()
 
 	if (profile.showbutton) then
 		if (profile.buttonOnTitleBar) then
-			AdjustMasperButton(true);
+			AdjustOtherWorldMapButton(true);
 		end
 		button:Show();
 	else
 		if (profile.buttonOnTitleBar) then
-			AdjustMasperButton(false);
+			AdjustOtherWorldMapButton(false);
 		end
 		button:Hide();
 	end
@@ -102,11 +131,11 @@ function WorldMap.ButtonStyleOnChange(styleID)
 		if (not button2) then ButtonBinding(); end
 		button2 = _G["AtlasLootToggleFromWorldMap2"];
 		button2:Show();
-		AdjustMasperButton(true);
+		AdjustOtherWorldMapButton(true);
 	else
 		button1:Show();
 		button2:Hide();
-		AdjustMasperButton(false);
+		AdjustOtherWorldMapButton(false);
 	end
 end
 

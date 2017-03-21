@@ -212,6 +212,7 @@ AL["Primal Trader"] = true
 AL["Replica available at Darkmoon Faire"] = true
 AL["Tabards"] = true
 AL["Tier Sets"] = true
+AL["Tier Sets - per Class"] = true
 AL["Tier %d Sets"] = true
 AL["Timewalking Dungeon Event"] = true
 AL["Unobtainable Tabards"] = true
