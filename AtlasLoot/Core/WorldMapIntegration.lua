@@ -24,13 +24,27 @@ local function AdjustOtherWorldMapButton(adjust)
 	local lMapster = select(4, GetAddOnInfo("Mapster"));
 	local lHandyNotes_WorldMapButton = select(4, GetAddOnInfo("HandyNotes_WorldMapButton"));
 	local ElvUI = select(4, GetAddOnInfo("ElvUI"));
+	local ElvUI_BZSkin = false;
 	if (not (lMapster or lHandyNotes_WorldMapButton or ElvUI)) then return; end
+	if (ElvUI and ElvPrivateDB) then
+		local profileKey;
+		if ElvPrivateDB.profileKeys then
+			profileKey = ElvPrivateDB.profileKeys[UnitName("player")..' - '..GetRealmName()];
+		end
+
+		if profileKey and ElvPrivateDB.profiles and ElvPrivateDB.profiles[profileKey] then
+			if (ElvPrivateDB.profiles[profileKey]["skins"]["blizzard"]["enable"] and ElvPrivateDB.profiles[profileKey]["skins"]["blizzard"]["worldmap"]) then
+				ElvUI_BZSkin = true;
+			end
+		end
+	end
 	
-	if (ElvUI and profile.buttonOnTitleBar) then
+	if (ElvUI and profile.buttonOnTitleBar and ElvUI_BZSkin) then
 		local button = _G["AtlasLootToggleFromWorldMap2"];
 		button:SetNormalTexture("Interface\\Icons\\INV_Box_01");
 		button:SetWidth(16);
 		button:SetHeight(16);
+		button:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD");
 	end
 
 	local HandyNotesButton = _G["HandyNotesWorldMapButton"];

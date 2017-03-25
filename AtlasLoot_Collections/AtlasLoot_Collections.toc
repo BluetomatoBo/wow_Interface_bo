@@ -1,6 +1,6 @@
 ﻿## Interface: 70100
 ## Author: Hegarol	
-## Version: v8.02.23
+## Version: v8.02.24
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 ## OptionalDeps: 
