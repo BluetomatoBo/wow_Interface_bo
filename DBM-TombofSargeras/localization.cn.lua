@@ -1,3 +1,9 @@
+-- Mini Dragon(projecteurs@gmail.com)
+-- 夏一可
+-- Blizzard Entertainment
+-- Last update: 2017/03/19
+
+if GetLocale() ~= "zhCN" then return end
 local L
 
 ---------------------------
@@ -6,11 +12,11 @@ local L
 L= DBM:GetModLocalization(1862)
 
 L:SetTimerLocalization({
-	timerComboWamboCD =	"Next Comet/Spike (%d)"
+	timerComboWamboCD =	"下一次彗星/尖刺 (%d)"
 })
 
 L:SetOptionLocalization({
-	timerComboWamboCD =	"Show timer for next Crashing Comet/Infernal Spike"
+	timerComboWamboCD =	"计时条：下一次彗星冲撞|地狱火尖刺"
 })
 
 L:SetMiscLocalization({
@@ -52,7 +58,7 @@ L= DBM:GetModLocalization(1897)
 L= DBM:GetModLocalization(1873)
 
 L:SetOptionLocalization({
-	InfoFrame =	"Show InfoFrame for boss power"
+	InfoFrame =	"信息窗：Boss能量"
 })
 
 ---------------------------
@@ -66,5 +72,5 @@ L= DBM:GetModLocalization(1898)
 L = DBM:GetModLocalization("TombSargTrash")
 
 L:SetGeneralLocalization({
-	name =	"Tomb of Sargeras Trash"
+	name =	"萨格拉斯之墓小怪"
 })

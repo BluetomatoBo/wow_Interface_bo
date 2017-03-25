@@ -1,3 +1,4 @@
+if GetLocale() ~= "deDE" then return end
 local L
 
 ---------------------------
@@ -6,11 +7,11 @@ local L
 L= DBM:GetModLocalization(1862)
 
 L:SetTimerLocalization({
-	timerComboWamboCD =	"Next Comet/Spike (%d)"
+	timerComboWamboCD =	"Next Comet/Spike (%d)"--translate later
 })
 
 L:SetOptionLocalization({
-	timerComboWamboCD =	"Show timer for next Crashing Comet/Infernal Spike"
+	timerComboWamboCD =	"Show timer for next Crashing Comet/Infernal Spike"--translate later
 })
 
 L:SetMiscLocalization({
@@ -52,7 +53,7 @@ L= DBM:GetModLocalization(1897)
 L= DBM:GetModLocalization(1873)
 
 L:SetOptionLocalization({
-	InfoFrame =	"Show InfoFrame for boss power"
+	InfoFrame =	"Show InfoFrame for boss power"--translate later
 })
 
 ---------------------------
@@ -66,5 +67,5 @@ L= DBM:GetModLocalization(1898)
 L = DBM:GetModLocalization("TombSargTrash")
 
 L:SetGeneralLocalization({
-	name =	"Tomb of Sargeras Trash"
+	name =	"Trash des Grabmals des Sargeras"
 })

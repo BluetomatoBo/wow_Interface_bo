@@ -1,3 +1,4 @@
+if GetLocale() ~= "zhTW" then return end
 local L
 
 ---------------------------
@@ -66,5 +67,5 @@ L= DBM:GetModLocalization(1898)
 L = DBM:GetModLocalization("TombSargTrash")
 
 L:SetGeneralLocalization({
-	name =	"Tomb of Sargeras Trash"
+	name =	"薩格拉斯之墓小怪"
 })
