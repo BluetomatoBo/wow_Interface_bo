@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0118
+PawnVersion = 2.0200
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -123,6 +123,8 @@ function PawnOnEvent(Event, arg1, arg2, ...)
 		PawnOnAddonLoaded(arg1)
 	elseif Event == "PLAYER_SPECIALIZATION_CHANGED" and arg1 == "player" then
 		PawnOnSpecChanged()
+	elseif Event == "ARTIFACT_UPDATE" then
+		PawnOnArtifactUpdated(arg1)
 	elseif Event == "PLAYER_LOGIN" then
 		PawnInitialize()
 	elseif Event == "PLAYER_LOGOUT" then
@@ -383,16 +385,11 @@ function PawnInitialize()
 		if PawnCommon.ShowBagUpgradeAdvisor then
 			local _, _, _, _, _, _, ItemLink = GetContainerItemInfo(bagID, slot)
 			if not ItemLink then return nil end
-			local _, _, _, _, MinLevel = GetItemInfo(ItemLink)
-			if not MinLevel or UnitLevel("player") < MinLevel then return nil end
-			if not PawnCanItemHaveStats(ItemLink) then return false end -- If the item can never have stats, it's never an upgrade, so don't check again
-			local Item = PawnGetItemData(ItemLink)
-			if not Item then return nil end -- If we don't have stats for the item yet, have the game ask us again later
-			return PawnIsItemAnUpgrade(Item) ~= nil
+			return PawnShouldItemLinkHaveUpgradeArrow(ItemLink)
 		else
 			return PawnOriginalIsContainerItemAnUpgrade(bagID, slot, ...)
 		end
-		-- FUTURE: Consider hooking ContainerFrameItemButton_UpdateItemUpgradeIcon instead, but then Pawn would need its own "retry when not enough information is available" logic
+		-- FUTURE: Consider hooking ContainerFrameItemButton_UpdateItemUpgradeIcon instead, but then Pawn would need its own "retry when not enough information is available" logic.  But then Pawn also would no longer automatically integrate with other bag addons.
 	end
 
 	-- We're now effectively initialized.  Just the last steps of scale initialization remain.
@@ -401,6 +398,7 @@ function PawnInitialize()
 	-- If any of our dependencies have already loaded, pretend that they just loaded now.
 	if IsAddOnLoaded("Blizzard_InspectUI") then PawnOnAddonLoaded("Blizzard_InspectUI") end
 	if IsAddOnLoaded("Blizzard_ItemSocketingUI") then PawnOnAddonLoaded("Blizzard_ItemSocketingUI") end
+	if IsAddOnLoaded("Blizzard_ArtifactUI") then PawnOnAddonLoaded("Blizzard_ArtifactUI") end
 
 	-- Now, load any plugins that are ready to be loaded.
 	PawnInitializePlugins()
@@ -452,6 +450,9 @@ function PawnOnAddonLoaded(AddonName)
 	elseif AddonName == "Blizzard_ItemSocketingUI" then
 		-- After the socketing UI is loaded, it gets a Pawn button too.
 		PawnUI_SocketingPawnButton_Attach()
+	elseif AddonName == "Blizzard_ArtifactUI" then
+		-- After the artifact UI is loaded, watch the relic sockets.
+		PawnUI_HookArtifactUI()
 	end
 end
 
@@ -567,23 +568,29 @@ function PawnInitializeOptions()
 	PawnCommon.IgnoreItemUpgrades = nil
 
 	-- Any new stuff since the last version they used?
-	if (not PawnCommon.LastVersion) or (PawnCommon.LastVersion < 1.9) then
+	if not PawnCommon.LastVersion then PawnCommon.LastVersion = 0 end
+	if not PawnOptions.LastVersion then PawnOptions.LastVersion = 0 end
+	if PawnCommon.LastVersion < 1.9 then
 		-- When upgrading to 1.9, enable the "ignore sockets on low-level items" option.
 		PawnCommon.IgnoreGemsWhileLeveling = true
 	end
-	if (not PawnCommon.LastVersion) or (PawnCommon.LastVersion < 2.0000) then
+	if PawnCommon.LastVersion < 2.0000 then
 		-- The new "show spec icons" option is enabled by default.
 		PawnCommon.ShowSpecIcons = true
 	end
-	if (not PawnOptions.LastVersion) or (PawnOptions.LastVersion < 2.0000) then
+	if PawnOptions.LastVersion < 2.0000 then
 		-- When upgrading each character to 2.0, turn on the auto-scale option, but just once.
 		PawnOptions.AutoSelectScales = true
 	end
-	if (not PawnCommon.LastVersion) or (PawnCommon.LastVersion < 2.0101) then
+	if PawnCommon.LastVersion < 2.0101 then
 		-- The new Bag Upgrade Advisor is on by default.
 		PawnCommon.ShowBagUpgradeAdvisor = true
 	end
-	if (not PawnCommon.LastVersion) or (PawnCommon.LastVersion < PawnMrRobotLastUpdatedVersion) then
+	if PawnCommon.LastVersion < 2.0200 then
+		-- Relic upgrade detection is on by default starting in Pawn 2.2.
+		PawnCommon.ShowRelicUpgrades = true
+	end
+	if PawnCommon.LastVersion < PawnMrRobotLastUpdatedVersion then
 		-- If the Ask Mr. Robot scales have been updated since the last time they used Pawn, re-scan gear.
 		PawnInvalidateBestItems()
 	end
@@ -894,19 +901,32 @@ function PawnRecreateAnnotationFormats()
 	PawnEnchantedAnnotationFormat = PawnUnenchantedAnnotationFormat .. "  %s(%." .. PawnCommon.Digits .. "f " .. PawnLocal.BaseValueWord .. ")"
 end
 
-function PawnCanItemHaveStats(ItemLink)
+local function PawnCheckItemTypeCore(ItemLink, AllowEquippable, AllowStatGems, AllowRelics)
 	local _, _, _, InvType, _, ItemClassID, ItemSubClassID = GetItemInfoInstant(ItemLink)
-	if (InvType == nil or InvType == "") and not (ItemClassID == LE_ITEM_CLASS_GEM and ItemSubClassID ~= LE_ITEM_GEM_ARTIFACTRELIC) then
-		-- If the item isn't equippable don't bother parsing it, unless it's a gem.  But, artifact relics are "gems" that can't have stats,
-		-- so don't bother looking for stats on them either.
-		-- FUTURE: Also allow LE_ITEM_CLASS_RECIPE if we want to work with recipes someday. 
-		return false
+	if (InvType == nil or InvType == "") then
+		-- If the item isn't equippable don't bother parsing it, unless it's a gem or relic.
+		return
+			(AllowStatGems and ItemClassID == LE_ITEM_CLASS_GEM and ItemSubClassID ~= LE_ITEM_GEM_ARTIFACTRELIC) or
+			(AllowRelics and ItemClassID == LE_ITEM_CLASS_GEM and ItemSubClassID == LE_ITEM_GEM_ARTIFACTRELIC)
 	elseif InvType == "INVTYPE_RELIC" or InvType == "INVTYPE_THROWN" or InvType == "INVTYPE_TABARD" or InvType == "INVTYPE_BAG" or InvType == "INVTYPE_BODY" then
 		-- Old (grey, pre-artifact) relics might have sockets and therefore "stats" but they aren't equippable anymore so they shouldn't get values, so just bail out now.
 		-- Thrown items, tabards, bags, and shirts (invtype_body) can also never have stats.
 		return false
 	end
-	return true
+	-- Otherwise, this is an equippable item.
+	return AllowEquippable
+end
+
+function PawnCanItemHaveStats(ItemLink)
+	return PawnCheckItemTypeCore(ItemLink, true, true, false) -- filter for equippable items and stat gems
+end
+
+function PawnCanItemBeArtifactUpgrade(ItemLink)
+	return PawnCheckItemTypeCore(ItemLink, false, false, true) -- filter for relics only
+end
+
+function PawnCanItemHaveUpgradeArrow(ItemLink)
+	return PawnCheckItemTypeCore(ItemLink, true, true, true)
 end
 
 -- Gets the item data for a specific item link.  Retrieves the information from the cache when possible; otherwise, it gets fresh information.
@@ -918,6 +938,7 @@ function PawnGetItemData(ItemLink)
 	if PawnGetHyperlinkType(ItemLink) ~= "item" then return end
 
 	-- If this type of item can't ever have stats (food, for example), just bail out.
+	-- We don't use this codepath in the case of artifact relics.
 	if not PawnCanItemHaveStats(ItemLink) then return end
 	
 	-- If we have an item link, we can extract basic data from it from the user's WoW cache (not the Pawn item cache).
@@ -1077,9 +1098,7 @@ function PawnGetGemData(GemData)
 	return Item
 end
 
--- Gets the item data for a specific item.  Retrieves the information from the cache when possible; otherwise, gets it from the tooltip specified.
--- Return value type is the same as PawnGetCachedItem.
-function PawnGetItemDataFromTooltip(TooltipName, MethodName, Param1, ...)
+function PawnGetItemLinkFromTooltip(TooltipName, MethodName, Param1, ...)
 	VgerCore.Assert(TooltipName, "TooltipName must be non-null!")
 	VgerCore.Assert(MethodName, "MethodName must be non-null!")
 	if (not TooltipName) or (not MethodName) then return end
@@ -1089,7 +1108,7 @@ function PawnGetItemDataFromTooltip(TooltipName, MethodName, Param1, ...)
 	if not Tooltip then return end
 	
 	-- If we have a tooltip, try to get an item link from it.
-	local ItemLink, ItemID, ItemLevel, _
+	local ItemLink, _
 	if (MethodName == "SetHyperlink") and Param1 then
 		-- Special case: if the method is SetHyperlink, then we already have an item link.
 		-- (Normally, GetItem will work, but SetHyperlink is used by some mod compatibility code.)
@@ -1097,17 +1116,16 @@ function PawnGetItemDataFromTooltip(TooltipName, MethodName, Param1, ...)
 	elseif Tooltip.GetItem then
 		_, ItemLink = Tooltip:GetItem()
 	end
-	
-	-- If we got an item link from the tooltip (or it was passed in), we can go through the simpler and more effective code that specifically
-	-- uses item links, and skip the rest of this function.
-	if ItemLink then
-		return PawnGetItemData(ItemLink)
-	end
-	
-	-- If we made it this far, then we're in the degenerate case where the tooltip doesn't have item information.  Let's look for the item's name,
-	-- and maybe we'll get lucky and find that in our item cache.
+
+	return ItemLink
+end
+
+-- Gets the item data for a specific item.  Retrieves the information from the cache when possible; otherwise, gets it from the tooltip specified.  Only use this if you don't have an item link; otherwise use PawnGetItemData(ItemLink).
+-- Return value type is the same as PawnGetCachedItem.
+function PawnGetItemDataFromTooltip(TooltipName, MethodName, Param1, ...)
 	local ItemName, ItemNameLineNumber = PawnGetItemNameFromTooltip(TooltipName)
 	if (not ItemName) or (not ItemNameLineNumber) then return end
+	local Tooltip = _G[TooltipName]
 	local ItemNumLines = Tooltip:NumLines()
 	local Item = PawnGetCachedItem(nil, ItemName, ItemNumLines)
 	if Item and Item.Values then
@@ -1206,65 +1224,80 @@ function PawnUpdateTooltip(TooltipName, MethodName, Param1, ...)
 		return
 	end
 
-	-- Get information for the item in this tooltip.  This function will use item links and cached data whenever possible.
-	local Item = PawnGetItemDataFromTooltip(TooltipName, MethodName, Param1, ...)
+	-- Start by getting the item link.
+	local ItemLink = PawnGetItemLinkFromTooltip(TooltipName, MethodName, Param1, ...)
+
+	-- Then get the item or relic data.
+	local Item, IsRelic
+	if ItemLink then
+		if PawnCanItemBeArtifactUpgrade(ItemLink) then
+			-- This is a relic item, so we just get upgrade info directly.
+			IsRelic = true
+		else
+			-- This is the normal case: a normal item for which we have an item link.
+			Item = PawnGetItemData(ItemLink)
+		end
+	else
+		-- If there was no item link, try the degenerate case of trying to read directly from the tooltip instead of using our special parsing tooltip.
+		Item = PawnGetItemDataFromTooltip(TooltipName, MethodName, Param1, ...)
+	end
 
 	-- If there's no item data, then something failed, so we can't update this tooltip, except to show item IDs.
-	local TooltipWasUpdated
+	local TooltipWasUpdated, UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements
+
 	if Item then
-		-- Is this an upgrade?
-		local UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements
+		-- If this is a regular item, do the regular calculations to see if it's an upgrade.
 		if PawnCommon.ShowUpgradesOnTooltips then UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements = PawnIsItemAnUpgrade(Item) end
 		
 		-- If this is the main GameTooltip, remember the item that was hovered over.
 		-- AtlasLoot compatibility: enable hover comparison for AtlasLoot tooltips too.
-		if TooltipName == "GameTooltip" or TooltipName == "AtlasLootTooltip" or TooltipName == "WorldMapTooltipTooltip" then -- "TooltipTooltip" isn't a typo; it's an embedded tooltip
+		if ItemLink and TooltipName == "GameTooltip" or TooltipName == "AtlasLootTooltip" or TooltipName == "WorldMapTooltipTooltip" then -- "TooltipTooltip" isn't a typo; it's an embedded tooltip
 			PawnLastHoveredItem = Item.Link
 		end
-		
-		-- Now, just update the tooltip with the item data we got from the previous call.
-		
-		-- If necessary, add a blank line to the tooltip.
-		local AddSpace = true
-		
-		-- Add the scale values to the tooltip.
-		if AddSpace and #Item.Values > 0 and (UpgradeInfo or BestItemFor or SecondBestItemFor or not PawnCommon.ShowValuesForUpgradesOnly) then Tooltip:AddLine(" ") AddSpace = false end
-		PawnAddValuesToTooltip(Tooltip, Item.Values, UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements, Item.InvType)
-		if PawnCommon.ColorTooltipBorder then
-			if UpgradeInfo then Tooltip:SetBackdropBorderColor(0, 1, 0) else Tooltip:SetBackdropBorderColor(1, 1, 1) end
+	elseif IsRelic then
+		-- If this is a relic, we use a special relic-only codepath for this.
+		if not PawnIsHoveringSocketedRelic then
+			if PawnCommon.ShowRelicUpgrades then UpgradeInfo = PawnGetRelicUpgradeInfo(ItemLink) end
 		end
+	end
 		
-		-- If there were unrecognized values, annotate those lines.
-		local Annotated = false
+	-- If necessary, add a blank line to the tooltip.
+	if
+		(Item and not PawnCommon.ShowValuesForUpgradesOnly and #Item.Values > 0) or
+		(Item and PawnCommon.ShowUpgradesOnTooltips and (UpgradeInfo or BestItemFor or SecondBestItemFor))
+	then
+		Tooltip:AddLine(" ")
+	end
+
+	local Annotated, TooltipWasUpdated
+
+	if Item then
+		-- Add the scale values and upgrade info to the tooltip.
+		PawnAddValuesToTooltip(Tooltip, Item.Values, UpgradeInfo, BestItemFor, SecondBestItemFor, NeedsEnhancements, Item.InvType)
+
+		local Annotated
 		if Item.UnknownLines and #Item.Values > 0 then
 			Annotated = PawnAnnotateTooltipLines(TooltipName, Item.UnknownLines)
 		end
 
 		TooltipWasUpdated = true
+	elseif IsRelic then
+		-- Add relic upgrade info to the tooltip.
+		PawnAddRelicUpgradesToTooltip(TooltipName, UpgradeInfo)
+		TooltipWasUpdated = true
 	end
 
+	-- Color or reset the tooltip border as necessary.
+	if PawnCommon.ColorTooltipBorder then
+		if UpgradeInfo then Tooltip:SetBackdropBorderColor(0, 1, 0) else Tooltip:SetBackdropBorderColor(1, 1, 1) end
+	end
+	
 	-- Add the item ID to the tooltip if known.
-	if PawnCommon.ShowItemID then
-		local ItemLink
-		if Item and Item.Link then
-			-- Normal case: we have an item link, so get the IDs from that.
-			ItemLink = Item.Link
-		else
-			-- Less common case: unequippable items skip most of the code, so we don't have Item filled in.
-			-- Get the IDs in an alternate way.
-			local _
-			_, ItemLink = Tooltip:GetItem()
-		end
-		if ItemLink then
-			local IDs = PawnGetItemIDsForDisplay(ItemLink)
-			if IDs then
-				if PawnCommon.AlignNumbersRight then
-					Tooltip:AddDoubleLine(PawnLocal.ItemIDTooltipLine, IDs, VgerCore.Color.OrangeR, VgerCore.Color.OrangeG, VgerCore.Color.OrangeB, VgerCore.Color.OrangeR, VgerCore.Color.OrangeG, VgerCore.Color.OrangeB)
-				else
-					Tooltip:AddLine(PawnLocal.ItemIDTooltipLine .. ":  " .. IDs, VgerCore.Color.OrangeR, VgerCore.Color.OrangeG, VgerCore.Color.OrangeB)
-				end
-				TooltipWasUpdated = true
-			end
+	if PawnCommon.ShowItemID and ItemLink then
+		local IDs = PawnGetItemIDsForDisplay(ItemLink)
+		if IDs then
+			PawnAddTooltipLine(Tooltip, PawnLocal.ItemIDTooltipLine .. ":  " .. IDs, VgerCore.Color.OrangeR, VgerCore.Color.OrangeG, VgerCore.Color.OrangeB)
+			TooltipWasUpdated = true
 		end
 	end
 	
@@ -1412,19 +1445,23 @@ function PawnAddValuesToTooltip(Tooltip, ItemValues, UpgradeInfo, BestItemFor, S
 			end
 			if not WasUpgradeOrBest and PawnCommon.ShowValuesForUpgradesOnly then TooltipText = nil end
 			
-			-- Add the line to the tooltip.
-			if TooltipText then
-				-- This could be optimized a bit, but it's not incredibly necessary.
-				if PawnCommon.AlignNumbersRight then
-					local Pos = VgerCore.StringFindReverse(TooltipText, ": ") -- search for a colon followed by a space so we don't get texture escape sequences
-					local Left = strsub(TooltipText, 0, Pos - 1) -- ignore the colon
-					local Right = strsub(TooltipText, 0, 10) .. strsub(TooltipText, Pos + 3) -- add the color string and ignore the spaces following the colon
-					Tooltip:AddDoubleLine(Left, Right)
-				else
-					Tooltip:AddLine(TooltipText)
-				end
-			end
+			PawnAddTooltipLine(Tooltip, TooltipText)
 		end
+	end
+end
+
+function PawnAddTooltipLine(Tooltip, Text, r, g, b)
+	if not Text then return end
+	VgerCore.Assert(Tooltip, "PawnAddTooltipLine: Tooltip must not be nil")
+
+	-- This could be optimized a bit, but it's not incredibly necessary.
+	if PawnCommon.AlignNumbersRight then
+		local Pos = VgerCore.StringFindReverse(Text, ": ") -- search for a colon followed by a space so we don't get texture escape sequences
+		local Left = strsub(Text, 0, Pos - 1) -- ignore the colon
+		local Right = strsub(Text, 0, 10) .. strsub(Text, Pos + 3) -- add the color string and ignore the spaces following the colon
+		Tooltip:AddDoubleLine(Left, Right, r, g, b)
+	else
+		Tooltip:AddLine(Text, r, g, b)
 	end
 end
 
@@ -1506,6 +1543,7 @@ end
 function PawnFixStupidTooltipFormatting(TooltipName)
 	local Tooltip = _G[TooltipName]
 	if not Tooltip then return end
+	local i
 	for i = 1, Tooltip:NumLines() do
 		local LeftLine = _G[TooltipName .. "TextLeft" .. i]
 		local Text = LeftLine:GetText()
@@ -3662,6 +3700,127 @@ function PawnFindScaleForSpec(ClassID, SpecID)
 	return nil
 end
 
+-- Called whenever the artifact UI is used.
+function PawnOnArtifactUpdated(NewItem)
+	-- Get details about this artifact and then cache them.
+	local ArtifactItemID, _, ArtifactName = C_ArtifactUI.GetArtifactInfo()
+	if not ArtifactItemID then return end
+
+	local Artifacts = PawnOptions.Artifacts
+	if not Artifacts then
+		Artifacts = {}
+		PawnOptions.Artifacts = Artifacts
+	end	
+	local ThisArtifact = Artifacts[ArtifactItemID]
+	if not ThisArtifact then
+		ThisArtifact = { ["Relics"] = {} }
+		Artifacts[ArtifactItemID] = ThisArtifact
+	end
+
+	ThisArtifact.Name = ArtifactName
+
+	local NumRelicSlots = C_ArtifactUI.GetNumRelicSlots() or 0
+	local RelicIndex
+	for RelicIndex = 1, NumRelicSlots do
+		local ThisRelic = ThisArtifact.Relics[RelicIndex]
+		if not ThisRelic then
+			ThisRelic = {}
+			ThisArtifact.Relics[RelicIndex] = ThisRelic
+		end
+
+		ThisRelic.Type = C_ArtifactUI.GetRelicSlotType(RelicIndex)
+		local _, _, _, ThisRelicItemLink = C_ArtifactUI.GetRelicInfo(RelicIndex)
+		local LockedReason = C_ArtifactUI.GetRelicLockedReason and C_ArtifactUI.GetRelicLockedReason(RelicIndex) -- *** This API was added in 7.2
+		if ThisRelicItemLink ~= nil and (LockedReason == nil or UnitLevel("player") >= 110) then -- ignore locked relic slots until the player hits 110
+			local RelicStats = GetItemStats(ThisRelicItemLink)
+			local RelicItemLevel = RelicStats.RELIC_ITEM_LEVEL_INCREASE --C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(ThisRelicItemLink) -- *** This API was broken in 7.2
+			ThisRelic.ItemLevel = RelicItemLevel
+		else
+			VgerCore.Assert(ThisRelic.ItemLevel == nil, tostring(ArtifactName) .. " (" .. tostring(ArtifactItemID) .. ") slot " .. RelicIndex .. " no longer has a relic in it?")
+			ThisRelic.ItemLevel = nil
+		end
+	end
+end
+
+function PawnPrintArtifactDebugInfo()
+	VgerCore.Message(" ")
+	VgerCore.Message("Pawn knows about these artifacts:")
+	local ArtifactItemID, Artifact, UpgradeInfo
+	for ArtifactItemID, Artifact in pairs(PawnOptions.Artifacts) do
+		VgerCore.Message(ITEM_QUALITY_COLORS[LE_ITEM_QUALITY_ARTIFACT].hex .. Artifact.Name .. "|r:")
+		for RelicIndex = 1, 3 do
+			local ThisRelic = Artifact.Relics[RelicIndex]
+			if ThisRelic then
+				local ContentsString = "  Slot " .. RelicIndex .. ": " .. tostring(ThisRelic.Type) .. ", "
+				if ThisRelic.ItemLevel then
+					ContentsString = ContentsString .. "+" .. ThisRelic.ItemLevel .. " item levels"
+				else
+					ContentsString = ContentsString .. "empty"
+				end
+				VgerCore.Message(ContentsString)
+			end
+		end
+	end
+end
+
+function PawnGetRelicUpgradeInfo(RelicItemLink)
+	-- If we haven't cached any artifacts yet, this can't possibly be an upgrade.
+	if not PawnOptions.Artifacts then return end
+
+	local RelicItemID = GetItemInfoInstant(RelicItemLink)
+	local _, _, RelicType = C_ArtifactUI.GetRelicInfoByItemID(RelicItemID)
+	if not RelicType then return end
+	local RelicStats = GetItemStats(RelicItemLink)
+	local RelicItemLevel = RelicStats.RELIC_ITEM_LEVEL_INCREASE --C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(RelicItemLink) -- *** This API was broken in 7.2
+	if not RelicItemLevel then return end
+
+	local ArtifactItemID, Artifact, UpgradeInfo
+	for ArtifactItemID, Artifact in pairs(PawnOptions.Artifacts) do
+		local BestRelicItemLevelUpgrade = 0
+		local RelicIndex, SlottedRelic
+		for RelicIndex, SlottedRelic in pairs(Artifact.Relics) do
+			--VgerCore.Message(Artifact.Name .. " slot " .. RelicIndex .. ": " .. SlottedRelic.Type .. " +" .. SlottedRelic.ItemLevel)
+			if RelicType == SlottedRelic.Type then
+				local ThisRelicItemLevelUpgrade = RelicItemLevel - (SlottedRelic.ItemLevel or 0)
+				--VgerCore.Message("   Increase found: " .. ThisRelicItemLevelUpgrade)
+				if ThisRelicItemLevelUpgrade > BestRelicItemLevelUpgrade then BestRelicItemLevelUpgrade = ThisRelicItemLevelUpgrade end
+			end 
+		end
+		if BestRelicItemLevelUpgrade > 0 then
+			-- Hooray! This relic is an item level upgrade.
+			if not UpgradeInfo then UpgradeInfo = {} end
+			UpgradeInfo[Artifact.Name] = { ["ItemLevelIncrease"] = BestRelicItemLevelUpgrade }
+		end
+	end
+
+	return UpgradeInfo
+end
+
+function PawnAddRelicUpgradesToTooltip(TooltipName, UpgradeInfo)
+	if not UpgradeInfo then return end
+	local Tooltip = _G[TooltipName]
+	if not Tooltip then
+		VgerCore.Fail("Unable to update tooltip " .. tostring(TooltipName) .. " with relic upgrade info because we couldn't find it")
+		return
+	end
+
+	local i
+	local Lines = Tooltip:NumLines()
+	for i = 1, Lines do
+		local LeftLine = _G[TooltipName .. "TextLeft" .. i]
+		local ArtifactName = LeftLine:GetText()
+
+		local ArtifactUpgradeInfo = UpgradeInfo[ArtifactName]
+		if ArtifactUpgradeInfo then
+			if PawnCommon.AlignNumbersRight then
+				local RightLine = _G[TooltipName .. "TextRight" .. i]
+				RightLine:SetText(format(PawnLocal.TooltipRelicUpgradeAnnotation, "", ArtifactUpgradeInfo.ItemLevelIncrease, ""))
+			else
+				LeftLine:SetText(format(PawnLocal.TooltipRelicUpgradeAnnotation, tostring(ArtifactName) .. ":", ArtifactUpgradeInfo.ItemLevelIncrease, ""))
+			end
+		end
+	end
+end
 
 ------------------------------------------------------------
 -- Pawn API
@@ -4611,6 +4770,30 @@ function PawnIsItemIDAnUpgrade(ItemID)
 	local Item = PawnGetItemData("item:" .. ItemID)
 	if not Item then return end
 	return PawnIsItemAnUpgrade(Item)
+end
+
+-- This is largely the same as getting the item data for a link and then calling PawnIsItemAnUpgrade on it,
+-- but this one also works with relics, can support minimum level requirements, and so on.  It's intended as the
+-- easiest way to answer the question "should this item have a green arrow?".
+-- Returns:
+--   true: This item is indeed an upgrade for something.
+--   false: This item is not an upgrade.
+--   nil: We're not sure yet.
+function PawnShouldItemLinkHaveUpgradeArrow(ItemLink, CheckLevel)
+	if not PawnIsInitialized then VgerCore.Fail("Can't check to see if items are upgrades until Pawn is initialized") return end
+
+	local _, _, _, _, MinLevel = GetItemInfo(ItemLink)
+	if MinLevel == nil then return nil end
+	if CheckLevel and UnitLevel("player") < MinLevel then return false end
+	if PawnCanItemHaveStats(ItemLink) then
+		local Item = PawnGetItemData(ItemLink)
+		if not Item then return nil end -- If we don't have stats for the item yet, ask again later.
+		return PawnIsItemAnUpgrade(Item) ~= nil
+	elseif PawnCommon.ShowRelicUpgrades and PawnCanItemBeArtifactUpgrade(ItemLink) then
+		return PawnGetRelicUpgradeInfo(ItemLink) ~= nil
+	else
+		return false -- If the item can never be an upgrade to anything, don't check again.
+	end
 end
 
 -- Shows or hides the Pawn UI.

@@ -46,19 +46,6 @@ PawnSeparatorIgnorePrefixes =
 	L.ChanceOnHit,
 }
 
--- Items that begin with any of the following strings will never be parsed.
--- TODO: *** Remove these localized strings once we're sure we don't need them
-PawnIgnoreNames =
-{
-	L.Design,
-	L.Formula,
-	L.Manual,
-	L.Pattern,
-	L.Plans,
-	L.Recipe,
-	L.Schematic,
-}
-
 -- This is a list of regular expression substitutions that Pawn performs to normalize stat names before running
 -- them through the normal gauntlet of expressions.
 PawnNormalizationRegexes =
@@ -237,6 +224,17 @@ PawnRegexes =
 	{L.EnchantmentArmorKit, "Armor"}, -- armor kits
 	{L.SpellPower, "SpellPower"}, -- enchantments *** removed in 7.0?
 	{PawnGameConstant(EMPTY_SOCKET_PRISMATIC), "PrismaticSocket", 1, PawnMultipleStatsFixed},
+	--{L.RelicArcane, "IsArcaneRelic", 1, PawnMultipleStatsFixed},
+	--{L.RelicBlood, "IsBloodRelic", 1, PawnMultipleStatsFixed},
+	--{L.RelicFel, "IsFelRelic", 1, PawnMultipleStatsFixed},
+	--{L.RelicFire, "IsFireRelic", 1, PawnMultipleStatsFixed},
+	--{L.RelicFrost, "IsFrostRelic", 1, PawnMultipleStatsFixed},
+	--{L.RelicHoly, "IsHolyRelic", 1, PawnMultipleStatsFixed},
+	--{L.RelicIron, "IsIronRelic", 1, PawnMultipleStatsFixed},
+	--{L.RelicLife, "IsLifeRelic", 1, PawnMultipleStatsFixed},
+	--{L.RelicShadow, "IsShadowRelic", 1, PawnMultipleStatsFixed},
+	--{L.RelicStorm, "IsStormRelic", 1, PawnMultipleStatsFixed},
+	--{L.RelicWater, "IsWaterRelic", 1, PawnMultipleStatsFixed},
 
 	-- ========================================
 	-- Rare strings that are ignored (common ones are at the top of the file)

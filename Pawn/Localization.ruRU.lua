@@ -55,6 +55,8 @@ PawnLocal =
 	["TooltipBestAnnotationSimple"] = "%s  ваша лучшая",
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 улучшение%s|r",
 	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% ухудшение%s|r",
+	--Translation missing 
+	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d item levels%s|r",
 	["TooltipSecondBestAnnotation"] = "%s  |cff8ec3e6(вторая лучшая)|r",
 	["TooltipSecondBestAnnotationSimple"] = "%s  ваша вторая лучшая",
 	["TooltipUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% улучшение%s|r",
@@ -200,7 +202,7 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["WeaponTypeWand"] = "Жезл",
 		["WeaponTypeWandInfo"] = "Очки присваиваются только если вещь - жезл.",
 		["WeaponTypeWarglaive"] = "Боевые клинки",
-		["WeaponTypeWarglaiveInfo"] = "Очки будут начислятся, если вещь Боевые клинки",
+		["WeaponTypeWarglaiveInfo"] = "Очки будут начислятся, если вещь Боевые клинки"
 	},
 	["TooltipParsing"] = {
 		["Agility"] = "^%+?([-%d%.,]+) к ловкости$",
@@ -220,7 +222,6 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["Crit2"] = "^%+?([%d%.,]+) к показателю критического удара$",
 		["Crossbow"] = "^Арбалет$",
 		["Dagger"] = "^Кинжал$",
-		["Design"] = "Эскиз:",
 		["DisenchantingRequires"] = "^Требуется",
 		["Dodge"] = "^%+?([%d%.,]+) к уклонению$",
 		["Dodge2"] = "^%+?([%d%.,]+) к показателю уклонения$",
@@ -239,7 +240,6 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["Equip"] = "Если на персонаже:",
 		["FistWeapon"] = "^Кистевое$",
 		["Flexible"] = "^Гибкий$",
-		["Formula"] = "Формула:",
 		["Gun"] = "^Огнестрельное$",
 		["Haste"] = "^%+?([%d%.,]+) к скорости$",
 		["Haste2"] = "^%+?([%d%.,]+) к показателю скорости$",
@@ -260,7 +260,6 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["Leech"] = "^%+([%d%.,]+) к самоисцелению$",
 		["Mace"] = "^Дробящее$",
 		["Mail"] = "^Кольчуга$",
-		["Manual"] = "Учебник:",
 		["Mastery"] = "^%+?([%d%.,]+) к искусности$",
 		["Mastery2"] = "^%+?([%d%.,]+) к показателю искусности$",
 		["MetaGemRequirements"] = "|cff%x%x%x%x%x%xТребуется",
@@ -271,17 +270,13 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["NormalizationEnchant"] = "^Чары: (.*)$",
 		["Parry"] = "^%+?([%d%.,]+) к парированию$",
 		["Parry2"] = "^%+?([%d%.,]+) к показателю парирования$",
-		["Pattern"] = "Выкройка:",
-		["Plans"] = "Чертеж:",
 		["Plate"] = "^Латы$",
 		["Polearm"] = "^Древковое$",
 		["PvPPower"] = "^%+?([%d%.,]+) к PvP%-силе$",
 		["RaidFinder"] = "^Поиск рейда$",
-		["Recipe"] = "Рецепт:",
 		["Requires2"] = "^Требуемый уровень",
 		["Resilience"] = "^%+?([%d%.,]+) к PvP%-устойчивости$",
 		["Resilience2"] = "^UNUSED$",
-		["Schematic"] = "Схема:",
 		["Scope"] = "^Scope %(%+([%d%.,]+) Damage%)$",
 		["ScopeCrit"] = "^Scope %(%+([%d%.,]+) Critical Strike%)$",
 		["ScopeRangedCrit"] = "^%+?([%d%.,]+) Ranged Critical Strike$",
@@ -321,7 +316,7 @@ For more information on customizing Pawn, please see the help file (Readme.htm) 
 		["WeaponDamageNature"] = "^%+?([%d%.,]+) %- ([%d%.,]+) ед%. урона от сил природы$",
 		["WeaponDamageNatureExact"] = "^%+?([%d%.,]+) ед%. урона от сил природы$",
 		["WeaponDamageShadow"] = "^%+?([%d%.,]+) %- ([%d%.,]+) ед%. урона от темной магии$",
-		["WeaponDamageShadowExact"] = "^%+?([%d%.,]+) ед%. урона от темной магии$",
+		["WeaponDamageShadowExact"] = "^%+?([%d%.,]+) ед%. урона от темной магии$"
 	},
 	["UI"] = {
 		["AboutHeader"] = "О Pawn",
@@ -446,6 +441,10 @@ Every item in World of Warcraft has an ID number associated with it.  This infor
 		["OptionsOtherHeader"] = "Другие опции",
 		["OptionsQuestUpgradeAdvisor"] = "Отображать советы по улучшениям (квесты)",
 		["OptionsQuestUpgradeAdvisorTooltip"] = "In your quest log and when talking to NPCs, if one of the quest reward choices is an upgrade for your current gear, Pawn will show a green arrow icon on that item.  If none of the items is an upgrade, Pawn will show a pile of coins on the item that is worth the most when sold to a vendor.",
+		--Translation missing 
+		["OptionsShowRelicUpgrades"] = "Show relic advisor",
+		--Translation missing 
+		["OptionsShowRelicUpgradesTooltip"] = "Pawn will show you when a relic would increase the item level of one of your artifact weapons.  (This works differently from other upgrade features, since it's based on item level, not stats.)",
 		["OptionsResetUpgrades"] = "Обновить вещи",
 		["OptionsResetUpgradesTooltip"] = [=[Pawn will forget what it knows about the best items you've ever equipped and re-scan your gear in order to provide more up-to-date upgrade information in the future.
 
@@ -475,6 +474,8 @@ Fire:  156.7 |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% up
 |cff8ec3e6Frost:  123.4
 Fire:  156.7|r]=],
 		["OptionsUpgradeHeader"] = "Отображать |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t для улучшений:",
+		--Translation missing 
+		["OptionsUpgradeSettingsHeader"] = "Upgrade options",
 		["OptionsUpgradesForBothWeaponTypes"] = "Отображать улучшения для одноручного и двуручного оружия",
 		["OptionsUpgradesForBothWeaponTypesTooltip"] = [=[Pawn's upgrade advisors should track and show upgrades for your two-handed weapons and your dual-wield (or for casters, main hand and off-hand frill) weapon sets separately.
 
@@ -547,8 +548,8 @@ For more information on this setting, see the readme file.]=],
 		["ValuesTab"] = "Значения",
 		["ValuesWelcome"] = "Вы можете изменять веса параметров для шкалы.  Для управления шкалами перейдите на закладку Шкалы.",
 		["ValuesWelcomeNoScales"] = "Шкала не выбрана.  Для начала создайте шкалу.",
-		["ValuesWelcomeReadOnly"] = "Выбранная шкала не может быть изменена.  Если вы хотите поменять значения, сделайте копию текущей шкалы.",
-	},
+		["ValuesWelcomeReadOnly"] = "Выбранная шкала не может быть изменена.  Если вы хотите поменять значения, сделайте копию текущей шкалы."
+	}
 }
 end
 

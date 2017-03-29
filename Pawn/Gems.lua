@@ -313,7 +313,7 @@ local PawnGemData110Rare =
 
 PawnGemQualityLevels =
 {
-	{ 850, PawnGemData110Rare }, -- Legion Normal Nighthold and Emerald Nightmare
+	{ 865, PawnGemData110Rare }, -- Higher than Legion world bosses
 	{ 755, PawnGemData110Uncommon }, -- Higher than Mythic Hellfire Citadel gear
 	{ 695, PawnGemData100Epic }, -- Warlords of Draenor Mythic Blackrock Foundry / Heroic Hellfire Citadel
 	{ 680, PawnGemData100Rare }, -- Warlords of Draenor Mythic Highmaul / Heroic Blackrock Foundry / Raid Finder Hellfire Citadel end bosses

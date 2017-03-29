@@ -1307,8 +1307,13 @@
 							<Size><AbsDimension x="225" y="25" /></Size>
 						</FontString>
 
+						<FontString name="PawnUIFrame_UpgradeOptionsHeaderLabel" inherits="GameFontHighlight" justifyH="LEFT" justifyV="MIDDLE" text="PawnUIFrame_UpgradeOptionsHeaderLabel_Text">
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-315" /></Offset></Anchor></Anchors>
+							<Size><AbsDimension x="250" y="25" /></Size>
+						</FontString>
+
 						<FontString name="PawnUIFrame_UpgradeTrackingHeaderLabel" inherits="GameFontNormal" justifyH="LEFT" justifyV="MIDDLE" text="PawnUIFrame_UpgradeTrackingHeaderLabel_Text">
-							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="50" y="-295" /></Offset></Anchor></Anchors>
+							<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="50" y="-365" /></Offset></Anchor></Anchors>
 							<Size><AbsDimension x="225" y="25" /></Size>
 						</FontString>
 
@@ -1396,19 +1401,37 @@
 						<Scripts><OnClick>PawnUIFrame_TooltipUpgradeList_SetSelection(false, false)</OnClick></Scripts>
 					</CheckButton>
 
+					<!-- Upgrade options -->
+					
+					<CheckButton name="PawnUIFrame_IgnoreGemsWhileLevelingCheck" inherits="PawnUICheckboxTemplate">
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-340" /></Offset></Anchor></Anchors>
+						<Layers><Layer level="ARTWORK">
+							<FontString name="$parent_Label" inherits="PawnUICheckboxLabelTemplate" text="PawnUIFrame_IgnoreGemsWhileLevelingCheck_Text" />
+						</Layer></Layers>
+						<Scripts><OnClick function="PawnUIFrame_IgnoreGemsWhileLevelingCheck_OnClick" /></Scripts>
+					</CheckButton>
+
 					<CheckButton name="PawnUIFrame_UpgradeTrackingOffRadio" inherits="PawnUIRadioButtonTemplate">
-						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="50" y="-320" /></Offset></Anchor></Anchors>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="50" y="-390" /></Offset></Anchor></Anchors>
 						<Layers><Layer level="ARTWORK">
 							<FontString name="$parent_Label" inherits="PawnUIRadioButtonLabelTemplate" text="PawnUIFrame_UpgradeTrackingOffRadio_Text" />
 						</Layer></Layers>
 						<Scripts><OnClick>PawnUIFrame_UpgradeTrackingList_SetSelection(false)</OnClick></Scripts>
 					</CheckButton>
 					<CheckButton name="PawnUIFrame_UpgradeTrackingOnRadio" inherits="PawnUIRadioButtonTemplate">
-						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="50" y="-340" /></Offset></Anchor></Anchors>
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="50" y="-410" /></Offset></Anchor></Anchors>
 						<Layers><Layer level="ARTWORK">
 							<FontString name="$parent_Label" inherits="PawnUIRadioButtonLabelTemplate" text="PawnUIFrame_UpgradeTrackingOnRadio_Text" />
 						</Layer></Layers>
 						<Scripts><OnClick>PawnUIFrame_UpgradeTrackingList_SetSelection(true)</OnClick></Scripts>
+					</CheckButton>
+
+					<CheckButton name="PawnUIFrame_ShowRelicUpgradesCheck" inherits="PawnUICheckboxTemplate">
+						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="25" y="-430" /></Offset></Anchor></Anchors>
+						<Layers><Layer level="ARTWORK">
+							<FontString name="$parent_Label" inherits="PawnUICheckboxLabelTemplate" text="PawnUIFrame_ShowRelicUpgradesCheck_Text" />
+						</Layer></Layers>
+						<Scripts><OnClick function="PawnUIFrame_ShowRelicUpgradesCheck_OnClick" /></Scripts>
 					</CheckButton>
 
 					<!-- Advisor options -->
@@ -1445,14 +1468,6 @@
 						<Scripts><OnClick function="PawnUIFrame_ShowSocketingAdvisorCheck_OnClick" /></Scripts>
 					</CheckButton>
 					
-					<CheckButton name="PawnUIFrame_IgnoreGemsWhileLevelingCheck" inherits="PawnUICheckboxTemplate">
-						<Anchors><Anchor point="TOPLEFT"><Offset><AbsDimension x="300" y="-185" /></Offset></Anchor></Anchors>
-						<Layers><Layer level="ARTWORK">
-							<FontString name="$parent_Label" inherits="PawnUICheckboxLabelTemplate" text="PawnUIFrame_IgnoreGemsWhileLevelingCheck_Text" />
-						</Layer></Layers>
-						<Scripts><OnClick function="PawnUIFrame_IgnoreGemsWhileLevelingCheck_OnClick" /></Scripts>
-					</CheckButton>
-
 					<!-- Other options -->
 					
 					<CheckButton name="PawnUIFrame_DebugCheck" inherits="PawnUICheckboxTemplate">
@@ -1652,6 +1667,7 @@
 				self:RegisterEvent("UNIT_INVENTORY_CHANGED")
 				self:RegisterEvent("ITEM_LOCKED")
 				self:RegisterEvent("PLAYER_SPECIALIZATION_CHANGED")
+				self:RegisterEvent("ARTIFACT_UPDATE")
 				PawnUITabList = { PawnUIScalesTabPage, PawnUIValuesTabPage, PawnUICompareTabPage, PawnUIGemsTabPage, PawnUIOptionsTabPage, PawnUIAboutTabPage, PawnUIHelpTabPage }
 				PanelTemplates_SetNumTabs(PawnUIFrame, #PawnUITabList)
 			</OnLoad>
