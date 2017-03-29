@@ -1,0 +1,12 @@
+tag f30c32fdf149cee714e947dd0ebb1722a660eefa v1.5.3
+Author:	yess <yess@xan.at>
+Date:	Wed Mar 29 08:21:05 2017 +0200
+
+Tagging as v1.5.2
+
+commit 320c1e9c889e7030d0afb1837acba74977c5fd76
+Author: yess <yess@xan.at>
+Date:   Wed Mar 29 08:18:17 2017 +0200
+
+    toc update
+
