@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1732, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16048 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16095 $"):sub(12, -3))
 mod:SetCreatureID(103758)
 mod:SetEncounterID(1863)
 mod:SetZone()
@@ -73,6 +73,7 @@ local specWarnWorldDevouringForce	= mod:NewSpecialWarningDodge(216909, nil, nil,
 --Mythic
 local specWarnConjunction			= mod:NewSpecialWarningMoveAway(205408, nil, nil, nil, 3, 2)
 local specWarnConjunctionSign		= mod:NewSpecialWarningYouPos(205408, nil, nil, nil, 1, 6)
+local yellConjunctionSign			= mod:NewPosYell(205408, DBM_CORE_AUTO_YELL_CUSTOM_POSITION)
 
 
 --Base abilities
@@ -98,12 +99,12 @@ local timerWorldDevouringForceCD	= mod:NewCDCountTimer(42, 216909, nil, nil, nil
 local timerThingCD					= mod:NewCDTimer(63, "ej13057", 207813, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
 mod:AddTimerLine(ENCOUNTER_JOURNAL_SECTION_FLAG12)
 local timerConjunctionCD			= mod:NewCDCountTimer(16, 205408, nil, nil, nil, 3, nil, DBM_CORE_HEROIC_ICON)
-local timerConjunction				= mod:NewBuffFadesTimer(10, 207720, nil, nil, nil, 5, nil, DBM_CORE_DEADLY_ICON)
+local timerConjunction				= mod:NewBuffFadesTimer(15, 207720, nil, nil, nil, 5, nil, DBM_CORE_DEADLY_ICON)
 
 local berserkTimer					= mod:NewBerserkTimer(463)
 
 --Base abilities
-local countdownConjunction			= mod:NewCountdownFades("AltTwo10", 205408, nil, nil, 10)
+local countdownConjunction			= mod:NewCountdownFades("AltTwo15", 205408, nil, nil, 10)
 local countdownGravPull				= mod:NewCountdownFades("Alt10", 205984)--Maybe change to everyone if it works like I think
 --Stage One: The Dome of Observation
 --Stage Two: Absolute Zero
@@ -132,9 +133,6 @@ local voiceWorldDevouringForce		= mod:NewVoice(216909)--farfromline
 
 
 mod:AddRangeFrameOption("5/8")
-mod:AddHudMapOption("HudMapOnConjunction", 205408)
-mod:AddNamePlateOption("NPAuraOnConjunction", 205408)
-mod:AddBoolOption("ShowCustomNPAuraTextures", true)--http://puu.sh/tNJV7/c2ba118d2f.jpg
 mod:AddInfoFrameOption(205408)--really needs a "various" option
 
 mod.vb.StarSigns = 0
@@ -267,70 +265,15 @@ local function updateRangeFrame(self, force)
 end
 
 --This function went from pretty to ugly but it should work
-local function showConjunction(self, delayedAuras)
+local function showConjunction(self)
 	if UnitDebuff("player", crabDebuff) then
 		warnStarSignCrab:Show(table.concat(crabs, "<, >"))
-		if delayedAuras then
-			for i = 1, #crabs do
-				local name = crabs[i]
-				DBM.Nameplate:Show(false, name, 205429, playerAffected and 236595 or nil, 9.5)
-			end
-		end
-	else
-		if delayedAuras then
-			for i = 1, #crabs do
-				local name = crabs[i]
-				DBM.Nameplate:Show(false, name, 205429, playerAffected and 236612 or nil, 9.5)
-			end
-		end
-	end
-	if UnitDebuff("player", dragonDebuff) then
+	elseif UnitDebuff("player", dragonDebuff) then
 		warnStarSignDragon:Show(table.concat(dragons, "<, >"))
-		if delayedAuras then
-			for i = 1, #dragons do
-				local name = dragons[i]
-				DBM.Nameplate:Show(false, name, 216344, playerAffected and 236595 or nil, 9.5)
-			end
-		end
-	else
-		if delayedAuras then
-			for i = 1, #dragons do
-				local name = dragons[i]
-				DBM.Nameplate:Show(false, name, 216344, playerAffected and 236612 or nil, 9.5)
-			end
-		end
-	end
-	if UnitDebuff("player", hunterDebuff) then
+	elseif UnitDebuff("player", hunterDebuff) then
 		warnStarSignHunter:Show(table.concat(hunters, "<, >"))
-		if delayedAuras then
-			for i = 1, #hunters do
-				local name = hunters[i]
-				DBM.Nameplate:Show(false, name, 216345, playerAffected and 236595 or nil, 9.5)
-			end
-		end
-	else
-		if delayedAuras then
-			for i = 1, #hunters do
-				local name = hunters[i]
-				DBM.Nameplate:Show(false, name, 216345, playerAffected and 236612 or nil, 9.5)
-			end
-		end
-	end
-	if UnitDebuff("player", wolfDebuff) then
+	elseif UnitDebuff("player", wolfDebuff) then
 		warnStarSignWolf:Show(table.concat(wolves, "<, >"))
-		if delayedAuras then
-			for i = 1, #wolves do
-				local name = wolves[i]
-				DBM.Nameplate:Show(false, name, 205445, playerAffected and 236595 or nil, 9.5)
-			end
-		end
-	else
-		if delayedAuras then
-			for i = 1, #wolves do
-				local name = wolves[i]
-				DBM.Nameplate:Show(false, name, 205445, playerAffected and 236612 or nil, 9.5)
-			end
-		end
 	end
 end
 
@@ -345,9 +288,6 @@ function mod:OnCombatStart(delay)
 		self.vb.worldDestroyingCount = 0
 --		timerCoronalEjectionCD:Start(12-delay)--Still could be health based
 		timerConjunctionCD:Start(15-delay, 1)
-		if self.Options.NPAuraOnConjunction then
-			DBM:FireEvent("BossMod_EnableFriendlyNameplates")
-		end
 	else
 --		timerCoronalEjectionCD:Start(12.9-delay)--Still could be health based
 	end
@@ -356,12 +296,6 @@ end
 function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
-	end
-	if self.Options.HudMapOnConjunction then
-		DBMHudMap:Disable()
-	end
-	if self.Options.NPAuraOnConjunction and self:IsMythic() then
-		DBM.Nameplate:Hide(false, nil, nil, nil, true, true)
 	end
 	if self.Options.InfoFrame then
 		DBM.InfoFrame:Hide()
@@ -388,7 +322,7 @@ function mod:SPELL_CAST_START(args)
 			timerConjunctionCD:Start(timers, self.vb.grandConCount+1)
 		end
 		updateRangeFrame(self, true)
-		self:Schedule(4.5, showConjunction, self, self.Options.NPAuraOnConjunction and self.Options.ShowCustomNPAuraTextures)
+		self:Schedule(4.5, showConjunction, self)
 		table.wipe(crabs)
 		table.wipe(dragons)
 		table.wipe(hunters)
@@ -495,11 +429,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		self.vb.StarSigns = self.vb.StarSigns + 1
 		if spellId == 205429 then--Crab
 			crabs[#crabs + 1] = args.destName
-			if self.Options.HudMapOnConjunction then--Yellow
-				DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 3.5, 17, 1, 1, 0, 0.5, nil, false):Appear():SetLabel(args.destName)
-			end
 			if args:IsPlayer() then
 				specWarnConjunctionSign:Show(args.spellName)
+				yellConjunctionSign:Yell(2, "", 2)--Orange Circle
 				voiceConjunction:Play("205408c")
 				countdownConjunction:Start()
 				timerConjunction:Start()
@@ -507,11 +439,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		elseif spellId == 216344 then--Dragon
 			dragons[#dragons + 1] = args.destName
-			if self.Options.HudMapOnConjunction then--Blue
-				DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 3.5, 17, 0.28, 0.48, 0.9, 0.5, nil, false):Appear():SetLabel(args.destName)
-			end
 			if args:IsPlayer() then
 				specWarnConjunctionSign:Show(args.spellName)
+				yellConjunctionSign:Yell(6, "", 6)--Blue Square
 				voiceConjunction:Play("205408d")
 				countdownConjunction:Start()
 				timerConjunction:Start()
@@ -519,11 +449,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		elseif spellId == 216345 then--Hunter
 			hunters[#hunters + 1] = args.destName
-			if self.Options.HudMapOnConjunction then--Green
-				DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 3.5, 17, 0, 1, 0, 0.5, nil, false):Appear():SetLabel(args.destName)
-			end
 			if args:IsPlayer() then
 				specWarnConjunctionSign:Show(args.spellName)
+				yellConjunctionSign:Yell(4, "", 4)--Green Triangle
 				voiceConjunction:Play("205408h")
 				countdownConjunction:Start()
 				timerConjunction:Start()
@@ -531,11 +459,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		elseif spellId == 205445 then--Wolf
 			wolves[#wolves + 1] = args.destName
-			if self.Options.HudMapOnConjunction then--Red
-				DBMHudMap:RegisterRangeMarkerOnPartyMember(spellId, "highlight", args.destName, 3.5, 17, 1, 0, 0, 0.5, nil, false):Appear():SetLabel(args.destName)
-			end
 			if args:IsPlayer() then
 				specWarnConjunctionSign:Show(args.spellName)
+				yellConjunctionSign:Yell(7, "", 7)--Red Cross
 				voiceConjunction:Play("205408w")
 				countdownConjunction:Start()
 				timerConjunction:Start()
@@ -547,9 +473,6 @@ function mod:SPELL_AURA_APPLIED(args)
 			if self.Options.InfoFrame and not DBM.InfoFrame:IsShown() then
 				DBM.InfoFrame:Show(15, "function", updateInfoFrame, false, true)
 			end
-		end
-		if self.Options.NPAuraOnConjunction and not self.Options.ShowCustomNPAuraTextures then
-			DBM.Nameplate:Show(false, args.destName, spellId, nil, 10)
 		end
 	elseif spellId == 206464 then
 		warnCoronalEjection:CombinedShow(0.5, args.destName)
@@ -619,14 +542,6 @@ function mod:SPELL_AURA_REMOVED(args)
 		end
 		if self.vb.StarSigns == 0 then
 			updateRangeFrame(self)
-			if self.Options.HudMapOnConjunction then
-				--None left, clear all HUD circles
-				DBMHudMap:FreeEncounterMarkers()
-			end
-		else
-			if self.Options.HudMapOnConjunction then
-				DBMHudMap:FreeEncounterMarkerByTarget(spellId, args.destName)
-			end
 		end
 		if spellId == 205429 then--Crab
 			tDeleteItem(crabs, args.destName)
@@ -636,9 +551,6 @@ function mod:SPELL_AURA_REMOVED(args)
 			tDeleteItem(hunters, args.destName)
 		elseif spellId == 205445 then--Wolf
 			tDeleteItem(wolves, args.destName)
-		end
-		if self.Options.NPAuraOnConjunction then
-			DBM.Nameplate:Hide(false, args.destName)--Doesn't send spell texture, because it one of 3 for any given sign, so wipe all for good measure
 		end
 	elseif spellId == 205984 or spellId == 214335 or spellId == 214167 then
 		if args:IsPlayer() then

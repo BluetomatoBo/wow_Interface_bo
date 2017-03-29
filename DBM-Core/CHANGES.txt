@@ -1,150 +1,97 @@
-tag 0e7781f4ef8b1962ad3fca305c886396c9c0f6a7 7.1.18
+tag 74e229892763123c5d98a271198fd3be79bd5cc3 7.2.0
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Fri Mar 24 21:02:04 2017 +0100
+Date:	Tue Mar 28 19:02:44 2017 +0200
 
-Tagging as 7.1.18
+Tagging as 7.2.0
 
-commit 646b7916753d68d7a16dd28452e179d141b613e1
+commit bbf4d511355bfd1a7754b2feb99b6cc93f0083c8
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 24 21:02:04 2017 +0100
+Date:   Tue Mar 28 19:02:44 2017 +0200
 
-    increment version number to 7.1.18
+    increment version number to 7.2.0
 
-commit 5930c57e232a92802c3d1eee770c1aae88ef5f07
+commit f212052aa4899ac90a2abfbf10996c965c4bc390
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 24 07:21:10 2017 +0100
+Date:   Tue Mar 28 11:18:01 2017 +0200
 
-    Omega via svn r16083:
-    fix bug where dark phase variable didn?\226?\128?\153t reset on wipe.
-    Refactored infoframe to be more hybrid between the varius functions of fight instead of having it swap back and forth. should present more information and in less cluttered way.
+    Omega via svn r16096:
+    Bump Tocs
 
-commit 36fcb4b4ab4be395dab25a8610be04bd3ccd6da2
+commit 30c8f00bf2e8d34fb6cf305a6de51747f77e7208
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 24 05:10:05 2017 +0100
+Date:   Tue Mar 28 06:50:32 2017 +0200
 
-    Omega via svn r16082:
-    Fix logic issue for the keep brands up entire fight strat
+    Omega via svn r16095:
+    Add Icon Only yells to star signs
 
-commit 68e3287290614f379d45cfb8e9373a71cdf51e1b
+commit 73126b44d69d62cf91d532a4c4c3d88764123db4
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 24 04:39:54 2017 +0100
+Date:   Tue Mar 28 05:14:47 2017 +0200
 
-    Omega via svn r16081:
-    text
+    Omega via svn r16094:
+    move trash warning to correct mod
 
-commit 8be007f9196a6d62c34f937a5b116677bae6240e
+commit 75a331950690445e4b496bc5316139f46a9fad8a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 24 04:32:52 2017 +0100
+Date:   Tue Mar 28 03:40:06 2017 +0200
 
-    Omega via svn r16080:
-    Fix couple bugs
+    Omega via svn r16093:
+    Finish Domatrax and Mephistroth
 
-commit 16a1dcd791e13c345db7a8551af9e0e003dd450d
+commit fd99b69db36d7c12f93c026529cc505c05f667fd
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 24 00:19:23 2017 +0100
+Date:   Tue Mar 28 02:15:39 2017 +0200
 
-    Omega via svn r16079:
-    Fix mod typo
-    add Agronox drycode
+    Omega via svn r16092:
+    uncomplicate all the moveto warnings that were pointing to a place instead of player, by broadening description of moveto warning description
 
-commit 6162cb7953f884c3967f956dd342d83897e6612c
+commit b9b9c5c1177312bf23d7afc638d4adce596d27d9
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 23 07:26:17 2017 +0100
+Date:   Mon Mar 27 19:23:00 2017 +0200
 
-    Omega via svn r16078:
-    Oh forgot this HF revision too for last updates berserk timer changes
+    Omega via svn r16091:
+    Fix several invalid spellids in dungeon mods
 
-commit 49c2bdc55b87d682d99d25ecefca79fce2d1c4c6
+commit 491d303b9e892d608b9a75425d7c8455b96f5444
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 23 07:25:47 2017 +0100
+Date:   Mon Mar 27 00:39:55 2017 +0200
 
-    Omega via svn r16077:
-    Cleanup
+    Omega via svn r16090:
+    Change alpha identifier
 
-commit e9abe24bd5fea722570a3b527cae0872bb7651b9
+commit 9406cca0ffa28e2c6ff75db0b9d1b051fef98adc
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 23 07:22:54 2017 +0100
+Date:   Mon Mar 27 00:38:48 2017 +0200
 
-    Omega via svn r16076:
-    Invert the fixate auras back onto casters instead of targets, to be 7.2 compatible (not as useful, but better than nothing, and might as well make change now)
+    Omega via svn r16089:
+    Delete hudmap and friendly nameplate support, everywhere.
+    Also fixed two icon bugs that?\226?\128?\153d break if hudmap options were toggled off in two nightmare mods, oops.
 
-commit 0cfc858caefdbe709feac9cad92162c263560bb0
+commit d6d0fe0cdf2dd74c0da2ebee3ca0e9a9b6f65dbd
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 23 07:09:42 2017 +0100
+Date:   Sun Mar 26 23:30:28 2017 +0200
 
-    Omega via svn r16075:
-    More analysis shows this is cleaner way to do  icons, since I didn?\226?\128?\153t factor how long they take to pop up
+    Omega via svn r16088:
+    Fix bats name being nil and add protections against that kind of mistake throwing too many errors in future.
 
-commit f03496dd3392c1c826a61ff32f000e4ea923a219
+commit 0faf670c0319eeaae6aeecd3393cd9daac646f13
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 23 06:52:30 2017 +0100
+Date:   Sun Mar 26 01:45:53 2017 +0100
 
-    Omega via svn r16074:
-    more alluriel tweaks and bug fixes to tanking warning
-    Add a print on engage to ilgynoth to explain that if you overgear the encounter the add timers mean very little (adds will spawn faster if you overgear encounter, by design, just like first boss of HFC did)
+    Omega via svn r16087:
+    Thrashbite prep
 
-commit 28640b35c86a930a45004470565043bc8488a19b
+commit c72e3fd249fcc1771de6681403f7d62a1ea4ae2b
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 23 05:48:31 2017 +0100
+Date:   Sat Mar 25 00:40:21 2017 +0100
 
-    Omega via svn r16073:
-    Fix bug with second icy phase timers being wrong.
-    improved timers for decimate as well
-    Changed fel soul warning to be when it?\226?\128?\153s targetable instead of the cast
+    Omega via svn r16086:
+    Couple maiden tweaks
 
-commit a426053800fadce5acce2d1a838bdcd2ab36e8f6
+commit 05470a7a160c7cd2116294822588fa89cf77a64f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 22 23:07:36 2017 +0100
+Date:   Fri Mar 24 21:02:25 2017 +0100
 
-    Omega via svn r16072:
-    This should fix winds 3
-
-commit 0bc6e052abc2b0fa7151433ac5206215dc14ad90
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 22 22:10:54 2017 +0100
-
-    Omega via svn r16071:
-    Add more debug
-
-commit 9507acbbdca3b7448463a23c92224bbdc6e01968
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 22 22:04:53 2017 +0100
-
-    Omega via svn r16070:
-    more debug, more redundancy, more aggressive scans. honestly if this doesn?\226?\128?\153t work I?\226?\128?\153m scrapping scanformobs entirely and hard coding mob icon setting in onupdate handlers in mods themselves like old days. it worked and it was fast.
-
-commit a6e993704e9d64bd2f70b97a9eee3c91acee5053
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 22 19:40:18 2017 +0100
-
-    tandanu via svn r16069:
-    make custom sorted lines last longer than one update
-
-commit 880ebf016e818ca31985ea29c01ec4b4a227e9e8
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 22 11:43:54 2017 +0100
-
-    Omega via svn r16068:
-    small fix, if this is ever used
-
-commit 24a3b7972f2fdf43077747e9a90d32ac902dee00
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 22 02:40:39 2017 +0100
-
-    Omega via svn r16067:
-    Fix logic bug with 3rd flames casts
-
-commit ff16839faaccfe260bd809fc3bce85a3c6873aef
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 22 02:22:39 2017 +0100
-
-    Omega via svn r16066:
-    Fix bug with annoucning burst expiring
-
-commit 6a79d7ded43d999fb8479cfc21655e72c495ec4d
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Mar 21 22:02:46 2017 +0100
-
-    tandanu via svn r16065:
+    tandanu via svn r16085:
     increment alpha version
 
