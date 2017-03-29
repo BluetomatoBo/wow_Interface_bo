@@ -283,8 +283,6 @@ L["OVERVIEW_TEXT"] = [=[
 
 Das|cffffff78Travelling Salesman Problem|r (TSP) ist ein traditionelles Problem bei dem N Städte und die Entfernung zwischen irgendeinem Paar von Städten gegeben ist und die kürzeste Reise zwischen diesen Städten, die jede Stadt genau einmal besucht und dann zum Ausgangspunkt zurückkehrt, gefunden werden soll. Das selbe Problem kann auf Sammelpunkte in World of Warcraft angewendet werden um die kürzeste mögliche Route zu finden um jeden bekannten Sammelpunkt in einem Kreis abzulaufen.
 ]=]
--- L["Pass %d: %d%%"] = "Pass %d: %d%%"
--- L["Pass %d: %d%% - %d yards"] = "Pass %d: %d%% - %d yards"
 L["Path with %d nodes found with length %.2f yards after %d iterations in %.2f seconds."] = "Pfad mit %d Knotenpunkten gefunden mit der Länge von %.2f yards nach %d Durchgängen in %.2f Sekunden"
 L["Permanently delete a route"] = "Eine Route gänzlich löschen"
 L["Recreate Route"] = "Neuerstellen der Route"

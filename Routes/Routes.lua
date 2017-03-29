@@ -1,7 +1,7 @@
 --[[
 ********************************************************************************
 Routes
-v1.5.5a
+v1.5.6
 16 October 2014
 (Originally written for Live Servers v4.3.0.15050)
 (Hotfixed for v6.0.2.19034)
@@ -128,13 +128,7 @@ local defaults = {
 				two_point_five_opt = false, -- Perform optimized 2-opt pass
 			},
 			prof_options = {
-				Herbalism  = "Always",
-				Mining     = "Always",
-				Fishing    = "Always",
-				Treasure   = "Always",
-				ExtractGas = "Always",
-				Archaeology= "Always",
-				Note       = "Always",
+				['*'] = "Always",
 			},
 			use_auto_showhide = false,
 			waypoint_hit_distance = 50,
