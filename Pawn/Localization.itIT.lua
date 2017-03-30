@@ -55,8 +55,7 @@ PawnLocal =
 	["TooltipBestAnnotationSimple"] = "%s  il migliore per te",
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 miglioramento%s|r",
 	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% riduzione%s|r",
-	--Translation missing 
-	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d item levels%s|r",
+	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d |4livello:livelli;%s|r",
 	["TooltipSecondBestAnnotation"] = "%s  |cff8ec3e6(secondo migliore)|r",
 	["TooltipSecondBestAnnotationSimple"] = "%s  il secondo migliore per te",
 	["TooltipUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% miglioramento%s|r",
@@ -439,14 +438,12 @@ Ogni oggetto in World of Warcraft ha un numero ID associato ad esso. Questa info
 		["OptionsOtherHeader"] = "Altre opzioni",
 		["OptionsQuestUpgradeAdvisor"] = "Mostra avviso per miglioramento da una missione",
 		["OptionsQuestUpgradeAdvisorTooltip"] = "Nel tuo diario delle missioni e quando parli con un PNG, se una delle ricompense della missione è un miglioramento per il tuo equipaggiamento corrente, Pawn mostrerà una freccia verde su quell'oggetto. Se nessuno degli oggetti è un miglioramento, Pawn mostrerà una pila di monete sull'oggetto che vale di più se venduto ad un mercante.",
-		--Translation missing 
-		["OptionsShowRelicUpgrades"] = "Show relic advisor",
-		--Translation missing 
-		["OptionsShowRelicUpgradesTooltip"] = "Pawn will show you when a relic would increase the item level of one of your artifact weapons.  (This works differently from other upgrade features, since it's based on item level, not stats.)",
-		["OptionsResetUpgrades"] = "Scansiona nuovamente l'equipaggiamento",
+		["OptionsResetUpgrades"] = "Scansiona l'equip",
 		["OptionsResetUpgradesTooltip"] = [=[Pawn dimenticherà ciò che sa sui migliori oggetti che tu abbia mai equipaggiato, e scansionerà nuovamente il tuo equipaggiamento per fornire informazioni maggiormente aggiornate in futuro.
 
 Usa questa funzionalità se pensi che Pawn stia fornendo degli scarsi suggerimenti di miglioramento come risultato di un oggetto che hai venduto, distrutto o che non usi più. Questo avrà effetto su tutti i tuoi personaggi che usano Pawn.]=],
+		["OptionsShowRelicUpgrades"] = "Mostra i miglioramenti delle reliquie",
+		["OptionsShowRelicUpgradesTooltip"] = "Pawn ti mostrerà quando una reliquia aumenta il livello dell'oggetto di una delle tue armi artefatto. (Funziona diversamente dalle altre funzionalità di miglioramento, visto che è basato sul livello dell'oggetto e non sulle caratteristiche)",
 		["OptionsSocketingAdvisor"] = "Mostra l'avviso per gli incavi",
 		["OptionsSocketingAdvisorTooltip"] = "Quando aggiungi gemme ad un oggetto, Pawn mostrerà un popup suggerendo le gemme che puoi aggiungere all'oggetto che massimizzeranno il suo potere. (Per vedere tutta la lista delle gemme suggerite per ogni colore, vedi la scheda Gemme, dove puoi anche personalizzare la qualità delle gemme da usare.)",
 		["OptionsTab"] = "Opzioni",
@@ -472,8 +469,7 @@ Fuoco:  156.7 |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% d
 |cff8ec3e6Gelo:  123.4
 Fuoco:  156.7|r]=],
 		["OptionsUpgradeHeader"] = "Mostra |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t dei miglioramenti nei tooltip:",
-		--Translation missing 
-		["OptionsUpgradeSettingsHeader"] = "Upgrade options",
+		["OptionsUpgradeSettingsHeader"] = "Opzioni di miglioramento",
 		["OptionsUpgradesForBothWeaponTypes"] = "Mostra miglioramenti sia per 1H che per 2H",
 		["OptionsUpgradesForBothWeaponTypesTooltip"] = [=[I suggerimenti di miglioramento di Pawn dovrebbero tracciare e mostrare i miglioramenti per le tue armi a 2 mani e le tue doppie armi (o per incantatori, mano principale e accessorio) separatamente.
 

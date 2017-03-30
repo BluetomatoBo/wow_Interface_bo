@@ -222,7 +222,7 @@ PawnRegexes =
 	{L.Armor, "Armor"}, -- normal armor and cloak armor enchantments
 	{L.Armor2, "Armor"}, -- unused in English
 	{L.EnchantmentArmorKit, "Armor"}, -- armor kits
-	{L.SpellPower, "SpellPower"}, -- enchantments *** removed in 7.0?
+	{L.SpellPower, "SpellPower"}, -- enchantments... removed in 7.0?
 	{PawnGameConstant(EMPTY_SOCKET_PRISMATIC), "PrismaticSocket", 1, PawnMultipleStatsFixed},
 	--{L.RelicArcane, "IsArcaneRelic", 1, PawnMultipleStatsFixed},
 	--{L.RelicBlood, "IsBloodRelic", 1, PawnMultipleStatsFixed},

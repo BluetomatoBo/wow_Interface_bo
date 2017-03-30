@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0200
+PawnVersion = 2.0201
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -385,7 +385,7 @@ function PawnInitialize()
 		if PawnCommon.ShowBagUpgradeAdvisor then
 			local _, _, _, _, _, _, ItemLink = GetContainerItemInfo(bagID, slot)
 			if not ItemLink then return nil end
-			return PawnShouldItemLinkHaveUpgradeArrow(ItemLink)
+			return PawnShouldItemLinkHaveUpgradeArrow(ItemLink, true) -- true means to check player level
 		else
 			return PawnOriginalIsContainerItemAnUpgrade(bagID, slot, ...)
 		end
@@ -3730,7 +3730,7 @@ function PawnOnArtifactUpdated(NewItem)
 
 		ThisRelic.Type = C_ArtifactUI.GetRelicSlotType(RelicIndex)
 		local _, _, _, ThisRelicItemLink = C_ArtifactUI.GetRelicInfo(RelicIndex)
-		local LockedReason = C_ArtifactUI.GetRelicLockedReason and C_ArtifactUI.GetRelicLockedReason(RelicIndex) -- *** This API was added in 7.2
+		local LockedReason = C_ArtifactUI.GetRelicLockedReason(RelicIndex)
 		if ThisRelicItemLink ~= nil and (LockedReason == nil or UnitLevel("player") >= 110) then -- ignore locked relic slots until the player hits 110
 			local RelicStats = GetItemStats(ThisRelicItemLink)
 			local RelicItemLevel = RelicStats.RELIC_ITEM_LEVEL_INCREASE --C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(ThisRelicItemLink) -- *** This API was broken in 7.2
@@ -3771,7 +3771,7 @@ function PawnGetRelicUpgradeInfo(RelicItemLink)
 	local _, _, RelicType = C_ArtifactUI.GetRelicInfoByItemID(RelicItemID)
 	if not RelicType then return end
 	local RelicStats = GetItemStats(RelicItemLink)
-	local RelicItemLevel = RelicStats.RELIC_ITEM_LEVEL_INCREASE --C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(RelicItemLink) -- *** This API was broken in 7.2
+	local RelicItemLevel = RelicStats.RELIC_ITEM_LEVEL_INCREASE --C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(RelicItemLink) -- This API was broken in 7.2, so use GetItemStats instead
 	if not RelicItemLevel then return end
 
 	local ArtifactItemID, Artifact, UpgradeInfo
