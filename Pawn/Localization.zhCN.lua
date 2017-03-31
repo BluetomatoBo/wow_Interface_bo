@@ -56,7 +56,7 @@ PawnLocal =
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 提升%s|r",
 	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\\\AddOns\\\\Pawn\\\\Textures\\\\UpgradeArrow:0|t|cff00ff00-%.0f%% 将会降低%s|r",
 	--Translation missing 
-	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d item levels%s|r",
+	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d |4level:levels;%s|r",
 	["TooltipSecondBestAnnotation"] = "%s  |cff8ec3e6(次佳)|r",
 	["TooltipSecondBestAnnotationSimple"] = "%s  次佳",
 	["TooltipUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% 提升%s|r",
@@ -435,14 +435,13 @@ Pawn插件默认已经参考AskMrRobot给所有职业的专精建立了标准评
 		["OptionsOtherHeader"] = "其它选项",
 		["OptionsQuestUpgradeAdvisor"] = "显示任务奖励属性权重提升建议",
 		["OptionsQuestUpgradeAdvisorTooltip"] = "在你交任务有奖励选择的时候，在最有用装备上显示对你属性权重提升的标志，如果没有能提升的装备，那么会在卖商店最值钱的装备上显示一个金币图案。",
-		--Translation missing 
-		["OptionsShowRelicUpgrades"] = "Show relic advisor",
-		--Translation missing 
-		["OptionsShowRelicUpgradesTooltip"] = "Pawn will show you when a relic would increase the item level of one of your artifact weapons.  (This works differently from other upgrade features, since it's based on item level, not stats.)",
 		["OptionsResetUpgrades"] = "重新扫描装备",
 		["OptionsResetUpgradesTooltip"] = [=[Pawn会清除本身记录的曾经见装备过的最好的装备（哪怕在背包里、银行里甚至摧毁贩卖了），所有评分从你角色现在已装备的为标准来比较。
 
 当你因某种原因某件装备丢失或者不再使用的时候，插件默认还是以那件装备计算，引起的不便。或者装备数据紊乱的时候，可以使用此功能。]=],
+		["OptionsShowRelicUpgrades"] = "显示神器圣物的提升",
+		--Translation missing 
+		["OptionsShowRelicUpgradesTooltip"] = "Pawn will show you when a relic would increase the item level of one of your artifact weapons.  (This works differently from other upgrade features, since it's based on item level, not stats.)",
 		["OptionsSocketingAdvisor"] = "显示插槽建议",
 		["OptionsSocketingAdvisorTooltip"] = "当你打开宝石镶嵌窗口的时候，根据你设置里选择的方式，在窗口下方提示你，插什么宝石是最适合你的属性权重。",
 		["OptionsTab"] = "设置",
@@ -468,8 +467,7 @@ Pawn插件默认已经参考AskMrRobot给所有职业的专精建立了标准评
 |cff8ec3e6奥法:  123.4
 火法:  156.7|r]=],
 		["OptionsUpgradeHeader"] = "在提示栏显示 |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t 提升:",
-		--Translation missing 
-		["OptionsUpgradeSettingsHeader"] = "Upgrade options",
+		["OptionsUpgradeSettingsHeader"] = "提升选项",
 		["OptionsUpgradesForBothWeaponTypes"] = "同时显示双手武器和双持武器的提升建议",
 		["OptionsUpgradesForBothWeaponTypesTooltip"] = [=[Pawn会同时跟踪记录和显示双手武器/双持武器（魔杖副手、主副手武器等）的提升。
 

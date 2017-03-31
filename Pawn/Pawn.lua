@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0201
+PawnVersion = 2.0202
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -3732,14 +3732,63 @@ function PawnOnArtifactUpdated(NewItem)
 		local _, _, _, ThisRelicItemLink = C_ArtifactUI.GetRelicInfo(RelicIndex)
 		local LockedReason = C_ArtifactUI.GetRelicLockedReason(RelicIndex)
 		if ThisRelicItemLink ~= nil and (LockedReason == nil or UnitLevel("player") >= 110) then -- ignore locked relic slots until the player hits 110
-			local RelicStats = GetItemStats(ThisRelicItemLink)
-			local RelicItemLevel = RelicStats.RELIC_ITEM_LEVEL_INCREASE --C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(ThisRelicItemLink) -- *** This API was broken in 7.2
+			local RelicItemLevel = PawnGetItemLevelIncreaseProvidedByRelic(ThisRelicItemLink)
 			ThisRelic.ItemLevel = RelicItemLevel
-		else
-			VgerCore.Assert(ThisRelic.ItemLevel == nil, tostring(ArtifactName) .. " (" .. tostring(ArtifactItemID) .. ") slot " .. RelicIndex .. " no longer has a relic in it?")
-			ThisRelic.ItemLevel = nil
+		end
+		-- If it ever becomes possible for a slot to have a relic in it, and then later for that relic to be removed, I'll have to modify this.
+		-- But in 7.2, if this is called right after logging in (because, for example, another addon is simulating the shift-right-click), we might not
+		-- get an ItemLink for the relic.  In that case, we want to just keep whatever we already had cached; don't clear it out.
+	end
+end
+
+-- This function does the same as C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic, but provides two fixes:
+-- (1) It works in WoW 7.2, which the in-game method doesn't
+-- (2) It works on level-scaled relics, which GetItemStats doesn't
+local PawnTempRelicTable = {}
+function PawnGetItemLevelIncreaseProvidedByRelic(ItemLink)
+	local Parts = PawnTempRelicTable
+	wipe(Parts)
+
+	PawnGetItemLinkParts(ItemLink, Parts)
+	-- GetItemStats() on a relic that was looted at 110 and then passed on to a lower-level character will return the stats for the item as if it were dropped at the current, lower level, even though it has the proper stats for a level 110 relic and has a level 110 requirement.  So, adjust the item link to work around that GetItemStats bug.
+	local NumParts = #Parts
+	if NumParts >= 14 then
+		-- Copy the looted ilvl portion of the item link to the player ilvl part of the link.
+		local NumBonusIDs = Parts[13]
+		local ScalingLevelIndex = 13 + NumBonusIDs + 1
+		if NumParts >= ScalingLevelIndex then
+			local ScalingLevel = Parts[ScalingLevelIndex]
+			if ScalingLevel >= 98 and ScalingLevel <= 110 then
+				Parts[9] = ScalingLevel
+				ItemLink = PawnGetItemLinkFromParts(Parts)
+			else
+				-- 0 is a normal case, for non-scaling relics, which don't have this problem and don't need adjustment.
+				VgerCore.Assert(ScalingLevel == 0, "Relic level adjustment may have done the wrong thing: changing from " .. tostring(Parts[9]) .. " to " .. tostring(ScalingLevel) .. " due to NumBonusIDs = " .. NumBonusIDs)
+			end
 		end
 	end
+
+	local Stats = Parts
+	wipe(Stats)
+	Stats = GetItemStats(ItemLink, Stats)
+	return Stats.RELIC_ITEM_LEVEL_INCREASE
+end
+
+function PawnGetItemLinkParts(ItemLink, ReusableTable)
+   local Parts = ReusableTable or {}
+   local Match
+   for Match in gmatch(ItemLink, ":(%-?%d*)") do
+      if strlen(Match) == 0 then
+         tinsert(Parts, 0)
+      else
+         tinsert(Parts, tonumber(Match))
+      end
+   end
+   return Parts
+end
+
+function PawnGetItemLinkFromParts(Parts)
+	return "item:" .. table.concat(Parts, ":")
 end
 
 function PawnPrintArtifactDebugInfo()
@@ -3770,8 +3819,7 @@ function PawnGetRelicUpgradeInfo(RelicItemLink)
 	local RelicItemID = GetItemInfoInstant(RelicItemLink)
 	local _, _, RelicType = C_ArtifactUI.GetRelicInfoByItemID(RelicItemID)
 	if not RelicType then return end
-	local RelicStats = GetItemStats(RelicItemLink)
-	local RelicItemLevel = RelicStats.RELIC_ITEM_LEVEL_INCREASE --C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic(RelicItemLink) -- This API was broken in 7.2, so use GetItemStats instead
+	local RelicItemLevel = PawnGetItemLevelIncreaseProvidedByRelic(RelicItemLink)
 	if not RelicItemLevel then return end
 
 	local ArtifactItemID, Artifact, UpgradeInfo
@@ -3779,7 +3827,7 @@ function PawnGetRelicUpgradeInfo(RelicItemLink)
 		local BestRelicItemLevelUpgrade = 0
 		local RelicIndex, SlottedRelic
 		for RelicIndex, SlottedRelic in pairs(Artifact.Relics) do
-			--VgerCore.Message(Artifact.Name .. " slot " .. RelicIndex .. ": " .. SlottedRelic.Type .. " +" .. SlottedRelic.ItemLevel)
+			--VgerCore.Message(Artifact.Name .. " slot " .. RelicIndex .. ": " .. SlottedRelic.Type .. " +" .. tostring(SlottedRelic.ItemLevel))
 			if RelicType == SlottedRelic.Type then
 				local ThisRelicItemLevelUpgrade = RelicItemLevel - (SlottedRelic.ItemLevel or 0)
 				--VgerCore.Message("   Increase found: " .. ThisRelicItemLevelUpgrade)
