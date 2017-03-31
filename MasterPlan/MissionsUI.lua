@@ -305,11 +305,13 @@ local missionList = CreateFrame("Frame", "MasterPlanMissionList", GarrisonMissio
 			GarrisonMissionFrameMissionsTab1:SetParent(hidden)
 			GarrisonMissionFrameMissionsTab2:SetParent(hidden)
 			GarrisonMissionFrameMissionsListScrollFrame:SetParent(hidden)
+			GarrisonMissionFrameMissions.CompleteDialog:SetParent(hidden)
 		end)
 		missionList:SetScript("OnHide", function(self)
 			GarrisonMissionFrameMissionsTab1:SetParent(self:GetParent())
 			GarrisonMissionFrameMissionsTab2:SetParent(self:GetParent())
 			GarrisonMissionFrameMissionsListScrollFrame:SetParent(self:GetParent())
+			GarrisonMissionFrameMissions.CompleteDialog:SetParent(GarrisonMissionFrameMissions)
 		end)
 	end
 	local ctlContainer = CreateFrame("Frame", nil, missionList) do
