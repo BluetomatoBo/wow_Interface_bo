@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 16096 $"):sub(12, -3)),
-	DisplayVersion = "7.2.0", -- the string that is shown as version
-	ReleaseRevision = 16096 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 16121 $"):sub(12, -3)),
+	DisplayVersion = "7.2.2", -- the string that is shown as version
+	ReleaseRevision = 16121 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -421,7 +421,7 @@ local UpdateChestTimer
 local breakTimerStart
 local AddMsg
 
-local fakeBWVersion, fakeBWHash = 49, "7b20409"
+local fakeBWVersion, fakeBWHash = 50, "1e39f8a"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -1139,17 +1139,17 @@ do
 			onLoadCallbacks = nil
 			loadOptions(self)
 			if GetAddOnEnableState(playerName, "VEM-Core") >= 1 then
-				self:Disable(true)
+				self:Disable()
 				C_TimerAfter(15, function() AddMsg(self, DBM_CORE_VEM) end)
 				return
 			end
 			if GetAddOnEnableState(playerName, "DBM-Profiles") >= 1 then
-				self:Disable(true)
+				self:Disable()
 				C_TimerAfter(15, function() AddMsg(self, DBM_CORE_3RDPROFILES) end)
 				return
 			end
 			if GetAddOnEnableState(playerName, "DPMCore") >= 1 then
-				self:Disable(true)
+				self:Disable()
 				C_TimerAfter(15, function() AddMsg(self, DBM_CORE_DPMCORE) end)
 				return
 			end
@@ -4191,22 +4191,20 @@ do
 						AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, version))
 						AddMsg(DBM, ("|HDBM:update:%s:%s|h|cff3588ff[%s]"):format(displayVersion, version, DBM_CORE_UPDATEREMINDER_URL or "http://www.deadlybossmods.com"))
 						showConstantReminder = 1
-					elseif #newerVersionPerson == 3 then--Requires 3 for force disable.
+					elseif #newerVersionPerson == 3 and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
 						--Find min revision.
 						local revDifference = mmin((raid[newerVersionPerson[1]].revision - DBM.Revision), (raid[newerVersionPerson[2]].revision - DBM.Revision), (raid[newerVersionPerson[3]].revision - DBM.Revision))
-						--The following code requires at least THREE people to send that higher revision (I just upped it from 2). That should be more than adaquate.
 						--Disable if out of date and it's a major patch.
-						--[[if not testBuild and dbmToc < wowTOC then
+						if not testBuild and dbmToc < wowTOC then
 							updateNotificationDisplayed = 3
 							AddMsg(DBM, DBM_CORE_UPDATEREMINDER_MAJORPATCH)
-							DBM:Disable(true)--]]
+							DBM:Disable()
 						--Disable if revision grossly out of date even if not major patch.
-						if revDifference > 180 then
-						--elseif revDifference > 180 then
+						elseif revDifference > 100 then
 							if updateNotificationDisplayed < 3 then
 								updateNotificationDisplayed = 3
 								AddMsg(DBM, DBM_CORE_UPDATEREMINDER_DISABLE)
-								DBM:Disable(true)
+								DBM:Disable()
 							end
 						end
 					end
@@ -4222,7 +4220,7 @@ do
 					if testBuild and revDifference > 5 then
 						updateNotificationDisplayed = 3
 						AddMsg(DBM, DBM_CORE_UPDATEREMINDER_DISABLE)
-						DBM:Disable(true)
+						DBM:Disable()
 					else
 						updateNotificationDisplayed = 2
 						AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER_ALPHA:format(revDifference))
@@ -5125,8 +5123,8 @@ do
 	end
 
 	function DBM:UNIT_SPELLCAST_SUCCEEDED(uId, spellName, _, spellGUID, spellId)
-		local correctSpellId = tonumber(select(5, strsplit("-", spellGUID)), 10)
-		self:Debug("UNIT_SPELLCAST_SUCCEEDED fired: "..UnitName(uId).."'s "..spellName.."("..correctSpellId..")", 3)
+		--local correctSpellId = tonumber(select(5, strsplit("-", spellGUID)), 10)
+		self:Debug("UNIT_SPELLCAST_SUCCEEDED fired: "..UnitName(uId).."'s "..spellName.."("..spellId..")", 3)
 	end
 
 	function DBM:ENCOUNTER_START(encounterID, name, difficulty, size)
@@ -6327,49 +6325,13 @@ function DBM:SendVariableInfo(mod, target)
 end
 
 do
-	local soundFiles = {
-		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event01.ogg",--5
-		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event02.ogg",--5
-		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event03.ogg",--5.5
-		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event04.ogg",--9
-		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event05.ogg",--4
-		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event06.ogg",--10
-		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event07.ogg",--15
-		"Sound\\Creature\\Rhonin\\UR_Rhonin_Event08.ogg",
-	}
-	local function playDelay(self, count)
-		self:PlaySoundFile(soundFiles[count])
-	end
-
-	function DBM:AprilFools()
-		self:Unschedule(self.AprilFools)
-		local currentMapId = GetPlayerMapAreaID("player")
-		if not currentMapId then
-			SetMapToCurrentZone()
-			currentMapId = GetCurrentMapAreaID()
-		end
-		self:Schedule(120 + math.random(0, 300) , self.AprilFools, self)
-		if currentMapId ~= 1014 then return end--Legion Dalaran
-		playDelay(self, 1)
-		self:Schedule(5, playDelay, self, 2)
-		self:Schedule(10, playDelay, self, 3)
-		self:Schedule(15.5, playDelay, self, 4)
-		self:Schedule(24.5, playDelay, self, 5)
-		self:Schedule(28, playDelay, self, 6)
-		self:Schedule(37.5, playDelay, self, 7)
-		self:Schedule(50.5, playDelay, self, 8)
-	end
 	function DBM:PLAYER_ENTERING_WORLD()
-		local weekday, month, day, year = CalendarGetDate()--Must be called after PLAYER_ENTERING_WORLD
-		if month == 4 and day == 1 then--April 1st
-			self:Schedule(180 + math.random(0, 300) , self.AprilFools, self)
-		end
 		if GetLocale() == "ptBR" or GetLocale() == "frFR" or GetLocale() == "itIT" or GetLocale() == "esES" or GetLocale() == "ruRU" then
 			C_TimerAfter(10, function() if self.Options.HelpMessageVersion < 4 then self.Options.HelpMessageVersion = 4 self:AddMsg(DBM_CORE_NEED_LOCALS) end end)
 		end
-		C_TimerAfter(20, function() if not self.Options.ForumsMessageShown then self.Options.ForumsMessageShown = self.ReleaseRevision self:AddMsg(DBM_FORUMS_MESSAGE) end end)
+		--C_TimerAfter(20, function() if not self.Options.ForumsMessageShown then self.Options.ForumsMessageShown = self.ReleaseRevision self:AddMsg(DBM_FORUMS_MESSAGE) end end)
 		C_TimerAfter(30, function() if not self.Options.SettingsMessageShown then self.Options.SettingsMessageShown = true self:AddMsg(DBM_HOW_TO_USE_MOD) end end)
-		C_TimerAfter(40, function() if self.Options.NewsMessageShown < 8 then self.Options.NewsMessageShown = 8 self:AddMsg(DBM_CORE_WHATS_NEW_LINK) end end)
+		--C_TimerAfter(40, function() if self.Options.NewsMessageShown < 8 then self.Options.NewsMessageShown = 8 self:AddMsg(DBM_CORE_WHATS_NEW_LINK) end end)
 		if type(RegisterAddonMessagePrefix) == "function" then
 			if not RegisterAddonMessagePrefix("D4") then -- main prefix for DBM4
 				self:AddMsg("Error: unable to register DBM addon message prefix (reached client side addon message filter limit), synchronization will be unavailable") -- TODO: confirm that this actually means that the syncs won't show up
@@ -6608,7 +6570,7 @@ end
 --------------------------
 --  Enable/Disable DBM  --
 --------------------------
-function DBM:Disable(forced)
+function DBM:Disable()
 	unscheduleAll()
 	dbmIsEnabled = false
 end

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1897, "DBM-TombofSargeras", nil, 875)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16092 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16102 $"):sub(12, -3))
 mod:SetCreatureID(118289)
 mod:SetEncounterID(2052)
 mod:SetZone()
@@ -173,13 +173,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		self.vb.unstableSoulCount = self.vb.unstableSoulCount + 1
 		warnUnstableSoul:CombinedShow(1, args.destName)
 		if args:IsPlayer() then
-			specWarnUnstableSoul:Show(AegynnsWard)
+			specWarnUnstableSoul:Schedule(5.5, AegynnsWard)--2.5 before expire, maybe adjust to 3
 			if not self:IsLFR() then
 				yellUnstableSoul:Yell(8)
 				yellUnstableSoul:Schedule(7, 1)
 				yellUnstableSoul:Schedule(6, 2)
 				yellUnstableSoul:Schedule(5, 3)
-				voiceUnsableSoul:Play("jumpinpit")
+				voiceUnsableSoul:Schedule(5.5, "jumpinpit")
 			else
 				voiceUnsableSoul:Play("defensive")--Whatever, doens't matter in LFR. LFR doesn't need Aegwynn's Ward/pit
 			end

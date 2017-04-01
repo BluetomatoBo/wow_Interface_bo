@@ -1,97 +1,189 @@
-tag 74e229892763123c5d98a271198fd3be79bd5cc3 7.2.0
+tag 662a20c2969d106507dbe5ff7e46d3bb72e534c4 7.2.2
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Tue Mar 28 19:02:44 2017 +0200
+Date:	Sat Apr 1 12:31:05 2017 +0200
 
-Tagging as 7.2.0
+Tagging as 7.2.2
 
-commit bbf4d511355bfd1a7754b2feb99b6cc93f0083c8
+commit fbfe4c4163e84ffd3ef2d3877d748ad9d01ea79d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Mar 28 19:02:44 2017 +0200
+Date:   Sat Apr 1 12:31:05 2017 +0200
 
-    increment version number to 7.2.0
+    increment version number to 7.2.2
 
-commit f212052aa4899ac90a2abfbf10996c965c4bc390
+commit 61c73fac61e547a8870f6aa320079342c75e87df
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Mar 28 11:18:01 2017 +0200
+Date:   Sat Apr 1 11:34:52 2017 +0200
 
-    Omega via svn r16096:
-    Bump Tocs
+    Omega via svn r16121:
+    Disable some login messages too
 
-commit 30c8f00bf2e8d34fb6cf305a6de51747f77e7208
+commit f9cade69e1eecc9992fa67165268f374d8424893
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Mar 28 06:50:32 2017 +0200
+Date:   Sat Apr 1 11:32:45 2017 +0200
 
-    Omega via svn r16095:
-    Add Icon Only yells to star signs
+    Omega via svn r16120:
+    tweak
 
-commit 73126b44d69d62cf91d532a4c4c3d88764123db4
+commit 07647bf2e0e00fd5b3a0ad0c010fd4353c251415
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Mar 28 05:14:47 2017 +0200
+Date:   Sat Apr 1 11:18:45 2017 +0200
 
-    Omega via svn r16094:
-    move trash warning to correct mod
+    Omega via svn r16119:
+    Just remove all of it all together.
+    Also make force updates far more strict going forward. at least half the complaints were things fixed in 7.2.1
 
-commit 75a331950690445e4b496bc5316139f46a9fad8a
+commit e4509d7bcbadd055fef563533aa9dd68370660ec
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Mar 28 03:40:06 2017 +0200
+Date:   Sat Apr 1 09:20:50 2017 +0200
 
-    Omega via svn r16093:
-    Finish Domatrax and Mephistroth
+    Omega via svn r16118:
+    Add message
 
-commit fd99b69db36d7c12f93c026529cc505c05f667fd
+commit 7881c7e7f16946fc41ec0758c4e0a7714f10e9aa
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Mar 28 02:15:39 2017 +0200
+Date:   Sat Apr 1 08:46:22 2017 +0200
 
-    Omega via svn r16092:
-    uncomplicate all the moveto warnings that were pointing to a place instead of player, by broadening description of moveto warning description
+    Omega via svn r16117:
+    fix
 
-commit b9b9c5c1177312bf23d7afc638d4adce596d27d9
+commit 1ad862c56d56debf785d6508059b2502579d8f2b
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Mar 27 19:23:00 2017 +0200
+Date:   Sat Apr 1 05:33:55 2017 +0200
 
-    Omega via svn r16091:
-    Fix several invalid spellids in dungeon mods
+    Omega via svn r16116:
+    Add a toggle
 
-commit 491d303b9e892d608b9a75425d7c8455b96f5444
+commit bb834dbcecb1cf2a8156019f4c52c4dcfb3632ed
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Mar 27 00:39:55 2017 +0200
+Date:   Sat Apr 1 04:20:05 2017 +0200
 
-    Omega via svn r16090:
-    Change alpha identifier
+    Omega via svn r16115:
+    Inc
 
-commit 9406cca0ffa28e2c6ff75db0b9d1b051fef98adc
+commit 2fe1d1a889bcd7667ab4e14afd6e5f9bb6a2064d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Mar 27 00:38:48 2017 +0200
+Date:   Sat Apr 1 04:18:34 2017 +0200
 
-    Omega via svn r16089:
-    Delete hudmap and friendly nameplate support, everywhere.
-    Also fixed two icon bugs that?\226?\128?\153d break if hudmap options were toggled off in two nightmare mods, oops.
+    Omega via svn r16114:
+    Dirty tag
 
-commit d6d0fe0cdf2dd74c0da2ebee3ca0e9a9b6f65dbd
+commit 2c9e8641c3932e1624577663e4eb59791ba59766
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Mar 26 23:30:28 2017 +0200
+Date:   Sat Apr 1 03:48:26 2017 +0200
 
-    Omega via svn r16088:
-    Fix bats name being nil and add protections against that kind of mistake throwing too many errors in future.
+    Omega via svn r16113:
+    Tweak
 
-commit 0faf670c0319eeaae6aeecd3393cd9daac646f13
+commit c34ca02b1544083b21a8cba706fcd925696a0a74
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Mar 26 01:45:53 2017 +0100
+Date:   Sat Apr 1 03:47:08 2017 +0200
 
-    Omega via svn r16087:
-    Thrashbite prep
+    Omega via svn r16112:
+    Another tweak
 
-commit c72e3fd249fcc1771de6681403f7d62a1ea4ae2b
+commit ff667662d06ce2ca3e60dd422945d90fb972f63c
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Mar 25 00:40:21 2017 +0100
+Date:   Sat Apr 1 03:39:20 2017 +0200
 
-    Omega via svn r16086:
-    Couple maiden tweaks
+    Omega via svn r16111:
+    Some more updates to CoEN
+    As well as some updates to 41
 
-commit 05470a7a160c7cd2116294822588fa89cf77a64f
+commit b44a6f2fc610359e8e54fe15f7c982bd145b98da
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 24 21:02:25 2017 +0100
+Date:   Fri Mar 31 22:27:46 2017 +0200
 
-    tandanu via svn r16085:
+    Omega via svn r16110:
+    KR update
+
+commit d8326044a3ce6d03d4044987e98c7b1dac8f0169
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 31 10:18:45 2017 +0200
+
+    Omega via svn r16109:
+    Fix mind control warning
+
+commit 4786a1ee29f1ef3816a3bce87e1975d49a945461
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 31 09:42:16 2017 +0200
+
+    Omega via svn r16108:
+    Push Agronox update from mythic run
+
+commit 63ac413327a8bfa08591d7110f7c641f4995d9d1
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 31 08:34:57 2017 +0200
+
+    Omega via svn r16107:
+    *Fix lua error in CoEN trash
+    *Add new option to Star auger to spam chat bubbles for star signs. when this is enabled it also disables all other chat bubbles (such as injections) until conjunction has ended.
+    *Changed night phase countdown on tichondrius to start counting down from 10 (up from 5)
+    *Bugfix to the one adds timer that?\226?\128?\153s not 47 as well.
+
+commit 8cdc62d6d00c8d67e7d00b3ecc3db2584157609c
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 31 01:43:12 2017 +0200
+
+    Omega via svn r16106:
+    some trash antispam and also a quick fix to chaotic energy stutter casts
+
+commit c51b435074d24e681b1548ab3143a832dc504031
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 31 01:37:47 2017 +0200
+
+    Omega via svn r16105:
+    Now with less errors
+    
+    I got fresh mythic logs to do rest later but raid time
+
+commit a275139beaab66aad0264cb73234ca4700db154f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 31 00:50:38 2017 +0200
+
+    Omega via svn r16104:
+    Work around demonic upheaval not being in combat log
+    Add generic warning for HeaveCrud for completion sake.
+
+commit c28e1ee7b7621e9629ebda540e4eebc3965b9675
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Mar 30 08:56:39 2017 +0200
+
+    Omega via svn r16103:
+    First round of new dungeon fixes. i lost logs do to a crash so i lost some fixes, pushing these based on videos i took at least for now, will rerun dungeon soon to fix rest.
+    also added few trash warnings to start off with
+
+commit ecc3ed01860efdbf60808fe3e2950e57ff702fc1
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Mar 30 06:24:46 2017 +0200
+
+    Omega via svn r16102:
+    tweak some timing on a warning
+
+commit 1844f2e9c0937a0b97ecc79204eabe711eb34ee5
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Mar 29 05:59:49 2017 +0200
+
+    Omega via svn r16101:
+    Fix timer in secondary trigger too for flames of sargeras
+
+commit 553e3660d42e42a08c4346c8451f7585b560ae26
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Mar 29 04:34:42 2017 +0200
+
+    Omega via svn r16100:
+    Fix update bug on carrion plague count
+
+commit cf3170e4c2e5f3ebb0778f060185f4102afea275
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Mar 29 00:44:20 2017 +0200
+
+    Omega via svn r16099:
+    Bump version
+
+commit ba9aae239f9681c2931fd009d8504f3eb92c6626
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Mar 28 19:14:36 2017 +0200
+
+    tandanu via svn r16098:
     increment alpha version
 

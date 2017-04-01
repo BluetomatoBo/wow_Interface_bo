@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1762, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16089 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16107 $"):sub(12, -3))
 mod:SetCreatureID(103685)
 mod:SetEncounterID(1862)
 mod:SetZone()
@@ -69,7 +69,7 @@ local berserkTimer					= mod:NewBerserkTimer(463)
 local countdownSeekerSwarm			= mod:NewCountdown(25, 213238)
 local countdownEchoesOfVoid			= mod:NewCountdown("Alt65", 213531)
 local countdownFeastOfBlood			= mod:NewCountdown("AltTwo25", 208230, "Tank")
-local countdownNightPhase			= mod:NewCountdown(32, 206365)
+local countdownNightPhase			= mod:NewCountdown(32, 206365, nil, nil, 10)
 local countdownCarrionNightmare 	= mod:NewCountdown("Alt4", 215988, false, 2, 3)
 
 local voiceCarrionPlague			= mod:NewVoice(206480)--scatter
@@ -369,6 +369,9 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnCarrionPlague:Show()
 			voiceCarrionPlague:Play("scatter")
 		end
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:Update()
+		end
 	elseif spellId == 212794 then
 		argusTargets[#argusTargets+1] = args.destName
 		self:Unschedule(breakMarks)
@@ -427,6 +430,9 @@ function mod:SPELL_AURA_REMOVED(args)
 		DBM.RangeCheck:Hide()
 	elseif spellId == 206480 then
 		self.vb.CarrionPlagueCount = self.vb.CarrionPlagueCount - 1
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:Update()
+		end
 	end
 end
 
@@ -463,8 +469,16 @@ function mod:OnSync(msg, targetname)
 		self.vb.addsCount = self.vb.addsCount + 1
 		specWarnAdds:Show()
 		voiceAdds:Play("killmob")
-		if self.vb.addsCount == 1 then
-			timerAddsCD:Start(47)
+		if self.vb.phase == 2 then
+			if self.vb.addsCount == 1 then
+				timerAddsCD:Start(47)
+			end
+		else
+			if self.vb.addsCount == 1 then
+				timerAddsCD:Start(40)--ish, need relogging to confirm
+			elseif self.vb.addsCount == 2 then
+				timerAddsCD:Start(47)
+			end
 		end
 	end
 end
