@@ -265,10 +265,7 @@ end
 --------------------------------------------------------------------------------
 
 function buttonProto:CanUpdate()
-	if not self:IsVisible() or addon.holdYourBreath then
-		return false
-	end
-	return true
+	return self:IsVisible()
 end
 
 function buttonProto:FullUpdate()
@@ -303,6 +300,7 @@ function buttonProto:Update()
 	self:UpdateCooldown()
 	self:UpdateLock()
 	self:UpdateNew()
+	self:IsContainerItemAnUpgrade()
 	if self.UpdateSearch then
 		self:UpdateSearch()
 	end
@@ -348,6 +346,10 @@ end
 
 function buttonProto:UpdateNew()
 	self.BattlepayItemTexture:SetShown(IsBattlePayItem(self.bag, self.slot))
+end
+
+function buttonProto:IsContainerItemAnUpgrade()
+	self.UpgradeIcon:SetShown(IsContainerItemAnUpgrade(self:GetParent():GetID(), self:GetID()) or false)
 end
 
 local function GetBorder(bag, slot, itemId, settings)
@@ -510,7 +512,7 @@ end
 function stackProto:OnShow()
 	self:RegisterMessage('AdiBags_UpdateAllButtons', 'Update')
 	self:RegisterMessage('AdiBags_PostContentUpdate')
-	self:RegisterEvent('ITEM_LOCK_CHANGED')
+	--self:RegisterEvent('ITEM_LOCK_CHANGED')
 	if self.button then
 		self.button:Show()
 	end
