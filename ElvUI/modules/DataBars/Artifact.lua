@@ -8,6 +8,7 @@ local _G = _G
 local tonumber, select, pcall = tonumber, select, pcall
 local format, gsub, strmatch, strfind = string.format, string.gsub, string.match, string.find
 --WoW API / Variables
+local BreakUpLargeNumbers = BreakUpLargeNumbers
 local C_ArtifactUI_GetEquippedArtifactInfo = C_ArtifactUI.GetEquippedArtifactInfo
 local GetContainerItemInfo = GetContainerItemInfo
 local GetContainerItemLink = GetContainerItemLink
@@ -25,25 +26,6 @@ local ARTIFACT_POWER_TOOLTIP_BODY = ARTIFACT_POWER_TOOLTIP_BODY
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS: GameTooltip, CreateFrame, ArtifactFrame, UIParent
-
---Credit: Artifact Power (https://mods.curse.com/addons/wow/artifact-power)
-local empoweringSpellName
-local EMPOWERING_SPELL_ID = 227907
-local apString = {
-	["enUS"] = "Grants(%d+)ArtifactPowertoyourcurrentlyequippedArtifact",
-	["enGB"] = "Grants(%d+)ArtifactPowertoyourcurrentlyequippedArtifact",
-	["ptBR"] = "Concede(%d+)dePoderdoArtefatoaoartefatoequipado",
-	["esMX"] = "Otorga(%d+)pdePoderdeartefactoparaelartefactoquellevasequipado",
-	["deDE"] = "GewährtEuremderzeitausgerüstetenArtefakt(%d+)Artefaktmacht",
-	["esES"] = "Otorga(%d+)pdepoderdeartefactoalartefactoquellevesequipado",
-	["frFR"] = "Confère(%d+) pointsdepuissanceàl’armeprodigieusequevousmaniez",
-	["itIT"] = "Fornisce(%d+)PotereArtefattoall'Artefattoattualmenteequipaggiato",
-	["ruRU"] = "Добавляетиспользуемомувданныймоментартефакту(%d+)едсилыартефакта",
-	["koKR"] = "현재장착한유물에(%d+)의유물력을부여합니다",
-	["zhTW"] = "賦予你目前裝備的神兵武器(%d+)點神兵之力。",
-	["zhCN"] = "将(%d+)点神器能量注入到你当前装备的神器之中。"
-}
-local apStringLocal = apString[GetLocale()]
 
 function mod:UpdateArtifact(event, unit)
 	if not mod.db.artifact.enable then return end
@@ -130,9 +112,9 @@ function mod:ArtifactBar_OnEnter()
 	local remaining = xpForNextPoint - xp
 	local apInBags = self.BagArtifactPower
 
-	GameTooltip:AddDoubleLine(L["XP:"], format(' %d / %d (%d%%)', xp, xpForNextPoint, xp/xpForNextPoint * 100), 1, 1, 1)
-	GameTooltip:AddDoubleLine(L["Remaining:"], format(' %d (%d%% - %d %s)', xpForNextPoint - xp, remaining / xpForNextPoint * 100, 20 * remaining / xpForNextPoint, L["Bars"]), 1, 1, 1)
-	GameTooltip:AddDoubleLine(L["In Bags:"], format(' %d (%d%% - %d %s)', apInBags, apInBags / xpForNextPoint * 100, 20 * apInBags / xpForNextPoint, L["Bars"]), 1, 1, 1)
+	GameTooltip:AddDoubleLine(L["XP:"], format(' %s / %s (%d%%)', BreakUpLargeNumbers(xp), BreakUpLargeNumbers(xpForNextPoint), xp/xpForNextPoint * 100), 1, 1, 1)
+	GameTooltip:AddDoubleLine(L["Remaining:"], format(' %s (%d%% - %d %s)', BreakUpLargeNumbers(xpForNextPoint - xp), remaining / xpForNextPoint * 100, 20 * remaining / xpForNextPoint, L["Bars"]), 1, 1, 1)
+	GameTooltip:AddDoubleLine(L["In Bags:"], format(' %s (%d%% - %d %s)', BreakUpLargeNumbers(apInBags), apInBags / xpForNextPoint * 100, 20 * apInBags / xpForNextPoint, L["Bars"]), 1, 1, 1)
 	GameTooltip:AddLine(" ")
 	GameTooltip:AddLine(format(ARTIFACT_POWER_TOOLTIP_BODY, numPointsAvailableToSpend), nil, nil, nil, true)
 
@@ -181,6 +163,23 @@ function mod:EnableDisable_ArtifactBar()
 	end
 end
 
+local apStringValueMillion = {
+	["enUS"] = "(%d+)[%p%s]?[(%d+)]? million",
+	["enGB"] = "(%d+)[%p%s]?[(%d+)]? million",
+	["ptBR"] = "(%d+)[%p%s]?[(%d+)]? [[milhão][milhões]]?",
+	["esMX"] = "(%d+)[%p%s]?[(%d+)]? [[millón][millones]]?",
+	["deDE"] = "(%d+)[%p%s]?[(%d+)]? [[Million][Millionen]]?",
+	["esES"] = "(%d+)[%p%s]?[(%d+)]? [[millón][millones]]?",
+	["frFR"] = "(%d+)[%p%s]?[(%d+)]? [[million][millions]]?",
+	["itIT"] = "(%d+)[%p%s]?[(%d+)]? [[milione][milioni]]?",
+	["ruRU"] = "(%d+)[%p%s]?[(%d+)]? млн",
+	["koKR"] = "(%d+)[%p%s]?[(%d+)]?만",
+	["zhTW"] = "(%d+)[%p%s]?[(%d+)]?萬",
+	["zhCN"] = "(%d+)[%p%s]?[(%d+)]?万",
+}
+local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
+local empoweringSpellName
+
 --AP item caches
 local apValueCache = {}
 local apItemCache = {}
@@ -201,14 +200,25 @@ local function GetAPFromTooltip(itemLink)
 		mod.artifactBar.tooltip:SetHyperlink(itemLink)
 
 		local apFound
-		for i = #mod.artifactBar.tooltipLines, 1, -1 do
+		for i = 4,5 do
 			local tooltipText = mod.artifactBar.tooltipLines[i]:GetText()
 
 			if (tooltipText) then
-				tooltipText = tooltipText:gsub("[,%.%s]", "")
-				local ap = tooltipText:match(apStringLocal) or ""
-				if (ap ~= "") then
-					apValue = tonumber(ap)
+				local digit1, digit2, digit3, ap
+				if string.match(tooltipText, apStringValueMillionLocal) then
+					digit1, digit2 = string.match(tooltipText, apStringValueMillionLocal)
+					if digit2 then
+						ap = tonumber(string.format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
+					else
+						ap = tonumber(digit1) * 1e6 --Multiply by one million
+					end
+				else
+					digit1, digit2, digit3 = string.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
+					ap = tonumber(string.format("%s%s%s", digit1 or "", digit2 or "", (digit2 and digit3) and digit3 or ""))
+				end
+
+				if (ap) then
+					apValue = ap
 					apFound = true
 					break
 				end
@@ -224,6 +234,19 @@ local function GetAPFromTooltip(itemLink)
 
 	return apValue
 end
+
+--[[ This can be used to test if the tooltip scanning works as expected
+function TestAPExtraction(itemID)
+	local itemLink = select(2, GetItemInfo(itemID))
+	if not itemLink then --WoW client hasn't seen this item before, so run again a little later when info has been received
+		C_Timer.After(2, function() TestItemLinkForAP(itemID) end)
+		return
+	end
+
+	local apValue = GetAPFromTooltip(itemLink)
+	E:Print("AP value from", itemLink, "is:", apValue, "("..BreakUpLargeNumbers(apValue, true)..")")
+end
+]]
 
 --This function is responsible for retrieving the AP value from an itemLink.
 --It will cache the itemLink and respective AP value for future requests, thus saving CPU resources.
@@ -273,7 +296,7 @@ function mod:GetArtifactPowerInBags()
 end
 
 function mod:LoadArtifactBar()
-	empoweringSpellName = GetSpellInfo(EMPOWERING_SPELL_ID)
+	empoweringSpellName = GetSpellInfo(227907)
 
 	self.artifactBar = self:CreateBar('ElvUI_ArtifactBar', self.ArtifactBar_OnEnter, self.ArtifactBar_OnClick, 'RIGHT', self.honorBar, 'LEFT', E.Border - E.Spacing*3, 0)
 	self.artifactBar.statusBar:SetStatusBarColor(.901, .8, .601)
@@ -300,7 +323,7 @@ function mod:LoadArtifactBar()
 	self.artifactBar.tooltip = CreateFrame("GameTooltip", "BagArtifactPowerTooltip", UIParent, "GameTooltipTemplate")
 	self.artifactBar.tooltip:SetOwner(UIParent, "ANCHOR_NONE")
 	self.artifactBar.tooltipLines = {}
-	for i = 1, 5 do
+	for i = 4, 5 do
 		self.artifactBar.tooltipLines[i] = _G[format("BagArtifactPowerTooltipTextLeft%d", i)]
 	end
 
