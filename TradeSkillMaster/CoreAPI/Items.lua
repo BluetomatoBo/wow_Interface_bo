@@ -370,7 +370,7 @@ function Items:ScanMerchant(event)
 	for i=1, GetMerchantNumItems() do
 		local itemString = TSMAPI.Item:ToItemString(GetMerchantItemLink(i))
 		if itemString then
-			local price, quantity, _, _, extendedCost = select(3, GetMerchantItemInfo(i))
+			local price, quantity, _, _, _, extendedCost = select(3, GetMerchantItemInfo(i))
 			if price > 0 and not extendedCost then
 				TSM.db.global.vendorItems[itemString] = TSMAPI.Util:Round(price / quantity)
 			else
@@ -798,7 +798,7 @@ function TSMAPI.Item:GetLink(itemString)
 	elseif strmatch(itemString, "i:") then
 		name = name or "Unknown Item"
 		local color = "|cffff0000"
-		if info and info.quality and info.quality >= 0 and (itemString == baseItemString or not strmatch(itemString, "i:[0-9]+:[0-9%-]*:[0-9]*")) then
+		if info and info.quality and info.quality >= 0 and ITEM_QUALITY_COLORS[info.quality] and (itemString == baseItemString or not strmatch(itemString, "i:[0-9]+:[0-9%-]*:[0-9]*")) then
 			color = ITEM_QUALITY_COLORS[info.quality].hex
 		end
 		itemString = private.ToWoWItemString(itemString)

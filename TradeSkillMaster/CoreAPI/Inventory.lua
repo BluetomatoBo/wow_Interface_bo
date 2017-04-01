@@ -42,6 +42,10 @@ function TSMAPI.Inventory:BagIterator(autoBaseItems, includeSoulbound, includeBO
 		for b = 0, NUM_BAG_SLOTS do
 			for s = 1, GetContainerNumSlots(b) do
 				local link = GetContainerItemLink(b, s)
+				if link and strmatch(link, "keystone:[0-9]+") then
+					-- ignore keystone items introduced in patch 7.2
+					link = nil
+				end
 				if link then
 					isValid = isValid and not strmatch(link, "\124h%[%]\124h")
 					local _, quantity, locked = GetContainerItemInfo(b, s)
