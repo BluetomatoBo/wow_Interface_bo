@@ -1,3 +1,5 @@
+v1.2.1
+- Update for 7.2
 v1.2.0
 - Legion update
 v1.1.7
