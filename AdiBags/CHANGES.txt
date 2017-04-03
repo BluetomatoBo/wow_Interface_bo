@@ -1,34 +1,14 @@
-tag 2863f856c77c4547ad38b218e468621525514f55 v1.9.5
+tag 646ded2368eb89394b249c1dd02704c64fc2de2f v1.9.6
 Author:	Talyrius <contact@talyrius.net>
-Date:	Fri Mar 31 12:18:02 2017 -0700
+Date:	Sat Apr 1 12:49:21 2017 -0700
 
-Updated for Patch 7.2: The Tomb of Sargeras.
+Tagging as v1.9.6.
 
-commit 8180f3c5103c5d147a01b6ea38716d10f8511aab
-Author: Talyrius <contact@talyrius.net>
-Date:   Fri Mar 31 11:01:45 2017 -0700
-
-    Updated for Patch 7.2: The Tomb of Sargeras.
-
-commit 20aea53aa5cc303a49bfd88d37ae19b02ec6437f
-Author: Martin Hess <martin.hess85@gmail.com>
-Date:   Fri Mar 31 19:11:20 2017 +0200
-
-    Implemented item upgrade indicators.
-    
-    Merge pull request #160 from p5hema2/IsContainerItemAnUpgrade. Fixes #151.
-
-commit bc3e43775af15c606a374b278a74de316334cbbe
+commit f5ae897be4805e6d0ea67a2ff83951f51d06922a
 Author: legowxelab2z8 <legowxelab2z8@gmail.com>
-Date:   Fri Mar 31 09:32:08 2017 -0700
+Date:   Sat Apr 1 11:37:40 2017 -0700
 
-    Fixed problems resulting from the recent patch changes to Mythic Keystones.
+    Fixed quality colored borders for keystones and battle pets.
     
-    Merge pull request #172 from legowxelab2z8/MythicKeystones. Fixes #169.
-
-commit b4c83379e898977516c1bf12126c2f440ed787c4
-Author: Antonio Lobato <antonio@whisper.sh>
-Date:   Mon Dec 12 21:53:04 2016 -0800
-
-    fix for wow freezing on blizzard sort
+    Fixes #181.
 
