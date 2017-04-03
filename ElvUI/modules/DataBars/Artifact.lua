@@ -164,18 +164,18 @@ function mod:EnableDisable_ArtifactBar()
 end
 
 local apStringValueMillion = {
-	["enUS"] = "(%d*%.?%d+) million",
-	["enGB"] = "(%d*%.?%d+) million",
-	["ptBR"] = "(%d*%.?%d+) [[milhão][milhões]]?",
-	["esMX"] = "(%d*%.?%d+) [[millón][millones]]?",
-	["deDE"] = "(%d*%.?%d+) [[Million][Millionen]]?",
-	["esES"] = "(%d*%.?%d+) [[millón][millones]]?",
-	["frFR"] = "(%d*%.?%d+) [[million][millions]]?",
-	["itIT"] = "(%d*%.?%d+) [[milione][milioni]]?",
-	["ruRU"] = "(%d*%.?%d+) млн",
-	["koKR"] = "(%d*%.?%d+)만",
-	["zhTW"] = "(%d*%.?%d+)萬",
-	["zhCN"] = "(%d*%.?%d+)万",
+	["enUS"] = "(%d*[%p%s]?%d+) million",
+	["enGB"] = "(%d*[%p%s]?%d+) million",
+	["ptBR"] = "(%d*[%p%s]?%d+) [[milhão][milhões]]?",
+	["esMX"] = "(%d*[%p%s]?%d+) [[millón][millones]]?",
+	["deDE"] = "(%d*[%p%s]?%d+) [[Million][Millionen]]?",
+	["esES"] = "(%d*[%p%s]?%d+) [[millón][millones]]?",
+	["frFR"] = "(%d*[%p%s]?%d+) [[million][millions]]?",
+	["itIT"] = "(%d*[%p%s]?%d+) [[milione][milioni]]?",
+	["ruRU"] = "(%d*[%p%s]?%d+) млн",
+	["koKR"] = "(%d*[%p%s]?%d+)만",
+	["zhTW"] = "(%d*[%p%s]?%d+)萬",
+	["zhCN"] = "(%d*[%p%s]?%d+)万",
 }
 local apStringValueMillionLocal = apStringValueMillion[GetLocale()]
 local empoweringSpellName
@@ -200,16 +200,23 @@ local function GetAPFromTooltip(itemLink)
 		mod.artifactBar.tooltip:SetHyperlink(itemLink)
 
 		local apFound
-		for i = 4,5 do
+		for i = #mod.artifactBar.tooltipLines, 1, -1 do
 			local tooltipText = mod.artifactBar.tooltipLines[i]:GetText()
 
 			if (tooltipText) then
 				local digit1, digit2, digit3, ap
-				if string.match(tooltipText, apStringValueMillionLocal) then
-					ap = tonumber(string.match(tooltipText, apStringValueMillionLocal)) * 1e6 --Multiply by one million
+				local value = strmatch(tooltipText, apStringValueMillionLocal)
+
+				if (value) then
+					digit1, digit2 = strmatch(value, "(%d+)[%p%s](%d+)")
+					if (digit1 and digit2) then
+						ap = tonumber(format("%s.%s", digit1, digit2)) * 1e6 --Multiply by one million
+					else
+						ap = tonumber(value) * 1e6 --Multiply by one million
+					end 
 				else
-					digit1, digit2, digit3 = string.match(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
-					ap = tonumber(string.format("%s%s%s", digit1 or "", digit2 or "", (digit2 and digit3) and digit3 or ""))
+					digit1, digit2, digit3 = strmatch(tooltipText,"(%d+)[%p%s]?(%d+)[%p%s]?(%d+)")
+					ap = tonumber(format("%s%s%s", digit1 or "", digit2 or "", (digit2 and digit3) and digit3 or ""))
 				end
 
 				if (ap) then
@@ -319,7 +326,7 @@ function mod:LoadArtifactBar()
 	self.artifactBar.tooltip = CreateFrame("GameTooltip", "BagArtifactPowerTooltip", UIParent, "GameTooltipTemplate")
 	self.artifactBar.tooltip:SetOwner(UIParent, "ANCHOR_NONE")
 	self.artifactBar.tooltipLines = {}
-	for i = 4, 5 do
+	for i = 1, 5 do
 		self.artifactBar.tooltipLines[i] = _G[format("BagArtifactPowerTooltipTextLeft%d", i)]
 	end
 
