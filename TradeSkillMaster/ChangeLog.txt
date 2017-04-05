@@ -1,3 +1,6 @@
+v3.6.27
+*Fixed issue with version number not being displayed correctly.
+
 v3.6.26
 *Fixed bug related to new keystone item type in patch 7.2.
 *Fixed bug with vendor buy prices not being properly updated when visiting a vendor.
