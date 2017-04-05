@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0202
+PawnVersion = 2.0204
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -3705,6 +3705,11 @@ function PawnOnArtifactUpdated(NewItem)
 	-- Get details about this artifact and then cache them.
 	local ArtifactItemID, _, ArtifactName = C_ArtifactUI.GetArtifactInfo()
 	if not ArtifactItemID then return end
+	-- Workaround: the hunter artifact Talonclaw has a longer name than GetArtifactInfo() returns, so when it's seen on tooltips, the strings don't match.  Use the longer name if available.
+	--   Item and GetArtifactInfo return: "Talonclaw"
+	--   Artifact UI and relic tooltips show: "Talonclaw, Spear of the Wild Gods"
+	-- FUTURE: If this doesn't work for all locales and artifacts, you'll need to use both: whenever the two names don't match, add that name to a secondary lookup table.
+	ArtifactName = C_ArtifactUI.GetArtifactArtInfo().titleName or ArtifactName
 
 	local Artifacts = PawnOptions.Artifacts
 	if not Artifacts then
@@ -3721,23 +3726,31 @@ function PawnOnArtifactUpdated(NewItem)
 
 	local NumRelicSlots = C_ArtifactUI.GetNumRelicSlots() or 0
 	local RelicIndex
+	local PlayerLevel = UnitLevel("player")
 	for RelicIndex = 1, NumRelicSlots do
-		local ThisRelic = ThisArtifact.Relics[RelicIndex]
-		if not ThisRelic then
-			ThisRelic = {}
-			ThisArtifact.Relics[RelicIndex] = ThisRelic
-		end
-
-		ThisRelic.Type = C_ArtifactUI.GetRelicSlotType(RelicIndex)
 		local _, _, _, ThisRelicItemLink = C_ArtifactUI.GetRelicInfo(RelicIndex)
 		local LockedReason = C_ArtifactUI.GetRelicLockedReason(RelicIndex)
-		if ThisRelicItemLink ~= nil and (LockedReason == nil or UnitLevel("player") >= 110) then -- ignore locked relic slots until the player hits 110
-			local RelicItemLevel = PawnGetItemLevelIncreaseProvidedByRelic(ThisRelicItemLink)
-			ThisRelic.ItemLevel = RelicItemLevel
+
+		if LockedReason == nil or PlayerLevel >= 110 then
+			-- This relic slot is unlocked, or the player is 110 and so it's close to being unlocked.
+			local ThisRelic = ThisArtifact.Relics[RelicIndex]
+			if not ThisRelic then
+				ThisRelic = {}
+				ThisArtifact.Relics[RelicIndex] = ThisRelic
+			end
+			ThisRelic.Type = C_ArtifactUI.GetRelicSlotType(RelicIndex)
+			if ThisRelicItemLink then
+				-- And, there's a relic for this slot.
+				local RelicItemLevel = PawnGetItemLevelIncreaseProvidedByRelic(ThisRelicItemLink)
+				ThisRelic.ItemLevel = RelicItemLevel
+			end
+			-- It's possible for us to not get an item link for the exiting relic if this is called right after logging in (because, for example, another
+			-- addon is simulating the shift-right-click).  In that case, we want to just keep whatever we already had cached—don't clear it out.
+		else
+			-- This relic slot is locked.  If we have anything saved for this slot, clear it out; it was probably saved due to a bug in an earlier Pawn version.
+			ThisArtifact.Relics[RelicIndex] = nil
 		end
-		-- If it ever becomes possible for a slot to have a relic in it, and then later for that relic to be removed, I'll have to modify this.
-		-- But in 7.2, if this is called right after logging in (because, for example, another addon is simulating the shift-right-click), we might not
-		-- get an ItemLink for the relic.  In that case, we want to just keep whatever we already had cached; don't clear it out.
+
 	end
 end
 

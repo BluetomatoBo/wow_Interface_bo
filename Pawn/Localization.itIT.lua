@@ -200,7 +200,7 @@ Per maggiori informazioni su come personalizzare Pawn, per favore leggere il fil
 		["WeaponTypeStaffInfo"] = "Punti da assegnare se l'arma è un bastone",
 		["WeaponTypeWand"] = "Bacchetta",
 		["WeaponTypeWandInfo"] = "Punti da assegnare se l'arma è una bacchetta.",
-		["WeaponTypeWarglaive"] = "Glaive della Guerra",
+		["WeaponTypeWarglaive"] = "Lame da Guerra",
 		["WeaponTypeWarglaiveInfo"] = "Punti da assegnare se l'oggetto è una Lama da Guerra"
 	},
 	["TooltipParsing"] = {
@@ -365,7 +365,7 @@ Per esempio, se impostato a "463", Pawn suggerirà gemme adatte per oggetti di l
 
 Quando ricevi ricompense da una missione o bottino da una spedizione che può essere migliore dell'equipaggiamento indossato, Pawn te lo indicherà con una freccia verde. Controlla anche altre informazioni utili al fondo del dialogo dell'oggetto.
 
-    |cff8ec3e6Fire:|r  |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% di miglioramento|r
+    |cff8ec3e6Fuoco:|r  |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% di miglioramento|r
 
 
 
@@ -428,7 +428,7 @@ Se abilitata, Pawn tratterà gli oggetti migliorabili così come sono, e non ter
 
 Se disabilitata, Pawn tratterà questi oggetti assumento che tu massimizzi il loro potenziale con i punti Valore e il Frammento Apexis Potenziato. Questo potrebbe causare che un oggetto bieco livello 650 appaia come un miglioramento sostanziale rispetto ad un oggetto 670 di Fonderia dei Roccianera, visto che l'oggetto bieco può potenzialmente essere migliorato fino al livello 705 attraverso i punti Valore e i cristalli Apexis.]=],
 		["OptionsInventoryIcon"] = "Mostra icone accanto ai dialoghi",
-		["OptionsInventoryIconTooltip"] = "Enable this option to show inventory icons next to item link windows.",
+		["OptionsInventoryIconTooltip"] = "Abilita questa opzione per mostrare le icone degli oggetti accanto al rispettivo dialogo.",
 		["OptionsItemIDs"] = "Mostra ID oggetti",
 		["OptionsItemIDsTooltip"] = [=[Abilita questa optione per permettere a Pawn di mostrare gli ID degli oggetti che incontri, così come gli ID degli incantamenti e delle gemme.
 
