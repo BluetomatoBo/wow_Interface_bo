@@ -1,0 +1,12 @@
+tag 10efc150f74577e87292089959c09e4e80ca8092 v7.2.0.170329
+Author:	Vladinator89 <vladix@gmail.com>
+Date:	Mon Apr 3 08:25:30 2017 +0100
+
+v7.2.0.170329
+
+commit 20032cf4152b973c8eb5d92cb1079144a2930d79
+Author: Vladinator89 <vladix@gmail.com>
+Date:   Mon Apr 3 09:20:14 2017 +0200
+
+    Patch 7.2 update.
+
