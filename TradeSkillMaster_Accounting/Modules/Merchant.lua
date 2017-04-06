@@ -21,6 +21,7 @@ local private = {repairMoney=0, couldRepair=nil, repairCost=0, canRepair=nil, pe
 function Merchant:OnEnable()
 	Merchant:RegisterEvent("MERCHANT_SHOW", private.SetupRepairCost)
 	Merchant:RegisterEvent("MERCHANT_UPDATE", private.OnMerchantUpdate)
+	Merchant:RegisterEvent("MERCHANT_CLOSED", private.OnMerchantClosed)
 	Merchant:RegisterEvent("UPDATE_INVENTORY_DURABILITY", private.AddRepairCosts)
 	Merchant:SecureHook("UseContainerItem", private.CheckMerchantSale)
 	Merchant:SecureHook("BuyMerchantItem", private.OnMerchantBuy)
@@ -71,6 +72,10 @@ function private:AddRepairCosts()
 	end
 end
 
+function private:OnMerchantClosed()
+	private.couldRepair = nil
+	private.repairCost = 0
+end
 
 
 -- ============================================================================

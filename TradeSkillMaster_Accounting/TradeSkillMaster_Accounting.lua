@@ -61,6 +61,10 @@ local tooltipDefaults = {
 
 -- Called once the player has loaded WOW.
 function TSM:OnInitialize()
+	if TradeSkillMasterModulesDB then
+		TradeSkillMasterModulesDB.Accounting = TradeSkillMaster_AccountingDB
+	end
+
 	-- load settings
 	TSM.db = TSMAPI.Settings:Init("TradeSkillMaster_AccountingDB", settingsInfo)
 
@@ -116,6 +120,13 @@ function TSM:OnInitialize()
 					tremove(playerData, i + 1)
 				end
 			end
+		end
+	end
+
+	-- fix issues with repair expenses
+	for i, data in pairs(TSM.money.expense) do
+		if data.key == "Repair" and data.copper > 8000000 then
+			tremove(TSM.money.expense, i)
 		end
 	end
 end
