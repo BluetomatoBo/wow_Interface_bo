@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1762, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16107 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16133 $"):sub(12, -3))
 mod:SetCreatureID(103685)
 mod:SetEncounterID(1862)
 mod:SetZone()
@@ -475,7 +475,7 @@ function mod:OnSync(msg, targetname)
 			end
 		else
 			if self.vb.addsCount == 1 then
-				timerAddsCD:Start(40)--ish, need relogging to confirm
+				timerAddsCD:Start(35)--ish, need relogging to confirm
 			elseif self.vb.addsCount == 2 then
 				timerAddsCD:Start(47)
 			end

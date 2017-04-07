@@ -1,189 +1,141 @@
-tag 662a20c2969d106507dbe5ff7e46d3bb72e534c4 7.2.2
+tag c2c4254b115d315214e278eb5629a0c35efea55f 7.2.3
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Sat Apr 1 12:31:05 2017 +0200
+Date:	Thu Apr 6 18:20:13 2017 +0200
 
-Tagging as 7.2.2
+Tagging as 7.2.3
 
-commit fbfe4c4163e84ffd3ef2d3877d748ad9d01ea79d
+commit adec88c4090c5a15ed7a6ea4969ae60fbf27df11
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 12:31:05 2017 +0200
+Date:   Thu Apr 6 18:20:13 2017 +0200
 
-    increment version number to 7.2.2
+    increment version number to 7.2.3
 
-commit 61c73fac61e547a8870f6aa320079342c75e87df
+commit bcf765e941bdd2fb244fb816da80b7bd2d8c23e1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 11:34:52 2017 +0200
+Date:   Thu Apr 6 13:13:14 2017 +0200
 
-    Omega via svn r16121:
-    Disable some login messages too
+    Omega via svn r16140:
+    Kr update
 
-commit f9cade69e1eecc9992fa67165268f374d8424893
+commit b5e947354955068c53f6ded890aa6b7bbdcefdf6
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 11:32:45 2017 +0200
+Date:   Thu Apr 6 13:09:44 2017 +0200
 
-    Omega via svn r16120:
-    tweak
+    Omega via svn r16139:
+    And remove this
 
-commit 07647bf2e0e00fd5b3a0ad0c010fd4353c251415
+commit 5d0c895b3bfe6f6706fb3a26387b501229e16c34
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 11:18:45 2017 +0200
+Date:   Thu Apr 6 13:06:57 2017 +0200
 
-    Omega via svn r16119:
-    Just remove all of it all together.
-    Also make force updates far more strict going forward. at least half the complaints were things fixed in 7.2.1
+    Omega via svn r16138:
+    Disable combat mechanics, they don?\226?\128?\153t work even remotely correctly. Shouldn?\226?\128?\153t be needed anyways
 
-commit e4509d7bcbadd055fef563533aa9dd68370660ec
+commit ccc987a2f7f39c72e39c158f0f22641bbfc661ea
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 09:20:50 2017 +0200
+Date:   Thu Apr 6 09:22:01 2017 +0200
 
-    Omega via svn r16118:
-    Add message
+    ultrashining via svn r16137:
+    zhTW update
 
-commit 7881c7e7f16946fc41ec0758c4e0a7714f10e9aa
+commit 3a329295e8a3fc668366c01fd76a61d885ee9a8e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 08:46:22 2017 +0200
+Date:   Thu Apr 6 06:42:23 2017 +0200
 
-    Omega via svn r16117:
-    fix
+    Omega via svn r16136:
+    Flame crash countdown for kihra
 
-commit 1ad862c56d56debf785d6508059b2502579d8f2b
+commit a404c55f199cb73b5de72a8a3267a0b440ed2e70
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 05:33:55 2017 +0200
+Date:   Thu Apr 6 06:19:53 2017 +0200
 
-    Omega via svn r16116:
-    Add a toggle
+    Omega via svn r16135:
+    Add more countdowns to star auger
 
-commit bb834dbcecb1cf2a8156019f4c52c4dcfb3632ed
+commit 9e2eacc664b4cf794f201b31741fc0782ec0e6bc
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 04:20:05 2017 +0200
+Date:   Thu Apr 6 00:07:31 2017 +0200
 
-    Omega via svn r16115:
-    Inc
+    Omega via svn r16134:
+    Add loading for other 3 invasions and one new warning for val scenario
 
-commit 2fe1d1a889bcd7667ab4e14afd6e5f9bb6a2064d
+commit 5e4cb3337c364a4bb50329e73b242cb2bf24e577
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 04:18:34 2017 +0200
+Date:   Wed Apr 5 14:32:43 2017 +0200
 
-    Omega via svn r16114:
-    Dirty tag
+    Omega via svn r16133:
+    Tweak another timer
+    Attempt to fix voice pack filter on custom option text warnings
 
-commit 2c9e8641c3932e1624577663e4eb59791ba59766
+commit 4545671eda32790effe656b033890dcdb590bd45
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 03:48:26 2017 +0200
+Date:   Wed Apr 5 00:33:49 2017 +0200
 
-    Omega via svn r16113:
-    Tweak
+    Omega via svn r16132:
+    Update challenges message
 
-commit c34ca02b1544083b21a8cba706fcd925696a0a74
+commit 52ffd86663dec3402c73152cfc01dab7a73e2bcb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 03:47:08 2017 +0200
+Date:   Wed Apr 5 00:18:49 2017 +0200
 
-    Omega via svn r16112:
-    Another tweak
+    Omega via svn r16131:
+    Preliminary invasion support. this supports two warnings in azsuna scenario
 
-commit ff667662d06ce2ca3e60dd422945d90fb972f63c
+commit 94007a980943dd4e9b538912532ffa002dfbc9cd
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Apr 1 03:39:20 2017 +0200
+Date:   Tue Apr 4 03:29:58 2017 +0200
 
-    Omega via svn r16111:
-    Some more updates to CoEN
-    As well as some updates to 41
+    Omega via svn r16130:
+    Update Banned mods
 
-commit b44a6f2fc610359e8e54fe15f7c982bd145b98da
+commit f6adfcfcd9bf3707fca32c1faf5d0c68fa415283
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 31 22:27:46 2017 +0200
+Date:   Mon Apr 3 20:42:22 2017 +0200
 
-    Omega via svn r16110:
-    KR update
+    Omega via svn r16129:
+    fix error
 
-commit d8326044a3ce6d03d4044987e98c7b1dac8f0169
+commit f2c84b8f24ef39f8ec5697fb9c79b0f1aa358536
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 31 10:18:45 2017 +0200
+Date:   Mon Apr 3 04:08:35 2017 +0200
 
-    Omega via svn r16109:
-    Fix mind control warning
+    Omega via svn r16128:
+    Bump revision
 
-commit 4786a1ee29f1ef3816a3bce87e1975d49a945461
+commit f18e63610f3911526410bee0fc177c572c7d8d51
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 31 09:42:16 2017 +0200
+Date:   Mon Apr 3 04:05:56 2017 +0200
 
-    Omega via svn r16108:
-    Push Agronox update from mythic run
+    Omega via svn r16127:
+    Add LFR timers for Elisande
+    Fix some other timer bugs in normal elisande and mythic elisande
 
-commit 63ac413327a8bfa08591d7110f7c641f4995d9d1
+commit 766b08db25756a3036d27c1b72f0459999291d86
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 31 08:34:57 2017 +0200
+Date:   Sun Apr 2 22:43:54 2017 +0200
 
-    Omega via svn r16107:
-    *Fix lua error in CoEN trash
-    *Add new option to Star auger to spam chat bubbles for star signs. when this is enabled it also disables all other chat bubbles (such as injections) until conjunction has ended.
-    *Changed night phase countdown on tichondrius to start counting down from 10 (up from 5)
-    *Bugfix to the one adds timer that?\226?\128?\153s not 47 as well.
+    Omega via svn r16126:
+    Remove debug message forgot to remove
 
-commit 8cdc62d6d00c8d67e7d00b3ecc3db2584157609c
+commit dc7e4e53e97dd7fcdc25331f06ec97a31b95922f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 31 01:43:12 2017 +0200
+Date:   Sun Apr 2 07:24:22 2017 +0200
 
-    Omega via svn r16106:
-    some trash antispam and also a quick fix to chaotic energy stutter casts
+    Omega via svn r16125:
+    fix a bug where BuildVoiceCountdownCache would fail to set paths correctly if more than one were set to same voice.
+    Unfortunately I could find no fix that worked that didn?\226?\128?\153t require making it a LOT less inefficient. Fortunately it?\226?\128?\153s a one time function.
 
-commit c51b435074d24e681b1548ab3143a832dc504031
+commit 209633e717cd9796c0ee89214db815fc4c454ceb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 31 01:37:47 2017 +0200
+Date:   Sun Apr 2 05:33:23 2017 +0200
 
-    Omega via svn r16105:
-    Now with less errors
-    
-    I got fresh mythic logs to do rest later but raid time
+    Omega via svn r16124:
+    updated version code for guild. may contain bugs
 
-commit a275139beaab66aad0264cb73234ca4700db154f
+commit ac823f7bb142858c0dfee499775fbb56fcefa80f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Mar 31 00:50:38 2017 +0200
+Date:   Sat Apr 1 12:33:12 2017 +0200
 
-    Omega via svn r16104:
-    Work around demonic upheaval not being in combat log
-    Add generic warning for HeaveCrud for completion sake.
-
-commit c28e1ee7b7621e9629ebda540e4eebc3965b9675
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 30 08:56:39 2017 +0200
-
-    Omega via svn r16103:
-    First round of new dungeon fixes. i lost logs do to a crash so i lost some fixes, pushing these based on videos i took at least for now, will rerun dungeon soon to fix rest.
-    also added few trash warnings to start off with
-
-commit ecc3ed01860efdbf60808fe3e2950e57ff702fc1
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Mar 30 06:24:46 2017 +0200
-
-    Omega via svn r16102:
-    tweak some timing on a warning
-
-commit 1844f2e9c0937a0b97ecc79204eabe711eb34ee5
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 29 05:59:49 2017 +0200
-
-    Omega via svn r16101:
-    Fix timer in secondary trigger too for flames of sargeras
-
-commit 553e3660d42e42a08c4346c8451f7585b560ae26
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 29 04:34:42 2017 +0200
-
-    Omega via svn r16100:
-    Fix update bug on carrion plague count
-
-commit cf3170e4c2e5f3ebb0778f060185f4102afea275
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Mar 29 00:44:20 2017 +0200
-
-    Omega via svn r16099:
-    Bump version
-
-commit ba9aae239f9681c2931fd009d8504f3eb92c6626
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Mar 28 19:14:36 2017 +0200
-
-    tandanu via svn r16098:
+    tandanu via svn r16123:
     increment alpha version
 
