@@ -1,7 +1,7 @@
-## Interface: 70100
+## Interface: 70200
 ## Title: Clique
 ## Author: Cladhaire
-## Version: v70100-1.1.0
+## Version: v70200-1.0.0
 ## Notes: Simply powerful click-casting interface
 ## SavedVariables: CliqueDB, CliqueDB3
 

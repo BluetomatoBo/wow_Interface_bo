@@ -1,14 +1,12 @@
-tag 7055ed719045ac70321cd80647534a309964bfca v70100-1.1.0
+tag 982a7ee0aecbc2df64d08ff5460e68c9eae554d6 v70200-1.0.0
 Author:	Jim Whitehead <jnwhiteh@gmail.com>
-Date:	Fri Jan 27 09:29:37 2017 +0100
+Date:	Thu Apr 6 18:48:35 2017 +0200
 
-Tagging v70100-1.1.0
+Tagging v70200-1.0.0
 
-commit bec043c2940f8889c79db1e681c4faf7855cee53
+commit 96b8d2985782cf7f598d34a233208fc1de269728
 Author: Jim Whitehead <jnwhiteh@gmail.com>
-Date:   Fri Jan 27 09:29:00 2017 +0100
+Date:   Thu Apr 6 18:48:23 2017 +0200
 
-    Add a /clique profile <profileName> command
-    
-    This makes it possible to change profiles without navigating the GUI.
+    Update for 7.2
 
