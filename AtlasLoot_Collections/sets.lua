@@ -1178,6 +1178,228 @@ local SetTable = {
 		},
 	},
 
+	["Tier20"] = {	-- T20 Sets
+		name = format(AL["Tier %d Sets"], 20),
+		-- Chest - Kil'jaeden, instanceID = 875, encounterID = 1898
+		-- Back - The Desolate Host, instanceID = 875, encounterID = 1896
+		-- Hands - Harjatan, instanceID = 875, encounterID = 1856
+		-- Head - Demonic Inquisition, instanceID = 875, encounterID = 1867
+		-- Legs - Mistress Sassz'ine, instanceID = 875, encounterID = 1861
+		-- Shoulder - Fallen Avatar, instanceID = 875, encounterID = 1873
+		sourceTemplate = {
+			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1898),	-- Chest
+			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1896),	-- Back
+			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1856),	-- Hands
+			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1867),	-- Head
+			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1861),	-- Legs
+			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1873),	-- Shoulder
+		},
+		{	-- Deathknight, Gravewarden Armaments
+			name = ALIL["DEATHKNIGHT"],
+			subSetName = "dk",
+			icon = "dk",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147121, -- Gravewarden Chestplate
+				147122, -- Gravewarden Cloak
+				147123, -- Gravewarden Handguards
+				147124, -- Gravewarden Visage
+				147125, -- Gravewarden Legplates
+				147126, -- Gravewarden Pauldrons
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Demon Hunter, Demonbane Armor
+			name = ALIL["DEMONHUNTER"],
+			subSetName = "demonhunter",
+			icon = "dh",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147127, -- Demonbane Harness     
+				147128, -- Demonbane Shroud      
+				147129, -- Demonbane Gauntlets   
+				147130, -- Demonbane Faceguard   
+				147131, -- Demonbane Leggings    
+				147132, -- Demonbane Shoulderpads
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Druid, Stormheart Raiment
+			name = ALIL["DRUID"],
+			subSetName = "druid",
+			icon = "druid",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147133, -- Stormheart Tunic    
+				147134, -- Stormheart Drape    
+				147135, -- Stormheart Gloves   
+				147136, -- Stormheart Headdress
+				147137, -- Stormheart Legguards
+				147138, -- Stormheart Mantle   
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Hunter, Wildstalker Armor
+			name = ALIL["HUNTER"],
+			subSetName = "hunter",
+			icon = "hunter",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147139, -- Wildstalker Chestguard
+				147140, -- Wildstalker Cape      
+				147141, -- Wildstalker Gauntlets 
+				147142, -- Wildstalker Helmet    
+				147143, -- Wildstalker Leggings  
+				147144, -- Wildstalker Spaulders 
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Mage, Regalia of the Arcane Tempest
+			name = ALIL["MAGE"],
+			subSetName = "mage",
+			icon = "mage",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147145, -- Drape of the Arcane Tempest   
+				147146, -- Gloves of the Arcane Tempest  
+				147147, -- Crown of the Arcane Tempest   
+				147148, -- Leggings of the Arcane Tempest
+				147149, -- Robes of the Arcane Tempest   
+				147150, -- Mantle of the Arcane Tempest  
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Monk, Xuen's Battlegear
+			name = ALIL["MONK"],
+			subSetName = "monk",
+			icon = "monk",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147151, -- Xuen's Tunic         
+				147152, -- Xuen's Cloak         
+				147153, -- Xuen's Gauntlets     
+				147154, -- Xuen's Helm          
+				147155, -- Xuens' Legguards     
+				147156, -- Xuen's Shoulderguards
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Paladin, Radiant Lightbringer Armor
+			name = ALIL["PALADIN"],
+			subSetName = "paladin",
+			icon = "pala",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147157, -- Radiant Lightbringer Breastplate   
+				147158, -- Radiant Lightbringer Cape          
+				147159, -- Radiant Lightbringer Gauntlets     
+				147160, -- Radiant Lightbringer Crown         
+				147161, -- Radiant Lightbringer Greaves       
+				147162, -- Radiant Lightbringer Shoulderguards
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Priest, Vestments of Blind Absolution
+			name = ALIL["PRIEST"],
+			subSetName = "priest",
+			icon = "priest",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147163, -- Shawl of Blind Absolution   
+				147164, -- Gloves of Blind Absolution  
+				147165, -- Hood of Blind Absolution    
+				147166, -- Leggings of Blind Absolution
+				147167, -- Robes of Blind Absolution   
+				147168, -- Mantle of Blind Absolution  
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Rogue, Fanged Slayer's Armor
+			name = ALIL["ROGUE"],
+			subSetName = "rogue",
+			icon = "rogue",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147169, -- Fanged Slayer's Chestguard  
+				147170, -- Fanged Slayer's Shroud      
+				147171, -- Fanged Slayer's Handguards  
+				147172, -- Fanged Slayer's Helm        
+				147173, -- Fanged Slayer's Legguards   
+				147174, -- Fanged Slayer's Shoulderpads
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Shaman, Regalia of the Skybreaker
+			name = ALIL["SHAMAN"],
+			subSetName = "shaman",
+			icon = "shaman",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147175, -- Harness of the Skybreaker  
+				147176, -- Drape of the Skybreaker    
+				147177, -- Grips of the Skybreaker    
+				147178, -- Helmet of the Skybreaker   
+				147179, -- Legguards of the Skybreaker
+				147180, -- Pauldrons of the Skybreaker
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Warlock, Diabolic Raiment
+			name = ALIL["WARLOCK"],
+			subSetName = "warlock",
+			icon = "warlock",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147181, -- Diabolic Shroud  
+				147182, -- Diabolic Gloves  
+				147183, -- Diabolic Helm    
+				147184, -- Diabolic Leggings
+				147185, -- Diabolic Robe    
+				147186, -- Diabolic Mantle  
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Warrior, Titanic Onslaught Armor
+			name = ALIL["WARRIOR"],
+			subSetName = "warrior",
+			icon = "warri",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				147187, -- Titanic Onslaught Breastplate
+				147188, -- Titanic Onslaught Cloak      
+				147189, -- Titanic Onslaught Handguards 
+				147190, -- Titanic Onslaught Greathelm  
+				147191, -- Titanic Onslaught Greaves    
+				147192, -- Titanic Onslaught Pauldrons  
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+	},
+
 	["Tier19"] = {	-- T19 Sets
 		name = format(AL["Tier %d Sets"], 19),
 		-- Head - Elisande, instanceID = 786, encounterID = 1743
@@ -1650,7 +1872,7 @@ local SetTable = {
 			EJ_GetInstanceInfo(457).." - "..EJ_GetEncounterInfo(1154),	-- Legs (Furnance)
 		},
 		sourceTemplateLFR = {
-			EJ_GetInstanceInfo(457).." - "..EJ_GetEncounterInfo(959),	-- Head 
+			EJ_GetInstanceInfo(457).." - "..EJ_GetEncounterInfo(959),	-- Head
 			EJ_GetInstanceInfo(457).." - "..EJ_GetEncounterInfo(1147),	-- Shoulder
 			EJ_GetInstanceInfo(457).." - "..EJ_GetEncounterInfo(1123),	-- Chest
 			EJ_GetInstanceInfo(457).." - "..EJ_GetEncounterInfo(1203),	-- Hands

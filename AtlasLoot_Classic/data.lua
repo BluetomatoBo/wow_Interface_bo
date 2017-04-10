@@ -1567,10 +1567,14 @@ data["ShadowfangKeep"] = {
 		{	--ShadowfangSilverlaine
 			EncounterJournalID = 97,
 			[NORMAL_DIFF] = {
-				{ 1, 6321 },	-- Silverlaine's Family Seal
-				{ 2, 6323 },	-- Baron's Scepter
-				{ 4, 60885, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Silverlaine Family Sword
-				{ 5, 60878, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Silverlaine's Enchanted Crystal
+				{ 1, 132568 }, -- Shadowfang Pauldrons
+				{ 2, 5254 }, -- Rugged Spaulders
+				{ 3, 132567 }, -- Blindwatcher's Chain
+				{ 4, 6319 }, -- Girdle of the Blindwatcher
+				{ 5, 6321 }, -- Silverlaine's Family Seal
+				{ 6, 5943 }, -- Rift Bracers
+				{ 8, 60885, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Silverlaine Family Sword
+				{ 9, 60878, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Silverlaine's Enchanted Crystal
 			},
 			[HEROIC_DIFF] = "AtlasLoot_Cataclysm",
 		},

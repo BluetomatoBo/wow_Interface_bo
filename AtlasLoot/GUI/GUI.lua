@@ -117,6 +117,8 @@ local function UpdateFrames(noPageUpdate)
 		GUI.frame.contentFrame.AtlasMapButton:Hide()
 	end
 	
+	-- BaseLvl for Items
+	GUI.ItemFrame.ItemBaseLvl = moduleData[dataID].ItemBaseLvl
 		
 	if not noPageUpdate then
 		-- Next/Prev

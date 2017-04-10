@@ -6,54 +6,60 @@ local AL = AtlasLoot.Locales
 
 local RF_DIFF = data:AddDifficulty(AL["Raid Finder"], "LFRWithPreset", {
 	Item = {
-		item1bonus = "LegionLFR",
-		item2bonus = "LegionLFRTitanforged",
+		--item1bonus = "LegionLFR",
+		item2bonus = "LegionMaxTitanforgedByBaseLvl",
 		autoCompleteItem2 = true,
+		addDifficultyBonus = true,
 	},
 }, 17)
 local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", nil, 1)
 local NORMAL_RAID_DIFF = data:AddDifficulty(AL["Normal"], "NormalRaidWithPreset", {
 	Item = {
-		item1bonus = nil,
-		item2bonus = "LegionRaidTitanforged",
+		--item1bonus = nil,
+		item2bonus = "LegionMaxTitanforgedByBaseLvl",
 		autoCompleteItem2 = true,
+		addDifficultyBonus = true,
 	},
 }, 14)
 local NORMAL_DUNGEON_DIFF = data:AddDifficulty(AL["Normal"], "DungeonWithPreset", {
 	Item = {
-		item1bonus = "LegionDungeon",
+		--item1bonus = "LegionDungeon",
 		item2bonus = "LegionDungeonTitanforged",
 		autoCompleteItem2 = true,
+		addDifficultyBonus = true,
 	},
-})
+}, 1)
 local HEROIC_DIFF = data:AddDifficulty(AL["Heroic"], "h", nil, 2)
 local HEROIC_DUNGEON_DIFF = data:AddDifficulty(AL["Heroic"], "HeroicDungeonWithPreset", {
 	Item = {
-		item1bonus = "LegionHCDungeon",
+		--item1bonus = "LegionHCDungeon",
 		item2bonus = "LegionHCDungeonTitanforged",
 		autoCompleteItem2 = true,
+		addDifficultyBonus = true,
 	},
-})
-local MYTHICD_DIFF = data:AddDifficulty(AL["Mythic"], "h", nil, 3)
+}, 2)
+local MYTHICD_DIFF = data:AddDifficulty(AL["Mythic"], "h", nil, 23)
 local MYTHICD_DUNGEON_DIFF = data:AddDifficulty(AL["Mythic"], "MythicDungeonWithPreset", {
 	Item = {
-		item1bonus = "LegionMDungeon",
+		--item1bonus = "LegionMDungeon",
 		item2bonus = "LegionMDungeonTitanforged",
 		autoCompleteItem2 = true,
+		addDifficultyBonus = true,
 	},
-})
-local MYTHICD2_DIFF = data:AddDifficulty(AL["Mythic"], "h", nil, 3)
+}, 23)
+local MYTHICD2_DIFF = data:AddDifficulty(AL["Mythic"], "h", nil, 23)
 local MYTHICD2_DUNGEON_DIFF = data:AddDifficulty(AL["Mythic"], "MythicDungeon2WithPreset", {
 	Item = {
 		item1bonus = "LegionMDungeon2",
 		item2bonus = "LegionMDungeon2Titanforged",
 		autoCompleteItem2 = true,
+		addDifficultyBonus = true,
 	},
-})
+}, 23)
 local HEROIC_PRE_DIFF = data:AddDifficulty(AL["Heroic"], "HeroicWithPreset", {
 	Item = {
 		--item1bonus = "LegionHeroicRaid",
-		item2bonus = "LegionHeroicRaidTitanforged",
+		item2bonus = "LegionMaxTitanforgedByBaseLvl",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
 	},
@@ -62,7 +68,7 @@ local MYTHIC_DIFF = data:AddDifficulty(AL["Mythic"], "m", nil, 16)
 local MYTHIC_PRE_DIFF = data:AddDifficulty(AL["Mythic"], "MyhticWithPreset", {
 	Item = {
 		--item1bonus = "LegionMythicRaid",
-		item2bonus = "LegionMythicRaidTitanforged",
+		item2bonus = "LegionMaxTitanforgedByBaseLvl",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
 	},
@@ -474,6 +480,87 @@ data["BlackRookHold"] = {
 		LEGION_DUNGEON_HERO_AC_TABLE,
 		LEGION_GLORY_OF_THE_HERO_AC_TABLE,
 	}
+}
+
+-- Cathedral of Eternal Night 
+data["CathedralofEternalNight"] = {
+	EncounterJournalID = 900,
+	MapID = 1146,
+	ItemBaseLvl = 845,
+	AtlasMapID = "CathedralofEternalNightA",
+	ContentType = DUNGEON_CONTENT,
+	items = {
+		{	-- Agronox
+			EncounterJournalID = 1905,
+			[HEROIC_DUNGEON_DIFF] = {
+				{ 1 , 144458 }, -- Agronax's Unsullied Heartwood
+				{ 2 , 144469 }, -- Caretaker's Budding Mantle
+				{ 3 , 144491 }, -- Choking Vine Bindings
+				{ 4 , 144490 }, -- Corruption-Fused Stompers
+				{ 5 , 144468 }, -- Felpruner's Shroud
+				{ 6 , 144470 }, -- Grovetender's Handwraps
+				{ 7 , 144459 }, -- Knot of Fel
+				{ 8 , 144497 }, -- Petrified Husk Girdle
+				{ 9 , 144477 }, -- Splinters of Agronax
+				{ 10, 144483 }, -- Spore-Coated Vest
+				{ 11, 144498 }, -- Vambraces of Fel Crust
+			},
+			[MYTHICD_DUNGEON_DIFF] = HEROIC_DUNGEON_DIFF,
+		},
+		{	-- Thrashbite the Scornful
+			EncounterJournalID = 1906,
+			[HEROIC_DUNGEON_DIFF] = {
+				{ 1 , 144492 }, -- Chain-Draped Gauntlets
+				{ 2 , 144482 }, -- Fel-Oiled Infernal Machine
+				{ 3 , 144462 }, -- Fel-Tempered Link
+				{ 4 , 144460 }, -- Fury of the Scorned
+				{ 5 , 144493 }, -- Link-Lashed Spaulders
+				{ 6 , 144479 }, -- Master Thrasher's Lockcollar
+				{ 7 , 144485 }, -- Mo'arg Heavyweight's Wristwraps
+				{ 8 , 144471 }, -- Pulverizing Felsoles
+				{ 9 , 144484 }, -- Tattered Scornful Leggings
+				{ 10, 144499 }, -- Tenderized Breastplate
+				{ 11, 144472 }, -- Thrashbite's Cummerbund
+				{ 12, 144461 }, -- Thrashbite's Spite
+			},
+			[MYTHICD_DUNGEON_DIFF] = HEROIC_DUNGEON_DIFF,
+		},
+		{	-- Domatrax
+			EncounterJournalID = 1904,
+			[HEROIC_DUNGEON_DIFF] = {
+				{ 1 , 144496 }, -- Burning Chain Waistguard
+				{ 2 , 144476 }, -- Cloak of the Unending Assault
+				{ 3 , 144475 }, -- Dark Mistress' Cuffs
+				{ 4 , 144495 }, -- Domatrax's Chain Hauberk
+				{ 5 , 144488 }, -- Feaster Hide Gloves
+				{ 6 , 144466 }, -- Gore-Flecked Feaster Fang
+				{ 7 , 144503 }, -- Helm of Domatrax
+				{ 8 , 144481 }, -- Ring of Fel Domination
+				{ 9 , 144474 }, -- Sheer Felwoven Hosiery
+				{ 10, 144489 }, -- Shoulderguards of Legion Domination
+				{ 11, 144500 }, -- Two-Toed Thrashstompers
+				{ 12, 144467 }, -- Vial of Eternal Moon
+			},
+			[MYTHICD_DUNGEON_DIFF] = HEROIC_DUNGEON_DIFF,
+		},
+		{	-- Mephistroth
+			EncounterJournalID = 1878,
+			[HEROIC_DUNGEON_DIFF] = {
+				{ 1 , 144478 }, -- Band of Dark Solitude
+				{ 2 , 144486 }, -- Cerulean Shadowfade Belt
+				{ 3 , 144501 }, -- Dread Commander's Pauldrons
+				{ 4 , 144480 }, -- Dreadstone of Endless Shadows
+				{ 5 , 144465 }, -- Essence of the Legion Tempest
+				{ 6 , 144494 }, -- Imposing Dreadsoul Headgear
+				{ 7 , 144464 }, -- Mephistroth's Nail
+				{ 8 , 144473 }, -- Nathrezim Acolyte's Robes
+				{ 9 , 144502 }, -- Shadowed Grips of the Nathrezim
+				{ 10, 144463 }, -- Shard of Kaldorei Stained Glass
+				{ 11, 144487 }, -- Treads of Creeping Shadows
+			},
+			[MYTHICD_DUNGEON_DIFF] = HEROIC_DUNGEON_DIFF,
+		},
+	},
 }
 
 data["CourtOfStars"] = {
@@ -1162,7 +1249,7 @@ data["Neltharion'sLair"] = {
 data["ReturnToKarazhan"] = {
 	EncounterJournalID = 860,
 	MapID = 1115,
---	AtlasMapID = "",
+	AtlasMapID = "ReturntoKarazhanA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	--Opera Hall: Wikket
@@ -1529,6 +1616,7 @@ data["VaultOfTheWardens"] = {
 data["BrokenIsles"] = {
 	EncounterJournalID = 822,
 	MapID = 0,
+	ItemBaseLvl = 860,
 	AtlasMapID = "OR_BrokenIsles",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -1682,6 +1770,7 @@ data["BrokenIsles"] = {
 data["TheEmeraldNightmare"] = {
 	EncounterJournalID = 768,
 	MapID = 1094,
+	ItemBaseLvl = 850,
 	AtlasMapID = "TheEmeraldNightmareA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
@@ -1904,6 +1993,7 @@ data["TheEmeraldNightmare"] = {
 data["TheNighthold"] = {
 	EncounterJournalID = 786,
 	MapID = 1088,
+	ItemBaseLvl = 875,
 	AtlasMapID = "TheNightholdA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
@@ -2279,9 +2369,295 @@ data["TheNighthold"] = {
 	},
 }
 
+-- Tomb of Sargeras
+data["TombofSargeras"] = {
+	EncounterJournalID = 875,
+	MapID = 1147,
+	ItemBaseLvl = 890,
+	AtlasMapID = "TombofSargerasA",
+	ContentType = RAID_CONTENT,
+	TableType = RAID_ITTYPE,
+	items = {
+		{	-- Goroth
+			EncounterJournalID = 1862,
+			[RF_DIFF] = NORMAL_RAID_DIFF,
+			[NORMAL_RAID_DIFF] = {
+				{ 1 , 147055 }, -- Belt of Screaming Slag
+				{ 2 , 147108 }, -- Brand of Relentless Agony
+				{ 3 , 147076 }, -- Charred Hymnal of the Moon
+				{ 4 , 147039 }, -- Cinch of Sizzling Flesh
+				{ 5 , 146984 }, -- Cloak of Stifling Brimstone
+				{ 6 , 146986 }, -- Emberscatter Treads
+				{ 7 , 147112 }, -- Felsoul Vortex
+				{ 8 , 147022 }, -- Feverish Carapace
+				{ 9 , 147104 }, -- Icon of Perverse Animation
+				{ 10, 147084 }, -- Imploding Infernal Star
+				{ 11, 147009 }, -- Infernal Cinders
+				{ 12, 147065 }, -- Lava-Slough Legguards
+				{ 13, 146992 }, -- Legwraps of Fused Loathing
+				{ 14, 147057 }, -- Pain-Singed Armguards
+				{ 15, 147069 }, -- Shoulderplates of Crackling Flame
+				{ 16, 147027 }, -- Spirebreaker Harness
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+		},
+		{	-- Demonic Inquisition
+			EncounterJournalID = 1867,
+			[RF_DIFF] = NORMAL_RAID_DIFF,
+			[NORMAL_RAID_DIFF] = {
+				{ 1 , 147003 }, -- Barbaric Mindslaver
+				{ 2 , 147080 }, -- Blood of the Unworthy
+				{ 3 , 147073 }, -- Bonemeal-Crusted Armplates
+				{ 4 , 147035 }, -- Bonespur Studded Legwraps
+				{ 5 , 146998 }, -- Braided Torture Lash
+				{ 6 , 147010 }, -- Cradle of Anguish
+				{ 7 , 147147 }, -- Crown of the Arcane Tempest
+				{ 8 , 147130 }, -- Demonbane Faceguard
+				{ 9 , 147183 }, -- Diabolic Helm
+				{ 10, 147172 }, -- Fanged Slayer's Helm
+				{ 11, 147051 }, -- Flesh Raking Leggings
+				{ 12, 147124 }, -- Gravewarden Visage
+				{ 13, 147178 }, -- Helmet of the Skybreaker
+				{ 14, 147165 }, -- Hood of Blind Absolution
+				{ 15, 147077 }, -- Inexorable Truth Serum
+				{ 16, 147096 }, -- Inquisition's Master Key
+				{ 17, 146996 }, -- Mantle of Broken Spirits
+				{ 18, 147053 }, -- Pauldrons of the Gibbering Eye
+				{ 19, 147160 }, -- Radiant Lightbringer Crown
+				{ 20, 147041 }, -- Sinew-Stitched Wristguards
+				{ 21, 147088 }, -- Smoldering Thumbscrews
+				{ 22, 147136 }, -- Stormheart Headdress
+				{ 23, 147013 }, -- String of Extracted Incisors
+				{ 24, 147190 }, -- Titanic Onslaught Greathelm
+				{ 25, 147142 }, -- Wildstalker Helmet
+				{ 26, 147154 }, -- Xuen's Helm
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+		},
+		{	-- Harjatan
+			EncounterJournalID = 1856,
+			[RF_DIFF] = NORMAL_RAID_DIFF,
+			[NORMAL_RAID_DIFF] = {
+				{ 1 , 147100 }, -- Calcified Barnacle
+				{ 2 , 147002 }, -- Charm of the Rising Tide
+				{ 3 , 147129 }, -- Demonbane Gauntlets
+				{ 4 , 147182 }, -- Diabolic Gloves
+				{ 5 , 147037 }, -- Dripping Arcfin Shoulderpads
+				{ 6 , 147171 }, -- Fanged Slayer's Handguards
+				{ 7 , 147029 }, -- Glacier Walkers
+				{ 8 , 147164 }, -- Gloves of Blind Absolution
+				{ 9 , 147146 }, -- Gloves of the Arcane Tempest
+				{ 10, 147123 }, -- Gravewarden Handguards
+				{ 11, 147177 }, -- Grips of the Skybreaker
+				{ 12, 147109 }, -- Harjatan's Leering Eye
+				{ 13, 147043 }, -- Hauberk of Frozen Mist
+				{ 14, 147092 }, -- Ice-Threaded Conch
+				{ 15, 147045 }, -- Insulated Finpads
+				{ 16, 147159 }, -- Radiant Lightbringer Gauntlets
+				{ 17, 147000 }, -- Ravenous Devotee's Bracelets
+				{ 18, 146994 }, -- Robe of Aqueous Command
+				{ 19, 147020 }, -- Scaled Band of Servitude
+				{ 20, 147071 }, -- Shiversleet Waistguard
+				{ 21, 147135 }, -- Stormheart Gloves
+				{ 22, 147189 }, -- Titanic Onslaught Handguards
+				{ 23, 147067 }, -- Wave-Hammered Breastplate
+				{ 24, 147141 }, -- Wildstalker Gauntlets
+				{ 25, 147153 }, -- Xuen's Gauntlets
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+		},
+		{	-- Sisters of the Moon
+			EncounterJournalID = 1903,
+			[RF_DIFF] = NORMAL_RAID_DIFF,
+			[NORMAL_RAID_DIFF] = {
+				{ 1 , 147097 }, -- Blessing of the White Lady
+				{ 2 , 147005 }, -- Chalice of Moonlight
+				{ 3 , 147101 }, -- Chiseled Starlight
+				{ 4 , 147068 }, -- Cuirass of Blinding Dawn
+				{ 5 , 147061 }, -- Dusk-Crusher Handguards
+				{ 6 , 147089 }, -- Ferocity of the Devout
+				{ 7 , 147033 }, -- Lunar-Wrath Headgear
+				{ 8 , 147054 }, -- Mantle of Waning Radiance
+				{ 9 , 147031 }, -- Moonfire Stranglers
+				{ 10, 147105 }, -- Moontalon's Feather
+				{ 11, 147078 }, -- Mote of Astral Suffusion
+				{ 12, 146997 }, -- Shoulderpads of Whispering Twilight
+				{ 13, 146987 }, -- Slippers of Enduring Vigilance
+				{ 14, 147017 }, -- Tarnished Sentinel Medallion
+				{ 15, 147012 }, -- Umbral Moonglaives
+				{ 16, 147056 }, -- Waistguard of Interminable Unity
+				{ 17, 147021 }, -- Yathae's Thumb Ring
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+		},
+		{	-- Mistress Sassz'ine
+			EncounterJournalID = 1861,
+			[RF_DIFF] = NORMAL_RAID_DIFF,
+			[NORMAL_RAID_DIFF] = {
+				{ 1 , 147049 }, -- Azure Squallshaper's Helm
+				{ 2 , 147131 }, -- Demonbane Leggings
+				{ 3 , 147184 }, -- Diabolic Leggings
+				{ 4 , 147173 }, -- Fanged Slayer's Legguards
+				{ 5 , 147113 }, -- Flawless Hurricane Pearl
+				{ 6 , 147093 }, -- Globe of Frothing Eddies
+				{ 7 , 147125 }, -- Gravewarden Legplates
+				{ 8 , 147028 }, -- Hide of the Abyssal Behemoth
+				{ 9 , 146990 }, -- Hundred-Fathom Veil
+				{ 10, 147059 }, -- Iron Ballast Sabatons
+				{ 11, 147166 }, -- Leggings of Blind Absolution
+				{ 12, 147148 }, -- Leggings of the Arcane Tempest
+				{ 13, 147179 }, -- Legguards of the Skybreaker
+				{ 14, 147023 }, -- Leviathan's Hunger
+				{ 15, 147085 }, -- Mutated Nautilus
+				{ 16, 147081 }, -- Pungent Chum
+				{ 17, 147161 }, -- Radiant Lightbringer Greaves
+				{ 18, 147004 }, -- Sea Star of the Depthmother
+				{ 19, 146985 }, -- Shroud of the Drowned Adherent
+				{ 20, 147137 }, -- Stormheart Legguards
+				{ 21, 147016 }, -- Terror From Below
+				{ 22, 147191 }, -- Titanic Onslaught Greaves
+				{ 23, 147011 }, -- Vial of Ceaseless Toxins
+				{ 24, 147143 }, -- Wildstalker Leggings
+				{ 25, 147155 }, -- Xuens' Legguards
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+		},
+		{	-- The Desolate Host
+			EncounterJournalID = 1896,
+			[RF_DIFF] = NORMAL_RAID_DIFF,
+			[NORMAL_RAID_DIFF] = {
+				{ 1 , 147063 }, -- Armet of the Rotten Mind
+				{ 2 , 147086 }, -- Befouled Effigy of Elune
+				{ 3 , 147128 }, -- Demonbane Shroud
+				{ 4 , 147181 }, -- Diabolic Shroud
+				{ 5 , 147145 }, -- Drape of the Arcane Tempest
+				{ 6 , 147176 }, -- Drape of the Skybreaker
+				{ 7 , 147040 }, -- Etched Bone Waistband
+				{ 8 , 147170 }, -- Fanged Slayer's Shroud
+				{ 9 , 147047 }, -- Gauntlets of Spiteful Haunting
+				{ 10, 147106 }, -- Glowing Prayer Candle
+				{ 11, 147070 }, -- Grave-Dredged Pauldrons
+				{ 12, 147122 }, -- Gravewarden Cloak
+				{ 13, 147110 }, -- Grimacing Highborne Skull
+				{ 14, 147014 }, -- Locket of Splintered Souls
+				{ 15, 147114 }, -- Preserved Starlight Incense
+				{ 16, 147158 }, -- Radiant Lightbringer Cape
+				{ 17, 147024 }, -- Reliquary of the Damned
+				{ 18, 147163 }, -- Shawl of Blind Absolution
+				{ 19, 146995 }, -- Soul Queen's Ceremonial Robes
+				{ 20, 147018 }, -- Spectral Thurible
+				{ 21, 147134 }, -- Stormheart Drape
+				{ 22, 147188 }, -- Titanic Onslaught Cloak
+				{ 23, 147140 }, -- Wildstalker Cape
+				{ 24, 147152 }, -- Xuen's Cloak
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+		},
+		{	-- Maiden of Vigilance
+			EncounterJournalID = 1897,
+			[RF_DIFF] = NORMAL_RAID_DIFF,
+			[NORMAL_RAID_DIFF] = {
+				{ 1 , 147194 }, -- Band of Rescinded Truths
+				{ 2 , 147058 }, -- Chaos-Calming Wristguards
+				{ 3 , 147050 }, -- Crown of Discarded Hope
+				{ 4 , 147015 }, -- Engine of Eradication
+				{ 5 , 147036 }, -- Fel-Stippled Legguards
+				{ 6 , 147098 }, -- Fragment of Grace
+				{ 7 , 147032 }, -- Gloves of Wayward Compulsions
+				{ 8 , 146993 }, -- Leggings of Divine Portents
+				{ 9 , 147025 }, -- Recompiled Guardian Module
+				{ 10, 147090 }, -- Stabilized Extinction Protocol
+				{ 11, 147060 }, -- Steadfast Purifier's Warboots
+				{ 12, 146999 }, -- Strife-Riddled Cinch
+				{ 13, 147115 }, -- Unfurling Origination
+				{ 14, 147074 }, -- Vambraces of Resolute Justice
+				{ 15, 147094 }, -- Virus of Lethargy
+
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+		},
+		{	-- Fallen Avatar
+			EncounterJournalID = 1873,
+			[RF_DIFF] = NORMAL_RAID_DIFF,
+			[NORMAL_RAID_DIFF] = {
+				{ 1 , 147006 }, -- Archive of Faith
+				{ 2 , 146991 }, -- Blackened Mask of Disgrace
+				{ 3 , 147042 }, -- Bracers of Rippling Darkness
+				{ 4 , 147193 }, -- Cape of Mindless Fury
+				{ 5 , 147091 }, -- Cleansing Ignition Catalyst
+				{ 6 , 147111 }, -- Corrupted Containment Coil
+				{ 7 , 147132 }, -- Demonbane Shoulderpads
+				{ 8 , 147186 }, -- Diabolic Mantle
+				{ 9 , 147174 }, -- Fanged Slayer's Shoulderpads
+				{ 10, 147030 }, -- Felscape Pathfinders
+				{ 11, 147126 }, -- Gravewarden Pauldrons
+				{ 12, 147062 }, -- Groundshatter Gauntlets
+				{ 13, 147052 }, -- Legguards of Siphoned Power
+				{ 14, 147168 }, -- Mantle of Blind Absolution
+				{ 15, 147150 }, -- Mantle of the Arcane Tempest
+				{ 16, 147001 }, -- Oathbreaker's Cuffs
+				{ 17, 147180 }, -- Pauldrons of the Skybreaker
+				{ 18, 147162 }, -- Radiant Lightbringer Shoulderguards
+				{ 19, 147102 }, -- Reactive Pylon Casing
+				{ 20, 147138 }, -- Stormheart Mantle
+				{ 21, 147192 }, -- Titanic Onslaught Pauldrons
+				{ 22, 147079 }, -- Torn Fabric of Reality
+				{ 23, 147107 }, -- Valorous Spark of Hope
+				{ 24, 147144 }, -- Wildstalker Spaulders
+				{ 25, 147156 }, -- Xuen's Shoulderguards
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+		},
+		{	-- Kil'jaeden
+			EncounterJournalID = 1898,
+			[RF_DIFF] = NORMAL_RAID_DIFF,
+			[NORMAL_RAID_DIFF] = {
+				{ 1 , 147099 }, -- Boon of the Prophet
+				{ 2 , 147127 }, -- Demonbane Harness
+				{ 3 , 147185 }, -- Diabolic Robe
+				{ 4 , 147169 }, -- Fanged Slayer's Chestguard
+				{ 5 , 146988 }, -- Gloves of Furtive Oppression
+				{ 6 , 147121 }, -- Gravewarden Chestplate
+				{ 7 , 147066 }, -- Greaves of Impure Midnight
+				{ 8 , 147175 }, -- Harness of the Skybreaker
+				{ 9 , 147082 }, -- Man'ari Blood Pact
+				{ 10, 147157 }, -- Radiant Lightbringer Breastplate
+				{ 11, 147167 }, -- Robes of Blind Absolution
+				{ 12, 147149 }, -- Robes of the Arcane Tempest
+				{ 13, 147087 }, -- Ruinous Ashes
+				{ 14, 147195 }, -- Seal of the Second Duumvirate
+				{ 15, 147034 }, -- Shadow-Scarred Headcover
+				{ 16, 147026 }, -- Shifting Cosmic Sliver
+				{ 17, 147072 }, -- Soul-Render's Greatbelt
+				{ 18, 147095 }, -- Sphere of Entropy
+				{ 19, 147046 }, -- Star-Stalker Treads
+				{ 20, 147133 }, -- Stormheart Tunic
+				{ 21, 147007 }, -- The Deceiver's Grand Design
+				{ 22, 147187 }, -- Titanic Onslaught Breastplate
+				{ 23, 147019 }, -- Tome of Unraveling Sanity
+				{ 24, 147048 }, -- Vicegrip of the Unrepentant
+				{ 25, 147347 }, -- Waistguard of Profane Duplicity
+				{ 26, 147139 }, -- Wildstalker Chestguard
+				{ 27, 147151 }, -- Xuen's Tunic
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+		},
+	},
+}
+
 data["TrialOfValor"] = {
 	EncounterJournalID = 861,
 	MapID = 1114,
+	ItemBaseLvl = 865,
 	AtlasMapID = "TrialofValorA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
@@ -2384,3 +2760,4 @@ data["TrialOfValor"] = {
 		LEGION_TRIAL_OF_VALOR_AC_TABLE
 	}
 }
+
