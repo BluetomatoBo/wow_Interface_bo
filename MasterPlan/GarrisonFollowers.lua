@@ -1329,17 +1329,17 @@ do -- Equipment
 			pf:Hide()
 		end
 	end
-	local function hookEquipment(self)
+	local function hookEquipment(self, _info)
 		local l = self.AbilitiesFrame.EquipmentSlotsLabel
 		if l == nil or self.equipmentPool == nil then return end
 		for a in self.equipmentPool:EnumerateActive() do
 			local _mp, af, _ap, ax, ay = a:GetPoint(1)
 			if af == l then
-				local p, s = a:GetParent(), a:GetScale()
-				local pl, pt = p and p:GetLeft(), p and p:GetTop()
+				local p, s = a:GetParent(), a:GetScale() or 1
+				local pl, aw, pt = p and p:GetLeft(), af and af:GetWidth(), p and p:GetTop()
 				local ll, lb = l:GetLeft(), l:GetBottom()
-				if pl and pt and ll and lb then
-					a:SetPoint("TOPLEFT", ((ll-pl))/s+ax, (lb-pt)/s+ay)
+				if pl and aw and pt and ll and lb then
+					a:SetPoint("TOPLEFT", ((ll-pl+aw/2))/s+ax, (lb-pt)/s+ay)
 				else
 					C_Timer.After(0, function() hookEquipment(self) end)
 				end
@@ -1432,3 +1432,11 @@ do -- Feed FrameXML updates to Evie
 	HookOnShow(GarrisonLandingPage.FollowerTab, tabOnShow)
 	HookOnShow(GarrisonMissionFrame.FollowerTab, tabOnShow)
 end
+
+hooksecurefunc(GarrisonShipyardFollowerOptionDropDown, "initialize", function()
+	local b = DropDownList1Button2
+	if C_Garrison.GetFollowerSoftCap(2) == 25 and b:GetText() == GARRISON_SHIP_DECOMMISSION and not b:IsEnabled() then
+		b.tooltipText, b.tooltipTitle = nil
+		b:Enable()
+	end
+end)
