@@ -1,12 +1,12 @@
-tag 982a7ee0aecbc2df64d08ff5460e68c9eae554d6 v70200-1.0.0
+tag 540b30de267147b5a42678c2fc911caade2421b9 v70200-1.1.0
 Author:	Jim Whitehead <jnwhiteh@gmail.com>
-Date:	Thu Apr 6 18:48:35 2017 +0200
+Date:	Sat Apr 8 10:57:22 2017 +0200
 
-Tagging v70200-1.0.0
+Tagging v70200-1.1.0
 
-commit 96b8d2985782cf7f598d34a233208fc1de269728
+commit f60e63b93f25a1b5730c7561b363805d033bbb06
 Author: Jim Whitehead <jnwhiteh@gmail.com>
-Date:   Thu Apr 6 18:48:23 2017 +0200
+Date:   Sat Apr 8 10:56:26 2017 +0200
 
-    Update for 7.2
+    Don't try to enable nameplates or forbidden objects
 
