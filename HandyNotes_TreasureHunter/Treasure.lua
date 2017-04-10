@@ -179,6 +179,7 @@ ns.points = {
         -- treasures
         [20303060]={ quest=33575, item=108904, note="Demonic Cache", },
         [22803390]={ quest=33572, item=113373, note="Rotting Basket", },
+        [29803750]={ quest=36879, label="Dusty Lockbox", note="On top of the standing stones; some random greens", },
         [30004530]={ quest=35919, item=113563, note="Shadowmoon Sacrificial Dagger", },
         [31303910]={ quest=33886, item=109081, note="Ronokk's Belongings", },
         [33503970]={ quest=33569, item=113545, note="Reusable mana potion", },
@@ -468,7 +469,7 @@ ns.points = {
         [54105630]={ quest=35162, item=112699, note="Teroclaw Nest", pet=true, },
         [55206680]={ quest=34253, item=116118, note="Draenei Weapons", currency=824, },
         [57207540]={ quest=34134, item=117563, note="Rescue 4 draenei trapped in spider webs, then Isaari's Cache will spawn here", faction="Alliance", junk=true, },
-        [57402670]={ quest=34238, item=116120, note="Foreman's Lunchbox", },
+        [57402870]={ quest=34238, item=116120, note="Foreman's Lunchbox", toy=true, },
         [58901200]={ quest=33933, item=108743, note="Deceptia's Smoldering Boots", toy=true, },
         [61107170]={ quest=34116, item=117563, label="Rescue 4 adventurers trapped in spider webs, then Norana's Cache will spawn here", faction="Horde", },
         [62003240]={ quest=34236, item=116131, note="Amethyl Crystal", currency=824, },
@@ -538,7 +539,7 @@ ns.points = {
         [62755038]={ quest=nil, follower=171, note="Complete the quests starting with Clear!", }, -- Pleasure-Bot 8000 (actually a different quest for alliance and horde)
         [57405120]={ quest=36519, follower=207, note="Complete her quest", faction="Alliance", }, -- Defender Illona
         [58005300]={ quest=36518, follower=207, note="Complete her quest", faction="Horde", }, -- Aeda Brightdawn
-        [56802600]={ quest=36522, follower=208, note="Complete his quest", }, -- Ahm
+        [56802600]={ quest=36522, follower=208, note="Complete his quest. Find him again outside your garrison.", }, -- Ahm
         -- pepe!
         [51006330]={ quest=39266, item=127869, achievement=10053, }, -- Knight Pepe
         -- Voidtalon
@@ -605,7 +606,7 @@ ns.points = {
         [59708130]={ quest=36365, label="Spray-O-Matic 5000 XT", currency=824, },
         [60908460]={ quest=36456, label="Shredder Parts", currency=824, },
         [55509080]={ quest=36366, label="Campaign Contributions", note="Gold", },
-        [50502210]={ quest=36401, item=116919, note="Fractured Sunstone; may be bugged and show as incomplete", },
+        [50502210]={ quest=36246, item=116919, note="Hidden in the water", }, -- Fractured Sunstone
         [44401200]={ quest=36377, npc=85206, item=118693, }, -- Rukhmar's Image
         [40605500]={ quest=36458, item=116913, note="Abandoned Mining Pick", },
         [58706030]={ quest=36340, item=116922, note="Ogron Plunder (Hobbit reference!)", },
@@ -640,7 +641,7 @@ ns.points = {
         [71203380]={ quest=37392, npc=87027, currency=823, }, -- Shadow Hulk
         [74404280]={ quest=37390, npc=87019, currency=823, }, -- Glutonous Giant
         -- followers
-        [55306850]={ quest=37168, follower=219, note="Follow the trail up the hill to 64.9,65.4, find him in the cave", }, -- Leorajh
+        [55306850]={ quest=37168, follower=219, note="Follow the trail up the hill to 54.9,65.4, find him in the cave", }, -- Leorajh
         -- pepe!
         [54108360]={ quest=39268, item=127870, achievement=10053, }, -- Pirate Pepe
         -- Voidtalon

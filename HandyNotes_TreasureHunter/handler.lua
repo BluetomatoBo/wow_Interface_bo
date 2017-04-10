@@ -183,7 +183,7 @@ local function handle_tooltip(tooltip, point)
                 local quality = BAG_ITEM_QUALITY_COLORS[follower.quality]
                 tooltip:AddLine(follower.name, quality.r, quality.g, quality.b)
                 tooltip:AddDoubleLine(follower.className, UNIT_LEVEL_TEMPLATE:format(follower.level))
-                tooltip:AddLine(REWARD_FOLLOWER, 0, 1, 0)
+                tooltip:AddLine(REWARD_FOLLOWER:gsub(":", ""), 0, 1, 0)
             else
                 tooltip:AddLine(UNKNOWN, 1, 0, 0)
             end
