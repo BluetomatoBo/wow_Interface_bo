@@ -1,4 +1,4 @@
-﻿local AL = _G.AtlasLoot.GetLocales("koKR")
+local AL = _G.AtlasLoot.GetLocales("koKR")
 
 if not AL then return end
 
@@ -252,6 +252,7 @@ AL["Third Fragment Guardian"] = "세 번째 조각의 수호자"
 AL["Thomas Yance"] = "토마스 얀스"
 AL["Tier %d Sets"] = "티어 %d 세트"
 AL["Tier Sets"] = "티어 세트"
+AL["Tier Sets - per Class"] = "직업 별 티어 세트"
 AL["Timed Reward Chest"] = "시간 보상 공물"
 AL["Timewalking Dungeon Event"] = "시간여행 던전 이벤트"
 AL["Tinker"] = "땜질"

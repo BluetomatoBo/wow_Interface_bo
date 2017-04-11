@@ -1,4 +1,4 @@
-﻿local AL = _G.AtlasLoot.GetLocales("zhTW")
+local AL = _G.AtlasLoot.GetLocales("zhTW")
 
 if not AL then return end
 

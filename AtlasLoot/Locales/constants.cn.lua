@@ -1,4 +1,4 @@
-﻿local AL = _G.AtlasLoot.GetLocales("zhCN")
+local AL = _G.AtlasLoot.GetLocales("zhCN")
 
 if not AL then return end
 
@@ -252,6 +252,7 @@ AL["Third Fragment Guardian"] = "第三块碎片的守护者"
 AL["Thomas Yance"] = "托马斯·杨斯"
 AL["Tier %d Sets"] = "等级%d套装"
 AL["Tier Sets"] = "等级套装"
+AL["Tier Sets - per Class"] = "等级套装 - 按职业"
 AL["Timed Reward Chest"] = "限时击杀宝箱奖励"
 AL["Timewalking Dungeon Event"] = "时光漫游地下城事件"
 AL["Tinker"] = "工具"

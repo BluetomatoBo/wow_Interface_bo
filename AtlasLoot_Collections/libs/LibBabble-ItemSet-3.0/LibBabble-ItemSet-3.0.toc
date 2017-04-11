@@ -13,11 +13,11 @@
 ## Notes-zhTW: 為本地化服務的函式庫 [套裝名稱]
 #@end-non-debug@
 #@debug@
-# ## Title: Lib: Babble-ItemSet-3.0
-# ## Notes: A library to help with localization of in-game item sets.
-# ## Notes-zhTW: 為本地化服務的函式庫 [套裝名稱]
-# ## Notes-zhCN: 一个帮助游戏内物品套装本地化的库。
-# ## Notes-deDE: Eine Bibliothek, die dabei hilft, die Ausrüstungssets Spiels zu übersetzen.
+# # ## Title: Lib: Babble-ItemSet-3.0
+# # ## Notes: A library to help with localization of in-game item sets.
+# # ## Notes-zhTW: 為本地化服務的函式庫 [套裝名稱]
+# # ## Notes-zhCN: 一个帮助游戏内物品套装本地化的库。
+# # ## Notes-deDE: Eine Bibliothek, die dabei hilft, die Ausrüstungssets Spiels zu übersetzen.
 #@end-debug@
 ## Author: Arith
 ## X-eMail: arithmandarjp at yahoo.co.jp

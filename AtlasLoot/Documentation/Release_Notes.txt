@@ -5,7 +5,13 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
-v8.03.00
+v8.03.02 (Apr. 11, 2017)
+- fixed Atlas integration issue to compatible with Atlas v1.40.00
+
+v8.03.01 (Apr. 10, 2017)
+- added faction of Armies of Legionfall and the corresponding items
+
+v8.03.00 (Apr. 09, 2017)
 - ToC update to support WoW 7.2
 - added T20 item sets
 - added Cathedral of Eternal Night & Tomb of Sargeras

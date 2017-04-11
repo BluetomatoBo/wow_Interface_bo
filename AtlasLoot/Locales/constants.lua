@@ -1,347 +1,283 @@
-﻿local AL = _G.AtlasLoot.Locales
-
--- Common strings
-AL["AtlasLoot"] = true
-
-AL["Dungeons"] = true
-AL["Raids"] = true
-AL["Removed"] = true
-
-AL["Bonus Loot"] = true
-
-AL["Source"] = true
-AL["Set"] = true
-AL["Sets"] = true
-AL["Miscellaneous"] = true
-AL["Black Market Auction House"] = true
-AL["Entrance"] = true
-AL["ilvl %d"] = true
-AL["No longer available"] = true
-AL["Patterns/Plans"] = true
-AL["Rare"] = true
-AL["Recipes"] = true
-AL["Rewards"] = true
-AL["Shared"] = true
-AL["Shared Boss Loot"] = true
-AL["Shop"] = true
-AL["Summon"] = true
-AL["Trash Mobs"] = true
-
--- AtlasLoot.lua
+local AL = _G.AtlasLoot.Locales
+AL["--- or ---"] = "--- or ---"
+AL["%s will finish loading after combat."] = "%s will finish loading after combat."
+AL["/al - Open the AtlasLoot window."] = "/al - Open the AtlasLoot window."
+AL["/al mmb - Toggle MiniMapButton"] = "/al mmb - Toggle MiniMapButton"
+AL["/al options - Open AtlasLoot Options window."] = "/al options - Open AtlasLoot Options window."
+AL["/al slash - Prints a list of all slash commands."] = "/al slash - Prints a list of all slash commands."
+AL["/al togglebg - Toggle the background image on loottables."] = "/al togglebg - Toggle the background image on loottables."
+AL["|cff00ff00Right-Click:|r Change Spec"] = "|cff00ff00Right-Click:|r Change Spec"
+AL["25 Player"] = "25 Player"
+AL["25 Player Heroic"] = "25 Player Heroic"
+AL["Achievement & Quest Rewards"] = "Achievement & Quest Rewards"
+AL["Achievements"] = "Achievements"
+AL["Add achievement link into chat"] = "Add achievement link into chat"
+AL["Add item into chat"] = "Add item into chat"
+AL["Add profession link into chat"] = "Add profession link into chat"
+AL["Add sound into chat"] = "Add sound into chat"
+AL["Aged Dalaran Wizard"] = "Aged Dalaran Wizard"
+AL["Amulets"] = "Amulets"
+AL["Apexis Crystal"] = "Apexis Crystal"
+AL["AQ Enchants"] = "AQ Enchants"
+AL["Arakkoa"] = "Arakkoa"
+AL["Arena Reward"] = "Arena Reward"
+AL["Argent Tournament"] = "Argent Tournament"
+AL["Armor"] = "Armor"
+AL["Armor Enhancements"] = "Armor Enhancements"
+AL["AtlasLoot"] = "AtlasLoot"
+AL["AtlasLoot Modules"] = "AtlasLoot Modules"
+AL["AtlasLoot Search"] = "AtlasLoot Search"
+AL["AtlasLoot Set View"] = "AtlasLoot Set View"
 AL["AtlasLoot_Loader_is_no_longer_in_use"] = [=[AtlasLoot_Loader is no longer in use.
 Delete it from your AddOns folder]=]
-AL["Toggle AtlasLoot"] = true
-
--- AtlasLoot\Core\ClickHandler.lua
-AL["Link the item in chat"] = true
-
--- Loader.lua
-AL["Achievements"] = true
-AL["Module %s is deactivated."] = true
-AL["Module %s is not installed."] = true
-AL["%s will finish loading after combat."] = true
-AL["Crafting"] = true
-AL["Collections"] = true
-AL["Factions"] = true
-AL["PvP"] = true
-AL["World Events"] = true
-
--- MiniMapButton.lua
 AL["AtlasLoot_Minimap_Clicks"] = [=[|cffFF0000Click: |cffFFFFFFOpen AtlasLoot
 |cffFF0000Shift+Click: |cffFFFFFFOpen AtlasLoot-Options ]=]
-AL["/al mmb - Toggle MiniMapButton"] = true
-
--- Core\SlashCommands.lua
-AL["Command %s not found. Use '/al slash' for a full list of commands"] = true
-AL["Slash commands:"] = true
-AL["/al - Open the AtlasLoot window."] = true
-AL["/al slash - Prints a list of all slash commands."] = true
-AL["/al options - Open AtlasLoot Options window."] = true
--- AL["/al reset - ???."] = true
-
--- Core\ItemInfo.lua
-AL["One-Hand, Axe"] = true
-AL["Two-Hand, Axe"] = true
-AL["Bow"] = true
-AL["Gun"] = true
-AL["One-Hand, Mace"] = true
-AL["Two-Hand, Mace"] = true
-AL["Polearm"] = true
-AL["One-Hand, Sword"] = true
-AL["Two-Hand, Sword"] = true
-AL["Staff"] = true
-AL["Fist Weapon"] = true
-AL["Dagger"] = true
-AL["Crossbow"] = true
-AL["Wand"] = true
-AL["Fishing Pole"] = true
-AL["Shield"] = true
-
---Core\StaticPopupDialogs.lua
-AL["It has been detected that your version of Atlas does not match the version that Atlasloot is tuned for (%s/%s). Depending on changes, there may be the occasional error, so please visit http://www.atlasmod.com as soon as possible to update."] = true
-AL["Incompatible Atlas Detected"] = true
-AL["OK"] = true
-AL["Setup"] = true
-AL["Welcome to Atlasloot Enhanced. Please take a moment to set your preferences."] = true
-
---Core\WorldMapIntegration.lua
-AL["Click to open AtlasLoot window"] = true;
-
---GUI\GUI.lua
-AL["AtlasLoot Modules"] = true
-AL["Custom Modules"] = true
-AL["Select Module"] = true
-AL["Select Subcategory"] = true
-AL["No module found."] = true
-AL["Model"] = true
-AL["Items"] = true
-AL["Sounds"] = true
-AL["|cff00ff00Right-Click:|r Change Spec"] = true
-AL["Shows items for all %s specializations."] = true
-AL["Required module %s is currently disabled."] = true
-AL["Required module %s is not installed."] = true
-AL["/al togglebg - Toggle the background image on loottables."] = true
-AL["Click to open WoW instance map."] = true
-AL["Click to open Atlas instance map."] = true
-AL["Right-click to close Atlas window."] = true
-
---GUI\SoundFrame.lua
-AL["Add sound into chat"] = true
-AL["Copy Box"] = true
-AL["Shows the sound in the copy box"] = true
-
---GUI\QuickLootFrame.lua
-AL["Normal"] = true
-AL["Heroic"] = true
-AL["Mythic"] = true
-AL["25 Player"] = true
-AL["25 Player Heroic"] = true
-AL["Raid Finder"] = true
-AL["Loading Data ..."] = true
-
---GUI\SetViewFrame.lua
-AL["AtlasLoot Set View"] = true
-AL["Stats"] = true
-
--- AtlasLoot\Button\Extra_Price_type.lua
-AL["--- or ---"] = true
-
--- AtlasLoot\Button\Item_type.lua
-AL["Chat Link"] = true
-AL["Add item into chat"] = true
-AL["Dress up"] = true
-AL["Shows the item in the Dressing room"] = true
-AL["Droprate:"] = true
-
--- Profession_type.lua
-AL["Add profession link into chat"] = true
-
--- AtlasLoot\Button\Achievement_type.lua
-AL["Add achievement link into chat"] = true
-
--- Pet_type.lua
-AL["Show Pet in Journal"] = true
-
--- Mount_type.lua
-AL["Show Mount in Journal"] = true
-
--- Addons\Search.lua
-AL["AtlasLoot Search"] = true
-
--- Armor type
-AL["Cloth"] = true
-AL["Leather"] = true
-AL["Mail"] = true
-AL["Plate"] = true
-
--- Classic strings
-AL["AQ Enchants"] = true
-AL["Dire Maul North Tribute Chest"] = true
-AL["Dire Maul Books"] = true
-AL["Felvine Shard"] = true
-AL["Knot Thimblejack"] = true
-AL["Master Elemental Shaper Krixix"] = true
-AL["Ogre Tannin Basket"] = true
-AL["Rajaxx's Captains"] = true
-AL["Shen'dralar Provisioner"] = true
-AL["The Grim Guzzler"] = true
-AL["The Secret Safe"] = true
-AL["The Vault"] = true
-AL["Unfinished Painting"] = true
-
--- Burning Crusade strings
-AL["Aged Dalaran Wizard"] = true
-AL["Avatar of the Martyred"] = true
-AL["Don Carlos"] = true
-AL["First Fragment Guardian"] = true
-AL["Overcharged Manacell"] = true
-AL["Second Fragment Guardian"] = true
-AL["Servant's Quarter Animal Bosses"] = true
-AL["Shattered Hand Executioner"] = true
-AL["Third Fragment Guardian"] = true
-AL["Thomas Yance"] = true
-AL["World Bosses"] = true
-
--- Cataclysm strings
-AL["Firestone Vendor"] = true
-AL["Timed Reward Chest"] = true
-
--- Warlords of Draenor strings
-
--- Collections strings
-AL["Achievement & Quest Rewards"] = true
-AL["Apexis Crystal"] = true
-AL["Arena Reward"] = true
-AL["Ayla Shadowstorm"] = true
-AL["BoE World Epics"] = true
-AL["Card Game Tabards"] = true
-AL["Challenge Mode Armor Sets"] = true
-AL["Challenge Mode Gear"] = true
-AL["Classic Sets"] = true
-AL["Damek Bloombeard"] = true
-AL["Defias Overseer"] = true
-AL["Druid of the Fang"] = true
-AL["Dungeon Sets"] = true
-AL["Dungeon %d Sets"] = true
-AL["Garrison"] = true
-AL["Guild"] = true
-AL["Heirloom"] = true
-AL["Legendary Items"] = true
-AL["Mounts"] = true
-AL["Primal Trader"] = true
-AL["Replica available at Darkmoon Faire"] = true
-AL["Tabards"] = true
-AL["Tier Sets"] = true
-AL["Tier Sets - per Class"] = true
-AL["Tier %d Sets"] = true
-AL["Timewalking Dungeon Event"] = true
-AL["Unobtainable Tabards"] = true
-AL["Varlan Highbough"] = true
-AL["Vendors"] = true
-AL["Zen'Vorka"] = true
-
--- Crafting strings
-AL["Arakkoa"] = true
-AL["Armor Enhancements"] = true
-AL["Armor"] = true
-AL["Attack/Spell Power"] = true
-AL["Attributes"] = true
-AL["Bags"] = true
-AL["Banquets/Feasts"] = true
-AL["Blue Gems"] = true
-AL["Boots"] = true
-AL["BoP Gems"] = true
-AL["Bracers"] = true
-AL["Chest"] = true
-AL["Cloak"] = true
-AL["Cloaks"] = true
-AL["Cogwheels"] = true
-AL["Darkmoon Cards"] = true
-AL["Draenei"] = true
-AL["Draenor Clans"] = true
-AL["Dwarf"] = true
-AL["Elixirs"] = true
-AL["Exalted"] = true
-AL["Firework"] = true
-AL["Flasks"] = true
-AL["Food without Buffs"] = true
-AL["Fossil"] = true
-AL["Gloves"] = true
-AL["Glyphs"] = true
-AL["Green Gems"] = true
-AL["Item Enhancements"] = true
-AL["Mantid"] = true
-AL["Meta Gems"] = true
-AL["Mogu"] = true
-AL["Neck"] = true
-AL["Necklaces"] = true
-AL["Nerubian"] = true
-AL["Night Elf"] = true
-AL["Off-Hands"] = true
-AL["Old Remedies"] = true
-AL["Ogre"] = true
-AL["Orange Gems"] = true
-AL["Orc"] = true
-AL["Other Buffs"] = true
-AL["Pandaren"] = true
-AL["Pets"] = true
-AL["Potions"] = true
-AL["Primary Professions"] = true
-AL["Prismatic Gems"] = true
-AL["Purple Gems"] = true
-AL["Ratings"] = true
-AL["Reagents"] = true
-AL["Red Gems"] = true
-AL["Relic"] = true
-AL["Ring"] = true
-AL["Rings"] = true
-AL["Runes"] = true
-AL["Scopes"] = true
-AL["Scrolls"] = true
-AL["Secondary Professions"] = true
-AL["Shields"] = true
-AL["Shirts"] = true
-AL["Shoulder"] = true
-AL["Special"] = true
-AL["Staves"] = true
-AL["Tinker"] = true
-AL["Tol'vir"] = true
-AL["Training Projects"] = true
-AL["Transmutes"] = true
-AL["Trinkets"] = true
-AL["Troll"] = true
-AL["Vrykul"] = true
-AL["Weapon Enhancements"] = true
-AL["Weapons"] = true
-AL["Yellow Gems"] = true
-
--- Factions strings
-AL["Best Friend"] = true
-AL["Friend"] = true
-AL["Good Friend"] = true
-AL["Rank %d"] = true
-
--- PvP strings
-AL["Amulets"] = true
-AL["Class Sets"] = true
-AL["Elite"] = true
-AL["Non-Set Gear"] = true
-AL["Season %d"] = true
-AL["Warlords Season %d"] = true
-
--- World Events strings
-AL["Permanent/Recurring Events"] = true
-AL["Argent Tournament"] = true
-AL["Azeroth"] = true
-AL["Brew of the Month Club"] = true
-AL["Brewfest"] = true
-AL["Candy"] = true
-AL["Children's Week"] = true
-AL["Common Rewards"] = true
-AL["Darkmoon Faire"] = true
-AL["Day of the Dead"] = true
-AL["Drinks"] = true
-AL["Feast of Winter Veil"] = true
-AL["First Prize"] = true
-AL["Food"] = true
-AL["Gifts & Presents"] = true
-AL["Hallow's End"] = true
-AL["Harvest Festival"] = true
-AL["Love is in the Air"] = true
-AL["Lunar Festival"] = true
-AL["Midsummer Fire Festival"] = true
-AL["Noblegarden"] = true
-AL["Non-Playable Race Masks"] = true
-AL["Pilgrim's Bounty"] = true
-AL["Playable Race Masks"] = true
-AL["Rare Fish Rewards"] = true
-AL["Rare Fish"] = true
-AL["Seasonal Events"] = true
-AL["Smokywood Pastures Vendor"] = true
-AL["Special Rewards"] = true
-AL["Stranglethorn Fishing Extravaganza"] = true
-AL["Toys"] = true
-AL["Transmoggable Replicas"] = true
-AL["Vanity Gear"] = true
-AL["Vendor"] = true
-AL["Wands"] = true
+AL["Attack/Spell Power"] = "Attack/Spell Power"
+AL["Attributes"] = "Attributes"
+AL["Avatar of the Martyred"] = "Avatar of the Martyred"
+AL["Ayla Shadowstorm"] = "Ayla Shadowstorm"
+AL["Azeroth"] = "Azeroth"
+AL["Bags"] = "Bags"
+AL["Banquets/Feasts"] = "Banquets/Feasts"
+AL["Best Friend"] = "Best Friend"
+AL["Black Market Auction House"] = "Black Market Auction House"
+AL["Blue Gems"] = "Blue Gems"
+AL["BoE World Epics"] = "BoE World Epics"
+AL["Bonus Loot"] = "Bonus Loot"
+AL["Boots"] = "Boots"
+AL["BoP Gems"] = "BoP Gems"
+AL["Bow"] = "Bow"
+AL["Bracers"] = "Bracers"
+AL["Brew of the Month Club"] = "Brew of the Month Club"
+AL["Brewfest"] = "Brewfest"
+AL["Candy"] = "Candy"
+AL["Card Game Tabards"] = "Card Game Tabards"
+AL["Challenge Mode Armor Sets"] = "Challenge Mode Armor Sets"
+AL["Challenge Mode Gear"] = "Challenge Mode Gear"
+AL["Chat Link"] = "Chat Link"
+AL["Chest"] = "Chest"
+AL["Children's Week"] = "Children's Week"
+AL["Class Sets"] = "Class Sets"
+AL["Classic Sets"] = "Classic Sets"
+AL["Click to open Atlas instance map."] = "Click to open Atlas instance map."
+AL["Click to open AtlasLoot window"] = "Click to open AtlasLoot window"
+AL["Click to open WoW instance map."] = "Click to open WoW instance map."
+AL["Cloak"] = "Cloak"
+AL["Cloaks"] = "Cloaks"
+AL["Cloth"] = "Cloth"
+AL["Cogwheels"] = "Cogwheels"
+AL["Collections"] = "Collections"
+AL["Command %s not found. Use '/al slash' for a full list of commands"] = "Command %s not found. Use '/al slash' for a full list of commands"
+AL["Common Rewards"] = "Common Rewards"
+AL["Copy Box"] = "Copy Box"
+AL["Crafting"] = "Crafting"
+AL["Crossbow"] = "Crossbow"
+AL["Custom Modules"] = "Custom Modules"
+AL["Dagger"] = "Dagger"
+AL["Damek Bloombeard"] = "Damek Bloombeard"
+AL["Darkmoon Cards"] = "Darkmoon Cards"
+AL["Darkmoon Faire"] = "Darkmoon Faire"
+AL["Day of the Dead"] = "Day of the Dead"
+AL["Defias Overseer"] = "Defias Overseer"
+AL["Dire Maul Books"] = "Dire Maul Books"
+AL["Dire Maul North Tribute Chest"] = "Dire Maul North Tribute Chest"
+AL["Don Carlos"] = "Don Carlos"
+AL["Draenei"] = "Draenei"
+AL["Draenor Clans"] = "Draenor Clans"
+AL["Dress up"] = "Dress up"
+AL["Drinks"] = "Drinks"
+AL["Droprate:"] = "Droprate:"
+AL["Druid of the Fang"] = "Druid of the Fang"
+AL["Dungeon %d Sets"] = "Dungeon %d Sets"
+AL["Dungeon Sets"] = "Dungeon Sets"
+AL["Dungeons"] = "Dungeons"
+AL["Dwarf"] = "Dwarf"
+AL["Elite"] = "Elite"
+AL["Elixirs"] = "Elixirs"
+AL["Entrance"] = "Entrance"
+AL["Exalted"] = "Exalted"
+AL["Factions"] = "Factions"
+AL["Feast of Winter Veil"] = "Feast of Winter Veil"
+AL["Felvine Shard"] = "Felvine Shard"
+AL["Firestone Vendor"] = "Firestone Vendor"
+AL["Firework"] = "Firework"
+AL["First Fragment Guardian"] = "First Fragment Guardian"
+AL["First Prize"] = "First Prize"
+AL["Fishing Pole"] = "Fishing Pole"
+AL["Fist Weapon"] = "Fist Weapon"
+AL["Flasks"] = "Flasks"
+AL["Food"] = "Food"
+AL["Food without Buffs"] = "Food without Buffs"
+AL["Fossil"] = "Fossil"
+AL["Friend"] = "Friend"
+AL["Garrison"] = "Garrison"
+AL["Gifts & Presents"] = "Gifts & Presents"
+AL["Gloves"] = "Gloves"
+AL["Glyphs"] = "Glyphs"
+AL["Good Friend"] = "Good Friend"
+AL["Green Gems"] = "Green Gems"
+AL["Guild"] = "Guild"
+AL["Gun"] = "Gun"
+AL["Hallow's End"] = "Hallow's End"
+AL["Harvest Festival"] = "Harvest Festival"
+AL["Heirloom"] = "Heirloom"
+AL["Heroic"] = "Heroic"
+AL["ilvl %d"] = "ilvl %d"
+AL["Incompatible Atlas Detected"] = "Incompatible Atlas Detected"
+AL["It has been detected that your version of Atlas does not match the version that Atlasloot is tuned for (%s/%s). Depending on changes, there may be the occasional error, so please visit http://www.atlasmod.com as soon as possible to update."] = "It has been detected that your version of Atlas does not match the version that Atlasloot is tuned for (%s/%s). Depending on changes, there may be the occasional error, so please visit http://www.atlasmod.com as soon as possible to update."
+AL["Item Enhancements"] = "Item Enhancements"
+AL["Items"] = "Items"
+AL["Knot Thimblejack"] = "Knot Thimblejack"
+AL["Leather"] = "Leather"
+AL["Legendary Items"] = "Legendary Items"
+AL["Link the item in chat"] = "Link the item in chat"
+AL["Loading Data ..."] = "Loading Data ..."
+AL["Love is in the Air"] = "Love is in the Air"
+AL["Lunar Festival"] = "Lunar Festival"
+AL["Mail"] = "Mail"
+AL["Mantid"] = "Mantid"
+AL["Master Elemental Shaper Krixix"] = "Master Elemental Shaper Krixix"
+AL["Meta Gems"] = "Meta Gems"
+AL["Midsummer Fire Festival"] = "Midsummer Fire Festival"
+AL["Miscellaneous"] = "Miscellaneous"
+AL["Model"] = "Model"
+AL["Module %s is deactivated."] = "Module %s is deactivated."
+AL["Module %s is not installed."] = "Module %s is not installed."
+AL["Mogu"] = "Mogu"
+AL["Mounts"] = "Mounts"
+AL["Mythic"] = "Mythic"
+AL["Neck"] = "Neck"
+AL["Necklaces"] = "Necklaces"
+AL["Nerubian"] = "Nerubian"
+AL["Night Elf"] = "Night Elf"
+AL["No longer available"] = "No longer available"
+AL["No module found."] = "No module found."
+AL["Noblegarden"] = "Noblegarden"
+AL["Non-Playable Race Masks"] = "Non-Playable Race Masks"
+AL["Non-Set Gear"] = "Non-Set Gear"
+AL["Normal"] = "Normal"
+AL["Off-Hands"] = "Off-Hands"
+AL["Ogre"] = "Ogre"
+AL["Ogre Tannin Basket"] = "Ogre Tannin Basket"
+AL["OK"] = "OK"
+AL["Old Remedies"] = "Old Remedies"
+AL["One-Hand, Axe"] = "One-Hand, Axe"
+AL["One-Hand, Mace"] = "One-Hand, Mace"
+AL["One-Hand, Sword"] = "One-Hand, Sword"
+AL["Orange Gems"] = "Orange Gems"
+AL["Orc"] = "Orc"
+AL["Other Buffs"] = "Other Buffs"
+AL["Overcharged Manacell"] = "Overcharged Manacell"
+AL["Pandaren"] = "Pandaren"
+AL["Patterns/Plans"] = "Patterns/Plans"
+AL["Permanent/Recurring Events"] = "Permanent/Recurring Events"
+AL["Pets"] = "Pets"
+AL["Pilgrim's Bounty"] = "Pilgrim's Bounty"
+AL["Plate"] = "Plate"
+AL["Playable Race Masks"] = "Playable Race Masks"
+AL["Polearm"] = "Polearm"
+AL["Potions"] = "Potions"
+AL["Primal Trader"] = "Primal Trader"
+AL["Primary Professions"] = "Primary Professions"
+AL["Prismatic Gems"] = "Prismatic Gems"
+AL["Purple Gems"] = "Purple Gems"
+AL["PvP"] = "PvP"
+AL["Raid Finder"] = "Raid Finder"
+AL["Raids"] = "Raids"
+AL["Rajaxx's Captains"] = "Rajaxx's Captains"
+AL["Rank %d"] = "Rank %d"
+AL["Rare"] = "Rare"
+AL["Rare Fish"] = "Rare Fish"
+AL["Rare Fish Rewards"] = "Rare Fish Rewards"
+AL["Ratings"] = "Ratings"
+AL["Reagents"] = "Reagents"
+AL["Recipes"] = "Recipes"
+AL["Red Gems"] = "Red Gems"
+AL["Relic"] = "Relic"
+AL["Removed"] = "Removed"
+AL["Replica available at Darkmoon Faire"] = "Replica available at Darkmoon Faire"
+AL["Required module %s is currently disabled."] = "Required module %s is currently disabled."
+AL["Required module %s is not installed."] = "Required module %s is not installed."
+AL["Rewards"] = "Rewards"
+AL["Right-click to close Atlas window."] = "Right-click to close Atlas window."
+AL["Ring"] = "Ring"
+AL["Rings"] = "Rings"
+AL["Runes"] = "Runes"
+AL["Scopes"] = "Scopes"
+AL["Scrolls"] = "Scrolls"
+AL["Season %d"] = "Season %d"
+AL["Seasonal Events"] = "Seasonal Events"
+AL["Second Fragment Guardian"] = "Second Fragment Guardian"
+AL["Secondary Professions"] = "Secondary Professions"
+AL["Select Module"] = "Select Module"
+AL["Select Subcategory"] = "Select Subcategory"
+AL["Servant's Quarter Animal Bosses"] = "Servant's Quarter Animal Bosses"
+AL["Set"] = "Set"
+AL["Sets"] = "Sets"
+AL["Setup"] = "Setup"
+AL["Shared"] = "Shared"
+AL["Shared Boss Loot"] = "Shared Boss Loot"
+AL["Shattered Hand Executioner"] = "Shattered Hand Executioner"
+AL["Shen'dralar Provisioner"] = "Shen'dralar Provisioner"
+AL["Shield"] = "Shield"
+AL["Shields"] = "Shields"
+AL["Shirts"] = "Shirts"
+AL["Shop"] = "Shop"
+AL["Shoulder"] = "Shoulder"
+AL["Show Mount in Journal"] = "Show Mount in Journal"
+AL["Show Pet in Journal"] = "Show Pet in Journal"
+AL["Shows items for all %s specializations."] = "Shows items for all %s specializations."
+AL["Shows the item in the Dressing room"] = "Shows the item in the Dressing room"
+AL["Shows the sound in the copy box"] = "Shows the sound in the copy box"
+AL["Slash commands:"] = "Slash commands:"
+AL["Smokywood Pastures Vendor"] = "Smokywood Pastures Vendor"
+AL["Sounds"] = "Sounds"
+AL["Source"] = "Source"
+AL["Special"] = "Special"
+AL["Special Rewards"] = "Special Rewards"
+AL["Staff"] = "Staff"
+AL["Stats"] = "Stats"
+AL["Staves"] = "Staves"
+AL["Stranglethorn Fishing Extravaganza"] = "Stranglethorn Fishing Extravaganza"
+AL["Summon"] = "Summon"
+AL["Tabards"] = "Tabards"
+AL["The Grim Guzzler"] = "The Grim Guzzler"
+AL["The Secret Safe"] = "The Secret Safe"
+AL["The Vault"] = "The Vault"
+AL["Third Fragment Guardian"] = "Third Fragment Guardian"
+AL["Thomas Yance"] = "Thomas Yance"
+AL["Tier %d Sets"] = "Tier %d Sets"
+AL["Tier Sets"] = "Tier Sets"
+AL["Tier Sets - per Class"] = "Tier Sets - per Class"
+AL["Timed Reward Chest"] = "Timed Reward Chest"
+AL["Timewalking Dungeon Event"] = "Timewalking Dungeon Event"
+AL["Tinker"] = "Tinker"
+AL["Toggle AtlasLoot"] = "Toggle AtlasLoot"
+AL["Tol'vir"] = "Tol'vir"
+AL["Toys"] = "Toys"
+AL["Training Projects"] = "Training Projects"
+AL["Transmoggable Replicas"] = "Transmoggable Replicas"
+AL["Transmutes"] = "Transmutes"
+AL["Trash Mobs"] = "Trash Mobs"
+AL["Trinkets"] = "Trinkets"
+AL["Troll"] = "Troll"
+AL["Two-Hand, Axe"] = "Two-Hand, Axe"
+AL["Two-Hand, Mace"] = "Two-Hand, Mace"
+AL["Two-Hand, Sword"] = "Two-Hand, Sword"
+AL["Unfinished Painting"] = "Unfinished Painting"
+AL["Unobtainable Tabards"] = "Unobtainable Tabards"
+AL["Vanity Gear"] = "Vanity Gear"
+AL["Varlan Highbough"] = "Varlan Highbough"
+AL["Vendor"] = "Vendor"
+AL["Vendors"] = "Vendors"
+AL["Vrykul"] = "Vrykul"
+AL["Wand"] = "Wand"
+AL["Wands"] = "Wands"
+AL["Warlords Season %d"] = "Warlords Season %d"
+AL["Weapon Enhancements"] = "Weapon Enhancements"
+AL["Weapons"] = "Weapons"
+AL["Welcome to Atlasloot Enhanced. Please take a moment to set your preferences."] = "Welcome to Atlasloot Enhanced. Please take a moment to set your preferences."
+AL["World Bosses"] = "World Bosses"
+AL["World Events"] = "World Events"
+AL["Yellow Gems"] = "Yellow Gems"
+AL["Zen'Vorka"] = "Zen'Vorka"

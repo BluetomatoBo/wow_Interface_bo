@@ -19,7 +19,56 @@ local FACTION_CONTENT = data:AddContentType(AL["Factions"], ATLASLOOT_FACTION_CO
 data["LEGIONFACTIONS"] = {
 	name = EXPANSION_NAME6,
 	ContentType = FACTION_CONTENT,
-	items = {
+	items = { 
+		{	-- Armies of Legionfall
+			FactionID = 2045,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				-- Warmage Kath'leen
+				{ 1 , "f2045rep5" },
+				{ 2 , 146659, [PRICE_EXTRA_ITTYPE] = "nethershard:8000" }, -- Nethershard Essence
+				{ 3 , 147212, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Bracers
+				{ 4 , 147213, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Tunic
+				{ 5 , 147214, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Treads
+				{ 6 , 147215, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Gauntlets
+				{ 7 , 147216, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Hood
+				{ 8 , 147217, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Leggings
+				{ 9 , 147218, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Spaulders
+				{ 10, 147219, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Girdle
+				{ 11, 147220, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Ring
+				{ 12, 147221, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Choker
+				{ 13, 147222, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Cloak
+				{ 14, 147223, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Trinket
+				{ 15, 141067, [PRICE_EXTRA_ITTYPE] = "nethershard:2500" }, -- Technique: Glyph of Wrathguard
+				{ 16, 141371, [PRICE_EXTRA_ITTYPE] = "nethershard:1000" }, -- Arsenal: Armaments of the Silver Hand
+				{ 17, 141372, [PRICE_EXTRA_ITTYPE] = "nethershard:2000" }, -- Arsenal: Armaments of the Ebon Blade
+				-- Thaumaturge Vashreen
+				{ 18, 147786, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Bracers
+				{ 19, 147791, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Girdle
+				{ 20, 147792, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Treads
+				{ 21, 147793, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Chestguard
+				{ 22, 147794, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Cloak
+				{ 23, 147795, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Gauntlets
+				{ 24, 147796, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Hood
+				{ 25, 147797, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Leggings
+				{ 26, 147798, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Necklace
+				{ 27, 147799, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Ring
+				{ 28, 147800, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Spaulders
+				{ 29, 147801, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Trinket
+				{ 30, 147837, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Relic
+
+				{ 101, "f2045rep6" },
+				{ 102, 147864, [PRICE_EXTRA_ITTYPE] = "nethershard:4000" }, -- Legionfall Banner
+				{ 103, 147698, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Cauterizing Void Shard
+				{ 105, "f2045rep7" },
+				{ 106, 147707, [PRICE_EXTRA_ITTYPE] = "nethershard:7500" }, -- Repurposed Fel Focuser
+				{ 107, 130199, [PRICE_EXTRA_ITTYPE] = "nethershard:7500" }, -- Legion Pocket Portal
+				{ 109, "f2045rep8" },
+				{ 110, 147205, [PRICE_EXTRA_ITTYPE] = "nethershard:10000" }, -- Legionfall Tabard
+				{ 111, 147708, [PRICE_EXTRA_ITTYPE] = "nethershard:25000" }, -- Legion Invasion Simulator
+-- 				{ 8 , 147775, [PRICE_EXTRA_ITTYPE] = "nethershard:50" }, -- Nether Portal Disruptor; -- need to check further
+			},
+		},
 		{	--TheNightfallen
 			FactionID = 1859,
 			CoinTexture = "Reputation",
