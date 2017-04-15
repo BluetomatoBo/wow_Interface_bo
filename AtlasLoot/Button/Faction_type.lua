@@ -130,6 +130,19 @@ local FACTION_IMAGES = {
 	[1710] = "Interface\\Icons\\inv_tabard_a_shataridefense",		--Sha'tari Defense
 	[1711] = "Interface\\Icons\\achievement_goblinhead",			--Steamwheedle Perservation Society
 	[1731] = "Interface\\Icons\\inv_tabard_a_81exarchs",			--Council of Exarchs
+	--[1847] = "Interface\\Icons\\", -- Hand of the Prophet
+	[1848] = "Interface\\Icons\\INV_Misc_VoljinsShatteredTusk", -- Vol'jin's Headhunters
+	--[1849] = "Interface\\Icons\\", -- Order of the Awakened
+	--[1850] = "Interface\\Icons\\", -- The Saberstalkers
+	
+	-- Legion
+	[1828] = "Interface\\Icons\\INV_Legion_Faction_HightmountainTribes", -- Highmountain Tribe
+	[1859] = "Interface\\Icons\\INV_Legion_Faction_NightFallen", -- The Nightfallen
+	[1883] = "Interface\\Icons\\INV_Legion_Faction_DreamWeavers", -- Dreamweavers
+	[1894] = "Interface\\Icons\\INV_Legion_Faction_Warden", -- The Wardens
+	[1900] = "Interface\\Icons\\INV_Legion_Faction_CourtofFarnodis", -- Court Of Farondis
+	[1948] = "Interface\\Icons\\INV_Legion_Faction_Valarjar", -- Valarjar
+	[2045] = "Interface\\Icons\\Achievement_Faction_Legionfall", -- Armies of Legionfall
 }
 
 local function GetLocRepStanding(id)
