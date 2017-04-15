@@ -1,7 +1,7 @@
 ﻿local mod	= DBM:NewMod("ArtifactHealer", "DBM-Challenges", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 63 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 76 $"):sub(12, -3))
 mod:SetZone()--Healer (1710), Tank (1698), DPS (1703-The God-Queen's Fury), DPS (Fel Totem Fall)
 
 mod:RegisterEvents(
@@ -60,7 +60,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		local amount = args.amount or 1
 		if amount % 2 == 0 then
 			if amount >= 6 then
-				specWarnArcaneBlitz:Show(args.destName)
+				specWarnArcaneBlitz:Show(amount)
 				voiceArcaneBlitz:Play("stackhigh")
 			else
 				warnArcaneBlitz:Show(args.destName, amount)
@@ -72,15 +72,6 @@ function mod:SPELL_AURA_APPLIED(args)
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
-
---[[
-function mod:SPELL_CAST_SUCCESS(args)
-	local spellId = args.spellId
-	if spellId == 144084 and self:AntiSpam(2, 4) then
-
-	end
-end
---]]
 
 function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
