@@ -1,16 +1,16 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith
-## Version: v8.03.03
+## Version: v8.03.05
 ## SavedVariables: AtlasLootDB
 ## SavedVariablesPerCharacter: AtlasLootCharDB
 ## OptionalDeps: 
 
 #@non-debug@
-## Title: AtlasLoot |cFF0099FF[Core]|r
-## Title-deDE: AtlasLoot |cFF0099FF[Kern]|r
-## Title-koKR: AtlasLoot |cFF0099FF[코어]|r
-## Title-zhCN: AtlasLoot |cFF0099FF[主程序]|r
-## Title-zhTW: AtlasLoot |cFF0099FF[主程式]|r
+## Title: AtlasLoot |cFF22B14C[Core]|r
+## Title-deDE: AtlasLoot |cFF22B14C[Kern]|r
+## Title-koKR: AtlasLoot |cFF22B14C[코어]|r
+## Title-zhCN: AtlasLoot |cFF22B14C[主程序]|r
+## Title-zhTW: AtlasLoot |cFF22B14C[主程式]|r
 ## Notes: Shows the possible loot from the bosses
 ## Notes-deDE: Zeigt mögliche Beute von Bossen
 ## Notes-esES: Muestra el posible botin de los jefes finales
@@ -21,15 +21,18 @@
 ## Notes-zhTW: 顯示首領與小怪可能掉落的物品，並可查詢各陣營與戰場的獎勵物品、套裝物品等
 #@end-non-debug@
 #@debug@
-# ## Title: AtlasLoot |cFF0099FF[Core]|r
-# ## Title-zhCN: AtlasLoot |cFF0099FF[主程式]|r
-# ## Title-zhTW: AtlasLoot |cFF0099FF[主程式]|r
+# ## Title: AtlasLoot |cFF22B14C[Core]|r
+# ## Title-deDE: AtlasLoot |cFF22B14C[Kern]|r
+# ## Title-koKR: AtlasLoot |cFF22B14C[코어]|r
+# ## Title-zhCN: AtlasLoot |cFF22B14C[主程序]|r
+# ## Title-zhTW: AtlasLoot |cFF22B14C[主程式]|r
 # 
 # ## Notes: Shows the possible loot from the bosses
 # ## Notes-deDE: Zeigt mögliche Beute von Bossen
-# ## Notes-frFR: Montre le butin possible des boss
 # ## Notes-esES: Muestra el posible botin de los jefes finales
-# ## Notes-koKR: Shows the possible loot from the bosses
+# ## Notes-frFR: Montre le butin possible des boss
+# ## Notes-koKR: 우두머리에게서 획득 가능한 전리품을 보여줍니다
+# ## Notes-ruRU: Отображает весю возможную добычу с боссов
 # ## Notes-zhCN: 显示副本中的首领与小怪可能掉落的物品
 # ## Notes-zhTW: 顯示首領與小怪可能掉落的物品，並可查詢各陣營與戰場的獎勵物品、套裝物品等
 # ## Notes-ruRU: Отображает весю возможную добычу с боссов

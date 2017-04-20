@@ -1,9 +1,24 @@
+-- ----------------------------------------------------------------------------
+-- Localized Lua globals.
+-- ----------------------------------------------------------------------------
+-- Functions
+local _G = getfenv(0)
+
+-- Libraries
+local assert, type = assert, type
+local next = next
+local wipe = wipe
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local AtlasLoot = _G.AtlasLoot
 local AL = AtlasLoot.Locales
 
+local LibStub = _G.LibStub
+local LibDialog = LibStub("LibDialog-1.0")
+local ALDB = LibStub("ALDB-1.0")
+
 -- lua
-local assert, type = assert, type
-local next = next
 
 -- WoW
 -- DisableAddOn
@@ -41,7 +56,7 @@ function AtlasLoot:OnInitialize()
 		AtlasLootCharDB.__addonrevision = AtlasLoot.__addonrevision
 	end
 
-	self.db = LibStub("ALDB-1.0"):Register(AtlasLootCharDB, AtlasLootDB, AtlasLoot.AtlasLootDBDefaults)
+	self.db = ALDB:Register(AtlasLootCharDB, AtlasLootDB, AtlasLoot.AtlasLootDBDefaults)
 	
 	
 	-- bindings
@@ -52,14 +67,21 @@ function AtlasLoot:OnInitialize()
 	local _, _, _, _, reason = GetAddOnInfo("AtlasLoot_Loader")
 	if reason ~=  "MISSING" then 
 		DisableAddOn("AtlasLoot_Loader") 
-		StaticPopupDialogs["ATLASLOOT_LOADER_ADDON_ERROR"] = {
+
+		LibDialog:Register("ATLASLOOT_LOADER_ADDON_ERROR", {
 			text = AL["AtlasLoot_Loader_is_no_longer_in_use"],
-			button1 = OKAY,
-			timeout = 0,
-			exclusive = 1,
-			whileDead = 1,
-		}
-		StaticPopup_Show("ATLASLOOT_LOADER_ADDON_ERROR")
+			buttons = {
+				{
+					text = OKAY,
+				},
+			},
+			width = 500,
+			is_exclusive = true,
+			show_while_dead = true,
+			hide_on_escape = true,
+		});
+		LibDialog:Spawn("ATLASLOOT_LOADER_ADDON_ERROR");
+
 	end
 
 	

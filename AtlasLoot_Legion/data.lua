@@ -148,13 +148,43 @@ name = select(2, GetAchievementInfo(11426)),
 	}
 }
 
-local LEGION_WORLD_BOSS_AC_TABLE = { -- Unleashed Monstrosities
+local LEGION_GLORY_TOMB_RAIDER_AC_TABLE = { -- Glory of the Tomb Raider
+name = select(2, GetAchievementInfo(11763)),
+	TableType = AC_ITTYPE,
+	ExtraList = true,
+	CoinTexture = "Achievement",
+	[NORMAL_DIFF] = {
+		{ 1, 11763 }, -- Glory of the Tomb Raider
+		{ 2, 11724 }, -- Fel Turkey!
+		{ 3, 11696 }, -- Grin and Bear It
+		{ 4, 11683 }, -- Bingo!
+		{ 5, 11676 }, -- Five Course Seafood Buffet
+		{ 17, 11675 }, -- Sky Walker
+		{ 18, 11674 }, -- Great Soul, Great Purpose
+		{ 19, 11773 }, -- Wax On, Wax Off
+		{ 20, 11770 }, -- Dark Souls
+		{ 21, 11699 }, -- Grand Fin-ale
+	}
+}
+
+
+local LEGION_WORLD_BOSS_AC_TABLE = { 
 name = select(2, GetAchievementInfo(11160)),
 	TableType = AC_ITTYPE,
 	ExtraList = true,
 	CoinTexture = "Achievement",
 	[NORMAL_DIFF] = {
-		{1, 11160 },
+		{1, 11160 }, -- Unleashed Monstrosities
+	}
+}
+
+local LEGION_WORLD_BOSS_AC_TABLE2 = { 
+name = select(2, GetAchievementInfo(11786)),
+	TableType = AC_ITTYPE,
+	ExtraList = true,
+	CoinTexture = "Achievement",
+	[NORMAL_DIFF] = {
+		{1, 11786 }, -- Terrors of the Shore
 	}
 }
 
@@ -1615,7 +1645,7 @@ data["VaultOfTheWardens"] = {
 
 data["BrokenIsles"] = {
 	EncounterJournalID = 822,
-	MapID = 0,
+	MapID = 1007,
 	ItemBaseLvl = 860,
 	AtlasMapID = "OR_BrokenIsles",
 	ContentType = RAID_CONTENT,
@@ -1763,7 +1793,64 @@ data["BrokenIsles"] = {
 				-- { 16, "ac9423" },
 			},
 		},
+		{ -- Brutallus
+			EncounterJournalID = 1883,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 147742 }, -- Violent Zealot's Shoulderpads
+				{ 2, 147748 }, -- Gauntlets of Dreadful Tenacity
+				{ 3, 147765 }, -- Clasp of Burning Demise
+				{ 4, 147739 }, -- Rigid Meteorguard Gauntlets
+				{ 5, 147756 }, -- Crashing Ember
+				{ 6, 147747 }, -- Armbands of Crude Strategy
+				{ 7, 147749 }, -- Polished Felfury Helmet
+				{ 8, 147755 }, -- Brutallus's Wretched Heart
+				{ 9, 147732 }, -- Leggings of Echoing Calamity
+			},
+		},
+		{ -- Malificus
+			EncounterJournalID = 1884,
+			[NORMAL_RAID_DIFF] = {
+				{  1, 147744 }, -- Treads of Disorderly Retreat
+				{  2, 147733 }, -- Doomsayer's Ritualistic Vestment
+				{  3, 147735 }, -- Cuffs of Fearful Service
+				{  4, 147754 }, -- Gory Dreadlord Horn
+				{  5, 147741 }, -- Legguards of Unholy Disdain
+				{  6, 147758 }, -- Beguiling Revelation
+				{  7, 147745 }, -- Taloned Brain-Scrapers
+				{  8, 147764 }, -- Cloak of Growing Mistrust
+				{  9, 147740 }, -- Plague-Resistant Headcover
+				{ 10, 147750 }, -- Malicious Zealot's Legplates
+			},
+		},
+		{ -- Si'vash
+			EncounterJournalID = 1885,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 147757 }, -- Globule of Submersion
+				{ 2, 147731 }, -- Cowl of Plumbed Depths
+				{ 3, 147767 }, -- Coral Band of the Abyss
+				{ 4, 147761 }, -- Sandblasted Conch
+				{ 5, 147737 }, -- Shorebreaker Robes
+				{ 6, 147751 }, -- Si'vashi Guard's Breastplate
+				{ 7, 147752 }, -- Pauldrons of the Engulfing Tide
+				{ 8, 147746 }, -- Glistening Seaspray Legguards
+				{ 9, 147736 }, -- Dockthrasher Cinch
+			},
+		},
+		{ -- Apocron
+			EncounterJournalID = 1956,
+			[NORMAL_RAID_DIFF] = {
+				{ 1, 147730 },  -- Ashen Worldscorcher Gloves
+				{ 2, 147759 },  -- Charged Felfire Casing
+				{ 3, 147760 },  -- Apocron's Energy Core
+				{ 4, 147766 },  -- Band of Dark Millennia
+				{ 5, 147734 },  -- Spaulders of Forgotten Worlds
+				{ 6, 147738 },  -- Doom-Herald's Footpads
+				{ 7, 147743 },  -- Harness of Devouring Flame
+				{ 8, 147753 },  -- Reaver's Rattling Girdle
+			},
+		},
 		LEGION_WORLD_BOSS_AC_TABLE,
+		LEGION_WORLD_BOSS_AC_TABLE2,
 	}
 }
 
@@ -2346,25 +2433,11 @@ data["TheNighthold"] = {
 				{ 27, "ac10850" }, -- AC: Mythic: Gul'dan
 			},
 		},
---[[		
-		{	--HighmaulTrash
-			name = AL["Trash Mobs"],
+		{	--Tier 19 Sets
+			name = format(AL["Tier %d Sets"], 19),
 			ExtraList = true,
-			[NORMAL_RAID_DIFF] = {
-				{ 1, 119343 },	-- Eye-Blinder Greatcloak
-				{ 2, 119347 },	-- Gill's Glorious Windcloak
-				{ 3, 119346 },	-- Kyu-Sy's Tarflame Doomcloak
-				{ 4, 119344 },	-- Magic-Breaker Cape
-				{ 5, 119345 },	-- Milenah's Intricate Cloak
-				{ 16, 119336 },	-- Cord of Winsome Sorrows
-				{ 17, 119335 },	-- Eyeripper Girdle
-				{ 18, 119338 },	-- Belt of Inebriated Sorrows
-				{ 19, 119337 },	-- Ripswallow Plate Belt
-			},
-			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
-			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[NORMAL_DIFF] = "AtlasLoot_Collections:TIERSETS:19",
 		},
-]]		
 		LEGION_RAID1_AC_TABLE,
 	},
 }
@@ -2651,6 +2724,12 @@ data["TombofSargeras"] = {
 			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
 			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
 		},
+		{	--Tier 20 Sets
+			name = format(AL["Tier %d Sets"], 20),
+			ExtraList = true,
+			[NORMAL_DIFF] = "AtlasLoot_Collections:TIERSETS:20",
+		},
+		LEGION_GLORY_TOMB_RAIDER_AC_TABLE,
 	},
 }
 

@@ -1,6 +1,6 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.03.03
+## Version: v8.03.05
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 ## OptionalDeps: 
@@ -20,11 +20,13 @@
 #@debug@
 # ## Title: AtlasLoot |cFF0099FF[Collections]|r
 # ## Title-deDE: AtlasLoot |cFF0099FF[Sammlungen]|r
+# ## Title-koKR: AtlasLoot |cFF0099FF[수집품]|r
 # ## Title-zhCN: AtlasLoot |cFF0099FF[收集]|r
 # ## Title-zhTW: AtlasLoot |cFF0099FF[收藏]|r
 # 
 # ## Notes: AtlasLoot collections loot tables (e.g. Mounts & Pets)
 # ## Notes-deDE: AtlasLoot Sammlungs-Beuteverzeichnisse (z.B. Reit- und Haustiere)
+# ## Notes-koKR: AtlasLoot 수집품 전리품 목록 (탈것 & 애완동물)
 # ## Notes-zhCN: AtlasLoot 《收集》物品信息
 # ## Notes-zhTW: AtlasLoot 收藏物品資料庫
 #@end-debug@
