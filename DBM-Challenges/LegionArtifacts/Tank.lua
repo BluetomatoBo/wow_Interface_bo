@@ -1,10 +1,11 @@
 ﻿local mod	= DBM:NewMod("Kruul", "DBM-Challenges", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 76 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 81 $"):sub(12, -3))
 mod:SetCreatureID(117933, 117198)--Variss, Kruul
 mod:SetZone()--Healer (1710), Tank (1698), DPS (1703-The God-Queen's Fury), DPS (Fel Totem Fall)
 mod:SetBossHPInfoToHighest()
+mod.soloChallenge = true
 
 mod:RegisterCombat("combat")
 
@@ -39,8 +40,8 @@ local timerDrainLifeCD			= mod:NewCDTimer(24.3, 234423, nil, nil, nil, 4, nil, D
 local timerHolyWardCD			= mod:NewCDTimer(33, 233473, nil, nil, nil, 3, nil, DBM_CORE_HEALER_ICON)
 local timerHolyWard				= mod:NewCastTimer(8, 233473, nil, false, nil, 3, nil, DBM_CORE_HEALER_ICON)
 local timerTormentingEyeCD		= mod:NewCDTimer(16.6, 234428, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
-local timerNetherAbberationCD	= mod:NewCDTimer(38, 235110, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
-local timerInfernalCD			= mod:NewCDTimer(53, 235112, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
+local timerNetherAbberationCD	= mod:NewCDTimer(35, 235110, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
+local timerInfernalCD			= mod:NewCDTimer(50, 235112, nil, nil, nil, 1, nil, DBM_CORE_DAMAGE_ICON)
 
 --local countdownTimer		= mod:NewCountdownFades(10, 141582)
 
