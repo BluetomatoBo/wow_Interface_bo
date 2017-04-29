@@ -1,12 +1,12 @@
-## Interface: 70100
+## Interface: 70200
 ## Title: NPCScan
 ## Notes: Uses various methods to scan your surroundings for rare or specified NPCs.
 ## Author: Torhal
-## Version: 7.1.0.5
+## Version: 7.2.0.1
 ## OptionalDeps: Ace3, AceGUI-3.0-SharedMediaWidgets, HereBeDragons-1.0, LibDialog-1.0, LibSharedMedia-3.0, LibSink-2.0, LibTextDump-1.0, LibToast-1.0, LibWindow-1.1
 ## SavedVariables: NPCScanDB
 
-## X-Date: 2016-10-25T21:24:06Z
+## X-Date: 2017-04-28T15:16:05Z
 ## X-Category: Achievements
 ## X-Email: jcallahan@curse.com
 

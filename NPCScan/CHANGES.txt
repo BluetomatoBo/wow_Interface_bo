@@ -1,16 +1,40 @@
-tag ddf754327bfdcac033eaf647ef0ec3000bf5220a 7.1.0.5
+tag 82281127212712c3e466e1d7aaa7a87222704b2a 7.2.0.1
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Mon Dec 12 23:38:38 2016 -0600
+Date:	Fri Apr 28 06:45:54 2017 -0500
 
-commit 24b17fb51ce7d373a892a0f6a577d7f86432e3d2
+commit bbc21634ab2adf1813db1d5c564976f8842611b9
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Dec 11 23:06:33 2016 -0600
+Date:   Fri Apr 28 06:42:51 2017 -0500
 
-    Flag Apothecary Falthis as aligned with the Horde.
+    Fix locations for Ana-Mouz, Flotsam, and Coura, Mistress of Arcana.
 
-commit 9deca3a865c7522c9effc0daa559a4b74d357879
+commit 7e6cc96308fe9e7215d521ee2709e94a3533de87
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Dec 11 20:06:48 2016 -0600
+Date:   Fri Apr 28 06:42:14 2017 -0500
 
-    Flag Darkslayer Mordenthal as aligned with the Horde.
+    Add questD entries for Humongris, Kathaw the Savage, and Ana-Mouz.
+
+commit 6357ff1acedf208644900e66f4bd3f35452fdd95
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Fri Apr 28 06:39:48 2017 -0500
+
+    Add questID for Tamed Coralback - fixes issue #173
+
+commit 08093016601257755bb79a5561f2b8b861e5b879
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Fri Apr 28 05:55:02 2017 -0500
+
+    GetMapLandmarkInfo => C_WorldMap.GetMapLandmarkInfo
+
+commit 671f2ebfc9e54416b56ed84f05715b1c9f7ff1cf
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Fri Apr 28 05:29:59 2017 -0500
+
+    Add Olokk the Shipbreaker.
+
+commit 0f5d10b0b4aeccbfdd850d737df7957d3da551b2
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Fri Apr 28 05:16:05 2017 -0500
+
+    Update ToC Interface to 70200.
 
