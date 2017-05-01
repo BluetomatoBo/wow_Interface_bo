@@ -47,6 +47,10 @@ local operationDefaults = {
 }
 
 function TSM:OnEnable()
+	if TradeSkillMasterModulesDB then
+		TradeSkillMasterModulesDB.Vendoring = TradeSkillMaster_VendoringDB
+	end
+
 	-- load settings
 	TSM.db = TSMAPI.Settings:Init("TradeSkillMaster_VendoringDB", settingsInfo)
 
@@ -71,39 +75,38 @@ function TSM:GetOperationInfo(operationName)
 	if operation.target == "" then return end
 
 	local parts = {}
-
-	if operation.restockQty > 0 then
-		tinsert(parts, format(L["Restocking to %d."],operation.restockQty))
+	if operation.enableBuy and operation.restockQty > 0 then
+		tinsert(parts, format(L["Restocking to %d."], operation.restockQty))
 	end
 
-	if operation.keepQty > 0 then
-		tinsert(parts,format(L["Keeping %d."],operation.keepQty))
-	end
+	if operation.enableSell then
+		if operation.keepQty > 0 then
+			tinsert(parts, format(L["Keeping %d."], operation.keepQty))
+		end
+		local sellString = ""
+		local sellSeparator = ""
+		if operation.sellAfterExpired > 0 then
+			sellString = format(L["Selling after %d expired auctions"], operation.sellAfterExpired)
+			sellSeparator = L[" and "]
+		else
+			sellString = L["Selling if "]
+			sellSeparator = ""
+		end
+		if operation.vsMaxMarketValue ~= '0c' and operation.vsMaxDestroyValue ~= '0c' then
+			sellString = format(L["%s%smarket value is below %s and destroy value is below %s"], sellString, sellSeparator, operation.vsMaxMarketValue, operation.vsMaxDestroyValue)
+		elseif operation.vsMaxMarketValue ~= '0c' and operation.vsMaxDestroyValue == '0c' then
+			sellString = format(L["%s%smarket value is below %s"], sellString, sellSeparator, operation.vsMaxMarketValue)
+		elseif operation.vsMaxMarketValue == '0c' and operation.vsMaxDestroyValue ~= '0c' then
+			sellString = format(L["%s%sdestroy value is below %s"], sellString, sellSeparator, operation.vsMaxDestroyValue)
+		elseif operation.sellAfterExpired == 0 then
+			sellString = L["Selling always"]
+		end
 
-	local sellString = ""
-	local sellSeparator = ""
-	if operation.sellAfterExpired > 0 then
-		sellString = format(L["Selling after %d expired auctions"],operation.sellAfterExpired)
-		sellSeparator = L[" and "]
-	else
-		sellString = L["Selling if "]
-		sellSeparator = ""
-	end
+		tinsert(parts, format("%s.", sellString))
 
-	if operation.vsMaxMarketValue ~= '0c' and operation.vsMaxDestroyValue ~= '0c' then
-		sellString = format(L["%s%smarket value is below %s and destroy value is below %s"],sellString,sellSeparator,operation.vsMaxMarketValue,operation.vsMaxDestroyValue)
-	elseif operation.vsMaxMarketValue ~= '0c' and operation.vsMaxDestroyValue == '0c' then
-		sellString = format(L["%s%smarket value is below %s"],sellString,sellSeparator,operation.vsMaxMarketValue)
-	elseif operation.vsMaxMarketValue == '0c' and operation.vsMaxDestroyValue ~= '0c' then
-		sellString = format(L["%s%sdestroy value is below %s"],sellString,sellSeparator,operation.vsMaxDestroyValue)
-	elseif operation.sellAfterExpired == 0 then
-		sellString = L["Selling always"]
-	end
-
-	tinsert(parts,format("%s.",sellString))
-
-	if operation.sellSoulbound then
-		tinsert(parts,L["Selling soulbound items."])
+		if operation.sellSoulbound then
+			tinsert(parts, L["Selling soulbound items."])
+		end
 	end
 
 	return table.concat(parts, " ")

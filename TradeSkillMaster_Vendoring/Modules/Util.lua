@@ -81,7 +81,7 @@ Util.Currencies = {
 
 function Util:GetMaxAfford(index)
 	local maxAfford = nil
-	local price, extendedCost = TSMAPI.Util:Select({3, 7}, GetMerchantItemInfo(index))
+	local price, extendedCost = TSMAPI.Util:Select({3, 8}, GetMerchantItemInfo(index))
 
 	if price > 0 then
 		maxAfford = math.floor(GetMoney() / price)

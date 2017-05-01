@@ -266,7 +266,7 @@ function private.BuyThread(self)
 	end
 
 	for index = 1, numMerchantItems do
-		local name, texture, price, stackCount, numAvailable, isUsable, extendedCost = GetMerchantItemInfo(index)
+		local name, texture, price, stackCount, numAvailable, _, isUsable, extendedCost = GetMerchantItemInfo(index)
 		local vendorItemLink = GetMerchantItemLink(index)
 		local vendorItemString = TSMAPI.Item:ToItemString(vendorItemLink)
 
@@ -313,8 +313,8 @@ function private.BuyThread(self)
 
 								local maxStack = GetMerchantItemMaxStack(index)
 								local maxAfford = TSM.Util:GetMaxAfford(index)
-								
-								restockAmount = math.min(restockAmount,maxAfford)								
+
+								restockAmount = math.min(restockAmount,maxAfford)
 								while restockAmount > 0 do
 									BuyMerchantItem(index,math.min(restockAmount,maxStack))
 									restockAmount = restockAmount - maxStack
@@ -375,5 +375,3 @@ function private:GetSlotSortValue(bag, slot, specialBags)
 	end
 	return val + bag * 1000 + slot
 end
-
-

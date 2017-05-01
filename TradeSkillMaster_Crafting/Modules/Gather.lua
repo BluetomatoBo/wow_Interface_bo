@@ -141,12 +141,14 @@ function Gather:CraftNext(spellList)
 	local bagTotals = TSM:GetInventoryTotals()
 	for _, spellId in ipairs(C_TradeSkillUI.GetFilteredRecipeIDs()) do
 		if spellList[spellId] then
+			local spellQuantity = spellList[spellId]
 			local craft = TSM.db.factionrealm.crafts[spellId]
 			-- figure out how many we can craft with mats in our bags
 			local numCanCraft = math.huge
 			for itemString, quantity in pairs(craft.mats) do
 				numCanCraft = max(min(numCanCraft, floor((bagTotals[itemString] or 0) / quantity)), 0)
 			end
+			numCanCraft = min(spellQuantity, floor(numCanCraft / craft.numResult))
 			if numCanCraft > 0 then
 				local velName = craft.mats[TSM.VELLUM_ITEM_STRING] and (TSMAPI.Item:GetName(TSM.VELLUM_ITEM_STRING) or TSM.db.factionrealm.mats[TSM.VELLUM_ITEM_STRING].name) or nil
 				TradeSkill:CastTradeSkill(spellId, numCanCraft, velName)

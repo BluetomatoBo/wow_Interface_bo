@@ -146,7 +146,7 @@ function Queue:GetStatus()
 		local data = TSM.db.factionrealm.crafts[spellID]
 		local cost, _, profit = TSM.Cost:GetSpellCraftPrices(spellID)
 		if cost then
-			totalCost = (totalCost or 0) + cost * data.queued
+			totalCost = (totalCost or 0) + (cost * data.queued) * data.numResult
 		end
 		if profit then
 			totalProfit = (totalProfit or 0) + profit * data.queued * data.numResult

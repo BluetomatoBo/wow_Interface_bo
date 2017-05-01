@@ -41,6 +41,10 @@ local operationDefaults = {
 }
 
 function TSM:OnInitialize()
+	if TradeSkillMasterModulesDB then
+		TradeSkillMasterModulesDB.Shopping = TradeSkillMaster_ShoppingDB
+	end
+
 	-- load settings
 	TSM.db = TSMAPI.Settings:Init("TradeSkillMaster_ShoppingDB", settingsInfo)
 

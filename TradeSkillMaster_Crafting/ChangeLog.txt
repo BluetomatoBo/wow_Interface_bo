@@ -1,3 +1,10 @@
+v3.2.4
+*Fixed bug with estimated craft cost being incorrect in some situations
+*Fixed bug with intermediate crafting in Gathering
+
+v3.2.3
+*Updated TOC version for patch 7.2.
+
 v3.2.2
 *Fixed gathering error when items don't have a mat cost.
 *Fixed issue with duplicate headers in gathering UI.

@@ -70,6 +70,10 @@ local operationDefaults = {
 
 -- Addon loaded
 function TSM:OnInitialize()
+	if TradeSkillMasterModulesDB then
+		TradeSkillMasterModulesDB.Auctioning = TradeSkillMaster_AuctioningDB
+	end
+
 	-- load settings
 	TSM.db = TSMAPI.Settings:Init("TradeSkillMaster_AuctioningDB", settingsInfo)
 

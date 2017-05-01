@@ -52,16 +52,20 @@ local operationDefaults = {
 }
 
 function TSM:OnEnable()
+	if TradeSkillMasterModulesDB then
+		TradeSkillMasterModulesDB.Mailing = TradeSkillMaster_MailingDB
+	end
+
 	-- load settings
 	TSM.db = TSMAPI.Settings:Init("TradeSkillMaster_MailingDB", settingsInfo)
-	
+
 	for moduleName, module in pairs(TSM.modules) do
 		TSM[moduleName] = module
 	end
-	
+
 	-- register this module with TSM
 	TSM:RegisterModule()
-	
+
 	-- TSM3 conversions
 	for _ in TSMAPI:GetTSMProfileIterator() do
 		for _, operation in pairs(TSM.operations) do
@@ -81,7 +85,7 @@ function TSM:RegisterModule()
 		{key="mailItems", callback="AutoMail:SendItems"},
 	}
 	TSM.bankUiButton = { callback = "BankUI:createTab" }
-	
+
 	TSMAPI:NewModule(TSM)
 end
 
@@ -89,7 +93,7 @@ function TSM:GetOperationInfo(operationName)
 	local operation = TSM.operations[operationName]
 	if not operation then return end
 	if operation.target == "" then return end
-	
+
 	if operation.maxQtyEnabled then
 		return format(L["Mailing up to %d to %s."], operation.maxQty, operation.target)
 	else

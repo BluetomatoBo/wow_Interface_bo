@@ -1,3 +1,6 @@
+v3.0.5
+*Updated TOC version for patch 7.2.
+
 v3.0.4
 *Updated TOC version for patch 7.1.
 
@@ -127,7 +130,7 @@ v1.3.1
 *fixed a bug with increment
 
 v1.3
-*Im experimenting with trying to speed up the gbank, and eliminates dc's 
+*Im experimenting with trying to speed up the gbank, and eliminates dc's
 *more local varaibles Sapu rejoice!
 
 v1.2.5
@@ -160,7 +163,7 @@ v1.0.7
 
 v1.0.6
 *Warehousing now works with ArkInventory
-*Slowed the gbank down further 
+*Slowed the gbank down further
 
 
 v1.0.5
@@ -182,5 +185,3 @@ v1.0.1
 
 v1.0
 *it has been released!!
-
-

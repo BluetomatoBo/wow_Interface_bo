@@ -423,7 +423,7 @@ function private:UpdateBuyST(refresh)
 		local itemCostTexture, itemCostValue, itemCostLink
 
 		for index = 1, numMerchantItems do
-			local name, texture, price, stackCount, numAvailable, isUsable, extendedCost = GetMerchantItemInfo(index)
+			local name, texture, price, stackCount, numAvailable, _, isUsable, extendedCost = GetMerchantItemInfo(index)
 			local itemLink = GetMerchantItemLink(index)
 
 			if itemLink then

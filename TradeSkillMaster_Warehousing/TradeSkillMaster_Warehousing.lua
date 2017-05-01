@@ -42,6 +42,10 @@ local operationDefaults = {
 -- Called once the player has loaded into the game
 -- Anything that needs to be done in order to initialize the addon should go here
 function TSM:OnEnable()
+	if TradeSkillMasterModulesDB then
+		TradeSkillMasterModulesDB.Warehousing = TradeSkillMaster_WarehousingDB
+	end
+
 	-- load settings
 	TSM.db = TSMAPI.Settings:Init("TradeSkillMaster_WarehousingDB", settingsInfo)
 
