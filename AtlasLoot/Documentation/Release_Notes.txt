@@ -5,6 +5,9 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.03.06 (May 05, 2017)
+- Slightly enhanced bonus loot's function to prevent from popping up error
+
 v8.03.05 (Apr. 20, 2017)
 - Added 4 new Broken Shore world bosses's loot
 - Use LibDialog to replace StaticPopupDialogs

@@ -100,7 +100,7 @@ end
 local function RefreshItemFrameHeight()
 	local newHeight = QLF_FRAME_MIN_HEIGHT_STD - 2	-- remove the distance from the right icons
 	for i = 1, #QLF.frame.items.list do
-		if QLF.frame.items.list[i].secButton:IsShown() then
+		if (QLF.frame.items.list[i].secButton and QLF.frame.items.list[i].secButton:IsShown()) then
 			if i == 1 then
 				newHeight = newHeight + ITEM_SIZE + QLF_ITEM_FRAME_ITEM_DISTANCE*2
 			elseif i%ITEMS_PER_LINE == 1 then
@@ -114,7 +114,7 @@ end
 
 local function ClearItemButtons()
 	for i = 1, #QLF.frame.items.list do
-		if QLF.frame.items.list[i].secButton:IsShown() then
+		if (QLF.frame.items.list[i].secButton and QLF.frame.items.list[i].secButton:IsShown()) then
 			QLF.frame.items.list[i]:Clear()
 		end
 	end

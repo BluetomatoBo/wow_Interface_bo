@@ -1,6 +1,6 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith
-## Version: v8.03.05
+## Version: v8.03.06
 ## SavedVariables: AtlasLootDB
 ## SavedVariablesPerCharacter: AtlasLootCharDB
 ## OptionalDeps: 
