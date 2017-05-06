@@ -782,8 +782,14 @@ function TT:Initialize()
 	end
 
 	--World Quest Reward Icon
-	WorldMapTooltip.ItemTooltip.IconBorder:SetAlpha(0)
 	WorldMapTooltip.ItemTooltip.Icon:SetTexCoord(unpack(E.TexCoords))
+	hooksecurefunc(WorldMapTooltip.ItemTooltip.IconBorder, "SetVertexColor", function(self, r, g, b)
+		self:GetParent().backdrop:SetBackdropBorderColor(r, g, b)
+		self:SetTexture("")
+	end)
+	hooksecurefunc(WorldMapTooltip.ItemTooltip.IconBorder, "Hide", function(self)
+		self:GetParent().backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+	end)
 	WorldMapTooltip.ItemTooltip:CreateBackdrop()
 	WorldMapTooltip.ItemTooltip.backdrop:SetOutside(WorldMapTooltip.ItemTooltip.Icon)
 	WorldMapTooltip.ItemTooltip.Count:ClearAllPoints()
@@ -797,39 +803,16 @@ function TT:Initialize()
 	playerGUID = UnitGUID("player")
 
 	-- Tooltip Statusbars
-	local function SkinTooltipStatusBar()
-		local bar = _G["WorldMapTaskTooltipStatusBar"].Bar
-		local label = bar.Label
-
-		if bar then
-			bar:StripTextures()
-			bar:SetStatusBarTexture(E["media"].normTex)
-			bar:SetTemplate("Transparent")
-			E:RegisterStatusBar(bar)
-
-			label:ClearAllPoints()
-			label:Point("CENTER", bar, 0, 0)
-			label:SetDrawLayer("OVERLAY")
-		end
+	local function SkinTooltipProgressBar(frame)
+		frame:CreateBackdrop("Transparent")
+		frame:DisableDrawLayer("BORDER")
+		frame:DisableDrawLayer("ARTWORK")
+		frame:SetStatusBarTexture(E["media"].normTex)
+		E:RegisterStatusBar(frame)
+		frame.Label:SetDrawLayer("OVERLAY")
 	end
-	hooksecurefunc("TaskPOI_OnEnter", SkinTooltipStatusBar)
-
-	local function SkinTooltipReputationBar()
-		local bar = _G["ReputationParagonTooltipStatusBar"].Bar
-		local label = bar.Label
-
-		if bar then
-			bar:StripTextures()
-			bar:SetStatusBarTexture(E["media"].normTex)
-			bar:SetTemplate("Transparent")
-			E:RegisterStatusBar(bar)
-
-			label:ClearAllPoints()
-			label:Point("CENTER", bar, 0, 0)
-			label:SetDrawLayer("OVERLAY")
-		end
-	end
-	hooksecurefunc("ReputationParagonFrame_SetupParagonTooltip", SkinTooltipReputationBar)
+	SkinTooltipProgressBar(ReputationParagonTooltipStatusBar.Bar)
+	SkinTooltipProgressBar(WorldMapTaskTooltipStatusBar.Bar)
 end
 
 E:RegisterModule(TT:GetName())

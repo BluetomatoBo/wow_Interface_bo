@@ -392,17 +392,18 @@ local function LoadSkin()
 
 	--Reputation Paragon Tooltip
 	local tooltip = ReputationParagonTooltip
-	local statusBar = ReputationParagonTooltipStatusBar.Bar
 	local reward = tooltip.ItemTooltip
 	local icon = reward.Icon
 	tooltip:SetTemplate("Transparent")
-	statusBar:StripTextures()
-	statusBar:SetStatusBarTexture(E["media"].normTex)
-	statusBar:CreateBackdrop("Transparent")
 	if icon then
 		S:HandleIcon(icon)
-		reward.IconBorder:SetTexture(nil)
-		reward.IconBorder:SetAlpha(0)
+		hooksecurefunc(reward.IconBorder, "SetVertexColor", function(self, r, g, b)
+			self:GetParent().backdrop:SetBackdropBorderColor(r, g, b)
+			self:SetTexture("")
+		end)
+		hooksecurefunc(reward.IconBorder, "Hide", function(self)
+			self:GetParent().backdrop:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		end)
 	end
 	tooltip:HookScript("OnShow", function(self)
 		self:SetTemplate("Transparent")
