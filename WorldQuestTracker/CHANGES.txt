@@ -1,7 +1,7 @@
-changeset:   132:e5284c231115
-tag:         v7.2.0.132-release
+changeset:   134:8af53588bc6a
+tag:         v7.2.0.134-release
 user:        Tercio
-date:        Thu Apr 27 13:33:30 2017 -0300
-summary:     - Ticket #401: order hall resources filter problem on fly map fixed.
+date:        Fri May 05 14:26:31 2017 -0300
+summary:     - fix for fractional numbers on chinesse, when they are > 10000.
 
 
