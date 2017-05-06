@@ -1,11 +1,10 @@
-## Interface: 70100
+## Interface: 70200
 ## Title: Bagnon Void Storage
 ## Author: Jaliborc (João Cardoso)
 ## Notes: Single window display for your void storage
 ## RequiredDeps: Bagnon
 ## LoadOnDemand: 1
-## Version: 7.1.1
+## Version: 7.2.2
 
-localization\localization.xml
-components\components.xml
 main.lua
+components\components.xml

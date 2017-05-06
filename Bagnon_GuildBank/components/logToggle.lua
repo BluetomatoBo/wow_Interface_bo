@@ -3,78 +3,64 @@
 		A guild log toggle widget
 --]]
 
-local L = LibStub('AceLocale-3.0'):GetLocale('Bagnon-GuildBank')
-local LogToggle = Bagnon:NewClass('LogToggle', 'CheckButton')
+local MODULE =  ...
+local ADDON, Addon = MODULE:match('[^_]+'), _G[MODULE:match('[^_]+')]
+local LogToggle = Addon:NewClass('LogToggle', 'CheckButton')
+
 LogToggle.Icons = {
 	[[Interface\Icons\INV_Crate_03]],
 	[[Interface\Icons\INV_Misc_Coin_01]],
 	[[Interface\Icons\INV_Letter_20]]
 }
 
+LogToggle.Titles = {
+	GUILD_BANK_LOG,
+	GUILD_BANK_MONEY_LOG,
+	GUILD_BANK_TAB_INFO
+}
 
---[[ Constructor ]]--
 
-function LogToggle:New(parent, type)
-	local b = self:Bind(CreateFrame('CheckButton', nil, parent))
-	b:SetSize(20, 20)
-	b:RegisterForClicks('anyUp')
+--[[ Constructors ]]--
 
-	local nt = b:CreateTexture()
-	nt:SetTexture([[Interface\Buttons\UI-Quickslot2]])
-	nt:SetSize(35, 35)
-	nt:SetPoint('CENTER', 0, -1)
-	b:SetNormalTexture(nt)
+function LogToggle:NewSet(parent)
+	local set = {}
+	for id in ipairs(self.Icons) do
+		set[id] = self:New(parent, id)
+	end
+	return set
+end
 
-	local pt = b:CreateTexture()
-	pt:SetTexture([[Interface\Buttons\UI-Quickslot-Depress]])
-	pt:SetAllPoints(b)
-	b:SetPushedTexture(pt)
-
-	local ht = b:CreateTexture()
-	ht:SetTexture([[Interface\Buttons\ButtonHilight-Square]])
-	ht:SetAllPoints(b)
-	b:SetHighlightTexture(ht)
-
-	local ct = b:CreateTexture()
-	ct:SetTexture([[Interface\Buttons\CheckButtonHilight]])
-	ct:SetAllPoints(b)
-	ct:SetBlendMode('ADD')
-	b:SetCheckedTexture(ct)
-
-	local icon = b:CreateTexture()
-	icon:SetTexture(self.Icons[type])
-	icon:SetAllPoints(b)
-
+function LogToggle:New(parent, id)
+	local b = self:Bind(CreateFrame('CheckButton', nil, parent, ADDON..'MenuCheckButtonTemplate'))
+	b:RegisterFrameMessage('LOG_SELECTED', 'OnLogSelected')
 	b:SetScript('OnClick', b.OnClick)
 	b:SetScript('OnEnter', b.OnEnter)
 	b:SetScript('OnLeave', b.OnLeave)
-	b:SetScript('OnHide', b.OnHide)
-	b.type = type
-	
+	b.Icon:SetTexture(self.Icons[id])
+	b.id = id
+
 	return b
 end
 
 
---[[ Interaction ]]--
+--[[ Events ]]--
+
+function LogToggle:OnLogSelected(_, logID)
+	self:SetChecked(logID == self.id)
+end
 
 function LogToggle:OnClick()
-	self:GetParent():ShowPanel(self:GetChecked() and self.type)
+	self:SendFrameMessage('LOG_SELECTED', self:GetChecked() and self.id)
 end
 
 function LogToggle:OnEnter()
-	if self:GetRight() > (GetScreenWidth() / 2) then
-		GameTooltip:SetOwner(self, 'ANCHOR_LEFT')
-	else
-		GameTooltip:SetOwner(self, 'ANCHOR_RIGHT')
-	end
-	
-	GameTooltip:SetText(L['Log' .. self.type])
+	GameTooltip:SetOwner(self, (self:GetRight() > (GetScreenWidth() / 2)) and 'ANCHOR_LEFT' or 'ANCHOR_RIGHT')
+	GameTooltip:SetText(self.Titles[self.id])
+	GameTooltip:Show()
 end
 
 function LogToggle:OnLeave()
-	GameTooltip:Hide()
-end
-
-function LogToggle:OnHide()
-	self:SetChecked(false)
+	if GameTooltip:IsOwned(self) then
+		GameTooltip:Hide()
+	end
 end

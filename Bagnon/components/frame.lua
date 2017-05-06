@@ -1,36 +1,32 @@
 --[[
 	frame.lua
-		The base frame widget
+		The bagnon frame object
 --]]
 
 local ADDON, Addon = ...
 local L = LibStub('AceLocale-3.0'):GetLocale(ADDON)
-local Frame = Addon:NewClass('Frame', 'Frame')
+local Frame = Addon.Frame
+
 Frame.ItemFrame = Addon.ItemFrame
 Frame.BagFrame = Addon.BagFrame
 Frame.MoneyFrame = Addon.MoneyFrame
-
-Frame.OpenSound = 'igBackPackOpen'
-Frame.CloseSound = 'igBackPackClose'
-Frame.BrokerSpacing = 2
+Frame.BrokerSpacing = 1
+Frame.MoneySpacing = 0
 
 
 --[[ Constructor ]]--
 
 function Frame:New(id)
 	local f = self:Bind(CreateFrame('Frame', ADDON .. 'Frame' .. id, UIParent))
-	f.shownCount = 0
+	f.profile = Addon.profile[id]
 	f.frameID = id
-
-	f:SetToplevel(true)
-	f:SetClampedToScreen(true)
-	f:EnableMouse(true)
-	f:SetMovable(true)
+	f.quality = 0
 
 	f:Hide()
-	f:SetScript('OnShow', f.OnShow)
-	f:SetScript('OnHide', f.OnHide)
-
+	f:SetMovable(true)
+	f:SetToplevel(true)
+	f:SetClampedToScreen(true)
+	f:UpdateRules()
 	f:SetBackdrop{
 	  bgFile = [[Interface\ChatFrame\ChatFrameBackground]],
 	  edgeFile = [[Interface\Tooltips\UI-Tooltip-Border]],
@@ -39,164 +35,39 @@ function Frame:New(id)
 	  insets = {left = 4, right = 4, top = 4, bottom = 4}
 	}
 
+	f:SetScript('OnShow', self.OnShow)
+	f:SetScript('OnHide', self.OnHide)
+
 	tinsert(UISpecialFrames, f:GetName())
 	return f
 end
 
-
---[[ Visibility ]]--
-
-function Frame:UpdateShown()
-	if self:IsFrameShown() then
-		self:Show()
-	else
-		self:Hide()
-	end
-end
-
-function Frame:ShowFrame()
-	self.shownCount = self.shownCount + 1
-	self:Show()
-end
-
-function Frame:HideFrame(force) -- if a frame was manually opened, then it should only be closable manually
-	self.shownCount = self.shownCount - 1
-
-	if force or self.shownCount <= 0 then
-		self.shownCount = 0
-		self:Hide()
-	end
-end
-
-function Frame:IsFrameShown()
-	return self.shownCount > 0
-end
-
-function Frame:OnShow()
-	PlaySound(self.OpenSound)
+function Frame:RegisterMessages()
 	self:RegisterMessage('UPDATE_ALL', 'Update')
+	self:RegisterMessage('RULES_LOADED', 'UpdateRules')
+	self:RegisterFrameMessage('BAG_FRAME_TOGGLED', 'Layout')
+	self:RegisterFrameMessage('ITEM_FRAME_RESIZED', 'Layout')
 	self:Update()
-end
-
-function Frame:OnHide()
-	PlaySound(self.CloseSound)
-	self:UnregisterMessages()
-
-	if self:IsFrameShown() then
-		self:HideFrame()
-	end
-
-	if Addon.sets.resetPlayer then
-		self:SetPlayer(nil)
-	end
 end
 
 
 --[[ Update ]]--
 
 function Frame:Update()
-	self.profile = Addon.profile[self.frameID]
-	self:UpdateShown()
-
-	if self:IsVisible() then
-		self:UpdatePosition()
-		self:UpdateScale()
-		self:UpdateOpacity()
-		self:UpdateBackdrop()
-		self:UpdateBackdropBorder()
-		self:UpdateFrameLayer()
-		self:Layout()
-	end
+	self:UpdateAppearance()
+	self:UpdateBackdrop()
+	self:Layout()
 end
 
-
--- scale
-function Frame:UpdateScale()
-	self:SetScale(self:GetFrameScale())
-end
-
-function Frame:GetFrameScale()
-	return self.profile.scale
-end
-
-
--- position
-function Frame:UpdatePosition()
-	self:ClearAllPoints()
-	self:SetPoint(self:GetPosition())
-end
-
-function Frame:SetPosition(point, x, y)
-	self.profile.x, self.profile.y = x, y
-	self.profile.point = point
-end
-
-function Frame:GetPosition()
-	return self.profile.point, self.profile.x, self.profile.y
-end
-
-
--- opacity
-function Frame:UpdateOpacity()
-	self:SetAlpha(self:GetOpacity())
-end
-
-function Frame:GetOpacity()
-	return self.profile.alpha
-end
-
-function Frame:FadeInFrame(frame, alpha)
-	if Addon.sets.fading then
-		UIFrameFadeIn(frame, 0.2, 0, alpha or 1)
-	end
-
-	frame:Show()
-end
-
-function Frame:FadeOutFrame(frame)
-	if frame then
-		frame:Hide()
-	end
-end
-
-
--- colors
 function Frame:UpdateBackdrop()
-	self:SetBackdropColor(self:GetFrameBackdropColor())
+	local back = self.profile.color
+	local border = self.profile.borderColor
+
+	self:SetBackdropColor(back[1], back[2], back[3], back[4])
+	self:SetBackdropBorderColor(border[1], border[2], border[3], border[4])
 end
-
-function Frame:GetFrameBackdropColor()
-	local color = self.profile.color
-	return color[1], color[2], color[3], color[4]
-end
-
-function Frame:UpdateBackdropBorder()
-	self:SetBackdropBorderColor(self:GetFrameBackdropBorderColor())
-end
-
-function Frame:GetFrameBackdropBorderColor()
-	local color = self.profile.borderColor
-	return color[1], color[2], color[3], color[4]
-end
-
-
--- strata
-function Frame:UpdateFrameLayer()
-	self:SetFrameStrata(self:GetFrameLayer())
-end
-
-function Frame:GetFrameLayer()
-	return self.profile.strata
-end
-
-
---[[ Layout ]]--
 
 function Frame:Layout()
-	if not self:IsVisible() then
-		return
-	end
-
 	local width, height = 24, 36
 
 	--place top menu frames
@@ -223,52 +94,76 @@ function Frame:Layout()
 	end
 
 	--adjust size
-	self.width, self.height = max(width, 156), height
-	self:UpdateSize()
+	self:SetWidth(max(max(width, 156), self.itemFrame:GetWidth() - 2) + 16)
+	self:SetHeight(height + self.itemFrame:GetHeight())
 end
 
-function Frame:UpdateSize()
-	self:SetWidth(max(self.width, self.itemFrame:GetWidth() - 2) + 16)
-	self:SetHeight(self.height + self.itemFrame:GetHeight())
-end
 
+-- menu buttons
 function Frame:PlaceMenuButtons()
-	local menuButtons = self.menuButtons or {}
-	self.menuButtons = menuButtons
-
-	--hide the old
-	for i, button in pairs(menuButtons) do
+	for i, button in pairs(self.menuButtons or {}) do
 		button:Hide()
-		menuButtons[i] = nil
 	end
 
-	--initiate new
-	if self:HasPlayerSelector() then
-		tinsert(menuButtons, self.playerSelector or self:CreatePlayerSelector())
-	end
-	self:GetSpecificButtons(menuButtons)
+	self.menuButtons = {}
+	self:ListMenuButtons()
 
-	if self:HasSearchToggle() then
-		tinsert(menuButtons, self.searchToggle or self:CreateSearchToggle())
-	end
-
-	--position them
-	for i, button in ipairs(menuButtons) do
+	for i, button in ipairs(self.menuButtons) do
 		button:ClearAllPoints()
 		if i == 1 then
 			button:SetPoint('TOPLEFT', self, 'TOPLEFT', 8, -8)
 		else
-			button:SetPoint('TOPLEFT', menuButtons[i-1], 'TOPRIGHT', 4, 0)
+			button:SetPoint('TOPLEFT', self.menuButtons[i-1], 'TOPRIGHT', 4, 0)
 		end
 		button:Show()
 	end
 
-	--get used space
-	local numButtons = #menuButtons
-	if numButtons > 0 then
-		return (menuButtons[1]:GetWidth() + 4 * numButtons - 4), menuButtons[1]:GetHeight()
+	return 20 * #self.menuButtons, 20
+end
+
+function Frame:ListMenuButtons()
+	if self:HasPlayerSelector() then
+		tinsert(self.menuButtons, self.playerSelector or self:CreatePlayerSelector())
 	end
-	return 0, 0
+
+	if self:HasBagToggle() then
+		tinsert(self.menuButtons, self.bagToggle or self:CreateBagToggle())
+	end
+
+	if self:HasSortButton() then
+		tinsert(self.menuButtons, self.sortButton or self:CreateSortButton())
+	end
+
+	if self:HasSearchToggle() then
+		tinsert(self.menuButtons, self.searchToggle or self:CreateSearchToggle())
+	end
+end
+
+function Frame:HasSearchToggle()
+	return self.profile.search
+end
+
+function Frame:HasBagToggle()
+	return self.profile.bagToggle
+end
+
+function Frame:HasSortButton()
+	return self.profile.sort
+end
+
+function Frame:CreateSearchToggle()
+	self.searchToggle = Addon.SearchToggle:New(self)
+	return self.searchToggle
+end
+
+function Frame:CreateBagToggle()
+	self.bagToggle = Addon.BagToggle:New(self)
+	return self.bagToggle
+end
+
+function Frame:CreateSortButton()
+	self.sortButton = Addon.SortButton:New(self)
+	return self.sortButton
 end
 
 
@@ -279,12 +174,12 @@ function Frame:PlaceCloseButton()
 	b:SetPoint('TOPRIGHT', -2, -2)
 	b:Show()
 
-	return 20, 20 --make the same size as the other menu buttons
+	return 20, 20
 end
 
 function Frame:CreateCloseButton()
 	local b = CreateFrame('Button', self:GetName() .. 'CloseButton', self, 'UIPanelCloseButton')
-	b:SetScript('OnClick', function() self:HideFrame(true) end)
+	b:SetScript('OnClick', function() Addon:HideFrame(self.frameID, true) end)
 	self.closeButton = b
 	return b
 end
@@ -319,51 +214,6 @@ function Frame:CreateSearchFrame()
 	return f
 end
 
-
--- search toggle
-function Frame:CreateSearchToggle()
-	local toggle = Addon.SearchToggle:New(self)
-	self.searchToggle = toggle
-	return toggle
-end
-
-function Frame:HasSearchToggle()
-	return self.profile.search
-end
-
-
--- specific buttons
-function Frame:GetSpecificButtons(list)
-	if self:HasBagFrame() then
-		tinsert(list, self.bagToggle or self:CreateBagToggle())
-	end
-
-	if self:HasSortButton() then
-		tinsert(list, self.sortButton or self:CreateSortButton())
-	end
-end
-
-function Frame:HasBagFrame()
-	return self.profile.bagFrame
-end
-
-function Frame:HasSortButton()
-	return self.profile.sort
-end
-
-function Frame:CreateBagToggle()
-	local toggle = Addon.BagToggle:New(self)
-	self.bagToggle = toggle
-	return toggle
-end
-
-function Frame:CreateSortButton()
-	local button = Addon.SortButton:New(self)
-	self.sortButton = button
-	return button
-end
-
-
 -- bag frame
 function Frame:CreateBagFrame()
 	local f =  self.BagFrame:New(self, 'LEFT', 36, 0)
@@ -376,7 +226,7 @@ function Frame:IsBagFrameShown()
 end
 
 function Frame:PlaceBagFrame()
-	if self:HasBagFrame() and self:IsBagFrameShown() then
+	if self:IsBagFrameShown() then
 		local frame = self.bagFrame or self:CreateBagFrame()
 		frame:ClearAllPoints()
 		frame:Show()
@@ -433,7 +283,7 @@ end
 
 -- player selector
 function Frame:HasPlayerSelector()
-	return LibStub('LibItemCache-1.1'):HasCache()
+	return Addon.Cache:HasCache()
 end
 
 function Frame:CreatePlayerSelector()
@@ -445,13 +295,12 @@ end
 
 -- item frame
 function Frame:PlaceItemFrame()
-	local anchor = self:HasBagFrame() and self:IsBagFrameShown() and self.bagFrame
+	local anchor = self:IsBagFrameShown() and self.bagFrame
 					or #self.menuButtons > 0 and self.menuButtons[1]
 					or self.titleFrame
 
 	local frame = self.itemFrame or self:CreateItemFrame()
 	frame:SetPoint('TOPLEFT', anchor, 'BOTTOMLEFT', 0, -4)
-	frame:Show()
 end
 
 function Frame:CreateItemFrame()
@@ -470,7 +319,7 @@ function Frame:PlaceMoneyFrame()
 	if self:HasMoneyFrame() then
 		local frame = self.moneyFrame or self:CreateMoneyFrame()
 		frame:ClearAllPoints()
-		frame:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', -(frame.ICON_SIZE or 0) - (frame.ICON_OFF or 0), 4)
+		frame:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', -self.MoneySpacing, 4)
 		frame:Show()
 
 		return frame:GetSize()
@@ -494,13 +343,13 @@ end
 
 function Frame:PlaceBrokerDisplayFrame()
 	if self:HasBrokerDisplay() then
-		local x, x2, y = 4 * self.BrokerSpacing, 2 * self.BrokerSpacing, 5 * self.BrokerSpacing
+		local x, y = 4 * self.BrokerSpacing, 5 * self.BrokerSpacing
 		local frame = self.brokerDisplay or self:CreateBrokerDisplay()
 		frame:ClearAllPoints()
 		frame:SetPoint('BOTTOMLEFT', self, 'BOTTOMLEFT', x, y)
 
 		if self:HasMoneyFrame() then
-			frame:SetPoint('RIGHT', self.moneyFrame, 'LEFT', -x2, y)
+			frame:SetPoint('RIGHT', self.moneyFrame, 'LEFT', -3, y)
 		else
 			frame:SetPoint('BOTTOMRIGHT', self, 'BOTTOMRIGHT', -x, y)
 		end
@@ -515,7 +364,7 @@ function Frame:PlaceBrokerDisplayFrame()
 end
 
 function Frame:CreateBrokerDisplay()
-	local f = Addon.BrokerDisplay:New(1, self)
+	local f = Addon.BrokerDisplay:New(self)
 	self.brokerDisplay = f
 	return f
 end
@@ -545,24 +394,4 @@ end
 
 function Frame:HasOptionsToggle()
 	return GetAddOnEnableState(UnitName('player'), ADDON .. '_Config') >= 2 and self.profile.options
-end
-
-
---[[ Shared ]]--
-
-function Frame:SetPlayer(player)
-	self.player = player
-	self:SendMessage(self.frameID .. '_PLAYER_CHANGED')
-end
-
-function Frame:GetPlayer()
-	return self.player or UnitName('player')
-end
-
-function Frame:GetProfile()
-	return Addon:GetProfile(self.player)[self.frameID]
-end
-
-function Frame:IsCached()
-	return Addon:IsBagCached(self.player, self.Bags[1])
 end

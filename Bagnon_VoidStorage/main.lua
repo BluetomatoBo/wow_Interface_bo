@@ -3,31 +3,32 @@
 		The bagnon driver thingy
 --]]
 
-local Vault = Bagnon:NewModule('VoidStorage', 'AceEvent-3.0')
+local MODULE =  ...
+local ADDON, Addon = MODULE:match('[^_]+'), _G[MODULE:match('[^_]+')]
+local Vault = Bagnon:NewModule('VoidStorage', Addon)
 
 function Vault:OnEnable()
-	self:RegisterEvent('VOID_STORAGE_CLOSE', 'OnClosed')
+	self:RegisterEvent('VOID_STORAGE_CLOSE', 'OnClose')
 end
 
 function Vault:OnOpen()
-	if Bagnon:GetFrame('vault') then
-		Bagnon:GetFrame('vault'):SetPlayer(nil)
-	end
-
 	IsVoidStorageReady()
-	Bagnon.Cache.AtVault = true
-	Bagnon:ShowFrame('vault')
-	
+	Addon.Cache.AtVault = true
+	Addon:ShowFrame('vault'):SetPlayer(nil)
+
 	if not CanUseVoidStorage() then
-		if Bagnon.VAULT_COST > GetMoney() then
-			StaticPopup_Show('BAGNON_CANNOT_PURCHASE_VAULT')
+		if Addon.VAULT_COST > GetMoney() then
+			StaticPopup_Show(ADDON .. 'CANNOT_PURCHASE_VAULT')
 		else
-			StaticPopup_Show('BAGNON_VAULT_PURCHASE')
+			StaticPopup_Show(ADDON .. 'VAULT_PURCHASE')
 		end
 	end
 end
 
-function Vault:OnClosed()
-	Bagnon.Cache.AtVault = nil
-	Bagnon:HideFrame('vault')
+function Vault:OnClose()
+	Addon.Cache.AtVault = nil
+	Addon:HideFrame('vault')
+
+	StaticPopup_Hide(ADDON .. 'CANNOT_PURCHASE_VAULT')
+	StaticPopup_Hide(ADDON .. 'VAULT_PURCHASE')
 end

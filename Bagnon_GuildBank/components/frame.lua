@@ -3,13 +3,16 @@
 		A specialized version of the bagnon frame for guild banks
 --]]
 
-local Frame = Bagnon:NewClass('GuildFrame', 'Frame', Bagnon.Frame)
-Frame.Title = LibStub('AceLocale-3.0'):GetLocale('Bagnon-GuildBank').Title
-Frame.OpenSound = 'GuildVaultOpen'
+local MODULE =  ...
+local ADDON, Addon = MODULE:match('[^_]+'), _G[MODULE:match('[^_]+')]
+local Frame = Addon:NewClass('GuildFrame', 'Frame', Addon.Frame)
+
+Frame.Title = LibStub('AceLocale-3.0'):GetLocale(ADDON).TitleGuild
+Frame.MoneyFrame = Addon.GuildMoneyFrame
+Frame.ItemFrame = Addon.GuildItemFrame
+Frame.BagFrame = Addon.GuildTabFrame
 Frame.CloseSound = 'GuildVaultClose'
-Frame.ItemFrame = Bagnon.GuildItemFrame
-Frame.BagFrame = Bagnon.GuildTabFrame
-Frame.MoneyFrame = Bagnon.GuildMoneyFrame
+Frame.OpenSound = 'GuildVaultOpen'
 Frame.Bags = {}
 
 for i = 1, MAX_GUILDBANK_TABS do
@@ -17,29 +20,35 @@ for i = 1, MAX_GUILDBANK_TABS do
 end
 
 
---[[ Interaction ]]--
+--[[ Constructor ]]--
 
-function Frame:ShowPanel(kind)
-	self:FadeOutFrame(self.itemFrame)
-	self:FadeOutFrame(self.logFrame)
-	self:FadeOutFrame(self.editFrame)
+function Frame:New(id)
+	local f = Addon.Frame.New(self, id)
+	local log = Addon.LogFrame:New(f)
+	log:SetPoint('BOTTOMRIGHT', -10, 35)
+	log:SetPoint('TOPLEFT', 10, -70)
+	log:Hide()
 
-	if not kind then
-		self:FadeInFrame(self.itemFrame)
-	elseif kind == 3 then
-		self:FadeInFrame(self.editFrame or self:CreateEditFrame())
-	else
-		self:CreateLogFrame():Display(kind)
-		self:FadeInFrame(self.logFrame)
-	end
+	local edit = Addon.EditFrame:New(f)
+	edit:SetPoint('BOTTOMRIGHT', -32, 35)
+	edit:SetPoint('TOPLEFT', 10, -75)
+	edit:Hide()
 
-	for i, log in ipairs(self.logs) do
-		log:SetChecked(kind == i)
-	end
+	f.logToggles = Addon.LogToggle:NewSet(f)
+	f.log, f.editFrame = log, edit
+	return f
 end
 
+function Frame:RegisterMessages()
+	Addon.Frame.RegisterMessages(self)
+	self:RegisterFrameMessage('LOG_SELECTED', 'OnLogSelected')
+end
+
+
+--[[ Events ]]--
+
 function Frame:OnHide()
-	Bagnon.Frame.OnHide(self)
+	Addon.Frame.OnHide(self)
 
 	StaticPopup_Hide('GUILDBANK_WITHDRAW')
 	StaticPopup_Hide('GUILDBANK_DEPOSIT')
@@ -47,58 +56,30 @@ function Frame:OnHide()
 	CloseGuildBankFrame()
 end
 
-
---[[ Components ]]--
-
-function Frame:GetSpecificButtons(list)
-	for i, log in ipairs(self.logs or self:CreateSpecificButtons()) do
-		tinsert(list, log)
-	end
-end
-
-function Frame:CreateSpecificButtons()
-	self.logs = {}
-
-	for i = 1, #Bagnon.LogToggle.Icons do
-		self.logs[i] = Bagnon.LogToggle:New(self, i)
-	end
-
-	return self.logs
-end
-
-function Frame:CreateLogFrame()
-	local log = Bagnon.LogFrame:New(self)
-	log:SetPoint('BOTTOMRIGHT', self.itemFrame, -27, 5)
-	log:SetPoint('TOPLEFT', self.itemFrame, 5, -5)
-	
-	self.logFrame = log
-	return log
-end
-
-function Frame:CreateEditFrame()
-	local edit = Bagnon.EditFrame:New(self)
-	edit:SetPoint('BOTTOMRIGHT', self.itemFrame, -27, 5)
-	edit:SetPoint('TOPLEFT', self.itemFrame, 5, -5)
-	
-	self.editFrame = edit
-	return edit
+function Frame:OnLogSelected(_, logID)
+	self.itemFrame:SetShown(not logID)
+	self.editFrame:SetShown(logID == 3)
+	self.log:SetShown(logID and logID < 3)
 end
 
 
 --[[ Proprieties ]]--
 
-function Frame:HasBagFrame()
-	return true
-end
+function Frame:ListMenuButtons()
+	for i, toggle in ipairs(self.logToggles) do
+		tinsert(self.menuButtons, toggle)
+	end
 
-function Frame:IsBagFrameShown()
-	return true
-end
-
-function Frame:HasPlayerSelector()
-	return false
+	Addon.Frame.ListMenuButtons(self)
 end
 
 function Frame:IsCached()
-	return Bagnon:IsBagCached(self:GetPlayer(), 'guild1')
+	return Addon:IsBagCached(self:GetPlayer(), 'guild1')
+end
+
+function Frame:HasPlayerSelector() end
+function Frame:HasSortButton() end
+function Frame:HasBagToggle() end
+function Frame:IsBagFrameShown()
+	return true
 end
