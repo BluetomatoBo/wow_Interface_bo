@@ -1,11 +1,12 @@
 ﻿local mod	= DBM:NewMod("Kruul", "DBM-Challenges", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 81 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 84 $"):sub(12, -3))
 mod:SetCreatureID(117933, 117198)--Variss, Kruul
 mod:SetZone()--Healer (1710), Tank (1698), DPS (1703-The God-Queen's Fury), DPS (Fel Totem Fall)
 mod:SetBossHPInfoToHighest()
 mod.soloChallenge = true
+mod.onlyNormal = true
 
 mod:RegisterCombat("combat")
 
