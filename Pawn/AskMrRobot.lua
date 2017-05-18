@@ -10,6 +10,15 @@ local ScaleProviderName = "MrRobot"
 
 PawnMrRobotLastUpdatedVersion = 2.0118
 
+
+
+
+-- TODO: Update these when Ask Mr. Robot does.
+-- On the next update, switch to the Mythic+ 870 weights.  Also, for Assassination rogue, consider switching to Master Poisoner / Agonizing Potion.
+
+
+
+
 function PawnMrRobotScaleProvider_AddScales()
 
 

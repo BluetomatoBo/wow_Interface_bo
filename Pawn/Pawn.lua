@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0204
+PawnVersion = 2.0205
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -383,8 +383,9 @@ function PawnInitialize()
 	PawnOriginalIsContainerItemAnUpgrade = IsContainerItemAnUpgrade
 	IsContainerItemAnUpgrade = function(bagID, slot, ...)
 		if PawnCommon.ShowBagUpgradeAdvisor then
-			local _, _, _, _, _, _, ItemLink = GetContainerItemInfo(bagID, slot)
-			if not ItemLink then return nil end
+			local _, Count, _, _, _, _, ItemLink = GetContainerItemInfo(bagID, slot)
+			if not Count then return false end -- If the stack count is 0, it's clearly not an upgrade
+			if not ItemLink then return nil end -- If we didn't get an item link, but there's an item there, try again later
 			return PawnShouldItemLinkHaveUpgradeArrow(ItemLink, true) -- true means to check player level
 		else
 			return PawnOriginalIsContainerItemAnUpgrade(bagID, slot, ...)

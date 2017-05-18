@@ -451,7 +451,15 @@ and Pawn.</p>
 	interesting problems if the "track upgrades for each scale" option is used.&nbsp; 
 	I'm not sure what a good solution for this would be—probably, just make it 
 	so that if that option is enabled, legendary items are never picked as the 
-	current best at all.</li>
+	current best at all.<ul>
+		<li>Even without the advanced option, it's possible for other items to 
+		show as upgrades to legendaries.&nbsp; The Walls Fell is a protection 
+		warrior ring with extremely terrible stats but a decent effect, and 
+		rings 80 levels lower can show up as upgrades to it.&nbsp; Should Pawn 
+		ever suggest a non-legendary item as an upgrade to a legendary item?&nbsp; 
+		It already blocks that from happening with artifacts.</li>
+	</ul>
+	</li>
 	<li>When you have only one heirloom ring, Pawn doesn't show ring upgrades at 
 	all.&nbsp; (It's possible that this is no longer an issue in 7.0; I haven't 
 	re-verified it.)&nbsp;&nbsp; (<a href="https://wow.curseforge.com/addons/pawn/tickets/117-mage-not-working/">Ticket</a>)</li>
@@ -464,6 +472,12 @@ and Pawn.</p>
 
 <h3>Features I might add soon</h3>
 <ul>
+	<li><b>Add an option to only show bag upgrade arrows on items for your 
+	current spec, even when you're in Manual mode and have multiple scales 
+	active.</b>
+	(And then, someday in the future, maybe add grey arrows to items that are an 
+	upgrade to a scale for a spec that you're not currently in.)
+	</li>
 	<li>Test out the quest upgrade advisor when artifact relics are available, 
 	and integrate that advisor with the new relic features.</li>
 	<li>Integrate with Angry World Quests to add green arrows to item rewards in 
@@ -493,14 +507,13 @@ and Pawn.</p>
 	<li>A way to set class, spec, and icon manually for custom scales.&nbsp; 
 	(Right now, they can be set for imported scales, but there's no way to 
 	change them through the UI.)</li>
-	<li>Add an option to only show bag upgrade arrows on items for your current spec, even
-		when you're in Manual mode and have multiple scales active.  (And then, someday in the
-		future, maybe add grey arrows to items that are an upgrade to a scale for a spec that you're
-		not currently in.)
-	</li>
 </ul>
 
 <h2>Updates</h2>
+<h3>Version 2.2.5</h3>
+<ul>
+	<li>Made a change to try to improve integration with Bagnon.</li>
+</ul>
 <h3>Version 2.2.4</h3>
 <ul>
 	<li>Fixed a bug in Pawn where for some low-level characters, Pawn wouldn't 
