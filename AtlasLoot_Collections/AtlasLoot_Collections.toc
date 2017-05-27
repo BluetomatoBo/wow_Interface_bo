@@ -1,9 +1,9 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.03.06
+## Version: v8.03.07
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
-## OptionalDeps: 
+## OptionalDeps: LibBabble-ItemSet-3.0
 
 #@non-debug@
 ## Title: AtlasLoot |cFF0099FF[Collections]|r

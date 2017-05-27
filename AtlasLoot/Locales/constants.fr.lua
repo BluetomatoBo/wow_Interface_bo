@@ -268,3 +268,11 @@ AL["World Bosses"] = "World boss"
 AL["World Events"] = "Evènements Mondiaux"
 AL["Yellow Gems"] = "Gemmes jaune"
 AL["Zen'Vorka"] = "Zen'Vorka"
+
+-- Options
+AL["AtlasLoot Options"] = [=[Options d'AtlasLoot
+Options]=]
+
+-- ToC
+AL["Notes-AtlasLoot"] = "Montre le butin possible des boss"
+

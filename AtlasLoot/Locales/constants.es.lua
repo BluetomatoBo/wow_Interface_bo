@@ -263,3 +263,10 @@ AL["World Bosses"] = "Jefes del Mundo"
 AL["World Events"] = "Eventos mundo"
 AL["Yellow Gems"] = "Gemas amarillas"
 AL["Zen'Vorka"] = "Zen'Vorka"
+
+-- Options
+AL["AtlasLoot Options"] = "Opciones del AtlasLoot"
+
+-- ToC
+AL["Notes-AtlasLoot"] = "Muestra el posible botin de los jefes finales"
+

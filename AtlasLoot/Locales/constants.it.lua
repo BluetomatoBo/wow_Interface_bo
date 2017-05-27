@@ -233,3 +233,9 @@ AL["World Bosses"] = "Boss Mondiali"
 AL["World Events"] = "Eventi Mondiali"
 AL["Yellow Gems"] = "Gemme Gialle"
 AL["Zen'Vorka"] = "Zen'Vorka"
+
+-- Options
+AL["AtlasLoot Options"] = "Opzioni AtlasLoot"
+
+-- ToC
+

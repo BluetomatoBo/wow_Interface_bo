@@ -1,9 +1,9 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith
-## Version: v8.03.06
+## Version: v8.03.07
 ## SavedVariables: AtlasLootDB
 ## SavedVariablesPerCharacter: AtlasLootCharDB
-## OptionalDeps: 
+## OptionalDeps: LibStub, LibBabble-Boss-3.0, CallbackHandler-1.0, LibDataBroker-1.1, LibSharedMedia-3.0, LibDBIcon-1.0, LibDialog-1.0
 
 #@non-debug@
 ## Title: AtlasLoot |cFF22B14C[Core]|r
@@ -43,7 +43,7 @@
 ## X-Category: Map
 ## X-License: GPL v2
 ## X-Website: http://www.atlasloot.net
-## X-Embeds: LibStub, LibBabble-Boss-3.0, CallbackHandler-1.0, LibDataBroker-1.1, LibSharedMedia-3.0, LibDBIcon-1.0
+## X-Embeds: LibStub, LibBabble-Boss-3.0, CallbackHandler-1.0, LibDataBroker-1.1, LibSharedMedia-3.0, LibDBIcon-1.0, LibDialog-1.0
 ## X-Localizations: enUS, deDE, frFR, esES, koKR, zhCN, zhTW, esMX, ptBR, ruRU, itIT
 
 embeds.xml

@@ -262,3 +262,9 @@ AL["World Bosses"] = "Jefes del Mundo"
 AL["World Events"] = "Eventos mundo"
 AL["Yellow Gems"] = "Gemas Amarillas"
 AL["Zen'Vorka"] = "Zen'Vorka"
+
+-- Options
+AL["AtlasLoot Options"] = "Opciones AtlasLoot"
+
+-- ToC
+

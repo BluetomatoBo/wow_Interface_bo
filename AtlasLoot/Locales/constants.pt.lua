@@ -72,3 +72,8 @@ AL["Vendor"] = "Vendedor"
 AL["Weapons"] = "Armas"
 AL["World Bosses"] = "Chefes do Mundo"
 AL["World Events"] = "Eventos Mundiais"
+
+-- Options
+
+-- ToC
+

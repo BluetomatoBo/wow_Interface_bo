@@ -267,3 +267,11 @@ AL["World Bosses"] = "Мировые боссы"
 AL["World Events"] = "Игровые события"
 AL["Yellow Gems"] = "Желтые самоцветы"
 AL["Zen'Vorka"] = "Зен'Ворка "
+
+-- Options
+AL["AtlasLoot Options"] = "Настройки AtlasLoot"
+AL["Font"] = "шрифт"
+
+-- ToC
+AL["Notes-AtlasLoot"] = "Отображает весю возможную добычу с боссов"
+

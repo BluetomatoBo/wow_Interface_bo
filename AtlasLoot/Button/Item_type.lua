@@ -323,7 +323,7 @@ local function EventFrame_OnEvent(frame, event, arg1, arg2)
 					ShoppingTooltip2:Hide()
 					--ShoppingTooltip3:Hide()
 				elseif arg1 == "LCTRL" or arg1 == "RCTRL" then
-					Item.previewTooltipFrame:Hide()
+					if Item.previewTooltipFrame and Item.previewTooltipFrame:IsShown() then Item.previewTooltipFrame:Hide() end
 				end
 			end
 		end
