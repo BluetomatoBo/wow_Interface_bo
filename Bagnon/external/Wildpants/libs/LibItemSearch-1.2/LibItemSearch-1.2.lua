@@ -5,7 +5,7 @@
 
 local Search = LibStub('CustomSearch-1.0')
 local Unfit = LibStub('Unfit-1.0')
-local Lib = LibStub:NewLibrary('LibItemSearch-1.2', 13)
+local Lib = LibStub:NewLibrary('LibItemSearch-1.2', 14)
 if Lib then
 	Lib.Filters = {}
 else
@@ -133,7 +133,7 @@ Lib.Filters.usable = {
 			local lvl = select(5, GetItemInfo(link))
 			return lvl and (lvl == 0 or lvl > UnitLevel('player'))
 		end
-	end	
+	end
 }
 
 
@@ -173,7 +173,7 @@ Lib.Filters.tipPhrases = {
 		if not id then
 			return
 		end
-		
+
 		local cached = self.cache[search][id]
 		if cached ~= nil then
 			return cached
@@ -196,9 +196,9 @@ Lib.Filters.tipPhrases = {
 
 	cache = setmetatable({}, {__index = function(t, k) local v = {} t[k] = v return v end}),
 	keywords = {
-    	[ITEM_SOULBOUND:lower()] = ITEM_BIND_ON_PICKUP,
-    	['bound'] = ITEM_BIND_ON_PICKUP,
-    	['bop'] = ITEM_BIND_ON_PICKUP,
+  	[ITEM_SOULBOUND:lower()] = ITEM_BIND_ON_PICKUP,
+  	['bound'] = ITEM_BIND_ON_PICKUP,
+  	['bop'] = ITEM_BIND_ON_PICKUP,
 		['boe'] = ITEM_BIND_ON_EQUIP,
 		['bou'] = ITEM_BIND_ON_USE,
 		['boa'] = ITEM_BIND_TO_BNETACCOUNT,
@@ -249,10 +249,10 @@ elseif IsAddOnLoaded('Wardrobe') then
 
 else
 	function Lib:BelongsToSet(id, search)
-		for i = 1, GetNumEquipmentSets() do
-			local name = GetEquipmentSetInfo(i)
+		for i, setID in pairs(C_EquipmentSet.GetEquipmentSetIDs()) do
+			local name = C_EquipmentSet.GetEquipmentSetInfo(setID)
 			if Search:Find(search, name) then
-				local items = GetEquipmentSetItemIDs(name)
+				local items = C_EquipmentSet.GetItemIDs(setID)
 				for _, item in pairs(items) do
 					if id == item then
 						return true
