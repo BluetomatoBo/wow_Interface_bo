@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0205
+PawnVersion = 2.0206
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -3727,13 +3727,12 @@ function PawnOnArtifactUpdated(NewItem)
 
 	local NumRelicSlots = C_ArtifactUI.GetNumRelicSlots() or 0
 	local RelicIndex
-	local PlayerLevel = UnitLevel("player")
 	for RelicIndex = 1, NumRelicSlots do
 		local _, _, _, ThisRelicItemLink = C_ArtifactUI.GetRelicInfo(RelicIndex)
 		local LockedReason = C_ArtifactUI.GetRelicLockedReason(RelicIndex)
 
-		if LockedReason == nil or PlayerLevel >= 110 then
-			-- This relic slot is unlocked, or the player is 110 and so it's close to being unlocked.
+		if LockedReason == nil then
+			-- Only count relic slots that are unlocked.  (Previously, this had "or UnitLevel("player") >= 110", but that ended up being annoying.)
 			local ThisRelic = ThisArtifact.Relics[RelicIndex]
 			if not ThisRelic then
 				ThisRelic = {}

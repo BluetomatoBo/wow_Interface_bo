@@ -87,7 +87,7 @@ Pawn 사용자 설정의 더 자세한 정보는, 애드온에 포함된 help �
 		["ClothInfo"] = "천 아이템일 경우 할당합니다.",
 		["Crit"] = "치명타 및 극대화",
 		["CritInfo"] = "치명타 및 극대화. 공격이나 치유 주문이 증가한 효과로 적중될 확률을 증가시킵니다.",
-		["DpsInfo"] = "초당 무기 공격력. (무기 유형 별로 DPS 값을 다르게 평가하려면, \"특별한 무기 능력치\" 항목을 참고하세요.)",
+		["DpsInfo"] = "초당 무기 공격력. (무기 유형 별로 DPS 값을 다르게 평가하려면 \"특별한 무기 능력치\" 항목을 참고하세요.)",
 		["HasteInfo"] = "가속. 주문 시전이나 자원 회복 속도를 증가시킵니다.",
 		["IndestructibleInfo"] = "파괴불가. 장비의 내구도 감소를 방지합니다.",
 		["IndestructibleIs"] = "|cffffffffin파괴 불가|r의 가치:",
@@ -109,11 +109,11 @@ Pawn 사용자 설정의 더 자세한 정보는, 애드온에 포함된 help �
 		["SpeedBaseline"] = "속도 기준",
 		["SpeedBaselineInfo"] = "무기에 표시되는 실제 능력치가 아닙니다, 능력치 비율 값과 곱하기 전에 속도 능력치에서 이 값을 뺍니다.",
 		["SpeedBaselineIs"] = "|cffffffff속도 기준|r:",
-		["SpeedInfo"] = "무기 속도, 공격 당 초. (빠른 무기를 선호한다면, 이 숫자는 낮아야 합니다. 참고: \"특별한 무기 능력치\" 영역의 \"속도 기준\"",
+		["SpeedInfo"] = "자동 공격 당 초 단위의 무기 속도. (빠른 무기를 선호한다면, 이 숫자는 낮아야 합니다. 참고: \"특별한 무기 능력치\" 영역의 \"속도 기준\")",
 		["SpeedIs"] = "|cffffffff공격 속도|r 1초 의 가치:",
 		["StaminaInfo"] = "체력. 생명력을 증가시킵니다.",
 		["StrengthInfo"] = "힘. 몇몇 직업의 전투력을 증가시킵니다.",
-		["VersatilityInfo"] = "유연성. 딜러에겐 피해량을 증가시키고, 힐러에겐 치유량을 증가시키며, 탱커에겐 받는 피해를 감소시킵니다.",
+		["VersatilityInfo"] = "유연성. 공격 캐릭터에겐 피해량을 증가시키고, 치유 캐릭터에겐 치유량을 증가시키며, 방어 캐릭터에겐 받는 피해를 감소시킵니다.",
 		["WeaponMainHandDps"] = "주무기: DPS",
 		["WeaponMainHandDpsInfo"] = "주무기의 초당 공격력.",
 		["WeaponMainHandMaxDamage"] = "주무기: 최대 공격력",
@@ -201,7 +201,7 @@ Pawn 사용자 설정의 더 자세한 정보는, 애드온에 포함된 help �
 		["WeaponTypeWand"] = "마법봉",
 		["WeaponTypeWandInfo"] = "마법봉 아이템일때 할당합니다.",
 		["WeaponTypeWarglaive"] = "전투검",
-		["WeaponTypeWarglaiveInfo"] = "아이템이 전투검일 경우 할당합니다."
+		["WeaponTypeWarglaiveInfo"] = "아이템이 전투검일 경우 할당합니다.",
 	},
 	["TooltipParsing"] = {
 		["Agility"] = "^민첩성 %+?([-%d%.,]+)$",
@@ -315,7 +315,7 @@ Pawn 사용자 설정의 더 자세한 정보는, 애드온에 포함된 help �
 		["WeaponDamageNature"] = "^자연 피해 ([%d%.,]+)%~([%d%.,]+)$",
 		["WeaponDamageNatureExact"] = "^자연 피해 %+?([%d%.,]+)$",
 		["WeaponDamageShadow"] = "^암흑 피해 ([%d%.,]+)%~([%d%.,]+)$",
-		["WeaponDamageShadowExact"] = "^암흑 피해 %+?([%d%.,]+)$"
+		["WeaponDamageShadowExact"] = "^암흑 피해 %+?([%d%.,]+)$",
 	},
 	["UI"] = {
 		["AboutHeader"] = "Pawn 정보",
@@ -324,7 +324,7 @@ Pawn 사용자 설정의 더 자세한 정보는, 애드온에 포함된 help �
 		["AboutTab"] = "정보",
 		["AboutTranslation"] = "한글화: 적셔줄게@데스윙",
 		["AboutVersion"] = "버전 %s",
-		["AboutWebsite"] = "vgermods.com 을 방문하여 Vger의 다른 애드온을 확인하세요.",
+		["AboutWebsite"] = "vgermods.com을 방문하여 Vger의 다른 애드온을 확인하세요.",
 		["AskMrRobotProvider"] = "Ask Mr. Robot 능력치 비율",
 		["CompareClearItems"] = "비우기",
 		["CompareClearItemsTooltip"] = "양쪽 비교 아이템을 제거합니다.",
@@ -341,21 +341,21 @@ Pawn 사용자 설정의 더 자세한 정보는, 애드온에 포함된 help �
 		["CompareSwapTooltip"] = "왼쪽 아이템과 오른쪽 아이템을 교체합니다.",
 		["CompareTab"] = "비교",
 		["CompareVersus"] = "—vs.—",
-		["CompareWelcomeRight"] = [=[이 박스에 아이템을 끌어다 주세요.
+		["CompareWelcomeRight"] = [=[이 상자에 아이템을 끌어다 놓으세요.
 
-왼쪽 아래 모서리에 있는 아이콘을 사용해 이미 사용 중인 것과 비교하거나, 또는 다른 아이템을 왼쪽 박스에 끌어다 놓을 수 있습니다.]=],
+왼쪽 아래 모서리에 있는 아이콘을 사용해 이미 사용 중인 것과 비교하거나 다른 아이템을 왼쪽 상자에 끌어다 놓을 수 있습니다.]=],
 		["CompareYourBest"] = "최상급",
 		["GemsColorHeader"] = "%s 보석",
 		["GemsHeader"] = "%s|1을;를; 위한 보석",
 		["GemsNoneFound"] = "적당한 보석을 찾지 못했습니다.",
 		["GemsQualityLevel"] = "보석 등급",
-		["GemsQualityLevelTooltip"] = [=[보석을 제안할 아이템의 레벨.
+		["GemsQualityLevelTooltip"] = [=[보석을 제안할 아이템의 레벨입니다.
 
-에를 들어, "463"이면, Pawn은 아이템 레벨 463: 판다리아의 안개 영웅 던전 전리품에 사용하기 적당한 보석을 보여줍니다.]=],
+에를 들어 "463"이면 Pawn은 아이템 레벨 463: 판다리아의 안개 영웅 던전 전리품에 사용하기 적당한 보석을 표시합니다.]=],
 		["GemsShowBest"] = "사용 가능한 최상의 보석 표시",
 		["GemsShowBestTooltip"] = "현재 선택된 능력치 비율에서 사용 가능한 최상의 보석을 표시합니다. 이 보석들은 오래되거나 낮은 등급의 아이템에 사용하기엔 너무 강력할 수 있습니다.",
 		["GemsShowForItemLevel"] = "아이템 레벨에 맞는 보석 표시:",
-		["GemsShowForItemLevelTooltip"] = "현재 선택된 능력치 비율과 특정 레벨의 아이템을 위해 Pawn이 추천하는 보석 표시",
+		["GemsShowForItemLevelTooltip"] = "현재 선택된 능력치 비율과 특정 레벨의 아이템을 위해 Pawn이 추천하는 보석을 표시합니다.",
 		["GemsTab"] = "보석",
 		["GemsWelcome"] = "Pawn이 추천하는 보석을 보려면 왼쪽에서 능력치 비율을 선택하세요.",
 		["HelpHeader"] = "Pawn 환영합니다!",
@@ -380,7 +380,7 @@ Pawn 사용자 설정의 더 자세한 정보는, 애드온에 포함된 help �
 		["InventoryButtonTotalsHeader"] = "모든 착용 아이템의 총합:",
 		["KeyBindingCompareItemLeft"] = "아이템 비교 (왼쪽)",
 		["KeyBindingCompareItemRight"] = "아이템 비교 (오른쪽)",
-		["KeyBindingShowUI"] = "Pawn UI 토글",
+		["KeyBindingShowUI"] = "Pawn UI 표시 전환",
 		["OptionsAdvisorHeader"] = "조언가 옵션",
 		["OptionsAlignRight"] = "툴팁 오른쪽 끝으로 수치 정렬",
 		["OptionsAlignRightTooltip"] = "이 옵션을 켜면 Pawn 수치와 향상 정보를 툴팁 왼쪽 대신 오른쪽 끝에 정렬합니다.",
@@ -417,15 +417,15 @@ Pawn 사용자 설정의 더 자세한 정보는, 애드온에 포함된 help �
 		["OptionsIgnoreGemsWhileLevelingCheck"] = "낮은 레벨 아이템의 보석 홈 무시하기",
 		["OptionsIgnoreGemsWhileLevelingCheckTooltip"] = [=[이 옵션을 켜면 많은 사람들이 보석을 장착하지 않거나 레벨링 중일 때 저레벨 아이템의 보석홈을 무시합니다. "저레벨" 아이템은 현재 레벨의 영웅 던전에서 획득할 수 있는 것보다 약한 아이템입니다.
 
-체크하면, Pawn 보석장착 조언가는 저레벨 아이템에 적당한 보석을 추천하지만 보석 홈은 계산에서 제외되며 보석이 장착된 아이템은 종종 향상 아이템으로 보여지지 않습니다.
+선택하면 Pawn 보석 장착 조언가는 저레벨 아이템에 적당한 보석을 추천하지만 보석 홈은 계산에서 제외되며 보석이 장착된 아이템은 종종 향상 아이템으로 보여지지 않습니다.
 
-체크하지 않으면, 아이템 레벨에 상관없이 보석 홈에 최상의 보석을 장착한 것으로 가정하고 값을 계산하게 됩니다.]=],
+선택하지 않으면 아이템 레벨에 상관없이 보석 홈에 최상의 보석을 장착한 것으로 가정하고 값을 계산하게 됩니다.]=],
 		["OptionsIgnoreItemUpgradesCheck"] = "용맹 점수와 불길한 장비 강화 무시",
 		["OptionsIgnoreItemUpgradesCheckTooltip"] = [=[Pawn이 아이템 수치를 계산할 때 불길한 장비의 강화와 용맹 점수 강화의 잠재성을 무시하게 하려면 이 옵션을 활성화하세요.
 
-체크하면, 업그레이드 가능한 아이템을 당신이 가지고 있는 것보다 더 좋은지 판단할 때 용맹 점수 강화나 힘이 깃든 에펙시스 파편을 사용하지 않은 것으로 가정합니다.
+선택하면 업그레이드 가능한 아이템을 당신이 가지고 있는 것보다 더 좋은지 판단할 때 용맹 점수 강화나 힘이 깃든 에펙시스 파편을 사용하지 않은 것으로 가정합니다.
 
-체크하지 않으면, 업그레이드 할 수 있는 아이템들의 잠재성을 용맹 점수나 힘이 깃든 에펙시스 파편으로 극대화시킨 것으로 가정합니다. 불길한 장비는 용맹 점수와 에펙시스를 통해 705 레벨까지 강화할 수 있기 때문에 650 레벨의 불길한 장비가 670 레벨의 검은바위 용광로 아이템보다 더 좋은 아이템으로 나타나게 됩니다.]=],
+선택하지 않으면 업그레이드 할 수 있는 아이템들의 잠재성을 용맹 점수나 힘이 깃든 에펙시스 파편으로 극대화시킨 것으로 가정합니다. 불길한 장비는 용맹 점수와 에펙시스를 통해 705 레벨까지 강화할 수 있기 때문에 650 레벨의 불길한 장비가 670 레벨의 검은바위 용광로 아이템보다 더 좋은 아이템으로 나타나게 됩니다.]=],
 		["OptionsInventoryIcon"] = "툴팁 옆에 아이콘 표시",
 		["OptionsInventoryIconTooltip"] = "이 옵션을 켜면 아이템 링크 창 옆에 인벤토리 아이콘을 표시합니다.",
 		["OptionsItemIDs"] = "아이템 ID 표시",
@@ -433,10 +433,10 @@ Pawn 사용자 설정의 더 자세한 정보는, 애드온에 포함된 help �
 
 월드 오브 워크래프트의 모든 아이템은 연관된 ID 숫자를 가집니다. 이 정보는 보통 애드온 제작자에게 유용합니다.]=],
 		["OptionsLootAdvisor"] = "전리품 향상 조언가 표시",
-		["OptionsLootAdvisorTooltip"] = "던전에서 당신의 캐릭터를 향상 시켜주는 전리품이 나오면, Pawn은 주사위 굴림 창에 향상 정보를 보여주는 팝업창을 붙입니다.",
+		["OptionsLootAdvisorTooltip"] = "던전에서 당신의 캐릭터를 향상 시켜주는 전리품이 나오면 Pawn은 주사위 굴림 창에 향상 정보를 보여주는 팝업창을 붙입니다.",
 		["OptionsOtherHeader"] = "기타 옵션",
 		["OptionsQuestUpgradeAdvisor"] = "퀘스트 향상 조언가 표시",
-		["OptionsQuestUpgradeAdvisorTooltip"] = "퀘스트 목록이나 NPC들과 대화할 때, 퀘스트 보상 중 현재 장비를 향상시키는 것이 있으면, Pawn은 녹색 화살표 아이콘을 그 아이템에 표시합니다. 업그레이드 아이템이 없으면, Pawn은 상인에게 판매 가격이 가장 높은 아이템에 동전 더미를 표시합니다.",
+		["OptionsQuestUpgradeAdvisorTooltip"] = "퀘스트 목록이나 NPC들과 대화할 때 퀘스트 보상 중 현재 장비를 향상시키는 것이 있으면, Pawn은 녹색 화살표 아이콘을 그 아이템에 표시합니다. 향상 아이템이 없으면 Pawn은 상인에게 판매 가격이 가장 높은 아이템에 동전 더미를 표시합니다.",
 		["OptionsResetUpgrades"] = "장비 재탐색",
 		["OptionsResetUpgradesTooltip"] = [=[Pawn은 최상의 아이템으로 계속 장착 해왔던 아이템을 잊고, 앞으로 최신 향상 정보를 제공하기 위해 당신의 장비를 재탐색 합니다.
 
@@ -444,7 +444,7 @@ Pawn이 상점에 판매했거나, 파괴했거나, 다른 방법으로 더이�
 		["OptionsShowRelicUpgrades"] = "성물 향상 표시",
 		["OptionsShowRelicUpgradesTooltip"] = "성물이 당신의 유물 무기 중 하나의 아이템 레벨을 증가시킬 때 Pawn이 당신에게 표시합니다. (다른 향상 기능과 다르게 작동합니다, 능력치가 아닌 아이템 레벨에 기반하기 때문입니다.)",
 		["OptionsSocketingAdvisor"] = "보석 장착 조언가 표시",
-		["OptionsSocketingAdvisorTooltip"] = "아이템에 보석을 추가할 때, Pawn은 효과를 극대화시켜주는 보석을 제안하는 팝업 창을 표시합니다. (각 색상 별 보석 제안의 전체 목록을 보려면, 사용할 보석의 등급을 설정할 수 있는 보석 탭으로 가세요.)",
+		["OptionsSocketingAdvisorTooltip"] = "아이템에 보석을 추가할 때 Pawn은 효과를 극대화시켜주는 보석을 제안하는 팝업 창을 표시합니다. (각 색상 별 보석 제안의 전체 목록을 보려면 사용할 보석의 등급을 설정할 수 있는 보석 탭으로 가세요.)",
 		["OptionsTab"] = "옵션",
 		["OptionsTooltipHeader"] = "툴팁 옵션",
 		["OptionsTooltipSpecIcon"] = "특성 아이콘 표시",
@@ -458,10 +458,10 @@ Pawn이 상점에 판매했거나, 파괴했거나, 다른 방법으로 더이�
 
 |cff8ec3e6화염:  최상|r]=],
 		["OptionsTooltipValuesAndUpgrades"] = "능력치 비율 값과 향상 % 표시",
-		["OptionsTooltipValuesAndUpgradesTooltip"] = [=[모든 아이템에 0의 값을 가지지 않는 능력치 비율의 값을 표시합니다.  추가로, 향상 정보도 나타냅니다.
+		["OptionsTooltipValuesAndUpgradesTooltip"] = [=[모든 아이템에 0의 값을 가지지 않는 능력치 비율의 값을 표시합니다.  추가로 향상 정보도 나타냅니다.
 
 |cff8ec3e6냉기:  123.4
-화염:  156.7 |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% 업그레이드|r]=],
+화염:  156.7 |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% 향상|r]=],
 		["OptionsTooltipValuesOnly"] = "향상 %를 제외한 능력치 크기 값만 표시",
 		["OptionsTooltipValuesOnlyTooltip"] = [=[모든 아이템에 0의 값을 가지지 않는 능력치 비율의 값을 표시합니다.  향상 정보는 나타내지 않습니다.  이 옵션은 구버전 Pawn의 기본 작동법 입니다.
 
@@ -472,9 +472,9 @@ Pawn이 상점에 판매했거나, 파괴했거나, 다른 방법으로 더이�
 		["OptionsUpgradesForBothWeaponTypes"] = "한손과 양손 모두 향상 정보 표시",
 		["OptionsUpgradesForBothWeaponTypesTooltip"] = [=[Pawn의 향상 정보 조언가는 양손 무기와 쌍수 (또는 캐스터의 주무기와 보조 장비 장식) 무기 세트를 분리해서 향상 정보를 추적하고 표시할 수 있습니다.
 
-체크하면, 양손 무기를 사용 중일 때도 보유 중인 낮은 순위의 한손 무기 (또는 두번째 순위)보다 나은 한손 무기를 업그레이드로 표시합니다, Pawn은 양손 세트의 업그레이드를 따로 추적하기 때문입니다.
+선택하면 양손 무기를 사용 중일 때도 보유 중인 낮은 순위의 한손 무기 (또는 두번째 순위)보다 나은 한손 무기를 향상 아이템으로 표시합니다, Pawn은 양손 세트의 업그레이드를 따로 추적하기 때문입니다.
 
-체크하지 않으면, 양손 무기를 착용 중일 때 한손 장비를 업그레이드로 보여주지 않으며 반대로도 작동합니다.]=],
+선택하지 않으면 양손 무기를 착용 중일 때 한손 장비를 향상 아이템으로 보여주지 않으며 반대로도 작동합니다.]=],
 		["OptionsUpgradeTrackingHeader"] = "향상 비교:",
 		["OptionsUpgradeTrackingOff"] = "착용 중인 장비와 비교 (권장)",
 		["OptionsUpgradeTrackingOffTooltip"] = "현재 착용 중인 아이템보다 향상되는 아이템을 보여줍니다.",
@@ -508,13 +508,13 @@ Pawn이 상점에 판매했거나, 파괴했거나, 다른 방법으로 더이�
 		["ScaleImportTooltip"] = "인터넷으로부터 능력치 비율 태그를 붙여넣어 새로운 능력치 비율을 추가합니다.",
 		["ScaleNewHeader"] = "새 능력치 비율 만들기",
 		["ScaleRename"] = "이름 변경",
-		["ScaleRenameTooltip"] = "이 능력치 비율의 이름 변경",
+		["ScaleRenameTooltip"] = "이 능력치 비율의 이름을 변경합니다.",
 		["ScaleSelectorHeader"] = "능력치 비율 선택:",
 		["ScaleSelectorShowingSuggestionsFor"] = "다음에 대한 정보 표시: ",
 		["ScaleSelectorShowScale"] = "툴팁에 능력치 비율 표시",
-		["ScaleSelectorShowScaleTooltip"] = [=[이 옵션을 체크하면, 이 캐릭터의 아이템 툴팁에 이 능력치 비율의 값을 표시합니다. 각 능력치 비율 별로 한 캐릭터, 여러 캐릭터, 또는 아무 캐릭터에도 표시하지 않게 설정할 수 있습니다.
+		["ScaleSelectorShowScaleTooltip"] = [=[이 옵션을 선택하면 이 캐릭터의 아이템 툴팁에 이 능력치 비율의 값을 표시합니다. 각 능력치 비율 별로 한 캐릭터, 여러 캐릭터, 또는 아무 캐릭터에도 표시하지 않게 설정할 수 있습니다.
 
-단축키: 능력치 크기 쉬프트+클릭]=],
+단축키: 능력치 크기 Shift+클릭]=],
 		["ScaleShareHeader"] = "능력치 비율 공유하기",
 		["ScaleTab"] = "능력치 비율",
 		["ScaleTypeNormal"] = "수치 탭에서 이 능력치 비율을 변경할 수 있습니다.",
@@ -522,7 +522,7 @@ Pawn이 상점에 판매했거나, 파괴했거나, 다른 방법으로 더이�
 		["ScaleWelcome"] = "능력치 비율은 할당된 아이템에 사용되는 능력치의 세트와 값입니다. 자신만의 것을 만들거나 이미 만들어진 다른 능력치 비율 값을 사용할 수 있습니다.",
 		["SocketingAdvisorButtonTooltip"] = "클릭하여 Pawn의 보석 탭을 엽니다, Pawn이 추천하는 보석에 대한 정보를 더 볼 수 있습니다.",
 		["SocketingAdvisorHeader"] = "Pawn 보석 장착 조언가 추천:",
-		["SocketingAdvisorIgnoreThisItem"] = "낮은 레벨 아이템에 보석 추가하지 않기. 가능하다면, 이것을 사용하기:",
+		["SocketingAdvisorIgnoreThisItem"] = "낮은 레벨 아이템에 보석을 추가하지 않습니다. 하지만 가능하다면 다음을 사용합니다:",
 		["StarterProvider"] = "초보자 능력치 비율",
 		["ValuesDoNotShowUpgradesFor1H"] = "한손 아이템의 향상 정보 보지 않기",
 		["ValuesDoNotShowUpgradesFor2H"] = "양손 아이템의 향상 정보 보지 않기",
@@ -531,7 +531,7 @@ Pawn이 상점에 판매했거나, 파괴했거나, 다른 방법으로 더이�
 		["ValuesFollowSpecializationTooltip"] = "이 옵션을 켜면 레벨 50 이후 직업 별 전문화되지 않는 방어구에 대한 향상 정보를 숨깁니다. 예를 들어, 신성 성기사는 레벨 50에 판금 전문화를 배웁니다, 이것은 판금 방어구를 착용했을 때만 지능을 5% 증가시킵니다. 이 옵션을 선택하면 Pawn은 레벨 50+ 신성 성기사에게 천, 가죽, 또는 사슬 아이템을 향상 아이템으로 고려하지 않습니다.",
 		["ValuesHeader"] = "%s의 능력치 중요도",
 		["ValuesIgnoreStat"] = "포함된 아이템 사용불가",
-		["ValuesIgnoreStatTooltip"] = "이 옵션을 켜면 능력치 비율에 따른 능력치 값을 가져오지 않습니다. 예를 들어, 주술사는 판금을 착용할 수 없으며, 판금이 사용불가능 하게 디자인된 주술사의 능력치 비율은 판금 방어구로부터 값을 가져오지 않습니다.",
+		["ValuesIgnoreStatTooltip"] = "이 옵션을 켜면 능력치 비율에 따른 능력치 값을 가져오지 않습니다. 예를 들어, 주술사는 판금을 착용할 수 없으며, 판금이 사용 불가능 하게 디자인된 주술사의 능력치 비율은 판금 방어구로부터 값을 가져오지 않습니다.",
 		["ValuesNormalize"] = "값 일반화 (Wowhead 처럼)",
 		["ValuesNormalizeTooltip"] = "이 옵션을 켜면 능력치 비율의 모든 능력치 값을 합산한 값과 아이템의 최종 계산 값을 분할합니다, Wowhead와 Lootzor이 그러하듯이. 이 것은 1을 기준으로 한 능력치 크기와 5를 기준으로 한 능력치 크기의 값을 균일하게 하는데 유용합니다. 또한 숫자를 작게 관리할 수 있게 도와줍니다.",
 		["ValuesRemove"] = "제거",
@@ -539,7 +539,7 @@ Pawn이 상점에 판매했거나, 파괴했거나, 다른 방법으로 더이�
 		["ValuesTab"] = "중요도",
 		["ValuesWelcome"] = "이 능력치 비율의 각 능력치 별 중요도를 개인 설정할 수 있습니다. 능력치 비율을 관리하거나 추가하려면, 능력치 비율 탭에서 수동 모드로 사용하세요.",
 		["ValuesWelcomeNoScales"] = "능력치 비율을 선택하지 않았습니다. 시작하려면, 능력치 비율 탭으로 가서 새로운 능력치 비율을 만들거나 인터넷에서 붙여 넣으세요.",
-		["ValuesWelcomeReadOnly"] = "선택된 능력치 비율은 변경할 수 없습니다. 이 중요도를 변경하고 싶다면, 능력치 비율 탭으로 가서 수동 모드를 활성화하고 이 능력치 비율을 복사하세요."
+		["ValuesWelcomeReadOnly"] = "선택된 능력치 비율은 변경할 수 없습니다. 이 중요도를 변경하고 싶다면, 능력치 비율 탭으로 가서 수동 모드를 활성화하고 이 능력치 비율을 복사하세요.",
 	}
 }
 end
