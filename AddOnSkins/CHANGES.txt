@@ -1,168 +1,64 @@
-tag bb6f1df3e859e2548af493fadea9a7c377e66ea3 3.47
+tag fe6eadf62aa35e6357e730f42b99ff99110774b1 3.48
 Author:	Azilroka <darktemplar9900@yahoo.com>
-Date:	Tue Feb 21 19:07:17 2017 -0600
+Date:	Sun Jun 4 13:04:25 2017 -0500
 
-commit 8d418574bdaf51dff04b9e63983babd90d966868
+commit e94ee3e61aa8ad0e4af2d9435d65be68603caa67
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Feb 21 19:06:52 2017 -0600
+Date:   Sun Jun 4 13:03:57 2017 -0500
 
-    3.47
+    3.48
 
-commit 9a4e7b03149705dd8f57b44d8ad7f932bcb6a392
-Author: Brian Thurlow <bthurlow0424@gmail.com>
-Date:   Tue Feb 21 15:01:45 2017 -0500
+commit d3559b64440151bd9e10e274cbd3fb8e08c173c3
+Author: Merathilis <neo0608@gmail.com>
+Date:   Fri May 19 12:12:56 2017 +0200
 
-    Update Load_Skins.xml for LuckyCharms2
+    whoops, leave it default
 
-commit 9a4e7b03149705dd8f57b44d8ad7f932bcb6a392
-Author: Brian Thurlow <bthurlow0424@gmail.com>
-Date:   Tue Feb 21 15:01:45 2017 -0500
+commit a2a1f89b5e2b3be65bc8df8beff0e20d48e8b463
+Author: Merathilis <neo0608@gmail.com>
+Date:   Fri May 19 12:10:30 2017 +0200
 
-    Update Load_Skins.xml for LuckyCharms2
+    Add an check if ElvUI provides backdrops for tabs.
 
-commit 83299ee5a79eb27ef556eec2c5fe55af261dd252
-Author: Brian Thurlow <bthurlow0424@gmail.com>
-Date:   Tue Feb 21 14:57:11 2017 -0500
-
-    Revert "Update Load_Skins.xml for LuckyCharms2"
-    
-    This reverts commit 7d3222c6932e6c5399e684fad3aa8bdcd1d4106a
-
-commit 83299ee5a79eb27ef556eec2c5fe55af261dd252
-Author: Brian Thurlow <bthurlow0424@gmail.com>
-Date:   Tue Feb 21 14:57:11 2017 -0500
-
-    Revert "Update Load_Skins.xml for LuckyCharms2"
-    
-    This reverts commit 7d3222c6932e6c5399e684fad3aa8bdcd1d4106a
-
-commit 7d3222c6932e6c5399e684fad3aa8bdcd1d4106a
-Author: Brian Thurlow <bthurlow0424@gmail.com>
-Date:   Tue Feb 21 14:56:14 2017 -0500
-
-    Update Load_Skins.xml for LuckyCharms2
-
-commit 430f4f089e7e3f94497c1908b085f471da34245f
-Author: Brian Thurlow <bthurlow0424@gmail.com>
-Date:   Tue Feb 21 14:54:06 2017 -0500
-
-    Add LuckyCharms2 Skin
-
-commit 4626c98e21bc6859dc0cc028a3af14ab2f94a64b
+commit 11d8507b235c119fc4c551b9f21374a47a110982
 Author: Blazeflack <blazeflack@hotmail.com>
-Date:   Sat Feb 4 14:59:37 2017 +0100
+Date:   Mon Apr 10 23:27:35 2017 +0200
 
-    Store chosen template on the frame in SetTemplate for ElvUI
-    
-    This fixes issue with a transparent backdrop changing to regular backdrop when you change profile (or UpdateMedia is called in ElvUI through other means).
+    Skinned ColorPickerPlus
 
-commit 4626c98e21bc6859dc0cc028a3af14ab2f94a64b
+commit 11d8507b235c119fc4c551b9f21374a47a110982
 Author: Blazeflack <blazeflack@hotmail.com>
-Date:   Sat Feb 4 14:59:37 2017 +0100
+Date:   Mon Apr 10 23:27:35 2017 +0200
 
-    Store chosen template on the frame in SetTemplate for ElvUI
-    
-    This fixes issue with a transparent backdrop changing to regular backdrop when you change profile (or UpdateMedia is called in ElvUI through other means).
+    Skinned ColorPickerPlus
 
-commit 402f47abf92f66ffaeed2ebf753dfcf03d7b3b7d
-Author: Michael Tindal <mj.tindal@icloud.com>
-Date:   Tue Jan 31 18:57:22 2017 -0800
+commit 97d084dd8891de974a17668c278d7c5a8eb00e00
+Author: liquidbase <liquid.base.x@gmail.com>
+Date:   Sat Apr 8 12:25:57 2017 +0200
 
-    This version is better.  No arbitrary depth restrictions.
+    Added new tab sets to Collections-Skin (unfinished and may be a better solution to do this)
 
-commit b2f05a53c32a54ddf02f102135c70d5019582b87
-Author: Michael Tindal <mj.tindal@icloud.com>
-Date:   Mon Jan 30 20:34:00 2017 -0800
+commit e5b192507c05ca12fbd44fd05dfdae330f4c548e
+Author: liquidbase <liquid.base.x@gmail.com>
+Date:   Sat Apr 8 12:15:25 2017 +0200
 
-    Did not mean to commit this.
+    Fixing frame names of Collections-Skin
 
-commit 48876c579de7d9f2d7858be18e4b222de877cec8
-Author: Michael Tindal <mj.tindal@icloud.com>
-Date:   Mon Jan 30 20:32:08 2017 -0800
+commit 996800477e94604bcbad0e4b20f05e9814186078
+Author: liquidbase <liquid.base.x@gmail.com>
+Date:   Sat Apr 8 12:12:54 2017 +0200
 
-    Fixes for SilverDragon and Altoholic.
+    Revert last commit
 
-commit 19fe04ba08b579a8cc8fd47838e1b7d7660c83a5
-Author: Blazeflack <blazeflack@hotmail.com>
-Date:   Sun Jan 29 02:32:27 2017 +0100
+commit f3c2173b5da7705dc84eead464ee435a55fd8ed3
+Author: liquidbase <liquid.base.x@gmail.com>
+Date:   Sat Apr 8 12:05:31 2017 +0200
 
-    Skinned PremadeGroupsFilter addon
+    Fixing collections-skin => new framenames for modelframe and navigation buttons
 
-commit 19fe04ba08b579a8cc8fd47838e1b7d7660c83a5
-Author: Blazeflack <blazeflack@hotmail.com>
-Date:   Sun Jan 29 02:32:27 2017 +0100
+commit 29116cc261dee93ce154ff8aaf19a510f40cf754
+Author: liquidbase <liquid.base.x@gmail.com>
+Date:   Mon Apr 3 21:39:30 2017 +0200
 
-    Skinned PremadeGroupsFilter addon
-
-commit 8ee68d2ac9c2b368a759fb7ec97a6994d5d29d57
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Jan 24 15:19:56 2017 -0600
-
-    Issue #454
-
-commit 8ee68d2ac9c2b368a759fb7ec97a6994d5d29d57
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Jan 24 15:19:56 2017 -0600
-
-    Issue #454
-
-commit 7d9390982d3420693a347a143ae0eef74819b703
-Author: Paul <paintpauller2@yahoo.com>
-Date:   Mon Jan 23 16:42:27 2017 -0500
-
-    Update Load_Skins.xml
-    Skinned Keyed
-    https://mods.curse.com/addons/wow/keyed
-
-commit 23d54138dbdfa2c13ab1daa66c6438910bc789bc
-Author: Paul <paintpauller2@yahoo.com>
-Date:   Mon Jan 23 16:30:10 2017 -0500
-
-    Skinned Keyed
-    https://mods.curse.com/addons/wow/keyed
-
-commit 7d9390982d3420693a347a143ae0eef74819b703
-Author: Paul <paintpauller2@yahoo.com>
-Date:   Mon Jan 23 16:42:27 2017 -0500
-
-    Update Load_Skins.xml
-    Skinned Keyed
-    https://mods.curse.com/addons/wow/keyed
-
-commit 23d54138dbdfa2c13ab1daa66c6438910bc789bc
-Author: Paul <paintpauller2@yahoo.com>
-Date:   Mon Jan 23 16:30:10 2017 -0500
-
-    Skinned Keyed
-    https://mods.curse.com/addons/wow/keyed
-
-commit 3c81e079dc6ab3d2aeebd58092390ab3bafec05e
-Author: Greg Perrott <greg@perrott.net.nz>
-Date:   Thu Jan 12 05:35:37 2017 -0500
-
-    Update WorldBossStatus.lua
-
-commit 3c81e079dc6ab3d2aeebd58092390ab3bafec05e
-Author: Greg Perrott <greg@perrott.net.nz>
-Date:   Thu Jan 12 05:35:37 2017 -0500
-
-    Update WorldBossStatus.lua
-
-commit fcbbd2b9d46f27ff5ec576724be5c6ce77f7743a
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Jan 1 15:10:16 2017 -0600
-
-    Make a default profile for all characters instead
-
-commit c00f071dc312987a0534c254d3981864adb5e855
-Author: Pawe┼é Jastrz─Öbski <pawelj@iosphe.re>
-Date:   Wed Dec 28 09:53:07 2016 +0100
-
-    Updated RE* skins
-
-commit c00f071dc312987a0534c254d3981864adb5e855
-Author: Pawe┼é Jastrz─Öbski <pawelj@iosphe.re>
-Date:   Wed Dec 28 09:53:07 2016 +0100
-
-    Updated RE* skins
+    Fixed Questlog-Buttons and Tradeskill-Skin
 
