@@ -10,8 +10,8 @@ local AL = AtlasLoot.Locales
 local LibSharedMedia = LibStub("LibSharedMedia-3.0")
 
 --lua
-local rawset, type, unpack, setmetatable = rawset, type, unpack, setmetatable
-local tonumber = tonumber
+local rawset, type, unpack, setmetatable, pairs = rawset, type, unpack, setmetatable, pairs
+local tonumber, table = tonumber, table
 local floor = math.floor
 local match, format = string.match, string.format
 

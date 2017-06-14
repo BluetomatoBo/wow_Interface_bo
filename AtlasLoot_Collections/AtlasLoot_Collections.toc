@@ -1,9 +1,9 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.03.07
+## Version: v8.04.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
-## OptionalDeps: LibBabble-ItemSet-3.0
+## OptionalDeps: 
 
 #@non-debug@
 ## Title: AtlasLoot |cFF0099FF[Collections]|r
@@ -35,11 +35,9 @@
 ## X-Category: Map
 ## X-License: GPL v2
 ## X-Website: http://www.atlasloot.net
-## X-Embeds: LibBabble-ItemSet-3.0
+## X-Embeds: 
 
 ## X-AtlasLoot-LootModule: 1
-
-embeds.xml
 
 data.lua
 sets.lua

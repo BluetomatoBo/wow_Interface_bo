@@ -1180,14 +1180,14 @@ local SetTable = {
 
 	["Tier20"] = {	-- T20 Sets
 		name = format(AL["Tier %d Sets"], 20),
-		-- Chest - Kil'jaeden, instanceID = 875, encounterID = 1898
-		-- Back - The Desolate Host, instanceID = 875, encounterID = 1896
-		-- Hands - Harjatan, instanceID = 875, encounterID = 1856
-		-- Head - Demonic Inquisition, instanceID = 875, encounterID = 1867
-		-- Legs - Mistress Sassz'ine, instanceID = 875, encounterID = 1861
-		-- Shoulder - Fallen Avatar, instanceID = 875, encounterID = 1873
+		-- Chest 	- Maiden of Vigilance, 	instanceID = 875, encounterID = 1897
+		-- Back 	- The Desolate Host, 	instanceID = 875, encounterID = 1896
+		-- Hands 	- Harjatan, 		instanceID = 875, encounterID = 1856
+		-- Head 	- Demonic Inquisition, 	instanceID = 875, encounterID = 1867
+		-- Legs 	- Mistress Sassz'ine, 	instanceID = 875, encounterID = 1861
+		-- Shoulder 	- Fallen Avatar, 	instanceID = 875, encounterID = 1873
 		sourceTemplate = {
-			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1898),	-- Chest
+			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1897),	-- Chest
 			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1896),	-- Back
 			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1856),	-- Hands
 			EJ_GetInstanceInfo(875).." - "..EJ_GetEncounterInfo(1867),	-- Head

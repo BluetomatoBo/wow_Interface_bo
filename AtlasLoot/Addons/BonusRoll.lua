@@ -6,6 +6,7 @@ local AL = AtlasLoot.Locales
 
 -- lua
 local match = string.match
+local tonumber = tonumber
 
 -- DB
 -- /run BonusRollFrame_StartBonusRoll(227131, "", 180, 1273)
@@ -149,7 +150,7 @@ local BONUS_ROLL_IDS = {
 
 local function LoadQuickLootFrame(self)
 	if AtlasLoot.db.Addons.BonusRoll.enabled and self.spellID and BONUS_ROLL_IDS[self.spellID] then
-		local tierID, instanceID, encounterID = string.split(":", BONUS_ROLL_IDS[self.spellID])
+		local tierID, instanceID, encounterID = strsplit(":", BONUS_ROLL_IDS[self.spellID])
 		QLF:SetEncounterJournalBonusRoll(tonumber(tierID), GetRaidDifficultyID() or 1, tonumber(instanceID), tonumber(encounterID))
 	end
 end

@@ -1,7 +1,7 @@
 --[[
-$Id: LibBabble-ItemSet-3.0.lua 96 2017-03-16 12:18:28Z arith $
+$Id: LibBabble-ItemSet-3.0.lua 100 2017-06-13 08:11:03Z arith $
 Name: LibBabble-ItemSet-3.0
-Revision: $Rev: 96 $
+Revision: $Rev: 100 $
 Maintainers: arith
 Last updated by: $Author: arith $
 Website: http://www.wowace.com/addons/libbabble-itemset-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-ItemSet-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 96 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 100 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -2033,7 +2033,7 @@ elseif GAME_LOCALE == "esES" then
 ["Spring Tuxedo"] = "Esmoquin de primavera",
 ["Stalker's Chain Battlegear"] = "Equipo de batalla de anillas de acechador",
 ["Stormcaller's Garb"] = "Atuendo de clamatormentas",
-["Stormheart Raiment"] = "Vestiduras de Corazón tormentoso",
+["Stormheart Raiment"] = "Vestiduras de corazón tormentoso",
 ["Stormhide Battlegear"] = "Equipo de batalla de Tormentero",
 ["Stormrage Raiment"] = "Vestiduras de Tempestira",
 ["Stormrider's Battlegarb"] = "Atuendo de batalla de jinete de la tormenta",
@@ -6844,7 +6844,7 @@ elseif GAME_LOCALE == "zhCN" then
 ["Grand Marshal's Wartide"] = "大元帅的战争之潮",
 ["Grand Marshal's Wildhide"] = "大元帅的野性之皮",
 ["Grandmaster's Finery"] = "大宗师的盛装",
-["Gravewarden Armaments"] = "守陵人护甲",
+["Gravewarden Armaments"] = "守陵者护甲",
 ["Green Dragon Mail"] = "绿龙锁甲",
 ["Gronnstalker's Armor"] = "戈隆追猎者",
 ["Guise of the Unseen Path"] = "隐秘通途的伪装",
@@ -6931,7 +6931,7 @@ elseif GAME_LOCALE == "zhCN" then
 ["Lightsworn Plate"] = "光誓战铠",
 ["Living Wood Battlegear"] = "活木战甲",
 ["Madcap's Outfit"] = "狂妄者套装",
-["Magister's Regalia"] = "博学者的徽记",
+["Magister's Regalia"] = "博学者",
 ["Magma Plated Battlearmor"] = "熔岩板甲战铠",
 ["Magma Plated Battlegear"] = "熔岩板甲战甲",
 ["Major Mojo Infusion"] = "极效魔精套装",

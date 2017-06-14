@@ -2636,22 +2636,31 @@ data["TombofSargeras"] = {
 			EncounterJournalID = 1897,
 			[RF_DIFF] = NORMAL_RAID_DIFF,
 			[NORMAL_RAID_DIFF] = {
-				{ 1 , 147194 }, -- Band of Rescinded Truths
-				{ 2 , 147058 }, -- Chaos-Calming Wristguards
-				{ 3 , 147050 }, -- Crown of Discarded Hope
-				{ 4 , 147015 }, -- Engine of Eradication
-				{ 5 , 147036 }, -- Fel-Stippled Legguards
-				{ 6 , 147098 }, -- Fragment of Grace
-				{ 7 , 147032 }, -- Gloves of Wayward Compulsions
-				{ 8 , 146993 }, -- Leggings of Divine Portents
-				{ 9 , 147025 }, -- Recompiled Guardian Module
-				{ 10, 147090 }, -- Stabilized Extinction Protocol
-				{ 11, 147060 }, -- Steadfast Purifier's Warboots
-				{ 12, 146999 }, -- Strife-Riddled Cinch
-				{ 13, 147115 }, -- Unfurling Origination
-				{ 14, 147074 }, -- Vambraces of Resolute Justice
-				{ 15, 147094 }, -- Virus of Lethargy
-
+				{ 1 , 147194 },	 -- Band of Rescinded Truths
+				{ 2 , 147050 },	 -- Crown of Discarded Hope
+				{ 3 , 147127 },	 -- Demonbane Harness
+				{ 4 , 147185 },	 -- Diabolic Robe
+				{ 5 , 147015 },	 -- Engine of Eradication
+				{ 6 , 147169 },	 -- Fanged Slayer's Chestguard
+				{ 7 , 147098 },	 -- Fragment of Grace
+				{ 8 , 147032 },	 -- Gloves of Wayward Compulsions
+				{ 9 , 147121 },	 -- Gravewarden Chestplate
+				{ 10, 147175 },	 -- Harness of the Skybreaker
+				{ 11, 146993 },	 -- Leggings of Divine Portents
+				{ 12, 147157 },	 -- Radiant Lightbringer Breastplate
+				{ 13, 147025 },	 -- Recompiled Guardian Module
+				{ 14, 147167 },	 -- Robes of Blind Absolution
+				{ 15, 147149 },	 -- Robes of the Arcane Tempest
+				{ 16, 147090 },	 -- Stabilized Extinction Protocol
+				{ 17, 147060 },	 -- Steadfast Purifier's Warboots
+				{ 18, 147133 },	 -- Stormheart Tunic
+				{ 19, 146999 },	 -- Strife-Riddled Cinch
+				{ 20, 151189 },	 -- Tears of the Maiden
+				{ 21, 147187 },	 -- Titanic Onslaught Breastplate
+				{ 22, 147115 },	 -- Unfurling Origination
+				{ 23, 147094 },	 -- Virus of Lethargy
+				{ 24, 147139 },	 -- Wildstalker Chestguard
+				{ 25, 147151 },	 -- Xuen's Tunic
 			},
 			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
 			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
@@ -2660,31 +2669,29 @@ data["TombofSargeras"] = {
 			EncounterJournalID = 1873,
 			[RF_DIFF] = NORMAL_RAID_DIFF,
 			[NORMAL_RAID_DIFF] = {
-				{ 1 , 147006 }, -- Archive of Faith
-				{ 2 , 146991 }, -- Blackened Mask of Disgrace
-				{ 3 , 147042 }, -- Bracers of Rippling Darkness
-				{ 4 , 147193 }, -- Cape of Mindless Fury
-				{ 5 , 147091 }, -- Cleansing Ignition Catalyst
-				{ 6 , 147111 }, -- Corrupted Containment Coil
-				{ 7 , 147132 }, -- Demonbane Shoulderpads
-				{ 8 , 147186 }, -- Diabolic Mantle
-				{ 9 , 147174 }, -- Fanged Slayer's Shoulderpads
-				{ 10, 147030 }, -- Felscape Pathfinders
-				{ 11, 147126 }, -- Gravewarden Pauldrons
-				{ 12, 147062 }, -- Groundshatter Gauntlets
-				{ 13, 147052 }, -- Legguards of Siphoned Power
-				{ 14, 147168 }, -- Mantle of Blind Absolution
-				{ 15, 147150 }, -- Mantle of the Arcane Tempest
-				{ 16, 147001 }, -- Oathbreaker's Cuffs
-				{ 17, 147180 }, -- Pauldrons of the Skybreaker
-				{ 18, 147162 }, -- Radiant Lightbringer Shoulderguards
-				{ 19, 147102 }, -- Reactive Pylon Casing
-				{ 20, 147138 }, -- Stormheart Mantle
-				{ 21, 147192 }, -- Titanic Onslaught Pauldrons
-				{ 22, 147079 }, -- Torn Fabric of Reality
-				{ 23, 147107 }, -- Valorous Spark of Hope
-				{ 24, 147144 }, -- Wildstalker Spaulders
-				{ 25, 147156 }, -- Xuen's Shoulderguards
+				{ 1 , 147006 },	 -- Archive of Faith
+				{ 2 , 146991 },	 -- Blackened Mask of Disgrace
+				{ 3 , 147042 },	 -- Bracers of Rippling Darkness
+				{ 4 , 147193 },	 -- Cape of Mindless Fury
+				{ 5 , 147091 },	 -- Cleansing Ignition Catalyst
+				{ 6 , 147132 },	 -- Demonbane Shoulderpads
+				{ 7 , 147186 },	 -- Diabolic Mantle
+				{ 8 , 147174 },	 -- Fanged Slayer's Shoulderpads
+				{ 9 , 147030 },	 -- Felscape Pathfinders
+				{ 10, 147126 },	 -- Gravewarden Pauldrons
+				{ 11, 147062 },	 -- Groundshatter Gauntlets
+				{ 12, 147052 },	 -- Legguards of Siphoned Power
+				{ 13, 147168 },	 -- Mantle of Blind Absolution
+				{ 14, 147150 },	 -- Mantle of the Arcane Tempest
+				{ 15, 147001 },	 -- Oathbreaker's Cuffs
+				{ 16, 147180 },	 -- Pauldrons of the Skybreaker
+				{ 17, 147162 },	 -- Radiant Lightbringer Shoulderguards
+				{ 18, 147102 },	 -- Reactive Pylon Casing
+				{ 19, 147138 },	 -- Stormheart Mantle
+				{ 20, 147192 },	 -- Titanic Onslaught Pauldrons
+				{ 21, 147107 },	 -- Valorous Spark of Hope
+				{ 22, 147144 },	 -- Wildstalker Spaulders
+				{ 23, 147156 },	 -- Xuen's Shoulderguards
 			},
 			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
 			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,
@@ -2693,33 +2700,24 @@ data["TombofSargeras"] = {
 			EncounterJournalID = 1898,
 			[RF_DIFF] = NORMAL_RAID_DIFF,
 			[NORMAL_RAID_DIFF] = {
-				{ 1 , 147099 }, -- Boon of the Prophet
-				{ 2 , 147127 }, -- Demonbane Harness
-				{ 3 , 147185 }, -- Diabolic Robe
-				{ 4 , 147169 }, -- Fanged Slayer's Chestguard
-				{ 5 , 146988 }, -- Gloves of Furtive Oppression
-				{ 6 , 147121 }, -- Gravewarden Chestplate
-				{ 7 , 147066 }, -- Greaves of Impure Midnight
-				{ 8 , 147175 }, -- Harness of the Skybreaker
-				{ 9 , 147082 }, -- Man'ari Blood Pact
-				{ 10, 147157 }, -- Radiant Lightbringer Breastplate
-				{ 11, 147167 }, -- Robes of Blind Absolution
-				{ 12, 147149 }, -- Robes of the Arcane Tempest
-				{ 13, 147087 }, -- Ruinous Ashes
-				{ 14, 147195 }, -- Seal of the Second Duumvirate
-				{ 15, 147034 }, -- Shadow-Scarred Headcover
-				{ 16, 147026 }, -- Shifting Cosmic Sliver
-				{ 17, 147072 }, -- Soul-Render's Greatbelt
-				{ 18, 147095 }, -- Sphere of Entropy
-				{ 19, 147046 }, -- Star-Stalker Treads
-				{ 20, 147133 }, -- Stormheart Tunic
-				{ 21, 147007 }, -- The Deceiver's Grand Design
-				{ 22, 147187 }, -- Titanic Onslaught Breastplate
-				{ 23, 147019 }, -- Tome of Unraveling Sanity
-				{ 24, 147048 }, -- Vicegrip of the Unrepentant
-				{ 25, 147347 }, -- Waistguard of Profane Duplicity
-				{ 26, 147139 }, -- Wildstalker Chestguard
-				{ 27, 147151 }, -- Xuen's Tunic
+				{ 1 , 147099 },	 -- Boon of the Prophet
+				{ 2 , 146988 },	 -- Gloves of Furtive Oppression
+				{ 3 , 147066 },	 -- Greaves of Impure Midnight
+				{ 4 , 147082 },	 -- Man'ari Blood Pact
+				{ 5 , 147087 },	 -- Ruinous Ashes
+				{ 6 , 147111 },	 -- Scornful Reflection
+				{ 7 , 147195 },	 -- Seal of the Second Duumvirate
+				{ 8 , 147034 },	 -- Shadow-Scarred Headcover
+				{ 9 , 147026 },	 -- Shifting Cosmic Sliver
+				{ 10, 147072 },	 -- Soul-Render's Greatbelt
+				{ 11, 151190 },	 -- Specter of Betrayal
+				{ 12, 147095 },	 -- Sphere of Entropy
+				{ 13, 147046 },	 -- Star-Stalker Treads
+				{ 14, 147007 },	 -- The Deceiver's Grand Design
+				{ 15, 147019 },	 -- Tome of Unraveling Sanity
+				{ 16, 147079 },	 -- Torn Fabric of Reality
+				{ 17, 147048 },	 -- Vicegrip of the Unrepentant
+				{ 18, 147347 },	 -- Waistguard of Profane Duplicity
 			},
 			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
 			[MYTHIC_PRE_DIFF] = NORMAL_RAID_DIFF,

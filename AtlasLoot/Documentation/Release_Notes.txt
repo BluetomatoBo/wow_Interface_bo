@@ -5,6 +5,14 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.04.00 (Jun. 13, 2017)
+- Tomb of Sargeras loot items updated:
+  - Maiden of Vigilance
+  - Fallen Avatar
+  - Kil'jaeden
+    - Corrupted Containment Coil is now called Scornful Reflection and drops from Kil'jaeden instead of Fallen Avatar
+- Updated T20 set's item source, chest is now drop from Maiden of Vigilance instead of Kil'jaeden
+
 v8.03.07 (May 26, 2017)
 - Fixed issue that no-lib version was not able to locate LibBabble-ItemSet-3.0
 - Fixed mount preview issue
