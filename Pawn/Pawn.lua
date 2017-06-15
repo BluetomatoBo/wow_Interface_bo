@@ -1944,7 +1944,7 @@ end
 function PawnLookForSingleStat(RegexTable, Stats, ThisString, DebugMessages)
 	-- First, perform a series of normalizations on the string.  For example, "Stamina +5" should
 	-- be converted to "+5 Stamina" so we don't need two strings for everything.
-	ThisString = strtrim(ThisString)
+	ThisString = strtrim(gsub(ThisString, "\194\160", " ")) -- replace nbsp with space
 	local Entry, Count
 	for _, Entry in pairs(PawnNormalizationRegexes) do
 		local Regex, Replacement = unpack(Entry)
