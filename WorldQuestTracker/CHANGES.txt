@@ -1,13 +1,7 @@
-changeset:   141:f148f1d1aa7e
-tag:         v7.2.5.141-release
+changeset:   143:8a2af7df9663
+tag:         v7.2.5.143-release
 user:        Tercio
-date:        Tue Jun 13 21:24:23 2017 -0300
-summary:     - 7.2.5 fix for invasion texture issue.
-
-
-changeset:   140:95d91310c2f8
-user:        Tercio
-date:        Tue Jun 13 21:23:53 2017 -0300
-summary:     - 7.2.5 fix for invasion texture issue.
+date:        Thu Jun 15 11:51:11 2017 -0300
+summary:     - fixen an issue where in some cases quests with order hall resources wasn't shown.
 
 
