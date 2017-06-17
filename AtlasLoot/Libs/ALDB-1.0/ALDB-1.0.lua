@@ -1,3 +1,6 @@
+local _G = getfenv(0)
+local LibStub = _G.LibStub
+
 local ALDB_MAJOR, ALDB_MINOR = "ALDB-1.0", 1
 local ALDB, oldminor = LibStub:NewLibrary(ALDB_MAJOR, ALDB_MINOR)
 -- I only use this in AtlasLoot at this time. The overload with newer version isnt tested..
