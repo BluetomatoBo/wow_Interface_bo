@@ -21,8 +21,7 @@ local VALID_THREAD_STATUSES = {
 	["RUNNING"] = true,
 	["DONE"] = true,
 }
-local MAX_QUANTUM_MS = 50
-local MAX_COMBAT_QUANTUM_MS = 10
+local MAX_QUANTUM_MS = 10
 local RETURN_VALUE = {}
 
 
@@ -321,8 +320,12 @@ function private.RunThread(thread, quantum)
 	if thread.state ~= "READY" then return true, 0 end
 	local startTime = debugprofilestop()
 	thread.endTime = startTime + quantum
+	thread.quantumStart = startTime
+	thread.quantumTime = quantum
 	thread.state = "RUNNING"
 	local noErr, returnVal = coroutine.resume(thread.co, thread.obj)
+	thread.quantumStart = nil
+	thread.quantumTime = nil
 	local elapsedTime = debugprofilestop() - startTime
 	if noErr then
 		-- check the returnVal
@@ -400,7 +403,8 @@ function private.RunScheduler(_, elapsed)
 		elseif thread.state == "FORCED_YIELD" then
 			thread.state = "READY"
 		elseif thread.state == "RUNNING" then
-			error("Thread in unexpected state!")
+			-- this shouldn't happen, so just kill this thread
+			TSMAPI.Threading:Kill(threadId)
 		elseif not VALID_THREAD_STATUSES[thread.state] then
 			TSMAPI:Assert(false, "Invalid thread state: "..tostring(thread.state))
 		end
@@ -417,11 +421,7 @@ function private.RunScheduler(_, elapsed)
 	-- run the threads that are ready
 	-- run lower priority threads first so that higher priority threads can potentially get extra time
 	sort(queue, private.threadSort)
-	local remainingTime = min(elapsed * 1000 * 0.75, MAX_QUANTUM_MS)
-	if InCombatLockdown() then
-		-- reduce the remaining time if player is in combat
-		remainingTime = min(elapsed * 1000 * 0.10, MAX_COMBAT_QUANTUM_MS)
-	end
+	local remainingTime = min(elapsed * 1000 * 0.25, MAX_QUANTUM_MS)
 	while remainingTime > 0.01 and #queue > 0 do
 		for i=#queue, 1, -1 do
 			local threadId = queue[i]
@@ -532,6 +532,7 @@ function private:GetCurrentThreadPosition(thread)
 end
 
 function TSMAPI.Debug:GetThreadInfo(targetThreadId)
+	local nowTime = debugprofilestop()
 	local threadInfo = {}
 	for threadId, thread in pairs(private.threads) do
 		if not targetThreadId then
@@ -545,6 +546,8 @@ function TSMAPI.Debug:GetThreadInfo(targetThreadId)
 			local parentThread = TSMAPI.Threading:IsValid(thread.parentThreadId) and private.threads[thread.parentThreadId]
 			temp.parentThreadId = parentThread and (parentThread._name or tostring(parentThread)) or nil
 			temp.state = thread.state
+			temp.quantumRunTime = thread.quantumStart and (nowTime - thread.quantumStart) or nil
+			temp.quantumTime = thread.quantumTime or nil
 			temp.priority = thread.priority
 			temp.sleepTime = thread.sleepTime
 			temp.numMessages = (#thread.messages > 0) and #thread.messages or nil

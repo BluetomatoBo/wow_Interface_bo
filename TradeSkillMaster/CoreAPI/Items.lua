@@ -635,14 +635,17 @@ function private.ItemInfoThread(self)
 				private.newItems[itemString] = nil
 			end
 			numImported = numImported + 1
+			self:Yield()
 		end
 		-- get the instant item info after we load everything
+		local numLoops = 0
 		for itemString in pairs(private.loadedItemInfo) do
 			local info = private.itemInfo[itemString]
 			if not info._getInfoInstantResult then
 				private.StoreGetItemInfoInstantResult(itemString, GetItemInfoInstant(TSMAPI.Item:ToItemID(itemString)))
 			end
-			self:Yield()
+			numLoops = (numLoops + 1) % 100
+			self:Yield(numLoops == 0)
 		end
 	end
 	TSM:LOG_INFO("Imported %d items worth of data", numImported)

@@ -288,6 +288,7 @@ function private.GenerateQueriesThread(self, itemList)
 					end
 				end
 				tinsert(queries, query)
+				self:Yield()
 			end
 		elseif minNumPages == totalPages.class then
 			TSM:LOG_INFO("Should group by class")
@@ -301,6 +302,7 @@ function private.GenerateQueriesThread(self, itemList)
 					end
 				end
 				tinsert(queries, query)
+				self:Yield()
 			end
 		else
 			TSMAPI:Assert(false) -- should never happen
