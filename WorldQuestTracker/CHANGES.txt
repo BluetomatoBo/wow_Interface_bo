@@ -1,7 +1,7 @@
-changeset:   143:8a2af7df9663
-tag:         v7.2.5.143-release
+changeset:   145:9bd2ee26a356
+tag:         v7.2.5.145-release
 user:        Tercio
-date:        Thu Jun 15 11:51:11 2017 -0300
-summary:     - fixen an issue where in some cases quests with order hall resources wasn't shown.
+date:        Sun Jun 18 14:46:35 2017 -0300
+summary:     - Artifact power amount rounded: now showns "10M" instead of "10.0M" or "10.2M".
 
 
