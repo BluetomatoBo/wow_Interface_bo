@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 16243 $"):sub(12, -3)),
-	DisplayVersion = "7.2.7", -- the string that is shown as version
-	ReleaseRevision = 16243 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 16276 $"):sub(12, -3)),
+	DisplayVersion = "7.2.8", -- the string that is shown as version
+	ReleaseRevision = 16276 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -1734,13 +1734,13 @@ do
 		local xNum, yNum = tonumber(x or ""), tonumber(y or "")
 		local success
 		if xNum and yNum then
-			DBM.Arrow:ShowRunTo(xNum, yNum, 0.5, nil, true)
+			DBM.Arrow:ShowRunTo(xNum, yNum, 1, nil, true)
 			success = true
 		else--Check if they used , instead of space.
 			x, y = string.split(",", msg:sub(1):trim())
 			xNum, yNum = tonumber(x or ""), tonumber(y or "")
 			if xNum and yNum then
-				DBM.Arrow:ShowRunTo(xNum, yNum, 0.5, nil, true)
+				DBM.Arrow:ShowRunTo(xNum, yNum, 1, nil, true)
 				success = true
 			end
 		end
@@ -3564,7 +3564,7 @@ end
 --------------------------------
 do
 	local function checkMods(self)
-		if difficultyIndex == 24 then--Timewalking
+		if difficultyIndex == 24 or difficultyIndex == 33 then--Timewalking
 			if (LastInstanceMapID == 540 or LastInstanceMapID == 558 or LastInstanceMapID == 556 or LastInstanceMapID == 555 or LastInstanceMapID == 542 or LastInstanceMapID == 546 or LastInstanceMapID == 545 or LastInstanceMapID == 547 or LastInstanceMapID == 553 or LastInstanceMapID == 554 or LastInstanceMapID == 552 or LastInstanceMapID == 557 or LastInstanceMapID == 269 or LastInstanceMapID == 560 or LastInstanceMapID == 543 or LastInstanceMapID == 585) and not self.Options.BCTWMessageShown and not GetAddOnInfo("DBM-Party-BC") then
 				self.Options.BCTWMessageShown = true
 				AddMsg(self, DBM_CORE_MOD_AVAILABLE:format("DBM-Party-BC"))
@@ -5609,7 +5609,7 @@ do
 							self:AddMsg(DBM_CORE_SCENARIO_STARTED:format(difficultyText..name))
 						else
 							self:AddMsg(DBM_CORE_COMBAT_STARTED:format(difficultyText..name))
-							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 then--Only send relevant content, not guild beating down lich king or LFR.
+							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 or difficultyIndex == 33 then--Only send relevant content, not guild beating down lich king or LFR.
 								if InGuildParty() then--Guild Group
 									SendAddonMessage("D4", "GCB\t"..modId.."\t2\t"..difficultyIndex, "GUILD")
 								end
@@ -5691,7 +5691,7 @@ do
 
 	function DBM:EndCombat(mod, wipe)
 		if removeEntry(inCombat, mod) then
-			local scenario = mod.addon.type == "SCENARIO"
+			local scenario = mod.addon.type == "SCENARIO" and not mod.soloChallenge
 			if mod.inCombatOnlyEvents and mod.inCombatOnlyEventsRegistered then
 				-- unregister all events except for SPELL_AURA_REMOVED events (might still be needed to remove icons etc...)
 				mod:UnregisterInCombatEvents()
@@ -5758,7 +5758,7 @@ do
 							self:AddMsg(DBM_CORE_SCENARIO_ENDED_AT_LONG:format(difficultyText..name, strFromTime(thisTime), totalPulls - totalKills))
 						else
 							self:AddMsg(DBM_CORE_COMBAT_ENDED_AT_LONG:format(difficultyText..name, wipeHP, strFromTime(thisTime), totalPulls - totalKills))
-							if (difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16) and InGuildParty() then--Maybe add mythic plus/CM?
+							if (difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 or difficultyIndex == 33) and InGuildParty() then--Maybe add mythic plus/CM?
 								SendAddonMessage("D4", "GCE\t"..modId.."\t3\t1\t"..strFromTime(thisTime).."\t"..difficultyIndex.."\t"..wipeHP, "GUILD")
 							end
 						end
@@ -5840,7 +5840,7 @@ do
 							msg = DBM_CORE_SCENARIO_COMPLETE:format(difficultyText..name, strFromTime(thisTime))
 						else
 							msg = DBM_CORE_BOSS_DOWN:format(difficultyText..name, strFromTime(thisTime))
-							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 then
+							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 or difficultyIndex == 33 then
 								if InGuildParty() then--Guild Group
 									SendAddonMessage("D4", "GCE\t"..modId.."\t3\t0\t"..strFromTime(thisTime).."\t"..difficultyIndex, "GUILD")
 								end
@@ -5851,7 +5851,7 @@ do
 							msg = DBM_CORE_SCENARIO_COMPLETE_NR:format(difficultyText..name, strFromTime(thisTime), strFromTime(bestTime), totalKills)
 						else
 							msg = DBM_CORE_BOSS_DOWN_NR:format(difficultyText..name, strFromTime(thisTime), strFromTime(bestTime), totalKills)
-							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 then
+							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 or difficultyIndex == 33 then
 								if InGuildParty() then--Guild Group
 									SendAddonMessage("D4", "GCE\t"..modId.."\t3\t0\t"..strFromTime(thisTime).."\t"..difficultyIndex, "GUILD")
 								end
@@ -5862,7 +5862,7 @@ do
 							msg = DBM_CORE_SCENARIO_COMPLETE_L:format(difficultyText..name, strFromTime(thisTime), strFromTime(lastTime), strFromTime(bestTime), totalKills)
 						else
 							msg = DBM_CORE_BOSS_DOWN_L:format(difficultyText..name, strFromTime(thisTime), strFromTime(lastTime), strFromTime(bestTime), totalKills)
-							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 then
+							if difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 16 or difficultyIndex == 33 then
 								if InGuildParty() then--Guild Group
 									SendAddonMessage("D4", "GCE\t"..modId.."\t3\t0\t"..strFromTime(thisTime).."\t"..difficultyIndex, "GUILD")
 								end
@@ -6115,7 +6115,7 @@ function DBM:GetCurrentInstanceDifficulty()
 		return "event20", difficultyName.." - ", difficulty, instanceGroupSize
 	elseif difficulty == 23 then
 		return "mythic", difficultyName.." - ", difficulty, instanceGroupSize
-	elseif difficulty == 24 then
+	elseif difficulty == 24 or difficulty == 33 then
 		return "timewalker", difficultyName.." - ", difficulty, instanceGroupSize
 --	elseif difficulty == 25 then--Used by Ashran in 7.x.
 --		return "pvpscenario", difficultyName.." - ", difficulty, instanceGroupSize
@@ -9638,6 +9638,10 @@ do
 
 	function bossModPrototype:NewSpecialWarningMove(text, optionDefault, ...)
 		return newSpecialWarning(self, "move", text, nil, optionDefault, ...)
+	end
+	
+	function bossModPrototype:NewSpecialWarningGTFO(text, optionDefault, ...)
+		return newSpecialWarning(self, "gtfo", text, nil, optionDefault, ...)
 	end
 	
 	function bossModPrototype:NewSpecialWarningDodge(text, optionDefault, ...)
