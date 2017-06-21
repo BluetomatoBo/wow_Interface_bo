@@ -1,3 +1,6 @@
+local _G = getfenv(0)
+local LibStub = _G.LibStub
+
 local AtlasLoot = _G.AtlasLoot
 local Options = {}
 local AL = AtlasLoot.Locales
@@ -49,6 +52,7 @@ local function atlasloot(gui, content)
 		:Size("full")
 		:Text(AL["Show AtlasLoot button on WorldMap's title bar."])
 		:DB(db.WorldMap, "buttonOnTitleBar", AtlasLoot.WorldMap.ButtonStyleOnChange)
+		--:SetDisabled(not db.WorldMap.showbutton)
 
 		
 end

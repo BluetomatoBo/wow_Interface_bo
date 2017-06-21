@@ -10,7 +10,6 @@ AtlasLoot.GUI = GUI
 
 -- lua
 local type, tonumber, tostring = type, tonumber, tostring
-local unpack = unpack
 local tab_insert = table.insert
 local str_format = string.format
 

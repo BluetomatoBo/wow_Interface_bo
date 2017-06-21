@@ -1,13 +1,15 @@
+local _G = getfenv(0)
+local LibStub = _G.LibStub
+
 local ALOPTIONS_MAJOR, ALOPTIONS_MINOR = "ALOptions-1.0", 1
 local ALOptions, oldminor = LibStub:NewLibrary(ALOPTIONS_MAJOR, ALOPTIONS_MINOR)
 -- I only use this in AtlasLoot at this time. The overload with newer version isnt tested..
 if not ALOptions then return end -- No upgrade needed
 
 -- lua
-local assert, select = assert, select
+local assert, select, unpack = assert, select, unpack
 local setmetatable, rawset, pairs = setmetatable, rawset, pairs
 local min, floor = math.min, math.floor
-
 
 -- data register
 local Data = {}
@@ -18,6 +20,7 @@ local mainFrame = nil
 -- gui functions for widgets
 local GUI = {}
 ALOptions.GUI = GUI
+local db = AtlasLoot.db
 
 function ALOptions:Register(addonName, frameTitle, addonVersion, savedVariables, contentTable)
 	assert(addonName and addonName ~= "", "No empty addonNames allowed.")
@@ -63,11 +66,13 @@ end
 
 local function FrameOnDragStop(self)
 	self:StopMovingOrSizing()
+	local a, b, c, d, e = self:GetPoint()
+	db.OptionsFrame.point = { a, b, c, d, e }
 end
 
 -- ## selection frame functions
 local SELECT_FRAME_LEVEL = {
-	[1] = { textX = 5, 	textY = 0, textColor = { r = 1.0, 	g = 0.82, 	b = 0.0, 	a = 1.0 },		fontObject = "GameFontNormal" },
+	[1] = { textX = 5, textY = 0, textColor = { r = 1.0, 	g = 0.82, 	b = 0.0, 	a = 1.0 },		fontObject = "GameFontNormal" },
 	[2] = { textX = 15, textY = 0, textColor = { r = 1.0, 	g = 1.0, 	b = 1.0, 	a = 1.0 },		fontObject = "GameFontNormalSmall" },
 	[3] = { textX = 25, textY = 0, textColor = { r = 1.0, 	g = 1.0,	b = 1.0, 	a = 1.0 },		fontObject = "GameFontNormalSmall" },
 }
@@ -303,10 +308,12 @@ end
 
 function ALOptions:Show(title)
 	if not mainFrame then
+		local point, relativeTo, relativePoint, ofsx, ofsy = unpack(db.OptionsFrame.point)
+		
 		mainFrame = CreateFrame("FRAME", "ALOptions_frame")
 		mainFrame:ClearAllPoints()
 		mainFrame:SetParent(UIParent)
-		mainFrame:SetPoint("CENTER")
+		mainFrame:SetPoint(point or "CENTER", nil, relativePoint or "CENTER", ofsx or 0, ofsy or 0)
 		mainFrame:SetSize(810, 550)
 		mainFrame:SetMovable(true)
 		mainFrame:EnableMouse(true)

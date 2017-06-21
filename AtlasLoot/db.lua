@@ -42,6 +42,9 @@ AtlasLoot.AtlasLootDBDefaults = {
 			useContentColor = false,
 		},
 	},
+	OptionsFrame = {
+		point = { "CENTER", nil, "CENTER", 0, 0 },
+	},
 	Map = {		-- Map\
 		point = {"CENTER"},
 		locked = false,

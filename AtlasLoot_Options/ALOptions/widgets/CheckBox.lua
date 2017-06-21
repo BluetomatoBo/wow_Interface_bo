@@ -9,6 +9,7 @@ local STD_SIZE = 24
 local widgetMethods = {
 	OnAdd = function(self)
 		self:Text():TextColor()
+		self:SetDisabled(nil)
 		return self
 	end,
 	OnDBSet = function(self, value)
@@ -28,6 +29,17 @@ local widgetMethods = {
 			self.text:SetFontObject(self.curFontObject)
 		end
 		return self
+	end,
+	SetDisabled = function(self, disabled)
+		self.disabled = disabled
+		if disabled then
+			self.frame:Disable()
+			self.text:SetTextColor(0.5, 0.5, 0.5)
+			SetDesaturation(self.check, true)
+		else
+			self.frame:Enable()
+			self.text:SetTextColor(1, 0.82, 0)
+		end
 	end,
 	-- H = CENTER, LEFT, RIGHT
 	-- V = BOTTOM, MIDDLE, TOP
@@ -81,7 +93,6 @@ local function Create()
 		text = text,
 		check = check,
 		
-		
 		type = Type,
 		version = Version,
 		
@@ -90,8 +101,8 @@ local function Create()
 	}
 	frame.obj = widget
 	
-	for k,v in pairs(widgetMethods) do
-		widget[k] = v
+	for method, func in pairs(widgetMethods) do
+		widget[method] = func
 	end
 	return ALOptions.GUI:SetWidgetBase(widget)
 end
