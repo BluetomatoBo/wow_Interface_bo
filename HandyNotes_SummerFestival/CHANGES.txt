@@ -1,0 +1,32 @@
+tag ec55b66a5575970213a93a300bdbd9fd2f1f0cf0 v1.4
+Author:	Ethan Centaurai <ethancentaurai@outlook.com>
+Date:	Wed Jun 21 22:25:31 2017 +0100
+
+Tagging as v1.4.
+
+commit 02bc6550d2c21c0fd304aed027274b0814e0902f
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Wed Jun 21 22:19:50 2017 +0100
+
+    Bump Interface number to 70200.
+
+commit c41ba41661ff6ad375dda56c01604b9e1b74831d
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Wed Jun 21 22:17:34 2017 +0100
+
+    Added Horde bonfires in Draenor and Broken Isles.
+
+commit c80542f2c8ce678423b2d23b612906d8bf0cf6ad
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Wed Jun 21 21:42:05 2017 +0100
+
+    Added Alliance bonfires in Draenor and Broken Isles.
+
+commit c25d3c3ce535a635d8150045f4460b359be90195
+Author: Benjamin Staneck <Stanzilla@users.noreply.github.com>
+Date:   Wed Jun 21 17:25:41 2017 +0200
+
+    Update Core.lua
+    
+    Change texture path check to texture id
+

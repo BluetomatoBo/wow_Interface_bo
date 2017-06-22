@@ -371,3 +371,52 @@ points["ValleyoftheFourWinds"] = {
 -------------
 -- Draenor --
 -------------
+
+points["ShadowmoonValleyDR"] = {
+	[42623595] = "44579:H", -- Embaari Village
+}
+
+points["FrostfireRidge"] = {
+	[72566501] = "44583:D", -- Grom'gar
+}
+
+points["Gorgrond"] = {
+	[43939374] = "44573:H", -- Orunai Coast
+}
+
+points["Talador"] = {
+	[43507173] = "44571:H", -- Auchindoun
+}
+
+points["SpiresOfArak"] = {
+	[47984466] = "44570:H", -- Veil Terrokk
+}
+
+points["NagrandDraenor"] = {
+	[80504770] = "44572:H", -- The Ring of Trials
+}
+
+------------------
+-- Broken Isles --
+------------------
+
+points["Azsuna"] = {
+	[48282966] = "44574:H", -- Llothien Highlands
+}
+
+points["Highmountain"] = {
+	[55538447] = "44576:H", -- Ironhorn Bluffs
+}
+
+points["Stormheim"] = {
+	[32514214] = "44577:H", -- Weeping Bluffs
+}
+
+points["Valsharah"] = {
+	[44875789] = "44575:H", -- Howling Dale
+}
+
+points["Suramar"] = {
+	[30404540] = "44627:D", -- Ambervale
+	[22855830] = "44613:H", -- Felsoul Hold
+}
