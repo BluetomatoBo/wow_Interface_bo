@@ -5,6 +5,10 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.04.03 (Jun. 22, 2017)
+- Midsummer Fire Festival update:
+  - Added Illusion: Deathfrost (dropped from Ahune), Set of Matches, Igneous Flameling
+
 v8.04.02 (Jun. 21, 2017)
 - Options frame will now remembered its position once get dragged
 ## information for Devs

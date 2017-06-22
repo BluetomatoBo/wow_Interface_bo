@@ -990,7 +990,8 @@ data["MidsummerFireFestival"] = {
 				{ 16, 117394 },	-- Satchel of Chilled Goods
 				{ 17, "117373:1800" },	-- Frostscythe of Lord Ahune
 				{ 18, 53641, "pet253" },	-- Ice Chip
-				{ 19, 23247 },	-- Burning Blossom
+				{ 20, 138838 }, -- Illusion: Deathfrost
+				{ 22, 23247 },	-- Burning Blossom
 			},
 		},
 		{	--MidsummerFireFestival
@@ -999,29 +1000,33 @@ data["MidsummerFireFestival"] = {
 				{ 1, 34686, [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Brazier of Dancing Flames
 				{ 2, 116440, [PRICE_EXTRA_ITTYPE] = "burningblossom:500" },	-- Burning Defender's Medallion
 				{ 3, 116435, [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Cozy Bonfire
-				{ 4, 23083, "pet128", [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Captured Flame
-				{ 5, 116439, "pet1517", [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Blazing Cindercrawler
+				{ 4, 141649, [PRICE_EXTRA_ITTYPE] = "burningblossom:500" },	-- Set of Matches
+				
+				{  6, 23246, [PRICE_EXTRA_ITTYPE] = "burningblossom:2" },	-- Fiery Festival Brew
+				{  7, 23435, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Elderberry Pie
+				{  8, 23327, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Fire-Toasted Bun
+				{  9, 23326, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Midsummer Sausage
+				{ 10, 23211, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Toasted Smorc
+				{ 11, 34684, [PRICE_EXTRA_ITTYPE] = "burningblossom:2" },	-- Handful of Summer Petals
+				{ 12, 23215, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Bag of Smorc Ingredients
+				{ 13, 34599, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Juggling Torch
+				
+				{ 16, 23083, "pet128", [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Captured Flame
+				{ 17, 116439, "pet1517", [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Blazing Cindercrawler
+				{ 18, 141714, "pet1949", [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Igneous Flameling
 
-				{ 7, 23246, [PRICE_EXTRA_ITTYPE] = "burningblossom:2" },	-- Fiery Festival Brew
-				{ 8, 23435, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Elderberry Pie
-				{ 9, 23327, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Fire-Toasted Bun
-				{ 10, 23326, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Midsummer Sausage
-				{ 11, 23211, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Toasted Smorc
-				{ 12, 34684, [PRICE_EXTRA_ITTYPE] = "burningblossom:2" },	-- Handful of Summer Petals
-				{ 13, 23215, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Bag of Smorc Ingredients
-				{ 14, 34599, [PRICE_EXTRA_ITTYPE] = "burningblossom:5", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Juggling Torch
-				{ 16, 23323, [QUEST_EXTRA_ITTYPE] = 9365 },	-- Crown of the Fire Festival
-				{ 17, 74278, [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Helm of the Fire Festival
-				{ 18, 23324, [PRICE_EXTRA_ITTYPE] = "burningblossom:100" },	-- Mantle of the Fire Festival
-				{ 19, 34685, [PRICE_EXTRA_ITTYPE] = "burningblossom:100" },	-- Vestment of Summer
-				{ 20, 34683, [PRICE_EXTRA_ITTYPE] = "burningblossom:200" },	-- Sandals of Summer
-				{ 22, 122338, [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Ancient Heirloom Armor Casing
-				{ 23, 122340, [PRICE_EXTRA_ITTYPE] = "burningblossom:600" },	-- Timeworn Heirloom Armor Casing
-				{ 35, 23247 },	-- Burning Blossom
+				{ 20, 23323, [QUEST_EXTRA_ITTYPE] = 9365 },	-- Crown of the Fire Festival
+				{ 21, 74278, [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Helm of the Fire Festival
+				{ 22, 23324, [PRICE_EXTRA_ITTYPE] = "burningblossom:100" },	-- Mantle of the Fire Festival
+				{ 23, 34685, [PRICE_EXTRA_ITTYPE] = "burningblossom:100" },	-- Vestment of Summer
+				{ 24, 34683, [PRICE_EXTRA_ITTYPE] = "burningblossom:200" },	-- Sandals of Summer
+				{ 26, 122338, [PRICE_EXTRA_ITTYPE] = "burningblossom:350" },	-- Ancient Heirloom Armor Casing
+				{ 27, 122340, [PRICE_EXTRA_ITTYPE] = "burningblossom:600" },	-- Timeworn Heirloom Armor Casing
+				{ 29, 23247 },	-- Burning Blossom
 			},
 			[HORDE_DIFF] = {
 				GetItemsFromDiff = ALLIANCE_DIFF,
-				{ 16, 23323, [QUEST_EXTRA_ITTYPE] = 9339 },	-- Crown of the Fire Festival
+				{ 20, 23323, [QUEST_EXTRA_ITTYPE] = 9339 },	-- Crown of the Fire Festival
 			},
 		},
 	}
