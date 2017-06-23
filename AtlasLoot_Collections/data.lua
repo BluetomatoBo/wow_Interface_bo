@@ -529,7 +529,7 @@ data["TIMEWALKINGEVENT"] = {
 	name = AL["Timewalking Dungeon Event"],
 	ContentType = COLLECTION_CONTENT,
 	items = {
-		{
+		{-- The Burning Crusade
 			name = EXPANSION_NAME1,
 			[NORMAL_DIFF] = {
 				{ 1, 129923, "mount", [PRICE_EXTRA_ITTYPE] = "timewarped:5000" }, -- Reins of the Eclipse Dragonhawk
@@ -550,7 +550,7 @@ data["TIMEWALKINGEVENT"] = {
 				{ 28, 129951, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of Lower City
 			},
 		},
-		{
+		{-- Wrath of the Lich King
 			name = EXPANSION_NAME2,
 			[NORMAL_DIFF] = {
 				{ 1, 129922, "mount", [PRICE_EXTRA_ITTYPE] = "timewarped:5000" }, -- Bridle of the Ironbound Wraithcharger
@@ -572,7 +572,7 @@ data["TIMEWALKINGEVENT"] = {
 
 			},
 		},
-		{
+		{-- Cataclysm
 			name = EXPANSION_NAME3,
 			[NORMAL_DIFF] = {
 				{ 1, 133511, [PRICE_EXTRA_ITTYPE] = "timewarped:1500" }, -- Gurboggle's Gleaming Bauble
@@ -590,6 +590,40 @@ data["TIMEWALKINGEVENT"] = {
 				{ 24, 133152, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of the Guardians of Hyjal
 			},
 		},
+		{-- Mists of Pandaria
+			name = EXPANSION_NAME4,
+			[NORMAL_DIFF] = {
+				{ 1, 143953, "pet2017", [PRICE_EXTRA_ITTYPE] = "timewarped:2200" }, -- Infinite Hatchling, pet2017
+				{ 2, 143954, "pet2018", [PRICE_EXTRA_ITTYPE] = "timewarped:2200" }, -- Infinite Hatchling, pet2018
+				{ 4, 87775, "mount", [PRICE_EXTRA_ITTYPE] = "timewarped:5000" }, -- Yu'lei, Daughter of Jade, mount476
+				{ 6, 144393, [PRICE_EXTRA_ITTYPE] = "timewarped:500" }, -- Portable Yak Wash
+				{ 7, 144072, [PRICE_EXTRA_ITTYPE] = "timewarped:1000" }, -- Adopted Puppy Crate, toy
+				{ 9, 143948, [PRICE_EXTRA_ITTYPE] = "timewarped:25" }, -- Chilled Satchel of Vegetables
+				{ 10, 88995, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Shado-Pan Dragon Gun
+				{ 12, 143935, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of The Klaxxi
+				{ 13, 143936, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of the Shado-Pan
+				{ 14, 143937, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of the Golden Lotus
+				{ 15, 143938, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of The August Celestials
+				{ 16, 143939, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of the Sunreaver Onslaught
+				{ 17, 143940, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of the Kirin Tor Offensive
+				{ 18, 143941, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of The Tillers
+				{ 19, 143942, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of the Order of the Cloud Serpent
+				{ 20, 143943, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of the Dominance Offensive
+				{ 21, 143944, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of Operation: Shieldwall
+				{ 22, 143945, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of the Shado-Pan Assault
+				{ 23, 143946, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of The Anglers
+				{ 24, 143947, [PRICE_EXTRA_ITTYPE] = "timewarped:50" }, -- Commendation of Emperor Shaohao
+				{ 26, 104228 },
+				{ 28, "ac6927", 87769},
+				{ 30, 143776 }, -- Shrouded Timewarped Coin
+			},
+		},
+		--[[
+		{-- Warlords of Draenor
+			name = EXPANSION_NAME5,
+			[NORMAL_DIFF] = {
+			},
+		},]]
 	},
 }
 
