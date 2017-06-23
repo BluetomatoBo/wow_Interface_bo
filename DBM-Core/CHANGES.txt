@@ -1,251 +1,231 @@
-tag 096b433ae6da1dee76eafdb030a097a228cc138c 7.2.8
+tag 1b5a032f1b53c6adb8e7e3d26c15faf3b1b2d052 7.2.9
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Mon Jun 19 23:24:56 2017 +0200
+Date:	Thu Jun 22 20:36:31 2017 +0200
 
-Tagging as 7.2.8
+Tagging as 7.2.9
 
-commit fb5b55c31f5b2f08c82d09d7ca2d52811d711b23
+commit 943e2b2077c4aa4876705923e69ae3e6878eab8a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 19 23:24:56 2017 +0200
+Date:   Thu Jun 22 20:35:34 2017 +0200
 
-    increment version number to 7.2.8
+    increment version number to 6.2.9
 
-commit 47e173846957675fdb88458450083bb472d7aa5a
+commit 61e25350295a0b4c521d388a7597ba11f1b71500
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 19 06:14:11 2017 +0200
+Date:   Thu Jun 22 15:37:03 2017 +0200
 
-    Omega via svn r16276:
-    Generic GTFO for future use. some mods have 4+ GTFO warnings now, they should be combined instead of having multiple options.
+    ultrashining via svn r16301:
+    zhTW update
 
-commit fb712d9d02e58c48c0692cf25c47051a48fe899c
+commit 183fa0febeea0ad0a1cbc9477ca4292ecd355a4b
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jun 15 03:40:22 2017 +0200
+Date:   Thu Jun 22 10:45:20 2017 +0200
 
-    Omega via svn r16275:
-    Fix bug where info frame doesn?\226?\128?\153t hide on combat end
+    Omega via svn r16300:
+    Fix lua error
+    Bump version
 
-commit f48fd53cb41a76187511ff6aacc2d7a070b95caa
+commit 653aaad5b7a2aec981d4479a2b45af37ef46d732
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jun 15 00:09:12 2017 +0200
+Date:   Thu Jun 22 09:00:15 2017 +0200
 
-    Omega via svn r16274:
-    make dway less strict about reaching arrow point before closing
+    Omega via svn r16299:
+    Make sure icons get removed too
 
-commit c98217fb26ab80ce6930e5fe394572b4eb41af15
+commit 9df30dc41162f9664c2f07a03d2631ceb761ae0a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jun 14 22:17:47 2017 +0200
+Date:   Thu Jun 22 08:19:01 2017 +0200
 
-    Omega via svn r16273:
-    CN update
+    Omega via svn r16298:
+    Add auto icon setting for bursting dreadflame
+    Add infoframe for showing who is or isn?\226?\128?\153t safe in a rift during darkness
+    clean up notes
 
-commit 57a3c74dca52dcc419f7ab9997e6500f202fe035
+commit a8e97cafa760b1d2d85487f58647c03000d79963
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jun 14 22:16:55 2017 +0200
+Date:   Thu Jun 22 08:02:34 2017 +0200
 
-    Omega via svn r16272:
-    Some ana fixes
+    Omega via svn r16297:
+    Disable spammy warning on Sasszine
+    shorten respawn time for sisters of the moon
+    Add icon option to automark fel/light tanks on maiden
+    Fix bug that caused wailing cries timer not to start for 2nd wailing+ on host
+    Removed some buggy and not very accurate timers from host.
+    Attempt to make soulbind timer more accurate though.
 
-commit 4e2e0f2f0d564ad144065886f9d7db6ff76c8e60
+commit ddb8490befb45326814d4a91bb4efbf484a71ecf
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jun 14 08:01:56 2017 +0200
+Date:   Thu Jun 22 06:04:20 2017 +0200
 
-    Omega via svn r16271:
-    Add voice for echo so it no longer uses generic sound if voice pack is installed
-    tweaked one timer by 1 second
-    reduced chosen fate spam
+    Omega via svn r16296:
+    Fix lua error and fix missing spellID
 
-commit 147a530806332ae7ee4d3c432ba80152902b7ba9
+commit d04d499338070a1c1b603b2c2c65d324feabd75f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jun 14 06:22:58 2017 +0200
+Date:   Thu Jun 22 06:00:03 2017 +0200
 
-    Omega via svn r16270:
-    Change host back to this way and flip range frame logics which had filters backwards
+    Omega via svn r16295:
+    Tweak return infoframe too
 
-commit 87ead1ab6e213e55d6c3022f993c58d502e166ad
+commit 30cb5722c99440276bc8b4fedbff63d8847ff374
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 13 20:15:35 2017 +0200
+Date:   Thu Jun 22 05:55:08 2017 +0200
 
-    Omega via svn r16269:
-    KR update
+    Omega via svn r16294:
+    Header too
 
-commit f394340b339571c02af6596f5cecf517244353a9
+commit 720cf1519dbe25b3ca3900ffdaf94c3df2996246
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 12 07:21:00 2017 +0200
+Date:   Thu Jun 22 05:54:09 2017 +0200
 
-    Omega via svn r16268:
-    Don?\226?\128?\153t treat solochallenge scenarios as scenarios when reporting win/wipe, this way boss HP is reported in wipe.
-    sync TW raid engage/defeat messages if guild group
+    Omega via svn r16293:
+    Fix shield tracker
 
-commit c902ff8aae0de84979fa76573c53478cad560fc0
+commit a9904c1279a8b4816ed07110b13751aae98bb1e5
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jun 8 09:39:41 2017 +0200
+Date:   Thu Jun 22 05:43:05 2017 +0200
 
-    Omega via svn r16267:
-    Minor tweaks
+    Omega via svn r16292:
+    another tweak
 
-commit 2318f4087eba1714fe8b876c71809bbf6128b1e1
+commit 2cc41c0f9d8fb9a87caf2e713ff452edf0f31c0e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jun 7 06:20:13 2017 +0200
+Date:   Thu Jun 22 05:17:05 2017 +0200
 
-    Omega via svn r16266:
-    HF rev
+    Omega via svn r16291:
+    Tweak that more
 
-commit c8c41feb370bd2fa62126325ab0ae1892213dcd2
+commit c7b5b19df62e3dcdcd2d94886130575bafb71461
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jun 7 06:19:13 2017 +0200
+Date:   Thu Jun 22 03:42:01 2017 +0200
 
-    Omega via svn r16265:
-    Fix bug that caused singularity timer not to start for last one of phase
+    Omega via svn r16290:
+    Fix the fix
 
-commit 1eec10663884f9ba1a1166806131abbad6c2f340
+commit 26e627cead5e9b63a13853f8cc82a2e4e4b6a213
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 3 22:53:21 2017 +0200
+Date:   Thu Jun 22 02:17:12 2017 +0200
 
-    Omega via svn r16264:
-    The drop down menus can?\226?\128?\153t be fixed right now, so at east add a note about menu scrolling.
+    Omega via svn r16289:
+    Bump all HF revisions
 
-commit 9303c994db9dd3a5424a2fb2a6aff33857c7fe77
+commit 3d4ea32b7fe0935fde46b40d8856acd12806dfe7
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 3 08:47:27 2017 +0200
+Date:   Thu Jun 22 02:15:43 2017 +0200
 
-    Omega via svn r16263:
-    Make sure 240910 is watched
+    Omega via svn r16288:
+    MASSIVE KilJaeden update, too much to list.
 
-commit bd88baa58f6bef352d57d24cead1f7fdca184fd1
+commit 09badcf363e7e3d8037328acab66538e2f74ab95
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 3 08:37:14 2017 +0200
+Date:   Wed Jun 21 22:52:11 2017 +0200
 
-    Omega via svn r16262:
-    Couple more timers that can kinda work in
+    Omega via svn r16287:
+    #Fallen Avatar update
+    Icons can now be set on Shadowy Blades
+    Fixed some heroic/mythic only timers showing on normal/lfr
+    Added a new timer/countdown and warning for tanks to move maiden to new beams when they change locations
+    Added countdown for rupture realities (phase 2 only, phase 1 has too much variation, upwards of 7 seconds)
+    Fixed ruptured realities timer in phase 2
 
-commit 09939e46b9d7991d18cf157e16b17bc1c0e85c7c
+commit 157533f8faf66aa560d981fcb3f4dc8a515387d5
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 3 08:29:24 2017 +0200
+Date:   Wed Jun 21 21:05:10 2017 +0200
 
-    Omega via svn r16261:
-    Some minor phase 1 first timers for KJ. without phase changes in CLEU though can?\226?\128?\153t properly do any other timers.
-    Fix armageddon cast trigger, it is in CLEU.
+    Omega via svn r16286:
+    Somehow these didn?\226?\128?\153t make last commit.. Fix missing timers for phase 2 Desolate Host
 
-commit b33a729514cee29ba4b50e17af37ccc5ba76c714
+commit e05c898ef53ac073a1ab4c2d0e040b15d0d85606
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 3 08:08:04 2017 +0200
+Date:   Wed Jun 21 19:57:39 2017 +0200
 
-    Omega via svn r16260:
-    fix draw in, which no longer fires SUCCESS event
-    Code cleanup and hack removal for draw in bug that seems fixed.
-    Tweak first draw in timer
-    Other fixes
+    Omega via svn r16285:
+    Add countdowns to maiden to make it easier
 
-commit e9e0e2d97cb7a058dd16486a194b7a63fde1fa80
+commit ad81697b6b4dd43e376ccd8263217e9a3c941e32
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 3 06:16:04 2017 +0200
+Date:   Wed Jun 21 11:15:44 2017 +0200
 
-    Omega via svn r16259:
-    Missed some stuff
+    Omega via svn r16284:
+    #Fallen Avatar
+    Announce shadowy Blades targets
+    Personal warning/yell for shadowy blades as well
+    Will do more later, I?\226?\128?\153m spent, this was probably one of biggest todo on this boss. I?\226?\128?\153ll finish this boss, and KJ tomorrow
 
-commit 394516cbfb7009c7852ff669319d8d62f6657962
+commit 8e555a5d559e4216646c0ddd4d4282dddbe8674d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 2 00:26:02 2017 +0200
+Date:   Wed Jun 21 11:01:15 2017 +0200
 
-    Omega via svn r16258:
-    Disable taskmaster on Harjatan, that mechanic seems to be removed from game, or at very least removed from journal
-    add combat message to KJ
+    Omega via svn r16283:
+    #Desolate Host
+    Fix phased realm detection
+    Added phase 2 detection and timers
+    Fixed missing spellId causing Wailing Souls warning not to work
+    Added Icon marking for Soulbind
+    Some timer fixes
+    Scrapped scream timer to reduce spam
+    Added yell to tormenting Cries
+    Fixed info frame and range frames from showing even if disabled
 
-commit c32c4aca961175fdb14133ce8b0b0e8e700f74d1
+commit a1119bb23b10ab9390d6862ec0003ea536b363bd
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jun 1 04:52:57 2017 +0200
+Date:   Wed Jun 21 10:10:20 2017 +0200
 
-    Omega via svn r16257:
-    Add some more singularity IDs that can cause missing timers
+    Omega via svn r16282:
+    #Demonic Inquisition
+    Add stack warning to below realm
+    
+    #Harjatan
+    Fixed bug with friggid blows stack warning not giving correct counts
+    
+    #Sasszine
+    Fixed icon for DevouringMaw warning
+    Changed summon Ossunet warning to a clearer ?\226?\128?\156Befouling Ink?\226?\128?\157 warning
+    Account for the fact first slicing tornado comes later on normal than it does on heroic
+    
+    #Sisters of the Moon
+    Add yell to twilight follow in phase 2 when bosses target can be seen
+    Fixed some timers that were too long
+    Better timers on phase 3 transition
+    Better voice for Twilight Volley
+    Lunar Beacon timer now done
 
-commit ca0276cdeda3da058124c019ecc82b2468c56d27
+commit c37f31b2e9603262f1f3a76a16468aa3d575deff
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 31 06:58:28 2017 +0200
+Date:   Wed Jun 21 07:30:18 2017 +0200
 
-    Omega via svn r16256:
-    Kill redundant timer on Etraeus, don?\226?\128?\153t need timer for grav pull an thing, especially since thing pops out early if tank dies.
-    Changed yells and timers on guldan to use shorter text names for bonds of fel and storm of destroyer
-    Fixed timer bug for carrion nightmare on tichondrius which was showing ?\226?\128?\156unknown?\226?\128?\157 instead of a number for count.
+    Omega via svn r16281:
+    #Demonic Inquisition
+    Improved timer accuracy by updating them after any ability cast
+    Changed voice/special warnings for bone saw and fel squall to be more clear that only melee should run out and everyone else should just stop attacking
+    Disabled Calcified Quills timer in normal/LFR
 
-commit aeb60b19e2dd17a0d9177d93238259165043c627
+commit 370a6c883320746117739247d5c87e96089b3a18
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 31 06:25:13 2017 +0200
+Date:   Wed Jun 21 06:33:35 2017 +0200
 
-    Omega via svn r16255:
-    added taunt warning to burst if burst is applied to tank currently on elisande
-    Tweaked timing on add count for voice pack on phase3 guldan
-    added missing run out warning to this weeks trash world quest.
+    Omega via svn r16280:
+    #Goroth
+    Fix comet double message from UNIT AURA changes, (now has a valid CLEU event anyways)
+    also fix timer related to them moving comet UNIT event to a diff timing.
+    Fix range checker showing 25 instead of 10 on LFR/normal
+    #Sasszine
+    Fixed hydra shot warning giving number instead of name
+    #Sisters of the Moon
+    Fixed info frame not hiding on combat end (still have to fix it being blank)
 
-commit 2cca6f686234ad4ee992a2e40a50c8706d851d73
+commit cc4a36d172ecc35e9623fa3ee0c0617a3f0db267
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue May 30 20:59:25 2017 +0200
+Date:   Wed Jun 21 04:54:21 2017 +0200
 
-    Omega via svn r16254:
-    Fix lua error on Maiden of Vigilance
+    Omega via svn r16279:
+    Fix spammy yell, off that by default.
+    A LOT more to fix later but this is a quick fix
 
-commit 28d001cdd2d1cd5c1928e38fc9b53689465020ab
+commit b279d10f942f96657cf2933ab900f9dae9449547
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat May 27 04:12:39 2017 +0200
+Date:   Mon Jun 19 23:27:32 2017 +0200
 
-    Omega via svn r16253:
-    Update heroic Anomaly data
-
-commit a3d443c7ef5ce56fe4914a97755d8319eab18e5d
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat May 27 01:58:03 2017 +0200
-
-    Omega via svn r16252:
-    Comment updates, and update one timer from todays mythic testing
-
-commit 6c59569d369aa5bf9b07698d73593dfe9d9d2b76
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 26 01:18:14 2017 +0200
-
-    Omega via svn r16251:
-    some timer updates from todays mythic testing
-
-commit 94f0c77e467f586d3b3a3992f65c5eddd74a00ac
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 25 07:34:07 2017 +0200
-
-    Omega via svn r16250:
-    Fix orb
-
-commit ed69385cdddcb6162944e1679c03bb2c26a12f4c
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 25 05:55:10 2017 +0200
-
-    Omega via svn r16249:
-    Fix run to edge voice playing for everyone
-    Change run to edge to ranged DPS only warning
-    Add audio count to add spawns in phase 3 guldan voice pack
-
-commit 03c3be8d8c947878041e57c869c6d595ceb3fa47
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 24 23:58:33 2017 +0200
-
-    Omega via svn r16248:
-    Couple tweaks
-
-commit 20e311a874a63ea3030b0b1fdab0e49bb737ef84
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 24 20:43:57 2017 +0200
-
-    Omega via svn r16247:
-    Add other timewalking difficulty index
-
-commit 40885ebbc5061d1de1dc258b9d0cad5d149308b8
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 24 11:03:29 2017 +0200
-
-    Omega via svn r16246:
-    remove a bad radar/hud message that should have been removed in patch 7.1, how did no one report this. :o
-    Change voice used by call of night
-
-commit 34016ef39fa9203f727f15f446667bd984abcb44
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue May 23 22:02:21 2017 +0200
-
-    tandanu via svn r16245:
+    tandanu via svn r16278:
     increment alpha version
 
