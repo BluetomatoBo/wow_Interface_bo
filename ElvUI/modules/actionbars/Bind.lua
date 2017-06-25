@@ -63,7 +63,9 @@ end
 function AB:BindHide()
 	bind:ClearAllPoints();
 	bind:Hide();
-	GameTooltip:Hide();
+	if not GameTooltip:IsForbidden() then
+		GameTooltip:Hide();
+	end
 end
 
 function AB:BindListener(key)
@@ -77,7 +79,9 @@ function AB:BindListener(key)
 		end
 		E:Print(format(L["All keybindings cleared for |cff00ff00%s|r."], bind.button.name));
 		self:BindUpdate(bind.button, bind.spellmacro);
-		if bind.spellmacro~="MACRO" then GameTooltip:Hide(); end
+		if bind.spellmacro~="MACRO" and not GameTooltip:IsForbidden() then 
+			GameTooltip:Hide();
+		end
 		return;
 	end
 
@@ -107,7 +111,9 @@ function AB:BindListener(key)
 	end
 	E:Print(alt..ctrl..shift..key..L[" |cff00ff00bound to |r"]..bind.button.name..".");
 	self:BindUpdate(bind.button, bind.spellmacro);
-	if bind.spellmacro~="MACRO" then GameTooltip:Hide(); end
+	if bind.spellmacro~="MACRO" and not GameTooltip:IsForbidden() then
+		GameTooltip:Hide();
+	end
 end
 
 function AB:BindUpdate(button, spellmacro)
@@ -287,6 +293,8 @@ end
 
 local elapsed = 0;
 function AB:Tooltip_OnUpdate(tooltip, e)
+	if tooltip:IsForbidden() then return; end
+
 	elapsed = elapsed + e;
 	if elapsed < .2 then return else elapsed = 0; end
 	if (not tooltip.comparing and IsModifiedClick("COMPAREITEMS")) then
@@ -349,7 +357,13 @@ function AB:LoadKeyBinder()
 	bind:Hide();
 
 	self:SecureHookScript(GameTooltip, "OnUpdate", "Tooltip_OnUpdate");
-	hooksecurefunc(GameTooltip, "Hide", function(tooltip) for _, tt in pairs(tooltip.shoppingTooltips) do tt:Hide(); end end);
+	hooksecurefunc(GameTooltip, "Hide", function(tooltip)
+		if not tooltip:IsForbidden() then
+			for _, tt in pairs(tooltip.shoppingTooltips) do
+				tt:Hide();
+			end
+		end
+	end);
 
 	bind:SetScript('OnEnter', function(self) local db = self.button:GetParent().db if db and db.mouseover then AB:Button_OnEnter(self.button) end end)
 	bind:SetScript("OnLeave", function(self) AB:BindHide(); local db = self.button:GetParent().db if db and db.mouseover then AB:Button_OnLeave(self.button) end end)

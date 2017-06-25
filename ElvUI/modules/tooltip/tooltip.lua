@@ -134,6 +134,7 @@ local SlotName = {
 }
 
 function TT:GameTooltip_SetDefaultAnchor(tt, parent)
+	if tt:IsForbidden() then return end
 	if E.private.tooltip.enable ~= true then return end
 	if not self.db.visibility then return; end
 
@@ -236,6 +237,7 @@ function TT:GetItemLvL(unit)
 end
 
 function TT:RemoveTrashLines(tt)
+	if tt:IsForbidden() then return end
 	for i=3, tt:NumLines() do
 		local tiptext = _G["GameTooltipTextLeft"..i]
 		local linetext = tiptext:GetText()
@@ -301,6 +303,7 @@ function TT:INSPECT_READY(_, GUID)
 end
 
 function TT:ShowInspectInfo(tt, unit, level, r, g, b, numTries)
+	if tt:IsForbidden() then return end
 	local canInspect = CanInspect(unit)
 	if(not canInspect or level < 10 or numTries > 1) then return end
 
@@ -329,6 +332,7 @@ function TT:ShowInspectInfo(tt, unit, level, r, g, b, numTries)
 end
 
 function TT:GameTooltip_OnTooltipSetUnit(tt)
+	if tt:IsForbidden() then return end
 	local unit = select(2, tt:GetUnit())
 	if((tt:GetOwner() ~= UIParent) and (self.db.visibility and self.db.visibility.unitFrames ~= 'NONE')) then
 		local modifier = self.db.visibility.unitFrames
@@ -507,6 +511,7 @@ function TT:GameTooltip_OnTooltipSetUnit(tt)
 end
 
 function TT:GameTooltipStatusBar_OnValueChanged(tt, value)
+	if tt:IsForbidden() then return end
 	if not value or not self.db.healthBar.text or not tt.text then return end
 	local unit = select(2, tt:GetParent():GetUnit())
 	if(not unit) then
@@ -528,10 +533,12 @@ function TT:GameTooltipStatusBar_OnValueChanged(tt, value)
 end
 
 function TT:GameTooltip_OnTooltipCleared(tt)
+	if tt:IsForbidden() then return end
 	tt.itemCleared = nil
 end
 
 function TT:GameTooltip_OnTooltipSetItem(tt)
+	if tt:IsForbidden() then return end
 	local ownerName = tt:GetOwner() and tt:GetOwner().GetName and tt:GetOwner():GetName()
 	if (self.db.visibility and self.db.visibility.bags ~= 'NONE' and ownerName and (find(ownerName, "ElvUI_Container") or find(ownerName, "ElvUI_BankContainer"))) then
 		local modifier = self.db.visibility.bags
@@ -577,6 +584,7 @@ function TT:GameTooltip_OnTooltipSetItem(tt)
 end
 
 function TT:GameTooltip_ShowStatusBar(tt)
+	if tt:IsForbidden() then return end
 	local statusBar = _G[tt:GetName().."StatusBar"..tt.shownStatusBars];
 	if statusBar and not statusBar.skinned then
 		statusBar:StripTextures()
@@ -588,6 +596,7 @@ function TT:GameTooltip_ShowStatusBar(tt)
 end
 
 function TT:SetStyle(tt)
+	if tt:IsForbidden() then return end
 	tt:SetTemplate("Transparent", nil, true) --ignore updates
 	local r, g, b = tt:GetBackdropColor()
 	tt:SetBackdropColor(r, g, b, self.db.colorAlpha)
@@ -600,6 +609,7 @@ function TT:MODIFIER_STATE_CHANGED(_, key)
 end
 
 function TT:SetUnitAura(tt, unit, index, filter)
+	if tt:IsForbidden() then return end
 	local _, _, _, _, _, _, _, caster, _, _, id = UnitAura(unit, index, filter)
 	if id and self.db.spellID then
 		if caster then
@@ -616,6 +626,7 @@ function TT:SetUnitAura(tt, unit, index, filter)
 end
 
 function TT:GameTooltip_OnTooltipSetSpell(tt)
+	if tt:IsForbidden() then return end
 	local id = select(3, tt:GetSpell())
 	if not id or not self.db.spellID then return end
 
@@ -652,6 +663,7 @@ function TT:RepositionBNET(frame, _, anchor)
 end
 
 function TT:CheckBackdropColor()
+	if GameTooltip:IsForbidden() then return end
 	if not GameTooltip:IsShown() then return end
 	local r, g, b = GameTooltip:GetBackdropColor()
 	r = E:Round(r, 1)
