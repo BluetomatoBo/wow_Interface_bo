@@ -191,7 +191,7 @@ points["SouthernBarrens"] = {
 }
 
 points["StonetalonMountains"] = {
-	[49545510] = "28915:D",	-- Mirkfallon Lake
+	[49545110] = "28915:D",	-- Mirkfallon Lake
 	[52926246] = "11856:H",	-- Sun Rock Retreat
 }
 
@@ -230,7 +230,7 @@ points["BladesEdgeMountains"] = {
 }
 
 points["Hellfire"] = {
-	[47124205] = "11851:H",	-- Thrallmar
+	[57104211] = "11851:H",	-- Thrallmar
 	[61945845] = "11747:D",	-- Honour Hold
 }
 
@@ -250,7 +250,7 @@ points["ShadowmoonValley"] = {
 }
 
 points["TerokkarForest"] = {
-	[52014920] = "11858:H",	-- Stonebreaker Hold
+	[52014287] = "11858:H",	-- Stonebreaker Hold
 	[54195546] = "11754:D",	-- Allerian Stronghold
 }
 
@@ -362,7 +362,7 @@ points["TownlongWastes"] = {
 
 points["ValeofEternalBlossoms"] = {
 	[77763400] = "32509:H",	-- Shrine of Two Moons
-	[79673727] = "32503:D",	-- Shrine of Seven Stars
+	[80133727] = "32503:D",	-- Shrine of Seven Stars
 }
 
 points["ValleyoftheFourWinds"] = {
@@ -375,27 +375,27 @@ points["ValleyoftheFourWinds"] = {
 -------------
 
 points["ShadowmoonValleyDR"] = {
-	[42623595] = "44582:D",
+	[42623595] = "44582:D", -- Embaari Village
 }
 
 points["FrostfireRidge"] = {
-	[72566501] = "44580:H",
+	[72566501] = "44580:H", -- Grom'gar
 }
 
 points["Gorgrond"] = {
-	[43939374] = "44573:H",
+	[43899384] = "44573:H", -- Iron Pass
 }
 
 points["Talador"] = {
-	[43507173] = "44571:H",
+	[43507173] = "44571:H", -- Auchindoun
 }
 
 points["SpiresOfArak"] = {
-	[47984466] = "44570:H",
+	[47984466] = "44570:H", -- Veil Terokk
 }
 
 points["NagrandDraenor"] = {
-	[80504770] = "44572:H",
+	[80504770] = "44572:H", -- The Ring of Trials
 }
 
 

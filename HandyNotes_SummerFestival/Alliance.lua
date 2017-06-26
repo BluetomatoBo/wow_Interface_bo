@@ -381,7 +381,7 @@ points["FrostfireRidge"] = {
 }
 
 points["Gorgrond"] = {
-	[43939374] = "44573:H", -- Orunai Coast
+	[43939374] = "44573:H", -- Iron Pass
 }
 
 points["Talador"] = {
@@ -389,7 +389,7 @@ points["Talador"] = {
 }
 
 points["SpiresOfArak"] = {
-	[47984466] = "44570:H", -- Veil Terrokk
+	[47984466] = "44570:H", -- Veil Terokk
 }
 
 points["NagrandDraenor"] = {
