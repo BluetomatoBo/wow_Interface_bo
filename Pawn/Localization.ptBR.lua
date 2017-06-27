@@ -13,7 +13,7 @@ PawnLocal =
 	["AverageItemLevelIgnoringRarityTooltipLine"] = "Nível de item médio",
 	["BackupCommand"] = "backup",
 	["BaseValueWord"] = "base",
-	["CopyScaleEnterName"] = "Digite o nome para sua nova esclaa, uma copia de %s:",
+	["CopyScaleEnterName"] = "Digite o nome para sua nova escala, uma cópia de %s:",
 	["DebugOffCommand"] = "debug off",
 	["DebugOnCommand"] = "debug on",
 	["DecimalSeparator"] = ",",
@@ -23,23 +23,22 @@ PawnLocal =
 	["EngineeringName"] = "Engenharia",
 	["ExportAllScalesMessage"] = "Pressione Ctrl+C para copiar a tag da sua escala, crie um arquivo no seu computador para backup, então pressione Ctrl+V para colar nele.",
 	["ExportScaleMessage"] = "Pressione Ctrl+C para copiar as seguintes tag de escalas para |cffffffff%s|r, e então pressione Ctrl+V para colar depois.",
-	["FailedToGetItemLinkMessage"] = "   Erro ao pegar o link do tooltip.  Isso pode ser devido conflito de mods.",
-	["FailedToGetUnenchantedItemMessage"] = "   Erro ao pegar valores base de items.  Isso pode ser devido conflito de mods.",
+	["FailedToGetItemLinkMessage"] = "   Erro ao pegar o link da dica de ferramenta.  Isso pode ter ocorrido devido a um conflito de mods.",
+	["FailedToGetUnenchantedItemMessage"] = "   Erro ao pegar valores base de items.  Isso pode ter ocorrido devido a um conflito de mods.",
 	["FoundStatMessage"] = "   %d %s",
-	["GemList2"] = "%s or %s",
-	--Translation missing 
-	["GemListMany"] = "%d possibilities (click the Pawn button for details)",
+	["GemList2"] = "%s ou %s",
+	["GemListMany"] = "%d possibilidades (clique no botão Pawn para detalhes)",
 	["GenericGemLink"] = "|Hitem:%d|h[Gema %d]|h",
 	["GenericGemName"] = "(Gema %d)",
 	["HiddenScalesHeader"] = "Outras escalas",
-	["ImportScaleMessage"] = "Pressione Ctrl+V para colar a tag de escala que você copiou de outra fonte aqui:",
+	["ImportScaleMessage"] = "Pressione Ctrl+V para colar a tag de uma escala que você copiou de outra fonte aqui:",
 	["ImportScaleTagErrorMessage"] = "Pawn não entende essa tag de escala.  Você copiou a tag inteira?  Tente copiar e colar de novo:",
 	["ItemIDTooltipLine"] = "ID do Item",
 	["ItemLevelTooltipLine"] = "Nível do Item",
 	["LootUpgradeAdvisorHeader"] = "Clique para comparar com seus items.|n",
 	["LootUpgradeAdvisorHeaderMany"] = "|TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t Este item é um upgrade para %d escalas.  Clique para comparar com seus items.",
 	["MissocketWorthwhileMessage"] = "   -- Mas é melhor usar somente %s gemas:",
-	["NeedNewerVgerCoreMessage"] = "Pawn precisa de uma versão nova do VgerCore.  Por favor use a versão do VgerCore que veio com Pawn.",
+	["NeedNewerVgerCoreMessage"] = "O Pawn precisa de uma versão mais recente do VgerCore.  Por favor use a versão do VgerCore que veio com Pawn.",
 	["NewScaleDuplicateName"] = "Uma escala com esse nome já existe.  Digite o nome para sua escala:",
 	["NewScaleEnterName"] = "Digite o nome para sua escala:",
 	["NewScaleNoQuotes"] = "Uma escala não pode ter \" no nome.  Digite o nome para sua escala:",
@@ -54,23 +53,20 @@ PawnLocal =
 	["ThousandsSeparator"] = ".",
 	["TooltipBestAnnotation"] = "%s  |cff8ec3e6(melhor)|r",
 	["TooltipBestAnnotationSimple"] = "%s  seu melhor",
-	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 upgrade%s|r",
-	--Translation missing 
-	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00-%.0f%% downgrade%s|r",
-	--Translation missing 
-	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d item levels%s|r",
+	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 melhoria%s|r",
+	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00-%.0f%% pioria%s|r",
+	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d |4nível:níveis;%s|r",
 	["TooltipSecondBestAnnotation"] = "%s  |cff8ec3e6(segundo melhor)|r",
 	["TooltipSecondBestAnnotationSimple"] = "%s  seu segundo melhor",
-	["TooltipUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% upgrade%s|r",
-	["TooltipUpgradeFor1H"] = "para sets 1 Mão",
+	["TooltipUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% de melhoria%s|r",
+	["TooltipUpgradeFor1H"] = "para conjuntos de 1 Mão",
 	["TooltipUpgradeFor2H"] = "para 2 Mãos",
-	--Translation missing 
-	["TooltipUpgradeNeedsEnhancementsAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% upgrade potential%s|r",
+	["TooltipUpgradeNeedsEnhancementsAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% melhoria em potencial%s|r",
 	["TooltipVersusLine"] = "%s|n  vs. |c%s%s|r",
 	["TotalValueMessage"] = "   ---- Total: %g",
 	["UnenchantedStatsHeader"] = "(Valor base)",
 	["Unusable"] = "(não utilizável)",
-	["UnusableStatMessage"] = "   -- %s é inútil, então pare.",
+	["UnusableStatMessage"] = "   -- %s é inútil, então parando.",
 	["Usage"] = [=[
 Pawn por Vger-Azjol-Nerub
 www.vgermods.com
@@ -79,105 +75,98 @@ www.vgermods.com
 /pawn debug [ on | off ] -- mostra mensagens de debug no console do chat
 /pawn backup -- backup todas as suas tags de escala
  
-Para mais informações em personalizar o Pawn, favor veja o arquivo de ajuda (Readme.htm) que vem com o mod.]=],
+Para mais informações sobre personalizar o Pawn, favor veja o arquivo de ajuda (Readme.htm) que vem com o mod.]=],
 	["ValueCalculationMessage"] = "   %g %s x %g cada = %g",
-	["VisibleScalesHeader"] = "%s's scales",
+	["VisibleScalesHeader"] = "Escalas de %s",
 	["Stats"] = {
-		["AgilityInfo"] = "O atributo primário, Agilidade.",
-		["ArmorInfo"] = "Armadura, não importa que tipo de item.  Não distingue entre armadura base ou bonus de armadura desde que items com bonus de armadura são obsoletos.",
+		["AgilityInfo"] = "Agilidade. Aumenta o poder das habilidades de algumas classes.",
+		["ArmorInfo"] = "Armadura. Reduz o dano físico recebido.",
 		["ArmorTypes"] = "Tipos de armaduras",
-		--Translation missing 
-		["AvoidanceInfo"] = "Avoidance.  Reduces the damage you take from area-of-effect attacks.",
+		["AvoidanceInfo"] = "Evasiva. Reduz o dano que você recebe de ataques de área.",
 		["Cloth"] = "Tecido",
-		["ClothInfo"] = "Pontos para distribuir se o item é tecido.",
+		["ClothInfo"] = "Pontos para distribuir se o item for tecido.",
 		["Crit"] = "Crítico",
-		["CritInfo"] = "Ataque crítico.  Afeta ataques de perto, ataques de longe, e magias.",
-		["DpsInfo"] = "Danos por segundo da Arma.  (Se você quer valores de DPS diferentes para tipos de armas diferentes, veja a seção \"Atributos especiais de armas\".)",
-		["HasteInfo"] = "Aceleração.  Afeta ataques corpo-a-corpo, ataques de longo alcance, e magias.",
-		--Translation missing 
-		["IndestructibleInfo"] = "Indestructible.  Prevents your equipment from taking durability damage.",
-		--Translation missing 
-		["IndestructibleIs"] = "Being |cffffffffindestructible|r is worth:",
-		["IntellectInfo"] = "Atributo Primário, Intelecto",
-		["Leather"] = "Atributo - Variáveis usadas pela listra mestre de atributos na aba Valores.",
+		["CritInfo"] = "Ataque crítico. Aumenta a chance de seus ataques e magias de cura acertem com maior potência.",
+		["DpsInfo"] = "Dano por segundo da arma. (Se você quiser valorizar DPS diferentes para diferentes tipos de armas, veja a seção \"Atributos especiais de armas\".)",
+		["HasteInfo"] = "Aceleração. Aumenta a velocidade em que suas magias são lançadas e seus recursos regeneram.",
+		["IndestructibleInfo"] = "Indestrutível. Previne que seu equipamento tome dano de durabilidade.",
+		["IndestructibleIs"] = "Ser|cffffffffindestrutível|r vale:",
+		["IntellectInfo"] = "Intelecto. Aumenta o poder das habilidades de algumas classes.",
+		["Leather"] = "Couro",
 		["LeatherInfo"] = "Pontos para distribuir se o item for couro.",
-		--Translation missing 
-		["LeechInfo"] = "Leech.  Causes your attacks and healing spells to restore your health.",
-		["Mail"] = "Atributos - Variáveis utilizadas pelas listas de atributos mestres na aba de Valores.",
+		["LeechInfo"] = "Sorver. Faz com que seus ataques e magias de cura restaurem a sua vida.",
+		["Mail"] = "Malha",
 		["MailInfo"] = "Pontos para distribuir se o item for malha.",
 		["MasteryInfo"] = "Maestria.  Melhora o bônus único da especialização da sua classe",
-		--Translation missing 
-		["MinorStats"] = "Minor stats",
-		--Translation missing 
-		["MovementSpeedInfo"] = "Movement speed.  Causes your character to run faster.",
-		["Plate"] = "Placa",
-		["PlateInfo"] = "Pontos para distribuir se o item for placa.",
+		["MinorStats"] = "Atributos menores",
+		["MovementSpeedInfo"] = "Velocidade de movimento. Faz com que o seu personagem corra mais rápido.",
+		["Plate"] = "Placas",
+		["PlateInfo"] = "Pontos para distribuir se o item for de placas.",
 		["Shield"] = "Escudo",
 		["ShieldInfo"] = "Pontos para distribuir se o item for um escudo.",
 		["Sockets"] = "Engastes",
-		["SpecialWeaponStats"] = "Status especiais de armas",
+		["SpecialWeaponStats"] = "Atributos especiais de armas",
 		["SpeedBaseline"] = "Velocidade base",
-		["SpeedBaselineInfo"] = "Não é atributo.  Este número é subtraído do Atributo Velocidade antes de multiplicar pelo valor da escala.",
+		["SpeedBaselineInfo"] = "Não é um atributo que aparece em armas, esse número é subtraído do atributo Velocidade antes de multiplicar pelo valor da escala.",
 		["SpeedBaselineIs"] = "|cffffffffVelocidade base|r é:",
-		["SpeedInfo"] = "Velocidade da arma, em golpes por segundo.  (Se você prefere armas mais rápidas, este número deve ser negativo.  Veja também: \"velocidade base\" na seção \"Status especiais de armas\")",
+		["SpeedInfo"] = "Velocidade da arma, em golpes por segundo. (Se você prefere armas mais rápidas, este número deve ser negativo. Veja também: \"velocidade base\" na seção \"Atributos especiais de armas\".)",
 		["SpeedIs"] = "1 segundo |cffffffffvelocidade do golpe|r vale:",
-		["StaminaInfo"] = "Atributo primário, Vigor.",
-		["StrengthInfo"] = "Atributo primário, Força.",
-		--Translation missing 
-		["VersatilityInfo"] = "Versatility.  Increases damage dealt for damage characters, increases healing done by healing characters, and reduces damage taken for tank characters.",
+		["StaminaInfo"] = "Vigor. Aumenta sua vida.",
+		["StrengthInfo"] = "Força. Aumenta o poder das habilidades de algumas classes.",
+		["VersatilityInfo"] = "Versatilidade. Aumenta o dano causado para personagens de dano, aumenta a cura realizada para personagens de cura, e reduz o dano recebido para personagens tanque.",
 		["WeaponMainHandDps"] = "Mão Principal: DPS",
-		["WeaponMainHandDpsInfo"] = "Danos por segundo da arma, somente para armas de uma mão principal.",
-		["WeaponMainHandMaxDamage"] = "Mão Principal: dano maximo",
-		["WeaponMainHandMaxDamageInfo"] = "Dano máximo da arma, somente para armas de uma mão principal.",
+		["WeaponMainHandDpsInfo"] = "Dano por segundo da arma, apenas para armas da mão principal.",
+		["WeaponMainHandMaxDamage"] = "Mão Principal: dano máximo",
+		["WeaponMainHandMaxDamageInfo"] = "Dano máximo da arma, apenas para armas da mão principal.",
 		["WeaponMainHandMinDamage"] = "Arma Principal: dano mínimo",
-		["WeaponMainHandMinDamageInfo"] = "Dano mínimo da arma, somente para armas de uma mão principal.",
+		["WeaponMainHandMinDamageInfo"] = "Dano mínimo da arma, apenas para armas da mão principal.",
 		["WeaponMainHandSpeed"] = "Arma Principal: velocidade",
-		["WeaponMainHandSpeedInfo"] = "Velocidade da arma, somente para armas de uma mão principal.",
+		["WeaponMainHandSpeedInfo"] = "Velocidade da arma, apenas para armas da mão principal.",
 		["WeaponMaxDamage"] = "Dano máximo",
-		["WeaponMaxDamageInfo"] = "Dano máximo de arma",
+		["WeaponMaxDamageInfo"] = "Dano máximo da arma.",
 		["WeaponMeleeDps"] = "Corpo-a-corpo: DPS",
-		["WeaponMeleeDpsInfo"] = "Dano por segundo de arma, somente para armas corpo-a-corpo",
+		["WeaponMeleeDpsInfo"] = "Dano por segundo da arma, apenas para armas de corpo-a-corpo.",
 		["WeaponMeleeMaxDamage"] = "Corpo-a-corpo: Dano máximo",
-		["WeaponMeleeMaxDamageInfo"] = "Dano máximo de arma, somente para armas de corpo-a-corpo.",
+		["WeaponMeleeMaxDamageInfo"] = "Dano máximo da arma, apenas para armas de corpo-a-corpo.",
 		["WeaponMeleeMinDamage"] = "Corpo-a-corpo: dano mínimo",
-		["WeaponMeleeMinDamageInfo"] = "Dano mínimo de arma, somente para armas corpo-a-corpo.",
+		["WeaponMeleeMinDamageInfo"] = "Dano mínimo da arma, apenas para armas de corpo-a-corpo.",
 		["WeaponMeleeSpeed"] = "Corpo-a-corpo: velocidade",
-		["WeaponMeleeSpeedInfo"] = "Velocidade da arma, somente para armas corpo-a-corpo.",
+		["WeaponMeleeSpeedInfo"] = "Velocidade da arma, apenas para armas de corpo-a-corpo.",
 		["WeaponMinDamage"] = "Dano mínimo",
-		["WeaponMinDamageInfo"] = "Dano mínimo de arma",
+		["WeaponMinDamageInfo"] = "Dano mínimo da arma.",
 		["WeaponOffHandDps"] = "Mão Secundária: DPS",
-		["WeaponOffHandDpsInfo"] = "Dano por segundo de arma, somente para armas de mão secundária.",
+		["WeaponOffHandDpsInfo"] = "Dano por segundo da arma, apenas para armas de mão secundária.",
 		["WeaponOffHandMaxDamage"] = "Mão Secundária: dano máximo",
-		["WeaponOffHandMaxDamageInfo"] = "Damo máximo de arma, somente para armas de mão secundária.",
+		["WeaponOffHandMaxDamageInfo"] = "Damo máximo da arma, apenas para armas de mão secundária.",
 		["WeaponOffHandMinDamage"] = "Mão Secundária: dano mínimo",
-		["WeaponOffHandMinDamageInfo"] = "dano mínimo de arma, somente para armas de mão secundária.",
+		["WeaponOffHandMinDamageInfo"] = "dano mínimo da arma, apenas para armas de mão secundária.",
 		["WeaponOffHandSpeed"] = "Mão Secundária: velocidade",
-		["WeaponOffHandSpeedInfo"] = "Velocidade de arma, somente para armas de mão secundária.",
+		["WeaponOffHandSpeedInfo"] = "Velocidade da arma, apenas para armas de mão secundária.",
 		["WeaponOneHandDps"] = "Uma mão: DPS",
-		["WeaponOneHandDpsInfo"] = "Dano por segundo de arma, somente para armas marcadas como uma mão, não sendo mão principal nem mão secundária.",
+		["WeaponOneHandDpsInfo"] = "Dano por segundo da arma, apenas para armas marcadas como uma mão, não incluindo mão principal nem mão secundária.",
 		["WeaponOneHandMaxDamage"] = "Uma mão: dano máximo",
-		["WeaponOneHandMaxDamageInfo"] = "Dano máximo de arma, somente para armas marcadas como uma mão, não sendo mão principal nem mão secundária.",
+		["WeaponOneHandMaxDamageInfo"] = "Dano máximo da arma, apenas para armas marcadas como uma mão, não incluindo mão principal nem mão secundária.",
 		["WeaponOneHandMinDamage"] = "Uma mão: dano mínimo",
-		["WeaponOneHandMinDamageInfo"] = "Dano mínimo de arma, somente para armas marcadas como uma mão, não sendo mão principal nem mão secundária.",
+		["WeaponOneHandMinDamageInfo"] = "Dano mínimo da arma, apenas para armas marcadas como uma mão, não incluindo mão principal nem mão secundária.",
 		["WeaponOneHandSpeed"] = "Uma mão: velocidade",
-		["WeaponOneHandSpeedInfo"] = "Velocidade da arma, somente para armas marcadas como uma mão, não sendo mão principal nem mão secundária.",
+		["WeaponOneHandSpeedInfo"] = "Velocidade da arma, apenas para armas marcadas como uma mão, não incluindo mão principal nem mão secundária.",
 		["WeaponRangedDps"] = "Longo alcance: DPS",
-		["WeaponRangedDpsInfo"] = "Dano por segundo de arma, somente para armas de longo alcance.",
+		["WeaponRangedDpsInfo"] = "Dano por segundo da arma, apenas para armas de longo alcance.",
 		["WeaponRangedMaxDamage"] = "Longo alcance: dano máximo",
-		["WeaponRangedMaxDamageInfo"] = "Dano máximo de arma, somente para armas de longo alcance.",
+		["WeaponRangedMaxDamageInfo"] = "Dano máximo da arma, apenas para armas de longo alcance.",
 		["WeaponRangedMinDamage"] = "Longo alcance: dano mínimo",
-		["WeaponRangedMinDamageInfo"] = "Dano mínimo de arma, somente para armas de longo alcance.",
+		["WeaponRangedMinDamageInfo"] = "Dano mínimo da arma, apenas para armas de longo alcance.",
 		["WeaponRangedSpeed"] = "Longo alcance: velocidade",
-		["WeaponRangedSpeedInfo"] = "Velocidade da arma, somente para armas de longo alcance.",
+		["WeaponRangedSpeedInfo"] = "Velocidade da arma, apenas para armas de longo alcance.",
 		["WeaponStats"] = "Atributos de arma",
 		["WeaponTwoHandDps"] = "Duas mãos: DPS",
-		["WeaponTwoHandDpsInfo"] = "Dano por segundo de arma, somente para armas de duas mãos.",
+		["WeaponTwoHandDpsInfo"] = "Dano por segundo da arma, apenas para armas de duas mãos.",
 		["WeaponTwoHandMaxDamage"] = "Duas mãos: dano máximo",
-		["WeaponTwoHandMaxDamageInfo"] = "Dano máximo de arma, somente para armas de duas mãos.",
+		["WeaponTwoHandMaxDamageInfo"] = "Dano máximo da arma, apenas para armas de duas mãos.",
 		["WeaponTwoHandMinDamage"] = "Duas mãos: dano mínimo",
-		["WeaponTwoHandMinDamageInfo"] = "Dano mínimo de arma, somente para armas de duas mãos.",
+		["WeaponTwoHandMinDamageInfo"] = "Dano mínimo da arma, apenas para armas de duas mãos.",
 		["WeaponTwoHandSpeed"] = "Duas mãos: velocidade",
-		["WeaponTwoHandSpeedInfo"] = "Velocidade da arma, somente para armas de duas mãos.",
+		["WeaponTwoHandSpeedInfo"] = "Velocidade da arma, apenas para armas de duas mãos.",
 		["WeaponType1HAxe"] = "Machado: uma mão",
 		["WeaponType1HAxeInfo"] = "Pontos para distribuir se o item for um machado de uma mão.",
 		["WeaponType1HMace"] = "Maça: uma mão",
@@ -187,7 +176,7 @@ Para mais informações em personalizar o Pawn, favor veja o arquivo de ajuda (R
 		["WeaponType2HAxe"] = "Machado: duas mãos",
 		["WeaponType2HAxeInfo"] = "Pontos para distribuir se o item for um machado de duas mãos.",
 		["WeaponType2HMace"] = "Maça: duas mãos",
-		["WeaponType2HMaceInfo"] = "Pontos para distribuir se o item for uma ma;ca de duas mãos",
+		["WeaponType2HMaceInfo"] = "Pontos para distribuir se o item for uma maça de duas mãos",
 		["WeaponType2HSword"] = "Espada: duas mãos",
 		["WeaponType2HSwordInfo"] = "Pontos para distribuir se o item for uma espada de duas mãos.",
 		["WeaponTypeBow"] = "Arco",
@@ -198,13 +187,13 @@ Para mais informações em personalizar o Pawn, favor veja o arquivo de ajuda (R
 		["WeaponTypeDaggerInfo"] = "Pontos para distribuir se o item for uma adaga.",
 		["WeaponTypeFistWeapon"] = "Arma de punho",
 		["WeaponTypeFistWeaponInfo"] = "Pontos para distribuir se o item for uma arma de punho",
-		["WeaponTypeFrill"] = "Acessórios de mão secundária",
-		["WeaponTypeFrillInfo"] = "Pontos para distribuir se o item é um acessório do tipo \"Empunhado na mão secundária\".  Não aplica a escudo ou armas.",
+		["WeaponTypeFrill"] = "Acessório de mão secundária",
+		["WeaponTypeFrillInfo"] = "Pontos para distribuir se o item for um acessório do tipo \"Empunhado na mão secundária\".  Não se aplica a escudo ou armas.",
 		["WeaponTypeGun"] = "Arma",
 		["WeaponTypeGunInfo"] = "Pontos para distribuir se o item for uma arma.",
 		["WeaponTypeOffHand"] = "Arma de mão secundária",
-		["WeaponTypeOffHandInfo"] = "Pontos para distribuir se o item for qualquer arma que pode ser empunhada na mão secundária. Não aplica a acessórios, escudos, ou armas que pode ser equipadas em ambas as mãos.",
-		["WeaponTypePolearm"] = "Armas de Haste",
+		["WeaponTypeOffHandInfo"] = "Pontos para distribuir se o item for qualquer arma que pode ser empunhada na mão secundária. Não se aplica a acessórios, escudos, ou armas que pode ser equipadas em ambas as mãos.",
+		["WeaponTypePolearm"] = "Arma de Haste",
 		["WeaponTypePolearmInfo"] = "Pontos para distribuir se o item for uma arma de haste.",
 		["WeaponTypes"] = "Tipos de armas",
 		["WeaponTypeStaff"] = "Cajado",
@@ -212,8 +201,7 @@ Para mais informações em personalizar o Pawn, favor veja o arquivo de ajuda (R
 		["WeaponTypeWand"] = "Varinha",
 		["WeaponTypeWandInfo"] = "Pontos para distribuir se o item for uma varinha.",
 		["WeaponTypeWarglaive"] = "Glaive de Guerra",
-		--Translation missing 
-		["WeaponTypeWarglaiveInfo"] = "Points to be assigned if the item is a warglaive."
+		["WeaponTypeWarglaiveInfo"] = "Pontos para distribuir se o item for uma glaive de guerra.",
 	},
 	["TooltipParsing"] = {
 		["Agility"] = "^%+?([-%d%.,]+) d?e? ?Agilidade$",
@@ -254,30 +242,28 @@ Para mais informações em personalizar o Pawn, favor veja o arquivo de ajuda (R
 		["Gun"] = "^Arma$",
 		["Haste"] = "^%+?([%d%.,]+) Aceleração$",
 		["Haste2"] = "^%+?([%d%.,]+) de Aceleração$",
-		--Translation missing 
-		["HaventCollectedAppearance"] = "^You haven't collected this appearance$",
-		["HeirloomLevelRange"] = "^Requer nível %d+ to (%d+)",
-		["HeirloomXpBoost"] = "^Equipar: Experiência obtida",
+		["HaventCollectedAppearance"] = "^Você não coletou essa aparência$",
+		["HeirloomLevelRange"] = "^Requer nível entre %d+ e (%d+)",
+		["HeirloomXpBoost"] = "^Equipado: Experiência obtida",
 		["HeirloomXpBoost2"] = "^UNUSED$",
 		["Heroic"] = "^Heroico$",
 		["HeroicElite"] = "^Heroico de Elite$",
 		["HeroicThunderforged"] = "^Forjado pelo Trovão Heroico$",
 		["HeroicWarforged"] = "^Forjado para a Guerra Heroico$",
-		["Hp5"] = "^Equipar: Restaura ([%d%.,]+) pontos de vida a cada 5 s%.$",
-		["Hp52"] = "^Equipar: Recupera ([%d%.,]+) pontos de vida a cada 5 s%.$",
+		["Hp5"] = "^Equipado: Restaura ([%d%.,]+) pontos de vida a cada 5 s%.$",
+		["Hp52"] = "^Equipado: Recupera ([%d%.,]+) pontos de vida a cada 5 s%.$",
 		["Hp53"] = "^Recupera %+?([%d%.,]+) [pP]ontos [dD]e [vV]ida [aA] [cC]ada 5 [sS]%.?$",
 		["Hp54"] = "^UNUSED$",
 		["Intellect"] = "^%+?([-%d%.,]+) d?e? ?Intelecto$",
 		["Leather"] = "^Couro$",
 		["Leech"] = "^%+([%d%.,]+) Sorver$",
-		["Mace"] = "^Ma%ça$",
-		["Mail"] = "^Correio$",
+		["Mace"] = "^Maça$",
+		["Mail"] = "^Malha$",
 		["Mastery"] = "^%+?([%d%.,]+) Maestria$",
 		["Mastery2"] = "^%+?([%d%.,]+) de Maestria$",
 		["MetaGemRequirements"] = "|cff%x%x%x%x%x%xRequer",
 		["MovementSpeed"] = "^%+([%d%.,]+) Velocidade$",
-		--Translation missing 
-		["MultiStatHeading"] = "^Multiple Stats$",
+		["MultiStatHeading"] = "^Atributos Múltiplos$",
 		["MultiStatSeparator1"] = "e",
 		["Multistrike"] = "^%+([%d%.,]+) Golpes Múltiplos$",
 		["NormalizationEnchant"] = "^Encantado: (.*)$",
@@ -307,10 +293,9 @@ Para mais informações em personalizar o Pawn, favor veja o arquivo de ajuda (R
 		["TemporaryBuffSeconds"] = "^.+%(%d+ s%)$",
 		["Thunderforged"] = "^Forjado pelo Trovão$",
 		["Timeless"] = "^Perene$",
-		--Translation missing 
-		["Titanforged"] = "^Titanforged$",
+		["Titanforged"] = "^Forja Titânica$",
 		["UpgradeLevel"] = "^Nível de aprimoramento:",
-		["Use"] = "Usar:",
+		["Use"] = "Uso:",
 		["Versatility"] = "^%+([%d%.,]+) Versatilidade$",
 		["Wand"] = "^Varinha$",
 		["Warforged"] = "^Forjado para a Guerra$",
@@ -330,90 +315,84 @@ Para mais informações em personalizar o Pawn, favor veja o arquivo de ajuda (R
 		["WeaponDamageNature"] = "^%+?([%d%.,]+) %- ([%d%.,]+) [dD]ano [dD]e [nN]atureza$",
 		["WeaponDamageNatureExact"] = "^%+?([%d%.,]+) [dD]ano [dD]e [nN]atureza$",
 		["WeaponDamageShadow"] = "^%+?([%d%.,]+) %- ([%d%.,]+) [dD]ano [dD]e [sS]ombra$",
-		["WeaponDamageShadowExact"] = "^%+?([%d%.,]+) [dD]ano [dD]e [sS]ombra$"
+		["WeaponDamageShadowExact"] = "^%+?([%d%.,]+) [dD]ano [dD]e [sS]ombra$",
 	},
 	["UI"] = {
-		["AboutHeader"] = "Sobre Pawn",
-		--Translation missing 
-		["AboutMrRobot"] = "Default stat weights are provided by the generous Mr. Robot.  They’re a great starting point for characters with typical talents and artifact traits in typical fights.  You can get more accurate, customized stat weights for your character using the Ask Mr. Robot simulator at askmrrobot.com.",
-		["AboutReadme"] = "Novato no Pawn?  Veja a aba começando para uma introdução básica.",
+		["AboutHeader"] = "Sobre o Pawn",
+		["AboutMrRobot"] = "Valores padrões são providos pelo generoso Mr. Robot. Eles são um ótimo ponto de partida para personagens com talentos e especializações de artefatos típicos  em lutas típicas. Você pode obter valores de atributos mais precisos e customizados usando o simulador do Ask Mr. Robot no site askmrrobot.com.",
+		["AboutReadme"] = "Novo no Pawn?  Veja a aba começando para uma introdução básica.",
 		["AboutTab"] = "Sobre",
-		["AboutTranslation"] = "Português traduzido por Maxmag-Goldrinn magnodias.maxmag@gmail.com",
+		["AboutTranslation"] = "Português BR por Maxmag-Goldrinn, Platao-Goldrinn",
 		["AboutVersion"] = "Versão %s",
-		["AboutWebsite"] = "Para outros mods por Vger, visite vgermods.com.",
-		--Translation missing 
-		["AskMrRobotProvider"] = "Ask Mr. Robot scales",
+		["AboutWebsite"] = "Para ver outros mods por Vger, visite vgermods.com.",
+		["AskMrRobotProvider"] = "Escalas do Ask Mr. Robot",
 		["CompareClearItems"] = "Limpar",
-		["CompareClearItemsTooltip"] = "Remover ambos itens da comparação.",
-		["CompareColoredSockets"] = "Engastes coloridos",
+		["CompareClearItemsTooltip"] = "Remove ambos itens da comparação.",
+		["CompareColoredSockets"] = "Engastes",
 		["CompareEquipped"] = "Equipado",
 		["CompareGemTotalValue"] = "Valor das gemas",
-		["CompareHeader"] = "Comparar itens usando %s",
+		["CompareHeader"] = "Comparar itens para %s",
 		["CompareOtherHeader"] = "Outro",
 		["CompareSlotEmpty"] = "(sem item)",
-		["CompareSocketBonus"] = "Bonus de engaste",
+		["CompareSocketBonus"] = "Bônus de engaste",
 		["CompareSocketsHeader"] = "Engastes",
 		["CompareSpecialEffects"] = "Efeitos especiais",
-		["CompareSwap"] = "‹ Troca ›",
+		["CompareSwap"] = "‹ Trocar ›",
 		["CompareSwapTooltip"] = "Troca o item da esquerda pelo da direita.",
 		["CompareTab"] = "Comparar",
 		["CompareVersus"] = "—vs.—",
-		["CompareWelcomeRight"] = [=[Então, solte um item nessa caixa.
+		["CompareWelcomeRight"] = [=[Solte um item nessa caixa.
 
-Você pode comparar ele versus seus itens atuais usando os ícones no canto inferior-esquerdo.]=],
+Você pode compará-lo com o que você já tem usando os ícones no canto inferior-esquerdo, ou você pode soltar um item diferente na caixa da direita.]=],
 		["CompareYourBest"] = "Seu melhor",
 		["GemsColorHeader"] = "%s gemas",
 		["GemsHeader"] = "Gemas para %s",
 		["GemsNoneFound"] = "Nenhuma gema apropriada foi encontrada.",
 		["GemsQualityLevel"] = "Nível de qualidade da gema",
-		["GemsQualityLevelTooltip"] = [=[O nível do item que deve ser sugerido gemas.
+		["GemsQualityLevelTooltip"] = [=[O nível de item em que devem ser sugeridas gemas.
 
-Exemplo, se for "463", então o Pawn vai mostrar gemas que são apropriadas para uso de item nível 463: loot de masmorras heróicas do Mists of Pandaria.]=],
-		["GemsShowBest"] = "Motrar melhores gemas disponíveis",
-		["GemsShowBestTooltip"] = "Mostra as melhores gemas disponíveis para a escala atualmente selecionada.  Algumas dessas gemas vão ser muito poderosas para engastar em items de baixa qualidade.",
-		["GemsShowForItemLevel"] = "Mostrar gemas recomendadas pelo nível do item:",
+Por exemplo, se for definido com "463", o Pawn irá mostrar gemas apropriadas para serem usadas em itens de nível 463: saque de masmorras heróicas de Mists of Pandaria.]=],
+		["GemsShowBest"] = "Motrar as melhores gemas disponíveis",
+		["GemsShowBestTooltip"] = "Mostra as melhores gemas absolutas que estão disponíveis para a escala selecionada atualmente. Algumas dessas gemas serão poderosas demais para engastar em itens mais velhos e de baixa qualidade.",
+		["GemsShowForItemLevel"] = "Mostrar gemas recomendadas para um item de nível:",
 		["GemsShowForItemLevelTooltip"] = "Mostra as gemas que o Pawn recomenda para a escala atualmente selecionada e um item de nível específico.",
 		["GemsTab"] = "Gemas",
-		["GemsWelcome"] = "Selecione uma escala do lado direito para ver as gemas que Pawn recomenda.",
+		["GemsWelcome"] = "O Pawn recomenda estas gemas para os seus itens com engastes.",
 		["HelpHeader"] = "Bem-vindo ao Pawn!",
 		["HelpTab"] = "Começando",
-		["HelpText"] = [=[Pawn calcula pontos em seus items baseados nos atributos que o item tem.  Ele usa esses pontos para determinar qual dos seus items são melhor, e pada identificar items que podem dar upgrade no seu equipamento.
+		["HelpText"] = [=[Pawn te ajuda a encontrar o melhor equipamento para você e identificar melhorias que você encontrar.
 
 
-Cada item vai ter um ponto para cada "escala" que é ativa no seu personagem.  Uma escala lista os atributos importantes para você, e mostra como cada ponto vale no atributo.  Você geralmente vai ter uma escala para cada especialização da sua classe.  Os pontos são geralmente ocultos, mas você pode ver como a pontuação do item é calculada na aba Comparar.
+Quando você ganhar recompensas de missões ou saques de masmorras que possam ser melhores que o seu equipamento atual, o Pawn te informará com um ícone de seta verde.
 
- • Você pode habilitar uma escala ou não fazendo Shift+Clique na lista que fica na aba de Escalas.
+    |cff8ec3e6Fogo:|r  |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% de melhoria|r
 
 
-Pawn vem com escalas do Wowhead para cada Classe e Especialização.  Você também pode criar seu próprio distribuindo pontos em cada atributo, importar escalas da internet ou ferramentas de simulação, ou compartilhar escalas com seu grupo ou guilda.
 
-|cff8ec3e6Tente esses recursos assim que você aprender o básico:|r
- • Comparar os status de dois items usando a aba Comparar do Pawn.
- • Clique-direito em um link de item para ver como ele faz a comparação do seu item atual.
- • Shift-Clique em um item com engastes para o Pawn sugerir gemas para ele.
- • Faça a cópia de uma escala na aba de Escalas, e personalize o valores de atributos na aba Valores.
- • Ache mais escalas para sua classe na internet.
- • Verifique o arquivo leia-me para aprender mais sobre as características avançadas do Pawn.]=],
-		["InterfaceOptionsBody"] = "Clique no botão do Pawn para abri-lo.  Você pode também abrir o Pawn da página do seu inventário, ou colocando uma tecla de atalho.",
-		["InterfaceOptionsWelcome"] = "Opções do Pawn são encontradas na janela do Pawn.",
-		["InventoryButtonTooltip"] = "Clique para abrir Pawn.",
-		["InventoryButtonTotalsHeader"] = "Total para todos items equipados:",
+|cff8ec3e6Tente essas funcionalidades quando se acostumar com o básico:|r
+
+ • Comparar os atributos de dois itens usando a aba Comparar do Pawn.
+ • Clique-direito em uma dica de ferramenta de um link de item para ver como ele se compara com o seu item atual.
+ • Na aba Escala, mude para o modo Manual para mostrar sugestões para mais de uma Especialização ao mesmo tempo.
+ • Use o simulador do Ask Mr. Robot e construa uma escala personalizada para o seu personagem para obter conselhos customizados.]=],
+		["InterfaceOptionsBody"] = "Clique no botão do Pawn para abrí-lo. Você também pode abrir o Pawn do seu inventário, ou vinculando uma tecla para ele.",
+		["InterfaceOptionsWelcome"] = "Opções do Pawn podem ser encontradas na janela do Pawn.",
+		["InventoryButtonTooltip"] = "Clique para abrir o Pawn.",
+		["InventoryButtonTotalsHeader"] = "Totais para todos items equipados:",
 		["KeyBindingCompareItemLeft"] = "Comparar item (esquerda)",
 		["KeyBindingCompareItemRight"] = "Comparar item (direita)",
 		["KeyBindingShowUI"] = "Alternar janela do Pawn",
 		["OptionsAdvisorHeader"] = "Opções do Assessor",
-		["OptionsAlignRight"] = "Alinhar valores para o canto direito do tooltip",
-		["OptionsAlignRightTooltip"] = "Habilite isso para alinhar os valores do Pawn e atualizar informação para o canto direito do tooltip ao invés da esquerda.",
-		--Translation missing 
-		["OptionsBagUpgradeAdvisor"] = "Show bag upgrade advisor",
-		--Translation missing 
-		["OptionsBagUpgradeAdvisorTooltip"] = [=[Enable this option to have Pawn take over the in-bag upgrade arrows.
+		["OptionsAlignRight"] = "Alinhar valores para o canto direito da dica de ferramenta",
+		["OptionsAlignRightTooltip"] = "Ative essa opção para alinhar seus valores do Pawn bem como informações de melhoria para o canto direito da dica de ferramenta ao invés da esquerda.",
+		["OptionsBagUpgradeAdvisor"] = "Mostrar assessor de melhorias de inventário",
+		["OptionsBagUpgradeAdvisorTooltip"] = [=[Ative esta opção para que o Pawn assuma a flecha de melhoria do inventário.
 
-If checked, Pawn will find upgrades in your bags and mark items that are an upgrade for any of your active scales with green arrows. 
+Se estiver marcada, o Pawn vai encontrar melhorias no seu inventário e irá marcar itens que são melhorias para qualquer uma das escalas ativas com uma flecha verde.
 
-If unchecked, WoW will mark items with a higher item level than what you're currently wearing, and Pawn will not interfere with the built-in feature.]=],
-		["OptionsBlankLine"] = "Adicione uma linha em branco antes dos valores",
-		["OptionsBlankLineTooltip"] = "Mantem o tooltip dos items extra menor habilitanto essa opção, que adiciona uma linha em branco antes dos valores do Pawn.",
+Se não estiver marcada, o WoW irá marcar itens com o nível de item maior do que o que estiver equipado, e o Pawn não vai interferir com a funcionalidade interna.]=],
+		["OptionsBlankLine"] = "Adiciona uma linha em branco antes dos valores",
+		["OptionsBlankLineTooltip"] = "Mantém a dica de ferramenta dos items bem arrumada habilitando essa opção, que adiciona uma linha em branco antes dos valores do Pawn.",
 		["OptionsButtonHidden"] = "Esconder",
 		["OptionsButtonHiddenTooltip"] = "Não mostrar o botão do Pawn na janela de Informações do personagem.",
 		["OptionsButtonPosition"] = "Mostrar o botão do Pawn:",
@@ -421,173 +400,149 @@ If unchecked, WoW will mark items with a higher item level than what you're curr
 		["OptionsButtonPositionLeftTooltip"] = "Mostrar o botão do Pawn no canto inferior-esquerdo na janela de Informações do Personagem.",
 		["OptionsButtonPositionRight"] = "No lado direito",
 		["OptionsButtonPositionRightTooltip"] = "Mostrar o botão do Pawn no canto inferior-direito na janela de Informações do Personagem.",
-		["OptionsColorBorder"] = "Colorir a borda do tooltip nos upgrades",
-		["OptionsColorBorderTooltip"] = "Habilite essa opção para mudar a cor da borda do tooltip dos items que tem upgrades para verde.  Desabilite se isso interfere com outros mods que mudam a borda dos tooltips.",
-		["OptionsCurrentValue"] = "Mostrar ambos valores atuais e valores base",
-		["OptionsCurrentValueTooltip"] = [=[Habilite essa opção para que o Pawn mostre dois valores para items: o valor atual, que reflete no estado atual de um item com valores atuais de gemas, encantamentos, e reforja que o item tem no momento, com engastes vazios que não fornecem benefício, adicionando os valores base, que é o que o Pawn normalmente mostra.  O valor atual vai ser mostrado antes do valor atual.  Esta opção não tem efeito a não ser que você habilite mostrar valores de items nos tooltips.
+		["OptionsColorBorder"] = "Colorir a borda da dica de ferramenta das melhorias",
+		["OptionsColorBorderTooltip"] = "Ative essa opção para colorir a borda da dica de ferramenta dos itens que forem melhorias de verde. Desative essa opção se interferir com outros mods que alteram a borda das dicas de ferramentas.",
+		["OptionsCurrentValue"] = "Mostra ambos os valores atuais e de base",
+		["OptionsCurrentValueTooltip"] = [=[Ative essa opção para que o Pawn mostre dois valores para os itens: o valor atual, que reflete o estado atual de um item com as gemas e encantamentos que o item possui no momento, sendo que engastes vazios não geram benefícios,e o valor base, que é o que o Pawn geralmente exibe. Essa opção não tem efeito a menos que você ative a exibição de valor do item nas dicas de ferramenta.
 
-Você deve continuar usando os valores base para determinar entre dois items no fim-do-jogo, mas o valor atual pode ser útil quando subindo de nível e para facilitar em decidir qual que vale mais imediatamente equipando um novo item antes que tenha gemas ou encantamentos.]=],
-		["OptionsDebug"] = "Mostrar informação de debug",
-		["OptionsDebugTooltip"] = [=[Se você não está certo de como Pawn calcula os valores de um item particular, habilite esta opção para Pawn mostrar todos tipo de dados 'úteis' para o console do chat sempre que passar o mouse sobre um item.  Esta informação inclui que atributos o Pawn acha que o ítem tem, que partes de item Pawn não entende, e como cada um entrou no calculo para a sua escala.
+Você deve usar os valores base para determinar entre dois itens no conteúdo atual, mas o valor atual pode ser útil quando estiver subindo o nível de um personagem e para tornar mais fácil para decidir se é válido equipar um novo item antes que ele tenha gemas ou encantamentos.]=],
+		["OptionsDebug"] = "Mostrar informação de depuração",
+		["OptionsDebugTooltip"] = [=[Se você não está certo de como o Pawn está calculando os valores para um item em particular, ative essa opção para fazer com que o Pawn relate todo tipo de dados 'úteis' na janela de bate-papo sempre que você passar o mouse sobre um item. Essa informação inclui quais atributos o Pawn pensa que o item tem, quais partes do item o Pawn não compreende, e como ele calculou cada parte para cada uma de suas escalas.
 
-Esta opção vai preencher o seu registro de chat rapidamente, então você deve desliga-lo assim que você terminar de investigar.
+Essa opção vai encher a sua janela de bate-papo bem rápido, portanto você vai querer desligar após terminar sua investigação.
 
 Atalhos:
 /pawn debug on
 /pawn debug off]=],
 		["OptionsHeader"] = "Ajustar opções do Pawn",
-		--Translation missing 
-		["OptionsIgnoreGemsWhileLevelingCheck"] = "Ignore sockets on low-level items",
-		--Translation missing 
-		["OptionsIgnoreGemsWhileLevelingCheckTooltip"] = [=[Enable this option to have Pawn ignore sockets on low-level items when calculating item values, since most people do not go to the effort or expense of socketing items while still leveling.  A "low-level" item is one weaker than what can be obtained in a heroic dungeon at the level cap.
+		["OptionsIgnoreGemsWhileLevelingCheck"] = "Ignorar engastes em itens de nível baixo",
+		["OptionsIgnoreGemsWhileLevelingCheckTooltip"] = [=[Ative essa opção para que o Pawn ignore engastes em itens de nível baixo quando estiver calculando valores de itens, uma vez que a maior parte das pessoas não se dão ao trabalho de engastar itens enquanto estão subindo um personagem. Um item de "nível baixo" é um item que é mais fraco do que pode ser obtido de uma masmorra heroica no limite de nível.
 
-If checked, Pawn's socketing advisor will still suggest appropriate gems for low-level items, but sockets will be ignored in calculations and socketed items will not show up as upgrades as often.
+Se estiver marcada, o assessor de engastes do Pawn vai continuar sugerindo gemas apropriadas para itens de nível baixo, mas engastes serão ignorados em cálculos e itens engastados não serão mostrados como melhorias com frequência.
 
-If unchecked, Pawn will calculate values for items as if they were socketed in the way that maximizes the item's value, regardless of the item's level.]=],
-		--Translation missing 
-		["OptionsIgnoreItemUpgradesCheck"] = "Ignore valor and baleful upgrades",
-		--Translation missing 
-		["OptionsIgnoreItemUpgradesCheckTooltip"] = [=[Enable this option to have Pawn ignore the potential for Valor upgrades and Empowered Baleful items when calculating item values.
+Se não estiver marcada, o Pawn vai calcular valores para os itens como se eles fossem engastados de forma que maximize o valor do item, independente do nível do item.]=],
+		["OptionsIgnoreItemUpgradesCheck"] = "Ignorar melhorias de valor e itens do infortúnio",
+		["OptionsIgnoreItemUpgradesCheckTooltip"] = [=[Ative essa opção para que o Pawn ignore potenciais melhorias de Valor e de itens do Infortúnio Potencializados.
 
-If checked, Pawn will treat upgradeable items as they are and will not assume that you would use Valor and Empowered Apexis Fragments to improve the item when determining whether an item is better than what you currently have.
+Se estiver marcada, o Pawn vai tratar itens passíveis de atualização como estão e não vai assumir que você poderia usar Valor e Fragmento Apexis Potencializado para melhorar o item quando estiver determinando se um item é melhor do que o que você possui.
 
-If unchecked, Pawn will treat those items assuming that you would maximize their potential with Valor and Empowered Apexis Fragments.  This could cause a level 650 baleful item to appear as a significant upgrade over a level 670 item from Blackrock Foundry, since the baleful item could potentially be improved to level 705 through valor and Apexis.]=],
-		["OptionsInventoryIcon"] = "Mostrar ícones de inventário",
+Se não estiver marcada, o Pawn vai tratar esses itens assumindo que você irá maximizar o seu potencial com Valor e Fragmento Apexis Potencializado. Isso pode fazer com que um item do infortúnio de nível 650 apareça como uma melhoria significante perante um item da Fundição da Rocha Negra de nível 670, uma vez que o item do infortúnio poderia ser melhorado até o nível 705 através de Valor e Fragmento Apexis.]=],
+		["OptionsInventoryIcon"] = "Mostrar ícones próximo de dicas de ferramentas",
 		["OptionsInventoryIconTooltip"] = "Habilite esta opção para mostrar ícones de inventário próximo ao link de janela de item.",
-		["OptionsItemIDs"] = "Mostrar ID de items",
-		["OptionsItemIDsTooltip"] = [=[Habilite esta opção para o Pawn mostrar o ID de cada item que você ver, como também ID de todos encantamentos e gemas.
+		["OptionsItemIDs"] = "Mostrar ID de itens",
+		["OptionsItemIDsTooltip"] = [=[Ative essa opção para que o Pawn mostre o ID de item de todos os itens que você encontrar, bem como os IDs de todos os encantamentos e gemas.
 
-Cada item no World of Warcraft tem um número de ID associado a ele.  Esta informação é geralmente somente útil para criadores de mod.]=],
-		["OptionsLootAdvisor"] = "Mostrar Assessor de upgrade de Items",
-		["OptionsLootAdvisorTooltip"] = "Quando um item cai de uma masmorra e é um upgrade para seu personagem, Pawn vai mostrar uma popup anexada a janela de loot dizendo para você sobre o upgrade.",
+Todos os itens no World of Warcraft possui um número de ID associado a ele. Essa informação geralmente é útil somente para autores de mods.]=],
+		["OptionsLootAdvisor"] = "Mostrar assessor de melhorias de saque",
+		["OptionsLootAdvisorTooltip"] = "Quando um item cair em uma masmorra e for uma melhoria para o seu personagem, o Pawn irá mostrar uma janela anexada à janela de saque te informando sobre a melhoria",
 		["OptionsOtherHeader"] = "Outras opções",
-		["OptionsQuestUpgradeAdvisor"] = "Mostrar Assessor de upgrade de missão",
-		["OptionsQuestUpgradeAdvisorTooltip"] = "No histórico de missões enquanto você fala com um 'NPC', se alguma recompensa de quest é um upgrade para seu equipamente, Pawn vai mostrar uma seta verde no item.  Se nenhum item é upgrade, Pawn vai mostrar uma pilha de ouro mostrando que este item vale mais ser vendido para um vendedor.",
-		--Translation missing 
-		["OptionsShowRelicUpgrades"] = "Show relic advisor",
-		--Translation missing 
-		["OptionsShowRelicUpgradesTooltip"] = "Pawn will show you when a relic would increase the item level of one of your artifact weapons.  (This works differently from other upgrade features, since it's based on item level, not stats.)",
-		["OptionsResetUpgrades"] = "Re-escanear",
-		["OptionsResetUpgradesTooltip"] = [=[Pawn vai esquecer o que conhece sobre seus melhores items que você equipou e re-escanear seu equipamento para promover informações de upgrade no futuro.
+		["OptionsQuestUpgradeAdvisor"] = "Mostrar assessor de melhorias de missão",
+		["OptionsQuestUpgradeAdvisorTooltip"] = "No seu registro de missões e quando estiver conversando com um PNJ, se uma das recompensas de missão for uma melhoria para o seu equipamento atual, o Pawn irá mostrar um ícone de seta verde no item. Se nenhum dos itens for uma melhoria, o Pawn irá mostrar uma pilha de moedas no item que valer mais quando for vendido.",
+		["OptionsResetUpgrades"] = "Reescanear",
+		["OptionsResetUpgradesTooltip"] = [=[O Pawn irá esquecer o que sabe sobre os melhores itens que você equipou e reescanear seu equipamento de forma a providenciar informações de melhorias mais atualizadas no futuro.
 
-Use esta característica se você achar que o Pawn está fazendo sugestões de upgrades incorretas como resultado de items que você vendeu, destruiu ou não usa mais.  Isto vai afetar todos os personagens que usam Pawn.]=],
-		["OptionsSocketingAdvisor"] = "Mostrar Assessor de engastes",
-		["OptionsSocketingAdvisorTooltip"] = "Quando adicionar gemas em um item, Pawn vai mostrar uma popup sugerindo gemas que você pode engastar em um item que irá melhora-lo.  (Para ser a lista completa de sugestões para cada cor, veja a aba Gemas, onde você também pode alterar a qualidade das gemas que ira utilizar.)",
+Use essa funcionalidade se você perceber que o Pawn está sugerindo melhorias incorretas como resultado de itens que você vendeu, destruiu ou não utiliza mais. Isso vai afetar todos os seus personagens que usam o Pawn.]=],
+		["OptionsShowRelicUpgrades"] = "Mostrar melhorias de relíquias",
+		["OptionsShowRelicUpgradesTooltip"] = "O Pawn irá mostrar quando uma relíquia poderia aumentar o nível do item de uma de suas armas  artefato. (Isso funciona diferente de outras funcionalidades de melhoria, uma vez que é baseada somente no nível do item, e não nos atributos.)",
+		["OptionsSocketingAdvisor"] = "Mostrar assessor de engastes",
+		["OptionsSocketingAdvisorTooltip"] = "Quando estiver adicionando gemas em um item, o Pawn vai mostrar uma janela sugerindo gemas que você pode adicionar ao item para que maximize o seu poder. (Para ver a lista completa de sugestões de gemas para cada cor, veja a aba Gemas, onde você pode customizar também a qualidade das gemas a serem utilizadas.)",
 		["OptionsTab"] = "Opções",
-		["OptionsTooltipHeader"] = "Opções de tooltip",
-		--Translation missing 
-		["OptionsTooltipSpecIcon"] = "Show spec icons",
-		--Translation missing 
-		["OptionsTooltipSpecIconTooltip"] = "Enable this option to show spec icons next to scale names on tooltips.",
-		["OptionsTooltipUpgradesOnly"] = "Somente mostrar upgrades",
-		["OptionsTooltipUpgradesOnlyTooltip"] = [=[Esta é a opção mais simples.  Somente mostra porcentagem de upgrade de um item para seu equipamento, e indica quais items são melhores para sua própria escala.  Não mostra nada sobre items fracos.
+		["OptionsTooltipHeader"] = "Opções de dica de ferramenta",
+		["OptionsTooltipSpecIcon"] = "Mostrar ícones de especializações",
+		["OptionsTooltipSpecIconTooltip"] = "Ative essa opção para mostrar ícones de especializações próximo do nome das escalas nas dicas de ferramentas.",
+		["OptionsTooltipUpgradesOnly"] = "Mostrar somente melhorias",
+		["OptionsTooltipUpgradesOnlyTooltip"] = [=[Esta é a opção mais simples. Mostra somente a porcentagem de melhorias para itens que são uma melhoria para o seu equipamento atual, e indica quais itens que você possui são melhores para cada escala. Não mostra absolutamente nada para itens menores.
 
-|cff8ec3e6Fire:|r  |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% upgrade|r
+|cff8ec3e6Fogo:|r  |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% de melhoria|r
 
 ...ou...
 
 |cff8ec3e6Fogo:  seu melhor|r]=],
-		["OptionsTooltipValuesAndUpgrades"] = "Mostrar valores de escala e % de upgrade",
-		["OptionsTooltipValuesAndUpgradesTooltip"] = [=[Mostra valores do Pawn em todas as escalas visíveis em todos os items, exceto naqueles que tem um valor de zero.  Também indica quais items são upgrades para seu equipamento atual.
+		["OptionsTooltipValuesAndUpgrades"] = "Mostrar valores de escala e % de melhoria",
+		["OptionsTooltipValuesAndUpgradesTooltip"] = [=[Mostra os valores do Pawn para todas as suas escalas visíveis em todos os itens, exceto aqueles que tiverem um valor de zero. Além disso, indica quais itens são uma melhoria para o seu equipamento atual.
 
 |cff8ec3e6Gelo:  123.4
-Fogo:  156.7 |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% upgrade|r]=],
-		["OptionsTooltipValuesOnly"] = "Mostrar somente valores de escala, sem % de upgrade",
-		["OptionsTooltipValuesOnlyTooltip"] = [=[Mostra valores do Pawn em todas as escalas visíveis em todos os items, exceto naqueles que tem um valor de zero.  Não indica quais items são upgrades para seu equipamento atual.
+Fogo:  156.7 |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% de melhoria|r]=],
+		["OptionsTooltipValuesOnly"] = "Mostrar somente valores de escala, sem % de melhoria",
+		["OptionsTooltipValuesOnlyTooltip"] = [=[Mostra os valores do Pawn para todas as suas escalas visíveis em todos os itens, exceto aqueles que tiverem um valor de zero. Não indica quais itens são uma melhoria para o seu equipamento atual. Essa opção reflete o comportamento padrão de versões anteriores do Pawn.
 
 |cff8ec3e6Gelo:  123.4
-Fire:  156.7|r]=],
-		["OptionsUpgradeHeader"] = "Mostrar |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t upgrades nos tooltips:",
-		--Translation missing 
-		["OptionsUpgradeSettingsHeader"] = "Upgrade options",
-		["OptionsUpgradesForBothWeaponTypes"] = "Mostrar upgrades para ambas armas de uma mão e duas mãos",
-		["OptionsUpgradesForBothWeaponTypesTooltip"] = [=[Pawn assessor de upgrade deve monitorar e sugerir upgrades para armas de duas mãos e dupla de arma (ou para magos, arma de mão principal e enfeites de mão secundária) sets de armas separados.
+Fogo:  156.7|r]=],
+		["OptionsUpgradeHeader"] = "Mostrar |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t de melhoria nas dicas de ferramentas:",
+		["OptionsUpgradeSettingsHeader"] = "Opções de melhorias",
+		["OptionsUpgradesForBothWeaponTypes"] = "Mostrar melhorias para ambas armas de 1M e 2M",
+		["OptionsUpgradesForBothWeaponTypesTooltip"] = [=[O assessor de melhorias do Pawn deve monitorar e mostrar melhorias para os seus conjuntos de armas de duas mãos e empunhar duas armas (ou para conjuradores, mão principal e acessório de mão secundária) de forma separada.
 
-Se marcado, você pode estar usando uma arma de duas mãos e claramente ver armas de uma mão como upgrades se eles são melhores (ou segundo melhores) da sua arma de uma mão anterior, porque Pawn monitora upgrades separadamente para sets de duas armas.
+Se estiver marcada, você poderia estar usando uma arma de duas mãos e visualizar armas de uma mão claramente inferiores como melhorias se ela for melhor (ou segundo melhor) do que a arma de uma mão usada anteriormente, uma vez que o Pawn está monitorando melhorias separadamente para os dois conjuntos de armas.
 
-Se desmarcado, equpar uma arma de duas mãos vai prevenir que Pawn mostra upgrades para armas de uma mão e vice-versa.]=],
-		--Translation missing 
-		["OptionsUpgradeTrackingHeader"] = "Upgrade comparisons:",
-		--Translation missing 
-		["OptionsUpgradeTrackingOff"] = "Versus equipped gear (recommended)",
-		--Translation missing 
-		["OptionsUpgradeTrackingOffTooltip"] = "Pawn will show you items that are an upgrade compared to the items that you currently have equipped.",
-		--Translation missing 
-		["OptionsUpgradeTrackingOn"] = "Track for each scale (advanced)",
-		--Translation missing 
-		["OptionsUpgradeTrackingOnTooltip"] = "(For advanced users.)  Pawn will try to track the best items that you've equipped, independently for each scale that you have enabled, and show you items that are an upgrade compared to those.",
-		["OptionsWelcome"] = "Configure Pawn do jeito que deseja.  Mudanças terão efeito imediatamente.",
-		--Translation missing 
+Se não estiver marcada, equipar uma arma de duas mãos vai evitar que o Pawn mostre melhorias de armas de uma mão e vice-versa.]=],
+		["OptionsUpgradeTrackingHeader"] = "Comparações de melhorias:",
+		["OptionsUpgradeTrackingOff"] = "Contra equipamento equipado",
+		["OptionsUpgradeTrackingOffTooltip"] = "O Pawn irá mostrar itens que são uma melhoria comparado com os itens que você tem atualmente equipado.",
+		["OptionsUpgradeTrackingOn"] = "Monitorar para cada escala (avançado)",
+		["OptionsUpgradeTrackingOnTooltip"] = "(Para usuários avançados) O Pawn tentará monitorar os melhores itens que você tem equipado, independente para cada escala que você tiver ativado, e lhe mostra itens que são uma melhoria comparado com eles.",
+		["OptionsWelcome"] = "Configure o Pawn do jeito que desejar. Mudanças terão efeito imediatamente.",
 		["ScaleAutoOff"] = "Manual",
-		--Translation missing 
-		["ScaleAutoOff2"] = "Let me manage scales.",
-		--Translation missing 
-		["ScaleAutoOffTooltip"] = "Pawn will let you manually choose which scales to use for its calculations, allowing you to enable more than one scale at a time, add custom scales, and more.",
-		--Translation missing 
-		["ScaleAutoOn"] = "Automatic",
-		--Translation missing 
-		["ScaleAutoOn2"] = "Just show my current spec.",
-		--Translation missing 
-		["ScaleAutoOnTooltip"] = "Pawn will automatically show your current specialization in item tooltips, and use that to make recommendations and suggest upgrades.",
-		--Translation missing 
-		["ScaleAutoWelcome"] = [=[Pawn will show suggestions for your current specialization.
+		["ScaleAutoOff2"] = "Deixe-me gerenciar as escalas.",
+		["ScaleAutoOffTooltip"] = "O Pawn vai permitir que você escolha manualmente quais escalas usar para os seus cálculos, permitindo que você ative mais de uma escala por vez, adicione escalas customizadas, e mais.",
+		["ScaleAutoOn"] = "Automático",
+		["ScaleAutoOn2"] = "Mostre apenas a minha espec. atual.",
+		["ScaleAutoOnTooltip"] = "O Pawn vai mostrar automaticamente a sua especialização em dicas de ferramentas de itens, e vai usar isso para fazer recomendações e sugerir melhorias.",
+		["ScaleAutoWelcome"] = [=[O Pawn vai mostrar sugestões para a sua especialização atual.
 
-If you'd rather manage things on your own, just click Manual below.]=],
+Se você prefere gerenciar as coisas da sua forma, basta clicar no botão Manual abaixo.]=],
 		["ScaleChangeColor"] = "Mudar cor",
-		["ScaleChangeColorTooltip"] = "Mudar a cor de nome e valores da escala que aparecem nos tooltips.",
+		["ScaleChangeColorTooltip"] = "Muda a cor que o nome e valor dessa escala aparecem nas dicas de ferramentas dos itens.",
 		["ScaleCopy"] = "Copiar",
-		["ScaleCopyTooltip"] = "Criar uma nova escala copiando esta.",
+		["ScaleCopyTooltip"] = "Cria uma nova escala fazendo uma cópia desta.",
 		["ScaleDefaults"] = "Padrões",
-		["ScaleDefaultsTooltip"] = "Criar uma nova escala fazendo uma cópia dos padrões.",
+		["ScaleDefaultsTooltip"] = "Cria uma nova escala de um padrão para a sua especialização.",
 		["ScaleDeleteTooltip"] = [=[Deletar esta escala.
 
-Este comando não pode ser desfeito]=],
+Este comando não pode ser desfeito!]=],
 		["ScaleEmpty"] = "Vazia",
 		["ScaleEmptyTooltip"] = "Cria uma nova escala em branco.",
 		["ScaleExport"] = "Exportar",
 		["ScaleExportTooltip"] = "Compartilhe sua escala com outros na internet.",
 		["ScaleHeader"] = "Gerenciar suas escalas do Pawn",
 		["ScaleImport"] = "Importar",
-		["ScaleImportTooltip"] = "Adicionar uma nova escala colando outra tag de escala da internet.",
+		["ScaleImportTooltip"] = "Adiciona uma nova escala colando uma tag de escala da internet.",
 		["ScaleNewHeader"] = "Criar uma nova escala",
 		["ScaleRename"] = "Renomear",
 		["ScaleRenameTooltip"] = "Renomeia esta escala.",
 		["ScaleSelectorHeader"] = "Selecione uma escala:",
-		--Translation missing 
-		["ScaleSelectorShowingSuggestionsFor"] = "Showing suggestions for",
-		["ScaleSelectorShowScale"] = "Mostrar escala nos tooltips",
-		["ScaleSelectorShowScaleTooltip"] = [=[Quando esta opção esta marcada, valores para cada escala vão ser mostrados no tooltips de items para este personagem.  Cada esclaa pode mostrar até uma para cada um do seu personagem, multiplos personagens, ou nenhum personagem,
+		["ScaleSelectorShowingSuggestionsFor"] = "Mostrando sugestões para",
+		["ScaleSelectorShowScale"] = "Mostrar esta escala nas dicas de ferramentas",
+		["ScaleSelectorShowScaleTooltip"] = [=[Ative essa opção para mostrar essa escala nas dicas de ferramentas de itens e fazer com que o Pawn use-a para sugerir melhorias. Você pode ter mais de uma escala ativa em cada personagem.
 
 Atalho: Shift+clique em uma escala]=],
 		["ScaleShareHeader"] = "Compartilhar suas escalas",
-		["ScaleTab"] = "Escala",
-		["ScaleTypeNormal"] = "Você pode mudar esta escala na aba Valores",
-		["ScaleTypeReadOnly"] = "Você deve fazer uma cópia desta escala se você quiser personaliza-la.",
-		["ScaleWelcome"] = "Escalas que são conjunto de atributos e valores usados para distribuir pontos em items.  Você pode personalizaor seu próprio ou usar valores de escala que outros criaram.",
-		["SocketingAdvisorButtonTooltip"] = "Clique para abrir a aba de Gemas do Pawn, onde você pode encontrar mais informação sobre gemas que o Pawn recomenda.",
-		["SocketingAdvisorHeader"] = "Pawn Assessor de engaste sugere:",
-		--Translation missing 
-		["SocketingAdvisorIgnoreThisItem"] = "Don't bother adding gems to this low-level item.  But if you do, use these:",
-		--Translation missing 
-		["StarterProvider"] = "Starter scales",
-		["ValuesDoNotShowUpgradesFor1H"] = "Não mostrar upgrades para armas de uma mão",
-		["ValuesDoNotShowUpgradesFor2H"] = "Não mostrar upgrades para armas de duas mãos",
-		["ValuesDoNotShowUpgradesTooltip"] = "Habilite esta opção para esconder upgrades deste tipo de item.  Exemplo, mesmo se tankers paladinos podem usar armas de duas mãos, uma arma de duas mãos nunca é um upgrade para um set tanker de paladino, então Pawn não deve mostrar notificações de ugprade para ele.  Similarmente, paladinos retribuição podem usar armas de uma mão, mas nunca serão upgrades.",
-		["ValuesFollowSpecialization"] = "Somente mostrar upgrades para meu melhor tipo de armadura depois do nível 50",
-		["ValuesFollowSpecializationTooltip"] = "Habilite esta opção para esconder ugprades para armaduras que sua classe não tem especialização depois do nível 50.  Exemplo, um nível 50 paladino sagrado aprende especialização em placa, que aumenta seu intelecto em 5% usando somente armaduras de placa.  Quando esta opção é marcada Pawn nunca vai considerar tecido, couro ou malha para upgrades em paladinos sagrados acima de nível 50.",
-		["ValuesHeader"] = "Escalar valores para %s",
+		["ScaleTab"] = "Escalas",
+		["ScaleTypeNormal"] = "Você pode mudar esta escala na aba Valores.",
+		["ScaleTypeReadOnly"] = "Se quiser customizar essa escala, faça uma cópia primeiro.",
+		["ScaleWelcome"] = "Escalas atribuem pontos de valor para atributos para que o Pawn possa lhe dizer qual de dois itens é melhor para uma certa especialização ou situação.",
+		["SocketingAdvisorButtonTooltip"] = "Clique para abrir a aba de Gemas do Pawn, onde você pode encontrar mais informação sobre as gemas que o Pawn recomenda.",
+		["SocketingAdvisorHeader"] = "Assessor de Engaste do Pawn sugere:",
+		["SocketingAdvisorIgnoreThisItem"] = "Não se incomode adicionando gemas para esse item de nível baixo. Mas se você for adicionar, use esses:",
+		["StarterProvider"] = "Escalas de partida",
+		["ValuesDoNotShowUpgradesFor1H"] = "Não mostrar melhorias para armas de uma mão",
+		["ValuesDoNotShowUpgradesFor2H"] = "Não mostrar melhorias para armas de duas mãos",
+		["ValuesDoNotShowUpgradesTooltip"] = "Ative essa opção para esconder melhorias deste tipo de item. Por exemplo, mesmo que paladinos tanques possam usar armas de duas mãos, uma arma desse tipo nunca é uma \"melhoria\" para um conjunto de tanque, então o Pawn não deve mostrar notificações de melhoria para eles. Da mesma forma, paladinos de retribuição podem usar armas de uma mão, mas elas nunca serão melhorias.",
+		["ValuesFollowSpecialization"] = "Mostrar melhorias para o meu melhor tipo de armadura somente após o nível 50",
+		["ValuesFollowSpecializationTooltip"] = "Ative essa opção para esconder melhorias para armaduras que a sua classe não pode se especializar no nível 50. Por exemplo, no nível 50 paladinos sagrados aprendem Especialização em Armadura de Placas, a qual aumenta o seu intelecto em 5% enquanto usarem apenas armadura de placas. Quando essa opção é escolhida o Pawn nunca vai considerar tecido, couro ou malha para serem melhorias para paladinos sagrados de nível 50 ou mais.",
+		["ValuesHeader"] = "Valores de atributos para %s",
 		["ValuesIgnoreStat"] = "Items com isso não são usáveis",
-		["ValuesIgnoreStatTooltip"] = "Habilite esta opção para causar qualquer item com este atributo não pegar valores para esta escala.  Por exemplo, xamãs nao podem usar placas, então uma escala desenhada para xamã pode marcar placa com não usável e armaduras de placa não pegam valores para esta escala.",
-		["ValuesNormalize"] = "Normalizar valores (como Wowhead)",
-		["ValuesNormalizeTooltip"] = [=[Habilite esta opção para dividir o valor de calculo final para um item de mesma soma para todos valores de atribudos na escala, como Wowhead e Lootzor fazem.  Isto ajuda em situações em que atributos perto de 1 e outros valores perto de 5.  Também ajuda manter números pequenos.
+		["ValuesIgnoreStatTooltip"] = "Ative essa opção para fazer com que qualquer item com esse atributo não tenha valor para essa escala. Por exemplo, xamãs não podem vestir placas, então uma escala designada para um xamã pode marcar placas como não utilizáveis para que armaduras de placa não tenham valor para essa escala.",
+		["ValuesNormalize"] = "Normalizar valores (como o Wowhead)",
+		["ValuesNormalizeTooltip"] = [=[Ative essa opção para dividir o valor do cálculo final para um item pela soma de todos os valores de atributos na sua escala, tal como o Wowhead e Lootzor fazem. Isso ajuda a normalizar situações em que uma escala tem valores de atributos próximos de 1 e outra tem valores próximos de 5. Também ajuda a manter os números gerenciáveis, pequenos.
 
-Para mais informação nesta opção, veja o arquivo leia-me.]=],
+Para mais informação nessa opção, veja o arquivo readme.]=],
 		["ValuesRemove"] = "Remover",
-		["ValuesRemoveTooltip"] = "Remover este atributo da escala.",
+		["ValuesRemoveTooltip"] = "Remove este atributo da escala.",
 		["ValuesTab"] = "Valores",
-		["ValuesWelcome"] = "Você pode personalizar os valores que são designados para cada atributo nesta escala.  Para genreciar esta escala e adicionar novos, use a aba Escalas.",
-		["ValuesWelcomeNoScales"] = "Você pode não ter uma escala selecionada.  Para começar, vá para a aba de Escala e comece uma nova escala ou cole uma da internet.",
-		["ValuesWelcomeReadOnly"] = "A escala que você selecionou não pode ser mudada.  Se você quer mudar os valores, vá para a aba Escala e crie uma cópia desta escala ou comece uma nova."
+		["ValuesWelcome"] = "Você pode personalizar os valores que são designados para cada atributo nesta escala.  Para gerenciar suas escalas e adicionar novas, use o modo Manual na aba Escalas.",
+		["ValuesWelcomeNoScales"] = "Você não selecionou uma escala. Para começar, vá para a aba Escalas e comece uma nova escala ou cole uma da internet.",
+		["ValuesWelcomeReadOnly"] = "Essa escala interna não pode ser alterada. Se você quiser customizar os valores, vá para a aba Escalas, ative o modo Manual, e faça uma cópia dessa escala.",
 	}
 }
 end
