@@ -1,214 +1,328 @@
-tag 42ddb51495f0ef3fca9dd6b9e85a60810a774e75 7.2.11
+tag 341df15e2c3318192abe645996d02dec6a3d0b3c 7.2.12
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Tue Jun 27 12:32:59 2017 +0200
+Date:	Sun Jul 2 00:04:09 2017 +0200
 
-Tagging as 7.2.11
+Tagging as 7.2.12
 
-commit f9f4c84ba67405eac786c7d62173ceaafb431b23
+commit 2c98393e8880ffcb4723068316a5b13af59ef821
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 27 12:32:59 2017 +0200
+Date:   Sun Jul 2 00:04:08 2017 +0200
 
-    increment version number to 7.2.11
+    increment version number to 7.2.12
 
-commit a9239d0ab80e753cec27985587ab3e370a8c1363
+commit cdf9a524ab942b1118dc513536581b087b71fbe0
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 27 07:33:46 2017 +0200
+Date:   Sun Jul 2 00:01:40 2017 +0200
 
-    Omega via svn r16352:
-    While at it, add shorter text for hopeless reflection
+    Omega via svn r16393:
+    update BW version check
 
-commit e2bcbeca5a2eabb9a51f22a859dcaaf664dfc47d
+commit 1a687b885dfcb4a38db99f029f08896002536d7a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 27 07:20:44 2017 +0200
+Date:   Sat Jul 1 14:04:09 2017 +0200
 
-    Omega via svn r16351:
-    Bump HF
+    ebmor via svn r16392:
+    deDE update
 
-commit 5188cb7c1262af87418dd6ef04b72571f5bac066
+commit 6c5d61509d75d28350374b2d510d34c41b801de8
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 27 07:14:41 2017 +0200
+Date:   Sat Jul 1 13:48:31 2017 +0200
 
-    Omega via svn r16350:
-    KJ Update
-    Added more phase 3 timer data
-    Made fel claw taunt warning faster
-    Changed many timers to count timers
-    Added target messages for reflections
-    Changed first darkness warning to say move to ?\226?\128?\156group?\226?\128?\157 instead of ?\226?\128?\156rift?\226?\128?\157 since rift isn?\226?\128?\153t up yet for first one.
-    TODO, more orb timer data. I know it?\226?\128?\153s incomplete but it?\226?\128?\153s just not in WCL public logs and my transcriptor logs only saw 2 orbs (so don?\226?\128?\153t know time between 2nd and 3rd, etc yet)
-    Account for fact second bursting is delayed on heroic by singularity
-    Fixed passing pets to IsTanking on felclaw check (wasn?\226?\128?\153t causing errors but also wasn?\226?\128?\153t very efficient either)
-    Fixed info frame sometimes not hiding after combat end
-    Fixed ?\226?\128?\156phase 3?\226?\128?\157 message showing on phase 2.5 wipes.
+    ebmor via svn r16391:
+    deDE update
 
-commit 1ce3444bcf7cbeb005fa6a0127c254d6ca20c405
+commit 80b512978b9b62eda65f2a709b50208546d54895
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 27 05:24:30 2017 +0200
+Date:   Sat Jul 1 05:39:20 2017 +0200
 
-    Omega via svn r16349:
-    Orbs
+    Omega via svn r16390:
+    Next timers
 
-commit 0db148fb4e8ad81fda6a8f164e24e9633e5ecde4
+commit c28a606f0600789e6a9ab6dd7577010ce588e689
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 27 05:05:50 2017 +0200
+Date:   Sat Jul 1 04:59:37 2017 +0200
 
-    Omega via svn r16348:
-    Push quick phase 1 arm timer
+    Omega via svn r16389:
+    give 3 moon specials a countdown
 
-commit 944d9139ed6f8163a3a29aef189ea88c878e3726
+commit 5a0b56ef111afd1f735b92c16a6aa028c4febf03
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 27 04:03:00 2017 +0200
+Date:   Sat Jul 1 04:54:30 2017 +0200
 
-    Omega via svn r16347:
-    That should fix felclaws
+    Omega via svn r16388:
+    Fix glaivestorm warning/timer not showing
 
-commit 1067cd2cfd7324b2b02c10aece1d17e00cabfdc4
+commit 167fdf746f09eafe090b7ef4e2a94fba9fe74d18
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 27 03:06:37 2017 +0200
+Date:   Sat Jul 1 04:32:49 2017 +0200
 
-    Omega via svn r16346:
-    Fix one stack taunt warning for avatar
+    Omega via svn r16387:
+    use custom frame for sisters, hopefully it works better, at very least it?\226?\128?\153ll sort better
 
-commit 4bdefb24d6cd98007ee86b6bc7e0086ad6510005
+commit b2c1692cf88a7f8719df0ad3b8b13240f5330a77
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 26 22:35:56 2017 +0200
+Date:   Sat Jul 1 03:59:10 2017 +0200
 
-    Omega via svn r16345:
-    Fix another bug
+    Omega via svn r16386:
+    Handle moon specials better on sisters, especially on heroic+
+    Swap anguish and quills icons
 
-commit cb3e3f33bde558c7e863999f766331561427110c
+commit db3c5d77c133f4f7677e57acc8f675d946963787
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 26 22:12:43 2017 +0200
+Date:   Sat Jul 1 03:02:27 2017 +0200
 
-    Omega via svn r16344:
-    Fix function name
+    Omega via svn r16385:
+    Don?\226?\128?\153t show infoframe for first darkness, and change title to ?\226?\128?\156Not Safe?\226?\128?\157 instead of ?\226?\128?\156not spellname?\226?\128?\157
 
-commit deafc823c056f7f8810e183fe2cec07a734613ac
+commit 6682e70084980b8e4462f446ddb89712174eef7f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 26 21:48:47 2017 +0200
+Date:   Sat Jul 1 02:57:56 2017 +0200
 
-    Omega via svn r16343:
-    Ooops, another infoframe fix
+    Omega via svn r16384:
+    Small tweak to armageddon in intermission, it?\226?\128?\153s 2 seconds slower on heroic vs normal
 
-commit 52d6639f2776fb7262ed751561758d4376ccfa52
+commit d0bd04e0ec021c819c1b1c483c8896480f48ad35
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 26 21:47:03 2017 +0200
+Date:   Sat Jul 1 00:00:30 2017 +0200
 
-    Omega via svn r16342:
-    Fix info frame bug on fallen avatar
-    Add shield absorb amount to info frame on fallen avatar
-    Added a shield ended positive message on fallen avatar
+    Omega via svn r16383:
+    Fix missing voice warning for flame orb
 
-commit fda0d8f9ed9e0d084565e5dabb691a03223c456a
+commit af7c6287b8540255272e1da012b8f6cae945f031
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 26 21:04:32 2017 +0200
+Date:   Fri Jun 30 23:36:03 2017 +0200
 
-    Omega via svn r16341:
-    CN update
+    Omega via svn r16382:
+    Fix inforame hiding in combat end on KJ (again, somehow last time i fixed it commit didn?\226?\128?\153t take)
+    Fix orb timer in phase 3 KJ for longer pulls
+    Remove initial yell on bomb countdown on maiden, it?\226?\128?\153s really not needed.
+    Add a few more trash warnings off my TODO list based on trouble spots raid had
+    Cleanup countdown yells
 
-commit 86fdb0c020324f0d8d9e74f7338ecd237ea59649
+commit 457ccd2279d45921f209d40ccbd51792cf56e653
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 26 09:06:01 2017 +0200
+Date:   Fri Jun 30 23:03:26 2017 +0200
 
-    Omega via svn r16340:
-    Some notes, and update glaivestorm
+    Omega via svn r16381:
+    Add DBM-Argus
 
-commit 00502bebcc1680b2f067afc5595a6c14214e331c
+commit 61289db9acc56d7689c27f4399edada36aff495f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 26 08:48:28 2017 +0200
+Date:   Fri Jun 30 08:58:21 2017 +0200
 
-    Omega via svn r16339:
-    Change corp shot other to special warning and add ?\226?\128?\156help soak?\226?\128?\157 to it
+    Omega via svn r16380:
+    Fix extend on one of timers, adjust another. otherwise looks semi decent all things considered
+    Set icon on wavemender (untested)
 
-commit 3a05a82010833d6a1ec280bcdc38dd1abd275176
+commit 7efc2409b686b0af6e1826e9047a96a7bea54000
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 26 08:42:49 2017 +0200
+Date:   Fri Jun 30 08:18:00 2017 +0200
 
-    Omega via svn r16338:
-    Remove confusing voice warning. there is no good voice for that so for now just remove voice pack support on embrace of the eclipse
-
-commit dfa9ee2bf24cdf01d0c3c4d250c9140c02dec4dd
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jun 26 07:39:00 2017 +0200
-
-    Omega via svn r16337:
-    Add GTFO requested by Kaedys on discord.
-
-commit 0800cfcd9d36e974839de5389cac93a5172da7ab
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jun 25 23:47:18 2017 +0200
-
-    Omega via svn r16336:
-    Update info frame on fallen avatar to track ability cds and show yes/no if an ability is on cooldown
-    Fix lua error on goroth
-
-commit b38426f3cdbbbc688a94441df8c940632650f397
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jun 25 22:54:25 2017 +0200
-
-    Omega via svn r16335:
-    Add first shadow bolt volley to Kurtalos by user requests
-
-commit c648519ccc3f882e5aff4c7b88460e27841ecbc3
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jun 25 11:24:19 2017 +0200
-
-    ultrashining via svn r16334:
+    ultrashining via svn r16379:
     zhTW update
 
-commit 6e86a240229b1bc7fc32da63b199b262b49164c5
+commit cab17ae1c1cc4001a48c55ba45604a0c909d0844
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jun 25 05:09:17 2017 +0200
+Date:   Fri Jun 30 07:49:22 2017 +0200
 
-    Omega via svn r16333:
-    KR update
+    Omega via svn r16378:
+    Fix KJ CID so health is correctly reported
+    Added countdown options to sasszine
 
-commit 39b98b9f37b722578b185aa713ea17ca0950dc28
+commit 23a0110e7eccb6c8c30c6262122efd85dcedde92
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jun 25 03:38:05 2017 +0200
+Date:   Fri Jun 30 06:17:07 2017 +0200
 
-    Omega via svn r16332:
-    Fix couple singular timers not showing count
+    Omega via svn r16377:
+    scrap unused stuff
+    fix hatching after discharge
 
-commit 43ded3bb74158d116ddcd729041b1ca6111e7886
+commit d8a24d055406afc0ad215dbcb384513f53c45b37
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jun 25 03:29:35 2017 +0200
+Date:   Fri Jun 30 06:05:33 2017 +0200
 
-    Omega via svn r16331:
-    Refix crashing comet (reported by F5in)
+    Omega via svn r16376:
+    Just scrap that warning, it?\226?\128?\153s buggy as hell
+    Fix spam on harjatan as well
 
-commit 8162ad5773cea57e36df9680e2dc6b448ba45e33
+commit 687690329e27522942d180961c96675c1af230b9
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jun 25 03:02:48 2017 +0200
+Date:   Fri Jun 30 03:03:12 2017 +0200
 
-    Omega via svn r16330:
-    Improve scream warning to only tell you to move to boned if number of boned mobs > 0, else just tell you to move away from others
+    Omega via svn r16375:
+    Fix that count getting off when idiots that aren?\226?\128?\153t tanks standing in front of boss
 
-commit 81447410778364ec66a92e45ba90610f1dff9a1c
+commit f2747c68046ccb9faff04fbe58ab665385148197
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 24 23:29:47 2017 +0200
+Date:   Fri Jun 30 02:46:32 2017 +0200
 
-    Omega via svn r16329:
-    Count armageddon warnings
+    Omega via svn r16374:
+    Fix that count getting off when idiots that aren?\226?\128?\153t tanks standing in front of boss
 
-commit 9d47e87fe329601fbcab32e982a68a09dbf06941
+commit f2747c68046ccb9faff04fbe58ab665385148197
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 24 20:45:38 2017 +0200
+Date:   Fri Jun 30 02:46:32 2017 +0200
 
-    Omega via svn r16328:
-    Add armageddon rain cast bar
+    Omega via svn r16374:
+    Fix that count getting off when idiots that aren?\226?\128?\153t tanks standing in front of boss
 
-commit b23680e2617795d85e409beb802dcd8e5ca68cc0
+commit fc68a2614bf5e61cbf3e08c2d7d68f2c0b0ffac4
+Author: MysticalOS <MysticalOS@nomail.com>
+Date:   Thu Jun 29 19:43:17 2017 -0400
+
+    update PkgMeta
+
+commit 6e01dbca6d8842588f478b34debee40326545397
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 24 20:40:14 2017 +0200
+Date:   Fri Jun 30 01:41:06 2017 +0200
 
-    tandanu via svn r16327:
+    Omega via svn r16373:
+    Added complete stubs for Antorus
+
+commit 4b0c42bb31eb0fdb6b3c3cfc2d7b6265edbb579f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jun 30 01:34:05 2017 +0200
+
+    tandanu via svn r16372:
+    add Countdown() for announce-like objects
+
+commit 83948dc7fed466bdfcd348ba15cab33ad14d795d
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jun 30 00:49:09 2017 +0200
+
+    Omega via svn r16371:
+    Forgot locals, and trash mod
+
+commit d25bc1ff00fc1666278eb2b741c1cd625597dc52
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jun 30 00:41:25 2017 +0200
+
+    Omega via svn r16370:
+    Add stubs for Seat of Triamvirate, complete with pull/wipe/kill/health/stats detection already baked in
+    Disable the remove icon code in maiden, it should resolve the removal of icons when debuffs don?\226?\128?\153t change
+
+commit e42929c363c09fb0dcc858c7a4f4c917ccf4b034
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jun 29 22:58:34 2017 +0200
+
+    Omega via svn r16369:
+    Shorten yell text across the board when longer text (such as including player name) is not that important. Knowing player name for something like incorp shot is important, knowing it for volley is not, for example.
+    Also removed spell names from countdowns/fade yells when there is little chance of confusing it with another spell, such as unstable bombs on maiden, it?\226?\128?\153s only yell on fight so countdown doesn?\226?\128?\153t need spell name, just count.
+
+commit 53080bbfd346fddaaa2885e67a199843139d2fbc
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jun 29 22:16:31 2017 +0200
+
+    Omega via svn r16368:
+    Fix lua error on Goroth
+    Re-enabled Belac timers on demonic with special timer extend code to somewhat fix the variances (although sometimes he just waits forever to cast stuff with no reason, so timers still should be taken with a grain of salt)
+
+commit 3f4cb91f93757f4a4d9ca6b4143f2afb150e0017
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jun 29 21:49:52 2017 +0200
+
+    Omega via svn r16367:
+    Add cast bar for brimstone
+    Fixed Mythic shattering star timers some more
+    Fixed timer for delayed 5th brimstone cast on mythic as well
+    cleaned up unused combowambo stuff
+
+commit 07d69dccb51466a2eb779ab3e1c212caddb592d7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jun 29 19:41:15 2017 +0200
+
+    ultrashining via svn r16366:
+    zhTW update
+
+commit d3315dfd4d98cdd9821a841a931f3fd97dd37956
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jun 29 09:31:02 2017 +0200
+
+    Omega via svn r16365:
+    Add berserk timers for Harjatan Maiden, and inquisition based on WCL parses
+
+commit fa43ed2345d836a023e256494373469aa7420bbc
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jun 29 07:13:30 2017 +0200
+
+    Omega via svn r16364:
+    Don?\226?\128?\153t stop timers/warnings on Harjatan until frigid blows is applied, period, until then, assume abilities will keep going and draw in won?\226?\128?\153t happen.
+    If draw in actually does happen, cancel everything there
+
+commit c32ea859e67e8c0369b4bd61ece005abb0072320
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jun 29 07:02:14 2017 +0200
+
+    Omega via svn r16363:
+    Set icons used
+
+commit 92f40f741fc5ab1bafaf0222d082f0336141555c
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jun 29 06:55:08 2017 +0200
+
+    Omega via svn r16362:
+    change up warnings some more for inquisition so the run out/stop attack warnings only show if you?\226?\128?\153re on that target when it starts it?\226?\128?\153s aoe (ie on wrong target)
+    Instead, focus on giving switch warnings when aoes END to get you on correct targets at correct time to avoid the most torment.
+    Added icon marking of quills and anguish. Changed yells for anguish to include said icons
+    Fixed bonesaw CD being extended/started when it shouldn?\226?\128?\153t be
+
+commit 80f7c72435a320ba204bfeecf32b04b057145a14
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jun 29 05:39:45 2017 +0200
+
+    Omega via svn r16361:
+    Scrap this warning, for some reason that debuff applyes very buggy
+
+commit cff788d2706a8d8ffa7548e20b892e74f6d11e57
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jun 29 04:09:09 2017 +0200
+
+    Omega via svn r16360:
+    Improve swap warning on goroth to account for overlap, delaying taunt warning until after debuff expires
+    Disable soak brimgstone warning for tanks
+
+commit a0e8d3a5294175f00980dcd94112d99074a076c2
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Jun 28 06:20:19 2017 +0200
+
+    Omega via svn r16359:
+    Fixed taunt warning on sasszine to say target name instead of unknown, should also fix antispam as a result
+    Tweaked host timers for final phase which seem 1 second faster this week than last week
+    Fixed interrupt voice pack warning on Maiden of Vigilance firing late (warning was fine)
+    Fixed countdown yells on fallen avatar for dark mark being wrong.
+
+commit c152b897964716e04a07583d1c12f0d91bfef89d
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Jun 28 02:59:05 2017 +0200
+
+    Omega via svn r16358:
+    that taunt warning didn?\226?\128?\153t work out way I wanted it in 3 tank strat, so disabling for now
+
+commit 1bdfba89f3f9f2e9a98fa765289006e01b33029b
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Jun 28 02:28:02 2017 +0200
+
+    Omega via svn r16357:
+    Add KJs new 10 min berserk
+
+commit 7fe5a7efec6ebe721266024ad6482b19b92b2a1c
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Jun 27 21:11:33 2017 +0200
+
+    Omega via svn r16356:
+    Add Prison personal warning and prison taunt warning (if other tank gets prison)
+
+commit 1d9bf2640fa24fdb40b791cad15657a653096cad
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Jun 27 20:49:41 2017 +0200
+
+    Omega via svn r16355:
+    Fix first shattering star on mythic
+
+commit c531b7ed812034f9b1d64557bd0b235fd9b7e2b7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Jun 27 12:33:19 2017 +0200
+
+    tandanu via svn r16354:
     increment alpha version
-
-commit 8309ff815aa0ca2d41642f21f7dbffeff631f5d2
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 24 20:39:36 2017 +0200
-
-    Omega via svn r16326:
-    Fix icons used, add a fades yell to focused dread
 
