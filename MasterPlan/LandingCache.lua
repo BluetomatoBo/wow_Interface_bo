@@ -131,7 +131,7 @@ local function addCacheResources(self, id)
 	if id == 824 then
 		local cv, mv = G.GetResourceCacheInfo()
 		if cv and cv > 0 then
-			self:AddLine(GARRISON_CACHE .. ": |cffff" .. (cv < mv and "ffff" or "1010") .. cv .. "/" .. mv)
+			self:AddLine(GARRISON_CACHE .. ": |cffff" .. (cv < mv and "ffff" or "1010") .. BreakUpLargeNumbers(cv) .. "/" .. BreakUpLargeNumbers(mv))
 			return true
 		end
 	end

@@ -6,8 +6,8 @@
 ## LoadOnDemand: 1
 ## RequiredDeps: Blizzard_GarrisonUI, MasterPlanA
 ## SavedVariablesPerCharacter: MasterPlanPC
-## Version: 0.107
-## X-Version-Key: offset
+## Version: 0.108
+## X-Version-Key: ink
 Libs/Evie.lua
 Libs/Reframe.lua
 Locale.lua

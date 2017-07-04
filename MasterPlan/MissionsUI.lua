@@ -201,7 +201,10 @@ end)
 do -- CreateLoader(parent, W, G, H)
 	local fin, N, c = setmetatable({}, {__mode="k"}), 9, "16FF1F1DEDFC9C04F6128CFEE8FF08FD3016FE9B17FF8DD2706F6E"
 	local function Loader_OnUpdate(self)
-		if self.job then
+		if self.skipFrame then
+			self.skipFrame = nil
+			return
+		elseif self.job then
 			local t1, tlim, ok, er, i, x = debugprofilestop(), self.tlim
 			repeat
 				if coroutine.status(self.job) ~= "suspended" then
@@ -1091,7 +1094,7 @@ local availUI = CreateFrame("Frame", nil, missionList) do
 				showHint()
 			end)
 		end
-		local loader = api.CreateLoader(ctl, 10, 4, 10, 10, true) do
+		local loader = api.CreateLoader(ctl, 10, 4, 10, 8, true) do
 			loader:SetPoint("LEFT", horizon, "RIGHT", 8, 0)
 			local baseWidth = ctl:GetWidth()
 			loader:HookScript("OnShow", function()
@@ -1480,7 +1483,6 @@ local interestUI = CreateFrame("Frame", nil, missionList) do
 				{arg1=823},
 				{arg1=824},
 				{arg1=1101},
-				{arg1=0, text="|TInterface\\Icons\\INV_Misc_Coin_02:16:16:0:0:64:64:4:60:4:60|t " .. BONUS_ROLL_REWARD_MONEY},
 				{arg1=128315},
 				{arg1=128430},
 				{arg1=127748},
@@ -2891,8 +2893,8 @@ do -- availMissionsHandle
 		function GetAvailableMissions()
 			local missions, droppedMissionCost = G.GetAvailableMissions(1)
 			securecall(sortMissions, missions, GetAvailableResources(1, droppedMissionCost, missions))
-			local job = securecall(G.GetSuggestedMissionUpgradeGroups, missions, roamingParty:GetFollowers())
-			availUI.loader.job = job
+			local job = securecall(G.GetSuggestedMissionUpgradeGroups, missions, availUI.loader.job, roamingParty:GetFollowers())
+			availUI.loader.job, availUI.loader.skipFrame = job, true
 			if job then
 				availUI.loader:Show()
 			end
@@ -3364,7 +3366,7 @@ do -- interestMissionsHandle
 	local function updateDisplayFromInfo(info)
 		wipe(missions) do
 			local ni = 1
-			for i, m, b in G.MoIMissions(1, info) do
+			for _, m, b in G.MoIMissions(1, info) do
 				if not m.drop then
 					missions[ni], ni, m.best = m, ni + 1, b
 				end

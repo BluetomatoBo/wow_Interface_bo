@@ -85,7 +85,7 @@ local tentativeState, tentativeParties = {}, {} do
 	end
 	function api.DissolveAllTentativeParties(typeID)
 		if next(tentativeParties) or next(tentativeState) then
-			for k,v in pairs(tentativeParties) do
+			for k in pairs(tentativeParties) do
 				if C_Garrison.GetFollowerTypeByMissionID(k) == typeID then
 					dissolve(k, true)
 				end
@@ -994,7 +994,7 @@ do -- PrepareAllMissionGroups/GetMissionGroups {sc xp gr ti p1 p2 p3 xp pb}
 					break
 				end
 			end
-			for k,v in pairs(msf) do
+			for k in pairs(msf) do
 				if not (finfo[k] and finfo[k].isCollected and finfo[k].status ~= GARRISON_FOLLOWER_INACTIVE) then
 					valid, msf[k] = false
 				end
@@ -1038,10 +1038,10 @@ do -- PrepareAllMissionGroups/GetMissionGroups {sc xp gr ti p1 p2 p3 xp pb}
 					rf(mid, msi[t[i]])
 					t[i] = t[i] % fm[i] + 1
 					if t[i] > 1 or i == 1 then
-						if not af(mid, msi[t[i]]) then error("Failed to add follower " .. i .. ":" .. tostring(t[i]) .. ":" .. tostring(msi[t[i]])) end
+						if not af(mid, msi[t[i]]) then error("Failed to add follower " .. i .. ":" .. tostring(t[i]) .. ":" .. tostring(msi[t[i]]) .. " to " .. tostring(mid)) end
 						for j=i+1, nf do
 							t[j]=t[j-1]+1
-							if not af(mid, msi[t[j]]) then error("Failed to add follower " .. j .. ":" .. tostring(t[j]) .. ":" .. tostring(msi[t[j]])) end
+							if not af(mid, msi[t[j]]) then error("Failed to add follower " .. j .. ":" .. tostring(t[j]) .. ":" .. tostring(msi[t[j]]) .. " to " .. tostring(mid)) end
 						end
 						if msiMentorIndex and (mentorSlot or i) >= i then
 							mentorSlot = nil
@@ -1899,7 +1899,7 @@ function FollowerEstimator.GetMemberPool(includeInactive, moreFollowers, forceIn
 	return f, ni-1, #f
 end
 function FollowerEstimator.PrepareCounters()
-	return {[6]=0}, {[221]=0, [79]=0, [77]=0, [76]=0, [201]=0, [202]=0, [232]=0, [256]=0, [47]=0}, FTraitStack
+	return {[6]=0}, {[221]=0, [79]=0, [77]=0, [76]=0, [201]=0, [202]=0, [232]=0, [256]=0, [47]=0}, FTraitStack, T.MoreTraitStack
 end
 function FollowerEstimator.EvaluateGroup(mi, counters, traits, fa, fb, fc, scratch)
 	local mlvl, rew, mc, umc = mi[1], mi[4], scratch or {}, false
@@ -2319,7 +2319,7 @@ function api.UpdateGroupEstimates(missions, followers, yield, bMax)
 	
 	return ret
 end
-do -- +api.GetSuggestedMissionUpgradeGroups(missions, f1, f2, f3)
+do -- +api.GetSuggestedMissionUpgradeGroups(missions, ojob, f1, f2, f3)
 	local upgroups, summaries, tt, gt = {}, {}, {}, {0,0,0, nil,nil,nil, 0,0,0}
 	function EV:MP_RELEASE_CACHES()
 		upgroups, summaries = {}, {}
@@ -2399,13 +2399,17 @@ do -- +api.GetSuggestedMissionUpgradeGroups(missions, f1, f2, f3)
 		end
 		yield(2, 1, 1)
 	end
-	function api.GetSuggestedMissionUpgradeGroups(missions, f1, f2, f3)
+	local coJobs = setmetatable({}, {__mode="k"})
+	local function cmp1(a,b)
+		return a[1] < b[1]
+	end
+	function api.GetSuggestedMissionUpgradeGroups(missions, ojob, f1, f2, f3)
 		local fid = api.GetFollowerIdentity(true, false, 1)
 		if upgroups.identity ~= fid then
 			wipe(upgroups)
 			upgroups.identity = fid
 		end
-		local noRoamers, job = not (f1 or f2 or f3)
+		local noRoamers, oc, job = not (f1 or f2 or f3), coJobs[ojob]
 		for i=1,#missions do
 			local mi, rt, mid = missions[i]
 			rt, mid, mi.upgroup = noRoamers and mi.level == 100 and mi.numFollowers > 1 and mi.groups and mi.groups.rankType, mi.missionID
@@ -2421,7 +2425,22 @@ do -- +api.GetSuggestedMissionUpgradeGroups(missions, f1, f2, f3)
 			end
 		end
 		if job then
+			table.sort(job, cmp1)
+			if oc and #oc == #job and oc.fid == fid then
+				local diff = false
+				for i=1,#job do
+					local a, b = job[i], oc[i]
+					if a[1] ~= b[1] or a[3] ~= b[3] or a[4] ~= b[4] then
+						diff = true
+						break
+					end
+				end
+				if not diff then
+					return ojob
+				end
+			end
 			local cw = coroutine.create(procJobs)
+			coJobs[cw], job.fid = job, fid
 			coroutine.resume(cw, job, coroutine.yield)
 			return cw
 		end
@@ -2439,7 +2458,7 @@ function api.GetFollowerRerollConstraints(fid)
 		f[f[i].followerID] = f[i]
 	end
 	
-	local tf, scratch, counters, traits, ts = f[fid], {}, est.PrepareCounters()
+	local tf, scratch, counters, traits, ts, mts = f[fid], {}, est.PrepareCounters()
 	local tfsa, tfa, cc, ct, lt = tf.saffinity, tf.affinity, {}, {}, T.LockTraits
 	for i=1,2 do
 		local s, d = tf[i == 1 and "counters" or "traits"], i == 1 and cc or ct
@@ -2450,11 +2469,11 @@ function api.GetFollowerRerollConstraints(fid)
 		end
 	end
 	
-	local hasInterestedMissions, hasDoubleCounter = false, tf.counters[1] == tf.counters[2]
+	local hasInterestedMissions, hasDoubleCounter, rt = false, tf.counters[1] == tf.counters[2]
 	for _, mi, b in api.MoIMissions(mt, info) do
 		local idx = b and (b[1] == fid and 1 or b[2] == fid and 2 or b[3] == fid and 3)
 		if idx and b.used and api.IsInterestedInMoI(mi) and b.used % (2^idx) >= 2^(idx-1) then
-			hasInterestedMissions = true
+			hasInterestedMissions, rt = true, mi.s[4]
 			for j=1,mi.s[2] do
 				for i=1,2 do
 					local s, t = f[b[j]][i == 1 and "counters" or "traits"], i == 1 and counters or traits
@@ -2464,8 +2483,7 @@ function api.GetFollowerRerollConstraints(fid)
 					end
 				end
 			end
-
-			ct[ts[mi.s[4]] or 0] = nil
+			ct[ts[rt] or 0], ct[mts and mts[rt] or 0] = nil, nil
 			local fa, fb, fc = f[b[1]], f[b[2]], f[b[3] or b[2]]
 			local bgv = est.EvaluateGroup(mi.s, counters, traits, fa, fb, fc, scratch)
 			for i=1,2 do
@@ -3038,7 +3056,7 @@ function api.SetFollowerCloneTip(tip, cl, isCollected)
 	if cl.req then
 		local addHeader, cc, overflow, cur, lastLeft, lastRight = true, 0, 0, cl.cur
 		for i=1,2 do
-			for _, mi, b in api.MoIMissions(1) do
+			for _, mi in api.MoIMissions(1) do
 				local mid = mi[1]
 				if cl.req[mid] and api.IsInterestedInMoI(mi) and (i == 2) == (not (cur and cur[mid])) then
 					if addHeader then
