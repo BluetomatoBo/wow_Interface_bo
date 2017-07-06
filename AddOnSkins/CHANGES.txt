@@ -1,64 +1,104 @@
-tag fe6eadf62aa35e6357e730f42b99ff99110774b1 3.48
+tag b5227265c6b7a090cce1a0e348655727e0612abc 3.49
 Author:	Azilroka <darktemplar9900@yahoo.com>
-Date:	Sun Jun 4 13:04:25 2017 -0500
+Date:	Wed Jul 5 15:59:11 2017 -0500
 
-commit e94ee3e61aa8ad0e4af2d9435d65be68603caa67
+commit 7e7ad1c8caaa2d48e9351086be0184302157cf10
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Jun 4 13:03:57 2017 -0500
+Date:   Wed Jul 5 15:58:49 2017 -0500
 
-    3.48
+    3.49
 
-commit d3559b64440151bd9e10e274cbd3fb8e08c173c3
+commit c86211211cb08e4168fc1430507ae5100c19b463
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Tue Jul 4 09:31:33 2017 -0500
+
+    Skillet
+
+commit 4b5c46b64f0ac6ca9a84266064c8c8cdf6c1f394
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Tue Jul 4 09:25:23 2017 -0500
+
+    Chat Bubbles
+
+commit 484763d1ae08a7a90866a1aa7b410db182d1b17f
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Tue Jul 4 09:24:53 2017 -0500
+
+    Hekili Issue #472
+
+commit 35d8083c1144133a67c41c2f2dd8ea1de391bbbe
 Author: Merathilis <neo0608@gmail.com>
-Date:   Fri May 19 12:12:56 2017 +0200
+Date:   Tue Jul 4 12:08:22 2017 +0200
 
-    whoops, leave it default
+    Fix Altoholic skin. This fixes: Azilroka/addonskins#416
 
-commit a2a1f89b5e2b3be65bc8df8beff0e20d48e8b463
+commit 35d8083c1144133a67c41c2f2dd8ea1de391bbbe
 Author: Merathilis <neo0608@gmail.com>
-Date:   Fri May 19 12:10:30 2017 +0200
+Date:   Tue Jul 4 12:08:22 2017 +0200
 
-    Add an check if ElvUI provides backdrops for tabs.
+    Fix Altoholic skin. This fixes: Azilroka/addonskins#416
 
-commit 11d8507b235c119fc4c551b9f21374a47a110982
+commit 15f576dc9a9ff935d737e276117a1cd5c97db954
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue Jul 4 11:49:03 2017 +0200
+
+    Comment out skinning of BasicScriptErrors. This should deal with: Azilroka/addonskins#481
+
+commit 8f4630460ae53c946f47e18cb1720dc7011f3e4b
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue Jul 4 11:32:07 2017 +0200
+
+    Update ServerHop skin. This should fix: Azilroka/addonskins#477
+
+commit 18da072a8f5aa53c807dad70802ee34a3a50cf67
+Author: Merathilis <neo0608@gmail.com>
+Date:   Sun Jul 2 14:15:39 2017 +0200
+
+    Bumb AtlasLoot version. The Skin should be fine.
+
+commit 5c13862adc1fbf4599773fb2d7648bcd66463d86
 Author: Blazeflack <blazeflack@hotmail.com>
-Date:   Mon Apr 10 23:27:35 2017 +0200
+Date:   Wed Jun 21 00:44:56 2017 +0200
 
-    Skinned ColorPickerPlus
+    Fixed issue which caused a WoW crash when opening ColorPickerPlus frame
 
-commit 11d8507b235c119fc4c551b9f21374a47a110982
+commit 5c13862adc1fbf4599773fb2d7648bcd66463d86
 Author: Blazeflack <blazeflack@hotmail.com>
-Date:   Mon Apr 10 23:27:35 2017 +0200
+Date:   Wed Jun 21 00:44:56 2017 +0200
 
-    Skinned ColorPickerPlus
+    Fixed issue which caused a WoW crash when opening ColorPickerPlus frame
 
-commit 97d084dd8891de974a17668c278d7c5a8eb00e00
-Author: liquidbase <liquid.base.x@gmail.com>
-Date:   Sat Apr 8 12:25:57 2017 +0200
+commit 4fa0ccba43b1b5a8b11f6a01ddc010deb3bd62e1
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue Jun 20 11:37:39 2017 +0200
 
-    Added new tab sets to Collections-Skin (unfinished and may be a better solution to do this)
+    Update debugTools. This should deal with Azilroka/addonskins#485
+    
+    Note: The previous, next button must be overhault.
 
-commit e5b192507c05ca12fbd44fd05dfdae330f4c548e
-Author: liquidbase <liquid.base.x@gmail.com>
-Date:   Sat Apr 8 12:15:25 2017 +0200
+commit 5c13862adc1fbf4599773fb2d7648bcd66463d86
+Author: Blazeflack <blazeflack@hotmail.com>
+Date:   Wed Jun 21 00:44:56 2017 +0200
 
-    Fixing frame names of Collections-Skin
+    Fixed issue which caused a WoW crash when opening ColorPickerPlus frame
 
-commit 996800477e94604bcbad0e4b20f05e9814186078
-Author: liquidbase <liquid.base.x@gmail.com>
-Date:   Sat Apr 8 12:12:54 2017 +0200
+commit 4fa0ccba43b1b5a8b11f6a01ddc010deb3bd62e1
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue Jun 20 11:37:39 2017 +0200
 
-    Revert last commit
+    Update debugTools. This should deal with Azilroka/addonskins#485
+    
+    Note: The previous, next button must be overhault.
 
-commit f3c2173b5da7705dc84eead464ee435a55fd8ed3
-Author: liquidbase <liquid.base.x@gmail.com>
-Date:   Sat Apr 8 12:05:31 2017 +0200
+commit 3aad88f99017ee8141e5d7add700198ef6317d56
+Author: asdf12303116 <a675750333@gmail.com>
+Date:   Sun Jun 18 20:57:30 2017 +0800
 
-    Fixing collections-skin => new framenames for modelframe and navigation buttons
+    Update chinese locale
 
-commit 29116cc261dee93ce154ff8aaf19a510f40cf754
-Author: liquidbase <liquid.base.x@gmail.com>
-Date:   Mon Apr 3 21:39:30 2017 +0200
+commit 3f6ff088038aa5198bc2b74c094734fdd694a175
+Author: Merith <liquid.base.x@gmail.com>
+Date:   Wed Jun 14 02:47:34 2017 -0400
 
-    Fixed Questlog-Buttons and Tradeskill-Skin
+    Update interface version from 70100 to 70200
 
