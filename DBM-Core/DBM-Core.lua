@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 16393 $"):sub(12, -3)),
-	DisplayVersion = "7.2.12", -- the string that is shown as version
-	ReleaseRevision = 16393 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 16406 $"):sub(12, -3)),
+	DisplayVersion = "7.2.13", -- the string that is shown as version
+	ReleaseRevision = 16406 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -4217,12 +4217,14 @@ do
 					--UGLY hack to get release version number instead of alpha one
 					if DBM.NewerVersion:find("alpha") then
 						local temp1, temp2 = string.split(" ", DBM.NewerVersion)--Strip down to just version, no alpha
-						local temp3, temp4, temp5 = string.split(".", temp1)--Strip version down to 3 numbers
-						if temp5 then
-							temp5 = tonumber(temp5)
-							temp5 = temp5 - 1
-							temp5 = tostring(temp5)
-							DBM.NewerVersion = temp3.."."..temp4.."."..temp5
+						if temp1 then
+							local temp3, temp4, temp5 = string.split(".", temp1)--Strip version down to 3 numbers
+							if temp3 and temp4 and temp5 and tonumber(temp5) then
+								temp5 = tonumber(temp5)
+								temp5 = temp5 - 1
+								temp5 = tostring(temp5)
+								DBM.NewerVersion = temp3.."."..temp4.."."..temp5
+							end
 						end
 					end
 					--Find min revision.
@@ -9783,6 +9785,10 @@ do
 	function bossModPrototype:NewSpecialWarningAdds(text, optionDefault, ...)
 		return newSpecialWarning(self, "Adds", text, nil, optionDefault, ...)
 	end
+	
+	function bossModPrototype:NewSpecialWarningAddsCustom(text, optionDefault, ...)
+		return newSpecialWarning(self, "Addscustom", text, nil, optionDefault, ...)
+	end
 
 	function bossModPrototype:NewSpecialWarningPreWarn(text, optionDefault, time, ...)
 		if type(text) == "string" and text:match("OptionVersion") then
@@ -10362,6 +10368,10 @@ do
 	
 	function bossModPrototype:NewAddsTimer(...)
 		return newTimer(self, "adds", ...)
+	end
+	
+	function bossModPrototype:NewAddsCustomTimer(...)
+		return newTimer(self, "addscustom", ...)
 	end
 	
 	function bossModPrototype:NewAITimer(...)
