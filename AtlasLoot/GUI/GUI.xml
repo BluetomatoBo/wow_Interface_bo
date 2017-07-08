@@ -39,7 +39,7 @@
 			</OnEnable>
 			<OnClick>
 				AtlasLoot.GUI.ModelFrame.ButtonOnClick(self)
-				PlaySound("igMainMenuOption")
+				PlaySound(PlaySoundKitID and "igMainMenuOption" or 852)
 			</OnClick>
 			<OnEnter>
 				if self.name then

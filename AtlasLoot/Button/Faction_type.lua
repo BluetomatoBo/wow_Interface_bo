@@ -1,15 +1,17 @@
+local _G = getfenv(0)
+-- lua
+local tonumber = tonumber
+local str_match, str_format = string.match, string.format
+local LibStub = _G.LibStub
+local BF = AtlasLoot.LibBabble:Get("LibBabble-Faction-3.0")
+-- WoW
+local UnitSex = UnitSex
+local GetFactionInfoByID = GetFactionInfoByID
+
 local AtlasLoot = _G.AtlasLoot
 local Faction = AtlasLoot.Button:AddType("Faction", "f")
 --local AL = AtlasLoot.Locales
 local ClickHandler = AtlasLoot.ClickHandler
-
--- lua
-local tonumber = tonumber
-local str_match, str_format = string.match, string.format
-
--- WoW
-local UnitSex = UnitSex
-local GetFactionInfoByID = GetFactionInfoByID
 
 --[[
 	-- rep info ("f1435rep3" = Unfriendly rep @ Shado-Pan Assault)
@@ -48,6 +50,7 @@ local FACTION_IMAGES = {
 	[529] = "Interface\\Icons\\inv_jewelry_talisman_07",				--Argent Dawn
 	[530] = "Interface\\Icons\\inv_misc_tournaments_symbol_troll",			--Darkspear Trolls
 	[576] = "Interface\\Icons\\achievement_reputation_timbermaw",			--Timbermaw Hold
+	[589] = "Interface\\Icons\\Achievement_Zone_Winterspring",			--Wintersaber Trainers
 	[609] = "Interface\\Icons\\ability_racial_ultravision",				--Cenarion Circle
 	[910] = "Interface\\Icons\\inv_misc_head_dragon_bronze",			--Brood of Nozdormu
 
@@ -130,19 +133,118 @@ local FACTION_IMAGES = {
 	[1710] = "Interface\\Icons\\inv_tabard_a_shataridefense",		--Sha'tari Defense
 	[1711] = "Interface\\Icons\\achievement_goblinhead",			--Steamwheedle Perservation Society
 	[1731] = "Interface\\Icons\\inv_tabard_a_81exarchs",			--Council of Exarchs
-	--[1847] = "Interface\\Icons\\", -- Hand of the Prophet
-	[1848] = "Interface\\Icons\\INV_Misc_VoljinsShatteredTusk", -- Vol'jin's Headhunters
-	--[1849] = "Interface\\Icons\\", -- Order of the Awakened
-	--[1850] = "Interface\\Icons\\", -- The Saberstalkers
+	[1847] = "Interface\\Icons\\Achievement_Leader_Prophet_Velen", 		-- Hand of the Prophet
+	[1848] = "Interface\\Icons\\INV_Misc_VoljinsShatteredTusk", 		-- Vol'jin's Headhunters
+	[1849] = "Interface\\Icons\\INV_Tabard_A_82AwakenedOrder", 		-- Order of the Awakened
+	[1850] = "Interface\\Icons\\INV_Tabard_A_83SaberStalkers", 		-- The Saberstalkers
 	
 	-- Legion
-	[1828] = "Interface\\Icons\\INV_Legion_Faction_HightmountainTribes", -- Highmountain Tribe
-	[1859] = "Interface\\Icons\\INV_Legion_Faction_NightFallen", -- The Nightfallen
-	[1883] = "Interface\\Icons\\INV_Legion_Faction_DreamWeavers", -- Dreamweavers
-	[1894] = "Interface\\Icons\\INV_Legion_Faction_Warden", -- The Wardens
-	[1900] = "Interface\\Icons\\INV_Legion_Faction_CourtofFarnodis", -- Court Of Farondis
-	[1948] = "Interface\\Icons\\INV_Legion_Faction_Valarjar", -- Valarjar
-	[2045] = "Interface\\Icons\\Achievement_Faction_Legionfall", -- Armies of Legionfall
+	[1828] = "Interface\\Icons\\INV_Legion_Faction_HightmountainTribes", 	-- Highmountain Tribe
+	[1859] = "Interface\\Icons\\INV_Legion_Faction_NightFallen", 		-- The Nightfallen
+	[1883] = "Interface\\Icons\\INV_Legion_Faction_DreamWeavers", 		-- Dreamweavers
+	[1894] = "Interface\\Icons\\INV_Legion_Faction_Warden", 		-- The Wardens
+	[1900] = "Interface\\Icons\\INV_Legion_Faction_CourtofFarnodis", 	-- Court Of Farondis
+	[1948] = "Interface\\Icons\\INV_Legion_Faction_Valarjar", 		-- Valarjar
+	[2045] = "Interface\\Icons\\Achievement_Faction_Legionfall", 		-- Armies of Legionfall
+}
+
+local FACTION_KEY = {
+	[47] = "Ironforge",
+	[54] = "Gnomeregan",
+	[59] = "Thorium Brotherhood",
+	[68] = "Undercity",
+	[69] = "Darnassus",
+	[72] = "Stormwind",
+	[76] = "Orgrimmar",
+	[81] = "Thunder Bluff",
+	[87] = "Bloodsail Buccaneers",
+	[529] = "Argent Dawn",
+	[530] = "Darkspear Trolls",
+	[576] = "Timbermaw Hold",
+	[589] = "Wintersaber Trainers",
+	[609] = "Cenarion Circle",
+	[910] = "Brood of Nozdormu",
+	[911] = "Silvermoon City",
+	[922] = "Tranquillien",
+	[930] = "Exodar",
+	[932] = "The Aldor",
+	[933] = "The Consortium",
+	[934] = "The Scryers",
+	[935] = "The Sha'tar",
+	[941] = "The Mag'har",
+	[942] = "Cenarion Expedition",
+	[946] = "Honor Hold",
+	[947] = "Thrallmar",
+	[967] = "The Violet Eye",
+	[970] = "Sporeggar",
+	[978] = "Kurenai",
+	[989] = "Keepers of Time",
+	[990] = "The Scale of the Sands",
+	[1011] = "Lower City",
+	[1012] = "Ashtongue Deathsworn",
+	[1015] = "Netherwing",
+	[1031] = "Sha'tari Skyguard",
+	[1038] = "Ogri'la",
+	[1077] = "Shattered Sun Offensive",
+	[1037] = "Alliance Vanguard",
+	[1052] = "Horde Expedition",
+	[1073] = "The Kalu'ak",
+	[1090] = "Kirin Tor",
+	[1091] = "The Wyrmrest Accord",
+	[1094] = "The Silver Covenant",
+	[1098] = "Knights of the Ebon Blade",
+	[1104] = "Frenzyheart Tribe",
+	[1105] = "The Oracles",
+	[1106] = "Argent Crusade",
+	[1119] = "The Sons of Hodir",
+	[1124] = "The Sunreavers",
+	[1156] = "The Ashen Verdict",
+	[1133] = "Bilgewater Cartel",
+	[1134] = "Gilneas",
+	[1135] = "The Earthen Ring",
+	[1158] = "Guardians of Hyjal",
+	[1171] = "Therazane",
+	[1172] = "Dragonmaw Clan",
+	[1173] = "Ramkahen",
+	[1174] = "Wildhammer Clan",
+	[1177] = "Baradin's Wardens",
+	[1178] = "Hellscream's Reach",
+	[1204] = "Avengers of Hyjal",
+	[1269] = "Golden Lotus",
+	[1270] = "Shado-Pan",
+	[1271] = "Order of the Cloud Serpent",
+	[1272] = "The Tillers",
+	[1302] = "The Anglers",
+	[1337] = "The Klaxxi",
+	[1341] = "The August Celestials",
+	[1345] = "The Lorewalkers",
+	[1352] = "Huojin Pandaren",
+	[1353] = "Tushui Pandaren",
+	[1375] = "Dominance Offensive",
+	[1376] = "Operation: Shieldwall",
+	[1387] = "Kirin Tor Offensive",
+	[1388] = "Sunreaver Onslaught",
+	[1435] = "Shado-Pan Assault",
+	[1492] = "Emperor Shaohao",
+	[1445] = "Frostwolf Orcs",
+	[1515] = "Arakkoa Outcasts",
+	[1681] = "Vol'jin's Spear",
+	[1682] = "Wrynn's Vanguard",
+	[1708] = "Laughing Skull Orcs",
+	[1710] = "Sha'tari Defense",
+	[1711] = "Steamwheedle Preservation Society",
+	[1731] = "Council of Exarchs",
+	[1847] = "Hand of the Prophet",
+	[1848] = "Vol'jin's Headhunters",
+	[1849] = "Order of the Awakened",
+	[1850] = "The Saberstalkers",
+	[1828] = "Highmountain Tribe",
+	[1859] = "The Nightfallen",
+	[1883] = "Dreamweavers",
+	[1894] = "The Wardens",
+	[1900] = "Court of Farondis",
+	[1948] = "Valarjar",
+	[2045] = "Armies of Legionfall",
 }
 
 local function GetLocRepStanding(id)
@@ -170,7 +272,8 @@ function Faction.OnSet(button, second)
 		AtlasLoot.db.Button.Faction.ClickHandler, 
 		{
 			--{ "ChatLink", 	AL["Chat Link"], 	AL["Add item into chat"] },
-		})
+		}
+		)
 
 		PlayerSex = UnitSex("player")
 
@@ -268,7 +371,7 @@ function Faction.Refresh(button)
 	if button.type == "secButton" then
 		button:SetNormalTexture(FACTION_IMAGES[button.FactionID] or FACTION_IMAGES[0])
 	else	
-		name = name or "Faction "..button.FactionID
+		name = name or BF[FACTION_KEY[button.FactionID]] or FACTION.." "..button.FactionID
 		-- ##################
 		-- icon
 		-- ##################
@@ -279,6 +382,8 @@ function Faction.Refresh(button)
 		-- ##################
 		if button.RepID and standingID and button.RepID>standingID then
 			button.icon:SetDesaturated(true)
+			button.extra:SetText("|cffff0000"..GetLocRepStanding(button.RepID or standingID))
+		elseif not standingID then
 			button.extra:SetText("|cffff0000"..GetLocRepStanding(button.RepID or standingID))
 		else
 			button.extra:SetText("|cFF"..FACTION_REP_COLORS[button.RepID or standingID]..GetLocRepStanding(button.RepID or standingID))

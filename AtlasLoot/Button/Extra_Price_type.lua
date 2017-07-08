@@ -19,30 +19,37 @@ local STRING_RED = "|cffff0000"
 local STRING_GREEN = "|cff1eff00"
 
 local PRICE_INFO = {
+	-- items
+	["markofhonor"] = { itemID = 137642 },
+	["bfclaw"] = { itemID = 124099 },
+	["brewfest"] = { itemID = 37829 },
+	["burningblossom"] = { itemID = 23247 },
+	["lovetoken"] = { itemID = 49927 },
+	["noblegardenchocolate"] = { itemID = 44791 },
+	["spiritofharmony"] = { itemID = 76061 },
+	["trickytreat"] = { itemID = 33226 },
+	["vicioussaddle"] = { itemID = 103533}, -- Vicious Saddle, added in 5.4.0
+	-- currencies
+	["echoofbattle"] = { currencyID = 1356 }, -- added in 7.2.0, LegionPVPTier1
+	["echoofdomination"] = { currencyID = 1357 }, -- added in 7.2.0, LegionPVPTier4
 	["nethershard"] = { currencyID = 1226 },
 	["orderresources"] = { currencyID = 1220 },
-	["bfclaw"] = { itemID = 124099 },
 	["ancestrycoin"] = { itemID = 21100 },
 	["apexis"] = { currencyID = 823 },
 	["artifactfragment"] = { currencyID = 944 },
 	["bloodycoin"] = { currencyID = 789 },
-	["brewfest"] = { itemID = 37829 },
-	["burningblossom"] = { itemID = 23247 },
 	["championsseal"] = { currencyID = 241 },
-	["conquest"] = { currencyID = 390 },
+	["conquest"] = { currencyID = 390 }, -- been removed since 7.0.3
+	["honor"] = { currencyID = 392 }, -- been removed since 7.0.3
 	["darkmoon"] = { currencyID = 515 },
 	["eldercharm"] = { currencyID = 697 },
-	["honor"] = { currencyID = 392 },
-	["lovetoken"] = { itemID = 49927 },
-	["money"] = { func = GetCoinTextureString },
-	["noblegardenchocolate"] = { itemID = 44791 },
-	["spiritofharmony"] = { itemID = 76061 },
 	["timelesscoin"] = { currencyID = 777 },
 	["tolbarad"] = { currencyID = 391 },
-	["trickytreat"] = { itemID = 33226 },
 	["worldtree"] = { currencyID = 416 },
 	["valor"] = {currencyID = 1191},
 	["timewarped"] = {currencyID = 1166}, -- Timewarped Badge
+	-- others
+	["money"] = { func = GetCoinTextureString },
 }
 
 local Cache = {}
@@ -133,7 +140,9 @@ local function SetTooltip(tooltip, typ, value)
 		--	tooltip:AddLine(TT_HAVE_AND_NEED_GREEN:format(value))
 		elseif PRICE_INFO[typ].currencyID then
 			local name, currentAmount, texture = GetCurrencyInfo(PRICE_INFO[typ].currencyID) --name, currentAmount, texture, earnedThisWeek, weeklyMax, totalMax, isDiscovered, rarity
-			tooltip:AddLine(TT_ICON_AND_NAME:format(texture, name or ""))
+			if texture then
+				tooltip:AddLine(TT_ICON_AND_NAME:format(texture, name or ""))
+			end
 			tooltip:AddLine(currentAmount >= value and TT_HAVE_AND_NEED_GREEN:format(currentAmount, value) or  TT_HAVE_AND_NEED_RED:format(currentAmount, value))
 		elseif PRICE_INFO[typ].itemID then
 			local itemName = GetItemInfo(PRICE_INFO[typ].itemID)

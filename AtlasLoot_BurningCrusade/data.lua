@@ -2041,13 +2041,15 @@ data["CFRTheUnderbog"] = {
 }
 
 data["BlackTemple"] = {
-	name = ALIL["Black Temple"],
+	--name = ALIL["Black Temple"],
+	EncounterJournalID = 751,
 	MapID = 796,
 	AtlasMapID = "BlackTempleStart",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--BTNajentus
-			name = BB["High Warlord Naj'entus"],
+			--name = BB["High Warlord Naj'entus"],
+			EncounterJournalID = 1582,
 			npcId = 22887,
 			[P25_DIFF] = {
 				{ 1, 32239 },	-- Slippers of the Seacaller
@@ -2068,7 +2070,8 @@ data["BlackTemple"] = {
 			},
 		},
 		{	--BTSupremus
-			name = BB["Supremus"],
+			--name = BB["Supremus"],
+			EncounterJournalID = 1583,
 			npcId = 22898,
 			[P25_DIFF] = {
 				{ 1, 32256 },	-- Waistwrap of Infinity
@@ -2087,7 +2090,8 @@ data["BlackTemple"] = {
 			},
 		},
 		{	--BTAkama
-			name = BB["Shade of Akama"],
+			--name = BB["Shade of Akama"],
+			EncounterJournalID = 1584,
 			npcId = 22841,
 			[P25_DIFF] = {
 				{ 1, 32273 },	-- Amice of Brilliant Light
@@ -2107,7 +2111,8 @@ data["BlackTemple"] = {
 			},
 		},
 		{	--BTBloodboil
-			name = BB["Gurtogg Bloodboil"],
+			--name = BB["Gurtogg Bloodboil"],
+			EncounterJournalID = 1586,
 			npcId = 22948,
 			[P25_DIFF] = {
 				{ 1, 32337 },	-- Shroud of Forgiveness
@@ -2126,7 +2131,8 @@ data["BlackTemple"] = {
 			},
 		},
 		{	--BTReliquaryofSouls
-			name = BB["Reliquary of Souls"],
+			--name = BB["Reliquary of Souls"],
+			EncounterJournalID = 1587,
 			npcId = 22856,
 			[P25_DIFF] = {
 				{ 1, 32353 },	-- Gloves of Unfailing Faith
@@ -2148,7 +2154,8 @@ data["BlackTemple"] = {
 			},
 		},
 		{	--BTGorefiend
-			name = BB["Teron Gorefiend"],
+			--name = BB["Teron Gorefiend"],
+			EncounterJournalID = 1585,
 			npcId = 22871,
 			[P25_DIFF] = {
 				{ 1, 32323 },	-- Shadowmoon Destroyer's Drape
@@ -2164,7 +2171,8 @@ data["BlackTemple"] = {
 			},
 		},
 		{	--BTShahraz
-			name = BB["Mother Shahraz"],
+			--name = BB["Mother Shahraz"],
+			EncounterJournalID = 1588,
 			npcId = 22947,
 			[P25_DIFF] = {
 				{ 1, 32367 },	-- Leggings of Devastation
@@ -2179,7 +2187,8 @@ data["BlackTemple"] = {
 			},
 		},
 		{	--BTCouncil
-			name = BB["The Illidari Council"],
+			--name = BB["The Illidari Council"],
+			EncounterJournalID = 1589,
 			npcId = 23426,
 			[P25_DIFF] = {
 				{ 1, 32331 },	-- Cloak of the Illidari Council
@@ -2194,7 +2203,8 @@ data["BlackTemple"] = {
 			},
 		},
 		{	--BTIllidanStormrage
-			name = BB["Illidan Stormrage"],
+			--name = BB["Illidan Stormrage"],
+			EncounterJournalID = 1590,
 			npcId = 22917,
 			[P25_DIFF] = {
 				{ 1, 32524 },	-- Shroud of the Highborne
@@ -2284,13 +2294,15 @@ data["BlackTemple"] = {
 }
 
 data["GruulsLair"] = {
-	name = ALIL["Gruul's Lair"],
+	--name = ALIL["Gruul's Lair"],
+	EncounterJournalID = 746,
 	MapID = 776,
 	AtlasMapID = "GruulsLair",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--GruulsLairHighKingMaulgar
-			name = BB["High King Maulgar"],
+			--name = BB["High King Maulgar"],
+			EncounterJournalID = 1564,
 			[P25_DIFF] = {
 				{ 1, 28797 },	-- Brute Cloak of the Ogre-Magi
 				{ 2, 28799 },	-- Belt of Divine Inspiration
@@ -2304,7 +2316,8 @@ data["GruulsLair"] = {
 			},
 		},
 		{	--GruulGruul
-			name = BB["Gruul the Dragonkiller"],
+			--name = BB["Gruul the Dragonkiller"],
+			EncounterJournalID = 1565,
 			[P25_DIFF] = {
 				{ 1, 28804 },	-- Collar of Cho'gall
 				{ 2, 28803 },	-- Cowl of Nature's Breath
@@ -2334,13 +2347,15 @@ data["GruulsLair"] = {
 }
 
 data["CoTHyjal"] = {
-	name = ALIL["Hyjal Summit"],
+	--name = ALIL["Hyjal Summit"],
+	EncounterJournalID = 750,
 	MapID = 775,
 	AtlasMapID = "CoTHyjal",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--MountHyjalWinterchill
-			name = BB["Rage Winterchill"],
+			--name = BB["Rage Winterchill"],
+			EncounterJournalID = 1577,
 			[P25_DIFF] = {
 				{ 1, 30871 },	-- Bracers of Martyrdom
 				{ 2, 30870 },	-- Cuffs of Devastation
@@ -2358,7 +2373,8 @@ data["CoTHyjal"] = {
 			},
 		},
 		{	--MountHyjalAnetheron
-			name = BB["Anetheron"],
+			--name = BB["Anetheron"],
+			EncounterJournalID = 1578,
 			[P25_DIFF] = {
 				{ 1, 30884 },	-- Hatefury Mantle
 				{ 2, 30888 },	-- Anetheron's Noose
@@ -2376,7 +2392,8 @@ data["CoTHyjal"] = {
 			},
 		},
 		{	--MountHyjalKazrogal
-			name = BB["Kaz'rogal"],
+			--name = BB["Kaz'rogal"],
+			EncounterJournalID = 1579,
 			[P25_DIFF] = {
 				{ 1, 30895 },	-- Angelista's Sash
 				{ 2, 30916 },	-- Leggings of Channeled Elements
@@ -2393,7 +2410,8 @@ data["CoTHyjal"] = {
 			},
 		},
 		{	--MountHyjalAzgalor
-			name = BB["Azgalor"],
+			--name = BB["Azgalor"],
+			EncounterJournalID = 1580,
 			[P25_DIFF] = {
 				{ 1, 30899 },	-- Don Rodrigo's Poncho
 				{ 2, 30898 },	-- Shady Dealer's Pantaloons
@@ -2408,7 +2426,8 @@ data["CoTHyjal"] = {
 			},
 		},
 		{	--MountHyjalArchimonde
-			name = BB["Archimonde"],
+			--name = BB["Archimonde"],
+			EncounterJournalID = 1581,
 			[P25_DIFF] = {
 				{ 1, 30913 },	-- Robes of Rhonin
 				{ 2, 30912 },	-- Leggings of Eternity
@@ -2469,13 +2488,15 @@ data["CoTHyjal"] = {
 }
 
 data["Karazhan"] = {
-	name = ALIL["Karazhan"],
+	--name = ALIL["Karazhan"],
+	EncounterJournalID = 745, 
 	MapID = 799,
 	AtlasMapID = "KarazhanStart",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--KaraNamed
-			name = AL["Servant's Quarter Animal Bosses"].." ("..AL["Rare"]..")",
+			--name = AL["Servant's Quarter Animal Bosses"].." ("..AL["Rare"]..")",
+			EncounterJournalID = 1552,
 			[NORMAL_DIFF] = {
 				{ 1, "INV_Box_01", nil, BB["Hyakiss the Lurker"], nil },
 				{ 2, 30675 },	-- Lurker's Cord
@@ -2495,7 +2516,8 @@ data["Karazhan"] = {
 			},
 		},
 		{	--KaraAttumen
-			name = BB["Attumen the Huntsman"],
+			--name = BB["Attumen the Huntsman"],
+			EncounterJournalID = 1553,
 			[NORMAL_DIFF] = {
 				{ 1, 28477 },	-- Harbinger Bands
 				{ 2, 28507 },	-- Handwraps of Flowing Thought
@@ -2514,7 +2536,8 @@ data["Karazhan"] = {
 			},
 		},
 		{	--KaraMoroes
-			name = BB["Moroes"],
+			--name = BB["Moroes"],
+			EncounterJournalID = 1554,
 			[NORMAL_DIFF] = {
 				{ 1, 28529 },	-- Royal Cloak of Arathi Kings
 				{ 2, 28570 },	-- Shadow-Cloak of Dalaran
@@ -2531,7 +2554,8 @@ data["Karazhan"] = {
 			},
 		},
 		{	--KaraMaiden
-			name = BB["Maiden of Virtue"],
+			--name = BB["Maiden of Virtue"],
+			EncounterJournalID = 1555,
 			[NORMAL_DIFF] = {
 				{ 1, 28511 },	-- Bands of Indwelling
 				{ 2, 28515 },	-- Bands of Nefarious Deeds
@@ -2547,7 +2571,8 @@ data["Karazhan"] = {
 			},
 		},
 		{	--KaraOperaEvent
-			name = BB["Opera Event"],
+			--name = BB["Opera Event"],
+			EncounterJournalID = 1556,
 			[NORMAL_DIFF] = {
 				{ 1, "INV_Box_01", nil, AL["Shared"], nil },
 				{ 2, 28594 },	-- Trial-Fire Trousers
@@ -2592,7 +2617,8 @@ data["Karazhan"] = {
 			},
 		},
 		{	--KaraCurator
-			name = BB["The Curator"],
+			--name = BB["The Curator"],
+			EncounterJournalID = 1557,
 			[NORMAL_DIFF] = {
 				{ 1, 28612 },	-- Pauldrons of the Solace-Giver
 				{ 2, 28647 },	-- Forest Wind Shoulderpads
@@ -2607,7 +2633,8 @@ data["Karazhan"] = {
 			},
 		},
 		{	--KaraIllhoof
-			name = BB["Terestian Illhoof"],
+			--name = BB["Terestian Illhoof"],
+			EncounterJournalID = 1560,
 			[NORMAL_DIFF] = {
 				{ 1, 28660 },	-- Gilded Thorium Cloak
 				{ 2, 28653 },	-- Shadowvine Cloak of Infusion
@@ -2625,7 +2652,8 @@ data["Karazhan"] = {
 			},
 		},
 		{	--KaraAran
-			name = BB["Shade of Aran"],
+			--name = BB["Shade of Aran"],
+			EncounterJournalID = 1559,
 			[NORMAL_DIFF] = {
 				{ 1, 28672 },	-- Drape of the Dark Reavers
 				{ 2, 28726 },	-- Mantle of the Mind Flayer
@@ -2644,7 +2672,8 @@ data["Karazhan"] = {
 			},
 		},
 		{	--KaraNetherspite
-			name = BB["Netherspite"],
+			--name = BB["Netherspite"],
+			EncounterJournalID = 1561,
 			[NORMAL_DIFF] = {
 				{ 1, 28744 },	-- Uni-Mind Headdress
 				{ 2, 28742 },	-- Pantaloons of Repentence
@@ -2661,7 +2690,8 @@ data["Karazhan"] = {
 			},
 		},
 		{	--KaraChess
-			name = BB["Chess Event"],
+			--name = BB["Chess Event"],
+			EncounterJournalID = 1562,
 			[NORMAL_DIFF] = {
 				{ 1, 28756 },	-- Headdress of the High Potentate
 				{ 2, 28755 },	-- Bladed Shoulderpads of the Merciless
@@ -2678,7 +2708,8 @@ data["Karazhan"] = {
 			},
 		},
 		{	--KaraPrince
-			name = BB["Prince Malchezaar"],
+			--name = BB["Prince Malchezaar"],
+			EncounterJournalID = 1563,
 			[NORMAL_DIFF] = {
 				{ 1, 28765 },	-- Stainless Cloak of the Pure Hearted
 				{ 2, 28766 },	-- Ruby Drape of the Mysticant
@@ -2739,13 +2770,15 @@ data["Karazhan"] = {
 }
 
 data["HCMagtheridonsLair"] = {
-	name = ALIL["Magtheridon's Lair"],
+	--name = ALIL["Magtheridon's Lair"],
+	EncounterJournalID = 747,
 	MapID = 779,
 	AtlasMapID = "HCMagtheridonsLair",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--HCMagtheridon
-			name = BB["Magtheridon"],
+			--name = BB["Magtheridon"],
+			EncounterJournalID = 1566,
 			[P25_DIFF] = {
 				{ 1, 28777 },	-- Cloak of the Pit Stalker
 				{ 2, 28780 },	-- Soul-Eater's Handwraps
@@ -2782,13 +2815,15 @@ data["HCMagtheridonsLair"] = {
 }
 
 data["CFRSerpentshrineCavern"] = {
-	name = ALIL["Serpentshrine Cavern"],
+	--name = ALIL["Serpentshrine Cavern"],
+	EncounterJournalID = 748,
 	MapID = 780,
 	AtlasMapID = "CFRSerpentshrineCavern",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--CFRSerpentHydross
-			name = BB["Hydross the Unstable"],
+			--name = BB["Hydross the Unstable"],
+			EncounterJournalID = 1567,
 			[P25_DIFF] = {
 				{ 1, 30056 },	-- Robe of Hateful Echoes
 				{ 2, 32516 },	-- Wraps of Purification
@@ -2807,7 +2842,8 @@ data["CFRSerpentshrineCavern"] = {
 			},
 		},
 		{	--CFRSerpentLurker
-			name = BB["The Lurker Below"],
+			--name = BB["The Lurker Below"],
+			EncounterJournalID = 1568,
 			[P25_DIFF] = {
 				{ 1, 30064 },	-- Cord of Screaming Terrors
 				{ 2, 30067 },	-- Velvet Boots of the Guardian
@@ -2824,7 +2860,8 @@ data["CFRSerpentshrineCavern"] = {
 			},
 		},
 		{	--CFRSerpentLeotheras
-			name = BB["Leotheras the Blind"],
+			--name = BB["Leotheras the Blind"],
+			EncounterJournalID = 1569,
 			[P25_DIFF] = {
 				{ 1, 30092 },	-- Orca-Hide Boots
 				{ 2, 30097 },	-- Coral-Barbed Shoulderpads
@@ -2838,7 +2875,8 @@ data["CFRSerpentshrineCavern"] = {
 			},
 		},
 		{	--CFRSerpentKarathress
-			name = BB["Fathom-Lord Karathress"],
+			--name = BB["Fathom-Lord Karathress"],
+			EncounterJournalID = 1570,
 			[P25_DIFF] = {
 				{ 1, 30100 },	-- Soul-Strider Boots
 				{ 2, 30101 },	-- Bloodsea Brigand's Vest
@@ -2852,7 +2890,8 @@ data["CFRSerpentshrineCavern"] = {
 			},
 		},
 		{	--CFRSerpentMorogrim
-			name = BB["Morogrim Tidewalker"],
+			--name = BB["Morogrim Tidewalker"],
+			EncounterJournalID = 1571,
 			[P25_DIFF] = {
 				{ 1, 30098 },	-- Razor-Scale Battlecloak
 				{ 2, 30079 },	-- Illidari Shoulderpads
@@ -2871,7 +2910,8 @@ data["CFRSerpentshrineCavern"] = {
 			},
 		},
 		{	--CFRSerpentVashj
-			name = BB["Lady Vashj"],
+			--name = BB["Lady Vashj"],
+			EncounterJournalID = 1572,
 			[P25_DIFF] = {
 				{ 1, 30107 },	-- Vestments of the Sea-Witch
 				{ 2, 30111 },	-- Runetotem's Mantle
@@ -2937,13 +2977,15 @@ data["CFRSerpentshrineCavern"] = {
 }
 
 data["SunwellPlateau"] = {
-	name = ALIL["Sunwell Plateau"],
+	--name = ALIL["Sunwell Plateau"],
+	EncounterJournalID = 752,
 	MapID = 789,
 	AtlasMapID = "SunwellPlateau",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--SPKalecgos
-			name = BB["Kalecgos"],
+			--name = BB["Kalecgos"],
+			EncounterJournalID = 1591,
 			[P25_DIFF] = {
 				{ 1, 34170 },	-- Pantaloons of Calming Strife
 				{ 2, 34386 },	-- Pantaloons of Growing Strife
@@ -2961,7 +3003,8 @@ data["SunwellPlateau"] = {
 			},
 		},
 		{	--SPBrutallus
-			name = BB["Brutallus"],
+			--name = BB["Brutallus"],
+			EncounterJournalID = 1592,
 			[P25_DIFF] = {
 				{ 1, 34181 },	-- Leggings of Calamity
 				{ 2, 34180 },	-- Felfury Legplates
@@ -2977,7 +3020,8 @@ data["SunwellPlateau"] = {
 			},
 		},
 		{	--SPFelmyst
-			name = BB["Felmyst"],
+			--name = BB["Felmyst"],
+			EncounterJournalID = 1593,
 			[P25_DIFF] = {
 				{ 1, 34352 },	-- Borderland Fortress Grips
 				{ 2, 34188 },	-- Leggings of the Immortal Night
@@ -2993,7 +3037,8 @@ data["SunwellPlateau"] = {
 			},
 		},
 		{	--SPEredarTwins
-			name = BB["The Eredar Twins"],
+			--name = BB["The Eredar Twins"],
+			EncounterJournalID = 1594,
 			[P25_DIFF] = {
 				{ 1, 34205 },	-- Shroud of Redeemed Souls
 				{ 2, 34190 },	-- Crimson Paragon's Cover
@@ -3026,7 +3071,8 @@ data["SunwellPlateau"] = {
 			},
 		},
 		{	--SPMuru
-			name = BB["M'uru"],
+			--name = BB["M'uru"],
+			EncounterJournalID = 1595,
 			[P25_DIFF] = {
 				{ 1, 34232 },	-- Fel Conquerer Raiments
 				{ 2, 34233 },	-- Robes of Faltered Light
@@ -3060,7 +3106,8 @@ data["SunwellPlateau"] = {
 			},
 		},
 		{	--SPKiljaeden
-			name = BB["Kil'jaeden"],
+			--name = BB["Kil'jaeden"],
+			EncounterJournalID = 1596,
 			[P25_DIFF] = {
 				{ 1, 34241 },	-- Cloak of Unforgivable Sin
 				{ 2, 34242 },	-- Tattered Cape of Antonidas
@@ -3165,13 +3212,15 @@ data["SunwellPlateau"] = {
 }
 
 data["TempestKeepTheEye"] = {
-	name = ALIL["Tempest Keep"],
+	--name = ALIL["Tempest Keep"],
+	EncounterJournalID = 749,
 	MapID = 782,
 	AtlasMapID = "TempestKeepTheEye",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--TKEyeAlar
-			name = BB["Al'ar"],
+			--name = BB["Al'ar"],
+			EncounterJournalID = 1573,
 			[P25_DIFF] = {
 				{ 1, 29925 },	-- Phoenix-Wing Cloak
 				{ 2, 29918 },	-- Mindstorm Wristbands
@@ -3190,7 +3239,8 @@ data["TempestKeepTheEye"] = {
 			},
 		},
 		{	--TKEyeVoidReaver
-			name = BB["Void Reaver"],
+			--name = BB["Void Reaver"],
+			EncounterJournalID = 1574,
 			[P25_DIFF] = {
 				{ 1, 29986 },	-- Cowl of the Grand Engineer
 				{ 2, 29984 },	-- Girdle of Zaetar
@@ -3206,7 +3256,8 @@ data["TempestKeepTheEye"] = {
 			},
 		},
 		{	--TKEyeSolarian
-			name = BB["High Astromancer Solarian"],
+			--name = BB["High Astromancer Solarian"],
+			EncounterJournalID = 1575,
 			[P25_DIFF] = {
 				{ 1, 29977 },	-- Star-Soul Breeches
 				{ 2, 29972 },	-- Trousers of the Astromancer
@@ -3225,7 +3276,8 @@ data["TempestKeepTheEye"] = {
 			},
 		},
 		{	--TKEyeKaelthas
-			name = BB["Kael'thas Sunstrider"],
+			--name = BB["Kael'thas Sunstrider"],
+			EncounterJournalID = 1576,
 			[P25_DIFF] = {
 				{ 1, 29992 },	-- Royal Cloak of the Sunstriders
 				{ 2, 29989 },	-- Sunshower Light Cloak

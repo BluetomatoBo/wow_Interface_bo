@@ -5,6 +5,47 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.05.01 (Jul. 06, 2017)
+- Fixed the issue of error loading LibBabble-Faction-3.0
+
+v8.05.00 (Jul. 06, 2017)
+- Updated PlaySound API's usage method to support both 7.2.5 and 7.3.0 of WoW clients
+- Enhanced worldmap button integration while Mapster, HandyNotes_WorldMapButton, or ElvUI is installed
+- Migrate Conquest / Honor Points to Mark of Honor and updated PvP items for WoD
+  - Added WoD Season 2 weapons data
+- PvP
+  - Added Legion PvP Season 2, Season 3, Season 4 item sets
+  - Added Legion PvP Season 1 non-set items
+  - Updated Legion PvP Season 1 class-set items
+- Collection
+  - Tabards
+    - Updated Collection - Tabards - PvP item's buying cost
+    - Added Classic PvP tabards under Collection - Tabards - PvP
+    - Added Legion Tabards
+  - Mount
+    - Added Warforged Nightmare to in-game shop page
+    - Added Collection - Mounts - Faction
+- Faction
+  - Updated items for Voljin's Spear and Wrynn's Vanguard
+- Added LibBabble-Faction to improve faction's displaying. 
+  You won't see "Faction xxxx" when it's not in your faction side.
+- Classic
+  - Added encounter instance ID and encounter ID to the following RAIDS:
+    - Blackwing Lair, Molten Core, Ruins of Ahn'Qiraj, AhnQiraj
+  - Remove Naxxramas
+- Burning Crusade
+  - Added encounter instance ID and encounter ID to the following RAIDS:
+    - Black Temple, Gruul's Lair, Hyjal Summit, Karazhan, Magtheridon's Lair, Serpentshrine Cavern,
+      Sunwell Plateau, Tempest Keep
+- Wrath of the Lich King
+  - Added encounter instance ID and encounter ID to the following RAIDS:
+    - Icecrown Citadel, Naxxramas, OnyxiasLair, The Eye of Eternity, The Obsidian Sanctum,
+      The Ruby Sanctum, Trial of the Crusader, Ulduar, Vault of Archavon
+- Translation update:
+  - Simplified Chinese, German, Traditional Chinese
+## information for Devs
+- Added back dev tools from v7.0x
+
 v8.04.04 (Jun. 23, 2017)
 - Added Mists of Pandaria Timewalking items
 

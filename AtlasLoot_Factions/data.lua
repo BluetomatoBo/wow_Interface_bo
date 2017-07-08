@@ -272,7 +272,7 @@ data["WODFACTIONS"] = {
 				{ 16, "f1848rep8" },
 				{ 17, 128527, "mount", [PRICE_EXTRA_ITTYPE] = "money:26315789" },	-- Deathtusk Felboar
 				{ 18, 128475, [PRICE_EXTRA_ITTYPE] = "money:60000000" },	-- Empowered Augment Rune
-				{ 19, 128447, [PRICE_EXTRA_ITTYPE] = "money:1000000" },	-- Frostwolf Grunt's Battlegear
+				--{ 19, 128447, [PRICE_EXTRA_ITTYPE] = "money:1000000" },	-- Frostwolf Grunt's Battlegear
 			},
 		},
 		{	--Hand of the Prophet
@@ -294,7 +294,7 @@ data["WODFACTIONS"] = {
 				{ 16, "f1847rep8" },
 				{ 17, 128527, "mount", [PRICE_EXTRA_ITTYPE] = "money:26315789" },	-- Deathtusk Felboar
 				{ 18, 128482, [PRICE_EXTRA_ITTYPE] = "money:60000000" },	-- Empowered Augment Rune
-				{ 19, 128448, [PRICE_EXTRA_ITTYPE] = "money:1000000" },	-- Hand of the Prophet Tabard
+				--{ 19, 128448, [PRICE_EXTRA_ITTYPE] = "money:1000000" },	-- Hand of the Prophet Tabard, no longer available 
 			},
 		},
 		{	--Order of the Awakened
@@ -465,13 +465,16 @@ data["WODFACTIONS"] = {
 				{ 1, "f1681rep5" },
 				{ 2, 115500, [PRICE_EXTRA_ITTYPE] = "money:80000" },	-- Disposable Pocket Flying Machine
 				{ 3, 115514, [PRICE_EXTRA_ITTYPE] = "artifactfragment:50" },	-- Vol'jin's Spear Battle Standard
-				{ 4, 120049, [PRICE_EXTRA_ITTYPE] = "honor:1750" },	-- Primal Combatant's Badge of Adaptation
+				--{ 4, 120049, [PRICE_EXTRA_ITTYPE] = "honor:1750" },	-- Primal Combatant's Badge of Adaptation
 				{ 6, "f1681rep6" },
 				{ 7, 116397, [PRICE_EXTRA_ITTYPE] = "money:40000" },	-- Swift Riding Crop
 				{ 8, 116398, [PRICE_EXTRA_ITTYPE] = "artifactfragment:20" },	-- Flimsy X-Ray Goggles
 				{ 10, "f1681rep8" },
 				{ 11, 116775, "mount", [PRICE_EXTRA_ITTYPE] = "money:40000000:apexis:5000" },	-- Breezestrider Stallion
 				{ 12, 115518, [PRICE_EXTRA_ITTYPE] = "money:80000" },	-- Vol'jin's Spear Tabard
+				{ 16, "f1681rep7" },
+				{ 17, 115505, [PRICE_EXTRA_ITTYPE] = "artifactfragment:500" },	-- LeBlanc's Recorder
+--[[ to be presented in PvP
 				{ 16, "f1681rep7" },
 				{ 17, 115505, [PRICE_EXTRA_ITTYPE] = "artifactfragment:500" },	-- LeBlanc's Recorder
 				{ 18, 111089, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Cowl of Cruelty
@@ -509,6 +512,7 @@ data["WODFACTIONS"] = {
 				{ 120, 111217, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Plate Leggings
 				{ 121, 111179, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Warboots of Victory
 				{ 123, 115495, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Badge of Adaptation
+]]
 			},
 		},
 		{	--WrynnsVanguard
@@ -518,13 +522,17 @@ data["WODFACTIONS"] = {
 				{ 1, "f1682rep5" },
 				{ 2, 114126, [PRICE_EXTRA_ITTYPE] = "money:80000" },	-- Disposable Pocket Flying Machine
 				{ 3, 115513, [PRICE_EXTRA_ITTYPE] = "artifactfragment:50" },	-- Wrynn's Vanguard Battle Standard
-				{ 4, 115521, [PRICE_EXTRA_ITTYPE] = "honor:1750" },	-- Primal Combatant's Badge of Adaptation
+				--{ 4, 115521, [PRICE_EXTRA_ITTYPE] = "markofhonor:2" },	-- Primal Combatant's Badge of Adaptation
 				{ 6, "f1682rep6" },
 				{ 7, 115522, [PRICE_EXTRA_ITTYPE] = "money:40000" },	-- Swift Riding Crop
 				{ 8, 115532, [PRICE_EXTRA_ITTYPE] = "artifactfragment:20" },	-- Flimsy X-Ray Goggles
 				{ 10, "f1682rep8" },
 				{ 11, 116776, "mount", [PRICE_EXTRA_ITTYPE] = "money:40000000:apexis:5000" },	-- Pale Thorngrazer
 				{ 12, 115517, [PRICE_EXTRA_ITTYPE] = "money:80000" },	-- Wrynn's Vanguard Tabard
+				{ 16, "f1682rep7" },
+				{ 17, 116396, [PRICE_EXTRA_ITTYPE] = "artifactfragment:500" },	-- LeBlanc's Recorder
+				--{ 18, 115496, [PRICE_EXTRA_ITTYPE] = "markofhonor:2" },	-- Primal Gladiator's Badge of Adaptation
+--[[ to be presented in PvP
 				{ 16, "f1682rep7" },
 				{ 17, 116396, [PRICE_EXTRA_ITTYPE] = "artifactfragment:500" },	-- LeBlanc's Recorder
 				{ 18, 115616, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Cowl of Cruelty
@@ -561,7 +569,7 @@ data["WODFACTIONS"] = {
 				{ 119, 115703, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Girdle of Victory
 				{ 120, 115744, [PRICE_EXTRA_ITTYPE] = "conquest:2250" },	-- Primal Gladiator's Plate Leggings
 				{ 121, 115706, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Warboots of Victory
-				{ 123, 115496, [PRICE_EXTRA_ITTYPE] = "conquest:1750" },	-- Primal Gladiator's Badge of Adaptation
+]]
 			},
 		},
 	},

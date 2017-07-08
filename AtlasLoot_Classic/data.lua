@@ -2304,12 +2304,14 @@ local AQ_ENCHANTS = {
 }
 data["AhnQiraj"] = {
 	name = ALIL["Ahn'Qiraj"],
+	EncounterJournalID = 744,
 	MapID = 766,
 	AtlasMapID = "TheTempleofAhnQiraj",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--AQ40Skeram
-			name = BB["The Prophet Skeram"],
+			--name = BB["The Prophet Skeram"],
+			EncounterJournalID = 1543,
 			[NORMAL_DIFF] = {
 				{ 1, 21701 },	-- Cloak of Concentrated Hatred
 				{ 2, 21708 },	-- Beetle Scaled Wristguards
@@ -2367,7 +2369,8 @@ data["AhnQiraj"] = {
 			},
 		},
 		{	--AQ40Sartura
-			name = BB["Battleguard Sartura"],
+			--name = BB["Battleguard Sartura"],
+			EncounterJournalID = 1544,
 			[NORMAL_DIFF] = {
 				{ 1, 21671 },	-- Robes of the Battleguard
 				{ 2, 21676 },	-- Leggings of the Festering Swarm
@@ -2394,7 +2397,8 @@ data["AhnQiraj"] = {
 			},
 		},
 		{	--AQ40Fankriss
-			name = BB["Fankriss the Unyielding"],
+			--name = BB["Fankriss the Unyielding"],
+			EncounterJournalID = 1545,
 			[NORMAL_DIFF] = {
 				{ 1, 21627 },	-- Cloak of Untold Secrets
 				{ 2, 21663 },	-- Robes of the Guardian Saint
@@ -2419,7 +2423,8 @@ data["AhnQiraj"] = {
 			},
 		},
 		{	--AQ40Viscidus
-			name = BB["Viscidus"],
+			--name = BB["Viscidus"],
+			EncounterJournalID = 1548,
 			[NORMAL_DIFF] = {
 				{ 1, 21624 },	-- Gauntlets of Kalimdor
 				{ 2, 21626 },	-- Slime-Coated Leggings
@@ -2442,7 +2447,8 @@ data["AhnQiraj"] = {
 			},
 		},
 		{	--AQ40Huhuran
-			name = BB["Princess Huhuran"],
+			--name = BB["Princess Huhuran"],
+			EncounterJournalID = 1546,
 			[NORMAL_DIFF] = {
 				{ 1, 21619 },	-- Gloves of the Messiah
 				{ 2, 21621 },	-- Cloak of the Golden Hive
@@ -2464,7 +2470,8 @@ data["AhnQiraj"] = {
 			},
 		},
 		{	--AQ40Emperors
-			name = BB["The Twin Emperors"],
+			--name = BB["The Twin Emperors"],
+			EncounterJournalID = 1549,
 			[NORMAL_DIFF] = {
 				{ 1, 20930 },	-- Vek'lor's Diadem
 				{ 2, 21600 },	-- Boots of Epiphany
@@ -2496,7 +2503,8 @@ data["AhnQiraj"] = {
 			},
 		},
 		{	--AQ40Ouro
-			name = BB["Ouro"],
+			--name = BB["Ouro"],
+			EncounterJournalID = 1550,
 			[NORMAL_DIFF] = {
 				{ 1, 21615 },	-- Don Rigoberto's Lost Hat
 				{ 2, 21611 },	-- Burrower Bracers
@@ -2518,7 +2526,8 @@ data["AhnQiraj"] = {
 			},
 		},
 		{	--AQ40CThun
-			name = BB["C'Thun"],
+			--name = BB["C'Thun"],
+			EncounterJournalID = 1551,
 			[NORMAL_DIFF] = {
 				{ 1, 21583 },	-- Cloak of Clarity
 				{ 2, 22731 },	-- Cloak of the Devoured
@@ -2601,12 +2610,14 @@ data["AhnQiraj"] = {
 
 data["BlackwingLair"] = {
 	name = ALIL["Blackwing Lair"],
+	EncounterJournalID = 742,
 	MapID = 755,
 	AtlasMapID = "BlackwingLair",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--BWLRazorgore
-			name = BB["Razorgore the Untamed"],
+			--name = BB["Razorgore the Untamed"],
+			EncounterJournalID = 1529,
 			[NORMAL_DIFF] = {
 				{ 1, 16918 },	-- Netherwind Bindings
 				{ 2, 16926 },	-- Bindings of Transcendence
@@ -2627,7 +2638,8 @@ data["BlackwingLair"] = {
 			},
 		},
 		{	--BWLVaelastrasz
-			name = BB["Vaelastrasz the Corrupt"],
+			--name = BB["Vaelastrasz the Corrupt"],
+			EncounterJournalID = 1530,
 			[NORMAL_DIFF] = {
 				{ 1, 16818 },	-- Netherwind Belt
 				{ 2, 16925 },	-- Belt of Transcendence
@@ -2647,7 +2659,8 @@ data["BlackwingLair"] = {
 			},
 		},
 		{	--BWLLashlayer
-			name = BB["Broodlord Lashlayer"],
+			--name = BB["Broodlord Lashlayer"],
+			EncounterJournalID = 1531,
 			[NORMAL_DIFF] = {
 				{ 1, 16912 },	-- Netherwind Boots
 				{ 2, 16919 },	-- Boots of Transcendence
@@ -2668,7 +2681,8 @@ data["BlackwingLair"] = {
 			},
 		},
 		{	--BWLFiremaw
-			name = BB["Firemaw"],
+			--name = BB["Firemaw"],
+			EncounterJournalID = 1532,
 			[NORMAL_DIFF] = {
 				{ 1, 16913 },	-- Netherwind Gloves
 				{ 2, 16920 },	-- Handguards of Transcendence
@@ -2696,7 +2710,8 @@ data["BlackwingLair"] = {
 			},
 		},
 		{	--BWLEbonroc
-			name = BB["Ebonroc"],
+			--name = BB["Ebonroc"],
+			EncounterJournalID = 1533,
 			[NORMAL_DIFF] = {
 				{ 1, 16913 },	-- Netherwind Gloves
 				{ 2, 16920 },	-- Handguards of Transcendence
@@ -2722,7 +2737,8 @@ data["BlackwingLair"] = {
 			},
 		},
 		{	--BWLFlamegor
-			name = BB["Flamegor"],
+			--name = BB["Flamegor"],
+			EncounterJournalID = 1534,
 			[NORMAL_DIFF] = {
 				{ 1, 16913 },	-- Netherwind Gloves
 				{ 2, 16920 },	-- Handguards of Transcendence
@@ -2748,7 +2764,8 @@ data["BlackwingLair"] = {
 			},
 		},
 		{	--BWLChromaggus
-			name = BB["Chromaggus"],
+			--name = BB["Chromaggus"],
+			EncounterJournalID = 1535,
 			[NORMAL_DIFF] = {
 				{ 1, 16917 },	-- Netherwind Mantle
 				{ 2, 16924 },	-- Pauldrons of Transcendence
@@ -2776,7 +2793,8 @@ data["BlackwingLair"] = {
 			},
 		},
 		{	--BWLNefarian
-			name = BB["Nefarian"],
+			--name = BB["Nefarian"],
+			EncounterJournalID = 1536,
 			[NORMAL_DIFF] = {
 				{ 1, 16914 },	-- Netherwind Crown
 				{ 2, 16916 },	-- Netherwind Robes
@@ -2844,12 +2862,14 @@ data["BlackwingLair"] = {
 
 data["MoltenCore"] = {
 	name = ALIL["Molten Core"],
+	EncounterJournalID = 741,
 	MapID = 696,
 	AtlasMapID = "MoltenCore",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--MCLucifron
-			name = BB["Lucifron"],
+			--name = BB["Lucifron"],
+			EncounterJournalID = 1519,
 			DisplayIDs = {
 				{ 13031 }
 			},
@@ -2874,7 +2894,8 @@ data["MoltenCore"] = {
 			},
 		},
 		{	--MCMagmadar
-			name = BB["Magmadar"],
+			--name = BB["Magmadar"],
+			EncounterJournalID = 1520,
 			DisplayIDs = {
 				{ 10193 }
 			},
@@ -2908,7 +2929,8 @@ data["MoltenCore"] = {
 			},
 		},
 		{	--MCGehennas
-			name = BB["Gehennas"],
+			--name = BB["Gehennas"],
+			EncounterJournalID = 1521,
 			DisplayIDs = {
 				{ 13030 }
 			},
@@ -2932,7 +2954,8 @@ data["MoltenCore"] = {
 			},
 		},
 		{	--MCGarr
-			name = BB["Garr"],
+			--name = BB["Garr"],
+			EncounterJournalID = 1522,
 			DisplayIDs = {
 				{ 12110 }
 			},
@@ -2966,7 +2989,8 @@ data["MoltenCore"] = {
 			},
 		},
 		{	--MCShazzrah
-			name = BB["Shazzrah"],
+			--name = BB["Shazzrah"],
+			EncounterJournalID = 1523,
 			DisplayIDs = {
 				{ 13032 }
 			},
@@ -2990,7 +3014,8 @@ data["MoltenCore"] = {
 			},
 		},
 		{	--MCGeddon
-			name = BB["Baron Geddon"],
+			--name = BB["Baron Geddon"],
+			EncounterJournalID = 1524,
 			DisplayIDs = {
 				{ 12129 }
 			},
@@ -3017,7 +3042,8 @@ data["MoltenCore"] = {
 			},
 		},
 		{	--MCGolemagg
-			name = BB["Golemagg the Incinerator"],
+			--name = BB["Golemagg the Incinerator"],
+			EncounterJournalID = 1526,
 			DisplayIDs = {
 				{ 11986 }
 			},
@@ -3051,7 +3077,8 @@ data["MoltenCore"] = {
 			},
 		},
 		{	--MCSulfuron
-			name = BB["Sulfuron Harbinger"],
+			--name = BB["Sulfuron Harbinger"],
+			EncounterJournalID = 1525,
 			DisplayIDs = {
 				{ 13030 }
 			},
@@ -3075,7 +3102,8 @@ data["MoltenCore"] = {
 			},
 		},
 		{	--MCMajordomo
-			name = BB["Majordomo Executus"],
+			--name = BB["Majordomo Executus"],
+			EncounterJournalID = 1527,
 			DisplayIDs = {
 				{ 12029 }
 			},
@@ -3093,7 +3121,8 @@ data["MoltenCore"] = {
 			},
 		},
 		{	--MCRagnaros
-			name = BB["Ragnaros"],
+			--name = BB["Ragnaros"],
+			EncounterJournalID = 1528,
 			DisplayIDs = {
 				{ 11121 }
 			},
@@ -3199,12 +3228,14 @@ data["MoltenCore"] = {
 
 data["TheRuinsofAhnQiraj"] = {
 	name = ALIL["Ruins of Ahn'Qiraj"],
+	EncounterJournalID = 743,
 	MapID = 717,
 	AtlasMapID = "TheRuinsofAhnQiraj",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--AQ20Kurinnaxx
-			name = BB["Kurinnaxx"],
+			--name = BB["Kurinnaxx"],
+			EncounterJournalID = 1537,
 			[NORMAL_DIFF] = {
 				{ 1, 21499 },	-- Vestments of the Shifting Sands
 				{ 2, 21498 },	-- Qiraji Sacrificial Dagger
@@ -3220,7 +3251,8 @@ data["TheRuinsofAhnQiraj"] = {
 			},
 		},
 		{	--AQ20Rajaxx
-			name = BB["General Rajaxx"],
+			--name = BB["General Rajaxx"],
+			EncounterJournalID = 1538,
 			[NORMAL_DIFF] = {
 				{ 1, 21493 },	-- Boots of the Vanguard
 				{ 2, 21492 },	-- Manslayer of the Qiraji
@@ -3242,7 +3274,8 @@ data["TheRuinsofAhnQiraj"] = {
 			},
 		},
 		{	--AQ20Moam
-			name = BB["Moam"],
+			--name = BB["Moam"],
+			EncounterJournalID = 1539,
 			[NORMAL_DIFF] = {
 				{ 1, 21472 },	-- Dustwind Turban
 				{ 2, 21467 },	-- Thick Silithid Chestguard
@@ -3266,7 +3299,8 @@ data["TheRuinsofAhnQiraj"] = {
 			},
 		},
 		{	--AQ20Buru
-			name = BB["Buru the Gorger"],
+			--name = BB["Buru the Gorger"],
+			EncounterJournalID = 1540,
 			[NORMAL_DIFF] = {
 				{ 1, 21487 },	-- Slimy Scaled Gauntlets
 				{ 2, 21486 },	-- Gloves of the Swarm
@@ -3284,7 +3318,8 @@ data["TheRuinsofAhnQiraj"] = {
 			},
 		},
 		{	--AQ20Ayamiss
-			name = BB["Ayamiss the Hunter"],
+			--name = BB["Ayamiss the Hunter"],
+			EncounterJournalID = 1541,
 			[NORMAL_DIFF] = {
 				{ 1, 21479 },	-- Gauntlets of the Immovable
 				{ 2, 21466 },	-- Stinger of Ayamiss
@@ -3303,7 +3338,8 @@ data["TheRuinsofAhnQiraj"] = {
 			},
 		},
 		{	--AQ20Ossirian
-			name = BB["Ossirian the Unscarred"],
+			--name = BB["Ossirian the Unscarred"],
+			EncounterJournalID = 1542,
 			[NORMAL_DIFF] = {
 				{ 1, 21456 },	-- Sandstorm Cloak
 				{ 2, 21464 },	-- Shackles of the Unscarred
@@ -3374,6 +3410,7 @@ data["TheRuinsofAhnQiraj"] = {
 	}
 }
 
+--[[
 data["Naxxramas"] = {
 	name = ALIL["Naxxramas"],
 	MapID = 535,
@@ -3722,3 +3759,4 @@ data["Naxxramas"] = {
 		},
 	}
 }
+]]

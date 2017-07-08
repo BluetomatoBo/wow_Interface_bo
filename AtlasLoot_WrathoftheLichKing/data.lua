@@ -1742,13 +1742,15 @@ data["UtgardePinnacle"] = {
 }
 
 data["IcecrownCitadel"] = {
-	name = ALIL["Icecrown Citadel"],
+	--name = ALIL["Icecrown Citadel"],
+	EncounterJournalID = 758,
 	MapID = 604,
 	AtlasMapID = "IcecrownCitadelA",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--ICCLordMarrowgar
-			name = BB["Lord Marrowgar"],
+			--name = BB["Lord Marrowgar"],
+			EncounterJournalID = 1624, 
 			[NORMAL_DIFF] = {
 				{ 1, 50764 },	-- Shawl of Nerubian Silk
 				{ 2, 50773 },	-- Cord of the Patronizing Practitioner
@@ -1822,7 +1824,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCLadyDeathwhisper
-			name = BB["Lady Deathwhisper"],
+			--name = BB["Lady Deathwhisper"],
+			EncounterJournalID = 1625,
 			[NORMAL_DIFF] = {
 				{ 1, 50785 },	-- Bracers of Dark Blessings
 				{ 2, 50782 },	-- Sister's Handshrouds
@@ -1896,7 +1899,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCGunshipBattle
-			name = BB["Icecrown Gunship Battle"],
+			--name = BB["Icecrown Gunship Battle"],
+			EncounterJournalID = 1626,
 			[NORMAL_DIFF] = {
 				{ 1, 50791 },	-- Saronite Gargoyle Cloak
 				{ 2, 50795 },	-- Cord of Dark Suffering
@@ -1970,7 +1974,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCSaurfang
-			name = BB["Deathbringer Saurfang"],
+			--name = BB["Deathbringer Saurfang"],
+			EncounterJournalID = 1628,
 			[NORMAL_DIFF] = {
 				{ 1, 50807 },	-- Thaumaturge's Crackling Cowl
 				{ 2, 50804 },	-- Icecrown Spire Sandals
@@ -2036,7 +2041,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCFestergut
-			name = BB["Festergut"],
+			--name = BB["Festergut"],
+			EncounterJournalID = 1629,
 			[NORMAL_DIFF] = {
 				{ 1, 50859 },	-- Cloak of Many Skins
 				{ 2, 50988 },	-- Bloodstained Surgeon's Shoulderguards
@@ -2114,7 +2120,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCRotface
-			name = BB["Rotface"],
+			--name = BB["Rotface"],
+			EncounterJournalID = 1630,
 			[NORMAL_DIFF] = {
 				{ 1, 51007 },	-- Ether-Soaked Bracers
 				{ 2, 51005 },	-- Gloves of Broken Fingers
@@ -2188,7 +2195,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCPutricide
-			name = BB["Professor Putricide"],
+			--name = BB["Professor Putricide"],
+			EncounterJournalID = 1631, 
 			[NORMAL_DIFF] = {
 				{ 1, 51020 },	-- Shoulders of Ruinous Senility
 				{ 2, 51017 },	-- Cauterized Cord
@@ -2254,7 +2262,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCCouncil
-			name = BB["Blood Prince Council"],
+			--name = BB["Blood Prince Council"],
+			EncounterJournalID = 1632,
 			[NORMAL_DIFF] = {
 				{ 1, 51382 },	-- Heartsick Mender's Cape
 				{ 2, 51379 },	-- Bloodsoul Raiment
@@ -2328,7 +2337,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCLanathel
-			name = BB["Blood-Queen Lana'thel"],
+			--name = BB["Blood-Queen Lana'thel"],
+			EncounterJournalID = 1632,
 			[NORMAL_DIFF] = {
 				{ 1, 51554 },	-- Cowl of Malefic Repose
 				{ 2, 51552 },	-- Shoulderpads of the Searing Kiss
@@ -2396,7 +2406,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCValithria
-			name = BB["Valithria Dreamwalker"],
+			--name = BB["Valithria Dreamwalker"],
+			EncounterJournalID = 1634,
 			[NORMAL_DIFF] = {
 				{ 1, 51584 },	-- Lich Wrappings
 				{ 2, 51777 },	-- Leggings of the Refracted Mind
@@ -2470,7 +2481,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCSindragosa
-			name = BB["Sindragosa"],
+			--name = BB["Sindragosa"],
+			EncounterJournalID = 1635,
 			[NORMAL_DIFF] = {
 				{ 1, 51790 },	-- Robes of Azure Downfall
 				{ 2, 51783 },	-- Vambraces of the Frost Wyrm Queen
@@ -2536,7 +2548,8 @@ data["IcecrownCitadel"] = {
 			},
 		},
 		{	--ICCLichKing
-			name = BB["The Lich King"],
+			--name = BB["The Lich King"],
+			EncounterJournalID = 1636,
 			[NORMAL_DIFF] = {
 				{ 1, 51801 },	-- Pugius, Fist of Defiance
 				{ 2, 51803 },	-- Tel'thas, Dagger of the Blood King
@@ -2644,13 +2657,15 @@ data["IcecrownCitadel"] = {
 }
 
 data["Naxxramas"] = {
-	name = ALIL["Naxxramas"],
+	--name = ALIL["Naxxramas"],
+	EncounterJournalID = 754,
 	MapID = 535,
 	AtlasMapID = "Naxxramas",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Naxx80AnubRekhan
-			name = BB["Anub'Rekhan"],
+			--name = BB["Anub'Rekhan"],
+			EncounterJournalID = 1601,
 			[NORMAL_DIFF] = {
 				{ 1, 39192 },	-- Gloves of Dark Gestures
 				{ 2, 39190 },	-- Agonal Sash
@@ -2691,7 +2706,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Faerlina
-			name = BB["Grand Widow Faerlina"],
+			--name = BB["Grand Widow Faerlina"],
+			EncounterJournalID = 1602,
 			[NORMAL_DIFF] = {
 				{ 1, 39216 },	-- Sash of Mortal Desire
 				{ 2, 39215 },	-- Boots of the Follower
@@ -2733,7 +2749,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Maexxna
-			name = BB["Maexxna"],
+			--name = BB["Maexxna"],
+			EncounterJournalID = 1603,
 			[NORMAL_DIFF] = {
 				{ 1, 39225 },	-- Cloak of Armed Strife
 				{ 2, 39230 },	-- Spaulders of the Monstrosity
@@ -2779,7 +2796,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Noth
-			name = BB["Noth the Plaguebringer"],
+			--name = BB["Noth the Plaguebringer"],\
+			EncounterJournalID = 1604,
 			[NORMAL_DIFF] = {
 				{ 1, 39241 },	-- Dark Shroud of the Scourge
 				{ 2, 39242 },	-- Robes of Hoarse Breaths
@@ -2819,7 +2837,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Heigan
-			name = BB["Heigan the Unclean"],
+			--name = BB["Heigan the Unclean"],
+			EncounterJournalID = 1605,
 			[NORMAL_DIFF] = {
 				{ 1, 39252 },	-- Preceptor's Bindings
 				{ 2, 39254 },	-- Saltarello Shoes
@@ -2862,7 +2881,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Loatheb
-			name = BB["Loatheb"],
+			--name = BB["Loatheb"],
+			EncounterJournalID = 1606,
 			[NORMAL_DIFF] = {
 				{ 1, 39259 },	-- Fungi-Stained Coverings
 				{ 2, 39260 },	-- Helm of the Corrupted Mind
@@ -2895,7 +2915,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Razuvious
-			name = BB["Instructor Razuvious"],
+			--name = BB["Instructor Razuvious"],
+			EncounterJournalID = 1607, 
 			[NORMAL_DIFF] = {
 				{ 1, 39297 },	-- Cloak of Darkening
 				{ 2, 39310 },	-- Mantle of the Extensive Mind
@@ -2935,7 +2956,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Gothik
-			name = BB["Gothik the Harvester"],
+			--name = BB["Gothik the Harvester"],
+			EncounterJournalID = 1608,
 			[NORMAL_DIFF] = {
 				{ 1, 39390 },	-- Resurgent Phantom Bindings
 				{ 2, 39386 },	-- Tunic of Dislocation
@@ -2975,7 +2997,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80FourHorsemen
-			name = BB["The Four Horsemen"],
+			--name = BB["The Four Horsemen"],
+			EncounterJournalID = 1609,
 			[NORMAL_DIFF] = {
 				{ 1, 39396 },	-- Gown of Blaumeux
 				{ 2, 39397 },	-- Pauldrons of Havoc
@@ -3006,7 +3029,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Patchwerk
-			name = BB["Patchwerk"],
+			--name = BB["Patchwerk"],
+			EncounterJournalID = 1610,
 			[NORMAL_DIFF] = {
 				{ 1, 39272 },	-- Drape of Surgery
 				{ 2, 39273 },	-- Sullen Cloth Boots
@@ -3047,7 +3071,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Grobbulus
-			name = BB["Grobbulus"],
+			--name = BB["Grobbulus"],
+			EncounterJournalID = 1611,
 			[NORMAL_DIFF] = {
 				{ 1, 39284 },	-- Miasma Mantle
 				{ 2, 39285 },	-- Handgrips of Turmoil
@@ -3089,7 +3114,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Gluth
-			name = BB["Gluth"],
+			--name = BB["Gluth"],
+			EncounterJournalID = 1612,
 			[NORMAL_DIFF] = {
 				{ 1, 39272 },	-- Drape of Surgery
 				{ 2, 39284 },	-- Miasma Mantle
@@ -3177,7 +3203,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Thaddius
-			name = BB["Thaddius"],
+			--name = BB["Thaddius"],
+			EncounterJournalID = 1613,
 			[NORMAL_DIFF] = {
 				{ 1, 39295 },	-- Cowl of Sheet Lightning
 				{ 2, 39294 },	-- Arc-Scorched Helmet
@@ -3210,7 +3237,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Sapphiron
-			name = BB["Sapphiron"],
+			--name = BB["Sapphiron"],
+			EncounterJournalID = 1614,
 			[NORMAL_DIFF] = {
 				{ 1, 39415 },	-- Shroud of the Citadel
 				{ 2, 39404 },	-- Cloak of Mastery
@@ -3252,7 +3280,8 @@ data["Naxxramas"] = {
 			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80KelThuzad
-			name = BB["Kel'Thuzad"],
+			--name = BB["Kel'Thuzad"],
+			EncounterJournalID = 1615,
 			[NORMAL_DIFF] = {
 				{ 1, 39425 },	-- Cloak of the Dying
 				{ 2, 39421 },	-- Gem of Imprisoned Vassals
@@ -3331,13 +3360,15 @@ data["Naxxramas"] = {
 }
 
 data["OnyxiasLair"] = {
-	name = ALIL["Onyxia's Lair"],
+	--name = ALIL["Onyxia's Lair"],
+	EncounterJournalID = 760,
 	MapID = 718,
 	AtlasMapID = "OnyxiasLair",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Onyxia
-			name = BB["Onyxia"],
+			--name = BB["Onyxia"],
+			EncounterJournalID = 1651,
 			[NORMAL_DIFF] = {
 				{ 1, 49307 },	-- Fluttering Sapphiron Drape
 				{ 2, 49316 },	-- Circlet of Transcendence
@@ -3439,13 +3470,15 @@ data["OnyxiasLair"] = {
 }
 
 data["TheEyeOfEternity"] = {
-	name = ALIL["The Eye of Eternity"],
+	--name = ALIL["The Eye of Eternity"],
+	EncounterJournalID = 756,
 	MapID = 527,
 	AtlasMapID = "TheEyeOfEternity",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Malygos
-			name = BB["Malygos"],
+			--name = BB["Malygos"],
+			EncounterJournalID = 1617,
 			[NORMAL_DIFF] = {
 				{ 1, 40526 },	-- Gown of the Spell-Weaver
 				{ 2, 40519 },	-- Footsteps of Malygos
@@ -3511,13 +3544,15 @@ data["TheEyeOfEternity"] = {
 }
 
 data["ObsidianSanctum"] = {
-	name = ALIL["The Obsidian Sanctum"],
+	--name = ALIL["The Obsidian Sanctum"],
+	EncounterJournalID = 755,
 	MapID = 531,
 	AtlasMapID = "ObsidianSanctum",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Sartharion
-			name = BB["Sartharion"],
+			--name = BB["Sartharion"],
+			EncounterJournalID = 1616,
 			[NORMAL_DIFF] = {
 				{ 1, 40428 },	-- Titan's Outlook
 				{ 2, 40427 },	-- Circle of Arcane Streams
@@ -3595,13 +3630,15 @@ data["ObsidianSanctum"] = {
 }
 
 data["RubySanctum"] = {
-	name = ALIL["The Ruby Sanctum"],
+	--name = ALIL["The Ruby Sanctum"],
+	EncounterJournalID = 761, 
 	MapID = 609,
 	AtlasMapID = "RubySanctum",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Halion
-			name = BB["Halion"],
+			--name = BB["Halion"],
+			EncounterJournalID = 1652,
 			[NORMAL_DIFF] = {
 				{ 1, 53115 },	-- Abduction's Cover
 				{ 2, 53118 },	-- Misbegotten Belt
@@ -3675,13 +3712,15 @@ data["RubySanctum"] = {
 }
 
 data["TrialoftheCrusader"] = {
-	name = ALIL["Trial of the Crusader"],
+	--name = ALIL["Trial of the Crusader"],
+	EncounterJournalID = 757, 
 	MapID = 543,
 	AtlasMapID = "TrialOfTheCrusader",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--TrialoftheCrusaderNorthrendBeasts
-			name = BB["The Beasts of Northrend"],
+			--name = BB["The Beasts of Northrend"],
+			EncounterJournalID = 1618, 
 			[NORMAL_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 47617, [ATLASLOOT_IT_HORDE] = 47855 },	-- Icehowl Cinch / Icehowl Binding
 				{ 2, [ATLASLOOT_IT_ALLIANCE] = 47613, [ATLASLOOT_IT_HORDE] = 47857 },	-- Shoulderpads of the Glacial Wilds / Pauldrons of the Glacial Wilds
@@ -3756,7 +3795,8 @@ data["TrialoftheCrusader"] = {
 			},
 		},
 		{	--TrialoftheCrusaderLordJaraxxus
-			name = BB["Lord Jaraxxus"],
+			--name = BB["Lord Jaraxxus"],
+			EncounterJournalID = 1619, 
 			[NORMAL_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 47663, [ATLASLOOT_IT_HORDE] = 47861 },	-- Felspark Bindings / Felspark Bracers
 				{ 2, [ATLASLOOT_IT_ALLIANCE] = 47620, [ATLASLOOT_IT_HORDE] = 47865 },	-- Leggings of the Demonic Messenger / Legwraps of the Demonic Messenger
@@ -3894,7 +3934,8 @@ data["TrialoftheCrusader"] = {
 			},
 		},
 		{	--TrialoftheCrusaderTwinValkyrs
-			name = BB["The Twin Val'kyr"],
+			--name = BB["The Twin Val'kyr"],
+			EncounterJournalID = 1622,
 			[NORMAL_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 47745, [ATLASLOOT_IT_HORDE] = 47889 },	-- Gloves of Looming Shadow / Looming Shadow Wraps
 				{ 2, [ATLASLOOT_IT_ALLIANCE] = 49231, [ATLASLOOT_IT_HORDE] = 49232 },	-- Boots of the Grieving Soul / Sandals of the Grieving Soul
@@ -3967,7 +4008,8 @@ data["TrialoftheCrusader"] = {
 			},
 		},
 		{	--TrialoftheCrusaderAnubarak
-			name = BB["Anub'arak"],
+			--name = BB["Anub'arak"],
+			EncounterJournalID = 1623,
 			[NORMAL_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 47838, [ATLASLOOT_IT_HORDE] = 47906 },	-- Vestments of the Sleepless / Robes of the Sleepless
 				{ 2, [ATLASLOOT_IT_ALLIANCE] = 47837, [ATLASLOOT_IT_HORDE] = 47909 },	-- Cinch of the Undying / Belt of the Eternal
@@ -4101,13 +4143,15 @@ data["TrialoftheCrusader"] = {
 }
 
 data["Ulduar"] = {
-	name = ALIL["Ulduar"],
+	--name = ALIL["Ulduar"],
+	EncounterJournalID = 759,
 	MapID = 529,
 	AtlasMapID = "UlduarA",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--UlduarLeviathan
-			name = BB["Flame Leviathan"],
+			--name = BB["Flame Leviathan"],
+			EncounterJournalID = 1637,
 			[NORMAL_DIFF] = {
 				{ 1, 45289 },	-- Lifespark Visage
 				{ 2, 45291 },	-- Combustion Bracers
@@ -4166,7 +4210,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarIgnis
-			name = BB["Ignis the Furnace Master"],
+			--name = BB["Ignis the Furnace Master"],
+			EncounterJournalID = 1638, 
 			[NORMAL_DIFF] = {
 				{ 1, 45317 },	-- Shawl of the Caretaker
 				{ 2, 45318 },	-- Drape of Fuming Anger
@@ -4205,7 +4250,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarRazorscale
-			name = BB["Razorscale"],
+			--name = BB["Razorscale"],
+			EncounterJournalID = 1639,
 			[NORMAL_DIFF] = {
 				{ 1, 45306 },	-- Binding of the Dragon Matriarch
 				{ 2, 45302 },	-- Treads of the Invader
@@ -4241,7 +4287,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarDeconstructor
-			name = BB["XT-002 Deconstructor"],
+			--name = BB["XT-002 Deconstructor"],
+			EncounterJournalID = 1640,
 			[NORMAL_DIFF] = {
 				{ 1, 45694 },	-- Conductive Cord
 				{ 2, 45677 },	-- Treacherous Shoulderpads
@@ -4294,8 +4341,9 @@ data["Ulduar"] = {
 				{ 117, "ac2935" },
 			},
 		},
-		{	--UlduarIronCouncil
-			name = BB["The Iron Council"],
+		{	--UlduarIronCouncil, The Assembly of Iron
+			--name = BB["The Iron Council"],
+			EncounterJournalID = 1641,
 			[NORMAL_DIFF] = {
 				{ 1, 45322 },	-- Cloak of the Iron Council
 				{ 2, 45423 },	-- Runetouch Handwraps
@@ -4354,7 +4402,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarKologarn
-			name = BB["Kologarn"],
+			--name = BB["Kologarn"],
+			EncounterJournalID = 1642,
 			[NORMAL_DIFF] = {
 				{ 1, 45704 },	-- Shawl of the Shattered Giant
 				{ 2, 45701 },	-- Greaves of the Earthbinder
@@ -4395,7 +4444,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarAuriaya
-			name = BB["Auriaya"],
+			--name = BB["Auriaya"],
+			EncounterJournalID = 1643,
 			[NORMAL_DIFF] = {
 				{ 1, 45832 },	-- Mantle of the Preserver
 				{ 2, 45865 },	-- Raiments of the Corrupted
@@ -4432,7 +4482,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarHodir
-			name = BB["Hodir"],
+			--name = BB["Hodir"],
+			EncounterJournalID = 1644,
 			[NORMAL_DIFF] = {
 				{ 1, 45873 },	-- Winter's Frigid Embrace
 				{ 2, 45464 },	-- Cowl of Icy Breaths
@@ -4482,7 +4533,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarThorim
-			name = BB["Thorim"],
+			--name = BB["Thorim"],
+			EncounterJournalID = 1645,
 			[NORMAL_DIFF] = {
 				{ 1, 45893 },	-- Guise of the Midgard Serpent
 				{ 2, 45927 },	-- Handwraps of Resonance
@@ -4532,7 +4584,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarFreya
-			name = BB["Freya"],
+			--name = BB["Freya"],
+			EncounterJournalID = 1646,
 			[NORMAL_DIFF] = {
 				{ 1, 45940 },	-- Tunic of the Limber Stalker
 				{ 2, 45941 },	-- Chestguard of the Lasher
@@ -4588,7 +4641,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarMimiron
-			name = BB["Mimiron"],
+			--name = BB["Mimiron"],
+			EncounterJournalID = 1647,
 			[NORMAL_DIFF] = {
 				{ 1, 45973 },	-- Stylish Power Cape
 				{ 2, 45976 },	-- Static Charge Handwraps
@@ -4634,7 +4688,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarVezax
-			name = BB["General Vezax"],
+			--name = BB["General Vezax"],
+			EncounterJournalID = 1648,
 			[NORMAL_DIFF] = {
 				{ 1, 46014 },	-- Saronite Animus Cloak
 				{ 2, 46013 },	-- Underworld Mantle
@@ -4682,7 +4737,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarYoggSaron
-			name = BB["Yogg-Saron"],
+			--name = BB["Yogg-Saron"],
+			EncounterJournalID = 1649,
 			[NORMAL_DIFF] = {
 				{ 1, 46030 },	-- Treads of the Dragon Council
 				{ 2, 46019 },	-- Leggings of the Insatiable
@@ -4751,7 +4807,8 @@ data["Ulduar"] = {
 			},
 		},
 		{	--UlduarAlgalon
-			name = BB["Algalon the Observer"],
+			--name = BB["Algalon the Observer"],
+			EncounterJournalID = 1650,
 			[NORMAL_DIFF] = {
 				{ 1, 46042 },	-- Drape of the Messenger
 				{ 2, 46045 },	-- Pulsar Gloves
@@ -4869,13 +4926,15 @@ data["Ulduar"] = {
 }
 
 data["VaultofArchavon"] = {
-	name = ALIL["Vault of Archavon"],
+	--name = ALIL["Vault of Archavon"],
+	EncounterJournalID = 753,
 	MapID = 532,
 	AtlasMapID = "VaultOfArchavon",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	--Archavon
-			name = BB["Archavon the Stone Watcher"],
+			--name = BB["Archavon the Stone Watcher"],
+			EncounterJournalID = 1597,
 			[NORMAL_DIFF] = {
 				{ 1, "ICON_spell_deathknight_frostpresence", nil, ALIL["DEATHKNIGHT"], ALIL["Frost"].." / "..ALIL["Unholy"] },
 				{ 2, 39617 },	-- Heroes' Scourgeborne Battleplate
@@ -5133,7 +5192,8 @@ data["VaultofArchavon"] = {
 			},
 		},
 		{	--Emalon
-			name = BB["Emalon the Storm Watcher"],
+			--name = BB["Emalon the Storm Watcher"],
+			EncounterJournalID = 1598,
 			[NORMAL_DIFF] = {
 				{ 1, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 2, 45351 },	-- Valorous Nightsong Gloves
@@ -5414,7 +5474,8 @@ data["VaultofArchavon"] = {
 			},
 		},
 		{	--Koralon
-			name = BB["Koralon the Flame Watcher"],
+			--name = BB["Koralon the Flame Watcher"],
+			EncounterJournalID = 1599, 
 			[NORMAL_DIFF] = {
 				{ 1, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 2, [ATLASLOOT_IT_ALLIANCE] = 48162, [ATLASLOOT_IT_HORDE] = 48183 },	-- Stormrage's Gloves of Conquest / Runetotem's Gloves of Conquest
@@ -5699,7 +5760,8 @@ data["VaultofArchavon"] = {
 			},
 		},
 		{	--Toravon
-			name = BB["Toravon the Ice Watcher"],
+			--name = BB["Toravon the Ice Watcher"],
+			EncounterJournalID = 1600,
 			[NORMAL_DIFF] = {
 				{ 1, "ICON_spell_nature_starfall", nil, ALIL["DRUID"], ALIL["Balance"] },
 				{ 2, 50822 },	-- Lasherweave's Gloves

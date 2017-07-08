@@ -89,6 +89,13 @@ function Mount.OnClear(button)
 	
 	button.info = nil
 	button.secButton.info = nil
+
+	button.secButton:SetNormalTexture(nil)
+	button.secButton.overlay:SetSize(button.secButton:GetWidth(), button.secButton:GetHeight())
+	if button.secButton.count then button.secButton.count:Hide() end
+	if button.secButton.completed and button.secButton.completed:IsShown() then button.secButton.completed:Hide() end
+	button.secButton:Hide()
+
 end
 
 function Mount.OnMouseAction(button, mouseButton)
