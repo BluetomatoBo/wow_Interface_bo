@@ -13,6 +13,9 @@ local C_NamePlate_GetNamePlates = C_NamePlate.GetNamePlates
 local C_NamePlate_SetNamePlateEnemyClickThrough = C_NamePlate.SetNamePlateEnemyClickThrough
 local C_NamePlate_SetNamePlateFriendlyClickThrough = C_NamePlate.SetNamePlateFriendlyClickThrough
 local C_NamePlate_SetNamePlateSelfClickThrough = C_NamePlate.SetNamePlateSelfClickThrough
+local C_NamePlate_SetNamePlateFriendlySize = C_NamePlate.SetNamePlateFriendlySize
+local C_NamePlate_SetNamePlateEnemySize = C_NamePlate.SetNamePlateEnemySize
+local C_NamePlate_SetNamePlateSelfSize = C_NamePlate.SetNamePlateSelfSize
 local C_Timer_After = C_Timer.After
 local GetArenaOpponentSpec = GetArenaOpponentSpec
 local GetBattlefieldScore = GetBattlefieldScore
@@ -203,9 +206,24 @@ end
 function mod:SetTargetFrame(frame)
 	--Match parent's frame level for targetting purposes. Best time to do it is here.
 	local parent = self:GetNamePlateForUnit(frame.unit);
+	if(parent) then
+		if frame:GetFrameLevel() < 100 then
+			frame:SetFrameLevel(parent:GetFrameLevel() + 100)
+		end
+
+		frame:SetFrameLevel(parent:GetFrameLevel() + 3)
+		frame.Glow:SetFrameLevel(parent:GetFrameLevel() + 1)
+		frame.Buffs:SetFrameLevel(parent:GetFrameLevel() + 2)
+		frame.Debuffs:SetFrameLevel(parent:GetFrameLevel() + 2)
+	end
 
 	local targetExists = UnitExists("target")
 	if(UnitIsUnit(frame.unit, "target") and not frame.isTarget) then
+		frame:SetFrameLevel(parent:GetFrameLevel() + 5)
+		frame.Glow:SetFrameLevel(parent:GetFrameLevel() + 3)
+		frame.Buffs:SetFrameLevel(parent:GetFrameLevel() + 4)
+		frame.Debuffs:SetFrameLevel(parent:GetFrameLevel() + 4)
+
 		if(self.db.useTargetScale) then
 			self:SetFrameScale(frame, self.db.targetScale)
 		end
@@ -469,8 +487,12 @@ function mod:SetBaseNamePlateSize()
 	local self = mod
 	local baseWidth = self.db.clickableWidth
 	local baseHeight = self.db.clickableHeight
-	NamePlateDriverFrame:SetBaseNamePlateSize(baseWidth, baseHeight)
 	self.PlayerFrame__:SetSize(baseWidth, baseHeight)
+
+	-- this wont taint like NamePlateDriverFrame.SetBaseNamePlateSize
+	C_NamePlate_SetNamePlateFriendlySize(baseWidth, baseHeight);
+	C_NamePlate_SetNamePlateEnemySize(baseWidth, baseHeight);
+	C_NamePlate_SetNamePlateSelfSize(baseWidth, baseHeight);
 end
 
 function mod:UpdateInVehicle(frame, noEvents)
@@ -523,17 +545,11 @@ function mod:UpdateElement_All(frame, unit, noTargetFrame)
 	mod:UpdateElement_Level(frame)
 	mod:UpdateElement_Elite(frame)
 	mod:UpdateElement_Detection(frame)
+	mod:UpdateElement_Highlight(frame)
 
 	if(not noTargetFrame) then --infinite loop lol
 		mod:SetTargetFrame(frame)
 	end
-end
-
-local function FrameOnUpdate(self)
-	self.UnitFrame:SetFrameLevel(self:GetFrameLevel())
-	self.UnitFrame.Glow:SetFrameLevel(self:GetFrameLevel())
-	self.UnitFrame.Buffs:SetFrameLevel(self:GetFrameLevel() + 1)
-	self.UnitFrame.Debuffs:SetFrameLevel(self:GetFrameLevel() + 1)
 end
 
 function mod:NAME_PLATE_CREATED(_, frame)
@@ -542,7 +558,6 @@ function mod:NAME_PLATE_CREATED(_, frame)
 	frame.UnitFrame:SetAllPoints(frame)
 	frame.UnitFrame:SetFrameStrata("BACKGROUND")
 	frame.UnitFrame:SetScript("OnEvent", mod.OnEvent)
-	frame:HookScript("OnUpdate", FrameOnUpdate)
 
 	frame.UnitFrame.HealthBar = self:ConstructElement_HealthBar(frame.UnitFrame)
 	frame.UnitFrame.PowerBar = self:ConstructElement_PowerBar(frame.UnitFrame)
@@ -883,7 +898,7 @@ function mod:Initialize()
 	hooksecurefunc(NamePlateDriverFrame, "SetClassNameplateBar", mod.SetClassNameplateBar)
 
 	self:DISPLAY_SIZE_CHANGED() --Run once for good measure.
-	self:SetBaseNamePlateSize() --This taints and prevents default nameplates in dungeons and raids
+	self:SetBaseNamePlateSize()
 
 	self:NAME_PLATE_CREATED("NAME_PLATE_CREATED", self.PlayerFrame__)
 	self:NAME_PLATE_UNIT_ADDED("NAME_PLATE_UNIT_ADDED", "player", self.PlayerFrame__)
