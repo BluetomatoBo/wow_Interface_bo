@@ -221,6 +221,8 @@ L["Integrated support options for TomTom"] = "Options concernant le support int�
 L["Line Color"] = "Couleur des lignes"
 L["Line gaps"] = "Sauts de ligne"
 L["Line Settings"] = "Param. des lignes"
+--Translation missing 
+-- L["Logging"] = "Logging"
 L["Map Drawing"] = "Dessins des cartes"
 L["Minimap"] = "Minicarte"
 L["Minimap drawing"] = "Dessine ou non sur la minicarte."
@@ -300,6 +302,8 @@ L["Routes with Gas"] = "Routes contenant des gaz"
 L["Routes with Herbs"] = "Routes contenant des herbes"
 L["Routes with Notes"] = "Routes avec Notes"
 L["Routes with Ore"] = "Routes contenant des minerais"
+--Translation missing 
+-- L["Routes with Timber"] = "Routes with Timber"
 L["Routes with Treasure"] = "Routes contenant des trésors"
 L["Save route edit"] = "Sauver modifications"
 L["Save taboo edit"] = "Sauver l'édition du tabou"
@@ -389,3 +393,4 @@ L["Zone Map"] = "Carte locale"
 L["Zone Map drawing"] = "Dessine ou non sur la carte locale."
 L["Zone to create route in"] = "Choisissez la zone où créer la route."
 L["Zone to create taboo in"] = "Zone où créer le tabou"
+

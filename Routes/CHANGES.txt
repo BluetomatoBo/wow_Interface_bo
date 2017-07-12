@@ -1,30 +1,12 @@
-tag 0e8d7801ee7818c5ea63179f5cf713afcbf6b6da v1.5.6
+tag 9558151ac64bb8da3dac771b5e42b8b1aabd7d4a v1.5.7
 Author:	Hendrik Leppkes <h.leppkes@gmail.com>
-Date:	Wed Feb 1 06:14:01 2017 +0100
+Date:	Wed Jul 12 10:15:04 2017 +0200
 
-Tag as v1.5.6
+Tag as v1.5.7
 
-commit 2c7ad4bd5a5a10c53a7b5ef2fd3b2cefc72c1d6c
+commit a607f57df2a967bd275c0bbcc34012cfe656847a
 Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Fri Dec 30 12:23:30 2016 +0100
+Date:   Tue Mar 28 19:28:37 2017 +0200
 
-    Better profession defaults
-
-commit c6f0f6a68b8d83e6d2a5e386b3cb4719eb521fca
-Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Fri Dec 30 12:21:36 2016 +0100
-
-    Add missing locale entries
-
-commit 29f0d1ba906bea443366e029238db1f33e4b7d25
-Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Fri Dec 30 11:43:49 2016 +0100
-
-    AutoShow: add support for logging nodes
-
-commit 4b4650cb837868a7fa40ebcd31b4b8e11088c28f
-Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Fri Dec 30 11:39:44 2016 +0100
-
-    Fix an error when creating routes for GatherMate2 Logging nodes
+    Update TOC for 7.2
 

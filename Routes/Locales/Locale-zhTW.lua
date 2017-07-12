@@ -315,6 +315,8 @@ L["Routes with Gas"] = "氣雲路線"
 L["Routes with Herbs"] = "草藥路線"
 L["Routes with Notes"] = "註記路線"
 L["Routes with Ore"] = "採礦路線"
+--Translation missing 
+-- L["Routes with Timber"] = "Routes with Timber"
 L["Routes with Treasure"] = "寶葙路線"
 L["Save route edit"] = "儲存路線編輯"
 L["Save taboo edit"] = "儲存封鎖區編輯"
@@ -407,3 +409,4 @@ L["Zone Map"] = "區域地圖"
 L["Zone Map drawing"] = "繪畫區域地圖"
 L["Zone to create route in"] = "選擇要新增路線的區域"
 L["Zone to create taboo in"] = "要新增封鎖區的區域"
+
