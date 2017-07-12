@@ -59,7 +59,7 @@ DBM_CORE_COMBAT_STATE_RECOVERED		= "%s was engaged %s ago, recovering timers..."
 DBM_CORE_TRANSCRIPTOR_LOG_START		= "Transcriptor logging started."
 DBM_CORE_TRANSCRIPTOR_LOG_END		= "Transcriptor logging ended."
 
-DBM_CORE_MOVIE_SKIPPED				= "A cut scene has automatically been skipped."
+DBM_CORE_MOVIE_SKIPPED				= "DBM has attempted to skip a cut scene automatically."
 
 DBM_CORE_AFK_WARNING				= "You are AFK and in combat (%d percent health remaining), firing sound alert. If you are not AFK, clear your AFK flag or disable this option in 'extra features'."
 
@@ -459,12 +459,12 @@ DBM_CORE_AUTO_YELL_OPTION_TEXT = {
 	shortyell	= "Yell when you are affected by $spell:%s",
 	yell		= "Yell (with player name) when you are affected by $spell:%s",
 	count		= "Yell (with count) when you are affected by $spell:%s",
-	fade		= "Yell (with countdown & spell name) when $spell:%s is fading",
+	fade		= "Yell (with countdown and spell name) when $spell:%s is fading",
 	shortfade	= "Yell (with countdown) when $spell:%s is fading",
 	position	= "Yell (with position) when you are affected by $spell:%s"
 }
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT = {
-	shortyell	= "%%s",
+	shortyell	= "%s",
 	yell		= "%s on " .. UnitName("player") .. "!",
 	count		= "%s on " .. UnitName("player") .. "! (%%d)",
 	fade		= "%s fading in %%d",

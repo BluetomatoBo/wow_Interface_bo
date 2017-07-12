@@ -1,97 +1,290 @@
-tag e0d9165807c08d8e114b97f0eb217347e1fb9048 7.2.13
+tag 6b3ccd34c5958a36b135627fcc661d07e9752d81 7.2.14
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Tue Jul 4 20:52:20 2017 +0200
+Date:	Tue Jul 11 22:21:31 2017 +0200
 
-Tagging as 7.2.13
+Tagging as 7.2.14
 
-commit def4c409669259699a6b2d985bb8ce07af4331d7
+commit 1a686c6beb5337bc2022d4fbefbb479a5f31e488
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jul 4 20:52:20 2017 +0200
+Date:   Tue Jul 11 22:21:31 2017 +0200
 
-    increment version number to 7.2.13
+    increment version number to 7.2.14
 
-commit 6fdc4dc7ec23b44c9b2e02d7776d18a563d8dae5
+commit d0080e07f607b04626955c15f0e49f66aed9f6a4
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jul 4 20:49:33 2017 +0200
+Date:   Tue Jul 11 17:46:20 2017 +0200
 
-    tandanu via svn r16406:
-    fix parameter validation
+    Omega via svn r16445:
+    push auto icon option for erupting for mythic only
 
-commit ca59e7cd40779ff33ececafb579d918fd0764cc6
+commit ec71a6e5ec0aaaa587431b9d23605251ed0b596e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jul 4 19:33:35 2017 +0200
+Date:   Tue Jul 11 17:31:54 2017 +0200
 
-    Omega via svn r16405:
-    more checks to nil error from user reports
-    Added obelisk warnings/timers to KJ
+    Omega via svn r16444:
+    Add timer for phase 1 wailing (mythic)
 
-commit 4ff4dd9de8dc44ad2def9a2d2b47373d46da8f2a
+commit c1cc136254461cbc61dcabc4b63af3c47630e308
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jul 4 18:24:57 2017 +0200
+Date:   Tue Jul 11 17:23:22 2017 +0200
 
-    Omega via svn r16404:
-    in all languages
+    Omega via svn r16443:
+    Add lingering eruption orb dodge announce
 
-commit 63211fddfae406568b3134959e0f474e907e8abe
+commit 518058bd71a0b2306e4e849f68383e46cf460055
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jul 4 18:24:06 2017 +0200
+Date:   Tue Jul 11 15:27:19 2017 +0200
 
-    Omega via svn r16403:
-    Fix shortyell and shortfade hopefully
+    Omega via svn r16442:
+    No idea what?\226?\128?\153s going on with these script ran to long errors OUT of combat with loadmod, maybe they broke InCombatLockdown()? so add some not UnitAffectingCombat("player") as well
 
-commit d2f278268d048985401ff744b6c46da336862ca2
+commit 40b878153c227416e8bd8b1c4ab46b4de57a4a4f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jul 4 18:16:56 2017 +0200
+Date:   Tue Jul 11 09:28:17 2017 +0200
 
-    Omega via svn r16402:
-    fix nil error
+    Omega via svn r16441:
+    Varimathras drycode
 
-commit 2657d01f252873d7c1e95f866cbfbb5e94c99026
+commit d8d553e6a5f086973b0ef626770bf9f42be52b7f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jul 4 05:47:00 2017 +0200
+Date:   Tue Jul 11 04:02:18 2017 +0200
 
-    Omega via svn r16401:
-    Add protection against double incorp timer (if target dies and she retargets)
+    Omega via svn r16440:
+    Add option to force burden of pain to only use success for timers/taunt warnings
+    also improve voice support for hydra shot to use move to mark for heroic and mythic
 
-commit 3ecc9fe3b49d68a18135653e52abcb379e570c6d
+commit 4d80385bfcb6dbaaf9127d4b11eb128325b4375a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jul 3 17:33:03 2017 +0200
+Date:   Tue Jul 11 03:12:39 2017 +0200
 
-    Omega via svn r16400:
-    CN Update
+    Omega via svn r16439:
+    Change how that works to replicate weak aura for fight
 
-commit 46c21669e35c228e8d8d2833fc7da117ffe898b2
+commit c119c821ee697cec829b5fe45755c02d2f44bf38
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jul 3 08:04:44 2017 +0200
+Date:   Tue Jul 11 03:05:16 2017 +0200
 
-    Omega via svn r16399:
-    Kr Update
+    Omega via svn r16438:
+    add short fades yell for scream
 
-commit 46a956441a4675f182e3b6768f1fb1bb34af2713
+commit 3f74b16a11d0e7af7bbd4124fed8448158adb4c1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jul 3 02:43:07 2017 +0200
+Date:   Tue Jul 11 00:20:03 2017 +0200
 
-    Omega via svn r16398:
-    Add more core shortcuts
+    Omega via svn r16437:
+    Add another illiden sound
 
-commit 9fc5c1f2d01707e1bb5da38c00e441271654c80c
+commit a16427fd7c9538675e57edea07753349644c6b6a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jul 2 04:39:19 2017 +0200
+Date:   Mon Jul 10 21:02:37 2017 +0200
 
-    Omega via svn r16397:
-    Fix sever soul warning saying polymorph
+    Omega via svn r16436:
+    Only use custom info frame on mythic demonic inq
 
-commit 7b113bcecb650ce0675f7045fcee949614275823
+commit 78ac2615d1765b735eef4f8047bd5639754dce09
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jul 2 04:35:12 2017 +0200
+Date:   Mon Jul 10 06:50:50 2017 +0200
 
-    Omega via svn r16396:
-    Fix sever soul warning saying polymorph
+    Omega via svn r16435:
+    Antispam the interrupt warning on demonic Inq to no longer fire if belec isn?\226?\128?\153t target/focus
+    Added Hasabel drycode.
 
-commit 9c914287667242144bfe005b2880057f91e32301
+commit 54ee8dbe364b0aaa2d1eb047b5f3e11450d2dffe
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jul 2 00:04:25 2017 +0200
+Date:   Sun Jul 9 21:25:32 2017 +0200
 
-    tandanu via svn r16395:
+    Omega via svn r16434:
+    Give tainted  general announce
+
+commit 445b47cb05d8437b6cb8805f201c042ca85370b0
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Jul 9 08:33:28 2017 +0200
+
+    Omega via svn r16433:
+    Changed draw in and frosty discharge warnings to be more prominant with ?\226?\128?\156phase change?\226?\128?\157 voice warnings to go with them
+
+commit 258032b4aebdb6019222cffb77d2a51c082b9ee9
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Jul 9 08:20:01 2017 +0200
+
+    Omega via svn r16432:
+    Fix incorp shot saying to move away from others, should just be a basic YOU warning
+    Who let the dogs out, woof woof woof
+
+commit 25dabb47c56caa96dec5b492ac8fad4739ac18a5
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jul 8 09:35:36 2017 +0200
+
+    Omega via svn r16431:
+    Strip out some garrison checks now that IsInInstance() returns false on garrison map
+
+commit b8059852a37e7f65a49015b1ea13a273fa26b3d7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jul 8 07:12:25 2017 +0200
+
+    Omega via svn r16430:
+    Mythic unstable soul ID from public maiden mythic logs
+
+commit 19c71d6a60c9b886e41fd60a8797d5aa032ccad5
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jul 8 04:51:48 2017 +0200
+
+    Omega via svn r16429:
+    Apparently that just gets floored so disable for now
+
+commit d1830cb7338e567b01dd4714f1fc533add835c70
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jul 8 04:42:51 2017 +0200
+
+    Omega via svn r16428:
+    timer GUI improvement across all tomb mods
+
+commit 848cb4afac5e7d04dbd590c11df782db09647339
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jul 8 04:19:12 2017 +0200
+
+    Omega via svn r16427:
+    Update CIDs for latest 7.3 PTR build
+
+commit 26a5d04a82340a20b39a0a193067d0befd809fb8
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Jul 8 03:59:09 2017 +0200
+
+    Omega via svn r16426:
+    Full Garothi drycode
+
+commit 0f8a05e15468d96e54d75374d95f721860327c4b
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jul 7 23:52:58 2017 +0200
+
+    Omega via svn r16425:
+    Hatching on for EVERYONE by default not just dps
+    Since combat log is bugged for fel claw stacks, just use counter instead for swings.
+
+commit 30370a90f37dc2e270cbd1367a6cb4d8a6db608b
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jul 7 21:59:32 2017 +0200
+
+    Omega via svn r16424:
+    Kr update
+
+commit c067344c826e3701fb5294476745360f1154e153
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jul 7 07:08:55 2017 +0200
+
+    Omega via svn r16423:
+    Fix error
+
+commit b84124727314ef2a058d36de1e3eea61679edea1
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jul 7 07:05:48 2017 +0200
+
+    Omega via svn r16422:
+    Fix missing event
+
+commit 9e6e7453dff87342df319fbfcaccad5c0bfa3c91
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jul 7 07:03:19 2017 +0200
+
+    Omega via svn r16421:
+    Custom info frame for Demonic that shows how many adds are up at top
+    change taunt warnings on harj to come sooner
+
+commit 9a88e21b730f54d2a8f729a9e7a07a51337c4a2c
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jul 7 06:05:56 2017 +0200
+
+    Omega via svn r16420:
+    Fix scheduling bug that caused a bad unchecked rage warning on frosty discharge
+
+commit 04967ceb958422b76ab3e10232f8827432e6d3ea
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Jul 7 02:21:32 2017 +0200
+
+    Omega via svn r16419:
+    Change wording thanks to unskipable scenes
+
+commit 6f7e04330e598207fd069347ea7ea19b0f96d3d4
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jul 6 07:42:16 2017 +0200
+
+    Omega via svn r16418:
+    Fix others too
+
+commit 8b9c4de839b2113872d001c504b16eee8d4cc203
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jul 6 07:30:16 2017 +0200
+
+    Omega via svn r16417:
+    Add stack counter too for good measure
+
+commit d40655c0b9a5f88b115527729caf283d80beb125
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jul 6 06:33:35 2017 +0200
+
+    Omega via svn r16416:
+    HF rev
+
+commit 3bf81935798e4413adae0c073f2a51cea69ba99f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jul 6 06:22:10 2017 +0200
+
+    Omega via svn r16415:
+    Fix 1 belec timer on inq that?\226?\128?\153s too long
+    tweak first touch timer by .4 seconds on fallen avatar
+    increase combine time on meteor to try and avoid fragmented target messages
+    Fixed illiden sightless timer not refreshing when refreshing before expired
+    Fixed obelisk warning/timer
+    Fixed trash warning for massive eruption not firing.
+
+commit 27e44c65c4e666601b168a23e7aac10c2aa8486e
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jul 6 05:28:37 2017 +0200
+
+    Omega via svn r16414:
+    fix more yells
+
+commit 528a9bef31366e2a546953ba59dca5643c519470
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jul 6 05:11:15 2017 +0200
+
+    Omega via svn r16413:
+    fix spell name
+
+commit 6c8d8446711ff10da86284f003f6c10030784adb
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Jul 6 05:02:02 2017 +0200
+
+    Omega via svn r16412:
+    fix HTML error
+
+commit 8ebebfb4ee330facf84a1f214b127eea8d0d05c7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Jul 5 06:51:42 2017 +0200
+
+    Omega via svn r16411:
+    Full drycode of all bosses in Seat of Triumvirate
+
+commit 943afc72514c9311760a6c713e3b47d35505f4f7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Jul 5 03:18:35 2017 +0200
+
+    ultrashining via svn r16410:
+    zhTW update
+
+commit ffcdec6250e746beb9a72991e31f7d25d56798a7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Jul 4 23:39:19 2017 +0200
+
+    Omega via svn r16409:
+    Change ranges on range frame in host to one that probably will work cross phase and gives extra buffer
+    Add mythic ?\226?\128?\156berserk?\226?\128?\157
+    Change message from ?\226?\128?\156move to group?\226?\128?\157 to ?\226?\128?\156move to boss?\226?\128?\157
+
+commit d02cc5dd7c5931871656037f6db1a09963c74877
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Jul 4 20:52:46 2017 +0200
+
+    tandanu via svn r16408:
     increment alpha version
 
