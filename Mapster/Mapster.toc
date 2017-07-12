@@ -6,7 +6,7 @@
 ## Author: Nevcairiel
 ## SavedVariables: MapsterDB
 ## X-Category: Map
-## Version: 1.7.5
+## Version: 1.7.5.1
 ## X-License: All rights reserved.
 
 ## OptionalDeps: Ace3
