@@ -1,0 +1,10 @@
+tag 645bdc9150b3dcc04cbfc760b90439d441569f1f 2.4.9.1
+Author:	Benjamin Staneck <staneck@gmail.com>
+Date:	Sat Jul 8 02:37:30 2017 +0200
+
+commit 16c4a40bd22f153f9a35831ca38ddc14d6c8530a
+Author: Infus <infus@squorn.de>
+Date:   Fri Jul 7 21:39:16 2017 +0200
+
+    Improve Combat Log fix
+
