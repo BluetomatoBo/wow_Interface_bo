@@ -1,10 +1,107 @@
-tag 645bdc9150b3dcc04cbfc760b90439d441569f1f 2.4.9.1
+tag 7292698d2764b896aa7ca8986e083835188ab7f7 2.4.10
 Author:	Benjamin Staneck <staneck@gmail.com>
-Date:	Sat Jul 8 02:37:30 2017 +0200
+Date:	Wed Jul 12 18:31:05 2017 +0200
 
-commit 16c4a40bd22f153f9a35831ca38ddc14d6c8530a
+commit e38cc00aeae7e3aee45812c24db65a7b6af346eb
+Author: Kyle Buller <bullerk@gmail.com>
+Date:   Tue Jul 11 22:26:47 2017 -0500
+
+    Register sounds with LibSharedMedia
+
+commit af4d110c5033cc10363c31e9f4810d61113b7788
+Author: Healarious <healarious.eu.ravencrest@gmail.com>
+Date:   Sun Jul 9 12:42:50 2017 +0200
+
+    Moved twist of fate to its correct position
+
+commit 7f485691f9eda005fe57434023ec3edcfc1feedf
 Author: Infus <infus@squorn.de>
-Date:   Fri Jul 7 21:39:16 2017 +0200
+Date:   Sun Jul 9 12:04:53 2017 +0200
 
-    Improve Combat Log fix
+    Fix Animations resetting Color set via Conditions
+    
+    Similar idea as the previous commit.
+    
+    Introduce two properties, Color and ColorAnim.
+    
+    ColorAnim overrides Color if set. In the Animation set ColorAnim.
+    Resetting a Color animation is thus just calling ColorAnim with nil.
+    
+    This kind of override/combination of properties between animations
+    and conditons should ideally be handled centrally instead of how
+    this patch implements it. This can be cleaned up at a later point.
+    
+    Ticket-Nr: 945
+
+commit 4eb52477de8492dfd427dffc936818f352f42687
+Author: Infus <infus@squorn.de>
+Date:   Sun Jul 9 11:34:47 2017 +0200
+
+    Add WA_DELAYED_PLAYER_ENTERING_WORLD to GCD trigger
+    
+    If a gcd trigger is in "inverse" mode, we want the trigger
+    evaluated on login.
+    
+    Github-Issue: 234
+
+commit 1535b4e23a09cf1ffcce449d15e8e4997cf177d5
+Author: Healarious <healarious.eu.ravencrest@gmail.com>
+Date:   Sun Jul 9 07:17:25 2017 +0200
+
+    Moved Evangelism talent cooldown from holy priest to its correct place (disc pries)
+
+commit 637839b895e7c229dbda5797170da197dd55a9c2
+Author: Infus <infus@squorn.de>
+Date:   Sat Jul 8 18:16:58 2017 +0200
+
+    Fix interaction between animations and anchoring
+    
+    The animations used to save the position/anchor on start and
+    restored those on finishing the animation. Even if the animation
+    didn't actually touch the position.
+    
+    This can clash with Anchoring, as there the anchor might not be
+    immediately available and thus set a bit later.
+    
+    Fix that, by adding 3 different orthogonal properties to regions
+    via RegionProperties:
+    
+    - SetAnchor, which sets the anchorFrame and the anchorPoints
+    - SetOffset, which sets a offset
+    - SetOffsetAnim, which sets a extra offset for animations
+    
+    Thus, if a animation ends, all it has to do is SetOffsetAnim to 0,0.
+    
+    That also means that we could add a xOffset/yOffset to the conditions
+    now.
+    
+    This is slightly backwards incompatible for custom translate functions,
+    they no longer get the "real" offset but the "animation" offset passed
+    in. And they should no longer return the "complete" offset, but the
+    animation offset.
+    
+    Keep the old code in the animtions for the tray animation. Those still
+    work as before. There seems to be a bit of wonkyness with those, but
+    that seems to match what they did before.
+    
+    Ticket-Nr: 996
+    
+    squash
+
+commit fad9a861a5ee27845e5db4970185716a456f042c
+Author: Infus <infus@squorn.de>
+Date:   Sat Jul 8 16:34:27 2017 +0200
+
+    Fix missing postpone anchoring on auras
+    
+    Part one of fixing:
+    Ticket-Nr: 996
+
+commit 46b2cff4e01f8e25e5c8849e1dd338b3b80e8cc0
+Author: Infus <infus@squorn.de>
+Date:   Sat Jul 8 16:04:18 2017 +0200
+
+    Fix error on selection custom function
+    
+    Ticket-Nr: 1003
 

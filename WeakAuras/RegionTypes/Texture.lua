@@ -70,6 +70,8 @@ local function create(parent)
 end
 
 local function modify(parent, region, data)
+  WeakAuras.regionPrototype.modify(parent, region, data);
+
   region.texture:SetTexture(data.texture);
   region.texture:SetDesaturated(data.desaturate)
   region:SetWidth(data.width);
@@ -80,8 +82,6 @@ local function modify(parent, region, data)
   region.scaley = 1;
   region.texture:SetBlendMode(data.blendMode);
   --region.texture:SetRotation((data.rotation / 180) * math.pi);
-  region:ClearAllPoints();
-  WeakAuras.AnchorFrame(data, region, parent);
 
   local function GetRotatedPoints(degrees)
     local angle = rad(135 - degrees);
@@ -169,7 +169,21 @@ local function modify(parent, region, data)
     region.color_g = g;
     region.color_b = b;
     region.color_a = a;
-    region.texture:SetVertexColor(r, g, b, a);
+    if (r or g or b) then
+      a = a or 1;
+    end
+    region.texture:SetVertexColor(region.color_anim_r or r, region.color_anim_g or g, region.color_anim_b or b, region.color_anim_a or a);
+  end
+
+  function region:ColorAnim(r, g, b, a)
+    region.color_anim_r = r;
+    region.color_anim_g = g;
+    region.color_anim_b = b;
+    region.color_anim_a = a;
+    if (r or g or b) then
+      a = a or 1;
+    end
+    region.texture:SetVertexColor(r or region.color_r, g or region.color_g, b or region.color_b, a or region.color_a);
   end
 
   function region:GetColor()

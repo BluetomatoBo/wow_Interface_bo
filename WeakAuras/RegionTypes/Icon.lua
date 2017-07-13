@@ -252,6 +252,7 @@ local function configureText(fontString, icon, enabled, point, width, height, co
 end
 
 local function modify(parent, region, data)
+  WeakAuras.regionPrototype.modify(parent, region, data);
   local button, icon, cooldown, stacks, text2 = region.button, region.icon, region.cooldown, region.stacks, region.text2;
 
   region.useAuto = data.auto and WeakAuras.CanHaveAuto(data);
@@ -280,10 +281,6 @@ local function modify(parent, region, data)
   region.scaley = 1;
   icon:SetAllPoints();
 
-  region:ClearAllPoints();
-
-  WeakAuras.AnchorFrame(data, region, parent);
-
   configureText(stacks, icon, data.text1Enabled, data.text1Point, data.width, data.height, data.text1Containment, data.text1Font, data.text1FontSize, data.text1FontFlags, data.text1Color);
   configureText(text2, icon, data.text2Enabled, data.text2Point, data.width, data.height, data.text2Containment, data.text2Font, data.text2FontSize, data.text2FontFlags, data.text2Color);
 
@@ -311,9 +308,26 @@ local function modify(parent, region, data)
     region.color_g = g;
     region.color_b = b;
     region.color_a = a;
-    icon:SetVertexColor(r, g, b, a);
+    if (r or g or b) then
+      a = a or 1;
+    end
+    icon:SetVertexColor(region.color_anim_r or r, region.color_anim_r or g, region.color_anim_r or b, region.color_anim_r or a);
+    if region.button then
+      region.button:SetAlpha(region.color_anim_r or a or 1);
+    end
+  end
+
+  function region:ColorAnim(r, g, b, a)
+    region.color_anim_r = r;
+    region.color_anim_g = g;
+    region.color_anim_b = b;
+    region.color_anim_a = a;
+    if (r or g or b) then
+      a = a or 1;
+    end
+    icon:SetVertexColor(r or region.color_r, g or region.color_g, b or region.color_b, a or region.color_a);
     if MSQ then
-      button:SetAlpha(a or 1);
+      region.button:SetAlpha(a or region.color_a or 1);
     end
   end
 
