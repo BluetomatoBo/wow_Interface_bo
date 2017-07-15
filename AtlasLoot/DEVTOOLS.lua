@@ -166,8 +166,8 @@ local GUIDS = {
 	["Player-1097-044F8D64"] = "author",
 	["Player-1097-047418F7"] = "author",	-- schoko!
 	["Player-1097-045D6B65"] = "author", 	-- Cali
-	["Player-1097-00490D06"] = true,		-- meena@ysera-eu
-	["Player-1097-0212CAC6"] = true,		-- xyriana@ysera-eu
+	[true] = "Player-1097-00490D06",		-- meena@ysera-eu
+	[true] = "Player-1097-0212CAC6",		-- xyriana@ysera-eu
 	["Player-612-0566C578"] = "author",		-- Dynaletik@nerathor-eu
 	["Player-612-05667280"] = "author",		-- Dynarix@nerathor-eu
 	["Player-612-0566725A"] = "author",		-- Dynalowtik@nerathor-eu
@@ -1131,32 +1131,39 @@ local function returnItemTableString(tab)
 	return lootTableString
 end
 
-local function getItemPrice(strg, newPrice, newPriceIcon)
+local function getItemPrice(strg, newPrice, costItemID)
 	local retStrg
-	newPriceIcon = newPriceIcon or 0
+	costItemID = tonumber(costItemID) or 0
 	local priceTab = {
-		["markofhonor"] = {"(%d+) #markofhonor#", "%d+ #markofhonor#", 1322720 },
-		["echoofbattle"] = {"(%d+) #echoofbattle#", "%d+ #echoofbattle#", 1455891 },
-		["echoofdomination"] = {"(%d+) #echoofdomination#", "%d+ #echoofdomination#", 1455894 },
+		[137642] = "markofhonor",
+		[1356] = "echoofbattle",
+		[1455894] = "echoofdomination",
+		[1357] = "forlorn",
+		[60329] = "EChestguard", -- Earthen Chestguard
+		[60323] = "EBattleplate", -- Earthen Battleplate
+		[60332] = "EHandguards", -- Earthen Handguards
+		[60326] = "EGauntlets", -- Earthen Gauntlets
+		[60328] = "EFaceguard", -- Earthen Faceguard
+		[60325] = "EHelmet", -- Earthen Helmet
+		[60330] = "ELegguards", -- Earthen Legguards
+		[60324] = "ELegplates", -- Earthen Legplates
+		[60331] = "EShoulderguards", -- Earthen Shoulderguards
+		[60327] = "EPauldrons", -- Earthen Pauldrons
+		[67424] = "forlornChest", -- Chest of the Forlorn Protector
+		[65087] = "forlornShoulders", -- Shoulders of the Forlorn Protector
+		[67430] = "forlornGauntlets", -- Gauntlets of the Forlorn Protector
+		[65000] = "forlornCrown", -- Crown of the Forlorn Protector
+		[67427] = "forlornLeggings", -- Leggings of the Forlorn Protector
 	}
 	--	/run print(getItemPrice("2175 #justice# / 60 #champseal#", 5000, "Interface\\Icons\\pvecurrency-justice"))
 --	local englishFaction, _ = UnitFactionGroup("player")
-	if strg then
-		for k,v in pairs(priceTab) do
-			if string.match(strg, v[1]) and v[3] == newPriceIcon and tonumber(string.match(strg, v[1])) ~= newPrice then
-				retStrg = string.gsub(strg, v[2], newPrice.." #"..k.."#" )
-				itemUpdated = itemUpdated + 1
-			end
-		end
-	else
-		for k,v in pairs(priceTab) do
-			if v[3] == newPriceIcon then
-				retStrg = string.format("[PRICE_EXTRA_ITTYPE] = \"%s:%d", k, newPrice)
-				itemUpdated = itemUpdated + 1
-			end
+	for k,v in pairs(priceTab) do
+		if k == costItemID then
+			retStrg = string.format("%s:%d", v, newPrice)
+			itemUpdated = itemUpdated + 1
 		end
 	end
-	if not retStrg then retStrg = strg end
+	if not retStrg then retStrg = strg or "" end
 	return retStrg
 end
 
@@ -1230,7 +1237,9 @@ local function startVendorScan(tab)
 			tab[1] = {}
 			for i = 1,GetMerchantNumItems() do
 				local name, texture, price, quantity, numAvailable, isUsable, extendedCost = GetMerchantItemInfo(i)
-				local itemTexture, itemValue = GetMerchantItemCostItem(i, 1)
+				local itemCount = GetMerchantItemCostInfo(i)
+				local priceStr
+				local citemTexture, citemValue, citemLink, citemID
 				local itemLink = GetMerchantItemLink(i)
 				local itemID = string.match(itemLink or "item:0:", "item:(%d+):")
 				itemID = itemID or 0
@@ -1238,7 +1247,21 @@ local function startVendorScan(tab)
 				local _,_,quality = GetItemInfo(itemID)
 				if quality then quality = qualityTab[quality] end
 				local desc = FixTextBack(GetItemEquipInfo(itemID))
-				tab[1][i] = { i, itemID, "", string.format("%s%s", quality or "", name or ""), "=ds="..desc, getItemPrice(nil, itemValue, itemTexture) }
+				if (price > 0) then
+					priceStr = string.format("[PRICE_EXTRA_ITTYPE] = \"money:%d", price)
+				else
+					priceStr = "[PRICE_EXTRA_ITTYPE] = \""
+					for j=1, itemCount do
+						citemTexture, citemValue, citemLink = GetMerchantItemCostItem(i, j)
+						citemID = string.match(citemLink or "item:0:", "item:(%d+):")
+						priceStr = priceStr..getItemPrice(nil, citemValue, citemID)
+						if j<itemCount then priceStr = priceStr..":" end
+					end
+					
+				end
+				
+				--tab[1][i] = { i, itemID, "", string.format("%s%s", quality or "", name or ""), "=ds="..desc, getItemPrice(nil, itemValue, itemTexture) }
+				tab[1][i] = { i, itemID, priceStr or "", format("-- %s, %s", name or "", desc), texture, itemTexture }
 			end
 		end
 	else
@@ -1395,12 +1418,21 @@ end
 
 -- ######################################################
 -- ######################################################
+local ATLASLOOT_INSTANCE_MODULE_LIST = {
+	"AtlasLoot_Legion",
+	"AtlasLoot_WarlordsofDraenor",
+	"AtlasLoot_MistsofPandaria",
+	"AtlasLoot_Cataclysm",
+	"AtlasLoot_WrathoftheLichKing",
+	"AtlasLoot_BurningCrusade",
+	"AtlasLoot_Classic",
+}
 local function CheckInstanceList()
 	local cacheTab = {}
 	local moduleList = {}
 	local retString = ""
 	
-	for k,v in ipairs(AtlasLoot_ModuleList_Loader) do
+	for k,v in ipairs(ATLASLOOT_INSTANCE_MODULE_LIST) do
 		moduleList[v] = k
 	end
 	for iniName, iniTable in pairs(AtlasLoot_Data) do
@@ -1571,12 +1603,21 @@ end
 
 -- diff = max 5
 local instanceList = {
-	317, -- Mogu
-	322, -- Pandaria
-	320, -- Terasse
-	330, -- HoF
-	362, -- Throne
-	369, -- OG
+--	317, -- Mogu
+--	322, -- Pandaria
+--	320, -- Terasse
+--	330, -- HoF
+--	362, -- Throne
+--	369, -- OG
+--	557, -- Draenor
+--	477, -- Highmaul
+--	669, -- HellfireCitadel
+--	457, -- BlackrockFoundry
+	861, -- TrialOfValor
+	786, -- TheNighthold
+	768, -- EmeraldNightmare
+	875, -- Tomb of Sargeras
+	822, -- BrokenIsles
 }
 local difficultys = {7,3,5,4,6,14}
 local numClasses = GetNumClasses()
@@ -1604,7 +1645,7 @@ local function startBonusRollScan()
 					local numLoot = EJ_GetNumLoot()
 					--print(numLoot)
 					for loot=1,numLoot do
-						local name, icon, slot, armorType, itemID, link, encounterID = EJ_GetLootInfoByIndex(loot)
+						local itemID, encounterID, name, icon, slot, armorType, link = EJ_GetLootInfoByIndex(loot)
 						if not tab[itemID] then tab[itemID] = {} end
 						if not tab[itemID][classId] then
 							tab[itemID][classId] = {}

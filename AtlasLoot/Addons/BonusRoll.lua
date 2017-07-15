@@ -12,6 +12,7 @@ local tonumber = tonumber
 -- /run BonusRollFrame_StartBonusRoll(227131, "", 180, 1273)
 -- /run BonusRollFrame_StartBonusRoll(190156, "", 180, 738)
 -- [BonusRollID] = "tierID:instanceID:encounterID"		<- new
+-- Use /dump GetJournalInfoForSpellConfirmation(spellID) to get instanceID and encounterID
 local BONUS_ROLL_IDS = {
 	-- ### Legion
 	-- BrokenIsles
@@ -26,6 +27,21 @@ local BONUS_ROLL_IDS = {
 	[227136] = "7:822:1763",		-- Shar'thos
 	[227137] = "7:822:1756",		-- The Soultakers
 	[227138] = "7:822:1796",		-- Withered J'im
+	-- Broken Shore
+	[242970] = "7:822:1883",		-- Brutallus
+	[242971] = "7:822:1884",		-- Malificus
+	[242972] = "7:822:1885",		-- Si'vash
+	[242969] = "7:822:1956",		-- Apocron
+	-- Tomb of Sargeras
+	[240655] = "7:875:1862",		-- Goroth
+	[240656] = "7:875:1867",		-- Demonic Inquisition
+	[240657] = "7:875:1856",		-- Harjatan
+	[240659] = "7:875:1903",		-- Sisters of the Moon
+	[240658] = "7:875:1861",		-- Mistress Sassz'ine
+	[240660] = "7:875:1896",		-- The Desolate Host
+	[240661] = "7:875:1897",		-- Maiden of Vigilance
+	[240662] = "7:875:1873",		-- Fallen Avatar
+	[240663] = "7:875:1898",		-- Kil'jaeden
 	-- EmeraldNightmare
 	[221046] = "7:768:1703",		-- Nythendra
 	[221047] = "7:768:1738",		-- Il'gynoth, Heart of Corruption
@@ -85,13 +101,15 @@ local BONUS_ROLL_IDS = {
 	[177526] = "6:477:1153",		-- Ko'ragh
 	[177528] = "6:477:1197",		-- Imperator Mar'gok
 	-- Draenor
+	--[[ no longer available
 	[178847] = "6:557:1291",		-- Drov the Ruiner
 	[178851] = "6:557:1262",		-- Rukhmar
 	[178849] = "6:557:1211",		-- Tarlna the Ageless
+	]]
 	[188985] = "6:557:1452",		-- Supreme Lord Kazzak	
 	
 	-- ### MoP
-	-- Mogu
+	-- MoguShanVaults
 	[125144] = "5:317:679",		-- The Stone Guard
 	[132189] = "5:317:689",		-- Feng
 	[132190] = "5:317:685",		-- Garajal
@@ -164,6 +182,6 @@ end
 BonusRollFrame:HookScript("OnShow", LoadQuickLootFrame)
 BonusRollFrame:HookScript("OnHide", ClearQuickLootFrame)
 
-function BonusRoll:Preview()
-	LoadQuickLootFrame({spellID = 177529})
+function BonusRoll:Preview(id)
+	LoadQuickLootFrame({spellID = id or 232445})
 end

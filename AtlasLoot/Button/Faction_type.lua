@@ -1,16 +1,14 @@
 local _G = getfenv(0)
 -- lua
-local tonumber = tonumber
+local tonumber, type = tonumber, type
 local str_match, str_format = string.match, string.format
-local LibStub = _G.LibStub
-local BF = AtlasLoot.LibBabble:Get("LibBabble-Faction-3.0")
 -- WoW
-local UnitSex = UnitSex
-local GetFactionInfoByID = GetFactionInfoByID
+local UnitSex, GetFactionInfoByID, GetFriendshipReputation = UnitSex, GetFactionInfoByID, GetFriendshipReputation
 
 local AtlasLoot = _G.AtlasLoot
 local Faction = AtlasLoot.Button:AddType("Faction", "f")
---local AL = AtlasLoot.Locales
+local BF = AtlasLoot.LibBabble:Get("LibBabble-Faction-3.0")
+local AL = AtlasLoot.Locales
 local ClickHandler = AtlasLoot.ClickHandler
 
 --[[
@@ -23,7 +21,26 @@ local ClickHandler = AtlasLoot.ClickHandler
 	6. Honored
 	7. Revered
 	8. Exalted
+	-- if rep index is in between 11 and 16, means it has friendship reputation
 ]]
+
+--[[
+	1 => 11 - Stranger
+	2 => 12 - Acquaintance
+	3 => 13 - Buddy
+	4 => 14 - Friend
+	5 => 15 - Good Friend
+	6 => 16 - Best Friend
+]]
+local FRIEND_REP_TEXT = {
+	[11] = BF["Stranger"],
+	[12] = BF["Acquaintance"],
+	[13] = BF["Buddy"],
+	[14] = BF["Friend"],
+	[15] = BF["Good Friend"],
+	[16] = BF["Best Friend"],
+}
+
 
 local FactionClickHandler
 local PlayerSex
@@ -117,6 +134,7 @@ local FACTION_IMAGES = {
 	[1345] = "Interface\\Icons\\achievement_faction_lorewalkers",		--The Lorewalkers
 	[1352] = "Interface\\Icons\\inv_misc_tournaments_symbol_orc",		--Huojin Pandaren
 	[1353] = "Interface\\Icons\\inv_misc_tournaments_symbol_human",		--Tushui Pandaren
+	[1358] = "Interface\\Icons\\INV_Misc_Fishing_Raft",			--Nat Pagle
 	[1375] = "Interface\\Icons\\achievement_general_hordeslayer",		--Dominance Offensive
 	[1376] = "Interface\\Icons\\achievement_general_allianceslayer",	--Operation: Shieldwall
 	[1387] = "Interface\\Icons\\achievement_reputation_kirintor_offensive",	--Kirin Tor Offensive
@@ -220,6 +238,7 @@ local FACTION_KEY = {
 	[1345] = "The Lorewalkers",
 	[1352] = "Huojin Pandaren",
 	[1353] = "Tushui Pandaren",
+	[1358] = "Nat Pagle",
 	[1375] = "Dominance Offensive",
 	[1376] = "Operation: Shieldwall",
 	[1387] = "Kirin Tor Offensive",
@@ -248,7 +267,11 @@ local FACTION_KEY = {
 }
 
 local function GetLocRepStanding(id)
-	return PlayerSex==3 and _G["FACTION_STANDING_LABEL"..(id or 4).."_FEMALE"] or _G["FACTION_STANDING_LABEL"..(id or 4)]
+	if (id > 10) then
+		return FRIEND_REP_TEXT[id] or FACTION_STANDING_LABEL4_FEMALE
+	else
+		return PlayerSex==3 and _G["FACTION_STANDING_LABEL"..(id or 4).."_FEMALE"] or _G["FACTION_STANDING_LABEL"..(id or 4)]
+	end
 end
 
 local function RGBToHex(t)
@@ -365,32 +388,46 @@ end
 
 function Faction.Refresh(button)
 	if not button.FactionID then return end
+	--friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID)
+	local friendID = GetFriendshipReputation(button.FactionID)
+
+	-- name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfoByID(factionID)
+	local name, _, standingID = GetFactionInfoByID(button.FactionID)
 	
-	local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfoByID(button.FactionID)
+	local color
+
+	if friendID and button.RepID then
+		color = "|cFF"..FACTION_REP_COLORS[button.RepID > 12 and 5 or 4]
+	else
+		color = "|cFF"..FACTION_REP_COLORS[button.RepID or standingID]
+	end
 
 	if button.type == "secButton" then
 		button:SetNormalTexture(FACTION_IMAGES[button.FactionID] or FACTION_IMAGES[0])
 	else	
+		-- ##################
+		-- name
+		-- ##################
 		name = name or BF[FACTION_KEY[button.FactionID]] or FACTION.." "..button.FactionID
+		button.name:SetText(color..name)
+		
+		--button.extra:SetText("|cFF"..FACTION_REP_COLORS[button.RepID or standingID]..GetLocRepStanding(button.RepID or standingID))
+
 		-- ##################
 		-- icon
 		-- ##################
 		button.icon:SetTexture(FACTION_IMAGES[button.FactionID] or FACTION_IMAGES[0])
 		
-		-- ##################
-		-- name
-		-- ##################
-		if button.RepID and standingID and button.RepID>standingID then
-			button.icon:SetDesaturated(true)
-			button.extra:SetText("|cffff0000"..GetLocRepStanding(button.RepID or standingID))
-		elseif not standingID then
-			button.extra:SetText("|cffff0000"..GetLocRepStanding(button.RepID or standingID))
-		else
-			button.extra:SetText("|cFF"..FACTION_REP_COLORS[button.RepID or standingID]..GetLocRepStanding(button.RepID or standingID))
-		end
-		button.name:SetText("|cFF"..FACTION_REP_COLORS[button.RepID or standingID]..name)
+		local reqRepText = friendID and FRIEND_REP_TEXT[button.RepID] or GetLocRepStanding(button.RepID or standingID) or ""
 		
-		--button.extra:SetText("|cFF"..FACTION_REP_COLORS[button.RepID or standingID]..GetLocRepStanding(button.RepID or standingID))
+		if button.RepID and standingID and button.RepID > standingID then
+			button.icon:SetDesaturated(true)
+			button.extra:SetText("|cffff0000"..reqRepText)
+		elseif not standingID then
+			button.extra:SetText("|cffff0000"..reqRepText)
+		else
+			button.extra:SetText(color..reqRepText)
+		end
 	end
 
 	return true
@@ -457,9 +494,26 @@ function Faction.ShowToolTipFrame(button)
 		Faction.tooltipFrame = frame
 	end
 	local frame = Faction.tooltipFrame
-	local name, description, standingID, barMin, barMax, barValue, atWarWith, canToggleAtWar = GetFactionInfoByID(button.FactionID)
+	local name, description, standingID, barMin, barMax, barValue = GetFactionInfoByID(button.FactionID)
 	standingID = standingID or 1
-	barMin, barMax, barValue = barMin or 0, barMax or 1, barValue or 0
+	local colorIndex = standingID
+	local factionStandingtext
+
+	local friendID, friendRep, _, _, _, _, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(button.FactionID)
+	if friendID then
+		factionStandingtext = friendTextLevel
+		if ( nextFriendThreshold ) then
+			barMin, barMax, barValue = friendThreshold, nextFriendThreshold, friendRep
+		else
+			-- max rank, make it look like a full bar
+			barMin, barMax, barValue = 0, 1, 1;
+		end
+		colorIndex = 5
+	else
+		barMin, barMax, barValue = barMin or 0, barMax or 1, barValue or 0
+		factionStandingtext = GetLocRepStanding(standingID)
+	end
+
 	frame:ClearAllPoints()
 	frame:SetParent(button:GetParent():GetParent())
 	frame:SetFrameStrata("TOOLTIP")
@@ -469,12 +523,12 @@ function Faction.ShowToolTipFrame(button)
 	frame.name:SetText(name or "Faction "..button.FactionID)
 	frame.desc:SetText(description)
 	
-	
 	frame.standing.bar:SetMinMaxValues(barMin, barMax)
 	frame.standing.bar:SetValue(barValue)
-	frame.standing.bar:SetStatusBarColor(FACTION_BAR_COLORS[standingID].r, FACTION_BAR_COLORS[standingID].g, FACTION_BAR_COLORS[standingID].b)
-	frame.standing.text:SetText(str_format("%s ( %d / %d )",GetLocRepStanding(standingID), barValue-barMin, barMax-barMin))
-	
+	local color = FACTION_BAR_COLORS[colorIndex]
+	frame.standing.bar:SetStatusBarColor(color.r, color.g, color.b)
+	frame.standing.text:SetText(str_format("%s ( %d / %d )", factionStandingtext, barValue - barMin, barMax - barMin))
+	 
 	frame:SetHeight(20+21+frame.desc:GetHeight()+5)
 	frame:Show()
 end

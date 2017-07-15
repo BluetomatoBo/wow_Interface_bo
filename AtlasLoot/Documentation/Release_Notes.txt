@@ -5,10 +5,28 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.05.02 (Jul. 14, 2017)
+========================
+- Collection
+  - Mount
+    - Corrected the mounts from Kurenai for Alliance
+    - Removed Baradin's Wardens from Horde
+    - Added more mounts from nutral factions and Black Market
+- PvP
+  - Added legacy Justice / Valor points gears
+  - Updated Seasons 1~13, Season 15 items and prices
+  - Added Season 14 items
+- Enhanced faction reputation's handling to support friendship reputation such as Nat Pagle
+- Bonus roll:
+  - Added bonus roll IDs for Broken Shore world bosses and Tomb of Sargeras bosses
+  - Remove bonus roll IDs for Drov the Ruiner, Rukhmar, Tarlna the Ageless as no longer valid
+
 v8.05.01 (Jul. 06, 2017)
+========================
 - Fixed the issue of error loading LibBabble-Faction-3.0
 
 v8.05.00 (Jul. 06, 2017)
+========================
 - Updated PlaySound API's usage method to support both 7.2.5 and 7.3.0 of WoW clients
 - Enhanced worldmap button integration while Mapster, HandyNotes_WorldMapButton, or ElvUI is installed
 - Migrate Conquest / Honor Points to Mark of Honor and updated PvP items for WoD
@@ -47,21 +65,26 @@ v8.05.00 (Jul. 06, 2017)
 - Added back dev tools from v7.0x
 
 v8.04.04 (Jun. 23, 2017)
+========================
 - Added Mists of Pandaria Timewalking items
 
 v8.04.03 (Jun. 22, 2017)
+========================
 - Midsummer Fire Festival update:
   - Added Illusion: Deathfrost (dropped from Ahune), Set of Matches, Igneous Flameling
 
 v8.04.02 (Jun. 21, 2017)
+========================
 - Options frame will now remembered its position once get dragged
 ## information for Devs
 - Enhanced checkbox widget to support disabled. Now we need a trigger to refresh the option panel.
 
 v8.04.01 (Jun. 16, 2017)
+========================
 - Fixed lib loading issue
 
 v8.04.00 (Jun. 13, 2017)
+========================
 - Tomb of Sargeras loot items updated:
   - Maiden of Vigilance
   - Fallen Avatar
@@ -70,33 +93,41 @@ v8.04.00 (Jun. 13, 2017)
 - Updated T20 set's item source, chest is now drop from Maiden of Vigilance instead of Kil'jaeden
 
 v8.03.07 (May 26, 2017)
+========================
 - Fixed issue that no-lib version was not able to locate LibBabble-ItemSet-3.0
 - Fixed mount preview issue
 
 v8.03.06 (May 05, 2017)
+========================
 - Slightly enhanced bonus loot's function to prevent from popping up error
 
 v8.03.05 (Apr. 20, 2017)
+========================
 - Added 4 new Broken Shore world bosses's loot
 - Use LibDialog to replace StaticPopupDialogs
 
 v8.03.04 (Apr. 15, 2017)
+========================
 - Fixed tier set's linking issue from raid table
 - Added tier set link to the Nighthold and Tomb of Sargeras
 - Added achievement of Glory of the Tomb Raider table
 
 v8.03.03 (Apr. 12, 2017)
+========================
 - Added Legion faction icons to Faction module 
 - Added Nether Portal Disruptor to Armies of Legionfall
 - Re-organized Armies of Legionfall items
 
 v8.03.02 (Apr. 11, 2017)
+========================
 - fixed Atlas integration issue to compatible with Atlas v1.40.00
 
 v8.03.01 (Apr. 10, 2017)
+========================
 - added faction of Armies of Legionfall and the corresponding items
 
 v8.03.00 (Apr. 09, 2017)
+========================
 - ToC update to support WoW 7.2
 - added T20 item sets
 - added Cathedral of Eternal Night & Tomb of Sargeras
@@ -104,26 +135,32 @@ v8.03.00 (Apr. 09, 2017)
 - fixed missing items from Baron Silverlain in Shadowfang Keep's normal mode. 
 
 v8.02.24 (Mar. 21, 2017)
+========================
 - enhanced AtlasLoot buttton's handling on WorldMap when ElvUI is enabled but skin is disable on WorldMap
 
 v8.02.23 (Mar. 20, 2017)
+========================
 - handling AtlasLoot button's style on WorldMap when ElvUI is enabled
 - translation update:
   - German
   
 v8.02.22 (Mar. 17, 2017)
+========================
 - handling HandyNotes_WorldMapButton's position
 
 v8.02.21 (Mar. 16, 2017)
+========================
 - library update
   - LibBabble-ItemSet-3.0
 
 v8.02.20 (Mar. 15, 2017)
+========================
 - added tier sets per class
 - translation update:
   - Korean, Simplified Chinese
 
 v8.02.12 (Mar. 15, 2017)
+========================
 - added WorldMap button style, now you can toggle it to show on title bar
 - translation update:
   - Korean, Simplified Chinese, German
@@ -132,20 +169,24 @@ v8.02.12 (Mar. 15, 2017)
 - move auto-selection codes to AtlasLoot.lua
 
 v8.02.11 (Mar. 13, 2017)
+========================
 - added option to toggle WorldMap button
 - enhanced auto-select's performance by pre-loading all instances' module during addon's loading stage
 - added right-click to close Atlas window
 
 v8.02.10 (Mar. 10, 2017)
+========================
 - added WorldMap integration
 - added auto-select feature while in instance
 
 v8.02.01 (Mar. 09, 2017)
+========================
 - set default module and map to be Legion and Legion instance
 - translation update:
   - German, Korean, Simplified Chinese
 
 v8.02.00 (Mar. 03, 2017)
+========================
 - added Atlas integration, now you can quickly open the Atlas instance map 
   while browsing the instance loots within AtlasLoot
 - replace local gold / silver icon with the WoW built-in ones
@@ -154,6 +195,7 @@ v8.02.00 (Mar. 03, 2017)
   - Korean, Simplified Chinese, Traditional Chinese
 
 v8.01.20 (Mar. 01, 2017)
+========================
 - added non-passive first-aid items/spells from Legion expansion
 - added new cooking skills from Legion expansion
 - World Events - Argent Tournament Heirloom data revision (Kakjens)
@@ -163,6 +205,7 @@ v8.01.20 (Mar. 01, 2017)
   - Korean, German, Traditional Chinese
 
 v8.01.10 (Feb. 28, 2017)
+========================
 - updated class icons
 - added Legion legendary items
 - added T19 gear items 
@@ -173,17 +216,20 @@ v8.01.10 (Feb. 28, 2017)
 - ADD "addDifficultyBonus" for PreSets, should make the bonusID things much easier
 
 v8.01.09 (Jan. 11, 2017)
+========================
 - added ACs to 'Trial of Valor'
 - migrate minimap button to use LibDBIcon
 - added slash command description to localization table;
 
 v8.01.08 (Dec. 23, 2016)
+========================
 - added ACs to 'The Nighthold'
 - added ACs to 'The Emerald Nightmare'
 - added AC 'Unleashed Monstrosities' to 'Broken Isles'
 - fixed 'Dragons of Nightmare' LFR loot
 
 v8.01.07 (Dec. 08, 2016)
+========================
 - added "The First Satyr's Spaulders" to the loot of Xavius
 - added LFR to Trial of Valor
 - updated QuickLootFrame with Legion raids
@@ -196,10 +242,12 @@ v8.01.07 (Dec. 08, 2016)
 - update external repositories' URL due to curseforge's migration
 
 v8.01.06 (Oct. 27, 2016)
+========================
 - added missing boss "Shade of Medivh" to "Return to Karazhan"
 - changed order of bosses in Legion to reflect the Adventure Guide
 
 v8.01.05 (Oct. 26, 2016)
+========================
 - updated TOC version to 7.1
 - added Dungeon "Return To Karazhan" to Legion Content
 - added Raid "Trial Of Valor" to Legion Content
@@ -208,6 +256,7 @@ v8.01.05 (Oct. 26, 2016)
 - added 2nd mythic dungeon bonusID to ItemString.lua
 
 v8.01.04 (Sep. 21, 2016)
+========================
 - added PvP Legion Season 1 Class-Sets
 - updated profession tailoring to Legion
 - updated profession leatherworking to Legion
@@ -221,11 +270,13 @@ v8.01.04 (Sep. 21, 2016)
 - added zhTW description to AtlasLoot_Legion.toc by arith
 
 v8.01.03beta1 (Sep. 14, 2016)
+========================
 *tagged as BETA due to the known issue mentioned below*
 - updated profession enchanting to Legion
 (known issue: not all created enchants are shown, but the spell)
 
 v8.01.02 (Sep. 13, 2016)
+========================
 -- Legion --
 - added faction "The Nightfallen"
 - added faction "Valarjar"
@@ -241,6 +292,7 @@ v8.01.02 (Sep. 13, 2016)
 - added PvP Season 13 Class-Sets
 
 v8.01.01 (Aug. 30, 2016)
+========================
 - Added AC "Legion Dungeon Hero"
 - Added AC "Glory of the Legion Hero"
 - Added AC "Glory of the Legion Raider"
@@ -260,6 +312,7 @@ v8.01.01 (Aug. 30, 2016)
 - Fixed LFR Titanforged ItemLevel
 
 v8.01.00 (Jul. 25, 2016)
+========================
 - first Legion encounter for tests (known issue: "titanforged" isn't shown correctly)
 - A lot of legion pre patch related changes
 -- fixed missing GetAuctionItemClasses
@@ -276,17 +329,20 @@ v8.01.00 (Jul. 25, 2016)
 - Added Legion folder
 
 v8.00.72 (Jan. 25, 2016)
+========================
 - added WoD PvP Season 3 Weapons (Elite is missing)
 - updated Mount-Tab in collection
 - added PvP Season 6 & 7 Class-Sets
 - zhCN/zhTW update
 
 v8.00.71 (Jan. 15, 2016)
+========================
 - Added mount tab in collections (drop, achievement & profession) quest and shop mounts are missing atm
 - Added prices to WoD PvP Season 3 Class-Sets
 - Added WoD PvP Season 3 NonSet Items
 
 v8.00.60 (Nov. 11, 2015)
+========================
 - fixed issue #925 (thanks to Ignifazius)
 - removed warforged Crystallized Fel
 - prepared WoD PvP Season 3 Class Sets (without prices)
@@ -300,14 +356,17 @@ v8.00.60 (Nov. 11, 2015)
 - added WoD PvP Season 2 NonSet Leather, Mail & Plate
 
 v8.00.52 (Nov. 08, 2015)
+========================
 - fixed bug in PvP Section
 
 v8.00.51 (Oct. 01, 2015)
+========================
 - updated Brewfest ('15)
 - Added WOD Season 2 non set cloth
 - Added PVP Season 4 & 5 Class-Sets
 
 v8.00.50 (Sep. 20, 2015)
+========================
 - mythic dungeon LUA-Error should be fixed (Teicket #915, #916)
 - added zhTW translation for AtlasLoot_Options (thanks to gaspy10)
 - Added WoD Season 2 Class-Sets
@@ -316,6 +375,7 @@ v8.00.50 (Sep. 20, 2015)
 - added class trinkets to Archimonde loot (tooltip only for own class and specialization)
 
 v8.00.40 (Jul. 19, 2015)
+========================
 - fixed wrong tier-set view on content (Ticket #921)
 - added Trash-Loot in Hellfire Citadel
 - added new Apexis-Items (old Apexis disabled, will come back with new prices)

@@ -405,7 +405,7 @@ local MOUNT_INFO = {
 		[127213] = NO_ITEM_ID, 		-- Brown Riding Yak
 		[127216] = 87788, 		-- Grey Riding Yak
 		[127220] = 87789, 		-- Blonde Riding Yak
-		[127271] = NO_ITEM_ID, 		-- Crimson Water Strider
+		[127271] = 87791, 		-- Crimson Water Strider
 		[127272] = NO_ITEM_ID, 		-- Orange Water Strider
 		[127274] = NO_ITEM_ID, 		-- Jade Water Strider
 		[127278] = NO_ITEM_ID, 		-- Golden Water Strider
@@ -658,6 +658,7 @@ local MOUNT_INFO = {
 		[143864] = 204166,	-- Reins of the Prestigious War Wolf
 		[128527] = 190977,	-- Deathtusk Felboar
 		[128481] = 190690,	-- Bristling Hellboar
+		[91010] = 120822, 	-- Great Red Dragon Turtle
 	}, 
 	["index"] = {}, -- [spellID] = index
 }

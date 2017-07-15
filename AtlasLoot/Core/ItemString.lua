@@ -251,44 +251,44 @@ local ITEM_BONUS_PRESET = {
 	["BSM"]					= { 518 },
 	["ID"]					= { 519 },
 	["Auch"]				= { 520 },
-	["Skyreach"]			= { 521 },
+	["Skyreach"]				= { 521 },
 	["Dungeon"]				= { 522 },
-	["HCDungeon"]			= { 524 },
-	["HCDungeonWarforged"]	= { 524, 448 },
-	["MDungeon"]			= { 642 },
-	["MDungeonWarforged"]	= { 642, 644 },
+	["HCDungeon"]				= { 524 },
+	["HCDungeonWarforged"]			= { 524, 448 },
+	["MDungeon"]				= { 642 },
+	["MDungeonWarforged"]			= { 642, 644 },
 	-- ## Legion
-	["LegionDungeon"]		= { 1826 },
-	["LegionDungeonTitanforged"] = GetPresetForTitanforged(820, LEGION_MAX_UPGRADELVL, TITANFORGED_ADD),--{ 1826, 1522 },
-	["LegionHCDungeon"]		= { 1726 },
-	["LegionHCDungeonTitanforged"]= GetPresetForTitanforged(820, LEGION_MAX_UPGRADELVL, TITANFORGED_ADD),--{ 1726, 1522 },
-	["LegionMDungeon"] 		= { 1727 },
-	["LegionMDungeonTitanforged"]	= GetPresetForTitanforged(820, LEGION_MAX_UPGRADELVL, TITANFORGED_ADD),--{ 1727, 1522 },
-	["LegionMDungeon2"]		= { 3452 },
+	["LegionDungeon"]			= { 1826 },
+	["LegionDungeonTitanforged"] 		= GetPresetForTitanforged(820, LEGION_MAX_UPGRADELVL, TITANFORGED_ADD),--{ 1826, 1522 },
+	["LegionHCDungeon"]			= { 1726 },
+	["LegionHCDungeonTitanforged"]		= GetPresetForTitanforged(820, LEGION_MAX_UPGRADELVL, TITANFORGED_ADD),--{ 1726, 1522 },
+	["LegionMDungeon"] 			= { 1727 },
+	["LegionMDungeonTitanforged"]		= GetPresetForTitanforged(820, LEGION_MAX_UPGRADELVL, TITANFORGED_ADD),--{ 1727, 1522 },
+	["LegionMDungeon2"]			= { 3452 },
 	["LegionMDungeon2Titanforged"]		= GetPresetForTitanforged(820, LEGION_MAX_UPGRADELVL, TITANFORGED_ADD),--{ 3452, 1522 },
 	-- Raids
 	["LFR"]					= { 451 },
-	["SoOWarforged"]		= { 448 },
-	["HeroicSoO"] 			= { 449 },
-	["HeroicSoOWarforged"]	= { 449, 448 },
-	["MythicSoO"] 			= { 450 },
-	["MythicSoOWarforged"]	= { 450, 448 },
-	["RaidWarforged"]		= { 560 },
-	["HeroicRaid"] 			= { 566 },
-	["HeroicRaidWarforged"] = { 566, 561 },
-	["MythicRaid"] 			= { 567 },
-	["MythicRaidWarforged"]	= { 567, 562 },
-	["LegionLFR"] 						= { 3379 },
-	["LegionLFRTitanforged"] 			= { 1522, 3442 },
-	["LegionRaid"]						= { 1807 },
-	["LegionRaidTitanforged"]			= { 1522, 3442 },
-	["LegionHeroicRaid"] 				= { 1805 },
+	["SoOWarforged"]			= { 448 },
+	["HeroicSoO"] 				= { 449 },
+	["HeroicSoOWarforged"]			= { 449, 448 },
+	["MythicSoO"] 				= { 450 },
+	["MythicSoOWarforged"]			= { 450, 448 },
+	["RaidWarforged"]			= { 560 },
+	["HeroicRaid"] 				= { 566 },
+	["HeroicRaidWarforged"]			= { 566, 561 },
+	["MythicRaid"] 				= { 567 },
+	["MythicRaidWarforged"]			= { 567, 562 },
+	["LegionLFR"] 				= { 3379 },
+	["LegionLFRTitanforged"] 		= { 1522, 3442 },
+	["LegionRaid"]				= { 1807 },
+	["LegionRaidTitanforged"]		= { 1522, 3442 },
+	["LegionHeroicRaid"] 			= { 1805 },
 	["LegionHeroicRaidTitanforged"] 	= { 1522, 3442 },
-	["LegionMythicRaid"] 				= { 1806 },
+	["LegionMythicRaid"] 			= { 1806 },
 	["LegionMythicRaidTitanforged"] 	= { 1522, 3442 },
 	
-	["LegionEmeraldNightmareTitanforged"] = { 1547, 3442 },
-	["LegionNightholdTitanforged"] = { 1522, 3442 },
+	["LegionEmeraldNightmareTitanforged"] 	= { 1547, 3442 },
+	["LegionNightholdTitanforged"] 		= { 1522, 3442 },
 	
 	["LegionMaxTitanforgedByBaseLvl"] = function(baseLvl)		-- set the baseLvl with "ItemBaseLvl = 000," in the Instance Table.
 		if not baseLvl then return C_ITEM_BONUS_PRESET["nil"] end
@@ -318,23 +318,23 @@ local ITEM_BONUS_PRESET = {
 function ItemString.Create(itemID, extra)
 	if extra then
 		return format( ITEM_FORMAT_EXTRA_STRING,
-			itemID,									-- itemID
-			extra.enchant or 0,						-- extra.enchant
-			extra.gem1 or 0,						-- extra.gem1
-			extra.gem2 or 0,						-- extra.gem2
-			extra.gem3 or 0,						-- extra.gem3
-			extra.gem4 or 0,						-- extra.gem4
-			extra.suffixID or 0,					-- extra.suffixID
-			extra.uniqueID or 0,					-- extra.uniqueID
-			extra.level or 0,						-- extra.level
-			extra.upgradeId or 0,					-- extra.upgradeId
-			extra.instanceDifficultyID or 0,		-- extra.instanceDifficultyID
+			itemID,					-- itemID
+			extra.enchant or 0,			-- extra.enchant
+			extra.gem1 or 0,			-- extra.gem1
+			extra.gem2 or 0,			-- extra.gem2
+			extra.gem3 or 0,			-- extra.gem3
+			extra.gem4 or 0,			-- extra.gem4
+			extra.suffixID or 0,			-- extra.suffixID
+			extra.uniqueID or 0,			-- extra.uniqueID
+			extra.level or 0,			-- extra.level
+			extra.upgradeId or 0,			-- extra.upgradeId
+			extra.instanceDifficultyID or 0,	-- extra.instanceDifficultyID
 			extra.bonus and #extra.bonus or 0,
 			extra.bonus and tbl_concat(extra.bonus, ":") or ""
 		)
 	else
 		return format( ITEM_FORMAT_STRING,
-			itemID			-- itemID
+			itemID					-- itemID
 		)
 	end
 end
