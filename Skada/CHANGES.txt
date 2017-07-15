@@ -1,14 +1,8 @@
 ------------------------------------------------------------------------
-r741 | zarnivoop | 2017-07-10 01:09:47 -0500 (Mon, 10 Jul 2017) | 1 line
+r746 | stanzilla | 2017-07-13 19:44:39 -0500 (Thu, 13 Jul 2017) | 1 line
 Changed paths:
-   M /trunk/Skada.lua
+   M /trunk/locale/enUS.lua
 
-forgot to add this to the prior commit
-------------------------------------------------------------------------
-r740 | zarnivoop | 2017-07-09 15:05:40 -0500 (Sun, 09 Jul 2017) | 1 line
-Changed paths:
-   M /trunk/modules/Tweaks.lua
-
-added tweaks for Hunter Hati and Rogue Akkari
+add missing locale
 ------------------------------------------------------------------------
 
