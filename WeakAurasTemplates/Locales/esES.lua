@@ -11,14 +11,10 @@ local L = WeakAuras.L
 	-- L[" (Healing received increase)"] = ""
 	--Translation missing 
 	-- L["- Any"] = ""
-	--Translation missing 
-	-- L["- Death Knight 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Death Knight Unholy 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Deathknight 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Deathknight Unholy 4P Bonus"] = ""
+	L["- Death Knight 2P Bonus"] = "- Bonus 2 piezas de Caballero de la Muerte"
+	L["- Death Knight Unholy 4P Bonus"] = "- Bonus 4 piezas de Caballero de la Muerte Profano"
+	L["- Deathknight 2P Bonus"] = "- Bonus 2 piezas de Caballero de la Muerte"
+	L["- Deathknight Unholy 4P Bonus"] = "- Bonus 2 piezas de Caballero de la Muerte Profano"
 	--Translation missing 
 	-- L["- Holy Word: Chastise"] = ""
 	--Translation missing 
@@ -102,10 +98,8 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Legendaries"] = ""
 	L["Nimble Brew Item Count"] = "Contador de objetos - Brebaje Avezado"
-	--Translation missing 
-	-- L["Pet alive"] = ""
-	--Translation missing 
-	-- L["Pet Behavior"] = ""
+	L["Pet alive"] = "Mascota viva"
+	L["Pet Behavior"] = "Comportamiento de mascota"
 	--Translation missing 
 	-- L["PVP Set"] = ""
 	--Translation missing 

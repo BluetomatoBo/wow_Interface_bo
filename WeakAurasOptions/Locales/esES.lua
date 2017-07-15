@@ -251,7 +251,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Font Flags"] = "Fuente de banderas"
 	L["Font Size"] = "Tamaño de fuente"
 	L["Font Type"] = "Tipo de fuente"
-	L["Foreground Color"] = "Color Fontal"
+	L["Foreground Color"] = "Color Frontal"
 	L["Foreground Texture"] = "Textura Frontal"
 	L["Frame"] = "Macro"
 	L["Frame Strata"] = "Importancia del Marco"
@@ -398,8 +398,7 @@ Sólo un valor coincidente puede ser escogido.]=]
 	--Translation missing 
 	-- L["Preset"] = ""
 	L["Prevents duration information from decreasing when an aura refreshes. May cause problems if used with multiple auras with different durations."] = "Prevenir que el temporizador siga contando cuando el aura se refresca. Ten cuidado, pueden aparecer problemas si usas múltiples auras con múltiples duraciones."
-	--Translation missing 
-	-- L["Processed %i chars"] = ""
+	L["Processed %i chars"] = "%i personajes procesados"
 	L["Progress Bar"] = "Barra de Progreso"
 	L["Progress Texture"] = "Texture de Progreso"
 	--Translation missing 
