@@ -1,18 +1,10 @@
-tag f787f7b8a25c9d3810ca07f2c5b1ab53265354c2 2.4.13
+tag 00d5588d554e73e07cba77cf14b67067ba3fa154 2.4.14
 Author:	Benjamin Staneck <staneck@gmail.com>
-Date:	Sat Jul 15 02:00:40 2017 +0200
+Date:	Sat Jul 15 18:02:16 2017 +0200
 
-commit 728c0e7895cb697c730493f9d40df07b88e5bf40
+commit 9c7749385ec8c0cf5df78b1b5ad3cbc2e18ea0fe
 Author: Infus <infus@squorn.de>
-Date:   Fri Jul 14 20:21:15 2017 +0200
+Date:   Sat Jul 15 12:58:04 2017 +0200
 
-    Fix Dynamic Group anchor looking off
-    
-    Ticket-Nr: 1006
-
-commit 468c6d8e83de37a7f97d4063cbfb55b3285ccd2d
-Author: Infus <infus@squorn.de>
-Date:   Fri Jul 14 19:25:56 2017 +0200
-
-    Group: Set data.selfPoint before anchoring
+    Fix regressions with anchor change
 
