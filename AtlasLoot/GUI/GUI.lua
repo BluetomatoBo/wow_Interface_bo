@@ -1,5 +1,5 @@
 local ALName, ALPrivate = ...
-local _G = _G
+local _G = getfenv(0)
 local AtlasLoot = _G.AtlasLoot
 local GUI = {}
 local AL = AtlasLoot.Locales
@@ -101,7 +101,7 @@ local function UpdateFrames(noPageUpdate)
 	end
 	
 	-- AtlasMapID
-	if (AtlasLoot.AtlasIntegration.IsEnabled() and moduleData[dataID].AtlasMapID) then
+	if (AtlasLoot.AtlasIntegration.IsEnabled() and moduleData[dataID].AtlasMapID and AtlasLoot.AtlasIntegration.GetAtlasZoneData(moduleData[dataID].AtlasMapID)) then
 		GUI.frame.contentFrame.AtlasMapButton.AtlasMapID = moduleData[dataID].AtlasMapID
 		GUI.frame.contentFrame.AtlasMapButton:Show()
 		if (GUI.frame.contentFrame.soundsButton:IsVisible()) then
@@ -238,11 +238,11 @@ local function AtlasMapButton_OnClick(self, button)
 	if (AtlasLoot.AtlasIntegration.IsEnabled()) then
 		if (button == "RightButton") then
 			if ( AtlasFrameSmall:IsVisible() ) then
-				HideUIPanel(AtlasFrameSmall);
+				HideUIPanel(AtlasFrameSmall)
 			end
 		else
 			if (self.AtlasMapID) then
-				AtlasLoot.AtlasIntegration.ShowMap(self.AtlasMapID);
+				AtlasLoot.AtlasIntegration.ShowMap(self.AtlasMapID)
 			end
 		end
 	end

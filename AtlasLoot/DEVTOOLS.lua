@@ -1154,6 +1154,8 @@ local function getItemPrice(strg, newPrice, costItemID)
 		[67430] = "forlornGauntlets", -- Gauntlets of the Forlorn Protector
 		[65000] = "forlornCrown", -- Crown of the Forlorn Protector
 		[67427] = "forlornLeggings", -- Leggings of the Forlorn Protector
+		-- currency
+		[1166] = "timewarped", -- Timewarped Badge
 	}
 	--	/run print(getItemPrice("2175 #justice# / 60 #champseal#", 5000, "Interface\\Icons\\pvecurrency-justice"))
 --	local englishFaction, _ = UnitFactionGroup("player")
@@ -1239,7 +1241,7 @@ local function startVendorScan(tab)
 				local name, texture, price, quantity, numAvailable, isUsable, extendedCost = GetMerchantItemInfo(i)
 				local itemCount = GetMerchantItemCostInfo(i)
 				local priceStr
-				local citemTexture, citemValue, citemLink, citemID
+				local citemTexture, citemValue, citemLink, citemID, currencyID
 				local itemLink = GetMerchantItemLink(i)
 				local itemID = string.match(itemLink or "item:0:", "item:(%d+):")
 				itemID = itemID or 0
@@ -1254,7 +1256,10 @@ local function startVendorScan(tab)
 					for j=1, itemCount do
 						citemTexture, citemValue, citemLink = GetMerchantItemCostItem(i, j)
 						citemID = string.match(citemLink or "item:0:", "item:(%d+):")
-						priceStr = priceStr..getItemPrice(nil, citemValue, citemID)
+						if not citemID then
+							currencyID = string.match(citemLink or "|Hcurrency:0|h", "|Hcurrency:(%d+)|h")
+						end
+						priceStr = priceStr..getItemPrice(nil, citemValue, citemID or currencyID)
 						if j<itemCount then priceStr = priceStr..":" end
 					end
 					

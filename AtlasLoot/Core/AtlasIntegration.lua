@@ -3,6 +3,7 @@
 -- ----------------------------------------------------------------------------
 -- Functions
 local _G = getfenv(0)
+local pairs, select = pairs, select
 
 -- ----------------------------------------------------------------------------
 -- AddOn namespace.
@@ -15,43 +16,57 @@ AtlasLoot.AtlasIntegration = AtlasIntegration
 local ATLAS_SMALLFRAME_SELECTED_ORIG
 
 function AtlasIntegration.IsEnabled()
-	local loadable = select(4, GetAddOnInfo("Atlas"));
+	local loadable = select(4, GetAddOnInfo("Atlas"))
+	local enabled = GetAddOnEnableState(UnitName("player"), "Atlas")
 
-	return loadable;
+	if (enabled > 0 and loadable) then
+		return true
+	else
+		return false
+	end
 end
 
-function AtlasIntegration.ShowMap(mapID)
-	if (not AtlasLoot.AtlasIntegration.IsEnabled()) then return; end
-
-	local options = Atlas.db.profile.options;
-	ATLAS_SMALLFRAME_SELECTED_ORIG = ATLAS_SMALLFRAME_SELECTED;
-	ATLAS_SMALLFRAME_SELECTED = true;
-
-	local foundMatch = false;
+function AtlasIntegration.GetAtlasZoneData(mapID, setMap)
+	if (not AtlasLoot.AtlasIntegration.IsEnabled()) then return end
+	local options = Atlas.db.profile.options
+	local foundMatch = false
 	for k, v in pairs(ATLAS_DROPDOWNS) do
 		for k2, v2 in pairs(v) do
 			if (v2 == mapID) then
-				options.dropdowns.module = k;
-				options.dropdowns.zone = k2;
-				foundMatch = true;
-				break;
+				if setMap then
+					options.dropdowns.module = k
+					options.dropdowns.zone = k2
+				end
+				foundMatch = true
+				break
 			end
 		end
-		if foundMatch then break; end
+		if foundMatch then break end
 	end
+	
+	return foundMatch
+end
 
+function AtlasIntegration.ShowMap(mapID)
+	if (not AtlasLoot.AtlasIntegration.IsEnabled()) then return end
+
+	ATLAS_SMALLFRAME_SELECTED_ORIG = ATLAS_SMALLFRAME_SELECTED
+	ATLAS_SMALLFRAME_SELECTED = true
+
+	AtlasIntegration.GetAtlasZoneData(mapID, true)
+	
 	if ( AtlasFrameLarge:IsVisible() ) then
-		HideUIPanel(AtlasFrameLarge);
+		HideUIPanel(AtlasFrameLarge)
 	end
 	if ( AtlasFrame:IsVisible() ) then
-		HideUIPanel(AtlasFrame);
+		HideUIPanel(AtlasFrame)
 	end
 	if (not AtlasFrameSmall:IsVisible() ) then
-		ShowUIPanel(AtlasFrameSmall);
+		ShowUIPanel(AtlasFrameSmall)
 	end
-	AtlasFrameDropDownType_OnShow();
-	AtlasFrameDropDown_OnShow();
-	Atlas_Refresh();
+	AtlasFrameDropDownType_OnShow()
+	AtlasFrameDropDown_OnShow()
+	Atlas_Refresh()
 	
-	ATLAS_SMALLFRAME_SELECTED = ATLAS_SMALLFRAME_SELECTED_ORIG;
+	ATLAS_SMALLFRAME_SELECTED = ATLAS_SMALLFRAME_SELECTED_ORIG
 end
