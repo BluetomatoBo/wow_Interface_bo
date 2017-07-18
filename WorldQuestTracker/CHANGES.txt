@@ -1,7 +1,7 @@
-changeset:   151:470c95ce5b58
-tag:         v7.2.5.151-release
+changeset:   153:43c2659818a9
+tag:         tip
 user:        Tercio
-date:        Wed Jul 05 13:48:27 2017 -0300
-summary:     - Ticket #456: problem with pet battle quest showing a wrong icon.
+date:        Fri Jul 14 18:27:53 2017 -0300
+summary:     - framework update to version v54 and localization updates.
 
 
