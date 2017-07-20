@@ -1,6 +1,6 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.05.03
+## Version: v8.05.04
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -21,6 +21,7 @@
 # ## Title: AtlasLoot |cFF0099FF[Factions]|r
 # ## Title-deDE: AtlasLoot |cFF0099FF[Fraktionen]|r
 # ## Title-koKR: AtlasLoot |cFF0099FF[평판]|r
+# ## Title-ruRU: AtlasLoot |cFF0099FF[Фракции]|r
 # ## Title-zhCN: AtlasLoot |cFF0099FF[阵营]|r
 # ## Title-zhTW: AtlasLoot |cFF0099FF[陣營]|r
 # 

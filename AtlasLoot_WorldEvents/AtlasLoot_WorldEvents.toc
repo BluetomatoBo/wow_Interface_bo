@@ -1,6 +1,6 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.05.03
+## Version: v8.05.04
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -21,6 +21,7 @@
 # ## Title: AtlasLoot |cFF0099FF[World Events]|r
 # ## Title-deDE: AtlasLoot |cFF0099FF[Weltereignisse]|r
 # ## Title-koKR: AtlasLoot |cFF0099FF[전역 이벤트]|r
+# ## Title-ruRU: AtlasLoot |cFF0099FF[Мировые события]|r
 # ## Title-zhCN: AtlasLoot |cFF0099FF[世界事件]|r
 # ## Title-zhTW: AtlasLoot |cFF0099FF[世界事件]|r
 # 

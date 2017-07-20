@@ -20,14 +20,15 @@ local STRING_GREEN = "|cff1eff00"
 
 local PRICE_INFO = {
 	-- items
-	["markofhonor"] 	= { itemID = 137642 },
-	["bfclaw"] 		= { itemID = 124099 },
-	["brewfest"] 		= { itemID = 37829 },
-	["burningblossom"] 	= { itemID = 23247 },
-	["lovetoken"] 		= { itemID = 49927 },
-	["noblegardenchocolate"] = { itemID = 44791 },
-	["spiritofharmony"] 	= { itemID = 76061 },
-	["trickytreat"] 	= { itemID = 33226 },
+	["markofhonor"] 	= { itemID = 137642 }, -- Mark of Honor
+	["bfclaw"] 		= { itemID = 124099 }, -- Blackfang Claw
+	["brewfest"] 		= { itemID = 37829 }, -- Brewfest Prize Token
+	["burningblossom"] 	= { itemID = 23247 }, -- Burning Blossom
+	["lovetoken"] 		= { itemID = 49927 }, -- Love Token
+	["noblegardenchocolate"] = { itemID = 44791 }, -- Noblegarden Chocolate
+	["spiritofharmony"] 	= { itemID = 76061 }, -- Spirit of Harmony
+	["trickytreat"] 	= { itemID = 33226 }, -- Tricky Treat
+	["ancestrycoin"] 	= { itemID = 21100 }, -- Coin of Ancestry
 	["vicioussaddle"] 	= { itemID = 103533 }, -- Vicious Saddle, added in 5.4.0
 	["luckycoin"] 		= { itemID = 117397 }, -- Nat's Lucky Coin, added in 6.0.1
 	["forlorn"] 		= { itemID = 66998 }, -- Essence of the Forlorn, Added in patch 4.0.1.12984
@@ -132,7 +133,6 @@ local PRICE_INFO = {
 	["echoofdomination"] 	= { currencyID = 1357 }, -- added in 7.2.0, LegionPVPTier4
 	["nethershard"] 	= { currencyID = 1226 },
 	["orderresources"] 	= { currencyID = 1220 },
-	["ancestrycoin"] 	= { itemID = 21100 },
 	["apexis"] 		= { currencyID = 823 },
 	["artifactfragment"] 	= { currencyID = 944 },
 	["bloodycoin"] 		= { currencyID = 789 },

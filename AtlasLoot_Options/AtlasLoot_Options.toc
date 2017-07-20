@@ -1,6 +1,6 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.05.03
+## Version: v8.05.04
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -21,6 +21,7 @@
 # ## Title: AtlasLoot |cFF0099FF[Options]|r
 # ## Title-deDE: AtlasLoot |cFF0099FF[Einstellungen]|r
 # ## Title-koKR: AtlasLoot |cFF0099FF[옵션]|r
+# ## Title-ruRU: AtlasLoot |cFF0099FF[Опции]|r
 # ## Title-zhCN: AtlasLoot |cFF0099FF[选项]|r
 # ## Title-zhTW: AtlasLoot |cFF0099FF[選項]|r
 # 

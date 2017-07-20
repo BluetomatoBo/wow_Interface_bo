@@ -13,7 +13,7 @@ local ALOptions = LibStub and LibStub("ALOptions-1.0", true)
 if not ALOptions or ALOptions.GUI:GetWidgetTypeVersion(Type) > Version then return end
 
 local LibStub = _G.LibStub
-local LibDialog = LibStub("LibDialog-1.0");
+local LibDialog = LibStub("LibDialog-1.0")
 
 local MIN_WIDTH = 40
 local FIX_SIZE = 20
@@ -32,22 +32,6 @@ StaticPopupDialogs["ATLASLOOT_CONFIRM_OPTIONS_BUTTON"] = {
 }
 local popUp = StaticPopupDialogs["ATLASLOOT_CONFIRM_OPTIONS_BUTTON"]
 ]]
-local popUp = LibDialog:Register("ATLASLOOT_CONFIRM_OPTIONS_BUTTON", {
-	text = CONFIRM_SAVE_EQUIPMENT_SET,
-	buttons = {
-		{
-			text = ACCEPT,
-		},
-		{
-			text = CANCEL,
-		},
-	},
-	is_exclusive = true,
-	show_while_dead = true,
-	hide_on_escape = true,
-})
-
-
 local function Confirm_OnAccept(self, data)
 	if not data then return end
 	if data.OnClickFunc then
@@ -67,14 +51,32 @@ end
 local function Button_OnClick(self, button)
 	self = self.obj
 	if self.confirmation.text then
+		LibDialog:Register("ATLASLOOT_CONFIRM_OPTIONS_BUTTON", {
+			text = self.confirmation.text,
+			buttons = {
+				{
+					text = ACCEPT,
+					on_click = (function() self.OnClickFunc(self, button) end),
+				},
+				{
+					text = CANCEL,
+				},
+			},
+			on_cancel = self.confirmation.OnCancel,
+			on_hide = self.confirmation.OnHide,
+			is_exclusive = true,
+			show_while_dead = true,
+			hide_on_escape = true,
+		})
+		LibDialog:Spawn("ATLASLOOT_CONFIRM_OPTIONS_BUTTON")
+--[[
 		popUp.text = self.confirmation.text
-		self.confirmation.text = self.confirmation.text
 		popUp.OnAccept = self.confirmation.OnAccept
 		popUp.OnCancel = self.confirmation.OnCancel
 		popUp.OnHide = self.confirmation.OnHide
 		
-		--StaticPopup_Show("ATLASLOOT_CONFIRM_OPTIONS_BUTTON", nil, nil, self)
-		popUp:Spawn()
+		StaticPopup_Show("ATLASLOOT_CONFIRM_OPTIONS_BUTTON", nil, nil, self)
+]]
 	elseif self.OnClickFunc then
 		self.OnClickFunc(self, button)
 	end

@@ -183,5 +183,5 @@ BonusRollFrame:HookScript("OnShow", LoadQuickLootFrame)
 BonusRollFrame:HookScript("OnHide", ClearQuickLootFrame)
 
 function BonusRoll:Preview(id)
-	LoadQuickLootFrame({spellID = id or 232445})
+	LoadQuickLootFrame({spellID = id or 240655})
 end

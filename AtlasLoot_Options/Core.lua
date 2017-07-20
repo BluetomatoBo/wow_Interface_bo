@@ -244,8 +244,6 @@ local function windows_setview(gui, content)
 		:Size("full")
 		:Text(AL["Background color/alpha"])
 		:DB(db.SetViewFrame.mainFrame, "bgColorModel", AtlasLoot.GUI.SetViewFrame.RefreshStyle)
-
-		
 	-- test
 	last = gui:Add("Button")
 		:Point("BOTTOMLEFT", nil, "BOTTOMLEFT", 2, 2)
@@ -416,7 +414,7 @@ local function windows_quickloot(gui, content)
 	last = gui:Add("Button")
 		:Point("BOTTOMLEFT", nil, "BOTTOMLEFT", 2, 2)
 		:Text(AL["Preview"])
-		:Click(AtlasLoot.Addons.BonusRoll.Preview)
+		:Click(function() AtlasLoot.Addons.BonusRoll.Preview() end)
 		
 	last = gui:Add("Button")
 		:Point("BOTTOMRIGHT", nil, "BOTTOMRIGHT", -2, 2)

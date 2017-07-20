@@ -1,3 +1,4 @@
+--[[ 
 local AtlasLoot = _G.AtlasLoot
 local AL = AtlasLoot.Locales
 
@@ -6,7 +7,7 @@ local str_format = string.format
 local StaticPopupDialogs = StaticPopupDialogs
 local EMPTY_FUNCTION = function() end
 
---[[ -- doesn't looks to be called anywhere
+-- doesn't looks to be called anywhere
 -- Popup Box for first time users
 StaticPopupDialogs["ATLASLOOT_SETUP"] = {
 	preferredIndex = 3,
