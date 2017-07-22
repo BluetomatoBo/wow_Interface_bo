@@ -41,8 +41,8 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 16445 $"):sub(12, -3)),
-	DisplayVersion = "7.2.14", -- the string that is shown as version
+	Revision = tonumber(("$Revision: 16485 $"):sub(12, -3)),
+	DisplayVersion = "7.2.15", -- the string that is shown as version
 	ReleaseRevision = 16445 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
@@ -2490,7 +2490,7 @@ do
 		elseif arg == "localizersneeded" then
 			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG, "https://www.deadlybossmods.com/forum/viewtopic.php?f=3&t=5")
 		elseif arg1 == "forumsnews" then
-			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG_NEWS, "https://www.deadlybossmods.com/forum/viewtopic.php?f=3&t=226&p=690#p690")
+			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG_NEWS, "https://discord.gg/DF5mffk")
 		elseif arg1 == "forums" then
 			DBM:ShowUpdateReminder(nil, nil, DBM_FORUMS_COPY_URL_DIALOG)
 		elseif arg1 == "showRaidIdResults" then
@@ -4803,8 +4803,8 @@ do
 			handleSync(channel, sender, strsplit("\t", msg))
 		elseif prefix == "BigWigs" and msg and (channel == "PARTY" or channel == "RAID" or channel == "INSTANCE_CHAT") then
 			local bwPrefix, bwMsg, extra = strsplit("^", msg)
-			if bwPrefix and bwMsg and extra then--Nil check all 3 to avoid errors form older versions
-				if bwPrefix == "V" then--Version information prefixes
+			if bwPrefix and bwMsg then
+				if bwPrefix == "V" and extra then--Nil check "extra" to avoid error from older version
 					local verString, hash = bwMsg, extra
 					local version = tonumber(verString) or 0
 					if version == 0 then return end--Just a query
@@ -4817,16 +4817,22 @@ do
 				elseif bwPrefix == "Q" then--Version request prefix
 					self:Unschedule(SendVersion)
 					self:Schedule(3, SendVersion)
---[[				elseif bwPrefix == "B" then--Boss Mod Sync
+				elseif bwPrefix == "B" then--Boss Mod Sync
 					for i = 1, #inCombat do
 						local mod = inCombat[i]
-						if mod:OnBWSync then
-							mod:OnBWSync(bwMsg, extra)
+						if mod and mod.OnBWSync then
+							mod:OnBWSync(bwMsg, extra, sender)
 						end
-					end--]]
+					end
 				end
 			end
 		elseif prefix == "Transcriptor" and msg then
+			for i = 1, #inCombat do
+				local mod = inCombat[i]
+				if mod and mod.OnTranscriptorSync then
+					mod:OnTranscriptorSync(msg, sender)
+				end
+			end
 			if msg:find("spell:") and (DBM.Options.DebugLevel > 2 or (Transcriptor and Transcriptor:IsLogging())) then
 				local spellId = string.match(msg, "spell:(%d+)") or DBM_CORE_UNKNOWN
 				local spellName = string.match(msg, "h%[(.-)%]|h") or DBM_CORE_UNKNOWN
@@ -5346,7 +5352,7 @@ do
 	function DBM:RAID_BOSS_WHISPER(msg)
 		--Make it easier for devs to detect whispers they are unable to see
 		--TINTERFACE\\ICONS\\ability_socererking_arcanewrath.blp:20|t You have been branded by |cFFF00000|Hspell:156238|h[Arcane Wrath]|h|r!"
-		if IsInGroup() then
+		if IsInGroup() and not BigWigs then
 			SendAddonMessage("Transcriptor", msg, IsInGroup(2) and "INSTANCE_CHAT" or IsInRaid() and "RAID" or "PARTY")--Send any emote to transcriptor, even if no spellid
 		end
 	end
@@ -6425,7 +6431,7 @@ do
 			--C_TimerAfter(20, function() if not self.Options.ForumsMessageShown then self.Options.ForumsMessageShown = self.ReleaseRevision self:AddMsg(DBM_FORUMS_MESSAGE) end end)
 			C_TimerAfter(25, function() if self.Options.SilentMode then self:AddMsg(DBM_SILENT_REMINDER) end end)
 			C_TimerAfter(30, function() if not self.Options.SettingsMessageShown then self.Options.SettingsMessageShown = true self:AddMsg(DBM_HOW_TO_USE_MOD) end end)
-			C_TimerAfter(40, function() if self.Options.NewsMessageShown < 10 then self.Options.NewsMessageShown = 10 self:AddMsg(DBM_CORE_WHATS_NEW) end end)
+			C_TimerAfter(40, function() if self.Options.SettingsMessageShown and self.Options.NewsMessageShown < 11 then self.Options.NewsMessageShown = 11 self:AddMsg(DBM_CORE_WHATS_NEW_LINK) end end)
 		end
 		if type(RegisterAddonMessagePrefix) == "function" then
 			if not RegisterAddonMessagePrefix("D4") then -- main prefix for DBM4

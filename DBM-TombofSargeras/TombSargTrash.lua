@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("TombSargTrash", "DBM-TombofSargeras")
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16415 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16461 $"):sub(12, -3))
 --mod:SetModelID(47785)
 mod:SetZone()
 mod.isTrashMod = true
@@ -9,17 +9,23 @@ mod.isTrashMod = true
 mod:RegisterEvents(
 	"SPELL_CAST_START 243171 239810 240169 242909",
 	"SPELL_CAST_SUCCESS 241360",
-	"SPELL_AURA_APPLIED 240735 241362",
+	"SPELL_AURA_APPLIED 240735 241362 241171 240599",
 	"SPELL_PERIODIC_DAMAGE 240176",
 	"SPELL_PERIODIC_MISSED 240176"
 )
 
 --TODO, add jellyfish Static something, forgot to log it and don't remember name
 local warnPolyMorphBomb				= mod:NewTargetAnnounce(240735, 3)
-local warnWateryGrave				= mod:NewTargetAnnounce(241362, 3)
+local warnWateryGrave				= mod:NewTargetAnnounce(241171, 3)
+local warnLunarBomb					= mod:NewTargetAnnounce(241362, 3)
+local warnEmbraceTides				= mod:NewTargetAnnounce(240599, 2)
 
 local specWarnPolyMorphBomb			= mod:NewSpecialWarningMoveAway(240735, nil, nil, nil, 1, 2)
 local yellPolyMorphBomb				= mod:NewYell(240735)
+local specWarnLunarBomb				= mod:NewSpecialWarningMoveAway(241171, nil, nil, nil, 1, 2)
+local yellLunarBomb					= mod:NewYell(241171)
+local specWarnEmbraceTides			= mod:NewSpecialWarningMoveAway(240599, nil, nil, nil, 1, 2)
+local yellEmbraceTides				= mod:NewYell(240599)
 local specWarnWateryGrave			= mod:NewSpecialWarningSwitch(241360, "-Healer", nil, nil, 1, 2)
 local specWarnShadowBoltVolley		= mod:NewSpecialWarningInterrupt(243171, "HasInterrupt", nil, nil, 1, 2)
 local specWarnSeverSoul				= mod:NewSpecialWarningRun(239810, "Melee", nil, nil, 4, 2)
@@ -28,6 +34,8 @@ local specWarnMassiveEruption		= mod:NewSpecialWarningRun(242909, "Melee", nil, 
 local specWarnGTFO					= mod:NewSpecialWarningGTFO(240176, nil, nil, nil, 1, 2)
 
 local voicePolyMorphBomb			= mod:NewVoice(240735)--runout
+local voiceLunarBomb				= mod:NewVoice(241171)--runout
+local voiceEmbraceTides				= mod:NewVoice(240599)--runout
 local voiceWateryGrave				= mod:NewVoice(241360, "-Healer")--helpme? maybe targetchange instead
 local voiceShadowBoltVolley			= mod:NewVoice(243171, "HasInterrupt")--kickcast
 local voiceSeverSoul				= mod:NewVoice(239810)--runout
@@ -75,8 +83,22 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			warnPolyMorphBomb:Show(args.destName)
 		end
+	elseif spellId == 241171 then
+		warnLunarBomb:CombinedShow(1, args.destName)
+		if args:IsPlayer() then
+			specWarnLunarBomb:Show()
+			voiceLunarBomb:Play("runout")
+			yellLunarBomb:Yell()
+		end
 	elseif spellId == 241362 then
 		warnWateryGrave:CombinedShow(0.3, args.destName)--Multiple targets assumed
+	elseif spellId == 240599 then
+		warnEmbraceTides:CombinedShow(1, args.destName)
+		if args:IsPlayer() then
+			specWarnEmbraceTides:Show()
+			voiceEmbraceTides:Play("runout")
+			yellEmbraceTides:Yell()
+		end
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED

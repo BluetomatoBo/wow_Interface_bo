@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1873, "DBM-TombofSargeras", nil, 875)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16434 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16481 $"):sub(12, -3))
 mod:SetCreatureID(116939)--Maiden of Valor 120437
 mod:SetEncounterID(2038)
 mod:SetZone()
@@ -22,16 +22,11 @@ mod:RegisterEventsInCombat(
 	"SPELL_PERIODIC_MISSED 239212",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"RAID_BOSS_WHISPER",
-	"CHAT_MSG_ADDON",
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2"
 )
 
---TODO, two entirely different version sof Touch of Sargeras. Figure out which one is actually used where
 --TODO, figure out mythic stack count to start warning. Right now it's 4
---TODO, improve Dark Mark to match Touch of Sargeras if multiple targets, else, clean it up for 1 target
 --TODO, unbound chaos seems affected by something, possibly energy getting to boss.
---TOOD, dark mark cast not in combat log, see if need to use APPIED or UNIT event
---TODO, and again, black winds not in combat log, find way to do it besides spell damage
 --[[
 (ability.id = 239207 or ability.id = 239132 or ability.id = 236571 or ability.id = 233856 or ability.id = 233556 or ability.id = 240623 or ability.id = 239418 or ability.id = 235597) and type = "begincast" or
 (ability.id = 236571 or ability.id = 236494 or ability.id = 239739) and type = "cast" or
@@ -289,6 +284,7 @@ function mod:SPELL_CAST_START(args)
 		timerCorruptedMatrixCD:Stop()
 		countdownCorruptedMatrix:Cancel()
 		timerTaintedMatrixCD:Stop()
+		timerDarkMarkCD:Stop()
 		
 		warnPhase2:Show()
 		timerDesolateCD:Start(19)
@@ -406,8 +402,7 @@ function mod:RAID_BOSS_WHISPER(msg)
 	end
 end
 
-function mod:CHAT_MSG_ADDON(prefix, msg, channel, targetName)
-	if prefix ~= "Transcriptor" then return end
+function mod:OnTranscriptorSync(msg, targetName)
 	if msg:find("spell:236604") then--Rapid fire
 		targetName = Ambiguate(targetName, "none")
 		if self:AntiSpam(4, targetName) then
