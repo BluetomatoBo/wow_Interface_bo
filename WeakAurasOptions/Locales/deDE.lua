@@ -89,7 +89,11 @@ Falls die Dauer der Animation auf |cFF00CC0010%|r gesetzt wurde und für die Anz
 	L["Border Size"] = "Rahmengröße"
 	L["Border Style"] = "Rahmenstil"
 	L["Bottom Text"] = "Text unten"
+	--Translation missing 
+	-- L["Bracket Matching"] = ""
 	L["Button Glow"] = "Schaltflächenleuchten"
+	--Translation missing 
+	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
 	L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = "Kann ein Name oder eine UID (zb. party1) sein. Funktioniert nur für freundliche Spieler innerhalb deiner Gruppe."
 	L["Cancel"] = "Abbrechen"
 	L["Channel Number"] = "Kanalnummer"
@@ -266,6 +270,8 @@ Falls die Zahl als Dezimalzahl (z.B. 0.5), Bruch (z.B. 1/2) oder Prozentsatz (z.
 	L["Left Text"] = "Text links"
 	L["Load"] = "Laden"
 	L["Loaded"] = "Geladen"
+	--Translation missing 
+	-- L["Loop"] = ""
 	L["Low Mana"] = "Niedriges Mana"
 	L["Main"] = "Hauptanimation"
 	L["Manage displays defined by Addons"] = "Bearbeite Anzeigen von externen Addons"
@@ -339,9 +345,11 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Remaining Time Precision"] = "Genauigkeit der verbleibenden Zeit"
 	L["Remove this display from its group"] = "Diese Anzeige aus seiner Gruppe entfernen"
 	L["Rename"] = "Umbenennen"
-	L["Required For Activation"] = "Vorrausgesetzt für Aktivierung"
+	--Translation missing 
+	-- L["Repeat After"] = ""
 	--Translation missing 
 	-- L["Required for Activation"] = ""
+	L["Required For Activation"] = "Vorrausgesetzt für Aktivierung"
 	--Translation missing 
 	-- L["Right 2 HUD position"] = ""
 	L["Right HUD position"] = "Rechte HUD Position"
@@ -361,6 +369,8 @@ Nur ein Wert kann ausgewählt werden.]=]
 	--Translation missing 
 	-- L["Set Parent to Anchor"] = ""
 	L["Set tooltip description"] = "Tooltipbeschreibung festlegen"
+	--Translation missing 
+	-- L["Settings"] = ""
 	L["Shift-click to create chat link"] = "Shift-Klick, um einen Chatlink zu erstellen"
 	L["Show all matches (Auto-clone)"] = "Alle Treffer anzeigen (Auto-Klonen)"
 	L["Show Cooldown Text"] = "Abklingzeittext anzeigen"
@@ -408,6 +418,8 @@ Soll |cFFFF0000Alle Auren scannen (CPU-Intensiv)|r aktiviert werden um diese |cF
 	L["Status"] = "Status"
 	L["Stealable"] = "Zauberraub"
 	L["Sticky Duration"] = "Tesa-Dauer"
+	--Translation missing 
+	-- L["Stop Sound"] = ""
 	L["Symbol Settings"] = "Symboleinstellungen"
 	L["Temporary Group"] = "Temporäre Gruppe"
 	L["Text"] = "Text"
@@ -451,6 +463,8 @@ Soll |cFFFF0000Alle Auren scannen (CPU-Intensiv)|r aktiviert werden um diese |cF
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "Anders als die Start- und Endanimation wird die Hauptanimation immer wieder wiederholt, bis die Anzeige in den Endstatus versetzt wird."
 	L["Update Custom Text On..."] = "Aktualisiere benutzerdefinierten Text bei..."
 	L["Use Full Scan (High CPU)"] = "Alle Auren scannen (CPU-Intensiv)"
+	--Translation missing 
+	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
 	L["Use SetTransform api"] = "SetTransform-API verwenden"
 	L["Use tooltip \"size\" instead of stacks"] = "Tooltipgröße anstatt Stapel verwenden"
 	L["Vertical Align"] = "Vertikale Ausrichtung"

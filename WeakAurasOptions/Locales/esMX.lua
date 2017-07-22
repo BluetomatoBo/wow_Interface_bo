@@ -83,7 +83,11 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 	L["Border Size"] = "Border Size"
 	L["Border Style"] = "Estilo de los bordes"
 	L["Bottom Text"] = "Texto de fondo"
+	--Translation missing 
+	-- L["Bracket Matching"] = ""
 	L["Button Glow"] = "Resplandor del botón"
+	--Translation missing 
+	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
 	L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = "Puede ser un nombre o un identificador de unidad(Por ejemplo: party1). Solo funciona con personajes amistosos en tu grupo."
 	L["Cancel"] = "Cancelar"
 	L["Channel Number"] = "Número de canal"
@@ -238,6 +242,8 @@ Con |cFF00CC00>= 0|r se activará siempre.]=]
 	L["Left Text"] = "Texto a la izquierda"
 	L["Load"] = "Cargar"
 	L["Loaded"] = "Cargado"
+	--Translation missing 
+	-- L["Loop"] = ""
 	L["Low Mana"] = "Maná insuficiente"
 	L["Main"] = "Principal"
 	L["Manage displays defined by Addons"] = "Administra las auras definidas por los Addons"
@@ -301,8 +307,10 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Remaining Time Precision"] = "Precisión de tiempo restante"
 	L["Remove this display from its group"] = "Remover esta aura del grupo"
 	L["Rename"] = "Renombrar"
-	L["Required For Activation"] = "Necesario para la activación"
+	--Translation missing 
+	-- L["Repeat After"] = ""
 	L["Required for Activation"] = "Necesario para la activación"
+	L["Required For Activation"] = "Necesario para la activación"
 	L["Right 2 HUD position"] = "Posición derecha 2 de visualización (HUD)"
 	L["Right HUD position"] = "Posición derecha de visualización (HUD)"
 	L["Right Text"] = "Texto derecho"
@@ -320,6 +328,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Send To"] = "Enviar a"
 	L["Set Parent to Anchor"] = "Asignar grupo primario al anclaje"
 	L["Set tooltip description"] = "Establecer descripción de texto emergente"
+	--Translation missing 
+	-- L["Settings"] = ""
 	L["Shift-click to create chat link"] = "Shift-Clic para un crear un enlace de chat"
 	L["Show all matches (Auto-clone)"] = "Mostrar todas las coincidencias (Auto-clonación)"
 	L["Show Cooldown Text"] = "Mostrar el texto del tiempo de recarga"
@@ -362,6 +372,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Status"] = "Estado"
 	L["Stealable"] = "Puede robarse"
 	L["Sticky Duration"] = "Duración adhesiva"
+	--Translation missing 
+	-- L["Stop Sound"] = ""
 	L["Symbol Settings"] = "Configuración de símbolos"
 	L["Temporary Group"] = "Grupo temporal"
 	L["Text"] = "Texto"
@@ -401,6 +413,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "Ignorar animaciones de inicio y final: la animación principal se repetirá hasta que el aura se oculte."
 	L["Update Custom Text On..."] = "Actualizar texto personalizado en..."
 	L["Use Full Scan (High CPU)"] = "Escaneo Total (carga el procesador)"
+	--Translation missing 
+	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
 	L["Use SetTransform api"] = "API SetTransform "
 	L["Use tooltip \"size\" instead of stacks"] = "Utilizar \"tamaño\" en vez de acumulaciones"
 	L["Vertical Align"] = "Alineación vertical"

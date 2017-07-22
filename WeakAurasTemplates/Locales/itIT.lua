@@ -14,6 +14,8 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["- Death Knight 2P Bonus"] = ""
 	--Translation missing 
+	-- L["- Death Knight T20 Blood 2P Bonus"] = ""
+	--Translation missing 
 	-- L["- Death Knight Unholy 4P Bonus"] = ""
 	--Translation missing 
 	-- L["- Deathknight 2P Bonus"] = ""
@@ -26,6 +28,16 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["- Holy Word: Serenity"] = ""
 	--Translation missing 
+	-- L["- Hunter T20 Marksman 4P Bonus"] = ""
+	--Translation missing 
+	-- L["- Mage T20 Arcane 2P Bonus"] = ""
+	--Translation missing 
+	-- L["- Mage T20 Fire 2P Bonus"] = ""
+	--Translation missing 
+	-- L["- Mage T20 Frost 2P Bonus"] = ""
+	--Translation missing 
+	-- L["- Monk T20 Mistweaver 2P Bonus"] = ""
+	--Translation missing 
 	-- L["- Monk Windwalker 4P Bonus"] = ""
 	--Translation missing 
 	-- L["- Paladin Protection 2P Bonus"] = ""
@@ -33,6 +45,16 @@ local L = WeakAuras.L
 	-- L["- Paladin Retribution 2P Bonus"] = ""
 	--Translation missing 
 	-- L["- Paladin T19 Retribution 4P Bonus"] = ""
+	--Translation missing 
+	-- L["- Paladin T20 Holy 4P Bonus"] = ""
+	--Translation missing 
+	-- L["- Paladin T20 Protection 4P Bonus"] = ""
+	--Translation missing 
+	-- L["- Paladin T20 Retribution 4P Bonus"] = ""
+	--Translation missing 
+	-- L["- Priest T20 Discipline 4P Bonus"] = ""
+	--Translation missing 
+	-- L["- Priest T20 Shadow 2P Bonus"] = ""
 	--Translation missing 
 	-- L["- Rogue Assassination/Outlaw 4P Bonus"] = ""
 	--Translation missing 
@@ -44,15 +66,33 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["- Shaman Enhancement 2P Bonus"] = ""
 	--Translation missing 
+	-- L["- Shaman T20 Elemental 2P Bonus"] = ""
+	--Translation missing 
+	-- L["- Shaman T20 Enhancement 2P Bonus"] = ""
+	--Translation missing 
+	-- L["- Shaman T20 Enhancement 4P Bonus"] = ""
+	--Translation missing 
+	-- L["- Shaman T20 Restoration 2P Bonus"] = ""
+	--Translation missing 
+	-- L["- Shaman T20 Restoration 4P Bonus"] = ""
+	--Translation missing 
 	-- L["- T19 Druid Guardian 4P Bonus"] = ""
 	--Translation missing 
 	-- L["- Warlock Affliction 4P/Demonology 2P Bonus"] = ""
 	--Translation missing 
 	-- L["- Warlock T19 Destruction 4P Bonus"] = ""
 	--Translation missing 
+	-- L["- Warlock T20 Affliction 4P Bonus"] = ""
+	--Translation missing 
+	-- L["- Warlock T20 Demonology 4P Bonus"] = ""
+	--Translation missing 
 	-- L["- Warrior 2P Bonus"] = ""
 	--Translation missing 
 	-- L["- Warrior T19 Fury 2P Bonus"] = ""
+	--Translation missing 
+	-- L["- Warrior T20 Fury 2P Bonus"] = ""
+	--Translation missing 
+	-- L["- Warrior T20 Protection 2P Bonus"] = ""
 	--Translation missing 
 	-- L["(Pet)"] = ""
 	--Translation missing 
@@ -82,11 +122,15 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Cast"] = ""
 	--Translation missing 
+	-- L["Concordance of the Legionfall"] = ""
+	--Translation missing 
 	-- L["cooldown"] = ""
 	--Translation missing 
 	-- L["Cooldowns"] = ""
 	--Translation missing 
 	-- L["Crimson Vial Item Count"] = ""
+	--Translation missing 
+	-- L["Damage Trinkets"] = ""
 	--Translation missing 
 	-- L["debuff"] = ""
 	--Translation missing 
@@ -96,11 +140,15 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["General"] = ""
 	--Translation missing 
+	-- L["Healer Trinkets"] = ""
+	--Translation missing 
 	-- L["Health"] = ""
 	--Translation missing 
 	-- L["Keeps existing triggers intact"] = ""
 	--Translation missing 
 	-- L["Legendaries"] = ""
+	--Translation missing 
+	-- L["Legion Sets"] = ""
 	--Translation missing 
 	-- L["Nimble Brew Item Count"] = ""
 	--Translation missing 
@@ -141,6 +189,8 @@ local L = WeakAuras.L
 	-- L["T19 Sets"] = ""
 	--Translation missing 
 	-- L["T19 Tank Trinkets"] = ""
+	--Translation missing 
+	-- L["Tank Trinkets"] = ""
 	--Translation missing 
 	-- L["Totem"] = ""
 	--Translation missing 

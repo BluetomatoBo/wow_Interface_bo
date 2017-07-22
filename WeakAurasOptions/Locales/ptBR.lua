@@ -122,7 +122,11 @@ WeakAuras → Opções → Opções ]=]
 	--Translation missing 
 	-- L["Border Style"] = ""
 	L["Bottom Text"] = "Texto na base"
+	--Translation missing 
+	-- L["Bracket Matching"] = ""
 	L["Button Glow"] = "Iluminar botão"
+	--Translation missing 
+	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
 	--Translation missing 
 	-- L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = ""
 	L["Cancel"] = "Cancelar"
@@ -330,6 +334,8 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Load"] = ""
 	L["Loaded"] = "Carrregar"
 	--Translation missing 
+	-- L["Loop"] = ""
+	--Translation missing 
 	-- L["Low Mana"] = ""
 	L["Main"] = "Principal"
 	L["Manage displays defined by Addons"] = "Gerencia os displays definidos por addons"
@@ -422,9 +428,11 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Remove this display from its group"] = ""
 	--Translation missing 
 	-- L["Rename"] = ""
-	L["Required For Activation"] = "Requerido para ativar"
+	--Translation missing 
+	-- L["Repeat After"] = ""
 	--Translation missing 
 	-- L["Required for Activation"] = ""
+	L["Required For Activation"] = "Requerido para ativar"
 	--Translation missing 
 	-- L["Right 2 HUD position"] = ""
 	--Translation missing 
@@ -449,6 +457,8 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Set Parent to Anchor"] = ""
 	--Translation missing 
 	-- L["Set tooltip description"] = ""
+	--Translation missing 
+	-- L["Settings"] = ""
 	--Translation missing 
 	-- L["Shift-click to create chat link"] = ""
 	L["Show all matches (Auto-clone)"] = "Mostrar todas as correspondências"
@@ -514,6 +524,8 @@ Would you like to enable Use Full Scan to match this |cFFFF0000spell ID|r?]=]
 	-- L["Stealable"] = ""
 	--Translation missing 
 	-- L["Sticky Duration"] = ""
+	--Translation missing 
+	-- L["Stop Sound"] = ""
 	--Translation missing 
 	-- L["Symbol Settings"] = ""
 	L["Temporary Group"] = "Grupo temporário"
@@ -588,6 +600,8 @@ Would you like to enable Use Full Scan to match this |cFFFF0000spell ID|r?]=]
 	-- L["Update Custom Text On..."] = ""
 	--Translation missing 
 	-- L["Use Full Scan (High CPU)"] = ""
+	--Translation missing 
+	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
 	--Translation missing 
 	-- L["Use SetTransform api"] = ""
 	--Translation missing 

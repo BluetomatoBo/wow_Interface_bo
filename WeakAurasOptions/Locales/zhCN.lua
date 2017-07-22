@@ -86,7 +86,11 @@ local L = WeakAuras.L
 	L["Border Size"] = "边框大小 "
 	L["Border Style"] = "边框风格"
 	L["Bottom Text"] = "底部文字"
+	--Translation missing 
+	-- L["Bracket Matching"] = ""
 	L["Button Glow"] = "按钮发光"
+	--Translation missing 
+	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
 	L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = "可以是名字或是单位ID(例如，party1)。只作用于你当前队伍/团队中的玩家."
 	L["Cancel"] = "取消"
 	L["Channel Number"] = "频道索引"
@@ -255,6 +259,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Left Text"] = "左边文字"
 	L["Load"] = "载入"
 	L["Loaded"] = "已载入"
+	--Translation missing 
+	-- L["Loop"] = ""
 	L["Low Mana"] = "低法力值"
 	L["Main"] = "主要的"
 	L["Manage displays defined by Addons"] = "由插件管理已定义的图示"
@@ -323,9 +329,11 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	--Translation missing 
 	-- L["Remove this display from its group"] = ""
 	L["Rename"] = "重命名"
-	L["Required For Activation"] = "需要启动"
+	--Translation missing 
+	-- L["Repeat After"] = ""
 	--Translation missing 
 	-- L["Required for Activation"] = ""
+	L["Required For Activation"] = "需要启动"
 	--Translation missing 
 	-- L["Right 2 HUD position"] = ""
 	--Translation missing 
@@ -347,6 +355,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	-- L["Set Parent to Anchor"] = ""
 	--Translation missing 
 	-- L["Set tooltip description"] = ""
+	--Translation missing 
+	-- L["Settings"] = ""
 	--Translation missing 
 	-- L["Shift-click to create chat link"] = ""
 	L["Show all matches (Auto-clone)"] = "列出所有符合的(自动复制)"
@@ -396,6 +406,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Status"] = "状态"
 	L["Stealable"] = "可偷取"
 	L["Sticky Duration"] = "持续时间置顶"
+	--Translation missing 
+	-- L["Stop Sound"] = ""
 	L["Symbol Settings"] = "标志设置"
 	L["Temporary Group"] = "模板群组"
 	L["Text"] = "文字"
@@ -444,6 +456,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "不同于开始或结束动画，主动画将不停循环，直到图示被隐藏。"
 	L["Update Custom Text On..."] = "更新自定义文字于"
 	L["Use Full Scan (High CPU)"] = "使用完整扫描(高CPU)"
+	--Translation missing 
+	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
 	--Translation missing 
 	-- L["Use SetTransform api"] = ""
 	L["Use tooltip \"size\" instead of stacks"] = "使用\\\"大小\\\"提示,而不是\\\"层数\\\""

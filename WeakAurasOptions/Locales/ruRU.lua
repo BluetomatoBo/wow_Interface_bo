@@ -86,7 +86,11 @@ local L = WeakAuras.L
 	L["Border Size"] = "Размер Границы"
 	L["Border Style"] = "Стиль Границы"
 	L["Bottom Text"] = "Нижний текст"
+	--Translation missing 
+	-- L["Bracket Matching"] = ""
 	L["Button Glow"] = "Подсветка кнопки"
+	--Translation missing 
+	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
 	L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = "Может быть именем или UID (н.п. party1). Работает только с дружественными целями в вашей группе."
 	L["Cancel"] = "Отмена"
 	L["Channel Number"] = "Номер Канала"
@@ -252,6 +256,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Left Text"] = "Текст Слева"
 	L["Load"] = "Загрузить"
 	L["Loaded"] = "Загружено"
+	--Translation missing 
+	-- L["Loop"] = ""
 	L["Low Mana"] = "Мало маны"
 	L["Main"] = "Главный"
 	L["Manage displays defined by Addons"] = "Управление индикациями, определенными Аддонами"
@@ -325,9 +331,11 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	--Translation missing 
 	-- L["Remove this display from its group"] = ""
 	L["Rename"] = "Переименовать"
-	L["Required For Activation"] = "Необходимо для Активации"
+	--Translation missing 
+	-- L["Repeat After"] = ""
 	--Translation missing 
 	-- L["Required for Activation"] = ""
+	L["Required For Activation"] = "Необходимо для Активации"
 	L["Right 2 HUD position"] = "Позиция 2-го правого HUD"
 	L["Right HUD position"] = "Позиция правого HUD"
 	L["Right Text"] = "Текст Справа"
@@ -345,6 +353,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Send To"] = "Отправить"
 	L["Set Parent to Anchor"] = "Исходное крепление"
 	L["Set tooltip description"] = "Описание подсказки"
+	--Translation missing 
+	-- L["Settings"] = ""
 	--Translation missing 
 	-- L["Shift-click to create chat link"] = ""
 	L["Show all matches (Auto-clone)"] = "Показать все совпадения (Авто-клонирование)"
@@ -391,6 +401,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Status"] = "Статус"
 	L["Stealable"] = "Возможно Украсть"
 	L["Sticky Duration"] = "Липкая Длительность"
+	--Translation missing 
+	-- L["Stop Sound"] = ""
 	L["Symbol Settings"] = "Настройки символов"
 	L["Temporary Group"] = "Временная Группа"
 	L["Text"] = "Текст"
@@ -434,6 +446,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "В отличие от начальной или конечной анимации, главная анимация зациклена и будет повторятся пока индикация не пропадет."
 	L["Update Custom Text On..."] = "Обновить Свой Текст На..."
 	L["Use Full Scan (High CPU)"] = "Использовать Полное Сканирование (Загрузка ЦП)"
+	--Translation missing 
+	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
 	L["Use SetTransform api"] = "Использовать комплект превращения API"
 	L["Use tooltip \"size\" instead of stacks"] = "Использовать подсказку размер вместо стаков"
 	L["Vertical Align"] = "Выравнивание по Вертикали"

@@ -89,7 +89,11 @@ Si la durée de l'animation est définie à |cFF00CC0010%|r, et le déclencheur 
 	L["Border Size"] = "Taille de Bordure"
 	L["Border Style"] = "Style de Bordure"
 	L["Bottom Text"] = "Texte du bas"
+	--Translation missing 
+	-- L["Bracket Matching"] = ""
 	L["Button Glow"] = "Bouton en surbrillance"
+	--Translation missing 
+	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
 	L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = "Peut être un nom ou un UID (par ex. party1). Fonctionne uniquement pour les joueurs amicaux de votre groupe."
 	L["Cancel"] = "Annuler"
 	L["Channel Number"] = "Numéro de canal"
@@ -282,6 +286,8 @@ Si le nombre entré est decimal (ex. 0.5), une fraction (ex. 1/2), ou un pourcen
 	L["Left Text"] = "Texte de gauche"
 	L["Load"] = "Charger"
 	L["Loaded"] = "Chargé"
+	--Translation missing 
+	-- L["Loop"] = ""
 	L["Low Mana"] = "Mana bas"
 	L["Main"] = "Principal"
 	L["Manage displays defined by Addons"] = "Gérer graphiques définis par addons"
@@ -357,8 +363,10 @@ Seule une unique valeur peut être choisie]=]
 	-- L["Remove this display from its group"] = ""
 	--Translation missing 
 	-- L["Rename"] = ""
-	L["Required For Activation"] = "Requis pour l'activation"
+	--Translation missing 
+	-- L["Repeat After"] = ""
 	L["Required for Activation"] = "Requis pour l'activation"
+	L["Required For Activation"] = "Requis pour l'activation"
 	L["Right 2 HUD position"] = "Position ATH Droite 2"
 	L["Right HUD position"] = "Position ATH Droite"
 	L["Right Text"] = "Texte de droite"
@@ -378,6 +386,8 @@ Seule une unique valeur peut être choisie]=]
 	-- L["Set Parent to Anchor"] = ""
 	--Translation missing 
 	-- L["Set tooltip description"] = ""
+	--Translation missing 
+	-- L["Settings"] = ""
 	--Translation missing 
 	-- L["Shift-click to create chat link"] = ""
 	L["Show all matches (Auto-clone)"] = "Montrer toutes correspondances (Auto-Clone)"
@@ -428,6 +438,8 @@ Voulez-vous activer le Scan Complet pour chercher cet |cFFFF0000ID de sort|r ?]=
 	L["Status"] = "Statut"
 	L["Stealable"] = "Volable"
 	L["Sticky Duration"] = "Durée épinglée"
+	--Translation missing 
+	-- L["Stop Sound"] = ""
 	L["Symbol Settings"] = "Réglages de symbole"
 	L["Temporary Group"] = "Groupe temporaire"
 	L["Text"] = "Texte"
@@ -477,6 +489,8 @@ Voulez-vous activer le Scan Complet pour chercher cet |cFFFF0000ID de sort|r ?]=
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "Contrairement aux animations de début et de fin, l'animation principale bouclera tant que le graphique est visible."
 	L["Update Custom Text On..."] = "Mettre à jour Texte Perso sur..."
 	L["Use Full Scan (High CPU)"] = "Utiliser Scan Complet (CPU élevé)"
+	--Translation missing 
+	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
 	L["Use SetTransform api"] = "Utiliser l'api SetTransform"
 	L["Use tooltip \"size\" instead of stacks"] = "Utiliser la \"taille\" de l'infobulle plutôt que la pile"
 	L["Vertical Align"] = "Aligner verticalement"

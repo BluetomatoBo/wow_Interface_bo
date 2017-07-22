@@ -152,7 +152,11 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Bottom Text"] = ""
 	--Translation missing 
+	-- L["Bracket Matching"] = ""
+	--Translation missing 
 	-- L["Button Glow"] = ""
+	--Translation missing 
+	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
 	--Translation missing 
 	-- L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = ""
 	--Translation missing 
@@ -418,6 +422,8 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Loaded"] = ""
 	--Translation missing 
+	-- L["Loop"] = ""
+	--Translation missing 
 	-- L["Low Mana"] = ""
 	--Translation missing 
 	-- L["Main"] = ""
@@ -538,9 +544,11 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Rename"] = ""
 	--Translation missing 
-	-- L["Required For Activation"] = ""
+	-- L["Repeat After"] = ""
 	--Translation missing 
 	-- L["Required for Activation"] = ""
+	--Translation missing 
+	-- L["Required For Activation"] = ""
 	--Translation missing 
 	-- L["Right 2 HUD position"] = ""
 	--Translation missing 
@@ -575,6 +583,8 @@ local L = WeakAuras.L
 	-- L["Set Parent to Anchor"] = ""
 	--Translation missing 
 	-- L["Set tooltip description"] = ""
+	--Translation missing 
+	-- L["Settings"] = ""
 	--Translation missing 
 	-- L["Shift-click to create chat link"] = ""
 	--Translation missing 
@@ -660,6 +670,8 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Sticky Duration"] = ""
 	--Translation missing 
+	-- L["Stop Sound"] = ""
+	--Translation missing 
 	-- L["Symbol Settings"] = ""
 	--Translation missing 
 	-- L["Temporary Group"] = ""
@@ -737,6 +749,8 @@ local L = WeakAuras.L
 	-- L["Update Custom Text On..."] = ""
 	--Translation missing 
 	-- L["Use Full Scan (High CPU)"] = ""
+	--Translation missing 
+	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
 	--Translation missing 
 	-- L["Use SetTransform api"] = ""
 	--Translation missing 

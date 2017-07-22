@@ -15,11 +15,15 @@ L["!="] = "!="
 --Translation missing 
 -- L["%s - Color Animation"] = ""
 --Translation missing 
+-- L["%s - Condition Custom Chat"] = ""
+--Translation missing 
 -- L["%s - Custom Text"] = ""
 --Translation missing 
 -- L["%s - Finish"] = ""
 --Translation missing 
 -- L["%s - Finish Action"] = ""
+--Translation missing 
+-- L["%s - Finish Custom Text"] = ""
 --Translation missing 
 -- L["%s - Init Action"] = ""
 --Translation missing 
@@ -32,6 +36,8 @@ L["!="] = "!="
 -- L["%s - Start"] = ""
 --Translation missing 
 -- L["%s - Start Action"] = ""
+--Translation missing 
+-- L["%s - Start Custom Text"] = ""
 --Translation missing 
 -- L["%s - Translate Animation"] = ""
 --Translation missing 
@@ -99,6 +105,8 @@ L["Amount"] = "Quantità"
 -- L["And Talent selected"] = ""
 --Translation missing 
 -- L["Anticlockwise"] = ""
+--Translation missing 
+-- L["Any"] = ""
 L["Any Triggers"] = "Qualsiasi attivazione"
 L["Arena"] = "Arena"
 L["Ascending"] = "Crescente"
@@ -226,6 +234,8 @@ L["Contains"] = "Contiene"
 L["Create"] = "Crea"
 L["Critical"] = "Critico"
 --Translation missing 
+-- L["Cross"] = ""
+--Translation missing 
 -- L["Crowd Controlled"] = ""
 --Translation missing 
 -- L["Crushing"] = ""
@@ -265,11 +275,17 @@ L["Death Knight Rune"] = "Rune del cavaliere della morte"
 --Translation missing 
 -- L["Descending"] = ""
 --Translation missing 
+-- L["Dest Raid Mark"] = ""
+--Translation missing 
+-- L["Destination In Group"] = ""
+--Translation missing 
 -- L["Destination Name"] = ""
 --Translation missing 
 -- L["Destination Unit"] = ""
 --Translation missing 
 -- L["Dialog"] = ""
+--Translation missing 
+-- L["Diamond"] = ""
 --Translation missing 
 -- L["Disease"] = ""
 --Translation missing 
@@ -312,6 +328,8 @@ L["Death Knight Rune"] = "Rune del cavaliere della morte"
 -- L["Environmental"] = ""
 --Translation missing 
 -- L["Equipment Set"] = ""
+--Translation missing 
+-- L["Equipment Set Equipped"] = ""
 --Translation missing 
 -- L["Equipment Slot"] = ""
 --Translation missing 
@@ -508,6 +526,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Looking for Raid"] = ""
 --Translation missing 
+-- L["Loop"] = ""
+--Translation missing 
 -- L["Lost"] = ""
 --Translation missing 
 -- L["Low Damage"] = ""
@@ -558,6 +578,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Monster Yell"] = ""
 --Translation missing 
+-- L["Moon"] = ""
+--Translation missing 
 -- L["Mounted"] = ""
 --Translation missing 
 -- L["Mouse Cursor"] = ""
@@ -590,9 +612,11 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Normal"] = ""
 --Translation missing 
--- L["Not on cooldown"] = ""
+-- L["Not in Group"] = ""
 --Translation missing 
 -- L["Not on Cooldown"] = ""
+--Translation missing 
+-- L["Not on cooldown"] = ""
 --Translation missing 
 -- L["Not On Threat Table"] = ""
 --Translation missing 
@@ -604,15 +628,17 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Officer"] = ""
 --Translation missing 
--- L["On Cooldown"] = ""
---Translation missing 
 -- L["On cooldown"] = ""
+--Translation missing 
+-- L["On Cooldown"] = ""
 --Translation missing 
 -- L["Only if Primary"] = ""
 --Translation missing 
 -- L["Opaque"] = ""
 --Translation missing 
 -- L["Orbit"] = ""
+--Translation missing 
+-- L["Orientation"] = ""
 --Translation missing 
 -- L["Outline"] = ""
 --Translation missing 
@@ -643,6 +669,8 @@ L["Form"] = "Forma"
 -- L["Pet Behavior"] = ""
 --Translation missing 
 -- L["Pet Spell"] = ""
+--Translation missing 
+-- L["Play"] = ""
 --Translation missing 
 -- L["Player"] = ""
 --Translation missing 
@@ -788,6 +816,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Shrink"] = ""
 --Translation missing 
+-- L["Skull"] = ""
+--Translation missing 
 -- L["Slide from Bottom"] = ""
 --Translation missing 
 -- L["Slide from Left"] = ""
@@ -810,7 +840,11 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Sound Effects"] = ""
 --Translation missing 
+-- L["Source In Group"] = ""
+--Translation missing 
 -- L["Source Name"] = ""
+--Translation missing 
+-- L["Source Raid Mark"] = ""
 --Translation missing 
 -- L["Source Unit"] = ""
 --Translation missing 
@@ -846,15 +880,21 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Spiral In And Out"] = ""
 --Translation missing 
+-- L["Square"] = ""
+--Translation missing 
 -- L["Stacks"] = ""
 --Translation missing 
 -- L["Stagger"] = ""
 --Translation missing 
 -- L["Stance/Form/Aura"] = ""
 --Translation missing 
+-- L["Star"] = ""
+--Translation missing 
 -- L["Status"] = ""
 --Translation missing 
 -- L["Stolen"] = ""
+--Translation missing 
+-- L["Stop"] = ""
 --Translation missing 
 -- L["Summon"] = ""
 --Translation missing 
@@ -909,6 +949,8 @@ L["Form"] = "Forma"
 -- L["Totem Number"] = ""
 --Translation missing 
 -- L["Transmission error"] = ""
+--Translation missing 
+-- L["Triangle"] = ""
 --Translation missing 
 -- L["Trigger State Updater"] = ""
 --Translation missing 

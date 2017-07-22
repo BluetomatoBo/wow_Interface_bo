@@ -15,11 +15,15 @@ L["!="] = "!="
 --Translation missing 
 -- L["%s - Color Animation"] = ""
 --Translation missing 
+-- L["%s - Condition Custom Chat"] = ""
+--Translation missing 
 -- L["%s - Custom Text"] = ""
 --Translation missing 
 -- L["%s - Finish"] = ""
 --Translation missing 
 -- L["%s - Finish Action"] = ""
+--Translation missing 
+-- L["%s - Finish Custom Text"] = ""
 --Translation missing 
 -- L["%s - Init Action"] = ""
 --Translation missing 
@@ -32,6 +36,8 @@ L["!="] = "!="
 -- L["%s - Start"] = ""
 --Translation missing 
 -- L["%s - Start Action"] = ""
+--Translation missing 
+-- L["%s - Start Custom Text"] = ""
 --Translation missing 
 -- L["%s - Translate Animation"] = ""
 --Translation missing 
@@ -99,6 +105,8 @@ L["Amount"] = "Quantidade"
 -- L["And Talent selected"] = ""
 --Translation missing 
 -- L["Anticlockwise"] = ""
+--Translation missing 
+-- L["Any"] = ""
 L["Any Triggers"] = "Qualquer Gatilhos"
 L["Arena"] = "Arena"
 L["Ascending"] = "Ascendente"
@@ -217,6 +225,8 @@ L["Cooldown Ready (Spell)"] = "Tempo de recarga finalizado (Item)"
 -- L["Counter Clockwise"] = ""
 L["Create"] = "Criar"
 L["Critical"] = "Crítico"
+--Translation missing 
+-- L["Cross"] = ""
 L["Crowd Controlled"] = "Sob efeito de C/C"
 L["Crushing"] = "Esmagador"
 L["Curse"] = "Maldição"
@@ -247,11 +257,17 @@ L["Death Knight Rune"] = "Runa de Cavaleiro da Morte"
 --Translation missing 
 -- L["Descending"] = ""
 --Translation missing 
+-- L["Dest Raid Mark"] = ""
+--Translation missing 
+-- L["Destination In Group"] = ""
+--Translation missing 
 -- L["Destination Name"] = ""
 --Translation missing 
 -- L["Destination Unit"] = ""
 --Translation missing 
 -- L["Dialog"] = ""
+--Translation missing 
+-- L["Diamond"] = ""
 --Translation missing 
 -- L["Disease"] = ""
 --Translation missing 
@@ -294,6 +310,8 @@ L["Death Knight Rune"] = "Runa de Cavaleiro da Morte"
 -- L["Environmental"] = ""
 --Translation missing 
 -- L["Equipment Set"] = ""
+--Translation missing 
+-- L["Equipment Set Equipped"] = ""
 --Translation missing 
 -- L["Equipment Slot"] = ""
 --Translation missing 
@@ -476,6 +494,8 @@ L["Left to Right"] = "Da esquerda para direita"
 --Translation missing 
 -- L["Looking for Raid"] = ""
 --Translation missing 
+-- L["Loop"] = ""
+--Translation missing 
 -- L["Lost"] = ""
 --Translation missing 
 -- L["Low Damage"] = ""
@@ -513,6 +533,8 @@ L["Missing"] = "Faltando"
 --Translation missing 
 -- L["Monster Whisper"] = ""
 L["Monster Yell"] = "Grito do monstro"
+--Translation missing 
+-- L["Moon"] = ""
 L["Mounted"] = "Montado"
 --Translation missing 
 -- L["Mouse Cursor"] = ""
@@ -537,9 +559,11 @@ L["None"] = "Nenhum"
 -- L["Non-player Character"] = ""
 L["Normal"] = "Normal"
 --Translation missing 
--- L["Not on cooldown"] = ""
+-- L["Not in Group"] = ""
 --Translation missing 
 -- L["Not on Cooldown"] = ""
+--Translation missing 
+-- L["Not on cooldown"] = ""
 --Translation missing 
 -- L["Not On Threat Table"] = ""
 L["Number"] = "Número"
@@ -547,14 +571,16 @@ L["Number Affected"] = "Número Afetado"
 L["Off Hand"] = "Mão secundária"
 L["Officer"] = "Oficial"
 --Translation missing 
--- L["On Cooldown"] = ""
---Translation missing 
 -- L["On cooldown"] = ""
+--Translation missing 
+-- L["On Cooldown"] = ""
 --Translation missing 
 -- L["Only if Primary"] = ""
 --Translation missing 
 -- L["Opaque"] = ""
 L["Orbit"] = "Órbita"
+--Translation missing 
+-- L["Orientation"] = ""
 --Translation missing 
 -- L["Outline"] = ""
 L["Outside"] = "Exterior"
@@ -576,6 +602,8 @@ L["Pet"] = "Assistente"
 -- L["Pet Behavior"] = ""
 --Translation missing 
 -- L["Pet Spell"] = ""
+--Translation missing 
+-- L["Play"] = ""
 L["Player"] = "Jogador"
 L["Player Character"] = "Personagem do jogador"
 L["Player Class"] = "Classe do jogador"
@@ -678,6 +706,8 @@ L["Show"] = "Mostrar"
 --Translation missing 
 -- L["Show Global Cooldown"] = ""
 L["Shrink"] = "Encolher"
+--Translation missing 
+-- L["Skull"] = ""
 L["Slide from Bottom"] = "Deslizar de baixo"
 L["Slide from Left"] = "Deslizar da esquerda"
 L["Slide from Right"] = "Deslizar da direita"
@@ -690,7 +720,11 @@ L["Slime"] = "Lodo"
 --Translation missing 
 -- L["Sound by Kit ID"] = ""
 L["Sound Effects"] = "Efeitos sonoros"
+--Translation missing 
+-- L["Source In Group"] = ""
 L["Source Name"] = "Origem do nome"
+--Translation missing 
+-- L["Source Raid Mark"] = ""
 L["Source Unit"] = "Origem da unidade"
 L["Spacing"] = "Espaçamento"
 --Translation missing 
@@ -716,12 +750,18 @@ L["Spell Name"] = "Nome do feitiço"
 L["Spin"] = "Girar"
 L["Spiral"] = "Espiral"
 L["Spiral In And Out"] = "Espiral dentro e fora"
+--Translation missing 
+-- L["Square"] = ""
 L["Stacks"] = "Pilhas"
 --Translation missing 
 -- L["Stagger"] = ""
 L["Stance/Form/Aura"] = "Postura/Forma/Aura"
+--Translation missing 
+-- L["Star"] = ""
 L["Status"] = "Estado"
 L["Stolen"] = "Roubado"
+--Translation missing 
+-- L["Stop"] = ""
 L["Summon"] = "Invocar"
 L["Swing"] = "Balançar"
 L["Swing Timer"] = "Tempo de balanço"
@@ -760,6 +800,8 @@ L["Totem Name"] = "Nome do totem"
 --Translation missing 
 -- L["Totem Number"] = ""
 L["Transmission error"] = "Erro de transmissão"
+--Translation missing 
+-- L["Triangle"] = ""
 --Translation missing 
 -- L["Trigger State Updater"] = ""
 L["Trigger Update"] = "Atualização do gatilho"
