@@ -1,66 +1,12 @@
-tag 50e59fe081a1ac72d18cc77aa975e8afccf599a9 2.4.15
+tag 571e8c67fc92aa9479fc768f8d2983d71a97ab50 2.4.16
 Author:	Benjamin Staneck <staneck@gmail.com>
-Date:	Fri Jul 21 23:09:40 2017 +0200
+Date:	Tue Jul 25 00:20:50 2017 +0200
 
-commit 7b99e6afa1357664fc1fa25b8282cce2c346f0df
-Author: Infus <infus@squorn.de>
-Date:   Fri Jul 21 18:52:40 2017 +0200
-
-    Custom Trigger: Don't hide the Events trigger for Custom/Event
-    
-    Custom Event triggers always need events to trigger.
-
-commit 337f2eee9e31135b133aacfbcb4dc8fed9738712
+commit 334ce71855a5d0edb0378b2fb6df9d064470d5f5
 Author: Benjamin Staneck <staneck@gmail.com>
-Date:   Tue Jul 18 20:37:03 2017 +0200
+Date:   Tue Jul 25 00:20:36 2017 +0200
 
-    Sometimes the GetCooldown()  API returns very high bogus numbers causing client freeezes, discard them here.
+    Revert "Reset duration info on applying a state without progress information"
     
-    Refs: https://www.wowace.com/projects/weakauras-2/issues/1008
-
-commit 51efd5adf19de17dea48c168c47d886fb5e69934
-Author: Infus <infus@squorn.de>
-Date:   Tue Jul 18 17:51:17 2017 +0200
-
-    Add CINEMATIC_STOP to movie watch frame
-    
-    Ticket-Nr: 1007
-
-commit 8a99fb211ea21bc3f99acd17527d3eec9b36fb16
-Author: Infus <infus@squorn.de>
-Date:   Tue Jul 18 13:31:43 2017 +0200
-
-    Reset duration info on applying a state without progress information
-    
-    Github-Ticket: 248
-
-commit ce4f8284dfeee2b1b14f797048a26b28ad790426
-Author: Infus <infus@squorn.de>
-Date:   Tue Jul 18 13:02:52 2017 +0200
-
-    Fix regression in resizing groups
-
-commit 0d09c48f948b709c1b4f03a2bec3e8c3d7866ccd
-Author: Infus <infus@squorn.de>
-Date:   Tue Jul 18 13:02:11 2017 +0200
-
-    Fix texteditor for custom condition functions
-    
-    Github-Ticket: 250
-
-commit ae6e4af1daf46d66bc738c61c88e9c5e6e2eda8f
-Author: emptyrivers <emptyrivers@users.noreply.github.com>
-Date:   Tue Jul 18 00:50:21 2017 -0500
-
-    Amend specific unit desc (#251)
-    
-    The current description of specific unit implies that unit tokens such as `boss1` or `targettarget` would not work, when that is not the behavior. This amends the description to properly reflect that.
-
-commit 4e1c0a67e4bb88aef25662d8ab3996fbed92f3f1
-Author: Healz <healarious.eu.ravencrest@gmail.com>
-Date:   Sat Jul 15 22:59:33 2017 +0200
-
-    Consider the gemcutting UI as vehicle UI (#246)
-    
-    * Consider the gemcutting UI (and everything else behind HasOverridenActionBar()) as vehicle UI
+    This reverts commit 8a99fb211ea21bc3f99acd17527d3eec9b36fb16.
 
