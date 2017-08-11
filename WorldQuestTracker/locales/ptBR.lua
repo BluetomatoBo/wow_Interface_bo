@@ -10,6 +10,42 @@ L["S_ERROR_NOTLOADEDYET"] = "Esta quest não foi carregada ainda, por favor agua
 L["S_FLYMAP_SHOWTRACKEDONLY"] = "Apenas Rastreadas"
 L["S_FLYMAP_SHOWTRACKEDONLY_DESC"] = "Mostrar apenas quests que estão sendo rastreadas."
 L["S_FLYMAP_SHOWWORLDQUESTS"] = "Mostrar Quests Globais"
+L["S_GROUPFINDER_ACTIONS_CANCELING"] = "cancelando..."
+L["S_GROUPFINDER_ACTIONS_CREATE"] = "nenhum grupo encontrado, clique para criar um"
+L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = "Sair do grupo?"
+L["S_GROUPFINDER_ACTIONS_LEAVINGIN"] = "Saindo do grupo em (clique para sair agora):"
+L["S_GROUPFINDER_ACTIONS_RETRYSEARCH"] = "repetir busca"
+L["S_GROUPFINDER_ACTIONS_SEARCH"] = "clique para iniciar busca por grupos"
+L["S_GROUPFINDER_ACTIONS_SEARCH_TOOLTIP"] = "Entre em um grupo que esta fazendo esta quest"
+L["S_GROUPFINDER_ACTIONS_SEARCHING"] = "buscando..."
+L["S_GROUPFINDER_ACTIONS_SEARCHMORE"] = "clique para buscar por mais jogadores para o grupo"
+L["S_GROUPFINDER_ACTIONS_SEARCHOTHER"] = "Sair e buscar outro grupo?"
+L["S_GROUPFINDER_ACTIONS_UNAPPLY1"] = "clique para remover a aplicação e criar um grupo novo"
+L["S_GROUPFINDER_ACTIONS_UNLIST"] = "clique para deslistar o seu grupo"
+L["S_GROUPFINDER_ACTIONS_UNLISTING"] = "deslistando..."
+L["S_GROUPFINDER_ACTIONS_WAITING"] = "esperando..."
+L["S_GROUPFINDER_ENABLED"] = "Auto abrir esta janela em uma nova quest"
+L["S_GROUPFINDER_KICK_DESC"] = "Quando você for o líder do grupo, o addon pode pedir para remover um jogador AFK ou um jogador que esteja muito longe do local da quest."
+L["S_GROUPFINDER_LEAVEOPTIONS"] = "Opções de Deixar o Grupo"
+L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = "Sair Depois de X Segundos"
+L["S_GROUPFINDER_LEAVEOPTIONS_ASKX"] = "Não Sair Sozinho, Apenas Perguntar por X Segundos"
+L["S_GROUPFINDER_LEAVEOPTIONS_DONTLEAVE"] = "Não Mostrar o Painel de Sair do Grupo"
+L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "Sair Imediatamente Ao Completar a Quest"
+L["S_GROUPFINDER_NOPVP"] = "Evitar Servidores PVP"
+L["S_GROUPFINDER_OT_ENABLED"] = "Mostrar botões on Objective Tracker"
+L["S_GROUPFINDER_QUEUEBUSY"] = "você já esta em uma fila."
+L["S_GROUPFINDER_RESULTS_APPLYING"] = "Há %d grupos para aplicar, continue clicando"
+L["S_GROUPFINDER_RESULTS_APPLYING1"] = "Há um grupo para aplicar, clique novamente"
+L["S_GROUPFINDER_RESULTS_FOUND"] = [=[%d grupos encontrados
+clique para iniciar as aplicações]=]
+L["S_GROUPFINDER_RESULTS_FOUND1"] = [=[1 grupo encontrado
+clique para entrar no grupo]=]
+L["S_GROUPFINDER_RESULTS_UNAPPLY"] = "%d aplicações restantes..."
+L["S_GROUPFINDER_RIGHTCLICKCLOSE"] = "botão direito para fechar este painel"
+L["S_GROUPFINDER_SECONDS"] = "Segundos"
+L["S_GROUPFINDER_TITLE"] = "Procurar por Grupos"
+--Translation missing 
+-- L["S_GROUPFINDER_TUTORIAL1"] = ""
 L["S_MAPBAR_AUTOWORLDMAP"] = "Mapa Global Automatico"
 L["S_MAPBAR_AUTOWORLDMAP_DESC"] = [=[Em Dalaran ou no Hall da sua classe, pressionando 'M' vai direto para o mapa das Ilhas Partidas.
 

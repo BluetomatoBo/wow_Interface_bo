@@ -1,7 +1,7 @@
-changeset:   153:43c2659818a9
-tag:         tip
+changeset:   178:76545be5c77f
+tag:         v7.2.5.178-release
 user:        Tercio
-date:        Fri Jul 14 18:27:53 2017 -0300
-summary:     - framework update to version v54 and localization updates.
+date:        Tue Aug 08 12:40:52 2017 -0300
+summary:     - removed the feedback frame for the group finder feature.
 
 
