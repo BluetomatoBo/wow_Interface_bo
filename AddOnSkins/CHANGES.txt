@@ -1,104 +1,46 @@
-tag b5227265c6b7a090cce1a0e348655727e0612abc 3.49
+tag c800f220b19f69fd5d84efe8d007eb0bab448307 3.50
 Author:	Azilroka <darktemplar9900@yahoo.com>
-Date:	Wed Jul 5 15:59:11 2017 -0500
+Date:	Thu Aug 10 20:27:59 2017 -0500
+
+commit 202dc44b554105f953a1a92d72be138a76f5a36a
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Aug 6 13:00:32 2017 -0500
+
+    3.50
+
+commit 4ebc6ea64d5a88d05096d135fa27c37069941fed
+Author: Merathilis <neo0608@gmail.com>
+Date:   Fri Jul 7 18:41:39 2017 +0200
+
+    Remove the AtlasLoot versions check
+
+commit 4ebc6ea64d5a88d05096d135fa27c37069941fed
+Author: Merathilis <neo0608@gmail.com>
+Date:   Fri Jul 7 18:41:39 2017 +0200
+
+    Remove the AtlasLoot versions check
+
+commit 4ebc6ea64d5a88d05096d135fa27c37069941fed
+Author: Merathilis <neo0608@gmail.com>
+Date:   Fri Jul 7 18:41:39 2017 +0200
+
+    Remove the AtlasLoot versions check
+
+commit 4ebc6ea64d5a88d05096d135fa27c37069941fed
+Author: Merathilis <neo0608@gmail.com>
+Date:   Fri Jul 7 18:41:39 2017 +0200
+
+    Remove the AtlasLoot versions check
+
+commit c84605e0a9297d0e906327e4d3c32565162e618e
+Author: Merathilis <neo0608@gmail.com>
+Date:   Fri Jul 7 16:29:37 2017 +0200
+
+    Fix WorldQuestTab. This fixes: Azilroka/addonskins#489
 
 commit 7e7ad1c8caaa2d48e9351086be0184302157cf10
 Author: Azilroka <darktemplar9900@yahoo.com>
 Date:   Wed Jul 5 15:58:49 2017 -0500
 
     3.49
-
-commit c86211211cb08e4168fc1430507ae5100c19b463
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Jul 4 09:31:33 2017 -0500
-
-    Skillet
-
-commit 4b5c46b64f0ac6ca9a84266064c8c8cdf6c1f394
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Jul 4 09:25:23 2017 -0500
-
-    Chat Bubbles
-
-commit 484763d1ae08a7a90866a1aa7b410db182d1b17f
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Jul 4 09:24:53 2017 -0500
-
-    Hekili Issue #472
-
-commit 35d8083c1144133a67c41c2f2dd8ea1de391bbbe
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jul 4 12:08:22 2017 +0200
-
-    Fix Altoholic skin. This fixes: Azilroka/addonskins#416
-
-commit 35d8083c1144133a67c41c2f2dd8ea1de391bbbe
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jul 4 12:08:22 2017 +0200
-
-    Fix Altoholic skin. This fixes: Azilroka/addonskins#416
-
-commit 15f576dc9a9ff935d737e276117a1cd5c97db954
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jul 4 11:49:03 2017 +0200
-
-    Comment out skinning of BasicScriptErrors. This should deal with: Azilroka/addonskins#481
-
-commit 8f4630460ae53c946f47e18cb1720dc7011f3e4b
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jul 4 11:32:07 2017 +0200
-
-    Update ServerHop skin. This should fix: Azilroka/addonskins#477
-
-commit 18da072a8f5aa53c807dad70802ee34a3a50cf67
-Author: Merathilis <neo0608@gmail.com>
-Date:   Sun Jul 2 14:15:39 2017 +0200
-
-    Bumb AtlasLoot version. The Skin should be fine.
-
-commit 5c13862adc1fbf4599773fb2d7648bcd66463d86
-Author: Blazeflack <blazeflack@hotmail.com>
-Date:   Wed Jun 21 00:44:56 2017 +0200
-
-    Fixed issue which caused a WoW crash when opening ColorPickerPlus frame
-
-commit 5c13862adc1fbf4599773fb2d7648bcd66463d86
-Author: Blazeflack <blazeflack@hotmail.com>
-Date:   Wed Jun 21 00:44:56 2017 +0200
-
-    Fixed issue which caused a WoW crash when opening ColorPickerPlus frame
-
-commit 4fa0ccba43b1b5a8b11f6a01ddc010deb3bd62e1
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jun 20 11:37:39 2017 +0200
-
-    Update debugTools. This should deal with Azilroka/addonskins#485
-    
-    Note: The previous, next button must be overhault.
-
-commit 5c13862adc1fbf4599773fb2d7648bcd66463d86
-Author: Blazeflack <blazeflack@hotmail.com>
-Date:   Wed Jun 21 00:44:56 2017 +0200
-
-    Fixed issue which caused a WoW crash when opening ColorPickerPlus frame
-
-commit 4fa0ccba43b1b5a8b11f6a01ddc010deb3bd62e1
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jun 20 11:37:39 2017 +0200
-
-    Update debugTools. This should deal with Azilroka/addonskins#485
-    
-    Note: The previous, next button must be overhault.
-
-commit 3aad88f99017ee8141e5d7add700198ef6317d56
-Author: asdf12303116 <a675750333@gmail.com>
-Date:   Sun Jun 18 20:57:30 2017 +0800
-
-    Update chinese locale
-
-commit 3f6ff088038aa5198bc2b74c094734fdd694a175
-Author: Merith <liquid.base.x@gmail.com>
-Date:   Wed Jun 14 02:47:34 2017 -0400
-
-    Update interface version from 70100 to 70200
 
