@@ -10,9 +10,11 @@ L["S_ERROR_NOTLOADEDYET"] = "이 퀘스트를 아직 불러오지 못했습니�
 L["S_FLYMAP_SHOWTRACKEDONLY"] = "추적 중인 퀘스트만"
 L["S_FLYMAP_SHOWTRACKEDONLY_DESC"] = "추적 중인 퀘스트만 표시"
 L["S_FLYMAP_SHOWWORLDQUESTS"] = "전역 퀘스트 표시"
+L["S_GROUPFINDER_ACTIONS_CANCEL_APPLICATIONS"] = "신청을 취소하려면 클릭하세요..."
 L["S_GROUPFINDER_ACTIONS_CANCELING"] = "취소 중..."
 L["S_GROUPFINDER_ACTIONS_CREATE"] = [=[검색된 파티가 없나요?
 새로 만들려면 클릭하세요]=]
+L["S_GROUPFINDER_ACTIONS_CREATE_DIRECT"] = "파티 만들기"
 L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = "파티를 떠날까요?"
 L["S_GROUPFINDER_ACTIONS_LEAVINGIN"] = "파티를 떠납니다 (지금 떠나려면 클릭):"
 L["S_GROUPFINDER_ACTIONS_RETRYSEARCH"] = "검색 재시도"
@@ -26,7 +28,6 @@ L["S_GROUPFINDER_ACTIONS_UNLIST"] = "현재 파티를 검색 목록에서 제거
 L["S_GROUPFINDER_ACTIONS_UNLISTING"] = "등록 해제 중..."
 L["S_GROUPFINDER_ACTIONS_WAITING"] = "대기 중..."
 L["S_GROUPFINDER_ENABLED"] = "새로운 퀘스트에서 자동으로 열기"
-L["S_GROUPFINDER_KICK_DESC"] = "파티장일 때 애드온이 자리비움 플레이어나 퀘스트 지역에서 멀리 떨어진 플레이어를 추방할 지 물어봅니다."
 L["S_GROUPFINDER_LEAVEOPTIONS"] = "파티 떠나기 옵션"
 L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = "X초 후 떠나기"
 L["S_GROUPFINDER_LEAVEOPTIONS_ASKX"] = "자동으로 떠나지 않고 X초 후에 물어보기"
@@ -42,7 +43,7 @@ L["S_GROUPFINDER_RESULTS_FOUND"] = [=[%d개 파티 찾음
 L["S_GROUPFINDER_RESULTS_FOUND1"] = [=[1개 파티 찾음
 참여하려면 클릭]=]
 L["S_GROUPFINDER_RESULTS_UNAPPLY"] = "%d개 신청 남음..."
-L["S_GROUPFINDER_RIGHTCLICKCLOSE"] = "이 창을 닫으려면 오른쪽 클릭하세요"
+L["S_GROUPFINDER_RIGHTCLICKCLOSE"] = "닫으려면 오른쪽 클릭하세요"
 L["S_GROUPFINDER_SECONDS"] = "초"
 L["S_GROUPFINDER_TITLE"] = "파티 찾기"
 L["S_GROUPFINDER_TUTORIAL1"] = "같은 퀘스트를 수행하는 파티에 참가하여 빠르게 전역 퀘스트를 완료하세요!"

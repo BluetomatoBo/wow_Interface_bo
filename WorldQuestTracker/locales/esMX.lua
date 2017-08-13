@@ -11,9 +11,13 @@ L["S_FLYMAP_SHOWTRACKEDONLY"] = "Sólo con seguimiento"
 L["S_FLYMAP_SHOWTRACKEDONLY_DESC"] = "Muestra únicamente misiones que están en seguimiento"
 L["S_FLYMAP_SHOWWORLDQUESTS"] = "Mostrar misiones de mundo"
 --Translation missing 
+-- L["S_GROUPFINDER_ACTIONS_CANCEL_APPLICATIONS"] = ""
+--Translation missing 
 -- L["S_GROUPFINDER_ACTIONS_CANCELING"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_ACTIONS_CREATE"] = ""
+--Translation missing 
+-- L["S_GROUPFINDER_ACTIONS_CREATE_DIRECT"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = ""
 --Translation missing 
@@ -40,8 +44,6 @@ L["S_FLYMAP_SHOWWORLDQUESTS"] = "Mostrar misiones de mundo"
 -- L["S_GROUPFINDER_ACTIONS_WAITING"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_ENABLED"] = ""
---Translation missing 
--- L["S_GROUPFINDER_KICK_DESC"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS"] = ""
 --Translation missing 

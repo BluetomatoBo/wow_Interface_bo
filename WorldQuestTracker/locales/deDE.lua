@@ -10,8 +10,10 @@ L["S_ERROR_NOTLOADEDYET"] = "Diese Quest ist noch nicht geladen. Bitte warte ein
 L["S_FLYMAP_SHOWTRACKEDONLY"] = "Nur verfolgte"
 L["S_FLYMAP_SHOWTRACKEDONLY_DESC"] = "Zeigt nur verfolgte Quests"
 L["S_FLYMAP_SHOWWORLDQUESTS"] = "Weltquests anzeigen"
+L["S_GROUPFINDER_ACTIONS_CANCEL_APPLICATIONS"] = "Klicken, um Anmeldungen zurückzunehmen..."
 L["S_GROUPFINDER_ACTIONS_CANCELING"] = "abbrechen..."
 L["S_GROUPFINDER_ACTIONS_CREATE"] = "Keine Gruppe gefunden? Klicke, um eine zu erstellen"
+L["S_GROUPFINDER_ACTIONS_CREATE_DIRECT"] = "Gruppe erstellen"
 L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = "Die Gruppe verlassen?"
 L["S_GROUPFINDER_ACTIONS_LEAVINGIN"] = "Du verlässt die Gruppe in (Klicken zum sofortigen Verlassen):"
 L["S_GROUPFINDER_ACTIONS_RETRYSEARCH"] = "Suche wiederholen"
@@ -26,9 +28,7 @@ L["S_GROUPFINDER_ACTIONS_UNLISTING"] = "abmelden..."
 L["S_GROUPFINDER_ACTIONS_WAITING"] = "warten..."
 --Translation missing 
 -- L["S_GROUPFINDER_ENABLED"] = ""
-L["S_GROUPFINDER_KICK_DESC"] = "Wenn du der Gruppenanführer bist, fragt dich das Addon, ob du Spieler, die vom Questort zu weit entfernt oder gerade AFK sind, von der Gruppe entfernen willst."
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS"] = ""
+L["S_GROUPFINDER_LEAVEOPTIONS"] = "Optionen Gruppenverlassen"
 L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = "Nach X Sekunden verlassen"
 --Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS_ASKX"] = ""

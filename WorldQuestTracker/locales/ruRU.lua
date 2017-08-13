@@ -11,9 +11,13 @@ L["S_FLYMAP_SHOWTRACKEDONLY"] = "Только отслеживаемые"
 L["S_FLYMAP_SHOWTRACKEDONLY_DESC"] = "Показывать только задания, которые вы отслеживаете"
 L["S_FLYMAP_SHOWWORLDQUESTS"] = "Показывать локальные задания"
 --Translation missing 
+-- L["S_GROUPFINDER_ACTIONS_CANCEL_APPLICATIONS"] = ""
+--Translation missing 
 -- L["S_GROUPFINDER_ACTIONS_CANCELING"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_ACTIONS_CREATE"] = ""
+--Translation missing 
+-- L["S_GROUPFINDER_ACTIONS_CREATE_DIRECT"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = ""
 --Translation missing 
@@ -40,8 +44,6 @@ L["S_FLYMAP_SHOWWORLDQUESTS"] = "Показывать локальные зад�
 -- L["S_GROUPFINDER_ACTIONS_WAITING"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_ENABLED"] = ""
---Translation missing 
--- L["S_GROUPFINDER_KICK_DESC"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS"] = ""
 --Translation missing 

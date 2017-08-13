@@ -12,9 +12,13 @@ L["S_FLYMAP_SHOWTRACKEDONLY"] = "Solo Tracciati"
 L["S_FLYMAP_SHOWTRACKEDONLY_DESC"] = "Mostra solo le missioni tracciate"
 L["S_FLYMAP_SHOWWORLDQUESTS"] = "Mostra Missioni Mondiali"
 --Translation missing 
+-- L["S_GROUPFINDER_ACTIONS_CANCEL_APPLICATIONS"] = ""
+--Translation missing 
 -- L["S_GROUPFINDER_ACTIONS_CANCELING"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_ACTIONS_CREATE"] = ""
+--Translation missing 
+-- L["S_GROUPFINDER_ACTIONS_CREATE_DIRECT"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = ""
 --Translation missing 
@@ -41,8 +45,6 @@ L["S_FLYMAP_SHOWWORLDQUESTS"] = "Mostra Missioni Mondiali"
 -- L["S_GROUPFINDER_ACTIONS_WAITING"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_ENABLED"] = ""
---Translation missing 
--- L["S_GROUPFINDER_KICK_DESC"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS"] = ""
 --Translation missing 

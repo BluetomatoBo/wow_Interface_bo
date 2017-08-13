@@ -1,7 +1,7 @@
-changeset:   178:76545be5c77f
-tag:         v7.2.5.178-release
+changeset:   184:9afc213aecd7
+tag:         v7.2.5.184-release
 user:        Tercio
-date:        Tue Aug 08 12:40:52 2017 -0300
-summary:     - removed the feedback frame for the group finder feature.
+date:        Sat Aug 12 17:36:04 2017 -0300
+summary:     - commit for tagging the release.
 
 

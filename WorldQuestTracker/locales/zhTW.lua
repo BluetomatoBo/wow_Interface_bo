@@ -11,71 +11,43 @@ L["S_FLYMAP_SHOWTRACKEDONLY"] = "只有已追蹤的"
 L["S_FLYMAP_SHOWTRACKEDONLY_DESC"] = "只顯示正在追蹤的任務"
 L["S_FLYMAP_SHOWWORLDQUESTS"] = "顯示世界任務"
 --Translation missing 
--- L["S_GROUPFINDER_ACTIONS_CANCELING"] = ""
+-- L["S_GROUPFINDER_ACTIONS_CANCEL_APPLICATIONS"] = ""
+L["S_GROUPFINDER_ACTIONS_CANCELING"] = "正在取消..."
+L["S_GROUPFINDER_ACTIONS_CREATE"] = "沒有找到隊伍，點一下建立新隊伍"
 --Translation missing 
--- L["S_GROUPFINDER_ACTIONS_CREATE"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_LEAVINGIN"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_RETRYSEARCH"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCH"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCH_TOOLTIP"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCHING"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCHMORE"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCHOTHER"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_UNAPPLY1"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_UNLIST"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_UNLISTING"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_WAITING"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ENABLED"] = ""
---Translation missing 
--- L["S_GROUPFINDER_KICK_DESC"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS_ASKX"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS_DONTLEAVE"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = ""
---Translation missing 
--- L["S_GROUPFINDER_NOPVP"] = ""
---Translation missing 
--- L["S_GROUPFINDER_OT_ENABLED"] = ""
---Translation missing 
--- L["S_GROUPFINDER_QUEUEBUSY"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RESULTS_APPLYING"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RESULTS_APPLYING1"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RESULTS_FOUND"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RESULTS_FOUND1"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RESULTS_UNAPPLY"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RIGHTCLICKCLOSE"] = ""
---Translation missing 
--- L["S_GROUPFINDER_SECONDS"] = ""
---Translation missing 
--- L["S_GROUPFINDER_TITLE"] = ""
---Translation missing 
--- L["S_GROUPFINDER_TUTORIAL1"] = ""
+-- L["S_GROUPFINDER_ACTIONS_CREATE_DIRECT"] = ""
+L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = "是否要離開隊伍?"
+L["S_GROUPFINDER_ACTIONS_LEAVINGIN"] = "幾秒後會離開隊伍 (點一下立即離開)："
+L["S_GROUPFINDER_ACTIONS_RETRYSEARCH"] = "重新搜尋"
+L["S_GROUPFINDER_ACTIONS_SEARCH"] = "點一下開始搜尋隊伍"
+L["S_GROUPFINDER_ACTIONS_SEARCH_TOOLTIP"] = "加入正在做這個任務的隊伍"
+L["S_GROUPFINDER_ACTIONS_SEARCHING"] = "正在搜尋..."
+L["S_GROUPFINDER_ACTIONS_SEARCHMORE"] = "點一下搜尋更多隊伍成員"
+L["S_GROUPFINDER_ACTIONS_SEARCHOTHER"] = "是否要離開並且搜尋其他隊伍?"
+L["S_GROUPFINDER_ACTIONS_UNAPPLY1"] = "點一下取消申請，以便建立新的隊伍"
+L["S_GROUPFINDER_ACTIONS_UNLIST"] = "點一下將目前的隊伍從清單中移除"
+L["S_GROUPFINDER_ACTIONS_UNLISTING"] = "正在從清單中移除..."
+L["S_GROUPFINDER_ACTIONS_WAITING"] = "正在等候..."
+L["S_GROUPFINDER_ENABLED"] = "新任務自動開啟"
+L["S_GROUPFINDER_LEAVEOPTIONS"] = "離開隊伍選項"
+L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = "幾秒後離開"
+L["S_GROUPFINDER_LEAVEOPTIONS_ASKX"] = "不要自動離開，只要詢問幾秒"
+L["S_GROUPFINDER_LEAVEOPTIONS_DONTLEAVE"] = "不要顯示離開面板"
+L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "任務完成時立刻離開"
+L["S_GROUPFINDER_NOPVP"] = "避免 PvP 伺服器"
+L["S_GROUPFINDER_OT_ENABLED"] = "在任務目標清單上顯示按鈕"
+L["S_GROUPFINDER_QUEUEBUSY"] = "已經在等候佇列中。"
+L["S_GROUPFINDER_RESULTS_APPLYING"] = "尚有 %d 個隊伍，請再點一下"
+L["S_GROUPFINDER_RESULTS_APPLYING1"] = "尚有 1 個隊伍可以加入，請再點一下"
+L["S_GROUPFINDER_RESULTS_FOUND"] = [=[找到 %d 個隊伍
+點一下加入]=]
+L["S_GROUPFINDER_RESULTS_FOUND1"] = [=[找到 1 個隊伍
+點一下加入]=]
+L["S_GROUPFINDER_RESULTS_UNAPPLY"] = "尚有 %d 個申請..."
+L["S_GROUPFINDER_RIGHTCLICKCLOSE"] = "右鍵點擊關閉面板"
+L["S_GROUPFINDER_SECONDS"] = "秒"
+L["S_GROUPFINDER_TITLE"] = "隊伍搜尋器"
+L["S_GROUPFINDER_TUTORIAL1"] = "加入正在做同一個任務的隊伍，更快完成世界任務!"
 L["S_MAPBAR_AUTOWORLDMAP"] = "自動世界地圖"
 L["S_MAPBAR_AUTOWORLDMAP_DESC"] = [=[在達拉然和職業大廳按下 'M' 會直接顯示破碎群島的地圖。
 
