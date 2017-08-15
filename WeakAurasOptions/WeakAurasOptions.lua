@@ -540,6 +540,7 @@ function WeakAuras.ConstructOptions(prototype, data, startorder, subPrefix, subS
           name = arg.display,
           order = order,
           hidden = hidden,
+          desc = arg.desc,
           disabled = function() return not trigger["use_"..realname]; end,
           get = function() return trigger["use_"..realname] and trigger[realname] or nil; end,
           set = function(info, v)
@@ -950,7 +951,6 @@ function WeakAuras.ConstructOptions(prototype, data, startorder, subPrefix, subS
 end
 
 local frame;
-
 local db;
 local odb;
 local options;
@@ -2027,7 +2027,6 @@ local function replaceValuesFuncs(intable, data)
   recurse(intable);
 end
 
-
 function WeakAuras.AddOption(id, data)
   local regionOption;
   if(regionOptions[data.regionType]) then
@@ -2558,7 +2557,6 @@ function WeakAuras.AddOption(id, data)
               end
 
               local custom = data.actions.finish.message_custom;
-
               if (not custom) then
                 return true;
               end

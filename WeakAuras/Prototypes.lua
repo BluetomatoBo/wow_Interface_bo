@@ -13,12 +13,12 @@ local GetSpellInfo, GetItemInfo, GetItemCount, GetItemIcon = GetSpellInfo, GetIt
 local GetShapeshiftFormInfo, GetShapeshiftForm = GetShapeshiftFormInfo, GetShapeshiftForm
 local GetRuneCooldown, UnitCastingInfo, UnitChannelInfo = GetRuneCooldown, UnitCastingInfo, UnitChannelInfo
 
-local WeakAuras = WeakAuras;
-local L = WeakAuras.L;
+local WeakAuras = WeakAuras
+local L = WeakAuras.L
 
 local SpellRange = LibStub("SpellRange-1.0")
 function WeakAuras.IsSpellInRange(spellId, unit)
-  return SpellRange.IsSpellInRange(spellId, unit);
+  return SpellRange.IsSpellInRange(spellId, unit)
 end
 
 WeakAuras.encounter_table = {
@@ -55,6 +55,18 @@ WeakAuras.encounter_table = {
   [1897] = 2052, -- Maiden of Vigilance
   [1873] = 2038, -- Fallen Avatar
   [1898] = 2051, -- Kiljaeden
+  -- Antorus, the Burning Throne
+  [1984] = 2063, -- Aggramar
+  [1985] = 2064, -- Portal Keeper Hasabel
+  [1983] = 2069, -- Varimathras
+  [1997] = 2070, -- War Council
+  [1986] = 2073, -- The Coven of Shivarra
+  [1987] = 2074, -- Hounds of Sargeras
+  [2025] = 2075, -- Eonar, the Lifebinder
+  [1992] = 2076, -- Garothi Worldbreaker
+  [2009] = 2082, -- Imonar the Soulhunter
+  [2004] = 2088, -- Kin'garoth
+  [2031] = 2092, -- Argus the Unmaker
 }
 
 local function get_encounters_list()
@@ -457,14 +469,12 @@ function WeakAuras.CheckPvpTalentByIndex(index)
   return selected
 end
 
-
 function WeakAuras.CheckNumericIds(loadids, currentId)
   if (not loadids or not currentId) then
     return false;
   end
 
   local searchFrom = 0;
-
   local startI, endI = string.find(loadids, currentId, searchFrom);
   while (startI) do
     searchFrom = endI + 1; -- start next search from end
@@ -524,6 +534,21 @@ function WeakAuras.UseUnitPowerThirdArg(powerType)
     return true;
   end
   return nil;
+end
+
+function WeakAuras.GetNumSetItemsEquipped(setID)
+  if not setID or not type(setID) == "number" then return end
+  local itemList = C_LootJournal.GetItemSetItems(setID)
+  if not itemList then return end
+  local setName = GetItemSetInfo(setID)
+  local max = #itemList
+  local equipped = 0
+  for _,v in ipairs(itemList) do
+    if IsEquippedItem(v.itemID) then
+      equipped = equipped + 1
+    end
+  end
+  return equipped, max, setName
 end
 
 local function valuesForTalentFunction(trigger)
@@ -827,7 +852,7 @@ WeakAuras.load_prototype = {
     },
     {
       name = "difficulty",
-      display = L["Dungeon Difficulty"],
+      display = L["Instance Difficulty"],
       type = "multiselect",
       values = "difficulty_types",
       init = "arg"
@@ -3394,7 +3419,63 @@ WeakAuras.event_prototypes = {
     hasItemID = true,
     automaticrequired = true
   },
-  ["Item Set Equipped"] = {
+  ["Item Set"] = {
+    type = "status",
+    events = {
+      "PLAYER_EQUIPMENT_CHANGED",
+    },
+    force_events = "PLAYER_EQUIPMENT_CHANGED",
+    name = L["Item Set Equipped"],
+    automaticrequired = true,
+    init = function(trigger)
+      return string.format("local setid = %s;\n", trigger.itemSetId and tonumber(trigger.itemSetId) or "0");
+    end,
+    statesParameter = "one",
+    args = {
+      {
+        name = "itemSetId",
+        display = L["Item Set Id"],
+        type = "string",
+        test = "true",
+        store = "true",
+        required = true,
+        validate = WeakAuras.ValidateNumeric,
+        desc = function()
+          local classFilter, specFilter = C_LootJournal.GetClassAndSpecFilters();
+          local currentClass = select(3, UnitClass("player"));
+          local specID = GetSpecializationInfo(GetSpecialization());
+
+          local sets = C_LootJournal.GetFilteredItemSets();
+          C_LootJournal.SetClassAndSpecFilters(classFilter, specFilter);
+
+          local description = "";
+          for index, set in ipairs(sets) do
+            description = description .. set.name .. ": " .. set.setID .. "\n";
+          end
+
+          description = description .. "\n" .. L["Older set IDs can be found on websites such as wowhead.com/item-sets"];
+
+          return description;
+        end
+      },
+      {
+        name = "equipped",
+        display = L["Equipped"],
+        type = "number",
+        init = "WeakAuras.GetNumSetItemsEquipped(setid)",
+        store = true,
+        required = true,
+        conditionType = "number"
+      }
+    },
+    durationFunc = function(trigger)
+      return WeakAuras.GetNumSetItemsEquipped(trigger.itemSetId and tonumber(trigger.itemSetId) or 0)
+    end,
+    nameFunc = function(trigger)
+      return select(3, WeakAuras.GetNumSetItemsEquipped(trigger.itemSetId and tonumber(trigger.itemSetId) or 0));
+    end
+  },
+  ["Equipment Set"] = {
     type = "status",
     events = {
       "PLAYER_EQUIPMENT_CHANGED",
@@ -3463,10 +3544,13 @@ WeakAuras.event_prototypes = {
   },
   ["Threat Situation"] = {
     type = "status",
-    events = {
-      "UNIT_THREAT_SITUATION_UPDATE",
-      "PLAYER_TARGET_CHANGED"
-    },
+    events = function(trigger)
+      local result = {
+        "UNIT_THREAT_SITUATION_UPDATE",
+      };
+      AddUnitChangeEvents(trigger.threatUnit, result);
+      return result;
+    end,
     force_events = true,
     name = L["Threat Situation"],
     init = function(trigger)
@@ -3482,7 +3566,7 @@ WeakAuras.event_prototypes = {
         name = "threatUnit",
         display = L["Unit"],
         required = true,
-        type = "select",
+        type = "unit",
         values = "threat_unit_types",
         test = "true"
       },
@@ -3533,6 +3617,7 @@ WeakAuras.event_prototypes = {
         "UNIT_SPELLCAST_DELAYED",
         "UNIT_SPELLCAST_INTERRUPTIBLE",
         "UNIT_SPELLCAST_NOT_INTERRUPTIBLE",
+        "CAST_REMAINING_CHECK"
       };
       AddUnitChangeEvents(trigger.unit, result);
       return result;
@@ -3546,18 +3631,32 @@ WeakAuras.event_prototypes = {
         local inverse = %s
         local spell, interruptible, _;
         local castType;
-        spell, _, _, _, _, _, _, _, interruptible = UnitCastingInfo(unit)
+        local endTime;
+        spell, _, _, _, _, endTime, _, _, interruptible = UnitCastingInfo(unit)
         if(spell) then
           castType = "cast"
         else
-          spell, _, _, _, _, _, _, interruptible = UnitChannelInfo(unit)
+          spell, _, _, _, _, endTime, _, interruptible = UnitChannelInfo(unit)
           if(spell) then
             castType = "channel"
           end
         end
         interruptible = not interruptible;
       ]=];
-      return ret:format(trigger.unit, trigger.use_inverse and "true" or "false");
+      ret = ret:format(trigger.unit, trigger.use_inverse and "true" or "false");
+
+      if(trigger.use_remaining) then
+        local ret2 = [[
+          local expirationTime = endTime and endTime > 0 and (endTime / 1000) or 0;
+          local remaining = expirationTime - GetTime();
+          local remainingCheck = %s;
+          if(remaining >= remainingCheck) then
+            WeakAuras.ScheduleCastCheck(expirationTime - remainingCheck);
+          end
+        ]];
+        ret = ret .. ret2:format(tonumber(trigger.remaining or 0) or 0);
+      end
+      return ret;
     end,
     statesParameter = "one",
     args = {
@@ -3594,6 +3693,11 @@ WeakAuras.event_prototypes = {
         enable = function(trigger) return not(trigger.use_inverse) end,
         store = true,
         conditionType = "bool"
+      },
+      {
+        name = "remaining",
+        display = L["Remaining Time"],
+        type = "number",
       },
       {
         name = "inverse",

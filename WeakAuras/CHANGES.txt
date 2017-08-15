@@ -1,12 +1,140 @@
-tag 571e8c67fc92aa9479fc768f8d2983d71a97ab50 2.4.16
+tag a079f18e499d2f24a75c74a57f818ce484b5c34a 2.4.17
 Author:	Benjamin Staneck <staneck@gmail.com>
-Date:	Tue Jul 25 00:20:50 2017 +0200
+Date:	Mon Aug 14 16:29:00 2017 +0200
 
-commit 334ce71855a5d0edb0378b2fb6df9d064470d5f5
+commit e5c0b1c19aa0cf0c1eff984325d72e85ad124ac6
 Author: Benjamin Staneck <staneck@gmail.com>
-Date:   Tue Jul 25 00:20:36 2017 +0200
+Date:   Mon Aug 14 16:28:32 2017 +0200
 
-    Revert "Reset duration info on applying a state without progress information"
+    at per workspace indent settings for vscode
+
+commit c7501939d46107b6e49684c8df6b5171d3914f3d
+Author: Infus <infus@squorn.de>
+Date:   Fri Aug 11 18:57:36 2017 +0200
+
+    Add a "remaining time" check to the Cast Trigger
     
-    This reverts commit 8a99fb211ea21bc3f99acd17527d3eec9b36fb16.
+    Github Issue: 265
+
+commit 50560979b9af8d8fe2e1767530de6ae88180cd73
+Author: Infus <infus@squorn.de>
+Date:   Fri Aug 11 18:24:30 2017 +0200
+
+    Threat trigger: Add Focus and "Specific" to the unit selection
+    
+    This allows tracking the player's threat against more unit ids.
+    
+    Ticket-Nr: 1021
+
+commit 4f58152ca0f72783079de808ae06623cf9557774
+Author: Infus <infus@squorn.de>
+Date:   Fri Aug 4 19:02:10 2017 +0200
+
+    Fix Minimize with Templates open
+    
+    Reported via a curse comment
+
+commit 5787bd588d062b56267127d6758d3b1b6aa3cbe1
+Author: Infus <infus@squorn.de>
+Date:   Fri Aug 4 18:38:40 2017 +0200
+
+    Circular Progress Texture: Fix background looking strange
+    
+    Instead of using self.texture:GetSize() use region.width.
+    
+    The former might not be up to date, due to how Blizzard's lazy
+    layouting works, whereas we can easily keep track of the size
+    the region should have.
+    
+    Ticket-Nr: 1018
+
+commit 151c1e4c5f3bf5e3926fd6e834a2246e260e3a9f
+Author: Benjamin Staneck <staneck@gmail.com>
+Date:   Mon Jul 31 00:44:13 2017 +0200
+
+    Delete old CONTRIBUTING.md
+
+commit 75a38c8807c5e4f12fc09b1d4a7f1c536fea8851
+Author: Benjamin Staneck <staneck@gmail.com>
+Date:   Mon Jul 31 00:40:28 2017 +0200
+
+    Add a CONTRIBUTING.md file
+    
+    Based on https://github.com/XhmikosR/mpc-hc/blob/develop/CONTRIBUTING.md and https://github.com/WeakAuras/WeakAuras2/pull/249
+    Closes https://github.com/WeakAuras/WeakAuras2/pull/249
+
+commit b0c413b4262f13276d011b013607b3f6a22d2f2f
+Author: Infus <infus@squorn.de>
+Date:   Sat Jul 29 20:02:48 2017 +0200
+
+    Fix duration info not clearing on switching states
+    
+    Github Ticket: 248
+
+commit 96d5515a6b9e6cc2018bb0eca1c89362bcb87adc
+Author: Infus <infus@squorn.de>
+Date:   Sat Jul 29 18:42:08 2017 +0200
+
+    Text: Work around a Blizzard bug in how text widths are calculated
+    
+    The automatic calculation of widths in OUTLINE or THICKOUTLINE mode
+    can introduce an additional line break into the text.
+    
+    By setting the width to 0, the automatic calculation is used.
+    We then set the text width to 1.2 times that calculated size
+    
+    Ticket-Nr: 1014
+
+commit e5fdd891009c600751474cc22c8b4c888cf8c700
+Author: Infus <infus@squorn.de>
+Date:   Sat Jul 29 01:54:07 2017 +0200
+
+    Add a Item Set trigger, which can check how many set items are equipped
+    
+    Code mostly by Asakawa
+
+commit 5972bebe8ff287cd7e46cca8f9723bded90aee01
+Author: Infus <infus@squorn.de>
+Date:   Fri Jul 28 21:42:18 2017 +0200
+
+    Add a Version field to auras which is shown in tooltips
+    
+    This is handled the same as the url. It's automatically filled by
+    websites such as wago.io.
+    
+    Github-Ticket: 257
+
+commit 83717c984ec98331c53457df6e71dd045641ed45
+Author: Benjamin Staneck <staneck@gmail.com>
+Date:   Thu Jul 27 07:17:16 2017 +0200
+
+    Whitespace cleanups
+
+commit 27afb8533a6900f0ed562f6c593bcdb8b6026081
+Author: Benjamin Staneck <staneck@gmail.com>
+Date:   Wed Jul 26 04:43:10 2017 +0200
+
+    add mixin stuff to .luacheckrc
+
+commit 48bd68d20f295d096f2ce2abcb8540e5ee995412
+Author: Benjamin Staneck <staneck@gmail.com>
+Date:   Wed Jul 26 02:23:02 2017 +0200
+
+    add the Antorus encounter ids
+
+commit a19fa74b3c23aed9242648d199add9f18265c04a
+Author: Infus <infus@squorn.de>
+Date:   Tue Jul 25 20:07:02 2017 +0200
+
+    Rename "Dungeon Difficulty" load option to "Instance Difficulty"
+    
+    Since it does include e.g. LFR
+    
+    Ticket-Nr: 1012
+
+commit 65c9dab9e996d70991d82d0dcc9344c5ba8579a3
+Author: kesava-wow <kesava-wow@users.noreply.github.com>
+Date:   Tue Jul 25 16:36:46 2017 +0100
+
+    fix PRD hook when KNP option 'ignore personal nameplate' is used
 

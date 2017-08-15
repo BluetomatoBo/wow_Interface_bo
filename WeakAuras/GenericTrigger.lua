@@ -911,7 +911,6 @@ do
   end
 end
 
-
 local combatLogUpgrade = {
   ["sourceunit"] = "sourceUnit",
   ["source"] = "sourceName",
@@ -956,6 +955,10 @@ function GenericTrigger.Modernize(data)
       if (type(trigger.spellId) == "number") then
         trigger.spellId = tostring(trigger.spellId);
       end
+    end
+
+    if trigger and trigger["event"] and trigger["event"] == "Item Set Equipped" then
+      trigger.event = "Equipment Set";
     end
 
     -- Convert ember trigger
@@ -2180,13 +2183,13 @@ do
     scheduled_scans[fireTime] = nil;
     WeakAuras.ScanEvents("BigWigs_Timer_Update");
   end
+
   function WeakAuras.ScheduleBigWigsCheck(fireTime)
     if not(scheduled_scans[fireTime]) then
       scheduled_scans[fireTime] = timer:ScheduleTimer(doBigWigsScan, fireTime - GetTime() + 0.1, fireTime);
       WeakAuras.debug("Scheduled BigWigs scan at "..fireTime);
     end
   end
-
 end
 
 -- Weapon Enchants
@@ -2363,6 +2366,22 @@ do
     if not(scheduled_scans[fireTime]) then
       WeakAuras.debug("Scheduled cooldown scan at "..fireTime);
       scheduled_scans[fireTime] = timer:ScheduleTimer(doCooldownScan, fireTime - GetTime() + 0.1, fireTime);
+    end
+  end
+end
+
+do
+  local scheduled_scans = {};
+
+  local function doCastScan(fireTime)
+    WeakAuras.debug("Performing cast scan at "..fireTime.." ("..GetTime()..")");
+    scheduled_scans[fireTime] = nil;
+    WeakAuras.ScanEvents("CAST_REMAINING_CHECK");
+  end
+  function WeakAuras.ScheduleCastCheck(fireTime)
+    if not(scheduled_scans[fireTime]) then
+      WeakAuras.debug("Scheduled cast scan at "..fireTime);
+      scheduled_scans[fireTime] = timer:ScheduleTimer(doCastScan, fireTime - GetTime() + 0.1, fireTime);
     end
   end
 end
