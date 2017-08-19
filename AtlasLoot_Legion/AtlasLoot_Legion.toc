@@ -1,6 +1,6 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.05.04
+## Version: v8.05.05
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -14,6 +14,7 @@
 ## Notes: AtlasLoot loot tables from Legion
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Legion
 ## Notes-koKR: AtlasLoot 군단 전리품 목록
+## Notes-ruRU: AtlasLoot таблица добычи из Legion
 ## Notes-zhCN: AltasLoot 军团再临拾取列表
 ## Notes-zhTW: AtlasLoot 軍臨天下資料片物品掉落資料庫
 #@end-non-debug@

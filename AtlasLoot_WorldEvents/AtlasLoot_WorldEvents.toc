@@ -1,6 +1,6 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.05.04
+## Version: v8.05.05
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -14,6 +14,7 @@
 ## Notes: AtlasLoot loot tables from world events
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Weltereignisse
 ## Notes-koKR: AtlasLoot 전역 이벤트 전리품 목록
+## Notes-ruRU: AtlasLoot таблица добычи для мировых событий
 ## Notes-zhCN: AtlasLoot 《世界事件》物品信息
 ## Notes-zhTW: AtlasLoot 世界事件物品掉落資料庫
 #@end-non-debug@

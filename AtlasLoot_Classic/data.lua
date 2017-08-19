@@ -12,17 +12,17 @@ local RF_DIFF = data:AddDifficulty(AL["Raid Finder"], "rf", nil, 17)
 local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", nil, 1)
 local HEROIC_DIFF = data:AddDifficulty(AL["Heroic"], "h", nil, 2)
 local P25_DIFF = data:AddDifficulty(AL["25 Player"], "p25", nil, 4)
-local REMOVED_DIFF = data:AddDifficulty(AL["Removed"], "removed")
+--local REMOVED_DIFF = data:AddDifficulty(AL["Removed"], "removed")
 
 local NORMAL_ITTYPE = data:AddItemTableType("Item", "Item")
 local AC_ITTYPE = data:AddItemTableType("Achievement", "Item")
-local REMOVED_ITTYPE = data:AddItemTableType("Item", "Droprate")
+--local REMOVED_ITTYPE = data:AddItemTableType("Item", "Droprate")
 
 local QUEST_EXTRA_ITTYPE = data:AddExtraItemTableType("Quest")
 
 local DUNGEON_CONTENT = data:AddContentType(AL["Dungeons"], ATLASLOOT_DUNGEON_COLOR)
 local RAID_CONTENT = data:AddContentType(AL["Raids"], ATLASLOOT_RAID_COLOR)
-local REMOVED_CONTENT = data:AddContentType(AL["Removed"], ATLASLOOT_REMOVED_COLOR)
+--local REMOVED_CONTENT = data:AddContentType(AL["Removed"], ATLASLOOT_REMOVED_COLOR)
 
 -- Shared loot tables
 local CLASSIC_INSTANCE_AC_TABLE = {	--[Classic Dungeonmaster]

@@ -23,43 +23,43 @@ local GetTime = GetTime
 local ATLASLOOT_MODULE_LIST = {
 	{
 		addonName = "AtlasLoot_Legion",
-		name = EXPANSION_NAME6,
+		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievements_Zone_BrokenShore", EXPANSION_NAME6),
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_WarlordsofDraenor",
-		name = EXPANSION_NAME5,
+		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievement_Zone_Draenor_01", EXPANSION_NAME5),
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_MistsofPandaria",
-		name = EXPANSION_NAME4,
+		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\INV_Pet_Achievement_Pandaria", EXPANSION_NAME4),
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_Cataclysm",
-		name = EXPANSION_NAME3,
+		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievement_Zone_Cataclysm", EXPANSION_NAME3),
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_WrathoftheLichKing",
-		name = EXPANSION_NAME2,
+		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievement_Zone_Northrend_01", EXPANSION_NAME2),
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_BurningCrusade",
-		name = EXPANSION_NAME1,
+		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievement_Zone_Outland_01", EXPANSION_NAME1),
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_Classic",
-		name = EXPANSION_NAME0,
+		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievement_Zone_EasternKingdoms_01", EXPANSION_NAME0),
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},

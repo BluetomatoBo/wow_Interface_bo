@@ -11,7 +11,7 @@ local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", nil, 1)
 local HEROIC_DIFF = data:AddDifficulty(AL["Heroic"], "h", nil, 2)
 local P25_DIFF = data:AddDifficulty(AL["25 Player"], "p25", nil, 4)
 local P25H_DIFF = data:AddDifficulty(AL["25 Player Heroic"], "p25h", nil, 6)
-local REMOVED_DIFF = data:AddDifficulty(AL["Removed"], "removed")
+--local REMOVED_DIFF = data:AddDifficulty(AL["Removed"], "removed")
 
 local NORMAL_ITTYPE = data:AddItemTableType("Item", "Item")
 local AC_ITTYPE = data:AddItemTableType("Achievement", "Item")
@@ -2703,7 +2703,7 @@ data["Naxxramas"] = {
 				{ 23, 39716 },	-- Shield of Assimilation
 				{ 24, 39712 },	-- Gemmed Wand of the Nerubians
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Faerlina
 			--name = BB["Grand Widow Faerlina"],
@@ -2746,7 +2746,7 @@ data["Naxxramas"] = {
 				{ 24, 40074 },	-- Strong-Handed Ring
 				{ 26, "ac2140" },
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Maexxna
 			--name = BB["Maexxna"],
@@ -2793,7 +2793,7 @@ data["Naxxramas"] = {
 				{ 28, 93030, "pet1143" },	-- Dusty Clutch of Eggs
 				{ 30, "ac1859" },
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Noth
 			--name = BB["Noth the Plaguebringer"],\
@@ -2834,7 +2834,7 @@ data["Naxxramas"] = {
 				{ 23, 40108 },	-- Seized Beauty
 				{ 24, 40074 },	-- Strong-Handed Ring
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Heigan
 			--name = BB["Heigan the Unclean"],
@@ -2878,7 +2878,7 @@ data["Naxxramas"] = {
 				{ 25, 40233 },	-- The Undeath Carrier
 				{ 27, "ac2139" },
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Loatheb
 			--name = BB["Loatheb"],
@@ -2912,7 +2912,7 @@ data["Naxxramas"] = {
 				{ 22, 40639 },	-- Mantle of the Lost Vanquisher
 				{ 24, "ac2183" },
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Razuvious
 			--name = BB["Instructor Razuvious"],
@@ -2953,7 +2953,7 @@ data["Naxxramas"] = {
 				{ 23, 40108 },	-- Seized Beauty
 				{ 24, 40074 },	-- Strong-Handed Ring
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Gothik
 			--name = BB["Gothik the Harvester"],
@@ -2994,7 +2994,7 @@ data["Naxxramas"] = {
 				{ 23, 40336 },	-- Life and Death
 				{ 24, 40335 },	-- Touch of Horror
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80FourHorsemen
 			--name = BB["The Four Horsemen"],
@@ -3026,7 +3026,7 @@ data["Naxxramas"] = {
 				{ 18, 40627 },	-- Breastplate of the Lost Vanquisher
 				{ 20, "ac2177" },
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Patchwerk
 			--name = BB["Patchwerk"],
@@ -3068,7 +3068,7 @@ data["Naxxramas"] = {
 				{ 24, 40074 },	-- Strong-Handed Ring
 				{ 26, "ac1857" },
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Grobbulus
 			--name = BB["Grobbulus"],
@@ -3111,7 +3111,7 @@ data["Naxxramas"] = {
 				{ 25, 40280 },	-- Origin of Nightmares
 				{ 26, 40284 },	-- Plague Igniter
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Gluth
 			--name = BB["Gluth"],
@@ -3200,7 +3200,7 @@ data["Naxxramas"] = {
 				{ 125, 40635 },	-- Legplates of the Lost Protector
 				{ 126, 40636 },	-- Legplates of the Lost Vanquisher
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Thaddius
 			--name = BB["Thaddius"],
@@ -3234,7 +3234,7 @@ data["Naxxramas"] = {
 				{ 22, "ac2179" },
 				{ 23, "ac2181" },
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Sapphiron
 			--name = BB["Sapphiron"],
@@ -3277,7 +3277,7 @@ data["Naxxramas"] = {
 				{ 26, "ac573" },
 				{ 27, "ac2147" },
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80KelThuzad
 			--name = BB["Kel'Thuzad"],
@@ -3323,7 +3323,7 @@ data["Naxxramas"] = {
 				{ 24, "ac1658" },
 				{ 25, "ac2185" },
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Naxx80Trash
 			name = AL["Trash Mobs"],
@@ -3345,14 +3345,14 @@ data["Naxxramas"] = {
 				{ 6, 40407 },	-- Silent Crusader
 				{ 7, 40406 },	-- Inevitable Defeat
 			},
-			[REMOVED_DIFF] = "AtlasLoot_Classic",
+--			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
 		{	--Tier 7 Sets
 			name = format(AL["Tier %d Sets"], 7),
 			ExtraList = true,
 			[NORMAL_DIFF] = "AtlasLoot_Collections:TIERSETS:7",
 			[P25_DIFF] = "AtlasLoot_Collections:TIERSETS:7",
-			[REMOVED_DIFF] = "AtlasLoot_Collections:TIERSETS:3:n",
+--			[REMOVED_DIFF] = "AtlasLoot_Collections:TIERSETS:3:n",
 		},
 		WOTLK_RAID1_10_AC_TABLE,
 		WOTLK_RAID1_25_AC_TABLE,

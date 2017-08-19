@@ -1,6 +1,6 @@
 ## Interface: 70200
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.05.04
+## Version: v8.05.05
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -14,6 +14,7 @@
 ## Notes: AtlasLoot options module
 ## Notes-deDE: AtlasLoot Modul für Einstellungen
 ## Notes-koKR: AtlasLoot 옵션 모듈
+## Notes-ruRU: AtlasLoot модуль опций
 ## Notes-zhCN: AtlasLoot 选项模块
 ## Notes-zhTW: AtlasLoot 選項設定模組
 #@end-non-debug@
