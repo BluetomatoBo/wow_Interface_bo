@@ -1,7 +1,7 @@
-changeset:   184:9afc213aecd7
-tag:         v7.2.5.184-release
+changeset:   186:50835119fc79
+tag:         v7.2.5.186-release
 user:        Tercio
-date:        Sat Aug 12 17:36:04 2017 -0300
-summary:     - commit for tagging the release.
+date:        Thu Aug 17 11:12:27 2017 -0300
+summary:     - middle click on the icon on the quest tracker won't popup the group finder if the auto open is disabled.
 
 
