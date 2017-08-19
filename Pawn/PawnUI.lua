@@ -1195,7 +1195,7 @@ end
 -- Swaps the left and right comparison items.
 function PawnUI_SwapCompareItems()
 	local Item1, Item2 = PawnUIComparisonItems[1], PawnUIComparisonItems[2]
-	PlaySound("igMainMenuOptionCheckBoxOn")
+	if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) else PlaySound("igMainMenuOptionCheckBoxOn") end
 	-- Set the right item to nil first so that unnecessary comparisons aren't performed.
 	PawnUI_SetCompareItem(2, nil)
 	PawnUI_SetCompareItem(1, Item2)
@@ -1484,7 +1484,7 @@ end
 
 -- Called when one of the two upper item slots are clicked.
 function PawnUICompareItemIcon_OnClick(Index)
-	PlaySound("igMainMenuOptionCheckBoxOn")
+	if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) else PlaySound("igMainMenuOptionCheckBoxOn") end
 	
 	-- Are they shift-clicking it to insert the item into chat?
 	if IsModifiedClick("CHATLINK") then
@@ -1533,7 +1533,7 @@ end
 
 -- Sets the left item to the item depicted in the "currently equipped" shortcut button.
 function PawnUICompareItemShortcut_OnClick(self, Button)
-	PlaySound("igMainMenuOptionCheckBoxOn")
+	if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) else PlaySound("igMainMenuOptionCheckBoxOn") end
 	local ShortcutIndex = self:GetID()
 	
 	-- Are they shift-clicking it to insert the item into chat?
@@ -1720,7 +1720,7 @@ function PawnUIFrame_GemList_UpdateInfo(self)
 	if Icon and not Icon:GetTexture() then
 		local Label = getglobal(tostring(self:GetName()) .. "Name")
 		local Item = PawnGetItemData("item:" .. self:GetID())
-		if PawnRefreshCachedItem(Item) then
+		if Item and PawnRefreshCachedItem(Item) then
 			Label:SetText(Item.Name)
 			Icon:SetTexture(Item.Texture)
 		end
@@ -2307,13 +2307,13 @@ function PawnUIShowTab(Tab, Toggle)
 		PawnUIShow()
 		PawnUISwitchToTab(Tab)
 	elseif not Tab:IsShown() then
-		PlaySound("igCharacterInfoTab")
+		if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) else PlaySound("igCharacterInfoTab") end
 		PawnUISwitchToTab(Tab)
 	else
 		if Toggle then
 			PawnUIShow()
 		else
-			PlaySound("igMainMenuOptionCheckBoxOn")
+			if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) else PlaySound("igMainMenuOptionCheckBoxOn") end
 		end
 	end
 end
