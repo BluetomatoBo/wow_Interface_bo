@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1897, "DBM-TombofSargeras", nil, 875)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16509 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16586 $"):sub(12, -3))
 mod:SetCreatureID(118289)
 mod:SetEncounterID(2052)
 mod:SetZone()
 mod:SetUsedIcons(4, 1)
-mod:SetHotfixNoticeRev(16285)
+mod:SetHotfixNoticeRev(16509)
 mod.respawnTime = 30
 
 mod:RegisterCombat("combat")
@@ -72,6 +72,7 @@ local countdownFelHammer			= mod:NewCountdown("Alt18", 241636)
 
 --Stage One: Divide and Conquer
 --local voiceInfusion					= mod:NewVoice(235271)--specialsoon
+local voicePhaseChange				= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_TEXT)
 local voiceFelInfusion				= mod:NewVoice(235240)--felinfusion
 local voiceLightInfusion			= mod:NewVoice(235213)--lightinfusion
 local voiceUnsableSoul				= mod:NewVoice(235117)--jumpinpit
@@ -184,6 +185,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		countdownLightHammer:Cancel()
 		timerFelHammerCD:Stop()
 		countdownFelHammer:Cancel()
+		voicePhaseChange:Play("phasechange")
 	end
 end
 
@@ -245,7 +247,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		self.vb.shieldActive = true
 		if self.Options.InfoFrame then
 			DBM.InfoFrame:SetHeader(shieldname)
-			DBM.InfoFrame:Show(2, "enemyabsorb", shieldname)
+			DBM.InfoFrame:Show(2, "enemyabsorb", nil, UnitGetTotalAbsorbs("boss1"))
 		end
 	end
 end
@@ -286,6 +288,7 @@ function mod:SPELL_AURA_REMOVED(args)
 		self.vb.hammerCount = 0
 		self.vb.infusionCount = 0
 		self.vb.massShitCount = 0
+		voicePhaseChange:Play("phasechange")
 		if self:IsLFR() then
 			timerMassInstabilityCD:Start(8, 1)
 			timerInfusionCD:Start(61, 1)
@@ -318,7 +321,7 @@ end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
-	if spellId == 239153 then--Kil'jaeden Take Off Sound (intermission 1)
+	if spellId == 239153 then
 		self.vb.spontFragmentationCount = self.vb.spontFragmentationCount + 1
 		if self.vb.spontFragmentationCount < 4 then
 			timerSpontFragmentationCD:Start(nil, self.vb.spontFragmentationCount+1)

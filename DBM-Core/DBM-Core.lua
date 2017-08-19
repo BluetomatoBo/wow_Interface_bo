@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 16528 $"):sub(12, -3)),
-	DisplayVersion = "7.2.16", -- the string that is shown as version
-	ReleaseRevision = 16528 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 16590 $"):sub(12, -3)),
+	DisplayVersion = "7.2.17", -- the string that is shown as version
+	ReleaseRevision = 16590 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -269,7 +269,6 @@ DBM.DefaultOptions = {
 	CATATWMessageShown = false,
 	MISTSTWMessageShown = false,
 	AlwaysShowSpeedKillTimer = true,
-	CRT_Enabled = false,
 	ShowRespawn = true,
 	ShowQueuePop = true,
 	HelpMessageVersion = 3,
@@ -346,7 +345,6 @@ local loadOptions
 local checkWipe
 local checkBossHealth
 local checkCustomBossHealth
-local loopCRTimer
 local fireEvent
 local playerName = UnitName("player")
 local playerLevel = UnitLevel("player")
@@ -2549,7 +2547,7 @@ do
 			return
 		end
 		if not IsAddOnLoaded("DBM-GUI") then
-			if InCombatLockdown() or IsFalling() then
+			if InCombatLockdown() or UnitAffectingCombat("player") or IsFalling() then
 				guiRequested = true
 				self:AddMsg(DBM_CORE_LOAD_GUI_COMBAT)
 				return
@@ -3669,7 +3667,7 @@ do
 		if LastInstanceMapID == mapID then
 			self:Debug("No action taken because mapID hasn't changed since last check", 2)
 			return
-		end--ID hasn't changed, don't waste cpu doing anything else (example situation, porting into garrosh phase 4 is a loading screen)
+		end--ID hasn't changed, don't waste cpu doing anything else (example situation, porting into garrosh stage 4 is a loading screen)
 		LastInstanceMapID = mapID
 		LastGroupSize = instanceGroupSize
 		difficultyIndex = difficulty
@@ -3710,7 +3708,7 @@ do
 		timerRequestInProgress = false
 		self:Debug("LOADING_SCREEN_DISABLED fired")
 		self:Unschedule(SecondaryLoadCheck)
-		self:Schedule(1.5, SecondaryLoadCheck, self)
+		SecondaryLoadCheck(self)
 		self:Schedule(5, SecondaryLoadCheck, self)
 		if DBM:HasMapRestrictions() then
 			DBM.Arrow:Hide()
@@ -3771,7 +3769,7 @@ function DBM:LoadMod(mod, force)
 		end
 		return
 	end
-	if (InCombatLockdown() or IsFalling()) and not IsEncounterInProgress() and IsInInstance() and not noDelay then
+	if (InCombatLockdown() or UnitAffectingCombat("player") or IsFalling()) and not IsEncounterInProgress() and IsInInstance() and not noDelay then
 		self:Debug("LoadMod delayed do to combat")
 		if not loadDelay then--Prevent duplicate DBM_CORE_LOAD_MOD_COMBAT message.
 			self:AddMsg(DBM_CORE_LOAD_MOD_COMBAT:format(tostring(mod.name)))
@@ -3815,7 +3813,7 @@ function DBM:LoadMod(mod, force)
 				C_TimerAfter(15, function() timerRequestInProgress = false end)
 			end
 		end
-		if not InCombatLockdown() and not IsFalling() then--We loaded in combat because a raid boss was in process, but lets at least delay the garbage collect so at least load mod is half as bad, to do our best to avoid "script ran too long"
+		if not InCombatLockdown() and not UnitAffectingCombat("player") and not IsFalling() then--We loaded in combat because a raid boss was in process, but lets at least delay the garbage collect so at least load mod is half as bad, to do our best to avoid "script ran too long"
 			collectgarbage("collect")
 		end
 		if loadDelay2 == mod then
@@ -3929,7 +3927,7 @@ do
 	
 	syncHandlers["NS"] = function(sender, modid, modvar, text, abilityName)
 		if sender == playerName then return end
-		if DBM.Options.BlockNoteShare or InCombatLockdown() or IsFalling() then return end
+		if DBM.Options.BlockNoteShare or InCombatLockdown() or UnitAffectingCombat("player") or IsFalling() then return end
 		if IsInGroup(LE_PARTY_CATEGORY_INSTANCE) and IsInInstance() then return end
 		--^^You are in LFR, BG, or LFG. Block note syncs. They shouldn't be sendable, but in case someone edits DBM^^
 		local mod = DBM:GetModByName(modid or "")
@@ -4239,20 +4237,21 @@ do
 					AddMsg(DBM, ("|HDBM:update:%s:%s|h|cff3588ff[%s]"):format(displayVersion, version, DBM_CORE_UPDATEREMINDER_URL or "http://www.deadlybossmods.com"))
 					showConstantReminder = 1
 				elseif not noRaid and #newerVersionPerson == 3 and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
-					--Find min revision.
-					local revDifference = mmin((raid[newerVersionPerson[1]].revision - DBM.Revision), (raid[newerVersionPerson[2]].revision - DBM.Revision), (raid[newerVersionPerson[3]].revision - DBM.Revision))
+					--Disable if revision grossly out of date even if not major patch.
+					if raid[newerVersionPerson[1]].revision and raid[newerVersionPerson[2]].revision and raid[newerVersionPerson[3]].revision then
+						local revDifference = mmin((raid[newerVersionPerson[1]].revision - DBM.Revision), (raid[newerVersionPerson[2]].revision - DBM.Revision), (raid[newerVersionPerson[3]].revision - DBM.Revision))
+						if revDifference > 100 then
+							if updateNotificationDisplayed < 3 then
+								updateNotificationDisplayed = 3
+								AddMsg(DBM, DBM_CORE_UPDATEREMINDER_DISABLE)
+								DBM:Disable()
+							end
+						end
 					--Disable if out of date and it's a major patch.
-					if not testBuild and dbmToc < wowTOC then
+					elseif not testBuild and dbmToc < wowTOC then
 						updateNotificationDisplayed = 3
 						AddMsg(DBM, DBM_CORE_UPDATEREMINDER_MAJORPATCH)
 						DBM:Disable()
-					--Disable if revision grossly out of date even if not major patch.
-					elseif revDifference > 100 then
-						if updateNotificationDisplayed < 3 then
-							updateNotificationDisplayed = 3
-							AddMsg(DBM, DBM_CORE_UPDATEREMINDER_DISABLE)
-							DBM:Disable()
-						end
 					end
 				end
 			end
@@ -5449,12 +5448,6 @@ function checkCustomBossHealth(self, mod)
 	self:Schedule(1, checkCustomBossHealth, self, mod)
 end
 
-function loopCRTimer(self, timer, mod)
-	local crTimer = mod:NewTimer(timer, DBM_COMBAT_RES_TIMER_TEXT, "Interface\\Icons\\Spell_Nature_Reincarnation", nil, false)
-	crTimer:Start()
-	self:Schedule(timer, loopCRTimer, self, timer, mod)
-end
-
 do
 	local statVarTable = {
 		--6.0
@@ -5612,28 +5605,6 @@ do
 					if bestTime and bestTime > 0 then
 						local speedTimer = mod:NewTimer(bestTime, DBM_SPEED_KILL_TIMER_TEXT, "Interface\\Icons\\Spell_Holy_BorrowedTime", nil, false)
 						speedTimer:Start()
-					end
-				end
-				--Combat Rez timer, if not a world boss or 5 man dungeon.
-				if self.Options.CRT_Enabled and difficultyIndex ~= 0 and difficultyIndex ~= 1 and difficultyIndex ~= 2 and difficultyIndex ~= 19 and difficultyIndex ~= 24 and not self.Options.DontShowBossTimers then
-					local charges, maxCharges, started, duration = GetSpellCharges(20484)
-					if charges then
-						local time = duration - (GetTime() - started)
-						loopCRTimer(self, time, mod)
-						self:Debug("CRT started by charges", 2)
-					elseif difficultyIndex == 14 or difficultyIndex == 15 or difficultyIndex == 17 then--Flexible difficulties
-						local time = 90/LastGroupSize
-						time = time * 60
-						loopCRTimer(self, time, mod)
-						self:Debug("CRT started by Flexible code", 2)
-					else--Fixed difficulties (LastGroupSize cannot be trusted, this INCLUDES mythic. If you underman mythic then it is NOT 90/20)
-						local realGroupSize = self:GetNumRealPlayersInZone()
-						if realGroupSize > 1 then
-							local time = 90/realGroupSize
-							time = time * 60
-							loopCRTimer(self, time, mod)
-							self:Debug("CRT started by iffy fixed size code", 2)
-						end
 					end
 				end
 				--update boss left
@@ -6009,7 +5980,6 @@ do
 				self:HideBlizzardEvents(0)
 				self:Unschedule(checkBossHealth)
 				self:Unschedule(checkCustomBossHealth)
-				self:Unschedule(loopCRTimer)
 				self.BossHealth:Hide()
 				self.Arrow:Hide(true)
 				if watchFrameRestore then
@@ -6746,7 +6716,7 @@ do
 		testTimer4:Start(20, "Important Interrupt")
 		testTimer5:Start(60, "Boom!")
 		testTimer6:Start(35, "Handle your Role")
-		testTimer7:Start(50, "Next Phase")
+		testTimer7:Start(50, "Next Stage")
 		testTimer8:Start(55, "Custom User Bar")
 		testCount1:Cancel()
 		testCount1:Start(43)
@@ -8741,9 +8711,9 @@ do
 			else
 				text = DBM_CORE_AUTO_ANNOUNCE_TEXTS[announceType]:format(spellName, DBM_CORE_SEC_FMT:format(tostring(preWarnTime or 5)))
 			end
-		elseif announceType == "phase" or announceType == "prephase" then
+		elseif announceType == "stage" or announceType == "prestage" then
 			text = DBM_CORE_AUTO_ANNOUNCE_TEXTS[announceType]:format(tostring(spellId))
-		elseif announceType == "phasechange" then
+		elseif announceType == "stagechange" then
 			text = DBM_CORE_AUTO_ANNOUNCE_TEXTS.spell
 		else
 			text = DBM_CORE_AUTO_ANNOUNCE_TEXTS[announceType]:format(spellName)
@@ -8850,16 +8820,16 @@ do
 		return newAnnounce(self, "prewarn", spellId, color or 1, icon, optionDefault, optionName, nil, time, noSound)
 	end
 
-	function bossModPrototype:NewPhaseAnnounce(phase, color, icon, ...)
-		return newAnnounce(self, "phase", phase, color or 1, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
+	function bossModPrototype:NewPhaseAnnounce(stage, color, icon, ...)
+		return newAnnounce(self, "stage", stage, color or 1, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
 	end
 
 	function bossModPrototype:NewPhaseChangeAnnounce(color, icon, ...)
-		return newAnnounce(self, "phasechange", 0, color or 1, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
+		return newAnnounce(self, "stagechange", 0, color or 1, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
 	end
 
-	function bossModPrototype:NewPrePhaseAnnounce(phase, color, icon, ...)
-		return newAnnounce(self, "prephase", phase, color or 1, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
+	function bossModPrototype:NewPrePhaseAnnounce(stage, color, icon, ...)
+		return newAnnounce(self, "prestage", stage, color or 1, icon or "Interface\\Icons\\Spell_Nature_WispSplode", ...)
 	end
 end
 
@@ -9127,6 +9097,7 @@ end
 --  Yell Object  --
 --------------------
 do
+	local voidForm = GetSpellInfo(194249)
 	local yellPrototype = {}
 	local mt = { __index = yellPrototype }
 	local function newYell(self, yellType, spellId, yellText, optionDefault, optionName, chatType)
@@ -9160,7 +9131,8 @@ do
 			{
 				text = displayText or yellText,
 				mod = self,
-				chatType = chatType
+				chatType = chatType,
+				yellType = yellType
 			},
 			mt
 		)
@@ -9176,7 +9148,7 @@ do
 	end
 
 	function yellPrototype:Yell(...)
-		if DBM.Options.DontSendYells then return end
+		if DBM.Options.DontSendYells or self.yellType and self.yellType == "position" and UnitBuff("player", voidForm) then return end
 		if not self.option or self.mod.Options[self.option] then
 			SendChatMessage(pformat(self.text, ...), self.chatType or "SAY")
 		end
@@ -9188,7 +9160,9 @@ do
 	end
 
 	function yellPrototype:Countdown(time, numAnnounces, ...)
-		scheduleCountdown(time, numAnnounces, self.Yell, self.mod, self, ...)
+		if not UnitBuff("player", voidForm) then
+			scheduleCountdown(time, numAnnounces, self.Yell, self.mod, self, ...)
+		end
 	end
 
 	function yellPrototype:Cancel(...)
@@ -9945,7 +9919,7 @@ do
 			local timer = timer and ((timer > 0 and timer) or self.timer + timer) or self.timer
 			--AI timer api:
 			--Starting ai timer with (1) indicates it's a first timer after pull
-			--Starting timer with (2) or (3) indicates it's a phase 2 or phase 3 first timer
+			--Starting timer with (2) or (3) indicates it's a stage 2 or stage 3 first timer
 			--Starting AI timer with anything above 3 indicarets it's a regular timer and to use shortest time in between two regular casts
 			if self.type == "ai" then--A learning timer
 				if not DBM.Options.AITimer then return end
@@ -10060,9 +10034,9 @@ do
 			--msg: Timer Text
 			--timer: Raw timer value (number).
 			--Icon: Texture Path for Icon
-			--type: Timer type (Cooldowns: cd, cdcount, nextcount, nextsource, cdspecial, nextspecial, phase, ai. Durations: target, active, fades, roleplay. Casting: cast)
+			--type: Timer type (Cooldowns: cd, cdcount, nextcount, nextsource, cdspecial, nextspecial, stage, ai. Durations: target, active, fades, roleplay. Casting: cast)
 			--spellId: Raw spellid if available (most timers will have spellId or EJ ID unless it's a specific timer not tied to ability such as pull or combat start or rez timers. EJ id will be in format ej%d
-			--colorID: Type classification (1-Add, 2-Aoe, 3-targeted ability, 4-Interrupt, 5-Role, 6-Phase, 7-User(custom))
+			--colorID: Type classification (1-Add, 2-Aoe, 3-targeted ability, 4-Interrupt, 5-Role, 6-Stage, 7-User(custom))
 			--Mod ID: Encounter ID as string, or a generic string for mods that don't have encounter ID (such as trash, dummy/test mods)
 			fireEvent("DBM_TimerStart", id, msg, timer, self.icon, self.type, self.spellId, colorId, self.mod.id)
 			tinsert(self.startedTimers, id)
@@ -10235,9 +10209,9 @@ do
 		if timerType == "achievement" then
 			spellName = select(2, GetAchievementInfo(spellId))
 			icon = type(texture) == "number" and select(10, GetAchievementInfo(texture)) or texture or spellId and select(10, GetAchievementInfo(spellId))
-		elseif timerType == "cdspecial" or timerType == "nextspecial" or timerType == "phase" then
+		elseif timerType == "cdspecial" or timerType == "nextspecial" or timerType == "stage" then
 			icon = type(texture) == "number" and GetSpellTexture(texture) or texture or type(spellId) == "string" and select(4, EJ_GetSectionInfo(string.sub(spellId, 3))) ~= "" and select(4, EJ_GetSectionInfo(string.sub(spellId, 3))) or (type(spellId) == "number" and GetSpellTexture(spellId)) or "Interface\\Icons\\Spell_Nature_WispSplode"
-			if timerType == "phase" then
+			if timerType == "stage" then
 				colorType = 6
 			end
 		elseif timerType == "roleplay" then
@@ -10291,8 +10265,8 @@ do
 		-- todo: move the string creation to the GUI with SetFormattedString...
 		if timerType == "achievement" then
 			self.localization.options[id] = DBM_CORE_AUTO_TIMER_OPTIONS[timerType]:format(GetAchievementLink(spellId):gsub("%[(.+)%]", "%1"))
-		elseif timerType == "cdspecial" or timerType == "nextspecial" or timerType == "phase" or timerType == "roleplay" then--Timers without spellid, generic
-			self.localization.options[id] = DBM_CORE_AUTO_TIMER_OPTIONS[timerType]--Using more than 1 phase timer or more than 1 special timer will break this, fortunately you should NEVER use more than 1 of either in a mod
+		elseif timerType == "cdspecial" or timerType == "nextspecial" or timerType == "stage" or timerType == "roleplay" then--Timers without spellid, generic
+			self.localization.options[id] = DBM_CORE_AUTO_TIMER_OPTIONS[timerType]--Using more than 1 stage timer or more than 1 special timer will break this, fortunately you should NEVER use more than 1 of either in a mod
 		else
 			self.localization.options[id] = DBM_CORE_AUTO_TIMER_OPTIONS[timerType]:format(unparsedId)
 		end
@@ -10370,7 +10344,7 @@ do
 	end
 	
 	function bossModPrototype:NewPhaseTimer(...)
-		return newTimer(self, "phase", ...)
+		return newTimer(self, "stage", ...)
 	end
 	
 	function bossModPrototype:NewRPTimer(...)

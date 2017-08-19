@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1737, "DBM-Nighthold", nil, 786)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16509 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16586 $"):sub(12, -3))
 mod:SetCreatureID(104154)--The Demon Within (111022)
 mod:SetEncounterID(1866)
 mod:SetZone()
@@ -86,7 +86,7 @@ local specWarnEyeofGuldan			= mod:NewSpecialWarningSwitchCount(209270, "Dps", ni
 local specWarnCarrionWave			= mod:NewSpecialWarningInterrupt(208672, "HasInterrupt", nil, nil, 1, 2)
 --Stage Three: The Master's Power
 local specWarnStormOfDestroyer		= mod:NewSpecialWarningDodge(161121, nil, nil, nil, 2, 2)
-local specWarnSoulCorrosion			= mod:NewSpecialWarningStack(208802, nil, 3, nil, nil, 1, 6)--stack guessed
+local specWarnSoulCorrosion			= mod:NewSpecialWarningStack(208802, nil, 5, nil, nil, 1, 6)--stack guessed
 local specWarnBlackHarvest			= mod:NewSpecialWarningCount(206744, nil, nil, nil, 2, 2)
 local specWarnFlamesOfSargeras		= mod:NewSpecialWarningMoveAway(221606, nil, nil, nil, 3, 2)
 local yellFlamesofSargeras			= mod:NewPosYell(221606, 15643)
@@ -167,6 +167,7 @@ local countdownFlameCrash			= mod:NewCountdown("AltTwo36", 227071, "Tank", nil, 
 
 --Stage One: The Council of Elders
 ----Gul'dan
+local voicePhaseChange				= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_TEXT)
 local voiceLiquidHellfire			= mod:NewVoice(206219)--watchstep
 local voiceFelEfflux				= mod:NewVoice(206514)--159202 (flame jet)
 ----Fel Lord Kuraz'mal
@@ -614,7 +615,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnSoulSiphon:CombinedShow(0.3, args.destName)
 	elseif spellId == 208802 then
 		local amount = args.amount or 1
-		if args:IsPlayer() and amount >= 3 then
+		if args:IsPlayer() and amount >= 5 then
 			specWarnSoulCorrosion:Show(amount)
 			voiceSoulCorrosion:Play("stackhigh")
 		end
@@ -687,6 +688,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self:IsMythic() then
 			self.vb.phase = 2
 			warnPhase2:Show()
+			voicePhaseChange:Play("ptwo")
 			timerDzorykxCD:Stop()
 			timerFelLordKurazCD:Stop()
 			timerFlamesofSargerasCD:Start(24.5, "1-1")
@@ -698,6 +700,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			self.vb.phase = 3
 			warnPhase3:Show()
+			voicePhaseChange:Play("pthree")
 			timerBlackHarvestCD:Start(self:IsLFR() and 73 or 63, 1)
 			countdownBlackHarvest:Start(self:IsLFR() and 73 or 63)
 			if self:IsEasy() then
@@ -874,6 +877,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, spellGUID)
 				self.vb.phase = 2
 				self.vb.liquidHellfireCast = 0
 				warnPhase2:Show()
+				voicePhaseChange:Play("ptwo")
 				timerLiquidHellfireCD:Stop()
 				countdownLiquidHellfire:Cancel()
 				timerFelEffluxCD:Stop()

@@ -43,7 +43,7 @@
 --
 
 
-local revision =("$Revision: 16492 $"):sub(12, -3)
+local revision =("$Revision: 16562 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
@@ -2344,6 +2344,9 @@ local function CreateOptionsMenu()
 			resetDBTValueToDefault(BarScaleSlider, "Scale")
 			resetDBTValueToDefault(BarOffsetXSlider, "BarXOffset")
 			resetDBTValueToDefault(BarOffsetYSlider, "BarYOffset")
+			--TimerX
+			--TimerY
+			--TimerPoint
 		end)
 
 		-----------------------
@@ -2389,6 +2392,9 @@ local function CreateOptionsMenu()
 			resetDBTValueToDefault(HugeBarScaleSlider, "HugeScale")
 			resetDBTValueToDefault(HugeBarOffsetXSlider, "HugeBarXOffset")
 			resetDBTValueToDefault(HugeBarOffsetYSlider, "HugeBarYOffset")
+			--HugeTimerPoint
+			--HugeTimerX
+			--HugeTimerY
 		end)
 
 		BarSetupPanel:SetMyOwnHeight()
@@ -3472,10 +3478,9 @@ local function CreateOptionsMenu()
 		local AFKHealthWarning		= soundAlertsArea:CreateCheckButton(L.AFKHealthWarning, true, nil, "AFKHealthWarning")
 		local AutoReplySound		= soundAlertsArea:CreateCheckButton(L.AutoReplySound, true, nil, "AutoReplySound")
 
-		local generaltimeroptions	= extraFeaturesPanel:CreateArea(L.TimerGeneral, nil, 125, true)
+		local generaltimeroptions	= extraFeaturesPanel:CreateArea(L.TimerGeneral, nil, 105, true)
 
 		local SKT_Enabled		= generaltimeroptions:CreateCheckButton(L.SKT_Enabled, true, nil, "AlwaysShowSpeedKillTimer")
-		local CRT_Enabled		= generaltimeroptions:CreateCheckButton(L.CRT_Enabled, true, nil, "CRT_Enabled")
 		local RespawnTimer		= generaltimeroptions:CreateCheckButton(L.ShowRespawn, true, nil, "ShowRespawn")
 		local QueueTimer		= generaltimeroptions:CreateCheckButton(L.ShowQueuePop, true, nil, "ShowQueuePop")
 

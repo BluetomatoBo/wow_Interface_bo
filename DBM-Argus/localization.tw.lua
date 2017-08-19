@@ -1,4 +1,4 @@
-if GetLocale() ~= "deDE" then return end
+if GetLocale() ~= "zhTW" then return end
 local L
 
 -----------------------
