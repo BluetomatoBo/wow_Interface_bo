@@ -19,7 +19,7 @@ DBM_CORE_LOAD_MOD_VER_MISMATCH		= "DBM-Core가 로딩 조건과 맞지 않아 %s
 DBM_CORE_LOAD_MOD_DISABLED			= "%s|1이;가; 설치는 돼있지만 켜져있질 않습니다. 직접 켜기 전까진 모드가 로딩되지 않습니다."
 DBM_CORE_LOAD_MOD_DISABLED_PLURAL	= "%s|1이;가; 설치는 돼있지만 켜져있질 않습니다. 직접 켜기 전까진 모드들이 로딩되지 않습니다."
 
-DBM_CORE_WHATS_NEW					= "오버워치와 히어로즈 오브 더 스톰 초읽기 효과음이 DBM 핵심 모듈에서 분리되어 별도의 다운로드 파일로 옮겨졌습니다. 초읽기 팩을 다시 설치하려면 DBM-CountPack-Overwatch와 DBM-CountPack-HoTS를 다운로드 받으세요. 분리 작업을 통해 이들 게임에 캐릭터가 새로 추가될 떄마다 미디어 파일이 DBM에 추가되어 번번히 다시 다운로드 받는 일이 현저히 줄어들 것입니다. 또한 지금 보시는 메시지 같은게 다시 표시되지 않도록 숨기는 설정도 추가되었습니다."
+--DBM_CORE_WHATS_NEW					= "오버워치와 히어로즈 오브 더 스톰 초읽기 효과음이 DBM 핵심 모듈에서 분리되어 별도의 다운로드 파일로 옮겨졌습니다. 초읽기 팩을 다시 설치하려면 DBM-CountPack-Overwatch와 DBM-CountPack-HoTS를 다운로드 받으세요. 분리 작업을 통해 이들 게임에 캐릭터가 새로 추가될 떄마다 미디어 파일이 DBM에 추가되어 번번히 다시 다운로드 받는 일이 현저히 줄어들 것입니다. 또한 지금 보시는 메시지 같은게 다시 표시되지 않도록 숨기는 설정도 추가되었습니다."
 DBM_CORE_WHATS_NEW_LINK				= "정보: DBM 디스코드 채널에 오셔서 버그 제보나 피드백을 해주세요. 아니면 그냥 놀러 오셔도 됩니다. |HDBM:forumsnews|h|cff3588ff디스코드 채널 링크|r"
 
 --Post Patch 7.1
@@ -447,12 +447,14 @@ DBM_CORE_AUTO_YELL_OPTION_TEXT.yell		= "$spell:%s 대상일 때 대화로 알리
 DBM_CORE_AUTO_YELL_OPTION_TEXT.count		= "$spell:%s 대상일 때 대화로 알리기 (횟수 포함)"
 DBM_CORE_AUTO_YELL_OPTION_TEXT.fade		= "$spell:%s 지속시간이 끝나갈 때 대화로 알리기 (주문 이름 및 초읽기 포함)"
 DBM_CORE_AUTO_YELL_OPTION_TEXT.shortfade	= "$spell:%s 지속시간이 끝나갈 때 대화로 알리기 (초읽기 포함)"
+DBM_CORE_AUTO_YELL_OPTION_TEXT.iconfade		= "$spell:%s 지속시간이 끝나갈 때 대화로 알리기 (초읽기 및 공격대 징표 포함)"
 DBM_CORE_AUTO_YELL_OPTION_TEXT.position	= "$spell:%s 대상일 때 대화로 알리기 (위치 포함)"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT.shortyell	= "%s"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT.yell	= UnitName("player") .. "에게 %s!"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT.count	= UnitName("player") .. "에게 %s! (%%d)"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT.fade	= "%s %%d초 후 사라짐!"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT.shortfade	= "%%d초"
+DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT.iconfade	= "{rt%%2$d}%%1$d"
 DBM_CORE_AUTO_YELL_ANNOUNCE_TEXT.position	= "{rt%%3$d}"..UnitName("player").."{rt%%3$d}에게 %1$s %%2$s"
 DBM_CORE_AUTO_HUD_OPTION_TEXT			= "$spell:%s에 HUD 표시 (중단됨)"
 DBM_CORE_AUTO_HUD_OPTION_TEXT_MULTI		= "여러 보스 기술에 HUD 표시 (중단됨)"
