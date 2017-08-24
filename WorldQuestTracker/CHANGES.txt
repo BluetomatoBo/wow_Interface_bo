@@ -1,7 +1,7 @@
-changeset:   186:50835119fc79
-tag:         v7.2.5.186-release
+changeset:   188:f2e843ce050a
+tag:         v7.2.5.188-release
 user:        Tercio
-date:        Thu Aug 17 11:12:27 2017 -0300
-summary:     - middle click on the icon on the quest tracker won't popup the group finder if the auto open is disabled.
+date:        Mon Aug 21 20:46:45 2017 -0300
+summary:     - Group Finder: middle click on the quest name in the quest tracker should pass the click if the auto open is disabled.
 
 
