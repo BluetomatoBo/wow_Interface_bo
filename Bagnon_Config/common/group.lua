@@ -113,6 +113,14 @@ function Options:CreateCheck(arg, onInput)
 	return child
 end
 
+function Options:CreateSmallCheck(parent, ...)
+	local check = self:CreateCheck(...)
+	check:SetDisabled(not self.sets[parent])
+	check:SetSmall(true)
+	check.left = 20
+	return check
+end
+
 function Options:CreatePercentSlider(arg, ...)
 	local child = self:CreateSlider(arg, ...)
 	child:SetCall('OnInput', function(self,v)

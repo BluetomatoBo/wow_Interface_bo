@@ -12,6 +12,7 @@ L.GeneralDesc = 'These are general features that can be toggled depending on you
 L.Locked = 'Lock Frames'
 L.Fading = 'Fading Effects'
 L.TipCount = 'Tooltip Item Count'
+L.CountGuild = 'Include Guild Banks'
 L.FlashFind = 'Flash Find'
 L.EmptySlots = 'Display Background on Empty Slots'
 L.DisplayBlizzard = 'Display Blizzard Frames for Hidden Bags'

@@ -37,6 +37,7 @@ StaticPopupDialogs[CONFIG .. '_ConfirmGlobals'] = {
 Addon.GeneralOptions = Addon.Options:NewPanel(nil, ADDON, L.GeneralDesc, function(self)
 	self:CreateCheck('locked')
 	self:CreateCheck('tipCount')
+	self:CreateSmallCheck('tipCount', 'countGuild')
 	self:CreateCheck('flashFind')
 
 	if Config.fading then
