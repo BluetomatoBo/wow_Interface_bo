@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1873, "DBM-TombofSargeras", nil, 875)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16616 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16669 $"):sub(12, -3))
 mod:SetCreatureID(116939)--Maiden of Valor 120437
 mod:SetEncounterID(2038)
 mod:SetZone()
@@ -62,7 +62,7 @@ local specWarnCorruptedMatrix		= mod:NewSpecialWarningMoveTo(233556, "Tank", nil
 local specWarnCleansingProtocol		= mod:NewSpecialWarningSwitch(233856, "-Healer", nil, nil, 3, 2)
 local specWarnTaintedEssence		= mod:NewSpecialWarningStack(240728, nil, 3, nil, nil, 1, 6)
 --Stage Two: An Avatar Awakened
-local specWarnDarkMark				= mod:NewSpecialWarningYou(239739, nil, nil, nil, 1, 2)
+local specWarnDarkMark				= mod:NewSpecialWarningYouPos(239739, nil, nil, nil, 1, 2)
 local specWarnDarkMarkOther			= mod:NewSpecialWarningMoveTo(239739, nil, nil, nil, 1, 2)
 local yellDarkMark					= mod:NewPosYell(239739)
 local yellDarkMarkFades				= mod:NewIconFadesYell(239739)
@@ -84,7 +84,8 @@ local timerTaintedMatrixCD			= mod:NewCastTimer(10, 240623, nil, nil, nil, 6)--M
 --Stage Two: An Avatar Awakened
 mod:AddTimerLine(SCENARIO_STAGE:format(2))
 local timerDarkMarkCD				= mod:NewCDCountTimer(34, 239739, nil, nil, nil, 3)
---local timerRainoftheDestroyerCD		= mod:NewCDTimer(44, 240396, nil, nil, nil, 3)
+local timerRainoftheDestroyerCD		= mod:NewAITimer(35, 240396, nil, nil, nil, 3)
+local timerRainoftheDestroyer		= mod:NewCastTimer(5.5, 240396, 206577, nil, nil, 3)--Shortname: Comet Impact
 
 local berserkTimer					= mod:NewBerserkTimer(420)
 
@@ -143,6 +144,8 @@ local function warnDarkMarkTargets(self, spellName)
 			local _, _, _, _, _, _, expires = UnitDebuff("player", spellName)
 			local remaining = expires-GetTime()
 			yellDarkMarkFades:Countdown(remaining, nil, icon)
+			specWarnDarkMark:Show(self:IconNumToTexture(icon))
+			voiceDarkMark:Play("targetyou")
 		end
 		if self.Options.SetIconOnDarkMark then
 			self:SetIcon(name, icon)
@@ -316,6 +319,9 @@ function mod:SPELL_CAST_START(args)
 		if self.Options.InfoFrame then
 			DBM.InfoFrame:Hide()
 		end
+		if self:IsMythic() then
+			timerRainoftheDestroyerCD:Start(2)
+		end
 	end
 end
 
@@ -341,10 +347,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		else
 			self:Schedule(0.5, warnDarkMarkTargets, self, args.spellName)--At least 0.5, maybe bigger needed if warning still splits
 		end
-		if args:IsPlayer() then
-			specWarnDarkMark:Show()
-			voiceDarkMark:Play("targetyou")
-		end
+--		if args:IsPlayer() then
+--			specWarnDarkMark:Show(self:IconNumToString())
+--			voiceDarkMark:Play("targetyou")
+--		end
 	elseif spellId == 234059 then
 		warnUnboundChaos:CombinedShow(0.3, args.destName)
 		if args:IsPlayer() then
@@ -405,15 +411,16 @@ end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
-	if msg:find("spell:234418") then
+	if msg:find("234418") then
 		specWarnRainoftheDestroyer:Show()
 		voiceRainoftheDestroyer:Play("watchstep")
-		--timerRainoftheDestroyerCD:Start()
+		timerRainoftheDestroyer:Start()
+		timerRainoftheDestroyerCD:Start()
 	end
 end
 
 function mod:RAID_BOSS_WHISPER(msg)
-	if msg:find("spell:236604") then
+	if msg:find("236604") then
 		specWarnShadowyBlades:Show()
 		voiceShadowyBlades:Play("runout")
 		--yellShadowyBlades:Yell()
@@ -421,7 +428,7 @@ function mod:RAID_BOSS_WHISPER(msg)
 end
 
 function mod:OnTranscriptorSync(msg, targetName)
-	if msg:find("spell:236604") then
+	if msg:find("236604") then
 		targetName = Ambiguate(targetName, "none")
 		if self:AntiSpam(4, targetName) then
 			local icon = self.vb.bladesIcon

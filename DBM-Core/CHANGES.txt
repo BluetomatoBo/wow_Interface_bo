@@ -1,304 +1,307 @@
-tag ede694b6f994d2fa85acd39f7e1eaf693e27c36b 7.2.18
+tag 022461608b78e415096f6791fb12a67f5819e168 7.3.0
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Tue Aug 22 22:57:44 2017 +0200
+Date:	Tue Aug 29 18:17:06 2017 +0200
 
-Tagging as 7.2.18
+Tagging as 7.3.0
 
-commit 549b7306848c547f2f9727904d5dd76e03262713
+commit cc1611d97aa219af324495fd9ce99aafc53ea61a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Aug 22 22:57:44 2017 +0200
+Date:   Tue Aug 29 18:17:06 2017 +0200
 
-    increment version number to 7.2.18
+    increment version number to 7.3.0
 
-commit 1945fd1ac524111020b1b4fec7739a5b6ed0b07b
+commit 3cc9ae7b235741b40f8f7771734848a06d19bd33
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Aug 22 21:15:43 2017 +0200
+Date:   Tue Aug 29 14:55:53 2017 +0200
 
-    Omega via svn r16632:
-    Reset localizer help message as well
+    Omega via svn r16674:
+    CN update
 
-commit da81406bde5e806912ea6763f3c45f51a0b232ae
+commit 0733896ac01f16010e40eeee7d540da555289aa2
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Aug 22 20:55:33 2017 +0200
+Date:   Tue Aug 29 10:57:40 2017 +0200
 
-    Omega via svn r16631:
-    combat end as well
+    Omega via svn r16673:
+    Bump TOCs
 
-commit 003340419e9f97fc41ca7bc36a93ff58c2f01efd
+commit ec65233151cc5d8141d10ce7939a1ae5c2bb7c03
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Aug 22 20:43:48 2017 +0200
+Date:   Tue Aug 29 03:21:49 2017 +0200
 
-    Omega via svn r16630:
-    Spam help message on combat end as well, and show them even on live for the fights that will have poor support on live.
+    Omega via svn r16672:
+    Fix placement
 
-commit dcabba184b708de752e853555affdc6ad107848f
+commit 7e0d18eea70a7d81eaa82733bdc85f5af3f21f6f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Aug 22 20:37:43 2017 +0200
+Date:   Tue Aug 29 03:07:27 2017 +0200
 
-    Omega via svn r16629:
-    Enable transcriptor log message in ALL difficulties
+    Omega via svn r16671:
+    attempt to handle missing singularity emotes so timers stay on track in stage 1-2 intermission of mythic KJ
 
-commit 6c36b8a80b3aa4cccedf2fbf7b5a630e37467cf6
+commit 1b9f9bec20ad35d6c3c3fe3a06df91fd39c6d440
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Aug 22 20:29:27 2017 +0200
+Date:   Tue Aug 29 01:43:30 2017 +0200
 
-    Omega via svn r16628:
-    Fix it showing wrong message
+    Omega via svn r16670:
+    Invasion mods update, all 6 now ready
 
-commit ac5a4f83335052985fb5dbb8d860a23a7640ec92
+commit aee672ee6caab716a8d541582eebf69263728038
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Aug 22 05:12:05 2017 +0200
+Date:   Mon Aug 28 23:24:54 2017 +0200
 
-    ultrashining via svn r16627:
+    Omega via svn r16669:
+    only search for number instead of spell:number in off chance some non english locals format it differently?
+
+commit 2bd91142ef110eb494d4f16d4c307832828cd175
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Aug 28 23:04:13 2017 +0200
+
+    Omega via svn r16668:
+    Use AI timer for now since don?\226?\128?\153t have most reliable way to check it
+
+commit 9cf2ebbb5799ffb43311536faa6152948935a379
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Aug 28 19:45:06 2017 +0200
+
+    Omega via svn r16667:
+    Add in yolo?\226?\128?\153s request, as well as fix missing timer
+
+commit 3090abfe18fcd7c67e24f70de42b3abeb15325f2
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Aug 28 16:21:20 2017 +0200
+
+    ultrashining via svn r16666:
     zhTW update
 
-commit 7488e0a5aae79997679327a67c4cb65377989606
+commit 59fbd874e542a0277f42c196b5e99e23992b8360
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Aug 22 02:46:21 2017 +0200
+Date:   Mon Aug 28 08:58:57 2017 +0200
 
-    Omega via svn r16626:
-    More nil checks
-    Fix bug where alpha revision check never actually fired
+    Omega via svn r16665:
+    Kr Update
 
-commit 9b05edece84e2c06f5b8d5637482478bf04c7608
+commit 34c624e441eea33184168a267164e3624fbc21d6
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Aug 21 22:52:06 2017 +0200
+Date:   Mon Aug 28 07:36:05 2017 +0200
 
-    Omega via svn r16625:
-    Updated what?\226?\128?\153s new. per usual localizers, commented out until you message message and then uncomment.
+    Omega via svn r16664:
+    About time this gets added, please localize before 7.3 if you can.
+    Also, a 4th invasion mod
 
-commit 419b2931c91719acad952196b1163878845f6a26
+commit d8779bcc519e97b454e741bad008a1a93b791b42
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Aug 21 22:47:20 2017 +0200
+Date:   Sun Aug 27 07:26:08 2017 +0200
 
-    Omega via svn r16624:
-    Change message/url on main GUI window to direct users to discord not the obsolete forums
+    Omega via svn r16663:
+    small antispam to talarn
+    3/6 argus invasion drycodes
 
-commit 42e8ff9e37dea7f0a09288c91250f08e8b691ce2
+commit 09e32ed6aef944d28cc64cbf15dd33396e785dbe
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Aug 21 22:28:19 2017 +0200
+Date:   Fri Aug 25 09:11:18 2017 +0200
 
-    Omega via svn r16623:
-    Fix GUI display of large bar
-
-commit dc6e26258a2ea91fdce989ce4c9edac93c61abeb
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Aug 21 22:16:55 2017 +0200
-
-    Omega via svn r16622:
-    small and large bars can now adjust fill and expand options independently of one another
-
-commit a1439ac0a34602c43324a4bd7e75637bf0770535
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Aug 21 10:50:10 2017 +0200
-
-    ultrashining via svn r16621:
-    zhTW update
-
-commit 9597da61484d9ad5bbe673e60206b52fbd1bdf6c
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Aug 21 10:07:58 2017 +0200
-
-    Omega via svn r16620:
-    Always show speedkill now off by default. As bosses gain more and more abilities, it?\226?\128?\153s become increasing important to keep timer clutter to a minimum. Of course, you can always turn feature back on, but it should not be the default any longer.
-
-commit fce0de8a045875d396686b4ca9665bb515819df0
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Aug 19 23:48:59 2017 +0200
-
-    Omega via svn r16619:
-    Antorus needs more counts too
-
-commit 400b846f6dffce19bb96dbcbf006b9be8f4f8ce6
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Aug 19 23:29:52 2017 +0200
-
-    Omega via svn r16618:
-    Fixed another bug with burden of pain
-    Add counts to several more timers
-
-commit ffe293f984a7a16cf47d9b1041e88279a35cb964
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Aug 19 20:48:48 2017 +0200
-
-    Omega via svn r16617:
-    Make DBM-DefaultSkin a dependency again
-
-commit bde630b7854fd75f5f6a759440eda0b63aadbf79
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Aug 19 05:46:28 2017 +0200
-
-    Omega via svn r16616:
-    Fulfil user request and add counts to unbound chaos, realities, and touch timers
-
-commit bdea800ec52324b57f63ceb3189eab0f8441815a
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Aug 19 05:39:43 2017 +0200
-
-    Omega via svn r16615:
-    Begin countdown work in antorus
-
-commit 4ee615cac27693bebcf9b4a8760e5d5c8b347dab
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Aug 19 04:53:54 2017 +0200
-
-    Omega via svn r16614:
-    Handle empowered pulse correctly.
-    comment cleanup
-
-commit 1d062a944aee8841393ad54c0910a24217294bec
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Aug 19 00:22:29 2017 +0200
-
-    Omega via svn r16613:
+    Omega via svn r16662:
     KR update
 
-commit 5cd2d338e9b05be53b3e43e7f59044133fb2ca1f
+commit c17f79b584404c575525ca5df3872211fcbc2101
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 23:28:55 2017 +0200
+Date:   Fri Aug 25 07:53:38 2017 +0200
 
-    Omega via svn r16612:
-    Fix error
+    Omega via svn r16661:
+    Better use of inline icons on sasszine, matching dungeon journal
 
-commit 8befe9d57231aa34e5d4a59105fe109367aef1cd
+commit 1bba85a7831da140cb582b172a955379a3201fb7
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 09:17:22 2017 +0200
+Date:   Fri Aug 25 07:09:46 2017 +0200
 
-    Omega via svn r16611:
-    and more tweaks, to prevent double registering
+    Omega via svn r16660:
+    Fancy up infusion messages too
 
-commit e3a1c119396be3ad230dc49e642c5e60aa1d9159
+commit c147ff939f395abe809e83aea78326990c27d6b6
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 09:15:13 2017 +0200
+Date:   Fri Aug 25 07:04:07 2017 +0200
 
-    Omega via svn r16610:
-    and another tweak
+    Omega via svn r16659:
+    Fix
 
-commit 93342a917f5cadb4c8b535f3d9290c8779afe36c
+commit 83970e55f22eec810892019c69b569c2ba67003e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 09:14:02 2017 +0200
+Date:   Fri Aug 25 06:55:48 2017 +0200
 
-    Omega via svn r16609:
-    Fix bug to make sure event is unregistered on combat end if combat ends before any damage goes out
+    Omega via svn r16658:
+    Use NewSpecialWarningYouPos more
+    Improve dread shark warning by request
 
-commit 725b4a782dbe5bfd14e512a2ca1e585c06820864
+commit 755017ea6296465727962252dbacdb39486de009
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 09:04:08 2017 +0200
+Date:   Fri Aug 25 06:13:52 2017 +0200
 
-    Omega via svn r16608:
-    remove unused shortterm on host
-    Add announce when first tick of burden of pain pulses on mythic difficulty sazzsine only
+    Omega via svn r16657:
+    Re-enable moon burn timer, but only in phase 1 and 2. it?\226?\128?\153s still too inaccurate in phase 3
+    Few mistress timer tweaks and ignore burden on non tanks for cast start pre warn
 
-commit 5536ee9c142628bbfdf52b0e340408d5aad13514
+commit 26b68a189d06ad0ec3e7f6f0e5f6161dcbe07199
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 07:36:43 2017 +0200
+Date:   Fri Aug 25 05:04:58 2017 +0200
 
-    Omega via svn r16607:
-    Add eonar icons to feedbacks
+    ultrashining via svn r16656:
+    zhTW update
 
-commit e652f1a39556dab7c3df051e15f165d1003a233a
+commit 2c0560d8f34e63a1fb52b808a3308b8aa296a636
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 07:25:40 2017 +0200
+Date:   Fri Aug 25 04:34:47 2017 +0200
 
-    Omega via svn r16606:
-    Fix voice pack filter with odyn warning
+    Omega via svn r16655:
+    CN update
 
-commit 435191afd53640cd187d492b16223a9c67c38a4a
+commit 5022e533246bca93bcfd7ade8cde3d00470b5b30
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 05:19:29 2017 +0200
+Date:   Fri Aug 25 02:38:04 2017 +0200
 
-    Omega via svn r16605:
-    Tone that back down to 1 icon per side with intial yell as well
+    Omega via svn r16654:
+    tweak
 
-commit 2887b8f7c79fda14dc9cb2479250b4de32520590
+commit 396c378099b666e1d53c7c7eb61d0c28943a7d6a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 04:35:03 2017 +0200
+Date:   Fri Aug 25 02:36:47 2017 +0200
 
-    Omega via svn r16604:
-    bump this too
+    Omega via svn r16653:
+    Yell tweaks for more uniformity
 
-commit 8d35a05e7949743cb349ab03f6db6b52bb58fb1d
+commit 32e40a18d2c300f6c58b6c8b858f249cf874eea3
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 04:32:58 2017 +0200
+Date:   Fri Aug 25 01:59:30 2017 +0200
 
-    Omega via svn r16603:
-    Bump version
+    Omega via svn r16652:
+    Fix bar movable drain so it also works well when huge bar > 10 seconds
 
-commit d542cfb5590d2d28e9d34851e2ae580a97f568ce
+commit 55c3b91a23f1e6960ca6b9f1a394d14c7ff0c2e3
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 03:32:45 2017 +0200
+Date:   Thu Aug 24 19:16:03 2017 +0200
 
-    Omega via svn r16602:
-    These are next timers
+    Omega via svn r16651:
+    CN update
 
-commit 53c65f8361e2d5fdf046a59e9d93e38c3f7b1564
+commit 2eea9a93c0cafac83b6f9e8bb129599c064f5657
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 02:50:29 2017 +0200
+Date:   Thu Aug 24 19:14:34 2017 +0200
 
-    Omega via svn r16601:
-    scrap moonburn timer, too variable, sometimes cast twice within seconds for no reason.
+    Omega via svn r16650:
+    Throttle fixate messages if you get multiple on Harj
+    Fix scythe timer showing for non tanks by default on Inq
+    Changed from the abyss from a special warning to a regular warning on sasszine to de-emphesize it. it?\226?\128?\153s not a hard switch just a ?\226?\128?\156be aware they spawned?\226?\128?\157
 
-commit dfafb13f1719d8445ae50701c5716a0e8fab4ac9
+commit 155d0965d12c51725f0ac03f54ea0eec94f0d4b1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 02:07:20 2017 +0200
+Date:   Thu Aug 24 08:46:42 2017 +0200
 
-    Omega via svn r16600:
-    Fix the fix
+    Omega via svn r16649:
+    Have source tank of burden of pain yell ?\226?\128?\156Pulse?\226?\128?\157 for first pulse
 
-commit affd1965db5b70f011374aae217fefea241750a7
+commit 65be31bf8ef56e269202af6f5b425c5d7acae9c6
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 01:55:39 2017 +0200
+Date:   Thu Aug 24 08:35:30 2017 +0200
 
-    Omega via svn r16599:
-    Some minor hasabel updates
+    Omega via svn r16648:
+    Fix bug where voice filter didn?\226?\128?\153t work on devouring maw
+    fixed bug where devouring maw timer icon was a gear instead of a shark
 
-commit b623fdc40b8f0df4a7fcf288fe0b3fe25af81896
+commit a1dbe220625699cbae05c6cc22fbfc9fd64ee497
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 01:05:39 2017 +0200
+Date:   Thu Aug 24 07:42:28 2017 +0200
 
-    Omega via svn r16598:
-    Fix hydra shot yells
+    Omega via svn r16647:
+    Make thundershock warning smarter
 
-commit 32f7bfa677b1c27b435188137b71456edd918452
+commit 6862ad166e140f38a2854b3a7514159892f751b5
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 18 00:43:24 2017 +0200
+Date:   Thu Aug 24 06:58:06 2017 +0200
 
-    Omega via svn r16597:
-    Some eonar updates/fixes
+    Omega via svn r16646:
+    Start at 4
 
-commit 95916f6d9f77ae612cc282aac61338844008882a
+commit bfeb95628466002a30e6ec18127918a3b035a1ea
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 17 22:06:56 2017 +0200
+Date:   Thu Aug 24 06:51:37 2017 +0200
 
-    Omega via svn r16596:
-    fix lua error
+    Omega via svn r16645:
+    Add yell for when you DROP a buffer fish
 
-commit a99a84f6940a9dfff7d01be210a0fc10b4826ab9
+commit c20241342bd05e67bef74582cfd0f83043150a65
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 17 20:20:07 2017 +0200
+Date:   Thu Aug 24 06:39:27 2017 +0200
 
-    tandanu via svn r16595:
-    fix nil check when someone leaves the raid
+    Omega via svn r16644:
+    raise alert level of burden
 
-commit 7eab5bc9a87e6b33a31f693dc5f9eaf9d21b6765
+commit f33491f6a02eddeb74621d8216dacfd5c0e64bd5
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 17 02:06:51 2017 +0200
+Date:   Thu Aug 24 06:08:27 2017 +0200
 
-    Omega via svn r16594:
-    Fix last
+    Omega via svn r16643:
+    Moved ink warning/timer to success instead of start to avoid duplicate warnings when stutter casting
 
-commit 207b66e85137be6cbf44cfaba19837c130ddf80d
+commit 8399832d7088448955ac28661fcb32e634628a33
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 17 01:43:17 2017 +0200
+Date:   Thu Aug 24 03:01:03 2017 +0200
 
-    Omega via svn r16593:
-    Uniform and prototype icon fades yells.
-    Use them on Kingaroth, fallen avatar, KJ, sasszine instead of hard coded custom ones
+    Omega via svn r16642:
+    Add missing berserk
 
-commit 587f554639d97d58e72ba68cad54d81700be7554
+commit ddb749ef9b127e367a17260acc0524b04aea5862
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Aug 16 11:51:29 2017 +0200
+Date:   Thu Aug 24 00:55:59 2017 +0200
 
-    tandanu via svn r16592:
+    Omega via svn r16641:
+    minor DBT debug
+
+commit a146e9b3dc5bbf31d5ef65dc23c6faaa0011d3e2
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Aug 24 00:49:42 2017 +0200
+
+    Omega via svn r16640:
+    Test passing spellname off for GTFO
+
+commit d472135eb767fbed705ebe3818bb98ff97b93e21
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Aug 24 00:34:28 2017 +0200
+
+    Omega via svn r16639:
+    Possibly fix volley glitch, or at very least fix extend code
+    Debug code added in case it still glitches
+
+commit da86a059fa4a3353b4b358631f2df1d5d9de75ad
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Aug 23 23:39:24 2017 +0200
+
+    tandanu via svn r16638:
+    make gtfo special warning spell name configurable with default set to 'bad'
+
+commit 91f27a945b97640209bcf1fd19aceef8b16010b6
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Aug 23 23:28:44 2017 +0200
+
+    Omega via svn r16637:
+    Change berserk back to 14. even though some logs weren?\226?\128?\153t berserking at 14, some are. guess it?\226?\128?\153s just variable.
+
+commit 7cd72f987e35c92e4b7147ebe28fd4d77abb3c43
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Aug 23 06:43:04 2017 +0200
+
+    Omega via svn r16636:
+    Fix warning being too spammy for healers
+
+commit edd2d2c91245fe7ab04276352b60492d47dbf5ac
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Aug 23 06:37:07 2017 +0200
+
+    Omega via svn r16635:
+    some minor timer tweaks
+
+commit 5d3085418288d2d8fa5ddb713443b964ba7e9439
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Aug 22 22:58:07 2017 +0200
+
+    tandanu via svn r16634:
     increment alpha version
 
