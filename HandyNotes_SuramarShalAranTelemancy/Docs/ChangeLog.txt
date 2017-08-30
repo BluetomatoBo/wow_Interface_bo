@@ -1,7 +1,18 @@
-$Id: ChangeLog.txt 39 2017-07-19 11:25:17Z arith $
+$Id: ChangeLog.txt 45 2017-08-29 18:38:28Z arith $
 
 Revision History:
 =================
+
+* v1.14 (Aug. 29, 2017)
+-----------------------
+- Fixed LibBabble-SubZone-3.0's packaging issue
+
+* v1.13 (Aug. 29, 2017)
+-----------------------
+- ToC update to support WoW 7.3.0
+- Lib Update: LibUIDropDownMenu, LibBabble-SubZone-3.0
+- Localization update:
+  - French (X0larinf)
 
 * v1.12 (Jul. 19, 2017)
 -----------------------
