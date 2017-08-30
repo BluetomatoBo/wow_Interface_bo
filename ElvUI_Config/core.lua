@@ -12,6 +12,15 @@ local AC = LibStub("AceConfig-3.0-ElvUI")
 local ACD = LibStub("AceConfigDialog-3.0-ElvUI")
 local ACR = LibStub("AceConfigRegistry-3.0-ElvUI")
 
+local _G = _G
+local UnitName = UnitName
+local UnitIsUnit = UnitIsUnit
+local UnitIsFriend = UnitIsFriend
+local UnitIsPlayer = UnitIsPlayer
+local UnitExists = UnitExists
+local GameTooltip_Hide = GameTooltip_Hide
+local GameFontHighlightSmall = _G['GameFontHighlightSmall']
+
 AC:RegisterOptionsTable("ElvUI", E.Options)
 ACD:SetDefaultSize("ElvUI", DEFAULT_WIDTH, DEFAULT_HEIGHT)
 
@@ -173,17 +182,15 @@ local profileTypeItems = {
 	["profile"] = L["Profile"],
 	["private"] = L["Private (Character Settings)"],
 	["global"] = L["Global (Account Settings)"],
-	["filtersNP"] = L["Filters (NamePlates)"],
-	["filtersUF"] = L["Filters (UnitFrames)"],
-	["filtersAll"] = L["Filters (All)"],
+	["filters"] = L["Aura Filters"],
+	["styleFilters"] = L["NamePlate Style Filters"],
 }
 local profileTypeListOrder = {
 	"profile",
 	"private",
 	"global",
-	"filtersNP",
-	"filtersUF",
-	"filtersAll",
+	"filters",
+	"styleFilters",
 }
 local exportTypeItems = {
 	["text"] = L["Text"],
