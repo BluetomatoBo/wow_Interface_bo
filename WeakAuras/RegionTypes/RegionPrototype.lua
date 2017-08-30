@@ -115,7 +115,7 @@ local function SoundPlayHelper(self)
     end
   elseif (options.sound == " KitID") then
     if (options.sound_kit_id) then
-      local _, handle = PlaySoundKitID(options.sound_kit_id, options.sound_channel or "Master");
+      local _, handle = PlaySound(options.sound_kit_id, options.sound_channel or "Master");
       self.soundHandle = handle;
     end
   else
@@ -132,7 +132,7 @@ local function SoundPlay(self, options)
   SoundPlayHelper(self);
 
   local loop = options.do_loop or options.sound_type == "Loop";
-  if (loop and options.sound_repeat) then
+  if (loop and options.sound_repeat and options.sound_repeat < WeakAuras.maxTimerDuration) then
     self.soundRepeatTimer = WeakAuras.timer:ScheduleRepeatingTimer(SoundPlayHelper, options.sound_repeat, self);
   end
 end

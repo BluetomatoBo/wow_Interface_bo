@@ -83,24 +83,20 @@ local L = WeakAuras.L
 	L["Buffs"] = "Stärkungszauber"
 	L["Cancel"] = "Abbrechen"
 	L["Cast"] = "Zauberwirken"
-	--Translation missing 
-	-- L["Concordance of the Legionfall"] = ""
+	L["Concordance of the Legionfall"] = "Einigkeit der Legionsrichter"
 	L["cooldown"] = "Abklingzeit"
 	L["Cooldowns"] = "Abklingzeiten"
 	L["Crimson Vial Item Count"] = "Gegenstandsanzahl Blutrote Phiole "
-	--Translation missing 
-	-- L["Damage Trinkets"] = ""
+	L["Damage Trinkets"] = "Schadensverursacher-Schmuckstücke"
 	L["debuff"] = "Schwächungszauber"
 	L["Debuffs"] = "Schwächungszauber"
 	L["Enchants"] = "Verzauberungen"
 	L["General"] = "Allgemein"
-	--Translation missing 
-	-- L["Healer Trinkets"] = ""
+	L["Healer Trinkets"] = "Heiler-Schmuckstücke"
 	L["Health"] = "Gesundheit"
 	L["Keeps existing triggers intact"] = "Verändert existierende Auslöser nicht"
 	L["Legendaries"] = "Legendäre Ggst."
-	--Translation missing 
-	-- L["Legion Sets"] = ""
+	L["Legion Sets"] = "Legion-Sets"
 	L["Nimble Brew Item Count"] = "Gegenstandsanzahl Schlüpfriges Gebräu"
 	L["Pet alive"] = "Begleiter am Leben"
 	L["Pet Behavior"] = "Begleiterverhalten"
@@ -119,13 +115,11 @@ local L = WeakAuras.L
 	-- L["Stagger"] = ""
 	--Translation missing 
 	-- L["Stun"] = ""
-	--Translation missing 
-	-- L["T19 Damage Trinkets"] = ""
+	L["T19 Damage Trinkets"] = "T19 Schadensverursacher-Schmuckstücke"
 	L["T19 Healer Trinkets"] = "T19 Heiler-Schmuckstücke"
 	L["T19 Sets"] = "T19-Sets"
 	L["T19 Tank Trinkets"] = "T19 Tank-Schmuckstücke"
-	--Translation missing 
-	-- L["Tank Trinkets"] = ""
+	L["Tank Trinkets"] = "Tank-Schmuckstücke"
 	L["Totem"] = "Totem"
 	L["Totems"] = "Totems"
 	L["Unknown Item"] = "Unbekannter Gegenstand"

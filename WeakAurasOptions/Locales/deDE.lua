@@ -92,8 +92,7 @@ Falls die Dauer der Animation auf |cFF00CC0010%|r gesetzt wurde und für die Anz
 	--Translation missing 
 	-- L["Bracket Matching"] = ""
 	L["Button Glow"] = "Schaltflächenleuchten"
-	--Translation missing 
-	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
+	L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = "Kann ein Name oder eine UnitID sein (z.B. party1). Ein Name funktioniert nur mit befreundeten Spielern in deiner Gruppe."
 	L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = "Kann ein Name oder eine UID (zb. party1) sein. Funktioniert nur für freundliche Spieler innerhalb deiner Gruppe."
 	L["Cancel"] = "Abbrechen"
 	L["Channel Number"] = "Kanalnummer"
@@ -162,8 +161,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Displays a text, works best in combination with other displays"] = "Zeigt einen Text an, funktioniert am besten in Kombination mit anderen Anzeigen"
 	L["Distribute Horizontally"] = "Horizontal verteilen"
 	L["Distribute Vertically"] = "Vertikal verteilen"
-	--Translation missing 
-	-- L["Do not copy any settings"] = ""
+	L["Do not copy any settings"] = "Keine Einstellungen kopieren"
 	L["Do not group this display"] = "Diese Anzeige nicht kopieren"
 	L["Done"] = "Fertig"
 	L["Drag to move"] = "Ziehen, um diese Anzeige zu verschieben"
@@ -194,8 +192,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Expand all loaded displays"] = "Alle geladenen Anzeigen erweitern"
 	L["Expand all non-loaded displays"] = "Alle nicht geladenen Anzeigen erweitern"
 	L["Expand Text Editor"] = "Erweiterter Texteditor"
-	--Translation missing 
-	-- L["Expansion is disabled because this group has no children"] = ""
+	L["Expansion is disabled because this group has no children"] = "Erweiterung deaktiviert, da diese Gruppe keine Kinder hat"
 	L["Export to Lua table..."] = "Als Lua-Tabelle exportieren.."
 	L["Export to string..."] = "Als Zeichenkette exportieren.."
 	L["Fade"] = "Verblassen"
@@ -270,8 +267,7 @@ Falls die Zahl als Dezimalzahl (z.B. 0.5), Bruch (z.B. 1/2) oder Prozentsatz (z.
 	L["Left Text"] = "Text links"
 	L["Load"] = "Laden"
 	L["Loaded"] = "Geladen"
-	--Translation missing 
-	-- L["Loop"] = ""
+	L["Loop"] = "Schleife"
 	L["Low Mana"] = "Niedriges Mana"
 	L["Main"] = "Hauptanimation"
 	L["Manage displays defined by Addons"] = "Bearbeite Anzeigen von externen Addons"
@@ -283,14 +279,10 @@ Falls die Zahl als Dezimalzahl (z.B. 0.5), Bruch (z.B. 1/2) oder Prozentsatz (z.
 	L["Message type:"] = "Nachrichtentyp"
 	L["Mirror"] = "Spiegeln"
 	L["Model"] = "Modell"
-	--Translation missing 
-	-- L["Move Down"] = ""
-	--Translation missing 
-	-- L["Move this display down in its group's order"] = ""
-	--Translation missing 
-	-- L["Move this display up in its group's order"] = ""
-	--Translation missing 
-	-- L["Move Up"] = ""
+	L["Move Down"] = "Nach unten verschieben"
+	L["Move this display down in its group's order"] = "Verschiebt diese Anzeige in der Reihenfolge seiner Gruppe nach unten"
+	L["Move this display up in its group's order"] = "Verschiebt diese Anzeige in der Reihenfolge seiner Gruppe nach oben"
+	L["Move Up"] = "Nach oben verschieben"
 	L["Multiple Displays"] = "Mehrere Anzeigen"
 	L["Multiple Triggers"] = "Mehrere Auslöser"
 	L["Multiselect ignored tooltip"] = [=[
@@ -345,10 +337,8 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Remaining Time Precision"] = "Genauigkeit der verbleibenden Zeit"
 	L["Remove this display from its group"] = "Diese Anzeige aus seiner Gruppe entfernen"
 	L["Rename"] = "Umbenennen"
-	--Translation missing 
-	-- L["Repeat After"] = ""
-	--Translation missing 
-	-- L["Required for Activation"] = ""
+	L["Repeat After"] = "Wiederholen nach"
+	L["Required for Activation"] = "Benötigt zur Aktivierung"
 	L["Required For Activation"] = "Vorrausgesetzt für Aktivierung"
 	--Translation missing 
 	-- L["Right 2 HUD position"] = ""
@@ -369,8 +359,7 @@ Nur ein Wert kann ausgewählt werden.]=]
 	--Translation missing 
 	-- L["Set Parent to Anchor"] = ""
 	L["Set tooltip description"] = "Tooltipbeschreibung festlegen"
-	--Translation missing 
-	-- L["Settings"] = ""
+	L["Settings"] = "Einstellungen"
 	L["Shift-click to create chat link"] = "Shift-Klick, um einen Chatlink zu erstellen"
 	L["Show all matches (Auto-clone)"] = "Alle Treffer anzeigen (Auto-Klonen)"
 	L["Show Cooldown Text"] = "Abklingzeittext anzeigen"
@@ -418,8 +407,7 @@ Soll |cFFFF0000Alle Auren scannen (CPU-Intensiv)|r aktiviert werden um diese |cF
 	L["Status"] = "Status"
 	L["Stealable"] = "Zauberraub"
 	L["Sticky Duration"] = "Tesa-Dauer"
-	--Translation missing 
-	-- L["Stop Sound"] = ""
+	L["Stop Sound"] = "Sound stoppen"
 	L["Symbol Settings"] = "Symboleinstellungen"
 	L["Temporary Group"] = "Temporäre Gruppe"
 	L["Text"] = "Text"
@@ -457,8 +445,7 @@ Soll |cFFFF0000Alle Auren scannen (CPU-Intensiv)|r aktiviert werden um diese |cF
 	L["Trigger:"] = "Auslöser:"
 	L["Type"] = "Typ"
 	L["Undefined"] = "Undefiniert"
-	--Translation missing 
-	-- L["Ungroup"] = ""
+	L["Ungroup"] = "Gruppierung aufheben"
 	L["Unit"] = "Einheit"
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "Anders als die Start- und Endanimation wird die Hauptanimation immer wieder wiederholt, bis die Anzeige in den Endstatus versetzt wird."
 	L["Update Custom Text On..."] = "Aktualisiere benutzerdefinierten Text bei..."
