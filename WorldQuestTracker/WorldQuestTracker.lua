@@ -1,4 +1,6 @@
 
+--/dump BrokenIslesArgusButton:IsProtected()
+
 --details! framework
 local DF = _G ["DetailsFramework"]
 if (not DF) then
@@ -256,7 +258,8 @@ local suramar_mapId = 1033
 local valsharah_mapId = 1018
 local eoa_mapId = 1096
 
-local is_broken_isles_map = {
+--zones which aren't quest hubs
+local zones_with_worldquests = {
 	[azsuna_mapId] = true,
 	[highmountain_mapId] = true,
 	[stormheim_mapId] = true,
@@ -265,7 +268,20 @@ local is_broken_isles_map = {
 	[eoa_mapId] = true,
 	[1014] = true, --dalaran
 	[1021] = true, --broken shore
+	
+	--> argus zones
+	[1171] = true, --antoran
+	[1135] = true, --krokuun
+	[1170] = true, --mccree
 }
+
+--patch 7.3
+local is_argus_map = {
+	[1171] = true, --antoran
+	[1135] = true, --krokuun
+	[1170] = true, --mccree
+}
+
 
 local WORLDMAP_SQUARE_SIZE = 24
 local WORLDMAP_SQUARE_TIMEBLIP_SIZE = 14
@@ -360,17 +376,7 @@ function TQueue:AddToQueue (texture, file, coords, color)
 	end
 end
 
-local BROKEN_ISLES_ZONES = {
-	[azsuna_mapId] = true, --azsuna
-	[valsharah_mapId] = true, --valsharah
-	[highmountain_mapId] = true, --highmountain
-	[stormheim_mapId] = true, --stormheim
-	[suramar_mapId] = true, --suramar
-	[eoa_mapId] = true, --eye of azshara
-	
-	[1014] = true, --dalaran
-	[1021] = true, --broken shore	
-}
+
 
 local WorldQuestTracker = DF:CreateAddOn ("WorldQuestTrackerAddon", "WQTrackerDB", default_config)
 WorldQuestTracker.QuestTrackList = {} --place holder until OnInit is triggered
@@ -382,6 +388,7 @@ WorldQuestTracker.Cache_ShownWidgetsOnZoneMap = {}
 WorldQuestTracker.WorldMapSupportWidgets = {}
 WorldQuestTracker.PartyQuestsPool = {}
 WorldQuestTracker.PartySharedQuests = {}
+WorldQuestTracker.CurrentZoneQuests = {}
 WorldQuestTracker.CurrentMapID = 0
 WorldQuestTracker.LastWorldMapClick = 0
 WorldQuestTracker.MapSeason = 0
@@ -404,6 +411,8 @@ if (not LibWindow) then
 end
 
 WorldQuestTracker.MAPID_DALARAN = 1014
+WorldQuestTracker.MAPID_ARGUS = 1184
+WorldQuestTracker.MAPID_BROKENISLES = 1007
 local MAPID_BROKENISLES = 1007
 local ARROW_UPDATE_FREQUENCE = 0.016
 
@@ -460,12 +469,6 @@ local all_widgets = {}
 local extra_widgets = {}
 local faction_frames = {}
 
-local azsuna_widgets = {}
-local highmountain_widgets = {}
-local stormheim_widgets = {}
-local suramar_widgets = {}
-local valsharah_widgets = {}
-local eoa_widgets = {}
 local WorldWidgetPool = {}
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -582,10 +585,10 @@ local CreatePartySharer = function()
 		
 		if (not noMapUpdate) then
 			if (WorldMapFrame and WorldMapFrame:IsShown()) then
-				if (WorldMapFrame.mapID == 1007 or GetCurrentMapAreaID() == 1007) then
+				if (WorldQuestTracker.IsWorldQuestHub (WorldMapFrame.mapID) or WorldQuestTracker.IsCurrentMapQuestHub()) then
 					WorldQuestTracker.UpdateWorldQuestsOnWorldMap (false, false) --noCache, showFade, isQuestFlaggedRecheck, forceCriteriaAnimation
 				else
-					if (is_broken_isles_map [GetCurrentMapAreaID()]) then
+					if (WorldQuestTracker.ZoneHaveWorldQuest()) then
 						WorldQuestTracker.UpdateZoneWidgets()
 					end
 				end
@@ -699,10 +702,10 @@ local CreatePartySharer = function()
 		wipe (WorldQuestTracker.PartySharedQuests)
 		
 		if (WorldMapFrame and WorldMapFrame:IsShown()) then
-			if (WorldMapFrame.mapID == 1007 or GetCurrentMapAreaID() == 1007) then
+			if (WorldQuestTracker.IsWorldQuestHub (WorldMapFrame.mapID) or WorldQuestTracker.IsCurrentMapQuestHub()) then
 				WorldQuestTracker.UpdateWorldQuestsOnWorldMap (false, false) --noCache, showFade, isQuestFlaggedRecheck, forceCriteriaAnimation
 			else
-				if (is_broken_isles_map [GetCurrentMapAreaID()]) then
+				if (WorldQuestTracker.ZoneHaveWorldQuest()) then
 					WorldQuestTracker.UpdateZoneWidgets()
 				end
 			end
@@ -1142,10 +1145,25 @@ local onEndClickAnimation = function (self)
 	self:GetParent():Hide()
 end
 
---o mapa � uma zona de broken isles?
-function WorldQuestTracker.IsBrokenIslesZone (mapID)
-	return BROKEN_ISLES_ZONES [mapID]
+--does the the zone have world quests?
+function WorldQuestTracker.ZoneHaveWorldQuest (mapID)
+	return zones_with_worldquests [mapID or GetCurrentMapAreaID()]
 end
+
+--is a argus zone?
+function WorldQuestTracker.IsArgusZone (mapID)
+	return is_argus_map [mapID]
+end
+
+--is the current map zone a world quest hub?
+function WorldQuestTracker.IsWorldQuestHub (mapID)
+	return mapID == WorldQuestTracker.MAPID_ARGUS or mapID == WorldQuestTracker.MAPID_BROKENISLES
+end
+function WorldQuestTracker.IsCurrentMapQuestHub()
+	local currentMap = GetCurrentMapAreaID()
+	return currentMap == WorldQuestTracker.MAPID_BROKENISLES or currentMap == WorldQuestTracker.MAPID_ARGUS
+end
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 --> addon wide functions
@@ -2340,6 +2358,14 @@ end
 			ff.SetAction (ff.actions.ACTIONTYPE_GROUP_SEARCHING)
 
 		elseif (self.ToSearchAnother) then
+			--> get the current leader, so we don't apply to the same group again
+			for i = 1, GetNumGroupMembers() do 
+				if (UnitIsGroupLeader ("party" .. i)) then
+					ff.PreviousLeader = UnitName ("party" .. i)
+					break
+				end
+			end
+			--> leave the group
 			ff.IsInWQGroup = false
 			LeaveParty()
 			ff.StartSearch()
@@ -2405,17 +2431,17 @@ end
 			self.HadInteraction = true
 			
 			local id, activityID, name, desc, voiceChat, ilvl, honorLevel, age, numBNetFriends, numCharFriends, numGuildMates, isDelisted, leaderName, members, isAuto = C_LFGList.GetSearchResultInfo (interactionButton.GroupsToApply [interactionButton.GroupsToApply.n])
+			local isPreviousLeader = ff.PreviousLeader and ((ff.PreviousLeader == leaderName) or (leaderName:find (ff.PreviousLeader)))
 			
-			if (isAuto and not isDelisted and name == interactionButton.questName and ilvl <= GetAverageItemLevel()) then -- and members < 5
+			if (isAuto and not isDelisted and name == interactionButton.questName and ilvl <= GetAverageItemLevel() and not isPreviousLeader) then -- and members < 5
 				--print ("Applying:", interactionButton.GroupsToApply [interactionButton.GroupsToApply.n], "WorldQuestTrackerInvite-" .. self.questName, UnitGetAvailableRoles ("player"))
 
 				--Usage: ApplyToGroup(resultID, comment, tankOK, healerOK, damageOK)
 				local id, name, description, icon, role, primaryStat = GetSpecializationInfo (GetSpecialization())
-				--UnitGetAvailableRoles ("player")
 
 				C_LFGList.ApplyToGroup (interactionButton.GroupsToApply [interactionButton.GroupsToApply.n], "WQTInvite-" .. self.questName, role == "TANK", role == "HEALER", role == "DAMAGER")
 				--print (interactionButton.GroupsToApply.n, interactionButton.GroupsToApply [interactionButton.GroupsToApply.n], role == "TANK", role == "HEALER", role == "DAMAGER")
-
+				
 				--> set the timeout
 				ff.SetApplyTimeout (4)
 				
@@ -2433,6 +2459,7 @@ end
 				ff.SetCheckIfIsInGroup (true)
 				
 			end
+			
 			interactionButton.GroupsToApply.n = interactionButton.GroupsToApply.n + 1
 			
 			if (interactionButton.GroupsToApply.n > #interactionButton.GroupsToApply) then
@@ -2508,7 +2535,7 @@ end
 		if (not WorldQuestTracker.db.profile.groupfinder.enabled) then
 			return
 		end
-	
+		
 		if (event == "QUEST_ACCEPTED") then
 			--> get quest data
 			local isInArea, isOnMap, numObjectives = GetTaskInfo (questID)
@@ -2546,6 +2573,7 @@ end
 				--> player left the group
 				if (not IsInGroup()) then
 					ff.IsInWQGroup = false
+					ff.PreviousLeader = nil
 					C_Timer.After (2, ff.DelayedCheckForDisband)
 				else
 					--> check if lost a member
@@ -2587,6 +2615,9 @@ end
 					if (IsInGroup()) then
 						ff.IsInWQGroup = true
 						ff.GroupMembers = GetNumGroupMembers (LE_PARTY_CATEGORY_HOME) + 1
+						
+						--> player entered in a group
+						
 					end
 				end
 			end
@@ -2687,16 +2718,16 @@ end
 
 --/dump WorldQuestTrackerAddon.GetCurrentZoneType()
 function WorldQuestTracker.GetCurrentZoneType()
-	if (is_broken_isles_map [GetCurrentMapAreaID()]) then
+	if (WorldQuestTracker.ZoneHaveWorldQuest (GetCurrentMapAreaID())) then
 		return "zone"
-	elseif (WorldMapFrame.mapID == 1007 or GetCurrentMapAreaID() == 1007) then
+	elseif (WorldQuestTracker.IsWorldQuestHub (WorldMapFrame.mapID) or WorldQuestTracker.IsCurrentMapQuestHub()) then
 		return "world"
 	end
 end
 
 --verifica se pode mostrar os widgets de broken isles
 function WorldQuestTracker.CanShowWorldMapWidgets (noFade)
-	if (WorldMapFrame.mapID == 1007 or GetCurrentMapAreaID() == 1007) then
+	if (WorldQuestTracker.IsWorldQuestHub (WorldMapFrame.mapID) or WorldQuestTracker.IsCurrentMapQuestHub()) then
 		if (noFade) then
 			WorldQuestTracker.UpdateWorldQuestsOnWorldMap()
 		else
@@ -2951,11 +2982,12 @@ function WorldQuestTracker.UpdateBorder (self, rarity, worldQuestType, mapID)
 		
 				self.rareSerpent:Show()
 				self.rareSerpent:SetSize (48, 52)
-				--self.rareSerpent:SetAtlas ("worldquest-questmarker-dragon")
+				self.rareSerpent:SetSize (48*0.7, 52*0.7)
 				self.rareSerpent:SetTexture ([[Interface\AddOns\WorldQuestTracker\media\rare_dragon_curveT]])
+				
 				self.rareGlow:Show()
 				self.rareGlow:SetVertexColor (0, 0.36863, 0.74902)
-				self.rareGlow:SetSize (48, 52)
+				self.rareGlow:SetSize (48*0.7, 52*0.7)
 				self.rareGlow:SetTexture ([[Interface\AddOns\WorldQuestTracker\media\rare_dragonT]])
 				
 				--se estiver sendo trackeada, trocar o banner
@@ -2965,7 +2997,7 @@ function WorldQuestTracker.UpdateBorder (self, rarity, worldQuestType, mapID)
 					self.bgFlag:SetTexture ([[Interface\AddOns\WorldQuestTracker\media\icon_flagT]])
 				end
 
-				self.bgFlag:Show()
+				--self.bgFlag:Show()
 				self.flagText:SetPoint ("top", self.bgFlag, "top", 0, -3)
 				--self.glassTransparence:Show()
 			end
@@ -3611,7 +3643,7 @@ end)
 -- ~bar ~showbar ~statusbar ~worldmapevent ~event
 function WorldQuestTracker.RefreshStatusBar()
 	if (WorldQuestTracker.DoubleTapFrame and not InCombatLockdown()) then
-		if (GetCurrentMapAreaID() == MAPID_BROKENISLES or is_broken_isles_map [GetCurrentMapAreaID()]) then
+		if (WorldQuestTracker.IsWorldQuestHub (GetCurrentMapAreaID()) or WorldQuestTracker.ZoneHaveWorldQuest (GetCurrentMapAreaID())) then
 			WorldQuestTracker.DoubleTapFrame:Show()
 		else
 			WorldQuestTracker.DoubleTapFrame:Hide()
@@ -3658,6 +3690,16 @@ WorldMapFrame:HookScript ("OnUpdate", function (self, deltaTime)
 	end
 	--]]
 
+	--> hide blizzard widgets on the zone map (if scheduled)
+	if (WorldQuestTracker.HideZoneWidgetsOnNextTick and not (WorldQuestTracker.Temp_HideZoneWidgets > GetTime())) then
+		for i = 1, #WorldQuestTracker.AllTaskPOIs do
+			if (WorldQuestTracker.CurrentZoneQuests [WorldQuestTracker.AllTaskPOIs [i].questID]) then
+				WorldQuestTracker.AllTaskPOIs [i]:Hide()
+			end
+		end
+		WorldQuestTracker.HideZoneWidgetsOnNextTick = false
+	end
+	
 	if (WorldQuestTracker.CanShowZoneSummaryFrame()) then
 		WorldMapFrame.UIElementsFrame.BountyBoard:ClearAllPoints()
 		WorldMapFrame.UIElementsFrame.BountyBoard:SetPoint ("bottomright", WorldMapFrame.UIElementsFrame, "bottomright", -18, 15)
@@ -3733,9 +3775,25 @@ local allow_map_change = function (...)
 		WorldQuestTracker.StopLoadingAnimation()
 	end
 end
-
 WorldMapButton:HookScript ("PreClick", deny_auto_switch)
 WorldMapButton:HookScript ("PostClick", allow_map_change)
+
+if (BrokenIslesArgusButton) then
+	--> at the current PTR state, goes directly to argus map
+	BrokenIslesArgusButton:HookScript ("OnClick", function (self)
+		allow_map_change()
+	end)
+	--> argus map zone use an overlaied button for each of its three zones
+	MacAreeButton:HookScript ("OnClick", function (self)
+		allow_map_change()
+	end)
+	AntoranWastesButton:HookScript ("OnClick", function (self)
+		allow_map_change()
+	end)
+	KrokuunButton:HookScript ("OnClick", function (self)
+		allow_map_change()
+	end)
+end
 
 hooksecurefunc ("WorldMap_CreatePOI", function (index, isObjectIcon, atlasIcon)
 	local POI = _G [ "WorldMapFramePOI"..index]
@@ -3833,7 +3891,7 @@ function WorldQuestTracker.CreateZoneWidget (index, name, parent) --~zone
 	button.IsTrackingGlow:SetSize (36, 36)
 	
 	button.IsTrackingRareGlow = supportFrame:CreateTexture(button:GetName() .. "IsTrackingRareGlow", "BACKGROUND", -6)
-	button.IsTrackingRareGlow:SetSize (44, 44)
+	button.IsTrackingRareGlow:SetSize (44*0.7, 44*0.7)
 	button.IsTrackingRareGlow:SetPoint ("center", button, "center")
 	button.IsTrackingRareGlow:SetTexture ([[Interface\AddOns\WorldQuestTracker\media\rare_dragon_TrackingT]])
 	--button.IsTrackingRareGlow:SetBlendMode ("ADD")
@@ -3879,11 +3937,10 @@ function WorldQuestTracker.CreateZoneWidget (index, name, parent) --~zone
 	button.rareSerpent = supportFrame:CreateTexture (button:GetName() .. "RareSerpent", "OVERLAY")
 	button.rareSerpent:SetWidth (34 * 1.1)
 	button.rareSerpent:SetHeight (34 * 1.1)
-	button.rareSerpent:SetPoint ("CENTER", 1, -2)
+	button.rareSerpent:SetPoint ("CENTER", 1, 0)
 	
 	-- � a sombra da serpente no fundo, pode ser na cor azul ou roxa
 	button.rareGlow = supportFrame:CreateTexture (nil, "background")
-	--button.rareGlow:SetTexture ([[Interface\AddOns\WorldQuestTracker\media\rare_dragonT]])
 	button.rareGlow:SetPoint ("CENTER", 1, -2)
 	button.rareGlow:SetSize (48, 48)
 	button.rareGlow:SetAlpha (.85)
@@ -4003,7 +4060,11 @@ function WorldQuestTracker.CreateZoneWidget (index, name, parent) --~zone
 	button.IsTrackingRareGlow:SetDrawLayer ("overlay", 0)
 	button.circleBorder:SetDrawLayer ("overlay", 1)
 	button.squareBorder:SetDrawLayer ("overlay", 1)
+	
 	button.rareSerpent:SetDrawLayer ("overlay", 3)
+	button.rareSerpent:SetDrawLayer ("BACKGROUND", -6)
+	button.rareGlow:SetDrawLayer ("BACKGROUND", -7)
+	
 	button.bgFlag:SetDrawLayer ("overlay", 4)
 	button.blackGradient:SetDrawLayer ("overlay", 5)
 	button.flagText:SetDrawLayer ("overlay", 6)
@@ -4051,24 +4112,56 @@ end
 --	end
 --end)
 
+function WorldQuestTracker.IsASubLevel()
+	local level, x1 = GetCurrentMapDungeonLevel()
+	if (level and level >  0 and x1) then
+		x1 = floor (x1)
+		--vindicar antoran
+		if (level == 5 and floor (x1) == 8479) then
+			return true
+		end
+		
+		--vindicar krokuun
+		if (level == 1 and floor (x1) == 1302) then
+			return true
+		end
+		
+		--vindicar mccree
+		if (level == 3 and floor (x1) == 9689) then
+			return true
+		end
+		
+	end
+end
+
 --atualiza as quest do mapa da zona ~updatezone ~zoneupdate
 function WorldQuestTracker.UpdateZoneWidgets()
 	
 	local mapID = GetCurrentMapAreaID()
 	
-	if (mapID == MAPID_BROKENISLES or mapID ~= WorldQuestTracker.LastMapID) then
+	if (WorldQuestTracker.IsWorldQuestHub (mapID) or (mapID ~= WorldQuestTracker.LastMapID and not WorldQuestTracker.IsArgusZone (mapID))) then
 		return WorldQuestTracker.HideZoneWidgets()
-	elseif (not WorldQuestTracker.IsBrokenIslesZone (mapID)) then
+		
+	elseif (not WorldQuestTracker.ZoneHaveWorldQuest (mapID)) then
 		return WorldQuestTracker.HideZoneWidgets()
+		
+	elseif (WorldQuestTracker.IsASubLevel()) then
+		return WorldQuestTracker.HideZoneWidgets()
+		
 	end
 	
 	WorldQuestTracker.RefreshStatusBar()
 	
-	WorldQuestTracker.lastZoneWidgetsUpdate = GetTime()
+	WorldQuestTracker.lastZoneWidgetsUpdate = GetTime() --why there's two timers?
+	
+	--stop the update if it already updated on this tick
+	if (WorldQuestTracker.LastZoneUpdate and WorldQuestTracker.LastZoneUpdate == GetTime()) then
+		return
+	end
 	
 	--local taskInfo = GetQuestsForPlayerByMapID (mapID, 1007)
 	local taskInfo
-	if (mapID == 1014) then
+	if (mapID == WorldQuestTracker.MAPID_DALARAN) then
 		--taskInfo = GetQuestsForPlayerByMapID (mapID, 1007)
 		taskInfo = GetQuestsForPlayerByMapID (mapID) --fix from @legowxelab2z8 from curse
 	else
@@ -4090,9 +4183,14 @@ function WorldQuestTracker.UpdateZoneWidgets()
 	local total_Gold, total_Resources, total_APower = 0, 0, 0
 	local scale = WorldQuestTracker.db.profile.zonemap_widgets.scale
 	
+	local questFailed = false
+	local showBlizzardWidgets = WorldQuestTracker.Temp_HideZoneWidgets > GetTime()
+	wipe (WorldQuestTracker.CurrentZoneQuests)
+	
 	if (taskInfo and #taskInfo > 0) then
 		for i, info  in ipairs (taskInfo) do
 			local questID = info.questId
+			
 			if (HaveQuestData (questID)) then
 				local isWorldQuest = QuestMapFrame_IsQuestWorldQuest (questID)
 				if (isWorldQuest) then
@@ -4101,8 +4199,10 @@ function WorldQuestTracker.UpdateZoneWidgets()
 					local passFilters = WorldMap_DoesWorldQuestInfoPassFilters (info, true, true) --blizzard filters
 					local timeLeft = WorldQuestTracker.GetQuest_TimeLeft (questID)
 					
-					if (not isSuppressed and passFilters and timeLeft > 3) then
+					if (not isSuppressed and passFilters and timeLeft > 2) then
+						
 						C_TaskQuest.RequestPreloadRewardData (questID)
+						WorldQuestTracker.CurrentZoneQuests [questID] = true
 
 						local tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex, allowDisplayPastCritical = GetQuestTagInfo (questID) -- allowDisplayPastCritical 7.2
 						
@@ -4115,7 +4215,10 @@ function WorldQuestTracker.UpdateZoneWidgets()
 							local itemName, itemTexture, itemLevel, quantity, quality, isUsable, itemID, isArtifact, artifactPower, isStackable, stackAmount = WorldQuestTracker.GetQuestReward_Item (questID)
 						------
 						
+						local title, factionID, tagID, tagName, worldQuestType, rarity, isElite, tradeskillLineIndex = WorldQuestTracker.GetQuest_Info (questID)
+						
 						local filter, order = WorldQuestTracker.GetQuestFilterTypeAndOrder (worldQuestType, gold, rewardName, itemName, isArtifact, stackAmount, numRewardItems, rewardTexture)
+						--print (title, filter, order, itemName, worldQuestType, filter, order, rewardName, rewardTexture, numRewardItems, timeLeft)
 						
 						-- ~legion
 						-- worldQuestType == LE_QUEST_TAG_TYPE_INVASION
@@ -4170,7 +4273,7 @@ function WorldQuestTracker.UpdateZoneWidgets()
 								total_APower = total_APower + artifactPower
 							end
 							
-							if (WorldQuestTracker.Temp_HideZoneWidgets > GetTime()) then
+							if (showBlizzardWidgets) then
 								widget:Hide()
 								for _, button in ipairs (WorldQuestTracker.AllTaskPOIs) do
 									if (button.questID == questID) then
@@ -4179,28 +4282,23 @@ function WorldQuestTracker.UpdateZoneWidgets()
 								end
 							else
 								widget:Show()
-								for _, button in ipairs (WorldQuestTracker.AllTaskPOIs) do
-									if (button.questID == questID) then
-										button:Hide()
-									end
-								end
 							end
 							
 							index = index + 1
 						else
-							--precisa hidar o widget da UI default
-							for i = 1, #WorldQuestTracker.AllTaskPOIs do
-								if (WorldQuestTracker.AllTaskPOIs [i].questID == questID) then
-									--print ("achou o botao")
-									WorldQuestTracker.AllTaskPOIs [i]:Hide()
-								end
-							end
+							--
 						end
 					end
 				end
 			else
+				questFailed = true
 				WorldQuestTracker.ScheduleZoneMapUpdate()
 			end
+		end
+		
+		if (not questFailed) then
+			WorldQuestTracker.HideZoneWidgetsOnNextTick = true
+			WorldQuestTracker.LastZoneUpdate = GetTime()
 		end
 	else
 		WorldQuestTracker.ScheduleZoneMapUpdate (3)
@@ -4331,7 +4429,8 @@ function WorldQuestTracker.SetupWorldQuestButton (self, worldQuestType, rarity, 
 			self.questTypeBlip:Show()
 			self.questTypeBlip:SetTexture ([[Interface\MINIMAP\ObjectIconsAtlas]])
 			--self.questTypeBlip:SetTexCoord (172/512, 201/512, 273/512, 301/512)
-			self.questTypeBlip:SetTexCoord (219/512, 246/512, 478/512, 502/512) -- left right    top botton
+			self.questTypeBlip:SetTexCoord (219/512, 246/512, 478/512, 502/512) -- left right    top botton  --7.2.5
+			self.questTypeBlip:SetTexCoord (387/512, 414/512, 378/512, 403/512) -- left right    top botton  --7.3
 			self.questTypeBlip:SetAlpha (1)
 			
 		elseif (worldQuestType == LE_QUEST_TAG_TYPE_PROFESSION) then
@@ -4523,21 +4622,11 @@ hooksecurefunc ("WorldMap_UpdateQuestBonusObjectives", function (self, event)
 	end
 	
 	--depois de ter executa o update, vamos hidar todos os widgets default e criar os nossos
-	if (GetCurrentMapAreaID() ~= MAPID_BROKENISLES) then
+	if (WorldQuestTracker.ZoneHaveWorldQuest (mapID)) then
 		--roda nosso custom update e cria nossos proprios widgets
 		WorldQuestTracker.UpdateZoneWidgets()
 	end
 end)
-
---update tick
---desativa toda a atualiza��o das quests no codigo da interface
---esta causando problemas com protected, mesmo colocando pra ser uma fun��o aleatoria
---_G ["WorldMap_UpdateQuestBonusObjectives"] = math.random
-function oie ()
-	if (WorldQuestTracker.lastZoneWidgetsUpdate + 20 < GetTime()) then
-		WorldQuestTracker.UpdateZoneWidgets()
-	end
-end
 
 --WorldQuestTracker.db.profile.AlertTutorialStep = nil
 -- ~tutorial
@@ -5670,7 +5759,7 @@ hooksecurefunc ("ToggleWorldMap", function (self)
 				GameCooltip:ExecFunc (sortButton)
 				
 				--atualiza as quests
-				if (GetCurrentMapAreaID() == MAPID_BROKENISLES) then
+				if (WorldQuestTracker.IsWorldQuestHub (GetCurrentMapAreaID())) then
 					WorldQuestTracker.UpdateWorldQuestsOnWorldMap (true)
 				end
 			end
@@ -6960,7 +7049,7 @@ hooksecurefunc ("ToggleWorldMap", function (self)
 			WorldQuestTracker.CanChangeMap = true
 			WorldQuestTracker.UpdateWorldQuestsOnWorldMap (false, true)
 			
-		elseif (WorldMapFrame.mapID == MAPID_BROKENISLES) then
+		elseif (WorldQuestTracker.IsWorldQuestHub (WorldMapFrame.mapID)) then
 			WorldQuestTracker.UpdateWorldQuestsOnWorldMap (false, true)
 			
 		else
@@ -7550,7 +7639,7 @@ function WorldQuestTracker.SetupZoneSummaryButton (summaryWidget, zoneWidget)
 end
 
 function WorldQuestTracker.CanShowZoneSummaryFrame()
-	return WorldQuestTracker.db.profile.use_quest_summary and is_broken_isles_map [GetCurrentMapAreaID()] and not WorldMapFrame_InWindowedMode()
+	return WorldQuestTracker.db.profile.use_quest_summary and WorldQuestTracker.ZoneHaveWorldQuest() and not WorldMapFrame_InWindowedMode()
 end
 
 function WorldQuestTracker.UpdateZoneSummaryFrame()
@@ -7952,10 +8041,10 @@ local TrackerFrameOnClick = function (self, button)
 		WorldQuestTracker.RemoveQuestFromTracker (self.questID)
 		---se o worldmap estiver aberto, dar refresh
 		if (WorldMapFrame:IsShown()) then
-			if (GetCurrentMapAreaID() == MAPID_BROKENISLES) then
+			if (WorldQuestTracker.IsCurrentMapQuestHub()) then
 				--refresh no world map
 				WorldQuestTracker.UpdateWorldQuestsOnWorldMap (true)
-			elseif (is_broken_isles_map [GetCurrentMapAreaID()]) then
+			elseif (WorldQuestTracker.ZoneHaveWorldQuest()) then
 				--refresh nos widgets
 				WorldQuestTracker.UpdateZoneWidgets()
 				WorldQuestTracker.WorldWidgets_NeedFullRefresh = true
@@ -9354,102 +9443,82 @@ local factionAmountForEachMap = {}
 --tabela de configura��o
 WorldQuestTracker.mapTables = {
 	[azsuna_mapId] = {
-		worldMapLocation = {x = 10, y = -345, lineWidth = 233},
-		worldMapLocationMax = {x = 168, y = -468, lineWidth = 330},
-		bipAnchor = {side = "right", x = 0, y = -1},
-		factionAnchor = {mySide = "left", anchorSide = "right", x = 0, y = 0},
-		squarePoints = {mySide = "topleft", anchorSide = "bottomleft", y = -1, xDirection = 1},
-		widgets = azsuna_widgets,
-		
+		widgets = {},
 		Anchor_X = 0.01,
 		Anchor_Y = 0.52,
 		GrowRight = true,
+		show_on_map = WorldQuestTracker.MAPID_BROKENISLES,
 	},
 	[valsharah_mapId] = {
-		worldMapLocation = {x = 10, y = -218, lineWidth = 240},
-		worldMapLocationMax = {x = 168, y = -284, lineWidth = 340},
-		bipAnchor = {side = "right", x = 0, y = -1},
-		factionAnchor = {mySide = "left", anchorSide = "right", x = 0, y = 0},
-		squarePoints = {mySide = "topleft", anchorSide = "bottomleft", y = -1, xDirection = 1},
-		widgets = valsharah_widgets,
-		
+		widgets = {},
 		Anchor_X = 0.01,
 		Anchor_Y = 0.37,
 		GrowRight = true,
+		show_on_map = WorldQuestTracker.MAPID_BROKENISLES,
 	},
 	[highmountain_mapId] = {
-		worldMapLocation = {x = 10, y = -179, lineWidth = 320},
-		worldMapLocationMax = {x = 168, y = -230, lineWidth = 452},
-		bipAnchor = {side = "right", x = 0, y = -1},
-		factionAnchor = {mySide = "left", anchorSide = "right", x = 0, y = 0},
-		squarePoints = {mySide = "topleft", anchorSide = "bottomleft", y = -1, xDirection = 1},
-		widgets = highmountain_widgets,
-
+		widgets = {},
 		Anchor_X = 0.01,
 		Anchor_Y = 0.20,
 		GrowRight = true,
+		show_on_map = WorldQuestTracker.MAPID_BROKENISLES,
 	},
 	[stormheim_mapId] = {
-		worldMapLocation = {x = 415, y = -235, lineWidth = 277},
-		worldMapLocationMax = {x = 747, y = -313, lineWidth = 393},
-		bipAnchor = {side = "left", x = 0, y = -1},
-		factionAnchor = {mySide = "right", anchorSide = "left", x = -0, y = 0},
-		squarePoints = {mySide = "topright", anchorSide = "bottomright", y = -1, xDirection = -1},
-		widgets = stormheim_widgets,
-		
+		widgets = {},
 		Anchor_X = 0.99,
-		Anchor_Y = 0.20,
+		Anchor_Y = 0.37,
+		show_on_map = WorldQuestTracker.MAPID_BROKENISLES,
 	},
 	[suramar_mapId] = {
-		worldMapLocation = {x = 327, y = -277, lineWidth = 365},
-		worldMapLocationMax = {x = 618, y = -367, lineWidth = 522},
-		bipAnchor = {side = "left", x = 0, y = -1},
-		factionAnchor = {mySide = "right", anchorSide = "left", x = -0, y = 0},
-		squarePoints = {mySide = "topright", anchorSide = "bottomright", y = -1, xDirection = -1},
-		widgets = suramar_widgets,
-		
+		widgets = {},
 		Anchor_X = 0.99,
-		Anchor_Y = 0.438,
+		Anchor_Y = 0.52,
+		show_on_map = WorldQuestTracker.MAPID_BROKENISLES,
 	},
+	[1021] = { --broken shore
+		widgets = {},
+		Anchor_X = 0.99,
+		Anchor_Y = 0.67,
+		show_on_map = WorldQuestTracker.MAPID_BROKENISLES,
+	},	
 	[eoa_mapId] = {
-		worldMapLocation = {x = 325, y = -460, lineWidth = 50},
-		worldMapLocationMax = {x = 614, y = -633, lineWidth = 50},
-		bipAnchor = {side = "left", x = 0, y = -1},
-		factionAnchor = {mySide = "right", anchorSide = "left", x = -0, y = 0},
-		squarePoints = {mySide = "topright", anchorSide = "bottomright", y = -1, xDirection = -1},
-		widgets = eoa_widgets,
-		
+		widgets = {},
 		Anchor_X = 0.5,
 		Anchor_Y = 0.8,
 		GrowRight = true,
+		show_on_map = WorldQuestTracker.MAPID_BROKENISLES,
 	},
 	[WorldQuestTracker.MAPID_DALARAN] = {
-		worldMapLocation = {x = 325, y = -460, lineWidth = 50},
-		worldMapLocationMax = {x = 614, y = -633, lineWidth = 50},
-		bipAnchor = {side = "left", x = 0, y = -1},
-		factionAnchor = {mySide = "right", anchorSide = "left", x = -0, y = 0},
-		squarePoints = {mySide = "topright", anchorSide = "bottomright", y = -1, xDirection = -1},
-		widgets = eoa_widgets,
-		
+		widgets = {},
 		Anchor_X = 0.47,
 		Anchor_Y = 0.62,
 		GrowRight = true,
+		show_on_map = WorldQuestTracker.MAPID_BROKENISLES,
 	},
 	
-	[1021] = { --broken shore
-		worldMapLocation = {x = 425, y = -480, lineWidth = 50},
-		worldMapLocationMax = {x = 614, y = -633, lineWidth = 50},
-		bipAnchor = {side = "left", x = 0, y = -1},
-		factionAnchor = {mySide = "right", anchorSide = "left", x = -0, y = 0},
-		squarePoints = {mySide = "topright", anchorSide = "bottomright", y = -1, xDirection = -1},
-		widgets = eoa_widgets,
-		
-		Anchor_X = 0.62,
-		Anchor_Y = 0.67,
+	[1170] = { --mccree
+		widgets = {},
+		Anchor_X = 0.01,
+		Anchor_Y = 0.20,
+		show_on_map = WorldQuestTracker.MAPID_ARGUS,
+		GrowRight = true,
+	},	
+	[1171] = { --antoran
+		widgets = {},
+		Anchor_X = 0.01,
+		Anchor_Y = 0.37,
+		show_on_map = WorldQuestTracker.MAPID_ARGUS,
+		GrowRight = true,
+	},	
+	[1135] = { --krokuun
+		widgets = {},
+		Anchor_X = 0.01,
+		Anchor_Y = 0.52,
+		show_on_map = WorldQuestTracker.MAPID_ARGUS,
 		GrowRight = true,
 	},
 }
- 
+
 --esconde todos os widgets do world map
 function WorldQuestTracker.HideWorldQuestsOnWorldMap()
 	for _, widget in ipairs (all_widgets) do --quadrados das quests
@@ -9491,76 +9560,6 @@ function WorldQuestTracker.SetTextSize (MapType, Size)
 	end
 	
 end
-
-
---cria as linhas que servem de apoio para as quests no world map
-local create_worldmap_line = function (lineWidth, mapId)
-	local line = worldFramePOIs:CreateTexture (nil, "artwork", 2)
-	line:SetSize (lineWidth, 2)
-	line:SetHorizTile (true)
-	line:SetAlpha (0.5)
-	line:SetTexture ([[Interface\AddOns\WorldQuestTracker\media\line_tiletextureT]], true)
-	local blip = worldFramePOIs:CreateTexture (nil, "overlay", 3)
-	blip:SetTexture ([[Interface\Scenarios\ScenarioIcon-Combat]], true)
-	
-	local factionFrame = CreateFrame ("frame", "WorldQuestTrackerFactionFrame" .. mapId, worldFramePOIs)
-	tinsert (faction_frames, factionFrame)
-	factionFrame:SetSize (20, 20)
-	
-	local factionIcon = factionFrame:CreateTexture (nil, "background")
-	factionIcon:SetSize (18, 18)
-	factionIcon:SetPoint ("center", factionFrame, "center")
-	factionIcon:SetDrawLayer ("background", -2)
-	
-	local factionHighlight = factionFrame:CreateTexture (nil, "background")
-	factionHighlight:SetSize (36, 36)
-	factionHighlight:SetTexture ([[Interface\QUESTFRAME\WorldQuest]])
-	factionHighlight:SetTexCoord (0.546875, 0.62109375, 0.6875, 0.984375)
-	factionHighlight:SetDrawLayer ("background", -3)
-	factionHighlight:SetPoint ("center", factionFrame, "center")
-
-	local factionIconBorder = factionFrame:CreateTexture (nil, "artwork", 0)
-	factionIconBorder:SetSize (20, 20)
-	factionIconBorder:SetPoint ("center", factionFrame, "center")
-	factionIconBorder:SetTexture ([[Interface\COMMON\GoldRing]])
-	
-	local factionQuestAmount = factionFrame:CreateFontString (nil, "overlay", "GameFontNormal")
-	factionQuestAmount:SetPoint ("center", factionFrame, "center")
-	factionQuestAmount:SetText ("")
-	
-	local factionQuestAmountBackground = factionFrame:CreateTexture (nil, "background")
-	factionQuestAmountBackground:SetPoint ("center", factionFrame, "center")
-	factionQuestAmountBackground:SetTexture ([[Interface\AddOns\WorldQuestTracker\media\background_blackgradientT]])
-	--factionQuestAmountBackground:SetTexCoord (12/512, 74/512, 251/512, 281/512)
-	factionQuestAmountBackground:SetSize (20, 10)
-	factionQuestAmountBackground:SetAlpha (.7)
-	factionQuestAmountBackground:SetDrawLayer ("background", 3)
-	
-	factionFrame.icon = factionIcon
-	factionFrame.text = factionQuestAmount
-	factionFrame.background = factionQuestAmountBackground
-	factionFrame.border = factionIconBorder
-	factionFrame.highlight = factionHighlight
-	
-	tinsert (extra_widgets, line)
-	tinsert (extra_widgets, blip)
-	tinsert (extra_widgets, factionIcon)
-	tinsert (extra_widgets, factionIconBorder)
-	tinsert (extra_widgets, factionQuestAmount)
-	tinsert (extra_widgets, factionQuestAmountBackground)
-	tinsert (extra_widgets, factionHighlight)
-	
-	WorldQuestTracker.WorldMapSupportWidgets [mapId] = {line, blip, factionIcon, factionIconBorder, factionQuestAmount, factionQuestAmountBackground, factionHighlight}
-	
-	return line, blip, factionFrame
-end
-
---hooksecurefunc ("LFGListUtil_FindQuestGroup", function (a, b) 
---	print ("--> ", a, b)
---end)
---hooksecurefunc ("LFGListFrame_BeginFindQuestGroup", function (a, b) 
---	print ("result> ", a, b)
---end)
 
 --cria uma square widget no world map ~world ~createworld ~createworldwidget
 local create_worldmap_square = function (mapName, index)
@@ -9862,25 +9861,33 @@ WorldQuestTracker.QUEST_POI_FRAME_HEIGHT = 1
 WorldQuestTracker.NextWorldMapWidget = 1
 WorldQuestTracker.WorldMapSquares = {}
 
-function WorldQuestTracker.UpdateAllWorldMapAnchors()
+--> anchor for world quests hub, this is only shown on world maps
+function WorldQuestTracker.UpdateAllWorldMapAnchors (worldMapID)
 	for mapId, configTable in pairs (WorldQuestTracker.mapTables) do
-		local x, y = configTable.Anchor_X, configTable.Anchor_Y
-		WorldQuestTracker.UpdateWorldMapAnchors (x, y, configTable.MapAnchor)
-		
-		local mapName = GetMapNameByID (mapId)
-		configTable.MapAnchor.Title:SetText (mapName)
-		
-		configTable.MapAnchor.Title:ClearAllPoints()
-		configTable.MapAnchor.Title:Show()
-		if (configTable.GrowRight) then
-			configTable.MapAnchor.Title:SetPoint ("bottomleft", configTable.MapAnchor, "topleft", 0, 0)
-			configTable.MapAnchor.Title:SetJustifyH ("left")
+	
+		if (configTable.show_on_map == worldMapID) then
+			local x, y = configTable.Anchor_X, configTable.Anchor_Y
+			WorldQuestTracker.UpdateWorldMapAnchors (x, y, configTable.MapAnchor)
+			
+			local mapName = GetMapNameByID (mapId)
+			configTable.MapAnchor.Title:SetText (mapName)
+			
+			configTable.MapAnchor.Title:ClearAllPoints()
+			configTable.MapAnchor.Title:Show()
+			if (configTable.GrowRight) then
+				configTable.MapAnchor.Title:SetPoint ("bottomleft", configTable.MapAnchor, "topleft", 0, 0)
+				configTable.MapAnchor.Title:SetJustifyH ("left")
+			else
+				configTable.MapAnchor.Title:SetPoint ("bottomright", configTable.MapAnchor, "topright", 0, 0)
+				configTable.MapAnchor.Title:SetJustifyH ("right")
+			end
+			
+			configTable.MapAnchor:Show()
+			configTable.factionFrame:Show()
 		else
-			configTable.MapAnchor.Title:SetPoint ("bottomright", configTable.MapAnchor, "topright", 0, 0)
-			configTable.MapAnchor.Title:SetJustifyH ("right")
+			configTable.MapAnchor:Hide()
+			configTable.factionFrame:Hide()
 		end
-		
-		configTable.factionFrame:Show()
 	end
 end
 
@@ -9915,7 +9922,7 @@ function WorldQuestTracker.GetWorldMapWidget (configTable, showTimeLeftText)
 		end
 	else
 		if (configTable.LastWidget) then
-			if (configTable.WidgetNumber == 11) then
+			if (configTable.WidgetNumber == 21) then --21 disabling this feature due to argus be in the map
 				if (showTimeLeftText) then
 					widget:SetPoint ("topright", configTable.MapAnchor, "topleft", 0, -50)
 				else
@@ -9928,6 +9935,8 @@ function WorldQuestTracker.GetWorldMapWidget (configTable, showTimeLeftText)
 			widget:SetPoint ("topright", configTable.MapAnchor, "topleft", 0, 0)
 		end
 	end
+	
+	widget:SetAlpha (.75)
 	
 	configTable.LastWidget = widget
 	configTable.WidgetNumber = configTable.WidgetNumber + 1
@@ -9993,7 +10002,7 @@ create_world_widgets()
 
 --agenda uma atualiza��o nos widgets do world map caso os dados das quests estejam indispon�veis
 local do_worldmap_update = function()
-	if (GetCurrentMapAreaID() == MAPID_BROKENISLES) then
+	if (WorldQuestTracker.IsWorldQuestHub (GetCurrentMapAreaID())) then
 		WorldQuestTracker.UpdateWorldQuestsOnWorldMap (true) --no cache true
 	else
 		if (WorldQuestTracker.ScheduledWorldUpdate and not WorldQuestTracker.ScheduledWorldUpdate._cancelled) then
@@ -10041,17 +10050,20 @@ function WorldQuestTracker.GetQuestFilterTypeAndOrder (worldQuestType, gold, rew
 	-- = to string since legionfall resource icons is number
 	--if (rewardName and (type (rewardTexture) == "string" and rewardTexture:find ("inv_orderhall_orderresources"))) then
 	--1397630 = order hall resource icon - since 7.2.5 is a number
-	if (rewardName and ((type(rewardTexture) == "string" and rewardTexture:find("inv_orderhall_orderresources")) or (type(rewardTexture) == "number" and rewardTexture == 1397630))) then --thanks @TOM_RUS on curseforge
-		--if (numRewardItems and numRewardItems > 1) then
-			--can be an invasion quest
-		--	if (rewardTexture and rewardTexture:find ("inv_misc_summonable_boss_token")) then
-				--> is an invasion quest, need to see which are the real reward
-				
-		--	end
-			--
-		--end
-		order = WorldQuestTracker.db.profile.sort_order [WQT_QUESTTYPE_RESOURCE]
-		filter = FILTER_TYPE_GARRISON_RESOURCE
+	
+	-- and ((type(rewardTexture) == "string" and rewardTexture:find("inv_orderhall_orderresources")) or (type(rewardTexture) == "number" and rewardTexture == 1397630))
+	
+	if (rewardName) then
+		if (rewardTexture == 1397630) then --order hall resources (legion)
+			order = WorldQuestTracker.db.profile.sort_order [WQT_QUESTTYPE_RESOURCE]
+			filter = FILTER_TYPE_GARRISON_RESOURCE
+		elseif (rewardTexture == 1064188) then --veiled argunite (legion)
+			order = WorldQuestTracker.db.profile.sort_order [WQT_QUESTTYPE_TRADE]
+			filter = FILTER_TYPE_TRADESKILL
+		elseif (rewardTexture == 399041) then --argus waystone (legion)
+			order = WorldQuestTracker.db.profile.sort_order [WQT_QUESTTYPE_TRADE]
+			filter = FILTER_TYPE_TRADESKILL
+		end
 	end	
 	
 	if (isArtifact) then
@@ -10090,6 +10102,8 @@ end
 
 function WorldQuestTracker.UpdateWorldQuestsOnWorldMap (noCache, showFade, isQuestFlaggedRecheck, forceCriteriaAnimation)
 
+	--print (debugstack())
+
 	if (UnitLevel ("player") < 110) then
 		WorldQuestTracker.HideWorldQuestsOnWorldMap()
 		return
@@ -10105,7 +10119,7 @@ function WorldQuestTracker.UpdateWorldQuestsOnWorldMap (noCache, showFade, isQue
 		WorldQuestTracker.HideWorldQuestsOnWorldMap()
 		return
 	end
-	
+
 	WorldQuestTracker.RefreshStatusBar()
 	
 	WorldQuestTracker.ClearZoneSummaryButtons()
@@ -10135,19 +10149,17 @@ function WorldQuestTracker.UpdateWorldQuestsOnWorldMap (noCache, showFade, isQue
 
 	local sortByTimeLeft = WorldQuestTracker.db.profile.force_sort_by_timeleft
 	local worldMapID = GetCurrentMapAreaID()
-	
+
 	for mapId, configTable in pairs (WorldQuestTracker.mapTables) do
 	
-		--PTR
 		questsAvailable [mapId] = {}
 
-		--local taskInfo = GetQuestsForPlayerByMapID (mapId, 1007)
-		local taskInfo = GetQuestsForPlayerByMapID (mapId, worldMapID)
+		local taskInfo = GetQuestsForPlayerByMapID (mapId, mapId) --, WorldQuestTracker.MAPID_ARGUS
 		
 		local shownQuests = 0
---		/dump #GetQuestsForPlayerByMapID (1015)
 
-		if (taskInfo and #taskInfo > 0) then
+		if (taskInfo and #taskInfo > 0 and configTable.show_on_map == worldMapID) then
+		
 			for i, info in ipairs (taskInfo) do
 			
 				local questID = info.questId
@@ -10291,23 +10303,21 @@ function WorldQuestTracker.UpdateWorldQuestsOnWorldMap (noCache, showFade, isQue
 	
 	for mapId, configTable in pairs (WorldQuestTracker.mapTables) do
 		--local taskInfo = GetQuestsForPlayerByMapID (mapId, 1007)
-		local taskInfo = GetQuestsForPlayerByMapID (mapId, worldMapID)
+		local taskInfo = GetQuestsForPlayerByMapID (mapId, mapId)
 		local taskIconIndex = 1
 		local widgets = configTable.widgets
 		
 		if (taskInfo and #taskInfo > 0) then
 			availableQuests = availableQuests + #taskInfo
-			
-			--for i, info  in ipairs (taskInfo) do
+
 			for i, quest in ipairs (questsAvailable [mapId]) do
-			--print (i, quest)
-				--local questID = info.questId
 				
 				local questID = quest [1]
 				local numObjectives = quest [3]
-
+				
 				if (HaveQuestData (questID)) then
 					local isWorldQuest = QuestMapFrame_IsQuestWorldQuest (questID)
+					
 					if (isWorldQuest) then
 					
 						C_TaskQuest.RequestPreloadRewardData (questID)
@@ -10499,7 +10509,8 @@ function WorldQuestTracker.UpdateWorldQuestsOnWorldMap (noCache, showFade, isQue
 										widget.questTypeBlip:Show()
 										widget.questTypeBlip:SetTexture ([[Interface\MINIMAP\ObjectIconsAtlas]])
 										--widget.questTypeBlip:SetTexCoord (172/512, 201/512, 273/512, 301/512)
-										widget.questTypeBlip:SetTexCoord (219/512, 246/512, 478/512, 502/512) -- left right    top botton
+										widget.questTypeBlip:SetTexCoord (219/512, 246/512, 478/512, 502/512) -- left right    top botton --7.2.5
+										widget.questTypeBlip:SetTexCoord (387/512, 414/512, 378/512, 403/512) -- left right    top botton --7.3
 										widget.questTypeBlip:SetAlpha (.85)
 										
 									elseif (worldQuestType == LE_QUEST_TAG_TYPE_DUNGEON) then
@@ -10693,8 +10704,8 @@ function WorldQuestTracker.UpdateWorldQuestsOnWorldMap (noCache, showFade, isQue
 		WorldQuestTracker.ScheduleWorldMapUpdate()
 	end
 	
-	--> update na ancora caso foi de window mode para fullscreen
-	WorldQuestTracker.UpdateAllWorldMapAnchors()
+	--> need update the anchors for windowed and fullscreen modes, plus need to show and hide for different worlds
+	WorldQuestTracker.UpdateAllWorldMapAnchors (worldMapID)
 
 	WorldQuestTracker.HideZoneWidgets()
 	WorldQuestTracker.SavedQuestList_CleanUp()
@@ -10706,7 +10717,7 @@ end
 if (WorldMapFrameSizeDownButton) then
 	WorldMapFrameSizeDownButton:HookScript ("OnClick", function() --window mode
 		if (WorldQuestTracker.UpdateWorldQuestsOnWorldMap) then
-			if (GetCurrentMapAreaID() == MAPID_BROKENISLES) then
+			if (WorldQuestTracker.IsCurrentMapQuestHub()) then
 				WorldQuestTracker.UpdateWorldQuestsOnWorldMap (false, true)
 				WorldQuestTracker.RefreshStatusBar()
 				C_Timer.After (1, WorldQuestTracker.RefreshStatusBar)
@@ -10717,7 +10728,7 @@ if (WorldMapFrameSizeDownButton) then
 elseif (MinimizeButton) then
 	MinimizeButton:HookScript ("OnClick", function() --window mode
 		if (WorldQuestTracker.UpdateWorldQuestsOnWorldMap) then
-			if (GetCurrentMapAreaID() == MAPID_BROKENISLES) then
+			if (WorldQuestTracker.IsCurrentMapQuestHub()) then
 				WorldQuestTracker.UpdateWorldQuestsOnWorldMap (false, true)
 				WorldQuestTracker.RefreshStatusBar()
 				C_Timer.After (1, WorldQuestTracker.RefreshStatusBar)
@@ -10729,7 +10740,7 @@ end
 if (WorldMapFrameSizeUpButton) then
 	WorldMapFrameSizeUpButton:HookScript ("OnClick", function() --full screen
 		if (WorldQuestTracker.UpdateWorldQuestsOnWorldMap) then
-			if (GetCurrentMapAreaID() == MAPID_BROKENISLES) then
+			if (WorldQuestTracker.IsCurrentMapQuestHub()) then
 				WorldQuestTracker.UpdateWorldQuestsOnWorldMap (false, true)
 				C_Timer.After (1, WorldQuestTracker.RefreshStatusBar)
 			end
@@ -10739,7 +10750,7 @@ if (WorldMapFrameSizeUpButton) then
 elseif (MaximizeButton) then
 	MaximizeButton:HookScript ("OnClick", function() --full screen
 		if (WorldQuestTracker.UpdateWorldQuestsOnWorldMap) then
-			if (GetCurrentMapAreaID() == MAPID_BROKENISLES) then
+			if (WorldQuestTracker.IsCurrentMapQuestHub()) then
 				WorldQuestTracker.UpdateWorldQuestsOnWorldMap (false, true)
 				C_Timer.After (1, WorldQuestTracker.RefreshStatusBar)
 			end
@@ -10900,7 +10911,7 @@ end
 
 --quando selecionar uma fac��o, atualizar todas as quests no world map para que seja atualiza a quiantidade de quests que ha em cada mapa para esta fac�ao
 hooksecurefunc (WorldMapFrame.UIElementsFrame.BountyBoard, "SetSelectedBountyIndex", function (self)
-	if (WorldMapFrame.mapID == MAPID_BROKENISLES) then
+	if (WorldQuestTracker.IsWorldQuestHub (WorldMapFrame.mapID)) then
 		WorldQuestTracker.UpdateWorldQuestsOnWorldMap (false, false, false, true)
 	end
 end)

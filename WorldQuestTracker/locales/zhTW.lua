@@ -42,7 +42,7 @@ L["S_GROUPFINDER_RESULTS_FOUND"] = [=[找到 %d 個隊伍
 L["S_GROUPFINDER_RESULTS_FOUND1"] = [=[找到 1 個隊伍
 點一下加入]=]
 L["S_GROUPFINDER_RESULTS_UNAPPLY"] = "尚有 %d 個申請..."
-L["S_GROUPFINDER_RIGHTCLICKCLOSE"] = "右鍵點擊關閉面板"
+L["S_GROUPFINDER_RIGHTCLICKCLOSE"] = "點一下右鍵關閉面板"
 L["S_GROUPFINDER_SECONDS"] = "秒"
 L["S_GROUPFINDER_TITLE"] = "隊伍搜尋器"
 L["S_GROUPFINDER_TUTORIAL1"] = "加入正在做同一個任務的隊伍，更快完成世界任務!"

@@ -26,8 +26,7 @@ L["S_GROUPFINDER_ACTIONS_UNAPPLY1"] = "Klicken, um die Anmeldung aufzuheben, dam
 L["S_GROUPFINDER_ACTIONS_UNLIST"] = "Klicken, um deine derzeitige Gruppe abzumelden"
 L["S_GROUPFINDER_ACTIONS_UNLISTING"] = "abmelden..."
 L["S_GROUPFINDER_ACTIONS_WAITING"] = "warten..."
---Translation missing 
--- L["S_GROUPFINDER_ENABLED"] = ""
+L["S_GROUPFINDER_ENABLED"] = "Bei neuer Quest automatisch öffnen"
 L["S_GROUPFINDER_LEAVEOPTIONS"] = "Optionen Gruppenverlassen"
 L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = "Nach X Sekunden verlassen"
 --Translation missing 

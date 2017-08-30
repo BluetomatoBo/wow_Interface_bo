@@ -1,7 +1,7 @@
-changeset:   188:f2e843ce050a
-tag:         v7.2.5.188-release
+changeset:   198:947e08d817b1
+tag:         v7.3.0.198-release
 user:        Tercio
-date:        Mon Aug 21 20:46:45 2017 -0300
-summary:     - Group Finder: middle click on the quest name in the quest tracker should pass the click if the auto open is disabled.
+date:        Tue Aug 29 15:08:24 2017 -0300
+summary:     - ToC Update.
 
 
