@@ -62,6 +62,12 @@ function TSM:OnInitialize()
 			operation.restockSources = operation.restockSources or operationDefaults.restockSources
 		end
 	end
+	
+	-- fix patch 7.3 sound changes
+	local sounds = TSMAPI:GetSounds()
+	if not sounds[TSM.db.global.sniperSound] then
+		TSM.db.global.sniperSound = TSM.NO_SOUND_KEY
+	end
 end
 
 -- registers this module with TSM by first setting all fields and then calling TSMAPI:NewModule().

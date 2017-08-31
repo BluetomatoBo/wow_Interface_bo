@@ -739,7 +739,7 @@ function private:SetMaxQuantity(auctionRecord, value)
 		if type(private.extraInfo.maxQuantity) == "number" then
 			-- global max quantity
 			private.extraInfo.maxQuantity = value
-		elseif type(private.extraInfo.maxQuantity) == "table" and private.extraInfo.maxQuantity[itemString] then
+		elseif type(private.extraInfo.maxQuantity) == "table" and private.extraInfo.maxQuantity[auctionRecord.itemString] then
 			-- per-item max quantity
 			private.extraInfo.maxQuantity[auctionRecord.itemString] = value
 		end
