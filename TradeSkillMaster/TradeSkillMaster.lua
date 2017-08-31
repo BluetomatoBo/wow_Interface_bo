@@ -310,7 +310,14 @@ function TSM:OnInitialize()
 			tt:AddLine(format(L["%sDrag%s to move this button"], cs, ce))
 		end,
 	})
-
+	
+	-- fix patch 7.3 sound changes
+	local sounds = TSMAPI:GetSounds()
+	if not sounds[TSM.db.global.auctionSaleSound] then
+		TSM.db.global.auctionSaleSound = TSM.NO_SOUND_KEY
+	end
+	
+	
 	-- Cache battle pet names
 	for i=1, C_PetJournal.GetNumPets() do C_PetJournal.GetPetInfoByIndex(i) end
 	-- force a garbage collection

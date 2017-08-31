@@ -1,3 +1,14 @@
+v3.6.35
+*Added new bonus ids for 7.3.
+*Fixed another sound bug.
+
+v3.6.34
+*Fixed typo
+
+v3.6.33
+*Updated TOC version for patch 7.3.
+*Fixed bugs relating to changes on how sounds are played.
+
 v3.6.32
 *Fixed problematic bonus id.
 

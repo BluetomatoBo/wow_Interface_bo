@@ -15,6 +15,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("TradeSkillMaster") -- loads the lo
 if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
 
 local ICON_TEXT_COLOR = {165/255, 168/255, 188/255, .7}
+local SOUNDKIT = SOUNDKIT
 
 
 --[[-----------------------------------------------------------------------------
@@ -25,7 +26,7 @@ local function Frame_OnClose(frame)
 end
 
 local function CloseButton_OnClick(frame)
-	PlaySound("gsTitleOptionExit")
+	PlaySound(SOUNDKIT["GS_TITLE_OPTION_EXIT"])
 	frame.obj:Hide()
 end
 

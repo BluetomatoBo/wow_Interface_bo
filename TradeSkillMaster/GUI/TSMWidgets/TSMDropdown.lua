@@ -19,7 +19,7 @@ local select, pairs, ipairs, type = select, pairs, ipairs, type
 local tsort = table.sort
 
 -- WoW APIs
-local PlaySound = PlaySound
+local PlaySound, SOUNDKIT = PlaySound, SOUNDKIT
 local UIParent, CreateFrame = UIParent, CreateFrame
 local _G = _G
 
@@ -73,7 +73,7 @@ end
 local function Dropdown_TogglePullout(this, button)
 	local self = this.obj
 	if self.disabled then return end
-	PlaySound("igMainMenuOptionCheckBoxOn") -- missleading name, but the Blizzard code uses this sound
+	PlaySound(SOUNDKIT["IG_MAINMENU_OPTION_CHECKBOX_ON"]) -- missleading name, but the Blizzard code uses this sound
 	if self.open then
 		self.open = nil
 		self.pullout:Close()

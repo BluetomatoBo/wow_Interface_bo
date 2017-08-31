@@ -17,7 +17,7 @@ if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
 local select, pairs = select, pairs
 
 -- WoW APIs
-local PlaySound = PlaySound
+local PlaySound, SOUNDKIT = PlaySound, SOUNDKIT
 local CreateFrame, UIParent = CreateFrame, UIParent
 
 --[[-----------------------------------------------------------------------------
@@ -44,11 +44,11 @@ local function CheckBox_OnMouseUp(frame, button)
 	if not self.disabled then
 		self.text:SetPoint("LEFT", self.btn, "RIGHT", 0, 0)
 		self:ToggleChecked()
-
+		
 		if self.checked then
-			PlaySound("igMainMenuOptionCheckBoxOn")
+			PlaySound(SOUNDKIT["IG_MAINMENU_OPTION_CHECKBOX_ON"])
 		else
-			PlaySound("igMainMenuOptionCheckBoxOff")
+			PlaySound(SOUNDKIT["IG_MAINMENU_OPTION_CHECKBOX_OFF"])
 		end
 
 		self:Fire("OnValueChanged", self.checked)

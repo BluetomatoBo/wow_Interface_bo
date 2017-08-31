@@ -17,7 +17,7 @@ if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
 local pairs, assert, type = pairs, assert, type
 
 -- WoW APIs
-local PlaySound = PlaySound
+local PlaySound, SOUNDKIT = PlaySound, SOUNDKIT
 local CreateFrame, UIParent = CreateFrame, UIParent
 
 
@@ -30,7 +30,7 @@ local function frameOnClose(this)
 end
 
 local function closeOnClick(this)
-	PlaySound("gsTitleOptionExit")
+	PlaySound(SOUNDKIT["GS_TITLE_OPTION_EXIT"])
 	this.obj:Hide()
 end
 
