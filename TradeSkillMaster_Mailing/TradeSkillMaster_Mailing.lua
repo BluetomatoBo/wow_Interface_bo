@@ -75,6 +75,12 @@ function TSM:OnEnable()
 			end
 		end
 	end
+	
+	-- fix patch 7.3 sound changes
+	local sounds = TSMAPI:GetSounds()
+	if not sounds[TSM.db.global.openMailSound] then
+		TSM.db.global.openMailSound = TSM.NO_SOUND_KEY
+	end
 end
 
 -- registers this module with TSM by first setting all fields and then calling TSMAPI:NewModule().

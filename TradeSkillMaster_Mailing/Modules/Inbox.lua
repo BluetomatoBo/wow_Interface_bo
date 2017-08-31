@@ -176,7 +176,7 @@ function Inbox:CreateTab()
 						OpenMail_Update()
 						ShowUIPanel(OpenMailFrame)
 						OpenMailFrameInset:SetPoint("TOPLEFT", 4, -80)
-						PlaySound("igSpellBookOpen")
+						PlaySound(SOUNDKIT["IG_SPELLBOOK_OPEN"])
 					else
 						InboxFrame.openMailID = 0
 						HideUIPanel(OpenMailFrame)
@@ -309,7 +309,7 @@ function private:InboxUpdate()
 	local collectGold = 0
 	for i = 1, numMail do
 		mailInfo[i] = ""
-		local isInvoice = select(4, GetInboxText(i))
+		local isInvoice = select(5, GetInboxText(i))
 		local _, _, sender, subject, money, cod, daysLeft, hasItem = GetInboxHeaderInfo(i)
 		if isInvoice then
 			local invoiceType, itemName, playerName, bid, _, _, ahcut, _, _, _, quantity = GetInboxInvoiceInfo(i)
@@ -551,7 +551,7 @@ function private:ShouldOpenMail(index)
 	elseif private.mode == "buys" then
 		return numItems > 0 and GetInboxInvoiceInfo(index) == "buyer"
 	elseif private.mode == "cancels" then
-		local isInvoice = select(4, GetInboxText(index))
+		local isInvoice = select(5, GetInboxText(index))
 		if not isInvoice and numItems == 1 then
 			local itemName = TSMAPI.Item:GetName(private:GetFirstInboxItemLink(index))
 			if itemName then
@@ -562,7 +562,7 @@ function private:ShouldOpenMail(index)
 			end
 		end
 	elseif private.mode == "expires" then
-		local isInvoice = select(4, GetInboxText(index))
+		local isInvoice = select(5, GetInboxText(index))
 		if not isInvoice and numItems == 1 then
 			local itemName = TSMAPI.Item:GetName(private:GetFirstInboxItemLink(index))
 			if itemName and strfind(subject, "^" .. TSMAPI.Util:StrEscape(format(AUCTION_EXPIRED_MAIL_SUBJECT, itemName))) then
@@ -577,7 +577,7 @@ function private:PrintOpenMailMessage(index)
 	local _, _, sender, subject, money, cod, _, hasItem = GetInboxHeaderInfo(index)
 	local greenColor, redColor = "|cff00ff00", "|cffff0000"
 	sender = sender or "?"
-	if select(4, GetInboxText(index)) then
+	if select(5, GetInboxText(index)) then
 		-- it's an invoice
 		local invoiceType, itemName, playerName, bid, _, _, ahcut, _, _, _, quantity = GetInboxInvoiceInfo(index)
 		playerName = playerName or "?"
