@@ -1172,7 +1172,7 @@
 						</Layers>
 						<Scripts>
 							<OnClick>
-								if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) else PlaySound("igMainMenuOptionCheckBoxOn") end
+								PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 								PawnUI_ClearCompareItems()
 							</OnClick>
 							<OnEnter function="PawnUIFrame_TooltipOn" />
@@ -1595,7 +1595,7 @@
 				<Anchors><Anchor point="LEFT" relativePoint="BOTTOMLEFT"><Offset><AbsDimension x="196" y="-8" /></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) else PlaySound("igCharacterInfoTab") end
+						PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 						PawnUISwitchToTab(PawnUIScalesTabPage)
 					</OnClick>
 				</Scripts>
@@ -1604,7 +1604,7 @@
 				<Anchors><Anchor point="LEFT" relativeTo="$parentTab1" relativePoint="RIGHT"><Offset><AbsDimension x="-16" y="0" /></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) else PlaySound("igCharacterInfoTab") end
+						PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 						PawnUISwitchToTab(PawnUIValuesTabPage)
 					</OnClick>
 				</Scripts>
@@ -1613,7 +1613,7 @@
 				<Anchors><Anchor point="LEFT" relativeTo="$parentTab2" relativePoint="RIGHT"><Offset><AbsDimension x="-16" y="0" /></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) else PlaySound("igCharacterInfoTab") end
+						PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 						PawnUISwitchToTab(PawnUICompareTabPage)
 					</OnClick>
 				</Scripts>
@@ -1622,7 +1622,7 @@
 				<Anchors><Anchor point="LEFT" relativeTo="$parentTab3" relativePoint="RIGHT"><Offset><AbsDimension x="-16" y="0" /></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) else PlaySound("igCharacterInfoTab") end
+						PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 						PawnUISwitchToTab(PawnUIGemsTabPage)
 					</OnClick>
 				</Scripts>
@@ -1631,7 +1631,7 @@
 				<Anchors><Anchor point="LEFT" relativeTo="$parentTab4" relativePoint="RIGHT"><Offset><AbsDimension x="-16" y="0" /></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) else PlaySound("igCharacterInfoTab") end
+						PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 						PawnUISwitchToTab(PawnUIOptionsTabPage)
 					</OnClick>
 				</Scripts>
@@ -1640,7 +1640,7 @@
 				<Anchors><Anchor point="RIGHT" relativePoint="BOTTOMRIGHT"><Offset><AbsDimension x="-6" y="-8" /></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) else PlaySound("igCharacterInfoTab") end
+						PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 						PawnUISwitchToTab(PawnUIAboutTabPage)
 					</OnClick>
 				</Scripts>
@@ -1649,7 +1649,7 @@
 				<Anchors><Anchor point="RIGHT" relativeTo="$parentTab6" relativePoint="LEFT"><Offset><AbsDimension x="16" y="0" /></Offset></Anchor></Anchors>
 				<Scripts>
 					<OnClick>
-						if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) else PlaySound("igCharacterInfoTab") end
+						PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 						PawnUISwitchToTab(PawnUIHelpTabPage)
 					</OnClick>
 				</Scripts>
@@ -1675,11 +1675,11 @@
 				PawnOnEvent(event, ...)
 			</OnEvent>
 			<OnShow>
-				if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_OPEN) else PlaySound("igCharacterInfoOpen") end
+				PlaySound(SOUNDKIT.IG_CHARACTER_INFO_OPEN)
 				PawnUI_EnsureLoaded()
 			</OnShow>
 			<OnHide>
-				if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_CLOSE) else PlaySound("igCharacterInfoClose") end
+				PlaySound(SOUNDKIT.IG_CHARACTER_INFO_CLOSE)
 			</OnHide>
 			<OnMouseDown>self:StartMoving()</OnMouseDown>
 			<OnMouseUp>self:StopMovingOrSizing()</OnMouseUp>

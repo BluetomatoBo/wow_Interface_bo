@@ -1484,7 +1484,7 @@ end
 
 -- Called when one of the two upper item slots are clicked.
 function PawnUICompareItemIcon_OnClick(Index)
-	if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) else PlaySound("igMainMenuOptionCheckBoxOn") end
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 	
 	-- Are they shift-clicking it to insert the item into chat?
 	if IsModifiedClick("CHATLINK") then
@@ -1533,7 +1533,7 @@ end
 
 -- Sets the left item to the item depicted in the "currently equipped" shortcut button.
 function PawnUICompareItemShortcut_OnClick(self, Button)
-	if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) else PlaySound("igMainMenuOptionCheckBoxOn") end
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 	local ShortcutIndex = self:GetID()
 	
 	-- Are they shift-clicking it to insert the item into chat?
@@ -2307,13 +2307,13 @@ function PawnUIShowTab(Tab, Toggle)
 		PawnUIShow()
 		PawnUISwitchToTab(Tab)
 	elseif not Tab:IsShown() then
-		if SOUNDKIT then PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB) else PlaySound("igCharacterInfoTab") end
+		PlaySound(SOUNDKIT.IG_CHARACTER_INFO_TAB)
 		PawnUISwitchToTab(Tab)
 	else
 		if Toggle then
 			PawnUIShow()
 		else
-			if SOUNDKIT then PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON) else PlaySound("igMainMenuOptionCheckBoxOn") end
+			PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
 		end
 	end
 end
