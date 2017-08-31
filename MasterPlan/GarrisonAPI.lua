@@ -2516,6 +2516,13 @@ function api.GetFollowerRerollConstraints(fid)
 		end
 	end
 	
+	local at = C_Garrison.GetFollowerAbilities(tf.garrFollowerID)
+	for k,v in pairs(at) do
+		local t = v.isTrait and ct or cc
+		local k = v.isTrait and v.id or C_Garrison.GetFollowerAbilityCounterMechanicInfo(v.id)
+		t[k] = t[k] and "soft"
+	end
+	
 	return cc, ct, hasInterestedMissions
 end
 
@@ -2644,6 +2651,17 @@ function api.SetClassSpecTooltip(self, specId, specName, ab1, ab2)
 		self:AddLine(specName, 1,1,1)
 		self:AddLine(L"Potential counters:")
 		local dupIdx, dupNext = api.PrepCounterComboIter(c)
+
+		local lockedCounter
+		if fi then
+			local fat = fi and C_Garrison.GetFollowerAbilities(fi.garrFollowerID or fi.followerID)
+			for k,v in pairs(fat) do
+				if not v.isTrait and v.id and v.counters then
+					lockedCounter = next(v.counters)
+				end
+			end
+		end
+
 		for i=1,#c do
 			local lidx, ridx, pc, lc, rc, lt, rt = api.GetCounterComboIter(c, i, dupIdx, dupNext)
 			if lidx then
@@ -2653,6 +2671,12 @@ function api.SetClassSpecTooltip(self, specId, specName, ab1, ab2)
 				if ridx then
 					local rf, ra, rp = api.countFreeFollowers(rct, finfo), rct and #rct or 0, rpt and #rpt or 0
 					rt = (rf == 0 and ra == 0 and "0" or "") .. (rf > 0 and "|cff20ff20" .. rf .. "|r" or "") .. (ra > rf and (rf > 0 and "+" or "") .. "|cffccc78f" .. (ra - rf) .. "|r" or "") .. "|cffa0a0a0/" .. rp .. " " .. rt
+				end
+				if lockedCounter ~= nil and pc ~= lockedCounter and lc ~= lockedCounter then
+					lt = " "
+				end
+				if lockedCounter ~= nil and pc ~= lockedCounter and rc ~= lockedCounter then
+					rt = " "
 				end
 				self:AddDoubleLine(lt, rt, 1,1,1, 1,1,1)
 			end
@@ -3287,12 +3311,20 @@ do -- api.GetBestGroupInfo()
 		end
 		me.active, me.working = 1, 0
 		
+		local fat = C_Garrison.GetFollowerAbilities(me.garrFollowerID or me.followerID or fid)
+		local lockedCounter = nil
+		for k,v in pairs(fat) do
+			if not v.isTrait and v.id and v.counters then
+				lockedCounter = next(v.counters)
+			end
+		end
+		
 		local bMax, ct, clones = #ft, T.SpecCounters[me.classSpec], {}
 		for i=1,#ct do
 			for j=i+1,#ct do
 				local a, b = ct[i], ct[j]
 				local key = a*100+b
-				if not clones[key] then
+				if not clones[key] and (lockedCounter == nil or a == lockedCounter or b == lockedCounter) then
 					local cl = {}
 					for k,v in pairs(me) do
 						cl[k] = v

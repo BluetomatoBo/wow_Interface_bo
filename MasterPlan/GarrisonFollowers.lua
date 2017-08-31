@@ -364,6 +364,8 @@ hooksecurefunc("GarrisonFollowerPage_SetItem", function(self)
 	self.ItemWeapon:Hide()
 	self.ItemArmor:Hide()
 	self.ItemAverageLevel:Hide()
+	self.ItemWeapon.itemID = nil
+	self.ItemArmor.itemID = nil
 end)
 local CreateClassSpecButton, ClassSpecButton_Set do
 	local tipLoader = T.MissionsUI.CreateLoader(GameTooltip, 16, 4, 9)
@@ -447,6 +449,9 @@ function EV:FXUI_GARRISON_FOLLOWER_LIST_SHOW_FOLLOWER(tab, followerID)
 				button.IconButton.ValidSpellHighlight:SetVertexColor(1,0.8,0.8)
 			elseif T.LockTraits[et[abid] or abid] or T.LockTraits[abid] then
 				button.Name:SetText([[|TInterface\PetBattles\PetBattle-LockIcon:11:10:-2:1:32:32:4:28:2:30:220:220:160|t]]..C_Garrison.GetFollowerAbilityName(abid))
+				button.IconButton.ValidSpellHighlight:SetVertexColor(1,1,1)
+			elseif isFree == "soft" then
+				button.Name:SetText([[|TInterface\PetBattles\PetBattle-LockIcon:11:10:-2:1:32:32:4:28:2:30:120:240:160|t]]..C_Garrison.GetFollowerAbilityName(abid))
 				button.IconButton.ValidSpellHighlight:SetVertexColor(1,1,1)
 			else
 				button.Name:SetText([[|TInterface\Buttons\UI-RefreshButton:10:10:-2:2:16:16:16:0:16:0:120:255:0|t]]..C_Garrison.GetFollowerAbilityName(abid))

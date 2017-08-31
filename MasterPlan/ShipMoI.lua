@@ -216,7 +216,7 @@ local moiTab = CreateFrame("Button", "GarrisonShipyardFrameTab3", GarrisonShipya
 	PanelTemplates_TabResize(moiTab, 10)
 
 	moiTab:SetScript("OnClick", function()
-		PlaySound("UI_Garrison_Nav_Tabs")
+		PlaySound(SOUNDKIT.UI_GARRISON_NAV_TABS)
 		GarrisonShipyardFrame:SelectTab(3)
 	end)
 	hooksecurefunc(GarrisonShipyardFrame, "SelectTab", function(_, id)

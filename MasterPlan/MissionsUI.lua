@@ -17,7 +17,7 @@ local Interest_RewardMap = {}
 
 local function SetMissionsFrameTab(id)
 	local mainFrame = GarrisonMissionFrame
-	PlaySound("UI_Garrison_Nav_Tabs");
+	PlaySound(SOUNDKIT.UI_GARRISON_NAV_TABS);
 	PanelTemplates_SetTab(mainFrame, id);
 	mainFrame:SelectTab(id);
 end
@@ -80,15 +80,15 @@ local function OpenToMission(mi, f1, f2, f3, isResume)
 		isResume = true
 	end
 	if isResume then
-		_, s1 = PlaySound("UI_Garrison_CommandTable_IncreaseSuccess")
-		_, s2 = PlaySound("UI_Garrison_CommandTable_100Success")
-		_, s3 = PlaySound("UI_Garrison_Mission_Threat_Countered")
-		_, s4 = PlaySound("UI_Garrison_CommandTable_AssignFollower")
-		_, s5 = PlaySound("UI_Garrison_CommandTable_UnassignFollower")
-		_, s6 = PlaySound("UI_Garrison_CommandTable_ReducedSuccessChance")
+		_, s1 = PlaySound(SOUNDKIT.UI_GARRISON_COMMAND_TABLE_INCREASED_SUCCESS_CHANCE)
+		_, s2 = PlaySound(SOUNDKIT.UI_GARRISON_COMMAND_TABLE_100_SUCCESS)
+		_, s3 = PlaySound(SOUNDKIT.UI_GARRISON_MISSION_THREAT_COUNTERED)
+		_, s4 = PlaySound(SOUNDKIT.UI_MISSION_200_PERCENT)
+		_, s5 = PlaySound(SOUNDKIT.UI_GARRISON_COMMAND_TABLE_UNASSIGN_FOLLOWER)
+		_, s6 = PlaySound(SOUNDKIT.UI_GARRISON_COMMAND_TABLE_REDUCED_SUCCESS_CHANCE)
 	end
 	
-	PlaySound("UI_Garrison_CommandTable_SelectMission")
+	PlaySound(SOUNDKIT.UI_GARRISON_COMMAND_TABLE_SELECT_MISSION)
 	FRAME.MissionTab.MissionList:Hide()
 	PAGE:Show()
 	FRAME:ShowMission(mi)
@@ -190,7 +190,7 @@ MISSION_PAGE_FRAME.StartMissionButton:SetScript("OnClick", function()
 	end
 	local f1, f2, f3 = G.StartMission(MISSION_PAGE_FRAME.missionInfo.missionID)
 	api.roamingParty:DropFollowers(f1, f2, f3)
-	PlaySound("UI_Garrison_CommandTable_MissionStart")
+	PlaySound(SOUNDKIT.UI_GARRISON_COMMAND_TABLE_MISSION_START)
 	GarrisonMissionFrame:CloseMission()
 	RefreshAvailMissionsView(true)
 	if (not GetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_GARRISON_LANDING)) then
@@ -801,7 +801,7 @@ local activeUI = CreateFrame("Frame", nil, missionList) do
 				end
 				btn.info, btn.awardXP = info, award or 0
 				if award and award > (info.xp or 0) or (oldQuality and oldQuality ~= info.quality) then
-					lootFrame.onShowSound = "UI_Garrison_CommandTable_Follower_LevelUp"
+					lootFrame.onShowSound = SOUNDKIT.UI_GARRISON_COMMAND_TABLE_FOLLOWER_LEVEL_UP
 					btn.levelUp:Show()
 					btn.levelUp:SetAlpha(1)
 					btn.levelUp.Anim:Play()
@@ -935,7 +935,7 @@ local activeUI = CreateFrame("Frame", nil, missionList) do
 	function activeUI:SetCompletionRewards(rewards, followers, numMissions, overflowLoot)
 		lootFrame.noBagSlots:SetShown(overflowLoot)
 		lootFrame.numMissions:SetFormattedText(GARRISON_NUM_COMPLETED_MISSIONS, numMissions or 1)
-		lootFrame.onShowSound = rewards and next(rewards) and "UI_Garrison_CommandTable_ChestUnlock_Gold_Success" or "UI_Garrison_CommandTable_ChestUnlock"
+		lootFrame.onShowSound = SOUNDKIT[rewards and next(rewards) and "UI_GARRISON_COMMAND_TABLE_CHEST_UNLOCK_GOLD_SUCCESS" or "UI_GARRISON_COMMAND_TABLE_CHEST_UNLOCK"]
 		
 		local fi, fn = G.GetFollowerInfo(), 1
 		for k,v in pairs(followers) do
@@ -1167,7 +1167,7 @@ local availUI = CreateFrame("Frame", nil, missionList) do
 						slots[i].followerID = nil
 					end
 				end
-				PlaySound(follower and "UI_Garrison_CommandTable_AssignFollower" or "UI_Garrison_CommandTable_UnassignFollower")
+				PlaySound(SOUNDKIT[follower and "UI_GARRISON_COMMAND_TABLE_ASSIGN_FOLLOWER" or "UI_GARRISON_COMMAND_TABLE_UNASSIGN_FOLLOWER"])
 				slots[slot].followerID = follower
 				self:Update(true)
 			end
@@ -1228,10 +1228,10 @@ local availUI = CreateFrame("Frame", nil, missionList) do
 				self:GetScript("OnEnter")(self)
 			elseif easyDrop:IsOpen(self) then
 				CloseDropDownMenus()
-				PlaySound("UChatScrollButton")
+				PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
 				self:GetScript("OnEnter")(self)
 			else
-				PlaySound("UChatScrollButton")
+				PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
 				local mn, f2, slot, cur = {}, C_Garrison.GetFollowers(1), self:GetID(), self.followerID
 				local a1, a2, a3 = roamingParty:GetFollowers()
 				table.sort(f2, cmp)
@@ -1321,14 +1321,14 @@ local availUI = CreateFrame("Frame", nil, missionList) do
 				RefreshAvailMissionsView()
 			elseif button == "RightButton" or G.GetTentativePartyCount(1) == 0 then
 				G.DissolveAllTentativeParties(1)
-				PlaySound("UChatScrollButton")
+				PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
 			elseif not C_Garrison.IsAboveFollowerSoftCap(1) then
 				G.SuppressFollowerEvents(1)
 				for mid, p1, p2, p3 in G.GetReadyTentativeParties(1) do
 					G.StartMissionQueue(mid, p1, p2, p3)
 				end
 				G.ReleaseFollowerEvents(1)
-				PlaySound("UI_Garrison_CommandTable_MissionStart")
+				PlaySound(SOUNDKIT.UI_GARRISON_COMMAND_TABLE_MISSION_START)
 			end
 		end)
 		
@@ -1367,7 +1367,7 @@ local availUI = CreateFrame("Frame", nil, missionList) do
 		function EV:MP_MISSION_REJECT(mid)
 			syncLater()
 			G.GetMissionParty(mid, true)
-			PlaySound("igQuestFailed")
+			PlaySound(847)
 		end
 	end
 	api.roamingParty = roamingParty
@@ -1488,7 +1488,6 @@ local interestUI = CreateFrame("Frame", nil, missionList) do
 				{arg1=127748},
 				{arg1=128313},
 				{arg1=128316},
-				{arg1=128312},
 				{arg1=115280, text="|TInterface\\Minimap\\ObjectIcons:16:16:0:0:256:256:194:222:130:158|t |cffff8000" .. ITEM_QUALITY5_DESC},
 			}
 			local function toggleInterestBit(_, key)
@@ -1608,7 +1607,7 @@ do -- tabs
 		interestTab:SetText(L"Missions of Interest")
 		ResizeTabs()
 		T.After0(ResizeTabs)
-		if #GarrisonMissionFrameMissions.inProgressMissions == 0 and (cm and #cm or 0) == 0 then
+		if #GarrisonMissionFrameMissions.inProgressMissions == 0 and (cm and #cm or 0) == 0 or OVERRIDEEXIT then
 			SetTabState(activeTab, nil)
 		else
 			SetTabState(activeTab, GarrisonMissionFrame.selectedTab == 3)
@@ -1638,7 +1637,7 @@ do -- tabs
 		end
 	end)
 	activeTab:SetScript("OnClick", function()
-		PlaySound("UI_Garrison_Nav_Tabs")
+		PlaySound(SOUNDKIT.UI_GARRISON_NAV_TABS)
 		if GarrisonMissionFrame.MissionTab.MissionPage:IsShown() then
 			GarrisonMissionFrame.MissionTab.MissionPage.MinimizeButton:Click()
 		end
@@ -1652,14 +1651,14 @@ do -- tabs
 		GarrisonMissionFrame:CheckCompleteMissions()
 	end)
 	availTab:SetScript("OnClick", function()
-		PlaySound("UI_Garrison_Nav_Tabs")
+		PlaySound(SOUNDKIT.UI_GARRISON_NAV_TABS)
 		SetMissionsFrameTab(1)
 		if not missionList:IsShown() then
 			GarrisonMissionListTab_SetTab(GarrisonMissionFrameMissionsTab1)
 		end
 	end)
 	interestTab:SetScript("OnClick", function()
-		PlaySound("UI_Garrison_Nav_Tabs")
+		PlaySound(SOUNDKIT.UI_GARRISON_NAV_TABS)
 		if GarrisonMissionFrame.MissionTab.MissionPage:IsShown() then
 			GarrisonMissionFrame.MissionTab.MissionPage.MinimizeButton:Click()
 		end
@@ -1671,7 +1670,7 @@ do -- tabs
 	function EV:GARRISON_MISSION_FINISHED()
 		if GarrisonMissionFrame:IsVisible() and GarrisonMissionFrame.selectedTab ~= 3 then
 			updateMissionTabs()
-			PlaySound("UI_Garrison_Toast_MissionComplete")
+			PlaySound(SOUNDKIT.UI_GARRISON_TOAST_MISSION_COMPLETE)
 		end
 	end
 end
@@ -1734,7 +1733,7 @@ local GetActiveMissions, StartCompleteAll, CompleteMission, ClearCompletionState
 			end
 		end
 		if (substate == "FAIL" or substate == "COMPLETE") and mid then
-			PlaySoundKitID(substate == "FAIL" and 43501 or 43502, nil, false)
+			PlaySound(substate == "FAIL" and 43501 or 43502, nil, false)
 			activeMissionsHandle:SetAnimation(mid, substate)
 		end
 		completionFollowers = fol
@@ -1768,7 +1767,7 @@ local GetActiveMissions, StartCompleteAll, CompleteMission, ClearCompletionState
 	EV.MP_RELEASE_CACHES = ClearCompletionState
 end
 activeUI.CompleteAll:SetScript("OnClick", function(_, button)
-	PlaySound("UChatScrollButton")
+	PlaySound(SOUNDKIT.U_CHAT_SCROLL_BUTTON)
 	if button ~= "RightButton" then
 		StartCompleteAll()
 	else
@@ -3715,4 +3714,24 @@ function EV:ADDON_LOADED(a)
 		GarrisonMissionFrame:CheckCompleteMissions(true)
 	end
 	return "remove"
+end
+local o1, o2 = C_Garrison.GetCompleteMissions, C_Garrison.GetInProgressMissions
+local function rest()
+	if not activeUI:IsVisible() then
+		C_Garrison.GetCompleteMissions, C_Garrison.GetInProgressMissions = o1, o2
+	else
+		C_Timer.After(0.1, rest)
+	end
+end
+function ZT()
+	C_Timer.After(1, function()
+		activeUI:SetCompletionRewards({}, {}, 0, not not nil)
+		function C_Garrison.GetCompleteMissions()
+			return {}
+		end
+		function C_Garrison.GetInProgressMissions()
+			return {}
+		end
+		C_Timer.After(0.1, rest)
+	end)
 end
