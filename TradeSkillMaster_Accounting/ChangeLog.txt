@@ -1,3 +1,6 @@
+v3.0.20
+*Updated TOC version for patch 7.3.
+
 v3.0.19
 *Updated for patch 7.2.
 *Fixed issue with recording of repair expenses.
