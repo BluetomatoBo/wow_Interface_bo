@@ -1,3 +1,6 @@
+v3.2.5
+*Updated TOC version for patch 7.3.
+
 v3.2.4
 *Fixed bug with estimated craft cost being incorrect in some situations
 *Fixed bug with intermediate crafting in Gathering
