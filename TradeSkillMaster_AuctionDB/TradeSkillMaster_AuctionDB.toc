@@ -1,11 +1,11 @@
-## Interface: 70200
+## Interface: 70300
 ## Title: |cff00ff00TradeSkillMaster_AuctionDB|r
 ## Notes: Stores auction house data and calculates market prices.
 ## Author: Sapu94, Bart39
-## Version: v3.1.17
+## Version: v3.1.18
 ## SavedVariables: TradeSkillMaster_AuctionDBDB
 ## Dependency: TradeSkillMaster
-## X-Curse-Packaged-Version: v3.1.17
+## X-Curse-Packaged-Version: v3.1.18
 ## X-Curse-Project-Name: TradeSkillMaster_AuctionDB
 ## X-Curse-Project-ID: tradeskillmaster_auctiondb
 ## X-Curse-Repository-ID: wow/tradeskillmaster_auctiondb/mainline

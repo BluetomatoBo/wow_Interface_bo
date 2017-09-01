@@ -1,3 +1,7 @@
+v3.1.18
+*Updated TOC version for patch 7.3.
+*Fixed bug with full scanning.
+
 v3.1.17
 *Updated TOC version for patch 7.2.
 

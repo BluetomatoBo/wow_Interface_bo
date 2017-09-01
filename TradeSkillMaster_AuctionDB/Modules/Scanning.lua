@@ -109,13 +109,12 @@ function private.FullScanThread(self)
 		scanData[record.itemString].numAuctions = scanData[record.itemString].numAuctions + 1
 		self:Yield()
 	end
-	private:ProcessScanDataThread(self, scanData)
-	TSM.GUI:UpdateStatus(L["Done Scanning"], 100)
 	if success then
-		private:ProcessScanDataThread(self, scanData, itemList)
+		private:ProcessScanDataThread(self, scanData)
 	else
 		TSM:Print(L["The scan did not run successfully due to issues on Blizzard's end. Using the TSM desktop application for your scans is recommended."])
 	end
+	TSM.GUI:UpdateStatus(L["Done Scanning"], 100)
 end
 
 function private.GroupScanThread(self, itemList)
