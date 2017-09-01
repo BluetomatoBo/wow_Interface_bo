@@ -1,9 +1,15 @@
 ------------------------------------------------------------------------
-r100 | arith | 2017-06-13 03:11:03 -0500 (Tue, 13 Jun 2017) | 1 line
+r103 | arith | 2017-08-30 10:03:02 -0500 (Wed, 30 Aug 2017) | 1 line
+Changed paths:
+   M /trunk/LibBabble-ItemSet-3.0.lua
+
+translation updated to 7.3.0.24896
+------------------------------------------------------------------------
+r102 | arith | 2017-08-30 09:57:17 -0500 (Wed, 30 Aug 2017) | 1 line
 Changed paths:
    M /trunk/LibBabble-ItemSet-3.0.lua
    M /trunk/LibBabble-ItemSet-3.0.toc
 
-translation updated to 7.2.5.24287
+to trigger DB update; DO NOT use this revision
 ------------------------------------------------------------------------
 
