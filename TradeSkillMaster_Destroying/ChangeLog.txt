@@ -1,3 +1,6 @@
+v3.1.7
+*Updated TOC version for patch 7.3.
+
 v3.1.6
 *Updated TOC version for patch 7.2.
 
