@@ -1,11 +1,11 @@
-## Interface: 70200
+## Interface: 70300
 ## Title: |cff00ff00TradeSkillMaster_Vendoring|r
 ## Notes: Provides Auto-Selling of items to a vendor
 ## Author: Sapu94, PsyTech
-## Version: v3.0.6
+## Version: v3.0.7
 ## SavedVariables: TradeSkillMaster_VendoringDB
 ## Dependency: TradeSkillMaster
-## X-Curse-Packaged-Version: v3.0.6
+## X-Curse-Packaged-Version: v3.0.7
 ## X-Curse-Project-Name: TradeSkillMaster_Vendoring
 ## X-Curse-Project-ID: tradeskillmaster_vendoring
 ## X-Curse-Repository-ID: wow/tradeskillmaster_vendoring/mainline
