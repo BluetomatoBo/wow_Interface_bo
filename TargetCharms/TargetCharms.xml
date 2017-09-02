@@ -19,7 +19,7 @@
 										self:GetParent():GetParent():StartMoving();
 									end
 								else
-									PlaySound("GAMEGENERICBUTTONPRESS");
+									PlaySound(624);
 								end
 							</OnMouseDown>
 							<OnMouseUp>
