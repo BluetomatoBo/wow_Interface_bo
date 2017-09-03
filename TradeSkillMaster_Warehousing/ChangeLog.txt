@@ -1,3 +1,9 @@
+v3.0.7
+*Fixed typo in locale file.
+
+v3.0.6
+*Updated TOC version for patch 7.3.
+
 v3.0.5
 *Updated TOC version for patch 7.2.
 
@@ -185,3 +191,5 @@ v1.0.1
 
 v1.0
 *it has been released!!
+
+
