@@ -15,7 +15,7 @@ StaticPopupDialogs[ADDON .. 'VAULT_PURCHASE'] = {
 	button2 = NO,
 
 	OnAccept = function(self)
-		PlaySound('UI_Voidstorage_Unlock')
+		PlaySound(SOUNDKIT.UI_VOID_STORAGE_UNLOCK)
 		UnlockVoidStorage()
 	end,
 
