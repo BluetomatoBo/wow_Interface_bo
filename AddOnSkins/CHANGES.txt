@@ -1,46 +1,10 @@
-tag c800f220b19f69fd5d84efe8d007eb0bab448307 3.50
+lightweight tag 7022f312f6a89287f364ecd11d7d65249b3a7f92 3.511
 Author:	Azilroka <darktemplar9900@yahoo.com>
-Date:	Thu Aug 10 20:27:59 2017 -0500
+Date:	Sun Sep 3 22:38:09 2017 -0500
 
-commit 202dc44b554105f953a1a92d72be138a76f5a36a
+commit 7022f312f6a89287f364ecd11d7d65249b3a7f92
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Aug 6 13:00:32 2017 -0500
+Date:   Sun Sep 3 22:38:09 2017 -0500
 
-    3.50
-
-commit 4ebc6ea64d5a88d05096d135fa27c37069941fed
-Author: Merathilis <neo0608@gmail.com>
-Date:   Fri Jul 7 18:41:39 2017 +0200
-
-    Remove the AtlasLoot versions check
-
-commit 4ebc6ea64d5a88d05096d135fa27c37069941fed
-Author: Merathilis <neo0608@gmail.com>
-Date:   Fri Jul 7 18:41:39 2017 +0200
-
-    Remove the AtlasLoot versions check
-
-commit 4ebc6ea64d5a88d05096d135fa27c37069941fed
-Author: Merathilis <neo0608@gmail.com>
-Date:   Fri Jul 7 18:41:39 2017 +0200
-
-    Remove the AtlasLoot versions check
-
-commit 4ebc6ea64d5a88d05096d135fa27c37069941fed
-Author: Merathilis <neo0608@gmail.com>
-Date:   Fri Jul 7 18:41:39 2017 +0200
-
-    Remove the AtlasLoot versions check
-
-commit c84605e0a9297d0e906327e4d3c32565162e618e
-Author: Merathilis <neo0608@gmail.com>
-Date:   Fri Jul 7 16:29:37 2017 +0200
-
-    Fix WorldQuestTab. This fixes: Azilroka/addonskins#489
-
-commit 7e7ad1c8caaa2d48e9351086be0184302157cf10
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Wed Jul 5 15:58:49 2017 -0500
-
-    3.49
+    Test
 
