@@ -97,6 +97,15 @@ function TSM:OnInitialize()
 			operation.blacklist = operation.blacklist or ""
 		end
 	end
+	
+	-- fix patch 7.3 sound changes
+	local sounds = TSMAPI:GetSounds()
+	if not sounds[TSM.db.global.scanCompleteSound] then
+		TSM.db.global.scanCompleteSound = TSM.NO_SOUND_KEY
+	end
+	if not sounds[TSM.db.global.confirmCompleteSound] then
+		TSM.db.global.confirmCompleteSound = TSM.NO_SOUND_KEY
+	end
 end
 
 -- registers this module with TSM by first setting all fields and then calling TSMAPI:NewModule().

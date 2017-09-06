@@ -1,3 +1,7 @@
+v3.0.16
+*Updated TOC version for patch 7.3.
+*Fixed bugs with changes to how sounds are played.
+
 v3.0.15
 *Updated TOC version for patch 7.2.
 
