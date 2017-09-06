@@ -12,8 +12,8 @@ Frame.ItemFrame = Addon.VaultItemFrame
 Frame.MoneyFrame = Addon.TransferButton
 Frame.Bags = {'vault'}
 
-Frame.OpenSound = 'UI_EtherealWindow_Open'
-Frame.CloseSound = 'UI_EtherealWindow_Close'
+Frame.OpenSound = SOUNDKIT.UI_ETHEREAL_WINDOW_OPEN
+Frame.CloseSound = SOUNDKIT.UI_ETHEREAL_WINDOW_CLOSE
 Frame.MoneySpacing = 30
 Frame.BrokerSpacing = 2
 
