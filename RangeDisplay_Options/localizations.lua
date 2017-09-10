@@ -71,6 +71,7 @@ L["Width"] = "Width"
 
 L = AL:NewLocale(AppName, "deDE")
 if L then
+-- opt
 L["Anchor to Mouse"] = "An der Maus verankern"
 L["Auto hide"] = "Autom. ausblenden"
 L["Background Color"] = "Hintergrundfarbe"
@@ -137,10 +138,12 @@ L["Use warning sound for enemy targets only"] = "Warntonsignal nur für gegneris
 L["Warning Sound"] = "Warntonsignal"
 L["Warning Sound Name"] = "Name des Warnsignals"
 L["Width"] = "Breite"
+
 end
 
 L = AL:NewLocale(AppName, "esES")
 if L then
+-- opt
 L["Anchor to Mouse"] = "Desplazar al raton"
 L["Auto hide"] = "Auto Ocultar"
 L["Background Color"] = "Color de Fondo"
@@ -206,24 +209,35 @@ L["Use warning sound for enemy targets only"] = "Usa el sonido de peligro solo e
 L["Warning Sound"] = "Sonido de peligro"
 L["Warning Sound Name"] = "Nombre del sonido de peligro"
 L["Width"] = "Ancho"
+
 end
 
 L = AL:NewLocale(AppName, "esMX")
 if L then
+-- opt
+
 end
 
 L = AL:NewLocale(AppName, "frFR")
 if L then
+-- opt
 L["Anchor to Mouse"] = "Accrocher à la souris"
 L["Auto hide"] = "Cacher auto."
 L["Background Color"] = "Couleur du fond"
+L["Background Options"] = "Options d'arrière-plan"
 L["Background Texture"] = "Texture de fond"
+L["Background Tile Size"] = "Taille du carrelage de l'arrière-plan"
 L["Border Color"] = "Couleur de la bordure"
 L["Border Texture"] = "Texture de la bordure"
 L["Border Thickness"] = "Épaisseur de la bordure"
+L["Close range section"] = "Rayon de distance proche"
 L["Color"] = "Couleur"
+L["Copy section settings to other units"] = "Copier les paramètres de rayon vers une autre unité"
+L["Default section"] = "Rayon par défaut"
+L["Enable this color section"] = "Activer ce rayon de couleur"
 L["Enabled"] = "Activé"
 L["Enemy only"] = "Ennemis seulement"
+L["Enemy only sound"] = "Son de l'ennemi"
 L["Font"] = "Police"
 L["Font outline"] = "Epaisseur de police"
 L["Font size"] = "Taille de police"
@@ -231,26 +245,53 @@ L["Frame strata"] = "Profondeur de la fenêtre"
 L["Frame's background color"] = "Couleur du fond de la frame"
 L["Frame's border color"] = "Couleur de la bordure de la frame"
 L["Height"] = "Hauteur"
+L["Hide the background if the range display is not active"] = "Cacher l'arrière-plan si le rayon d'affichage n'est pas actif"
 L["High"] = "Au dessus"
 L["Lock/Unlock display frame"] = "(Dé)Vérouille la fenêtre"
 L["Locked"] = "Vérouillé"
+L["Long range section"] = "Rayon de distance longue"
 L["Low"] = "En dessous"
 L["Medium"] = "Normal"
+L["Medium range section"] = "Rayon de distance moyenne"
 L["Mute"] = "Muet"
 L["None"] = "Aucun"
 L["Normal"] = "Normal"
+L["Out of range section"] = "Hors du rayon de portée"
+L["Over limit display"] = "Dépasse la limite d'affichage"
+L["Over limit text"] = "Dépasse la limite du texte"
+L["Play a sound when entering this range"] = "Jouer un son lorsque que vous entrer dans le rayon"
+L["Range limit"] = "Rayon limite"
+L["Ranges above this are not reported"] = "Les rayons au dessus de celui ci ne seront pas reporté"
+L["Reverse"] = "Renversé"
+L["Short range section"] = "Rayon de distance courte"
+L["Show max-min instead of min-max"] = "Afficher max-min au lieu de min-max"
 L["Show range for enemy targets only"] = "Affiche la portée pour les ennemis seulement"
+L["Show/Hide display if the target is further than range limit"] = "Afficher/Cacher cette affichage si la cible est plus éloigné que la distance limite"
 L["Strata"] = "Profondeur"
 L["Text"] = "Texte"
+L["Texture to use for the frame's background"] = "Texture à utiliser pour l'arrière-plan de la fenêtre"
+L["Texture to use for the frame's border"] = "Texture à utiliser pour la bordure de la fenêtre"
+L["The size used to tile the background texture"] = "Cette taille utilisera le carrelage de la texture de fond"
+L["The text to display for this section"] = [=[Le texte à afficher lorsque vous êtes dans ce rayon
+(%d, %d, correspond au minimum et maximum)]=]
+L["The text to display when you are further than range limit"] = "Le texte à afficher lorsque vous êtes à plus loin que la distance limite (%d est la distance minimum)"
 L["The thickness of the border"] = "L'épaisseur de la bordure"
 L["Thick"] = "Epais"
+L["Tile Background"] = "Arrière-plan en carreaux"
+L["Tile the background texture"] = "Carrelage de la texture de fond"
 L["Toggle sound"] = "Activer/désactiver le son"
+L["Use Section Colors"] = "Utiliser les couleurs du rayon"
+L["Use section colors for background and background color for text"] = "Utiliser les couleurs du rayon pour l'arrière-plan et les couleurs de fonds pour le texte"
+L["Use warning sound for enemy targets only"] = "Utiliser le son d'alerte seulement pour les cibles enemis"
 L["Warning Sound"] = "Son d'alerte"
+L["Warning Sound Name"] = "Nom du son d'alerte"
 L["Width"] = "Largeur"
+
 end
 
 L = AL:NewLocale(AppName, "koKR")
 if L then
+-- opt
 L["Anchor to Mouse"] = "마우스에 고정"
 L["Auto hide"] = "자동 숨기기"
 L["Background Color"] = "배경 색상"
@@ -317,10 +358,12 @@ L["Use warning sound for enemy targets only"] = "적대적 대상만 경고음�
 L["Warning Sound"] = "경고음"
 L["Warning Sound Name"] = "경고음 이름"
 L["Width"] = "너비"
+
 end
 
 L = AL:NewLocale(AppName, "ruRU")
 if L then
+-- opt
 L["Anchor to Mouse"] = "Привязать к мыши"
 L["Auto hide"] = "Автоматическое скрытие"
 L["Background Color"] = "Цвет фона"
@@ -387,10 +430,12 @@ L["Use warning sound for enemy targets only"] = "Использовать зву
 L["Warning Sound"] = "Звук предупреждения"
 L["Warning Sound Name"] = "Название звука предупреждения"
 L["Width"] = "Ширина"
+
 end
 
 L = AL:NewLocale(AppName, "zhCN")
 if L then
+-- opt
 L["Anchor to Mouse"] = "锚点定位到鼠标"
 L["Auto hide"] = "自动隐藏"
 L["Background Color"] = "背景颜色"
@@ -455,10 +500,12 @@ L["Use warning sound for enemy targets only"] = "仅对敌对目标使用警告�
 L["Warning Sound"] = "报警音效"
 L["Warning Sound Name"] = "报警音效名字"
 L["Width"] = "宽度"
+
 end
 
 L = AL:NewLocale(AppName, "zhTW")
 if L then
+-- opt
 L["Anchor to Mouse"] = "跟隨滑鼠移動"
 L["Auto hide"] = "自動隱藏"
 L["Background Color"] = "背景顏色"
@@ -525,5 +572,6 @@ L["Use warning sound for enemy targets only"] = "只有目標是敵對時才播�
 L["Warning Sound"] = "警告音效"
 L["Warning Sound Name"] = "警告音效名稱"
 L["Width"] = "寬度"
+
 end
 

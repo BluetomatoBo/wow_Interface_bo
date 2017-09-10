@@ -1,8 +1,9 @@
 ------------------------------------------------------------------------
-r376 | mitch0 | 2016-12-18 09:51:56 -0600 (Sun, 18 Dec 2016) | 1 line
+r378 | mitch0 | 2017-09-09 03:22:24 -0500 (Sat, 09 Sep 2017) | 1 line
 Changed paths:
-   M /trunk/.pkgmeta
+   M /trunk/RangeDisplay.toc
+   M /trunk/RangeDisplay_Options/RangeDisplay_Options.toc
 
-repomigra
+toc bump
 ------------------------------------------------------------------------
 

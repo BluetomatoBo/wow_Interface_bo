@@ -1,7 +1,7 @@
-## Interface: 70100
+## Interface: 70300
 ## Title: RangeDisplay Options
 ## Author: mitch0
-## Version: v4.6.0
+## Version: v4.6.1
 ## Notes: Configuration options for RangeDisplay
 ## OptionalDeps: AceGUI-3.0-SharedMediaWidgets
 ## Dependencies: RangeDisplay
