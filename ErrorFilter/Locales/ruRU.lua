@@ -12,6 +12,8 @@ L["Choose the errors you want to see:"] = "Выберите ошибки, кот
 L["Delete"] = "Удалить"
 L["Delete a string from the list"] = "Удалить строку из листа"
 L["Do nothing"] = "Ничего не делать"
+--Translation missing 
+-- L["Enable Error Speech."] = ""
 L["Filter all errors"] = "Фильтровать все ошибки"
 L["Filter only ..."] = "Фильтровать только ..."
 L["Filter only in combat."] = "Фильтр только в бою."
@@ -32,7 +34,10 @@ L["Throttle"] = "Дроссель"
 L["Throttle messages."] = "Дроссельные сообщения."
 L["Toggle to allow each message only once every 5 seconds."] = "Переключатель для показа каждого сообщения раз в 5 секунд."
 L["Toggle to allow this error."] = "Включите, чтобы разрешить эту ошибку."
+--Translation missing 
+-- L["Toggle to enable the game's sound option error speech."] = ""
 L["Toggle to filter this error."] = "Включите, чтобы фильтровать эту ошибку."
 L["Toggle to stop filtering while out of combat."] = "Переключатель остановки фильтрации при выходе из боя."
 L["Warning! This will prevent all error messages from appearing in the UI Error Frame."] = "Внимание! Это предотвратит появление всех сообщений об ошибке во фрейме ошибок."
 L["Warning! This will prevent any message from appearing in the UI Error Frame, including quest updates text."] = "Внимание! Это предотвратит появление любых сообщений во фрейме ошибок, в том числе сообщений о прогрессе заданий."
+

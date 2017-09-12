@@ -38,3 +38,4 @@ L["Toggle to filter this error."] = "Toggle to filter this error."
 L["Toggle to stop filtering while out of combat."] = "Toggle to stop filtering while out of combat."
 L["Warning! This will prevent all error messages from appearing in the UI Error Frame."] = "Warning! This will prevent all error messages from appearing in the UI Error Frame."
 L["Warning! This will prevent any message from appearing in the UI Error Frame, including quest updates text."] = "Warning! This will prevent any message from appearing in the UI Error Frame, including quest updates text."
+

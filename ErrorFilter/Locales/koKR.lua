@@ -38,3 +38,4 @@ L["Toggle to filter this error."] = "이 오류를 걸러내도록 전환합니�
 L["Toggle to stop filtering while out of combat."] = "비전투 중인 동안에 필터링을 중지하도록 전환합니다."
 L["Warning! This will prevent all error messages from appearing in the UI Error Frame."] = "경고! 이는 모든 오류 메세지가 UI Error Frame에 나타나는 것을 막습니다."
 L["Warning! This will prevent any message from appearing in the UI Error Frame, including quest updates text."] = "경고! 이는 특정 메세지가 UI Error Frame에 나타나는 것을 방지합니다(퀘스트 갱신 문장을 포함해) ."
+
