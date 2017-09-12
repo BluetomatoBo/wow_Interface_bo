@@ -1,3 +1,6 @@
+v3.0.8
+*Fixed version issue.
+
 v3.0.7
 *Fixed typo in locale file.
 
