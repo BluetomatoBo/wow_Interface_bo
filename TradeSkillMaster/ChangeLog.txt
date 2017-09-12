@@ -1,3 +1,6 @@
+v3.6.36
+*Added new prospecting gems.
+
 v3.6.35
 *Added new bonus ids for 7.3.
 *Fixed another sound bug.
@@ -16,7 +19,7 @@ v3.6.31
 *Updated bonus ids.
 
 v3.6.30
-*Fixed issue related to changes in bonusIds.
+*Fixed issue related to changes in bonus ids.
 
 v3.6.29
 *Fixed a few bugs caused by 7.2.5.

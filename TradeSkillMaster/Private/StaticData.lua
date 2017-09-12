@@ -1205,6 +1205,25 @@ TSM.STATIC_DATA.predefinedConversions = {
 		{"i:123918", 0.002, "prospect"},
 		{"i:123919", 0.006, "prospect"},
 	},
+	-- ========================================== Epic Gems ========================================
+	["i:151579"] = { -- Labradorite
+		{"i:151564", 0.0056, "prospect"},
+	},
+	["i:151719"] = { -- Lightsphene
+		{"i:151564", 0.0064, "prospect"},
+	},
+	["i:151718"] = { -- Argulite
+		{"i:151564", 0.0060, "prospect"},
+	},
+	["i:151720"] = { -- Chemirine
+		{"i:151564", 0.0063, "prospect"},
+	},
+	["i:151722"] = { -- Florid Malachite
+		{"i:151564", 0.0035, "prospect"},
+	},
+	["i:151721"] = { -- Hesselian
+		{"i:151564", 0.0040, "prospect"},
+	},
 	-- =========================================== Essences ========================================
 	["i:52719"] = {{"i:52718", 1/3, "transform"}}, -- Celestial Essence
 	["i:52718"] = {{"i:52719", 3, "transform"}}, -- Celestial Essence
