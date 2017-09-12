@@ -5,6 +5,15 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.06.03 (Sep. 10, 2017)
+========================
+- Classic dungeon's boss drops updated (2TailedFox)
+- Added new factions - Argussian Reach, Army of the Light
+
+v8.06.01 (Sep. 10, 2017)
+========================
+- Fixed WorldMap button's position
+
 v8.06.01 (Sep. 04, 2017)
 ========================
 - Temporary fix the PlaySound issue in LibDialog

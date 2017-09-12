@@ -163,10 +163,13 @@ local FACTION_IMAGES = {
 	[1894] = "Interface\\Icons\\INV_Legion_Faction_Warden", 		-- The Wardens
 	[1900] = "Interface\\Icons\\INV_Legion_Faction_CourtofFarnodis", 	-- Court Of Farondis
 	[1948] = "Interface\\Icons\\INV_Legion_Faction_Valarjar", 		-- Valarjar
-	[2045] = "Interface\\Icons\\Achievement_Faction_Legionfall", 		-- Armies of Legionfall
+	[2045] = "Interface\\Icons\\INV_Legion_Faction_LegionFall", 		-- Armies of Legionfall
+	[2165] = "Interface\\Icons\\INV_Legion_Faction_ArmyoftheLight", 	-- Army of the Light
+	[2170] = "Interface\\Icons\\INV_legion_Faction_ArgussianReach", 	-- Argussian Reach
 }
 
 local FACTION_KEY = {
+	-- Classic
 	[47] = "Ironforge",
 	[54] = "Gnomeregan",
 	[59] = "Thorium Brotherhood",
@@ -182,6 +185,7 @@ local FACTION_KEY = {
 	[589] = "Wintersaber Trainers",
 	[609] = "Cenarion Circle",
 	[910] = "Brood of Nozdormu",
+	-- BC
 	[911] = "Silvermoon City",
 	[922] = "Tranquillien",
 	[930] = "Exodar",
@@ -204,6 +208,7 @@ local FACTION_KEY = {
 	[1031] = "Sha'tari Skyguard",
 	[1038] = "Ogri'la",
 	[1077] = "Shattered Sun Offensive",
+	-- WotLK
 	[1037] = "Alliance Vanguard",
 	[1052] = "Horde Expedition",
 	[1073] = "The Kalu'ak",
@@ -217,6 +222,7 @@ local FACTION_KEY = {
 	[1119] = "The Sons of Hodir",
 	[1124] = "The Sunreavers",
 	[1156] = "The Ashen Verdict",
+	-- Cata
 	[1133] = "Bilgewater Cartel",
 	[1134] = "Gilneas",
 	[1135] = "The Earthen Ring",
@@ -228,6 +234,7 @@ local FACTION_KEY = {
 	[1177] = "Baradin's Wardens",
 	[1178] = "Hellscream's Reach",
 	[1204] = "Avengers of Hyjal",
+	-- MoP
 	[1269] = "Golden Lotus",
 	[1270] = "Shado-Pan",
 	[1271] = "Order of the Cloud Serpent",
@@ -245,6 +252,7 @@ local FACTION_KEY = {
 	[1388] = "Sunreaver Onslaught",
 	[1435] = "Shado-Pan Assault",
 	[1492] = "Emperor Shaohao",
+	-- WoD
 	[1445] = "Frostwolf Orcs",
 	[1515] = "Arakkoa Outcasts",
 	[1681] = "Vol'jin's Spear",
@@ -257,6 +265,7 @@ local FACTION_KEY = {
 	[1848] = "Vol'jin's Headhunters",
 	[1849] = "Order of the Awakened",
 	[1850] = "The Saberstalkers",
+	-- Legion
 	[1828] = "Highmountain Tribe",
 	[1859] = "The Nightfallen",
 	[1883] = "Dreamweavers",
@@ -264,6 +273,8 @@ local FACTION_KEY = {
 	[1900] = "Court of Farondis",
 	[1948] = "Valarjar",
 	[2045] = "Armies of Legionfall",
+	[2165] = "Army of the Light",
+	[2170] = "Argussian Reach",
 }
 
 local function GetLocRepStanding(id)

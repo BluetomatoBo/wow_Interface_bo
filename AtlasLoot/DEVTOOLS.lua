@@ -1156,6 +1156,9 @@ local function getItemPrice(strg, newPrice, costItemID)
 		[67427] = "forlornLeggings", -- Leggings of the Forlorn Protector
 		-- currency
 		[1166] = "timewarped", -- Timewarped Badge
+		[1501] = "WrithingEssence", -- Writhing Essence, added in 7.3.0
+		[1506] = "ArgusWaystone", -- Argus Waystone, added in 7.3.0
+		[1508] = "VeiledArgunite", -- Veiled Argunite, added in 7.3.0
 	}
 	--	/run print(getItemPrice("2175 #justice# / 60 #champseal#", 5000, "Interface\\Icons\\pvecurrency-justice"))
 --	local englishFaction, _ = UnitFactionGroup("player")

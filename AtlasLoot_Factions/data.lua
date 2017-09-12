@@ -20,6 +20,83 @@ data["LEGIONFACTIONS"] = {
 	name = EXPANSION_NAME6,
 	ContentType = FACTION_CONTENT,
 	items = { 
+		{ 	-- Argussian Reach
+			FactionID = 2170,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				{ 1 , "f2170rep5" },
+				{ 2, 152658, [PRICE_EXTRA_ITTYPE] = "money:170000" }, -- Formula: Chaos Shatter, Friendly
+				{ 3, 152725, [PRICE_EXTRA_ITTYPE] = "money:170000" }, -- Technique: Mass Mill Astral Glory, Friendly
+				{ 5 , "f2170rep6" },
+				{ 6, 153039, [PRICE_EXTRA_ITTYPE] = "money:750000" }, -- Crystalline Campfire, Honored
+				{ 7, 153027, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Orphaned Marsuul, Honored
+				{ 8, 153290, [PRICE_EXTRA_ITTYPE] = "money:2000000" }, -- Krokul Mining Pick, Honored
+				{ 10 , "f2170rep7" },
+				{ 11, 152964, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Krokul Flute, Revered
+				{ 12, 153197, [PRICE_EXTRA_ITTYPE] = "money:2000000" }, -- Boon of the Steadfast, Revered
+				{ 13, 151707, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Recipe: Astral Alchemist Stone, Revered
+				{ 14, 151708, [PRICE_EXTRA_ITTYPE] = "money:30000000" }, -- Recipe: Astral Alchemist Stone, Revered
+				{ 16 , "f2170rep8" },
+				{ 17, 152669, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Argussian Reach Tabard, Exalted
+				{ 18, 152791, [PRICE_EXTRA_ITTYPE] = "money:100000000" }, -- Reins of the Sable Ruinstrider, Exalted
+				{ 19, 152793, [PRICE_EXTRA_ITTYPE] = "money:100000000" }, -- Reins of the Russet Ruinstrider, Exalted
+				{ 20, 152794, [PRICE_EXTRA_ITTYPE] = "money:100000000" }, -- Reins of the Amethyst Ruinstrider, Exalted
+				{ 21, 152795, [PRICE_EXTRA_ITTYPE] = "money:100000000" }, -- Reins of the Beryl Ruinstrider, Exalted
+				{ 22, 152796, [PRICE_EXTRA_ITTYPE] = "money:100000000" }, -- Reins of the Umber Ruinstrider, Exalted
+				{ 23, 152797, [PRICE_EXTRA_ITTYPE] = "money:100000000" }, -- Reins of the Cerulean Ruinstrider, Exalted
+				{ 24, 152618, [PRICE_EXTRA_ITTYPE] = "money:30000000" }, -- Recipe: Astral Healing Potion, Exalted
+			},
+		},
+		{ 	-- Army of the Light
+			FactionID = 2165,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				{ 1 , "f2165rep5" },
+				-- Thaumaturge Vashreen
+				{ 2 , 153059, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Arcane Relic
+				{ 3 , 153060, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Blood Relic
+				{ 4 , 153061, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Fel Relic
+				{ 5 , 153062, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Fire Relic
+				{ 6 , 153063, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Frost Relic
+				{ 7 , 153064, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Holy Relic
+				{ 8 , 153065, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Iron Relic
+				{ 9 , 153066, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Life Relic
+				{ 10, 153067, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Shadow Relic
+				{ 11, 153068, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Storm Relic
+				{ 12, 153205, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Girdle
+				{ 13, 153206, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Bracers
+				{ 14, 153207, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Treads
+				{ 15, 153208, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Chestguard
+				{ 17, 153209, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Cloak
+				{ 18, 153210, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Gauntlets
+				{ 19, 153211, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Hood
+				{ 20, 153212, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Leggings
+				{ 21, 153213, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Necklace
+				{ 22, 153214, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Ring
+				{ 23, 153215, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Spaulders
+				{ 24, 153216, [PRICE_EXTRA_ITTYPE] = "VeiledArgunite:650" }, -- Relinquished Trinket
+
+				{ 26, 152726, [PRICE_EXTRA_ITTYPE] = "money:90000" }, -- Design: Mass Prospect Empyrium, Friendly
+				{ 27, 153032, [PRICE_EXTRA_ITTYPE] = "money:1000000" }, -- Technique: Glyph of the Lightspawn, Friendly
+
+				{ 101, "f2165rep6" },
+				{ 102, 152400, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Embroidered Lightforged Drape, Honored
+				{ 104, "f2165rep7" },
+				{ 105, 153247, [PRICE_EXTRA_ITTYPE] = "money:2000000" }, -- Boon of the Lightbearer, Revered
+				{ 106, 151725, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Design: Empyrial Cosmic Crown, Revered
+				{ 107, 151728, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Design: Empyrial Deep Crown, Revered
+				{ 108, 151731, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Design: Empyrial Elemental Crown, Revered
+				{ 109, 151734, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Design: Empyrial Titan Crown, Revered
+				{ 110, 151712, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Recipe: Empyrial Breastplate, Revered
+				{ 111, 151741, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Recipe: Fiendish Shoulderguards, Revered
+				{ 112, 151744, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Recipe: Fiendish Spaulders, Revered
+				{ 113, 151747, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Recipe: Lightweave Breeches, Revered
+				{ 116, "f2165rep8" },
+				{ 117, 152399, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Army of the Light Tabard, Exalted
+				{ 118, 153023, [PRICE_EXTRA_ITTYPE] = "money:500000000" }, -- Lightforged Augment Rune, Exalted
+				{ 119, 152788, [PRICE_EXTRA_ITTYPE] = "money:6000000000" }, -- Lightforged Warframe, Exalted
+			},
+		},
 		{	-- Armies of Legionfall
 			FactionID = 2045,
 			CoinTexture = "Reputation",
@@ -39,6 +116,7 @@ data["LEGIONFACTIONS"] = {
 				{ 12, 147222, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Cloak
 				{ 13, 147223, [PRICE_EXTRA_ITTYPE] = "nethershard:400" }, -- Dauntless Trinket
 				-- Thaumaturge Vashreen
+--[[ -- no longer available after 7.3.0
 				{ 17, 147786, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Bracers
 				{ 18, 147791, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Girdle
 				{ 19, 147792, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Treads
@@ -52,21 +130,21 @@ data["LEGIONFACTIONS"] = {
 				{ 27, 147800, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Spaulders
 				{ 28, 147801, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Trinket
 				{ 29, 147837, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Relinquished Relic
-
-				{ 101, 146659, [PRICE_EXTRA_ITTYPE] = "nethershard:8000" }, -- Nethershard Essence
- 				{ 102, 147775, [PRICE_EXTRA_ITTYPE] = "nethershard:250" }, -- Nether Portal Disruptor
-				{ 103, 141067, [PRICE_EXTRA_ITTYPE] = "nethershard:2500" }, -- Technique: Glyph of Wrathguard
-				{ 104, 141371, [PRICE_EXTRA_ITTYPE] = "nethershard:1000" }, -- Arsenal: Armaments of the Silver Hand
-				{ 105, 141372, [PRICE_EXTRA_ITTYPE] = "nethershard:2000" }, -- Arsenal: Armaments of the Ebon Blade
-				{ 116, "f2045rep6" },
-				{ 117, 147864, [PRICE_EXTRA_ITTYPE] = "nethershard:4000" }, -- Legionfall Banner
-				{ 118, 147698, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Cauterizing Void Shard
-				{ 120, "f2045rep7" },
-				{ 121, 147707, [PRICE_EXTRA_ITTYPE] = "nethershard:7500" }, -- Repurposed Fel Focuser
-				{ 122, 130199, [PRICE_EXTRA_ITTYPE] = "nethershard:7500" }, -- Legion Pocket Portal
-				{ 124, "f2045rep8" },
-				{ 125, 147205, [PRICE_EXTRA_ITTYPE] = "nethershard:10000" }, -- Legionfall Tabard
-				{ 126, 147708, [PRICE_EXTRA_ITTYPE] = "nethershard:25000" }, -- Legion Invasion Simulator
+]]
+				{ 17, 146659, [PRICE_EXTRA_ITTYPE] = "nethershard:8000" }, -- Nethershard Essence
+ 				{ 18, 147775, [PRICE_EXTRA_ITTYPE] = "nethershard:250" }, -- Nether Portal Disruptor
+				{ 19, 141067, [PRICE_EXTRA_ITTYPE] = "nethershard:2500" }, -- Technique: Glyph of Wrathguard
+				{ 20, 141371, [PRICE_EXTRA_ITTYPE] = "nethershard:1000" }, -- Arsenal: Armaments of the Silver Hand
+				{ 21, 141372, [PRICE_EXTRA_ITTYPE] = "nethershard:2000" }, -- Arsenal: Armaments of the Ebon Blade
+				{ 101, "f2045rep6" },
+				{ 102, 147864, [PRICE_EXTRA_ITTYPE] = "nethershard:4000" }, -- Legionfall Banner
+				{ 103, 147698, [PRICE_EXTRA_ITTYPE] = "nethershard:5000" }, -- Cauterizing Void Shard
+				{ 105, "f2045rep7" },
+				{ 106, 147707, [PRICE_EXTRA_ITTYPE] = "nethershard:7500" }, -- Repurposed Fel Focuser
+				{ 107, 130199, [PRICE_EXTRA_ITTYPE] = "nethershard:7500" }, -- Legion Pocket Portal
+				{ 109, "f2045rep8" },
+				{ 110, 147205, [PRICE_EXTRA_ITTYPE] = "nethershard:10000" }, -- Legionfall Tabard
+				{ 111, 147708, [PRICE_EXTRA_ITTYPE] = "nethershard:25000" }, -- Legion Invasion Simulator
 			},
 		},
 		{	--TheNightfallen

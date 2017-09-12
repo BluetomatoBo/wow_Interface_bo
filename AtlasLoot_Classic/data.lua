@@ -62,12 +62,13 @@ local BLACKFATHON_DEEPS_LOOT1 = {
 	{ 2, 6908 },	-- Ghamoo-Ra's Bind
 	{ 3, 6907 },	-- Tortoise Armor
 	{ 5, "INV_Box_01", nil, EJ_GetEncounterInfo(436), nil },	--Domina
-	{ 6, 888 },	-- Naga Battle Gloves
-	{ 7, 11121 },	-- Darkwater Talwar
-	{ 8, 3078 },	-- Naga Heartpiercer
-	{ 10, "INV_Box_01", nil, EJ_GetEncounterInfo(426), nil },	--Subjugator Kor'ul
-	{ 11, 6906 },	-- Algae Fists
-	{ 12, 6905 },	-- Reef Axe
+	{ 6, 888 },		-- Naga Battle Gloves
+	{ 7, 132554 },	-- Deadly Serpentine Grips
+	{ 8, 11121 },	-- Darkwater Talwar
+	{ 9, 3078 },	-- Naga Heartpiercer
+	{ 11, "INV_Box_01", nil, EJ_GetEncounterInfo(426), nil },	--Subjugator Kor'ul
+	{ 12, 6906 },	-- Algae Fists
+	{ 13, 6905 },	-- Reef Axe
 	{ 16, "INV_Box_01", nil, EJ_GetEncounterInfo(1145), nil },	--Thruk
 	{ 17, 120165 },	-- Thruk's Fillet Knife
 	{ 18, 120164 },	-- Thruk's Heavy Duty Fishing Pole
@@ -75,10 +76,11 @@ local BLACKFATHON_DEEPS_LOOT1 = {
 	{ 21, "INV_Box_01", nil, EJ_GetEncounterInfo(447), nil },	--Guardian of the Deep
 	{ 22, 6901 },	-- Glowing Thresher Cape
 	{ 23, 6902 },	-- Bands of Serra'kis
-	{ 24, 6904 },	-- Bite of Serra'kis
-	{ 26, "INV_Box_01", nil, EJ_GetEncounterInfo(1144), nil },	--Executioner Gore
-	{ 27, 120167 },	-- Bloody Twilight Cloak
-	{ 28, 120166 },	-- Gorestained Garb
+	{ 24, 132555 },	-- Serra'kis Scale Wraps
+	{ 25, 6904 },	-- Bite of Serra'kis
+	{ 27, "INV_Box_01", nil, EJ_GetEncounterInfo(1144), nil },	--Executioner Gore
+	{ 28, 120167 },	-- Bloody Twilight Cloak
+	{ 29, 120166 },	-- Gorestained Garb
 }
 local BLACKFATHON_DEEPS_LOOT2 = {
 	{ 1, "INV_Box_01", nil, EJ_GetEncounterInfo(437), nil },	--Twilight Lord Bathiel
@@ -87,8 +89,9 @@ local BLACKFATHON_DEEPS_LOOT2 = {
 	{ 5, "INV_Box_01", nil, EJ_GetEncounterInfo(444), nil },	--Aku'mai
 	{ 6, 6910 },	-- Leech Pants
 	{ 7, 6911 },	-- Moss Cinch
-	{ 8, 6909 },	-- Strike of the Hydra
-	{ 10, "ac632" },
+	{ 8, 132553 },	-- Algae-Twined Waistcord
+	{ 9, 6909 },	-- Strike of the Hydra
+	{ 11, "ac632" },
 	{ 16, "INV_Box_01", nil, AL["Trash Mobs"], nil },
 	{ 17, 1486 },	-- Tree Bark Jacket
 	{ 18, 3416 },	-- Martyr's Chain
@@ -467,9 +470,10 @@ data["Deadmines"] = {
 			EncounterJournalID = 90,
 			[NORMAL_DIFF] = {
 				{ 1, 5199 },	-- Smelting Pants
-				{ 2, 5191 },	-- Cruel Barb
-				{ 3, 5200 },	-- Impaling Harpoon
-				{ 4, 5443 },	-- Gold-Plated Buckler
+				{ 2, 132556 },	-- Smelter's Britches
+				{ 3, 5191 },	-- Cruel Barb
+				{ 4, 5200 },	-- Impaling Harpoon
+				{ 5, 5443 },	-- Gold-Plated Buckler
 			},
 			[HEROIC_DIFF] = "AtlasLoot_Cataclysm",
 		},
@@ -487,7 +491,7 @@ data["Deadmines"] = {
 			[NORMAL_DIFF] = {
 				{ 1, 1156 },	-- Lavishly Jeweled Ring
 				{ 2, 5196 },	-- Smite's Reaver
-				{ 3, 872 },	-- Rockslicer
+				{ 3, 872 },		-- Rockslicer
 			},
 			[HEROIC_DIFF] = "AtlasLoot_Cataclysm",
 		},
@@ -834,22 +838,30 @@ data["DireMaul"] = {
 
 local GNOMEREGAN_LOOT1 = {
 	{ 1, "INV_Box_01", nil, EJ_GetEncounterInfo(419), nil },	--Grubbis
-	{ 2, 9445 },	-- Grubbis Paws
-	{ 4, "INV_Box_01", nil, EJ_GetEncounterInfo(420), nil },	--Viscous Fallout
-	{ 5, 9454 },	-- Acidic Walkers
-	{ 6, 9453 },	-- Toxic Revenger
-	{ 7, 9452 },	-- Hydrocane
-	{ 9, "INV_Box_01", nil, EJ_GetEncounterInfo(421), nil },	--Electrocutioner 6000
-	{ 10, 9448 },	-- Spidertank Oilrag
-	{ 11, 9447 },	-- Electrocutioner Lagnut
-	{ 12, 9446 },	-- Electrocutioner Leg
-	{ 16, "INV_Box_01", nil, EJ_GetEncounterInfo(418), nil },	--Crowd Pummeler 9-60
-	{ 17, 9450 },	-- Gnomebot Operating Boots
-	{ 18, 9449 },	-- Manual Crowd Pummeler
-	{ 20, "INV_Box_01", nil, BB["Dark Iron Ambassador"].." ("..AL["Rare"]..")", nil },
-	{ 21, 9455 },	-- Emissary Cuffs
-	{ 22, 9457 },	-- Royal Diplomatic Scepter
-	{ 23, 9456 },	-- Glass Shooter
+	{ 2, 151078 },	-- Shabby Trogg Britches
+	{ 3, 151079 },	-- Chomper-Hide Belt
+	{ 4, 151080 },	-- Grubbis' Protective Pail
+	{ 5, 9445 },	-- Grubbis Paws
+	{ 7, "INV_Box_01", nil, EJ_GetEncounterInfo(420), nil },	--Viscous Fallout
+	{ 8, 9454 },	-- Acidic Walkers
+	{ 9, 151081 },	-- Gnomish Rebreather
+	{ 10, 151082 },	-- Lead Apron
+	{ 11, 151083 },	-- Hazmat Galoshes
+	{ 12, 9453 },	-- Toxic Revenger
+	{ 13, 9452 },	-- Hydrocane
+	{ 16, "INV_Box_01", nil, EJ_GetEncounterInfo(421), nil },	--Electrocutioner 6000
+	{ 17, 9448 },	-- Spidertank Oilrag
+	{ 18, 9447 },	-- Electrocutioner Lagnut
+	{ 19, 9446 },	-- Electrocutioner Leg
+	{ 21, "INV_Box_01", nil, EJ_GetEncounterInfo(418), nil },	--Crowd Pummeler 9-60
+	{ 22, 151084 },	-- Grease-Smudged Sash
+	{ 23, 9450 },	-- Gnomebot Operating Boots
+	{ 24, 132558 },	-- Bot Operator's Threads
+	{ 25, 9449 },	-- Manual Crowd Pummeler
+	{ 27, "INV_Box_01", nil, BB["Dark Iron Ambassador"].." ("..AL["Rare"]..")", nil },
+	{ 28, 9455 },	-- Emissary Cuffs
+	{ 29, 9457 },	-- Royal Diplomatic Scepter
+	{ 30, 9456 },	-- Glass Shooter
 }
 local GNOMEREGAN_LOOT2 = {
 	{ 1, "INV_Box_01", nil, EJ_GetEncounterInfo(422), nil },	--Mekgineer Thermaplugg
@@ -1185,15 +1197,17 @@ local RAGEFIRE_CHASM_LOOT = {
 	{ 7, 82882 },	-- Dark Ritual Cape
 	{ 8, 82881 },	-- Cuffs of Black Elements
 	{ 9, 82877 },	-- Grasp of the Broken Totem
+	{ 10, 132551 },  -- Dark Shaman's Jerkin
 	{ 16, "INV_Box_01", nil, EJ_GetEncounterInfo(696), nil },	--Slagmaw
 	{ 17, 82878 },	-- Fireworm Robes
 	{ 18, 82884 },	-- Chitonous Bracers
-	{ 19, 82885 },	-- Flameseared Carapace
-	{ 21, "INV_Box_01", nil, EJ_GetEncounterInfo(697), nil },	--Lava Guard Gordoth
-	{ 22, 82886 },	-- Gorewalker Treads
-	{ 23, 82883 },	-- Bloodcursed Felblade
-	{ 24, 82888 },	-- Heartboiler Staff
-	{ 26, "ac629" },
+	{ 19, 132552 },	-- Chitonous Bindings
+	{ 20, 82885 },	-- Flameseared Carapace
+	{ 22, "INV_Box_01", nil, EJ_GetEncounterInfo(697), nil },	--Lava Guard Gordoth
+	{ 23, 82886 },	-- Gorewalker Treads
+	{ 24, 82883 },	-- Bloodcursed Felblade
+	{ 25, 82888 },	-- Heartboiler Staff
+	{ 27, "ac629" },
 }
 data["RagefireChasm"] = {
 	EncounterJournalID = 226,
@@ -1567,12 +1581,12 @@ data["ShadowfangKeep"] = {
 		{	--ShadowfangSilverlaine
 			EncounterJournalID = 97,
 			[NORMAL_DIFF] = {
-				{ 1, 132568 }, -- Shadowfang Pauldrons
-				{ 2, 5254 }, -- Rugged Spaulders
-				{ 3, 132567 }, -- Blindwatcher's Chain
-				{ 4, 6319 }, -- Girdle of the Blindwatcher
-				{ 5, 6321 }, -- Silverlaine's Family Seal
-				{ 6, 5943 }, -- Rift Bracers
+				{ 1, 5254 }, -- Rugged Spaulders
+				{ 2, 6319 }, -- Girdle of the Blindwatcher
+				{ 3, 132568 }, -- Shadowfang Pauldrons
+				{ 4, 132567 }, -- Blindwatcher's Chain
+				{ 5, 5943 }, -- Rift Bracers
+				{ 6, 6321 }, -- Silverlaine's Family Seal
 				{ 8, 60885, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Silverlaine Family Sword
 				{ 9, 60878, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Silverlaine's Enchanted Crystal
 			},
@@ -1581,8 +1595,8 @@ data["ShadowfangKeep"] = {
 		{	--ShadowfangSpringvale
 			EncounterJournalID = 98,
 			[NORMAL_DIFF] = {
-				{ 1, 3191 },	-- Arced War Axe
-				{ 2, 6320 },	-- Commander's Crest", "=ds=#w8#" };
+				{ 1, 6320 },	-- Commander's Crest", "=ds=#w8#" };
+				{ 2, 3191 },	-- Arced War Axe
 				{ 4, 60879, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Commander's Holy Symbol
 				{ 5, 60880, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Springvale's Sharpening Stone
 			},
@@ -1592,10 +1606,10 @@ data["ShadowfangKeep"] = {
 			EncounterJournalID = 99,
 			[NORMAL_DIFF] = {
 				{ 1, 3230 },	-- Black Wolf Bracers
-				{ 2, 6642 },	-- Phantom Armor
-				{ 3, 6341 },	-- Eerie Stable Lantern
-				{ 4, 1292 },	-- Butcher's Cleaver
-				{ 5, 132566 },	-- Dark Lupine Wraps
+				{ 2, 132566 },	-- Dark Lupine Wraps
+				{ 3, 6642 },	-- Phantom Armor
+				{ 4, 6341 },	-- Eerie Stable Lantern
+				{ 5, 1292 },	-- Butcher's Cleaver
 				{ 7, 60876, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Walden's Elixirs
 				{ 8, 60881, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Walden's Talisman
 			},
@@ -1624,6 +1638,9 @@ data["ShadowfangKeep"] = {
 				{ 4, 2807 },	-- Guillotine Axe
 				{ 5, 1318 },	-- Night Reaver
 				{ 6, 1484 },	-- Witching Stave
+				{ 8, "INV_Box_01", nil, BB["Deathsworn Captain"].." ("..AL["Rare"]..")", nil },
+				{ 9, 6642 },    -- Phantom Armor
+				{ 10, 6641 },   -- Haunting Blade
 				{ 16, 60977 },	-- Orders from High Command
 				{ 17, 60874 },	-- Deathless Sinew
 				{ 18, 60875 },	-- Ghostly Essence
@@ -1866,8 +1883,9 @@ local STOCKADE_LOOT = {
 	{ 1, "INV_Box_01", nil, EJ_GetEncounterInfo(464), nil },	--Hogger
 	{ 2, 2168 },	-- Corpse Rompers
 	{ 3, 1934 },	-- Hogger's Trousers
-	{ 4, 1959 },	-- Cold Iron Pick
-	{ 6, "ac633" },
+	{ 4, 132569 },	-- Stolen Jailer's Greaves
+	{ 5, 1959 },	-- Cold Iron Pick
+	{ 7, "ac633" },
 	{ 16, "INV_Box_01", nil, EJ_GetEncounterInfo(465), nil },	--Lord Overheat
 	{ 17, 1929 },	-- Silk-Threaded Trousers
 	{ 18, 5967 },	-- Girdle of Nobility
@@ -1876,7 +1894,8 @@ local STOCKADE_LOOT = {
 	{ 22, "INV_Box_01", nil, EJ_GetEncounterInfo(466), nil },	--Randolph Moloch
 	{ 23, 63345 },	-- Noble's Robe
 	{ 24, 63344 },	-- Standard Issue Prisoner Shoes
-	{ 25, 63346 },	-- Wicked Dagger
+	{ 25, 132570 },	-- Stolen Guards Chain Boots
+	{ 26, 63346 },	-- Wicked Dagger
 }
 data["TheStockade"] = {
 	EncounterJournalID = 238,
@@ -2100,17 +2119,21 @@ local WAILING_CAVERNS_LOOT1 = {
 	{ 9, "INV_Box_01", nil, EJ_GetEncounterInfo(474), nil },	--Lady Anacondra
 	{ 10, 5404 },	-- Serpent's Shoulders
 	{ 11, 10412 },	-- Belt of the Fang
-	{ 12, 6446 },	-- Snakeskin Bag
+	{ 12, 132737 },	-- Cavern Slitherer Pauldrons
+	{ 13, 132740 },	-- Slither-Scale Cord
+	{ 14, 6446 },	-- Snakeskin Bag
 	{ 16, "INV_Box_01", nil, EJ_GetEncounterInfo(476), nil },	--Lord Pythas
 	{ 17, 6473 },	-- Armor of the Fang
-	{ 18, 6472 },	-- Stinging Viper
-	{ 20, "INV_Box_01", nil, EJ_GetEncounterInfo(475), nil },	--Lord Cobrahn
-	{ 21, 6465 },	-- Robe of the Moccasin
-	{ 22, 10410 },	-- Leggings of the Fang
-	{ 23, 6460 },	-- Cobrahn's Grasp
-	{ 25, "INV_Box_01", nil, EJ_GetEncounterInfo(477), nil },	--Kres-h
-	{ 26, 13245 },	-- Kresh's Back
-	{ 27, 6447 },	-- Worn Turtle Shell Shield
+	{ 18, 132739 },	-- Slither-Scale Hauberk
+	{ 19, 6472 },	-- Stinging Viper
+	{ 21, "INV_Box_01", nil, EJ_GetEncounterInfo(475), nil },	--Lord Cobrahn
+	{ 22, 6465 },	-- Robe of the Moccasin
+	{ 23, 10410 },	-- Leggings of the Fang
+	{ 24, 132742 },	-- Slither-Scale Britches
+	{ 25, 6460 },	-- Cobrahn's Grasp
+	{ 27, "INV_Box_01", nil, EJ_GetEncounterInfo(477), nil },	--Kres-h
+	{ 28, 13245 },	-- Kresh's Back
+	{ 29, 6447 },	-- Worn Turtle Shell Shield
 }
 local WAILING_CAVERNS_LOOT2 = {
 	{ 1, "INV_Box_01", nil, EJ_GetEncounterInfo(478), nil },	--Skum
@@ -2122,8 +2145,9 @@ local WAILING_CAVERNS_LOOT2 = {
 	{ 9, "INV_Box_01", nil, EJ_GetEncounterInfo(479), nil },	--Lord Serpentis
 	{ 10, 5970 },	-- Serpent Gloves
 	{ 11, 10411 },	-- Footpads of the Fang
-	{ 12, 6459 },	-- Savage Trodders
-	{ 13, 6469 },	-- Venomstrike
+	{ 12, 132741 },	-- Slither-Scale Boots
+	{ 13, 6459 },	-- Savage Trodders
+	{ 14, 6469 },	-- Venomstrike
 	{ 16, "INV_Box_01", nil, EJ_GetEncounterInfo(480), nil },	--Verdan the Everliving
 	{ 17, 6629 },	-- Sporid Cape
 	{ 18, 6631 },	-- Living Root
@@ -2133,9 +2157,12 @@ local WAILING_CAVERNS_LOOT2 = {
 	{ 23, 6627 },	-- Mutant Scale Breastplate
 	{ 24, 6463 },	-- Deep Fathom Ring
 	{ 26, "ac630" },
-	{ 28, "INV_Box_01", nil, AL["Trash Mobs"], nil },
-	{ 29, 10413 },	-- Gloves of the Fang
-
+}
+local WAILING_CAVERNS_LOOT3 = {
+	{ 1, "INV_Box_01", nil, AL["Trash Mobs"], nil },
+	{ 2, 12987 },	-- Darkweave Breeches
+	{ 3, 10413 },	-- Gloves of the Fang
+	{ 4, 132743 },	-- Slither-Scale Gauntlets
 }
 data["WailingCaverns"] = {
 	EncounterJournalID = 240,
@@ -2190,7 +2217,7 @@ data["WailingCaverns"] = {
 		{	--Trash Mobs
 			name = AL["Trash Mobs"],
 			ExtraList = true,
-			[NORMAL_DIFF] = WAILING_CAVERNS_LOOT2,
+			[NORMAL_DIFF] = WAILING_CAVERNS_LOOT3,
 		},
 		{	--Miscellaneous Sets
 			name = AL["Miscellaneous"].." "..AL["Sets"],

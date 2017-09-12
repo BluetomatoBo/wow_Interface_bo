@@ -90,7 +90,8 @@ local function ButtonBinding()
 		button:SetWidth(32)
 		button:SetHeight(32)
 		
-		button:SetPoint("TOPRIGHT", WorldMapFrameSizeDownButton, -24, 0, "TOPRIGHT") 
+		--button:SetPoint("TOPRIGHT", WorldMapFrameSizeDownButton, -24, 0, "TOPRIGHT") 
+		button:SetPoint("LEFT", WorldMapFrame.BorderFrame.MaximizeMinimizeFrame, -24, 0, "RIGHT") 
 		button:SetNormalTexture("Interface\\AddOns\\AtlasLoot\\Images\\AtlasLootButton-Up")
 		button:SetHighlightTexture("Interface\\Buttons\\UI-Common-MouseHilight", "ADD")
 

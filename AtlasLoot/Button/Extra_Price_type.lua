@@ -129,6 +129,9 @@ local PRICE_INFO = {
 	["78875"] = { itemID = 78875 }, -- Shoulders of the Corrupted Conqueror
 	["78876"] = { itemID = 78876 }, -- Shoulders of the Corrupted Protector
 	-- currencies
+	["WrithingEssence"]	= { currencyID = 1501 }, -- Writhing Essence, added in 7.3.0
+	["ArgusWaystone"]	= { currencyID = 1506 }, -- Argus Waystone, added in 7.3.0
+	["VeiledArgunite"]	= { currencyID = 1508 }, -- Veiled Argunite, added in 7.3.0
 	["echoofbattle"] 	= { currencyID = 1356 }, -- added in 7.2.0, LegionPVPTier1
 	["echoofdomination"] 	= { currencyID = 1357 }, -- added in 7.2.0, LegionPVPTier4
 	["nethershard"] 	= { currencyID = 1226 },
