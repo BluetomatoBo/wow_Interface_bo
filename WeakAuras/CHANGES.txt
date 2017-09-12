@@ -1,28 +1,62 @@
-tag e69207d32e2ff136a0908fca06163db9b08a8557 2.4.21
+tag ff6fd7d6c088f0c10304be5d155ebfdc3cfc93d8 2.4.22
 Author:	Benjamin Staneck <staneck@gmail.com>
-Date:	Wed Aug 30 19:20:20 2017 +0200
+Date:	Mon Sep 11 20:04:10 2017 +0200
 
-commit 91f27c153586760d266302111bbe46d27d4e223a
-Author: InfusOnWoW <infus@squorn.de>
-Date:   Wed Aug 30 19:18:44 2017 +0200
+commit d56bc8d435e462d25d99c3e9a994ca6f63251834
+Author: lqnrd <30536144+lqnrd@users.noreply.github.com>
+Date:   Mon Sep 11 19:51:11 2017 +0200
 
-    Smallpatches (#277)
+    protect _G lookups (#283)
     
-    * Revert "throttle the ScheduleTimer function"
+    * protect _G lookups
     
-    This reverts commit d128c49785e43edfe61a9c68849fe3ee085d4da1.
+    * Revert "protect _G lookups"
     
-    * Revert "revert ScheduleTimer change for doCooldownScan"
+    This reverts commit ce56767432bab5e4e726cb6e1e388b3517e290c4.
     
-    This reverts commit 82ab38ff16cf36e1fe583fbd8dd18f523a5acd58.
+    * use exec_env instead
     
-    * Fix hangs and strange issues with ScheduleTimerFixed
-    
-    Because I'm a doofus
+    as suggested by @emptyrivers
 
-commit d128c49785e43edfe61a9c68849fe3ee085d4da1
+commit 149003afcb3435d2b3199dfe528692d02e4962c5
 Author: Benjamin Staneck <staneck@gmail.com>
-Date:   Wed Aug 30 18:11:08 2017 +0200
+Date:   Mon Sep 11 16:56:53 2017 +0200
 
-    throttle the ScheduleTimer function
+    adding a function to a list
+
+commit eabaad004b911d7958c853bff7ec74676c62bba5
+Author: Infus <infus@squorn.de>
+Date:   Sun Sep 10 01:47:03 2017 +0200
+
+    Fix and extend Swing Timer
+    
+    - Use the combat log events parameter to distinguish between main
+    and off hand.
+    - Implement parry haste with code provided by Hamsda
+    
+    Ticket-Nr: 1045
+
+commit 8305cd5733c6b4470a84a8df37bd725e104b9c1c
+Author: Infus <infus@squorn.de>
+Date:   Sat Sep 9 20:41:24 2017 +0200
+
+    Work around Editboxes buggyness with 7.3
+    
+    Ticket-Nr: 1041
+
+commit 5b079ddb09aef1828cc0d11eee2142dfa69eeaad
+Author: Infus <infus@squorn.de>
+Date:   Sat Sep 9 20:41:00 2017 +0200
+
+    Make the In Group load condition more powerful
+    
+    Ticket-Nr: 1044
+
+commit 52c56328c7ac2cb0cb8ddfb25663db149c04785d
+Author: Infus <infus@squorn.de>
+Date:   Sat Sep 2 18:35:05 2017 +0200
+
+    Change one PlaySound to use kit ids
+    
+    Report and patch by Exality on discord.
 
