@@ -49,6 +49,8 @@ L["S_FLYMAP_SHOWWORLDQUESTS"] = "Affiche les Expéditions"
 --Translation missing 
 -- L["S_GROUPFINDER_ENABLED"] = ""
 --Translation missing 
+-- L["S_GROUPFINDER_INVASION_ENABLED"] = ""
+--Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = ""
@@ -144,6 +146,8 @@ L["S_QUESTTYPE_TRADESKILL"] = "Artisanat"
 --Translation missing 
 -- L["S_RAREFINDER_NPC_NOTREGISTERED"] = ""
 --Translation missing 
+-- L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = ""
+--Translation missing 
 -- L["S_RAREFINDER_OPTIONS_SHOWICONS"] = ""
 --Translation missing 
 -- L["S_RAREFINDER_TITLE"] = ""
@@ -171,5 +175,7 @@ L["S_TUTORIAL_REWARD"] = "indique la récompense (équipement, or, pouvoir d'art
 L["S_TUTORIAL_TIMELEFT"] = "Indique le temps restant (+4 heures, +90 minutes, +30 minutes, moins de 30 minutes)"
 L["S_TUTORIAL_WORLDMAPBUTTON"] = "Ce bouton vous apporte la carte des îles brisées."
 L["S_UNKNOWNQUEST"] = "Quête inconnue"
+--Translation missing 
+-- L["S_WORLDMAP_TOOGLEQUESTS"] = ""
 L["S_WORLDQUESTS"] = "Expéditions"
 

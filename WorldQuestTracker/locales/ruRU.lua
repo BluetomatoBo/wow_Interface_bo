@@ -49,6 +49,8 @@ L["S_FLYMAP_SHOWWORLDQUESTS"] = "Показывать локальные зад�
 --Translation missing 
 -- L["S_GROUPFINDER_ENABLED"] = ""
 --Translation missing 
+-- L["S_GROUPFINDER_INVASION_ENABLED"] = ""
+--Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = ""
@@ -146,6 +148,8 @@ L["S_QUESTTYPE_TRADESKILL"] = "Материалы"
 --Translation missing 
 -- L["S_RAREFINDER_NPC_NOTREGISTERED"] = ""
 --Translation missing 
+-- L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = ""
+--Translation missing 
 -- L["S_RAREFINDER_OPTIONS_SHOWICONS"] = ""
 --Translation missing 
 -- L["S_RAREFINDER_TITLE"] = ""
@@ -173,5 +177,7 @@ L["S_TUTORIAL_REWARD"] = "показывает награду (экипиров�
 L["S_TUTORIAL_TIMELEFT"] = "показывает оставшееся время (+4 часа, +90 минут, +30 минут, менее 30 минут)"
 L["S_TUTORIAL_WORLDMAPBUTTON"] = "Эта кнопка открывает карту Расколотых островов."
 L["S_UNKNOWNQUEST"] = "Неизвестное задание"
+--Translation missing 
+-- L["S_WORLDMAP_TOOGLEQUESTS"] = ""
 L["S_WORLDQUESTS"] = "Локальные задания"
 

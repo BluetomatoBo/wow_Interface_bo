@@ -49,6 +49,8 @@ L["S_FLYMAP_SHOWWORLDQUESTS"] = "Mostrar misiones de mundo"
 --Translation missing 
 -- L["S_GROUPFINDER_ENABLED"] = ""
 --Translation missing 
+-- L["S_GROUPFINDER_INVASION_ENABLED"] = ""
+--Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = ""
@@ -146,6 +148,8 @@ L["S_QUESTTYPE_TRADESKILL"] = "Habilidad comercial"
 --Translation missing 
 -- L["S_RAREFINDER_NPC_NOTREGISTERED"] = ""
 --Translation missing 
+-- L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = ""
+--Translation missing 
 -- L["S_RAREFINDER_OPTIONS_SHOWICONS"] = ""
 --Translation missing 
 -- L["S_RAREFINDER_TITLE"] = ""
@@ -173,5 +177,7 @@ L["S_TUTORIAL_REWARD"] = "indica la recompensa (equipo, oro, poder de artefacto,
 L["S_TUTORIAL_TIMELEFT"] = "indica el tiempo que queda (+4 horas, +90 minutos, +30 minutos, menos de 30 minutos)"
 L["S_TUTORIAL_WORLDMAPBUTTON"] = "Este botón lo llevara al mapa de las Islas quebradas."
 L["S_UNKNOWNQUEST"] = "Misión desconocida"
+--Translation missing 
+-- L["S_WORLDMAP_TOOGLEQUESTS"] = ""
 L["S_WORLDQUESTS"] = "Misiones de mundo"
 

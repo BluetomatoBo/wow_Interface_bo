@@ -1,7 +1,7 @@
-changeset:   218:8cee53478c4a
-tag:         v7.3.0.218-RC4
+changeset:   237:788ec1a7cd3b
+tag:         v7.3.0.237-release
 user:        Tercio
-date:        Mon Sep 04 13:14:30 2017 -0300
-summary:     - Fixed comm spam when selecting and deselecting a rare.
+date:        Tue Sep 12 10:59:56 2017 -0300
+summary:     - search for invasion point in english as well.
 
 

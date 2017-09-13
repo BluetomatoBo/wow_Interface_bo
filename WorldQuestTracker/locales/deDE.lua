@@ -18,8 +18,7 @@ L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = "Die Gruppe verlassen?"
 L["S_GROUPFINDER_ACTIONS_LEAVINGIN"] = "Du verlässt die Gruppe in (Klicken zum sofortigen Verlassen):"
 L["S_GROUPFINDER_ACTIONS_RETRYSEARCH"] = "Suche wiederholen"
 L["S_GROUPFINDER_ACTIONS_SEARCH"] = "Klicken, um mit der Suche nach Gruppen zu starten"
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCH_RARENPC"] = ""
+L["S_GROUPFINDER_ACTIONS_SEARCH_RARENPC"] = "Suche nach einer Gruppe, um diesen seltenen Gegner zu töten"
 L["S_GROUPFINDER_ACTIONS_SEARCH_TOOLTIP"] = "Einer Gruppe, die diese Quest macht, beitreten"
 L["S_GROUPFINDER_ACTIONS_SEARCHING"] = "suche..."
 L["S_GROUPFINDER_ACTIONS_SEARCHMORE"] = "Klicken, um nach weiteren Gruppenmitgliedern zu suchen."
@@ -28,15 +27,15 @@ L["S_GROUPFINDER_ACTIONS_UNAPPLY1"] = "Klicken, um die Anmeldung aufzuheben, dam
 L["S_GROUPFINDER_ACTIONS_UNLIST"] = "Klicken, um deine derzeitige Gruppe abzumelden"
 L["S_GROUPFINDER_ACTIONS_UNLISTING"] = "abmelden..."
 L["S_GROUPFINDER_ACTIONS_WAITING"] = "warten..."
---Translation missing 
--- L["S_GROUPFINDER_AUTOOPEN_RARENPC_TARGETED"] = ""
+L["S_GROUPFINDER_AUTOOPEN_RARENPC_TARGETED"] = "Beim Anvisieren eines seltenen Gegners automatisch öffnen"
 L["S_GROUPFINDER_ENABLED"] = "Bei neuer Quest automatisch öffnen"
+--Translation missing 
+-- L["S_GROUPFINDER_INVASION_ENABLED"] = ""
 L["S_GROUPFINDER_LEAVEOPTIONS"] = "Optionen Gruppenverlassen"
 L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = "Nach X Sekunden verlassen"
 --Translation missing 
 -- L["S_GROUPFINDER_LEAVEOPTIONS_ASKX"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS_DONTLEAVE"] = ""
+L["S_GROUPFINDER_LEAVEOPTIONS_DONTLEAVE"] = "Das Menü zum Verlassen nicht anzeigen"
 L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "Nach Questabschluss sofort verlassen"
 L["S_GROUPFINDER_NOPVP"] = "PvP-Realms vermeiden"
 L["S_GROUPFINDER_OT_ENABLED"] = "Buttons auf der Questverfolgung zeigen."
@@ -114,15 +113,13 @@ L["S_QUESTTYPE_PROFESSION"] = "Beruf"
 L["S_QUESTTYPE_PVP"] = "PvP"
 L["S_QUESTTYPE_RESOURCE"] = "Ressourcen"
 L["S_QUESTTYPE_TRADESKILL"] = "Berufsfertigkeit"
+L["S_RAREFINDER_NPC_NOTREGISTERED"] = "Seltener NSC nicht in der Datenbank"
 --Translation missing 
--- L["S_RAREFINDER_NPC_NOTREGISTERED"] = ""
---Translation missing 
--- L["S_RAREFINDER_OPTIONS_SHOWICONS"] = ""
---Translation missing 
--- L["S_RAREFINDER_TITLE"] = ""
+-- L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = ""
+L["S_RAREFINDER_OPTIONS_SHOWICONS"] = "Symbole für aktive seltene Gegner anzeigen"
+L["S_RAREFINDER_TITLE"] = "Suche seltener Gegner"
 L["S_RAREFINDER_TOOLTIP_SPOTTEDBY"] = "Aufgespürt von"
---Translation missing 
--- L["S_RAREFINDER_TOOLTIP_TIMEAGO"] = ""
+L["S_RAREFINDER_TOOLTIP_TIMEAGO"] = "Minuten vergangen"
 L["S_SHAREPANEL_THANKS"] = [=[Danke, dass Du World Quest Tracker weitergibst!
 Sende den Link an deine Freunde auf Facebook, Twitter usw..]=]
 L["S_SHAREPANEL_TITLE"] = "World Quest Tracker weiterempfehlen"
@@ -143,5 +140,7 @@ L["S_TUTORIAL_REWARD"] = "Zeigt die Belohnung an (Ausrüstung, Gold, Artefaktmac
 L["S_TUTORIAL_TIMELEFT"] = "Zeigt die verbleibende Zeit an (+4 Stunden, +90 Minuten, +30 Minuten, weniger als 30 Minuten)"
 L["S_TUTORIAL_WORLDMAPBUTTON"] = "Diese Schaltfläche öffnet die Karte der Verheerten Inseln."
 L["S_UNKNOWNQUEST"] = "Unbekannte Quest"
+--Translation missing 
+-- L["S_WORLDMAP_TOOGLEQUESTS"] = ""
 L["S_WORLDQUESTS"] = "Weltquests"
 
