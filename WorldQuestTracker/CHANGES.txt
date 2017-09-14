@@ -1,7 +1,7 @@
-changeset:   237:788ec1a7cd3b
-tag:         v7.3.0.237-release
+changeset:   241:17daae45f1f3
+tag:         v7.3.0.241-release
 user:        Tercio
-date:        Tue Sep 12 10:59:56 2017 -0300
-summary:     - search for invasion point in english as well.
+date:        Wed Sep 13 16:52:13 2017 -0300
+summary:     - Fixed old versions of WQT sending out dated comm data.
 
 
