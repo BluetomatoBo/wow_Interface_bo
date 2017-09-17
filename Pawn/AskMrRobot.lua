@@ -8,8 +8,7 @@
 
 local ScaleProviderName = "MrRobot"
 
-PawnMrRobotLastUpdatedVersion = 2.0209
--- Currently using the Mythic+ level 870 weights.  Next update, I should switch to the 890 versions.
+PawnMrRobotLastUpdatedVersion = 2.0214
 
 
 function PawnMrRobotScaleProvider_AddScales()

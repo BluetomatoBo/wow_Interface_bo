@@ -57,7 +57,7 @@ PawnLocal =
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 mejora%s|r",
 	["TooltipDowngradeAnnotation"] = "degradar",
 	--Translation missing 
-	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d item levels%s|r",
+	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d |4level:levels;%s|r",
 	["TooltipSecondBestAnnotation"] = "%s  |cff8ec3e6(El segundo mejor)|r",
 	["TooltipSecondBestAnnotationSimple"] = "%s  El segundo mejor",
 	["TooltipUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% mejora%s|r",
@@ -448,7 +448,7 @@ Todo objeto en World of Warcraft tiene un número de ID asociado.  Normalmente �
 		["OptionsQuestUpgradeAdvisor"] = "Mostrar asistente de mejora en misión",
 		["OptionsQuestUpgradeAdvisorTooltip"] = "En tu registro de misiones y en las conversaciones con PNJs, si una de las opciones de recompensa de la misión es una mejora para tu equipamiento actual, Pawn mostrará un icono de flecha verde en ese objeto.  SI ninguno de los objetos son una mejora, Pawn mostrará un montón de monedas en el objeto que valga más al venderlo a un comerciante.",
 		--Translation missing 
-		["OptionsShowRelicUpgrades"] = "Show relic advisor",
+		["OptionsShowRelicUpgrades"] = "Show relic upgrades",
 		--Translation missing 
 		["OptionsShowRelicUpgradesTooltip"] = "Pawn will show you when a relic would increase the item level of one of your artifact weapons.  (This works differently from other upgrade features, since it's based on item level, not stats.)",
 		["OptionsResetUpgrades"] = "Re-escanear equipo",

@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0213
+PawnVersion = 2.0214
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -3760,6 +3760,8 @@ end
 -- This function does the same as C_ArtifactUI.GetItemLevelIncreaseProvidedByRelic, but provides two fixes:
 -- (1) It works in WoW 7.2, which the in-game method doesn't
 -- (2) It works on level-scaled relics, which GetItemStats doesn't
+--
+-- Also, this method ignores bonus item levels imbued by the Netherlight Crucible.
 local PawnTempRelicTable = {}
 function PawnGetItemLevelIncreaseProvidedByRelic(ItemLink)
 	local Parts = PawnTempRelicTable

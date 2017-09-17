@@ -26,10 +26,8 @@ PawnLocal =
 	["FailedToGetItemLinkMessage"] = "   Konnte keine Gegenstandsinformationen aus dem Tooltip beziehen.  Dies kann an einem Mod-Konflikt liegen.",
 	["FailedToGetUnenchantedItemMessage"] = "   Konnte keine Unverzaubert-Werte beziehen.  Dies kann an einem Mod-Konflikt liegen.",
 	["FoundStatMessage"] = "   %d %s",
-	--Translation missing 
-	["GemList2"] = "%s or %s",
-	--Translation missing 
-	["GemListMany"] = "%d possibilities (click the Pawn button for details)",
+	["GemList2"] = "%s oder %s",
+	["GemListMany"] = "%d Möglichkeiten (drücke den Pawn-Knopf für Details)",
 	["GenericGemLink"] = "|Hitem:%d|h[Edelstein %d]|h",
 	["GenericGemName"] = "(Edelstein %d)",
 	["HiddenScalesHeader"] = "Andere Wertungen",
@@ -57,8 +55,7 @@ PawnLocal =
 	["TooltipBestAnnotationSimple"] = "%s  (bester)",
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 Verbesserung%s|r",
 	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% Verbesserung%s|r",
-	--Translation missing 
-	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d item levels%s|r",
+	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\\\AddOns\\\\Pawn\\\\Textures\\\\UpgradeArrow:0|t|cff00ff00+%d Gegenstandsstufen%s|r",
 	["TooltipSecondBestAnnotation"] = "%s  |cff8ec3e6(zweitbester)|r",
 	["TooltipSecondBestAnnotationSimple"] = "%s  (zweitbester)",
 	["TooltipUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% Verbesserung%s|r",
@@ -96,7 +93,7 @@ Weitere Informationen zur Anpassung von Pawn findet ihr in der Hilfedatei (Readm
 		["IntellectInfo"] = "Primäre Wertung: Intelligenz.",
 		["Leather"] = "Leder",
 		["LeatherInfo"] = "Für einen Lederrüstungsgegenstand zugeteilte Punkte.",
-		["LeechInfo"] = "Vermeidung.  Bewirkt, dass Ihre Angriffe und Heilzauber um Ihre Gesundheit wiederherzustellen.",
+		["LeechInfo"] = "Lebensraub. Heilt Euch um einen Teil des Schadens oder der Heilung, die Ihr verursacht.",
 		["Mail"] = "Kette",
 		["MailInfo"] = "Für einen Kettenrüstungsgegenstand zugeteilte Punkte.",
 		["MasteryInfo"] = "Meisterschaftswertung.  Verbessert den Meisterschaftsbonus des primären Talentbaums.",
@@ -204,7 +201,7 @@ Weitere Informationen zur Anpassung von Pawn findet ihr in der Hilfedatei (Readm
 		["WeaponTypeWandInfo"] = "Für einen Zauberstab zugeteilte Punkte.",
 		["WeaponTypeWarglaive"] = "Kriegsgleve",
 		--Translation missing 
-		["WeaponTypeWarglaiveInfo"] = "Points to be assigned if the item is a warglaive."
+		["WeaponTypeWarglaiveInfo"] = "Points to be assigned if the item is a warglaive.",
 	},
 	["TooltipParsing"] = {
 		["Agility"] = "^%+?([-%d%.,]+) Beweglichkeit$",
@@ -245,8 +242,7 @@ Weitere Informationen zur Anpassung von Pawn findet ihr in der Hilfedatei (Readm
 		["Gun"] = "^Schusswaffe$",
 		["Haste"] = "^%+?([%d%.,]+) Tempo$",
 		["Haste2"] = "^UNUSED$",
-		--Translation missing 
-		["HaventCollectedAppearance"] = "^You haven't collected this appearance$",
+		["HaventCollectedAppearance"] = "^Ihr habt diese Vorlage noch nicht gesammelt$",
 		["HeirloomLevelRange"] = "^Benötigt Stufe %d bis ([%d%.,]+)",
 		["HeirloomXpBoost"] = "^Anlegen: Erhaltene Erfahrung",
 		["HeirloomXpBoost2"] = "^UNUSED$",
@@ -298,8 +294,7 @@ Weitere Informationen zur Anpassung von Pawn findet ihr in der Hilfedatei (Readm
 		["TemporaryBuffSeconds"] = "^.+%(%d+ Sek%)$",
 		["Thunderforged"] = "^Donnergeschmiedet$",
 		["Timeless"] = "^Zeitlos$",
-		--Translation missing 
-		["Titanforged"] = "^Titanforged$",
+		["Titanforged"] = "^Titanengeschmiedet$",
 		["UpgradeLevel"] = "^Upgrade Level:",
 		["Use"] = "Benutzen:",
 		["Versatility"] = "^%+([%d%.,]+) Vielseitigkeit$",
@@ -321,19 +316,17 @@ Weitere Informationen zur Anpassung von Pawn findet ihr in der Hilfedatei (Readm
 		["WeaponDamageNature"] = "^%+?([%d%.,]+) %- ([%d%.,]+) Naturschaden$",
 		["WeaponDamageNatureExact"] = "^%+?([%d%.,]+) Naturschaden$",
 		["WeaponDamageShadow"] = "^%+?([%d%.,]+) %- ([%d%.,]+) Schattenschaden$",
-		["WeaponDamageShadowExact"] = "^%+?([%d%.,]+) Schattenschaden$"
+		["WeaponDamageShadowExact"] = "^%+?([%d%.,]+) Schattenschaden$",
 	},
 	["UI"] = {
 		["AboutHeader"] = "Über Pawn",
-		--Translation missing 
-		["AboutMrRobot"] = "Default stat weights are provided by the generous Mr. Robot.  They’re a great starting point for characters with typical talents and artifact traits in typical fights.  You can get more accurate, customized stat weights for your character using the Ask Mr. Robot simulator at askmrrobot.com.",
+		["AboutMrRobot"] = "Standardwerte werden zur Verfügung gestellt durch den großzügigen Mr. Robot. Sie sind ein guter Ausgangspunkt für Charaktere mit typischen Talenten und Artefaktpunkteverteilungen in typischen Kämpfen. Du kannst genauere, benutzerdefinierte Wertegewichtungen erhalten, indem du den Simulator von Ask Mr. Robot auf askmrrobot.com verwendest.",
 		["AboutReadme"] = "Neu bei Pawn? Schau dir den \"Los geht's\" Reiter für eine erste Info an.  Mehr Informationen findest du in der mitgelieferten README Datei!",
 		["AboutTab"] = "Über",
 		["AboutTranslation"] = "Deutsche Übersetzung von Sandmahn",
 		["AboutVersion"] = "Version %s",
 		["AboutWebsite"] = "Für andere Addons von Vger, besuche vgermods.com.",
-		--Translation missing 
-		["AskMrRobotProvider"] = "Ask Mr. Robot scales",
+		["AskMrRobotProvider"] = "Ask Mr. Robot Skalierungen",
 		["CompareClearItems"] = "Zurücksetzen",
 		["CompareClearItemsTooltip"] = "Setzt beide Gegenstandsfelder zurück.",
 		["CompareColoredSockets"] = "Farbiger Sockel",
@@ -394,8 +387,7 @@ Pawn enthält Bewertungsprofile von Wowhead für jede Klasse und Spezialisierung
 		["OptionsAdvisorHeader"] = "Ratgeber Optionen",
 		["OptionsAlignRight"] = "Wertungen im Tooltip rechts ausrichten",
 		["OptionsAlignRightTooltip"] = "Aktiviere diese Option um Pawn-Wertungen und Upgradeinformationen an der rechten anstatt der linken Seite des Tooltips auszurichten.",
-		--Translation missing 
-		["OptionsBagUpgradeAdvisor"] = "Show bag upgrade advisor",
+		["OptionsBagUpgradeAdvisor"] = "Zeige Berater für Verbesserungen in der Tasche",
 		--Translation missing 
 		["OptionsBagUpgradeAdvisorTooltip"] = [=[Enable this option to have Pawn take over the in-bag upgrade arrows.
 
@@ -450,22 +442,18 @@ Jeder Gegenstand in World of Warcraft hat eine eindeutige ID. Diese Information 
 		["OptionsOtherHeader"] = "Weitere Optionen",
 		["OptionsQuestUpgradeAdvisor"] = "Zeige Upgrade-Ratgeber bei Quests",
 		["OptionsQuestUpgradeAdvisorTooltip"] = "Wenn in deinem Questlog oder beim Dialog mit NPCs, eine der Belohnungen eine Verbesserung für deinen Charakter ist, wird Pawn einen grünen Pfeil für diesen Gegenstand anzeigen.  Wenn keiner dieser Gegenstände eine Verbesserung ist, dann zeigt Pawn will für den Gegenstand Münzen an, der am wertvollsten beim Verkauf ist.",
-		--Translation missing 
-		["OptionsShowRelicUpgrades"] = "Show relic advisor",
-		--Translation missing 
-		["OptionsShowRelicUpgradesTooltip"] = "Pawn will show you when a relic would increase the item level of one of your artifact weapons.  (This works differently from other upgrade features, since it's based on item level, not stats.)",
 		["OptionsResetUpgrades"] = "Re-Scan",
 		["OptionsResetUpgradesTooltip"] = [=[Pawn wird alles vergessen, was es über die besten Gegenstände, die du je angelegt hattest, wusste und dein aktuelles Set erneut scannen um die bessere Upgradeinformationen in der Zukunft zu liefern.
 
 Benutze dieses Feature wenn du denkst, dass Pawn schlechte Verbesserungsvorschläge aufgrund von Gegenständen macht, die du verkauft oder zerstört hast, bzw. nicht mehr benutzt.  Dies wird alle deine Charakter betreffen die Pawn benutzen.]=],
+		["OptionsShowRelicUpgrades"] = "Zeige Berater für Relikte",
+		["OptionsShowRelicUpgradesTooltip"] = "Pawn wird dir zeigen, wenn ein ein Relikt das Itemlevel einer deiner Artefaktwaffen erhöhen würde. (Dies funktioniert anders als die anderen Verbesserungsoptionen, da es auf dem Itemlevel und nicht den auf den Werten basiert.)",
 		["OptionsSocketingAdvisor"] = "Zeige den Edelstein-Ratgeber",
 		["OptionsSocketingAdvisorTooltip"] = "Wenn du einem Gegenstand Edelsteine zufügst, dann wird Pawn ein Popup anzeigen, dass dir geeignete Edelsteine zur Verbesserung vorschlägt.  (Um eine komplette Liste der Edelsteinvorschläge zu sehen, benutze den Edelsteine Tab um die Qualität anzupassen.)",
 		["OptionsTab"] = "Optionen",
 		["OptionsTooltipHeader"] = "Tooltip Optionen",
-		--Translation missing 
-		["OptionsTooltipSpecIcon"] = "Show spec icons",
-		--Translation missing 
-		["OptionsTooltipSpecIconTooltip"] = "Enable this option to show spec icons next to scale names on tooltips.",
+		["OptionsTooltipSpecIcon"] = "Zeige Symbole der Spezialisierungen",
+		["OptionsTooltipSpecIconTooltip"] = "Aktiviere diese Option, um die Symbole der Spezialisierungen neben den Skalierungsnamen in Tooltips zu zeigen.",
 		["OptionsTooltipUpgradesOnly"] = "Zeige nur Verbesserung",
 		["OptionsTooltipUpgradesOnlyTooltip"] = [=[Das ist die einfachste Option.  Zeige nur Pawn Werte und prozentuale Upgrades für Gegenstände die eine Verbesserung für dein aktuelles Set wären. Zeige keine Pawn Werte für geringerwertige Gegenstände.
 
@@ -486,37 +474,25 @@ Feuer:  156.7 |TInterface\AddOns\Pawn\Textures\UpgradeArrow:0|t |cff00ff00+10% V
 |cff8ec3e6Frost:  123.4
 Feuer:  156.7|r]=],
 		["OptionsUpgradeHeader"] = "Zeige |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t Verbesserung im Tooltip:",
-		--Translation missing 
-		["OptionsUpgradeSettingsHeader"] = "Upgrade options",
+		["OptionsUpgradeSettingsHeader"] = "Optionen für Verbesserungen",
 		["OptionsUpgradesForBothWeaponTypes"] = "Zeige Verbesserungen für 1Hand und 2Hand",
 		["OptionsUpgradesForBothWeaponTypesTooltip"] = [=[Pawn's Upgrade-Ratgeber zeigt Verbesserungen jeweils nur für die getragene Waffenart (Zweihand oder Einhand). Aktiviere diese Option um weiterhin beide Waffenarten in den Vergleich einzubeziehen. 
 
 Wenn man eine Zweihand-Waffe trägt, wird weiterhin eine Verbesserung für Einhandwaffen gezeigt, wenn die Waffe besser als die vorherige Einhandwaffe ist. Verbesserungen werden in Pawn separat für Waffenarten verwaltet. Ein Vergleich zwischen Zweihand und Einhand Waffen findet nicht statt.
 
 Deaktiviere die Option, wenn nur Verbesserungen für die aktuell getragene Waffenart gezeigt werden soll.]=],
-		--Translation missing 
-		["OptionsUpgradeTrackingHeader"] = "Upgrade comparisons:",
-		--Translation missing 
-		["OptionsUpgradeTrackingOff"] = "Versus equipped gear (recommended)",
-		--Translation missing 
-		["OptionsUpgradeTrackingOffTooltip"] = "Pawn will show you items that are an upgrade compared to the items that you currently have equipped.",
-		--Translation missing 
-		["OptionsUpgradeTrackingOn"] = "Track for each scale (advanced)",
-		--Translation missing 
-		["OptionsUpgradeTrackingOnTooltip"] = "(For advanced users.)  Pawn will try to track the best items that you've equipped, independently for each scale that you have enabled, and show you items that are an upgrade compared to those.",
+		["OptionsUpgradeTrackingHeader"] = "Vergleiche von Verbessungen:",
+		["OptionsUpgradeTrackingOff"] = "Versus angelegte Rüstung (empfohlen)",
+		["OptionsUpgradeTrackingOffTooltip"] = "Pawn wird dir Gegenstände zeigen, die im Vergleich zu den momentan angelegten Gegenständen eine Verbesserung sind.",
+		["OptionsUpgradeTrackingOn"] = "Verfolge für jede Skalierung (fortgeschritten)",
+		["OptionsUpgradeTrackingOnTooltip"] = "(Für fortgeschrittene Benutzer.)  Pawn wird versuchen, die besten Gegenstände, die du ausgerüstet hast, unabhängig für jede Skillung, die du aktiviert hast, zu überprüfen und dir Gegenstände anzeigen, die im Vergleich dazu eine Verbesserung sind.",
 		["OptionsWelcome"] = "Konfiguriere Pawn wie du es möchtest. Änderungen werden unmittelbar übernommen.",
-		--Translation missing 
-		["ScaleAutoOff"] = "Manual",
-		--Translation missing 
-		["ScaleAutoOff2"] = "Let me manage scales.",
-		--Translation missing 
-		["ScaleAutoOffTooltip"] = "Pawn will let you manually choose which scales to use for its calculations, allowing you to enable more than one scale at a time, add custom scales, and more.",
-		--Translation missing 
-		["ScaleAutoOn"] = "Automatic",
-		--Translation missing 
-		["ScaleAutoOn2"] = "Just show my current spec.",
-		--Translation missing 
-		["ScaleAutoOnTooltip"] = "Pawn will automatically show your current specialization in item tooltips, and use that to make recommendations and suggest upgrades.",
+		["ScaleAutoOff"] = "Manuell",
+		["ScaleAutoOff2"] = "Lass mich Skalierungen einstellen.",
+		["ScaleAutoOffTooltip"] = "Pawn wird dich manuell auswählen lassen, welche Skalierungen für Kalkulationen verwendet werden sollen, sodass du mehr als eine Skalierung gleichzeitig verwenden, eigene Skalierungen hinzufügen und Weiteres tun kannst.",
+		["ScaleAutoOn"] = "Automatisch",
+		["ScaleAutoOn2"] = "Zeige nur meine aktuelle Spezialisierung.",
+		["ScaleAutoOnTooltip"] = "Pawn wird automatisch deine aktuelle Spezialiserung in Gegenstandstooltips anzeigen und diese verwenden, um Empfehlungen zu machen und Verbesserungen vorzuschlagen.",
 		--Translation missing 
 		["ScaleAutoWelcome"] = [=[Pawn will show suggestions for your current specialization.
 
@@ -541,8 +517,7 @@ Dieser Vorgang kann nicht rückgängig gemacht werden!]=],
 		["ScaleRename"] = "Umbenennen",
 		["ScaleRenameTooltip"] = "Bewertungsprofil umbenennen.",
 		["ScaleSelectorHeader"] = "Wähle ein Profil:",
-		--Translation missing 
-		["ScaleSelectorShowingSuggestionsFor"] = "Showing suggestions for",
+		["ScaleSelectorShowingSuggestionsFor"] = "Zeige Vorschläge für",
 		["ScaleSelectorShowScale"] = "Dieses Bewertungsprofil im Gegenstandstooltip anzeigen.",
 		["ScaleSelectorShowScaleTooltip"] = [=[Aktiviere diese Option um dieses Profil im Gegenstandstooltip anzuzeigen. Jedes Bewertungsprofil kann für einen deiner Charakter, mehrere Charaktere oder gar keinen Charakter angezeigt werden. 
 
@@ -573,7 +548,7 @@ Für weitere Informationen hierzu siehe readme.htm.]=],
 		["ValuesTab"] = "Werte",
 		["ValuesWelcome"] = "Du kannst die Wertungen in den Bewertungsprofilen anpassen. Um die Bewertungsprofile zu verwalten oder neue hinzuzufügen, benutze den \"Bewertungsprofile\" Reiter.",
 		["ValuesWelcomeNoScales"] = "Es wurde kein Bewertungsprofil ausgewählt. Wähle ein Bewertungsprofil im Reiter \"Bewertungsprofile\" aus oder kopiere Werte aus dem Internet.",
-		["ValuesWelcomeReadOnly"] = "Das ausgewählte Bewertungsprofil ist nicht editierbar. Erstelle im Reiter \"Bewertungsprofile\" ein neues Profil oder erstelle eine Kopie des gewählten Profils."
+		["ValuesWelcomeReadOnly"] = "Das ausgewählte Bewertungsprofil ist nicht editierbar. Erstelle im Reiter \"Bewertungsprofile\" ein neues Profil oder erstelle eine Kopie des gewählten Profils.",
 	}
 }
 end
