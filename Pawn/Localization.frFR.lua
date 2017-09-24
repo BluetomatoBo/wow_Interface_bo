@@ -55,7 +55,6 @@ PawnLocal =
 	["TooltipBestAnnotationSimple"] = "%s  votre meilleur",
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 upgrade%s|r",
 	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% amélioration%s|r",
-	--Translation missing 
 	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d item levels%s|r",
 	["TooltipSecondBestAnnotation"] = "%s  |cff8ec3e6(second meilleur)|r",
 	["TooltipSecondBestAnnotationSimple"] = "%s  votre second meilleur",
@@ -80,10 +79,12 @@ Pour plus d'information sur la Personnalisation de Pawn, regarder le fichier d'a
 	["ValueCalculationMessage"] = "   %g %s x %g chaque = %g",
 	["VisibleScalesHeader"] = "%s d échelles",
 	["Stats"] = {
-		["AgilityInfo"] = "La statistique principale, Agilitée",
-		["ArmorInfo"] = "Armure, quelle que soit le type d'item. Ne distingue pas entre l'armure de base et le bonus d'armure car les items avec bonus d'amure sont obsoletes.",
+		["AgilityInfo"] = "Agilité : Augmente le pouvoir de certaines compétences de classe.",
+		["ArmorInfo"] = [=[Armure : réduit les dégâts physiques reçus.
+
+Armure, quel que soit le type d'item. Pas de distinction entre l'armure de base et le bonus d'armure car les items avec bonus d'amure sont obsolètes.]=],
 		["ArmorTypes"] = "Types d'armure",
-		["AvoidanceInfo"] = "Évitement. Réduit vos dégâts pris lors d'une attaque de zone.",
+		["AvoidanceInfo"] = "Évitement. Réduit les dégâts pris lors d'une attaque de zone.",
 		["Cloth"] = "Tissu",
 		["ClothInfo"] = "Points a etre assigné si l'item est en tissu",
 		["Crit"] = "Crit",
@@ -202,7 +203,7 @@ Pour plus d'information sur la Personnalisation de Pawn, regarder le fichier d'a
 		["WeaponTypeWand"] = "Baguette",
 		["WeaponTypeWandInfo"] = "Points à etre assignés si l'item est une baguette",
 		["WeaponTypeWarglaive"] = "Glaive de guerre",
-		["WeaponTypeWarglaiveInfo"] = "points devant etre assigné si la pièce est un Glaive de guerre"
+		["WeaponTypeWarglaiveInfo"] = "points devant etre assigné si la pièce est un Glaive de guerre",
 	},
 	["TooltipParsing"] = {
 		["Agility"] = "^%+?([-%d%. NBSP,]+) Agilité$",
@@ -214,7 +215,7 @@ Pour plus d'information sur la Personnalisation de Pawn, regarder le fichier d'a
 		["Axe"] = "^Hache$",
 		["BagSlots"] = "^Sac %d+ .+$",
 		["Bow"] = "^Arc$",
-		["ChanceOnHit"] = "Chances quand vous touchez",
+		["ChanceOnHit"] = "Chances de toucher :",
 		["Charges"] = "^.+ Charges?$",
 		["Cloth"] = "^Tissu$",
 		["CooldownRemaining"] = "^Temps de recharge restant:",
@@ -293,10 +294,8 @@ Pour plus d'information sur la Personnalisation de Pawn, regarder le fichier d'a
 		["TemporaryBuffMinutes"] = "^.+%(%d+ min%)$",
 		["TemporaryBuffSeconds"] = "^.+%(%d+ sec%)$",
 		["Thunderforged"] = "^Foudroyant$",
-		["Timeless"] = [=[^du Temps figé$
-]=],
-		["Titanforged"] = [=[^forgées par les titans$
-]=],
+		["Timeless"] = [=[^du Temps figé$]=],
+		["Titanforged"] = [=[^forgées par les titans$]=],
 		["UpgradeLevel"] = "^Niveau d’amélioration :",
 		["Use"] = "Utiliser :",
 		["Versatility"] = "^%+([%d%. NBSP,]+) Polyvalence$",
@@ -318,15 +317,14 @@ Pour plus d'information sur la Personnalisation de Pawn, regarder le fichier d'a
 		["WeaponDamageNature"] = "^%+?([%d%. NBSP,]+) %- ([%d%. NBSP,]+) points de dégâts %(Nature%)$",
 		["WeaponDamageNatureExact"] = "^%+?([%d%. NBSP,]+) points de dégâts %(Nature%)$",
 		["WeaponDamageShadow"] = "^%+?([%d%. NBSP,]+) %- ([%d%. NBSP,]+) points de dégâts %(Ombre%)$",
-		["WeaponDamageShadowExact"] = "^%+?([%d%. NBSP,]+) points de dégâts %(Ombre%)$"
+		["WeaponDamageShadowExact"] = "^%+?([%d%. NBSP,]+) points de dégâts %(Ombre%)$",
 	},
 	["UI"] = {
-		["AboutHeader"] = "à propos de Pawn",
-		--Translation missing 
-		["AboutMrRobot"] = "Default stat weights are provided by the generous Mr. Robot.  They’re a great starting point for characters with typical talents and artifact traits in typical fights.  You can get more accurate, customized stat weights for your character using the Ask Mr. Robot simulator at askmrrobot.com.",
+		["AboutHeader"] = "À propos de Pawn",
+		["AboutMrRobot"] = "Les valeurs des stats par défaut sont généreusement fournies par Mr. Robot. Elles sont un excellent point de départ pour des personnages avec des talents et traits d'artéfact de base et pour des combats normaux. Si vous voulez des stats plus précises et personnalisées, vous pouvez utiliser le simulateur d'Ask Mr. Robot sur le site : askmrrobot.com .",
 		["AboutReadme"] = "Nouveau avec pawn ? Regardez la section Débuter (getting started) pour une introduction basique",
-		["AboutTab"] = "à propos de",
-		["AboutTranslation"] = "Version francaise par Othor-eitrigg",
+		["AboutTab"] = "À propos de",
+		["AboutTranslation"] = "Version francaise par Othor-eitrigg et Vernel-Garona",
 		["AboutVersion"] = "Version %s",
 		["AboutWebsite"] = "Pour d'autres mods par Vger, visitez vgermods.com.",
 		--Translation missing 
@@ -334,7 +332,7 @@ Pour plus d'information sur la Personnalisation de Pawn, regarder le fichier d'a
 		["CompareClearItems"] = "Effacer",
 		["CompareClearItemsTooltip"] = "Retirer la comparaison des deux items",
 		["CompareColoredSockets"] = "Châsse colorée",
-		["CompareEquipped"] = "Equippé",
+		["CompareEquipped"] = "Equipé",
 		["CompareGemTotalValue"] = "Valeur de la gemme",
 		["CompareHeader"] = "Compare les items en utilisant %s",
 		["CompareOtherHeader"] = "Autre",
@@ -393,14 +391,12 @@ Pawn vient avec les échelles de Wowhead pour chaque classe et spé. vous pouvez
 		["OptionsAdvisorHeader"] = "Options conseillées",
 		["OptionsAlignRight"] = "Aligne les valeurs sur le bord droit du tooltips",
 		["OptionsAlignRightTooltip"] = "Cette option permet d'aligner les valeurs de Pawn et vos informations d'information sur le bord droit du tooltips au lieu de la gauche",
-		--Translation missing 
-		["OptionsBagUpgradeAdvisor"] = "Show bag upgrade advisor",
-		--Translation missing 
-		["OptionsBagUpgradeAdvisorTooltip"] = [=[Enable this option to have Pawn take over the in-bag upgrade arrows.
+		["OptionsBagUpgradeAdvisor"] = "Montrer les améliorations de sac conseillées.",
+		["OptionsBagUpgradeAdvisorTooltip"] = [=[Activer cette option permet à Pawn d'utiliser les flêches d'améliorations dans les sacs.
 
-If checked, Pawn will find upgrades in your bags and mark items that are an upgrade for any of your active scales with green arrows. 
+Si elle est cochée, Pawn va chercher, dans vos sacs, les objets meilleurs que votre équipement actuel, en fonction de vos échelles actives et les montrer avec une flêche verte.
 
-If unchecked, WoW will mark items with a higher item level than what you're currently wearing, and Pawn will not interfere with the built-in feature.]=],
+Si elle n'est pas cochée, WoW va marquer les objets ayant un plus haut niveau d'objet que ce que vous portez actuellement et Pawn n'interfèrera pas avec cette fonctionnalité intégrée.]=],
 		["OptionsBlankLine"] = "Ajoute une ligne vide avant les valeurs",
 		["OptionsBlankLineTooltip"] = "Cette option permet de séparer les informations de Pawn, en ajoutant une ligne vide",
 		["OptionsButtonHidden"] = "Caché",
@@ -447,14 +443,12 @@ Chaque item dans World of Warcraft a un numéro d'ID qui lui est associé. Cette
 		["OptionsOtherHeader"] = "Autres options",
 		["OptionsQuestUpgradeAdvisor"] = "Affiche les suggestions de quête pouvant amélioré",
 		["OptionsQuestUpgradeAdvisorTooltip"] = "Dans votre journal de quêtes et quand vous parlez à des NPCs, si un des choix de récompense de quêtes est une amélioration pour votre tenue actuelle, Pawn affichera en icône une flèche verte sur cet item. Si aucun des items n'est une amélioration, Pawn affichera une pile de monnaies sur l item qui vaut le plus quand vendu à un vendeur",
-		--Translation missing 
-		["OptionsShowRelicUpgrades"] = "Show relic advisor",
-		--Translation missing 
-		["OptionsShowRelicUpgradesTooltip"] = "Pawn will show you when a relic would increase the item level of one of your artifact weapons.  (This works differently from other upgrade features, since it's based on item level, not stats.)",
 		["OptionsResetUpgrades"] = "Re-scan la tenue",
 		["OptionsResetUpgradesTooltip"] = [=[Pawn oubliera ce qu il connait sur les meilleurs items que vous avez équipé et re-scannera votre tenue pour fournir des informations d amélioration plus à jour dans le futur.
 
 Utilisez cette fonctionnalité si vous trouvez que Pawn effectue de mauvaises suggestions d amélioration comme résultat d items que vous avez vendu, detruit, ou que vous n utilisez plus. Ceci affecte tous vos personnages qui utilisent Pawn.]=],
+		["OptionsShowRelicUpgrades"] = "Montrer les améliorations de reliques.",
+		["OptionsShowRelicUpgradesTooltip"] = "Pawn vous montrera quand une relique peut augmenter le niveau d'objet d'une de vos armes. (Ca fonctionne différement des autres fonctions d'amélioration car c'est uniquement basé sur le niveau d'objet et pas sur des stats.)",
 		["OptionsSocketingAdvisor"] = "Affiche les suggestions de châsses",
 		["OptionsSocketingAdvisorTooltip"] = "Quand vous ajoutez des gemmes à un item, Pawn affichera les gemmes que vous pouvez ajouter à l'item qui maximiseront sa puissance. (Pour voir la liste complète des suggestions de gemmes de chaque couleur, voir l'onglet gemmes, ou vous pouvez aussi personnaliser la qualité des gemmes à utiliser.)",
 		["OptionsTab"] = "Options",
@@ -548,7 +542,7 @@ Cette commande ne peut etre défaite!]=],
 		["ValuesTab"] = "Valeur",
 		["ValuesWelcome"] = "Vous pouvez personnaliser les valeurs qui sont assignés à chaque stats pour cette échelle. Pour gerer vos échelles et en ajouter de nouvelles, utilisez l'onglet Echelle",
 		["ValuesWelcomeNoScales"] = "Vous n'avez sélectionné aucune échelle. Pour commencer, aller a l onglet Echelle et crees-en une nouvelle ou coller une depuis Internet",
-		["ValuesWelcomeReadOnly"] = "L'echelle que vous avez sélectionné ne peut etre modifiée. Si vous voulez changer ces valeurs, allez dans l'onglet Echelle et faites une copie de cette échelle ou commencez une nouvelle."
+		["ValuesWelcomeReadOnly"] = "L'echelle que vous avez sélectionné ne peut etre modifiée. Si vous voulez changer ces valeurs, allez dans l'onglet Echelle et faites une copie de cette échelle ou commencez une nouvelle.",
 	}
 }
 
