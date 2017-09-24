@@ -43,7 +43,7 @@
 --
 
 
-local revision =("$Revision: 16623 $"):sub(12, -3)
+local revision =("$Revision: 16725 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
@@ -248,6 +248,7 @@ local function MixinSharedMedia3(mediatype, mediatable)
 		LSM:Register("sound", "Void Reaver: Marked", [[Sound\Creature\VoidReaver\TEMPEST_VoidRvr_Aggro01.ogg]])
 		LSM:Register("sound", "Kaz'rogal: Marked", [[Sound\Creature\KazRogal\CAV_Kaz_Mark02.ogg]])
 		LSM:Register("sound", "C'Thun: You Will Die!", [[Sound\Creature\CThun\CThunYouWillDIe.ogg]])
+		LSM:Register("sound", "Thrall: That's Incredible!", [[Interface\AddOns\DBM-Core\sounds\incredible.ogg]])
 		--Do to terrible coding in LSM formating, it's not possible to do this a nice looking way
 		if DBM.Options.CustomSounds >= 1 then
 			LSM:Register("sound", "DBM: Custom 1", [[Interface\AddOns\DBM-CustomSounds\Custom1.ogg]])
@@ -1423,11 +1424,13 @@ local function CreateOptionsMenu()
 		generalMessagesArea:CreateCheckButton(L.ShowEngageMessage, true, nil, "ShowEngageMessage")
 		generalMessagesArea:CreateCheckButton(L.ShowDefeatMessage, true, nil, "ShowDefeatMessage")
 		generalMessagesArea:CreateCheckButton(L.ShowGuildMessages, true, nil, "ShowGuildMessages")
+		generalMessagesArea:CreateCheckButton(L.ShowGuildMessagesPlus, true, nil, "ShowGuildMessagesPlus")
 		local generalWhispersArea = generalWarningPanel:CreateArea(L.WhisperMessages, nil, 135, true)
 		generalWhispersArea:CreateCheckButton(L.AutoRespond, true, nil, "AutoRespond")
 		generalWhispersArea:CreateCheckButton(L.EnableStatus, true, nil, "StatusEnabled")
 		generalWhispersArea:CreateCheckButton(L.WhisperStats, true, nil, "WhisperStats")
 		generalWhispersArea:CreateCheckButton(L.DisableStatusWhisper, true, nil, "DisableStatusWhisper")
+		generalWhispersArea:CreateCheckButton(L.DisableGuildStatus, true, nil, "DisableGuildStatus")
 		generalCoreArea:AutoSetDimension()
 		generalMessagesArea:AutoSetDimension()
 		generalWhispersArea:AutoSetDimension()
