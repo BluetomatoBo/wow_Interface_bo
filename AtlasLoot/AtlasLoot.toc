@@ -1,6 +1,6 @@
 ## Interface: 70300
 ## Author: Lag, Proteyer, Arith
-## Version: v8.06.03
+## Version: v8.07.00
 ## SavedVariables: AtlasLootDB
 ## SavedVariablesPerCharacter: AtlasLootCharDB
 ## OptionalDeps: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibDBIcon-1.0, LibDialog-1.0, LibBabble-ItemSet-3.0, LibBabble-Boss-3.0, LibBabble-Faction-3.0

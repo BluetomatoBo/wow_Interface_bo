@@ -1,4 +1,4 @@
-## Interface: 70300
+﻿## Interface: 70300
 ## LoadOnDemand: 1
 ## Title: Lib: Babble-Boss-3.0
 ## Notes: A library to help with localization of bosses.

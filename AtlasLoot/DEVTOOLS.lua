@@ -50,7 +50,7 @@ function AtlasLoot:DEV_ScanEJ(givenTierId)
 			local instanceID, name, description, bgImage, buttonImage, loreImage, dungeonAreaMapID, link
 			while true do
 				loopKill = loopKill + 1
-				if loopKill > 500 then print"ouch loop break" break end
+				if loopKill > 700 then print"ouch loop break" break end
 				instanceID, name, description, bgImage, buttonImage, loreImage, dungeonAreaMapID, link = EJ_GetInstanceByIndex(index, showRaid)
 				if not instanceID and showRaid then	
 					break
@@ -69,7 +69,7 @@ function AtlasLoot:DEV_ScanEJ(givenTierId)
 							buttonImage = buttonImage,
 							loreImage = loreImage,
 							dungeonAreaMapID = dungeonAreaMapID,
-							link = link,
+							MapID = link,
 						},
 						bosses = {},
 					}

@@ -5,6 +5,16 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.07.00 (Sep. 21, 2017)
+========================
+- Update Uldaman drops, implemented better array system for that section. (2TailedFox)
+- Added instance loots for Seat of the Triumvirate, Antorus, the Burning Throne, and the drops from Invasion Points
+
+v8.06.04 (Sep. 19, 2017)
+========================
+- Updated LibDialog
+- Classic dungeon's boss drops updated (2TailedFox)
+
 v8.06.03 (Sep. 10, 2017)
 ========================
 - Classic dungeon's boss drops updated (2TailedFox)

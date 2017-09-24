@@ -1,6 +1,6 @@
 ## Interface: 70300
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.06.03
+## Version: v8.07.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 ## OptionalDeps: 
@@ -14,6 +14,7 @@
 ## Title-zhTW: AtlasLoot |cFF0099FF[收藏]|r
 ## Notes: AtlasLoot collections loot tables (e.g. Mounts & Pets)
 ## Notes-deDE: AtlasLoot Sammlungs-Beuteverzeichnisse (z.B. Reit- und Haustiere)
+## Notes-esES: Tablas de botín de AtlasLoot para colecciones (monturas, mascotas, etc.)
 ## Notes-koKR: AtlasLoot 수집품 전리품 목록 (탈것 & 애완동물)
 ## Notes-ruRU: AtlasLoot таблица коллекции добычи (напр. транспорт и питомцы)
 ## Notes-zhCN: AtlasLoot 《收集》物品信息

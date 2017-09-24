@@ -1,6 +1,6 @@
 ## Interface: 70300
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.06.03
+## Version: v8.07.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -13,6 +13,7 @@
 ## Title-zhTW: AtlasLoot |cFF0099FF[陣營]|r
 ## Notes: AtlasLoot loot tables from factions
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Fraktionen
+## Notes-esES: Tablas de botín de AtlasLoot para facciones
 ## Notes-koKR: AtlasLoot 평판 전리품 목록
 ## Notes-ruRU: AtlasLoot таблица добычи для фракции
 ## Notes-zhCN: AtlasLoot 《阵营》物品信息

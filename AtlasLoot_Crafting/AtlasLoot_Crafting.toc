@@ -1,6 +1,6 @@
 ## Interface: 70300
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.06.03
+## Version: v8.07.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -13,6 +13,7 @@
 ## Title-zhTW: AtlasLoot |cFF0099FF[商業技能]|r
 ## Notes: AtlasLoot loot tables of Crafting Items
 ## Notes-deDE: AtlasLoot Verzeichnisse der Berufsgegenstände
+## Notes-esES: Tablas de botín de AtlasLoot para objetos fabricados
 ## Notes-koKR: AtlasLoot 전문 기술의 전리품 목록
 ## Notes-ruRU: AtlasLoot таблица добычи на создание предметов
 ## Notes-zhCN: AtlasLoot 《专业制造》物品信息
