@@ -111,10 +111,20 @@ L["S_QUESTTYPE_PROFESSION"] = "Profissão"
 L["S_QUESTTYPE_PVP"] = "JxJ"
 L["S_QUESTTYPE_RESOURCE"] = "Recursos"
 L["S_QUESTTYPE_TRADESKILL"] = "Materiais"
+--Translation missing 
+-- L["S_RAREFINDER_ADDFROMPREMADE"] = ""
 L["S_RAREFINDER_NPC_NOTREGISTERED"] = "monstro raro não registrado no banco de dados"
 L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = "Procurar Usando Nomes em Inglês"
 L["S_RAREFINDER_OPTIONS_SHOWICONS"] = "Mostrar Ícones para Raros Ativos"
+--Translation missing 
+-- L["S_RAREFINDER_SOUND_ALWAYSPLAY"] = ""
+--Translation missing 
+-- L["S_RAREFINDER_SOUND_ENABLED"] = ""
+--Translation missing 
+-- L["S_RAREFINDER_SOUNDWARNING"] = ""
 L["S_RAREFINDER_TITLE"] = "Procura  de Raros"
+L["S_RAREFINDER_TOOLTIP_REMOVE"] = "Remover"
+L["S_RAREFINDER_TOOLTIP_SEACHREALM"] = "Procurar em outros reinos"
 L["S_RAREFINDER_TOOLTIP_SPOTTEDBY"] = "Visto Por"
 L["S_RAREFINDER_TOOLTIP_TIMEAGO"] = "minutos atrás"
 L["S_SHAREPANEL_THANKS"] = "Obrigado por compartilhar World Quest Tracker!\\nEnvie este link aos seus amigos no Facebook, Twitter, Itamarati."

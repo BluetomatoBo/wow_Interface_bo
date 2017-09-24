@@ -10,80 +10,45 @@ L["S_ERROR_NOTLOADEDYET"] = "Задание ещё не загружено, по
 L["S_FLYMAP_SHOWTRACKEDONLY"] = "Только отслеживаемые"
 L["S_FLYMAP_SHOWTRACKEDONLY_DESC"] = "Показывать только задания, которые вы отслеживаете"
 L["S_FLYMAP_SHOWWORLDQUESTS"] = "Показывать локальные задания"
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_CANCEL_APPLICATIONS"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_CANCELING"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_CREATE"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_CREATE_DIRECT"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_LEAVINGIN"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_RETRYSEARCH"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCH"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCH_RARENPC"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCH_TOOLTIP"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCHING"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCHMORE"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_SEARCHOTHER"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_UNAPPLY1"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_UNLIST"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_UNLISTING"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ACTIONS_WAITING"] = ""
---Translation missing 
--- L["S_GROUPFINDER_AUTOOPEN_RARENPC_TARGETED"] = ""
---Translation missing 
--- L["S_GROUPFINDER_ENABLED"] = ""
---Translation missing 
--- L["S_GROUPFINDER_INVASION_ENABLED"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS_ASKX"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS_DONTLEAVE"] = ""
---Translation missing 
--- L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = ""
---Translation missing 
--- L["S_GROUPFINDER_NOPVP"] = ""
---Translation missing 
--- L["S_GROUPFINDER_OT_ENABLED"] = ""
---Translation missing 
--- L["S_GROUPFINDER_QUEUEBUSY"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RESULTS_APPLYING"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RESULTS_APPLYING1"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RESULTS_FOUND"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RESULTS_FOUND1"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RESULTS_UNAPPLY"] = ""
---Translation missing 
--- L["S_GROUPFINDER_RIGHTCLICKCLOSE"] = ""
---Translation missing 
--- L["S_GROUPFINDER_SECONDS"] = ""
---Translation missing 
--- L["S_GROUPFINDER_TITLE"] = ""
---Translation missing 
--- L["S_GROUPFINDER_TUTORIAL1"] = ""
+L["S_GROUPFINDER_ACTIONS_CANCEL_APPLICATIONS"] = "щелкните, чтобы отменить предложения..."
+L["S_GROUPFINDER_ACTIONS_CANCELING"] = "отмена..."
+L["S_GROUPFINDER_ACTIONS_CREATE"] = "Группа не найдена? нажмите кнопку, чтобы начать"
+L["S_GROUPFINDER_ACTIONS_CREATE_DIRECT"] = "создать группу"
+L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = "Покинуть группу?"
+L["S_GROUPFINDER_ACTIONS_LEAVINGIN"] = "Покидание из группы через (нажмите, чтобы выйти сейчас):"
+L["S_GROUPFINDER_ACTIONS_RETRYSEARCH"] = "повторить поиск"
+L["S_GROUPFINDER_ACTIONS_SEARCH"] = "Нажмите, чтобы начать поиск групп"
+L["S_GROUPFINDER_ACTIONS_SEARCH_RARENPC"] = "поиск группы для убийства - этого редкого"
+L["S_GROUPFINDER_ACTIONS_SEARCH_TOOLTIP"] = "Присоединиться к группе, выполняющие это задание"
+L["S_GROUPFINDER_ACTIONS_SEARCHING"] = "поиск..."
+L["S_GROUPFINDER_ACTIONS_SEARCHMORE"] = "нажмите, чтобы найти больше людей для группы"
+L["S_GROUPFINDER_ACTIONS_SEARCHOTHER"] = "Покинуть и искать другую группу?"
+L["S_GROUPFINDER_ACTIONS_UNAPPLY1"] = "нажмите, чтобы удалить заявку для создание новый группы"
+L["S_GROUPFINDER_ACTIONS_UNLIST"] = "нажмите, чтобы снять со списка текущую группу"
+L["S_GROUPFINDER_ACTIONS_UNLISTING"] = "снятие со списка..."
+L["S_GROUPFINDER_ACTIONS_WAITING"] = "ожидание..."
+L["S_GROUPFINDER_AUTOOPEN_RARENPC_TARGETED"] = "Авто открытие по цели редкого моба"
+L["S_GROUPFINDER_ENABLED"] = "Авто открытие для нового задания"
+L["S_GROUPFINDER_INVASION_ENABLED"] = "Авто открытие на точке вторжения"
+L["S_GROUPFINDER_LEAVEOPTIONS"] = "Параметры покидание групп"
+L["S_GROUPFINDER_LEAVEOPTIONS_AFTERX"] = "Покинуть, после X секунд"
+L["S_GROUPFINDER_LEAVEOPTIONS_ASKX"] = "Без авто покидания, просто спросить после X секунд"
+L["S_GROUPFINDER_LEAVEOPTIONS_DONTLEAVE"] = "Не показывать панель покидания"
+L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "Покидать немедленно, после завершения задания"
+L["S_GROUPFINDER_NOPVP"] = "Избегать PVP серверов"
+L["S_GROUPFINDER_OT_ENABLED"] = "Показывать кнопки на отслеживание заданий"
+L["S_GROUPFINDER_QUEUEBUSY"] = "вы уже находитесь в очереди."
+L["S_GROUPFINDER_RESULTS_APPLYING"] = "Есть %d оставшихся группы, снова нажмите"
+L["S_GROUPFINDER_RESULTS_APPLYING1"] = "Есть 1 оставшихся группа, снова нажмите"
+L["S_GROUPFINDER_RESULTS_FOUND"] = [=[найдено %d группы
+нажмите, чтобы присоединиться]=]
+L["S_GROUPFINDER_RESULTS_FOUND1"] = [=[найдена 1 группа
+нажмите, чтобы присоединиться]=]
+L["S_GROUPFINDER_RESULTS_UNAPPLY"] = "%d предложения осталось..."
+L["S_GROUPFINDER_RIGHTCLICKCLOSE"] = "правый щелчок, чтобы закрыть"
+L["S_GROUPFINDER_SECONDS"] = "Секунд"
+L["S_GROUPFINDER_TITLE"] = "Поиск групп"
+L["S_GROUPFINDER_TUTORIAL1"] = "Делайте локальные задания быстрее, присоединившись к группам, выполняя одно и то же задание!"
 L["S_MAPBAR_AUTOWORLDMAP"] = "Автоматическая карта мира"
 L["S_MAPBAR_AUTOWORLDMAP_DESC"] = [=[Когда вы в Даларане или Классовом зале, нажатие на 'M" открывает карту Расколотых островов.
 
@@ -97,7 +62,7 @@ L["S_MAPBAR_OPTIONSMENU_ARROWSPEED_HIGH"] = "Высокая частота"
 L["S_MAPBAR_OPTIONSMENU_ARROWSPEED_MEDIUM"] = "Средняя частота"
 L["S_MAPBAR_OPTIONSMENU_ARROWSPEED_REALTIME"] = "Обновлять непрерывно"
 L["S_MAPBAR_OPTIONSMENU_ARROWSPEED_SLOW"] = "Низкая частота"
-L["S_MAPBAR_OPTIONSMENU_EQUIPMENTICONS"] = "Значки экипировки"
+L["S_MAPBAR_OPTIONSMENU_EQUIPMENTICONS"] = "Знaчки экипировки"
 L["S_MAPBAR_OPTIONSMENU_QUESTTRACKER"] = "Включить World Quest Tracker"
 L["S_MAPBAR_OPTIONSMENU_REFRESH"] = "Обновить"
 L["S_MAPBAR_OPTIONSMENU_SHARE"] = "Поделиться аддоном"
@@ -145,18 +110,18 @@ L["S_QUESTTYPE_PROFESSION"] = "Профессия"
 L["S_QUESTTYPE_PVP"] = "PvP"
 L["S_QUESTTYPE_RESOURCE"] = "Ресурсы"
 L["S_QUESTTYPE_TRADESKILL"] = "Материалы"
---Translation missing 
--- L["S_RAREFINDER_NPC_NOTREGISTERED"] = ""
---Translation missing 
--- L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = ""
---Translation missing 
--- L["S_RAREFINDER_OPTIONS_SHOWICONS"] = ""
---Translation missing 
--- L["S_RAREFINDER_TITLE"] = ""
---Translation missing 
--- L["S_RAREFINDER_TOOLTIP_SPOTTEDBY"] = ""
---Translation missing 
--- L["S_RAREFINDER_TOOLTIP_TIMEAGO"] = ""
+L["S_RAREFINDER_ADDFROMPREMADE"] = "Добавить редких, найденные в заранее собранные группы"
+L["S_RAREFINDER_NPC_NOTREGISTERED"] = "нет, этого редкого в базе данных"
+L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = "Всегда искать по-английски"
+L["S_RAREFINDER_OPTIONS_SHOWICONS"] = "Показывать значки для активных редких"
+L["S_RAREFINDER_SOUND_ALWAYSPLAY"] = "Играть, даже когда звуковые эффекты отключены"
+L["S_RAREFINDER_SOUND_ENABLED"] = "Воспроизведение звука для редких на мини-карте"
+L["S_RAREFINDER_SOUNDWARNING"] = "звук воспроизводится из-за редких на мини-карте, Вы можете отключить этот звук в меню параметров > подменю поиска редких."
+L["S_RAREFINDER_TITLE"] = "Поиск редких"
+L["S_RAREFINDER_TOOLTIP_REMOVE"] = "Убрать"
+L["S_RAREFINDER_TOOLTIP_SEACHREALM"] = "Поиск по другим мирам"
+L["S_RAREFINDER_TOOLTIP_SPOTTEDBY"] = "Обнаружил"
+L["S_RAREFINDER_TOOLTIP_TIMEAGO"] = "минут назад"
 L["S_SHAREPANEL_THANKS"] = [=[Спасибо что поделились World Quest Tracker! 
 Отправьте ссылку на наш аддон своим друзьям в твиттере, фэйсбуке или в Кремле :)]=]
 L["S_SHAREPANEL_TITLE"] = "Тем, кто любит рок!"
@@ -177,7 +142,6 @@ L["S_TUTORIAL_REWARD"] = "показывает награду (экипиров�
 L["S_TUTORIAL_TIMELEFT"] = "показывает оставшееся время (+4 часа, +90 минут, +30 минут, менее 30 минут)"
 L["S_TUTORIAL_WORLDMAPBUTTON"] = "Эта кнопка открывает карту Расколотых островов."
 L["S_UNKNOWNQUEST"] = "Неизвестное задание"
---Translation missing 
--- L["S_WORLDMAP_TOOGLEQUESTS"] = ""
+L["S_WORLDMAP_TOOGLEQUESTS"] = "Вкл/Выкл - Задания"
 L["S_WORLDQUESTS"] = "Локальные задания"
 

@@ -1,7 +1,7 @@
-changeset:   241:17daae45f1f3
-tag:         v7.3.0.241-release
+changeset:   245:08fed12c22bd
+tag:         a7.3.0.245-alpha
 user:        Tercio
-date:        Wed Sep 13 16:52:13 2017 -0300
-summary:     - Fixed old versions of WQT sending out dated comm data.
+date:        Tue Sep 19 10:32:46 2017 -0300
+summary:     - Added a button for options under the interface menu.
 
 

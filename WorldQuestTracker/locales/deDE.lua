@@ -113,11 +113,23 @@ L["S_QUESTTYPE_PROFESSION"] = "Beruf"
 L["S_QUESTTYPE_PVP"] = "PvP"
 L["S_QUESTTYPE_RESOURCE"] = "Ressourcen"
 L["S_QUESTTYPE_TRADESKILL"] = "Berufsfertigkeit"
+--Translation missing 
+-- L["S_RAREFINDER_ADDFROMPREMADE"] = ""
 L["S_RAREFINDER_NPC_NOTREGISTERED"] = "Seltener NSC nicht in der Datenbank"
 --Translation missing 
 -- L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = ""
 L["S_RAREFINDER_OPTIONS_SHOWICONS"] = "Symbole für aktive seltene Gegner anzeigen"
+--Translation missing 
+-- L["S_RAREFINDER_SOUND_ALWAYSPLAY"] = ""
+--Translation missing 
+-- L["S_RAREFINDER_SOUND_ENABLED"] = ""
+--Translation missing 
+-- L["S_RAREFINDER_SOUNDWARNING"] = ""
 L["S_RAREFINDER_TITLE"] = "Suche seltener Gegner"
+--Translation missing 
+-- L["S_RAREFINDER_TOOLTIP_REMOVE"] = ""
+--Translation missing 
+-- L["S_RAREFINDER_TOOLTIP_SEACHREALM"] = ""
 L["S_RAREFINDER_TOOLTIP_SPOTTEDBY"] = "Aufgespürt von"
 L["S_RAREFINDER_TOOLTIP_TIMEAGO"] = "Minuten vergangen"
 L["S_SHAREPANEL_THANKS"] = [=[Danke, dass Du World Quest Tracker weitergibst!

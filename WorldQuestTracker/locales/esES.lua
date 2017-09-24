@@ -110,11 +110,23 @@ L["S_QUESTTYPE_PROFESSION"] = "Profesión"
 L["S_QUESTTYPE_PVP"] = "JcJ"
 L["S_QUESTTYPE_RESOURCE"] = "Recursos"
 L["S_QUESTTYPE_TRADESKILL"] = "Habilidad de comercio"
+--Translation missing 
+-- L["S_RAREFINDER_ADDFROMPREMADE"] = ""
 L["S_RAREFINDER_NPC_NOTREGISTERED"] = "Raro no en la Base de Datos"
 --Translation missing 
 -- L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = ""
 L["S_RAREFINDER_OPTIONS_SHOWICONS"] = "Mostrar Iconos para Raros Activos"
+--Translation missing 
+-- L["S_RAREFINDER_SOUND_ALWAYSPLAY"] = ""
+--Translation missing 
+-- L["S_RAREFINDER_SOUND_ENABLED"] = ""
+--Translation missing 
+-- L["S_RAREFINDER_SOUNDWARNING"] = ""
 L["S_RAREFINDER_TITLE"] = "Buscador Raro"
+--Translation missing 
+-- L["S_RAREFINDER_TOOLTIP_REMOVE"] = ""
+--Translation missing 
+-- L["S_RAREFINDER_TOOLTIP_SEACHREALM"] = ""
 L["S_RAREFINDER_TOOLTIP_SPOTTEDBY"] = "Visto por"
 L["S_RAREFINDER_TOOLTIP_TIMEAGO"] = "Minutos Atrás"
 L["S_SHAREPANEL_THANKS"] = [=[¡Gracias por compartir el Rastreador de Misiones del Mundo!
