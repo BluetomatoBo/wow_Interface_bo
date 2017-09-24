@@ -16,6 +16,7 @@ private.L = setmetatable( {
 	}, { __index = private.L.NPCs; } );
 }, { __index = private.L; } );
 
+-- NPCs
 private.L.NPCs["100"] = "Gruff Schnappflink"
 private.L.NPCs["10077"] = "Totenreißer"
 private.L.NPCs["10078"] = "Terrorstifter"
@@ -1162,6 +1163,7 @@ private.L.NPCs["98285"] = "Zaggund Hopp"
 private.L.NPCs["98408"] = "Teufelsaufseher Lehmklump"
 private.L.NPCs["99"] = "Morgaine die Verschlagene"
 
+-- Localization
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
 private.L["BUTTON_TOOLTIP_LINE2"] = "Anzeige der Weltkartenpfade ein-/ausschalten"
 private.L["BUTTON_TOOLTIP_LINE3"] = "Anzeige der Weltkartenlegende ein-/ausschalten"
@@ -1173,10 +1175,10 @@ private.L["CONFIG_COLORLIST_INST"] = "Klicke auf eine Kreatur, um dessen Farbe a
 private.L["CONFIG_COLORLIST_LABEL"] = "Pfadfarbentabelle"
 private.L["CONFIG_COLORLIST_PLACEHOLDER"] = "Kreatur "
 private.L["CONFIG_DESC"] = "Einstellung welche Karten die Wegpfade der Mobs anzeigen. Die meisten Kartenmods werden über die Optionen der Weltkarte kontrolliert."
-private.L["CONFIG_KEYAUTOHIDE"] = "Kartenlegende autom. verstecken"
-private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Versteckt die Legende, wenn sich der Mauszeiger nicht über ihr befindet"
 private.L["CONFIG_KEY_FONT_DROPDOWN"] = "Schriftart der Legende"
 private.L["CONFIG_KEY_FONT_SIDE"] = "Schriftgröße"
+private.L["CONFIG_KEYAUTOHIDE"] = "Kartenlegende autom. verstecken"
+private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Versteckt die Legende, wenn sich der Mauszeiger nicht über ihr befindet"
 private.L["CONFIG_KEYMAXHEIGHT"] = "Max. Legendenhöhe"
 private.L["CONFIG_LOCKSWAP"] = "Legendenumpositionierung per Taste"
 private.L["CONFIG_LOCKSWAP_DESC"] = "Legt die Position der Kartenlegende fest, sodass diese nur noch bewegt werden kann, wenn man die Shift-Taste hält und mit der Maus darüber fährt."

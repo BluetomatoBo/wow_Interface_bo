@@ -16,6 +16,7 @@ private.L = setmetatable( {
 	}, { __index = private.L.NPCs; } );
 }, { __index = private.L; } );
 
+-- NPCs
 private.L.NPCs["100"] = "날쌘발톱 그러프"
 private.L.NPCs["10077"] = "송장아귀"
 private.L.NPCs["10078"] = "도깨비불꽃"
@@ -1162,6 +1163,7 @@ private.L.NPCs["98285"] = "스매셤 그랩"
 private.L.NPCs["98408"] = "지옥 감독관 머드럼프"
 private.L.NPCs["99"] = "교활한 도적 몰게니"
 
+-- Localization
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
 private.L["BUTTON_TOOLTIP_LINE2"] = "세계지도에 몹 경로 표시 토글"
 private.L["BUTTON_TOOLTIP_LINE3"] = "세계지도에 몹 이름 표시 토글"
@@ -1173,10 +1175,10 @@ private.L["CONFIG_COLORLIST_INST"] = "몹 이름을 클릭해서 색상을 변�
 private.L["CONFIG_COLORLIST_LABEL"] = "몹 이동 경로 색상 테이블"
 private.L["CONFIG_COLORLIST_PLACEHOLDER"] = "몹 이름 "
 private.L["CONFIG_DESC"] = "지도에 희귀몹 이동 경로를 어떻게 표시할 지 설정합니다.  여러 지도 관련 애드온과도 같이 사용할 수 있습니다."
-private.L["CONFIG_KEYAUTOHIDE"] = "지도 색인표 자동 숨기기"
-private.L["CONFIG_KEYAUTOHIDE_DESC"] = "색인표에 마우스를 올리지 않았을 때 색인표를 숨깁니다"
 private.L["CONFIG_KEY_FONT_DROPDOWN"] = "색인표 글꼴"
 private.L["CONFIG_KEY_FONT_SIDE"] = "글꼴 크기"
+private.L["CONFIG_KEYAUTOHIDE"] = "지도 색인표 자동 숨기기"
+private.L["CONFIG_KEYAUTOHIDE_DESC"] = "색인표에 마우스를 올리지 않았을 때 색인표를 숨깁니다"
 private.L["CONFIG_KEYMAXHEIGHT"] = "색인표 최대 높이"
 private.L["CONFIG_LOCKSWAP"] = "몹 목록창 조작 방식을 반대로 전환"
 private.L["CONFIG_LOCKSWAP_DESC"] = "마우스 커서를 갖다 대면 몹 목록창이 움직이고 <Shift>를 누르고 있으면 움직이지 않습니다."

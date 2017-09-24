@@ -16,6 +16,7 @@ private.L = setmetatable( {
 	}, { __index = private.L.NPCs; } );
 }, { __index = private.L; } );
 
+-- NPCs
 private.L.NPCs["100"] = "Gruff Mord-Vite"
 private.L.NPCs["10077"] = "Gueule-du-trépas"
 private.L.NPCs["10078"] = "Lueur terrifiante"
@@ -1162,6 +1163,7 @@ private.L.NPCs["98285"] = "Fracass Grabb"
 private.L.NPCs["98408"] = "Surveillant gangrené Tadboue"
 private.L.NPCs["99"] = "Morgaine la rusée"
 
+-- Localization
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
 private.L["BUTTON_TOOLTIP_LINE2"] = "Afficher les trajets sur la carte du monde"
 private.L["BUTTON_TOOLTIP_LINE3"] = "Afficher la légende de la carte du monde"
@@ -1173,10 +1175,10 @@ private.L["CONFIG_COLORLIST_INST"] = "Cliquez sur une ligne pour définir sa cou
 private.L["CONFIG_COLORLIST_LABEL"] = "Couleurs des trajets"
 private.L["CONFIG_COLORLIST_PLACEHOLDER"] = "Monstre"
 private.L["CONFIG_DESC"] = "Détermine sur quelles cartes les trajets des monstres seront ajoutés. La plupart des addons modifiant la carte se contrôlent avec les options de la carte du monde."
-private.L["CONFIG_KEYAUTOHIDE"] = "Masquer automatiquement la légende de la carte"
-private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Masque la légende quand la souris n'est pas dessus."
 private.L["CONFIG_KEY_FONT_DROPDOWN"] = "Police de la légende"
 private.L["CONFIG_KEY_FONT_SIDE"] = "Taille de la police"
+private.L["CONFIG_KEYAUTOHIDE"] = "Masquer automatiquement la légende de la carte"
+private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Masque la légende quand la souris n'est pas dessus."
 private.L["CONFIG_KEYMAXHEIGHT"] = "Taille maximale de la légende"
 private.L["CONFIG_LOCKSWAP"] = "Permuter le contrôle de mouvement de la légende des monstres"
 private.L["CONFIG_LOCKSWAP_DESC"] = "La légende des monstres se déplace au survol de la souris. Maintenir <Shift> empêche le mouvement."

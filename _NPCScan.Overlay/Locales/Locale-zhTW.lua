@@ -16,6 +16,7 @@ private.L = setmetatable( {
 	}, { __index = private.L.NPCs; } );
 }, { __index = private.L; } );
 
+-- NPCs
 private.L.NPCs["100"] = "格拉夫·疾齒"
 private.L.NPCs["10077"] = "死亡之喉"
 private.L.NPCs["10078"] = "特羅斯巴克"
@@ -484,6 +485,7 @@ private.L.NPCs["50874"] = "特諾克"
 private.L.NPCs["50875"] = "奈科斯"
 private.L.NPCs["50876"] = "奈科斯"
 private.L.NPCs["50882"] = "丘帕卡布羅斯"
+--Translation missing 
 -- private.L.NPCs["50883"] = "Pathrunner"
 private.L.NPCs["50884"] = "膽小的塵奔"
 private.L.NPCs["50886"] = "海翼"
@@ -518,10 +520,14 @@ private.L.NPCs["50957"] = "巨爪"
 private.L.NPCs["50959"] = "卡爾金"
 private.L.NPCs["50964"] = "查普斯"
 private.L.NPCs["50967"] = "『劫毀者』克羅"
+--Translation missing 
 -- private.L.NPCs["50981"] = "Luk'hok"
+--Translation missing 
 -- private.L.NPCs["50985"] = "Poundfist"
 private.L.NPCs["50986"] = "金背"
+--Translation missing 
 -- private.L.NPCs["50990"] = "Nakk the Thunderer"
+--Translation missing 
 -- private.L.NPCs["50992"] = "Gorok"
 private.L.NPCs["50993"] = "蓋爾多拉克"
 private.L.NPCs["50995"] = "擣碎"
@@ -534,6 +540,7 @@ private.L.NPCs["51007"] = "賽爾坷特"
 private.L.NPCs["51008"] = "尖刺恐獸"
 private.L.NPCs["51010"] = "史尼皮司"
 private.L.NPCs["51014"] = "泰拉皮斯"
+--Translation missing 
 -- private.L.NPCs["51015"] = "Silthide"
 private.L.NPCs["51017"] = "葛贊"
 private.L.NPCs["51018"] = "佐穆斯"
@@ -599,6 +606,7 @@ private.L.NPCs["54323"] = "基利克斯"
 private.L.NPCs["54324"] = "掠焰"
 private.L.NPCs["54338"] = "安斯銳斯"
 private.L.NPCs["54533"] = "萊克瑪王子"
+--Translation missing 
 -- private.L.NPCs["56080"] = "Little Samras"
 private.L.NPCs["56081"] = "樂觀的本希"
 private.L.NPCs["572"] = "萊布裏薩斯"
@@ -756,6 +764,7 @@ private.L.NPCs["73282"] = "血靈迦尼亞"
 private.L.NPCs["73293"] = "維茨格"
 private.L.NPCs["73666"] = "火焰大祭司 (聖堂)"
 private.L.NPCs["73704"] = "臭辮子"
+--Translation missing 
 -- private.L.NPCs["73854"] = "Cranegnasher"
 private.L.NPCs["74206"] = "戮顎"
 private.L.NPCs["74613"] = "育母瑞格艾克"
@@ -774,6 +783,7 @@ private.L.NPCs["76918"] = "原獵者姆拉格"
 private.L.NPCs["77081"] = "畸爪龍"
 private.L.NPCs["77085"] = "黑暗聚化體"
 private.L.NPCs["77140"] = "阿瑪烏卡"
+--Translation missing 
 -- private.L.NPCs["77310"] = "Mad \"King\" Sporeon"
 private.L.NPCs["77453"] = "伊莎莉"
 private.L.NPCs["77513"] = "『哀慟』冷踏"
@@ -790,6 +800,7 @@ private.L.NPCs["77664"] = "阿爾寇"
 private.L.NPCs["77715"] = "鎚齒"
 private.L.NPCs["77719"] = "微光之翼"
 private.L.NPCs["77741"] = "拉坎"
+--Translation missing 
 -- private.L.NPCs["77750"] = "Kaavu the Crimson Claw"
 private.L.NPCs["77776"] = "遊蕩的復仇者"
 private.L.NPCs["77784"] = "洛瑪格·碎顎者"
@@ -843,8 +854,11 @@ private.L.NPCs["80524"] = "透視者血鬃"
 private.L.NPCs["80614"] = "刃舞者艾瑞克斯"
 private.L.NPCs["80725"] = "索菲里歐斯"
 private.L.NPCs["80868"] = "巨吞"
+--Translation missing 
 -- private.L.NPCs["81038"] = "Gelgor of the Blue Flame"
+--Translation missing 
 -- private.L.NPCs["81406"] = "Bahameye"
+--Translation missing 
 -- private.L.NPCs["81639"] = "Brambleking Fili"
 private.L.NPCs["8199"] = "克萊吉拉克"
 private.L.NPCs["8200"] = "喚沙者辛薩拉"
@@ -852,9 +866,12 @@ private.L.NPCs["8201"] = "失落者奧姆高爾"
 private.L.NPCs["8203"] = "克雷格·尼哈魯"
 private.L.NPCs["8204"] = "吞噬者索利德"
 private.L.NPCs["8205"] = "貪婪的哈爾卡"
+--Translation missing 
 -- private.L.NPCs["82050"] = "Varasha"
+--Translation missing 
 -- private.L.NPCs["82058"] = "Depthroot"
 private.L.NPCs["8207"] = "巨型火鳥"
+--Translation missing 
 -- private.L.NPCs["82085"] = "Bashiok"
 private.L.NPCs["8210"] = "鋒爪"
 private.L.NPCs["8211"] = "海崖奔跳者"
@@ -866,105 +883,179 @@ private.L.NPCs["8216"] = "狂暴者雷瑟羅克"
 private.L.NPCs["8217"] = "附魔師米瑟雷希斯"
 private.L.NPCs["8218"] = "漫步者維瑟哈特"
 private.L.NPCs["8219"] = "祖拉雷克"
+--Translation missing 
 -- private.L.NPCs["82207"] = "Faebright"
+--Translation missing 
 -- private.L.NPCs["82247"] = "Nas Dunberlin"
+--Translation missing 
 -- private.L.NPCs["82268"] = "Darkmaster Go'vid"
+--Translation missing 
 -- private.L.NPCs["82311"] = "Char the Burning"
+--Translation missing 
 -- private.L.NPCs["82326"] = "Ba'ruun"
+--Translation missing 
 -- private.L.NPCs["82362"] = "Morva Soultwister"
+--Translation missing 
 -- private.L.NPCs["82374"] = "Rai'vosh"
+--Translation missing 
 -- private.L.NPCs["82411"] = "Darktalon"
+--Translation missing 
 -- private.L.NPCs["82415"] = "Shinri"
+--Translation missing 
 -- private.L.NPCs["82486"] = "Explorer Nozzand"
 private.L.NPCs["82536"] = "格里瓦斯"
+--Translation missing 
 -- private.L.NPCs["82614"] = "Moltnoma"
+--Translation missing 
 -- private.L.NPCs["82616"] = "Jabberjaw"
+--Translation missing 
 -- private.L.NPCs["82617"] = "Slogtusk the Corpse-Eater"
+--Translation missing 
 -- private.L.NPCs["82618"] = "Tor'goroth"
+--Translation missing 
 -- private.L.NPCs["82620"] = "Son of Goramal"
+--Translation missing 
 -- private.L.NPCs["82676"] = "Enavra"
+--Translation missing 
 -- private.L.NPCs["82742"] = "Enavra"
+--Translation missing 
 -- private.L.NPCs["82755"] = "Redclaw the Feral"
+--Translation missing 
 -- private.L.NPCs["82758"] = "Greatfeather"
+--Translation missing 
 -- private.L.NPCs["82764"] = "Gar'lua"
 private.L.NPCs["8277"] = "雷克提拉克"
+--Translation missing 
 -- private.L.NPCs["82778"] = "Gnarlhoof the Rabid"
 private.L.NPCs["8278"] = "斯莫達爾"
 private.L.NPCs["8279"] = "未完善的作戰傀儡"
 private.L.NPCs["8280"] = "夏雷納爾"
 private.L.NPCs["8281"] = "斯卡爾德"
 private.L.NPCs["8282"] = "瑪斯托格"
+--Translation missing 
 -- private.L.NPCs["82826"] = "Berserk T-300 Series Mark II"
 private.L.NPCs["8283"] = "奴隸主托恩·黑心"
+--Translation missing 
 -- private.L.NPCs["82876"] = "Grand Marshal Tremblade"
+--Translation missing 
 -- private.L.NPCs["82877"] = "High Warlord Volrath"
+--Translation missing 
 -- private.L.NPCs["82878"] = "Marshal Gabriel"
+--Translation missing 
 -- private.L.NPCs["82880"] = "Marshal Karsh Stormforge"
+--Translation missing 
 -- private.L.NPCs["82882"] = "General Aevd"
+--Translation missing 
 -- private.L.NPCs["82883"] = "Warlord Noktyn"
+--Translation missing 
 -- private.L.NPCs["82899"] = "Ancient Blademaster"
+--Translation missing 
 -- private.L.NPCs["82912"] = "Grizzlemaw"
+--Translation missing 
 -- private.L.NPCs["82920"] = "Lord Korinak"
+--Translation missing 
 -- private.L.NPCs["82922"] = "Xothear, the Destroyer"
+--Translation missing 
 -- private.L.NPCs["82930"] = "Shadowflame Terrorwalker"
+--Translation missing 
 -- private.L.NPCs["82942"] = "Lady Demlash"
 private.L.NPCs["8296"] = "扭曲者莫吉爾"
 private.L.NPCs["8297"] = "頑強的瑪古諾斯"
+--Translation missing 
 -- private.L.NPCs["82975"] = "Fangler"
 private.L.NPCs["8298"] = "先知阿庫巴爾"
+--Translation missing 
 -- private.L.NPCs["82988"] = "Kurlosh Doomfang"
 private.L.NPCs["8299"] = "斯比弗雷爾"
+--Translation missing 
 -- private.L.NPCs["82992"] = "Felfire Consort"
+--Translation missing 
 -- private.L.NPCs["82998"] = "Matron of Sin"
 private.L.NPCs["8300"] = "毀滅"
+--Translation missing 
 -- private.L.NPCs["83008"] = "Haakun the All-Consuming"
 private.L.NPCs["8301"] = "掠奪者科拉克"
+--Translation missing 
 -- private.L.NPCs["83019"] = "Gug'tol"
 private.L.NPCs["8302"] = "死眼"
 private.L.NPCs["8303"] = "格朗特"
 private.L.NPCs["8304"] = "德雷斯克恩"
+--Translation missing 
 -- private.L.NPCs["83385"] = "Voidseer Kalurg"
+--Translation missing 
 -- private.L.NPCs["83401"] = "Netherspawn"
+--Translation missing 
 -- private.L.NPCs["83409"] = "Ophiis"
+--Translation missing 
 -- private.L.NPCs["83428"] = "Windcaller Korast"
+--Translation missing 
 -- private.L.NPCs["83483"] = "Flinthide"
+--Translation missing 
 -- private.L.NPCs["83509"] = "Gorepetal"
+--Translation missing 
 -- private.L.NPCs["83522"] = "Hive Queen Skrikka"
+--Translation missing 
 -- private.L.NPCs["83526"] = "Ru'klaa"
+--Translation missing 
 -- private.L.NPCs["83542"] = "Sean Whitesea"
+--Translation missing 
 -- private.L.NPCs["83553"] = "Insha'tar"
+--Translation missing 
 -- private.L.NPCs["83591"] = "Tura'aka"
+--Translation missing 
 -- private.L.NPCs["83603"] = "Hunter Blacktooth"
+--Translation missing 
 -- private.L.NPCs["83634"] = "Scout Pokhar"
+--Translation missing 
 -- private.L.NPCs["83643"] = "Malroc Stonesunder"
+--Translation missing 
 -- private.L.NPCs["83680"] = "Outrider Duretha"
 private.L.NPCs["83683"] = "吐嗣魔陀羅"
 private.L.NPCs["83691"] = "潘索拉"
 private.L.NPCs["83713"] = "泰坦洛斯"
 private.L.NPCs["83819"] = "磚房"
+--Translation missing 
 -- private.L.NPCs["83990"] = "Solar Magnifier"
 private.L.NPCs["84110"] = "噬魂者寇薩爾"
 private.L.NPCs["84196"] = "網縛士兵"
+--Translation missing 
 -- private.L.NPCs["84263"] = "Graveltooth"
+--Translation missing 
 -- private.L.NPCs["84374"] = "Kaga the Ironbender"
+--Translation missing 
 -- private.L.NPCs["84376"] = "Earthshaker Holar"
+--Translation missing 
 -- private.L.NPCs["84378"] = "Ak'ox the Slaughterer"
+--Translation missing 
 -- private.L.NPCs["84384"] = "Taskmaster Kullah"
+--Translation missing 
 -- private.L.NPCs["84392"] = "Ragore Driftstalker"
+--Translation missing 
 -- private.L.NPCs["84406"] = "Mandrakor"
+--Translation missing 
 -- private.L.NPCs["84417"] = "Mutafen"
+--Translation missing 
 -- private.L.NPCs["84431"] = "Greldrok the Cunning"
+--Translation missing 
 -- private.L.NPCs["84435"] = "Mr. Pinchy Sr."
 private.L.NPCs["84465"] = "跳躍吞食者"
 private.L.NPCs["84746"] = "被俘虜的戈瓦許塑石者"
+--Translation missing 
 -- private.L.NPCs["84775"] = "Tesska the Broken"
+--Translation missing 
 -- private.L.NPCs["84805"] = "Stonespite"
+--Translation missing 
 -- private.L.NPCs["84807"] = "Durkath Steelmaw"
+--Translation missing 
 -- private.L.NPCs["84810"] = "Kalos the Bloodbathed"
+--Translation missing 
 -- private.L.NPCs["84833"] = "Sangrikass"
+--Translation missing 
 -- private.L.NPCs["84836"] = "Talonbreaker"
+--Translation missing 
 -- private.L.NPCs["84838"] = "Poisonmaster Bortusk"
 private.L.NPCs["84854"] = "滑溜黏液"
+--Translation missing 
 -- private.L.NPCs["84856"] = "Blightglow"
 private.L.NPCs["84872"] = "『復仇者』歐斯其拉"
 private.L.NPCs["84875"] = "煉獄火先祖"
@@ -983,6 +1074,7 @@ private.L.NPCs["85026"] = "曲魂師托雷克"
 private.L.NPCs["85029"] = "影語者尼爾"
 private.L.NPCs["8503"] = "吉波維特"
 private.L.NPCs["85036"] = "無形夢魘"
+--Translation missing 
 -- private.L.NPCs["85037"] = "Kenos the Unraveler"
 private.L.NPCs["85078"] = "虛無劫奪者烏爾妮"
 private.L.NPCs["85121"] = "坦波泰莎女士"
@@ -995,6 +1087,7 @@ private.L.NPCs["85555"] = "奈吉德納"
 private.L.NPCs["85568"] = "雪崩"
 private.L.NPCs["85572"] = "戈博格爾"
 private.L.NPCs["85763"] = "受詛咒的劫毀者"
+--Translation missing 
 -- private.L.NPCs["85765"] = "Cursed Kaliri"
 private.L.NPCs["85766"] = "受詛咒的銳爪"
 private.L.NPCs["85767"] = "受詛咒的使者"
@@ -1150,18 +1243,27 @@ private.L.NPCs["9596"] = "班諾克·巨斧"
 private.L.NPCs["9602"] = "哈克佐爾"
 private.L.NPCs["9604"] = "高戈諾奇"
 private.L.NPCs["96235"] = "榭莫寇爾"
+--Translation missing 
 -- private.L.NPCs["96323"] = "Arachnis"
 private.L.NPCs["9718"] = "霍克·巴什古德"
 private.L.NPCs["9736"] = "軍需官茲格雷斯"
+--Translation missing 
 -- private.L.NPCs["98198"] = "Rukdug"
+--Translation missing 
 -- private.L.NPCs["98199"] = "Pugg"
+--Translation missing 
 -- private.L.NPCs["98200"] = "Guk"
+--Translation missing 
 -- private.L.NPCs["98283"] = "Drakum"
+--Translation missing 
 -- private.L.NPCs["98284"] = "Gondar"
+--Translation missing 
 -- private.L.NPCs["98285"] = "Smashum Grabb"
+--Translation missing 
 -- private.L.NPCs["98408"] = "Fel Overseer Mudlump"
 private.L.NPCs["99"] = "狡猾的莫加尼"
 
+-- Localization
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
 private.L["BUTTON_TOOLTIP_LINE2"] = "切換顯示世界地圖路徑"
 private.L["BUTTON_TOOLTIP_LINE3"] = "切換顯示世界地圖稀有"
@@ -1173,17 +1275,27 @@ private.L["CONFIG_COLORLIST_INST"] = "點擊怪物名稱選擇顏色。"
 private.L["CONFIG_COLORLIST_LABEL"] = "路徑顏色表"
 private.L["CONFIG_COLORLIST_PLACEHOLDER"] = "關鍵怪物 "
 private.L["CONFIG_DESC"] = "設定在哪張地圖顯示怪物移動路徑。大部分的地圖插件都針對世界地圖做設定。"
--- private.L["CONFIG_KEYAUTOHIDE"] = "Auto Hide Map Key"
--- private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Hides Key When Mouse Is Not Over"
+--Translation missing 
 -- private.L["CONFIG_KEY_FONT_DROPDOWN"] = "Key Font"
+--Translation missing 
 -- private.L["CONFIG_KEY_FONT_SIDE"] = "Font Size"
+--Translation missing 
+-- private.L["CONFIG_KEYAUTOHIDE"] = "Auto Hide Map Key"
+--Translation missing 
+-- private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Hides Key When Mouse Is Not Over"
+--Translation missing 
 -- private.L["CONFIG_KEYMAXHEIGHT"] = "Max Key Height"
 private.L["CONFIG_LOCKSWAP"] = "切換稀有怪列表移動控制"
 private.L["CONFIG_LOCKSWAP_DESC"] = "設定稀有怪列表在鼠標停留時移動並且按住<Shift>以防止移動。"
+--Translation missing 
 -- private.L["CONFIG_MAP_PERCENT"] = "% of Map"
+--Translation missing 
 -- private.L["CONFIG_MINIMAPICON"] = "Hide Icon on Minimap"
+--Translation missing 
 -- private.L["CONFIG_MINIMAPICON_DESC"] = "Hide Icon on Minimap"
+--Translation missing 
 -- private.L["CONFIG_MOUSEOVERTEXT"] = "Show Mob Name on Map Path Mouse Over"
+--Translation missing 
 -- private.L["CONFIG_MOUSEOVERTEXT_DESC"] = "Note: This may interfere with other map tooltips"
 private.L["CONFIG_SETCOLOR"] = "設定路徑顏色"
 private.L["CONFIG_SETCOLOR_DESC"] = "點擊設定地圖標記和路徑顏色。"
@@ -1195,6 +1307,7 @@ private.L["CONFIG_TITLE"] = "路徑圖"
 private.L["CONFIG_TITLE_STANDALONE"] = "_|cffCCCC88NPCScan|r.Overlay"
 private.L["MODULE_ALPHAMAP3"] = "AlphaMap3 插件"
 private.L["MODULE_BATTLEFIELDMINIMAP"] = "顯示戰場迷你地圖"
+--Translation missing 
 -- private.L["MODULE_DETECTIONRING_FORMAT"] = "Show %dyd ring when a mob is detected."
 private.L["MODULE_MINIMAP"] = "小地圖"
 private.L["MODULE_OMEGAMAP"] = "OmegaMap 插件"

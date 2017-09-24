@@ -73,9 +73,9 @@ end
 
 --- Toggles the module when its checkbox is clicked.
 function panel:ModuleEnabledOnClick()
-	local Enable = self:GetChecked() == true
-	PlaySound(Enable and "igMainMenuOptionCheckBoxOn" or "igMainMenuOptionCheckBoxOff")
-	private.Modules[Enable and "Enable" or "Disable"](self:GetParent().Module.Name)
+	local isEnabled = self:GetChecked() == true
+	_G.PlaySound(isEnabled and SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON or SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_OFF)
+	private.Modules[isEnabled and "Enable" or "Disable"](self:GetParent().Module.Name)
 end
 
 
@@ -235,7 +235,7 @@ panel.KeySize:SetPoint("LEFT", panel.KeySizeTitle, "RIGHT", 10, 0)
 -- Key Font Dropdown
 panel.KeyFont = _G.CreateFrame("Frame", "%parentFontDropdown", panel, "UIDropDownMenuTemplate")
 panel.KeyFont:SetPoint("TOPLEFT", panel.KeySizeTitle, "BOTTOMLEFT", -10, -30)
-UIDropDownMenu_SetWidth(panel.KeyFont, 200) 
+UIDropDownMenu_SetWidth(panel.KeyFont, 200)
 panel.KeyFont:EnableMouse(true)
 
 _G.UIDropDownMenu_JustifyText(panel.KeyFont, "LEFT")
@@ -443,7 +443,7 @@ function panel.MiniMapIcon.setFunc(Hide)
 	Hide = (Hide == "1")
 	private.Options.MiniMapIcon.hide = Hide
 
-	if Hide == true then 
+	if Hide == true then
 		private.LDBI:Hide(FOLDER_NAME)
 	else
 		private.LDBI:Show(FOLDER_NAME)

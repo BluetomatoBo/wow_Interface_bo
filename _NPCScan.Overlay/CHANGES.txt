@@ -1,0 +1,16 @@
+tag 35d99c511fd3eaf074cb26ca5c5680883ce4b7f4 7.3.0.1
+Author:	James D. Callahan III <jcallahan@curse.com>
+Date:	Thu Sep 21 01:31:29 2017 -0500
+
+commit 55f288729778899ae6476c7435131acc0c86c2f9
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Thu Sep 21 01:24:56 2017 -0500
+
+    Update PlaySound for 7.3 API change.
+
+commit 6aa8ac74f71054b4269c0b7c076596586f69eb3c
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Wed Sep 20 23:07:23 2017 -0500
+
+    Update ToC Interface to 70300.
+

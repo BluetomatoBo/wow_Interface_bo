@@ -16,6 +16,7 @@ private.L = setmetatable( {
 	}, { __index = private.L.NPCs; } );
 }, { __index = private.L; } );
 
+-- NPCs
 private.L.NPCs["100"] = "Rude Mordelogo"
 private.L.NPCs["10077"] = "Goela da Morte"
 private.L.NPCs["10078"] = "Chamuska"
@@ -387,6 +388,7 @@ private.L.NPCs["50364"] = "Nal'lak, o Estripador"
 private.L.NPCs["50370"] = "Carapax"
 private.L.NPCs["50388"] = "Torik-Ethis"
 private.L.NPCs["50409"] = "Estátua de Camelo Misteriosa"
+--Translation missing 
 -- private.L.NPCs["50410"] = "Mysterious Camel Figurine"
 private.L.NPCs["506"] = "Sargento Garrafina"
 private.L.NPCs["507"] = "Fenros"
@@ -599,6 +601,7 @@ private.L.NPCs["54323"] = "Kirix"
 private.L.NPCs["54324"] = "Rastejante das Chamas"
 private.L.NPCs["54338"] = "Anthriss"
 private.L.NPCs["54533"] = "Príncipe Lakma"
+--Translation missing 
 -- private.L.NPCs["56080"] = "Little Samras"
 private.L.NPCs["56081"] = "Benji Otimista"
 private.L.NPCs["572"] = "Leprithus"
@@ -618,6 +621,7 @@ private.L.NPCs["5829"] = "Roncão, o Importuno"
 private.L.NPCs["5830"] = "Irmã Rathalon"
 private.L.NPCs["5831"] = "Crinaveloz"
 private.L.NPCs["5832"] = "Atroadonte"
+--Translation missing 
 -- private.L.NPCs["58336"] = "Darkmoon Rabbit"
 private.L.NPCs["5834"] = "Azzere, o Cortacéu"
 private.L.NPCs["5835"] = "Feitor Grelha"
@@ -664,6 +668,7 @@ private.L.NPCs["62880"] = "Gochao, o Punho de Ferro"
 private.L.NPCs["62881"] = "Gaohun, o Corta-almas"
 private.L.NPCs["63101"] = "General Temuja"
 private.L.NPCs["63240"] = "Mestre Sombrio Sydow"
+--Translation missing 
 -- private.L.NPCs["63509"] = "Wulon"
 private.L.NPCs["63510"] = "Wulon"
 private.L.NPCs["63691"] = "Huo-Shuang"
@@ -685,6 +690,7 @@ private.L.NPCs["68319"] = "Disha Fazmedrar"
 private.L.NPCs["68320"] = "Ubunti, o Vulto"
 private.L.NPCs["68321"] = "Kar Belikoz"
 private.L.NPCs["68322"] = "Muerta"
+--Translation missing 
 -- private.L.NPCs["69099"] = "Nalak"
 private.L.NPCs["69664"] = "Mumta"
 private.L.NPCs["69768"] = "Batedor da Guerra Zandalari"
@@ -718,6 +724,7 @@ private.L.NPCs["71665"] = "Mata-Gigantes Kul"
 private.L.NPCs["71721"] = "Mãe Gélida do Cânion"
 private.L.NPCs["71864"] = "Spelurk"
 private.L.NPCs["71919"] = "Zhu-Gon, o Azedo"
+--Translation missing 
 -- private.L.NPCs["71992"] = "Moonfang"
 private.L.NPCs["72045"] = "Chelon"
 private.L.NPCs["72048"] = "Chiadeira"
@@ -756,6 +763,7 @@ private.L.NPCs["73282"] = "Garnia"
 private.L.NPCs["73293"] = "Whizzig"
 private.L.NPCs["73666"] = "Bispo das Chamas"
 private.L.NPCs["73704"] = "Trança-fétida"
+--Translation missing 
 -- private.L.NPCs["73854"] = "Cranegnasher"
 private.L.NPCs["74206"] = "Mandíbulus"
 private.L.NPCs["74613"] = "Prolemadre Reg'ak"
@@ -765,16 +773,19 @@ private.L.NPCs["75434"] = "Matriarca Presavento"
 private.L.NPCs["75435"] = "Yggdrel"
 private.L.NPCs["75482"] = "Veloss"
 private.L.NPCs["75492"] = "Sombra Venéfica"
+--Translation missing 
 -- private.L.NPCs["75590"] = "Enormous Bullfrog"
 private.L.NPCs["763"] = "Chefe dos Perdidos"
 private.L.NPCs["76380"] = "Gorum"
 private.L.NPCs["76473"] = "Aranha Matriarca"
 private.L.NPCs["76914"] = "Presafria"
 private.L.NPCs["76918"] = "Primevista Mur'og"
+--Translation missing 
 -- private.L.NPCs["77081"] = "The Lanticore"
 private.L.NPCs["77085"] = "Emanação Sombria"
 private.L.NPCs["77140"] = "Amaukwa"
 private.L.NPCs["77310"] = "Rei Louco Sporeon"
+--Translation missing 
 -- private.L.NPCs["77453"] = "Isaari"
 private.L.NPCs["77513"] = "Passofrio, o Enlutado"
 private.L.NPCs["77519"] = "Grã-ruína"
@@ -949,6 +960,7 @@ private.L.NPCs["84263"] = "Presapétrea"
 private.L.NPCs["84374"] = "Karra, o Dobraferro"
 private.L.NPCs["84376"] = "Treme-terra Holar"
 private.L.NPCs["84378"] = "Ak'ox, a Matadora"
+--Translation missing 
 -- private.L.NPCs["84384"] = "Taskmaster Kullah"
 private.L.NPCs["84392"] = "Ragore Sombresquiva"
 private.L.NPCs["84406"] = "Mandrakor"
@@ -1038,6 +1050,7 @@ private.L.NPCs["87027"] = "Gigante de Sombra"
 private.L.NPCs["87029"] = "Sentinela Gigante"
 private.L.NPCs["87234"] = "Brutag Laminatroz"
 private.L.NPCs["87239"] = "Krahl Mira Certeira"
+--Translation missing 
 -- private.L.NPCs["87241"] = "Dreadfang"
 private.L.NPCs["87344"] = "Gortag Punho de Aço"
 private.L.NPCs["87348"] = "Gelogeada"
@@ -1162,47 +1175,77 @@ private.L.NPCs["98285"] = "Smagum Garra"
 private.L.NPCs["98408"] = "Feitor Vil Torrão"
 private.L.NPCs["99"] = "Morgana, a Dissimulada"
 
+-- Localization
+--Translation missing 
 -- private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
+--Translation missing 
 -- private.L["BUTTON_TOOLTIP_LINE2"] = "Toggle World Map paths"
+--Translation missing 
 -- private.L["BUTTON_TOOLTIP_LINE3"] = "Toggle World Map key"
+--Translation missing 
 -- private.L["BUTTON_TOOLTIP_LINE4"] = "Toggle Mini Map paths"
+--Translation missing 
 -- private.L["BUTTON_TOOLTIP_LINE5"] = "Toggle display of Mini and World Map paths"
+--Translation missing 
 -- private.L["BUTTON_TOOLTIP_LINE6"] = "Open Options Menu"
 private.L["CONFIG_ALPHA"] = "Alfa"
+--Translation missing 
 -- private.L["CONFIG_COLORLIST_INST"] = "Click on mob title to choose its color."
+--Translation missing 
 -- private.L["CONFIG_COLORLIST_LABEL"] = "Overlay Path Color Table"
+--Translation missing 
 -- private.L["CONFIG_COLORLIST_PLACEHOLDER"] = "Key Mob "
 private.L["CONFIG_DESC"] = "Controla quais mapas mostrarão sobreposição do caminho de unidades. A maioria dos addons que modifica mapas são controlados com a opção de Mapa Mundi."
--- private.L["CONFIG_KEYAUTOHIDE"] = "Auto Hide Map Key"
--- private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Hides Key When Mouse Is Not Over"
+--Translation missing 
 -- private.L["CONFIG_KEY_FONT_DROPDOWN"] = "Key Font"
+--Translation missing 
 -- private.L["CONFIG_KEY_FONT_SIDE"] = "Font Size"
+--Translation missing 
+-- private.L["CONFIG_KEYAUTOHIDE"] = "Auto Hide Map Key"
+--Translation missing 
+-- private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Hides Key When Mouse Is Not Over"
+--Translation missing 
 -- private.L["CONFIG_KEYMAXHEIGHT"] = "Max Key Height"
+--Translation missing 
 -- private.L["CONFIG_LOCKSWAP"] = "Swap Mob Key Movement Controls"
+--Translation missing 
 -- private.L["CONFIG_LOCKSWAP_DESC"] = "Sets the  mob key to move on mouse over and holding <Shift> to prevent movement."
+--Translation missing 
 -- private.L["CONFIG_MAP_PERCENT"] = "% of Map"
+--Translation missing 
 -- private.L["CONFIG_MINIMAPICON"] = "Hide Icon on Minimap"
+--Translation missing 
 -- private.L["CONFIG_MINIMAPICON_DESC"] = "Hide Icon on Minimap"
+--Translation missing 
 -- private.L["CONFIG_MOUSEOVERTEXT"] = "Show Mob Name on Map Path Mouse Over"
+--Translation missing 
 -- private.L["CONFIG_MOUSEOVERTEXT_DESC"] = "Note: This may interfere with other map tooltips"
+--Translation missing 
 -- private.L["CONFIG_SETCOLOR"] = "Set Path Colors"
+--Translation missing 
 -- private.L["CONFIG_SETCOLOR_DESC"] = "Click to set Map Key & Path Colors."
 private.L["CONFIG_SHOWALL"] = "Sempre mostrar todos os caminhos"
 private.L["CONFIG_SHOWALL_DESC"] = "Normalmente, quando uma unidade não está sendo buscada, seu caminho é tirado do mapa. Habilite esta opção para sempre mostrar todas as rotas conhecidas."
+--Translation missing 
 -- private.L["CONFIG_SHOWKEY"] = "Show Mob Key on Map"
+--Translation missing 
 -- private.L["CONFIG_SHOWKEY_DESC"] = "Toggles the displaying of the mob key on the world map."
 private.L["CONFIG_TITLE"] = "Sobreposição"
 private.L["CONFIG_TITLE_STANDALONE"] = "_|cffCCCC88NPCScan|r.Overlay (Sobreposição)"
 private.L["MODULE_ALPHAMAP3"] = "AddOn AlphaMap3"
 private.L["MODULE_BATTLEFIELDMINIMAP"] = "Mapa de Batalha"
+--Translation missing 
 -- private.L["MODULE_DETECTIONRING_FORMAT"] = "Show %dyd ring when a mob is detected."
 private.L["MODULE_MINIMAP"] = "Mini Mapa"
+--Translation missing 
 -- private.L["MODULE_OMEGAMAP"] = "OmegaMap AddOn"
 private.L["MODULE_RANGERING_DESC"] = "Nota: O anel de distância só aparece em zonas com buscas por unidades raras."
 private.L["MODULE_RANGERING_FORMAT"] = "Mostrar anel de %d jardas para distância de detecção aproximada."
 private.L["MODULE_WORLDMAP"] = "Mapa Mundi"
 private.L["MODULE_WORLDMAP_KEY_FORMAT"] = "• %s"
+--Translation missing 
 -- private.L["MODULE_WORLDMAP_KEYTOGGLE"] = "Toggle Mob Path Key"
+--Translation missing 
 -- private.L["MODULE_WORLDMAP_KEYTOGGLE_DESC"] = "Toggle Path Key."
 private.L["MODULE_WORLDMAP_TOGGLE"] = "PNJs"
 private.L["MODULE_WORLDMAP_TOGGLE_DESC"] = "Habilita/Desabilita a sobreposição de caminhos do _|cffCCCC88NPCScan|r.Overlay para os PNJs procurados."

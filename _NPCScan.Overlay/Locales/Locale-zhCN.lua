@@ -16,6 +16,7 @@ private.L = setmetatable( {
 	}, { __index = private.L.NPCs; } );
 }, { __index = private.L; } );
 
+-- NPCs
 private.L.NPCs["100"] = "格拉夫·疾齿"
 private.L.NPCs["10077"] = "死亡之喉"
 private.L.NPCs["10078"] = "特罗斯巴克"
@@ -1162,6 +1163,7 @@ private.L.NPCs["98285"] = "萨姆逊·强掠"
 private.L.NPCs["98408"] = "邪能监工玛德拉普"
 private.L.NPCs["99"] = "狡猾的莫加尼"
 
+-- Localization
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
 private.L["BUTTON_TOOLTIP_LINE2"] = "切换世界地图路径"
 private.L["BUTTON_TOOLTIP_LINE3"] = "切换世界地图标记"
@@ -1173,10 +1175,10 @@ private.L["CONFIG_COLORLIST_INST"] = "点击怪物名称选择颜色。"
 private.L["CONFIG_COLORLIST_LABEL"] = "路径图颜色表"
 private.L["CONFIG_COLORLIST_PLACEHOLDER"] = "关键怪物 "
 private.L["CONFIG_DESC"] = "设置在哪个地图上显示怪物路径。大部分地图插件都通过世界地图的设置来控制。"
-private.L["CONFIG_KEYAUTOHIDE"] = "自动隐藏地图标记"
-private.L["CONFIG_KEYAUTOHIDE_DESC"] = "鼠标未悬停时隐藏标记"
 private.L["CONFIG_KEY_FONT_DROPDOWN"] = "标记字体"
 private.L["CONFIG_KEY_FONT_SIDE"] = "字体尺寸"
+private.L["CONFIG_KEYAUTOHIDE"] = "自动隐藏地图标记"
+private.L["CONFIG_KEYAUTOHIDE_DESC"] = "鼠标未悬停时隐藏标记"
 private.L["CONFIG_KEYMAXHEIGHT"] = "最大标记高度"
 private.L["CONFIG_LOCKSWAP"] = "交换关键怪物移动控制"
 private.L["CONFIG_LOCKSWAP_DESC"] = "设定只有在按住<Shift>键时才可移动关键怪物。"

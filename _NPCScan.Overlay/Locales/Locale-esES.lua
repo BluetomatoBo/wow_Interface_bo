@@ -16,6 +16,7 @@ private.L = setmetatable( {
 	}, { __index = private.L.NPCs; } );
 }, { __index = private.L; } );
 
+-- NPCs
 private.L.NPCs["100"] = "Bronco Mordeveloz"
 private.L.NPCs["10077"] = "Faucemuerte"
 private.L.NPCs["10078"] = "Chispa terrorífica"
@@ -387,6 +388,7 @@ private.L.NPCs["50364"] = "Nal'lak el Destripador"
 private.L.NPCs["50370"] = "Karapax"
 private.L.NPCs["50388"] = "Torik-Ethis"
 private.L.NPCs["50409"] = "Mysterious Camel Figurine"
+--Translation missing 
 -- private.L.NPCs["50410"] = "Mysterious Camel Figurine"
 private.L.NPCs["506"] = "Sargento Garravil"
 private.L.NPCs["507"] = "Fenros"
@@ -664,6 +666,7 @@ private.L.NPCs["62880"] = "Gochao el Severo"
 private.L.NPCs["62881"] = "Gaohun el Desmembraalmas"
 private.L.NPCs["63101"] = "General Temuja"
 private.L.NPCs["63240"] = "Maestro de las Sombras Sydow"
+--Translation missing 
 -- private.L.NPCs["63509"] = "Wulon"
 private.L.NPCs["63510"] = "Wulon"
 private.L.NPCs["63691"] = "Huo-Shuang"
@@ -756,6 +759,7 @@ private.L.NPCs["73282"] = "Garnia"
 private.L.NPCs["73293"] = "Whizzig"
 private.L.NPCs["73666"] = "Sacerdote ilustre de las llamas"
 private.L.NPCs["73704"] = "Barbasucia"
+--Translation missing 
 -- private.L.NPCs["73854"] = "Cranegnasher"
 private.L.NPCs["74206"] = "Fauces Asesinas"
 private.L.NPCs["74613"] = "Madre de linaje Reeg'ak"
@@ -775,6 +779,7 @@ private.L.NPCs["77081"] = "La Lantícora"
 private.L.NPCs["77085"] = "Emanación oscura"
 private.L.NPCs["77140"] = "Amaukwa"
 private.L.NPCs["77310"] = "\"Rey\" loco Sporeon"
+--Translation missing 
 -- private.L.NPCs["77453"] = "Isaari"
 private.L.NPCs["77513"] = "Pasogélido el Doliente"
 private.L.NPCs["77519"] = "Giganterror"
@@ -949,6 +954,7 @@ private.L.NPCs["84263"] = "Dientegrava"
 private.L.NPCs["84374"] = "Kega el Doblahierro"
 private.L.NPCs["84376"] = "Sacudetierra Holar"
 private.L.NPCs["84378"] = "Ak'ox la Carnicera"
+--Translation missing 
 -- private.L.NPCs["84384"] = "Taskmaster Kullah"
 private.L.NPCs["84392"] = "Acechaderivas Ragore"
 private.L.NPCs["84406"] = "Mandrakor"
@@ -1063,6 +1069,7 @@ private.L.NPCs["88072"] = "Archimaga Tekar"
 private.L.NPCs["88083"] = "Vinculadora de almas Naylana"
 private.L.NPCs["88208"] = "Bestia de foso"
 private.L.NPCs["88210"] = "Krud el Eviscerador"
+--Translation missing 
 -- private.L.NPCs["88436"] = "Vigilant Paarthos"
 private.L.NPCs["88494"] = "Vanguardia de la Legión"
 private.L.NPCs["88580"] = "Incendiario Grash"
@@ -1162,6 +1169,7 @@ private.L.NPCs["98285"] = "Machaki Yarrastre"
 private.L.NPCs["98408"] = "Sobrestante vil Limo"
 private.L.NPCs["99"] = "Morgaine la Astuta"
 
+-- Localization
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
 private.L["BUTTON_TOOLTIP_LINE2"] = "Alternar trayectorias del Mapa del mundo"
 private.L["BUTTON_TOOLTIP_LINE3"] = "Alternar tecla del Mapa del mundo"
@@ -1173,17 +1181,27 @@ private.L["CONFIG_COLORLIST_INST"] = "Click en el título del NPC para elegir su
 private.L["CONFIG_COLORLIST_LABEL"] = "Tabla de colores de la ruta superpuesta"
 private.L["CONFIG_COLORLIST_PLACEHOLDER"] = "Leyenda de los NPC"
 private.L["CONFIG_DESC"] = "Controla en qué mapas se mostrará la sobreposición del camino del NPC. La mayoria de addons de mapas se controlan con las opciones del mapa del mundo."
--- private.L["CONFIG_KEYAUTOHIDE"] = "Auto Hide Map Key"
--- private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Hides Key When Mouse Is Not Over"
+--Translation missing 
 -- private.L["CONFIG_KEY_FONT_DROPDOWN"] = "Key Font"
+--Translation missing 
 -- private.L["CONFIG_KEY_FONT_SIDE"] = "Font Size"
+--Translation missing 
+-- private.L["CONFIG_KEYAUTOHIDE"] = "Auto Hide Map Key"
+--Translation missing 
+-- private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Hides Key When Mouse Is Not Over"
+--Translation missing 
 -- private.L["CONFIG_KEYMAXHEIGHT"] = "Max Key Height"
 private.L["CONFIG_LOCKSWAP"] = "Activa o desactiva la Leyenda de los NPC y sus controles de movimiento"
 private.L["CONFIG_LOCKSWAP_DESC"] = "Establece la leyenda del NPC al mover el ratón por encima y pulsando <Mayus> para prevenir que se mueva."
+--Translation missing 
 -- private.L["CONFIG_MAP_PERCENT"] = "% of Map"
+--Translation missing 
 -- private.L["CONFIG_MINIMAPICON"] = "Hide Icon on Minimap"
+--Translation missing 
 -- private.L["CONFIG_MINIMAPICON_DESC"] = "Hide Icon on Minimap"
+--Translation missing 
 -- private.L["CONFIG_MOUSEOVERTEXT"] = "Show Mob Name on Map Path Mouse Over"
+--Translation missing 
 -- private.L["CONFIG_MOUSEOVERTEXT_DESC"] = "Note: This may interfere with other map tooltips"
 private.L["CONFIG_SETCOLOR"] = "Establecer colores de las rutas"
 private.L["CONFIG_SETCOLOR_DESC"] = "Click para establecer la Leyenda del Mapa y los Colores de las Rutas."
@@ -1195,6 +1213,7 @@ private.L["CONFIG_TITLE"] = "Sobreposicion"
 private.L["CONFIG_TITLE_STANDALONE"] = "_|cffCCCC88NPCScan|r.Overlay"
 private.L["MODULE_ALPHAMAP3"] = "AddOn AlphaMap3"
 private.L["MODULE_BATTLEFIELDMINIMAP"] = "Minimapa de campo de batalla"
+--Translation missing 
 -- private.L["MODULE_DETECTIONRING_FORMAT"] = "Show %dyd ring when a mob is detected."
 private.L["MODULE_MINIMAP"] = "Minimapa"
 private.L["MODULE_OMEGAMAP"] = "Addon OmegaMap"

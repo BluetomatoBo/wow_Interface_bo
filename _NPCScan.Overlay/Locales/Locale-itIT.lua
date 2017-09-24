@@ -16,6 +16,7 @@ private.L = setmetatable( {
 	}, { __index = private.L.NPCs; } );
 }, { __index = private.L; } );
 
+-- NPCs
 private.L.NPCs["100"] = "Gruff Morsolesto"
 private.L.NPCs["10077"] = "Faucifuneste"
 private.L.NPCs["10078"] = "Imp Infernale"
@@ -1162,6 +1163,7 @@ private.L.NPCs["98285"] = "Grabb"
 private.L.NPCs["98408"] = "Vilsovrintendente Granfango"
 private.L.NPCs["99"] = "Morgaine la Furba"
 
+-- Localization
 private.L["BUTTON_TOOLTIP_LINE1"] = "|cffffee00 _NPCScan.Overlay|r"
 private.L["BUTTON_TOOLTIP_LINE2"] = "Attiva Percorsi Mappa del Mondo"
 private.L["BUTTON_TOOLTIP_LINE3"] = "Attiva Chiave Mappa del Mondo"
@@ -1173,17 +1175,27 @@ private.L["CONFIG_COLORLIST_INST"] = "Clicca sul titolo del mostro per scegliern
 private.L["CONFIG_COLORLIST_LABEL"] = "Sovrapposizione Tabella Colorata dei Percorsi"
 private.L["CONFIG_COLORLIST_PLACEHOLDER"] = "Mostro Chiave "
 private.L["CONFIG_DESC"] = "Controlla quali mappe mostreranno la sovrapposizione del percorso del mostro. La maggior parte degli addon che modificano la minimappa si configurano dalle opzioni della Mappa del Mondo."
--- private.L["CONFIG_KEYAUTOHIDE"] = "Auto Hide Map Key"
--- private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Hides Key When Mouse Is Not Over"
+--Translation missing 
 -- private.L["CONFIG_KEY_FONT_DROPDOWN"] = "Key Font"
+--Translation missing 
 -- private.L["CONFIG_KEY_FONT_SIDE"] = "Font Size"
+--Translation missing 
+-- private.L["CONFIG_KEYAUTOHIDE"] = "Auto Hide Map Key"
+--Translation missing 
+-- private.L["CONFIG_KEYAUTOHIDE_DESC"] = "Hides Key When Mouse Is Not Over"
+--Translation missing 
 -- private.L["CONFIG_KEYMAXHEIGHT"] = "Max Key Height"
 private.L["CONFIG_LOCKSWAP"] = "Inverti Controlli del Movimento Chiave Percorsi delle Creature."
 private.L["CONFIG_LOCKSWAP_DESC"] = "Imposta lo spostamento della Chiave Percorsi delle Creature quando posrti sopra il mouse e premi <Shift> per impedirne lo spostamento accidentale."
+--Translation missing 
 -- private.L["CONFIG_MAP_PERCENT"] = "% of Map"
+--Translation missing 
 -- private.L["CONFIG_MINIMAPICON"] = "Hide Icon on Minimap"
+--Translation missing 
 -- private.L["CONFIG_MINIMAPICON_DESC"] = "Hide Icon on Minimap"
+--Translation missing 
 -- private.L["CONFIG_MOUSEOVERTEXT"] = "Show Mob Name on Map Path Mouse Over"
+--Translation missing 
 -- private.L["CONFIG_MOUSEOVERTEXT_DESC"] = "Note: This may interfere with other map tooltips"
 private.L["CONFIG_SETCOLOR"] = "Imposta Colori Percorso"
 private.L["CONFIG_SETCOLOR_DESC"] = "Clicca per impostare la chiave per la Mappa e i Colori dei PErcorsi."
@@ -1195,6 +1207,7 @@ private.L["CONFIG_TITLE"] = "Sovrapposizione"
 private.L["CONFIG_TITLE_STANDALONE"] = "_|cffCCCC88NPCScan|r.Overlay"
 private.L["MODULE_ALPHAMAP3"] = "AddOn AlphaMap3"
 private.L["MODULE_BATTLEFIELDMINIMAP"] = "Minimappa del Campo di Battaglia."
+--Translation missing 
 -- private.L["MODULE_DETECTIONRING_FORMAT"] = "Show %dyd ring when a mob is detected."
 private.L["MODULE_MINIMAP"] = "Minimappa"
 private.L["MODULE_OMEGAMAP"] = "Addon OmegaMap"
