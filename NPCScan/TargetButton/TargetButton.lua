@@ -245,6 +245,14 @@ function TargetButton:Activate(data)
 	self.shineTexture:Show()
 	self.shineTexture.animIn:Play()
 
+	if data.isDead then
+		self.killedBackgroundTexture:Show()
+
+		self.killedTextureFrame.left:Show()
+		self.killedTextureFrame.right:Show()
+		self.killedTextureFrame.animationGroup:Play()
+	end
+
 	if self:IsMouseOver() then
 		self.durationFadeAnimationGroup.animOut:SetStartDelay(1)
 	else
@@ -259,10 +267,6 @@ function TargetButton:Activate(data)
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
 	self:RegisterMessage("NPCScan_UnitInformationAvailable", "UpdateData")
-
-	if not data.isSilent then
-		self:SendMessage("NPCScan_TargetButtonActivated", self)
-	end
 end
 
 function TargetButton:Deactivate()

@@ -76,6 +76,7 @@ do
 		data.unitClassification = data.unitClassification or "rare"
 
 		NPCScan:Pour(_G.ERR_ZONE_EXPLORED:format(("%s %s"):format(data.npcName, _G.PARENS_TEMPLATE:format(data.sourceText))), 0, 1, 0)
+		NPCScan:DispatchSensoryCues()
 		NPCScan:SendMessage("NPCScan_DetectedNPC", data)
 
 		-- TODO: Make the Overlays object listen for the NPCScan_DetectedNPC message and run its own methods
@@ -85,13 +86,21 @@ do
 end
 
 local function ProcessUnit(unitToken, sourceText)
-	if _G.UnitIsUnit("player", unitToken) or _G.UnitIsDeadOrGhost(unitToken) then
+	if _G.UnitIsUnit("player", unitToken) then
 		return
 	end
 
 	local npcID = private.UnitTokenToCreatureID(unitToken)
+
 	if npcID then
+		local unitIsDead = _G.UnitIsDead(unitToken)
+
+		if private.db.profile.detection.ignoreDeadNPCs and unitIsDead then
+			return
+		end
+
 		local detectionData = {
+			isDead = unitIsDead,
 			npcID = npcID,
 			npcName = _G.UnitName(unitToken),
 			sourceText = sourceText,

@@ -16,7 +16,7 @@ local AddOnFolderName, private = ...
 local LibStub = _G.LibStub
 local NPCScan = LibStub("AceAddon-3.0"):NewAddon(AddOnFolderName, "AceConsole-3.0", "AceEvent-3.0", "AceTimer-3.0", "AceBucket-3.0", "LibSink-2.0", "LibToast-1.0")
 local VL = LibStub("AceLocale-3.0"):GetLocale(AddOnFolderName .. "Vignette")
-
+local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 local HereBeDragons = LibStub("HereBeDragons-1.0")
 
 -- ----------------------------------------------------------------------------
@@ -30,23 +30,21 @@ do
 
 	local debugger
 
-	function private.Debug(...)
-		if not debugger then
-			debugger = TextDump:New(("%s Debug Output"):format(AddOnFolderName), DEBUGGER_WIDTH, DEBUGGER_HEIGHT)
-		end
-
-		local message = string.format(...)
-		debugger:AddLine(message, "%X")
-
-		return message
-	end
-
-	function private.GetDebugger()
+	local function GetDebugger()
 		if not debugger then
 			debugger = TextDump:New(("%s Debug Output"):format(AddOnFolderName), DEBUGGER_WIDTH, DEBUGGER_HEIGHT)
 		end
 
 		return debugger
+	end
+
+	private.GetDebugger = GetDebugger
+
+	function private.Debug(...)
+		local message = string.format(...)
+		GetDebugger():AddLine(message, "%X")
+
+		return message
 	end
 end
 
@@ -156,8 +154,12 @@ function NPCScan:OnEnable()
 		Spell = 28,
 	}
 
+	local missingNPCs = {}
+
 	for achievementID, achievement in pairs(private.AchievementData) do
 		achievement.ID = achievementID
+
+		table.wipe(missingNPCs)
 
 		for criteriaIndex = 1, _G.GetAchievementNumCriteria(achievementID) do
 			local assetName, criteriaType, isCriteriaCompleted, _, _, _, _, assetID, _, criteriaID = _G.GetAchievementCriteriaInfo(achievementID, criteriaIndex)
@@ -183,9 +185,7 @@ function NPCScan:OnEnable()
 
 						achievement.criteriaNPCs[assetID] = true
 					else
-						private.Debug("***** AchievementID.%s: Missing MapNPCs entry.", private.AchievementLabel[achievementID])
-						private.Debug("[%s] = true, -- %s", assetID, assetName)
-						private.Debug("*****")
+						missingNPCs[#missingNPCs + 1] = ("\n [%s] = true, -- %s"):format(assetID, assetName)
 					end
 				end
 			elseif criteriaType == CriteriaType.Quest then
@@ -206,6 +206,16 @@ function NPCScan:OnEnable()
 			else
 				private.Debug("***** AchievementID.%s: Unknown criteria type %d, assetID %d", private.AchievementLabel[achievementID], criteriaType, assetID)
 			end
+		end
+
+		if #missingNPCs > 0 then
+			private.Debug("***** AchievementID.%s: Missing MapNPCs entry.", private.AchievementLabel[achievementID])
+
+			for index = 1, #missingNPCs do
+				private.Debug(missingNPCs[index])
+			end
+
+			private.Debug("*****")
 		end
 	end
 
@@ -245,8 +255,6 @@ function NPCScan:OnEnable()
 	self:RegisterEvent("UPDATE_MOUSEOVER_UNIT")
 	self:RegisterEvent("VIGNETTE_ADDED")
 	self:RegisterBucketEvent("WORLD_MAP_UPDATE", 0.5)
-
-	self:RegisterMessage("NPCScan_TargetButtonActivated", "DispatchSensoryCues")
 
 	HereBeDragons.RegisterCallback(NPCScan, "PlayerZoneChanged", "UpdateScanList")
 
@@ -307,6 +315,11 @@ do
 		SUBCOMMAND_FUNCS = SUBCOMMAND_FUNCS or {
 			ADD = private.AddUserDefinedNPC,
 			REMOVE = private.RemoveUserDefinedNPC,
+			SEARCH = function(subject)
+				AceConfigDialog:Open(AddOnFolderName)
+				AceConfigDialog:SelectGroup(AddOnFolderName, "npcOptions", "search")
+				private.PerformNPCSearch(subject)
+			end,
 			--[===[@debug@
 			DEBUG = function()
 				local debugger = private.GetDebugger()
@@ -348,13 +361,7 @@ do
 				func(arguments or "")
 			end
 		else
-			local optionsFrame = _G.InterfaceOptionsFrame
-
-			if optionsFrame:IsVisible() then
-				optionsFrame:Hide()
-			else
-				_G.InterfaceOptionsFrame_OpenToCategory(self.OptionsFrame)
-			end
+			AceConfigDialog:Open(AddOnFolderName)
 		end
 	end
 end -- do-block

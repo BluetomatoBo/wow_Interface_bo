@@ -163,8 +163,6 @@ function TargetButtonManager:RespawnAsClassification(eventName, targetButton, da
 
 	ResetTargetButtonPoints()
 
-	data.isSilent = true
-
 	newButton:Activate(data)
 	newButton.needsUnitData = nil
 end
@@ -180,7 +178,7 @@ end
 TargetButtonManager:RegisterMessage("NPCScan_TargetButtonScaleChanged", "SetScale")
 
 function TargetButtonManager:Spawn(eventName, data)
-	if ActiveTargetButtonByNPCID[data.npcID] then
+	if (not private.db.profile.targetButtonGroup.isEnabled) or ActiveTargetButtonByNPCID[data.npcID] then
 		return
 	end
 

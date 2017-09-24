@@ -1905,6 +1905,9 @@ local NPCData = {
 		questID = 38037, -- Cache of Infernals
 		vignetteName = "Cache of Infernals",
 	},
+	[90816] = { -- Skystormer
+		isTameable = true,
+	},
 	[90884] = { -- Bilkor the Thrower
 		questID = 38262, -- Bilkor the Thrower
 	},
@@ -2671,6 +2674,9 @@ local NPCData = {
 		questID = 42221, -- Chief Bitterbrine
 		vignetteName = "Chief Bitterbrine",
 	},
+	[107023] = { -- Nithogg
+		questID = 44508, -- Unknown
+	},
 	[107105] = { -- Broodmother Lizax
 		questID = 44670, -- Broodmother Lizax
 		vignetteName = "Broodmother Lizax",
@@ -2714,6 +2720,9 @@ local NPCData = {
 		isTameable = true,
 		questID = 42437, -- Starbuck
 		vignetteName = "Starbuck",
+	},
+	[107544] = { -- Nithogg
+		questID = 44508, -- Unknown
 	},
 	[107595] = { -- Grimrot
 		isTameable = true,
@@ -2759,7 +2768,7 @@ local NPCData = {
 		questID = 40067, -- 7.0 Stormheim - Boulderfall - twh
 	},
 	[109125] = { -- Kathaw the Savage
-		questID = 42870, -- Unknown
+		questID = 42870, -- DANGER: Kathaw the Savage
 	},
 	[109281] = { -- Malisandra
 		questID = 45501, -- Malisandra
@@ -2965,6 +2974,9 @@ local NPCData = {
 		vignetteName = "Llorian",
 	},
 	[113694] = { -- Pashya
+		isTameable = true,
+	},
+	[118244] = { -- Lightning Paw
 		isTameable = true,
 	},
 }

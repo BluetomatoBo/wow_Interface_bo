@@ -283,6 +283,7 @@ local MapNPCs = {
 		[8281] = true, -- Scald
 		[8282] = true, -- Highlord Mastrogonde
 		[8283] = true, -- Slave Master Blackheart
+		[8924] = true, -- The Behemoth
 		[50846] = true, -- Slavermaw
 		[50876] = true, -- Avis
 		[50946] = true, -- Hogzilla
@@ -296,6 +297,7 @@ local MapNPCs = {
 	-- Burning Steppes
 	-- ----------------------------------------------------------------------------
 	[29] = {
+		[8924] = true, -- The Behemoth
 		[8976] = true, -- Hematos
 		[8978] = true, -- Thauris Balgarr
 		[8979] = true, -- Gruklash
@@ -349,6 +351,7 @@ local MapNPCs = {
 		[45785] = true, -- Carved One
 		[45801] = true, -- Eliza
 		[45811] = true, -- Marina DeSirrus
+		[118244] = true, -- Lightning Paw
 	},
 	-- ----------------------------------------------------------------------------
 	-- Loch Modan
@@ -515,6 +518,7 @@ local MapNPCs = {
 	-- Stonetalon Mountains
 	-- ----------------------------------------------------------------------------
 	[81] = {
+		[4015] = true, -- Pridewing Patriarch
 		[4066] = true, -- Nal'taszar
 		[5915] = true, -- Brother Ravenoak
 		[5928] = true, -- Sorrow Wing
@@ -561,6 +565,7 @@ local MapNPCs = {
 		[11498] = true, -- Skarr the Broken
 		[43488] = true, -- Mordei the Earthrender
 		[54533] = true, -- Prince Lakma
+		[90816] = true, -- Skystormer
 	},
 	-- ----------------------------------------------------------------------------
 	-- Dustwallow Marsh
@@ -879,6 +884,7 @@ local MapNPCs = {
 		[5829] = true, -- Snort the Heckler
 		[5832] = true, -- Thunderstomp
 		[5834] = true, -- Azzere the Skyblade
+		[5837] = true, -- Stonearm
 		[5847] = true, -- Heggin Stonewhisker
 		[5848] = true, -- Malgin Barleybrew
 		[5849] = true, -- Digger Flameforge
@@ -1153,6 +1159,7 @@ local MapNPCs = {
 		[69769] = true, -- Zandalari Warbringer
 		[69841] = true, -- Zandalari Warbringer
 		[69842] = true, -- Zandalari Warbringer
+		[70323] = true, -- Krakkanon
 	},
 	-- ----------------------------------------------------------------------------
 	-- Vale of Eternal Blossoms
@@ -1184,6 +1191,12 @@ local MapNPCs = {
 		[63695] = true, -- Baolai the Immolator
 		[63977] = true, -- Vyraxxis
 		[63978] = true, -- Kri'chon
+	},
+	-- ----------------------------------------------------------------------------
+	-- Darkmon Island
+	-- ----------------------------------------------------------------------------
+	[823] = {
+		[122899] = true, -- Death Metal Knight
 	},
 	-- ----------------------------------------------------------------------------
 	-- Krasarang Wilds
@@ -1841,7 +1854,6 @@ local MapNPCs = {
 		[108136] = true, -- The Muscle
 		[108174] = true, -- Bilgerat
 		[108255] = true, -- Coura, Mistress of Arcana
-		[108678] = true, -- Shar'thos
 		[108829] = true, -- Levantus
 		[109331] = true, -- Calamir
 		[109504] = true, -- Ragemaw
@@ -1856,6 +1868,8 @@ local MapNPCs = {
 		[109702] = true, -- Deepclaw
 		[110824] = true, -- Tideclaw
 		[111434] = true, -- Sea King Tidross
+		[111454] = true, -- Bestrix
+		[111674] = true, -- Cinderwing
 		[111939] = true, -- Lysanis Shadesoul
 		[112636] = true, -- Sinister Leyrunner
 		[112637] = true, -- Devious Sunrunner
@@ -1919,6 +1933,7 @@ local MapNPCs = {
 		[109994] = true, -- Stormtalon
 		[110363] = true, -- Roteye
 		[111463] = true, -- Bulvinkel
+		[117850] = true, -- Simone the Seductress
 	},
 	-- ----------------------------------------------------------------------------
 	-- Val'Sharah
@@ -1948,6 +1963,7 @@ local MapNPCs = {
 		[104523] = true, -- Shalas'aman
 		[106042] = true, -- Kalazzius the Guileful
 		[107924] = true, -- Darkfiend Tormentor
+		[108678] = true, -- Shar'thos
 		[108879] = true, -- Humongris
 		[109125] = true, -- Kathaw the Savage
 		[109281] = true, -- Malisandra
@@ -1956,9 +1972,60 @@ local MapNPCs = {
 		[109708] = true, -- Undergrell Ringleader
 		[109990] = true, -- Nylaathria the Forgotten
 		[110342] = true, -- Rabxach
+		[110346] = true, -- Aodh Witherpetal
 		[110361] = true, -- Harbinger of Screams
 		[110367] = true, -- Ealdis
 		[110562] = true, -- Bahagar
+	},
+	-- ----------------------------------------------------------------------------
+	-- Broken Shore
+	-- ----------------------------------------------------------------------------
+	[1021] = {
+		[116166] = true, -- Eye of Gurgh
+		[116953] = true, -- Corrupted Bonebreaker
+		[117086] = true, -- Emberfire
+		[117089] = true, -- Inquisitor Chillbane
+		[117090] = true, -- Xorogun the Flamecarver
+		[117091] = true, -- Felmaw Emberfiend
+		[117093] = true, -- Felbringer Xar'thok
+		[117094] = true, -- Malorus the Soulkeeper
+		[117095] = true, -- Dreadblade Annihilator
+		[117096] = true, -- Potionmaster Gloop
+		[117103] = true, -- Felcaller Zelthae
+		[117136] = true, -- Doombringer Zar'thoz
+		[117140] = true, -- Salethan the Broodwalker
+		[117141] = true, -- Malgrazoth
+		[117239] = true, -- Brutallus
+		[117303] = true, -- Malificus
+		[117470] = true, -- Si'vash
+		[118993] = true, -- Dreadeye
+		[119629] = true, -- Lord Hel'Nurath
+		[119718] = true, -- Imp Mother Bruva
+		[120583] = true, -- Than'otalion
+		[120641] = true, -- Skulguloth
+		[120665] = true, -- Force-Commander Xillious
+		[120675] = true, -- An'thyna
+		[120681] = true, -- Fel Obliterator
+		[120686] = true, -- Illisthyndria
+		[120998] = true, -- Flllurlokkr
+		[121016] = true, -- Aqueux
+		[121029] = true, -- Brood Mother Nix
+		[121037] = true, -- Grossir
+		[121046] = true, -- Brother Badatin
+		[121049] = true, -- Baleful Knight-Captain
+		[121051] = true, -- Unstable Abyssal
+		[121056] = true, -- Malformed Terrorguard
+		[121068] = true, -- Volatile Imp
+		[121073] = true, -- Deranged Succubus
+		[121077] = true, -- Lambent Felhunter
+		[121088] = true, -- Warped Voidlord
+		[121090] = true, -- Demented Shivarra
+		[121092] = true, -- Anomalous Observer
+		[121107] = true, -- Lady Eldrathe
+		[121108] = true, -- Ruinous Overfiend
+		[121112] = true, -- Somber Dawn
+		[121124] = true, -- Apocron
+		[121134] = true, -- Duke Sithizi
 	},
 	-- ----------------------------------------------------------------------------
 	-- Helheim
@@ -2096,6 +2163,31 @@ local MapNPCs = {
 		[113694] = true, -- Pashya
 	},
 	-- ----------------------------------------------------------------------------
+	-- Halls of Valor
+	-- ----------------------------------------------------------------------------
+	[1041] = {
+		[96647] = true, -- Earlnoc the Beastbreaker
+		[99802] = true, -- Arthfael
+	},
+	-- ----------------------------------------------------------------------------
+	-- Eye of Azshara
+	-- ----------------------------------------------------------------------------
+	[1046] = {
+		[91788] = true, -- Shellmaw
+		[108543] = true, -- Dread Captain Thedon
+		[101411] = true, -- Gom Crabbar
+		[101467] = true, -- Jaggen-Ra
+		[108541] = true, -- Dread Corsair
+		[111573] = true, -- Kosumoth the Hungering
+	},
+	-- ----------------------------------------------------------------------------
+	-- Darkheart Thicket
+	-- ----------------------------------------------------------------------------
+	[1067] = {
+		[99362] = true, -- Kudzilla
+		[101660] = true, -- Rage Rot
+	},
+	-- ----------------------------------------------------------------------------
 	-- Thunder Totem
 	-- ----------------------------------------------------------------------------
 	[1080] = {
@@ -2108,12 +2200,79 @@ local MapNPCs = {
 		[110486] = true, -- Huk'roth the Huntmaster
 	},
 	-- ----------------------------------------------------------------------------
-	-- Eye of Azshara
+	-- Krokuun
 	-- ----------------------------------------------------------------------------
-	[1046] = {
-		[108543] = true, -- Dread Captain Thedon
-		[101411] = true, -- Gom Crabbar
-		[111573] = true, -- Kosumoth the Hungering
+	[1135] = {
+		[120393] = true, -- Siegemaster Voraan
+		[122911] = true, -- Commander Vecaya
+		[122912] = true, -- Commander Sathrenael
+		[123464] = true, -- Sister Subversia
+		[123689] = true, -- Talestra the Vile
+		[124775] = true, -- Commander Endaxis
+		[124804] = true, -- Tereck the Selector
+		[125388] = true, -- Vagath the Betrayed
+		[125479] = true, -- Tar Spitter
+		[125820] = true, -- Imp Mother Laglath
+		[125824] = true, -- Khazaduum
+		[126419] = true, -- Naroua
+	},
+	-- ----------------------------------------------------------------------------
+	-- Mac'Aree
+	-- ----------------------------------------------------------------------------
+	[1170] = {
+		[122838] = true, -- Shadowcaster Voruun
+		[126815] = true, -- Soultwisted Monstrosity
+		[126852] = true, -- Wrangler Kravos
+		[126860] = true, -- Kaara the Pale
+		[126862] = true, -- Baruut the Bloodthirsty
+		[126864] = true, -- Feasel the Muffin Thief
+		[126865] = true, -- Vigilant Thanos
+		[126866] = true, -- Vigilant Kuro
+		[126867] = true, -- Venomtail Skyfin
+		[126868] = true, -- Turek the Lucid
+		[126869] = true, -- Captain Faruq
+		[126885] = true, -- Umbraliss
+		[126887] = true, -- Ataxon
+		[126889] = true, -- Sorolis the Ill-Fated
+		[126896] = true, -- Herald of Chaos
+		[126898] = true, -- Sabuul
+		[126899] = true, -- Jed'hin Champion Vorusk
+		[124440] = true, -- Overseer Y'Beda
+		[125497] = true, -- Overseer Y'Sorna
+		[125498] = true, -- Overseer Y'Morna
+		[126900] = true, -- Instructor Tarahna
+		[126908] = true, -- Zul'tan the Numerous
+		[126910] = true, -- Commander Xethgar
+		[126912] = true, -- Skreeg the Devourer
+		[126913] = true, -- Slithon the Last
+	},
+	-- ----------------------------------------------------------------------------
+	-- Antoran Wastes
+	-- ----------------------------------------------------------------------------
+	[1171] = {
+		[122947] = true, -- Mistress Il'thendra
+		[122958] = true, -- Blistermaw
+		[122999] = true, -- Gar'zoth
+		[126040] = true, -- Puscilla
+		[126115] = true, -- Ven'orn
+		[126199] = true, -- Vrax'thul
+		[126208] = true, -- Varga
+		[126254] = true, -- Lieutenant Xakaar
+		[126338] = true, -- Wrath-Lord Yarez
+		[126946] = true, -- Inquisitor Vethroz
+		[127084] = true, -- Commander Texlaz
+		[127090] = true, -- Admiral Rel'var
+		[127096] = true, -- All-Seer Xanarian
+		[127118] = true, -- Worldsplitter Skuul
+		[127288] = true, -- Houndmaster Kerrax
+		[127291] = true, -- Watcher Aival
+		[127300] = true, -- Void Warden Valsuran
+		[127376] = true, -- Chief Alchemist Munculus
+		[127581] = true, -- The Many-Faced Devourer
+		[127700] = true, -- Squadron Commander Vishax
+		[127703] = true, -- Doomcaster Suprax
+		[127705] = true, -- Mother Rosula
+		[127706] = true, -- Rezira the Seer
 	},
 }
 
@@ -2142,7 +2301,9 @@ local ContinentIDByDungeonMapID = {
 	[1022] = private.ContinentID.BrokenIsles, -- Helheim
 	[1028] = private.ContinentID.BrokenIsles, -- Mardum, the Shattered Abyss
 	[1032] = private.ContinentID.BrokenIsles, -- Vault of the Wardens
+	[1041] = private.ContinentID.BrokenIsles, -- Halls of Valor
 	[1046] = private.ContinentID.BrokenIsles, -- Eye of Azshara
+	[1067] = private.ContinentID.BrokenIsles, -- Darkheart Thicket
 	[1091] = private.ContinentID.Kalimdor, -- The Exodar (Scenario version)
 }
 
@@ -2168,7 +2329,7 @@ for mapID in pairs(MapNPCs) do
 
 	local continentID = HereBeDragons:GetCZFromMapID(mapID)
 	if continentID < 1 then
-		continentID = ContinentIDByDungeonMapID[mapID]
+		continentID = ContinentIDByDungeonMapID[mapID] or continentID
 	end
 
 	ContinentMaps[continentID] = ContinentMaps[continentID] or {}
