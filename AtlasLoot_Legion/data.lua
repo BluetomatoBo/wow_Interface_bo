@@ -1525,7 +1525,7 @@ data["ReturnToKarazhan"] = {
 data["SeatoftheTriumvirate"] = {
 	EncounterJournalID = 945,
 	MapID = 1178,
-	--AtlasMapID = "SeatoftheTriumvirate",
+	AtlasMapID = "TheSeatoftheTriumvirate",
 	ContentType = DUNGEON_CONTENT,
 	items = {
 		{	-- Zuraal the Ascended
@@ -1745,7 +1745,7 @@ data["VaultOfTheWardens"] = {
 data["AntorustheBurningThrone"] = {
 	EncounterJournalID = 946,
 	MapID = 1188,
-	--AtlasMapID = "AntorustheBurningThrone",
+	AtlasMapID = "AntorustheBurningThroneA",
 	ContentType = RAID_CONTENT,
 	items = {
 		{	-- Garothi Worldbreaker
@@ -1978,33 +1978,6 @@ data["AntorustheBurningThrone"] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
 			},
 		},
-		{	-- Varimathras
-			EncounterJournalID = 1983,
-			[RF_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-			},
-			[NORMAL_RAID_DIFF] = {
-				{ 1 , 151942 }, -- Cord of Surging Hysteria
-				{ 2 , 151991 }, -- Belt of Fractured Sanity
-				{ 3 , 152092 }, -- Nathrezim Incisor
-				{ 4 , 152025 }, -- Thu'rayan Lash
-				{ 5 , 151997 }, -- Nathrezim Shade-Walkers
-				{ 6 , 151954 }, -- Blood-Drenched Bindings
-				{ 7 , 152015 }, -- Greaves of Mercurial Alliegance
-				{ 8 , 151964 }, -- Seeping Scourgewing
-				{ 9 , 151960 }, -- Carafe of Searing Light
-				{ 10, 152037 }, -- Tormentor's Brand
-				{ 11, 151979 }, -- Vest of Unfathomable Anguish
-				{ 12, 151966 }, -- Riveted Choker of Delirium
-				{ 13, 152281 }, -- Varimathras' Shattered Manacles
-				{ 14, 152060 }, -- Neuroshock Electrode
-				{ 15, 151995 }, -- Robes of the Forsaken Dreadlord
-			},
-			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
-			[MYTHIC_PRE_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
-			},
-		},
 		{	-- The Coven of Shivarra
 			EncounterJournalID = 1986,
 			[RF_DIFF] = {
@@ -2036,6 +2009,33 @@ data["AntorustheBurningThrone"] = {
 				{ 23, 152029 }, -- Shivarran Cachabon
 				{ 24, 151984 }, -- Lurid Grips of the Obscene
 				{ 25, 152414 }, -- Bracers of Wanton Morality
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
+			[MYTHIC_PRE_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+		},
+		{	-- Varimathras
+			EncounterJournalID = 1983,
+			[RF_DIFF] = {
+				GetItemsFromDiff = NORMAL_RAID_DIFF,
+			},
+			[NORMAL_RAID_DIFF] = {
+				{ 1 , 151942 }, -- Cord of Surging Hysteria
+				{ 2 , 151991 }, -- Belt of Fractured Sanity
+				{ 3 , 152092 }, -- Nathrezim Incisor
+				{ 4 , 152025 }, -- Thu'rayan Lash
+				{ 5 , 151997 }, -- Nathrezim Shade-Walkers
+				{ 6 , 151954 }, -- Blood-Drenched Bindings
+				{ 7 , 152015 }, -- Greaves of Mercurial Alliegance
+				{ 8 , 151964 }, -- Seeping Scourgewing
+				{ 9 , 151960 }, -- Carafe of Searing Light
+				{ 10, 152037 }, -- Tormentor's Brand
+				{ 11, 151979 }, -- Vest of Unfathomable Anguish
+				{ 12, 151966 }, -- Riveted Choker of Delirium
+				{ 13, 152281 }, -- Varimathras' Shattered Manacles
+				{ 14, 152060 }, -- Neuroshock Electrode
+				{ 15, 151995 }, -- Robes of the Forsaken Dreadlord
 			},
 			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
 			[MYTHIC_PRE_DIFF] = {

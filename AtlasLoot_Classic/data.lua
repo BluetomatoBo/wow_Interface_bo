@@ -522,51 +522,23 @@ data["Deadmines"] = {
 	}
 }
 
-local DMN_GUARD_LOOT = {
-	{ 1, 18496 },	-- Heliotrope Cloak
-	{ 2, 18450 },	-- Robe of Combustion
-	{ 3, 18497 },	-- Sublime Wristguards
-	{ 4, 18451 },	-- Hyena Hide Belt
-	{ 5, 18494 },	-- Denwatcher's Shoulders
-	{ 6, 18458 },	-- Modest Armguards
-	{ 7, 18493 },	-- Bulky Iron Spaulders
-	{ 8, 18459 },	-- Gallant's Wristguards
-	{ 16, 18464 },	-- Gordok Nose Ring
-	{ 18, 18498 },	-- Hedgecutter
-	{ 19, 18462 },	-- Jagged Bone Fist
-	{ 20, 18463 },	-- Ogre Pocket Knife
-	{ 21, 18460 },	-- Unsophisticated Hand Cannon
-}
-data["DireMaul"] = {
-	EncounterJournalID = 230,
-	MapID = 699,
-	AtlasMapID = "DireMaulEnt",
-	ContentType = DUNGEON_CONTENT,
-	items = {
-		{	--DMEZevrimThornhoof
-			EncounterJournalID = 402,
-			[NORMAL_DIFF] = {
+local DIREMAULENT_LOOT1 = {
 				{ 1, 18306 },	-- Gloves of Shadowy Mist
 				{ 2, 18308 },	-- Clever Hat
 				{ 3, 18319 },	-- Fervent Helm
 				{ 4, 18313 },	-- Helm of Awareness
 				{ 5, 18323 },	-- Satyr's Bow
-			},
-		},
-		{	--DMEHydro
-			EncounterJournalID = 403,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULENT_LOOT2 = {
 				{ 1, 18307 },	-- Riptide Shoes
 				{ 2, 18322 },	-- Waterspout Boots
 				{ 3, 18305 },	-- Breakwater Legguards
 				{ 4, 18317 },	-- Tempest Talisman
 				{ 5, 18324 },	-- Waveslicer
-				{ 7, 18299, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Hydrospawn Essence
-			},
-		},
-		{	--DMELethtendrisPimgib
-			EncounterJournalID = 404,
-			[NORMAL_DIFF] = {
+				{ 7, 19268, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Ace of Elementals
+				{ 9, 18299, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Hydrospawn Essence
+}
+local DIREMAULENT_LOOT3 = {
 				{ 1, 18325 },	-- Felhide Cap
 				{ 2, 18302 },	-- Band of Vigor
 				{ 3, 18311 },	-- Quel'dorei Channeling Rod
@@ -574,18 +546,12 @@ data["DireMaul"] = {
 				{ 6, 18426, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Lethtendris' Web
 				{ 16, "INV_Box_01", nil, BB["Pimgib"], nil },
 				{ 17, 18354, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Pimgib's Collar
-			},
-		},
-		{	--DMEPusillin
-			name = BB["Pusillin"],
-			[NORMAL_DIFF] = {
-				{ 1, 18267 },	-- Recipe: Runn Tum Tuber Surprise
-				{ 3, 18261 },	-- Book of Incantations
-			},
-		},
-		{	--DMEAlzzin
-			EncounterJournalID = 405,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULENT_LOOT4 = {
+				{ 1, 18267, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Recipe: Runn Tum Tuber Surprise
+				{ 3, 18261, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Book of Incantations
+}
+local DIREMAULENT_LOOT5 = {
 				{ 1, 18328 },	-- Shadewood Cloak
 				{ 2, 18327 },	-- Whipvine Cord
 				{ 3, 18309 },	-- Gloves of Restoration
@@ -599,48 +565,33 @@ data["DireMaul"] = {
 				{ 22, "INV_Box_01", nil, AL["Felvine Shard"], nil },
 				{ 23, 18501, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Felvine Shard
 				{ 25, "ac644" },
-			},
-		},
-		{	--DMWTendrisWarpwood
-			EncounterJournalID = 406,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULWEST_LOOT1 = {
 				{ 1, 18390 },	-- Tanglemoss Leggings
 				{ 2, 18393 },	-- Warpwood Binding
 				{ 3, 18353 },	-- Stoneflower Staff
 				{ 4, 18352 },	-- Petrified Bark Shield
-			},
-		},
-		{	--DMWIllyannaRavenoak
-			EncounterJournalID = 407,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULWEST_LOOT2 = {
 				{ 1, 18386 },	-- Padre's Trousers
 				{ 2, 18349 },	-- Gauntlets of Accuracy
 				{ 3, 18383 },	-- Force Imbued Gauntlets
 				{ 4, 18347 },	-- Well Balanced Axe
-			},
-		},
-		{	--DMWMagisterKalendris
-			EncounterJournalID = 408,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULWEST_LOOT3 = {
 				{ 1, 18350 },	-- Amplifying Cloak
 				{ 2, 18374 },	-- Flamescarred Shoulders
 				{ 3, 18351 },	-- Magically Sealed Bracers
 				{ 4, 18397 },	-- Elder Magus Pendant
 				{ 5, 18371 },	-- Mindtap Talisman
 				{ 7, 22309, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Pattern: Big Bag of Enchantment
-			},
-		},
-		{	--DMWTsuzee
-			name = BB["Tsu'zee"].." ("..AL["Rare"]..")",
-			[NORMAL_DIFF] = {
+}
+local DIREMAULWEST_LOOT4 = {
 				{ 1, 18387 },	-- Brightspark Gloves
 				{ 2, 18346 },	-- Threadbare Trousers
 				{ 3, 18345 },	-- Murmuring Ring
-			},
-		},
-		{	--DMWImmolthar
-			EncounterJournalID = 409,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULWEST_LOOT5 = {
 				{ 1, 18389 },	-- Cloak of the Cosmos
 				{ 2, 18385 },	-- Robe of Everlasting Night
 				{ 3, 18377 },	-- Quickdraw Gloves
@@ -652,19 +603,14 @@ data["DireMaul"] = {
 				{ 17, 18370 },	-- Vigilance Charm
 				{ 19, 18372 },	-- Blade of the New Moon
 				{ 21, "ac644" },
-			},
-		},
-		{	--DMWHelnurath
-			name = BB["Lord Hel'nurath"].." ("..AL["Summon"]..")",
-			[NORMAL_DIFF] = {
+}
+local DIREMAULWEST_LOOT6 = {
 				{ 1, 18757 },	-- Diabolic Mantle
-				{ 2, 18755 },	-- Xorothian Firestick
-				{ 3, 18756 },	-- Dreadguard's Protector
-			},
-		},
-		{	--DMWPrinceTortheldrin
-			EncounterJournalID = 410,
-			[NORMAL_DIFF] = {
+				{ 2, 18754 },	-- Fel Hardened Bracers
+				{ 3, 18755 },	-- Xorothian Firestick
+				{ 4, 18756 },	-- Dreadguard's Protector
+}
+local DIREMAULWEST_LOOT7 = {
 				{ 1, 18382 },	-- Fluctuating Cloak
 				{ 2, 18373 },	-- Chestplate of Tranquility
 				{ 3, 18375 },	-- Bracers of the Eclipse
@@ -675,51 +621,36 @@ data["DireMaul"] = {
 				{ 17, 18396 },	-- Mind Carver
 				{ 18, 18388 },	-- Stoneshatter
 				{ 19, 18376 },	-- Timeworn Mace
-			},
-		},
-		{	--DMNGuardMoldar
-			EncounterJournalID = 411,
-			[NORMAL_DIFF] = DMN_GUARD_LOOT
-		},
-		{	--DMNStomperKreeg
-			EncounterJournalID = 412,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULNORTH_LOOT1 = {
+				{ 1, 18496 },	-- Heliotrope Cloak
+				{ 2, 18450 },	-- Robe of Combustion
+				{ 3, 18497 },	-- Sublime Wristguards
+				{ 4, 18451 },	-- Hyena Hide Belt
+				{ 5, 18494 },	-- Denwatcher's Shoulders
+				{ 6, 18458 },	-- Modest Armguards
+				{ 7, 18493 },	-- Bulky Iron Spaulders
+				{ 8, 18459 },	-- Gallant's Wristguards
+				{ 16, 18464 },	-- Gordok Nose Ring
+				{ 18, 18498 },	-- Hedgecutter
+				{ 19, 18462 },	-- Jagged Bone Fist
+				{ 20, 18463 },	-- Ogre Pocket Knife
+				{ 21, 18460 },	-- Unsophisticated Hand Cannon
+}
+local DIREMAULNORTH_LOOT2 = {
 				{ 1, 18425 },	-- Kreeg's Mug
 				{ 3, 18269, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Gordok Green Grog
 				{ 4, 18284, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Kreeg's Stout Beatdown
 				{ 5, 18287, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Evermurky
 				{ 6, 18288, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Molasses Firewater
-			},
-		},
-		{	--DMNGuardFengus
-			EncounterJournalID = 413,
-			[NORMAL_DIFF] = DMN_GUARD_LOOT
-		},
-		{	--DMNGuardSlipkik
-			EncounterJournalID = 414,
-			[NORMAL_DIFF] = DMN_GUARD_LOOT
-		},
-		{	--DMNCaptainKromcrush
-			EncounterJournalID = 415,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULNORTH_LOOT3 = {
 				{ 1, 18507 },	-- Boots of the Full Moon
 				{ 2, 18505 },	-- Mugger's Belt
 				{ 3, 18503 },	-- Kromcrush's Chestplate
 				{ 4, 18502 },	-- Monstrous Glaive
-			},
-		},
-		{	--DMNChoRush
-			EncounterJournalID = 416,
-			[NORMAL_DIFF] = {
-				{ 1, 18490 },	-- Insightful Hood
-				{ 2, 18484 },	-- Cho'Rush's Blade
-				{ 3, 18483 },	-- Mana Channeling Wand
-				{ 4, 18485 },	-- Observer's Shield
-			},
-		},
-		{	--DMNKingGordok
-			EncounterJournalID = 417,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULNORTH_LOOT4 = {
 				{ 1, 18526 },	-- Crown of the Ogre King
 				{ 2, 18525 },	-- Bracers of Prosperity
 				{ 3, 18527 },	-- Harmonious Gauntlets
@@ -730,54 +661,14 @@ data["DireMaul"] = {
 				{ 17, 18523 },	-- Brightly Glowing Stone
 				{ 19, 19258, [ATLASLOOT_IT_FILTERIGNORE] = true },	-- Ace of Warlords
 				{ 21, "ac644" },
-			},
-		},
-		{	--DMETrash / DMWTrash
-			name = AL["Trash Mobs"],
-			ExtraList = true,
-			[NORMAL_DIFF] = {
-				{ 1, 18295 },	-- Phasing Boots
-				{ 2, 18344 },	-- Stonebark Gauntlets
-				{ 3, 18298 },	-- Unbridled Leggings
-				{ 4, 18296 },	-- Marksman Bands
-				{ 5, 18289 },	-- Barbed Thorn Necklace
-				{ 6, 18340 },	-- Eidolon Talisman
-				{ 7, 18338 },	-- Wand of Arcane Potency
-				{ 16, "INV_Box_01", nil, AL["Shen'dralar Provisioner"], nil },
-				{ 17, 18487 },	-- Pattern: Mooncloth Robe
-			},
-		},
-		{	--DMBooks
-			name = AL["Dire Maul Books"],
-			ExtraList = true,
-			[NORMAL_DIFF] = {
-				{ 1, 18364 },	-- The Emerald Dream
-				{ 2, 18361 },	-- The Greatest Race of Hunters
-				{ 3, 18358 },	-- The Arcanist's Cookbook
-				{ 4, 18359 },	-- The Light and How to Swing It
-				{ 5, 18362 },	-- Holy Bologna: What the Light Won't Tell You
-				{ 6, 18356 },	-- Garona: A Study on Stealth and Treachery
-				{ 7, 18363 },	-- Frost Shock and You
-				{ 8, 18360 },	-- Harnessing Shadows
-				{ 9, 18357 },	-- Codex of Defense
-				{ 11, 18333 },	-- Libram of Focus
-				{ 12, 18334 },	-- Libram of Protection
-				{ 13, 18332 },	-- Libram of Rapidity
-				{ 16, 18470 },	-- Royal Seal of Eldre'Thalas
-				{ 17, 18473 },	-- Royal Seal of Eldre'Thalas
-				{ 18, 18468 },	-- Royal Seal of Eldre'Thalas
-				{ 19, 18472 },	-- Royal Seal of Eldre'Thalas
-				{ 20, 18469 },	-- Royal Seal of Eldre'Thalas
-				{ 21, 18465 },	-- Royal Seal of Eldre'Thalas
-				{ 22, 18471 },	-- Royal Seal of Eldre'Thalas
-				{ 23, 18467 },	-- Royal Seal of Eldre'Thalas
-				{ 24, 18466 },	-- Royal Seal of Eldre'Thalas
-			},
-		},
-		{	--DMNTRIBUTERUN
-			name = AL["Dire Maul North Tribute Chest"],
-			ExtraList = true,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULNORTH_LOOT5 = {
+				{ 1, 18490 },	-- Insightful Hood
+				{ 2, 18484 },	-- Cho'Rush's Blade
+				{ 3, 18483 },	-- Mana Channeling Wand
+				{ 4, 18485 },	-- Observer's Shield
+}
+local DIREMAULNORTH_LOOT6 = {
 				{ 1, 18538 },	-- Treant's Bane
 				{ 3, 18495 },	-- Redoubt Cloak
 				{ 4, 18532 },	-- Mindsurge Robe
@@ -799,12 +690,8 @@ data["DireMaul"] = {
 				{ 22, 18499 },	-- Barrier Shield
 				{ 23, 18482 },	-- Ogre Toothpick Shooter
 				{ 25, 18655 },	-- Schematic: Major Recombobulator
-			},
-		},
-		{	--DMNThimblejack
-			name = AL["Knot Thimblejack"],
-			ExtraList = true,
-			[NORMAL_DIFF] = {
+}
+local DIREMAULNORTH_LOOT7 = {
 				{ 1, 18517 },	-- Pattern: Chromatic Cloak
 				{ 2, 18518 },	-- Pattern: Hide of the Wild
 				{ 3, 18519 },	-- Pattern: Shifting Cloak
@@ -829,7 +716,144 @@ data["DireMaul"] = {
 				{ 25, 18504 },	-- Girdle of Insight
 				{ 26, 18506 },	-- Mongoose Boots
 				{ 27, 18508 },	-- Swift Flight Bracers
-			},
+}
+local DIREMAUL_LOOT1 = {
+				{ 1, 18295 },	-- Phasing Boots
+				{ 2, 18344 },	-- Stonebark Gauntlets
+				{ 3, 18298 },	-- Unbridled Leggings
+				{ 4, 18296 },	-- Marksman Bands
+				{ 5, 18289 },	-- Barbed Thorn Necklace
+				{ 6, 18340 },	-- Eidolon Talisman
+				{ 7, 18338 },	-- Wand of Arcane Potency
+				{ 16, "INV_Box_01", nil, AL["Shen'dralar Provisioner"], nil },
+				{ 17, 18487 },	-- Pattern: Mooncloth Robe
+}
+local DIREMAUL_BOOKS1 = {
+				{ 1, 18364 },	-- The Emerald Dream
+				{ 2, 18361 },	-- The Greatest Race of Hunters
+				{ 3, 18358 },	-- The Arcanist's Cookbook
+				{ 4, 18359 },	-- The Light and How to Swing It
+				{ 5, 18362 },	-- Holy Bologna: What the Light Won't Tell You
+				{ 6, 18356 },	-- Garona: A Study on Stealth and Treachery
+				{ 7, 18363 },	-- Frost Shock and You
+				{ 8, 18360 },	-- Harnessing Shadows
+				{ 9, 18357 },	-- Codex of Defense
+				{ 11, 18333 },	-- Libram of Focus
+				{ 12, 18334 },	-- Libram of Protection
+				{ 13, 18332 },	-- Libram of Rapidity
+				{ 16, 18470 },	-- Royal Seal of Eldre'Thalas
+				{ 17, 18473 },	-- Royal Seal of Eldre'Thalas
+				{ 18, 18468 },	-- Royal Seal of Eldre'Thalas
+				{ 19, 18472 },	-- Royal Seal of Eldre'Thalas
+				{ 20, 18469 },	-- Royal Seal of Eldre'Thalas
+				{ 21, 18465 },	-- Royal Seal of Eldre'Thalas
+				{ 22, 18471 },	-- Royal Seal of Eldre'Thalas
+				{ 23, 18467 },	-- Royal Seal of Eldre'Thalas
+				{ 24, 18466 },	-- Royal Seal of Eldre'Thalas
+}
+
+
+data["DireMaul"] = {
+	EncounterJournalID = 230,
+	MapID = 699,
+	AtlasMapID = "DireMaulEnt",
+	ContentType = DUNGEON_CONTENT,
+	items = {
+		{	--Dire Maul East - Zevrim Thornhoof
+			EncounterJournalID = 402,
+			[NORMAL_DIFF] = DIREMAULENT_LOOT1,
+		},
+		{	--Dire Maul East - Hydrospawn
+			EncounterJournalID = 403,
+			[NORMAL_DIFF] = DIREMAULENT_LOOT2,
+		},
+		{	--Dire Maul East - Lethtendris Pimgib
+			EncounterJournalID = 404,
+			[NORMAL_DIFF] = DIREMAULENT_LOOT3,
+		},
+		{	--Dire Maul East - Pusillin
+			name = BB["Pusillin"],
+			[NORMAL_DIFF] = DIREMAULENT_LOOT4,
+		},
+		{	--Dire Maul East - Alzzin the Windshaper
+			EncounterJournalID = 405,
+			[NORMAL_DIFF] = DIREMAULENT_LOOT5,
+		},
+		{	--Dire Maul West - Tendris Warpwood
+			EncounterJournalID = 406,
+			[NORMAL_DIFF] = DIREMAULWEST_LOOT1,
+		},
+		{	--Dire Maul West - Illyanna Ravenoak
+			EncounterJournalID = 407,
+			[NORMAL_DIFF] = DIREMAULWEST_LOOT2,
+		},
+		{	--Dire Maul West - Magister Kalendris
+			EncounterJournalID = 408,
+			[NORMAL_DIFF] = DIREMAULWEST_LOOT3,
+		},
+		{	--Dire Maul West - Tsuzee
+			name = BB["Tsu'zee"].." ("..AL["Rare"]..")",
+			[NORMAL_DIFF] = DIREMAULWEST_LOOT4,
+		},
+		{	--Dire Maul West - Immolthar
+			EncounterJournalID = 409,
+			[NORMAL_DIFF] = DIREMAULWEST_LOOT5,
+		},
+		{	--Dire Maul West - Lord Helnurath
+			name = BB["Lord Hel'nurath"].." ("..AL["Summon"]..")",
+			[NORMAL_DIFF] = DIREMAULWEST_LOOT6,
+		},
+		{	--Dire Maul West - Prince Tortheldrin
+			EncounterJournalID = 410,
+			[NORMAL_DIFF] = DIREMAULWEST_LOOT7,
+		},
+		{	--Dire Maul North - Guard Moldar
+			EncounterJournalID = 411,
+			[NORMAL_DIFF] = DIREMAULNORTH_LOOT1,
+		},
+		{	--Dire Maul North - Stomper Kreeg
+			EncounterJournalID = 412,
+			[NORMAL_DIFF] = DIREMAULNORTH_LOOT2,
+		},
+		{	--Dire Maul North - Guard Fengus
+			EncounterJournalID = 413,
+			[NORMAL_DIFF] = DIREMAULNORTH_LOOT1,
+		},
+		{	--Dire Maul North - Guard Slipkik
+			EncounterJournalID = 414,
+			[NORMAL_DIFF] = DIREMAULNORTH_LOOT1,
+		},
+		{	--Dire Maul North - Captain Kromcrush
+			EncounterJournalID = 415,
+			[NORMAL_DIFF] = DIREMAULNORTH_LOOT3,
+		},
+		{	--Dire Maul North - King Gordok
+			EncounterJournalID = 417,
+			[NORMAL_DIFF] = DIREMAULNORTH_LOOT4,
+		},
+		{	--Dire Maul North - Cho'Rush the Observer
+			EncounterJournalID = 416,
+			[NORMAL_DIFF] = DIREMAULNORTH_LOOT5,
+		},
+		{	--Dire Maul - Trash Mobs
+			name = AL["Trash Mobs"],
+			ExtraList = true,
+			[NORMAL_DIFF] = DIREMAUL_LOOT1,
+		},
+		{	--Dire Maul - Books
+			name = AL["Dire Maul Books"],
+			ExtraList = true,
+			[NORMAL_DIFF] = DIREMAUL_BOOKS1,
+		},
+		{	--Dire Maul North - Tribute Chest
+			name = AL["Dire Maul North Tribute Chest"],
+			ExtraList = true,
+			[NORMAL_DIFF] = DIREMAULNORTH_LOOT6,
+		},
+		{	--Dire Maul North - Knot Thimblejack
+			name = AL["Knot Thimblejack"],
+			ExtraList = true,
+			[NORMAL_DIFF] = DIREMAULNORTH_LOOT7,
 		},
 		CLASSIC_INSTANCE_AC_TABLE,
 
