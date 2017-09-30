@@ -885,6 +885,6 @@ function addon:OutputMessage(messageType, message, r, g, b)
 	if voiceID then
 		PlayVocalErrorSoundID(voiceID);
 	elseif soundKitID then
-		PlaySoundKitID(soundKitID);
+		PlaySound(soundKitID);
 	end
 end
