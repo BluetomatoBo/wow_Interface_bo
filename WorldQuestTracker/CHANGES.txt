@@ -1,7 +1,7 @@
-changeset:   245:08fed12c22bd
-tag:         a7.3.0.245-alpha
+changeset:   249:068b9619dd66
+tag:         v7.3.0.249-release
 user:        Tercio
-date:        Tue Sep 19 10:32:46 2017 -0300
-summary:     - Added a button for options under the interface menu.
+date:        Wed Sep 27 16:10:04 2017 -0300
+summary:     - when leaving a group invide an invasion point, show the gf panel again.
 
 
