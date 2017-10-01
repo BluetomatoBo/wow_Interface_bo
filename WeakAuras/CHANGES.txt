@@ -1,62 +1,54 @@
-tag ff6fd7d6c088f0c10304be5d155ebfdc3cfc93d8 2.4.22
+tag 7f5efd4fa415bbee3ca81505f4cb26c1288ce39b 2.4.23
 Author:	Benjamin Staneck <staneck@gmail.com>
-Date:	Mon Sep 11 20:04:10 2017 +0200
+Date:	Sat Sep 30 21:24:10 2017 +0200
 
-commit d56bc8d435e462d25d99c3e9a994ca6f63251834
-Author: lqnrd <30536144+lqnrd@users.noreply.github.com>
-Date:   Mon Sep 11 19:51:11 2017 +0200
+commit dea0934801dfd0f88fc0f246f7fda312b0cc4f42
+Author: Infus <infus@squorn.de>
+Date:   Fri Sep 29 17:00:23 2017 +0200
 
-    protect _G lookups (#283)
-    
-    * protect _G lookups
-    
-    * Revert "protect _G lookups"
-    
-    This reverts commit ce56767432bab5e4e726cb6e1e388b3517e290c4.
-    
-    * use exec_env instead
-    
-    as suggested by @emptyrivers
+    Templates: Fix Savage Roar load condition
 
-commit 149003afcb3435d2b3199dfe528692d02e4962c5
+commit 441ebcdba5b2f74765f7c2d64cc033d3a84e331c
 Author: Benjamin Staneck <staneck@gmail.com>
-Date:   Mon Sep 11 16:56:53 2017 +0200
+Date:   Sat Sep 30 11:29:31 2017 +0200
 
-    adding a function to a list
+    Recommend Color Picker Plus in the ´Enhancing WeakAuras` section
 
-commit eabaad004b911d7958c853bff7ec74676c62bba5
+commit 64ed1d5245391482d40c690b254a3b1780854b29
 Author: Infus <infus@squorn.de>
-Date:   Sun Sep 10 01:47:03 2017 +0200
+Date:   Sun Sep 17 16:33:14 2017 +0200
 
-    Fix and extend Swing Timer
+    Add a "WORKAROUND" marker to various blizzard bug workarounds
     
-    - Use the combat log events parameter to distinguish between main
-    and off hand.
-    - Implement parry haste with code provided by Hamsda
-    
-    Ticket-Nr: 1045
+    Once 8.0 is in development we should try to remove some of them.
 
-commit 8305cd5733c6b4470a84a8df37bd725e104b9c1c
+commit dc010ce5082abfaa08c8c0608002de5b7d20a145
 Author: Infus <infus@squorn.de>
-Date:   Sat Sep 9 20:41:24 2017 +0200
+Date:   Sun Sep 17 16:30:19 2017 +0200
 
-    Work around Editboxes buggyness with 7.3
+    Fix spurious line breaks in icon texts
     
-    Ticket-Nr: 1041
+    Apply the same workaround as for text auras.
+    Also extract it into its own function and add a "WORKAROUND" marker.
+    
+    Apparently the extra adjustment needed depends on the font size.
+    With font size 288, 4 pixels were enough so for now use that.
+    
+    Ticket-Nr: 1042
 
-commit 5b079ddb09aef1828cc0d11eee2142dfa69eeaad
+commit 71fc9318888deac86227a414602f1c9f3880c4d9
 Author: Infus <infus@squorn.de>
-Date:   Sat Sep 9 20:41:00 2017 +0200
+Date:   Sun Sep 17 15:55:00 2017 +0200
 
-    Make the In Group load condition more powerful
+    Dynamic Group: Sorting via index: Fix comparing with a nil state
     
-    Ticket-Nr: 1044
+    Ticket-Nr: 1050
 
-commit 52c56328c7ac2cb0cb8ddfb25663db149c04785d
+commit ee3d2abd19ae5f4951f1dedd7370bcfacb2a2234
 Author: Infus <infus@squorn.de>
-Date:   Sat Sep 2 18:35:05 2017 +0200
+Date:   Thu Sep 14 01:31:51 2017 +0200
 
-    Change one PlaySound to use kit ids
+    Fix custom functions for Actions/Chat
     
-    Report and patch by Exality on discord.
+    Github Issue: 282
 
