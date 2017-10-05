@@ -5,10 +5,18 @@ local L
 -----------------------
 L= DBM:GetModLocalization(2012)
 
+L:SetMiscLocalization({
+	Pull				= "Your fate is only death!"
+})
+
 -----------------------
 -- Occularus --
 -----------------------
 L= DBM:GetModLocalization(2013)
+
+L:SetMiscLocalization({
+--	Pull				= "All worlds will burn in felfire!"
+})
 
 -----------------------
 -- Sotanathor --
@@ -24,6 +32,10 @@ L:SetMiscLocalization({
 -----------------------
 L= DBM:GetModLocalization(2011)
 
+L:SetMiscLocalization({
+--	Pull				= "All worlds will burn in felfire!"
+})
+
 -----------------------
 -- Matron Folnuna --
 -----------------------
@@ -37,3 +49,7 @@ L:SetMiscLocalization({
 -- Pit Lord Vilemus --
 -----------------------
 L= DBM:GetModLocalization(2015)
+
+L:SetMiscLocalization({
+	Pull				= "All worlds will burn in felfire!"
+})
