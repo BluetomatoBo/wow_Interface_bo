@@ -1,5 +1,5 @@
-## Interface: 70100
-## Version: 16.10.27
+## Interface: 70300
+## Version: 17.10.10
 ## Title: TipTac
 ## Author: Aezay (Earthen Ring EU)
 ## Notes: Highly Customizable Tooltip Enhancement Addon

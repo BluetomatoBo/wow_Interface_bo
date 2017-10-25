@@ -1,3 +1,7 @@
+TipTacTalents Changes | 2017 Oct 10
+-----------------------------------
+- Updated the TOC version to 70300 for the 7.3 patch.
+
 TipTacTalents Changes | 2016 Oct 27
 -----------------------------------
 - Updated the TOC version to 70100 for the 7.1 patch.

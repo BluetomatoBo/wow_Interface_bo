@@ -610,7 +610,7 @@ local function AddTargetedBy()
 		end
 	end
 	if (#targetedList > 0) then
-		targetedList[#targetedList] = nil;
+		targetedList[#targetedList] = nil;		-- remove last comma
 		gtt:AddLine(" ",nil,nil,nil,1);
 		local line = _G["GameTooltipTextLeft"..gtt:NumLines()];
 		line:SetFormattedText("Targeted By (|cffffffff%d|r): %s",(#targetedList + 1) / 3,table.concat(targetedList));
@@ -696,7 +696,7 @@ local function SetupHealthAndPowerBar()
 	end
 end
 
--- Format Number Value
+-- Format Number Value -- kilo, mega, giga
 local function FormatValue(val)
 	if (not cfg.barsCondenseValues) or (val < 10000) then
 		return tostring(val);

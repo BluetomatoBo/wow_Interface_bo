@@ -1,3 +1,8 @@
+TipTac Changes | 2017 Oct 10
+----------------------------
+- Updated the TOC version to 70300 for the 7.3 patch.
+- Options: Fixed the PlaySound() API call, which was changed in the 7.3.0 patch. Thanks insectKR.
+
 TipTac Changes | 2016 Oct 27
 ----------------------------
 - Updated the TOC version to 70100 for the 7.1 patch.

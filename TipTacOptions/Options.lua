@@ -344,7 +344,7 @@ local function List_OnClick(self,button)
 	activePage = self.index;
 	self.text:SetTextColor(1,1,1);
 	self:LockHighlight();
-	PlaySound("igMainMenuOptionCheckBoxOn");
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);	-- "igMainMenuOptionCheckBoxOn"
 	f:BuildCategoryPage();
 end
 

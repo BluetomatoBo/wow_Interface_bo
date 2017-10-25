@@ -20,7 +20,7 @@
 	- Fixed issue related to frame level, making the dropdown appear behind other frames. Thanks vincentSDSH.
 --]]
 
-local REVISION = 10;
+local REVISION = 11;
 if (type(AzDropDown) == "table") and (AzDropDown.vers >= REVISION) then
 	return;
 end
@@ -242,7 +242,7 @@ function AzDropDown.ToggleMenu(parent,initFunc,selectValueFunc,point,parentPoint
 	if (not menu) then
 		CreateMenu();
 	end
-	PlaySound("igMainMenuOptionCheckBoxOn");
+	PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);	-- "igMainMenuOptionCheckBoxOn"
 	if (menu:IsShown()) and (menu.parent == parent) then
 		menu:Hide();
 	else
