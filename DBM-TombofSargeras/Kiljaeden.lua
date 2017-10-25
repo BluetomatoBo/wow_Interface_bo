@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1898, "DBM-TombofSargeras", nil, 875)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16701 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16791 $"):sub(12, -3))
 mod:SetCreatureID(117269)--121227 Illiden? 121193 Shadowsoul
 mod:SetEncounterID(2051)
 mod:SetZone()
@@ -17,18 +17,15 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 237725 238999 243982 240910 241983 239932",
 	"SPELL_CAST_SUCCESS 236378 236710 237590 236498 238502 238430 238999 241564",
-	"SPELL_AURA_APPLIED 239932 236378 236710 237590 236498 236597 241721 245509 243536",
+	"SPELL_AURA_APPLIED 239932 236378 236710 237590 236498 236597 241721 245509 243536 243624",
 	"SPELL_AURA_APPLIED_DOSE 245509",
 	"SPELL_AURA_REFRESH 241721",
-	"SPELL_AURA_REMOVED 236378 236710 237590 236498 241721 239932 241983 244834",
+	"SPELL_AURA_REMOVED 236378 236710 237590 236498 241721 239932 241983 244834 243536",
 	"UNIT_DIED",
 	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3"--Illiden might cast important stuff, or adds?
 )
 
---TODO, fine tune reflections with appropriate functions like range, etc if needed. Custom voices with correct actions other than "targetyou"
---TODO, verify/correct event for Malignant Anguish, it's likely a channeled/buff type interrupt since spellID has no cast time.
---TODO, if multiple hopelessness adds spawn at once, auto mark them so healers can be assigned to diff targets by raid icon
 --TODO, do we need shadow gaze warnings for player other then self?
 --TODO, how many shadowsouls? Also add a "remaining warning" for it as well.
 --TODO, deal wih wailing timer if tank suicides during spell cast start (and before success fires)
@@ -62,6 +59,9 @@ local yellSRWailing					= mod:NewFadesYell(236378, 236075)--Keep name in tank on
 local specWarnSRErupting			= mod:NewSpecialWarningYouPos(236710, nil, nil, nil, 1, 2)
 local yellSRErupting				= mod:NewIconFadesYell(236710, 243160)
 local specWarnLingeringEruption		= mod:NewSpecialWarningDodge(243536, nil, nil, nil, 2, 2)
+local specWarnLingeringWail			= mod:NewSpecialWarningDefensive(243624, nil, nil, nil, 1, 2)
+local yellLingeringWail				= mod:NewShortYell(243624, nil, false)
+local specWarnSorrowfulWail			= mod:NewSpecialWarningRun(241564, "Melee", nil, nil, 4, 2)
 --Intermission: Eternal Flame
 local specWarnFocusedDreadflame		= mod:NewSpecialWarningYou(238502, nil, nil, nil, 1, 2)
 local yellFocusedDreadflame			= mod:NewShortYell(238502)
@@ -100,7 +100,7 @@ mod:AddTimerLine(SCENARIO_STAGE:format(2))
 local timerShadReflectionHopelessCD	= mod:NewCDTimer(196, 237590, 237724, nil, nil, 3, nil, DBM_CORE_HEALER_ICON)--Shortname : Hopeless Reflection
 local timerHopelessness				= mod:NewCastTimer(8, 237725, nil, "Healer", nil, 5, nil, DBM_CORE_HEALER_ICON)
 local timerShadReflectionWailingCD	= mod:NewCDCountTimer(35, 236378, 236475, nil, nil, 3, nil, DBM_CORE_TANK_ICON)--Shortname : Wailing Reflection
-local timerSorrowfulWailCD			= mod:NewCDTimer(15.5, 241564, nil, nil, nil, 2)
+local timerSorrowfulWailCD			= mod:NewCDTimer(14.1, 241564, nil, nil, nil, 2)
 --Intermission: Deceiver's Veil
 --mod:AddTimerLine(SCENARIO_STAGE:format(2.5))
 local timerSightlessGaze			= mod:NewBuffActiveTimer(20, 241721, nil, nil, nil, 5)
@@ -122,12 +122,14 @@ local countdownFelclaws				= mod:NewCountdown("Alt25", 239932, "Tank", 2)
 
 --Stage One: The Betrayer
 local voicePhaseChange				= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_TEXT)
-local voiceFelclaws					= mod:NewVoice(239932)--tauntboss
+local voiceFelclaws					= mod:NewVoice(239932)--defensive/tauntboss
 local voiceRupturingSingularity		= mod:NewVoice(235059)--carefly
 local voiceArmageddon				= mod:NewVoice(240910)--helpsoak
 local voiceSRWailing				= mod:NewVoice(236378)--targetyou (temp, more customized after seen)
-local voiceSRErupting				= mod:NewVoice(236710)--targetyou (temp, more customized after seen)
+local voiceSRErupting				= mod:NewVoice(236710)--targetyou
 local voiceLingeringEruption		= mod:NewVoice(243536)--watchorb/keepmove
+local voiceLingeringWail			= mod:NewVoice(243624)--defensive
+local voiceSorrowfulWail			= mod:NewVoice(241564)--runout
 --Intermission: Eternal Flame
 local voiceFocusedDreadflame		= mod:NewVoice(238502)--helpsoak/range5/targetyou
 local voiceBurstingDreadFlame		= mod:NewVoice(238430)--scatter
@@ -203,7 +205,7 @@ local function handleMissingEmote(self)
 	timerRupturingSingularity:Start(8.2, self.vb.singularityCount)
 	countdownSingularity:Start(8.2)
 	if self:IsMythic() then
-		local timer = phase1MythicSingularityTimers[self.vb.singularityCount+1]
+		local timer = phase1point5MythicSingularityTimers[self.vb.singularityCount+1]
 		if timer then
 			self:Schedule(timer, handleMissingEmote, self)--Already scheduled on delya
 			timerRupturingSingularityCD:Start(timer-1.5, self.vb.singularityCount+1)
@@ -227,18 +229,20 @@ function mod:OnCombatStart(delay)
 	self.vb.wailingCount = 0
 	timerArmageddonCD:Start(10-delay, 1)
 	countdownArmageddon:Start(10-delay)
-	if not self:IsEasy() then
-		timerShadReflectionEruptingCD:Start(21-delay)--Erupting
-	end
 	timerFelclawsCD:Start(25-delay, 1)
 	countdownFelclaws:Start(25-delay)
-	if not self:IsLFR() then
-		timerRupturingSingularityCD:Start(58-delay, 1)
-	end
 	if self:IsMythic() then
+		timerShadReflectionEruptingCD:Start(18.5-delay)
+		timerRupturingSingularityCD:Start(55.2-delay, 1)
 		timerShadReflectionWailingCD:Start(56, 1)
 		berserkTimer:Start(840-delay)--apparently it's anywhere between 14:00 and 14:10 depending on RNG
 	else
+		if not self:IsLFR() then
+			timerRupturingSingularityCD:Start(58-delay, 1)
+			if not self:IsEasy() then
+				timerShadReflectionEruptingCD:Start(21-delay)--Erupting
+			end
+		end
 		berserkTimer:Start(600-delay)
 	end
 end
@@ -463,7 +467,12 @@ function mod:SPELL_CAST_SUCCESS(args)
 			DBM.InfoFrame:Hide()
 		end
 	elseif spellId == 241564 then
-		warnSorrowfulWail:Show()
+		if self.Options.SpecWarn241564run then
+			specWarnSorrowfulWail:Show()
+			voiceSorrowfulWail:Play("runout")
+		else
+			warnSorrowfulWail:Show()
+		end
 		timerSorrowfulWailCD:Start()
 	end
 end
@@ -498,7 +507,11 @@ function mod:SPELL_AURA_APPLIED(args)
 		local icon = self.vb.eruptingReflectionIcon
 		if args:IsPlayer() then
 			specWarnSRErupting:Show(self:IconNumToTexture(icon))
-			voiceSRErupting:Play("targetyou")
+			if self:IsMythic() then
+				voiceSRErupting:Play("mm"..icon)
+			else
+				voiceSRErupting:Play("targetyou")
+			end
 			yellSRErupting:Countdown(8, nil, icon)
 		end
 		if self.Options.SetIconOnEruptingReflection and self:IsMythic() then
@@ -533,6 +546,12 @@ function mod:SPELL_AURA_APPLIED(args)
 				voiceLingeringEruption:Play("watchorb")
 			end
 		end
+	elseif spellId == 243624 then
+		if args:IsPlayer() then
+			specWarnLingeringWail:Show()
+			voiceLingeringWail:Play("defensive")
+			yellLingeringWail:Yell()
+		end
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
@@ -551,7 +570,8 @@ function mod:SPELL_AURA_REMOVED(args)
 		if args:IsPlayer() then
 			yellSRErupting:Cancel()
 		end
-		if self.Options.SetIconOnEruptingReflection and self:IsMythic() then
+	elseif spellId == 243536 then
+		if self.Options.SetIconOnEruptingReflection then
 			self:SetIcon(args.destName, 0)
 		end
 	elseif spellId == 237590 then--Hopeless Shadow Reflection (Stage 2)
@@ -609,9 +629,9 @@ function mod:SPELL_AURA_REMOVED(args)
 		voicePhaseChange:Play("ptwo")
 		if self:IsMythic() then
 			timerFelclawsCD:Start(12, 1)
-			timerArmageddonCD:Start(19.4, 1)
-			countdownArmageddon:Start(19.4)
-			timerRupturingSingularityCD:Start(22.7, 1)
+			timerArmageddonCD:Start(18.2, 1)
+			countdownArmageddon:Start(18.2)
+			timerRupturingSingularityCD:Start(21.5, 1)
 			timerShadReflectionHopelessCD:Start(27)
 			timerFocusedDreadflameCD:Start(33.4, 1)
 			countdownFocusedDread:Start(33.4)
@@ -710,6 +730,7 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
 			if self:IsMythic() then
 				local timer = phase1point5MythicSingularityTimers[self.vb.singularityCount+1]
 				if timer then
+					self:Schedule(timer+1.5, handleMissingEmote, self)
 					timerRupturingSingularityCD:Start(timer, self.vb.singularityCount+1)
 				end
 			else
@@ -730,7 +751,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
 			if self:IsMythic() then
 				local timer = phase1MythicSingularityTimers[self.vb.singularityCount+1]
 				if timer then
-					self:Schedule(timer+1.5, handleMissingEmote, self)
 					timerRupturingSingularityCD:Start(timer, self.vb.singularityCount+1)
 				end
 			elseif self:IsEasy() then
@@ -765,6 +785,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		timerArmageddonCD:Stop()
 		countdownArmageddon:Cancel()
 		timerShadReflectionEruptingCD:Stop()
+		timerShadReflectionWailingCD:Stop()
 		voicePhaseChange:Play("phasechange")
 		if self:IsMythic() then
 			timerArmageddonCD:Start(7.0, 1)

@@ -15,7 +15,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2013)
 
 L:SetMiscLocalization({
---	Pull				= "All worlds will burn in felfire!"
+	Pull				= "I see the weakness in your soul!"
 })
 
 -----------------------
@@ -33,7 +33,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2011)
 
 L:SetMiscLocalization({
---	Pull				= "All worlds will burn in felfire!"
+	Pull				= "New playthings? How irresistible!"
 })
 
 -----------------------

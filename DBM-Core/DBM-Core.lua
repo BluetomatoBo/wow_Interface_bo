@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 16757 $"):sub(12, -3)),
-	DisplayVersion = "7.3.4", -- the string that is shown as version
-	ReleaseRevision = 16757 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 16803 $"):sub(12, -3)),
+	DisplayVersion = "7.3.6", -- the string that is shown as version
+	ReleaseRevision = 16803 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -120,7 +120,7 @@ DBM.DefaultOptions = {
 	WhisperStats = false,
 	DisableStatusWhisper = false,
 	DisableGuildStatus = false,
-	HideBossEmoteFrame = true,
+	HideBossEmoteFrame2 = true,
 	SpamBlockBossWhispers = true,
 	ShowMinimapButton = false,
 	ShowFlashFrame = true,
@@ -170,7 +170,7 @@ DBM.DefaultOptions = {
 	HPFrameX = -50,
 	HPFrameY = 50,
 	HPFrameMaxEntries = 5,
-	WarningDuration = 4,
+	WarningDuration2 = 1.5,
 	WarningPoint = "CENTER",
 	WarningX = 0,
 	WarningY = 260,
@@ -178,7 +178,7 @@ DBM.DefaultOptions = {
 	WarningFontSize = 20,
 	WarningFontStyle = "None",
 	WarningFontShadow = true,
-	SpecialWarningDuration = 4,
+	SpecialWarningDuration2 = 1.5,
 	SpecialWarningPoint = "CENTER",
 	SpecialWarningX = 0,
 	SpecialWarningY = 75,
@@ -388,7 +388,7 @@ local UpdateChestTimer
 local breakTimerStart
 local AddMsg
 
-local fakeBWVersion, fakeBWHash = 71, "2b5e795"
+local fakeBWVersion, fakeBWHash = 73, "3a9a7bb"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -6582,7 +6582,7 @@ do
 			if self.Options.HideQuestTooltips then
 				SetCVar("showQuestTrackingTooltips", 0)
 			end
-			if (self.Options.HideBossEmoteFrame or custom) and not testBuild then
+			if (self.Options.HideBossEmoteFrame2 or custom) and not testBuild then
 				DisableEvent(RaidBossEmoteFrame, "RAID_BOSS_EMOTE")
 				DisableEvent(RaidBossEmoteFrame, "RAID_BOSS_WHISPER")
 				DisableEvent(RaidBossEmoteFrame, "CLEAR_BOSS_EMOTES")
@@ -6598,7 +6598,7 @@ do
 			if self.Options.HideQuestTooltips then
 				SetCVar("showQuestTrackingTooltips", 1)
 			end
-			if (self.Options.HideBossEmoteFrame or custom) and not testBuild then
+			if (self.Options.HideBossEmoteFrame2 or custom) and not testBuild then
 				EnableEvent(RaidBossEmoteFrame, "RAID_BOSS_EMOTE")
 				EnableEvent(RaidBossEmoteFrame, "RAID_BOSS_WHISPER")
 				EnableEvent(RaidBossEmoteFrame, "CLEAR_BOSS_EMOTES")
@@ -7497,6 +7497,7 @@ do
 end
 
 do
+	--TODO, depricate this entire function and use infoframe for this instead. Support bars in infoframe?
 	local frame = CreateFrame("Frame", "DBMShields") -- frame for CLEU events, we don't want to run all *_MISSED events through the whole DBM event system...
 
 	local activeShields = {}
@@ -7537,28 +7538,31 @@ do
 		end
 	end)
 
-	local function getShieldHPFunc(info)
+	local function getShieldHPFunc(info, unitID)
 		return function()
+			if unitID then--Passed with unitID, use UnitGetTotalAbsorbs not CLEU and save CPU
+				info.absorbRemaining = UnitGetTotalAbsorbs(unitID)
+			end
 			return mmax(1, floor(info.absorbRemaining / info.maxAbsorb * 100))
 		end
 	end
 
-	function bossModPrototype:ShowShieldHealthBar(guid, name, absorb)
-		self:RemoveShieldHealthBar(guid, name)
-		if #activeShields == 0 then
-			frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-		end
-		local obj = {
-			mod = self.id,
-			name = name,
-			guid = guid,
-			absorbRemaining = absorb,
-			maxAbsorb = absorb,
-		}
-		obj.func = getShieldHPFunc(obj)
-		activeShields[#activeShields + 1] = obj
-		shieldsByGuid[guid] = obj
+	function bossModPrototype:ShowShieldHealthBar(guid, name, absorb, unitID)
 		if DBM.BossHealth:IsShown() then
+			self:RemoveShieldHealthBar(guid, name)
+			if #activeShields == 0 and not unitID then
+				frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+			end
+			local obj = {
+				mod = self.id,
+				name = name,
+				guid = guid,
+				absorbRemaining = absorb,
+				maxAbsorb = absorb,
+			}
+			obj.func = getShieldHPFunc(obj, unitID)
+			activeShields[#activeShields + 1] = obj
+			shieldsByGuid[guid] = obj
 			DBM.BossHealth:AddBoss(obj.func, name)
 		end
 	end
@@ -7589,21 +7593,21 @@ do
 	end
 
 	function bossModPrototype:ShowDamagedHealthBar(guid, name, damage)
-		self:RemoveDamagedHealthBar(guid, name)
-		if #activeShields == 0 then
-			frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-		end
-		local obj = {
-			mod = self.id,
-			name = name,
-			guid = guid,
-			damageRemaining = damage,
-			maxDamage = damage,
-		}
-		obj.func = getDamagedHPFunc(obj)
-		activeShields[#activeShields + 1] = obj
-		shieldsByGuid[guid] = obj
 		if DBM.BossHealth:IsShown() then
+			self:RemoveDamagedHealthBar(guid, name)
+			if #activeShields == 0 then
+				frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+			end
+			local obj = {
+				mod = self.id,
+				name = name,
+				guid = guid,
+				damageRemaining = damage,
+				maxDamage = damage,
+			}
+			obj.func = getDamagedHPFunc(obj)
+			activeShields[#activeShields + 1] = obj
+			shieldsByGuid[guid] = obj
 			DBM.BossHealth:AddBoss(obj.func, name)
 		end
 	end
@@ -7616,21 +7620,21 @@ do
 	end
 
 	function bossModPrototype:ShowAbsorbedHealHealthBar(guid, name, heal)
-		self:RemoveAbsorbedHealHealthBar(guid, name)
-		if #activeShields == 0 then
-			frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-		end
-		local obj = {
-			mod = self.id,
-			name = name,
-			guid = guid,
-			healed = 0,
-			maxHeal = heal,
-		}
-		obj.func = getHealedHPFunc(obj)
-		activeShields[#activeShields + 1] = obj
-		shieldsByGuid[guid] = obj
 		if DBM.BossHealth:IsShown() then
+			self:RemoveAbsorbedHealHealthBar(guid, name)
+			if #activeShields == 0 then
+				frame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
+			end
+			local obj = {
+				mod = self.id,
+				name = name,
+				guid = guid,
+				healed = 0,
+				maxHeal = heal,
+			}
+			obj.func = getHealedHPFunc(obj)
+			activeShields[#activeShields + 1] = obj
+			shieldsByGuid[guid] = obj
 			DBM.BossHealth:AddBoss(obj.func, name)
 		end
 	end
@@ -8296,7 +8300,7 @@ do
 	local font1elapsed, font2elapsed, font3elapsed, moving
 
 	local function fontHide1()
-		local duration = DBM.Options.WarningDuration
+		local duration = DBM.Options.WarningDuration2
 		if font1elapsed > duration * 1.3 then
 			font1u:Hide()
 			font1:Hide()
@@ -8315,7 +8319,7 @@ do
 	end
 
 	local function fontHide2()
-		local duration = DBM.Options.WarningDuration
+		local duration = DBM.Options.WarningDuration2
 		if font2elapsed > duration * 1.3 then
 			font2u:Hide()
 			font2:Hide()
@@ -8334,7 +8338,7 @@ do
 	end
 
 	local function fontHide3()
-		local duration = DBM.Options.WarningDuration
+		local duration = DBM.Options.WarningDuration2
 		if font3elapsed > duration * 1.3 then
 			font3u:Hide()
 			font3:Hide()
@@ -8456,9 +8460,9 @@ do
 				anchorFrame.ticker:Cancel()
 				anchorFrame.ticker = nil
 			end
-			font1elapsed = self.Options.WarningDuration
-			font2elapsed = self.Options.WarningDuration
-			font3elapsed = self.Options.WarningDuration
+			font1elapsed = self.Options.WarningDuration2
+			font2elapsed = self.Options.WarningDuration2
+			font3elapsed = self.Options.WarningDuration2
 			frame:SetFrameStrata("HIGH")
 			self:Unschedule(moveEnd)
 			self.Bars:CancelBar(DBM_CORE_MOVE_WARNING_BAR)
@@ -9197,7 +9201,7 @@ do
 	local font1elapsed, font2elapsed, moving
 
 	local function fontHide1()
-		local duration = DBM.Options.SpecialWarningDuration
+		local duration = DBM.Options.SpecialWarningDuration2
 		if font1elapsed > duration * 1.3 then
 			font1:Hide()
 			if frame.font1ticker then
@@ -9215,7 +9219,7 @@ do
 	end
 
 	local function fontHide2()
-		local duration = DBM.Options.SpecialWarningDuration
+		local duration = DBM.Options.SpecialWarningDuration2
 		if font2elapsed > duration * 1.3 then
 			font2:Hide()
 			if frame.font2ticker then
@@ -9278,8 +9282,8 @@ do
 		local function moveEnd(self)
 			moving = false
 			anchorFrame:Hide()
-			font1elapsed = self.Options.SpecialWarningDuration
-			font2elapsed = self.Options.SpecialWarningDuration
+			font1elapsed = self.Options.SpecialWarningDuration2
+			font2elapsed = self.Options.SpecialWarningDuration2
 			frame:SetFrameStrata("HIGH")
 			self:Unschedule(moveEnd)
 			self.Bars:CancelBar(DBM_CORE_MOVE_SPECIAL_WARNING_BAR)
@@ -9835,7 +9839,7 @@ do
 		self:AddSpecialWarning(DBM_CORE_MOVE_SPECIAL_WARNING_TEXT)
 		frame:SetFrameStrata("TOOLTIP")
 		self:Unschedule(testWarningEnd)
-		self:Schedule(self.Options.SpecialWarningDuration * 1.3, testWarningEnd)
+		self:Schedule(self.Options.SpecialWarningDuration2 * 1.3, testWarningEnd)
 		if number and not noSound then
 			self:PlaySpecialWarningSound(number)
 		end
