@@ -20,6 +20,7 @@ points["Badlands"] = {
 }
 
 points["BlastedLands"] = {
+	[48160728] = "Zidormi",
 	[60691407] = 28960, -- Nethergarde Keep
 	[44348759] = 28961, -- Surwich
 }
@@ -90,18 +91,6 @@ points["WesternPlaguelands"] = {
 	[43418439] = 28988, -- Chillwind Camp
 }
 
-if IsQuestFlaggedCompleted(26322) then
-	-- Sentinel Hill is on fire, the bucket is in the tower
-	points["Westfall"] = {
-		[56824732] = 12340,
-	}
-else
-	-- Sentinel Hill is not on fire, the bucket is in the inn
-	points["Westfall"] = {
-		[52915374] = 12340,
-	}
-end
-
 points["Wetlands"] = {
 	[10816095] = 12343, -- Menethil Harbour
 	[26092597] = 28990, -- Swiftgear Station
@@ -143,6 +132,7 @@ points["Desolace"] = {
 }
 
 points["Dustwallow"] = {
+	[55804960] = "Zidormi",
 	[66604528] = 12349, -- Theramore Isle
 	[41867409] = 12398, -- Mudsprocket
 }

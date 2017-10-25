@@ -1,0 +1,30 @@
+tag fe5e2a36be58194b242063c82500ce742718850e v1.2.7
+Author:	Ethan Centaurai <ethancentaurai@outlook.com>
+Date:	Sun Oct 22 20:34:57 2017 +0100
+
+Tagging as v1.2.7.
+
+commit 99970893ddb221303ec77d8015726f0fa8e24340
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Sun Oct 22 20:32:42 2017 +0100
+
+    Minor text tweaks.
+
+commit be67612e5ebf380390fb5a9e4cf90bc8f1e86682
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Sun Oct 22 20:30:57 2017 +0100
+
+    Improved detection of Westfall quest progress.
+
+commit 0444ecaf16412fbac27648f748da135449e1f3cc
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Sat Oct 21 23:37:44 2017 +0100
+
+    Added an icon to show Zidormi's location in Blasted Lands.
+
+commit 35a655e112382561fb92356068f8e3e41d715821
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Sat Oct 21 23:30:54 2017 +0100
+
+    Added an icon to show Zidormi's location in Dustwallow Marsh.
+

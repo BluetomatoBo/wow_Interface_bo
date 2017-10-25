@@ -20,6 +20,7 @@ points["Badlands"] = {
 }
 
 points["BlastedLands"] = {
+	[48160728] = "Zidormi",
 	[40471128] = 28959, -- Dreadmaul Hold
 }
 
@@ -125,6 +126,7 @@ points["Durotar"] = {
 }
 
 points["Dustwallow"] = {
+	[55804960] = "Zidormi",
 	[36803240] = 12383, -- Brackenwall Village
 	[41907410] = 12398, -- Mudsprocket
 }

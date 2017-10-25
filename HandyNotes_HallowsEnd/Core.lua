@@ -46,6 +46,9 @@ local points = HallowsEnd.points
 
 -- plugin handler for HandyNotes
 function HallowsEnd:OnEnter(mapFile, coord)
+	mapFile = gsub(mapFile, "_terrain%d+$", "")
+
+	local point = points[mapFile] and points[mapFile][coord]
 	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
 
 	if self:GetCenter() > UIParent:GetCenter() then -- compare X coordinate
@@ -54,7 +57,13 @@ function HallowsEnd:OnEnter(mapFile, coord)
 		tooltip:SetOwner(self, "ANCHOR_RIGHT")
 	end
 
-	tooltip:SetText("Candy Bucket")
+	if point == "Zidormi" then
+		tooltip:SetText("Zidormi")
+		tooltip:AddLine("Talk to the Time Keeper to travel back in time if you can't find the bucket.", 1, 1, 1)
+		tooltip:AddLine(" ")
+	else
+		tooltip:SetText("Candy Bucket")
+	end
 
 	if TomTom then
 		tooltip:AddLine("Right-click to set a waypoint.", 1, 1, 1)
@@ -112,7 +121,11 @@ do
 
 		while state do -- have we reached the end of this zone?
 			if value and (db.completed or not completedQuests[value]) then
-				return state, nil, "interface\\icons\\achievement_halloween_candy_01", db.icon_scale, db.icon_alpha
+				if value == "Zidormi" then
+					return state, nil, "interface\\icons\\spell_holy_borrowedtime", db.icon_scale, db.icon_alpha
+				else
+					return state, nil, "interface\\icons\\achievement_halloween_candy_01", db.icon_scale, db.icon_alpha
+				end
 			end
 
 			state, value = next(t, state) -- get next data
@@ -137,7 +150,11 @@ do
 
 				while state do -- have we reached the end of this zone?
 					if value and (db.completed or not completedQuests[value]) then -- show on continent?
-						return state, mapFile, "interface\\icons\\achievement_halloween_candy_01", db.icon_scale, db.icon_alpha
+						if value == "Zidormi" then
+							return state, mapFile, "interface\\icons\\spell_holy_borrowedtime", db.icon_scale, db.icon_alpha
+						else
+							return state, mapFile, "interface\\icons\\achievement_halloween_candy_01", db.icon_scale, db.icon_alpha
+						end
 					end
 
 					state, value = next(data, state) -- get next data
@@ -223,7 +240,7 @@ local function CheckEventActive()
 	for i=1, numEvents do
 		local _, eventHour, _, eventType, state, _, texture = CalendarGetDayEvent(monthOffset, day, i)
 
-		if texture == "Calendar_HallowsEnd" then
+		if texture == 235460 or texture == 235461 or texture == 235462 then
 			if state == "ONGOING" then
 				setEnabled = true
 			else
@@ -252,6 +269,18 @@ local function CheckEventActive()
 		HallowsEnd:UnregisterAllEvents()
 
 		HandyNotes:Print("The Hallow's End celebrations have ended.  See you next year!")
+	end
+
+	if UnitFactionGroup("player") == "Alliance" then
+		points["Westfall"] = nil
+
+		if completedQuests[26322] then
+			-- Sentinel Hill is on fire, the bucket is in the tower
+			points["Westfall"] = { [56824732] = 12340 }
+		else
+			-- Sentinel Hill is not on fire, the bucket is in the inn
+			points["Westfall"] = { [52915374] = 12340 }
+		end
 	end
 end
 
