@@ -1,8 +1,8 @@
-﻿## Interface: 70200
+﻿## Interface: 70300
 ## Title: |cffffffffCecile|r_|cfffff569MeterOverlay|r
 ## Notes: Display your damage meter as overlay
 ## Author: Cecile, shadowphoenix (Details support), ckaotik (Numeration support)
-## Version: 1.2.1.release
+## Version: 1.2.2.release
 ## SavedVariables: Cecile_MeterOverlayDB
 ## OptionalDeps: ElvUI,Tukui,Skada,Recount,TinyDPS,DBM-Core,BigWigs,Details,Numeration
 
