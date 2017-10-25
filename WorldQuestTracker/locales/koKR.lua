@@ -39,6 +39,7 @@ L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "퀘스트 완료 시 즉시 떠�
 L["S_GROUPFINDER_NOPVP"] = "PVP 서버 피하기"
 L["S_GROUPFINDER_OT_ENABLED"] = "퀘스트 추적기에 버튼 표시"
 L["S_GROUPFINDER_QUEUEBUSY"] = "당신은 이미 대기열에 있습니다."
+L["S_GROUPFINDER_QUEUEBUSY2"] = "파티 찾기 창을 표시할 수 없습니다: 이미 파티 중이거나 대기열에 등록되어 있습니다."
 L["S_GROUPFINDER_RESULTS_APPLYING"] = "파티가 %d개 남았습니다, 다시 클릭하세요"
 L["S_GROUPFINDER_RESULTS_APPLYING1"] = "참여할 파티가 1개 남았습니다, 다시 클릭하세요"
 L["S_GROUPFINDER_RESULTS_FOUND"] = [=[%d개 파티 찾음

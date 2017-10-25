@@ -39,6 +39,8 @@ L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "Salir Inmediatamente al Completar
 L["S_GROUPFINDER_NOPVP"] = "Evitar Servidores PVP"
 L["S_GROUPFINDER_OT_ENABLED"] = "Mostrar botones en el Rastreador de Objetivos"
 L["S_GROUPFINDER_QUEUEBUSY"] = "Ya estás en cola."
+--Translation missing 
+-- L["S_GROUPFINDER_QUEUEBUSY2"] = ""
 L["S_GROUPFINDER_RESULTS_APPLYING"] = "Quedan %d grupos, clic nuevamente"
 L["S_GROUPFINDER_RESULTS_APPLYING1"] = "Queda 1 grupo para unirse, clic nuevamente"
 --Translation missing 

@@ -38,6 +38,7 @@ L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "任務完成時立刻離開"
 L["S_GROUPFINDER_NOPVP"] = "避免加入 PvP 伺服器"
 L["S_GROUPFINDER_OT_ENABLED"] = "在任務目標清單上顯示按鈕"
 L["S_GROUPFINDER_QUEUEBUSY"] = "已經在等候佇列中。"
+L["S_GROUPFINDER_QUEUEBUSY2"] = "無法顯示隊伍搜尋器視窗：已經在隊伍中或等候佇列。"
 L["S_GROUPFINDER_RESULTS_APPLYING"] = "尚有 %d 個隊伍，請再點一下"
 L["S_GROUPFINDER_RESULTS_APPLYING1"] = "尚有 1 個隊伍可以加入，請再點一下"
 L["S_GROUPFINDER_RESULTS_FOUND"] = [=[找到 %d 個隊伍

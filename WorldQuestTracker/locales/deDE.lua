@@ -40,6 +40,8 @@ L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "Nach Questabschluss sofort verlas
 L["S_GROUPFINDER_NOPVP"] = "PvP-Realms vermeiden"
 L["S_GROUPFINDER_OT_ENABLED"] = "Buttons auf der Questverfolgung zeigen."
 L["S_GROUPFINDER_QUEUEBUSY"] = "Du bist bereits in einer Warteschlange."
+--Translation missing 
+-- L["S_GROUPFINDER_QUEUEBUSY2"] = ""
 L["S_GROUPFINDER_RESULTS_APPLYING"] = "Es gibt noch %d verbleibende Gruppen, klicke nochmal"
 L["S_GROUPFINDER_RESULTS_APPLYING1"] = "Es gibt noch 1 verbleibende Gruppe, klicke nochmal"
 L["S_GROUPFINDER_RESULTS_FOUND"] = [=[Es wurden %s Gruppen gefunden
@@ -116,8 +118,7 @@ L["S_QUESTTYPE_TRADESKILL"] = "Berufsfertigkeit"
 --Translation missing 
 -- L["S_RAREFINDER_ADDFROMPREMADE"] = ""
 L["S_RAREFINDER_NPC_NOTREGISTERED"] = "Seltener NSC nicht in der Datenbank"
---Translation missing 
--- L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = ""
+L["S_RAREFINDER_OPTIONS_ENGLISHSEARCH"] = "Immer auf Englisch suchen"
 L["S_RAREFINDER_OPTIONS_SHOWICONS"] = "Symbole für aktive seltene Gegner anzeigen"
 --Translation missing 
 -- L["S_RAREFINDER_SOUND_ALWAYSPLAY"] = ""
@@ -126,10 +127,8 @@ L["S_RAREFINDER_OPTIONS_SHOWICONS"] = "Symbole für aktive seltene Gegner anzeig
 --Translation missing 
 -- L["S_RAREFINDER_SOUNDWARNING"] = ""
 L["S_RAREFINDER_TITLE"] = "Suche seltener Gegner"
---Translation missing 
--- L["S_RAREFINDER_TOOLTIP_REMOVE"] = ""
---Translation missing 
--- L["S_RAREFINDER_TOOLTIP_SEACHREALM"] = ""
+L["S_RAREFINDER_TOOLTIP_REMOVE"] = "Entfernen"
+L["S_RAREFINDER_TOOLTIP_SEACHREALM"] = "Auf anderen Realms suchen"
 L["S_RAREFINDER_TOOLTIP_SPOTTEDBY"] = "Aufgespürt von"
 L["S_RAREFINDER_TOOLTIP_TIMEAGO"] = "Minuten vergangen"
 L["S_SHAREPANEL_THANKS"] = [=[Danke, dass Du World Quest Tracker weitergibst!
@@ -152,7 +151,6 @@ L["S_TUTORIAL_REWARD"] = "Zeigt die Belohnung an (Ausrüstung, Gold, Artefaktmac
 L["S_TUTORIAL_TIMELEFT"] = "Zeigt die verbleibende Zeit an (+4 Stunden, +90 Minuten, +30 Minuten, weniger als 30 Minuten)"
 L["S_TUTORIAL_WORLDMAPBUTTON"] = "Diese Schaltfläche öffnet die Karte der Verheerten Inseln."
 L["S_UNKNOWNQUEST"] = "Unbekannte Quest"
---Translation missing 
--- L["S_WORLDMAP_TOOGLEQUESTS"] = ""
+L["S_WORLDMAP_TOOGLEQUESTS"] = "Quests ein-/ausblenden"
 L["S_WORLDQUESTS"] = "Weltquests"
 

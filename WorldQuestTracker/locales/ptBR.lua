@@ -39,6 +39,8 @@ L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "Sair imediatamente após completa
 L["S_GROUPFINDER_NOPVP"] = "Evitar servidores JxJ"
 L["S_GROUPFINDER_OT_ENABLED"] = "Mostrar botões na listagem de objetivos"
 L["S_GROUPFINDER_QUEUEBUSY"] = "você já está em uma fila."
+--Translation missing 
+-- L["S_GROUPFINDER_QUEUEBUSY2"] = ""
 L["S_GROUPFINDER_RESULTS_APPLYING"] = "Faltam %d grupos para aplicar, clique novamente"
 L["S_GROUPFINDER_RESULTS_APPLYING1"] = "Falta um grupo para aplicar, clique novamente"
 L["S_GROUPFINDER_RESULTS_FOUND"] = [=[%d grupos encontrados

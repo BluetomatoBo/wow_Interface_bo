@@ -38,6 +38,7 @@ L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "Leave Immediately on Quest Comple
 L["S_GROUPFINDER_NOPVP"] = "Avoid PVP Servers"
 L["S_GROUPFINDER_OT_ENABLED"] = "Show Buttons on the Objective Tracker"
 L["S_GROUPFINDER_QUEUEBUSY"] = "you are already in a queue."
+L["S_GROUPFINDER_QUEUEBUSY2"] = "couldn't show the group finder window: you're already in group or in queue."
 L["S_GROUPFINDER_RESULTS_APPLYING"] = "There's %d remaining groups, click again"
 L["S_GROUPFINDER_RESULTS_APPLYING1"] = "There's 1 remaining group to join, click again"
 L["S_GROUPFINDER_RESULTS_FOUND"] = [=[found %d groups

@@ -67,6 +67,8 @@ L["S_FLYMAP_SHOWWORLDQUESTS"] = "Affiche les Expéditions"
 --Translation missing 
 -- L["S_GROUPFINDER_QUEUEBUSY"] = ""
 --Translation missing 
+-- L["S_GROUPFINDER_QUEUEBUSY2"] = ""
+--Translation missing 
 -- L["S_GROUPFINDER_RESULTS_APPLYING"] = ""
 --Translation missing 
 -- L["S_GROUPFINDER_RESULTS_APPLYING1"] = ""

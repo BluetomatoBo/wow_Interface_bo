@@ -38,6 +38,7 @@ L["S_GROUPFINDER_LEAVEOPTIONS_IMMEDIATELY"] = "任务完成时立即离开小队
 L["S_GROUPFINDER_NOPVP"] = "避开 PVP 服务器"
 L["S_GROUPFINDER_OT_ENABLED"] = "任务追踪上显示按钮"
 L["S_GROUPFINDER_QUEUEBUSY"] = "你已经在队列中。"
+L["S_GROUPFINDER_QUEUEBUSY2"] = "不显示团队查找器窗口：已在队伍或查找时。"
 L["S_GROUPFINDER_RESULTS_APPLYING"] = "有 %d 个剩余的队伍，请再点击一次"
 L["S_GROUPFINDER_RESULTS_APPLYING1"] = "有1个剩余的队伍可加入，请再点击一次"
 L["S_GROUPFINDER_RESULTS_FOUND"] = [=[找到 %d 个队伍
