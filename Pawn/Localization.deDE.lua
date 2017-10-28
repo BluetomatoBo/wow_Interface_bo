@@ -282,7 +282,7 @@ Weitere Informationen zur Anpassung von Pawn findet ihr in der Hilfedatei (Readm
 		["ScopeRangedCrit"] = "^%+?([%d%.,]+) kritische Ferntrefferwertung$",
 		["Shield"] = "^Schild$",
 		["SocketBonusPrefix"] = "Sockelbonus:",
-		["Speed"] = "^Tempo ([%d%.,]+)$",
+		["Speed"] = "^Geschwindigkeit ([%d%.,]+)$",
 		["Speed2"] = "^UNUSED$",
 		["SpellPower"] = "^%+?([%d%.,]+) Zaubermacht$",
 		["Spirit"] = "^%+?([-%d%.,]+) Willenskraft$",
