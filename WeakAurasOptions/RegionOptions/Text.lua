@@ -39,28 +39,7 @@ local function createOptions(id, data)
       values = WeakAuras.text_check_types,
       order = 36
     },
-    customText = {
-      type = "input",
-      width = "normal",
-      hidden = function()
-        return not data.displayText:find("%%c")
-      end,
-      multiline = true,
-      name = L["Custom Function"],
-      order = 37,
-      control = "WeakAurasMultiLineEditBox"
-    },
-    customText_expand = {
-      type = "execute",
-      order = 38,
-      name = L["Expand Text Editor"],
-      func = function()
-        WeakAuras.OpenTextEditor(data, {"customText"})
-      end,
-      hidden = function()
-        return not data.displayText:find("%%c")
-      end,
-    },
+    -- code editor added below
     progressPrecision = {
       type = "select",
       order = 39,
@@ -126,6 +105,9 @@ local function createOptions(id, data)
       order = 50
     }
   };
+
+  WeakAuras.AddCodeOption(options, data, L["Custom Function"], "customText", 37, function() return not data.displayText:find("%%c") end, {"customText"}, false);
+
   options = WeakAuras.AddPositionOptions(options, id, data);
 
   options.width = nil;
