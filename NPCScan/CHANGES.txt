@@ -1,54 +1,10 @@
-tag f227cade2703f6b22bfdfa2372d616b77a21885b 7.3.0.5
+tag 6085c820ac9cf727822800c52117afd9baa15530 7.3.0.6
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Fri Sep 22 19:55:10 2017 -0500
+Date:	Fri Oct 27 04:00:10 2017 -0500
 
-commit 425722e814f089e292f25cf16d8692b7fa378ca1
+commit c11d617ae2766bdb9dd686ae20528f0ee2b40f71
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Fri Sep 22 19:49:31 2017 -0500
+Date:   Fri Oct 27 03:59:26 2017 -0500
 
-    Move Shar'thos to the correct zone, and add Krakkanon to another zone.
-
-commit 036b0c65dae35aa7740a0b90572b91c476933f7c
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Fri Sep 22 18:38:35 2017 -0500
-
-    Stonearm can also be found in Southern Barrens.
-
-commit 0235491daf79d5a1e69139e4c03a63c01136bae6
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Fri Sep 22 16:34:23 2017 -0500
-
-    Add the tracking quest to the un-killable version of Nithogg, so it doesn't alert after the actual version is killed - silly achievement uses the un-killable ID.
-
-commit f11916cac1779167421f919393ed9d8179c398a5
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Fri Sep 22 16:20:40 2017 -0500
-
-    Revert "Remove "cinematic" version of Nithogg - it's unkillable."
-    
-    This reverts commit 7489a782c286dbd35677d6fef9b961eca75b191b.
-
-commit e9ed37a03444f0b1567ff12bf132b692e5c2de91
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Fri Sep 22 16:19:31 2017 -0500
-
-    Add data for Bestrix, Cinderwing, Simone the Seductress, Aodh Witherpetal, Arthfael, Jaggen-Ra, Dread Corsair, Kudzilla, and Rage Rot.
-
-commit 7489a782c286dbd35677d6fef9b961eca75b191b
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Fri Sep 22 16:12:06 2017 -0500
-
-    Remove "cinematic" version of Nithogg - it's unkillable.
-
-commit be7792aa5247f3e626ffa9d9fc0a45c24c8fab1c
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Fri Sep 22 15:17:35 2017 -0500
-
-    Add data for Lightning Paw.
-
-commit c59835ff353c35054362db25f49d4464e41a0079
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Fri Sep 22 14:48:45 2017 -0500
-
-    Belatedly add data for Broken Shore NPCs.
+    Do not alert on NPCs from the World Map if they have no associated quest - fixes https://www.wowace.com/projects/npcscan/issues/188
 
