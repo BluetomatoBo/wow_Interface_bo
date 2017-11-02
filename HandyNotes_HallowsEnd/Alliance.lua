@@ -241,10 +241,16 @@ points["BoreanTundra"] = {
 	[78404920] = 13460, -- Unu'pe
 }
 
+points["CrystalsongForest"] = {
+	[29053658] = 13463, -- The Ledgerdemain Lounge, Dalaran
+	[27294136] = 13472, -- The Underbelly, Dalaran
+	[27284323] = 13473, -- The Silver Enclave, Dalaran
+}
+
 points["Dalaran"] = {
-	[48304080] = 13463, -- The Ledgerdemain Lounge
-	[37805990] = 13472, -- The Underbelly
-	[42506360] = 13473, -- The Silver Enclave
+	[48144132] = 13463, -- The Ledgerdemain Lounge
+	[38235958] = 13472, -- The Underbelly
+	[42346308] = 13473, -- The Silver Enclave
 }
 
 points["Dragonblight"] = {
@@ -349,6 +355,10 @@ points["KunLaiSummit"] = {
 	[62482892] = 32051, -- Zouchin Village
 }
 
+points["ShrineofSevenStars"] = {
+	[37866593] = 32052, -- Shrine of Seven Stars, Vale of Eternal Blossoms
+}
+
 points["TheHiddenPass"] = {
 	[55037224] = 32026, -- Tavern in the Mists
 }
@@ -369,7 +379,7 @@ points["TownlongWastes"] = {
 
 points["ValeofEternalBlossoms"] = {
 	[35137777] = 32044, -- Mistfall Village
-	[87006895] = 32052, -- Shrine of Seven Stars
+	[87036889] = 32052, -- Shrine of Seven Stars
 }
 
 points["ValleyoftheFourWinds"] = {

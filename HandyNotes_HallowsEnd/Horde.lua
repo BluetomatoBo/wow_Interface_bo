@@ -235,9 +235,15 @@ points["BoreanTundra"] = {
 	[49750998] = 13501, -- Bor'gorok Outpost
 }
 
+points["CrystalsongForest"] = {
+	[29053658] = 13463, -- The Ledgerdemain Lounge, Dalaran
+	[27294136] = 13472, -- The Underbelly, Dalaran
+	[34743302] = 13474, -- Sunreaver's Sanctuary, Dalaran
+}
+
 points["Dalaran"] = {
-	[48134130] = 13463, -- The Ledgerdemain Lounge
-	[38245957] = 13472, -- The Underbelly
+	[48144132] = 13463, -- The Ledgerdemain Lounge
+	[38235958] = 13472, -- The Underbelly
 	[66842962] = 13474, -- Sunreaver's Sanctuary
 }
 

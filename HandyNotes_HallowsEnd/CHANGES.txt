@@ -1,30 +1,30 @@
-tag fe5e2a36be58194b242063c82500ce742718850e v1.2.7
+tag 87b30684869b9dae60372f17206d416b12c1540a v1.2.8
 Author:	Ethan Centaurai <ethancentaurai@outlook.com>
-Date:	Sun Oct 22 20:34:57 2017 +0100
+Date:	Sat Oct 28 22:21:51 2017 +0100
 
-Tagging as v1.2.7.
+Tagging as v1.2.8.
 
-commit 99970893ddb221303ec77d8015726f0fa8e24340
+commit 770a648f1261a4adc868870d303f04bcc6a2f972
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sun Oct 22 20:32:42 2017 +0100
+Date:   Mon Oct 23 21:52:06 2017 +0100
 
-    Minor text tweaks.
+    Tweaked the coordinates of Shrine of Seven Stars.
 
-commit be67612e5ebf380390fb5a9e4cf90bc8f1e86682
+commit 5c74835ea6cbd87100698156dfea465c25ffdda5
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sun Oct 22 20:30:57 2017 +0100
+Date:   Mon Oct 23 20:54:10 2017 +0100
 
-    Improved detection of Westfall quest progress.
+    Stop creating waypoints to Zidormi when using the mass-waypoint function.
 
-commit 0444ecaf16412fbac27648f748da135449e1f3cc
+commit 6c9bec54cd07be910e3709ea320711140e2f1b8a
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Oct 21 23:37:44 2017 +0100
+Date:   Mon Oct 23 20:48:38 2017 +0100
 
-    Added an icon to show Zidormi's location in Blasted Lands.
+    Fixed an error that sometimes occurs when creating waypoints.
 
-commit 35a655e112382561fb92356068f8e3e41d715821
+commit 6f89c412b5641c5e1185d652412571e07ac5396a
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Oct 21 23:30:54 2017 +0100
+Date:   Mon Oct 23 00:10:41 2017 +0100
 
-    Added an icon to show Zidormi's location in Dustwallow Marsh.
+    Tweaked the coordinates of Northrend Dalaran.
 
