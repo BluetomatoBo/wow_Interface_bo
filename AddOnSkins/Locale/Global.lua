@@ -20,10 +20,10 @@ function AS:UpdateLocale()
 	ASL.EmbedSystem.ToggleEmbed = 'Toggle Embedded AddOn'
 	ASL.EmbedSystem.ToggleOptions = 'Toggle Options'
 
-	ASL.OptionsPanel.SkinDesc = 'Enable/Disable this skin.\n This requires a reload to take effect.'
+	ASL.OptionsPanel.SkinDesc = 'Enable/Disable this skin.\nThis requires a reload to take effect.'
 	ASL.OptionsPanel.EmbedDesc = 'Enable/Disable this embed.'
 	ASL.OptionsPanel.OptionDesc = 'Enable/Disable this option.'
-	ASL.OptionsPanel.ElvUIDesc = 'This option will disable the corresponding ElvUI option. Do you accept this change?'
+	ASL.OptionsPanel.ElvUIDesc = 'This option will toggle the corresponding ElvUI option.'
 
 	ASL["AddOn Skins"] = "AddOn Skins"
 	ASL["Blizzard Skins"] = "Blizzard Skins"
@@ -64,7 +64,7 @@ function AS:UpdateLocale()
 	ASL["Credits"] = "Credits"
 	ASL["Credits:"] = "Credits:"
 	ASL["About/Help"] = "About/Help"
-	ASL["This is where you can find out more of AddOnSkins."] = "This is where you can find out more of AddOnSkins."
+	ASL["Links"] = "Links"
 	ASL["Download Link"] = "Download Link"
 	ASL["Changelog Link"] = "Changelog Link"
 	ASL["GitLab Link / Report Errors"] = "GitLab Link / Report Errors"

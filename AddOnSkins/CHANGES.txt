@@ -1,16 +1,186 @@
-lightweight tag 69a9a510c3395a500df78df142f5a546d6e8d654 3.58
+lightweight tag 1456cae0d13af9d6e4d31e2a9a6da96c09428aac 3.60
 Author:	Azilroka <darktemplar9900@yahoo.com>
-Date:	Tue Oct 3 20:22:54 2017 -0500
+Date:	Tue Oct 31 18:38:34 2017 -0500
 
-commit 69a9a510c3395a500df78df142f5a546d6e8d654
+commit 1456cae0d13af9d6e4d31e2a9a6da96c09428aac
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Oct 3 20:22:54 2017 -0500
+Date:   Tue Oct 31 18:38:34 2017 -0500
 
-    3.58
+    3.60
 
-commit f483cb4446666f4c16a9f98b89928f59c85fefef
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Oct 3 20:22:13 2017 -0500
+commit 5b373016c8e4d6c11481b45f48ca4b9adaf60c4a
+Author: Merathilis <neo0608@gmail.com>
+Date:   Mon Oct 30 09:34:20 2017 +0100
 
-    Missed
+    Add skin for BtWQuests
+
+commit 1b7654634adea6cd7bfe00ecb8cec074aaa0cccc
+Author: Merathilis <neo0608@gmail.com>
+Date:   Mon Oct 30 09:34:08 2017 +0100
+
+    Fix a ScrollBar in the EncounterJournal skin
+
+commit c326bf1fb5edfd9aac37f72dabba568e266b8dc3
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Oct 29 05:11:12 2017 -0500
+
+    Update
+
+commit c326bf1fb5edfd9aac37f72dabba568e266b8dc3
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Oct 29 05:11:12 2017 -0500
+
+    Update
+
+commit 3fdb85089d956cc353433a212db111d6fa4a30f4
+Author: Merathilis <neo0608@gmail.com>
+Date:   Fri Oct 27 11:57:42 2017 +0200
+
+    Another try to skin the options for OHC. Thanks to Hemario. Azilroka/AddOnSkins!10
+
+commit 4bbb10a092cfb20d3a852f1efd808c3da783ee8d
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Tue Oct 24 20:50:31 2017 -0500
+
+    Options fix
+
+commit 50f7b73061abb057368627386f736f9c4ae06bc3
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Tue Oct 24 18:06:11 2017 -0500
+
+    WorldStateCaptureBar
+
+commit 2daee85f0c9ca2faba01cfb34727f0007aaf4c37
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Mon Oct 23 20:05:26 2017 -0500
+
+    Blizzard Bags, LFG, Mail, Spellbook
+
+commit 3795d764eeb5e98c03bc8c4607cde24b58fa6fbe
+Author: Merathilis <neo0608@gmail.com>
+Date:   Mon Oct 23 12:19:39 2017 +0200
+
+    Fix OrderhallCommander skin.
+    
+    The options gets changed every version, so dont skin it!
+
+commit d9edaa6e08f4881c53e54fb88eac37c97544a7d3
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Oct 15 08:47:28 2017 -0500
+
+    Fix this.
+
+commit 53bc92d52f0ac738beb882475a89d8d3b509e053
+Author: Merathilis <neo0608@gmail.com>
+Date:   Sat Oct 14 15:46:55 2017 +0200
+
+    Add ArgusEliteTracker skin. >.>
+
+commit d13833ef4803bab6050f61bc65ba9c85fdcccf41
+Author: Merathilis <neo0608@gmail.com>
+Date:   Sat Oct 14 15:46:36 2017 +0200
+
+    Use tabs instead of spaces in the Hack skin
+
+commit 12b65713dc20b8d5117a8c9d00efb3e7846544ce
+Author: Merathilis <neo0608@gmail.com>
+Date:   Fri Oct 13 11:56:28 2017 +0200
+
+    Clean up the ClassOrderHallsComplete skin.
+
+commit 194ec59791045eeebd35f6b5d56d8ccc188b40f7
+Author: Andreas Carlsson <acarlss@hotmail.com>
+Date:   Thu Oct 12 18:46:28 2017 -0400
+
+    Update Load_Skins.xml
+
+commit 194ec59791045eeebd35f6b5d56d8ccc188b40f7
+Author: Andreas Carlsson <acarlss@hotmail.com>
+Date:   Thu Oct 12 18:46:28 2017 -0400
+
+    Update Load_Skins.xml
+
+commit c81c2291ff7a4b4f9313d386b0381d471e9b869c
+Author: Andreas Carlsson <acarlss@hotmail.com>
+Date:   Thu Oct 12 18:39:38 2017 -0400
+
+    Add new file
+
+commit 2ceba0f06d3c4e9f31b7711bae29cb69ae984db0
+Author: Merathilis <neo0608@gmail.com>
+Date:   Mon Oct 9 11:32:17 2017 +0200
+
+    Hey, don't kill the minimap button >.>
+
+commit 72da128bc99cd9bda1d0c61365c3c5937f721752
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Oct 8 17:58:39 2017 -0500
+
+    Remind people they need to reload for the skins.
+
+commit 4930a7681acdf04dd056a941723ca440e61332b4
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Oct 8 13:47:20 2017 -0500
+
+    Fix RunPreload
+
+commit 851309fc60f434ba4a0736405794e9ed67dabfc5
+Author: Merathilis <neo0608@gmail.com>
+Date:   Sun Oct 8 10:38:14 2017 +0200
+
+    Update german locale.
+
+commit de5ec6a4eb5b8b0772296b5ed15e63073264fedc
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Oct 8 03:20:12 2017 -0500
+
+    Fix this locale
+
+commit e40524aa76e16864fba369d38a9690c88f8f1654
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Oct 8 03:14:37 2017 -0500
+
+    Don't need this.
+
+commit 523c352107360c70fa8ae7cf79dcfa9661767b78
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Oct 8 01:55:07 2017 -0500
+
+    Mera is going to love locales
+
+commit 51988e15e070559737fe7e24817eafd6165a0d4d
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Fri Oct 6 22:09:44 2017 -0500
+
+    This is sparta
+
+commit 5d67b826fc121ccc3f7a3f9b40da2db3e26112ad
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Fri Oct 6 22:08:02 2017 -0500
+
+    and here we go
+
+commit 5c27088a1f77c95161da443584045cebf9f7fb15
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Fri Oct 6 04:56:41 2017 -0500
+
+    Put Details back to how it was for now...
+
+commit bf3586d7fa7c5f88e99432126bdad2dfc883bbee
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Thu Oct 5 21:43:54 2017 -0500
+
+    Has to be updated twice.
+
+commit 7afd209fc6f5a774a844fb420c862cf4f6fe6dba
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Thu Oct 5 21:17:25 2017 -0500
+
+    More Cleanup
+
+commit a89f7d65c351df595d30010fbb316a05be5dd46c
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Thu Oct 5 20:19:01 2017 -0500
+
+    Cleanup
 

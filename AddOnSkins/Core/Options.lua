@@ -1,48 +1,6 @@
 local AS, ASL = unpack(AddOnSkins)
-local tinsert, sort, pairs, format, gsub, strfind, strlower, strtrim = tinsert, sort, pairs, format, gsub, strfind, strlower, strtrim
+local sort, pairs, gsub, strfind, strlower, strtrim = sort, pairs, gsub, strfind, strlower, strtrim
 local ACR, ACD = LibStub('AceConfigRegistry-3.0'), LibStub('AceConfigDialog-3.0')
-
-local defaults = {
-	profile = {
-	-- Embeds
-		['EmbedOoC'] = false,
-		['EmbedOoCDelay'] = 10,
-		['EmbedCoolLine'] = false,
-		['EmbedSexyCooldown'] = false,
-		['EmbedSystem'] = false,
-		['EmbedSystemDual'] = false,
-		['EmbedMain'] = 'Skada',
-		['EmbedLeft'] = 'Skada',
-		['EmbedRight'] = 'Skada',
-		['EmbedRightChat'] = true,
-		['EmbedLeftWidth'] = 200,
-		['EmbedBelowTop'] = false,
-		['TransparentEmbed'] = false,
-		['EmbedIsHidden'] = false,
-		['EmbedFrameStrata'] = '3-MEDIUM',
-		['EmbedFrameLevel'] = 1,
-	-- Misc
-		['RecountBackdrop'] = true,
-		['SkadaBackdrop'] = true,
-		['OmenBackdrop'] = true,
-		['DetailsBackdrop'] = true,
-		['MiscFixes'] = true,
-		['DBMSkinHalf'] = false,
-		['DBMFont'] = 'Tukui',
-		['DBMFontSize'] = 12,
-		['DBMFontFlag'] = 'OUTLINE',
-		['DBMRadarTrans'] = false,
-		['WeakAuraAuraBar'] = false,
-		['WeakAuraIconCooldown'] = false,
-		['SkinTemplate'] = 'Transparent',
-		['HideChatFrame'] = 'NONE',
-		['SkinDebug'] = false,
-		['LoginMsg'] = true,
-		['EmbedSystemMessage'] = true,
-		['ElvUISkinModule'] = false,
-		['ThinBorder'] = false,
-	},
-}
 
 local DEVELOPER_STRING = ''
 local LINE_BREAK = '\n'
@@ -82,7 +40,6 @@ local DEVELOPERS = {
 	'Shestak',
 	'Shadowcall',
 	'Sinaris',
-	'Infinitron',
 	'Simpy',
 	'Tercioo',
 	'Tukz',
@@ -98,11 +55,67 @@ local DEVELOPERS = {
 
 sort(DEVELOPERS, function(a, b) return strlower(a) < strlower(b) end)
 for _, devName in pairs(DEVELOPERS) do
-	DEVELOPER_STRING = DEVELOPER_STRING..devName..LINE_BREAK
+	DEVELOPER_STRING = DEVELOPER_STRING..devName..'    '
 end
 
+local Defaults, DebugString = nil, ''
 function AS:SetupProfile()
-	self.data = LibStub('AceDB-3.0'):New('AddOnSkinsDB', defaults)
+	if not Defaults then
+		Defaults = {
+			profile = {
+			-- Embeds
+				['EmbedOoC'] = false,
+				['EmbedOoCDelay'] = 10,
+				['EmbedCoolLine'] = false,
+				['EmbedSexyCooldown'] = false,
+				['EmbedSystem'] = false,
+				['EmbedSystemDual'] = false,
+				['EmbedMain'] = 'Details',
+				['EmbedLeft'] = 'Details',
+				['EmbedRight'] = 'Details',
+				['EmbedRightChat'] = true,
+				['EmbedLeftWidth'] = 200,
+				['EmbedBelowTop'] = false,
+				['TransparentEmbed'] = false,
+				['EmbedIsHidden'] = false,
+				['EmbedFrameStrata'] = '3-MEDIUM',
+				['EmbedFrameLevel'] = 10,
+			-- Misc
+				['RecountBackdrop'] = true,
+				['SkadaBackdrop'] = true,
+				['OmenBackdrop'] = true,
+				['DetailsBackdrop'] = true,
+				['MiscFixes'] = true,
+				['DBMSkinHalf'] = false,
+				['DBMFont'] = 'Arial Narrow',
+				['DBMFontSize'] = 12,
+				['DBMFontFlag'] = 'OUTLINE',
+				['DBMRadarTrans'] = false,
+				['WeakAuraAuraBar'] = false,
+				['WeakAuraIconCooldown'] = false,
+				['SkinTemplate'] = 'Transparent',
+				['HideChatFrame'] = 'NONE',
+				['SkinDebug'] = false,
+				['LoginMsg'] = true,
+				['EmbedSystemMessage'] = true,
+				['ElvUISkinModule'] = false,
+				['ThinBorder'] = false,
+			},
+		}
+
+		for skin in pairs(AS.register) do
+			if Defaults.profile[skin] == nil then
+				if AS:CheckAddOn('ElvUI') and strfind(skin, 'Blizzard_') then
+					Defaults.profile[skin] = false
+				else
+					Defaults.profile[skin] = true
+				end
+			end
+		end
+	end
+
+	self.data = LibStub('AceDB-3.0'):New('AddOnSkinsDB', Defaults)
+
 	self.data.RegisterCallback(self, 'OnProfileChanged', 'SetupProfile')
 	self.data.RegisterCallback(self, 'OnProfileCopied', 'SetupProfile')
 	self.db = self.data.profile
@@ -117,18 +130,14 @@ function AS:GetOptions()
 			order = order,
 			desc = ASL.OptionsPanel.SkinDesc,
 		}
-		if AS:CheckAddOn('ElvUI') then
-			if strfind(skinName, 'Blizzard_') then
-				options.desc = ASL.OptionsPanel.ElvUIDesc
-				options.confirm = true
-			end
-			options.set = function(info, value) AS:SetOption(info[#info], value) AS:DisableElvUIOption(info[#info]) end
+		if AS:CheckAddOn('ElvUI') and strfind(skinName, 'Blizzard_') then
+			options.set = function(info, value) AS:SetOption(info[#info], value) AS:SetElvUIBlizzardSkinOption(info[#info], not value) AS.NeedReload = true end
 		end
 		return options
 	end
 
 	local Options = {
-		order = 100,
+		order = 101,
 		type = 'group',
 		name = AS.Title,
 		childGroups = 'tab',
@@ -138,7 +147,7 @@ function AS:GetOptions()
 				type = 'group',
 				name = ASL['AddOn Skins'],
 				get = function(info) return AS:CheckOption(info[#info]) end,
-				set = function(info, value) AS:SetOption(info[#info], value) end,
+				set = function(info, value) AS:SetOption(info[#info], value) AS.NeedReload = true end,
 				args = {},
 			},
 			blizzard = {
@@ -146,7 +155,7 @@ function AS:GetOptions()
 				type = 'group',
 				name = ASL['Blizzard Skins'],
 				get = function(info) return AS:CheckOption(info[#info]) end,
-				set = function(info, value) AS:SetOption(info[#info], value) end,
+				set = function(info, value) AS:SetOption(info[#info], value) AS.NeedReload = true end,
 				args = {},
 			},
 			bossmods = {
@@ -160,13 +169,13 @@ function AS:GetOptions()
 						type = 'select', dialogControl = 'LSM30_Font',
 						order = 1,
 						name = ASL['DBM|VEM Font'],
-						values = AceGUIWidgetLSMlists.font, 
+						values = AceGUIWidgetLSMlists.font,
 					},
 					DBMFontSize = {
 						type = 'range',
 						order = 2,
 						name = ASL['DBM|VEM Font Size'],
-						min = 8, max = 18, step = 1, 
+						min = 8, max = 18, step = 1,
 					},
 					DBMFontFlag = {
 						name = ASL['DBM|VEM Font Flag'],
@@ -313,11 +322,11 @@ function AS:GetOptions()
 						name = ASL['Embed Below Top Tab'],
 						order = 17,
 					},
-					DetailsBackdrop = { 
-						type = 'toggle', 
-						name = ASL['Details Backdrop'], 
-						order = 18, 
-						disabled = function() return not (AS:CheckOption('Details', 'Details') and AS:CheckEmbed('Details')) end 
+					DetailsBackdrop = {
+						type = 'toggle',
+						name = ASL['Details Backdrop'],
+						order = 18,
+						disabled = function() return not (AS:CheckOption('Details', 'Details') and AS:CheckEmbed('Details')) end
 					},
 					RecountBackdrop = {
 						type = 'toggle',
@@ -356,7 +365,7 @@ function AS:GetOptions()
 				name = MISCELLANEOUS,
 				order = 4,
 				get = function(info) return AS:CheckOption(info[#info]) end,
-				set = function(info, value) AS:SetOption(info[#info], value) end,
+				set = function(info, value) AS:SetOption(info[#info], value) AS.NeedReload = true end,
 				args = {
 					SkinTemplate = {
 						name = ASL['Skin Template'],
@@ -409,64 +418,72 @@ function AS:GetOptions()
 					},
 				},
 			},
-			credits = {
-				type = 'group',
-				name = ASL['Credits'],
-				order = -1,
-				args = {
-					desc = {
-						order = 1,
-						type = 'description',
-						name = DEVELOPER_STRING,
-						fontSize = 'large',
-					},
-				},
-			},
 			about = {
 				type = 'group',
 				name = ASL['About/Help'],
 				order = -2,
 				args = {
-					desc = {
+					AuthorHeader = {
+						order = 0,
+						type = 'header',
+						name = 'Authors:',
+					},
+					Authors = {
 						order = 1,
 						type = 'description',
-						fontSize = 'medium',
-						name = ASL['This is where you can find out more of AddOnSkins.'],
+						name = AS.Authors,
+						fontSize = 'large',
+					},
+					DevelopersHeader = {
+						order = 2,
+						type = 'header',
+						name = 'Developers:',
+					},
+					Developers = {
+						order = 3,
+						type = 'description',
+						name = DEVELOPER_STRING,
+						fontSize = 'large',
+					},
+					desc = {
+						order = 4,
+						type = 'header',
+						name = ASL['Links'],
 					},
 					tukuilink = {
+						order = 5,
 						type = 'input',
 						width = 'full',
 						name = ASL['Download Link'],
-						get = function(info) return 'https://www.tukui.org/addons.php?id=3' end,
-						order = 2,
+						get = function() return 'https://www.tukui.org/addons.php?id=3' end,
 					},
 					changeloglink = {
+						order = 6,
 						type = 'input',
 						width = 'full',
 						name = ASL['Changelog Link'],
-						get = function(info) return 'http://www.tukui.org/forums/topic.php?id=30607' end,
-						order = 3,
+						get = function() return 'https://www.tukui.org/forum/viewtopic.php?f=35&t=801' end,
 					},
 					gitlablink = {
+						order = 7,
 						type = 'input',
 						width = 'full',
 						name = ASL['GitLab Link / Report Errors'],
-						get = function(info) return 'https://git.tukui.org/Azilroka/AddOnSkins' end,
-						order = 4,
+						get = function() return 'https://git.tukui.org/Azilroka/AddOnSkins' end,
 					},
 					skinlink = {
+						order = 8,
 						type = 'input',
 						width = 'full',
 						name = ASL['Available Skins / Skin Requests'],
-						get = function(info) return 'http://www.tukui.org/forums/topic.php?id=28550' end,
-						order = 5,
+						get = function() return 'https://www.tukui.org/forum/viewforum.php?f=35' end,
 					},
 				},
 			},
 		},
 	}
 
-	local order, blizzorder = 0, 0
+	local order, blizzorder = 1, 1
 	for skinName, _ in AS:OrderedPairs(AS.register) do
 		if strfind(skinName, 'Blizzard_') then
 			Options.args.blizzard.args[skinName] = GenerateOptionTable(skinName, blizzorder)
@@ -478,6 +495,12 @@ function AS:GetOptions()
 	end
 
 	if AS:CheckAddOn('ElvUI') then
+		Options.args.blizzard.args.description ={
+			type = 'header',
+			name = ASL.OptionsPanel.ElvUIDesc,
+			order = 0,
+		}
+
 		Options.args.misc.args.WeakAuraIconCooldown = {
 			type = 'toggle',
 			name = ASL['WeakAura Cooldowns'],
@@ -490,8 +513,14 @@ function AS:GetOptions()
 			name = 'Use ElvUI Skin Styling',
 			order = 5,
 		}
+
+		hooksecurefunc(LibStub('AceConfigDialog-3.0-ElvUI'), 'CloseAll', function(self, appName)
+			if AS.NeedReload then
+				ElvUI[1]:StaticPopup_Show("PRIVATE_RL")
+			end
+		end)
 	end
-	
+
 	if not AS:CheckAddOn('ElvUI') then
 		Options.args.misc.args.ThinBorder = {
 			name = 'Thin Border',
@@ -504,9 +533,8 @@ function AS:GetOptions()
 	Options.args.profiles.order = -2
 	ACR:RegisterOptionsTable('AddOnSkinsProfiles', Options.args.profiles)
 
-	local EP = LibStub('LibElvUIPlugin-1.0', true)
-	if EP then
-		local Ace3OptionsPanel = IsAddOnLoaded('ElvUI') and ElvUI[1] or Enhanced_Config and Enhanced_Config[1]
+	if AS.EP then
+		local Ace3OptionsPanel = IsAddOnLoaded('ElvUI') and ElvUI[1] or Enhanced_Config
 		Ace3OptionsPanel.Options.args.addonskins = Options
 	end
 

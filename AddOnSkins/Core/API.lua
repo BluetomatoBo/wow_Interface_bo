@@ -7,11 +7,12 @@ local unpack, pairs, select, type, assert, next = unpack, pairs, select, type, a
 local strlower = strlower
 local CopyTable, tremove = CopyTable, tremove
 local IsAddOnLoaded = IsAddOnLoaded
+local EnumerateFrames = EnumerateFrames
 
 function AS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 	local Texture = AS.Blank
 
-	if UseTexture then 
+	if UseTexture then
 		Texture = TextureFile or AS.NormTex
 	end
 
@@ -35,14 +36,14 @@ function AS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 			Frame.InsetTop:Point("TOPLEFT", Frame, "TOPLEFT", -1, 1)
 			Frame.InsetTop:Point("TOPRIGHT", Frame, "TOPRIGHT", 1, -1)
 			Frame.InsetTop:Height(1)
-			Frame.InsetTop:SetColorTexture(0,0,0)	
+			Frame.InsetTop:SetColorTexture(0,0,0)
 			Frame.InsetTop:SetDrawLayer("BORDER", -7)
 
 			Frame.InsetBottom = Frame:CreateTexture(nil, "BORDER")
 			Frame.InsetBottom:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", -1, -1)
 			Frame.InsetBottom:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", 1, -1)
 			Frame.InsetBottom:Height(1)
-			Frame.InsetBottom:SetColorTexture(0,0,0)	
+			Frame.InsetBottom:SetColorTexture(0,0,0)
 			Frame.InsetBottom:SetDrawLayer("BORDER", -7)
 
 			Frame.InsetLeft = Frame:CreateTexture(nil, "BORDER")
@@ -56,21 +57,21 @@ function AS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 			Frame.InsetRight:Point("TOPRIGHT", Frame, "TOPRIGHT", 1, 1)
 			Frame.InsetRight:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", -1, -1)
 			Frame.InsetRight:Width(1)
-			Frame.InsetRight:SetColorTexture(0,0,0)	
+			Frame.InsetRight:SetColorTexture(0,0,0)
 			Frame.InsetRight:SetDrawLayer("BORDER", -7)
 
 			Frame.InsetInsideTop = Frame:CreateTexture(nil, "BORDER")
 			Frame.InsetInsideTop:Point("TOPLEFT", Frame, "TOPLEFT", 1, -1)
 			Frame.InsetInsideTop:Point("TOPRIGHT", Frame, "TOPRIGHT", -1, 1)
 			Frame.InsetInsideTop:Height(1)
-			Frame.InsetInsideTop:SetColorTexture(0,0,0)	
+			Frame.InsetInsideTop:SetColorTexture(0,0,0)
 			Frame.InsetInsideTop:SetDrawLayer("BORDER", -7)
 
 			Frame.InsetInsideBottom = Frame:CreateTexture(nil, "BORDER")
 			Frame.InsetInsideBottom:Point("BOTTOMLEFT", Frame, "BOTTOMLEFT", 1, 1)
 			Frame.InsetInsideBottom:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", -1, 1)
 			Frame.InsetInsideBottom:Height(1)
-			Frame.InsetInsideBottom:SetColorTexture(0,0,0)	
+			Frame.InsetInsideBottom:SetColorTexture(0,0,0)
 			Frame.InsetInsideBottom:SetDrawLayer("BORDER", -7)
 
 			Frame.InsetInsideLeft = Frame:CreateTexture(nil, "BORDER")
@@ -84,7 +85,7 @@ function AS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 			Frame.InsetInsideRight:Point("TOPRIGHT", Frame, "TOPRIGHT", -1, -1)
 			Frame.InsetInsideRight:Point("BOTTOMRIGHT", Frame, "BOTTOMRIGHT", 1, 1)
 			Frame.InsetInsideRight:Width(1)
-			Frame.InsetInsideRight:SetColorTexture(0,0,0)	
+			Frame.InsetInsideRight:SetColorTexture(0,0,0)
 			Frame.InsetInsideRight:SetDrawLayer("BORDER", -7)
 
 			Frame.isInsetDone = true
@@ -109,14 +110,14 @@ function AS:SetTemplate(Frame, Template, UseTexture, TextureFile)
 end
 
 local Insets = {
-	InsetTop,
-	InsetBottom,
-	InsetLeft,
-	InsetRight,
-	InsetInsideTop,
-	InsetInsideBottom,
-	InsetInsideLeft,
-	InsetInsideRight,
+	'InsetTop',
+	'InsetBottom',
+	'InsetLeft',
+	'InsetRight',
+	'InsetInsideTop',
+	'InsetInsideBottom',
+	'InsetInsideLeft',
+	'InsetInsideRight',
 }
 
 function AS:HideInset(Frame)
@@ -187,9 +188,9 @@ function AS:SkinButton(Button, Strip)
 		end
 	end
 
-	if Button.SetNormalTexture then Button:SetNormalTexture("") end	
+	if Button.SetNormalTexture then Button:SetNormalTexture("") end
 	if Button.SetHighlightTexture then Button:SetHighlightTexture("") end
-	if Button.SetPushedTexture then Button:SetPushedTexture("") end	
+	if Button.SetPushedTexture then Button:SetPushedTexture("") end
 	if Button.SetDisabledTexture then Button:SetDisabledTexture("") end
 
 	AS:SkinFrame(Button, nil, not Strip)
@@ -242,13 +243,18 @@ function AS:CreateShadow(Frame)
 	Shadow:Point("TOPRIGHT", 3, 3)
 	Shadow:Point("BOTTOMRIGHT", 3, -3)
 
-	Shadow:SetBackdrop({ 
+	Shadow:SetBackdrop({
 		edgeFile = [[Interface\AddOns\AddOnSkins\Media\Textures\Shadows]], edgeSize = AS:Scale(3),
 		insets = {left = AS:Scale(5), right = AS:Scale(5), top = AS:Scale(5), bottom = AS:Scale(5)},
 	})
 
 	Shadow:SetBackdropColor(0, 0, 0, 0)
 	Shadow:SetBackdropBorderColor(0, 0, 0, 0.8)
+
+	if AS.ES then
+		AS.ES:RegisterShadow(Shadow)
+	end
+
 	Frame.Shadow = Shadow
 end
 
@@ -609,16 +615,16 @@ function AS:SkinRotateButton(Button)
 	if Button.isSkinned then return end
 
 	AS:SetTemplate(Button, "Default")
-	Button:Size(Button:GetWidth() - 14, Button:GetHeight() - 14)	
+	Button:Size(Button:GetWidth() - 14, Button:GetHeight() - 14)
 
 	Button:GetNormalTexture():SetTexCoord(0.3, 0.29, 0.3, 0.65, 0.69, 0.29, 0.69, 0.65)
-	Button:GetPushedTexture():SetTexCoord(0.3, 0.29, 0.3, 0.65, 0.69, 0.29, 0.69, 0.65)	
+	Button:GetPushedTexture():SetTexCoord(0.3, 0.29, 0.3, 0.65, 0.69, 0.29, 0.69, 0.65)
 
 	Button:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.3)
 
 	Button:GetNormalTexture():ClearAllPoints()
 	Button:GetNormalTexture():SetInside()
-	Button:GetPushedTexture():SetAllPoints(Button:GetNormalTexture())	
+	Button:GetPushedTexture():SetAllPoints(Button:GetNormalTexture())
 	Button:GetHighlightTexture():SetAllPoints(Button:GetNormalTexture())
 
 	Button.isSkinned = true
@@ -873,4 +879,144 @@ function AS:EnumObjects(enumFuncs, yieldFunc)
 	end
 
 	EnumObjectsHelper(enumFuncs, yieldFunc)
+end
+
+function AS:FindChildFrameByPoint(parent, objType, point1, relativeTo, point2, x, y)
+	if not parent then return end
+
+	local frame, childID
+	local childPoint1, childParent, childPoint2, childX, childY
+	local childs = {parent:GetChildren()}
+
+	x = E:Round(x)
+	y = E:Round(y)
+
+	for id, child in pairs(childs) do
+		if not child:GetName() then
+			if not objType or (objType and child:IsObjectType(objType)) then
+				childPoint1, childParent, childPoint2, childX, childY = child:GetPoint()
+				childX = childX and E:Round(childX) or 0
+				childY = childY and E:Round(childY) or 0
+
+				if childPoint1 == point1
+				and childParent == relativeTo
+				and (not point2 or (childPoint2 == point2))
+				and x == childX
+				and y == childY
+				then
+					frame, childID = child, id
+					break
+				end
+			end
+		end
+	end
+
+	return frame, childID
+end
+
+function AS:FindChildFrameBySize(parent, objType, width, height)
+	if not parent then return end
+
+	local frame, childID
+	local childs = {parent:GetChildren()}
+
+	width = E:Round(width)
+	height = E:Round(height)
+
+	for id, child in pairs(childs) do
+		if not child:GetName() then
+			if not objType or (objType and child:IsObjectType(objType)) then
+				if E:Round(child:GetWidth()) == width and E:Round(child:GetHeight()) == width then
+					frame, childID = child, id
+					break
+				end
+			end
+		end
+	end
+
+	return frame, childID
+end
+
+function AS:FindFrameBySizeChild(childTypes, width, height)
+	if not childTypes then return end
+
+	local frame
+	local obj = EnumerateFrames()
+
+	width = E:Round(width)
+	height = E:Round(height)
+
+	while obj do
+		if obj.IsObjectType and obj:IsObjectType("Frame") then
+			if not (obj:GetName() and obj:GetParent()) then
+				if E:Round(obj:GetWidth()) == width and E:Round(obj:GetHeight()) == height then
+					local childs = {}
+					for _, child in pairs({obj:GetChildren()}) do
+						childs[#childs + 1] = child:GetObjectType()
+					end
+
+					local matched = 0
+					for _, cType in pairs(childTypes) do
+						for _, type in pairs(childs) do
+							if cType == type then
+								matched = matched + 1
+							end
+						end
+					end
+
+					if matched == #childTypes then
+						frame = obj
+						break
+					end
+				end
+			end
+		end
+
+		obj = EnumerateFrames(obj)
+	end
+
+	return frame
+end
+
+function AS:FindFrameByPoint(point1, relativeTo, point2, x, y, multipleFrames)
+	if not relativeTo then return end
+
+	local frame
+	if multipleFrames then
+		frame = {}
+	end
+
+	local childPoint1, childParent, childPoint2, childX, childY
+	local obj = EnumerateFrames()
+
+	x = E:Round(x)
+	y = E:Round(y)
+
+	while obj do
+		if obj.IsObjectType and obj:IsObjectType("Frame") then
+			if not (obj:GetName() and obj:GetParent()) then
+				childPoint1, childParent, childPoint2, childX, childY = obj:GetPoint()
+				childX = childX and E:Round(childX) or 0
+				childY = childY and E:Round(childY) or 0
+
+				if childPoint1 == point1
+				and childParent == relativeTo
+				and (not point2 or (childPoint2 == point2))
+				and x == childX
+				and y == childY
+				then
+					if multipleFrames then
+						frame[#frame + 1] = obj
+					else
+						frame = obj
+						break
+					end
+				end
+			end
+		end
+
+		obj = EnumerateFrames(obj)
+	end
+
+	return frame
 end
