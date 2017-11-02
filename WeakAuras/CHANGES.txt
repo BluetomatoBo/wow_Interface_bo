@@ -1,143 +1,26 @@
-tag ba5fef4827b4d60a9c7355e95c892f19ad751bcf 2.4.24
+tag b21382c1c26786ef0008e8ba74958be18c76e3dc 2.4.25
 Author:	Benjamin Staneck <staneck@gmail.com>
-Date:	Fri Oct 27 12:00:28 2017 +0200
+Date:	Sat Oct 28 13:08:24 2017 +0200
 
-commit 268615925cf636dbeb3293830881a1f6276636d3
-Author: Infus <infus@squorn.de>
-Date:   Thu Oct 26 23:50:39 2017 +0200
+commit 5053c3e68ae96923b6fea743f4903b89e9661e14
+Author: Benjamin Staneck <staneck@gmail.com>
+Date:   Sat Oct 28 13:08:00 2017 +0200
 
-    Revert "Work around Editboxes buggyness with 7.3"
+    Revert "Observe squelch_actions for Sounds played from Conditions"
     
-    7.3.2 fixed the bug, so we can remove our workaround again.
+    This reverts commit d79f1d912332a6b939e97c8d792945be20bb22df.
+
+commit ca1a1b5822b8acdb02bd1103f5fd4ab008f96a59
+Author: Benjamin Staneck <staneck@gmail.com>
+Date:   Sat Oct 28 13:08:00 2017 +0200
+
+    Revert "Observe squelch_actions for Sounds played from Conditions"
     
-    This reverts commit 8305cd5733c6b4470a84a8df37bd725e104b9c1c.
+    This reverts commit d79f1d912332a6b939e97c8d792945be20bb22df.
 
-commit 905598cde37c69ef0748863ff03df948d697e0f6
-Author: Infus <infus@squorn.de>
-Date:   Sat Oct 21 15:54:39 2017 +0200
+commit 542c2af3832e975fd9aedfd2340e2dfbb234a929
+Author: Benjamin Staneck <staneck@gmail.com>
+Date:   Fri Oct 27 17:23:19 2017 +0200
 
-    WeakAurasMultiLine widget: Remove code slightly moving the ACCEPT text
-
-commit 2edc7737c06ea98d78c3ce0f642fa5c5744eb2f6
-Author: Infus <infus@squorn.de>
-Date:   Sat Oct 21 15:54:10 2017 +0200
-
-    WeakAurasMultiLine widget: Don't need to set the width all the time
-
-commit 91a8511011c38ed423a34ae382db21f5faa0bcab
-Author: Infus <infus@squorn.de>
-Date:   Sat Oct 21 15:00:35 2017 +0200
-
-    Options: Set a optionTriggerChoices for all childs too
-
-commit 9264efbde428116157e0ffde126a8ca778fe43b4
-Author: Infus <infus@squorn.de>
-Date:   Sat Oct 21 14:12:57 2017 +0200
-
-    Code Editor extraFunctions: Use buttonLabel instead of name
-    
-    As ther code that merges options for multi-selection treats name
-    properties in a special way.
-    
-    Reported on discord
-
-commit d79f1d912332a6b939e97c8d792945be20bb22df
-Author: Infus <infus@squorn.de>
-Date:   Sat Oct 21 13:55:48 2017 +0200
-
-    Observe squelch_actions for Sounds played from Conditions
-    
-    Also squelch_actions while a loading screen is enabled
-
-commit 00021899cb6c1fdc1bd31a71694541262d43c5a5
-Author: Infus <infus@squorn.de>
-Date:   Sat Oct 21 13:35:34 2017 +0200
-
-    Allow "Auto" for all BuffTrigger auras
-    
-    We actually have a small database of name/spell id to icon mappings,
-    so make use of it.
-    
-    Ticket-Nr: 291
-
-commit cedc2360580ff8e2cd172bc97e07c19e205cc9c5
-Author: Infus <infus@squorn.de>
-Date:   Sat Oct 21 13:17:50 2017 +0200
-
-    Show "Required for activation" also for one trigger
-    
-    It's a bit ugly but I've seen it requested a few times.
-    
-    Github-Issue: 292
-
-commit c19e1ce59e9e4b8de11f1516a212f41796ea19fc
-Author: Infus <infus@squorn.de>
-Date:   Sat Oct 21 13:04:50 2017 +0200
-
-    Change default color for Conditions to white
-    
-    This is slightly backwards incompatible, since it changes the color
-    for people that never adjusted the color at all. That's probably
-    not too many.
-    
-    Github-Issue: 286
-
-commit 82ce0eeac2608e5853e2505f9107a05d2b3c255f
-Author: Infus <infus@squorn.de>
-Date:   Tue Oct 17 23:05:35 2017 +0200
-
-    Tweak hack for text wrapping issues
-    
-    Apparently with gigantic font sizes adding 4 pixels is not enough.
-    From what I could tell around 20 pixels would be enough. So add
-    the maximum of 2.5% and 4 pixels and hope that this whole mess can
-    be removed soon.
-    
-    Ticket-Nr: 1052
-
-commit 285fba1bbe4a36cd75499291591765f03a90521f
-Author: Infus <infus@squorn.de>
-Date:   Mon Oct 16 20:04:55 2017 +0200
-
-    Convert a few more TextEditors to use AddCodeOption
-    
-    This is less code, adds a error reporting description and apparently
-    the Text one didn't show a Expand button previously.
-
-commit 4bb5d9fa9e8aa4bb1654e0cc03a39250cb42e634
-Author: Infus <infus@squorn.de>
-Date:   Sun Oct 8 16:00:29 2017 +0200
-
-    Move Expand button to below text editor and make text editor the full
-    width
-
-commit 74ec7cf482253b291d8a7ed41cae908f589a3b9c
-Author: Infus <infus@squorn.de>
-Date:   Sun Oct 1 15:55:25 2017 +0200
-
-    Extract BuffTrigger and GenericTrigger options from WeakAurasOptions
-    
-    There's still some code in WeakAurasOptions.lua that is specific to the
-    trigger system used. And the code in WeakAurasOptions very much knows
-    that there are Buff and Generic triggers.
-    
-    But this is a step towards making triggersystems register their
-    options and the WeakAurasOptions code not being specific to any
-    trigger system.
-
-commit 25d9ddb5a96fedb41ced57ed8ef94687ac3f1767
-Author: Infus <infus@squorn.de>
-Date:   Sun Oct 1 14:54:52 2017 +0200
-
-    Extract common code for creating texteditors
-    
-    There's still plenty of code duplication with start/main/finish and the
-    various animations types being very similar. But this significantly
-    cuts down on the code duplication.
-
-commit caac6657f766fe7398c0b252353137cf9fa51de7
-Author: Infus <infus@squorn.de>
-Date:   Sun Oct 1 00:08:55 2017 +0200
-
-    Split up WeakAurasOptions.lua by moving aciton/animation options
+    Actually load the esMX language files
 
