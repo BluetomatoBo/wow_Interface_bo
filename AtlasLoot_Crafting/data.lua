@@ -94,6 +94,7 @@ data["Alchemy"] = {
 		{	--AlchemyPotions
 			name = AL["Potions"],
 			[LEGION_DIFF] = {
+				-- { #, itemID, spellID },
 				{ 1, 127834, 188297 }, -- Ancient Healing Potion
 				{ 2, 127834, 188299 }, -- Ancient Healing Potion
 				{ 3, 127834, 188300 }, -- Ancient Healing Potion
@@ -124,6 +125,16 @@ data["Alchemy"] = {
 				{ 105, 127841, 188319 }, -- Skystep Potion
 				{ 106, 127841, 188320 }, -- Skystep Potion
 				{ 107, 127841, 188321 }, -- Skystep Potion
+				-- 7.3.0
+				{ 109, 151608, 247619 }, -- Lightblood Elixir
+				{ 110, 151608, 247620 }, -- Lightblood Elixir
+				{ 111, 151608, 247622 }, -- Lightblood Elixir
+				{ 113, 151609, 247688 }, -- Tears of the Naaru
+				{ 114, 151609, 247690 }, -- Tears of the Naaru
+				{ 115, 151609, 247691 }, -- Tears of the Naaru
+				{ 116, 152615, 251646 }, -- Astral Healing Potion
+				{ 117, 152615, 251651 }, -- Astral Healing Potion
+				{ 118, 152615, 251658 }, -- Astral Healing Potion
 			},
 			[WOD_DIFF] = {
 				{ 1, 109222, 156582 },	-- Draenic Mana Potion (Learnt by item 109558)
@@ -260,6 +271,9 @@ data["Alchemy"] = {
 				{ 1, 127842, 188322 }, -- Infernal Alchemist Stone
 				{ 2, 127842, 188323 }, -- Infernal Alchemist Stone
 				{ 3, 127842, 188324 }, -- Infernal Alchemist Stone
+				{ 5, 151607, 247694 }, -- Astral Alchemist Stone
+				{ 6, 151607, 247695 }, -- Astral Alchemist Stone
+				{ 7, 151607, 247696 }, -- Astral Alchemist Stone
 			},
 			[WOD_DIFF] = {
 				{ 1, 109262, 156560, [PRICE_EXTRA_ITTYPE] = "118700:1" },	-- Draenic Philosopher's Stone (Sold, Ashran)
@@ -440,6 +454,7 @@ data["Alchemy"] = {
 		{	--AlchemyTransmute
 			name = AL["Transmutes"],
 			[LEGION_DIFF] = {
+				-- { #, itemID, spellID },
 				{ 1, 141323, 188800 }, -- Wild Transmutation
 				{ 2, 141323, 188801 }, -- Wild Transmutation
 				{ 3, 141323, 188802 }, -- Wild Transmutation
@@ -453,6 +468,8 @@ data["Alchemy"] = {
 				{ 12, 137600, 213255 }, -- Transmute: Meat to Pants
 				{ 13, 137599, 213256 }, -- Transmute: Meat to Pet
 				{ 14, 124124, 213257 }, -- Transmute: Blood of Sargeras
+				-- 7.3.0
+				{ 15, 151568, 247701 }, -- Transmute: Primal Sargerite
 			},
 			[WOD_DIFF] = {
 				{ 1, 113261, 181634, [PRICE_EXTRA_ITTYPE] = "113262:10:108996:4", [ATLASLOOT_IT_AMOUNT1] = 10 },	-- Transmute: Sorcerous Water to Fire
@@ -605,6 +622,10 @@ data["Blacksmithing"] = {
 				{ 128, 123892, 182934 }, -- Leystone Boots
 				{ 129, 123892, 182968 }, -- Leystone Boots
 				{ 130, 123892, 191928 }, -- Leystone Boots
+				-- 7.3.0
+				{ 201, 151576, 247710 }, -- Empyrial Breastplate
+				{ 202, 151576, 247713 }, -- Empyrial Breastplate
+				{ 203, 151576, 247714 }, -- Empyrial Breastplate
 			},
 			[WOD_DIFF] = {
 				{ 1, "114230:Stage6", 187515 },		-- Truesteel Helm (Stage 6)
@@ -1385,6 +1406,10 @@ data["Blacksmithing"] = {
 		},
 		{	--SmithingArmorEnhancement
 			name = AL["Armor Enhancements"],
+			[LEGION_DIFF] = {
+				-- 7.3.0
+				{ 1, 151239, 246098 }, -- Felslate Anchor
+			},
 			[NORMAL_DIFF] = {
 				{ 1, 127732, 187515, [PRICE_EXTRA_ITTYPE] = "109119:60" },	-- Savage Truesteel Essence (Sold, Garrison)
 				{ 2, 127714, 187491, [PRICE_EXTRA_ITTYPE] = "109119:60"},	-- Mighty Truesteel Essence (Sold, Garrison)
@@ -1452,9 +1477,14 @@ data["Blacksmithing"] = {
 			name = AL["Miscellaneous"],
 			[LEGION_DIFF] = {
 				{ 1, 137686, 213916 }, -- Fel Core Hound Harness
-				{ 3, 136708, 209564 }, -- Demonsteel Stirrups
-				{ 4, 123956, 182999 }, -- Leystone Hoofplates
-				{ 6, 124461, 184442 }, -- Demonsteel Bar
+				{ 2, 136708, 209564 }, -- Demonsteel Stirrups
+				{ 3, 123956, 182999 }, -- Leystone Hoofplates
+				{ 4, 124461, 184442 }, -- Demonsteel Bar
+				-- 7.3.0
+				{ 5, 124461, 248864 }, -- Empyrial Rivet
+				{ 6, 151925, 248869 }, -- Empyrial Back Plate
+				{ 7, 151924, 248867 }, -- Empyrial Chest Plate
+				{ 8, 151872, 248870 }, -- Empyrial Breastplate
 			},
 			[NORMAL_DIFF] = {
 				{ 1, 119328, 177169, [PRICE_EXTRA_ITTYPE] = "118720:1" },	-- Soul of the Forge (Sold, Ashran)
@@ -2125,8 +2155,11 @@ data["Enchanting"] = {
 				{ 1, 128533, 191074 }, -- Enchanted Cauldron
 				{ 2, 128534, 191075 }, -- Enchanted Torch
 				{ 3, 128535, 191076 }, -- Enchanted Pen
-				{ 5, 128536, 191078 }, -- Leylight Brazier
-				{ 16, 124440, 224199 }, -- Ley Shatter
+				{ 4, 128536, 191078 }, -- Leylight Brazier
+				{ 5, 124440, 224199 }, -- Ley Shatter
+				-- 7.3.0
+				{ 6, 124441, 252106 }, -- Chaos Shatter
+				
 			},
 			[WOD_DIFF] = {
 				{ 1, 112321, 162948 },	-- Enchanted Dust (Learnt by item 111922)
@@ -2748,6 +2781,9 @@ data["Engineering"] = {
 				{ 21, 132529, 198988 }, -- Reaves Module: Snack Distribution Mode
 				{ 22, 132530, 198989 }, -- Reaves Module: Bling Mode
 				{ 23, 132531, 198990 }, -- Reaves Module: Piloted Combat Mode
+				-- 7.3.0
+				{ 7, 151651, 247717 }, -- Gravitational Reduction Slippers
+				{ 8, 151652, 247744 }, -- Wormhole Generator: Argus
 			},
 			[WOD_DIFF] = {
 				{ 1, 111821, 162218, [PRICE_EXTRA_ITTYPE] = "119299:1" },	-- Blingtron 5000 (Sold, Ashran)
@@ -2929,6 +2965,12 @@ data["Inscription"] = {
 		},
 		{	--InscriptionPriest
 			name = AL["Glyphs"].." - "..ALIL["PRIEST"],
+			[LEGION_DIFF] = {
+				-- 7.3.0
+				{ 1, 153036, 254238 }, -- Glyph of Dark Absolution
+				{ 2, 153033, 254231 }, -- Glyph of the Voidling
+				{ 3, 153031, 254227 }, -- Glyph of the Lightspawn
+			},
 			[NORMAL_DIFF] = {
 				{ 1, 43373, 58320 }, -- Glyph of Shackle Undead
 				{ 2, 79538, 124466 }, -- Glyph of the Heavens
@@ -3265,6 +3307,10 @@ data["Inscription"] = {
 		},
 		{	--InscriptionMisc
 			name = AL["Miscellaneous"],
+			[LEGION_DIFF] = {
+				-- 7.3.0
+				{ 1, 152725, 247861 }, -- Mass Mill Astral Glory
+			},
 			[NORMAL_DIFF] = {
 				{ 1, 113355, 166669 },	-- Card of Omens (Learnt by item 111923)
 				{ 3, 113992, 167950 },	-- Research: Warbinder's Ink (Learnt by item 111923)
@@ -3385,6 +3431,8 @@ data["Jewelcrafting"] = {
 				{ 14, 130221, 195854 }, -- Versatile Maelstrom Sapphire
 				{ 15, 130217, 195850 }, -- Versatile Skystone
 				{ 16, 130245, 195877 }, -- Saber's Eye
+				-- 7.3.0
+				{ 17, 151564, 247761 }, -- Empyrium
 			},
 			[WOD_DIFF] = {
 				{ 1, 127760, 187634, [PRICE_EXTRA_ITTYPE] = "127771:1" },	-- Immaculate Critical Strike Taladite (Learnd by Item 127771)
@@ -3920,6 +3968,9 @@ data["Jewelcrafting"] = {
 		},
 		{	--JewelBlue
 			name = AL["Blue Gems"],
+			[LEGION_DIFF] = {
+				{ 1, 151585, 247774 }, -- Versatile Labradorite
+			},
 			[MOP_DIFF] = {
 				{ 1, 76636, 106947 },	-- Rigid River's Heart : =ds=#sr# 550 : =ds=AtlasLoot["Discovery"]: spell131593
 				{ 2, 76639, 106950 },	-- Solid River's Heart : =ds=#sr# 550 : =ds=AtlasLoot["Discovery"]: spell131593
@@ -3976,6 +4027,9 @@ data["Jewelcrafting"] = {
 		},
 		{	--JewelYellow
 			name = AL["Yellow Gems"],
+			[LEGION_DIFF] = {
+				{ 1, 151583, 247772 }, -- Quick Lightsphene
+			},
 			[MOP_DIFF] = {
 				{ 1, 76700, 107710 },	-- Fractured Sun's Radiance : =ds=#sr# 550 : =ds=AtlasLoot["Discovery"]: spell131695
 				{ 2, 76701, 107711 },	-- Mystic Sun's Radiance : =ds=#sr# 550 : =ds=AtlasLoot["Discovery"]: spell131695
@@ -4036,6 +4090,9 @@ data["Jewelcrafting"] = {
 		},
 		{	--JewelOrange
 			name = AL["Orange Gems"],
+			[LEGION_DIFF] = {
+				{ 1, 151580, 247771 }, -- Deadly Deep Chemirine
+			},
 			[MOP_DIFF] = {
 				{ 1, 76670, 107715 },	-- Adept Vermilion Onyx : =ds=#sr# 550 : =ds=AtlasLoot["Discovery"]: spell131690
 				{ 2, 76672, 107716 },	-- Artful Vermilion Onyx : =ds=#sr# 550 : =ds=AtlasLoot["Discovery"]: spell131690
@@ -4322,6 +4379,9 @@ data["Jewelcrafting"] = {
 		},
 		{	--JewelPurple
 			name = AL["Purple Gems"],
+			[LEGION_DIFF] = {
+				{ 1, 151584, 247773 }, -- Masterful Argulite
+			},
 			[MOP_DIFF] = {
 				{ 1, 89680, 130657 },	-- Assassin's Imperial Amethyst : =ds=#sr# 600 : =ds=AtlasLoot["Discovery"]: spell131691
 				{ 2, 89674, 130658 },	-- Tense Imperial Amethyst : =ds=#sr# 600 : =ds=AtlasLoot["Discovery"]: spell131691
@@ -4562,6 +4622,23 @@ data["Jewelcrafting"] = {
 				{ 9, 21748, 26872 },	-- Figurine - Jade Owl : =ds=#sr# 200 : =ds=AtlasLoot["Trainer"]
 			},
 		},
+		{	--JewelHeadArmor
+			name = HEADSLOT,
+			[LEGION_DIFF] = {
+				{ 1, 151587, 247751 }, -- Empyrial Cosmic Crown
+				{ 2, 151587, 247754 }, -- Empyrial Cosmic Crown
+				{ 3, 151587, 247755 }, -- Empyrial Cosmic Crown
+				{ 5, 151588, 247756 }, -- Empyrial Deep Crown
+				{ 6, 151588, 247757 }, -- Empyrial Deep Crown
+				{ 7, 151588, 247758 }, -- Empyrial Deep Crown
+				{ 9, 151589, 247762 }, -- Empyrial Elemental Crown
+				{ 10, 151589, 247763 }, -- Empyrial Elemental Crown
+				{ 11, 151589, 247764 }, -- Empyrial Elemental Crown
+				{ 13, 151590, 247765 }, -- Empyrial Titan Crown
+				{ 14, 151590, 247766 }, -- Empyrial Titan Crown
+				{ 15, 151590, 247767 }, -- Empyrial Titan Crown
+			},
+		},
 	}
 }
 
@@ -4621,6 +4698,11 @@ data["Leatherworking"] = {
 				{ 128, 128876, 194702 }, -- Warhide Jerkin
 				{ 129, 128876, 194710 }, -- Warhide Jerkin
 				{ 130, 128876, 194718 }, -- Warhide Jerkin
+				-- 7.3.0
+				{ 201, 151577, 247800 }, -- Fiendish Shoulderguards
+				{ 202, 151577, 247801 }, -- Fiendish Shoulderguards
+				{ 203, 151577, 247802 }, -- Fiendish Shoulderguards
+				
 			},
 			[WOD_DIFF] = {
 				{ 1, "116177:Stage6", 187513 },	-- Supple Helm (Stage 6)
@@ -5183,6 +5265,10 @@ data["Leatherworking"] = {
 				{ 128, 128892, 194742 }, -- Battlebound Hauberk
 				{ 129, 128892, 194750 }, -- Battlebound Hauberk
 				{ 130, 128892, 194758 }, -- Battlebound Hauberk
+				-- 7.3.0
+				{ 201, 151578, 247803 }, -- Fiendish Spaulders
+				{ 202, 151578, 247804 }, -- Fiendish Spaulders
+				{ 203, 151578, 247805 }, -- Fiendish Spaulders
 			},
 			[WOD_DIFF] = {
 				{ 1, "116188:Stage6", 187513 },	-- Wayfaring Helm (Stage 6)
@@ -5869,6 +5955,10 @@ data["Tailoring"] = {
 				{ 228, 126987, 185925 }, -- Silkweave Robe
 				{ 229, 126987, 185941 }, -- Silkweave Robe
 				{ 230, 126987, 185945 }, -- Silkweave Robe
+				-- 7.3.0
+				{ 301, 151571, 247807 }, -- Lightweave Breeches
+				{ 302, 151571, 247808 }, -- Lightweave Breeches
+				{ 303, 151571, 247809 }, -- Lightweave Breeches
 			},
 			[WOD_DIFF] = {
 				{ 1, "114810:Stage6", 187516 },		-- Hexweave Cowl (Stage 6)
@@ -7014,6 +7104,8 @@ data["Cooking"] = {
 				{ 20, 133579, 201516 }, -- Lavish Suramar Feast
 				{ 21, 133681, 201683, [ATLASLOOT_IT_AMOUNT1] = "5+" }, -- Crispy Bacon
 				{ 22, 142334, 230046 }, -- Spiced Wildfowl Omelet
+				-- 7.3.0
+				{ 23, 152564, 251258 }, -- Feast of the Fishes
 			},
 		},
 		{	--CookingAttributes

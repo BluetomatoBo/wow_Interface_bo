@@ -15,7 +15,8 @@ local NO_ITEM_ID = 0
 
 -- save all mountinfos
 local MOUNT_INFO = {
-	["spells"] = { -- [spellID] = itemID
+	["spells"] = { 
+		-- [spellID] = itemID
 		[458] = 5656, 			-- Brown Horse
 		[459] = NO_ITEM_ID, 		-- Gray Wolf
 		[468] = NO_ITEM_ID, 		-- White Stallion
@@ -641,6 +642,13 @@ local MOUNT_INFO = {
 		[242881] = 147806, 		-- Cloudwing Hippogryph
 		[242882] = 147805, 		-- Valarjar Stormwing
 		[243025] = 147835, 		-- Riddler's Mind-Worm
+		[253004] = 152794,  		-- Reins of the Amethyst Ruinstrider
+		[253005] = 152795, 		-- Reins of the Beryl Ruinstrider
+		[253007] = 152797, -- Reins of the Cerulean Ruinstrider
+		[253006] = 152793, -- Reins of the Russet Ruinstrider
+		[242305] = 152791, -- Reins of the Sable Ruinstrider
+		[253008] = 152796, -- Reins of the Umber Ruinstrider
+		[239013] = 152788, -- Lightforged Warframe
 	},
 	["items"] = {
 		--[itemID] = spellID

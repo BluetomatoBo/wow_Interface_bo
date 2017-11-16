@@ -2102,6 +2102,11 @@ data["AntorustheBurningThrone"] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
 			},
 		},
+		{	--Tier 21 Sets
+			name = format(AL["Tier %d Sets"], 21),
+			ExtraList = true,
+			[NORMAL_DIFF] = "AtlasLoot_Collections:TIERSETS:21",
+		},
 	},
 }
 

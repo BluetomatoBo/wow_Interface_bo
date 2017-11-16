@@ -1178,6 +1178,228 @@ local SetTable = {
 		},
 	},
 
+	["Tier21"] = {	-- T21 Sets
+		name = format(AL["Tier %d Sets"], 21),
+		-- Chest 	- Eonar the Life-Binder,	instanceID = 946, encounterID = 2025
+		-- Back 	- Antoran High Command, 	instanceID = 946, encounterID = 1997
+		-- Hands 	- Kin'garoth, 			instanceID = 946, encounterID = 2004
+		-- Head 	- Aggramar, 			instanceID = 946, encounterID = 1984
+		-- Legs 	- Imonar the Soulhunter, 	instanceID = 946, encounterID = 2009
+		-- Shoulder 	- Coven of Shivarra, 		instanceID = 946, encounterID = 1986
+		sourceTemplate = {
+			EJ_GetInstanceInfo(946).." - "..EJ_GetEncounterInfo(2025),	-- Chest
+			EJ_GetInstanceInfo(946).." - "..EJ_GetEncounterInfo(1997),	-- Back
+			EJ_GetInstanceInfo(946).." - "..EJ_GetEncounterInfo(2004),	-- Hands
+			EJ_GetInstanceInfo(946).." - "..EJ_GetEncounterInfo(1984),	-- Head
+			EJ_GetInstanceInfo(946).." - "..EJ_GetEncounterInfo(2009),	-- Legs
+			EJ_GetInstanceInfo(946).." - "..EJ_GetEncounterInfo(1986),	-- Shoulder
+		},
+		{	-- Deathknight, Dreadwake Armor
+			name = ALIL["DEATHKNIGHT"],
+			subSetName = "dk",
+			icon = "dk",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152112, -- Dreadwake Bonecage
+				152113, -- Dreadwake Greatcloak
+				152114, -- Dreadwake Gauntlets
+				152115, -- Dreadwake Helm
+				152116, -- Dreadwake Legplates
+				152117, -- Dreadwake Pauldrons
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Demon Hunter, Felreaper Vestments
+			name = ALIL["DEMONHUNTER"],
+			subSetName = "demonhunter",
+			icon = "dh",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152118, -- Felreaper Vest
+				152119, -- Felreaper Drape
+				152120, -- Felreaper Gloves
+				152121, -- Felreaper Hood
+				152122, -- Felreaper Leggings
+				152123, -- Felreaper Spaulders
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Druid, Bearmantle Battlegear
+			name = ALIL["DRUID"],
+			subSetName = "druid",
+			icon = "druid",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152124, -- Bearmantle Harness
+				152125, -- Bearmantle Cloak
+				152126, -- Bearmantle Paws
+				152127, -- Bearmantle Headdress
+				152128, -- Bearmantle Legguards
+				152129, -- Bearmantle Shoulders
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Hunter, Serpentstalker Guise
+			name = ALIL["HUNTER"],
+			subSetName = "hunter",
+			icon = "hunter",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152130, -- Serpentstalker Tunic
+				152131, -- Serpentstalker Drape
+				152132, -- Serpentstalker Grips
+				152133, -- Serpentstalker Helmet
+				152134, -- Serpentstalker Legguards
+				152135, -- Serpentstalker Mantle
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Mage, Runebound Regalia
+			name = ALIL["MAGE"],
+			subSetName = "mage",
+			icon = "mage",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152136, -- Runebound Cape
+				152137, -- Runebound Gloves
+				152138, -- Runebound Collar
+				152139, -- Runebound Leggings
+				152140, -- Runebound Tunic
+				152141, -- Runebound Mantle
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Monk, Chi'Ji's Battlegear
+			name = ALIL["MONK"],
+			subSetName = "monk",
+			icon = "monk",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152142, -- Tunic of Chi'Ji
+				152143, -- Cloak of Chi'Ji
+				152144, -- Grips of Chi'Ji
+				152145, -- Douli of Chi'Ji
+				152146, -- Leggings of Chi'Ji
+				152147, -- Meditation Spheres of Chi'Ji
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Paladin, Light's Vanguard Battleplate
+			name = ALIL["PALADIN"],
+			subSetName = "paladin",
+			icon = "pala",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152148, -- Light's Vanguard Breastplate
+				152149, -- Light's Vanguard Greatcloak
+				152150, -- Light's Vanguard Gauntlets
+				152151, -- Light's Vanguard Helm
+				152152, -- Light's Vanguard Legplates
+				152153, -- Light's Vanguard Shoulderplates
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Priest, Gilded Seraph's Raiment
+			name = ALIL["PRIEST"],
+			subSetName = "priest",
+			icon = "priest",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152154, -- Gilded Seraph's Drape
+				152155, -- Gilded Seraph's Handwraps
+				152156, -- Gilded Seraph's Crown
+				152157, -- Gilded Seraph's Leggings
+				152158, -- Gilded Seraph's Robes
+				152159, -- Gilded Seraph's Amice
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Rogue, Regalia of the Dashing Scoundrel
+			name = ALIL["ROGUE"],
+			subSetName = "rogue",
+			icon = "rogue",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152160, -- Vest of the Dashing Scoundrel
+				152161, -- Cloak of the Dashing Scoundrel
+				152162, -- Gloves of the Dashing Scoundrel
+				152163, -- Cavalier Hat of the Dashing Scoundrel
+				152164, -- Pants of the Dashing Scoundrel
+				152165, -- Shoulderpads of the Dashing Scoundrel
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Shaman, Garb of Venerated Spirits
+			name = ALIL["SHAMAN"],
+			subSetName = "shaman",
+			icon = "shaman",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152166, -- Robes of Venerated Spirits
+				152167, -- Drape of Venerated Spirits
+				152168, -- Gloves of Venerated Spirits
+				152169, -- Headdress of Venerated Spirits
+				152170, -- Leggings of Venerated Spirits
+				152171, -- Pauldrons of Venerated Spirits
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Warlock, Grim Inquisitor's Regalia
+			name = ALIL["WARLOCK"],
+			subSetName = "warlock",
+			icon = "warlock",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152172, -- Grim Inquisitor's Cloak
+				152173, -- Grim Inquisitor's Gloves
+				152174, -- Grim Inquisitor's Death Mask
+				152175, -- Grim Inquisitor's Leggings
+				152176, -- Grim Inquisitor's Robes
+				152177, -- Grim Inquisitor's Shoulderguards
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+		{	-- Warrior, Juggernaut Battlegear
+			name = ALIL["WARRIOR"],
+			subSetName = "warrior",
+			icon = "warri",
+			[SOURCE_INFO] = "sourceTemplate",
+			[RF_DIFF] = NORMAL_DIFF,
+			[NORMAL_DIFF] = {
+				152178, -- Juggernaut Breastplate
+				152179, -- Juggernaut Cloak
+				152180, -- Juggernaut Gauntlets
+				152181, -- Juggernaut Helm
+				152182, -- Juggernaut Legplates
+				152183, -- Juggernaut Pauldrons
+			},
+			[HEROIC_PRE_DIFF] = NORMAL_DIFF,
+			[MYTHIC_PRE_DIFF] = NORMAL_DIFF,
+		},
+	},
+
 	["Tier20"] = {	-- T20 Sets
 		name = format(AL["Tier %d Sets"], 20),
 		-- Chest 	- Maiden of Vigilance, 	instanceID = 875, encounterID = 1897

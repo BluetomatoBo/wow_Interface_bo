@@ -94,7 +94,7 @@ data["LEGIONFACTIONS"] = {
 				{ 116, "f2165rep8" },
 				{ 117, 152399, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Army of the Light Tabard, Exalted
 				{ 118, 153023, [PRICE_EXTRA_ITTYPE] = "money:500000000" }, -- Lightforged Augment Rune, Exalted
-				{ 119, 152788, [PRICE_EXTRA_ITTYPE] = "money:6000000000" }, -- Lightforged Warframe, Exalted
+				{ 119, 152788, [PRICE_EXTRA_ITTYPE] = "money:6250000000" }, -- Lightforged Warframe, Exalted
 			},
 		},
 		{	-- Armies of Legionfall

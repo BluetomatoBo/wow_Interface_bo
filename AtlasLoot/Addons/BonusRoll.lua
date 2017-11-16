@@ -13,6 +13,7 @@ local tonumber = tonumber
 -- /run BonusRollFrame_StartBonusRoll(190156, "", 180, 738)
 -- [BonusRollID] = "tierID:instanceID:encounterID"		<- new
 -- Use /dump GetJournalInfoForSpellConfirmation(spellID) to get instanceID and encounterID
+-- Also look into here for more information: http://www.wowhead.com/spells/name:Bonus+Roll+Prompt
 local BONUS_ROLL_IDS = {
 	-- ### Legion
 	-- BrokenIsles
@@ -65,6 +66,25 @@ local BONUS_ROLL_IDS = {
 	[232466] = "7:861:1819",		-- Odyn
 	[232467] = "7:861:1830",		-- Guarm
 	[232468] = "7:861:1829",		-- Helya
+	-- Antorus, the Burning Throne
+	[250588] = "7:946:1992",		-- Garothi Worldbreaker
+	[250598] = "7:946:1987",		-- Felhounds of Sargeras
+	[250600] = "7:946:1997",		-- Antoran High Command
+	[250601] = "7:946:1985",		-- Portal Keeper Hasabel
+	[250602] = "7:946:2025",		-- Eonar the Life-Binder
+	[250603] = "7:946:2009",		-- Imonar the Soulhunter
+	[250604] = "7:946:2004",		-- Kin'garoth
+	[250605] = "7:946:1983",		-- Varimathras
+	[250606] = "7:946:1986",		-- The Coven of Shivarra
+	[250607] = "7:946:1984",		-- Aggramar
+	[250608] = "7:946:2031",		-- Argus the Unmaker
+	-- Invasion Points
+	[254441] = "7:959:2010",		-- Matron Folnuna
+	[254437] = "7:959:2011",		-- Mistress Alluradel
+	[254435] = "7:959:2012",		-- Inquisitor Meto
+	[254443] = "7:959:2013",		-- Occularus
+	[254446] = "7:959:2014",		-- Sotanathor
+	[254439] = "7:959:2015",		-- Pit Lord Vilemus
 	
 	-- ### WoD
 	-- BlackrockFoundry
