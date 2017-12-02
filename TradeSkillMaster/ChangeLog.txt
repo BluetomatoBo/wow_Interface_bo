@@ -1,3 +1,6 @@
+v3.6.28
+*Added new bonusIds for Antorus items.
+
 v3.6.37
 *Add destroying ratios for astral glory.
 
