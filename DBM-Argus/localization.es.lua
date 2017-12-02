@@ -1,4 +1,4 @@
-if GetLocale() ~= "zhTW" then return end
+if GetLocale() ~= "esES" and GetLocale() ~= "esMX" then return end
 local L
 
 -----------------------
@@ -7,7 +7,7 @@ local L
 L= DBM:GetModLocalization(2012)
 
 L:SetMiscLocalization({
-	Pull				= "你注定會死！"
+	Pull				= "¡Tu destino es la muerte!"
 })
 
 -----------------------
@@ -16,7 +16,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2013)
 
 L:SetMiscLocalization({
-	Pull				= "我看到你靈魂的弱點了！"
+	Pull				= "¡Veo la debilidad de vuestra alma!"
 })
 
 -----------------------
@@ -25,7 +25,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2014)
 
 L:SetMiscLocalization({
-	Pull				= "來吧，小傢伙，讓我殺了你們！"
+	Pull				= "Venid, renacuajos. ¡Morid a mis manos!"
 })
 
 -----------------------
@@ -34,7 +34,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2011)
 
 L:SetMiscLocalization({
-	Pull				= "新的玩具嗎？真是難以抗拒啊！"
+	Pull				= "¿Nuevos juguetes? ¡Qué irresistible!"
 })
 
 -----------------------
@@ -43,7 +43,7 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2010)
 
 L:SetMiscLocalization({
-	Pull				= "對…小傢伙，靠近一點！"
+	Pull				= "Sí... ¡Acercaos, pequeñajos!"
 })
 
 -----------------------
@@ -52,5 +52,5 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2015)
 
 L:SetMiscLocalization({
-	Pull				= "魔火會燒盡所有世界！"
+	Pull				= "¡Todos los mundos arderán en fuego vil!"
 })
