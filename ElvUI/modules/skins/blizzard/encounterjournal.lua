@@ -5,11 +5,16 @@ local S = E:GetModule('Skins')
 --Lua functions
 local _G = _G
 local select, unpack, pairs = select, unpack, pairs
+--WoW API / Variables
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS: AJ_MAX_NUM_SUGGESTIONS, EJ_GetEncounterInfoByIndex
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.encounterjournal ~= true then return end
 
-	local EJ = EncounterJournal
+	local EJ = _G["EncounterJournal"]
 	EJ:StripTextures(true)
 	EJ.inset:StripTextures(true)
 	EJ:CreateBackdrop("Transparent")
@@ -83,7 +88,6 @@ local function LoadSkin()
 	EncounterInfo.bossesScroll:CreateBackdrop("Transparent")
 	EncounterInfo.bossesScroll.backdrop:Point("TOPLEFT", EncounterInfo.bossesScroll, "TOPLEFT", -25, E.Border)
 	S:HandleScrollBar(EncounterInfo.bossesScroll.ScrollBar, 4)
-
 
 	local scrollFrames = {
 		EncounterInfo.overviewScroll,
@@ -224,7 +228,7 @@ local function LoadSkin()
 	--Boss selection buttons
 	local function SkinBosses()
 		local bossIndex = 1;
-		local name, description, bossID, _, link = EJ_GetEncounterInfoByIndex(bossIndex);
+		local _, _, bossID = EJ_GetEncounterInfoByIndex(bossIndex);
 		local bossButton;
 
 		while bossID do
@@ -237,7 +241,7 @@ local function LoadSkin()
 			end
 
 			bossIndex = bossIndex + 1;
-			name, description, bossID, _, link = EJ_GetEncounterInfoByIndex(bossIndex);
+			_, _, bossID = EJ_GetEncounterInfoByIndex(bossIndex);
 		end
 	end
 	hooksecurefunc("EncounterJournal_DisplayInstance", SkinBosses)
@@ -275,7 +279,7 @@ local function LoadSkin()
 	end
 
 	--Overview Info (From Aurora)
-	local function SkinOverviewInfo(self, role, index)
+	local function SkinOverviewInfo(self, _, index)
 		local header = self.overviews[index]
 		if not header.isSkinned then
 
@@ -298,7 +302,7 @@ local function LoadSkin()
 	hooksecurefunc("EncounterJournal_SetUpOverview", SkinOverviewInfo)
 
 	--Overview Info Bullets (From Aurora)
-	local function SkinOverviewInfoBullets(object, description)
+	local function SkinOverviewInfoBullets(object)
 		local parent = object:GetParent()
 
 		if parent.Bullets then
@@ -354,12 +358,12 @@ local function LoadSkin()
 		end
 	end
 	hooksecurefunc("EncounterJournal_ToggleHeaders", SkinAbilitiesInfo)
-	
+
 	-- Search
 	EncounterJournalSearchResults:StripTextures()
 	EncounterJournalSearchResults:SetTemplate("Default")
 	EncounterJournalSearchBox.searchPreviewContainer:StripTextures()
-	
+
 	S:HandleCloseButton(EncounterJournalSearchResultsCloseButton)
 	S:HandleScrollBar(EncounterJournalSearchResultsScrollFrameScrollBar)
 end

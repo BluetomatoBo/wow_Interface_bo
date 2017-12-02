@@ -1,8 +1,18 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
+--Cache global variables
+--Lua functions
+local _G = _G
+local pairs = pairs
+--WoW API / Variables
+local hooksecurefunc = hooksecurefunc
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS:
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.gossip ~= true then return end
+
 	ItemTextFrame:StripTextures(true)
 	ItemTextScrollFrame:StripTextures()
 	GossipFrame:SetTemplate("Transparent")
@@ -28,7 +38,6 @@ local function LoadSkin()
 	}
 
 	S:HandleScrollBar(GossipGreetingScrollFrameScrollBar, 5)
-
 
 	for _, object in pairs(StripAllTextures) do
 		_G[object]:StripTextures()
@@ -57,7 +66,6 @@ local function LoadSkin()
 		_G[buttons[i]]:StripTextures()
 		S:HandleButton(_G[buttons[i]])
 	end
-
 
 	S:HandleCloseButton(GossipFrameCloseButton,GossipFrame.backdrop)
 

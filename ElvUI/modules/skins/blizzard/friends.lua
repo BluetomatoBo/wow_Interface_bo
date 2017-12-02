@@ -4,8 +4,16 @@ local S = E:GetModule('Skins')
 --Cache global variables
 --Lua functions
 local _G = _G
+local pairs, select, unpack = pairs, select, unpack
 --WoW API / Variables
-local MAX_DISPLAY_CHANNEL_BUTTONS = MAX_DISPLAY_CHANNEL_BUTTONS
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+local BNFeaturesEnabled = BNFeaturesEnabled
+local RaiseFrameLevel = RaiseFrameLevel
+local BNConnected = BNConnected
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS: FriendsFrameBroadcastInput_UpdateDisplay, FriendsFrame_CheckBattlenetStatus
+-- GLOBALS: WhoFrameColumn_SetWidth, FRIENDS_TO_DISPLAY, MAX_DISPLAY_CHANNEL_BUTTONS
 
 --Tab Regions
 local tabs = {
@@ -34,6 +42,7 @@ end
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.friends ~= true then return end
+
 	S:HandleScrollBar(FriendsFrameFriendsScrollFrameScrollBar, 5)
 	S:HandleScrollBar(WhoListScrollFrameScrollBar, 5)
 	S:HandleScrollBar(ChannelRosterScrollFrameScrollBar, 5)
@@ -191,7 +200,7 @@ local function LoadSkin()
 	ScrollOfResurrectionSelectionFrameList:SetTemplate('Default')
 	S:HandleScrollBar(ScrollOfResurrectionSelectionFrameListScrollFrameScrollBar, 4)
 	S:HandleEditBox(ScrollOfResurrectionSelectionFrameTargetEditBox)
-
+	RaiseFrameLevel(ScrollOfResurrectionSelectionFrameTargetEditBox)
 
 	--Pending invites
 	S:HandleButton(FriendsFrameFriendsScrollFrame.PendingInvitesHeaderButton)
@@ -265,12 +274,12 @@ local function LoadSkin()
 	--View Friends BN Frame
 	FriendsFriendsFrame:CreateBackdrop("Transparent")
 
-	local StripAllTextures = {
+	StripAllTextures = {
 		"FriendsFriendsFrame",
 		"FriendsFriendsList",
 	}
 
-	local buttons = {
+	buttons = {
 		"FriendsFriendsSendRequestButton",
 		"FriendsFriendsCloseButton",
 	}
@@ -299,6 +308,7 @@ local function LoadSkin()
 
 	RecruitAFriendFrame:StripTextures()
 	RecruitAFriendFrame:SetTemplate("Transparent")
+	RecruitAFriendFrame.MoreDetails.Text:FontTemplate()
 	S:HandleCloseButton(RecruitAFriendFrameCloseButton)
 	S:HandleButton(RecruitAFriendFrameSendButton)
 	S:HandleEditBox(RecruitAFriendNameEditBox)

@@ -1,21 +1,24 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
+--Cache global variables
+--Lua functions
+local _G = _G
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS:
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.dressingroom ~= true then return end
-	
-	if E.wowbuild >= 24904 then
-		DressUpFrame:StripTextures()
-	else
-		DressUpFrame:StripTextures(true)
-	end
+
+	local DressUpFrame = _G["DressUpFrame"]
+	DressUpFrame:StripTextures()
 	DressUpFrame:CreateBackdrop("Transparent")
-	
-	if E.wowbuild >= 24904 then
-		DressUpFramePortrait:Hide()
-		DressUpFramePortraitFrame:Hide()
-		DressUpFrameInset:Hide()
-	end
+
+	DressUpFramePortrait:Hide()
+	DressUpFramePortraitFrame:Hide()
+	DressUpFrameInset:Hide()
 
 	S:HandleButton(DressUpFrameResetButton)
 	S:HandleButton(DressUpFrameCancelButton)
@@ -25,18 +28,16 @@ local function LoadSkin()
 	S:HandleDropDownBox(DressUpFrameOutfitDropDown)
 	DressUpFrameOutfitDropDown:SetSize(195, 34)
 
-	if E.wowbuild >= 24904 then
-		S:HandleMaxMinFrame(MaximizeMinimizeFrame)
-		S:HandleCloseButton(DressUpFrameCloseButton)
-	else
-		S:HandleCloseButton(DressUpFrameCloseButton, DressUpFrame.backdrop)
-	end
+	S:HandleMaxMinFrame(MaximizeMinimizeFrame)
+	S:HandleCloseButton(DressUpFrameCloseButton)
 	DressUpFrameResetButton:Point("RIGHT", DressUpFrameCancelButton, "LEFT", -2, 0)
 
 	-- Wardrobe edit frame
+	local WardrobeOutfitFrame = _G["WardrobeOutfitFrame"]
 	WardrobeOutfitFrame:StripTextures(true)
 	WardrobeOutfitFrame:SetTemplate("Transparent")
 
+	local WardrobeOutfitEditFrame = _G["WardrobeOutfitEditFrame"]
 	WardrobeOutfitEditFrame:StripTextures(true)
 	WardrobeOutfitEditFrame:SetTemplate("Transparent")
 	WardrobeOutfitEditFrame.EditBox:StripTextures()

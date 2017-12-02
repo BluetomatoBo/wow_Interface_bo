@@ -1,8 +1,18 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
+--Cache global variables
+--Lua functions
+local _G = _G
+local select, unpack = select, unpack
+--WoW API / Variables
+local hooksecurefunc = hooksecurefunc
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS:
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.merchant ~= true then return end
+
 	local frames = {
 		"MerchantBuyBackItem",
 		"MerchantFrame",
@@ -21,6 +31,8 @@ local function LoadSkin()
 	MerchantMoneyInset:StripTextures()
 	MerchantBuyBackItem.backdrop:Point("TOPLEFT", -6, 6)
 	MerchantBuyBackItem.backdrop:Point("BOTTOMRIGHT", 6, -6)
+
+	local MerchantFrame = _G["MerchantFrame"]
 	MerchantFrame.backdrop:Point("TOPLEFT", 6, 2)
 	MerchantFrame.backdrop:Point("BOTTOMRIGHT", 2, -1)
 
@@ -57,7 +69,6 @@ local function LoadSkin()
 
 		_G["MerchantItem"..i.."MoneyFrame"]:ClearAllPoints()
 		_G["MerchantItem"..i.."MoneyFrame"]:Point("BOTTOMLEFT", button, "BOTTOMRIGHT", 3, 0)
-
 	end
 
 	-- Skin buyback item frame + icon
@@ -74,7 +85,6 @@ local function LoadSkin()
 	hooksecurefunc(MerchantBuyBackItemItemButton.IconBorder, 'Hide', function(self)
 		self:GetParent():SetBackdropBorderColor(unpack(E.media.bordercolor))
 	end)
-
 
 	MerchantRepairItemButton:StyleButton(false)
 	MerchantRepairItemButton:SetTemplate("Default", true)

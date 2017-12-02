@@ -4,10 +4,12 @@ local S = E:GetModule('Skins')
 --Cache global variables
 --Lua functions
 local _G = _G
+local select = select
+local getn = getn
 --WoW API / Variables
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
--- GLOBALS: 
+-- GLOBALS:
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.misc ~= true then return end
@@ -45,6 +47,18 @@ local function LoadSkin()
 	S:HandleButton(ReportCheatingDialogCancelButton)
 	ReportCheatingDialog:SetTemplate("Transparent")
 	S:HandleEditBox(ReportCheatingDialogCommentFrameEditBox)
+
+	local BattleTagInviteFrame = _G["BattleTagInviteFrame"]
+	BattleTagInviteFrame:StripTextures()
+	BattleTagInviteFrame:SetTemplate('Transparent')
+	--S:HandleEditBox(BattleTagInviteFrameScrollFrame)
+
+	for i=1, BattleTagInviteFrame:GetNumChildren() do
+		local child = select(i, BattleTagInviteFrame:GetChildren())
+		if child:GetObjectType() == 'Button' then
+			S:HandleButton(child)
+		end
+	end
 end
 
 S:AddCallback("SkinBNet", LoadSkin)

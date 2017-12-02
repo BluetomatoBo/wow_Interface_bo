@@ -3,16 +3,18 @@ local S = E:GetModule('Skins')
 
 --Cache global variables
 --Lua functions
-
+local _G = _G
+local pairs, unpack = pairs, unpack
 --WoW API / Variables
-
+local hooksecurefunc = hooksecurefunc
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
--- GLOBALS: 
+-- GLOBALS:
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.AdventureMap ~= true then return end
 
 	--Quest Choise
+	local AdventureMapQuestChoiceDialog = _G["AdventureMapQuestChoiceDialog"]
 	AdventureMapQuestChoiceDialog:StripTextures()
 	AdventureMapQuestChoiceDialog:CreateBackdrop("Transparent")
 	AdventureMapQuestChoiceDialog.backdrop:SetFrameStrata("LOW")

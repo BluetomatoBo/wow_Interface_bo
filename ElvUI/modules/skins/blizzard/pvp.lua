@@ -1,10 +1,19 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
+--Cache global variables
+--Lua functions
+local _G = _G
+--WoW API / Variables
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS:
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true then return end
 
-	PVPUIFrame:StripTextures()
+	_G["PVPUIFrame"]:StripTextures()
 
 	for i = 1, 2 do
 		S:HandleTab(_G["PVPUIFrameTab"..i])
@@ -34,6 +43,7 @@ local function LoadSkin()
 	-- Honor Frame
 	S:HandleDropDownBox(HonorFrameTypeDropDown, 210)
 
+	local HonorFrame = _G["HonorFrame"]
 	HonorFrame.Inset:StripTextures()
 
 	S:HandleScrollBar(HonorFrameSpecificFrameScrollBar)
@@ -99,32 +109,6 @@ local function LoadSkin()
 	HonorFrame.RoleInset.DPSIcon.bg:Size(80)
 	HonorFrame.RoleInset.DPSIcon.bg:SetAlpha(0.5)
 
-	-- HonorBar
-	local honorBar = HonorFrame.XPBar
-	local bar = honorBar.Bar
-	local text = honorBar.Bar.OverlayFrame.Text
-	local nextAvailable = honorBar.NextAvailable
-	local icon = nextAvailable.Icon
-
-	honorBar:StripTextures()
-
-	bar:CreateBackdrop("Default")
-	bar.Spark:SetAlpha(0)
-
-	text:ClearAllPoints()
-	text:Point("CENTER", bar)
-
-	nextAvailable:StripTextures()
-	nextAvailable:CreateBackdrop("Default")
-	nextAvailable.backdrop:SetPoint("TOPLEFT", HonorFrame.XPBar.NextAvailable.Icon, -2, 2)
-	nextAvailable.backdrop:SetPoint("BOTTOMRIGHT", HonorFrame.XPBar.NextAvailable.Icon, 2, -2)
-	nextAvailable:ClearAllPoints()
-	nextAvailable:SetPoint("LEFT", bar, "RIGHT", 0, -2)
-
-	icon:SetDrawLayer("ARTWORK")
-	icon:SetTexCoord(unpack(E.TexCoords))
-	icon.SetTexCoord = E.noop
-
 	hooksecurefunc("LFG_PermanentlyDisableRoleButton", function(self)
 		if self.bg then
 			self.bg:SetDesaturated(true)
@@ -132,6 +116,7 @@ local function LoadSkin()
 	end)
 
 	-- Conquest Frame
+	local ConquestFrame = _G["ConquestFrame"]
 	ConquestFrame.Inset:StripTextures()
 	ConquestFrame:StripTextures()
 	ConquestFrame.ShadowOverlay:StripTextures()
@@ -169,32 +154,6 @@ local function LoadSkin()
 	ConquestFrame.RoleInset.DPSIcon.bg:Size(80)
 	ConquestFrame.RoleInset.DPSIcon.bg:SetAlpha(0.5)
 
-	-- ConquestBar
-	local conquestBar = ConquestFrame.XPBar
-	local bar = conquestBar.Bar
-	local text = conquestBar.Bar.OverlayFrame.Text
-	local nextAvailable = conquestBar.NextAvailable
-	local icon = nextAvailable.Icon
-
-	conquestBar:StripTextures()
-
-	bar:CreateBackdrop("Default")
-	bar.Spark:SetAlpha(0)
-
-	text:ClearAllPoints()
-	text:Point("CENTER", bar)
-
-	nextAvailable:StripTextures()
-	nextAvailable:CreateBackdrop("Default")
-	nextAvailable.backdrop:SetPoint("TOPLEFT", HonorFrame.XPBar.NextAvailable.Icon, -2, 2)
-	nextAvailable.backdrop:SetPoint("BOTTOMRIGHT", HonorFrame.XPBar.NextAvailable.Icon, 2, -2)
-	nextAvailable:ClearAllPoints()
-	nextAvailable:SetPoint("LEFT", bar, "RIGHT", 0, -2)
-
-	icon:SetDrawLayer("ARTWORK")
-	icon:SetTexCoord(unpack(E.TexCoords))
-	icon.SetTexCoord = E.noop
-
 	local function handleButton(button)
 		button:StripTextures()
 		button:SetTemplate()
@@ -210,6 +169,7 @@ local function LoadSkin()
 	ConquestFrame.Arena3v3:Point("TOP", ConquestFrame.Arena2v2, "BOTTOM", 0, -2)
 
 	-- WarGames Frame
+	local WarGamesFrame = _G["WarGamesFrame"]
 	WarGamesFrame:StripTextures()
 	WarGamesFrame.RightInset:StripTextures()
 	S:HandleButton(WarGameStartButton, true)
@@ -221,4 +181,39 @@ local function LoadSkin()
 	ConquestTooltip:SetTemplate("Transparent")
 	PVPRewardTooltip:SetTemplate("Transparent")
 end
+
 S:AddCallbackForAddon('Blizzard_PVPUI', "PvPUI", LoadSkin)
+
+local function LoadSecondarySkin()
+	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.pvp ~= true then return end
+
+	--PVP QUEUE FRAME
+	PVPReadyDialog:StripTextures()
+	PVPReadyDialog:SetTemplate("Transparent")
+	S:HandleButton(PVPReadyDialogEnterBattleButton)
+	S:HandleButton(PVPReadyDialogLeaveQueueButton)
+	S:HandleCloseButton(PVPReadyDialogCloseButton)
+	PVPReadyDialogRoleIcon.texture:SetTexture("Interface\\LFGFrame\\UI-LFG-ICONS-ROLEBACKGROUNDS")
+	PVPReadyDialogRoleIcon.texture:SetAlpha(0.5)
+
+	hooksecurefunc("PVPReadyDialog_Display", function(self, _, _, _, queueType, _, role)
+		if role == "DAMAGER" then
+			PVPReadyDialogRoleIcon.texture:SetTexCoord(LFDQueueFrameRoleButtonDPS.background:GetTexCoord())
+		elseif role == "TANK" then
+			PVPReadyDialogRoleIcon.texture:SetTexCoord(LFDQueueFrameRoleButtonTank.background:GetTexCoord())
+		elseif role == "HEALER" then
+			PVPReadyDialogRoleIcon.texture:SetTexCoord(LFDQueueFrameRoleButtonHealer.background:GetTexCoord())
+		end
+
+		if queueType == "ARENA" then
+			self:Height(100)
+		end
+
+		self.background:Hide()
+	end)
+
+	S:SkinPVPHonorXPBar('HonorFrame')
+	S:SkinPVPHonorXPBar('ConquestFrame')
+end
+
+S:AddCallback("PVP", LoadSecondarySkin)

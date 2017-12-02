@@ -89,7 +89,7 @@ V['skins'] = {
 		["taxi"] = true,
 		["tooltip"] = true,
 		["quest"] = true,
-		["questChoice"] = false,
+		["questChoice"] = true,
 		["petition"] = true,
 		["dressingroom"] = true,
 		["pvp"] = true,
@@ -120,6 +120,7 @@ V['skins'] = {
 		["AdventureMap"] = true,
 		["Obliterum"] = true,
 		["Contribution"] = true,
+		["BlizzardOptions"] = true,
 	},
 }
 

@@ -6,8 +6,19 @@ local S = E:GetModule('Skins')
 local _G = _G
 local unpack, pairs, select = unpack, pairs, select
 --WoW API / Variables
-local CharacterFrameExpandButton = CharacterFrameExpandButton
-local SquareButton_SetIcon = SquareButton_SetIcon
+local GetItemLevelColor = GetItemLevelColor
+local GetSpecialization = GetSpecialization
+local GetSpecializationInfo = GetSpecializationInfo
+local GetSpecializationRole = GetSpecializationRole
+local GetCurrencyListSize = GetCurrencyListSize
+local GetNumFactions = GetNumFactions
+local hooksecurefunc = hooksecurefunc
+local IsAddOnLoaded = IsAddOnLoaded
+local UnitLevel = UnitLevel
+local UnitSex = UnitSex
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS: PAPERDOLL_SIDEBARS, PAPERDOLL_STATINFO, PAPERDOLL_STATCATEGORIES, NUM_GEARSET_ICONS_SHOWN
+-- GLOBALS: PaperDollFrame_SetItemLevel, MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.character ~= true then return end
@@ -37,6 +48,7 @@ local function LoadSkin()
 		"MainHandSlot",
 		"SecondaryHandSlot",
 	}
+
 	for _, slot in pairs(slots) do
 		local icon = _G["Character"..slot.."IconTexture"]
 		local cooldown = _G["Character"..slot.."Cooldown"]
@@ -89,7 +101,7 @@ local function LoadSkin()
 		local categoryYOffset = -5;
 		local statYOffset = 0;
 
-		if (not IsAddOnLoaded("DejaCharacterStats")) then 
+		if (not IsAddOnLoaded("DejaCharacterStats")) then
 			if ( level >= MIN_PLAYER_LEVEL_FOR_ITEM_LEVEL_DISPLAY ) then
 				PaperDollFrame_SetItemLevel(CharacterStatsPane.ItemLevelFrame, "player");
 				CharacterStatsPane.ItemLevelFrame.Value:SetTextColor(GetItemLevelColor());
@@ -145,7 +157,6 @@ local function LoadSkin()
 							if ( lastAnchor ) then
 								catFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, categoryYOffset);
 							end
-							lastAnchor = catFrame;
 							statFrame:SetPoint("TOP", catFrame, "BOTTOM", 0, -2);
 						else
 							statFrame:SetPoint("TOP", lastAnchor, "BOTTOM", 0, statYOffset);
@@ -260,6 +271,9 @@ local function LoadSkin()
 	end
 	--Re-add the overlay texture which was removed right above
 	CharacterModelFrameBackgroundOverlay:SetColorTexture(0,0,0)
+	CharacterModelFrame:CreateBackdrop("Default")
+	CharacterModelFrame.backdrop:Point("TOPLEFT", E.PixelMode and -1 or -2, E.PixelMode and 1 or 2)
+	CharacterModelFrame.backdrop:Point("BOTTOMRIGHT", E.PixelMode and 1 or 2, E.PixelMode and -2 or -3)
 
 	local function StatsPane(type)
 		CharacterStatsPane[type]:StripTextures()
@@ -276,12 +290,12 @@ local function LoadSkin()
 
 	--Titles
 	PaperDollTitlesPane:HookScript("OnShow", function(self)
-		for x, object in pairs(PaperDollTitlesPane.buttons) do
+		for _, object in pairs(PaperDollTitlesPane.buttons) do
 			object.BgTop:SetTexture(nil)
 			object.BgBottom:SetTexture(nil)
 			object.BgMiddle:SetTexture(nil)
 			object.text:FontTemplate()
-			hooksecurefunc(object.text, "SetFont", function(self, font, fontSize, fontStyle)
+			hooksecurefunc(object.text, "SetFont", function(self, font)
 				if font ~= E["media"].normFont then
 					self:FontTemplate()
 				end
@@ -306,7 +320,7 @@ local function LoadSkin()
 		object.icon:SetTexCoord(unpack(E.TexCoords))
 		--Making all icons the same size and position because otherwise BlizzardUI tries to attach itself to itself when it refreshes
 		object.icon:Point("LEFT", object, "LEFT", 4, 0)
-		hooksecurefunc(object.icon, "SetPoint", function(self, point, attachTo, anchorPoint, xOffset, yOffset, isForced)
+		hooksecurefunc(object.icon, "SetPoint", function(self, _, _, _, _, _, isForced)
 			if isForced ~= true then
 				self:SetPoint("LEFT", object, "LEFT", 4, 0, true)
 			end
@@ -319,7 +333,7 @@ local function LoadSkin()
 	end
 
 	--Icon selection frame
-	S:HandleIconSelectionFrame(GearManagerDialogPopup, NUM_GEARSET_ICONS_SHOWN, "GearManagerDialogPopupButton", frameNameOverride)
+	S:HandleIconSelectionFrame(GearManagerDialogPopup, NUM_GEARSET_ICONS_SHOWN, "GearManagerDialogPopupButton")
 
 	--Handle Tabs at bottom of character frame
 	for i=1, 4 do
@@ -339,10 +353,10 @@ local function LoadSkin()
 				tab.TabBg:Kill()
 
 				if i == 1 then
-					for i=1, tab:GetNumRegions() do
-						local region = select(i, tab:GetRegions())
+					for x=1, tab:GetNumRegions() do
+						local region = select(x, tab:GetRegions())
 						region:SetTexCoord(0.16, 0.86, 0.16, 0.86)
-						hooksecurefunc(region, "SetTexCoord", function(self, x1, y1, x2, y2)
+						hooksecurefunc(region, "SetTexCoord", function(self, x1)
 							if x1 ~= 0.16001 then
 								self:SetTexCoord(0.16001, 0.86, 0.16, 0.86)
 							end

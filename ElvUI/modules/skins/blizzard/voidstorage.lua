@@ -2,12 +2,17 @@ local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, Private
 local S = E:GetModule('Skins')
 
 --Cache global variables
+--Lua functions
+local _G = _G
+local pairs, select, unpack = pairs, select, unpack
 --WoW API / Variables
-local LE_ITEM_QUALITY_COMMON = LE_ITEM_QUALITY_COMMON
-local BAG_ITEM_QUALITY_COLORS = BAG_ITEM_QUALITY_COLORS
+local hooksecurefunc = hooksecurefunc
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS:
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.voidstorage ~= true then return end
+
 	local StripAllTextures = {
 		"VoidStorageBorderFrame",
 		"VoidStorageDepositFrame",
@@ -22,7 +27,7 @@ local function LoadSkin()
 		_G[object]:StripTextures()
 	end
 
-
+	local VoidStorageFrame = _G["VoidStorageFrame"]
 	for i=1, 2 do
 		local tab = VoidStorageFrame["Page"..i]
 		tab:DisableDrawLayer("BACKGROUND")

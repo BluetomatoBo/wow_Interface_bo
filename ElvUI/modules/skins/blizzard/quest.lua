@@ -3,7 +3,12 @@ local S = E:GetModule('Skins')
 
 --Cache global variables
 --Lua functions
+local _G = _G
 local unpack = unpack
+--WoW API / Variables
+local hooksecurefunc = hooksecurefunc
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS:
 
 local function StyleScrollFrame(scrollFrame, widthOverride, heightOverride, inset)
 	scrollFrame:SetTemplate()
@@ -20,16 +25,15 @@ end
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.quest ~= true then return end
+
 	S:HandleScrollBar(QuestProgressScrollFrameScrollBar)
 	S:HandleScrollBar(QuestRewardScrollFrameScrollBar)
-
 
 	S:HandleScrollBar(QuestDetailScrollFrameScrollBar)
 	QuestProgressScrollFrame:StripTextures()
 
 	QuestGreetingScrollFrame:StripTextures()
 	S:HandleScrollBar(QuestGreetingScrollFrameScrollBar)
-
 
 	QuestInfoSkillPointFrame:StripTextures()
 	QuestInfoSkillPointFrame:StyleButton()
@@ -73,12 +77,12 @@ local function LoadSkin()
 		self.spellTex:Height(self:GetHeight() + 217)
 	end)
 
-	hooksecurefunc("QuestInfo_Display", function(template, parentFrame)
+	hooksecurefunc("QuestInfo_Display", function()
 		for i = 1, #QuestInfoRewardsFrame.RewardButtons do
 			local questItem = QuestInfoRewardsFrame.RewardButtons[i]
 			if not questItem:IsShown() then break end
 
-			local point, relativeTo, relativePoint, x, y = questItem:GetPoint()
+			local point, relativeTo, relativePoint, _, y = questItem:GetPoint()
 			if point and relativeTo and relativePoint then
 				if i == 1 then
 					questItem:Point(point, relativeTo, relativePoint, 0, y)
@@ -150,17 +154,27 @@ local function LoadSkin()
 
 	for i=1, 6 do
 		local button = _G["QuestProgressItem"..i]
-		local texture = _G["QuestProgressItem"..i.."IconTexture"]
+		local icon = _G["QuestProgressItem"..i.."IconTexture"]
+		icon:SetTexCoord(unpack(E.TexCoords))
+		icon:Point("TOPLEFT", 2, -2)
+		icon:Size(icon:GetWidth() -3, icon:GetHeight() -3)
+		button:Width(button:GetWidth() -4)
 		button:StripTextures()
-		button:StyleButton()
-		button:Width(_G["QuestProgressItem"..i]:GetWidth() - 4)
-		button:SetFrameLevel(button:GetFrameLevel() + 2)
-		texture:SetTexCoord(unpack(E.TexCoords))
-		texture:SetDrawLayer("OVERLAY")
-		texture:Point("TOPLEFT", 2, -2)
-		texture:Size(texture:GetWidth() - 2, texture:GetHeight() - 2)
-		_G["QuestProgressItem"..i.."Count"]:SetDrawLayer("OVERLAY")
-		button:SetTemplate("Default")
+		button:SetFrameLevel(button:GetFrameLevel() +1)
+
+		local frame = CreateFrame("Frame", nil, button)
+		frame:SetFrameLevel(button:GetFrameLevel() -1)
+		frame:SetTemplate("Transparent", nil, true)
+		frame:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		frame:SetBackdropColor(0, 0, 0, 0)
+		frame:SetOutside(icon)
+		button.backdrop = frame
+
+		local hover = button:CreateTexture()
+		hover:SetColorTexture(1, 1, 1, 0.3)
+		hover:SetAllPoints(icon)
+		button:SetHighlightTexture(hover)
+		button.hover = hover
 	end
 
 	QuestNPCModel:StripTextures()
@@ -174,7 +188,7 @@ local function LoadSkin()
 	--QuestLogDetailScrollFrame:StripTextures()
 	--S:HandleCloseButton(QuestLogDetailFrameCloseButton)
 
-	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, portrait, text, name, x, y)
+	hooksecurefunc("QuestFrame_ShowQuestPortrait", function(parentFrame, _, _, _, x, y)
 		QuestNPCModel:ClearAllPoints();
 		QuestNPCModel:Point("TOPLEFT", parentFrame, "TOPRIGHT", x + 18, y);
 	end)

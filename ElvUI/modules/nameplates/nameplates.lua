@@ -18,7 +18,7 @@ local C_NamePlate_SetNamePlateFriendlyClickThrough = C_NamePlate.SetNamePlateFri
 local C_NamePlate_SetNamePlateFriendlySize = C_NamePlate.SetNamePlateFriendlySize
 local C_NamePlate_SetNamePlateSelfClickThrough = C_NamePlate.SetNamePlateSelfClickThrough
 local C_NamePlate_SetNamePlateSelfSize = C_NamePlate.SetNamePlateSelfSize
-local C_Timer_After = C_Timer.After
+local C_Timer_NewTimer = C_Timer.NewTimer
 local CreateFrame = CreateFrame
 local GetArenaOpponentSpec = GetArenaOpponentSpec
 local GetBattlefieldScore = GetBattlefieldScore
@@ -176,8 +176,9 @@ function mod:PLAYER_ENTERING_WORLD()
 	end
 end
 
-function mod:ClassBar_Update(frame)
+function mod:ClassBar_Update()
 	if(not self.ClassBar) then return end
+	local frame
 
 	if(self.db.classbar.enable) then
 		local targetFrame = self:GetNamePlateForUnit("target")
@@ -300,7 +301,7 @@ function mod:SetTargetFrame(frame)
 			self:ConfigureElement_Name(frame)
 			self:ConfigureElement_NPCTitle(frame)
 			self:RegisterEvents(frame, frame.unit)
-			self:UpdateElement_All(frame, frame.unit, true)
+			self:UpdateElement_All(frame, frame.unit, true, true)
 		end
 
 		if(targetExists) then
@@ -328,7 +329,7 @@ function mod:SetTargetFrame(frame)
 		end
 	end
 
-	mod:ClassBar_Update(frame)
+	mod:ClassBar_Update()
 
 	if (self.db.displayStyle == "TARGET" and not frame.isTarget and frame.UnitType ~= "PLAYER") then
 		--Hide if we only allow our target to be displayed and the frame is not our current target and the frame is not the player nameplate
@@ -382,7 +383,7 @@ function mod:CheckUnitType(frame)
 end
 
 function mod:NAME_PLATE_UNIT_ADDED(_, unit, frame)
-	local frame = frame or self:GetNamePlateForUnit(unit);
+	frame = frame or self:GetNamePlateForUnit(unit);
 	frame.unitFrame.unit = unit
 	frame.unitFrame.displayedUnit = unit
 	self:UpdateInVehicle(frame, true)
@@ -413,6 +414,9 @@ function mod:NAME_PLATE_UNIT_ADDED(_, unit, frame)
 		self.PlayerNamePlateAnchor:SetParent(frame)
 		self.PlayerNamePlateAnchor:SetAllPoints(frame.unitFrame)
 		self.PlayerNamePlateAnchor:Show()
+		frame.unitFrame.IsPlayerFrame = true
+	else
+		frame.unitFrame.IsPlayerFrame = nil
 	end
 
 	if(self.db.units[frame.unitFrame.UnitType].healthbar.enable or self.db.displayStyle ~= "ALL") then
@@ -453,7 +457,7 @@ function mod:NAME_PLATE_UNIT_ADDED(_, unit, frame)
 end
 
 function mod:NAME_PLATE_UNIT_REMOVED(_, unit, frame)
-	local frame = frame or self:GetNamePlateForUnit(unit);
+	frame = frame or self:GetNamePlateForUnit(unit);
 	frame.unitFrame.unit = nil
 
 	local unitType = frame.unitFrame.UnitType
@@ -498,7 +502,7 @@ function mod:NAME_PLATE_UNIT_REMOVED(_, unit, frame)
 	frame.unitFrame.TopLevelFrame = nil
 
 	if self.ClassBar and (unitType == "PLAYER") then
-		mod:ClassBar_Update(frame)
+		mod:ClassBar_Update()
 	end
 end
 
@@ -551,7 +555,6 @@ function mod:ForEachPlate(functionToRun, ...)
 end
 
 function mod:SetBaseNamePlateSize()
-	local self = mod
 	local baseWidth = self.db.clickableWidth
 	local baseHeight = self.db.clickableHeight
 	self.PlayerFrame__:SetSize(baseWidth, baseHeight)
@@ -659,13 +662,13 @@ function mod:NAME_PLATE_CREATED(_, frame)
 	frame.unitFrame.DetectionModel = self:ConstructElement_Detection(frame.unitFrame)
 	frame.unitFrame.Highlight = self:ConstructElement_Highlight(frame.unitFrame)
 
-    if frame.UnitFrame and not frame.unitFrame.onShowHooked then
-    	self:SecureHookScript(frame.UnitFrame, "OnShow", function(self)
-    		self:Hide() --Hide Blizzard's Nameplate
-    	end)
-    	--print('Hooked on NAME_PLATE_CREATED')
-    	frame.unitFrame.onShowHooked = true
-    end
+	if frame.UnitFrame and not frame.unitFrame.onShowHooked then
+		self:SecureHookScript(frame.UnitFrame, "OnShow", function(self)
+			self:Hide() --Hide Blizzard's Nameplate
+		end)
+		--print('Hooked on NAME_PLATE_CREATED')
+		frame.unitFrame.onShowHooked = true
+	end
 end
 
 function mod:OnEvent(event, unit, ...)
@@ -711,7 +714,7 @@ function mod:OnEvent(event, unit, ...)
 	elseif(event == "UNIT_AURA") then
 		mod:UpdateElement_Auras(self)
 		if(self.IsPlayerFrame) then
-			mod:ClassBar_Update(self)
+			mod:ClassBar_Update()
 		end
 		mod:UpdateElement_HealthColor(self)
 		mod:UpdateElement_Filters(self, event)
@@ -728,7 +731,7 @@ function mod:OnEvent(event, unit, ...)
 		self.PowerType = powerType
 		if(event == "UNIT_POWER" or event == "UNIT_POWER_FREQUENT") then
 			if mod.ClassBar and arg1 == powerToken then
-				mod:ClassBar_Update(self)
+				mod:ClassBar_Update()
 			end
 		end
 
@@ -736,7 +739,7 @@ function mod:OnEvent(event, unit, ...)
 			mod:UpdateElement_Power(self)
 		end
 		mod:UpdateElement_Filters(self, event)
-	elseif ( event == "UNIT_ENTERED_VEHICLE" or event == "UNIT_EXITED_VEHICLE" or event == "UNIT_PET" ) then
+	elseif(event == "UNIT_ENTERED_VEHICLE" or event == "UNIT_EXITED_VEHICLE" or event == "UNIT_EXITING_VEHICLE" or event == "UNIT_PET")then
 		mod:UpdateInVehicle(self)
 		mod:UpdateElement_All(self, unit, true)
 	elseif(event == "UPDATE_MOUSEOVER_UNIT") then
@@ -810,6 +813,7 @@ function mod:RegisterEvents(frame, unit)
 	frame:RegisterEvent("RAID_TARGET_UPDATE")
 	frame:RegisterEvent("UNIT_ENTERED_VEHICLE")
 	frame:RegisterEvent("UNIT_EXITED_VEHICLE")
+	frame:RegisterEvent("UNIT_EXITING_VEHICLE")
 	frame:RegisterEvent("UNIT_PET")
 	frame:RegisterEvent("PLAYER_TARGET_CHANGED")
 	frame:RegisterEvent("PLAYER_ROLES_ASSIGNED")
@@ -835,6 +839,10 @@ function mod:UpdateCVars()
 	E:LockCVar("nameplateMaxDistance", self.db.loadDistance)
 	E:LockCVar("nameplateOtherTopInset", self.db.clampToScreen and "0.08" or "-1")
 	E:LockCVar("nameplateOtherBottomInset", self.db.clampToScreen and "0.1" or "-1")
+
+	--This one prevents classbar from being shown on friendly blizzard plates
+	-- we do this because it will otherwise break enemy nameplates after targeting a friendly one
+	E:LockCVar("nameplateResourceOnTarget", 0)
 
 	--Player nameplate
 	E:LockCVar("nameplateShowSelf", (self.db.units.PLAYER.useStaticPosition == true or self.db.units.PLAYER.enable ~= true) and "0" or "1")
@@ -924,13 +932,22 @@ function mod:PLAYER_REGEN_ENABLED()
 	elseif(self.db.showEnemyCombat == "TOGGLE_OFF") then
 		SetCVar("nameplateShowEnemies", 1);
 	end
-	self:UpdateVisibility()
+
+	if self.db.units.PLAYER.useStaticPosition then
+		self:UpdateVisibility()
+	end
 end
 
+local playerNamePlateHideTimer
 function mod:UpdateVisibility()
 	local frame = self.PlayerFrame__
 	if self.db.units.PLAYER.useStaticPosition then
-		if frame.unitFrame.VisibilityChanged then return end
+		if frame.unitFrame.VisibilityChanged then
+			return
+		end
+		if playerNamePlateHideTimer then
+			playerNamePlateHideTimer:Cancel()
+		end
 		if (self.db.units.PLAYER.visibility.showAlways) then
 			frame.unitFrame:Show()
 			self.PlayerNamePlateAnchor:Show()
@@ -945,7 +962,7 @@ function mod:UpdateVisibility()
 				self.PlayerNamePlateAnchor:Show()
 			elseif frame.unitFrame:IsShown() then
 				if (self.db.units.PLAYER.visibility.hideDelay > 0) then
-					C_Timer_After(self.db.units.PLAYER.visibility.hideDelay, HidePlayerNamePlate)
+					playerNamePlateHideTimer = C_Timer_NewTimer(self.db.units.PLAYER.visibility.hideDelay, HidePlayerNamePlate)
 				else
 					HidePlayerNamePlate()
 				end
@@ -995,7 +1012,7 @@ function mod:UpdateFonts(plate)
 		plate.CastBar.Time:SetFont(LSM:Fetch("font", self.db.font), self.db.fontSize, self.db.fontOutline)
 	end
 	if plate.HealthBar and plate.HealthBar.text then
-		plate.HealthBar.text:SetFont(LSM:Fetch("font", self.db.font), self.db.fontSize, self.db.fontOutline)
+		plate.HealthBar.text:SetFont(LSM:Fetch("font", self.db.healthFont), self.db.healthFontSize, self.db.healthFontOutline)
 	end
 	if plate.PowerBar and plate.PowerBar.text then
 		plate.PowerBar.text:SetFont(LSM:Fetch("font", self.db.font), self.db.fontSize, self.db.fontOutline)
@@ -1058,6 +1075,7 @@ function mod:Initialize()
 	self:RegisterEvent("DISPLAY_SIZE_CHANGED");
 	self:RegisterEvent("UNIT_ENTERED_VEHICLE", "UpdateVehicleStatus")
 	self:RegisterEvent("UNIT_EXITED_VEHICLE", "UpdateVehicleStatus")
+	self:RegisterEvent("UNIT_EXITING_VEHICLE", "UpdateVehicleStatus")
 	self:RegisterEvent("UNIT_PET", "UpdateVehicleStatus")
 
 	if self.db.hideBlizzardPlates then
@@ -1084,6 +1102,18 @@ function mod:Initialize()
 		self.ClassBar:SetScale(1.35)
 	end
 	hooksecurefunc(NamePlateDriverFrame, "SetClassNameplateBar", mod.SetClassNameplateBar)
+
+	if not self.db.hideBlizzardPlates then
+		--This takes care of showing the nameplate and setting parent back after Blizzard changes during updates
+		hooksecurefunc(NamePlateDriverFrame, "SetupClassNameplateBar", function(self, _, bar)
+			if bar and bar == self.nameplateBar then
+				if mod.ClassBar ~= bar then
+					mod:SetClassNameplateBar(bar) --update our ClassBar link
+				end
+				mod:ClassBar_Update() --update the visibility
+			end
+		end)
+	end
 
 	self:DISPLAY_SIZE_CHANGED() --Run once for good measure.
 	self:SetBaseNamePlateSize()

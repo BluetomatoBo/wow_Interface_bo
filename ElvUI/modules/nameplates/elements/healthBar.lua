@@ -117,11 +117,13 @@ function mod:UpdateElement_HealthColor(frame)
 
 	if(not frame.isTarget or not self.db.useTargetScale) then
 		frame.ThreatScale = scale
-		self:SetFrameScale(frame, scale)
+		if not frame.ScaleChanged then
+			self:SetFrameScale(frame, scale)
+		end
 	end
 end
 
-local function UpdateFillBar(frame, previousTexture, bar, amount)
+function mod:UpdateFillBar(frame, previousTexture, bar, amount)
 	if ( amount == 0 ) then
 		bar:Hide();
 		return previousTexture;
@@ -189,9 +191,9 @@ function mod:UpdateElement_HealPrediction(frame)
 	frame.AbsorbBar:Show()
 
 	local previousTexture = frame.HealthBar:GetStatusBarTexture();
-	previousTexture = UpdateFillBar(frame.HealthBar, previousTexture, frame.PersonalHealPrediction , myIncomingHeal);
-	previousTexture = UpdateFillBar(frame.HealthBar, previousTexture, frame.HealPrediction, allIncomingHeal);
-	previousTexture = UpdateFillBar(frame.HealthBar, previousTexture, frame.AbsorbBar, totalAbsorb);
+	previousTexture = mod:UpdateFillBar(frame.HealthBar, previousTexture, frame.PersonalHealPrediction , myIncomingHeal);
+	previousTexture = mod:UpdateFillBar(frame.HealthBar, previousTexture, frame.HealPrediction, allIncomingHeal);
+	previousTexture = mod:UpdateFillBar(frame.HealthBar, previousTexture, frame.AbsorbBar, totalAbsorb);
 end
 
 
@@ -236,7 +238,7 @@ function mod:ConfigureElement_HealthBar(frame, configuring)
 	absorbBar:Hide()
 
 	healthBar.text:SetAllPoints(healthBar)
-	healthBar.text:SetFont(LSM:Fetch("font", self.db.font), self.db.fontSize, self.db.fontOutline)	
+	healthBar.text:SetFont(LSM:Fetch("font", self.db.healthFont), self.db.healthFontSize, self.db.healthFontOutline)
 end
 
 function mod:ConstructElement_HealthBar(parent)

@@ -5,14 +5,20 @@ local S = E:GetModule('Skins')
 --Lua functions
 local pairs, unpack = pairs, unpack
 --WoW API / Variables
+local _G = _G
 local C_PetBattles_GetPetType = C_PetBattles.GetPetType
 local C_PetBattles_GetNumAuras = C_PetBattles.GetNumAuras
 local C_PetBattles_GetAuraInfo = C_PetBattles.GetAuraInfo
-local PET_TYPE_SUFFIX = PET_TYPE_SUFFIX
-local PET_BATTLE_PAD_INDEX = PET_BATTLE_PAD_INDEX
+local CreateFrame = CreateFrame
+local hooksecurefunc = hooksecurefunc
+local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS: NumberFont_Outline_Huge, LE_BATTLE_PET_WEATHER, NUM_BATTLE_PET_ABILITIES
+-- GLOBALS: PET_BATTLE_PAD_INDEX
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.petbattleui ~= true then return end
+
 	local f = PetBattleFrame
 	local bf = f.BottomFrame
 	local infoBars = {
@@ -116,7 +122,7 @@ local function LoadSkin()
 			return
 		end
 
-		for i, infoBar in pairs(infoBars) do
+		for _, infoBar in pairs(infoBars) do
 			infoBar.FirstAttack:Show()
 			if infoBar.SpeedIcon:IsShown() then
 				infoBar.FirstAttack:SetVertexColor(0,1,0,1)
@@ -126,13 +132,12 @@ local function LoadSkin()
 		end
 	end)
 
-
 	-- PETS UNITFRAMES PET TYPE UPDATE
 	hooksecurefunc("PetBattleUnitFrame_UpdatePetType", function(self)
 		if self.PetType then
 			local petType = C_PetBattles_GetPetType(self.petOwner, self.petIndex)
-			if self.PetTypeFrame then
-				self.PetTypeFrame.text:SetText(PET_TYPE_SUFFIX[petType])
+			if self.PetTypeFrame and petType then
+				self.PetTypeFrame.text:SetText(_G["BATTLE_PET_NAME_"..petType])
 			end
 		end
 	end)
@@ -143,7 +148,7 @@ local function LoadSkin()
 
 		local nextFrame = 1
 		for i=1, C_PetBattles_GetNumAuras(self.petOwner, self.petIndex) do
-			local auraID, instanceID, turnsRemaining, isBuff = C_PetBattles_GetAuraInfo(self.petOwner, self.petIndex, i)
+			local _, _, turnsRemaining, isBuff = C_PetBattles_GetAuraInfo(self.petOwner, self.petIndex, i)
 			if (isBuff and self.displayBuffs) or (not isBuff and self.displayDebuffs) then
 				local frame = self.frames[nextFrame]
 
@@ -180,10 +185,14 @@ local function LoadSkin()
 		local weather = C_PetBattles_GetAuraInfo(LE_BATTLE_PET_WEATHER, PET_BATTLE_PAD_INDEX, 1)
 		if weather then
 			self.Icon:Hide()
+			self.BackgroundArt:ClearAllPoints()
+			self.BackgroundArt:Point("TOP", self, "TOP", 0, 14)
+			self.BackgroundArt:Size(200, 100)
 			self.Name:Hide()
 			self.DurationShadow:Hide()
 			self.Label:Hide()
-			self.Duration:Point("CENTER", self, 0, 8)
+			self.Duration:ClearAllPoints()
+			self.Duration:Point("TOP", self, "TOP", 0, 10)
 			self:ClearAllPoints()
 			self:Point("TOP", E.UIParent, 0, -15)
 		end
@@ -194,7 +203,7 @@ local function LoadSkin()
 	end)
 
 	f.TopVersusText:ClearAllPoints()
-	f.TopVersusText:Point("TOP", f, "TOP", 0, -42)
+	f.TopVersusText:Point("TOP", f, "TOP", 0, -35)
 
 	-- TOOLTIPS SKINNING
 	local function SkinPetTooltip(tt)
@@ -220,6 +229,15 @@ local function LoadSkin()
 	SkinPetTooltip(FloatingBattlePetTooltip)
 	SkinPetTooltip(FloatingPetBattleAbilityTooltip)
 
+	-- BATTLEPET RARITY COLOR
+	hooksecurefunc("BattlePetToolTip_Show", function(_, _, rarity)
+		local quality = rarity and ITEM_QUALITY_COLORS[rarity]
+		if quality and rarity > 1 then
+			BattlePetTooltip:SetBackdropBorderColor(quality.r, quality.g, quality.b)
+		else
+			BattlePetTooltip:SetBackdropBorderColor(unpack(E.media.bordercolor))
+		end
+	end)
 
 	-- TOOLTIP DEFAULT POSITION
 	hooksecurefunc("PetBattleAbilityTooltip_Show", function()
@@ -234,7 +252,6 @@ local function LoadSkin()
 		t:Point(point, E.UIParent, point, x, y)
 	end)
 
-
 	local extraInfoBars = {
 		f.Ally2,
 		f.Ally3,
@@ -242,7 +259,7 @@ local function LoadSkin()
 		f.Enemy3
 	}
 
-	for index, infoBar in pairs(extraInfoBars) do
+	for _, infoBar in pairs(extraInfoBars) do
 		infoBar.BorderAlive:SetAlpha(0)
 		infoBar.HealthBarBG:SetAlpha(0)
 		infoBar.HealthDivider:SetAlpha(0)
@@ -296,7 +313,7 @@ local function LoadSkin()
 	bf.TurnTimer.SkipButton:Width(bar:GetWidth())
 	bf.TurnTimer.SkipButton:ClearAllPoints()
 	bf.TurnTimer.SkipButton:Point("BOTTOM", bar, "TOP", 0, E.PixelMode and -1 or 1)
-	hooksecurefunc(bf.TurnTimer.SkipButton, "SetPoint", function(self, point, attachTo, anchorPoint, xOffset, yOffset)
+	hooksecurefunc(bf.TurnTimer.SkipButton, "SetPoint", function(self, point, _, anchorPoint, xOffset, yOffset)
 		if point ~= "BOTTOM" or anchorPoint ~= "TOP" or xOffset ~= 0 or yOffset ~= (E.PixelMode and -1 or 1) then
 			bf.TurnTimer.SkipButton:ClearAllPoints()
 			bf.TurnTimer.SkipButton:SetPoint("BOTTOM", bar, "TOP", 0, E.PixelMode and -1 or 1)
@@ -341,7 +358,6 @@ local function LoadSkin()
 		bf.PetSelectionFrame:Point("BOTTOM", bf.xpBar, "TOP", 0, 8)
 	end)
 
-
 	local function SkinPetButton(self)
 		if not self.backdrop then
 			self:CreateBackdrop()
@@ -350,13 +366,17 @@ local function LoadSkin()
 		self.Icon:SetTexCoord(unpack(E.TexCoords))
 		self.Icon:SetParent(self.backdrop)
 		self.Icon:SetDrawLayer('BORDER')
-		self.checked = true -- avoid create a check
-		self:StyleButton()
+		self:StyleButton(nil, nil, true)
 		self.SelectedHighlight:SetAlpha(0)
 		self.pushed:SetInside(self.backdrop)
 		self.hover:SetInside(self.backdrop)
 		self:SetFrameStrata('LOW')
 		self.backdrop:SetFrameStrata('LOW')
+		if self == bf.SwitchPetButton then
+			local spbc = self:GetCheckedTexture()
+			spbc:SetColorTexture(1, 1, 1, 0.3)
+			spbc:SetInside(self.backdrop)
+		end
 	end
 
 	hooksecurefunc("PetBattleFrame_UpdateActionBarLayout", function(self)

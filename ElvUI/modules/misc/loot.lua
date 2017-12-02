@@ -205,7 +205,7 @@ local function createSlot(id)
 	return frame
 end
 
-function M:LOOT_SLOT_CLEARED(event, slot)
+function M:LOOT_SLOT_CLEARED(_, slot)
 	if(not lootFrame:IsShown()) then return end
 
 	lootFrame.slots[slot]:Hide()
@@ -229,7 +229,7 @@ function M:UPDATE_MASTER_LOOT_LIST()
 	MasterLooterFrame_UpdatePlayers()
 end
 
-function M:LOOT_OPENED(event, autoloot)
+function M:LOOT_OPENED(_, autoloot)
 	lootFrame:Show()
 
 	if(not lootFrame:IsShown()) then
@@ -326,7 +326,6 @@ function M:LOOT_OPENED(event, autoloot)
 		end
 		slot.icon:SetTexture[[Interface\Icons\INV_Misc_Herb_AncientLichen]]
 
-		items = 1
 		w = max(w, slot.name:GetStringWidth())
 
 		slot.count:Hide()
@@ -375,10 +374,7 @@ function M:LoadLoot()
 	self:RegisterEvent("UPDATE_MASTER_LOOT_LIST")
 
 	E:CreateMover(lootFrameHolder, "LootFrameMover", L["Loot Frame"])
-	if(GetCVar("lootUnderMouse") == "1") then
-		E:DisableMover("LootFrameMover")
-	end
-	
+
 	-- Fuzz
 	LootFrame:UnregisterAllEvents()
 	tinsert(UISpecialFrames, 'ElvLootFrame')

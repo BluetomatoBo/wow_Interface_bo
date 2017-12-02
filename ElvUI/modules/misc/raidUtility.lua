@@ -167,7 +167,7 @@ local function RaidUtility_PositionRoleIcons()
 end
 
 local count = {}
-local function UpdateIcons(self, event)
+local function UpdateIcons(self)
 	local raid = IsInRaid()
 	local party --= IsInGroup() --We could have this in party :thinking:
 
@@ -403,7 +403,7 @@ function RU:Initialize()
 	end
 
 	--Reskin Stuff
-	for i, button in pairs(buttons) do
+	for _, button in pairs(buttons) do
 		local f = _G[button]
 		f.BottomLeft:SetAlpha(0)
 		f.BottomRight:SetAlpha(0)

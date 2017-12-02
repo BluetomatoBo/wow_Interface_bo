@@ -135,7 +135,7 @@ function DT:GetDataPanelPoint(panel, i, numPoints)
 end
 
 function DT:UpdateAllDimensions()
-	for panelName, panel in pairs(DT.RegisteredPanels) do
+	for _, panel in pairs(DT.RegisteredPanels) do
 		local width = (panel:GetWidth() / panel.numPoints) - 4
 		local height = panel:GetHeight() - 4
 		for i=1, panel.numPoints do
@@ -201,7 +201,7 @@ function DT:AssignPanelToDataText(panel, data)
 				or event == "UNIT_RANGED_ATTACK_POWER" or event == "UNIT_TARGET" or event == "UNIT_SPELL_HASTE" then
 				panel:RegisterUnitEvent(event, 'player')
 			elseif event == 'COMBAT_LOG_EVENT_UNFILTERED' then
-				panel:RegisterUnitEvent(event, UnitGUID("player"), UnitGUID("pet"))
+				panel:RegisterUnitEvent(event, E.myguid, UnitGUID("pet"))
 			else
 				panel:RegisterEvent(event)
 			end
@@ -247,7 +247,7 @@ function DT:LoadDataTexts()
 
 	local inInstance, instanceType = IsInInstance()
 	local fontTemplate = LSM:Fetch("font", self.db.font)
-	
+
 	for panelName, panel in pairs(DT.RegisteredPanels) do
 		--Restore Panels
 		for i=1, panel.numPoints do
@@ -336,7 +336,7 @@ function DT:RegisterDatatext(name, events, eventFunc, updateFunc, clickFunc, onE
 	if onLeaveFunc and type(onLeaveFunc) == 'function' then
 		DT.RegisteredDataTexts[name]['onLeave'] = onLeaveFunc
 	end
-	
+
 	if localizedName and type(localizedName) == "string" then
 		DT.RegisteredDataTexts[name]['localizedName'] = localizedName
 	end

@@ -43,16 +43,9 @@ local ToggleLFDParentFrame = ToggleLFDParentFrame
 local UnitClass = UnitClass
 local HUNTER_TRACKING = HUNTER_TRACKING
 local HUNTER_TRACKING_TEXT = HUNTER_TRACKING_TEXT
-local IG_MAINMENU_QUIT
-local IG_MINIMAP_OPEN
-if SOUNDKIT then
-	IG_MAINMENU_QUIT = SOUNDKIT.IG_MAINMENU_QUIT
-	IG_MINIMAP_OPEN = SOUNDKIT.IG_MINIMAP_OPEN
-end
 local MINIMAP_TRACKING_NONE = MINIMAP_TRACKING_NONE
 local TOWNSFOLK = TOWNSFOLK
 local TOWNSFOLK_TRACKING_TEXT = TOWNSFOLK_TRACKING_TEXT
-local PlaySoundKitID = PlaySoundKitID
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
 -- GLOBALS: GetMinimapShape, SpellBookFrame, PlayerTalentFrame, TalentFrame_LoadUI
@@ -76,12 +69,12 @@ local PlaySoundKitID = PlaySoundKitID
 --This function is copied from FrameXML and modified to use DropDownMenu library function calls
 --Using the regular DropDownMenu code causes taints in various places.
 local function MiniMapTrackingDropDown_Initialize(self, level)
-	local name, texture, active, category, nested, numTracking;
+	local name, texture, category, nested, numTracking;
 	local count = GetNumTrackingTypes();
 	local info;
 	local _, class = UnitClass("player");
-	
-	if (level == 1) then 
+
+	if (level == 1) then
 		info = L_UIDropDownMenu_CreateInfo();
 		info.text=MINIMAP_TRACKING_NONE;
 		info.checked = MiniMapTrackingDropDown_IsNoTrackingActive;
@@ -91,17 +84,17 @@ local function MiniMapTrackingDropDown_Initialize(self, level)
 		info.isNotRadio = true;
 		info.keepShownOnClick = true;
 		L_UIDropDownMenu_AddButton(info, level);
-		
+
 		if (class == "HUNTER") then --only show hunter dropdown for hunters
 			numTracking = 0;
 			-- make sure there are at least two options in dropdown
 			for id=1, count do
-				name, texture, active, category, nested = GetTrackingInfo(id);
+				_, _, _, category, nested = GetTrackingInfo(id);
 				if (nested == HUNTER_TRACKING and category == "spell") then
 					numTracking = numTracking + 1;
 				end
 			end
-			if (numTracking > 1) then 
+			if (numTracking > 1) then
 				info.text = HUNTER_TRACKING_TEXT;
 				info.func =  nil;
 				info.notCheckable = true;
@@ -111,7 +104,7 @@ local function MiniMapTrackingDropDown_Initialize(self, level)
 				L_UIDropDownMenu_AddButton(info, level)
 			end
 		end
-		
+
 		info.text = TOWNSFOLK_TRACKING_TEXT;
 		info.func =  nil;
 		info.notCheckable = true;
@@ -122,7 +115,7 @@ local function MiniMapTrackingDropDown_Initialize(self, level)
 	end
 
 	for id=1, count do
-		name, texture, active, category, nested  = GetTrackingInfo(id);
+		name, texture, _, category, nested  = GetTrackingInfo(id);
 		info = L_UIDropDownMenu_CreateInfo();
 		info.text = name;
 		info.checked = MiniMapTrackingDropDownButton_IsActive;
@@ -142,9 +135,9 @@ local function MiniMapTrackingDropDown_Initialize(self, level)
 			info.tCoordTop = 0;
 			info.tCoordBottom = 1;
 		end
-		if (level == 1 and 
+		if (level == 1 and
 			(nested < 0 or -- this tracking shouldn't be nested
-			(nested == HUNTER_TRACKING and class ~= "HUNTER") or 
+			(nested == HUNTER_TRACKING and class ~= "HUNTER") or
 			(numTracking == 1 and category == "spell"))) then -- this is a hunter tracking ability, but you only have one
 			L_UIDropDownMenu_AddButton(info, level);
 		elseif (level == 2 and (nested == TOWNSFOLK or (nested == HUNTER_TRACKING and class == "HUNTER")) and nested == L_UIDROPDOWNMENU_MENU_VALUE) then
@@ -187,17 +180,17 @@ local menuList = {
 	{text = TIMEMANAGER_TITLE,
 	func = function() ToggleFrame(TimeManagerFrame) end},
 	{text = ACHIEVEMENT_BUTTON,
-	func = function() ToggleAchievementFrame() end},
+	func = ToggleAchievementFrame},
 	{text = SOCIAL_BUTTON,
-	func = function() ToggleFriendsFrame() end},
+	func = ToggleFriendsFrame},
 	{text = L["Calendar"],
 	func = function() GameTimeFrame:Click() end},
 	{text = GARRISON_LANDING_PAGE_TITLE,
 	func = function() GarrisonLandingPageMinimapButton_OnClick() end},
 	{text = ACHIEVEMENTS_GUILD_TAB,
-	func = function() ToggleGuildFrame() end},
+	func = ToggleGuildFrame},
 	{text = LFG_TITLE,
-	func = function() ToggleLFDParentFrame(); end},
+	func = ToggleLFDParentFrame},
 	{text = ENCOUNTER_JOURNAL,
 	func = function() if not IsAddOnLoaded('Blizzard_EncounterJournal') then EncounterJournal_LoadUI(); end ToggleFrame(EncounterJournal) end},
 	{text = MAINMENU_BUTTON,
@@ -212,10 +205,10 @@ local menuList = {
 			end
 			CloseMenus();
 			CloseAllWindows()
-			PlaySound(PlaySoundKitID and "igMainMenuOpen" or IG_MINIMAP_OPEN);
+			PlaySound(850) --IG_MAINMENU_OPEN
 			ShowUIPanel(GameMenuFrame);
 		else
-			PlaySound(PlaySoundKitID and "igMainMenuQuit" or IG_MAINMENU_QUIT);
+			PlaySound(854) --IG_MAINMENU_QUIT
 			HideUIPanel(GameMenuFrame);
 			MainMenuMicroButton_SetNormal();
 		end
@@ -225,7 +218,7 @@ local menuList = {
 --if(C_StorePublic.IsEnabled()) then
 	tinsert(menuList, {text = BLIZZARD_STORE, func = function() StoreMicroButton:Click() end})
 --end
-tinsert(menuList, 	{text = HELP_BUTTON, func = function() ToggleHelpFrame() end})
+tinsert(menuList, 	{text = HELP_BUTTON, func = ToggleHelpFrame})
 
 function M:GetLocTextColor()
 	local pvpType = GetZonePVPInfo()
@@ -246,7 +239,7 @@ function M:GetLocTextColor()
 	end
 end
 
-function M:ADDON_LOADED(event, addon)
+function M:ADDON_LOADED(_, addon)
 	if addon == "Blizzard_TimeManager" then
 		TimeManagerClockButton:Kill()
 	elseif addon == "Blizzard_FeedbackUI" then

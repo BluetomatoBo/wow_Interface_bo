@@ -40,7 +40,7 @@ local function OnEvent(self, event, ...)
 	lastPanel = self
 
 	if event == "PLAYER_ENTERING_WORLD" then
-		playerID = UnitGUID('player')
+		playerID = E.myguid
 	elseif event == 'PLAYER_REGEN_DISABLED' or event == "PLAYER_LEAVE_COMBAT" then
 		local now = time()
 		if now - lastSegment > 20 then --time since the last segment
@@ -52,7 +52,7 @@ local function OnEvent(self, event, ...)
 
 		-- only use events from the player
 		local id = select(4, ...)
-		local overKill = 0
+		local overKill
 
 		if id == playerID or id == petID then
 			if timeStamp == 0 then timeStamp = select(1, ...) end

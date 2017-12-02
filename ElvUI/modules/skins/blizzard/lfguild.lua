@@ -1,8 +1,18 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
+--Cache global variables
+--Lua functions
+local _G = _G
+local pairs = pairs
+--WoW API / Variables
+
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS:
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.lfguild ~= true then return end
+
 	local checkbox = {
 		"LookingForGuildPvPButton",
 		"LookingForGuildWeekendsButton",
@@ -12,11 +22,11 @@ local function LoadSkin()
 		"LookingForGuildQuestButton",
 		"LookingForGuildDungeonButton",
 	}
+
 	-- skin checkboxes
 	for _, v in pairs(checkbox) do
 		S:HandleCheckBox(_G[v])
 	end
-
 
 	-- have to skin these checkboxes seperate for some reason o_O
 	S:HandleCheckBox(LookingForGuildTankButton.checkButton)

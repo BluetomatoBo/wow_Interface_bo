@@ -1,13 +1,26 @@
 local E, L, V, P, G = unpack(select(2, ...)); --Inport: Engine, Locales, PrivateDB, ProfileDB, GlobalDB
 local S = E:GetModule('Skins')
 
+--Cache global variables
+--Lua functions
+local _G = _G
+local unpack = unpack
+local format = format
+--WoW API / Variables
+local HideUIPanel = HideUIPanel
+local ShowUIPanel = ShowUIPanel
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS: MAX_ACCOUNT_MACROS, NUM_MACRO_ICONS_SHOWN
+
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.macro ~= true then return end
+
 	S:HandleCloseButton(MacroFrameCloseButton)
 	S:HandleScrollBar(MacroButtonScrollFrameScrollBar)
 	S:HandleScrollBar(MacroFrameScrollFrameScrollBar)
 	S:HandleScrollBar(MacroPopupScrollFrameScrollBar)
 
+	local MacroFrame = _G["MacroFrame"]
 	MacroFrame:Width(360)
 
 	local buttons = {
@@ -34,7 +47,6 @@ local function LoadSkin()
 	end
 	MacroFrameTab1:Point("TOPLEFT", MacroFrame, "TOPLEFT", 85, -39)
 	MacroFrameTab2:Point("LEFT", MacroFrameTab1, "RIGHT", 4, 0)
-
 
 	-- General
 	MacroFrame:StripTextures()

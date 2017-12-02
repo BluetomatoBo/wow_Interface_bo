@@ -6,15 +6,20 @@ local S = E:GetModule('Skins')
 local _G = _G
 local unpack, select = unpack, select
 --WoW API / Variables
+local CreateFrame = CreateFrame
 local GetItemInfo = GetItemInfo
 local GetItemQualityColor = GetItemQualityColor
 local GetContainerItemInfo = GetContainerItemInfo
 local GetContainerItemQuestInfo = GetContainerItemQuestInfo
 local GetInventoryItemTexture = GetInventoryItemTexture
 local GetInventorySlotInfo = GetInventorySlotInfo
+local hooksecurefunc = hooksecurefunc
+local MAX_WATCHED_TOKENS = MAX_WATCHED_TOKENS
 local TEXTURE_ITEM_QUEST_BORDER = TEXTURE_ITEM_QUEST_BORDER
 local NUM_CONTAINER_FRAMES = NUM_CONTAINER_FRAMES
 local QUESTS_LABEL = QUESTS_LABEL
+--Global variables that we don't cache, list them here for mikk's FindGlobals script
+-- GLOBALS:
 
 local function LoadSkin()
 	if E.private.skins.blizzard.enable ~= true or E.private.skins.blizzard.bags ~= true or E.private.bags.enable then return end
@@ -140,6 +145,7 @@ local function LoadSkin()
 	end
 
 	--Bank
+	local BankFrame = _G["BankFrame"]
 	hooksecurefunc("BankFrameItemButton_Update", function(button)
 		if not BankFrame.backdrop then
 			BankFrame:StripTextures(true)
@@ -181,7 +187,7 @@ local function LoadSkin()
 
 		if not button.isBag then
 			local container = button:GetParent():GetID();
-			local texture, _, _, _, _, _, itemLink = GetContainerItemInfo(container, button:GetID())
+			local _, _, _, _, _, _, itemLink = GetContainerItemInfo(container, button:GetID())
 			local isQuestItem, questId = GetContainerItemQuestInfo(container, button:GetID())
 			button.type = nil
 			button.ilink = itemLink

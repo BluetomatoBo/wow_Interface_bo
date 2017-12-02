@@ -17,7 +17,7 @@ local FACTION_BAR_COLORS = FACTION_BAR_COLORS
 local REPUTATION, STANDING = REPUTATION, STANDING
 
 --Global variables that we don't cache, list them here for mikk's FindGlobals script
--- GLOBALS: GameTooltip, RightChatPanel, CreateFrame
+-- GLOBALS: GameTooltip, RightChatPanel, CreateFrame, ToggleCharacter
 
 local backupColor = FACTION_BAR_COLORS[1]
 local FactionStandingLabelUnknown = UNKNOWN
@@ -34,7 +34,7 @@ function mod:UpdateReputation(event)
 		local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
 		min, max = 0, threshold
 		value = currentValue % threshold
-		if hasRewardPending then 
+		if hasRewardPending then
 			value = value + threshold
 		end
 	end
@@ -118,7 +118,7 @@ function mod:ReputationBar_OnEnter()
 		local currentValue, threshold, _, hasRewardPending = C_Reputation_GetFactionParagonInfo(factionID)
 		min, max = 0, threshold
 		value = currentValue % threshold
-		if hasRewardPending then 
+		if hasRewardPending then
 			value = value + threshold
 		end
 	end
