@@ -1,7 +1,7 @@
-changeset:   259:bee5efc4efd4
-tag:         v7.3.0.259-release
+changeset:   261:dc2d28227ee7
+tag:         v7.3.2.261-release
 user:        Tercio
-date:        Tue Nov 21 09:03:56 2017 -0200
-summary:     - Ticket #582: don't auto convert to raid new groups.
+date:        Wed Nov 29 16:32:27 2017 -0200
+summary:     - Fixed artifact power formating not working correctly for numbers above 1 billion on enUS language.
 
 
