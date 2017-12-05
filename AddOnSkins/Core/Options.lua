@@ -1,6 +1,5 @@
 local AS, ASL = unpack(AddOnSkins)
 local sort, pairs, gsub, strfind, strlower, strtrim = sort, pairs, gsub, strfind, strlower, strtrim
-local ACR, ACD = LibStub('AceConfigRegistry-3.0'), LibStub('AceConfigDialog-3.0')
 
 local DEVELOPER_STRING = ''
 local LINE_BREAK = '\n'
@@ -58,66 +57,8 @@ for _, devName in pairs(DEVELOPERS) do
 	DEVELOPER_STRING = DEVELOPER_STRING..devName..'    '
 end
 
-local Defaults, DebugString = nil, ''
+local DebugString = ''
 function AS:SetupProfile()
-	if not Defaults then
-		Defaults = {
-			profile = {
-			-- Embeds
-				['EmbedOoC'] = false,
-				['EmbedOoCDelay'] = 10,
-				['EmbedCoolLine'] = false,
-				['EmbedSexyCooldown'] = false,
-				['EmbedSystem'] = false,
-				['EmbedSystemDual'] = false,
-				['EmbedMain'] = 'Details',
-				['EmbedLeft'] = 'Details',
-				['EmbedRight'] = 'Details',
-				['EmbedRightChat'] = true,
-				['EmbedLeftWidth'] = 200,
-				['EmbedBelowTop'] = false,
-				['TransparentEmbed'] = false,
-				['EmbedIsHidden'] = false,
-				['EmbedFrameStrata'] = '3-MEDIUM',
-				['EmbedFrameLevel'] = 10,
-			-- Misc
-				['RecountBackdrop'] = true,
-				['SkadaBackdrop'] = true,
-				['OmenBackdrop'] = true,
-				['DetailsBackdrop'] = true,
-				['MiscFixes'] = true,
-				['DBMSkinHalf'] = false,
-				['DBMFont'] = 'Arial Narrow',
-				['DBMFontSize'] = 12,
-				['DBMFontFlag'] = 'OUTLINE',
-				['DBMRadarTrans'] = false,
-				['WeakAuraAuraBar'] = false,
-				['WeakAuraIconCooldown'] = false,
-				['SkinTemplate'] = 'Transparent',
-				['HideChatFrame'] = 'NONE',
-				['SkinDebug'] = false,
-				['LoginMsg'] = true,
-				['EmbedSystemMessage'] = true,
-				['ElvUISkinModule'] = false,
-				['ThinBorder'] = false,
-			},
-		}
-
-		for skin in pairs(AS.register) do
-			if Defaults.profile[skin] == nil then
-				if AS:CheckAddOn('ElvUI') and strfind(skin, 'Blizzard_') then
-					Defaults.profile[skin] = false
-				else
-					Defaults.profile[skin] = true
-				end
-			end
-		end
-	end
-
-	self.data = LibStub('AceDB-3.0'):New('AddOnSkinsDB', Defaults)
-
-	self.data.RegisterCallback(self, 'OnProfileChanged', 'SetupProfile')
-	self.data.RegisterCallback(self, 'OnProfileCopied', 'SetupProfile')
 	self.db = self.data.profile
 end
 
@@ -169,7 +110,7 @@ function AS:GetOptions()
 						type = 'select', dialogControl = 'LSM30_Font',
 						order = 1,
 						name = ASL['DBM|VEM Font'],
-						values = AceGUIWidgetLSMlists.font,
+						values = AS.LSM:HashTable('font'),
 					},
 					DBMFontSize = {
 						type = 'range',
@@ -531,18 +472,9 @@ function AS:GetOptions()
 
 	Options.args.profiles = LibStub('AceDBOptions-3.0'):GetOptionsTable(AS.data)
 	Options.args.profiles.order = -2
-	ACR:RegisterOptionsTable('AddOnSkinsProfiles', Options.args.profiles)
 
 	if AS.EP then
 		local Ace3OptionsPanel = IsAddOnLoaded('ElvUI') and ElvUI[1] or Enhanced_Config
 		Ace3OptionsPanel.Options.args.addonskins = Options
-	end
-
-	ACR:RegisterOptionsTable('AddOnSkins', Options)
-	ACD:AddToBlizOptions('AddOnSkins', 'AddOnSkins', nil, 'addons')
-	for k, v in AS:OrderedPairs(Options.args) do
-		if k ~= 'addons' then
-			ACD:AddToBlizOptions('AddOnSkins', v.name, 'AddOnSkins', k)
-		end
 	end
 end

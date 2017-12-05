@@ -130,7 +130,7 @@ function AS:Ace3()
 				AS:SkinScrollBar(frame)
 				frame.isSkinned = true
 			end
-		elseif TYPE == 'InlineGroup' or TYPE == 'TreeGroup' or TYPE == 'TabGroup' or TYPE == 'SimpleGroup' or TYPE == 'Frame' or TYPE == 'DropdownGroup' then
+		elseif TYPE == 'InlineGroup' or TYPE == 'TreeGroup' or TYPE == 'TabGroup' or TYPE == 'Frame' or TYPE == 'DropdownGroup' then
 			local frame = widget.content:GetParent()
 			if TYPE == 'Frame' then
 				AS:StripTextures(frame)
@@ -166,7 +166,7 @@ function AS:Ace3()
 				end
 
 				local oldRefreshTree = widget.RefreshTree
-				widget.RefreshTree = function(self, scrollToSelection)		
+				widget.RefreshTree = function(self, scrollToSelection)
 					oldRefreshTree(self, scrollToSelection)
 					if not self.tree then return end
 					local status = self.status or self.localstatus
@@ -201,6 +201,10 @@ function AS:Ace3()
 				AS:SkinScrollBar(widget.scrollbar)
 				widget.scrollbar.isSkinned = true
 			end
+		elseif TYPE == "SimpleGroup" then
+			local frame = widget.content:GetParent()
+			frame:SetTemplate("Transparent", nil, true) --ignore border updates
+			frame:SetBackdropBorderColor(0,0,0,0) --Make border completely transparent
 		end
 
 		return oldRegisterAsContainer(self, widget)

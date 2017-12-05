@@ -1,52 +1,127 @@
-lightweight tag a7457946dcbb2ed5ec776541ddd4b1a3c1f4360e 3.61
+lightweight tag 0d05f29db0d31bf32ecee893bf7383f2149ec289 3.63
 Author:	Azilroka <darktemplar9900@yahoo.com>
-Date:	Thu Nov 2 18:48:20 2017 -0500
+Date:	Sun Dec 3 00:19:45 2017 -0600
 
-commit a7457946dcbb2ed5ec776541ddd4b1a3c1f4360e
+commit 0d05f29db0d31bf32ecee893bf7383f2149ec289
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Thu Nov 2 18:48:20 2017 -0500
+Date:   Sun Dec 3 00:19:45 2017 -0600
 
-    3.61
+    3.63
 
-commit 9f62e92d815d64536ce3a1d8cbbec34e14aae3bc
+commit 660ce7f50dd63235f7acc7c7b976af3d4f3665f1
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Thu Nov 2 18:47:54 2017 -0500
+Date:   Sun Dec 3 00:11:18 2017 -0600
 
-    Omen Fix
+    Because people like enabling 2 skins.
 
-commit bc7efde9c591c748bbd7a1ec9f6c819aef152bcb
+commit 0aa3c1fb86d597c08eda4e672fe3dc6c04ed266e
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sat Dec 2 19:46:12 2017 -0600
+
+    Fix gitignore
+
+commit 843e0e69569bc55e9f481f6613697683e387a689
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sat Dec 2 18:19:36 2017 -0600
+
+    Somehow this got changed
+
+commit 0e4eb77fd734dacb7f69346c48fe7c10da6594c2
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sat Dec 2 11:11:12 2017 -0600
+
+    Move the DB to Initialize
+
+commit f543b5207374d69c32dfdfbda81335cfe8d92218
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Thu Nov 23 17:00:18 2017 -0600
+
+    Pull the Font Table from LSM
+
+commit 07187221590639d5e56ef5b7f8b9d207fd418fe8
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Wed Nov 22 21:53:24 2017 -0600
+
+    OCES
+
+commit 1d55d9ff5dd02870df18bbaaaf6bde2de30bf3e6
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sat Nov 18 16:08:52 2017 -0600
+
+    TicketTracker, API Button, DBM
+
+commit a552c6abc6f042c57ddbffff63a37f75bf0457c1
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Nov 13 15:34:52 2017 -0600
+
+    Removing this as well.
+
+commit c11512f2e90d1a57ab814d444f20ab3ebd885dfa
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Nov 13 15:18:42 2017 -0600
+
+    Unneeded
+
+commit 1a5a95b918e80c08e5002917e437330fc4d91e9b
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Nov 13 15:02:19 2017 -0600
+
+    Fix dis
+
+commit 795682fc7295e6ae8386f625fc64410b75a8ae8a
 Author: Merathilis <neo0608@gmail.com>
-Date:   Thu Nov 2 09:55:14 2017 +0100
+Date:   Mon Nov 13 14:15:12 2017 +0100
 
-    Update ServerHop. I hope i catch all frames.
+    Update Auctionator skin.
 
-commit bc7efde9c591c748bbd7a1ec9f6c819aef152bcb
-Author: Merathilis <neo0608@gmail.com>
-Date:   Thu Nov 2 09:55:14 2017 +0100
-
-    Update ServerHop. I hope i catch all frames.
-
-commit 13dc6c1880c3da41429d26082bd87a3502ab1518
-Author: Maharaja <altogoten@gmail.com>
-Date:   Wed Nov 1 12:24:11 2017 -0400
-
-    Update ServerHop.lua
-
-commit 13dc6c1880c3da41429d26082bd87a3502ab1518
-Author: Maharaja <altogoten@gmail.com>
-Date:   Wed Nov 1 12:24:11 2017 -0400
-
-    Update ServerHop.lua
-
-commit 13dc6c1880c3da41429d26082bd87a3502ab1518
-Author: Maharaja <altogoten@gmail.com>
-Date:   Wed Nov 1 12:24:11 2017 -0400
-
-    Update ServerHop.lua
-
-commit 5ded814f9251e6e05296e6bea38aa1c694c87808
+commit 97d7654328543db96dd96ccc178afd9b9bd0a0e1
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Oct 31 18:53:15 2017 -0500
+Date:   Sun Nov 12 18:12:10 2017 -0600
 
-    Remove this. It's not a skin.
+    Move this outside the skin function to stop creating anon
+
+commit 537d78e383f2bb03cc782a8d495533a9cdf1e18a
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Nov 12 18:10:56 2017 -0600
+
+    Remove Ace3
+
+commit 39ac2c8861f91537ed1fe4942d4de813078f7bb5
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Nov 12 17:35:53 2017 -0600
+
+    White Spaces
+
+commit 1d3806caf012ebc6b2ec4e618fa2640df4de48b5
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Nov 12 12:42:39 2017 -0600
+
+    Shadowing cleanup
+
+commit e38fd8da254561c92a4e456c8be6824d72f8771f
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Nov 12 09:22:48 2017 -0600
+
+    Cleanup Embed / Honor Skin
+
+commit 7b006eb5fe955b42cb234a8ba04cfcebaa52c2dc
+Author: Merathilis <neo0608@gmail.com>
+Date:   Sun Nov 12 14:41:55 2017 +0100
+
+    Update the Guild_Roster_Manager skin.
+
+commit 7926acfbb2cd3b469a16efc597d496407e45c6b9
+Author: Merathilis <neo0608@gmail.com>
+Date:   Sun Nov 12 12:15:55 2017 +0100
+
+    Add a skin for Guild_Roster_Manager.
+    
+    *No checkboxes are skinned.
+    *No dropdowns are skinned.
+
+commit 1669a26aca71afbe9346a9c7fbed0c9d4d322055
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Nov 5 14:13:18 2017 -0600
+
+    WeakAuras
 
