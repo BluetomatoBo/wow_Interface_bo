@@ -26,7 +26,7 @@
 --    * Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
 --
 
-local Revision = ("$Revision: 108 $"):sub(12, -3)
+local Revision = ("$Revision: 113 $"):sub(12, -3)
 
 local IsInRaid = IsInRaid
 local IsInInstance = IsInInstance
@@ -42,22 +42,13 @@ local default_settings = {
 	own_bargroup = false,
 	show_portal = true,
 	spells = {
-		{ spell = 48792, bartext = "%spell on %player", cooldown = 8 },-- Death Knight: Icebound Fortitude Duration (for Healers/Tanks to see how long cooldown runs)
-		{ spell = 61336, bartext = "%spell on %player", cooldown = 6 },-- Druid: Survival Instincts Duration (for Healers/Tanks to see how long cooldown runs)
-		{ spell = 6940, bartext = "%spell on %target", cooldown = 12 }, -- Paladin: Hand of Sacrifice Duration (for Healers/Tanks to see how long cooldown runs)
-		{ spell = 498, bartext = "%spell on %player", cooldown = 8 },	-- Paladin: Divine Protection Duration (for Healers/Tanks to see how long cooldown runs)
-		{ spell = 31850, bartext = "%spell on %player", cooldown = 10 },-- Paladin: Argent Defender Duration (for Healers/Tanks to see how long cooldown runs)
 		{ spell = 86659, bartext = "%spell on %player", cooldown = 8 },-- Paladin: Guardian of Ancient Kings (for Healers/Tanks to see how long cooldown runs)
 		{ spell = 31821, bartext = default_bartext, cooldown = 180 },	-- Paladin: Devotion Aura
 		{ spell = 6346, bartext = default_bartext, cooldown = 180 },	-- Priest: Fear Ward
 		{ spell = 73325, bartext = default_bartext, cooldown = 90 },	-- Priest: Leap of Faith (Life Grip)
-		{ spell = 33206, bartext = "%spell on %target", cooldown = 8 }, -- Priest: Pain Suppression Duration (for Healers to see how long cooldown runs)
-		{ spell = 47788, bartext = "%spell on %target", cooldown = 10 },-- Priest: Guardian Spirit (for Healers/Tanks to see how long cooldown runs)
 		{ spell = 62618, bartext = default_bartext, cooldown = 180 },	-- Priest: Power Word: Barrier
 		{ spell = 98008, bartext = default_bartext, cooldown = 180 },	-- Shaman: Spirit Link Totem
 		{ spell = 20608, bartext = default_bartext, cooldown = 1800 },	-- Shaman: Reincarnation
-		{ spell = 871, bartext = "%spell on %player", cooldown = 8 },	-- Warrior: Shieldwall Duration (for Healers/Tanks to see how long cooldown runs)
-		{ spell = 12975, bartext = "%spell on %player", cooldown = 15 },-- Warrior: Last Stand Duration (for Healers/Tanks to see how long cooldown runs)
 		{ spell = 97462, bartext = default_bartext, cooldown = 180 },	-- Warrior: Rallying Cry CD (for Healers/Tanks to see how long cooldown runs)
 		{ spell = 22700, bartext = default_bartext, cooldown = 600 }, 	-- Field Repair Bot 74A
 		{ spell = 44389, bartext = default_bartext, cooldown = 600 }, 	-- Field Repair Bot 110G
@@ -355,6 +346,12 @@ do
 			--Reset all CDs that are >= 3 minutes EXCEPT shaman reincarnate (20608)
 		elseif settings.enabled and event == "ENCOUNTER_END" then--Encounter Ended
 			--Reset all CDs that are > 3 minutes EXCEPT shaman reincarnate (20608)
+		elseif settings.enabled and event == "PLAYER_ENTERING_BATTLEGROUND" then
+		  -- spell cooldowns all reset on entering an arena or bg
+		  clearAllSpellBars() 
+		elseif DBM.InCombat and DBM:InCombat() then--Don't allow spelltimers during raid bosses anymore
+			clearAllSpellBars() 
+			return
 		elseif settings.enabled and event == "COMBAT_LOG_EVENT_UNFILTERED" and spellEvents[select(2, ...)] then
 			-- first some exeptions (we don't want to see any skill around the world)
 			if settings.only_from_raid and not IsInRaid() then return end
@@ -413,9 +410,6 @@ do
 					end
 				end
 			end
-		elseif settings.enabled and event == "PLAYER_ENTERING_BATTLEGROUND" then
-		  -- spell cooldowns all reset on entering an arena or bg
-		  clearAllSpellBars() 
 		end
 	end)
 	mainframe:RegisterEvent("ADDON_LOADED")
