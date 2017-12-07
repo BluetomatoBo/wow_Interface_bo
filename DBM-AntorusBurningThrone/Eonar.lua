@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2025, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16894 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16934 $"):sub(12, -3))
 mod:SetCreatureID(124445)
 mod:SetEncounterID(2075)
 mod:SetZone()
@@ -66,9 +66,9 @@ local timerMeteorStormCD				= mod:NewAITimer(61, 248333, nil, nil, nil, 3)
 local timerSpearofDoomCD				= mod:NewCDCountTimer(55, 248789, nil, nil, nil, 3)--55-69
 local timerRainofFelCD					= mod:NewCDCountTimer(61, 248332, nil, nil, nil, 3)
 local timerFinalDoom					= mod:NewCastTimer(50, 249121, nil, nil, nil, 2)
-local timerDestructorCD					= mod:NewCDCountTimer(90, "ej16501", nil, nil, nil, 1, 254769)
-local timerObfuscatorCD					= mod:NewCDCountTimer(90, "ej16502", nil, nil, nil, 1, 246753)
-local timerPurifierCD					= mod:NewCDCountTimer(90, "ej16500", nil, nil, nil, 1)
+local timerDestructorCD					= mod:NewTimer(90, "timerObfuscator", 254769, nil, nil, 1)
+local timerObfuscatorCD					= mod:NewTimer(90, "timerDestructor", 246753, nil, nil, 1)
+local timerPurifierCD					= mod:NewTimer(90, "timerPurifier", 250074, nil, nil, 1)
 --Mythic
 local timerFinalDoomCD					= mod:NewCDCountTimer(90, 249121, nil, nil, nil, 4, nil, DBM_CORE_HEROIC_ICON)
 --local timerFelclawsCD					= mod:NewAITimer(25, 239932, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
@@ -115,15 +115,18 @@ mod.vb.purifierCast = 0
 --local mythicWarpTimers = {5.3, 9.8, 35.3, 44.8, 34.9}--Excludes the waves that don't fire warp in (obfuscators and purifiers)
 local normalRainOfFelTimers = {}--PTR, recheck
 local heroicRainOfFelTimers = {9.3, 44, 10, 43, 35, 19, 20, 30, 45, 35, 99}--Live, Nov 29
-local mythicRainOfFelTimers = {}--PTR, recheck
+local mythicRainOfFelTimers = {6, 29, 25, 50, 25, 49.3, 15, 50, 24, 49.2, 25, 50, 50}--Live, Dec 5
 --local mythicSpearofDoomTimers = {}
 local heroicSpearofDoomTimers = {35, 59.2, 64.3, 40, 85.6, 34.1, 65.2}--Live, Nov 29
-local finalDoomTimers = {60, 125, 100}--PTR, recheck
+local finalDoomTimers = {60, 125, 99.5, 104.6, 99.6}--Live, Dec 5
 local normalDestructors = {17, 39.4, 28, 44.2, 92.4, 41.3, 50, 53.4, 48.1}
 local heroicDestructors = {15.7, 35.3, 40.6, 104.6, 134.7, 99.6}
+local mythicDestructors = {23, 23.1, 88.3, 288.4, 20}
 local normalObfuscators = {174}
-local heroicObfuscators = {81.8, 149.2, 94.7, 99.9}
+local heroicObfuscators = {80.6, 148.5, 94.7, 99.9}
+local mythicObfuscators = {46, 245.5, 43.8, 90.8}
 local heroicPurifiers = {125, 66.1, 30.6}
+local mythicPurifiers = {65.7, 82.6, 66.9, 145.7}
 local warnedAdds = {}
 local addCountToLocationMythic = {
 	["Dest"] = {DBM_CORE_MIDDLE},
@@ -195,23 +198,24 @@ function mod:OnCombatStart(delay)
 	--timerWarpInCD:Start(5.1, 1)
 	--countdownWarpIn:Start(5.1)
 	if not self:IsLFR() then
+		self.vb.lifeRequired = 4
 		if self:IsMythic() then
-			self.vb.lifeRequired = 5
-			--timerRainofFelCD:Start(6-delay, 1)
+			timerRainofFelCD:Start(6-delay, 1)
 			--countdownRainofFel:Start(6-delay)
 			--timerSpearofDoomCD:Start(35-delay, 1)
+			timerDestructorCD:Start(8, DBM_CORE_MIDDLE)
+			timerObfuscatorCD:Start(46, 1)
+			timerPurifierCD:Start(65.7, 1)
 			timerFinalDoomCD:Start(60-delay, 1)
 			countdownFinalDoom:Start(60-delay)
 		elseif self:IsHeroic() then
-			self.vb.lifeRequired = 4
 			timerRainofFelCD:Start(9.3-delay, 1)
 			--countdownRainofFel:Start(9.3-delay)
 			timerDestructorCD:Start(8, DBM_CORE_MIDDLE)
 			timerSpearofDoomCD:Start(34.4-delay, 1)
-			timerObfuscatorCD:Start(81.8, DBM_CORE_TOP)
+			timerObfuscatorCD:Start(80.6, DBM_CORE_TOP)
 			timerPurifierCD:Start(125, 1)
 		else--Normal
-			self.vb.lifeRequired = 4
 			timerDestructorCD:Start(8, DBM_CORE_MIDDLE)
 			timerObfuscatorCD:Start(174, 1)
 			--timerRainofFelCD:Start(30-delay, 1)
@@ -283,9 +287,9 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnedAdds[args.sourceGUID] = true
 		self.vb.obfuscators = self.vb.obfuscators + 1
 		if self:AntiSpam(5, args.sourceName) then
-			warnWarpIn:Show(args.sourceName)
+			warnWarpIn:Show(L.Obfuscators)
 			self.vb.obfuscatorCast = self.vb.obfuscatorCast + 1
-			local timer = self:IsHeroic() and heroicObfuscators[self.vb.obfuscatorCast+1] or self:IsNormal() and normalObfuscators[self.vb.obfuscatorCast+1]
+			local timer = self:IsMythic() and mythicObfuscators[self.vb.obfuscatorCast+1] or self:IsHeroic() and heroicObfuscators[self.vb.obfuscatorCast+1] or self:IsNormal() and normalObfuscators[self.vb.obfuscatorCast+1]
 			if timer then
 				local text = self:IsHeroic() and addCountToLocationHeroic["Obfu"][self.vb.obfuscatorCast+1] or self:IsNormal() and addCountToLocationNormal["Obfu"][self.vb.obfuscatorCast+1] or self:IsMythic() and addCountToLocationMythic["Obfu"][self.vb.obfuscatorCast+1] or self.vb.obfuscatorCast+1
 				timerObfuscatorCD:Start(timer, text)
@@ -295,9 +299,9 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnedAdds[args.sourceGUID] = true
 		self.vb.destructors = self.vb.destructors + 1
 		if self:AntiSpam(5, args.sourceName) then
-			warnWarpIn:Show(args.sourceName)
+			warnWarpIn:Show(L.Destructors)
 			self.vb.destructorCast = self.vb.destructorCast + 1
-			local timer = self:IsHeroic() and heroicDestructors[self.vb.destructorCast+1] or self:IsNormal() and normalDestructors[self.vb.destructorCast+1]
+			local timer = self:IsMythic() and mythicDestructors[self.vb.destructorCast+1] or self:IsHeroic() and heroicDestructors[self.vb.destructorCast+1] or self:IsNormal() and normalDestructors[self.vb.destructorCast+1]
 			if timer then
 				local text = self:IsHeroic() and addCountToLocationHeroic["Dest"][self.vb.destructorCast+1] or self:IsNormal() and addCountToLocationNormal["Dest"][self.vb.destructorCast+1] or self:IsMythic() and addCountToLocationMythic["Dest"][self.vb.destructorCast+1] or self.vb.destructorCast+1
 				timerDestructorCD:Start(timer-9, text)--High alert fires about 9 seconds after spawn so using it as a trigger has a -9 adjustment
@@ -316,9 +320,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnedAdds[args.sourceGUID] = true
 		self.vb.purifiers = self.vb.purifiers + 1
 		if self:AntiSpam(5, 2) then
-			warnWarpIn:Show(args.sourceName)
+			warnWarpIn:Show(L.Purifiers)
 			self.vb.purifierCast = self.vb.purifierCast + 1
-			local timer = self:IsHeroic() and heroicPurifiers[self.vb.purifierCast+1]
+			local timer = self:IsMythic() and mythicPurifiers[self.vb.purifierCast+1] or self:IsHeroic() and heroicPurifiers[self.vb.purifierCast+1]
 			if timer then
 				local text = self:IsHeroic() and addCountToLocationHeroic["Pur"][self.vb.purifierCast+1] or self:IsNormal() and addCountToLocationNormal["Pur"][self.vb.purifierCast+1] or self:IsMythic() and addCountToLocationMythic["Pur"][self.vb.purifierCast+1] or self.vb.purifierCast+1
 				timerPurifierCD:Start(timer, text)
@@ -355,7 +359,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 248332 then--Rain of Fel
 		warnRainofFel:CombinedShow(1, self.vb.rainOfFelCount, args.destName)
-		if self:AntiSpam(5, 4) then
+		if self:AntiSpam(10, 4) then
 			self.vb.rainOfFelCount = self.vb.rainOfFelCount + 1
 			local timer = self:IsMythic() and mythicRainOfFelTimers[self.vb.rainOfFelCount+1] or self:IsHeroic() and heroicRainOfFelTimers[self.vb.rainOfFelCount+1] or self:IsNormal() and normalRainOfFelTimers[self.vb.rainOfFelCount+1]
 			if timer then
@@ -419,7 +423,7 @@ function mod:UNIT_DIED(args)
 		self.vb.obfuscators = self.vb.obfuscators - 1
 	elseif cid == 123760 and self.vb.destructors > 0 then--Fel-Infused Destructor
 		self.vb.destructors = self.vb.destructors - 1
-	elseif cid == 123726 and self.vb.purifiers > 0 then
+	elseif cid == 123726 and self.vb.purifiers > 0 then--Fel-Infused Purifier
 		self.vb.purifiers = self.vb.purifiers - 1
 	end
 end
@@ -465,18 +469,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
 		end
 	end
 end
-
---[[
---http://ptr.wowhead.com/npc=123726/fel-powered-purifier
---http://ptr.wowhead.com/npc=123760/fel-infused-destructor
---http://ptr.wowhead.com/npc=124207/fel-charged-obfuscator
-function mod:UNIT_DIED(args)
-	local cid = self:GetCIDFromGUID(args.destGUID)
-	if cid == 121193 then
-
-	end
-end
---]]
 
 function mod:UNIT_SPELLCAST_CHANNEL_STOP(uId, _, _, _, spellId)
 	if spellId == 249121 then

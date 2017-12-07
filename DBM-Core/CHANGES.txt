@@ -1,91 +1,179 @@
-tag 07cdce7b9ef22317a60313f4f55333cc5781c669 7.3.9
+tag 5bcf5d5f1f30764e071d8a1f6308c06349416335 7.3.10
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Mon Dec 4 00:30:27 2017 +0100
+Date:	Wed Dec 6 21:32:19 2017 +0100
 
-Tagging as 7.3.9
+Tagging as 7.3.10
 
-commit 3ca4a202b70528663f8d9264cc872299913addf0
+commit 5f0cde6267468ffa995126b04b4bbe6008e4ba9d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Dec 4 00:30:27 2017 +0100
+Date:   Wed Dec 6 21:32:19 2017 +0100
 
-    increment version number to 7.3.9
+    increment version number to 7.3.10
 
-commit 94aacfd2fc0d580663da4ebb03af4b94a84523f0
+commit 99671bd6a7d52597fcfa2888ce8a5386cc840df8
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Dec 4 00:10:12 2017 +0100
+Date:   Wed Dec 6 21:26:45 2017 +0100
 
-    Omega via svn r16911:
-    Catch BW version up for versioncheck
+    Omega via svn r16934:
+    Fixed shock grenade CD, which is shorter now
+    Added preliminary Eonar wave timers to mythic
+    Updated Mythic Eonar Rain of fel and Doom timers
 
-commit 26b4e58a7e440f711aa41a280c9944e469536d64
+commit 9c29f5234b7bfcbf47d7cff9393f239490757385
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 3 23:44:56 2017 +0100
+Date:   Wed Dec 6 19:18:08 2017 +0100
 
-    Omega via svn r16910:
-    Add new utility function for allowing external mods to request if in combat with a boss from DBM
+    Omega via svn r16933:
+    Experimental code vetted and even fixed a long standing bug where extending a large bar and reverting it to a small bar, wouldn?\226?\128?\153t shrink it. now that works correctly too
 
-commit e9fb103c0f573264b69faee7ebbc474b12c63ba4
+commit 8390b26dc057aece55350725f733951e5d072281
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 3 23:22:18 2017 +0100
+Date:   Wed Dec 6 18:58:15 2017 +0100
 
-    Omega via svn r16909:
-    Fix gaze timer icon
-    removed focused power warning since it only happens once, on pull
+    Omega via svn r16932:
+    Test function
 
-commit 21ec3187d3862ff338d7b329746399dbede4d746
+commit c486b7f71d551b7e1d95d75222ceac326d52d1b1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 3 08:46:05 2017 +0100
+Date:   Wed Dec 6 18:52:01 2017 +0100
 
-    Omega via svn r16908:
-    Fix timer for Storm of darkness, which is longer now
-    Added countdowns for storm of darkness and Fulminating pulse
-    Changed few timers from ?\226?\128?\156CD?\226?\128?\157 to ?\226?\128?\156next?\226?\128?\157
-    Added count to storm timers as well
+    Omega via svn r16931:
+    Handle focused power better for timer updates on mythic. This will either work fantastically or blow up and kill all timers instead of update them when it happens. :) A backup less experimental backup method already in place in case it does though. But this new method needs to be tested first
 
-commit d31b5bbca5c9b8c16fc3667cad03b32c543ef732
+commit 2fa3ef2f18b01ae55183b337ac8eb1b5dda1b8ef
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 3 06:01:28 2017 +0100
+Date:   Wed Dec 6 10:03:28 2017 +0100
 
-    Omega via svn r16907:
-    This is actually always 10, only adds are affected by boss power
+    Omega via svn r16930:
+    disable this countdown in LFR
 
-commit a0c0a910f0db26bb70c63231b1142277b0e69961
+commit d5ca899227de51134c72316d2e9805f22cf9c0bd
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 3 02:57:35 2017 +0100
+Date:   Wed Dec 6 09:04:15 2017 +0100
 
-    Omega via svn r16906:
-    Disable TidyPlatesThreat support for now, since it doesn?\226?\128?\153t exist yet
+    Omega via svn r16929:
+    Shorten eonar timer text so it?\226?\128?\153s readiable, and fix add spawn warnings so they are also readable and shorter
 
-commit 751b08dcd7d6d54a5941eb80dab9b2226a337402
+commit 4f869940a4a0fcba923f9140e618516edf88bf13
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 3 02:11:36 2017 +0100
+Date:   Wed Dec 6 08:41:31 2017 +0100
 
-    Omega via svn r16905:
-    Fix lua error
+    Omega via svn r16928:
+    Fixed cannon timers on garothi, especially mythic
+    Fixed mythic phase detection which was all screwed up because i didn?\226?\128?\153t realize eject scripts still run on mythic
+    Fixed tank timer on mythic garothi (it?\226?\128?\153s faster)
+    Fixed personal warnings for decimation to not fire twice for empowered, as well as fix so they actually fire for haywire
+    Eliminated some redundancy as well in garathi warnings
+    
+    Turned flames of reorgin target warning (not personal) now off by default so it?\226?\128?\153s not spammy when group can?\226?\128?\153t spread out properly)
+    Fixed countdown for titans on coven which I forgot to update when I updated timer
 
-commit 2a78851013c8e3ecaa42351b7bb54eed0c577149
+commit 6a17635148e875a4562361db4fcc6e0e40ba1e07
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 2 22:34:22 2017 +0100
+Date:   Wed Dec 6 05:37:41 2017 +0100
 
-    Omega via svn r16904:
-    Add flames of Reorigination
+    Omega via svn r16927:
+    Fix bad spellids for marked prey
 
-commit 9ef8a1df4497c31fed41e93b307c998fbc24ecba
+commit 779c54f9275dab0e4fdaafd95aa1f71ac070b089
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 2 07:28:33 2017 +0100
+Date:   Wed Dec 6 04:41:14 2017 +0100
 
-    Omega via svn r16903:
-    P4 soulburst and soulbomb timers
-    Improved P2 soulburst and soulbomb timers as well
-    Also an attempt at other P4 timer by checking boss energy (if check fails it?\226?\128?\153ll fail silently though)
-    Changed tortured rage to a generic warning instead of special, to reduce overall feeling of spammy special warnings.
-    Improved Deadly scythe warning to tell other tank to taunt when other tank dies to it.
-    Made soulbomb warning smarter for tanks as well so it actually yells at avatar to go soak the thing.
+    Omega via svn r16926:
+    This is more than a 10 min fix, i have to change a LOT of mod, so this is another garothi bandaid to get SOME timers
 
-commit 4b9a304e2d0bbd2f4c4c09b191d5a4d445fc136f
+commit de715116b918cb1a27a606779c5c802d73416a5c
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 1 22:12:54 2017 +0100
+Date:   Wed Dec 6 03:06:34 2017 +0100
 
-    tandanu via svn r16902:
+    Omega via svn r16925:
+    Delete this
+
+commit 0e5181835936502243d40a188d2dfb50f7c8e821
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Dec 6 02:55:05 2017 +0100
+
+    Omega via svn r16924:
+    Fix it or real
+
+commit 1aff0e12e1456848406fddf36aa3e6b1f35d01eb
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Dec 6 02:52:29 2017 +0100
+
+    Omega via svn r16923:
+    Fix spam, wll fix timers later
+
+commit 0ac5cd32fc220da1d8626d8f6fe9b24eba1ff07a
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Dec 5 21:27:20 2017 +0100
+
+    Omega via svn r16922:
+    Add mythic imonar berserk
+
+commit a9364d190841931bc824f94b2b55e6a0c9663ac1
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Dec 5 05:04:10 2017 +0100
+
+    Omega via svn r16921:
+    Add fulminating Pulse icon option to help healers
+
+commit 75728893d26a35a5df0cbf1c612e4a4da16d82b1
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Dec 5 04:42:15 2017 +0100
+
+    Omega via svn r16920:
+    Send buff timer to nameplates for Visage to make army duration clearer in nameplates
+
+commit 1918fd4471bf8439aa8d98537e7ea283f843180a
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Dec 5 04:03:06 2017 +0100
+
+    Omega via svn r16919:
+    Another voice tweak
+
+commit f4620818de58ab585e636f81ca82d2f670324e49
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Dec 5 03:59:04 2017 +0100
+
+    Omega via svn r16918:
+    Adjust these cast timers, they are 85 now
+    tweak voices too
+
+commit b1d91cd58f82ee53a654dbffa5c90038af221314
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Dec 4 18:10:48 2017 +0100
+
+    ultrashining via svn r16917:
+    zhTW update
+
+commit 81719dc336d9da238d0f41ef20973032dd4116d3
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Dec 4 08:37:36 2017 +0100
+
+    Omega via svn r16916:
+    Added audio countdowns for Garothi countdown and Fel Bombardment
+    Added audio countdowns for Protocol, Forging Strike, And Ruiner on Kingaroth
+
+commit 9f2db234761fea14312455abd9657279dcdb1066
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Dec 4 08:12:04 2017 +0100
+
+    Omega via svn r16915:
+    Fixed edge of Obliteration warnings/timers not working on argus
+    Fixed Avatar cd timer not showing on Argus
+    Added audio countdown options for Bombs, p4 heroic scythes, and P4 adds to argus
+
+commit 572df3d3dccb7fb9288ecf5a4c870b91e121c905
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Dec 4 02:58:16 2017 +0100
+
+    Omega via svn r16914:
+    Fix stack counter not working on argus P4 heroic
+
+commit 03ac00bbbf6bc5f4c055686df840db5425b1dade
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Dec 4 00:30:42 2017 +0100
+
+    tandanu via svn r16913:
     increment alpha version
 

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1987, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16909 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16933 $"):sub(12, -3))
 mod:SetCreatureID(122477, 122135)--122477 F'harg, 122135 Shatug
 mod:SetEncounterID(2074)
 mod:SetZone()
@@ -44,7 +44,7 @@ local warnWeightofDarkness				= mod:NewTargetAnnounce(254429, 3)
 local warnSiphonCorruption				= mod:NewSpellAnnounce(244056, 3)
 local warnSiphoned						= mod:NewTargetAnnounce(248819, 3, nil, false, 2)
 --General/Mythic
---local warnFocusingPower					= mod:NewSpellAnnounce(251356, 2)
+local warnFocusingPower					= mod:NewSpellAnnounce(251356, 2)
 
 --F'harg
 local specWarnMoltenTouch				= mod:NewSpecialWarningDodge(244072, nil, nil, nil, 2, 2)
@@ -81,7 +81,7 @@ local timerFocusingPower				= mod:NewCastTimer(15, 251356, nil, nil, nil, 3)
 --local berserkTimer					= mod:NewBerserkTimer(600)
 
 --F'harg
---local countdownSingularity			= mod:NewCountdown(50, 235059)
+--local countdownSingularity			= mod:NewCountdown(50, 235059)--Maybe test 1 countdown per dog (for all abilities)
 
 --F'harg
 local voiceMoltenTouch					= mod:NewVoice(244072)--watchstep
@@ -104,7 +104,6 @@ mod:AddBoolOption("SequenceTimers", false)
 mod.vb.WeightDarkIcon = 1
 mod.vb.longTimer = 95.9
 mod.vb.mediumTimer = 77
---mod.vb.shortTimer = 10.1
 
 --[[
 local debuffFilter
@@ -135,9 +134,22 @@ local function updateRangeFrame(self)
 end
 --]]
 
---Fire doggy timer, 10, 33, 31
---Shadow doggy timers, every 25 seconds
+local function UpdateAllTimers(self)
+	--Experimental Code
+	--Fire Doggo
+	timerMoltenTouchCD:AddTime(15)
+	timerEnflamedCorruptionCD:AddTime(15)
+	timerDesolateGazeCD:AddTime(15)
+	--Shadow Doggo
+	timerComsumingSphereCD:AddTime(15)
+	timerWeightOfDarknessCD:AddTime(15)
+	timerSiphonCorruptionCD:AddTime(15)
+end
+
 function mod:OnCombatStart(delay)
+	if self:AntiSpam(10, 1) then
+		--Do nothing, it just disables UpdateAllTimers/Focused Power from firing on pull
+	end
 	self.vb.WeightDarkIcon = 1
 	--Fire doggo
 	timerBurningMawCD:Start(8.2-delay)--was same on heroic/mythic, or now
@@ -267,9 +279,10 @@ function mod:SPELL_AURA_APPLIED(args)
 			voiceDesolateGaze:Play("runout")
 			yellDesolateGaze:Yell()
 		end
-	elseif spellId == 251356 and self:AntiSpam(3, 1) then
---		warnFocusingPower:Show()
+	elseif spellId == 251356 and self:AntiSpam(10, 1) then
+		warnFocusingPower:Show()
 		timerFocusingPower:Start()
+		UpdateAllTimers(self)
 	elseif spellId == 248815 then--Enflamed
 		warnEnflamed:CombinedShow(0.3, args.destName)
 		if args:IsPlayer() then

@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 16911 $"):sub(12, -3)),
-	DisplayVersion = "7.3.9", -- the string that is shown as version
-	ReleaseRevision = 16911 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 16934 $"):sub(12, -3)),
+	DisplayVersion = "7.3.10", -- the string that is shown as version
+	ReleaseRevision = 16934 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -9988,6 +9988,17 @@ do
 		end
 		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 		return DBM.Bars:UpdateBar(id, elapsed, totalTime)
+	end
+	
+	function timerPrototype:AddTime(extendAmount, ...)
+		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+		local bar = DBM.Bars:GetBar(id)
+		if bar then
+			local elapsed, total = (bar.totalTime - bar.timer), bar.totalTime
+			if elapsed and total then
+				return DBM.Bars:UpdateBar(id, elapsed, total+extendAmount)
+			end
+		end
 	end
 
 	function timerPrototype:UpdateIcon(icon, ...)

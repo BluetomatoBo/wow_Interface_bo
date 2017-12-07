@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1997, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16875 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16934 $"):sub(12, -3))
 mod:SetCreatureID(122369, 122333, 122367)--Chief Engineer Ishkar, General Erodus, Admiral Svirax
 mod:SetEncounterID(2070)
 mod:SetZone()
@@ -83,7 +83,7 @@ local specWarnWarpField					= mod:NewSpecialWarningRun(244821, nil, nil, nil, 4,
 
 --General
 local timerExploitWeaknessCD			= mod:NewCDTimer(8.5, 244892, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
-local timerShockGrenadeCD				= mod:NewCDTimer(21, 244722, nil, nil, nil, 3, nil, DBM_CORE_HEROIC_ICON)
+local timerShockGrenadeCD				= mod:NewCDTimer(14.7, 244722, nil, nil, nil, 3, nil, DBM_CORE_HEROIC_ICON)
 local timerAssumeCommandCD				= mod:NewNextTimer(90, 245227, nil, nil, nil, 6)
 --In Pod
 ----Admiral Svirax
@@ -215,7 +215,9 @@ function mod:SPELL_CAST_START(args)
 		specWarnFusillade:Show(felShield)
 		voiceFusillade:Play("findshelter")
 		timerFusilladeCD:Start(nil, self.vb.FusilladeCount+1)
-		countdownFusillade:Start(29.6)
+		if not self:IsLFR() then
+			countdownFusillade:Start(29.6)
+		end
 	elseif spellId == 246505 then
 		if self:CheckInterruptFilter(args.sourceGUID) then
 			specWarnPyroblast:Show(args.sourceName)
@@ -253,7 +255,7 @@ function mod:SPELL_CAST_START(args)
 			--timerWitheringFireCD:Start(2)
 		end
 		if self:IsMythic() then
-			timerShockGrenadeCD:Start(10)
+			timerShockGrenadeCD:Start(9.7)
 		end
 	elseif spellId == 244821 then
 		specWarnWarpField:Show()
