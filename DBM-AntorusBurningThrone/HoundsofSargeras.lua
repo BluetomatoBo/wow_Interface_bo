@@ -1,12 +1,12 @@
 local mod	= DBM:NewMod(1987, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16933 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16949 $"):sub(12, -3))
 mod:SetCreatureID(122477, 122135)--122477 F'harg, 122135 Shatug
 mod:SetEncounterID(2074)
 mod:SetZone()
 mod:SetBossHPInfoToHighest()
---mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
+mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
 --mod:SetHotfixNoticeRev(16350)
 mod.respawnTime = 29--Guessed, it's not 4 anymore
 
@@ -14,7 +14,7 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 244057 244056",
-	"SPELL_CAST_SUCCESS 244072 251445 245098 254429",
+	"SPELL_CAST_SUCCESS 244072 251445 245098",
 	"SPELL_AURA_APPLIED 244768 248815 254429 248819 244054 244055 251356",
 --	"SPELL_AURA_APPLIED_DOSE",
 	"SPELL_AURA_REMOVED 244768 248815 254429 248819 251356",
@@ -56,7 +56,7 @@ local yellEnflamed						= mod:NewShortFadesYell(248815)
 --Shatug
 local specWarnComsumingSphere			= mod:NewSpecialWarningDodge(244131, nil, nil, nil, 2, 2)
 local specWarnWeightOfDarkness			= mod:NewSpecialWarningMoveTo(254429, nil, nil, nil, 1, 2)
-local yellWeightOfDarkness				= mod:NewPosYell(254429, DBM_CORE_AUTO_YELL_CUSTOM_POSITION)
+local yellWeightOfDarkness				= mod:NewYell(254429)
 local yellWeightOfDarknessFades			= mod:NewShortFadesYell(254429)
 local specWarnSiphoned					= mod:NewSpecialWarningMoveTo(248819, nil, nil, nil, 1, 2)
 local yellSiphoned						= mod:NewShortFadesYell(248819)
@@ -96,7 +96,7 @@ local voiceSiphoned						= mod:NewVoice(248819)--gathershare?/killmob on mythic?
 local voiceFlameTouched					= mod:NewVoice(244054)--flameonyou
 local voiceShadowtouched				= mod:NewVoice(244055)--shadowonyou
 
-mod:AddSetIconOption("SetIconOnWeightofDarkness", 254429, true)
+mod:AddSetIconOption("SetIconOnWeightofDarkness2", 254429, false)
 --mod:AddInfoFrameOption(239154, true)
 mod:AddRangeFrameOption("5/8")
 mod:AddBoolOption("SequenceTimers", false)
@@ -157,7 +157,7 @@ function mod:OnCombatStart(delay)
 	--Shadow doggo
 	if self:IsMythic() then
 		self.vb.longTimer = 89
-		self.vb.mediumTimer = 71.9
+		self.vb.mediumTimer = 71.7--71.7-73
 		timerMoltenTouchCD:Start(18-delay)--was same on heroic/mythic, or now
 		timerSiphonCorruptionCD:Start(25.5-delay)
 	elseif self:IsHeroic() then
@@ -166,10 +166,12 @@ function mod:OnCombatStart(delay)
 		timerMoltenTouchCD:Start(18-delay)--was same on heroic/mythic, or now
 		timerSiphonCorruptionCD:Start(26.7-delay)
 	else
-		self.vb.longTimer = 104.7
+		self.vb.longTimer = 104.5
 		self.vb.mediumTimer = 85
 		--Molten touch not even cast
-		timerSiphonCorruptionCD:Start(29.4-delay)
+		if not self:IsLFR() then
+			timerSiphonCorruptionCD:Start(29.4-delay)
+		end
 	end
 	if not self.Options.SequenceTimers then
 		if self:IsMythic() then
@@ -188,8 +190,10 @@ function mod:OnCombatStart(delay)
 			timerWeightOfDarknessCD:Start(77-delay)
 		else--Normal confirmed, LFR assumed
 			--Fire doggo
-			timerEnflamedCorruptionCD:Start(55.2-delay)
-			timerDesolateGazeCD:Start(89.3-delay)
+			if not self:IsLFR() then
+				timerEnflamedCorruptionCD:Start(55.2-delay)
+			end
+			timerDesolateGazeCD:Start(88.8-delay)
 			--Shadow doggo
 			timerComsumingSphereCD:Start(55.2-delay)
 			--Weight not even cast
@@ -252,21 +256,14 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 	elseif spellId == 251445 then
 		warnBurningMaw:Show(args.destName)
-		timerBurningMawCD:Start()
+		if self:IsMythic() then
+			timerBurningMawCD:Start(9.7)
+		else
+			timerBurningMawCD:Start()
+		end
 	elseif spellId == 245098 then
 		warnCorruptingMaw:Show(args.destName)
 		timerCorruptingMawCD:Start()
-	elseif spellId == 254429 then
-		self.vb.WeightDarkIcon = 1
-		if not self.Options.SequenceTimers or self:IsEasy() then
-			timerWeightOfDarknessCD:Start()
-		else
-			if self:IsMythic() then
-				timerSiphonCorruptionCD:Start(24.6)
-			else
-				timerSiphonCorruptionCD:Start(26.7)--26.7-26.9
-			end
-		end
 	end
 end
 
@@ -308,10 +305,10 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			specWarnWeightOfDarkness:Show(DBM_ALLY)
 			voiceWeightOfDarkness:Play("gathershare")
-			yellWeightOfDarkness:Yell(self.vb.WeightDarkIcon, args.spellName, self.vb.WeightDarkIcon)
+			yellWeightOfDarkness:Yell()
 			yellWeightOfDarknessFades:Countdown(5)
 		end
-		if self.Options.SetIconOnWeightofDarkness then
+		if self.Options.SetIconOnWeightofDarkness2 then
 			self:SetIcon(args.destName, self.vb.WeightDarkIcon)
 		end
 		self.vb.WeightDarkIcon = self.vb.WeightDarkIcon + 1
@@ -348,7 +345,7 @@ function mod:SPELL_AURA_REMOVED(args)
 			end
 		end
 	elseif spellId == 254429 then
-		if self.Options.SetIconOnWeightofDarkness then
+		if self.Options.SetIconOnWeightofDarkness2 then
 			self:SetIcon(args.destName, 0)
 		end
 		if args:IsPlayer() then
@@ -404,6 +401,7 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 			end
 		end
 	elseif spellId == 244069 then--Weight of Darkness
+		self.vb.WeightDarkIcon = 1
 		if not self.Options.SequenceTimers or self:IsEasy() then
 			timerWeightOfDarknessCD:Start(self.vb.mediumTimer)
 		else

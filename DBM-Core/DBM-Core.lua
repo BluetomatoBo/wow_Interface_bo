@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 16934 $"):sub(12, -3)),
-	DisplayVersion = "7.3.10", -- the string that is shown as version
-	ReleaseRevision = 16934 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 16951 $"):sub(12, -3)),
+	DisplayVersion = "7.3.11", -- the string that is shown as version
+	ReleaseRevision = 16951 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -386,7 +386,7 @@ local UpdateChestTimer
 local breakTimerStart
 local AddMsg
 
-local fakeBWVersion, fakeBWHash = 79, "a61ec1e"
+local fakeBWVersion, fakeBWHash = 82, "eff62c5"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM

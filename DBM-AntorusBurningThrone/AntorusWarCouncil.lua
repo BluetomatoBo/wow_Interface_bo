@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1997, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16934 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16939 $"):sub(12, -3))
 mod:SetCreatureID(122369, 122333, 122367)--Chief Engineer Ishkar, General Erodus, Admiral Svirax
 mod:SetEncounterID(2070)
 mod:SetZone()
@@ -76,7 +76,7 @@ local yellDemonicCharge					= mod:NewYell(253040)
 ----Admiral Svirax
 local specWarnShockGrenade				= mod:NewSpecialWarningMoveAway(253040, nil, nil, nil, 1, 2)
 local yellShockGrenade					= mod:NewShortYell(244737)
-local yellShockGrenadeFades				= mod:NewFadesYell(244737)
+local yellShockGrenadeFades				= mod:NewShortFadesYell(244737)
 ----Chief Engineer Ishkar
 local specWarnWarpField					= mod:NewSpecialWarningRun(244821, nil, nil, nil, 4, 2)
 ----General Erodus
@@ -304,12 +304,12 @@ end
 function mod:SPELL_AURA_APPLIED(args)
 	local spellId = args.spellId
 	if spellId == 244737 then
-		warnShockGrenade:CombinedShow(0.3, args.destName)
+		warnShockGrenade:CombinedShow(1, args.destName)
 		if args:IsPlayer() then
 			specWarnShockGrenade:Show()
 			voiceShockGrenade:Play("runout")
 			yellShockGrenade:Yell()
-			yellShockGrenadeFades:Countdown(5)
+			yellShockGrenadeFades:Countdown(5, 3)
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(8)
 			end
