@@ -65,13 +65,18 @@ L:SetOptionLocalization({
 ---------------------------
 L= DBM:GetModLocalization(2009)
 
+L:SetMiscLocalization({
+	DispelMe =		"Dispel Me!"
+})
+
 ---------------------------
 -- Kin'garoth --
 ---------------------------
 L= DBM:GetModLocalization(2004)
 
 L:SetOptionLocalization({
-	InfoFrame =	"Show InfoFrame for fight overview"
+	InfoFrame =	"Show InfoFrame for fight overview",
+	UseAddTime = "Always show timers for what's coming next when boss leaves initialisation phase instead of hiding them. (If disabled, correct timers will resume when boss becomes active again, but may leave little warning if any cooldowns only had 1-2 seconds left)"
 })
 
 ---------------------------

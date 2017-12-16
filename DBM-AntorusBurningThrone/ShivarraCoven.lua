@@ -1,13 +1,13 @@
 local mod	= DBM:NewMod(1986, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16945 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16992 $"):sub(12, -3))
 mod:SetCreatureID(122468, 122467, 122469)--122468 Noura, 122467 Asara, 122469 Diima, 125436 Thu'raya (mythic only)
 mod:SetEncounterID(2073)
 mod:SetZone()
 mod:SetBossHPInfoToHighest()
 mod:SetUsedIcons(1, 2, 5, 6, 7, 8)
---mod:SetHotfixNoticeRev(16350)
+mod:SetHotfixNoticeRev(16963)
 mod.respawnTime = 25
 
 mod:RegisterCombat("combat")
@@ -83,7 +83,7 @@ local timerFulminatingPulseCD			= mod:NewNextTimer(40.5, 253520, nil, nil, nil, 
 local timerShadowBladesCD				= mod:NewCDTimer(27.8, 246329, nil, nil, nil, 3)
 local timerStormofDarknessCD			= mod:NewNextCountTimer(57, 252861, nil, nil, nil, 2, nil, DBM_CORE_HEALER_ICON)--57+
 --Diima, Mother of Gloom
-local timerFlashFreezeCD				= mod:NewCDTimer(11, 245518, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
+local timerFlashFreezeCD				= mod:NewCDTimer(10.1, 245518, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)
 local timerChilledBloodCD				= mod:NewNextTimer(25.4, 245586, nil, nil, nil, 5, nil, DBM_CORE_HEALER_ICON)
 local timerOrbofFrostCD					= mod:NewNextTimer(30.4, 253650, nil, nil, nil, 3)
 --Thu'raya, Mother of the Cosmos (Mythic)
@@ -496,7 +496,7 @@ function mod:UNIT_TARGETABLE_CHANGED(uId)
 	local cid = self:GetCIDFromGUID(UnitGUID(uId))
 	if cid == 122468 then--Noura
 		if UnitExists(uId) then
-			warnActivated(UnitName(uId))
+			warnActivated:Show(UnitName(uId))
 			DBM:Debug("UNIT_TARGETABLE_CHANGED, Boss Engaging", 2)
 			timerWhirlingSaberCD:Start(9)
 			timerFieryStrikeCD:Start(12.1)
@@ -513,7 +513,7 @@ function mod:UNIT_TARGETABLE_CHANGED(uId)
 		end
 	elseif cid == 122467 then--Asara
 		if UnitExists(uId) then
-			warnActivated(UnitName(uId))
+			warnActivated:Show(UnitName(uId))
 			DBM:Debug("UNIT_TARGETABLE_CHANGED, Boss Engaging", 2)
 			--TODO, timers, never saw her leave so never saw her return
 		else
@@ -525,7 +525,7 @@ function mod:UNIT_TARGETABLE_CHANGED(uId)
 		end
 	elseif cid == 122469 then--Diima
 		if UnitExists(uId) then
-			warnActivated(UnitName(uId))
+			warnActivated:Show(UnitName(uId))
 			DBM:Debug("UNIT_TARGETABLE_CHANGED, Boss Engaging", 2)
 			timerChilledBloodCD:Start(6.5)
 			timerFlashFreezeCD:Start(12.5)
@@ -540,7 +540,7 @@ function mod:UNIT_TARGETABLE_CHANGED(uId)
 		end
 	elseif cid == 125436 then--Thu'raya (mythic only)
 		if UnitExists(uId) then
-			warnActivated(UnitName(uId))
+			warnActivated:Show(UnitName(uId))
 			DBM:Debug("UNIT_TARGETABLE_CHANGED, Boss Engaging", 2)
 			timerCosmicGlareCD:Start(6)
 		else

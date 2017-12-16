@@ -1,13 +1,13 @@
 local mod	= DBM:NewMod(2025, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16945 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16979 $"):sub(12, -3))
 mod:SetCreatureID(124445)
 mod:SetEncounterID(2075)
 mod:SetZone()
 --mod:SetBossHPInfoToHighest()
 mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
---mod:SetHotfixNoticeRev(16350)
+mod:SetHotfixNoticeRev(16960)
 --mod.respawnTime = 29
 
 mod:RegisterCombat("combat")
@@ -47,11 +47,11 @@ local warnLifeForce						= mod:NewCountAnnounce(250048, 1)
 local specWarnMeteorStorm				= mod:NewSpecialWarningDodge(248333, nil, nil, nil, 2, 2)
 local specWarnSpearofDoom				= mod:NewSpecialWarningDodge(248789, nil, nil, nil, 2, 2)
 --local yellSpearofDoom					= mod:NewYell(248789)
-local specWarnRainofFel					= mod:NewSpecialWarningMoveAway(248332, nil, nil, nil, 1, 2)
+local specWarnRainofFel					= mod:NewSpecialWarningMoveAway(248332, nil, nil, 2, 1, 2)
 local yellRainofFel						= mod:NewYell(248332)
 local yellRainofFelFades				= mod:NewShortFadesYell(248332)
 --Adds
-local specWarnSwing						= mod:NewSpecialWarningDefensive(250701, "Tank", nil, nil, 1, 2)
+local specWarnSwing						= mod:NewSpecialWarningDodge(250701, "MeleeDps", nil, nil, 1, 2)
 --local yellBurstingDreadflame			= mod:NewPosYell(238430, DBM_CORE_AUTO_YELL_CUSTOM_POSITION)
 --local specWarnMalignantAnguish		= mod:NewSpecialWarningInterrupt(236597, "HasInterrupt")
 --local specWarnGTFO					= mod:NewSpecialWarningGTFO(238028, nil, nil, nil, 1, 2)
@@ -69,8 +69,8 @@ local timerMeteorStormCD				= mod:NewAITimer(61, 248333, nil, nil, nil, 3)
 local timerSpearofDoomCD				= mod:NewCDCountTimer(55, 248789, nil, nil, nil, 3)--55-69
 local timerRainofFelCD					= mod:NewCDCountTimer(61, 248332, nil, nil, nil, 3)
 local timerFinalDoom					= mod:NewCastTimer(50, 249121, nil, nil, nil, 2)
-local timerDestructorCD					= mod:NewTimer(90, "timerObfuscator", 254769, nil, nil, 1)
-local timerObfuscatorCD					= mod:NewTimer(90, "timerDestructor", 246753, nil, nil, 1)
+local timerDestructorCD					= mod:NewTimer(90, "timerDestructor", 254769, nil, nil, 1)
+local timerObfuscatorCD					= mod:NewTimer(90, "timerObfuscator", 246753, nil, nil, 1)
 local timerPurifierCD					= mod:NewTimer(90, "timerPurifier", 250074, nil, nil, 1)
 --Mythic
 local timerFinalDoomCD					= mod:NewCDCountTimer(90, 249121, nil, nil, nil, 4, nil, DBM_CORE_HEROIC_ICON)
@@ -88,7 +88,7 @@ local voiceMeteorStorm					= mod:NewVoice(248333)--watchstep
 local voiceSpearofDoom					= mod:NewVoice(248789)--watchstep
 local voiceRainofFel					= mod:NewVoice(248332)--scatter
 --Adds
-local voiceSwing						= mod:NewVoice(250701)--defensive
+local voiceSwing						= mod:NewVoice(250701, "MeleeDps", nil, 2)--watchstep
 --local voiceMalignantAnguish			= mod:NewVoice(236597, "HasInterrupt")--kickcast
 --local voiceGTFO						= mod:NewVoice(238028, nil, DBM_CORE_AUTO_VOICE4_OPTION_TEXT)--runaway
 --Mythic
@@ -124,38 +124,29 @@ local mythicRainOfFelTimers = {6, 29, 25, 50, 25, 49.3, 15, 50, 24, 49.2, 25, 50
 --local mythicSpearofDoomTimers = {}
 local heroicSpearofDoomTimers = {35, 59.2, 64.3, 40, 85.6, 34.1, 65.2}--Live, Nov 29
 local finalDoomTimers = {60, 125, 99.5, 104.6, 99.6}--Live, Dec 5
-local normalDestructors = {17, 39.4, 28, 44.2, 92.4, 41.3, 50, 53.4, 48.1}
+local normalDestructors = {17, 46.2, 32, 52.4, 93.7, 40.9, 50.2, 55.4, 49.2}--Live, Dec 01. Old 17, 39.4, 28, 44.2, 92.4, 41.3, 50, 53.4, 48.1
 local heroicDestructors = {15.7, 35.3, 40.6, 104.6, 134.7, 99.6}
-local mythicDestructors = {23, 23.1, 88.3, 288.4, 20}
-local normalObfuscators = {174}
+local mythicDestructors = {23, 23.1, 87.4, 288.4, 20, 79}
+local normalObfuscators = {193}--Live, Dec 01
 local heroicObfuscators = {80.6, 148.5, 94.7, 99.9}
-local mythicObfuscators = {46, 245.5, 43.8, 90.8}
+local mythicObfuscators = {46, 243, 43.8, 90.8}
 local heroicPurifiers = {125, 66.1, 30.6}
 local mythicPurifiers = {65.7, 82.6, 66.9, 145.7}
 local warnedAdds = {}
 local addCountToLocationMythic = {
-	["Dest"] = {DBM_CORE_MIDDLE},
-	["Obfu"] = {},
-	["Pur"] = {}
+	["Dest"] = {DBM_CORE_MIDDLE, DBM_CORE_TOP, DBM_CORE_BOTTOM, DBM_CORE_MIDDLE, DBM_CORE_TOP, DBM_CORE_MIDDLE},
+	["Obfu"] = {DBM_CORE_BOTTOM, DBM_CORE_MIDDLE, DBM_CORE_TOP, DBM_CORE_BOTTOM},
+	["Pur"] = {DBM_CORE_MIDDLE, DBM_CORE_MIDDLE, DBM_CORE_BOTTOM, DBM_CORE_TOP}
 }
 local addCountToLocationHeroic = {
-	["Dest"] = {DBM_CORE_MIDDLE, DBM_CORE_BOTTOM, DBM_CORE_TOP, DBM_CORE_BOTTOM, DBM_CORE_MIDDLE.."/"..DBM_CORE_TOP},
-	["Obfu"] = {DBM_CORE_TOP, DBM_CORE_MIDDLE, DBM_CORE_BOTTOM},
+	["Dest"] = {DBM_CORE_MIDDLE, DBM_CORE_BOTTOM, DBM_CORE_TOP, DBM_CORE_BOTTOM, DBM_CORE_MIDDLE.."/"..DBM_CORE_TOP, DBM_CORE_MIDDLE.."/"..DBM_CORE_TOP},
+	["Obfu"] = {DBM_CORE_TOP, DBM_CORE_MIDDLE, DBM_CORE_BOTTOM, DBM_CORE_BOTTOM},
 	["Pur"] = {DBM_CORE_MIDDLE, DBM_CORE_BOTTOM, DBM_CORE_MIDDLE}
 }
 local addCountToLocationNormal = {
-	["Dest"] = {DBM_CORE_MIDDLE},
-	["Obfu"] = {}
+	["Dest"] = {DBM_CORE_MIDDLE, DBM_CORE_BOTTOM, DBM_CORE_MIDDLE, DBM_CORE_TOP, DBM_CORE_BOTTOM, DBM_CORE_TOP, DBM_CORE_MIDDLE, DBM_CORE_TOP, DBM_CORE_MIDDLE},
+	["Obfu"] = {DBM_CORE_MIDDLE}
 }
---[[
-Old Data from PTR
-Mythic Adds
-destructor 22, 96.3, 40, 
-Obfuscator: 39.8, 157.9
-Obfuscator: 81.8, 149.2, 94.7, 99.9
-LFR Adds
-destructor: 17, 48.3, 41.4, 65.3, 43.13, 23.4, 50, 43.4
---]]
 
 local updateInfoFrame
 do
@@ -172,8 +163,18 @@ do
 		table.wipe(sortedLines)
 		--Boss Powers first
 		if UnitExists("boss1") then
-			local currentPower = UnitPower("boss1", 10) or 0
-			addLine(UnitName("boss1"), currentPower)
+			local cid = mod:GetUnitCreatureId("boss1")
+			if cid ~= 124445 then--Filter Paraxxus
+				local currentPower = UnitPower("boss1", 10) or 0
+				addLine(UnitName("boss1"), currentPower)
+			end
+		end
+		if UnitExists("boss2") then
+			local cid = mod:GetUnitCreatureId("boss2")
+			if cid ~= 124445 then--Filter Paraxxus
+				local currentPower = UnitPower("boss2", 10) or 0
+				addLine(UnitName("boss2"), currentPower)
+			end
 		end
 		addLine(lifeForceName, mod.vb.lifeForceCast.."/"..mod.vb.lifeRequired)
 		if mod.vb.obfuscators > 0 then
@@ -187,6 +188,19 @@ do
 		end
 		return lines, sortedLines
 	end
+end
+
+--This is backup for fixing timers if destructors die before they ever cast high alert, such as massively overgearing encounter and able to burn it down in less than 10 seconds
+local function checkForDeadDestructor(self)
+	self:Unschedule(checkForDeadDestructor)
+	self.vb.destructorCast = self.vb.destructorCast + 1
+	local timer = self:IsMythic() and mythicDestructors[self.vb.destructorCast+1] or self:IsHeroic() and heroicDestructors[self.vb.destructorCast+1] or self:IsNormal() and normalDestructors[self.vb.destructorCast+1]
+	if timer then
+		local text = self:IsHeroic() and addCountToLocationHeroic["Dest"][self.vb.destructorCast+1] or self:IsNormal() and addCountToLocationNormal["Dest"][self.vb.destructorCast+1] or self:IsMythic() and addCountToLocationMythic["Dest"][self.vb.destructorCast+1] or self.vb.destructorCast+1
+		timerDestructorCD:Start(timer-20, text)--Minus 10 for being 10 seconds after high alert, and minus 10 for wanting when it spawns not high alert cast
+		self:Schedule(timer, checkForDeadDestructor, self)--10 seconds after high alert
+	end
+	DBM:Debug("checkForDeadDestructor ran, which means a destructor died before casting high alert, or DBM has a timer error near: "..self.vb.destructorCast, 2)
 end
 
 function mod:OnCombatStart(delay)
@@ -209,20 +223,23 @@ function mod:OnCombatStart(delay)
 			timerRainofFelCD:Start(6-delay, 1)
 			--countdownRainofFel:Start(6-delay)
 			--timerSpearofDoomCD:Start(35-delay, 1)
-			timerDestructorCD:Start(8, DBM_CORE_MIDDLE)
-			timerObfuscatorCD:Start(46, 1)
-			timerPurifierCD:Start(65.7, 1)
+			timerDestructorCD:Start(12, DBM_CORE_MIDDLE)
+			self:Schedule(32, checkForDeadDestructor, self)
+			timerObfuscatorCD:Start(46, DBM_CORE_BOTTOM)
+			timerPurifierCD:Start(65.7, DBM_CORE_MIDDLE)
 			timerFinalDoomCD:Start(60-delay, 1)
 			countdownFinalDoom:Start(60-delay)
 		elseif self:IsHeroic() then
 			timerRainofFelCD:Start(9.3-delay, 1)
 			--countdownRainofFel:Start(9.3-delay)
-			timerDestructorCD:Start(8, DBM_CORE_MIDDLE)
+			timerDestructorCD:Start(7, DBM_CORE_MIDDLE)
+			self:Schedule(27, checkForDeadDestructor, self)
 			timerSpearofDoomCD:Start(34.4-delay, 1)
 			timerObfuscatorCD:Start(80.6, DBM_CORE_TOP)
 			timerPurifierCD:Start(125, DBM_CORE_MIDDLE)
 		else--Normal
-			timerDestructorCD:Start(8, DBM_CORE_MIDDLE)
+			timerDestructorCD:Start(7, DBM_CORE_MIDDLE)
+			self:Schedule(27, checkForDeadDestructor, self)
 			timerObfuscatorCD:Start(174, 1)
 			--timerRainofFelCD:Start(30-delay, 1)
 			--countdownRainofFel:Start(30-delay)
@@ -267,9 +284,9 @@ function mod:SPELL_CAST_START(args)
 			timerFinalDoomCD:Start(timer, self.vb.finalDoomCast+1)
 			countdownFinalDoom:Start(timer)
 		end
-	elseif spellId == 250701 then
+	elseif spellId == 250701 and self:CheckInterruptFilter(args.sourceGUID, true) then
 		specWarnSwing:Show()
-		voiceSwing:Play("defensive")
+		voiceSwing:Play("watchstep")
 	elseif spellId == 250048 then
 		self.vb.lifeForceCast = self.vb.lifeForceCast + 1
 		warnLifeForce:Show(self.vb.lifeForceCast)
@@ -300,6 +317,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		end
 	elseif spellId == 254769 and args:GetSrcCreatureID() == 123760 and not warnedAdds[args.sourceGUID] then--High Alert
 		warnedAdds[args.sourceGUID] = true
+		self:Unschedule(checkForDeadDestructor)
 		self.vb.destructors = self.vb.destructors + 1
 		if self:AntiSpam(5, args.sourceName) then
 			warnWarpIn:Show(L.Destructors)
@@ -307,7 +325,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 			local timer = self:IsMythic() and mythicDestructors[self.vb.destructorCast+1] or self:IsHeroic() and heroicDestructors[self.vb.destructorCast+1] or self:IsNormal() and normalDestructors[self.vb.destructorCast+1]
 			if timer then
 				local text = self:IsHeroic() and addCountToLocationHeroic["Dest"][self.vb.destructorCast+1] or self:IsNormal() and addCountToLocationNormal["Dest"][self.vb.destructorCast+1] or self:IsMythic() and addCountToLocationMythic["Dest"][self.vb.destructorCast+1] or self.vb.destructorCast+1
-				timerDestructorCD:Start(timer-9, text)--High alert fires about 9 seconds after spawn so using it as a trigger has a -9 adjustment
+				timerDestructorCD:Start(timer-10, text)--High alert fires about 9 seconds after spawn so using it as a trigger has a -10 adjustment
+				self:Schedule(timer+10, checkForDeadDestructor, self)
 			end
 		end
 	end
@@ -439,8 +458,10 @@ function mod:UNIT_DIED(args)
 	local cid = self:GetCIDFromGUID(args.destGUID)
 	if cid == 124207 and self.vb.obfuscators > 0 then--Fel-Charged Obfuscator
 		self.vb.obfuscators = self.vb.obfuscators - 1
-	elseif cid == 123760 and self.vb.destructors > 0 then--Fel-Infused Destructor
-		self.vb.destructors = self.vb.destructors - 1
+	elseif cid == 123760 then 
+		if warnedAdds[args.destGUID] and self.vb.destructors > 0 then--Fel-Infused Destructor
+			self.vb.destructors = self.vb.destructors - 1
+		end
 	elseif cid == 123726 and self.vb.purifiers > 0 then--Fel-Infused Purifier
 		self.vb.purifiers = self.vb.purifiers - 1
 	end

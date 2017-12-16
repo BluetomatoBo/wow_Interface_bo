@@ -1,146 +1,221 @@
-tag afbf15eaa334c6cfe4478c5b8cba4cc20aac0e6a 7.3.11
+tag dce0ee6bae3679634a1936d3793a756f0d78ec2f 7.3.13
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Fri Dec 8 20:52:43 2017 +0100
+Date:	Wed Dec 13 11:50:06 2017 +0100
 
-Tagging as 7.3.11
+Tagging as 7.3.13
 
-commit 5a0b2d8dc67e4f0a309d5be72c5305be0f872c9b
+commit cf09e99c3a6f5adcfe78a150e811c89c1f14623d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 8 20:52:43 2017 +0100
+Date:   Wed Dec 13 11:50:06 2017 +0100
 
-    increment version number to 7.3.11
+    increment version number to 7.3.13
 
-commit 2433123fffaade6b982f9ff91d941f8a4c11e5b6
+commit 8a62b21ad240d7eafbac79ff948d797cb4e7f75e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 8 20:44:36 2017 +0100
+Date:   Wed Dec 13 11:40:21 2017 +0100
 
-    Omega via svn r16951:
-    Update version check
+    Omega via svn r16995:
+    Some timer classification tweaks
 
-commit cd9c1e45faf30bc118fad36b7c1e7b0ce803c643
+commit 869693c8117c402700319d3136e35a9717eb8127
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 8 10:09:58 2017 +0100
+Date:   Wed Dec 13 11:32:39 2017 +0100
 
-    Omega via svn r16950:
-    Fix leech essence bar as well which was still an AI timer
+    Omega via svn r16994:
+    Auto range 10 for embrace then swap back to 8 after
 
-commit 657228a3eb454c0473a64eb52159c7a81cb0c166
+commit dacd7b36c10dfb62c5777c2e338791723cff80a9
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 8 10:06:52 2017 +0100
+Date:   Wed Dec 13 08:02:52 2017 +0100
 
-    Omega via svn r16949:
-    Corruptions don?\226?\128?\153t happen in LFR
+    Omega via svn r16993:
+    Update Argus bomb/burst timers in P4 normal/heroic per this weeks undocumented hotfixes
+    Added partial P3 mythic support too from some very short logs
+    Some fixes to P3 mythic transition support as well
 
-commit d3b65d700da82cf167b591eacc364fab10826c57
+commit a61fe106ff169f1ca28f6de45354a41733cdb1af
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 8 09:38:42 2017 +0100
+Date:   Wed Dec 13 06:00:09 2017 +0100
 
-    Omega via svn r16948:
-    Add timer correction code to portal keeper, same as archimonde
-    Fix warning for Caustic Slime to mention aegis at correct time
+    Omega via svn r16992:
+    Fix spell Icon for annihilation
+    very minor timer tweaks from reclear debug
 
-commit 01f58eda725a9e6bbeb0596703f1392e51fc3f35
+commit f4cbe53ac29bd30869231e803c63b76d6ab60b4b
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 8 06:48:38 2017 +0100
+Date:   Wed Dec 13 03:17:18 2017 +0100
 
-    Omega via svn r16947:
+    Omega via svn r16991:
+    and fix this
+
+commit 66150e35d698a4ff216e5b582dcb71ff035e577f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Dec 13 03:16:10 2017 +0100
+
+    Omega via svn r16990:
+    Another fix
+
+commit 10656501959f314fc36aa441721117b65d1bd561
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Dec 13 03:13:33 2017 +0100
+
+    Omega via svn r16989:
+    Kill this timer, it?\226?\128?\153s confusing
+
+commit c0f303d7a5dde644cefbc6f34b78dc54c984cc45
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Dec 13 03:04:33 2017 +0100
+
+    Omega via svn r16988:
+    Fix more stupid on garoth
+
+commit 80fc3508db129a906e3ab89f07ba9a259e4cde02
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Dec 13 01:44:24 2017 +0100
+
+    Omega via svn r16987:
+    Compatability layer for GetSectionInfo change in 7.3.5. it?\226?\128?\153s ugly but temporary to handle DBM working on ptr and live at same time
+
+commit e562b9bd5a65aa86fb57f050872f19450dda4619
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Dec 12 08:20:19 2017 +0100
+
+    Omega via svn r16986:
+    since they are cast so staggered, disable target warning by default. I will not have 3 different warnings for grenades, nor will I have a combined warning that takes over 3 seconds to combine all targets
+
+commit e9f8305945ffe1fcc7ae1446e48904d5ec37ac83
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Dec 12 07:38:49 2017 +0100
+
+    Omega via svn r16985:
+    cleanup
+
+commit 5674f7396601d0f00842a9211496d65648ddc608
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Dec 12 07:24:29 2017 +0100
+
+    Omega via svn r16984:
     Kr update
 
-commit 37418bdc209b448d27763351ac75df4b44550f5e
+commit 326842ba46c5266ecc84dc9bbb944ec4d6651edf
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 8 06:31:14 2017 +0100
+Date:   Tue Dec 12 05:47:08 2017 +0100
 
-    Omega via svn r16946:
-    Fix lua error
+    Omega via svn r16983:
+    Cleanup
 
-commit 2fa00b52542329f3b1ba5dd66553d7ebfe7ce702
+commit 57f22c0dcb72f01227801b44d8738ec5425c30c8
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Dec 8 01:41:17 2017 +0100
+Date:   Tue Dec 12 05:32:03 2017 +0100
 
-    Omega via svn r16945:
-    **Improvements to eonar mythic.
-    *Range check now only shows when needed not all the time
-    *Warnings and yells for when the effectives of mythic debuffs active
-    *Removed useless icon options and improved the remaining icon option for ?\226?\128?\156targetted?\226?\128?\157 debuff for multiple targets
-    
-    **Improvements to Varimathras Mythic
-    *Updated torment timers
-    *Added more icon options for Embrace
-    *Throttle embrace warnings on wipe
-    
-    **Improvements to Coven
-    *Handle shiva swap betters by counting torment casts by boss name instead of globally so mod knows more accurately when each BOSS is returning.
-    *Changed icon assignments around to be compatible with other mods which recently introduced their own conflicting icons
-    *Updated Mythic timers
-    *Added fades yell to cosmic glare
-    *added announce for when a new boss activates
-    
-    **Improvements to Imonar
-    *Updated all timers for mythic difficulty, especially initial timers on phase changes.
-    
-    **CN update
+    Omega via svn r16982:
+    Test function
 
-commit 7b38957233f473169c375f650ab08a98a73d619c
+commit 5a51ff47bdd86e52421a3dc48dc7a763c701f3ac
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Dec 7 18:23:03 2017 +0100
+Date:   Tue Dec 12 05:27:33 2017 +0100
 
-    ultrashining via svn r16944:
-    zhTW update
+    Omega via svn r16981:
+    Fix logic error and code duplication
 
-commit adf9b6d4f72e86619335ae0757a509aeeb7b79b2
+commit c0a93fa6d9d6ea99d4480b72f461b3056a0d2dc8
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Dec 7 11:23:26 2017 +0100
+Date:   Tue Dec 12 05:17:34 2017 +0100
 
-    Omega via svn r16943:
-    Better voice for storm of darkness
+    Omega via svn r16980:
+    added auto ?\226?\128?\156Dispel Me!?\226?\128?\157 yell if safe distance to dispel when put to sleep to imonar (off by default)
+    added auto ?\226?\128?\156Dispel Me!?\226?\128?\157 yell if tank spec and stunned by Stasis Traps on bridge to imonar (on by default)
 
-commit a751fc2891fdf8f224e91ed2c7f9f532bab0f7ac
+commit 0f1df8d6ed10b07f376028b0f7510d9d1bccee80
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Dec 7 11:16:06 2017 +0100
+Date:   Tue Dec 12 03:59:32 2017 +0100
 
-    Omega via svn r16942:
-    Antispam misery and fix voice pack filter for two other warnings
+    Omega via svn r16979:
+    Re-enable decimation target warnings, they were fixed at some point
 
-commit a9bc83a71a818e9c2ea5b76584068ebb98298a01
+commit 5d55225661cff154c5ef0802ac6cd7c9dfbcc731
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Dec 7 10:31:43 2017 +0100
+Date:   Tue Dec 12 03:27:02 2017 +0100
 
-    Omega via svn r16941:
-    Fix first purifier location not being given on heroic
+    Omega via svn r16978:
+    Change swing to a melee avoidance warning ctually, tanks don?\226?\128?\153t need a warning for it but melee do
 
-commit 969646dc01f3545946bd582357c73a179516ecb9
+commit 33edadfa86face948fb6d204e68f159e823ce81f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Dec 7 06:46:28 2017 +0100
+Date:   Tue Dec 12 03:22:14 2017 +0100
 
-    Omega via svn r16940:
-    Fix mythic hasabel timers a bit
-    Improved tank warning on hasabel too to achieve 2 stack swaps whenever possible.
+    Omega via svn r16977:
+    fixed bug where swing warning fires when you?\226?\128?\153re not one tanking purifier
 
-commit 2adcf9552d9e0cee40f35f14a724c95cf6270ed4
+commit 8f60093bd26f29c744e22311774c89d0f3a95ccc
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Dec 7 05:32:35 2017 +0100
+Date:   Tue Dec 12 02:49:38 2017 +0100
 
-    Omega via svn r16939:
-    some antispam tweaks to grenades
+    Omega via svn r16976:
+    Rename that timer so it?\226?\128?\153s clearer what it?\226?\128?\153s for, and refix it. my last fix was wrong cause it had wrong name
 
-commit d775a8509b394e25db07a6a21a83fc5d7b11eb32
+commit 96e10a3dec1ed78165aace567a929a46db2c000e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Dec 7 04:19:32 2017 +0100
+Date:   Tue Dec 12 02:27:53 2017 +0100
 
-    Omega via svn r16938:
-    kill icon marking, it?\226?\128?\153s not useful and doesn?\226?\128?\153t work
+    Omega via svn r16975:
+    Fixes
 
-commit 80c6ea330d1cfe8ac31238553bb1bddf14df2b4d
+commit 0a08702243c425770d776a8642e2970b552ba624
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Dec 7 03:21:37 2017 +0100
+Date:   Tue Dec 12 02:24:10 2017 +0100
 
-    Omega via svn r16937:
-    Apparently they tweaked bomb timers too in hotfixes and didn?\226?\128?\153t note it. adjust timers for first bombs
+    Omega via svn r16974:
+    Add option to Kingaroth to use extender instead of stop/resume, since it?\226?\128?\153s often possible to leave initialization with one or two of his timers at only 1-3 seconds, so it?\226?\128?\153ll be more useful to not hide timers during phase transition so you KNOW he?\226?\128?\153s gonna use x instantly
 
-commit bbbfc32a674cebde3e54370dfb518de190108f2d
+commit 7cabfc7db86c8fa13a18fb7b090967e2542d4a1a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Dec 6 21:32:37 2017 +0100
+Date:   Mon Dec 11 21:33:58 2017 +0100
 
-    tandanu via svn r16936:
+    Omega via svn r16973:
+    Update P2 Mythic Argus
+
+commit 00e96afa1c6e1756d9ce8f76215586b5b5fa2d57
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Dec 10 22:26:49 2017 +0100
+
+    Omega via svn r16972:
+    P1 mythic Argus support (timers and warnings)
+    Aggramar Mythic berserk timer
+
+commit 27f2de65d4d2b07ad8a42288203aced9ae373c77
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Dec 10 06:01:30 2017 +0100
+
+    Omega via svn r16971:
+    Rename ?\226?\128?\156default?\226?\128?\157 to be more accurate
+
+commit 267b95a2e35d7112b9932ad90bd1f63180544fe9
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Dec 10 05:54:25 2017 +0100
+
+    Omega via svn r16970:
+    Added some new alert sound media
+    Changed default sound for very important personal special warnings from KJ ?\226?\128?\156Destruction?\226?\128?\157 to Air Horn
+
+commit 3e503253fd6ee169bb235049a12c025d12fdeda7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Dec 10 00:23:06 2017 +0100
+
+    Omega via svn r16969:
+    Handle situations that may have high dps that?\226?\128?\153d prevent high alert from being cast
+
+commit 2e4c4170a8bcdf35ea54f4c95a58c3a82a633bb7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Dec 10 00:10:01 2017 +0100
+
+    Omega via svn r16968:
+    Couple minor tweaks
+
+commit f20505803a869a3f44d13a257b0443aaf41bdfd5
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Dec 9 22:14:05 2017 +0100
+
+    tandanu via svn r16967:
     increment alpha version
 

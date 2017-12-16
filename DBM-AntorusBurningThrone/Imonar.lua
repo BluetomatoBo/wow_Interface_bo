@@ -1,13 +1,13 @@
 local mod	= DBM:NewMod(2009, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16946 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 16983 $"):sub(12, -3))
 mod:SetCreatureID(124158)--or 124158 or 125692
 mod:SetEncounterID(2082)
 mod:SetZone()
 --mod:SetBossHPInfoToHighest()
 --mod:SetUsedIcons(1, 2, 3, 4, 5, 6)
---mod:SetHotfixNoticeRev(16350)
+mod:SetHotfixNoticeRev(16961)
 mod.respawnTime = 35
 
 mod:RegisterCombat("combat")
@@ -15,8 +15,8 @@ mod:RegisterCombat("combat")
 mod:RegisterEventsInCombat(
 	"SPELL_CAST_START 247376 247923 248068 248070 248254",
 	"SPELL_CAST_SUCCESS 247367 247552 247687 250255 254244",
-	"SPELL_AURA_APPLIED 247367 247552 247565 247687 250255 250006",
-	"SPELL_AURA_APPLIED_DOSE 247367 247687 250255 248424",
+	"SPELL_AURA_APPLIED 247367 247552 247565 247687 250255 250006 247641",
+	"SPELL_AURA_APPLIED_DOSE 247367 247687 250255",
 	"SPELL_AURA_REMOVED 248233 250135 250006",
 --	"SPELL_PERIODIC_DAMAGE",
 --	"SPELL_PERIODIC_MISSED",
@@ -43,7 +43,7 @@ local warnSever							= mod:NewStackAnnounce(247687, 2, nil, "Tank")
 --local warnChargedBlasts					= mod:NewTargetAnnounce(247716, 3)
 --Stage Three/Five: The Perfect Weapon
 local warnPhase3						= mod:NewPhaseAnnounce(3, 2)
-local warnEmpoweredPulseGrenade			= mod:NewTargetAnnounce(248424, 3)
+local warnEmpoweredPulseGrenade			= mod:NewTargetAnnounce(250006, 3)
 local warnPhase4						= mod:NewPhaseAnnounce(4, 2)
 local warnPhase5						= mod:NewPhaseAnnounce(5, 2)
 --Intermission: On Deadly Ground
@@ -54,8 +54,10 @@ local warnPhase5						= mod:NewPhaseAnnounce(5, 2)
 local specWarnShocklance				= mod:NewSpecialWarningTaunt(247367, nil, nil, nil, 1, 2)
 local specWarnSleepCanister				= mod:NewSpecialWarningYou(247552, nil, nil, nil, 1, 2)
 local yellSleepCanister					= mod:NewYell(247552)
+local yellSlumberGas					= mod:NewYell(247565, L.DispelMe, false)--Auto yell when safe to dispel (no players within 10 yards)
 local specWarnSleepCanisterNear			= mod:NewSpecialWarningClose(247552, nil, nil, nil, 1, 2)
 local specWarnPulseGrenade				= mod:NewSpecialWarningDodge(247376, nil, nil, nil, 1, 2)
+local yellStasisTrap					= mod:NewYell(247641, L.DispelMe)
 --Stage Two: Contract to Kill
 local specWarnSever						= mod:NewSpecialWarningTaunt(247687, nil, nil, nil, 1, 2)
 local specWarnChargedBlastsUnknown		= mod:NewSpecialWarningSpell(247716, nil, nil, nil, 2, 2)
@@ -64,8 +66,8 @@ local specWarnChargedBlastsUnknown		= mod:NewSpecialWarningSpell(247716, nil, ni
 local specWarnShrapnalBlast				= mod:NewSpecialWarningDodge(247923, nil, nil, nil, 1, 2)
 --local specWarnMalignantAnguish		= mod:NewSpecialWarningInterrupt(236597, "HasInterrupt")
 --Stage Three/Five: The Perfect Weapon
-local specWarnEmpPulseGrenade			= mod:NewSpecialWarningMoveAway(248424, nil, nil, nil, 1, 2)
-local yellEmpPulseGrenade				= mod:NewYell(248424)
+local specWarnEmpPulseGrenade			= mod:NewSpecialWarningMoveAway(250006, nil, nil, nil, 1, 2)
+local yellEmpPulseGrenade				= mod:NewYell(250006)
 --local specWarnEmpShrapnalBlast		= mod:NewSpecialWarningDodge(248070, nil, nil, nil, 1, 2)--Redundant
 --Intermission: On Deadly Ground
 
@@ -100,46 +102,17 @@ local voiceSever						= mod:NewVoice(247687)--Tauntboss
 local voiceChargedBlasts				= mod:NewVoice(247716)--runout
 local voiceShrapnalBlast				= mod:NewVoice(247923)--watchstep
 --Stage Three/Five: The Perfect Weapon
-local voiceEmpPulseGrenade				= mod:NewVoice(248424)--range5
+local voiceEmpPulseGrenade				= mod:NewVoice(250006)--range5
 
 --local voiceMalignantAnguish			= mod:NewVoice(236597, "HasInterrupt")--kickcast
 
 --mod:AddSetIconOption("SetIconOnFocusedDread", 238502, true)
 --mod:AddInfoFrameOption(239154, true)
-mod:AddRangeFrameOption(5, 248424)
+mod:AddRangeFrameOption(5, 250006)
 
 mod.vb.phase = 1
 mod.vb.shrapnalCast = 0
 local mythicP5ShrapnalTimers = {15, 15.8, 14.5, 12, 10}
-
---[[
-local debuffFilter
-local UnitDebuff = UnitDebuff
-local playerDebuff = nil
-do
-	local spellName = GetSpellInfo(231311)
-	debuffFilter = function(uId)
-		if not playerDebuff then return true end
-		if not select(11, UnitDebuff(uId, spellName)) == playerDebuff then
-			return true
-		end
-	end
-end
-
-local expelLight, stormOfJustice = GetSpellInfo(228028), GetSpellInfo(227807)
-local function updateRangeFrame(self)
-	if not self.Options.RangeFrame then return end
-	if self.vb.brandActive then
-		DBM.RangeCheck:Show(15, debuffFilter)--There are no 15 yard items that are actually 15 yard, this will round to 18 :\
-	elseif UnitDebuff("player", expelLight) or UnitDebuff("player", stormOfJustice) then
-		DBM.RangeCheck:Show(8)
-	elseif self.vb.hornCasting then--Spread for Horn of Valor
-		DBM.RangeCheck:Show(5)
-	else
-		DBM.RangeCheck:Hide()
-	end
-end
---]]
 
 function mod:OnCombatStart(delay)
 	self.vb.phase = 1
@@ -162,9 +135,6 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
---	if self.Options.InfoFrame then
---		DBM.InfoFrame:Hide()
---	end
 end
 
 function mod:SPELL_CAST_START(args)
@@ -289,6 +259,9 @@ function mod:SPELL_AURA_APPLIED(args)
 		end
 	elseif spellId == 247565 then
 		warnSlumberGas:CombinedShow(0.3, args.destName)
+		if args:IsPlayer() and not self:CheckNearby(10) then
+			yellSlumberGas:Yell()
+		end
 	elseif spellId == 250006 then
 		warnEmpoweredPulseGrenade:CombinedShow(0.3, args.destName)
 		if args:IsPlayer() then
@@ -299,6 +272,8 @@ function mod:SPELL_AURA_APPLIED(args)
 				DBM.RangeCheck:Show(5)
 			end
 		end
+	elseif spellId == 247641 and args:IsPlayer() and self:IsTank() then
+		yellStasisTrap:Yell()
 	end
 end
 mod.SPELL_AURA_APPLIED_DOSE = mod.SPELL_AURA_APPLIED
