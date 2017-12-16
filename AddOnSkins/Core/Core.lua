@@ -115,7 +115,7 @@ function AS:UnregisterSkin(skinName, skinFunc)
 	end
 end
 
-local function GenerateEventFunction(event)
+local function GenerateEventFunction()
 	local eventHandler = function(self, event, ...)
 		for skin, funcs in pairs(AS.skins) do
 			if AS:CheckOption(skin) and AS.events[event][skin] then
@@ -140,7 +140,7 @@ function AS:RegisteredSkin(skinName, priority, func, events)
 	for event, _ in pairs(events) do
 		if not strfind(event, '%[') then
 			if not AS.events[event] then
-				AS[event] = GenerateEventFunction(event)
+				AS[event] = GenerateEventFunction()
 				AS:RegisterEvent(event)
 				AS.events[event] = {}
 			end
@@ -202,7 +202,7 @@ function AS:StartSkinning(event)
 		end
 	end
 
-	for skin, funcs in pairs(AS.skins) do
+	for skin, funcs in AS:OrderedPairs(AS.skins) do
 		if AS:CheckAddOn('ElvUI') and AS:GetElvUIBlizzardSkinOption(skin) then
 			AS:SetOption(skin, false)
 		end
@@ -267,12 +267,10 @@ function AS:Init(event, addon)
 		}
 
 		for skin in pairs(AS.register) do
-			if Defaults.profile[skin] == nil then
-				if AS:CheckAddOn('ElvUI') and strfind(skin, 'Blizzard_') then
-					Defaults.profile[skin] = false
-				else
-					Defaults.profile[skin] = true
-				end
+			if AS:CheckAddOn('ElvUI') and strfind(skin, 'Blizzard_') then
+				Defaults.profile[skin] = false
+			else
+				Defaults.profile[skin] = true
 			end
 		end
 
@@ -292,6 +290,8 @@ function AS:Init(event, addon)
 		if _G.EnhancedShadows then
 			AS.ES = _G.EnhancedShadows
 		end
+
+		AS:BuildOptions()
 
 		if AS.EP then
 			AS.EP:RegisterPlugin(AddOnName, AS.GetOptions)

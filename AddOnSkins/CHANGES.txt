@@ -1,127 +1,16 @@
-lightweight tag 0d05f29db0d31bf32ecee893bf7383f2149ec289 3.63
+lightweight tag 2d61afeb2868c075c9c9661809352d68fe0af630 3.68
 Author:	Azilroka <darktemplar9900@yahoo.com>
-Date:	Sun Dec 3 00:19:45 2017 -0600
+Date:	Fri Dec 15 19:40:20 2017 -0600
 
-commit 0d05f29db0d31bf32ecee893bf7383f2149ec289
+commit 2d61afeb2868c075c9c9661809352d68fe0af630
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Dec 3 00:19:45 2017 -0600
+Date:   Fri Dec 15 19:40:20 2017 -0600
 
-    3.63
+    3.68
 
-commit 660ce7f50dd63235f7acc7c7b976af3d4f3665f1
+commit 187459487c8d0c2efcec607d01c5a7ab6f5de46d
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Dec 3 00:11:18 2017 -0600
+Date:   Fri Dec 15 19:39:53 2017 -0600
 
-    Because people like enabling 2 skins.
-
-commit 0aa3c1fb86d597c08eda4e672fe3dc6c04ed266e
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sat Dec 2 19:46:12 2017 -0600
-
-    Fix gitignore
-
-commit 843e0e69569bc55e9f481f6613697683e387a689
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sat Dec 2 18:19:36 2017 -0600
-
-    Somehow this got changed
-
-commit 0e4eb77fd734dacb7f69346c48fe7c10da6594c2
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sat Dec 2 11:11:12 2017 -0600
-
-    Move the DB to Initialize
-
-commit f543b5207374d69c32dfdfbda81335cfe8d92218
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Thu Nov 23 17:00:18 2017 -0600
-
-    Pull the Font Table from LSM
-
-commit 07187221590639d5e56ef5b7f8b9d207fd418fe8
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Wed Nov 22 21:53:24 2017 -0600
-
-    OCES
-
-commit 1d55d9ff5dd02870df18bbaaaf6bde2de30bf3e6
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sat Nov 18 16:08:52 2017 -0600
-
-    TicketTracker, API Button, DBM
-
-commit a552c6abc6f042c57ddbffff63a37f75bf0457c1
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Nov 13 15:34:52 2017 -0600
-
-    Removing this as well.
-
-commit c11512f2e90d1a57ab814d444f20ab3ebd885dfa
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Nov 13 15:18:42 2017 -0600
-
-    Unneeded
-
-commit 1a5a95b918e80c08e5002917e437330fc4d91e9b
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Nov 13 15:02:19 2017 -0600
-
-    Fix dis
-
-commit 795682fc7295e6ae8386f625fc64410b75a8ae8a
-Author: Merathilis <neo0608@gmail.com>
-Date:   Mon Nov 13 14:15:12 2017 +0100
-
-    Update Auctionator skin.
-
-commit 97d7654328543db96dd96ccc178afd9b9bd0a0e1
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Nov 12 18:12:10 2017 -0600
-
-    Move this outside the skin function to stop creating anon
-
-commit 537d78e383f2bb03cc782a8d495533a9cdf1e18a
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Nov 12 18:10:56 2017 -0600
-
-    Remove Ace3
-
-commit 39ac2c8861f91537ed1fe4942d4de813078f7bb5
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Nov 12 17:35:53 2017 -0600
-
-    White Spaces
-
-commit 1d3806caf012ebc6b2ec4e618fa2640df4de48b5
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Nov 12 12:42:39 2017 -0600
-
-    Shadowing cleanup
-
-commit e38fd8da254561c92a4e456c8be6824d72f8771f
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Nov 12 09:22:48 2017 -0600
-
-    Cleanup Embed / Honor Skin
-
-commit 7b006eb5fe955b42cb234a8ba04cfcebaa52c2dc
-Author: Merathilis <neo0608@gmail.com>
-Date:   Sun Nov 12 14:41:55 2017 +0100
-
-    Update the Guild_Roster_Manager skin.
-
-commit 7926acfbb2cd3b469a16efc597d496407e45c6b9
-Author: Merathilis <neo0608@gmail.com>
-Date:   Sun Nov 12 12:15:55 2017 +0100
-
-    Add a skin for Guild_Roster_Manager.
-    
-    *No checkboxes are skinned.
-    *No dropdowns are skinned.
-
-commit 1669a26aca71afbe9346a9c7fbed0c9d4d322055
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Nov 5 14:13:18 2017 -0600
-
-    WeakAuras
+    Resolves Issue #42
 
