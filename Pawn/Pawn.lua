@@ -4721,6 +4721,10 @@ function PawnAddPluginScale(ProviderInternalName, ScaleInternalName, LocalizedNa
 	NewScale.LocalizedName = LocalizedName
 	NewScale.Header = PawnScaleProviders[ProviderInternalName].Name
 	NewScale.NormalizationFactor = NormalizationFactor
+	-- If the plugin supplied any stat values of 0, remove them now.
+	for StatName, Value in pairs(Values) do
+		if Value == 0 then Values[StatName] = nil end
+	end
 	NewScale.Values = Values
 	if not NewScale.PerCharacterOptions then NewScale.PerCharacterOptions = {} end
 	if not NewScale.PerCharacterOptions[PawnPlayerFullName] then NewScale.PerCharacterOptions[PawnPlayerFullName] = {} end
