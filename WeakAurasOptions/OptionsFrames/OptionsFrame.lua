@@ -182,8 +182,8 @@ function WeakAuras.CreateFrame()
   end)
   importbutton:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
-    GameTooltip:SetText("Disable Import")
-    GameTooltip:AddLine("If this option is enabled, you are no longer able to import auras.", 1, 1, 1)
+    GameTooltip:SetText(L["Disable Import"])
+    GameTooltip:AddLine(L["If this option is enabled, you are no longer able to import auras."], 1, 1, 1)
     GameTooltip:Show()
   end)
   importbutton:SetScript("OnLeave", GameTooltip_Hide)
@@ -576,6 +576,22 @@ function WeakAuras.CreateFrame()
     AceConfig:RegisterOptionsTable("WeakAuras", optionTable);
     AceConfigDialog:Open("WeakAuras", container);
     container:SetTitle("");
+  end
+
+  frame.ClearPick = function(self, id)
+    local index = nil;
+    for i, childId in pairs(tempGroup.controlledChildren) do
+      if (childId == id) then
+        index = i;
+        break;
+      end
+    end
+
+    tremove(tempGroup.controlledChildren, index);
+    displayButtons[id]:ClearPick();
+
+    WeakAuras.ReloadTriggerOptions(tempGroup);
+    self:FillOptions(displayOptions[tempGroup.id]);
   end
 
   frame.ClearPicks = function(self, except)

@@ -901,7 +901,7 @@ WeakAuras.event_prototypes = {
       AddUnitChangeEvents(trigger.unit, result);
       return result;
     end,
-    force_events = true,
+    force_events = "UNIT_LEVEL",
     name = L["Unit Characteristics"],
     init = function(trigger)
       trigger.unit = trigger.unit or "target";
@@ -990,14 +990,15 @@ WeakAuras.event_prototypes = {
         "WA_DELAYED_PLAYER_ENTERING_WORLD"
       };
       AddUnitChangeEvents(trigger.unit, result);
+      if (trigger.use_showAbsorb) then
+        tinsert(result, "UNIT_ABSORB_AMOUNT_CHANGED");
+      end
+      if (trigger.use_showIncomingHeal) then
+        tinsert(result, "UNIT_HEAL_PREDICTION");
+      end
       return result;
     end,
-    force_events = {
-      "player",
-      "target",
-      "focus",
-      "pet"
-    },
+    force_events = "WA_DELAYED_PLAYER_ENTERING_WORLD",
     name = L["Health"],
     init = function(trigger)
       trigger.unit = trigger.unit or "player";
@@ -1036,6 +1037,47 @@ WeakAuras.event_prototypes = {
         conditionType = "number"
       },
       {
+        name = "showAbsorb",
+        display = L["Show Absorb"],
+        type = "toggle",
+        test = "true",
+        reloadOptions = true
+      },
+      {
+        name = "absorbMode",
+        display = L["Absorb Display"],
+        type = "select",
+        test = "true",
+        values = "absorb_modes",
+        required = true,
+        enable = function(trigger) return trigger.use_showAbsorb end
+      },
+      {
+        name = "showIncomingHeal",
+        display = L["Show Incoming Heal"],
+        type = "toggle",
+        test = "true",
+        reloadOptions = true
+      },
+      {
+        name = "absorb",
+        type = "number",
+        display = L["Absorb"],
+        init = "UnitGetTotalAbsorbs(concernedUnit)",
+        store = true,
+        conditionType = "number",
+        enable = function(trigger) return trigger.use_showAbsorb end
+      },
+      {
+        name = "healprediction",
+        type = "number",
+        display = L["Incoming Heal"],
+        init = "UnitGetIncomingHeals(concernedUnit)",
+        store = true,
+        conditionType = "number",
+        enable = function(trigger) return trigger.use_showIncomingHeal end
+      },
+      {
         hidden = true,
         test = "UnitExists(concernedUnit)"
       }
@@ -1046,6 +1088,34 @@ WeakAuras.event_prototypes = {
     nameFunc = function(trigger)
       return UnitName(trigger.unit);
     end,
+    overlayFuncs = {
+      {
+        name = L["Absorb"],
+        func = function(trigger, state)
+          local absorb = UnitGetTotalAbsorbs(trigger.unit);
+          if (trigger.absorbMode == "OVERLAY_FROM_START") then
+            return 0, absorb;
+          else
+            return "forward", absorb;
+          end
+        end,
+        enable = function(trigger)
+          return trigger.use_showAbsorb;
+        end
+      },
+      {
+        name = L["Incoming Heal"],
+        func = function(trigger, state)
+          if (trigger.use_showIncomingHeal) then
+            local heal = UnitGetIncomingHeals(trigger.unit);
+            return "forward", heal;
+          end
+        end,
+        enable = function(trigger)
+          return trigger.use_showIncomingHeal;
+        end
+      }
+    },
     automatic = true
   },
   ["Power"] = {
@@ -1057,14 +1127,14 @@ WeakAuras.event_prototypes = {
         "UNIT_DISPLAYPOWER"
       };
       AddUnitChangeEvents(trigger.unit, result);
+      if (trigger.use_showCost) then
+        tinsert(result, "UNIT_SPELLCAST_START");
+        tinsert(result, "UNIT_SPELLCAST_STOP");
+        tinsert(result, "UNIT_SPELLCAST_FAILED");
+      end
       return result;
     end,
-    force_events = {
-      "player",
-      "target",
-      "focus",
-      "pet"
-    },
+    force_events = "WA_DELAYED_PLAYER_ENTERING_WORLD",
     name = L["Power"],
     init = function(trigger)
       trigger.unit = trigger.unit or "player";
@@ -1083,6 +1153,27 @@ WeakAuras.event_prototypes = {
         local UnitPowerMax = UnitHealthMax;
       ]]
       end
+      if (trigger.use_showCost) then
+        ret = ret .. [[
+          if (event == "UNIT_SPELLCAST_START" and unit == "player") then
+            local spellID = select(10, UnitCastingInfo("player"));
+            if spellID then
+              local costTable = GetSpellPowerCost(spellID);
+              for _, costInfo in pairs(costTable) do
+                if costInfo.type == powerTypeToCheck then
+                  state.cost = costInfo.cost;
+                  break;
+                end
+              end
+            end
+            state.changed = true;
+          elseif ( (event == "UNIT_SPELLCAST_STOP" or event == "UNIT_SPELLCAST_FAILED") and unit == "player") then
+            state.cost = nil;
+            state.changed = true;
+          end
+        ]]
+      end
+
       return ret
     end,
     statesParameter = "one",
@@ -1116,6 +1207,16 @@ WeakAuras.event_prototypes = {
         end,
       },
       {
+        name = "showCost",
+        display = L["Overlay Cost of Casts"],
+        type = "toggle",
+        test = "true",
+        enable = function(trigger)
+          return (not trigger.use_powertype or trigger.powertype ~= 99) and trigger.unit == "player";
+        end,
+        reloadOptions = true
+      },
+      {
         name = "power",
         display = L["Power"],
         type = "number",
@@ -1145,8 +1246,22 @@ WeakAuras.event_prototypes = {
       local pdm = WeakAuras.UnitPowerDisplayMod(powerTypeToCheck);
       local useThirdArg = WeakAuras.UseUnitPowerThirdArg(powerTypeToCheck)
 
-      return UnitPower(trigger.unit, powerType, useThirdArg) / pdm, math.max(1, UnitPowerMax(trigger.unit, powerType, useThirdArg)) / pdm, "fastUpdate";
+      local value = UnitPower(trigger.unit, powerType, useThirdArg) / pdm;
+      local total = math.max(1, UnitPowerMax(trigger.unit, powerType, useThirdArg)) / pdm;
+
+      return value, total, true;
     end,
+    overlayFuncs = {
+      {
+        name = L["Spell Cost"],
+        func = function(trigger, state)
+          return "back", state.cost;
+        end,
+        enable = function(trigger)
+          return trigger.use_showCost and (not trigger.use_powertype or trigger.powertype ~= 99) and trigger.unit == "player";
+        end
+      }
+    },
     stacksFunc = function(trigger)
       local powerType = trigger.use_powertype and trigger.powertype or nil;
       if (powerType == 99) then
@@ -1168,12 +1283,7 @@ WeakAuras.event_prototypes = {
       AddUnitChangeEvents(trigger.unit, result);
       return result;
     end,
-    force_events = {
-      "player",
-      "target",
-      "focus",
-      "pet"
-    },
+    force_events = "WA_DELAYED_PLAYER_ENTERING_WORLD",
     name = L["Alternate Power"],
     init = function(trigger)
       trigger.unit = trigger.unit or "player";
@@ -2147,7 +2257,7 @@ WeakAuras.event_prototypes = {
     args = {
       {
         name = "alertType",
-        display = "Alert Type",
+        display = L["Alert Type"],
         type = "select",
         init = "arg",
         values = "gtfo_types",
@@ -2681,7 +2791,7 @@ WeakAuras.event_prototypes = {
       "RUNE_POWER_UPDATE",
       "RUNE_TYPE_UPDATE"
     },
-    force_events = true,
+    force_events = "SPELL_UPDATE_USABLE",
     name = L["Action Usable"],
     init = function(trigger)
       --trigger.spellName = WeakAuras.CorrectSpellName(trigger.spellName) or 0;
@@ -2734,7 +2844,8 @@ WeakAuras.event_prototypes = {
         name = "inverse",
         display = L["Inverse"],
         type = "toggle",
-        test = "true"
+        test = "true",
+        reloadOptions = true
       },
       {
         hidden = true,
@@ -2772,7 +2883,7 @@ WeakAuras.event_prototypes = {
       "COOLDOWN_REMAINING_CHECK",
       "PLAYER_ENTERING_WORLD"
     },
-    force_events = true,
+    force_events = "PLAYER_ENTERING_WORLD",
     name = L["Totem"],
     statesParameter = "full",
     canHaveAuto = true,
@@ -2933,7 +3044,7 @@ WeakAuras.event_prototypes = {
       "ITEM_COUNT_UPDATE",
       "PLAYER_ENTERING_WORLD"
     },
-    force_events = true,
+    force_events = "BAG_UPDATE",
     name = L["Item Count"],
     init = function(trigger)
       if(trigger.use_includeCharges) then
@@ -2992,7 +3103,7 @@ WeakAuras.event_prototypes = {
       "UPDATE_SHAPESHIFT_FORM",
       "WA_DELAYED_PLAYER_ENTERING_WORLD"
     },
-    force_events = true,
+    force_events = "WA_DELAYED_PLAYER_ENTERING_WORLD",
     name = L["Stance/Form/Aura"],
     init = function(trigger)
       local ret = [[
@@ -3057,7 +3168,7 @@ WeakAuras.event_prototypes = {
       "MAINHAND_TENCH_UPDATE",
       "OFFHAND_TENCH_UPDATE"
     },
-    force_events = true,
+    force_events = "MAINHAND_TENCH_UPDATE",
     name = L["Fishing Lure / Weapon Enchant (Old)"],
     init = function(trigger)
       WeakAuras.TenchInit();
@@ -3304,13 +3415,14 @@ WeakAuras.event_prototypes = {
         test = "(showOn == \"showOnReady\" and (startTime == 0)) " ..
                "or (showOn == \"showOnCooldown\" and startTime > 0) "  ..
                "or (showOn == \"showAlways\")",
-        enable = function(trigger) return not trigger.use_runesCount end
+        enable = function(trigger) return not trigger.use_runesCount end,
+        reloadOptions = true
       },
       {
         name = "remaining",
         display = L["Remaining Time"],
         type = "number",
-        enable = function(trigger) return trigger.use_rune and not(trigger.use_inverse) end
+        enable = function(trigger) return trigger.use_rune and not(trigger.showOn == "showOnReady") end
       },
       {
         name = "showOn",
@@ -3326,6 +3438,15 @@ WeakAuras.event_prototypes = {
         type = "number",
         init = "numRunes",
         enable = function(trigger) return not trigger.use_rune end
+      },
+      {
+        hidden = true,
+        name = "onCooldown",
+        test = "true",
+        display = L["On Cooldown"],
+        conditionType = "bool",
+        conditionTest = "(state and state.show and state.expirationTime and state.expirationTime > GetTime()) == (%s == 1)",
+        enable = function(trigger) return trigger.use_rune end
       },
     },
     durationFunc = function(trigger)
@@ -3373,7 +3494,7 @@ WeakAuras.event_prototypes = {
       "PLAYER_EQUIPMENT_CHANGED",
       "WA_DELAYED_PLAYER_ENTERING_WORLD"
     },
-    force_events = true,
+    force_events = "UNIT_INVENTORY_CHANGED",
     name = L["Item Equipped"],
     init = function(trigger)
       --trigger.itemName = WeakAuras.CorrectItemName(trigger.itemName) or 0;
@@ -3557,7 +3678,7 @@ WeakAuras.event_prototypes = {
       AddUnitChangeEvents(trigger.threatUnit, result);
       return result;
     end,
-    force_events = true,
+    force_events = "UNIT_THREAT_SITUATION_UPDATE",
     name = L["Threat Situation"],
     init = function(trigger)
       local ret = [[
@@ -3599,7 +3720,7 @@ WeakAuras.event_prototypes = {
     events = {
       "UNIT_AURA"
     },
-    force_events = true,
+    force_events = "UNIT_AURA",
     name = L["Crowd Controlled"],
     args = {
       {
@@ -3628,7 +3749,7 @@ WeakAuras.event_prototypes = {
       AddUnitChangeEvents(trigger.unit, result);
       return result;
     end,
-    force_events = true,
+    force_events = "CAST_REMAINING_CHECK",
     name = L["Cast"],
     init = function(trigger)
       trigger.unit = trigger.unit or "";
@@ -3704,12 +3825,14 @@ WeakAuras.event_prototypes = {
         name = "remaining",
         display = L["Remaining Time"],
         type = "number",
+        enable = function(trigger) return not(trigger.use_inverse) end,
       },
       {
         name = "inverse",
         display = L["Inverse"],
         type = "toggle",
-        test = "true"
+        test = "true",
+        reloadOptions = true
       },
       {
         hidden = true,
@@ -3924,17 +4047,21 @@ WeakAuras.event_prototypes = {
       "UNIT_PET",
       "WA_DELAYED_PLAYER_ENTERING_WORLD"
     },
-    force_events = true,
+    force_events = "WA_DELAYED_PLAYER_ENTERING_WORLD",
     name = L["Pet Behavior"],
     init = function(trigger)
       local ret = [[
           local inverse = %s
-          local check_behavior = "%s"
-          local name,_,_,_,active,_,_,exists
+          local check_behavior = %s
+          local name, i, active, exists
+          local activeIcon
           local behavior
           local index = 1
           repeat
-            name,_,_,_,active,_,_,exists = GetPetActionInfo(index);
+            name,_,i,_,active,_,_,exists = GetPetActionInfo(index);
+            if (active) then
+              activeIcon = _G[i];
+            end
             index = index + 1
             if(name == "PET_MODE_ASSIST" and active == true) then
               behavior = "assist"
@@ -3945,14 +4072,14 @@ WeakAuras.event_prototypes = {
             end
           until index == 12
       ]]
-      return ret:format(trigger.use_inverse and "true" or "false", trigger.behavior or "");
+      return ret:format(trigger.use_inverse and "true" or "false", trigger.use_behavior and ('"' .. (trigger.behavior or "") .. '"') or "nil");
     end,
     statesParameter = "one",
+    canHaveAuto = true,
     args = {
       {
         name = "behavior",
         display = L["Pet Behavior"],
-        required = true,
         type = "select",
         values = "pet_behavior_types",
         test = "true",
@@ -3961,11 +4088,19 @@ WeakAuras.event_prototypes = {
         name = "inverse",
         display = L["Inverse"],
         type = "toggle",
+        test = "true",
+        enable = function(trigger) return trigger.use_behavior end
+      },
+      {
+        hidden = true,
+        name = "icon",
+        init = "activeIcon",
+        store = "true",
         test = "true"
       },
       {
         hidden = true,
-        test = "UnitExists('pet') and ((inverse and check_behavior ~= behavior) or (not inverse and check_behavior == behavior))"
+        test = "UnitExists('pet') and (not check_behavior or (inverse and check_behavior ~= behavior) or (not inverse and check_behavior == behavior))"
       }
     },
     automaticrequired = true

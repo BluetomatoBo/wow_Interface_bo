@@ -9,6 +9,8 @@ local L = WeakAuras.L
 	-- L["-- Do not remove this comment, it is part of this trigger: "] = ""
 	L["% of Progress"] = "% do progresso"
 	L["%i Matches"] = "%i resultados"
+	--Translation missing 
+	-- L["%s Color"] = ""
 	L["1 Match"] = "1 resultado"
 	--Translation missing 
 	-- L["1. Text"] = ""
@@ -34,6 +36,12 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Add a new display"] = ""
 	--Translation missing 
+	-- L["Add Condition"] = ""
+	--Translation missing 
+	-- L["Add Overlay"] = ""
+	--Translation missing 
+	-- L["Add Property Change"] = ""
+	--Translation missing 
 	-- L["Add to group %s"] = ""
 	L["Add to new Dynamic Group"] = "Adicionar a um novo Grupo Dinâmico"
 	L["Add to new Group"] = "Adicionar a um novo Grupo"
@@ -50,9 +58,13 @@ local L = WeakAuras.L
 	-- L["anchored to"] = ""
 	--Translation missing 
 	-- L["Anchored To"] = ""
+	--Translation missing 
+	-- L["And "] = ""
 	L["Angle"] = "Ângulo"
 	L["Animate"] = "Animar"
 	L["Animated Expand and Collapse"] = "Animação expande e esvai"
+	--Translation missing 
+	-- L["Animates progress changes"] = ""
 	L["Animation relative duration description"] = [=[A duração da animação relativa ao tempo de duração do display, expresso como fração (1/2), porcentagem (50%), ou decimal. (0.5)
 |cFFFF0000Nota:|r se um display não tiver progresso (o gatilho é não-temporal, é aura sem duração, etc), a animação não irá tocar.
 
@@ -149,6 +161,8 @@ WeakAuras → Opções → Opções ]=]
 	--Translation missing 
 	-- L["Collapse all non-loaded displays"] = ""
 	L["Color"] = "Cor"
+	--Translation missing 
+	-- L["color"] = ""
 	L["Compress"] = "Comprimir"
 	--Translation missing 
 	-- L["Conditions"] = ""
@@ -163,6 +177,8 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Copy settings from %s"] = ""
 	--Translation missing 
 	-- L["Copy settings from..."] = ""
+	--Translation missing 
+	-- L["Copy to all auras"] = ""
 	--Translation missing 
 	-- L["Copy URL"] = ""
 	L["Count"] = "Contar"
@@ -194,6 +210,10 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Delete children and group"] = ""
 	L["Delete Trigger"] = "Apagar gatilho"
 	L["Desaturate"] = "Descolorir"
+	--Translation missing 
+	-- L["Differences"] = ""
+	--Translation missing 
+	-- L["Disable Import"] = ""
 	L["Disabled"] = "Desabilitar"
 	L["Discrete Rotation"] = "Rotação discreta"
 	L["Display"] = "Mostruário"
@@ -213,6 +233,8 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Drag to move"] = ""
 	--Translation missing 
 	-- L["Duplicate"] = ""
+	--Translation missing 
+	-- L["Duplicate All"] = ""
 	L["Duration (s)"] = "Duração"
 	L["Duration Info"] = "Informação da duração"
 	L["Dynamic Group"] = "Grupo dinâmico"
@@ -253,6 +275,8 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Fade In"] = ""
 	--Translation missing 
 	-- L["Fade Out"] = ""
+	--Translation missing 
+	-- L["False"] = ""
 	L["Finish"] = "Finalizar"
 	--Translation missing 
 	-- L["Fire Orb"] = ""
@@ -317,6 +341,12 @@ WeakAuras → Opções → Opções ]=]
 	L["Icon Info"] = "Informação do ícone"
 	--Translation missing 
 	-- L["Icon Inset"] = ""
+	--Translation missing 
+	-- L["If"] = ""
+	--Translation missing 
+	-- L["If this option is enabled, you are no longer able to import auras."] = ""
+	--Translation missing 
+	-- L["If Trigger %s"] = ""
 	L["Ignored"] = "Ignorado"
 	L["Import"] = "Importar"
 	L["Import a display from an encoded string"] = "Importar um display de um string codificado"
@@ -400,6 +430,12 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Orange Rune"] = ""
 	L["Orientation"] = "Orientação"
 	L["Outline"] = "Contorno"
+	--Translation missing 
+	-- L["Overflow"] = ""
+	--Translation missing 
+	-- L["Overlay %s Info"] = ""
+	--Translation missing 
+	-- L["Overlays"] = ""
 	L["Own Only"] = "Apenas meu"
 	--Translation missing 
 	-- L["Paste text below"] = ""
@@ -425,11 +461,19 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Remaining Time"] = ""
 	L["Remaining Time Precision"] = "Precisão do tempo restante"
 	--Translation missing 
+	-- L["Remove"] = ""
+	--Translation missing 
+	-- L["Remove this condition"] = ""
+	--Translation missing 
 	-- L["Remove this display from its group"] = ""
+	--Translation missing 
+	-- L["Remove this property"] = ""
 	--Translation missing 
 	-- L["Rename"] = ""
 	--Translation missing 
 	-- L["Repeat After"] = ""
+	--Translation missing 
+	-- L["Repeat every"] = ""
 	--Translation missing 
 	-- L["Required for Activation"] = ""
 	L["Required For Activation"] = "Requerido para ativar"
@@ -465,7 +509,11 @@ WeakAuras → Opções → Opções ]=]
 	--Translation missing 
 	-- L["Show Cooldown Text"] = ""
 	--Translation missing 
+	-- L["Show If Unit Is Invalid"] = ""
+	--Translation missing 
 	-- L["Show model of unit "] = ""
+	--Translation missing 
+	-- L["Show On"] = ""
 	L["Show players that are |cFFFF0000not affected"] = "Mostrar todos os jogadores que |cFFFF0000não foram afetados"
 	--Translation missing 
 	-- L["Show this group's children"] = ""
@@ -481,6 +529,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Slide Out"] = "Deslizar para fora"
 	--Translation missing 
 	-- L["Small Icon"] = ""
+	--Translation missing 
+	-- L["Smooth Progress"] = ""
 	L["Sort"] = "Ordenar"
 	L["Sound"] = "Som"
 	L["Sound Channel"] = "Canal de som"
@@ -537,11 +587,17 @@ Would you like to enable Use Full Scan to match this |cFFFF0000spell ID|r?]=]
 	--Translation missing 
 	-- L["Texture Info"] = ""
 	--Translation missing 
+	-- L["Texture Wrap"] = ""
+	--Translation missing 
 	-- L["The children of this group have different display types, so their display options cannot be set as a group."] = ""
 	--Translation missing 
 	-- L["The duration of the animation in seconds."] = ""
 	--Translation missing 
+	-- L["The duration of the animation in seconds. The finish animation does not start playing until after the display would normally be hidden."] = ""
+	--Translation missing 
 	-- L["The type of trigger"] = ""
+	--Translation missing 
+	-- L["Then "] = ""
 	--Translation missing 
 	-- L["This display is currently loaded"] = ""
 	--Translation missing 
@@ -587,6 +643,8 @@ Would you like to enable Use Full Scan to match this |cFFFF0000spell ID|r?]=]
 	--Translation missing 
 	-- L["Trigger:"] = ""
 	--Translation missing 
+	-- L["True"] = ""
+	--Translation missing 
 	-- L["Type"] = ""
 	--Translation missing 
 	-- L["Undefined"] = ""
@@ -606,6 +664,10 @@ Would you like to enable Use Full Scan to match this |cFFFF0000spell ID|r?]=]
 	-- L["Use SetTransform api"] = ""
 	--Translation missing 
 	-- L["Use tooltip \"size\" instead of stacks"] = ""
+	--Translation missing 
+	-- L["Used in auras:"] = ""
+	--Translation missing 
+	-- L["Version: "] = ""
 	--Translation missing 
 	-- L["Vertical Align"] = ""
 	--Translation missing 

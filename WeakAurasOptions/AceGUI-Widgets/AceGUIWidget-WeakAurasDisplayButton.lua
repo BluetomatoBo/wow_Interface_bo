@@ -2,7 +2,7 @@ local tinsert, tconcat, tremove, wipe = table.insert, table.concat, table.remove
 local select, pairs, next, type, unpack = select, pairs, next, type, unpack
 local tostring, error = tostring, error
 
-local Type, Version = "WeakAurasDisplayButton", 29
+local Type, Version = "WeakAurasDisplayButton", 33
 local AceGUI = LibStub and LibStub("AceGUI-3.0", true)
 if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
 
@@ -275,7 +275,11 @@ local methods = {
 
     function self.callbacks.OnClickNormal(_, mouseButton)
       if(IsControlKeyDown() and not data.controlledChildren) then
-        WeakAuras.PickDisplayMultiple(data.id);
+        if (WeakAuras.IsDisplayPicked(data.id)) then
+          WeakAuras.ClearPick(data.id);
+        else
+          WeakAuras.PickDisplayMultiple(data.id);
+        end
         self:ReloadTooltip();
       elseif(IsShiftKeyDown()) then
         local editbox = GetCurrentKeyBoardFocus();
@@ -378,61 +382,7 @@ local methods = {
 
     function self.callbacks.OnDuplicateClick()
       if (WeakAuras.IsImporting()) then return end;
-      local base_id = data.id .. " ";
-      local num = 2;
-
-      -- if the old id ends with a number increment the number
-      local matchName, matchNumber = string.match(data.id, "^(.-)(%d*)$")
-      matchNumber = tonumber(matchNumber)
-      if (matchName ~= "" and matchNumber ~= nil) then
-        base_id = matchName;
-        num = matchNumber + 1
-      end
-
-      local new_id = base_id .. num;
-      while(WeakAuras.GetData(new_id)) do
-        new_id = base_id .. num;
-        num = num + 1;
-      end
-
-      local newData = {};
-      WeakAuras.DeepCopy(data, newData);
-      newData.id = new_id;
-      newData.parent = nil;
-      WeakAuras.Add(newData);
-      WeakAuras.NewDisplayButton(newData);
-      if(data.parent) then
-        local parentData = WeakAuras.GetData(data.parent);
-        local index;
-        for i, childId in pairs(parentData.controlledChildren) do
-          if(childId == data.id) then
-            index = i;
-            break;
-          end
-        end
-        if(index) then
-          local newIndex = index + 1;
-          if(newIndex > #parentData.controlledChildren) then
-            tinsert(parentData.controlledChildren, newData.id);
-          else
-            tinsert(parentData.controlledChildren, index + 1, newData.id);
-          end
-          newData.parent = data.parent;
-          WeakAuras.Add(parentData);
-          WeakAuras.Add(newData);
-
-          for index, id in pairs(parentData.controlledChildren) do
-            local childButton = WeakAuras.GetDisplayButton(id);
-            childButton:SetGroup(parentData.id, parentData.regionType == "dynamicgroup");
-            childButton:SetGroupOrder(index, #parentData.controlledChildren);
-          end
-
-          local button = WeakAuras.GetDisplayButton(parentData.id);
-          button.callbacks.UpdateExpandButton();
-          WeakAuras.UpdateDisplayButton(parentData);
-          WeakAuras.ReloadGroupRegionOptions(parentData);
-        end
-      end
+      local new_id = WeakAuras.DuplicateAura(data);
       WeakAuras.SortDisplayButtons();
       WeakAuras.DoConfigUpdate();
       WeakAuras.PickAndEditDisplay(new_id);
@@ -814,6 +764,16 @@ local methods = {
       for index, childId in pairs(data.controlledChildren) do
         tinsert(namestable, {" ", childId});
       end
+
+      if (#namestable > 30) then
+        local size = #namestable;
+        namestable[26] = {" ", "[...]"};
+        namestable[27] = {L[string.format(L["%s total auras"], #data.controlledChildren)], " " }
+        for i = 28, size do
+          namestable[i] = nil;
+        end
+      end
+
       if(#namestable > 0) then
         namestable[1][1] = L["Children:"];
       else
@@ -1226,12 +1186,12 @@ local methods = {
     self.downgroup.texture:SetVertexColor(1, 1, 1);
   end,
   ["DisableLoaded"] = function(self)
-    self.loaded.title = "Not Loaded";
+    self.loaded.title = L["Not Loaded"];
     self.loaded.desc = L["This display is not currently loaded"];
     self.loaded:SetNormalTexture("Interface\\BUTTONS\\UI-GuildButton-OfficerNote-Disabled.blp");
   end,
   ["EnableLoaded"] = function(self)
-    self.loaded.title = "Loaded";
+    self.loaded.title = L["Loaded"];
     self.loaded.desc = L["This display is currently loaded"];
     self.loaded:SetNormalTexture("Interface\\BUTTONS\\UI-GuildButton-OfficerNote-Up.blp");
   end,

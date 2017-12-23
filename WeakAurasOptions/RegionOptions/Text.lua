@@ -1,6 +1,8 @@
 local SharedMedia = LibStub("LibSharedMedia-3.0");
 local L = WeakAuras.L;
 
+local screenWidth, screenHeight = math.ceil(GetScreenWidth() / 20) * 20, math.ceil(GetScreenHeight() / 20) * 20;
+
 local function createOptions(id, data)
   local options = {
     displayText = {
@@ -93,6 +95,28 @@ local function createOptions(id, data)
       softMax = 72,
       step = 1
     },
+    automaticWidth = {
+      type = "select",
+      name = L["Width"],
+      order = 47.1,
+      values = WeakAuras.text_automatic_width
+    },
+    fixedWidth = {
+      name = L["Width"],
+      order = 47.2,
+      type = "range",
+      min = 1,
+      softMax = screenWidth,
+      bigStep = 1,
+      hidden = function() return data.automaticWidth  ~= "Fixed" end
+    },
+    wordWrap = {
+      type = "select",
+      name = L["Overflow"],
+      order = 47.2,
+      values = WeakAuras.text_word_wrap,
+      hidden = function() return data.automaticWidth  ~= "Fixed" end
+    },
     outline = {
       type = "select",
       name = L["Outline"],
@@ -181,6 +205,8 @@ local function modifyThumbnail(parent, borderframe, data, fullModify, size)
   mask:SetScript("OnScrollRangeChanged", rescroll);
 
   local function UpdateText()
+    local textStr = data.displayText;
+    textStr = WeakAuras.ReplacePlaceHolders(textStr, borderframe);
     text:SetText(textStr);
     rescroll();
   end

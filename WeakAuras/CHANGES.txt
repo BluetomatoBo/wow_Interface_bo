@@ -1,26 +1,10 @@
-tag b21382c1c26786ef0008e8ba74958be18c76e3dc 2.4.25
+tag 58a778bab3623d4bd0892d976cabf653bf6306ad 2.5.1
 Author:	Benjamin Staneck <staneck@gmail.com>
-Date:	Sat Oct 28 13:08:24 2017 +0200
+Date:	Fri Dec 22 17:41:43 2017 +0100
 
-commit 5053c3e68ae96923b6fea743f4903b89e9661e14
-Author: Benjamin Staneck <staneck@gmail.com>
-Date:   Sat Oct 28 13:08:00 2017 +0200
+commit fa3859f4b034d0415a5ae4d9b51e224bfe4073e2
+Author: Infus <infus@squorn.de>
+Date:   Fri Dec 22 17:18:28 2017 +0100
 
-    Revert "Observe squelch_actions for Sounds played from Conditions"
-    
-    This reverts commit d79f1d912332a6b939e97c8d792945be20bb22df.
-
-commit ca1a1b5822b8acdb02bd1103f5fd4ab008f96a59
-Author: Benjamin Staneck <staneck@gmail.com>
-Date:   Sat Oct 28 13:08:00 2017 +0200
-
-    Revert "Observe squelch_actions for Sounds played from Conditions"
-    
-    This reverts commit d79f1d912332a6b939e97c8d792945be20bb22df.
-
-commit 542c2af3832e975fd9aedfd2340e2dfbb234a929
-Author: Benjamin Staneck <staneck@gmail.com>
-Date:   Fri Oct 27 17:23:19 2017 +0200
-
-    Actually load the esMX language files
+    Improve BuffTrigger upgrade code
 

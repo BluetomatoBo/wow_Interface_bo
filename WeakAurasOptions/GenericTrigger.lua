@@ -10,6 +10,9 @@ local custom_trigger_types = WeakAuras.custom_trigger_types;
 local eventend_types = WeakAuras.eventend_types;
 
 function WeakAuras.GetGenericTriggerOptions(data, trigger, untrigger)
+  if (not trigger) then
+    return {};
+  end
   local id = data.id;
   local optionTriggerChoices =  WeakAuras.optionTriggerChoices;
   local appendToTriggerPath, appendToUntriggerPath;
@@ -116,6 +119,7 @@ function WeakAuras.GetGenericTriggerOptions(data, trigger, untrigger)
       name = L["Message Prefix"],
       order = 8,
       values = subevent_prefix_types,
+      control = "WeakAurasSortedDropdown",
       hidden = function() return not (trigger.type == "event" and trigger.event == "Combat Log"); end
     },
     subeventSuffix = {
@@ -123,6 +127,7 @@ function WeakAuras.GetGenericTriggerOptions(data, trigger, untrigger)
       name = L["Message Suffix"],
       order = 9,
       values = subevent_suffix_types,
+      control = "WeakAurasSortedDropdown",
       hidden = function() return not (trigger.type == "event" and trigger.event == "Combat Log" and subevent_actual_prefix_types[trigger.subeventPrefix]); end
     },
     spacer_suffix = {
@@ -160,7 +165,7 @@ function WeakAuras.GetGenericTriggerOptions(data, trigger, untrigger)
     check2 = {
       type = "select",
       name = L["Check On..."],
-      order = 8,
+      order = 9,
       width = "double",
       values = check_types,
       hidden = function() return not (trigger.type == "custom"
@@ -180,7 +185,7 @@ function WeakAuras.GetGenericTriggerOptions(data, trigger, untrigger)
       type = "input",
       name = L["Event(s)"],
       desc = L["Custom trigger status tooltip"],
-      order = 9,
+      order = 8.1,
       hidden = function() return not (trigger.type == "custom"
         and (trigger.custom_type == "status" or trigger.custom_type == "stateupdate")
         and trigger.check ~= "update") end,
@@ -198,7 +203,7 @@ function WeakAuras.GetGenericTriggerOptions(data, trigger, untrigger)
       name = L["Event(s)"],
       desc = L["Custom trigger event tooltip"],
       width = "double",
-      order = 9,
+      order = 9.1,
       hidden = function() return not (trigger.type == "custom" and trigger.custom_type == "event") end,
       get = function() return trigger.events end,
       set = function(info, v)
@@ -247,6 +252,48 @@ function WeakAuras.GetGenericTriggerOptions(data, trigger, untrigger)
       order = 13,
       hidden = function() return not (trigger.type == "custom" and trigger.custom_type == "event" and trigger.custom_hide ~= "custom") end,
     },
+    addOverlayFunction = {
+      type = "execute",
+      name = L["Add Overlay"],
+      order = 17.9,
+      width = "double",
+      hidden = function()
+        if (trigger.type ~= "custom") then
+          return true;
+        end
+        if (trigger.custom_type == "stateupdate") then
+          return true;
+        end
+
+        for i = 1, 7 do
+          if (trigger["customOverlay" .. i] == nil) then
+            return false;
+          end
+        end
+        return true;
+      end,
+      func = function()
+        if (data.controlledChildren) then
+          for index, childId in ipairs(data.controlledChildren) do
+            local childData = WeakAuras.GetData(childId);
+            for i = 1, 7 do
+              if (childData.trigger["customOverlay" .. i] == nil) then
+                childData.trigger["customOverlay" .. i] = "";
+                break;
+              end
+            end
+          end
+        else
+          for i = 1, 7 do
+            if (trigger["customOverlay" .. i] == nil) then
+              trigger["customOverlay" .. i] = "";
+              break;
+            end
+          end
+        end
+        WeakAuras.Add(data);
+      end
+    }
   };
 
   local function extraSetFunction()
@@ -258,7 +305,7 @@ function WeakAuras.GetGenericTriggerOptions(data, trigger, untrigger)
   local function hideCustomTrigger()
     return not (trigger.type == "custom")
   end
-  WeakAuras.AddCodeOption(options, data, L["Custom Trigger"], "custom_trigger", 10, hideCustomTrigger, appendToTriggerPath("custom"), false, true, extraSetFunction);
+  WeakAuras.AddCodeOption(options, data, L["Custom Trigger"], "custom_trigger", 10, hideCustomTrigger, appendToTriggerPath("custom"), false, true, extraSetFunction, nil, true);
 
   local function hideCustomUntrigger()
     return not (trigger.type == "custom"
@@ -274,6 +321,49 @@ function WeakAuras.GetGenericTriggerOptions(data, trigger, untrigger)
 
   local function hideIfTriggerStateUpdate()
     return not (trigger.type == "custom" and trigger.custom_type ~= "stateupdate")
+  end
+
+  for i = 1, 7 do
+    local function hideOverlay()
+      if (trigger["customOverlay" .. i] == nil) then
+        return true;
+      end
+      return hideIfTriggerStateUpdate();
+    end
+
+    local function removeOverlay()
+      if (data.controlledChildren) then
+        for index, childId in ipairs(data.controlledChildren) do
+          local childData = WeakAuras.GetData(childId);
+          for j = i, 7 do
+            childData.trigger["customOverlay" .. j] = childData.trigger["customOverlay" .. (j +1)];
+          end
+          WeakAuras.ScheduleReloadOptions(childData);
+        end
+        WeakAuras.Add(data);
+        WeakAuras.ScheduleReloadOptions(data);
+      else
+        for j = i, 7 do
+          trigger["customOverlay" .. j] = trigger["customOverlay" .. (j +1)];
+        end
+        WeakAuras.Add(data);
+        WeakAuras.ScheduleReloadOptions(data);
+      end
+    end
+
+    local extraFunctions = {
+      {
+        buttonLabel = L["Remove"],
+        func = removeOverlay
+      }
+    }
+
+    local function extraSetFunctionOverlay()
+      extraSetFunction();
+      WeakAuras.ReloadOptions(data.id);
+    end
+
+    WeakAuras.AddCodeOption(options, data, string.format(L["Overlay %s Info"], i), "custom_overlay" .. i, 17 + i / 10, hideOverlay, appendToTriggerPath("customOverlay" .. i), false, true, extraSetFunctionOverlay, extraFunctions);
   end
 
   WeakAuras.AddCodeOption(options, data, L["Name Info"], "custom_name", 18, hideIfTriggerStateUpdate, appendToTriggerPath("customName"), false, true, extraSetFunction);

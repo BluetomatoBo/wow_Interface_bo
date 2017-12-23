@@ -49,6 +49,8 @@ L["!="] = "!="
 --Translation missing 
 -- L["%s Name Function"] = ""
 --Translation missing 
+-- L["%s Overlay Color"] = ""
+--Translation missing 
 -- L["%s Stacks Function"] = ""
 --Translation missing 
 -- L["%s Texture Function"] = ""
@@ -79,15 +81,21 @@ L["25 Man Raid"] = "Incursione da 25 giocatori"
 -- L["40 Man Raid"] = ""
 L["5 Man Dungeon"] = "Spedizione da 5 giocatori"
 L["Absorb"] = "Assorbimento"
+--Translation missing 
+-- L["Absorb Display"] = ""
 L["Absorbed"] = "Assorbito"
 L["Action Usable"] = "Azione utilizzabile"
 --Translation missing 
 -- L["Active"] = ""
 --Translation missing 
+-- L["Active For"] = ""
+--Translation missing 
 -- L["Additional Trigger Replacements"] = ""
 L["Affected"] = "Affetto"
 --Translation missing 
 -- L["Aggro"] = ""
+--Translation missing 
+-- L["Alert Type"] = ""
 L["Alive"] = "Vivo"
 L["All Triggers"] = "Tutte le attivazioni"
 --Translation missing 
@@ -113,6 +121,10 @@ L["Ascending"] = "Crescente"
 --Translation missing 
 -- L["Assist"] = ""
 L["At Least One Enemy"] = "Almeno un nemico"
+--Translation missing 
+-- L["Attach to End"] = ""
+--Translation missing 
+-- L["Attach to Start"] = ""
 L["Attackable"] = "Attaccabile"
 L["Aura"] = "Aura"
 L["Aura Applied"] = "Aura applicata"
@@ -170,6 +182,8 @@ L["Bottom to Top"] = "Basso verso l'alto"
 L["Bounce"] = "Balzo"
 L["Bounce with Decay"] = "Bounce with Decay"
 L["Buff"] = "Buff"
+--Translation missing 
+-- L["Buffed/Debuffed"] = ""
 L["Cast"] = "Cast"
 L["Cast Failed"] = "Cast fallito"
 L["Cast Start"] = "Inizio cast"
@@ -203,6 +217,8 @@ L["Chat Message"] = "Messaggio di chat"
 -- L["Circle"] = ""
 --Translation missing 
 -- L["Circular"] = ""
+--Translation missing 
+-- L["Clamp"] = ""
 L["Class"] = "Classe"
 L["Click to close configuration"] = "Premi per chiudere la configurazione"
 L["Click to open configuration"] = "Premi per aprire la configurazione"
@@ -239,6 +255,8 @@ L["Critical"] = "Critico"
 -- L["Crowd Controlled"] = ""
 --Translation missing 
 -- L["Crushing"] = ""
+--Translation missing 
+-- L["Current Zone ID:"] = ""
 --Translation missing 
 -- L["Curse"] = ""
 --Translation missing 
@@ -309,6 +327,8 @@ L["Death Knight Rune"] = "Rune del cavaliere della morte"
 --Translation missing 
 -- L["Durability Damage All"] = ""
 --Translation missing 
+-- L["Elide"] = ""
+--Translation missing 
 -- L["Emote"] = ""
 --Translation missing 
 -- L["Empty"] = ""
@@ -332,6 +352,8 @@ L["Death Knight Rune"] = "Rune del cavaliere della morte"
 -- L["Equipment Set Equipped"] = ""
 --Translation missing 
 -- L["Equipment Slot"] = ""
+--Translation missing 
+-- L["Equipped"] = ""
 --Translation missing 
 -- L["Evade"] = ""
 --Translation missing 
@@ -372,6 +394,8 @@ L["Death Knight Rune"] = "Rune del cavaliere della morte"
 -- L["First Text Size"] = ""
 --Translation missing 
 -- L["Fishing Lure / Weapon Enchant (Old)"] = ""
+--Translation missing 
+-- L["Fixed"] = ""
 --Translation missing 
 -- L["Flash"] = ""
 --Translation missing 
@@ -464,17 +488,25 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Immune"] = ""
 --Translation missing 
+-- L["Import"] = ""
+--Translation missing 
+-- L["Import disabled"] = ""
+--Translation missing 
 -- L["In Combat"] = ""
 --Translation missing 
 -- L["In Group"] = ""
 --Translation missing 
 -- L["In Pet Battle"] = ""
 --Translation missing 
+-- L["In Raid"] = ""
+--Translation missing 
 -- L["In Vehicle"] = ""
 --Translation missing 
 -- L["Include Bank"] = ""
 --Translation missing 
 -- L["Include Charges"] = ""
+--Translation missing 
+-- L["Incoming Heal"] = ""
 --Translation missing 
 -- L["Inherited"] = ""
 --Translation missing 
@@ -483,6 +515,8 @@ L["Form"] = "Forma"
 -- L["Instakill"] = ""
 --Translation missing 
 -- L["Instance"] = ""
+--Translation missing 
+-- L["Instance Difficulty"] = ""
 --Translation missing 
 -- L["Instance Type"] = ""
 --Translation missing 
@@ -509,6 +543,8 @@ L["Form"] = "Forma"
 -- L["Item Set"] = ""
 --Translation missing 
 -- L["Item Set Equipped"] = ""
+--Translation missing 
+-- L["Item Set Id"] = ""
 --Translation missing 
 -- L["Lava"] = ""
 --Translation missing 
@@ -538,6 +574,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Main Hand"] = ""
 --Translation missing 
+-- L["Make sure you can trust the person who sent it!"] = ""
+--Translation missing 
 -- L["Manual Rotation"] = ""
 --Translation missing 
 -- L["Marked First"] = ""
@@ -548,11 +586,17 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Matches (Pattern)"] = ""
 --Translation missing 
+-- L["Maximum"] = ""
+--Translation missing 
 -- L["Message"] = ""
 --Translation missing 
 -- L["Message Type"] = ""
 --Translation missing 
 -- L["Message type:"] = ""
+--Translation missing 
+-- L["Minimum"] = ""
+--Translation missing 
+-- L["Mirror"] = ""
 --Translation missing 
 -- L["Miss"] = ""
 --Translation missing 
@@ -628,6 +672,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Officer"] = ""
 --Translation missing 
+-- L["Older set IDs can be found on websites such as wowhead.com/item-sets"] = ""
+--Translation missing 
 -- L["On cooldown"] = ""
 --Translation missing 
 -- L["On Cooldown"] = ""
@@ -647,6 +693,10 @@ L["Form"] = "Forma"
 -- L["Overhealing"] = ""
 --Translation missing 
 -- L["Overkill"] = ""
+--Translation missing 
+-- L["Overlay %s"] = ""
+--Translation missing 
+-- L["Overlay Cost of Casts"] = ""
 --Translation missing 
 -- L["Parry"] = ""
 --Translation missing 
@@ -740,6 +790,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Remaining Time"] = ""
 --Translation missing 
+-- L["Repeat"] = ""
+--Translation missing 
 -- L["Requested display does not exist"] = ""
 --Translation missing 
 -- L["Requested display not authorized"] = ""
@@ -769,6 +821,8 @@ L["Form"] = "Forma"
 -- L["Rotate Left"] = ""
 --Translation missing 
 -- L["Rotate Right"] = ""
+--Translation missing 
+-- L["Run Custom Code"] = ""
 --Translation missing 
 -- L["Rune"] = ""
 --Translation missing 
@@ -800,6 +854,10 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Select Frame"] = ""
 --Translation missing 
+-- L["Set Maximum Progress"] = ""
+--Translation missing 
+-- L["Set Minimum Progress"] = ""
+--Translation missing 
 -- L["Shake"] = ""
 --Translation missing 
 -- L["Shift-Click to pause"] = ""
@@ -810,9 +868,13 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Show"] = ""
 --Translation missing 
+-- L["Show Absorb"] = ""
+--Translation missing 
 -- L["Show Code"] = ""
 --Translation missing 
 -- L["Show Global Cooldown"] = ""
+--Translation missing 
+-- L["Show Incoming Heal"] = ""
 --Translation missing 
 -- L["Shrink"] = ""
 --Translation missing 
@@ -835,6 +897,8 @@ L["Form"] = "Forma"
 -- L["Slide to Top"] = ""
 --Translation missing 
 -- L["Slime"] = ""
+--Translation missing 
+-- L["Sound"] = ""
 --Translation missing 
 -- L["Sound by Kit ID"] = ""
 --Translation missing 
@@ -863,6 +927,8 @@ L["Form"] = "Forma"
 -- L["Spell (Building)"] = ""
 --Translation missing 
 -- L["Spell Activation Overlay Glow"] = ""
+--Translation missing 
+-- L["Spell Cost"] = ""
 --Translation missing 
 -- L["Spell ID"] = ""
 --Translation missing 
@@ -920,6 +986,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Thick Outline"] = ""
 --Translation missing 
+-- L["This aura contains custom Lua code."] = ""
+--Translation missing 
 -- L["Threat Situation"] = ""
 --Translation missing 
 -- L["Tier "] = ""
@@ -952,6 +1020,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Triangle"] = ""
 --Translation missing 
+-- L["Trigger 1"] = ""
+--Translation missing 
 -- L["Trigger State Updater"] = ""
 --Translation missing 
 -- L["Trigger Update"] = ""
@@ -978,9 +1048,15 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Up"] = ""
 --Translation missing 
+-- L["Values/Remaining Time above this value are displayed as full progress."] = ""
+--Translation missing 
+-- L["Values/Remaining Time below this value are displayed as no progress."] = ""
+--Translation missing 
 -- L["Version error received higher"] = ""
 --Translation missing 
 -- L["Version error received lower"] = ""
+--Translation missing 
+-- L["Version: "] = ""
 --Translation missing 
 -- L["Waist"] = ""
 --Translation missing 
@@ -993,6 +1069,8 @@ L["Form"] = "Forma"
 -- L["Width"] = ""
 --Translation missing 
 -- L["Wobble"] = ""
+--Translation missing 
+-- L["Wrap"] = ""
 --Translation missing 
 -- L["Wrist"] = ""
 --Translation missing 
