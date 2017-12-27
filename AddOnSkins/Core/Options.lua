@@ -58,10 +58,6 @@ for _, devName in pairs(DEVELOPERS) do
 end
 
 local DebugString = ''
-function AS:SetupProfile()
-	self.db = self.data.profile
-end
-
 function AS:BuildOptions()
 	local function GenerateOptionTable(skinName, order)
 		local text = strtrim(skinName:gsub('^Blizzard_(.+)','%1'):gsub('(%l)(%u%l)','%1 %2'))
@@ -438,7 +434,7 @@ function AS:BuildOptions()
 	if AS:CheckAddOn('ElvUI') then
 		AS.Options.args.blizzard.args.description ={
 			type = 'header',
-			name = ASL.OptionsPanel.ElvUIDesc,
+			name = ASL['Blizzard Skins'],
 			order = 0,
 		}
 

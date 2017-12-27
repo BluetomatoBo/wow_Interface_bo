@@ -1,16 +1,120 @@
-lightweight tag 2d61afeb2868c075c9c9661809352d68fe0af630 3.68
+lightweight tag 09ca2acb69c73ee7e57c70717bc5c68e94921bc4 3.69
 Author:	Azilroka <darktemplar9900@yahoo.com>
-Date:	Fri Dec 15 19:40:20 2017 -0600
+Date:	Tue Dec 26 14:38:52 2017 -0600
 
-commit 2d61afeb2868c075c9c9661809352d68fe0af630
+commit 09ca2acb69c73ee7e57c70717bc5c68e94921bc4
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Fri Dec 15 19:40:20 2017 -0600
+Date:   Tue Dec 26 14:38:52 2017 -0600
 
-    3.68
+    3.69
 
-commit 187459487c8d0c2efcec607d01c5a7ab6f5de46d
+commit 624cd0ffcee7795b9968231fb54360334e20b758
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Fri Dec 15 19:39:53 2017 -0600
+Date:   Mon Dec 25 15:03:15 2017 -0600
 
-    Resolves Issue #42
+    Maybe this
+
+commit 92d8bfd73bec7c8fb37fdda7f0b4817e589ada4b
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Dec 25 08:12:06 2017 -0600
+
+    It is needed
+
+commit 672b7917d90df336b5578bc62fdf668605f073d6
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sat Dec 23 17:18:17 2017 -0600
+
+    Issue #40
+
+commit 7bd97e651f2d9205b85fe7373885bb7d0dd30bed
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sat Dec 23 16:09:44 2017 -0600
+
+    AddonLoader abort.
+
+commit 14e8638b7d1fdf9c69fd825374c95c8791f0d532
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sat Dec 23 13:02:55 2017 -0600
+
+    Rearrange Loading
+
+commit 12e353baa76c260fcc27079ab725c6fe36372322
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Sat Dec 23 04:54:50 2017 -0500
+
+    New Skin for new GRM R1.122 Update
+
+commit 12e353baa76c260fcc27079ab725c6fe36372322
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Sat Dec 23 04:54:50 2017 -0500
+
+    New Skin for new GRM R1.122 Update
+
+commit 593a21d81c3c749a1b0a1593649e55f8bc465ba0
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Fri Dec 22 21:17:17 2017 -0600
+
+    GIL
+
+commit 2b47e8e2fa4c594f9cf7ae0dbc16b5910d7fe2d1
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Fri Dec 22 05:58:46 2017 -0600
+
+    Missing default
+
+commit 7fd76afe0959b98b654c7b9ba26a2441d5ac7ecf
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Wed Dec 20 10:38:12 2017 -0500
+
+    Cleanup for GRM update R1.119
+
+commit 7fd76afe0959b98b654c7b9ba26a2441d5ac7ecf
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Wed Dec 20 10:38:12 2017 -0500
+
+    Cleanup for GRM update R1.119
+
+commit 0bb7da4a70e425ea817028f9f0cd3f2b67a2bf5a
+Author: Merathilis <neo0608@gmail.com>
+Date:   Wed Dec 20 10:36:42 2017 +0100
+
+    Fix ElvUI options lua error.
+
+commit df9e12cd8234d2ecab92516caa9a8a646680c232
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Tue Dec 19 20:13:23 2017 -0600
+
+    Update to AceLocale
+
+commit 1bff3fcda716ef40ea17c6872ce4391bfb92ab6c
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Dec 18 01:55:31 2017 -0600
+
+    Add Static Popup
+
+commit 8a41cdcd090566237500d86e85ff2d8552b09479
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sun Dec 17 11:23:13 2017 -0600
+
+    DressUp / WQT
+
+commit 8816a4a6a3a56ab2022023446c09f685f77660e3
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sat Dec 16 17:05:22 2017 -0600
+
+    MailCommander
+
+commit bf678982a6ef551175fbfa22f12faf3039a5b34f
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sat Dec 16 16:17:47 2017 -0600
+
+    DressUp
+
+commit 0b5be653734bf8b54295ec911aa2edd05a01bb43
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Sat Dec 16 15:40:49 2017 -0600
+
+    Fix Embed Chat Bug
+    
+    Add DressUp & MailCommander
 
