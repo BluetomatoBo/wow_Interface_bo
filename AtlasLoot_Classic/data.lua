@@ -691,40 +691,15 @@ local DIREMAULNORTH_LOOT6 = {
 				{ 23, 18482 },	-- Ogre Toothpick Shooter
 				{ 25, 18655 },	-- Schematic: Major Recombobulator
 }
-local DIREMAULNORTH_LOOT7 = {
-				{ 1, 18517 },	-- Pattern: Chromatic Cloak
-				{ 2, 18518 },	-- Pattern: Hide of the Wild
-				{ 3, 18519 },	-- Pattern: Shifting Cloak
-				{ 4, 18414 },	-- Pattern: Belt of the Archmage
-				{ 6, 18418 },	-- Pattern: Cloak of Warding
-				{ 7, 18415 },	-- Pattern: Felcloth Gloves
-				{ 8, 18416 },	-- Pattern: Inferno Gloves
-				{ 9, 18417 },	-- Pattern: Mooncloth Gloves
-				{ 10, 18514 },	-- Pattern: Girdle of Insight
-				{ 11, 18515 },	-- Pattern: Mongoose Boots
-				{ 12, 18516 },	-- Pattern: Swift Flight Bracers
-				{ 14, "INV_Box_01", nil, AL["Ogre Tannin Basket"], nil },
-				{ 15, 18240 },	-- Ogre Tannin
-				{ 16, 18509 },	-- Chromatic Cloak
-				{ 17, 18510 },	-- Hide of the Wild
-				{ 18, 18511 },	-- Shifting Cloak
-				{ 19, 18405 },	-- Belt of the Archmage
-				{ 21, 18413 },	-- Cloak of Warding
-				{ 22, 18407 },	-- Felcloth Gloves
-				{ 23, 18408 },	-- Inferno Gloves
-				{ 24, 18409 },	-- Mooncloth Gloves
-				{ 25, 18504 },	-- Girdle of Insight
-				{ 26, 18506 },	-- Mongoose Boots
-				{ 27, 18508 },	-- Swift Flight Bracers
-}
 local DIREMAUL_LOOT1 = {
-				{ 1, 18295 },	-- Phasing Boots
-				{ 2, 18344 },	-- Stonebark Gauntlets
-				{ 3, 18298 },	-- Unbridled Leggings
-				{ 4, 18296 },	-- Marksman Bands
-				{ 5, 18289 },	-- Barbed Thorn Necklace
-				{ 6, 18340 },	-- Eidolon Talisman
-				{ 7, 18338 },	-- Wand of Arcane Potency
+				{ 1, 9434 },	-- Elemental Raiment
+				{ 2, 18295 },	-- Phasing Boots
+				{ 3, 18344 },	-- Stonebark Gauntlets
+				{ 4, 18298 },	-- Unbridled Leggings
+				{ 5, 18296 },	-- Marksman Bands
+				{ 6, 18289 },	-- Barbed Thorn Necklace
+				{ 7, 18340 },	-- Eidolon Talisman
+				{ 8, 18338 },	-- Wand of Arcane Potency
 				{ 16, "INV_Box_01", nil, AL["Shen'dralar Provisioner"], nil },
 				{ 17, 18487 },	-- Pattern: Mooncloth Robe
 }
@@ -849,11 +824,6 @@ data["DireMaul"] = {
 			name = AL["Dire Maul North Tribute Chest"],
 			ExtraList = true,
 			[NORMAL_DIFF] = DIREMAULNORTH_LOOT6,
-		},
-		{	--Dire Maul North - Knot Thimblejack
-			name = AL["Knot Thimblejack"],
-			ExtraList = true,
-			[NORMAL_DIFF] = DIREMAULNORTH_LOOT7,
 		},
 		CLASSIC_INSTANCE_AC_TABLE,
 
@@ -1592,8 +1562,9 @@ data["Scholomance"] = {
 				{ 1, 88340 },	-- Deadwalker Bracers
 				{ 2, 88342 },	-- Rattling Gloves
 				{ 3, 88343 },	-- Bone Golem Boots
-				{ 4, 88344 },	-- Goresoaked Headreaper
-				{ 5, 88341 },	-- Necromantic Wand
+				{ 4, 88357 },	-- Vigorsteel Spaulders
+				{ 5, 88344 },	-- Goresoaked Headreaper
+				{ 6, 88341 },	-- Necromantic Wand
 			},
 			[HEROIC_DIFF] = "AtlasLoot_MistsofPandaria",
 		},
