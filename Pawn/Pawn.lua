@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0214
+PawnVersion = 2.0217
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -3881,6 +3881,7 @@ function PawnAddRelicUpgradesToTooltip(TooltipName, UpgradeInfo)
 			if PawnCommon.AlignNumbersRight then
 				local RightLine = _G[TooltipName .. "TextRight" .. i]
 				RightLine:SetText(format(PawnLocal.TooltipRelicUpgradeAnnotation, "", ArtifactUpgradeInfo.ItemLevelIncrease, ""))
+				RightLine:Show()
 			else
 				LeftLine:SetText(format(PawnLocal.TooltipRelicUpgradeAnnotation, tostring(ArtifactName) .. ":", ArtifactUpgradeInfo.ItemLevelIncrease, ""))
 			end
