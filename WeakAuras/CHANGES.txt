@@ -1,10 +1,16 @@
-tag 58a778bab3623d4bd0892d976cabf653bf6306ad 2.5.1
+tag 6ba1ce24bcd03550e902614ca75f34b3da2d541c 2.5.2
 Author:	Benjamin Staneck <staneck@gmail.com>
-Date:	Fri Dec 22 17:41:43 2017 +0100
+Date:	Sat Dec 30 12:04:55 2017 +0100
 
-commit fa3859f4b034d0415a5ae4d9b51e224bfe4073e2
+commit 47cdf7af2bb4ea49354e4c4b29edbf0fc48707b1
 Author: Infus <infus@squorn.de>
-Date:   Fri Dec 22 17:18:28 2017 +0100
+Date:   Sat Dec 30 11:07:47 2017 +0100
 
-    Improve BuffTrigger upgrade code
+    Fix BuffTrigger: Always show
+
+commit b64f6ee47c1108de0ff86d380e485e1dc397aa63
+Author: Infus <infus@squorn.de>
+Date:   Sat Dec 30 10:43:19 2017 +0100
+
+    Add Rockbiter to templates
 
