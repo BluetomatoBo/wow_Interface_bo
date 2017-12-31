@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1657, "DBM-Party-Legion", 2, 762)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 15190 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 17073 $"):sub(12, -3))
 mod:SetCreatureID(99192)
 mod:SetEncounterID(1839)
 mod:SetZone()
@@ -25,9 +25,9 @@ local warnParanoia					= mod:NewTargetAnnounce(200289, 3)
 local warnApocNightmare				= mod:NewSpellAnnounce(200050, 3)
 
 local specWarnFesteringRip			= mod:NewSpecialWarningDispel(200182, "Healer")--No disease dispeller in group? have fun wiping
-local specWarnNightmare				= mod:NewSpecialWarningYou(200243)
+local specWarnNightmare				= mod:NewSpecialWarningYou(200243, nil, nil, nil, 1, 2)
 local yellNightmare					= mod:NewYell(200243)
-local specWarnParanoia				= mod:NewSpecialWarningMoveAway(200289)
+local specWarnParanoia				= mod:NewSpecialWarningMoveAway(200289, nil, nil, nil, 1, 2)
 local yellParanoia					= mod:NewYell(200289)
 
 local timerFesteringRipCD			= mod:NewCDTimer(17, 200182, nil, "Tank|Healer", nil, 5, nil, DBM_CORE_MAGIC_ICON)--17-21

@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1985, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 16998 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 17069 $"):sub(12, -3))
 mod:SetCreatureID(122104)
 mod:SetEncounterID(2064)
 mod:DisableESCombatDetection()--Remove if blizz fixes clicking portals causing this event to fire (even though boss isn't engaged)
@@ -24,17 +24,13 @@ mod:RegisterEventsInCombat(
 --	"SPELL_PERIODIC_DAMAGE",
 --	"SPELL_PERIODIC_MISSED",
 	"UNIT_DIED",
---	"CHAT_MSG_RAID_BOSS_EMOTE",
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2 boss3 boss4 boss5"
 )
 
---TODO, maybe hide timers for platforms you aren't on as well, that's a bit uglier than just filtering a warning, besides you may still want to know these timers
 --TODO, interrupt rotation helper for Flames of Xoroth?
---TODO, Icons for the 3 debuffs you move from one portal to another?
 --TODO, voice warnings for portals maybe, have to see fight to see if timing lines up first
 --TODO, find a workable cast ID for corrupt and enable interrupt warning
 --TODO, an overview info frame showing the needs of portal worlds (how many shields up, how much fel miasma, how many fires in dark realm if possible)
---TODO, timer correction off UNIT_POWER to auto correct main boss timer variances
 --[[
 (ability.id = 243983 or ability.id = 244689 or ability.id = 244000) and type = "begincast"
  or ability.id = 244016 and type = "cast"
@@ -43,10 +39,9 @@ mod:RegisterEventsInCombat(
  --]]
 --Platform: Nexus
 local warnRealityTear					= mod:NewStackAnnounce(244016, 2, nil, "Tank")
---local warnTransportPortal				= mod:NewSpellAnnounce(244677, 2)
 --Platform: Xoroth
 local warnXorothPortal					= mod:NewSpellAnnounce(244318, 2)
-local warnAegisofFlames					= mod:NewTargetAnnounce(244383, 3)
+local warnAegisofFlames					= mod:NewTargetAnnounce(244383, 3, nil, nil, nil, nil, nil, nil, true)
 local warnAegisofFlamesEnded			= mod:NewEndAnnounce(244383, 1)
 local warnEverburningFlames				= mod:NewTargetAnnounce(244613, 2, nil, false)
 --Platform: Rancora
@@ -132,11 +127,6 @@ local voiceDelusions					= mod:NewVoice(245050)--targetyou (not sure if better o
 --mod:AddInfoFrameOption(239154, true)
 mod:AddRangeFrameOption("8/10")
 mod:AddBoolOption("ShowAllPlatforms", false)
---"Transport Portal-244689-npc:122104 = pull:60.6, 51.2, 51.2, 41.6, 61.0, 42.7, 41.6, 41.6, 61.0", -- [10]
---"Transport Portal-244689-npc:122104 = pull:48.7, 42.5, 52.4, 50.0, 52.3, 51.1", -- [8]
---"Transport Portal-244689-npc:122104 = pull:41.3, 51.1, 42.6, 42.5, 52.3, 51.1, 51.2", -- [7]
---"Transport Portal-244689-npc:122104 = pull:43.1, 51.1, 51.1, 51.1, 42.6, 42.6, 52.4, 51.2, 51.1", -- [8]
---"Transport Portal-244689-npc:122104 = pull:45.7, 51.1, 42.2, 42.0, 41.6, 52.5, 41.5, 42.6, 60.8", -- [9]
 
 mod.vb.shieldsActive = false
 mod.vb.felBarrageCast = 0
@@ -220,9 +210,6 @@ function mod:OnCombatEnd()
 	if self.Options.RangeFrame then
 		DBM.RangeCheck:Hide()
 	end
---	if self.Options.InfoFrame then
---		DBM.InfoFrame:Hide()
---	end
 end
 
 function mod:SPELL_CAST_START(args)
@@ -256,22 +243,15 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 246316 then--Rancora platform
 		timerPoisonEssenceCD:Start()
 	elseif spellId == 244915 or spellId == 246805 then
-		if spellId == 244915 then--Rancora platform
+		if self.Options.ShowAllPlatforms or playerPlatform == 3 then--Actually on Rancora platform
 			timerLeechEssenceCD:Start()
-			if self.Options.ShowAllPlatforms or playerPlatform == 3 then--Actually on Rancora platform
-				specWarnLeechEssence:Show()
-			end
-		else--Mythic add on nexus platform
-			--timerLeechEssenceCD:Start() enable later with appropriate add filter
-			if self.Options.ShowAllPlatforms or playerPlatform == 1 then--Actually on Nexus platform
-				specWarnLeechEssence:Show()
-			end
+			specWarnLeechEssence:Show()
 		end
 	elseif spellId == 244689 then
 		if self:IsMythic() then
 			timerTransportPortalCD:Start(36.5)
 		else
-			timerTransportPortalCD:Start()--40 minimum but still quite variable
+			timerTransportPortalCD:Start()
 		end
 		if self.Options.ShowAllPlatforms or playerPlatform == 1 then--Actually on nexus platform
 			specWarnTransportPortal:Show()
@@ -339,8 +319,8 @@ function mod:SPELL_CAST_SUCCESS(args)
 			playerPlatform = 1--1 Nexus, 2 Xoroth, 3 Rancora, 4 Nathreza
 		end
 	elseif spellId == 244598 and self:AntiSpam(5, 1) then--Supernova
-		--timerSupernovaCD:Start()
 		if self.Options.ShowAllPlatforms or playerPlatform == 2 then--Actually on Xoroth platform
+			--timerSupernovaCD:Start()
 			specWarnSupernova:Show()
 			voiceSuperNova:Play("watchstep")
 		end
@@ -412,13 +392,13 @@ function mod:SPELL_AURA_APPLIED(args)
 			updateRangeFrame(self)
 		end
 	elseif spellId == 244949 then--Felsilk Wrap
-		timerFelSilkWrapCD:Start()
 		if args:IsPlayer() then
 			specWarnFelSilkWrap:Show()
 			voiceFelSilkWrap:Play("targetyou")
 			yellFelSilkWrap:Yell()
 		else
 			if self.Options.ShowAllPlatforms or playerPlatform == 3 then--Actually on Rancora platform
+				timerFelSilkWrapCD:Start()
 				specWarnFelSilkWrapOther:Show()
 				if self.Options.SpecWarn244949switch then
 					voiceFelSilkWrap:Play("changetarget")
@@ -471,22 +451,6 @@ function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
-
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
-	if msg:find("spell:238502") then
-
-	end
-end
-
-function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg)
-	if msg:find("SPELL_MAGE_FLAMEORB") then
-		warnXorothPortal:Show()
-	elseif msg:find("ABILITY_CREATURE_POISON_02") then
-		warnRancoraPortal:Show()
-	elseif msg:find("SPELL_HOLY_CONSUMEMAGIC") then
-		warnNathrezaPortal:Show()
-	end
-end
 --]]
 
 function mod:UNIT_DIED(args)
@@ -506,9 +470,12 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 257939 then
 		self.vb.firstPortal = true
 		warnXorothPortal:Show()
+		voiceTransportPortal:Play("newportal")
 	elseif spellId == 257941 then
 		warnRancoraPortal:Show()
+		voiceTransportPortal:Play("newportal")
 	elseif spellId == 257942 then
 		warnNathrezaPortal:Show()
+		voiceTransportPortal:Play("newportal")
 	end
 end
