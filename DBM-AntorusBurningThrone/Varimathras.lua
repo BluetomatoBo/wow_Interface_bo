@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1983, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 17068 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 17132 $"):sub(12, -3))
 mod:SetCreatureID(122366)
 mod:SetEncounterID(2069)
 mod:SetZone()
@@ -28,10 +28,10 @@ mod:RegisterEventsInCombat(
  or ability.id = 26662
 --]]
 --Torments of the Shivarra
-local warnTormentofFlames				= mod:NewSpellAnnounce(243967, 2)
-local warnTormentofFrost				= mod:NewSpellAnnounce(243976, 2)
-local warnTormentofFel					= mod:NewSpellAnnounce(243979, 2)
-local warnTormentofShadows				= mod:NewSpellAnnounce(243974, 2)
+local warnTormentofFlames				= mod:NewSpellAnnounce(243967, 2, nil, nil, nil, nil, nil, 2)
+local warnTormentofFrost				= mod:NewSpellAnnounce(243976, 2, nil, nil, nil, nil, nil, 2)
+local warnTormentofFel					= mod:NewSpellAnnounce(243979, 2, nil, nil, nil, nil, nil, 2)
+local warnTormentofShadows				= mod:NewSpellAnnounce(243974, 2, nil, nil, nil, nil, nil, 2)
 --The Fallen Nathrezim
 local warnShadowStrike					= mod:NewSpellAnnounce(243960, 2, nil, "Tank", 2)--Doesn't need special warning because misery should trigger special warning at same time
 local warnMarkedPrey					= mod:NewTargetAnnounce(244042, 3)
@@ -54,11 +54,13 @@ local specWarnEchoesOfDoom				= mod:NewSpecialWarningYou(248732, nil, nil, nil, 
 local yellEchoesOfDoom					= mod:NewYell(248732)
 
 --Torments of the Shivarra
+mod:AddTimerLine(GENERAL)
 local timerTormentofFlamesCD			= mod:NewNextTimer(5, 243967, nil, nil, nil, 6)
 local timerTormentofFrostCD				= mod:NewNextTimer(61, 243976, nil, nil, nil, 6)
 local timerTormentofFelCD				= mod:NewNextTimer(61, 243979, nil, nil, nil, 6)
 local timerTormentofShadowsCD			= mod:NewNextTimer(61, 243974, nil, nil, nil, 6)
 --The Fallen Nathrezim
+mod:AddTimerLine(BOSS)
 local timerShadowStrikeCD				= mod:NewCDTimer(8.5, 243960, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)--8.5-14 (most of time it's 9.7 or more, But lowest has to be used
 local timerDarkFissureCD				= mod:NewCDTimer(32, 243999, nil, nil, nil, 3)--32-33
 local timerMarkedPreyCD					= mod:NewNextTimer(30.3, 244042, nil, nil, nil, 3)
@@ -70,16 +72,6 @@ local berserkTimer						= mod:NewBerserkTimer(390)
 local countdownShadowStrike				= mod:NewCountdown("Alt9", 243960, "Tank", nil, 3)
 local countdownMarkedPrey				= mod:NewCountdown(30, 244042)
 local countdownNecroticEmbrace			= mod:NewCountdown("AltTwo30", 244093)
-
---Torments of the Shivarra
-local voiceGTFO							= mod:NewVoice(243968, nil, DBM_CORE_AUTO_VOICE4_OPTION_TEXT)--runaway
-local voicePhaseChange					= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_TEXT)
---The Fallen Nathrezim
-local voiceMisery						= mod:NewVoice(243961)--defensive/tauntboss
-local voiceDarkFissure					= mod:NewVoice(243999)--watchstep
-local voiceMarkedPrey					= mod:NewVoice(244042)--targetyou
-local voiceNecroticEmbrace				= mod:NewVoice(244094)--scatter
-local voiceEchoesOfDoom					= mod:NewVoice(248732)--runout
 
 mod:AddSetIconOption("SetIconOnMarkedPrey", 244042, true)
 mod:AddSetIconOption("SetIconEmbrace", 244094, true)
@@ -128,7 +120,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		countdownNecroticEmbrace:Start(30.3)
 	elseif spellId == 243999 then
 		specWarnDarkFissure:Show()
-		voiceDarkFissure:Play("watchstep")
+		specWarnDarkFissure:Play("watchstep")
 		timerDarkFissureCD:Start()
 	elseif spellId == 122366 then
 		timerMarkedPreyCD:Start()
@@ -142,20 +134,20 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			if self:AntiSpam(4, 2) then
 				specWarnMisery:Show()
-				voiceMisery:Play("defensive")
+				specWarnMisery:Play("defensive")
 			end
 		else
 			local uId = DBM:GetRaidUnitId(args.destName)
 			--Applied to a tank that's not you and you don't have it, taunt
 			if uId and self:IsTanking(uId) and self:CheckNearby(8, args.destName) and not UnitDebuff("player", args.spellName) then
 				specWarnMiseryTaunt:Show(args.destName)
-				voiceMisery:Play("tauntboss")
+				specWarnMiseryTaunt:Play("tauntboss")
 			end
 		end
 	elseif spellId == 244042 then
 		if args:IsPlayer() then
 			specWarnMarkedPrey:Show()
-			voiceMarkedPrey:Play("targetyou")
+			specWarnMarkedPrey:Play("targetyou")
 			yellMarkedPrey:Yell()
 			yellMarkedPreyFades:Countdown(5)
 		else
@@ -166,7 +158,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if self.vb.totalEmbrace >= 3 then return end--Once it's beyond 2 players, consider it a wipe and throttle messages
 		if args:IsPlayer() then
 			specWarnNecroticEmbrace:Show()
-			voiceNecroticEmbrace:Play("scatter")
+			specWarnNecroticEmbrace:Play("scatter")
 			local icon = self.vb.totalEmbrace+2
 			yellNecroticEmbrace:Yell(self.vb.totalEmbrace, icon, icon)
 			yellNecroticEmbraceFades:Countdown(6, 3, icon)
@@ -183,13 +175,13 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnEchoesofDoom:CombinedShow(0.5, args.destName)--In case multiple shadows up
 		if args:IsPlayer() and self:AntiSpam(3, 1) then
 			specWarnEchoesOfDoom:Show()
-			voiceEchoesOfDoom:Play("targetyou")
+			specWarnEchoesOfDoom:Play("targetyou")
 			yellEchoesOfDoom:Yell()
 		end
 	elseif spellId == 243968 and self.vb.currentTorment ~= 1 then--Flame
 		self.vb.currentTorment = 1
 		warnTormentofFlames:Show()
-		voicePhaseChange:Play("phasechange")
+		warnTormentofFlames:Play("phasechange")
 		if not self:IsEasy() then
 			timerTormentofFrostCD:Start(100)
 		else--No frost or fel in normal, LFR assumed
@@ -198,17 +190,17 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 243977 and self.vb.currentTorment ~= 2 then--Frost
 		self.vb.currentTorment = 2
 		warnTormentofFrost:Show()
-		voicePhaseChange:Play("phasechange")
+		warnTormentofFrost:Play("phasechange")
 		timerTormentofFelCD:Start(99)
 	elseif spellId == 243980 and self.vb.currentTorment ~= 3 then--Fel
 		self.vb.currentTorment = 3
 		warnTormentofFel:Show()
-		voicePhaseChange:Play("phasechange")
+		warnTormentofFel:Play("phasechange")
 		timerTormentofShadowsCD:Start(90)
 	elseif spellId == 243973 and self.vb.currentTorment ~= 4 then--Shadow
 		self.vb.currentTorment = 4
 		warnTormentofShadows:Show()
-		voicePhaseChange:Play("phasechange")
+		warnTormentofShadows:Play("phasechange")
 	end
 end
 
@@ -236,7 +228,7 @@ end
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if (spellId == 244005 or spellId == 248740) and destGUID == UnitGUID("player") and self:AntiSpam(2, 4) then
 		specWarnGTFO:Show()
-		voiceGTFO:Play("runaway")
+		specWarnGTFO:Play("runaway")
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE

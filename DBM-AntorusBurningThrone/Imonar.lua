@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2009, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 17048 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 17130 $"):sub(12, -3))
 mod:SetCreatureID(124158)--or 124158 or 125692
 mod:SetEncounterID(2082)
 mod:SetZone()
@@ -21,6 +21,7 @@ mod:RegisterEventsInCombat(
 --	"SPELL_PERIODIC_DAMAGE",
 --	"SPELL_PERIODIC_MISSED",
 	"RAID_BOSS_WHISPER",
+	"RAID_TARGET_UPDATE",
 	"UNIT_SPELLCAST_SUCCEEDED boss1"
 )
 
@@ -30,18 +31,15 @@ mod:RegisterEventsInCombat(
  or (ability.id = 247367 or ability.id = 250255 or ability.id = 247552 or ability.id = 247687 or ability.id = 254244) and type = "cast"
  or (ability.id = 248233 or ability.id = 250135) and (type = "applybuff" or type = "removebuff")
 --]]
+local warnPhase							= mod:NewPhaseChangeAnnounce(2, nil, nil, nil, nil, nil, 2)
 --Stage One: Attack Force
 local warnShocklance					= mod:NewStackAnnounce(247367, 2, nil, "Tank")
 local warnSleepCanister					= mod:NewTargetAnnounce(247552, 2)
 local warnSlumberGas					= mod:NewTargetAnnounce(247565, 3)
 --Stage Two: Contract to Kill
-local warnPhase2						= mod:NewPhaseAnnounce(2, 2)
 local warnSever							= mod:NewStackAnnounce(247687, 2, nil, "Tank")
 --Stage Three/Five: The Perfect Weapon
-local warnPhase3						= mod:NewPhaseAnnounce(3, 2)
 local warnEmpoweredPulseGrenade			= mod:NewTargetAnnounce(250006, 3)
-local warnPhase4						= mod:NewPhaseAnnounce(4, 2)
-local warnPhase5						= mod:NewPhaseAnnounce(5, 2)
 
 --General
 --local specWarnGTFO					= mod:NewSpecialWarningGTFO(238028, nil, nil, nil, 1, 2)
@@ -82,22 +80,6 @@ local countdownPulseGrenade				= mod:NewCountdown(17, 247376)
 --Stage Two: Contract to Kill
 local countdownChargedBlasts			= mod:NewCountdown("AltTwo18", 247716)
 
---General
---local voiceGTFO						= mod:NewVoice(238028, nil, DBM_CORE_AUTO_VOICE4_OPTION_TEXT)--runaway
-local voicePhaseChange					= mod:NewVoice(nil, nil, DBM_CORE_AUTO_VOICE2_OPTION_TEXT)
---Stage One: Attack Force
-local voiceShocklance					= mod:NewVoice(247367)--Tauntboss
-local voiceSleepCanister				= mod:NewVoice(247552)--targetyou
-local voicePulseGrenade					= mod:NewVoice(247376)--watchstep
---Stage Two: Contract to Kill
-local voiceSever						= mod:NewVoice(247687)--Tauntboss
-local voiceChargedBlasts				= mod:NewVoice(247716)--runout
-local voiceShrapnalBlast				= mod:NewVoice(247923)--watchstep
---Stage Three/Five: The Perfect Weapon
-local voiceEmpPulseGrenade				= mod:NewVoice(250006)--range5
-
---local voiceMalignantAnguish			= mod:NewVoice(236597, "HasInterrupt")--kickcast
-
 mod:AddSetIconOption("SetIconOnSleepCanister", 247552, true)
 mod:AddSetIconOption("SetIconOnEmpPulse2", 250006, false)
 mod:AddInfoFrameOption(250006, true)
@@ -113,7 +95,7 @@ local empoweredPulseTargets = {}
 local debuffFilter
 local UnitDebuff = UnitDebuff
 local playerSleepDebuff = false
-local empoweredPulse = GetSpellInfo(250006)--Empowered Pulse Grenade
+local empoweredPulse, sleepCanister = DBM:GetSpellInfo(250006), DBM:GetSpellInfo(254244)
 do
 	debuffFilter = function(uId)
 		if UnitDebuff(uId, empoweredPulse) then
@@ -159,6 +141,7 @@ do
 end
 
 function mod:OnCombatStart(delay)
+	empoweredPulse, sleepCanister = DBM:GetSpellInfo(250006), DBM:GetSpellInfo(254244)
 	table.wipe(empoweredPulseTargets)
 	self.vb.phase = 1
 	self.vb.shrapnalCast = 0
@@ -193,7 +176,7 @@ function mod:SPELL_CAST_START(args)
 	if spellId == 247376 or spellId == 248068 then
 		if spellId == 247376 then--Non Empowered
 			specWarnPulseGrenade:Show()
-			voicePulseGrenade:Play("watchstep")
+			specWarnPulseGrenade:Play("watchstep")
 			timerPulseGrenadeCD:Start()
 			countdownPulseGrenade:Start()
 		else--Empowered
@@ -208,7 +191,7 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 247923 or spellId == 248070 then
 		self.vb.shrapnalCast = self.vb.shrapnalCast + 1
 		specWarnShrapnalBlast:Show()
-		voiceShrapnalBlast:Play("watchstep")
+		specWarnShrapnalBlast:Play("watchstep")
 		if self:IsMythic() then
 			if self.vb.phase == 2 then
 				timerShrapnalBlastCD:Start(17, self.vb.shrapnalCast+1)
@@ -223,13 +206,13 @@ function mod:SPELL_CAST_START(args)
 				end
 			end
 		elseif spellId == 248070 then--Empowered (p3)
-			timerShrapnalBlastCD:Start(19, self.vb.shrapnalCast+1)--19-23
+			timerShrapnalBlastCD:Start(17, self.vb.shrapnalCast+1)--17-23
 		else
 			timerShrapnalBlastCD:Start(nil, self.vb.shrapnalCast+1)--13
 		end
 	elseif spellId == 248254 then
 		specWarnChargedBlastsUnknown:Show()
-		voiceChargedBlasts:Play("farfromline")
+		specWarnChargedBlastsUnknown:Play("farfromline")
 		if self:IsMythic() and self.vb.phase < 4 then
 			timerChargedBlastsCD:Start(13.4)
 			countdownChargedBlasts:Start(13.4)
@@ -273,7 +256,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 				if not UnitIsDeadOrGhost("player") and (not remaining or remaining and remaining < 4) then
 					specWarnShocklance:Show(args.destName)
-					voiceShocklance:Play("tauntboss")
+					specWarnShocklance:Play("tauntboss")
 				else
 					warnShocklance:Show(args.destName, amount)
 				end
@@ -293,7 +276,7 @@ function mod:SPELL_AURA_APPLIED(args)
 				end
 				if not UnitIsDeadOrGhost("player") and (not remaining or remaining and remaining < 7) then
 					specWarnSever:Show(args.destName)
-					voiceSever:Play("tauntboss")
+					specWarnSever:Play("tauntboss")
 				else
 					warnSever:Show(args.destName, amount)
 				end
@@ -308,7 +291,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			end
 		elseif self:CheckNearby(10, args.destName) then--Warn nearby again
 			specWarnSleepCanisterNear:CombinedShow(0.3, args.destName)
-			voiceSleepCanister:Play("runaway")
+			specWarnSleepCanisterNear:Play("runaway")
 		end
 	elseif spellId == 247565 then
 		warnSlumberGas:CombinedShow(0.3, args.destName)
@@ -321,12 +304,15 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnEmpoweredPulseGrenade:CombinedShow(0.3, args.destName)
 		if args:IsPlayer() then
 			specWarnEmpPulseGrenade:Show()
-			voiceEmpPulseGrenade:Play("range5")
+			specWarnEmpPulseGrenade:Play("range5")
 			yellEmpPulseGrenade:Yell()
 		end
 		updateRangeFrame(self)
 		if not tContains(empoweredPulseTargets, args.destName) then
 			table.insert(empoweredPulseTargets, args.destName)
+		end
+		if self.Options.SetIconOnEmpPulse2 and #empoweredPulseTargets < 7 then
+			self:SetIcon(args.destName, #empoweredPulseTargets+2)
 		end
 		if self.Options.InfoFrame then
 			if #empoweredPulseTargets == 1 then
@@ -335,9 +321,6 @@ function mod:SPELL_AURA_APPLIED(args)
 			else
 				DBM.InfoFrame:Update()
 			end
-		end
-		if self.Options.SetIconOnEmpPulse2 and #empoweredPulseTargets < 7 then
-			self:SetIcon(args.destName, #empoweredPulseTargets+2)
 		end
 	elseif spellId == 247641 and args:IsPlayer() and (self:IsTank() or self:UnitClass() == "ROGUE") then
 		yellStasisTrap:Yell()
@@ -350,14 +333,15 @@ function mod:SPELL_AURA_REMOVED(args)
 	if (spellId == 248233 or spellId == 250135) and not args:IsDestTypePlayer() then--Conflagration
 		self.vb.phase = self.vb.phase + 1
 		self.vb.shrapnalCast = 0
+		warnPhase:Show(DBM_CORE_AUTO_ANNOUNCE_TEXTS.stage:format(self.vb.phase))
 		if self.vb.phase == 2 then
-			warnPhase2:Show()
+			warnPhase:Play("ptwo")
 			timerSeverCD:Start(6.6)--6.6-8.2
 			timerChargedBlastsCD:Start(8.4)
 			countdownChargedBlasts:Start(8.4)
 			timerShrapnalBlastCD:Start(12, 1)
 		elseif self.vb.phase == 3 then
-			warnPhase3:Show()
+			warnPhase:Play("pthree")
 			if self:IsMythic() then
 				timerShocklanceCD:Start(4)--NOT empowered
 				timerSleepCanisterCD:Start(7.9)
@@ -371,13 +355,13 @@ function mod:SPELL_AURA_REMOVED(args)
 				timerShrapnalBlastCD:Start(15.4, 1)--Empowered
 			end
 		elseif self.vb.phase == 4 then--Mythic Only
-			warnPhase4:Show()
+			warnPhase:Play("pfour")
 			timerSeverCD:Start(7.5)
 			timerChargedBlastsCD:Start(9)
 			timerSleepCanisterCD:Start(12.5)
 			timerShrapnalBlastCD:Start(12.7, 1)--Empowered
 		elseif self.vb.phase == 5 then--Mythic Only (Identical to non mythic 3?)
-			warnPhase5:Show()
+			warnPhase:Play("pfive")
 			timerShocklanceCD:Start(5)--Empowered
 			timerPulseGrenadeCD:Start(7)--Empowered
 			countdownPulseGrenade:Start(7)
@@ -388,11 +372,11 @@ function mod:SPELL_AURA_REMOVED(args)
 		self.vb.empoweredPulseActive = self.vb.empoweredPulseActive - 1
 		tDeleteItem(empoweredPulseTargets, args.destName)
 		updateRangeFrame(self)
-		if self.Options.InfoFrame then
-			DBM.InfoFrame:Update()
-		end
 		if self.Options.SetIconOnEmpPulse2 then
 			self:SetIcon(args.destName, 0)
+		end
+		if self.Options.InfoFrame then
+			DBM.InfoFrame:Update()
 		end
 	elseif spellId == 255029 then
 		if self.Options.SetIconOnSleepCanister then
@@ -405,7 +389,7 @@ end
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 228007 and destGUID == UnitGUID("player") and self:AntiSpam(2, 4) then
 		specWarnGTFO:Show()
-		voiceGTFO:Play("runaway")
+		specWarnGTFO:Play("runaway")
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
@@ -414,15 +398,20 @@ mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
 function mod:RAID_BOSS_WHISPER(msg)
 	if msg:find("spell:254244") then
 		specWarnSleepCanister:Show()
-		voiceSleepCanister:Play("runout")
+		specWarnSleepCanister:Play("runout")
 		playerSleepDebuff = true
 		updateRangeFrame(self)
 	end
 end
 
+function mod:RAID_TARGET_UPDATE()
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Update()
+	end
+end
+
 do
 	local playerName = UnitName("player")
-	local spellName = GetSpellInfo(254244)
 	function mod:OnTranscriptorSync(msg, targetName)
 		if msg:find("spell:254244") then
 			targetName = Ambiguate(targetName, "none")
@@ -430,10 +419,10 @@ do
 				warnSleepCanister:CombinedShow(0.3, targetName)
 				if targetName == playerName then
 					local icon = self.vb.sleepCanisterIcon
-					yellSleepCanister:Yell(icon, spellName, icon)
+					yellSleepCanister:Yell(icon, sleepCanister, icon)
 				elseif self:CheckNearby(10, targetName) then
 					specWarnSleepCanisterNear:CombinedShow(0.3, targetName)
-					voiceSleepCanister:Play("runaway")
+					specWarnSleepCanisterNear:Play("runaway")
 				end
 			end
 			if self.Options.SetIconOnSleepCanister then
@@ -457,6 +446,6 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 		countdownPulseGrenade:Cancel()
 		timerSleepCanisterCD:Stop()
 		timerShocklanceCD:Stop()
-		voicePhaseChange:Play("phasechange")
+		warnPhase:Play("phasechange")
 	end
 end

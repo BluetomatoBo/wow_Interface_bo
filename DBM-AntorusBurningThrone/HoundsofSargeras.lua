@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(1987, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 17069 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 17082 $"):sub(12, -3))
 mod:SetCreatureID(122477, 122135)--122477 F'harg, 122135 Shatug
 mod:SetEncounterID(2074)
 mod:SetZone()
@@ -22,6 +22,8 @@ mod:RegisterEventsInCombat(
 	"UNIT_SPELLCAST_SUCCEEDED boss1 boss2"
 )
 
+local Fharg = DBM:EJ_GetSectionInfo(15842)
+local Shatug = DBM:EJ_GetSectionInfo(15836)
 --[[
 (ability.id = 244057 or ability.id = 244056) and type = "begincast"
  or (ability.id = 244072 or ability.id = 251445 or ability.id = 245098 or ability.id = 251356 or ability.id = 254429) and type = "cast"
@@ -58,36 +60,23 @@ local specWarnFlameTouched				= mod:NewSpecialWarningYouPos(244054, nil, nil, ni
 local specWarnShadowtouched				= mod:NewSpecialWarningYouPos(244055, nil, nil, nil, 3, 8)
 local yellTouched						= mod:NewPosYell(244054, DBM_CORE_AUTO_YELL_CUSTOM_POSITION)
 
---F'harg
+--General/Mythic
+local timerFocusingPower				= mod:NewCastTimer(15, 251356, nil, nil, nil, 6)
+mod:AddTimerLine(Fharg)
 local timerBurningMawCD					= mod:NewCDTimer(10.1, 251448, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)--usually 11 but some pulls it's 10
 local timerMoltenTouchCD				= mod:NewCDTimer(95.9, 244072, nil, nil, nil, 3)
 local timerEnflamedCorruptionCD			= mod:NewCDTimer(95.9, 244057, nil, nil, nil, 3)
 local timerDesolateGazeCD				= mod:NewCDTimer(95.9, 244768, nil, nil, nil, 3)
---Shatug
+mod:AddTimerLine(Shatug)
 local timerCorruptingMawCD				= mod:NewCDTimer(10.1, 251447, nil, "Tank", nil, 5, nil, DBM_CORE_TANK_ICON)--usually 11 but some pulls it's 10
 local timerComsumingSphereCD			= mod:NewCDTimer(77, 244131, nil, nil, nil, 3)--Verify in transcritor
 local timerWeightOfDarknessCD			= mod:NewCDTimer(77, 254429, nil, nil, nil, 3)
 local timerSiphonCorruptionCD			= mod:NewCDTimer(77, 244056, nil, nil, nil, 3)
---General/Mythic
-local timerFocusingPower				= mod:NewCastTimer(15, 251356, nil, nil, nil, 6)
 
 --local berserkTimer					= mod:NewBerserkTimer(600)
 
 --F'harg
 --local countdownSingularity			= mod:NewCountdown(50, 235059)--Maybe test 1 countdown per dog (for all abilities)
-
---F'harg
-local voiceMoltenTouch					= mod:NewVoice(244072)--watchstep
-local voiceDesolateGaze					= mod:NewVoice(244768)--runout?
-local voiceEnflamed						= mod:NewVoice(248815)--scatter
---local voiceGTFO						= mod:NewVoice(238028, nil, DBM_CORE_AUTO_VOICE4_OPTION_TEXT)--runaway
---Shatug
-local voiceConsumingSphere				= mod:NewVoice(244131)--watchorb
-local voiceWeightOfDarkness				= mod:NewVoice(254429)--targetyou
-local voiceSiphoned						= mod:NewVoice(248819)--gathershare?/killmob on mythic?
---Mythic
-local voiceFlameTouched					= mod:NewVoice(244054)--flameonyou
-local voiceShadowtouched				= mod:NewVoice(244055)--shadowonyou
 
 mod:AddSetIconOption("SetIconOnWeightofDarkness2", 254429, false)
 --mod:AddInfoFrameOption(239154, true)
@@ -207,7 +196,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 244072 then
 		specWarnMoltenTouch:Show()
-		voiceMoltenTouch:Play("watchstep")
+		specWarnMoltenTouch:Play("watchstep")
 		if not self.Options.SequenceTimers or self:IsEasy() then
 			timerMoltenTouchCD:Start(self.vb.longTimer)
 		else
@@ -236,7 +225,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnDesolateGaze:CombinedShow(0.3, args.destName)
 		if args:IsPlayer() then
 			specWarnDesolateGaze:Show()
-			voiceDesolateGaze:Play("runout")
+			specWarnDesolateGaze:Play("runout")
 			yellDesolateGaze:Yell()
 		end
 	elseif spellId == 251356 and self:AntiSpam(10, 1) then
@@ -247,7 +236,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnEnflamed:CombinedShow(0.3, args.destName)
 		if args:IsPlayer() then
 			specWarnEnflamed:Show()
-			voiceEnflamed:Play("scatter")
+			specWarnEnflamed:Play("scatter")
 			yellEnflamed:Countdown(4)
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(8)
@@ -257,7 +246,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnSiphoned:CombinedShow(0.3, args.destName)
 		if args:IsPlayer() then
 			specWarnSiphoned:Show(DBM_ALLY)
-			voiceSiphoned:Play("gathershare")
+			specWarnSiphoned:Play("gathershare")
 			yellSiphoned:Countdown(4)
 			if self.Options.RangeFrame then
 				DBM.RangeCheck:Show(8)
@@ -267,7 +256,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		warnWeightofDarkness:CombinedShow(0.3, args.destName)
 		if args:IsPlayer() then
 			specWarnWeightOfDarkness:Show(DBM_ALLY)
-			voiceWeightOfDarkness:Play("gathershare")
+			specWarnWeightOfDarkness:Play("gathershare")
 			yellWeightOfDarkness:Yell()
 			yellWeightOfDarknessFades:Countdown(5)
 		end
@@ -278,13 +267,13 @@ function mod:SPELL_AURA_APPLIED(args)
 	elseif spellId == 244054 then--Flametouched
 		if args:IsPlayer() then
 			specWarnFlameTouched:Show(self:IconNumToTexture(7))--Red X for flame (more voted on red x than orange circle)
-			voiceFlameTouched:Play("flameonyou")
+			specWarnFlameTouched:Play("flameonyou")
 			yellTouched:Yell(7, "", 7)
 		end
 	elseif spellId == 244055 then--Shadowtouched
 		if args:IsPlayer() then
 			specWarnShadowtouched:Show(self:IconNumToTexture(3))--Purple diamond for shadow
-			voiceShadowtouched:Play("shadowonyou")
+			specWarnShadowtouched:Play("shadowonyou")
 			yellTouched:Yell(3, "", 3)
 		end
 	end
@@ -320,7 +309,7 @@ end
 function mod:SPELL_PERIODIC_DAMAGE(_, _, _, _, destGUID, _, _, _, spellId)
 	if spellId == 228007 and destGUID == UnitGUID("player") and self:AntiSpam(2, 4) then
 		specWarnGTFO:Show()
-		voiceGTFO:Play("runaway")
+		specWarnGTFO:Play("runaway")
 	end
 end
 mod.SPELL_PERIODIC_MISSED = mod.SPELL_PERIODIC_DAMAGE
@@ -335,7 +324,7 @@ end
 function mod:UNIT_SPELLCAST_SUCCEEDED(uId, _, _, _, spellId)
 	if spellId == 244159 then--Consuming Sphere
 		specWarnComsumingSphere:Show()
-		voiceConsumingSphere:Play("watchorb")
+		specWarnComsumingSphere:Play("watchorb")
 		if not self.Options.SequenceTimers or self:IsEasy() then
 			timerComsumingSphereCD:Start(self.vb.mediumTimer)
 		else
