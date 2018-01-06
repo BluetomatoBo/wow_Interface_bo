@@ -26,7 +26,7 @@
 --    * Share Alike. If you alter, transform, or build upon this work, you may distribute the resulting work only under the same or similar license to this one.
 --
 
-local Revision = ("$Revision: 113 $"):sub(12, -3)
+local Revision = ("$Revision: 115 $"):sub(12, -3)
 
 local IsInRaid = IsInRaid
 local IsInInstance = IsInInstance
@@ -191,7 +191,7 @@ do
 					settings.spells[self.guikey] = settings.spells[self.guikey] or {}
 					if field == "bartext" and settings.spells[self.guikey].spell and settings.spells[self.guikey].spell > 0 then
 						local text = settings.spells[self.guikey][field] or ""
-						local spellinfo = GetSpellInfo(settings.spells[self.guikey].spell)
+						local spellinfo = DBM:GetSpellInfo(settings.spells[self.guikey].spell)
 						if spellinfo == nil then
 							DBM:AddMsg("Illegal SpellID found. Please remove the Spell "..settings.spells[self.guikey].spell.." from your DBM Options GUI (spelltimers)");
 						else
@@ -343,6 +343,7 @@ do
 
 			rebuildSpellIDIndex()
 		elseif settings.enabled and event == "ENCOUNTER_START" then--Encounter Started
+			clearAllSpellBars() 
 			--Reset all CDs that are >= 3 minutes EXCEPT shaman reincarnate (20608)
 		elseif settings.enabled and event == "ENCOUNTER_END" then--Encounter Ended
 			--Reset all CDs that are > 3 minutes EXCEPT shaman reincarnate (20608)
@@ -350,7 +351,6 @@ do
 		  -- spell cooldowns all reset on entering an arena or bg
 		  clearAllSpellBars() 
 		elseif DBM.InCombat and DBM:InCombat() then--Don't allow spelltimers during raid bosses anymore
-			clearAllSpellBars() 
 			return
 		elseif settings.enabled and event == "COMBAT_LOG_EVENT_UNFILTERED" and spellEvents[select(2, ...)] then
 			-- first some exeptions (we don't want to see any skill around the world)
@@ -370,7 +370,8 @@ do
 				if v.spell ~= spellid then
 					print("DBM-SpellTimers Index mismatch error! "..guikey.." "..spellid)
 				end
-				local spellinfo, _, icon = GetSpellInfo(spellid)
+				local spellinfo = select(13, ...)
+				local icon = GetSpellTexture(spellid)
 				spellinfo = spellinfo or "UNKNOWN SPELL"
 				fromplayer = fromplayer or "UNKNOWN SOURCE"
 				toplayer = toplayer or "UNKNOWN TARGET"
@@ -397,7 +398,8 @@ do
 
 			for k,v in pairs(myportals) do
 				if v.spell == spellid then
-					local spellinfo, _, icon = GetSpellInfo(spellid)
+					local spellinfo = select(13, ...)
+					local icon = GetSpellTexture(spellid)
 					local bartext = v.bartext:gsub("%%spell", spellinfo):gsub("%%player", fromplayer):gsub("%%target", toplayer)	-- Changed by Florin Patan
 					SpellBarIndex[bartext] = SpellBars:CreateBar(v.cooldown, bartext, icon, nil, true)
 
