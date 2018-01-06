@@ -1,6 +1,6 @@
 ﻿-- VgerCore  by Vger-Azjol-Nerub
 -- www.vgermods.com
--- © 2006-2017 Green Eclipse.  This mod is released under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 license.
+-- © 2006-2018 Green Eclipse.  This mod is released under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 license.
 -- 
 -- Version 1.0.9 -- FormatCompactDecimal
 local VgerCoreThisVersion = 1.09
