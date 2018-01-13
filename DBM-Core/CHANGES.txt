@@ -1,427 +1,257 @@
-tag 7bc3451cdc56ef53c077988ea969994c8bee3356 7.3.16
+tag bd9c436f965725aec83dd1956854df43a4fa852f 7.3.17
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Fri Jan 5 00:19:54 2018 +0100
+Date:	Thu Jan 11 23:43:42 2018 +0100
 
-Tagging as 7.3.16
+Tagging as 7.3.17
 
-commit 457a60048e7d4eb99220c0496859a244ad5ea82a
+commit 1f4b300bb972e307eeba3eca1544a2759549ba82
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jan 5 00:19:54 2018 +0100
+Date:   Thu Jan 11 23:43:42 2018 +0100
 
-    increment version number to 7.3.16
+    increment version number to 7.3.17
 
-commit a4670f085da8c4f85ca2e5557aeb66ea8001aacb
+commit bdcb91badcadc65392e92053fb5c2b70bb781443
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 4 22:08:38 2018 +0100
+Date:   Thu Jan 11 23:34:41 2018 +0100
 
-    Omega via svn r17132:
-    Restore sometimer lines using EJ instead of SI
+    Omega via svn r17166:
+    Added some missing GTFOs to Coven and Argus
+    Fixed Machinations timer not canceling when all adds dead
+    Improved interrupt warnings on Mythic Coven to a 3 person rotation
+    Cleaned up unused and some comment cleanup.
+    Changed Cosmic Glare warning text
 
-commit ddc06ea8970b188f10c03c055804bb2d1e126331
+commit 5a71743df001a8c42df254548e24c62e20aa4eb1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 4 10:59:10 2018 +0100
+Date:   Thu Jan 11 02:13:02 2018 +0100
 
-    Omega via svn r17131:
-    Kr Update
+    Omega via svn r17165:
+    Cleanup timers earlier on Argus Stage 2-3 transition, also, hide info frame for stage 3 non mythic, it?\226?\128?\153s not needed in consteller stage.
 
-commit e84357c066dcc465611be3929e6efe0f5a70be0c
+commit cbfaba364dbfb784a5603c17321093c74840a2ee
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 4 07:24:46 2018 +0100
+Date:   Wed Jan 10 06:16:07 2018 +0100
 
-    Omega via svn r17130:
-    this is even better fix
+    Omega via svn r17164:
+    Test function
 
-commit 47ec08c3a05abf80eee3ecf6335631ed928d431d
+commit a90ff4b0c9a2004fbe4d7b0760bc97b3ddf45a2f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 4 07:13:24 2018 +0100
+Date:   Wed Jan 10 06:10:58 2018 +0100
 
-    Omega via svn r17129:
-    pass spelld to note instead of spell name, and request spell name in core instead to ensure it?\226?\128?\153s more likely to get a valid return
+    Omega via svn r17163:
+    This should probably fix it
 
-commit 5cea0a286ed4589a61873bdf27f9c82a14c42f8f
+commit cd733c87b2c7f4d0a08fc237e7fb6ce502b6cf22
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 4 04:05:32 2018 +0100
+Date:   Wed Jan 10 05:48:33 2018 +0100
 
-    Omega via svn r17128:
-    Better fix
+    Omega via svn r17162:
+    temp fix, callbacks still need fixes
 
-commit 677fb3013361567f9a8735d57560a0f2932af9a9
+commit 7f6e8cd34e53533fa20493198e99850c9b55a676
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 4 03:49:31 2018 +0100
+Date:   Wed Jan 10 01:44:16 2018 +0100
 
-    Omega via svn r17127:
-    Change icon/infoframe update order so icons are shown correctly right away
+    Omega via svn r17161:
+    Move this back
 
-commit ee483c2ecdc02a2c77e80965e884348e0e9d8a09
+commit 071ae212b88c67634663afbd19453cbb415ca418
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jan 4 01:57:01 2018 +0100
+Date:   Wed Jan 10 01:37:30 2018 +0100
 
-    Omega via svn r17126:
-    Re-enable Error, now that all info frame are fixed in current content at least.
-    Updated all info frames to use spell name not spellID, since can?\226?\128?\153t request spellID on fly in 7.3.5 so easily
+    Omega via svn r17160:
+    Enable respawn for garothi
 
-commit f8a4cf1c7ded6b276395e1f79e43d25700125ed0
+commit 3fca660faf36e456eae0254abf35dc633e9939ca
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 22:07:58 2018 +0100
+Date:   Tue Jan 9 21:39:42 2018 +0100
 
-    Omega via svn r17125:
-    Fix more errors
+    Omega via svn r17159:
+    update version info
 
-commit 0ae43b8101d9c29f759f24d118c21f98c7bc8cc3
+commit 96fcd2c4023dfc6aeec9f608731a2f23c02f9280
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 11:01:48 2018 +0100
+Date:   Tue Jan 9 03:47:42 2018 +0100
 
-    Omega via svn r17124:
-    Just for now disable the hard spellID disable, until see what blizz does with 7.3.5
+    Omega via svn r17158:
+    since i accidentally left it as an icon yell, might as well switch description back
 
-commit 7d4b4f91de9817c2474c4c475229876cab0e7f0b
+commit b29abf57ca06cc8b427c332a55cb768ec70bdab3
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 09:06:00 2018 +0100
+Date:   Mon Jan 8 23:32:20 2018 +0100
 
-    Omega via svn r17123:
-    While at it, show CURRENT cast as well
+    Omega via svn r17157:
+    Timer update callback
 
-commit 1ddc10fea2d5f644764577acfe6f4058a00e1777
+commit 1064ff8236eedd646e291de2cf0466429092543a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 08:46:55 2018 +0100
+Date:   Mon Jan 8 23:03:20 2018 +0100
 
-    Omega via svn r17122:
-    Fixed bug where infoframe didn?\226?\128?\153t hide if he phase changed in middle of combo
-    Fixed bug where icon sizes were too big on inforame
+    Omega via svn r17156:
+    swap event order for ENCOUNTER_END so respawn timer shows after mod wipe is called to help WA?\226?\128?\153s
 
-commit d4c897de7ff6f8b333db61b15300d61160016173
+commit b01841319f3248cf02ee47080aa3118d10b25de2
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 08:15:31 2018 +0100
+Date:   Mon Jan 8 06:54:14 2018 +0100
 
-    Omega via svn r17121:
-    Finally change antorus high command assault warning to use stacks, since blizzards whisper is too slow on mythic
+    Omega via svn r17155:
+    Filter by target/focus for those dog breath countdowns, which also means disabling first ones
 
-commit 2670ca47f94edf60b069a0c050039be33f18471b
+commit c2c75c0a50f7871905e0a72c30209de45d0312a6
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 06:48:17 2018 +0100
+Date:   Mon Jan 8 06:35:29 2018 +0100
 
-    Omega via svn r17120:
-    Fix NaN
+    Omega via svn r17154:
+    some cleanup
 
-commit 5f819ea2d98ef44bdd1a09d039159b2acec0f814
+commit 4ca1b651930a5b4ab83ead3e3c59914ac3a3cd98
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 05:36:21 2018 +0100
+Date:   Mon Jan 8 05:52:29 2018 +0100
 
-    Omega via svn r17119:
-    Not sure how that only got half pushed
+    Omega via svn r17153:
+    Couple more callback spots
 
-commit 19132abe8a91a8732230d19218edad4ee37cfd4a
+commit 847073bc98464be445880b66fc6ad8d83aef03a6
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 04:28:37 2018 +0100
+Date:   Mon Jan 8 02:38:34 2018 +0100
 
-    Omega via svn r17118:
-    How?\226?\128?\153d that even pass validator? :o
+    Omega via svn r17152:
+    Improve timer callbacks for improved weak auras
+    1. Any remaining timers not firing timer start/stop callbacks, now fire them
+    2. timers that fired start callbacks but not stop when canceled, fixed (such as break and pull)
+    3. New timer type args:
+    a. Utility timers like pull/break now have timer type arg as ?\226?\128?\156utilitytimer?\226?\128?\157
+    b. Extra timers such as LFG prompt have timer type arg as ?\226?\128?\156extratimer?\226?\128?\157
+    c. Pizza/custom timers have timer type arg as ?\226?\128?\156pizzatimer?\226?\128?\157
 
-commit 68bcd22856eccfda978ad2675db039dc395d93de
+commit 23cde3a57598ba5f80bed9e93d3bfe3e67fc5efa
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 04:10:15 2018 +0100
+Date:   Mon Jan 8 00:29:47 2018 +0100
 
-    Omega via svn r17117:
-    Fix portal voices
+    Omega via svn r17151:
+    This shouldn?\226?\128?\153t show. remove
 
-commit 3d57100eff01fdedc9ea108116372b2a283606b8
+commit 403931d3e5efed4d92fd9f9dd8ea976fa239ed68
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 04:02:27 2018 +0100
+Date:   Mon Jan 8 00:17:49 2018 +0100
 
-    Omega via svn r17116:
-    throttle tweaks
+    Omega via svn r17150:
+    Fix some icon errors
 
-commit 605583d79fbf68599c99954ed2920e6f0134bc7a
+commit 7a4de9d90e2063f9fede7a52ffb94bc0412bba54
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 03:16:40 2018 +0100
+Date:   Sun Jan 7 05:25:36 2018 +0100
 
-    Omega via svn r17115:
-    more fixing
+    Omega via svn r17149:
+    Fix that
 
-commit 01ec950801153c0d87344594a6267d49ea7ba1ef
+commit 2272faffef6ece3695219d3085bd63ba9985e212
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 02:55:44 2018 +0100
+Date:   Sun Jan 7 05:24:35 2018 +0100
 
-    Omega via svn r17114:
-    Try to fix a regression
+    Omega via svn r17148:
+    Pre empt some GUI stuff
 
-commit 2393a7dc669aa0f40b0f084dcd19d3bdd19e8bf4
+commit 6df713134bde5c58480436b81ba6d9d060f83fcb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 01:19:46 2018 +0100
+Date:   Sun Jan 7 04:37:52 2018 +0100
 
-    Omega via svn r17113:
-    cleanup
+    Omega via svn r17147:
+    Little bit of cleanup
+    Disable speed kill timer if current mythic + lower level than our top keystone/best time, since the best time is only stored for highest keystone we?\226?\128?\153ve achieved and is not applicable for lower keystones.
 
-commit fa8971e322a54e7cebbfea8c2c41719285852d73
+commit 1559b78c6c3e85aff4afef6a46269170fecc4259
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jan 3 00:39:06 2018 +0100
+Date:   Sun Jan 7 03:52:52 2018 +0100
 
-    Omega via svn r17112:
-    Removed timer categories that rely on GetSpellInfo being correct on load.
-    All other usages of GetSpellInfo in mods will now have redundant calls on combat start AND load, so when mods load request is made, and then when bosses are pulled the variable will refresh with valid spell name since it?\226?\128?\153s already cached by then
+    Omega via svn r17146:
+    Void trap is now a regular announce, downgraded from special warning on Saprish
 
-commit da4caeec63f93d474fd62abe36dd7f2389d89fb8
+commit 4c1ff039b269a4557b4ea6a49980e6a7dc73bdee
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 23:14:45 2018 +0100
+Date:   Sat Jan 6 21:55:17 2018 +0100
 
-    Omega via svn r17111:
-    timers already repair spell name since they apparently always repeatedly repull it instead of caching it(less efficient and should probably be fixed, but since it works around 7.3.5 stuff I?\226?\128?\153ll leave it this way)
-    Instead, I?\226?\128?\153ll add inefficient work arounds to newannounce and newspecialwarning to fix spell name there too. Now, only GUI, and any mod calling GetSpellInfo directly will be broken.
+    Omega via svn r17145:
+    Re-enable world count, and disable tank one by default instead
 
-commit ee0a2309fd71d6dfb59bcc2d1a26f8ae06501921
+commit 2c002513170a411226309db0e2100cc9e53ddaf1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 21:41:49 2018 +0100
+Date:   Sat Jan 6 21:52:46 2018 +0100
 
-    Omega via svn r17110:
-    Better
+    Omega via svn r17144:
+    Add countdowns to maws on doggos
+    KR update
 
-commit aa174531eeeabde97879dfd65de3a3c13077c987
+commit 267c4e574f537d9fa54a888ee98c59df299c0306
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 21:40:30 2018 +0100
+Date:   Sat Jan 6 06:45:17 2018 +0100
 
-    Omega via svn r17109:
-    disable code and return to passthrough, since it still doesn?\226?\128?\153t work.
+    Omega via svn r17143:
+    Give this a voice
 
-commit 47e581498cb7aea4863247bdfe4f02d29a0107ae
+commit eca1d9a4ddda5f7467bd26838d80b95cf9a171a0
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 21:25:56 2018 +0100
+Date:   Fri Jan 5 21:56:54 2018 +0100
 
-    Omega via svn r17108:
-    It can actually be faster
-    also this fixes unregistering frame early
+    Omega via svn r17142:
+    Two bug fixes reported by ?\236?\158?\144?\235?\175?\184/?\237?\140?\140?\236?\152?\164?\236?\166?\136 (?\236?\149?\177)
 
-commit b3d59798344cf12b737ae867b855d07a03740724
+commit 2f5ad95e3c9ea467a9618015b717a4f7b5a9bbef
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 21:03:24 2018 +0100
+Date:   Fri Jan 5 14:23:17 2018 +0100
 
-    Omega via svn r17107:
-    tweaks to handle a nil return in future
-
-commit 239af75e6d8b7db214aa12d4186520fa0db8c6fe
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 20:44:38 2018 +0100
-
-    Omega via svn r17106:
-    fix lua error in auto localized text if no spellId is passed
-    Attempt a different approach for spell queuing on PTR
-
-commit 5bc9b16bbd4cd852e97a0ea3fbd9c5666f818d99
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 09:20:41 2018 +0100
-
-    ultrashining via svn r17105:
+    ultrashining via svn r17141:
     zhTW update
 
-commit 89c925fb8c1cec021ad5cf33042d8503005c0b53
+commit af6c564c7fddb76ab45cf58b9fe30f2f5cf39618
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 08:25:22 2018 +0100
+Date:   Fri Jan 5 12:34:11 2018 +0100
 
-    Omega via svn r17104:
-    enable this too
+    Omega via svn r17140:
+    change tank count to 3 instead of 4
+    disable worlds by default. should tone down counting on hasabel some
 
-commit 14492f5263e48b2e224f12984d522db2b2194366
+commit 3f02263c6d5385d9165c35ecc06acb3a6ca7bdce
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 08:06:43 2018 +0100
+Date:   Fri Jan 5 06:22:09 2018 +0100
 
-    Omega via svn r17103:
-    Filter tanks from help soak warning
+    Omega via svn r17139:
+    another protection for good measure
 
-commit d15941ab38698c995f6570a8d9a9b8adeedf33dd
+commit 8f22db00ff2fabc00a2fb9288715eb656f7eec36
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 07:40:35 2018 +0100
+Date:   Fri Jan 5 06:12:34 2018 +0100
 
-    Omega via svn r17102:
-    Fix bomb warning on kingaroth so it only fires for spawns, not detonates too
-    Fix and enable bomb timer again on kingaroth
-    Added voice pack support to bomb announce on kingaroth as well
+    Omega via svn r17138:
+    if bar object doesn?\226?\128?\153t exist when AddTime runs, use Start, like update does
+    Also, don?\226?\128?\153t run at all if bars are disabled
 
-commit 6a42637cd8f2d65287a995998df62c2511241c4b
+commit d9a040ea59c9c5541da65530da20d6784bb2a131
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 07:19:55 2018 +0100
+Date:   Fri Jan 5 04:32:33 2018 +0100
 
-    Omega via svn r17101:
-    Fix spell update rame
+    Omega via svn r17137:
+    Fixed a bug where timers would start on wipe on king
 
-commit af00f5663af780b8cfbbdb7835b9f6dde300f9d4
+commit 6a5a887127a761bf9b9bb1c86ca1e22fb12d484f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 06:55:20 2018 +0100
+Date:   Fri Jan 5 03:50:32 2018 +0100
 
-    Omega via svn r17100:
-    Kr update
+    Omega via svn r17136:
+    Minor tweaks
 
-commit ecc3322d24d85221d1204d3abaad604fcc7a656f
+commit c2b0bf99027a4579d7d9c39e4bbe3bd8f82d362a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 02:02:22 2018 +0100
+Date:   Fri Jan 5 02:16:05 2018 +0100
 
-    Omega via svn r17099:
-    Throttle this
+    Omega via svn r17135:
+    Make BW RL happy with sky yells, at least in English
 
-commit c0fceac0c1ae393b12fc7218f6fe56dab4f3a3df
+commit 5cb01d1939951a833dcbb817918f12df94cd8011
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 01:32:09 2018 +0100
+Date:   Fri Jan 5 00:20:08 2018 +0100
 
-    Omega via svn r17098:
-    move life force counter from start to success, so it doesn?\226?\128?\153t say 4/4 on mythic then have you wipe cause ship finished cast before eonar did.
-    this won?\226?\128?\153t fix issues on all difficulties though when life force totally misses paraxis
-
-commit c0290e01a00de6563a265e39cb925fdc8e4c008b
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jan 2 00:42:52 2018 +0100
-
-    Omega via svn r17097:
-    Handle LFR Eonar a little differently to account for WIDE range of group dps, which causes either rapid or VERY slow add spawns and either 3 or 4 life force casts to be required to win.
-
-commit a60957dcfdac625b76d84be841dd24b9c7176615
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jan 1 23:15:31 2018 +0100
-
-    Omega via svn r17096:
-    send keystone level in guild boss syncs
-    and some tweaks to GetCurrentInstanceDifficulty
-
-commit 8833b428288d248ba50faa57087f9ddb80e2c546
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Jan 1 07:20:31 2018 +0100
-
-    Omega via svn r17095:
-    fixed lua error on varimatrhas
-    Added voice integration in regular announce object
-    Changed many remaining mods to use integration instead of custom newvoice objects, enabling voice pack sound filters over general announces for first time.
-    Fixes to DBMSpellRequestFrame onEvent handler
-
-commit 75c119b79f67213d54b75593d693fbb645424506
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 31 19:46:19 2017 +0100
-
-    Omega via svn r17094:
-    create separate spell request frame and don?\226?\128?\153t leave event constantly registered
-
-commit fb26628b04f27a2e3500d8dac6ec02b3312c3803
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 31 19:37:26 2017 +0100
-
-    Omega via svn r17093:
-    when blank, return spellID
-
-commit fbd5c93689d925b4e747ab0fbd783c0d437467ea
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 31 19:32:27 2017 +0100
-
-    Omega via svn r17092:
-    always return to avoid nilness at least
-
-commit 734d2d8898e7ff29260e0b608f169bc866f2c611
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 31 11:20:07 2017 +0100
-
-    Omega via svn r17091:
-    Fix this
-
-commit 14568dc75c9e6a52b9804c3fc360dfadb87a4e33
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 31 10:58:24 2017 +0100
-
-    Omega via svn r17090:
-    fix lua error
-    begin completely non functional work on SPELL_NAME_UPDATE
-
-commit 99b3ca6e7cca367e4e87ba3ddf8f91eea9f8c561
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 31 06:43:47 2017 +0100
-
-    Omega via svn r17089:
-    tweak some 5 man warnings
-
-commit 50149ffd29e32e56c8942209b5250c8636965df3
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 31 06:16:58 2017 +0100
-
-    Omega via svn r17088:
-    Remove no longer needed work around
-
-commit edab6b991e8051bd15f8112843d094a891e01875
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 31 06:12:05 2017 +0100
-
-    Omega via svn r17087:
-    again
-
-commit 6ca2e1bcbbcd346def20c8e330da4065f5afc7a1
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 31 06:06:24 2017 +0100
-
-    Omega via svn r17086:
-    Fix
-
-commit aa532470a7972ebd880a981c398363a5e6ce2118
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Dec 31 06:00:35 2017 +0100
-
-    Omega via svn r17085:
-    add GetSpellInfo wrapper, so all requests are now passed through core, to handle 7.3.5 request queuing
-    improved EJ_GetSectionInfo wrapper as well
-
-commit df851dc60581108c2da614d4e736f94e3071a026
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 30 23:38:12 2017 +0100
-
-    Omega via svn r17084:
-    More option consolidation and tidying
-
-commit ed6362a2d52ba74819b58558a0c78a4370c4f890
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 30 23:33:39 2017 +0100
-
-    Omega via svn r17083:
-    More option consolidation and tidying
-
-commit d9041b28e4971c10cf783e58c88bdf46ce6d2e3a
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 30 23:21:09 2017 +0100
-
-    Omega via svn r17082:
-    Prettying up
-
-commit b727bf8ab8015f6ff95ff5010071c7f382c56b0f
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 30 07:52:22 2017 +0100
-
-    Omega via svn r17081:
-    yell tweaks
-
-commit 88ce95b82f08fdf772e00f4e8db088e3be0e75c8
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 30 06:38:32 2017 +0100
-
-    Omega via svn r17080:
-    Add voice pack support to another localized special warning
-
-commit 3a91e3cb0f1bdab8c62be87fa4999c9973a7d42e
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 30 06:23:07 2017 +0100
-
-    Omega via svn r17079:
-    Now that it?\226?\128?\153s possible, add voice pack support to test function
-
-commit 0380cd32c45369f5191a1543ade72262c470a2fb
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 30 06:01:36 2017 +0100
-
-    Omega via svn r17078:
-    Fixed icy comet icon
-    Fixed invalid target on Ancient Rage
-
-commit 8e7b9bf7b416886cbdb0cdf695e78e2cf8c4049c
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 30 05:11:44 2017 +0100
-
-    Omega via svn r17077:
-    Merge voice pack support directly into special warning object and eliminate all redundant voice objects. This is a big commit with changes to 146 files, including core itself. There might be regressions!
-
-commit 72a35216b63150f615d566d62250562ce964c566
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Dec 30 02:09:36 2017 +0100
-
-    tandanu via svn r17076:
+    tandanu via svn r17134:
     increment alpha version
 

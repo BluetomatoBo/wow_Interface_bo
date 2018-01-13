@@ -43,7 +43,7 @@
 --
 
 
-local revision =("$Revision: 17129 $"):sub(12, -3)
+local revision =("$Revision: 17154 $"):sub(12, -3)
 local FrameTitle = "DBM_GUI_Option_"	-- all GUI frames get automatically a name FrameTitle..ID
 
 local PanelPrototype = {}
@@ -967,16 +967,6 @@ local UpdateAnimationFrame, CreateAnimationFrame
 function UpdateAnimationFrame(mod)
 	DBM_BossPreview.currentMod = mod
 	local displayId = nil
-
---[[ This way will break the Encounter Journal GUI .. needs a "fix" before activating
-	if mod.encounterId and mod.instanceId then
-		EJ_SetDifficulty(true, true)
-		EncounterJournal.instanceID = mod.instanceId
-		EncounterJournal_Refresh(EncounterJournal.encounter)
-		EncounterJournal.encounterID = mod.encounterId
-		EncounterJournal_Refresh(EncounterJournal.encounter)
-		displayId = EncounterJournal.encounter["creatureButton1"].displayInfo
-	end]]
 
 	DBM_BossPreview:Show()
 	DBM_BossPreview:ClearModel()
@@ -4794,11 +4784,13 @@ do
 			if not Categories[addon.category] then
 				-- Create a Panel for "Wrath of the Lich King" "Burning Crusade" ...
 				local expLevel = GetExpansionLevel()
-				if expLevel == 6 then--Choose default expanded category based on players current expansion is.
+				if expLevel == 7 then--Choose default expanded category based on players current expansion is.
+					Categories[addon.category] = DBM_GUI:CreateNewPanel(L["TabCategory_"..addon.category:upper()] or L.TabCategory_Other, nil, (addon.category:upper()=="BFA"))
+				elseif expLevel == 6 then
 					Categories[addon.category] = DBM_GUI:CreateNewPanel(L["TabCategory_"..addon.category:upper()] or L.TabCategory_Other, nil, (addon.category:upper()=="LEG"))
-				elseif expLevel == 5 then--Choose default expanded category based on players current expansion is.
+				elseif expLevel == 5 then
 					Categories[addon.category] = DBM_GUI:CreateNewPanel(L["TabCategory_"..addon.category:upper()] or L.TabCategory_Other, nil, (addon.category:upper()=="WOD"))
-				elseif expLevel == 4 then--Choose default expanded category based on players current expansion is.
+				elseif expLevel == 4 then
 					Categories[addon.category] = DBM_GUI:CreateNewPanel(L["TabCategory_"..addon.category:upper()] or L.TabCategory_Other, nil, (addon.category:upper()=="MOP"))
 				elseif expLevel == 3 then
 					Categories[addon.category] = DBM_GUI:CreateNewPanel(L["TabCategory_"..addon.category:upper()] or L.TabCategory_Other, nil, (addon.category:upper()=="CATA"))

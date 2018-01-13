@@ -41,9 +41,9 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = tonumber(("$Revision: 17132 $"):sub(12, -3)),
-	DisplayVersion = "7.3.16", -- the string that is shown as version
-	ReleaseRevision = 17132 -- the revision of the latest stable version that is available
+	Revision = tonumber(("$Revision: 17166 $"):sub(12, -3)),
+	DisplayVersion = "7.3.18", -- the string that is shown as version
+	ReleaseRevision = 17166 -- the revision of the latest stable version that is available
 }
 DBM.HighestRelease = DBM.ReleaseRevision --Updated if newer version is detected, used by update nags to reflect critical fixes user is missing on boss pulls
 
@@ -387,7 +387,7 @@ local UpdateChestTimer
 local breakTimerStart
 local AddMsg
 
-local fakeBWVersion, fakeBWHash = 85, "775b2ad"
+local fakeBWVersion, fakeBWHash = 86, "2adc318"
 local versionQueryString, versionResponseString = "Q^%d^%s", "V^%d^%s"
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
@@ -2362,6 +2362,7 @@ do
 			self:Unschedule(loopTimer)
 			fakeMod.countdown:Cancel()
 			self.Bars:CancelBar(text)
+			fireEvent("DBM_TimerStop", "DBMPizzaTimer")
 			return
 		end
 		if sender and ignore[sender] then return end
@@ -2372,6 +2373,7 @@ do
 			return
 		end
 		self.Bars:CreateBar(time, text, "Interface\\Icons\\Spell_Holy_BorrowedTime")
+		fireEvent("DBM_TimerStart", "DBMPizzaTimer", text, time, "Interface\\Icons\\Spell_Holy_BorrowedTime", "pizzatimer", nil, 0)
 		if broadcast then
 			if count then
 				sendSync("CU", ("%s\t%s"):format(time, text))
@@ -3373,6 +3375,7 @@ end
 function DBM:LFG_PROPOSAL_SHOW()
 	if self.Options.ShowQueuePop and not self.Options.DontShowBossTimers then
 		self.Bars:CreateBar(40, DBM_LFG_INVITE, "Interface\\Icons\\Spell_Holy_BorrowedTime")
+		fireEvent("DBM_TimerStart", "DBMLFGTimer", DBM_LFG_INVITE, 40, "Interface\\Icons\\Spell_Holy_BorrowedTime", "extratimer", nil, 0)
 	end
 	if self.Options.LFDEnhance then
 		self:FlashClientIcon()
@@ -3382,10 +3385,12 @@ end
 
 function DBM:LFG_PROPOSAL_FAILED()
 	self.Bars:CancelBar(DBM_LFG_INVITE)
+	fireEvent("DBM_TimerStop", "DBMLFGTimer")
 end
 
 function DBM:LFG_PROPOSAL_SUCCEEDED()
 	self.Bars:CancelBar(DBM_LFG_INVITE)
+	fireEvent("DBM_TimerStop", "DBMLFGTimer")
 end
 
 function DBM:READY_CHECK()
@@ -3476,12 +3481,14 @@ function DBM:UPDATE_BATTLEFIELD_STATUS()
 			if self.Options.ShowQueuePop and not self.Options.DontShowBossTimers then
 				queuedBattlefield[i] = select(2, GetBattlefieldStatus(i))
 				self.Bars:CreateBar(85, queuedBattlefield[i], "Interface\\Icons\\Spell_Holy_BorrowedTime")	-- need to confirm the timer
+				fireEvent("DBM_TimerStart", "DBMBFSTimer", queuedBattlefield[i], 85, "Interface\\Icons\\Spell_Holy_BorrowedTime", "extratimer", nil, 0)
 			end
 			if self.Options.LFDEnhance then
 				self:PlaySoundFile("Sound\\interface\\levelup2.ogg", true)--Because regular sound uses SFX channel which is too low of volume most of time
 			end
 		elseif queuedBattlefield[i] then
 			self.Bars:CancelBar(queuedBattlefield[i])
+			fireEvent("DBM_TimerStop", "DBMBFSTimer")
 			queuedBattlefield[i] = nil
 		end
 	end
@@ -3575,6 +3582,7 @@ do
 	--Faster and more accurate loading for instances, but useless outside of them
 	function DBM:LOADING_SCREEN_DISABLED()
 		self.Bars:CancelBar(DBM_LFG_INVITE)--Disable bar here since LFG_PROPOSAL_SUCCEEDED seems broken right now
+		fireEvent("DBM_TimerStop", "DBMLFGTimer")
 		timerRequestInProgress = false
 		self:Debug("LOADING_SCREEN_DISABLED fired")
 		self:Unschedule(SecondaryLoadCheck)
@@ -3909,6 +3917,7 @@ do
 		--Cancel any existing pull timers before creating new ones, we don't want double countdowns or mismatching blizz countdown text (cause you can't call another one if one is in progress)
 		if not DBM.Options.DontShowPT2 and DBM.Bars:GetBar(DBM_CORE_TIMER_PULL) then
 			DBM.Bars:CancelBar(DBM_CORE_TIMER_PULL)
+			fireEvent("DBM_TimerStop", "pull")
 		end
 		if not DBM.Options.DontPlayPTCountdown then
 			dummyMod.countdown:Cancel()
@@ -3921,7 +3930,7 @@ do
 		DBM:FlashClientIcon()
 		if not DBM.Options.DontShowPT2 then
 			DBM.Bars:CreateBar(timer, DBM_CORE_TIMER_PULL, "Interface\\Icons\\Spell_Holy_BorrowedTime")
-			fireEvent("DBM_TimerStart", "pull", DBM_CORE_TIMER_PULL, timer, "Interface\\Icons\\Spell_Holy_BorrowedTime")--Most args missing because pull timer simply doesn't have them.
+			fireEvent("DBM_TimerStart", "pull", DBM_CORE_TIMER_PULL, timer, "Interface\\Icons\\Spell_Holy_BorrowedTime", "utilitytimer", nil, 0)
 		end
 		if not DBM.Options.DontPlayPTCountdown then
 			dummyMod.countdown:Start(timer)
@@ -3977,6 +3986,7 @@ do
 			--Cancel any existing break timers before creating new ones, we don't want double countdowns or mismatching blizz countdown text (cause you can't call another one if one is in progress)
 			if not DBM.Options.DontShowPT2 and DBM.Bars:GetBar(DBM_CORE_TIMER_BREAK) then
 				DBM.Bars:CancelBar(DBM_CORE_TIMER_BREAK)
+				fireEvent("DBM_TimerStop", "break")
 			end
 			if not DBM.Options.DontPlayPTCountdown then
 				dummyMod2.countdown:Cancel()
@@ -3987,7 +3997,7 @@ do
 			self.Options.tempBreak2 = timer.."/"..time()
 			if not self.Options.DontShowPT2 then
 				self.Bars:CreateBar(timer, DBM_CORE_TIMER_BREAK, "Interface\\Icons\\Spell_Holy_BorrowedTime")
-				fireEvent("DBM_TimerStart", "break", DBM_CORE_TIMER_BREAK, timer, "Interface\\Icons\\Spell_Holy_BorrowedTime")
+				fireEvent("DBM_TimerStart", "break", DBM_CORE_TIMER_BREAK, timer, "Interface\\Icons\\Spell_Holy_BorrowedTime", "utilitytimer", nil, 0)
 			end
 			if not self.Options.DontPlayPTCountdown then
 				dummyMod2.countdown:Start(timer)
@@ -4086,7 +4096,6 @@ do
 					updateNotificationDisplayed = 2
 					AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("([^\n]*)"))
 					AddMsg(DBM, DBM_CORE_UPDATEREMINDER_HEADER:match("\n(.*)"):format(displayVersion, version))
-					AddMsg(DBM, ("|HDBM:update:%s:%s|h|cff3588ff[%s]"):format(displayVersion, version, DBM_CORE_UPDATEREMINDER_URL or "http://www.deadlybossmods.com"))
 					showConstantReminder = 1
 				elseif not noRaid and #newerVersionPerson == 3 and updateNotificationDisplayed < 3 then--The following code requires at least THREE people to send that higher revision. That should be more than adaquate
 					--Disable if revision grossly out of date even if not major patch.
@@ -5013,7 +5022,6 @@ do
 		end
 	end
 
-
 	local function checkForPull(mob, combatInfo)
 		healthCombatInitialized = false
 		--This just can't be avoided, tryig to save cpu by using C_TimerAfter broke this
@@ -5063,7 +5071,6 @@ do
 
 	local function isBossEngaged(cId)
 		-- note that this is designed to work with any number of bosses, but it might be sufficient to check the first 5 unit ids
-		-- TODO: check if the client supports more than 5 boss unit IDs...just because the default boss health frame is limited to 5 doesn't mean there can't be more
 		local i = 1
 		repeat
 			local bossUnitId = "boss"..i
@@ -5130,6 +5137,7 @@ do
 			if v.respawnTime and success == 0 and self.Options.ShowRespawn and not self.Options.DontShowBossTimers then--No special hacks needed for bad wrath ENCOUNTER_END. Only mods that define respawnTime have a timer, since variable per boss.
 				local name = string.split(",", name)
 				self.Bars:CreateBar(v.respawnTime, DBM_CORE_TIMER_RESPAWN:format(name), "Interface\\Icons\\Spell_Holy_BorrowedTime")
+				fireEvent("DBM_TimerStart", "DBMRespawnTimer", DBM_CORE_TIMER_RESPAWN:format(name), v.respawnTime, "Interface\\Icons\\Spell_Holy_BorrowedTime", "extratimer", nil, 0, v.id)
 			end
 			if v.multiEncounterPullDetection then
 				for _, eId in ipairs(v.multiEncounterPullDetection) do
@@ -5480,8 +5488,16 @@ do
 				end
 				--show speed timer
 				if self.Options.AlwaysShowSpeedKillTimer2 and mod.stats and not mod.ignoreBestkill then
-					--TODO, add code here to only pull best kull for CURRENT mythic+ rank
-					local bestTime = mod.stats[statVarTable[savedDifficulty].."BestTime"]
+					local bestTime
+					if difficultyIndex == 8 then--Mythic+/Challenge Mode
+						local bestMPRank = mod.stats.challengeBestRank or 0
+						if bestMPRank == difficultyModifier then
+							--Don't show speed kill timer if not our highest rank. DBM only stores highest rank
+							bestTime = mod.stats[statVarTable[savedDifficulty].."BestTime"]
+						end
+					else
+						bestTime = mod.stats[statVarTable[savedDifficulty].."BestTime"]
+					end
 					if bestTime and bestTime > 0 then
 						local speedTimer = mod:NewTimer(bestTime, DBM_SPEED_KILL_TIMER_TEXT, "Interface\\Icons\\Spell_Holy_BorrowedTime", nil, false)
 						speedTimer:Start()
@@ -5551,6 +5567,7 @@ do
 					dummyMod.countdown:Cancel()
 					dummyMod.text:Cancel()
 					self.Bars:CancelBar(DBM_CORE_TIMER_PULL)
+					fireEvent("DBM_TimerStop", "pull")
 					TimerTracker_OnEvent(TimerTracker, "PLAYER_ENTERING_WORLD")
 				end
 				if BigWigs and BigWigs.db.profile.raidicon and not self.Options.DontSetIcons and self:GetRaidRank() > 0 then--Both DBM and bigwigs have raid icon marking turned on.
@@ -5735,7 +5752,6 @@ do
 						mod.stats[statVarTable[savedDifficulty].."BestTime"] = thisTime
 					else
 						if difficultyIndex == 8 then--Mythic+/Challenge Mode
-							--TODO, figure out how to get current mythic plus rank, compare to our best rank.
 							local bestMPRank = mod.stats.challengeBestRank or 0
 							if mod.stats.challengeBestRank > difficultyModifier then--Don't save time stats at all
 								--DO nothing
@@ -6016,7 +6032,7 @@ function DBM:GetCurrentInstanceDifficulty()
 	elseif difficulty == 7 then--Fixed LFR (ie pre WoD zones)
 		return "lfr25", difficultyName.." - ", difficulty, instanceGroupSize, keystoneLevel
 	elseif difficulty == 8 then
-		return "challenge5", PLAYER_DIFFICULTY6.."+ ("..difficultyModifier..") - ", difficulty, instanceGroupSize, keystoneLevel
+		return "challenge5", PLAYER_DIFFICULTY6.."+ ("..keystoneLevel..") - ", difficulty, instanceGroupSize, keystoneLevel
 	elseif difficulty == 9 then--40 man raids have their own difficulty now, no longer returned as normal 10man raids
 		return "normal10", difficultyName.." - ",difficulty, instanceGroupSize, keystoneLevel--Just use normal10 anyways, since that's where we been saving 40 man stuff for so long anyways, no reason to change it now, not like any 40 mans can be toggled between 10 and 40 where we NEED to tell the difference.
 	elseif difficulty == 11 then
@@ -6099,53 +6115,16 @@ function DBM:EJ_GetSectionInfo(sectionID)
 	end
 end
 
-do
---[[	local DBMSpellRequestFrame = CreateFrame("Frame", "DBMSpellRequestFrame")
-	DBMSpellRequestFrame:Hide()
-	
-	local requestedSpellIDs = {}
-	local function onEvent(self, event, ...)
-		if event == "SPELL_NAME_UPDATE" then
-			local spellId, spellName = ...
-			if requestedSpellIDs[spellId] then--Should be a true bool if requested
-				requestedSpellIDs[spellId] = spellName
-			end
-		end
-	end
-	local function delayedSpellRequest(self, spellId, rank, icon, castingTime, minRange, maxRange, returnedSpellId)
-		if type(requestedSpellIDs[spellId]) == "string" then
-			local name = requestedSpellIDs[spellId]
-			requestedSpellIDs[spellId] = nil
-			if #requestedSpellIDs == 0 then
-				DBMSpellRequestFrame:SetScript("OnEvent", nil)
-				DBMSpellRequestFrame:UnregisterEvent("SPELL_NAME_UPDATE")
-				DBMSpellRequestFrame:Hide()
-			end
-			return name, rank, icon, castingTime, minRange, maxRange, returnedSpellId
-		else--Wait longer
-			self:Schedule(0.025, delayedSpellRequest, self, spellId, rank, icon, castingTime, minRange, maxRange, returnedSpellId)
-		end
-	end--]]
-
-	--Handle new spell name requesting in 7.3.5
-	function DBM:GetSpellInfo(spellId)
-		local name, rank, icon, castingTime, minRange, maxRange, returnedSpellId = GetSpellInfo(spellId)
-		if not returnedSpellId then--Bad request all together
-			DBM:Debug("Invalid call to GetSpellInfo for spellID: "..spellId)
-			return nil
-		elseif not name or name == "" then--7.3.5 PTR returned blank/nil name, name not yet cached and will only be available after next SPELL_NAME_UPDATE event
-			--Doesn't work
-			--[[requestedSpellIDs[spellId] = true
-			if not DBMSpellRequestFrame:IsShown() then
-				DBMSpellRequestFrame:Show()
-				DBMSpellRequestFrame:SetScript("OnEvent", onEvent)
-				DBMSpellRequestFrame:RegisterEvent("SPELL_NAME_UPDATE")
-			end
-			return delayedSpellRequest(self, spellId, rank, icon, castingTime, minRange, maxRange, returnedSpellId)--]]
-			return "ReloadUI To Fix", rank, icon, castingTime, minRange, maxRange, returnedSpellId
-		else--Good request, return now
-			return name, rank, icon, castingTime, minRange, maxRange, returnedSpellId
-		end
+--Handle new spell name requesting in 7.3.5
+function DBM:GetSpellInfo(spellId)
+	local name, rank, icon, castingTime, minRange, maxRange, returnedSpellId = GetSpellInfo(spellId)
+	if not returnedSpellId then--Bad request all together
+		DBM:Debug("Invalid call to GetSpellInfo for spellID: "..spellId)
+		return nil
+	elseif not name or name == "" then--7.3.5 PTR returned blank/nil name, name not yet cached and will only be available after next SPELL_NAME_UPDATE event
+		return "ReloadUI To Fix", rank, icon, castingTime, minRange, maxRange, returnedSpellId
+	else--Good request, return now
+		return name, rank, icon, castingTime, minRange, maxRange, returnedSpellId
 	end
 end
 
@@ -9950,6 +9929,7 @@ do
 						end
 					end
 					DBM.Bars:CancelBar(self.startedTimers[i])
+					fireEvent("DBM_TimerStop", self.startedTimers[i])
 					self.startedTimers[i] = nil
 				end
 			end
@@ -10103,7 +10083,6 @@ do
 	function timerPrototype:Stop(...)
 		if select("#", ...) == 0 then
 			for i = #self.startedTimers, 1, -1 do
-				--This callback sucks, it needs useful information for external mods to listen to it better, such as mod and spellid
 				fireEvent("DBM_TimerStop", self.startedTimers[i])
 				DBM.Bars:CancelBar(self.startedTimers[i])
 				self.startedTimers[i] = nil
@@ -10112,7 +10091,6 @@ do
 			local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
 			for i = #self.startedTimers, 1, -1 do
 				if self.startedTimers[i] == id then
-					--This callback sucks, it needs useful information for external mods to listen to it better, such as mod and spellid
 					fireEvent("DBM_TimerStop", id)
 					DBM.Bars:CancelBar(id)
 					tremove(self.startedTimers, i)
@@ -10154,16 +10132,23 @@ do
 			self:Start(totalTime, ...)
 		end
 		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+		fireEvent("DBM_TimerUpdate", id, elapsed, totalTime)
 		return DBM.Bars:UpdateBar(id, elapsed, totalTime)
 	end
 	
 	function timerPrototype:AddTime(extendAmount, ...)
-		local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
-		local bar = DBM.Bars:GetBar(id)
-		if bar then
-			local elapsed, total = (bar.totalTime - bar.timer), bar.totalTime
-			if elapsed and total then
-				return DBM.Bars:UpdateBar(id, elapsed, total+extendAmount)
+		if DBM.Options.DontShowBossTimers then return end
+		if self:GetTime(...) == 0 then
+			return self:Start(extendAmount, ...)
+		else
+			local id = self.id..pformat((("\t%s"):rep(select("#", ...))), ...)
+			local bar = DBM.Bars:GetBar(id)
+			if bar then
+				local elapsed, total = (bar.totalTime - bar.timer), bar.totalTime
+				if elapsed and total then
+					fireEvent("DBM_TimerUpdate", id, elapsed, total+extendAmount)
+					return DBM.Bars:UpdateBar(id, elapsed, total+extendAmount)
+				end
 			end
 		end
 	end
