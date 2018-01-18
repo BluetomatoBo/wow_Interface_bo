@@ -13,6 +13,12 @@ local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
 local WeakAuras = WeakAuras
 local L = WeakAuras.L
+local addonVersion = GetAddOnMetadata("WeakAuras", "version")
+--[===[@debug@
+if addonVersion == "2.5.4" then
+  addonVersion = "Dev"
+end
+--@end-debug@]===]
 
 local displayButtons = WeakAuras.displayButtons
 local displayOptions = WeakAuras.displayOptions
@@ -228,7 +234,7 @@ function WeakAuras.CreateFrame()
 
   local titletext = title:CreateFontString(nil, "OVERLAY", "GameFontNormal")
   titletext:SetPoint("TOP", titlebg, "TOP", 0, -14)
-  titletext:SetText(L["WeakAurasOptions"]);
+  titletext:SetText("WeakAuras " .. addonVersion);
 
   frame.sizer = CreateFrameSizer(frame, commitWindowChanges);
 
