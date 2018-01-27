@@ -2,7 +2,7 @@
 local mod	= DBM:NewMod("Thaddius", "DBM-Naxx", 2)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 112 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 255 $"):sub(12, -3))
 mod:SetCreatureID(15928)
 mod:SetEncounterID(1120)
 mod:SetModelID(16137)
@@ -31,12 +31,6 @@ local timerThrow			= mod:NewNextTimer(20.6, 28338)
 mod:AddBoolOption("ArrowsEnabled", false, "Arrows")
 mod:AddBoolOption("ArrowsRightLeft", false, "Arrows")
 mod:AddBoolOption("ArrowsInverse", false, "Arrows")
-mod:AddBoolOption("HealthFrame", true)
-
-mod:SetBossHealthInfo(
-	15930, L.Boss1,
-	15929, L.Boss2
-)
 
 local currentCharge
 local phase2
@@ -112,7 +106,6 @@ function mod:RAID_BOSS_EMOTE(msg)
 			self:UnscheduleMethod("TankThrow")
 			timerThrow:Cancel()
 			warnThrowSoon:Cancel()
-			DBM.BossHealth:Hide()
 			enrageTimer:Start()
 		end
 	end
@@ -120,7 +113,6 @@ end
 
 function mod:TankThrow()
 	if not self:IsInCombat() or phase2 then
-		DBM.BossHealth:Hide()
 		return
 	end
 	timerThrow:Start()
