@@ -5,6 +5,26 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.07.07 (Jan. 22, 2017)
+========================
+Updated by 2TailedFox:
+- Update Stratholme drops.
+- If Rare mobs were listed under Trash Mobs, they will now have entries on main panel instead for additional visibility, and to unify how Rare mobs are listed.
+- Unify how the Dungeon achievement is listed for bosses.
+- Removed "Trash Mob" headers from sections that had them to unify appearances.
+- Corrected Heroic achievement showing for Classic rather than Mists Heroic Scarlet Monastery.
+- Slight cosmetic changes to certain dungeons.
+- Added additional items for the filter to ignore.
+- Update drops for Blackrock Depths.
+- Minor cosmetic code correction for Blackfathom
+- Princess Moira has now permanently changed to High Priestess of Thaurissan, as Princess Moira has taken up residence in Ironforge. 
+- Ring of Law now has two pages, and now has headers for what sub-boss drops what.
+- Ensure item order is consistent across dungeons already re-examined. 
+  Order is as follows: (Back, Cloth) -> (Chest, Feet, Hands, Head, Legs, Shoulder, Waist, Wrist in the order of Cloth, Leather, Mail, Plate) -> (Finger, Neck, Trinket) -> 
+  Bow, Crossbow, Dagger, Fist Weapon, Gun, Held in Off-hand, Off Hand Dagger, Off Hand Shield, One-Hand Axe, One-Hand Mace, One-Hand Sword, Polearm, Staff, 
+  Two-Hand Axe, Two-Hand Mace, Two-Hand Sword, Wand). Other items of interest would usually follow, like Fishing Poles, Shirts and Tabards.
+- Updated Blackrock Caverns, Lower Blackrock Spire and The Temple of Atal'hakkar.
+
 v8.07.06 (Dec. 26, 2017)
 ========================
 - Update Trash Mob drops for Dire Maul with new witnessed drop.

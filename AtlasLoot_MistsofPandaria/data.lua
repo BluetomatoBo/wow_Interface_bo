@@ -437,6 +437,7 @@ data["ScarletMonastery"] = {
 				{ 3, 81570 },	-- Legguards of the Crimson Magus
 				{ 4, 81572 },	-- Bracers of the Fallen Crusader
 				{ 5, 81560 },	-- Signet of the Hidden Door
+				{ 16, "ac6946" },
 			},
 		},
 		{	--SMKorloff
