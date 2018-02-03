@@ -1,8 +1,8 @@
-tag 2ed48633471113550bc25d9133e0c8116b1d8c5d 7.3.5.1
+tag 919cd6651deb0d43a529f2fc92c99f856d862d65 7.3.5.2
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Mon Jan 22 18:04:25 2018 -0600
+Date:	Tue Jan 30 23:24:44 2018 -0600
 
-Localization update.
+Localization updates.
 
 commit c11d617ae2766bdb9dd686ae20528f0ee2b40f71
 Author: James D. Callahan III <jcallahan@curse.com>

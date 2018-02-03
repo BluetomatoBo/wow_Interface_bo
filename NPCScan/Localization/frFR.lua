@@ -2,12 +2,9 @@ local AddOnFolderName, private = ...
 local L = _G.LibStub("AceLocale-3.0"):NewLocale(AddOnFolderName, "frFR")
 if not L then return end
 
---Translation missing 
--- L["%1$s (%2$d) is already on the user-defined NPC list."] = "%1$s (%2$d) is already on the user-defined NPC list."
---Translation missing 
--- L["%1$s (%2$d) is not on the user-defined NPC list."] = "%1$s (%2$d) is not on the user-defined NPC list."
---Translation missing 
--- L["Added %1$s (%2$d) to the user-defined NPC list."] = "Added %1$s (%2$d) to the user-defined NPC list."
+L["%1$s (%2$d) is already on the user-defined NPC list."] = "%1$s (%2$d) est déjà dans la liste des PNJ définis par l'utilisateur."
+L["%1$s (%2$d) is not on the user-defined NPC list."] = "%1$s (%2$d) n'est pas dans la liste des PNJ définis par l'utilisateur."
+L["Added %1$s (%2$d) to the user-defined NPC list."] = "%1$s (%2$d) a été ajouté à la liste des PNJ définis par l'utilisateur."
 L["Alerts"] = "Alertes"
 L["BOTTOM"] = "Bas"
 L["BOTTOMLEFT"] = "Bas gauche"
@@ -56,13 +53,10 @@ L["Y Offset"] = "Décalage sur Y"
 --Translation missing 
 -- L["Aarkos - Looted Treasure"] = "Aarkos - Looted Treasure"
 L["Abandoned Fishing Pole"] = "Canne à pêche abandonnée"
---Translation missing 
--- L["Alpha Bat"] = "Alpha Bat"
+L["Alpha Bat"] = "Chauve-souris Alpha"
 L["Amateur Hunters"] = "Chasseurs amateurs"
---Translation missing 
--- L["Ambassador D'vwinn"] = "Ambassador D'vwinn"
---Translation missing 
--- L["Anax"] = "Anax"
+L["Ambassador D'vwinn"] = "Ambassadeur D'vwinn"
+L["Anax"] = "Anax"
 --Translation missing 
 -- L["Anchorite's Sojourn"] = "Anchorite's Sojourn"
 --Translation missing 
@@ -524,13 +518,10 @@ if not VL then return end
 --Translation missing 
 -- VL["Aarkos - Looted Treasure"] = "Aarkos - Looted Treasure"
 VL["Abandoned Fishing Pole"] = "Canne à pêche abandonnée"
---Translation missing 
--- VL["Alpha Bat"] = "Alpha Bat"
+VL["Alpha Bat"] = "Chauve-souris Alpha"
 VL["Amateur Hunters"] = "Chasseurs amateurs"
---Translation missing 
--- VL["Ambassador D'vwinn"] = "Ambassador D'vwinn"
---Translation missing 
--- VL["Anax"] = "Anax"
+VL["Ambassador D'vwinn"] = "Ambassadeur D'vwinn"
+VL["Anax"] = "Anax"
 --Translation missing 
 -- VL["Anchorite's Sojourn"] = "Anchorite's Sojourn"
 --Translation missing 
