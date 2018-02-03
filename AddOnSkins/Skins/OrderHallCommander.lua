@@ -2,22 +2,23 @@ local AS = unpack(AddOnSkins)
 
 if not AS:CheckAddOn('OrderHallCommander') then return end
 
-function AS:OrderHallCommander(event)
-	if event == "ADDON_LOADED" then
-		if not OrderHallMissionFrameMissions then return end
+function AS:OrderHallCommander(event, addon)
+	if (event == "ADDON_LOADED" and addon == 'OrderHallCommander') or event == 'PLAYER_ENTERING_WORLD' and IsAddOnLoaded('OrderHallCommander') then
+		local OHC = LibStub('LibInit'):GetAddon('OrderHallCommander')
+		local OHCCache = OHC:GetCacheModule()
+		local TroopFrame = OHCCache:GetTroopsFrame()
+		AS:SkinFrame(TroopFrame)
+		TroopFrame:ClearAllPoints()
+		TroopFrame:SetPoint("BOTTOM", OrderHallMissionFrame, "TOP", 0, 0)
+		TroopFrame:SetWidth(OrderHallMissionFrame:GetWidth()+2)
+
 		OrderHallMissionFrameMissions:HookScript('OnShow', function(self)
 			AS:Delay(0.5, function()
-				local frame = FollowerIcon:GetParent()
+				local frame = LibInitCheckbox00001:GetParent():GetParent()
 				if frame.IsSkinned then return end
 
-				AS:StripTextures(frame)
-				AS:SetTemplate(frame, "Transparent")
-				frame:ClearAllPoints()
-				frame:SetPoint("BOTTOM", OrderHallMissionFrame, "TOP", 0, 0)
-				frame:SetWidth(OrderHallMissionFrame:GetWidth()+2)
 				frame.IsSkinned = true
 
-				frame = LibInitCheckbox00001:GetParent():GetParent()
 				AS:StripTextures(frame)
 				AS:SetTemplate(frame, 'Transparent')
 				AS:SkinCloseButton(frame.Close)
@@ -40,7 +41,7 @@ function AS:OrderHallCommander(event)
 					end
 				end
 
-				frame = {OrderHallMissionFrameMissions.CompleteDialog.BorderFrame.ViewButton:GetChildren()}
+				frame = {self.CompleteDialog.BorderFrame.ViewButton:GetChildren()}
 				AS:SkinButton(frame[1])
 			end)
 		end)

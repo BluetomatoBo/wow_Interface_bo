@@ -1,120 +1,202 @@
-lightweight tag 09ca2acb69c73ee7e57c70717bc5c68e94921bc4 3.69
-Author:	Azilroka <darktemplar9900@yahoo.com>
-Date:	Tue Dec 26 14:38:52 2017 -0600
+lightweight tag e5782ac37c1d09fa048273be2346b5d0ced836bd 3.70
+Author:	Michael James <darktemplar9900@yahoo.com>
+Date:	Wed Jan 31 17:21:11 2018 -0600
 
-commit 09ca2acb69c73ee7e57c70717bc5c68e94921bc4
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Dec 26 14:38:52 2017 -0600
+commit e5782ac37c1d09fa048273be2346b5d0ced836bd
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Wed Jan 31 17:21:11 2018 -0600
 
-    3.69
+    3.70
 
-commit 624cd0ffcee7795b9968231fb54360334e20b758
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Dec 25 15:03:15 2017 -0600
+commit fdcbf8431502ee7644ca67fea4611562baae2d58
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Wed Jan 31 17:20:27 2018 -0600
 
-    Maybe this
+    This was removed in DBM
 
-commit 92d8bfd73bec7c8fb37fdda7f0b4817e589ada4b
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Dec 25 08:12:06 2017 -0600
+commit 2325e420c9f13023b78ac118a2ec209fe07664b5
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Jan 28 15:39:56 2018 -0600
 
-    It is needed
+    Remove Zygor
 
-commit 672b7917d90df336b5578bc62fdf668605f073d6
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sat Dec 23 17:18:17 2017 -0600
+commit 2325e420c9f13023b78ac118a2ec209fe07664b5
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Jan 28 15:39:56 2018 -0600
 
-    Issue #40
+    Remove Zygor
 
-commit 7bd97e651f2d9205b85fe7373885bb7d0dd30bed
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sat Dec 23 16:09:44 2017 -0600
-
-    AddonLoader abort.
-
-commit 14e8638b7d1fdf9c69fd825374c95c8791f0d532
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sat Dec 23 13:02:55 2017 -0600
-
-    Rearrange Loading
-
-commit 12e353baa76c260fcc27079ab725c6fe36372322
+commit 5adbf93907edb6c77243c5d260315c0c8d8710c0
 Author: Aaron Topping <aaronjtopping@gmail.com>
-Date:   Sat Dec 23 04:54:50 2017 -0500
+Date:   Sun Jan 28 06:45:55 2018 -0500
 
-    New Skin for new GRM R1.122 Update
+    New skinned frame, minor formatting
 
-commit 12e353baa76c260fcc27079ab725c6fe36372322
+commit 5adbf93907edb6c77243c5d260315c0c8d8710c0
 Author: Aaron Topping <aaronjtopping@gmail.com>
-Date:   Sat Dec 23 04:54:50 2017 -0500
+Date:   Sun Jan 28 06:45:55 2018 -0500
 
-    New Skin for new GRM R1.122 Update
+    New skinned frame, minor formatting
 
-commit 593a21d81c3c749a1b0a1593649e55f8bc465ba0
+commit 518199e45a5eafb2a5830550a44aaee1a53cbdd9
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Jan 28 02:29:20 2018 -0600
+
+    Alerts
+
+commit 5e2e6098a305bc5041ebd79a07daa646ae54e7b1
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Jan 28 02:17:37 2018 -0600
+
+    Achievement Changes
+
+commit 5df9a783b44b67426ce32852b3469ae724249f27
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sun Jan 28 02:08:05 2018 -0600
+
+    Test
+
+commit 30d909072a89f0a589a05d8638a513fa1b11b263
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Fri Dec 22 21:17:17 2017 -0600
+Date:   Wed Jan 3 21:23:44 2018 -0600
 
-    GIL
+    VEM was removed 3 years ago
 
-commit 2b47e8e2fa4c594f9cf7ae0dbc16b5910d7fe2d1
+commit 30d909072a89f0a589a05d8638a513fa1b11b263
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Fri Dec 22 05:58:46 2017 -0600
+Date:   Wed Jan 3 21:23:44 2018 -0600
 
-    Missing default
+    VEM was removed 3 years ago
 
-commit 7fd76afe0959b98b654c7b9ba26a2441d5ac7ecf
-Author: Aaron Topping <aaronjtopping@gmail.com>
-Date:   Wed Dec 20 10:38:12 2017 -0500
-
-    Cleanup for GRM update R1.119
-
-commit 7fd76afe0959b98b654c7b9ba26a2441d5ac7ecf
-Author: Aaron Topping <aaronjtopping@gmail.com>
-Date:   Wed Dec 20 10:38:12 2017 -0500
-
-    Cleanup for GRM update R1.119
-
-commit 0bb7da4a70e425ea817028f9f0cd3f2b67a2bf5a
+commit 9a18367b200fcc7c76b24a32152c3c6d4639333d
 Author: Merathilis <neo0608@gmail.com>
-Date:   Wed Dec 20 10:36:42 2017 +0100
+Date:   Wed Jan 3 09:13:47 2018 +0100
 
-    Fix ElvUI options lua error.
+    German locales
 
-commit df9e12cd8234d2ecab92516caa9a8a646680c232
+commit 953b240733543be6ef4d744b803dcdf1e38bef02
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Dec 19 20:13:23 2017 -0600
+Date:   Tue Jan 2 13:15:47 2018 -0600
 
-    Update to AceLocale
+    Readd this back for now
 
-commit 1bff3fcda716ef40ea17c6872ce4391bfb92ab6c
+commit c1b32dd2526b03eddd449e9a37c761abf5b64947
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Dec 18 01:55:31 2017 -0600
+Date:   Tue Jan 2 09:21:13 2018 -0600
 
-    Add Static Popup
+    Wow
 
-commit 8a41cdcd090566237500d86e85ff2d8552b09479
+commit f73f13da4f8c80ffbfadd65b4555a90c913bcb0c
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sun Dec 17 11:23:13 2017 -0600
+Date:   Tue Jan 2 09:14:18 2018 -0600
 
-    DressUp / WQT
+    OHC Stuff
 
-commit 8816a4a6a3a56ab2022023446c09f685f77660e3
+commit 4dc191cc7c7525ba67941209e1421d1d1e7e47cd
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sat Dec 16 17:05:22 2017 -0600
+Date:   Tue Jan 2 09:13:42 2018 -0600
 
-    MailCommander
+    AddOnName => AddOnSkins
 
-commit bf678982a6ef551175fbfa22f12faf3039a5b34f
+commit d0982b90e95bdf72179cfd210516783e13c21b1b
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue Jan 2 10:43:12 2018 +0100
+
+    Maybe fix: Azilroka/AddOnSkins#50
+
+commit d77f35ac3a41f0f973768645d2ccafa039d2552e
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue Jan 2 10:32:53 2018 +0100
+
+    HEADERS EVERYWHERE!! :P
+
+commit 5740030997c4ee9ed4cafb82ef34e305ce2b13ec
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue Jan 2 10:13:31 2018 +0100
+
+    Dafuq? This prevent error spam?!
+
+commit 7c27aafda6a72c952341bbd52981a1ceab64f148
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue Jan 2 09:38:26 2018 +0100
+
+    Fix OHC to get skinned after reload.
+
+commit 1640f4feb855d3e31782ab836bf2638da2229128
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue Jan 2 09:28:28 2018 +0100
+
+    Use tabs instead of spaces. (ArkInventory)
+
+commit 68ceb66f58f21faa0b9c22bb523fc7335e99d76f
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sat Dec 16 16:17:47 2017 -0600
+Date:   Mon Jan 1 23:13:43 2018 -0600
 
-    DressUp
+    ClassColor
 
-commit 0b5be653734bf8b54295ec911aa2edd05a01bb43
+commit 0b0da5d6974b332fda907301ef966338b3308490
 Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Sat Dec 16 15:40:49 2017 -0600
+Date:   Mon Jan 1 22:59:21 2018 -0600
 
-    Fix Embed Chat Bug
-    
-    Add DressUp & MailCommander
+    API
+
+commit e3ddd1893fac80e3f5f73a173293a1fd9b44d489
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Jan 1 22:44:29 2018 -0600
+
+    API / Skillet
+
+commit 4410857389365542cb78c85de9415f935bbdd918
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Jan 1 19:07:17 2018 -0600
+
+    Helping fix skinning with Simpy
+
+commit 4410857389365542cb78c85de9415f935bbdd918
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Jan 1 19:07:17 2018 -0600
+
+    Helping fix skinning with Simpy
+
+commit 4410857389365542cb78c85de9415f935bbdd918
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Jan 1 19:07:17 2018 -0600
+
+    Helping fix skinning with Simpy
+
+commit 7838d8b256aad8aa97a5db4da552e86c0e484796
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Mon Jan 1 19:46:59 2018 -0500
+
+    GRM R1.124 - 2 new buttons
+
+commit ba9410f0aee33777d0dc1ca0661c6e0d7547f194
+Author: Franz Strassmayr <q3fuba@gmail.com>
+Date:   Mon Jan 1 17:33:50 2018 -0500
+
+    Skinned some Buttons
+
+commit 37df38279f9f159928dc342dd6a8f990c3931efe
+Author: Franz Strassmayr <q3fuba@gmail.com>
+Date:   Mon Jan 1 17:27:48 2018 -0500
+
+    fixed ArkInventory Search Bar Overlay
+
+commit 135a6de46b1c8338518a66e706b74a8f7b2f1310
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Jan 1 15:15:59 2018 -0600
+
+    OHC
+
+commit 0e5228bc2aaa925cc59936247efd6ccb5f4ed0f1
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Jan 1 14:25:05 2018 -0600
+
+    OHC Fixes.. Gotta find out where the checkboxes are spawned.
+
+commit b9020a45ed2907867061649876e0f9d44d68005b
+Author: Azilroka <darktemplar9900@yahoo.com>
+Date:   Mon Jan 1 13:28:25 2018 -0600
+
+    Darth
 

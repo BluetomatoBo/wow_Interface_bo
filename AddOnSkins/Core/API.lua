@@ -1,12 +1,9 @@
 local AS = unpack(AddOnSkins)
 
-local Color = RAID_CLASS_COLORS[AS.MyClass]
-
 local _G, CreateFrame = _G, CreateFrame
 local unpack, pairs, select, type, assert, next = unpack, pairs, select, type, assert, next
-local strlower = strlower
+local strlower, strfind = strlower, strfind
 local CopyTable, tremove = CopyTable, tremove
-local IsAddOnLoaded = IsAddOnLoaded
 local EnumerateFrames = EnumerateFrames
 
 function AS:SetTemplate(Frame, Template, UseTexture, TextureFile)
@@ -175,15 +172,10 @@ function AS:SkinButton(Button, Strip)
 
 	local ButtonName = Button:GetName()
 
-	if ButtonName then
-		for _, Region in pairs(BlizzardRegions) do
-			if _G[ButtonName..Region] then
-				_G[ButtonName..Region]:SetAlpha(0)
-			end
-		end
-	end
-
 	for _, Region in pairs(BlizzardRegions) do
+		if ButtonName and _G[ButtonName..Region] then
+			_G[ButtonName..Region]:SetAlpha(0)
+		end
 		if Button[Region] then
 			Button[Region]:SetAlpha(0)
 		end
@@ -201,11 +193,7 @@ function AS:SkinButton(Button, Strip)
 	end
 
 	Button:HookScript("OnEnter", function(self)
-		if AS.ValueColor then
-			self:SetBackdropBorderColor(unpack(AS.ValueColor))
-		else
-			self:SetBackdropBorderColor(Color.r, Color.g, Color.b)
-		end
+		self:SetBackdropBorderColor(unpack(AS.ValueColor or AS.ClassColor))
 	end)
 
 	Button:HookScript("OnLeave", function(self)
@@ -305,10 +293,12 @@ function AS:SkinCloseButton(CloseButton, Reposition)
 	CloseButton.Backdrop:Point('TOPLEFT', 7, -8)
 	CloseButton.Backdrop:Point('BOTTOMRIGHT', -8, 8)
 
+	CloseButton:SetHitRectInsets(6, 6, 7, 7)
+
 	CloseButton:HookScript("OnEnter", function(self)
 		self.Text:SetTextColor(1, .2, .2)
 		if AS:CheckAddOn('ElvUI') and AS:CheckOption('ElvUISkinModule') then
-			self.Backdrop:SetBackdropBorderColor(unpack(ElvUI[1]["media"].rgbvaluecolor))
+			self.Backdrop:SetBackdropBorderColor(unpack(AS.ValueColor))
 		else
 			self.Backdrop:SetBackdropBorderColor(1, .2, .2)
 		end
@@ -453,19 +443,27 @@ local ScrollBarElements = {
 	'Top',
 	'Bottom',
 	'Middle',
+	'trackBG',
+	'ScrollBarTop',
+	'ScrollBarBottom',
+	'ScrollBarMiddle',
+	'thumbTexture',
 }
 
 function AS:SkinScrollBar(Frame)
-	local ScrollUpButton = Frame:GetName() and _G[Frame:GetName().."ScrollUpButton"] or Frame.ScrollUpButton
-	local ScrollDownButton = Frame:GetName() and _G[Frame:GetName().."ScrollDownButton"] or Frame.ScrollDownButton
-
-	for _, object in pairs(ScrollBarElements) do
-		if Frame:GetName() and _G[Frame:GetName()..object] then
-			_G[Frame:GetName()..object]:SetTexture(nil)
-		end
-	end
+	local ScrollUpButton = Frame:GetName() and _G[Frame:GetName().."ScrollUpButton"] or Frame.ScrollUpButton or Frame.UpButton
+	local ScrollDownButton = Frame:GetName() and _G[Frame:GetName().."ScrollDownButton"] or Frame.ScrollDownButton or Frame.DownButton
 
 	if ScrollUpButton and ScrollDownButton then
+		for _, object in pairs(ScrollBarElements) do
+			if Frame:GetName() and _G[Frame:GetName()..object] then
+				_G[Frame:GetName()..object]:SetTexture(nil)
+			end
+			if Frame[object] then
+				Frame[object]:SetTexture(nil)
+			end
+		end
+
 		AS:StripTextures(ScrollUpButton)
 		AS:SetTemplate(ScrollUpButton, "Default", true)
 
@@ -493,8 +491,8 @@ function AS:SkinScrollBar(Frame)
 			end)
 
 			ScrollUpButton:HookScript('OnEnter', function(self)
-				self:SetBackdropBorderColor(Color.r, Color.g, Color.b)
-				self.Text:SetTextColor(Color.r, Color.g, Color.b)
+				self:SetBackdropBorderColor(unpack(AS.ValueColor or AS.ClassColor))
+				self.Text:SetTextColor(unpack(AS.ValueColor or AS.ClassColor))
 			end)
 			ScrollUpButton:HookScript('OnLeave', function(self)
 				self:SetBackdropBorderColor(unpack(AS.BorderColor))
@@ -523,8 +521,8 @@ function AS:SkinScrollBar(Frame)
 			end)
 
 			ScrollDownButton:HookScript('OnEnter', function(self)
-				self:SetBackdropBorderColor(Color.r, Color.g, Color.b)
-				self.Text:SetTextColor(Color.r, Color.g, Color.b)
+				self:SetBackdropBorderColor(unpack(AS.ValueColor or AS.ClassColor))
+				self.Text:SetTextColor(unpack(AS.ValueColor or AS.ClassColor))
 			end)
 
 			ScrollDownButton:HookScript('OnLeave', function(self)
@@ -544,10 +542,17 @@ function AS:SkinScrollBar(Frame)
 			Frame:GetThumbTexture():SetTexture(nil)
 			if not Frame.ThumbBG then
 				Frame.ThumbBG = CreateFrame("Frame", nil, Frame)
-				Frame.ThumbBG:Point("TOPLEFT", Frame:GetThumbTexture(), "TOPLEFT", 2, -3)
-				Frame.ThumbBG:Point("BOTTOMRIGHT", Frame:GetThumbTexture(), "BOTTOMRIGHT", -2, 3)
+				Frame.ThumbBG:SetPoint("TOPLEFT", Frame:GetThumbTexture(), "TOPLEFT", 2, -3)
+				Frame.ThumbBG:SetPoint("BOTTOMRIGHT", Frame:GetThumbTexture(), "BOTTOMRIGHT", -2, 3)
 				AS:SetTemplate(Frame.ThumbBG, "Default")
-				if IsAddOnLoaded('ElvUI') then
+				Frame.ThumbBG:HookScript('OnEnter', function(self)
+					self:SetBackdropBorderColor(unpack(AS.ValueColor or AS.ClassColor))
+				end)
+				Frame.ThumbBG:HookScript('OnLeave', function(self)
+					self:SetBackdropBorderColor(unpack(AS.BorderColor))
+				end)
+
+				if AS:CheckAddOn('ElvUI') then
 					Frame.ThumbBG:SetBackdropColor(0.6, 0.6, 0.6)
 				else
 					Frame.ThumbBG:SetBackdropColor(unpack(AS.BorderColor))
@@ -561,60 +566,49 @@ function AS:SkinScrollBar(Frame)
 	end
 end
 
-function AS:SkinNextPrevButton(Button, Vertical)
-	if Button.isSkinned then return end
-	AS:SetTemplate(Button)
-	Button:Size(Button:GetWidth() - 7, Button:GetHeight() - 7)
+function AS:SkinNextPrevButton(Button, Vertical, Inverse)
+	local ButtonName = Button:GetName() and Button:GetName():lower()
+	Inverse = Inverse or ButtonName and (strfind(ButtonName, 'left') or strfind(ButtonName, 'prev') or strfind(ButtonName, 'decrement') or strfind(ButtonName, 'back'))
 
-	for i = 1, Button:GetNumRegions() do
-		local region = select(i, Button:GetRegions())
-		if region and region:GetObjectType() == "Texture" and region:GetTexture() == "Interface\\Buttons\\UI-PageButton-Background" then
-			region:SetTexture('')
+	AS:SkinButton(Button)
+	Button:SetSize(Button:GetWidth() - 7, Button:GetHeight() - 7)
+
+	if not Button.icon then
+		Button.icon = Button:CreateTexture(nil, 'ARTWORK')
+		Button.icon:SetSize(13, 13)
+		Button.icon:SetPoint('CENTER')
+		Button.icon:SetTexture([[Interface\Buttons\SquareButtonTextures]])
+		Button.icon:SetTexCoord(0.01562500, 0.20312500, 0.01562500, 0.20312500)
+
+		Button:HookScript('OnMouseDown', function(self)
+			if self:IsEnabled() then
+				self.icon:SetPoint("CENTER", -1, -1);
+			end
+		end)
+
+		Button:HookScript('OnMouseUp', function(self)
+			self.icon:SetPoint("CENTER", 0, 0);
+		end)
+
+		Button:HookScript('OnDisable', function(self)
+			SetDesaturation(self.icon, true);
+			self.icon:SetAlpha(0.5);
+		end)
+
+		Button:HookScript('OnEnable', function(self)
+			SetDesaturation(self.icon, false);
+			self.icon:SetAlpha(1.0);
+		end)
+
+		if not Button:IsEnabled() then
+			Button:GetScript('OnDisable')(Button)
 		end
 	end
 
-	if Vertical then
-		Button:GetNormalTexture():SetTexCoord(0.3, 0.29, 0.3, 0.72, 0.65, 0.29, 0.65, 0.72)
-
-		if Button:GetPushedTexture() then
-			Button:GetPushedTexture():SetTexCoord(0.3, 0.35, 0.3, 0.8, 0.65, 0.35, 0.65, 0.8)
-		end
-
-		if Button:GetDisabledTexture() then
-			Button:GetDisabledTexture():SetTexCoord(0.3, 0.29, 0.3, 0.75, 0.65, 0.29, 0.65, 0.75)
-		end
-	else
-		Button:GetNormalTexture():SetTexCoord(0.3, 0.29, 0.3, 0.81, 0.65, 0.29, 0.65, 0.81)
-
-		if Button:GetPushedTexture() then
-			Button:GetPushedTexture():SetTexCoord(0.3, 0.35, 0.3, 0.81, 0.65, 0.35, 0.65, 0.81)
-		end
-
-		if Button:GetDisabledTexture() then
-			Button:GetDisabledTexture():SetTexCoord(0.3, 0.29, 0.3, 0.75, 0.65, 0.29, 0.65, 0.75)
-		end
-	end
-
-	Button:GetNormalTexture():ClearAllPoints()
-	Button:GetNormalTexture():SetInside()
-
-	if Button:GetDisabledTexture() then
-		Button:GetDisabledTexture():SetAllPoints(Button:GetNormalTexture())
-	end
-
-	if Button:GetPushedTexture() then
-		Button:GetPushedTexture():SetAllPoints(Button:GetNormalTexture())
-	end
-
-	Button:GetHighlightTexture():SetColorTexture(1, 1, 1, 0.3)
-	Button:GetHighlightTexture():SetAllPoints(Button:GetNormalTexture())
-
-	Button.isSkinned = true
+	SquareButton_SetIcon(Button, Vertical and (Inverse and 'UP' or 'DOWN') or (Inverse and 'LEFT' or 'RIGHT'))
 end
 
 function AS:SkinRotateButton(Button)
-	if Button.isSkinned then return end
-
 	AS:SetTemplate(Button, "Default")
 	Button:Size(Button:GetWidth() - 14, Button:GetHeight() - 14)
 
@@ -627,8 +621,6 @@ function AS:SkinRotateButton(Button)
 	Button:GetNormalTexture():SetInside()
 	Button:GetPushedTexture():SetAllPoints(Button:GetNormalTexture())
 	Button:GetHighlightTexture():SetAllPoints(Button:GetNormalTexture())
-
-	Button.isSkinned = true
 end
 
 function AS:SkinDropDownBox(Frame, Width)
@@ -705,29 +697,14 @@ function AS:SkinSlideBar(Frame, Height, MoveText)
 	end
 end
 
-function AS:SkinIconButton(Button, ShrinkIcon)
+function AS:SkinIconButton(Button)
 	if Button.isSkinned then return end
 
-	local Icon, Texture
 	local ButtonName = Button:GetName()
-
-	if Button.icon then
-		Icon = Button.icon
-		Texture = Button.icon:GetTexture()
-	elseif Button.Icon then
-		Icon = Button.Icon
-		Texture = Button.Icon:GetTexture()
-	elseif ButtonName then
-		if _G[ButtonName.."IconTexture"] then
-			Icon = _G[ButtonName.."IconTexture"]
-			Texture = _G[ButtonName.."IconTexture"]:GetTexture()
-		elseif _G[ButtonName.."Icon"] then
-			Icon = _G[ButtonName.."Icon"]
-			Texture = _G[ButtonName.."Icon"]:GetTexture()
-		end
-	end
+	local Icon, Texture = Button.icon or Button.Icon or ButtonName and (_G[ButtonName.."Icon"] or _G[ButtonName.."IconTexture"])
 
 	if Icon then
+		Texture = Icon:GetTexture()
 		AS:SkinFrame(Button)
 		AS:StyleButton(Button)
 		Icon:SetTexture(Texture)
@@ -762,8 +739,7 @@ function AS:SkinStatusBar(frame, ClassColor)
 	AS:SkinBackdropFrame(frame)
 	frame:SetStatusBarTexture(AS.NormTex)
 	if ClassColor then
-		local color = RAID_CLASS_COLORS[AS.MyClass]
-		frame:SetStatusBarColor(color.r, color.g, color.b)
+		frame:SetStatusBarColor(unpack(AS.ClassColor))
 	end
 	if AS:CheckAddOn('ElvUI') then
 		ElvUI[1]:RegisterStatusBar(frame)
@@ -781,7 +757,7 @@ function AS:SkinTexture(frame)
 	frame:SetTexCoord(unpack(AS.TexCoords))
 end
 
-function AS:Desaturate(frame, point)
+function AS:Desaturate(frame)
 	for i = 1, frame:GetNumRegions() do
 		local region = select(i, frame:GetRegions())
 		if region:IsObjectType('Texture') then
@@ -793,7 +769,7 @@ function AS:Desaturate(frame, point)
 				region:SetDesaturated(true)
 			end
 		end
-	end	
+	end
 	frame:HookScript('OnUpdate', function(self)
 		if self:GetNormalTexture() then
 			self:GetNormalTexture():SetDesaturated(true)
@@ -808,38 +784,40 @@ function AS:Desaturate(frame, point)
 end
 
 function AS:SkinMaxMinFrame(frame)
-	assert(frame, "does not exist.")
+	AS:StripTextures(frame, true)
 
-	for _, name in next, {"MaximizeButton", "MinimizeButton"} do
-		if frame then AS:StripTextures(frame, true) end
-
+	for _, name in pairs({"MaximizeButton", "MinimizeButton"}) do
 		local button = frame[name]
-		button:SetSize(16, 16)
-		button:ClearAllPoints()
-		button:SetPoint("CENTER")
-		AS:StripTextures(button, nil, true)
-		AS:SetTemplate(button)
 
-		button.Text = button:CreateFontString(nil, "OVERLAY")
-		button.Text:SetFont([[Interface\AddOns\AddOnSkins\Media\Fonts\Arial.TTF]], 12)
-		button.Text:SetText(name == "MaximizeButton" and "▲" or "▼")
-		button.Text:SetPoint("CENTER", 0, 0)
+		if button then
+			button:SetSize(16, 16)
+			button:ClearAllPoints()
+			button:SetPoint("CENTER")
+			button:SetHitRectInsets(1, 1, 1, 1)
+			AS:StripTextures(button, nil, true)
+			AS:SetTemplate(button)
 
-		button:HookScript('OnShow', function(self)
-			if not self:IsEnabled() then
-				self.Text:SetTextColor(.3, .3, .3)
-			end
-		end)
+			button.Text = button:CreateFontString(nil, "OVERLAY")
+			button.Text:SetFont([[Interface\AddOns\AddOnSkins\Media\Fonts\Arial.TTF]], 12)
+			button.Text:SetText(name == "MaximizeButton" and "▲" or "▼")
+			button.Text:SetPoint("CENTER", 0, 0)
 
-		button:HookScript('OnEnter', function(self)
-			self:SetBackdropBorderColor(Color.r, Color.g, Color.b)
-			self.Text:SetTextColor(Color.r, Color.g, Color.b)
-		end)
+			button:HookScript('OnShow', function(self)
+				if not self:IsEnabled() then
+					self.Text:SetTextColor(.3, .3, .3)
+				end
+			end)
 
-		button:HookScript('OnLeave', function(self)
-			self:SetBackdropBorderColor(unpack(AS.BorderColor))
-			self.Text:SetTextColor(1, 1, 1)
-		end)
+			button:HookScript('OnEnter', function(self)
+				self:SetBackdropBorderColor(unpack(AS.ValueColor or AS.ClassColor))
+				self.Text:SetTextColor(unpack(AS.ValueColor or AS.ClassColor))
+			end)
+
+			button:HookScript('OnLeave', function(self)
+				self:SetBackdropBorderColor(unpack(AS.BorderColor))
+				self.Text:SetTextColor(1, 1, 1)
+			end)
+		end
 	end
 end
 
