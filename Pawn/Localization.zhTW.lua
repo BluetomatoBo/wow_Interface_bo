@@ -55,8 +55,7 @@ PawnLocal =
 	["TooltipBestAnnotationSimple"] = "%s  最佳",
 	["TooltipBigUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00 提升%s|r",
 	["TooltipDowngradeAnnotation"] = "%s  |TInterface\\\\\\\\AddOns\\\\\\\\Pawn\\\\\\\\Textures\\\\\\\\UpgradeArrow:0|t|cff00ff00-%.0f%% 將會降低%s|r",
-	--Translation missing 
-	["TooltipRelicUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d item levels%s|r",
+	["TooltipRelicUpgradeAnnotation"] = "%s |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%d |4等級:等級;%s|r",
 	["TooltipSecondBestAnnotation"] = "%s  |cff8ec3e6(次佳)|r",
 	["TooltipSecondBestAnnotationSimple"] = "%s  次佳",
 	["TooltipUpgradeAnnotation"] = "%s  |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t|cff00ff00+%.0f%% 提升%s|r",
@@ -204,7 +203,7 @@ PawnLocal =
 		["WeaponTypeWand"] = "魔杖",
 		["WeaponTypeWandInfo"] = "此物若為魔杖，則增計多少分數。",
 		["WeaponTypeWarglaive"] = "戰刃",
-		["WeaponTypeWarglaiveInfo"] = "物品類型為戰刃。"
+		["WeaponTypeWarglaiveInfo"] = "物品類型為戰刃。",
 	},
 	["TooltipParsing"] = {
 		["Agility"] = "^%+?([-%d%.,]+)敏捷$",
@@ -318,19 +317,17 @@ PawnLocal =
 		["WeaponDamageNature"] = "^%+?([%d%.,]+)%-([%d%.,]+)點自然傷害$",
 		["WeaponDamageNatureExact"] = "^%+?([%d%.,]+)點自然傷害$",
 		["WeaponDamageShadow"] = "^%+?([%d%.,]+)%-([%d%.,]+)點暗影傷害$",
-		["WeaponDamageShadowExact"] = "^%+?([%d%.,]+)點暗影傷害$"
+		["WeaponDamageShadowExact"] = "^%+?([%d%.,]+)點暗影傷害$",
 	},
 	["UI"] = {
 		["AboutHeader"] = "關於 Pawn",
-		--Translation missing 
-		["AboutMrRobot"] = "Default stat weights are provided by the generous Mr. Robot.  They’re a great starting point for characters with typical talents and artifact traits in typical fights.  You can get more accurate, customized stat weights for your character using the Ask Mr. Robot simulator at askmrrobot.com.",
+		["AboutMrRobot"] = "Mr. Robot慷慨大方提供了預設的屬性權值。 他們是角色在典型戰鬥中的典型天賦與典型神兵特長的一個很好的起點。 您可以使用askmrrobot.com上的Ask Mr. Robot模擬器獲得更準確的自定義屬性。",
 		["AboutReadme"] = "剛開始用 Pawn 嗎？請參閱[入門]頁面取得基本介紹。",
 		["AboutTab"] = "關於",
 		["AboutTranslation"] = "正體中文: scars 2014/10/21",
 		["AboutVersion"] = "版本: %s",
 		["AboutWebsite"] = "請至 vgermods.com 檢視由 Vger 製作的其他插件",
-		--Translation missing 
-		["AskMrRobotProvider"] = "Ask Mr. Robot scales",
+		["AskMrRobotProvider"] = "Ask Mr. Robot權值",
 		["CompareClearItems"] = "清除",
 		["CompareClearItemsTooltip"] = "移除兩件比較中的物品.",
 		["CompareColoredSockets"] = "有色插槽",
@@ -384,14 +381,12 @@ Pawn會與你身上的裝備比較]=],
 		["OptionsAdvisorHeader"] = "建議選項",
 		["OptionsAlignRight"] = "將數值對齊右方",
 		["OptionsAlignRightTooltip"] = "讓Pawn的數值在物品提示欄對齊右方，而非左方",
-		--Translation missing 
-		["OptionsBagUpgradeAdvisor"] = "Show bag upgrade advisor",
-		--Translation missing 
-		["OptionsBagUpgradeAdvisorTooltip"] = [=[Enable this option to have Pawn take over the in-bag upgrade arrows.
+		["OptionsBagUpgradeAdvisor"] = "顯示背包升級建議",
+		["OptionsBagUpgradeAdvisorTooltip"] = [=[啟用此選項讓Pawn接管背包內升級箭頭。
 
-If checked, Pawn will find upgrades in your bags and mark items that are an upgrade for any of your active scales with green arrows. 
+勾選後，Pawn會在你的背包中找到升級物品，並用綠色箭頭標記任何啟用權值的升級物品。
 
-If unchecked, WoW will mark items with a higher item level than what you're currently wearing, and Pawn will not interfere with the built-in feature.]=],
+如果不勾選，WoW會標記比你目前穿著物品等級更高的物品，Pawn不會干擾內置功能。]=],
 		["OptionsBlankLine"] = "數值前加一個空白行",
 		["OptionsBlankLineTooltip"] = "在 Pawn 數值前加入空白行，讓你的提示訊息更整齊",
 		["OptionsButtonHidden"] = "不顯示",
@@ -455,16 +450,14 @@ WoW中所有的物件都有個ID，通常只有寫插件的人才需要這些資
 若有任務獎勵物品較你身上的為佳，則在物品上顯示綠色箭頭圖示；
 
 若沒有較佳物品，則在賣價最高的物品上顯示金幣圖示。]=],
-		--Translation missing 
-		["OptionsShowRelicUpgrades"] = "Show relic advisor",
-		--Translation missing 
-		["OptionsShowRelicUpgradesTooltip"] = "Pawn will show you when a relic would increase the item level of one of your artifact weapons.  (This works differently from other upgrade features, since it's based on item level, not stats.)",
 		["OptionsResetUpgrades"] = "重新掃描裝備",
 		["OptionsResetUpgradesTooltip"] = [=[Pawn 會遺忘並重新掃描你的最佳裝備資料，以提供更新的升級建議。
 
 若你發現 Pawn 基於你已賣出、摧毀，或早已不用的裝備，而頻頻作出欠佳的升級建議，請使用此功能。
 
 這會影響到你所有使用 Pawn 的角色]=],
+		["OptionsShowRelicUpgrades"] = "顯示聖物升級",
+		["OptionsShowRelicUpgradesTooltip"] = "當一件聖物會增加你的一件神兵物品等級時，Pawn會顯示。（這與其他升級功能不同，因為它基於物品等級，而不是屬性。）",
 		["OptionsSocketingAdvisor"] = "顯示插槽建議",
 		["OptionsSocketingAdvisorTooltip"] = [=[為插槽附加寶石時，Pawn 會顯示最佳寶石建議。
 
@@ -495,8 +488,7 @@ WoW中所有的物件都有個ID，通常只有寫插件的人才需要這些資
 |cff8ec3e6冰霜:  123.4
 火焰:  156.7|r]=],
 		["OptionsUpgradeHeader"] = "在提示欄顯示 |TInterface\\AddOns\\Pawn\\Textures\\UpgradeArrow:0|t 升級:",
-		--Translation missing 
-		["OptionsUpgradeSettingsHeader"] = "Upgrade options",
+		["OptionsUpgradeSettingsHeader"] = "升級選項",
 		["OptionsUpgradesForBothWeaponTypes"] = "同時顯示單手與雙手武器的升級建議",
 		["OptionsUpgradesForBothWeaponTypesTooltip"] = [=[Pawn 的升級建議將雙手武器及雙持單手武器(或主副手武器)視為不同項目
 
@@ -569,7 +561,7 @@ WoW中所有的物件都有個ID，通常只有寫插件的人才需要這些資
 若要管理你的權重和增加新權重，請用權重頁面。]=],
 		["ValuesWelcomeNoScales"] = "你還未選擇權重。若要啟動，請去權重頁面啟動一個新權重或者從網上複製一個。",
 		["ValuesWelcomeReadOnly"] = [=[所選擇的權重無法更改。
-若你想改變這些分數，請至權重頁面複製或創建一個新權重。]=]
+若你想改變這些分數，請至權重頁面複製或創建一個新權重。]=],
 	}
 }
 end
