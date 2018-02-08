@@ -454,11 +454,6 @@ function WeakAuras.ActivateEvent(id, triggernum, data, state)
         state.expirationTime = arg2;
         changed = true;
       end
-      local autoHide = data.automaticAutoHide and (arg1 > 0.01);
-      if (state.autoHide ~= autoHide) then
-        state.autoHide = autoHide;
-        changed = true;
-      end
       if (state.value or state.total) then
         changed = true;
       end
@@ -507,7 +502,7 @@ function WeakAuras.ActivateEvent(id, triggernum, data, state)
     state.additionalProgress = nil;
   end
 
-  state.changed = changed;
+  state.changed = state.changed or changed;
 
   return changed;
 end
@@ -2158,8 +2153,8 @@ do
     elseif (event == "BigWigs_StopBar") then
       local addon, text = ...
       if(bars[text]) then
-        WeakAuras.ScanEvents("BigWigs_StopBar", text);
         bars[text] = nil;
+        WeakAuras.ScanEvents("BigWigs_StopBar", text);
       end
     elseif (event == "BigWigs_StopBars"
       or event == "BigWigs_OnBossDisable"
@@ -2857,7 +2852,7 @@ function GenericTrigger.CreateFallbackState(data, triggernum, state)
       state.duration = arg1;
       state.resort = state.expirationTime ~= arg2;
       state.expirationTime = arg2;
-      state.autoHide = arg1 > 0.01 and data.automaticAutoHide;
+      state.autoHide = nil;
       state.value = nil;
       state.total = nil;
       state.inverse = inverse;

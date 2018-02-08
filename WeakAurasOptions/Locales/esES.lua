@@ -10,15 +10,13 @@ local L = WeakAuras.L
 	L["%i Matches"] = "%i Correspondencias"
 	--Translation missing 
 	-- L["%s Color"] = ""
+	--Translation missing 
+	-- L["%s total auras"] = ""
 	L["1 Match"] = "1 Correspondencia"
-	--Translation missing 
-	-- L["1. Text"] = ""
-	--Translation missing 
-	-- L["1. Text Settings"] = ""
-	--Translation missing 
-	-- L["2. Text"] = ""
-	--Translation missing 
-	-- L["2. Text Settings"] = ""
+	L["1. Text"] = "1. Texto"
+	L["1. Text Settings"] = "1. Ajustes de texto"
+	L["2. Text"] = "2. Texto"
+	L["2. Text Settings"] = "2. Ajustes de texto"
 	--Translation missing 
 	-- L["A 20x20 pixels icon"] = ""
 	--Translation missing 
@@ -52,12 +50,9 @@ local L = WeakAuras.L
 	L["Alpha"] = "Transparencia"
 	L["Anchor"] = "Anclaje"
 	L["Anchor Point"] = "Punto de Anclaje"
-	--Translation missing 
-	-- L["anchored to"] = ""
-	--Translation missing 
-	-- L["Anchored To"] = ""
-	--Translation missing 
-	-- L["And "] = ""
+	L["anchored to"] = "anclado a"
+	L["Anchored To"] = "anclado a"
+	L["And "] = "y"
 	L["Angle"] = "Ángulo"
 	L["Animate"] = "Animar"
 	L["Animated Expand and Collapse"] = "Animar Pliegue y Despliegue"
@@ -72,10 +67,8 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 ]=]
 	L["Animation Sequence"] = "Secuencia de Animación"
 	L["Animations"] = "Animaciones"
-	--Translation missing 
-	-- L["Apply Template"] = ""
-	--Translation missing 
-	-- L["Arcane Orb"] = ""
+	L["Apply Template"] = "Aplicar plantilla"
+	L["Arcane Orb"] = "Orbe arcano"
 	--Translation missing 
 	-- L["At a position a bit left of Left HUD position."] = ""
 	--Translation missing 
@@ -96,6 +89,8 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 	-- L["Auto-cloning enabled"] = ""
 	L["Automatic Icon"] = "Icono Automático"
 	L["Backdrop Color"] = "Color de fondo"
+	--Translation missing 
+	-- L["Backdrop in Front"] = ""
 	L["Backdrop Style"] = "Estilo de fondo"
 	L["Background"] = "Fondo"
 	L["Background Color"] = "Color de Fondo"
@@ -116,6 +111,8 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 	-- L["Blue Sparkle Orb"] = ""
 	L["Border"] = "Borde"
 	L["Border Color"] = "Color de borde"
+	--Translation missing 
+	-- L["Border in Front"] = ""
 	L["Border Inset"] = "Borde del recuadro"
 	L["Border Offset"] = "Desplazamiento de Borde"
 	L["Border Settings"] = "Configuración de bordes"
@@ -350,6 +347,8 @@ Con |cFF00CC00>= 0|r se activará siempre.]=]
 	--Translation missing 
 	-- L["Inverse"] = ""
 	L["Justify"] = "Justificar"
+	--Translation missing 
+	-- L["Keep Aspect Ratio"] = ""
 	--Translation missing 
 	-- L["Leaf"] = ""
 	--Translation missing 

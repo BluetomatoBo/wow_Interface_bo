@@ -13,12 +13,9 @@ local L = WeakAuras.L
 	L["- Death Knight Unholy 4P Bonus"] = "- Bonus 4 piezas de Caballero de la Muerte Profano"
 	L["- Deathknight 2P Bonus"] = "- Bonus 2 piezas de Caballero de la Muerte"
 	L["- Deathknight Unholy 4P Bonus"] = "- Bonus 2 piezas de Caballero de la Muerte Profano"
-	--Translation missing 
-	-- L["- Holy Word: Chastise"] = ""
-	--Translation missing 
-	-- L["- Holy Word: Sanctify"] = ""
-	--Translation missing 
-	-- L["- Holy Word: Serenity"] = ""
+	L["- Holy Word: Chastise"] = "- Palabra sagrada: condena"
+	L["- Holy Word: Sanctify"] = "- Palabra sagrada: santificar"
+	L["- Holy Word: Serenity"] = "- Palabra sagrada: serenidad"
 	--Translation missing 
 	-- L["- Hunter T20 Marksman 4P Bonus"] = ""
 	--Translation missing 
@@ -85,16 +82,13 @@ local L = WeakAuras.L
 	-- L["- Warrior T20 Fury 2P Bonus"] = ""
 	--Translation missing 
 	-- L["- Warrior T20 Protection 2P Bonus"] = ""
-	--Translation missing 
-	-- L["(Pet)"] = ""
-	--Translation missing 
-	-- L["(Water Elemental)"] = ""
+	L["(Pet)"] = "(Mascota)"
+	L["(Water Elemental)"] = "(Elemental de agua)"
 	--Translation missing 
 	-- L["Ability Charges"] = ""
 	--Translation missing 
 	-- L["Add Triggers"] = ""
-	--Translation missing 
-	-- L["Always Active"] = ""
+	L["Always Active"] = "Siempre activo"
 	--Translation missing 
 	-- L["Back"] = ""
 	--Translation missing 

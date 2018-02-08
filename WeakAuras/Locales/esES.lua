@@ -65,20 +65,15 @@ L["<="] = "<="
 L["="] = "="
 L[">"] = ">"
 L[">="] = ">="
---Translation missing 
--- L["1. Text Color"] = ""
---Translation missing 
--- L["1. Text Size"] = ""
+L["1. Text Color"] = "1. Color del texto"
+L["1. Text Size"] = "1. Tamaño del texto"
 L["10 Man Raid"] = "Banda de 10 Jugadores"
---Translation missing 
--- L["2. Text Color"] = ""
---Translation missing 
--- L["2. Text Size"] = ""
---Translation missing 
--- L["20 Man Raid"] = ""
+L["2. Text Color"] = "2. Color del texto"
+L["2. Text Size"] = "2. Tamaño del texto"
+L["20 Man Raid"] = "Banda de 20 jugadores"
 L["25 Man Raid"] = "Banda de 25 Jugadores"
-L["40 Man Raid"] = "Banda de 40 Jugadores"
-L["5 Man Dungeon"] = "Mazmorra de 5 Jugadores"
+L["40 Man Raid"] = "Banda de 40 jugadores"
+L["5 Man Dungeon"] = "Mazmorra de 5 jugadores"
 L["Absorb"] = "Absorción"
 --Translation missing 
 -- L["Absorb Display"] = ""
@@ -92,25 +87,19 @@ L["Action Usable"] = "Acción Utilizable"
 -- L["Additional Trigger Replacements"] = ""
 L["Affected"] = "Afectado"
 L["Aggro"] = "Amenaza"
---Translation missing 
--- L["Alert Type"] = ""
+L["Alert Type"] = "Tipo de alerta"
 L["Alive"] = "Vivo"
 L["All Triggers"] = "Todos los Disparadores"
 L["Alliance"] = "Alianza"
---Translation missing 
--- L["Allow partial matches"] = ""
+L["Allow partial matches"] = "Permitir coincidencias parciales"
 L["Alternate Power"] = "Energía Alternativa"
---Translation missing 
--- L["Always"] = ""
+L["Always"] = "Siempre"
 L["Always active trigger"] = "Siempre activar disparador"
 L["Ambience"] = "Ambiente"
 L["Amount"] = "Cantidad"
---Translation missing 
--- L["And Talent selected"] = ""
---Translation missing 
--- L["Anticlockwise"] = ""
---Translation missing 
--- L["Any"] = ""
+L["And Talent selected"] = "y talento seleccionado"
+L["Anticlockwise"] = "Sentido antihorario"
+L["Any"] = "Cualquiera"
 L["Any Triggers"] = "Cualquier Disparador"
 L["Arena"] = "Arena"
 L["Ascending"] = "Ascendente"
@@ -700,6 +689,10 @@ L["Spiral In And Out"] = "Espiral de Dentro a Fuera"
 --Translation missing 
 -- L["Square"] = ""
 L["Stacks"] = "Acumulaciones"
+--Translation missing 
+-- L["Stacks Text Color"] = ""
+--Translation missing 
+-- L["Stacks Text Size"] = ""
 --Translation missing 
 -- L["Stagger"] = ""
 L["Stance/Form/Aura"] = "Impostura/Forma/Aura"

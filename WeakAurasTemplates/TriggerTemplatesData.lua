@@ -1746,7 +1746,7 @@ templates.class.SHAMAN = {
         { spell = 98008, type = "ability"}, -- Spirit Link Totem
         { spell = 108271, type = "ability"}, -- Astral Shift
         { spell = 108280, type = "ability"}, -- Healing Tide Totem
-        { spell = 108281, type = "ability", talent = 8}, -- Ancestral Guidance
+        { spell = 108281, type = "ability", talent = 11}, -- Ancestral Guidance
         { spell = 114052, type = "ability", talent = 19}, -- Ascendance
         { spell = 157153, type = "ability", talent = 17}, -- Cloudburst Totem
         { spell = 188838, type = "ability"}, -- Flame Shock
@@ -3577,39 +3577,83 @@ templates.items[2] = {
     { spell = 235966, type = "buff", unit = "player", item = 144258, titleSuffix = L["buff"]}, -- Velen's Future Sight
     { spell = 144249, type = "item", titleSuffix = L["cooldown"]}, -- Archimonde's Hatred Reborn
     { spell = 144258, type = "item", titleSuffix = L["cooldown"]}, -- Velen's Future Sight
+    { spell = 224706, type = "buff", unit = "player", item = 137062}, -- The Emerald Dreamcatcher
+    { spell = 236479, type = "buff", unit = "player", item = 144432}, -- Oakheart's Puny Quods
+    { spell = 248176, type = "buff", unit = "player", item = 151810}, -- Shattered Fragments of Sindragosa
+    { spell = 248177, type = "buff", unit = "player", item = 151810}, -- Shattered Fragments of Sindragosa
+    { spell = 248146, type = "buff", unit = "player", item = 151809}, -- Contained Infernal Core
+    { spell = 209316, type = "buff", unit = "player", item = 132442}, -- Cord of Infinity
+    { spell = 234862, type = "buff", unit = "player", item = 144273}, -- Maraad's Dying Breath
+    { spell = 248289, type = "buff", unit = "player", item = 151813}, -- Scarlet Inquisitor's Expurgation
+    { spell = 225056, type = "debuff", unit = "player", item = 140846}, -- Aegisjalmur, the Armguards of Awe
+    { spell = 216758, type = "buff", unit = "player", item = 137014}, -- Achor, the Eternal Hunger
+    { spell = 235543, type = "buff", unit = "player", item = 144292}, -- Spirit of the Darkness Flame
+    { spell = 208888, type = "buff", unit = "player", item = 137064}, -- The Shadow Hunter's Voodoo Mask
+    { spell = 248088, type = "buff", unit = "player", item = 151803}, -- Celerity of the Windrunners
+    { spell = 248085, type = "buff", unit = "player", item = 151805}, -- Parsel's Tongue
+    { spell = 247993, type = "buff", unit = "player", item = 144326}, -- The Mantle of Command
+    { spell = 248212, type = "debuff", unit = "target", item = 151807}, -- Unseen Predator's Cloak
+    { spell = 236446, type = "buff", unit = "player", item = 144361}, -- Butcher's Bone Apron
+    { spell = 213156, type = "buff", unit = "player", item = 137082}, -- Helbrine, Rope of the Mist Marauder
+    { spell = 211336, type = "buff", unit = "player", item = 137109}, -- X'anshi, Shroud of Archbishop Benedictus
+    { spell = 234711, type = "buff", unit = "target", item = 144247}, -- Rammal's Ulterior Motive
+    { spell = 234693, type = "buff", unit = "target", item = 132449}, -- Phyrix's Embrace
+    { spell = 233997, type = "buff", unit = "player", item = 144244}, -- Kam Xi'raff
   }
 }
 
 templates.items[3] = {
   title = L["Legion Sets"],
   args = {
-    { spell = 206333, type = "buff", unit = "player", titleSuffix = L["- Warrior T19 Fury 2P Bonus"]},
-    { spell = 209785, type = "buff", unit = "player", titleSuffix = L["- Paladin T19 Retribution 4P Bonus"]},
-    { spell = 211160, type = "buff", unit = "player", titleSuffix = L["- T19 Druid Guardian 4P Bonus"]},
-    { spell = 211669, type = "buff", unit = "player", titleSuffix = L["- Rogue T19 Outlaw 4P Bonus"]},
-    { spell = 212019, type = "buff", unit = "player", titleSuffix = L["- Warlock T19 Destruction 4P Bonus"]},
-    { spell = 242010, type = "buff", unit = "player", titleSuffix = L["- Death Knight T20 Blood 2P Bonus"]},
-    { spell = 246153, type = "buff", unit = "player", titleSuffix = L["- Hunter T20 Marksman 4P Bonus"]},
-    { spell = 246224, type = "buff", unit = "player", titleSuffix = L["- Mage T20 Arcane 2P Bonus"]},
-    { spell = 246261, type = "buff", unit = "player", titleSuffix = L["- Mage T20 Fire 2P Bonus"]},
-    { spell = 242253, type = "buff", unit = "player", titleSuffix = L["- Mage T20 Frost 2P Bonus"]},
-    { spell = 246328, type = "buff", unit = "player", titleSuffix = L["- Monk T20 Mistweaver 2P Bonus"]},
-    { spell = 247237, type = "buff", unit = "player", titleSuffix = L["- Paladin T20 Holy 4P Bonus"]},
-    { spell = 242265, type = "debuff", unit = "target", titleSuffix = L["- Paladin T20 Protection 4P Bonus"]},
-    { spell = 246973, type = "buff", unit = "player", titleSuffix = L["- Paladin T20 Retribution 4P Bonus"]},
-    { spell = 247226, type = "buff", unit = "player", titleSuffix = L["- Priest T20 Shadow 2P Bonus"]},
-    { spell = 246519, type = "buff", unit = "player", titleSuffix = L["- Priest T20 Discipline 4P Bonus"]},
-    { spell = 246594, type = "buff", unit = "player", titleSuffix = L["- Shaman T20 Elemental 2P Bonus"]},
-    { spell = 242284, type = "buff", unit = "player", titleSuffix = L["- Shaman T20 Enhancement 2P Bonus"]},
-    { spell = 246729, type = "buff", unit = "player", titleSuffix = L["- Shaman T20 Restoration 2P Bonus"]},
-    { spell = 242286, type = "buff", unit = "player", titleSuffix = L["- Shaman T20 Enhancement 4P Bonus"]},
-    { spell = 246771, type = "buff", unit = "player", titleSuffix = L["- Shaman T20 Restoration 4P Bonus"]},
-    { spell = 242292, type = "buff", unit = "player", titleSuffix = L["- Warlock T20 Affliction 4P Bonus"]},
-    { spell = 246962, type = "buff", unit = "player", titleSuffix = L["- Warlock T20 Demonology 4P Bonus"]},
-    { spell = 242303, type = "buff", unit = "player", titleSuffix = L["- Warrior T20 Protection 2P Bonus"]},
-    { spell = 242300, type = "buff", unit = "player", titleSuffix = L["- Warrior T20 Fury 2P Bonus"]},
-
-
+    { spell = 206333, type = "buff", unit = "player", titlePrefix = L["Warrior T19 Fury 2P Bonus - "]},
+    { spell = 209785, type = "buff", unit = "player", titlePrefix = L["Paladin T19 Retribution 4P Bonus - "]},
+    { spell = 211160, type = "buff", unit = "player", titlePrefix = L["Druid T19 Guardian 4P Bonus - "]},
+    { spell = 211669, type = "buff", unit = "player", titlePrefix = L["Rogue T19 Outlaw 4P Bonus - "]},
+    { spell = 212019, type = "buff", unit = "player", titlePrefix = L["Warlock T19 Destruction 4P Bonus - "]},
+    -- T20
+    { spell = 242010, type = "buff", unit = "player", titlePrefix = L["Death Knight T20 Blood 2P Bonus - "]},
+    { spell = 246153, type = "buff", unit = "player", titlePrefix = L["Hunter T20 Marksman 4P Bonus - "]},
+    { spell = 246224, type = "buff", unit = "player", titlePrefix = L["Mage T20 Arcane 2P Bonus - "]},
+    { spell = 246261, type = "buff", unit = "player", titlePrefix = L["Mage T20 Fire 2P Bonus - "]},
+    { spell = 242253, type = "buff", unit = "player", titlePrefix = L["Mage T20 Frost 2P Bonus - "]},
+    { spell = 246328, type = "buff", unit = "player", titlePrefix = L["Monk T20 Mistweaver 2P Bonus - "]},
+    { spell = 247237, type = "buff", unit = "player", titlePrefix = L["Paladin T20 Holy 4P Bonus - "]},
+    { spell = 242265, type = "debuff", unit = "target", titlePrefix = L["Paladin T20 Protection 4P Bonus - "]},
+    { spell = 246973, type = "buff", unit = "player", titlePrefix = L["Paladin T20 Retribution 4P Bonus - "]},
+    { spell = 247226, type = "buff", unit = "player", titlePrefix = L["Priest T20 Shadow 2P Bonus - "]},
+    { spell = 246519, type = "buff", unit = "player", titlePrefix = L["Priest T20 Discipline 4P Bonus - "]},
+    { spell = 246594, type = "buff", unit = "player", titlePrefix = L["Shaman T20 Elemental 2P Bonus - "]},
+    { spell = 242284, type = "buff", unit = "player", titlePrefix = L["Shaman T20 Enhancement 2P Bonus - "]},
+    { spell = 246729, type = "buff", unit = "player", titlePrefix = L["Shaman T20 Restoration 2P Bonus - "]},
+    { spell = 242286, type = "buff", unit = "player", titlePrefix = L["Shaman T20 Enhancement 4P Bonus - "]},
+    { spell = 246771, type = "buff", unit = "player", titlePrefix = L["Shaman T20 Restoration 4P Bonus - "]},
+    { spell = 242292, type = "buff", unit = "player", titlePrefix = L["Warlock T20 Affliction 4P Bonus - "]},
+    { spell = 246962, type = "buff", unit = "player", titlePrefix = L["Warlock T20 Demonology 4P Bonus - "]},
+    { spell = 242303, type = "buff", unit = "player", titlePrefix = L["Warrior T20 Protection 2P Bonus - "]},
+    { spell = 242300, type = "buff", unit = "player", titlePrefix = L["Warrior T20 Fury 2P Bonus - "]},
+    -- T21
+    { spell = 252767, type = "buff", unit = "player", titlePrefix = L["Druid T21 Balance 4P Bonus - "]},
+    { spell = 252752, type = "buff", unit = "player", titlePrefix = L["Druid T21 Feral 4P Bonus - "]},
+    { spell = 253432, type = "buff", unit = "target", titlePrefix = L["Druid T21 Restoration 2P Bonus - "]},
+    { spell = 252094, type = "buff", unit = "player", titlePrefix = L["Hunter T21 Survival 2P Bonus - "]},
+    { spell = 252095, type = "buff", unit = "player", titlePrefix = L["Hunter T21 Survival 4P Bonus - "]},
+    { spell = 253299, type = "buff", unit = "player", titlePrefix = L["Mage T21 Arcane 4P Bonus - "]},
+    { spell = 254332, type = "buff", unit = "player", titlePrefix = L["Paladin T21 Holy 4P Bonus - "]},
+    { spell = 253806, type = "buff", unit = "player", titlePrefix = L["Paladin T21 Retribution 4P Bonus - "]},
+    { spell = 252848, type = "buff", unit = "player", titlePrefix = L["Priest T21 Discipline 4P Bonus - "]},
+    { spell = 253437, type = "buff", unit = "player", titlePrefix = L["Priest T21 Holy 2P Bonus - "]},
+    { spell = 253443, type = "buff", unit = "player", titlePrefix = L["Priest T21 Holy 4P Bonus - "]},
+    { spell = 252277, type = "buff", unit = "player", titlePrefix = L["Rogue T21 Assassination 2P Bonus - "]},
+    { spell = 257945, type = "buff", unit = "player", titlePrefix = L["Rogue T21 Subtlety 4P Bonus - "]},
+    { spell = 252141, type = "buff", unit = "player", titlePrefix = L["Shaman T21 Elemental 2P Bonus - "]},
+    { spell = 254308, type = "buff", unit = "player", titlePrefix = L["Shaman T21 Enhancement 2P Bonus - "]},
+    { spell = 252151, type = "debuff", unit = "target", titlePrefix = L["Shaman T21 Enhancement 4P Bonus - "]},
+    { spell = 252938, type = "debuff", unit = "target", titlePrefix = L["Warlock T21 Affliction 4P Bonus - "]},
+    { spell = 253092, type = "debuff", unit = "target", titlePrefix = L["Warlock T21 Destruction 2P Bonus - "]},
+    { spell = 253382, type = "buff", unit = "player", titlePrefix = L["Warrior T21 Arms 2P Bonus - "]},
+    { spell = 253383, type = "buff", unit = "player", titlePrefix = L["Warrior T21 Arms 4P Bonus - "]},
+    { spell = 253385, type = "buff", unit = "player", titlePrefix = L["Warrior T21 Fury 4P Bonus - "]},
+    { spell = 253428, type = "buff", unit = "player", titlePrefix = L["Warrior T21 Protection 2P Bonus - "]},
   }
 }
 
@@ -3634,6 +3678,12 @@ templates.items[4] = {
     { spell = 242630, type = "buff", unit = "player", titleItemPrefix = 147026},
     { spell = 242617, type = "buff", unit = "player", titleItemPrefix = 147025},
     { spell = 242536, type = "debuff", unit = "target", titleItemPrefix = 147023},
+    -- T21
+    { spell = 251940, type = "buff", unit = "player", titleItemPrefix = 151977},
+    { spell = 251938, type = "buff", unit = "player", titleItemPrefix = 151976},
+    { spell = 252545, type = "buff", unit = "player", titleItemPrefix = 151976},
+    { spell = 252550, type = "buff", unit = "player", titleItemPrefix = 151976},
+
 
   }
 }
@@ -3663,6 +3713,14 @@ templates.items[5] = {
     -- T20
     { spell = 243644, type = "buff", unit = "player", titleItemPrefix = 147018},
     { spell = 242570, type = "buff", unit = "player", titleItemPrefix = 147017},
+    -- T21
+    { spell = 253326, type = "buff", unit = "player", titleItemPrefix = 152093},
+    { spell = 253305, type = "buff", unit = "player", titleItemPrefix = 151968},
+    { spell = 253304, type = "buff", unit = "player", titleItemPrefix = 151968},
+    { spell = 253261, type = "buff", unit = "player", titleItemPrefix = 151955},
+    { spell = 255742, type = "buff", unit = "player", titleItemPrefix = 151955},
+    { spell = 255744, type = "buff", unit = "player", titleItemPrefix = 151955},
+    { spell = 253258, type = "buff", unit = "player", titleItemPrefix = 151970},
   }
 }
 
@@ -3682,27 +3740,63 @@ templates.items[6] = {
     -- T20
     { spell = 242619, type = "buff", unit = "target", titleItemPrefix = 147006},
     { spell = 242458, type = "buff", unit = "target", titleItemPrefix = 147002},
+    -- T21
+    { spell = 253277, type = "buff", unit = "target", titleItemPrefix = 151957},
+    { spell = 253285, type = "buff", unit = "target", titleItemPrefix = 152289},
+    { spell = 253284, type = "buff", unit = "multi", titleItemPrefix = 253284},
+    { spell = 253269, type = "buff", unit = "target", titleItemPrefix = 151956},
+    { spell = 253258, type = "buff", unit = "target", titleItemPrefix = 151970},
   }
 }
 
 templates.items[7] = {
-  title = L["PVP Set"],
+  title = L["Pantheon Trinkets"],
   args = {
-    { spell = 165638, type = "buff", unit = "player", titleSuffix = L["- Warrior 2P Bonus"]},
-    { spell = 166062, type = "buff", unit = "player", titleSuffix = L["- Death Knight Unholy 4P Bonus"]},
-    { spell = 166021, type = "buff", unit = "player", titleSuffix = L["- Death Knight 2P Bonus"]},
-    { spell = 171380, type = "buff", unit = "player", titleSuffix = L["- Warlock Affliction 4P/Demonology 2P Bonus"]},
-    { spell = 181744, type = "buff", unit = "player", titleSuffix = L["- Monk Windwalker 4P Bonus"]},
-    { spell = 170882, type = "buff", unit = "player", titleSuffix = L["- Rogue Assassination/Outlaw 4P Bonus"]},
-    { spell = 170879, type = "buff", unit = "player", titleSuffix = L["- Rogue Subtlety 4P Bonus"]},
-    { spell = 165909, type = "debuff", unit = "target", titleSuffix = L["- Paladin Protection 2P Bonus"]},
-    { spell = 165889, type = "debuff", unit = "target", titleSuffix = L["- Paladin Retribution 2P Bonus"]},
-    { spell = 171114, type = "buff", unit = "player", titleSuffix = L["- Shaman Enhancement 2P Bonus"]},
-    { spell = 166100, type = "buff", unit = "player", titleSuffix = L["- Shaman Elemental 4P Bonus"]},
+    { spell = 256815, type = "buff", unit = "player"},
+    { spell = 256817, type = "buff", unit = "player"},
+    { spell = 256819, type = "buff", unit = "player"},
+    { spell = 256822, type = "buff", unit = "player"},
+    { spell = 256825, type = "buff", unit = "player"},
+    { spell = 256827, type = "buff", unit = "player"},
+
+    { spell = 256831, type = "buff", unit = "player"},
+    { spell = 256832, type = "buff", unit = "player"},
+    { spell = 256833, type = "buff", unit = "player"},
+    { spell = 256834, type = "buff", unit = "player"},
+    { spell = 256835, type = "buff", unit = "player"},
+    { spell = 256836, type = "buff", unit = "player"},
+
   }
 }
 
 templates.items[8] = {
+  title = L["Netherlight Crucible"],
+  args = {
+    { spell = 252091, type = "buff", unit = "player"},
+    { spell = 252875, type = "buff", unit = "player"},
+    { spell = 252906, type = "debuff", unit = "target"},
+    { spell = 252088, type = "buff", unit = "player"},
+  }
+}
+
+templates.items[9] = {
+  title = L["PVP Set"],
+  args = {
+    { spell = 165638, type = "buff", unit = "player", titlePrefix = L["Warrior 2P Bonus - "]},
+    { spell = 166062, type = "buff", unit = "player", titlePrefix = L["Death Knight Unholy 4P Bonus - "]},
+    { spell = 166021, type = "buff", unit = "player", titlePrefix = L["Death Knight 2P Bonus - "]},
+    { spell = 171380, type = "buff", unit = "player", titlePrefix = L["Warlock Affliction 4P/Demonology 2P Bonus - "]},
+    { spell = 181744, type = "buff", unit = "player", titlePrefix = L["Monk Windwalker 4P Bonus - "]},
+    { spell = 170882, type = "buff", unit = "player", titlePrefix = L["Rogue Assassination/Outlaw 4P Bonus - "]},
+    { spell = 170879, type = "buff", unit = "player", titlePrefix = L["Rogue Subtlety 4P Bonus - "]},
+    { spell = 165909, type = "debuff", unit = "target", titlePrefix = L["Paladin Protection 2P Bonus - "]},
+    { spell = 165889, type = "debuff", unit = "target", titlePrefix = L["Paladin Retribution 2P Bonus - "]},
+    { spell = 171114, type = "buff", unit = "player", titlePrefix = L["Shaman Enhancement 2P Bonus - "]},
+    { spell = 166100, type = "buff", unit = "player", titlePrefix = L["Shaman Elemental 4P Bonus - "]},
+  }
+}
+
+templates.items[10] = {
   title = L["PVP Trinkets"],
   args = {
     { spell = 136146, type = "item"}, -- Vindictive Gladiator's Emblem of Cruelty
@@ -4081,6 +4175,9 @@ local function handleItem(item)
     item.title = item.overideTitle or name;
     if (item.titleSuffix) then
       item.title = item.title .. " " .. item.titleSuffix;
+    end
+    if (item.titlePrefix) then
+      item.title = item.titlePrefix .. item.title;
     end
     if (item.titleItemPrefix) then
       local prefix = GetItemInfo(item.titleItemPrefix);

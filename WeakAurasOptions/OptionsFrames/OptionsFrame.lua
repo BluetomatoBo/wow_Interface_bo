@@ -15,7 +15,7 @@ local WeakAuras = WeakAuras
 local L = WeakAuras.L
 local addonVersion = GetAddOnMetadata("WeakAuras", "version")
 --[===[@debug@
-if addonVersion == "2.5.4" then
+if addonVersion == "2.5.6" then
   addonVersion = "Dev"
 end
 --@end-debug@]===]

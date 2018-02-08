@@ -2009,7 +2009,8 @@ WeakAuras.event_prototypes = {
       "ITEM_COOLDOWN_READY",
       "ITEM_COOLDOWN_CHANGED",
       "ITEM_COOLDOWN_STARTED",
-      "COOLDOWN_REMAINING_CHECK"
+      "COOLDOWN_REMAINING_CHECK",
+      "ITEM_INFO_UPDATED"
     },
     force_events = "ITEM_COOLDOWN_FORCE",
     name = L["Cooldown Progress (Item)"],
@@ -2088,7 +2089,7 @@ WeakAuras.event_prototypes = {
       end
     end,
     iconFunc = function(trigger)
-      local _, _, _, _, _, _, _, _, _, icon = GetItemInfo(trigger.itemName or 0);
+      local _, _, _, _, icon = GetItemInfoInstant(trigger.itemName or 0);
       return icon;
     end,
     hasItemID = true,
@@ -2189,7 +2190,8 @@ WeakAuras.event_prototypes = {
   ["Cooldown Ready (Item)"] = {
     type = "event",
     events = {
-      "ITEM_COOLDOWN_READY"
+      "ITEM_COOLDOWN_READY",
+      "ITEM_INFO_UPDATED"
     },
     name = L["Cooldown Ready (Item)"],
     init = function(trigger)
@@ -2215,7 +2217,7 @@ WeakAuras.event_prototypes = {
       end
     end,
     iconFunc = function(trigger)
-      local _, _, _, _, _, _, _, _, _, icon = GetItemInfo(trigger.itemName or 0);
+      local _, _, _, _, icon = GetItemInfoInstant(trigger.itemName or 0);
       return icon;
     end,
     hasItemID = true
@@ -3492,7 +3494,8 @@ WeakAuras.event_prototypes = {
     events = {
       "UNIT_INVENTORY_CHANGED",
       "PLAYER_EQUIPMENT_CHANGED",
-      "WA_DELAYED_PLAYER_ENTERING_WORLD"
+      "WA_DELAYED_PLAYER_ENTERING_WORLD",
+      "ITEM_INFO_UPDATED"
     },
     force_events = "UNIT_INVENTORY_CHANGED",
     name = L["Item Equipped"],
@@ -3537,8 +3540,8 @@ WeakAuras.event_prototypes = {
     end,
     iconFunc = function(trigger)
       if not trigger.use_inverse then
-        local texture = select(10, GetItemInfo(trigger.itemName));
-        return texture;
+        local _, _, _, _, icon = GetItemInfoInstant(trigger.itemName or 0);
+        return icon;
       else
         return nil;
       end
