@@ -1,202 +1,46 @@
-lightweight tag e5782ac37c1d09fa048273be2346b5d0ced836bd 3.70
+lightweight tag 47600527927566f864ba58502549fd9ae03a3349 3.72
 Author:	Michael James <darktemplar9900@yahoo.com>
-Date:	Wed Jan 31 17:21:11 2018 -0600
+Date:	Mon Feb 12 16:14:03 2018 -0600
 
-commit e5782ac37c1d09fa048273be2346b5d0ced836bd
+commit 47600527927566f864ba58502549fd9ae03a3349
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Wed Jan 31 17:21:11 2018 -0600
+Date:   Mon Feb 12 16:14:03 2018 -0600
 
-    3.70
+    3.72
 
-commit fdcbf8431502ee7644ca67fea4611562baae2d58
+commit 24cd3fcc59dc1ebee03a053d13e700bccb3d9ac5
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Wed Jan 31 17:20:27 2018 -0600
+Date:   Mon Feb 12 16:11:47 2018 -0600
 
-    This was removed in DBM
+    Idk how that happened.
 
-commit 2325e420c9f13023b78ac118a2ec209fe07664b5
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sun Jan 28 15:39:56 2018 -0600
+commit 7fb26b2fcac44cca124289e284d23dba4a7f6075
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Mon Feb 12 12:36:52 2018 -0500
 
-    Remove Zygor
+    ArkInventory - Added support ElvUI cooldowns
 
-commit 2325e420c9f13023b78ac118a2ec209fe07664b5
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sun Jan 28 15:39:56 2018 -0600
+commit 7fb26b2fcac44cca124289e284d23dba4a7f6075
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Mon Feb 12 12:36:52 2018 -0500
 
-    Remove Zygor
+    ArkInventory - Added support ElvUI cooldowns
 
-commit 5adbf93907edb6c77243c5d260315c0c8d8710c0
+commit b5e70f282dae1ad67e1fab8d7684e7934761a97a
 Author: Aaron Topping <aaronjtopping@gmail.com>
-Date:   Sun Jan 28 06:45:55 2018 -0500
+Date:   Sat Feb 10 06:51:25 2018 -0500
 
-    New skinned frame, minor formatting
+    Replace with R1.130 ver
 
-commit 5adbf93907edb6c77243c5d260315c0c8d8710c0
+commit b5e70f282dae1ad67e1fab8d7684e7934761a97a
 Author: Aaron Topping <aaronjtopping@gmail.com>
-Date:   Sun Jan 28 06:45:55 2018 -0500
+Date:   Sat Feb 10 06:51:25 2018 -0500
 
-    New skinned frame, minor formatting
+    Replace with R1.130 ver
 
-commit 518199e45a5eafb2a5830550a44aaee1a53cbdd9
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sun Jan 28 02:29:20 2018 -0600
-
-    Alerts
-
-commit 5e2e6098a305bc5041ebd79a07daa646ae54e7b1
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sun Jan 28 02:17:37 2018 -0600
-
-    Achievement Changes
-
-commit 5df9a783b44b67426ce32852b3469ae724249f27
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sun Jan 28 02:08:05 2018 -0600
-
-    Test
-
-commit 30d909072a89f0a589a05d8638a513fa1b11b263
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Wed Jan 3 21:23:44 2018 -0600
-
-    VEM was removed 3 years ago
-
-commit 30d909072a89f0a589a05d8638a513fa1b11b263
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Wed Jan 3 21:23:44 2018 -0600
-
-    VEM was removed 3 years ago
-
-commit 9a18367b200fcc7c76b24a32152c3c6d4639333d
+commit 3db1bd1b8a8aacc0469acbbd4210e2f781c3ffc8
 Author: Merathilis <neo0608@gmail.com>
-Date:   Wed Jan 3 09:13:47 2018 +0100
+Date:   Sat Feb 10 08:33:41 2018 +0100
 
-    German locales
-
-commit 953b240733543be6ef4d744b803dcdf1e38bef02
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Jan 2 13:15:47 2018 -0600
-
-    Readd this back for now
-
-commit c1b32dd2526b03eddd449e9a37c761abf5b64947
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Jan 2 09:21:13 2018 -0600
-
-    Wow
-
-commit f73f13da4f8c80ffbfadd65b4555a90c913bcb0c
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Jan 2 09:14:18 2018 -0600
-
-    OHC Stuff
-
-commit 4dc191cc7c7525ba67941209e1421d1d1e7e47cd
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Tue Jan 2 09:13:42 2018 -0600
-
-    AddOnName => AddOnSkins
-
-commit d0982b90e95bdf72179cfd210516783e13c21b1b
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jan 2 10:43:12 2018 +0100
-
-    Maybe fix: Azilroka/AddOnSkins#50
-
-commit d77f35ac3a41f0f973768645d2ccafa039d2552e
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jan 2 10:32:53 2018 +0100
-
-    HEADERS EVERYWHERE!! :P
-
-commit 5740030997c4ee9ed4cafb82ef34e305ce2b13ec
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jan 2 10:13:31 2018 +0100
-
-    Dafuq? This prevent error spam?!
-
-commit 7c27aafda6a72c952341bbd52981a1ceab64f148
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jan 2 09:38:26 2018 +0100
-
-    Fix OHC to get skinned after reload.
-
-commit 1640f4feb855d3e31782ab836bf2638da2229128
-Author: Merathilis <neo0608@gmail.com>
-Date:   Tue Jan 2 09:28:28 2018 +0100
-
-    Use tabs instead of spaces. (ArkInventory)
-
-commit 68ceb66f58f21faa0b9c22bb523fc7335e99d76f
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Jan 1 23:13:43 2018 -0600
-
-    ClassColor
-
-commit 0b0da5d6974b332fda907301ef966338b3308490
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Jan 1 22:59:21 2018 -0600
-
-    API
-
-commit e3ddd1893fac80e3f5f73a173293a1fd9b44d489
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Jan 1 22:44:29 2018 -0600
-
-    API / Skillet
-
-commit 4410857389365542cb78c85de9415f935bbdd918
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Jan 1 19:07:17 2018 -0600
-
-    Helping fix skinning with Simpy
-
-commit 4410857389365542cb78c85de9415f935bbdd918
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Jan 1 19:07:17 2018 -0600
-
-    Helping fix skinning with Simpy
-
-commit 4410857389365542cb78c85de9415f935bbdd918
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Jan 1 19:07:17 2018 -0600
-
-    Helping fix skinning with Simpy
-
-commit 7838d8b256aad8aa97a5db4da552e86c0e484796
-Author: Aaron Topping <aaronjtopping@gmail.com>
-Date:   Mon Jan 1 19:46:59 2018 -0500
-
-    GRM R1.124 - 2 new buttons
-
-commit ba9410f0aee33777d0dc1ca0661c6e0d7547f194
-Author: Franz Strassmayr <q3fuba@gmail.com>
-Date:   Mon Jan 1 17:33:50 2018 -0500
-
-    Skinned some Buttons
-
-commit 37df38279f9f159928dc342dd6a8f990c3931efe
-Author: Franz Strassmayr <q3fuba@gmail.com>
-Date:   Mon Jan 1 17:27:48 2018 -0500
-
-    fixed ArkInventory Search Bar Overlay
-
-commit 135a6de46b1c8338518a66e706b74a8f7b2f1310
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Jan 1 15:15:59 2018 -0600
-
-    OHC
-
-commit 0e5228bc2aaa925cc59936247efd6ccb5f4ed0f1
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Jan 1 14:25:05 2018 -0600
-
-    OHC Fixes.. Gotta find out where the checkboxes are spawned.
-
-commit b9020a45ed2907867061649876e0f9d44d68005b
-Author: Azilroka <darktemplar9900@yahoo.com>
-Date:   Mon Jan 1 13:28:25 2018 -0600
-
-    Darth
+    Add the version to the options.
 
