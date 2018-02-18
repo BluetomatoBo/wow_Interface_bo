@@ -1122,7 +1122,7 @@ do -- Weapon/Armor upgrades and rerolls
 			for i in ("122274 122273 122272 118354 118475 118474 122275 122584 122580 122582 122583 128314"):gmatch("%d+") do
 				local b = T.CreateLazyItemButton(reroll, tonumber(i))
 				b:SetSize(24, 24)
-				b.real:SetScript("PostClick", TargetFollower)
+				b:SetScript("PostClick", TargetFollower)
 				b:Hide()
 				buttons[#buttons+1] = b
 			end

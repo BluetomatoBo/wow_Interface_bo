@@ -304,7 +304,7 @@ local function FollowerButton_OnEnter(self)
 		local GetAbility = C_Garrison[info.garrFollowerID and "GetFollowerAbilityAtIndex" or "GetFollowerAbilityAtIndexByID"]
 		local GetTrait = C_Garrison[info.garrFollowerID and "GetFollowerTraitAtIndex" or "GetFollowerTraitAtIndexByID"]
 
-		GarrisonFollowerTooltip_Owner, id = self, info.followerID
+		id = info.followerID
 		GarrisonFollowerTooltip:ClearAllPoints()
 		GarrisonFollowerTooltip:SetPoint("TOPLEFT", self, "TOPRIGHT", 0, 4)
 		GarrisonFollowerTooltip_Show(info.garrFollowerID or info.followerID,
@@ -333,10 +333,7 @@ local function FollowerButton_OnEnter(self)
 	end
 end
 local function FollowerButton_OnLeave(self)
-	if GarrisonFollowerTooltip_Owner == self then
-		GarrisonFollowerTooltip:Hide()
-		GarrisonFollowerTooltip_Owner = nil
-	end
+	GarrisonFollowerTooltip:Hide()
 	if GameTooltip:IsOwned(self) then
 		GameTooltip:Hide()
 	end

@@ -74,21 +74,19 @@ local matrix = CreateFrame("Frame", nil, summaryTab) do
 		local c = id % 10
 		local r = 1 + (id - c) / 10
 		local rid, cid = rowHeaders[r].id, columnHeaders[c].id
-		if self.hasFollowers or rid ~= cid then
-			self:SetScript("OnHide", MB_OnHide)
-			self.start, self.goal, self.elapsed = self.bg:GetWidth(), 30, 0
-			self:SetScript("OnUpdate", MB_Animate)
-			self:SetScript("OnHide", MB_OnHide)
-			if skipTooltip ~= "skip" then
-				GameTooltip:SetOwner(self, "ANCHOR_NONE")
-				GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMRIGHT", 3, -3)
-				if rowHeaders[r].isTrait then
-					G.SetCounterTraitTip(GameTooltip, cid, rid)
-				else
-					G.SetCounterComboTip(GameTooltip, rid, cid)
-				end
-				GameTooltip:Show()
+		self:SetScript("OnHide", MB_OnHide)
+		self.start, self.goal, self.elapsed = self.bg:GetWidth(), 30, 0
+		self:SetScript("OnUpdate", MB_Animate)
+		self:SetScript("OnHide", MB_OnHide)
+		if skipTooltip ~= "skip" then
+			GameTooltip:SetOwner(self, "ANCHOR_NONE")
+			GameTooltip:SetPoint("TOPLEFT", self, "BOTTOMRIGHT", 3, -3)
+			if rowHeaders[r].isTrait then
+				G.SetCounterTraitTip(GameTooltip, cid, rid)
+			else
+				G.SetCounterComboTip(GameTooltip, rid, cid)
 			end
+			GameTooltip:Show()
 		end
 	end
 	local function MB_OnLeave(self)
@@ -204,7 +202,7 @@ local matrix = CreateFrame("Frame", nil, summaryTab) do
 						end
 					end
 				else
-					local dkey = rid < cid and (rid * 100 + cid) or (cid * 100 + rid)
+					local dkey = rid * 100 + cid
 					local dk = di[dkey]
 					for i=1,dk and #dk or 0 do
 						local f = fi[dk[i]]

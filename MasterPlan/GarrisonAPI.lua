@@ -482,20 +482,14 @@ function api.GetDoubleCounters(skipInactive)
 				end
 				local sc = T.SpecCounters[fi.classSpec]
 				if sc then
-					local c1, s1 = aai(fid, 1) or 0, false
-					c1 = c1 > 0 and cai(c1) or false
-					-- actually, this is wrong. we only need c1 logic for current ability + one of spec's abilities for quality < 4.
-					-- but then, we also get a difference between "Gain naturally" and "if rerolled."
-					for i=#sc-1,0,-1 do
-						local c1 = sc[i] or c1
-						for j=i+1,#sc do
-							local c2 = sc[j]
+					local lockedCounter = api.GetFollowerLockedCounterInfo(fi.garrFollowerID or fi.followerID)
+					for i=1,#sc do
+						for j=lockedCounter and #sc or (i+1),#sc do
+							local c1, c2 = sc[i], lockedCounter or sc[j]
 							local k, k2 = -(c1*100 + c2), -(c2*100 + c1)
 							local tk = rt[k] or {key=k}
 							tk[#tk + 1], rt[k], rt[k2] = fi.followerID, tk, tk
 						end
-						s1 = s1 or (sc[i] == c1)
-						if i == 1 and s1 then break end
 					end
 				end
 			end
@@ -2583,9 +2577,14 @@ function api.CountUniqueRerolls(counters, thisFollowerID)
 	local finfo, c = api.GetFollowerInfo(), counters
 	local dc, novel, inact = api.GetDoubleCounters(), 0, 0
 	
+	local me = finfo[thisFollowerID]
+	local lockedCounter = api.GetFollowerLockedCounterInfo(me and (me.garrFollowerID or me.followerID) or thisFollowerID)
+	local total = 0
+	
 	for i=1,#c do
-		for j=i+1, #c do
-			local ft, ac, ic = dc[c[i]*100 + c[j]], 0, 0
+		for j=lockedCounter and #c or (i+1), #c do
+			local c1, c2 = c[i], lockedCounter or c[j]
+			local ft, ac, ic = dc[c1*100 + c2], 0, 0
 			for i=1,ft and #ft or 0 do
 				if ft[i] == thisFollowerID then
 				elseif finfo[ft[i]].status ~= GARRISON_FOLLOWER_INACTIVE then
@@ -2595,6 +2594,7 @@ function api.CountUniqueRerolls(counters, thisFollowerID)
 					ic = ic + 1
 				end
 			end
+			total = total + 1
 			if ac == 0 and ic == 0 then
 				novel = novel + 1
 			elseif ac == 0 then
@@ -2603,36 +2603,28 @@ function api.CountUniqueRerolls(counters, thisFollowerID)
 		end
 	end
 	
-	local total = #c*(#c-1)/2
 	local desc = inact > 0 and "|cffccc78f" .. (novel > 0 and "+" or "") .. inact .. "|r" or ""
 	desc = (novel > 0 and "|cff20ff20" .. novel .. "|r" or "") .. desc .. "|cffffffff/" .. total
 	return novel, inact, total, desc
 end
-function api.PrepCounterComboIter(c)
-	local dupIdx, dupNext do
-		for i=1,#c-1 do
-			if c[i] == c[i+1] then
-				dupIdx, dupNext = i, i + 1
-				break
+do -- GetFollowerLockedCounterInfo(fid)
+	local lockedCounterCache = {}
+	function api.GetFollowerLockedCounterInfo(fid)
+		local cl = lockedCounterCache[fid]
+		if not fid or cl == false then
+			return
+		elseif cl then
+			return cl
+		end
+		local fat = C_Garrison.GetFollowerAbilities(fid)
+		for k,v in pairs(fat) do
+			if not v.isTrait and v.id and v.counters then
+				cl = cl or next(v.counters)
 			end
 		end
+		lockedCounterCache[fid] = cl or false
+		return cl
 	end
-	return dupIdx, dupNext
-end
-function api.GetCounterComboIter(c, i, dupIdx, dupNext)
-	local lidx, ridx = i % #c + 1, (i+1) % #c + 1
-	if i == dupNext then return end
-	local hasRight = not ((#c == 4 and i > 2) or lidx == dupIdx)
-
-	local pc, lc, rc = c[i], c[lidx], c[ridx]
-	local _, _, pi = api.GetMechanicInfo(pc)
-	local _, _, li = api.GetMechanicInfo(lc)
-	local _, _, ri = api.GetMechanicInfo(rc)
-	local pt = "|T" .. pi .. ":16:16:0:0:64:64:5:59:5:59|t"
-	local lt = pt .. "|T" .. li .. ":16:16:0:0:64:64:5:59:5:59|t"
-	local rt = pt .. "|T" .. ri .. ":16:16:0:0:64:64:5:59:5:59|t"
-
-	return lidx, hasRight and ridx, pc, lc, rc, lt, hasRight and rt or ""
 end
 function api.SetClassSpecTooltip(self, specId, specName, ab1, ab2)
 	local fi
@@ -2650,36 +2642,31 @@ function api.SetClassSpecTooltip(self, specId, specName, ab1, ab2)
 	if specName then
 		self:AddLine(specName, 1,1,1)
 		self:AddLine(L"Potential counters:")
-		local dupIdx, dupNext = api.PrepCounterComboIter(c)
-
-		local lockedCounter
-		if fi then
-			local fat = fi and C_Garrison.GetFollowerAbilities(fi.garrFollowerID or fi.followerID)
-			for k,v in pairs(fat) do
-				if not v.isTrait and v.id and v.counters then
-					lockedCounter = next(v.counters)
+		local lockedCounter = api.GetFollowerLockedCounterInfo(fi and (fi.garrFollowerID or fi.followerID))
+		
+		local leftLine
+		for i=1,#c do
+			for j=lockedCounter and #c or (i+1), #c do
+				local pc, lc = lockedCounter or c[j], c[i]
+				local lct, lpt = dct[pc*100+lc], dct[-(pc*100+lc)]
+				local _, _, pi = api.GetMechanicInfo(pc)
+				local _, _, li = api.GetMechanicInfo(lc)
+				local pt = "|T" .. pi .. ":16:16:0:0:64:64:5:59:5:59|t"
+				if leftLine then
+					local rt = pt .. "|T" .. li .. ":16:16:0:0:64:64:5:59:5:59|t"
+					local rf, ra, rp = api.countFreeFollowers(lct, finfo), lct and #lct or 0, lpt and #lpt or 0
+					rt = (rf == 0 and ra == 0 and "0" or "") .. (rf > 0 and "|cff20ff20" .. rf .. "|r" or "") .. (ra > rf and (rf > 0 and "+" or "") .. "|cffccc78f" .. (ra - rf) .. "|r" or "") .. "|cffa0a0a0/" .. rp .. " " .. rt
+					self:AddDoubleLine(leftLine, rt, 1,1,1, 1,1,1)
+					leftLine = nil
+				else
+					local lt = pt .. "|T" .. li .. ":16:16:0:0:64:64:5:59:5:59|t"
+					local lf, la, lp = api.countFreeFollowers(lct, finfo), lct and #lct or 0, lpt and #lpt or 0
+					leftLine = lt .. " " .. (lf == 0 and la == 0 and "0" or "") .. (lf > 0 and "|cff20ff20" .. lf .. "|r" or "") .. (la > lf and (lf > 0 and "+" or "") .. "|cffccc78f" .. (la - lf) .. "|r" or "") .. "|cffa0a0a0/" .. lp
 				end
 			end
 		end
-
-		for i=1,#c do
-			local lidx, ridx, pc, lc, rc, lt, rt = api.GetCounterComboIter(c, i, dupIdx, dupNext)
-			if lidx then
-				local lct, lpt, rct, rpt = dct[pc*100+lc], dct[-(pc*100+lc)], dct[pc*100+rc], dct[-(pc*100+rc)]
-				local lf, la, lp = api.countFreeFollowers(lct, finfo), lct and #lct or 0, lpt and #lpt or 0
-				lt = lt .. " " .. (lf == 0 and la == 0 and "0" or "") .. (lf > 0 and "|cff20ff20" .. lf .. "|r" or "") .. (la > lf and (lf > 0 and "+" or "") .. "|cffccc78f" .. (la - lf) .. "|r" or "") .. "|cffa0a0a0/" .. lp
-				if ridx then
-					local rf, ra, rp = api.countFreeFollowers(rct, finfo), rct and #rct or 0, rpt and #rpt or 0
-					rt = (rf == 0 and ra == 0 and "0" or "") .. (rf > 0 and "|cff20ff20" .. rf .. "|r" or "") .. (ra > rf and (rf > 0 and "+" or "") .. "|cffccc78f" .. (ra - rf) .. "|r" or "") .. "|cffa0a0a0/" .. rp .. " " .. rt
-				end
-				if lockedCounter ~= nil and pc ~= lockedCounter and lc ~= lockedCounter then
-					lt = " "
-				end
-				if lockedCounter ~= nil and pc ~= lockedCounter and rc ~= lockedCounter then
-					rt = " "
-				end
-				self:AddDoubleLine(lt, rt, 1,1,1, 1,1,1)
-			end
+		if leftLine then
+			self:AddLine(leftLine, 1,1,1)
 		end
 	else
 		self:AddLine(ITEM_QUALITY_COLORS[4].hex .. L"Epic Ability")
@@ -3262,9 +3249,11 @@ do -- api.GetBestGroupInfo()
 			c1, c2 = c1 < c2 and c1 or c2, c1 < c2 and c2 or c1
 			local skey = c1*100+c2
 			fi.clones[skey] = fi
+
+			local lockedCounter = api.GetFollowerLockedCounterInfo(fi.garrFollowerID or fi.followerID)
 			for i=1,#ct do
-				for j=i+1,#ct do
-					local a, b = ct[i], ct[j]
+				for j=lockedCounter and #ct or (i+1),#ct do
+					local a, b = ct[i], lockedCounter or ct[j]
 					local key = a*100+b
 					if not fi.clones[key] then
 						local cl = {}
@@ -3311,20 +3300,13 @@ do -- api.GetBestGroupInfo()
 		end
 		me.active, me.working = 1, 0
 		
-		local fat = C_Garrison.GetFollowerAbilities(me.garrFollowerID or me.followerID or fid)
-		local lockedCounter = nil
-		for k,v in pairs(fat) do
-			if not v.isTrait and v.id and v.counters then
-				lockedCounter = next(v.counters)
-			end
-		end
-		
 		local bMax, ct, clones = #ft, T.SpecCounters[me.classSpec], {}
+		local lockedCounter = api.GetFollowerLockedCounterInfo(me.garrFollowerID or me.followerID or fid)
 		for i=1,#ct do
-			for j=i+1,#ct do
-				local a, b = ct[i], ct[j]
+			for j=lockedCounter and #ct or (i+1),#ct do
+				local a, b = ct[i], lockedCounter or ct[j]
 				local key = a*100+b
-				if not clones[key] and (lockedCounter == nil or a == lockedCounter or b == lockedCounter) then
+				if not clones[key] then
 					local cl = {}
 					for k,v in pairs(me) do
 						cl[k] = v

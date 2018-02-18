@@ -49,34 +49,6 @@ hooksecurefunc("UIDropDownMenu_StartCounting", function(self)
 	end
 end)
 
-local CreateLazyActionButton do
-	local buttons = {}
-	function CreateLazyActionButton(parent, templates)
-		local container = CreateFrame("Frame", nil, parent)
-		local button = securecall(CreateFrame, "Button", nil, nil, "SecureActionButtonTemplate" .. (templates and "," .. templates or ""))
-		buttons[container], container.real, button.slot = button, button, container
-		if not InCombatLockdown() then
-			button:SetParent(container)
-			button:SetAllPoints(container)
-		end
-		return container, button
-	end
-	T.CreateLazyActionButton = CreateLazyActionButton
-	function E:PLAYER_REGEN_DISABLED()
-		for _,v in pairs(buttons) do
-			v:ClearAllPoints()
-			v:SetParent(nil)
-			v:Hide()
-		end
-	end
-	function E:PLAYER_REGEN_ENABLED()
-		for k,v in pairs(buttons) do
-			v:SetParent(k)
-			v:SetAllPoints()
-			v:Show()
-		end
-	end
-end
 local CreateLazyItemButton do
 	local itemIDs, OnEnter = {}
 	local function OnUpdateSync(self, elapsed)
@@ -115,24 +87,30 @@ local CreateLazyItemButton do
 		end
 	end
 	local function OnShow(self)
-		self.slot.Count:SetText((GetItemCount(itemIDs[self])))
+		self.Count:SetText((GetItemCount(itemIDs[self])))
+	end
+	local function OnClick()
+		if InCombatLockdown() then
+			UIErrorsFrame:TryDisplayMessage(LE_GAME_ERR_NOT_IN_COMBAT or -1, ERR_NOT_IN_COMBAT, RED_FONT_COLOR:GetRGB());
+		end
 	end
 	function CreateLazyItemButton(parent, itemID)
-		local f, b = CreateLazyActionButton(parent)
-		b:SetScript("OnShow", OnShow)
-		itemIDs[b], f.itemID = itemID, itemID
-		f.Icon = b:CreateTexture(nil, "ARTWORK")
+		local f = CreateFrame("Button", nil, parent, "InsecureActionButtonTemplate")
+		f:SetScript("OnShow", OnShow)
+		itemIDs[f], f.itemID = itemID, itemID
+		f.Icon = f:CreateTexture(nil, "ARTWORK")
 		f.Icon:SetAllPoints()
 		f.Icon:SetTexture(GetItemIcon(itemID))
-		f.Count = b:CreateFontString(nil, "OVERLAY", "GameFontHighlightOutline")
+		f.Count = f:CreateFontString(nil, "OVERLAY", "GameFontHighlightOutline")
 		f.Count:SetPoint("BOTTOMRIGHT", -1, 2)
-		b:SetAttribute("type", "macro")
-		b:SetAttribute("macrotext", SLASH_STOPSPELLTARGET1 .. "\n" .. SLASH_USE1 .. " item:" .. itemID)
-		b:SetScript("OnEnter", OnEnter)
-		b:SetScript("OnLeave", OnLeave)
-		b:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square")
-		b:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress")
-		return f,b
+		f:SetAttribute("type", "macro")
+		f:SetAttribute("macrotext", SLASH_STOPSPELLTARGET1 .. "\n" .. SLASH_USE1 .. " item:" .. itemID)
+		f:SetScript("OnEnter", OnEnter)
+		f:SetScript("OnLeave", OnLeave)
+		f:SetScript("PreClick", OnClick)
+		f:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square")
+		f:SetPushedTexture("Interface\\Buttons\\UI-Quickslot-Depress")
+		return f,f
 	end
 	function E:BAG_UPDATE_DELAYED()
 		for k in pairs(itemIDs) do
