@@ -1,20 +1,45 @@
-tag 6b085e8808aebd5a17de3999733b62ebcbd3baf5 v1.4.4
+tag 39b2bbed6e982c84a1f236a2ebd79fbdef514a22 v1.4.5
 Author:	Ethan Centaurai <ethancentaurai@outlook.com>
-Date:	Sat Jan 21 22:09:16 2017 +0000
+Date:	Sat Feb 17 11:36:07 2018 +0000
 
-Tagging as v1.4.4.
+Tagging as v1.4.5.
 
-commit afab05474120988ea5dec5024a66f82343e8df33
+commit f258565c699f84ebf0d4de0010403b4836a47e14
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Jan 21 21:21:20 2017 +0000
+Date:   Sat Feb 17 11:30:36 2018 +0000
 
-    Bump Interface number to 70100.
+    Minor text tweaks.
 
-commit 7039b6691a789b6bea61db90b1340176b714cdb4
+commit 38de693ce3166b6befe5ec7d5fdba9c74b8aac50
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Jan 21 21:18:48 2017 +0000
+Date:   Sat Feb 17 11:30:27 2018 +0000
 
-    Fixed the tooltips showing incorrect names/places.
+    Bump Interface number to 70300.
+
+commit ebba1d59bda5cfae64e72693c5c1943593585ecd
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Sat Feb 17 11:30:13 2018 +0000
+
+    Change texture path check to use texture IDs.
+
+commit dbba26eb13ecdaf4390e9c14c253c8582b6049ec
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Sun Jan 22 21:21:20 2017 +0000
+
+    Small tooltip tweak.
+
+commit b417d0285b1d18083ea3c4b391d388567859c42f
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Sun Jan 22 17:25:49 2017 +0000
+
+    Elders in dungeons now have a different icon.
     
-    Blizzard rearranged the achievement criteria (again).
+    Requested by Stanzilla. This will make distinguishing overworld and
+    dungeon Elders easier.
+
+commit 0a97ffd50e266ac71bd1ca8fe5d3de33479b9f93
+Author: Ethan Centaurai <ethancentaurai@outlook.com>
+Date:   Sun Jan 22 11:15:53 2017 +0000
+
+    Removed duplicate Elder Kilias marker.
 

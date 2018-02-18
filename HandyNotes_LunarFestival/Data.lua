@@ -26,7 +26,7 @@ points["BlastedLands"] = {
 points["BurningSteppes"] = {
 	[70114539] = { 8636, 912, 9 }, -- Elder Rumblerock
 	[52382394] = { 8683, 912, 10 }, -- Elder Dawnstrider
-	[27592544] = { 8644, 910, 4 }, -- Elder Stonefort in Lower Blackrock Spire
+	[27592544] = { 8644, 910, 4, true }, -- Elder Stonefort in Lower Blackrock Spire
 }
 
 points["DunMorogh"] = {
@@ -36,7 +36,7 @@ points["DunMorogh"] = {
 points["EasternPlaguelands"] = {
 	[35586881] = { 8688, 912, 15 }, -- Elder Windrun
 	[75735456] = { 8650, 912, 16 }, -- Elder Snowcrown
-	[27091252] = { 8727, 910, 6 }, -- Elder Farwhisper in Stratholme
+	[27091252] = { 8727, 910, 6, true }, -- Elder Farwhisper in Stratholme
 }
 
 points["Elwynn"] = {
@@ -58,7 +58,7 @@ points["LochModan"] = {
 
 points["SearingGorge"] = {
 	[21307911] = { 8651, 912, 12 }, -- Elder Ironband
-	[26937262] = { 8619, 910, 5 }, -- Elder Morndeep in Blackrock Depths
+	[26937262] = { 8619, 910, 5, true }, -- Elder Morndeep in Blackrock Depths
 }
 
 points["Silverpine"] = {
@@ -80,7 +80,7 @@ points["Stratholme"] = {
 }
 
 points["SwampOfSorrows"] = {
-	[69665348] = { 8713, 910, 2 }, -- Elder Starsong in Sunken Temple
+	[69665348] = { 8713, 910, 2, true }, -- Elder Starsong in Sunken Temple
 }
 
 points["TheCapeOfStranglethorn"] = {
@@ -136,7 +136,7 @@ points["Darnassus"] = {
 }
 
 points["Desolace"] = {
-	[29106255] = { 8635, 910, 3 }, -- Elder Splitrock in Maraudon
+	[29106255] = { 8635, 910, 3, true }, -- Elder Splitrock in Maraudon
 }
 
 points["Durotar"] = {
@@ -178,7 +178,7 @@ points["SouthernBarrens"] = {
 points["Tanaris"] = {
 	[37247906] = { 8671, 911, 15 }, -- Elder Ragetotem
 	[51402881] = { 8684, 911, 16 }, -- Elder Dreamseer
-	[39212126] = { 8676, 910, 1 }, -- Elder Wildmane in Zul'Farrak
+	[39212126] = { 8676, 910, 1, true }, -- Elder Wildmane in Zul'Farrak
 }
 
 points["Teldrassil"] = {
@@ -223,7 +223,7 @@ points["AzjolNerub"] = {
 }
 
 points["BoreanTundra"] = {
-	[27502598] = { 13021, 910, 8 }, -- Elder Igasho in The Nexus
+	[27502598] = { 13021, 910, 8, true }, -- Elder Igasho in The Nexus
 	[59096563] = { 13012, 1396, 1 }, -- Elder Sardis
 	[57394373] = { 13033, 1396, 5 }, -- Elder Arp
 	[33803436] = { 13016, 1396, 6 }, -- Elder Northal
@@ -231,7 +231,7 @@ points["BoreanTundra"] = {
 }
 
 points["Dragonblight"] = {
-	[25945089] = { 13022, 910, 9 }, -- Elder Nurgen in Azjol-Nerub
+	[25945089] = { 13022, 910, 9, true }, -- Elder Nurgen in Azjol-Nerub
 	[29755590] = { 13014, 1396, 3 }, -- Elder Morthie
 	[48767818] = { 13019, 1396, 12 }, -- Elder Thoim
 	[35104835] = { 13031, 1396, 17 }, -- Elder Skywarden
@@ -242,7 +242,6 @@ points["DrakTharonKeep"] = {
 }
 
 points["GrizzlyHills"] = {
-	[17792703] = { 13023, 910, 10 }, -- Elder Kilias in Drak'Tharon Keep
 	[60572768] = { 13013, 1396, 2 }, -- Elder Beldak
 	[80523712] = { 13025, 1396, 9 }, -- Elder Lunaro
 	[64164700] = { 13030, 1396, 16 }, -- Elder Whurain
@@ -253,8 +252,8 @@ points["Gundrak"] = {
 }
 
 points["HowlingFjord"] = {
-	[57994998] = { 13017, 910, 7 }, -- Elder Jarten in Utgarde Keep
-	[57264668] = { 13067, 910, 13 }, -- Elder Chogan'gada in Utgarde Pinnacle
+	[57994998] = { 13017, 910, 7, true }, -- Elder Jarten in Utgarde Keep
+	[57264668] = { 13067, 910, 13, true }, -- Elder Chogan'gada in Utgarde Pinnacle
 }
 
 points["LakeWintergrasp"] = {
@@ -271,7 +270,7 @@ points["TheNexus"] = {
 }
 
 points["TheStormPeaks"] = {
-	[39582691] = { 13066, 910, 12 }, -- Elder Yurauk in Halls of Stone
+	[39582691] = { 13066, 910, 12, true }, -- Elder Yurauk in Halls of Stone
 	[28897371] = { 13015, 1396, 4 }, -- Elder Fargal
 	[41168473] = { 13028, 1396, 13 }, -- Elder Graymane
 	[31273762] = { 13020, 1396, 14 }, -- Elder Stonebeard
@@ -291,8 +290,8 @@ points["UtgardePinnacle"] = {
 }
 
 points["ZulDrak"] = {
-	[28528694] = { 13023, 910, 10 }, -- Elder Kilias in Drak'Tharon Keep
-	[76162102] = { 13065, 910, 11 }, -- Elder Ohanzee in Gundrak
+	[28528694] = { 13023, 910, 10, true }, -- Elder Kilias in Drak'Tharon Keep
+	[76162102] = { 13065, 910, 11, true }, -- Elder Ohanzee in Gundrak
 	[58915597] = { 13027, 1396, 11 }, -- Elder Tauros
 }
 

@@ -54,7 +54,10 @@ local function infoFromCoord(mapFile, coord)
 	if point == "Zidormi" then
 		return point
 	else
-		return GetAchievementCriteriaInfo(point[2], point[3])
+		local nameOfElder = GetAchievementCriteriaInfo(point[2], point[3])
+		local isInDungeon = point[4]
+
+		return nameOfElder, isInDungeon
 	end
 end
 
@@ -67,12 +70,18 @@ function LunarFestival:OnEnter(mapFile, coord)
 		tooltip:SetOwner(self, "ANCHOR_RIGHT")
 	end
 
-	local nameOfElder = infoFromCoord(mapFile, coord)
+	local nameOfElder, isInDungeon = infoFromCoord(mapFile, coord)
 
 	tooltip:SetText(nameOfElder)
 
 	if nameOfElder == "Zidormi" then
-		tooltip:AddLine("Talk to the Time Keeper to change the zone's phase if you can't find the Elder.", 1, 1, 1)
+		tooltip:AddLine("Talk to the Time Keeper to travel back in time if you can't find the Elder.", 1, 1, 1)
+		tooltip:AddLine(" ")
+	end
+
+	if isInDungeon then
+		tooltip:AddLine("Inside the dungeon instance.", 1, 1, 1)
+		tooltip:AddLine(" ")
 	end
 
 	if TomTom then
@@ -135,7 +144,8 @@ do
 			if value == "Zidormi" then
 				return state, nil, "interface\\icons\\spell_holy_borrowedtime", db.icon_scale, db.icon_alpha
 			elseif (db.completed or not completedQuests[value[1]]) then
-				return state, nil, "interface\\icons\\inv_misc_elvencoins", db.icon_scale, db.icon_alpha
+				local icon = value[4] and "interface\\icons\\spell_hunter_lonewolf" or "interface\\icons\\inv_misc_elvencoins"
+				return state, nil, icon, db.icon_scale, db.icon_alpha
 			end
 
 			state, value = next(t, state) -- get next data
@@ -163,7 +173,8 @@ do
 					if value == "Zidormi" then
 						return state, mapFile, "interface\\icons\\spell_holy_borrowedtime", db.icon_scale, db.icon_alpha
 					elseif (db.completed or not completedQuests[value[1]]) then
-						return state, mapFile, "interface\\icons\\inv_misc_elvencoins", db.icon_scale, db.icon_alpha
+						local icon = value[4] and "interface\\icons\\spell_hunter_lonewolf" or "interface\\icons\\inv_misc_elvencoins"
+						return state, mapFile, icon, db.icon_scale, db.icon_alpha
 					end
 
 					state, value = next(data, state) -- get next data
@@ -247,7 +258,7 @@ local function CheckEventActive()
 	for i=1, numEvents do
 		local _, eventHour, _, eventType, state, _, texture = CalendarGetDayEvent(monthOffset, day, i)
 
-		if texture == "Calendar_LunarFestival" then
+		if texture == 235469 or texture == 235470 or texture == 235471 then
 			if state == "ONGOING" then
 				setEnabled = true
 			else
