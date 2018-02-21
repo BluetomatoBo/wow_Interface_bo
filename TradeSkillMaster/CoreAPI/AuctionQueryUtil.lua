@@ -30,9 +30,13 @@ function TSMAPI.Auction:GenerateQueries(itemList, callback)
 end
 
 function TSMAPI.Auction:GetItemQueryInfo(itemString)
-	local level = TSMAPI.Item:GetMinLevel(itemString)
+	local level = TSMAPI.Item:GetMinLevel(itemString) or 0
 	local classId = TSMAPI.Item:GetClassId(itemString) or 0
 	local subClassId = TSMAPI.Item:GetSubClassId(itemString) or 0
+	-- Ignoring level because level can now vary
+	if itemString == TSMAPI.Item:ToBaseItemString(itemString) and (classId == LE_ITEM_CLASS_WEAPON or classId == LE_ITEM_CLASS_ARMOR or (classId == LE_ITEM_CLASS_GEM and subClassId == LE_ITEM_GEM_ARTIFACTRELIC)) then
+		level = 0
+	end
 	return {
 		name = TSMAPI.Item:GetName(itemString),
 		quality = TSMAPI.Item:GetQuality(itemString),
@@ -349,14 +353,18 @@ end
 
 function private:GetCommonInfo(items)
 	local minQuality, minLevel, maxLevel = nil, nil, nil
+	local filterLevel = true
 	for _, itemString in ipairs(items) do
-		local quality = TSMAPI.Item:GetQuality(itemString)
-		local level = TSMAPI.Item:GetMinLevel(itemString)
+		local quality = TSMAPI.Item:GetQuality(itemString) or 0
+		local level = TSMAPI.Item:GetMinLevel(itemString) or 0
+		if level == 0 then
+			filterLevel = false
+		end
 		minQuality = min(minQuality or quality, quality)
 		minLevel = min(minLevel or level, level)
 		maxLevel = max(maxLevel or level, level)
 	end
-	return minQuality or 0, minLevel or 0, maxLevel or 0
+	return minQuality or 0, filterLevel and minLevel or 0, filterLevel and maxLevel or 0
 end
 
 function private:GetCommonName(items)
