@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Faction-3.0
-Revision: $Rev: 217 $
+Revision: $Rev: 219 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-faction-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Faction-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 217 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 219 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -2075,24 +2075,18 @@ elseif GAME_LOCALE == "zhCN" then
 	lib:SetCurrentTranslations {
 	["Acquaintance"] = "熟人",
 	["Aeda Brightdawn"] = "艾达·晨光",
-	--Translation missing 
-	-- ["Akule Riverhorn"] = "Akule Riverhorn",
+	["Akule Riverhorn"] = "阿库勒·河角",
 	["Alliance"] = "联盟",
 	["Alliance Vanguard"] = "联盟先遣军",
 	["Arakkoa Outcasts"] = "鸦人流亡者",
 	["Argent Crusade"] = "银色北伐军",
 	["Argent Dawn"] = "银色黎明",
-	--Translation missing 
-	-- ["Argussian Reach"] = "Argussian Reach",
-	--Translation missing 
-	-- ["Argussian Reach (Paragon)"] = "Argussian Reach (Paragon)",
+	["Argussian Reach"] = "阿古斯防卫军",
+	["Argussian Reach (Paragon)"] = "阿古斯防卫军（巅峰）",
 	["Armies of Legionfall"] = "抗魔联军",
-	--Translation missing 
-	-- ["Armies of Legionfall (Paragon)"] = "Armies of Legionfall (Paragon)",
-	--Translation missing 
-	-- ["Army of the Light"] = "Army of the Light",
-	--Translation missing 
-	-- ["Army of the Light (Paragon)"] = "Army of the Light (Paragon)",
+	["Armies of Legionfall (Paragon)"] = "抗魔联军（巅峰）",
+	["Army of the Light"] = "圣光军团",
+	["Army of the Light (Paragon)"] = "圣光军团（巅峰）",
 	["Ashtongue Deathsworn"] = "灰舌死誓者",
 	["Avengers of Hyjal"] = "海加尔复仇者",
 	["Baradin's Wardens"] = "巴拉丁典狱官",
@@ -2108,12 +2102,10 @@ elseif GAME_LOCALE == "zhCN" then
 	["Cenarion Circle"] = "塞纳里奥议会",
 	["Cenarion Expedition"] = "塞纳里奥远征队",
 	["Chee Chee"] = "吱吱",
-	--Translation missing 
-	-- ["Corbyn"] = "Corbyn",
+	["Corbyn"] = "科尔宾",
 	["Council of Exarchs"] = "主教议会",
 	["Court of Farondis"] = "法罗迪斯宫廷",
-	--Translation missing 
-	-- ["Court of Farondis (Paragon)"] = "Court of Farondis (Paragon)",
+	["Court of Farondis (Paragon)"] = "法罗迪斯宫廷（巅峰）",
 	["Darkmoon Faire"] = "暗月马戏团",
 	["Darkspear Trolls"] = "暗矛巨魔",
 	["Darnassus"] = "达纳苏斯",
@@ -2122,8 +2114,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Dominance Offensive"] = "统御先锋军",
 	["Dragonmaw Clan"] = "龙喉氏族",
 	["Dreamweavers"] = "织梦者",
-	--Translation missing 
-	-- ["Dreamweavers (Paragon)"] = "Dreamweavers (Paragon)",
+	["Dreamweavers (Paragon)"] = "织梦者（巅峰）",
 	["Ella"] = "艾拉",
 	["Everlook"] = "永望镇",
 	["Exalted"] = "崇拜",
@@ -2152,8 +2143,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Haohan Mudclaw"] = "郝瀚·泥爪",
 	["Hellscream's Reach"] = "地狱咆哮近卫军",
 	["Highmountain Tribe"] = "高岭部族",
-	--Translation missing 
-	-- ["Highmountain Tribe (Paragon)"] = "Highmountain Tribe (Paragon)",
+	["Highmountain Tribe (Paragon)"] = "高岭部族（巅峰）",
 	["Honor Hold"] = "荣耀堡",
 	["Honored"] = "尊敬",
 	["Horde"] = "部落",
@@ -2161,15 +2151,12 @@ elseif GAME_LOCALE == "zhCN" then
 	["Huojin Pandaren"] = "火金派熊猫人",
 	["Hydraxian Waterlords"] = "海达希亚水元素",
 	["Illidari"] = "伊利达雷",
-	--Translation missing 
-	-- ["Ilyssia of the Waters"] = "Ilyssia of the Waters",
-	--Translation missing 
-	-- ["Impus"] = "Impus",
+	["Ilyssia of the Waters"] = "“活水”伊丽西娅",
+	["Impus"] = "英帕斯",
 	["Ironforge"] = "铁炉堡",
 	["Jandvik Vrykul"] = "贾德维克维库人",
 	["Jogu the Drunk"] = "醉鬼贾古",
-	--Translation missing 
-	-- ["Keeper Raynae"] = "Keeper Raynae",
+	["Keeper Raynae"] = "守护者蕾娜",
 	["Keepers of Time"] = "时光守护者",
 	["Kirin Tor"] = "肯瑞托",
 	["Kirin Tor Offensive"] = "肯瑞托远征军",
@@ -2207,8 +2194,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Shado-Pan"] = "影踪派",
 	["Shado-Pan Assault"] = "影踪突袭营",
 	["Shadowmoon Exiles"] = "影月流亡者",
-	--Translation missing 
-	-- ["Sha'leth"] = "Sha'leth",
+	["Sha'leth"] = "莎乐丝",
 	["Shang Xi's Academy"] = "尚喜武院",
 	["Sha'tari Defense"] = "沙塔尔防御者",
 	["Sha'tari Skyguard"] = "沙塔尔天空卫士",
@@ -2244,8 +2230,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["The Lorewalkers"] = "游学者",
 	["The Mag'har"] = "玛格汉",
 	["The Nightfallen"] = "堕夜精灵",
-	--Translation missing 
-	-- ["The Nightfallen (Paragon)"] = "The Nightfallen (Paragon)",
+	["The Nightfallen (Paragon)"] = "堕夜精灵（巅峰）",
 	["The Oracles"] = "神谕者",
 	["The Saberstalkers"] = "刃牙追猎者",
 	["The Scale of the Sands"] = "流沙之鳞",
@@ -2258,8 +2243,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["The Tillers"] = "阡陌客",
 	["The Violet Eye"] = "紫罗兰之眼",
 	["The Wardens"] = "守望者",
-	--Translation missing 
-	-- ["The Wardens (Paragon)"] = "The Wardens (Paragon)",
+	["The Wardens (Paragon)"] = "守望者（巅峰）",
 	["The Wyrmrest Accord"] = "龙眠联军",
 	["Therazane"] = "塞拉赞恩",
 	["Thorium Brotherhood"] = "瑟银兄弟会",
@@ -2272,8 +2256,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Tushui Pandaren"] = "土水派熊猫人",
 	["Undercity"] = "幽暗城",
 	["Valarjar"] = "瓦拉加尔",
-	--Translation missing 
-	-- ["Valarjar (Paragon)"] = "Valarjar (Paragon)",
+	["Valarjar (Paragon)"] = "瓦拉加尔（巅峰）",
 	["Valiance Expedition"] = "无畏远征军",
 	["Vivianne"] = "薇薇安",
 	["Vol'jin's Headhunters"] = "沃金之锋",

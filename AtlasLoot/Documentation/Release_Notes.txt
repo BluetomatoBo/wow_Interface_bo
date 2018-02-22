@@ -5,7 +5,37 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
-v8.07.07 (Jan. 22, 2017)
+v8.07.08 (Feb. 21, 2018)
+========================
+- Libs update: 
+  - LibBabble-Boss
+  - LibBabble-Faction
+Updated by 2TailedFox:
+- Classic dungeons's loot table update: 
+  - Ragefire Chasm, 
+  - Deadmines, 
+  - The Stockades, 
+  - Shadowfang Keep,
+  - Wailing Caverns, 
+  - Blackfathom Deeps, 
+  - Gnomeregan, 
+  - Scarlet Halls,
+  - Scarlet Monastery,
+  - Razorfen Kraul,
+  - Maraudon, 
+  - Uldaman, 
+  - Dire Maul,
+  - Scholomance, 
+  - Razorfen Downs, 
+  - Stratholme, 
+  - Zul'Farrak, 
+  - Blackrock Depths,
+  - The Temple of Atal'hakkar 
+  - Lower Blackrock Spire.
+- Removed Marisa du'Paige from Deadmines as her loot target, Walking Boots, is no longer present.
+- The Lost Dwarves in Uldaman that can be killed by Horde players have been unified into a single loot table.
+
+v8.07.07 (Jan. 22, 2018)
 ========================
 Updated by 2TailedFox:
 - Update Stratholme drops.
