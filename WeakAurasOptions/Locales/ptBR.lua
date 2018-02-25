@@ -34,7 +34,6 @@ local L = WeakAuras.L
 	-- L["A 64x64 pixels icon"] = ""
 	L["A group that dynamically controls the positioning of its children"] = "Um grupo que controla dinamicamente o posicionamentos dos seus elementos"
 	L["Actions"] = "Ações"
-	L["Activate when the given aura(s) |cFFFF0000can't|r be found"] = "Ativar quando a aura(s) recebida |cFFFF0000não|r for(em) encontra(s)"
 	--Translation missing 
 	-- L["Add a new display"] = ""
 	--Translation missing 
@@ -56,8 +55,6 @@ local L = WeakAuras.L
 	L["Alpha"] = "Transparência"
 	L["Anchor"] = "Âncora"
 	L["Anchor Point"] = "Ponto da âncora"
-	--Translation missing 
-	-- L["anchored to"] = ""
 	--Translation missing 
 	-- L["Anchored To"] = ""
 	--Translation missing 
@@ -114,8 +111,6 @@ WeakAuras → Opções → Opções ]=]
 	L["Bar Color"] = "Cor da barra"
 	--Translation missing 
 	-- L["Bar Color Settings"] = ""
-	--Translation missing 
-	-- L["Bar in Front"] = ""
 	L["Bar Texture"] = "Textura da barra"
 	--Translation missing 
 	-- L["Big Icon"] = ""
@@ -145,8 +140,6 @@ WeakAuras → Opções → Opções ]=]
 	L["Button Glow"] = "Iluminar botão"
 	--Translation missing 
 	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
-	--Translation missing 
-	-- L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = ""
 	L["Cancel"] = "Cancelar"
 	L["Channel Number"] = "Número do canal"
 	--Translation missing 
@@ -245,13 +238,9 @@ WeakAuras → Opções → Opções ]=]
 	L["Duration Info"] = "Informação da duração"
 	L["Dynamic Group"] = "Grupo dinâmico"
 	--Translation missing 
-	-- L["Dynamic information"] = ""
-	--Translation missing 
 	-- L["Dynamic Information"] = ""
 	--Translation missing 
 	-- L["Dynamic information from first active trigger"] = ""
-	--Translation missing 
-	-- L["Dynamic information from first Active Trigger"] = ""
 	--Translation missing 
 	-- L["Dynamic information from Trigger %i"] = ""
 	--Translation missing 
@@ -269,7 +258,6 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Expand"] = ""
 	L["Expand all loaded displays"] = "Expandir todos os mostruários carregados"
 	L["Expand all non-loaded displays"] = "Expandir todos os mostruários não carregados"
-	L["Expand Text Editor"] = "Expandir o editor de texto"
 	--Translation missing 
 	-- L["Expansion is disabled because this group has no children"] = ""
 	--Translation missing 
@@ -297,8 +285,6 @@ WeakAuras → Opções → Opções ]=]
 	L["Foreground Texture"] = "Textura do primeiro plano"
 	L["Frame"] = "Quadro"
 	L["Frame Strata"] = "Camada do quadro"
-	--Translation missing 
-	-- L["frame's"] = ""
 	--Translation missing 
 	-- L["From Template"] = ""
 	--Translation missing 
@@ -484,7 +470,6 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Repeat every"] = ""
 	--Translation missing 
 	-- L["Required for Activation"] = ""
-	L["Required For Activation"] = "Requerido para ativar"
 	--Translation missing 
 	-- L["Right 2 HUD position"] = ""
 	--Translation missing 
@@ -522,7 +507,6 @@ WeakAuras → Opções → Opções ]=]
 	-- L["Show model of unit "] = ""
 	--Translation missing 
 	-- L["Show On"] = ""
-	L["Show players that are |cFFFF0000not affected"] = "Mostrar todos os jogadores que |cFFFF0000não foram afetados"
 	--Translation missing 
 	-- L["Show this group's children"] = ""
 	L["Shows a 3D model from the game files"] = "Mostrar um modelo 3D dos arquivos do jogo"
@@ -557,13 +541,6 @@ WeakAuras → Opções → Opções ]=]
 	--Translation missing 
 	-- L["Specific Unit"] = ""
 	L["Spell ID"] = "ID da magia"
-	L["Spell ID dialog"] = [=[
-Voce especificou uma aura por |cFFFF0000ID da magia|r.
-
-By default, |cFF8800FFWeakAuras|r cannot distinguish between auras with the same name but different |cFFFF0000spell ID|r.
-However, if the Use Full Scan option is enabled, |cFF8800FFWeakAuras|r can search for specific |cFFFF0000spell ID|rs.
-
-Would you like to enable Use Full Scan to match this |cFFFF0000spell ID|r?]=]
 	L["Stack Count"] = "Contagem do Monte"
 	L["Stack Info"] = "Informação do Monte"
 	--Translation missing 
@@ -623,11 +600,7 @@ Would you like to enable Use Full Scan to match this |cFFFF0000spell ID|r?]=]
 	--Translation missing 
 	-- L["To Personal Ressource Display's"] = ""
 	--Translation missing 
-	-- L["to Personal Ressource Display's"] = ""
-	--Translation missing 
 	-- L["To Screen's"] = ""
-	--Translation missing 
-	-- L["to screen's"] = ""
 	--Translation missing 
 	-- L["Toggle the visibility of all loaded displays"] = ""
 	--Translation missing 
@@ -669,8 +642,6 @@ Would you like to enable Use Full Scan to match this |cFFFF0000spell ID|r?]=]
 	--Translation missing 
 	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
 	--Translation missing 
-	-- L["Use SetTransform api"] = ""
-	--Translation missing 
 	-- L["Use tooltip \"size\" instead of stacks"] = ""
 	--Translation missing 
 	-- L["Used in auras:"] = ""
@@ -682,8 +653,6 @@ Would you like to enable Use Full Scan to match this |cFFFF0000spell ID|r?]=]
 	-- L["Vertical Bar"] = ""
 	--Translation missing 
 	-- L["View"] = ""
-	--Translation missing 
-	-- L["WeakAurasOptions"] = ""
 	--Translation missing 
 	-- L["Width"] = ""
 	--Translation missing 

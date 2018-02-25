@@ -29,7 +29,6 @@ local L = WeakAuras.L
 	-- L["A 64x64 pixels icon"] = ""
 	L["A group that dynamically controls the positioning of its children"] = "Un grupo que dinámicamente controla la posición de sus hijos"
 	L["Actions"] = "Acciones"
-	L["Activate when the given aura(s) |cFFFF0000can't|r be found"] = "Activar cuando el/las aura(s) |cFFFF0000no|r se encontraron"
 	--Translation missing 
 	-- L["Add a new display"] = ""
 	--Translation missing 
@@ -50,7 +49,6 @@ local L = WeakAuras.L
 	L["Alpha"] = "Transparencia"
 	L["Anchor"] = "Anclaje"
 	L["Anchor Point"] = "Punto de Anclaje"
-	L["anchored to"] = "anclado a"
 	L["Anchored To"] = "anclado a"
 	L["And "] = "y"
 	L["Angle"] = "Ángulo"
@@ -100,7 +98,6 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 	L["Bar Alpha"] = "Transparencia de la Barra"
 	L["Bar Color"] = "Color de la Barra"
 	L["Bar Color Settings"] = "Configuración de color de barra"
-	L["Bar in Front"] = "Barra en primer plano"
 	L["Bar Texture"] = "Textura de la Barra"
 	--Translation missing 
 	-- L["Big Icon"] = ""
@@ -124,7 +121,6 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 	L["Button Glow"] = "Resplandor del Botón"
 	--Translation missing 
 	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
-	L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = "Puede ser un nombre o un identificador de unidad(p.ej., party1). Solo funciona con personajes amistosos en tu grupo."
 	L["Cancel"] = "Cancelar"
 	L["Channel Number"] = "Número de Canal"
 	--Translation missing 
@@ -230,13 +226,9 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Duration Info"] = "Información de Duración"
 	L["Dynamic Group"] = "Grupo Dinámico"
 	--Translation missing 
-	-- L["Dynamic information"] = ""
-	--Translation missing 
 	-- L["Dynamic Information"] = ""
 	--Translation missing 
 	-- L["Dynamic information from first active trigger"] = ""
-	--Translation missing 
-	-- L["Dynamic information from first Active Trigger"] = ""
 	--Translation missing 
 	-- L["Dynamic information from Trigger %i"] = ""
 	L["Dynamic text tooltip"] = "Descripción emergente dinámica"
@@ -253,7 +245,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	-- L["Expand"] = ""
 	L["Expand all loaded displays"] = "Desplegar todas las auras"
 	L["Expand all non-loaded displays"] = "Desplegar todas las auras no cargadas"
-	L["Expand Text Editor"] = "Expandir el Editor de Texto"
 	--Translation missing 
 	-- L["Expansion is disabled because this group has no children"] = ""
 	--Translation missing 
@@ -278,8 +269,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Foreground Texture"] = "Textura Frontal"
 	L["Frame"] = "Macro"
 	L["Frame Strata"] = "Importancia del Marco"
-	--Translation missing 
-	-- L["frame's"] = ""
 	--Translation missing 
 	-- L["From Template"] = ""
 	--Translation missing 
@@ -467,7 +456,6 @@ Sólo un valor coincidente puede ser escogido.]=]
 	-- L["Repeat every"] = ""
 	--Translation missing 
 	-- L["Required for Activation"] = ""
-	L["Required For Activation"] = "Necesario para Activación"
 	--Translation missing 
 	-- L["Right 2 HUD position"] = ""
 	--Translation missing 
@@ -504,7 +492,6 @@ Sólo un valor coincidente puede ser escogido.]=]
 	-- L["Show model of unit "] = ""
 	--Translation missing 
 	-- L["Show On"] = ""
-	L["Show players that are |cFFFF0000not affected"] = "Mostrar jugadores |cFFFF0000no afectados"
 	--Translation missing 
 	-- L["Show this group's children"] = ""
 	L["Shows a 3D model from the game files"] = "Muestra un modelo 3D directamente de los ficheros de WoW"
@@ -539,7 +526,6 @@ Sólo un valor coincidente puede ser escogido.]=]
 	--Translation missing 
 	-- L["Specific Unit"] = ""
 	L["Spell ID"] = "ID de Hechizo"
-	L["Spell ID dialog"] = "Diálogo de ID de Hechizo"
 	L["Stack Count"] = "Contar Acumulaciones"
 	L["Stack Info"] = "Información de Acumulaciones"
 	--Translation missing 
@@ -585,9 +571,7 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["To Frame's"] = "Al macro"
 	L["to group's"] = "Al grupo"
 	L["To Personal Ressource Display's"] = "A los recursos del aura personal"
-	L["to Personal Ressource Display's"] = "a los recursos del aura personal"
 	L["To Screen's"] = "A la pantalla"
-	L["to screen's"] = "a la pantalla"
 	L["Toggle the visibility of all loaded displays"] = "Alterar la visibilidad de todas las auras cargadas"
 	L["Toggle the visibility of all non-loaded displays"] = "Alterar la visibilidad de todas las auras no cargadas"
 	L["Toggle the visibility of this display"] = "Alterar la visibilidad de esta aura"
@@ -613,8 +597,6 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Use Full Scan (High CPU)"] = "Escaneo Total (carga el procesador)"
 	--Translation missing 
 	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
-	--Translation missing 
-	-- L["Use SetTransform api"] = ""
 	L["Use tooltip \"size\" instead of stacks"] = "Usa \"tamaño\" en vez de acumulaciones"
 	--Translation missing 
 	-- L["Used in auras:"] = ""
@@ -625,8 +607,6 @@ Sólo un valor coincidente puede ser escogido.]=]
 	-- L["Vertical Bar"] = ""
 	--Translation missing 
 	-- L["View"] = ""
-	--Translation missing 
-	-- L["WeakAurasOptions"] = ""
 	L["Width"] = "Ancho"
 	L["X Offset"] = "X Posicion"
 	--Translation missing 

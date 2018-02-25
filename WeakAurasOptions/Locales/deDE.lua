@@ -24,7 +24,6 @@ local L = WeakAuras.L
 	L["A 64x64 pixels icon"] = "Ein Symbol mit 64x64 Pixeln"
 	L["A group that dynamically controls the positioning of its children"] = "Eine Gruppe, die dynamisch die Position ihrer Kinder steuert"
 	L["Actions"] = "Aktionen"
-	L["Activate when the given aura(s) |cFFFF0000can't|r be found"] = "Aktiviere falls die angegebenen Auren |cFFFF0000nicht|r gefunden werden"
 	L["Add a new display"] = "Neue Anzeige hinzufügen"
 	--Translation missing 
 	-- L["Add Condition"] = ""
@@ -43,7 +42,6 @@ local L = WeakAuras.L
 	L["Alpha"] = "Transparenz"
 	L["Anchor"] = "Anker"
 	L["Anchor Point"] = "Ankerpunkt"
-	L["anchored to"] = "Anheften an"
 	L["Anchored To"] = "Angeheftet an"
 	--Translation missing 
 	-- L["And "] = ""
@@ -87,7 +85,6 @@ Falls die Dauer der Animation auf |cFF00CC0010%|r gesetzt wurde und für die Anz
 	L["Bar Alpha"] = "Balkentransparenz"
 	L["Bar Color"] = "Balkenfarbe"
 	L["Bar Color Settings"] = "Balkenfarbeneinstellungen"
-	L["Bar in Front"] = "Balken im Vordergrund"
 	L["Bar Texture"] = "Balkentextur"
 	L["Big Icon"] = "Großes Symbol"
 	L["Blend Mode"] = "Blendmodus"
@@ -107,7 +104,6 @@ Falls die Dauer der Animation auf |cFF00CC0010%|r gesetzt wurde und für die Anz
 	-- L["Bracket Matching"] = ""
 	L["Button Glow"] = "Schaltflächenleuchten"
 	L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = "Kann ein Name oder eine UnitID sein (z.B. party1). Ein Name funktioniert nur mit befreundeten Spielern in deiner Gruppe."
-	L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = "Kann ein Name oder eine UID (zb. party1) sein. Funktioniert nur für freundliche Spieler innerhalb deiner Gruppe."
 	L["Cancel"] = "Abbrechen"
 	L["Channel Number"] = "Kanalnummer"
 	L["Chat Message"] = "Chatnachricht"
@@ -190,10 +186,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Duration (s)"] = "Dauer (s)"
 	L["Duration Info"] = "Dauerinformationen"
 	L["Dynamic Group"] = "Dynamische Gruppe"
-	L["Dynamic information"] = "Dynamische Information"
 	L["Dynamic Information"] = "Dynamische Information"
 	L["Dynamic information from first active trigger"] = "Dynamische Information vom ersten aktiven Auslöser"
-	L["Dynamic information from first Active Trigger"] = "Dynamische Information des ersten aktiven Auslösers"
 	L["Dynamic information from Trigger %i"] = "Dynamische Information des Auslösers %i"
 	L["Dynamic text tooltip"] = [=[Es werden einige spezielle Codes für dynamischen Text angeboten:
 
@@ -212,7 +206,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Expand"] = "Erweitern"
 	L["Expand all loaded displays"] = "Alle geladenen Anzeigen erweitern"
 	L["Expand all non-loaded displays"] = "Alle nicht geladenen Anzeigen erweitern"
-	L["Expand Text Editor"] = "Erweiterter Texteditor"
 	L["Expansion is disabled because this group has no children"] = "Erweiterung deaktiviert, da diese Gruppe keine Kinder hat"
 	L["Export to Lua table..."] = "Als Lua-Tabelle exportieren.."
 	L["Export to string..."] = "Als Zeichenkette exportieren.."
@@ -230,8 +223,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Foreground Texture"] = "Vordergrundtextur"
 	L["Frame"] = "Frame"
 	L["Frame Strata"] = "Frame-Schicht"
-	--Translation missing 
-	-- L["frame's"] = ""
 	L["From Template"] = "Vorlage verwenden"
 	L["Full Scan"] = "Kompletter Scan"
 	--Translation missing 
@@ -383,7 +374,6 @@ Nur ein Wert kann ausgewählt werden.]=]
 	--Translation missing 
 	-- L["Repeat every"] = ""
 	L["Required for Activation"] = "Benötigt zur Aktivierung"
-	L["Required For Activation"] = "Vorrausgesetzt für Aktivierung"
 	--Translation missing 
 	-- L["Right 2 HUD position"] = ""
 	L["Right HUD position"] = "Rechte HUD Position"
@@ -412,7 +402,6 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Show model of unit "] = "Modell der Einheit zeigen"
 	--Translation missing 
 	-- L["Show On"] = ""
-	L["Show players that are |cFFFF0000not affected"] = "Zeige Spieler die |cFFFF0000nicht|r betroffen sind"
 	L["Show this group's children"] = "Die Kinder dieser Gruppe anzeigen"
 	L["Shows a 3D model from the game files"] = "Zeigt ein 3D-Modell aus den Spieldateien"
 	L["Shows a custom texture"] = "Zeigt eine benutzerdefinierte Textur"
@@ -440,12 +429,6 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Spark Texture"] = "Funkentextur"
 	L["Specific Unit"] = "Spezifische Einheit"
 	L["Spell ID"] = "Zauber-ID"
-	L["Spell ID dialog"] = [=[Es wurde eine Aura/Zauber/ect. über |cFFFF0000Zauber-ID|r definiert.
-
-|cFF8800FFWeakAuras|r kann standardmäßig aus Performancegründen nicht zwischen Auren/Zaubern/ect. mit selben Namen aber unterschiedlichen |cFFFF0000Zauber-IDs|r unterscheiden.
-Wird allerdings |cFFFF0000Alle Auren scannen (CPU-Intensiv)|r aktiviert kann |cFF8800FFWeakAuras|r explizit nach bestimmten |cFFFF0000Zauber-IDs|r suchen.
-
-Soll |cFFFF0000Alle Auren scannen (CPU-Intensiv)|r aktiviert werden um diese |cFFFF0000Zauber-ID|r zu finden?]=]
 	L["Stack Count"] = "Stapelanzahl"
 	L["Stack Info"] = "Stapelinfo"
 	L["Stacks"] = "Stapel"
@@ -484,10 +467,8 @@ Soll |cFFFF0000Alle Auren scannen (CPU-Intensiv)|r aktiviert werden um diese |cF
 	L["to group's"] = "an Gruppe"
 	--Translation missing 
 	-- L["To Personal Ressource Display's"] = ""
-	L["to Personal Ressource Display's"] = "an persönlicher Ressourcenanzeige"
 	--Translation missing 
 	-- L["To Screen's"] = ""
-	L["to screen's"] = "an Bildschirm"
 	L["Toggle the visibility of all loaded displays"] = "Sichtbarkeit aller geladener Anzeigen umschalten"
 	L["Toggle the visibility of all non-loaded displays"] = "Sichtbarkeit aller nicht geladener Anzeigen umschalten"
 	L["Toggle the visibility of this display"] = "Die Sichtbarkeit dieser Anzeige umschalten"
@@ -510,7 +491,6 @@ Soll |cFFFF0000Alle Auren scannen (CPU-Intensiv)|r aktiviert werden um diese |cF
 	L["Use Full Scan (High CPU)"] = "Alle Auren scannen (CPU-Intensiv)"
 	--Translation missing 
 	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
-	L["Use SetTransform api"] = "SetTransform-API verwenden"
 	L["Use tooltip \"size\" instead of stacks"] = "Tooltipgröße anstatt Stapel verwenden"
 	--Translation missing 
 	-- L["Used in auras:"] = ""
@@ -520,7 +500,6 @@ Soll |cFFFF0000Alle Auren scannen (CPU-Intensiv)|r aktiviert werden um diese |cF
 	L["Vertical Bar"] = "Vertikaler Balken"
 	--Translation missing 
 	-- L["View"] = ""
-	L["WeakAurasOptions"] = "WeakAuras-Optionen"
 	L["Width"] = "Breite"
 	L["X Offset"] = "X-Versatz"
 	L["X Rotation"] = "X-Rotation"

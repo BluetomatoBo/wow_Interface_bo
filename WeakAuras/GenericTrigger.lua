@@ -828,8 +828,12 @@ function GenericTrigger.Add(data, region)
               end
 
               for index, event in ipairs(trigger_events) do
-                frame:RegisterEvent(event);
-                aceEvents:RegisterMessage(event, HandleEvent, frame)
+                if (event == "FRAME_UPDATE") then
+                  register_for_frame_updates = true;
+                else
+                  frame:RegisterEvent(event);
+                  aceEvents:RegisterMessage(event, HandleEvent, frame)
+                end
               end
             end
           end
@@ -2804,6 +2808,9 @@ function GenericTrigger.GetTriggerConditions(data, triggernum)
             end
             if (v.conditionTest) then
               result[v.name].test = v.conditionTest;
+            end
+            if (v.operator_types_without_equal) then
+              result[v.name].operator_types_without_equal = true;
             end
           end
         end

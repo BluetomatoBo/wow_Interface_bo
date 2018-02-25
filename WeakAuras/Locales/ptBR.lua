@@ -88,8 +88,6 @@ L["Action Usable"] = "Ação Usável"
 --Translation missing 
 -- L["Active"] = ""
 --Translation missing 
--- L["Active For"] = ""
---Translation missing 
 -- L["Additional Trigger Replacements"] = ""
 L["Affected"] = "Afetado"
 --Translation missing 
@@ -183,6 +181,8 @@ L["Bounce with Decay"] = "Salto com declínio"
 -- L["Buff"] = ""
 --Translation missing 
 -- L["Buffed/Debuffed"] = ""
+--Translation missing 
+-- L["Can be used for e.g. checking if \"boss1target\" is the same as \"player\"."] = ""
 L["Cast"] = "Lançar"
 L["Cast Failed"] = "Lançamento falho"
 L["Cast Start"] = "Começar lançamento"
@@ -212,7 +212,6 @@ L["Chat Message"] = "Mensagem de bate-papo"
 --Translation missing 
 -- L["Children:"] = ""
 L["Circle"] = "Círculo"
-L["Circular"] = "Circular"
 --Translation missing 
 -- L["Clamp"] = ""
 L["Class"] = "Classe"
@@ -293,6 +292,8 @@ L["Death Knight Rune"] = "Runa de Cavaleiro da Morte"
 --Translation missing 
 -- L["Dispel Failed"] = ""
 --Translation missing 
+-- L["Distance"] = ""
+--Translation missing 
 -- L["Dodge"] = ""
 --Translation missing 
 -- L["Done"] = ""
@@ -302,8 +303,6 @@ L["Death Knight Rune"] = "Runa de Cavaleiro da Morte"
 -- L["Drain"] = ""
 --Translation missing 
 -- L["Drowning"] = ""
---Translation missing 
--- L["Dungeon Difficulty"] = ""
 --Translation missing 
 -- L["Durability Damage"] = ""
 --Translation missing 
@@ -336,6 +335,8 @@ L["Death Knight Rune"] = "Runa de Cavaleiro da Morte"
 -- L["Equipment Slot"] = ""
 --Translation missing 
 -- L["Equipped"] = ""
+--Translation missing 
+-- L["Error not receiving display information from %s"] = ""
 --Translation missing 
 -- L["Evade"] = ""
 L["Event"] = "Evento"
@@ -512,8 +513,6 @@ L["Item"] = "Item"
 L["Item Count"] = "Contagem de Item"
 L["Item Equipped"] = "Item Equipado"
 --Translation missing 
--- L["Item Set"] = ""
---Translation missing 
 -- L["Item Set Equipped"] = ""
 --Translation missing 
 -- L["Item Set Id"] = ""
@@ -541,6 +540,8 @@ L["Main Hand"] = "Mão principal"
 --Translation missing 
 -- L["Make sure you can trust the person who sent it!"] = ""
 --Translation missing 
+-- L["Malformed WeakAuras link"] = ""
+--Translation missing 
 -- L["Manual Rotation"] = ""
 --Translation missing 
 -- L["Marked First"] = ""
@@ -551,11 +552,15 @@ L["Master"] = "Mestre"
 -- L["Matches (Pattern)"] = ""
 --Translation missing 
 -- L["Maximum"] = ""
+--Translation missing 
+-- L["Maximum Estimate"] = ""
 L["Message"] = "Mensagem"
 L["Message Type"] = "Tipo de mensagem"
 L["Message type:"] = "Tipo de mensagem:"
 --Translation missing 
 -- L["Minimum"] = ""
+--Translation missing 
+-- L["Minimum Estimate"] = ""
 --Translation missing 
 -- L["Mirror"] = ""
 L["Miss"] = "Falha"
@@ -607,17 +612,15 @@ L["Normal"] = "Normal"
 --Translation missing 
 -- L["Not on Cooldown"] = ""
 --Translation missing 
--- L["Not on cooldown"] = ""
---Translation missing 
 -- L["Not On Threat Table"] = ""
+--Translation missing 
+-- L["Note, that cross realm transmission is not possible"] = ""
 L["Number"] = "Número"
 L["Number Affected"] = "Número Afetado"
 L["Off Hand"] = "Mão secundária"
 L["Officer"] = "Oficial"
 --Translation missing 
 -- L["Older set IDs can be found on websites such as wowhead.com/item-sets"] = ""
---Translation missing 
--- L["On cooldown"] = ""
 --Translation missing 
 -- L["On Cooldown"] = ""
 --Translation missing 
@@ -645,8 +648,6 @@ L["Paused"] = "Pausado"
 L["Periodic Spell"] = "Feitiço periódico"
 --Translation missing 
 -- L["Personal Resource Display"] = ""
---Translation missing 
--- L["Personal Ressource Display"] = ""
 L["Pet"] = "Assistente"
 --Translation missing 
 -- L["Pet Behavior"] = ""
@@ -687,6 +688,8 @@ L["Raid"] = "Raide"
 L["Raid Warning"] = "Aviso de raide"
 L["Range"] = "Alcance"
 --Translation missing 
+-- L["Range Check"] = ""
+--Translation missing 
 -- L["Ready Check"] = ""
 --Translation missing 
 -- L["Realm"] = ""
@@ -703,6 +706,8 @@ L["Remaining Time"] = "Tempo restante"
 -- L["Repeat"] = ""
 L["Requested display does not exist"] = "Exibição requerida não existe"
 L["Requested display not authorized"] = "Exibição requerida não autorizada"
+--Translation missing 
+-- L["Requesting display information from %s ..."] = ""
 L["Require Valid Target"] = "Requer um alvo válido"
 L["Resist"] = "Resistir"
 L["Resisted"] = "Resistido"
@@ -893,6 +898,8 @@ L["Unit"] = "Unidade"
 L["Unit Characteristics"] = "Características da unidade"
 L["Unit Destroyed"] = "Unidade destruída"
 L["Unit Died"] = "Unidade morte"
+--Translation missing 
+-- L["Unit is Unit"] = ""
 L["Up"] = "Acima"
 --Translation missing 
 -- L["Values/Remaining Time above this value are displayed as full progress."] = ""

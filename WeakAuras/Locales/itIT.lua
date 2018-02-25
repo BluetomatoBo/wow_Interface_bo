@@ -88,8 +88,6 @@ L["Action Usable"] = "Azione utilizzabile"
 --Translation missing 
 -- L["Active"] = ""
 --Translation missing 
--- L["Active For"] = ""
---Translation missing 
 -- L["Additional Trigger Replacements"] = ""
 L["Affected"] = "Affetto"
 --Translation missing 
@@ -184,6 +182,8 @@ L["Bounce with Decay"] = "Bounce with Decay"
 L["Buff"] = "Buff"
 --Translation missing 
 -- L["Buffed/Debuffed"] = ""
+--Translation missing 
+-- L["Can be used for e.g. checking if \"boss1target\" is the same as \"player\"."] = ""
 L["Cast"] = "Cast"
 L["Cast Failed"] = "Cast fallito"
 L["Cast Start"] = "Inizio cast"
@@ -215,8 +215,6 @@ L["Chat Message"] = "Messaggio di chat"
 -- L["Children:"] = ""
 --Translation missing 
 -- L["Circle"] = ""
---Translation missing 
--- L["Circular"] = ""
 --Translation missing 
 -- L["Clamp"] = ""
 L["Class"] = "Classe"
@@ -311,6 +309,8 @@ L["Death Knight Rune"] = "Rune del cavaliere della morte"
 --Translation missing 
 -- L["Dispel Failed"] = ""
 --Translation missing 
+-- L["Distance"] = ""
+--Translation missing 
 -- L["Dodge"] = ""
 --Translation missing 
 -- L["Done"] = ""
@@ -320,8 +320,6 @@ L["Death Knight Rune"] = "Rune del cavaliere della morte"
 -- L["Drain"] = ""
 --Translation missing 
 -- L["Drowning"] = ""
---Translation missing 
--- L["Dungeon Difficulty"] = ""
 --Translation missing 
 -- L["Durability Damage"] = ""
 --Translation missing 
@@ -354,6 +352,8 @@ L["Death Knight Rune"] = "Rune del cavaliere della morte"
 -- L["Equipment Slot"] = ""
 --Translation missing 
 -- L["Equipped"] = ""
+--Translation missing 
+-- L["Error not receiving display information from %s"] = ""
 --Translation missing 
 -- L["Evade"] = ""
 --Translation missing 
@@ -540,8 +540,6 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Item Equipped"] = ""
 --Translation missing 
--- L["Item Set"] = ""
---Translation missing 
 -- L["Item Set Equipped"] = ""
 --Translation missing 
 -- L["Item Set Id"] = ""
@@ -576,6 +574,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Make sure you can trust the person who sent it!"] = ""
 --Translation missing 
+-- L["Malformed WeakAuras link"] = ""
+--Translation missing 
 -- L["Manual Rotation"] = ""
 --Translation missing 
 -- L["Marked First"] = ""
@@ -588,6 +588,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Maximum"] = ""
 --Translation missing 
+-- L["Maximum Estimate"] = ""
+--Translation missing 
 -- L["Message"] = ""
 --Translation missing 
 -- L["Message Type"] = ""
@@ -595,6 +597,8 @@ L["Form"] = "Forma"
 -- L["Message type:"] = ""
 --Translation missing 
 -- L["Minimum"] = ""
+--Translation missing 
+-- L["Minimum Estimate"] = ""
 --Translation missing 
 -- L["Mirror"] = ""
 --Translation missing 
@@ -660,9 +664,9 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Not on Cooldown"] = ""
 --Translation missing 
--- L["Not on cooldown"] = ""
---Translation missing 
 -- L["Not On Threat Table"] = ""
+--Translation missing 
+-- L["Note, that cross realm transmission is not possible"] = ""
 --Translation missing 
 -- L["Number"] = ""
 --Translation missing 
@@ -673,8 +677,6 @@ L["Form"] = "Forma"
 -- L["Officer"] = ""
 --Translation missing 
 -- L["Older set IDs can be found on websites such as wowhead.com/item-sets"] = ""
---Translation missing 
--- L["On cooldown"] = ""
 --Translation missing 
 -- L["On Cooldown"] = ""
 --Translation missing 
@@ -711,8 +713,6 @@ L["Form"] = "Forma"
 -- L["Periodic Spell"] = ""
 --Translation missing 
 -- L["Personal Resource Display"] = ""
---Translation missing 
--- L["Personal Ressource Display"] = ""
 --Translation missing 
 -- L["Pet"] = ""
 --Translation missing 
@@ -774,6 +774,8 @@ L["Form"] = "Forma"
 --Translation missing 
 -- L["Range"] = ""
 --Translation missing 
+-- L["Range Check"] = ""
+--Translation missing 
 -- L["Ready Check"] = ""
 --Translation missing 
 -- L["Realm"] = ""
@@ -795,6 +797,8 @@ L["Form"] = "Forma"
 -- L["Requested display does not exist"] = ""
 --Translation missing 
 -- L["Requested display not authorized"] = ""
+--Translation missing 
+-- L["Requesting display information from %s ..."] = ""
 --Translation missing 
 -- L["Require Valid Target"] = ""
 --Translation missing 
@@ -1049,6 +1053,8 @@ L["Form"] = "Forma"
 -- L["Unit Destroyed"] = ""
 --Translation missing 
 -- L["Unit Died"] = ""
+--Translation missing 
+-- L["Unit is Unit"] = ""
 --Translation missing 
 -- L["Up"] = ""
 --Translation missing 

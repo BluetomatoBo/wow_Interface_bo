@@ -23,7 +23,6 @@ local L = WeakAuras.L
 	L["A 64x64 pixels icon"] = "一个64x64像素图标"
 	L["A group that dynamically controls the positioning of its children"] = "一个可以动态控制子元素的位置的群组"
 	L["Actions"] = "动作"
-	L["Activate when the given aura(s) |cFFFF0000can't|r be found"] = "当指定光环 |cFFFF0000无法|r找到时启动"
 	L["Add a new display"] = "添加一个新的显示"
 	L["Add Condition"] = "添加条件"
 	--Translation missing 
@@ -41,7 +40,6 @@ local L = WeakAuras.L
 	L["Alpha"] = "透明度"
 	L["Anchor"] = "锚点"
 	L["Anchor Point"] = "锚点指向"
-	L["anchored to"] = "附着于"
 	L["Anchored To"] = "附着于"
 	L["And "] = "和"
 	L["Angle"] = "角度"
@@ -82,7 +80,6 @@ local L = WeakAuras.L
 	L["Bar Alpha"] = "条透明度"
 	L["Bar Color"] = "条颜色"
 	L["Bar Color Settings"] = "图标条颜色设置"
-	L["Bar in Front"] = "条材质前置"
 	L["Bar Texture"] = "条材质"
 	L["Big Icon"] = "大图标"
 	L["Blend Mode"] = "混合模式"
@@ -103,7 +100,6 @@ local L = WeakAuras.L
 	L["Button Glow"] = "按钮发光"
 	--Translation missing 
 	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
-	L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = "可以是名字或是单位ID(例如，party1)。只作用于你当前队伍/团队中的玩家."
 	L["Cancel"] = "取消"
 	L["Channel Number"] = "频道索引"
 	L["Chat Message"] = "聊天讯息"
@@ -188,12 +184,10 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Duration (s)"] = "持续时间"
 	L["Duration Info"] = "持续时间讯息"
 	L["Dynamic Group"] = "动态群组"
-	L["Dynamic information"] = "动态信息"
 	--Translation missing 
 	-- L["Dynamic Information"] = ""
 	--Translation missing 
 	-- L["Dynamic information from first active trigger"] = ""
-	L["Dynamic information from first Active Trigger"] = "来自第一个触发器的动态信息"
 	L["Dynamic information from Trigger %i"] = "来自触发器%i的动态信息"
 	L["Dynamic text tooltip"] = [=[这里有几个特别的编码允许文字动态显示：
 
@@ -212,7 +206,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Expand"] = "展开"
 	L["Expand all loaded displays"] = "展开所有载入的图示"
 	L["Expand all non-loaded displays"] = "展开所有未载入的图示"
-	L["Expand Text Editor"] = "展开本文编辑器"
 	--Translation missing 
 	-- L["Expansion is disabled because this group has no children"] = ""
 	L["Export to Lua table..."] = "导出为 Lua 表格..."
@@ -232,8 +225,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Foreground Texture"] = "前景材质"
 	L["Frame"] = "框架"
 	L["Frame Strata"] = "框架层级"
-	--Translation missing 
-	-- L["frame's"] = ""
 	L["From Template"] = "从模板"
 	L["Full Scan"] = "完整扫描"
 	L["General Text Settings"] = "通用字体设置"
@@ -379,7 +370,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	-- L["Repeat every"] = ""
 	--Translation missing 
 	-- L["Required for Activation"] = ""
-	L["Required For Activation"] = "需要启动"
 	--Translation missing 
 	-- L["Right 2 HUD position"] = ""
 	--Translation missing 
@@ -412,7 +402,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Show model of unit "] = "显示该单位的模型"
 	--Translation missing 
 	-- L["Show On"] = ""
-	L["Show players that are |cFFFF0000not affected"] = "显示|cFFFF0000未被影响|r的玩家"
 	--Translation missing 
 	-- L["Show this group's children"] = ""
 	L["Shows a 3D model from the game files"] = "显示游戏文件中的3D模形"
@@ -441,12 +430,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Spark Texture"] = "高光材质"
 	L["Specific Unit"] = "指定单位"
 	L["Spell ID"] = "法术ID"
-	L["Spell ID dialog"] = [=[你已经指定一个|cFFFF0000法术ID|r。
-
-默认地，|cFF8800FFWeakAuras|r 无法区分|cFFFF0000法术编号|r不同但法术名称相同的法术。 
-当然，如果你启用完整扫描，|cFF8800FFWeakAuras|r可以搜寻指定的|cFFFF0000法术编号|r的法术。
-
-你想要启用完整扫描来匹配这个|cFFFF0000法术编号|r吗？]=]
 	L["Stack Count"] = "层数"
 	L["Stack Info"] = "层数信息"
 	L["Stacks"] = "层数"
@@ -489,10 +472,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	--Translation missing 
 	-- L["To Personal Ressource Display's"] = ""
 	--Translation missing 
-	-- L["to Personal Ressource Display's"] = ""
-	--Translation missing 
 	-- L["To Screen's"] = ""
-	L["to screen's"] = "到屏幕"
 	L["Toggle the visibility of all loaded displays"] = "切换当前已载入图示的可见状态"
 	L["Toggle the visibility of all non-loaded displays"] = "切换当前未载入图示的可见状态"
 	--Translation missing 
@@ -518,8 +498,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Use Full Scan (High CPU)"] = "使用完整扫描(高CPU)"
 	--Translation missing 
 	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
-	--Translation missing 
-	-- L["Use SetTransform api"] = ""
 	L["Use tooltip \"size\" instead of stacks"] = "使用\\\"大小\\\"提示,而不是\\\"层数\\\""
 	--Translation missing 
 	-- L["Used in auras:"] = ""
@@ -528,7 +506,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Vertical Align"] = "垂直对齐"
 	L["Vertical Bar"] = "垂直条"
 	L["View"] = "视图"
-	L["WeakAurasOptions"] = "WeakAuras选项"
 	L["Width"] = "宽度"
 	L["X Offset"] = "X 偏移"
 	L["X Rotation"] = "X旋转"

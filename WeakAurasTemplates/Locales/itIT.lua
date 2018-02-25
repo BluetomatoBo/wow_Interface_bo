@@ -12,93 +12,19 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["- Any"] = ""
 	--Translation missing 
-	-- L["- Death Knight 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Death Knight T20 Blood 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Death Knight Unholy 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Deathknight 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Deathknight Unholy 4P Bonus"] = ""
-	--Translation missing 
 	-- L["- Holy Word: Chastise"] = ""
 	--Translation missing 
 	-- L["- Holy Word: Sanctify"] = ""
 	--Translation missing 
 	-- L["- Holy Word: Serenity"] = ""
 	--Translation missing 
-	-- L["- Hunter T20 Marksman 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Mage T20 Arcane 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Mage T20 Fire 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Mage T20 Frost 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Monk T20 Mistweaver 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Monk Windwalker 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Paladin Protection 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Paladin Retribution 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Paladin T19 Retribution 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Paladin T20 Holy 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Paladin T20 Protection 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Paladin T20 Retribution 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Priest T20 Discipline 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Priest T20 Shadow 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Rogue Assassination/Outlaw 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Rogue Subtlety 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Rogue T19 Outlaw 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Shaman Elemental 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Shaman Enhancement 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Shaman T20 Elemental 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Shaman T20 Enhancement 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Shaman T20 Enhancement 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Shaman T20 Restoration 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Shaman T20 Restoration 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- T19 Druid Guardian 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Warlock Affliction 4P/Demonology 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Warlock T19 Destruction 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Warlock T20 Affliction 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Warlock T20 Demonology 4P Bonus"] = ""
-	--Translation missing 
-	-- L["- Warrior 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Warrior T19 Fury 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Warrior T20 Fury 2P Bonus"] = ""
-	--Translation missing 
-	-- L["- Warrior T20 Protection 2P Bonus"] = ""
-	--Translation missing 
 	-- L["(Pet)"] = ""
 	--Translation missing 
 	-- L["(Water Elemental)"] = ""
 	--Translation missing 
 	-- L["Ability Charges"] = ""
+	--Translation missing 
+	-- L["Absorb Shield"] = ""
 	--Translation missing 
 	-- L["Add Triggers"] = ""
 	--Translation missing 
@@ -108,13 +34,11 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Bleed"] = ""
 	--Translation missing 
-	-- L["BloodLust/Heroism"] = ""
-	--Translation missing 
 	-- L["Bloodlust/Heroism"] = ""
 	--Translation missing 
-	-- L["buff"] = ""
-	--Translation missing 
 	-- L["Buff"] = ""
+	--Translation missing 
+	-- L["buff"] = ""
 	--Translation missing 
 	-- L["Buffs"] = ""
 	--Translation missing 
@@ -132,11 +56,25 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Damage Trinkets"] = ""
 	--Translation missing 
+	-- L["Death Knight 2P Bonus - "] = ""
+	--Translation missing 
+	-- L["Death Knight Unholy 4P Bonus - "] = ""
+	--Translation missing 
 	-- L["debuff"] = ""
 	--Translation missing 
 	-- L["Debuffs"] = ""
 	--Translation missing 
+	-- L["Discipline Priest"] = ""
+	--Translation missing 
+	-- L["Druid"] = ""
+	--Translation missing 
+	-- L["Effuse"] = ""
+	--Translation missing 
 	-- L["Enchants"] = ""
+	--Translation missing 
+	-- L["Enveloping Mist"] = ""
+	--Translation missing 
+	-- L["Essence Font"] = ""
 	--Translation missing 
 	-- L["General"] = ""
 	--Translation missing 
@@ -144,13 +82,27 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Health"] = ""
 	--Translation missing 
+	-- L["Holy Priest"] = ""
+	--Translation missing 
 	-- L["Keeps existing triggers intact"] = ""
 	--Translation missing 
 	-- L["Legendaries"] = ""
 	--Translation missing 
-	-- L["Legion Sets"] = ""
+	-- L["Monk"] = ""
+	--Translation missing 
+	-- L["Monk Windwalker 4P Bonus - "] = ""
+	--Translation missing 
+	-- L["Netherlight Crucible"] = ""
 	--Translation missing 
 	-- L["Nimble Brew Item Count"] = ""
+	--Translation missing 
+	-- L["Paladin"] = ""
+	--Translation missing 
+	-- L["Paladin Protection 2P Bonus - "] = ""
+	--Translation missing 
+	-- L["Paladin Retribution 2P Bonus - "] = ""
+	--Translation missing 
+	-- L["Pantheon Trinkets"] = ""
 	--Translation missing 
 	-- L["Pet alive"] = ""
 	--Translation missing 
@@ -162,6 +114,8 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["PVP Trinkets"] = ""
 	--Translation missing 
+	-- L["Renewing Mist"] = ""
+	--Translation missing 
 	-- L["Replace all existing triggers"] = ""
 	--Translation missing 
 	-- L["Replace Triggers"] = ""
@@ -170,9 +124,23 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Resources and Shapeshift Form"] = ""
 	--Translation missing 
+	-- L["Rogue Assassination/Outlaw 4P Bonus - "] = ""
+	--Translation missing 
+	-- L["Rogue Subtlety 4P Bonus - "] = ""
+	--Translation missing 
 	-- L["Rooted"] = ""
 	--Translation missing 
 	-- L["Runes"] = ""
+	--Translation missing 
+	-- L["Secondary Effect"] = ""
+	--Translation missing 
+	-- L["Set Bonus"] = ""
+	--Translation missing 
+	-- L["Shaman"] = ""
+	--Translation missing 
+	-- L["Shaman Elemental 4P Bonus - "] = ""
+	--Translation missing 
+	-- L["Shaman Enhancement 2P Bonus - "] = ""
 	--Translation missing 
 	-- L["Shapeshift Form"] = ""
 	--Translation missing 
@@ -182,13 +150,17 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Stun"] = ""
 	--Translation missing 
-	-- L["T19 Damage Trinkets"] = ""
+	-- L["T19 2P Bonus - "] = ""
 	--Translation missing 
-	-- L["T19 Healer Trinkets"] = ""
+	-- L["T19 4P Bonus - "] = ""
 	--Translation missing 
-	-- L["T19 Sets"] = ""
+	-- L["T20 2P Bonus - "] = ""
 	--Translation missing 
-	-- L["T19 Tank Trinkets"] = ""
+	-- L["T20 4P Bonus - "] = ""
+	--Translation missing 
+	-- L["T21 2P Bonus - "] = ""
+	--Translation missing 
+	-- L["T21 4P Bonus - "] = ""
 	--Translation missing 
 	-- L["Tank Trinkets"] = ""
 	--Translation missing 
@@ -199,4 +171,10 @@ local L = WeakAuras.L
 	-- L["Unknown Item"] = ""
 	--Translation missing 
 	-- L["Unknown Spell"] = ""
+	--Translation missing 
+	-- L["Vivify"] = ""
+	--Translation missing 
+	-- L["Warlock Affliction 4P/Demonology 2P Bonus - "] = ""
+	--Translation missing 
+	-- L["Warrior 2P Bonus - "] = ""
 

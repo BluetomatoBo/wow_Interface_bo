@@ -40,8 +40,6 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Actions"] = ""
 	--Translation missing 
-	-- L["Activate when the given aura(s) |cFFFF0000can't|r be found"] = ""
-	--Translation missing 
 	-- L["Add a new display"] = ""
 	--Translation missing 
 	-- L["Add Condition"] = ""
@@ -71,8 +69,6 @@ local L = WeakAuras.L
 	-- L["Anchor"] = ""
 	--Translation missing 
 	-- L["Anchor Point"] = ""
-	--Translation missing 
-	-- L["anchored to"] = ""
 	--Translation missing 
 	-- L["Anchored To"] = ""
 	--Translation missing 
@@ -140,8 +136,6 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Bar Color Settings"] = ""
 	--Translation missing 
-	-- L["Bar in Front"] = ""
-	--Translation missing 
 	-- L["Bar Texture"] = ""
 	--Translation missing 
 	-- L["Big Icon"] = ""
@@ -175,8 +169,6 @@ local L = WeakAuras.L
 	-- L["Button Glow"] = ""
 	--Translation missing 
 	-- L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = ""
-	--Translation missing 
-	-- L["Can be a name or a UID (e.g., party1). Only works on friendly players in your group."] = ""
 	--Translation missing 
 	-- L["Cancel"] = ""
 	--Translation missing 
@@ -308,13 +300,9 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Dynamic Group"] = ""
 	--Translation missing 
-	-- L["Dynamic information"] = ""
-	--Translation missing 
 	-- L["Dynamic Information"] = ""
 	--Translation missing 
 	-- L["Dynamic information from first active trigger"] = ""
-	--Translation missing 
-	-- L["Dynamic information from first Active Trigger"] = ""
 	--Translation missing 
 	-- L["Dynamic information from Trigger %i"] = ""
 	--Translation missing 
@@ -337,8 +325,6 @@ local L = WeakAuras.L
 	-- L["Expand all loaded displays"] = ""
 	--Translation missing 
 	-- L["Expand all non-loaded displays"] = ""
-	--Translation missing 
-	-- L["Expand Text Editor"] = ""
 	--Translation missing 
 	-- L["Expansion is disabled because this group has no children"] = ""
 	--Translation missing 
@@ -373,8 +359,6 @@ local L = WeakAuras.L
 	-- L["Frame"] = ""
 	--Translation missing 
 	-- L["Frame Strata"] = ""
-	--Translation missing 
-	-- L["frame's"] = ""
 	--Translation missing 
 	-- L["From Template"] = ""
 	--Translation missing 
@@ -600,8 +584,6 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Required for Activation"] = ""
 	--Translation missing 
-	-- L["Required For Activation"] = ""
-	--Translation missing 
 	-- L["Right 2 HUD position"] = ""
 	--Translation missing 
 	-- L["Right HUD position"] = ""
@@ -649,8 +631,6 @@ local L = WeakAuras.L
 	-- L["Show model of unit "] = ""
 	--Translation missing 
 	-- L["Show On"] = ""
-	--Translation missing 
-	-- L["Show players that are |cFFFF0000not affected"] = ""
 	--Translation missing 
 	-- L["Show this group's children"] = ""
 	--Translation missing 
@@ -703,8 +683,6 @@ local L = WeakAuras.L
 	-- L["Specific Unit"] = ""
 	--Translation missing 
 	-- L["Spell ID"] = ""
-	--Translation missing 
-	-- L["Spell ID dialog"] = ""
 	--Translation missing 
 	-- L["Stack Count"] = ""
 	--Translation missing 
@@ -772,11 +750,7 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["To Personal Ressource Display's"] = ""
 	--Translation missing 
-	-- L["to Personal Ressource Display's"] = ""
-	--Translation missing 
 	-- L["To Screen's"] = ""
-	--Translation missing 
-	-- L["to screen's"] = ""
 	--Translation missing 
 	-- L["Toggle the visibility of all loaded displays"] = ""
 	--Translation missing 
@@ -818,8 +792,6 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Use SetTransform (will change behaviour in 7.3)"] = ""
 	--Translation missing 
-	-- L["Use SetTransform api"] = ""
-	--Translation missing 
 	-- L["Use tooltip \"size\" instead of stacks"] = ""
 	--Translation missing 
 	-- L["Used in auras:"] = ""
@@ -831,8 +803,6 @@ local L = WeakAuras.L
 	-- L["Vertical Bar"] = ""
 	--Translation missing 
 	-- L["View"] = ""
-	--Translation missing 
-	-- L["WeakAurasOptions"] = ""
 	--Translation missing 
 	-- L["Width"] = ""
 	--Translation missing 

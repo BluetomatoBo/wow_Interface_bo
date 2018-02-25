@@ -58,8 +58,6 @@ L["Absorbed"] = "Absorbé"
 L["Action Usable"] = "Action utilisable"
 --Translation missing 
 -- L["Active"] = ""
---Translation missing 
--- L["Active For"] = ""
 L["Additional Trigger Replacements"] = "Remplacements de Déclencheurs additionnels"
 L["Affected"] = "Affecté"
 L["Aggro"] = "Aggro"
@@ -134,6 +132,8 @@ L["Bounce with Decay"] = "Rebond décroissant"
 L["Buff"] = "Amélioration"
 --Translation missing 
 -- L["Buffed/Debuffed"] = ""
+--Translation missing 
+-- L["Can be used for e.g. checking if \"boss1target\" is the same as \"player\"."] = ""
 L["Cast"] = "Incantation"
 L["Cast Failed"] = "Incantation ratée"
 L["Cast Start"] = "Incantation débutée"
@@ -159,7 +159,6 @@ L["Chat Message"] = "Message écrit"
 L["Chest"] = "Torse"
 L["Children:"] = "Enfant :"
 L["Circle"] = "Cercle"
-L["Circular"] = "Circulaire"
 --Translation missing 
 -- L["Clamp"] = ""
 L["Class"] = "Classe"
@@ -222,12 +221,13 @@ L["Dialog"] = "Dialogue"
 L["Disease"] = "Maladie"
 L["Dispel"] = "Dissipation"
 L["Dispel Failed"] = "Dissipation échouée"
+--Translation missing 
+-- L["Distance"] = ""
 L["Dodge"] = "Esquive"
 L["Done"] = "Fait"
 L["Down"] = "Bas"
 L["Drain"] = "Drain"
 L["Drowning"] = "Noyade"
-L["Dungeon Difficulty"] = "Difficulté du donjon"
 L["Durability Damage"] = "Perte de durabilité"
 L["Durability Damage All"] = "Perte de durabilité sur tout"
 --Translation missing 
@@ -250,6 +250,8 @@ L["Environmental"] = "Environnement"
 L["Equipment Slot"] = "Emplacement d'équipement"
 --Translation missing 
 -- L["Equipped"] = ""
+--Translation missing 
+-- L["Error not receiving display information from %s"] = ""
 L["Evade"] = "Evite"
 L["Event"] = "Evènement"
 L["Event(s)"] = "Evènement(s)"
@@ -359,7 +361,6 @@ L["is useable"] = "est utilisable"
 L["Item"] = "Objet"
 L["Item Count"] = "Nombre d'objets"
 L["Item Equipped"] = "Objet équipé"
-L["Item Set"] = "Ensemble d'objets"
 L["Item Set Equipped"] = "Ensemble d'objets équipé"
 --Translation missing 
 -- L["Item Set Id"] = ""
@@ -382,6 +383,8 @@ L["Magic"] = "Magique"
 L["Main Hand"] = "Main droite"
 --Translation missing 
 -- L["Make sure you can trust the person who sent it!"] = ""
+--Translation missing 
+-- L["Malformed WeakAuras link"] = ""
 L["Manual Rotation"] = "Rotation manuelle"
 L["Marked First"] = "Marqué en premier"
 L["Marked Last"] = "Marqué en dernier"
@@ -389,11 +392,15 @@ L["Master"] = "Maître"
 L["Matches (Pattern)"] = "Correspond (format)"
 --Translation missing 
 -- L["Maximum"] = ""
+--Translation missing 
+-- L["Maximum Estimate"] = ""
 L["Message"] = "Message"
 L["Message Type"] = "Type de message"
 L["Message type:"] = "Type de message :"
 --Translation missing 
 -- L["Minimum"] = ""
+--Translation missing 
+-- L["Minimum Estimate"] = ""
 --Translation missing 
 -- L["Mirror"] = ""
 L["Miss"] = "Raté"
@@ -431,15 +438,15 @@ L["Normal"] = "Normal"
 -- L["Not in Group"] = ""
 --Translation missing 
 -- L["Not on Cooldown"] = ""
-L["Not on cooldown"] = "Pas en recharge"
 L["Not On Threat Table"] = "Pas sur la table de menace"
+--Translation missing 
+-- L["Note, that cross realm transmission is not possible"] = ""
 L["Number"] = "Nombre"
 L["Number Affected"] = "Nombre affecté"
 L["Off Hand"] = "Main gauche"
 L["Officer"] = "Officier"
 --Translation missing 
 -- L["Older set IDs can be found on websites such as wowhead.com/item-sets"] = ""
-L["On cooldown"] = "En recharge"
 --Translation missing 
 -- L["On Cooldown"] = ""
 L["Only if Primary"] = "Seulement si primaire"
@@ -463,8 +470,6 @@ L["Paused"] = "En pause"
 L["Periodic Spell"] = "Sort périodique"
 --Translation missing 
 -- L["Personal Resource Display"] = ""
---Translation missing 
--- L["Personal Ressource Display"] = ""
 L["Pet"] = "Familier "
 L["Pet Behavior"] = "Comportement du familier"
 --Translation missing 
@@ -500,6 +505,8 @@ L["Radius"] = "Rayon"
 L["Raid"] = "Raid "
 L["Raid Warning"] = "Avertissement de Raid"
 L["Range"] = "Portée"
+--Translation missing 
+-- L["Range Check"] = ""
 L["Ready Check"] = "Appel de Raid"
 L["Realm"] = "Royaume"
 L["Receiving display information"] = "Réception d'information de graphique de %s..."
@@ -513,6 +520,8 @@ L["Remaining Time"] = "Temps restant"
 -- L["Repeat"] = ""
 L["Requested display does not exist"] = "Le graphique demandé n'existe pas"
 L["Requested display not authorized"] = "Graphique demandé non autorisé"
+--Translation missing 
+-- L["Requesting display information from %s ..."] = ""
 L["Require Valid Target"] = "Nécessite une cible valide"
 L["Resist"] = "Résiste"
 L["Resisted"] = "Résisté"
@@ -689,6 +698,8 @@ L["Unit"] = "Unité"
 L["Unit Characteristics"] = "Caractéristique d'unité"
 L["Unit Destroyed"] = "Unité détruite"
 L["Unit Died"] = "Unité morte"
+--Translation missing 
+-- L["Unit is Unit"] = ""
 L["Up"] = "Haut"
 --Translation missing 
 -- L["Values/Remaining Time above this value are displayed as full progress."] = ""
