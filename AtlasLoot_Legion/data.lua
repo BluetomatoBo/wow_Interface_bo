@@ -2083,23 +2083,41 @@ data["AntorustheBurningThrone"] = {
 		{	-- Argus the Unmaker
 			EncounterJournalID = 2031,
 			[RF_DIFF] = {
-				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				{ 1, 151972 }, -- Sullied Seal of the Pantheon
+				{ 2, 151982 }, -- Vest of Waning Life
+				{ 3, 151986 }, -- Death-Enveloping Cincture
+				{ 4, 152005 }, -- Pauldrons of Colossal Burden
+				{ 5, 152016 }, -- Cosmos-Culling Legplates
+				{ 6, 152283 }, -- Chain of the Unmaker
+				{ 7, 152423 }, -- Helm of the Awakened Soul
+				{ 8, 152679 }, -- Gambeson of Sargeras' Corruption
+				{ 9, 152680 }, -- Handwraps of Inevitable Doom
+				{ 10, 152686 }, -- Nascent Deathbringer's Clutches
+				{ 11, 155846 }, -- Miniaturized Cosmic Beacon
+				{ 12, 155847 }, -- Cruor of the Avenger
+				{ 13, 155848 }, -- Condensed Blight Orb
+				{ 14, 155849 }, -- Flickering Ember of Rage
+				{ 15, 155850 }, -- Rime of the Spirit Realm
+				{ 16, 155851 }, -- Reorigination Spark
+				{ 17, 155852 }, -- Volatile Soul Fragment
+				{ 18, 155853 }, -- Conch of the Thunderer
+				{ 19, 155854 }, -- Root of the Lifebinder
+				{ 20, 155855 }, -- Mote of the Forgemaster
 			},
 			[NORMAL_RAID_DIFF] = {
-				{ 1 , 151972 }, -- Sullied Seal of the Pantheon
-				{ 2 , 152679 }, -- Gambeson of Sargeras' Corruption
-				{ 3 , 151982 }, -- Vest of Waning Life
-				{ 4 , 151986 }, -- Death-Enveloping Cincture
-				{ 5 , 152423 }, -- Helm of the Awakened Soul
-				{ 6 , 152005 }, -- Pauldrons of Colossal Burden
-				{ 7 , 152686 }, -- Nascent Deathbringer's Clutches
-				{ 8 , 152283 }, -- Chain of the Unmaker
-				{ 9 , 152016 }, -- Cosmos-Culling Legplates
-				{ 10, 152680 }, -- Handwraps of Inevitable Doom
+				GetItemsFromDiff = RF_DIFF,
+				{ 21, 154172 }, -- Aman'Thul's Vision
+				{ 22, 154173 }, -- Aggramar's Conviction
+				{ 23, 154174 }, -- Golganneth's Vitality
+				{ 24, 154175 }, -- Eonar's Compassion
+				{ 25, 154176 }, -- Khaz'goroth's Courage
+				{ 26, 154177 }, -- Norgannon's Prowess
+				{ 27, 155831 }, -- Pantheon's Blessing
 			},
 			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
 			[MYTHIC_PRE_DIFF] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
+				{ 28, 152789 }, -- Shackled Ur'zul
 			},
 		},
 		{	--Tier 21 Sets
