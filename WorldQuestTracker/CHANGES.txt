@@ -1,7 +1,7 @@
-changeset:   273:55e8b8fb3141
-tag:         v7.3.5.273-release
+changeset:   275:ed8fa308d9c7
+tag:         v7.3.5.275-release
 user:        Tercio
-date:        Fri Feb 23 13:14:19 2018 -0300
-summary:     - Removed the string telling about the next knownledge update on the artifact power tooltip.
+date:        Mon Feb 26 11:16:54 2018 -0300
+summary:     - Fixed 'template not found' error caused by a newer version of the framework overwriting template tables from other addons.
 
 
