@@ -148,8 +148,7 @@ L["Charfeather"] = "Charfeather"
 -- L["Garvrulg"] = "Garvrulg"
 --Translation missing 
 -- L["Gennadian"] = "Gennadian"
---Translation missing 
--- L["Giant Python"] = "Giant Python"
+L["Giant Python"] = "Píton Gigante"
 --Translation missing 
 -- L["Giant Raptor"] = "Giant Raptor"
 --Translation missing 
@@ -611,8 +610,7 @@ VL["Charfeather"] = "Charfeather"
 -- VL["Garvrulg"] = "Garvrulg"
 --Translation missing 
 -- VL["Gennadian"] = "Gennadian"
---Translation missing 
--- VL["Giant Python"] = "Giant Python"
+VL["Giant Python"] = "Píton Gigante"
 --Translation missing 
 -- VL["Giant Raptor"] = "Giant Raptor"
 --Translation missing 

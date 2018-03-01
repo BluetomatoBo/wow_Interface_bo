@@ -1,8 +1,6 @@
-tag 919cd6651deb0d43a529f2fc92c99f856d862d65 7.3.5.2
-Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Tue Jan 30 23:24:44 2018 -0600
-
-Localization updates.
+tag 76cf862c1d84aa7b6b8bc80bd0a69cbfe3934fa7 7.3.5.3
+Author:	Telshin <aldrt@twitch.tv>
+Date:	Fri Feb 23 18:46:56 2018 -0800
 
 commit c11d617ae2766bdb9dd686ae20528f0ee2b40f71
 Author: James D. Callahan III <jcallahan@curse.com>
