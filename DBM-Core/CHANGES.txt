@@ -1,89 +1,362 @@
-tag 6cb4aae6246f2986323a2cbd368364ea6516e0f1 7.3.23
+tag c932ace07a52adf05ec843ad20d8aeb1b65cd879 7.3.24
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Wed Feb 21 22:14:54 2018 +0100
+Date:	Tue Mar 6 15:36:46 2018 +0100
 
-Tagging as 7.3.23
+Tagging as 7.3.24
 
-commit 9b0ba08659b3e8b1beb98d2e25da071a4bdd51a2
+commit 20431df13b336b244ec73fa2245013d482efdf0b
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 21 22:14:54 2018 +0100
+Date:   Tue Mar 6 15:36:45 2018 +0100
 
-    increment version number to 7.3.23
+    increment version number to 7.3.24
 
-commit c810219a66ba40862142a5f99820a392470fea02
+commit 4af89010c14d3d41acd96d7caf67260289963c2d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 21 08:02:50 2018 +0100
+Date:   Tue Mar 6 09:03:02 2018 +0100
 
-    Omega via svn r17327:
-    even shorter yells. really trim up the chat space to give most clear but short messages possible
+    Omega via svn r17376:
+    Prevent overwriting actual user setting with temp setting if you play more than one song in UI
 
-commit 06d15a9359838f669dac68fa2cb4096b1f745b3b
+commit 03dea7a87b160fcaa5159a4f50d0ac3a9150da3f
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 21 06:54:41 2018 +0100
+Date:   Tue Mar 6 08:02:08 2018 +0100
 
-    Omega via svn r17326:
-    Possibly fix gaze timer now showing in P3? can?\226?\128?\153t confirm it?\226?\128?\153s even broken but a user says it is so switching to emote until I can verify P3 still has a UNIT_ event for it
+    Omega via svn r17375:
+    Name shortening
 
-commit 745e984f8687f3d7634a9dee4ee92f5fee920832
+commit 38217529b323901d1d41d434167a544762592ce7
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 21 06:14:43 2018 +0100
+Date:   Tue Mar 6 07:56:18 2018 +0100
 
-    Omega via svn r17325:
-    Countdown tweaks
+    Omega via svn r17374:
+    Code to handle playback of music selections
 
-commit 95048fd50408063957a559f18e38f408bd9e7b17
+commit 4dbca5b94d0049338cff2bd7869a959a462beedb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 21 04:32:28 2018 +0100
+Date:   Tue Mar 6 07:10:46 2018 +0100
 
-    Omega via svn r17324:
-    Use red text for combo yells
+    Omega via svn r17373:
+    some media changes, with approval.
 
-commit 96463c329faee86293e874dcda0a81e95907a4d6
+commit e9c4942899c2b7d0dc84397036248141560cfe26
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 21 04:02:21 2018 +0100
+Date:   Mon Mar 5 22:50:56 2018 +0100
 
-    Omega via svn r17323:
-    Improve tank swap code for argus so it makes sure you taunt at 2-3 stacks if debuff will fade before next scythe, instead of waiting for debuff to fade first. This should fix serious issue where it wasn?\226?\128?\153t warning at 2 stacks on mythic
+    Omega via svn r17372:
+    Fix logic failure if optional arg not provided
 
-commit f911c482e8f6f786725a4215dcf20cad8f1dd939
+commit 1f6b1dbe1e9bcafaa385fe184b70c96e68dae796
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 20 20:17:22 2018 +0100
+Date:   Mon Mar 5 22:49:25 2018 +0100
 
-    Omega via svn r17322:
-    version check
+    Omega via svn r17371:
+    Support custom sorting for playerdebuffstacks because with that infoframe type you may want to sort it either way (such as highest on top for alluriel and lowest on top for Yogg Saron)
 
-commit 64e403e51dfffc41882db4ef17042c48d7cda018
+commit 6e565a5d2cd024e73a02e630b24b5eada9d471b3
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Feb 20 19:49:24 2018 +0100
+Date:   Sun Mar 4 23:17:26 2018 +0100
 
-    Omega via svn r17321:
-    Fixed regression that caused sentence of sargeras timers to break in last update
+    Omega via svn r17370:
+    Fix typo
 
-commit ddaf34658ff50e13359c294547a2f8f038f56842
+commit 4ab122afb78aaea42e2cdaf3ef3399fa5fb3462a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Feb 19 22:41:19 2018 +0100
+Date:   Sun Mar 4 23:09:18 2018 +0100
 
-    Omega via svn r17320:
-    Change this warning to use dungeon journal for non english locals
+    Omega via svn r17369:
+    Fixes
 
-commit 16c4a3d1281351f119b035d0032d6e90d6d9124e
+commit 34f53975f2182ac4de917d0c1d8c6323318580dd
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Feb 16 06:20:37 2018 +0100
+Date:   Sun Mar 4 23:03:44 2018 +0100
 
-    Omega via svn r17319:
-    small fix with warning text firing before variable reset.
+    Omega via svn r17368:
+    Couple more failure sounds
 
-commit b9d7f09a5d74acf74fc2993fe392de0420689b76
+commit 6c65cda50ebb74d6767bac8c71000de17a2f5d78
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Feb 15 06:21:20 2018 +0100
+Date:   Sun Mar 4 22:51:31 2018 +0100
 
-    Omega via svn r17318:
-    timer fixes and new countdown for mythic only
+    Omega via svn r17367:
+    Rework old content nag messages to be smarter, and apply to non TW difficulty if doing it at that contents level cap (such as ProjectXX)
+    Also it will now display message again when you pull boss, not just when entering zone. Idea behind changes is most of time people tune out the message on zone in, or think it?\226?\128?\153s the loaded message not the ?\226?\128?\156you don?\226?\128?\153t have this mod?\226?\128?\157 message.
 
-commit 4406eb46353eaf7086e986d168060c323e26a582
+commit 541574377e1e7a274c6a6b7fd69e9e0720959cee
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Feb 14 23:58:10 2018 +0100
+Date:   Sun Mar 4 14:30:35 2018 +0100
 
-    tandanu via svn r17317:
+    ultrashining via svn r17366:
+    zhTW update
+
+commit 5604c4ee464305c2b75b70451d57d10b6f794e39
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Mar 4 05:27:30 2018 +0100
+
+    Omega via svn r17365:
+    Fix last
+
+commit fb31132caff0122dafde4b8f2071bd9d7a0d5baa
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Mar 4 05:11:42 2018 +0100
+
+    Omega via svn r17364:
+    This should be true by default
+
+commit 34182b6eb729874da43096ef8e8d473882ca1026
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Mar 4 00:07:01 2018 +0100
+
+    Omega via svn r17363:
+    add temp media file
+
+commit 8ed39f530e4f8442e0bfb312730219e2f38a8cf7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sat Mar 3 01:02:51 2018 +0100
+
+    Omega via svn r17362:
+    Kr update
+
+commit 64ae3b0e36cf4a8a288188f1988cbb2c7f00988f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 2 08:48:18 2018 +0100
+
+    Omega via svn r17361:
+    Fix size
+
+commit 16490b115fae16cd273af46f4a09fb52946b9ef8
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 2 08:36:10 2018 +0100
+
+    Omega via svn r17360:
+    Add mythic/mythic+ music filter option
+
+commit 2655fa920710a221b6b2ccbf5ad5d96d9b79dc25
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 2 02:26:59 2018 +0100
+
+    Omega via svn r17359:
+    Actually, only half of that
+
+commit 8328337be23142cb8c202b431018b96baa01d0ce
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 2 02:25:44 2018 +0100
+
+    Omega via svn r17358:
+    Tweak defaults, for more spice
+
+commit 8bb062797ba81287a69c675fa09f52cd600c531b
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 2 01:11:45 2018 +0100
+
+    Omega via svn r17357:
+    Update to latest libDur and liblat
+
+commit a183bc8c57c32c531f1274b237a4d5ec5c9bf2d9
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Mar 2 00:51:21 2018 +0100
+
+    Omega via svn r17356:
+    Might be a while til get audio file so just pushing code now
+
+commit 925f6cac0e928662170ad7116bf51ab981789c32
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Mar 1 19:37:11 2018 +0100
+
+    Omega via svn r17355:
+    push local updates now so people can get started on that. Actual code is being held back until finalized
+
+commit d24ea03406f2a2a42a6fd00b15e8b10f8e0e7c95
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Mar 1 06:56:47 2018 +0100
+
+    Omega via svn r17354:
+    More consistent
+
+commit 6de194a1e85d9a61857833fe5067e5f1a707e11f
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Mar 1 05:17:31 2018 +0100
+
+    Omega via svn r17353:
+    And make blight 4 count
+
+commit 2a8a5f098ab8e13aec490fd055abb84d1b3e77c3
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Mar 1 04:49:05 2018 +0100
+
+    Omega via svn r17352:
+    fades countdowns for bombs and bursts start at 5
+
+commit b7c20a324e4d720bd6c7fb40d0aad9443ee32bdc
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 28 06:43:03 2018 +0100
+
+    Omega via svn r17351:
+    Icon position fix for new template
+
+commit 5e2d83b5f33f2cc5e7ee1406dded5c9df82fc8ca
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 28 06:35:13 2018 +0100
+
+    Omega via svn r17350:
+    Avatar will now ignore target filter
+
+commit 0f5dc8426d4f415b75c333ba73fa1d0b4dc5e412
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 28 05:07:35 2018 +0100
+
+    Omega via svn r17349:
+    Fix icon bug
+
+commit 5b4bd523a9667888c40b241c0481d992653eac4e
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 28 04:18:22 2018 +0100
+
+    Omega via svn r17348:
+    Fix a bug where the combined show object endlessly filled up target table if warnings are disabled. this was basically a memory leak
+
+commit 153dfc3ef8aec4afd7a0ecb9a23dbf4dd097b4ef
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 28 02:06:38 2018 +0100
+
+    Omega via svn r17347:
+    Fix bad template inherit
+
+commit 77d4cd6effd774292e34b3c99efe57014b5eb3da
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 28 01:44:38 2018 +0100
+
+    Omega via svn r17346:
+    Some renames
+
+commit 2fdf839166eab92dc5b866c9ce319ce31bce8e31
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 27 10:01:15 2018 +0100
+
+    Omega via svn r17345:
+    Blood of Ghuun drycode
+
+commit bd6878526f0532c2f35ae4501ab3266391d20324
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 27 09:06:09 2018 +0100
+
+    Omega via svn r17344:
+    Couple ataldazar fixes
+
+commit c612153e8af0bb8b9fb928b62626108a03c05268
+Author: subversion <svn@deadlybossmods.com>
+Date:   Tue Feb 27 04:15:52 2018 +0100
+
+    Omega via svn r17343:
+    Fetid Devourer drycode
+
+commit 77c64996ad7db829c5969567d3e2f0fe04a4001d
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 26 22:55:32 2018 +0100
+
+    Omega via svn r17342:
+    Even better error finding debug
+
+commit e96a38cf5a987d17367c8041f328b340540d768b
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 26 22:31:03 2018 +0100
+
+    Omega via svn r17341:
+    More debug for finding screwed up option args
+
+commit 7d046eb33b8ec5100cbcfc783a8a8e93301a1aa7
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 26 21:36:01 2018 +0100
+
+    Omega via svn r17340:
+    Add debug detection of more bad arg orders
+
+commit cfb0a6eb2189e4abba0919851d96fc31a2d58d9d
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 26 21:32:26 2018 +0100
+
+    Omega via svn r17339:
+    Add debug to catch other inline icons in wrong field
+
+commit 071da2ddad0ff468a0e4613f9a7ef09b70c7bd82
+Author: subversion <svn@deadlybossmods.com>
+Date:   Mon Feb 26 21:16:12 2018 +0100
+
+    Omega via svn r17338:
+    Some timer fixes
+
+commit 78041f116ac280e4e36602d73fa4fc6dda6c271c
+Author: subversion <svn@deadlybossmods.com>
+Date:   Sun Feb 25 09:34:44 2018 +0100
+
+    Omega via svn r17337:
+    Update some encounter IDs
+
+commit 7373d4fc4646a5b12125ed0c502ab91f30fabdec
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Feb 23 17:09:05 2018 +0100
+
+    ultrashining via svn r17336:
+    zhTW update
+
+commit 7373d4fc4646a5b12125ed0c502ab91f30fabdec
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Feb 23 17:09:05 2018 +0100
+
+    ultrashining via svn r17336:
+    zhTW update
+
+commit 41acdc77e898791524a400a99bab2a3d899683d5
+Author: MysticalOS <MysticalOS@nomail.com>
+Date:   Fri Feb 23 03:33:47 2018 -0500
+
+    Update pkgmeta
+
+commit 86a821b5d195289ee2a85bafca0359f21e835714
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Feb 23 09:31:53 2018 +0100
+
+    Omega via svn r17335:
+    Begin Uldir stub
+
+commit 67af4e75ec980ee4edb51f319147608a039eb266
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Feb 23 06:15:26 2018 +0100
+
+    Omega via svn r17334:
+    Couple tweaks
+
+commit 613ffd4671012bc65f4178b505d04cda30f1f9fa
+Author: subversion <svn@deadlybossmods.com>
+Date:   Fri Feb 23 00:32:33 2018 +0100
+
+    Omega via svn r17333:
+    Populate some more dungeon data in rom latest build.
+
+commit 00ccbae6bd731c026cccdf8cf60c81bb222c60ad
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Feb 22 09:57:17 2018 +0100
+
+    Omega via svn r17332:
+    More manual stuff
+
+commit 57cb5b95bb90e7abd8a3ec169f9b981de35be0c2
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Feb 22 09:49:15 2018 +0100
+
+    Omega via svn r17331:
+    Manual localize all
+
+commit e7f925533aaa1ed17fb03ffb3427930108c4aa88
+Author: subversion <svn@deadlybossmods.com>
+Date:   Thu Feb 22 06:27:53 2018 +0100
+
+    Omega via svn r17330:
+    Minor tweaks
+
+commit cfe43c433c977a7dcdf4ea6a99191b3ef821bbbd
+Author: subversion <svn@deadlybossmods.com>
+Date:   Wed Feb 21 22:15:08 2018 +0100
+
+    tandanu via svn r17329:
     increment alpha version
 
