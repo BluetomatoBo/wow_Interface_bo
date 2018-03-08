@@ -629,7 +629,7 @@ function CoolLine:UNIT_EXITED_VEHICLE()
 	self:UnregisterEvent("ACTIONBAR_UPDATE_COOLDOWN")
 	for i = 1, #cooldowns do
 		local frame = cooldowns[i]
-		if strmatch(frame.name, "vehicle") then
+		if frame and strmatch(frame.name, "vehicle") then
 			ClearCooldown(nil, frame.name)
 		end
 	end

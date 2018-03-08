@@ -1,8 +1,11 @@
-## Interface: 60200
+## Interface: 70300
+## Version: 7.3.001
+
 ## Title: CoolLine
 ## Notes: Shows cooldowns on a single bar.
-## Author: TotalPackage
-## Version: 6.2.002
+## Author: TotalPackage, Phanx
+## X-Curse-Project-ID: 20148
+## X-WoWI-ID: 12467
 
 ## SavedVariables: CoolLineDB
 ## SavedVariablesPerCharacter: CoolLineCharDB
