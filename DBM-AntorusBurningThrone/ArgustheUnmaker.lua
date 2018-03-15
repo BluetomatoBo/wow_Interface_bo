@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2031, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 17358 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 17401 $"):sub(12, -3))
 mod:SetCreatureID(124828)
 mod:SetEncounterID(2092)
 mod:SetZone()
@@ -141,7 +141,8 @@ local countdownSweapingScythe		= mod:NewCountdown("Alt5", 248499, false, nil, 3)
 local countdownSargGaze				= mod:NewCountdown(35, 258068)
 --Stage Two: The Protector Redeemed
 local countdownSoulbomb				= mod:NewCountdown("AltTwo50", 251570)
-
+--Stage Three: Mythic
+local countdownSoulScythe			= mod:NewCountdown("Alt5", 258838, "Tank", nil, 3)
 --Stage Four
 local countdownDeadlyScythe			= mod:NewCountdown("Alt5", 258039, false, nil, 3)--Off by default since it'd be almost non stop, so users can elect into this one
 local countdownReorgModule			= mod:NewCountdown("Alt48", 256389, "-Tank")
@@ -174,7 +175,7 @@ mod.vb.firstscytheSwap = false
 --P3 Mythic Timers
 local torturedRage = {40, 40, 50, 30, 35, 10, 8, 35, 10, 8, 35}--3 timers from method video not logs, verify by logs to improve accuracy
 local sargSentenceTimers = {53, 56.9, 60, 53, 53}--1 timer from method video not logs, verify by logs to improve accuracy
-local apocModuleTimers = {31, 47, 48.2, 46.6, 53, 53}--Some variation detected in logs do to delay in combat log between spawn and cast (one timer from method video)
+local apocModuleTimers = {31, 47, 47, 46.6, 53, 53}--Some variation detected in logs do to delay in combat log between spawn and cast (one timer from method video)
 local sargGazeTimers = {23, 75, 70, 53, 53}--1 timer from method video not logs, verify by logs to improve accuracy
 local edgeofAnni = {5, 5, 90, 5, 45, 5}--All timers from method video (6:05 P3 start, 6:10, 6:15, 7:45, 7:50, 8:35, 8:40)
 --Both of these should be in fearCheck object for efficiency but with uncertainty of async, I don't want to come back and fix this later. Doing it this way ensures without a doubt it'll work by calling on load and again on combatstart
@@ -209,6 +210,7 @@ local function startAnnihilationStuff(self, quiet)
 		warnEdgeofAnni:Show(self.vb.EdgeofObliteration)
 	else--Special warning
 		specWarnEdgeofAnni:Show(self.vb.EdgeofObliteration)
+		specWarnEdgeofAnni:Play("watchstep")
 	end
 	local timer = edgeofAnni[self.vb.EdgeofObliteration+1]
 	if timer then
@@ -389,6 +391,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		countdownDeadlyScythe:Start(5.5)
 	elseif spellId == 258838 then--Mythic Scythe
 		timerSoulrendingScytheCD:Start()
+		countdownSoulScythe:Start(8.5)
 	elseif spellId == 255826 then
 		self.vb.EdgeofObliteration = self.vb.EdgeofObliteration + 1
 		specWarnEdgeofObliteration:Show()
@@ -718,6 +721,7 @@ function mod:SPELL_INTERRUPT(args)
 			self.vb.gazeCount = 0
 			self.vb.EdgeofObliteration = 0
 			timerSoulrendingScytheCD:Start(3.5)
+			countdownSoulScythe:Start(3.5)
 			timerEdgeofAnniCD:Start(5, 1)
 			self:Schedule(5, startAnnihilationStuff, self)
 			timerSargGazeCD:Start(20.2, 1)
@@ -801,5 +805,14 @@ function mod:UNIT_SPELLCAST_SUCCEEDED(uId, spellName, _, _, spellId)
 				DBM.InfoFrame:Hide()
 			end
 		end
+	end
+end
+
+--RL can run this macro to auto release everyone in raid any time they hit it
+--/run DBM:GetModByName("2031"):SendSync("Release")
+function mod:OnSync(msg, sender)
+	if not self:IsInCombat() then return end
+	if msg == "Release" and DBM:GetRaidRank(sender) == 2 then
+		RepopMe()
 	end
 end
