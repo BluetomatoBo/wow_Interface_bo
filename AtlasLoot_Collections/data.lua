@@ -1554,13 +1554,13 @@ data["MOUNTS"] = {
 				{ 18, 37012, "mount" }, -- The Horseman's Reins
 			},
 			[CLASSIC_DIFF] = {
-				{ 1, 19872, "mount" }, -- Swift Razzashi Raptor
-				{ 2, 19902, "mount" }, -- Swift Zulian Tiger
-				{ 4, 13335, "mount" }, -- Deathcharger's Reins
-				{ 16, 21218, "mount" }, -- Blue Qiraji Resonating Crystal
-				{ 17, 21321, "mount" }, -- Red Qiraji Resonating Crystal
-				{ 18, 21323, "mount" }, -- Green Qiraji Resonating Crystal
-				{ 19, 21324, "mount" }, -- Yellow Qiraji Resonating Crystal
+				--{ 1, 19872, "mount" }, -- Swift Razzashi Raptor
+				--{ 2, 19902, "mount" }, -- Swift Zulian Tiger
+				{ 1, 13335, "mount" }, -- Deathcharger's Reins
+				{ 3, 21218, "mount" }, -- Blue Qiraji Resonating Crystal
+				{ 4, 21321, "mount" }, -- Red Qiraji Resonating Crystal
+				{ 5, 21323, "mount" }, -- Green Qiraji Resonating Crystal
+				{ 6, 21324, "mount" }, -- Yellow Qiraji Resonating Crystal
 			},
 		},
 		{ -- In-game Shop
