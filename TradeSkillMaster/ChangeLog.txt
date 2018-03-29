@@ -1,3 +1,6 @@
+v3.6.42
+*Added new bonus ids from 7.3.5.
+
 v3.6.41
 *Added new bonus ids from 7.3.5.
 *Fixed issue with posting of some old armor/weapons.
