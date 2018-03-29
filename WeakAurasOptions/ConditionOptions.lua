@@ -671,7 +671,6 @@ local function addControlsForChange(args, order, data, conditionVariable, condit
                   local conditionIndex = conditions[i].check.references[id].conditionIndex;
                   local changeIndex = reference.changeIndex;
                   multipath[id] = {"conditions", conditionIndex, "changes", changeIndex, "value", "custom"};
-                  print("Adding path", id, conditionIndex, changeIndex);
                 end
                 WeakAuras.OpenTextEditor(data, multipath, nil, true);
               else
@@ -814,10 +813,137 @@ local function addControlsForCondition(args, order, data, conditionVariable, con
   if (not conditions[i].check) then
     return;
   end
+
   args["condition" .. i .. "header"] = {
-    type = "header",
+    type = "description",
+    name = L["Condition %i"]:format(i),
+    order = order,
+    width = 1.5,
+    fontSize = "large"
+  };
+  order = order + 1;
+
+  args["condition" .. i .. "up"] = {
+    type = "execute",
     name = "",
-    order = order
+    order = order,
+    disabled = function()
+      if (data.controlledChildren) then
+        for id, reference in pairs(conditions[i].check.references) do
+          local index = reference.conditionIndex;
+          if (index > 1) then
+            return false;
+          end
+        end
+        return true;
+      else
+        return i == 1;
+      end
+    end,
+    func = function()
+      if (data.controlledChildren) then
+        for id, reference in pairs(conditions[i].check.references) do
+          local auraData = WeakAuras.GetData(id);
+          local index = reference.conditionIndex;
+          if (index > 1) then
+            local tmp = auraData[conditionVariable][reference.conditionIndex];
+            tremove(auraData[conditionVariable], reference.conditionIndex);
+            tinsert(auraData[conditionVariable], reference.conditionIndex - 1, tmp);
+            WeakAuras.Add(auraData);
+          end
+        end
+        WeakAuras.ReloadTriggerOptions(data);
+      else
+        if (i > 1) then
+          local tmp = conditions[i];
+          tremove(conditions, i);
+          tinsert(conditions, i - 1, tmp);
+          WeakAuras.Add(data);
+          WeakAuras.ReloadTriggerOptions(data);
+        end
+      end
+    end,
+    width = 0.15,
+    image = "Interface\\AddOns\\WeakAuras\\Media\\Textures\\moveup",
+    imageWidth = 24,
+    imageHeight = 24
+  };
+  order = order + 1;
+
+  args["condition" .. i .. "down"] = {
+    type = "execute",
+    name = "",
+    order = order,
+    disabled = function()
+      if (data.controlledChildren) then
+        for id, reference in pairs(conditions[i].check.references) do
+          local index = reference.conditionIndex;
+          local auraData = WeakAuras.GetData(id);
+          if (index < #auraData[conditionVariable]) then
+            return false;
+          end
+        end
+        return true;
+      else
+        return i == #conditions;
+      end
+    end,
+    func = function()
+      if (data.controlledChildren) then
+        for id, reference in pairs(conditions[i].check.references) do
+          local auraData = WeakAuras.GetData(id);
+          local index = reference.conditionIndex;
+          if (index < #auraData[conditionVariable]) then
+            local tmp = auraData[conditionVariable][reference.conditionIndex];
+            tremove(auraData[conditionVariable], reference.conditionIndex);
+            tinsert(auraData[conditionVariable], reference.conditionIndex + 1, tmp);
+            WeakAuras.Add(auraData);
+          end
+        end
+        WeakAuras.ReloadTriggerOptions(data);
+        return;
+      else
+        if (i < #conditions) then
+          local tmp = conditions[i];
+          tremove(conditions, i);
+          tinsert(conditions, i + 1, tmp);
+          WeakAuras.Add(data);
+          WeakAuras.ReloadTriggerOptions(data);
+          return;
+        end
+      end
+    end,
+    width = 0.15,
+    image = "Interface\\AddOns\\WeakAuras\\Media\\Textures\\movedown",
+    imageWidth = 24,
+    imageHeight = 24
+  };
+  order = order + 1;
+
+  args["condition" .. i .. "delete"] = {
+    type = "execute",
+    name = "",
+    order = order,
+    func = function()
+      if (data.controlledChildren) then
+        for id, reference in pairs(conditions[i].check.references) do
+          local auraData = WeakAuras.GetData(id);
+          tremove(auraData[conditionVariable], reference.conditionIndex);
+          WeakAuras.Add(auraData);
+        end
+        WeakAuras.ReloadTriggerOptions(data);
+        return;
+      else
+        tremove(conditions, i);
+        WeakAuras.Add(data);
+        WeakAuras.ReloadTriggerOptions(data);
+        return;
+      end
+    end,
+    width = 0.15,
+    image = "Interface\\AddOns\\WeakAuras\\Media\\Textures\\delete",
+    imageWidth = 24,
+    imageHeight = 24
   };
   order = order + 1;
 
@@ -1110,10 +1236,10 @@ local function addControlsForCondition(args, order, data, conditionVariable, con
     order = order,
     func = function()
       if (data.controlledChildren) then
-        for _, id in ipairs(data.controlledChildren) do
+        for id, reference in pairs(conditions[i].check.references) do
           local auradata = WeakAuras.GetData(id);
-          auradata[conditionVariable][i].changes = auradata[conditionVariable][i].changes or {};
-          auradata[conditionVariable][i].changes[#auradata[conditionVariable][i].changes + 1] = {};
+          auradata[conditionVariable][reference.conditionIndex].changes = auradata[conditionVariable][reference.conditionIndex].changes or {}
+          tinsert(auradata[conditionVariable][reference.conditionIndex].changes, {})
           WeakAuras.Add(auradata);
         end
         WeakAuras.ReloadTriggerOptions(data);
@@ -1503,6 +1629,7 @@ function WeakAuras.GetConditionOptions(data, args, conditionVariable, startorder
   for i = 1, #conditions do
     order = addControlsForCondition(args, order, data, conditionVariable, conditions, i, conditionTemplates, allProperties);
   end
+
   args["addCondition"] = {
     type = "execute",
     name = L["Add Condition"],

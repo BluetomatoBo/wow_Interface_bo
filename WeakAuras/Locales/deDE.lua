@@ -414,6 +414,8 @@ L["Not on Cooldown"] = "Nicht auf Abklingzeit"
 L["Not On Threat Table"] = "Nicht auf der Bedrohungsliste"
 --Translation missing 
 -- L["Note, that cross realm transmission is not possible"] = ""
+--Translation missing 
+-- L["Note: This trigger type estimates the range to the hitbox of a unit. The actual range of friendly players is usually 3 yards more than the estimate."] = ""
 L["Number"] = "Nummer"
 L["Number Affected"] = "Betroffene Anzahl"
 L["Off Hand"] = "Nebenhand"

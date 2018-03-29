@@ -1896,6 +1896,7 @@ WeakAuras.event_prototypes = {
         values = "cooldown_progress_behavior_types",
         test = "true",
         required = true,
+        default = "showOnCooldown"
       },
       {
         hidden = true,
@@ -2095,6 +2096,7 @@ WeakAuras.event_prototypes = {
         values = "cooldown_progress_behavior_types",
         test = "true",
         required = true,
+        default = "showOnCooldown"
       },
       {
         hidden = true,
@@ -2193,6 +2195,7 @@ WeakAuras.event_prototypes = {
         values = "cooldown_progress_behavior_types",
         test = "true",
         required = true,
+        default = "showOnCooldown"
       },
       {
         hidden = true,
@@ -3735,7 +3738,8 @@ WeakAuras.event_prototypes = {
         required = true,
         type = "unit",
         values = "threat_unit_types",
-        test = "true"
+        test = "true",
+        default = "target"
       },
       {
         name = "status",
@@ -4173,6 +4177,12 @@ WeakAuras.event_prototypes = {
     end,
     statesParameter = "one",
     args = {
+      {
+        name = "note",
+        type = "description",
+        display = "",
+        text = L["Note: This trigger type estimates the range to the hitbox of a unit. The actual range of friendly players is usually 3 yards more than the estimate."],
+      },
       {
         name = "unit",
         required = true,

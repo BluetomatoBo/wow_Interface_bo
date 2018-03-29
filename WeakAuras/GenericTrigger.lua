@@ -238,7 +238,7 @@ function ConstructFunction(prototype, trigger, inverse)
     init = "";
   end
   for index, arg in pairs(prototype.args) do
-    local enable = true;
+    local enable = arg.type ~= "description";
     if(type(arg.enable) == "function") then
       enable = arg.enable(trigger);
     end
@@ -1539,16 +1539,10 @@ do
     local cooldownBecauseRune = false;
     if (charges == nil) then -- charges is nil if the spell has no charges. Or in other words GetSpellCharges is the wrong api
       local basecd = GetSpellBaseCooldown(id);
-      startTime, duration = GetSpellCooldown(id);
-      if (startTime == 0 and duration == 0) then
-        -- id is actually the spell name, not a spell id
-        -- In 7.2, Frost Mages's Water Elemental's Water Jet's cooldown isn't returned by GetSpellCooldown("Water Jet")
-        -- but GetSpellCooldown(select(7, GetSpellInfo("Water Jet"))) works
-        -- WORKAROUND So for now do that. This code should be removed once Blizzard fixes the underlying bug.
-        local spellId = select(7, GetSpellInfo(id));
-        if (spellId) then
-          startTime, duration = GetSpellCooldown(spellId);
-        end
+      local enabled;
+      startTime, duration, enabled = GetSpellCooldown(id);
+      if (enabled == 0) then
+        startTime, duration = 0, 0
       end
 
       local spellcount = GetSpellCount(id);

@@ -1,40 +1,28 @@
 # WeakAuras 2
 
-## [2.5.6-25-gdcfc46c](/tree/dcfc46ca03275abd101c4dbf0e2bc67cd227cbd9) (2018-02-18)
+## [2.5.8](https://github.com/WeakAuras/WeakAuras2/tree/2.5.8) (2018-03-16)
 
-[Full Changelog](/compare/2.5.6...dcfc46ca03275abd101c4dbf0e2bc67cd227cbd9)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.5.7...2.5.8)
 
-Benjamin Staneck (14):
+Benjamin Staneck (2):
 
-- change some power types again
-- change range check label from `Range` to `Distance`
-- change back some power types as their format is not consistent
-- change the global strings used for power type translations to be the ones of power types instead of the resource itself
-- add some newlines to the changelog
-- fix pkgmeta
-- add the temp commit file to ,gitignore
-- Update pkgmeta
-- switch to manual changelog generation and add a script to do that
-- only push localization if master changes and ignore the script in WowAce packaging
-- add a script to automatically push translations to WowAce
-- `dev` instead of `development`
-- use the same version string for the window title as for the LDB tooltip
-- fix LibRangecheck path
+- fix the translation script for PRs
+- adjust range check trigger text a bit
 
-Infus (10):
+Infus (14):
 
-- Fix Range Check trigger
-- Templates: Add KJ's burning wish to the correct specs
-- Combat Log Trigger: Fix SPELL_ENERGIZE
-- Add Allied Races to templates
-- Attach legendaries/sets to each spec instead of a global list
-- Update Templates based on suggestions from Nighthawk
-- Add Range Checker trigger
-- Transmission: Add a timeout if no data to check if we received data
-- Add resizers to the bottom right corner
-- Fix Stagger progress not updating
-
-emptyrivers (1):
-
-- implement UnitIsUnit option
+- Fix Add Property for multi selection
+- Add a SetTexture function to Progress Textures
+- Implement TODOs
+- Fix canceling "Apply Template" picks the new option
+- Add a bit of space between Choose Trigger and "Add"
+- Fix text replacement for Texture auras
+- Add a text explaining the range trigger to the Range Trigger
+- Add "Reorder" for Triggers and Conditions
+- Fix editing conditions with multiple auras selected
+- Remove debug output
+- Fix cooldown handling of "disabled" cooldowns
+- Remove a workaround for GetSpellCooldown("Water Jet")
+- Reimplement Copy and Paste
+- Options Window: Cooldown Progress: Fix initial value
 

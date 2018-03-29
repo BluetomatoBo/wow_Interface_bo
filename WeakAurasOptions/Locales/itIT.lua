@@ -202,6 +202,8 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Compress"] = ""
 	--Translation missing 
+	-- L["Condition %i"] = ""
+	--Translation missing 
 	-- L["Conditions"] = ""
 	--Translation missing 
 	-- L["Constant Factor"] = ""
@@ -214,9 +216,7 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Cooldown"] = ""
 	--Translation missing 
-	-- L["Copy settings from %s"] = ""
-	--Translation missing 
-	-- L["Copy settings from..."] = ""
+	-- L["Copy settings..."] = ""
 	--Translation missing 
 	-- L["Copy to all auras"] = ""
 	--Translation missing 
@@ -282,11 +282,11 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Distribute Vertically"] = ""
 	--Translation missing 
-	-- L["Do not copy any settings"] = ""
-	--Translation missing 
 	-- L["Do not group this display"] = ""
 	--Translation missing 
 	-- L["Done"] = ""
+	--Translation missing 
+	-- L["Down"] = ""
 	--Translation missing 
 	-- L["Drag to move"] = ""
 	--Translation missing 
@@ -538,7 +538,19 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["Own Only"] = ""
 	--Translation missing 
+	-- L["Paste Action Settings"] = ""
+	--Translation missing 
+	-- L["Paste Animations Settings"] = ""
+	--Translation missing 
+	-- L["Paste Condition Settings"] = ""
+	--Translation missing 
+	-- L["Paste Display Settings"] = ""
+	--Translation missing 
+	-- L["Paste Load Settings"] = ""
+	--Translation missing 
 	-- L["Paste text below"] = ""
+	--Translation missing 
+	-- L["Paste Trigger Settings"] = ""
 	--Translation missing 
 	-- L["Play Sound"] = ""
 	--Translation missing 
@@ -785,6 +797,8 @@ local L = WeakAuras.L
 	-- L["Unit"] = ""
 	--Translation missing 
 	-- L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = ""
+	--Translation missing 
+	-- L["Up"] = ""
 	--Translation missing 
 	-- L["Update Custom Text On..."] = ""
 	--Translation missing 

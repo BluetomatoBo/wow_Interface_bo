@@ -441,6 +441,8 @@ L["Normal"] = "Normal"
 L["Not On Threat Table"] = "Pas sur la table de menace"
 --Translation missing 
 -- L["Note, that cross realm transmission is not possible"] = ""
+--Translation missing 
+-- L["Note: This trigger type estimates the range to the hitbox of a unit. The actual range of friendly players is usually 3 yards more than the estimate."] = ""
 L["Number"] = "Nombre"
 L["Number Affected"] = "Nombre affecté"
 L["Off Hand"] = "Main gauche"

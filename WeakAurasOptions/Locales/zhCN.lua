@@ -121,14 +121,16 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["color"] = ""
 	L["Compress"] = "压缩"
+	--Translation missing 
+	-- L["Condition %i"] = ""
 	L["Conditions"] = "条件"
 	L["Constant Factor"] = "常数因子"
 	L["Control-click to select multiple displays"] = "按住 Control 并点击来选择多种显示"
 	L["Controls the positioning and configuration of multiple displays at the same time"] = "同时控制多个图示的位置和设定"
 	L["Convert to..."] = "转换为..."
 	L["Cooldown"] = "冷却"
-	L["Copy settings from %s"] = "从 %s 复制设置"
-	L["Copy settings from..."] = "复制设置于..."
+	--Translation missing 
+	-- L["Copy settings..."] = ""
 	--Translation missing 
 	-- L["Copy to all auras"] = ""
 	L["Copy URL"] = "复制 URL"
@@ -173,10 +175,11 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Displays a text, works best in combination with other displays"] = "显示一条文本，最好与其他显示效果结合运用"
 	L["Distribute Horizontally"] = "横向分布"
 	L["Distribute Vertically"] = "纵向分布"
-	L["Do not copy any settings"] = "不要复制任何设置"
 	--Translation missing 
 	-- L["Do not group this display"] = ""
 	L["Done"] = "完成"
+	--Translation missing 
+	-- L["Down"] = ""
 	L["Drag to move"] = "拖拽来移动"
 	L["Duplicate"] = "复制"
 	--Translation missing 
@@ -339,7 +342,19 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	--Translation missing 
 	-- L["Overlays"] = ""
 	L["Own Only"] = "只来源于自己"
+	--Translation missing 
+	-- L["Paste Action Settings"] = ""
+	--Translation missing 
+	-- L["Paste Animations Settings"] = ""
+	--Translation missing 
+	-- L["Paste Condition Settings"] = ""
+	--Translation missing 
+	-- L["Paste Display Settings"] = ""
+	--Translation missing 
+	-- L["Paste Load Settings"] = ""
 	L["Paste text below"] = "在下方粘贴文本"
+	--Translation missing 
+	-- L["Paste Trigger Settings"] = ""
 	L["Play Sound"] = "播放声音"
 	L["Portrait Zoom"] = "纵向缩放"
 	L["Preset"] = "预设"
@@ -494,6 +509,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	-- L["Ungroup"] = ""
 	L["Unit"] = "单位"
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "不同于开始或结束动画，主动画将不停循环，直到图示被隐藏。"
+	--Translation missing 
+	-- L["Up"] = ""
 	L["Update Custom Text On..."] = "更新自定义文字于"
 	L["Use Full Scan (High CPU)"] = "使用完整扫描(高CPU)"
 	--Translation missing 

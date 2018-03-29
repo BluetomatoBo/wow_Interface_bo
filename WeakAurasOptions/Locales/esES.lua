@@ -142,6 +142,8 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 	-- L["color"] = ""
 	L["Compress"] = "Comprimir"
 	--Translation missing 
+	-- L["Condition %i"] = ""
+	--Translation missing 
 	-- L["Conditions"] = ""
 	L["Constant Factor"] = "Factor Constante"
 	--Translation missing 
@@ -151,9 +153,7 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 	-- L["Convert to..."] = ""
 	L["Cooldown"] = "Tiempo de Recarga"
 	--Translation missing 
-	-- L["Copy settings from %s"] = ""
-	--Translation missing 
-	-- L["Copy settings from..."] = ""
+	-- L["Copy settings..."] = ""
 	--Translation missing 
 	-- L["Copy to all auras"] = ""
 	--Translation missing 
@@ -211,11 +211,11 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Distribute Horizontally"] = "Distribución Horizontal"
 	L["Distribute Vertically"] = "Distribución Vertical"
 	--Translation missing 
-	-- L["Do not copy any settings"] = ""
-	--Translation missing 
 	-- L["Do not group this display"] = ""
 	--Translation missing 
 	-- L["Done"] = ""
+	--Translation missing 
+	-- L["Down"] = ""
 	--Translation missing 
 	-- L["Drag to move"] = ""
 	--Translation missing 
@@ -419,7 +419,19 @@ Sólo un valor coincidente puede ser escogido.]=]
 	-- L["Overlays"] = ""
 	L["Own Only"] = "Solo Mías"
 	--Translation missing 
+	-- L["Paste Action Settings"] = ""
+	--Translation missing 
+	-- L["Paste Animations Settings"] = ""
+	--Translation missing 
+	-- L["Paste Condition Settings"] = ""
+	--Translation missing 
+	-- L["Paste Display Settings"] = ""
+	--Translation missing 
+	-- L["Paste Load Settings"] = ""
+	--Translation missing 
 	-- L["Paste text below"] = ""
+	--Translation missing 
+	-- L["Paste Trigger Settings"] = ""
 	L["Play Sound"] = "Reproducir Sonido"
 	--Translation missing 
 	-- L["Portrait Zoom"] = ""
@@ -593,6 +605,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	--Translation missing 
 	-- L["Unit"] = ""
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "Ignorar animaciones de inicio y final: la animación principal se repetirá hasta que el aura se oculte."
+	--Translation missing 
+	-- L["Up"] = ""
 	L["Update Custom Text On..."] = "Actualizar Texto Personalizado En..."
 	L["Use Full Scan (High CPU)"] = "Escaneo Total (carga el procesador)"
 	--Translation missing 

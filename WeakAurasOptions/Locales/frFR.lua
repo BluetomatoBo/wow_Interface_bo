@@ -133,6 +133,8 @@ Souhaitez-vous que ce graphiques soit placé dans un nouveau |cFF22AA22Groupe Dy
 	--Translation missing 
 	-- L["color"] = ""
 	L["Compress"] = "Compresser"
+	--Translation missing 
+	-- L["Condition %i"] = ""
 	L["Conditions"] = "Conditions"
 	L["Constant Factor"] = "Facteur constant"
 	--Translation missing 
@@ -142,9 +144,7 @@ Souhaitez-vous que ce graphiques soit placé dans un nouveau |cFF22AA22Groupe Dy
 	-- L["Convert to..."] = ""
 	L["Cooldown"] = "Recharge"
 	--Translation missing 
-	-- L["Copy settings from %s"] = ""
-	--Translation missing 
-	-- L["Copy settings from..."] = ""
+	-- L["Copy settings..."] = ""
 	--Translation missing 
 	-- L["Copy to all auras"] = ""
 	--Translation missing 
@@ -197,10 +197,10 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Distribute Horizontally"] = "Distribuer horizontalement"
 	L["Distribute Vertically"] = "Distribuer verticalement"
 	--Translation missing 
-	-- L["Do not copy any settings"] = ""
-	--Translation missing 
 	-- L["Do not group this display"] = ""
 	L["Done"] = "Terminé"
+	--Translation missing 
+	-- L["Down"] = ""
 	--Translation missing 
 	-- L["Drag to move"] = ""
 	--Translation missing 
@@ -378,7 +378,19 @@ Seule une unique valeur peut être choisie]=]
 	--Translation missing 
 	-- L["Overlays"] = ""
 	L["Own Only"] = "Le mien uniquement"
+	--Translation missing 
+	-- L["Paste Action Settings"] = ""
+	--Translation missing 
+	-- L["Paste Animations Settings"] = ""
+	--Translation missing 
+	-- L["Paste Condition Settings"] = ""
+	--Translation missing 
+	-- L["Paste Display Settings"] = ""
+	--Translation missing 
+	-- L["Paste Load Settings"] = ""
 	L["Paste text below"] = "Coller le texte ci-dessous"
+	--Translation missing 
+	-- L["Paste Trigger Settings"] = ""
 	L["Play Sound"] = "Jouer un son"
 	L["Portrait Zoom"] = "Zoom Portrait"
 	L["Preset"] = "Preset"
@@ -533,6 +545,8 @@ Seule une unique valeur peut être choisie]=]
 	-- L["Ungroup"] = ""
 	L["Unit"] = "Unité"
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "Contrairement aux animations de début et de fin, l'animation principale bouclera tant que le graphique est visible."
+	--Translation missing 
+	-- L["Up"] = ""
 	L["Update Custom Text On..."] = "Mettre à jour Texte Perso sur..."
 	L["Use Full Scan (High CPU)"] = "Utiliser Scan Complet (CPU élevé)"
 	--Translation missing 

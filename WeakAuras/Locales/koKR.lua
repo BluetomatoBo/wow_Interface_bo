@@ -399,6 +399,8 @@ L["Not on Cooldown"] = "재사용 대기 중이 아닐 때"
 L["Not On Threat Table"] = "위협 수준 없음"
 --Translation missing 
 -- L["Note, that cross realm transmission is not possible"] = ""
+--Translation missing 
+-- L["Note: This trigger type estimates the range to the hitbox of a unit. The actual range of friendly players is usually 3 yards more than the estimate."] = ""
 L["Number"] = "횟수"
 L["Number Affected"] = "영향 받은 횟수"
 L["Off Hand"] = "보조장비"

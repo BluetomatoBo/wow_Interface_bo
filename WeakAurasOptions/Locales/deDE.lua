@@ -126,14 +126,16 @@ Soll die Anzeige in einer neuen |cFF22AA22Dynamischen Gruppe|r platziert werden?
 	L["Color"] = "Farbe"
 	L["color"] = "Farbe"
 	L["Compress"] = "Stauchen"
+	--Translation missing 
+	-- L["Condition %i"] = ""
 	L["Conditions"] = "Bedingungen"
 	L["Constant Factor"] = "Konstanter Faktor"
 	L["Control-click to select multiple displays"] = "Strg-Klick, um mehrere Anzeigen auszuwählen"
 	L["Controls the positioning and configuration of multiple displays at the same time"] = "Eine Gruppe, die die Position und Konfiguration ihrer Kinder kontrolliert"
 	L["Convert to..."] = "Konvertiere zu..."
 	L["Cooldown"] = "Abklingzeit"
-	L["Copy settings from %s"] = "Kopiere Einstellungen von %s"
-	L["Copy settings from..."] = "Kopiere Einstellungen von..."
+	--Translation missing 
+	-- L["Copy settings..."] = ""
 	L["Copy to all auras"] = "Kopiere zu allen Auren"
 	L["Copy URL"] = "URL kopieren"
 	L["Count"] = "Anzahl"
@@ -176,9 +178,10 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Displays a text, works best in combination with other displays"] = "Zeigt einen Text an, funktioniert am besten in Kombination mit anderen Anzeigen"
 	L["Distribute Horizontally"] = "Horizontal verteilen"
 	L["Distribute Vertically"] = "Vertikal verteilen"
-	L["Do not copy any settings"] = "Keine Einstellungen kopieren"
 	L["Do not group this display"] = "Diese Anzeige nicht kopieren"
 	L["Done"] = "Fertig"
+	--Translation missing 
+	-- L["Down"] = ""
 	L["Drag to move"] = "Ziehen, um diese Anzeige zu verschieben"
 	L["Duplicate"] = "Duplizieren"
 	--Translation missing 
@@ -346,7 +349,19 @@ Nur ein Wert kann ausgewählt werden.]=]
 	--Translation missing 
 	-- L["Overlays"] = ""
 	L["Own Only"] = "Nur eigene"
+	--Translation missing 
+	-- L["Paste Action Settings"] = ""
+	--Translation missing 
+	-- L["Paste Animations Settings"] = ""
+	--Translation missing 
+	-- L["Paste Condition Settings"] = ""
+	--Translation missing 
+	-- L["Paste Display Settings"] = ""
+	--Translation missing 
+	-- L["Paste Load Settings"] = ""
 	L["Paste text below"] = "Text unten einfügen"
+	--Translation missing 
+	-- L["Paste Trigger Settings"] = ""
 	L["Play Sound"] = "Sound abspielen"
 	L["Portrait Zoom"] = "Portraitzoom"
 	L["Preset"] = "Voreinstellung"
@@ -487,6 +502,8 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Ungroup"] = "Gruppierung aufheben"
 	L["Unit"] = "Einheit"
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "Anders als die Start- und Endanimation wird die Hauptanimation immer wieder wiederholt, bis die Anzeige in den Endstatus versetzt wird."
+	--Translation missing 
+	-- L["Up"] = ""
 	L["Update Custom Text On..."] = "Aktualisiere benutzerdefinierten Text bei..."
 	L["Use Full Scan (High CPU)"] = "Alle Auren scannen (CPU-Intensiv)"
 	--Translation missing 

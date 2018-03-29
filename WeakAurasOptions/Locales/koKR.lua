@@ -126,14 +126,16 @@ local L = WeakAuras.L
 	--Translation missing 
 	-- L["color"] = ""
 	L["Compress"] = "누르기"
+	--Translation missing 
+	-- L["Condition %i"] = ""
 	L["Conditions"] = "조건"
 	L["Constant Factor"] = "고정 요소"
 	L["Control-click to select multiple displays"] = "Ctrl+클릭하여 여러 디스플레이 선택"
 	L["Controls the positioning and configuration of multiple displays at the same time"] = "동시에 여러 디스플레이의 위치와 설정을 조절합니다"
 	L["Convert to..."] = "변환하기..."
 	L["Cooldown"] = "재사용 대기시간"
-	L["Copy settings from %s"] = "%s|1으로;로;부터 설정 복사"
-	L["Copy settings from..."] = "설정 복사해오기..."
+	--Translation missing 
+	-- L["Copy settings..."] = ""
 	--Translation missing 
 	-- L["Copy to all auras"] = ""
 	L["Copy URL"] = "URL 복사"
@@ -179,9 +181,10 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Displays a text, works best in combination with other displays"] = "문자를 표시합니다, 다른 디스플레이와 조합하여 사용하기 좋습니다"
 	L["Distribute Horizontally"] = "가로로 퍼뜨리기"
 	L["Distribute Vertically"] = "세로로 퍼뜨리기"
-	L["Do not copy any settings"] = "어떤 설정도 복사하지 않기"
 	L["Do not group this display"] = "이 디스플레이 그룹하지 않기"
 	L["Done"] = "완료"
+	--Translation missing 
+	-- L["Down"] = ""
 	L["Drag to move"] = "끌어서 이동"
 	L["Duplicate"] = "복제"
 	--Translation missing 
@@ -338,7 +341,19 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	--Translation missing 
 	-- L["Overlays"] = ""
 	L["Own Only"] = "내 것만"
+	--Translation missing 
+	-- L["Paste Action Settings"] = ""
+	--Translation missing 
+	-- L["Paste Animations Settings"] = ""
+	--Translation missing 
+	-- L["Paste Condition Settings"] = ""
+	--Translation missing 
+	-- L["Paste Display Settings"] = ""
+	--Translation missing 
+	-- L["Paste Load Settings"] = ""
 	L["Paste text below"] = "아래 문자를 붙여 넣으세요"
+	--Translation missing 
+	-- L["Paste Trigger Settings"] = ""
 	L["Play Sound"] = "소리 재생"
 	L["Portrait Zoom"] = "초상화 확대"
 	L["Preset"] = "프리셋"
@@ -473,6 +488,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Ungroup"] = "그룹 해제"
 	L["Unit"] = "유닛"
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "시작 또는 종료 애니메이션과 달리 메인 애니메이션은 디스플레이가 숨겨질 때까지 계속 반복됩니다."
+	--Translation missing 
+	-- L["Up"] = ""
 	L["Update Custom Text On..."] = "사용자 설정 문자 갱신 중..."
 	L["Use Full Scan (High CPU)"] = "전체 스캔 사용 (높은 CPU 사용률)"
 	L["Use SetTransform (will change behaviour in 7.3)"] = "SetTransform 사용 (7.3에서 작동 변경)"

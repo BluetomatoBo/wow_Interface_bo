@@ -376,6 +376,8 @@ L["Not on Cooldown"] = "Не перезаряжается"
 L["Not On Threat Table"] = "Не в списке угроз"
 L["Note, that cross realm transmission is not possible"] = [=[Обратите внимание, что передача между игровыми 
 мирами невозможна!]=]
+L["Note: This trigger type estimates the range to the hitbox of a unit. The actual range of friendly players is usually 3 yards more than the estimate."] = [=[Примечание. Этот тип триггера оценивает расстояние до хитбокса единицы. Фактическое расстояние до дружественных игроков
+обычно на 3 метра больше оценки.]=]
 L["Number"] = "Количество"
 L["Number Affected"] = "Кол-во задействованных"
 L["Off Hand"] = "Левая рука"
