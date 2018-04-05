@@ -12,8 +12,8 @@ L["BOTTOMRIGHT"] = "Внизу справа"
 L["CENTER"] = "В центре"
 L["Completed Achievement Criteria"] = "Критерии завершённых достижений"
 L["Completed Quest Objectives"] = "Цели выполненных заданий"
---Translation missing 
--- L["Dead NPCs"] = "Dead NPCs"
+--[[Translation missing --]]
+--[[ L["Dead NPCs"] = "Dead NPCs"--]] 
 L["Detection"] = "Обнаружение"
 L["Drag to set the spawn point for targeting buttons."] = "Переместите, чтобы указать место появления сообщения об обнаружении."
 L["Duration"] = "Продолжительность"
@@ -47,8 +47,8 @@ L["Y Offset"] = "Смещение по вертикали"
 -- Vignette
 L["Aarkos - Looted Treasure"] = "Фамильное сокровище Аарко"
 L["Abandoned Fishing Pole"] = "Забытая удочка"
---Translation missing 
--- L["Alpha Bat"] = "Alpha Bat"
+--[[Translation missing --]]
+--[[ L["Alpha Bat"] = "Alpha Bat"--]] 
 L["Amateur Hunters"] = "Начинающие охотники"
 L["Ambassador D'vwinn"] = "Посланник Д'ввинн"
 L["Anax"] = "Анакс"
@@ -63,8 +63,8 @@ L["Bahagar"] = "Бахагар"
 L["Ba'ruun"] = "Ба'руун"
 L["Beacher"] = "Песочник"
 L["Beastmaster Pao'lek"] = "Повелитель зверей Пао'лек"
---Translation missing 
--- L["BH Master Scout"] = "BH Master Scout"
+--[[Translation missing --]]
+--[[ L["BH Master Scout"] = "BH Master Scout"--]] 
 L["Bilebrain"] = "Желчедум"
 L["Bladesquall"] = "Острошквал"
 L["Bodash the Hoarder"] = "Бодаш Алчный"
@@ -77,8 +77,8 @@ L["Cadraeus"] = "Кадрей"
 L["Cailyn Paledoom"] = "Кейлин Бледная Смерть"
 L["Captain Volo'ren"] = "Капитан Воло'рен"
 L["Captured Survivor"] = "Выживший-пленник"
---Translation missing 
--- L["Cave Keeper"] = "Cave Keeper"
+--[[Translation missing --]]
+--[[ L["Cave Keeper"] = "Cave Keeper"--]] 
 L["Champion Chomper"] = "Пожиратель героев"
 L["Charfeather"] = "Обугленное Перо"
 L["Chief Bitterbrine"] = "Вождь племени Горькой Воды"
@@ -89,12 +89,12 @@ L["Cora'kar"] = "Кора'кар"
 L["Coura, Master of Arcana"] = "Кора, владычица чар"
 L["Crab Rider Grmlrml"] = "Наездник на крабе Грмлрмл"
 L["Crawshuk the Hungry"] = "Зобан Ненасытный"
---Translation missing 
--- L["Crystalbeard"] = "Crystalbeard"
+--[[Translation missing --]]
+--[[ L["Crystalbeard"] = "Crystalbeard"--]] 
 L["Daggerbeak"] = "Кортиклюв"
 L["Darkshade, Saber Matriarch"] = "Черная Тень, матриарх саблезубов"
---Translation missing 
--- L["Dead Orc Captain"] = "Dead Orc Captain"
+--[[Translation missing --]]
+--[[ L["Dead Orc Captain"] = "Dead Orc Captain"--]] 
 L["Devouring Darkness"] = "Всепоглощающий мрак"
 L["Dorg"] = "Дорг"
 L["Dreadbog"] = "Болотожуть"
@@ -107,23 +107,23 @@ L["Embaari Defense Crystal"] = "Защитный кристалл Эмбаари
 L["Enavra Varandi"] = "Энавра Варанди"
 L["Faebright"] = "Яркочар"
 L["Fathnyr"] = "Фафнир"
---Translation missing 
--- L["Fel Saberon Shaman"] = "Fel Saberon Shaman"
+--[[Translation missing --]]
+--[[ L["Fel Saberon Shaman"] = "Fel Saberon Shaman"--]] 
 L["Fenri"] = "Фенри"
 L["Flog the Captain-Eater"] = "Флог Пожиратель Капитанов"
 L["Flotsam"] = "Обломок"
---Translation missing 
--- L["Foreling Worship Circle"] = "Foreling Worship Circle"
+--[[Translation missing --]]
+--[[ L["Foreling Worship Circle"] = "Foreling Worship Circle"--]] 
 L["Forsaken Deathsquad"] = "Команда смерти Отрекшихся"
 L["Frenzied Animus"] = "Разъяренный анимус"
 L["Frostshard"] = "Ледяной осколок"
 L["Galzomar"] = "Гальзомар"
 L["Garvrulg"] = "Гарврулг"
 L["Gennadian"] = "Геннадиан"
---Translation missing 
--- L["Giant Python"] = "Giant Python"
---Translation missing 
--- L["Giant Raptor"] = "Giant Raptor"
+--[[Translation missing --]]
+--[[ L["Giant Python"] = "Giant Python"--]] 
+--[[Translation missing --]]
+--[[ L["Giant Raptor"] = "Giant Raptor"--]] 
 L["Giantstalker Hunting Party"] = "Охота истребителя великанов"
 L["Giblette the Cowardly"] = "Гиблет Трусливый"
 L["Glimar Ironfist"] = "Глимар Железный Кулак"
@@ -148,21 +148,21 @@ L["Houndmaster Ely"] = "Псарь Элай"
 L["Houndmaster Jax'zor"] = "Псарь Джакс'зор"
 L["Houndmaster Stroxis"] = "Псарь Строксис"
 L["Huk'roth the Houndmaster"] = "Охотник Хак'рот"
---Translation missing 
--- L["IH Elite Sniper"] = "IH Elite Sniper"
+--[[Translation missing --]]
+--[[ L["IH Elite Sniper"] = "IH Elite Sniper"--]] 
 L["Inquisitor Ernstenbok"] = "Инквизитор Эрнстенбок"
 L["Inquisitor Tivos"] = "Инквизитор Тивос"
 L["Inquisitor Volitix"] = "Инквизитор Волиций"
 L["Invasion Point: Devastation"] = "Точка вторжения: Опустошение"
---Translation missing 
--- L["Iron Front Captain 1"] = "Iron Front Captain 1"
---Translation missing 
--- L["Iron Front Captain 2"] = "Iron Front Captain 2"
---Translation missing 
--- L["Iron Front Captain 3"] = "Iron Front Captain 3"
+--[[Translation missing --]]
+--[[ L["Iron Front Captain 1"] = "Iron Front Captain 1"--]] 
+--[[Translation missing --]]
+--[[ L["Iron Front Captain 2"] = "Iron Front Captain 2"--]] 
+--[[Translation missing --]]
+--[[ L["Iron Front Captain 3"] = "Iron Front Captain 3"--]] 
 L["Iron Houndmaster"] = "Железный псарь"
---Translation missing 
--- L["Iron Tunnel Foreman"] = "Iron Tunnel Foreman"
+--[[Translation missing --]]
+--[[ L["Iron Tunnel Foreman"] = "Iron Tunnel Foreman"--]] 
 L["Ironbranch"] = "Железнодрев"
 L["Isel the Hammer"] = "Изель Молот"
 L["Ivory Sentinel"] = "Стражница из бивневой кости"
@@ -198,13 +198,13 @@ L["Miasu"] = "Миасу"
 L["Mordvigbjorn"] = "Мордвигбьорн"
 L["Mother Om'ra"] = "Мать Ом'ра"
 L["Mrrgrl the Tide Reaver"] = "Мрргл Разоритель Морей"
---Translation missing 
--- L["Murktide Alpha"] = "Murktide Alpha"
+--[[Translation missing --]]
+--[[ L["Murktide Alpha"] = "Murktide Alpha"--]] 
 L["Myonix"] = "Мионикс"
 L["Nas Dunberlin"] = "Наз Данберлин"
 L["Night Haunter"] = "Ужас ночи"
---Translation missing 
--- L["Noble Blademaster"] = "Noble Blademaster"
+--[[Translation missing --]]
+--[[ L["Noble Blademaster"] = "Noble Blademaster"--]] 
 L["No'losh"] = "Но'лош"
 L["Normantis the Deposed"] = "Нормантис Низложенный"
 L["Oasis Icemother"] = "Праматерь-ледолиск из оазиса"
@@ -212,52 +212,54 @@ L["Ogre Primalist"] = "Огр - шаман стихий"
 L["Old Bear Trap"] = "Старый медвежий капкан"
 L["Oreth the Vile"] = "Орет Зловещий"
 L["Oubdob da Smasher"] = "Убдоб Бум-Бум"
---Translation missing 
--- L["Pale Assassin"] = "Pale Assassin"
+--[[Translation missing --]]
+--[[ L["Pale Assassin"] = "Pale Assassin"--]] 
 L["Pale Gone Fishin'"] = "Бледный орк на рыбалке"
 L["Pale Spider Broodmother"] = "Бледная паучья праматерь"
---Translation missing 
--- L["Panther Saberon Boss"] = "Panther Saberon Boss"
+--[[Translation missing --]]
+--[[ L["Panther Saberon Boss"] = "Panther Saberon Boss"--]] 
 L["Perrexx the Corruptor"] = "Перрекс Осквернитель"
 L["Pinchshank"] = "Щелкоклешень"
 L["Pit-Slayer"] = "Гладиатор-убийца"
 L["Pridelord Meowl"] = "Вожак прайда Мяул"
 L["Protectors of the Grove"] = "Защитники рощи"
 L["Purging the River"] = "Очищение реки"
---Translation missing 
--- L["Quin'el, Master of Chillwind"] = "Quin'el, Master of Chillwind"
+--[[Translation missing --]]
+--[[ L["Quin'el, Master of Chillwind"] = "Quin'el, Master of Chillwind"--]] 
 L["Ragemaw"] = "Ярозуб"
 L["Randril"] = "Рандрил"
 L["Rauren"] = "Рорен"
---Translation missing 
--- L["Ravager Broodlord"] = "Ravager Broodlord"
+--[[Translation missing --]]
+--[[ L["Ravager Broodlord"] = "Ravager Broodlord"--]] 
 L["Ravyn-Drath"] = "Райвин-Драт"
 L["Reef Lord Raj'his"] = "Повелитель рифов Раж'хис"
 L["Remnant of the Blood Moon"] = "Частица Кровавой Луны"
 L["Rogond"] = "Рогонд"
 L["Rok'nash"] = "Рок'наш"
 L["Roteye"] = "Красноглаз"
---Translation missing 
--- L["Saberon Blademaster"] = "Saberon Blademaster"
---Translation missing 
--- L["Saberon Shaman"] = "Saberon Shaman"
---Translation missing 
--- L["Sapper Vorick"] = "Sapper Vorick"
+--[[Translation missing --]]
+--[[ L["Saberon Blademaster"] = "Saberon Blademaster"--]] 
+--[[Translation missing --]]
+--[[ L["Saberon Shaman"] = "Saberon Shaman"--]] 
+--[[Translation missing --]]
+--[[ L["Sapper Vorick"] = "Sapper Vorick"--]] 
 L["Scout Harefoot"] = "Разведчик Заячья Лапка"
---Translation missing 
--- L["Sea Giant King"] = "Sea Giant King"
+--[[Translation missing --]]
+--[[ L["Sea Giant King"] = "Sea Giant King"--]] 
 L["Sea Hydra"] = "Морская гидра"
 L["Sea King Tidross"] = "Морской король Волноросс"
 L["Sea Lord Torglork"] = "Морской повелитель Торглорк"
 L["Seek & Destroy Squad"] = "Истребительный отряд"
+--[[Translation missing --]]
+--[[ L["Seemingly Unguarded Treasure"] = "Seemingly Unguarded Treasure"--]] 
 L["Seersei"] = "Сирсея"
 L["Sekhan"] = "Секхан"
---Translation missing 
--- L["Selia, Master of Balefire"] = "Selia, Master of Balefire"
---Translation missing 
--- L["Shadowflame Terror"] = "Shadowflame Terror"
---Translation missing 
--- L["Shadowmoon Cultist Ritual"] = "Shadowmoon Cultist Ritual"
+--[[Translation missing --]]
+--[[ L["Selia, Master of Balefire"] = "Selia, Master of Balefire"--]] 
+--[[Translation missing --]]
+--[[ L["Shadowflame Terror"] = "Shadowflame Terror"--]] 
+--[[Translation missing --]]
+--[[ L["Shadowmoon Cultist Ritual"] = "Shadowmoon Cultist Ritual"--]] 
 L["Shadowquill"] = "Темное Перо"
 L["Shal'an"] = "Шал'ан"
 L["Shaman Fire Stone"] = "Огненный камень шамана"
@@ -282,16 +284,16 @@ L["Szirek"] = "Зирек"
 L["Tarben"] = "Тарбен"
 L["Thane's Mead Hall"] = "Медовый зал тана"
 L["The Beastly Boxer"] = "Озверевший боксер"
---Translation missing 
--- L["The Blightcaller"] = "The Blightcaller"
---Translation missing 
--- L["The Brood Queen's Court: Count Nefarious"] = "The Brood Queen's Court: Count Nefarious"
---Translation missing 
--- L["The Brood Queen's Court: General Volroth"] = "The Brood Queen's Court: General Volroth"
---Translation missing 
--- L["The Brood Queen's Court: King Voras"] = "The Brood Queen's Court: King Voras"
---Translation missing 
--- L["The Brood Queen's Court: Overseer Brutarg"] = "The Brood Queen's Court: Overseer Brutarg"
+--[[Translation missing --]]
+--[[ L["The Blightcaller"] = "The Blightcaller"--]] 
+--[[Translation missing --]]
+--[[ L["The Brood Queen's Court: Count Nefarious"] = "The Brood Queen's Court: Count Nefarious"--]] 
+--[[Translation missing --]]
+--[[ L["The Brood Queen's Court: General Volroth"] = "The Brood Queen's Court: General Volroth"--]] 
+--[[Translation missing --]]
+--[[ L["The Brood Queen's Court: King Voras"] = "The Brood Queen's Court: King Voras"--]] 
+--[[Translation missing --]]
+--[[ L["The Brood Queen's Court: Overseer Brutarg"] = "The Brood Queen's Court: Overseer Brutarg"--]] 
 L["The Exiled Shaman"] = "Изгнанный шаман"
 L["The Muscle"] = "Громила"
 L["The Nameless King"] = "Безымянный Король"
@@ -306,14 +308,16 @@ L["Totally Safe Treasure Chest"] = "Совершенно безопасный с
 L["Trecherous Stallions"] = "Коварные скакуны"
 L["Unbound Rift"] = "Открытый разлом"
 L["Undgrell Attack"] = "Нападение малых греллей"
+--[[Translation missing --]]
+--[[ L["Unguarded Thistleleaf Treasure"] = "Unguarded Thistleleaf Treasure"--]] 
 L["Urgev the Flayer"] = "Ургев Кровавый Топор"
 L["Valiyaka the Stormbringer"] = "Валияка Насылательница Бурь"
 L["Venomshade (Plant Hydra)"] = "Ядомрак"
 L["Vicious Whale Shark"] = "Яростная китовая акула"
 L["Vorthax"] = "Вортакс"
 L["Wakkawam"] = "Ваккавам"
---Translation missing 
--- L["Wandering Vindicator - Looted Treasure"] = "Wandering Vindicator - Looted Treasure"
+--[[Translation missing --]]
+--[[ L["Wandering Vindicator - Looted Treasure"] = "Wandering Vindicator - Looted Treasure"--]] 
 L["Whitewater Typhoon"] = "Бурлящий тайфун"
 L["Worg Pack"] = "Стая воргов"
 L["Worgen Stalkers"] = "Воргены-охотники"
@@ -331,8 +335,8 @@ if not VL then return end
 -- Vignette
 VL["Aarkos - Looted Treasure"] = "Фамильное сокровище Аарко"
 VL["Abandoned Fishing Pole"] = "Забытая удочка"
---Translation missing 
--- VL["Alpha Bat"] = "Alpha Bat"
+--[[Translation missing --]]
+--[[ VL["Alpha Bat"] = "Alpha Bat"--]] 
 VL["Amateur Hunters"] = "Начинающие охотники"
 VL["Ambassador D'vwinn"] = "Посланник Д'ввинн"
 VL["Anax"] = "Анакс"
@@ -347,8 +351,8 @@ VL["Bahagar"] = "Бахагар"
 VL["Ba'ruun"] = "Ба'руун"
 VL["Beacher"] = "Песочник"
 VL["Beastmaster Pao'lek"] = "Повелитель зверей Пао'лек"
---Translation missing 
--- VL["BH Master Scout"] = "BH Master Scout"
+--[[Translation missing --]]
+--[[ VL["BH Master Scout"] = "BH Master Scout"--]] 
 VL["Bilebrain"] = "Желчедум"
 VL["Bladesquall"] = "Острошквал"
 VL["Bodash the Hoarder"] = "Бодаш Алчный"
@@ -361,8 +365,8 @@ VL["Cadraeus"] = "Кадрей"
 VL["Cailyn Paledoom"] = "Кейлин Бледная Смерть"
 VL["Captain Volo'ren"] = "Капитан Воло'рен"
 VL["Captured Survivor"] = "Выживший-пленник"
---Translation missing 
--- VL["Cave Keeper"] = "Cave Keeper"
+--[[Translation missing --]]
+--[[ VL["Cave Keeper"] = "Cave Keeper"--]] 
 VL["Champion Chomper"] = "Пожиратель героев"
 VL["Charfeather"] = "Обугленное Перо"
 VL["Chief Bitterbrine"] = "Вождь племени Горькой Воды"
@@ -373,12 +377,12 @@ VL["Cora'kar"] = "Кора'кар"
 VL["Coura, Master of Arcana"] = "Кора, владычица чар"
 VL["Crab Rider Grmlrml"] = "Наездник на крабе Грмлрмл"
 VL["Crawshuk the Hungry"] = "Зобан Ненасытный"
---Translation missing 
--- VL["Crystalbeard"] = "Crystalbeard"
+--[[Translation missing --]]
+--[[ VL["Crystalbeard"] = "Crystalbeard"--]] 
 VL["Daggerbeak"] = "Кортиклюв"
 VL["Darkshade, Saber Matriarch"] = "Черная Тень, матриарх саблезубов"
---Translation missing 
--- VL["Dead Orc Captain"] = "Dead Orc Captain"
+--[[Translation missing --]]
+--[[ VL["Dead Orc Captain"] = "Dead Orc Captain"--]] 
 VL["Devouring Darkness"] = "Всепоглощающий мрак"
 VL["Dorg"] = "Дорг"
 VL["Dreadbog"] = "Болотожуть"
@@ -391,23 +395,23 @@ VL["Embaari Defense Crystal"] = "Защитный кристалл Эмбаар�
 VL["Enavra Varandi"] = "Энавра Варанди"
 VL["Faebright"] = "Яркочар"
 VL["Fathnyr"] = "Фафнир"
---Translation missing 
--- VL["Fel Saberon Shaman"] = "Fel Saberon Shaman"
+--[[Translation missing --]]
+--[[ VL["Fel Saberon Shaman"] = "Fel Saberon Shaman"--]] 
 VL["Fenri"] = "Фенри"
 VL["Flog the Captain-Eater"] = "Флог Пожиратель Капитанов"
 VL["Flotsam"] = "Обломок"
---Translation missing 
--- VL["Foreling Worship Circle"] = "Foreling Worship Circle"
+--[[Translation missing --]]
+--[[ VL["Foreling Worship Circle"] = "Foreling Worship Circle"--]] 
 VL["Forsaken Deathsquad"] = "Команда смерти Отрекшихся"
 VL["Frenzied Animus"] = "Разъяренный анимус"
 VL["Frostshard"] = "Ледяной осколок"
 VL["Galzomar"] = "Гальзомар"
 VL["Garvrulg"] = "Гарврулг"
 VL["Gennadian"] = "Геннадиан"
---Translation missing 
--- VL["Giant Python"] = "Giant Python"
---Translation missing 
--- VL["Giant Raptor"] = "Giant Raptor"
+--[[Translation missing --]]
+--[[ VL["Giant Python"] = "Giant Python"--]] 
+--[[Translation missing --]]
+--[[ VL["Giant Raptor"] = "Giant Raptor"--]] 
 VL["Giantstalker Hunting Party"] = "Охота истребителя великанов"
 VL["Giblette the Cowardly"] = "Гиблет Трусливый"
 VL["Glimar Ironfist"] = "Глимар Железный Кулак"
@@ -432,21 +436,21 @@ VL["Houndmaster Ely"] = "Псарь Элай"
 VL["Houndmaster Jax'zor"] = "Псарь Джакс'зор"
 VL["Houndmaster Stroxis"] = "Псарь Строксис"
 VL["Huk'roth the Houndmaster"] = "Охотник Хак'рот"
---Translation missing 
--- VL["IH Elite Sniper"] = "IH Elite Sniper"
+--[[Translation missing --]]
+--[[ VL["IH Elite Sniper"] = "IH Elite Sniper"--]] 
 VL["Inquisitor Ernstenbok"] = "Инквизитор Эрнстенбок"
 VL["Inquisitor Tivos"] = "Инквизитор Тивос"
 VL["Inquisitor Volitix"] = "Инквизитор Волиций"
 VL["Invasion Point: Devastation"] = "Точка вторжения: Опустошение"
---Translation missing 
--- VL["Iron Front Captain 1"] = "Iron Front Captain 1"
---Translation missing 
--- VL["Iron Front Captain 2"] = "Iron Front Captain 2"
---Translation missing 
--- VL["Iron Front Captain 3"] = "Iron Front Captain 3"
+--[[Translation missing --]]
+--[[ VL["Iron Front Captain 1"] = "Iron Front Captain 1"--]] 
+--[[Translation missing --]]
+--[[ VL["Iron Front Captain 2"] = "Iron Front Captain 2"--]] 
+--[[Translation missing --]]
+--[[ VL["Iron Front Captain 3"] = "Iron Front Captain 3"--]] 
 VL["Iron Houndmaster"] = "Железный псарь"
---Translation missing 
--- VL["Iron Tunnel Foreman"] = "Iron Tunnel Foreman"
+--[[Translation missing --]]
+--[[ VL["Iron Tunnel Foreman"] = "Iron Tunnel Foreman"--]] 
 VL["Ironbranch"] = "Железнодрев"
 VL["Isel the Hammer"] = "Изель Молот"
 VL["Ivory Sentinel"] = "Стражница из бивневой кости"
@@ -482,13 +486,13 @@ VL["Miasu"] = "Миасу"
 VL["Mordvigbjorn"] = "Мордвигбьорн"
 VL["Mother Om'ra"] = "Мать Ом'ра"
 VL["Mrrgrl the Tide Reaver"] = "Мрргл Разоритель Морей"
---Translation missing 
--- VL["Murktide Alpha"] = "Murktide Alpha"
+--[[Translation missing --]]
+--[[ VL["Murktide Alpha"] = "Murktide Alpha"--]] 
 VL["Myonix"] = "Мионикс"
 VL["Nas Dunberlin"] = "Наз Данберлин"
 VL["Night Haunter"] = "Ужас ночи"
---Translation missing 
--- VL["Noble Blademaster"] = "Noble Blademaster"
+--[[Translation missing --]]
+--[[ VL["Noble Blademaster"] = "Noble Blademaster"--]] 
 VL["No'losh"] = "Но'лош"
 VL["Normantis the Deposed"] = "Нормантис Низложенный"
 VL["Oasis Icemother"] = "Праматерь-ледолиск из оазиса"
@@ -496,52 +500,54 @@ VL["Ogre Primalist"] = "Огр - шаман стихий"
 VL["Old Bear Trap"] = "Старый медвежий капкан"
 VL["Oreth the Vile"] = "Орет Зловещий"
 VL["Oubdob da Smasher"] = "Убдоб Бум-Бум"
---Translation missing 
--- VL["Pale Assassin"] = "Pale Assassin"
+--[[Translation missing --]]
+--[[ VL["Pale Assassin"] = "Pale Assassin"--]] 
 VL["Pale Gone Fishin'"] = "Бледный орк на рыбалке"
 VL["Pale Spider Broodmother"] = "Бледная паучья праматерь"
---Translation missing 
--- VL["Panther Saberon Boss"] = "Panther Saberon Boss"
+--[[Translation missing --]]
+--[[ VL["Panther Saberon Boss"] = "Panther Saberon Boss"--]] 
 VL["Perrexx the Corruptor"] = "Перрекс Осквернитель"
 VL["Pinchshank"] = "Щелкоклешень"
 VL["Pit-Slayer"] = "Гладиатор-убийца"
 VL["Pridelord Meowl"] = "Вожак прайда Мяул"
 VL["Protectors of the Grove"] = "Защитники рощи"
 VL["Purging the River"] = "Очищение реки"
---Translation missing 
--- VL["Quin'el, Master of Chillwind"] = "Quin'el, Master of Chillwind"
+--[[Translation missing --]]
+--[[ VL["Quin'el, Master of Chillwind"] = "Quin'el, Master of Chillwind"--]] 
 VL["Ragemaw"] = "Ярозуб"
 VL["Randril"] = "Рандрил"
 VL["Rauren"] = "Рорен"
---Translation missing 
--- VL["Ravager Broodlord"] = "Ravager Broodlord"
+--[[Translation missing --]]
+--[[ VL["Ravager Broodlord"] = "Ravager Broodlord"--]] 
 VL["Ravyn-Drath"] = "Райвин-Драт"
 VL["Reef Lord Raj'his"] = "Повелитель рифов Раж'хис"
 VL["Remnant of the Blood Moon"] = "Частица Кровавой Луны"
 VL["Rogond"] = "Рогонд"
 VL["Rok'nash"] = "Рок'наш"
 VL["Roteye"] = "Красноглаз"
---Translation missing 
--- VL["Saberon Blademaster"] = "Saberon Blademaster"
---Translation missing 
--- VL["Saberon Shaman"] = "Saberon Shaman"
---Translation missing 
--- VL["Sapper Vorick"] = "Sapper Vorick"
+--[[Translation missing --]]
+--[[ VL["Saberon Blademaster"] = "Saberon Blademaster"--]] 
+--[[Translation missing --]]
+--[[ VL["Saberon Shaman"] = "Saberon Shaman"--]] 
+--[[Translation missing --]]
+--[[ VL["Sapper Vorick"] = "Sapper Vorick"--]] 
 VL["Scout Harefoot"] = "Разведчик Заячья Лапка"
---Translation missing 
--- VL["Sea Giant King"] = "Sea Giant King"
+--[[Translation missing --]]
+--[[ VL["Sea Giant King"] = "Sea Giant King"--]] 
 VL["Sea Hydra"] = "Морская гидра"
 VL["Sea King Tidross"] = "Морской король Волноросс"
 VL["Sea Lord Torglork"] = "Морской повелитель Торглорк"
 VL["Seek & Destroy Squad"] = "Истребительный отряд"
+--[[Translation missing --]]
+--[[ VL["Seemingly Unguarded Treasure"] = "Seemingly Unguarded Treasure"--]] 
 VL["Seersei"] = "Сирсея"
 VL["Sekhan"] = "Секхан"
---Translation missing 
--- VL["Selia, Master of Balefire"] = "Selia, Master of Balefire"
---Translation missing 
--- VL["Shadowflame Terror"] = "Shadowflame Terror"
---Translation missing 
--- VL["Shadowmoon Cultist Ritual"] = "Shadowmoon Cultist Ritual"
+--[[Translation missing --]]
+--[[ VL["Selia, Master of Balefire"] = "Selia, Master of Balefire"--]] 
+--[[Translation missing --]]
+--[[ VL["Shadowflame Terror"] = "Shadowflame Terror"--]] 
+--[[Translation missing --]]
+--[[ VL["Shadowmoon Cultist Ritual"] = "Shadowmoon Cultist Ritual"--]] 
 VL["Shadowquill"] = "Темное Перо"
 VL["Shal'an"] = "Шал'ан"
 VL["Shaman Fire Stone"] = "Огненный камень шамана"
@@ -566,16 +572,16 @@ VL["Szirek"] = "Зирек"
 VL["Tarben"] = "Тарбен"
 VL["Thane's Mead Hall"] = "Медовый зал тана"
 VL["The Beastly Boxer"] = "Озверевший боксер"
---Translation missing 
--- VL["The Blightcaller"] = "The Blightcaller"
---Translation missing 
--- VL["The Brood Queen's Court: Count Nefarious"] = "The Brood Queen's Court: Count Nefarious"
---Translation missing 
--- VL["The Brood Queen's Court: General Volroth"] = "The Brood Queen's Court: General Volroth"
---Translation missing 
--- VL["The Brood Queen's Court: King Voras"] = "The Brood Queen's Court: King Voras"
---Translation missing 
--- VL["The Brood Queen's Court: Overseer Brutarg"] = "The Brood Queen's Court: Overseer Brutarg"
+--[[Translation missing --]]
+--[[ VL["The Blightcaller"] = "The Blightcaller"--]] 
+--[[Translation missing --]]
+--[[ VL["The Brood Queen's Court: Count Nefarious"] = "The Brood Queen's Court: Count Nefarious"--]] 
+--[[Translation missing --]]
+--[[ VL["The Brood Queen's Court: General Volroth"] = "The Brood Queen's Court: General Volroth"--]] 
+--[[Translation missing --]]
+--[[ VL["The Brood Queen's Court: King Voras"] = "The Brood Queen's Court: King Voras"--]] 
+--[[Translation missing --]]
+--[[ VL["The Brood Queen's Court: Overseer Brutarg"] = "The Brood Queen's Court: Overseer Brutarg"--]] 
 VL["The Exiled Shaman"] = "Изгнанный шаман"
 VL["The Muscle"] = "Громила"
 VL["The Nameless King"] = "Безымянный Король"
@@ -590,14 +596,16 @@ VL["Totally Safe Treasure Chest"] = "Совершенно безопасный �
 VL["Trecherous Stallions"] = "Коварные скакуны"
 VL["Unbound Rift"] = "Открытый разлом"
 VL["Undgrell Attack"] = "Нападение малых греллей"
+--[[Translation missing --]]
+--[[ VL["Unguarded Thistleleaf Treasure"] = "Unguarded Thistleleaf Treasure"--]] 
 VL["Urgev the Flayer"] = "Ургев Кровавый Топор"
 VL["Valiyaka the Stormbringer"] = "Валияка Насылательница Бурь"
 VL["Venomshade (Plant Hydra)"] = "Ядомрак"
 VL["Vicious Whale Shark"] = "Яростная китовая акула"
 VL["Vorthax"] = "Вортакс"
 VL["Wakkawam"] = "Ваккавам"
---Translation missing 
--- VL["Wandering Vindicator - Looted Treasure"] = "Wandering Vindicator - Looted Treasure"
+--[[Translation missing --]]
+--[[ VL["Wandering Vindicator - Looted Treasure"] = "Wandering Vindicator - Looted Treasure"--]] 
 VL["Whitewater Typhoon"] = "Бурлящий тайфун"
 VL["Worg Pack"] = "Стая воргов"
 VL["Worgen Stalkers"] = "Воргены-охотники"

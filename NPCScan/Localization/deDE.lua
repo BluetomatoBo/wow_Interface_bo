@@ -226,6 +226,8 @@ L["Sea Hydra"] = "Meereshydra"
 L["Sea King Tidross"] = "Meereskönig Tidross"
 L["Sea Lord Torglork"] = "Meeresfürst Torglork"
 L["Seek & Destroy Squad"] = "Such- & Zerstörungstrupp"
+--[[Translation missing --]]
+--[[ L["Seemingly Unguarded Treasure"] = "Seemingly Unguarded Treasure"--]] 
 L["Seersei"] = "Sehsei"
 L["Sekhan"] = "Sekhan"
 L["Selia, Master of Balefire"] = "Selia, Meisterin des Haderfeuers"
@@ -274,6 +276,8 @@ L["Totally Safe Treasure Chest"] = "Vollkommen sichere Schatztruhe"
 L["Trecherous Stallions"] = "Verräterische Hengste"
 L["Unbound Rift"] = "Entfesselter Riss"
 L["Undgrell Attack"] = "Untergrellangriff"
+--[[Translation missing --]]
+--[[ L["Unguarded Thistleleaf Treasure"] = "Unguarded Thistleleaf Treasure"--]] 
 L["Urgev the Flayer"] = "Urgev der Schinder"
 L["Valiyaka the Stormbringer"] = "Valiyaka die Sturmbringerin"
 L["Venomshade (Plant Hydra)"] = "Giftschatten"
@@ -478,6 +482,8 @@ VL["Sea Hydra"] = "Meereshydra"
 VL["Sea King Tidross"] = "Meereskönig Tidross"
 VL["Sea Lord Torglork"] = "Meeresfürst Torglork"
 VL["Seek & Destroy Squad"] = "Such- & Zerstörungstrupp"
+--[[Translation missing --]]
+--[[ VL["Seemingly Unguarded Treasure"] = "Seemingly Unguarded Treasure"--]] 
 VL["Seersei"] = "Sehsei"
 VL["Sekhan"] = "Sekhan"
 VL["Selia, Master of Balefire"] = "Selia, Meisterin des Haderfeuers"
@@ -526,6 +532,8 @@ VL["Totally Safe Treasure Chest"] = "Vollkommen sichere Schatztruhe"
 VL["Trecherous Stallions"] = "Verräterische Hengste"
 VL["Unbound Rift"] = "Entfesselter Riss"
 VL["Undgrell Attack"] = "Untergrellangriff"
+--[[Translation missing --]]
+--[[ VL["Unguarded Thistleleaf Treasure"] = "Unguarded Thistleleaf Treasure"--]] 
 VL["Urgev the Flayer"] = "Urgev der Schinder"
 VL["Valiyaka the Stormbringer"] = "Valiyaka die Sturmbringerin"
 VL["Venomshade (Plant Hydra)"] = "Giftschatten"

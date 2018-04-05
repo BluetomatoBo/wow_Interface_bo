@@ -686,6 +686,7 @@ local MapNPCs = {
 		[50897] = true, -- Ffexk the Dunestalker
 		[51004] = true, -- Toxx
 		[54533] = true, -- Prince Lakma
+		[132591] = true, -- Ogmot the Mad
 	},
 	-- ----------------------------------------------------------------------------
 	-- Winterspring
@@ -1939,6 +1940,7 @@ local MapNPCs = {
 	-- Val'Sharah
 	-- ----------------------------------------------------------------------------
 	[1018] = {
+		[92104] = true, -- Thistleleaf Rascal
 		[92117] = true, -- Gorebeak,
 		[92180] = true, -- Seersei
 		[92423] = true, -- Theryssia
@@ -2084,6 +2086,7 @@ local MapNPCs = {
 		[109500] = true, -- Jak
 		[109501] = true, -- Darkful
 		[110378] = true, -- Drugon the Frostblood
+		[125951] = true, -- Obsidian Deathwarder
 	},
 	-- ----------------------------------------------------------------------------
 	-- Mardum, the Shattered Abyss
@@ -2240,6 +2243,7 @@ local MapNPCs = {
 		[124440] = true, -- Overseer Y'Beda
 		[125497] = true, -- Overseer Y'Sorna
 		[125498] = true, -- Overseer Y'Morna
+		[126887] = true, -- Ataxon
 		[126900] = true, -- Instructor Tarahna
 		[126908] = true, -- Zul'tan the Numerous
 		[126910] = true, -- Commander Xethgar

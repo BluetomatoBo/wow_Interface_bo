@@ -80,7 +80,7 @@ local function UpdateContinentAndMapOptions()
 						private.UpdateRareNPCOptions()
 						private.UpdateTameableRareNPCOptions()
 
-						if continentID == private.currentContinentID then
+						if continentID == private.scannerData.continentID then
 							NPCScan:UpdateScanList()
 						end
 					end,
@@ -121,7 +121,7 @@ local function UpdateContinentAndMapOptions()
 
 					AceConfigRegistry:NotifyChange(AddOnFolderName)
 
-					if mapID == private.currentMapID then
+					if mapID == private.scannerData.mapID then
 						NPCScan:UpdateScanList()
 					end
 				end,
@@ -232,6 +232,34 @@ local function GetDetectionOptions()
 								end,
 								set = function(info, value)
 									profile.detection.ignoreDeadNPCs = value
+									NPCScan:UpdateScanList()
+								end,
+							},
+							miniMap = {
+								order = 4,
+								type = "toggle",
+								name = _G.MINIMAP_LABEL,
+								descStyle = "inline",
+								width = "full",
+								get = function(info)
+									return profile.detection.ignoreMiniMap
+								end,
+								set = function(info, value)
+									profile.detection.ignoreMiniMap = value
+									NPCScan:UpdateScanList()
+								end,
+							},
+							worldMap = {
+								order = 5,
+								type = "toggle",
+								name = _G.WORLD_MAP,
+								descStyle = "inline",
+								width = "full",
+								get = function(info)
+									return profile.detection.ignoreWorldMap
+								end,
+								set = function(info, value)
+									profile.detection.ignoreWorldMap = value
 									NPCScan:UpdateScanList()
 								end,
 							}
