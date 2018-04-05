@@ -1748,7 +1748,7 @@ data["IcecrownCitadel"] = {
 	AtlasMapID = "IcecrownCitadelA",
 	ContentType = RAID_CONTENT,
 	items = {
-		{	--ICCLordMarrowgar
+		{	--ICC LordMarrowgar
 			--name = BB["Lord Marrowgar"],
 			EncounterJournalID = 1624, 
 			[NORMAL_DIFF] = {
@@ -1760,6 +1760,7 @@ data["IcecrownCitadel"] = {
 				{ 6, 50772 },	-- Ancient Skeletal Boots
 				{ 8, 50763 },	-- Marrowgar's Scratching Choker
 				{ 9, 50339 },	-- Sliver of Pure Ice
+				{ 11, 142094, "pet1963" }, -- Fragment of Frozen Bone -> Boneshard, Added in patch 7.1.0.22731
 				{ 16, 50771 },	-- Frost Needle
 				{ 17, 50761 },	-- Citadel Enforcer's Claymore
 				{ 18, 50759 },	-- Bone Warden's Splitter
@@ -1775,6 +1776,7 @@ data["IcecrownCitadel"] = {
 				{ 6, 51931 },	-- Ancient Skeletal Boots
 				{ 8, 51934 },	-- Marrowgar's Scratching Choker
 				{ 9, 50346 },	-- Sliver of Pure Ice
+				{ 11, 142094, "pet1963" }, -- Fragment of Frozen Bone -> Boneshard, Added in patch 7.1.0.22731
 				{ 16, 51932 },	-- Frost Needle
 				{ 17, 51936 },	-- Citadel Enforcer's Claymore
 				{ 18, 51938 },	-- Bone Warden's Splitter
@@ -1795,6 +1797,7 @@ data["IcecrownCitadel"] = {
 				{ 11, 49949 },	-- Band of the Bone Colossus
 				{ 12, 49977 },	-- Loop of the Endless Labyrinth
 				{ 13, 49967 },	-- Marrowgar's Frigid Eye
+				{ 15, 142094, "pet1963" }, -- Fragment of Frozen Bone -> Boneshard, Added in patch 7.1.0.22731
 				{ 16, 49968 },	-- Frozen Bonespike
 				{ 17, 50415 },	-- Bryntroll, the Bone Arbiter
 				{ 18, 49976 },	-- Bulwark of Smouldering Steel
@@ -1815,6 +1818,7 @@ data["IcecrownCitadel"] = {
 				{ 11, 50604 },	-- Band of the Bone Colossus
 				{ 12, 50614 },	-- Loop of the Endless Labyrinth
 				{ 13, 50610 },	-- Marrowgar's Frigid Eye
+				{ 15, 142094, "pet1963" }, -- Fragment of Frozen Bone -> Boneshard, Added in patch 7.1.0.22731
 				{ 16, 50608 },	-- Frozen Bonespike
 				{ 17, 50709 },	-- Bryntroll, the Bone Arbiter
 				{ 18, 50616 },	-- Bulwark of Smouldering Steel
@@ -1823,7 +1827,7 @@ data["IcecrownCitadel"] = {
 				{ 23, "ac4610" },
 			},
 		},
-		{	--ICCLadyDeathwhisper
+		{	--ICC LadyDeathwhisper
 			--name = BB["Lady Deathwhisper"],
 			EncounterJournalID = 1625,
 			[NORMAL_DIFF] = {
@@ -1898,7 +1902,7 @@ data["IcecrownCitadel"] = {
 				{ 23, "ac4611" },
 			},
 		},
-		{	--ICCGunshipBattle
+		{	--ICC GunshipBattle
 			--name = BB["Icecrown Gunship Battle"],
 			EncounterJournalID = 1626,
 			[NORMAL_DIFF] = {
@@ -1973,7 +1977,7 @@ data["IcecrownCitadel"] = {
 				{ 24, "ac4612" },
 			},
 		},
-		{	--ICCSaurfang
+		{	--ICC Saurfang
 			--name = BB["Deathbringer Saurfang"],
 			EncounterJournalID = 1628,
 			[NORMAL_DIFF] = {
@@ -1985,6 +1989,7 @@ data["IcecrownCitadel"] = {
 				{ 6, 50801 },	-- Blade-Scored Carapace
 				{ 7, 50802 },	-- Gargoyle Spit Bracers
 				{ 8, 50808 },	-- Deathforged Legplates
+				{ 10, 142095, "pet1964" }, -- Remains of a Blood Beast -> Blood Boil, Added in patch 7.1.0.22731
 				{ 16, 50809 },	-- Soulcleave Pendant
 				{ 17, 50803 },	-- Saurfang's Cold-Forged Band
 				{ 19, 50798 },	-- Ramaladni's Blade of Culling
@@ -2002,6 +2007,7 @@ data["IcecrownCitadel"] = {
 				{ 8, 51895 },	-- Deathforged Legplates
 				{ 10, 51894 },	-- Soulcleave Pendant
 				{ 11, 51900 },	-- Saurfang's Cold-Forged Band
+				{ 13, 142095, "pet1964" }, -- Remains of a Blood Beast -> Blood Boil, Added in patch 7.1.0.22731
 				{ 16, 52027 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52026 },	-- Protector's Mark of Sanctification
 				{ 18, 52025 },	-- Vanquisher's Mark of Sanctification
@@ -2018,6 +2024,7 @@ data["IcecrownCitadel"] = {
 				{ 5, 50412 },	-- Bloodvenom Blade
 				{ 7, 50274 },	-- Shadowfrost Shard
 				{ 8, 49908 },	-- Primordial Saronite
+				{ 10, 142095, "pet1964" }, -- Remains of a Blood Beast -> Blood Boil, Added in patch 7.1.0.22731
 				{ 16, 52027 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52026 },	-- Protector's Mark of Sanctification
 				{ 18, 52025 },	-- Vanquisher's Mark of Sanctification
@@ -2031,6 +2038,7 @@ data["IcecrownCitadel"] = {
 				{ 5, 50672 },	-- Bloodvenom Blade
 				{ 7, 50274 },	-- Shadowfrost Shard
 				{ 8, 49908 },	-- Primordial Saronite
+				{ 10, 142095, "pet1964" }, -- Remains of a Blood Beast -> Blood Boil, Added in patch 7.1.0.22731
 				{ 16, 52030 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52029 },	-- Protector's Mark of Sanctification
 				{ 18, 52028 },	-- Vanquisher's Mark of Sanctification
@@ -2040,7 +2048,7 @@ data["IcecrownCitadel"] = {
 				{ 24, "ac4613" },
 			},
 		},
-		{	--ICCFestergut
+		{	--ICC Festergut
 			--name = BB["Festergut"],
 			EncounterJournalID = 1629,
 			[NORMAL_DIFF] = {
@@ -2119,7 +2127,7 @@ data["IcecrownCitadel"] = {
 				{ 27, "ac4615" },
 			},
 		},
-		{	--ICCRotface
+		{	--ICC Rotface
 			--name = BB["Rotface"],
 			EncounterJournalID = 1630,
 			[NORMAL_DIFF] = {
@@ -2194,7 +2202,7 @@ data["IcecrownCitadel"] = {
 				{ 25, "ac4614" },
 			},
 		},
-		{	--ICCPutricide
+		{	--ICC Putricide
 			--name = BB["Professor Putricide"],
 			EncounterJournalID = 1631, 
 			[NORMAL_DIFF] = {
@@ -2205,6 +2213,7 @@ data["IcecrownCitadel"] = {
 				{ 5, 51019 },	-- Rippling Flesh Kilt
 				{ 6, 51014 },	-- Scalpel-Sharpening Shoulderguards
 				{ 7, 51018 },	-- Chestplate of Septic Stitches
+				{ 9, 142096, "pet1965" }, -- Putricide's Alchemy Supplies -> Blightbreath
 				{ 16, 51012 },	-- Infected Choker
 				{ 17, 51016 },	-- Pendant of Split Veins
 				{ 18, 50341 },	-- Unidentifiable Organ
@@ -2223,6 +2232,7 @@ data["IcecrownCitadel"] = {
 				{ 9, 51867 },	-- Infected Choker
 				{ 10, 51863 },	-- Pendant of Split Veins
 				{ 11, 50344 },	-- Unidentifiable Organ
+				{ 13, 142096, "pet1965" }, -- Putricide's Alchemy Supplies -> Blightbreath
 				{ 16, 52027 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52026 },	-- Protector's Mark of Sanctification
 				{ 18, 52025 },	-- Vanquisher's Mark of Sanctification
@@ -2239,6 +2249,7 @@ data["IcecrownCitadel"] = {
 				{ 5, 50068 },	-- Rigormortis
 				{ 7, 50274 },	-- Shadowfrost Shard
 				{ 8, 49908 },	-- Primordial Saronite
+				{ 10, 142096, "pet1965" }, -- Putricide's Alchemy Supplies -> Blightbreath
 				{ 16, 52027 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52026 },	-- Protector's Mark of Sanctification
 				{ 18, 52025 },	-- Vanquisher's Mark of Sanctification
@@ -2252,6 +2263,7 @@ data["IcecrownCitadel"] = {
 				{ 5, 50704 },	-- Rigormortis
 				{ 7, 50274 },	-- Shadowfrost Shard
 				{ 8, 49908 },	-- Primordial Saronite
+				{ 10, 142096, "pet1965" }, -- Putricide's Alchemy Supplies -> Blightbreath
 				{ 16, 52030 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52029 },	-- Protector's Mark of Sanctification
 				{ 18, 52028 },	-- Vanquisher's Mark of Sanctification
@@ -2261,7 +2273,7 @@ data["IcecrownCitadel"] = {
 				{ 24, "ac4616" },
 			},
 		},
-		{	--ICCCouncil
+		{	--ICC Council
 			--name = BB["Blood Prince Council"],
 			EncounterJournalID = 1632,
 			[NORMAL_DIFF] = {
@@ -2336,9 +2348,9 @@ data["IcecrownCitadel"] = {
 				{ 26, "ac4617" },
 			},
 		},
-		{	--ICCLanathel
+		{	--ICC Lanathel
 			--name = BB["Blood-Queen Lana'thel"],
-			EncounterJournalID = 1632,
+			EncounterJournalID = 1633,
 			[NORMAL_DIFF] = {
 				{ 1, 51554 },	-- Cowl of Malefic Repose
 				{ 2, 51552 },	-- Shoulderpads of the Searing Kiss
@@ -2405,7 +2417,7 @@ data["IcecrownCitadel"] = {
 				{ 24, "ac4618" },
 			},
 		},
-		{	--ICCValithria
+		{	--ICC Valithria
 			--name = BB["Valithria Dreamwalker"],
 			EncounterJournalID = 1634,
 			[NORMAL_DIFF] = {
@@ -2480,7 +2492,7 @@ data["IcecrownCitadel"] = {
 				{ 26, "ac4619" },
 			},
 		},
-		{	--ICCSindragosa
+		{	--ICC Sindragosa
 			--name = BB["Sindragosa"],
 			EncounterJournalID = 1635,
 			[NORMAL_DIFF] = {
@@ -2492,6 +2504,7 @@ data["IcecrownCitadel"] = {
 				{ 6, 51782 },	-- Etched Dragonbone Girdle
 				{ 7, 51786 },	-- Legplates of Aetheric Strife
 				{ 8, 51787 },	-- Scourge Fanged Stompers
+				{ 10, 142097, "pet1966" }, -- Skull of a Frozen Whelp -> Soulbroken Whelpling
 				{ 16, 51779 },	-- Rimetooth Pendant
 				{ 18, 51784 },	-- Splintershard
 				{ 19, 51788 },	-- Bleak Coldarra Carver
@@ -2508,6 +2521,7 @@ data["IcecrownCitadel"] = {
 				{ 7, 51817 },	-- Legplates of Aetheric Strife
 				{ 8, 51816 },	-- Scourge Fanged Stompers
 				{ 10, 51822 },	-- Rimetooth Pendant
+				{ 12, 142097, "pet1966" }, -- Skull of a Frozen Whelp -> Soulbroken Whelpling
 				{ 16, 52027 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52026 },	-- Protector's Mark of Sanctification
 				{ 18, 52025 },	-- Vanquisher's Mark of Sanctification
@@ -2525,6 +2539,7 @@ data["IcecrownCitadel"] = {
 				{ 5, 50423 },	-- Sundial of Eternal Dusk
 				{ 7, 50274 },	-- Shadowfrost Shard
 				{ 8, 49908 },	-- Primordial Saronite
+				{ 10, 142097, "pet1966" }, -- Skull of a Frozen Whelp -> Soulbroken Whelpling
 				{ 16, 52027 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52026 },	-- Protector's Mark of Sanctification
 				{ 18, 52025 },	-- Vanquisher's Mark of Sanctification
@@ -2538,6 +2553,7 @@ data["IcecrownCitadel"] = {
 				{ 5, 50635 },	-- Sundial of Eternal Dusk
 				{ 7, 50274 },	-- Shadowfrost Shard
 				{ 8, 49908 },	-- Primordial Saronite
+				{ 10, 142097, "pet1966" }, -- Skull of a Frozen Whelp -> Soulbroken Whelpling
 				{ 16, 52030 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52029 },	-- Protector's Mark of Sanctification
 				{ 18, 52028 },	-- Vanquisher's Mark of Sanctification
@@ -2547,7 +2563,7 @@ data["IcecrownCitadel"] = {
 				{ 24, "ac4620" },
 			},
 		},
-		{	--ICCLichKing
+		{	--ICC LichKing
 			--name = BB["The Lich King"],
 			EncounterJournalID = 1636,
 			[NORMAL_DIFF] = {
@@ -2560,6 +2576,7 @@ data["IcecrownCitadel"] = {
 				{ 7, 51799 },	-- Halion, Staff of Forgotten Love
 				{ 8, 51797 },	-- Tainted Twig of Nordrassil
 				{ 9, 51802 },	-- Windrunner's Heartseeker
+				{ 11, 142098, "pet1967" }, -- Drudge Remains -> Drudge Ghoul
 				{ 16, "ac4530" },
 				{ 17, "ac4601" },
 				{ 18, "ac4581" },
@@ -2574,6 +2591,7 @@ data["IcecrownCitadel"] = {
 				{ 7, 51943 },	-- Halion, Staff of Forgotten Love
 				{ 8, 51945 },	-- Tainted Twig of Nordrassil
 				{ 9, 51940 },	-- Windrunner's Heartseeker
+				{ 11, 142098, "pet1967" }, -- Drudge Remains -> Drudge Ghoul
 				{ 16, 52027 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52026 },	-- Protector's Mark of Sanctification
 				{ 18, 52025 },	-- Vanquisher's Mark of Sanctification
@@ -2592,6 +2610,7 @@ data["IcecrownCitadel"] = {
 				{ 7, 50425 },	-- Oathbinder, Charge of the Ranger-General
 				{ 8, 50429 },	-- Archus, Greatstaff of Antonidas
 				{ 9, 49981 },	-- Fal'inrush, Defender of Quel'thalas
+				{ 11, 142098, "pet1967" }, -- Drudge Remains -> Drudge Ghoul
 				{ 16, 52027 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52026 },	-- Protector's Mark of Sanctification
 				{ 18, 52025 },	-- Vanquisher's Mark of Sanctification
@@ -2612,20 +2631,21 @@ data["IcecrownCitadel"] = {
 				{ 8, 50731 },	-- Archus, Greatstaff of Antonidas
 				{ 9, 50733 },	-- Fal'inrush, Defender of Quel'thalas
 				{ 11, 50818, "mount" },	-- Invincible's Reins
-				{ 13, 50274 },	-- Shadowfrost Shard
-				{ 14, 49908 },	-- Primordial Saronite
+				{ 12, 142098, "pet1967" }, -- Drudge Remains -> Drudge Ghoul
+				{ 14, 50274 },	-- Shadowfrost Shard
+				{ 15, 49908 },	-- Primordial Saronite
 				{ 16, 52030 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52029 },	-- Protector's Mark of Sanctification
 				{ 18, 52028 },	-- Vanquisher's Mark of Sanctification
 				{ 20, 52027 },	-- Conqueror's Mark of Sanctification
 				{ 21, 52026 },	-- Protector's Mark of Sanctification
 				{ 22, 52025 },	-- Vanquisher's Mark of Sanctification
-				{ 24, "ac4584" },
-				{ 25, "ac4621" },
-				{ 26, "ac4622" },
+				{ 25, "ac4584" },
+				{ 26, "ac4621" },
+				{ 27, "ac4622" },
 			},
 		},
-		{	--ICCTrash
+		{	--ICC Trash
 			name = AL["Trash Mobs"],
 			ExtraList = true,
 			[P25_DIFF] = {
@@ -2645,7 +2665,7 @@ data["IcecrownCitadel"] = {
 			[P25_DIFF] = "AtlasLoot_Collections:TIERSETS:10",
 			[P25H_DIFF] = "AtlasLoot_Collections:TIERSETS:10",
 		},
-		{	--TheAshenVerdict
+		{	--The AshenVerdict
 			FactionID = 1156,
 			ExtraList = true,
 			CoinTexture = "Reputation",
@@ -2663,7 +2683,7 @@ data["Naxxramas"] = {
 	AtlasMapID = "Naxxramas",
 	ContentType = RAID_CONTENT,
 	items = {
-		{	--Naxx80AnubRekhan
+		{	--Naxx80 AnubRekhan
 			--name = BB["Anub'Rekhan"],
 			EncounterJournalID = 1601,
 			[NORMAL_DIFF] = {
@@ -2705,7 +2725,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Faerlina
+		{	--Naxx80 Faerlina
 			--name = BB["Grand Widow Faerlina"],
 			EncounterJournalID = 1602,
 			[NORMAL_DIFF] = {
@@ -2748,7 +2768,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Maexxna
+		{	--Naxx80 Maexxna
 			--name = BB["Maexxna"],
 			EncounterJournalID = 1603,
 			[NORMAL_DIFF] = {
@@ -2795,7 +2815,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Noth
+		{	--Naxx80 Noth
 			--name = BB["Noth the Plaguebringer"],\
 			EncounterJournalID = 1604,
 			[NORMAL_DIFF] = {
@@ -2836,7 +2856,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Heigan
+		{	--Naxx80 Heigan
 			--name = BB["Heigan the Unclean"],
 			EncounterJournalID = 1605,
 			[NORMAL_DIFF] = {
@@ -2880,7 +2900,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Loatheb
+		{	--Naxx80 Loatheb
 			--name = BB["Loatheb"],
 			EncounterJournalID = 1606,
 			[NORMAL_DIFF] = {
@@ -2914,7 +2934,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Razuvious
+		{	--Naxx80 Razuvious
 			--name = BB["Instructor Razuvious"],
 			EncounterJournalID = 1607, 
 			[NORMAL_DIFF] = {
@@ -2955,7 +2975,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Gothik
+		{	--Naxx80 Gothik
 			--name = BB["Gothik the Harvester"],
 			EncounterJournalID = 1608,
 			[NORMAL_DIFF] = {
@@ -2996,7 +3016,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80FourHorsemen
+		{	--Naxx80 FourHorsemen
 			--name = BB["The Four Horsemen"],
 			EncounterJournalID = 1609,
 			[NORMAL_DIFF] = {
@@ -3028,7 +3048,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Patchwerk
+		{	--Naxx80 Patchwerk
 			--name = BB["Patchwerk"],
 			EncounterJournalID = 1610,
 			[NORMAL_DIFF] = {
@@ -3070,7 +3090,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Grobbulus
+		{	--Naxx80 Grobbulus
 			--name = BB["Grobbulus"],
 			EncounterJournalID = 1611,
 			[NORMAL_DIFF] = {
@@ -3113,7 +3133,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Gluth
+		{	--Naxx80 Gluth
 			--name = BB["Gluth"],
 			EncounterJournalID = 1612,
 			[NORMAL_DIFF] = {
@@ -3202,7 +3222,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Thaddius
+		{	--Naxx80 Thaddius
 			--name = BB["Thaddius"],
 			EncounterJournalID = 1613,
 			[NORMAL_DIFF] = {
@@ -3236,7 +3256,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Sapphiron
+		{	--Naxx80 Sapphiron
 			--name = BB["Sapphiron"],
 			EncounterJournalID = 1614,
 			[NORMAL_DIFF] = {
@@ -3279,7 +3299,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80KelThuzad
+		{	--Naxx80 KelThuzad
 			--name = BB["Kel'Thuzad"],
 			EncounterJournalID = 1615,
 			[NORMAL_DIFF] = {
@@ -3325,7 +3345,7 @@ data["Naxxramas"] = {
 			},
 --			[REMOVED_DIFF] = "AtlasLoot_Classic",
 		},
-		{	--Naxx80Trash
+		{	--Naxx80 Trash
 			name = AL["Trash Mobs"],
 			ExtraList = true,
 			[NORMAL_DIFF] = {
@@ -3718,7 +3738,7 @@ data["TrialoftheCrusader"] = {
 	AtlasMapID = "TrialOfTheCrusader",
 	ContentType = RAID_CONTENT,
 	items = {
-		{	--TrialoftheCrusaderNorthrendBeasts
+		{	--TrialoftheCrusader NorthrendBeasts
 			--name = BB["The Beasts of Northrend"],
 			EncounterJournalID = 1618, 
 			[NORMAL_DIFF] = {
@@ -3734,8 +3754,10 @@ data["TrialoftheCrusader"] = {
 				{ 16, [ATLASLOOT_IT_ALLIANCE] = 47607, [ATLASLOOT_IT_HORDE] = 47849 },	-- Collar of Ceaseless Torment / Collar of Unending Torment
 				{ 17, [ATLASLOOT_IT_ALLIANCE] = 47578, [ATLASLOOT_IT_HORDE] = 47854 },	-- Carnivorous Band / Gormok's Band
 				{ 19, [ATLASLOOT_IT_ALLIANCE] = 47612, [ATLASLOOT_IT_HORDE] = 47856 },	-- Rod of Imprisoned Souls / Scepter of Imprisoned Souls
-				{ 21, "ac3936" },
-				{ 22, "ac3797" },
+				{ 21, 142083, "pet1952" }, -- Giant Worm Egg -> Dreadmaw
+				{ 22, 142084, "pet1953" }, -- Magnataur Hunting Horn -> Snobold Runt
+				{ 24, "ac3936" },
+				{ 25, "ac3797" },
 			},
 			[HEROIC_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 47921, [ATLASLOOT_IT_HORDE] = 47994 },	-- Icehowl Cinch / Icehowl Binding
@@ -3750,8 +3772,10 @@ data["TrialoftheCrusader"] = {
 				{ 16, [ATLASLOOT_IT_ALLIANCE] = 47915, [ATLASLOOT_IT_HORDE] = 47988 },	-- Collar of Ceaseless Torment / Collar of Unending Torment
 				{ 17, [ATLASLOOT_IT_ALLIANCE] = 47920, [ATLASLOOT_IT_HORDE] = 47993 },	-- Carnivorous Band / Gormok's Band
 				{ 19, [ATLASLOOT_IT_ALLIANCE] = 47922, [ATLASLOOT_IT_HORDE] = 47995 },	-- Rod of Imprisoned Souls / Scepter of Imprisoned Souls
-				{ 21, "ac3936" },
-				{ 22, "ac3797" },
+				{ 21, 142083, "pet1952" }, -- Giant Worm Egg --> Dreadmaw
+				{ 22, 142084, "pet1953" }, -- Magnataur Hunting Horn -> Snobold Runt
+				{ 24, "ac3936" },
+				{ 25, "ac3797" },
 			},
 			[P25_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 46970, [ATLASLOOT_IT_HORDE] = 47257 },	-- Drape of the Untamed Predator / Cloak of the Untamed Predator
@@ -3770,8 +3794,10 @@ data["TrialoftheCrusader"] = {
 				{ 20, [ATLASLOOT_IT_ALLIANCE] = 46979, [ATLASLOOT_IT_HORDE] = 47261 },	-- Blade of Tarasque / Barb of Tarasque
 				{ 21, [ATLASLOOT_IT_ALLIANCE] = 46958, [ATLASLOOT_IT_HORDE] = 47255 },	-- Steel Bladebreaker / Stygian Bladebreaker
 				{ 22, [ATLASLOOT_IT_ALLIANCE] = 46963, [ATLASLOOT_IT_HORDE] = 47260 },	-- Crystal Plated Vanguard / Forlorn Barrier
-				{ 24, "ac3937" },
-				{ 25, "ac3813" },
+				{ 24, 142083, "pet1952" }, -- Giant Worm Egg --> Dreadmaw
+				{ 25, 142084, "pet1953" }, -- Magnataur Hunting Horn -> Snobold Runt
+				{ 27, "ac3937" },
+				{ 28, "ac3813" },
 			},
 			[P25H_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 46971, [ATLASLOOT_IT_HORDE] = 47418 },	-- Drape of the Untamed Predator / Cloak of the Untamed Predator
@@ -3790,11 +3816,13 @@ data["TrialoftheCrusader"] = {
 				{ 20, [ATLASLOOT_IT_ALLIANCE] = 46980, [ATLASLOOT_IT_HORDE] = 47422 },	-- Blade of Tarasque / Barb of Tarasque
 				{ 21, [ATLASLOOT_IT_ALLIANCE] = 46969, [ATLASLOOT_IT_HORDE] = 47416 },	-- Steel Bladebreaker / Stygian Bladebreaker
 				{ 22, [ATLASLOOT_IT_ALLIANCE] = 46964, [ATLASLOOT_IT_HORDE] = 47421 },	-- Crystal Plated Vanguard / Forlorn Barrier
-				{ 24, "ac3937" },
-				{ 25, "ac3813" },
+				{ 24, 142083, "pet1952" }, -- Giant Worm Egg --> Dreadmaw
+				{ 25, 142084, "pet1953" }, -- Magnataur Hunting Horn -> Snobold Runt
+				{ 27, "ac3937" },
+				{ 28, "ac3813" },
 			},
 		},
-		{	--TrialoftheCrusaderLordJaraxxus
+		{	--TrialoftheCrusader LordJaraxxus
 			--name = BB["Lord Jaraxxus"],
 			EncounterJournalID = 1619, 
 			[NORMAL_DIFF] = {
@@ -3868,7 +3896,7 @@ data["TrialoftheCrusader"] = {
 				{ 26, "ac3997" },
 			},
 		},
-		{	--TrialoftheCrusaderFactionChampions
+		{	--TrialoftheCrusader FactionChampions
 			name = BB["Faction Champions"],
 			[NORMAL_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 47721, [ATLASLOOT_IT_HORDE] = 47873 },	-- Sandals of the Silver Magus / Sunreaver Magus' Sandals
@@ -3933,7 +3961,7 @@ data["TrialoftheCrusader"] = {
 				{ 22, [ATLASLOOT_IT_ALLIANCE] = 47085, [ATLASLOOT_IT_HORDE] = 47448 },	-- Bastion of Purity / Bastion of Resolve
 			},
 		},
-		{	--TrialoftheCrusaderTwinValkyrs
+		{	--TrialoftheCrusader TwinValkyrs
 			--name = BB["The Twin Val'kyr"],
 			EncounterJournalID = 1622,
 			[NORMAL_DIFF] = {
@@ -4007,7 +4035,7 @@ data["TrialoftheCrusader"] = {
 				{ 21, "ac3815" },
 			},
 		},
-		{	--TrialoftheCrusaderAnubarak
+		{	--TrialoftheCrusader Anubarak
 			--name = BB["Anub'arak"],
 			EncounterJournalID = 1623,
 			[NORMAL_DIFF] = {
@@ -4029,8 +4057,9 @@ data["TrialoftheCrusader"] = {
 				{ 18, [ATLASLOOT_IT_ALLIANCE] = 47835, [ATLASLOOT_IT_HORDE] = 47910 },	-- Bulwark of the Royal Guard / Aegis of the Coliseum
 				{ 19, [ATLASLOOT_IT_ALLIANCE] = 47812, [ATLASLOOT_IT_HORDE] = 47895 },	-- Vigilant Ward / Pride of the Kor'kron
 				{ 20, [ATLASLOOT_IT_ALLIANCE] = 47741, [ATLASLOOT_IT_HORDE] = 47907 },	-- Baelgun's Heavy Crossbow / Darkmaw Crossbow
-				{ 22, "ac3917" },
-				{ 23, "ac3800" },
+				{ 22, 142085, "pet1954" }, -- Nerubian Relic -> Nerubian Swarmer
+				{ 24, "ac3917" },
+				{ 25, "ac3800" },
 			},
 			[HEROIC_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 47974, [ATLASLOOT_IT_HORDE] = 48051 },	-- Vestments of the Sleepless / Robes of the Sleepless
@@ -4051,9 +4080,10 @@ data["TrialoftheCrusader"] = {
 				{ 18, [ATLASLOOT_IT_ALLIANCE] = 47978, [ATLASLOOT_IT_HORDE] = 48055 },	-- Bulwark of the Royal Guard / Aegis of the Coliseum
 				{ 19, [ATLASLOOT_IT_ALLIANCE] = 47963, [ATLASLOOT_IT_HORDE] = 48040 },	-- Vigilant Ward / Pride of the Kor'kron
 				{ 20, [ATLASLOOT_IT_ALLIANCE] = 47975, [ATLASLOOT_IT_HORDE] = 48052 },	-- Baelgun's Heavy Crossbow / Darkmaw Crossbow
-				{ 22, "ac3917" },
-				{ 23, "ac3918" },
-				{ 24, "ac3800" },
+				{ 22, 142085, "pet1954" }, -- Nerubian Relic -> Nerubian Swarmer
+				{ 24, "ac3917" },
+				{ 25, "ac3918" },
+				{ 26, "ac3800" },
 			},
 			[P25_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 47225, [ATLASLOOT_IT_HORDE] = 47328 },	-- Maiden's Favor / Maiden's Adoration
@@ -4077,8 +4107,9 @@ data["TrialoftheCrusader"] = {
 				{ 22, [ATLASLOOT_IT_ALLIANCE] = 47148, [ATLASLOOT_IT_HORDE] = 47314 },	-- Stormpike Cleaver / Hellscream Slicer
 				{ 23, [ATLASLOOT_IT_ALLIANCE] = 47193, [ATLASLOOT_IT_HORDE] = 47322 },	-- Misery's End / Suffering's End
 				{ 24, [ATLASLOOT_IT_ALLIANCE] = 47233, [ATLASLOOT_IT_HORDE] = 47329 },	-- Archon Glaive / Hellion Glaive
-				{ 26, "ac3916" },
-				{ 27, "ac3816" },
+				{ 26, 142085, "pet1954" }, -- Nerubian Relic -> Nerubian Swarmer
+				{ 27, "ac3916" },
+				{ 28, "ac3816" },
 			},
 			[P25H_DIFF] = {
 				{ 1, [ATLASLOOT_IT_ALLIANCE] = 47238, [ATLASLOOT_IT_HORDE] = 47490 },	-- Maiden's Favor / Maiden's Adoration
@@ -4102,12 +4133,13 @@ data["TrialoftheCrusader"] = {
 				{ 22, [ATLASLOOT_IT_ALLIANCE] = 47156, [ATLASLOOT_IT_HORDE] = 47475 },	-- Stormpike Cleaver / Hellscream Slicer
 				{ 23, [ATLASLOOT_IT_ALLIANCE] = 47206, [ATLASLOOT_IT_HORDE] = 47483 },	-- Misery's End / Suffering's End
 				{ 24, [ATLASLOOT_IT_ALLIANCE] = 47239, [ATLASLOOT_IT_HORDE] = 47491 },	-- Archon Glaive / Hellion Glaive
-				{ 26, "ac3916" },
-				{ 27, "ac3812" },
-				{ 28, "ac3816" },
+				{ 26, 142085, "pet1954" }, -- Nerubian Relic -> Nerubian Swarmer
+				{ 27, "ac3916" },
+				{ 28, "ac3812" },
+				{ 30, "ac3816" },
 			},
 		},
-		{	--TrialoftheCrusaderPatterns
+		{	--TrialoftheCrusader Patterns
 			name = AL["Patterns/Plans"].." ("..string.format(AL["ilvl %d"], 245)..")",
 			ExtraList = true,
 			[NORMAL_DIFF] = {
@@ -4149,7 +4181,7 @@ data["Ulduar"] = {
 	AtlasMapID = "UlduarA",
 	ContentType = RAID_CONTENT,
 	items = {
-		{	--UlduarLeviathan
+		{	--Ulduar Leviathan
 			--name = BB["Flame Leviathan"],
 			EncounterJournalID = 1637,
 			[NORMAL_DIFF] = {
@@ -4209,7 +4241,7 @@ data["Ulduar"] = {
 				{ 119, "ac2906" },
 			},
 		},
-		{	--UlduarIgnis
+		{	--Ulduar Ignis
 			--name = BB["Ignis the Furnace Master"],
 			EncounterJournalID = 1638, 
 			[NORMAL_DIFF] = {
@@ -4219,6 +4251,7 @@ data["Ulduar"] = {
 				{ 4, 45316 },	-- Armbraces of the Vibrant Flame
 				{ 5, 45321 },	-- Pauldrons of Tempered Will
 				{ 6, 45310 },	-- Gauntlets of the Iron Furnace
+				{ 8, 142086, "pet1955" }, -- Red-Hot Coal -> Magma Rageling
 				{ 16, 45313 },	-- Furnace Stone
 				{ 18, 45311 },	-- Relentless Edge
 				{ 19, 45309 },	-- Rifle of the Platinum Guard
@@ -4239,6 +4272,7 @@ data["Ulduar"] = {
 				{ 10, 45157 },	-- Cindershard Ring
 				{ 11, 45168 },	-- Pyrelight Circle
 				{ 12, 45158 },	-- Heart of Iron
+				{ 14, 142086, "pet1955" }, -- Red-Hot Coal -> Magma Rageling
 				{ 16, 45038 },	-- Fragment of Val'anyr
 				{ 17, 46017 },	-- Val'anyr, Hammer of Ancient Kings
 				{ 19, 45165 },	-- Worldcarver
@@ -4249,7 +4283,7 @@ data["Ulduar"] = {
 				{ 25, "ac2929" },
 			},
 		},
-		{	--UlduarRazorscale
+		{	--Ulduar Razorscale
 			--name = BB["Razorscale"],
 			EncounterJournalID = 1639,
 			[NORMAL_DIFF] = {
@@ -4260,6 +4294,7 @@ data["Ulduar"] = {
 				{ 5, 45299 },	-- Dragonsteel Faceplate
 				{ 6, 45305 },	-- Breastplate of the Afterlife
 				{ 7, 45304 },	-- Stormtempered Girdle
+				{ 9, 142087, "pet1956" }, -- Ironbound Collar -> Ironbound Proto-Whelp
 				{ 16, 45303 },	-- Band of Draconic Guile
 				{ 17, 45308 },	-- Eye of the Broodmother
 				{ 19, 45298 },	-- Razorscale Talon
@@ -4277,6 +4312,7 @@ data["Ulduar"] = {
 				{ 8, 45140 },	-- Razorscale Shoulderguards
 				{ 9, 45139 },	-- Dragonslayer's Brace
 				{ 11, 45148 },	-- Living Flame
+				{ 13, 142087, "pet1956" }, -- Ironbound Collar -> Ironbound Proto-Whelp
 				{ 16, 45038 },	-- Fragment of Val'anyr
 				{ 17, 46017 },	-- Val'anyr, Hammer of Ancient Kings
 				{ 19, 45142 },	-- Remorse
@@ -4286,7 +4322,7 @@ data["Ulduar"] = {
 				{ 24, "ac2924" },
 			},
 		},
-		{	--UlduarDeconstructor
+		{	--Ulduar Deconstructor
 			--name = BB["XT-002 Deconstructor"],
 			EncounterJournalID = 1640,
 			[NORMAL_DIFF] = {
@@ -4341,7 +4377,7 @@ data["Ulduar"] = {
 				{ 117, "ac2935" },
 			},
 		},
-		{	--UlduarIronCouncil, The Assembly of Iron
+		{	--Ulduar IronCouncil, The Assembly of Iron
 			--name = BB["The Iron Council"],
 			EncounterJournalID = 1641,
 			[NORMAL_DIFF] = {
@@ -4367,6 +4403,7 @@ data["Ulduar"] = {
 				{ 23, 45449 },	-- The Masticator
 				{ 24, 45448 },	-- Perilous Bite
 				{ 25, 45506 },	-- Archivum Data Disc
+				{ 27, 142088, "pet1957" }, -- Stormforged Rune -> Runeforged Servitor
 			},
 			[P25_DIFF] = {
 				{ 1, 45224 },	-- Drape of the Lithe
@@ -4394,6 +4431,7 @@ data["Ulduar"] = {
 				{ 27, 45243 },	-- Sapphire Amulet of Renewal
 				{ 28, 45607 },	-- Fang of Oblivion
 				{ 29, 45857 },	-- Archivum Data Disc
+				{ 30, 142088, "pet1957" }, -- Stormforged Rune -> Runeforged Servitor
 				{ 101, "ac2946" },
 				{ 102, "ac2948" },
 				{ 116, "ac2942" },
@@ -4401,7 +4439,7 @@ data["Ulduar"] = {
 				{ 118, "ac2943" },
 			},
 		},
-		{	--UlduarKologarn
+		{	--Ulduar Kologarn
 			--name = BB["Kologarn"],
 			EncounterJournalID = 1642,
 			[NORMAL_DIFF] = {
@@ -4443,7 +4481,7 @@ data["Ulduar"] = {
 				{ 26, "ac2952" },
 			},
 		},
-		{	--UlduarAuriaya
+		{	--Ulduar Auriaya
 			--name = BB["Auriaya"],
 			EncounterJournalID = 1643,
 			[NORMAL_DIFF] = {
@@ -4455,6 +4493,7 @@ data["Ulduar"] = {
 				{ 6, 45712 },	-- Chestplate of Titanic Fury
 				{ 7, 45708 },	-- Archaedas' Lost Legplates
 				{ 9, 45866 },	-- Elemental Focus Stone
+				{ 11, 142089, "pet1958" }, -- Glittering Ball of Yarn -> Sanctum Cub
 				{ 16, 45707 },	-- Shieldwall of the Breaker
 				{ 17, 45713 },	-- Nurturing Touch
 				{ 19, "ac3006" },
@@ -4472,6 +4511,7 @@ data["Ulduar"] = {
 				{ 9, 45434 },	-- Greaves of the Rockmender
 				{ 11, 45326 },	-- Platinum Band of the Aesir
 				{ 12, 45438 },	-- Ring of the Faithful Servant
+				{ 14, 142089, "pet1958" }, -- Glittering Ball of Yarn -> Sanctum Cub
 				{ 16, 45038 },	-- Fragment of Val'anyr
 				{ 17, 46017 },	-- Val'anyr, Hammer of Ancient Kings
 				{ 19, 45437 },	-- Runescribed Blade
@@ -4481,7 +4521,7 @@ data["Ulduar"] = {
 				{ 24, "ac3077" },
 			},
 		},
-		{	--UlduarHodir
+		{	--Ulduar Hodir
 			--name = BB["Hodir"],
 			EncounterJournalID = 1644,
 			[NORMAL_DIFF] = {
@@ -4493,6 +4533,7 @@ data["Ulduar"] = {
 				{ 7, 45650 },	-- Leggings of the Wayward Conqueror
 				{ 8, 45651 },	-- Leggings of the Wayward Protector
 				{ 9, 45652 },	-- Leggings of the Wayward Vanquisher
+				{ 11, 142090, "pet1959" }, -- Ominous Pile of Snow -> Winter Rageling
 				{ 16, "INV_Box_01", "ac3182", AL["Bonus Loot"], nil },
 				{ 17, 45888 },	-- Bitter Cold Armguards
 				{ 18, 45876 },	-- Shiver
@@ -4517,6 +4558,7 @@ data["Ulduar"] = {
 				{ 10, 45632 },	-- Breastplate of the Wayward Conqueror
 				{ 11, 45633 },	-- Breastplate of the Wayward Protector
 				{ 12, 45634 },	-- Breastplate of the Wayward Vanquisher
+				{ 14, 142090, "pet1959" }, -- Ominous Pile of Snow -> Winter Rageling
 				{ 16, "INV_Box_01", "ac3184", AL["Bonus Loot"], nil },
 				{ 17, 45461 },	-- Drape of Icy Intent
 				{ 18, 45462 },	-- Gloves of the Frozen Glade
@@ -4532,7 +4574,7 @@ data["Ulduar"] = {
 				{ 30, "ac2970" },
 			},
 		},
-		{	--UlduarThorim
+		{	--Ulduar Thorim
 			--name = BB["Thorim"],
 			EncounterJournalID = 1645,
 			[NORMAL_DIFF] = {
@@ -4583,7 +4625,7 @@ data["Ulduar"] = {
 				{ 30, "ac2976" },
 			},
 		},
-		{	--UlduarFreya
+		{	--Ulduar Freya
 			--name = BB["Freya"],
 			EncounterJournalID = 1646,
 			[NORMAL_DIFF] = {
@@ -4606,6 +4648,7 @@ data["Ulduar"] = {
 				{ 20, 45947 },	-- Serilas, Blood Blade of Invar One-Arm
 				{ 21, 45294 },	-- Petrified Ivy Sprig
 				{ 23, 45788 },	-- Freya's Sigil
+				{ 25, 142091, "pet1960" }, -- Blessed Seed -> Snaplasher
 				{ 27, "ac3177" },
 				{ 28, "ac3178" },
 				{ 29, "ac3179" },
@@ -4631,6 +4674,7 @@ data["Ulduar"] = {
 				{ 21, 45484 },	-- Bladetwister
 				{ 22, 45613 },	-- Dreambinder
 				{ 24, 45814 },	-- Freya's Sigil
+				{ 26, 142091, "pet1960" }, -- Blessed Seed -> Snaplasher
 				{ 101, "ac2981" },
 				{ 102, "ac2984" },
 				{ 103, "ac2983" },
@@ -4640,7 +4684,7 @@ data["Ulduar"] = {
 				{ 118, "ac3187" },
 			},
 		},
-		{	--UlduarMimiron
+		{	--Ulduar Mimiron
 			--name = BB["Mimiron"],
 			EncounterJournalID = 1647,
 			[NORMAL_DIFF] = {
@@ -4652,6 +4696,7 @@ data["Ulduar"] = {
 				{ 7, 45647 },	-- Helm of the Wayward Conqueror
 				{ 8, 45648 },	-- Helm of the Wayward Protector
 				{ 9, 45649 },	-- Helm of the Wayward Vanquisher
+				{ 11, 142092, "pet1961" }, -- Overcomplicated Controller -> G0-R41-0N Ultratonk
 				{ 16, "INV_Box_01", "ac3180", AL["Bonus Loot"], nil },
 				{ 17, 45993 },	-- Mimiron's Flight Goggles
 				{ 18, 45989 },	-- Tempered Mercury Greaves
@@ -4674,6 +4719,7 @@ data["Ulduar"] = {
 				{ 10, 45641 },	-- Gauntlets of the Wayward Conqueror
 				{ 11, 45642 },	-- Gauntlets of the Wayward Protector
 				{ 12, 45643 },	-- Gauntlets of the Wayward Vanquisher
+				{ 14, 142092, "pet1961" }, -- Overcomplicated Controller -> G0-R41-0N Ultratonk
 				{ 16, "INV_Box_01", "ac3189", AL["Bonus Loot"], nil },
 				{ 17, 45496 },	-- Titanskin Cloak
 				{ 18, 45497 },	-- Crown of Luminescence
@@ -4687,7 +4733,7 @@ data["Ulduar"] = {
 				{ 28, "ac3237" },
 			},
 		},
-		{	--UlduarVezax
+		{	--Ulduar Vezax
 			--name = BB["General Vezax"],
 			EncounterJournalID = 1648,
 			[NORMAL_DIFF] = {
@@ -4736,7 +4782,7 @@ data["Ulduar"] = {
 				{ 30, "ac2997" },
 			},
 		},
-		{	--UlduarYoggSaron
+		{	--Ulduar YoggSaron
 			--name = BB["Yogg-Saron"],
 			EncounterJournalID = 1649,
 			[NORMAL_DIFF] = {
@@ -4761,6 +4807,7 @@ data["Ulduar"] = {
 				{ 21, 46067 },	-- Hammer of Crushing Whispers
 				{ 23, "INV_Box_01", "ac3159", AL["Bonus Loot"], nil },
 				{ 24, 46312 },	-- Vanquished Clutches of Yogg-Saron
+				{ 26, 142093, "pet1962" }, -- Wriggling Darkness -> Creeping Tentacle
 				{ 101, "ac3159" },
 				{ 102, "ac3158" },
 				{ 103, "ac3141" },
@@ -4795,6 +4842,7 @@ data["Ulduar"] = {
 				{ 25, 45533 },	-- Dark Edge of Depravity
 				{ 27, "INV_Box_01", "ac3164", AL["Bonus Loot"], nil },
 				{ 28, 45693, "mount" },	-- Mimiron's Head
+				{ 30, 142093, "pet1962" }, -- Wriggling Darkness -> Creeping Tentacle
 				{ 101, "ac3164" },
 				{ 102, "ac3163" },
 				{ 103, "ac3162" },
@@ -4806,7 +4854,7 @@ data["Ulduar"] = {
 				{ 120, "ac3017" },
 			},
 		},
-		{	--UlduarAlgalon
+		{	--Ulduar Algalon
 			--name = BB["Algalon the Observer"],
 			EncounterJournalID = 1650,
 			[NORMAL_DIFF] = {
@@ -4857,7 +4905,7 @@ data["Ulduar"] = {
 				{ 28, 45614 },	-- Starshine Circle
 			},
 		},
-		{	--UlduarTrash
+		{	--Ulduar Trash
 			name = AL["Trash Mobs"],
 			ExtraList = true,
 			[NORMAL_DIFF] = {
@@ -4887,7 +4935,7 @@ data["Ulduar"] = {
 				{ 16, 45605 },	-- Daschal's Bite
 			},
 		},
-		{	--UlduarPatterns
+		{	--Ulduar Patterns
 			name = AL["Patterns/Plans"].." ("..string.format(AL["ilvl %d"], 226)..")",
 			ExtraList = true,
 			[NORMAL_DIFF] = {

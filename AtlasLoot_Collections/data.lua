@@ -961,16 +961,16 @@ data["MOUNTS"] = {
 			CoinTexture = "Achievement",
 			[NORMAL_DIFF] = {
 				-- Alliance
-				{ 1, 93385, "ac7928" }, -- Grand Gryphon1
+				{ 1, 93385, "ac7928" }, -- Grand Gryphon
 				{ 2, 120968, "ac9909" }, -- Chauffeured Chopper
-				{ 3, 44843, "ac2536" }, -- Blue Dragonhawk1
-				{ 4, 89785, "ac6828" }, -- Pandaren Kite String1
-				{ 5, 44223, "ac614" }, -- Reins of the Black War Bear1
-				{ 6, 98259, "ac8304" }, -- Armored Blue Dragonhawk1
-				{ 7, 62298, "ac4912" }, -- Reins of the Golden King1
-				{ 8, 69226, "ac9598" }, -- Felfirehawk1
-				{ 9, 91802, "ac7860" }, -- Jade Pandaren Kite String1
-				{ 10, 70909, "ac5328" }, -- Reins of the Vicious War Steed1
+				{ 3, 44843, "ac2536" }, -- Blue Dragonhawk, Mountain o' Mounts
+				{ 4, 89785, "ac6828" }, -- Pandaren Kite String, Pandaren Ambassador
+				{ 5, 44223, "ac614" }, -- Reins of the Black War Bear, For the Alliance!
+				{ 6, 98259, "ac8304" }, -- Armored Blue Dragonhawk, Mount Parade
+				{ 7, 62298, "ac4912" }, -- Reins of the Golden King
+				{ 8, 69226, "ac9598" }, -- Felfirehawk
+				{ 9, 91802, "ac7860" }, -- Jade Pandaren Kite String
+				{ 10, 70909, "ac5328" }, -- Reins of the Vicious War Steed
 				-- Horde
 				{ 16, 93386, "ac7929" }, -- Grand Wyvern2
 				{ 17, 122703, "ac9909" }, -- Chauffeured Chopper
@@ -987,6 +987,7 @@ data["MOUNTS"] = {
 				{ 13, 87773, "ac6932" }, -- Reins of the Heavenly Crimson Cloud Serpent
 				{ 14, 93662, "ac8124" }, -- Reins of the Armored Skyscreamer
 				{ 15, 104208, "ac8454" }, -- Reins of Galakras
+				
 				{ 27, 44178, "ac2143" }, -- Reins of the Albino Drake
 				{ 28, 77068, "ac6169" }, -- Reins of the Twilight Harbinger
 				{ 29, 44160, "ac2136" }, -- Reins of the Red Proto-Drake
@@ -1127,7 +1128,7 @@ data["MOUNTS"] = {
 				-- Operation: Shieldwall, MoP
 				{ 409, "f1376rep8" },
 				{ 410, 93168, "mount", [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Grand Armored Gryphon
-				{ 411, 93385, "mount" }, -- Grand Gryphon1
+				{ 411, 93385, "mount" }, -- Grand Gryphon1, reward from quest: The Silence (32455)
 				-- Kirin Tor Offensive, MoP
 				{ 413, "f1387rep8" },
 				{ 414, 95564, "mount", [PRICE_EXTRA_ITTYPE] = "money:30000000" }, -- Reins of the Golden Primal Direhorn
@@ -1338,7 +1339,7 @@ data["MOUNTS"] = {
 				{ 106, 85429, "mount", [PRICE_EXTRA_ITTYPE] = "money:30000000" }, -- Reins of the Golden Cloud Serpent
 				{ 107, 85430, "mount", [PRICE_EXTRA_ITTYPE] = "money:30000000" }, -- Reins of the Azure Cloud Serpent
 				-- Shado-Pan, MoP
-				{ 109, "f1435rep8" },
+				{ 109, "f1270rep8" },
 				{ 110, 89305, "mount", [PRICE_EXTRA_ITTYPE] = "money:15000000" }, -- Reins of the Green Shado-Pan Riding Tiger
 				{ 111, 89306, "mount", [PRICE_EXTRA_ITTYPE] = "money:25000000" }, -- Reins of the Red Shado-Pan Riding Tiger
 				{ 112, 89307, "mount", [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Reins of the Blue Shado-Pan Riding Tiger

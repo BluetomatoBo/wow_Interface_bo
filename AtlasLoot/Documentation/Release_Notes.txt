@@ -5,6 +5,30 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.07.12 (Apr. 03, 2018)
+========================
+- Fixed wrong faction was pointed to three of the mounts available from Shado Pan vendor
+- Added mount - Darkmoon Dirigible in World Events - Darkmoon Faire
+- Corrected boss name - Blood-Queen Lana'thel in Icecrown Citadel
+- Added WoLTK instances' battle pets (thanks for reaper66673563371):
+  - Icecrown Citadel:
+    - Boneshard, Blood Beast, Blightbreath, Soulbroken Whelpling, Drudge Ghoul
+  - Trial of the Crusader:
+    - Dreadmaw, Snobold Runt, Nerubian Swarmer
+  - Ulduar:
+    - Magma Rageling, Ironbound Proto-Whelp, Runeforged Servitor, Sanctum Cub, Winter Rageling, Snaplasher, G0-R41-0N Ultratonk, Creeping Tentacle
+- Added Cataclysm instances' battle pets (thanks for reaper66673563371):
+  - Blackwing Descent:
+    - Tinytron, Discarded Experiment, Rattlejaw
+  - The Bastion of Twilight:
+    - Twilight Clutch-Sister, Bound Stream, Faceless Minion
+  - Throne of the Four Winds:
+    - Drafty, Zephyrian Prince
+  - Firelands:
+    - Cinderweb Recluse, Blazehound, Surger, Infernal Pyreclaw
+  - Dragon Soul:
+    - Faceless Mindlasher, Corrupted Blood, Unstable Tendril
+
 v8.07.11 (Mar. 20, 2018)
 ========================
 - Remove mounts - Swift Razzashi Raptor and Swift Zulian Tiger from Mounts\Dungeons & Raids\Classic

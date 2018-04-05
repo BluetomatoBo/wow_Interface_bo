@@ -298,15 +298,16 @@ data["DarkmoonFaire"] = {
 			[NORMAL_DIFF] = {
 				{ 1, 73766, "mount", [PRICE_EXTRA_ITTYPE] = "darkmoon:180" },	-- Darkmoon Dancing Bear
 				{ 2, 72140, "mount", [PRICE_EXTRA_ITTYPE] = "darkmoon:180" },	-- Swift Forest Strider
-				{ 4, 73762, "pet336", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Balloon
-				{ 5, 74981, "pet343", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Cub
-				{ 6, 91003, "pet1061", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Hatchling
-				{ 7, 73764, "pet330", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Monkey
-				{ 8, 73903, "pet338", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Tonk
-				{ 9, 73765, "pet335", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Turtle
-				{ 10, 73905, "pet339", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Zeppelin
-				{ 11, 11026, "pet65", [PRICE_EXTRA_ITTYPE] = "money:10000" },	-- Tree Frog Box
-				{ 12, 11027, "pet64", [PRICE_EXTRA_ITTYPE] = "money:10000" },	-- Wood Frog Box
+				{ 3, 153485, "mount", [PRICE_EXTRA_ITTYPE] = "darkmoon:1000" },	-- Darkmoon Dirigible, Added in patch 7.3.0.24781
+				{ 5, 73762, "pet336", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Balloon
+				{ 6, 74981, "pet343", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Cub
+				{ 7, 91003, "pet1061", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Hatchling
+				{ 8, 73764, "pet330", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Monkey
+				{ 9, 73903, "pet338", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Tonk
+				{ 10, 73765, "pet335", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Turtle
+				{ 11, 73905, "pet339", [PRICE_EXTRA_ITTYPE] = "darkmoon:90" },	-- Darkmoon Zeppelin
+				{ 12, 11026, "pet65", [PRICE_EXTRA_ITTYPE] = "money:10000" },	-- Tree Frog Box
+				{ 13, 11027, "pet64", [PRICE_EXTRA_ITTYPE] = "money:10000" },	-- Wood Frog Box
 				{ 16, 80008, "pet848" },	-- Darkmoon Rabbit (ACM 6332)
 				{ 17, 101570, "pet1276" },	-- Moon Moon (Drop: Moonfang)
 				{ 18, 73953, "pet340" },	-- Sea Pony (Fishing: Darkmoon Island)

@@ -649,6 +649,7 @@ local MOUNT_INFO = {
 		[242305] = 152791, -- Reins of the Sable Ruinstrider
 		[253008] = 152796, -- Reins of the Umber Ruinstrider
 		[239013] = 152788, -- Lightforged Warframe
+		[247448] = 153485, 	-- Darkmoon Dirigible
 	},
 	["items"] = {
 		--[itemID] = spellID
