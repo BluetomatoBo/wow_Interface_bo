@@ -1,6 +1,7 @@
 local _, T = ...
 if T.Mark ~= 50 then return end
 local L, EV, G, api = T.L, T.Evie, T.Garrison, {}
+local GameTooltip = AltGameTooltip or GameTooltip
 
 local function HookOnShow(self, OnShow)
 	self:HookScript("OnShow", OnShow)

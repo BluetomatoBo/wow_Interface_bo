@@ -4,6 +4,7 @@ local EV, L = T.Evie, newproxy(true)
 getmetatable(L).__call = function(_,k) if T.L then L = T.L return L(k) end return k end
 local FOLLOWER_ITEM_LEVEL_CAP, MENTOR_FOLLOWER, INF = T.FOLLOWER_ITEM_LEVEL_CAP, T.MENTOR_FOLLOWER, math.huge
 local unfreeStatusOrder = {[GARRISON_FOLLOWER_WORKING]=2, [GARRISON_FOLLOWER_INACTIVE]=1}
+local GameTooltip = AltGameTooltip or GameTooltip
 
 hooksecurefunc(C_Garrison, "MarkMissionComplete", function(mid)
 	EV("MP_MARK_MISSION_COMPLETE", mid)

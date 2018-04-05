@@ -1,6 +1,7 @@
 local _, T = ...
 if T.Mark ~= 50 then return end
 local G, L, E = T.Garrison, T.L, T.Evie
+local GameTooltip = AltGameTooltip or GameTooltip
 
 local function HookOnShow(self, OnShow)
 	self:HookScript("OnShow", OnShow)
@@ -136,11 +137,15 @@ local function addCacheResources(self, id)
 		end
 	end
 end
-hooksecurefunc(GameTooltip, "SetCurrencyByID", addCacheResources)
-hooksecurefunc(GameTooltip, "SetCurrencyTokenByID", addCacheResources)
-hooksecurefunc(GameTooltip, "SetCurrencyToken", function(self, idx)
+local function addCacheResourcesByLink(self, idx)
 	addCacheResources(self, tonumber((GetCurrencyListLink(idx) or ""):match("currency:(%d+)") or 0))
-end)
+end
+for i=1,GameTooltip ~= _G.GameTooltip and 2 or 1 do
+	local tip = i == 1 and GameTooltip or _G.GameTooltip
+	hooksecurefunc(tip, "SetCurrencyByID", addCacheResources)
+	hooksecurefunc(tip, "SetCurrencyTokenByID", addCacheResources)
+	hooksecurefunc(tip, "SetCurrencyToken", addCacheResourcesByLink)
+end
 hooksecurefunc(GarrisonLandingPage.Report.shipmentsPool, "ReleaseAll", function(self)
 	local o = self.inactiveObjects
 	for i=1,o and #o or 0 do

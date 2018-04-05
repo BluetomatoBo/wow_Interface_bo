@@ -6,9 +6,10 @@
 ## LoadOnDemand: 1
 ## RequiredDeps: Blizzard_GarrisonUI, MasterPlanA
 ## SavedVariablesPerCharacter: MasterPlanPC
-## Version: 0.110
-## X-Version-Key: blues
+## Version: 0.111
+## X-Version-Key: eleven
 Libs/Evie.lua
+Libs/AltGameTooltip.xml
 Libs/Reframe.lua
 Locale.lua
 Mark-50.lua

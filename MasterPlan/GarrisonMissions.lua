@@ -5,6 +5,7 @@ local EV, G, L = T.Evie, T.Garrison, T.L
 local roamingParty, easyDrop = T.MissionsUI.roamingParty, T.MissionsUI.easyDrop
 local MISSION_PAGE_FRAME = GarrisonMissionFrame.MissionTab.MissionPage
 local SHIP_MISSION_PAGE = GarrisonShipyardFrame.MissionTab.MissionPage
+local GameTooltip = AltGameTooltip or GameTooltip
 
 local function HideOwnedGameTooltip(self)
 	if GameTooltip:IsOwned(self) then
@@ -457,6 +458,7 @@ local lfgButton do
 	border:SetPoint("TOPLEFT", 1, -1.5)
 	border:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
 	local ico = lfgButton:CreateTexture(nil, "ARTWORK")
+	ico:SetNonBlocking(false)
 	ico:SetTexture("Interface\\LFGFrame\\BattlenetWorking28")
 	ico:SetAllPoints()
 	local curIco, nextSwap = 28, 0.08
