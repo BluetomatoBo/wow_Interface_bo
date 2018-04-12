@@ -1,58 +1,10 @@
-tag a6737a8b58833ba480f9ff0aa4d09ad0bf9208bd 7.3.5.4
+tag 0adba7ed5a88e815ecda48fab7ffffb08e9ca466 7.3.5.8
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Wed Apr 4 11:00:53 2018 -0500
+Date:	Wed Apr 11 20:13:33 2018 -0500
 
-commit b50129a694e1bb71718ceacd43a8074959337d90
+commit 047a849633c638bf89719bec3e29442b9464803e
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Apr 4 10:08:35 2018 -0500
+Date:   Wed Apr 11 20:11:57 2018 -0500
 
-    Update some quest names and add Thistleleaf Rascal as the official emissary for the Unguarded Thistleleaf Treasure portion of the Adventurer of Val'sharah achievement, since a group of them are spawned when the event starts...
-
-commit 04c5a2e1efb10011162093c9fcac6dde5a6927a3
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Apr 4 09:14:52 2018 -0500
-
-    Store the icon texture path on AchievementData.
-
-commit 5f61f576fd88b5534c86f44b8702810a44e65704
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Apr 4 09:13:09 2018 -0500
-
-    Add support for the Naxt Victim and Terrors of The Shore achievements.
-
-commit eb91a76b0b831b2e6d78c8842bcbf1698368e69e
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Apr 4 09:12:06 2018 -0500
-
-    Add/update data for NPCs and their locations, vignettes, and quests.
-
-commit 01b0c365edf3704deb1a39eb46d48e3cfa1c91cc
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Apr 4 09:08:02 2018 -0500
-
-    Replace currentContinentID, currentMapID, and npcScanlist with a scanData table which holds all of this information.
-
-commit 89152313df547ca27946e0d49e32a777b1b09a8a
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Apr 4 08:59:52 2018 -0500
-
-    Remove some unused variables and perform small cleanups.
-
-commit 7c446efe6f44db2f77e2c51416dbe5ddfec39ea5
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Apr 3 08:56:12 2018 -0500
-
-    Addendum to previous commit.
-
-commit d85cab3e736d0523812feebcf2baa246610095eb
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Apr 3 08:55:16 2018 -0500
-
-    Remove AchievementNameByID and AchievementDescriptionByID tables - use .name and .description on the AchievementData lookups, instead.
-
-commit 9f18ae24e6919e171a8b473461d3ca7689755794
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Apr 3 07:19:31 2018 -0500
-
-    Add the ability to ignore detection from the Minimap and World Map.
+    Fix display for Detection ➜ Continent
 

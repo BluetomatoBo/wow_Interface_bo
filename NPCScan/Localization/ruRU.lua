@@ -276,6 +276,8 @@ L["Slumbering Bear"] = "Спящий медведь"
 L["Soulfang"] = "Духоклык"
 L["Soulthirster"] = "Душеглот"
 L["Starbuck"] = "Звездный Рог"
+--[[Translation missing --]]
+--[[ L["Stingtail Nest"] = "Stingtail Nest"--]] 
 L["Stomper Kreego"] = "Топотун Криго"
 L["Stoneshard Broodmother"] = "Праматерь Осколка Камня"
 L["Stormwing Matriarch"] = "Матриарх стаи штормокрылов"
@@ -564,6 +566,8 @@ VL["Slumbering Bear"] = "Спящий медведь"
 VL["Soulfang"] = "Духоклык"
 VL["Soulthirster"] = "Душеглот"
 VL["Starbuck"] = "Звездный Рог"
+--[[Translation missing --]]
+--[[ VL["Stingtail Nest"] = "Stingtail Nest"--]] 
 VL["Stomper Kreego"] = "Топотун Криго"
 VL["Stoneshard Broodmother"] = "Праматерь Осколка Камня"
 VL["Stormwing Matriarch"] = "Матриарх стаи штормокрылов"

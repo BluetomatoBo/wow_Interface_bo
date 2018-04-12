@@ -275,6 +275,8 @@ L["Slogtusk"] = "회색엄니"
 L["Soulfang"] = "영혼송곳니"
 L["Soulthirster"] = "영혼곯이"
 L["Starbuck"] = "별사슴"
+--[[Translation missing --]]
+--[[ L["Stingtail Nest"] = "Stingtail Nest"--]] 
 L["Stomper Kreego"] = "천둥발 크리고"
 L["Stoneshard Broodmother"] = "바위파편 무리어미"
 L["Stormwing Matriarch"] = "폭풍날개 어미"
@@ -561,6 +563,8 @@ VL["Slogtusk"] = "회색엄니"
 VL["Soulfang"] = "영혼송곳니"
 VL["Soulthirster"] = "영혼곯이"
 VL["Starbuck"] = "별사슴"
+--[[Translation missing --]]
+--[[ VL["Stingtail Nest"] = "Stingtail Nest"--]] 
 VL["Stomper Kreego"] = "천둥발 크리고"
 VL["Stoneshard Broodmother"] = "바위파편 무리어미"
 VL["Stormwing Matriarch"] = "폭풍날개 어미"

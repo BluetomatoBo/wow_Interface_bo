@@ -249,6 +249,8 @@ L["Slumbering Bear"] = "Schlummernder Bär"
 L["Soulfang"] = "Seelenfang"
 L["Soulthirster"] = "Seelenlechzer"
 L["Starbuck"] = "Sternbock"
+--[[Translation missing --]]
+--[[ L["Stingtail Nest"] = "Stingtail Nest"--]] 
 L["Stomper Kreego"] = "Stampfer Kreego"
 L["Stoneshard Broodmother"] = "Steinsplitter Brutmutter"
 L["Stormwing Matriarch"] = "Matriarchin der Sturmschwingen"
@@ -505,6 +507,8 @@ VL["Slumbering Bear"] = "Schlummernder Bär"
 VL["Soulfang"] = "Seelenfang"
 VL["Soulthirster"] = "Seelenlechzer"
 VL["Starbuck"] = "Sternbock"
+--[[Translation missing --]]
+--[[ VL["Stingtail Nest"] = "Stingtail Nest"--]] 
 VL["Stomper Kreego"] = "Stampfer Kreego"
 VL["Stoneshard Broodmother"] = "Steinsplitter Brutmutter"
 VL["Stormwing Matriarch"] = "Matriarchin der Sturmschwingen"

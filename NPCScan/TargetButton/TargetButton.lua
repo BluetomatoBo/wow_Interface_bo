@@ -11,12 +11,14 @@ local table = _G.table
 -- AddOn namespace.
 -- ----------------------------------------------------------------------------
 local AddOnFolderName, private = ...
+local Data = private.Data
+local EventMessage = private.EventMessage
 
 local LibStub = _G.LibStub
-local NPCScan = LibStub("AceAddon-3.0"):GetAddon(AddOnFolderName)
-
 local AceEvent = LibStub("AceEvent-3.0")
 local LibSharedMedia = LibStub("LibSharedMedia-3.0")
+local NPCScan = LibStub("AceAddon-3.0"):GetAddon(AddOnFolderName)
+
 
 _G.BINDING_HEADER_NPCSCAN = AddOnFolderName
 _G["BINDING_NAME_CLICK NPCScan_RecentTargetButton:LeftButton"] = "Target latest NPC"
@@ -75,11 +77,37 @@ end
 -- ----------------------------------------------------------------------------
 -- Scripts.
 -- ----------------------------------------------------------------------------
+local function DismissButton_OnClick(self, mouseButton)
+	local parent = self:GetParent()
+
+	if mouseButton == "RightButton" then
+		-- TODO: Make this a general utility function - this is based on code from Preferences/NPCs
+		local profile = private.db.profile
+
+		local isBlacklisted = not profile.blacklist.npcIDs[parent.npcID] and true or nil
+		profile.blacklist.npcIDs[parent.npcID] = isBlacklisted
+
+		private.UpdateAchievementNPCOptions()
+		private.UpdateBlacklistedNPCOptions()
+
+		NPCScan:UpdateScanList()
+
+		if isBlacklisted then
+			NPCScan:SendMessage(EventMessage.DismissTargetButtonByID, parent.npcID)
+			NPCScan:Printf(_G.ERR_IGNORE_ADDED_S, NPCScan:GetNPCNameFromID(parent.npcID))
+		end
+
+	end
+
+	parent:RequestDeactivate()
+end
+
 local function DismissButton_OnEnter(self)
 	if self:IsEnabled() then
 		local tooltip = _G.GameTooltip
 		tooltip:SetOwner(self, TOOLTIP_ANCHORS[self:GetParent():GetEffectiveSpawnPoint()], 0, -50)
 		tooltip:AddLine(LEFT_CLICK_TEXTURE .. " " .. _G.REMOVE, 0.5, 0.8, 1)
+		tooltip:AddLine(RIGHT_CLICK_TEXTURE .. " " .. _G.IGNORE, 0.5, 0.8, 1)
 
 		tooltip:Show()
 	end
@@ -170,7 +198,7 @@ end
 function TargetButton:UpdateData(_, data)
 	if data.npcID == self.npcID then
 		if data.unitClassification and self.__classification ~= data.unitClassification and not _G.InCombatLockdown() then
-			self:SendMessage("NPCScan_TargetButtonNeedsReclassified", self, data)
+			self:SendMessage(EventMessage.TargetButtonNeedsReclassified, self, data)
 			return
 		end
 
@@ -204,7 +232,7 @@ end
 -- ----------------------------------------------------------------------------
 function TargetButton:Activate(data)
 	self.npcID = data.npcID
-	self.npcData = private.NPCData[self.npcID]
+	self.npcData = Data.NPCs[self.npcID]
 	self.npcName = data.npcName
 
 	self:SetSpecialText()
@@ -264,7 +292,7 @@ function TargetButton:Activate(data)
 	self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	self:RegisterEvent("PLAYER_REGEN_ENABLED")
 	self:RegisterEvent("PLAYER_REGEN_DISABLED")
-	self:RegisterMessage("NPCScan_UnitInformationAvailable", "UpdateData")
+	self:RegisterMessage(EventMessage.UnitInformationAvailable, "UpdateData")
 end
 
 function TargetButton:Deactivate()
@@ -321,7 +349,7 @@ function TargetButton:RequestDeactivate()
 			return
 		end
 
-		self:SendMessage("NPCScan_TargetButtonRequestDeactivate", self)
+		self:SendMessage(EventMessage.TargetButtonRequestDeactivate, self)
 	end
 end
 
@@ -361,7 +389,7 @@ function TargetButton:SetSpecialText(fakeCriteriaCompleted)
 
 	if npcData and npcData.achievementID then
 		local isCriteriaCompleted = fakeCriteriaCompleted or npcData.isCriteriaCompleted
-		local achievementName = private.AchievementData[npcData.achievementID].name
+		local achievementName = Data.Achievements[npcData.achievementID].name
 
 		self.SpecialText:SetFormattedText("%s%s|r", isCriteriaCompleted and _G.GREEN_FONT_COLOR_CODE or _G.RED_FONT_COLOR_CODE, achievementName)
 	end
@@ -422,36 +450,36 @@ do
 		macroButton:ResetMacroText()
 
 		function macroButton:PLAYER_REGEN_ENABLED()
-			if self.needsUpdate then
-				self.needsUpdate = nil
-				self:UpdateMacroText()
+			if self.scannerData then
+				self:Update("PLAYER_REGEN_ENABLED", self.scannerData)
+				self.scannerData = nil
 			end
 		end
 
 		macroButton:RegisterEvent("PLAYER_REGEN_ENABLED")
 
-		function macroButton:UpdateMacroText()
+		function macroButton:Update(_, scannerData)
 			if _G.InCombatLockdown() then
-				self.needsUpdate = true
+				self.scannerData = scannerData
+
 				return
 			end
 
-			local addedCount = 0
-
 			table.wipe(macroLines)
 
-			for npcID in pairs(private.scannerData.NPCs) do
+			for npcID in pairs(scannerData.NPCs) do
 				table.insert(macroLines, ("/cleartarget\n/targetexact %s"):format(NPCScan:GetNPCNameFromID(npcID)))
-				addedCount = addedCount + 1
 			end
 
-			if addedCount == 0 then
+			if #macroLines == 0 then
 				self:ResetMacroText()
 				return
 			end
 
 			self:SetAttribute("macrotext", table.concat(macroLines, "\n"))
 		end
+
+		macroButton:RegisterMessage(EventMessage.ScannerDataUpdated, "Update")
 
 		ClassificationDecorators = {
 			elite = private.DecorateEliteTargetButton,
@@ -484,13 +512,15 @@ local function CreateTargetButton(unitClassification)
 
 	AceEvent:Embed(_G.setmetatable(button, TargetButtonMetatable))
 
-	local dismissButton = _G.CreateFrame("Button", nil, button, "UIPanelCloseButton")
+	local dismissButton = _G.CreateFrame("Button", nil, button, "UIPanelCloseButtonNoScripts")
 	dismissButton:SetSize(16, 16)
 	dismissButton:GetDisabledTexture():SetTexture("")
 	dismissButton:GetHighlightTexture():SetTexture([[Interface\FriendsFrame\UI-Toast-CloseButton-Highlight]])
 	dismissButton:GetNormalTexture():SetTexture([[Interface\FriendsFrame\UI-Toast-CloseButton-Up]])
 	dismissButton:GetPushedTexture():SetTexture([[Interface\FriendsFrame\UI-Toast-CloseButton-Down]])
 
+	dismissButton:RegisterForClicks("AnyUp")
+	dismissButton:SetScript("OnClick", DismissButton_OnClick)
 	dismissButton:SetScript("OnEnter", DismissButton_OnEnter)
 	dismissButton:SetScript("OnLeave", _G.GameTooltip_Hide)
 
