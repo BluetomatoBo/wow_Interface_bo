@@ -3,7 +3,7 @@ WeakAuras.L = {}
 
 local versionString = GetAddOnMetadata("WeakAuras", "Version");
 --[===[@debug@
-if versionString == "2.5.8" then
+if versionString == "2.5.10" then
   versionString = "Dev"
 end
 --@end-debug@]===]

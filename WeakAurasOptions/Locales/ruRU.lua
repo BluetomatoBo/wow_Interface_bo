@@ -162,8 +162,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Distribute Vertically"] = "Распределить по вертикали"
 	L["Do not group this display"] = "Не группировать эту индикацию"
 	L["Done"] = "Выполнено"
-	--Translation missing 
-	-- L["Down"] = ""
+	L["Down"] = "Вниз"
 	L["Drag to move"] = "Перетащите для перемещения"
 	L["Duplicate"] = "Дублировать"
 	L["Duplicate All"] = "Дублировать все"
@@ -187,6 +186,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Event"] = "Событие"
 	L["Event Type"] = "Тип триггера"
 	L["Event(s)"] = "Событие(я)"
+	--[[Translation missing --]]
+	--[[ L["Everything"] = ""--]] 
 	L["Expand"] = "Развернуть"
 	L["Expand all loaded displays"] = "Развернуть все загруженные индикации"
 	L["Expand all non-loaded displays"] = "Развернуть все не загруженные индикации"
@@ -251,6 +252,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Import"] = "Импорт"
 	L["Import a display from an encoded string"] = "Импортировать индикацию из закодированной строки"
 	L["Inverse"] = "Обратная"
+	--[[Translation missing --]]
+	--[[ L["Inverse Slant"] = ""--]] 
 	L["Justify"] = "Выравнивание"
 	L["Keep Aspect Ratio"] = "Сохранять пропорции"
 	L["Leaf"] = "Лист"
@@ -316,7 +319,11 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Paste Animations Settings"] = "Вставить настройки анимации"
 	L["Paste Condition Settings"] = "Вставить настройки условий"
 	L["Paste Display Settings"] = "Вставить настройки индикации"
+	--[[Translation missing --]]
+	--[[ L["Paste Group Settings"] = ""--]] 
 	L["Paste Load Settings"] = "Вставить настройки загрузки"
+	--[[Translation missing --]]
+	--[[ L["Paste Settings"] = ""--]] 
 	L["Paste text below"] = "Вставьте текст ниже"
 	L["Paste Trigger Settings"] = "Вставить настройки триггера"
 	L["Play Sound"] = "Проиграть звук"
@@ -375,6 +382,12 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Shows a texture that changes based on duration"] = "Показывает текстуру, меняющуюся в зависимости от длительности"
 	L["Shows one or more lines of text, which can include dynamic information such as progress or stacks"] = "Показывает одну или несколько строк текста, которые могут включать в себя динамическую информацию такую как длительность или стаки"
 	L["Size"] = "Размер"
+	--[[Translation missing --]]
+	--[[ L["Slant Amount"] = ""--]] 
+	--[[Translation missing --]]
+	--[[ L["Slant Mode"] = ""--]] 
+	--[[Translation missing --]]
+	--[[ L["Slanted"] = ""--]] 
 	L["Slide"] = "Перемещение"
 	L["Slide In"] = "Приближение"
 	L["Slide Out"] = "Отдаление"
@@ -445,8 +458,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Ungroup"] = "Разгруппировать"
 	L["Unit"] = "Единица"
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "В отличие от начальной или конечной анимации, основная зациклена и будет повторяться пока индикация не пропадет."
-	--Translation missing 
-	-- L["Up"] = ""
+	--[[Translation missing --]]
+	--[[ L["Up"] = ""--]] 
 	L["Update Custom Text On..."] = "Обновить свой текст на..."
 	L["Use Full Scan (High CPU)"] = "Использовать Полное сканирование (загрузка ЦП)"
 	L["Use SetTransform (will change behaviour in 7.3)"] = "Использовать ф-ю SetTransform (изменится в 7.3)"
