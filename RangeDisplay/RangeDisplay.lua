@@ -1,6 +1,6 @@
 --[[
 Name: RangeDisplay
-Revision: $Revision: 357 $
+Revision: $Revision: 381 $
 Author(s): mitch0
 Website: http://www.wowace.com/projects/range-display/
 SVN: svn://svn.wowace.com/wow/range-display/mainline/trunk
@@ -10,9 +10,9 @@ License: Public Domain
 
 local AppName, RangeDisplay = ...
 local OptionsAppName = AppName .. "_Options"
-local VERSION = AppName .. "-v4.7.0"
+local VERSION = AppName .. "-v4.8.0"
 --[===[@debug@
-local VERSION = AppName .. "-r" .. ("$Revision: 357 $"):match("%d+")
+local VERSION = AppName .. "-r" .. ("$Revision: 381 $"):match("%d+")
 --@end-debug@]===]
 
 local rc = LibStub("LibRangeCheck-2.0")
@@ -413,7 +413,7 @@ local function createOverlay(ud)
 end
 
 local function update(ud)
-    local minRange, maxRange = rc:GetRange(ud.unit)
+    local minRange, maxRange = rc:GetRange(ud.unit, ud.db.checkVisible)
     if minRange == ud.lastMinRange and maxRange == ud.lastMaxRange then return end
     ud.lastMinRange, ud.lastMaxRange = minRange, maxRange
     local fmt = ""

@@ -9,7 +9,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale(OptionsAppName)
 local MinFontSize = 5
 local MaxFontSize = 30
 local MinRangeLimit = 0
-local MaxRangeLimit = 100
+local MaxRangeLimit = 200
 
 local lastConfiguredUd -- stupid hack to remember last open config frame
 local fakeUdForProfiles = {}
@@ -288,10 +288,16 @@ do
                     desc = L["Use warning sound for enemy targets only"],
                     order = 116,
                 },
+                checkVisible = {
+                    type = 'toggle',
+                    name = L["Check visibility"],
+                    desc = L["Check if the unit is visible before doing the range check"],
+                    order = 117,
+                },
                 sep1 = {
                     type = 'header',
                     name = "",
-                    order = 118,
+                    order = 119,
                 },
                 font = {
                     type = "select", dialogControl = 'LSM30_Font',
@@ -487,7 +493,7 @@ do
             opts.args.mouseAnchor = {
                 type = 'toggle',
                 name = L["Anchor to Mouse"],
-                order = 117,
+                order = 118,
             }
         end
         return opts
