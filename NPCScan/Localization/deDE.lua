@@ -226,8 +226,7 @@ L["Sea Hydra"] = "Meereshydra"
 L["Sea King Tidross"] = "Meereskönig Tidross"
 L["Sea Lord Torglork"] = "Meeresfürst Torglork"
 L["Seek & Destroy Squad"] = "Such- & Zerstörungstrupp"
---[[Translation missing --]]
---[[ L["Seemingly Unguarded Treasure"] = "Seemingly Unguarded Treasure"--]] 
+L["Seemingly Unguarded Treasure"] = "Tatsächlich unbehüteter Schatz"
 L["Seersei"] = "Sehsei"
 L["Sekhan"] = "Sekhan"
 L["Selia, Master of Balefire"] = "Selia, Meisterin des Haderfeuers"
@@ -249,8 +248,7 @@ L["Slumbering Bear"] = "Schlummernder Bär"
 L["Soulfang"] = "Seelenfang"
 L["Soulthirster"] = "Seelenlechzer"
 L["Starbuck"] = "Sternbock"
---[[Translation missing --]]
---[[ L["Stingtail Nest"] = "Stingtail Nest"--]] 
+L["Stingtail Nest"] = "Stachelschwanz Nest"
 L["Stomper Kreego"] = "Stampfer Kreego"
 L["Stoneshard Broodmother"] = "Steinsplitter Brutmutter"
 L["Stormwing Matriarch"] = "Matriarchin der Sturmschwingen"
@@ -278,8 +276,7 @@ L["Totally Safe Treasure Chest"] = "Vollkommen sichere Schatztruhe"
 L["Trecherous Stallions"] = "Verräterische Hengste"
 L["Unbound Rift"] = "Entfesselter Riss"
 L["Undgrell Attack"] = "Untergrellangriff"
---[[Translation missing --]]
---[[ L["Unguarded Thistleleaf Treasure"] = "Unguarded Thistleleaf Treasure"--]] 
+L["Unguarded Thistleleaf Treasure"] = "Unbewachter Distelblattschatz"
 L["Urgev the Flayer"] = "Urgev der Schinder"
 L["Valiyaka the Stormbringer"] = "Valiyaka die Sturmbringerin"
 L["Venomshade (Plant Hydra)"] = "Giftschatten"
@@ -484,8 +481,7 @@ VL["Sea Hydra"] = "Meereshydra"
 VL["Sea King Tidross"] = "Meereskönig Tidross"
 VL["Sea Lord Torglork"] = "Meeresfürst Torglork"
 VL["Seek & Destroy Squad"] = "Such- & Zerstörungstrupp"
---[[Translation missing --]]
---[[ VL["Seemingly Unguarded Treasure"] = "Seemingly Unguarded Treasure"--]] 
+VL["Seemingly Unguarded Treasure"] = "Tatsächlich unbehüteter Schatz"
 VL["Seersei"] = "Sehsei"
 VL["Sekhan"] = "Sekhan"
 VL["Selia, Master of Balefire"] = "Selia, Meisterin des Haderfeuers"
@@ -507,8 +503,7 @@ VL["Slumbering Bear"] = "Schlummernder Bär"
 VL["Soulfang"] = "Seelenfang"
 VL["Soulthirster"] = "Seelenlechzer"
 VL["Starbuck"] = "Sternbock"
---[[Translation missing --]]
---[[ VL["Stingtail Nest"] = "Stingtail Nest"--]] 
+VL["Stingtail Nest"] = "Stachelschwanz Nest"
 VL["Stomper Kreego"] = "Stampfer Kreego"
 VL["Stoneshard Broodmother"] = "Steinsplitter Brutmutter"
 VL["Stormwing Matriarch"] = "Matriarchin der Sturmschwingen"
@@ -536,8 +531,7 @@ VL["Totally Safe Treasure Chest"] = "Vollkommen sichere Schatztruhe"
 VL["Trecherous Stallions"] = "Verräterische Hengste"
 VL["Unbound Rift"] = "Entfesselter Riss"
 VL["Undgrell Attack"] = "Untergrellangriff"
---[[Translation missing --]]
---[[ VL["Unguarded Thistleleaf Treasure"] = "Unguarded Thistleleaf Treasure"--]] 
+VL["Unguarded Thistleleaf Treasure"] = "Unbewachter Distelblattschatz"
 VL["Urgev the Flayer"] = "Urgev der Schinder"
 VL["Valiyaka the Stormbringer"] = "Valiyaka die Sturmbringerin"
 VL["Venomshade (Plant Hydra)"] = "Giftschatten"

@@ -1,10 +1,10 @@
-tag 0adba7ed5a88e815ecda48fab7ffffb08e9ca466 7.3.5.8
+tag 6c541d0b7f632f4833b1ae1f0a43ed989bcd9fac 7.3.5.9
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Wed Apr 11 20:13:33 2018 -0500
+Date:	Wed Apr 18 14:40:27 2018 -0500
 
-commit 047a849633c638bf89719bec3e29442b9464803e
+commit fcd473f49a577fb888b449b22b13a1eceafe8348
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Apr 11 20:11:57 2018 -0500
+Date:   Wed Apr 18 14:40:00 2018 -0500
 
-    Fix display for Detection ➜ Continent
+    Actually add LibDataBroker-1.1 to the build process. Whoops.
 
