@@ -1,6 +1,6 @@
 ## Interface: 70300
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.07.12
+## Version: v8.07.13
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 

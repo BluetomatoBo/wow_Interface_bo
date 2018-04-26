@@ -1,8 +1,16 @@
+-----------------------------------------------------------------------
+-- Upvalued Lua API.
+-----------------------------------------------------------------------
+local _G = getfenv(0)
+local tonumber = _G.tonumber
+
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local addonname = ...
-local _G = _G
 
 _G.AtlasLoot = {
-	__addonrevision = tonumber("4325") or 0
+	__addonrevision = tonumber(("$Rev: 4772 $"):match("%d+")) or 0
 }
 
 local AddonNameVersion = string.format("%s-%d", addonname, _G.AtlasLoot.__addonrevision)

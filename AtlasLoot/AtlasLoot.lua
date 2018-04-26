@@ -5,8 +5,7 @@
 local _G = getfenv(0)
 
 -- Libraries
-local assert, type = assert, type
-local next = next
+local assert, type, pairs, next = assert, type, pairs, next
 local wipe = wipe
 -- ----------------------------------------------------------------------------
 -- AddOn namespace.

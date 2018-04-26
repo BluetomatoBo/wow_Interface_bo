@@ -1,6 +1,18 @@
+-----------------------------------------------------------------------
+-- Upvalued Lua API.
+-----------------------------------------------------------------------
+local _G = getfenv(0)
+local select, type = select, type
+local string = _G.string
+local format = string.format
+
+-- WoW
+local UnitFactionGroup = UnitFactionGroup
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local addonname = ...
 
-local type = type
 local AtlasLoot = _G.AtlasLoot
 local data = AtlasLoot.ItemDB:Add(addonname)
 
@@ -2782,6 +2794,8 @@ data["TABARDS"] = {
 				{ 6, 140580, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Warden's Tabard
 				{ 7, 140667, [PRICE_EXTRA_ITTYPE] = "money:6000000" }, -- Tabard of the Dreamweavers
 				{ 8, 147205, [PRICE_EXTRA_ITTYPE] = "nethershard:10000" }, -- Legionfall Tabard
+				{ 9, 152399, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Army of the Light Tabard
+				{ 10, 152669, [PRICE_EXTRA_ITTYPE] = "money:3000000" }, -- Argussian Reach Tabard
 			},
 			[HORDE_DIFF] = {
 				GetItemsFromDiff = ALLIANCE_DIFF,

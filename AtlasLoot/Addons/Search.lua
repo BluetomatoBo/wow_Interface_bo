@@ -1,3 +1,6 @@
+local _G = getfenv(0)
+local unpack = unpack
+
 local AtlasLoot = _G.AtlasLoot
 local Search = {}
 AtlasLoot.Addons.Search = Search

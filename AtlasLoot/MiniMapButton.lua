@@ -1,4 +1,15 @@
+-----------------------------------------------------------------------
+-- Upvalued Lua API.
+-----------------------------------------------------------------------
+local _G = getfenv(0)
+local type = type
+local abs, sqrt = math.abs, math.sqrt
+
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local AtlasLoot = _G.AtlasLoot
+local LibStub = _G.LibStub
 local MiniMapButton = {}
 AtlasLoot.MiniMapButton = MiniMapButton
 local SlashCommands = AtlasLoot.SlashCommands
@@ -6,9 +17,6 @@ local AL = AtlasLoot.Locales
 local profile
 local ALButton = LibStub("LibDBIcon-1.0")
 
--- lua
-local type = type
-local abs, sqrt = math.abs, math.sqrt
 
 -- LDB
 if not LibStub:GetLibrary("LibDataBroker-1.1", true) then return end

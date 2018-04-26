@@ -1,3 +1,16 @@
+-----------------------------------------------------------------------
+-- Upvalued Lua API.
+-----------------------------------------------------------------------
+local _G = getfenv(0)
+local select = _G.select
+local string = _G.string
+local format = string.format
+
+-- WoW
+local GetAchievementInfo = GetAchievementInfo
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local addonname = ...
 local AtlasLoot = _G.AtlasLoot
 local data = AtlasLoot.ItemDB:Add(addonname, 7)
@@ -2467,11 +2480,11 @@ data["TheEmeraldNightmare"] = {
 				{ 19, "ac10824" }, -- AC: Mythic: Ursoc
 			},
 		},
-		{	--Dragons of Nightmare
+		{	--Dragons of Nightmare, Ysondre
 			EncounterJournalID = 1704,
 			[RF_DIFF] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				{ 16, nil }, -- ignore the AC: Imagined Dragons World Tour in LFR
+				{ 18, nil }, -- ignore the AC: Imagined Dragons World Tour in LFR
 			},
 			[NORMAL_RAID_DIFF] = {
 				{ 1, 138219 }, -- Dragonspur Wristguards
@@ -2489,12 +2502,13 @@ data["TheEmeraldNightmare"] = {
 				{ 13, 138228 }, -- Bioluminescent Mushroom
 				{ 14, 139205 }, -- Cowl of Fright
 				{ 15, 138226 }, -- Nightmare Engulfed Jewel
-				{ 16, "ac10663" }, -- AC: Imagined Dragons World Tour
+				{ 16, 136903, "pet1723" }, -- Nightmare Whelpling
+				{ 18, "ac10663" }, -- AC: Imagined Dragons World Tour
 			},
 			[HEROIC_PRE_DIFF] = NORMAL_RAID_DIFF,
 			[MYTHIC_PRE_DIFF] = {
 				GetItemsFromDiff = NORMAL_RAID_DIFF,
-				{ 17, "ac10825" }, -- AC: Mythic: Dragons of Nightmare
+				{ 19, "ac10825" }, -- AC: Mythic: Dragons of Nightmare
 			},
 		},
 		{	--Cenarius

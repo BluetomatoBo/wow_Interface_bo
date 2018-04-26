@@ -1,12 +1,16 @@
+-----------------------------------------------------------------------
+-- Upvalued Lua API.
+-----------------------------------------------------------------------
+local _G = getfenv(0)
+-- WoW
+local GetAchievementInfo = GetAchievementInfo
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local AtlasLoot = _G.AtlasLoot
 local AC = AtlasLoot.Button:AddType("Achievement", "ac")
 local AL = AtlasLoot.Locales
 local GetAlTooltip = AtlasLoot.Tooltip.GetTooltip
-
--- lua
-
--- WoW
-local GetAchievementInfo = GetAchievementInfo
 
 local Tooltip = AtlasLoot.Tooltip
 local AcClickHandler = nil

@@ -1,3 +1,15 @@
+-----------------------------------------------------------------------
+-- Upvalued Lua API.
+-----------------------------------------------------------------------
+local _G = getfenv(0)
+local select = _G.select
+local string = _G.string
+local format = string.format
+
+local GetAchievementInfo = GetAchievementInfo
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local addonname = ...
 local AtlasLoot = _G.AtlasLoot
 local data = AtlasLoot.ItemDB:Add(addonname, 5)
@@ -137,7 +149,7 @@ name = select(2, GetAchievementInfo(8124)),
 }
 
 local PATTERNS_ILVL_496 = {		-- Patterns with iLvl 496 (Mogu, HoF, ToEs)
-	name = AL["Patterns/Plans"].." ("..string.format(AL["ilvl %d"], 496)..")",
+	name = AL["Patterns/Plans"].." ("..format(AL["ilvl %d"], 496)..")",
 	ExtraList = true,
 	[NORMAL_DIFF] = {
 		{ 1, 86381 },	-- Pattern: Legacy of the Emperor

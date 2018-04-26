@@ -1,3 +1,15 @@
+-- ----------------------------------------------------------------------------
+-- Localized Lua globals.
+-- ----------------------------------------------------------------------------
+-- Functions
+local _G = getfenv(0)
+
+-- Libraries
+local format = string.format
+local UnitFactionGroup = _G.UnitFactionGroup
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local addonname = ...
 local AtlasLoot = _G.AtlasLoot
 local data = AtlasLoot.ItemDB:Add(addonname)
@@ -233,57 +245,176 @@ data["BrawlersGuild"] = {
 	ContentType = PERMRECEVENTS_CONTENT,
 	items = {
 		{	--Rank1-4
-			name = string.format(AL["Rank %d"], 1).." - "..string.format(AL["Rank %d"], 4),
+			name = format(AL["Rank %d"], 1).." - "..format(AL["Rank %d"], 4),
 			[ALLIANCE_DIFF] = {
-				{ 1, 118916, [PRICE_EXTRA_ITTYPE] = "money:15000" },	-- Brawler's Healing Tonic
-				{ 2, 118910, [PRICE_EXTRA_ITTYPE] = "money:15000" },	-- Brawler's Draenic Agility Potion
-				{ 3, 118911, [PRICE_EXTRA_ITTYPE] = "money:15000" },	-- Brawler's Draenic Intellect Potion
-				{ 4, 118912, [PRICE_EXTRA_ITTYPE] = "money:15000" },	-- Brawler's Draenic Strength Potion
-				{ 5, 93043, [PRICE_EXTRA_ITTYPE] = "money:10000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Rotten Apple
-				{ 6, 93044, [PRICE_EXTRA_ITTYPE] = "money:10000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Rotten Banana
-				{ 7, 93045, [PRICE_EXTRA_ITTYPE] = "money:10000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Rotten Watermelon
-				{ 8, 93158, [PRICE_EXTRA_ITTYPE] = "money:10000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Expired Blackout Brew
-				{ 16, "ICON_warrior_talent_icon_furyintheblood", nil, string.format(AL["Rank %d"], 2), nil },
-				{ 17, 118907, [PRICE_EXTRA_ITTYPE] = "money:200000000" },	-- Pit Fighter's Punching Ring
-				{ 18, 93025, "pet1142", [PRICE_EXTRA_ITTYPE] = "money:3000" },	-- Clock'em
-				{ 20, "ICON_warrior_talent_icon_furyintheblood", nil, string.format(AL["Rank %d"], 4), nil },
-				{ 21, 98079, [QUEST_EXTRA_ITTYPE] = 32837 },	-- Floot-Tooter's Tunic
-				{ 22, 98081, [QUEST_EXTRA_ITTYPE] = 32841 },	-- The Boomshirt
-				{ 23, 98082, [QUEST_EXTRA_ITTYPE] = 32859 },	-- Undisputed Champion's Shirt
-				{ 24, 118913, [PRICE_EXTRA_ITTYPE] = "money:1000000" },	-- Brawler's Bottomless Draenic Agility Potion
-				{ 25, 118914, [PRICE_EXTRA_ITTYPE] = "money:1000000" },	-- Brawler's Bottomless Draenic Intellect Potion
-				{ 26, 118915, [PRICE_EXTRA_ITTYPE] = "money:1000000" },	-- Brawler's Bottomless Draenic Strength Potion
-				{ 27, 93195, "ac9169" },	-- Brawler's Pass
+				--{ 1, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 2), nil },
+				-- no longer available { 2, 118907, [PRICE_EXTRA_ITTYPE] = "money:200000000" },	-- Pit Fighter's Punching Ring
+				
+				{ 1, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 3), nil },
+				{ 2, 93025, "pet1142", [PRICE_EXTRA_ITTYPE] = "money:3000" },	-- Clock'em
+				{ 3, 144394, "pet2022", [PRICE_EXTRA_ITTYPE] = "money:5000000" }, -- Tylarr Gronnden, Added in patch 7.1.5.23360
+				
+				{ 16, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 4), nil },
+				--[[ no longer available
+				{ 17, 98079, [QUEST_EXTRA_ITTYPE] = 32837 },	-- Floot-Tooter's Tunic
+				{ 18, 98081, [QUEST_EXTRA_ITTYPE] = 32841 },	-- The Boomshirt
+				{ 19, 98082, [QUEST_EXTRA_ITTYPE] = 32859 },	-- Undisputed Champion's Shirt
+				{ 20, 118913, [PRICE_EXTRA_ITTYPE] = "money:1000000" },	-- Brawler's Bottomless Draenic Agility Potion
+				{ 21, 118914, [PRICE_EXTRA_ITTYPE] = "money:1000000" },	-- Brawler's Bottomless Draenic Intellect Potion
+				{ 22, 118915, [PRICE_EXTRA_ITTYPE] = "money:1000000" },	-- Brawler's Bottomless Draenic Strength Potion
+				]]
+				{ 17, 144391, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Pugilist's Powerful Punching Ring, Added in patch 7.1.5.23360
+				--{ 27, 93195, "ac9169" },	-- Brawler's Pass
+				{ 18, 93195, "ac11563" },	-- Brawler's Pass
 			},
 			[HORDE_DIFF] = {
 				GetItemsFromDiff = ALLIANCE_DIFF,
-				{ 17, 118908, [PRICE_EXTRA_ITTYPE] = "money:200000000" },	-- Pit Fighter's Punching Ring
-				{ 27, 93228, "ac9173" },	-- Brawler's Pass
+				-- { 14, 118908, [PRICE_EXTRA_ITTYPE] = "money:200000000" },	-- Pit Fighter's Punching Ring
+				{ 17, 144392, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, -- Pugilist's Powerful Punching Ring, Added in patch 7.1.5.23360
+				--{ 27, 93228, "ac9173" },	-- Brawler's Pass
+				{ 18, 93228, "ac11564" },	-- Brawler's Pass
 			},
 		},
 		{	--Rank5-8
-			name = string.format(AL["Rank %d"], 5).." - "..string.format(AL["Rank %d"], 8),
+			name = format(AL["Rank %d"], 5).." - "..format(AL["Rank %d"], 8),
 			[ALLIANCE_DIFF] = {
-				{ 1, "ICON_warrior_talent_icon_furyintheblood", nil, string.format(AL["Rank %d"], 5), nil },
+				{ 1, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 5), nil },
 				{ 2, 98084, [QUEST_EXTRA_ITTYPE] = 32845 },	-- Ooze-Soaked Shirt
 				{ 3, 98083, [QUEST_EXTRA_ITTYPE] = 32843 },	-- Sharkskin Tunic
 				{ 4, 98086, [QUEST_EXTRA_ITTYPE] = 32849 },	-- Tuxedo-Like Shirt
-				{ 6, "ICON_warrior_talent_icon_furyintheblood", nil, string.format(AL["Rank %d"], 6), nil },
+				{ 6, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 6), nil },
 				{ 7, 98080, [QUEST_EXTRA_ITTYPE] = 32839 },	-- Gorgeous Blouse
 				{ 8, 98091, [QUEST_EXTRA_ITTYPE] = 32851 },	-- Last Season's Shirt
-				{ 9, 127773, [PRICE_EXTRA_ITTYPE] = "money:8000000" }, -- Gemcutter Module: Mastery
-				{ 16, "ICON_warrior_talent_icon_furyintheblood", nil, string.format(AL["Rank %d"], 7), nil },
+				{ 9, 127773, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, -- Gemcutter Module: Mastery
+				{ 16, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 7), nil },
 				{ 17, 98543, "ac9176" },	-- Wraps of the Blood-Soaked Brawler
 				{ 18, 98085, [QUEST_EXTRA_ITTYPE] = 32847 },	-- Brucehide Jersey
 				{ 19, 98092, [QUEST_EXTRA_ITTYPE] = 32853 },	-- Digmaster's Bodysleeve
 				{ 20, 98087, [QUEST_EXTRA_ITTYPE] = 32857 },	-- Paper Shirt
 				{ 21, 98093, [QUEST_EXTRA_ITTYPE] = 32855 },	-- Sightless Mantle
-				{ 23, "ICON_warrior_talent_icon_furyintheblood", nil, string.format(AL["Rank %d"], 8), nil },
-				{ 24, 98405, "mount", [PRICE_EXTRA_ITTYPE] = "money:15000000" },	-- Brawler's Burly Mushan Beast
+				{ 23, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 8), nil },
+				{ 24, 122396, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, -- Brawler's Razor Claws
+				{ 25, 98405, "mount", [PRICE_EXTRA_ITTYPE] = "money:15000000" },	-- Brawler's Burly Mushan Beast
+				{ 26, 142403, "mount", [PRICE_EXTRA_ITTYPE] = "money:40000000" }, 	-- Brawler's Burly Basilisk
+
 			},
 			[HORDE_DIFF] = {
 				GetItemsFromDiff = ALLIANCE_DIFF,
 				{ 17, 98543, "ac9177" },	-- Wraps of the Blood-Soaked Brawler
+			},
+		},
+		{ -- Challenge Card
+			name = AL["Challenge Card"],
+			[ALLIANCE_DIFF] = {
+				{ 1, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 1), nil },
+				{ 2, 143899 }, -- Challenge Card: Oso the Betrayer
+				{ 3, 97285 }, -- Challenge Card: Grandpa Grumplefloot
+				{ 4, 142042 }, -- Challenge Card: Ooliss
+				{ 5, 142035 }, -- Challenge Card: Warhammer Council
+				{ 6, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 2), nil },
+				{ 7, 94162 }, -- Challenge Card: Dippy
+				{ 8, 142041 }, -- Challenge Card: Bill the Janitor
+				{ 9, 94167 }, -- Challenge Card: Sanoriak
+				{ 10, 142036 }, --Challenge Card: Master Paku
+				{ 11, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 3), nil },
+				{ 12, 142043 }, -- Challenge Card: Doomflipper
+				{ 13, 94166 }, -- Challenge Card: Blat
+				{ 14, 142032 }, -- Challenge Card: Johnny Awesome
+				{ 15, 142039 }, -- Challenge Card: Shadowmaster Aameen
+				{ 16, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 4), nil },
+				{ 17, 142030 }, -- Challenge Card: Burnstachio
+				{ 18, 94181 }, -- Challenge Card: Meatball
+				{ 19, 94178 }, -- Challenge Card: G.G. Engineering
+				{ 20, 142045 }, -- Challenge Card: Stitches
+				{ 21, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 5), nil },
+				{ 22, 142026 }, -- Challenge Card: Blackmange
+				{ 23, 97566 }, -- Challenge Card: Razorgrin
+				{ 24, 94177 }, -- Challenge Card: Leper Gnomes
+				{ 25, 142028 }, -- Challenge Card: Thwack U
+				{ 26, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 6), nil },
+				{ 27, 142033 }, -- Challenge Card: Carl
+				{ 28, 94174 }, -- Challenge Card: Millie Watt
+				{ 29, 142029 }, -- Challenge Card: Ogrewatch
+				{ 30, 142037 }, -- Challenge Card: Topps
+				{ 101, "ICON_warrior_talent_icon_furyintheblood", nil, format(AL["Rank %d"], 7), nil },
+				{ 102, 97283 }, -- Challenge Card: Nibbleh
+				{ 103, 142038 }, -- Challenge Card: Serpent of Old
+				{ 104, 94182 }, -- Challenge Card: Epicus Maximus
+				{ 105, 142031 }, -- Challenge Card: Ray D. Tear
+				{ 106, 143794 }, -- Challenge Card: A Seagull
+				{ 107, 142040 }, -- Challenge Card: Ash'katzuum
+				{ 108, 142034 }, -- Challenge Card: Beat Box
+				{ 109, 142044 }, -- Challenge Card: Strange Thing
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{ -- Miscellaneous
+			name = AL["Miscellaneous"],
+			[ALLIANCE_DIFF] = {
+				-- Potions
+				--[[ no longer available
+				{ 1, 118916, [PRICE_EXTRA_ITTYPE] = "money:15000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Brawler's Healing Tonic
+				{ 2, 118910, [PRICE_EXTRA_ITTYPE] = "money:15000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Brawler's Draenic Agility Potion
+				{ 3, 118911, [PRICE_EXTRA_ITTYPE] = "money:15000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Brawler's Draenic Intellect Potion
+				{ 4, 118912, [PRICE_EXTRA_ITTYPE] = "money:15000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Brawler's Draenic Strength Potion
+				]]
+				{ 1, 142325, [PRICE_EXTRA_ITTYPE] = "money:20000" },	-- Brawler's Ancient Healing Potion, added in 7.1.5.23360
+				{ 2, 142326, [PRICE_EXTRA_ITTYPE] = "money:150000" },	-- Brawler's Potion of Prolonged Power, added in 7.1.5.23360
+				
+				{ 4, 93043, [PRICE_EXTRA_ITTYPE] = "money:10000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Rotten Apple
+				{ 5, 93044, [PRICE_EXTRA_ITTYPE] = "money:10000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Rotten Banana
+				{ 6, 93045, [PRICE_EXTRA_ITTYPE] = "money:10000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Rotten Watermelon
+				{ 7, 93158, [PRICE_EXTRA_ITTYPE] = "money:10000", [ATLASLOOT_IT_AMOUNT1] = 5 },	-- Expired Blackout Brew
+				
+				{ 16, 144371 }, -- Gorestained Tunic
+				{ 17, 144366 }, -- Dubvest
+				{ 18, 144367 }, -- Observer's Shirt
+				{ 19, 144372 }, -- Hide of the Murderaffe
+				{ 20, 144365 }, -- The Very Best Shirt
+				{ 21, 144370 }, -- Croc-Tooth Harness
+				{ 22, 144368 }, -- Felfeather Jersey
+				{ 23, 151263 }, -- Electrified Compression Shirt
+
+
+				{ 101, 143762, [PRICE_EXTRA_ITTYPE] = "brawlergold:100" }, -- High Roller's Contract, ", 1500888, "" },
+				{ 102, 143763, [PRICE_EXTRA_ITTYPE] = "brawlergold:100" }, -- Bag of Chipped Dice, ", 237284, "" },
+				{ 103, 143761, [PRICE_EXTRA_ITTYPE] = "brawlergold:250" }, -- Blood-Soaked Angel Figurine, ", 237542, "" },
+				{ 104, 143760, [PRICE_EXTRA_ITTYPE] = "brawlergold:500" }, -- Brawler's Potion Dispenser, ", 132623, "" },
+				{ 105, 142288, [PRICE_EXTRA_ITTYPE] = "brawlergold:500" }, -- Rumble Card: Grief Warden, ", 979582, "" },
+				{ 106, 142289, [PRICE_EXTRA_ITTYPE] = "brawlergold:500" }, -- Rumble Card: Penguin Stampede, ", 979582, "" },
+				{ 107, 142290, [PRICE_EXTRA_ITTYPE] = "brawlergold:500" }, -- Rumble Card: Battle of the Brew, ", 979582, "" },
+				{ 108, 142291, [PRICE_EXTRA_ITTYPE] = "brawlergold:500" }, -- Rumble Card: Senya, ", 979582, "" },
+				{ 109, 142292, [PRICE_EXTRA_ITTYPE] = "brawlergold:500" }, -- Rumble Card: Stranglethorn Streak, ", 979582, "" },
+				{ 110, 142293, [PRICE_EXTRA_ITTYPE] = "brawlergold:500" }, -- Rumble Card: Mindbreaker Gzzaj, ", 979582, "" },
+				{ 111, 142294, [PRICE_EXTRA_ITTYPE] = "brawlergold:500" }, -- Rumble Card: Mazhareen, ", 979582, "" },
+				{ 112, 143758, [PRICE_EXTRA_ITTYPE] = "brawlergold:1000" }, -- Free Drinks Voucher, ", 237446, "" },
+				{ 113, 143759, [PRICE_EXTRA_ITTYPE] = "brawlergold:1000" }, -- VIP Room Rental Form, ", 1500889, "" },
+
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+			},
+		},
+		{ -- achievements
+			name = ACHIEVEMENTS,
+			[ALLIANCE_DIFF] = {
+				{ 1, "ac11558" }, -- The First Rule of Brawler's Guild
+				{ 2, "ac11560" }, -- You Are Not Your $#*@! Legplates
+				{ 3, "ac11563" }, -- The Second Rule of Brawler's Guild
+				{ 4, "ac11565" }, -- King of the Guild
+				{ 5, "ac11567" }, -- You Are Not The Contents Of Your Wallet
+				{ 6, "ac11570" }, -- Educated Guesser
+				{ 7, "ac11572" }, -- I Am Thrall's Complete Lack Of Surprise
+				{ 8, "ac11573" }, -- Rumble Club
+			},
+			[HORDE_DIFF] = {
+				GetItemsFromDiff = ALLIANCE_DIFF,
+				{ 1, "ac11559" }, -- The First Rule of Brawler's Guild
+				{ 2, "ac11561" }, -- You Are Not Your $#*@! Legplates
+				{ 3, "ac11564" }, -- The Second Rule of Brawler's Guild
+				{ 4, "ac11566" }, -- King of the Guild
 			},
 		},
 	}
@@ -327,6 +458,7 @@ data["DarkmoonFaire"] = {
 				{ 6, 105898 },	-- Moonfang's Paw (Drop: Moonfang)
 				{ 7, 101571 },	-- Moonfang Shroud (Drop: Moonfang)
 				{ 8, 116067, [QUEST_EXTRA_ITTYPE] = 36477 },	-- Ring of Broken Promises
+				{ 9, 151265 }, -- Blight Boar Microphone (Drop: Death Metal Knight)
 				{ 10, 19291, [PRICE_EXTRA_ITTYPE] = "darkmoon:1" },	-- Darkmoon Storage Box
 				{ 11, 74142, [PRICE_EXTRA_ITTYPE] = "money:100" },	-- Darkmoon Firework
 				{ 12, 93730, [PRICE_EXTRA_ITTYPE] = "darkmoon:10" },	-- Darkmoon Top Hat

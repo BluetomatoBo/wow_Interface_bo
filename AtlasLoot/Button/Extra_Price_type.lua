@@ -1,9 +1,19 @@
+-----------------------------------------------------------------------
+-- Upvalued Lua API.
+-----------------------------------------------------------------------
+local _G = getfenv(0)
+local string = string
+local type, tonumber, pairs = type, tonumber, pairs
+local str_split = string.split
+-- WoW
+local GetCurrencyInfo, GetItemInfo, GetItemCount, GetItemIcon = GetCurrencyInfo, GetItemInfo, GetItemCount, GetItemIcon
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local AtlasLoot = _G.AtlasLoot
 local Price = AtlasLoot.Button:AddExtraType("Price")
 local AL = AtlasLoot.Locales
 
-local type = type
-local str_split = string.split
 
 local FIRST_RUN = true
 local ITEMS_NOT_FOUND = true
@@ -133,21 +143,22 @@ local PRICE_INFO = {
 	["ArgusWaystone"]	= { currencyID = 1506 }, -- Argus Waystone, added in 7.3.0
 	["VeiledArgunite"]	= { currencyID = 1508 }, -- Veiled Argunite, added in 7.3.0
 	["echoofbattle"] 	= { currencyID = 1356 }, -- added in 7.2.0, LegionPVPTier1
-	["echoofdomination"] 	= { currencyID = 1357 }, -- added in 7.2.0, LegionPVPTier4
+	["echoofdomination"] = { currencyID = 1357 }, -- added in 7.2.0, LegionPVPTier4
+	["brawlergold"] 	= {currencyID = 1299}, -- Brawler's Gold, Added in patch 7.1.5.23360
 	["nethershard"] 	= { currencyID = 1226 },
 	["orderresources"] 	= { currencyID = 1220 },
-	["apexis"] 		= { currencyID = 823 },
+	["apexis"] 			= { currencyID = 823 },
 	["artifactfragment"] 	= { currencyID = 944 },
 	["bloodycoin"] 		= { currencyID = 789 },
 	["championsseal"] 	= { currencyID = 241 },
 	["conquest"] 		= { currencyID = 390 }, -- has been removed since 7.0.3
-	["honor"] 		= { currencyID = 392 }, -- has been removed since 7.0.3
+	["honor"] 			= { currencyID = 392 }, -- has been removed since 7.0.3
 	["darkmoon"] 		= { currencyID = 515 },
 	["eldercharm"] 		= { currencyID = 697 },
 	["timelesscoin"] 	= { currencyID = 777 },
 	["tolbarad"] 		= { currencyID = 391 },
 	["worldtree"] 		= { currencyID = 416 },
-	["valor"] 		= {currencyID = 1191},
+	["valor"] 			= {currencyID = 1191},
 	["timewarped"] 		= {currencyID = 1166}, -- Timewarped Badge
 	-- others
 	["money"] 		= { func = GetCoinTextureString },

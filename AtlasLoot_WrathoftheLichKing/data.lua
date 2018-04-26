@@ -1,3 +1,13 @@
+-----------------------------------------------------------------------
+-- Upvalued Lua API.
+-----------------------------------------------------------------------
+local _G = getfenv(0)
+local select = select
+local format = string.format
+
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local addonname = ...
 local AtlasLoot = _G.AtlasLoot
 local data = AtlasLoot.ItemDB:Add(addonname, 3)
@@ -2591,7 +2601,7 @@ data["IcecrownCitadel"] = {
 				{ 7, 51943 },	-- Halion, Staff of Forgotten Love
 				{ 8, 51945 },	-- Tainted Twig of Nordrassil
 				{ 9, 51940 },	-- Windrunner's Heartseeker
-				{ 11, 142098, "pet1967" }, -- Drudge Remains -> Drudge Ghoul
+				{ 11, 142099, "pet1968" }, -- Call of the Frozen Blade -> Wicked Soul
 				{ 16, 52027 },	-- Conqueror's Mark of Sanctification
 				{ 17, 52026 },	-- Protector's Mark of Sanctification
 				{ 18, 52025 },	-- Vanquisher's Mark of Sanctification
@@ -2630,8 +2640,8 @@ data["IcecrownCitadel"] = {
 				{ 7, 50735 },	-- Oathbinder, Charge of the Ranger-General
 				{ 8, 50731 },	-- Archus, Greatstaff of Antonidas
 				{ 9, 50733 },	-- Fal'inrush, Defender of Quel'thalas
-				{ 11, 50818, "mount" },	-- Invincible's Reins
-				{ 12, 142098, "pet1967" }, -- Drudge Remains -> Drudge Ghoul
+				{ 11, 142099, "pet1968" }, -- Call of the Frozen Blade -> Wicked Soul
+				{ 12, 50818, "mount" },	-- Invincible's Reins
 				{ 14, 50274 },	-- Shadowfrost Shard
 				{ 15, 49908 },	-- Primordial Saronite
 				{ 16, 52030 },	-- Conqueror's Mark of Sanctification

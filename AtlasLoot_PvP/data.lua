@@ -1,3 +1,16 @@
+-----------------------------------------------------------------------
+-- Upvalued Lua API.
+-----------------------------------------------------------------------
+local _G = getfenv(0)
+local select, type = select, type
+local string = _G.string
+local format = string.format
+
+-- WoW
+local UnitFactionGroup = UnitFactionGroup
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local addonname = ...
 local AtlasLoot = _G.AtlasLoot
 local data = AtlasLoot.ItemDB:Add(addonname)
@@ -33,7 +46,7 @@ EXPANSION_NAME6 = "Legion";
 
 --[[ template
 data["LEGION7SET"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 7).." "..AL["Class Sets"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 7).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -136,11 +149,11 @@ data["LEGION7SET"] = {
 }
 
 data["LEGION7GEAR"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 7).." "..AL["Non-Set Gear"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 7).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = string.format(AL["Legion Season %d Elite"], 7),
+			name = format(AL["Legion Season %d Elite"], 7),
 			[ALLIANCE_DIFF] = {
 			},
 			[HORDE_DIFF] = {
@@ -148,7 +161,7 @@ data["LEGION7GEAR"] = {
 			},
 		},
 		{
-			name = string.format(AL["Legion Season %d"], 7),
+			name = format(AL["Legion Season %d"], 7),
 			[ALLIANCE_DIFF] = {
 			},
 			[HORDE_DIFF] = {
@@ -160,7 +173,7 @@ data["LEGION7GEAR"] = {
 --]]
 
 data["LEGION7SET"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 7).." "..AL["Class Sets"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 7).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -935,11 +948,11 @@ data["LEGION7SET"] = {
 }
 
 data["LEGION7GEAR"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 7).." "..AL["Non-Set Gear"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 7).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = string.format(AL["Legion Season %d Elite"], 7),
+			name = format(AL["Legion Season %d Elite"], 7),
 			[ALLIANCE_DIFF] = {
 				{ 1, 149433, }, -- Helm of the Demonic Gladiator
 				{ 2, 149434, }, -- Chest of the Demonic Gladiator
@@ -1020,7 +1033,7 @@ data["LEGION7GEAR"] = {
 			},
 		},
 		{
-			name = string.format(AL["Legion Season %d"], 7),
+			name = format(AL["Legion Season %d"], 7),
 			[ALLIANCE_DIFF] = {
 				{ 1, 149424, }, -- Helm of the Demonic Gladiator
 				{ 2, 149425, }, -- Chest of the Demonic Gladiator
@@ -1169,7 +1182,7 @@ data["LEGION7GEAR"] = {
 }
 
 data["LEGION6SET"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 6).." "..AL["Class Sets"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 6).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -1944,11 +1957,11 @@ data["LEGION6SET"] = {
 }
 
 data["LEGION6GEAR"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 6).." "..AL["Non-Set Gear"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 6).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = string.format(AL["Legion Season %d Elite"], 6),
+			name = format(AL["Legion Season %d Elite"], 6),
 			[ALLIANCE_DIFF] = {
 				{ 1, 149415, }, -- Helm of the Dominant Gladiator
 				{ 2, 149416, }, -- Chest of the Dominant Gladiator
@@ -2032,7 +2045,7 @@ data["LEGION6GEAR"] = {
 			},
 		},
 		{
-			name = string.format(AL["Legion Season %d"], 6),
+			name = format(AL["Legion Season %d"], 6),
 			[ALLIANCE_DIFF] = {
 				{ 1, 149406, }, -- Helm of the Dominant Gladiator
 				{ 2, 149407, }, -- Chest of the Dominant Gladiator
@@ -2186,7 +2199,7 @@ data["LEGION6GEAR"] = {
 }
 
 data["LEGION5SET"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 5).." "..AL["Class Sets"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 5).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -2961,11 +2974,11 @@ data["LEGION5SET"] = {
 }
 
 data["LEGION5GEAR"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 5).." "..AL["Non-Set Gear"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 5).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = string.format(AL["Legion Season %d Elite"], 5),
+			name = format(AL["Legion Season %d Elite"], 5),
 			[ALLIANCE_DIFF] = {
 				{ 1, 149397, }, -- Helm of the Fierce Gladiator
 				{ 2, 149398, }, -- Chest of the Fierce Gladiator
@@ -3023,7 +3036,7 @@ data["LEGION5GEAR"] = {
 			},
 		},
 		{
-			name = string.format(AL["Legion Season %d"], 5),
+			name = format(AL["Legion Season %d"], 5),
 			[ALLIANCE_DIFF] = {
 				{ 1, 149388, }, -- Helm of the Fierce Gladiator
 				{ 2, 149389, }, -- Chest of the Fierce Gladiator
@@ -3159,7 +3172,7 @@ data["LEGION5GEAR"] = {
 }
 
 data["LEGION4SET"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 4).." "..AL["Class Sets"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 4).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -3910,11 +3923,11 @@ data["LEGION4SET"] = {
 }
 
 data["LEGION4GEAR"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 4).." "..AL["Non-Set Gear"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 4).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = string.format(AL["Legion Season %d Elite"], 4),
+			name = format(AL["Legion Season %d Elite"], 4),
 			[ALLIANCE_DIFF] = {
 				{ 1, 146835, [PRICE_EXTRA_ITTYPE] = "echoofdomination:100" }, -- Helm of the Ferocious Gladiator
 				{ 2, 146836, [PRICE_EXTRA_ITTYPE] = "echoofdomination:100" }, -- Chest of the Ferocious Gladiator
@@ -3967,7 +3980,7 @@ data["LEGION4GEAR"] = {
 			},
 		},
 		{
-			name = string.format(AL["Legion Season %d"], 4),
+			name = format(AL["Legion Season %d"], 4),
 			[ALLIANCE_DIFF] = {
 				{ 1, 146826, [PRICE_EXTRA_ITTYPE] = "echoofbattle:100" }, -- Helm of the Ferocious Gladiator
 				{ 2, 146827, [PRICE_EXTRA_ITTYPE] = "echoofbattle:100" }, -- Chest of the Ferocious Gladiator
@@ -4069,7 +4082,7 @@ data["LEGION4GEAR"] = {
 }
 
 data["LEGION3SET"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 3).." "..AL["Class Sets"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 3).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -4893,11 +4906,11 @@ data["LEGION3SET"] = {
 }
 
 data["LEGION3GEAR"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 3).." "..AL["Non-Set Gear"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 3).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = string.format(AL["Legion Season %d Elite"], 3),
+			name = format(AL["Legion Season %d Elite"], 3),
 			[ALLIANCE_DIFF] = {
 				{ 1, 146817, [PRICE_EXTRA_ITTYPE] = "echoofdomination:75" }, -- Helm of the Cruel Gladiator
 				{ 2, 146818, [PRICE_EXTRA_ITTYPE] = "echoofdomination:75" }, -- Chest of the Cruel Gladiator
@@ -4950,7 +4963,7 @@ data["LEGION3GEAR"] = {
 			},
 		},
 		{
-			name = string.format(AL["Legion Season %d"], 3),
+			name = format(AL["Legion Season %d"], 3),
 			[ALLIANCE_DIFF] = {
 				{ 1, 146804, [PRICE_EXTRA_ITTYPE] = "echoofbattle:75" }, -- Helm of the Cruel Gladiator
 				{ 2, 146809, [PRICE_EXTRA_ITTYPE] = "echoofbattle:75" }, -- Chest of the Cruel Gladiator
@@ -5050,7 +5063,7 @@ data["LEGION3GEAR"] = {
 }
 
 data["LEGION2SETS"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 2).." "..AL["Class Sets"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 2).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -5873,11 +5886,11 @@ data["LEGION2SETS"] = {
 }
 
 data["LEGION2GEAR"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 2).." "..AL["Non-Set Gear"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 2).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = string.format(AL["Legion Season %d Elite"], 2),
+			name = format(AL["Legion Season %d Elite"], 2),
 			[ALLIANCE_DIFF] = {
 				-- Amulet
 				{ 1, 143102 }, -- Fearless Gladiator's Necklace
@@ -5929,7 +5942,7 @@ data["LEGION2GEAR"] = {
 			},
 		},
 		{
-			name = string.format(AL["Legion Season %d"], 1),
+			name = format(AL["Legion Season %d"], 1),
 			[ALLIANCE_DIFF] = {
 				-- Amulet
 				{ 1, 142650 }, -- Fearless Gladiator's Necklace
@@ -6032,7 +6045,7 @@ data["LEGION2GEAR"] = {
 }
 
 data["LEGION1SETS"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 1).." "..AL["Class Sets"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 1).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -6837,11 +6850,11 @@ data["LEGION1SETS"] = {
 }
 
 data["LEGION1GEAR"] = {
-	name = string.format(EXPANSION_NAME6.." "..AL["Season %d"], 1).." "..AL["Non-Set Gear"],
+	name = format(EXPANSION_NAME6.." "..AL["Season %d"], 1).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{
-			name = string.format(AL["Legion Season %d Elite"], 1),
+			name = format(AL["Legion Season %d Elite"], 1),
 			[ALLIANCE_DIFF] = {
 				-- Amulet
 				{ 1, 136133 }, -- Vindictive Gladiator's Necklace
@@ -6901,7 +6914,7 @@ data["LEGION1GEAR"] = {
 			},
 		},
 		{
-			name = string.format(AL["Legion Season %d"], 1),
+			name = format(AL["Legion Season %d"], 1),
 			[ALLIANCE_DIFF] = {
 				-- Amulet
 				{ 1, 135681 }, -- Vindictive Gladiator's Necklace
@@ -7022,7 +7035,7 @@ data["LEGION1GEAR"] = {
 }
 
 data["WODS3SETS"] = {
-	name = string.format(AL["Warlords Season %d"], 3).." "..AL["Class Sets"],
+	name = format(AL["Warlords Season %d"], 3).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -7536,7 +7549,7 @@ data["WODS3SETS"] = {
 }
 
 data["WODS3NONSETGEAR"] = {
-	name = string.format(AL["Warlords Season %d"], 3).." "..AL["Non-Set Gear"],
+	name = format(AL["Warlords Season %d"], 3).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = { 
 		{ -- Cloth
@@ -8184,11 +8197,11 @@ data["WODS3NONSETGEAR"] = {
 }
 
 data["WODS3WEAPONS"] = {
-	name = string.format(AL["Warlords Season %d"], 3).." "..AL["Weapons"],
+	name = format(AL["Warlords Season %d"], 3).." "..AL["Weapons"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 --[[		{
-			name = string.format(AL["ilvl %d"], 705).." "..AL["Elite"],
+			name = format(AL["ilvl %d"], 705).." "..AL["Elite"],
 			[ALLIANCE_DIFF] = {
 			},
 			[HORDE_DIFF] = {
@@ -8197,7 +8210,7 @@ data["WODS3WEAPONS"] = {
 		},
 ]]
 		{
-			name = string.format(AL["ilvl %d"], 710).." (740)",
+			name = format(AL["ilvl %d"], 710).." (740)",
 			[ALLIANCE_DIFF] = {
 				{ 1, 138635, [PRICE_EXTRA_ITTYPE] = "markofhonor:80" }, -- Arsenal: Warmongering Gladiator's Weapons
 				-- One-Hand
@@ -8284,7 +8297,7 @@ data["WODS3WEAPONS"] = {
 			},
 		},
 		{
-			name = string.format(AL["ilvl %d"], 700).." (730)",
+			name = format(AL["ilvl %d"], 700).." (730)",
 			[ALLIANCE_DIFF] = {
 				{ 1, 138628, [PRICE_EXTRA_ITTYPE] = "markofhonor:80" }, -- Arsenal: Warmongering Combatant's Weapons
 				-- One-Hand
@@ -8376,7 +8389,7 @@ data["WODS3WEAPONS"] = {
 }
 
 data["WODS2SETS"] = {
-	name = string.format(AL["Warlords Season %d"], 2).." "..AL["Class Sets"],
+	name = format(AL["Warlords Season %d"], 2).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -8889,7 +8902,7 @@ data["WODS2SETS"] = {
 }
 
 data["WODS2NONSETGEAR"] = {
-	name = string.format(AL["Warlords Season %d"], 2).." "..AL["Non-Set Gear"],
+	name = format(AL["Warlords Season %d"], 2).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- Cloth
@@ -9540,11 +9553,11 @@ data["WODS2NONSETGEAR"] = {
 }
 
 data["WODS2WEAPONS"] = {
-	name = string.format(AL["Warlords Season %d"], 2).." "..AL["Weapons"],
+	name = format(AL["Warlords Season %d"], 2).." "..AL["Weapons"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- 700
-			name = string.format(AL["ilvl %d"], 700).." (730)",
+			name = format(AL["ilvl %d"], 700).." (730)",
 			[ALLIANCE_DIFF] = {
 				{ 1, 138633, [PRICE_EXTRA_ITTYPE] = "markofhonor:80" }, -- Arsenal: Wild Gladiator's Weapons
 				-- One-Hand
@@ -9633,7 +9646,7 @@ data["WODS2WEAPONS"] = {
 			},
 		},
 		{ -- 670
-			name = string.format(AL["ilvl %d"], 670).." (715)",
+			name = format(AL["ilvl %d"], 670).." (715)",
 			[ALLIANCE_DIFF] = {
 				{ 1, 138630, [PRICE_EXTRA_ITTYPE] = "markofhonor:80" }, -- Arsenal: Wild Combatant's Weapons
 				-- One-Hand
@@ -9725,7 +9738,7 @@ data["WODS2WEAPONS"] = {
 }
 
 data["WODS1SETS"] = {
-	name = string.format(AL["Warlords Season %d"], 1).." "..AL["Class Sets"],
+	name = format(AL["Warlords Season %d"], 1).." "..AL["Class Sets"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -10238,7 +10251,7 @@ data["WODS1SETS"] = {
 }
 
 data["WODS1NONSETGEAR"] = {
-	name = string.format(AL["Warlords Season %d"], 1).." "..AL["Non-Set Gear"],
+	name = format(AL["Warlords Season %d"], 1).." "..AL["Non-Set Gear"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- Cloth
@@ -10781,12 +10794,12 @@ data["WODS1NONSETGEAR"] = {
 }
 
 data["WODS1WEAPONS"] = {
-	name = string.format(AL["Warlords Season %d"], 1).." "..AL["Weapons"],
+	name = format(AL["Warlords Season %d"], 1).." "..AL["Weapons"],
 	ContentType = NORMAL_ITTYPE,
 	items = {
 --[[
 		{
-			name = string.format(AL["ilvl %d"], 660).." "..AL["Elite"],
+			name = format(AL["ilvl %d"], 660).." "..AL["Elite"],
 			[ALLIANCE_DIFF] = {
 				{ 1, 115949, [PRICE_EXTRA_ITTYPE] = "markofhonor:2" },	-- Primal Gladiator's Render (r2000)
 				{ 2, 115948, [PRICE_EXTRA_ITTYPE] = "markofhonor:2" },	-- Primal Gladiator's Ripper (r2000)
@@ -10823,7 +10836,7 @@ data["WODS1WEAPONS"] = {
 		},
 ]]
 		{
-			name = string.format(AL["ilvl %d"], 660).." (690)",
+			name = format(AL["ilvl %d"], 660).." (690)",
 			[ALLIANCE_DIFF] = {
 				{ 1, 138631, [PRICE_EXTRA_ITTYPE] = "markofhonor:80" }, -- Arsenal: Primal Gladiator's Weapons
 				-- One-Hand
@@ -10908,7 +10921,7 @@ data["WODS1WEAPONS"] = {
 			},
 		},
 		{
-			name = string.format(AL["ilvl %d"], 620).." (675)",
+			name = format(AL["ilvl %d"], 620).." (675)",
 			[ALLIANCE_DIFF] = {
 				{ 1, 138625, [PRICE_EXTRA_ITTYPE] = "markofhonor:80" }, -- Arsenal: Primal Combatant's Weapons
 				-- One-Hand
@@ -10996,7 +11009,7 @@ data["WODS1WEAPONS"] = {
 
 -- Mists of Pandaria Season 15
 data["SEASON15SETS"] = {
-	name = string.format(AL["Season %d"], 15).." ("..EXPANSION_NAME4..")",
+	name = format(AL["Season %d"], 15).." ("..EXPANSION_NAME4..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -12208,7 +12221,7 @@ data["SEASON15SETS"] = {
 
 -- Mists of Pandaria Season 14
 data["SEASON14SETS"] = {
-	name = string.format(AL["Season %d"], 14).." ("..EXPANSION_NAME4..")",
+	name = format(AL["Season %d"], 14).." ("..EXPANSION_NAME4..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -12838,7 +12851,7 @@ data["SEASON14SETS"] = {
 
 -- Mists of Pandaria Season 13
 data["SEASON13SETS"] = {
-	name = string.format(AL["Season %d"], 13).." ("..EXPANSION_NAME4..")",
+	name = format(AL["Season %d"], 13).." ("..EXPANSION_NAME4..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -13218,7 +13231,7 @@ data["SEASON13SETS"] = {
 
 -- Mists of Pandaria Season 12
 data["SEASON12SETS"] = {
-	name = string.format(AL["Season %d"], 12).." ("..EXPANSION_NAME4..")",
+	name = format(AL["Season %d"], 12).." ("..EXPANSION_NAME4..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -13564,7 +13577,7 @@ data["SEASON12SETS"] = {
 
 -- Cataclysm Season 11
 data["SEASON11SETS"] = {
-	name = string.format(AL["Season %d"], 11).." ("..EXPANSION_NAME3..")",
+	name = format(AL["Season %d"], 11).." ("..EXPANSION_NAME3..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -13911,7 +13924,7 @@ data["SEASON11SETS"] = {
 
 -- Cataclysm Season 10
 data["SEASON10SETS"] = {
-	name = string.format(AL["Season %d"], 10).." ("..EXPANSION_NAME3..")",
+	name = format(AL["Season %d"], 10).." ("..EXPANSION_NAME3..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -14256,7 +14269,7 @@ data["SEASON10SETS"] = {
 
 -- Cataclysm Season 9
 data["SEASON9SETS"] = {
-	name = string.format(AL["Season %d"], 9).." ("..EXPANSION_NAME3..")",
+	name = format(AL["Season %d"], 9).." ("..EXPANSION_NAME3..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -14829,7 +14842,7 @@ data["SEASON9SETS"] = {
 
 -- Wrath of the Lich King Season 8
 data["SEASON8SETS"] = {
-	name = string.format(AL["Season %d"], 8).." ("..EXPANSION_NAME2..")",
+	name = format(AL["Season %d"], 8).." ("..EXPANSION_NAME2..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -15152,7 +15165,7 @@ data["SEASON8SETS"] = {
 
 -- Wrath of the Lich King Season 7
 data["SEASON7SETS"] = {
-	name = string.format(AL["Season %d"], 7).." ("..EXPANSION_NAME2..")",
+	name = format(AL["Season %d"], 7).." ("..EXPANSION_NAME2..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -15486,7 +15499,7 @@ data["SEASON7SETS"] = {
 
 -- Wrath of the Lich King Season 6
 data["SEASON6SETS"] = {
-	name = string.format(AL["Season %d"], 6).." ("..EXPANSION_NAME2..")",
+	name = format(AL["Season %d"], 6).." ("..EXPANSION_NAME2..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -15813,7 +15826,7 @@ data["SEASON6SETS"] = {
 
 -- Classic Season 5
 data["SEASON5SETS"] = {
-	name = string.format(AL["Season %d"], 5).." ("..EXPANSION_NAME2..")",
+	name = format(AL["Season %d"], 5).." ("..EXPANSION_NAME2..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -16484,7 +16497,7 @@ data["SEASON5SETS"] = {
 
 -- Burning Crusade Season 4
 data["SEASON4SETS"] = {
-	name = string.format(AL["Season %d"], 4).." ("..EXPANSION_NAME1..")",
+	name = format(AL["Season %d"], 4).." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DEATHKNIGHT
@@ -16833,7 +16846,7 @@ data["SEASON4SETS"] = {
 
 -- Burning Crusade Season 3
 data["SEASON3SETS"] = {
-	name = string.format(AL["Season %d"], 3).." ("..EXPANSION_NAME1..")",
+	name = format(AL["Season %d"], 3).." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DRUID
@@ -17172,7 +17185,7 @@ data["SEASON3SETS"] = {
 
 -- Burning Crusade Season 2
 data["SEASON2SETS"] = {
-	name = string.format(AL["Season %d"], 2).." ("..EXPANSION_NAME1..")",
+	name = format(AL["Season %d"], 2).." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DRUID
@@ -17438,7 +17451,7 @@ data["SEASON2SETS"] = {
 
 -- Burning Crusade Season 1
 data["SEASON1SETS"] = {
-	name = string.format(AL["Season %d"], 1).." ("..EXPANSION_NAME1..")",
+	name = format(AL["Season %d"], 1).." ("..EXPANSION_NAME1..")",
 	ContentType = NORMAL_ITTYPE,
 	items = {
 		{ -- DRUID

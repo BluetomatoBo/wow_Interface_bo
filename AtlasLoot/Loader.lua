@@ -1,3 +1,17 @@
+-----------------------------------------------------------------------
+-- Upvalued Lua API.
+-----------------------------------------------------------------------
+local _G = getfenv(0)
+local type, pairs, collectgarbage = type, pairs, collectgarbage
+local str_find, str_format = string.find, string.format
+local tbl_insert, tbl_remove = table.insert, table.remove
+
+-- WoW
+local GetNumAddOns, GetAddOnInfo, IsAddOnLoaded, GetAddOnMetadata = GetNumAddOns, GetAddOnInfo, IsAddOnLoaded, GetAddOnMetadata
+local GetTime = GetTime
+-- ----------------------------------------------------------------------------
+-- AddOn namespace.
+-- ----------------------------------------------------------------------------
 local AtlasLoot = _G.AtlasLoot
 local Loader = {}
 AtlasLoot.Loader = Loader
@@ -8,15 +22,6 @@ local LoaderQueueSaves = {}
 local ModuleList = {}
 local LoadModuleSpam = {}
 
--- lua
-local type = type
-local pairs = pairs
-local str_find, str_format = string.find, string.format
-local tbl_insert, tbl_remove = table.insert, table.remove
-
--- WoW
-local GetNumAddOns, GetAddOnInfo, IsAddOnLoaded, GetAddOnMetadata = GetNumAddOns, GetAddOnInfo, IsAddOnLoaded, GetAddOnMetadata
-local GetTime = GetTime
 
 
 -- A list of officiel AtlasLoot modules

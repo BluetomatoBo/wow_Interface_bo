@@ -38,9 +38,12 @@ local IngameLocales = {
 	-- ######################################################################
 	-- Factions
 	-- ######################################################################
+	-- Legion
+	["Bizmo's Brawlpub"] = GetFactionInfoByID(2011),
+	["Brawl'gar Arena"] = GetFactionInfoByID(2010),
 	-- Warlords of Draenor
-	["Bizmo's Brawlpub"] = GetFactionInfoByID(1691),
-	["Brawl'gar Arena"] = GetFactionInfoByID(1690),
+--	["Bizmo's Brawlpub"] = GetFactionInfoByID(1691),
+--	["Brawl'gar Arena"] = GetFactionInfoByID(1690),
 	-- Mists of Pandaria
 	["Nat Pagle"] = GetFactionInfoByID(1358),
 	["Old Hillpaw"] = GetFactionInfoByID(1276),
