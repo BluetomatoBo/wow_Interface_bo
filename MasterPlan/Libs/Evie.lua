@@ -1,9 +1,9 @@
-local Evie, easy, next, securecall, _, T = {}, newproxy(true), next, securecall, ...
+local Evie, easy, next, securecall, pcall, _, T = {}, newproxy(true), next, securecall, pcall, ...
 local frame, listeners, locked, easy_mt = CreateFrame("FRAME"), {}, {}, getmetatable(easy)
 
-local function Register(event, func)
+local function Register(event, func, depth)
 	if type(event) ~= "string" or type(func) ~= "function" then
-		error('Syntax: RegisterEvent("event", handlerFunction)', 2)
+		error('Syntax: RegisterEvent("event", handlerFunction)', type(depth) == "number" and depth or 2)
 	end
 	local lock = locked[event]
 	if lock == true then
@@ -11,7 +11,7 @@ local function Register(event, func)
 	elseif lock then
 		lock[func] = 1
 	else
-		frame:RegisterEvent(event)
+		pcall(frame.RegisterEvent, frame, event)
 		listeners[event] = listeners[event] or {}
 		listeners[event][func] = 1
 	end
