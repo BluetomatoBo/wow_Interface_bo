@@ -1,7 +1,7 @@
-changeset:   279:a47619685b64
-tag:         v7.3.5.279-release
+changeset:   281:94638ee59e76
+tag:         v7.3.5.281-release
 user:        Tercio
-date:        Fri Mar 30 12:58:57 2018 -0300
-summary:     - Added option to change the size of the text on the quest tracker.
+date:        Fri Apr 13 12:26:36 2018 -0300
+summary:     - Fixing the tex coordinate of the icon on pet battle quests.
 
 
