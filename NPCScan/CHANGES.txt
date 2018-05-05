@@ -1,10 +1,10 @@
-tag 6c541d0b7f632f4833b1ae1f0a43ed989bcd9fac 7.3.5.9
+tag fced2c1506076dda2bab9aba594298bdbd7a7a6d 7.3.5.11
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Wed Apr 18 14:40:27 2018 -0500
+Date:	Fri May 4 03:15:48 2018 -0500
 
-commit fcd473f49a577fb888b449b22b13a1eceafe8348
+commit e9b6bf14d457fe7f05d34d934844a6e8e66c5518
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Apr 18 14:40:00 2018 -0500
+Date:   Fri May 4 03:07:00 2018 -0500
 
-    Actually add LibDataBroker-1.1 to the build process. Whoops.
+    Add support for The Song of Silence achievement.
 
