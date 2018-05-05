@@ -54,8 +54,8 @@ local L = WeakAuras.L
 	L["Animations"] = "Анимация"
 	L["Apply Template"] = "Применить шаблон"
 	L["Arcane Orb"] = "Чародейский шар"
-	L["At a position a bit left of Left HUD position."] = "На позиции немного левее, позиции левого HUD"
-	L["At a position a bit left of Right HUD position"] = "На позиции немного левее, позиции правого HUD"
+	L["At a position a bit left of Left HUD position."] = "Немного левее позиции левого HUD"
+	L["At a position a bit left of Right HUD position"] = "Немного правее позиции правого HUD"
 	L["At the same position as Blizzard's spell alert"] = "В таком же положении, как предупреждение заклинаний Blizzard"
 	L["Aura Name"] = "Название ауры"
 	L["Aura Type"] = "Тип эффекта"
@@ -99,8 +99,8 @@ local L = WeakAuras.L
 	L["Check On..."] = "Проверять..."
 	L["Children:"] = "Индикации:"
 	L["Choose"] = "Выбрать"
-	L["Choose Trigger"] = "Выбор триггера"
-	L["Choose whether the displayed icon is automatic or defined manually"] = "Выберите, будет ли иконка определена автоматически или вручную"
+	L["Choose Trigger"] = "Выберите триггер"
+	L["Choose whether the displayed icon is automatic or defined manually"] = "Выберите, будет ли иконка задана автоматически или вручную"
 	L["Clone option enabled dialog"] = [=[Вы активировали опцию, использующую |cFFFF0000Авто-клонирование|r.
 
 |cFFFF0000Авто-клонирование|r заставляет индикацию автоматически дублироваться для отображения нескольких источников информации. Если вы не разместите ее в |cFF22AA22Динамической Группе|r, то все клоны будут отображаться друг над другом в большой куче.
@@ -138,7 +138,7 @@ local L = WeakAuras.L
 |cFF4444FFПример:|r
 UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Custom trigger status tooltip"] = [=[Напишите события, которые будут вызывать проверку вашего триггера. Несколько событий должны быть разделены запятыми или пробелами.
-Поскольку это триггер состояния, указанные события могут быть переданы WeakAuras без ожидаемых аргументов.
+Поскольку это триггер статуса, указанные события могут быть переданы WeakAuras без ожидаемых аргументов.
 
 |cFF4444FFПример:|r
 UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
@@ -162,7 +162,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Distribute Vertically"] = "Распределить по вертикали"
 	L["Do not group this display"] = "Не группировать эту индикацию"
 	L["Done"] = "Выполнено"
-	L["Down"] = "Вниз"
+	L["Down"] = "Переместить вниз"
 	L["Drag to move"] = "Перетащите для перемещения"
 	L["Duplicate"] = "Дублировать"
 	L["Duplicate All"] = "Дублировать все"
@@ -186,8 +186,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Event"] = "Событие"
 	L["Event Type"] = "Тип триггера"
 	L["Event(s)"] = "Событие(я)"
-	--[[Translation missing --]]
-	--[[ L["Everything"] = ""--]] 
+	L["Everything"] = "Всех вкладок"
 	L["Expand"] = "Развернуть"
 	L["Expand all loaded displays"] = "Развернуть все загруженные индикации"
 	L["Expand all non-loaded displays"] = "Развернуть все не загруженные индикации"
@@ -252,8 +251,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Import"] = "Импорт"
 	L["Import a display from an encoded string"] = "Импортировать индикацию из закодированной строки"
 	L["Inverse"] = "Обратная"
-	--[[Translation missing --]]
-	--[[ L["Inverse Slant"] = ""--]] 
+	L["Inverse Slant"] = "В обратную сторону"
 	L["Justify"] = "Выравнивание"
 	L["Keep Aspect Ratio"] = "Сохранять пропорции"
 	L["Leaf"] = "Лист"
@@ -319,11 +317,9 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Paste Animations Settings"] = "Вставить настройки анимации"
 	L["Paste Condition Settings"] = "Вставить настройки условий"
 	L["Paste Display Settings"] = "Вставить настройки индикации"
-	--[[Translation missing --]]
-	--[[ L["Paste Group Settings"] = ""--]] 
+	L["Paste Group Settings"] = "Вставить настройки группы"
 	L["Paste Load Settings"] = "Вставить настройки загрузки"
-	--[[Translation missing --]]
-	--[[ L["Paste Settings"] = ""--]] 
+	L["Paste Settings"] = "Вставить настройки"
 	L["Paste text below"] = "Вставьте текст ниже"
 	L["Paste Trigger Settings"] = "Вставить настройки триггера"
 	L["Play Sound"] = "Проиграть звук"
@@ -382,12 +378,9 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Shows a texture that changes based on duration"] = "Показывает текстуру, меняющуюся в зависимости от длительности"
 	L["Shows one or more lines of text, which can include dynamic information such as progress or stacks"] = "Показывает одну или несколько строк текста, которые могут включать в себя динамическую информацию такую как длительность или стаки"
 	L["Size"] = "Размер"
-	--[[Translation missing --]]
-	--[[ L["Slant Amount"] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Slant Mode"] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Slanted"] = ""--]] 
+	L["Slant Amount"] = "Уровень наклона"
+	L["Slant Mode"] = "Режим наклона"
+	L["Slanted"] = "Наклонная текстура"
 	L["Slide"] = "Перемещение"
 	L["Slide In"] = "Приближение"
 	L["Slide Out"] = "Отдаление"
@@ -445,7 +438,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Toggle the visibility of all non-loaded displays"] = "Переключить видимость всех не загруженных индикаций"
 	L["Toggle the visibility of this display"] = "Переключить видимость этой индикации"
 	L["Tooltip"] = "Подсказка"
-	L["Tooltip on Mouseover"] = "Подсказка при наведении мыши"
+	L["Tooltip on Mouseover"] = "Подсказка при наведении курсора"
 	L["Top HUD position"] = "Верхняя позиция HUD"
 	L["Top Text"] = "Текст вверху"
 	L["Total Time Precision"] = "Точность общего времени"
@@ -458,8 +451,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Ungroup"] = "Разгруппировать"
 	L["Unit"] = "Единица"
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "В отличие от начальной или конечной анимации, основная зациклена и будет повторяться пока индикация не пропадет."
-	--[[Translation missing --]]
-	--[[ L["Up"] = ""--]] 
+	L["Up"] = "Переместить вверх"
 	L["Update Custom Text On..."] = "Обновить свой текст на..."
 	L["Use Full Scan (High CPU)"] = "Использовать Полное сканирование (загрузка ЦП)"
 	L["Use SetTransform (will change behaviour in 7.3)"] = "Использовать ф-ю SetTransform (изменится в 7.3)"
@@ -468,7 +460,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Version: "] = "Версия: "
 	L["Vertical Align"] = "Выравнивание по вертикали"
 	L["Vertical Bar"] = "Вертикальная полоса"
-	L["View"] = "Обзор"
+	L["View"] = "Вид"
 	L["Width"] = "Ширина"
 	L["X Offset"] = "Смещение по X"
 	L["X Rotation"] = "Поворот X"

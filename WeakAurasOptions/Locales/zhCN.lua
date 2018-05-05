@@ -5,7 +5,7 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras/Options
-	L["-- Do not remove this comment, it is part of this trigger: "] = "-不要移除这条信息，这是该触发器的一部分。"
+	L["-- Do not remove this comment, it is part of this trigger: "] = "-- 不要移除这条信息，这是该触发器的一部分。"
 	L["% of Progress"] = "% 进度"
 	L["%i Matches"] = "%i 符合"
 	L["%s Color"] = "%s 颜色"
@@ -178,8 +178,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	--[[Translation missing --]]
 	--[[ L["Do not group this display"] = ""--]] 
 	L["Done"] = "完成"
-	--[[Translation missing --]]
-	--[[ L["Down"] = ""--]] 
+	L["Down"] = "下"
 	L["Drag to move"] = "拖拽来移动"
 	L["Duplicate"] = "复制"
 	--[[Translation missing --]]

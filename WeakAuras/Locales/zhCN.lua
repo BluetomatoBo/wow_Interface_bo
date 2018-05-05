@@ -213,8 +213,7 @@ L["Dialog"] = "对话框"
 L["Disease"] = "疾病"
 L["Dispel"] = "驱散"
 L["Dispel Failed"] = "驱散失败"
---[[Translation missing --]]
---[[ L["Distance"] = ""--]] 
+L["Distance"] = "距离"
 L["Dodge"] = "躲闪"
 L["Done"] = "完成"
 L["Down"] = "下"

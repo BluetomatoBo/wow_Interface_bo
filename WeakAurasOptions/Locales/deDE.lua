@@ -25,12 +25,10 @@ local L = WeakAuras.L
 	L["A group that dynamically controls the positioning of its children"] = "Eine Gruppe, die dynamisch die Position ihrer Kinder steuert"
 	L["Actions"] = "Aktionen"
 	L["Add a new display"] = "Neue Anzeige hinzufügen"
-	--[[Translation missing --]]
-	--[[ L["Add Condition"] = ""--]] 
+	L["Add Condition"] = "Neue Bedingung"
 	--[[Translation missing --]]
 	--[[ L["Add Overlay"] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Add Property Change"] = ""--]] 
+	L["Add Property Change"] = "Eigenschaftsänderung"
 	L["Add to group %s"] = "Zu Gruppe %s hinzufügen"
 	L["Add to new Dynamic Group"] = "Neue dynamische Gruppe hinzufügen"
 	L["Add to new Group"] = "Neue Gruppe hinzufügen"
@@ -43,8 +41,7 @@ local L = WeakAuras.L
 	L["Anchor"] = "Anker"
 	L["Anchor Point"] = "Ankerpunkt"
 	L["Anchored To"] = "Angeheftet an"
-	--[[Translation missing --]]
-	--[[ L["And "] = ""--]] 
+	L["And "] = "Und"
 	L["Angle"] = "Winkel"
 	L["Animate"] = "Animieren"
 	L["Animated Expand and Collapse"] = "Erweitern und Verbergen animieren"
@@ -126,16 +123,14 @@ Soll die Anzeige in einer neuen |cFF22AA22Dynamischen Gruppe|r platziert werden?
 	L["Color"] = "Farbe"
 	L["color"] = "Farbe"
 	L["Compress"] = "Stauchen"
-	--[[Translation missing --]]
-	--[[ L["Condition %i"] = ""--]] 
+	L["Condition %i"] = "Bedingung %i"
 	L["Conditions"] = "Bedingungen"
 	L["Constant Factor"] = "Konstanter Faktor"
 	L["Control-click to select multiple displays"] = "Strg-Klick, um mehrere Anzeigen auszuwählen"
 	L["Controls the positioning and configuration of multiple displays at the same time"] = "Eine Gruppe, die die Position und Konfiguration ihrer Kinder kontrolliert"
-	L["Convert to..."] = "Konvertiere zu..."
+	L["Convert to..."] = "Konvertieren zu..."
 	L["Cooldown"] = "Abklingzeit"
-	--[[Translation missing --]]
-	--[[ L["Copy settings..."] = ""--]] 
+	L["Copy settings..."] = "Einstellungen kopieren..."
 	L["Copy to all auras"] = "Kopiere zu allen Auren"
 	L["Copy URL"] = "URL kopieren"
 	L["Count"] = "Anzahl"
@@ -206,8 +201,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Event"] = "Ereignis"
 	L["Event Type"] = "Ereignistyp"
 	L["Event(s)"] = "Ereignis(se)"
-	--[[Translation missing --]]
-	--[[ L["Everything"] = ""--]] 
+	L["Everything"] = "Alles"
 	L["Expand"] = "Erweitern"
 	L["Expand all loaded displays"] = "Alle geladenen Anzeigen erweitern"
 	L["Expand all non-loaded displays"] = "Alle nicht geladenen Anzeigen erweitern"
@@ -232,8 +226,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Full Scan"] = "Kompletter Scan"
 	--[[Translation missing --]]
 	--[[ L["General Text Settings"] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Glow"] = ""--]] 
+	L["Glow"] = "Leuchten"
 	L["Glow Action"] = "Leuchtaktion"
 	L["Green Rune"] = "Grüne Rune"
 	L["Group"] = "Gruppe"
@@ -252,8 +245,7 @@ Falls die Zahl als Dezimalzahl (z.B. 0.5), Bruch (z.B. 1/2) oder Prozentsatz (z.
 	L["Group Member Count"] = "Gruppengröße"
 	--[[Translation missing --]]
 	--[[ L["Grow"] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Hawk"] = ""--]] 
+	L["Hawk"] = "Falke"
 	L["Height"] = "Höhe"
 	L["Hide"] = "Verstecken"
 	--[[Translation missing --]]
@@ -273,12 +265,10 @@ Falls die Zahl als Dezimalzahl (z.B. 0.5), Bruch (z.B. 1/2) oder Prozentsatz (z.
 	L["Icon Color"] = "Symbolfarbe"
 	L["Icon Info"] = "Symbolinfo"
 	L["Icon Inset"] = "Symboleinrückung"
-	--[[Translation missing --]]
-	--[[ L["If"] = ""--]] 
+	L["If"] = "Falls"
 	--[[Translation missing --]]
 	--[[ L["If this option is enabled, you are no longer able to import auras."] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["If Trigger %s"] = ""--]] 
+	L["If Trigger %s"] = "Falls Auslöser %s"
 	L["Ignored"] = "Ignoriert"
 	L["Import"] = "Importieren"
 	L["Import a display from an encoded string"] = "Anzeige von Klartext importieren"
@@ -323,18 +313,16 @@ Beliebige Anzahl an Werten zum Vergleichen können ausgewählt werden.]=]
 |cFFFF0000Ignoriert|r - |cFF777777Einfach|r - |cFF777777Mehrfach|r
 Nur ein Wert kann ausgewählt werden.]=]
 	L["Name Info"] = "Namensinfo"
-	L["Negator"] = "Negator"
+	L["Negator"] = "Nicht"
 	L["Never"] = "Nie"
 	L["New"] = "Neu"
 	L["No"] = "Nein"
 	L["No Children"] = "Keine Kinder"
 	L["No tooltip text"] = "Kein Tooltip"
-	--[[Translation missing --]]
-	--[[ L["None"] = ""--]] 
+	L["None"] = "Keinen"
 	L["Not all children have the same value for this option"] = "Nicht alle Kinder besitzen denselben Wert"
 	L["Not Loaded"] = "Nicht geladen"
-	--[[Translation missing --]]
-	--[[ L["Offer a guided way to create auras for your class"] = ""--]] 
+	L["Offer a guided way to create auras for your class"] = "Bietet die Option vorgefertigte Auren zu erstellen"
 	L["Okay"] = "Okey"
 	L["On Hide"] = "Beim Ausblenden"
 	L["On Init"] = "Beim Initialisieren"
@@ -387,11 +375,9 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Remaining Time Precision"] = "Genauigkeit der verbleibenden Zeit"
 	--[[Translation missing --]]
 	--[[ L["Remove"] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Remove this condition"] = ""--]] 
+	L["Remove this condition"] = "Bedingung entfernen"
 	L["Remove this display from its group"] = "Diese Anzeige aus seiner Gruppe entfernen"
-	--[[Translation missing --]]
-	--[[ L["Remove this property"] = ""--]] 
+	L["Remove this property"] = "Eigenschaft entfernen"
 	L["Rename"] = "Umbenennen"
 	L["Repeat After"] = "Wiederholen nach"
 	--[[Translation missing --]]
@@ -420,11 +406,9 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Shift-click to create chat link"] = "Shift-Klick, um einen Chatlink zu erstellen"
 	L["Show all matches (Auto-clone)"] = "Alle Treffer anzeigen (Auto-Klonen)"
 	L["Show Cooldown Text"] = "Abklingzeittext anzeigen"
-	--[[Translation missing --]]
-	--[[ L["Show If Unit Is Invalid"] = ""--]] 
+	L["Show If Unit Is Invalid"] = "Einblenden falls Einheit ungültig"
 	L["Show model of unit "] = "Modell der Einheit zeigen"
-	--[[Translation missing --]]
-	--[[ L["Show On"] = ""--]] 
+	L["Show On"] = "Einblenden wenn"
 	L["Show this group's children"] = "Die Kinder dieser Gruppe anzeigen"
 	L["Shows a 3D model from the game files"] = "Zeigt ein 3D-Modell aus den Spieldateien"
 	L["Shows a custom texture"] = "Zeigt eine benutzerdefinierte Textur"
@@ -448,7 +432,7 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Sort"] = "Sortieren"
 	L["Sound"] = "Sound"
 	L["Sound Channel"] = "Soundkanal"
-	L["Sound File Path"] = "Sounddatei"
+	L["Sound File Path"] = "Sound Dateipfad"
 	L["Sound Kit ID"] = "Sound Kit ID"
 	L["Space"] = "Abstand"
 	L["Space Horizontally"] = "Horizontaler Abstand"
@@ -484,8 +468,7 @@ Nur ein Wert kann ausgewählt werden.]=]
 	--[[Translation missing --]]
 	--[[ L["The duration of the animation in seconds. The finish animation does not start playing until after the display would normally be hidden."] = ""--]] 
 	L["The type of trigger"] = "Auslösertyp"
-	--[[Translation missing --]]
-	--[[ L["Then "] = ""--]] 
+	L["Then "] = "Dann"
 	L["This display is currently loaded"] = "Diese Anzeige ist momentan geladen"
 	L["This display is not currently loaded"] = "Diese Anzeige ist momentan nicht geladen"
 	L["This region of type \"%s\" is not supported."] = "Diese Region des Typs \"%s\" wird nicht unterstützt."

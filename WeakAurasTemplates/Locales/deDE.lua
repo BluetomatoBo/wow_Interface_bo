@@ -14,16 +14,15 @@ local L = WeakAuras.L
 	L["(Pet)"] = "(Begleiter)"
 	L["(Water Elemental)"] = "(Wasserelementar)"
 	L["Ability Charges"] = "Aufladungen der Fähigkeit"
-	--[[Translation missing --]]
-	--[[ L["Absorb Shield"] = ""--]] 
+	L["Absorb Shield"] = "Absorbschild"
 	L["Add Triggers"] = "Auslöser hinzufügen"
 	L["Always Active"] = "Immer aktiv"
 	L["Back"] = "Zurück"
 	L["Bleed"] = "Blutung"
 	L["Bloodlust/Heroism"] = "Kampfrausch/Heldentum"
-	L["Buff"] = "Stärkungszauber"
-	L["buff"] = "Stärkungszauber"
-	L["Buffs"] = "Stärkungszauber"
+	L["Buff"] = "Buff"
+	L["buff"] = "buff"
+	L["Buffs"] = "Buffs"
 	L["Cancel"] = "Abbrechen"
 	L["Cast"] = "Zauberwirken"
 	L["Concordance of the Legionfall"] = "Einigkeit der Legionsrichter"
@@ -35,8 +34,8 @@ local L = WeakAuras.L
 	--[[ L["Death Knight 2P Bonus - "] = ""--]] 
 	--[[Translation missing --]]
 	--[[ L["Death Knight Unholy 4P Bonus - "] = ""--]] 
-	L["debuff"] = "Schwächungszauber"
-	L["Debuffs"] = "Schwächungszauber"
+	L["debuff"] = "debuff"
+	L["Debuffs"] = "Debuffs"
 	--[[Translation missing --]]
 	--[[ L["Discipline Priest"] = ""--]] 
 	--[[Translation missing --]]

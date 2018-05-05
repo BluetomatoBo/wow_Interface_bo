@@ -32,18 +32,15 @@ local L = WeakAuras.L
 	L["cooldown"] = "冷却"
 	L["Cooldowns"] = "冷却"
 	L["Crimson Vial Item Count"] = "猩红之甁计数"
-	--[[Translation missing --]]
-	--[[ L["Damage Trinkets"] = ""--]] 
+	L["Damage Trinkets"] = "伤害饰品"
 	--[[Translation missing --]]
 	--[[ L["Death Knight 2P Bonus - "] = ""--]] 
 	--[[Translation missing --]]
 	--[[ L["Death Knight Unholy 4P Bonus - "] = ""--]] 
 	L["debuff"] = "减益"
 	L["Debuffs"] = "减益"
-	--[[Translation missing --]]
-	--[[ L["Discipline Priest"] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Druid"] = ""--]] 
+	L["Discipline Priest"] = "戒律牧师"
+	L["Druid"] = "德鲁伊"
 	--[[Translation missing --]]
 	--[[ L["Effuse"] = ""--]] 
 	L["Enchants"] = "附魔"
