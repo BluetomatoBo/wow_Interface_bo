@@ -1,7 +1,7 @@
-changeset:   281:94638ee59e76
-tag:         v7.3.5.281-release
+changeset:   283:213eee7298e9
+tag:         v7.3.5.283-release
 user:        Tercio
-date:        Fri Apr 13 12:26:36 2018 -0300
-summary:     - Fixing the tex coordinate of the icon on pet battle quests.
+date:        Mon Apr 30 10:52:59 2018 -0300
+summary:     - Added a message when the user open the map and quests aren't shown due to its low level.
 
 

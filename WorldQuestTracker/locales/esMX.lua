@@ -9,44 +9,26 @@ L["S_ERROR_NOTLOADEDYET"] = "Esta misión no se ha cargado todavía, por favor e
 L["S_FLYMAP_SHOWTRACKEDONLY"] = "Sólo con seguimiento"
 L["S_FLYMAP_SHOWTRACKEDONLY_DESC"] = "Muestra únicamente misiones que están en seguimiento"
 L["S_FLYMAP_SHOWWORLDQUESTS"] = "Mostrar misiones de mundo"
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_CANCEL_APPLICATIONS"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_CANCELING"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_CREATE"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_CREATE_DIRECT"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = ""--]] 
+L["S_GROUPFINDER_ACTIONS_CANCEL_APPLICATIONS"] = "Clickear para cancelar solicitudes..."
+L["S_GROUPFINDER_ACTIONS_CANCELING"] = "Cancelando..."
+L["S_GROUPFINDER_ACTIONS_CREATE"] = "Grupo no encontrado?, clickear para empezar uno"
+L["S_GROUPFINDER_ACTIONS_CREATE_DIRECT"] = "crear grupo"
+L["S_GROUPFINDER_ACTIONS_LEAVEASK"] = "Salir del grupo?"
 --[[Translation missing --]]
 --[[ L["S_GROUPFINDER_ACTIONS_LEAVINGIN"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_RETRYSEARCH"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_SEARCH"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_SEARCH_RARENPC"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_SEARCH_TOOLTIP"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_SEARCHING"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_SEARCHMORE"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_SEARCHOTHER"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_UNAPPLY1"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_UNLIST"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_UNLISTING"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ACTIONS_WAITING"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_AUTOOPEN_RARENPC_TARGETED"] = ""--]] 
---[[Translation missing --]]
---[[ L["S_GROUPFINDER_ENABLED"] = ""--]] 
+L["S_GROUPFINDER_ACTIONS_RETRYSEARCH"] = "Reintentar busqueda"
+L["S_GROUPFINDER_ACTIONS_SEARCH"] = "Clickear para empezar a buscar grupos"
+L["S_GROUPFINDER_ACTIONS_SEARCH_RARENPC"] = "Buscar grupo para matar este Raro"
+L["S_GROUPFINDER_ACTIONS_SEARCH_TOOLTIP"] = "Unirse a un grupo haciendo esta misión"
+L["S_GROUPFINDER_ACTIONS_SEARCHING"] = "Buscando..."
+L["S_GROUPFINDER_ACTIONS_SEARCHMORE"] = "Clickear para buscar más miembros para el grupo"
+L["S_GROUPFINDER_ACTIONS_SEARCHOTHER"] = "Salir y Buscar un grupo diferente?"
+L["S_GROUPFINDER_ACTIONS_UNAPPLY1"] = "Clickear para remover la solicitud así poder crear un grupo nuevo"
+L["S_GROUPFINDER_ACTIONS_UNLIST"] = "Clickear para eliminar el grupo actual de la lista"
+L["S_GROUPFINDER_ACTIONS_UNLISTING"] = "Eliminando de la lista..."
+L["S_GROUPFINDER_ACTIONS_WAITING"] = "Esperando..."
+L["S_GROUPFINDER_AUTOOPEN_RARENPC_TARGETED"] = "Auto Abrir al Seleccionar un Mob Raro"
+L["S_GROUPFINDER_ENABLED"] = "Auto Abrir en Misión de Mundo Nueva"
 --[[Translation missing --]]
 --[[ L["S_GROUPFINDER_INVASION_ENABLED"] = ""--]] 
 --[[Translation missing --]]
