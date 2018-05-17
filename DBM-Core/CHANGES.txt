@@ -1,54 +1,54 @@
-tag 0cb5a3b36de32157d194d861f2335ff8ed7300f3 7.3.28
+tag 8e497837b2015e1fadd58916420648aa71820e65 7.3.30
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Thu May 3 20:00:04 2018 +0200
+Date:	Sun May 13 02:33:42 2018 +0200
 
-Tagging as 7.3.28
+Tagging as 7.3.30
 
-commit 8a89ede2af96d9db7156d466ea21eea708986bd0
+commit a4c3aa492af1a040154b3c4bc067e32b3b2f5ee7
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 3 20:00:04 2018 +0200
+Date:   Sun May 13 02:33:42 2018 +0200
 
-    increment version number to 7.3.28
+    increment version number to 7.3.30
 
-commit 8d91fff6572352842f93fab859c13edf61d721b7
+commit 3470892bfbe64038bf0388a838493d769543973e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 3 04:09:28 2018 +0200
+Date:   Sat May 12 20:11:43 2018 +0200
 
-    Omega via svn r17486:
-    More map fixes
+    Omega via svn r17517:
+    Version check update
 
-commit e26c05913a9ebe0522dba2b576c2d06c7768158f
+commit 8c89bb2e03b288e0655a866f1bb916f6f8432001
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 3 04:03:28 2018 +0200
+Date:   Sat May 12 08:37:51 2018 +0200
 
-    Omega via svn r17485:
-    Tweak for robustness GetCurrentMapID returns 0 until map loads, GetBestMapForUnit always returns correct
+    Omega via svn r17516:
+    CN update
 
-commit d74f4aa64c1fc8de69c1dad49ff3ed88e3992db1
+commit 7a7efbb12984ec8b4a5a8a28f023ed638901741d
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 3 03:47:57 2018 +0200
+Date:   Sat May 12 06:09:42 2018 +0200
 
-    Omega via svn r17484:
-    Vectis Update
+    Omega via svn r17515:
+    Updated G?\226?\128?\153huun P1 and P2 and added more P3 drycodes/ai timers
 
-commit ae02f803923f3097ab0bb90b670472c4d4458823
+commit b408c7f3ae8901eff69f03d274bdabceb8fc8d1e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 3 02:30:05 2018 +0200
+Date:   Sat May 12 03:34:11 2018 +0200
 
-    Omega via svn r17483:
-    Finish mother mod from todays testing
+    Omega via svn r17514:
+    Push finished Zekvhozj mod
 
-commit 43d42b3831681b70777f0c84de4cb03d6f3bceaa
+commit 3780b18734f888eafed6a2326ac5f098521a7231
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 2 23:48:03 2018 +0200
+Date:   Fri May 11 23:45:32 2018 +0200
 
-    Omega via svn r17482:
-    fix two lua errors
+    Omega via svn r17513:
+    lower tank swap amount on ghuun since he hits like a mack truck
 
-commit 5a2da970ce2e9e9821120c1ca64f57282677701a
+commit e92548006ce27588e1348e7b7e7ee97db26ae6d2
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 2 20:48:57 2018 +0200
+Date:   Fri May 11 20:24:45 2018 +0200
 
-    tandanu via svn r17481:
+    tandanu via svn r17512:
     increment alpha version
 
