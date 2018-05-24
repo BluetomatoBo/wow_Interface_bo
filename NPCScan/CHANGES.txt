@@ -1,10 +1,16 @@
-tag fced2c1506076dda2bab9aba594298bdbd7a7a6d 7.3.5.11
+tag bde1dee2f72fbeff118a452c14992560157473d8 7.3.5.12
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Fri May 4 03:15:48 2018 -0500
+Date:	Sat May 19 04:17:13 2018 -0500
 
-commit e9b6bf14d457fe7f05d34d934844a6e8e66c5518
+commit bea5d00aff5aeb9ca9f4c7b21a1615c44a9a5bf9
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Fri May 4 03:07:00 2018 -0500
+Date:   Sat May 19 04:16:53 2018 -0500
 
-    Add support for The Song of Silence achievement.
+    Add Slab of Bacon questID to Well-Fed Bear - this quest resets to not-finished whenever the world quest spawns.
+
+commit 94a704954bd5cbb22c82f5a51ccad8758eefbe4e
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Sat May 5 02:36:45 2018 -0500
+
+    Add support for the Broke Back Precipice, King of the Monsters, and Making the Cut achievements.
 
