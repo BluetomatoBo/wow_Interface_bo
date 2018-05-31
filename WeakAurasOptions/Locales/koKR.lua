@@ -9,9 +9,9 @@ local L = WeakAuras.L
 	L["% of Progress"] = "진행 상태의 %"
 	L["%i Matches"] = "%i개 일치"
 	--[[Translation missing --]]
-	--[[ L["%s Color"] = ""--]] 
+	L["%s Color"] = "%s Color"
 	--[[Translation missing --]]
-	--[[ L["%s total auras"] = ""--]] 
+	L["%s total auras"] = "%s total auras"
 	L["1 Match"] = "1개 일치"
 	L["1. Text"] = "1. 문자"
 	L["1. Text Settings"] = "1. 문자 설정"
@@ -25,12 +25,10 @@ local L = WeakAuras.L
 	L["A group that dynamically controls the positioning of its children"] = "포함된 개체들의 배열을 유동적으로 조절하는 그룹"
 	L["Actions"] = "동작"
 	L["Add a new display"] = "새로운 디스플레이 추가"
+	L["Add Condition"] = "조건 추가"
 	--[[Translation missing --]]
-	--[[ L["Add Condition"] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Add Overlay"] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Add Property Change"] = ""--]] 
+	L["Add Overlay"] = "Add Overlay"
+	L["Add Property Change"] = "속성 변경 추가"
 	L["Add to group %s"] = "그룹 %s에 추가"
 	L["Add to new Dynamic Group"] = "새 유동적 그룹에 추가"
 	L["Add to new Group"] = "새 그룹에 추가"
@@ -44,12 +42,12 @@ local L = WeakAuras.L
 	L["Anchor Point"] = "고정 지점"
 	L["Anchored To"] = "다음에 고정:"
 	--[[Translation missing --]]
-	--[[ L["And "] = ""--]] 
+	L["And "] = "And "
 	L["Angle"] = "각도"
 	L["Animate"] = "애니메이션"
 	L["Animated Expand and Collapse"] = "확장 / 접기 애니메이션"
 	--[[Translation missing --]]
-	--[[ L["Animates progress changes"] = ""--]] 
+	L["Animates progress changes"] = "Animates progress changes"
 	L["Animation relative duration description"] = [=[
 디스플레이 지속시간의 비율로 애니메이션 지속시간을 설정합니다, 분수 (1/2), 백분율 (50%), 또는 소수 (0.5)로 표현합니다.
 |cFFFF0000참고:|r 디스플레이가 진행 시간이 없으면 (비-지속적 이벤트 활성 조건, 지속시간이 없는 오라, 등등), 애니메이션은 재생되지 않습니다.
@@ -75,7 +73,7 @@ local L = WeakAuras.L
 	L["Automatic Icon"] = "자동 아이콘"
 	L["Backdrop Color"] = "배경 색상"
 	--[[Translation missing --]]
-	--[[ L["Backdrop in Front"] = ""--]] 
+	L["Backdrop in Front"] = "Backdrop in Front"
 	L["Backdrop Style"] = "배경 스타일"
 	L["Background"] = "배경"
 	L["Background Color"] = "배경 색상"
@@ -93,7 +91,7 @@ local L = WeakAuras.L
 	L["Border"] = "테두리"
 	L["Border Color"] = "테두리 색상"
 	--[[Translation missing --]]
-	--[[ L["Border in Front"] = ""--]] 
+	L["Border in Front"] = "Border in Front"
 	L["Border Inset"] = "테두리 삽입"
 	L["Border Offset"] = "테두리 위치"
 	L["Border Settings"] = "테두리 설정"
@@ -124,20 +122,21 @@ local L = WeakAuras.L
 	L["Collapse all non-loaded displays"] = "불러오지 않은 모든 디스플레이 접기"
 	L["Color"] = "색상"
 	--[[Translation missing --]]
-	--[[ L["color"] = ""--]] 
+	L["color"] = "color"
+	--[[Translation missing --]]
+	L["Common Options"] = "Common Options"
 	L["Compress"] = "누르기"
 	--[[Translation missing --]]
-	--[[ L["Condition %i"] = ""--]] 
+	L["Condition %i"] = "Condition %i"
 	L["Conditions"] = "조건"
 	L["Constant Factor"] = "고정 요소"
 	L["Control-click to select multiple displays"] = "Ctrl+클릭하여 여러 디스플레이 선택"
 	L["Controls the positioning and configuration of multiple displays at the same time"] = "동시에 여러 디스플레이의 위치와 설정을 조절합니다"
 	L["Convert to..."] = "변환하기..."
 	L["Cooldown"] = "재사용 대기시간"
+	L["Copy settings..."] = "설정 복사..."
 	--[[Translation missing --]]
-	--[[ L["Copy settings..."] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Copy to all auras"] = ""--]] 
+	L["Copy to all auras"] = "Copy to all auras"
 	L["Copy URL"] = "URL 복사"
 	L["Count"] = "횟수"
 	L["Creating buttons: "] = "버튼 생성:"
@@ -146,7 +145,7 @@ local L = WeakAuras.L
 	L["Crop X"] = "X 자르기"
 	L["Crop Y"] = "Y 자르기"
 	L["Custom"] = "사용자 설정"
-	L["Custom Code"] = "사용자 설정 코드"
+	L["Custom Code"] = "사용자 정의 코드"
 	L["Custom Function"] = "사용자 설정 함수"
 	L["Custom Trigger"] = "사용자 설정 활성 조건"
 	L["Custom trigger event tooltip"] = [=[
@@ -171,7 +170,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Delete Trigger"] = "활성 조건 삭제"
 	L["Desaturate"] = "흑백"
 	--[[Translation missing --]]
-	--[[ L["Differences"] = ""--]] 
+	L["Differences"] = "Differences"
 	L["Disable Import"] = "가져오기 비활성화"
 	L["Disabled"] = "비활성화됨"
 	L["Discrete Rotation"] = "90도 단위 회전"
@@ -184,11 +183,11 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Do not group this display"] = "이 디스플레이 그룹하지 않기"
 	L["Done"] = "완료"
 	--[[Translation missing --]]
-	--[[ L["Down"] = ""--]] 
+	L["Down"] = "Down"
 	L["Drag to move"] = "끌어서 이동"
 	L["Duplicate"] = "복제"
 	--[[Translation missing --]]
-	--[[ L["Duplicate All"] = ""--]] 
+	L["Duplicate All"] = "Duplicate All"
 	L["Duration (s)"] = "지속시간 (초)"
 	L["Duration Info"] = "지속시간 정보"
 	L["Dynamic Group"] = "유동적 그룹"
@@ -209,8 +208,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Event"] = "이벤트"
 	L["Event Type"] = "이벤트 유형"
 	L["Event(s)"] = "이벤트"
-	--[[Translation missing --]]
-	--[[ L["Everything"] = ""--]] 
+	L["Everything"] = "모두"
 	L["Expand"] = "확장"
 	L["Expand all loaded displays"] = "불러온 모든 디스플레이 확장"
 	L["Expand all non-loaded displays"] = "불러오지 않은 모드 디스플레이 확장"
@@ -221,7 +219,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Fade In"] = "서서히 나타남"
 	L["Fade Out"] = "서서히 사라짐"
 	--[[Translation missing --]]
-	--[[ L["False"] = ""--]] 
+	L["False"] = "False"
 	L["Finish"] = "종료"
 	L["Fire Orb"] = "화염 구슬"
 	L["Font"] = "글꼴"
@@ -270,19 +268,19 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Icon Info"] = "아이콘 정보"
 	L["Icon Inset"] = "아이템 축소"
 	--[[Translation missing --]]
-	--[[ L["If"] = ""--]] 
+	L["If"] = "If"
 	L["If this option is enabled, you are no longer able to import auras."] = "이 옵션이 활성화된 상태에서는 외부 문자열에서 디스플레이를 가져올 수 없습니다."
 	--[[Translation missing --]]
-	--[[ L["If Trigger %s"] = ""--]] 
+	L["If Trigger %s"] = "If Trigger %s"
 	L["Ignored"] = "무시됨"
 	L["Import"] = "가져오기"
 	L["Import a display from an encoded string"] = "암호화된 문자열에서 디스플레이 가져오기"
 	L["Inverse"] = "반대로"
 	--[[Translation missing --]]
-	--[[ L["Inverse Slant"] = ""--]] 
+	L["Inverse Slant"] = "Inverse Slant"
 	L["Justify"] = "정렬"
 	--[[Translation missing --]]
-	--[[ L["Keep Aspect Ratio"] = ""--]] 
+	L["Keep Aspect Ratio"] = "Keep Aspect Ratio"
 	L["Leaf"] = "잎"
 	L["Left 2 HUD position"] = "좌측 2 HUD 위치"
 	L["Left HUD position"] = "좌측 HUD 위치"
@@ -334,36 +332,40 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Only match auras cast by people other than the player"] = "플레이어가 아닌 다른 사람이 시전한 효과와 일치할때만"
 	L["Only match auras cast by the player"] = "플레이어가 시전한 효과와 일치할때만"
 	L["Operator"] = "연산자"
+	--[[Translation missing --]]
+	L["Options will open after combat ends."] = "Options will open after combat ends."
 	L["or"] = "혹은"
 	L["Orange Rune"] = "오렌지색 룬"
 	L["Orientation"] = "방향"
 	L["Outline"] = "외곽선"
 	--[[Translation missing --]]
-	--[[ L["Overflow"] = ""--]] 
+	L["Overflow"] = "Overflow"
 	--[[Translation missing --]]
-	--[[ L["Overlay %s Info"] = ""--]] 
+	L["Overlay %s Info"] = "Overlay %s Info"
 	--[[Translation missing --]]
-	--[[ L["Overlays"] = ""--]] 
+	L["Overlays"] = "Overlays"
 	L["Own Only"] = "내 것만"
 	--[[Translation missing --]]
-	--[[ L["Paste Action Settings"] = ""--]] 
+	L["Paste Action Settings"] = "Paste Action Settings"
 	--[[Translation missing --]]
-	--[[ L["Paste Animations Settings"] = ""--]] 
+	L["Paste Animations Settings"] = "Paste Animations Settings"
 	--[[Translation missing --]]
-	--[[ L["Paste Condition Settings"] = ""--]] 
+	L["Paste Condition Settings"] = "Paste Condition Settings"
 	--[[Translation missing --]]
-	--[[ L["Paste Display Settings"] = ""--]] 
+	L["Paste Display Settings"] = "Paste Display Settings"
 	--[[Translation missing --]]
-	--[[ L["Paste Group Settings"] = ""--]] 
+	L["Paste Group Settings"] = "Paste Group Settings"
 	--[[Translation missing --]]
-	--[[ L["Paste Load Settings"] = ""--]] 
+	L["Paste Load Settings"] = "Paste Load Settings"
 	--[[Translation missing --]]
-	--[[ L["Paste Settings"] = ""--]] 
+	L["Paste Settings"] = "Paste Settings"
 	L["Paste text below"] = "아래 문자를 붙여 넣으세요"
 	--[[Translation missing --]]
-	--[[ L["Paste Trigger Settings"] = ""--]] 
+	L["Paste Trigger Settings"] = "Paste Trigger Settings"
 	L["Play Sound"] = "소리 재생"
 	L["Portrait Zoom"] = "초상화 확대"
+	--[[Translation missing --]]
+	L["Position Settings"] = "Position Settings"
 	L["Preset"] = "프리셋"
 	L["Prevents duration information from decreasing when an aura refreshes. May cause problems if used with multiple auras with different durations."] = "효과가 갱신 됐을 때 지속시간 정보가 감소하지 않게 방지합니다. 다른 지속시간을 가진 여러 효과들과 같이 사용하면 문제가 발생할 수 있습니다."
 	L["Processed %i chars"] = "%i 문자 복사됨"
@@ -374,19 +376,19 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Radius"] = "반경"
 	L["Re-center X"] = "내부 X 좌표"
 	L["Re-center Y"] = "내부 Y 좌표"
+	--[[Translation missing --]]
+	L["Regions of type \"%s\" are not supported."] = "Regions of type \"%s\" are not supported."
 	L["Remaining Time"] = "남은 시간"
 	L["Remaining Time Precision"] = "남은 시간 정확도"
 	--[[Translation missing --]]
-	--[[ L["Remove"] = ""--]] 
-	--[[Translation missing --]]
-	--[[ L["Remove this condition"] = ""--]] 
+	L["Remove"] = "Remove"
+	L["Remove this condition"] = "이 조건 삭제"
 	L["Remove this display from its group"] = "이 디스플레이를 그룹에서 제거하기"
-	--[[Translation missing --]]
-	--[[ L["Remove this property"] = ""--]] 
+	L["Remove this property"] = "이 속성 삭제"
 	L["Rename"] = "이름 변경"
 	L["Repeat After"] = "반복 횟수"
 	--[[Translation missing --]]
-	--[[ L["Repeat every"] = ""--]] 
+	L["Repeat every"] = "Repeat every"
 	L["Required for Activation"] = "활성화에 필요"
 	L["Right 2 HUD position"] = "우측 2 HUD 위치"
 	L["Right HUD position"] = "우측 HUD 위치"
@@ -410,10 +412,10 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Show all matches (Auto-clone)"] = "모든 일치 표시 (자동 복제)"
 	L["Show Cooldown Text"] = "재사용 대기시간 문자 표시"
 	--[[Translation missing --]]
-	--[[ L["Show If Unit Is Invalid"] = ""--]] 
+	L["Show If Unit Is Invalid"] = "Show If Unit Is Invalid"
 	L["Show model of unit "] = "유닛의 모델 표시"
 	--[[Translation missing --]]
-	--[[ L["Show On"] = ""--]] 
+	L["Show On"] = "Show On"
 	L["Show this group's children"] = "이 그룹의 자식 표시"
 	L["Shows a 3D model from the game files"] = "게임 데이터의 3D 모델을 표시합니다"
 	L["Shows a custom texture"] = "사용자 설정 텍스쳐 표시"
@@ -423,17 +425,17 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Shows one or more lines of text, which can include dynamic information such as progress or stacks"] = "여러 줄의 문자를 표시합니다, 진행 시간 또는 중첩과 같은 여러 정보를 포함할 수 있습니다"
 	L["Size"] = "크기"
 	--[[Translation missing --]]
-	--[[ L["Slant Amount"] = ""--]] 
+	L["Slant Amount"] = "Slant Amount"
 	--[[Translation missing --]]
-	--[[ L["Slant Mode"] = ""--]] 
+	L["Slant Mode"] = "Slant Mode"
 	--[[Translation missing --]]
-	--[[ L["Slanted"] = ""--]] 
+	L["Slanted"] = "Slanted"
 	L["Slide"] = "슬라이드"
 	L["Slide In"] = "안으로 슬라이드"
 	L["Slide Out"] = "바깥으로 슬라이드"
 	L["Small Icon"] = "작은 아이콘"
 	--[[Translation missing --]]
-	--[[ L["Smooth Progress"] = ""--]] 
+	L["Smooth Progress"] = "Smooth Progress"
 	L["Sort"] = "정렬"
 	L["Sound"] = "소리"
 	L["Sound Channel"] = "소리 채널"
@@ -467,14 +469,13 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Texture"] = "텍스쳐"
 	L["Texture Info"] = "텍스쳐 정보"
 	--[[Translation missing --]]
-	--[[ L["Texture Wrap"] = ""--]] 
-	L["The children of this group have different display types, so their display options cannot be set as a group."] = "이 그룹의 자식들은 다른 디스플레이 형식을 가지고 있어서, 디스플레이 옵션을 그룹으로 설정할 수 없습니다."
+	L["Texture Wrap"] = "Texture Wrap"
 	L["The duration of the animation in seconds."] = "애니메이션 지속시간 (초)"
 	--[[Translation missing --]]
-	--[[ L["The duration of the animation in seconds. The finish animation does not start playing until after the display would normally be hidden."] = ""--]] 
+	L["The duration of the animation in seconds. The finish animation does not start playing until after the display would normally be hidden."] = "The duration of the animation in seconds. The finish animation does not start playing until after the display would normally be hidden."
 	L["The type of trigger"] = "활성 조건의 유형"
 	--[[Translation missing --]]
-	--[[ L["Then "] = ""--]] 
+	L["Then "] = "Then "
 	L["This display is currently loaded"] = "이 디스플레이는 불러온 상태입니다"
 	L["This display is not currently loaded"] = "이 디스플레이는 불러오지 않았습니다"
 	L["This region of type \"%s\" is not supported."] = "이 영역은 \"%s\" 유형을 지원하지 않습니다."
@@ -496,22 +497,22 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Trigger %d"] = "%d 활성 조건"
 	L["Trigger:"] = "활성 조건:"
 	--[[Translation missing --]]
-	--[[ L["True"] = ""--]] 
+	L["True"] = "True"
 	L["Type"] = "유형"
 	L["Undefined"] = "정의되지 않음"
 	L["Ungroup"] = "그룹 해제"
 	L["Unit"] = "유닛"
 	L["Unlike the start or finish animations, the main animation will loop over and over until the display is hidden."] = "시작 또는 종료 애니메이션과 달리 메인 애니메이션은 디스플레이가 숨겨질 때까지 계속 반복됩니다."
 	--[[Translation missing --]]
-	--[[ L["Up"] = ""--]] 
+	L["Up"] = "Up"
 	L["Update Custom Text On..."] = "사용자 설정 문자 갱신 중..."
 	L["Use Full Scan (High CPU)"] = "전체 스캔 사용 (높은 CPU 사용률)"
 	L["Use SetTransform (will change behaviour in 7.3)"] = "SetTransform 사용 (7.3에서 작동 변경)"
 	L["Use tooltip \"size\" instead of stacks"] = "중첩 대신 툴팁 \"크기\" 사용"
 	--[[Translation missing --]]
-	--[[ L["Used in auras:"] = ""--]] 
+	L["Used in auras:"] = "Used in auras:"
 	--[[Translation missing --]]
-	--[[ L["Version: "] = ""--]] 
+	L["Version: "] = "Version: "
 	L["Vertical Align"] = "수직 정렬"
 	L["Vertical Bar"] = "수직 바"
 	L["View"] = "보기"

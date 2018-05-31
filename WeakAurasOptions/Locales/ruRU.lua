@@ -112,6 +112,8 @@ local L = WeakAuras.L
 	L["Collapse all non-loaded displays"] = "Свернуть все не загруженные индикации"
 	L["Color"] = "Цвет"
 	L["color"] = "цвет"
+	--[[Translation missing --]]
+	L["Common Options"] = "Common Options"
 	L["Compress"] = "Сжать"
 	L["Condition %i"] = "Условие %i"
 	L["Conditions"] = "Условия"
@@ -305,6 +307,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Only match auras cast by people other than the player"] = "Совпадение для эффектов других людей, но не игрока"
 	L["Only match auras cast by the player"] = "Совпадение только для эффектов игрока"
 	L["Operator"] = "Оператор"
+	--[[Translation missing --]]
+	L["Options will open after combat ends."] = "Options will open after combat ends."
 	L["or"] = "или"
 	L["Orange Rune"] = "Оранжевая руна"
 	L["Orientation"] = "Ориентация"
@@ -324,6 +328,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Paste Trigger Settings"] = "Вставить настройки триггера"
 	L["Play Sound"] = "Проиграть звук"
 	L["Portrait Zoom"] = "Увеличить портрет"
+	--[[Translation missing --]]
+	L["Position Settings"] = "Position Settings"
 	L["Preset"] = "Предустановка"
 	L["Prevents duration information from decreasing when an aura refreshes. May cause problems if used with multiple auras with different durations."] = "Не позволяет снижать информацию о длительности эффекта при его обновлении. Может вызвать проблемы при использовании с несколькими эффектами разной длительности."
 	L["Processed %i chars"] = "Обработано %i символов"
@@ -334,6 +340,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Radius"] = "Радиус"
 	L["Re-center X"] = "Рецентровать X"
 	L["Re-center Y"] = "Рецентровать Y"
+	--[[Translation missing --]]
+	L["Regions of type \"%s\" are not supported."] = "Regions of type \"%s\" are not supported."
 	L["Remaining Time"] = "Оставшееся время"
 	L["Remaining Time Precision"] = "Точность оставшегося времени"
 	L["Remove"] = "Удалить"
@@ -419,7 +427,6 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Texture"] = "Текстура"
 	L["Texture Info"] = "Информация о текстуре"
 	L["Texture Wrap"] = "Режим обертки текстурой"
-	L["The children of this group have different display types, so their display options cannot be set as a group."] = "Элементы этой группы содержат разные типы индикаций, по этому их настройки не могут быть групповыми"
 	L["The duration of the animation in seconds."] = "Длительность анимации в секундах."
 	L["The duration of the animation in seconds. The finish animation does not start playing until after the display would normally be hidden."] = [=[Длительность анимации в секундах.
 Конечная анимация не начнет отображаться, пока индикация не будет нормально скрыта  (должен сработать детриггер).]=]

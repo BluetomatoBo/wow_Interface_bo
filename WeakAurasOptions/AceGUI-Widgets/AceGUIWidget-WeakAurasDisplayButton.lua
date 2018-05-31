@@ -2,7 +2,7 @@ local tinsert, tconcat, tremove, wipe = table.insert, table.concat, table.remove
 local select, pairs, next, type, unpack = select, pairs, next, type, unpack
 local tostring, error = tostring, error
 
-local Type, Version = "WeakAurasDisplayButton", 35
+local Type, Version = "WeakAurasDisplayButton", 36
 local AceGUI = LibStub and LibStub("AceGUI-3.0", true)
 if not AceGUI or (AceGUI:GetWidgetVersion(Type) or 0) >= Version then return end
 
@@ -533,6 +533,10 @@ local methods = {
       childButton:SetGroupOrder(#data.controlledChildren, #data.controlledChildren);
       self.callbacks.UpdateExpandButton();
       self.grouping.parent = data.id;
+      if (data.regionType == "dynamicgroup") then
+        self.grouping.xOffset = 0;
+        self.grouping.yOffset = 0;
+      end
       WeakAuras.Add(data);
       WeakAuras.Add(self.grouping);
       WeakAuras.SetGrouping();
@@ -541,6 +545,7 @@ local methods = {
       WeakAuras.UpdateGroupOrders(data);
       WeakAuras.SortDisplayButtons();
       self:ReloadTooltip();
+      WeakAuras.ResetMoverSizer();
     end
 
     function self.callbacks.OnClickGroupingSelf()
@@ -644,8 +649,8 @@ local methods = {
             WeakAuras.SortDisplayButtons();
             local updata = {duration = 0.15, type = "custom", use_translate = true, x = 0, y = -32};
             local downdata = {duration = 0.15, type = "custom", use_translate = true, x = 0, y = 32};
-            WeakAuras.Animate("button", parentData.controlledChildren[index-1], "main", updata, self.frame, true, function() WeakAuras.SortDisplayButtons() end);
-            WeakAuras.Animate("button", parentData.controlledChildren[index], "main", downdata, otherbutton.frame, true, function() WeakAuras.SortDisplayButtons() end);
+            WeakAuras.Animate("button", WeakAuras.GetData(parentData.controlledChildren[index-1]), "main", updata, self.frame, true, function() WeakAuras.SortDisplayButtons() end);
+            WeakAuras.Animate("button", WeakAuras.GetData(parentData.controlledChildren[index]), "main", downdata, otherbutton.frame, true, function() WeakAuras.SortDisplayButtons() end);
             WeakAuras.UpdateDisplayButton(parentData);
           end
         else
@@ -681,8 +686,8 @@ local methods = {
             WeakAuras.SortDisplayButtons()
             local updata = {duration = 0.15, type = "custom", use_translate = true, x = 0, y = -32};
             local downdata = {duration = 0.15, type = "custom", use_translate = true, x = 0, y = 32};
-            WeakAuras.Animate("button", parentData.controlledChildren[index+1], "main", downdata, self.frame, true, function() WeakAuras.SortDisplayButtons() end);
-            WeakAuras.Animate("button", parentData.controlledChildren[index], "main", updata, otherbutton.frame, true, function() WeakAuras.SortDisplayButtons() end);
+            WeakAuras.Animate("button", WeakAuras.GetData(parentData.controlledChildren[index+1]), "main", downdata, self.frame, true, function() WeakAuras.SortDisplayButtons() end);
+            WeakAuras.Animate("button", WeakAuras.GetData(parentData.controlledChildren[index]), "main", updata, otherbutton.frame, true, function() WeakAuras.SortDisplayButtons() end);
             WeakAuras.UpdateDisplayButton(parentData);
           end
         else

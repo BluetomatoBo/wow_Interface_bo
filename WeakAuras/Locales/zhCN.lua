@@ -11,7 +11,7 @@ L["%s - 1. Trigger"] = "%s - 1. 触发器"
 L["%s - Alpha Animation"] = "%s - 透明度动画"
 L["%s - Color Animation"] = "%s - 颜色动画"
 --[[Translation missing --]]
---[[ L["%s - Condition Custom Chat"] = ""--]] 
+L["%s - Condition Custom Chat"] = "%s - Condition Custom Chat"
 L["%s - Custom Text"] = "%s 自定义文字"
 L["%s - Finish"] = "%s - 完成"
 L["%s - Finish Action"] = "%s - 完成动作"
@@ -29,7 +29,7 @@ L["%s Duration Function"] = "%s 持续时间功能"
 L["%s Icon Function"] = "%s 图标功能"
 L["%s Name Function"] = "%s 名字功能"
 --[[Translation missing --]]
---[[ L["%s Overlay Color"] = ""--]] 
+L["%s Overlay Color"] = "%s Overlay Color"
 L["%s Stacks Function"] = "%s 堆叠功能"
 L["%s Texture Function"] = "%s 材质功能"
 L["%s total auras"] = "%s 总光环数"
@@ -70,16 +70,16 @@ L["Amount"] = "数量"
 L["And Talent selected"] = "并且选择下列天赋时"
 L["Anticlockwise"] = "逆时针"
 --[[Translation missing --]]
---[[ L["Any"] = ""--]] 
+L["Any"] = "Any"
 L["Any Triggers"] = "任意符合"
 L["Arena"] = "竞技场"
 L["Ascending"] = "升序"
 L["Assist"] = "协助"
 L["At Least One Enemy"] = "至少一个敌人"
 --[[Translation missing --]]
---[[ L["Attach to End"] = ""--]] 
+L["Attach to End"] = "Attach to End"
 --[[Translation missing --]]
---[[ L["Attach to Start"] = ""--]] 
+L["Attach to Start"] = "Attach to Start"
 L["Attackable"] = "可攻击的"
 L["Aura"] = "光环"
 L["Aura Applied"] = "获得光环"
@@ -99,10 +99,10 @@ L["Automatic Rotation"] = "自动旋转"
 L["Back"] = "返回"
 L["Back and Forth"] = "往返"
 --[[Translation missing --]]
---[[ L["Backdrop Color"] = ""--]] 
+L["Backdrop Color"] = "Backdrop Color"
 L["Background Color"] = "背景颜色"
 --[[Translation missing --]]
---[[ L["Bar Color"] = ""--]] 
+L["Bar Color"] = "Bar Color"
 L["Battle.net Whisper"] = "战网好友密语"
 L["Battleground"] = "战场"
 L["BG>Raid>Party>Say"] = "战场>团队>小队>说"
@@ -116,7 +116,7 @@ L["Blizzard Combat Text"] = "暴雪战斗文字"
 L["Block"] = "格挡"
 L["Blocked"] = "被格挡"
 --[[Translation missing --]]
---[[ L["Border Color"] = ""--]] 
+L["Border Color"] = "Border Color"
 L["Boss Emote"] = "首领台词"
 L["Boss Whisper"] = "首领密语"
 L["Bottom"] = "下"
@@ -127,9 +127,9 @@ L["Bounce"] = "弹跳"
 L["Bounce with Decay"] = "衰减地弹跳"
 L["Buff"] = "Buff"
 --[[Translation missing --]]
---[[ L["Buffed/Debuffed"] = ""--]] 
+L["Buffed/Debuffed"] = "Buffed/Debuffed"
 --[[Translation missing --]]
---[[ L["Can be used for e.g. checking if \"boss1target\" is the same as \"player\"."] = ""--]] 
+L["Can be used for e.g. checking if \"boss1target\" is the same as \"player\"."] = "Can be used for e.g. checking if \"boss1target\" is the same as \"player\"."
 L["Cast"] = "施法"
 L["Cast Failed"] = "施法失败"
 L["Cast Start"] = "开始施法"
@@ -141,7 +141,7 @@ L["Centered Horizontal"] = "中部水平对齐"
 L["Centered Vertical"] = "中部垂直对齐"
 L["Challenge"] = "挑战"
 --[[Translation missing --]]
---[[ L["Changed"] = ""--]] 
+L["Changed"] = "Changed"
 L["Channel"] = "频道"
 L["Channel (Spell)"] = "引导法术"
 L["Character Type"] = "角色类型"
@@ -154,7 +154,7 @@ L["Chest"] = "胸部"
 L["Children:"] = "子元素:"
 L["Circle"] = "环形"
 --[[Translation missing --]]
---[[ L["Clamp"] = ""--]] 
+L["Clamp"] = "Clamp"
 L["Class"] = "职业"
 L["Click to close configuration"] = "点击关闭配置"
 L["Click to open configuration"] = "点击打开配置"
@@ -175,11 +175,11 @@ L["Counter Clockwise"] = "逆时针"
 L["Create"] = "创造物品"
 L["Critical"] = "爆击(致命一击)"
 --[[Translation missing --]]
---[[ L["Cross"] = ""--]] 
+L["Cross"] = "Cross"
 L["Crowd Controlled"] = "被控制"
 L["Crushing"] = "碾压"
 --[[Translation missing --]]
---[[ L["Current Zone ID:"] = ""--]] 
+L["Current Zone ID:"] = "Current Zone ID:"
 L["Curse"] = "诅咒"
 L["Custom"] = "自定义"
 L["Custom Function"] = "自定义函数"
@@ -195,21 +195,21 @@ L["Debuff"] = "Debuff"
 L["Defensive"] = "防御"
 L["Deflect"] = "偏斜"
 --[[Translation missing --]]
---[[ L["Desaturate"] = ""--]] 
+L["Desaturate"] = "Desaturate"
 --[[Translation missing --]]
---[[ L["Desaturate Background"] = ""--]] 
+L["Desaturate Background"] = "Desaturate Background"
 --[[Translation missing --]]
---[[ L["Desaturate Foreground"] = ""--]] 
+L["Desaturate Foreground"] = "Desaturate Foreground"
 L["Descending"] = "降序"
 --[[Translation missing --]]
---[[ L["Dest Raid Mark"] = ""--]] 
+L["Dest Raid Mark"] = "Dest Raid Mark"
 --[[Translation missing --]]
---[[ L["Destination In Group"] = ""--]] 
+L["Destination In Group"] = "Destination In Group"
 L["Destination Name"] = "目标名称"
 L["Destination Unit"] = "目标单位"
 L["Dialog"] = "对话框"
 --[[Translation missing --]]
---[[ L["Diamond"] = ""--]] 
+L["Diamond"] = "Diamond"
 L["Disease"] = "疾病"
 L["Dispel"] = "驱散"
 L["Dispel Failed"] = "驱散失败"
@@ -222,7 +222,7 @@ L["Drowning"] = "溺水"
 L["Durability Damage"] = "耐久度下降"
 L["Durability Damage All"] = "耐久度上限下降"
 --[[Translation missing --]]
---[[ L["Elide"] = ""--]] 
+L["Elide"] = "Elide"
 L["Emote"] = "表情"
 L["Empty"] = "高光 显示/隐藏"
 L["Encounter ID"] = "首领战ID"
@@ -233,21 +233,23 @@ L["Entering/Leaving Combat"] = "进入/离开战斗"
 L["Environment Type"] = "环境伤害类型"
 L["Environmental"] = "环境伤害"
 --[[Translation missing --]]
---[[ L["Equipment Set"] = ""--]] 
+L["Equipment Set"] = "Equipment Set"
 --[[Translation missing --]]
---[[ L["Equipment Set Equipped"] = ""--]] 
+L["Equipment Set Equipped"] = "Equipment Set Equipped"
 --[[Translation missing --]]
---[[ L["Equipment Slot"] = ""--]] 
+L["Equipment Slot"] = "Equipment Slot"
 --[[Translation missing --]]
---[[ L["Equipped"] = ""--]] 
+L["Equipped"] = "Equipped"
 --[[Translation missing --]]
---[[ L["Error not receiving display information from %s"] = ""--]] 
+L["Error not receiving display information from %s"] = "Error not receiving display information from %s"
 L["Evade"] = "闪避"
 L["Event"] = "事件"
 L["Event(s)"] = "事件"
 L["Every Frame"] = "所有框架"
 --[[Translation missing --]]
---[[ L["Extend Outside"] = ""--]] 
+L["EXPERIMENTAL Profiling Data:"] = "EXPERIMENTAL Profiling Data:"
+--[[Translation missing --]]
+L["Extend Outside"] = "Extend Outside"
 L["Extra Amount"] = "额外数量"
 L["Extra Attacks"] = "额外攻击"
 L["Extra Spell Name"] = "额外法术名称"
@@ -265,7 +267,7 @@ L["First Text Color"] = "首要字体颜色"
 L["First Text Size"] = "首要字体尺寸"
 L["Fishing Lure / Weapon Enchant (Old)"] = "鱼饵/武器附魔（旧的）"
 --[[Translation missing --]]
---[[ L["Fixed"] = ""--]] 
+L["Fixed"] = "Fixed"
 L["Flash"] = "闪动"
 L["Flex Raid"] = "弹性团队"
 L["Flip"] = "翻转"
@@ -313,25 +315,25 @@ L["Id"] = "ID"
 L["Ignore Rune CD"] = "忽略符文CD"
 L["Immune"] = "免疫"
 --[[Translation missing --]]
---[[ L["Import"] = ""--]] 
+L["Import"] = "Import"
 --[[Translation missing --]]
---[[ L["Import disabled"] = ""--]] 
+L["Import disabled"] = "Import disabled"
 L["In Combat"] = "战斗中"
 L["In Group"] = "在群组中"
 L["In Pet Battle"] = "宠物对战中"
 --[[Translation missing --]]
---[[ L["In Raid"] = ""--]] 
+L["In Raid"] = "In Raid"
 L["In Vehicle"] = "在载具中"
 L["Include Bank"] = "包括银行中的"
 L["Include Charges"] = "包含使用次数"
 --[[Translation missing --]]
---[[ L["Incoming Heal"] = ""--]] 
+L["Incoming Heal"] = "Incoming Heal"
 L["Inherited"] = "继承"
 L["Inside"] = "内部"
 L["Instakill"] = "术士牺牲爪牙"
 L["Instance"] = "即时"
 --[[Translation missing --]]
---[[ L["Instance Difficulty"] = ""--]] 
+L["Instance Difficulty"] = "Instance Difficulty"
 L["Instance Type"] = "副本类型"
 L["Interrupt"] = "打断"
 L["Interruptible"] = "可打断"
@@ -341,15 +343,15 @@ L["Is Moving"] = "移动中"
 L["Is Off Hand"] = "是副手"
 L["is useable"] = "可用的"
 --[[Translation missing --]]
---[[ L["It might not work correctly with your version!"] = ""--]] 
+L["It might not work correctly with your version!"] = "It might not work correctly with your version!"
 L["Item"] = "物品"
 L["Item Count"] = "物品数量"
 L["Item Equipped"] = "已装备物品"
 L["Item Set Equipped"] = "已装备物品组"
 --[[Translation missing --]]
---[[ L["Item Set Id"] = ""--]] 
+L["Item Set Id"] = "Item Set Id"
 --[[Translation missing --]]
---[[ L["Keep Inside"] = ""--]] 
+L["Keep Inside"] = "Keep Inside"
 L["Lava"] = "熔岩"
 L["Leaving"] = "离开"
 L["Leech"] = "吸取"
@@ -359,35 +361,37 @@ L["Legs"] = "腿部"
 L["Level"] = "等级"
 L["Looking for Raid"] = "随机团队"
 --[[Translation missing --]]
---[[ L["Loop"] = ""--]] 
+L["Loop"] = "Loop"
 --[[Translation missing --]]
---[[ L["Lost"] = ""--]] 
+L["Lost"] = "Lost"
 L["Low Damage"] = "低伤害"
 L["Lower Than Tank"] = "比MT低"
 L["Magic"] = "魔法"
 L["Main Hand"] = "主手"
 --[[Translation missing --]]
---[[ L["Make sure you can trust the person who sent it!"] = ""--]] 
+L["Make sure you can trust the person who sent it!"] = "Make sure you can trust the person who sent it!"
 --[[Translation missing --]]
---[[ L["Malformed WeakAuras link"] = ""--]] 
+L["Malformed WeakAuras link"] = "Malformed WeakAuras link"
 L["Manual Rotation"] = "手动旋转"
 L["Marked First"] = "标记为最先"
 L["Marked Last"] = "标记为最次"
 L["Master"] = "主声道"
 L["Matches (Pattern)"] = "匹配(表达式)"
 --[[Translation missing --]]
---[[ L["Maximum"] = ""--]] 
+L["Max Charges"] = "Max Charges"
 --[[Translation missing --]]
---[[ L["Maximum Estimate"] = ""--]] 
+L["Maximum"] = "Maximum"
+--[[Translation missing --]]
+L["Maximum Estimate"] = "Maximum Estimate"
 L["Message"] = "讯息"
 L["Message Type"] = "讯息类型"
 L["Message type:"] = "讯息类型:"
 --[[Translation missing --]]
---[[ L["Minimum"] = ""--]] 
+L["Minimum"] = "Minimum"
 --[[Translation missing --]]
---[[ L["Minimum Estimate"] = ""--]] 
+L["Minimum Estimate"] = "Minimum Estimate"
 --[[Translation missing --]]
---[[ L["Mirror"] = ""--]] 
+L["Mirror"] = "Mirror"
 L["Miss"] = "未命中"
 L["Miss Type"] = "未命中类型"
 L["Missed"] = "未命中"
@@ -401,7 +405,7 @@ L["Monster Say"] = "怪物说话"
 L["Monster Whisper"] = "怪物密语"
 L["Monster Yell"] = "怪物大喊"
 --[[Translation missing --]]
---[[ L["Moon"] = ""--]] 
+L["Moon"] = "Moon"
 L["Mounted"] = "在坐骑上"
 L["Mouse Cursor"] = "鼠标"
 L["Multistrike"] = "溅射"
@@ -415,39 +419,43 @@ L["Never"] = "从不"
 L["Next"] = "下一个"
 L["No Children:"] = "没有子元素:"
 L["No Instance"] = "没有队伍"
+--[[Translation missing --]]
+L["No Profiling information saved."] = "No Profiling information saved."
 L["None"] = "无"
 L["Non-player Character"] = "NPC"
 L["Normal"] = "正常形态"
 --[[Translation missing --]]
---[[ L["Not in Group"] = ""--]] 
+L["Not in Group"] = "Not in Group"
 --[[Translation missing --]]
---[[ L["Not on Cooldown"] = ""--]] 
+L["Not on Cooldown"] = "Not on Cooldown"
 L["Not On Threat Table"] = "不在仇恨列表"
 --[[Translation missing --]]
---[[ L["Note, that cross realm transmission is not possible"] = ""--]] 
+L["Note, that cross realm transmission is not possible"] = "Note, that cross realm transmission is not possible"
 --[[Translation missing --]]
---[[ L["Note: This trigger type estimates the range to the hitbox of a unit. The actual range of friendly players is usually 3 yards more than the estimate."] = ""--]] 
+L["Note: This trigger type estimates the range to the hitbox of a unit. The actual range of friendly players is usually 3 yards more than the estimate."] = "Note: This trigger type estimates the range to the hitbox of a unit. The actual range of friendly players is usually 3 yards more than the estimate."
 L["Number"] = "数字"
 L["Number Affected"] = "影响数"
 L["Off Hand"] = "副手"
 L["Officer"] = "官员"
 --[[Translation missing --]]
---[[ L["Older set IDs can be found on websites such as wowhead.com/item-sets"] = ""--]] 
+L["Older set IDs can be found on websites such as wowhead.com/item-sets"] = "Older set IDs can be found on websites such as wowhead.com/item-sets"
 L["On Cooldown"] = "冷却中"
 --[[Translation missing --]]
---[[ L["Only if Primary"] = ""--]] 
+L["Only if Primary"] = "Only if Primary"
 L["Opaque"] = "不透明"
+--[[Translation missing --]]
+L["Options will finish loading after combat ends."] = "Options will finish loading after combat ends."
 L["Orbit"] = "轨迹"
 --[[Translation missing --]]
---[[ L["Orientation"] = ""--]] 
+L["Orientation"] = "Orientation"
 L["Outline"] = "轮廓"
 L["Outside"] = "外部"
 L["Overhealing"] = "过量治疗"
 L["Overkill"] = "过量伤害"
 --[[Translation missing --]]
---[[ L["Overlay %s"] = ""--]] 
+L["Overlay %s"] = "Overlay %s"
 --[[Translation missing --]]
---[[ L["Overlay Cost of Casts"] = ""--]] 
+L["Overlay Cost of Casts"] = "Overlay Cost of Casts"
 L["Parry"] = "招架"
 L["Party"] = "队伍"
 L["Party Kill"] = "团/队击杀"
@@ -455,12 +463,12 @@ L["Passive"] = "被动"
 L["Paused"] = "已暂停"
 L["Periodic Spell"] = "周期法术"
 --[[Translation missing --]]
---[[ L["Personal Resource Display"] = ""--]] 
+L["Personal Resource Display"] = "Personal Resource Display"
 L["Pet"] = "宠物"
 L["Pet Behavior"] = "宠物姿态"
 L["Pet Spell"] = "宠物法术"
 --[[Translation missing --]]
---[[ L["Play"] = ""--]] 
+L["Play"] = "Play"
 L["Player"] = "玩家"
 L["Player Character"] = "玩家角色"
 L["Player Class"] = "玩家职业"
@@ -477,12 +485,24 @@ L["Power (%)"] = "能量(%%)"
 L["Power Type"] = "能量类型"
 L["Preset"] = "预设"
 --[[Translation missing --]]
---[[ L["Press Ctrl+C to copy"] = ""--]] 
+L["Press Ctrl+C to copy"] = "Press Ctrl+C to copy"
+--[[Translation missing --]]
+L["Print Profiling Results"] = "Print Profiling Results"
+--[[Translation missing --]]
+L["Profiling already started."] = "Profiling already started."
+--[[Translation missing --]]
+L["Profiling not running."] = "Profiling not running."
+--[[Translation missing --]]
+L["Profiling started."] = "Profiling started."
+--[[Translation missing --]]
+L["Profiling still running, stop before trying to print."] = "Profiling still running, stop before trying to print."
+--[[Translation missing --]]
+L["Profiling stopped."] = "Profiling stopped."
 L["Progress"] = "进度"
 --[[Translation missing --]]
---[[ L["Progress Total"] = ""--]] 
+L["Progress Total"] = "Progress Total"
 --[[Translation missing --]]
---[[ L["Progress Value"] = ""--]] 
+L["Progress Value"] = "Progress Value"
 L["Pulse"] = "脉动"
 L["PvP Flagged"] = "被标记为PVP状态"
 L["PvP Talent selected"] = "已选PvP天赋"
@@ -491,7 +511,7 @@ L["Raid"] = "团队"
 L["Raid Warning"] = "团队警告"
 L["Range"] = "远程攻击"
 --[[Translation missing --]]
---[[ L["Range Check"] = ""--]] 
+L["Range Check"] = "Range Check"
 L["Ready Check"] = "就位确认"
 L["Realm"] = "服务器"
 L["Receiving display information"] = "从 %s 中接收群组信息"
@@ -499,14 +519,14 @@ L["Reflect"] = "反射"
 L["Region type %s not supported"] = "不支持区域类 %s"
 L["Relative"] = "相对持续时间"
 --[[Translation missing --]]
---[[ L["Remaining Duration"] = ""--]] 
+L["Remaining Duration"] = "Remaining Duration"
 L["Remaining Time"] = "剩余时间"
 --[[Translation missing --]]
---[[ L["Repeat"] = ""--]] 
+L["Repeat"] = "Repeat"
 L["Requested display does not exist"] = "请求接收的图示不存在"
 L["Requested display not authorized"] = "请求接收的图示没有授权"
 --[[Translation missing --]]
---[[ L["Requesting display information from %s ..."] = ""--]] 
+L["Requesting display information from %s ..."] = "Requesting display information from %s ..."
 L["Require Valid Target"] = "需要有效目标"
 L["Resist"] = "抵抗"
 L["Resisted"] = "被抵抗"
@@ -537,7 +557,7 @@ L["Right to Left"] = "从右到左"
 L["Rotate Left"] = "向左旋转"
 L["Rotate Right"] = "向右旋转"
 --[[Translation missing --]]
---[[ L["Run Custom Code"] = ""--]] 
+L["Run Custom Code"] = "Run Custom Code"
 L["Rune"] = "符文"
 L["Rune #1"] = "符文#1"
 L["Rune #2"] = "符文 #2"
@@ -549,33 +569,33 @@ L["Runes Count"] = "符文计数"
 L["Say"] = "说"
 L["Scenario"] = "场景"
 --[[Translation missing --]]
---[[ L["Screen/Parent Group"] = ""--]] 
+L["Screen/Parent Group"] = "Screen/Parent Group"
 L["Second Text Color"] = "第二文本颜色"
 L["Second Text Size"] = "第二文本大小"
 L["Seconds"] = "秒"
 L["Select Frame"] = "选择框体"
 --[[Translation missing --]]
---[[ L["Set Maximum Progress"] = ""--]] 
+L["Set Maximum Progress"] = "Set Maximum Progress"
 --[[Translation missing --]]
---[[ L["Set Minimum Progress"] = ""--]] 
+L["Set Minimum Progress"] = "Set Minimum Progress"
 L["Shake"] = "晃动"
 L["Shift-Click to pause"] = "Shift点击暂停"
 L["Shift-Click to resume"] = "Shift点击继续"
 L["Shoulder"] = "肩部"
 L["Show"] = "显示"
 --[[Translation missing --]]
---[[ L["Show Absorb"] = ""--]] 
+L["Show Absorb"] = "Show Absorb"
 --[[Translation missing --]]
---[[ L["Show CD of Charge"] = ""--]] 
+L["Show CD of Charge"] = "Show CD of Charge"
 L["Show Code"] = "显示代码"
 L["Show Global Cooldown"] = "显示 GCD"
 --[[Translation missing --]]
---[[ L["Show if Charges"] = ""--]] 
+L["Show if Charges"] = "Show if Charges"
 --[[Translation missing --]]
---[[ L["Show Incoming Heal"] = ""--]] 
+L["Show Incoming Heal"] = "Show Incoming Heal"
 L["Shrink"] = "收缩"
 --[[Translation missing --]]
---[[ L["Skull"] = ""--]] 
+L["Skull"] = "Skull"
 L["Slide from Bottom"] = "从下开始滑动"
 L["Slide from Left"] = "从左开始滑动"
 L["Slide from Right"] = "从右开始滑动"
@@ -586,15 +606,15 @@ L["Slide to Right"] = "滑动到右边"
 L["Slide to Top"] = "滑动到上方"
 L["Slime"] = "淤泥"
 --[[Translation missing --]]
---[[ L["Sound"] = ""--]] 
+L["Sound"] = "Sound"
 --[[Translation missing --]]
---[[ L["Sound by Kit ID"] = ""--]] 
+L["Sound by Kit ID"] = "Sound by Kit ID"
 L["Sound Effects"] = "音效"
 --[[Translation missing --]]
---[[ L["Source In Group"] = ""--]] 
+L["Source In Group"] = "Source In Group"
 L["Source Name"] = "来源名称"
 --[[Translation missing --]]
---[[ L["Source Raid Mark"] = ""--]] 
+L["Source Raid Mark"] = "Source Raid Mark"
 L["Source Unit"] = "来源单位"
 L["Spacing"] = "间距"
 L["Spark Color"] = "闪光颜色"
@@ -604,9 +624,9 @@ L["Specific Unit"] = "指定单位"
 L["Spell"] = "法术"
 L["Spell (Building)"] = "法术(攻城伤害)"
 --[[Translation missing --]]
---[[ L["Spell Activation Overlay Glow"] = ""--]] 
+L["Spell Activation Overlay Glow"] = "Spell Activation Overlay Glow"
 --[[Translation missing --]]
---[[ L["Spell Cost"] = ""--]] 
+L["Spell Cost"] = "Spell Cost"
 L["Spell ID"] = "法术ID"
 L["Spell Id"] = "法术Id"
 L["Spell Known"] = "学会的法术"
@@ -616,26 +636,30 @@ L["Spin"] = "旋转"
 L["Spiral"] = "螺旋"
 L["Spiral In And Out"] = "螺旋进入和退出"
 --[[Translation missing --]]
---[[ L["Square"] = ""--]] 
+L["Square"] = "Square"
 L["Stacks"] = "层数"
 --[[Translation missing --]]
---[[ L["Stacks Text Color"] = ""--]] 
+L["Stacks Text Color"] = "Stacks Text Color"
 --[[Translation missing --]]
---[[ L["Stacks Text Size"] = ""--]] 
+L["Stacks Text Size"] = "Stacks Text Size"
 L["Stagger"] = "晕眩"
 L["Stance/Form/Aura"] = "姿态/形态/光环"
 --[[Translation missing --]]
---[[ L["Star"] = ""--]] 
+L["Star"] = "Star"
+--[[Translation missing --]]
+L["Start Profiling"] = "Start Profiling"
 L["Status"] = "状态"
 L["Stolen"] = "偷取"
 --[[Translation missing --]]
---[[ L["Stop"] = ""--]] 
+L["Stop"] = "Stop"
+--[[Translation missing --]]
+L["Stop Profiling"] = "Stop Profiling"
 L["Summon"] = "召唤"
 L["Swing"] = "近战攻击"
 L["Swing Timer"] = "攻击间隔计时器"
 L["System"] = "系统"
 --[[Translation missing --]]
---[[ L["Tabard"] = ""--]] 
+L["Tabard"] = "Tabard"
 L["Talent selected"] = "天赋选择"
 L["Talent Specialization"] = "专精"
 L["Tank"] = "坦克"
@@ -644,13 +668,15 @@ L["Tanking But Not Highest"] = "做T但不是最高"
 L["Target"] = "目标"
 L["Thick Outline"] = "粗轮廓"
 --[[Translation missing --]]
---[[ L["This aura contains custom Lua code."] = ""--]] 
+L["This aura contains custom Lua code."] = "This aura contains custom Lua code."
 --[[Translation missing --]]
---[[ L["This aura was created with a newer version of WeakAuras."] = ""--]] 
+L["This aura was created with a newer version of WeakAuras."] = "This aura was created with a newer version of WeakAuras."
 L["Threat Situation"] = "仇恨状况"
 L["Tier "] = "层级"
 L["Timed"] = "指定时间"
 L["Timewalking"] = "时空漫游"
+--[[Translation missing --]]
+L["Toggle Options Window"] = "Toggle Options Window"
 L["Top"] = "上"
 L["Top Left"] = "左上"
 L["Top Right"] = "右上"
@@ -663,9 +689,9 @@ L["Totem Name"] = "图腾名"
 L["Totem Number"] = "图腾"
 L["Transmission error"] = "传输错误"
 --[[Translation missing --]]
---[[ L["Triangle"] = ""--]] 
+L["Triangle"] = "Triangle"
 --[[Translation missing --]]
---[[ L["Trigger 1"] = ""--]] 
+L["Trigger 1"] = "Trigger 1"
 L["Trigger State Updater"] = "触发器状态更新器"
 L["Trigger Update"] = "触发器更新"
 L["Trigger:"] = "触发器"
@@ -673,21 +699,21 @@ L["Trinket 1"] = "饰品1"
 L["Trinket 2"] = "饰品2"
 L["True"] = "真"
 --[[Translation missing --]]
---[[ L["Type"] = ""--]] 
+L["Type"] = "Type"
 L["Undefined"] = "未定义"
 L["Unit"] = "单位"
 L["Unit Characteristics"] = "单位特性"
 L["Unit Destroyed"] = "单位被摧毁(如:图腾,治疗结界)"
 L["Unit Died"] = "单位死亡"
 --[[Translation missing --]]
---[[ L["Unit is Unit"] = ""--]] 
+L["Unit is Unit"] = "Unit is Unit"
 L["Up"] = "上"
 --[[Translation missing --]]
---[[ L["Values/Remaining Time above this value are displayed as full progress."] = ""--]] 
+L["Values/Remaining Time above this value are displayed as full progress."] = "Values/Remaining Time above this value are displayed as full progress."
 --[[Translation missing --]]
---[[ L["Values/Remaining Time below this value are displayed as no progress."] = ""--]] 
+L["Values/Remaining Time below this value are displayed as no progress."] = "Values/Remaining Time below this value are displayed as no progress."
 --[[Translation missing --]]
---[[ L["Version: "] = ""--]] 
+L["Version: "] = "Version: "
 L["Waist"] = "腰部"
 L["Weapon"] = "武器"
 L["Weapon Enchant"] = "武器附魔"
@@ -695,13 +721,13 @@ L["Whisper"] = "密语"
 L["Width"] = "宽度"
 L["Wobble"] = "摇晃"
 --[[Translation missing --]]
---[[ L["Wrap"] = ""--]] 
+L["Wrap"] = "Wrap"
 L["Wrist"] = "手腕"
 --[[Translation missing --]]
---[[ L["X-Offset"] = ""--]] 
+L["X-Offset"] = "X-Offset"
 L["Yell"] = "大喊"
 --[[Translation missing --]]
---[[ L["Y-Offset"] = ""--]] 
+L["Y-Offset"] = "Y-Offset"
 L["Zone"] = "区域"
 L["Zone ID"] = "区域ID"
 L["Zone ID List"] = "区域ID列表"
