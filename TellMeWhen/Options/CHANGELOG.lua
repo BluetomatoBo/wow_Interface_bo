@@ -3,6 +3,13 @@ if not TMW then return end
 TMW.CHANGELOG_LASTVER="6.2.6"
 
 TMW.CHANGELOG = [==[
+===v8.4.4===
+* TellMeWhen no longer saves a spell cache to disk. Performance improvements have made it feasible to compute this each time you log in as it needed. This should result in faster log-in/log-out times.
+
+====Bug Fixes====
+* Fixed additional dropdown scaling issues.
+* Added error messages for invalid import strings.
+
 ===v8.4.3===
 * Updates for Allied Races.
 * Minor options UI improvements.
