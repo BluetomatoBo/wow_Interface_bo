@@ -1,3 +1,6 @@
+v3.6.43
+*Fixed error caused by bug introduced by Blizzard with June 12th (US) maintenance
+
 v3.6.42
 *Added new bonus ids from 7.3.5.
 

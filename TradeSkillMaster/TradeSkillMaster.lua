@@ -310,14 +310,14 @@ function TSM:OnInitialize()
 			tt:AddLine(format(L["%sDrag%s to move this button"], cs, ce))
 		end,
 	})
-	
+
 	-- fix patch 7.3 sound changes
 	local sounds = TSMAPI:GetSounds()
 	if not sounds[TSM.db.global.auctionSaleSound] then
 		TSM.db.global.auctionSaleSound = TSM.NO_SOUND_KEY
 	end
-	
-	
+
+
 	-- Cache battle pet names
 	for i=1, C_PetJournal.GetNumPets() do C_PetJournal.GetPetInfoByIndex(i) end
 	-- force a garbage collection
@@ -831,18 +831,15 @@ end
 
 function TSMAPI:GetConnectedRealms()
 	if not private.cachedConnectedRealms then
-		local currentRealm = gsub(GetRealmName(), "[ %-]", "")
-		local connectedRealms = GetAutoCompleteRealms() or {}
-
-		if #connectedRealms > 0 then
-			local currentRealmIndex = nil
-			for i, realm in ipairs(connectedRealms) do
-				if realm == currentRealm then
-					currentRealmIndex = i
-					break
+		local realmId, _, _, _, _, _, _, _, connectedRealmIds = LibRealmInfo:GetRealmInfo(GetRealmName())
+		local connectedRealms = {}
+		if connectedRealmIds then
+			for _, id in ipairs(connectedRealmIds) do
+				if id ~= realmId then
+					local _, connectedRealmName = LibRealmInfo:GetRealmInfoByID(id)
+					tinsert(connectedRealms, connectedRealmName)
 				end
 			end
-			TSMAPI:Assert(currentRealmIndex, "Could not find current realm")
 		end
 		private.cachedConnectedRealms = connectedRealms
 	end
