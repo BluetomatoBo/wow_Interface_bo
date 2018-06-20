@@ -127,6 +127,8 @@ L:SetGeneralLocalization({
 -----------------------
 L= DBM:GetModLocalization(2132)
 
+L= DBM:GetModLocalization(2133)
+
 -----------------------
 -- Hadal Darkfathom --
 -----------------------
@@ -229,7 +231,7 @@ L= DBM:GetModLocalization(2131)
 L= DBM:GetModLocalization(2130)
 
 -----------------------
--- Taloc the Corrupted --
+-- Unbound Monstrosity --
 -----------------------
 L= DBM:GetModLocalization(2158)
 
@@ -302,9 +304,6 @@ L= DBM:GetModLocalization(2128)
 -----------------------
 L= DBM:GetModLocalization(2129)
 
-L:SetMiscLocalization({
-	fireYell = "Hurry! Set them aflame before the Drust King resurrects them!"
-})
 ---------
 --Trash--
 ---------

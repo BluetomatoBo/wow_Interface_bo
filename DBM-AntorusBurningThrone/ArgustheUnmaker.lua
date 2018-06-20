@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2031, "DBM-AntorusBurningThrone", nil, 946)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 17510 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 17578 $"):sub(12, -3))
 mod:SetCreatureID(124828)
 mod:SetEncounterID(2092)
 mod:SetZone()
@@ -155,7 +155,7 @@ mod:AddSetIconOption("SetIconOnSoulBomb", 251570, true)--3 and 7
 mod:AddSetIconOption("SetIconOnSoulBurst", 250669, true)--2
 mod:AddSetIconOption("SetIconOnVulnerability", 255418, true, true)--1-7
 mod:AddInfoFrameOption(nil, true)--Change to EJ entry since spell not localized
-mod:AddRangeFrameOption(8, 257869)
+mod:AddRangeFrameOption(5, 257869)
 mod:AddNamePlateOption("NPAuraOnInevitability", 253021)
 mod:AddNamePlateOption("NPAuraOnCosmosSword", 255496)
 mod:AddNamePlateOption("NPAuraOnEternalBlades", 255478)
@@ -211,8 +211,8 @@ local function ToggleRangeFinder(self, hide)
 	if self:IsTank() or not self.Options.RangeFrame then return end--Tanks don't get rage
 	if not hide then
 		specWarnSargGaze:Show()
-		specWarnSargGaze:Play("scatter")
-		DBM.RangeCheck:Show(8)
+		specWarnSargGaze:Play("range5")
+		DBM.RangeCheck:Show(5)
 		self.vb.rangeCheckNoTouchy = true--Prevent SPELL_AURA_REMOVED of revious rage closing range finder during window we're expecting next rage
 	end
 	if hide and not DBM:UnitDebuff("player", 257869) then
@@ -285,12 +285,6 @@ do
 			end
 		end
 		--Tank Debuffs
-		--[[if #tankStacks > 0 then
-			for k, v in pairs(tankStacks) do
-				--addLine(k, v)
-				addLine(tankStacks[k], v)
-			end
-		end--]]
 		for i = 1, #tankStacks do
 			local name = tankStacks[i]
 			local uId = DBM:GetRaidUnitId(name)
