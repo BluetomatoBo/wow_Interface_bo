@@ -1,18 +1,18 @@
-tag 667be011b1d25791273c58957f729aad8cd6b479 v1.4.1
+tag be83ca755193a9f69b8a8877bacf0b5d311ff489 v1.4.2
 Author:	Ethan Centaurai <ethancentaurai@outlook.com>
-Date:	Mon Jun 26 00:09:52 2017 +0100
+Date:	Thu Jun 21 21:40:52 2018 +0100
 
-Tagging as v1.4.1.
+Tagging as v1.4.2.
 
-commit 9b5162a2fe25d4a69c1c566b3c3ca97cff8a0d8a
+commit 16ef2e2b2025e5d27dea4f80e9a6da26a4db0e21
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Mon Jun 26 00:08:36 2017 +0100
+Date:   Thu Jun 21 21:38:24 2018 +0100
 
-    Updated several bonfire locations. Closes GitHub ticket #4.
+    Bump Interface number to 70300.
 
-commit c060054a1068e31f73840af5f3f8fd746dacce58
+commit fc6dff81b8fade2c3927937024a1499b48eb7b57
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Mon Jun 26 00:04:20 2017 +0100
+Date:   Thu Jun 21 21:37:59 2018 +0100
 
-    Updated calendar texture IDs.
+    Don't create waypoints to bonfires you've already visited. Fixes #6.
 
