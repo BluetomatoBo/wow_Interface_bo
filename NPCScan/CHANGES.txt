@@ -1,10 +1,16 @@
-tag 52d647f7094f1d7bab7af8638bf5c6c4b82c0c79 7.3.5.13
+tag 61b3d68b01f9501a1eeee377e9982b5d0b76c062 7.3.5.14
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Wed Jun 27 02:54:45 2018 -0500
+Date:	Thu Jul 5 04:56:48 2018 -0500
 
-commit e64353a2cc3109b21927b984f4d17c52dd397164
+commit abe6038426b21555ae5705e64406ec62b8545123
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Jun 27 02:53:46 2018 -0500
+Date:   Thu Jul 5 04:56:19 2018 -0500
 
-    Add Qroshekx, Xaarshej, Ssinkrix, and their tracking quests.
+    CanAddToScanList: Disregard ignored achievement criteria setting if the NPC has a tracking quest which is incomplete; this typically means the NPC can be killed again for more loot and should trigger an alert.
+
+commit 4a89c013bf274ab898f836a4400b6c9a54de9181
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Thu Jul 5 04:00:56 2018 -0500
+
+    Fix PerformNPCSearch.
 
