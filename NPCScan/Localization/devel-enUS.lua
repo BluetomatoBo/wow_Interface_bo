@@ -203,6 +203,7 @@ VL["Mrrgrl the Tide Reaver"] = true
 VL["Murktide Alpha"] = true
 VL["Myonix"] = true
 
+VL["Naroua, King of the Forest"] = true
 VL["Nas Dunberlin"] = true
 VL["Night Haunter"] = true
 VL["No'losh"] = true
@@ -233,6 +234,7 @@ VL["Randril"] = true
 VL["Rauren"] = true
 VL["Ravager Broodlord"] = true
 VL["Ravyn-Drath"] = true
+VL["Really Skunky Beer"] = true
 VL["Reef Lord Raj'his"] = true
 VL["Remnant of the Blood Moon"] = true
 VL["Rogond"] = true

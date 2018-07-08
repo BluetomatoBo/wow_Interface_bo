@@ -207,6 +207,8 @@ VL["Mrrgrl the Tide Reaver"] = "파도를 가르는 자 아옳옳옳"
 --[[Translation missing --]]
 --[[ VL["Murktide Alpha"] = "Murktide Alpha"--]] 
 VL["Myonix"] = "묘닉스"
+--[[Translation missing --]]
+--[[ VL["Naroua, King of the Forest"] = "Naroua, King of the Forest"--]] 
 VL["Nas Dunberlin"] = "나스 던블린"
 VL["Night Haunter"] = "밤의 유령"
 VL["Noble Blademaster"] = "고귀한 검귀"
@@ -237,6 +239,8 @@ VL["Rauren"] = "로우렌"
 --[[Translation missing --]]
 --[[ VL["Ravager Broodlord"] = "Ravager Broodlord"--]] 
 VL["Ravyn-Drath"] = "라빈드라스"
+--[[Translation missing --]]
+--[[ VL["Really Skunky Beer"] = "Really Skunky Beer"--]] 
 VL["Reef Lord Raj'his"] = "산호초 군주 라즈히스"
 VL["Remnant of the Blood Moon"] = "핏빛 달의 잔재"
 VL["Rogond"] = "로곤드"

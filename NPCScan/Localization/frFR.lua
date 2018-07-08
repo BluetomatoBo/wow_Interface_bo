@@ -324,6 +324,8 @@ VL["Lost Ettin"] = "Ettin perdu"
 --[[Translation missing --]]
 --[[ VL["Myonix"] = "Myonix"--]] 
 --[[Translation missing --]]
+--[[ VL["Naroua, King of the Forest"] = "Naroua, King of the Forest"--]] 
+--[[Translation missing --]]
 --[[ VL["Nas Dunberlin"] = "Nas Dunberlin"--]] 
 VL["Night Haunter"] = "Hante-la-Nuit"
 --[[Translation missing --]]
@@ -372,6 +374,8 @@ VL["Purging the River"] = "Purge de la rivière"
 --[[ VL["Ravager Broodlord"] = "Ravager Broodlord"--]] 
 --[[Translation missing --]]
 --[[ VL["Ravyn-Drath"] = "Ravyn-Drath"--]] 
+--[[Translation missing --]]
+--[[ VL["Really Skunky Beer"] = "Really Skunky Beer"--]] 
 --[[Translation missing --]]
 --[[ VL["Reef Lord Raj'his"] = "Reef Lord Raj'his"--]] 
 --[[Translation missing --]]

@@ -191,6 +191,8 @@ VL["Mother Om'ra"] = "Mutter Om'ra"
 VL["Mrrgrl the Tide Reaver"] = "Mrrgrl der Gezeitenhäscher"
 VL["Murktide Alpha"] = "Glub'glok"
 VL["Myonix"] = "Myonix"
+--[[Translation missing --]]
+--[[ VL["Naroua, King of the Forest"] = "Naroua, King of the Forest"--]] 
 VL["Nas Dunberlin"] = "Nas Dunberlinn"
 VL["Night Haunter"] = "Der Nachtschatten"
 VL["Noble Blademaster"] = "Adliger Klingenmeister"
@@ -217,6 +219,8 @@ VL["Randril"] = "Randril"
 VL["Rauren"] = "Rauren"
 VL["Ravager Broodlord"] = "Verwüstende Zuchtbrüder"
 VL["Ravyn-Drath"] = "Ravyn-Drath"
+--[[Translation missing --]]
+--[[ VL["Really Skunky Beer"] = "Really Skunky Beer"--]] 
 VL["Reef Lord Raj'his"] = "Rifflord Raj'his"
 VL["Remnant of the Blood Moon"] = "Überrest des Blutmonds"
 VL["Rogond"] = "Rogond"

@@ -207,6 +207,8 @@ VL["Mrrgrl the Tide Reaver"] = "Мрргл Разоритель Морей"
 --[[Translation missing --]]
 --[[ VL["Murktide Alpha"] = "Murktide Alpha"--]] 
 VL["Myonix"] = "Мионикс"
+--[[Translation missing --]]
+--[[ VL["Naroua, King of the Forest"] = "Naroua, King of the Forest"--]] 
 VL["Nas Dunberlin"] = "Наз Данберлин"
 VL["Night Haunter"] = "Ужас ночи"
 --[[Translation missing --]]
@@ -238,6 +240,8 @@ VL["Rauren"] = "Рорен"
 --[[Translation missing --]]
 --[[ VL["Ravager Broodlord"] = "Ravager Broodlord"--]] 
 VL["Ravyn-Drath"] = "Райвин-Драт"
+--[[Translation missing --]]
+--[[ VL["Really Skunky Beer"] = "Really Skunky Beer"--]] 
 VL["Reef Lord Raj'his"] = "Повелитель рифов Раж'хис"
 VL["Remnant of the Blood Moon"] = "Частица Кровавой Луны"
 VL["Rogond"] = "Рогонд"
