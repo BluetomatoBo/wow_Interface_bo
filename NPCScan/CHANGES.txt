@@ -1,34 +1,46 @@
-tag 93f22b3adb6d6672d862198de58ed064e48189c8 7.3.5.16
+tag 565f4ba13e15e8054e25e701dd34f4066f06f9d3 7.3.5.17
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Sat Jul 7 16:03:52 2018 -0500
+Date:	Sun Jul 8 07:20:48 2018 -0500
 
-commit 8142fc3e181f7847a791b4223e56c11f404b24eb
+commit 103717f079ba279c335f02bfc3dbc81a39df6f8c
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sat Jul 7 13:52:29 2018 -0500
+Date:   Sun Jul 8 07:15:33 2018 -0500
 
-    Add names to several quests (Lua comments).
+    Fix addition of custom NPC entries, and don't try to show these in the tooltip.
 
-commit 23365dbab4854e2dd9f453217ad2eb15a0366fe0
+commit e0c72ecd3bb056022eb0e3b36905e33833208e37
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sat Jul 7 13:47:20 2018 -0500
+Date:   Sun Jul 8 07:14:47 2018 -0500
 
-    Add tracking quest column to the zone tooltip: Exclamation means active, question mark means completed. Change tameable icon to that of the Hunter class for clearer context.
+    Fix NPC reference when looking up achievement data in the target button.
 
-commit 824de4769162739d089cd205a5cc9f0941a3a167
+commit 21114e130f4a716c1de0c94f6eb94fff9d79d89c
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sat Jul 7 10:50:34 2018 -0500
+Date:   Sun Jul 8 06:15:40 2018 -0500
 
-    Remove second ID for Cranegnasher (NPC doesn't seem to be in the game) and label locations for both occurrences of Archiereus of Flame.
+    Modify IsNPCQuestComplete to use the NPC object instead of its ID to obviate the need to check for existence within the function.
 
-commit 89931d4c48c823c4492131a45a2541098e449468
+commit 64286e1e2b7f68dff86056fcdd36d57ca3efef1d
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sat Jul 7 10:49:29 2018 -0500
+Date:   Sun Jul 8 06:14:26 2018 -0500
 
-    Addendum to previous commit.
+    Add tracking for the 'Praise the Sun!' achievement, and manually add Nalak as criteria.
 
-commit 35ac1d2cab0012bd94b03127b925d036e522d7f6
+commit ba8d8aa19c22645afd1cb9e8bfe20f2c6b839feb
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sat Jul 7 10:48:26 2018 -0500
+Date:   Sun Jul 8 06:13:24 2018 -0500
 
-    Add tracking quests and vignette names for Timeless Isles NPCs.
+    Add support for adding an NPC to an achievement despite its criteria, since Blizzard isn't super consistent with how they track things.
+
+commit 09705e154ecb6682e178e2eeca2de997a83f2a2f
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Sun Jul 8 06:09:18 2018 -0500
+
+    Add tracking quest for Nalak.
+
+commit 1bb64f4882182226163ab29df756ade31b975ab1
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Sun Jul 8 06:08:40 2018 -0500
+
+    Re-add removed ID for Cranegnasher - it's the one used for the achievement.
 

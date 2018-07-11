@@ -114,7 +114,7 @@ local function CanAddToScanList(npcID)
 			return false
 		end
 
-		local isquestCompleted = private.IsNPCQuestComplete(npcID)
+		local isquestCompleted = private.IsNPCQuestComplete(npc)
 
 		if not npc.questID or isquestCompleted then
 			local achievementID = npc.achievementID
@@ -124,7 +124,7 @@ local function CanAddToScanList(npcID)
 					return false
 				end
 
-				if detection.ignoreCompletedAchievementCriteria and (Data.Achievements[achievementID].isCompleted or npc.isCriteriaCompleted) then
+				if detection.ignoreCompletedAchievementCriteria and private.IsNPCAchievementCriteriaComplete(npc) then
 					return false
 				end
 			end
@@ -133,7 +133,7 @@ local function CanAddToScanList(npcID)
 		if isquestCompleted and detection.ignoreCompletedQuestObjectives then
 			return false
 		end
-end
+	end
 
 	return true
 end
@@ -141,7 +141,7 @@ end
 local function MergeUserDefinedWithScanList(npcList)
 	if npcList and private.db.profile.detection.userDefined then
 		for npcID in pairs(npcList) do
-			Data.Scanner.NPCs[npcID] = Data.NPCs[npcID]
+			Data.Scanner.NPCs[npcID] = {}
 		end
 	end
 end
@@ -211,7 +211,7 @@ local function UpdateScanListAchievementCriteria()
 	local needsUpdate = false
 
 	for _, npc in pairs(Data.Scanner.NPCs) do
-		if npc.achievementID and npc.achievementCriteriaID and not npc.isCriteriaCompleted then
+		if npc.achievementID and npc.achievementCriteriaID and not private.IsNPCAchievementCriteriaComplete(npc) then
 			local _, _, isCompleted = _G.GetAchievementCriteriaInfoByID(npc.achievementID, npc.achievementCriteriaID)
 
 			if isCompleted then
@@ -237,8 +237,10 @@ local function UpdateScanListQuestObjectives()
 	local needsUpdate = false
 
 	if private.db.profile.detection.ignoreCompletedQuestObjectives then
-		for npcID in pairs(Data.Scanner.NPCs) do
-			if private.IsNPCQuestComplete(npcID) then
+		local NPCs = Data.Scanner.NPCs
+
+		for npcID in pairs(NPCs) do
+			if private.IsNPCQuestComplete(NPCs[npcID]) then
 				needsUpdate = true
 			end
 		end
