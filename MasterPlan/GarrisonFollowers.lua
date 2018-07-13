@@ -434,7 +434,7 @@ local CreateClassSpecButton, ClassSpecButton_Set do
 end
 function EV:FXUI_GARRISON_FOLLOWER_LIST_SHOW_FOLLOWER(tab, followerID)
 	local et, ab, at, ct = T.EquivTrait, tab.AbilitiesFrame.Abilities
-	if not T.config.ignore[followerID] then
+	if not T.config.ignore[followerID] and followerID and followerID ~= 0 then
 		at, ct = G.GetFollowerRerollConstraints(followerID)
 	end
 	for i=1, #ab do

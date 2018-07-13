@@ -22,7 +22,7 @@ local function Unregister(event, func)
 		list[func] = nil
 		if not next(list) then
 			listeners[event] = nil
-			frame:UnregisterEvent(event)
+			pcall(frame.UnregisterEvent, frame, event)
 		end
 	end
 	if lock and lock ~= true then
@@ -52,7 +52,7 @@ function Evie.RaiseEvent(event, ...)
 	return Raise(nil, event, ...)
 end
 function easy_mt:__newindex(e, f)
-	Register(e, f)
+	Register(e, f, 3)
 end
 
 frame:SetScript("OnEvent", Raise)
