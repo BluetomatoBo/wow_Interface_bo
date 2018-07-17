@@ -1,12 +1,10 @@
-tag 10efc150f74577e87292089959c09e4e80ca8092 v7.2.0.170329
-Author:	Vladinator89 <vladix@gmail.com>
-Date:	Mon Apr 3 08:25:30 2017 +0100
+tag 4b97daa75d7b76c97ce655ddaf0aa70375ad2003 v8.0.0.180630
+Author:	Vlad <vladix@gmail.com>
+Date:	Tue Jul 17 11:17:24 2018 +0200
 
-v7.2.0.170329
+commit 0a1f451cb872f481148fca47ac401adc9b7a9bdd
+Author: Vlad <vladix@gmail.com>
+Date:   Tue Jul 3 22:46:01 2018 +0200
 
-commit 20032cf4152b973c8eb5d92cb1079144a2930d79
-Author: Vladinator89 <vladix@gmail.com>
-Date:   Mon Apr 3 09:20:14 2017 +0200
-
-    Patch 7.2 update.
+    Updated for BfA.
 
