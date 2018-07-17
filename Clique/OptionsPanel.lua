@@ -134,8 +134,8 @@ end
 
 StaticPopupDialogs["CLIQUE_CONFIRM_PROFILE_DELETE"] = {
 	preferredIndex = STATICPOPUPS_NUMDIALOGS,
-    button1 = YES,
-    button2 = NO,
+    button1 = "Yes",
+    button2 = "No",
     hideOnEscape = 1,
     timeout = 0,
     whileDead = 1,
@@ -143,9 +143,9 @@ StaticPopupDialogs["CLIQUE_CONFIRM_PROFILE_DELETE"] = {
 
 StaticPopupDialogs["CLIQUE_NEW_PROFILE"] = {
 	preferredIndex = STATICPOPUPS_NUMDIALOGS,
-	text = TEXT("Enter the name of a new profile you'd like to create"),
-	button1 = TEXT(OKAY),
-	button2 = TEXT(CANCEL),
+	text = "Enter the name of a new profile you'd like to create",
+	button1 = "Okay",
+	button2 = "Cancel",
 	OnAccept = function(self)
 		local base = self:GetName()
 		local editbox = _G[base .. "EditBox"]
@@ -365,6 +365,12 @@ end
 
 -- Update the elements on the panel to the current state
 function panel.refresh()
+    xpcall(function()
+
+    if not panel.initialized then
+        panel:CreateOptions()
+    end
+
     -- Initialize the dropdowns
     local settings = addon.settings
     local currentProfile = addon.db:GetCurrentProfile()
@@ -386,13 +392,17 @@ function panel.refresh()
 	panel.stopcastingfix:SetChecked(settings.stopcastingfix)
     panel.specswap:SetChecked(settings.specswap)
     panel.specswap.EnableDisable()
+
+    end, geterrorhandler())
 end
 
 function panel.okay()
+    xpcall(function ()
+
     local settings = addon.settings
     local currentProfile = addon.db:GetCurrentProfile()
 
-	local changed = (not not panel.stopcastingfix:GetChecked()) ~= settings.stopcastingfix
+    local changed = (not not panel.stopcastingfix:GetChecked()) ~= settings.stopcastingfix
 
     -- Update the saved variables
     settings.downclick = not not panel.updown:GetChecked()
@@ -406,14 +416,13 @@ function panel.okay()
         settings[settingsKey] = UIDropDownMenu_GetSelectedValue(dropdown)
     end
 
-    if newProfile ~= currentProfile then
-        addon.db:SetProfile(newProfile)
-    end
     addon:UpdateCombatWatch()
 
-	if changed then
-		addon:FireMessage("BINDINGS_CHANGED")
-	end
+    if changed then
+        addon:FireMessage("BINDINGS_CHANGED")
+    end
+
+    end, geterrorhandler())
 end
 
 panel.cancel = panel.refresh

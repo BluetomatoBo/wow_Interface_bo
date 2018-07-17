@@ -1,12 +1,18 @@
-tag ac0c1fba51d7d85598a878bd8dbf7d7fc76fdda9 v70300-1.0.0
+tag 66f5ead355abf32c8f304fe1ec62625428b91237 v80000-1.0.0
 Author:	Jim Whitehead <jnwhiteh@gmail.com>
-Date:	Mon Nov 13 22:27:36 2017 +0100
+Date:	Mon Jul 16 22:39:25 2018 +0200
 
-Tagging v70300-1.0.0
+Tagging v80000-1.0.0
 
-commit c208981c58d7f27dfb6a9a9dc6113be5d6b06829
+commit df0343b4264ad303d8fc3899a7ff3052de60bc78
 Author: Jim Whitehead <jnwhiteh@gmail.com>
-Date:   Mon Nov 13 22:00:23 2017 +0100
+Date:   Sun Jul 15 11:29:44 2018 +0200
 
-    Update for 7.3
+    Update TOC for BfA
+
+commit 9da260085dce8d6c124c716d22c745509600faad
+Author: Jim Whitehead <jnwhiteh@gmail.com>
+Date:   Sun Jul 15 11:29:25 2018 +0200
+
+    Fix option panel initialization
 

@@ -161,6 +161,7 @@ function panel:UpdateScrollFrame()
 end
 
 function panel.okay()
+    xpcall(function()
     -- Clear the existing blacklist
     for frame, value in pairs(state) do
         if not not value then
@@ -171,9 +172,16 @@ function panel.okay()
     end
 
     addon:FireMessage("BLACKLIST_CHANGED")
+    end, geterrorhandler())
 end
 
 function panel.refresh()
+    xpcall(function()
+
+    if not panel.initialized then
+        panel:CreateOptions()
+    end
+
     for frame in pairs(addon.ccframes) do
         local name = frame:GetName()
         if name then
@@ -190,6 +198,7 @@ function panel.refresh()
     end
 
     panel:UpdateScrollFrame()
+    end, geterrorhandler())
 end
 
 InterfaceOptions_AddCategory(panel, addon.optpanels.ABOUT)

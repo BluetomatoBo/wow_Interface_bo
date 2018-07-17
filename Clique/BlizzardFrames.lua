@@ -99,6 +99,11 @@ function panel:CreateOptions()
 end
 
 function panel.refresh()
+    xpcall(function()
+    if not panel.initialized then
+        panel:CreateOptions()
+    end
+
     local opt = addon.settings.blizzframes
 
     panel.PlayerFrame:SetChecked(opt.PlayerFrame)
@@ -112,9 +117,11 @@ function panel.refresh()
     panel.compactraid:SetChecked(opt.compactraid)
     --panel.compactparty:SetChecked(opt.compactparty)
     panel.boss:SetChecked(opt.boss)
+    end, geterrorhandler())
 end
 
 function panel.okay()
+    xpcall(function()
     local opt = addon.settings.blizzframes
     opt.PlayerFrame = not not panel.PlayerFrame:GetChecked()
     opt.PetFrame = not not panel.PetFrame:GetChecked()
@@ -127,6 +134,7 @@ function panel.okay()
     opt.compactraid = not not panel.compactraid:GetChecked()
     --opt.compactparty = not not panel.compactparty:GetChecked()
     opt.boss = not not panel.boss:GetChecked()
+    end, geterrorhandler())
 end
 
 InterfaceOptions_AddCategory(panel, addon.optpanels.ABOUT)
