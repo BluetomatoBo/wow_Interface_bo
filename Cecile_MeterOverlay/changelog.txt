@@ -1,3 +1,9 @@
+v1.2.4
+- Fix libraries
+v1.2.3
+- Update for 8.0.0
+v1.2.2
+- BfA Compatibility
 v1.2.1
 - Update for 7.2
 v1.2.0
