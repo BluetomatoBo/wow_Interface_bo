@@ -1,46 +1,16 @@
-tag 565f4ba13e15e8054e25e701dd34f4066f06f9d3 7.3.5.17
+tag 3f7640aaadd76a0748457ac10683bd05308c9ea9 7.3.5.19
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Sun Jul 8 07:20:48 2018 -0500
+Date:	Sat Jul 14 17:15:02 2018 -0500
 
-commit 103717f079ba279c335f02bfc3dbc81a39df6f8c
+commit e4c2c1308f8582c5ed3a796e6dfc4e5184b8223c
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Jul 8 07:15:33 2018 -0500
+Date:   Sat Jul 14 17:14:17 2018 -0500
 
-    Fix addition of custom NPC entries, and don't try to show these in the tooltip.
+    Add support for the Millions of Years of Evolution vs. My Fist achievement for Oondasta.
 
-commit e0c72ecd3bb056022eb0e3b36905e33833208e37
+commit 648319c7d4a86e247f33bc2f73f2dffe7e2fb8d2
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Jul 8 07:14:47 2018 -0500
+Date:   Sat Jul 14 17:12:48 2018 -0500
 
-    Fix NPC reference when looking up achievement data in the target button.
-
-commit 21114e130f4a716c1de0c94f6eb94fff9d79d89c
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Jul 8 06:15:40 2018 -0500
-
-    Modify IsNPCQuestComplete to use the NPC object instead of its ID to obviate the need to check for existence within the function.
-
-commit 64286e1e2b7f68dff86056fcdd36d57ca3efef1d
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Jul 8 06:14:26 2018 -0500
-
-    Add tracking for the 'Praise the Sun!' achievement, and manually add Nalak as criteria.
-
-commit ba8d8aa19c22645afd1cb9e8bfe20f2c6b839feb
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Jul 8 06:13:24 2018 -0500
-
-    Add support for adding an NPC to an achievement despite its criteria, since Blizzard isn't super consistent with how they track things.
-
-commit 09705e154ecb6682e178e2eeca2de997a83f2a2f
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Jul 8 06:09:18 2018 -0500
-
-    Add tracking quest for Nalak.
-
-commit 1bb64f4882182226163ab29df756ade31b975ab1
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Jul 8 06:08:40 2018 -0500
-
-    Re-add removed ID for Cranegnasher - it's the one used for the achievement.
+    Add mount and pet data for Galleon, Sha of Anger, Oondasta, and War-God Dokah. Fixes https://www.wowace.com/projects/npcscan/issues/226
 

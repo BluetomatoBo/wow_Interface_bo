@@ -76,7 +76,10 @@ private.Data = {
         },
         [AchievementID.HighValueTargets] = {
             continentID = ContinentID.Draenor
-        },
+		},
+		[AchievementID.ImInYourBaseKillingYourDudes] = {
+			continentID = ContinentID.Pandaria
+		},
         [AchievementID.JungleStalker] = {
             continentID = ContinentID.Draenor
         },
@@ -85,6 +88,12 @@ private.Data = {
         },
         [AchievementID.MakingTheCut] = {
             continentID = ContinentID.Draenor
+        },
+        [AchievementID.MillionsOfYearsOfEvolutionVsMyFist] = {
+			continentID = ContinentID.Pandaria,
+			criteriaNPCs = {
+				[69161] = true, -- Oondasta
+			}
         },
         [AchievementID.NaxtVictim] = {
             continentID = ContinentID.BrokenIsles
@@ -95,8 +104,14 @@ private.Data = {
 		[AchievementID.PraiseTheSun] = {
 			continentID = ContinentID.Pandaria,
 			criteriaNPCs = {
-				[69099] = true, -- Nalak
+				[69099] = true, -- Nalak¸
 			},
+		},
+		[AchievementID.Predator] = {
+			continentID = ContinentID.Draenor,
+			criteriaNPCs = {
+				[96235] = true, -- Xemirkol
+			}
 		},
         [AchievementID.TerrorsOfTheShore] = {
             continentID = ContinentID.BrokenIsles
@@ -109,7 +124,16 @@ private.Data = {
         },
         [AchievementID.UnleashedMonstrosities] = {
             continentID = ContinentID.BrokenIsles
-        }
+		},
+		[AchievementID.ZulAgain] = {
+			continentID = ContinentID.Pandaria,
+			criteriaNPCs = {
+				[69768] = true, -- Zandalari Warscout
+				[69769] = true, -- Zandalari Warbringer
+				[69841] = true, -- Zandalari Warbringer
+				[69842] = true, -- Zandalari Warbringer
+			},
+		},
     },
     Continents = {},
 	Maps = setmetatable({}, addTableMeta),
