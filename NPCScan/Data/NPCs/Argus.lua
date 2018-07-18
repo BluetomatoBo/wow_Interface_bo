@@ -5,7 +5,7 @@ local AddOnFolderName, private = ...
 local NPCs = private.Data.NPCs
 
 -- ----------------------------------------------------------------------------
--- Krokuun (1135)
+-- Krokuun
 -- ----------------------------------------------------------------------------
 NPCs[120393] = { -- Siegemaster Voraan
 	questID = 48627, -- Tracking Quest
@@ -88,7 +88,7 @@ NPCs[126419] = { -- Naroua
 }
 
 -- ----------------------------------------------------------------------------
--- Mac'Aree (1170)
+-- Mac'Aree
 -- ----------------------------------------------------------------------------
 NPCs[122838] = { -- Shadowcaster Voruun
 	questID = 48692, -- Tracking Quest
@@ -177,7 +177,8 @@ NPCs[126887] = { -- Ataxon
 			itemID = 153056, -- Grasping Manifestation
 			npcID = 128159, -- Grasping Manifestation
 		},
-	}
+	},
+	questID = 48709, -- Tracking Quest
 }
 
 NPCs[126889] = { -- Sorolis the Ill-Fated
@@ -256,7 +257,7 @@ NPCs[126913] = { -- Slithon the Last
 }
 
 -- ----------------------------------------------------------------------------
--- Antoran Wastes (1171)
+-- Antoran Wastes
 -- ----------------------------------------------------------------------------
 NPCs[122947] = { -- Mistress Il'thendra
 	questID = 49240, -- Unknown

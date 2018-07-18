@@ -19,7 +19,7 @@ local EventMessage = private.EventMessage
 
 
 local LibStub = _G.LibStub
-local HereBeDragons = LibStub("HereBeDragons-1.0")
+local HereBeDragons = LibStub("HereBeDragons-2.0")
 local LibSharedMedia = LibStub("LibSharedMedia-3.0")
 local NPCScan = LibStub("AceAddon-3.0"):GetAddon(AddOnFolderName)
 
@@ -152,7 +152,7 @@ function NPCScan:UpdateScanList(eventName, mapID)
 
 	if mapID and mapID >= 0 then
 		scannerData.mapID = mapID
-		scannerData.continentID = HereBeDragons:GetCZFromMapID(mapID)
+		scannerData.continentID = Data.Maps[mapID].continentID
 	end
 
 	if not scannerData.mapID or not scannerData.continentID then
@@ -312,10 +312,25 @@ do
 		end
 	end
 
-	local function ProcessVignette(vignetteName, sourceText)
+	local function ProcessVignette(vignetteInfo, sourceText)
+		local npcID = private.GUIDToCreatureID(vignetteInfo.objectGUID)
+
+		-- The objectGUID can be but isn't always an NPC ID, since some NPCs must be summoned from the vignette object.
+		if npcID and Data.Scanner.NPCs[npcID] then
+			ProcessDetection({
+				npcID = npcID,
+				sourceText = sourceText
+			})
+
+			return true
+		end
+
+		local vignetteName = vignetteInfo.name
 		local questID = private.QuestIDFromName[vignetteName]
+
 		if questID then
 			ProcessQuestDetection(questID, sourceText)
+
 			return true
 		elseif sourceText == _G.WORLD_MAP then
 			return false
@@ -323,10 +338,12 @@ do
 
 		if private.VignetteNPCs[vignetteName] then
 			ProcessVignetteNameDetection(vignetteName, sourceText)
+
 			return true
 		end
 
-		local npcID = private.NPCIDFromName[vignetteName]
+		npcID = private.NPCIDFromName[vignetteName]
+
 		if npcID then
 			ProcessDetection({
 				npcID = npcID,
@@ -348,27 +365,32 @@ do
 		return private.db.profile.detection[VIGNETTE_SOURCE_TO_PREFERENCE[sourceText]]
 	end
 
-	function NPCScan:VIGNETTE_ADDED(_, instanceID)
-		if IsIgnoringSource(_G.MINIMAP_LABEL) then
+	function NPCScan:VIGNETTE_MINIMAP_UPDATED(_, vignetteGUID)
+		if not vignetteGUID or IsIgnoringSource(_G.MINIMAP_LABEL) then
 			return
 		end
 
-		local _, _, vignetteName, iconID = _G.C_Vignettes.GetVignetteInfoFromInstanceID(instanceID)
+		local vignetteInfo = _G.C_VignetteInfo.GetVignetteInfo(vignetteGUID)
 
-		if not ProcessVignette(vignetteName, _G.MINIMAP_LABEL) then
-			private.Debug("Unknown vignette: %s with iconID %s", vignetteName or _G.UNKNOWN, tostring(iconID))
+		if vignetteInfo then
+			if not ProcessVignette(vignetteInfo, _G.MINIMAP_LABEL) then
+				private.Debug("Unknown vignette: %s with vignetteID %s", vignetteInfo.name or _G.UNKNOWN, tostring(vignetteInfo.vignetteID))
+			end
 		end
 	end
 
-	function NPCScan:WORLD_MAP_UPDATE()
-		if IsIgnoringSource(_G.WORLD_MAP) then
-			return
-		end
+	function NPCScan:VIGNETTES_UPDATED()
+		local vignetteGUIDs = _G.C_VignetteInfo.GetVignettes()
 
-		for landmarkIndex = 1, _G.GetNumMapLandmarks() do
-			local _, landmarkName = _G.C_WorldMap.GetMapLandmarkInfo(landmarkIndex)
+		for index = 1, #vignetteGUIDs do
+			local vignetteGUID = vignetteGUIDs[index]
+			local vignetteInfo = _G.C_VignetteInfo.GetVignetteInfo(vignetteGUID);
 
-			ProcessVignette(landmarkName, _G.WORLD_MAP)
+			if vignetteInfo and vignetteInfo.onWorldMap then
+				if not ProcessVignette(vignetteInfo, _G.WORLD_MAP) then
+					private.Debug("Unknown world map vignette: %s with vignetteID %s", vignetteInfo.name or _G.UNKNOWN, tostring(vignetteInfo.vignetteID))
+				end
+			end
 		end
 	end
 end -- do-block

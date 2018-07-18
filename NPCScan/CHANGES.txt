@@ -1,16 +1,64 @@
-tag 3f7640aaadd76a0748457ac10683bd05308c9ea9 7.3.5.19
+tag 55e71bd1ff3a5808368b69b086dfe55b9a5daf73 8.0.1.1
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Sat Jul 14 17:15:02 2018 -0500
+Date:	Tue Jul 17 14:15:11 2018 -0500
 
-commit e4c2c1308f8582c5ed3a796e6dfc4e5184b8223c
+commit a942e55cc1267a619a805df30c11b5c64e24d6e5
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sat Jul 14 17:14:17 2018 -0500
+Date:   Tue Jul 17 14:14:09 2018 -0500
 
-    Add support for the Millions of Years of Evolution vs. My Fist achievement for Oondasta.
+    Update URLs for .pkgmeta externals.
 
-commit 648319c7d4a86e247f33bc2f73f2dffe7e2fb8d2
+commit 58b5464ad9b207987b4b07b38c2667329fb8bc2e
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sat Jul 14 17:12:48 2018 -0500
+Date:   Tue Jul 17 12:07:36 2018 -0500
 
-    Add mount and pet data for Galleon, Sha of Anger, Oondasta, and War-God Dokah. Fixes https://www.wowace.com/projects/npcscan/issues/226
+    Convert previous WORLD_MAP_UPDATE code to use VIGNETTES_UPDATED with similar code to that of minimap vignettes.
+
+commit c950bc38a4da163827288e7d5fad7f0a89169c53
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Tue Jul 17 03:41:05 2018 -0500
+
+    Disable WORLD_MAP_UPDATE code pending further investigation on a replacement - was only ever used for the four Hellbane achievement NPCs, so if this isn't possible in WoW 8.x... whatever.
+
+commit 16e12db320fe81f9902d801c7519dc07d866ec1d
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Tue Jul 17 03:30:14 2018 -0500
+
+    Use CombatLogGetCurrentEventInfo to get proper data from the CLEU event.
+
+commit 82f567c2f8c2100a044b28f63b055dad7250ffaa
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Tue Jul 17 02:35:01 2018 -0500
+
+    Update ToC Interface to 80000.
+
+commit a85ca8c5cce7c85b15ae5f92318454640482fa02
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Tue Jul 17 02:34:39 2018 -0500
+
+    Update vignette processing for new APIs.
+
+commit e7fa50f0f096dad4bf19e8645f93fb5e15103f26
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Tue Jul 17 02:31:49 2018 -0500
+
+    Update all Map IDs to their WoW 8.x versions, using Enum values rather than magic numbers, and update API/library calls as appropriate.
+
+commit 2d342b23eff6b63021175663bb0030908e8e7aa4
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Tue Jul 17 02:00:02 2018 -0500
+
+    Split achievement data out of Data/_Main.lua into Data/Achievements.lua
+
+commit cf182490998f3931487e0a30dc85bb78b5ecc1d4
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Sun Jul 15 18:55:06 2018 -0500
+
+    Fix entry for Son of Galleon's Saddle.
+
+commit 9136e4e79dd72c13b3c85c3269cea2b0ff26882f
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Sun Jul 15 18:54:22 2018 -0500
+
+    Add tracking quest to Ataxon.
 
