@@ -1,5 +1,5 @@
-## Interface: 70300
-## X-Min-Interface: 70300
+## Interface: 80000
+## X-Min-Interface: 80000
 ## Title:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Party-BfA|r
 ## Title-deDE:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf0Gruppe-BfA|r
 ## Title-koKR:|cffffe00a<|r|cffff7d0aDBM|r|cffffe00a>|r |cff69ccf05인 던전-격전의 아제로스|r
@@ -23,6 +23,7 @@
 localization.en.lua
 localization.kr.lua
 localization.cn.lua
+localization.es.lua
 AtalDazar\Alunza.lua
 AtalDazar\Volkaal.lua
 AtalDazar\Rezan.lua
@@ -54,7 +55,7 @@ TempleofSethraliss\Galvazzt.lua
 TempleofSethraliss\AvatarofSethraliss.lua
 TempleofSethraliss\SethralissTrash.lua
 TheMotherload\CrowdPummeler.lua
-TheMotherload\Tikali.lua
+TheMotherload\Azerokk.lua
 TheMotherload\RixxaFluxflame.lua
 TheMotherload\MogulRazzdunk.lua
 TheMotherload\UndermineTrash.lua

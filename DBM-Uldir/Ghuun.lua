@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2147, "DBM-Uldir", nil, 1031)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 17597 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 17601 $"):sub(12, -3))
 mod:SetCreatureID(132998)
 mod:SetEncounterID(2122)
 mod:SetZone()
@@ -361,6 +361,7 @@ function mod:SPELL_AURA_APPLIED(args)
 		if args:IsPlayer() then
 			specWarnPowerMatrix:Show()
 			specWarnPowerMatrix:Play("matrixyou")
+			yellPowerMatrix:Yell()
 		else
 			if self:IsMythic() then
 				warnPowerMatrix:CombinedShow(1, args.destName)

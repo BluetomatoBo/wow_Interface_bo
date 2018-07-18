@@ -1,599 +1,182 @@
-tag 0ed75dd13e986f04aae8a1b82d4ef3e48836f702 7.3.31
+tag 00af32c70fbfd1bb3ebaa5eef530eec69e86ee4b 8.0.0
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Sat Jun 16 01:13:46 2018 +0200
+Date:	Tue Jul 17 15:16:47 2018 +0200
 
-Tagging as 7.3.31
+Tagging as 8.0.0
 
-commit c7b34e7f76faa06760be92d5626bed9455d76e05
+commit d7cc98c437e42c4a1b01e352555f7122e702371a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 16 01:13:46 2018 +0200
+Date:   Tue Jul 17 15:16:47 2018 +0200
 
-    increment version number to 7.3.31
+    increment version number to 8.0.0
 
-commit 85e84d92a8d40278e37da80410b7667eb8c079ac
+commit 33e58cc925e10ac3a035662c0bed9f48e9029afb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 15 15:19:14 2018 +0200
+Date:   Tue Jul 17 13:36:46 2018 +0200
 
-    ultrashining via svn r17598:
-    zhTW update
+    Omega via svn r17623:
+    8.0 Update
 
-commit ab610b2d9b2c91e2ee34f5cce7b55c8723e7dce0
+commit c9786eefa77b2901b568b46aad2c5e68d5a38bb9
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 15 02:02:01 2018 +0200
+Date:   Thu Jul 12 09:56:43 2018 +0200
 
-    Omega via svn r17597:
-    Big ghuun update
+    Omega via svn r17622:
+    CN update
 
-commit ad1024d27af9100ce565374443ad0dbfddf0d410
+commit bef01d1fb3f6b5b0109118e4d3f0ef86791f04cc
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jun 14 23:54:42 2018 +0200
+Date:   Tue Jul 10 10:25:05 2018 +0200
 
-    Omega via svn r17596:
-    some info frame tweaks to reduce redundant calls
+    Omega via svn r17621:
+    CN update
 
-commit fd775401c13da1d52be987beff2d63f69b31ff16
+commit d7a387c4601e4c7b4ef952fa89fa22021afe82af
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jun 14 23:20:04 2018 +0200
+Date:   Mon Jul 9 03:40:20 2018 +0200
 
-    Omega via svn r17595:
-    math floor debuff remaining
+    Omega via svn r17620:
+    Push the partial razzdunk mod
 
-commit b3a8bfd5814a88bef6234705b8399c148604926b
+commit 24d0c38c5503e2c0a05b5df323bd7662206bd6cb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jun 14 22:46:31 2018 +0200
+Date:   Mon Jul 9 02:58:42 2018 +0200
 
-    Omega via svn r17594:
-    Filter intermission adds for taunt warnings
+    Omega via svn r17619:
+    remove support for DBM pvp mods. without a maintainer, they will break in about a week for everyone and only spam hella lua errors with obsolete map code. I have to focus my one man crew effort on pve content and can?\226?\128?\153t maintain side projects like this anymore without more support, so some things have to give.
 
-commit 746fbb102066b61224b1ea0f9d65ff61bbb6e52c
+commit f78983583f89cb688ae035835260895758146bc2
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jun 14 22:41:02 2018 +0200
+Date:   Fri Jul 6 09:21:39 2018 +0200
 
-    Omega via svn r17593:
-    Update Mythrax timers
+    Omega via svn r17618:
+    handle dooms howl and lions roar being same boss (but faction dependent) much like boralas boss
 
-commit b2376b9fab548df8b7975fc0c1798c48511c5631
+commit 95e87fb9ba248c2fa869e60341450a41699ce52a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jun 13 02:06:11 2018 +0200
+Date:   Wed Jul 4 21:12:22 2018 +0200
 
-    Omega via svn r17592:
-    Blizz has hotfixed
+    Omega via svn r17617:
+    Fix dooms howl not loading
 
-commit 7f9379120647b3485fbdabb145b49e673fa87b9a
+commit 9c4f3395c3d77eddc67ba89abc68f8928172a681
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 12 23:05:56 2018 +0200
+Date:   Tue Jul 3 06:10:45 2018 +0200
 
-    Omega via svn r17591:
-    Ok, do this exception for ONLY PT
+    Omega via svn r17616:
+    add -delay
 
-commit b0bc90e40e954c98fbae3cfbccf9f8f25dd96b02
+commit 16b12909e7f58a534f5a5e9de5059fc0c33ed045
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 12 22:56:39 2018 +0200
+Date:   Tue Jul 3 05:17:17 2018 +0200
 
-    Omega via svn r17590:
-    Revert bandiad, cause blizzard is working on their own fix soon?\226?\132?\162
+    Omega via svn r17615:
+    More nil protection against maps with no name
 
-commit 53180408bab90c20e0b88c3a771c4fc8fab1a213
+commit 035ad51438e724b4b7f543433df08d915f0afa0e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Jun 12 22:39:52 2018 +0200
+Date:   Mon Jul 2 21:03:45 2018 +0200
 
-    Omega via svn r17589:
-    Bandaid fix that will fix syncs and pull timers for only some. sadly, to fix for everyone requires blizzard to unfuck Ambiguate ?\226?\128?\156none?\226?\128?\157
+    ebmor via svn r17614:
+    deDE update
 
-commit c5c75bcf078af1075f3b75e34eb83658e63d35da
+commit 219e8e6af1f8238589112936a66d6dae648a61b7
 Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 9 23:04:20 2018 +0200
+Date:   Sun Jul 1 22:14:01 2018 +0200
 
-    Omega via svn r17588:
-    Rest of underrot
-
-commit f78af49cb4b7b22313b5cb074103e42b0416d96c
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 9 22:19:54 2018 +0200
-
-    Omega via svn r17587:
-    Rename a mod
-    Change varimathras to NOT apply 8 yard filter if only using 2 tanks. That filter is only meant for 3 tank strat
-
-commit 562b5e782a9209ab143a758cc6609c9795455c05
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Jun 9 00:17:05 2018 +0200
-
-    Omega via svn r17586:
-    First half of underot
-
-commit d64ccbdb4ad5d104b1ef9b6883ec222c26e6b644
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 8 22:15:59 2018 +0200
-
-    Omega via svn r17585:
-    fixes
-
-commit c9a3607a47eb44af4132d4e9bcd0a8eed14278f5
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 8 22:15:01 2018 +0200
-
-    Omega via svn r17584:
-    Add the additional encounters and other fixes
-
-commit c9a3607a47eb44af4132d4e9bcd0a8eed14278f5
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 8 22:15:01 2018 +0200
-
-    Omega via svn r17584:
-    Add the additional encounters and other fixes
-
-commit 7a33638e7853661a9e763bd9485257b71c3ca13e
-Author: MysticalOS <MysticalOS@nomail.com>
-Date:   Fri Jun 8 16:05:50 2018 -0400
-
-    update pkgmeta
-
-commit 2a9603610bcb4ac4967843b33ca2f0439beedcf9
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 8 21:56:57 2018 +0200
-
-    Omega via svn r17583:
-    Follow similar naming scheme
-
-commit bb76315c6994005e9dd0252858a5b661f0e5409a
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 8 21:56:43 2018 +0200
-
-    Omega via svn r17582:
-    Follow similar naming scheme
-
-commit 6d828599f05325522b0315fc6c08ac1033ac26b4
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 8 21:50:58 2018 +0200
-
-    Omega via svn r17581:
-    Merge part 2
-
-commit d28ce2f0a52991c4de3f0b8e7abf0b9112946c52
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 8 21:50:29 2018 +0200
-
-    Omega via svn r17580:
-    Merge part 1
-
-commit e0158adbaf83563f30bff1aef8ebf7be9d9cfcdc
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Jun 7 04:33:28 2018 +0200
-
-    Omega via svn r17579:
-    Pre build expressions for Uldir bosses, for quick log checking going forward
-
-commit c46a23296a93089ade8fb6536c0154fb4f335059
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jun 6 08:13:29 2018 +0200
-
-    Omega via svn r17578:
-    Use specific sound
-
-commit a8662444609d30a6ae165b5a0a01dc5c18881884
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Jun 6 00:13:36 2018 +0200
-
-    Omega via svn r17577:
-    Fix lua error
-
-commit c7e980079e414fdb34cd730bca5d71775dd0aed2
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jun 3 21:48:24 2018 +0200
-
-    Omega via svn r17576:
-    Fix lua error in brawlers
-    Added rest of Siege of Boralus
-
-commit 8c109a7bd3a72da2e692b5ddfe5dfc31510e47c6
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jun 3 06:13:02 2018 +0200
-
-    Omega via svn r17575:
-    Added drycode support for half of Siege of boralus, other half will be drycoded prob tomorrow
-
-commit 7e909390296d787e35e2d0054372ddebebebc00d
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Jun 3 01:19:02 2018 +0200
-
-    Omega via svn r17574:
-    Hybrid mod
-
-commit 817f405f90d35f8ec9a608568b45097965b39154
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 1 22:52:40 2018 +0200
-
-    Omega via svn r17573:
-    More tweaks
-
-commit a6da8db361ab8435590c2b42858587524ff41b87
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 1 22:35:08 2018 +0200
-
-    Omega via svn r17572:
-    More tweaks
-
-commit 7e60b6e54862885754f9ec25ab0ea0904db7e03e
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Jun 1 22:14:34 2018 +0200
-
-    Omega via svn r17571:
-    Couple fixes
-
-commit b7ec01a5614f7c36ff2dafa88a5d24bd5f3f18fd
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 31 05:22:08 2018 +0200
-
-    Omega via svn r17570:
-    Change rage to 5 yard, not 8 yard
-
-commit 6803c93c5bf0d7c1837667578c7345d9c989fb7f
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 30 06:26:50 2018 +0200
-
-    Omega via svn r17569:
-    Garothi improvement with timer name
-
-commit cbc574269db480a1fab35c01ca196590df2d6679
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat May 26 08:53:54 2018 +0200
-
-    Omega via svn r17568:
-    antispam
-
-commit 2fc0e7f37dd4c3d93387680e0cd37b1ebbf183fa
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat May 26 08:27:55 2018 +0200
-
-    Omega via svn r17567:
-    Fix message clarity on stormsong
-
-commit 12adbaad6aeb0a9429ce6476fcd910e5b8be0f2a
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat May 26 08:11:17 2018 +0200
-
-    Omega via svn r17566:
-    And make cleave timer for everyone, cause tank aims boss, but during kite everyone needs to be aware of it
-
-commit 3117626437cef25f97221d526d0ff2ab57687c55
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat May 26 08:09:38 2018 +0200
-
-    Omega via svn r17565:
-    Add tank warning to Blessing of Ironsides
-
-commit 4e2a6d7eda9817e7e0ef69851eb285ffbc753eca
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat May 26 01:14:32 2018 +0200
-
-    Omega via svn r17564:
-    Added aura of rot special warning for stitches
-    Fixed target warning for moose run to not announce boss.
-
-commit 69bfc3ef284b29f28d5a170b33117ba30719594c
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 25 23:22:41 2018 +0200
-
-    Omega via svn r17563:
-    yet another pre berserk filter
-
-commit 22622b97f2db8fd752c5dd0c28a40620c3a76cf7
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 25 22:50:18 2018 +0200
-
-    Omega via svn r17562:
-    yet another pre berserk filter
-    Full voice pack support
-
-commit 52a1530d4842024c9de874ca9757cadd5e0402a3
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 25 22:23:25 2018 +0200
-
-    Omega via svn r17561:
-    Add another pre berserk yell filter.
-
-commit 4a2d2fe108a88411705094c2b2db5ae8c60654f9
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 25 21:56:29 2018 +0200
-
-    Omega via svn r17560:
-    Some timer fixes
-
-commit 23ba8cf8c5a7e330f74374a0f57d3054b33395f8
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 25 21:48:15 2018 +0200
-
-    Omega via svn r17559:
-    Fix last
-
-commit f8d950bbc2b97f924521076ea0862e1d5c6e7346
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 25 21:32:00 2018 +0200
-
-    Omega via svn r17558:
-    Fix berserk timer canceling do to a new line blizz added at some point to brawlers guild that defeats the logic that used to work
-
-commit d5b25be58ea215f9041428bd602a0aa073a78a6f
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 25 05:13:13 2018 +0200
-
-    Omega via svn r17557:
-    Disable this, not useful for this boss
-
-commit f4fa8c24a679c2ba736e07189046e784116c2833
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 25 02:23:09 2018 +0200
-
-    Omega via svn r17556:
-    Update whereami for latest bfa changes
-
-commit 738e834a53f0f04a2bf91a3c9174856c191c4305
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 24 23:55:18 2018 +0200
-
-    Omega via svn r17555:
-    filter 0 returns
-
-commit 670596cb6e96ccdae3f890509dc3b2b2741722e7
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 24 23:42:41 2018 +0200
-
-    Omega via svn r17554:
-    Apply some no filter rules to some of brawler target warnings
-
-commit 1bf992b4eff1f49d4258a522241d9ffd0cead00f
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 24 05:07:58 2018 +0200
-
-    Omega via svn r17553:
-    Fine tune nameplate numbers for aggramar so they don?\226?\128?\153t go red so early. New values. Green til 35 energy then yellow until 70 energy. red until 90 energy and skull til 100.
-
-commit b3450d1fb6c4c05f8718f8497ab6e90a3cb3ac7a
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue May 22 23:18:25 2018 +0200
-
-    Omega via svn r17552:
-    Strengthen force disable by preventing users trying to use /run to force re-enable via the enable function
-
-commit 9dc38679472ced45a47a3c343a5328fbb112fb79
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue May 22 05:37:20 2018 +0200
-
-    Omega via svn r17551:
-    Tweak orb warning to not be a hard switch warning
-
-commit 95f1656d2df8f440c1b7a6cab91b52cd028edcd7
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue May 22 05:04:56 2018 +0200
-
-    Omega via svn r17550:
-    Finish dazar drycode
-
-commit 7a0ff0943bc3bab11216bbc559fa3324c0acfd16
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue May 22 04:28:01 2018 +0200
-
-    Omega via svn r17549:
-    Fix some missed threat calls
-    Fix some lua errors in council of tribes
-
-commit 90ee695fe7298779ed21f3ddf8e1d5ae7031b046
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue May 22 03:53:25 2018 +0200
-
-    Omega via svn r17548:
-    Don?\226?\128?\153t call UnitThreat directly in all these mods, use core function for it
-
-commit 1c045cc1dc3a927cc4daa3ba87f7b53f9f44d359
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon May 21 07:19:57 2018 +0200
-
-    Omega via svn r17547:
-    Add a couple more kingrest drycodes for the day.
-    Changed odyn boss fight to no longer filter shield target in ToV
-
-commit 9ea3581da53a62623b1366cb0ec4ec0c3f64892d
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon May 21 00:08:27 2018 +0200
-
-    Omega via svn r17546:
-    Some renames
-
-commit d0d61f1befb1cd4ae79d29ecea95a742aeec9f78
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat May 19 10:28:07 2018 +0200
-
-    Omega via svn r17545:
-    Fix event name getting cached too early, before byspellid is stripped off of it
-
-commit 91cde9b58a8084011ab0821d7f38906aceb0a8b1
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat May 19 00:17:05 2018 +0200
-
-    Omega via svn r17544:
-    fetid and zul updates
-
-commit cf80957e6b321895a06906cb0536deb95e907e96
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 18 23:31:10 2018 +0200
-
-    Omega via svn r17543:
-    Try to bump curse
-
-commit b962a1b9689c828298785b26e3b173d0f0456db7
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 18 21:21:32 2018 +0200
-
-    Omega via svn r17542:
-    Couple mythic updates
-
-commit 66332c944336d958cb9f855ae78f845956862022
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 18 19:34:32 2018 +0200
-
-    Omega via svn r17541:
+    Omega via svn r17613:
     Kr update
 
-commit c979fd7f807919156789f53668111d066cd37b29
+commit 4b14075517f868393167e0d568b56b9087291389
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 18 02:07:57 2018 +0200
+Date:   Sun Jul 1 19:30:17 2018 +0200
 
-    Omega via svn r17540:
-    Improve notations
+    Omega via svn r17612:
+    Support up to 4 checks at once, as it makes sense to do for legacy mods
 
-commit 6ffb7d6ce9a3eb30541bfd859da4303e3889d2f5
+commit 02658597594819e245344b00f8644e398a02f0ca
 Author: subversion <svn@deadlybossmods.com>
-Date:   Fri May 18 02:00:55 2018 +0200
+Date:   Sun Jul 1 19:04:19 2018 +0200
 
-    Omega via svn r17539:
-    Taloc and mother updates
+    Omega via svn r17611:
+    Some more Unit_spellcast fixes for bfa
 
-commit af7b5e6f70ca9eb3d5bd861cb1ffa6f2adb8f50c
+commit 6933273eae85b4705e9220c6b48ae59e779f4eb7
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 17 23:09:38 2018 +0200
+Date:   Sun Jul 1 18:10:29 2018 +0200
 
-    Omega via svn r17538:
-    Try this fix
+    Omega via svn r17610:
+    Finally dd Skovald RP
+    Fixed court of stars helper not closing earlier, when finding correct noble
 
-commit d02086d6cb5f092ed603478cda46547bb934f7c1
+commit eaf0b2cd1a5bc60b2ea84cd4fe354e45780f72c8
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 17 22:58:01 2018 +0200
+Date:   Sun Jul 1 03:58:52 2018 +0200
 
-    Omega via svn r17537:
-    Don?\226?\128?\153t tell clogged to soak heart
+    Omega via svn r17609:
+    Antispam this for when mass pulling
 
-commit f66074ca10b4f7ba13fb9b6ca70b9a74851697a4
+commit e40545a955f382e9dbcb2419a594ffac1f790bdb
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 17 22:18:22 2018 +0200
+Date:   Sat Jun 30 01:33:36 2018 +0200
 
-    Omega via svn r17536:
-    Fix countdown
+    Omega via svn r17608:
+    Support stats layout too
 
-commit d38db5bafcb9b080d8fb114fe26743599236c26a
+commit 1583be71531fdbf85f8f52c51732caa88eecf69e
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 17 21:57:12 2018 +0200
+Date:   Sat Jun 30 01:26:31 2018 +0200
 
-    Omega via svn r17535:
-    tweak
+    Omega via svn r17607:
+    Add isles difficulty detection
 
-commit a435b5c16a553184f805b23118dc5a29d8dcdf16
+commit 458d0bbe842fe392dbc14fc0c317739328f2d199
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 17 21:34:20 2018 +0200
+Date:   Mon Jun 25 05:12:33 2018 +0200
 
-    Omega via svn r17534:
-    Push some mythic drycodes for taloc
+    Omega via svn r17606:
+    Most of motherload drycoded
 
-commit 605434ffc503583844fad8f9b24e84d6880d5fbd
+commit 262b3de40119a974f2854ffcc5a6c6e1307c1fac
 Author: subversion <svn@deadlybossmods.com>
-Date:   Thu May 17 11:08:10 2018 +0200
+Date:   Wed Jun 20 20:44:33 2018 +0200
 
-    Omega via svn r17533:
-    Several freehold waycrest and storm fixes
-    a some new storm trash warnings
-    an old guldan fix
+    Omega via svn r17605:
+    Antispam lockdown with aggressive validity checks, like slag mines had to use in wod for trash fighting trash
 
-commit bd1de9dd957e2f60c374e4c1652a3374f11609b7
+commit 2d79e5e3b44c38dd8a8e944401ab1a8106da4f9a
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 16 23:46:02 2018 +0200
+Date:   Wed Jun 20 09:16:20 2018 +0200
 
-    Omega via svn r17532:
-    Throttle vector if multiple apply to you at same time
+    Omega via svn r17604:
+    Fix a regression with guldan from a few weeks ago that caused it to spam invalid targets for bonds of fel
+    Try to fix a rare bug on aggramar where it tells you to taunt on first foebreaker, when code explicitly says second one only
 
-commit f4f61ae9d31246e2f68a0891154a64a08e2f755b
+commit 44261399a3a8467f5a801cee78ce6acae6497fa9
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 16 23:29:03 2018 +0200
+Date:   Sun Jun 17 06:39:08 2018 +0200
 
-    Omega via svn r17531:
-    Update vectis tanking since encounter changed
+    Omega via svn r17603:
+    Make very legion mod for entire expansion compatible with UNIT_SPELLCAST changes, so people testing PTR legion content instead of BfA, can use these mods
 
-commit fd516a7036ac9545460027608822bc23ab9b2e9b
+commit 7bf756c5f1ba5b4bf210528e87263f5b199237f1
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 16 11:24:43 2018 +0200
+Date:   Sat Jun 16 20:47:42 2018 +0200
 
-    Omega via svn r17530:
-    User generated timers will now use C_ChatInfo.SendAddonMessageLogged in 8.x
+    Omega via svn r17602:
+    Es update
 
-commit 7a99a590ed5e59af980b2d7debd32c69f337c6df
+commit ddb0177ffadd5b1c93e2a6831fbc3476aadf18e3
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 16 00:38:42 2018 +0200
+Date:   Sat Jun 16 09:25:01 2018 +0200
 
-    Omega via svn r17529:
-    Also, complain if byspellid is used with a spellname
+    Omega via svn r17601:
+    Fix yell for matrix core not showing
 
-commit 1f8520a7b6beff2f22f0182c70d190671e4bf2d4
+commit 0e39021dde29435bcadb7535ecb32cf518e03e43
 Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 16 00:33:36 2018 +0200
+Date:   Sat Jun 16 01:14:13 2018 +0200
 
-    Omega via svn r17528:
-    Fix
-
-commit dbe984643bce83aa969b69e6099bee8caeb2e7c8
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed May 16 00:31:52 2018 +0200
-
-    Omega via svn r17527:
-    More infoframe cleanup to eliminate duplication
-    in addition, now any spell based info frame supports ?\226?\128?\156byspellid?\226?\128?\157 method
-
-commit 16927b94d3838c9e667fd1aea4ee8cedbdcfb63f
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue May 15 22:24:11 2018 +0200
-
-    Omega via svn r17526:
-    Timer fix from user reports
-
-commit 3b20e049c3040a72391f00fd46f215bfd58257e0
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon May 14 11:12:47 2018 +0200
-
-    Omega via svn r17525:
-    More infoframe cleanup
-    *Eliminated pointless double calling of UnitBuff/Debuff
-    *Eliminated duplicate functions that can be combined and handled by Core now.
-
-commit 80aa0ff895cf92359b0a631dffcc7dff120f059b
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon May 14 10:55:09 2018 +0200
-
-    Omega via svn r17524:
-    Eliminate some redundancy in infoframe code, since the debuff handlers can handle this now
-
-commit 9632fdabe4ef058df8ea0effe368ca948075a4d0
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon May 14 10:10:41 2018 +0200
-
-    Omega via svn r17523:
-    Push new interrupt filter options for testing
-    also prune useless hudmap filter, since literally nothing uses hudman anymore
-
-commit b500754e618b506ffddf31f8d9c76d4034e02a32
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon May 14 08:48:50 2018 +0200
-
-    Omega via svn r17522:
-    *Updated all Uldir encounters from normal mode testing to improve normal mode timers (which differ from heroic) as well as fix any bugs in mods that were discovered for first 5 bosses.
-    *In addition, several warnings were tweaked for tanks to make more sense and also be more robust against tank gimmicks (such as tanks preventing application of Void Lash on zek)
-    Lastly, ALL mods for legion and BfA have been updated to use improved Interrupt filter that now checks if your interrupt spell is actually available (and if not, it suppresses interrupt warnings to further reduce spam, especially on fights like zul and zek where mobs have interrupt warnings for spells they literally spam with no CD). There are some exceptions to spell cooldown check. Any interrupt rotation order, such as coven will NEVER filter interrupt warning even if you can?\226?\128?\153t interrupt, because you still need to know it?\226?\128?\153s your turn as part of a rotation so you can vocalize to your raid ?\226?\128?\156it?\226?\128?\153s mine, but someone else hit it?\226?\128?\157
-
-commit 70f63a492592326623af5e4cb8c07f16bad13e94
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun May 13 22:57:16 2018 +0200
-
-    Omega via svn r17521:
-    some minor tank fixes for 3 bosses, i?\226?\128?\153ll fix rest of issues like timers and mechancis that don?\226?\128?\153t exist on normal after dinner
-
-commit 9d1c3785dd18b7137eff1bb3e46bde3f9497b4fd
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun May 13 05:15:41 2018 +0200
-
-    Omega via svn r17520:
-    Kr Update
-
-commit de3be2376f3bf1274463f9d2f767089764cab4ec
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun May 13 02:33:54 2018 +0200
-
-    tandanu via svn r17519:
+    tandanu via svn r17600:
     increment alpha version
 
