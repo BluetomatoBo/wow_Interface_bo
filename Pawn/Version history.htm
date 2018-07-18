@@ -18,10 +18,13 @@
 	readme</a> being longer than the rest of it, so I moved parts here.</p>
 <h2>Future versions</h2>
 <p>There are many features that I&#39;d like to add in future versions of Pawn, 
-besides fixing issues listed in the &quot;known issues&quot; below.&nbsp; 
-However, since Pawn's usefulness in 6.0 and later seems fairly limited, it's 
-likely that Pawn may not receive any further major features.</p>
+besides fixing issues listed in the &quot;known issues&quot; below.</p>
 <ul>
+	<li>Given the importance of item level, and people who use it as a measure 
+	of other players' competence, it might be nice if Pawn had an option to use 
+	item level <i>first</i> and only use stat weights when comparing between 
+	items of the same level.&nbsp; That goes against the point and philosophy of 
+	Pawn though, so I'm not sure if it's something I'd actually want to do.</li>
 	<li>Add a feature to automatically equip items that you get while questing 
 	that are better than what you already have.&nbsp; (Possibly: Automatically 
 	equip better items (1) Always, (2) Only while leveling, (3) Never)</li>
@@ -78,6 +81,13 @@ likely that Pawn may not receive any further major features.</p>
 	addon, or something similar. Once Pawn has a better concept of "this is 
 	which gear set this character wears for this task," I should be able to do 
 	this.</li>
+	<li>Pawn should integrate with Immersion.<ul>
+		<li>From the author: "Reward buttons are called: 
+		ImmersionQuestInfoItem1, ImmersionQuestInfoItem2, ... etc. They behave 
+		just as the regular reward buttons. They're also contained in the table: 
+		ImmersionFrame.TalkBox.Elements.Content.RewardsFrame.Buttons"</li>
+	</ul>
+	</li>
 </ul>
 	<h2>Known issues and bugs</h2>
 <ul>
@@ -125,6 +135,156 @@ likely that Pawn may not receive any further major features.</p>
 </ul>
 <h2>Release history</h2>
 <p>For recent version history, see the <a href="Readme.htm">Pawn readme</a>.</p>
+<h3>Version 2.2.18</h3>
+<ul>
+	<li>Fixed an occasional 
+	incompatibility with TradeSkillMaster where upgrade arrows would appear in 
+	bags too often.&nbsp; (Special thanks to Curse user Katmandu29a.)</li>
+</ul>
+<h3>Version 2.2.17</h3>
+<ul>
+	<li>Fixed a bug where relic upgrade info wasn't visible on tooltips anymore 
+	when the "align values to right edge of tooltip" option was enabled. </li>
+</ul>
+<h4>Version 2.2.17a</h4>
+<ul>
+	<li>Fixed a problem with the German translation of relic upgrade 
+	notifications.</li>
+</ul>
+<h3>Version 2.2.16</h3>
+<ul>
+	<li>Updated the default Ask Mr. Robot scales for all classes and specs.</li>
+</ul>
+<h3>Version 2.2.15</h3>
+<ul>
+	<li>Added a fix to make Pawn compatible with the German version of WoW 7.3.2 
+	courtesy of Salty from Curse.</li>
+</ul>
+<h3>Version 2.2.14</h3>
+<ul>
+	<li>Pawn will now suggest blue-quality gems on heroic Tomb of Sargeras gear 
+	or better, and the epic-quality gems on heroic Antorus gear.</li>
+	<li>Translation updates for German courtesy of Salty from Curse.</li>
+	<li>(Version 2.2.14a) Translation updates for French courtesy of 
+	Kangourousse from Curse.</li>
+</ul>
+<h3>Version 2.2.13</h3>
+<ul>
+	<li>More language updates for WoW patch 7.3.&nbsp; (If I do four of these 
+	updates I get a special cache full of epics.)</li>
+</ul>
+<h3>Version 2.2.12</h3>
+<ul>
+	<li>Fixed a problem introduced by WoW patch 7.3 that caused Pawn to not work 
+	properly in the Spanish (Spain) version of WoW.</li>
+	<li>More updates for WoW patch 7.3.</li>
+</ul>
+<h3>Version 2.2.11</h3>
+<ul>
+	<li>Updates for compatibility with WoW patch 7.3.</li>
+</ul>
+<h3>Version 2.2.10</h3>
+<ul>
+	<li>Added a compatibility fix for AethysRotation and other addons that scan 
+	your artifacts while you're logging in.</li>
+</ul>
+<h3>Version 2.2.9</h3>
+<ul>
+	<li>Stat weights for all classes and specs have been updated based on hotfixes, 
+	balance changes, and new simulations.</li>
+	<li>Pawn will now suggest blue-quality gems only on items that are higher 
+	than level 900.</li>
+</ul>
+<h3>Version 2.2.8</h3>
+<ul>
+	<li>Added new guidance and stat weights for all classes and specs to account 
+	for changes in WoW patch 7.2.5.&nbsp; The new weights are optimized for 
+	Mythic Keystone dungeons a higher gear level (870) than in previous versions 
+	of Pawn, given how quickly one can gear up alts currently.<ul>
+		<li>In addition, the new weights for Assassination Rogues now assume 
+		that you use Master Poisoner.</li>
+	</ul>
+	</li>
+	<li>Fixed a problem in Korean WoW that was introduced in 2.2.7.</li>
+	<li>Additional changes to French support to improve performance for players 
+	in all languages.</li>
+	<li>Lots of translation updates for Portuguese courtesy of Pawn fan tiagopl.&nbsp; (No updates for other 
+	languages in this update.)</li>
+</ul>
+<h3>Version 2.2.7</h3>
+<ul>
+	<li>Pawn is now compatible with the French version of WoW patch 7.2.5.</li>
+</ul>
+<h3>Version 2.2.6</h3>
+<ul>
+	<li>Pawn will now wait to start suggesting relics for the third slot of your 
+	artifact until you've actually unlocked it.&nbsp; (I thought it would be 
+	helpful for collecting a relic before you finish the questline, but it's 
+	proven to be annoying and misleading in practice.)</li>
+</ul>
+<h3>Version 2.2.5</h3>
+<ul>
+	<li>Made a change to try to improve integration with Bagnon.</li>
+</ul>
+<h3>Version 2.2.4</h3>
+<ul>
+	<li>Fixed a bug in Pawn where for some low-level characters, Pawn wouldn't 
+	recognize that one of your artifact's relic slots was locked, and would 
+	suggest relics for that slot.</li>
+</ul>
+<h3>Version 2.2.3</h3>
+<ul>
+	<li>English: Fixed a problem where the Survival Hunter artifact Talonclaw 
+	didn't ever show relic upgrades.&nbsp; (It's possible that this problem 
+	exists for other artifacts—it would occur any time that the artifact had a 
+	different name on the item tooltip versus the shift-right-click artifact 
+	pane.)</li>
+</ul>
+<h3>Version 2.2.2</h3>
+<ul>
+	<li>Worked around a game bug where WoW was saying that BoE relics looted at 
+	level 110 and then passed to lower-level characters would get fewer ilvls 
+	from that relic than they actually would.</li>
+	<li>Some other addons simulate shift-right-clicking on your artifact at 
+	logon to get information about it.&nbsp; This caused Pawn to sometimes 
+	receive incorrect information about your artifact, which would cause it to 
+	overestimate how much of an item level upgrade a relic would be.&nbsp; Pawn 
+	will now detect when this is happening and ignore the bad information it 
+	received.</li>
+	<li>Russian: Includes translations for new relic features.</li>
+</ul>
+<h3>Version 2.2.1</h3>
+<ul>
+	<li>Fixed a bug in Pawn 2.2 where items in a player's bags that required a 
+	higher player level and couldn't be equipped were still getting green 
+	arrows.</li>
+	<li>Pawn will no longer work with WoW 7.1.5.</li>
+	<li>English: Relics that give a single level increase will now say "+1 level" instead 
+	of "+1 levels".</li>
+	<li>Russian: Hopefully fixed some of the catastrophic problems that started 
+	occurring with patch 7.2.</li>
+	<li>Italian: Includes translations for new relic features.</li>
+</ul>
+<h3>Version 2.2</h3>
+<ul>
+	<li>Includes fixes for compatibility with WoW patch 7.2.</li>
+	<li>Pawn will now highlight relics that are an item 
+	level upgrade to one or more of your artifacts.&nbsp; Note that this upgrade 
+	feature is completely separate from Pawn's existing upgrade features—it's 
+	based on item level increase, not stats, and your custom scales are not used 
+	in any way.<ul>
+		<li>This feature won't work until after you shift-right-click your 
+		artifacts.&nbsp; You only have to do that once (for each artifact) after 
+		upgrading to Pawn 2.2.</li>
+		<li>This feature will work for all of your artifacts regardless of which 
+		spec you're in.</li>
+		<li>Top-tier players who want to min/max specific artifact traits rather 
+		than focusing purely on their artifact's item level may want to turn 
+		this feature off—see Pawn's Options tab to do so.</li>
+	</ul>
+	</li>
+	<li>Pawn will now suggest the cheap 100-stat gems on more items.</li>
+</ul>
 <h3>Version 2.1.18</h3>
 <ul>
 	<li>Fixed a bug where balance druids could see weapons appear as upgrades to 

@@ -22,13 +22,13 @@
 local PawnGemData70Uncommon =
 {
 
-{ 23094, "Intellect", 6 }, -- Brilliant Blood Garnet
-{ 23095, "Strength", 6 }, -- Bold Blood Garnet
-{ 28595, "Agility", 6 }, -- Delicate Blood Garnet
-{ 23114, "CritRating", 12 }, -- Smooth Golden Draenite
-{ 23115, "Stamina", 12 }, -- Subtle Golden Draenite
-{ 23116, "CritRating", 12 }, -- Rigid Azure Moonstone
-{ 23119, "Versatility", 12 }, -- Sparkling Azure Moonstone
+{ 23094, "Intellect", 4 }, -- Brilliant Blood Garnet
+{ 23095, "Strength", 4 }, -- Bold Blood Garnet
+{ 28595, "Agility", 4 }, -- Delicate Blood Garnet
+{ 23114, "CritRating", 4 }, -- Smooth Golden Draenite
+{ 23115, "Stamina", 4 }, -- Subtle Golden Draenite
+{ 23116, "CritRating", 4 }, -- Rigid Azure Moonstone
+{ 23119, "Versatility", 4 }, -- Sparkling Azure Moonstone
 
 }
 
@@ -39,14 +39,14 @@ local PawnGemData70Uncommon =
 local PawnGemData70Rare =
 {
 
-{ 24027, "Strength", 8 }, -- Bold Living Ruby
-{ 24028, "Agility", 8 }, -- Delicate Living Ruby
-{ 24030, "Intellect", 8 }, -- Brilliant Living Ruby
-{ 24048, "CritRating", 16 }, -- Smooth Dawnstone
-{ 35315, "HasteRating", 16 }, -- Quick Dawnstone
-{ 24033, "Stamina", 12 }, -- Solid Star of Elune
-{ 24035, "Versatility", 16 }, -- Sparkling Star of Elune
-{ 24051, "CritRating", 16 }, -- Rigid Star of Elune
+{ 24027, "Strength", 5 }, -- Bold Living Ruby
+{ 24028, "Agility", 5 }, -- Delicate Living Ruby
+{ 24030, "Intellect", 5 }, -- Brilliant Living Ruby
+{ 24048, "CritRating", 5 }, -- Smooth Dawnstone
+{ 35315, "HasteRating", 5 }, -- Quick Dawnstone
+{ 24033, "Stamina", 5 }, -- Solid Star of Elune
+{ 24035, "Versatility", 5 }, -- Sparkling Star of Elune
+{ 24051, "CritRating", 5 }, -- Rigid Star of Elune
 
 }
 
@@ -57,14 +57,14 @@ local PawnGemData70Rare =
 local PawnGemData70Epic =
 {
 
-{ 32193, "Strength", 10 }, -- Bold Crimson Spinel
-{ 32194, "Agility", 10 }, -- Delicate Crimson Spinel
-{ 32195, "Intellect", 10 }, -- Brilliant Crimson Spinel
-{ 32205, "CritRating", 20 }, -- Smooth Lionseye
-{ 35761, "HasteRating", 20 }, -- Quick Lionseye
-{ 32200, "Stamina", 15 }, -- Solid Empyrean Sapphire
-{ 32201, "Versatility", 20 }, -- Sparkling Empyrean Sapphire
-{ 32210, "CritRating", 20 }, -- Rigid Empyrean Sapphire
+{ 32193, "Strength", 6 }, -- Bold Crimson Spinel
+{ 32194, "Agility", 6 }, -- Delicate Crimson Spinel
+{ 32195, "Intellect", 6 }, -- Brilliant Crimson Spinel
+{ 32205, "CritRating", 6 }, -- Smooth Lionseye
+{ 35761, "HasteRating", 6 }, -- Quick Lionseye
+{ 32200, "Stamina", 6 }, -- Solid Empyrean Sapphire
+{ 32201, "Versatility", 6 }, -- Sparkling Empyrean Sapphire
+{ 32210, "CritRating", 6 }, -- Rigid Empyrean Sapphire
 
 }
 
@@ -75,15 +75,15 @@ local PawnGemData70Epic =
 local PawnGemData80Uncommon =
 {
 
-{ 39900, "Strength", 6 }, -- Bold Bloodstone
-{ 39905, "Agility", 6 }, -- Delicate Bloodstone
-{ 39910, "HasteRating", 12 }, -- Precise Bloodstone
-{ 39911, "Intellect", 6 }, -- Brilliant Bloodstone
-{ 39909, "CritRating", 12 }, -- Smooth Sun Crystal
-{ 39918, "HasteRating", 12 }, -- Quick Sun Crystal
-{ 39915, "CritRating", 12 }, -- Rigid Chalcedony
-{ 39919, "Stamina", 9 }, -- Solid Chalcedony
-{ 39920, "Versatility", 12 }, -- Sparkling Chalcedony
+{ 39900, "Strength", 4 }, -- Bold Bloodstone
+{ 39905, "Agility", 4 }, -- Delicate Bloodstone
+{ 39910, "HasteRating", 4 }, -- Precise Bloodstone
+{ 39911, "Intellect", 4 }, -- Brilliant Bloodstone
+{ 39909, "CritRating", 4 }, -- Smooth Sun Crystal
+{ 39918, "HasteRating", 4 }, -- Quick Sun Crystal
+{ 39915, "CritRating", 4 }, -- Rigid Chalcedony
+{ 39919, "Stamina", 4 }, -- Solid Chalcedony
+{ 39920, "Versatility", 4 }, -- Sparkling Chalcedony
 
 }
 
@@ -94,15 +94,15 @@ local PawnGemData80Uncommon =
 local PawnGemData80Rare =
 {
 
-{ 39996, "Strength", 8 }, -- Bold Scarlet Ruby
-{ 39997, "Agility", 8 }, -- Delicate Scarlet Ruby
-{ 39998, "Intellect", 8 }, -- Brilliant Scarlet Ruby
-{ 40003, "HasteRating", 16 }, -- Precise Scarlet Ruby
-{ 40002, "CritRating", 16 }, -- Smooth Autumn's Glow
-{ 40017, "HasteRating", 16 }, -- Quick Autumn's Glow
-{ 40008, "Stamina", 12 }, -- Solid Sky Sapphire
-{ 40009, "Versatility", 16 }, -- Sparkling Sky Sapphire
-{ 40014, "CritRating", 16 }, -- Rigid Sky Sapphire
+{ 39996, "Strength", 5 }, -- Bold Scarlet Ruby
+{ 39997, "Agility", 5 }, -- Delicate Scarlet Ruby
+{ 39998, "Intellect", 5 }, -- Brilliant Scarlet Ruby
+{ 40003, "HasteRating", 5 }, -- Precise Scarlet Ruby
+{ 40002, "CritRating", 5 }, -- Smooth Autumn's Glow
+{ 40017, "HasteRating", 5 }, -- Quick Autumn's Glow
+{ 40008, "Stamina", 5 }, -- Solid Sky Sapphire
+{ 40009, "Versatility", 5 }, -- Sparkling Sky Sapphire
+{ 40014, "CritRating", 5 }, -- Rigid Sky Sapphire
 
 }
 
@@ -113,15 +113,15 @@ local PawnGemData80Rare =
 local PawnGemData80Epic =
 {
 
-{ 40111, "Strength", 10 }, -- Bold Cardinal Ruby
-{ 40112, "Agility", 10 }, -- Delicate Cardinal Ruby
-{ 40113, "Intellect", 10 }, -- Brilliant Cardinal Ruby
-{ 40118, "HasteRating", 20 }, -- Precise Cardinal Ruby
-{ 40117, "CritRating", 20 }, -- Smooth King's Amber
-{ 40128, "HasteRating", 20 }, -- Quick King's Amber
-{ 40119, "Stamina", 12 }, -- Solid Majestic Zircon
-{ 40120, "Versatility", 20 }, -- Sparkling Majestic Zircon
-{ 40125, "CritRating", 20 }, -- Rigid Majestic Zircon
+{ 40111, "Strength", 6 }, -- Bold Cardinal Ruby
+{ 40112, "Agility", 6 }, -- Delicate Cardinal Ruby
+{ 40113, "Intellect", 6 }, -- Brilliant Cardinal Ruby
+{ 40118, "HasteRating", 6 }, -- Precise Cardinal Ruby
+{ 40117, "CritRating", 6 }, -- Smooth King's Amber
+{ 40128, "HasteRating", 6 }, -- Quick King's Amber
+{ 40119, "Stamina", 6 }, -- Solid Majestic Zircon
+{ 40120, "Versatility", 6 }, -- Sparkling Majestic Zircon
+{ 40125, "CritRating", 6 }, -- Rigid Majestic Zircon
 
 }
 
@@ -132,16 +132,16 @@ local PawnGemData80Epic =
 local PawnGemData85Uncommon =
 {
 
-{ 52081, "Strength", 6 }, -- Bold Carnelian
-{ 52082, "Agility", 6 }, -- Delicate Carnelian
-{ 52084, "Intellect", 6 }, -- Brilliant Carnelian
-{ 52085, "HasteRating", 12 }, -- Precise Carnelian
-{ 52091, "CritRating", 12 }, -- Smooth Alicite
-{ 52093, "HasteRating", 12 }, -- Quick Alicite
-{ 52094, "MasteryRating", 12 }, -- Fractured Alicite
-{ 52086, "Stamina", 9 }, -- Solid Zephyrite
-{ 52087, "Versatility", 12 }, -- Sparkling Zephyrite
-{ 52089, "CritRating", 12 }, -- Rigid Zephyrite
+{ 52081, "Strength", 5 }, -- Bold Carnelian
+{ 52082, "Agility", 5 }, -- Delicate Carnelian
+{ 52084, "Intellect", 5 }, -- Brilliant Carnelian
+{ 52085, "HasteRating", 5 }, -- Precise Carnelian
+{ 52091, "CritRating", 5 }, -- Smooth Alicite
+{ 52093, "HasteRating", 5 }, -- Quick Alicite
+{ 52094, "MasteryRating", 5 }, -- Fractured Alicite
+{ 52086, "Stamina", 5 }, -- Solid Zephyrite
+{ 52087, "Versatility", 5 }, -- Sparkling Zephyrite
+{ 52089, "CritRating", 5 }, -- Rigid Zephyrite
 
 }
 
@@ -152,16 +152,16 @@ local PawnGemData85Uncommon =
 local PawnGemData85Rare =
 {
 
-{ 52206, "Strength", 8 }, -- Bold Inferno Ruby
-{ 52207, "Intellect", 8 }, -- Brilliant Inferno Ruby
-{ 52212, "Agility", 8 }, -- Delicate Inferno Ruby
-{ 52230, "HasteRating", 16 }, -- Precise Inferno Ruby
-{ 52219, "MasteryRating", 16 }, -- Fractured Amberjewel
-{ 52232, "HasteRating", 16 }, -- Quick Amberjewel
-{ 52241, "CritRating", 16 }, -- Smooth Amberjewel
-{ 52235, "CritRating", 16 }, -- Rigid Ocean Sapphire
-{ 52242, "Stamina", 12 }, -- Solid Ocean Sapphire
-{ 52244, "Versatility", 16 }, -- Sparkling Ocean Sapphire
+{ 52206, "Strength", 6 }, -- Bold Inferno Ruby
+{ 52207, "Intellect", 6 }, -- Brilliant Inferno Ruby
+{ 52212, "Agility", 6 }, -- Delicate Inferno Ruby
+{ 52230, "HasteRating", 6 }, -- Precise Inferno Ruby
+{ 52219, "MasteryRating", 6 }, -- Fractured Amberjewel
+{ 52232, "HasteRating", 6 }, -- Quick Amberjewel
+{ 52241, "CritRating", 6 }, -- Smooth Amberjewel
+{ 52235, "CritRating", 6 }, -- Rigid Ocean Sapphire
+{ 52242, "Stamina", 6 }, -- Solid Ocean Sapphire
+{ 52244, "Versatility", 6 }, -- Sparkling Ocean Sapphire
 
 }
 
@@ -172,16 +172,16 @@ local PawnGemData85Rare =
 local PawnGemData85Epic =
 {
 
-{ 71879, "Agility", 10 }, -- Delicate Queen's Garnet
-{ 71880, "HasteRating", 20 }, -- Precise Queen's Garnet
-{ 71881, "Intellect", 10 }, -- Brilliant Queen's Garnet
-{ 71883, "Strength", 10 }, -- Bold Queen's Garnet
-{ 71874, "CritRating", 20 }, -- Smooth Lightstone
-{ 71876, "HasteRating", 20 }, -- Quick Lightstone
-{ 71877, "MasteryRating", 20 }, -- Fractured Lightstone
-{ 71817, "CritRating", 20 }, -- Rigid Deepholm Iolite
-{ 71819, "Versatility", 20 }, -- Sparkling Deepholm Iolite
-{ 71820, "Stamina", 15 }, -- Solid Deepholm Iolite
+{ 71879, "Agility", 7 }, -- Delicate Queen's Garnet
+{ 71880, "HasteRating", 7 }, -- Precise Queen's Garnet
+{ 71881, "Intellect", 7 }, -- Brilliant Queen's Garnet
+{ 71883, "Strength", 7 }, -- Bold Queen's Garnet
+{ 71874, "CritRating", 7 }, -- Smooth Lightstone
+{ 71876, "HasteRating", 7 }, -- Quick Lightstone
+{ 71877, "MasteryRating", 7 }, -- Fractured Lightstone
+{ 71817, "CritRating", 7 }, -- Rigid Deepholm Iolite
+{ 71819, "Versatility", 7 }, -- Sparkling Deepholm Iolite
+{ 71820, "Stamina", 7 }, -- Solid Deepholm Iolite
 
 }
 
@@ -192,16 +192,16 @@ local PawnGemData85Epic =
 local PawnGemData90Uncommon =
 {
 
-{ 76560, "Agility", 8 }, -- Delicate Pandarian Garnet
-{ 76561, "HasteRating", 16 }, -- Precise Pandarian Garnet
-{ 76562, "Intellect", 8 }, -- Brilliant Pandarian Garnet
-{ 76564, "Strength", 8 }, -- Bold Pandarian Garnet
-{ 76565, "CritRating", 16 }, -- Smooth Sunstone
-{ 76567, "HasteRating", 16 }, -- Quick Sunstone
-{ 76568, "MasteryRating", 16 }, -- Fractured Sunstone
-{ 76502, "CritRating", 16 }, -- Rigid Lapis Lazuli
-{ 76505, "Versatility", 16 }, -- Sparkling Lapis Lazuli
-{ 76506, "Stamina", 12 }, -- Solid Lapis Lazuli
+{ 76560, "Agility", 5 }, -- Delicate Pandarian Garnet
+{ 76561, "HasteRating", 5 }, -- Precise Pandarian Garnet
+{ 76562, "Intellect", 5 }, -- Brilliant Pandarian Garnet
+{ 76564, "Strength", 5 }, -- Bold Pandarian Garnet
+{ 76565, "CritRating", 5 }, -- Smooth Sunstone
+{ 76567, "HasteRating", 5 }, -- Quick Sunstone
+{ 76568, "MasteryRating", 5 }, -- Fractured Sunstone
+{ 76502, "CritRating", 5 }, -- Rigid Lapis Lazuli
+{ 76505, "Versatility", 5 }, -- Sparkling Lapis Lazuli
+{ 76506, "Stamina", 5 }, -- Solid Lapis Lazuli
 
 }
 
@@ -212,16 +212,16 @@ local PawnGemData90Uncommon =
 local PawnGemData90Rare =
 {
 
-{ 76692, "Agility", 10 }, -- Delicate Primordial Ruby
-{ 76693, "HasteRating", 20 }, -- Precise Primordial Ruby
-{ 76694, "Intellect", 10 }, -- Brilliant Primordial Ruby
-{ 76696, "Strength", 10 }, -- Bold Primordial Ruby
-{ 76697, "CritRating", 20 }, -- Smooth Sun's Radiance
-{ 76699, "HasteRating", 20 }, -- Quick Sun's Radiance
-{ 76700, "MasteryRating", 20 }, -- Fractured Sun's Radiance
-{ 76636, "CritRating", 20 }, -- Rigid River's Heart
-{ 76638, "Versatility", 20 }, -- Sparkling River's Heart
-{ 76639, "Stamina", 15 }, -- Solid River's Heart
+{ 76692, "Agility", 6 }, -- Delicate Primordial Ruby
+{ 76693, "HasteRating", 6 }, -- Precise Primordial Ruby
+{ 76694, "Intellect", 6 }, -- Brilliant Primordial Ruby
+{ 76696, "Strength", 6 }, -- Bold Primordial Ruby
+{ 76697, "CritRating", 6 }, -- Smooth Sun's Radiance
+{ 76699, "HasteRating", 6 }, -- Quick Sun's Radiance
+{ 76700, "MasteryRating", 6 }, -- Fractured Sun's Radiance
+{ 76636, "CritRating", 6 }, -- Rigid River's Heart
+{ 76638, "Versatility", 6 }, -- Sparkling River's Heart
+{ 76639, "Stamina", 9 }, -- Solid River's Heart
 
 }
 
@@ -232,11 +232,11 @@ local PawnGemData90Rare =
 local PawnGemData100Uncommon =
 {
 
-{ 115803, "CritRating", 35 }, -- Critical Strike Taladite
-{ 115804, "HasteRating", 35 }, -- Haste Taladite
-{ 115805, "MasteryRating", 35 }, -- Mastery Taladite
-{ 115807, "Versatility", 35 }, -- Versatility Taladite
-{ 115808, "Stamina", 35 }, -- Stamina Taladite
+{ 115803, "CritRating", 6 }, -- Critical Strike Taladite
+{ 115804, "HasteRating", 6 }, -- Haste Taladite
+{ 115805, "MasteryRating", 6 }, -- Mastery Taladite
+{ 115807, "Versatility", 6 }, -- Versatility Taladite
+{ 115808, "Stamina", 6 }, -- Stamina Taladite
 
 }
 
@@ -247,11 +247,11 @@ local PawnGemData100Uncommon =
 local PawnGemData100Rare =
 {
 
-{ 115809, "CritRating", 50 }, -- Greater Critical Strike Taladite
-{ 115811, "HasteRating", 50 }, -- Greater Haste Taladite
-{ 115812, "MasteryRating", 50 }, -- Greater Mastery Taladite
-{ 115814, "Versatility", 50 }, -- Greater Versatility Taladite
-{ 115815, "Stamina", 50 }, -- Greater Stamina Taladite
+{ 115809, "CritRating", 7 }, -- Greater Critical Strike Taladite
+{ 115811, "HasteRating", 7 }, -- Greater Haste Taladite
+{ 115812, "MasteryRating", 7 }, -- Greater Mastery Taladite
+{ 115814, "Versatility", 7 }, -- Greater Versatility Taladite
+{ 115815, "Stamina", 7 }, -- Greater Stamina Taladite
 
 }
 
@@ -262,11 +262,11 @@ local PawnGemData100Rare =
 local PawnGemData100Epic =
 {
 
-{ 127760, "CritRating", 75 }, -- Immaculate Critical Strike Taladite
-{ 127761, "HasteRating", 75 }, -- Immaculate Haste Taladite
-{ 127762, "MasteryRating", 75 }, -- Immaculate Mastery Taladite
-{ 127764, "Versatility", 75 }, -- Immaculate Versatility Taladite
-{ 127765, "Stamina", 75 }, -- Immaculate Stamina Taladite
+{ 127760, "CritRating", 8 }, -- Immaculate Critical Strike Taladite
+{ 127761, "HasteRating", 8 }, -- Immaculate Haste Taladite
+{ 127762, "MasteryRating", 8 }, -- Immaculate Mastery Taladite
+{ 127764, "Versatility", 8 }, -- Immaculate Versatility Taladite
+{ 127765, "Stamina", 8 }, -- Immaculate Stamina Taladite
 
 }
 
@@ -277,10 +277,10 @@ local PawnGemData100Epic =
 local PawnGemData110Uncommon =
 {
 
-{ 130215, "CritRating", 100 }, -- Deadly Deep Amber
-{ 130216, "HasteRating", 100 }, -- Quick Azsunite
-{ 130217, "Versatility", 100 }, -- Versatile Skystone
-{ 130218, "MasteryRating", 100 }, -- Masterful Queen's Opal
+{ 130215, "CritRating", 7 }, -- Deadly Deep Amber
+{ 130216, "HasteRating", 7 }, -- Quick Azsunite
+{ 130217, "Versatility", 7 }, -- Versatile Skystone
+{ 130218, "MasteryRating", 7 }, -- Masterful Queen's Opal
 
 }
 
@@ -291,10 +291,10 @@ local PawnGemData110Uncommon =
 local PawnGemData110Rare =
 {
 
-{ 130219, "CritRating", 150 }, -- Deadly Eye of Prophecy
-{ 130220, "HasteRating", 150 }, -- Quick Dawnlight
-{ 130221, "Versatility", 150 }, -- Versatile Maelstrom Sapphire
-{ 130222, "MasteryRating", 150 }, -- Masterful Shadowruby
+{ 130219, "CritRating", 9 }, -- Deadly Eye of Prophecy
+{ 130220, "HasteRating", 9 }, -- Quick Dawnlight
+{ 130221, "Versatility", 9 }, -- Versatile Maelstrom Sapphire
+{ 130222, "MasteryRating", 9 }, -- Masterful Shadowruby
 
 }
 
@@ -305,10 +305,10 @@ local PawnGemData110Rare =
 local PawnGemData110Epic =
 {
 
-{ 151580, "CritRating", 200 }, -- Deadly Deep Chemirine
-{ 151583, "HasteRating", 200 }, -- Quick Lightsphene
-{ 151584, "MasteryRating", 200 }, -- Masterful Argulite
-{ 151585, "Versatility", 200 }, -- Versatile Labradorite
+{ 151580, "CritRating", 11 }, -- Deadly Deep Chemirine
+{ 151583, "HasteRating", 11 }, -- Quick Lightsphene
+{ 151584, "MasteryRating", 11 }, -- Masterful Argulite
+{ 151585, "Versatility", 11 }, -- Versatile Labradorite
 
 }
 
@@ -327,22 +327,28 @@ local PawnGemData110Epic =
 
 PawnGemQualityLevels =
 {
-	{ 945, PawnGemData110Epic }, -- Heroic Antorus
-	{ 915, PawnGemData110Rare }, -- Heroic Tomb of Sargeras / higher than new Relinquished gear
-	{ 755, PawnGemData110Uncommon }, -- Higher than Mythic Hellfire Citadel gear
-	{ 695, PawnGemData100Epic }, -- Warlords of Draenor Mythic Blackrock Foundry / Heroic Hellfire Citadel
-	{ 680, PawnGemData100Rare }, -- Warlords of Draenor Mythic Highmaul / Heroic Blackrock Foundry / Raid Finder Hellfire Citadel end bosses
-	{ 600, PawnGemData100Uncommon }, -- Actual gem requirement
-	{ 463, PawnGemData90Rare }, -- Mists of Pandaria heroics
-	{ 417, PawnGemData90Uncommon }, -- Actual gem requirement
-	{ 397, PawnGemData85Epic }, -- Dragon Soul normal mode
-	{ 346, PawnGemData85Rare }, -- Wrath heroics
-	{ 308, PawnGemData85Uncommon }, -- Wrath of the Lich King dungeons
-	{ 232, PawnGemData80Epic }, -- Tier 9 epics
-	{ 200, PawnGemData80Rare }, -- Wrath of the Lich King heroics
-	{ 145, PawnGemData80Uncommon }, -- Sea King's Crown, worst Wrath socketed green
-	{ 141, PawnGemData70Epic }, -- Tier 5 epics
-	{ 112, PawnGemData70Rare }, -- Burning Crusade level 70 non-heroics
+	-- 355-370: BfA world bosses
+	-- 355: BfA normal raids
+	-- 340: BfA mythic dungeons / raid finder
+	-- 325: BfA heroics
+	-- 280: low-level BfA blue set
+	-- 210: leveling dungeons in BfA
+	{ 225, PawnGemData110Epic }, -- Heroic Antorus
+	{ 195, PawnGemData110Rare }, -- Heroic Tomb of Sargeras / higher than new Relinquished gear
+	{ 153, PawnGemData110Uncommon }, -- Higher than Mythic Hellfire Citadel gear (heirlooms scale to 160)
+	{ 141, PawnGemData100Epic }, -- Warlords of Draenor Mythic Blackrock Foundry / Heroic Hellfire Citadel
+	{ 138, PawnGemData100Rare }, -- Warlords of Draenor Mythic Highmaul / Heroic Blackrock Foundry / Raid Finder Hellfire Citadel end bosses
+	{ 136, PawnGemData100Uncommon }, -- Actual gem requirement for Immaculate versions
+	{ 116, PawnGemData90Rare }, -- Mists of Pandaria heroics
+	{ 114, PawnGemData90Uncommon }, -- Actual gem requirement
+	{ 110, PawnGemData85Epic }, -- Dragon Soul normal mode
+	{ 108, PawnGemData85Rare }, -- Cataclysm heroics
+	{ 104, PawnGemData85Uncommon }, -- Cataclysm dungeons
+	{ 102, PawnGemData80Epic }, -- Tier 10 sanctified epics (Sanctified Frost Witch's Regalia)
+	{ 100, PawnGemData80Rare }, -- Wrath of the Lich King heroics
+	{ 85, PawnGemData80Uncommon }, -- Low-level Wrath greens
+	{ 80, PawnGemData70Epic }, -- Burning Crusade epics (Cataclysm Harness)
+	{ 70, PawnGemData70Rare }, -- Burning Crusade level 70 non-heroics
 	{ 0, PawnGemData70Uncommon },
 }
 
