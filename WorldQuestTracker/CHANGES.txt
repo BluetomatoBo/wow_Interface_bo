@@ -1,7 +1,19 @@
-changeset:   283:213eee7298e9
-tag:         v7.3.5.283-release
+changeset:   287:e5574b210293
+tag:         v8.0.1.287-release
 user:        Tercio
-date:        Mon Apr 30 10:52:59 2018 -0300
-summary:     - Added a message when the user open the map and quests aren't shown due to its low level.
+date:        Tue Jul 17 15:19:23 2018 -0300
+summary:     - 8.0.1 third pass
+
+
+changeset:   286:918d59a01890
+user:        Tercio
+date:        Tue Jul 17 15:18:43 2018 -0300
+summary:     - 8.0.1 second pass.
+
+
+changeset:   285:1cef0e8abe0a
+user:        Tercio
+date:        Tue Jul 17 14:55:51 2018 -0300
+summary:     - 8.0.1 update.
 
 
