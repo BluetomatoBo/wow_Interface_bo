@@ -136,8 +136,6 @@ Anchoring groups to the cursor can be useful for icons that are checking the 'mo
 
 To anchor a group to the cursor, |cff7fffffRight-Click-and-drag|r an icon to this dummy.
 
-Due to a Blizzard bug, the cooldown sweep animation will bug out when it moves around, so you probably should disable it for cursor-anchored icons.
-
 |cff7fffffLeft-Click and drag|r to move this dummy.]]
 
 L["ERROR_ANCHORSELF"] = "%s was trying to anchor to itself, so TellMeWhen reset it's anchor to the center of the screen to prevent catastrophic failure."
@@ -1441,6 +1439,7 @@ This includes the current flex raid tuning.]]
 L["CONDITIONPANEL_SWIMMING"] = "Swimming"
 L["CONDITIONPANEL_RESTING"] = "Resting"
 L["CONDITIONPANEL_INPETBATTLE"] = "In pet battle"
+L["CONDITIONPANEL_WARMODE"] = "War Mode enabled"
 L["CONDITIONPANEL_OVERRBAR"] = "Action bar overridden"
 L["CONDITIONPANEL_OVERRBAR_DESC"] = "Checks if you have some effect that override your primary action bar. This does not include pet battles."
 L["CONDITIONPANEL_MANAUSABLE"] = "Spell Usable (Mana/Energy/etc.)"

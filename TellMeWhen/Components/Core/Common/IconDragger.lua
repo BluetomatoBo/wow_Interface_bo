@@ -7,7 +7,7 @@
 --		Banjankri of Blackrock, Predeter of Proudmoore, Xenyr of Aszune
 
 -- Currently maintained by
--- Cybeloras of Aerie Peak/Detheroc/Mal'Ganis
+-- Cybeloras of Aerie Peak
 -- --------------------
 
 
@@ -301,7 +301,7 @@ local function Split(IconDragger, domain)
 
 	-- adjustments and positioning
 	local p = gs.Point
-	p.point, p.relativeTo, p.relativePoint, p.x, p.y = IconDragger.DraggerFrame.texture:GetPoint(2)
+	p.point, p.relativeTo, p.relativePoint, p.x, p.y = IconDragger.DraggerFrame.texture:GetPoint(1)
 	
 	p.relativeTo = "UIParent"
 	

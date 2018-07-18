@@ -7,7 +7,7 @@
 --		Banjankri of Blackrock, Predeter of Proudmoore, Xenyr of Aszune
 
 -- Currently maintained by
--- Cybeloras of Aerie Peak/Detheroc/Mal'Ganis
+-- Cybeloras of Aerie Peak
 -- --------------------
 
 
@@ -39,7 +39,7 @@ local IsCaching
 
 SpellCache.CONST = {
 	-- A rough estimate of the highest spellID in the game. Doesn't have to be accurate at all - visual only.
-	MAX_SPELLID_GUESS = 255000,
+	MAX_SPELLID_GUESS = 280000,
 	
 	-- Maximum number of non-existant spellIDs that will be checked before the cache is declared complete.
 	MAX_FAILED_SPELLS = 2000,
