@@ -5,6 +5,14 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras
+--[[Translation missing --]]
+L[ [=[
+
+Supports multiple entries, separated by commas
+]=] ] = [=[
+
+Supports multiple entries, separated by commas
+]=]
 L["!="] = "!="
 --[[Translation missing --]]
 L["%s - %i. Trigger"] = "%s - %i. Trigger"
@@ -149,6 +157,8 @@ L["Backdrop Color"] = "Backdrop Color"
 --[[Translation missing --]]
 L["Background Color"] = "Background Color"
 --[[Translation missing --]]
+L["Bar Alpha"] = "Bar Alpha"
+--[[Translation missing --]]
 L["Bar Color"] = "Bar Color"
 L["Battle.net Whisper"] = "Sussurri di Battle.net"
 L["Battleground"] = "Campo di battaglia"
@@ -254,7 +264,7 @@ L["Crowd Controlled"] = "Crowd Controlled"
 --[[Translation missing --]]
 L["Crushing"] = "Crushing"
 --[[Translation missing --]]
-L["Current Zone ID:"] = "Current Zone ID:"
+L["Current Zone ID: "] = "Current Zone ID: "
 --[[Translation missing --]]
 L["Curse"] = "Curse"
 --[[Translation missing --]]
@@ -331,7 +341,7 @@ L["Emote"] = "Emote"
 --[[Translation missing --]]
 L["Empty"] = "Empty"
 --[[Translation missing --]]
-L["Encounter ID"] = "Encounter ID"
+L["Encounter ID(s)"] = "Encounter ID(s)"
 --[[Translation missing --]]
 L["Energize"] = "Energize"
 --[[Translation missing --]]
@@ -392,6 +402,8 @@ L["Finger 1"] = "Finger 1"
 L["Finger 2"] = "Finger 2"
 --[[Translation missing --]]
 L["Fire"] = "Fire"
+--[[Translation missing --]]
+L["First"] = "First"
 --[[Translation missing --]]
 L["First Text Color"] = "First Text Color"
 --[[Translation missing --]]
@@ -486,6 +498,8 @@ L["Icon"] = "Icon"
 --[[Translation missing --]]
 L["Icon Color"] = "Icon Color"
 --[[Translation missing --]]
+L["Icon Desaturate"] = "Icon Desaturate"
+--[[Translation missing --]]
 L["Id"] = "Id"
 --[[Translation missing --]]
 L["Ignore Rune CD"] = "Ignore Rune CD"
@@ -561,6 +575,10 @@ L["Leech"] = "Leech"
 L["Left"] = "Left"
 --[[Translation missing --]]
 L["Left to Right"] = "Left to Right"
+--[[Translation missing --]]
+L["Legacy RGB Gradient"] = "Legacy RGB Gradient"
+--[[Translation missing --]]
+L["Legacy RGB Gradient Pulse"] = "Legacy RGB Gradient Pulse"
 --[[Translation missing --]]
 L["Legs"] = "Legs"
 --[[Translation missing --]]
@@ -744,8 +762,6 @@ L["Player Character"] = "Player Character"
 --[[Translation missing --]]
 L["Player Class"] = "Player Class"
 --[[Translation missing --]]
-L["Player Dungeon Role"] = "Player Dungeon Role"
---[[Translation missing --]]
 L["Player Faction"] = "Player Faction"
 --[[Translation missing --]]
 L["Player Level"] = "Player Level"
@@ -791,6 +807,8 @@ L["Progress Value"] = "Progress Value"
 L["Pulse"] = "Pulse"
 --[[Translation missing --]]
 L["PvP Flagged"] = "PvP Flagged"
+--[[Translation missing --]]
+L["PvP Talent %i"] = "PvP Talent %i"
 --[[Translation missing --]]
 L["PvP Talent selected"] = "PvP Talent selected"
 --[[Translation missing --]]
@@ -878,6 +896,8 @@ L["Scenario"] = "Scenario"
 --[[Translation missing --]]
 L["Screen/Parent Group"] = "Screen/Parent Group"
 --[[Translation missing --]]
+L["Second"] = "Second"
+--[[Translation missing --]]
 L["Second Text Color"] = "Second Text Color"
 --[[Translation missing --]]
 L["Second Text Size"] = "Second Text Size"
@@ -956,6 +976,8 @@ L["Spark Height"] = "Spark Height"
 --[[Translation missing --]]
 L["Spark Width"] = "Spark Width"
 --[[Translation missing --]]
+L["Spec Role"] = "Spec Role"
+--[[Translation missing --]]
 L["Specific Unit"] = "Specific Unit"
 --[[Translation missing --]]
 L["Spell"] = "Spell"
@@ -990,8 +1012,6 @@ L["Stacks Text Color"] = "Stacks Text Color"
 --[[Translation missing --]]
 L["Stacks Text Size"] = "Stacks Text Size"
 --[[Translation missing --]]
-L["Stagger"] = "Stagger"
---[[Translation missing --]]
 L["Stance/Form/Aura"] = "Stance/Form/Aura"
 --[[Translation missing --]]
 L["Star"] = "Star"
@@ -1007,6 +1027,10 @@ L["Stop"] = "Stop"
 L["Stop Profiling"] = "Stop Profiling"
 --[[Translation missing --]]
 L["Summon"] = "Summon"
+--[[Translation missing --]]
+L[ [=[Supports multiple entries, separated by commas
+]=] ] = [=[Supports multiple entries, separated by commas
+]=]
 --[[Translation missing --]]
 L["Swing"] = "Swing"
 --[[Translation missing --]]
@@ -1029,6 +1053,8 @@ L["Tanking But Not Highest"] = "Tanking But Not Highest"
 L["Target"] = "Target"
 --[[Translation missing --]]
 L["Thick Outline"] = "Thick Outline"
+--[[Translation missing --]]
+L["Third"] = "Third"
 --[[Translation missing --]]
 L["This aura contains custom Lua code."] = "This aura contains custom Lua code."
 --[[Translation missing --]]
@@ -1126,9 +1152,7 @@ L["Yell"] = "Yell"
 --[[Translation missing --]]
 L["Y-Offset"] = "Y-Offset"
 --[[Translation missing --]]
-L["Zone"] = "Zone"
+L["Zone ID(s)"] = "Zone ID(s)"
 --[[Translation missing --]]
-L["Zone ID"] = "Zone ID"
---[[Translation missing --]]
-L["Zone ID List"] = "Zone ID List"
+L["Zone Name"] = "Zone Name"
 

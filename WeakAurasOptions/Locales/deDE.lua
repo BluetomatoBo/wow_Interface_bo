@@ -165,8 +165,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Delete Trigger"] = "Auslöser löschen"
 	L["Desaturate"] = "Entsättigen"
 	L["Differences"] = "Unterschiede"
-	--[[Translation missing --]]
-	L["Disable Import"] = "Disable Import"
+	L["Disable Import"] = "Import sperren"
 	L["Disabled"] = "Deaktiviert"
 	L["Discrete Rotation"] = "Rotation um x90°"
 	L["Display"] = "Anzeige"
@@ -246,12 +245,13 @@ Falls die Zahl als Dezimalzahl (z.B. 0.5), Bruch (z.B. 1/2) oder Prozentsatz (z.
 |cFF00CC00>= 0|r Löst immer aus.]=]
 	L["Group Member Count"] = "Gruppengröße"
 	--[[Translation missing --]]
+	L["Group Scale"] = "Group Scale"
+	--[[Translation missing --]]
 	L["Grow"] = "Grow"
 	L["Hawk"] = "Falke"
 	L["Height"] = "Höhe"
-	L["Hide"] = "Verstecken"
-	--[[Translation missing --]]
-	L["Hide on"] = "Hide on"
+	L["Hide"] = "Verbergen"
+	L["Hide on"] = "Verbergen falls"
 	L["Hide this group's children"] = "Die Kinder dieser Gruppe ausblenden"
 	L["Hide When Not In Group"] = "Ausblenden, wenn ich gruppenlos bin"
 	L["Horizontal Align"] = "Horizontale Ausrichtung"
@@ -268,8 +268,7 @@ Falls die Zahl als Dezimalzahl (z.B. 0.5), Bruch (z.B. 1/2) oder Prozentsatz (z.
 	L["Icon Info"] = "Symbolinfo"
 	L["Icon Inset"] = "Symboleinrückung"
 	L["If"] = "Falls"
-	--[[Translation missing --]]
-	L["If this option is enabled, you are no longer able to import auras."] = "If this option is enabled, you are no longer able to import auras."
+	L["If this option is enabled, you are no longer able to import auras."] = "Der Import von Auren ist gesperrt solange diese Option aktiv ist."
 	L["If Trigger %s"] = "Falls Auslöser %s"
 	L["Ignored"] = "Ignoriert"
 	L["Import"] = "Importieren"
@@ -364,8 +363,7 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Paste Trigger Settings"] = "Paste Trigger Settings"
 	L["Play Sound"] = "Sound abspielen"
 	L["Portrait Zoom"] = "Portraitzoom"
-	--[[Translation missing --]]
-	L["Position Settings"] = "Position Settings"
+	L["Position Settings"] = "Positionsbedingte Einstellungen"
 	L["Preset"] = "Voreinstellung"
 	L["Prevents duration information from decreasing when an aura refreshes. May cause problems if used with multiple auras with different durations."] = "Verhindert, dass sich die Anzeige der Aurendauer beim Erneuern verringert. Kann zu Problemen bei mehreren Auren mit unterschiedlichen Dauern führen!"
 	--[[Translation missing --]]
@@ -380,7 +378,7 @@ Nur ein Wert kann ausgewählt werden.]=]
 	--[[Translation missing --]]
 	L["Regions of type \"%s\" are not supported."] = "Regions of type \"%s\" are not supported."
 	L["Remaining Time"] = "Verbleibende Zeit"
-	L["Remaining Time Precision"] = "Genauigkeit der verbleibenden Zeit"
+	L["Remaining Time Precision"] = "Genauigkeit der Restzeit"
 	--[[Translation missing --]]
 	L["Remove"] = "Remove"
 	L["Remove this condition"] = "Bedingung entfernen"
@@ -459,7 +457,7 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Start"] = "Start"
 	L["Start Angle"] = "Startwinkel"
 	L["Status"] = "Status"
-	L["Stealable"] = "Zauberraub"
+	L["Stealable"] = "stehlbare Aura"
 	L["Sticky Duration"] = "Tesa-Dauer"
 	L["Stop Sound"] = "Sound stoppen"
 	L["Symbol Settings"] = "Symboleinstellungen"
@@ -472,8 +470,7 @@ Nur ein Wert kann ausgewählt werden.]=]
 	--[[Translation missing --]]
 	L["Texture Wrap"] = "Texture Wrap"
 	L["The duration of the animation in seconds."] = "Die Dauer der Animation in Sekunden."
-	--[[Translation missing --]]
-	L["The duration of the animation in seconds. The finish animation does not start playing until after the display would normally be hidden."] = "The duration of the animation in seconds. The finish animation does not start playing until after the display would normally be hidden."
+	L["The duration of the animation in seconds. The finish animation does not start playing until after the display would normally be hidden."] = "Die Dauer der Animation in Sekunden. Die Endanimation erscheint erst zum Zeitpunkt des Ausblendens."
 	L["The type of trigger"] = "Auslösertyp"
 	L["Then "] = "Dann"
 	L["This display is currently loaded"] = "Diese Anzeige ist momentan geladen"
@@ -511,7 +508,9 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Update Custom Text On..."] = "Aktualisiere benutzerdefinierten Text bei..."
 	L["Use Full Scan (High CPU)"] = "Alle Auren scannen (CPU-Intensiv)"
 	--[[Translation missing --]]
-	L["Use SetTransform (will change behaviour in 7.3)"] = "Use SetTransform (will change behaviour in 7.3)"
+	L["Use nth value from tooltip:"] = "Use nth value from tooltip:"
+	--[[Translation missing --]]
+	L["Use SetTransform"] = "Use SetTransform"
 	L["Use tooltip \"size\" instead of stacks"] = "Tooltipgröße anstatt Stapel verwenden"
 	--[[Translation missing --]]
 	L["Used in auras:"] = "Used in auras:"

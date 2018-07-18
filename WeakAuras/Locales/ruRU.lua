@@ -5,6 +5,14 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras
+--[[Translation missing --]]
+L[ [=[
+
+Supports multiple entries, separated by commas
+]=] ] = [=[
+
+Supports multiple entries, separated by commas
+]=]
 L["!="] = "!="
 L["%s - %i. Trigger"] = "%s - %i. Триггер"
 L["%s - 1. Trigger"] = "%s - 1. Триггер"
@@ -95,6 +103,8 @@ L["Back"] = "Спина"
 L["Back and Forth"] = "Назад и вперед"
 L["Backdrop Color"] = "Цвет фона"
 L["Background Color"] = "Цвет подложки"
+--[[Translation missing --]]
+L["Bar Alpha"] = "Bar Alpha"
 L["Bar Color"] = "Цвет полосы"
 L["Battle.net Whisper"] = "Шепот в сети Battle.net"
 L["Battleground"] = "Поле боя"
@@ -166,7 +176,8 @@ L["Critical"] = "Критический эффект"
 L["Cross"] = "Крест"
 L["Crowd Controlled"] = "Потеря контроля над персонажем (CC)"
 L["Crushing"] = "Сокрушительный удар"
-L["Current Zone ID:"] = "ID текущей зоны:"
+--[[Translation missing --]]
+L["Current Zone ID: "] = "Current Zone ID: "
 L["Curse"] = "Проклятие"
 L["Custom"] = "Самостоятельно"
 L["Custom Function"] = "Своя функция"
@@ -205,7 +216,8 @@ L["Durability Damage All"] = "Повреждение всей экипировк
 L["Elide"] = "Опускать"
 L["Emote"] = "Эмоция"
 L["Empty"] = "Пустой"
-L["Encounter ID"] = "ID энкаунтера"
+--[[Translation missing --]]
+L["Encounter ID(s)"] = "Encounter ID(s)"
 L["Energize"] = "Восполнение"
 L["Enrage"] = "Исступление"
 L["Entering"] = "Вход"
@@ -238,6 +250,8 @@ L["Feet"] = "Ступни"
 L["Finger 1"] = "Палец 1"
 L["Finger 2"] = "Палец 2"
 L["Fire"] = "Огонь"
+--[[Translation missing --]]
+L["First"] = "First"
 L["First Text Color"] = "1. Цвет текста"
 L["First Text Size"] = "1. Размер текста"
 L["Fishing Lure / Weapon Enchant (Old)"] = "Рыболовная приманка / Чары оружия (старые)"
@@ -285,6 +299,8 @@ L["Humanoid"] = "Гуманоид"
 L["Hybrid"] = "Гибрид"
 L["Icon"] = "Иконка"
 L["Icon Color"] = "Цвет иконки"
+--[[Translation missing --]]
+L["Icon Desaturate"] = "Icon Desaturate"
 L["Id"] = "ID"
 L["Ignore Rune CD"] = "Игнорировать задержку руны"
 L["Immune"] = "Невосприимчивость"
@@ -323,6 +339,10 @@ L["Leaving"] = "Выход"
 L["Leech"] = "Похищение"
 L["Left"] = "Слева"
 L["Left to Right"] = "Слева направо"
+--[[Translation missing --]]
+L["Legacy RGB Gradient"] = "Legacy RGB Gradient"
+--[[Translation missing --]]
+L["Legacy RGB Gradient Pulse"] = "Legacy RGB Gradient Pulse"
 L["Legs"] = "Ноги"
 L["Level"] = "Уровень"
 L["Looking for Raid"] = "Поиск рейда"
@@ -419,7 +439,6 @@ L["Play"] = "Проиграть"
 L["Player"] = "Игрок"
 L["Player Character"] = "Игровой персонаж"
 L["Player Class"] = "Класс игрока"
-L["Player Dungeon Role"] = "Роль игрока"
 L["Player Faction"] = "Фракция игрока"
 L["Player Level"] = "Уровень игрока"
 L["Player Name"] = "Имя игрока"
@@ -449,6 +468,8 @@ L["Progress Total"] = "Общее значение"
 L["Progress Value"] = "Текущее значение"
 L["Pulse"] = "Пульс"
 L["PvP Flagged"] = "В режиме PvP"
+--[[Translation missing --]]
+L["PvP Talent %i"] = "PvP Talent %i"
 L["PvP Talent selected"] = "PvP талант выбран"
 L["Radius"] = "Радиус"
 L["Raid"] = "Рейд"
@@ -509,6 +530,8 @@ L["Runes Count"] = "Количество рун"
 L["Say"] = "Сказать"
 L["Scenario"] = "Сценарий"
 L["Screen/Parent Group"] = "Экран/Исходная группа"
+--[[Translation missing --]]
+L["Second"] = "Second"
 L["Second Text Color"] = "2. Цвет текста"
 L["Second Text Size"] = "2. Размер текста"
 L["Seconds"] = "Секунды"
@@ -548,6 +571,8 @@ L["Spacing"] = "Расстояние"
 L["Spark Color"] = "Цвет вспышки"
 L["Spark Height"] = "Высота вспышки"
 L["Spark Width"] = "Ширина вспышки"
+--[[Translation missing --]]
+L["Spec Role"] = "Spec Role"
 L["Specific Unit"] = "Конкретная единица"
 L["Spell"] = "Заклинание"
 L["Spell (Building)"] = "Заклинание (строение)"
@@ -565,7 +590,6 @@ L["Square"] = "Квадрат"
 L["Stacks"] = "Стаки"
 L["Stacks Text Color"] = "Цвет текста стаков"
 L["Stacks Text Size"] = "Размер текста стаков"
-L["Stagger"] = "Пошатывание"
 L["Stance/Form/Aura"] = "Стойка / Форма / Аура"
 L["Star"] = "Звезда"
 --[[Translation missing --]]
@@ -576,6 +600,10 @@ L["Stop"] = "Остановить"
 --[[Translation missing --]]
 L["Stop Profiling"] = "Stop Profiling"
 L["Summon"] = "Призыв"
+--[[Translation missing --]]
+L[ [=[Supports multiple entries, separated by commas
+]=] ] = [=[Supports multiple entries, separated by commas
+]=]
 L["Swing"] = "Ближний бой"
 L["Swing Timer"] = "Таймер Swing (время между атаками оружия)"
 L["System"] = "Система"
@@ -587,6 +615,8 @@ L["Tanking And Highest"] = "Танкует и макс. угрозa"
 L["Tanking But Not Highest"] = "Танкует, но не макс. угроза"
 L["Target"] = "Цель"
 L["Thick Outline"] = "Толстый контур"
+--[[Translation missing --]]
+L["Third"] = "Third"
 L["This aura contains custom Lua code."] = "Эта индикация содержит пользовательский код Lua."
 L["This aura was created with a newer version of WeakAuras."] = "Эта индикация была создана в новой версии WeakAuras."
 L["Threat Situation"] = "Положение в списке угроз"
@@ -636,7 +666,8 @@ L["Wrist"] = "Запястье"
 L["X-Offset"] = "Смещение по X"
 L["Yell"] = "Крик"
 L["Y-Offset"] = "Смещение по Y"
-L["Zone"] = "Игровая зона"
-L["Zone ID"] = "ID игровой зоны"
-L["Zone ID List"] = "Список ID игровых зон"
+--[[Translation missing --]]
+L["Zone ID(s)"] = "Zone ID(s)"
+--[[Translation missing --]]
+L["Zone Name"] = "Zone Name"
 

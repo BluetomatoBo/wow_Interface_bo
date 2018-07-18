@@ -129,7 +129,8 @@ function WeakAuras.CreateFrame()
   local db = savedVars.db;
   local odb = savedVars.odb;
   -------- Mostly Copied from AceGUIContainer-Frame--------
-  frame = CreateFrame("FRAME", nil, UIParent);
+  frame = CreateFrame("FRAME", "WeakAurasOptions", UIParent);
+  tinsert(UISpecialFrames, frame:GetName());
   frame:SetBackdrop({
     bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
     edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
@@ -156,6 +157,34 @@ function WeakAuras.CreateFrame()
   end
   frame:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", xOffset, yOffset);
   frame:Hide();
+
+  frame:SetScript("OnHide", function()
+    WeakAuras.UnlockUpdateInfo();
+    WeakAuras.SetDragging()
+
+    local tutFrame = WeakAuras.TutorialsFrame and WeakAuras.TutorialsFrame();
+    if(tutFrame and tutFrame:IsVisible()) then
+      tutFrame:Hide();
+    end
+
+    WeakAuras.PauseAllDynamicGroups();
+
+    for id, data in pairs(WeakAuras.regions) do
+      data.region:Collapse();
+    end
+
+    WeakAuras.ResumeAllDynamicGroups();
+
+    WeakAuras.ReloadAll();
+    WeakAuras.Resume();
+
+    if (WeakAuras.mouseFrame) then
+      WeakAuras.mouseFrame:OptionsClosed();
+    end
+    if (WeakAuras.personalRessourceDisplayFrame) then
+      WeakAuras.personalRessourceDisplayFrame:OptionsClosed();
+    end
+  end);
 
   local width, height;
   if(db.frame) then
@@ -332,7 +361,8 @@ function WeakAuras.CreateFrame()
       if not(IsAddOnLoaded("WeakAurasTutorials")) then
         local loaded, reason = LoadAddOn("WeakAurasTutorials");
         if not(loaded) then
-          print("|cff9900FF".."WeakAurasTutorials"..FONT_COLOR_CODE_CLOSE.." could not be loaded: "..RED_FONT_COLOR_CODE.._G["ADDON_"..reason]);
+          reason = string.lower("|cffff2020" .. _G["ADDON_" .. reason] .. "|r.")
+          print(WeakAuras.printPrefix .. "Tutorials could not be loaded, the addon is " .. reason);
           return;
         end
       end

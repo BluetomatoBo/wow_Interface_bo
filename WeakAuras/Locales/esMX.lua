@@ -5,6 +5,14 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras
+--[[Translation missing --]]
+L[ [=[
+
+Supports multiple entries, separated by commas
+]=] ] = [=[
+
+Supports multiple entries, separated by commas
+]=]
 L["!="] = "!="
 L["%s - %i. Trigger"] = "%s - %i. Desencadenador"
 L["%s - 1. Trigger"] = "%s - 1. Desencadenador"
@@ -104,6 +112,8 @@ L["Back"] = "Atrás"
 L["Back and Forth"] = "De atrás hacia adelante"
 L["Backdrop Color"] = "Color de fondo"
 L["Background Color"] = "Color de fondo"
+--[[Translation missing --]]
+L["Bar Alpha"] = "Bar Alpha"
 L["Bar Color"] = "Color de la barra"
 L["Battle.net Whisper"] = "Mensaje de Battle.net"
 L["Battleground"] = "Campo de batalla"
@@ -179,7 +189,7 @@ L["Cross"] = "Cross"
 L["Crowd Controlled"] = "Bajo control"
 L["Crushing"] = "Golpe aplastador"
 --[[Translation missing --]]
-L["Current Zone ID:"] = "Current Zone ID:"
+L["Current Zone ID: "] = "Current Zone ID: "
 L["Curse"] = "Maldición"
 L["Custom"] = "Personalizado"
 L["Custom Function"] = "Función personalizada"
@@ -223,7 +233,8 @@ L["Durability Damage All"] = "Daño de durabilidad total"
 L["Elide"] = "Elide"
 L["Emote"] = "Emoción"
 L["Empty"] = "Vacío"
-L["Encounter ID"] = "ID de encuentro"
+--[[Translation missing --]]
+L["Encounter ID(s)"] = "Encounter ID(s)"
 L["Energize"] = "Vigorizar"
 L["Enrage"] = "Enfurecer"
 L["Entering"] = "Entrando"
@@ -259,6 +270,8 @@ L["Feet"] = "Pies"
 L["Finger 1"] = "Dedo 1"
 L["Finger 2"] = "Dedo 2"
 L["Fire"] = "Fuego"
+--[[Translation missing --]]
+L["First"] = "First"
 L["First Text Color"] = "Color del primer texto"
 L["First Text Size"] = "Tamaño del primer texto"
 L["Fishing Lure / Weapon Enchant (Old)"] = "Anzuelos/Encantamiento de armas (antiguo)"
@@ -307,6 +320,8 @@ L["Humanoid"] = "Humanoide"
 L["Hybrid"] = "Híbrido"
 L["Icon"] = "Icono"
 L["Icon Color"] = "Color de icono"
+--[[Translation missing --]]
+L["Icon Desaturate"] = "Icon Desaturate"
 L["Id"] = "ID"
 L["Ignore Rune CD"] = "Ignorar recarga de runa"
 L["Immune"] = "Inmune"
@@ -353,6 +368,10 @@ L["Leaving"] = "Abandonar"
 L["Leech"] = "Parásito"
 L["Left"] = "Izquierda"
 L["Left to Right"] = "De izquierda a derecha"
+--[[Translation missing --]]
+L["Legacy RGB Gradient"] = "Legacy RGB Gradient"
+--[[Translation missing --]]
+L["Legacy RGB Gradient Pulse"] = "Legacy RGB Gradient Pulse"
 L["Legs"] = "Piernas"
 L["Level"] = "Nivel"
 L["Looking for Raid"] = "Buscando una banda"
@@ -464,7 +483,6 @@ L["Play"] = "Play"
 L["Player"] = "Jugador"
 L["Player Character"] = "Personaje del jugador"
 L["Player Class"] = "Clase del jugador"
-L["Player Dungeon Role"] = "Rol de mazmorra del jugador"
 L["Player Faction"] = "Facción del jugador"
 L["Player Level"] = "Nivel del jugador"
 L["Player Name"] = "Nombre del jugador"
@@ -494,6 +512,8 @@ L["Progress Total"] = "Progreso total"
 L["Progress Value"] = "Valor de progreso"
 L["Pulse"] = "Pulso"
 L["PvP Flagged"] = "Marcado JcJ"
+--[[Translation missing --]]
+L["PvP Talent %i"] = "PvP Talent %i"
 L["PvP Talent selected"] = "JcJ - Talento seleccionado"
 L["Radius"] = "Radio"
 L["Raid"] = "Banda"
@@ -541,6 +561,8 @@ L["Runes Count"] = "Contador de runas"
 L["Say"] = "Decir"
 L["Scenario"] = "Escenario"
 L["Screen/Parent Group"] = "Pantalla/Grupo primario"
+--[[Translation missing --]]
+L["Second"] = "Second"
 L["Second Text Color"] = "Color de texto secundario"
 L["Second Text Size"] = "Tamaño de texto secundario"
 L["Seconds"] = "Segundos"
@@ -590,6 +612,8 @@ L["Spacing"] = "Espaciar"
 L["Spark Color"] = "Color de la chispa"
 L["Spark Height"] = "Altura de la chispa"
 L["Spark Width"] = "Ancho de la chispa"
+--[[Translation missing --]]
+L["Spec Role"] = "Spec Role"
 L["Specific Unit"] = "Unidad específica"
 L["Spell"] = "Hechizo"
 L["Spell (Building)"] = "Hechizo (en curso)"
@@ -611,7 +635,6 @@ L["Stacks"] = "Acumulaciones"
 L["Stacks Text Color"] = "Stacks Text Color"
 --[[Translation missing --]]
 L["Stacks Text Size"] = "Stacks Text Size"
-L["Stagger"] = "Tambaleo"
 L["Stance/Form/Aura"] = "Postura/Forma/Aura"
 --[[Translation missing --]]
 L["Star"] = "Star"
@@ -624,6 +647,10 @@ L["Stop"] = "Stop"
 --[[Translation missing --]]
 L["Stop Profiling"] = "Stop Profiling"
 L["Summon"] = "Invocar"
+--[[Translation missing --]]
+L[ [=[Supports multiple entries, separated by commas
+]=] ] = [=[Supports multiple entries, separated by commas
+]=]
 L["Swing"] = "Golpe"
 L["Swing Timer"] = "Temporizador de golpe"
 L["System"] = "Sistema"
@@ -635,6 +662,8 @@ L["Tanking And Highest"] = "Tanqueando - El más alto"
 L["Tanking But Not Highest"] = "Tanqueando - No el más alto"
 L["Target"] = "Objetivo"
 L["Thick Outline"] = "Thick Outline"
+--[[Translation missing --]]
+L["Third"] = "Third"
 --[[Translation missing --]]
 L["This aura contains custom Lua code."] = "This aura contains custom Lua code."
 --[[Translation missing --]]
@@ -695,7 +724,8 @@ L["X-Offset"] = "X-Offset"
 L["Yell"] = "Gritar"
 --[[Translation missing --]]
 L["Y-Offset"] = "Y-Offset"
-L["Zone"] = "Zona"
-L["Zone ID"] = "ID de zona"
-L["Zone ID List"] = "ID de la lista de zona"
+--[[Translation missing --]]
+L["Zone ID(s)"] = "Zone ID(s)"
+--[[Translation missing --]]
+L["Zone Name"] = "Zone Name"
 

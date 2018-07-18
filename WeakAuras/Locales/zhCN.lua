@@ -5,6 +5,14 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras
+--[[Translation missing --]]
+L[ [=[
+
+Supports multiple entries, separated by commas
+]=] ] = [=[
+
+Supports multiple entries, separated by commas
+]=]
 L["!="] = "≠"
 L["%s - %i. Trigger"] = "%s - %i. 触发器"
 L["%s - 1. Trigger"] = "%s - 1. 触发器"
@@ -102,6 +110,8 @@ L["Back and Forth"] = "往返"
 L["Backdrop Color"] = "Backdrop Color"
 L["Background Color"] = "背景颜色"
 --[[Translation missing --]]
+L["Bar Alpha"] = "Bar Alpha"
+--[[Translation missing --]]
 L["Bar Color"] = "Bar Color"
 L["Battle.net Whisper"] = "战网好友密语"
 L["Battleground"] = "战场"
@@ -179,7 +189,7 @@ L["Cross"] = "Cross"
 L["Crowd Controlled"] = "被控制"
 L["Crushing"] = "碾压"
 --[[Translation missing --]]
-L["Current Zone ID:"] = "Current Zone ID:"
+L["Current Zone ID: "] = "Current Zone ID: "
 L["Curse"] = "诅咒"
 L["Custom"] = "自定义"
 L["Custom Function"] = "自定义函数"
@@ -225,7 +235,8 @@ L["Durability Damage All"] = "耐久度上限下降"
 L["Elide"] = "Elide"
 L["Emote"] = "表情"
 L["Empty"] = "高光 显示/隐藏"
-L["Encounter ID"] = "首领战ID"
+--[[Translation missing --]]
+L["Encounter ID(s)"] = "Encounter ID(s)"
 L["Energize"] = "能量值恢复"
 L["Enrage"] = "激怒"
 L["Entering"] = "进入"
@@ -263,6 +274,8 @@ L["Feet"] = "脚"
 L["Finger 1"] = "戒指1"
 L["Finger 2"] = "戒指2"
 L["Fire"] = "火焰"
+--[[Translation missing --]]
+L["First"] = "First"
 L["First Text Color"] = "首要字体颜色"
 L["First Text Size"] = "首要字体尺寸"
 L["Fishing Lure / Weapon Enchant (Old)"] = "鱼饵/武器附魔（旧的）"
@@ -311,6 +324,8 @@ L["Humanoid"] = "人形态"
 L["Hybrid"] = "混合"
 L["Icon"] = "图标"
 L["Icon Color"] = "图标颜色"
+--[[Translation missing --]]
+L["Icon Desaturate"] = "Icon Desaturate"
 L["Id"] = "ID"
 L["Ignore Rune CD"] = "忽略符文CD"
 L["Immune"] = "免疫"
@@ -357,6 +372,10 @@ L["Leaving"] = "离开"
 L["Leech"] = "吸取"
 L["Left"] = "左"
 L["Left to Right"] = "从左到右"
+--[[Translation missing --]]
+L["Legacy RGB Gradient"] = "Legacy RGB Gradient"
+--[[Translation missing --]]
+L["Legacy RGB Gradient Pulse"] = "Legacy RGB Gradient Pulse"
 L["Legs"] = "腿部"
 L["Level"] = "等级"
 L["Looking for Raid"] = "随机团队"
@@ -472,7 +491,6 @@ L["Play"] = "Play"
 L["Player"] = "玩家"
 L["Player Character"] = "玩家角色"
 L["Player Class"] = "玩家职业"
-L["Player Dungeon Role"] = "玩家地下城角色"
 L["Player Faction"] = "玩家阵营"
 L["Player Level"] = "玩家等级"
 L["Player Name"] = "玩家名"
@@ -505,6 +523,8 @@ L["Progress Total"] = "Progress Total"
 L["Progress Value"] = "Progress Value"
 L["Pulse"] = "脉动"
 L["PvP Flagged"] = "被标记为PVP状态"
+--[[Translation missing --]]
+L["PvP Talent %i"] = "PvP Talent %i"
 L["PvP Talent selected"] = "已选PvP天赋"
 L["Radius"] = "半径"
 L["Raid"] = "团队"
@@ -570,6 +590,8 @@ L["Say"] = "说"
 L["Scenario"] = "场景"
 --[[Translation missing --]]
 L["Screen/Parent Group"] = "Screen/Parent Group"
+--[[Translation missing --]]
+L["Second"] = "Second"
 L["Second Text Color"] = "第二文本颜色"
 L["Second Text Size"] = "第二文本大小"
 L["Seconds"] = "秒"
@@ -620,6 +642,8 @@ L["Spacing"] = "间距"
 L["Spark Color"] = "闪光颜色"
 L["Spark Height"] = "闪光高度"
 L["Spark Width"] = "闪光宽度"
+--[[Translation missing --]]
+L["Spec Role"] = "Spec Role"
 L["Specific Unit"] = "指定单位"
 L["Spell"] = "法术"
 L["Spell (Building)"] = "法术(攻城伤害)"
@@ -642,7 +666,6 @@ L["Stacks"] = "层数"
 L["Stacks Text Color"] = "Stacks Text Color"
 --[[Translation missing --]]
 L["Stacks Text Size"] = "Stacks Text Size"
-L["Stagger"] = "晕眩"
 L["Stance/Form/Aura"] = "姿态/形态/光环"
 --[[Translation missing --]]
 L["Star"] = "Star"
@@ -655,6 +678,10 @@ L["Stop"] = "Stop"
 --[[Translation missing --]]
 L["Stop Profiling"] = "Stop Profiling"
 L["Summon"] = "召唤"
+--[[Translation missing --]]
+L[ [=[Supports multiple entries, separated by commas
+]=] ] = [=[Supports multiple entries, separated by commas
+]=]
 L["Swing"] = "近战攻击"
 L["Swing Timer"] = "攻击间隔计时器"
 L["System"] = "系统"
@@ -667,6 +694,8 @@ L["Tanking And Highest"] = "做T并且最高"
 L["Tanking But Not Highest"] = "做T但不是最高"
 L["Target"] = "目标"
 L["Thick Outline"] = "粗轮廓"
+--[[Translation missing --]]
+L["Third"] = "Third"
 --[[Translation missing --]]
 L["This aura contains custom Lua code."] = "This aura contains custom Lua code."
 --[[Translation missing --]]
@@ -728,7 +757,8 @@ L["X-Offset"] = "X-Offset"
 L["Yell"] = "大喊"
 --[[Translation missing --]]
 L["Y-Offset"] = "Y-Offset"
-L["Zone"] = "区域"
-L["Zone ID"] = "区域ID"
-L["Zone ID List"] = "区域ID列表"
+--[[Translation missing --]]
+L["Zone ID(s)"] = "Zone ID(s)"
+--[[Translation missing --]]
+L["Zone Name"] = "Zone Name"
 

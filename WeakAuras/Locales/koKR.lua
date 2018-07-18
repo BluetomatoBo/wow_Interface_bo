@@ -5,6 +5,14 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras
+--[[Translation missing --]]
+L[ [=[
+
+Supports multiple entries, separated by commas
+]=] ] = [=[
+
+Supports multiple entries, separated by commas
+]=]
 L["!="] = "!="
 L["%s - %i. Trigger"] = "%s - %i. 활성 조건"
 L["%s - 1. Trigger"] = "%s - 1. 활성 조건"
@@ -100,6 +108,8 @@ L["Back"] = "등"
 L["Back and Forth"] = "왕복"
 L["Backdrop Color"] = "배경 색상"
 L["Background Color"] = "배경 색상"
+--[[Translation missing --]]
+L["Bar Alpha"] = "Bar Alpha"
 L["Bar Color"] = "바 색상"
 L["Battle.net Whisper"] = "Battle.net 귓속말"
 L["Battleground"] = "전장"
@@ -173,7 +183,8 @@ L["Critical"] = "치명타"
 L["Cross"] = "가위표"
 L["Crowd Controlled"] = "군중 제어됨"
 L["Crushing"] = "강타"
-L["Current Zone ID:"] = "현재 지역 ID:"
+--[[Translation missing --]]
+L["Current Zone ID: "] = "Current Zone ID: "
 L["Curse"] = "저주"
 L["Custom"] = "사용자 설정"
 L["Custom Function"] = "사용자 설정 함수"
@@ -214,7 +225,8 @@ L["Durability Damage All"] = "모든 내구도 손상"
 L["Elide"] = "Elide"
 L["Emote"] = "감정표현"
 L["Empty"] = "비었을 때"
-L["Encounter ID"] = "우두머리 전투 ID"
+--[[Translation missing --]]
+L["Encounter ID(s)"] = "Encounter ID(s)"
 L["Energize"] = "마력 얻음"
 L["Enrage"] = "격노"
 L["Entering"] = "입장"
@@ -249,6 +261,8 @@ L["Feet"] = "발"
 L["Finger 1"] = "손가락 1"
 L["Finger 2"] = "손가락 2"
 L["Fire"] = "화염"
+--[[Translation missing --]]
+L["First"] = "First"
 L["First Text Color"] = "첫번째 문자 색상"
 L["First Text Size"] = "첫번째 문자 크기"
 L["Fishing Lure / Weapon Enchant (Old)"] = "낚시 미끼 / 무기 마법부여 (구)"
@@ -297,6 +311,8 @@ L["Humanoid"] = "인간형"
 L["Hybrid"] = "복합"
 L["Icon"] = "아이콘"
 L["Icon Color"] = "아이콘 색상"
+--[[Translation missing --]]
+L["Icon Desaturate"] = "Icon Desaturate"
 L["Id"] = "Id"
 L["Ignore Rune CD"] = "룬 재사용 대기시간 무시"
 L["Immune"] = "면역"
@@ -342,6 +358,10 @@ L["Leaving"] = "떠남"
 L["Leech"] = "마력 흡수"
 L["Left"] = "왼쪽"
 L["Left to Right"] = "왼쪽에서 오른쪽"
+--[[Translation missing --]]
+L["Legacy RGB Gradient"] = "Legacy RGB Gradient"
+--[[Translation missing --]]
+L["Legacy RGB Gradient Pulse"] = "Legacy RGB Gradient Pulse"
 L["Legs"] = "다리"
 L["Level"] = "레벨"
 L["Looking for Raid"] = "공격대 찾기"
@@ -448,7 +468,6 @@ L["Play"] = "재생"
 L["Player"] = "플레이어"
 L["Player Character"] = "플레이어 캐릭터"
 L["Player Class"] = "플레이어 직업"
-L["Player Dungeon Role"] = "플레이어 던전 역할"
 L["Player Faction"] = "플레이어 진영"
 L["Player Level"] = "플레이어 레벨"
 L["Player Name"] = "플레이어 이름"
@@ -478,6 +497,8 @@ L["Progress Total"] = "진행 현황"
 L["Progress Value"] = "진행 수치"
 L["Pulse"] = "맥박"
 L["PvP Flagged"] = "PvP 활성"
+--[[Translation missing --]]
+L["PvP Talent %i"] = "PvP Talent %i"
 L["PvP Talent selected"] = "선택된 명예 특성"
 L["Radius"] = "반경"
 L["Raid"] = "공격대"
@@ -544,6 +565,8 @@ L["Runes Count"] = "룬 개수"
 L["Say"] = "일반 대화"
 L["Scenario"] = "시나리오"
 L["Screen/Parent Group"] = "화면/부모 그룹"
+--[[Translation missing --]]
+L["Second"] = "Second"
 L["Second Text Color"] = "두번째 문자 색상"
 L["Second Text Size"] = "두번째 문자 크기"
 L["Seconds"] = "초"
@@ -589,6 +612,8 @@ L["Spacing"] = "간격"
 L["Spark Color"] = "섬광 색상"
 L["Spark Height"] = "섬광 높이"
 L["Spark Width"] = "섬광 너비"
+--[[Translation missing --]]
+L["Spec Role"] = "Spec Role"
 L["Specific Unit"] = "특정 유닛"
 L["Spell"] = "주문"
 L["Spell (Building)"] = "주문 (공성)"
@@ -609,7 +634,6 @@ L["Stacks"] = "중첩"
 L["Stacks Text Color"] = "Stacks Text Color"
 --[[Translation missing --]]
 L["Stacks Text Size"] = "Stacks Text Size"
-L["Stagger"] = "시간차"
 L["Stance/Form/Aura"] = "태세/형상/효과"
 L["Star"] = "별"
 --[[Translation missing --]]
@@ -620,6 +644,10 @@ L["Stop"] = "중지"
 --[[Translation missing --]]
 L["Stop Profiling"] = "Stop Profiling"
 L["Summon"] = "소환"
+--[[Translation missing --]]
+L[ [=[Supports multiple entries, separated by commas
+]=] ] = [=[Supports multiple entries, separated by commas
+]=]
 L["Swing"] = "자동 공격"
 L["Swing Timer"] = "자동 공격 타이머"
 L["System"] = "시스템"
@@ -631,6 +659,8 @@ L["Tanking And Highest"] = "탱커이면서 제일 높을 때"
 L["Tanking But Not Highest"] = "탱커지만 제일 높지 않을 때"
 L["Target"] = "대상"
 L["Thick Outline"] = "굵은 외곽선"
+--[[Translation missing --]]
+L["Third"] = "Third"
 --[[Translation missing --]]
 L["This aura contains custom Lua code."] = "This aura contains custom Lua code."
 --[[Translation missing --]]
@@ -688,7 +718,8 @@ L["Wrist"] = "손목"
 L["X-Offset"] = "X-좌표"
 L["Yell"] = "외침"
 L["Y-Offset"] = "Y-좌표"
-L["Zone"] = "지역"
-L["Zone ID"] = "지역 ID"
-L["Zone ID List"] = "지역 ID 목록"
+--[[Translation missing --]]
+L["Zone ID(s)"] = "Zone ID(s)"
+--[[Translation missing --]]
+L["Zone Name"] = "Zone Name"
 

@@ -5,7 +5,7 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras/Options
-	L["-- Do not remove this comment, it is part of this trigger: "] = "-- Do not remove this comment, it is part of this trigger: "
+	L["-- Do not remove this comment, it is part of this trigger: "] = "-- 不要刪除此註釋，它是此觸發器的一部分: "
 	L["% of Progress"] = "進度%"
 	L["%i Matches"] = "%i 個符合"
 	L["%s Color"] = "%s 顏色"
@@ -231,6 +231,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 |cFF00CC00> 1/2|r 當 %s 中受到影響的人數超過一半時會觸發
 |cFF00CC00>= 0|r 無論如何永遠都會觸發]=]
 	L["Group Member Count"] = "群組成員總數"
+	--[[Translation missing --]]
+	L["Group Scale"] = "Group Scale"
 	L["Grow"] = "增長"
 	L["Hawk"] = "老鷹"
 	L["Height"] = "高度"
@@ -454,7 +456,10 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Up"] = "上移"
 	L["Update Custom Text On..."] = "更新自訂文字於..."
 	L["Use Full Scan (High CPU)"] = "使用完整掃描 (高 CPU)"
-	L["Use SetTransform (will change behaviour in 7.3)"] = "使用 SetTransform (在魔獸世界 7.3 中會改變效果)"
+	--[[Translation missing --]]
+	L["Use nth value from tooltip:"] = "Use nth value from tooltip:"
+	--[[Translation missing --]]
+	L["Use SetTransform"] = "Use SetTransform"
 	L["Use tooltip \"size\" instead of stacks"] = "使用滑鼠提示的 \"大小\" 而不是堆疊"
 	L["Used in auras:"] = "用於光環:"
 	L["Version: "] = "版本: "

@@ -1,36 +1,89 @@
-# [2.5.12](https://github.com/WeakAuras/WeakAuras2/tree/2.5.12) (2018-05-24)
+# [2.6.0](https://github.com/WeakAuras/WeakAuras2/tree/2.6.0) (2018-07-17)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.5.11...2.5.12)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.5.12...2.6.0)
 
-Benjamin Staneck (5):
+Aigars Bedeicis (1):
 
-- move master builds to the BigWigs packager as well.
+- Add Scale option to groups
+
+Allen Leigh Faure (1):
+
+- partial reversion 0128295
+
+Andrew Scott (1):
+
+- LibSpellRange-1.0 is now on GitHub
+
+Benjamin Staneck (23):
+
+- correct formatting of new HelperFunctions file
+- LibSpellRange-1.0 is now on GitHub
+- clean up a few unused upvalues
+- Bring back accidently deleted charges function
+- Check if path is a string instead
+- add a nil check in SetTextureOrAtlas() since name can be nil sometimes
+- Fix nil value error
+- fix variable shadowing
+- Update issue templates
+- Fix tooltip truncation
+- Fix nil error
+- oops 2
+- oops
+- make the "cannot load addon" messages a bit nicer
+- change some print formats
+- Pull LibRangeCheck in via pkgmeta again since it was updated.
+- clarify that a few load conditions support more than one entry
+- re-enable zone id load condition by using the new map API
 - package 8.0 branch tags using the BigWigs packager
-- add a prettyPrint function and use it in a few places
-- add names to the profiling keybinds
-- add prints to pstart and pstop
+- remove LibChatAnims
+- change to simpler url format in pkgmeta since we don't use the other options anyway.
+- use the new STAT_STAGGER constant to translate Stagger
+- update changelog
 
-Infus (21):
+Buds (3):
 
-- Fix error handling.
-- Prevent actions from conditions if the auras aren't shown. Take 2
-- Add a maxCharges condition to Cooldown Progress
-- Ajust conditions to trigger reorderings automatically
-- Improve layout for merge options
-- Tweak error handling some more
-- Handle errors again
-- Fix overlays not updating if nothing else changed
-- Workaround a issue in LibSpellRange
-- Convert region types of clones too
-- Special case FRAME_UPDATE event also for custom triggers
-- Fix nil error on empty nameinfo
-- Reset xOffset and yOffset on adding to a dynamic group
-- Fix Load conditions for encounter ids
-- Fix a few bugs, remove TODOs
-- Don't early return if before potentially enabling rune watching
-- Fix Overlay colors not resetting after Condition
-- Fix issues with profiling and some animations
-- Add a "loadFunc" to Prototypes which is called on loading a aura
-- Add Profiling Support to WeakAuras
-- Merge RegionOptions on multi selection
+- OnHide code was run on frame creation, fix #474 (#476)
+- oops
+- fix CheckPvpTalentByIndex nil index error (#453)
+
+Infus (23):
+
+- Simplify stacks code for Cooldown Progress
+- Fix ESC handling
+- Make Raid Buffs not use ownOnly
+- Revert "Workaround a issue in LibSpellRange"
+- Fine tune templates
+- Update templates for BfA
+- Add initial templates for some classes
+- Fix display options for multi-selection and overlays
+- Add Bar Alpha to Conditions
+- AuraBar: Add Icon Desaturate to Conditions
+- Fix tooltip scanning and improve the functionality
+- Fix Charges not updating on talent changes
+- Move Registering of Events from Add to Load
+- Fix models not showing up
+- Register the Options window in UISpecialFrames
+- Document another place as a WORKAROUND around a Blizzard bug
+- Add Atlas texture support for Textures, Progress Textures and Sparks
+- Fix Aura not showing on ScanAll in certain cases
+- Fix showing of wrong icon in a corner case
+- Fix BuffTrigger's CanHaveDuration
+- Fix setting glow on a aura moves it around
+- Fix Range Trigger + Range Conditions
+- Fix charges Changed trigger
+
+Rehok (1):
+
+- Cooldown Progress (Equipment Slot): Add Name function
+
+asakawa-k (1):
+
+- Add functions commonly used by custom WA authors
+
+emptyrivers (4):
+
+- include maghar orc in race_types
+- Fix anchored auras in dynamic groups
+- Ignore Load tab when copying display
+- [Feature] Add HSV color animations (#408)
 

@@ -308,6 +308,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Group aura count description"] = "Group aura count description"
 	L["Group Member Count"] = "Contagem dos membros do grupo"
 	--[[Translation missing --]]
+	L["Group Scale"] = "Group Scale"
+	--[[Translation missing --]]
 	L["Grow"] = "Grow"
 	--[[Translation missing --]]
 	L["Hawk"] = "Hawk"
@@ -674,7 +676,9 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["Use Full Scan (High CPU)"] = "Use Full Scan (High CPU)"
 	--[[Translation missing --]]
-	L["Use SetTransform (will change behaviour in 7.3)"] = "Use SetTransform (will change behaviour in 7.3)"
+	L["Use nth value from tooltip:"] = "Use nth value from tooltip:"
+	--[[Translation missing --]]
+	L["Use SetTransform"] = "Use SetTransform"
 	--[[Translation missing --]]
 	L["Use tooltip \"size\" instead of stacks"] = "Use tooltip \"size\" instead of stacks"
 	--[[Translation missing --]]

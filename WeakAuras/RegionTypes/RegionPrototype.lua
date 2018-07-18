@@ -171,7 +171,7 @@ end
 local function RunCode(self, func)
   if func then
     WeakAuras.ActivateAuraEnvironment(self.id, self.cloneId, self.state);
-    xpcall(func, WeakAuras.ReportError);
+    xpcall(func, geterrorhandler());
     WeakAuras.ActivateAuraEnvironment(nil);
   end
 end
@@ -269,7 +269,9 @@ function WeakAuras.regionPrototype.modify(parent, region, data)
 
   region:SetOffset(data.xOffset or 0, data.yOffset or 0);
   region:SetOffsetAnim(0, 0);
-  WeakAuras.AnchorFrame(data, region, parent);
+  if not parent or parent.regionType ~= "dynamicgroup" then
+    WeakAuras.AnchorFrame(data, region, parent);
+  end
 end
 
 local function SetProgressValue(region, value, total)
@@ -522,6 +524,14 @@ function WeakAuras.regionPrototype.SetTextOnText(text, str)
   text:SetWidth(0); -- This makes the text use its internal text size calculation
   text:SetText(str);
   local w = text:GetWidth();
-  w = w + max(4, w / 40);
+  w = w + max(5, w / 40);
   text:SetWidth(w); -- But that internal text size calculation is wrong, see ticket 1014
+end
+
+function WeakAuras.SetTextureOrAtlas(texture, path, wrapModeH, wrapModeV)
+  if type(path) == "string" and GetAtlasInfo(path) then
+    texture:SetAtlas(path);
+  else
+    texture:SetTexture(path, wrapModeH, wrapModeV);
+  end
 end
