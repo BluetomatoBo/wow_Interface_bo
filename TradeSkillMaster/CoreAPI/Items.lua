@@ -622,6 +622,9 @@ end
 function private.ItemInfoThread(self)
 	self:SetThreadName("ITEM_INFO")
 	self:RegisterEvent("GET_ITEM_INFO_RECEIVED", function(event, itemId)
+		if itemId == 0 then
+			return
+		end
 		private.StoreGetItemInfoResult("i:"..itemId, GetItemInfo(itemId))
 	end)
 

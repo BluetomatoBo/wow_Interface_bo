@@ -1,15 +1,14 @@
 ﻿--[[--------------------------------------------------------------------
 	LibRealmInfo
 	World of Warcraft library for obtaining information about realms.
-	Copyright 2014 Phanx <addons@phanx.net>
-	Do not distribute as a standalone addon.
-	See accompanying LICENSE and README files for more details.
-	https://github.com/Phanx/LibRealmInfo
-	http://wow.curseforge.com/addons/librealminfo
-	http://www.wowinterface.com/downloads/info22987-LibRealmInfo
+	Copyright 2014-2018 Phanx <addons@phanx.net>
+	Zlib license. Standalone distribution strongly discouraged.
+	https://github.com/phanx-wow/LibRealmInfo
+	https://wow.curseforge.com/projects/librealminfo
+	https://www.wowinterface.com/downloads/info22987-LibRealmInfo
 ----------------------------------------------------------------------]]
 
-local MAJOR, MINOR = "LibRealmInfo", 10
+local MAJOR, MINOR = "LibRealmInfo", 12
 assert(LibStub, MAJOR.." requires LibStub")
 local lib, oldminor = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end
@@ -52,15 +51,18 @@ end
 
 ------------------------------------------------------------------------
 
-local validRegions = { US = true, EU = true, CN = true, TW = true } -- missing KR data :(
+local validRegions = { US = true, EU = true, CN = true, KR = true, TW = true }
 
 function lib:GetRealmInfo(name, region)
 	debug("GetRealmInfo", name, region)
-	if type(name) == "number" or strmatch(name, "^%d+$") then
+	local isString = type(name) == "string"
+	if isString then
+		name = strtrim(name)
+	end
+	if type(name) == "number" or isString and strmatch(name, "^%d+$") then
 		return self:GetRealmInfoByID(name)
 	end
-	name = type(name) == "string" and strtrim(name) or ""
-	assert(strlen(name) > 0, "Usage: GetRealmInfo(name[, region])")
+	assert(isString and strlen(name) > 0, "Usage: GetRealmInfo(name[, region])")
 
 	if not region or not validRegions[region] then
 		region = self:GetCurrentRegion()
@@ -144,14 +146,14 @@ function Unpack()
 			realmData[id] = {
 				id = id,
 				name = name,
-				api_name = (gsub(name, "%s", "")),
+				api_name = (gsub(name, "[%s%-]", "")),
 				rules = rules,
 				locale = locale,
 				battlegroup = battlegroup,
 				region = region,
 				timezone = timezone, -- only for US region realms
 				latin_name = latin_name, -- only for ruRU language realms
-				latin_api_name = latin_name and (gsub(latin_name, "%s", "")) or nil, -- only for ruRU language realms
+				latin_api_name = latin_name and (gsub(latin_name, "[%s%-]", "")) or nil, -- only for ruRU language realms
 			}
 		end
 	end
@@ -495,7 +497,7 @@ realmData = {
 	[562]  = "Alexstrasza,PVE,deDE,Sturmangriff / Charge,EU",
 	[563]  = "Alleria,PVE,deDE,Reckoning / Abrechnung,EU",
 	[1391] = "Alonsus,PVE,enGB,Reckoning / Abrechnung,EU",
-	[601]  = "Aman'Thul,PVE,deDE,Reckoning / Abrechnung,EU",
+	[601]  = "Aman'thul,PVE,deDE,Reckoning / Abrechnung,EU",
 	[1330] = "Ambossar,PVE,deDE,Reckoning / Abrechnung,EU",
 	[1394] = "Anachronos,PVE,enGB,Reckoning / Abrechnung,EU",
 	[1104] = "Anetheron,PVP,deDE,Glutsturm / Emberstorm,EU",
@@ -504,7 +506,7 @@ realmData = {
 	[512]  = "Arak-arahm,PVP,frFR,Embuscade / Hinterhalt,EU",
 	[1334] = "Arathi,PVP,frFR,Sturmangriff / Charge,EU",
 	[501]  = "Arathor,PVE,enGB,Vindication,EU",
-	[539]  = "Archimonde,PVP,frFR,Misery,EU",
+	[1302]  = "Archimonde,PVP,frFR,Misery,EU",
 	[1404] = "Area 52,PVE,deDE,Embuscade / Hinterhalt,EU",
 	[536]  = "Argent Dawn,RP,enGB,Reckoning / Abrechnung,EU",
 	[578]  = "Arthas,PVP,deDE,Glutsturm / Emberstorm,EU",
@@ -781,26 +783,26 @@ realmData = {
 	[1379] = "Zul'jin,PVP,esES,Cruelty / Crueldad,EU",
 	[573]  = "Zuluhed,PVP,deDE,Glutsturm / Emberstorm,EU",
 --}}
---[[ Korea
-	[] = "가로나,PVP,koKR,격노의 전장,KR",
-	[] = "굴단,PVP,koKR,징벌의 전장,KR",
-	[] = "노르간논,PVP,koKR,징벌의 전장,KR",
-	[] = "달라란,PVP,koKR,격노의 전장,KR",
-	[] = "데스윙,PVP,koKR,격노의 전장,KR",
-	[] = "듀로탄,PVP,koKR,징벌의 전장,KR",
-	[] = "렉사르,PVE,koKR,격노의 전장,KR",
-	[] = "말퓨리온,PVP,koKR,격노의 전장,KR",
-	[] = "불타는 군단,PVE,koKR,격노의 전장,KR",
-	[] = "세나리우스,PVP,koKR,격노의 전장,KR",
-	[] = "스톰레이지,PVE,koKR,징벌의 전장,KR",
-	[] = "아즈샤라,PVP,koKR,징벌의 전장,KR",
-	[] = "알렉스트라자,PVP,koKR,격노의 전장,KR",
-	[] = "와일드해머,PVE,koKR,격노의 전장,KR",
-	[] = "윈드러너,PVE,koKR,징벌의 전장,KR",
-	[] = "줄진,PVP,koKR,징벌의 전장,KR",
-	[] = "하이잘,PVP,koKR,격노의 전장,KR",
-	[] = "헬스크림,PVP,koKR,격노의 전장,KR",
-]]
+--{{ Korea
+	[212]  = "가로나,PVP,koKR,징벌의 전장,KR",
+	[215]  = "굴단,PVP,koKR,징벌의 전장,KR",
+	[211]  = "노르간논,PVP,koKR,격노의 전장,KR",
+	[207]  = "달라란,PVP,koKR,격노의 전장,KR",
+	[2108] = "데스윙,PVP,koKR,격노의 전장,KR",
+	[210]  = "듀로탄,PVP,koKR,징벌의 전장,KR",
+	[2106] = "렉사르,PVE,koKR,징벌의 전장,KR",
+	[264]  = "말퓨리온,PVP,koKR,격노의 전장,KR",
+	[201]  = "불타는 군단,PVE,koKR,격노의 전장,KR",
+	[2110] = "세나리우스,PVP,koKR,격노의 전장,KR",
+	[2111] = "스톰레이지,PVE,koKR,격노의 전장,KR",
+	[205]  = "아즈샤라,PVP,koKR,징벌의 전장,KR",
+	[258]  = "알렉스트라자,PVP,koKR,격노의 전장,KR",
+	[2079] = "와일드해머,PVE,koKR,징벌의 전장,KR",
+	[214]  = "윈드러너,PVE,koKR,징벌의 전장,KR",
+	[2116] = "줄진,PVP,koKR,징벌의 전장,KR",
+	[2107] = "하이잘,PVP,koKR,격노의 전장,KR",
+	[293]  = "헬스크림,PVP,koKR,격노의 전장,KR",
+--}}
 --{{ China
 	[925]  = "万色星辰,PVE,zhCN,Battle Group 9,CN",
 	[922]  = "世界之树,PVE,zhCN,Battle Group 9,CN",
@@ -1371,6 +1373,16 @@ connectionData = {
 	"1609,1616", -- Deepholm (RU) / Razuvious (RU)
 	"1927,1926", -- Grom (RU) / Thermaplugg (RU)
 	"1603,1610", -- Lich King (RU) / Greymane (RU)
+--}}
+--{{ Korea
+	-- https://github.com/phanx-wow/LibRealmInfo/issues/8
+	-- PVE
+	"201,2111", -- 불타는 군단 / 스톰레이지
+	"2106,2079,214", -- 렉사르 / 와일드해머 / 윈드러너
+	-- PVP
+	"258,2108", -- 알렉스트라자 / 데스윙
+	"2110,207,264,211", -- 세나리우스 / 달라란 / 말퓨리온 / 노르간논
+	"212,215,2116", -- 가로나 / 굴단 / 줄진
 --}}
 --{{ Taiwan
 	-- inferred by GUID sniffing, needs confirmation by GetAutoCompleteRealms

@@ -1,3 +1,6 @@
+v3.0.9
+*Updated TOC version for patch 8.0.
+
 v3.0.8
 *Fixed version issue.
 
@@ -194,5 +197,3 @@ v1.0.1
 
 v1.0
 *it has been released!!
-
-

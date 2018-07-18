@@ -1,3 +1,6 @@
+v3.4.8
+*Updated TOC version for patch 8.0.
+
 v3.4.7
 *Updated TOC version for patch 7.3.
 *Fixed bugs with changes to how sounds are played.

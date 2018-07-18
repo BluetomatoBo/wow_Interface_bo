@@ -22,7 +22,7 @@ function Professions:OnInitialize()
 	Professions:RawHook("ChatEdit_InsertLink", private.InsertLinkHook, true)
 	TSMAPI.Delay:AfterTime("craftTimeText", 0.5, private.UpdateCraftTimeText, 0.5)
 	TSMAPI.Delay:AfterTime("craftingUpdateTradeSkill", 1, function() Professions:SetSelectedTradeSkill(private.selectedTradeSkill) end, 0.1)
-	Professions:RegisterEvent("TRADE_SKILL_UPDATE", private.UpdateProfessionDropdown)
+	Professions:RegisterEvent("TRADE_SKILL_LIST_UPDATE", private.UpdateProfessionDropdown)
 end
 
 function private.SetSlotFilter(inventorySlotIndex, categoryId, subCategoryId)
@@ -675,7 +675,7 @@ end
 
 function private:UpdateCraftTimeText()
 	if not TradeSkill:GetVisibilityInfo().professionsTab then return end
-	local startTime, endTime, isTradeSkill = select(5, UnitCastingInfo("player"))
+	local startTime, endTime, isTradeSkill = select(4, UnitCastingInfo("player"))
 	if isTradeSkill then
 		local timePerCraft = endTime - startTime
 		endTime = endTime + (timePerCraft * (C_TradeSkillUI.GetRecipeRepeatCount() - 1))

@@ -1,3 +1,9 @@
+v3.6.45
+*Fixed a bug from patch 8.0.
+
+v3.6.44
+*Updated TOC version for patch 8.0.
+
 v3.6.43
 *Fixed error caused by bug introduced by Blizzard with June 12th (US) maintenance
 

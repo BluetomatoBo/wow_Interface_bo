@@ -26,7 +26,6 @@ function TradeSkill:OnInitialize()
 	TradeSkill:RegisterEvent("TRADE_SKILL_CLOSE", "EventHandler")
 	TradeSkill:RegisterEvent("GARRISON_TRADESKILL_NPC_CLOSED", "EventHandler")
 	TradeSkill:RegisterEvent("TRADE_SKILL_LIST_UPDATE", "EventHandler")
-	TradeSkill:RegisterEvent("TRADE_SKILL_FILTER_UPDATE", "EventHandler")
 	TradeSkill:RegisterEvent("UPDATE_TRADESKILL_RECAST", "EventHandler")
 	TradeSkill:RegisterEvent("CHAT_MSG_SKILL", "EventHandler")
 	TradeSkill:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED", "EventHandler")
@@ -61,7 +60,7 @@ function TradeSkill:EventHandler(event, ...)
 	-- if we are changing professions or not currently shown, just ignore this event
 	if not private.currentProfession or not TradeSkill:GetVisibilityInfo().frame or TSM:GetCurrentProfessionName() ~= private.currentProfession then return end
 
-	if event == "TRADE_SKILL_LIST_UPDATE" or event == "TRADE_SKILL_FILTER_UPDATE" then
+	if event == "TRADE_SKILL_LIST_UPDATE" then
 		private:OnProfessionUpdate()
 		private:UpdateCooldownsFrame()
 	elseif event == "UPDATE_TRADESKILL_RECAST" then
@@ -79,7 +78,7 @@ function TradeSkill:EventHandler(event, ...)
 			TSMAPI.Sync:KeyUpdated(TSM.db.factionrealm.playerProfessions, playerName)
 		end
 	elseif event == "UNIT_SPELLCAST_SUCCEEDED" then
-		local unit, _, _, _, spellId = ...
+		local unit, _, spellId = ...
 		if unit ~= "player" or not TSM.db.factionrealm.crafts[spellId] then return end
 		if not TradeSkill.isCrafting or TradeSkill.isCrafting.spellId ~= spellId then return end
 		-- remove one from the queue
@@ -89,7 +88,7 @@ function TradeSkill:EventHandler(event, ...)
 		end
 		TradeSkill.isCrafting.quantity = TradeSkill.isCrafting.quantity - 1
 	elseif event == "UNIT_SPELLCAST_INTERRUPTED" or event == "UNIT_SPELLCAST_FAILED" or event == "UNIT_SPELLCAST_FAILED_QUIET" then
-		local unit, _, _, _, spellId = ...
+		local unit, _, spellId = ...
 		if unit ~= "player" then return end
 
 		if TradeSkill.isCrafting and spellId == TradeSkill.isCrafting.spellId then
