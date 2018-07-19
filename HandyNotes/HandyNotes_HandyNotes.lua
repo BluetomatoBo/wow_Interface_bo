@@ -1,7 +1,7 @@
 ---------------------------------------------------------
 -- Module declaration
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
-local HN = HandyNotes:NewModule("HandyNotes", "AceEvent-3.0", "AceHook-3.0", "AceConsole-3.0")
+local HN = HandyNotes:NewModule("HandyNotes", "AceEvent-3.0", "AceConsole-3.0")
 local L = LibStub("AceLocale-3.0"):GetLocale("HandyNotes", false)
 
 local HBD = LibStub("HereBeDragons-2.0")
@@ -74,7 +74,7 @@ HN.icons = {
 local HNHandler = {}
 
 function HNHandler:OnEnter(mapID, coord)
-	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+	local tooltip = self:GetParent() == WorldMapFrame:GetCanvas() and WorldMapTooltip or GameTooltip
 	if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
 		tooltip:SetOwner(self, "ANCHOR_LEFT")
 	else
@@ -90,7 +90,7 @@ function HNHandler:OnEnter(mapID, coord)
 end
 
 function HNHandler:OnLeave(mapID, coord)
-	if self:GetParent() == WorldMapButton then
+	if self:GetParent() == WorldMapFrame:GetCanvas() then
 		WorldMapTooltip:Hide()
 	else
 		GameTooltip:Hide()
@@ -319,7 +319,7 @@ do
 			tablepool[tbl] = nil
 			tbl.C = C
 			tbl.Z = next(C)
-			tbl.contId = uiMapID
+			tbl.contId = uiMapId
 			return iterCont, tbl, nil
 		else -- It is a zone
 			local tbl = next(tablepool) or {}
@@ -357,7 +357,7 @@ end
 
 -- Function to create a note where the player is
 function HN:CreateNoteHere(arg1)
-	local mapID, level, x, y
+	local mapID, x, y
 
 	if arg1 ~= "" then
 		-- Coordinates entered
@@ -371,10 +371,10 @@ function HN:CreateNoteHere(arg1)
 			self:Print(L["Syntax:"].." /hnnew [x, y]")
 			return
 		end
-		mapID, level = HBD:GetPlayerZone()
+		mapID = HBD:GetPlayerZone()
 	else
 		-- No coordinates entered, get the coordinates of player
-		x, y, mapID, level = HBD:GetPlayerZonePosition()
+		x, y, mapID = HBD:GetPlayerZonePosition()
 	end
 
 	if mapID and x and y then

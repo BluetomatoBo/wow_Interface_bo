@@ -38,12 +38,9 @@ local defaults = {
 ---------------------------------------------------------
 -- Localize some globals
 local floor = floor
-local tconcat = table.concat
 local pairs, next, type = pairs, next, type
 local CreateFrame = CreateFrame
-local GetCurrentMapContinent, GetCurrentMapZone = GetCurrentMapContinent, GetCurrentMapZone
-local GetCurrentMapDungeonLevel = GetCurrentMapDungeonLevel
-local WorldMapButton, Minimap = WorldMapButton, Minimap
+local Minimap = Minimap
 
 
 ---------------------------------------------------------
@@ -91,12 +88,12 @@ local function getNewPin()
 	end
 	-- create a new pin
 	pinCount = pinCount + 1
-	pin = CreateFrame("Button", "HandyNotesPin"..pinCount, WorldMapButton)
+	pin = CreateFrame("Button", "HandyNotesPin"..pinCount, Minimap)
 	pin:SetFrameLevel(5)
 	pin:EnableMouse(true)
 	pin:SetWidth(12)
 	pin:SetHeight(12)
-	pin:SetPoint("CENTER", WorldMapButton, "CENTER")
+	pin:SetPoint("CENTER", Minimap, "CENTER")
 	local texture = pin:CreateTexture(nil, "OVERLAY")
 	pin.texture = texture
 	texture:SetAllPoints(pin)
@@ -483,7 +480,7 @@ end
 -- This function updates all the icons on the minimap for every plugin
 function HandyNotes:UpdateMinimap()
 	--if not Minimap:IsVisible() then return end
-	for pluginName, pluginHandler in pairs(self.plugins) do
+	for pluginName in pairs(self.plugins) do
 		safecall(self.UpdateMinimapPlugin, self, pluginName)
 	end
 end
@@ -640,7 +637,7 @@ end
 
 function HandyNotes:OnDisable()
 	-- Remove all the pins
-	for pluginName, pluginHandler in pairs(self.plugins) do
+	for pluginName in pairs(self.plugins) do
 		HBDPins:RemoveAllMinimapIcons("HandyNotes" .. pluginName)
 		clearAllPins(minimapPins[pluginName])
 	end
