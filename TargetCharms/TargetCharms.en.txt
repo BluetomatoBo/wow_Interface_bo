@@ -1,6 +1,6 @@
 TargetCharms
 Author: Gander (sca_tch@hotmail.com)
-Version: 1.6.3 (9/1/2017)
+Version: 1.6.4 (7/18/2018)
 
 ********************
 Table of Contents
@@ -95,6 +95,9 @@ a number of commonly used layouts.
 ********************
 IV - CHANGELOG
 ********************
+v1.6.4
+Fixed an event registeration
+
 v1.6.3
 Fixed PlaySound
 

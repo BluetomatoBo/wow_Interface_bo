@@ -75,7 +75,7 @@ end
 function TargetCharms_OnLoad(self)
 	self:RegisterEvent("VARIABLES_LOADED");
 	self:RegisterEvent("PARTY_LEADER_CHANGED");
-	self:RegisterEvent("PARTY_MEMBERS_CHANGED");
+	self:RegisterEvent("GROUP_ROSTER_UPDATE");
 	self:RegisterEvent("PLAYER_TARGET_CHANGED");
 	self:RegisterEvent("GROUP_ROSTER_UPDATE");
 	SetTargetHideShow();
@@ -118,6 +118,7 @@ function CopyOldValues(t,f)
 end
 
 function CheckFrameViewState()
+
 	local charmBar = _G[frameNames[2]];
 	
 	if IsInSetup() then
