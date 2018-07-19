@@ -3,7 +3,6 @@
 -- ----------------------------------------------------------------------------
 -- Functions
 local pairs = _G.pairs
-local tostring = _G.tostring
 local time = _G.time
 
 -- Libraries
@@ -146,21 +145,16 @@ local function MergeUserDefinedWithScanList(npcList)
 	end
 end
 
-function NPCScan:UpdateScanList(eventName, mapID)
+function NPCScan:UpdateScanList(_, mapID)
 	local scannerData = Data.Scanner
 	mapID = mapID or HereBeDragons:GetPlayerZone()
 
-	if mapID and mapID >= 0 then
-		scannerData.mapID = mapID
-		scannerData.continentID = Data.Maps[mapID].continentID
-	end
-
-	if not scannerData.mapID or not scannerData.continentID then
-		private.Debug("No mapID or no continentID.")
+	if not mapID or mapID < 0 then
 		return
 	end
 
-	private.Debug("eventName: %s Data.Scanner.mapID: %d Data.Scanner.continentID: %d", eventName or _G.NONE, scannerData.mapID, scannerData.continentID)
+	scannerData.mapID = mapID
+	scannerData.continentID = Data.Maps[mapID].continentID
 
 	for npcID in pairs(scannerData.NPCs) do
 		private.Overlays.Remove(npcID)
@@ -279,6 +273,10 @@ function NPCScan:NAME_PLATE_UNIT_ADDED(_, unitToken)
 	ProcessUnit(unitToken, _G.UNIT_NAMEPLATES)
 end
 
+function NPCScan:PLAYER_ENTERING_WORLD()
+	self:UpdateScanList("PLAYER_ENTERING_WORLD", _G.C_Map.GetBestMapForUnit("player"))
+end
+
 function NPCScan:PLAYER_TARGET_CHANGED()
 	ProcessUnit("target", _G.TARGET)
 end
@@ -292,27 +290,32 @@ function NPCScan:UPDATE_MOUSEOVER_UNIT()
 end
 
 do
-	local function ProcessQuestDetection(questID, sourceText)
-		for npcID in pairs(private.QuestNPCs[questID]) do
-			ProcessDetection({
-				npcID = npcID,
-				sourceText = sourceText
-			})
-		end
+	local VIGNETTE_SOURCE_TO_PREFERENCE = {
+		[_G.MINIMAP_LABEL] = "ignoreMiniMap",
+		[_G.WORLD_MAP] = "ignoreWorldMap",
+	}
+
+	local function IsIgnoringSource(sourceText)
+		return private.db.profile.detection[VIGNETTE_SOURCE_TO_PREFERENCE[sourceText]]
 	end
 
-	local function ProcessVignetteNameDetection(vignetteName, sourceText)
-		for npcID in pairs(private.VignetteNPCs[vignetteName]) do
-			if Data.Scanner.NPCs[npcID] then
-				ProcessDetection({
-					npcID = npcID,
-					sourceText = sourceText
-				})
-			end
+	local function ProcessVignetteGUID(vignetteGUID)
+		if not vignetteGUID then
+			return
 		end
-	end
 
-	local function ProcessVignette(vignetteInfo, sourceText)
+		local vignetteInfo = _G.C_VignetteInfo.GetVignetteInfo(vignetteGUID);
+
+		if not vignetteInfo then
+			return
+		end
+
+		local sourceText = vignetteInfo.onWorldMap and _G.WORLD_MAP or _G.MINIMAP_LABEL
+
+		if IsIgnoringSource(sourceText) then
+			return
+		end
+
 		local npcID = private.GUIDToCreatureID(vignetteInfo.objectGUID)
 
 		-- The objectGUID can be but isn't always an NPC ID, since some NPCs must be summoned from the vignette object.
@@ -322,24 +325,36 @@ do
 				sourceText = sourceText
 			})
 
-			return true
+			return
 		end
 
 		local vignetteName = vignetteInfo.name
 		local questID = private.QuestIDFromName[vignetteName]
 
 		if questID then
-			ProcessQuestDetection(questID, sourceText)
+			for ID in pairs(private.QuestNPCs[questID]) do
+				ProcessDetection({
+					npcID = ID,
+					sourceText = sourceText
+				})
+			end
 
-			return true
+			return
 		elseif sourceText == _G.WORLD_MAP then
-			return false
+			return
 		end
 
 		if private.VignetteNPCs[vignetteName] then
-			ProcessVignetteNameDetection(vignetteName, sourceText)
+			for ID in pairs(private.VignetteNPCs[vignetteName]) do
+				if Data.Scanner.NPCs[ID] then
+					ProcessDetection({
+						npcID = ID,
+						sourceText = sourceText
+					})
+				end
+			end
 
-			return true
+			return
 		end
 
 		npcID = private.NPCIDFromName[vignetteName]
@@ -350,47 +365,19 @@ do
 				sourceText = sourceText
 			})
 
-			return true
+			return
 		end
-
-		return false
-	end
-
-	local VIGNETTE_SOURCE_TO_PREFERENCE = {
-		[_G.MINIMAP_LABEL] = "ignoreMiniMap",
-		[_G.WORLD_MAP] = "ignoreWorldMap",
-	}
-
-	local function IsIgnoringSource(sourceText)
-		return private.db.profile.detection[VIGNETTE_SOURCE_TO_PREFERENCE[sourceText]]
 	end
 
 	function NPCScan:VIGNETTE_MINIMAP_UPDATED(_, vignetteGUID)
-		if not vignetteGUID or IsIgnoringSource(_G.MINIMAP_LABEL) then
-			return
-		end
-
-		local vignetteInfo = _G.C_VignetteInfo.GetVignetteInfo(vignetteGUID)
-
-		if vignetteInfo then
-			if not ProcessVignette(vignetteInfo, _G.MINIMAP_LABEL) then
-				private.Debug("Unknown vignette: %s with vignetteID %s", vignetteInfo.name or _G.UNKNOWN, tostring(vignetteInfo.vignetteID))
-			end
-		end
+		ProcessVignetteGUID(vignetteGUID)
 	end
 
 	function NPCScan:VIGNETTES_UPDATED()
 		local vignetteGUIDs = _G.C_VignetteInfo.GetVignettes()
 
 		for index = 1, #vignetteGUIDs do
-			local vignetteGUID = vignetteGUIDs[index]
-			local vignetteInfo = _G.C_VignetteInfo.GetVignetteInfo(vignetteGUID);
-
-			if vignetteInfo and vignetteInfo.onWorldMap then
-				if not ProcessVignette(vignetteInfo, _G.WORLD_MAP) then
-					private.Debug("Unknown world map vignette: %s with vignetteID %s", vignetteInfo.name or _G.UNKNOWN, tostring(vignetteInfo.vignetteID))
-				end
-			end
+			ProcessVignetteGUID(vignetteGUIDs[index])
 		end
 	end
 end -- do-block

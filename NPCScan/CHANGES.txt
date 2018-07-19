@@ -1,64 +1,46 @@
-tag 55e71bd1ff3a5808368b69b086dfe55b9a5daf73 8.0.1.1
+tag d3953ad5723658a9f19f7360061680eac1c5766f 8.0.1.2
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Tue Jul 17 14:15:11 2018 -0500
+Date:	Wed Jul 18 22:35:55 2018 -0500
 
-commit a942e55cc1267a619a805df30c11b5c64e24d6e5
+commit 33dffb25f9f761148197b87a414e213a9c66c59b
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Jul 17 14:14:09 2018 -0500
+Date:   Wed Jul 18 22:35:38 2018 -0500
 
-    Update URLs for .pkgmeta externals.
+    Rework PLAYER_ENTERING_WORLD handler, since that event now has a payload.
 
-commit 58b5464ad9b207987b4b07b38c2667329fb8bc2e
+commit 8bd50d0110348ef3b16f31b6475f9f41e7f90d2c
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Jul 17 12:07:36 2018 -0500
+Date:   Wed Jul 18 19:17:06 2018 -0500
 
-    Convert previous WORLD_MAP_UPDATE code to use VIGNETTES_UPDATED with similar code to that of minimap vignettes.
+    Greatly simplify vignette-scanning code.
 
-commit c950bc38a4da163827288e7d5fad7f0a89169c53
+commit c2e589bcde522ccabc87f270baaed5f227575a95
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Jul 17 03:41:05 2018 -0500
+Date:   Wed Jul 18 14:10:03 2018 -0500
 
-    Disable WORLD_MAP_UPDATE code pending further investigation on a replacement - was only ever used for the four Hellbane achievement NPCs, so if this isn't possible in WoW 8.x... whatever.
+    Give DataObject.scannerData default values.
 
-commit 16e12db320fe81f9902d801c7519dc07d866ec1d
+commit 16afafcb38b46308f284eea83b068fac8fbed282
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Jul 17 03:30:14 2018 -0500
+Date:   Wed Jul 18 13:53:49 2018 -0500
 
-    Use CombatLogGetCurrentEventInfo to get proper data from the CLEU event.
+    Add the Tiny Shale Spider pet to Jadefang.
 
-commit 82f567c2f8c2100a044b28f63b055dad7250ffaa
+commit 55109036a2691bb4ce9d31d7ed37680996355a0c
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Jul 17 02:35:01 2018 -0500
+Date:   Wed Jul 18 13:53:26 2018 -0500
 
-    Update ToC Interface to 80000.
+    Use AchievementID instead of hardcoded numbers for all manually-assigned NPCs, and ensure their manual addition to the achievement's criteriaNPCs table.
 
-commit a85ca8c5cce7c85b15ae5f92318454640482fa02
+commit 0658f39f168c802b35f3e961bd9ee0c8f88598bf
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Jul 17 02:34:39 2018 -0500
+Date:   Wed Jul 18 13:46:45 2018 -0500
 
-    Update vignette processing for new APIs.
+    Move the AchievementID table into Achievements.lua
 
-commit e7fa50f0f096dad4bf19e8645f93fb5e15103f26
+commit 777276d2948b414df90da2a9d09273f77f9c8467
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Jul 17 02:31:49 2018 -0500
+Date:   Wed Jul 18 13:45:21 2018 -0500
 
-    Update all Map IDs to their WoW 8.x versions, using Enum values rather than magic numbers, and update API/library calls as appropriate.
-
-commit 2d342b23eff6b63021175663bb0030908e8e7aa4
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Jul 17 02:00:02 2018 -0500
-
-    Split achievement data out of Data/_Main.lua into Data/Achievements.lua
-
-commit cf182490998f3931487e0a30dc85bb78b5ecc1d4
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Jul 15 18:55:06 2018 -0500
-
-    Fix entry for Son of Galleon's Saddle.
-
-commit 9136e4e79dd72c13b3c85c3269cea2b0ff26882f
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Jul 15 18:54:22 2018 -0500
-
-    Add tracking quest to Ataxon.
+    Update the scanner list during PLAYER_ENTERING_WORLD since the WoW 8.0.1 changes to the map system made doing so during PLAYER_LOGIN useless.
 
