@@ -18,6 +18,8 @@
 	- DropDown Text Object can no longer be wider than the width of the DropDown itself.
 	### Rev 10 - 7.0.3/Legion ###
 	- Fixed issue related to frame level, making the dropdown appear behind other frames. Thanks vincentSDSH.
+	### Rev 11 - 7.3 ###
+	- Fixed the PlaySound() issue
 --]]
 
 local REVISION = 11;

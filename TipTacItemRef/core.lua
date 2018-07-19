@@ -155,7 +155,7 @@ end
 -- HOOK: SetUnitAura -- Adds both name of "Caster" and "SpellID"
 local function SetUnitAura_Hook(self,unit,index,filter)
 	if (cfg.if_enable) and (cfg.if_showSpellIdAndRank or cfg.if_showAuraCaster) then
-		local _, _, _, _, _, _, _, casterUnit, _, _, spellId = UnitAura(unit,index,filter);
+		local _, _, _, _, _, _, casterUnit, _, _, spellId = UnitAura(unit,index,filter);	-- [18.07.19] 8.0/BfA: "dropped second parameter"
 		-- format the info line for spellID and caster -- pre-16.08.25 only caster was formatted as this: "<Applied by %s>"
 		local tipInfoLine = "";
 		if (cfg.if_showAuraCaster) and (UnitExists(casterUnit)) then
@@ -192,7 +192,7 @@ end
 -- OnTooltipSetSpell
 local function OnTooltipSetSpell(self,...)
 	if (cfg.if_enable) and (not tipDataAdded[self]) then
-		local _, _, id = self:GetSpell();
+		local _, id = self:GetSpell();	-- [18.07.19] 8.0/BfA: "dropped second parameter (nameSubtext)"
 		if (id) then
 			tipDataAdded[self] = "spell";
 			LinkTypeFuncs.spell(self,nil,"spell",id);
@@ -300,7 +300,8 @@ end
 
 -- spell
 function LinkTypeFuncs:spell(link,linkType,id)
-	local name, rank, icon = GetSpellInfo(id);
+	local name, _, icon = GetSpellInfo(id);	-- [18.07.19] 8.0/BfA: 2nd param "rank/nameSubtext" now returns nil
+	local rank = GetSpellSubtext(id);	-- will return nil at first unless its locally cached
 	-- Icon
 	if (self.SetIconTextureAndText) and (not cfg.if_smartIcons or SmartIconEvaluation(self,linkType)) then
 		self:SetIconTextureAndText(icon);

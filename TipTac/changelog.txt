@@ -1,3 +1,10 @@
+TipTac Changes | 2018 Jul 19
+----------------------------
+- Updated the TOC version to 80000 for the Battle for Azeroth 8.0 pre-patch.
+- Fixed code related to API changes in BfA (UnitAura).
+- TipTacItemRef: Fixed code related to API changes in BfA (UnitAura, GetSpell, GetSpellInfo).
+- Rewrote the way auras are being queried and displayed, to avoid having the code for buffs and debuffs being 99% identical.
+
 TipTac Changes | 2017 Oct 10
 ----------------------------
 - Updated the TOC version to 70300 for the 7.3 patch.

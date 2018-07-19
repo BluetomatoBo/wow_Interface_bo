@@ -1,3 +1,7 @@
+TipTacTalents Changes | 2018 Jul 19
+-----------------------------------
+- Updated the TOC version to 80000 for the Battle for Azeroth 8.0 pre-patch.
+
 TipTacTalents Changes | 2017 Oct 10
 -----------------------------------
 - Updated the TOC version to 70300 for the 7.3 patch.

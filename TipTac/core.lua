@@ -753,7 +753,7 @@ end
 --                                       Auras - Buffs & Debuffs                                      --
 --------------------------------------------------------------------------------------------------------
 
-local function CreateAura()
+local function CreateAuraFrame()
 	local aura = CreateFrame("Frame",nil,gtt);
 	aura:SetWidth(cfg.auraSize);
 	aura:SetHeight(cfg.auraSize);
@@ -777,6 +777,78 @@ local function CreateAura()
 	return aura;
 end
 
+-- querires auras of the specific auraType, and sets up the aura frame and anchors it in the desired place
+local function DisplayAuras(auraType,startingAuraFrameIndex)
+
+	local aurasPerRow = floor((gtt:GetWidth() - 4) / (cfg.auraSize + 1));	-- auras we can fit into one row based on the current size of the GTT
+	local xOffsetBasis = (auraType == "HELPFUL" and 1 or -1);				-- is +1 or -1 based on horz anchoring
+
+	local queryIndex = 1;							-- aura query index for this auraType
+	local auraFrameIndex = startingAuraFrameIndex;	-- array index for the next aura frame, initialized to the starting index
+
+	-- anchor calculation based on "auraType" and "cfg.aurasAtBottom"
+	local horzAnchor1 = (auraType == "HELPFUL" and "LEFT" or "RIGHT");
+	local horzAnchor2 = TT_MirrorAnchors[horzAnchor1];
+
+	local vertAnchor = (aurasAtBottom and "TOP" or "BOTTOM");
+	local anchor1 = vertAnchor..horzAnchor1;
+	local anchor2 = TT_MirrorAnchors[vertAnchor]..horzAnchor1;
+
+	-- query auras
+	while (true) do
+		local _, iconTexture, count, debuffType, duration, endTime, casterUnit = UnitAura(u.token,queryIndex,auraType);	-- [18.07.19] 8.0/BfA: "dropped second parameter"
+		if (not iconTexture) or (auraFrameIndex / aurasPerRow > cfg.auraMaxRows) then
+			break;
+		end
+		if (not cfg.selfAurasOnly or casterUnit == "player" or casterUnit == "pet" or casterUnit == "vehicle") then
+			local aura = auras[auraFrameIndex] or CreateAuraFrame();
+
+			-- Anchor It
+			aura:ClearAllPoints();
+			if ((auraFrameIndex - 1) % aurasPerRow == 0) or (auraFrameIndex == startingAuraFrameIndex) then
+				-- new aura line
+				local x = (xOffsetBasis * 2);
+				local y = (cfg.auraSize + 1) * floor((auraFrameIndex - 1) / aurasPerRow);
+				y = (cfg.aurasAtBottom and -y or y);
+				aura:SetPoint(anchor1,gtt,anchor2,x,y);
+			else
+				-- anchor to last
+				aura:SetPoint(horzAnchor1,auras[auraFrameIndex - 1],horzAnchor2,xOffsetBasis,0);
+			end
+
+			-- Border -- Only shown for debuffs
+			if (auraType == "HARMFUL") then
+				local color = DebuffTypeColor[debuffType] or DebuffTypeColor["none"];
+				aura.border:SetVertexColor(color.r,color.g,color.b);
+				aura.border:Show();
+			else
+				aura.border:Hide();
+			end
+
+			-- Show + Next, Break if exceed max desired rows of aura
+			aura:Show();
+			auraFrameIndex = (auraFrameIndex + 1);
+		end
+		queryIndex = (queryIndex + 1);
+	end
+
+	-- return the number of auras displayed
+	return (auraFrameIndex - startingAuraFrameIndex);
+end
+
+-- display buffs and debuffs and hide unused aura frames
+local function SetupAuras()
+	local buffCount = DisplayAuras("HELPFUL",1);
+	local debuffCount = DisplayAuras("HARMFUL",buffCount + 1);
+
+	-- Hide the Unused
+	for i = (buffCount + debuffCount + 1), #auras do
+		auras[i]:Hide();
+	end
+end
+
+--[[
+-- [18.07.19] Old SetupAuras() function. Re-enable if the new one above causes issues.
 -- The outer variable "pos" is the actual index of the shown auras we are actually going to use, in case certain auras are filtered. The "index" variable is for querying the auras.
 local function SetupAuras()
 	-- Init
@@ -786,12 +858,12 @@ local function SetupAuras()
 	if (cfg.showBuffs) then
 		local index = 1;
 		while (true) do
-			local _, _, iconTexture, count, debuffType, duration, endTime, casterUnit = UnitAura(u.token,index,"HELPFUL");
+			local _, iconTexture, count, debuffType, duration, endTime, casterUnit = UnitAura(u.token,index,"HELPFUL");	-- [18.07.19] 8.0/BfA: "dropped second parameter"
 			if (not iconTexture) or (pos / aurasPerRow > cfg.auraMaxRows) then
 				break;
 			end
 			if (not cfg.selfAurasOnly or casterUnit == "player" or casterUnit == "pet" or casterUnit == "vehicle") then
-				local aura = auras[pos] or CreateAura();
+				local aura = auras[pos] or CreateAuraFrame();
 				-- Anchor It
 				aura:ClearAllPoints();
 				if ((pos - 1) % aurasPerRow == 0) or (pos == 1) then
@@ -829,12 +901,12 @@ local function SetupAuras()
 		local index = 1;
 		local buffCount = (pos - 1);
 		while (true) do
-			local _, _, iconTexture, count, debuffType, duration, endTime, casterUnit = UnitAura(u.token,index,"HARMFUL");
+			local _, iconTexture, count, debuffType, duration, endTime, casterUnit = UnitAura(u.token,index,"HARMFUL");	-- [18.07.19] 8.0/BfA: "dropped second parameter"
 			if (not iconTexture) or (pos / aurasPerRow > cfg.auraMaxRows) then
 				break;
 			end
 			if (not cfg.selfAurasOnly or casterUnit == "player" or casterUnit == "pet" or casterUnit == "vehicle") then
-				local aura = auras[pos] or CreateAura();
+				local aura = auras[pos] or CreateAuraFrame();
 				-- Anchor It
 				aura:ClearAllPoints();
 				if ((pos - 1) % aurasPerRow == 0) or (pos == buffCount + 1) then
@@ -878,6 +950,7 @@ local function SetupAuras()
 		auras[i]:Hide();
 	end
 end
+--]]
 
 --------------------------------------------------------------------------------------------------------
 --                                          GameTooltip Hooks                                         --
