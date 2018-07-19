@@ -1,10 +1,9 @@
-## Interface: 70300
+## Interface: 80000
 ## Title: Bagnon Config
 ## Author: Tuller and Jaliborc (João Cardoso)
 ## Notes: An options menu for Bagnon
 ## Dependencies: Bagnon
 ## LoadOnDemand: 1
-## Version: 7.3.2
-
+## Version: 8.0.0
 main.lua
 common\Wildpants_Config.xml
