@@ -7,9 +7,7 @@ L["A class trainer"] = true
 L["Trainer"] = true
 
 L["Alliance Battlemasters"] = true
-L["Alliance"] = true
 L["Horde Battlemasters"] = true
-L["Horde"] = true
 L["To the east."] = true
 L["To the west."] = true
 L["The east."] = true

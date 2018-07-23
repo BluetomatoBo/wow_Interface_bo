@@ -1,45 +1,18 @@
-tag 39b2bbed6e982c84a1f236a2ebd79fbdef514a22 v1.4.5
+tag f97016e200e173645e96b2a19b202af32fb006ae v1.5
 Author:	Ethan Centaurai <ethancentaurai@outlook.com>
-Date:	Sat Feb 17 11:36:07 2018 +0000
+Date:	Sun Jul 22 12:28:09 2018 +0100
 
-Tagging as v1.4.5.
+Tagging as v1.5.
 
-commit f258565c699f84ebf0d4de0010403b4836a47e14
+commit aeeb1026bfa46f881b9d9defe7416b060aca3ed9
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Feb 17 11:30:36 2018 +0000
+Date:   Sun Jul 22 12:16:26 2018 +0100
 
-    Minor text tweaks.
+    Updated for Patch 8.0.
 
-commit 38de693ce3166b6befe5ec7d5fdba9c74b8aac50
+commit d4eec9d1b24b1a5bcae76ce7d9c5674f6d56de6a
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Feb 17 11:30:27 2018 +0000
+Date:   Mon Feb 19 23:07:31 2018 +0000
 
-    Bump Interface number to 70300.
-
-commit ebba1d59bda5cfae64e72693c5c1943593585ecd
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sat Feb 17 11:30:13 2018 +0000
-
-    Change texture path check to use texture IDs.
-
-commit dbba26eb13ecdaf4390e9c14c253c8582b6049ec
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sun Jan 22 21:21:20 2017 +0000
-
-    Small tooltip tweak.
-
-commit b417d0285b1d18083ea3c4b391d388567859c42f
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sun Jan 22 17:25:49 2017 +0000
-
-    Elders in dungeons now have a different icon.
-    
-    Requested by Stanzilla. This will make distinguishing overworld and
-    dungeon Elders easier.
-
-commit 0a97ffd50e266ac71bd1ca8fe5d3de33479b9f93
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Sun Jan 22 11:15:53 2017 +0000
-
-    Removed duplicate Elder Kilias marker.
+    Added Zidormi to Silithus.
 

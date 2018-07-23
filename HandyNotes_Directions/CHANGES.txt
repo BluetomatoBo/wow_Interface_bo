@@ -1,0 +1,12 @@
+tag ffe5af897c61a246fcd091f420347a980903d80b v3
+Author:	David Lynch <kemayo@gmail.com>
+Date:	Thu Jul 19 17:23:30 2018 -0500
+
+Tagging v3
+
+commit 6d098e1df337ed82d1c98e8126ac448dc8f5817e
+Author: David Lynch <kemayo@gmail.com>
+Date:   Thu Jul 19 17:22:41 2018 -0500
+
+    Update for BfA
+

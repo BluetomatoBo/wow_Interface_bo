@@ -167,6 +167,7 @@ points["Orgrimmar"] = {
 }
 
 points["Silithus"] = {
+	[78932197] = "Zidormi",
 	[30811332] = { 8654, 911, 20 }, -- Elder Primestone
 	[53023548] = { 8719, 911, 21 }, -- Elder Bladesing
 }

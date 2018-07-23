@@ -21,11 +21,7 @@ local defaults = { profile = { completed = false, icon_scale = 1.4, icon_alpha =
 local _G = getfenv(0)
 
 local C_Timer_NewTicker = _G.C_Timer.NewTicker
-local CalendarGetDate = _G.CalendarGetDate
-local CalendarGetDayEvent = _G.CalendarGetDayEvent
-local CalendarGetMonth = _G.CalendarGetMonth
-local CalendarGetNumDayEvents = _G.CalendarGetNumDayEvents
-local CalendarSetAbsMonth = _G.CalendarSetAbsMonth
+local C_Calendar = _G.C_Calendar
 local GameTooltip = _G.GameTooltip
 local GetAchievementCriteriaInfo = _G.GetAchievementCriteriaInfo
 local GetGameTime = _G.GetGameTime
@@ -277,21 +273,25 @@ local options = {
 -- check
 local setEnabled = false
 local function CheckEventActive()
-	local _, month, day, year = CalendarGetDate()
-	local curMonth, curYear = CalendarGetMonth()
+	local date = C_Calendar.GetDate()
+	local month, day, year = date.month, date.monthDay, date.year
+
+	local monthInfo = C_Calendar.GetMonthInfo()
+	local curMonth, curYear = monthInfo.month, monthInfo.year
+
 	local monthOffset = -12 * (curYear - year) + month - curMonth
-	local numEvents = CalendarGetNumDayEvents(monthOffset, day)
+	local numEvents = C_Calendar.GetNumDayEvents(monthOffset, day)
 
 	for i=1, numEvents do
-		local _, eventHour, _, eventType, state, _, texture = CalendarGetDayEvent(monthOffset, day, i)
+		local event = C_Calendar.GetDayEvent(monthOffset, day, i)
 
-		if texture == 235472 or texture == 235473 or texture == 235474 then
-			if state == "ONGOING" then
+		if event.iconTexture == 235472 or event.iconTexture == 235473 or event.iconTexture == 235474 then
+			if event.sequenceType == "ONGOING" then
 				setEnabled = true
 			else
 				local hour = GetGameTime()
 
-				if state == "END" and hour <= eventHour or state == "START" and hour >= eventHour then
+				if event.sequenceType == "END" and hour <= event.endTime.hour or event.sequenceType == "START" and hour >= event.startTime.hour then
 					setEnabled = true
 				else
 					setEnabled = false
@@ -322,14 +322,14 @@ end
 function SummerFestival:OnEnable()
 	self.isEnabled = false
 
-	local HereBeDragons = LibStub("HereBeDragons-1.0", true)
+	local HereBeDragons = LibStub("HereBeDragons-2.0", true)
 	if not HereBeDragons then
-		HandyNotes:Print("Your installed copy of HandyNotes is out of date and the Summer Festival plug-in will not work correctly.  Please update HandyNotes to version 1.4.0 or newer.")
+		HandyNotes:Print("Your installed copy of HandyNotes is out of date and the Summer Festival plug-in will not work correctly.  Please update HandyNotes to version 1.5.0 or newer.")
 		return
 	end
 
-	local _, month, _, year = CalendarGetDate()
-	CalendarSetAbsMonth(month, year)
+	local date = C_Calendar.GetDate()
+	C_Calendar.SetAbsMonth(date.month, date.year)
 
 	C_Timer_NewTicker(15, CheckEventActive)
 	HandyNotes:RegisterPluginDB("SummerFestival", self, options)

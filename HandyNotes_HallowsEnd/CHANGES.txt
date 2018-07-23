@@ -1,30 +1,12 @@
-tag 87b30684869b9dae60372f17206d416b12c1540a v1.2.8
+tag 89fd4c4be02b2579b5baf58ef18a74ca5287ddd3 v1.3
 Author:	Ethan Centaurai <ethancentaurai@outlook.com>
-Date:	Sat Oct 28 22:21:51 2017 +0100
+Date:	Sun Jul 22 12:28:46 2018 +0100
 
-Tagging as v1.2.8.
+Tagging as v1.3.
 
-commit 770a648f1261a4adc868870d303f04bcc6a2f972
+commit 81b70ffd234da31af3297d5c48210f0c867ba8bc
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Mon Oct 23 21:52:06 2017 +0100
+Date:   Wed Jul 18 21:46:50 2018 +0100
 
-    Tweaked the coordinates of Shrine of Seven Stars.
-
-commit 5c74835ea6cbd87100698156dfea465c25ffdda5
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Mon Oct 23 20:54:10 2017 +0100
-
-    Stop creating waypoints to Zidormi when using the mass-waypoint function.
-
-commit 6c9bec54cd07be910e3709ea320711140e2f1b8a
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Mon Oct 23 20:48:38 2017 +0100
-
-    Fixed an error that sometimes occurs when creating waypoints.
-
-commit 6f89c412b5641c5e1185d652412571e07ac5396a
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Mon Oct 23 00:10:41 2017 +0100
-
-    Tweaked the coordinates of Northrend Dalaran.
+    Updated for Patch 8.0.
 

@@ -14,7 +14,7 @@ local db
 local defaults = {
 	global = {
 		landmarks = {
-			["*"] = {},  -- [mapFile] = {[coord] = "name", [coord] = "name"}
+			["*"] = {},  -- [mapID] = {[coord] = "name", [coord] = "name"}
 		},
 	},
 	profile = {
@@ -53,38 +53,33 @@ local clickedLandmark = nil
 local clickedLandmarkZone = nil
 local lastGossip = nil
 
-function HDHandler:OnEnter(mapFile, coord)
+function HDHandler:OnEnter(mapID, coord)
 	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
 	if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
 		tooltip:SetOwner(self, "ANCHOR_LEFT")
 	else
 		tooltip:SetOwner(self, "ANCHOR_RIGHT")
 	end
-	tooltip:SetText(HD.db.global.landmarks[mapFile][coord])
+	tooltip:SetText(HD.db.global.landmarks[mapID][coord])
 	tooltip:Show()
 	clickedLandmark = nil
 	clickedLandmarkZone = nil
 end
 
-local function deletePin(button, mapFile, coord)
-	HD.db.global.landmarks[mapFile][coord] = nil
+local function deletePin(button, mapID, coord)
+	HD.db.global.landmarks[mapID][coord] = nil
 	HD:SendMessage("HandyNotes_NotifyUpdate", "Directions")
 end
 
-local function createWaypoint(button, mapFile, coord)
-	local c, z = HandyNotes:GetCZ(mapFile)
+local function createWaypoint(button, mapID, coord)
 	local x, y = HandyNotes:getXY(coord)
-	local name = HD.db.global.landmarks[mapFile][coord]
+	local name = HD.db.global.landmarks[mapID][coord]
 	if TomTom then
-		local persistent, minimap, world
-		if temporary then
-			persistent = true
-			minimap = false
-			world = false
-		end
-		TomTom:AddZWaypoint(c, z, x*100, y*100, name, persistent, minimap, world)
-	elseif Cartographer_Waypoints then
-		Cartographer_Waypoints:AddWaypoint(NotePoint:new(HandyNotes:GetCZToZone(c, z), x, y, name))
+		TomTom:AddWaypoint(mapID, x, y, {
+			title = name,
+			world = false,
+			minimap = true,
+		})
 	end
 end
 
@@ -98,7 +93,7 @@ local function generateMenu(button, level)
 		info.notCheckable = 1
 		UIDropDownMenu_AddButton(info, level)
 
-		if TomTom or Cartographer_Waypoints then
+		if TomTom then
 			-- Waypoint menu item
 			info.disabled     = nil
 			info.isTitle      = nil
@@ -135,9 +130,9 @@ local HD_Dropdown = CreateFrame("Frame", "HandyNotes_DirectionsDropdownMenu")
 HD_Dropdown.displayMode = "MENU"
 HD_Dropdown.initialize = generateMenu
 
-function HDHandler:OnClick(button, down, mapFile, coord)
+function HDHandler:OnClick(button, down, mapID, coord)
 	if button == "RightButton" and not down then
-		clickedLandmarkZone = mapFile
+		clickedLandmarkZone = mapID
 		clickedLandmark = coord
 		ToggleDropDownMenu(1, nil, HD_Dropdown, self, 0, 0)
 	end
@@ -165,8 +160,8 @@ do
 		end
 		return nil, nil, nil, nil
 	end
-	function HDHandler:GetNodes(mapFile)
-		return iter, HD.db.global.landmarks[mapFile], nil
+	function HDHandler:GetNodes2(mapID)
+		return iter, HD.db.global.landmarks[mapID], nil
 	end
 end
 
@@ -177,30 +172,30 @@ end
 local alreadyAdded = {}
 function HD:CheckForLandmarks()
 	if not lastGossip then return end
-	for mark = 1, GetNumMapLandmarks(), 1 do
-		local name, _, tex, x, y = GetMapLandmarkInfo(mark)
-		if tex == 7 and not alreadyAdded[name] then
-			Debug("Found POI!", name)
-			alreadyAdded[name] = true
-			self:AddLandmark(x, y, lastGossip)
+	local mapID = C_Map.GetBestMapForUnit('player')
+	local gossipPoiID = C_GossipInfo.GetGossipPoiForUiMapID(mapID)
+
+	if gossipPoiID and not alreadyAdded[gossipPoiID] then
+		local gossipInfo = C_GossipInfo.GetGossipPoiInfo(mapID, gossipPoiID);
+		if gossipInfo and gossipInfo.textureIndex == 7 then
+			Debug("Found POI", gossipInfo.name)
+			alreadyAdded[gossipPoiID] = true
+			self:AddLandmark(mapID, gossipInfo.position.x, gossipInfo.position.y, lastGossip)
 		end
 	end
 end
 
-function HD:AddLandmark(x, y, name)
-	local z = GetCurrentMapAreaID()
+function HD:AddLandmark(mapID, x, y, name)
 	local loc = HandyNotes:getCoord(x, y)
-	local mapFile = HandyNotes:GetMapIDtoMapFile(z)
-	if not mapFile then return end
-	for coord,value in pairs(self.db.global.landmarks[mapFile]) do
+	for coord, value in pairs(self.db.global.landmarks[mapID]) do
 		if value and value:match("^"..name) then
 			Debug("already a match on name", name, value)
 			return
 		end
 	end
-	self.db.global.landmarks[mapFile][loc] = name
+	self.db.global.landmarks[mapID][loc] = name
 	self:SendMessage("HandyNotes_NotifyUpdate", "Directions")
-	createWaypoint(nil, mapFile, loc)
+	createWaypoint(nil, mapID, loc)
 end
 
 local replacements = {
@@ -208,8 +203,8 @@ local replacements = {
 	[L["Profession Trainer"]] = L["Trainer"],
 	[L["A class trainer"]] = L["Trainer"],
 	[L["Class Trainer"]] = L["Trainer"],
-	[L["Alliance Battlemasters"]] = L["Alliance"],
-	[L["Horde Battlemasters"]] = L["Horde"],
+	[L["Alliance Battlemasters"]] = FACTION_ALLIANCE,
+	[L["Horde Battlemasters"]] = FACTION_HORDE,
 	[L["To the east."]] = L["East"],
 	[L["To the west."]] = L["West"],
 	[L["The east."]] = L["East"],
@@ -277,12 +272,17 @@ function HD:OnInitialize()
 	-- Set up our database
 	self.db = LibStub("AceDB-3.0"):New("HandyNotes_DirectionsDB", defaults)
 	db = self.db.profile
+	for k, v in pairs(self.db.global.landmarks) do
+		if type(k) == "string" then
+			self.db.global.landmarks[k] = {}
+		end
+	end
 	-- Initialize our database with HandyNotes
 	HandyNotes:RegisterPluginDB("Directions", HDHandler, options)
 end
 
 function HD:OnEnable()
-	self:RegisterEvent("WORLD_MAP_UPDATE", "CheckForLandmarks")
+	self:RegisterEvent("DYNAMIC_GOSSIP_POI_UPDATED", "CheckForLandmarks")
 	self:RegisterEvent("GOSSIP_CLOSED")
 	self:Hook("SelectGossipOption", true)
 end

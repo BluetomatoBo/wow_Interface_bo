@@ -1,18 +1,12 @@
-tag be83ca755193a9f69b8a8877bacf0b5d311ff489 v1.4.2
+tag 6db54f95901ade16176013490e243b7a64afdc86 v1.5
 Author:	Ethan Centaurai <ethancentaurai@outlook.com>
-Date:	Thu Jun 21 21:40:52 2018 +0100
+Date:	Sun Jul 22 12:27:13 2018 +0100
 
-Tagging as v1.4.2.
+Tagging as v1.5.
 
-commit 16ef2e2b2025e5d27dea4f80e9a6da26a4db0e21
+commit 3731495ff8273a0d850214b796aa8d378112448c
 Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Thu Jun 21 21:38:24 2018 +0100
+Date:   Sun Jul 22 12:19:17 2018 +0100
 
-    Bump Interface number to 70300.
-
-commit fc6dff81b8fade2c3927937024a1499b48eb7b57
-Author: Ethan Centaurai <ethancentaurai@outlook.com>
-Date:   Thu Jun 21 21:37:59 2018 +0100
-
-    Don't create waypoints to bonfires you've already visited. Fixes #6.
+    Updated for Patch 8.0.
 
