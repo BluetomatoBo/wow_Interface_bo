@@ -1,12 +1,84 @@
-tag 800ee588ebeda91a5467f1a76e2f5e4580cc2bf9 v1.5.7a
+tag ffa6dd7e7083b02da9826c9233068bc721205965 v1.6.0
 Author:	Hendrik Leppkes <h.leppkes@gmail.com>
-Date:	Wed Jul 12 14:10:42 2017 +0200
+Date:	Thu Jul 19 17:22:41 2018 +0200
 
-Tag as v1.5.7a
+Tag as v1.6.0
 
-commit 75e6e716998513300c8f199d68702fe97f4b6e06
+commit 8f95e09aac776a208ab51640636cd084abd94460
 Author: Hendrik Leppkes <h.leppkes@gmail.com>
-Date:   Wed Jul 12 14:08:10 2017 +0200
+Date:   Thu Jul 19 15:02:47 2018 +0200
 
-    Switch locale export to ignore missing strings
+    Split Taboo drawing into its own pin so it can use a different frame level
+
+commit c624b2d88c15c1dc48c21b83dcbdcbb171975c1f
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 14:53:55 2018 +0200
+
+    Change the level of the routes to be below most interactive map elements
+
+commit 7d4f908ab9c35da91e18e8138325d12345bedc58
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 14:49:54 2018 +0200
+
+    Force a minimap zoom update on load
+
+commit 199386102adb48e71b474914606f97781811f714
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 14:36:37 2018 +0200
+
+    Fix an error when deleting a route
+
+commit f412f6fa767df5b2d2c7fa9da22d14b00f169228
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 14:33:35 2018 +0200
+
+    Fix errors in cluster/uncluster
+
+commit 032eca5e1a89b788054444da70e06b0fa90430aa
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 14:33:21 2018 +0200
+
+    Re-add the routes to the Battlefield Map
+
+commit 8599be1e0c77d4eba243ea9c3a394b4b22efbb20
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 13:43:29 2018 +0200
+
+    Open the map before drawing the taboos
+
+commit 993801946ffbd0ec8bdd7c2b4e9053945a41f734
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 13:41:32 2018 +0200
+
+    Fix Taboos
+
+commit 6ec02583802b6605a1ce9319f6362eaa549c5e90
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 13:18:09 2018 +0200
+
+    Set Routes to use the default profile, since we don't actually use profiles
+
+commit 647f60ffadb166eb9187defb2e9c14019383f6af
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 12:54:26 2018 +0200
+
+    Fix TomTom integration
+
+commit 569c56a59423caad9adfff69b3c22efbefbaa752
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 12:42:25 2018 +0200
+
+    Restore the rename for Outland SMV/Nagrand
+
+commit b81374c78ac52e77c26fc6229e084c4a0c5f04f8
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 12:33:47 2018 +0200
+
+    Remove unused function
+
+commit 900968f61af2443ec5b6113ff236c0dc120e80e3
+Author: Hendrik Leppkes <h.leppkes@gmail.com>
+Date:   Thu Jul 19 12:28:45 2018 +0200
+
+    First steps to update Routes for 8.0
 

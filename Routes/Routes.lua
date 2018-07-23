@@ -1,7 +1,7 @@
 --[[
 ********************************************************************************
 Routes
-v1.5.7a
+v1.6.0
 16 October 2014
 (Originally written for Live Servers v4.3.0.15050)
 (Hotfixed for v6.0.2.19034)
@@ -65,7 +65,7 @@ local Routes = Routes
 local L   = LibStub("AceLocale-3.0"):GetLocale("Routes", false)
 local G = {} -- was Graph-1.0, but we removed the dependency
 Routes.G = G
-Routes.Dragons = LibStub("HereBeDragons-1.0")
+Routes.Dragons = LibStub("HereBeDragons-2.0")
 
 -- database defaults
 local db
@@ -147,8 +147,8 @@ local options
 -- Plugins table
 Routes.plugins = {}
 -- Lookup table for aceoptkey-route/taboo conversion
-Routes.routekeys = {}
-Routes.tabookeys = {}
+Routes.routekeys = setmetatable({}, { __index = function(t,k) if k == "string" and tonumber(k) then return t[tonumber(k)] end return nil end })
+Routes.tabookeys = setmetatable({}, { __index = function(t,k) if k == "string" and tonumber(k) then return t[tonumber(k)] end return nil end })
 
 -- localize some globals
 local pairs, next = pairs, next
@@ -158,45 +158,26 @@ local format = string.format
 local math_abs = math.abs
 local math_sin = math.sin
 local math_cos = math.cos
-local WorldMapButton = WorldMapButton
 local Minimap = Minimap
 local GetPlayerFacing = GetPlayerFacing
 
-local function ZoneInfo(...)
-	local t = {}
-	for i=1, select("#", ...), 2 do
-		local MapID = select(i, ...)
-		local ZoneName = select(i+1, ...)
-		t[MapID] = ZoneName
-	end
-	return t
-end
-
 ------------------------------------------------------------------------------------------------------
 -- Data for Localized Zone Names
-local noData = {"", -1, 0}
-Routes.LZName = setmetatable({}, { __index = function() return noData end})
-for cID_new, cname in next, {GetMapContinents()} do
-	if type(cname) == "string" then
-		local cID = cID_new / 2
-		for zID, zname in pairs(ZoneInfo(GetMapZones(cID))) do
-			-- old SMV/Nagrand in outlands, Dalaran in Northrend
-			if zID == 473 or zID == 477 or zID == 504 then
-				zname = ("%s (%s)"):format(zname, cname)
-			end
-			Routes.LZName[zname] = {Routes.Dragons:GetMapFileFromID(zID), zID, cID, Routes.Dragons:GetCZFromMapID(zID)}
-		end
-	end
-end
-
-local function GetZoneName(mapFile)
-	local name = Routes.Dragons:GetLocalizedMap(mapFile)
-	if (mapFile == 473 or mapFile == 477 or mapFile == "Nagrand" or mapFile == "ShadowmoonValley") then
-		name = format("%s (%s)", name, Routes.Dragons:GetLocalizedMap("Expansion01"))
-	elseif (mapFile == 504 or mapFile == "Dalaran") then
-		name = format("%s (%s)", name, Routes.Dragons:GetLocalizedMap("Northrend"))
+local function GetZoneName(uiMapID)
+	local name = Routes.Dragons:GetLocalizedMap(uiMapID)
+	if uiMapID == 104 or uiMapID == 107 then -- Outland SMV and Nagrand
+		name = format("%s (%s)", name, Routes.Dragons:GetLocalizedMap(101))
+	elseif uiMapID == 125 then -- Northrend Dalaran
+		name = format("%s (%s)", name, Routes.Dragons:GetLocalizedMap(113))
 	end
 	return name
+end
+
+Routes.LZName = setmetatable({}, { __index = function() return 0 end})
+for uiMapID, data in pairs(Routes.Dragons.mapData) do
+	if (data.mapType == Enum.UIMapType.Zone or data.mapType == Enum.UIMapType.Continent) and data.name then
+		Routes.LZName[GetZoneName(uiMapID)] = uiMapID
+	end
 end
 
 ------------------------------------------------------------------------------------------------------
@@ -213,78 +194,6 @@ function Routes:getID(x, y)
 end
 function Routes:getXY(id)
 	return floor(id / 10000) / 10000, (id % 10000) / 10000
-end
-
-function Routes:DrawWorldmapLines()
-	-- setup locals
-	local fh, fw = WorldMapButton:GetHeight(), WorldMapButton:GetWidth()
-	local bfh, bfw  -- BattlefieldMinimap height and width
-	local defaults = db.defaults
-
-	-- clear all the lines
-	G:HideLines(WorldMapButton)
-	if (BattlefieldMinimap) then
-		-- The Blizzard addon "Blizzard_BattlefieldMinimap" is loaded
-		G:HideLines(BattlefieldMinimap)
-		bfh, bfw = BattlefieldMinimap:GetHeight(), BattlefieldMinimap:GetWidth()
-	end
-
-	-- check for conditions not to draw the world map lines
-	if GetCurrentMapContinent() <= 0 then return end -- player is not viewing a zone map of a continent
-	local flag1 = defaults.draw_worldmap and WorldMapFrame:IsShown() -- Draw worldmap lines?
-	local flag2 = defaults.draw_battlemap and BattlefieldMinimap and BattlefieldMinimap:IsShown() -- Draw battlemap lines?
-	if (not flag1) and (not flag2) then	return end 	-- Nothing to draw
-
-	-- microdungeon check
-	local mapFile, textureWidth, textureHeight, isMicroDungeon, microDungeonName = GetMapInfo()
-	if isMicroDungeon then
-		if not WorldMapFrame:IsShown() then
-			-- return to the main map of this zone
-			ZoomOut()
-		else
-			-- can't do anything while in a micro dungeon and the main map is visible
-			return
-		end
-	end --end check
-
-	mapFile = mapFile:gsub("_terrain%d+$", "")
-
-	for route_name, route_data in pairs( db.routes[mapFile] ) do
-		if type(route_data) == "table" and type(route_data.route) == "table" and #route_data.route > 1 then
-			local width = route_data.width or defaults.width
-			local halfwidth = route_data.width_battlemap or defaults.width_battlemap
-			local color = route_data.color or defaults.color
-
-			if (not route_data.hidden and not route_data.editing and (route_data.visible or not defaults.use_auto_showhide)) or defaults.show_hidden then
-				if route_data.hidden then color = defaults.hidden_color end
-				local last_point
-				local sx, sy
-				if route_data.looped then
-					last_point = route_data.route[ #route_data.route ]
-					sx, sy = floor(last_point / 10000) / 10000, (last_point % 10000) / 10000
-					sy = (1 - sy)
-				end
-				for i = 1, #route_data.route do
-					local point = route_data.route[i]
-					if point == defaults.fake_point then
-						point = nil
-					end
-					if last_point and point then
-						local ex, ey = floor(point / 10000) / 10000, (point % 10000) / 10000
-						ey = (1 - ey)
-						if (flag1) then
-							G:DrawLine(WorldMapButton, sx*fw, sy*fh, ex*fw, ey*fh, width, color , "OVERLAY")
-						end
-						if (flag2) then
-							G:DrawLine(BattlefieldMinimap, sx*bfw, sy*bfh, ex*bfw, ey*bfh, halfwidth, color , "OVERLAY")
-						end
-						sx, sy = ex, ey
-					end
-					last_point = point
-				end
-			end
-		end
-	end
 end
 
 local MinimapShapes = {
@@ -390,12 +299,7 @@ function Routes:DrawMinimapLines(forceUpdate)
 		return
 	end
 
-	local _x, _y, currentZoneID, currentZoneLevel, mapName = self.Dragons:GetPlayerZonePosition(true)
-	if currentZoneLevel and currentZoneLevel > 0 then
-		_x, _y = self.Dragons:TranslateZoneCoordinates(_x, _y, currentZoneID, currentZoneLevel, currentZoneID, 0, true)
-		currentZoneLevel = 0
-		mapName = self.Dragons:GetMapFileFromID(currentZoneID)
-	end
+	local _x, _y, currentZoneID = self.Dragons:GetPlayerZonePosition(true)
 
 	-- invalid coordinates - clear map
 	if not _x or not _y then
@@ -455,7 +359,7 @@ function Routes:DrawMinimapLines(forceUpdate)
 
 	local minimapScale = Minimap:GetScale()
 
-	for route_name, route_data in pairs( db.routes[ mapName ] ) do
+	for route_name, route_data in pairs( db.routes[ currentZoneID ] ) do
 		if type(route_data) == "table" and type(route_data.route) == "table" and #route_data.route > 1 then
 			-- store color/width
 			local width = (route_data.width_minimap or defaults.width_minimap) / (minimapScale)
@@ -770,7 +674,7 @@ end)
 -- for inserting into relevant routes
 -- Zone name must be localized, node_name can be english or localized
 function Routes:InsertNode(zone, coord, node_name)
-	for route_name, route_data in pairs( db.routes[ self.LZName[zone][1] ] ) do
+	for route_name, route_data in pairs( db.routes[ self.LZName[zone] ] ) do
 		-- for every route check if the route is created with this node
 		if route_data.selection then
 			for k, v in pairs(route_data.selection) do
@@ -779,14 +683,14 @@ function Routes:InsertNode(zone, coord, node_name)
 					local x, y = self:getXY(coord)
 					local flag = false
 					for tabooname, used in pairs(route_data.taboos) do
-						if used and self:IsNodeInTaboo(x, y, db.taboo[ self.LZName[zone][1] ][tabooname]) then
+						if used and self:IsNodeInTaboo(x, y, db.taboo[ self.LZName[zone] ][tabooname]) then
 							flag = true
 						end
 					end
 					if flag then
 						tinsert(route_data.taboolist, coord)
 					else
-						route_data.length = self.TSP:InsertNode(route_data.route, route_data.metadata, self.LZName[zone][2], coord, route_data.cluster_dist or 65) -- 65 is the old default
+						route_data.length = self.TSP:InsertNode(route_data.route, route_data.metadata, self.LZName[zone], coord, route_data.cluster_dist or 65) -- 65 is the old default
 						throttleFrame:Show()
 					end
 					break
@@ -800,7 +704,7 @@ end
 -- for deleting into relevant routes
 -- Zone name must be localized, node_name can be english or localized
 function Routes:DeleteNode(zone, coord, node_name)
-	for route_name, route_data in pairs( db.routes[ self.LZName[zone][1] ] ) do
+	for route_name, route_data in pairs( db.routes[ self.LZName[zone] ] ) do
 		-- for every route check if the route is created with this node
 		if route_data.selection then
 			local flag = false
@@ -826,7 +730,7 @@ function Routes:DeleteNode(zone, coord, node_name)
 										tremove(route_data.metadata, i)
 										tremove(route_data.route, i)
 									end
-									route_data.length = self.TSP:PathLength(route_data.route, self.LZName[zone][2])
+									route_data.length = self.TSP:PathLength(route_data.route, self.LZName[zone])
 									throttleFrame:Show()
 									flag = true
 									break
@@ -839,7 +743,7 @@ function Routes:DeleteNode(zone, coord, node_name)
 						for i = 1, #route_data.route do
 							if coord == route_data.route[i] then
 								tremove(route_data.route, i)
-								route_data.length = self.TSP:PathLength(route_data.route, self.LZName[zone][2])
+								route_data.length = self.TSP:PathLength(route_data.route, self.LZName[zone])
 								throttleFrame:Show()
 								flag = true
 								break
@@ -863,51 +767,69 @@ function Routes:DeleteNode(zone, coord, node_name)
 	end
 end
 
--- This function upgrades the Routes old storage format which was dependant
--- on LibBabble-Zone-3.0 to the new format that doesn't require it. Note that
--- this upgrade function only works on enUS or enGB clients because the old
--- format uses English strings, the new format uses mapfile names.
-function Routes:UpgradeStorageFormat1()
-	-- Build a table of all mapfiles we are interested in
-	local mapfiles = {}
-	for zoneName, data in pairs(self.LZName) do
-		mapfiles[data[1]] = true
-	end
-
+-- This function upgrades the Routes old storage format which used mapFiles
+-- to the new format using uiMapIDs in WoW 8.0
+local HBDMigrate = LibStub("HereBeDragons-Migrate")
+function Routes:UpgradeStorageFormat2()
 	local t = {}
 	for zone, zone_table in pairs(db.routes) do
-		if mapfiles[zone] == nil then
-			-- This zone is a string that doesn't correspond to any of the
-			-- mapfile names. So we try to obtain the mapfile name
-			local mapfile = self.LZName[zone][1]
-			if mapfile == "" then
-				-- invalid zones return "" due to a metatable, delete the
-				-- whole zone
+		if type(zone) == "string" then
+			-- This zone is a string, not a uiMapID, obtain the ID from HBD-Migrate
+			local uiMapID = HBDMigrate:GetUIMapIDFromMapFile(zone)
+			-- if no mapfile was found, maybe this was a named zone from way before
+			if not uiMapID then
+				uiMapID = self.LZName[zone]
+				-- 0 is invalid from the metatable
+				if uiMapID == 0 then uiMapID = nil end
+			end
+			if not uiMapID then
+				-- invalid zone, delete the whole zone
 				db.routes[zone] = nil
 			else
 				-- We found a match, store the zone_table temporarily first
 				-- and delete the whole zone (because we cannot insert new
 				-- keys into db.routes[] while iterating over it)
-				t[mapfile] = zone_table
+				t[uiMapID] = zone_table
 				db.routes[zone] = nil
 			end
 		end
 	end
-	for mapfile, zone_table in pairs(t) do
-		-- Now assign the new zone mapfile keys
-		db.routes[mapfile] = zone_table
-		t[mapfile] = nil
+	for uiMapID, zone_table in pairs(t) do
+		-- Now assign the new zone uiMapID keys
+		db.routes[uiMapID] = zone_table
 	end
 
-	-- Delete invalid zones from the taboo table
+	table.wipe(t)
+	-- Do the same with the taboo table
 	for zone, zone_table in pairs(db.taboo) do
-		if mapfiles[zone] == nil then
-			db.taboo[zone] = nil
+		if type(zone) == "string" then
+			-- This zone is a string, not a uiMapID, obtain the ID from HBD-Migrate
+			local uiMapID = HBDMigrate:GetUIMapIDFromMapFile(zone)
+			-- if no mapfile was found, maybe this was a named zone from way before
+			if not uiMapID then
+				uiMapID = self.LZName[zone]
+				-- 0 is invalid from the metatable
+				if uiMapID == 0 then uiMapID = nil end
+			end
+			if not uiMapID then
+				-- invalid zone, delete the whole zone
+				db.taboo[zone] = nil
+			else
+				-- We found a match, store the zone_table temporarily first
+				-- and delete the whole zone (because we cannot insert new
+				-- keys into db.routes[] while iterating over it)
+				t[uiMapID] = zone_table
+				db.taboo[zone] = nil
+			end
 		end
+	end
+	for uiMapID, zone_table in pairs(t) do
+		-- Now assign the new zone uiMapID keys
+		db.taboo[uiMapID] = zone_table
 	end
 
 	-- Reclaim memory for this function
-	self.UpgradeStorageFormat1 = nil
+	self.UpgradeStorageFormat2 = nil
 end
 
 
@@ -915,7 +837,7 @@ end
 local route_zone_args_desc_table = {
 	type = "description",
 	name = function(info)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 		local count = 0
 		for route_name, route_table in pairs(db.routes[zone]) do
 			if #route_table.route > 0 then
@@ -929,7 +851,7 @@ local route_zone_args_desc_table = {
 local taboo_zone_args_desc_table = {
 	type = "description",
 	name = function(info)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 		local count = 0
 		for taboo_name, taboo_table in pairs(db.taboo[zone]) do
 			if #taboo_table.route > 0 then
@@ -947,7 +869,7 @@ local taboo_zone_args_desc_table = {
 
 function Routes:OnInitialize()
 	-- Initialize database
-	self.db = LibStub("AceDB-3.0"):New("RoutesDB", defaults)
+	self.db = LibStub("AceDB-3.0"):New("RoutesDB", defaults, true)
 	db = self.db.global
 	self.options = options
 
@@ -962,7 +884,7 @@ function Routes:OnInitialize()
 	-- Upgrade old storage format (which was dependant on LibBabble-Zone-3.0
 	-- to the new format that doesn't require it
 	-- Also delete any invalid zones
-	self:UpgradeStorageFormat1()
+	self:UpgradeStorageFormat2()
 
 	-- Generate ace options table for each route
 	local opts = options.args.routes_group.args
@@ -972,7 +894,7 @@ function Routes:OnInitialize()
 			db.routes[zone] = nil
 		else
 			local localizedZoneName = GetZoneName(zone)
-			opts[zone] = {
+			opts[tostring(zone)] = {
 				type = "group",
 				name = localizedZoneName,
 				desc = L["Routes in %s"]:format(localizedZoneName),
@@ -984,7 +906,7 @@ function Routes:OnInitialize()
 			for route, route_table in pairs(zone_table) do
 				local routekey = route:gsub("%s", "\255") -- can't have spaces in the key
 				self.routekeys[zone][routekey] = route
-				opts[zone].args[routekey] = self:GetAceOptRouteTable()
+				opts[tostring(zone)].args[routekey] = self:GetAceOptRouteTable()
 				route_table.editing = nil -- in case server crashes during edit.
 			end
 		end
@@ -998,7 +920,7 @@ function Routes:OnInitialize()
 			db.taboo[zone] = nil
 		else
 			local localizedZoneName = GetZoneName(zone)
-			opts[zone] = {
+			opts[tostring(zone)] = {
 				type = "group",
 				name = localizedZoneName,
 				desc = L["Taboos in %s"]:format(localizedZoneName),
@@ -1010,7 +932,7 @@ function Routes:OnInitialize()
 			for taboo in pairs(zone_table) do
 				local tabookey = taboo:gsub("%s", "\255") -- can't have spaces in the key
 				self.tabookeys[zone][tabookey] = taboo
-				opts[zone].args[tabookey] = self:GetAceOptTabooTable()
+				opts[tostring(zone)].args[tabookey] = self:GetAceOptTabooTable()
 			end
 		end
 	end
@@ -1052,19 +974,153 @@ function Routes:CVAR_UPDATE(event, cvar, value)
 	end
 end
 
+local RoutesDataProviderMixin = CreateFromMixins(MapCanvasDataProviderMixin)
+
+function RoutesDataProviderMixin:OnAdded(mapCanvas)
+	MapCanvasDataProviderMixin.OnAdded(self, mapCanvas)
+	self:GetMap():GetPinFrameLevelsManager():InsertFrameLevelAbove("PIN_FRAME_LEVEL_ROUTES", "PIN_FRAME_LEVEL_FOG_OF_WAR")
+
+	-- a single permanent pin
+	local pin = self:GetMap():AcquirePin("RoutesPinTemplate", self.battleField)
+	pin:SetPosition(0.5, 0.5);
+	self.pin = pin;
+
+	-- Taboo pin for the main map
+	if not self.battleField then
+		self:GetMap():GetPinFrameLevelsManager():AddFrameLevel("PIN_FRAME_LEVEL_ROUTES_TABOO")
+		self.tabooPin = self:GetMap():AcquirePin("RoutesTabooPinTemplate")
+		self.tabooPin:SetPosition(0.5, 0.5)
+	end
+end
+
+function RoutesDataProviderMixin:OnRemoved(mapCanvas)
+	MapCanvasDataProviderMixin.OnRemoved(self, mapCanvas);
+	self:GetMap():RemoveAllPinsByTemplate("RoutesPinTemplate");
+	self:GetMap():RemoveAllPinsByTemplate("RoutesTabooPinTemplate");
+end
+
+function RoutesDataProviderMixin:OnMapChanged()
+	self:RefreshAllData()
+end
+
+function RoutesDataProviderMixin:RemoveAllData()
+	G:HideLines(self.pin)
+end
+
+function RoutesDataProviderMixin:RefreshAllData()
+	self.pin:DrawLines()
+end
+
+RoutesPinMixin = CreateFromMixins(MapCanvasPinMixin)
+
+function RoutesPinMixin:OnLoad()
+	self:SetIgnoreGlobalPinScale(true)
+	self:UseFrameLevelType("PIN_FRAME_LEVEL_ROUTES")
+end
+
+function RoutesPinMixin:OnAcquired(battleField)
+	if battleField then
+		self.width_key = "width_battlemap"
+		self.draw_key = "draw_battlemap"
+	else
+		self.width_key = "width"
+		self.draw_key = "draw_worldmap"
+	end
+end
+
+function RoutesPinMixin:OnCanvasSizeChanged()
+	self:SetSize(self:GetMap():DenormalizeHorizontalSize(1.0), self:GetMap():DenormalizeVerticalSize(1.0));
+end
+
+function RoutesPinMixin:DrawLines()
+	-- setup locals
+	local fh, fw = self:GetHeight(), self:GetWidth()
+	local defaults = db.defaults
+
+	-- clear all the lines
+	G:HideLines(self)
+
+	-- get the scale of the worldmap canvas, so the lines have the same size everywhere
+	local canvasScale = self:GetEffectiveScale() / self:GetMap():GetEffectiveScale()
+
+	-- check for conditions not to draw the world map lines
+	local flag = defaults[self.draw_key] and self:GetMap():IsShown() -- Draw worldmap lines?
+	if not flag then return end -- Nothing to draw
+
+	local uiMapID = self:GetMap():GetMapID()
+	if not uiMapID then return end
+
+	for route_name, route_data in pairs( db.routes[uiMapID] ) do
+		if type(route_data) == "table" and type(route_data.route) == "table" and #route_data.route > 1 then
+			local width = (route_data[self.width_key] or defaults[self.width_key]) / canvasScale
+			local color = route_data.color or defaults.color
+
+			if (not route_data.hidden and not route_data.editing and (route_data.visible or not defaults.use_auto_showhide)) or defaults.show_hidden then
+				if route_data.hidden then color = defaults.hidden_color end
+				local last_point
+				local sx, sy
+				if route_data.looped then
+					last_point = route_data.route[ #route_data.route ]
+					sx, sy = floor(last_point / 10000) / 10000, (last_point % 10000) / 10000
+					sy = (1 - sy)
+				end
+				for i = 1, #route_data.route do
+					local point = route_data.route[i]
+					if point == defaults.fake_point then
+						point = nil
+					end
+					if last_point and point then
+						local ex, ey = floor(point / 10000) / 10000, (point % 10000) / 10000
+						ey = (1 - ey)
+						G:DrawLine(self, sx*fw, sy*fh, ex*fw, ey*fh, width, color , "OVERLAY")
+						sx, sy = ex, ey
+					end
+					last_point = point
+				end
+			end
+		end
+	end
+end
+
+RoutesTabooPinMixin = CreateFromMixins(MapCanvasPinMixin)
+
+function RoutesTabooPinMixin:OnLoad()
+	self:SetIgnoreGlobalPinScale(true)
+	self:UseFrameLevelType("PIN_FRAME_LEVEL_ROUTES_TABOO")
+end
+
+function RoutesTabooPinMixin:OnCanvasSizeChanged()
+	self:SetSize(self:GetMap():DenormalizeHorizontalSize(1.0), self:GetMap():DenormalizeVerticalSize(1.0));
+end
+
+function Routes:DrawWorldmapLines()
+	self.DataProvider:RefreshAllData()
+	if self.BattleFieldDataProvider then
+		self.BattleFieldDataProvider:RefreshAllData()
+	end
+end
+
 function Routes:OnEnable()
 	-- World Map line drawing
-	self:RegisterEvent("WORLD_MAP_UPDATE", "DrawWorldmapLines")
+	if not self.DataProvider then
+		self.DataProvider = CreateFromMixins(RoutesDataProviderMixin)
+	end
+	WorldMapFrame:AddDataProvider(self.DataProvider)
+
+	-- Battlefield Map
+	if BattlefieldMapFrame then
+		self:ADDON_LOADED("ADDON_LOADED", "Blizzard_BattlefieldMap")
+	end
+
 	-- Minimap line drawing
 	self:SecureHook(Minimap, "SetZoom", SetZoomHook)
 	if db.defaults.draw_minimap then
 		self:RegisterEvent("MINIMAP_UPDATE_ZOOM")
 		self:RegisterEvent("CVAR_UPDATE")
 		timerFrame:Show()
-		self:RegisterEvent("MINIMAP_ZONE_CHANGED", "DrawMinimapLines", true)
+		Routes.Dragons.RegisterCallback(Routes, "PlayerZoneChanged", function() Routes:DrawMinimapLines(true) end)
 		minimap_rotate = GetCVar("rotateMinimap") == "1"
-		-- Notes: Do not call self:MINIMAP_UPDATE_ZOOM() here because the CVARs aren't applied yet.
-		-- MINIMAP_UPDATE_ZOOM gets fired automatically by wow when it applies the CVARs.
+		self:MINIMAP_UPDATE_ZOOM()
 	end
 	for addon, plugin_table in pairs(Routes.plugins) do
 		if db.defaults.callbacks[addon] and plugin_table.IsActive() then
@@ -1081,6 +1137,10 @@ function Routes:OnDisable()
 		end
 	end
 	timerFrame:Hide()
+	WorldMapFrame:RemoveDataProvider(self.DataProvider)
+	if BattlefieldMapFrame then
+		BattlefieldMapFrame:RemoveDataProvider(self.BattleFieldDataProvider)
+	end
 end
 
 function Routes:ADDON_LOADED(event, addon)
@@ -1090,6 +1150,14 @@ function Routes:ADDON_LOADED(event, addon)
 		if db.defaults.callbacks[addon] and self.plugins[addon].IsActive() then
 			self.plugins[addon].AddCallbacks()
 		end
+	end
+
+	if addon == "Blizzard_BattlefieldMap" then
+		if not self.BattleFieldDataProvider then
+			self.BattleFieldDataProvider = CreateFromMixins(RoutesDataProviderMixin)
+			self.BattleFieldDataProvider.battleField = true
+		end
+		BattlefieldMapFrame:AddDataProvider(self.BattleFieldDataProvider)
 	end
 end
 
@@ -1491,12 +1559,12 @@ options.args.options_group.args = {
 local ConfigHandler = {}
 
 function ConfigHandler:GetColor(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	return unpack(db.routes[zone][route].color or db.defaults.color)
 end
 function ConfigHandler:SetColor(info, r, g, b, a)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	local t = db.routes[zone][route]
 	t.color = t.color or {}
@@ -1507,12 +1575,12 @@ function ConfigHandler:SetColor(info, r, g, b, a)
 end
 
 function ConfigHandler:GetHidden(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	return db.routes[zone][route].hidden
 end
 function ConfigHandler:SetHidden(info, v)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	db.routes[zone][route].hidden = v
 	Routes:DrawWorldmapLines()
@@ -1520,43 +1588,44 @@ function ConfigHandler:SetHidden(info, v)
 end
 
 function ConfigHandler:GetWidth(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	return db.routes[zone][route].width or db.defaults.width
 end
 function ConfigHandler:SetWidth(info, v)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	db.routes[zone][route].width = v
 	Routes:DrawWorldmapLines()
 end
 
 function ConfigHandler:GetWidthMinimap(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	return db.routes[zone][route].width_minimap or db.defaults.width_minimap
 end
 function ConfigHandler:SetWidthMinimap(info, v)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	db.routes[zone][route].width_minimap = v
 	Routes:DrawMinimapLines(true)
 end
 
 function ConfigHandler:GetWidthBattleMap(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	return db.routes[zone][route].width_battlemap or db.defaults.width_battlemap
 end
 function ConfigHandler:SetWidthBattleMap(info, v)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	db.routes[zone][route].width_battlemap = v
 	Routes:DrawWorldmapLines()
 end
 
 function ConfigHandler:DeleteRoute(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
+	local zoneKey = info[2]
 	local routekey = info[3]
 	local route = Routes.routekeys[zone][routekey]
 	local is_running, route_table = Routes.TSP:IsTSPRunning()
@@ -1566,11 +1635,11 @@ function ConfigHandler:DeleteRoute(info)
 	end
 	db.routes[zone][route] = nil
 	--local routekey = route:gsub("%s", "\255") -- can't have spaces in the key
-	options.args.routes_group.args[zone].args[routekey] = nil -- delete route from aceopt
+	options.args.routes_group.args[zoneKey].args[routekey] = nil -- delete route from aceopt
 	Routes.routekeys[zone][routekey] = nil
 	if next(db.routes[zone]) == nil then
 		db.routes[zone] = nil
-		options.args.routes_group.args[zone] = nil -- delete zone from aceopt if no routes remaining
+		options.args.routes_group.args[zoneKey] = nil -- delete zone from aceopt if no routes remaining
 		Routes.routekeys[zone] = nil
 	end
 	Routes:DrawWorldmapLines()
@@ -1578,7 +1647,7 @@ function ConfigHandler:DeleteRoute(info)
 end
 
 function ConfigHandler:RecreateRoute(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local routekey = info[3]
 	local route = Routes.routekeys[zone][routekey]
 	local is_running, route_table = Routes.TSP:IsTSPRunning()
@@ -1592,17 +1661,17 @@ function ConfigHandler:RecreateRoute(info)
 end
 
 function ConfigHandler:ClusterRoute(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	local t = db.routes[zone][route]
-	t.route, t.metadata, t.length = Routes.TSP:ClusterRoute(db.routes[zone][route].route, Routes.Dragons:GetMapIDFromFile(zone), db.defaults.cluster_dist)
+	t.route, t.metadata, t.length = Routes.TSP:ClusterRoute(db.routes[zone][route].route, zone, db.defaults.cluster_dist)
 	t.cluster_dist = db.defaults.cluster_dist
 	Routes:DrawWorldmapLines()
 	Routes:DrawMinimapLines(true)
 end
 
 function ConfigHandler:UnClusterRoute(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	local t = db.routes[zone][route]
 	local num = 0
@@ -1614,13 +1683,13 @@ function ConfigHandler:UnClusterRoute(info)
 	end
 	t.metadata = nil
 	t.cluster_dist = nil
-	t.length = Routes.TSP:PathLength(t.route, Routes.Dragons:GetMapIDFromFile(zone))
+	t.length = Routes.TSP:PathLength(t.route, zone)
 	Routes:DrawWorldmapLines()
 	Routes:DrawMinimapLines(true)
 end
 
 function ConfigHandler:IsCluster(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	local t = db.routes[zone][route]
 	if t.metadata then
@@ -1641,7 +1710,7 @@ function ConfigHandler:SetDefaultClusterDist(info, v)
 end
 
 function ConfigHandler:ResetLineSettings(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	local t = db.routes[zone][route]
 	t.color = nil
@@ -1653,14 +1722,14 @@ function ConfigHandler:ResetLineSettings(info)
 end
 
 function ConfigHandler.GetRouteDesc(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	local t = db.routes[zone][route]
 	return L["This route has |cffffd200%d|r nodes and is |cffffd200%d|r yards long."]:format(#t.route, t.length)
 end
 
 function ConfigHandler.GetShortClusterDesc(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	local t = db.routes[zone][route]
 	if not t.metadata then
@@ -1674,7 +1743,7 @@ function ConfigHandler.GetShortClusterDesc(info)
 end
 
 function ConfigHandler.GetRouteClusterRadiusDesc(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	local t = db.routes[zone][route]
 	if t.metadata then
@@ -1686,7 +1755,7 @@ do
 	local str = {}
 	function ConfigHandler.GetDataDesc(info)
 		wipe(str)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 		local route = Routes.routekeys[zone][ info[3] ]
 		local t = db.routes[zone][route]
 		local num = 1
@@ -1709,7 +1778,7 @@ do
 	function ConfigHandler.GetClusterDesc(info)
 		wipe(str)
 		wipe(data)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 		local route = Routes.routekeys[zone][ info[3] ]
 		local t = db.routes[zone][route]
 		if not t.metadata then
@@ -1742,7 +1811,7 @@ do
 
 	function ConfigHandler.GetTabooDesc(info)
 		wipe(str)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 		local route = Routes.routekeys[zone][ info[3] ]
 		local t = db.routes[zone][route]
 		local num = 1
@@ -1772,7 +1841,7 @@ function ConfigHandler:SetTwoPointFiveOpt(info, v)
 end
 
 function ConfigHandler:DoForeground(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	local t = db.routes[zone][route]
 	if #t.route > 724 then
@@ -1787,7 +1856,7 @@ function ConfigHandler:DoForeground(info)
 			tinsert(taboos, db.taboo[zone][tabooname])
 		end
 	end
-	local output, meta, length, iter, timetaken = Routes.TSP:SolveTSP(t.route, t.metadata, taboos, Routes.Dragons:GetMapIDFromFile(zone), db.defaults.tsp)
+	local output, meta, length, iter, timetaken = Routes.TSP:SolveTSP(t.route, t.metadata, taboos, zone, db.defaults.tsp)
 	t.route = output
 	t.length = length
 	t.metadata = meta
@@ -1803,7 +1872,7 @@ function ConfigHandler:DoForeground(info)
 end
 
 function ConfigHandler:DoBackground(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	local t = db.routes[zone][route]
 	if #t.route > 724 then
@@ -1816,7 +1885,7 @@ function ConfigHandler:DoBackground(info)
 			tinsert(taboos, db.taboo[zone][tabooname])
 		end
 	end
-	local running, errormsg = Routes.TSP:SolveTSPBackground(t.route, t.metadata, taboos, Routes.Dragons:GetMapIDFromFile(zone), db.defaults.tsp)
+	local running, errormsg = Routes.TSP:SolveTSPBackground(t.route, t.metadata, taboos, zone, db.defaults.tsp)
 	if (running == 1) then
 		Routes:Print(L["Now running TSP in the background..."])
 		local dispLength;
@@ -1863,20 +1932,21 @@ end
 do
 	local t = {}
 	function ConfigHandler:GetTabooRegions(info)
+		local zone = tonumber(info[2])
 		for k, v in pairs(t) do t[k] = nil end
-		for k, v in pairs(db.taboo[ info[2] ]) do
+		for k, v in pairs(db.taboo[zone]) do
 			t[k] = k
 		end
 		return t
 	end
 end
 function ConfigHandler:GetTabooRegionStatus(info, k)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	return db.routes[zone][route].taboos[k]
 end
 function ConfigHandler:SetTabooRegionStatus(info, k, v)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	if v == false then v = nil end
 	local route_data = db.routes[zone][route]
@@ -1892,12 +1962,12 @@ function ConfigHandler:SetTabooRegionStatus(info, k, v)
 	end
 end
 function ConfigHandler:IsBeingManualEdited(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	local route = Routes.routekeys[zone][ info[3] ]
 	return db.routes[zone][route].editing
 end
 function ConfigHandler.GetRouteName(info)
-	local zone = info[2]
+	local zone = tonumber(info[2])
 	return Routes.routekeys[zone][ info[3] ]
 end
 function ConfigHandler:IsDisableRecreateRoute(info)
@@ -2325,10 +2395,11 @@ do
 				return create_zones
 			end,
 			get = function()
+				if create_zone then return create_zone end
 				-- Use currently viewed map on first view.
-				local mapID = GetCurrentMapAreaID()
-				if mapID == -1 then return nil end
-				create_zone = create_zone or GetZoneName(mapID)
+				local mapID = WorldMapFrame:GetMapID()
+				if not mapID then return nil end
+				create_zone = GetZoneName(mapID)
 				return create_zone
 			end,
 			set = function(info, key) create_zone = key end,
@@ -2356,17 +2427,18 @@ do
 				local new_route = { route = {71117111, 12357823, 11171123}, selection = {}, db_type = {} }
 
 				-- Perform a deep copy instead so that db defaults apply
-				local mapfile = Routes.LZName[create_zone][1]
-				db.routes[mapfile][create_name] = nil -- overwrite old route
+				local mapID = Routes.LZName[create_zone]
+				local mapIDKey = tostring(mapID)
+				db.routes[mapID][create_name] = nil -- overwrite old route
 				new_route.route = Routes.TSP:DecrossRoute(new_route.route)
-				deep_copy_table(db.routes[mapfile][create_name], new_route)
+				deep_copy_table(db.routes[mapID][create_name], new_route)
 
-				db.routes[mapfile][create_name].length = Routes.TSP:PathLength(new_route.route, Routes.Dragons:GetMapIDFromFile(mapfile))
+				db.routes[mapID][create_name].length = Routes.TSP:PathLength(new_route.route, mapID)
 
 				-- Create the aceopts table entry for our new route
 				local opts = options.args.routes_group.args
-				if not opts[mapfile] then
-					opts[mapfile] = { -- use a 3 digit string which is alphabetically sorted zone names by continent
+				if not opts[mapIDKey] then
+					opts[mapIDKey] = { -- use a 3 digit string which is alphabetically sorted zone names by continent
 						type = "group",
 						name = create_zone,
 						desc = L["Routes in %s"]:format(create_zone),
@@ -2374,11 +2446,11 @@ do
 							desc = route_zone_args_desc_table,
 						},
 					}
-					Routes.routekeys[mapfile] = {}
+					Routes.routekeys[mapID] = {}
 				end
 				local routekey = create_name:gsub("%s", "\255") -- can't have spaces in the key
-				Routes.routekeys[mapfile][routekey] = create_name
-				opts[mapfile].args[routekey] = Routes:GetAceOptRouteTable()
+				Routes.routekeys[mapID][routekey] = create_name
+				opts[mapIDKey].args[routekey] = Routes:GetAceOptRouteTable()
 
 				-- Draw it
 				local AutoShow = Routes:GetModule("AutoShow", true)
@@ -2396,7 +2468,7 @@ do
 				return not create_name or strtrim(create_name) == ""
 			end,
 			confirm = function()
-				if #db.routes[ Routes.LZName[create_zone][1] ][create_name].route > 0 then
+				if #db.routes[ Routes.LZName[create_zone] ][create_name].route > 0 then
 					return true
 				end
 				return false
@@ -2471,17 +2543,18 @@ do
 				end
 
 				-- Perform a deep copy instead so that db defaults apply
-				local mapfile = Routes.LZName[create_zone][1]
-				db.routes[mapfile][create_name] = nil -- overwrite old route
+				local mapID = Routes.LZName[create_zone]
+				local mapIDKey = tostring(mapID)
+				db.routes[mapID][create_name] = nil -- overwrite old route
 				new_route.route = Routes.TSP:DecrossRoute(new_route.route)
-				deep_copy_table(db.routes[mapfile][create_name], new_route)
+				deep_copy_table(db.routes[mapID][create_name], new_route)
 
-				db.routes[mapfile][create_name].length = Routes.TSP:PathLength(new_route.route, Routes.Dragons:GetMapIDFromFile(mapfile))
+				db.routes[mapID][create_name].length = Routes.TSP:PathLength(new_route.route, mapID)
 
 				-- Create the aceopts table entry for our new route
 				local opts = options.args.routes_group.args
-				if not opts[mapfile] then
-					opts[mapfile] = { -- use a 3 digit string which is alphabetically sorted zone names by continent
+				if not opts[mapIDKey] then
+					opts[mapIDKey] = { -- use a 3 digit string which is alphabetically sorted zone names by continent
 						type = "group",
 						name = create_zone,
 						desc = L["Routes in %s"]:format(create_zone),
@@ -2489,11 +2562,11 @@ do
 							desc = route_zone_args_desc_table,
 						},
 					}
-					Routes.routekeys[mapfile] = {}
+					Routes.routekeys[mapID] = {}
 				end
 				local routekey = create_name:gsub("%s", "\255") -- can't have spaces in the key
-				Routes.routekeys[mapfile][routekey] = create_name
-				opts[mapfile].args[routekey] = Routes:GetAceOptRouteTable()
+				Routes.routekeys[mapID][routekey] = create_name
+				opts[mapIDKey].args[routekey] = Routes:GetAceOptRouteTable()
 
 				-- Draw it
 				local AutoShow = Routes:GetModule("AutoShow", true)
@@ -2511,7 +2584,7 @@ do
 				return not create_name or strtrim(create_name) == ""
 			end,
 			confirm = function()
-				if #db.routes[ Routes.LZName[create_zone][1] ][create_name].route > 0 then
+				if #db.routes[ Routes.LZName[create_zone] ][create_name].route > 0 then
 					return true
 				end
 				return false
@@ -2579,11 +2652,6 @@ end
 -- Taboo code
 
 do
-	-- Give ourselves a new frame to draw on (so we don't have opening/closing the map wiping stuff out)
-	local RoutesTabooFrame = CreateFrame("Frame", "RoutesTabooFrame", WorldMapButton)
-	RoutesTabooFrame:SetAllPoints(WorldMapButton)
-	RoutesTabooFrame:EnableMouse(false)
-
 	local intersection = {}
 	local pool = setmetatable({}, {__mode="kv"})
 	local function SortIntersection(a, b)
@@ -2591,8 +2659,8 @@ do
 	end
 
 	-- This function takes a taboo (a route basically), and draws it on screen and shades the inside
-	function Routes:DrawTaboo(route_data, width, color)
-		local fh, fw = WorldMapButton:GetHeight(), WorldMapButton:GetWidth()
+	function RoutesTabooPinMixin:DrawTaboo(route_data, width, color)
+		local fh, fw = self:GetHeight(), self:GetWidth()
 		width = width or db.defaults.width
 		color = color or db.defaults.color
 
@@ -2607,7 +2675,7 @@ do
 				local point = route_data.route[i]
 				local ex, ey = floor(point / 10000) / 10000, (point % 10000) / 10000
 				ey = (1 - ey)
-				G:DrawLine(RoutesTabooFrame, sx*fw, sy*fh, ex*fw, ey*fh, width, color , "OVERLAY")
+				G:DrawLine(self, sx*fw, sy*fh, ex*fw, ey*fh, width, color , "OVERLAY")
 				sx, sy = ex, ey
 				last_point = point
 			end
@@ -2668,7 +2736,7 @@ do
 					end
 				end]]
 				for j = 1, #intersection - (#intersection % 2), 2 do -- this loop draws the pairs of intersections
-					G:DrawLine(RoutesTabooFrame, intersection[j].x*fw, (1-intersection[j].y)*fh, intersection[j+1].x*fw, (1-intersection[j+1].y)*fh, width, color , "OVERLAY")
+					G:DrawLine(self, intersection[j].x*fw, (1-intersection[j].y)*fh, intersection[j+1].x*fw, (1-intersection[j+1].y)*fh, width, color , "OVERLAY")
 				end
 			end
 		end
@@ -2679,9 +2747,10 @@ do
 
 	local taboo_edit_list = {}
 	function Routes:DrawTaboos()
-		G:HideLines(RoutesTabooFrame)
+		local TabooPin = self.DataProvider.tabooPin
+		G:HideLines(TabooPin)
 		for taboo_orig, taboo_copy in pairs(taboo_edit_list) do
-			Routes:DrawTaboo(taboo_copy)
+			TabooPin:DrawTaboo(taboo_copy)
 		end
 	end
 
@@ -2701,9 +2770,9 @@ do
 		self:StopMovingOrSizing()
 		self:SetScript("OnUpdate", nil)
 		self.elapsed = nil
-		self:SetParent(RoutesTabooFrame)
+		self:SetParent(Routes.DataProvider.tabooPin)
 		self:ClearAllPoints()
-		self:SetPoint("CENTER", RoutesTabooFrame, "TOPLEFT", self[X]*RoutesTabooFrame:GetWidth(), -self[Y]*RoutesTabooFrame:GetHeight())
+		self:SetPoint("CENTER", Routes.DataProvider.tabooPin, "TOPLEFT", self[X]*Routes.DataProvider.tabooPin:GetWidth(), -self[Y]*Routes.DataProvider.tabooPin:GetHeight())
 	end
 	function NodeHelper:OnUpdate(elapsed)
 		self.elapsed = self.elapsed + elapsed
@@ -2739,7 +2808,7 @@ do
 		local new_id = Routes:getID( (x+x2)/2, (y+y2)/2 )
 		x2, y2 = Routes:getXY(new_id)
 		node[COORD], node[X], node[Y] = new_id, x2, y2
-		node:SetPoint("CENTER", RoutesTabooFrame, "TOPLEFT", x2*pw, -y2*ph)
+		node:SetPoint("CENTER", Routes.DataProvider.tabooPin, "TOPLEFT", x2*pw, -y2*ph)
 
 		-- Relocate the after helper pin
 		nodenum = current == #self[DATA].route and 1 or current+1
@@ -2748,7 +2817,7 @@ do
 		new_id = Routes:getID( (x+x2)/2, (y+y2)/2 )
 		x2, y2 = Routes:getXY(new_id)
 		node[COORD], node[X], node[Y] = new_id, x2, y2
-		node:SetPoint("CENTER", RoutesTabooFrame, "TOPLEFT", x2*pw, -y2*ph)
+		node:SetPoint("CENTER", Routes.DataProvider.tabooPin, "TOPLEFT", x2*pw, -y2*ph)
 
 		-- redraw
 		Routes:DrawTaboos()
@@ -2770,7 +2839,7 @@ do
 			tinsert(self[DATA].nodes, current, self)
 			tremove(self[DATA].fakenodes, current-1)
 			local x, y = Routes:getXY(self[COORD])
-			local w, h = RoutesTabooFrame:GetWidth(), RoutesTabooFrame:GetHeight()
+			local w, h = Routes.DataProvider.tabooPin:GetWidth(), Routes.DataProvider.tabooPin:GetHeight()
 
 			-- Now create the before helper pin
 			local nodenum = current == 1 and #self[DATA].route or current-1
@@ -2778,7 +2847,7 @@ do
 			local new_id = Routes:getID( (x+x2)/2, (y+y2)/2 )
 			local node = GetOrCreateTabooNode(self[DATA], new_id)
 			x2, y2 = Routes:getXY(new_id)
-			node:SetPoint("CENTER", RoutesTabooFrame, "TOPLEFT", x2*w, -y2*h)
+			node:SetPoint("CENTER", Routes.DataProvider.tabooPin, "TOPLEFT", x2*w, -y2*h)
 			node:SetWidth(10)
 			node:SetHeight(10)
 			node:SetAlpha(0.75)
@@ -2792,7 +2861,7 @@ do
 			new_id = Routes:getID( (x+x2)/2, (y+y2)/2 )
 			node = GetOrCreateTabooNode(self[DATA], new_id)
 			x2, y2 = Routes:getXY(new_id)
-			node:SetPoint("CENTER", RoutesTabooFrame, "TOPLEFT", x2*w, -y2*h)
+			node:SetPoint("CENTER", Routes.DataProvider.tabooPin, "TOPLEFT", x2*w, -y2*h)
 			node:SetWidth(10)
 			node:SetHeight(10)
 			node:SetAlpha(0.75)
@@ -2812,7 +2881,7 @@ do
 			local b = tremove(self[DATA].fakenodes, current)
 
 			-- Relocate the before helper pin
-			local w, h = RoutesTabooFrame:GetWidth(), RoutesTabooFrame:GetHeight()
+			local w, h = Routes.DataProvider.tabooPin:GetWidth(), Routes.DataProvider.tabooPin:GetHeight()
 			local nodenum = current == 1 and #self[DATA].route or current-1
 			local nodenum2 = current > #self[DATA].route and 1 or current
 			local node = self[DATA].fakenodes[nodenum]
@@ -2821,7 +2890,7 @@ do
 			local new_id = Routes:getID( (x+x2)/2, (y+y2)/2 )
 			x2, y2 = Routes:getXY(new_id)
 			node[COORD], node[X], node[Y] = new_id, x2, y2
-			node:SetPoint("CENTER", RoutesTabooFrame, "TOPLEFT", x2*w, -y2*h)
+			node:SetPoint("CENTER", Routes.DataProvider.tabooPin, "TOPLEFT", x2*w, -y2*h)
 
 			-- Recycle ourselves
 			a:Hide()
@@ -2844,8 +2913,8 @@ do
 			taboo_cache[ node ] = nil
 		else
 			-- Create new node
-			node = CreateFrame( "Button", nil, RoutesTabooFrame )
-			node:SetFrameLevel( RoutesTabooFrame:GetFrameLevel() + 6 ) -- we need to be above others (GatherMate nodes are @ 5)
+			node = CreateFrame( "Button", nil, Routes.DataProvider.tabooPin )
+			node:SetFrameLevel( Routes.DataProvider.tabooPin:GetFrameLevel() + 6 ) -- we need to be above others (GatherMate nodes are @ 5)
 
 			-- set it up
 			local texture = node:CreateTexture( nil, "OVERLAY" )
@@ -2888,7 +2957,7 @@ do
 
 	local TabooHandler = {}
 	function TabooHandler:EditTaboo(info)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 
 		-- make a copy of the taboo for editing
 		local taboo_data
@@ -2913,14 +2982,17 @@ do
 		end
 		taboo_edit_list[taboo_data] = copy_of_taboo_data
 
-		local fh, fw = RoutesTabooFrame:GetHeight(), RoutesTabooFrame:GetWidth()
+		-- open the WorldMapFlame on the right zone
+		OpenWorldMap(zone)
+
+		local fh, fw = Routes.DataProvider.tabooPin:GetHeight(), Routes.DataProvider.tabooPin:GetWidth()
 
 		local route = copy_of_taboo_data.route
 		-- Pin the real nodes
 		for i=1, #route do
 			local node = GetOrCreateTabooNode(copy_of_taboo_data, route[i])
 			local x, y = node[X], node[Y]
-			node:SetPoint("CENTER", RoutesTabooFrame, "TOPLEFT", x*fw, -y*fh)
+			node:SetPoint("CENTER", Routes.DataProvider.tabooPin, "TOPLEFT", x*fw, -y*fh)
 			node[CURRENT] = i
 			node[REAL] = true
 			copy_of_taboo_data.nodes[i] = node
@@ -2935,7 +3007,7 @@ do
 			local new_id = Routes:getID( (beforeX+afterX)/2, (beforeY+afterY)/2 )
 			local node = GetOrCreateTabooNode(copy_of_taboo_data, new_id)
 			local x, y = Routes:getXY(new_id)
-			node:SetPoint("CENTER", RoutesTabooFrame, "TOPLEFT", x*fw, -y*fh)
+			node:SetPoint("CENTER", Routes.DataProvider.tabooPin, "TOPLEFT", x*fw, -y*fh)
 			node[CURRENT] = i
 			node[REAL] = false
 			copy_of_taboo_data.fakenodes[i] = node
@@ -2943,13 +3015,12 @@ do
 			node:SetHeight(10)
 			node:SetAlpha(0.75)
 		end
+
+		-- and draw taboos
 		Routes:DrawTaboos()
-		-- open the WorldMapFlame on the right zone
-		WorldMapFrame:Show()
-		SetMapByID(Routes.Dragons:GetMapIDFromFile(zone))
 	end
 	function TabooHandler:SaveEditTaboo(info)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 		if info[1] == "routes_group" then
 			local route = Routes.routekeys[zone][ info[3] ]
 			local route_data = db.routes[zone][route]
@@ -2985,7 +3056,7 @@ do
 		throttleFrame:Show()  -- Redraw the changes
 	end
 	function TabooHandler:CancelEditTaboo(info)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 		local taboo
 		if info[1] == "routes_group" then
 			local routeName = Routes.routekeys[zone][ info[3] ]
@@ -3024,16 +3095,17 @@ do
 			Routes:Print(L["You may not delete a taboo that is being edited."])
 			return
 		end
-		local zone = info[2]
+		local zone = tonumber(info[2])
+		local zoneKey = info[2]
 		local tabookey = info[3]
 		local taboo = Routes.tabookeys[zone][tabookey]
 		db.taboo[zone][taboo] = nil
 		--local tabookey = taboo:gsub("%s", "\255") -- can't have spaces in the key
-		options.args.taboo_group.args[zone].args[tabookey] = nil -- delete taboo from aceopt
+		options.args.taboo_group.args[zoneKey].args[tabookey] = nil -- delete taboo from aceopt
 		Routes.tabookeys[zone][tabookey] = nil
 		if next(db.taboo[zone]) == nil then
 			db.taboo[zone] = nil
-			options.args.taboo_group.args[zone] = nil -- delete zone from aceopt if no routes remaining
+			options.args.taboo_group.args[zoneKey] = nil -- delete zone from aceopt if no routes remaining
 			Routes.tabookeys[zone] = nil
 		end
 		-- Now delete the taboo region from all routes in the zone that had it
@@ -3048,7 +3120,7 @@ do
 		end
 	end
 	function TabooHandler:IsBeingEdited(info)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 		local taboo
 		if info[1] == "routes_group" then
 			local routeName = Routes.routekeys[zone][ info[3] ]
@@ -3064,7 +3136,7 @@ do
 		return not self:IsBeingEdited(info)
 	end
 	function TabooHandler.GetTabooName(info)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 		return Routes.tabookeys[zone][ info[3] ]
 	end
 
@@ -3157,10 +3229,11 @@ do
 				return create_zones
 			end,
 			get = function()
+				if create_zone then return create_zone end
 				-- Use currently viewed map on first view.
-				local mapID = GetCurrentMapAreaID()
-				if mapID == -1 then return nil end
-				create_zone = create_zone or GetZoneName(mapID)
+				local mapID = WorldMapFrame:GetMapID()
+				if not mapID then return nil end
+				create_zone = GetZoneName(mapID)
 				return create_zone
 			end,
 			set = function(info, key) create_zone = key end,
@@ -3176,15 +3249,16 @@ do
 					return
 				end
 
-				local mapfile = Routes.LZName[create_zone][1]
-				db.taboo[mapfile][taboo_name].route[1] = 71117111
-				db.taboo[mapfile][taboo_name].route[2] = 12357823
-				db.taboo[mapfile][taboo_name].route[3] = 11171123
+				local mapID = Routes.LZName[create_zone]
+				local mapIDKey = tostring(mapID)
+				db.taboo[mapID][taboo_name].route[1] = 81895171
+				db.taboo[mapID][taboo_name].route[2] = 51077512
+				db.taboo[mapID][taboo_name].route[3] = 40941800
 
 				-- Create the aceopts table entry for our new route
 				local opts = options.args.taboo_group.args
-				if not opts[mapfile] then
-					opts[mapfile] = {
+				if not opts[mapIDKey] then
+					opts[mapIDKey] = {
 						type = "group",
 						name = create_zone,
 						desc = L["Taboos in %s"]:format(create_zone),
@@ -3192,11 +3266,11 @@ do
 							desc = taboo_zone_args_desc_table,
 						},
 					}
-					Routes.tabookeys[mapfile] = {}
+					Routes.tabookeys[mapID] = {}
 				end
 				local tabookey = taboo_name:gsub("%s", "\255") -- can't have spaces in the key
-				Routes.tabookeys[mapfile][tabookey] = taboo_name
-				opts[mapfile].args[tabookey] = Routes:GetAceOptTabooTable()
+				Routes.tabookeys[mapID][tabookey] = taboo_name
+				opts[mapIDKey].args[tabookey] = Routes:GetAceOptTabooTable()
 
 				-- clear stored name
 				taboo_name = ""
@@ -3206,7 +3280,7 @@ do
 				return not taboo_name or strtrim(taboo_name) == ""
 			end,
 			confirm = function()
-				if #db.taboo[ Routes.LZName[create_zone][1] ][taboo_name].route > 0 then
+				if #db.taboo[ Routes.LZName[create_zone] ][taboo_name].route > 0 then
 					return true
 				end
 				return false
@@ -3216,7 +3290,7 @@ do
 	}
 
 	function TabooHandler:IsNotEditAllowed(info)
-		local zone = info[2]
+		local zone = tonumber(info[2])
 		local route = Routes.routekeys[zone][ info[3] ]
 		local route_table = db.routes[zone][route]
 		if taboo_edit_list[route_table] then return true end
@@ -3367,7 +3441,7 @@ do
 							tremove(route_data.route, i)
 						end
 						tinsert(route_data.taboolist, coord)
-						route_data.length = Routes.TSP:PathLength(route_data.route, Routes.Dragons:GetMapIDFromFile(zone))
+						route_data.length = Routes.TSP:PathLength(route_data.route, zone)
 						throttleFrame:Show()
 					end
 				end
@@ -3380,7 +3454,7 @@ do
 				if Routes:IsNodeInTaboo(x, y, taboo_data) then -- remove node
 					tremove(route_data.route, i)
 					tinsert(route_data.taboolist, coord)
-					route_data.length = self.TSP:PathLength(route_data.route, Routes.Dragons:GetMapIDFromFile(zone))
+					route_data.length = self.TSP:PathLength(route_data.route, zone)
 					throttleFrame:Show()
 				end
 			end
@@ -3397,7 +3471,7 @@ do
 				end
 			end
 			if flag == false then
-				route_data.length = Routes.TSP:InsertNode(route_data.route, route_data.metadata, Routes.Dragons:GetMapIDFromFile(zone), coord, route_data.cluster_dist or 65) -- 65 is the old default
+				route_data.length = Routes.TSP:InsertNode(route_data.route, route_data.metadata, zone, coord, route_data.cluster_dist or 65) -- 65 is the old default
 				tremove(route_data.taboolist, i)
 				throttleFrame:Show()
 			end
