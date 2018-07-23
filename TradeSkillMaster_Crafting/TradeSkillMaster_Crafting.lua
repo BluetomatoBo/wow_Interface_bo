@@ -348,7 +348,7 @@ function TSM:GetSpellId(link)
 end
 
 function TSM:GetCurrentProfessionName()
-	local _, name = C_TradeSkillUI.GetTradeSkillLine()
+	local name = select(7, C_TradeSkillUI.GetTradeSkillLine())
 	if name and C_TradeSkillUI.IsNPCCrafting() then
 		return name .. " (" .. GARRISON_LOCATION_TOOLTIP..")"
 	end
@@ -356,7 +356,7 @@ function TSM:GetCurrentProfessionName()
 end
 
 function TSM:IsCurrentProfessionEnchanting()
-	return select(2, C_TradeSkillUI.GetTradeSkillLine()) == GetSpellInfo(7411)
+	return select(7, C_TradeSkillUI.GetTradeSkillLine()) == GetSpellInfo(7411)
 end
 
 function TSM:GetInventoryTotals()

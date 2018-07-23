@@ -1,3 +1,6 @@
+v3.4.9
+*Updated TOC version for patch 8.0.
+
 v3.4.8
 *Updated TOC version for patch 8.0.
 

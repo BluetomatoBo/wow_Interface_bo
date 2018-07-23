@@ -1,3 +1,6 @@
+v3.0.22
+*Fixed missing ptBR localization file.
+
 v3.0.21
 *Updated TOC version for patch 8.0.
 

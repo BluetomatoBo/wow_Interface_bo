@@ -361,7 +361,7 @@ function private:GetGarrisonBuildingID()
 	for _, buildingInfo in pairs(C_Garrison.GetBuildings(LE_GARRISON_TYPE_6_0)) do
 		playerGarrisonBuildings[buildingInfo.buildingID] = true
 	end
-	local professionName = select(2, C_TradeSkillUI.GetTradeSkillLine()) -- just want the raw name
+	local professionName = select(7, C_TradeSkillUI.GetTradeSkillLine()) -- just want the raw name
 	for buildingId, spellId in pairs(private.GARRISON_PROFESSION_BUILDINGS) do
 		if GetSpellInfo(spellId) == professionName and playerGarrisonBuildings[buildingId] then
 			return buildingId
