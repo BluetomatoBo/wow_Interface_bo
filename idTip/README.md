@@ -17,6 +17,12 @@ Adds IDs to the ingame tooltips.
 - Bonus
 - Enchant
 - Gem
+- Mount
+- Companion
+- Macro
+- Equipment Set
+- Visual
+- Source
 
 Please report any requests/bugs through an [issue](https://github.com/silverwind/idTip/issues/new) on GitHub.
 
