@@ -177,6 +177,10 @@ L["Cross"] = "Крест"
 L["Crowd Controlled"] = "Потеря контроля над персонажем (CC)"
 L["Crushing"] = "Сокрушительный удар"
 --[[Translation missing --]]
+L["Cunning"] = "Cunning"
+--[[Translation missing --]]
+L["Current Zone Group ID: "] = "Current Zone Group ID: "
+--[[Translation missing --]]
 L["Current Zone ID: "] = "Current Zone ID: "
 L["Curse"] = "Проклятие"
 L["Custom"] = "Самостоятельно"
@@ -247,6 +251,8 @@ L["Falling"] = "Падение"
 L["False"] = "Ложь"
 L["Fatigue"] = "Усталость"
 L["Feet"] = "Ступни"
+--[[Translation missing --]]
+L["Ferocity"] = "Ferocity"
 L["Finger 1"] = "Палец 1"
 L["Finger 2"] = "Палец 2"
 L["Fire"] = "Огонь"
@@ -307,6 +313,8 @@ L["Immune"] = "Невосприимчивость"
 L["Import"] = "Импорт"
 L["Import disabled"] = "Импорт отключен"
 L["In Combat"] = "В бою"
+--[[Translation missing --]]
+L["In Encounter"] = "In Encounter"
 L["In Group"] = "В группе"
 L["In Pet Battle"] = "В битве питомцев"
 L["In Raid"] = "В рейде"
@@ -323,6 +331,8 @@ L["Instance Type"] = "Тип подземелья"
 L["Interrupt"] = "Прерывание"
 L["Interruptible"] = "Прерываемый"
 L["Inverse"] = "Инвертировать"
+--[[Translation missing --]]
+L["Inverse Pet Behavior"] = "Inverse Pet Behavior"
 L["Is Exactly"] = "Точное совпадение"
 L["Is Moving"] = "Двигается"
 L["Is Off Hand"] = "Левая рука"
@@ -398,6 +408,8 @@ L["No Children:"] = "Нет индикаций"
 L["No Instance"] = "Не в подземелье"
 --[[Translation missing --]]
 L["No Profiling information saved."] = "No Profiling information saved."
+--[[Translation missing --]]
+L["none"] = "none"
 L["None"] = "Нет"
 L["Non-player Character"] = "Не игровой персонаж"
 L["Normal"] = "Обычный"
@@ -434,6 +446,8 @@ L["Periodic Spell"] = "Периодическое заклинание"
 L["Personal Resource Display"] = "Индикатор личного ресурса"
 L["Pet"] = "Питомец"
 L["Pet Behavior"] = "Поведение питомца"
+--[[Translation missing --]]
+L["Pet Specialization"] = "Pet Specialization"
 L["Pet Spell"] = "Заклинание питомца"
 L["Play"] = "Проиграть"
 L["Player"] = "Игрок"
@@ -614,6 +628,8 @@ L["Tank"] = "Танк"
 L["Tanking And Highest"] = "Танкует и макс. угрозa"
 L["Tanking But Not Highest"] = "Танкует, но не макс. угроза"
 L["Target"] = "Цель"
+--[[Translation missing --]]
+L["Tenacity"] = "Tenacity"
 L["Thick Outline"] = "Толстый контур"
 --[[Translation missing --]]
 L["Third"] = "Third"
@@ -666,6 +682,8 @@ L["Wrist"] = "Запястье"
 L["X-Offset"] = "Смещение по X"
 L["Yell"] = "Крик"
 L["Y-Offset"] = "Смещение по Y"
+--[[Translation missing --]]
+L["Zone Group ID(s)"] = "Zone Group ID(s)"
 --[[Translation missing --]]
 L["Zone ID(s)"] = "Zone ID(s)"
 --[[Translation missing --]]

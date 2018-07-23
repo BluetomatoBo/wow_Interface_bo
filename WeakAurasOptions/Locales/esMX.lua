@@ -527,6 +527,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Y Scale"] = "Ajuste de tamaño de Y"
 	L["Yellow Rune"] = "Runa amarilla"
 	L["Yes"] = "Si"
+	--[[Translation missing --]]
+	L["You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"] = "You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"
 	L["Z Offset"] = "Posición de Z"
 	L["Z Rotation"] = "Rotación de Z"
 	L["Zoom"] = "Ampliar"

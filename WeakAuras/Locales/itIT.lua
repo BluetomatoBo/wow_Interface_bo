@@ -264,6 +264,10 @@ L["Crowd Controlled"] = "Crowd Controlled"
 --[[Translation missing --]]
 L["Crushing"] = "Crushing"
 --[[Translation missing --]]
+L["Cunning"] = "Cunning"
+--[[Translation missing --]]
+L["Current Zone Group ID: "] = "Current Zone Group ID: "
+--[[Translation missing --]]
 L["Current Zone ID: "] = "Current Zone ID: "
 --[[Translation missing --]]
 L["Curse"] = "Curse"
@@ -397,6 +401,8 @@ L["Fatigue"] = "Fatigue"
 --[[Translation missing --]]
 L["Feet"] = "Feet"
 --[[Translation missing --]]
+L["Ferocity"] = "Ferocity"
+--[[Translation missing --]]
 L["Finger 1"] = "Finger 1"
 --[[Translation missing --]]
 L["Finger 2"] = "Finger 2"
@@ -512,6 +518,8 @@ L["Import disabled"] = "Import disabled"
 --[[Translation missing --]]
 L["In Combat"] = "In Combat"
 --[[Translation missing --]]
+L["In Encounter"] = "In Encounter"
+--[[Translation missing --]]
 L["In Group"] = "In Group"
 --[[Translation missing --]]
 L["In Pet Battle"] = "In Pet Battle"
@@ -543,6 +551,8 @@ L["Interrupt"] = "Interrupt"
 L["Interruptible"] = "Interruptible"
 --[[Translation missing --]]
 L["Inverse"] = "Inverse"
+--[[Translation missing --]]
+L["Inverse Pet Behavior"] = "Inverse Pet Behavior"
 --[[Translation missing --]]
 L["Is Exactly"] = "Is Exactly"
 --[[Translation missing --]]
@@ -684,6 +694,8 @@ L["No Instance"] = "No Instance"
 --[[Translation missing --]]
 L["No Profiling information saved."] = "No Profiling information saved."
 --[[Translation missing --]]
+L["none"] = "none"
+--[[Translation missing --]]
 L["None"] = "None"
 --[[Translation missing --]]
 L["Non-player Character"] = "Non-player Character"
@@ -751,6 +763,8 @@ L["Personal Resource Display"] = "Personal Resource Display"
 L["Pet"] = "Pet"
 --[[Translation missing --]]
 L["Pet Behavior"] = "Pet Behavior"
+--[[Translation missing --]]
+L["Pet Specialization"] = "Pet Specialization"
 --[[Translation missing --]]
 L["Pet Spell"] = "Pet Spell"
 --[[Translation missing --]]
@@ -1052,6 +1066,8 @@ L["Tanking But Not Highest"] = "Tanking But Not Highest"
 --[[Translation missing --]]
 L["Target"] = "Target"
 --[[Translation missing --]]
+L["Tenacity"] = "Tenacity"
+--[[Translation missing --]]
 L["Thick Outline"] = "Thick Outline"
 --[[Translation missing --]]
 L["Third"] = "Third"
@@ -1151,6 +1167,8 @@ L["X-Offset"] = "X-Offset"
 L["Yell"] = "Yell"
 --[[Translation missing --]]
 L["Y-Offset"] = "Y-Offset"
+--[[Translation missing --]]
+L["Zone Group ID(s)"] = "Zone Group ID(s)"
 --[[Translation missing --]]
 L["Zone ID(s)"] = "Zone ID(s)"
 --[[Translation missing --]]

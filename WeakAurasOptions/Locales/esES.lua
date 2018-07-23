@@ -658,6 +658,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	--[[Translation missing --]]
 	L["Yellow Rune"] = "Yellow Rune"
 	L["Yes"] = "Sí"
+	--[[Translation missing --]]
+	L["You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"] = "You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"
 	L["Z Offset"] = "Desplazamiento en Z"
 	--[[Translation missing --]]
 	L["Z Rotation"] = "Z Rotation"

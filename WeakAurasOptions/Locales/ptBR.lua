@@ -710,6 +710,8 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["Yes"] = "Yes"
 	--[[Translation missing --]]
+	L["You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"] = "You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"
+	--[[Translation missing --]]
 	L["Z Offset"] = "Z Offset"
 	--[[Translation missing --]]
 	L["Z Rotation"] = "Z Rotation"

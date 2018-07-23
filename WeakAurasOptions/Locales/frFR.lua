@@ -594,6 +594,8 @@ Seule une unique valeur peut être choisie]=]
 	L["Y Scale"] = "Echelle Y"
 	L["Yellow Rune"] = "Rune jaune"
 	L["Yes"] = "Oui"
+	--[[Translation missing --]]
+	L["You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"] = "You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"
 	L["Z Offset"] = "Décalage Z"
 	L["Z Rotation"] = "Rotation Z"
 	L["Zoom"] = "Zoom"

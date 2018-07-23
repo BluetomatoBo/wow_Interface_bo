@@ -197,6 +197,10 @@ L["Cross"] = "Cross"
 L["Crowd Controlled"] = "Contrôlé"
 L["Crushing"] = "Ecrasant"
 --[[Translation missing --]]
+L["Cunning"] = "Cunning"
+--[[Translation missing --]]
+L["Current Zone Group ID: "] = "Current Zone Group ID: "
+--[[Translation missing --]]
 L["Current Zone ID: "] = "Current Zone ID: "
 L["Curse"] = "Malédiction"
 L["Custom"] = "Personnalisé"
@@ -282,6 +286,8 @@ L["Falling"] = "Tombant"
 L["False"] = "False"
 L["Fatigue"] = "Fatigue"
 L["Feet"] = "Pieds"
+--[[Translation missing --]]
+L["Ferocity"] = "Ferocity"
 L["Finger 1"] = "Doigt 1"
 L["Finger 2"] = "Doigt 2"
 L["Fire"] = "Feu"
@@ -354,6 +360,8 @@ L["Import"] = "Import"
 L["Import disabled"] = "Import disabled"
 L["In Combat"] = "En Combat"
 --[[Translation missing --]]
+L["In Encounter"] = "In Encounter"
+--[[Translation missing --]]
 L["In Group"] = "In Group"
 L["In Pet Battle"] = "En combat de mascottes"
 --[[Translation missing --]]
@@ -373,6 +381,8 @@ L["Instance Type"] = "Type d'instance"
 L["Interrupt"] = "Interruption"
 L["Interruptible"] = "Interruptible"
 L["Inverse"] = "Inverse"
+--[[Translation missing --]]
+L["Inverse Pet Behavior"] = "Inverse Pet Behavior"
 L["Is Exactly"] = "Est exactement"
 L["Is Moving"] = "Est en mouvement"
 L["Is Off Hand"] = "Est une Main gauche"
@@ -462,6 +472,8 @@ L["No Children:"] = "Pas d'enfant :"
 L["No Instance"] = "Pas d'instance"
 --[[Translation missing --]]
 L["No Profiling information saved."] = "No Profiling information saved."
+--[[Translation missing --]]
+L["none"] = "none"
 L["None"] = "Aucun"
 L["Non-player Character"] = "Personnage non-joueur"
 L["Normal"] = "Normal"
@@ -507,6 +519,8 @@ L["Periodic Spell"] = "Sort périodique"
 L["Personal Resource Display"] = "Personal Resource Display"
 L["Pet"] = "Familier "
 L["Pet Behavior"] = "Comportement du familier"
+--[[Translation missing --]]
+L["Pet Specialization"] = "Pet Specialization"
 --[[Translation missing --]]
 L["Pet Spell"] = "Pet Spell"
 --[[Translation missing --]]
@@ -724,6 +738,8 @@ L["Tank"] = "Tank"
 L["Tanking And Highest"] = "Tank et le plus haut"
 L["Tanking But Not Highest"] = "Tank mais pas le plus haut"
 L["Target"] = "Cible"
+--[[Translation missing --]]
+L["Tenacity"] = "Tenacity"
 L["Thick Outline"] = "Contour épais"
 --[[Translation missing --]]
 L["Third"] = "Third"
@@ -791,6 +807,8 @@ L["X-Offset"] = "X-Offset"
 L["Yell"] = "Crier"
 --[[Translation missing --]]
 L["Y-Offset"] = "Y-Offset"
+--[[Translation missing --]]
+L["Zone Group ID(s)"] = "Zone Group ID(s)"
 --[[Translation missing --]]
 L["Zone ID(s)"] = "Zone ID(s)"
 --[[Translation missing --]]

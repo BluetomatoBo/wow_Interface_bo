@@ -651,7 +651,24 @@ WeakAuras.load_prototype = {
       display = L["In Combat"],
       type = "tristate",
       width = "normal",
-      init = "arg"
+      init = "arg",
+      optional = true
+    },
+    {
+      name = "encounter",
+      display = L["In Encounter"],
+      type = "tristate",
+      width = "normal",
+      init = "arg",
+      optional = true
+    },
+    {
+      name = "petbattle",
+      display = L["In Pet Battle"],
+      type = "tristate",
+      init = "arg",
+      width = "normal",
+      optional = true
     },
     {
       name = "never",
@@ -666,6 +683,7 @@ WeakAuras.load_prototype = {
       type = "tristate",
       init = "arg",
       width = "normal",
+      optional = true
     },
     {
       name = "vehicleUi",
@@ -673,13 +691,7 @@ WeakAuras.load_prototype = {
       type = "tristate",
       init = "arg",
       width = "normal",
-    },
-    {
-      name = "petbattle",
-      display = L["In Pet Battle"],
-      type = "tristate",
-      init = "arg",
-      width = "normal",
+      optional = true
     },
     {
       name = "ingroup",
@@ -687,7 +699,8 @@ WeakAuras.load_prototype = {
       type = "multiselect",
       width = "normal",
       init = "arg",
-      values = "group_types"
+      values = "group_types",
+      optional = true
     },
     {
       name = "name",
@@ -755,14 +768,16 @@ WeakAuras.load_prototype = {
           end
         end
       end,
-      init = "arg"
+      init = "arg",
+      optional = true
     },
     {
       name = "talent",
       display = L["Talent selected"],
       type = "multiselect",
       values = valuesForTalentFunction,
-      test = "WeakAuras.CheckTalentByIndex(%d)"
+      test = "WeakAuras.CheckTalentByIndex(%d)",
+      optional = true
     },
     {
       name = "talent2",
@@ -772,7 +787,8 @@ WeakAuras.load_prototype = {
       test = "WeakAuras.CheckTalentByIndex(%d)",
       enable = function(trigger)
         return trigger.use_talent ~= nil or trigger.use_talent2 ~= nil;
-      end
+      end,
+      optional = true
     },
     {
       name = "pvptalent",
@@ -832,13 +848,15 @@ WeakAuras.load_prototype = {
           end
         end
       end,
-      test = "WeakAuras.CheckPvpTalentByIndex(%d)"
+      test = "WeakAuras.CheckPvpTalentByIndex(%d)",
+      optional = true
     },
     {
       name = "spellknown",
       display = L["Spell Known"],
       type = "spell",
-      test = "WeakAuras.IsSpellKnown(%s)"
+      test = "WeakAuras.IsSpellKnown(%s)",
+      optional = true
     },
     {
       name = "race",
@@ -858,13 +876,15 @@ WeakAuras.load_prototype = {
       name = "level",
       display = L["Player Level"],
       type = "number",
-      init = "arg"
+      init = "arg",
+      optional = true
     },
     {
       name = "zone",
       display = L["Zone Name"],
       type = "string",
-      init = "arg"
+      init = "arg",
+      optional = true
     },
     {
       name = "zoneId",
@@ -874,7 +894,20 @@ WeakAuras.load_prototype = {
       desc = function()
          return L["Supports multiple entries, separated by commas\n"] .. L["Current Zone ID: "] .. C_Map.GetBestMapForUnit("player")
        end,
-      test = "WeakAuras.CheckNumericIds([[%s]], zoneId)"
+      test = "WeakAuras.CheckNumericIds([[%s]], zoneId)",
+      optional = true
+    },
+    {
+      name = "zonegroupId",
+      display = L["Zone Group ID(s)"],
+      type = "string",
+      init = "arg",
+      desc = function()
+        local zoneId = C_Map.GetBestMapForUnit("player");
+        return L["Supports multiple entries, separated by commas\n"] .. L["Current Zone Group ID: "] .. (zoneId and C_Map.GetMapGroupID(zoneId) or L["none"])
+      end,
+      test = "WeakAuras.CheckNumericIds([[%s]], zonegroupId)",
+      optional = true
     },
     {
       name = "encounterid",
@@ -882,7 +915,8 @@ WeakAuras.load_prototype = {
       type = "string",
       init = "arg",
       desc = get_encounters_list,
-      test = "WeakAuras.CheckNumericIds([[%s]], encounterid)"
+      test = "WeakAuras.CheckNumericIds([[%s]], encounterid)",
+      optional = true
     },
     {
       name = "size",
@@ -890,14 +924,16 @@ WeakAuras.load_prototype = {
       type = "multiselect",
       values = "instance_types",
       init = "arg",
-      control = "WeakAurasSortedDropdown"
+      control = "WeakAurasSortedDropdown",
+      optional = true
     },
     {
       name = "difficulty",
       display = L["Instance Difficulty"],
       type = "multiselect",
       values = "difficulty_types",
-      init = "arg"
+      init = "arg",
+      optional = true
     },
     {
       name = "role",
@@ -1867,6 +1903,7 @@ WeakAuras.event_prototypes = {
         local showgcd = %s;
         local startTime, duration, gcdCooldown = WeakAuras.GetSpellCooldown(spellname, ignoreRuneCD, showgcd);
         local charges, maxCharges = WeakAuras.GetSpellCharges(spellname);
+        local stacks = maxCharges ~= 1 and charges or nil;
         if (charges == nil) then
           charges = (duration == 0) and 1 or 0;
         end
@@ -1988,15 +2025,16 @@ WeakAuras.event_prototypes = {
         name = "charges",
         display = L["Show if Charges"],
         type = "number",
-      },
-      {
-        name = "stacks",
-        init = "charges",
-        hidden = true,
-        test = "true",
         store = true,
         display = L["Stacks"],
         conditionType = "number"
+      },
+      {
+        name = "stacks",
+        init = "stacks",
+        hidden = true,
+        test = "true",
+        store = true
       },
       {
         hidden  = true,
@@ -2354,7 +2392,10 @@ WeakAuras.event_prototypes = {
       return duration, startTime + duration;
     end,
     nameFunc = function(trigger)
-      return GetItemInfo(GetInventoryItemID("player", trigger.itemSlot));
+      local item = GetInventoryItemID("player", trigger.itemSlot or 0);
+      if (item) then
+        return GetItemInfo(item);
+      end
     end,
     iconFunc = function(trigger)
       return GetInventoryItemTexture("player", trigger.itemSlot or 0) or "Interface\\Icons\\INV_Misc_QuestionMark";
@@ -3978,11 +4019,12 @@ WeakAuras.event_prototypes = {
         local spell, interruptible, _;
         local castType;
         local endTime;
-        spell, _, _, _, endTime, _, _, interruptible = UnitCastingInfo(unit)
+        local spellId;
+        spell, _, _, _, endTime, _, _, interruptible, spellId = UnitCastingInfo(unit)
         if(spell) then
           castType = "cast"
         else
-          spell, _, _, _, endTime, _, interruptible = UnitChannelInfo(unit)
+          spell, _, _, _, endTime, _, interruptible, spellId = UnitChannelInfo(unit)
           if(spell) then
             castType = "channel"
           end
@@ -4022,6 +4064,13 @@ WeakAuras.event_prototypes = {
         enable = function(trigger) return not(trigger.use_inverse) end,
         store = true,
         conditionType = "string",
+      },
+      {
+        name = "spellId",
+        display = L["Spell Id"],
+        type = "spell" ,
+        enable = function(trigger) return not(trigger.use_inverse) end,
+        test = "GetSpellInfo([[%s]]) == spell"
       },
       {
         name = "castType",
@@ -4270,39 +4319,56 @@ WeakAuras.event_prototypes = {
 
   ["Pet Behavior"] = {
     type = "status",
-    events = {
-      "PET_BAR_UPDATE",
-      "UNIT_PET",
-    },
+    events = function(trigger)
+      local result = {"UNIT_PET"};
+      if (trigger.use_behavior) then
+        tinsert(result, "PET_BAR_UPDATE");
+      end
+      if (trigger.use_petspec) then
+        tinsert(result, "PET_SPECIALIZATION_CHANGED ");
+      end
+      return result;
+    end,
     internal_events = {
       "WA_DELAYED_PLAYER_ENTERING_WORLD"
     },
     force_events = "WA_DELAYED_PLAYER_ENTERING_WORLD",
-    name = L["Pet Behavior"],
+    name = L["Pet"],
     init = function(trigger)
-      local ret = [[
-          local inverse = %s
-          local check_behavior = %s
-          local name, i, active
-          local activeIcon
-          local behavior
-          local index = 1
-          repeat
-            name,i, _,active = GetPetActionInfo(index);
-            if (active) then
-              activeIcon = _G[i];
-            end
-            index = index + 1
-            if(name == "PET_MODE_ASSIST" and active == true) then
-              behavior = "assist"
-            elseif(name == "PET_MODE_DEFENSIVE" and active == true) then
-              behavior = "defensive"
-            elseif(name == "PET_MODE_PASSIVE" and active == true) then
-              behavior = "passive"
-            end
-          until index == 12
-      ]]
-      return ret:format(trigger.use_inverse and "true" or "false", trigger.use_behavior and ('"' .. (trigger.behavior or "") .. '"') or "nil");
+      local ret = "local activeIcon\n";
+      if (trigger.use_behavior) then
+        ret = [[
+            local inverse = %s
+            local check_behavior = %s
+            local name, i, active
+            local behavior
+            local index = 1
+            repeat
+              name,i, _,active = GetPetActionInfo(index);
+              if (active) then
+                activeIcon = _G[i];
+              end
+              index = index + 1
+              if(name == "PET_MODE_ASSIST" and active == true) then
+                behavior = "assist"
+              elseif(name == "PET_MODE_DEFENSIVE" and active == true) then
+                behavior = "defensive"
+              elseif(name == "PET_MODE_PASSIVE" and active == true) then
+                behavior = "passive"
+              end
+            until index == 12
+        ]]
+        ret = ret:format(trigger.use_inverse and "true" or "false", trigger.use_behavior and ('"' .. (trigger.behavior or "") .. '"') or "nil");
+      end
+      if (trigger.use_petspec) then
+        ret = ret .. [[
+          local petspec = GetSpecialization(false, true)
+          if (petspec) then
+            activeIcon = select(4, GetSpecializationInfo(petspec, false, true));
+          end
+        ]]
+      end
+      return ret;
     end,
     statesParameter = "one",
     canHaveAuto = true,
@@ -4312,14 +4378,20 @@ WeakAuras.event_prototypes = {
         display = L["Pet Behavior"],
         type = "select",
         values = "pet_behavior_types",
-        test = "true",
+        test = "UnitExists('pet') and (not check_behavior or (inverse and check_behavior ~= behavior) or (not inverse and check_behavior == behavior))",
       },
       {
         name = "inverse",
-        display = L["Inverse"],
+        display = L["Inverse Pet Behavior"],
         type = "toggle",
         test = "true",
         enable = function(trigger) return trigger.use_behavior end
+      },
+      {
+        name = "petspec",
+        display = L["Pet Specialization"],
+        type = "select",
+        values = "pet_spec_types",
       },
       {
         hidden = true,
@@ -4328,10 +4400,6 @@ WeakAuras.event_prototypes = {
         store = "true",
         test = "true"
       },
-      {
-        hidden = true,
-        test = "UnitExists('pet') and (not check_behavior or (inverse and check_behavior ~= behavior) or (not inverse and check_behavior == behavior))"
-      }
     },
     automaticrequired = true
   },
