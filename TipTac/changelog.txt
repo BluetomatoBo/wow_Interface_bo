@@ -1,3 +1,7 @@
+TipTac Changes | 2018 Jul 22
+----------------------------
+- Tried to fix some of the issues with the backdrop setting not always being applied. There may still be some issues left.
+
 TipTac Changes | 2018 Jul 19
 ----------------------------
 - Updated the TOC version to 80000 for the Battle for Azeroth 8.0 pre-patch.

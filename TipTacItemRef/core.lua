@@ -1,4 +1,5 @@
 local format = string.format;
+local unpack = unpack;
 
 -- Addon
 local modName = ...;
@@ -61,7 +62,7 @@ local function SetIconTextureAndText(self,texture,count)
 	end
 end
 
--- Create Icon for Tooltip
+-- Create Icon with Counter Text for Tooltip
 function ttif:CreateTooltipIcon(tip)
 	tip.ttIcon = tip:CreateTexture(nil,"BACKGROUND");
 	tip.ttIcon:SetPoint("TOPRIGHT",tip,"TOPLEFT",0,-2.5);
@@ -78,45 +79,53 @@ end
 
 ttif:RegisterEvent("VARIABLES_LOADED");
 
+-- Resolves the given table array of string names into their global objects
+local function ResolveGlobalNamedObjects(tipTable)
+	local resolved = {};
+	for index, tipName in ipairs(tipTable) do
+		-- lookup the global object from this name, assign false if nonexistent, to preserve the table entry
+		local tip = (_G[tipName] or false);
+
+		-- Check if this object has already been resolved. This can happen for thing like AtlasLoot, which sets AtlasLootTooltip = GameTooltip
+		if (resolved[tip]) then
+			tip = false;
+		elseif (tip) then
+			resolved[tip] = index;
+		end
+
+		-- Assign the resolved object or false back into the table array
+		tipTable[index] = tip;
+	end
+end
+
 -- OnEvent
 ttif:SetScript("OnEvent",function(self,event,...)
 	-- What tipsToModify to use, TipTac's main addon, or our own?
 	if (TipTac and TipTac.tipsToModify) then
 		tipsToModify = TipTac.tipsToModify;
 	else
-		for index, tipName in ipairs(tipsToModify) do
-			local tip = (_G[tipName] or false);	-- don't want to nil out an entry
-			-- Here we make sure not to add duplicate items. This can happen for thing like AtlasLoot, which sets AtlasLootTooltip = GameTooltip
-			if (tip) then
-				for i = 1, index - 1 do
-					if (tip == tipsToModify[i]) then
-						tip = false;
-						break;
-					end
-				end
-			end
-			-- Set the string index to table or false
-			tipsToModify[index] = tip;
-		end
+		ResolveGlobalNamedObjects(tipsToModify)
 	end
+
 	-- Use TipTac settings if installed
 	if (TipTac_Config) then
 		cfg = TipTac_Config;
 	end
-	-- Hook
+
+	-- Hook tips and apply settings
 	self:DoHooks();
-	-- Settings
 	self:ApplySettings();
-	-- Cleanup
+
+	-- Cleanup; we no longer need to receive any events
 	self:UnregisterAllEvents();
 	self:SetScript("OnEvent",nil);
 end);
 
--- Apply Settings
+-- Apply Settings -- It seems this may be called from TipTac:ApplySettings() before we have received our VARIABLES_LOADED, so ensure we have created the tip objects
 function ttif:ApplySettings()
 	local gameFont = GameFontNormal:GetFont();
 	for index, tip in ipairs(tipsToModify) do
-		if (type(tip) == "table") and (tipsToAddIcon[tip:GetName()]) then
+		if (type(tip) == "table") and (tipsToAddIcon[tip:GetName()]) and (tip.ttIcon) then
 			if (cfg.if_showIcon) then
 				tip.ttIcon:SetWidth(cfg.if_iconSize);
 				tip.ttIcon:SetHeight(cfg.if_iconSize);
@@ -170,7 +179,7 @@ local function SetUnitAura_Hook(self,unit,index,filter)
 		-- add line to tooltip if it contains info
 		if (tipInfoLine ~= "") then
 			self:AddLine(tipInfoLine,unpack(cfg.if_infoColor));
-			self:Show();
+			self:Show();	-- call Show() to resize tip after adding lines
 		end
 	end
 end
@@ -208,7 +217,7 @@ local function OnTooltipCleared(self)
 	end
 end
 
--- HOOK: Apply hooks for all the tooltips to modify -- Only hook GameTooltips
+-- HOOK: Apply hooks for all the tooltips to modify -- Only hook GameTooltip objects
 function ttif:DoHooks()
 	for index, tip in ipairs(tipsToModify) do
 		if (type(tip) == "table") and (type(tip.GetObjectType) == "function") and (tip:GetObjectType() == "GameTooltip") then
@@ -247,6 +256,7 @@ local function SmartIconEvaluation(tip,linkType)
 			return false;
 		end
 	end
+
 	-- IconTexture sub texture
 	local ownerName = owner:GetName();
 	if (ownerName) then
@@ -254,7 +264,8 @@ local function SmartIconEvaluation(tip,linkType)
 			return false;
 		end
 	end
-	-- Show Icon
+
+	-- If we passed all checks, return true to show an icon
 	return true;
 end
 
@@ -275,17 +286,20 @@ end
 function LinkTypeFuncs:item(link,linkType,id)
 	local _, _, itemRarity, itemLevel, _, _, _, itemStackCount, _, itemTexture = GetItemInfo(link);
 	itemLevel = LibItemString:GetTrueItemLevel(link);
+
 	-- Icon
 	if (self.SetIconTextureAndText) and (not cfg.if_smartIcons or SmartIconEvaluation(self,linkType)) then
 		local count = (itemStackCount and itemStackCount > 1 and (itemStackCount == 0x7FFFFFFF and "#" or itemStackCount) or "");
 		self:SetIconTextureAndText(itemTexture,count);
 	end
+
 	-- Quality Border
 	if (cfg.if_itemQualityBorder) then
 		self:SetBackdropBorderColor(GetItemQualityColor(itemRarity or 0));
 	end
-	-- level + id -- Do not alter the tip if we failed to get a valid "itemLevel" or "id"
-	if (cfg.if_showItemLevelAndId) and (itemLevel) and (id) then
+
+	-- level + id -- Only alter the tip if we got either a valid "itemLevel" or "id"
+	if (cfg.if_showItemLevelAndId) and (itemLevel or id) then
 		for i = 2, min(self:NumLines(),LibItemString.TOOLTIP_MAXLINE_LEVEL) do
 			local line = _G[self:GetName().."TextLeft"..i];
 			if (line and (line:GetText() or ""):match(ITEM_LEVEL_PLUS)) then
@@ -293,8 +307,12 @@ function LinkTypeFuncs:item(link,linkType,id)
 				break;
 			end
 		end
-		self:AddLine(format("ItemLevel: %d, ItemID: %d",itemLevel,id),unpack(cfg.if_infoColor));
-		self:Show();
+		if (itemLevel) and (itemLevel ~= 0) then
+			self:AddLine(format("ItemLevel: %d, ItemID: %d",itemLevel,id),unpack(cfg.if_infoColor));
+		else
+			self:AddLine(format("ItemID: %d",id),unpack(cfg.if_infoColor));
+		end
+		self:Show();	-- call Show() to resize tip after adding lines
 	end
 end
 
@@ -310,7 +328,7 @@ function LinkTypeFuncs:spell(link,linkType,id)
 	if (cfg.if_showSpellIdAndRank) then
 		rank = (rank and rank ~= "" and ", "..rank or "");
 		self:AddLine("SpellID: "..id..rank,unpack(cfg.if_infoColor));
-		self:Show();
+		self:Show();	-- call Show() to resize tip after adding lines
 	end
   	-- TipType Border Color -- Disable these 3 lines to color border. Az: Work into options?
 --	if (cfg.if_itemQualityBorder) then
@@ -322,7 +340,7 @@ end
 function LinkTypeFuncs:quest(link,linkType,id,level)
 	if (cfg.if_showQuestLevelAndId) then
 		self:AddLine(format("QuestLevel: %d, QuestID: %d",level or 0,id or 0),unpack(cfg.if_infoColor));
-		self:Show();
+		self:Show();	-- call Show() to resize tip after adding lines
 	end
   	-- TipType Border Color -- Disable these 3 lines to color border. Az: Work into options?
 --	if (cfg.if_itemQualityBorder) then
@@ -339,7 +357,7 @@ function LinkTypeFuncs:currency(link,linkType,id)
 	-- ID
 	if (cfg.if_showCurrencyId) then
 		self:AddLine(format("CurrencyID: %d",id),unpack(cfg.if_infoColor));
-		self:Show();
+		self:Show();	-- call Show() to resize tip after adding lines
 	end
   	-- TipType Border Color -- Disable these 3 lines to color border. Az: Work into options?
 --	if (cfg.if_itemQualityBorder) then
@@ -429,7 +447,7 @@ function LinkTypeFuncs:achievement(link,linkType,id,guid,completed,month,day,yea
 			self:SetIconTextureAndText(icon,points);
 		end
 		-- Show
-		self:Show();
+		self:Show();	-- call Show() to resize tip after adding lines
 	else
 		-- Icon
 		if (self.SetIconTextureAndText) then
@@ -440,7 +458,7 @@ function LinkTypeFuncs:achievement(link,linkType,id,guid,completed,month,day,yea
 		if (cfg.if_showAchievementIdAndCategory) then
 			local catId = GetAchievementCategory(id);
 			self:AddLine(format("AchievementID: %d, CategoryID: %d",id or 0,catId or 0),unpack(cfg.if_infoColor));
-			self:Show();
+			self:Show();	-- call Show() to resize tip after adding lines
 		end
 	end
   	-- TipType Border Color -- Disable these 3 lines to color border. Az: Work into options?

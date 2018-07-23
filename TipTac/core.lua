@@ -2,6 +2,7 @@ local _G = getfenv(0);
 local abs = abs;
 local gtt = GameTooltip;
 local UnitExists = UnitExists;
+local unpack = unpack;
 
 -- Addon
 local modName = ...;
@@ -162,15 +163,16 @@ local TT_TipsToModify = {
 	"GameTooltip",
 	"ShoppingTooltip1",
 	"ShoppingTooltip2",
-	"ShoppingTooltip3",
+	"ShoppingTooltip3",			-- does #3 exist anymore?
 	"ItemRefTooltip",
 	"ItemRefShoppingTooltip1",
 	"ItemRefShoppingTooltip2",
-	"ItemRefShoppingTooltip3",
+	"ItemRefShoppingTooltip3",	-- does #3 exist anymore?
 	"WorldMapTooltip",
 	"WorldMapCompareTooltip1",
 	"WorldMapCompareTooltip2",
-	"WorldMapCompareTooltip3",
+	"WorldMapCompareTooltip3",	-- does #3 exist anymore?
+	-- 3rd party addon tooltips
 	"AtlasLootTooltip",
 	"QuestHelperTooltip",
 	"QuestGuru_QuestWatchTooltip",
@@ -750,7 +752,7 @@ local function UpdateHealthAndPowerBar()
 end
 
 --------------------------------------------------------------------------------------------------------
---                                       Auras - Buffs & Debuffs                                      --
+--                                       Auras: Buffs & Debuffs                                       --
 --------------------------------------------------------------------------------------------------------
 
 local function CreateAuraFrame()
@@ -1100,8 +1102,9 @@ end
 -- HOOK: GTT OnTooltipCleared -- This will clean up auras, bars, raid icon and vars for the gtt when we aren't showing a unit
 local function GTTHook_OnTooltipCleared(self,...)
 	-- WoD: resetting the back/border color seems to be a necessary action, otherwise colors may stick when showing the next tooltip thing (world object tips)
-	self:SetBackdropColor(unpack(cfg.tipColor));
-	self:SetBackdropBorderColor(unpack(cfg.tipBorderColor));
+	-- BfA: The tooltip now also clears the backdrop in adition to color and bordercolor, so set it again here
+	tt:ApplyBackdrop(self);
+
 	-- wipe the vars
 	wipe(u);
 	gtt_lastUpdate = 0;
@@ -1123,8 +1126,26 @@ end
 
 -- OnHide Script -- Used to default the background and border color
 local function TipHook_OnHide(self,...)
-	self:SetBackdropColor(unpack(cfg.tipColor));				-- Default: For most: (0.1,0.1,0.2), World Objects?: (0,0.2,0.35)
-	self:SetBackdropBorderColor(unpack(cfg.tipBorderColor));	-- Default: (1,1,1,1)
+	tt:ApplyBackdrop(self);
+end
+
+-- Resolves the given table array of string names into their global objects
+local function ResolveGlobalNamedObjects(tipTable)
+	local resolved = {};
+	for index, tipName in ipairs(tipTable) do
+		-- lookup the global object from this name, assign false if nonexistent, to preserve the table entry
+		local tip = (_G[tipName] or false);
+
+		-- Check if this object has already been resolved. This can happen for thing like AtlasLoot, which sets AtlasLootTooltip = GameTooltip
+		if (resolved[tip]) then
+			tip = false;
+		elseif (tip) then
+			resolved[tip] = index;
+		end
+
+		-- Assign the resolved object or false back into the table array
+		tipTable[index] = tip;
+	end
 end
 
 -- Function to loop through tips to modify and hook
@@ -1134,24 +1155,15 @@ function tt:HookTips()
 	gtt:HookScript("OnUpdate",GTTHook_OnUpdate);
 	gtt:HookScript("OnTooltipSetUnit",GTTHook_OnTooltipSetUnit);
 	gtt:HookScript("OnTooltipCleared",GTTHook_OnTooltipCleared);
-	-- HOOK: OnHide & OnTooltipSetItem Scripts
+
+	-- Resolve the TipsToModify and hook their OnHide script
+	ResolveGlobalNamedObjects(TT_TipsToModify);
 	for index, tipName in ipairs(TT_TipsToModify) do
-		local tip = (_G[tipName] or false);	-- use false, as we don't want to nil out an entry
-		-- Here we make sure not to add duplicate items. This can happen for thing like AtlasLoot, which sets AtlasLootTooltip = GameTooltip
-		if (tip) then
-			for i = 1, index - 1 do
-				if (tip == TT_TipsToModify[i]) then
-					tip = false;
-					break;
-				end
-			end
-		end
-		-- Set string index to table, or false if not part of the UI
-		TT_TipsToModify[index] = tip;
 		if (type(tip) == "table") and (type(tip.GetObjectType) == "function") then
 			tip:HookScript("OnHide",TipHook_OnHide);
 		end
 	end
+
 	-- Replace GameTooltip_SetDefaultAnchor (For Re-Anchoring) -- Patch 3.2 made this function secure for some reason
 	hooksecurefunc("GameTooltip_SetDefaultAnchor",function(tooltip,parent)
 		-- Return if no tooltip or parent
@@ -1171,6 +1183,7 @@ function tt:HookTips()
 		end
 		tooltip.default = 1;
 	end);
+
 	-- Clear this function as it's not needed anymore
 	self.HookTips = nil;
 end
@@ -1239,9 +1252,7 @@ function tt:ApplySettings()
 			end
 			SetupGradientTip(tip);
 			tip:SetScale(cfg.gttScale);
-			tip:SetBackdrop(tipBackdrop);
-			tip:SetBackdropColor(unpack(cfg.tipColor));
-			tip:SetBackdropBorderColor(unpack(cfg.tipBorderColor));
+			tt:ApplyBackdrop(tip);
 		end
 	end
 	-- Bar Appearances
@@ -1310,6 +1321,13 @@ function tt:ApplySettings()
 	if (TipTacItemRef and TipTacItemRef.ApplySettings) then
 		TipTacItemRef:ApplySettings();
 	end
+end
+
+-- Applies the backdrop, color and border color. The GTT will often reset these internally.
+function tt:ApplyBackdrop(tip)
+	tip:SetBackdrop(tipBackdrop);
+	tip:SetBackdropColor(unpack(cfg.tipColor));				-- Default: For most: (0.1,0.1,0.2), World Objects?: (0,0.2,0.35)
+	tip:SetBackdropBorderColor(unpack(cfg.tipBorderColor));	-- Default: (1,1,1,1)
 end
 
 --------------------------------------------------------------------------------------------------------

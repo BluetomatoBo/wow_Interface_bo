@@ -20,7 +20,7 @@ function TipTacDropDowns.Default_Init(dropDown,list)
 		tbl = list[#list + 1]
 		tbl.text = text; tbl.value = option;
 	end
-end;
+end
 
 --------------------------------------------------------------------------------------------------------
 --                                          Lib Shared Media                                          --

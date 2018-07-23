@@ -1,3 +1,8 @@
+TipTacItemRef Changes | 2018 Jul 22
+-----------------------------------
+- ItemIDs will now be shown, even for items that has no valid itemLevel. Thanks Kiber_.
+- Fixed an issue that could reference the Icon before it was created, if ApplySettings was called from TipTac.
+
 TipTacItemRef Changes | 2018 Jul 19
 -----------------------------------
 - Updated the TOC version to 80000 for the Battle for Azeroth 8.0 pre-patch.
