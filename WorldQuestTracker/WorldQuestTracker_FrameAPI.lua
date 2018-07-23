@@ -552,8 +552,11 @@ function WorldQuestTracker.OnQuestButtonClick (self, button)
 	
 --isn't using the tracker
 	if (not WorldQuestTracker.db.profile.use_tracker or IsShiftKeyDown()) then
-		TaskPOI_OnClick (self, button)
-		
+		local defaultPin = WorldQuestTracker.GetDefaultPinForQuest (self.questID)
+		if (defaultPin) then
+			defaultPin:OnClick()
+		end
+
 		if (self.IsZoneQuestButton) then
 			WorldQuestTracker.UpdateZoneWidgets()
 		else
@@ -672,4 +675,15 @@ function WorldQuestTracker.SetTextSize (MapType, Size)
 		return
 	end
 	
+end
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--> pin mixin
+
+function WorldQuestTrackerPinMixin:OnLoad()
+	self:UseFrameLevelType ("PIN_FRAME_LEVEL_AREA_POI")
+end
+
+function WorldQuestTrackerPinMixin:OnAcquired (...)
+	return self
 end
