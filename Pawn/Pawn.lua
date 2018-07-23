@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0219
+PawnVersion = 2.0221
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -3280,12 +3280,13 @@ function PawnFindBestItems(ScaleName, InventoryOnly)
 	
 	-- Now, scan all of the items in the player's equipment sets.
 	if not InventoryOnly then
-		local NumSets = GetNumEquipmentSets()
+		local NumSets = C_EquipmentSet.GetNumEquipmentSets()
 		local ItemLocations = { }
 		local i
 		for i = 1, NumSets do
 			wipe(ItemLocations)
-			GetEquipmentSetLocations(GetEquipmentSetInfo(i), ItemLocations)
+			local _, _, EquipmentSetID = C_EquipmentSet.GetEquipmentSetInfo(i)
+			ItemLocations = C_EquipmentSet.GetItemLocations(EquipmentSetID)
 			PreviousItemLink = nil
 			for Slot = 1, 17 do if Slot ~= 4 and Slot ~= 13 and Slot ~= 14 then
 				local Location = ItemLocations[Slot]
@@ -3296,7 +3297,7 @@ function PawnFindBestItems(ScaleName, InventoryOnly)
 					if IsInVoidStorage then
 						-- The item link for this item should be GetVoidItemHyperlinkString(VoidSlot), but we'll never get here; location will
 						-- be -1 (item unavailable) for items in void storage.
-						ItemLink = GetVoidItemHyperlinkString(VoidSlot)
+						ItemLink = nil --GetVoidItemHyperlinkString(VoidSlot) -- API no longer exists in 8.0
 						VgerCore.Fail("Didn't expect to find an equipment set item in void storage!")
 					elseif not IsInBags then
 						VgerCore.Assert(IsOnPlayer or IsInBank, "Equipment set contains new location data that Pawn doesn't understand; EquipmentManager_UnpackLocation may have been updated.")
