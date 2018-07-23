@@ -135,7 +135,8 @@ function AS:ParchmentRemover(event, addon)
 			CurrentQuestsText.SetTextColor = AS.Noop
 			AvailableQuestsText:SetTextColor(1, 1, 0)
 			AvailableQuestsText.SetTextColor = AS.Noop
-			for i = 1, MAX_NUM_QUESTS do
+
+			for i = 1, C_QuestLog.GetMaxNumQuestsCanAccept() do
 				local button = _G['QuestTitleButton'..i]
 				if button then
 					hooksecurefunc(button, 'SetFormattedText', function()
@@ -218,13 +219,13 @@ function AS:ParchmentRemover(event, addon)
 			SpellBookPage2:Kill()
 			SpellBookPageText:SetTextColor(0.6, 0.6, 0.6)
 
+			--First Aid is no more
 			local professionheaders = {
 				"PrimaryProfession1",
 				"PrimaryProfession2",
 				"SecondaryProfession1",
 				"SecondaryProfession2",
-				"SecondaryProfession3",
-				"SecondaryProfession4"
+				"SecondaryProfession3"
 			}
 
 			for _, header in pairs(professionheaders) do
