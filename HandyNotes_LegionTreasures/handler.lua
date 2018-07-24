@@ -68,6 +68,20 @@ local function work_out_label(point)
     if point.label then
         return point.label
     end
+    if point.achievement and point.criteria then
+        local criteria = GetAchievementCriteriaInfoByID(point.achievement, point.criteria)
+        if criteria then
+            return criteria
+        end
+        fallback = 'achievement:'..point.achievement..'.'..point.criteria
+    end
+    if point.follower then
+        local follower = C_Garrison.GetFollowerInfo(point.follower)
+        if follower then
+            return follower.name
+        end
+        fallback = 'follower:'..point.follower
+    end
     if point.npc then
         local name = mob_name(point.npc)
         if name then
@@ -91,7 +105,7 @@ local function work_out_label(point)
             return name
         end
     end
-    return UNKNOWN
+    return fallback or UNKNOWN
 end
 local function work_out_texture(point)
     if point.atlas then
@@ -172,25 +186,16 @@ end
 local function handle_tooltip(tooltip, point)
     if point then
         -- major:
-        if point.label then
-            tooltip:AddLine(point.label)
-        end
-        if point.npc then
-            tooltip:AddLine(mob_name(point.npc) or ("npc:"..point.npc))
-        end
-        if point.item then
-            local name, link = GetItemInfo(point.item)
-            tooltip:AddLine(link and (link:gsub("[%[%]]", "")) or name)
-        end
+        tooltip:AddLine(work_out_label(point))
         if point.follower then
             local follower = C_Garrison.GetFollowerInfo(point.follower)
             if follower then
                 local quality = BAG_ITEM_QUALITY_COLORS[follower.quality]
-                tooltip:AddLine(follower.name, quality.r, quality.g, quality.b)
+                tooltip:AddDoubleLine(REWARD_FOLLOWER, follower.name,
+                    0, 1, 0,
+                    quality.r, quality.g, quality.b
+                )
                 tooltip:AddDoubleLine(follower.className, UNIT_LEVEL_TEMPLATE:format(follower.level))
-                tooltip:AddLine(REWARD_FOLLOWER, 0, 1, 0)
-            else
-                tooltip:AddLine(UNKNOWN, 1, 0, 0)
             end
         end
         if point.currency then
@@ -295,7 +300,7 @@ local HLHandler = {}
 local info = {}
 
 function HLHandler:OnEnter(mapFile, coord)
-    local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+    local tooltip = self:GetParent() == WorldMapFrame:GetCanvas() and WorldMapTooltip or GameTooltip
     if self:GetCenter() > UIParent:GetCenter() then -- compare X coordinate
         tooltip:SetOwner(self, "ANCHOR_LEFT")
     else
@@ -308,7 +313,7 @@ local function createWaypoint(button, mapFile, coord)
     if TomTom then
         local mapId = HandyNotes:GetMapFiletoMapID(mapFile)
         local x, y = HandyNotes:getXY(coord)
-        TomTom:AddMFWaypoint(mapId, nil, x, y, {
+        TomTom:AddWaypoint(mapId, x, y, {
             title = get_point_info_by_coord(mapFile, coord),
             persistent = nil,
             minimap = true,
@@ -398,7 +403,7 @@ do
 end
 
 function HLHandler:OnLeave(mapFile, coord)
-    if self:GetParent() == WorldMapButton then
+    if self:GetParent() == WorldMapFrame:GetCanvas() then
         WorldMapTooltip:Hide()
     else
         GameTooltip:Hide()
@@ -440,6 +445,9 @@ do
         currentLevel = level
         mapFile = string.gsub(mapFile, "_terrain%d+$", "")
         currentZone = mapFile
+        if (minimap and not ns.db.show_on_minimap) or (not minimap and not ns.db.show_on_world) then
+            return iter
+        end
         if minimap and ns.map_spellids[mapFile] then
             if ns.map_spellids[mapFile] == true then
                 return iter
