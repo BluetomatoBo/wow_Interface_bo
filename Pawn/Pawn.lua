@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0221
+PawnVersion = 2.0222
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -68,8 +68,7 @@ PawnImportScaleResultAlreadyExists = 2
 PawnImportScaleResultTagError = 3
 
 PawnIgnoreStatValue = -1000000
-PawnBigUpgradeThreshold = 100 -- 100 = 10000% upgrade: don't display upgrade numbers that large
-PawnMinimumItemLevelToConsiderGems = 800 -- Sockets on items below this ilvl are ignored
+PawnBigUpgradeThreshold = 100 -- = 10000% upgrade: don't display upgrade numbers that large
 
 -- Data used by PawnGetSlotsForItemType.
 local PawnItemEquipLocToSlot1 = 
@@ -2921,8 +2920,8 @@ function PawnIsItemAnUpgrade(Item, DoNotRescan)
 		VgerCore.Fail("Item must be a table of item stats, not '" .. type(Item) .. "'.")
 		return
 	end
-	-- Never show upgrade information for artifacts.
-	if Item.Rarity == 6 then return end
+	-- -- Never show upgrade information for artifacts.
+	-- if Item.Rarity == 6 then return end
 	local InvType = Item.InvType
 	if not InvType or InvType == "" or InvType == "INVTYPE_TRINKET" or InvType == "INVTYPE_BAG" or InvType == "INVTYPE_QUIVER" or InvType == "INVTYPE_TABARD" or InvType == "INVTYPE_BODY" or InvType == "INVTYPE_THROWN" or InvType == "INVTYPE_AMMO" or InvType == "INVTYPE_RELIC" then return nil end
 	local UnenchantedItemLink, NeedsEnhancements = PawnUnenchantItemLink(Item.Link, true)
@@ -2934,10 +2933,11 @@ function PawnIsItemAnUpgrade(Item, DoNotRescan)
 	if MainWeaponLink then
 		local MainWeapon = PawnGetItemData(MainWeaponLink)
 		if MainWeapon then
-			if MainWeapon.Rarity == 6 then
-				-- They're wielding an artifact, so bail out now if they're looking at any kind of weapon or off-hand.
-				if InvType == "INVTYPE_WEAPON" or InvType == "INVTYPE_WEAPONMAINHAND" or InvType == "INVTYPE_WEAPONOFFHAND" or InvType == "INVTYPE_SHIELD" or InvType == "INVTYPE_HOLDABLE" or InvType == "INVTYPE_2HWEAPON" then return end
-			elseif MainWeapon.InvType == "INVTYPE_2HWEAPON" then
+			-- if MainWeapon.Rarity == 6 then
+			-- 	-- They're wielding an artifact, so bail out now if they're looking at any kind of weapon or off-hand.
+			-- 	if InvType == "INVTYPE_WEAPON" or InvType == "INVTYPE_WEAPONMAINHAND" or InvType == "INVTYPE_WEAPONOFFHAND" or InvType == "INVTYPE_SHIELD" or InvType == "INVTYPE_HOLDABLE" or InvType == "INVTYPE_2HWEAPON" then return end
+			-- else
+			if MainWeapon.InvType == "INVTYPE_2HWEAPON" then
 				-- They're using a two-handed weapon.  Bail out now if this is a one-handed weapon.
 				if InvType == "INVTYPE_WEAPON" or InvType == "INVTYPE_WEAPONMAINHAND" or InvType == "INVTYPE_WEAPONOFFHAND" or InvType == "INVTYPE_SHIELD" or InvType == "INVTYPE_HOLDABLE" then return end
 			else
@@ -3208,10 +3208,10 @@ function PawnFindBestItems(ScaleName, InventoryOnly)
 		-- Skip trinkets because we can't reliably tell which trinkets are best.
 		-- Also skip item classes that don't have stats, and items that have a zero value.
 		if not Item then return end
-		-- Never show upgrade information for artifacts.  Preventing them from going into your best item list
-		-- ensures that you don't have to worry about an unequippable Havoc artifact being considered your best Vengeance
-		-- item before you get your actual Vengeance artifact.
-		if Item.Rarity == 6 then return end
+		-- -- Never show upgrade information for artifacts.  Preventing them from going into your best item list
+		-- -- ensures that you don't have to worry about an unequippable Havoc artifact being considered your best Vengeance
+		-- -- item before you get your actual Vengeance artifact.
+		-- if Item.Rarity == 6 then return end
 		local InvType = Item.InvType
 		if not InvType or InvType == "" or InvType == "INVTYPE_TRINKET" or InvType == "INVTYPE_BAG" or InvType == "INVTYPE_QUIVER" or InvType == "INVTYPE_TABARD" or InvType == "INVTYPE_BODY" then return end
 		local _, Value = PawnGetSingleValueFromItem(Item, ScaleName)
@@ -3631,12 +3631,11 @@ end
 -- these same requirements.
 function PawnGetMaxLevelItemIsUsefulHeirloom(Item)
 	if Item.Rarity == 6 then
-		-- This is an artifact, which is like an infinitely-scaling heirloom.
-		return 1000
+		-- This is an artifact, so the player won't get anything better until level 110 at the earliest.
+		-- (Battle for Azeroth leveling dungeons provide weapons that would be higher ilvl than most players' artifacts.)
+		return 109
 	elseif Item.UnenchantedStats and Item.UnenchantedStats.MaxScalingLevel then
 		-- This item scales until you reach MaxScalingLevel.
-		-- Verified as of patch 5.0.5: the level 1-80 heirloom items stop granting their XP bonus as soon as
-		-- you hit level 80.  Previously Pawn valued those items as being always superior until you hit level 81.
 		return Item.UnenchantedStats.MaxScalingLevel - 1
 	else
 		-- This item doesn't scale.

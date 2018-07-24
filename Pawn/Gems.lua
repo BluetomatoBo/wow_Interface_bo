@@ -314,6 +314,34 @@ local PawnGemData110Epic =
 
 
 --========================================
+-- Level 120 crafted uncommon prismatic gems
+--========================================
+local PawnGemData120Uncommon =
+{
+
+{ 153710, "CritRating", 7 }, -- Deadly Solstone
+{ 153711, "HasteRating", 7 }, -- Quick Golden Beryl
+{ 153712, "Versatility", 7 }, -- Versatile Kyanite
+{ 153713, "MasteryRating", 7 }, -- Masterful Kubiline
+
+}
+
+
+--========================================
+-- Level 110 crafted rare prismatic gems
+--========================================
+local PawnGemData120Rare =
+{
+
+{ 154126, "CritRating", 9 }, -- Deadly Amberblaze
+{ 154127, "HasteRating", 9 }, -- Quick Owlseye
+{ 154128, "Versatility", 9 }, -- Versatile Royal Quartz
+{ 154129, "MasteryRating", 9 }, -- Masterful Tidal Amethyst
+
+}
+
+
+--========================================
 
 -- The master list of all tables of Pawn gem data
 
@@ -329,10 +357,11 @@ PawnGemQualityLevels =
 {
 	-- 355-370: BfA world bosses
 	-- 355: BfA normal raids
-	-- 340: BfA mythic dungeons / raid finder
 	-- 325: BfA heroics
 	-- 280: low-level BfA blue set
 	-- 210: leveling dungeons in BfA
+	{ 340, PawnGemData120Rare }, -- BfA mythic dungeons / raid finder
+	{ 270, PawnGemData120Uncommon }, -- above Legion legendaries
 	{ 225, PawnGemData110Epic }, -- Heroic Antorus
 	{ 195, PawnGemData110Rare }, -- Heroic Tomb of Sargeras / higher than new Relinquished gear
 	{ 153, PawnGemData110Uncommon }, -- Higher than Mythic Hellfire Citadel gear (heirlooms scale to 160)
@@ -352,3 +381,4 @@ PawnGemQualityLevels =
 	{ 0, PawnGemData70Uncommon },
 }
 
+PawnMinimumItemLevelToConsiderGems = 153 -- Sockets on items below this ilvl are ignored

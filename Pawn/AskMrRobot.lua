@@ -8,7 +8,7 @@
 
 local ScaleProviderName = "MrRobot"
 
-PawnMrRobotLastUpdatedVersion = 2.0221 -- no actual weight updates in this version, but gem values changed
+PawnMrRobotLastUpdatedVersion = 2.0222
 
 
 function PawnMrRobotScaleProvider_AddScales()
