@@ -1,4 +1,4 @@
---[[ $Id: GuildNotes.lua 63 2016-08-16 18:06:15Z nevcairiel $ ]]
+--[[ $Id: GuildNotes.lua 66 2018-07-21 15:45:30Z nevcairiel $ ]]
 local Guild = LibStub("AceAddon-3.0"):NewAddon("HandyNotes_Guild", "AceEvent-3.0", "AceBucket-3.0", "AceHook-3.0")
 
 local HandyNotes = HandyNotes
@@ -85,7 +85,7 @@ end
 local GuildHandler = {}
 
 function GuildHandler:OnEnter(mapFile, coord)
-	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+	local tooltip = self:GetParent() == WorldMapFrame:GetCanvas() and WorldMapTooltip or GameTooltip
 	if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
 		tooltip:SetOwner(self, "ANCHOR_LEFT")
 	else
@@ -100,7 +100,7 @@ function GuildHandler:OnEnter(mapFile, coord)
 end
 
 function GuildHandler:OnLeave(mapFile, coord)
-	if self:GetParent() == WorldMapButton then
+	if self:GetParent() == WorldMapFrame:GetCanvas() then
 		WorldMapTooltip:Hide()
 	else
 		GameTooltip:Hide()
@@ -123,9 +123,9 @@ do
 		end
 	end
 
-	function GuildHandler:GetNodes(mapFile, minimap)
+	function GuildHandler:GetNodes2(uiMapId, minimap)
 		prestate = nil
-		map = mapFile
+		map = uiMapId
 		if minimap then
 			return iter, emptyTbl, nil
 		else

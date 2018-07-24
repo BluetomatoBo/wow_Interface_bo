@@ -1,6 +1,6 @@
 --[[
 Name: LibGuildPositions-1.0
-Revision: $Rev: 52 $
+Revision: $Rev: 57 $
 Author: Cameron Kenneth Knight (ckknight@gmail.com)
 Website: http://www.wowace.com/
 Description: Communicates with guild members for their positions on the world map
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibGuildPositions-1.0"
-local MINOR_VERSION = 90000 + tonumber(("$Revision: 52 $"):match("%d+")) or 0
+local MINOR_VERSION = 100001
 
 -- #AUTODOC_NAMESPACE lib
 
@@ -17,7 +17,7 @@ if not lib then
 	return
 end
 
-local COMM_PREFIX = "LGP"
+local COMM_PREFIX = "LGP2"
 
 local _G = _G
 local pairs = _G.pairs
@@ -27,8 +27,8 @@ local GetNumGuildMembers = _G.GetNumGuildMembers
 local GetGuildRosterInfo = _G.GetGuildRosterInfo
 local GetTime = _G.GetTime
 local IsInInstance = _G.IsInInstance
-local GetPlayerMapPosition = _G.GetPlayerMapPosition
-local GetMapInfo = _G.GetMapInfo
+local GetPlayerMapPosition = _G.C_Map.GetPlayerMapPosition
+local GetDisplayableMapForPlayer = MapUtil.GetDisplayableMapForPlayer
 local Ambiguate = _G.Ambiguate
 local string_char = _G.string.char
 local math_floor = _G.math.floor
@@ -68,7 +68,7 @@ end
 --[[
 Notes:
 	x and y are in the range [0, 1]
-	zone is the map texture that the guild member is in, not the localized name.
+	zone is the uiMapID that the guild member is in
 Returns:
 	iterator that returns name, x, y, and zone
 Example:
@@ -83,7 +83,7 @@ end
 --[[
 Notes:
 x and y are in the range [0, 1]
-	zone is the map texture that the guild member is in, not the localized name.
+	zone is the uiMapID that the guild member is in
 Returns:
 	x, y, zone - the horizontal position, vertical position, and map texture of the guild member. All nil if unknown or not on the map or offline.
 Example:
@@ -111,13 +111,13 @@ _G.hooksecurefunc("GuildRoster", function()
 end)
 
 local function SendMessage(data)
-	_G.SendAddonMessage(COMM_PREFIX, data, "GUILD")
+	_G.C_ChatInfo.SendAddonMessage(COMM_PREFIX, data, "GUILD")
 end
 
 local events = {}
 
 function events.ADDON_LOADED()
-	_G.RegisterAddonMessagePrefix(COMM_PREFIX)
+	_G.C_ChatInfo.RegisterAddonMessagePrefix(COMM_PREFIX)
 	if _G.ChatThrottleLib then
 		local ChatThrottleLib = _G.ChatThrottleLib
 		function SendMessage(data)
@@ -191,7 +191,8 @@ function events.CHAT_MSG_ADDON(event, prefix, message, distribution, sender)
 		local x = ((x_1-1)*255 + (x_2-1)) / (255^2)
 		local y = ((y_1-1)*255 + (y_2-1)) / (255^2)
 		zone_len = zone_len-1
-		local zone = message:sub(7, 6+zone_len)
+		local zoneString = message:sub(7, 6+zone_len)
+		local zone = tonumber(zoneString)
 		guildieX[sender] = x
 		guildieY[sender] = y
 		guildieZone[sender] = zone
@@ -277,21 +278,32 @@ frame:SetScript("OnUpdate", function(this, elapsed)
 					SendMessage(string_char(clear_byte))
 				end
 			else
-				local x, y = GetPlayerMapPosition("player")
-				local zone = GetMapInfo()
-				if (x ~= last_x or y ~= last_y or zone ~= last_zone or last_sendTime < currentTime-90) and x ~= 0 and y ~= 0 and zone then
-					last_x = x
-					last_y = y
-					last_zone = zone
-					last_sendTime = currentTime
-					x = math_floor(x * 255^2 + 0.5)
-					y = math_floor(y * 255^2 + 0.5)
-					local x_1 = math_floor(x / 255) + 1
-					local x_2 = (x % 255) + 1
-					local y_1 = math_floor(y / 255) + 1
-					local y_2 = (y % 255) + 1
-					clearedLast = false
-					SendMessage(string_char(position_byte, x_1, x_2, y_1, y_2, #zone+1) .. zone)
+				local zone = GetDisplayableMapForPlayer()
+				if zone then
+					local pos = GetPlayerMapPosition(zone, "player")
+					if pos then
+						local x, y = pos:GetXY()
+						if (x ~= last_x or y ~= last_y or zone ~= last_zone or last_sendTime < currentTime-90) and x and x ~= 0 and y and y ~= 0 then
+							last_x = x
+							last_y = y
+							last_zone = zone
+							last_sendTime = currentTime
+							x = math_floor(x * 255^2 + 0.5)
+							y = math_floor(y * 255^2 + 0.5)
+							local x_1 = math_floor(x / 255) + 1
+							local x_2 = (x % 255) + 1
+							local y_1 = math_floor(y / 255) + 1
+							local y_2 = (y % 255) + 1
+							clearedLast = false
+							local zoneString = tostring(zone)
+							SendMessage(string_char(position_byte, x_1, x_2, y_1, y_2, #zoneString+1) .. zoneString)
+						end
+					end
+				else
+					if not clearedLast then
+						clearedLast = true
+						SendMessage(string_char(clear_byte))
+					end
 				end
 			end
 		end
