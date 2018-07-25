@@ -5,4 +5,4 @@
 ## Notes: Improved ItemRefTooltip
 ## OptionalDeps: TipTac
 LibItemString.lua
-core.lua
+ttItemRef.lua

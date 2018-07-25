@@ -1,5 +1,5 @@
 ## Interface: 80000
-## Version: 18.07.19
+## Version: 18.07.24
 ## Title: TipTacOptions
 ## Author: Aezay (Earthen Ring EU)
 ## Notes: Option Dialog for TipTac
@@ -8,4 +8,4 @@
 Libs\AzDropDown.lua
 Libs\AzOptionsFactory.lua
 DropDowns.lua
-Options.lua
+ttOptions.lua

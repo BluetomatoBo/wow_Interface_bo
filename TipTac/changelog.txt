@@ -1,6 +1,17 @@
+TipTac Changes | 2018 Jul 24
+----------------------------
+- No longer tries to style the "ShoppingTooltip3", "ItemRefShoppingTooltip3" and "WorldMapCompareTooltip3". Which seemed to have been removed in WoD.
+- Fixed aura textures and cooldown not being applied properly.
+- Having an anchor type set to "Parent Anchor", will no longer apply if the parent frame is UIParent. Instead it will fall back to using "Normal Anchor".
+- Added "/tiptac reset" which will reset all settings back to their default values.
+- Renamed all the "core.lua" files, for all TipTac addons, into something more appropriate for their purpose. Restart of client required when updating.
+- Fixed all the backdrop issues. Hopefully there aren't any side effects with this new method of ensuring the correct backdrop.
+- No longer resizes the tooltip manually, but instead uses the GTT:SetPadding() function.
+
 TipTac Changes | 2018 Jul 22
 ----------------------------
 - Tried to fix some of the issues with the backdrop setting not always being applied. There may still be some issues left.
+- TipTacItemRef: Fixed an issue that could reference the Icon before it was created, if ApplySettings was called from TipTac.
 
 TipTac Changes | 2018 Jul 19
 ----------------------------

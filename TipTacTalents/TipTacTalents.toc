@@ -4,4 +4,4 @@
 ## Author: Aezay (Earthen Ring EU)
 ## Notes: Adds Talent Spec to Player Tooltips
 ## OptionalDeps: TipTac
-core.lua
+ttTalents.lua

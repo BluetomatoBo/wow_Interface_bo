@@ -55,6 +55,7 @@ Notice: It's possible that you do not have an addon installed which adds the /du
 
 Lacking Features, Ideas & Problems
 ----------------------------------
+- There is an issue with the Chat Frame Hyperlink hooking.
 - Add glyph and npc support for the TipTacItemRef addon.
 - Look into scaling the tooltip height by adding texture lines like "|T:1:30|t". Only issue is that it needs to remain the last line, if another addon adds more lines, it will cause issues.
 - Colorblind mode does not work properly with owned combat pets with a custom name.
