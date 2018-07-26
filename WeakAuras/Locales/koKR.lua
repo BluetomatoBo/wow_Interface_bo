@@ -424,6 +424,8 @@ L["Multistrike"] = "연속타격"
 L["Multi-target"] = "다중 대상"
 L["Music"] = "음악"
 L["Mythic"] = "신화"
+--[[Translation missing --]]
+L["Mythic+ Affix"] = "Mythic+ Affix"
 L["Name"] = "이름"
 L["Neck"] = "목"
 L["Neutral"] = "중립"

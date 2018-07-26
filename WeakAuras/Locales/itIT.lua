@@ -678,6 +678,8 @@ L["Music"] = "Music"
 --[[Translation missing --]]
 L["Mythic"] = "Mythic"
 --[[Translation missing --]]
+L["Mythic+ Affix"] = "Mythic+ Affix"
+--[[Translation missing --]]
 L["Name"] = "Name"
 --[[Translation missing --]]
 L["Neck"] = "Neck"

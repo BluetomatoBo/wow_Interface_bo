@@ -631,6 +631,8 @@ L["Multi-target"] = "Multi-alvo"
 L["Music"] = "Música"
 --[[Translation missing --]]
 L["Mythic"] = "Mythic"
+--[[Translation missing --]]
+L["Mythic+ Affix"] = "Mythic+ Affix"
 L["Name"] = "Nome"
 --[[Translation missing --]]
 L["Neck"] = "Neck"

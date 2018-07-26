@@ -399,6 +399,8 @@ L["Multistrike"] = "\"Мультистрайк\""
 L["Multi-target"] = "Несколько целей"
 L["Music"] = "Музыка"
 L["Mythic"] = "Эпохальный"
+--[[Translation missing --]]
+L["Mythic+ Affix"] = "Mythic+ Affix"
 L["Name"] = "Название"
 L["Neck"] = "Шея"
 L["Neutral"] = "Нейтральный"

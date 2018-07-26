@@ -419,6 +419,8 @@ L["Multistrike"] = "Mehrfachschlag"
 L["Multi-target"] = "Mehrfachziel"
 L["Music"] = "Musik"
 L["Mythic"] = "Mythisch"
+--[[Translation missing --]]
+L["Mythic+ Affix"] = "Mythic+ Affix"
 L["Name"] = "Name"
 L["Neck"] = "Hals"
 L["Neutral"] = "Neutral"
