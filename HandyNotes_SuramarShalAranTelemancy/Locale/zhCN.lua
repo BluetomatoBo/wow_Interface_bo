@@ -77,8 +77,4 @@ L["Unspecified Entrances"] = "不明入口"
 L["Warp Lab"] = "跃传实验室"
 L["What to display"] = "哪些要被呈现"
 
--- ToC
-L["Description"] = "显示在沙尔艾兰与苏拉玛尔之间的各个传送点位置"
-L["Title"] = "HandyNotes - 苏拉玛东与沙尔艾兰的传送"
-
 end

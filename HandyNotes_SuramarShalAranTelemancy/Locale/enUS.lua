@@ -78,8 +78,4 @@ L["Unspecified Entrances"] = "Unspecified Entrances"
 L["Warp Lab"] = "Warp Lab"
 L["What to display"] = "What to display"
 
--- ToC
-L["Description"] = "Shows the telemancy between Shal'Aran and nodes in Suramar"
-L["Title"] = "HandyNotes - Suramar and Shal'Aran Telemancy"
-
 end

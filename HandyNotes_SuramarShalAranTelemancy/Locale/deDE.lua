@@ -79,8 +79,4 @@ L["Unspecified Entrances"] = "Unwichtige Eingänge"
 L["Warp Lab"] = "Warplabor"
 L["What to display"] = "Zeige folgendes"
 
--- ToC
-L["Description"] = "Zeigt die Telemantie zwischen Shal'Aran und Knoten in Suramar"
-L["Title"] = "HandyNotes - Suramar- und Shal'Aran-Telemantie"
-
 end

@@ -1,4 +1,4 @@
--- $Id: Constants.lua 37 2017-06-19 16:46:00Z arith $
+-- $Id: Constants.lua 53 2018-07-26 14:05:30Z arith $
 -----------------------------------------------------------------------
 -- Upvalued Lua API.
 -----------------------------------------------------------------------
@@ -63,5 +63,5 @@ constants.events = {
 	-- Appears to fire whenever the player has moved off of a structure 
 	-- such as a bridge or building and onto terrain or another object.
 	"NEW_WMO_CHUNK",
-	"CLOSE_WORLD_MAP",
+--	"CLOSE_WORLD_MAP",
 };
