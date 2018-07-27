@@ -1,0 +1,15 @@
+------------------------------------------------------------------------
+r385 | mitch0 | 2018-07-23 08:07:42 +0000 (Mon, 23 Jul 2018) | 1 line
+Changed paths:
+   M /trunk/RangeDisplay.toc
+   M /trunk/RangeDisplay_Options/RangeDisplay_Options.toc
+
+toc bump
+------------------------------------------------------------------------
+r384 | mitch0 | 2018-06-27 11:51:09 +0000 (Wed, 27 Jun 2018) | 1 line
+Changed paths:
+   M /trunk/RangeDisplay.lua
+
+SetTexture -> SetColorTexture
+------------------------------------------------------------------------
+

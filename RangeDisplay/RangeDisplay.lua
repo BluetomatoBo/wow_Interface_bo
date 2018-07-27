@@ -1,6 +1,6 @@
 --[[
 Name: RangeDisplay
-Revision: $Revision: 381 $
+Revision: $Revision: 384 $
 Author(s): mitch0
 Website: http://www.wowace.com/projects/range-display/
 SVN: svn://svn.wowace.com/wow/range-display/mainline/trunk
@@ -10,9 +10,9 @@ License: Public Domain
 
 local AppName, RangeDisplay = ...
 local OptionsAppName = AppName .. "_Options"
-local VERSION = AppName .. "-v4.8.1"
+local VERSION = AppName .. "-v4.8.2"
 --[===[@debug@
-local VERSION = AppName .. "-r" .. ("$Revision: 381 $"):match("%d+")
+local VERSION = AppName .. "-r" .. ("$Revision: 384 $"):match("%d+")
 --@end-debug@]===]
 
 local rc = LibStub("LibRangeCheck-2.0")
@@ -402,7 +402,7 @@ local function createOverlay(ud)
     local unit = ud.unit
 
     ud.overlay = ud.mainFrame:CreateTexture("RangeDisplayOverlay_" .. unit, "OVERLAY")
-    ud.overlay:SetTexture(0, 0.42, 0, 0.42)
+    ud.overlay:SetColorTexture(0, 0.42, 0, 0.42)
     ud.overlay:SetAllPoints()
 
     ud.overlayText = ud.mainFrame:CreateFontString("RangeDisplayOverlayText_" .. unit, "OVERLAY", "GameFontNormal")
