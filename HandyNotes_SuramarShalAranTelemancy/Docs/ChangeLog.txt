@@ -1,7 +1,11 @@
-$Id: ChangeLog.txt 53 2018-07-26 14:05:30Z arith $
+$Id: ChangeLog.txt 55 2018-07-27 13:24:59Z arith $
 
 Revision History:
 =================
+
+* v1.18 (Jul. 27, 2018)
+-----------------------
+- Fixed RequiredDeps issue
 
 * v1.17 (Jul. 26, 2018)
 -----------------------

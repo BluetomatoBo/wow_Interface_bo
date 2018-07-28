@@ -27,11 +27,12 @@
 # ## Notes-zhTW: 顯示在沙亞蘭與蘇拉瑪爾之間的各個傳送點位置
 #@end-debug@
 ## Author: arith
-## Version: v1.17
-## RequiredDeps: HandyNotes, LibBabble-SubZone-3.0, !LibUIDropDownMenu
+## Version: v1.18
+## RequiredDeps: HandyNotes
+## OptionalDeps: LibBabble-SubZone-3.0, !LibUIDropDownMenu
 ## DefaultState: enabled
 ## SavedVariables: HandyNotes_SuramarShalAranTelemancyDB
-## X-Date: 2018-07-26T14:05:30Z
+## X-Date: 2018-07-27T13:24:59Z
 ## X-License: GPLv2
 ## X-Category: Map
 
