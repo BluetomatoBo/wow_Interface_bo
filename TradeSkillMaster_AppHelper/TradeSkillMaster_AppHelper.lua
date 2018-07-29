@@ -7,15 +7,11 @@
 -- ------------------------------------------------------------------------------ --
 
 -- register this file with Ace Libraries
-local TSM = select(2, ...)
-TSM = LibStub("AceAddon-3.0"):NewAddon(TSM, "TSM_AppHelper")
+local _, TSM = ...
 TSMAPI.AppHelper = {}
-local private = {data={}}
+local private = { data = {} }
 
 
-function TSM:OnInitialize()
-	TSMAPI:NewModule(TSM)
-end
 
 function TSM.LoadData(tag, ...)
 	private.data[tag] = private.data[tag] or {}

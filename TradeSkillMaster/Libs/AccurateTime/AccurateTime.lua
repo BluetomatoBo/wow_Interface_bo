@@ -122,7 +122,7 @@ end
 -- upgrade the frame
 AccurateTime._frame:SetScript("OnUpdate", OnUpdate)
 
---[===[@debug@
+--@debug@
 function AccurateTimeTest()
 	local start = debugprofilestop()
 	for i=1, 10000000 do
@@ -139,4 +139,4 @@ function AccurateTimeTest()
 	end
 	print("raw", debugprofilestop()-start)
 end
---@end-debug@]===]
+--@end-debug@

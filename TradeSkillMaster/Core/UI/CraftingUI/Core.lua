@@ -1,0 +1,212 @@
+-- ------------------------------------------------------------------------------ --
+--                                TradeSkillMaster                                --
+--                http://www.curse.com/addons/wow/tradeskill-master               --
+--                                                                                --
+--             A TradeSkillMaster Addon (http://tradeskillmaster.com)             --
+--    All Rights Reserved* - Detailed license information included with addon.    --
+-- ------------------------------------------------------------------------------ --
+
+local _, TSM = ...
+local CraftingUI = TSM.UI:NewPackage("CraftingUI")
+local L = TSM.L
+local private = { topLevelPages = {}, fsm = nil, defaultUISwitchBtn = nil, isVisible = false }
+local MIN_FRAME_SIZE = { width = 820, height = 587 }
+
+
+
+-- ============================================================================
+-- Module Functions
+-- ============================================================================
+
+function CraftingUI.OnInitialize()
+	private.FSMCreate()
+end
+
+function CraftingUI.RegisterTopLevelPage(name, textureInfo, callback)
+	tinsert(private.topLevelPages, { name = name, textureInfo = textureInfo, callback = callback })
+end
+
+function CraftingUI.Toggle()
+	TSM.db.global.internalData.craftingUIFrameContext.showDefault = false
+	TSM.Crafting.ProfessionScanner.SetDisabled(false)
+	private.fsm:ProcessEvent("EV_FRAME_TOGGLE")
+end
+
+function CraftingUI.IsProfessionIgnored(name)
+	for i in pairs(TSM.CONST.IGNORED_PROFESSIONS) do
+		local ignoredName = GetSpellInfo(i)
+		if ignoredName == name then
+			return true
+		end
+	end
+end
+
+function CraftingUI.IsVisible()
+	return private.isVisible
+end
+
+
+
+-- ============================================================================
+-- Main Frame
+-- ============================================================================
+
+function private.CreateMainFrame()
+	local frame = TSMAPI_FOUR.UI.NewElement("LargeApplicationFrame", "base")
+		:SetParent(UIParent)
+		:SetMinResize(MIN_FRAME_SIZE.width, MIN_FRAME_SIZE.height)
+		:SetContextTable(TSM.db.global.internalData.craftingUIFrameContext, TSM.db:GetDefaultReadOnly("global", "internalData", "craftingUIFrameContext"))
+		:SetStyle("smallNavArea", true)
+		:SetStyle("strata", "HIGH")
+		:SetTitle(L["TSM Crafting"])
+		:AddSwitchButton(private.SwitchBtnOnClick)
+		:SetScript("OnHide", private.BaseFrameOnHide)
+
+	for _, info in ipairs(private.topLevelPages) do
+		frame:AddNavButton(info.name, info.textureInfo, info.callback)
+	end
+
+	return frame
+end
+
+
+
+-- ============================================================================
+-- Local Script Handlers
+-- ============================================================================
+
+function private.BaseFrameOnHide()
+	private.fsm:ProcessEvent("EV_FRAME_HIDE")
+end
+
+function private.GetNavFrame(_, path)
+	return private.topLevelPages.callback[path]()
+end
+
+function private.SwitchBtnOnClick(button)
+	TSM.db.global.internalData.craftingUIFrameContext.showDefault = button ~= private.defaultUISwitchBtn
+	TSM.Crafting.ProfessionScanner.SetDisabled(TSM.db.global.internalData.craftingUIFrameContext.showDefault)
+	private.fsm:ProcessEvent("EV_SWITCH_BTN_CLICKED")
+end
+
+
+
+-- ============================================================================
+-- FSM
+-- ============================================================================
+
+function private.FSMCreate()
+	TSMAPI_FOUR.Event.Register("TRADE_SKILL_SHOW", function()
+		private.fsm:ProcessEvent("EV_TRADE_SKILL_SHOW")
+	end)
+	TSMAPI_FOUR.Event.Register("TRADE_SKILL_CLOSE", function()
+		private.fsm:ProcessEvent("EV_TRADE_SKILL_CLOSED")
+	end)
+	-- we'll implement UIParent's event handler directly when necessary for TRADE_SKILL_SHOW
+	UIParent:UnregisterEvent("TRADE_SKILL_SHOW")
+
+	local fsmContext = {
+		frame = nil,
+	}
+	local function DefaultFrameOnHide()
+		private.fsm:ProcessEvent("EV_FRAME_HIDE")
+	end
+	private.fsm = TSMAPI_FOUR.FSM.New("CRAFTING_UI")
+		:AddState(TSMAPI_FOUR.FSM.NewState("ST_CLOSED")
+			:AddTransition("ST_DEFAULT_OPEN")
+			:AddTransition("ST_FRAME_OPEN")
+			:AddEvent("EV_FRAME_TOGGLE", function(context)
+				assert(not TSM.db.global.internalData.craftingUIFrameContext.showDefault)
+				return "ST_FRAME_OPEN"
+			end)
+			:AddEvent("EV_TRADE_SKILL_SHOW", function(context)
+				local _, _, _, _, _, _, name = C_TradeSkillUI.GetTradeSkillLine()
+				if CraftingUI.IsProfessionIgnored(name) then
+					return "ST_DEFAULT_OPEN", true
+				elseif TSM.db.global.internalData.craftingUIFrameContext.showDefault then
+					return "ST_DEFAULT_OPEN"
+				else
+					return "ST_FRAME_OPEN"
+				end
+			end)
+		)
+		:AddState(TSMAPI_FOUR.FSM.NewState("ST_DEFAULT_OPEN")
+			:SetOnEnter(function(context, isIgnored)
+				UIParent_OnEvent(UIParent, "TRADE_SKILL_SHOW")
+				if not private.defaultUISwitchBtn then
+					private.defaultUISwitchBtn = TSMAPI_FOUR.UI.NewElement("ActionButton", "switchBtn")
+						:SetStyle("width", 60)
+						:SetStyle("height", 15)
+						:SetStyle("anchors", { { "TOPRIGHT", -30, -4 } })
+						:SetStyle("font", TSM.UI.Fonts.MontserratBold)
+						:SetStyle("fontHeight", 12)
+						:SetText(L["TSM4"])
+						:SetScript("OnClick", private.SwitchBtnOnClick)
+					private.defaultUISwitchBtn:_GetBaseFrame():SetParent(TradeSkillFrame)
+				end
+				if isIgnored then
+					private.defaultUISwitchBtn:Hide()
+				else
+					private.defaultUISwitchBtn:Show()
+					private.defaultUISwitchBtn:Draw()
+				end
+				TradeSkillFrame:SetScript("OnHide", DefaultFrameOnHide)
+				TradeSkillFrame:OnEvent("TRADE_SKILL_DATA_SOURCE_CHANGED")
+				TradeSkillFrame:OnEvent("TRADE_SKILL_LIST_UPDATE")
+			end)
+			:SetOnExit(function(context)
+				TradeSkillFrame:SetScript("OnHide", nil)
+				HideUIPanel(TradeSkillFrame)
+			end)
+			:AddTransition("ST_CLOSED")
+			:AddTransition("ST_FRAME_OPEN")
+			:AddEvent("EV_FRAME_HIDE", function(context)
+				C_TradeSkillUI.CloseTradeSkill()
+				C_Garrison.CloseGarrisonTradeskillNPC()
+				return "ST_CLOSED"
+			end)
+			:AddEvent("EV_TRADE_SKILL_CLOSED", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_CLOSED"))
+			:AddEvent("EV_SWITCH_BTN_CLICKED", function()
+				return "ST_FRAME_OPEN"
+			end)
+		)
+		:AddState(TSMAPI_FOUR.FSM.NewState("ST_FRAME_OPEN")
+			:SetOnEnter(function(context)
+				assert(not context.frame)
+				context.frame = private.CreateMainFrame()
+				context.frame:Show()
+				if C_TradeSkillUI.GetTradeSkillLine() then
+					context.frame:GetElement("titleFrame.switchBtn"):Show()
+				else
+					context.frame:GetElement("titleFrame.switchBtn"):Hide()
+				end
+				context.frame:Draw()
+				private.isVisible = true
+			end)
+			:SetOnExit(function(context)
+				context.frame:Hide()
+				context.frame:Release()
+				context.frame = nil
+				private.isVisible = false
+			end)
+			:AddTransition("ST_CLOSED")
+			:AddTransition("ST_DEFAULT_OPEN")
+			:AddEvent("EV_FRAME_HIDE", function(context)
+				C_TradeSkillUI.CloseTradeSkill()
+				C_Garrison.CloseGarrisonTradeskillNPC()
+				return "ST_CLOSED"
+			end)
+			:AddEvent("EV_TRADE_SKILL_SHOW", function(context)
+				context.frame:GetElement("titleFrame.switchBtn"):Show()
+				context.frame:GetElement("titleFrame"):Draw()
+			end)
+			:AddEvent("EV_TRADE_SKILL_CLOSED", function(context)
+				context.frame:GetElement("titleFrame.switchBtn"):Hide()
+				context.frame:GetElement("titleFrame"):Draw()
+			end)
+			:AddEvent("EV_SWITCH_BTN_CLICKED", function()
+				return "ST_DEFAULT_OPEN"
+			end)
+		)
+		:Init("ST_CLOSED", fsmContext)
+end
