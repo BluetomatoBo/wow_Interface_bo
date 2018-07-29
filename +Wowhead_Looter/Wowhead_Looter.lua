@@ -3,25 +3,25 @@
 --     W o w h e a d   L o o t e r     --
 --                                     --
 --                                     --
---    Patch: 7.0.3                     --
---    Updated: Aug 30, 2016            --
+--    Patch: 8.0.1                     --
+--    Updated: June 22, 2018             --
 --    E-mail: feedback@wowhead.com     --
 --                                     --
 -----------------------------------------
 
 
 local WL_NAME = "|cffffff7fWowhead Looter|r";
-local WL_VERSION = 70001;
+local WL_VERSION = 80000;
 local WL_VERSION_PATCH = 0;
 local WL_ADDONNAME, WL_ADDONTABLE = ...
 
 
 -- SavedVariables
+wlTime = time();
 wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
-wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
-wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = 0, 0, "", "", {};
-wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability, wlItemBonuses = {}, {}, {}, {}, {}, {}, {}, {};
-wlDailies, wlWorldQuests = "", "";
+wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability, wlGarrisonMissions, wlItemBonuses = {}, {}, {}, {}, {}, {}, {}, {}, {};
+wlDailies, wlWorldQuests, wlLesserInvasions, wlGreaterInvasions = "", "", {}, "";
+wlRegionBuildings = {};
 
 -- SavedVariablesPerCharacter
 wlSetting = {};
@@ -57,6 +57,14 @@ local WL_SPELL_BLACKLIST = {
     [135299] = true, -- Ice Trap
     [135373] = true, -- Entrapment
 };
+local WL_LOOT_TOAST_BOSS = {
+	[244164] = 121818,	-- kazzak
+	[244165] = 121820,	-- azuregos
+	[244166] = 121911,	-- taerar
+	[244182] = 121913,	-- emeriss
+	[244184] = 121821,	-- lethon
+	[244183] = 121912,	-- ysondre
+};
 local WL_LOOT_TOAST_BAGS = {
     [142397] = 98134,     -- Heroic Cache of Treasures
     [143506] = 98095,     -- Brawler's Pet Supplies
@@ -73,6 +81,110 @@ local WL_LOOT_TOAST_BAGS = {
     [175767] = 118697,  -- Big Bag of Pet Supplies
     [178508] = 120321,  -- Mystery Bag
     [181405] = 122535,  -- Traveler's Pet Supplies
+    [243134] = 147384,  -- Legionfall Recompense
+    -- broken shore token gear
+    [240421] = 147223,  -- dauntless trinket
+    [240414] = 147216,  -- dauntless hood
+    [240146] = 147218,  -- dauntless shoulder
+    [240412] = 147213,  -- dauntless tunic
+    [240411] = 147212,  -- dauntless bracer
+    [240418] = 147220,  -- dauntless ring
+    [240420] = 147222,  -- dauntless cloak
+    [240417] = 147219,  -- dauntless girdle
+    [240419] = 147221,  -- dauntless choker
+    [240415] = 147217,  -- dauntless leggings
+    [240413] = 147214,  -- dauntless treads
+    [240422] = 147215,  -- dauntless gauntlets
+    [242864] = 147801,  -- Relinquished Trinket
+    [242859] = 147796,  -- relinquished hood
+    [243074] = 147837,  -- relinquished relic
+    [242856] = 147793,  -- relinquished chestguard
+    [242842] = 147786,  -- relinquihed bracers
+    [242862] = 147799,  -- relinquished rings
+    [242860] = 147797,  -- relinquished leggings
+    [242863] = 147800,  -- relinquished spaulders
+    [242858] = 147795,  -- relinquished gauntlets
+    [242855] = 147792,  -- relinquished treads
+    [242854] = 147791,  -- relinquished girdle
+    [242861] = 147798,  -- relinquished necklace
+    [242857] = 147794,  -- relinquished cloak
+    [243127] = 146899,  -- highmountain supplies
+    [243128] = 146901,  -- valarjar strongbox
+    [243126] = 146897,  -- Farondis chest
+    [243131] = 146898,  -- Dreamweaver Cache
+    [243132] = 146900,  -- nightfallen cache
+    [243133] = 146902,  -- warden supply kit
+    [243135] = 147361,  -- legionfall chest
+    
+    -- argus tokens
+    [254781] = 153214,  -- relinquished ring
+    [254774] = 153209,  -- relinquished cloak
+    [254780] = 153207,  -- relinquished boots
+    [254776] = 153206,  -- relinquished bracers
+    [254778] = 153205,  -- relinquished girdle
+    [254782] = 153216,  -- relinquished trinket
+    [254790] = 153064,  -- relinquished relic holy
+    [254773] = 153215,  -- relinquished shoulders
+    [254784] = 153213,  -- relinquished neck
+    [254779] = 153212,  -- relinquished pants
+    [254783] = 153211,  -- relinquished hood
+    [254777] = 153210,  -- relinquished gauntlets
+    [254785] = 153059,  -- relinquished relic arcane
+    [254775] = 153208,  -- relinquished chestguard
+    [254786] = 153060,  -- relinquished relic blood
+    [254787] = 153061,  -- relinquished relic fel
+    [254788] = 153062,  -- relinquished relic fire
+    [254794] = 153068,  -- relinquished relic storm
+    [254793] = 153067,  -- relinquished relic shadow
+    [254792] = 153066,  -- relinquished relic life
+    [254791] = 153065,  -- relinquished relic iron
+    [254789] = 153063,  -- relinquished relic holy
+    [254632] = 153140,  -- unsullied plate belt
+    [252882] = 152733,  -- unsullied trinket
+    [252883] = 152735,  -- unsullied ring
+    [252894] = 152736,  -- unsullied necklace
+    [254628] = 152737,  -- unsullied leather pants
+    [252895] = 152738,  -- unsullied cloth hat
+    [254634] = 152739,  -- unsullied leather gloves
+    [252892] = 152740,  -- unsullied cloak
+    [254641] = 152741,  -- unsullied mail cloak
+    [252890] = 152742,  -- unsullied cloth cuffs
+    [254626] = 152743,  -- unsullied plate sabatons
+    [254631] = 152744,  -- unsullied mail girdle
+    [254634] = 152739,  -- unsullied leather gloves
+    [253033] = 152799,  -- unsullied relic
+    [252891] = 153135,  -- unsullied cloth robes
+    [254624] = 153136,  -- unsullied leather treads
+    [254637] = 153137,  -- unsullied mail spaulders
+    [254630] = 153138,  -- unsullied mail legguards
+    [254646] = 153139,  -- unsullied leather headgear
+    [252893] = 152734,  -- unsullied cloth mantle
+    [252889] = 153141,  -- unsullied cloth mitts
+    [254617] = 153142,  -- unsullied leather armbands
+    [254642] = 153143,  -- unsullied plate breastplate
+    [252884] = 153144,  -- unsullied cloth slippers
+    [254638] = 153145,  -- unsullied leather spaulders
+    [254629] = 153146,  -- unsullied plate greaves
+    [254648] = 153147,  -- unsullied mail coif
+    [254633] = 153148,  -- unsullied leather belt
+    [254635] = 153149,  -- unsullied mail gloves
+    [254622] = 153150,  -- unsullied plate vambraces
+    [254645] = 153151,  -- unsullied leather tunic
+    [254625] = 153152,  -- unsullied mail boots
+    [254639] = 153153,  -- unsullied plate pauldrons
+    [252886] = 153154,  -- unsullied cloth leggings
+    [254649] = 153155,  -- unsullied plate helmet
+    [252887] = 153156,  -- unsullied cloth sash
+    [254636] = 153157,  -- unsullied plate gauntlets
+    [254623] = 153158,  -- unsullied mail bracers
+    
+    -- 7.3 em boxes
+    [254386] = 152652,  -- gilded trunk
+    [253748] = 152923,  -- gleaming footlocker
+    [253747] = 152922,  -- brittle krokul chest
+    [254385] = 152650,  -- scuffed krokul cache
+    
+    
 };
 
 local WL_REP_MODS = {
@@ -91,9 +203,32 @@ local WL_REP_MODS = {
     [GetSpellInfo(136583)] = {nil, 0.1},
     [GetSpellInfo(46668)] = {nil, 0.1},
 };
+local WL_LESSER_INVASIONS = {
+    [5350] = "sangua",   -- invasion point: sangua
+    [5369] = "sangua",   -- invasion point: sangua
+    [5359] = "cen'gar",   -- invasion point: cen'gar
+    [5370] = "cen'gar",   -- invasion point: cen'gar
+    [5360] = "val",   -- invasion point: val
+    [5372] = "val",   -- invasion point: val
+    [5366] = "bonich",   -- invasion point: bonich
+    [5371] = "bonich",   -- invasion point: bonich
+    [5373] = "arinor",   -- invasion point: aurinor
+    [5367] = "aurinor",   -- invasion point: aurinor
+    [5368] = "aurinor",   -- invasion point: naigtal
+    [5374] = "naigtal",   -- invasion point: naigtal
+}
+
+local WL_GREATER_INVASIONS = {
+    [5375] = "124625",	-- Mistress Alluradel
+	[5376] = "124492",	-- Occularus
+	[5377] = "124719",	-- Pit Lord Vilemus
+	[5379] = "124592",	-- Inquisitor Meto
+	[5380] = "124555",	-- Sotanathor
+	[5381] = "124514",	-- Matron Folnuna
+}
 -- Map currency name to currency ID
 local WL_CURRENCIES = {};
-local WL_CURRENCIES_MAXID = 1226;
+local WL_CURRENCIES_MAXID = 2400;
 -- Random Dungeon IDs extracted from LFGDungeons.dbc
 local WL_AREAID_TO_DUNGEONID = {
     [1] = {
@@ -301,6 +436,8 @@ local WL_SPECIAL_CONTAINERS = {
     [126901] = true, [126906] = true, [126909] = true, [126914] = true, [126917] = true, [126918] = true, [126919] = true, [126920] = true, [126921] = true, [126922] = true, [126923] = true, [126924] = true, [126902] = true, [126907] = true, [126910] = true, [126915] = true, [127831] = true, [126903] = true, [126904] = true, [126905] = true, [126908] = true, [126911] = true, [126912] = true, [126913] = true, [126916] = true, [128213] = true, [128214] = true, [128215] = true, [128216] = true, -- Ashran and CM boxes
     [127751] = true, -- fel-touched-pet-supplies
     [128327] = true, -- small-pouch-of-coins
+    [147384] = true,
+    [147446] = true, -- brawler's footlocker
 };
 
 -- garrison trading post NPCs, for today in draenor tracking
@@ -309,7 +446,13 @@ local WL_DAILY_NPCS = {
     '87200', '87201', '87203', '87202', '87204', '86777', '86779', '86778', '86776', '86683', -- alliance and horde trading post NPCs
     '85517', '85557', '85622', '85624', '85625', '85626', '85627', '85628', '85629', '85630', '85631', '85632', '85633', '85634', '85635', '85685', '85659', '85650', '79751', '79179', -- pet battle challenge posts and single NPCs
     '90675', '91014', '91015', '91016', '91017', '91361', '91026', '91364', '91363', '91362', -- erris/kura battle pet NPCs
+    '110321', '108879', '109943', '110378', '109331', '102075', '107023', '99929', '108829', '106984', '108678', -- world bosses, achievement=11160
 };
+
+-- dungeon difficulty -> npcs we're looking for in that difficulty
+local WL_DAILY_INSTANCE_NPCS = {
+    [-23] = {'101950','101951','101976','101995','102246','102387','102431','102446','102614','102615','102616','102617','102618','102619','102659','102891','106373','108862','108863','108864','108865','108866','108867',} -- mythic violet hold bosses
+}
 
 -- garrison daily quests, for today in draenor tracking
 local WL_DAILY_APEXIS = {
@@ -318,43 +461,62 @@ local WL_DAILY_APEXIS = {
 };
 local WL_DAILY_PROFESSION_TRADER_QUESTS = { 38243, 38290, 38293, 38287, 38296 }
 
+-- quests that are repeatable/daily/weekly and we're tracking them, but the game doesn't consider them to be dailies
+local WL_DAILY_BUT_NOT_REALLY = {
+    41183,40857,41167,41164,41192,41171, -- Dariness
+}
+
+local WL_DAILY_VENDOR_ITEMS = { 141713, 141861, 141884, 141860, 141712, 141862, } -- Xur'ios
+
 local WL_WORLD_QUESTS = {
-    39424,39462,40277,40278,40279,40280,40282,40298,40299,40337,40831,40850,40896,40920,40925,40951,40966,40978,40980,41011,41013,41014,41024,
-    41025,41026,41055,41057,41076,41077,41078,41089,41091,41093,41095,41122,41127,41144,41145,41196,41198,41199,41200,41201,41202,41203,41204,
-    41205,41207,41208,41209,41210,41211,41219,41223,41224,41227,41228,41232,41233,41234,41235,41237,41238,41239,41240,41242,41243,41244,41252,
-    41253,41257,41261,41264,41265,41266,41267,41269,41271,41273,41274,41275,41276,41277,41279,41280,41281,41282,41283,41286,41287,41288,41289,
-    41290,41291,41292,41294,41295,41296,41297,41298,41299,41300,41302,41303,41308,41310,41311,41312,41313,41316,41317,41321,41322,41323,41324,
-    41327,41333,41336,41337,41338,41339,41340,41342,41343,41344,41345,41346,41349,41350,41351,41353,41354,41414,41416,41420,41421,41427,41428,
-    41433,41434,41435,41437,41438,41439,41440,41442,41443,41444,41445,41446,41448,41451,41455,41457,41458,41461,41482,41483,41484,41486,41487,
-    41489,41490,41495,41496,41500,41501,41504,41505,41506,41507,41511,41512,41513,41514,41515,41516,41517,41518,41519,41520,41521,41524,41525,
-    41526,41527,41528,41529,41530,41531,41532,41533,41534,41535,41536,41538,41544,41545,41546,41547,41549,41550,41551,41553,41554,41555,41556,
-    41557,41558,41560,41561,41562,41563,41564,41566,41567,41569,41570,41571,41572,41573,41579,41580,41582,41583,41584,41585,41586,41590,41591,
-    41596,41597,41598,41599,41601,41602,41603,41608,41609,41610,41611,41612,41613,41614,41615,41617,41622,41623,41624,41633,41634,41635,41636,
-    41637,41638,41639,41640,41641,41642,41643,41644,41645,41646,41647,41648,41649,41650,41651,41652,41653,41654,41655,41656,41657,41658,41659,
-    41660,41661,41662,41663,41664,41665,41666,41667,41668,41669,41670,41671,41672,41673,41674,41676,41677,41678,41679,41680,41685,41687,41691,
-    41692,41695,41696,41697,41699,41700,41701,41703,41705,41706,41761,41766,41779,41789,41794,41816,41818,41819,41821,41824,41826,41828,41831,
-    41835,41836,41838,41844,41855,41857,41860,41861,41862,41866,41881,41882,41884,41886,41895,41896,41925,41926,41927,41930,41931,41935,41936,
-    41938,41944,41948,41949,41950,41955,41956,41958,41964,41965,41980,41983,41984,41986,41990,41992,41995,41996,42004,42013,42014,42015,42018,
-    42019,42020,42021,42022,42023,42024,42025,42026,42027,42028,42062,42063,42064,42067,42070,42071,42075,42076,42077,42080,42082,42086,42087,
-    42089,42090,42094,42101,42105,42106,42108,42111,42112,42119,42123,42124,42145,42146,42148,42150,42151,42154,42159,42160,42165,42169,42170,
-    42172,42173,42174,42176,42177,42178,42179,42182,42183,42190,42209,42211,42233,42234,42240,42241,42243,42269,42270,42274,42275,42276,42277,
-    42296,42420,42421,42422,42442,42506,42511,42620,42623,42624,42631,42633,42636,42652,42711,42712,42725,42742,42743,42744,42745,42746,42755,
-    42757,42769,42779,42780,42781,42784,42785,42788,42795,42796,42797,42806,42820,42830,42859,42861,42864,42880,42926,42927,42953,42962,42964,
-    42969,42991,43027,43040,43059,43072,43079,43098,43101,43121,43152,43175,43179,43183,43192,43193,43247,43248,43303,43324,43325,43327,43332,
-    43333,43336,43345,43346,43426,43427,43428,43429,43430,43431,43432,43434,43435,43436,43437,43438,43445,43448,43450,43451,43452,43453,43454,
-    43455,43456,43457,43458,43459,43460,43583,43598,43599,43600,43601,43605,43606,43607,43608,43609,43610,43611,43612,43613,43614,43616,43617,
-    43618,43619,43620,43621,43622,43623,43624,43625,43626,43627,43628,43629,43630,43631,43632,43633,43637,43638,43641,43642,43709,43710,43712,
-    43714,43722,43738,43745,43751,43752,43753,43758,43759,43762,43764,43765,43767,43769,43772,43774,43776,43777,43784,43786,43801,43803,43804,
-    43807,43814,43827,43922,43930,43932,43943,43951,43959,43963,43964,43985,44002,44010,44011,44012,44013,44015,44016,44017,44018,44019,44021,
-    44022,44023,44026,44027,44028,44029,44030,44031,44032,44033,44044,44048,44050,44054,44067,44119,44121,44122,44157,44158,44190,44191,44192,
-    44193,44194,44287,44289,44290,44291,44292,44293,44294,44298,44299,44300,44301,44302,44303,44304,44305,
+    37295,37297,37298,37299,37475,37476,37477,37478,37479,37480,39424,39462,40277,40278,40279,40280,40282,40298,40299,40337,40831,40850,40896,40920,40925,
+    40951,40966,40978,40980,40985,41011,41013,41014,41024,41025,41026,41055,41057,41076,41077,41078,41089,41090,41091,41093,41095,41122,41127,41144,41145,
+    41196,41198,41199,41200,41201,41202,41203,41204,41205,41206,41207,41208,41209,41210,41211,41219,41223,41224,41225,41227,41228,41232,41233,41234,41235,
+    41237,41238,41239,41240,41242,41243,41244,41252,41253,41257,41259,41260,41261,41262,41264,41265,41266,41267,41268,41269,41270,41271,41272,41273,41274,
+    41275,41276,41277,41278,41279,41280,41281,41282,41283,41286,41287,41288,41289,41290,41291,41292,41293,41294,41295,41296,41297,41298,41299,41300,41301,
+    41302,41303,41304,41305,41308,41310,41311,41312,41313,41314,41315,41316,41317,41318,41321,41322,41323,41324,41326,41327,41333,41334,41336,41337,41338,
+    41339,41340,41342,41343,41344,41345,41346,41347,41349,41350,41351,41352,41353,41354,41357,41414,41416,41420,41421,41427,41428,41432,41433,41434,41435,
+    41437,41438,41439,41440,41441,41442,41443,41444,41445,41446,41447,41448,41451,41454,41455,41457,41458,41459,41460,41461,41481,41482,41483,41484,41486,
+    41487,41488,41489,41490,41491,41492,41493,41495,41496,41497,41498,41500,41501,41502,41503,41504,41505,41506,41507,41508,41509,41511,41512,41513,41514,
+    41515,41516,41517,41518,41519,41520,41521,41522,41523,41524,41525,41526,41527,41528,41529,41530,41531,41532,41533,41534,41535,41536,41537,41538,41539,
+    41544,41545,41546,41547,41548,41549,41550,41551,41552,41553,41554,41555,41556,41557,41558,41560,41561,41562,41563,41564,41565,41566,41567,41568,41569,
+    41570,41571,41572,41573,41579,41580,41582,41583,41584,41585,41586,41590,41591,41596,41597,41598,41599,41600,41601,41602,41603,41604,41605,41608,41609,
+    41610,41611,41612,41613,41614,41615,41616,41617,41622,41623,41624,41633,41634,41635,41636,41637,41638,41639,41640,41641,41642,41643,41644,41645,41646,
+    41647,41648,41649,41650,41651,41652,41653,41654,41655,41656,41657,41658,41659,41660,41661,41662,41663,41664,41665,41666,41667,41668,41669,41670,41671,
+    41672,41673,41674,41675,41676,41677,41678,41679,41680,41685,41686,41687,41691,41692,41695,41696,41697,41699,41700,41701,41703,41705,41706,41761,41766,
+    41779,41789,41794,41816,41818,41819,41821,41824,41826,41828,41831,41835,41836,41838,41844,41855,41857,41860,41861,41862,41864,41865,41866,41881,41882,
+    41884,41886,41895,41896,41914,41925,41926,41927,41930,41931,41935,41936,41938,41944,41948,41949,41950,41955,41956,41958,41961,41964,41965,41980,41983,
+    41984,41986,41990,41992,41995,41996,42004,42013,42014,42015,42018,42019,42020,42021,42022,42023,42024,42025,42026,42027,42028,42062,42063,42064,42067,
+    42070,42071,42075,42076,42077,42080,42082,42086,42087,42089,42090,42094,42101,42105,42108,42111,42112,42119,42123,42124,42145,42146,42148,42150,42151,
+    42154,42159,42160,42165,42169,42170,42172,42173,42174,42176,42177,42178,42179,42182,42183,42190,42209,42211,42233,42234,42239,42240,42241,42242,42243,
+    42269,42270,42274,42275,42276,42277,42296,42420,42421,42422,42442,42506,42511,42620,42623,42624,42631,42633,42636,42652,42711,42712,42713,42714,42723,
+    42725,42742,42743,42744,42745,42746,42755,42757,42764,42769,42779,42780,42781,42783,42784,42785,42788,42795,42796,42797,42798,42799,42806,42819,42820,
+    42830,42859,42861,42864,42870,42880,42922,42924,42926,42927,42953,42962,42963,42964,42969,42991,43027,43040,43059,43063,43072,43079,43091,43098,43101,
+    43121,43152,43175,43179,43183,43192,43193,43247,43248,43303,43324,43325,43327,43328,43332,43333,43336,43344,43345,43346,43347,43426,43427,43428,43429,
+    43430,43431,43432,43434,43435,43436,43437,43438,43445,43448,43450,43451,43452,43453,43454,43455,43456,43457,43458,43459,43460,43512,43513,43583,43598,
+    43599,43600,43601,43605,43606,43607,43608,43609,43610,43611,43612,43613,43614,43615,43616,43617,43618,43619,43620,43621,43622,43623,43624,43625,43626,
+    43627,43628,43629,43630,43631,43632,43633,43637,43638,43639,43640,43641,43642,43709,43710,43711,43712,43714,43721,43722,43738,43745,43751,43752,43753,
+    43755,43756,43758,43759,43762,43764,43765,43766,43767,43769,43771,43772,43774,43776,43777,43778,43784,43786,43798,43801,43802,43803,43804,43805,43807,
+    43814,43827,43922,43930,43932,43943,43951,43959,43963,43964,43985,44002,44010,44011,44012,44013,44015,44016,44017,44018,44019,44021,44022,44023,44024,
+    44025,44026,44027,44028,44029,44030,44031,44032,44033,44044,44048,44049,44050,44054,44067,44113,44114,44118,44119,44121,44122,44157,44158,44185,44186,
+    44187,44189,44190,44191,44192,44193,44194,44287,44289,44290,44291,44292,44293,44294,44298,44299,44300,44301,44302,44303,44304,44305,44737,44744,44746,
+    44765,44769,44780,44784,44786,44788,44799,44801,44802,44805,44811,44812,44813,44815,44816,44817,44823,44847,44856,44857,44867,44891,44892,44893,44894,
+    44895,44908,44909,44910,44911,44923,44932,44933,44934,44935,44936,44937,44938,44939,44943,45032,45046,45047,45048,45049,45068,45069,45070,45071,45072,
+    45307,
+    
+    46822,46001,46209,46750,46761,45358,45178,45837,45531,46829,45744,46077,45541,46817,45743,45776,45653,46308,46046,46754,46756,46755,46833,46752,45929,46076,45550,45549,45626,46360,46762,45805,46032,45379,45973,45930,45977,46112,46113,46111,47061,46947,46948,46945,46109,46325,45473,46932,45988,45520,45559,45542,46073,46068,46201,46821,45970,45878,47132,46126,46933,45934,46198,45985,46066,45472,46707,46825,44751,45797,46180,46075,46175,46236,45035,46942,46160,46063,46866,45791,44748,
+    
+    45924,45922,45439,46006,45838,45840,45839,45812,46191,46008,45203,46010,46193,46196,46011,46168,46183,46216,46179,44884,46169,46763,45786,46012,46161,46013,46197,46166,46184,45928,46014,45923,46015,45804,46185,46186,46165,46167,46187,46164,45925,46116,46188,44730,45058,46262,46017,46189,45390,46162,46195,45921,46170,46163,46146,46265,45134,46261,44759,46264,46021,46190,46766,46263,46194,45927,45926,46192,
+    
+    48832, 48285, 48837, 48729, 48701, 48931, 47705, 47724, 47561, 48101, 47496, 47456, 48727, 48867, 48637, 48511, 48509, 48831, 48510, 48739, 48096, 49051, 48286, 48095, 49045, 48777, 47720, 46288, 48722, 47135, 49042, 46072, 47566, 48098, 48097, 48780, 49049, 48287, 48731, 48175, 48592, 48099, 48835, 48282, 48830, 48737, 48733, 48386, 47507, 47551, 48828, 49052, 47707, 47828, 48983, 49057, 47552, 48875, 48502, 48106, 48783, 49058, 48105, 48467, 48284, 47844, 49044, 48833, 48958, 47646, 49041, 48732, 48102, 48526, 47858, 49050, 47833, 48662, 47542, 48512, 48740, 48936, 48514, 48691, 48694, 47563, 48976, 48977, 48338, 48358, 48360, 48374, 47728, 48192, 47953, 48100, 47712, 48640, 47625, 48952, 48091, 48827, 48466, 48724, 48094, 48866, 48465, 48615, 49053, 48836, 48624, 48614, 48337, 48359, 48363, 48364, 48318, 48373, 48323, 48834, 48696, 48829, 46279,
+    
+    48639,48641,48642,
 };
 
 -- Speed optimizations
 local CheckInteractDistance = CheckInteractDistance;
 local DungeonUsesTerrainMap = DungeonUsesTerrainMap;
 local GetAchievementCriteriaInfo = GetAchievementCriteriaInfo;
-local GetCurrentMapDungeonLevel = GetCurrentMapDungeonLevel;
 local GetCursorPosition = GetCursorPosition;
 local GetFactionInfo = GetFactionInfo;
 local GetInstanceInfo = GetInstanceInfo;
@@ -377,7 +539,18 @@ local GetNumArtifactsByRace = GetNumArtifactsByRace;
 local GetNumQuestLeaderBoards = GetNumQuestLeaderBoards;
 local GetNumQuestLogEntries = GetNumQuestLogEntries;
 local GetNumRaidMembers = GetNumRaidMembers;
-local GetPlayerMapPosition = GetPlayerMapPosition;
+
+local GetPlayerMapPosition = function(unitToken)
+    local uiMapID = C_Map.GetBestMapForUnit(unitToken) or WorldMapFrame:GetMapID();
+    local location = C_Map.GetPlayerMapPosition(uiMapID, unitToken);
+
+    if not location then
+        return 0, 0;
+    end
+
+    return C_Map.GetPlayerMapPosition(uiMapID, unitToken):GetXY();
+end
+
 local GetProgressText = GetProgressText;
 local GetQuestID = GetQuestID;
 local GetQuestLogLeaderBoard = GetQuestLogLeaderBoard;
@@ -395,13 +568,12 @@ local GetTrainerServiceInfo = GetTrainerServiceInfo;
 local GetTrainerServiceSkillReq = GetTrainerServiceSkillReq;
 local IsEquippedItem = IsEquippedItem;
 local IsFishingLoot = IsFishingLoot;
+local IsPartyLFG = IsPartyLFG;
 local LootSlotIsCoin = LootSlotIsCoin;
 local LootSlotIsCurrency = LootSlotIsCurrency;
 local LootSlotIsItem = LootSlotIsItem;
 local SelectQuestLogEntry = SelectQuestLogEntry;
-local SendAddonMessage = SendAddonMessage;
-local SetDungeonMapLevel = SetDungeonMapLevel;
-local SetMapToCurrentZone = SetMapToCurrentZone;
+local SendAddonMessage = C_ChatInfo.SendAddonMessage;
 local UnitClass = UnitClass;
 local UnitExists = UnitExists;
 local UnitFactionGroup = UnitFactionGroup;
@@ -415,9 +587,9 @@ local UnitIsTappedByPlayer = UnitIsTappedByPlayer;
 local UnitIsTapDenied = UnitIsTapDenied;
 local UnitIsTrivial = UnitIsTrivial;
 local UnitLevel = UnitLevel;
-local UnitManaMax = UnitManaMax;
 local UnitName = UnitName;
 local UnitPlayerControlled = UnitPlayerControlled;
+local UnitPowerMax = UnitPowerMax;
 local UnitPowerType = UnitPowerType;
 local UnitRace = UnitRace;
 local UnitReaction = UnitReaction;
@@ -467,7 +639,6 @@ local wlDefaultGetQuestReward;
 local wlDefaultChatFrame_DisplayTimePlayed;
 local wlDefaultReloadUI;
 local wlDefaultConsoleExec;
-
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -723,9 +894,13 @@ function wlEvent_PLAYER_TARGET_CHANGED(self)
 
     wlUpdateVariable(wlUnit, id, "spec", dd, level, "init", {
         health = UnitHealthMax("target"),
-        powermax = UnitManaMax("target"),
         powertype = UnitPowerType("target"),
+        powermax = UnitPowerMax("target", powertype),
     });
+
+    if (WL_DAILY_INSTANCE_NPCS[dd] and tContains(WL_DAILY_INSTANCE_NPCS[dd], id)) then
+        wlSeenDaily('n'..id);
+    end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -778,11 +953,11 @@ function wlRegisterUnitLocation(id, level)
     
     local dd = wlGetInstanceDifficulty();
     local mapAreaID = wlGetCurrentMapAreaID();
-    local zone, x, y, dl = wlGetLocation();
+    local zone, x, y, uiMapID = wlGetLocation();
 
     wlUpdateVariable(wlUnit, id, "spec", dd, level, "loc", zone, mapAreaID, "init", { n = 0 });
 
-    local i = wlGetLocationIndex(wlUnit[id].spec[dd][level].loc[zone][mapAreaID], x, y, dl, 5);
+    local i = wlGetLocationIndex(wlUnit[id].spec[dd][level].loc[zone][mapAreaID], x, y, uiMapID, 5);
     if i then
         local n = wlUnit[id].spec[dd][level].loc[zone][mapAreaID][i].n;
 
@@ -794,7 +969,7 @@ function wlRegisterUnitLocation(id, level)
         wlUpdateVariable(wlUnit, id, "spec", dd, level, "loc", zone, mapAreaID, i, "set", {
             x = x,
             y = y,
-            dl = dl,
+            dl = uiMapID,
             n = 1,
         });
     end
@@ -888,12 +1063,6 @@ end
 
 function wlEvent_CONFIRM_BINDER(self)
     wlRegisterUnitGossip("binder");
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
-function wlEvent_CONFIRM_PET_UNLEARN(self)
-    wlRegisterUnitGossip("pettrainer");
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -1020,13 +1189,17 @@ function wlEvent_MERCHANT_UPDATE(self)
     end
 
     for slot=1, GetMerchantNumItems() do
-        local name, icon, price, stack, numAvailable, _, extendedCost = GetMerchantItemInfo(slot);
+        local name, icon, price, stack, numAvailable, _, _, extendedCost = GetMerchantItemInfo(slot);
         local id, subId = wlParseItemLink(GetMerchantItemLink(slot));
         if (id ~= 0 or ((currencyInfos[name] ~= nil) and (currencyInfos[name][2] == icon))) then
             
             if (id == 0) then
                 id = currencyInfos[name][1];
                 subId = -2; -- this is a currency
+            else
+                if tContains(WL_DAILY_VENDOR_ITEMS, id) then
+                    wlSeenDaily('i'..id)
+                end
             end
             
             price = wlGetFullCost(price, standing);
@@ -1096,12 +1269,12 @@ function wlEvent_MERCHANT_UPDATE(self)
                         wlGameTooltip:ClearLines();
                         wlGameTooltip:SetMerchantCostItem(slot, i);
 
-                        if not texture or not wlGameTooltipTextLeft1:GetText() or wlGameTooltipTextLeft1:GetText() == "" then
+                        if not texture or type(texture) ~= "number" or not wlGameTooltipTextLeft1:GetText() or wlGameTooltipTextLeft1:GetText() == "" then
                             return; -- error
                         end
 
                         -- Create a unique ID using the icon name and the currency localized name
-                        currencyId = texture:match("[^\\]+$"):lower().."<>"..wlGameTooltipTextLeft1:GetText();
+                        currencyId = texture.."<>"..wlGameTooltipTextLeft1:GetText();
                     end
 
                     tinsert(merchantCurrencies, { qty, currencyId });
@@ -1414,14 +1587,14 @@ function wlRegisterObject(id)
         return;
     end
 
-    local zone, x, y, dl = wlGetLocation();
+    local zone, x, y, uiMapID = wlGetLocation();
     local mapAreaID = wlGetCurrentMapAreaID();
 
     zone = wlConcat(wlGetInstanceDifficulty(), zone);
 
     wlUpdateVariable(wlObject, id, zone, mapAreaID, "init", { n = 0 });
 
-    local i = wlGetLocationIndex(wlObject[id][zone][mapAreaID], x, y, dl, 5);
+    local i = wlGetLocationIndex(wlObject[id][zone][mapAreaID], x, y, uiMapID, 5);
     if i then
         local n = wlObject[id][zone][mapAreaID][i].n;
 
@@ -1433,7 +1606,7 @@ function wlRegisterObject(id)
         wlUpdateVariable(wlObject, id, zone, mapAreaID, i, "set", {
             x = x,
             y = y,
-            dl = dl,
+            dl = uiMapID,
             n = 1,
         });
     end
@@ -1621,7 +1794,7 @@ function wlEvent_QUEST_DETAIL(self)
     wlTracker.quest.targetkind = kind;
     wlTracker.quest.targetid = id;
 
-    if QuestIsDaily() or QuestIsWeekly() then
+    if QuestIsDaily() or QuestIsWeekly() or tContains(WL_DAILY_BUT_NOT_REALLY, wlTracker.quest.id) then
         wlSeenDaily(wlTracker.quest.id)
     end
 
@@ -1633,7 +1806,7 @@ end
 function wlEvent_QUEST_ACCEPTED(self, _, questId)
     if (questId) then
         -- only way to pick up apexis daily quests from table, when they are auto-accepted
-        if tContains(WL_DAILY_APEXIS, questId) then
+        if tContains(WL_DAILY_APEXIS, questId) or tContains(WL_DAILY_BUT_NOT_REALLY, questId) then
             wlSeenDaily(questId)
         end
     end
@@ -1761,6 +1934,53 @@ function wlRegisterQuestReturn()
     wlTracker.quest.action = "turn-in";
 end
 
+-------------------------
+--  Function to get the names of buildings active on Broken Shore.
+--  API has them as 1-3, and use C_ContributionCollector.GetName(id)
+--  to get the building name. This is then added as an array to
+--  wlRegionBuildings.
+-------------------------
+function wlGetBuildings()
+    for i=1,4,1 do
+        local name = C_ContributionCollector.GetName(i);
+        
+        if (name ~= "") then
+            -- get status
+            local state, contribed, timeNext = C_ContributionCollector.GetState(i);
+
+            -- note that contributed and timeNext are amount contributed
+            -- as well as time until the next state is active. THESE HOWEVER
+            -- ARE VERY INACCURATE.
+
+            -- returns 1-2 available buffs as spell IDs
+            -- if destroyed, buff2 may be nil
+            local buff1, buff2 = C_ContributionCollector.GetBuffs(i);
+            
+            -- make table and add to our table
+            wlRegionBuildings[i]={};
+            
+          -- name of building
+            wlRegionBuildings[i].name = name;
+            -- its state
+            -- 1 = under construction
+            -- 2 = completed
+            -- 3 = under attack
+            -- 4 = destroyed
+            wlRegionBuildings[i].state = state;
+            -- amount of resources contributed to its completion
+            -- NOTE: this will not be dependable, will go out of date quickly
+            wlRegionBuildings[i].contribed = contribed;
+            -- time (seconds?) until next building state
+            -- NOTE: see above about contributed
+            wlRegionBuildings[i].timeNext = timeNext;
+            -- 1-2 spell IDs that are the buffs when building is in
+            -- states 2 or 3.
+            wlRegionBuildings[i].buffs = {buff1, buff2};
+        end
+    end
+--    wlUpdateVariable();
+end
+
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_COMBAT_TEXT_UPDATE(self, messageType, param1, param2)
@@ -1812,30 +2032,9 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlSeenDaily(questId)
-    local weekday, month, day, year = CalendarGetDate()
-    local hours, minutes = GetGameTime()
-    local resetTime = GetQuestResetTime() -- seconds
-    minutes = minutes + floor(resetTime / 60) + 5 -- pretend that dailies reset at x:05 in case server clock off by a couple minutes
-    hours = hours + (minutes / 60)
-    if hours < 24 then
-        -- to find "today"'s daily quests, we want dailies to reset "tomorrow"
-        -- if adding the seconds until quest reset doesn't roll the clock over to tomorrow,
-        -- then dailies will reset soon, and we're somewhen between midnight and early AM (daily reset time)
-        -- so roll "today" back a day because it's really yesterday's quests we're still seeing
-        day = day - 1
-        if day == 0 then
-            CalendarSetAbsMonth(month, year) -- assert today's month/year, so we can get prev month's days
-            local _, _, numDays = CalendarGetMonth(-1) -- get num of days for prev month
-            day = numDays
-            month = month - 1
-            if month == 0 then
-                month = 12
-                year = year - 1
-            end
-        end
-    end
+    local resetTime = floor((GetServerTime() + GetQuestResetTime()) / 600 + 0.5) * 600 -- timestamp, rounded to nearest 10 minute interval
 
-    local today = year..'-'..month..'-'..day..','
+    local today = ''..resetTime..','
     local toAdd = questId..','
 
     local guid = wlScans.guid
@@ -1914,6 +2113,87 @@ function wlSeenWorldQuests()
     end
 end
 
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+function wlSeenInvasions()
+	if not C_AreaPoiInfo.GetAreaPOITimeLeft then return end
+	
+    local now = GetServerTime()
+
+    local resultsLess = {}
+	local resultsGreat = {};
+    local resultCount = 0
+    local lines = {}
+
+	-- handle lesser invasions
+	-- starts at index 5349
+    --for i = 5349, #WL_LESSER_INVASIONS, 1 do
+	for i,v in pairs(WL_LESSER_INVASIONS) do
+		wlPrint(WL_LESSER_INVASIONS[i])
+        local invasionL = WL_LESSER_INVASIONS[i];
+        local timeLeft = C_AreaPoiInfo.GetAreaPOITimeLeft(i);
+        if (timeLeft and timeLeft > 0) then
+            wlLesserInvasions[i] = {}
+			wlLesserInvasions[i].areaPoiId = i;
+            --wlLesserInvasions[i].name = invasionL;
+            wlLesserInvasions[i].endTime = now + timeLeft * 60;
+
+            resultCount = resultCount + 1;
+        end
+    end
+	resultCount = 0;
+	
+	
+	-- handle greater invasions
+	-- these IDs start at 5375, so let's save time by cutting to the chase
+    for i,v in pairs(WL_GREATER_INVASIONS) do
+        local invasionG = WL_GREATER_INVASIONS[i];
+        local timeLeft = C_AreaPoiInfo.GetAreaPOITimeLeft(i);
+        if (timeLeft and timeLeft > 0) then
+            wipe(lines);
+            lines[1] = invasionG;
+
+            resultCount = resultCount + 1;
+            resultsGreat[resultCount] = table.concat(lines, 'x');
+        end
+    end
+
+    if resultCount > 0 then
+
+        wlGreaterInvasions = table.concat(resultsGreat,',');
+    end
+end
+
+----------------------------
+----------------------------
+--                        --
+--   GARRISON FUNCTIONS   --
+--                        --
+----------------------------
+----------------------------
+
+function wlEvent_GARRISON_MISSION_LIST_UPDATE(self, garrisonFollowerTypeId)
+    local missions = C_Garrison.GetAvailableMissions(garrisonFollowerTypeId)
+    if missions then
+        for i = 1, #missions do
+            local m = missions[i]
+            local rewards = {};
+            for j = 1, #m.rewards do
+                local r = m.rewards[j]
+                if r.itemID then
+                    table.insert(rewards, wlConcat("I", r.itemID, r.quantity))
+                elseif r.followerXP then
+                    -- from DB2 - table.insert(rewards, wlConcat("X", r.followerXP))
+                elseif r.currencyID then
+                    table.insert(rewards, wlConcat("C", r.currencyID, r.quantity))
+                end
+            end
+            if #rewards > 0 then
+                wlGarrisonMissions[m.missionID] = table.concat(rewards, ",")
+            end
+        end
+    end
+end
+
 -------------------------
 -------------------------
 --                     --
@@ -1959,12 +2239,12 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlEvent_UNIT_SPELLCAST_SENT(self, unit, spell, rank, target, lineID)
-    if unit ~= "player" or not target or wlSpellCastID then
+function wlEvent_UNIT_SPELLCAST_SENT(self, unit, target, spellCast, spell)
+    if unit ~= "player" or wlSpellCastID then
         return;
     end
 
-    local spellId = wlFindSpell(spell);
+    local spellId = wlFindSpell(GetSpellInfo(spell));
 
     if spellId then
     
@@ -2017,29 +2297,30 @@ function wlEvent_UNIT_SPELLCAST_SENT(self, unit, spell, rank, target, lineID)
                 return;
             end
 
-            local zone, x, y, dl = wlGetLocation();
-            
+            local zone, x, y, uiMapID = wlGetLocation();
+
             wlTracker.spell.kind = "object";
             wlTracker.spell.name = target;
             wlTracker.spell.zone = zone;
             wlTracker.spell.x = x;
             wlTracker.spell.y = y;
-            wlTracker.spell.dl = dl;
+            wlTracker.spell.dl = uiMapID;
 
         -- zone (fishing)
         elseif bit_band(wlSpells[spellId][2], WL_ZONE) ~= 0 and not npcName and not itemName then
 
-            if target ~= "" then
-                return;
-            end
+            -- 8.0.1: target is nil for fishing now.
+            --if target ~= "" then
+            --    return;
+            --end
 
-            local zone, x, y, dl = wlGetLocation();
+            local zone, x, y, uiMapID = wlGetLocation();
 
             wlTracker.spell.kind = "zone";
             wlTracker.spell.zone = zone;
             wlTracker.spell.x = x;
             wlTracker.spell.y = y;
-            wlTracker.spell.dl = dl;
+            wlTracker.spell.dl = uiMapID;
 
         else
             return;
@@ -2050,24 +2331,49 @@ function wlEvent_UNIT_SPELLCAST_SENT(self, unit, spell, rank, target, lineID)
         wlTracker.spell.action = spellId;
         
         -- associate unit_spellcast_* events
-        wlSpellCastID = lineID;
+        wlSpellCastID = spell;
+    end
+end
+
+-- This fires off for bonus rolls, and some boss loots that prompt a loot toast, in special events.
+-- We only care about the spellId, thus the others are 'Throw away' variables because we don't
+-- know what to do with them right now.
+function wlEvent_SPELL_CONFIRMATION_PROMPT(self, spellId, a, b, c, d, e)
+    if WL_LOOT_TOAST_BOSS[spellId] then
+        local now = wlGetTime();
+        wlClearTracker("spell");
+        wlTrackerClearedTime = now;
+        wlLootToastSourceId = spellId;
+        wlCurrentLootToastEventId = nil;
+        wlTimers.clearLootToastSource = now + 250;
+        return;
     end
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlEvent_UNIT_SPELLCAST_SUCCEEDED(self, unit, spell, rank, lineID, spellId)
+function wlEvent_UNIT_SPELLCAST_SUCCEEDED(self, unit, spellCast, spellId)
     if unit ~= "player" then
         return;
     end
 
     wlSpellCastID = nil;
-    spellId = tonumber(select(5, strsplit("-", lineID)), 10)
+
     if WL_LOOT_TOAST_BAGS[spellId] then
         local now = wlGetTime();
         wlClearTracker("spell");
         wlTrackerClearedTime = now;
         wlLootToastSourceId = WL_LOOT_TOAST_BAGS[spellId];
+        wlCurrentLootToastEventId = nil;
+        wlTimers.clearLootToastSource = now + 250;
+        return;
+    elseif WL_LOOT_TOAST_BOSS[spellId] then
+        -- This should not be hit; however, this is "better safe than sorry" and does
+        -- sometimes get hit by the OPENING spell
+        local now = wlGetTime();
+        wlClearTracker("spell");
+        wlTrackerClearedTime = now;
+        wlLootToastSourceId = spellId;
         wlCurrentLootToastEventId = nil;
         wlTimers.clearLootToastSource = now + 250;
         return;
@@ -2091,7 +2397,7 @@ function wlEvent_UNIT_SPELLCAST_SUCCEEDED(self, unit, spell, rank, lineID, spell
         wlRegisterObject(WL_ANVIL_ID);
     end
     
-    if wlTracker.spell.time and wlTracker.spell.event == "SENT" and wlTracker.spell.action == wlFindSpell(spell) then
+    if wlTracker.spell.time and wlTracker.spell.event == "SENT" and wlTracker.spell.action == wlFindSpell(GetSpellInfo(spellId)) then
         wlTracker.spell.event = "SUCCEEDED";
         wlTracker.spell.time = wlGetTime();
         if wlTracker.spell.action == "Logging" and wlTracker.spell.name then -- save location here since that action won't trigger a loot frame
@@ -2104,9 +2410,9 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlEvent_UNIT_SPELLCAST_FAILED(self, unit, spell, rank, lineID, spellID)
+function wlEvent_UNIT_SPELLCAST_FAILED(self, unit, spellCast, spellID)
     -- only reset wlTracker.spell if the 'failed' comes from an associated 'sent'
-    if unit == "player" and wlSpellCastID == lineID then
+    if unit == "player" and wlSpellCastID == spellID then
         wlSpellCastID = nil;
         wlClearTracker("spell");
         wlTrackerClearedTime = wlGetTime();
@@ -2116,12 +2422,11 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlEvent_SHOW_LOOT_TOAST(self, typeIdentifier, itemLink, quantity, specID, sex, isPersonal, lootSource)
-    if not typeIdentifier or (typeIdentifier ~= "item" and typeIdentifier ~= "money") then
+    if not typeIdentifier or (typeIdentifier ~= "item" and typeIdentifier ~= "money" and typeIdentifier ~= "currency") then
         return;
     end
     
     if wlLootToastSourceId then
-    
         if not wlEvent or not wlId or not wlEvent[wlId] or not wlN or not wlEvent[wlId][wlN] then
             return;
         end
@@ -2136,25 +2441,45 @@ function wlEvent_SHOW_LOOT_TOAST(self, typeIdentifier, itemLink, quantity, specI
         end
         local eventId = wlCurrentLootToastEventId;    
     
-        wlTracker.spell.action = "Opening";
-        wlTracker.spell.kind = "item";
-        wlTracker.spell.id = wlLootToastSourceId;
-        wlUpdateVariable(wlEvent, wlId, wlN, eventId, "initArray", 0);
-        wlEvent[wlId][wlN][eventId].what = "loot";
-        wlTableCopy(wlEvent[wlId][wlN][eventId], wlTracker.spell);
-        wlEvent[wlId][wlN][eventId].dd = wlGetInstanceDifficulty();
-        wlEvent[wlId][wlN][eventId].flags = 0;
+        if WL_LOOT_TOAST_BOSS[wlLootToastSourceId] then
+            wlTracker.spell.action = "Killing";
+            wlTracker.spell.kind = "npc";
+            wlTracker.spell.id = WL_LOOT_TOAST_BOSS[wlLootToastSourceId];
+            wlUpdateVariable(wlEvent, wlId, wlN, eventId, "initArray", 0);
+            wlEvent[wlId][wlN][eventId].what = "loot";
+            wlTableCopy(wlEvent[wlId][wlN][eventId], wlTracker.spell);
+            wlEvent[wlId][wlN][eventId].dd = wlGetInstanceDifficulty();
+            wlEvent[wlId][wlN][eventId].flags = 0;
+        else
+            wlTracker.spell.action = "Opening";
+            wlTracker.spell.kind = "item";
+            wlTracker.spell.id = wlLootToastSourceId;
+            wlUpdateVariable(wlEvent, wlId, wlN, eventId, "initArray", 0);
+            wlEvent[wlId][wlN][eventId].what = "loot";
+            wlTableCopy(wlEvent[wlId][wlN][eventId], wlTracker.spell);
+            wlEvent[wlId][wlN][eventId].dd = wlGetInstanceDifficulty();
+            wlEvent[wlId][wlN][eventId].flags = 0;
+        end
+        
         
         local typeId = nil;
+        local currencyId = nil;
         if typeIdentifier == "item" then
             typeId = wlParseItemLink(itemLink);
         elseif typeIdentifier == "money" then
             typeId = "coin";
+        elseif typeIdentifier == "currency" then
+            typeId = "currency";
+            currencyId = wlParseCurrencyLink(itemLink);
         end
         
         wlEvent[wlId][wlN][eventId]["drop"] = wlEvent[wlId][wlN][eventId]["drop"] or {};    
-        wlEvent[wlId][wlN][eventId].fromLootToast = 1;        
-        wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", #wlEvent[wlId][wlN][eventId]["drop"] + 1, "set", wlConcat(typeId, quantity));
+        wlEvent[wlId][wlN][eventId].fromLootToast = 1;    
+        if typeId == "currency" then
+            wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", #wlEvent[wlId][wlN][eventId]["drop"] + 1, "set", wlConcat(typeId, quantity, currencyId));
+        else
+            wlUpdateVariable(wlEvent, wlId, wlN, eventId, "drop", #wlEvent[wlId][wlN][eventId]["drop"] + 1, "set", wlConcat(typeId, quantity));
+        end
         
     end
 end
@@ -2278,7 +2603,7 @@ function wlEvent_LOOT_OPENED(self)
             wlClearTracker("spell");
             return;
         end
-        
+
         if fromFishing and wlTracker.spell.kind ~= "zone" then
             wlClearTracker("spell");
             return;
@@ -2350,7 +2675,7 @@ function wlEvent_LOOT_OPENED(self)
         end
 
         if wlIsInParty() then
-            SendAddonMessage("WL_LOOT_COOLDOWN", guid, "RAID");
+            SendAddonMessage("WL_LOOT_COOLDOWN", guid, IsPartyLFG() and "INSTANCE_CHAT" or "RAID");
         else
             wlEvent_CHAT_MSG_ADDON(self, "WL_LOOT_COOLDOWN", guid, "RAID", UnitName("player"));
         end
@@ -2472,7 +2797,7 @@ function wlEvent_LOOT_OPENED(self)
                 do break end;
             end
             if wlIsInParty() then
-                SendAddonMessage("WL_LOOT_COOLDOWN", guidMsg, "RAID");
+                SendAddonMessage("WL_LOOT_COOLDOWN", guidMsg, IsPartyLFG() and "INSTANCE_CHAT" or "RAID");
             else
                 wlEvent_CHAT_MSG_ADDON(self, "WL_LOOT_COOLDOWN", guidMsg, "RAID", UnitName("player"));
             end
@@ -2617,10 +2942,8 @@ function wlPlaceAuctionBid(aType, aIndex, bid)
 
     if bid == buyoutPrice and id ~= 0 and enchant == 0 and socket1 == 0 and socket2 == 0 and socket3 == 0 and socket4 == 0 and count > 0 then
         -- checking for cross faction auction house
-        local oldAreaId = GetCurrentMapAreaID();
-        SetMapToCurrentZone();
-        local currentAreaId = GetCurrentMapAreaID();
-        SetMapByID(oldAreaId);
+        local currentAreaId = C_Map.GetBestMapForUnit("player");
+
         -- 161 Tanaris
         -- 281 Winterspring
         -- 673 The Cape of Stranglethorn
@@ -2652,6 +2975,7 @@ function wlCollect(userInitiated)
 
     wlQueryTimePlayed();
     
+    wlSeenInvasions()
     wlScanAppearances()
     wlScanToys()
     wlScanMounts()
@@ -2660,6 +2984,8 @@ function wlCollect(userInitiated)
     wlScanFollowers()
     wlScanArchaeology()
     wlSeenWorldQuests()
+    wlGetBuildings();
+    wlGetTime();
 
     if userInitiated then
         wlTimers.printCollected = wlGetTime() + 1000;
@@ -2743,14 +3069,12 @@ function wlEvent_CURRENCY_DISPLAY_UPDATE(...)
                 
                 -- check if the currency combo id+amount is a reward from the random dungeon
                 if instanceType == "party" then
-                    local oldAreaId = GetCurrentMapAreaID();
-                    SetMapToCurrentZone();
-                    local areaId = GetCurrentMapAreaID();
-                    SetMapByID(oldAreaId);
+                    local uiMapID = C_Map.GetBestMapForUnit("player");
+                    local areaId = C_Map.GetMapInfo(uiMapID);
                     local diff = wlSelectOne(3, GetInstanceInfo());
                     local dungeonGroupId = 0;
                     if WL_AREAID_TO_DUNGEONID[diff] then
-                        dungeonGroupId = WL_AREAID_TO_DUNGEONID[diff][areaId] or 0;
+                        dungeonGroupId = WL_AREAID_TO_DUNGEONID[diff][areaId.mapID] or 0;
                     end
                     if dungeonGroupId ~= 0 then
                         local _, _, _, _, _, numRewards = GetLFGDungeonRewards(dungeonGroupId);
@@ -2923,7 +3247,14 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlEvent_TOYS_UPDATED(self, ...)
+-- we need that here.
+local wlScanToys_processing = false
+function wlEvent_TOYS_UPDATED(self, itemID, new)
+    -- We got some new toys here.
+    if (new or itemID) then
+        wlScanToys_processing = false
+    end
+
     wlScanToys();
 end
 
@@ -3029,14 +3360,16 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-local wlScanToys_processing = false
-function wlScanToys()
+function wlScanToys(processToys)
+    -- Initial event call.
     if wlScanToys_processing then -- toys_updated events might fire when we change filters
         return
     end
+
     if C_ToyBox.GetNumLearnedDisplayedToys() == 0 then
         return
     end
+
     wlScanToys_processing = true
 
     local ids = ""
@@ -3084,7 +3417,8 @@ function wlScanToys()
     end
     C_ToyBox.ForceToyRefilter()
 
-    wlScanToys_processing = false
+    -- Handled by the parent function.
+    --wlScanToys_processing = false
 
     if ids ~= "" then
         wlScans.toys = ids;
@@ -3252,30 +3586,38 @@ function wlScanHeirlooms()
 end
 
 local wlScanAppearances_processing = false
-local function wlGetCollectedTransmogAppearances(category)
-    -- save user preferences
-    local collectedChecked = C_TransmogCollection.GetCollectedShown()
-    local uncollectedChecked = C_TransmogCollection.GetUncollectedShown()
+local function wlGetCollectedTransmogAppearances(category, enableFilter)
+    local app = nil;
 
-    local sourcesChecked = {}
-    local numSources = C_TransmogCollection.GetNumTransmogSources();
-    for i = 1, numSources do
-        sourcesChecked[i] = not C_TransmogCollection.IsSourceTypeFilterChecked(i)
-    end
+    -- enable filter if wardrobe frame is invisible.
+    if enableFilter then
+        -- save user preferences
+        local collectedChecked = C_TransmogCollection.GetCollectedShown()
+        local uncollectedChecked = C_TransmogCollection.GetUncollectedShown()
 
-    -- change preferences to find all collected appearances
-    C_TransmogCollection.SetCollectedShown(true)
-    C_TransmogCollection.SetUncollectedShown(false)
-    C_TransmogCollection.SetAllSourceTypeFilters(true)
+        local sourcesChecked = {}
+        local numSources = C_TransmogCollection.GetNumTransmogSources();
+        for i = 1, numSources do
+            sourcesChecked[i] = not C_TransmogCollection.IsSourceTypeFilterChecked(i)
+        end
 
-    -- fetch appearances
-    local app = C_TransmogCollection.GetCategoryAppearances(category)
+        -- change preferences to find all collected appearances
+        C_TransmogCollection.SetCollectedShown(true)
+        C_TransmogCollection.SetUncollectedShown(false)
+        C_TransmogCollection.SetAllSourceTypeFilters(true)
 
-    -- reset back to user preferences
-    C_TransmogCollection.SetCollectedShown(collectedChecked)
-    C_TransmogCollection.SetUncollectedShown(uncollectedChecked)
-    for k, v in pairs(sourcesChecked) do
-        C_TransmogCollection.SetSourceTypeFilter(k, v)
+        -- fetch appearances
+        app = C_TransmogCollection.GetCategoryAppearances(category)
+
+        -- reset back to user preferences
+        C_TransmogCollection.SetCollectedShown(collectedChecked)
+        C_TransmogCollection.SetUncollectedShown(uncollectedChecked)
+        for k, v in pairs(sourcesChecked) do
+            C_TransmogCollection.SetSourceTypeFilter(k, v)
+        end
+    else
+        -- fetch appearances
+        app = C_TransmogCollection.GetCategoryAppearances(category)
     end
 
     return app
@@ -3295,8 +3637,11 @@ function wlScanAppearances()
 
     local appearanceTable = {}
 
+    -- enable filter if wardrobe frame is invisible.
+    local enableFilter = not WardrobeCollectionFrame or not WardrobeCollectionFrame:IsVisible();
+
     for colType = 1, NUM_LE_TRANSMOG_COLLECTION_TYPES do
-        local app = wlGetCollectedTransmogAppearances(colType)
+        local app = wlGetCollectedTransmogAppearances(colType, enableFilter)
 
         for k, o in pairs(app) do
             if o.isCollected and not o.isHideVisual then
@@ -3330,7 +3675,7 @@ function wlScanFollowers()
     local followerTable = {}
     local followerTableIdx = #followerTable
 
-    local followerTypes = {1, LE_FOLLOWER_TYPE_SHIPYARD_6_2, LE_FOLLOWER_TYPE_GARRISON_7_0 };
+    local followerTypes = { LE_FOLLOWER_TYPE_GARRISON_6_0, LE_FOLLOWER_TYPE_SHIPYARD_6_2, LE_FOLLOWER_TYPE_GARRISON_7_0 };
 
     for ftIdx=1,#followerTypes do
         local ft = followerTypes[ftIdx];
@@ -3427,64 +3772,19 @@ end
 
 function wlGetLocation()
     local zone = GetRealZoneText() or "";
-    local mainZone, _, _, isMicroZone, microZone = GetMapInfo();
-    
+    local uiMapID = C_Map.GetBestMapForUnit("player") or WorldMapFrame:GetMapID();
+    local uiMapDetails = C_Map.GetMapInfo(uiMapID);
+
     -- Save Map
-    local currentDL = GetCurrentMapDungeonLevel() or 0;
-    local currentId = GetCurrentMapAreaID();
-    local wasMicroZone = isMicroZone;
-    local oldMicroZone = microZone;
-    
-    -- Obtain true coords
-    SetMapToCurrentZone();
-    mainZone, _, _, isMicroZone, microZone = GetMapInfo();
-    if ((wlSelectOne(2, GetInstanceInfo()) == "none") and not WL_ZONE_EXCEPTION[microZone] and (isMicroZone == true)) then
-        SetMapByID(GetCurrentMapAreaID());
-    end
-    
+    local wasMicroZone = uiMapDetails.mapType == 5;
+    local oldMicroZone = uiMapDetails.name;
     local x, y = GetPlayerMapPosition("player");
-    local dl = GetCurrentMapDungeonLevel() or 0;
     
     if not x or not y then
         x, y = 0, 0;
     end
-
-    if x == 0 and y == 0 then
-        local floorMapCount, firstFloor = GetNumDungeonMapLevels();
-        floorMapCount = floorMapCount or 1
-        firstFloor = firstFloor or 1
-        local lastFloor = firstFloor + floorMapCount - 1;
-        for level=firstFloor, lastFloor do
-            SetDungeonMapLevel(level);
-            x, y = GetPlayerMapPosition("player");
-
-            if x and y and (x > 0 or y > 0) then
-                SetDungeonMapLevel(dl); -- Restore
-                dl = level;
-                break;
-            end
-
-            x, y = 0, 0;
-        end
-    end
-
-    if DungeonUsesTerrainMap() then
-        dl = dl - 1;
-    end
-
-    -- Restore Map
-    if wasMicroZone then
-        if WL_ZONE_EXCEPTION[oldMicroZone] then
-            SetMapByID(WL_ZONE_EXCEPTION[oldMicroZone]);
-        else
-            SetMapToCurrentZone();
-        end
-    else
-        SetMapByID(currentId);
-    end
-    SetDungeonMapLevel(currentDL); 
     
-    return zone, floor(x * 1000 + 0.5), floor(y * 1000 + 0.5), dl;
+    return zone, floor(x * 1000 + 0.5), floor(y * 1000 + 0.5), uiMapID;
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -3521,6 +3821,28 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
+function wlCheckMythicAffixes()
+    local level, affixes, wasEnergized = C_ChallengeMode.GetActiveKeystoneInfo();
+    if level and level > 0 and affixes then
+        sort(affixes)
+        wlSeenDaily('a'..level..'.'..table.concat(affixes,'.'))
+    end
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_ZONE_CHANGED()
+    wlLocTooltipFrame_OnUpdate();
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
+function wlEvent_CHALLENGE_MODE_UPDATE()
+    wlCheckMythicAffixes();
+end
+
+--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
+
 
 --------------------------
 --------------------------
@@ -3548,7 +3870,6 @@ local wlEvents = {
     BANKFRAME_OPENED = wlEvent_BANKFRAME_OPENED,
     BATTLEFIELDS_SHOW = wlEvent_BATTLEFIELDS_SHOW,
     CONFIRM_BINDER = wlEvent_CONFIRM_BINDER,
-    CONFIRM_PET_UNLEARN = wlEvent_CONFIRM_PET_UNLEARN,
     CONFIRM_TALENT_WIPE = wlEvent_CONFIRM_TALENT_WIPE,
     GOSSIP_CONFIRM_CANCEL = wlEvent_GOSSIP_CONFIRM_CANCEL,
     GOSSIP_ENTER_CODE = wlEvent_GOSSIP_ENTER_CODE,
@@ -3567,6 +3888,7 @@ local wlEvents = {
     LOOT_OPENED = wlEvent_LOOT_OPENED,
     LOOT_CLOSED = wlEvent_LOOT_CLOSED,
     SHOW_LOOT_TOAST = wlEvent_SHOW_LOOT_TOAST,
+    SPELL_CONFIRMATION_PROMPT = wlEvent_SPELL_CONFIRMATION_PROMPT,
     CHAT_MSG_ADDON = wlEvent_CHAT_MSG_ADDON,
     CHAT_MSG_LOOT = wlEvent_CHAT_MSG_LOOT,
     UNIT_SPELLCAST_SENT = wlEvent_UNIT_SPELLCAST_SENT,
@@ -3605,16 +3927,21 @@ local wlEvents = {
     UNIT_QUEST_LOG_CHANGED = wlEvent_UNIT_QUEST_LOG_CHANGED,
     COMBAT_TEXT_UPDATE = wlEvent_COMBAT_TEXT_UPDATE,
 
+    -- garrison
+    GARRISON_MISSION_LIST_UPDATE = wlEvent_GARRISON_MISSION_LIST_UPDATE,
+
     -- coords tooltip
     PLAYER_ENTERING_WORLD = wlEvent_ZONE_CHANGED,
     ZONE_CHANGED = wlEvent_ZONE_CHANGED,
     ZONE_CHANGED_NEW_AREA = wlEvent_ZONE_CHANGED,
 
+    -- challenge mode / mythic+ affixes
+    CHALLENGE_MODE_START = wlEvent_CHALLENGE_MODE_UPDATE,
+    CHALLENGE_MODE_RESET = wlEvent_CHALLENGE_MODE_UPDATE,
+
     -- completist
     TRADE_SKILL_DATA_SOURCE_CHANGED = wlEvent_TRADE_SKILL_DATA_SOURCE_CHANGED,
     CURRENCY_DISPLAY_UPDATE = wlEvent_CURRENCY_DISPLAY_UPDATE,
-    ARTIFACT_HISTORY_READY = wlEvent_ARTIFACT_HISTORY_READY,
-    ARTIFACT_COMPLETE = wlEvent_ARTIFACT_COMPLETE,
     RESEARCH_ARTIFACT_HISTORY_READY = wlEvent_ARTIFACT_HISTORY_READY,
     RESEARCH_ARTIFACT_COMPLETE = wlEvent_ARTIFACT_COMPLETE,
     TRANSMOG_COLLECTION_UPDATED = wlEvent_TRANSMOG_COLLECTION_UPDATED,
@@ -3623,8 +3950,6 @@ local wlEvents = {
     COMPANION_UNLEARNED = wlEvent_MOUNTS_UPDATED,
     COMPANION_UPDATE = wlEvent_MOUNTS_UPDATED,
     KNOWN_TITLES_UPDATE = wlEvent_TITLES_UPDATED,
-    NEW_TITLE_EARNED = wlEvent_TITLES_UPDATED,
-    OLD_TITLE_LOST = wlEvent_TITLES_UPDATED,
     ACHIEVEMENT_EARNED = wlEvent_ACHIEVEMENTS_UPDATED,
     GARRISON_FOLLOWER_ADDED = wlEvent_FOLLOWERS_UPDATED,
     GARRISON_FOLLOWER_LIST_UPDATE = wlEvent_FOLLOWERS_UPDATED,
@@ -4044,7 +4369,6 @@ local uploadReminder = false;
 local wlTimeSinceLastUpdate = 0;
 local WL_ONUPDATE_THROTTLE = 0.2;
 function wl_OnUpdate(self, elapsed)
-
     wlTimeSinceLastUpdate = wlTimeSinceLastUpdate + elapsed;     
 
     if wlTimeSinceLastUpdate >= WL_ONUPDATE_THROTTLE then
@@ -4183,32 +4507,37 @@ end
 function wlLocMapFrame_OnLoad()
     wlLocMapFrameText:SetText(UnitName("player")..": 100.0, 100.0  -  "..NOT_APPLICABLE..": 100.0, 100.0");
     wlLocMapFrame:SetWidth(wlLocMapFrameText:GetStringWidth() + 20);
-    wlLocMapFrame:SetFrameLevel(MapBarFrame:GetFrameLevel() + 1);
+    wlLocMapFrame:SetFrameLevel(WorldMapFrame:GetFrameLevel() + 1);
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlLocMapFrame_OnUpdate()
     -- Player
-    local pX, pY = GetPlayerMapPosition("player");
+    -- Use the current world map instead of the real players map here.
+    local location = C_Map.GetPlayerMapPosition(WorldMapFrame:GetMapID() or C_Map.GetBestMapForUnit("player"), "player");
+    local pX, pY = 0, 0;
+
+    if location then
+        pX, pY = location:GetXY();
+    end
 
     local playerStr = UnitName("player")..": |cffffffff";
-    if pX == 0 or pY == 0 then
+    if not pX or pX == 0 or pY == 0 then
         playerStr = playerStr..NOT_APPLICABLE;
     else
         playerStr = ("%s%.1f, %.1f"):format(playerStr, pX * 100, pY * 100);
     end
 
     -- Cursor
-    local width, height, scale = WorldMapDetailFrame:GetWidth(), WorldMapDetailFrame:GetHeight(), WorldMapDetailFrame:GetEffectiveScale();
-    local cX, cY = WorldMapDetailFrame:GetCenter();
-    local left, bottom = cX - width / 2, cY + height / 2;
+    -- GetNormalizedCursorPosition already returns the correct position values (with and without zoom).
+    local cX, cY = WorldMapFrame.ScrollContainer:GetNormalizedCursorPosition();
 
-    cX, cY = GetCursorPosition();
-    cX, cY = (cX / scale - left) / width * 100, (bottom - cY / scale) / height * 100;
+    -- Multiply with 100
+    cX, cY = cX * 100, cY * 100;
 
     local cursorStr = WL_LOC_CURSOR..": |cffffffff";
-    if cX < 0 or cX > 100 or cY < 0 or cY > 100 then
+    if cX <= 0 or cX >= 100 or cY <= 0 or cY >= 100 then
         cursorStr = cursorStr..NOT_APPLICABLE;
     else
         cursorStr = ("%s%.1f, %.1f"):format(cursorStr, cX, cY);
@@ -4219,20 +4548,10 @@ end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
-function wlEvent_ZONE_CHANGED()
-    if (not WorldMapFrame or not WorldMapFrame:IsShown()) and (not BattlefieldMinimap or not BattlefieldMinimap:IsShown()) then
-        SetMapToCurrentZone();
-    end
-
-    wlLocTooltipFrame_OnUpdate();
-end
-
---**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
-
 function wlLocTooltipFrame_OnUpdate()
     if wlSetting.locTooltip then
-        local pX, pY = GetPlayerMapPosition("player");
-        if pX == 0 and pY == 0 then
+       local pX, pY = GetPlayerMapPosition("player");
+        if not pX or (pX == 0 and pY == 0) then
             wlLocTooltipFrameText:SetText(NOT_APPLICABLE);
         else
             wlLocTooltipFrameText:SetText(("%.1f, %.1f"):format(pX * 100, pY * 100));
@@ -4341,6 +4660,19 @@ end
 --                      --
 --------------------------
 --------------------------
+
+-- |cffffffff|Hcurrency:1226|h[Nethershard]|h|r
+-- |cffffff00|Hquest:10002:64|h[The Firewing Liaison]|h|r
+-- |cffffff00|Hquest:11506:-1|h[Spirits of Auchindoun]|h|r
+-- (color) : (id) : (name)
+local WL_CURRENCYLINK = "|c(%x+)|Hcurrency:(%d+)|h%[(.+)%]|h|r";
+function wlParseCurrencyLink(link)
+    if link then
+       for color, id, name in link:gmatch(WL_CURRENCYLINK) do
+            return tonumber(id);
+        end
+    end
+end
 
 --    (color) : (id) : (enchant) : (1st socket) : (2nd socket) : (3rd socket) : (4th socket) : (subid) : (guid) : (playerLevel) : (specId) : (upgradeType) : (bonusContext) : (numBonus) (: ...bonusIds...) : (upgradeId) : (name)
 local WL_ITEMLINK = "|c(%x+)|Hitem:(%d+):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*):(%-?%d*)([^|]*)|h%[(.+)%]|h|r";
@@ -4663,7 +4995,9 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlGetDate()
-    return select(2, CalendarGetDate());
+    local date = C_Calendar.GetDate();
+
+    return date.month, date.monthDay, date.year;
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -4998,7 +5332,7 @@ end
 
 function wlReset()
     wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList = WL_VERSION, 0, "", "", {};
-    wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability, wlItemBonuses = {}, {}, {}, {}, {}, {}, {}, {};
+    wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlItemDurability, wlGarrisonMissions, wlItemBonuses = {}, {}, {}, {}, {}, {}, {}, {}, {};
 end
 
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
@@ -5071,34 +5405,18 @@ end
 --**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--**--
 
 function wlGetCurrentMapAreaID()
-    
-    local dl = GetCurrentMapDungeonLevel() or 0; -- Save DL
-    local currentId = GetCurrentMapAreaID(); -- Save Location
+    local uiMapID = C_Map.GetBestMapForUnit("player") or WorldMapFrame:GetMapID();
+    local uiMapDetails = C_Map.GetMapInfo(uiMapID);
     local mapAreaID = 0;
     
-    local mainZone, _, _, isMicroZone, microZone = GetMapInfo();
-    local wasMicroZone = isMicroZone;
-    local oldMicroZone = microZone;
-    
-    SetMapToCurrentZone(); -- Move Map
-    mainZone, _, _, isMicroZone, microZone = GetMapInfo();
+    local wasMicroZone = uiMapDetails.mapType == 5;
+    local oldMicroZone = uiMapDetails.name;
+
     if WL_ZONE_EXCEPTION[microZone] then
         mapAreaID = WL_ZONE_EXCEPTION[microZone];
     else
-        mapAreaID = GetCurrentMapAreaID();
+        mapAreaID = C_Map.GetBestMapForUnit("player") or C_Map.GetCurrentMapID();
     end
-    
-    -- Restore Map
-    if wasMicroZone then
-        if WL_ZONE_EXCEPTION[oldMicroZone] then
-            SetMapByID(WL_ZONE_EXCEPTION[oldMicroZone])
-        else
-            SetMapToCurrentZone();
-        end
-    else
-        SetMapByID(currentId);
-    end
-    SetDungeonMapLevel(dl); 
     
     return mapAreaID;
 end

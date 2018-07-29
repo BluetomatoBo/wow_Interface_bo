@@ -383,7 +383,7 @@
     </Size>
 
     <Anchors>
-        <Anchor point="BOTTOMLEFT" relativeTo="WorldMapDetailFrame" relativePoint="BOTTOMLEFT">
+        <Anchor point="BOTTOMLEFT" relativeTo="WorldMapFrame" relativePoint="BOTTOMLEFT">
             <Offset>
                 <AbsDimension x="2" y="0"/>
             </Offset>
@@ -425,7 +425,7 @@
 </Frame>
 
 
-<Frame name="wlLocTooltipFrame" frameStrata="MEDIUM" movable="true" enableMouse="true" hidden="true" parent="UIParent">
+<Frame name="wlLocTooltipFrame" frameStrata="MEDIUM" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" parent="UIParent">
     <TitleRegion>
         <Size>
             <AbsDimension x="500" y="500" />
@@ -472,11 +472,22 @@
 
     <Scripts>
         <OnUpdate function="wlLocTooltipFrame_OnUpdate" />
+        <OnLoad>
+                self:RegisterForDrag("LeftButton")
+        </OnLoad>
+        <OnDragStart>
+                if not self.isLocked then
+                    self:StartMoving()
+                end
+        </OnDragStart>
+        <OnDragStop>
+                self:StopMovingOrSizing()
+        </OnDragStop>
     </Scripts>
 </Frame>
 
 
-<Frame name="wlIdTooltipFrame" frameStrata="MEDIUM" movable="true" enableMouse="true" hidden="true" parent="UIParent">
+<Frame name="wlIdTooltipFrame" frameStrata="MEDIUM" movable="true" clampedToScreen="true" enableMouse="true" hidden="true" parent="UIParent">
     <TitleRegion>
         <Size>
             <AbsDimension x="500" y="500" />
@@ -523,6 +534,17 @@
 
     <Scripts>
         <OnUpdate function="wlIdTooltipFrame_OnUpdate" />
+        <OnLoad>
+            self:RegisterForDrag("LeftButton")
+        </OnLoad>
+        <OnDragStart>
+            if not self.isLocked then
+                self:StartMoving()
+            end
+        </OnDragStart>
+        <OnDragStop>
+            self:StopMovingOrSizing()
+        </OnDragStop>
     </Scripts>
 </Frame>
 

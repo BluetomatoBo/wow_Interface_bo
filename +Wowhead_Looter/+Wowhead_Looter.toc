@@ -1,13 +1,13 @@
-## Interface: 70000
+## Interface: 80000
 ## Title: Wowhead Looter
 ## Notes: Gathers data for Wowhead while you play.
 ## Author: mystadio
 ## eMail: feedback@wowhead.com
 ## URL: http://www.wowhead.com
-## Version: 60014
+## Version: 80000
 ## LoadOnDemand: 0
 ## DefaultState: enabled
-## SavedVariables: wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList, wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlBaseStats, wlItemDurability, wlBattlePetStats, wlItemBonuses, wlDailies, wlWorldQuests
+## SavedVariables: wlTime, wlRegionBuildings, wlVersion, wlUploaded, wlStats, wlExportData, wlRealmList, wlAuction, wlEvent, wlItemSuffix, wlObject, wlProfile, wlUnit, wlBaseStats, wlItemDurability, wlGarrisonMissions, wlBattlePetStats, wlItemBonuses, wlDailies, wlWorldQuests, wlLesserInvasions, wlGreaterInvasions
 ## SavedVariablesPerCharacter: wlScans, wlSetting, wlPetBlacklist, wlUIReloaded
 
 Wowhead_Looter.xml
