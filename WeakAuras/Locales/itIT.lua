@@ -97,6 +97,8 @@ L["Action Usable"] = "Azione utilizzabile"
 L["Active"] = "Active"
 --[[Translation missing --]]
 L["Additional Trigger Replacements"] = "Additional Trigger Replacements"
+--[[Translation missing --]]
+L["Adjust Timer"] = "Adjust Timer"
 L["Affected"] = "Affetto"
 --[[Translation missing --]]
 L["Aggro"] = "Aggro"

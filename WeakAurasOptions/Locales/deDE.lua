@@ -379,15 +379,13 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Regions of type \"%s\" are not supported."] = "Regions of type \"%s\" are not supported."
 	L["Remaining Time"] = "Verbleibende Zeit"
 	L["Remaining Time Precision"] = "Genauigkeit der Restzeit"
-	--[[Translation missing --]]
-	L["Remove"] = "Remove"
+	L["Remove"] = "Entfernen"
 	L["Remove this condition"] = "Bedingung entfernen"
 	L["Remove this display from its group"] = "Diese Anzeige aus seiner Gruppe entfernen"
 	L["Remove this property"] = "Eigenschaft entfernen"
 	L["Rename"] = "Umbenennen"
 	L["Repeat After"] = "Wiederholen nach"
-	--[[Translation missing --]]
-	L["Repeat every"] = "Repeat every"
+	L["Repeat every"] = "Wiederhole alle"
 	L["Required for Activation"] = "Benötigt zur Aktivierung"
 	--[[Translation missing --]]
 	L["Right 2 HUD position"] = "Right 2 HUD position"
@@ -496,8 +494,7 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Trigger"] = "Auslöser"
 	L["Trigger %d"] = "Auslöser %d"
 	L["Trigger:"] = "Auslöser:"
-	--[[Translation missing --]]
-	L["True"] = "True"
+	L["True"] = "Wahr"
 	L["Type"] = "Typ"
 	L["Undefined"] = "Undefiniert"
 	L["Ungroup"] = "Gruppierung aufheben"
@@ -529,8 +526,7 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Y Scale"] = "Skalierung (Y)"
 	L["Yellow Rune"] = "Gelbe Rune"
 	L["Yes"] = "Ja"
-	--[[Translation missing --]]
-	L["You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"] = "You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"
+	L["You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"] = "Du bist im Begriff %d Aura/Auren zu löschen. |cFFFF0000Das Löschen kann nicht rückgängig gemacht werden!|r Willst du fortfahren?"
 	L["Z Offset"] = "Z-Versatz"
 	L["Z Rotation"] = "Z-Rotation"
 	L["Zoom"] = "Zoom"

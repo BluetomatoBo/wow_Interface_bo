@@ -65,6 +65,8 @@ L["Absorbed"] = "Absorbiert"
 L["Action Usable"] = "Aktion nutzbar"
 L["Active"] = "Aktiv"
 L["Additional Trigger Replacements"] = "Zusätzlicher Auslöser Ersatz"
+--[[Translation missing --]]
+L["Adjust Timer"] = "Adjust Timer"
 L["Affected"] = "Betroffen"
 L["Aggro"] = "Aggro (Bedrohung)"
 --[[Translation missing --]]
@@ -518,8 +520,7 @@ L["Region type %s not supported"] = "Regiontyp %s wird nicht unterstützt"
 L["Relative"] = "Relativ"
 L["Remaining Duration"] = "Verbleibende Dauer"
 L["Remaining Time"] = "Verbleibende Zeit"
---[[Translation missing --]]
-L["Repeat"] = "Repeat"
+L["Repeat"] = "Wiederhole"
 L["Requested display does not exist"] = "Angeforderte Anzeige existiert nicht"
 L["Requested display not authorized"] = "Angeforderte Anzeige ist nicht autorisiert"
 --[[Translation missing --]]
@@ -722,6 +723,5 @@ L["Y-Offset"] = "Y-Versatz"
 L["Zone Group ID(s)"] = "Zone Group ID(s)"
 --[[Translation missing --]]
 L["Zone ID(s)"] = "Zone ID(s)"
---[[Translation missing --]]
-L["Zone Name"] = "Zone Name"
+L["Zone Name"] = "Gebietsname"
 

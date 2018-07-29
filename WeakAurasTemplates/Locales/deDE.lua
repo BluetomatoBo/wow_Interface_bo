@@ -8,8 +8,6 @@ local L = WeakAuras.L
 	L["Ability Charges"] = "Aufladungen der Fähigkeit"
 	L["Add Triggers"] = "Auslöser hinzufügen"
 	L["Always Active"] = "Immer aktiv"
-	--[[Translation missing --]]
-	L["Azerite Traits"] = "Azerite Traits"
 	L["Back"] = "Zurück"
 	L["Bloodlust/Heroism"] = "Kampfrausch/Heldentum"
 	L["buff"] = "buff"
@@ -19,26 +17,37 @@ local L = WeakAuras.L
 	L["Cast"] = "Zauberwirken"
 	L["cooldown"] = "Abklingzeit"
 	L["Cooldowns"] = "Abklingzeiten"
-	L["Damage Trinkets"] = "Schadensverursacher-Schmuckstücke"
 	L["Debuffs"] = "Debuffs"
 	L["Enchants"] = "Verzauberungen"
 	L["General"] = "Allgemein"
-	L["Healer Trinkets"] = "Heiler-Schmuckstücke"
+	--[[Translation missing --]]
+	L["General Azerite Traits"] = "General Azerite Traits"
 	L["Health"] = "Gesundheit"
 	L["Keeps existing triggers intact"] = "Verändert existierende Auslöser nicht"
+	--[[Translation missing --]]
+	L["On Procc Trinkets (Buff)"] = "On Procc Trinkets (Buff)"
+	--[[Translation missing --]]
+	L["On Use Trinkets (Buff)"] = "On Use Trinkets (Buff)"
+	--[[Translation missing --]]
+	L["On Use Trinkets (CD)"] = "On Use Trinkets (CD)"
 	L["Pet alive"] = "Begleiter am Leben"
 	L["Pet Behavior"] = "Begleiterverhalten"
+	--[[Translation missing --]]
+	L["PvP Azerite Traits"] = "PvP Azerite Traits"
 	L["PvP Talents"] = "PvP-Talente"
-	L["PVP Trinkets"] = "PvP-Schmuckstücke"
+	--[[Translation missing --]]
+	L["PVP Trinkets (Buff)"] = "PVP Trinkets (Buff)"
+	--[[Translation missing --]]
+	L["PVP Trinkets (CD)"] = "PVP Trinkets (CD)"
 	L["Replace all existing triggers"] = "Ersetzt alle vorhandenen Auslöser "
 	L["Replace Triggers"] = "Auslöser ersetzen"
 	L["Resources"] = "Ressourcen"
 	L["Resources and Shapeshift Form"] = "Ressourcen und Gestaltwandlungsform"
 	L["Runes"] = "Runen"
 	L["Shapeshift Form"] = "Gestaltwandlungsform"
+	L["Specific Azerite Traits"] = "Spezifische Azerit Traits"
 	--[[Translation missing --]]
 	L["Stagger"] = "Stagger"
-	L["Tank Trinkets"] = "Tank-Schmuckstücke"
 	L["Totems"] = "Totems"
 	L["Unknown Item"] = "Unbekannter Gegenstand"
 	L["Unknown Spell"] = "Unbekannter Zauber"

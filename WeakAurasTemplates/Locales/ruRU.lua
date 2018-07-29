@@ -8,8 +8,6 @@ local L = WeakAuras.L
 	L["Ability Charges"] = "Заряды способности"
 	L["Add Triggers"] = "Добавить триггеры"
 	L["Always Active"] = "Всегда активный триггер"
-	--[[Translation missing --]]
-	L["Azerite Traits"] = "Azerite Traits"
 	L["Back"] = "Назад"
 	L["Bloodlust/Heroism"] = "Жажда крови / Героизм"
 	L["buff"] = "(бафф)"
@@ -19,25 +17,37 @@ local L = WeakAuras.L
 	L["Cast"] = "Применение заклинания (каст)"
 	L["cooldown"] = "(восстановление)"
 	L["Cooldowns"] = "Восстановление (перезарядка)"
-	L["Damage Trinkets"] = "Аксессуары бойца"
 	L["Debuffs"] = "Дебаффы"
 	L["Enchants"] = "Чары"
 	L["General"] = "Общие"
-	L["Healer Trinkets"] = "Аксессуары лекаря"
+	--[[Translation missing --]]
+	L["General Azerite Traits"] = "General Azerite Traits"
 	L["Health"] = "Здоровье"
 	L["Keeps existing triggers intact"] = "Сохранить существующие триггеры нетронутыми"
+	--[[Translation missing --]]
+	L["On Procc Trinkets (Buff)"] = "On Procc Trinkets (Buff)"
+	--[[Translation missing --]]
+	L["On Use Trinkets (Buff)"] = "On Use Trinkets (Buff)"
+	--[[Translation missing --]]
+	L["On Use Trinkets (CD)"] = "On Use Trinkets (CD)"
 	L["Pet alive"] = "Питомец жив"
 	L["Pet Behavior"] = "Поведение питомца"
+	--[[Translation missing --]]
+	L["PvP Azerite Traits"] = "PvP Azerite Traits"
 	L["PvP Talents"] = "Таланты PvP"
-	L["PVP Trinkets"] = "Аксессуары PvP"
+	--[[Translation missing --]]
+	L["PVP Trinkets (Buff)"] = "PVP Trinkets (Buff)"
+	--[[Translation missing --]]
+	L["PVP Trinkets (CD)"] = "PVP Trinkets (CD)"
 	L["Replace all existing triggers"] = "Заменить все существующие триггеры"
 	L["Replace Triggers"] = "Заменить триггеры"
 	L["Resources"] = "Ресурсы"
 	L["Resources and Shapeshift Form"] = "Форма Друида и ресурсы"
 	L["Runes"] = "Руны"
 	L["Shapeshift Form"] = "Форма Друида"
+	--[[Translation missing --]]
+	L["Specific Azerite Traits"] = "Specific Azerite Traits"
 	L["Stagger"] = "Пошатывание"
-	L["Tank Trinkets"] = "Аксессуары танка"
 	L["Totems"] = "Тотемы"
 	L["Unknown Item"] = "Неизвестный предмет"
 	L["Unknown Spell"] = "Неизвестное заклинание"

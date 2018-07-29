@@ -63,6 +63,8 @@ L["Absorbed"] = "흡수함"
 L["Action Usable"] = "사용 가능"
 L["Active"] = "활성화"
 L["Additional Trigger Replacements"] = "추가적인 활성 조건 교체"
+--[[Translation missing --]]
+L["Adjust Timer"] = "Adjust Timer"
 L["Affected"] = "영향 받음"
 L["Aggro"] = "어그로"
 --[[Translation missing --]]

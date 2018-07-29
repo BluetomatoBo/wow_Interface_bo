@@ -61,6 +61,8 @@ L["Absorbed"] = "Поглощено"
 L["Action Usable"] = "Действие возможно"
 L["Active"] = "Активный"
 L["Additional Trigger Replacements"] = "Дополнительные коды триггера"
+--[[Translation missing --]]
+L["Adjust Timer"] = "Adjust Timer"
 L["Affected"] = "Задействовано"
 L["Aggro"] = "Агро"
 L["Alert Type"] = "Тип предупреждения"
