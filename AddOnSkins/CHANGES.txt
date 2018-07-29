@@ -1,0 +1,330 @@
+lightweight tag 050d7470698acab6d96b7507bc112e46c60a5a1d 3.75
+Author:	Michael James <darktemplar9900@yahoo.com>
+Date:	Sat Jul 28 18:04:54 2018 -0500
+
+commit 050d7470698acab6d96b7507bc112e46c60a5a1d
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 18:04:54 2018 -0500
+
+    3.75
+
+commit 97ccb1152d34bd1e8ab922439e758b5d54f0482e
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 18:02:39 2018 -0500
+
+    Skillet
+
+commit cd9ae49d939c97e2bfd3510f168cbeb2bee4993b
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 17:17:10 2018 -0500
+
+    BtWQuests
+
+commit d769ef424906f2ca55aff6cefa6c21d3c4c2e0dd
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 16:47:16 2018 -0500
+
+    Keyed
+    
+    Issue #118
+
+commit 5d1d281e761672acb979b81e4b631a8fddaf5eae
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 15:54:45 2018 -0500
+
+    ClassicQuestLog
+    
+    Issue #110
+
+commit a5cd2eab0459f9f671c84b682a87abb3d68c0407
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 15:50:21 2018 -0500
+
+    AutoBar
+    
+    Issue #62
+
+commit 28a48669b027d762c3cfa6e945912dd43cceca6e
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 15:06:05 2018 -0500
+
+    Toggle Embed is Right Chat Arrow only now.
+    
+    Issue #94
+
+commit 6fea54a42453c3349469f0b991e4739d150e423a
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 15:00:06 2018 -0500
+
+    WoWPro
+    
+    Issue Resolved by User in ticket #59
+
+commit bbb1160b6b76cc7611ca7ec31ca8e2f77a100601
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 14:59:40 2018 -0500
+
+    Talent Skin Update
+
+commit 976cc0c3582dbac98e536b3d573fe2c3e53774af
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 13:13:42 2018 -0500
+
+    Fix the Auto Disable.
+    
+    Drunk coding is not the answer.
+
+commit 92ce557d0e4861ff1bdb9521675ae00be94389d6
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 12:54:53 2018 -0500
+
+    Fixed Blizzard Skins
+
+commit f1989375c71bdf06092dce0fc7baa9878eee42d0
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Sat Jul 28 12:54:24 2018 -0500
+
+    Auto Disable Bugged Skins until next release
+
+commit 79e2b35a57c8f2366fb5467c04f015e9b96f2920
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Sun Jul 22 22:38:14 2018 -0400
+
+    Replacing for 8.0 BFA compatibility
+
+commit 79e2b35a57c8f2366fb5467c04f015e9b96f2920
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Sun Jul 22 22:38:14 2018 -0400
+
+    Replacing for 8.0 BFA compatibility
+
+commit 79e2b35a57c8f2366fb5467c04f015e9b96f2920
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Sun Jul 22 22:38:14 2018 -0400
+
+    Replacing for 8.0 BFA compatibility
+
+commit 0c758ab6e0222d090c00d429559b01c122852cdc
+Author: Michael Tindal <mj.tindal@gmail.com>
+Date:   Sat Jul 21 14:28:23 2018 -0700
+
+    Curseforge test 3
+
+commit 5be74b027631615ddb39e8163e6a1dbbebaa0356
+Author: Michael Tindal <mj.tindal@gmail.com>
+Date:   Sat Jul 21 12:48:33 2018 -0700
+
+    Testing curseforge webhook again
+
+commit 0944cee3ea15def4ac23df10ddf324817a86f1d5
+Author: Michael Tindal <mj.tindal@gmail.com>
+Date:   Sat Jul 21 12:21:57 2018 -0700
+
+    Testing curseforge webhook
+
+commit 3c158debf7e836bcaa867c28cab82f1c89a0df40
+Author: Simpy <kodi03466@hotmail.com>
+Date:   Fri Jul 20 19:06:20 2018 -0400
+
+    3.74
+
+commit cf80f05c21cca7e616408038a356904cee1bc498
+Author: Merathilis <neo0608@gmail.com>
+Date:   Thu Jul 19 21:15:35 2018 +0200
+
+    Comment out the LeftChatToggle Script for now, it will break the ElvUI function for the Voice Chat.
+
+commit 3244365cdcf77691331938587aaaa5eda5e5b9e6
+Author: Merathilis <neo0608@gmail.com>
+Date:   Thu Jul 19 12:39:53 2018 +0200
+
+    Fix/Update Blizzard_Friends Skin.
+
+commit c5a5d2a4d6b631184bbc97c20a894ba13db89403
+Author: Merathilis <neo0608@gmail.com>
+Date:   Thu Jul 19 12:00:23 2018 +0200
+
+    Fix/Update the Blizzard_EncounterJournal Skin.
+
+commit b1ff30955e3e058c308611c6bb3283795417ac0a
+Author: Merathilis <neo0608@gmail.com>
+Date:   Thu Jul 19 11:39:57 2018 +0200
+
+    Update/Fix Blizzard_Collections Skin.
+
+commit c2caa4055a8269db01587cefecd87ccd15b84263
+Author: Merathilis <neo0608@gmail.com>
+Date:   Thu Jul 19 11:05:54 2018 +0200
+
+    Update/Fix the Blizzard_Calendar skin.
+
+commit f1e8307adde5addeb0c9716e3bc1e227d831fc6a
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Thu Jul 19 01:48:40 2018 -0400
+
+    Fixed Pawn skin
+
+commit f1e8307adde5addeb0c9716e3bc1e227d831fc6a
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Thu Jul 19 01:48:40 2018 -0400
+
+    Fixed Pawn skin
+
+commit 6d511a2017298bae81c0886502cc005da6e99acb
+Author: Merathilis <neo0608@gmail.com>
+Date:   Wed Jul 18 14:18:24 2018 +0200
+
+    Replace MAX_NUM_QUESTS with the proper API. Thx @Clutch for this.
+    
+    In addition to: Azilroka/AddOnSkins!27
+
+commit 757bf9f595329ba66594e4888e642806b7ebd4af
+Author: Caedis <Caedis@users.noreply.github.com>
+Date:   Wed Jul 18 01:41:21 2018 -0500
+
+    Fix ParchmentRemover
+
+commit 757bf9f595329ba66594e4888e642806b7ebd4af
+Author: Caedis <Caedis@users.noreply.github.com>
+Date:   Wed Jul 18 01:41:21 2018 -0500
+
+    Fix ParchmentRemover
+
+commit 8090c499b136be799660b2fc8dccc46eff1c7298
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue May 1 15:23:37 2018 +0200
+
+    Fix Bfa load errors.
+
+commit 3079bf90ca06aabf3bca6e6fc222b5b2b234a35b
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Sun Apr 22 04:59:44 2018 -0400
+
+    Updated REPorter skin
+
+commit 3079bf90ca06aabf3bca6e6fc222b5b2b234a35b
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Sun Apr 22 04:59:44 2018 -0400
+
+    Updated REPorter skin
+
+commit 7875a8076e06428b498861fc6bf49194a76f7f9c
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Wed Apr 4 17:40:24 2018 -0500
+
+    Fix this OHC
+
+commit 7e70894fc2d344e9685b6efd5c134a85e54563d6
+Author: Merathilis <neo0608@gmail.com>
+Date:   Tue Apr 3 10:20:07 2018 +0200
+
+    Another BigWigs API update.
+
+commit f527549335818e55df9838ed906a62cec66d2651
+Author: Merathilis <neo0608@gmail.com>
+Date:   Mon Apr 2 11:35:41 2018 +0200
+
+    Follow the recent BigWigs API changes for the skin.
+
+commit f258a143bf95b4829397e19a7837864b2f04e52b
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Fri Mar 30 13:15:00 2018 -0500
+
+    3.73
+
+commit 02c6af95728b463fa1370176f0b9b62844ac0a98
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Fri Mar 16 05:55:18 2018 -0400
+
+    Updating for GRM R1.143
+
+commit 02c6af95728b463fa1370176f0b9b62844ac0a98
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Fri Mar 16 05:55:18 2018 -0400
+
+    Updating for GRM R1.143
+
+commit 02c6af95728b463fa1370176f0b9b62844ac0a98
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Fri Mar 16 05:55:18 2018 -0400
+
+    Updating for GRM R1.143
+
+commit f1b5f25296a33257d344dbe2db30570221a30c5a
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Fri Mar 9 05:49:10 2018 -0500
+
+    Updating for R1.141 Release
+
+commit f1b5f25296a33257d344dbe2db30570221a30c5a
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Fri Mar 9 05:49:10 2018 -0500
+
+    Updating for R1.141 Release
+
+commit 92dcfafc95ab3daa67566286f3899f0636fe8660
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Sat Feb 24 04:10:44 2018 -0500
+
+    Updated REFlex skin
+
+commit 92dcfafc95ab3daa67566286f3899f0636fe8660
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Sat Feb 24 04:10:44 2018 -0500
+
+    Updated REFlex skin
+
+commit 457089f248e1db7ab1ede1355d560009e75d2673
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Sat Feb 24 04:10:19 2018 -0500
+
+    Updated REPorter skin
+
+commit 3e191fd98ec802c5bdbeac8405939c42dcb66ddb
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Thu Feb 22 22:34:07 2018 -0600
+
+    EditBox Insets
+
+commit 47600527927566f864ba58502549fd9ae03a3349
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Mon Feb 12 16:14:03 2018 -0600
+
+    3.72
+
+commit 24cd3fcc59dc1ebee03a053d13e700bccb3d9ac5
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Mon Feb 12 16:11:47 2018 -0600
+
+    Idk how that happened.
+
+commit 7fb26b2fcac44cca124289e284d23dba4a7f6075
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Mon Feb 12 12:36:52 2018 -0500
+
+    ArkInventory - Added support ElvUI cooldowns
+
+commit 7fb26b2fcac44cca124289e284d23dba4a7f6075
+Author: AcidWeb <pawelj@iosphe.re>
+Date:   Mon Feb 12 12:36:52 2018 -0500
+
+    ArkInventory - Added support ElvUI cooldowns
+
+commit b5e70f282dae1ad67e1fab8d7684e7934761a97a
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Sat Feb 10 06:51:25 2018 -0500
+
+    Replace with R1.130 ver
+
+commit b5e70f282dae1ad67e1fab8d7684e7934761a97a
+Author: Aaron Topping <aaronjtopping@gmail.com>
+Date:   Sat Feb 10 06:51:25 2018 -0500
+
+    Replace with R1.130 ver
+
+commit 3db1bd1b8a8aacc0469acbbd4210e2f781c3ffc8
+Author: Merathilis <neo0608@gmail.com>
+Date:   Sat Feb 10 08:33:41 2018 +0100
+
+    Add the version to the options.
+
