@@ -2,6 +2,9 @@ local CoolLine = CreateFrame("Frame", "CoolLine", UIParent)
 CoolLine:SetScript("OnEvent", function(this, event, ...)
 	this[event](this, ...)
 end)
+
+local IS_WOW_8 = GetBuildInfo():match("^8")
+
 local smed = LibStub("LibSharedMedia-3.0")
 
 local _G, pairs, strmatch, tinsert, tremove, random = _G, pairs, string.match, table.insert, table.remove, math.random
@@ -10,26 +13,31 @@ local GetSpellInfo = GetSpellInfo
 local UnitExists, HasPetUI = UnitExists, HasPetUI
 
 local db, block
-local backdrop = { edgeSize=16, } -- Left Unchanged
+local backdrop = { edgeSize = 16 } -- Left Unchanged
 local section, iconsize = 0, 0
 local tick0, tick1, tick3, tick10, tick30, tick120, tick300
 local BOOKTYPE_SPELL, BOOKTYPE_PET = BOOKTYPE_SPELL, BOOKTYPE_PET
 local spells = { [BOOKTYPE_SPELL] = { }, [BOOKTYPE_PET] = { }, }
 local chargespells = { [BOOKTYPE_SPELL] = { }, [BOOKTYPE_PET] = { }, }
 local frames, cooldowns, specialspells = { }, { }, { }
+
 CoolLine.spells, CoolLine.chargespells = spells, chargespells
 CoolLine.frames, CoolLine.cooldowns, CoolLine.specialspells = frames, cooldowns, specialspells
 
 local SetValue, updatelook, createfs, ShowOptions, RuneCheck
+
 local function SetValueH(this, v, just)
 	this:SetPoint(just or "CENTER", CoolLine, "LEFT", v, 0)
 end
+
 local function SetValueHR(this, v, just)
 	this:SetPoint(just or "CENTER", CoolLine, "LEFT", db.w - v, 0)
 end
+
 local function SetValueV(this, v, just)
 	this:SetPoint(just or "CENTER", CoolLine, "BOTTOM", 0, v)
 end
+
 local function SetValueVR(this, v, just)
 	this:SetPoint(just or "CENTER", CoolLine, "BOTTOM", 0, db.h - v)
 end
@@ -40,7 +48,7 @@ function CoolLine:ADDON_LOADED(a1)
 	self:UnregisterEvent("ADDON_LOADED")
 	self.ADDON_LOADED = nil
 
-	CoolLineDB = CoolLineDB or { }
+	CoolLineDB = CoolLineDB or {}
 	if CoolLineDB.perchar then
 		CoolLineCharDB = CoolLineCharDB or CoolLineDB
 		db = CoolLineCharDB
@@ -48,6 +56,7 @@ function CoolLine:ADDON_LOADED(a1)
 		CoolLineCharDB = nil
 		db = CoolLineDB
 	end
+
 	if db.dbinit ~= 3 then
 		db.dbinit = 3
 		for k, v in pairs({
@@ -74,6 +83,7 @@ function CoolLine:ADDON_LOADED(a1)
 		end
 	end
 	block = db.block
+
 	local _, class = UnitClass("player")
 	if class == "DEATHKNIGHT" then
 		local runecd = {  -- fix by NeoSyrex
@@ -110,6 +120,7 @@ function CoolLine:ADDON_LOADED(a1)
 
 	SlashCmdList.COOLLINE = ShowOptions
 	SLASH_COOLLINE1 = "/coolline"
+
 	local panel = CreateFrame("Frame")
 	panel.name = "CoolLine"
 	panel:SetScript("OnShow", function(this)
@@ -142,6 +153,7 @@ function CoolLine:ADDON_LOADED(a1)
 		b:SetPoint("TOPLEFT", t2, "BOTTOMLEFT", -2, -8)
 		this:SetScript("OnShow", nil)
 	end)
+
 	InterfaceOptions_AddCategory(panel)
 
 	createfs = function(f, text, offset, just)
@@ -153,6 +165,7 @@ function CoolLine:ADDON_LOADED(a1)
 		fs:SetHeight(db.fontsize + 2)
 		fs:SetShadowColor(db.bgcolor.r, db.bgcolor.g, db.bgcolor.b, db.bgcolor.a)
 		fs:SetShadowOffset(1, -1)
+
 		if just then
 			fs:ClearAllPoints()
 			if db.vertical then
@@ -169,9 +182,11 @@ function CoolLine:ADDON_LOADED(a1)
 		else
 			fs:SetJustifyH("CENTER")
 		end
+
 		SetValue(fs, offset, just)
 		return fs
 	end
+
 	updatelook = function()
 		self:SetWidth(db.w or 130)
 		self:SetHeight(db.h or 18)
@@ -190,6 +205,7 @@ function CoolLine:ADDON_LOADED(a1)
 		self.border = self.border or CreateFrame("Frame", nil, self)
 		self.border:SetPoint("TOPLEFT", -db.borderinset, db.borderinset) -- Implemented 'insets'
 		self.border:SetPoint("BOTTOMRIGHT", db.borderinset, -db.borderinset) -- Implemented 'insets'
+
 		backdrop = {
 			edgeFile = smed:Fetch("border", db.border),
 			edgeSize = db.bordersize,
@@ -216,6 +232,7 @@ function CoolLine:ADDON_LOADED(a1)
 			smed.RegisterCallback(self, "LibSharedMedia_Registered", updatelook)
 			self.cb = true
 		end
+
 		if db.hidepet then
 			self:UnregisterEvent("UNIT_PET")
 			self:UnregisterEvent("PET_BAR_UPDATE_COOLDOWN")
@@ -223,18 +240,22 @@ function CoolLine:ADDON_LOADED(a1)
 			self:RegisterUnitEvent("UNIT_PET", "player")
 			self:UNIT_PET()
 		end
+
 		if db.hidebag and db.hideinv then
 			self:UnregisterEvent("BAG_UPDATE_COOLDOWN")
 		else
 			self:RegisterEvent("BAG_UPDATE_COOLDOWN")
 			self:BAG_UPDATE_COOLDOWN()
 		end
+
 		if db.hidefail then
 			self:UnregisterEvent("UNIT_SPELLCAST_FAILED")
 		else
 			self:RegisterUnitEvent("UNIT_SPELLCAST_FAILED", "player")
 		end
+
 		CoolLine:SetAlpha((CoolLine.unlock or #cooldowns > 0) and db.activealpha or db.inactivealpha)
+
 		for i = 1, #cooldowns do
 			cooldowns[i]:SetSize(iconsize, iconsize)
 		end
@@ -297,6 +318,7 @@ end
 
 local iconback = { bgFile="Interface\\AddOns\\CoolLine\\backdrop.tga" }
 local elapsed, throt, ptime, isactive = 0, 1.5, 0, false
+
 local function ClearCooldown(f, name)
 	name = name or (f and f.name)
 	for i = 1, #cooldowns do
@@ -310,6 +332,7 @@ local function ClearCooldown(f, name)
 		end
 	end
 end
+
 local function SetupIcon(frame, position, tthrot, active, fl)
 	throt = (throt < tthrot and throt) or tthrot
 	isactive = active or isactive
@@ -318,6 +341,7 @@ local function SetupIcon(frame, position, tthrot, active, fl)
 	end
 	SetValue(frame, position)
 end
+
 local function OnUpdate(this, a1, ctime, dofl)
 	elapsed = elapsed + a1
 	if elapsed < throt then return end
@@ -336,6 +360,7 @@ local function OnUpdate(this, a1, ctime, dofl)
 		dofl, ptime = true, ctime + 0.4
 	end
 	isactive, throt = false, 1.5
+
 	for index, frame in pairs(cooldowns) do
 		local remain = frame.endtime - ctime
 		if remain < 3 then
@@ -369,10 +394,12 @@ local function OnUpdate(this, a1, ctime, dofl)
 			SetupIcon(frame, 6 * section, 2, false, dofl)
 		end
 	end
+
 	if not isactive and not CoolLine.unlock then
 		CoolLine:SetAlpha(db.inactivealpha)
 	end
 end
+
 local function NewCooldown(name, icon, endtime, isplayer)
 	local f
 	for index, frame in pairs(cooldowns) do
@@ -383,6 +410,7 @@ local function NewCooldown(name, icon, endtime, isplayer)
 			return
 		end
 	end
+
 	if not f then
 		f = f or tremove(frames)
 		if not f then
@@ -395,19 +423,24 @@ local function NewCooldown(name, icon, endtime, isplayer)
 		end
 		tinsert(cooldowns, f)
 	end
+
 	local ctime = GetTime()
 	f:SetWidth(iconsize)
 	f:SetHeight(iconsize)
 	f:SetAlpha((endtime - ctime > 360) and 0.6 or 1)
+
 	f.name, f.endtime, f.isplayer = name, endtime, isplayer
 	f.icon:SetTexture(icon)
+
 	local c = db[isplayer and "spellcolor" or "nospellcolor"]
 	f:SetBackdropColor(c.r, c.g, c.b, c.a)
 	f:Show()
+
 	CoolLine:SetScript("OnUpdate", OnUpdate)
 	CoolLine:SetAlpha(db.activealpha)
 	OnUpdate(CoolLine, 2, ctime)
 end
+
 CoolLine.NewCooldown, CoolLine.ClearCooldown = NewCooldown, ClearCooldown
 
 do  -- cache spells that have a cooldown
@@ -463,6 +496,7 @@ do  -- cache spells that have a cooldown
 			end
 		end
 	end
+
 	----------------------------------
 	function CoolLine:SPELLS_CHANGED()
 	----------------------------------
@@ -477,6 +511,7 @@ do  -- scans spellbook to update cooldowns, throttled since the event fires a lo
 	local selap = 0
 	local spellthrot = CreateFrame("Frame", nil, CoolLine)
 	local GetSpellCooldown, GetSpellTexture, GetSpellCharges = GetSpellCooldown, GetSpellTexture, GetSpellCharges
+
 	local function CheckSpellBook(btype)
 		for id, name in pairs(spells[btype]) do
 			local start, duration, enable = GetSpellCooldown(name)
@@ -499,6 +534,7 @@ do  -- scans spellbook to update cooldowns, throttled since the event fires a lo
 				ClearCooldown(nil, name)
 			end
 		end
+
 		for id, name in pairs(chargespells[btype]) do
 			local currentCharges, maxCharges, cooldownStart, cooldownDuration = GetSpellCharges(id)
 			if cooldownStart and cooldownDuration and currentCharges < maxCharges and not block[name] then
@@ -509,6 +545,7 @@ do  -- scans spellbook to update cooldowns, throttled since the event fires a lo
 			end
 		end
 	end
+
 	spellthrot:SetScript("OnUpdate", function(this, a1)
 		selap = selap + a1
 		if selap < 0.3 then return end
@@ -519,7 +556,9 @@ do  -- scans spellbook to update cooldowns, throttled since the event fires a lo
 			CheckSpellBook(BOOKTYPE_PET)
 		end
 	end)
+
 	spellthrot:Hide()
+
 	-----------------------------------------
 	function CoolLine:SPELL_UPDATE_COOLDOWN()
 	-----------------------------------------
@@ -532,10 +571,11 @@ do  -- scans equipments and bags for item cooldowns
 	local GetInventoryItemCooldown, GetInventoryItemTexture = GetInventoryItemCooldown, GetInventoryItemTexture
 	local GetContainerItemCooldown, GetContainerItemInfo = GetContainerItemCooldown, GetContainerItemInfo
 	local GetContainerNumSlots = GetContainerNumSlots
+
 	---------------------------------------
 	function CoolLine:BAG_UPDATE_COOLDOWN()
 	---------------------------------------
-		for i = 1, (db.hideinv and 0) or 18, 1 do
+		for i = 1, (db.hideinv and 0) or 18 do
 			local start, duration, enable = GetInventoryItemCooldown("player", i)
 			if enable == 1 then
 				local name = GetItemInfo(GetInventoryItemLink("player", i))
@@ -548,8 +588,9 @@ do  -- scans equipments and bags for item cooldowns
 				end
 			end
 		end
-		for i = 0, (db.hidebag and -1) or 4, 1 do
-			for j = 1, GetContainerNumSlots(i), 1 do
+
+		for i = 0, (db.hidebag and -1) or 4 do
+			for j = 1, GetContainerNumSlots(i) do
 				local start, duration, enable = GetContainerItemCooldown(i, j)
 				if enable == 1 then
 					local name = GetItemInfo(GetContainerItemLink(i, j))
@@ -569,10 +610,15 @@ end
 -------------------------------------------
 function CoolLine:PET_BAR_UPDATE_COOLDOWN()
 -------------------------------------------
-	for i = 1, 10, 1 do
+	for i = 1, 10 do
 		local start, duration, enable = GetPetActionCooldown(i)
 		if enable == 1 then
-			local name, _, texture = GetPetActionInfo(i)
+			local name, _, texture
+			if IS_WOW_8 then
+				name, texture = GetPetActionInfo(i)
+			else
+				name, _, texture = GetPetActionInfo(i)
+			end
 			if name then
 				if start > 0 and not block[name] then
 					if duration > 3 then
@@ -585,8 +631,9 @@ function CoolLine:PET_BAR_UPDATE_COOLDOWN()
 		end
 	end
 end
+
 ------------------------------
-function CoolLine:UNIT_PET(a1)
+function CoolLine:UNIT_PET()
 ------------------------------
 	if UnitExists("pet") and not HasPetUI() then
 		self:RegisterEvent("PET_BAR_UPDATE_COOLDOWN")
@@ -599,7 +646,7 @@ local GetActionCooldown, HasAction = GetActionCooldown, HasAction
 ---------------------------------------------
 function CoolLine:ACTIONBAR_UPDATE_COOLDOWN()  -- used only for vehicles
 ---------------------------------------------
-	for i = 1, 8, 1 do
+	for i = 1, 8 do
 		local b = _G["OverrideActionBarButton"..i]
 		if b and HasAction(b.action) then
 			local start, duration, enable = GetActionCooldown(b.action)
@@ -615,6 +662,7 @@ function CoolLine:ACTIONBAR_UPDATE_COOLDOWN()  -- used only for vehicles
 		end
 	end
 end
+
 ------------------------------------------
 function CoolLine:UNIT_ENTERED_VEHICLE()
 ------------------------------------------
@@ -623,6 +671,7 @@ function CoolLine:UNIT_ENTERED_VEHICLE()
 	self:RegisterUnitEvent("UNIT_EXITED_VEHICLE", "player")
 	self:ACTIONBAR_UPDATE_COOLDOWN()
 end
+
 -----------------------------------------
 function CoolLine:UNIT_EXITED_VEHICLE()
 -----------------------------------------
@@ -637,9 +686,14 @@ end
 
 local failborder
 ----------------------------------------------------
-function CoolLine:UNIT_SPELLCAST_FAILED(unit, spell)
+function CoolLine:UNIT_SPELLCAST_FAILED(unit, spell, id8)
 ----------------------------------------------------
+	if IS_WOW_8 then
+		spell = GetSpellInfo(id8) -- TEMPORARY, need to switch to using spell IDs throughout
+	end
+
 	if #cooldowns == 0 then return end
+
 	for index, frame in pairs(cooldowns) do
 		if frame.name == spell then
 			if frame.endtime - GetTime() > 1 then
@@ -654,6 +708,7 @@ function CoolLine:UNIT_SPELLCAST_FAILED(unit, spell)
 						this:SetAlpha(this.alp > 1 and 1 or this.alp)
 					end)
 				end
+
 				failborder.alp = 1.2
 				failborder:SetPoint("TOPLEFT", frame, "TOPLEFT", -2, 2)
 				failborder:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 2, -2)
@@ -662,12 +717,11 @@ function CoolLine:UNIT_SPELLCAST_FAILED(unit, spell)
 			break
 		end
 	end
-
 end
-
 
 local CoolLineDD, Set
 local info = { }
+
 function ShowOptions(a1)
 	if type(a1) == "string" and a1 ~= "" and a1 ~= "menu" and a1 ~= "options" and a1 ~= "help" then
 		if strmatch(a1, "|H") then
@@ -684,52 +738,53 @@ function ShowOptions(a1)
 		end
 		return
 	end
+
 	if not CoolLineDD then
 		CoolLineDD = CreateFrame("Frame", "CoolLineDD", UIParent)
 		CoolLineDD.displayMode = "MENU"
 
 		Set = function(b, a1)
 			if a1 == "unlock" then
-	if not CoolLine.resizer then
-		CoolLine:SetMovable(true)
-		CoolLine:SetResizable(true)
-		CoolLine:RegisterForDrag("LeftButton")
-		CoolLine:SetScript("OnMouseUp", function(this, a1) if a1 == "RightButton" then ShowOptions() end end)
-		CoolLine:SetScript("OnDragStart", function(this) this:StartMoving() end)
-		CoolLine:SetScript("OnDragStop", function(this)
-			this:StopMovingOrSizing()
-			local x, y = this:GetCenter()
-			local ux, uy = UIParent:GetCenter()
-			db.x, db.y = floor(x - ux + 0.5), floor(y - uy + 0.5)
-			this:ClearAllPoints()
-			updatelook()
-		end)
+				if not CoolLine.resizer then
+					CoolLine:SetMovable(true)
+					CoolLine:SetResizable(true)
+					CoolLine:RegisterForDrag("LeftButton")
+					CoolLine:SetScript("OnMouseUp", function(this, a1) if a1 == "RightButton" then ShowOptions() end end)
+					CoolLine:SetScript("OnDragStart", function(this) this:StartMoving() end)
+					CoolLine:SetScript("OnDragStop", function(this)
+						this:StopMovingOrSizing()
+						local x, y = this:GetCenter()
+						local ux, uy = UIParent:GetCenter()
+						db.x, db.y = floor(x - ux + 0.5), floor(y - uy + 0.5)
+						this:ClearAllPoints()
+						updatelook()
+					end)
 
-		CoolLine:SetMinResize(6, 6)
-		CoolLine.resizer = CreateFrame("Button", nil, CoolLine.border, "UIPanelButtonTemplate")
-		local resize = CoolLine.resizer
-		resize:SetWidth(8)
-		resize:SetHeight(8)
-		resize:SetPoint("BOTTOMRIGHT", CoolLine, "BOTTOMRIGHT", 2, -2)
-		resize:SetScript("OnMouseDown", function(this) CoolLine:StartSizing("BOTTOMRIGHT") end)
-		resize:SetScript("OnMouseUp", function(this)
-			CoolLine:StopMovingOrSizing()
-			db.w, db.h = floor(CoolLine:GetWidth() + 0.5), floor(CoolLine:GetHeight() + 0.5)
-			updatelook()
-		end)
-	end
-	if not CoolLine.unlock then
-		CoolLine.unlock = true
-		CoolLine:EnableMouse(true)
-		CoolLine.resizer:Show()
-		CoolLine:SetAlpha(db.activealpha)
+					CoolLine:SetMinResize(6, 6)
+					CoolLine.resizer = CreateFrame("Button", nil, CoolLine.border, "UIPanelButtonTemplate")
+					local resize = CoolLine.resizer
+					resize:SetWidth(8)
+					resize:SetHeight(8)
+					resize:SetPoint("BOTTOMRIGHT", CoolLine, "BOTTOMRIGHT", 2, -2)
+					resize:SetScript("OnMouseDown", function(this) CoolLine:StartSizing("BOTTOMRIGHT") end)
+					resize:SetScript("OnMouseUp", function(this)
+						CoolLine:StopMovingOrSizing()
+						db.w, db.h = floor(CoolLine:GetWidth() + 0.5), floor(CoolLine:GetHeight() + 0.5)
+						updatelook()
+					end)
+				end
+				if not CoolLine.unlock then
+					CoolLine.unlock = true
+					CoolLine:EnableMouse(true)
+					CoolLine.resizer:Show()
+					CoolLine:SetAlpha(db.activealpha)
 					print("CoolLine - drag frame to reposition or drag red corner to resize")
-	else
-		CoolLine.unlock = nil
-		CoolLine:EnableMouse(false)
-		CoolLine.resizer:Hide()
-		OnUpdate(CoolLine, 2)
-	end
+				else
+					CoolLine.unlock = nil
+					CoolLine:EnableMouse(false)
+					CoolLine.resizer:Hide()
+					OnUpdate(CoolLine, 2)
+				end
 			elseif a1 then
 				if a1 == "vertical" then
 					local pw, ph = db.w, db.h
@@ -737,35 +792,37 @@ function ShowOptions(a1)
 				elseif a1 == "resetall" then
 					CoolLineCharDB, CoolLineDB = nil, nil
 					return ReloadUI()
-end
+				end
 				db[a1] = not db[a1]
 				if a1 == "perchar" then
 					if db.perchar then
 						CoolLineCharDB = CoolLineCharDB or CoolLineDB
 					else
 						CoolLineCharDB = nil
-	end
+					end
 					ReloadUI()
-end
+				end
 				updatelook()
-		end
 			end
+		end
+
 		local function SetSelect(b, a1)
 			db[a1] = tonumber(b.value) or b.value
 			local level, num = strmatch(b:GetName(), "DropDownList(%d+)Button(%d+)")
 			level, num = tonumber(level) or 0, tonumber(num) or 0
-			for i = 2, level, 1 do
-				for j = 1, UIDROPDOWNMENU_MAXBUTTONS, 1 do
+			for i = 2, level do
+				for j = 1, UIDROPDOWNMENU_MAXBUTTONS do
 					local check = _G["DropDownList"..i.."Button"..j.."Check"]
 					if check and i == level and j == num then
 						check:Show()
 					elseif b then
 						check:Hide()
-		end
-	end
-end
+					end
+				end
+			end
 			updatelook()
 		end
+
 		local function SetColor(a1)
 			local dbc = db[UIDROPDOWNMENU_MENU_VALUE]
 			if not dbc then return end
@@ -773,34 +830,38 @@ end
 			if a1 then
 				local pv = ColorPickerFrame.previousValues
 				r, g, b, a = pv.r, pv.g, pv.b, 1 - pv.opacity
-		else
+			else
 				r, g, b = ColorPickerFrame:GetColorRGB()
 				a = 1 - OpacitySliderFrame:GetValue()
-		end
+			end
 			dbc.r, dbc.g, dbc.b, dbc.a = r, g, b, a
-		updatelook()
-	end
+			updatelook()
+		end
+
 		local function HideCheck(b)
 			if b and b.GetName and _G[b:GetName().."Check"] then
 				_G[b:GetName().."Check"]:Hide()
-	end
+			end
 		end
+
 		local function AddButton(lvl, text, keepshown)
 			info.text = text
 			info.keepShownOnClick = keepshown
 			UIDropDownMenu_AddButton(info, lvl)
 			wipe(info)
 		end
+
 		local function AddToggle(lvl, text, value)
 			info.arg1 = value
 			info.func = Set
 			if value == "unlock" then
 				info.checked = CoolLine.unlock
-		else
+			else
 				info.checked = db[value]
-		end
+			end
 			AddButton(lvl, text, 1)
-	end
+		end
+
 		local function AddList(lvl, text, value)
 			info.value = value
 			info.hasArrow = true
@@ -808,6 +869,7 @@ end
 			info.notCheckable = 1
 			AddButton(lvl, text, 1)
 		end
+
 		local function AddSelect(lvl, text, arg1, value)
 			info.arg1 = arg1
 			info.func = SetSelect
@@ -815,12 +877,13 @@ end
 			if tonumber(value) and tonumber(db[arg1] or "blah") then
 				if floor(100 * tonumber(value)) == floor(100 * tonumber(db[arg1])) then
 					info.checked = true
-	end
+				end
 			else
 				info.checked = db[arg1] == value
-	end
+			end
 			AddButton(lvl, text, 1)
 		end
+
 		local function AddColor(lvl, text, value)
 			local dbc = db[value]
 			if not dbc then return end
@@ -833,6 +896,7 @@ end
 			info.notCheckable = 1
 			AddButton(lvl, text, nil)
 		end
+
 		CoolLineDD.initialize = function(self, lvl)
 			if lvl == 1 then
 				info.isTitle = true
@@ -860,7 +924,7 @@ end
 					local t = smed:List(sub)
 					local starti = 20 * (lvl - 2) + 1
 					local endi = 20 * (lvl - 1)
-					for i = starti, endi, 1 do
+					for i = starti, endi do
 						if not t[i] then break end
 						AddSelect(lvl, t[i], sub, t[i])
 						if i == endi and t[i + 1] then
@@ -868,18 +932,18 @@ end
 						end
 					end
 				elseif sub == "fontsize" then
-					for i = 5, 12, 1 do
+					for i = 5, 12 do
 						AddSelect(lvl, i, "fontsize", i)
 					end
 					for i = 14, 28, 2 do
 						AddSelect(lvl, i, "fontsize", i)
 					end
 				elseif sub == "bordersize" then -- Added options limits
-					for i = 1, 16, 1 do
+					for i = 1, 16 do
 						AddSelect(lvl, i, "bordersize", i)
 					end
 				elseif sub == "borderinset" then -- Added options limits
-					for i = -10, 10, 1 do
+					for i = -10, 10 do
 						AddSelect(lvl, i, "borderinset", i)
 					end
 				elseif sub == "inactivealpha" or sub == "activealpha" then
@@ -903,6 +967,7 @@ end
 			end
 		end
 	end
+
 	ToggleDropDownMenu(1, nil, CoolLineDD, "cursor")
 end
 
@@ -919,6 +984,6 @@ CONFIGMODE_CALLBACKS.CoolLine = function(action, mode)
 	elseif action == "OFF" then
 		if CoolLineDD and CoolLine.unlock then
 			Set(nil, "unlock")
-	end
+		end
 	end
 end

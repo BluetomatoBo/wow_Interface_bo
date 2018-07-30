@@ -1,5 +1,5 @@
-## Interface: 70300
-## Version: 7.3.001
+## Interface: 80000
+## Version: 8.0.001
 
 ## Title: CoolLine
 ## Notes: Shows cooldowns on a single bar.
