@@ -406,7 +406,7 @@ function private.OnChar(frame)
 		end
 	end
 	if match then
-		self._compStart = strlenutf8(text)
+		self._compStart = strlen(text)
 		self:SetText(match)
 	else
 		self._compStart = nil

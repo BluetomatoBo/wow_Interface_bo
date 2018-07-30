@@ -1472,6 +1472,9 @@ function private.FSMCreate()
 		context.scanFrame:Draw()
 	end
 	local function UpdateBuyButtons(context, selection)
+		if not context.scanFrame then
+			return
+		end
 		if selection.seller == UnitName("player") then
 			context.scanFrame:GetElement("bottom.bidBtn"):SetDisabled(true)
 				:Draw()
@@ -1754,8 +1757,8 @@ function private.FSMCreate()
 				context.progressText = progressText
 				context.bidDisabled = context.numBought > 0 or numCanBuy == 0 or GetMoney() < selection:GetField("requiredBid")
 				context.buyoutDisabled = context.numBid > 0 or numCanBuy == 0 or GetMoney() < selection:GetField("buyout")
-				UpdateScanFrame(context)
 				UpdateBuyButtons(context, selection)
+				UpdateScanFrame(context)
 			end)
 			:AddTransition("ST_BUYING")
 			:AddTransition("ST_PLACING_BUY")

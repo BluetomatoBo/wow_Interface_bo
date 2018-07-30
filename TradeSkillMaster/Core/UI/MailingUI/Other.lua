@@ -214,7 +214,7 @@ function private.EchantRecipientOnTextChanged(input)
 	local text = strtrim(input:GetText())
 	if input._compStart then
 		if text == private.enchantRecipient then
-			input:HighlightText(input._compStart, strlenutf8(text))
+			input:HighlightText(input._compStart, strlen(text))
 			input._compStart = nil
 		else
 			private.enchantRecipient = text
@@ -259,7 +259,7 @@ function private.GoldRecipientOnTextChanged(input)
 	local text = strtrim(input:GetText())
 	if input._compStart then
 		if text == private.goldRecipient then
-			input:HighlightText(input._compStart, strlenutf8(text))
+			input:HighlightText(input._compStart, strlen(text))
 			input._compStart = nil
 		else
 			private.goldRecipient = text

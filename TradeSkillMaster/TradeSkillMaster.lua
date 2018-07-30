@@ -421,34 +421,49 @@ function TSM.OnInitialize()
 				end
 				return TSMAPI_FOUR.CSV.Encode(NEW_CSV_COLS, decodedData)
 			end
-			for key, value in upgradeObj:RemovedSettingIterator() do
-				local scopeType, scopeKey, _, settingKey = upgradeObj:GetKeyInfo(key)
-				if scopeType == "realm" and settingKey == "goldLog" then
-					for character, data in pairs(value) do
-						if type(data) == "string" then
-							-- check if we know about this character and under what faction
-							local syncScopeKey = nil
-							for factionrealm in TSM.db:FactionrealmByRealmIterator(scopeKey) do
-								local testSyncScopeKey = TSM.db:GetSyncScopeKeyByCharacter(character, factionrealm)
-								if TSM.db:Get("sync", testSyncScopeKey, "internalData", "classKey") then
-									syncScopeKey = testSyncScopeKey
-								end
-							end
-							if syncScopeKey then
-								TSM.db:Set("sync", syncScopeKey, "internalData", "goldLog", ConvertGoldLogFormat(data))
-							else
-								-- check if this is a known guild
-								local found = false
-								for factionrealm in TSM.db:FactionrealmByRealmIterator(scopeKey) do
-									local characterGuilds = TSM.db:Get("factionrealm", factionrealm, "internalData", "characterGuilds")
-									if not found and characterGuilds and TSMAPI_FOUR.Util.TableKeyByValue(characterGuilds, character) then
-										local guildGoldLog = TSM.db:Get("factionrealm", factionrealm, "internalData", "guildGoldLog") or {}
-										guildGoldLog[character] = ConvertGoldLogFormat(data)
-										TSM.db:Set("factionrealm", factionrealm, "internalData", "guildGoldLog", guildGoldLog)
-										found = true
-									end
-								end
-							end
+			local function ProcessGoldLogData(character, data, scopeKey)
+				if type(data) ~= "string" then
+					return
+				end
+				-- check if we know about this character and under what faction
+				local syncScopeKey = nil
+				for factionrealm in TSM.db:FactionrealmByRealmIterator(scopeKey) do
+					local testSyncScopeKey = TSM.db:GetSyncScopeKeyByCharacter(character, factionrealm)
+					if TSM.db:Get("sync", testSyncScopeKey, "internalData", "classKey") then
+						syncScopeKey = testSyncScopeKey
+					end
+				end
+				if syncScopeKey then
+					TSM.db:Set("sync", syncScopeKey, "internalData", "goldLog", ConvertGoldLogFormat(data))
+				else
+					-- check if this is a known guild
+					local found = false
+					for factionrealm in TSM.db:FactionrealmByRealmIterator(scopeKey) do
+						local characterGuilds = TSM.db:Get("factionrealm", factionrealm, "internalData", "characterGuilds")
+						if not found and characterGuilds and TSMAPI_FOUR.Util.TableKeyByValue(characterGuilds, character) then
+							local guildGoldLog = TSM.db:Get("factionrealm", factionrealm, "internalData", "guildGoldLog") or {}
+							guildGoldLog[character] = ConvertGoldLogFormat(data)
+							TSM.db:Set("factionrealm", factionrealm, "internalData", "guildGoldLog", guildGoldLog)
+							found = true
+						end
+					end
+				end
+			end
+			if prevVersion < 10 then
+				for key, value in pairs(TradeSkillMasterModulesDB.Accounting) do
+					if strmatch(key,"^r@.+@goldLog$") then
+						local _, scopeKey = upgradeObj:GetKeyInfo(key)
+						for character, data in pairs(value) do
+							ProcessGoldLogData(character, data, scopeKey)
+						end
+					end
+				end
+			else
+				for key, value in upgradeObj:RemovedSettingIterator() do
+					local scopeType, scopeKey, _, settingKey = upgradeObj:GetKeyInfo(key)
+					if scopeType == "realm" and settingKey == "goldLog" then
+						for character, data in pairs(value) do
+							ProcessGoldLogData(character, data, scopeKey)
 						end
 					end
 				end

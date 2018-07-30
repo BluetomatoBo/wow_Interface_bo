@@ -352,7 +352,7 @@ function private.GetImportEntryFrame()
 			:SetStyle("margin.bottom", 16)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("ScrollFrame", "scroll")
 				:SetStyle("height", 180)
-				:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "userInput")
+				:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "input")
 					:SetStyle("height", 180)
 					:SetStyle("margin", { top = 2, left = 2, right = 2, bottom = 2 })
 					:SetStyle("fontHeight", 12)
@@ -364,6 +364,7 @@ function private.GetImportEntryFrame()
 					:SetScript("OnSizeChanged", private.ImportOnSizeChanged)
 				)
 			)
+			:SetScript("OnMouseUp", private.ImportOnMouseUp)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "layout")
 			:SetLayout("HORIZONTAL")
@@ -490,7 +491,7 @@ function private.GetExporterGroupsFrameExportOutput()
 		:SetStyle("borderTheme", "roundLight")
 		:SetStyle("margin", { top = 16.5, left = 16, right = 16, bottom = 16 })
 		:AddChild(TSMAPI_FOUR.UI.NewElement("ScrollFrame", "scroll")
-			:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "exportOutput")
+			:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "input")
 				:SetStyle("margin", { top = 2, left = 2, right = 2, bottom = 2 })
 				:SetStyle("height", 146)
 				:SetStyle("fontHeight", 12)
@@ -501,12 +502,17 @@ function private.GetExporterGroupsFrameExportOutput()
 				:SetScript("OnEditFocusGained", private.ExportFocusGained)
 			)
 		)
+		:SetScript("OnMouseUp", private.ExportOnMouseUp)
 
 	return frame
 end
 
 function private.ExportFocusGained(input)
 	input:HighlightText()
+end
+
+function private.ExportOnMouseUp(frame)
+	frame:GetElement("scroll.input"):SetFocused(true)
 end
 
 function private.ExportOnSizeChanged(input, width, height)
@@ -523,6 +529,10 @@ function private.CountOperations(operations)
 		total = total + TSMAPI_FOUR.Util.Count(module)
 	end
 	return total
+end
+
+function private.ImportOnMouseUp(frame)
+	frame:GetElement("scroll.input"):SetFocused(true)
 end
 
 function private.ImportOnTextChanged(input)
@@ -622,9 +632,9 @@ function private.ExporterResetSelectedGroupsOnClick(element)
 end
 
 function private.ImportOnClick(element)
-	local userInput = element:GetElement("__parent.__parent.import.scroll.userInput")
-	local input = userInput:GetText()
-	private.importer:ParseUserInput(input)
+	local input = element:GetElement("__parent.__parent.import.scroll.input")
+	local text = input:GetText()
+	private.importer:ParseUserInput(text)
 	private.importer:CreateGroupIfNoneSelectedAndTopGroupHasItems()
 
 	if private.importer.options.skipImportExportConfirmations then

@@ -339,20 +339,22 @@ function private.FSMCreate()
 		context.scanFrame:Draw()
 	end
 	local function UpdateBuyButtons(context, selection)
+		if not context.scanFrame then
+			return
+		end
 		if selection.seller == UnitName("player") then
-			context.scanFrame:GetElement("bottom.bidBtn"):SetDisabled(true)
-				:Draw()
-			context.scanFrame:GetElement("bottom.buyoutBtn"):SetDisabled(true)
+			context.scanFrame:GetElement("bottom.actionBtn"):SetDisabled(true)
 				:Draw()
 		elseif selection.isHighBidder then
-			context.scanFrame:GetElement("bottom.bidBtn"):SetDisabled(true)
-				:Draw()
-			context.scanFrame:GetElement("bottom.buyoutBtn"):SetDisabled(false)
-				:Draw()
+			if context.scanType == "buyout" then
+				context.scanFrame:GetElement("bottom.actionBtn"):SetDisabled(false)
+					:Draw()
+			else
+				context.scanFrame:GetElement("bottom.actionBtn"):SetDisabled(true)
+					:Draw()
+			end
 		else
-			context.scanFrame:GetElement("bottom.bidBtn"):SetDisabled(false)
-				:Draw()
-			context.scanFrame:GetElement("bottom.buyoutBtn"):SetDisabled(false)
+			context.scanFrame:GetElement("bottom.actionBtn"):SetDisabled(false)
 				:Draw()
 		end
 	end
@@ -558,8 +560,8 @@ function private.FSMCreate()
 				if context.scanFrame then
 					context.scanFrame:GetElement("bottom.progressBar"):SetProgressIconHidden(context.numConfirmed == context.numActioned)
 				end
-				UpdateScanFrame(context)
 				UpdateBuyButtons(context, selection)
+				UpdateScanFrame(context)
 			end)
 			:AddTransition("ST_BIDDING_BUYING")
 			:AddTransition("ST_PLACING_BID_BUY")

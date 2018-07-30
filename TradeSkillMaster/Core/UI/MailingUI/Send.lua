@@ -483,6 +483,7 @@ function private.SubjectBtnOnClick(button)
 					:SetScript("OnSizeChanged", private.DesciptionOnSizeChanged)
 				)
 			)
+			:SetScript("OnMouseUp", private.DescriptionOnMouseUp)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "footer")
 			:SetLayout("HORIZONTAL")
@@ -670,7 +671,7 @@ function private.RecipientOnTextChanged(input)
 	local text = strtrim(input:GetText())
 	if input._compStart then
 		if text == private.recipient then
-			input:HighlightText(input._compStart, strlenutf8(text))
+			input:HighlightText(input._compStart, strlen(text))
 			input._compStart = nil
 		else
 			private.recipient = text
@@ -714,6 +715,10 @@ function private.DesciptionOnTextChanged(input)
 
 	input:GetElement("__parent.__parent.__parent.footer.title"):SetFormattedText(L["(%d/500 Characters)"], #private.body)
 		:Draw()
+end
+
+function private.DescriptionOnMouseUp(frame)
+	frame:GetElement("scroll.input"):SetFocused(true)
 end
 
 function private.DesciptionOnSizeChanged(input, width, height)

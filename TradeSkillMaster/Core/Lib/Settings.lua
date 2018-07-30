@@ -369,6 +369,10 @@ private.SettingsDBMethods = {
 		return name ~= "" and not strfind(name, KEY_SEP)
 	end,
 
+	ProfileExists = function(self, name)
+		return tContains(private.context[self].db._scopeKeys.profile, name) and true or false
+	end,
+
 	GetCurrentProfile = function(self)
 		return private.context[self].currentScopeKeys.profile
 	end,

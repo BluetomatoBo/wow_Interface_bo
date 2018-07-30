@@ -350,11 +350,7 @@ function private.IsOperationValid(itemString, num, operationName, operationSetti
 		return false
 	elseif maxStackSize < minPostStackSize then
 		-- invalid stack size
-		if not TSM.db.global.auctioningOptions.disableInvalidMsg then
-			TSM:Printf(L["Did not post %s because your stack size (%d) is higher than the max stack size of the item (%d)."], TSMAPI_FOUR.Item.GetLink(itemString), minPostStackSize, maxStackSize)
-		end
-		TSM.Auctioning.Log.AddEntry(itemString, operationName, "invalidItemGroup", "", 0, math.huge)
-		return false
+		return nil
 	end
 
 	-- check that we have enough to post

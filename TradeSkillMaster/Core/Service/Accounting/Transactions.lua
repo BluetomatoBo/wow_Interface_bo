@@ -459,9 +459,8 @@ function private.LoadData(recordType, csvRecords, csvSaveTimes)
 				otherPlayer = record.buyer or record.seller
 				private.dataChanged = true
 			end
-			if otherPlayer then
-				private.db:BulkInsertNewRow(recordType, record.itemString, baseItemString, record.stackSize, record.quantity, record.price, otherPlayer, record.player, record.time, record.source, saveTime)
-			end
+			otherPlayer = type(otherPlayer) == "string" and otherPlayer or "?"
+			private.db:BulkInsertNewRow(recordType, record.itemString, baseItemString, record.stackSize, record.quantity, record.price, otherPlayer, record.player, record.time, record.source, saveTime)
 
 			private.characters[record.player] = true
 		end

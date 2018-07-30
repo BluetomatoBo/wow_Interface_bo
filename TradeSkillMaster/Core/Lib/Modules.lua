@@ -181,8 +181,8 @@ function Modules.ProfileUpdated()
 		local parentPath = TSMAPI_FOUR.Groups.SplitPath(path)
 		local operations = TSM.db.profile.userData.groups[path]
 		if parentPath then
+			TSM.db.profile.userData.groups[parentPath] = TSM.db.profile.userData.groups[parentPath] or {}
 			local parentOperations = TSM.db.profile.userData.groups[parentPath]
-			assert(parentOperations)
 			for _, moduleName in ipairs(TSM.Operations:GetModulesWithOperations()) do
 				operations[moduleName] = operations[moduleName] or {}
 				parentOperations[moduleName] = parentOperations[moduleName] or {}

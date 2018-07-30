@@ -15,7 +15,7 @@ TSM_API = {}
 
 
 -- ============================================================================
--- Public API Functions
+-- UI
 -- ============================================================================
 
 --- Checks if a TSM UI is currently visible.
@@ -34,6 +34,12 @@ function TSM_API.IsUIVisible(uiName)
 		error("Invalid uiName: "..tostring(uiName), 2)
 	end
 end
+
+
+
+-- ============================================================================
+-- Groups
+-- ============================================================================
 
 --- Gets a current list of TSM group paths.
 -- @tparam table result A table to store the result in
@@ -84,4 +90,39 @@ function TSM_API.GetGroupPathByItem(item)
 	end
 	local path = TSMAPI_FOUR.Groups.GetPathByItem(item)
 	return path ~= TSM.CONST.ROOT_GROUP_PATH and path or nil
+end
+
+
+
+-- ============================================================================
+-- Profiles
+-- ============================================================================
+
+--- Gets a current list of TSM profiles.
+-- @tparam table result A table to store the result in
+-- @treturn table The passed table, populated with group paths
+function TSM_API.GetProfiles(result)
+	for _, profileName in TSM.db:ProfileIterator() do
+		tinsert(result, profileName)
+	end
+	return result
+end
+
+--- Gets the active TSM profile.
+-- @treturn string The name of the currently active profile
+function TSM_API.GetActiveProfile()
+	return TSM.db:GetCurrentProfile()
+end
+
+--- Sets the active TSM profile.
+-- @tparam string profile The name of the profile to make active
+function TSM_API.SetActiveProfile(profile)
+	if type(profile) ~= "string" then
+		error("Invalid 'profile' argument type (must be a string): "..tostring(profile), 2)
+	elseif not TSM.db:ProfileExists(profile) then
+		error("Profile does not exist: "..profile, 2)
+	elseif profile == TSM.db:GetCurrentProfile() then
+		error("Profile is already active: "..profile, 2)
+	end
+	return TSM.db:SetProfile(profile)
 end

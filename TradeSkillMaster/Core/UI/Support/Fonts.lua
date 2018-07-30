@@ -29,6 +29,7 @@ do
 			text:Hide()
 		end
 		f:Hide()
+		f = nil
 	end)
 	for _, font in pairs(TSM.UI.Fonts) do
 		local t = f:CreateFontString()

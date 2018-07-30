@@ -46,6 +46,7 @@ function private.EventHandler(_, event, ...)
 	if private.processingEvent then
 		-- we are already in the middle of processing another event, so queue this one up
 		tinsert(private.eventQueue, TSMAPI_FOUR.Util.AcquireTempTable(event, ...))
+		assert(#private.eventQueue < 50)
 		return
 	end
 	private.processingEvent = true
