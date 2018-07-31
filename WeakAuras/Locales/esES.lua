@@ -5,14 +5,6 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras
---[[Translation missing --]]
-L[ [=[
-
-Supports multiple entries, separated by commas
-]=] ] = [=[
-
-Supports multiple entries, separated by commas
-]=]
 L["!="] = "!="
 --[[Translation missing --]]
 L["%s - %i. Trigger"] = "%s - %i. Trigger"
@@ -100,6 +92,8 @@ L["Alive"] = "Vivo"
 L["All Triggers"] = "Todos los Disparadores"
 L["Alliance"] = "Alianza"
 L["Allow partial matches"] = "Permitir coincidencias parciales"
+--[[Translation missing --]]
+L["Alpha"] = "Alpha"
 L["Alternate Power"] = "Energía Alternativa"
 L["Always"] = "Siempre"
 L["Always active trigger"] = "Siempre activar disparador"
@@ -140,8 +134,6 @@ L["Back and Forth"] = "De Atrás a Adelante"
 L["Backdrop Color"] = "Backdrop Color"
 --[[Translation missing --]]
 L["Background Color"] = "Background Color"
---[[Translation missing --]]
-L["Bar Alpha"] = "Bar Alpha"
 --[[Translation missing --]]
 L["Bar Color"] = "Bar Color"
 L["Battle.net Whisper"] = "Battle.net Mensaje"
@@ -372,6 +364,8 @@ L["Guild"] = "Hermandad"
 --[[Translation missing --]]
 L["Hands"] = "Hands"
 --[[Translation missing --]]
+L["Has Target"] = "Has Target"
+--[[Translation missing --]]
 L["Has Vehicle UI"] = "Has Vehicle UI"
 L["HasPet"] = "Mascota viva"
 L["Head"] = "Cabeza"
@@ -517,8 +511,6 @@ L["Moon"] = "Moon"
 L["Mounted"] = "Montado"
 --[[Translation missing --]]
 L["Mouse Cursor"] = "Mouse Cursor"
---[[Translation missing --]]
-L["Multistrike"] = "Multistrike"
 L["Multi-target"] = "Objetivo Múltiple"
 L["Music"] = "Música"
 --[[Translation missing --]]
@@ -761,6 +753,8 @@ L["Spell Id"] = "Spell Id"
 --[[Translation missing --]]
 L["Spell Known"] = "Spell Known"
 L["Spell Name"] = "Nombre del Hechizo"
+--[[Translation missing --]]
+L["Spell Usable"] = "Spell Usable"
 --[[Translation missing --]]
 L["Spell/Encounter Id"] = "Spell/Encounter Id"
 L["Spin"] = "Girar"

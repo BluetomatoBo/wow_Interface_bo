@@ -5,14 +5,6 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras
---[[Translation missing --]]
-L[ [=[
-
-Supports multiple entries, separated by commas
-]=] ] = [=[
-
-Supports multiple entries, separated by commas
-]=]
 L["!="] = "!="
 L["%s - %i. Trigger"] = "%s - %i. Déclencheur"
 L["%s - 1. Trigger"] = "%s - 1. Déclencheur"
@@ -77,6 +69,8 @@ L["Alive"] = "En vie"
 L["All Triggers"] = "Tous les déclencheurs"
 L["Alliance"] = "Alliance"
 L["Allow partial matches"] = "Permettre les correspondances partielles"
+--[[Translation missing --]]
+L["Alpha"] = "Alpha"
 L["Alternate Power"] = "Puissance alternative"
 L["Always"] = "Toujours"
 L["Always active trigger"] = "Déclencheur toujours actif"
@@ -116,8 +110,6 @@ L["Back"] = "Dos"
 L["Back and Forth"] = "D'avant en arrière"
 L["Backdrop Color"] = "Couleur de Fond"
 L["Background Color"] = "Couleur de Fond"
---[[Translation missing --]]
-L["Bar Alpha"] = "Bar Alpha"
 L["Bar Color"] = "Couleur de barre"
 L["Battle.net Whisper"] = "Message Battle.net"
 L["Battleground"] = [=[Champ De Bataille 
@@ -329,6 +321,8 @@ L["Grow"] = "Grandir"
 L["GTFO Alert"] = "Alerte GTFO"
 L["Guild"] = "Guilde"
 L["Hands"] = "Mains"
+--[[Translation missing --]]
+L["Has Target"] = "Has Target"
 L["Has Vehicle UI"] = "A l'UI véhicule"
 L["HasPet"] = "Avoir un familier (vivant)"
 L["Head"] = "Tête"
@@ -461,7 +455,6 @@ L["Moon"] = "Moon"
 L["Mounted"] = "En monture"
 --[[Translation missing --]]
 L["Mouse Cursor"] = "Mouse Cursor"
-L["Multistrike"] = "Attaque multiple"
 L["Multi-target"] = "Multi-cibles"
 L["Music"] = "Musique"
 L["Mythic"] = "Mythique"
@@ -705,6 +698,8 @@ L["Spell ID"] = "ID de Sort"
 L["Spell Id"] = "ID de Sort"
 L["Spell Known"] = "Sort connu"
 L["Spell Name"] = "Nom du sort"
+--[[Translation missing --]]
+L["Spell Usable"] = "Spell Usable"
 L["Spell/Encounter Id"] = "ID de Sort/Rencontre"
 L["Spin"] = "Tourne"
 L["Spiral"] = "Spirale"

@@ -7,10 +7,10 @@ local L = WeakAuras.L
 -- WeakAuras/Options
 	L["-- Do not remove this comment, it is part of this trigger: "] = "-- Не удаляйте этот комментарий, он является частью этого триггера: "
 	L["% of Progress"] = "% прогресса"
-	L["%i Matches"] = "%i Совпадений"
+	L["%i Matches"] = "%i |4совпадение:совпадения:совпадений;"
 	L["%s Color"] = "%s "
-	L["%s total auras"] = "Всего индикаций %s"
-	L["1 Match"] = "1 Совпадение"
+	L["%s total auras"] = "Всего %s |4индикация:индикации:индикаций;"
+	L["1 Match"] = "1 cовпадение"
 	L["1. Text"] = "1. Текст"
 	L["1. Text Settings"] = "1. Настройки текста"
 	L["2. Text"] = "2. Текст"
@@ -101,7 +101,7 @@ local L = WeakAuras.L
 	L["Choose"] = "Выбрать"
 	L["Choose Trigger"] = "Выберите триггер"
 	L["Choose whether the displayed icon is automatic or defined manually"] = "Выберите, будет ли иконка задана автоматически или вручную"
-	L["Clone option enabled dialog"] = [=[Вы активировали опцию, использующую |cFFFF0000Авто-клонирование|r.
+	L["Clone option enabled dialog"] = [=[Вы активировали параметр, использующий |cFFFF0000Авто-клонирование|r.
 
 |cFFFF0000Авто-клонирование|r заставляет индикацию автоматически дублироваться для отображения нескольких источников информации. Если вы не разместите ее в |cFF22AA22Динамической Группе|r, то все клоны будут отображаться друг над другом в большой куче.
 
@@ -112,13 +112,12 @@ local L = WeakAuras.L
 	L["Collapse all non-loaded displays"] = "Свернуть все не загруженные индикации"
 	L["Color"] = "Цвет"
 	L["color"] = "цвет"
-	--[[Translation missing --]]
-	L["Common Options"] = "Common Options"
+	L["Common Options"] = "Общие параметры"
 	L["Compress"] = "Сжать"
 	L["Condition %i"] = "Условие %i"
 	L["Conditions"] = "Условия"
 	L["Constant Factor"] = "Постоянный параметр"
-	L["Control-click to select multiple displays"] = "Ctrl+клик для выбора нескольких индикаций"
+	L["Control-click to select multiple displays"] = "Ctrl-клик для выбора нескольких индикаций"
 	L["Controls the positioning and configuration of multiple displays at the same time"] = "Управляет позиционированием и настройкой нескольких индикаций одновременно"
 	L["Convert to..."] = "Преобразовать в ..."
 	L["Cooldown"] = "Перезарядка"
@@ -212,6 +211,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["From Template"] = "Из шаблона"
 	L["Full Scan"] = "Полное сканирование"
 	L["General Text Settings"] = "Общие настройки текста"
+	--[[Translation missing --]]
+	L["Global Conditions"] = "Global Conditions"
 	L["Glow"] = "Свечение"
 	L["Glow Action"] = "Действие"
 	L["Green Rune"] = "Зеленая руна"
@@ -229,8 +230,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 |cFF00CC00> 1/2|r - сработает, если больше половины группы по воздействием эффекта (5 из 5, 6 из 10 человек)
 |cFF00CC00>= 0|r - всегда срабатывает, несмотря ни на что]=]
 	L["Group Member Count"] = "Кол-во участников"
-	--[[Translation missing --]]
-	L["Group Scale"] = "Group Scale"
+	L["Group Scale"] = "Масштаб группы"
 	L["Grow"] = "Направление роста"
 	L["Hawk"] = "Ястреб"
 	L["Height"] = "Высота"
@@ -245,6 +245,8 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Hybrid Position"] = "Гибридная позиция"
 	L["Hybrid Sort Mode"] = "Режим гибридной сортировки"
 	L["Icon"] = "Иконка"
+	--[[Translation missing --]]
+	L["Icon Alpha"] = "Icon Alpha"
 	L["Icon Color"] = "Цвет иконки"
 	L["Icon Info"] = "Информация об иконке"
 	L["Icon Inset"] = "Вставка иконки"
@@ -280,17 +282,17 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Move this display down in its group's order"] = "Переместить индикацию вниз в порядке элементов группы"
 	L["Move this display up in its group's order"] = "Переместить индикацию вверх в порядке элементов группы"
 	L["Move Up"] = "Переместить вверх"
-	L["Multiple Displays"] = "Множество Индикаций"
-	L["Multiple Triggers"] = "Множественные Триггеры"
+	L["Multiple Displays"] = "Несколько индикаций"
+	L["Multiple Triggers"] = "Несколько триггеров"
 	L["Multiselect ignored tooltip"] = [=[
 |cFFFF0000Ничего|r - |cFF777777Одно|r - |cFF777777Несколько|r
-Эта опция не определяет, когда данная индикация должна быть загружена]=]
+Этот параметр не определяет, когда индикация должна быть загружена]=]
 	L["Multiselect multiple tooltip"] = [=[
 |cFF777777Ничего|r - |cFF777777Одно|r - |cFF00FF00Несколько|r
-Любое количество соответствующих значений может быть выбрано. Выполнение любого условия приведет к загрузке]=]
+Можно выбрать любое количество соответствующих значений. Выполнение любого условия приведет к загрузке]=]
 	L["Multiselect single tooltip"] = [=[
 |cFF777777Ничего|r - |cFF00FF00Одно|r - |cFF777777Несколько|r
-Только одно соответствующее значение может быть выбрано]=]
+Можно выбрать только одно соответствующее значение]=]
 	L["Name Info"] = "Информация о названии"
 	L["Negator"] = "Не"
 	L["Never"] = "Никогда"
@@ -299,7 +301,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["No Children"] = "Нет индикаций"
 	L["No tooltip text"] = "Без подсказки"
 	L["None"] = "Нет"
-	L["Not all children have the same value for this option"] = "Не все индикации имеют одинаковое значение для этой опции"
+	L["Not all children have the same value for this option"] = "Не все индикации имеют одинаковое значение для этого параметра"
 	L["Not Loaded"] = "Не загружено"
 	L["Offer a guided way to create auras for your class"] = "Предлагаем простой способ создания индикаций для вашего класса"
 	L["Okay"] = "Ок"
@@ -309,8 +311,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Only match auras cast by people other than the player"] = "Совпадение для эффектов других людей, но не игрока"
 	L["Only match auras cast by the player"] = "Совпадение только для эффектов игрока"
 	L["Operator"] = "Оператор"
-	--[[Translation missing --]]
-	L["Options will open after combat ends."] = "Options will open after combat ends."
+	L["Options will open after combat ends."] = "Параметры откроются после окончания боя."
 	L["or"] = "или"
 	L["Orange Rune"] = "Оранжевая руна"
 	L["Orientation"] = "Ориентация"
@@ -334,7 +335,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Position Settings"] = "Position Settings"
 	L["Preset"] = "Предустановка"
 	L["Prevents duration information from decreasing when an aura refreshes. May cause problems if used with multiple auras with different durations."] = "Не позволяет снижать информацию о длительности эффекта при его обновлении. Может вызвать проблемы при использовании с несколькими эффектами разной длительности."
-	L["Processed %i chars"] = "Обработано %i символов"
+	L["Processed %i chars"] = "Обработано %i |4символ:символа:символов;"
 	L["Progress Bar"] = "Полоса Прогресса"
 	L["Progress Texture"] = "Текстура Прогресса"
 	L["Purple Rune"] = "Фиолетовая руна"
@@ -463,11 +464,9 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Up"] = "Переместить вверх"
 	L["Update Custom Text On..."] = "Обновить свой текст на..."
 	L["Use Full Scan (High CPU)"] = "Использовать Полное сканирование (загрузка ЦП)"
-	--[[Translation missing --]]
-	L["Use nth value from tooltip:"] = "Use nth value from tooltip:"
-	--[[Translation missing --]]
-	L["Use SetTransform"] = "Use SetTransform"
-	L["Use tooltip \"size\" instead of stacks"] = "Использовать подсказку \"размер\" вместо стаков"
+	L["Use nth value from tooltip:"] = "Использовать n-ое значение из подсказки:"
+	L["Use SetTransform"] = "Использовать ф-ю SetTransform"
+	L["Use tooltip \"size\" instead of stacks"] = "Использовать значение из подсказки вместо стаков"
 	L["Used in auras:"] = "Использовано в индикациях:"
 	L["Version: "] = "Версия: "
 	L["Vertical Align"] = "Выравнивание по вертикали"
@@ -482,8 +481,9 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Y Scale"] = "Масштаб по Y"
 	L["Yellow Rune"] = "Жёлтая руна"
 	L["Yes"] = "Да"
-	--[[Translation missing --]]
-	L["You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"] = "You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"
+	L["You are about to delete %d aura(s). |cFFFF0000This cannot be undone!|r Would you like to continue?"] = [=[Вы собираетесь удалить %d |4индикацию:индикации:индикаций;.
+|cFFFF0000Это действие нельзя отменить!|r
+Вы хотите продолжить?]=]
 	L["Z Offset"] = "Смещение по Z"
 	L["Z Rotation"] = "Поворот Z"
 	L["Zoom"] = "Масштабирование"

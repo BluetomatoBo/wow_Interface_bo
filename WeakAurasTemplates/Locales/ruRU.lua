@@ -20,33 +20,25 @@ local L = WeakAuras.L
 	L["Debuffs"] = "Дебаффы"
 	L["Enchants"] = "Чары"
 	L["General"] = "Общие"
-	--[[Translation missing --]]
-	L["General Azerite Traits"] = "General Azerite Traits"
+	L["General Azerite Traits"] = "Общие азеритовые таланты"
 	L["Health"] = "Здоровье"
 	L["Keeps existing triggers intact"] = "Сохранить существующие триггеры нетронутыми"
-	--[[Translation missing --]]
-	L["On Procc Trinkets (Buff)"] = "On Procc Trinkets (Buff)"
-	--[[Translation missing --]]
-	L["On Use Trinkets (Buff)"] = "On Use Trinkets (Buff)"
-	--[[Translation missing --]]
-	L["On Use Trinkets (CD)"] = "On Use Trinkets (CD)"
+	L["On Procc Trinkets (Buff)"] = "Аксессуары с проком"
+	L["On Use Trinkets (Buff)"] = "Активир-е аксессуары (бафф)"
+	L["On Use Trinkets (CD)"] = "Активир-е аксессуары (CD)"
 	L["Pet alive"] = "Питомец жив"
 	L["Pet Behavior"] = "Поведение питомца"
-	--[[Translation missing --]]
-	L["PvP Azerite Traits"] = "PvP Azerite Traits"
-	L["PvP Talents"] = "Таланты PvP"
-	--[[Translation missing --]]
-	L["PVP Trinkets (Buff)"] = "PVP Trinkets (Buff)"
-	--[[Translation missing --]]
-	L["PVP Trinkets (CD)"] = "PVP Trinkets (CD)"
+	L["PvP Azerite Traits"] = "Азеритовые PvP таланты"
+	L["PvP Talents"] = "PvP таланты"
+	L["PVP Trinkets (Buff)"] = "Аксессуары PvP (бафф)"
+	L["PVP Trinkets (CD)"] = "Аксессуары PvP (CD)"
 	L["Replace all existing triggers"] = "Заменить все существующие триггеры"
 	L["Replace Triggers"] = "Заменить триггеры"
 	L["Resources"] = "Ресурсы"
 	L["Resources and Shapeshift Form"] = "Форма Друида и ресурсы"
 	L["Runes"] = "Руны"
 	L["Shapeshift Form"] = "Форма Друида"
-	--[[Translation missing --]]
-	L["Specific Azerite Traits"] = "Specific Azerite Traits"
+	L["Specific Azerite Traits"] = "Специальные азеритовые таланты"
 	L["Stagger"] = "Пошатывание"
 	L["Totems"] = "Тотемы"
 	L["Unknown Item"] = "Неизвестный предмет"
