@@ -283,5 +283,6 @@ function private.InventoryQuantityHelper(itemString, settingKey, character, fact
 	if not itemString then
 		return 0
 	end
-	return private.GetCharacterInventoryData(settingKey, character, factionrealm)[itemString] or 0
+	local tbl = private.GetCharacterInventoryData(settingKey, character, factionrealm)
+	return tbl and tbl[itemString] or 0
 end

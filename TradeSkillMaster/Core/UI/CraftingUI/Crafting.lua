@@ -518,13 +518,13 @@ end
 
 function private.SelectAllBtnOnClick(button)
 	local baseFrame = button:GetBaseElement()
-	baseFrame:GetElement("content.crafting.left.content.group.groupTree"):SelectAll()
+	baseFrame:GetElement("content.crafting.left.viewContainer.main.content.group.groupTree"):SelectAll()
 	baseFrame:HideDialog()
 end
 
 function private.DeselectAllBtnOnClick(button)
 	local baseFrame = button:GetBaseElement()
-	baseFrame:GetElement("content.crafting.left.content.group.groupTree"):DeselectAll()
+	baseFrame:GetElement("content.crafting.left.viewContainer.main.content.group.groupTree"):DeselectAll()
 	baseFrame:HideDialog()
 end
 
@@ -912,6 +912,7 @@ function private.FSMCreate()
 	private.fsm = TSMAPI_FOUR.FSM.New("CRAFTING_UI_CRAFTING")
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_FRAME_CLOSED")
 			:SetOnEnter(function(context)
+				context.page = "profession"
 				context.frame = nil
 				context.craftingSpellId = nil
 				context.craftingQuantity = nil

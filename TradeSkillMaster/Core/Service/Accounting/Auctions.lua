@@ -154,7 +154,9 @@ function private.LoadData(recordType, csvRecords, csvSaveTimes)
 		if itemString then
 			local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
 			local saveTime = tonumber(saveTimes[index])
-			private.db:BulkInsertNewRow(recordType, itemString, baseItemString, record.stackSize, record.quantity, record.player, record.time, saveTime)
+			if type(record.stackSize) == "number" and type(record.quantity) == "number" and type(record.player) == "string" and type(record.time) == "number" then
+				private.db:BulkInsertNewRow(recordType, itemString, baseItemString, record.stackSize, record.quantity, record.player, record.time, saveTime)
+			end
 		end
 	end
 end

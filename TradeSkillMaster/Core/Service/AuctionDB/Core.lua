@@ -79,14 +79,8 @@ function AuctionDB.OnEnable()
 	for itemString in pairs(private.realmData) do
 		TSMAPI_FOUR.Item.FetchInfo(itemString)
 	end
-	if not next(private.realmData) then
-		StaticPopupDialogs["TSM_AUCTIONDB_NO_DATA_POPUP"] = {
-			text = L["|cffff0000WARNING:|r TSM_AuctionDB doesn't currently have any pricing data for your realm. Either download the TSM Desktop Application from |cff99ffffhttp://tradeskillmaster.com|r to automatically update TSM_AuctionDB's data, or run a manual scan in-game."],
-			button1 = OKAY,
-			timeout = 0,
-			hideOnEscape = false,
-		}
-		TSMAPI_FOUR.Util.ShowStaticPopupDialog("TSM_AUCTIONDB_NO_DATA_POPUP")
+	if not next(private.realmData) or true then
+		TSM:Print(L["TSM doesn't currently have any AuctionDB pricing data for your realm. We recommend you download the TSM Desktop Application from |cff99ffffhttp://tradeskillmaster.com|r to automatically update your AuctionDB data (and auto-backup your TSM settings)."])
 	end
 	collectgarbage()
 end
@@ -275,7 +269,7 @@ function private.GetItemDataHelper(tbl, key, itemString)
 		local quality = TSMAPI_FOUR.Item.GetQuality(itemString)
 		local itemLevel = TSMAPI_FOUR.Item.GetItemLevel(itemString)
 		local classId = TSMAPI_FOUR.Item.GetClassId(itemString)
-		if quality and quality >= 2 and itemLevel and itemLevel >= 680 and (classId == LE_ITEM_CLASS_WEAPON or classId == LE_ITEM_CLASS_GEM or classId == LE_ITEM_CLASS_ARMOR) then
+		if quality and quality >= 2 and itemLevel and itemLevel >= TSM.CONST.MIN_BONUS_ID_ITEM_LEVEL and (classId == LE_ITEM_CLASS_WEAPON or classId == LE_ITEM_CLASS_GEM or classId == LE_ITEM_CLASS_ARMOR) then
 			if strmatch(itemString, "^i:[0-9]+:[0-9%-]*:") then return end
 		end
 		local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
@@ -298,7 +292,7 @@ function private.GetRegionItemDataHelper(tbl, key, itemString)
 		local quality = TSMAPI_FOUR.Item.GetQuality(itemString)
 		local itemLevel = TSMAPI_FOUR.Item.GetItemLevel(itemString)
 		local classId = TSMAPI_FOUR.Item.GetClassId(itemString)
-		if quality and quality >= 2 and itemLevel and itemLevel >= 680 and (classId == LE_ITEM_CLASS_WEAPON or classId == LE_ITEM_CLASS_GEM or classId == LE_ITEM_CLASS_ARMOR) then
+		if quality and quality >= 2 and itemLevel and itemLevel >= TSM.CONST.MIN_BONUS_ID_ITEM_LEVEL and (classId == LE_ITEM_CLASS_WEAPON or classId == LE_ITEM_CLASS_GEM or classId == LE_ITEM_CLASS_ARMOR) then
 			if strmatch(itemString, "^i:[0-9]+:[0-9%-]*:") then
 				return
 			end

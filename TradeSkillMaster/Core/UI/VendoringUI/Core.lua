@@ -80,8 +80,11 @@ end
 -- ============================================================================
 
 function private.FSMCreate()
-	TSMAPI_FOUR.Event.Register("MERCHANT_SHOW", function()
+	local function MerchantShowDelayed()
 		private.fsm:ProcessEvent("EV_MERCHANT_SHOW")
+	end
+	TSMAPI_FOUR.Event.Register("MERCHANT_SHOW", function()
+		TSMAPI_FOUR.Delay.AfterFrame("MERCHANT_SHOW_DELAYED", 0, MerchantShowDelayed)
 	end)
 	TSMAPI_FOUR.Event.Register("MERCHANT_CLOSED", function()
 		private.fsm:ProcessEvent("EV_MERCHANT_CLOSED")

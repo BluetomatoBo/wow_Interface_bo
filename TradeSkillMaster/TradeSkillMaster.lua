@@ -632,22 +632,13 @@ end
 
 function TSM.LoadAppData()
 	if not TSMAPI_FOUR.Util.IsAddonInstalled("TradeSkillMaster_AppHelper") then
-		-- TSM_AppHelper is not installed
-		-- TODO: remove this popup at the end of the beta (or make it show less often)
-		StaticPopupDialogs["TSM_APP_DATA_ERROR"] = {
-			text = L["The TradeSkillMaster_AppHelper addon is not installed and is required for proper operation of TSM."],
-			button1 = OKAY,
-			timeout = 0,
-			whileDead = true,
-		}
-		TSMAPI_FOUR.Util.ShowStaticPopupDialog("TSM_APP_DATA_ERROR")
 		return
 	end
 
 	if not TSMAPI_FOUR.Util.IsAddonEnabled("TradeSkillMaster_AppHelper") then
 		-- TSM_AppHelper is disabled
 		StaticPopupDialogs["TSM_APP_DATA_ERROR"] = {
-			text = L["The TradeSkillMaster_AppHelper addon is not enabled and is required for proper operation of TSM. TSM has enabled it and requires a reload."],
+			text = L["The TradeSkillMaster_AppHelper addon is installed, but not enabled. TSM has enabled it and requires a reload."],
 			button1 = L["Reload"],
 			timeout = 0,
 			whileDead = true,
