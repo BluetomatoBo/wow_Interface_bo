@@ -12,6 +12,7 @@ local L = TSM.L
 local private = {
 	topLevelPages = {},
 	frame = nil,
+	hasShown = false,
 	isSwitching = false,
 	scanningPage = nil,
 	updateCallbacks = {},

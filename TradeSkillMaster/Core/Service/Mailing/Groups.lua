@@ -50,7 +50,22 @@ function private.GroupsMailThread(groupList, sendRepeat)
 				if groupPath == TSM.CONST.ROOT_GROUP_PATH then
 					-- TODO
 				else
-					private.SendItems(groupPath, operationSettings)
+					if operationSettings.target ~= "" and operationSettings.target ~= PLAYER_NAME and operationSettings.target ~= PLAYER_NAME_REALM then
+						local items = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
+						for _, itemString in TSMAPI_FOUR.Groups.ItemIterator(groupPath) do
+							local quantity = private.GetItemQuantity(itemString, operationSettings)
+							if quantity > 0 then
+								items[itemString] = quantity
+							end
+						end
+
+						if next(items) then
+							private.SendItems(operationSettings.target, items)
+							TSMAPI_FOUR.Thread.Sleep(0.5)
+						end
+
+						TSMAPI_FOUR.Thread.ReleaseSafeTempTable(items)
+					end
 				end
 			end
 		end
@@ -63,28 +78,12 @@ function private.GroupsMailThread(groupList, sendRepeat)
 	end
 end
 
-function private.SendItems(groupPath, operationSettings)
-	if operationSettings.target == "" or operationSettings.target == PLAYER_NAME or operationSettings.target == PLAYER_NAME_REALM then
-		return
+function private.SendItems(target, items)
+	private.sendDone = false
+	TSM.Mailing.Send.StartSending(private.SendCallback, target, "", "", 0, items, true)
+	while not private.sendDone do
+		TSMAPI_FOUR.Thread.Yield(true)
 	end
-
-	local items = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
-	for _, itemString in TSMAPI_FOUR.Groups.ItemIterator(groupPath) do
-		local quantity = private.GetItemQuantity(itemString, operationSettings)
-		if quantity > 0 then
-			items[itemString] = quantity
-		end
-	end
-
-	if next(items) then
-		private.sendDone = false
-		TSM.Mailing.Send.StartSending(private.SendCallback, operationSettings.target, "", "", 0, items, true)
-		while not private.sendDone do
-			TSMAPI_FOUR.Thread.Yield(true)
-		end
-	end
-
-	TSMAPI_FOUR.Thread.ReleaseSafeTempTable(items)
 end
 
 function private.SendCallback()

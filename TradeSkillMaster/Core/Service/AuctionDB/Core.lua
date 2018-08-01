@@ -79,7 +79,7 @@ function AuctionDB.OnEnable()
 	for itemString in pairs(private.realmData) do
 		TSMAPI_FOUR.Item.FetchInfo(itemString)
 	end
-	if not next(private.realmData) or true then
+	if not next(private.realmData) then
 		TSM:Print(L["TSM doesn't currently have any AuctionDB pricing data for your realm. We recommend you download the TSM Desktop Application from |cff99ffffhttp://tradeskillmaster.com|r to automatically update your AuctionDB data (and auto-backup your TSM settings)."])
 	end
 	collectgarbage()

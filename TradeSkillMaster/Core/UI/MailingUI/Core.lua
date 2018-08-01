@@ -152,7 +152,7 @@ function private.FSMCreate()
 					private.defaultUISwitchBtn:Draw()
 				end
 
-				MailFrame:SetScript("OnHide", DefaultFrameOnHide)
+				MailFrame:HookScript("OnHide", DefaultFrameOnHide)
 			end)
 			:AddTransition("ST_CLOSED")
 			:AddTransition("ST_FRAME_OPEN")

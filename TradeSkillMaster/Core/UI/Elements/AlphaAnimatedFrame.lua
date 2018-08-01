@@ -65,8 +65,8 @@ end
 -- @tparam AlphaAnimatedFrame self The alpha animated frame object
 -- @tparam boolean playing Whether the animation should be playing or not
 -- @treturn AlphaAnimatedFrame The alpha animated frame object
-function AlphaAnimatedFrame.SetPlaying(self, playing)
-	if playing then
+function AlphaAnimatedFrame.SetPlaying(self, play)
+	if play then
 		self._ag:Play()
 	else
 		self._ag:Stop()

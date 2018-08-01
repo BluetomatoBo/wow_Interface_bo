@@ -405,7 +405,7 @@ function private.OnChar(frame)
 			break
 		end
 	end
-	if match then
+	if match and not IsControlKeyDown() then
 		self._compStart = strlen(text)
 		self:SetText(match)
 	else
