@@ -29,7 +29,7 @@ local MIN_FRAME_SIZE = { width = 830, height = 587 }
 
 function AuctionUI.OnInitialize()
 	UIParent:UnregisterEvent("AUCTION_HOUSE_SHOW")
-	TSMAPI_FOUR.Event.Register("AUCTION_HOUSE_SHOW", private.ShowAuctionFrame)
+	TSMAPI_FOUR.Event.Register("AUCTION_HOUSE_SHOW", private.AuctionFrameInit)
 	TSMAPI_FOUR.Event.Register("AUCTION_HOUSE_CLOSED", private.HideAuctionFrame)
 	TSMAPI_FOUR.Delay.AfterTime(1, function() LoadAddOn("Blizzard_AuctionUI") end)
 end
@@ -110,10 +110,7 @@ end
 -- Main Frame
 -- ============================================================================
 
-function private.ShowAuctionFrame()
-	if private.frame then
-		return
-	end
+function private.AuctionFrameInit()
 	if not private.hasShown then
 		private.hasShown = true
 		local tabId = AuctionFrame.numTabs + 1
@@ -127,6 +124,17 @@ function private.ShowAuctionFrame()
 		PanelTemplates_SetNumTabs(AuctionFrame, tabId)
 		PanelTemplates_EnableTab(AuctionFrame, tabId)
 		tab:SetScript("OnClick", private.TSMTabOnClick)
+	end
+	if TSM.db.global.internalData.auctionUIFrameContext.showDefault then
+		UIParent_OnEvent(UIParent, "AUCTION_HOUSE_SHOW")
+	else
+		private.ShowAuctionFrame()
+	end
+end
+
+function private.ShowAuctionFrame()
+	if private.frame then
+		return
 	end
 	private.frame = private.CreateMainFrame()
 	private.frame:Show()
@@ -190,6 +198,7 @@ end
 
 function private.SwitchBtnOnClick(button)
 	private.isSwitching = true
+	TSM.db.global.internalData.auctionUIFrameContext.showDefault = button ~= private.defaultUISwitchBtn
 	private.HideAuctionFrame()
 	UIParent_OnEvent(UIParent, "AUCTION_HOUSE_SHOW")
 	private.isSwitching = false
@@ -201,6 +210,7 @@ end
 function private.TSMTabOnClick()
 	-- Replace CloseAuctionHouse() with a no-op while hiding the AH frame so we don't stop interacting with the AH NPC
 	local origCloseAuctionHouse = CloseAuctionHouse
+	TSM.db.global.internalData.auctionUIFrameContext.showDefault = false
 	CloseAuctionHouse = NoOp
 	AuctionFrame_Hide()
 	CloseAuctionHouse = origCloseAuctionHouse

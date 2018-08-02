@@ -400,13 +400,14 @@ function private.OnChar(frame)
 	local text = self:GetText()
 	local match = nil
 	for k in pairs(self:_GetStyle("autoComplete")) do
-		if strfind(strlower(k), "^"..strlower(text)) then
+		local start, ending = strfind(strlower(k), "^"..strlower(text))
+		if start and ending and ending == #text then
 			match = k
 			break
 		end
 	end
 	if match and not IsControlKeyDown() then
-		self._compStart = strlen(text)
+		self._compStart = #text
 		self:SetText(match)
 	else
 		self._compStart = nil

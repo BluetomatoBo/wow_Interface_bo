@@ -671,7 +671,7 @@ function private.RecipientOnTextChanged(input)
 	local text = strtrim(input:GetText())
 	if input._compStart then
 		if text == private.recipient then
-			input:HighlightText(input._compStart, strlen(text))
+			input:HighlightText(input._compStart, #text)
 			input._compStart = nil
 		else
 			private.recipient = text
@@ -865,8 +865,9 @@ end
 function private.GenerateListElements(category, filterText)
 	private.listElements = {}
 	if category == L["Alts"] then
-		for factionrealm in TSM.db:GetConnectedRealmIterator("factionrealm") do
+		for factionrealm in TSM.db:GetConnectedRealmIterator("realm") do
 			for _, character in TSM.db:FactionrealmCharacterIterator(factionrealm) do
+				character = Ambiguate(gsub(strmatch(character, "(%a*) -").."-"..factionrealm, " ", ""), "none")
 				if character ~= UnitName("player") then
 					if filterText and filterText ~= "" then
 						if strfind(strlower(character), filterText) then

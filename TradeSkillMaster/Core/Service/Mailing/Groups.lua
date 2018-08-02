@@ -53,6 +53,7 @@ function private.GroupsMailThread(groupList, sendRepeat)
 					if operationSettings.target ~= "" and operationSettings.target ~= PLAYER_NAME and operationSettings.target ~= PLAYER_NAME_REALM then
 						local items = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
 						for _, itemString in TSMAPI_FOUR.Groups.ItemIterator(groupPath) do
+							itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
 							local quantity = private.GetItemQuantity(itemString, operationSettings)
 							if quantity > 0 then
 								items[itemString] = quantity

@@ -73,6 +73,9 @@ end
 
 function TSMAPI_FOUR.Operations.Iterator(moduleName, groupPath)
 	local operationNames = TSM.db.profile.userData.groups[groupPath][moduleName]
+	for _, operationName in pairs(operationNames) do
+		TSMAPI.Operations:Update(moduleName, operationName)
+	end
 	return TSMAPI_FOUR.Util.TableIterator(operationNames, private.OperationIteratorHelper, moduleName)
 end
 

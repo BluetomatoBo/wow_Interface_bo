@@ -67,6 +67,9 @@ function private.SendMailThread(recipient, subject, body, money, items, isGroup)
 	local itemInfo = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
 
 	for _, bag, slot, itemString, quantity in TSMAPI_FOUR.Inventory.BagIterator(false, false, true) do
+		if isGroup then
+			itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
+		end
 		if items[itemString] and not TSMAPI_FOUR.Inventory.IsBagSlotLocked(bag, slot) then
 			if not itemInfo[itemString] then
 				itemInfo[itemString] = { locations = {} }
