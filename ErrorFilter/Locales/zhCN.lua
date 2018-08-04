@@ -12,8 +12,8 @@ L["Choose the errors you want to see:"] = "选择你想看到的错误信息:"
 L["Delete"] = "删除"
 L["Delete a string from the list"] = "删除一个字符串"
 L["Do nothing"] = "什么都不做"
---Translation missing 
--- L["Enable Error Speech."] = ""
+--[[Translation missing --]]
+--[[ L["Enable Error Speech."] = ""--]] 
 L["Filter all errors"] = "过滤所有错误"
 L["Filter only ..."] = "只过滤..."
 L["Filter only in combat."] = "仅在战斗中过滤"
@@ -25,22 +25,22 @@ L["Manage custom filters:"] = "管理自定义过滤:"
 L["New"] = "新的"
 L["Open the menu to set custom filters."] = "打开菜单设置自定义过滤."
 L["Operation mode:"] = "操作模式:"
---Translation missing 
--- L["Output"] = ""
+--[[Translation missing --]]
+--[[ L["Output"] = ""--]] 
 L["Profiles"] = "配置文件"
 L["Remove UIErrorFrame"] = "删除UI错误"
 L["Set filters"] = "设置过滤器"
---Translation missing 
--- L["Sound Settings"] = ""
---Translation missing 
--- L["Throttle"] = ""
---Translation missing 
--- L["Throttle messages."] = ""
---Translation missing 
--- L["Toggle to allow each message only once every 5 seconds."] = ""
+--[[Translation missing --]]
+--[[ L["Sound Settings"] = ""--]] 
+--[[Translation missing --]]
+--[[ L["Throttle"] = ""--]] 
+--[[Translation missing --]]
+--[[ L["Throttle messages."] = ""--]] 
+--[[Translation missing --]]
+--[[ L["Toggle to allow each message only once every 5 seconds."] = ""--]] 
 L["Toggle to allow this error."] = "选择不过滤该信息."
---Translation missing 
--- L["Toggle to enable the game's sound option error speech."] = ""
+--[[Translation missing --]]
+--[[ L["Toggle to enable the game's sound option error speech."] = ""--]] 
 L["Toggle to filter this error."] = "选择过滤该信息."
 L["Toggle to stop filtering while out of combat."] = "开启当脱离战斗后停止过滤."
 L["Warning! This will prevent all error messages from appearing in the UI Error Frame."] = "警告! 这将过滤所有的错误信息."

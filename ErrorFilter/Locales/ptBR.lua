@@ -12,8 +12,8 @@ L["Choose the errors you want to see:"] = "Escolha os erros que você quer ver:"
 L["Delete"] = "Deletar"
 L["Delete a string from the list"] = "Deleta a sequência da lista"
 L["Do nothing"] = "Não fazer nada."
---Translation missing 
--- L["Enable Error Speech."] = ""
+--[[Translation missing --]]
+--[[ L["Enable Error Speech."] = ""--]] 
 L["Filter all errors"] = "Filtrar todos os erros"
 L["Filter only ..."] = "Filtrar somente..."
 L["Filter only in combat."] = "Filtrar somente em combate."
@@ -29,14 +29,14 @@ L["Output"] = "Onde postar"
 L["Profiles"] = "Perfis"
 L["Remove UIErrorFrame"] = "Remover UIErrorFrame"
 L["Set filters"] = "Configurar filtros"
---Translation missing 
--- L["Sound Settings"] = ""
+--[[Translation missing --]]
+--[[ L["Sound Settings"] = ""--]] 
 L["Throttle"] = "Reprimir"
 L["Throttle messages."] = "Reprimir mensagens."
 L["Toggle to allow each message only once every 5 seconds."] = "Ative para permitir cada mensagem somente uma vez a cada 5 segundos."
 L["Toggle to allow this error."] = "Marque para permitir este erro."
---Translation missing 
--- L["Toggle to enable the game's sound option error speech."] = ""
+--[[Translation missing --]]
+--[[ L["Toggle to enable the game's sound option error speech."] = ""--]] 
 L["Toggle to filter this error."] = "Marque para filtrar este erro."
 L["Toggle to stop filtering while out of combat."] = "Marque para parar a filtragem quando fora de combate."
 L["Warning! This will prevent all error messages from appearing in the UI Error Frame."] = "Atenção! Isso vai proibir que todas as mensagens de erro apareçam na UI Error Frame."

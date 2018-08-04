@@ -1,12 +1,12 @@
-tag 45afa74877b62a3f39ec275626d9295c1814bf6f v3.4
+tag db89b3627271666c1846b98de7f914d38a4cdb87 v3.5
 Author:	iceeagle <ciprianmihai.coman@gmail.com>
-Date:	Fri Sep 29 14:23:43 2017 +0300
+Date:	Thu Aug 2 19:40:47 2018 +0300
 
-v3.4
+tag v3.5
 
-commit 7625b211f468330755118855b56bad2637255927
+commit f72653014c0e9acc19052aa6b86c2dbdb85e58b6
 Author: iceeagle <ciprianmihai.coman@gmail.com>
-Date:   Fri Sep 29 14:23:26 2017 +0300
+Date:   Thu Aug 2 19:40:26 2018 +0300
 
-    fix play sound
+    update for patch 8.0
 
