@@ -15,8 +15,6 @@
 	<Script file="ArgusEliteTracker.lua"/>
 	<Script file="Arh.lua"/>
 	<Script file="ArkInventory.lua"/>
-	<Script file="ArtifactPowerUser.lua"/>
-	<Script file="ArtifactTab.lua"/>
 	<Script file="Atlas.lua"/>
 	<Script file="AtlasLoot.lua"/>
 	<Script file="ATSW.lua"/>
@@ -25,6 +23,7 @@
 	<Script file="AuctionLite.lua"/>
 	<Script file="AutoBar.lua"/>
 	<Script file="AutoEquipQuestItem.lua"/>
+	<Script file="AzerothAutoPilot.lua"/>
 	<Script file="Baggins.lua"/>
 	<Script file="Bagnon.lua"/>
 	<Script file="BagSync.lua"/>
@@ -105,7 +104,6 @@
 	<Script file="Ludwig.lua"/>
 	<Script file="MageNuggets.lua"/>
 	<Script file="MailCommander.lua"/>
-	<Script file="MasterLootManagerRemix.lua"/>
 	<Script file="MasterPlan.lua"/>
 	<Script file="MinimalArchaeology.lua"/>
 	<Script file="MiscFixes.lua"/>
@@ -168,6 +166,7 @@
 	<Script file="StormEarthAndFire.lua"/>
 	<Script file="Storyline.lua"/>
 	<Script file="Swatter.lua"/>
+	<Script file="Talented.lua"/>
 	<Script file="Talentless.lua"/>
 	<Script file="TalentSetManager.lua"/>
 	<Script file="tdBattlePetScript.lua"/>

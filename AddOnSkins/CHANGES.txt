@@ -1,38 +1,84 @@
-lightweight tag c5b6187074db1280497068d849deabd94a780310 3.76
+lightweight tag a274c164633121963da2ddc3f2a22947ab799cd3 3.77
 Author:	Michael James <darktemplar9900@yahoo.com>
-Date:	Sun Jul 29 09:55:51 2018 -0500
+Date:	Fri Aug 3 16:53:45 2018 -0500
 
-commit c5b6187074db1280497068d849deabd94a780310
+commit a274c164633121963da2ddc3f2a22947ab799cd3
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sun Jul 29 09:55:51 2018 -0500
+Date:   Fri Aug 3 16:53:45 2018 -0500
 
-    3.76
+    3.77
 
-commit f90967b9fb6324d79b590bd3422a841abd2fe57a
+commit b8324121bf6f0d1a00c13d0566c26e69f29af6a7
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sun Jul 29 07:05:05 2018 -0500
+Date:   Fri Aug 3 16:39:39 2018 -0500
 
-    PVP Skin
+    PetTracker
+
+commit 017a405a856c0b64ed4e13eb900cf50ae7b90212
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Thu Aug 2 20:34:03 2018 -0500
+
+    Fix English
+
+commit 5354558232d6c9260ccb2dec163f9b402923b6f5
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Thu Aug 2 20:23:16 2018 -0500
+
+    Add to the Popup
+
+commit 3a40b4c4cfdd6efd5a2250b5691b21b28dc04dae
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Thu Aug 2 19:33:06 2018 -0500
+
+    PixelPerfect Update
+
+commit 7881fa33cc2f45c9dbbf281595c5a824c757e30c
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Thu Aug 2 16:43:20 2018 -0500
+
+    Talented by TylerR909
+
+commit 7e50616dad683834c8b3a58791cef3843826835c
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Thu Aug 2 16:43:05 2018 -0500
+
+    skinName -> addonName
+
+commit eb2debfc7d68183dc3edad69ed231b91000c995a
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Tue Jul 31 23:18:04 2018 -0500
+
+    AddOn Name and Version for Bug Reports.
+
+commit 46112da95f105e22990d09d9d2a0eb4d11bbbf48
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Tue Jul 31 17:11:41 2018 -0500
+
+    WeakAura Cooldown Fix?
+
+commit 510a6c2e45f443fd4a453298878562484958a65a
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Mon Jul 30 19:10:17 2018 -0500
+
+    Azeroth Auto Pilot
     
-    Issue #125
+    Submitted by Aldarana
 
-commit f90967b9fb6324d79b590bd3422a841abd2fe57a
+commit d936c5f8921e039a7565702c6c15dd0c7662b121
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sun Jul 29 07:05:05 2018 -0500
+Date:   Mon Jul 30 04:16:54 2018 -0500
 
-    PVP Skin
-    
-    Issue #125
+    #133
 
-commit d29bd52deeb84d6f72d1f02e3164c0cffe53e69c
-Author: Paweł Jastrzębski <pawelj@iosphe.re>
-Date:   Sun Jul 29 10:35:26 2018 +0200
+commit 11d663c24f1ff8677e507cbfa890497b87482d18
+Author: Michael Tindal <mj.tindal@gmail.com>
+Date:   Sun Jul 29 22:07:29 2018 -0700
 
-    Skins moved to addon
+    Updating author name for myself.
 
-commit ad550e5ada7589eb15e9a57574a898c56958d689
+commit 98c163e0912227588f7f796fc0a98add415dd080
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sun Jul 29 01:10:20 2018 -0500
+Date:   Sun Jul 29 22:23:31 2018 -0500
 
-    WorldMap
+    Quest
 
