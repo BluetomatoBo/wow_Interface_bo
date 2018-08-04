@@ -114,7 +114,7 @@ function private.OpenMails(mails, filterType)
 			end
 			AutoLootMailItem(index)
 
-			TSMAPI_FOUR.Thread.WaitForEvent("CLOSE_INBOX_ITEM")
+			TSMAPI_FOUR.Thread.WaitForEvent("CLOSE_INBOX_ITEM", "MAIL_FAILED")
 		end
 	end
 end

@@ -18,7 +18,7 @@ local private = { fsm = nil, selectionFrame = nil, hasLastScan = nil, contentPat
 -- ============================================================================
 
 function Sniper.OnInitialize()
-	TSM.UI.AuctionUI.RegisterTopLevelPage("Sniper", "iconPack.24x24/Sniper", private.GetSniperFrame)
+	TSM.UI.AuctionUI.RegisterTopLevelPage(L["Sniper"], "iconPack.24x24/Sniper", private.GetSniperFrame, private.OnItemLinked)
 	private.FSMCreate()
 end
 
@@ -176,6 +176,13 @@ end
 -- Local Script Handlers
 -- ============================================================================
 
+function private.OnItemLinked(name, itemLink)
+	if private.selectionFrame then
+		return false
+	end
+	return true
+end
+
 function private.SelectionFrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)
 	local baseFrame = frame:GetBaseElement()
@@ -189,7 +196,7 @@ function private.SelectionFrameOnHide(frame)
 end
 
 function private.BuyoutScanButtonOnClick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Sniper") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Sniper"]) then
 		return
 	end
 	button:GetParentElement():GetParentElement():GetParentElement():SetPath("scan", true)
@@ -198,7 +205,7 @@ function private.BuyoutScanButtonOnClick(button)
 end
 
 function private.BidScanButtonOnClick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Sniper") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Sniper"]) then
 		return
 	end
 	button:GetParentElement():GetParentElement():GetParentElement():SetPath("scan", true)
@@ -219,7 +226,7 @@ function private.CancelButtonOnClick()
 end
 
 function private.ResumeButtonOnClick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Sniper") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Sniper"]) then
 		return
 	end
 	button:GetElement("__parent.__parent.auctions"):SetSelection(nil)
@@ -230,7 +237,7 @@ function private.ActionButtonOnClick(button)
 end
 
 function private.RestartButtonOnClick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Sniper") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Sniper"]) then
 		return
 	end
 	local lastScanType = private.hasLastScan
@@ -400,7 +407,7 @@ function private.FSMCreate()
 					context.scanFrame:GetParentElement():SetPath("selection", true)
 					context.scanFrame = nil
 				end
-				TSM.UI.AuctionUI.EndedScan("Sniper")
+				TSM.UI.AuctionUI.EndedScan(L["Sniper"])
 			end)
 			:AddTransition("ST_INIT")
 			:AddTransition("ST_RUNNING_SCAN")

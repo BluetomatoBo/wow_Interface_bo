@@ -14,7 +14,6 @@ local private = {
 	itemFilter = TSMAPI_FOUR.ItemFilter.New(),
 	groupedItemList = {},
 	ungroupedItemList = { {}, {} },
-	ignoreRandom = false,
 	moduleOperationList = {},
 	descriptionShown = {},
 	moduleCollapsed = {},
@@ -150,8 +149,8 @@ function private.GetGroupsPage(self, button)
 					:SetStyle("height", 24)
 					:SetStyle("margin", { right = -4 })
 					:SetCheckboxPosition("RIGHT")
-					:SetText(L["Ignore random enchants?"])
-					:SetChecked(private.ignoreRandom)
+					:SetText(L["Ignore item variations?"])
+					:SetSettingInfo(TSM.db.profile.userData.groups[private.currentGroupPath], "ignoreRandomEnchants")
 					:SetScript("OnValueChanged", private.IgnoreRandomOnValueChanged)
 				)
 			)
@@ -569,7 +568,6 @@ function private.ItemFilterOnTextChanged(self)
 end
 
 function private.IgnoreRandomOnValueChanged(self, checked)
-	private.ignoreRandom = checked
 	-- update the ungrouped item list
 	self:GetElement("__parent.__parent.content.ungrouped.content.itemList"):SetItems(private.GetUngroupedItemList(), true)
 end
@@ -742,7 +740,7 @@ function private.GetUngroupedItemList()
 	-- items in bags
 	local addedItems = TSMAPI_FOUR.Util.AcquireTempTable()
 	for _, _, _, itemString in TSMAPI_FOUR.Inventory.BagIterator(false, false, true) do
-		if private.ignoreRandom then
+		if TSM.db.profile.userData.groups[private.currentGroupPath].ignoreRandomEnchants then
 			itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
 		end
 		if not TSMAPI_FOUR.Groups.IsItemInGroup(itemString) and not addedItems[itemString] then

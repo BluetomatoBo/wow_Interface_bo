@@ -79,6 +79,7 @@ end
 function BagTracking.OnEnable()
 	-- we'll scan all the bags and reagent bank right away, so wipe the existing quantities
 	TSM.Inventory.WipeBagQuantity()
+	TSM.Inventory.WipeBankQuantity()
 	TSM.Inventory.WipeReagentBankQuantity()
 
 	-- WoW does not fire an update event for the backpack when you log in, so trigger one
@@ -332,7 +333,7 @@ function private.BankOpenedHandler()
 	if private.isFirstBankOpen then
 		private.isFirstBankOpen = false
 		-- this is the first time opening the bank so we'll scan all the items so wipe our existing quantities
-		TSM.Inventory.WipeBankQuantity()
+		--TSM.Inventory.WipeBankQuantity()
 	end
 	private.bankOpen = true
 	private.BagUpdateDelayedHandler()

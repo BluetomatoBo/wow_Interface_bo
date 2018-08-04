@@ -138,6 +138,7 @@ function private.GetGuildName()
 	TSMAPI_FOUR.Util.ReleaseTempTable(validGuilds)
 
 	TSM.db.factionrealm.internalData.guildVaults[PLAYER_GUILD] = TSM.db.factionrealm.internalData.guildVaults[PLAYER_GUILD] or {}
+	TSM.Inventory.OnGuildLoaded()
 end
 
 function private.GuildBankFrameOpenedHandler()

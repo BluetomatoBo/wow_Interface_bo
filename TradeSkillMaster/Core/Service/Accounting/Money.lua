@@ -97,9 +97,7 @@ function private.LoadData(recordType, csvRecords)
 	for _, record in ipairs(records) do
 		-- convert from old (TSM3) keys if necessary
 		local otherPlayer = record.otherPlayer or record.destination or record.source
-		if type(otherPlayer) ~= "string" then
-			-- some people seem to have some invalid Postage records stored from TSM3, so just ignore them
-		else
+		if type(otherPlayer) == "string" and type(record.time) == "number" then
 			private.db:BulkInsertNewRow(recordType, record.type, record.amount, otherPlayer, record.player, record.time)
 		end
 	end

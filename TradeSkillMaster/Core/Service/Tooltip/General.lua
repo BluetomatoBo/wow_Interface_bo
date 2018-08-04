@@ -162,6 +162,12 @@ function General.LoadTooltip(tooltip, itemString)
 		local totalNum = 0
 		for factionrealm in TSM.db:GetConnectedRealmIterator("factionrealm") do
 			for _, character in TSM.db:FactionrealmCharacterIterator(factionrealm) do
+				local realm = strmatch(factionrealm, "^.* "..TSMAPI_FOUR.Util.StrEscape("-").." (.*)")
+				if realm == GetRealmName() then
+					realm = ""
+				else
+					realm = " - "..realm
+				end
 				local bag = TSMAPI_FOUR.Inventory.GetBagQuantity(itemString, character, factionrealm)
 				local bank = TSMAPI_FOUR.Inventory.GetBankQuantity(itemString, character, factionrealm)
 				local reagentBank = TSMAPI_FOUR.Inventory.GetReagentBankQuantity(itemString, character, factionrealm)
@@ -173,9 +179,9 @@ function General.LoadTooltip(tooltip, itemString)
 					local classColor = RAID_CLASS_COLORS[TSM.db:Get("sync", TSM.db:GetSyncScopeKeyByCharacter(character), "internalData", "classKey")]
 					local rightText = format(L["%s (%s bags, %s bank, %s AH, %s mail)"], "|cffffffff"..playerTotal.."|r", "|cffffffff"..bag.."|r", "|cffffffff"..(bank+reagentBank).."|r", "|cffffffff"..auction.."|r", "|cffffffff"..mail.."|r")
 					if classColor then
-						tooltip:AddLine("|c"..classColor.colorStr..character.."|r", rightText)
+						tooltip:AddLine("|c"..classColor.colorStr..character..realm.."|r", rightText)
 					else
-						tooltip:AddLine(character, rightText)
+						tooltip:AddLine(character..realm, rightText)
 					end
 				end
 			end

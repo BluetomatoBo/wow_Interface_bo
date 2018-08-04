@@ -46,37 +46,8 @@ private.dividedContainerContext = {}
 -- ============================================================================
 
 function Shopping.OnInitialize()
-	TSM.UI.AuctionUI.RegisterTopLevelPage(L["Shopping"], "iconPack.24x24/Shopping", private.GetShoppingFrame)
+	TSM.UI.AuctionUI.RegisterTopLevelPage(L["Shopping"], "iconPack.24x24/Shopping", private.GetShoppingFrame, private.OnItemLinked)
 	private.FSMCreate()
-
-	-- setup hooks to shift-click on items to quickly search for them
-	local function HandleShiftClickItem(origFunc, link)
-		local putIntoChat = origFunc(link)
-		if putIntoChat or not private.frame then
-			return putIntoChat
-		end
-		local itemString = TSMAPI_FOUR.Item.ToItemString(link)
-		local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
-		local name = TSMAPI_FOUR.Item.GetName(baseItemString)
-		if not name then
-			return putIntoChat
-		end
-		private.frame:SetPath("selection")
-		if itemString == baseItemString then
-			name = name.."/exact"
-		end
-		private.frame:GetBaseElement():HideDialog()
-		private.StartFilterSearchHelper(private.frame, name, nil, itemString)
-		return true
-	end
-	local origHandleModifiedItemClick = HandleModifiedItemClick
-	HandleModifiedItemClick = function(link)
-		return HandleShiftClickItem(origHandleModifiedItemClick, link)
-	end
-	local origChatEdit_InsertLink = ChatEdit_InsertLink
-	ChatEdit_InsertLink = function(link)
-		return HandleShiftClickItem(origChatEdit_InsertLink, link)
-	end
 end
 
 function Shopping.StartGatheringSearch(items, stateCallback, buyCallback)
@@ -899,6 +870,18 @@ end
 -- Local Script Handlers
 -- ============================================================================
 
+function private.OnItemLinked(name, itemLink)
+	local itemString = TSMAPI_FOUR.Item.ToItemString(itemLink)
+	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	private.frame:SetPath("selection")
+	if itemString == baseItemString then
+		name = name.."/exact"
+	end
+	private.frame:GetBaseElement():HideDialog()
+	private.StartFilterSearchHelper(private.frame, name, nil, itemString)
+	return true
+end
+
 function private.GroupSearchOnTextChanged(input)
 	private.groupSearch = strlower(strtrim(input:GetText()))
 	input:GetElement("__parent.__parent.groupTree")
@@ -948,7 +931,7 @@ function private.GroupTreeGetList(groups, headerNameLookup)
 end
 
 function private.ScanButtonOnClick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Shopping") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Shopping"]) then
 		return
 	end
 	wipe(private.selectedGroups)
@@ -1080,7 +1063,7 @@ function private.FilterSearchButtonOnClick(button)
 end
 
 function private.StartFilterSearchHelper(viewContainer, filter, isSpecial)
-	if not TSM.UI.AuctionUI.StartingScan("Shopping") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Shopping"]) then
 		return
 	end
 	viewContainer:SetPath("scan", true)
@@ -1089,7 +1072,7 @@ function private.StartFilterSearchHelper(viewContainer, filter, isSpecial)
 end
 
 function private.StartGatheringSearchHelper(viewContainer, items, stateCallback, buyCallback)
-	if not TSM.UI.AuctionUI.StartingScan("Shopping") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Shopping"]) then
 		return
 	end
 	viewContainer:SetPath("scan", true)
@@ -1103,7 +1086,7 @@ function private.DealsButtonOnClick(button)
 end
 
 function private.VendorButtonOnClick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Shopping") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Shopping"]) then
 		return
 	end
 	button:GetParentElement():GetParentElement():GetParentElement():GetParentElement():GetParentElement():SetPath("scan", true)
@@ -1112,7 +1095,7 @@ function private.VendorButtonOnClick(button)
 end
 
 function private.DisenchantButtonOnClick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Shopping") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Shopping"]) then
 		return
 	end
 	button:GetParentElement():GetParentElement():GetParentElement():GetParentElement():GetParentElement():SetPath("scan", true)
@@ -1363,7 +1346,7 @@ function private.ScanFilterInputOnEnterPressed(input)
 end
 
 function private.RescanBtnOnClick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Shopping") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Shopping"]) then
 		return
 	end
 	private.fsm:ProcessEvent("EV_RESCAN_CLICKED")
@@ -1538,7 +1521,7 @@ function private.FSMCreate()
 					context.scanFrame:GetParentElement():SetPath("selection", true)
 					context.scanFrame = nil
 				end
-				TSM.UI.AuctionUI.EndedScan("Shopping")
+				TSM.UI.AuctionUI.EndedScan(L["Shopping"])
 			end)
 			:AddTransition("ST_INIT")
 			:AddTransition("ST_STARTING_SCAN")
@@ -1571,7 +1554,7 @@ function private.FSMCreate()
 			:AddTransition("ST_INIT")
 			:AddEvent("EV_SCAN_PROGRESS_UPDATE", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_UPDATING_SCAN_PROGRESS"))
 			:AddEvent("EV_SCAN_COMPLETE", function(context)
-				TSM.UI.AuctionUI.EndedScan("Shopping")
+				TSM.UI.AuctionUI.EndedScan(L["Shopping"])
 				if context.scanFrame then
 					context.scanFrame:GetElement("auctions"):ExpandSingleResult()
 				end
@@ -1620,7 +1603,7 @@ function private.FSMCreate()
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_RESULTS")
 			:SetOnEnter(function(context)
-				TSM.UI.AuctionUI.EndedScan("Shopping")
+				TSM.UI.AuctionUI.EndedScan(L["Shopping"])
 				TSMAPI_FOUR.Thread.Kill(context.scanThreadId)
 				context.findAuction = nil
 				context.findResult = nil
@@ -1634,7 +1617,7 @@ function private.FSMCreate()
 				context.buyoutDisabled = true
 				context.stopDisabled = true
 				UpdateScanFrame(context)
-				if context.scanFrame and context.scanFrame:GetElement("auctions"):GetSelectedRecord() and TSM.UI.AuctionUI.StartingScan("Shopping") then
+				if context.scanFrame and context.scanFrame:GetElement("auctions"):GetSelectedRecord() and TSM.UI.AuctionUI.StartingScan(L["Shopping"]) then
 					return "ST_FINDING_AUCTION"
 				end
 			end)
@@ -1642,7 +1625,7 @@ function private.FSMCreate()
 			:AddTransition("ST_INIT")
 			:AddEvent("EV_AUCTION_SELECTION_CHANGED", function(context)
 				assert(context.scanFrame)
-				if context.scanFrame:GetElement("auctions"):GetSelectedRecord() and TSM.UI.AuctionUI.StartingScan("Shopping") then
+				if context.scanFrame:GetElement("auctions"):GetSelectedRecord() and TSM.UI.AuctionUI.StartingScan(L["Shopping"]) then
 					return "ST_FINDING_AUCTION"
 				end
 			end)
@@ -1685,7 +1668,7 @@ function private.FSMCreate()
 			:AddEvent("EV_AUCTION_NOT_FOUND", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_AUCTION_NOT_FOUND"))
 			:AddEvent("EV_AUCTION_SELECTION_CHANGED", function(context)
 				assert(context.scanFrame)
-				if context.scanFrame:GetElement("auctions"):GetSelectedRecord() and TSM.UI.AuctionUI.StartingScan("Shopping") then
+				if context.scanFrame:GetElement("auctions"):GetSelectedRecord() and TSM.UI.AuctionUI.StartingScan(L["Shopping"]) then
 					return "ST_FINDING_AUCTION"
 				else
 					return "ST_RESULTS"

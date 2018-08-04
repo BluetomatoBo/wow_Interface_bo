@@ -497,7 +497,7 @@ function private.GetItemDetail()
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
 						:SetJustifyH("RIGHT")
-						:SetTextInfo("price", private.TableGetTotalPriceText)
+						:SetTextInfo(nil, private.TableGetTotalPriceText)
 						:Commit()
 					:NewColumn("time")
 						:SetTitles(L["Time"])
@@ -566,10 +566,10 @@ function private.TableGetTimeframeText(timestamp)
 	return SecondsToTime(time() - timestamp)
 end
 
-function private.TableGetTotalPriceText(price)
-	return TSMAPI_FOUR.Money.ToString(price, "OPT_PAD", "OPT_SEP")
+function private.TableGetTotalPriceText(row)
+	return TSMAPI_FOUR.Money.ToString(row:GetField("price") * row:GetField("quantity"), "OPT_PAD", "OPT_SEP")
 end
 
 function private.TableGetPerItemText(row)
-	return TSMAPI_FOUR.Money.ToString(row:GetField("price") / row:GetField("quantity"), "OPT_PAD", "OPT_SEP")
+	return TSMAPI_FOUR.Money.ToString(row:GetField("price"), "OPT_PAD", "OPT_SEP")
 end

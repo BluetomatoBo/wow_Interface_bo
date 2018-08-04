@@ -25,31 +25,7 @@ local DURATION_LIST = {
 
 function MyAuctions.OnInitialize()
 	private.FSMCreate()
-	TSM.UI.AuctionUI.RegisterTopLevelPage(L["My Auctions"], "iconPack.24x24/Auctions", private.GetMyAuctionsFrame)
-
-	-- setup hooks to shift-click on items to quickly filter for them
-	local function HandleShiftClickItem(origFunc, link)
-		local putIntoChat = origFunc(link)
-		if putIntoChat or not private.frame then
-			return putIntoChat
-		end
-		local name = TSMAPI_FOUR.Item.GetName(link)
-		if name then
-			private.frame:GetElement("headerFrame.keywordInput")
-				:SetText(name)
-				:Draw()
-			return true
-		end
-		return putIntoChat
-	end
-	local origHandleModifiedItemClick = HandleModifiedItemClick
-	HandleModifiedItemClick = function(link)
-		return HandleShiftClickItem(origHandleModifiedItemClick, link)
-	end
-	local origChatEdit_InsertLink = ChatEdit_InsertLink
-	ChatEdit_InsertLink = function(link)
-		return HandleShiftClickItem(origChatEdit_InsertLink, link)
-	end
+	TSM.UI.AuctionUI.RegisterTopLevelPage(L["My Auctions"], "iconPack.24x24/Auctions", private.GetMyAuctionsFrame, private.OnItemLinked)
 end
 
 
@@ -261,6 +237,13 @@ end
 -- ============================================================================
 -- Local Script Handlers
 -- ============================================================================
+
+function private.OnItemLinked(name)
+	private.frame:GetElement("headerFrame.keywordInput")
+		:SetText(name)
+		:Draw()
+	return true
+end
 
 function private.FrameOnUpdate(frame)
 	frame:SetScript("OnUpdate", nil)

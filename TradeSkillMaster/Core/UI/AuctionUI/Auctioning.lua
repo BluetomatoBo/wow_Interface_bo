@@ -40,37 +40,8 @@ local AUCTION_DURATIONS = {
 -- ============================================================================
 
 function Auctioning.OnInitialize()
-	TSM.UI.AuctionUI.RegisterTopLevelPage("Auctioning", "iconPack.24x24/Posting", private.GetAuctioningFrame)
+	TSM.UI.AuctionUI.RegisterTopLevelPage(L["Auctioning"], "iconPack.24x24/Posting", private.GetAuctioningFrame, private.OnItemLinked)
 	private.FSMCreate()
-
-	-- setup hooks to shift-click on items to quickly post them
-	local function HandleShiftClickItem(origFunc, link)
-		local putIntoChat = origFunc(link)
-		if putIntoChat or not private.selectionFrame then
-			return putIntoChat
-		end
-		local name = TSMAPI_FOUR.Item.GetName(link)
-		if name then
-			if not TSM.UI.AuctionUI.StartingScan("Auctioning") then
-				return
-			end
-			wipe(private.scanContext)
-			private.scanContext.isItems = true
-			tinsert(private.scanContext, TSMAPI_FOUR.Item.ToItemString(link))
-			private.selectionFrame:GetParentElement():SetPath("scan", true)
-			private.fsm:ProcessEvent("EV_START_SCAN", "POST", private.scanContext)
-			return true
-		end
-		return putIntoChat
-	end
-	local origHandleModifiedItemClick = HandleModifiedItemClick
-	HandleModifiedItemClick = function(link)
-		return HandleShiftClickItem(origHandleModifiedItemClick, link)
-	end
-	local origChatEdit_InsertLink = ChatEdit_InsertLink
-	ChatEdit_InsertLink = function(link)
-		return HandleShiftClickItem(origChatEdit_InsertLink, link)
-	end
 end
 
 
@@ -570,6 +541,18 @@ end
 -- Local Script Handlers
 -- ============================================================================
 
+function private.OnItemLinked(_, itemLink)
+	if not TSM.UI.AuctionUI.StartingScan(L["Auctioning"]) then
+		return false
+	end
+	wipe(private.scanContext)
+	private.scanContext.isItems = true
+	tinsert(private.scanContext, TSMAPI_FOUR.Item.ToItemString(itemLink))
+	private.selectionFrame:GetParentElement():SetPath("scan", true)
+	private.fsm:ProcessEvent("EV_START_SCAN", "POST", private.scanContext)
+	return true
+end
+
 function private.SelectionOnHide(frame)
 	assert(frame == private.selectionFrame)
 	private.selectionFrame = nil
@@ -619,7 +602,7 @@ function private.GroupTreeOnGroupSelectionChanged(groupTree)
 end
 
 function private.RunPostButtonOnclick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Auctioning") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Auctioning"]) then
 		return
 	end
 	wipe(private.scanContext)
@@ -631,7 +614,7 @@ function private.RunPostButtonOnclick(button)
 end
 
 function private.RunCancelButtonOnclick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Auctioning") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Auctioning"]) then
 		return
 	end
 	wipe(private.scanContext)
@@ -651,7 +634,7 @@ function private.SearchListOnDelete(_, dbRow)
 end
 
 function private.SearchListOnRowClick(searchList, dbRow)
-	if not TSM.UI.AuctionUI.StartingScan("Auctioning") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Auctioning"]) then
 		return
 	end
 	local scanType = dbRow:GetField("searchType")
@@ -708,7 +691,7 @@ function private.RunClearSelectionButtonOnclick(button)
 end
 
 function private.RunPostBagsButtonOnclick(button)
-	if not TSM.UI.AuctionUI.StartingScan("Auctioning") then
+	if not TSM.UI.AuctionUI.StartingScan(L["Auctioning"]) then
 		return
 	end
 	wipe(private.scanContext)
@@ -948,7 +931,7 @@ function private.FSMCreate()
 					context.scanFrame:GetParentElement():SetPath("selection", true)
 					context.scanFrame = nil
 				end
-				TSM.UI.AuctionUI.EndedScan("Auctioning")
+				TSM.UI.AuctionUI.EndedScan(L["Auctioning"])
 			end)
 			:AddTransition("ST_INIT")
 			:AddTransition("ST_STARTING_SCAN")
@@ -1052,7 +1035,7 @@ function private.FSMCreate()
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_RESULTS")
 			:SetOnEnter(function(context)
-				TSM.UI.AuctionUI.EndedScan("Auctioning")
+				TSM.UI.AuctionUI.EndedScan(L["Auctioning"])
 				TSMAPI_FOUR.Thread.Kill(context.scanThreadId)
 				context.scanProgress = 1
 				context.scanProgressText = L["Done Scanning"]

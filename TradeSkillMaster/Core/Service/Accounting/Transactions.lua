@@ -327,33 +327,39 @@ function Transactions.GetQuantity(itemString, timeFilter, typeFilter)
 	if timeFilter then
 		query:GreaterThan("time", time() - timeFilter)
 	end
-	return query:CountAndRelease()
+	local sum = query:Sum("quantity") or 0
+	query:Release()
+	return sum
 end
 
 function Transactions.GetAveragePrice(itemString, timeFilter, typeFilter)
 	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
 	local query = private.db:NewQuery()
+		:Select("price", "quantity")
 		:Equal("type", typeFilter)
 		:Equal("baseItemString", itemString)
-
 	if timeFilter then
 		query:GreaterThan("time", time() - timeFilter)
 	end
-	local avgPrice = query:Avg("price")
-	query:Release()
-	return avgPrice
+	local avgPrice = 0
+	local totalQuantity = 0
+	for _, price, quantity in query:IteratorAndRelease() do
+		avgPrice = avgPrice + price * quantity
+		totalQuantity = totalQuantity + quantity
+	end
+	return avgPrice / totalQuantity
 end
 
 function Transactions.GetTotalPrice(itemString, timeFilter, typeFilter)
 	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
 	local query = private.db:NewQuery()
+		:Select("price", "quantity")
 		:Equal("type", typeFilter)
 		:Equal("baseItemString", itemString)
-
 	if timeFilter then
 		query:GreaterThan("time", time() - timeFilter)
 	end
-	local sumPrice = query:Sum("price")
+	local sumPrice = query:SumOfProduct("price", "quantity") or 0
 	query:Release()
 	return sumPrice
 end

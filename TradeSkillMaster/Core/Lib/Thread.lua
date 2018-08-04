@@ -147,8 +147,8 @@ end
 --- Wait for a WoW event.
 -- This must be called from a thread context.
 -- @tparam string event The WoW event to wait for
-function TSMAPI_FOUR.Thread.WaitForEvent(event)
-	return private.runningThread:_WaitForEvent(event)
+function TSMAPI_FOUR.Thread.WaitForEvent(...)
+	return private.runningThread:_WaitForEvent(...)
 end
 
 --- Wait for a function.
@@ -202,7 +202,7 @@ function TSMAPI_FOUR.Thread.GetDebugInfo()
 			temp.state = thread._state
 			temp.sleepTime = thread._sleepTime
 			temp.numMessages = (#thread._messages > 0) and #thread._messages or nil
-			temp.eventName = thread._eventName
+			temp.eventNames = thread._eventNames
 			temp.eventArgs = thread._eventArgs
 			temp.waitFunction = thread._waitFunction
 			temp.waitFunctionArgs = thread._waitFunctionArgs
@@ -240,7 +240,7 @@ function Thread.__init(self, name, func, isImmortal)
 	self._state = "DEAD"
 	self._endTime = nil
 	self._sleepTime = nil
-	self._eventName = nil
+	self._eventNames = {}
 	self._eventArgs = nil
 	self._waitFunction = nil
 	self._waitFunctionArgs = nil
@@ -266,7 +266,7 @@ function Thread._Start(self, ...)
 	self._state = "READY"
 	self._endTime = 0
 	self._sleepTime = nil
-	self._eventName = nil
+	wipe(self._eventNames)
 	self._eventArgs = nil
 	self._waitFunction = nil
 	self._waitFunctionArgs = nil
@@ -397,7 +397,7 @@ function Thread._UpdateState(self, elapsed)
 			self._state = "READY"
 		end
 	elseif self._state == "WAITING_FOR_EVENT" then
-		assert(self._eventName or self._eventArgs)
+		assert(self._eventNames or self._eventArgs)
 		if self._eventArgs then
 			self._state = "READY"
 		end
@@ -426,9 +426,9 @@ end
 
 function Thread._ProcessEvent(self, event, ...)
 	if self._state == "WAITING_FOR_EVENT" then
-		assert(self._eventName or self._eventArgs)
-		if event == self._eventName then
-			self._eventName = nil -- only trigger the event once
+		assert(self._eventNames or self._eventArgs)
+		if self._eventNames[event] then
+			wipe(self._eventNames) -- only trigger the event once then clear all
 			self._eventArgs = TSMAPI_FOUR.Util.AcquireTempTable(...)
 		end
 	end
@@ -507,14 +507,15 @@ function Thread._SendSyncMessage(self, destThread, ...)
 	self:_Yield()
 end
 
-function Thread._WaitForEvent(self, event)
+function Thread._WaitForEvent(self, ...)
 	self._state = "WAITING_FOR_EVENT"
-	self._eventName = event
 	self._eventArgs = nil
-	private.frame:RegisterEvent(event)
+	for _, event in TSMAPI_FOUR.Util.VarargIterator(...) do
+		self._eventNames[event] = true
+		private.frame:RegisterEvent(event)
+	end
 	self:_Yield()
 	local result = self._eventArgs
-	self._eventName = nil
 	self._eventArgs = nil
 	return TSMAPI_FOUR.Util.UnpackAndReleaseTempTable(result)
 end

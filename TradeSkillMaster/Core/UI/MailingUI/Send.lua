@@ -867,7 +867,7 @@ function private.GenerateListElements(category, filterText)
 	if category == L["Alts"] then
 		for factionrealm in TSM.db:GetConnectedRealmIterator("realm") do
 			for _, character in TSM.db:FactionrealmCharacterIterator(factionrealm) do
-				character = Ambiguate(gsub(strmatch(character, "(%a*) -").."-"..factionrealm, " ", ""), "none")
+				character = Ambiguate(gsub(strmatch(character, "(.*) "..TSMAPI_FOUR.Util.StrEscape("-")).."-"..gsub(factionrealm, TSMAPI_FOUR.Util.StrEscape("-"), ""), " ", ""), "none")
 				if character ~= UnitName("player") then
 					if filterText and filterText ~= "" then
 						if strfind(strlower(character), filterText) then
