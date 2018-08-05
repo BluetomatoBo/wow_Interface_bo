@@ -1,84 +1,34 @@
-lightweight tag a274c164633121963da2ddc3f2a22947ab799cd3 3.77
+lightweight tag 3f81c773e8807bfa4f40767a7f153ca8347687de 3.79
 Author:	Michael James <darktemplar9900@yahoo.com>
-Date:	Fri Aug 3 16:53:45 2018 -0500
+Date:	Sat Aug 4 17:25:05 2018 -0500
 
-commit a274c164633121963da2ddc3f2a22947ab799cd3
+commit 3f81c773e8807bfa4f40767a7f153ca8347687de
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Fri Aug 3 16:53:45 2018 -0500
+Date:   Sat Aug 4 17:25:05 2018 -0500
 
-    3.77
+    3.79
 
-commit b8324121bf6f0d1a00c13d0566c26e69f29af6a7
+commit f4b0f81d683ef82c094867fac90b1f10d8d31576
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Fri Aug 3 16:39:39 2018 -0500
+Date:   Sat Aug 4 17:13:07 2018 -0500
 
-    PetTracker
+    MinimalArchaeology
 
-commit 017a405a856c0b64ed4e13eb900cf50ae7b90212
+commit 151bf10fd74ff7ad713a9b8ee9774ee4c1dfbfb4
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Thu Aug 2 20:34:03 2018 -0500
+Date:   Sat Aug 4 16:59:03 2018 -0500
 
-    Fix English
+    FlyoutButtonCustom
 
-commit 5354558232d6c9260ccb2dec163f9b402923b6f5
+commit 724d1796da95af2343ee75d8ca606f1e3d5f252c
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Thu Aug 2 20:23:16 2018 -0500
+Date:   Sat Aug 4 16:40:03 2018 -0500
 
-    Add to the Popup
+    Remove DailyTamerCheck
 
-commit 3a40b4c4cfdd6efd5a2250b5691b21b28dc04dae
+commit 85486fa2ff14bcdeb8934ab3eb2630041ec17124
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Thu Aug 2 19:33:06 2018 -0500
+Date:   Sat Aug 4 16:29:16 2018 -0500
 
-    PixelPerfect Update
-
-commit 7881fa33cc2f45c9dbbf281595c5a824c757e30c
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Thu Aug 2 16:43:20 2018 -0500
-
-    Talented by TylerR909
-
-commit 7e50616dad683834c8b3a58791cef3843826835c
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Thu Aug 2 16:43:05 2018 -0500
-
-    skinName -> addonName
-
-commit eb2debfc7d68183dc3edad69ed231b91000c995a
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Tue Jul 31 23:18:04 2018 -0500
-
-    AddOn Name and Version for Bug Reports.
-
-commit 46112da95f105e22990d09d9d2a0eb4d11bbbf48
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Tue Jul 31 17:11:41 2018 -0500
-
-    WeakAura Cooldown Fix?
-
-commit 510a6c2e45f443fd4a453298878562484958a65a
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Mon Jul 30 19:10:17 2018 -0500
-
-    Azeroth Auto Pilot
-    
-    Submitted by Aldarana
-
-commit d936c5f8921e039a7565702c6c15dd0c7662b121
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Mon Jul 30 04:16:54 2018 -0500
-
-    #133
-
-commit 11d663c24f1ff8677e507cbfa890497b87482d18
-Author: Michael Tindal <mj.tindal@gmail.com>
-Date:   Sun Jul 29 22:07:29 2018 -0700
-
-    Updating author name for myself.
-
-commit 98c163e0912227588f7f796fc0a98add415dd080
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sun Jul 29 22:23:31 2018 -0500
-
-    Quest
+    WIP BugReportFrame
 

@@ -52,7 +52,6 @@
 	<Script file="Cork.lua"/>
 	<Script file="Creator.lua"/>
 	<Script file="Critline.lua"/>
-	<Script file="DailyTamerCheck.lua"/>
 	<Script file="DBM.lua"/>
 	<Script file="DejaCharacterStats.lua"/>
 	<Script file="Details.lua"/>
@@ -116,7 +115,6 @@
 	<Script file="MythicKeystoneStatus.lua"/>
 	<Script file="NirritisNotes.lua"/>
 	<Script file="NoNoGoGo.lua"/>
-	<Script file="NPCScan.lua"/>
 	<Script file="NugRunning.lua"/>
 	<Script file="Numeration.lua"/>
 	<Script file="Odyssey.lua"/>
