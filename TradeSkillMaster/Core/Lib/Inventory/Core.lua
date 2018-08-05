@@ -65,7 +65,7 @@ function Inventory.OnInitialize()
 			for key, tbl in pairs(itemQuantities) do
 				local dbTbl = private.GetCharacterInventoryData(key, character, factionrealm)
 				for itemString, quantity in pairs(dbTbl) do
-					if type(quantity) ~= "number" or quantity == 0 then
+					if type(quantity) ~= "number" or quantity <= 0 then
 						dbTbl[itemString] = nil
 					elseif isPlayer then
 						tbl[itemString] = (tbl[itemString] or 0) + quantity
@@ -79,7 +79,7 @@ function Inventory.OnInitialize()
 			local pendingMail = TSM.db:Get("factionrealm", factionrealm, "internalData", "pendingMail")[character]
 			if pendingMail then
 				for itemString, quantity in pairs(pendingMail) do
-					if type(quantity) ~= "number" or quantity == 0 then
+					if type(quantity) ~= "number" or quantity <= 0 then
 						pendingMail[itemString] = nil
 					elseif isPlayer then
 						itemQuantities.mailQuantity[itemString] = (itemQuantities.mailQuantity[itemString] or 0) + quantity
@@ -215,34 +215,11 @@ function Inventory.CreateQuery()
 	return private.db:NewQuery()
 end
 
+
+
 -- ============================================================================
 -- TSMAPI Functions
 -- ============================================================================
-
---- Check if an item will go in a bag.
--- @tparam string link The item
--- @tparam number bag The bag index
--- @treturn boolean Whether or not the item will go in the bag
-function TSMAPI_FOUR.Inventory.ItemWillGoInBag(link, bag)
-	if not link or not bag then
-		return
-	end
-	if bag == BACKPACK_CONTAINER or bag == BANK_CONTAINER then
-		return true
-	elseif bag == REAGENTBANK_CONTAINER then
-		return TSMAPI_FOUR.Item.IsCraftingReagent(link)
-	end
-	local itemFamily = GetItemFamily(link) or 0
-	if TSMAPI_FOUR.Item.GetClassId(link) == LE_ITEM_CLASS_CONTAINER then
-		-- bags report their family as what can go inside them, not what they can go inside
-		itemFamily = 0
-	end
-	local _, bagFamily = GetContainerNumFreeSlots(bag)
-	if not bagFamily then
-		return
-	end
-	return bagFamily == 0 or bit.band(itemFamily, bagFamily) > 0
-end
 
 function TSMAPI_FOUR.Inventory.GetBagQuantity(itemString, character, factionrealm)
 	return private.InventoryQuantityHelper(itemString, "bagQuantity", character, factionrealm)

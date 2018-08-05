@@ -79,7 +79,6 @@ end
 function BagTracking.OnEnable()
 	-- we'll scan all the bags and reagent bank right away, so wipe the existing quantities
 	TSM.Inventory.WipeBagQuantity()
-	TSM.Inventory.WipeBankQuantity()
 	TSM.Inventory.WipeReagentBankQuantity()
 
 	-- WoW does not fire an update event for the backpack when you log in, so trigger one
@@ -323,6 +322,31 @@ function TSMAPI_FOUR.Inventory.IsBagSlotLocked(bag, slot)
 	return private.slotIdLocked[TSMAPI_FOUR.Util.JoinSlotId(bag, slot)]
 end
 
+--- Check if an item will go in a bag.
+-- @tparam string link The item
+-- @tparam number bag The bag index
+-- @treturn boolean Whether or not the item will go in the bag
+function TSMAPI_FOUR.Inventory.ItemWillGoInBag(link, bag)
+	if not link or not bag then
+		return
+	end
+	if bag == BACKPACK_CONTAINER or bag == BANK_CONTAINER then
+		return true
+	elseif bag == REAGENTBANK_CONTAINER then
+		return TSMAPI_FOUR.Item.IsCraftingReagent(link)
+	end
+	local itemFamily = GetItemFamily(link) or 0
+	if TSMAPI_FOUR.Item.GetClassId(link) == LE_ITEM_CLASS_CONTAINER then
+		-- bags report their family as what can go inside them, not what they can go inside
+		itemFamily = 0
+	end
+	local _, bagFamily = GetContainerNumFreeSlots(bag)
+	if not bagFamily then
+		return
+	end
+	return bagFamily == 0 or bit.band(itemFamily, bagFamily) > 0
+end
+
 
 
 -- ============================================================================
@@ -333,7 +357,7 @@ function private.BankOpenedHandler()
 	if private.isFirstBankOpen then
 		private.isFirstBankOpen = false
 		-- this is the first time opening the bank so we'll scan all the items so wipe our existing quantities
-		--TSM.Inventory.WipeBankQuantity()
+		TSM.Inventory.WipeBankQuantity()
 	end
 	private.bankOpen = true
 	private.BagUpdateDelayedHandler()

@@ -63,6 +63,10 @@ function ProfessionScanner.HasScanned()
 	return private.hasScanned
 end
 
+function ProfessionScanner.HasSkills()
+	return private.db:GetNumRows() > 0
+end
+
 function ProfessionScanner.RegisterHasScannedCallback(callback)
 	tinsert(private.callbacks, callback)
 end

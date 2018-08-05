@@ -542,7 +542,7 @@ end
 -- ============================================================================
 
 function private.OnItemLinked(_, itemLink)
-	if not TSM.UI.AuctionUI.StartingScan(L["Auctioning"]) then
+	if not private.selectionFrame or not TSM.UI.AuctionUI.StartingScan(L["Auctioning"]) then
 		return false
 	end
 	wipe(private.scanContext)

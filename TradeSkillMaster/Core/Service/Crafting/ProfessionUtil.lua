@@ -142,6 +142,12 @@ function ProfessionUtil.OpenProfession(profession)
 	if profession == GetSpellInfo(TSM.CONST.MINING_SPELLID) then
 		-- mining needs to be opened as smelting
 		profession = GetSpellInfo(TSM.CONST.SMELTING_SPELLID)
+	elseif profession == GetSpellInfo(TSM.CONST.HERBALISM_SPELLID) then
+		-- herbalism needs to be opened as herbalism skills
+		profession = GetSpellInfo(TSM.CONST.HERBALISM_SKILLS_SPELLID)
+	elseif profession == GetSpellInfo(TSM.CONST.SKINNING_SPELLID) then
+		-- skinning needs to be opened as skinning skills
+		profession = GetSpellInfo(TSM.CONST.SKINNING_SKILLS_SPELLID)
 	end
 	CastSpellByName(profession)
 end

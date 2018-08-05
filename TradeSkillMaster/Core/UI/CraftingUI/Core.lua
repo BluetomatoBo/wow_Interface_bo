@@ -20,6 +20,7 @@ local MIN_FRAME_SIZE = { width = 820, height = 587 }
 
 function CraftingUI.OnInitialize()
 	private.FSMCreate()
+	TSM.Crafting.ProfessionScanner.SetDisabled(TSM.db.global.internalData.craftingUIFrameContext.showDefault)
 end
 
 function CraftingUI.RegisterTopLevelPage(name, textureInfo, callback)

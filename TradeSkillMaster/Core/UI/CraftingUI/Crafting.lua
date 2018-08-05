@@ -761,9 +761,17 @@ function private.FSMCreate()
 
 		local craftingContentFrame = context.frame:GetElement("left.viewContainer.main.content.profession")
 		if not private.IsProfessionLoaded() then
+			local text = nil
+			if private.IsProfessionClosed() then
+				text = L["No Profession Selected"]
+			elseif private.IsProfessionLoadedNoSkills() then
+				text = L["No Crafts"]
+			else
+				text = L["Loading..."]
+			end
 			craftingContentFrame:GetElement("recipeContent"):Hide()
 			craftingContentFrame:GetElement("recipeListLoadingText")
-				:SetText(private.IsProfessionClosed() and L["No Profession Selected"] or L["Loading..."])
+				:SetText(text)
 				:Show()
 			craftingContentFrame:Draw()
 			return
@@ -1069,8 +1077,12 @@ function private.IsProfessionClosed()
 	return TSM.Crafting.ProfessionState.GetIsClosed()
 end
 
+function private.IsProfessionLoadedNoSkills()
+	return not private.IsProfessionClosed() and TSM.Crafting.ProfessionState.GetCurrentProfession() and TSM.Crafting.ProfessionScanner.HasScanned() and not TSM.Crafting.ProfessionScanner.HasSkills()
+end
+
 function private.IsProfessionLoaded()
-	return not private.IsProfessionClosed() and TSM.Crafting.ProfessionState.GetCurrentProfession() and TSM.Crafting.ProfessionScanner.HasScanned()
+	return not private.IsProfessionClosed() and TSM.Crafting.ProfessionState.GetCurrentProfession() and TSM.Crafting.ProfessionScanner.HasScanned() and TSM.Crafting.ProfessionScanner.HasSkills()
 end
 
 function private.IsPlayerProfession()
