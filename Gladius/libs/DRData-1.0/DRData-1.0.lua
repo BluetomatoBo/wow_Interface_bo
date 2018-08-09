@@ -1,11 +1,11 @@
 local major = "DRData-1.0"
-local minor = 1047
+local minor = 1048
 assert(LibStub, string.format("%s requires LibStub.", major))
 
 local Data = LibStub:NewLibrary(major, minor)
 if( not Data ) then return end
 
-local wow_700 = select(4, GetBuildInfo()) >= 70000
+--local wow_700 = select(4, GetBuildInfo()) >= 70000
 
 local L = {
 	-- WoD
@@ -21,94 +21,90 @@ local L = {
 local locale = GetLocale()
 if locale == "deDE" then
 	L["Cyclone"] = "Wirbelsturm" -- Needs review
-L["Disarms"] = "Entwaffnungseffekte" -- Needs review
-L["Fears"] = "Furchteffekte" -- Needs review
-L["Horrors"] = "Horroreffekte" -- Needs review
-L["Knockbacks"] = "Rückstoßeffekte" -- Needs review
-L["Mesmerizes"] = "Mesmerisiereneffekte" -- Needs review
-L["Mesmerizes (short)"] = "Mesmerisiereneffekte (kurz)" -- Needs review
-L["Mind Control"] = "Gedankenkontrolle" -- Needs review
-L["Roots"] = "Bewegungsunfähigkeitseffekte" -- Needs review
-L["Roots (short)"] = "Bewegungsunfähigkeitseffekte (kurz)" -- Needs review
-L["Silences"] = "Stilleeffekte" -- Needs review
-L["Stuns"] = "Betäubungseffekte" -- Needs review
-L["Stuns (short)"] = "Betäubungseffekte (kurz)" -- Needs review
-L["Taunts"] = "Spotteffekte" -- Needs review
-
+	L["Disarms"] = "Entwaffnungseffekte" -- Needs review
+	L["Fears"] = "Furchteffekte" -- Needs review
+	L["Horrors"] = "Horroreffekte" -- Needs review
+	L["Knockbacks"] = "Rückstoßeffekte" -- Needs review
+	L["Mesmerizes"] = "Mesmerisiereneffekte" -- Needs review
+	L["Mesmerizes (short)"] = "Mesmerisiereneffekte (kurz)" -- Needs review
+	L["Mind Control"] = "Gedankenkontrolle" -- Needs review
+	L["Roots"] = "Bewegungsunfähigkeitseffekte" -- Needs review
+	L["Roots (short)"] = "Bewegungsunfähigkeitseffekte (kurz)" -- Needs review
+	L["Silences"] = "Stilleeffekte" -- Needs review
+	L["Stuns"] = "Betäubungseffekte" -- Needs review
+	L["Stuns (short)"] = "Betäubungseffekte (kurz)" -- Needs review
+	L["Taunts"] = "Spotteffekte" -- Needs review
 elseif locale == "esES" then
 	L["Cyclone"] = "Ciclón"
-L["Disarms"] = "Desarmes"
-L["Fears"] = "Miedos"
-L["Horrors"] = "Horrores"
-L["Knockbacks"] = "Derribos"
-L["Mesmerizes"] = "Hipnotizaciones"
-L["Mesmerizes (short)"] = "Hipnotizaciones (cortas)"
-L["Mind Control"] = "Control Mental"
-L["Roots"] = "Raíces"
-L["Roots (short)"] = "Raíces (cortas)"
-L["Silences"] = "SIlencios"
-L["Stuns"] = "Aturdimientos"
-L["Stuns (short)"] = "Aturdimientos (cortos)"
-L["Taunts"] = "Provocaciones"
-
+	L["Disarms"] = "Desarmes"
+	L["Fears"] = "Miedos"
+	L["Horrors"] = "Horrores"
+	L["Knockbacks"] = "Derribos"
+	L["Mesmerizes"] = "Hipnotizaciones"
+	L["Mesmerizes (short)"] = "Hipnotizaciones (cortas)"
+	L["Mind Control"] = "Control Mental"
+	L["Roots"] = "Raíces"
+	L["Roots (short)"] = "Raíces (cortas)"
+	L["Silences"] = "SIlencios"
+	L["Stuns"] = "Aturdimientos"
+	L["Stuns (short)"] = "Aturdimientos (cortos)"
+	L["Taunts"] = "Provocaciones"
 elseif locale == "esMX" then
 	L["Cyclone"] = "Ciclón"
-L["Disarms"] = "Desarmes"
-L["Fears"] = "Miedos"
-L["Horrors"] = "Horrores"
-L["Knockbacks"] = "Derribos"
-L["Mesmerizes"] = "Hipnotizaciones"
-L["Mesmerizes (short)"] = "Hipnotizaciones (cortas)"
-L["Mind Control"] = "Control Mental"
-L["Roots"] = "Raíces"
-L["Roots (short)"] = "Raíces (cortas)"
-L["Silences"] = "SIlencios"
-L["Stuns"] = "Aturdimientos"
-L["Stuns (short)"] = "Aturdimientos (cortos)"
-L["Taunts"] = "Provocaciones"
-
+	L["Disarms"] = "Desarmes"
+	L["Fears"] = "Miedos"
+	L["Horrors"] = "Horrores"
+	L["Knockbacks"] = "Derribos"
+	L["Mesmerizes"] = "Hipnotizaciones"
+	L["Mesmerizes (short)"] = "Hipnotizaciones (cortas)"
+	L["Mind Control"] = "Control Mental"
+	L["Roots"] = "Raíces"
+	L["Roots (short)"] = "Raíces (cortas)"
+	L["Silences"] = "SIlencios"
+	L["Stuns"] = "Aturdimientos"
+	L["Stuns (short)"] = "Aturdimientos (cortos)"
+	L["Taunts"] = "Provocaciones"
 elseif locale == "frFR" then
 	L["Cyclone"] = "Cyclone"
-L["Disarms"] = "Désarmements"
-L["Fears"] = "Peurs"
-L["Horrors"] = "Horreurs"
-L["Knockbacks"] = "Projections"
-L["Mesmerizes"] = "Désorientations"
-L["Mesmerizes (short)"] = "Désorientations (courtes)"
-L["Mind Control"] = "Contrôle mental"
-L["Roots"] = "Immobilisations"
-L["Roots (short)"] = "Immobilisations (courtes)"
-L["Silences"] = "Silences"
-L["Stuns"] = "Etourdissements"
-L["Stuns (short)"] = "Etourdissements (courts)"
-L["Taunts"] = "Provocations"
+	L["Disarms"] = "Désarmements"
+	L["Fears"] = "Peurs"
+	L["Horrors"] = "Horreurs"
+	L["Knockbacks"] = "Projections"
+	L["Mesmerizes"] = "Désorientations"
+	L["Mesmerizes (short)"] = "Désorientations (courtes)"
+	L["Mind Control"] = "Contrôle mental"
+	L["Roots"] = "Immobilisations"
+	L["Roots (short)"] = "Immobilisations (courtes)"
+	L["Silences"] = "Silences"
+	L["Stuns"] = "Etourdissements"
+	L["Stuns (short)"] = "Etourdissements (courts)"
+	L["Taunts"] = "Provocations"
 
 elseif locale == "itIT" then
-	
+
 elseif locale == "koKR" then
-	
+
 elseif locale == "ptBR" then
-	
+
 elseif locale == "ruRU" then
-	
+
 elseif locale == "zhCN" then
-	
+
 elseif locale == "zhTW" then
 	L["Cyclone"] = "颶風術"
-L["Disarms"] = "繳械"
-L["Fears"] = "恐懼"
-L["Horrors"] = "恐慌"
-L["Knockbacks"] = "擊退"
-L["Mesmerizes"] = "迷惑"
-L["Mesmerizes (short)"] = "迷惑(短)"
-L["Mind Control"] = "心靈控制"
-L["Roots"] = "定身"
-L["Roots (short)"] = "定身(短)"
-L["Silences"] = "沉默"
-L["Stuns"] = "昏迷"
-L["Stuns (short)"] = "昏迷(短)"
-L["Taunts"] = "嘲諷"
-
+	L["Disarms"] = "繳械"
+	L["Fears"] = "恐懼"
+	L["Horrors"] = "恐慌"
+	L["Knockbacks"] = "擊退"
+	L["Mesmerizes"] = "迷惑"
+	L["Mesmerizes (short)"] = "迷惑(短)"
+	L["Mind Control"] = "心靈控制"
+	L["Roots"] = "定身"
+	L["Roots (short)"] = "定身(短)"
+	L["Silences"] = "沉默"
+	L["Stuns"] = "昏迷"
+	L["Stuns (short)"] = "昏迷(短)"
+	L["Taunts"] = "嘲諷"
 end
 
 -- How long before DR resets ?
@@ -218,6 +214,9 @@ local spellsAndProvidersByCategory = {
 		[  6789] = true, -- Mortal Coil
 		-- Pandaren
 		[107079] = true, -- Quaking Palm
+		-- Demon Hunter
+		[217832] = true, -- Imprison
+		[221527] = true, -- Improve Imprison
 	},
 
 	--[[ SILENCES ]]--
@@ -256,8 +255,10 @@ local spellsAndProvidersByCategory = {
 		[207685] = true, -- Sigil of Misery
 		-- Druid
 		[ 33786] = true, -- Cyclone
+		[209753] = true, -- Cyclone (Balance)
 		-- Hunter
 		[186387] = true, -- Bursting Shot
+		[224729] = true, -- Bursting Shot
 		-- Mage
 		[ 31661] = true, -- Dragon's Breath
 		-- Monk
@@ -298,6 +299,9 @@ local spellsAndProvidersByCategory = {
 		[211881] = true, -- Fel Eruption
 		-- Druid
 		[203123] = true, -- Maim
+		[236025] = true, -- Maim (Honor talent)
+		[236026] = true, -- Maim (Honor talent)
+		[22570] = true, -- Maim (Honor talent)
 		[  5211] = true, -- Mighty Bash
 		[163505] = 1822, -- Rake (Stun from Prowl)
 		-- Hunter
@@ -323,7 +327,7 @@ local spellsAndProvidersByCategory = {
 		-- Shaman
 		[118345] = true, -- Pulverize (Primal Earth Elemental)
 		[118905] = true, -- Static Charge (Capacitor Totem)
-		[204399] = true, -- Earthfury (pvp talent)
+		--[204399] = true, -- Earthfury (pvp talent)
 		-- Warlock
 		[ 89766] = true, -- Axe Toss (Felguard)
 		[ 30283] = true, -- Shadowfury
@@ -331,6 +335,7 @@ local spellsAndProvidersByCategory = {
 		-- Warrior
 		[132168] = true, -- Shockwave
 		[132169] = true, -- Storm Bolt
+		[237744] = true, -- Warbringer
 		-- Tauren
 		[ 20549] = true, -- War Stomp
 	},
@@ -377,7 +382,7 @@ local spellsAndProvidersByCategory = {
 		[  6360] = true, -- Whiplash
 		[115770] = true, -- Fellash
 	},
-} 
+}
 
 -- Map deprecatedCategories to the new ones
 local deprecatedCategories = {

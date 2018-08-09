@@ -107,7 +107,7 @@ function CastBar:UNIT_SPELLCAST_START(event, unit)
 	if self.frame[unit] == nil then
 		return
 	end
-	local spell, rank, displayName, icon, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitCastingInfo(unit)
+	local spell, displayName, icon, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitCastingInfo(unit)
 	if spell then
 		self.frame[unit].isCasting = true
 		if Gladius.db.castBarInverse then
@@ -129,11 +129,7 @@ function CastBar:UNIT_SPELLCAST_START(event, unit)
 			self.frame[unit]:SetStatusBarColor(color.r, color.g, color.b, color.a)
 			self.frame[unit]:SetStatusBarTexture(LSM:Fetch(LSM.MediaType.STATUSBAR, Gladius.db.castBarTexture))
 		end
-		if rank ~= "" then
-			self.frame[unit].castText:SetFormattedText("%s (%s)", spell, rank)
-		else
-			self.frame[unit].castText:SetText(spell)
-		end
+		self.frame[unit].castText:SetText(spell)
 	end
 end
 
@@ -172,7 +168,7 @@ function CastBar:UNIT_SPELLCAST_CHANNEL_START(event, unit)
 	if self.frame[unit] == nil then
 		return
 	end
-	local spell, rank, displayName, icon, startTime, endTime, isTradeSkill, notInterruptible = UnitChannelInfo(unit)
+	local spell, displayName, icon, startTime, endTime, isTradeSkill, notInterruptible = UnitChannelInfo(unit)
 	if spell then
 		self.frame[unit].isChanneling = true
 		--self.frame[unit].value = ((endTime / 1000) - GetTime())
@@ -195,12 +191,8 @@ function CastBar:UNIT_SPELLCAST_CHANNEL_START(event, unit)
 			self.frame[unit]:SetStatusBarColor(color.r, color.g, color.b, color.a)
 			self.frame[unit]:SetStatusBarTexture(LSM:Fetch(LSM.MediaType.STATUSBAR, Gladius.db.castBarTexture))
 		end
-		if rank ~= "" then
-			self.frame[unit].castText:SetFormattedText("%s (%s)", spell, rank)
-		else
-			self.frame[unit].castText:SetText(spell)
-		end
-	end	
+		self.frame[unit].castText:SetText(spell)
+	end
 end
 
 function CastBar:UNIT_SPELLCAST_STOP(event, unit)
@@ -217,11 +209,11 @@ function CastBar:UNIT_SPELLCAST_DELAYED(event, unit)
 	if self.frame[unit] == nil then
 		return
 	end
-	local spell, rank, displayName, icon, startTime, endTime, isTradeSkill, castID, notInterruptible
+	local spell, displayName, icon, startTime, endTime, isTradeSkill, castID, notInterruptible
 	if event == "UNIT_SPELLCAST_DELAYED" then
-		spell, rank, displayName, icon, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitCastingInfo(unit)
+		spell, displayName, icon, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitCastingInfo(unit)
 	else
-		spell, rank, displayName, icon, startTime, endTime, isTradeSkill, notInterruptible = UnitChannelInfo(unit)
+		spell, displayName, icon, startTime, endTime, isTradeSkill, notInterruptible = UnitChannelInfo(unit)
 	end
 	if startTime == nil then
 		return
@@ -296,8 +288,8 @@ end
 
 function CastBar:UpdateColors(unit)
 	if not Gladius.test then
-		local _, _, _, _, _, _, _, _, notInterruptible = UnitCastingInfo(unit)
-		local _, _, _, _, _, _, _, notInterruptibleChannel = UnitChannelInfo(unit)
+		local _, _, _, _, _, _, _, notInterruptible = UnitCastingInfo(unit)
+		local _, _, _, _, _, _, notInterruptibleChannel = UnitChannelInfo(unit)
 		if notInterruptible or notInterruptibleChannel then
 			local color = Gladius.db.castBarColorUninterruptible
 			self.frame[unit]:SetStatusBarColor(color.r, color.g, color.b, color.a)
@@ -339,7 +331,7 @@ function CastBar:Update(unit)
 	if not self.frame[unit] then
 		self:CreateBar(unit)
 	end
-	-- set bar type 
+	-- set bar type
 	local parent = Gladius:GetParent(unit, Gladius.db.castBarAttachTo)
 	--[[if (Gladius.db.castBarAttachTo == "Frame" or Gladius:GetModule(Gladius.db.castBarAttachTo).isBar) then
 		self.isBar = true
@@ -696,7 +688,7 @@ function CastBar:GetOptions()
 					type = "group",
 					name = L["Position"],
 					desc = L["Position settings"],
-					inline = true, 
+					inline = true,
 					hidden = function()
 						return not Gladius.db.advancedOptions
 					end,
@@ -781,7 +773,7 @@ function CastBar:GetOptions()
 								return not Gladius.dbi.profile.modules[self.name]
 							end,
 							order = 20,
-						}, 
+						},
 						castBarOffsetY = {
 							type = "range",
 							name = L["Cast Bar Offset Y"],
@@ -965,7 +957,7 @@ function CastBar:GetOptions()
 							end,
 							order = 15,
 						},
-						
+
 					},
 				},
 				position = {

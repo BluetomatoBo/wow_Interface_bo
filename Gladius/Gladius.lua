@@ -17,7 +17,7 @@ local GetNumArenaOpponentSpecs = GetNumArenaOpponentSpecs
 local GetNumGroupMembers = GetNumGroupMembers
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local InCombatLockdown = InCombatLockdown
-local IsActiveBattlefieldArena = IsActiveBattlefieldArena 
+local IsActiveBattlefieldArena = IsActiveBattlefieldArena
 local IsAddOnLoaded = IsAddOnLoaded
 local IsInInstance = IsInInstance
 local IsLoggedIn = IsLoggedIn
@@ -106,6 +106,9 @@ function Gladius:NewModule(key, bar, attachTo, defaults, templates)
 	end)
 	module.RegisterEvent = function(self, event, func)
 		self.eventHandler.events[event] = func or event
+		if event == "UNIT_POWER" then
+			event = "UNIT_POWER_UPDATE"
+		end
 		self.eventHandler:RegisterEvent(event)
 	end
 	module.UnregisterEvent = function(self, event)
@@ -325,7 +328,7 @@ end
 
 function Gladius:ZONE_CHANGED_NEW_AREA()
 	local _, instanceType = IsInInstance()
-	-- check if we are entering or leaving an arena 
+	-- check if we are entering or leaving an arena
 	if instanceType == "arena" then
 		self:JoinedArena()
 	elseif instanceType ~= "arena" and self.instanceType == "arena" then
@@ -337,9 +340,9 @@ end
 function Gladius:JoinedArena()
 	-- special arena event
 	self:RegisterEvent("UNIT_NAME_UPDATE")
-	self:RegisterEvent("ARENA_OPPONENT_UPDATE") 
+	self:RegisterEvent("ARENA_OPPONENT_UPDATE")
 	self:RegisterEvent("ARENA_PREP_OPPONENT_SPECIALIZATIONS")
-	--self:RegisterEvent("UNIT_HEALTH") 
+	--self:RegisterEvent("UNIT_HEALTH")
 	--self:RegisterEvent("UNIT_MAXHEALTH", "UNIT_HEALTH")
 	--self:RegisterEvent("UNIT_AURA")
 	--self:RegisterEvent("UNIT_SPELLCAST_START")
@@ -512,7 +515,7 @@ function Gladius:UpdateUnit(unit, module)
 		return
 	end
 
-	-- create button 
+	-- create button
 	if not self.buttons[unit] then
 		self:CreateButton(unit)
 	end
@@ -525,7 +528,7 @@ function Gladius:UpdateUnit(unit, module)
 	self.buttons[unit].height = 1
 
 	-- reset hit rect
-	self.buttons[unit]:SetHitRectInsets(0, 0, 0, 0) 
+	self.buttons[unit]:SetHitRectInsets(0, 0, 0, 0)
 	self.buttons[unit].secure:SetHitRectInsets(0, 0, 0, 0)
 
 	-- update modules (bars first, because we need the height)
@@ -541,7 +544,7 @@ function Gladius:UpdateUnit(unit, module)
 				local detached = false
 
 				if type(m.IsDetached) == "function" then
-					detached = m:IsDetached() 
+					detached = m:IsDetached()
 				end
 
 				if (not detached and (attachTo == "Frame" or m.isBar)) then
@@ -554,7 +557,7 @@ function Gladius:UpdateUnit(unit, module)
 	end
 	self.buttons[unit].height = height + frameHeight
 	self.buttons[unit].frameHeight = frameHeight
-	-- update button 
+	-- update button
 	self.buttons[unit]:SetScale(self.db.frameScale)
 	self.buttons[unit]:SetWidth(self.db.barWidth)
 	self.buttons[unit]:SetHeight(frameHeight)
@@ -680,7 +683,7 @@ function Gladius:ShowUnit(unit, testing, module)
 
 	-- disable test mode, when there are real arena opponents (happens when entering arena and using /gladius test)
 	local testing = testing or false
-	if not testing and self.test then 
+	if not testing and self.test then
 		-- reset frame
 		self:HideFrame()
 		-- disable test mode
@@ -761,7 +764,7 @@ end
 function Gladius:UpdateAlpha(unit, alpha)
 	-- update button alpha
 	--alpha = alpha and alpha or 0.25
-	if self.buttons[unit] then 
+	if self.buttons[unit] then
 		self.buttons[unit]:SetAlpha(alpha)
 	end
 end
@@ -818,7 +821,7 @@ function Gladius:CreateButton(unit)
 		anchor:SetScript("OnDragStart", function(f)
 			if not self.db.locked then
 				local f = self.buttons["arena1"]
-				f:StartMoving() 
+				f:StartMoving()
 			end
 		end)
 		anchor:SetScript("OnDragStop", function(f)

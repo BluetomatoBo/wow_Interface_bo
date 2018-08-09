@@ -27,7 +27,7 @@ local PowerBar = Gladius:NewModule("PowerBar", true, true, {
 	powerBarBackgroundColor = {r = 1, g = 1, b = 1, a = 0.3},
 	powerBarTexture = "Minimalist",
 	powerBarOffsetX = 0,
-	powerBarOffsetY = 0, 
+	powerBarOffsetY = 0,
 	powerBarAnchor = "TOPLEFT",
 	powerBarRelativePoint = "BOTTOMLEFT",
 	powerBarUseDefaultColorMana = false,
@@ -43,19 +43,10 @@ local PowerBar = Gladius:NewModule("PowerBar", true, true, {
 })
 
 function PowerBar:OnEnable()
-	self:RegisterEvent("UNIT_POWER")
-	self:RegisterEvent("UNIT_MAXPOWER", "UNIT_POWER")
-	self:RegisterEvent("UNIT_MANA", "UNIT_POWER")
-	self:RegisterEvent("UNIT_RAGE", "UNIT_POWER")
-	self:RegisterEvent("UNIT_ENERGY", "UNIT_POWER")
-	self:RegisterEvent("UNIT_FOCUS", "UNIT_POWER")
-	self:RegisterEvent("UNIT_RUNIC_POWER", "UNIT_POWER")
-	self:RegisterEvent("UNIT_MAXMANA", "UNIT_POWER")
-	self:RegisterEvent("UNIT_MAXRAGE", "UNIT_POWER")
-	self:RegisterEvent("UNIT_MAXENERGY", "UNIT_POWER")
-	self:RegisterEvent("UNIT_MAXFOCUS", "UNIT_POWER")
-	self:RegisterEvent("UNIT_MAXRUNIC_POWER", "UNIT_POWER")
-	self:RegisterEvent("UNIT_DISPLAYPOWER", "UNIT_POWER")
+	self:RegisterEvent("UNIT_POWER_UPDATE")
+	self:RegisterEvent("UNIT_MAXPOWER", "UNIT_POWER_UPDATE")
+	self:RegisterEvent("UNIT_MANA", "UNIT_POWER_UPDATE")
+	self:RegisterEvent("UNIT_DISPLAYPOWER", "UNIT_POWER_UPDATE")
 	LSM = Gladius.LSM
 	-- set frame type
 	if Gladius.db.healthBarAttachTo == "Frame" or strfind(Gladius.db.powerBarRelativePoint, "BOTTOM") then
@@ -83,7 +74,7 @@ function PowerBar:GetFrame(unit)
 	return self.frame[unit]
 end
 
-function PowerBar:UNIT_POWER(event, unit)
+function PowerBar:UNIT_POWER_UPDATE(event, unit)
 	if not Gladius:IsValidUnit(unit) or not UnitExists(unit) then
 		return
 	end
@@ -164,10 +155,10 @@ function PowerBar:Update(unit)
 		powerType = Gladius.testing[unit].powerType
 	end
 	-- create power bar
-	if not self.frame[unit] then 
+	if not self.frame[unit] then
 		self:CreateBar(unit)
 	end
-	-- set bar type 
+	-- set bar type
 	local parent = Gladius:GetParent(unit, Gladius.db.powerBarAttachTo)
 	if Gladius.db.healthBarAttachTo == "Frame" or strfind(Gladius.db.powerBarRelativePoint, "BOTTOM") then
 		self.isBar = true
@@ -249,7 +240,7 @@ function PowerBar:Show(unit)
 		self.frame[unit]:SetStatusBarColor(color.r, color.g, color.b)
 	end
 	if not Gladius.test then
-		self:UNIT_POWER("UNIT_POWER", unit)
+		self:UNIT_POWER_UPDATE("UNIT_POWER_UPDATE", unit)
 	end
 end
 
@@ -342,13 +333,13 @@ function PowerBar:GetOptions()
 								return not Gladius.db.advancedOptions
 							end,
 							order = 15,
-						}, 
+						},
 						sep2 = {
 							type = "description",
 							name = "",
 							width = "full",
 							order = 17,
-						}, 
+						},
 						powerBarInverse = {
 							type = "toggle",
 							name = L["Power Bar Inverse"],
@@ -435,7 +426,7 @@ function PowerBar:GetOptions()
 							values = function()
 								return Gladius:GetModules(self.name)
 							end,
-							set = function(info, value) 
+							set = function(info, value)
 								local key = info.arg or info[#info]
 								if strfind(Gladius.db.powerBarRelativePoint, "BOTTOM") then
 									self.isBar = true

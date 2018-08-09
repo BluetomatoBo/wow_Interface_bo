@@ -239,7 +239,7 @@ function Tags:Update(unit)
 		local module = Gladius:GetModule(Gladius.db.tagsTexts[text].attachTo)
 		if module and module.IsEnabled and module.frame and module.frame[unit] then
 			-- create frame
-			if not self.frame[unit][text] then 
+			if not self.frame[unit][text] then
 				self:CreateFrame(unit, text)
 			end
 			-- update frame
@@ -425,7 +425,7 @@ function Tags:GetOptions()
 								if self.addTagName ~= "" and not Gladius.db.tags[self.addTagName] then
 									-- add to db
 									Gladius.db.tags[self.addTagName] = {
-										func = [[function(unit) 
+										func = [[function(unit)
 										end]],
 										events = ""
 									}
@@ -448,7 +448,7 @@ function Tags:GetOptions()
 														return false
 													end
 												end,
-												set = function(info, v) 
+												set = function(info, v)
 													local key = info[#info - 2]
 													-- add/remove tag to the text
 													if not v then
@@ -513,7 +513,11 @@ function Tags:GetOptions()
 					-- trim right
 					Gladius.dbi.profile.tagsTexts[key].text = strgsub(Gladius.dbi.profile.tagsTexts[key].text, "^(.-)%s*$", "%1")
 				else
-					Gladius.dbi.profile.tagsTexts[key].text = Gladius.dbi.profile.tagsTexts[key].text.." ["..info[#info].."]"
+					if Gladius.dbi.profile.tagsTexts[key].text == "" then
+						Gladius.dbi.profile.tagsTexts[key].text = Gladius.dbi.profile.tagsTexts[key].text.."["..info[#info].."]"
+					else
+						Gladius.dbi.profile.tagsTexts[key].text = Gladius.dbi.profile.tagsTexts[key].text.." ["..info[#info].."]"
+					end
 				end
 				-- update
 				Gladius:UpdateFrame()
@@ -535,7 +539,7 @@ function Tags:GetOptions()
 	end
 	-- tags
 	order = 1
-	for tag, _ in pairs(Gladius.dbi.profile.tags) do 
+	for tag, _ in pairs(Gladius.dbi.profile.tags) do
 		options.tagList.args[tag] = self:GetTagOptionTable(tag, order)
 		order = order + 1
 	end
@@ -864,7 +868,7 @@ function Tags:GetTags()
 		},
 		["power"] = {
 			func = "function(unit)\nreturn not Gladius.test and UnitPower(unit) or Gladius.testing[unit].power\nend",
-			events = "UNIT_POWER UNIT_DISPLAYPOWER UNIT_NAME_UPDATE"
+			events = "UNIT_POWER_UPDATE UNIT_DISPLAYPOWER UNIT_NAME_UPDATE"
 		},
 		["maxpower"] = {
 			func = "function(unit)\nreturn not Gladius.test and UnitPowerMax(unit) or Gladius.testing[unit].maxPower\nend",
@@ -872,7 +876,7 @@ function Tags:GetTags()
 		},
 		["power:short"] = {
 			func = "function(unit)\nlocal power = not Gladius.test and UnitPower(unit) or Gladius.testing[unit].power\nif (power > 999) then\nreturn strformat(\"%.1fk\", (power / 1000))\nelse\nreturn power\nend\nend",
-			events = "UNIT_POWER UNIT_DISPLAYPOWER UNIT_NAME_UPDATE"
+			events = "UNIT_POWER_UPDATE UNIT_DISPLAYPOWER UNIT_NAME_UPDATE"
 		},
 		["maxpower:short"] = {
 			func = "function(unit)\nlocal power = not Gladius.test and UnitPowerMax(unit) or Gladius.testing[unit].maxPower\nif (power > 999) then\nreturn strformat(\"%.1fk\", (power / 1000))\nelse\nreturn power\nend\nend",
@@ -880,7 +884,7 @@ function Tags:GetTags()
 		},
 		["power:percentage"] = {
 			func = "function(unit)\nlocal power = not Gladius.test and UnitPower(unit) or Gladius.testing[unit].power\nlocal maxPower = not Gladius.test and UnitPowerMax(unit) or Gladius.testing[unit].maxPower\nreturn strformat(\"%.1f%%\", (power / maxPower * 100))\nend",
-			events = "UNIT_POWER UNIT_MAXPOWER UNIT_DISPLAYPOWER UNIT_NAME_UPDATE"
+			events = "UNIT_POWER_UPDATE UNIT_MAXPOWER UNIT_DISPLAYPOWER UNIT_NAME_UPDATE"
 		},
 	}
 end

@@ -12,8 +12,6 @@ local string = string
 local GetArenaOpponentSpec = GetArenaOpponentSpec
 local GetNumArenaOpponentSpecs = GetNumArenaOpponentSpecs
 local GetNumGroupMembers = GetNumGroupMembers
-local GetRealNumPartyMembers = GetRealNumPartyMembers
-local GetRealNumRaidMembers = GetRealNumRaidMembers
 local GetSpecializationInfoByID = GetSpecializationInfoByID
 local GetSpellInfo = GetSpellInfo
 local GetTime = GetTime
@@ -21,8 +19,6 @@ local IsActiveBattlefieldArena = IsActiveBattlefieldArena
 local IsAddOnLoaded = IsAddOnLoaded
 local IsArenaSkirmish = IsArenaSkirmish
 local IsInInstance = IsInInstance
-local IsRaidLeader = IsRaidLeader
-local IsRaidOfficer = IsRaidOfficer
 local SendChatMessage = SendChatMessage
 local UnitAura = UnitAura
 local UnitClass = UnitClass
@@ -122,13 +118,20 @@ function Announcements:UNIT_HEALTH(event, unit)
 	end
 end
 
-local DRINK_SPELL = GetSpellInfo(57073)
 function Announcements:UNIT_AURA(event, unit)
 	local _, instanceType = IsInInstance()
 	if instanceType ~= "arena" or not strfind(unit, "arena") or strfind(unit, "pet") or not Gladius.db.announcements.drinks then
 		return
 	end
-	if UnitAura(unit, DRINK_SPELL) then
+	local index
+	for i = 1, 40 do
+		local _, _, _, _, _, _, _, _, _, spellID = UnitBuff(unit, i, "HELPFUL")
+		if spellID == 57073 then
+			index = i
+			break
+		end
+	end
+	if index then
 		self:Send(string.format(L["DRINKING: %s (%s)"], UnitName(unit), UnitClass(unit)), 2, unit)
 	end
 end
@@ -137,8 +140,7 @@ function Announcements:ARENA_PREP_OPPONENT_SPECIALIZATIONS(event, ...)
 	if not Gladius.db.announcements.spec then
 		return
 	end
-	local numOpps = GetNumArenaOpponentSpecs()
-	for i = 1, numOpps do
+	for i = 1, GetNumArenaOpponentSpecs() do
 		--local prepFrame = _G["ArenaPrepFrame"..i]
 		--prepFrame.specPortrait = _G["ArenaPrepFrame"..i.."SpecPortrait"]
 		local specID = GetArenaOpponentSpec(i)
@@ -161,19 +163,19 @@ function Announcements:ARENA_PREP_OPPONENT_SPECIALIZATIONS(event, ...)
 end
 
 local RES_SPELLS = {
-	[GetSpellInfo(2008)] = true, -- Ancestral Spirit
-	[GetSpellInfo(50769)] = true, -- Revive
-	[GetSpellInfo(2006)] = true, -- Resurrection
-	[GetSpellInfo(7328)] = true, -- Redemption
-	[GetSpellInfo(50662)] = true -- Resuscitate
+	[2008] = true, -- Ancestral Spirit
+	[50769] = true, -- Revive
+	[2006] = true, -- Resurrection
+	[7328] = true, -- Redemption
+	[50662] = true -- Resuscitate
 }
 
-function Announcements:UNIT_SPELLCAST_START(event, unit, spell, rank)
+function Announcements:UNIT_SPELLCAST_START(event, unit, lineGUID, spellID)
 	local _, instanceType = IsInInstance()
 	if instanceType ~= "arena" or not strfind(unit, "arena") or strfind(unit, "pet") or not Gladius.db.announcements.resurrect then
 		return
 	end
-	if RES_SPELLS[spell] then
+	if RES_SPELLS[spellID] then
 		self:Send(string.format(L["RESURRECTING: %s (%s)"], UnitName(unit), UnitClass(unit)), 2, unit)
 	end
 end
