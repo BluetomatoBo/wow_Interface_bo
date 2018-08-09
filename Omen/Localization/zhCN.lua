@@ -54,8 +54,7 @@ L["Controls the scaling of the main Omen window."] = "控制 Omen 主窗口的�
 L["Controls the transparency of the main Omen window."] = "控制 Omen 主窗口的透明度。"
 L["Controls whether the main Omen window can be dragged offscreen"] = "控制 Omen 主要窗口是否可以被拖动到屏幕外。"
 L["DEATHKNIGHT"] = "死亡骑士"
---[[Translation missing --]]
---[[ L["DEMONHUNTER"] = "Demon Hunter"--]] 
+L["DEMONHUNTER"] = "恶魔猎手"
 L["Disable while tanking"] = "当为 Tank 时关闭警报"
 L["DISABLE_WHILE_TANKING_DESC"] = "如果在防御姿态、熊形态、正义之怒与鲜血灵气时、不显示警报。"
 L["Display large numbers in Ks"] = "大数字时用千位（K）显示"
