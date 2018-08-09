@@ -1,34 +1,32 @@
-lightweight tag 3f81c773e8807bfa4f40767a7f153ca8347687de 3.79
+lightweight tag 5b678dbabbcd169ef179067c9ff08a6f02819b45 3.85
 Author:	Michael James <darktemplar9900@yahoo.com>
-Date:	Sat Aug 4 17:25:05 2018 -0500
+Date:	Wed Aug 8 19:10:27 2018 -0500
 
-commit 3f81c773e8807bfa4f40767a7f153ca8347687de
+commit 5b678dbabbcd169ef179067c9ff08a6f02819b45
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sat Aug 4 17:25:05 2018 -0500
+Date:   Wed Aug 8 19:10:27 2018 -0500
 
-    3.79
+    3.85
 
-commit f4b0f81d683ef82c094867fac90b1f10d8d31576
+commit b2add48c7a71c48b2fbcb1ce940923c9fac61762
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sat Aug 4 17:13:07 2018 -0500
+Date:   Wed Aug 8 18:35:36 2018 -0500
 
-    MinimalArchaeology
+    EQB
+    
+    Issue #155
 
-commit 151bf10fd74ff7ad713a9b8ee9774ee4c1dfbfb4
+commit ad69ab2b240908d7f8f1ce5ab2213bcda27dcf2c
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sat Aug 4 16:59:03 2018 -0500
+Date:   Wed Aug 8 18:13:14 2018 -0500
 
-    FlyoutButtonCustom
+    Fix Locale
+    
+    Issue #159
 
-commit 724d1796da95af2343ee75d8ca606f1e3d5f252c
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sat Aug 4 16:40:03 2018 -0500
+commit d0e1eb3aa934fe371c852cf95a6d471b30da82fc
+Author: Kevin De Smet <kevin.de.smet@outlook.be>
+Date:   Thu Aug 9 00:07:49 2018 +0200
 
-    Remove DailyTamerCheck
-
-commit 85486fa2ff14bcdeb8934ab3eb2630041ec17124
-Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Sat Aug 4 16:29:16 2018 -0500
-
-    WIP BugReportFrame
+    Fix for latest Ovale alpha
 
