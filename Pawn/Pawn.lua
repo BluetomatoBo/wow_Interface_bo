@@ -7,7 +7,7 @@
 -- Main non-UI code
 ------------------------------------------------------------
 
-PawnVersion = 2.0222
+PawnVersion = 2.0223
 
 -- Pawn requires this version of VgerCore:
 local PawnVgerCoreVersionRequired = 1.09
@@ -3100,26 +3100,26 @@ function PawnIsItemAnUpgrade(Item, DoNotRescan)
 	
 	if UpgradeTable then sort(UpgradeTable, PawnLocalizedScaleNameComparer) end
 	
-	-- Print out the contents of the upgrade table for debugging purposes.
-	--if UpgradeTable then
-	--	VgerCore.Message(tostring(Item.Link) .. " is an upgrade for:")
-	--	local Upgrade
-	--	for _, Upgrade in pairs(UpgradeTable) do
-	--		VgerCore.Message("    " .. Upgrade.LocalizedScaleName .. ": " .. tostring(100 * Upgrade.PercentUpgrade) .. "% upgrade from " .. tostring(Upgrade.ExistingItemLink))
-	--	end
-	--else
-	--	VgerCore.Message(tostring(Item.Link) .. " is not an upgrade.")
-	--end
-	--if BestItemTable then
-	--	for ScaleName in pairs(BestItemTable) do
-	--		VgerCore.Message("    " .. tostring(ScaleName) .. ": best item")
-	--	end
-	--end
-	--if SecondBestItemTable then
-	--	for ScaleName in pairs(SecondBestItemTable) do
-	--		VgerCore.Message("    " .. tostring(ScaleName) .. ": second-best item")
-	--	end
-	--end
+	--Print out the contents of the upgrade table for debugging purposes.
+	-- if UpgradeTable then
+	-- 	VgerCore.Message(tostring(Item.Link) .. " is an upgrade for:")
+	-- 	local Upgrade
+	-- 	for _, Upgrade in pairs(UpgradeTable) do
+	-- 		VgerCore.Message("    " .. Upgrade.LocalizedScaleName .. ": " .. tostring(100 * Upgrade.PercentUpgrade) .. "% upgrade from " .. tostring(Upgrade.ExistingItemLink))
+	-- 	end
+	-- else
+	-- 	VgerCore.Message(tostring(Item.Link) .. " is not an upgrade.")
+	-- end
+	-- if BestItemTable then
+	-- 	for ScaleName in pairs(BestItemTable) do
+	-- 		VgerCore.Message("    " .. tostring(ScaleName) .. ": best item")
+	-- 	end
+	-- end
+	-- if SecondBestItemTable then
+	-- 	for ScaleName in pairs(SecondBestItemTable) do
+	-- 		VgerCore.Message("    " .. tostring(ScaleName) .. ": second-best item")
+	-- 	end
+	-- end
 	
 	return UpgradeTable, BestItemTable, SecondBestItemTable, NeedsEnhancements
 end
@@ -3257,7 +3257,7 @@ function PawnFindBestItems(ScaleName, InventoryOnly)
 			-- as the last item that was scanned, indicating that the player has two copies of that item.
 			-- Otherwise, we assume that the player only has one, so it can't be both first and second best.
 			(UnenchantedItemLink == PreviousItemLink or UnenchantedItemLink ~= BestOfType[2])
-			then
+		then
 			-- This item's an upgrade of the current second-best item.
 			BestOfType[4] = Value
 			BestOfType[5] = UnenchantedItemLink
@@ -3280,11 +3280,8 @@ function PawnFindBestItems(ScaleName, InventoryOnly)
 	
 	-- Now, scan all of the items in the player's equipment sets.
 	if not InventoryOnly then
-		local NumSets = C_EquipmentSet.GetNumEquipmentSets()
-		local ItemLocations = { }
-		local i
-		for i = 1, NumSets do
-			wipe(ItemLocations)
+		local _, i
+		for _, i in pairs(C_EquipmentSet.GetEquipmentSetIDs()) do
 			local _, _, EquipmentSetID = C_EquipmentSet.GetEquipmentSetInfo(i)
 			ItemLocations = C_EquipmentSet.GetItemLocations(EquipmentSetID)
 			PreviousItemLink = nil
@@ -3313,6 +3310,7 @@ function PawnFindBestItems(ScaleName, InventoryOnly)
 					end
 				end
 				PreviousItemLink = ItemLink
+				wipe(ItemLocations)
 			end end
 		end
 	end
