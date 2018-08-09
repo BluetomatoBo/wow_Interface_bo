@@ -1,4 +1,4 @@
--- $Id: DB.lua 27 2017-05-14 14:37:20Z arith $
+-- $Id: DB.lua 57 2018-08-06 15:32:45Z arith $
 -----------------------------------------------------------------------
 -- Upvalued Lua API.
 -----------------------------------------------------------------------
@@ -28,9 +28,6 @@ local function GetLocaleLibBabble(typ)
 	return rettab;
 end
 local BZ = GetLocaleLibBabble("LibBabble-SubZone-3.0");
-local function mapFile(mapID)
-	return HandyNotes:GetMapIDtoMapFile(mapID)
-end
 
 local DB = {}
 
@@ -38,7 +35,7 @@ private.DB = DB
 
 DB.points = {
 	--[[ structure:
-	[mapFile] = { -- "_terrain1" etc will be stripped from attempts to fetch this
+	[mapID] = { -- "_terrain1" etc will be stripped from attempts to fetch this
 		[coord] = {
 			label = [string], 		-- label: text that'll be the label, optional
 			npc = [id], 				-- related npc id, used to display names in tooltip
@@ -48,7 +45,7 @@ DB.points = {
 		},
 	},
 	--]]
-	["Suramar"] = { -- Suramar
+	[680] = { -- Suramar
 		-- Class specified nodes
 		[33084820] = { -- Warrior
 			spell = 192085,
@@ -496,7 +493,7 @@ DB.points = {
 			isUnspecifiedEntrance = true,
 		}, 
 	},
-	["FalanaarTunnels"] = { -- Falanaar / Fal'adore
+	[685] = { -- Falanaar / Fal'adore
 		[40941368] = { 
 			quest = 42230, 
 			label = format(L["Portal to %s"], BZ["Shal'Aran"]),
@@ -506,7 +503,7 @@ DB.points = {
 			hide_outdoor = true,
 		}, 
 	},
-	["SuramarLegionScar"] = { -- Felsoul Hold / The Fel Breach
+	[683] = { -- Felsoul Hold / The Fel Breach
 		[53733676] = { 
 			quest = 41575, 
 			label = format(L["Portal to %s"], BZ["Shal'Aran"]),

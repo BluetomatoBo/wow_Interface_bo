@@ -1,7 +1,13 @@
-$Id: ChangeLog.txt 55 2018-07-27 13:24:59Z arith $
+$Id: ChangeLog.txt 57 2018-08-06 15:32:45Z arith $
 
 Revision History:
 =================
+
+* v1.19 (Aug. 06, 2018)
+-----------------------
+- Remove LibUIDropDown
+- Fixed TomTom waypoint's function call issue
+- Convert map date to use MapID
 
 * v1.18 (Jul. 27, 2018)
 -----------------------
