@@ -49,7 +49,6 @@ end
 -- ============================================================================
 
 function private.GetCraftingFrame()
-	TSM.Crafting.Cost.UpdateDB()
 	return TSMAPI_FOUR.UI.NewElement("DividedContainer", "crafting")
 		:SetContextTable(private.dividedContainerContext, DEFAULT_DIVIDED_CONTAINER_CONTEXT)
 		:SetMinWidth(450, 250)

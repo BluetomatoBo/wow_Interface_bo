@@ -56,6 +56,10 @@ function Shopping.StartGatheringSearch(items, stateCallback, buyCallback)
 	private.StartGatheringSearchHelper(private.frame, items, stateCallback, buyCallback)
 end
 
+function Shopping.StartItemSearch(item)
+	private.OnItemLinked(TSMAPI_FOUR.Item.GetName(item), item)
+end
+
 function Shopping.IsVisible()
 	return TSM.UI.AuctionUI.IsPageOpen(L["Shopping"])
 end

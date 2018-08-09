@@ -40,11 +40,15 @@ function DatabaseQuery.__init(self)
 	self._resultRowLookup = {}
 	self._iterDistinctUsed = {}
 	self._tempResultRow = nil
+	self._tempVirtualResultRow = nil
 	self._autoRelease = nil
 	self._resultIsStale = false
 	self._joinTypes = {}
 	self._joinDBs = {}
 	self._joinFields = {}
+	self._virtualFieldFunc = {}
+	self._virtualFieldArgField = {}
+	self._virtualFieldType = {}
 end
 
 function DatabaseQuery._Acquire(self, db)
@@ -55,7 +59,7 @@ function DatabaseQuery._Acquire(self, db)
 		:And()
 	self._currentClause = self._rootClause
 	self._tempResultRow = TSM.Database.GetDatabaseQueryResultRow()
-	self._tempResultRow:_Acquire(self._db)
+	self._tempResultRow:_Acquire(self._db, self)
 end
 
 function DatabaseQuery._Release(self)
@@ -66,25 +70,24 @@ function DatabaseQuery._Release(self)
 	self._rootClause:_Release()
 	self._rootClause = nil
 	self._currentClause = nil
-	wipe(self._orderBy)
-	wipe(self._orderByAscending)
-	self._distinct = nil
 	self._updateCallback = nil
 	self._updatesPaused = 0
 	self._queuedUpdate = false
-	wipe(self._select)
-	self:_WipeResults()
 	wipe(self._iterDistinctUsed)
 	self._tempResultRow:Release()
 	self._tempResultRow = nil
-	self._autoRelease = nil
-	self._resultIsStale = false
-	for _, db in ipairs(self._joinDBs) do
-		db:_RemoveQuery(self)
+	if self._tempVirtualResultRow then
+		self._tempVirtualResultRow:Release()
+		self._tempVirtualResultRow = nil
 	end
-	wipe(self._joinTypes)
-	wipe(self._joinDBs)
-	wipe(self._joinFields)
+	self._autoRelease = nil
+	self:_WipeResults()
+	self:ResetOrderBy()
+	self:ResetDistinct()
+	self:ResetSelect()
+	self:ResetJoins()
+	self:ResetVirtualFields()
+	self._resultIsStale = false
 end
 
 
@@ -104,16 +107,40 @@ end
 --- Whether or not the database has the field.
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field
--- @treturn DatabaseQueryClause The database query object
+-- @treturn boolean Whether or not the query has the specified field
 function DatabaseQuery.HasField(self, field)
 	return self:_GetFieldType(field) and true or false
+end
+
+--- Adds a virtual field to the query.
+-- @tparam DatabaseQuery self The database query object
+-- @tparam string field The name of the new virtual field
+-- @tparam string fieldType The type of the virtual field
+-- @tparam function func A function which takes a row and returns the value of the virtual field
+-- @?tparam[opt=nil] string argField The field to pass into the function (otherwise passes the entire row)
+-- @tparam vararg ... Up to 4 fields to pass the values of to the function
+-- @treturn DatabaseQuery The database query object
+function DatabaseQuery.VirtualField(self, field, fieldType, func, argField)
+	if self:HasField(field) or self._virtualFieldFunc[field] then
+		error("Field already exists: "..tostring(field))
+	elseif type(func) ~= "function" then
+		error("Invalid func: "..tostring(func))
+	elseif fieldType ~= "number" and fieldType ~= "string" and fieldType ~= "boolean" then
+		error("Field type must be string, number, or boolean")
+	elseif argField and not self:HasField(argField) then
+		error("Arg field doesn't exist: "..tostring(argField))
+	end
+	self._virtualFieldFunc[field] = func
+	self._virtualFieldArgField[field] = argField
+	self._virtualFieldType[field] = fieldType
+	return self
 end
 
 --- Where a field equals a value.
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field
 -- @param value The value to compare to
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.Equal(self, field, value, otherField)
 	if value == TSM.CONST.OTHER_FIELD_QUERY_PARAM then
 		local fieldType = self:_GetFieldType(field)
@@ -130,7 +157,7 @@ end
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field
 -- @param value The value to compare to
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.NotEqual(self, field, value, otherField)
 	if value == TSM.CONST.OTHER_FIELD_QUERY_PARAM then
 		local fieldType = self:_GetFieldType(field)
@@ -147,7 +174,7 @@ end
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field
 -- @param value The value to compare to
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.LessThan(self, field, value, otherField)
 	if value == TSM.CONST.OTHER_FIELD_QUERY_PARAM then
 		local fieldType = self:_GetFieldType(field)
@@ -164,7 +191,7 @@ end
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field
 -- @param value The value to compare to
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.LessThanOrEqual(self, field, value, otherField)
 	if value == TSM.CONST.OTHER_FIELD_QUERY_PARAM then
 		local fieldType = self:_GetFieldType(field)
@@ -181,7 +208,7 @@ end
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field
 -- @param value The value to compare to
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.GreaterThan(self, field, value, otherField)
 	if value == TSM.CONST.OTHER_FIELD_QUERY_PARAM then
 		local fieldType = self:_GetFieldType(field)
@@ -198,7 +225,7 @@ end
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field
 -- @param value The value to compare to
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.GreaterThanOrEqual(self, field, value, otherField)
 	if value == TSM.CONST.OTHER_FIELD_QUERY_PARAM then
 		local fieldType = self:_GetFieldType(field)
@@ -215,7 +242,7 @@ end
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field
 -- @tparam string value The pattern to match
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.Matches(self, field, value)
 	assert(value ~= TSM.CONST.BOUND_QUERY_PARAM, "This method does not support bound values")
 	assert(self:_GetFieldType(field) == "string" and type(value) == "string")
@@ -227,7 +254,7 @@ end
 --- Where a foreign field (obtained via a left join) is nil.
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.IsNil(self, field)
 	assert(self:_GetJoinType(field) == "LEFT", "Must be a left join")
 	self:_NewClause()
@@ -238,7 +265,7 @@ end
 --- Where a foreign field (obtained via a left join) is not nil.
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.IsNotNil(self, field)
 	assert(self:_GetJoinType(field) == "LEFT", "Must be a left join")
 	self:_NewClause()
@@ -251,7 +278,7 @@ end
 -- @tparam function func The function which gets passed the row being evaulated and returns true/false if the query
 -- should include it
 -- @param[opt] arg An argument to pass to the function
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.Custom(self, func, arg)
 	assert(type(func) == "function")
 	self:_NewClause()
@@ -263,7 +290,7 @@ end
 -- @tparam DatabaseQuery self The database query object
 -- @tparam function fields An ordered list of fields to hash
 -- @tparam number value The hash value to compare to
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.HashEqual(self, fields, value)
 	assert(value ~= TSM.CONST.BOUND_QUERY_PARAM, "This method does not support bound values")
 	assert(type(fields) == "table")
@@ -283,7 +310,7 @@ end
 --- Starts a nested AND clause.
 -- All of the clauses following this (until the matching @{DatabaseQuery.End}) must be true for the OR clause to be true.
 -- @tparam DatabaseQuery self The database query object
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.And(self)
 	self._currentClause = self:_NewClause()
 		:And()
@@ -294,7 +321,7 @@ end
 -- At least one of the clauses following this (until the matching @{DatabaseQuery.End}) must be true for the OR clause
 -- to be true.
 -- @tparam DatabaseQuery self The database query object
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.Or(self)
 	self._currentClause = self:_NewClause()
 		:Or()
@@ -303,7 +330,7 @@ end
 
 --- Ends a nested AND/OR clause.
 -- @tparam DatabaseQuery self The database query object
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.End(self)
 	assert(self._currentClause ~= self._rootClause, "No current clause to end")
 	self._currentClause = self._currentClause:_GetParent()
@@ -323,6 +350,9 @@ function DatabaseQuery.LeftJoin(self, db, field)
 		if foreignField ~= field then
 			assert(not self._db:_GetFieldType(foreignField), "Foreign field conflicts with local DB: "..tostring(foreignField))
 		end
+	end
+	for virtualField in pairs(self._virtualFieldFunc) do
+		assert(not db:_GetFieldType(virtualField), "Virtual field conflicts with foreign DB: "..tostring(virtualField))
 	end
 	db:_RegisterQuery(self)
 	tinsert(self._joinTypes, "LEFT")
@@ -344,6 +374,9 @@ function DatabaseQuery.InnerJoin(self, db, field)
 			assert(not self._db:_GetFieldType(foreignField), "Foreign field conflicts with local DB: "..tostring(foreignField))
 		end
 	end
+	for virtualField in pairs(self._virtualFieldFunc) do
+		assert(not db:_GetFieldType(virtualField), "Virtual field conflicts with foreign DB: "..tostring(virtualField))
+	end
 	db:_RegisterQuery(self)
 	tinsert(self._joinTypes, "INNER")
 	tinsert(self._joinDBs, db)
@@ -357,7 +390,7 @@ end
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The name of the field to order by
 -- @tparam boolean ascending Whether to order in ascending order (descending otherwise)
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.OrderBy(self, field, ascending)
 	assert(ascending == true or ascending == false)
 	local fieldType = self:_GetFieldType(field)
@@ -375,9 +408,9 @@ end
 -- This method can be used to ensure that only the first row for each distinct value of the field is returned.
 -- @tparam DatabaseQuery self The database query object
 -- @tparam string field The field to ensure is distinct in the results
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.Distinct(self, field)
-	assert(self._db:_GetFieldType(field), format("Field %s doesn't exist within local DB", tostring(field)))
+	assert(self:_GetFieldType(field), format("Field %s doesn't exist within local DB", tostring(field)))
 	self._distinct = field
 	return self
 end
@@ -385,7 +418,7 @@ end
 --- Select specific fields in the result.
 -- @tparam DatabaseQuery self The database query object
 -- @tparam vararg ... The fields to select
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.Select(self, ...)
 	assert(#self._select == 0)
 	local numFields = select("#", ...)
@@ -403,7 +436,7 @@ end
 -- The number of arguments should match the number of TSM.CONST.BOUND_QUERY_PARAM values in the query's clauses.
 -- @tparam DatabaseQuery self The database query object
 -- @tparam vararg ... The fields to select
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.BindParams(self, ...)
 	local numFields = select("#", ...)
 	assert(self._rootClause:_BindParams(...) == numFields, "Invalid number of bound parameters")
@@ -414,7 +447,7 @@ end
 -- This callback gets called whenever any rows in the underlying database change.
 -- @tparam DatabaseQuery self The database query object
 -- @tparam function func The callback function
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.SetUpdateCallback(self, func)
 	self._updateCallback = func
 	return self
@@ -423,7 +456,7 @@ end
 --- Pauses or unpauses callbacks for query updates.
 -- @tparam DatabaseQuery self The database query object
 -- @tparam boolean paused Whether or not updates should be paused
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.SetUpdatesPaused(self, paused)
 	self._updatesPaused = self._updatesPaused + (paused and 1 or -1)
 	assert(self._updatesPaused >= 0)
@@ -699,21 +732,33 @@ end
 
 --- Resets the database query.
 -- @tparam DatabaseQuery self The database query object
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.Reset(self)
 	self:ResetDistinct()
 	self:ResetSelect()
 	self:ResetOrderBy()
 	self:ResetJoins()
 	self:ResetFilters()
+	self:ResetVirtualFields()
 	self:_WipeResults()
+	self._resultIsStale = true
+	return self
+end
+
+--- Resets any virtual fields added to the database query.
+-- @tparam DatabaseQuery self The database query object
+-- @treturn DatabaseQuery The database query object
+function DatabaseQuery.ResetVirtualFields(self)
+	wipe(self._virtualFieldFunc)
+	wipe(self._virtualFieldArgField)
+	wipe(self._virtualFieldType)
 	self._resultIsStale = true
 	return self
 end
 
 --- Resets any filtering clauses of the database query.
 -- @tparam DatabaseQuery self The database query object
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.ResetFilters(self)
 	self._rootClause:_Release()
 	self._rootClause = private.NewDatabaseQueryClause(self)
@@ -725,7 +770,7 @@ end
 
 --- Resets any ordering clauses of the database query.
 -- @tparam DatabaseQuery self The database query object
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.ResetOrderBy(self)
 	wipe(self._orderBy)
 	wipe(self._orderByAscending)
@@ -735,7 +780,7 @@ end
 
 --- Resets any joins of the database query.
 -- @tparam DatabaseQuery self The database query object
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.ResetJoins(self)
 	for _, db in ipairs(self._joinDBs) do
 		db:_RemoveQuery(self)
@@ -749,7 +794,7 @@ end
 
 --- Resets any distinct clauses of the database query.
 -- @tparam DatabaseQuery self The database query object
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.ResetDistinct(self)
 	self._distinct = nil
 	self._resultIsStale = true
@@ -758,7 +803,7 @@ end
 
 --- Resets any select clauses of the database query.
 -- @tparam DatabaseQuery self The database query object
--- @treturn DatabaseQueryClause The database query object
+-- @treturn DatabaseQuery The database query object
 function DatabaseQuery.ResetSelect(self)
 	wipe(self._select)
 	return self
@@ -798,7 +843,7 @@ function DatabaseQuery._GetJoinType(self, field)
 end
 
 function DatabaseQuery._GetFieldType(self, field)
-	local fieldType = self._db:_GetFieldType(field)
+	local fieldType = self._virtualFieldType[field] or self._db:_GetFieldType(field)
 	if fieldType then
 		return fieldType
 	end
@@ -977,7 +1022,7 @@ end
 function DatabaseQuery._CreateResultRow(self, uuid)
 	assert(self._resultRowLookup[uuid] == false)
 	local row = TSM.Database.GetDatabaseQueryResultRow()
-	row:_Acquire(self._db)
+	row:_Acquire(self._db, self)
 	row:_SetUUID(uuid)
 	for i = 1, #self._joinDBs do
 		row:_AddJoinInfo(self._joinDBs[i], self._joinFields[i])
@@ -1010,7 +1055,28 @@ function DatabaseQuery._PassThroughReleaseHelper(self, ...)
 end
 
 function DatabaseQuery._GetResultRowData(self, uuid, field)
-	if #self._joinDBs == 0 or self._db:_GetFieldType(field) then
+	if self._virtualFieldFunc[field] then
+		local argField = self._virtualFieldArgField[field]
+		local argValue = nil
+		if argField then
+			argValue = self:_GetResultRowData(uuid, argField)
+		else
+			if not self._tempVirtualResultRow then
+				self._tempVirtualResultRow = TSM.Database.GetDatabaseQueryResultRow()
+				self._tempVirtualResultRow:_Acquire(self._db, self)
+			end
+			self._tempVirtualResultRow:_SetUUID(uuid)
+			for i = 1, #self._joinDBs do
+				self._tempVirtualResultRow:_AddJoinInfo(self._joinDBs[i], self._joinFields[i])
+			end
+			argValue = self._tempVirtualResultRow
+		end
+		local value = self._virtualFieldFunc[field](argValue)
+		if type(value) ~= self._virtualFieldType[field] then
+			error("Virtual field value not the correct type")
+		end
+		return value
+	elseif #self._joinDBs == 0 or self._db:_GetFieldType(field) then
 		-- this is a local field
 		return self._db:_GetRowData(uuid, field)
 	else
@@ -1140,9 +1206,9 @@ function private.QueryResultIterator(self, index)
 	elseif #self._joinDBs == 0 and numSelectFields <= 2 then
 		-- as an optimization, we don't need to create a result row
 		if numSelectFields == 1 then
-			return index, self._db:_GetRowData(uuid, self._select[1])
+			return index, self:_GetResultRowData(uuid, self._select[1])
 		elseif numSelectFields == 2 then
-			return index, self._db:_GetRowData(uuid, self._select[1]), self._db:_GetRowData(uuid, self._select[2])
+			return index, self:_GetResultRowData(uuid, self._select[1]), self:_GetResultRowData(uuid, self._select[2])
 		else
 			error("Invalid numSelectFields: "..tostring(numSelectFields))
 		end

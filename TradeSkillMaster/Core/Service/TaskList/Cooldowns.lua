@@ -111,4 +111,5 @@ function private.RemoveTask(task)
 	private.activeTaskByProfession[profession] = nil
 	task:Release()
 	private.taskPool:Recycle(task)
+	TSM.TaskList.OnTaskUpdated()
 end

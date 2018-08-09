@@ -202,13 +202,15 @@ function private.ScanProfession()
 	local prevRecipeIds = TSMAPI_FOUR.Util.AcquireTempTable()
 	local nextRecipeIds = TSMAPI_FOUR.Util.AcquireTempTable()
 	local recipeLearned = TSMAPI_FOUR.Util.AcquireTempTable()
-	local recipes = C_TradeSkillUI.GetFilteredRecipeIDs(TSMAPI_FOUR.Util.AcquireTempTable())
+	local recipes = TSMAPI_FOUR.Util.AcquireTempTable()
+	assert(C_TradeSkillUI.GetFilteredRecipeIDs(recipes) == recipes)
 	local spellIdIndex = TSMAPI_FOUR.Util.AcquireTempTable()
 	for index, spellId in ipairs(recipes) do
 		-- There's a Blizzard bug where First Aid duplicates spellIds, so check that we haven't seen this before
 		if not spellIdIndex[spellId] then
 			spellIdIndex[spellId] = index
-			local info = C_TradeSkillUI.GetRecipeInfo(spellId, TSMAPI_FOUR.Util.AcquireTempTable())
+			local info = TSMAPI_FOUR.Util.AcquireTempTable()
+			assert(C_TradeSkillUI.GetRecipeInfo(spellId, info) == info)
 			if info.previousRecipeID then
 				prevRecipeIds[spellId] = info.previousRecipeID
 				nextRecipeIds[info.previousRecipeID] = spellId
@@ -223,7 +225,8 @@ function private.ScanProfession()
 		-- TODO: show unlearned recipes in the TSM UI
 		-- There's a Blizzard bug where First Aid duplicates spellIds, so check that this is the right index
 		if spellIdIndex[spellId] == index and recipeLearned[spellId] and not hasHigherRank then
-			local info = C_TradeSkillUI.GetRecipeInfo(spellId, TSMAPI_FOUR.Util.AcquireTempTable())
+			local info = TSMAPI_FOUR.Util.AcquireTempTable()
+			assert(C_TradeSkillUI.GetRecipeInfo(spellId, info) == info)
 			local rank = -1
 			if prevRecipeIds[spellId] or nextRecipeIds[spellId] then
 				rank = 1

@@ -181,7 +181,7 @@ function Database.NewRow(self)
 	else
 		row = TSM.Database.GetDatabaseQueryResultRow()
 	end
-	row:_Acquire(self, true)
+	row:_Acquire(self, nil, true)
 	return row
 end
 

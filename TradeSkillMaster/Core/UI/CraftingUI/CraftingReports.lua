@@ -32,7 +32,6 @@ function private.GetCraftingReportsFrame()
 	private.craftsQuery:ResetFilters()
 	private.craftsQuery:ResetOrderBy()
 	private.craftsQuery:OrderBy("itemName", true)
-	TSM.Crafting.Cost.UpdateDB()
 	private.matsQuery = private.matsQuery or TSM.Crafting.CreateMatItemQuery()
 	private.matsQuery:ResetFilters()
 	private.matsQuery:ResetOrderBy()
@@ -153,8 +152,8 @@ function private.GetTabElements(self, path)
 						:SetFont(TSM.UI.Fonts.RobotoMedium)
 						:SetFontHeight(12)
 						:SetJustifyH("RIGHT")
-						:SetTextInfo(nil, private.CraftsGetDummyInventoryText) -- TODO
-						:SetSortInfo("itemString") -- TODO
+						:SetTextInfo("bagQuantity", private.CraftsGetBagsText)
+						:SetSortInfo("bagQuantity")
 						:Commit()
 					:NewColumn("ah")
 						:SetTitles(L["AH"])
@@ -162,8 +161,8 @@ function private.GetTabElements(self, path)
 						:SetFont(TSM.UI.Fonts.RobotoMedium)
 						:SetFontHeight(12)
 						:SetJustifyH("RIGHT")
-						:SetTextInfo(nil, private.CraftsGetDummyInventoryText) -- TODO
-						:SetSortInfo("itemString") -- TODO
+						:SetTextInfo("auctionQuantity", private.CraftsGetAHText)
+						:SetSortInfo("auctionQuantity")
 						:Commit()
 					:NewColumn("craftingCost")
 						:SetTitles(L["Crafting Cost"])
@@ -310,8 +309,8 @@ function private.GetTabElements(self, path)
 						:SetFont(TSM.UI.Fonts.RobotoMedium)
 						:SetFontHeight(12)
 						:SetJustifyH("RIGHT")
-						:SetTextInfo("itemString", private.MatsGetNumDummyText) -- TODO
-						:SetSortInfo("itemString") -- TODO
+						:SetTextInfo("totalQuantity", private.MatsGetNumText)
+						:SetSortInfo("totalQuantity")
 						:Commit()
 					:Commit()
 				:SetQuery(private.matsQuery)
@@ -333,9 +332,12 @@ function private.CraftsGetCraftNameText(row)
 	return TSM.UI.GetColoredItemName(row:GetField("itemString")) or row:GetField("name")
 end
 
--- TODO
-function private.CraftsGetDummyInventoryText(row)
-	return "0"
+function private.CraftsGetBagsText(bagQuantity)
+	return bagQuantity or "0"
+end
+
+function private.CraftsGetAHText(bagQuantity)
+	return bagQuantity or "0"
 end
 
 function private.CraftsGetCraftingCostText(spellId)
@@ -370,9 +372,8 @@ function private.MatsGetPriceText(matCost)
 	return TSMAPI_FOUR.Money.ToString(matCost, "OPT_PAD", "OPT_SEP")
 end
 
--- TODO
-function private.MatsGetNumDummyText(row)
-	return "0"
+function private.MatsGetNumText(totalQuantity)
+	return totalQuantity or "0"
 end
 
 

@@ -176,6 +176,7 @@ function private.ScanGuildBank()
 	TSM.Inventory.WipeGuildQuantity(PLAYER_GUILD)
 	wipe(private.pendingPetSlotIds)
 	private.db:TruncateAndBulkInsertStart()
+	local didFail = false
 	for tab = 1, GetNumGuildBankTabs() do
 		-- only scan tabs which we have at least enough withdrawals to withdraw every slot
 		local _, _, _, _, numWithdrawals = GetGuildBankTabInfo(tab)
@@ -193,6 +194,12 @@ function private.ScanGuildBank()
 				end
 				if baseItemString then
 					local _, quantity = GetGuildBankItemInfo(tab, slot)
+					if quantity == 0 then
+						-- the info for this slot isn't fully loaded yet
+						TSM:LOG_ERR("Failed to scan guild bank slot (%d)", slotId)
+						didFail = true
+						break
+					end
 					TSM.Inventory.ChangeGuildQuantity(baseItemString, quantity)
 					local itemString = TSMAPI_FOUR.Item.ToItemString(itemLink)
 					local autoBaseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
@@ -200,9 +207,14 @@ function private.ScanGuildBank()
 				end
 			end
 		end
+		if didFail then
+			break
+		end
 	end
 	private.db:BulkInsertEnd()
-	if next(private.pendingPetSlotIds) then
+	if didFail then
+		TSMAPI_FOUR.Delay.AfterFrame("guildBankScan", 2, private.GuildBankChangedDelayed)
+	elseif next(private.pendingPetSlotIds) then
 		TSMAPI_FOUR.Delay.AfterFrame("guildBankPetScan", 2, private.ScanPetsDeferred)
 	else
 		TSMAPI_FOUR.Delay.Cancel("guildBankPetScan")

@@ -19,6 +19,7 @@ local SUMMARY_DB_SCHEMA = {
 		itemString = "string",
 		bagQuantity = "number",
 		bankQuantity = "number",
+		reagentBankQuantity = "number",
 		auctionQuantity = "number",
 		mailQuantity = "number",
 		guildQuantity = "number",
@@ -32,6 +33,7 @@ local SUMMARY_DB_SCHEMA = {
 		"itemString",
 		"bagQuantity",
 		"bankQuantity",
+		"reagentBankQuantity",
 		"auctionQuantity",
 		"mailQuantity",
 		"guildQuantity",
@@ -96,14 +98,15 @@ function Inventory.OnInitialize()
 	private.db:BulkInsertStart()
 	for itemString in pairs(items) do
 		local bagQuantity = itemQuantities.bagQuantity[itemString] or 0
-		local bankQuantity = (itemQuantities.bankQuantity[itemString] or 0) + (itemQuantities.reagentBankQuantity[itemString] or 0)
+		local bankQuantity = itemQuantities.bankQuantity[itemString] or 0
+		local reagentBankQuantity = itemQuantities.reagentBankQuantity[itemString] or 0
 		local auctionQuantity = itemQuantities.auctionQuantity[itemString] or 0
 		local mailQuantity = itemQuantities.mailQuantity[itemString] or 0
 		local altQuantity = altItemQuantity[itemString] or 0
-		local totalQuantity = bagQuantity + bankQuantity + auctionQuantity + mailQuantity + altQuantity
+		local totalQuantity = bagQuantity + bankQuantity + reagentBankQuantity + auctionQuantity + mailQuantity + altQuantity
 		assert(totalQuantity > 0)
 		-- guildQuantity is set later, so just set it to 0 for now
-		private.db:BulkInsertNewRow(itemString, bagQuantity, bankQuantity, auctionQuantity, mailQuantity, 0, altQuantity, totalQuantity)
+		private.db:BulkInsertNewRow(itemString, bagQuantity, bankQuantity, reagentBankQuantity, auctionQuantity, mailQuantity, 0, altQuantity, totalQuantity)
 	end
 	private.db:BulkInsertEnd()
 
@@ -134,7 +137,7 @@ function Inventory.ChangeBagItemTotal(bag, itemString, changeQuantity)
 		field = "bankQuantity"
 	elseif bag == REAGENTBANK_CONTAINER then
 		totalsTable = TSM.db.sync.internalData.reagentBankQuantity
-		field = "bankQuantity"
+		field = "reagentBankQuantity"
 	else
 		error("Unexpected bag: "..tostring(bag))
 	end
@@ -191,7 +194,7 @@ end
 
 function Inventory.WipeReagentBankQuantity()
 	wipe(TSM.db.sync.internalData.reagentBankQuantity)
-	private.WipeQuantity("bankQuantity")
+	private.WipeQuantity("reagentBankQuantity")
 end
 
 function Inventory.WipeMailQuantity()
@@ -394,6 +397,7 @@ function private.UpdateQuantity(itemString, field, quantity)
 			:SetField("itemString", itemString)
 			:SetField("bagQuantity", 0)
 			:SetField("bankQuantity", 0)
+			:SetField("reagentBankQuantity", 0)
 			:SetField("auctionQuantity", 0)
 			:SetField("mailQuantity", 0)
 			:SetField("guildQuantity", 0)

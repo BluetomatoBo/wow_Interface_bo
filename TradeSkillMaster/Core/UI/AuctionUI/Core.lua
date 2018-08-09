@@ -116,6 +116,10 @@ function AuctionUI.EndedScan(pageName)
 	end
 end
 
+function AuctionUI.SetOpenPage(name)
+	private.frame:SetSelectedNavButton(name, true)
+end
+
 function AuctionUI.IsPageOpen(name)
 	if not private.frame then
 		return false

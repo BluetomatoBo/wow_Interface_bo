@@ -547,7 +547,7 @@ function private.OnItemLinked(_, itemLink)
 	end
 	wipe(private.scanContext)
 	private.scanContext.isItems = true
-	tinsert(private.scanContext, TSMAPI_FOUR.Item.ToItemString(itemLink))
+	tinsert(private.scanContext, TSMAPI_FOUR.Item.ToBaseItemString(itemLink, true))
 	private.selectionFrame:GetParentElement():SetPath("scan", true)
 	private.fsm:ProcessEvent("EV_START_SCAN", "POST", private.scanContext)
 	return true
@@ -640,10 +640,7 @@ function private.SearchListOnRowClick(searchList, dbRow)
 	local scanType = dbRow:GetField("searchType")
 	wipe(private.scanContext)
 	private.scanContext.isItems = scanType == "postItems" or nil
-	-- iterate through all the "filters" (either items or groups)
-	for _, filter in TSM.Auctioning.SavedSearches.FilterIterator(dbRow) do
-		tinsert(private.scanContext, filter)
-	end
+	TSM.Auctioning.SavedSearches.FiltersToTable(dbRow, private.scanContext)
 	searchList:GetParentElement():GetParentElement():GetParentElement():GetParentElement():SetPath("scan", true)
 	private.fsm:ProcessEvent("EV_START_SCAN", scanType == "cancelGroups" and "CANCEL" or "POST", private.scanContext)
 end

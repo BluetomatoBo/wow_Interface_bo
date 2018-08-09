@@ -288,8 +288,7 @@ function private.DestroyThread(button, row)
 	private.destroyThreadRunning = false
 end
 
-function private.SpellCastEventHandler(event, unit, _, spellId, _, spellId73)
-	spellId = select(4, GetBuildInfo()) >= 80000 and spellId or spellId73
+function private.SpellCastEventHandler(event, unit, _, spellId)
 	if not private.destroyThreadRunning or unit ~= "player" or spellId ~= private.pendingSpellId then
 		return
 	end

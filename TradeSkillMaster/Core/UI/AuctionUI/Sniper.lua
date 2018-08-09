@@ -180,6 +180,9 @@ function private.OnItemLinked(name, itemLink)
 	if private.selectionFrame then
 		return false
 	end
+	private.fsm:ProcessEvent("EV_STOP_CLICKED")
+	TSM.UI.AuctionUI.SetOpenPage(L["Shopping"])
+	TSM.UI.AuctionUI.Shopping.StartItemSearch(itemLink)
 	return true
 end
 

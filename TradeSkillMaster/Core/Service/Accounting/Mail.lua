@@ -57,6 +57,10 @@ function private:CanLootMailIndex(index, copper)
 	local hasItem = select(8, GetInboxHeaderInfo(index))
 	if not hasItem or hasItem == 0 then return true end
 	for j = 1, ATTACHMENTS_MAX_RECEIVE do
+		-- TODO: prevent logging unique items if you already have one in your bags, and items that you can't loot because of internal mail error
+		if CalculateTotalNumberOfFreeBagSlots() <= TSM.db.global.mailingOptions.keepMailSpace then
+			return
+		end
 		local link = GetInboxItemLink(index, j)
 		local itemString = TSMAPI_FOUR.Item.ToItemString(link)
 		local quantity = select(4, GetInboxItem(index, j)) or 0

@@ -362,6 +362,9 @@ function private.IsTSMAddon(str)
 	elseif strfind(str, "Master\\Libs\\") then
 		-- ignore errors from libraries
 		return nil
+	elseif strfind(str, "Master\\Core\\API.lua") then
+		-- ignore errors from public APIs
+		return nil
 	elseif strfind(str, "Master_AppHelper\\") then
 		return "TradeSkillMaster_AppHelper"
 	elseif strfind(str, "lMaster\\") then
@@ -578,21 +581,16 @@ do
 			-- explicitly ignore these errors
 			tsmErrMsg = nil
 		end
-		local notOld = false
 		if tsmErrMsg then
 			-- look at the stack trace to see if this is a TSM error
 			for i = 2, MAX_STACK_DEPTH do
 				local stackLine = debugstack(i, 1, 0)
 				local oldModule = strmatch(stackLine, "(lMaster_[A-Za-z]+)")
 				if oldModule and tContains(TSM.CONST.OLD_TSM_MODULES, "TradeSkil"..oldModule) then
-					if strmatch(stackLine, "Old_Modules") then
-						notOld = true
-					else
-						-- ignore errors from old modules
-						return
-					end
+					-- ignore errors from old modules
+					return
 				end
-				if not strmatch(stackLine, "^%[C%]:") and not strmatch(stackLine, "^%(tail call%):") then
+				if not strmatch(stackLine, "^%[C%]:") and not strmatch(stackLine, "^%(tail call%):") and not strmatch(stackLine, "^%[string \"") then
 					if not private.IsTSMAddon(stackLine) then
 						tsmErrMsg = nil
 					end
@@ -607,7 +605,7 @@ do
 			end
 		end
 		local oldModule = strmatch(errMsg, "(lMaster_[A-Za-z]+)")
-		if oldModule and tContains(TSM.CONST.OLD_TSM_MODULES, "TradeSkil"..oldModule) and not notOld then
+		if oldModule and tContains(TSM.CONST.OLD_TSM_MODULES, "TradeSkil"..oldModule) then
 			-- ignore errors from old modules
 			return
 		end

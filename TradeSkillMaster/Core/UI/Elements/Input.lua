@@ -400,7 +400,7 @@ function private.OnChar(frame)
 	local text = self:GetText()
 	local match = nil
 	for k in pairs(self:_GetStyle("autoComplete")) do
-		local start, ending = strfind(strlower(k), "^"..strlower(text))
+		local start, ending = strfind(strlower(k), "^"..TSMAPI_FOUR.Util.StrEscape(strlower(text)))
 		if start and ending and ending == #text then
 			match = k
 			break

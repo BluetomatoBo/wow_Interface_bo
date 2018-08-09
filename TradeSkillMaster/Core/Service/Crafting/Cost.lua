@@ -9,45 +9,11 @@
 local _, TSM = ...
 local Cost = TSM.Crafting:NewPackage("Cost")
 local private = {
-	craftDB = nil,
-	matDB = nil,
 	matsVisited = {},
 	isItemCraftableCache = {},
 	matCostCache = {},
 	matsTemp = {},
 	matsTempInUse = false,
-}
-local CRAFT_COST_DB_SCHEMA = {
-	fields = {
-		spellId = "number",
-		craftingCost = "number",
-		itemValue = "number",
-		profit = "number",
-		saleRate = "number",
-	},
-	fieldAttributes = {
-		spellId = { "unique" },
-	},
-	fieldOrder = {
-		"spellId",
-		"craftingCost",
-		"itemValue",
-		"profit",
-		"saleRate",
-	},
-}
-local MAT_COST_DB_SCHEMA = {
-	fields = {
-		itemString = "string",
-		matCost = "number",
-	},
-	fieldAttributes = {
-		itemString = { "unique" },
-	},
-	fieldOrder = {
-		"itemString",
-		"matCost",
-	},
 }
 
 
@@ -55,43 +21,6 @@ local MAT_COST_DB_SCHEMA = {
 -- ============================================================================
 -- Module Functions
 -- ============================================================================
-
-function Cost.OnInitialize()
-	private.craftDB = TSMAPI_FOUR.Database.New(CRAFT_COST_DB_SCHEMA)
-	private.matDB = TSMAPI_FOUR.Database.New(MAT_COST_DB_SCHEMA)
-end
-
-function Cost.UpdateDB()
-	private.craftDB:TruncateAndBulkInsertStart()
-	for _, spellId in TSM.Crafting.SpellIterator() do
-		local itemString = TSM.Crafting.GetItemString(spellId)
-		local craftingCost, itemValue, profit = Cost.GetCostsBySpellId(spellId)
-		local saleRate = TSM.AuctionDB.GetRegionItemData(itemString, "regionSalePercent")
-		craftingCost = craftingCost or math.huge * 0
-		itemValue = itemValue or math.huge * 0
-		profit = profit or math.huge * 0
-		saleRate = saleRate and (saleRate / 100) or math.huge * 0
-		private.craftDB:BulkInsertNewRow(spellId, craftingCost, itemValue, profit, saleRate)
-	end
-	private.craftDB:BulkInsertEnd()
-
-	private.matDB:TruncateAndBulkInsertStart()
-	local query = TSM.Crafting.CreateRawMatItemQuery()
-		:Select("itemString")
-	for _, itemString in query:Iterator() do
-		private.matDB:BulkInsertNewRow(itemString, Cost.GetMatCost(itemString) or math.huge * 0)
-	end
-	query:Release()
-	private.matDB:BulkInsertEnd()
-end
-
-function Cost.GetCraftDBForJoin()
-	return private.craftDB
-end
-
-function Cost.GetMatDBForJoin()
-	return private.matDB
-end
 
 function Cost.GetMatCost(itemString)
 	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)

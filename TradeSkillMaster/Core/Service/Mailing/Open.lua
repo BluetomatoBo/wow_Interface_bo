@@ -73,10 +73,6 @@ function private.OpenMailThread(autoRefresh, filterText, filterType)
 
 		query:Release()
 
-		if CalculateTotalNumberOfFreeBagSlots() == TSM.db.global.mailingOptions.keepMailSpace then
-			break
-		end
-
 		private.OpenMails(mails, filterType)
 
 		TSMAPI_FOUR.Thread.ReleaseSafeTempTable(mails)
@@ -109,6 +105,9 @@ function private.OpenMails(mails, filterType)
 		local mailType = TSM.Inventory.MailTracking.GetMailType(index)
 
 		if (not filterType and mailType) or (filterType and filterType == mailType) then
+			if CalculateTotalNumberOfFreeBagSlots() <= TSM.db.global.mailingOptions.keepMailSpace then
+				return
+			end
 			if TSM.db.global.mailingOptions.inboxMessages then
 				private.PrintOpenMailMessage(index)
 			end

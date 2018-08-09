@@ -97,7 +97,7 @@ function private.CreateFSM()
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_SHOWN")
 			:SetOnEnter(function()
-				local _, _, _, _, _, _, name = C_TradeSkillUI.GetTradeSkillLine()
+				local name = TSM.Crafting.ProfessionUtil.GetCurrentProfessionName()
 				assert(name)
 				TSM:LOG_INFO("Showing profession: %s", name)
 				private.professionName = name

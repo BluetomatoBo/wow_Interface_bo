@@ -97,6 +97,10 @@ function private.ToItemString(item)
 			-- this is already an itemString
 			return item
 		end
+		itemId = strmatch(item, "item:(%d+)")
+		if itemId and tonumber(itemId) > TSM.CONST.ITEM_MAX_ID then
+			return nil
+		end
 	elseif paramType == "number" or tonumber(item) then
 		local itemId = tonumber(item)
 		if itemId > TSM.CONST.ITEM_MAX_ID then

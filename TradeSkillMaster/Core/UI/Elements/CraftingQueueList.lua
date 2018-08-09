@@ -212,7 +212,7 @@ function CraftingQueueList._DrawRow(self, row, dataIndex)
 		spellIcon:Hide()
 		expander:SetStyle("backgroundTexturePack", self._collapsed[data] and "iconPack.18x18/Carot/Collapsed" or "iconPack.18x18/Carot/Expanded")
 		expander:Show()
-		local _, _, _, _, _, _, currentProfession = C_TradeSkillUI.GetTradeSkillLine()
+		local currentProfession = TSM.Crafting.ProfessionUtil.GetCurrentProfessionName()
 		local profession, players = strsplit(CATEGORY_SEP, data)
 		if strlower(profession) ~= strlower(currentProfession or "") then
 			profession = "|cfff21319"..profession.."|r"
@@ -287,7 +287,7 @@ function private.CategorySortComparator(a, b)
 	local aProfession, aPlayers = strsplit(CATEGORY_SEP, a)
 	local bProfession, bPlayers = strsplit(CATEGORY_SEP, b)
 	if aProfession ~= bProfession then
-		local _, _, _, _, _, _, currentProfession = C_TradeSkillUI.GetTradeSkillLine()
+		local currentProfession = TSM.Crafting.ProfessionUtil.GetCurrentProfessionName()
 		currentProfession = strlower(currentProfession or "")
 		if aProfession == currentProfession then
 			return true

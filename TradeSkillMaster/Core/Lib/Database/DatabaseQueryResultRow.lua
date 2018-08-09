@@ -11,10 +11,11 @@ local DatabaseQueryResultRow = TSM.Database:NewPackage("DatabaseQueryResultRow")
 local private = { context = {} }
 
 local ROW_PROTOTYPE = {
-	_Acquire = function(self, db, isNewRow)
+	_Acquire = function(self, db, query, isNewRow)
 		local context = private.context[self]
 		context.db = db
-		context.isNewRow = isNewRow and true or nil
+		context.query = query
+		context.isNewRow = isNewRow
 		if isNewRow then
 			context.uuid = TSM.Database.GetNextUUID()
 		end
@@ -23,6 +24,7 @@ local ROW_PROTOTYPE = {
 	_Release = function(self)
 		local context = private.context[self]
 		context.db = nil
+		context.query = nil
 		context.isNewRow = nil
 		context.uuid = nil
 		for i = 1, context.numJoins or 0 do
@@ -220,30 +222,15 @@ local ROW_MT = {
 			error("Getting value on a new row: "..tostring(key))
 		end
 		local result = nil
-		if not context.numJoins or context.db:_GetFieldType(key) then
-			-- this is a local field
-			result = context.db:_GetRowData(context.uuid, key)
+		if context.query then
+			-- use the query to lookup the result
+			result = context.query:_GetResultRowData(context.uuid, key)
 		else
-			-- this is a foreign field
-			local joinDB = nil
-			local joinField = nil
-			for i = 1, context.numJoins do
-				local testDB = context["joinDB"..i]
-				if testDB:_GetFieldType(key) then
-					if joinDB then
-						error("Multiple joined DBs have this field", 2)
-					end
-					joinDB = testDB
-					joinField = context["joinField"..i]
-				end
-			end
-			if not joinDB then
+			-- we're not tied to a query so this should be a local DB field
+			if not context.db:_GetFieldType(key) then
 				error("Invalid field: "..tostring(key), 2)
 			end
-			local foreignUUID = joinDB:_GetUniqueRow(joinField, self[joinField])
-			if foreignUUID then
-				result = joinDB:_GetRowData(foreignUUID, key)
-			end
+			result = context.db:_GetRowData(context.uuid, key)
 		end
 		if result ~= nil then
 			rawset(self, key, result)
@@ -268,6 +255,7 @@ function DatabaseQueryResultRow.New()
 	local row = setmetatable({}, ROW_MT)
 	private.context[row] = {
 		db = nil,
+		query = nil,
 		isNewRow = nil,
 		uuid = nil,
 		numJoins = nil,

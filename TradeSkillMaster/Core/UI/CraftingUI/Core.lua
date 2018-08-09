@@ -118,10 +118,12 @@ function private.FSMCreate()
 			:AddTransition("ST_FRAME_OPEN")
 			:AddEvent("EV_FRAME_TOGGLE", function(context)
 				assert(not TSM.db.global.internalData.craftingUIFrameContext.showDefault)
+				TSM.Crafting.ProfessionScanner.SetDisabled(false)
 				return "ST_FRAME_OPEN"
 			end)
 			:AddEvent("EV_TRADE_SKILL_SHOW", function(context)
-				local _, _, _, _, _, _, name = C_TradeSkillUI.GetTradeSkillLine()
+				TSM.Crafting.ProfessionScanner.SetDisabled(TSM.db.global.internalData.craftingUIFrameContext.showDefault)
+				local name = TSM.Crafting.ProfessionUtil.GetCurrentProfessionName()
 				if CraftingUI.IsProfessionIgnored(name) then
 					return "ST_DEFAULT_OPEN", true
 				elseif TSM.db.global.internalData.craftingUIFrameContext.showDefault then
@@ -146,6 +148,7 @@ function private.FSMCreate()
 					private.defaultUISwitchBtn:_GetBaseFrame():SetParent(TradeSkillFrame)
 				end
 				if isIgnored then
+					TSM.Crafting.ProfessionScanner.SetDisabled(true)
 					private.defaultUISwitchBtn:Hide()
 				else
 					private.defaultUISwitchBtn:Show()
@@ -176,7 +179,7 @@ function private.FSMCreate()
 				assert(not context.frame)
 				context.frame = private.CreateMainFrame()
 				context.frame:Show()
-				if C_TradeSkillUI.GetTradeSkillLine() then
+				if TSM.Crafting.ProfessionUtil.GetCurrentProfessionName() then
 					context.frame:GetElement("titleFrame.switchBtn"):Show()
 				else
 					context.frame:GetElement("titleFrame.switchBtn"):Hide()

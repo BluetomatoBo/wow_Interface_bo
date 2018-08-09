@@ -232,7 +232,12 @@ end
 function Crafting.CreateCraftsQuery()
 	return private.spellDB:NewQuery()
 		:LeftJoin(TSM.Crafting.Queue.GetDBForJoin(), "spellId")
-		:InnerJoin(TSM.Crafting.Cost.GetCraftDBForJoin(), "spellId")
+		:VirtualField("bagQuantity", "number", TSMAPI_FOUR.Inventory.GetBagQuantity, "itemString")
+		:VirtualField("auctionQuantity", "number", TSMAPI_FOUR.Inventory.GetAuctionQuantity, "itemString")
+		:VirtualField("craftingCost", "number", private.CraftingCostVirtualField, "spellId")
+		:VirtualField("itemValue", "number", private.ItemValueVirtualField, "itemString")
+		:VirtualField("profit", "number", private.ProfitVirtualField, "spellId")
+		:VirtualField("saleRate", "number", private.SaleRateVirtualField, "itemString")
 end
 
 function Crafting.CreateQueuedCraftsQuery()
@@ -245,14 +250,11 @@ function Crafting.CreateCooldownSpellsQuery()
 		:Equal("hasCD", true)
 end
 
-function Crafting.CreateRawMatItemQuery()
-	return private.matItemDB:NewQuery()
-end
-
 function Crafting.CreateMatItemQuery()
 	return private.matItemDB:NewQuery()
 		:InnerJoin(TSM.ItemInfo.GetDBForJoin(), "itemString")
-		:InnerJoin(TSM.Crafting.Cost.GetMatDBForJoin(), "itemString")
+		:VirtualField("matCost", "number", private.MatCostVirtualField, "itemString")
+		:VirtualField("totalQuantity", "number", TSMAPI_FOUR.Inventory.GetTotalQuantity, "itemString")
 end
 
 function Crafting.SpellIterator()
@@ -273,7 +275,7 @@ function Crafting.GetMostProfitableSpellIdByItem(itemString, playerFilter)
 	local maxProfitCD, bestSpellIdCD = nil, nil
 	for _, spellId, hasCD in Crafting.GetSpellIdsByItem(itemString) do
 		if not playerFilter or TSMAPI_FOUR.Util.In(playerFilter, Crafting.GetPlayers(spellId)) then
-			local profit = Crafting.Cost.GetProfitBySpellId(spellId)
+			local profit = TSM.Crafting.Cost.GetProfitBySpellId(spellId)
 			if hasCD then
 				if profit and profit > (maxProfitCD or -math.huge) then
 					maxProfitCD = profit
@@ -660,4 +662,25 @@ function private.ProcessRemovedMats(removedMats)
 		end
 	end
 	private.matItemDB:SetQueryUpdatesPaused(false)
+end
+
+function private.CraftingCostVirtualField(spellId)
+	return TSM.Crafting.Cost.GetCraftingCostBySpellId(spellId) or math.huge * 0
+end
+
+function private.ItemValueVirtualField(itemString)
+	return TSM.Crafting.Cost.GetCraftedItemValue(itemString) or math.huge * 0
+end
+
+function private.ProfitVirtualField(spellId)
+	return TSM.Crafting.Cost.GetProfitBySpellId(spellId) or math.huge * 0
+end
+
+function private.SaleRateVirtualField(itemString)
+	local saleRate = TSM.AuctionDB.GetRegionItemData(itemString, "regionSalePercent")
+	return saleRate and (saleRate / 100) or math.huge * 0
+end
+
+function private.MatCostVirtualField(itemString)
+	return TSM.Crafting.Cost.GetMatCost(itemString) or math.huge * 0
 end
