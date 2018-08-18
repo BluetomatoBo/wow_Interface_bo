@@ -1,0 +1,142 @@
+commit 2eb3b298ce21839e9bca98276fe5d8b721368730
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Sun Aug 12 21:53:30 2018 +0000
+
+    Updating TOC to 80000
+
+commit 2b9a01000f18747cc58aa4ae003eb41eb4738b40
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Sat Aug 13 15:24:34 2016 +0000
+
+    Quest functions changed return lists again
+
+commit 37c3143f19c026b75b92d74737fad5524a807a59
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Sun Jul 31 13:57:57 2016 +0000
+
+    Updated toc to 70000
+
+commit 755013fa82ca62c9052d99753ff2563630a5f7b7
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Fri Jun 26 22:46:44 2015 +0000
+
+    Updating interface version
+
+commit 26bfd93ccddf2ce4e0c749b6d80de25f163e7a5f
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Sat Oct 18 20:29:55 2014 +0000
+
+    Removed reference to old frame that no longer exists in 6.0. Updated TOC to 60000
+
+commit ef3f6d6f91f0dc35c351f0cc432d1f7bdc16f0c9
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Tue Aug 28 05:50:38 2012 +0000
+
+    updated TOC
+    fixed gossip selection bug
+
+commit 938033ded7898a34eb7bdfa7e4b3f9567bea7bdf
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Mon Aug 27 23:41:42 2012 +0000
+
+    fixed long standing fontstring alpha bug
+    fixed calls to getgossip...quests for 5.0
+    fixed repeated npc interact bug on QUEST_PROGRESS for 5.0
+    updated TOC
+
+commit 6ca65486401d01c44373c79db76b65b50cbdfc57
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Thu Oct 14 16:56:15 2010 +0000
+
+    bumped TOC for 4.0
+
+commit 43ff4d9aa003d2c06665406fc29f6da31b9ef1ed
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Thu Sep 9 04:28:37 2010 +0000
+
+    event handler regression
+
+commit e80f696ac79a3be7ca1de771213473896e6056e5
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Thu Sep 9 04:20:16 2010 +0000
+
+    updated for cataclysm
+
+commit 5d9f11120a9cac5bcf4cd1295591ed514b5cc53f
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Thu Sep 9 01:53:19 2010 +0000
+
+    no message
+
+commit d9b2913ea5cc54cca5b66c1e01de9da8806ae5fc
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Thu Sep 9 01:47:23 2010 +0000
+
+    updated toc for curseforge compatible tag
+
+commit 406dba10afbbe6f758748834586a877527373d7c
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Thu Sep 9 01:38:02 2010 +0000
+
+    new toc
+
+commit cd7ba55c82d407fbc11a5247b083474f28ad6247
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Thu Sep 9 01:34:50 2010 +0000
+
+    fixes for 3.3.3 function return values change and additional features
+
+commit b5332e43de5393cf3ecdc4eb9c3b050376b89dcb
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Sun Feb 7 18:16:21 2010 +0000
+
+    updated TOC
+
+commit 9bf1ccc2f96f352766f12141a41534aecb13f919
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Sun Feb 7 18:11:24 2010 +0000
+
+    updated TOC
+
+commit 93512b01ddf835e223db2ba54b74a039bff8bfd2
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Sun Feb 7 18:07:04 2010 +0000
+
+    fixed bug with return values of GetGossipQuests
+
+commit 8ca09a66ce9b4e6a1d3e853378a02c40ed3e6cc4
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Sat Oct 18 07:22:52 2008 +0000
+
+    lol forgot the toc
+
+commit d95260d48bf02867c95938683f632f69551817a6
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Sat Oct 18 06:51:18 2008 +0000
+
+    updated for 3.0.2
+
+commit 37659d2451c60ea8e615e0b68a26e28cd3626b76
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Sat Oct 18 06:50:43 2008 +0000
+
+    stuff
+
+commit 62f9069e46f0c14f0455bc8640472bbd26164122
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Mon Jul 21 15:51:35 2008 +0000
+
+    updated TOC
+
+commit bf0cacefb99aafab7891d62527f5d1cd2408525c
+Author: SabinDeus <sabin1936@mac.com>
+Date:   Mon Jul 21 15:48:24 2008 +0000
+
+    initial commit
+
+commit 7f0df8959b35c941fed283bcf0dbb4e43e66544e
+Author: root <root>
+Date:   Mon Jul 21 15:18:35 2008 +0000
+
+    "turn-in/mainline: Initial Import"
+
