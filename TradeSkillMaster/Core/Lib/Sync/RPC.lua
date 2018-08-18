@@ -25,6 +25,7 @@ function RPC.OnInitialize()
 	TSM.Sync.Comm.RegisterHandler(TSM.Sync.DATA_TYPES.RPC_CALL, private.HandleCall)
 	TSM.Sync.Comm.RegisterHandler(TSM.Sync.DATA_TYPES.RPC_RETURN, private.HandleReturn)
 	TSM.Sync.Comm.RegisterHandler(TSM.Sync.DATA_TYPES.RPC_PREAMBLE, private.HandlePreamble)
+	TSMAPI_FOUR.Delay.AfterTime(1, private.CheckPending, 1)
 end
 
 function RPC.Register(name, func)
@@ -66,23 +67,6 @@ function RPC.Cancel(name, handler)
 			return
 		end
 	end
-end
-
-function RPC.CheckPending()
-	local timedOut = TSMAPI_FOUR.Util.AcquireTempTable()
-	for seq, info in pairs(private.pendingRPC) do
-		if time() > info.timeoutTime then
-			tinsert(timedOut, seq)
-		end
-	end
-	for _, seq in ipairs(timedOut) do
-		local info = private.pendingRPC[seq]
-		TSM:LOG_WARN("RPC timed out (%s)", info.name)
-		info.handler()
-		TSMAPI_FOUR.Util.ReleaseTempTable(info)
-		private.pendingRPC[seq] = nil
-	end
-	TSMAPI_FOUR.Util.ReleaseTempTable(timedOut)
 end
 
 
@@ -137,4 +121,30 @@ function private.HandlePreamble(dataType, _, _, data)
 	end
 	-- extend the timeout
 	private.pendingRPC[data.seq].timeoutTime = time() + RPC_EXTRA_TIMEOUT + data.transferTime
+end
+
+
+
+-- ============================================================================
+-- Private Helper Functions
+-- ============================================================================
+
+function private.CheckPending()
+	if not next(private.pendingRPC) then
+		return
+	end
+	local timedOut = TSMAPI_FOUR.Util.AcquireTempTable()
+	for seq, info in pairs(private.pendingRPC) do
+		if time() > info.timeoutTime then
+			tinsert(timedOut, seq)
+		end
+	end
+	for _, seq in ipairs(timedOut) do
+		local info = private.pendingRPC[seq]
+		TSM:LOG_WARN("RPC timed out (%s)", info.name)
+		info.handler()
+		TSMAPI_FOUR.Util.ReleaseTempTable(info)
+		private.pendingRPC[seq] = nil
+	end
+	TSMAPI_FOUR.Util.ReleaseTempTable(timedOut)
 end

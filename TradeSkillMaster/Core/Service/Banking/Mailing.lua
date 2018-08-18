@@ -50,7 +50,7 @@ end
 
 function private.NongroupGetNumToBank(itemString, numHave)
 	local hasOperations = false
-	for _ in TSMAPI_FOUR.Operations.Iterator("Mailing", TSMAPI_FOUR.Groups.GetPathByItem(itemString)) do
+	for _ in TSM.Operations.GroupOperationIterator("Mailing", TSM.Groups.GetPathByItem(itemString)) do
 		hasOperations = true
 	end
 	return not hasOperations and numHave or 0
@@ -58,7 +58,7 @@ end
 
 function private.TargetShortfallGetNumToBags(itemString, numHave)
 	local totalNumToSend = 0
-	for _, operationSettings in TSMAPI_FOUR.Operations.Iterator("Mailing", TSMAPI_FOUR.Groups.GetPathByItem(itemString)) do
+	for _, _, operationSettings in TSM.Operations.GroupOperationIterator("Mailing", TSM.Groups.GetPathByItem(itemString)) do
 		local numAvailable = numHave - operationSettings.keepQty
 		local numToSend = 0
 		if numAvailable > 0 then

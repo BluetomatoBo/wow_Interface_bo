@@ -397,26 +397,8 @@ end
 
 function private.GlobalOperationsConfirmed(checkbox, newValue)
 	checkbox:SetChecked(newValue, true)
-	-- we shouldn't be running the OnProfileUpdated callback while switching profiles
-	TSM.Modules.ignoreProfileUpdated = true
 	TSM.db.global.coreOptions.globalOperations = newValue
-	if TSM.db.global.coreOptions.globalOperations then
-		-- move current profile to global
-		TSM.db.global.userData.operations = CopyTable(TSM.db.profile.userData.operations)
-		-- clear out old operations
-		for _ in TSM.GetTSMProfileIterator() do
-			TSM.db.profile.userData.operations = nil
-		end
-	else
-		-- move global to all profiles
-		for _ in TSM.GetTSMProfileIterator() do
-			TSM.db.profile.userData.operations = CopyTable(TSM.db.global.userData.operations)
-		end
-		-- clear out old operations
-		TSM.db.global.userData.operations = nil
-	end
-	TSM.Modules.ignoreProfileUpdated = false
-	TSM.Modules.ProfileUpdated()
+	TSM.Operations.SetStoredGlobally(newValue)
 end
 
 function private.ChatTabOnSelectionChanged(self, selection)

@@ -47,6 +47,7 @@ function PlayerUtil.GetTargetPlayer(account)
 end
 
 function PlayerUtil.IsOnline(target, noAdd)
+	ShowFriends()
 	for i = 1, GetNumFriends() do
 		local name, _, _, _, connected = GetFriendInfo(i)
 		if name and strlower(name) == strlower(target) then

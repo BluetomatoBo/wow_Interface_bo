@@ -180,7 +180,7 @@ function private.GroupTreeOnGroupSelectionChanged(groupTree)
 		if groupPath == TSM.CONST.ROOT_GROUP_PATH then
 			-- TODO
 		else
-			for _ in TSMAPI_FOUR.Groups.ItemIterator(groupPath) do
+			for _ in TSM.Groups.ItemIterator(groupPath) do
 				numItems = numItems + 1
 			end
 		end

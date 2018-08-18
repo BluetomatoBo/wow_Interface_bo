@@ -62,7 +62,7 @@ function private.GetNumToMoveToBags(itemString, numHave, includeAH)
 	if includeAH then
 		numInBags = numInBags + select(3, TSMAPI_FOUR.Inventory.GetPlayerTotals(itemString)) + TSMAPI_FOUR.Inventory.GetMailQuantity(itemString)
 	end
-	for _, operationSettings in TSMAPI_FOUR.Operations.Iterator("Auctioning", TSMAPI_FOUR.Groups.GetPathByItem(itemString)) do
+	for _, _, operationSettings in TSM.Operations.GroupOperationIterator("Auctioning", TSM.Groups.GetPathByItem(itemString)) do
 		-- subtract the keep quantity
 		if operationSettings.keepQuantity > 0 then
 			if TSM.Banking.IsGuildBankOpen() and operationSettings.keepQtySources.guild then
@@ -101,7 +101,7 @@ end
 
 function private.MaxExpiresGetNumToMoveToBank(itemString, numHave)
 	local numToKeepInBags = 0
-	for _, operationSettings in TSMAPI_FOUR.Operations.Iterator("Auctioning", TSMAPI_FOUR.Groups.GetPathByItem(itemString)) do
+	for _, _, operationSettings in TSM.Operations.GroupOperationIterator("Auctioning", TSM.Groups.GetPathByItem(itemString)) do
 		local operationHasExpired = false
 		if operationSettings.maxExpires > 0 then
 			local numExpires = TSM.Accounting.Auctions.GetNumExpiresSinceSale(itemString)

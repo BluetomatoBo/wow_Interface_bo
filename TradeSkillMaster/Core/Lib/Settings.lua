@@ -157,20 +157,20 @@ function private.Constructor(name, rawSettingsInfo)
 		isValid = false
 	elseif not private.ValidateDB(db) then
 		-- corrupted DB
-		assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "@tsm-project-version@", "DB is not valid!")
+		assert(not TSMAPI_FOUR.Util.IsDevVersion("TradeSkillMaster"), "DB is not valid!")
 		isValid = false
 	elseif db._version == version and db._hash ~= hash then
 		-- the hash didn't match
-		assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "@tsm-project-version@", "Invalid settings hash! Did you forget to increase the version?")
+		assert(not TSMAPI_FOUR.Util.IsDevVersion("TradeSkillMaster"), "Invalid settings hash! Did you forget to increase the version?")
 		isValid = false
 	elseif db._version > version then
 		-- this is a downgrade
-		assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "@tsm-project-version@", "Unexpected DB version! If you really want to downgrade, comment out this line (remember to uncomment before committing).")
+		assert(not TSMAPI_FOUR.Util.IsDevVersion("TradeSkillMaster"), "Unexpected DB version! If you really want to downgrade, comment out this line (remember to uncomment before committing).")
 		isValid = false
 	elseif db._syncOwner and db._syncOwner[SCOPE_KEYS.sync] and db._syncOwner[SCOPE_KEYS.sync] ~= db._syncAccountKey[SCOPE_KEYS.factionrealm] then
 		-- we aren't the owner of this character, so wipe the DB and show a manual error
 		TSM.Sync.ShowSVCopyError()
-		assert(GetAddOnMetadata("TradeSkillMaster", "version") ~= "@tsm-project-version@", "Settings are corrupted due to manual copying of saved variables file")
+		assert(not TSMAPI_FOUR.Util.IsDevVersion("TradeSkillMaster"), "Settings are corrupted due to manual copying of saved variables file")
 		isValid = false
 	end
 	if not isValid then

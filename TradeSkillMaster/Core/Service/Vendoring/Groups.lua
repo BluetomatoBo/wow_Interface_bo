@@ -69,11 +69,11 @@ function private.BuyThread(groups)
 	local itemBuyQuantity = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
 	local query = TSM.Vendoring.Buy.CreateMerchantQuery()
 		:InnerJoin(TSM.ItemInfo.GetDBForJoin(), "itemString")
-		:InnerJoin(TSM.Groups.GetDBForJoin(), "itemString")
+		:InnerJoin(TSM.Groups.GetItemDBForJoin(), "itemString")
 		:Select("itemString", "groupPath", "numAvailable")
 	for _, itemString, groupPath, numAvailable in query:Iterator() do
 		if groups[groupPath] then
-			local operationSettings = TSM.Operations.GetFirstOptionsByItem("Vendoring", itemString)
+			local _, operationSettings = TSM.Operations.GetFirstOperationByItem("Vendoring", itemString)
 			if operationSettings.enableBuy then
 				local numToBuy = private.GetNumToBuy(itemString, operationSettings)
 				if numAvailable ~= -1 then
@@ -130,12 +130,12 @@ function private.SellThread(groups)
 	private.printedBagsFullMsg = false
 	local totalValue = 0
 	for _, groupPath in ipairs(groups) do
-		for _, operationSettings in TSMAPI_FOUR.Operations.Iterator("Vendoring", groupPath) do
+		for _, _, operationSettings in TSM.Operations.GroupOperationIterator("Vendoring", groupPath) do
 			if operationSettings.enableSell then
 				if groupPath == TSM.CONST.ROOT_GROUP_PATH then
 					-- TODO
 				else
-					for _, itemString in TSMAPI_FOUR.Groups.ItemIterator(groupPath) do
+					for _, itemString in TSM.Groups.ItemIterator(groupPath) do
 						totalValue = totalValue + private.SellItemThreaded(itemString, operationSettings)
 					end
 				end

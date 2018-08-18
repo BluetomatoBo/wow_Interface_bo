@@ -13,7 +13,6 @@ local private = {
 	newAccount = nil,
 	newSyncAcked = nil,
 	connectionChangedCallbacks = {},
-	managementThreadId = nil,
 	threadId = {},
 	threadRunning = {},
 	connectedPlayer = {},
@@ -45,8 +44,7 @@ function Connection.OnInitialize()
 		end
 	end)
 
-	private.managementThreadId = TSMAPI_FOUR.Thread.New("SYNC_MANAGEMENT", private.ManagementThread)
-	TSMAPI_FOUR.Thread.Start(private.managementThreadId)
+	private.PrepareFriendsInfo()
 end
 
 function Connection.RegisterConnectionChangedCallback(handler)
@@ -179,59 +177,46 @@ end
 
 
 -- ============================================================================
--- Sync Threads
+-- Management Loop / Sync Thread
 -- ============================================================================
 
-function private.ManagementThread()
+function private.PrepareFriendsInfo()
 	-- wait for friend info to populate
 	ShowFriends()
-	local retriesLeft = 600
-	while true do
-		local isValid = true
-		for i = 1, GetNumFriends() do
-			if not GetFriendInfo(i) then
-				isValid = false
-				break
-			end
-		end
-		if isValid then
+	local isValid = true
+	for i = 1, GetNumFriends() do
+		if not GetFriendInfo(i) then
+			isValid = false
 			break
-		elseif retriesLeft == 0 then
-			error("Could not get friend list information.")
-		else
-			retriesLeft = retriesLeft - 1
-			TSMAPI_FOUR.Thread.Sleep(0.1)
 		end
 	end
+	if isValid then
+		-- start the management loop
+		TSMAPI_FOUR.Delay.AfterTime(1, private.ManagementLoop, 1)
+	else
+		-- try again
+		TSMAPI_FOUR.Delay.AfterTime(0.5, private.PrepareFriendsInfo)
+	end
+end
 
-	-- continuously spawn connection threads with online players
-	while true do
-		for _, account in TSM.db:SyncAccountIterator() do
+function private.ManagementLoop()
+	-- continuously spawn connection threads with online players as necessary
+	for _, account in TSM.db:SyncAccountIterator() do
+		local targetPlayer = TSM.Sync.PlayerUtil.GetTargetPlayer(account)
+		if targetPlayer then
 			if not private.threadId[account] then
 				private.threadId[account] = TSMAPI_FOUR.Thread.New("SYNC_"..strmatch(account, "(%d+)$"), private.ConnectionThread)
 			end
 			if not private.threadRunning[account] and (private.suppressThreadTime[account] or 0) < time() then
 				private.threadRunning[account] = true
-				TSMAPI_FOUR.Thread.Start(private.threadId[account], account)
+				TSMAPI_FOUR.Thread.Start(private.threadId[account], account, targetPlayer)
 			end
 		end
-		TSM.Sync.RPC.CheckPending()
-		TSMAPI_FOUR.Thread.Sleep(0.1)
 	end
 end
 
 
-function private.ConnectionThreadInner(account)
-	-- wait for a target player to be online for the account
-	local targetPlayer = nil
-	while true do
-		targetPlayer = TSM.Sync.PlayerUtil.GetTargetPlayer(account)
-		if targetPlayer then
-			break
-		end
-		TSMAPI_FOUR.Thread.Sleep(1)
-	end
-
+function private.ConnectionThreadInner(account, targetPlayer)
 	-- for the initial handshake, the lower account key is the server, other is the client - after this it doesn't matter
 	-- add some randomness to the timeout so we don't get stuck in a race condition
 	local timeout = GetTime() + RECEIVE_TIMEOUT + random(0, 1000) / 1000
@@ -239,7 +224,9 @@ function private.ConnectionThreadInner(account)
 		-- wait for the connection request from the client
 		while not private.connectionRequestReceived[account] do
 			if GetTime() > timeout then
-				-- timed out on the connection
+				-- timed out on the connection - don't try again for a bit
+				TSM:LOG_WARN("Timed out")
+				private.suppressThreadTime[account] = time() + RECEIVE_TIMEOUT * 3
 				return
 			end
 			TSMAPI_FOUR.Thread.Yield(true)
@@ -252,7 +239,9 @@ function private.ConnectionThreadInner(account)
 		-- wait for the connection request ACK
 		while not private.connectionRequestReceived[account] do
 			if GetTime() > timeout then
-				-- timed out on the connection
+				-- timed out on the connection - don't try again for a bit
+				TSM:LOG_WARN("Timed out")
+				private.suppressThreadTime[account] = time() + RECEIVE_TIMEOUT * 3
 				return
 			end
 			TSMAPI_FOUR.Thread.Yield(true)
@@ -285,8 +274,8 @@ function private.ConnectionThreadInner(account)
 	end
 end
 
-function private.ConnectionThread(account)
-	private.ConnectionThreadInner(account)
+function private.ConnectionThread(account, targetPlayer)
+	private.ConnectionThreadInner(account, targetPlayer)
 	private.ConnectionThreadDone(account)
 end
 

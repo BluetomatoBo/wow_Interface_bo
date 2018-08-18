@@ -194,9 +194,9 @@ function TSMAPI_FOUR.Inventory.IsSoulbound(bag, slot)
 	if not TSMScanTooltip then
 		CreateFrame("GameTooltip", "TSMScanTooltip", UIParent, "GameTooltipTemplate")
 	end
-	TSMScanTooltip:Show()
-	TSMScanTooltip:SetClampedToScreen(false)
-	TSMScanTooltip:SetOwner(UIParent, "ANCHOR_BOTTOMRIGHT", 1000000, 100000)
+
+	TSMScanTooltip:SetOwner(UIParent, "ANCHOR_NONE")
+	TSMScanTooltip:ClearLines()
 
 	if GetContainerItemID(bag, slot) == TSMAPI_FOUR.Item.ToItemID(TSM.CONST.PET_CAGE_ITEMSTRING) then
 		-- battle pets are never BoP or BoA
@@ -249,10 +249,11 @@ function TSMAPI_FOUR.Inventory.HasUsedCharges(bag, slot)
 	if not TSMScanTooltip then
 		CreateFrame("GameTooltip", "TSMScanTooltip", UIParent, "GameTooltipTemplate")
 	end
-	TSMScanTooltip:Show()
-	TSMScanTooltip:SetClampedToScreen(false)
-	TSMScanTooltip:SetOwner(UIParent, "ANCHOR_BOTTOMRIGHT", 1000000, 100000)
+
+	TSMScanTooltip:SetOwner(UIParent, "ANCHOR_NONE")
+	TSMScanTooltip:ClearLines()
 	TSMScanTooltip:SetItemByID(itemId)
+
 	local maxCharges = private.GetScanTooltipCharges()
 	if not maxCharges then
 		return false
@@ -554,6 +555,9 @@ function private.ScanBagSlot(bag, slot)
 	if quantity and not itemId then
 		-- we are pending item info for this slot so try again later to scan it
 		return false
+	elseif quantity == 0 then
+		-- this item is going away, so try again later to scan it
+		return false
 	end
 	local baseItemString = link and TSMAPI_FOUR.Item.ToBaseItemString(link)
 	local slotId = TSMAPI_FOUR.Util.JoinSlotId(bag, slot)
@@ -610,9 +614,20 @@ function private.ScanBagSlot(bag, slot)
 end
 
 function private.GetScanTooltipCharges()
-	for id = 1, TSMScanTooltip:NumLines() do
+	for id = 2, TSMScanTooltip:NumLines() do
 		local text = private.GetTooltipText(_G["TSMScanTooltipTextLeft"..id])
-		local maxCharges = text and strmatch(text, "^([0-9]+) Charges?$")
+		local num = text and strmatch(text, "%d+")
+		local chargesStr = gsub(ITEM_SPELL_CHARGES, "%%d", "%%d+")
+		if strfind(chargesStr, ":") then
+			if num == 1 then
+				chargesStr = gsub(chargesStr, "\1244(.+):.+;", "%1")
+			else
+				chargesStr = gsub(chargesStr, "\1244.+:(.+);", "%1")
+			end
+		end
+
+		local maxCharges = text and strmatch(text, "^"..chargesStr.."$")
+
 		if maxCharges then
 			return maxCharges
 		end

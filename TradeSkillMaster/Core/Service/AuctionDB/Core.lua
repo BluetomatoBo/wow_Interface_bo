@@ -269,7 +269,7 @@ function private.GetItemDataHelper(tbl, key, itemString)
 		local quality = TSMAPI_FOUR.Item.GetQuality(itemString)
 		local itemLevel = TSMAPI_FOUR.Item.GetItemLevel(itemString)
 		local classId = TSMAPI_FOUR.Item.GetClassId(itemString)
-		if quality and quality >= 2 and itemLevel and itemLevel >= TSM.CONST.MIN_BONUS_ID_ITEM_LEVEL and (classId == LE_ITEM_CLASS_WEAPON or classId == LE_ITEM_CLASS_GEM or classId == LE_ITEM_CLASS_ARMOR) then
+		if quality and quality >= 2 and itemLevel and itemLevel >= TSM.CONST.MIN_BONUS_ID_ITEM_LEVEL and (classId == LE_ITEM_CLASS_WEAPON or classId == LE_ITEM_CLASS_ARMOR) then
 			if strmatch(itemString, "^i:[0-9]+:[0-9%-]*:") then return end
 		end
 		local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
@@ -292,7 +292,7 @@ function private.GetRegionItemDataHelper(tbl, key, itemString)
 		local quality = TSMAPI_FOUR.Item.GetQuality(itemString)
 		local itemLevel = TSMAPI_FOUR.Item.GetItemLevel(itemString)
 		local classId = TSMAPI_FOUR.Item.GetClassId(itemString)
-		if quality and quality >= 2 and itemLevel and itemLevel >= TSM.CONST.MIN_BONUS_ID_ITEM_LEVEL and (classId == LE_ITEM_CLASS_WEAPON or classId == LE_ITEM_CLASS_GEM or classId == LE_ITEM_CLASS_ARMOR) then
+		if quality and quality >= 2 and itemLevel and itemLevel >= TSM.CONST.MIN_BONUS_ID_ITEM_LEVEL and (classId == LE_ITEM_CLASS_WEAPON or classId == LE_ITEM_CLASS_ARMOR) then
 			if strmatch(itemString, "^i:[0-9]+:[0-9%-]*:") then
 				return
 			end

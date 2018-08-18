@@ -77,12 +77,14 @@ function private.DrawAuctionsPage()
 
 	private.query:Reset()
 		:InnerJoin(TSM.ItemInfo.GetDBForJoin(), "itemString")
-		:LeftJoin(TSM.Groups.GetDBForJoin(), "itemString")
+		:LeftJoin(TSM.Groups.GetItemDBForJoin(), "itemString")
 		:OrderBy("time", false)
 
 	wipe(private.groupList)
 	tinsert(private.groupList, ALL)
-	TSM.Groups:GetSortedGroupPathList(private.groupList)
+	for _, groupPath in TSM.Groups.GroupIterator() do
+		tinsert(private.groupList, groupPath)
+	end
 	private.UpdateQuery()
 
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")

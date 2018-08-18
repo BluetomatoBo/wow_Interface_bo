@@ -47,7 +47,7 @@ function private.GetAuctioningOperationSettings(operationName)
 end
 
 function private.GetDetailsSettings()
-	local operation = TSM.operations.Auctioning[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "content")
 		:SetStyle("background", "#1e1e1e")
 		:SetStyle("padding", { left = 16, right = 16, top = -8 })
@@ -73,7 +73,7 @@ function private.GetDetailsSettings()
 end
 
 function private.GetPostingSettings()
-	local operation = TSM.operations.Auctioning[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "content")
 		:SetStyle("background", "#1e1e1e")
 		:SetStyle("padding", { left = 16, right = 16, top = -8 })
@@ -217,7 +217,7 @@ function private.GetPostingSettings()
 end
 
 function private.GetCancelSettings()
-	local operation = TSM.operations.Auctioning[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "content")
 		:SetStyle("background", "#1e1e1e")
 		:SetStyle("padding", { left = 16, right = 16, top = -8 })
@@ -258,7 +258,7 @@ function private.GetAuctioningSettings(self, button)
 end
 
 function private.AddBlacklistPlayers(frame)
-	local operation = TSM.operations.Auctioning[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	if operation.blacklist == "" then return end
 	local containerFrame = TSMAPI_FOUR.UI.NewElement("Frame", "blacklistFrame")
 		:SetLayout("FLOW")
@@ -289,7 +289,7 @@ function private.AddBlacklistPlayers(frame)
 end
 
 function private.CreateNumericInputLine(key, label, max)
-	local operation = TSM.operations.Auctioning[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	return TSM.MainUI.Operations.CreateLinkedSettingLine(key, label)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", key.."Frame")
 			:SetLayout("HORIZONTAL")
@@ -315,7 +315,7 @@ function private.CreateNumericInputLine(key, label, max)
 end
 
 function private.CreateToggleLine(key, label)
-	local operation = TSM.operations.Auctioning[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	return TSM.MainUI.Operations.CreateLinkedSettingLine(key, label)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", key.."Frame")
 			:SetLayout("HORIZONTAL")
@@ -336,7 +336,7 @@ end
 -- ============================================================================
 
 function private.AuctioningIgnoreLowDuration(self, selection)
-	local operation = TSM.operations.Auctioning[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	operation.ignoreLowDuration = TSMAPI_FOUR.Util.GetDistinctTableKey(IGNORE_DURATION_OPTIONS, selection) - 1
 end
 
@@ -346,7 +346,7 @@ function private.BlacklistInputOnEnterPressed(input)
 		-- this is an invalid player name
 		return
 	end
-	local operation = TSM.operations.Auctioning[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	local found = false
 	for _, player in TSMAPI_FOUR.Util.VarargIterator(strsplit(",", operation.blacklist)) do
 		if newPlayer == player then
@@ -365,7 +365,7 @@ end
 function private.RemoveBlacklistOnClick(self)
 	local player = self:GetContext()
 	-- FIXME: This sort of logic should go within some Auctioning-specific operation setting wrapper code
-	local operation = TSM.operations.Auctioning[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	if operation.blacklist == player then
 		operation.blacklist = ""
 	else
@@ -378,12 +378,13 @@ function private.RemoveBlacklistOnClick(self)
 end
 
 function private.SetAuctioningDuration(self, value)
+	local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
 	if value == AUCTION_DURATION_ONE then
-		TSM.operations.Auctioning[private.currentOperationName].duration = 12
+		operation.duration = 12
 	elseif value == AUCTION_DURATION_TWO then
-		TSM.operations.Auctioning[private.currentOperationName].duration = 24
+		operation.duration = 24
 	elseif value == AUCTION_DURATION_THREE then
-		TSM.operations.Auctioning[private.currentOperationName].duration = 48
+		operation.duration = 48
 	else
 		error("Unknown value: "..tostring(value))
 	end
@@ -400,7 +401,8 @@ function private.BidPercentOnEnterPressed(self)
 		value = min(value, 100)
 		value = TSMAPI_FOUR.Util.Round(value)
 		value = value / 100
-		TSM.operations.Auctioning[private.currentOperationName].bidPercent = value
+		local operation = TSM.Operations.GetSettings("Auctioning", private.currentOperationName)
+		operation.bidPercent = value
 
 		local percentValue = (value * 100) .. "%"
 		self:SetText(percentValue)

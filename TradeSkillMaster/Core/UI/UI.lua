@@ -335,18 +335,24 @@ end
 -- @tparam table headerNameLookup The lookup table to populate with the group header (currently just "Base Group")
 -- @tparam string moduleName The name of the module to filter groups by
 function TSM.UI.ApplicationGroupTreeGetGroupList(groups, headerNameLookup, moduleName)
-	TSM.Groups:GetSortedGroupPathList(groups)
+	for _, groupPath in TSM.Groups.GroupIterator() do
+		tinsert(groups, groupPath)
+	end
 
 	-- need to filter out the groups without operations
 	local keep = TSMAPI_FOUR.Util.AcquireTempTable()
 	for i = #groups, 1, -1 do
 		local groupPath = groups[i]
-		if TSMAPI_FOUR.Groups.HasOperationsByModule(groupPath, moduleName) then
+		local hasOperations = false
+		for _ in TSM.Operations.GroupOperationIterator(moduleName, groupPath) do
+			hasOperations = true
+		end
+		if hasOperations then
 			-- add all parent groups to the keep table so we don't remove those
-			local checkPath = TSMAPI_FOUR.Groups.SplitPath(groupPath)
+			local checkPath = TSM.Groups.Path.GetParent(groupPath)
 			while checkPath and checkPath ~= TSM.CONST.ROOT_GROUP_PATH do
 				keep[checkPath] = true
-				checkPath = TSMAPI_FOUR.Groups.SplitPath(checkPath)
+				checkPath = TSM.Groups.Path.GetParent(checkPath)
 			end
 		elseif not keep[groupPath] then
 			tremove(groups, i)

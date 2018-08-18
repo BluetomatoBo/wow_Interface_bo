@@ -29,7 +29,7 @@ end
 
 function private.GetWarehousingOperationSettings(operationName)
 	private.currentOperationName = operationName
-	local operation = TSM.operations.Warehousing[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Warehousing", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Texture", "line")

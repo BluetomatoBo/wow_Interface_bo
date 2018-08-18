@@ -54,7 +54,7 @@ function ExportConfirmationList.SetExporter(self, exporter, redraw)
 	end
 
 	self:_AddSectionLabel("OPERATIONS_HEADER", L["Selected Operations"])
-	for _, module in ipairs(TSM.Operations:GetModulesWithOperations()) do
+	for _, module in TSM.Operations.ModuleIterator() do
 		self:_AddModuleHeader(module)
 		local operations = self._exporter.operations[module]
 		for name, details in pairs(operations) do

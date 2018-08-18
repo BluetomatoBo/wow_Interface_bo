@@ -57,13 +57,18 @@ function private:CanLootMailIndex(index, copper)
 	local hasItem = select(8, GetInboxHeaderInfo(index))
 	if not hasItem or hasItem == 0 then return true end
 	for j = 1, ATTACHMENTS_MAX_RECEIVE do
-		-- TODO: prevent logging unique items if you already have one in your bags, and items that you can't loot because of internal mail error
-		if CalculateTotalNumberOfFreeBagSlots() <= TSM.db.global.mailingOptions.keepMailSpace then
+		-- TODO: prevent items that you can't loot because of internal mail error
+		if CalculateTotalNumberOfFreeBagSlots() <= 0 then
 			return
 		end
 		local link = GetInboxItemLink(index, j)
 		local itemString = TSMAPI_FOUR.Item.ToItemString(link)
 		local quantity = select(4, GetInboxItem(index, j)) or 0
+		local maxUnique = private.GetInboxMaxUnique(index, j)
+		-- dont record unique items that we can't loot
+		if maxUnique > 0 and maxUnique < TSMAPI_FOUR.Inventory.GetPlayerTotals(itemString) + quantity then
+			return
+		end
 		if itemString then
 			for bag = 0, NUM_BAG_SLOTS do
 				if TSMAPI_FOUR.Inventory.ItemWillGoInBag(link, bag) then
@@ -83,6 +88,47 @@ function private:CanLootMailIndex(index, copper)
 			end
 		end
 	end
+end
+
+function private.GetInboxMaxUnique(index, num)
+	if not num then
+		num = 1
+	end
+
+	if not TSMScanTooltip then
+		CreateFrame("GameTooltip", "TSMScanTooltip", UIParent, "GameTooltipTemplate")
+	end
+
+	TSMScanTooltip:SetOwner(UIParent, "ANCHOR_NONE")
+	TSMScanTooltip:ClearLines()
+
+	local _, speciesId = TSMScanTooltip:SetInboxItem(index, num)
+	if (speciesId or 0) > 0 then
+		return 0
+	else
+		for id = 2, TSMScanTooltip:NumLines() do
+			local text = private.GetTooltipText(_G["TSMScanTooltipTextLeft"..id])
+			if text then
+				if text == ITEM_UNIQUE then
+					return 1
+				else
+					local match = text and strmatch(text, "^"..ITEM_UNIQUE.." %((%d+)%)$")
+					if match then
+						return tonumber(match)
+					end
+				end
+			end
+		end
+	end
+
+	return 0
+end
+
+function private.GetTooltipText(text)
+	local textStr = strtrim(text and text:GetText() or "")
+	if textStr == "" then return end
+
+	return textStr
 end
 
 -- scans the mail that the player just attempted to collected (Pre-Hook)

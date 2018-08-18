@@ -29,7 +29,7 @@ end
 
 function private.GetSniperOperationSettings(operationName)
 	private.currentOperationName = operationName
-	local operation = TSM.operations.Sniper[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Sniper", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Texture", "line")

@@ -82,7 +82,7 @@ end
 -- ============================================================================
 
 function private.InGroups(itemString, groups)
-	local groupPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString)
+	local groupPath = TSM.Groups.GetPathByItem(itemString)
 	-- TODO: support the base group
 	return groupPath and groupPath ~= TSM.CONST.ROOT_GROUP_PATH and groups[groupPath]
 end

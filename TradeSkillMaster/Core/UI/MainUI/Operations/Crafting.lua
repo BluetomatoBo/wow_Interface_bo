@@ -29,7 +29,7 @@ end
 
 function private.GetCraftingOperationSettings(operationName)
 	private.currentOperationName = operationName
-	local operation = TSM.operations.Crafting[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Crafting", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Texture", "line")
@@ -49,7 +49,7 @@ function private.GetCraftingOperationSettings(operationName)
 					-- move the right by the width of the toggle so this frame gets half the total width
 					:SetStyle("margin", { right = -TSM.UI.TexturePacks.GetWidth("uiFrames.ToggleOn") })
 					:AddChild(TSMAPI_FOUR.UI.NewElement("ToggleOnOff", "toggle")
-						:SetValue(operation.minProfit ~= nil)
+						:SetValue(operation.minProfit ~= "")
 						:SetDisabled(operation.relationships.minProfit and true or false)
 						:SetScript("OnValueChanged", private.MinProfitToggleOnValueChanged)
 					)
@@ -58,16 +58,16 @@ function private.GetCraftingOperationSettings(operationName)
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "minProfitInputFrame")
 				:SetLayout("VERTICAL")
-				:AddChild(TSM.MainUI.Operations.CreateLinkedSettingLine("minProfit", L["Minimum profit:"], operation.minProfit == nil)
+				:AddChild(TSM.MainUI.Operations.CreateLinkedSettingLine("minProfit", L["Minimum profit:"], operation.minProfit == "")
 					:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "input")
 						:SetStyle("background", "#5c5c5c")
 						:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
 						:SetStyle("fontHeight", 16)
 						:SetStyle("justifyH", "LEFT")
 						:SetStyle("textColor", "#ffffff")
-						:SetDisabled((operation.relationships.minProfit and true or false) or operation.minProfit == nil)
+						:SetDisabled((operation.relationships.minProfit and true or false) or operation.minProfit == "")
 						:SetSettingInfo(operation, "minProfit", TSM.MainUI.Operations.CheckCustomPrice)
-						:SetText(TSMAPI_FOUR.Money.ToString(operation.minProfit, "OPT_NO_COLOR") or operation.minProfit or "")
+						:SetText(TSMAPI_FOUR.Money.ToString(operation.minProfit, "OPT_NO_COLOR") or operation.minProfit)
 					)
 				)
 			)
@@ -78,7 +78,7 @@ function private.GetCraftingOperationSettings(operationName)
 					-- move the right by the width of the toggle so this frame gets half the total width
 					:SetStyle("margin", { right = -TSM.UI.TexturePacks.GetWidth("uiFrames.ToggleOn") })
 					:AddChild(TSMAPI_FOUR.UI.NewElement("ToggleOnOff", "toggle")
-						:SetValue(operation.craftPriceMethod ~= nil)
+						:SetValue(operation.craftPriceMethod ~= "")
 						:SetDisabled(operation.relationships.craftPriceMethod and true or false)
 						:SetScript("OnValueChanged", private.CraftPriceToggleOnValueChanged)
 					)
@@ -88,7 +88,7 @@ function private.GetCraftingOperationSettings(operationName)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "craftPriceLabel")
 				:SetStyle("height", 26)
 				:SetStyle("fontHeight", 14)
-				:SetStyle("textColor", (operation.relationships.craftPriceMethod or operation.craftPriceMethod == nil) and "#424242" or "#e2e2e2")
+				:SetStyle("textColor", (operation.relationships.craftPriceMethod or operation.craftPriceMethod == "") and "#424242" or "#e2e2e2")
 				:SetText(L["Craft value method:"])
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "craftPriceInput")
@@ -98,7 +98,7 @@ function private.GetCraftingOperationSettings(operationName)
 				:SetStyle("fontHeight", 16)
 				:SetStyle("justifyH", "LEFT")
 				:SetStyle("textColor", "#ffffff")
-				:SetDisabled((operation.relationships.craftPriceMethod and true or false) or operation.craftPriceMethod == nil)
+				:SetDisabled((operation.relationships.craftPriceMethod and true or false) or operation.craftPriceMethod == "")
 				:SetSettingInfo(operation, "craftPriceMethod", TSM.MainUI.Operations.CheckCustomPrice)
 				:SetText(TSMAPI_FOUR.Money.ToString(operation.craftPriceMethod, "OPT_NO_COLOR") or operation.craftPriceMethod or TSM.db.global.craftingOptions.defaultCraftPriceMethod)
 			)
@@ -107,7 +107,7 @@ function private.GetCraftingOperationSettings(operationName)
 end
 
 function private.CreateNumericInputLine(key, label, minValue, maxValue)
-	local operation = TSM.operations.Crafting[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Crafting", private.currentOperationName)
 	return TSM.MainUI.Operations.CreateLinkedSettingLine(key, label)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", key.."Frame")
 			:SetLayout("HORIZONTAL")
@@ -139,12 +139,8 @@ end
 -- ============================================================================
 
 function private.MinProfitToggleOnValueChanged(toggle, value)
-	local operation = TSM.operations.Crafting[private.currentOperationName]
-	if value then
-		operation.minProfit = TSM.Operations.GetDefaults("Crafting").minProfit
-	else
-		operation.minProfit = nil
-	end
+	local operation = TSM.Operations.GetSettings("Crafting", private.currentOperationName)
+	operation.minProfit = value and TSM.Operations.GetSettingDefault("Crafting", "minProfit")
 	local settingsFrame = toggle:GetParentElement():GetParentElement():GetParentElement()
 	settingsFrame:GetElement("minProfitInputFrame.minProfit.left.linkBtn")
 		:SetStyle("backgroundVertexColor", value and "#ffffff" or "#424242")
@@ -153,22 +149,18 @@ function private.MinProfitToggleOnValueChanged(toggle, value)
 		:SetStyle("textColor", value and "#e2e2e2" or "#424242")
 	settingsFrame:GetElement("minProfitInputFrame.minProfit.input")
 		:SetDisabled(not value)
-		:SetText(TSMAPI_FOUR.Money.ToString(operation.minProfit, "OPT_NO_COLOR") or operation.minProfit or "")
+		:SetText(TSMAPI_FOUR.Money.ToString(operation.minProfit, "OPT_NO_COLOR") or operation.minProfit)
 	settingsFrame:Draw()
 end
 
 function private.CraftPriceToggleOnValueChanged(toggle, value)
-	local operation = TSM.operations.Crafting[private.currentOperationName]
-	if value then
-		operation.craftPriceMethod = TSM.db.global.craftingOptions.defaultCraftPriceMethod
-	else
-		operation.craftPriceMethod = nil
-	end
+	local operation = TSM.Operations.GetSettings("Crafting", private.currentOperationName)
+	operation.craftPriceMethod = value and TSM.db.global.craftingOptions.defaultCraftPriceMethod or ""
 	local settingsFrame = toggle:GetParentElement():GetParentElement():GetParentElement()
 	settingsFrame:GetElement("craftPriceLabel")
 		:SetStyle("textColor", value and "#e2e2e2" or "#424242")
 	settingsFrame:GetElement("craftPriceInput")
 		:SetDisabled(not value)
-		:SetText(TSMAPI_FOUR.Money.ToString(operation.craftPriceMethod, "OPT_NO_COLOR") or operation.craftPriceMethod or TSM.db.global.craftingOptions.defaultCraftPriceMethod)
+		:SetText(operation.craftPriceMethod ~= "" and operation.craftPriceMethod or TSM.db.global.craftingOptions.defaultCraftPriceMethod)
 	settingsFrame:Draw()
 end

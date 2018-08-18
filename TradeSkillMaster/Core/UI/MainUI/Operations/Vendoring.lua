@@ -31,7 +31,7 @@ end
 function private.GetVendoringOperationSettings(operationName)
 	private.currentOperationName = operationName
 
-	local operation = TSM.operations.Vendoring[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Vendoring", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Texture", "line")
@@ -212,7 +212,7 @@ end
 -- ============================================================================
 
 function private.EnableBuyingToggleOnValueChanged(toggle, value)
-	local operation = TSM.operations.Vendoring[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Vendoring", private.currentOperationName)
 	local settingsFrame = toggle:GetParentElement():GetParentElement():GetParentElement()
 	settingsFrame:GetElement("restockQtyFrame.left.linkBtn")
 		:SetStyle("backgroundVertexColor", value and "#ffffff" or "#424242")
@@ -233,7 +233,7 @@ function private.EnableBuyingToggleOnValueChanged(toggle, value)
 end
 
 function private.EnableSellingToggleOnValueChanged(toggle, value)
-	local operation = TSM.operations.Vendoring[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Vendoring", private.currentOperationName)
 	local settingsFrame = toggle:GetParentElement():GetParentElement():GetParentElement()
 	settingsFrame:GetElement("keepQtyFrame.left.linkBtn")
 		:SetStyle("backgroundVertexColor", value and "#ffffff" or "#424242")

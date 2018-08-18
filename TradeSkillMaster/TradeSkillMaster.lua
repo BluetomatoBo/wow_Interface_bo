@@ -16,6 +16,12 @@ local private = { appInfo = nil }
 TSMAPI = {Operations={}, Settings={}}
 local APP_INFO_REQUIRED_KEYS = { "version", "lastSync", "addonVersions", "message", "news" }
 local LOGOUT_TIME_WARNING_THRESHOLD_MS = 20
+do
+	-- show a message if we were updated
+	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.0.18" then
+		message("TSM was just updated and may not work properly until you restart WoW.")
+	end
+end
 
 -- Changelog:
 -- [6] added 'global.locale' key
@@ -488,12 +494,6 @@ function TSM.OnInitialize()
 	-- store the class of this character
 	TSM.db.sync.internalData.classKey = select(2, UnitClass("player"))
 
-	if TSM.db.global.coreOptions.globalOperations then
-		TSM.operations = TSM.db.global.userData.operations
-	else
-		TSM.operations = TSM.db.profile.userData.operations
-	end
-
 	TSM.db:RegisterCallback("OnLogout", private.OnLogout)
 
 	-- core price sources
@@ -710,40 +710,40 @@ function TSM.OnTSMDBShutdown()
 	-- save errors
 	TSM.SaveErrorReports(appDB)
 
-	local function GetShoppingMaxPrice(itemString, groupPath)
-		local operationName = TSM.db.profile.userData.groups[groupPath].Shopping[1]
-		if not operationName or operationName == "" or TSM.Modules:IsOperationIgnored("Shopping", operationName) then return end
-		local operation = TSM.operations.Shopping[operationName]
-		if not operation or type(operation.maxPrice) ~= "string" then return end
+	local function GetShoppingMaxPrice(itemString)
+		local operation = TSM.Operations.GetFirstOperationByItem("Shopping", itemString)
+		if not operation or type(operation.maxPrice) ~= "string" then
+			return
+		end
 		local value = TSMAPI_FOUR.CustomPrice.GetValue(operation.maxPrice, itemString)
-		if not value or value <= 0 then return end
+		if not value or value <= 0 then
+			return
+		end
 		return value
 	end
 
 	-- save TSM_Shopping max prices in the app DB
-	if TSM.operations.Shopping then
-		appDB.shoppingMaxPrices = {}
-		for profile in TSM.GetTSMProfileIterator() do
-			local profileGroupData = {}
-			for itemString, groupPath in pairs(TSM.db.profile.userData.items) do
-				local itemId = tonumber(strmatch(itemString, "^i:([0-9]+)$"))
-				if itemId and TSM.db.profile.userData.groups[groupPath] and TSM.db.profile.userData.groups[groupPath].Shopping then
-					local maxPrice = GetShoppingMaxPrice(itemString, groupPath)
-					if maxPrice then
-						if not profileGroupData[groupPath] then
-							profileGroupData[groupPath] = {}
-						end
-						tinsert(profileGroupData[groupPath], "["..table.concat({itemId, maxPrice}, ",").."]")
+	appDB.shoppingMaxPrices = {}
+	for profile in TSM.GetTSMProfileIterator() do
+		local profileGroupData = {}
+		for _, itemString, groupPath in TSM.Groups.ItemIterator() do
+			local itemId = tonumber(strmatch(itemString, "^i:([0-9]+)$"))
+			if itemId then
+				local maxPrice = GetShoppingMaxPrice(itemString)
+				if maxPrice then
+					if not profileGroupData[groupPath] then
+						profileGroupData[groupPath] = {}
 					end
+					tinsert(profileGroupData[groupPath], "["..table.concat({itemId, maxPrice}, ",").."]")
 				end
 			end
-			if next(profileGroupData) then
-				appDB.shoppingMaxPrices[profile] = {}
-				for groupPath, data in pairs(profileGroupData) do
-					appDB.shoppingMaxPrices[profile][groupPath] = "["..table.concat(data, ",").."]"
-				end
-				appDB.shoppingMaxPrices[profile].updateTime = time()
+		end
+		if next(profileGroupData) then
+			appDB.shoppingMaxPrices[profile] = {}
+			for groupPath, data in pairs(profileGroupData) do
+				appDB.shoppingMaxPrices[profile][groupPath] = "["..table.concat(data, ",").."]"
 			end
+			appDB.shoppingMaxPrices[profile].updateTime = time()
 		end
 	end
 
@@ -830,15 +830,19 @@ function private.DebugSlashCommandHandler(arg)
 	elseif arg == "logout" then
 		TSM.AddonTestLogout()
 		private.OnLogout()
+	elseif arg == "clearitemdb" then
+		TSMItemInfoDB = nil
+		ReloadUI()
 	end
 end
 
 function private.PrintVersions()
 	TSM:Print(L["TSM Version Info:"])
 	TSM:PrintfRaw("TradeSkillMaster |cff99ffff%s|r", TSM:GetVersion())
-	local appHelperVersion = GetAddOnMetadata("TradeSkillMaster", "Version")
+	local appHelperVersion = GetAddOnMetadata("TradeSkillMaster_AppHelper", "Version")
 	if appHelperVersion then
-		if appHelperVersion == "@tsm-project-version@" then
+		-- use strmatch so that our sed command doesn't replace this string
+		if strmatch(appHelperVersion, "^@tsm%-project%-version@$") then
 			appHelperVersion = "Dev"
 		end
 		TSM:PrintfRaw("TradeSkillMaster_AppHelper |cff99ffff%s|r", appHelperVersion)
@@ -884,11 +888,7 @@ function TSM:GetChatFrame()
 end
 
 function TSM:GetVersion()
-	local version = GetAddOnMetadata("TradeSkillMaster", "Version")
-	if version == "@tsm-project-version@" then
-		version = "Dev"
-	end
-	return version
+	return TSMAPI_FOUR.Util.IsDevVersion("TradeSkillMaster") and "Dev" or GetAddOnMetadata("TradeSkillMaster", "Version")
 end
 
 

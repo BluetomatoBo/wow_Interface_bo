@@ -30,7 +30,6 @@ function ManagementGroupTree.__init(self)
 
 	self._selectedGroup = nil
 	self._onGroupSelectedHandler = nil
-	self._onGroupModifiedHandler = nil
 	self._scrollAmount = 0
 end
 
@@ -75,7 +74,6 @@ end
 function ManagementGroupTree.Release(self)
 	self._selectedGroup = nil
 	self._onGroupSelectedHandler = nil
-	self._onGroupModifiedHandler = nil
 	self._selectedRowFrame:Release()
 	self._selectedRowFrame = nil
 	self._moveFrame:Release()
@@ -101,11 +99,11 @@ function ManagementGroupTree.SetSelectedGroup(self, groupPath, redraw)
 	end
 	if redraw then
 		-- make sure this group is visible (its parent is expanded)
-		local parent = TSMAPI_FOUR.Groups.SplitPath(groupPath)
+		local parent = TSM.Groups.Path.GetParent(groupPath)
 		self._contextTbl.collapsed[TSM.CONST.ROOT_GROUP_PATH] = nil
 		while parent and parent ~= TSM.CONST.ROOT_GROUP_PATH do
 			self._contextTbl.collapsed[parent] = nil
-			parent = TSMAPI_FOUR.Groups.SplitPath(parent)
+			parent = TSM.Groups.Path.GetParent(parent)
 		end
 		self:_UpdateData()
 		self:Draw()
@@ -116,15 +114,13 @@ end
 
 --- Registers a script handler.
 -- @tparam ManagementGroupTree self The management group tree object
--- @tparam string script The script to register for (supported scripts: `OnGroupSelected`, `OnGroupModified`)
+-- @tparam string script The script to register for (supported scripts: `OnGroupSelected`)
 -- @tparam function handler The script handler which will be called with the management group tree object followed by
 -- any arguments to the script
 -- @treturn ManagementGroupTree The management group tree object
 function ManagementGroupTree.SetScript(self, script, handler)
 	if script == "OnGroupSelected" then
 		self._onGroupSelectedHandler = handler
-	elseif script == "OnGroupModified" then
-		self._onGroupModifiedHandler = handler
 	else
 		error("Unknown ManagementGroupTree script: "..tostring(script))
 	end
@@ -267,10 +263,15 @@ end
 
 function private.PlusButtonOnClick(button)
 	local self = button:GetParentElement():GetContext()
-	local newGroupPath = TSMAPI_FOUR.Groups.JoinPath(self._selectedGroup, L["New Group"])
-	newGroupPath = TSMAPI_FOUR.Groups.CreateLikeName(newGroupPath)
-
-	self:_onGroupModifiedHandler(nil, newGroupPath)
+	local newGroupPath = TSM.Groups.Path.Join(self._selectedGroup, L["New Group"])
+	if TSM.Groups.Exists(newGroupPath) then
+		local num = 1
+		while TSM.Groups.Exists(newGroupPath.." "..num) do
+			num = num + 1
+		end
+		newGroupPath = newGroupPath.." "..num
+	end
+	TSM.Groups.Create(newGroupPath)
 	self:SetSelectedGroup(newGroupPath, true)
 end
 
@@ -280,7 +281,7 @@ function private.DeleteButtonOnClick(button)
 end
 
 function private.DeleteConfirmed(self)
-	self:_onGroupModifiedHandler(self._selectedGroup, nil)
+	TSM.Groups.Delete(self._selectedGroup)
 	self:SetSelectedGroup(TSM.CONST.ROOT_GROUP_PATH, true)
 end
 
@@ -303,7 +304,6 @@ function private.RowOnDragStart(frame)
 		return
 	end
 	local text = self._texts.text
-	local _, groupName = TSMAPI_FOUR.Groups.SplitPath(groupPath)
 	scrollingList._dragGroupPath = groupPath
 	scrollingList._moveFrame:Show()
 	scrollingList._moveFrame:SetStyle("height", scrollingList:_GetStyle("rowHeight"))
@@ -313,7 +313,7 @@ function private.RowOnDragStart(frame)
 	local font, fontHeight = text:GetFont()
 	moveFrameText:SetStyle("font", font)
 	moveFrameText:SetStyle("fontHeight", fontHeight)
-	moveFrameText:SetText(groupName)
+	moveFrameText:SetText(TSM.Groups.Path.GetName(groupPath))
 	scrollingList._moveFrame:SetStyle("width", text:GetStringWidth() + scrollingList:_GetStyle("moveFramePadding"))
 	scrollingList._moveFrame:Draw()
 end
@@ -337,17 +337,16 @@ function private.RowOnDragStop(frame)
 	end
 	local oldPath = scrollingList._dragGroupPath
 	scrollingList._dragGroupPath = nil
-	if not destPath or destPath == oldPath or TSMAPI_FOUR.Groups.IsChild(destPath, oldPath) then
+	if not destPath or destPath == oldPath or TSM.Groups.Path.IsChild(destPath, oldPath) then
 		return
 	end
-	local _, groupName = TSMAPI_FOUR.Groups.SplitPath(oldPath)
-	local newPath = TSMAPI_FOUR.Groups.JoinPath(destPath, groupName)
+	local newPath = TSM.Groups.Path.Join(destPath, TSM.Groups.Path.GetName(oldPath))
 	if oldPath == newPath then
 		return
-	elseif TSMAPI_FOUR.Groups.Exists(newPath) then
+	elseif TSM.Groups.Exists(newPath) then
 		return
 	end
 
-	scrollingList:_onGroupModifiedHandler(oldPath, newPath)
+	TSM.Groups.Move(oldPath, newPath)
 	scrollingList:SetSelectedGroup(newPath, true)
 end

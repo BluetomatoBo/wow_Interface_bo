@@ -78,12 +78,11 @@ function Cost.GetCraftingCostBySpellId(spellId)
 end
 
 function Cost.GetCraftedItemValue(itemString)
-	-- TODO: replace with new operation APIs
-	local operationName, operationSettings = TSMAPI.Operations:GetFirstByItem(itemString, "Crafting")
+	local operationName, operationSettings = TSM.Operations.GetFirstOperationByItem("Crafting", itemString)
 	if operationSettings then
-		TSMAPI.Operations:Update("Crafting", operationName)
+		TSM.Operations.Update("Crafting", operationName)
 	end
-	local priceStr = operationSettings and operationSettings.craftPriceMethod or TSM.db.global.craftingOptions.defaultCraftPriceMethod
+	local priceStr = operationSettings and operationSettings.craftPriceMethod ~= "" and operationSettings.craftPriceMethod or TSM.db.global.craftingOptions.defaultCraftPriceMethod
 	return TSMAPI_FOUR.CustomPrice.GetValue(priceStr, itemString)
 end
 

@@ -2,7 +2,7 @@
 ## Title: |cff00fe00TradeSkillMaster|r
 ## Notes: Auction house and gold making addon.
 ## Author: TSM Team
-## Version: v4.0.13
+## Version: v4.0.18
 ## SavedVariables: TradeSkillMasterDB, TSMItemCacheDB, TSMItemInfoDB, TradeSkillMasterModulesDB
 ## OptionalDeps: CostBasis, Auc-Advanced, Auctionator, TheUndermineJournal
 ## X-Embeds: AccurateTime, Ace3, LibDataBroker-1.1, LibDBIcon-1.0, LibCompress, LibRealmInfo
@@ -89,12 +89,9 @@ Core\Lib\CustomPrice.lua
 Core\Lib\Delay.lua
 Core\Lib\Exporter.lua
 Core\Lib\Features.lua
-Core\Lib\Groups.lua
 Core\Lib\Importer.lua
 Core\Lib\ItemFilter.lua
 Core\Lib\ItemInfo.lua
-Core\Lib\Modules.lua
-Core\Lib\Operations.lua
 Core\Lib\PlayerInfo.lua
 Core\Lib\SlashCommands.lua
 Core\Lib\TooltipLib.lua
@@ -253,6 +250,16 @@ Core\UI\BankingUI\Core.lua
 Core\UI\Debug\DBViewer.lua
 
 # Service files (depend on main addon file being loaded)
+Core\Service\Operations\Core.lua
+Core\Service\Operations\Auctioning.lua
+Core\Service\Operations\Crafting.lua
+Core\Service\Operations\Mailing.lua
+Core\Service\Operations\Shopping.lua
+Core\Service\Operations\Sniper.lua
+Core\Service\Operations\Vendoring.lua
+Core\Service\Operations\Warehousing.lua
+Core\Service\Groups\Core.lua
+Core\Service\Groups\Path.lua
 Core\Service\Accounting\Core.lua
 Core\Service\Accounting\Money.lua
 Core\Service\Accounting\Auctions.lua
@@ -318,8 +325,6 @@ Core\Service\Tooltip\Auctioning.lua
 Core\Service\Tooltip\Crafting.lua
 Core\Service\Tooltip\Shopping.lua
 Core\Service\AuctionDB\Core.lua
-
-# Service files which depend on old addon files being loaded first
 Core\Service\Shopping\Core.lua
 Core\Service\Shopping\DisenchantSearch.lua
 Core\Service\Shopping\FilterSearch.lua

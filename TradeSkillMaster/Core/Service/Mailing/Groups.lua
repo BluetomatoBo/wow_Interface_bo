@@ -46,13 +46,13 @@ end
 function private.GroupsMailThread(groupList, sendRepeat)
 	while true do
 		for _, groupPath in ipairs(groupList) do
-			for _, operationSettings in TSMAPI_FOUR.Operations.Iterator("Mailing", groupPath) do
+			for _, _, operationSettings in TSM.Operations.GroupOperationIterator("Mailing", groupPath) do
 				if groupPath == TSM.CONST.ROOT_GROUP_PATH then
 					-- TODO
 				else
 					if operationSettings.target ~= "" and operationSettings.target ~= PLAYER_NAME and operationSettings.target ~= PLAYER_NAME_REALM then
 						local items = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
-						for _, itemString in TSMAPI_FOUR.Groups.ItemIterator(groupPath) do
+						for _, itemString in TSM.Groups.ItemIterator(groupPath) do
 							itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
 							local quantity = private.GetItemQuantity(itemString, operationSettings)
 							if quantity > 0 then

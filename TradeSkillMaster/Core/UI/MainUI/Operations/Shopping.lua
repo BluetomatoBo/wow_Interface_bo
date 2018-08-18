@@ -31,7 +31,7 @@ end
 
 function private.GetShoppingOperationSettings(operationName)
 	private.currentOperationName = operationName
-	local operation = TSM.operations.Shopping[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Shopping", private.currentOperationName)
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Texture", "line")

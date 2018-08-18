@@ -7,11 +7,15 @@
 -- ------------------------------------------------------------------------------ --
 
 local _, TSM = ...
-local Shopping = TSM.Tooltip:NewPackage("Shopping")
-local L = TSM.L
+local Shopping = TSM.Operations:NewPackage("Shopping")
 local private = {}
-local DEFAULTS = {
-	maxPrice = false,
+local L = TSM.L
+local OPERATION_INFO = {
+	restockQuantity = { type = "number", default = 0 },
+	maxPrice = { type = "string", default = "1c" },
+	evenStacks = { type = "boolean", default = false },
+	showAboveMaxPrice = { type = "boolean", default = false },
+	restockSources = { type = "table", default = { alts = false, auctions = false, bank = false, guild = false } },
 }
 
 
@@ -21,7 +25,7 @@ local DEFAULTS = {
 -- ============================================================================
 
 function Shopping.OnInitialize()
-	TSM.Tooltip.Register("Shopping", DEFAULTS, private.LoadTooltip)
+	TSM.Operations.Register("Shopping", OPERATION_INFO, 1, private.GetOperationInfo)
 end
 
 
@@ -30,21 +34,14 @@ end
 -- Private Helper Functions
 -- ============================================================================
 
-function private.LoadTooltip(tooltip, itemString, options)
-	if not options.maxPrice then
-		-- only 1 tooltip option
-		return
-	end
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
-
-	local operationName, operationSettings = TSM.Operations.GetFirstOperationByItem("Shopping", itemString)
-	if not operationName then
-		return
-	end
-	TSM.Operations.Update("Shopping", operationName)
-
-	local maxPrice = TSMAPI_FOUR.CustomPrice.GetValue(operationSettings.maxPrice, itemString)
-	if maxPrice then
-		tooltip:AddItemValueLine(L["Max Shopping Price"], maxPrice)
+function private.GetOperationInfo(operationSettings)
+	if operationSettings.showAboveMaxPrice and operationSettings.evenStacks then
+		return format(L["Shopping for even stacks including those above the max price"])
+	elseif operationSettings.showAboveMaxPrice then
+		return format(L["Shopping for auctions including those above the max price."])
+	elseif operationSettings.evenStacks then
+		return format(L["Shopping for even stacks with a max price set."])
+	else
+		return format(L["Shopping for auctions with a max price set."])
 	end
 end

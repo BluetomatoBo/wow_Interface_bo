@@ -11,7 +11,12 @@
 
 local _, TSM = ...
 TSMAPI_FOUR.Thread = {}
-local private = { threads = {}, queue = {}, runningThread = nil, frame = nil }
+local private = {
+	threads = {},
+	queue = {},
+	runningThread = nil,
+	schedulerFrame = nil,
+}
 local MAX_TIME_USAGE_RATIO = 0.25
 local EXCESSIVE_TIME_USED_RATIO = 1.2
 local EXCESSIVE_TIME_LOG_THRESHOLD_MS = 100
@@ -65,6 +70,8 @@ end
 function TSMAPI_FOUR.Thread.Start(threadId, ...)
 	local thread = private.threads[threadId]
 	assert(not thread:_IsAlive())
+	-- make sure the scheduler is running
+	private.StartScheduler()
 	thread:_Start(...)
 end
 
@@ -429,7 +436,7 @@ function Thread._ProcessEvent(self, event, ...)
 		assert(self._eventNames or self._eventArgs)
 		if self._eventNames[event] then
 			wipe(self._eventNames) -- only trigger the event once then clear all
-			self._eventArgs = TSMAPI_FOUR.Util.AcquireTempTable(...)
+			self._eventArgs = TSMAPI_FOUR.Util.AcquireTempTable(event, ...)
 		end
 	end
 end
@@ -512,7 +519,7 @@ function Thread._WaitForEvent(self, ...)
 	self._eventArgs = nil
 	for _, event in TSMAPI_FOUR.Util.VarargIterator(...) do
 		self._eventNames[event] = true
-		private.frame:RegisterEvent(event)
+		private.schedulerFrame:RegisterEvent(event)
 	end
 	self:_Yield()
 	local result = self._eventArgs
@@ -580,6 +587,14 @@ end
 -- Private Helper Functions
 -- ============================================================================
 
+function private.StartScheduler()
+	if private.schedulerFrame:IsVisible() then
+		return
+	end
+	TSM:LOG_INFO("Starting scheduler")
+	private.schedulerFrame:Show()
+end
+
 function private.RunScheduler(_, elapsed)
 	-- don't run any threads while in combat
 	if InCombatLockdown() then
@@ -622,6 +637,18 @@ function private.RunScheduler(_, elapsed)
 			break
 		end
 	end
+
+	local hasAliveThread = false
+	for _, thread in pairs(private.threads) do
+		if thread:_IsAlive() then
+			hasAliveThread = true
+			break
+		end
+	end
+	if not hasAliveThread then
+		TSM:LOG_INFO("Stopping the scheduler")
+		private.schedulerFrame:Hide()
+	end
 end
 
 function private.ProcessEvent(self, ...)
@@ -637,7 +664,8 @@ end
 -- ============================================================================
 
 do
-	private.frame = CreateFrame("Frame")
-	private.frame:SetScript("OnUpdate", private.RunScheduler)
-	private.frame:SetScript("OnEvent", private.ProcessEvent)
+	private.schedulerFrame = CreateFrame("Frame")
+	private.schedulerFrame:Hide()
+	private.schedulerFrame:SetScript("OnUpdate", private.RunScheduler)
+	private.schedulerFrame:SetScript("OnEvent", private.ProcessEvent)
 end

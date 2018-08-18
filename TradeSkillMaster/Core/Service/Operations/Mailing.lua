@@ -7,11 +7,16 @@
 -- ------------------------------------------------------------------------------ --
 
 local _, TSM = ...
-local Shopping = TSM.Tooltip:NewPackage("Shopping")
-local L = TSM.L
+local Mailing = TSM.Operations:NewPackage("Mailing")
 local private = {}
-local DEFAULTS = {
-	maxPrice = false,
+local L = TSM.L
+local OPERATION_INFO = {
+	maxQtyEnabled = { type = "boolean", default = false },
+	maxQty = { type = "number", default = 10 },
+	target = { type = "string", default = "" },
+	restock = { type = "boolean", default = false },
+	restockSources = { type = "table", default = { guild = false, bank = false } },
+	keepQty = { type = "number", default = 0 },
 }
 
 
@@ -20,8 +25,8 @@ local DEFAULTS = {
 -- Module Functions
 -- ============================================================================
 
-function Shopping.OnInitialize()
-	TSM.Tooltip.Register("Shopping", DEFAULTS, private.LoadTooltip)
+function Mailing.OnInitialize()
+	TSM.Operations.Register("Mailing", OPERATION_INFO, 30, private.GetOperationInfo)
 end
 
 
@@ -30,21 +35,14 @@ end
 -- Private Helper Functions
 -- ============================================================================
 
-function private.LoadTooltip(tooltip, itemString, options)
-	if not options.maxPrice then
-		-- only 1 tooltip option
+function private.GetOperationInfo(operationSettings)
+	if operationSettings.target == "" then
 		return
 	end
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
 
-	local operationName, operationSettings = TSM.Operations.GetFirstOperationByItem("Shopping", itemString)
-	if not operationName then
-		return
-	end
-	TSM.Operations.Update("Shopping", operationName)
-
-	local maxPrice = TSMAPI_FOUR.CustomPrice.GetValue(operationSettings.maxPrice, itemString)
-	if maxPrice then
-		tooltip:AddItemValueLine(L["Max Shopping Price"], maxPrice)
+	if operationSettings.maxQtyEnabled then
+		return format(L["Mailing up to %d to %s."], operationSettings.maxQty, operationSettings.target)
+	else
+		return format(L["Mailing all to %s."], operationSettings.target)
 	end
 end

@@ -146,7 +146,7 @@ function ApplicationGroupTree._HandleRowClick(self, data)
 	self._contextTbl.selected[data] = not self._contextTbl.selected[data] or nil
 	-- also set the selection for all child groups to the same as this group
 	for _, groupPath in ipairs(self._allData) do
-		if TSMAPI_FOUR.Groups.IsChild(groupPath, data) and data ~= TSM.CONST.ROOT_GROUP_PATH then
+		if TSM.Groups.Path.IsChild(groupPath, data) and data ~= TSM.CONST.ROOT_GROUP_PATH then
 			self._contextTbl.selected[groupPath] = self._contextTbl.selected[data]
 		end
 	end

@@ -7,11 +7,11 @@
 -- ------------------------------------------------------------------------------ --
 
 local _, TSM = ...
-local Shopping = TSM.Tooltip:NewPackage("Shopping")
-local L = TSM.L
+local Sniper = TSM.Operations:NewPackage("Sniper")
 local private = {}
-local DEFAULTS = {
-	maxPrice = false,
+local L = TSM.L
+local OPERATION_INFO = {
+	belowPrice = { type = "string", default = "max(vendorsell, ifgt(DBRegionMarketAvg, 250000g, 0.8, ifgt(DBRegionMarketAvg, 100000g, 0.7, ifgt(DBRegionMarketAvg, 50000g, 0.6, ifgt(DBRegionMarketAvg, 25000g, 0.5, ifgt(DBRegionMarketAvg, 10000g, 0.4, ifgt(DBRegionMarketAvg, 5000g, 0.3, ifgt(DBRegionMarketAvg, 2000g, 0.2, ifgt(DBRegionMarketAvg, 1000g, 0.1, 0.05)))))))) * DBRegionMarketAvg)" },
 }
 
 
@@ -20,8 +20,8 @@ local DEFAULTS = {
 -- Module Functions
 -- ============================================================================
 
-function Shopping.OnInitialize()
-	TSM.Tooltip.Register("Shopping", DEFAULTS, private.LoadTooltip)
+function Sniper.OnInitialize()
+	TSM.Operations.Register("Sniper", OPERATION_INFO, 1, private.GetOperationInfo)
 end
 
 
@@ -30,21 +30,6 @@ end
 -- Private Helper Functions
 -- ============================================================================
 
-function private.LoadTooltip(tooltip, itemString, options)
-	if not options.maxPrice then
-		-- only 1 tooltip option
-		return
-	end
-	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
-
-	local operationName, operationSettings = TSM.Operations.GetFirstOperationByItem("Shopping", itemString)
-	if not operationName then
-		return
-	end
-	TSM.Operations.Update("Shopping", operationName)
-
-	local maxPrice = TSMAPI_FOUR.CustomPrice.GetValue(operationSettings.maxPrice, itemString)
-	if maxPrice then
-		tooltip:AddItemValueLine(L["Max Shopping Price"], maxPrice)
-	end
+function private.GetOperationInfo(operationSettings)
+	return L["Sniping items below a max price"]
 end

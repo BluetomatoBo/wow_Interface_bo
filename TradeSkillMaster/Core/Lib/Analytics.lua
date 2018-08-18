@@ -25,10 +25,7 @@ function TSM.AnalyticsEvent(event, arg)
 	arg = "\""..gsub(tostring(arg), "\"", "'").."\""
 	event = "\""..event.."\""
 	local name = "\"TradeSkillMaster\""
-	local version = GetAddOnMetadata("TradeSkillMaster", "Version")
-	if version == "@tsm-project-version@" then
-		version = "Dev"
-	end
+	local version = TSM:GetVersion()
 	version = "\""..(version or "").."\""
 	tinsert(private.events, "["..strjoin(",", name, event, version, arg, time()).."]")
 	private.lastEventTime = time()

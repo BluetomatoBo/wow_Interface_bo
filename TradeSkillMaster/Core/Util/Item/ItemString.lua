@@ -55,7 +55,7 @@ function TSMAPI_FOUR.Item.ToBaseItemString(item, doGroupLookup)
 	if type(itemString) == "string" and strmatch(itemString, "^[ip]:[0-9]+$") then return itemString end
 
 	local baseItemString = strmatch(itemString, "([ip]:%d+)")
-	if not doGroupLookup or (TSMAPI_FOUR.Groups.IsItemInGroup(baseItemString) and not TSMAPI_FOUR.Groups.IsItemInGroup(itemString)) then
+	if not doGroupLookup or (TSM.Groups.IsItemInGroup(baseItemString) and not TSM.Groups.IsItemInGroup(itemString)) then
 		-- either we're not doing a group lookup, or the base item is in a group and the specific item is not, so return the base item
 		return baseItemString
 	end

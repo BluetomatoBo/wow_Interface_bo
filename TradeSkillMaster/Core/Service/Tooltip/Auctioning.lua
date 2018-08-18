@@ -37,7 +37,7 @@ function private.LoadTooltip(tooltip, itemString, options)
 	end
 
 	itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
-	local operation = TSM.Operations.GetFirstOptionsByItem("Auctioning", itemString)
+	local _, operation = TSM.Operations.GetFirstOperationByItem("Auctioning", itemString)
 	if not operation then return end
 
 	local minPrice = private.PriceHelper(tooltip, operation, itemString, "minPrice")

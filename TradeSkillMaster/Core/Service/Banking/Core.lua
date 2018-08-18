@@ -8,7 +8,6 @@
 
 local _, TSM = ...
 local Banking = TSM:NewPackage("Banking")
-local L = TSM.L
 local private = {
 	moveThread = nil,
 	moveItems = {},
@@ -19,22 +18,6 @@ local private = {
 	frameCallbacks = {},
 }
 local MOVE_WAIT_TIMEOUT = 2
-local OPERATION_DEFAULTS = {
-	moveQtyEnabled = nil,
-	moveQuantity = 1,
-	keepBagQtyEnabled = nil,
-	keepBagQuantity = 1,
-	keepBankQtyEnabled = nil,
-	keepBankQuantity = 1,
-	restockQtyEnabled = nil,
-	restockQuantity = 1,
-	stackSize = 5,
-	stackSizeEnabled = nil,
-	restockKeepBankQtyEnabled = nil,
-	restockKeepBankQuantity = 1,
-	restockStackSizeEnabled = nil,
-	restockStackSize = 5,
-}
 
 
 
@@ -43,7 +26,6 @@ local OPERATION_DEFAULTS = {
 -- ============================================================================
 
 function Banking.OnInitialize()
-	TSM.Operations.Register("Warehousing", OPERATION_DEFAULTS, 12, private.GetOperationInfo)
 	private.moveThread = TSMAPI_FOUR.Thread.New("BANKING_MOVE", private.MoveThread)
 
 	TSMAPI_FOUR.Event.Register("BANKFRAME_OPENED", private.BankOpened)
@@ -229,66 +211,6 @@ end
 -- ============================================================================
 -- Private Helper Functions
 -- ============================================================================
-
-function private.GetOperationInfo(operationSettings)
-	if (operationSettings.keepBagQtyEnabled or operationSettings.keepBankQtyEnabled) and not operationSettings.moveQtyEnabled then
-		if operationSettings.keepBagQtyEnabled then
-			if operationSettings.keepBankQtyEnabled then
-				if operationSettings.restockQtyEnabled then
-					return format(L["Warehousing will move all of the items in this group keeping %d of each item back when bags > bank/gbank, %d of each item back when bank/gbank > bags. Restock will maintain %d items in your bags."], operationSettings.keepBagQuantity, operationSettings.keepBankQuantity, operationSettings.restockQuantity)
-				else
-					return format(L["Warehousing will move all of the items in this group keeping %d of each item back when bags > bank/gbank, %d of each item back when bank/gbank > bags."], operationSettings.keepBagQuantity, operationSettings.keepBankQuantity)
-				end
-			else
-				if operationSettings.restockQtyEnabled then
-					return format(L["Warehousing will move all of the items in this group keeping %d of each item back when bags > bank/gbank. Restock will maintain %d items in your bags."], operationSettings.keepBagQuantity, operationSettings.restockQuantity)
-				else
-					return format(L["Warehousing will move all of the items in this group keeping %d of each item back when bags > bank/gbank."], operationSettings.keepBagQuantity)
-				end
-			end
-		else
-			if operationSettings.restockQtyEnabled then
-				return format(L["Warehousing will move all of the items in this group keeping %d of each item back when bank/gbank > bags. Restock will maintain %d items in your bags."], operationSettings.keepBankQuantity, operationSettings.restockQuantity)
-			else
-				return format(L["Warehousing will move all of the items in this group keeping %d of each item back when bank/gbank > bags."], operationSettings.keepBankQuantity)
-			end
-		end
-	elseif (operationSettings.keepBagQtyEnabled or operationSettings.keepBankQtyEnabled) and operationSettings.moveQtyEnabled then
-		if operationSettings.keepBagQtyEnabled then
-			if operationSettings.keepBankQtyEnabled then
-				if operationSettings.restockQtyEnabled then
-					return format(L["Warehousing will move a max of %d of each item in this group keeping %d of each item back when bags > bank/gbank, %d of each item back when bank/gbank > bags. Restock will maintain %d items in your bags."], operationSettings.moveQuantity, operationSettings.keepBagQuantity, operationSettings.keepBankQuantity, operationSettings.restockQuantity)
-				else
-					return format(L["Warehousing will move a max of %d of each item in this group keeping %d of each item back when bags > bank/gbank, %d of each item back when bank/gbank > bags."], operationSettings.moveQuantity, operationSettings.keepBagQuantity, operationSettings.keepBankQuantity)
-				end
-			else
-				if operationSettings.restockQtyEnabled then
-					return format(L["Warehousing will move a max of %d of each item in this group keeping %d of each item back when bags > bank/gbank. Restock will maintain %d items in your bags."], operationSettings.keepBankQuantity, operationSettings.restockQuantity)
-				else
-					return format(L["Warehousing will move a max of %d of each item in this group keeping %d of each item back when bags > bank/gbank."], operationSettings.keepBankQuantity)
-				end
-			end
-		else
-			if operationSettings.restockQtyEnabled then
-				return format(L["Warehousing will move a max of %d of each item in this group keeping %d of each item back when bank/gbank > bags. Restock will maintain %d items in your bags."], operationSettings.moveQuantity, operationSettings.keepBankQuantity, operationSettings.restockQuantity)
-			else
-				return format(L["Warehousing will move a max of %d of each item in this group keeping %d of each item back when bank/gbank > bags."], operationSettings.moveQuantity, operationSettings.keepBankQuantity)
-			end
-		end
-	elseif operationSettings.moveQtyEnabled then
-		if operationSettings.restockQtyEnabled then
-			return format(L["Warehousing will move a max of %d of each item in this group. Restock will maintain %d items in your bags."], operationSettings.moveQuantity, operationSettings.restockQuantity)
-		else
-			return format(L["Warehousing will move a max of %d of each item in this group."], operationSettings.moveQuantity)
-		end
-	else
-		if operationSettings.restockQtyEnabled then
-			return format(L["Warehousing will move all of the items in this group. Restock will maintain %d items in your bags."], operationSettings.restockQuantity)
-		else
-			return L["Warehousing will move all of the items in this group."]
-		end
-	end
-end
 
 function private.BankOpened()
 	assert(not private.openFrame)

@@ -1835,6 +1835,9 @@ function private.FSMCreate()
 		:AddDefaultEvent("EV_SCAN_FRAME_SHOWN", function(context, scanFrame)
 			context.scanFrame = scanFrame
 			UpdateScanFrame(context)
+			context.scanFrame:GetElement("auctions")
+				:UpdateData(true)
+				:ExpandSingleResult()
 		end)
 		:AddDefaultEvent("EV_SCAN_FRAME_HIDDEN", function(context)
 			context.scanFrame = nil

@@ -107,12 +107,7 @@ function private.UpdateOperationDB()
 	for _, _, _, itemString in TSMAPI_FOUR.Inventory.BagIterator(true, false, false, true) do
 		if not used[itemString] then
 			used[itemString] = true
-			local firstOperation = nil
-			if TSMAPI_FOUR.Groups.GetPathByItem(itemString) == TSM.CONST.ROOT_GROUP_PATH then
-				firstOperation = TSMAPI.Operations:GetFirstByGroup(TSM.CONST.ROOT_GROUP_PATH, "Auctioning")
-			else
-				firstOperation = TSMAPI.Operations:GetFirstByItem(itemString, "Auctioning")
-			end
+			local firstOperation = TSM.Operations.GetFirstOperationByItem("Auctioning", itemString)
 			if firstOperation then
 				private.operationDB:BulkInsertNewRow(itemString, firstOperation)
 			end
@@ -266,7 +261,7 @@ function private.ScanThread(auctionScan, auctionScanDB, scanContext)
 	-- generate the list of items we want to scan for
 	wipe(private.itemList)
 	for itemString, numHave in pairs(bagCounts) do
-		local groupPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString)
+		local groupPath = TSM.Groups.GetPathByItem(itemString)
 		local contextFilter = scanContext.isItems and itemString or groupPath
 		if groupPath and tContains(scanContext, contextFilter) and private.CanPostItem(itemString, groupPath, numHave) then
 			tinsert(private.itemList, itemString)
@@ -303,7 +298,7 @@ end
 
 function private.CanPostItem(itemString, groupPath, numHave)
 	local hasValidOperation, hasInvalidOperation = false, false
-	for operationName, operationSettings in TSM.Operations.IteratorByGroup("Auctioning", groupPath) do
+	for _, operationName, operationSettings in TSM.Operations.GroupOperationIterator("Auctioning", groupPath) do
 		local isValid, numUsed = private.IsOperationValid(itemString, numHave, operationName, operationSettings)
 		if isValid == true then
 			assert(numUsed and numUsed > 0)
@@ -414,7 +409,7 @@ function private.AuctionScanOnFilterDone(_, filter)
 			:Equal(isBaseItemString and "baseItemString" or "itemString", itemString)
 			:GreaterThan("itemBuyout", 0)
 			:OrderBy("itemBuyout", true)
-		local groupPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString)
+		local groupPath = TSM.Groups.GetPathByItem(itemString)
 		if groupPath then
 			local numHave = 0
 			local bagQuery = private.bagDB:NewQuery()
@@ -425,7 +420,7 @@ function private.AuctionScanOnFilterDone(_, filter)
 			end
 			bagQuery:Release()
 
-			for operationName, operationSettings in TSM.Operations.IteratorByGroup("Auctioning", groupPath) do
+			for _, operationName, operationSettings in TSM.Operations.GroupOperationIterator("Auctioning", groupPath) do
 				if private.IsOperationValid(itemString, numHave, operationName, operationSettings) then
 					local operationNumHave = numHave - private.GetKeepQuantity(itemString, operationSettings)
 					if operationNumHave > 0 then

@@ -63,7 +63,16 @@ end
 
 function Importer.CreateGroupIfNoneSelectedAndTopGroupHasItems(self)
 	if self.rootPath == "" and self:TopGroupHasItems() then
-		self.rootPath = TSMAPI_FOUR.Groups.CreateLikeName(L["New Group"])
+		local newGroupPath = L["New Group"]
+		if TSM.Groups.Exists(newGroupPath) then
+			local num = 1
+			while TSM.Groups.Exists(newGroupPath.." "..num) do
+				num = num + 1
+			end
+			newGroupPath = newGroupPath.." "..num
+		end
+		TSM.Groups.Create(newGroupPath)
+		self.rootPath = newGroupPath
 	end
 end
 
@@ -162,91 +171,87 @@ function Importer._Fail(self, reason, chunk)
 end
 
 function Importer._FinalizeItemImport(self, itemString, path)
-	TSMAPI_FOUR.Groups.Create(path)
-	local itemIsInGroup = TSMAPI_FOUR.Groups.IsItemInGroup(itemString)
-	if itemIsInGroup and self.options.moveAlreadyGroupedItems then
-		TSMAPI_FOUR.Groups.MoveItem(itemString, path)
-		self._numItemsImported = self._numItemsImported + 1
-	elseif not itemIsInGroup then
-		TSMAPI_FOUR.Groups.AddItem(itemString, path)
+	if not TSM.Groups.Exists(path) then
+		TSM.Groups.Create(path)
+	end
+	if not TSM.Groups.IsItemInGroup(itemString) or self.options.moveAlreadyGroupedItems then
+		TSM.Groups.SetItemGroup(itemString, path)
 		self._numItemsImported = self._numItemsImported + 1
 	end
 end
 
 function Importer.JoinPath(self, path)
 	if path == "" then return self.rootPath end
-	return TSMAPI_FOUR.Groups.JoinPath(self.rootPath, path)
+	return TSM.Groups.Path.Join(self.rootPath, path)
 end
 
 function Importer._FinalizeItems(self)
 	for itemString, path in pairs(self.items) do
-		self:_FinalizeItemImport(itemString, self:JoinPath(path))
+		self:_FinalizeItemImport(itemString, private.CleanGroupPath(self:JoinPath(path)))
 	end
 end
 
 function Importer._FinalizeOperationImport(self)
 	for module, moduleOperations in pairs(self.operations) do
 		for name, operation in pairs(moduleOperations) do
-			if not (TSM.operations[module][name] and self.options.ignoreDuplicateOperations) then
-				operation.ignorePlayer = {}
-				operation.ignoreFactionrealm = {}
-				operation.relationships = {}
-				TSM.operations[module][name] = operation
+			if not (TSM.Operations.Exists(module, name) and self.options.ignoreDuplicateOperations) then
+				TSM.Operations.Create(module, name)
+				local operationSettings = TSM.Operations.GetSettings(module, name)
+				for k, v in pairs(operation) do
+					if type(v) == type(operationSettings[k]) then
+						operationSettings[k] = v
+					end
+				end
 			end
 		end
 	end
 end
 
-function Importer._ApplyModuleOperationToGroup(self, applyModule, applyOperationName, path, override)
-	-- FIXME: this logic should be refactored and some of it should probably go elsewhere (mostly copied from TSM3 for now)
-	-- See also: Core/UI/MainUI/Operations/Core.lua
-	path = private.CleanGroupPath(path)
-	if not TSM.db.profile.userData.groups[path] then
-		TSM:Printf(L["Could not apply %s operation to group %s because the group does not exist"], applyModule, path)
+function Importer._ApplyModuleOperationToGroup(self, moduleName, applyOperationName, groupPath)
+	if not TSM.Groups.Exists(groupPath) then
+		TSM:Printf(L["Could not apply %s operation to group %s because the group does not exist"], moduleName, TSM.Groups.Path.Format(groupPath, true))
 		return
 	end
-	local operations = TSM.db.profile.userData.groups[path][applyModule]
-	local num = #operations
-	if num == 0 then
-		TSM.Groups:SetOperationOverride(path, applyModule, override)
-		TSM.Groups:AddOperation(path, applyModule)
-		TSM.Groups:SetOperation(path, applyModule, applyOperationName, 1)
-		TSM:Printf(L["Applied %s to %s."], applyOperationName.."|r", TSMAPI_FOUR.Groups.FormatPath(path, true))
-	elseif operations[num] == "" then
-		TSM.Groups:SetOperationOverride(path, applyModule, override)
-		TSM.Groups:SetOperation(path, applyModule, applyOperationName, num)
-		TSM:Printf(L["Applied %s to %s."], applyOperationName.."|r", TSMAPI_FOUR.Groups.FormatPath(path, true))
-	else
-		-- We need to re-fetch these values since when we override, the inherited operations dissapear
-		TSM.Groups:SetOperationOverride(path, applyModule, override)
-		operations = TSM.db.profile.userData.groups[path][applyModule]
-		num = #operations
-		local maxOperations = TSM.Operations.GetMaxOperations(applyModule)
-		if num < maxOperations then
-			TSM.Groups:AddOperation(path, applyModule)
-			TSM.Groups:SetOperation(path, applyModule, applyOperationName, num + 1)
-			TSM:Printf(L["Applied %s to %s."], applyOperationName.."|r", TSMAPI_FOUR.Groups.FormatPath(path, true))
-		else
-			TSM:Printf(L["Could not apply %s operation %s to %s - it has too many operations already."], applyModule, applyOperationName.."|r", TSMAPI_FOUR.Groups.FormatPath(path, true))
-		end
+
+	local numOperations = 0
+	local lastOperationName = nil
+	for _, operationName in TSM.Groups.OperationIterator(groupPath, moduleName) do
+		lastOperationName = operationName
+		numOperations = numOperations + 1
 	end
+	if numOperations == TSM.Operations.GetMaxNumber(moduleName) then
+		-- replace the last operation since we're already at the max number of operations
+		TSM.Groups.RemoveOperation(groupPath, moduleName, numOperations)
+		TSM:Printf(L["%s previously had the max number of operations, so removed %s."], TSM.Groups.Path.Format(groupPath, true), "|cff99ffff"..lastOperationName.."|r")
+	end
+	TSM:Printf(L["Added %s to %s."], "|cff99ffff"..applyOperationName.."|r", TSM.Groups.Path.Format(groupPath, true))
 end
 
 function Importer._FinalizeGroupOperations(self)
-	for path, modules in pairs(self.groupOperations) do
-		for module, operations in pairs(modules) do
-			if path == "" then
+	for groupPath, modules in pairs(self.groupOperations) do
+		groupPath = private.CleanGroupPath(self:JoinPath(groupPath))
+		if not TSM.Groups.Exists(groupPath) then
+			TSM.Groups.Create(groupPath)
+		end
+		for moduleName, operations in pairs(modules) do
+			if groupPath == "" then
 				if #operations > 0 and operations[1] ~= "" then
 					operations.override = true
 				end
 			end
 			if operations.override then
-				local fullPath = self:JoinPath(path)
-				TSM.Groups:SetOperationOverride(fullPath, module, operations.override)
-				for _, name in ipairs(operations) do
-					if name ~= "" then -- FIXME do this check earlier in the import and cleanup / blowup before showing the confirmation screen
-						if not TSMAPI_FOUR.Operations.ModuleHasOperationNamedForGroup(module, name, fullPath) then
-							self:_ApplyModuleOperationToGroup(module, name, fullPath, operations.override)
+				TSM.Groups.SetOperationOverride(groupPath, moduleName, true)
+				for _, operationName in ipairs(operations) do
+					-- FIXME do this check earlier in the import and cleanup / blowup before showing the confirmation screen
+					if operationName ~= "" then
+						local alreadyHave = false
+						for _, groupOperationName in TSM.Groups.OperationIterator(groupPath, moduleName) do
+							if groupOperationName == operationName then
+								alreadyHave = true
+							end
+						end
+						if not alreadyHave then
+							self:_ApplyModuleOperationToGroup(moduleName, operationName, groupPath)
 						end
 					end
 				end
@@ -265,7 +270,7 @@ function Importer._GetParsedGroups(self)
 	for k in pairs(groups) do
 		keyset[#keyset+1] = k
 	end
-	TSMAPI_FOUR.Groups.SortGroupList(keyset)
+	TSM.Groups.SortGroupList(keyset)
 	return keyset
 end
 
@@ -277,7 +282,7 @@ function Importer._MarkConflictingOperations(self)
 	for moduleName, module in pairs(self.operations) do
 		self.conflictingOperations[moduleName] = {}
 		for operationName in pairs(module) do
-			if TSMAPI_FOUR.Operations.ModuleHasOperationNamed(moduleName, operationName) then
+			if TSM.Operations.Exists(moduleName, operationName) then
 				self.conflictingOperations[moduleName][operationName] = true
 			end
 		end
@@ -349,12 +354,8 @@ function Importer._ParseGroupString(self, importStr)
 		if not itemString then return end
 		if TSMAPI_FOUR.Item.IsSoulbound(itemString) then return 0 end
 		local moveImportedItems = false -- FIXME: should be an option from the TSM4 Importer UI
-		local itemIsInGroup = TSMAPI_FOUR.Groups.IsItemInGroup(itemString)
-		if itemIsInGroup and moveImportedItems then
-			TSMAPI_FOUR.Groups.MoveItem(itemString, groupPath)
-			return 1
-		elseif not itemIsInGroup then
-			TSMAPI_FOUR.Groups.AddItem(itemString, groupPath)
+		if not TSM.Groups.IsItemInGroup(itemString) or moveImportedItems then
+			TSM.Groups.SetItemGroup(itemString, groupPath)
 			return 1
 		end
 		return 0

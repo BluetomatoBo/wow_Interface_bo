@@ -10,6 +10,7 @@ local _, TSM = ...
 local Sniper = TSM.UI.AuctionUI:NewPackage("Sniper")
 local L = TSM.L
 local private = { fsm = nil, selectionFrame = nil, hasLastScan = nil, contentPath = "selection" }
+local PHASED_TIME = 60
 
 
 
@@ -433,7 +434,7 @@ function private.FSMCreate()
 				UpdateScanFrame(context)
 				TSMAPI_FOUR.Thread.SetCallback(context.scanThreadId, private.FSMScanCallback)
 				TSMAPI_FOUR.Thread.Start(context.scanThreadId, context.auctionScan)
-				TSMAPI_FOUR.Delay.AfterTime("sniperPhaseDetect", 30, private.FSMPhasedCallback)
+				TSMAPI_FOUR.Delay.AfterTime("sniperPhaseDetect", PHASED_TIME, private.FSMPhasedCallback)
 			end)
 			:SetOnExit(function(context)
 				TSMAPI_FOUR.Delay.Cancel("sniperPhaseDetect")

@@ -241,15 +241,12 @@ end
 
 function OperationTree._UpdateData(self)
 	wipe(self._data)
-	for moduleName, operations in pairs(TSM.operations) do
-		if TSMAPI_FOUR.Operations.ModuleHasOperations(moduleName) then
-			tinsert(self._data, moduleName)
-			for operationName in pairs(operations) do
-				tinsert(self._data, moduleName..DATA_SEP..operationName)
-			end
+	for _, moduleName in TSM.Operations.ModuleIterator() do
+		tinsert(self._data, moduleName)
+		for _, operationName in TSM.Operations.OperationIterator(moduleName) do
+			tinsert(self._data, moduleName..DATA_SEP..operationName)
 		end
 	end
-	sort(self._data)
 end
 
 function OperationTree._DrawRows(self)
@@ -327,7 +324,7 @@ function private.AddNewOnClick(button)
 	local moduleName = row:GetContext()
 	local operationName = "New Operation"
 	local num = 1
-	while TSM.operations[moduleName][operationName.." "..num] do
+	while TSM.Operations.Exists(moduleName, operationName.." "..num) do
 		num = num + 1
 	end
 	operationName = operationName .. " " .. num
@@ -375,7 +372,7 @@ function private.CopyButtonOnClick(button)
 	local self = row:GetParentElement()
 	local moduleName, operationName = self:_SplitOperationKey(row:GetContext())
 	local num = 1
-	while TSM.operations[moduleName][operationName.." "..num] do
+	while TSM.Operations.Exists(moduleName, operationName.." "..num) do
 		num = num + 1
 	end
 	local newOperationName = operationName.." "..num

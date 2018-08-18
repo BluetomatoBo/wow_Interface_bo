@@ -20,12 +20,6 @@ local CHARACTER_KEY = UnitName("player").." - "..GetRealmName()
 local IGNORED_COOLDOWN_SEP = "\001"
 local PROFESSION_SEP = ","
 local PLAYER_SEP = ","
-local OPERATION_DEFAULTS = {
-	minRestock = 1,
-	maxRestock = 3,
-	minProfit = 1000000,
-	craftPriceMethod = nil,
-}
 local SPELL_DB_SCHEMA = {
 	fields = {
 		spellId = "number",
@@ -102,10 +96,6 @@ local IGNORED_COOLDOWN_DB_SCHEMA = {
 -- Module Functions
 -- ============================================================================
 
-function Crafting.OnInitialize()
-	TSM.Operations.Register("Crafting", OPERATION_DEFAULTS, 1, private.GetOperationInfo)
-end
-
 function Crafting.OnEnable()
 	local used = TSMAPI_FOUR.Util.AcquireTempTable()
 	for _, craftInfo in pairs(TSM.db.factionrealm.internalData.crafts) do
@@ -139,7 +129,7 @@ function Crafting.OnEnable()
 		local playersStr = strjoin(PLAYER_SEP, TSMAPI_FOUR.Util.UnpackAndReleaseTempTable(players))
 		local itemName = TSMAPI_FOUR.Item.GetName(craftInfo.itemString) or ""
 		-- FIXME: replace with a join
-		local firstOperation = TSMAPI.Operations:GetFirstNameByItem(craftInfo.itemString, "Crafting") or ""
+		local firstOperation = TSM.Operations.GetFirstOperationByItem("Crafting", craftInfo.itemString) or ""
 		private.spellDB:BulkInsertNewRow(spellId, craftInfo.itemString, itemName, craftInfo.name or "", craftInfo.profession, craftInfo.numResult, playersStr, craftInfo.hasCD and true or false, firstOperation)
 
 		for matItemString, matQuantity in pairs(craftInfo.mats) do
@@ -202,12 +192,14 @@ function Crafting.OnEnable()
 		TSM:Printf(L["Your default craft value method was invalid so it has been returned to the default. Details: %s"], err)
 		TSM.db.global.craftingOptions.defaultCraftPriceMethod = TSM.db:GetDefault("global", "craftingOptions", "defaultCraftPriceMethod")
 	end
-	for name, operation in pairs(TSM.operations.Crafting) do
-		if operation.craftPriceMethod then
+	for _, name in TSM.Operations.OperationIterator("Crafting") do
+		local operation = TSM.Operations.GetSettings("Crafting", name)
+		if operation.craftPriceMethod ~= "" then
 			isValid, err = TSMAPI_FOUR.CustomPrice.Validate(operation.craftPriceMethod, "crafting")
 			if not isValid then
+				TSMAPI_FOUR.Debug.DumpTable({operation.craftPriceMethod})
 				TSM:Printf(L["Your craft value method for '%s' was invalid so it has been returned to the default. Details: %s"], name, err)
-				operation.craftPriceMethod = nil
+				operation.craftPriceMethod = ""
 			end
 		end
 	end
@@ -435,7 +427,7 @@ function Crafting.CreateOrUpdate(spellId, itemString, profession, name, numResul
 			:SetField("players", player)
 			:SetField("hasCD", hasCD)
 			-- FIXME: replace with a join
-			:SetField("firstOperation", TSMAPI.Operations:GetFirstNameByItem(itemString, "Crafting") or "")
+			:SetField("firstOperation", TSM.Operations.GetFirstOperationByItem("Crafting", itemString) or "")
 			:Create()
 	end
 end
@@ -540,16 +532,15 @@ function Crafting.RestockHelp(link)
 	TSM:Printf(L["Restock help for %s:"], link)
 
 	-- check if the item is in a group
-	local groupPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString)
+	local groupPath = TSM.Groups.GetPathByItem(itemString)
 	if not groupPath then
 		return print(L["This item is not in a TSM group."])
 	end
 
 	-- check that there's a crafting operation applied
-	local opName = TSMAPI.Operations:GetFirstByItem(itemString, "Crafting")
-	local opSettings = opName and TSM.operations.Crafting[opName]
+	local _, opSettings = TSM.Operations.GetFirstOperationByItem("Crafting", itemString)
 	if not opSettings then
-		return print(format(L["There is no TSM_Crafting operation applied to this item's TSM group (%s)."], TSMAPI_FOUR.Groups.FormatPath(groupPath)))
+		return print(format(L["There is no TSM_Crafting operation applied to this item's TSM group (%s)."], TSM.Groups.Path.Format(groupPath)))
 	end
 
 	-- check if it's an invalid operation
@@ -578,7 +569,7 @@ function Crafting.RestockHelp(link)
 
 		-- check that there's a crafted value
 		if not craftedValue then
-			local craftPriceMethod = opSettings and opSettings.craftPriceMethod or TSM.db.global.craftingOptions.defaultCraftPriceMethod
+			local craftPriceMethod = opSettings and opSettings.craftPriceMethod ~= "" and opSettings.craftPriceMethod or TSM.db.global.craftingOptions.defaultCraftPriceMethod
 			return print(format(L["The 'Craft Value Method' (%s) did not return a value for this item."], craftPriceMethod))
 		end
 
@@ -640,14 +631,6 @@ end
 -- ============================================================================
 -- Private Helper Functions
 -- ============================================================================
-
-function private.GetOperationInfo(operationSettings)
-	if operationSettings.minProfit then
-		return format(L["Restocking to a max of %d (min of %d) with a min profit."], operationSettings.maxRestock, operationSettings.minRestock)
-	else
-		return format(L["Restocking to a max of %d (min of %d) with no min profit."], operationSettings.maxRestock, operationSettings.minRestock)
-	end
-end
 
 function private.ProcessRemovedMats(removedMats)
 	private.matItemDB:SetQueryUpdatesPaused(true)

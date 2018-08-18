@@ -50,8 +50,7 @@ function private.ScanFilter(row)
 	end
 
 	local itemString = row:GetField("itemString")
-	local groupPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString) or TSM.CONST.ROOT_GROUP_PATH
-	local _, operationSettings = TSMAPI.Operations:GetFirstByGroup(groupPath, "Sniper")
+	local _, operationSettings = TSM.Operations.GetFirstOperationByItem("Sniper", itemString)
 	if not operationSettings then
 		return true
 	end
@@ -66,8 +65,7 @@ end
 
 function private.MarketValueFunction(row)
 	local itemString = row:GetField("itemString")
-	local groupPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString) or TSM.CONST.ROOT_GROUP_PATH
-	local _, operationSettings = TSMAPI.Operations:GetFirstByGroup(groupPath, "Sniper")
+	local _, operationSettings = TSM.Operations.GetFirstOperationByItem("Sniper", itemString)
 	if not operationSettings then
 		return nil
 	end

@@ -126,14 +126,14 @@ function GroupTree._UpdateData(self)
 	for i, groupPath in ipairs(groups) do
 		tinsert(self._allData, groupPath)
 		if not self:_IsGroupHidden(groupPath) then
-			local _, groupName = TSMAPI_FOUR.Groups.SplitPath(groupPath)
+			local groupName = TSM.Groups.Path.GetName(groupPath)
 			groupName = self._headerNameLookup[groupPath] or groupName
 			if strmatch(strlower(groupName), self._searchStr) then
 				tinsert(self._data, groupPath)
 			end
 		end
 		local nextGroupPath = groups[i + 1]
-		self._hasChildrenLookup[groupPath] = nextGroupPath and TSMAPI_FOUR.Groups.IsChild(nextGroupPath, groupPath) or nil
+		self._hasChildrenLookup[groupPath] = nextGroupPath and TSM.Groups.Path.IsChild(nextGroupPath, groupPath) or nil
 	end
 	TSMAPI_FOUR.Util.ReleaseTempTable(groups)
 end
@@ -195,7 +195,7 @@ function GroupTree._SetRowData(self, row, data)
 		text:SetTextColor(TSM.UI.HexToRGBA(TSM.UI.GetGroupLevelColor(level)))
 	end
 
-	local _, lastPart = TSMAPI_FOUR.Groups.SplitPath(data)
+	local lastPart = TSM.Groups.Path.GetName(data)
 	text:SetText(data == TSM.CONST.ROOT_GROUP_PATH and self._headerNameLookup[data] or lastPart)
 	text:SetPoint("LEFT", indentWidth, 0)
 
@@ -219,12 +219,12 @@ function GroupTree._IsGroupHidden(self, data)
 	elseif self._contextTbl.collapsed[TSM.CONST.ROOT_GROUP_PATH] then
 		return true
 	end
-	local parent = TSMAPI_FOUR.Groups.SplitPath(data)
+	local parent = TSM.Groups.Path.GetParent(data)
 	while parent and parent ~= TSM.CONST.ROOT_GROUP_PATH do
 		if self._contextTbl.collapsed[parent] then
 			return true
 		end
-		parent = TSMAPI_FOUR.Groups.SplitPath(parent)
+		parent = TSM.Groups.Path.GetParent(parent)
 	end
 	return false
 end

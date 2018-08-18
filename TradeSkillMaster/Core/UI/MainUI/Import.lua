@@ -89,7 +89,7 @@ function builder.ExporterGroupLine(name, path, removeHandler)
 		:SetStyle("height", 40)
 		:SetStyle("padding", 10)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "groupName")
-			:SetText(TSMAPI_FOUR.Groups.BaseName(path))
+			:SetText(TSM.Groups.Path.GetName(path))
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "removeGroupButton")
 			:SetText("X")
@@ -319,15 +319,11 @@ function private.GroupTreeGetList(groups, headerNameLookup)
 		headerNameLookup[TSM.CONST.ROOT_GROUP_PATH] = L["Base Group"]
 	end
 
-	local temp = TSMAPI_FOUR.Util.AcquireTempTable()
-	TSM.Groups:GetSortedGroupPathList(temp)
-	for _, path in ipairs(temp) do
-		local _, groupName = TSMAPI_FOUR.Groups.SplitPath(path)
-		if strmatch(strlower(groupName), TSMAPI_FOUR.Util.StrEscape(private.groupSearch)) then
+	for _, path in TSM.Groups.GroupIterator() do
+		if strmatch(strlower(TSM.Groups.Path.GetName(path)), TSMAPI_FOUR.Util.StrEscape(private.groupSearch)) then
 			tinsert(groups, path)
 		end
 	end
-	TSMAPI_FOUR.Util.ReleaseTempTable(temp)
 end
 
 function private.GetImportEntryFrame()
@@ -620,7 +616,9 @@ function private.ExporterExportSelectedGroupsOnClick(element)
 end
 
 function private.GroupTreeGetList(groups, headerNameLookup)
-	TSM.Groups:GetSortedGroupPathList(groups)
+	for _, groupPath in TSM.Groups.GroupIterator() do
+		tinsert(groups, groupPath)
+	end
 	tinsert(groups, 1, TSM.CONST.ROOT_GROUP_PATH)
 	headerNameLookup[TSM.CONST.ROOT_GROUP_PATH] = L["Base Group"]
 end

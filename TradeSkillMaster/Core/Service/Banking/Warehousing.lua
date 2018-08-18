@@ -44,7 +44,7 @@ end
 -- ============================================================================
 
 function private.GetNumToMoveToBank(itemString, numToMove)
-	local operationSettings = TSM.Operations.GetFirstOptionsByItem("Warehousing", itemString)
+	local _, operationSettings = TSM.Operations.GetFirstOperationByItem("Warehousing", itemString)
 	if not operationSettings then
 		return 0
 	end
@@ -58,7 +58,7 @@ function private.GetNumToMoveToBank(itemString, numToMove)
 end
 
 function private.GetNumToMoveToBags(itemString, numToMove)
-	local operationSettings = TSM.Operations.GetFirstOptionsByItem("Warehousing", itemString)
+	local _, operationSettings = TSM.Operations.GetFirstOperationByItem("Warehousing", itemString)
 	if not operationSettings then
 		return 0
 	end
@@ -72,7 +72,7 @@ function private.GetNumToMoveToBags(itemString, numToMove)
 end
 
 function private.GetNumToMoveRestock(itemString, numToMove)
-	local operationSettings = TSM.Operations.GetFirstOptionsByItem("Warehousing", itemString)
+	local _, operationSettings = TSM.Operations.GetFirstOperationByItem("Warehousing", itemString)
 	if not operationSettings then
 		return 0
 	end

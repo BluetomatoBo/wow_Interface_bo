@@ -504,11 +504,11 @@ function private.AuctionsGetTimeLeftText(row)
 end
 
 function private.AuctionsGetGroupText(itemString)
-	local groupPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString)
+	local groupPath = TSM.Groups.GetPathByItem(itemString)
 	if not groupPath then
 		return ""
 	end
-	local _, groupName = TSMAPI_FOUR.Groups.SplitPath(groupPath)
+	local groupName = TSM.Groups.Path.GetName(groupPath)
 	local level = select('#', strsplit(TSM.CONST.GROUP_SEP, groupPath))
 	local color = gsub(TSM.UI.GetGroupLevelColor(level), "#", "|cff")
 	return color..groupName.."|r"

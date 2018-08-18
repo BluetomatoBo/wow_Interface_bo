@@ -106,7 +106,9 @@ function ItemInfo.OnInitialize()
 	end)
 
 	-- load the item info database
-	if not TSMItemInfoDB or TSMItemInfoDB.version ~= DB_VERSION or TSMItemInfoDB.locale ~= GetLocale() or TSMItemInfoDB.build ~= GetBuildInfo() then
+	local build, revision = GetBuildInfo()
+	if not TSMItemInfoDB or TSMItemInfoDB.version ~= DB_VERSION or TSMItemInfoDB.locale ~= GetLocale() or TSMItemInfoDB.build ~= build or TSMItemInfoDB.revision ~= revision then
+		TSM:Print(L["TSM is currently rebuilding its item cache which may cause FPS drops and result in TSM not being fully functional until this process is complete. This is normal and typically takes less than a minute."])
 		TSMItemInfoDB = {
 			names = nil,
 			itemStrings = nil,
@@ -192,9 +194,11 @@ function ItemInfo.OnDisable()
 	TSMItemInfoDB.data = table.concat(dataParts)
 	assert(#TSMItemInfoDB.data % RECORD_DATA_LENGTH == 0)
 
+	local build, revision = GetBuildInfo()
 	TSMItemInfoDB.version = DB_VERSION
 	TSMItemInfoDB.locale = GetLocale()
-	TSMItemInfoDB.build = GetBuildInfo()
+	TSMItemInfoDB.build = build
+	TSMItemInfoDB.revision = revision
 end
 
 --- Store the name of an item.

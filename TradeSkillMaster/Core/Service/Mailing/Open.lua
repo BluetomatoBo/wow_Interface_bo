@@ -108,12 +108,13 @@ function private.OpenMails(mails, filterType)
 			if CalculateTotalNumberOfFreeBagSlots() <= TSM.db.global.mailingOptions.keepMailSpace then
 				return
 			end
-			if TSM.db.global.mailingOptions.inboxMessages then
-				private.PrintOpenMailMessage(index)
-			end
 			AutoLootMailItem(index)
 
-			TSMAPI_FOUR.Thread.WaitForEvent("CLOSE_INBOX_ITEM", "MAIL_FAILED")
+			if TSMAPI_FOUR.Thread.WaitForEvent("CLOSE_INBOX_ITEM", "MAIL_FAILED") ~= "MAIL_FAILED" then
+				if TSM.db.global.mailingOptions.inboxMessages then
+					private.PrintOpenMailMessage(index)
+				end
+			end
 		end
 	end
 end

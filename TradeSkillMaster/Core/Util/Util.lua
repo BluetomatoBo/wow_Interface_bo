@@ -55,7 +55,7 @@ end
 -- The lua strsplit function causes a stack overflow if passed large inputs. This API fixes that issue and also supports
 -- separators which are more than one character in length.
 -- @tparam string str The string to be split
--- @tparam string sep The seperator to use to split the string
+-- @tparam string sep The separator to use to split the string
 -- @treturn table The result as a list of substrings
 -- @within String
 function TSMAPI_FOUR.Util.SafeStrSplit(str, sep)
@@ -95,11 +95,26 @@ end
 --- Check if a string which contains multiple values separated by a specific string contains the value.
 -- @tparam string str The string to be searched
 -- @tparam string sep The separating string
--- @tparam string sep The value to search for
+-- @tparam string value The value to search for
 -- @treturn boolean Whether or not the value was found
 -- @within String
 function TSMAPI_FOUR.Util.SeparatedStrContains(str, sep, value)
 	return str == value or strmatch(str, "^"..value..sep) or strmatch(str, sep..value..sep) or strmatch(str, sep..value.."$")
+end
+
+--- Iterates over the parts of a string which are separated by a character.
+-- @tparam string str The string to be split
+-- @tparam string sep The separator to use to split the string
+-- @return An iterator with fields: `part`
+-- @within String
+function TSMAPI_FOUR.Util.StrSplitIterator(str, sep)
+	assert(#sep == 1)
+	for _, char in ipairs(MAGIC_CHARACTERS) do
+		if char == sep then
+			sep = "%"..char
+		end
+	end
+	return gmatch(str, "([^"..sep.."]+)")
 end
 
 
@@ -486,6 +501,15 @@ function TSMAPI_FOUR.Util.SafeItemRef(link)
 	if blizzItemString then
 		SetItemRef(blizzItemString, link)
 	end
+end
+
+--- Checks if the version of an addon is a dev version.
+-- @tparam string name The name of the addon
+-- @treturn boolean Whether or not the addon is a dev version
+-- @within WoW Util
+function TSMAPI_FOUR.Util.IsDevVersion(addonName)
+	-- use strmatch does this string doesn't itself get replaced when we deploy
+	return strmatch(GetAddOnMetadata(addonName, "version"), "^@tsm%-project%-version@$") and true or false
 end
 
 --- Checks if an addon is installed.

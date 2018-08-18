@@ -97,6 +97,8 @@ function ActionButton.SetScript(self, script, handler)
 		self._onEnterHandler = handler
 	elseif script == "OnLeave" then
 		self._onLeaveHandler = handler
+	elseif script == "OnMouseDown" or script == "OnMouseUp" then
+		self.__super:SetScript(script, handler)
 	else
 		error("Unknown ActionButton script: "..tostring(script))
 	end

@@ -835,7 +835,7 @@ function private.SetAuctionSort(...)
 
 	SortAuctionClearSort("list")
 	for _, col in TSMAPI_FOUR.Util.VarargIterator(...) do
-		SortAuctionItems("list", col, false)
+		SortAuctionItems("list", col)
 	end
 	SortAuctionApplySort("list")
 end
@@ -985,7 +985,7 @@ function private.FindAuctionThreaded(auctionScan, row, noSeller)
 		-- check if we can go to the next page
 		local page, numPages = filter:_GetPageProgress()
 		local canBeLater = private.FindAuctionCanBeOnLaterPage(row)
-		local canBeEarlier = private.FindAuctionCanBeOnLaterPage(row)
+		local canBeEarlier = private.FindAuctionCanBeOnEarlierPage(row)
 		maxPage = maxPage or numPages - 1
 		if not canBeLater and page < maxPage then
 			maxPage = page

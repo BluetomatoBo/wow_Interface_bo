@@ -11,7 +11,8 @@
 local _, TSM = ...
 local L = TSM.L
 local private = { errorFrame = nil, isSilent = nil, errorSuppressed = nil, errorReports = {}, num = 0 }
-local IS_DEV_VERSION = GetAddOnMetadata("TradeSkillMaster", "Version") == "@tsm-project-version@"
+-- use strmatch does this string doesn't itself get replaced when we deploy
+local IS_DEV_VERSION = strmatch(GetAddOnMetadata("TradeSkillMaster", "version"), "^@tsm%-project%-version@$") and true or false
 local MAX_ERROR_REPORT_AGE = 7 * 24 * 60 * 60 -- 1 week
 local MAX_STACK_DEPTH = 50
 local ADDON_SUITES = {

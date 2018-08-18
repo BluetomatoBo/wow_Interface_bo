@@ -158,7 +158,7 @@ function private.GetSearchName(filter, searchType)
 	local searchTypeStr, numFiltersStr = nil, nil
 	if searchType == "postGroups" or searchType == "cancelGroups" then
 		for groupPath in gmatch(filter, "[^"..FILTER_SEP.."]+") do
-			local _, groupName = TSMAPI_FOUR.Groups.SplitPath(groupPath)
+			local groupName = TSM.Groups.Path.GetName(groupPath)
 			local level = select('#', strsplit(TSM.CONST.GROUP_SEP, groupPath))
 			local color = gsub(TSM.UI.GetGroupLevelColor(level), "#", "|cff")
 			tinsert(filters, color..groupName.."|r")

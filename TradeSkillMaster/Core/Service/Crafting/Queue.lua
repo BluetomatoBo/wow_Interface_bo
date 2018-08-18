@@ -120,12 +120,12 @@ end
 function Queue.RestockGroups(groups)
 	private.db:SetQueryUpdatesPaused(true)
 	for _, groupPath in ipairs(groups) do
-		for operationName, operationSettings in TSMAPI_FOUR.Operations.Iterator("Crafting", groupPath) do
+		for _, operationName, operationSettings in TSM.Operations.GroupOperationIterator("Crafting", groupPath) do
 			if private.IsOperationValid(operationName, operationSettings) then
 				if groupPath == TSM.CONST.ROOT_GROUP_PATH then
 					-- TODO
 				else
-					for _, itemString in TSMAPI_FOUR.Groups.ItemIterator(groupPath) do
+					for _, itemString in TSM.Groups.ItemIterator(groupPath) do
 						private.RestockItem(itemString, operationSettings)
 					end
 				end

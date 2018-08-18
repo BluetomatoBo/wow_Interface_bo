@@ -19,20 +19,25 @@ local L = TSM.L
 function General.LoadTooltip(tooltip, itemString)
 	-- add group / operation info
 	if TSM.db.global.tooltipOptions.groupNameTooltip then
-		local path = TSMAPI_FOUR.Groups.GetPathByItem(itemString)
-		if path ~= TSM.CONST.ROOT_GROUP_PATH then
-			local isBaseItem = not TSMAPI_FOUR.Groups.IsItemInGroup(itemString)
+		local groupPath = TSM.Groups.GetPathByItem(itemString)
+		if groupPath ~= TSM.CONST.ROOT_GROUP_PATH then
 			local leftText = nil
-			if isBaseItem then
-				leftText = GROUP.."("..L["Base Item"]..")"
-			else
+			if TSM.Groups.IsItemInGroup(itemString) then
 				leftText = GROUP
+			else
+				leftText = GROUP.."("..L["Base Item"]..")"
 			end
-			tooltip:AddLine(leftText, "|cffffffff"..TSMAPI_FOUR.Groups.FormatPath(path).."|r")
-			for _, module in ipairs(TSM.Operations:GetModulesWithOperations()) do
-				local operations = TSM.db.profile.userData.groups[path][module]
-				if operations and operations[1] and operations[1] ~= "" and TSM.db.global.tooltipOptions.operationTooltips[module] then
-					tooltip:AddLine(format(L["%s operation(s)"], module), "|cffffffff"..table.concat(operations, ", ").."|r")
+			tooltip:AddLine(leftText, "|cffffffff"..TSM.Groups.Path.Format(groupPath).."|r")
+			for _, moduleName in TSM.Operations.ModuleIterator() do
+				if TSM.db.global.tooltipOptions.operationTooltips[moduleName] then
+					local operations = TSMAPI_FOUR.Util.AcquireTempTable()
+					for _, operationName in TSM.Groups.OperationIterator(groupPath, moduleName) do
+						tinsert(operations, operationName)
+					end
+					if #operations > 1 then
+						tooltip:AddLine(format(L["%s operation(s)"], moduleName), "|cffffffff"..table.concat(operations, ", ").."|r")
+					end
+					TSMAPI_FOUR.Util.ReleaseTempTable(operations)
 				end
 			end
 		end

@@ -29,7 +29,7 @@ end
 
 function private.GetTooltipSettingsFrame()
 	wipe(private.operationModules)
-	for _, moduleName in ipairs(TSM.Operations:GetModulesWithOperations()) do
+	for _, moduleName in TSM.Operations.ModuleIterator() do
 		tinsert(private.operationModules, moduleName)
 	end
 	return TSMAPI_FOUR.UI.NewElement("ScrollFrame", "tooltipSettings")

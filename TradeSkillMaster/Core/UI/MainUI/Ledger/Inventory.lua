@@ -55,7 +55,9 @@ function private.DrawInventoryPage()
 	end
 
 	wipe(private.groupList)
-	TSM.Groups:GetSortedGroupPathList(private.groupList)
+	for _, groupPath in TSM.Groups.GroupIterator() do
+		tinsert(private.groupList, groupPath)
+	end
 
 	-- private.UpdateQuery()
 

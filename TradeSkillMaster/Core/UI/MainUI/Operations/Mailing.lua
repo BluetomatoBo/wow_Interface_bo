@@ -30,7 +30,7 @@ end
 
 function private.GetMailingOperationSettings(operationName)
 	private.currentOperationName = operationName
-	local operation = TSM.operations.Mailing[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Mailing", private.currentOperationName)
 
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
 		:SetLayout("VERTICAL")
@@ -99,7 +99,7 @@ function private.GetMailingOperationSettings(operationName)
 end
 
 function private.CreateNumericInputLine(key, label, maxValue, disabled)
-	local operation = TSM.operations.Mailing[private.currentOperationName]
+	local operation = TSM.Operations.GetSettings("Mailing", private.currentOperationName)
 	return TSM.MainUI.Operations.CreateLinkedSettingLine(key, label, disabled)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", key.."Frame")
 			:SetLayout("HORIZONTAL")

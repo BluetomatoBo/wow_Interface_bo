@@ -40,9 +40,8 @@ function private.ScanThread(auctionScan, groupList)
 	wipe(private.maxQuantity)
 	for _, groupPath in ipairs(groupList) do
 		private.groups[groupPath] = true
-		local _, operation = TSMAPI.Operations:GetFirstByGroup(groupPath, "Shopping")
-		if operation then
-			for _, itemString in TSMAPI_FOUR.Groups.ItemIterator(groupPath) do
+		for _, _, operation in TSM.Operations.GroupOperationIterator("Shopping", groupPath) do
+			for _, itemString in TSM.Groups.ItemIterator(groupPath) do
 				local isValid, err = TSMAPI_FOUR.CustomPrice.Validate(operation.maxPrice)
 				if operation.restockQuantity > 0 then
 					-- include mail and bags
@@ -91,12 +90,12 @@ function private.ScanFilter(row)
 	end
 
 	local itemString = row:GetField("itemString")
-	local groupPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString)
+	local groupPath = TSM.Groups.GetPathByItem(itemString)
 	if not groupPath or not private.groups[groupPath] then
 		return true
 	end
 
-	local operation = TSM.Operations.GetFirstOptionsByItem("Shopping", itemString)
+	local _, operation = TSM.Operations.GetFirstOperationByItem("Shopping", itemString)
 	if not operation then
 		return true
 	end
@@ -117,7 +116,7 @@ end
 
 function private.MarketValueFunction(row)
 	local itemString = row:GetField("itemString")
-	local operation = TSM.Operations.GetFirstOptionsByItem("Shopping", itemString)
+	local _, operation = TSM.Operations.GetFirstOperationByItem("Shopping", itemString)
 	if not operation then
 		return
 	end

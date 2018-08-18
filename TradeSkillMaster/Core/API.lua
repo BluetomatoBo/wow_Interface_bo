@@ -48,7 +48,9 @@ function TSM_API.GetGroupPaths(result)
 	if type(result) ~= "table" then
 		error("Invalid 'result' argument type (must be a table): "..tostring(result), 2)
 	end
-	TSM.Groups:GetSortedGroupPathList(result)
+	for _, groupPath in TSM.Groups.GroupIterator() do
+		tinsert(result, groupPath)
+	end
 	return result
 end
 
@@ -61,7 +63,7 @@ function TSM_API.FormatGroupPath(path)
 	elseif path == "" then
 		error("Invalid 'path' argument (empty string)", 2)
 	end
-	return TSMAPI_FOUR.Groups.FormatPath(path)
+	return TSM.Groups.Path.Format(path)
 end
 
 --- Splits a TSM group path into its parent path and group name components.
@@ -74,7 +76,7 @@ function TSM_API.SplitGroupPath(path)
 	elseif path == "" then
 		error("Invalid 'path' argument (empty string)", 2)
 	end
-	local parentPath, groupName = TSMAPI_FOUR.Groups.SplitPath(path)
+	local parentPath, groupName = TSM.Groups.Path.Split(path)
 	if parentPath == TSM.CONST.ROOT_GROUP_PATH then
 		parentPath = nil
 	end
@@ -88,7 +90,7 @@ function TSM_API.GetGroupPathByItem(item)
 	if type(item) ~= "string" and type(item) ~= "number" then
 		error("Invalid 'item' argument type (must be a string or number): "..tostring(item), 2)
 	end
-	local path = TSMAPI_FOUR.Groups.GetPathByItem(item)
+	local path = TSM.Groups.GetPathByItem(item)
 	return path ~= TSM.CONST.ROOT_GROUP_PATH and path or nil
 end
 

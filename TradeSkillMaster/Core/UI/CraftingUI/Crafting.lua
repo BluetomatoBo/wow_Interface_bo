@@ -357,6 +357,7 @@ function private.GetCraftingElements(self, button)
 						:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "craftAllBtn")
 							:SetStyle("height", 26)
 							:SetText(L["CRAFT ALL"])
+							:SetScript("OnMouseDown", private.CraftAllBtnOnMouseDown)
 							:SetScript("OnClick", private.CraftAllBtnOnClick)
 						)
 					)
@@ -410,6 +411,7 @@ function private.GetCraftingElements(self, button)
 								:SetStyle("margin.left", 6)
 								:SetStyle("margin.right", 6)
 								:SetText(L["CRAFT"])
+								:SetScript("OnMouseDown", private.CraftBtnOnMouseDown)
 								:SetScript("OnClick", private.CraftBtnOnClick)
 							)
 							:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "queueBtn")
@@ -609,6 +611,11 @@ function private.QueueBtnOnClick(button)
 	private.fsm:ProcessEvent("EV_QUEUE_BUTTON_CLICKED", value)
 end
 
+function private.CraftBtnOnMouseDown(button)
+	local quantity = max(button:GetElement("__parent.number.input"):GetNumber() or 0, 1)
+	private.fsm:ProcessEvent("EV_CRAFT_BUTTON_MOUSE_DOWN", quantity)
+end
+
 function private.CraftBtnOnClick(button)
 	button:SetPressed(true)
 	button:Draw()
@@ -616,10 +623,14 @@ function private.CraftBtnOnClick(button)
 	private.fsm:ProcessEvent("EV_CRAFT_BUTTON_CLICKED", quantity)
 end
 
+function private.CraftAllBtnOnMouseDown(button)
+	private.fsm:ProcessEvent("EV_CRAFT_BUTTON_MOUSE_DOWN", math.huge)
+end
+
 function private.CraftAllBtnOnClick(button)
 	button:SetPressed(true)
 	button:Draw()
-	private.fsm:ProcessEvent("EV_CRAFT_BUTTON_CLICKED", -1)
+	private.fsm:ProcessEvent("EV_CRAFT_BUTTON_CLICKED", math.huge)
 end
 
 function private.QueueOnRowClick(button, data, mouseButton)
@@ -860,7 +871,7 @@ function private.FSMCreate()
 			:SetDisabled(not canCraftFromQueue or not nextCraftRecord or context.craftingSpellId)
 			:SetPressed(context.craftingSpellId and context.craftingType == "queue")
 		if nextCraftRecord and canCraftFromQueue then
-			C_TradeSkillUI.SetRecipeRepeatCount(nextCraftSpellId, nextCraftRecord:GetField("num"))
+			TSM.Crafting.ProfessionUtil.PrepareToCraft(nextCraftSpellId, nextCraftRecord:GetField("num"))
 		end
 		queueFrame:Draw()
 	end
@@ -902,12 +913,8 @@ function private.FSMCreate()
 			:Draw()
 	end
 	function fsmPrivate.StartCraft(context, spellId, quantity)
-		TSM:LOG_INFO("Crafting %d of %d", quantity, spellId)
-		if context.craftingType == "craft" then
-			-- FIXME: since we don't have the repeat count set, we can only craft one due to blizzard weirdness
-			quantity = 1
-		end
 		local numCrafted = TSM.Crafting.ProfessionUtil.Craft(spellId, quantity, context.craftingType ~= "craft", fsmPrivate.CraftCallback)
+		TSM:LOG_INFO("Crafting %d (requested %s) of %d", numCrafted, quantity == math.huge and "all" or quantity, spellId)
 		if numCrafted == 0 then
 			return
 		end
@@ -1029,8 +1036,12 @@ function private.FSMCreate()
 			:AddEvent("EV_QUEUE_UPDATE", function(context)
 				fsmPrivate.UpdateQueueFrame(context)
 			end)
+			:AddEvent("EV_CRAFT_BUTTON_MOUSE_DOWN", function(context, quantity)
+				context.craftingType = quantity == math.huge and "all" or "craft"
+				TSM.Crafting.ProfessionUtil.PrepareToCraft(context.selectedRecipeSpellId, quantity)
+			end)
 			:AddEvent("EV_CRAFT_BUTTON_CLICKED", function(context, quantity)
-				context.craftingType = quantity == -1 and "all" or "craft"
+				context.craftingType = quantity == math.huge and "all" or "craft"
 				fsmPrivate.StartCraft(context, context.selectedRecipeSpellId, quantity)
 			end)
 			:AddEvent("EV_CRAFT_NEXT_BUTTON_CLICKED", function(context, spellId, quantity)
@@ -1060,6 +1071,7 @@ function private.FSMCreate()
 					context.craftingType = nil
 				end
 				fsmPrivate.UpdateCraftButtons(context)
+				fsmPrivate.UpdateQueueFrame(context)
 			end)
 		)
 		:AddDefaultEvent("EV_FRAME_HIDE", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_FRAME_CLOSED"))

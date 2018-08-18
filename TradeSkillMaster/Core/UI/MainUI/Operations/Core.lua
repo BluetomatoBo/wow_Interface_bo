@@ -51,7 +51,7 @@ function Operations.ShowOperationSettings(baseFrame, moduleName, operationName)
 end
 
 function Operations.GetOperationManagementElements()
-	local operation = TSM.operations[private.currentModule][private.currentOperationName]
+	local operation = TSM.Operations.GetSettings(private.currentModule, private.currentOperationName)
 	wipe(private.playerList)
 	for factionrealm in TSM.db:GetConnectedRealmIterator("factionrealm") do
 		for _, character in TSM.db:FactionrealmCharacterIterator(factionrealm) do
@@ -60,7 +60,9 @@ function Operations.GetOperationManagementElements()
 	end
 	-- TODO: make the group dropdown more usable (i.e. not raw group paths)
 	wipe(private.groupList)
-	TSM.Groups:GetSortedGroupPathList(private.groupList)
+	for _, groupPath in TSM.Groups.GroupIterator() do
+		tinsert(private.groupList, groupPath)
+	end
 	return TSMAPI_FOUR.UI.NewElement("Frame", "management")
 		:SetLayout("VERTICAL")
 		:AddChild(Operations.CreateHeadingLine("managementOptions", L["Management Options"]))
@@ -103,7 +105,8 @@ function Operations.CreateHeadingLine(id, text)
 end
 
 function Operations.CreateLinkedSettingLine(settingKey, labelText, disabled)
-	local relationshipSet = TSM.operations[private.currentModule][private.currentOperationName].relationships[settingKey] and true or false
+	local operation = TSM.Operations.GetSettings(private.currentModule, private.currentOperationName)
+	local relationshipSet = operation.relationships[settingKey] and true or false
 	return TSMAPI_FOUR.UI.NewElement("Frame", settingKey)
 		:SetLayout("HORIZONTAL")
 		:SetStyle("height", 26)
@@ -235,19 +238,30 @@ function private.OperationResetAllBtnOnClick(baseFrame)
 	--Clear down settings page
 	contentFrame:ReleaseAllChildren()
 	-- Add the updated values to the page
-	TSMAPI.Operations:Update(private.currentModule, private.currentOperationName)
+	TSM.Operations.Update(private.currentModule, private.currentOperationName)
 	contentFrame:AddChild(private.moduleCallbacks[private.currentModule](private.currentOperationName))
 	settingsFrame:Draw()
 end
 
 function private.AddOperationGroups(frame)
-	for _, groupPath in TSMAPI_FOUR.Groups.IteratorByOperation(private.currentModule, private.currentOperationName) do
-		frame:AddChild(private.CreateGroupOperationLine(groupPath))
+	-- need to filter out the groups without operations
+	for _, groupPath in TSM.Groups.GroupIterator() do
+		if TSM.Groups.HasOperationOverride(groupPath, private.currentModule) then
+			local hasCurrentOperation = false
+			for _, operationName in TSM.Operations.GroupOperationIterator(private.currentModule, groupPath) do
+				if operationName == private.currentOperationName then
+					hasCurrentOperation = true
+				end
+			end
+			if hasCurrentOperation then
+				frame:AddChild(private.CreateGroupOperationLine(groupPath))
+			end
+		end
 	end
 end
 
 function private.CreateGroupOperationLine(groupPath)
-	local groupName = groupPath == TSM.CONST.ROOT_GROUP_PATH and L["Base Group"] or select(2, TSMAPI_FOUR.Groups.SplitPath(groupPath))
+	local groupName = groupPath == TSM.CONST.ROOT_GROUP_PATH and L["Base Group"] or TSM.Groups.Path.GetName(groupPath)
 	local level = select('#', strsplit(TSM.CONST.GROUP_SEP, groupPath))
 	return TSMAPI_FOUR.UI.NewElement("Frame", "group")
 		:SetLayout("HORIZONTAL")
@@ -279,7 +293,8 @@ end
 
 function private.CreateLinkButton(disabled, settingKey)
 	local vertexColor = nil
-	local relationshipSet = TSM.operations[private.currentModule][private.currentOperationName].relationships[settingKey]
+	local operation = TSM.Operations.GetSettings(private.currentModule, private.currentOperationName)
+	local relationshipSet = operation.relationships[settingKey]
 	if disabled and relationshipSet then
 		vertexColor = "#6f5819"
 	elseif disabled then
@@ -312,12 +327,10 @@ function private.OperationSearchOnTextChanged(input)
 end
 
 function private.OperationTreeOnOperationAdded(_, moduleName, operationName, copyOperationName)
+	TSM.Operations.Create(moduleName, operationName)
 	if copyOperationName then
-		TSM.operations[moduleName][operationName] = CopyTable(TSM.operations[moduleName][copyOperationName])
-	else
-		TSM.Operations.New(moduleName, operationName)
+		TSM.Operations.Copy(moduleName, operationName, copyOperationName)
 	end
-	TSM.Modules:CheckOperationRelationships(moduleName)
 end
 
 function private.OperationTreeOnOperationConfirmDelete(self, moduleName, operationName)
@@ -332,21 +345,8 @@ function private.OperationSettingsOnOperationConfirmReset(self)
 end
 
 function private.OperationTreeOnOperationDeleted(self, moduleName, operationName)
-	-- delete operation
+	TSM.Operations.Delete(moduleName, operationName)
 	local operationTree = self:GetElement("__parent.operationTree")
-
-	TSM.operations[moduleName][operationName] = nil
-	for groupPath, modules in pairs(TSM.db.profile.userData.groups) do
-		local operations = modules[moduleName]
-		if operations then
-			for i = #operations, 1, -1 do
-				if operations[i] == operationName then
-					TSM.Groups:RemoveOperation(groupPath, moduleName, i)
-				end
-			end
-		end
-	end
-	TSM.Modules:CheckOperationRelationships(moduleName)
 	operationTree:Draw()
 end
 
@@ -359,7 +359,7 @@ function private.OperationTreeOnOperationSelected(self, moduleName, operationNam
 	contentFrame:ReleaseAllChildren()
 	local titleFrame = settingsFrame:GetElement("title")
 	if moduleName and operationName then
-		TSMAPI.Operations:Update(moduleName, operationName)
+		TSM.Operations.Update(moduleName, operationName)
 		titleFrame:GetElement("text"):SetText(operationName)
 		titleFrame:GetElement("editBtn"):Show()
 		titleFrame:GetElement("moreBtn"):Show()
@@ -380,11 +380,11 @@ function private.TitleOnValueChanged(text, newValue)
 	elseif newValue == "" then
 		TSM:Print(L["Invalid operation name."])
 		text:Draw()
-	elseif TSM.operations[private.currentModule][newValue] then
+	elseif TSM.Operations.Exists(private.currentModule, newValue) then
 		TSM:Print(L["Group already exists."])
 		text:Draw()
 	else
-		TSMAPI_FOUR.Operations.Rename(private.currentModule, private.currentOperationName, newValue)
+		TSM.Operations.Rename(private.currentModule, private.currentOperationName, newValue)
 		text:GetElement("__parent.__parent.__parent.selection.operationTree")
 			:SetSelectedOperation(private.currentModule, newValue)
 			:Draw()
@@ -404,76 +404,25 @@ function private.EditBtnOnClick(button)
 	button:GetElement("__parent.text"):SetEditing(true)
 end
 
-function private.ApplyNewOnSelectionChanged(dropdown, path)
-	-- FIXME: this logic should be refactored and some of it should probably go elsewhere (mostly copied from TSM3 for now)
-	-- see also: Core/Lib/Importer
-	local operations = TSM.db.profile.userData.groups[path][private.currentModule]
-	local num = #operations
-	local didAdd = false
-	if num == 0 then
-		TSM.Groups:SetOperationOverride(path, private.currentModule, true)
-		TSM.Groups:AddOperation(path, private.currentModule)
-		TSM.Groups:SetOperation(path, private.currentModule, private.currentOperationName, 1)
-		TSM:Printf(L["Applied %s to %s."], "|cff99ffff"..private.currentOperationName.."|r", TSMAPI_FOUR.Groups.FormatPath(path, true))
-		didAdd = true
-	elseif operations[num] == "" then
-		TSM.Groups:SetOperationOverride(path, private.currentModule, true)
-		TSM.Groups:SetOperation(path, private.currentModule, private.currentOperationName, num)
-		TSM:Printf(L["Applied %s to %s."], "|cff99ffff"..private.currentOperationName.."|r", TSMAPI_FOUR.Groups.FormatPath(path, true))
-		didAdd = true
-	else
-		-- TODO: use new popup style and then add a new row once confirmed
-		local maxOperations = TSM.Operations.GetMaxOperations(private.currentModule)
-		if num < maxOperations then
-			StaticPopupDialogs["TSM_APPLY_OPERATION_ADD"] = StaticPopupDialogs["TSM_APPLY_OPERATION_ADD"] or {
-				text = L["This group already has operations. Would you like to add another one or replace the last one?"],
-				button1 = ADD,
-				button2 = L["Replace"],
-				button3 = CANCEL,
-				timeout = 0,
-				OnAccept = function()
-					-- the "add" button
-					local groupPath, moduleName, operationName, operationNum = unpack(StaticPopupDialogs["TSM_APPLY_OPERATION_ADD"].tsmInfo)
-					TSM.Groups:SetOperationOverride(groupPath, moduleName, true)
-					TSM.Groups:AddOperation(groupPath, moduleName)
-					TSM.Groups:SetOperation(groupPath, moduleName, operationName, operationNum+1)
-					TSM:Printf(L["Applied %s to %s."], "|cff99ffff"..operationName.."|r", TSMAPI_FOUR.Groups.FormatPath(groupPath, true))
-				end,
-				OnCancel = function()
-					-- the "replace" button
-					local groupPath, moduleName, operationName, operationNum = unpack(StaticPopupDialogs["TSM_APPLY_OPERATION_ADD"].tsmInfo)
-					TSM.Groups:SetOperationOverride(groupPath, moduleName, true)
-					TSM.Groups:SetOperation(groupPath, moduleName, operationName, operationNum)
-					TSM:Printf(L["Applied %s to %s."], "|cff99ffff"..operationName.."|r", TSMAPI_FOUR.Groups.FormatPath(groupPath, true))
-				end,
-			}
-			StaticPopupDialogs["TSM_APPLY_OPERATION_ADD"].tsmInfo = {path, private.currentModule, private.currentOperationName, num}
-			TSMAPI_FOUR.Util.ShowStaticPopupDialog("TSM_APPLY_OPERATION_ADD")
-		else
-			StaticPopupDialogs["TSM_APPLY_OPERATION"] = StaticPopupDialogs["TSM_APPLY_OPERATION"] or {
-				text = L["This group already has the max number of operation. Would you like to replace the last one?"],
-				button1 = L["Replace"],
-				button2 = CANCEL,
-				timeout = 0,
-				OnAccept = function()
-					-- the "replace" button
-					local groupPath, moduleName, operationName, operationNum = unpack(StaticPopupDialogs["TSM_APPLY_OPERATION"].tsmInfo)
-					TSM.Groups:SetOperationOverride(groupPath, moduleName, true)
-					TSM.Groups:SetOperation(groupPath, moduleName, operationName, operationNum)
-					TSM:Printf(L["Applied %s to %s."], "|cff99ffff"..operationName.."|r", TSMAPI_FOUR.Groups.FormatPath(groupPath, true))
-				end,
-			}
-			StaticPopupDialogs["TSM_APPLY_OPERATION"].tsmInfo = {path, private.currentModule, private.currentOperationName, num}
-			TSMAPI_FOUR.Util.ShowStaticPopupDialog("TSM_APPLY_OPERATION")
-		end
+function private.ApplyNewOnSelectionChanged(dropdown, groupPath)
+	TSM.Groups.SetOperationOverride(groupPath, private.currentModule, true)
+	local numOperations = 0
+	local lastOperationName = nil
+	for _, operationName in TSM.Groups.OperationIterator(groupPath, private.currentModule) do
+		lastOperationName = operationName
+		numOperations = numOperations + 1
 	end
+	if numOperations == TSM.Operations.GetMaxNumber(private.currentModule) then
+		-- replace the last operation since we're already at the max number of operations
+		TSM.Groups.RemoveOperation(groupPath, private.currentModule, numOperations)
+		TSM:Printf(L["%s previously had the max number of operations, so removed %s."], TSM.Groups.Path.Format(groupPath, true), "|cff99ffff"..lastOperationName.."|r")
+	end
+	TSM:Printf(L["Added %s to %s."], "|cff99ffff"..private.currentOperationName.."|r", TSM.Groups.Path.Format(groupPath, true))
 
-	if didAdd then
-		-- add a new line
-		local parentElement = dropdown:GetParentElement():GetParentElement()
-		parentElement:AddChild(private.CreateGroupOperationLine(path))
-		parentElement:GetParentElement():Draw()
-	end
+	-- add a new line
+	local parentElement = dropdown:GetParentElement():GetParentElement()
+	parentElement:AddChild(private.CreateGroupOperationLine(groupPath))
+	parentElement:GetParentElement():Draw()
 end
 
 function private.ViewGroupOnClick(button)
@@ -483,8 +432,7 @@ end
 
 function private.RemoveOperationGroupOnClick(self)
 	local groupPath = self:GetContext()
-	TSMAPI_FOUR.Groups.RemoveOperationByName(groupPath, private.currentModule, private.currentOperationName)
-	TSM.Modules:CheckOperationRelationships(private.currentModule)
+	TSM.Groups.RemoveOperationByName(groupPath, private.currentModule, private.currentOperationName)
 
 	-- remove the line for this group
 	local removeElement = self:GetParentElement()
@@ -497,13 +445,14 @@ end
 function private.LinkBtnOnClick(button)
 	local settingKey = button:GetContext()
 	wipe(private.linkMenuEntries)
-	for operationName in pairs(TSM.operations[private.currentModule]) do
-		if operationName ~= private.currentOperationName and not TSMAPI_FOUR.Operations.IsCircularRelationship(private.currentModule, private.currentOperationName, settingKey) then
+	for _, operationName in TSM.Operations.OperationIterator(private.currentModule) do
+		if operationName ~= private.currentOperationName and not TSM.Operations.IsCircularRelationship(private.currentModule, private.currentOperationName, settingKey) then
 			tinsert(private.linkMenuEntries, operationName)
 		end
 	end
 	sort(private.linkMenuEntries)
-	local currentRelationshipOperationName = TSM.operations[private.currentModule][private.currentOperationName].relationships[settingKey]
+	local operation = TSM.Operations.GetSettings(private.currentModule, private.currentOperationName)
+	local currentRelationshipOperationName = operation.relationships[settingKey]
 	button:GetBaseElement():ShowDialogFrame(TSMAPI_FOUR.UI.NewElement("MenuDialogFrame", "linkDialog")
 		:SetLayout("VERTICAL")
 		:SetStyle("width", 263)
@@ -538,7 +487,7 @@ end
 
 function private.ListOnEntrySelected(list, operationName)
 	local settingKey = list:GetContext()
-	local operationSettings = TSM.operations[private.currentModule][private.currentOperationName]
+	local operationSettings = TSM.Operations.GetSettings(private.currentModule, private.currentOperationName)
 	local previousValue = operationSettings.relationships[settingKey]
 	if operationName == previousValue then
 		operationSettings.relationships[settingKey] = nil

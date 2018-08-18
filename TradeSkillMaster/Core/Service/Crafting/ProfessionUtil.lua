@@ -12,6 +12,8 @@ local private = {
 	craftQuantity = nil,
 	craftSpellId = nil,
 	craftCallback = nil,
+	preparedSpellId = nil,
+	preparedTime = 0,
 }
 
 
@@ -128,7 +130,7 @@ function ProfessionUtil.GetNumCraftableFromDB(spellId)
 end
 
 function ProfessionUtil.IsEnchant(spellId)
-	local name = TSM.Crafting.ProfessionUtil.GetCurrentProfessionName()
+	local name = ProfessionUtil.GetCurrentProfessionName()
 	if name ~= GetSpellInfo(7411) then
 		return false
 	end
@@ -156,18 +158,34 @@ function ProfessionUtil.OpenProfession(profession)
 	CastSpellByName(profession)
 end
 
+function ProfessionUtil.PrepareToCraft(spellId, quantity)
+	quantity = min(quantity, ProfessionUtil.GetNumCraftable(spellId))
+	if quantity == 0 then
+		return
+	end
+	if ProfessionUtil.IsEnchant(spellId) then
+		quantity = 1
+	end
+
+	C_TradeSkillUI.SetRecipeRepeatCount(spellId, quantity)
+	private.preparedSpellId = spellId
+	private.preparedTime = GetTime()
+end
+
 function ProfessionUtil.Craft(spellId, quantity, useVellum, callback)
 	if private.craftSpellId then
 		callback(false, true)
 		return 0
 	end
-	local numCraftable = ProfessionUtil.GetNumCraftable(spellId)
-	quantity = min(quantity == -1 and math.huge or quantity, numCraftable)
+	quantity = min(quantity, ProfessionUtil.GetNumCraftable(spellId))
 	if quantity == 0 then
 		return 0
 	end
 	local isEnchant = ProfessionUtil.IsEnchant(spellId)
 	if isEnchant then
+		quantity = 1
+	elseif spellId ~= private.preparedSpellId or private.preparedTime == GetTime() then
+		-- We can only craft one of this item due to a bug on Blizzard's end
 		quantity = 1
 	end
 	private.craftQuantity = quantity

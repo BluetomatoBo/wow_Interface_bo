@@ -376,7 +376,7 @@ function Transactions.UpdateSummaryData(groupFilter, typeFilter, characterFilter
 
 	local items = private.db:NewQuery()
 		:Select("itemString", "price", "quantity", "type")
-		:LeftJoin(TSM.Groups.GetDBForJoin(), "itemString")
+		:LeftJoin(TSM.Groups.GetItemDBForJoin(), "itemString")
 
 	if groupFilter ~= ALL then
 		items:Equal("groupPath", groupFilter)

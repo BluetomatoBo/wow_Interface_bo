@@ -604,6 +604,10 @@ function private.ParsePriceString(str, badPriceSource)
 			if not parts[i+1] or parts[i+1] == ")" then
 				return nil, L["Empty parentheses are not allowed"]
 			end
+			-- should never have ") ("
+			if i > 1 and parts[i-1] == ")" then
+				return nil, L["Missing operator between sets of parenthesis"]
+			end
 		elseif word == ")" then
 			-- valid parenthesis
 		elseif word == "," then

@@ -183,13 +183,13 @@ end
 -- ============================================================================
 
 function private.CanCancelItem(itemString, groupList)
-	local groupPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString)
+	local groupPath = TSM.Groups.GetPathByItem(itemString)
 	if not groupPath or not tContains(groupList, groupPath) then
 		return false
 	end
 
 	local hasValidOperation, hasInvalidOperation = false, false
-	for operationName, operationSettings in TSM.Operations.IteratorByGroup("Auctioning", groupPath) do
+	for _, operationName, operationSettings in TSM.Operations.GroupOperationIterator("Auctioning", groupPath) do
 		local isValid = private.IsOperationValid(itemString, operationName, operationSettings)
 		if isValid == true then
 			hasValidOperation = true
@@ -250,7 +250,7 @@ function private.AuctionScanOnFilterDone(_, filter)
 			:Equal(isBaseItemString and "baseItemString" or "itemString", itemString)
 			:GreaterThan("itemBuyout", 0)
 			:OrderBy("itemBuyout", true)
-		local groupPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString)
+		local groupPath = TSM.Groups.GetPathByItem(itemString)
 		if groupPath then
 			local auctionsDBQuery = TSM.Inventory.AuctionTracking.CreateQuery()
 				:Equal("autoBaseItemString", itemString)
@@ -269,7 +269,7 @@ end
 
 function private.GenerateCancels(auctionsDBRow, itemString, query, groupPath)
 	local isHandled = false
-	for operationName, operationSettings in TSM.Operations.IteratorByGroup("Auctioning", groupPath) do
+	for _, operationName, operationSettings in TSM.Operations.GroupOperationIterator("Auctioning", groupPath) do
 		if not isHandled and private.IsOperationValid(itemString, operationName, operationSettings) then
 			local handled, logReason, itemBuyout, seller, index = private.GenerateCancel(auctionsDBRow, itemString, operationName, operationSettings, query)
 			if logReason then

@@ -58,7 +58,9 @@ function private.DrawResalePage()
 
 	wipe(private.groupList)
 	tinsert(private.groupList, ALL)
-	TSM.Groups:GetSortedGroupPathList(private.groupList)
+	for _, groupPath in TSM.Groups.GroupIterator() do
+		tinsert(private.groupList, groupPath)
+	end
 
 	private.summaryQuery = private.summaryQuery or TSM.Accounting.Transactions.CreateSummaryQuery()
 		:InnerJoin(TSM.ItemInfo.GetDBForJoin(), "itemString")

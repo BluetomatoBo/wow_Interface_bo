@@ -6,14 +6,6 @@
 --    All Rights Reserved* - Detailed license information included with addon.    --
 -- ------------------------------------------------------------------------------ --
 
---- Exporter TSMAPI_FOUR Functions
--- Constraints:
--- Work like TSM3 exporter
--- except: can export multiple groups
--- Operation export / import should apply all operations.
--- Inherited operations MUST be exported to support this.
--- @module Exporter
-
 TSMAPI_FOUR.Exporter = {}
 local _, TSM = ...
 local LibAceSerializer = LibStub:GetLibrary("AceSerializer-3.0")
@@ -35,7 +27,7 @@ function Exporter.__init(self)
 	self.groupOperations = {}
 	self.operationsBlacklist = {}
 	self.groupTargets = {}
-	for _, module in ipairs(TSM.Operations:GetModulesWithOperations()) do
+	for _, module in TSM.Operations.ModuleIterator() do
 		self.groupOperations[module] = {}
 		self.operationsBlacklist[module] = {}
 		self.operations[module] = {}
@@ -55,7 +47,7 @@ end
 function Exporter.ResetSelection(self)
 	wipe(self.groups)
 	wipe(self.groupOperations)
-	for _, module in ipairs(TSM.Operations:GetModulesWithOperations()) do
+	for _, module in TSM.Operations.ModuleIterator() do
 		wipe(self.operations[module])
 	end
 end
@@ -66,8 +58,8 @@ end
 function Exporter.SelectGroup(self, path)
 	if path ~= TSM.CONST.ROOT_GROUP_PATH then
 		tinsert(self.groups, path)
-		for _, module in ipairs(TSM.Operations:GetModulesWithOperations()) do
-			for operationName, operationSettings in TSMAPI_FOUR.Operations.Iterator(module, path) do
+		for _, module in TSM.Operations.ModuleIterator() do
+			for _, operationName, operationSettings in TSM.Operations.GroupOperationIterator(module, path) do
 				if not self.operationsBlacklist[module][operationName] then
 					self.operations[module][operationName] = operationSettings
 				end
@@ -79,7 +71,7 @@ end
 --- Finishes bookkeeping when the group selection changes
 -- @tparam self the exporter
 function Exporter.FinalizeGroupSelections(self)
-	TSMAPI_FOUR.Groups.SortGroupList(self.groups)
+	TSM.Groups.SortGroupList(self.groups)
 	self:_SetupGroupTargets()
 	for _, path in ipairs(self.groups) do
 		self:_SaveGroupOperations(path)
@@ -112,17 +104,15 @@ function Exporter._SaveGroupOperations(self, group)
 	end
 	local relPath = self.groupTargets[group]
 	self.groupOperations[relPath] = TSM.db.profile.userData.groups[group]
-	for _, module in ipairs(TSM.Operations:GetModulesWithOperations()) do
-		local operationInfo = self.groupOperations[relPath][module]
-		for _, operation in ipairs(operationInfo) do
-			if operation ~= "" then
-				local data = CopyTable(TSM.operations[module][operation])
-				data.ignorePlayer = nil
-				data.ignoreFactionrealm = nil
-				data.relationships = nil
-				self.operations[module] = self.operations[module] or {}
-				self.operations[module][operation] = data
-			end
+	for _, moduleName in TSM.Operations.ModuleIterator() do
+		local operationInfo = self.groupOperations[relPath][moduleName]
+		for _, operationName in ipairs(operationInfo) do
+			local data = CopyTable(TSM.Operations.GetSettings(moduleName, operationName))
+			data.ignorePlayer = nil
+			data.ignoreFactionrealm = nil
+			data.relationships = nil
+			self.operations[moduleName] = self.operations[moduleName] or {}
+			self.operations[moduleName][operationName] = data
 		end
 	end
 end
@@ -130,7 +120,7 @@ end
 function Exporter._SaveItems(self, selectedGroups, saveItems)
 	local temp = TSMAPI_FOUR.Util.AcquireTempTable()
 
-	for _, itemString, groupPath in TSMAPI_FOUR.Groups.ItemIterator() do
+	for _, itemString, groupPath in TSM.Groups.ItemIterator() do
 		if selectedGroups[groupPath] then
 			tinsert(temp, itemString)
 		end
@@ -140,7 +130,7 @@ function Exporter._SaveItems(self, selectedGroups, saveItems)
 
 	local currentPath = ""
 	for _, itemString in pairs(temp) do
-		local rawPath = TSMAPI_FOUR.Groups.GetPathByItem(itemString)
+		local rawPath = TSM.Groups.GetPathByItem(itemString)
 		local relPath = self.groupTargets[rawPath]
 		if relPath ~= currentPath then
 			tinsert(saveItems, "group:"..relPath)
@@ -158,13 +148,13 @@ function Exporter._SetupGroupTargets(self)
 	end
 	local knownRoots = {}
 	for _, groupPath in ipairs(self.groups) do
-		local root, leaf = TSMAPI_FOUR.Groups.SplitPath(groupPath)
+		local root, leaf = TSM.Groups.Path.Split(groupPath)
 		leaf = gsub(leaf, ",", TSM.CONST.GROUP_SEP..TSM.CONST.GROUP_SEP)
 		if knownRoots[root] then
 			self.groupTargets[groupPath] = leaf
 		else
 			if self.groupTargets[root] then
-				self.groupTargets[groupPath] = TSMAPI_FOUR.Groups.JoinPath(self.groupTargets[root], leaf)
+				self.groupTargets[groupPath] = TSM.Groups.Path.Join(self.groupTargets[root], leaf)
 			else
 				knownRoots[root] = true
 				self.groupTargets[groupPath] = leaf
@@ -180,8 +170,8 @@ end
 -- ============================================================================
 
 function private.GroupsThenItemsSortFunc(a, b)
-	local groupA = strlower(gsub(TSMAPI_FOUR.Groups.GetPathByItem(a), TSM.CONST.GROUP_SEP, "\001"))
-	local groupB = strlower(gsub(TSMAPI_FOUR.Groups.GetPathByItem(b), TSM.CONST.GROUP_SEP, "\001"))
+	local groupA = strlower(gsub(TSM.Groups.GetPathByItem(a), TSM.CONST.GROUP_SEP, "\001"))
+	local groupB = strlower(gsub(TSM.Groups.GetPathByItem(b), TSM.CONST.GROUP_SEP, "\001"))
 	if groupA == groupB then
 		return a < b
 	end
