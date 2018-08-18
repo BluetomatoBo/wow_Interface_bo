@@ -5,17 +5,25 @@ local unpack = unpack;
 local modName = ...;
 local ttif = CreateFrame("Frame",modName);
 
--- Options without TipTac. If the basic TipTac addon is used, the global TipTac_Config table is used instead
+-- Register with TipTac core addon if available
+if (TipTac) then
+	TipTac:RegisterElement(ttif,"ItemRef");
+end
+
+-- Options without TipTac. If the base TipTac addon is used, the global TipTac_Config table is used instead
 local cfg = {
 	if_enable = true,
 	if_infoColor = { 0.2, 0.6, 1 },
 	if_itemQualityBorder = true,
 	if_showAuraCaster = true,
-	if_showItemLevelAndId = false,				-- Used to be true, but changed due to the itemLevel issues
+
+	if_showItemLevel = false,					-- Used to be true, but changed due to the itemLevel issues
+	if_showItemId = false,
 	if_showQuestLevelAndId = true,
 	if_showSpellIdAndRank = false,
 	if_showCurrencyId = true,					-- Az: no option for this added to TipTac/options yet!
 	if_showAchievementIdAndCategory = false,	-- Az: no option for this added to TipTac/options yet!
+
 	if_modifyAchievementTips = true,
 	if_showIcon = true,
 	if_smartIcons = true,
@@ -43,8 +51,8 @@ local tipDataAdded = {};	-- Sometimes, OnTooltipSetItem/Spell is called before t
 local COLOR_COMPLETE = { 0.25, 0.75, 0.25 };
 local COLOR_INCOMPLETE = { 0.5, 0.5, 0.5 };
 
--- Returns colored text string
-local function BoolCol(bool) return (bool and "|cff80ff80" or "|cffff8080"); end
+-- Colored text string (red/green)
+local BoolCol = { [false] = "|cffff8080", [true] = "|cff80ff80" };
 
 --------------------------------------------------------------------------------------------------------
 --                                         Create Tooltip Icon                                        --
@@ -114,21 +122,20 @@ ttif:SetScript("OnEvent",function(self,event,...)
 
 	-- Hook tips and apply settings
 	self:DoHooks();
-	self:ApplySettings();
+	self:OnApplyConfig();
 
 	-- Cleanup; we no longer need to receive any events
 	self:UnregisterAllEvents();
 	self:SetScript("OnEvent",nil);
 end);
 
--- Apply Settings -- It seems this may be called from TipTac:ApplySettings() before we have received our VARIABLES_LOADED, so ensure we have created the tip objects
-function ttif:ApplySettings()
+-- Apply Settings -- It seems this may be called from TipTac:OnApplyConfig() before we have received our VARIABLES_LOADED, so ensure we have created the tip objects
+function ttif:OnApplyConfig()
 	local gameFont = GameFontNormal:GetFont();
 	for index, tip in ipairs(tipsToModify) do
 		if (type(tip) == "table") and (tipsToAddIcon[tip:GetName()]) and (tip.ttIcon) then
 			if (cfg.if_showIcon) then
-				tip.ttIcon:SetWidth(cfg.if_iconSize);
-				tip.ttIcon:SetHeight(cfg.if_iconSize);
+				tip.ttIcon:SetSize(cfg.if_iconSize,cfg.if_iconSize);
 				tip.ttCount:SetFont(gameFont,(cfg.if_iconSize / 3),"OUTLINE");
 				tip.SetIconTextureAndText = SetIconTextureAndText;
 				if (cfg.if_borderlessIcons) then
@@ -189,7 +196,7 @@ local function OnTooltipSetItem(self,...)
 	if (cfg.if_enable) and (not tipDataAdded[self]) then
 		local _, link = self:GetItem();
 		if (link) then
-			local linkType, id = link:match("(%a+):(%d+)");
+			local linkType, id = link:match("H?(%a+):(%d+)");
 			if (id) then
 				tipDataAdded[self] = linkType;
 				LinkTypeFuncs.item(self,link,linkType,id);
@@ -255,6 +262,11 @@ local function SmartIconEvaluation(tip,linkType)
 		if (owner.action or owner.icon) then
 			return false;
 		end
+	-- Achievement
+--	elseif (linkType == "achievement") then
+--		if (owner.icon) then
+--			return false;
+--		end
 	end
 
 	-- IconTexture sub texture
@@ -299,20 +311,26 @@ function LinkTypeFuncs:item(link,linkType,id)
 	end
 
 	-- level + id -- Only alter the tip if we got either a valid "itemLevel" or "id"
-	if (cfg.if_showItemLevelAndId) and (itemLevel or id) then
-		for i = 2, min(self:NumLines(),LibItemString.TOOLTIP_MAXLINE_LEVEL) do
-			local line = _G[self:GetName().."TextLeft"..i];
-			if (line and (line:GetText() or ""):match(ITEM_LEVEL_PLUS)) then
-				line:SetText(nil);
-				break;
+	local showLevel = (itemLevel and cfg.if_showItemLevel);
+	local showId = (id and cfg.if_showItemId);
+	if (showLevel or showId) then
+		if (showLevel) then
+			for i = 2, min(self:NumLines(),LibItemString.TOOLTIP_MAXLINE_LEVEL) do
+				local line = _G[self:GetName().."TextLeft"..i];
+				if (line and (line:GetText() or ""):match(ITEM_LEVEL_PLUS)) then
+					line:SetText(nil);
+					break;
+				end
 			end
 		end
-		if (itemLevel) and (itemLevel ~= 0) then
+		if (not showLevel) then
+			self:AddLine(format("ItemID: %d",id),unpack(cfg.if_infoColor));
+		elseif (showId) then
 			self:AddLine(format("ItemLevel: %d, ItemID: %d",itemLevel,id),unpack(cfg.if_infoColor));
 		else
-			self:AddLine(format("ItemID: %d",id),unpack(cfg.if_infoColor));
+			self:AddLine(format("ItemLevel: %d",itemLevel),unpack(cfg.if_infoColor));
 		end
-		self:Show();	-- call Show() to resize tip after adding lines
+--		self:Show();	-- call Show() to resize tip after adding lines
 	end
 end
 
@@ -412,7 +430,7 @@ function LinkTypeFuncs:achievement(link,linkType,id,guid,completed,month,day,yea
 			self:AddLine(reward,unpack(cfg.if_infoColor));
 		end
 		self:AddLine(description,1,1,1,1);
-		self:AddLine(BoolCol(completed)..progressText);
+		self:AddLine(BoolCol[completed]..progressText);
 		if (#criteriaList > 0) then
 			self:AddLine(" ");
 			self:AddLine("Achievement Criteria |cffffffff"..criteriaComplete.."|r of |cffffffff"..#criteriaList);
@@ -433,8 +451,8 @@ function LinkTypeFuncs:achievement(link,linkType,id,guid,completed,month,day,yea
 						--myDone2 = select(3,GetAchievementCriteriaInfo(id,i + 1));
 					end
 				end
-				myDone1 = (isPlayer and "" or BoolCol(myDone1).."*|r")..criteriaList[i].label;
-				myDone2 = criteriaList[i + 1] and criteriaList[i + 1].label..(isPlayer and "" or BoolCol(myDone2).."*");
+				myDone1 = (isPlayer and "" or BoolCol[myDone1].."*|r")..criteriaList[i].label;
+				myDone2 = criteriaList[i + 1] and criteriaList[i + 1].label..(isPlayer and "" or BoolCol[myDone2].."*");
 				self:AddDoubleLine(myDone1,myDone2,r1,g1,b1,r2,g2,b2);
 			end
 		end
@@ -443,7 +461,8 @@ function LinkTypeFuncs:achievement(link,linkType,id,guid,completed,month,day,yea
 			self:AddLine(format("AchievementID: %d, CategoryID: %d",id or 0,catId or 0),unpack(cfg.if_infoColor));
 		end
 		-- Icon
-		if (self.SetIconTextureAndText) then
+--		if (self.SetIconTextureAndText) then
+		if (self.SetIconTextureAndText) and (not cfg.if_smartIcons or SmartIconEvaluation(self,linkType)) then
 			self:SetIconTextureAndText(icon,points);
 		end
 		-- Show

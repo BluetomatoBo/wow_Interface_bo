@@ -1,3 +1,8 @@
+TipTacTalents Changes | 2018 Jul 30
+-----------------------------------
+- Localized the "Loading..." text.
+- Restructured the code.
+
 TipTacTalents Changes | 2018 Jul 19
 -----------------------------------
 - Updated the TOC version to 80000 for the Battle for Azeroth 8.0 pre-patch.

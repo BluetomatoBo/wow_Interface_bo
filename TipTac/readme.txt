@@ -57,18 +57,21 @@ Lacking Features, Ideas & Problems
 ----------------------------------
 - There is an issue with the Chat Frame Hyperlink hooking.
 - Add glyph and npc support for the TipTacItemRef addon.
-- Look into scaling the tooltip height by adding texture lines like "|T:1:30|t". Only issue is that it needs to remain the last line, if another addon adds more lines, it will cause issues.
 - Colorblind mode does not work properly with owned combat pets with a custom name.
 - ItemRefTooltip: Does not support "archaeology". The "currency" type should be supported now, but need verification.
 - ItemRefTooltip does not position well if scaled below 1.
-- Remove font size delta, add slider for each font size.
 - Add hover tips to "GuildBankMessageFrame".
-- Move the GTT resize code from the OnShow HOOK into the OnUpdate HOOK. Might need to be duplicated, it still need to be in OnShow I think?
 - Add more slash command to change settings, this will allow people to reconfigure TipTac on the fly, without opening the config window. Great for multiple specs etc.
-- Currently doesn't work well with the Russian client, because it is unable to find the level line using the "TT_LevelMatch" pattern.
-  There is a fix here: http://wow.curseforge.com/addons/tip-tac/tickets/3-overachiever-ru-ru-compatibility/
 - Sometimes tips may not fade for a mage's mirror images. This happens because GTT:GetUnit() does not return a unit token when you mouse over them.
 - Even with the option "Instantly Hide World Frame Tips", some tips still fades out, this is because TipTac uses a "mouse cursor change" event to find out when to instantly hide world tips.
   But since not all world objects change the mouse cursor, you wont see tips fading out instantly for them.
 - Change the font of the "GameTooltipMoneyFrame" texts.
 - Adding a castbar in addition to the already existing health and power bar.
+
+Solved or Invalid Issues
+------------------------
+- Remove font size delta, add slider for each font size.
+- Move the GTT resize code from the OnShow HOOK into the OnUpdate HOOK. Might need to be duplicated, it still need to be in OnShow I think?
+- Look into scaling the tooltip height by adding texture lines like "|T:1:30|t". Only issue is that it needs to remain the last line, if another addon adds more lines, it will cause issues.
+- Currently doesn't work well with the Russian client, because it is unable to find the level line using the "TT_LevelMatch" pattern.
+  There is a fix here: http://wow.curseforge.com/addons/tip-tac/tickets/3-overachiever-ru-ru-compatibility/

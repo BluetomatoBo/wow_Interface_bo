@@ -12,4 +12,4 @@ Using TipTac and TipTacOptions however, you can change the cache size and the op
 
 This addon is also included as part of the TipTac package, but is released here on it's own, for those who do not need special tip customisations.
 You can find the main TipTac addon package here:
-http://www.wowinterface.com/downloads/info7593-TipTac.html
+https://wow.curseforge.com/projects/tip-tac

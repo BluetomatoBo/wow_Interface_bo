@@ -1,3 +1,11 @@
+TipTacItemRef Changes | 2018 Aug 12
+-----------------------------------
+- Seperated the "Show Item Level & ID" option. So if the default item level text is prefered, that's now possible.
+
+TipTacItemRef Changes | 2018 Jul 25
+-----------------------------------
+- Fixed issues with the "Smart Icon Appearance" option, where it failed to parse hyperlinks for type and id.
+
 TipTacItemRef Changes | 2018 Jul 22
 -----------------------------------
 - ItemIDs will now be shown, even for items that has no valid itemLevel. Thanks Kiber_.
