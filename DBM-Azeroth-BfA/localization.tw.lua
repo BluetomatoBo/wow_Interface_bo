@@ -1,4 +1,4 @@
-if GetLocale() ~= "koKR" then return end
+if GetLocale() ~= "zhTW" then return end
 local L
 
 -----------------------
@@ -37,3 +37,4 @@ L= DBM:GetModLocalization(2198)
 -- Dunegorger Kraulok --
 -----------------------
 L= DBM:GetModLocalization(2210)
+
