@@ -1,32 +1,28 @@
-lightweight tag 5b678dbabbcd169ef179067c9ff08a6f02819b45 3.85
+lightweight tag 6eb961363882bccae96c4463a7fcb33271ab5e58 3.90
 Author:	Michael James <darktemplar9900@yahoo.com>
-Date:	Wed Aug 8 19:10:27 2018 -0500
+Date:	Fri Aug 17 22:39:03 2018 -0500
 
-commit 5b678dbabbcd169ef179067c9ff08a6f02819b45
+commit 6eb961363882bccae96c4463a7fcb33271ab5e58
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Wed Aug 8 19:10:27 2018 -0500
+Date:   Fri Aug 17 22:39:03 2018 -0500
 
-    3.85
+    3.90
 
-commit b2add48c7a71c48b2fbcb1ce940923c9fac61762
+commit cef5e3b22cc875ea18454e85e7f8c6da239f88a9
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Wed Aug 8 18:35:36 2018 -0500
+Date:   Fri Aug 17 22:38:36 2018 -0500
 
-    EQB
-    
-    Issue #155
+    Re-enable AAP
 
-commit ad69ab2b240908d7f8f1ce5ab2213bcda27dcf2c
+commit 375ce85c94281d746071401866b33db65fb4f1a1
 Author: Michael James <darktemplar9900@yahoo.com>
-Date:   Wed Aug 8 18:13:14 2018 -0500
+Date:   Thu Aug 16 21:29:38 2018 -0500
 
-    Fix Locale
-    
-    Issue #159
+    Fix AddOn Detection / Versioning
 
-commit d0e1eb3aa934fe371c852cf95a6d471b30da82fc
-Author: Kevin De Smet <kevin.de.smet@outlook.be>
-Date:   Thu Aug 9 00:07:49 2018 +0200
+commit 9f744b925238708004c62ed5703a872e300338c6
+Author: Michael James <darktemplar9900@yahoo.com>
+Date:   Wed Aug 15 19:40:51 2018 -0500
 
-    Fix for latest Ovale alpha
+    AAP
 

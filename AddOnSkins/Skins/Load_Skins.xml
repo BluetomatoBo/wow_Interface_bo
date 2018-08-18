@@ -13,7 +13,6 @@
 	<Script file="Arcanometer.lua"/>
 	<Script file="Archy.lua"/>
 	<Script file="ArgusEliteTracker.lua"/>
-	<Script file="Arh.lua"/>
 	<Script file="ArkInventory.lua"/>
 	<Script file="Atlas.lua"/>
 	<Script file="AtlasLoot.lua"/>
@@ -85,6 +84,7 @@
 	<Script file="Healium.lua"/>
 	<Script file="Hekili.lua"/>
 	<Script file="Ignition.lua"/>
+	<!--Script file="Immersion.lua"/-->
 	<Script file="InboxMailBag.lua"/>
 	<Script file="Incoming.lua"/>
 	<Script file="InspectEquip.lua"/>
@@ -113,7 +113,7 @@
 	<Script file="MrTrader.lua"/>
 	<Script file="MyRolePlay.lua"/>
 	<Script file="MythicKeystoneStatus.lua"/>
-	<Script file="NirritisNotes.lua"/>
+	<Script file="Notes.lua"/>
 	<Script file="NoNoGoGo.lua"/>
 	<Script file="NugRunning.lua"/>
 	<Script file="Numeration.lua"/>
