@@ -12,8 +12,7 @@ L["BOTTOMRIGHT"] = "우측 하단"
 L["CENTER"] = "중앙"
 L["Completed Achievement Criteria"] = "완료된 업적 요소"
 L["Completed Quest Objectives"] = "완료된 퀘스트 목표"
---[[Translation missing --]]
---[[ L["Dead NPCs"] = "Dead NPCs"--]] 
+L["Dead NPCs"] = "사망한 NPC"
 L["Detection"] = "감지"
 L["Drag to set the spawn point for targeting buttons."] = "대상 지정 버튼의 생성 지점을 설정하려면 드래그하세요."
 L["Duration"] = "지속 시간"
@@ -83,26 +82,22 @@ VL["Cadraeus"] = "카드레우스"
 VL["Cailyn Paledoom"] = "케일린 페일둠"
 VL["Captain Volo'ren"] = "대장 볼로렌"
 VL["Captured Survivor"] = "사로잡힌 생존자"
---[[Translation missing --]]
---[[ VL["Cave Keeper"] = "Cave Keeper"--]] 
+VL["Cave Keeper"] = "동굴 수호자"
 VL["Champion Chomper"] = "용사 포식자"
 --[[Translation missing --]]
 --[[ VL["Charfeather"] = "Charfeather"--]] 
 VL["Chief Bitterbrine"] = "쓴소금물 족장"
 VL["Cindral"] = "신드랄"
 VL["Coldstomp"] = "한기발굽"
---[[Translation missing --]]
---[[ VL["Commander Soraax"] = "Commander Soraax"--]] 
+VL["Commander Soraax"] = "사령관 소렉스"
 VL["Cora'kar"] = "코라카르"
 VL["Coura, Master of Arcana"] = "비전술의 여제 쿠라"
 VL["Crab Rider Grmlrml"] = "게 기수 우옳옳"
 VL["Crawshuk the Hungry"] = "굶주린 크로슈크"
---[[Translation missing --]]
---[[ VL["Crystalbeard"] = "Crystalbeard"--]] 
+VL["Crystalbeard"] = "수정수염"
 VL["Daggerbeak"] = "칼부리"
 VL["Darkshade, Saber Matriarch"] = "우두머리 살쾡이 어둠그늘"
---[[Translation missing --]]
---[[ VL["Dead Orc Captain"] = "Dead Orc Captain"--]] 
+VL["Dead Orc Captain"] = "사망한 오크 지휘관"
 VL["Devouring Darkness"] = "엄습하는 어둠"
 VL["Dorg"] = "돌그"
 VL["Dreadbog"] = "공포수렁"
@@ -194,8 +189,7 @@ VL["Magister Phaedris"] = "마법학자 패드리스"
 VL["Maia the White"] = "순백의 마이아"
 VL["Majestic Elderhorn"] = "위풍당당한 늙은뿔 순록"
 VL["Mal'Dreth the Corrupter"] = "타락자 말드레스"
---[[Translation missing --]]
---[[ VL["Mandrakor the Night Hunter"] = "Mandrakor the Night Hunter"--]] 
+VL["Mandrakor the Night Hunter"] = "밤사냥꾼 만드라코어"
 VL["Marius & Tehd"] = "마리우스와 테드"
 VL["Mar'tura"] = "마르투라"
 VL["Matron Hagatha"] = "대모 하가사"
@@ -207,8 +201,7 @@ VL["Mrrgrl the Tide Reaver"] = "파도를 가르는 자 아옳옳옳"
 --[[Translation missing --]]
 --[[ VL["Murktide Alpha"] = "Murktide Alpha"--]] 
 VL["Myonix"] = "묘닉스"
---[[Translation missing --]]
---[[ VL["Naroua, King of the Forest"] = "Naroua, King of the Forest"--]] 
+VL["Naroua, King of the Forest"] = "숲의 왕 나루아"
 VL["Nas Dunberlin"] = "나스 던블린"
 VL["Night Haunter"] = "밤의 유령"
 VL["Noble Blademaster"] = "고귀한 검귀"
@@ -219,8 +212,7 @@ VL["Ogre Primalist"] = "오우거 원시술사"
 VL["Old Bear Trap"] = "오래된 곰 덫"
 VL["Oreth the Vile"] = "흉측한 오레스"
 VL["Oubdob da Smasher"] = "곤봉꾼 아웁돕"
---[[Translation missing --]]
---[[ VL["Pale Assassin"] = "Pale Assassin"--]] 
+VL["Pale Assassin"] = "창백한 암살자"
 VL["Pale Gone Fishin'"] = "낚시를 떠난 창백한 오크"
 VL["Pale Spider Broodmother"] = "창백한 거미 무리어미"
 --[[Translation missing --]]
@@ -231,8 +223,7 @@ VL["Pit-Slayer"] = "구덩이 학살자"
 VL["Pridelord Meowl"] = "무리군주 야옹부엉"
 VL["Protectors of the Grove"] = "숲의 수호병"
 VL["Purging the River"] = "강 정화하기"
---[[Translation missing --]]
---[[ VL["Quin'el, Master of Chillwind"] = "Quin'el, Master of Chillwind"--]] 
+VL["Quin'el, Master of Chillwind"] = "차가운 바람의 주인 퀴닐"
 VL["Ragemaw"] = "분노아귀"
 VL["Randril"] = "란드릴"
 VL["Rauren"] = "로우렌"
@@ -254,8 +245,7 @@ VL["Roteye"] = "썩은눈"
 --[[ VL["Sapper Vorick"] = "Sapper Vorick"--]] 
 VL["Scout Harefoot"] = "정찰병 헤어풋"
 VL["Sea Giant King"] = "바다 거인 왕"
---[[Translation missing --]]
---[[ VL["Sea Hydra"] = "Sea Hydra"--]] 
+VL["Sea Hydra"] = "바다 히드라"
 VL["Sea King Tidross"] = "바다왕 티드로스"
 VL["Sea Lord Torglork"] = "바다 군주 토르글록"
 VL["Seek & Destroy Squad"] = "탐지 및 폭파 분대"
@@ -265,8 +255,7 @@ VL["Seersei"] = "시어세이"
 VL["Sekhan"] = "세칸"
 --[[Translation missing --]]
 --[[ VL["Selia, Master of Balefire"] = "Selia, Master of Balefire"--]] 
---[[Translation missing --]]
---[[ VL["Shadowflame Terror"] = "Shadowflame Terror"--]] 
+VL["Shadowflame Terror"] = "암흑불길 공포인도자"
 VL["Shadowmoon Cultist Ritual"] = "어둠달 이교도 의식"
 VL["Shadowquill"] = "그림자깃"
 VL["Shal'an"] = "샬안"
@@ -280,15 +269,12 @@ VL["Skagg"] = "스카그"
 VL["Skog"] = "스코그"
 VL["Skywhisker Taskmaster"] = "하늘수염 작업반장"
 VL["Slogtusk"] = "회색엄니"
---[[Translation missing --]]
---[[ VL["Slumbering Bear"] = "Slumbering Bear"--]] 
+VL["Slumbering Bear"] = "잠탱이"
 VL["Soulfang"] = "영혼송곳니"
---[[Translation missing --]]
---[[ VL["Soulgrinder Portal"] = "Soulgrinder Portal"--]] 
+VL["Soulgrinder Portal"] = "영혼분쇄기 차원문"
 VL["Soulthirster"] = "영혼곯이"
 VL["Starbuck"] = "별사슴"
---[[Translation missing --]]
---[[ VL["Stingtail Nest"] = "Stingtail Nest"--]] 
+VL["Stingtail Nest"] = "쐐기꼬리 둥지"
 VL["Stomper Kreego"] = "천둥발 크리고"
 VL["Stoneshard Broodmother"] = "바위파편 무리어미"
 VL["Stormwing Matriarch"] = "폭풍날개 어미"
@@ -297,8 +283,7 @@ VL["Szirek"] = "스지레크"
 VL["Tarben"] = "타르벤"
 VL["Thane's Mead Hall"] = "영주의 봉밀주 전당"
 VL["The Beastly Boxer"] = "잔인한 권투가"
---[[Translation missing --]]
---[[ VL["The Blightcaller"] = "The Blightcaller"--]] 
+VL["The Blightcaller"] = "역병소환사호"
 --[[Translation missing --]]
 --[[ VL["The Brood Queen's Court: Count Nefarious"] = "The Brood Queen's Court: Count Nefarious"--]] 
 --[[Translation missing --]]
@@ -321,8 +306,7 @@ VL["Totally Safe Treasure Chest"] = "전적으로 안전한 보물 상자"
 VL["Trecherous Stallions"] = "배은망덕한 백마"
 VL["Unbound Rift"] = "해방된 균열"
 VL["Undgrell Attack"] = "운드그렐 공격"
---[[Translation missing --]]
---[[ VL["Unguarded Thistleleaf Treasure"] = "Unguarded Thistleleaf Treasure"--]] 
+VL["Unguarded Thistleleaf Treasure"] = "주인 없는 엉겅퀴잎 보물 "
 VL["Urgev the Flayer"] = "약탈자 우르게브"
 VL["Valiyaka the Stormbringer"] = "폭풍인도자 발리야카"
 VL["Venomshade (Plant Hydra)"] = "맹독그늘 (식물 히드라)"

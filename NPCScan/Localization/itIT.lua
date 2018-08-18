@@ -2,283 +2,173 @@ local AddOnFolderName, private = ...
 local L = _G.LibStub("AceLocale-3.0"):NewLocale(AddOnFolderName, "itIT")
 if not L then return end
 
-L["%1$s (%2$d) is already on the user-defined NPC list."] = "%1$s (%2$d) è già nella lista degli NPC definiti dal giocatore."
-L["%1$s (%2$d) is not on the user-defined NPC list."] = "%1$s (%2$d) non è nella lista degli NPC definiti dal giocatore."
-L["Added %1$s (%2$d) to the user-defined NPC list."] = "%1$s (%2$d) è stato aggiunto alla lista degli NPC definiti dal giocatore."
---[[Translation missing --]]
---[[ L["Alerts"] = "Alerts"--]] 
---[[Translation missing --]]
---[[ L["BOTTOM"] = "Bottom"--]] 
---[[Translation missing --]]
---[[ L["BOTTOMLEFT"] = "Bottom Left"--]] 
---[[Translation missing --]]
---[[ L["BOTTOMRIGHT"] = "Bottom Right"--]] 
---[[Translation missing --]]
---[[ L["CENTER"] = "Center"--]] 
---[[Translation missing --]]
---[[ L["Completed Achievement Criteria"] = "Completed Achievement Criteria"--]] 
-L["Completed Quest Objectives"] = "Obiettivi delle quest completati"
-L["Dead NPCs"] = "NPC morti"
---[[Translation missing --]]
---[[ L["Detection"] = "Detection"--]] 
---[[Translation missing --]]
---[[ L["Drag to set the spawn point for targeting buttons."] = "Drag to set the spawn point for targeting buttons."--]] 
---[[Translation missing --]]
---[[ L["Duration"] = "Duration"--]] 
---[[Translation missing --]]
---[[ L["Hide Anchor"] = "Hide Anchor"--]] 
---[[Translation missing --]]
---[[ L["Hide During Combat"] = "Hide During Combat"--]] 
---[[Translation missing --]]
---[[ L["Horizontal offset from the anchor point."] = "Horizontal offset from the anchor point."--]] 
---[[Translation missing --]]
---[[ L["Ignore Mute"] = "Ignore Mute"--]] 
---[[Translation missing --]]
---[[ L["Interval"] = "Interval"--]] 
---[[Translation missing --]]
---[[ L["LEFT"] = "Left"--]] 
-L["NPCs"] = "NPC"
-L["Play alert sounds when sound is muted."] = "Riproduci un suono quando il suono è disattivato."
---[[Translation missing --]]
---[[ L["Predefined NPCs cannot be added to or removed from the user-defined NPC list."] = "Predefined NPCs cannot be added to or removed from the user-defined NPC list."--]] 
---[[Translation missing --]]
---[[ L["Removed %1$s (%2$d) from the user-defined NPC list."] = "Removed %1$s (%2$d) from the user-defined NPC list."--]] 
---[[Translation missing --]]
---[[ L["Reset Position"] = "Reset Position"--]] 
---[[Translation missing --]]
---[[ L["RIGHT"] = "Right"--]] 
---[[Translation missing --]]
---[[ L["Screen Flash"] = "Screen Flash"--]] 
---[[Translation missing --]]
---[[ L["Screen Location"] = "Screen Location"--]] 
---[[Translation missing --]]
---[[ L["Show Anchor"] = "Show Anchor"--]] 
---[[Translation missing --]]
---[[ L["Spawn Point"] = "Spawn Point"--]] 
---[[Translation missing --]]
---[[ L["The number of minutes a targeting button will exist before fading out."] = "The number of minutes a targeting button will exist before fading out."--]] 
---[[Translation missing --]]
---[[ L["The number of minutes before an NPC will be detected again."] = "The number of minutes before an NPC will be detected again."--]] 
---[[Translation missing --]]
---[[ L["TOP"] = "Top"--]] 
---[[Translation missing --]]
---[[ L["TOPLEFT"] = "Top Left"--]] 
---[[Translation missing --]]
---[[ L["TOPRIGHT"] = "Top Right"--]] 
---[[Translation missing --]]
---[[ L["Type the name of a Continent, Dungeon, or Zone, or the partial name of an NPC. Accepts Lua patterns."] = "Type the name of a Continent, Dungeon, or Zone, or the partial name of an NPC. Accepts Lua patterns."--]] 
---[[Translation missing --]]
---[[ L["Valid values are a numeric NPC ID, the word \"mouseover\" while you have your mouse cursor over an NPC, or the word \"target\" while you have an NPC set as your target."] = "Valid values are a numeric NPC ID, the word \"mouseover\" while you have your mouse cursor over an NPC, or the word \"target\" while you have an NPC set as your target."--]] 
---[[Translation missing --]]
---[[ L["Vertical offset from the anchor point."] = "Vertical offset from the anchor point."--]] 
---[[Translation missing --]]
---[[ L["X Offset"] = "X Offset"--]] 
---[[Translation missing --]]
---[[ L["Y Offset"] = "Y Offset"--]] 
+L["%1$s (%2$d) is already on the user-defined NPC list."] = "%1$s (%2$d) è già nella lista dei PNG personalizzati."
+L["%1$s (%2$d) is not on the user-defined NPC list."] = "%1$s (%2$d) non è nella lista dei PNG personalizzati."
+L["Added %1$s (%2$d) to the user-defined NPC list."] = "%1$s (%2$d) è stato aggiunto alla lista dei PNG personalizzati."
+L["Alerts"] = "Avvisi"
+L["BOTTOM"] = "Basso"
+L["BOTTOMLEFT"] = "Basso a Sinistra"
+L["BOTTOMRIGHT"] = "Basso a Destra"
+L["CENTER"] = "Centro"
+L["Completed Achievement Criteria"] = "Criterio Imprese Completate"
+L["Completed Quest Objectives"] = "Obiettivi Missioni Completate"
+L["Dead NPCs"] = "PNG morti"
+L["Detection"] = "Rilevamento"
+L["Drag to set the spawn point for targeting buttons."] = "Trascina per impostare la posizione dei pulsanti per la selezione."
+L["Duration"] = "Durata"
+L["Hide Anchor"] = "Nascondi Ancoraggio"
+L["Hide During Combat"] = "Nascondi in Combattimento"
+L["Horizontal offset from the anchor point."] = "Offset orizzontale dal punto di ancoraggio."
+L["Ignore Mute"] = "Ignora Muto"
+L["Interval"] = "Intervallo"
+L["LEFT"] = "Sinistra"
+L["NPCs"] = "PNG"
+L["Play alert sounds when sound is muted."] = "Riproduci il suoni di avviso quando i suoni sono mutati."
+L["Predefined NPCs cannot be added to or removed from the user-defined NPC list."] = "I PNG predefiniti non possono essere aggiunti o rimossi dalla lista dei PNG personalizzati."
+L["Removed %1$s (%2$d) from the user-defined NPC list."] = "Rimosso %1$s (%2$d) dalla lista dei PNG personalizzati."
+L["Reset Position"] = "Reimposta Posizione"
+L["RIGHT"] = "Destra"
+L["Screen Flash"] = "Illumina Schermo"
+L["Screen Location"] = "Posizione su Schermo"
+L["Show Anchor"] = "Mostra Ancoraggio"
+L["Spawn Point"] = "Posizione"
+L["The number of minutes a targeting button will exist before fading out."] = "Il numero di minuti per cui persisterà il pulsante di selezione prima di sparire."
+L["The number of minutes before an NPC will be detected again."] = "Il numero di minuti necessari prima di un nuovo rilevamento del PNG."
+L["TOP"] = "Alto"
+L["TOPLEFT"] = "Alto a Sinistra"
+L["TOPRIGHT"] = "Alto a Destra"
+L["Type the name of a Continent, Dungeon, or Zone, or the partial name of an NPC. Accepts Lua patterns."] = "Scrivi il nome di un Continente, Istanza, Zona o nome parziale di un PNG. Funzionano i pattern LUA."
+L["Valid values are a numeric NPC ID, the word \"mouseover\" while you have your mouse cursor over an NPC, or the word \"target\" while you have an NPC set as your target."] = "E' possibile utilizzare il valore numerico \"NPC ID\", la parola \"mouseover\" quando il cursore del mouse si trova sopra un PNG o la parola \"target\" quando hai selezionato un PNG come bersaglio."
+L["Vertical offset from the anchor point."] = "Offset verticale dal punto di ancoraggio."
+L["X Offset"] = "Offset X"
+L["Y Offset"] = "Offset Y"
 
 
 local VL = _G.LibStub("AceLocale-3.0"):NewLocale(AddOnFolderName .. "Vignette", "itIT")
 if not VL then return end
 
 -- Vignette
---[[Translation missing --]]
---[[ VL["Aarkos - Looted Treasure"] = "Aarkos - Looted Treasure"--]] 
+VL["Aarkos - Looted Treasure"] = "Aarkos - Tesoro depredato"
 --[[Translation missing --]]
 --[[ VL["Abandoned Fishing Pole"] = "Abandoned Fishing Pole"--]] 
 --[[Translation missing --]]
 --[[ VL["Alpha Bat"] = "Alpha Bat"--]] 
---[[Translation missing --]]
---[[ VL["Amateur Hunters"] = "Amateur Hunters"--]] 
---[[Translation missing --]]
---[[ VL["Ambassador D'vwinn"] = "Ambassador D'vwinn"--]] 
---[[Translation missing --]]
---[[ VL["Anax"] = "Anax"--]] 
+VL["Amateur Hunters"] = "Cacciatori Amatoriali"
+VL["Ambassador D'vwinn"] = "Ambasciatore D'vwinn"
+VL["Anax"] = "Anax"
 --[[Translation missing --]]
 --[[ VL["Anchorite's Sojourn"] = "Anchorite's Sojourn"--]] 
---[[Translation missing --]]
---[[ VL["Antydas Nightcaller's Hideaway"] = "Antydas Nightcaller's Hideaway"--]] 
---[[Translation missing --]]
---[[ VL["Apothecary Faldren"] = "Apothecary Faldren"--]] 
---[[Translation missing --]]
---[[ VL["Arcanist Lylandre"] = "Arcanist Lylandre"--]] 
---[[Translation missing --]]
---[[ VL["Arcanist Shal'iman"] = "Arcanist Shal'iman"--]] 
---[[Translation missing --]]
---[[ VL["Artificer Lothaire"] = "Artificer Lothaire"--]] 
---[[Translation missing --]]
---[[ VL["Avatar of Sothrecar"] = "Avatar of Sothrecar"--]] 
---[[Translation missing --]]
---[[ VL["Bahagar"] = "Bahagar"--]] 
---[[Translation missing --]]
---[[ VL["Ba'ruun"] = "Ba'ruun"--]] 
+VL["Antydas Nightcaller's Hideaway"] = "Nascondiglio di Antydas Invocanotte"
+VL["Apothecary Faldren"] = "Speziale Faldren"
+VL["Arcanist Lylandre"] = "Arcanista Lylandre"
+VL["Arcanist Shal'iman"] = "Arcanista Shal'iman"
+VL["Artificer Lothaire"] = "Artigiano Lothaire"
+VL["Avatar of Sothrecar"] = "Avatar di Socrethar"
+VL["Bahagar"] = "Bahagar"
+VL["Ba'ruun"] = "Ba'ruun"
 --[[Translation missing --]]
 --[[ VL["Battle of the Barnacle"] = "Battle of the Barnacle"--]] 
---[[Translation missing --]]
---[[ VL["Beacher"] = "Beacher"--]] 
---[[Translation missing --]]
---[[ VL["Beastmaster Pao'lek"] = "Beastmaster Pao'lek"--]] 
+VL["Beacher"] = "Sabbiafina"
+VL["Beastmaster Pao'lek"] = "Maestro delle Bestie Pao'lek"
 --[[Translation missing --]]
 --[[ VL["BH Master Scout"] = "BH Master Scout"--]] 
---[[Translation missing --]]
---[[ VL["Bilebrain"] = "Bilebrain"--]] 
---[[Translation missing --]]
---[[ VL["Bladesquall"] = "Bladesquall"--]] 
---[[Translation missing --]]
---[[ VL["Bodash the Hoarder"] = "Bodash the Hoarder"--]] 
---[[Translation missing --]]
---[[ VL["Brawlgoth"] = "Brawlgoth"--]] 
---[[Translation missing --]]
---[[ VL["Bristlemaul"] = "Bristlemaul"--]] 
---[[Translation missing --]]
---[[ VL["Brogrul the Mighty"] = "Brogrul the Mighty"--]] 
---[[Translation missing --]]
---[[ VL["Broodmother Lizax"] = "Broodmother Lizax"--]] 
---[[Translation missing --]]
---[[ VL["Cache of Infernals"] = "Cache of Infernals"--]] 
---[[Translation missing --]]
---[[ VL["Cadraeus"] = "Cadraeus"--]] 
---[[Translation missing --]]
---[[ VL["Cailyn Paledoom"] = "Cailyn Paledoom"--]] 
---[[Translation missing --]]
---[[ VL["Captain Volo'ren"] = "Captain Volo'ren"--]] 
+VL["Bilebrain"] = "Bavaviscida"
+VL["Bladesquall"] = "Ciclonicus"
+VL["Bodash the Hoarder"] = "Bodash l'Incettatore"
+VL["Brawlgoth"] = "Rissgoth"
+VL["Bristlemaul"] = "Mazzirsuta"
+VL["Brogrul the Mighty"] = "Brogrul il Possente"
+VL["Broodmother Lizax"] = "Madre della Stirpe Lizax"
+VL["Cache of Infernals"] = "Cassa degli Infernali"
+VL["Cadraeus"] = "Cadraeus"
+VL["Cailyn Paledoom"] = "Cailyn Fatocupo"
+VL["Captain Volo'ren"] = "Capitano Volo'ren"
 --[[Translation missing --]]
 --[[ VL["Captured Survivor"] = "Captured Survivor"--]] 
 --[[Translation missing --]]
 --[[ VL["Cave Keeper"] = "Cave Keeper"--]] 
---[[Translation missing --]]
---[[ VL["Champion Chomper"] = "Champion Chomper"--]] 
+VL["Champion Chomper"] = "Campione Masticatore"
 --[[Translation missing --]]
 --[[ VL["Charfeather"] = "Charfeather"--]] 
---[[Translation missing --]]
---[[ VL["Chief Bitterbrine"] = "Chief Bitterbrine"--]] 
---[[Translation missing --]]
---[[ VL["Cindral"] = "Cindral"--]] 
---[[Translation missing --]]
---[[ VL["Coldstomp"] = "Coldstomp"--]] 
---[[Translation missing --]]
---[[ VL["Commander Soraax"] = "Commander Soraax"--]] 
---[[Translation missing --]]
---[[ VL["Cora'kar"] = "Cora'kar"--]] 
---[[Translation missing --]]
---[[ VL["Coura, Master of Arcana"] = "Coura, Master of Arcana"--]] 
---[[Translation missing --]]
---[[ VL["Crab Rider Grmlrml"] = "Crab Rider Grmlrml"--]] 
---[[Translation missing --]]
---[[ VL["Crawshuk the Hungry"] = "Crawshuk the Hungry"--]] 
+VL["Chief Bitterbrine"] = "Capo Brinamara"
+VL["Cindral"] = "Cindral il Fuocobrado"
+VL["Coldstomp"] = "Passofreddo"
+VL["Commander Soraax"] = "Comandante Soraax"
+VL["Cora'kar"] = "Cora'kar"
+VL["Coura, Master of Arcana"] = "Coura, Maestra dell'Arcano"
+VL["Crab Rider Grmlrml"] = "Cavalcagranchi Grmlrml"
+VL["Crawshuk the Hungry"] = "Crawshuk l'Affamato"
 --[[Translation missing --]]
 --[[ VL["Crystalbeard"] = "Crystalbeard"--]] 
---[[Translation missing --]]
---[[ VL["Daggerbeak"] = "Daggerbeak"--]] 
---[[Translation missing --]]
---[[ VL["Darkshade, Saber Matriarch"] = "Darkshade, Saber Matriarch"--]] 
---[[Translation missing --]]
---[[ VL["Dead Orc Captain"] = "Dead Orc Captain"--]] 
---[[Translation missing --]]
---[[ VL["Devouring Darkness"] = "Devouring Darkness"--]] 
---[[Translation missing --]]
---[[ VL["Dorg"] = "Dorg"--]] 
---[[Translation missing --]]
---[[ VL["Dreadbog"] = "Dreadbog"--]] 
+VL["Daggerbeak"] = "Pungibecco"
+VL["Darkshade, Saber Matriarch"] = "Ombranera, Matriarca delle Fiere"
+VL["Dead Orc Captain"] = "Capitano Barbaferro"
+VL["Devouring Darkness"] = "Oscurità Divorante"
+VL["Dorg"] = "Dorg il Sanguinario"
+VL["Dreadbog"] = "Malbrago"
 --[[Translation missing --]]
 --[[ VL["Dread-Rider Cortis"] = "Dread-Rider Cortis"--]] 
---[[Translation missing --]]
---[[ VL["Echo of Murmur"] = "Echo of Murmur"--]] 
---[[Translation missing --]]
---[[ VL["Egyl the Enduring"] = "Egyl the Enduring"--]] 
---[[Translation missing --]]
---[[ VL["Elfbane"] = "Elfbane"--]] 
---[[Translation missing --]]
---[[ VL["Elindya Featherlight"] = "Elindya Featherlight"--]] 
---[[Translation missing --]]
---[[ VL["Embaari Defense Crystal"] = "Embaari Defense Crystal"--]] 
---[[Translation missing --]]
---[[ VL["Enavra Varandi"] = "Enavra Varandi"--]] 
---[[Translation missing --]]
---[[ VL["Faebright"] = "Faebright"--]] 
---[[Translation missing --]]
---[[ VL["Fathnyr"] = "Fathnyr"--]] 
+VL["Echo of Murmur"] = "Eco di Murmur"
+VL["Egyl the Enduring"] = "Egyl il Coriaceo"
+VL["Elfbane"] = "Squartaelfi"
+VL["Elindya Featherlight"] = "Elindya Pesopiuma"
+VL["Embaari Defense Crystal"] = "Cristallo di Difesa di Embaari"
+VL["Enavra Varandi"] = "Enavra Varandi"
+VL["Faebright"] = "Alafatata"
+VL["Fathnyr"] = "Fathnyr"
 --[[Translation missing --]]
 --[[ VL["Fel Saberon Shaman"] = "Fel Saberon Shaman"--]] 
---[[Translation missing --]]
---[[ VL["Fenri"] = "Fenri"--]] 
---[[Translation missing --]]
---[[ VL["Flog the Captain-Eater"] = "Flog the Captain-Eater"--]] 
+VL["Fenri"] = "Fenri"
+VL["Flog the Captain-Eater"] = "Flog il Mangiacapitani"
 --[[Translation missing --]]
 --[[ VL["Flotsam"] = "Flotsam"--]] 
 --[[Translation missing --]]
 --[[ VL["Foreling Worship Circle"] = "Foreling Worship Circle"--]] 
---[[Translation missing --]]
---[[ VL["Forsaken Deathsquad"] = "Forsaken Deathsquad"--]] 
+VL["Forsaken Deathsquad"] = "Squadra della Morte di Reietti"
 --[[Translation missing --]]
 --[[ VL["Frenzied Animus"] = "Frenzied Animus"--]] 
 --[[Translation missing --]]
 --[[ VL["Frostshard"] = "Frostshard"--]] 
---[[Translation missing --]]
---[[ VL["Galzomar"] = "Galzomar"--]] 
---[[Translation missing --]]
---[[ VL["Garvrulg"] = "Garvrulg"--]] 
---[[Translation missing --]]
---[[ VL["Gennadian"] = "Gennadian"--]] 
+VL["Galzomar"] = "Galzomar"
+VL["Garvrulg"] = "Garvrulg"
+VL["Gennadian"] = "Gennadian"
 --[[Translation missing --]]
 --[[ VL["Giant Python"] = "Giant Python"--]] 
 --[[Translation missing --]]
 --[[ VL["Giant Raptor"] = "Giant Raptor"--]] 
---[[Translation missing --]]
---[[ VL["Giantstalker Hunting Party"] = "Giantstalker Hunting Party"--]] 
+VL["Giantstalker Hunting Party"] = "Gruppo di Caccia Ammazzagiganti"
 --[[Translation missing --]]
 --[[ VL["Giblette the Cowardly"] = "Giblette the Cowardly"--]] 
---[[Translation missing --]]
---[[ VL["Glimar Ironfist"] = "Glimar Ironfist"--]] 
+VL["Glimar Ironfist"] = "Glimar Pugnoferreo"
 --[[Translation missing --]]
 --[[ VL["Gom Crabbar"] = "Gom Crabbar"--]] 
 --[[Translation missing --]]
 --[[ VL["Gorebeak"] = "Gorebeak"--]] 
---[[Translation missing --]]
---[[ VL["Gorger the Hungry"] = "Gorger the Hungry"--]] 
---[[Translation missing --]]
---[[ VL["Gorgroth"] = "Gorgroth"--]] 
---[[Translation missing --]]
---[[ VL["Grelda the Hag"] = "Grelda the Hag"--]] 
---[[Translation missing --]]
---[[ VL["Grrvrgull the Conquerer"] = "Grrvrgull the Conquerer"--]] 
---[[Translation missing --]]
---[[ VL["Guardian Thor'el"] = "Guardian Thor'el"--]] 
---[[Translation missing --]]
---[[ VL["Gurbog da Basher"] = "Gurbog da Basher"--]] 
---[[Translation missing --]]
---[[ VL["Haakun, The All-Consuming"] = "Haakun, The All-Consuming"--]] 
---[[Translation missing --]]
---[[ VL["Hannval the Butcher"] = "Hannval the Butcher"--]] 
---[[Translation missing --]]
---[[ VL["Har'kess the Insatiable"] = "Har'kess the Insatiable"--]] 
---[[Translation missing --]]
---[[ VL["Hartli the Snatcher"] = "Hartli the Snatcher"--]] 
---[[Translation missing --]]
---[[ VL["Haunted Manor"] = "Haunted Manor"--]] 
+VL["Gorger the Hungry"] = "Divoratore l'Affamato"
+VL["Gorgroth"] = "Gorgroth"
+VL["Grelda the Hag"] = "Grelda la Strega"
+VL["Grrvrgull the Conquerer"] = "Grrvrgull il Conquistatore"
+VL["Guardian Thor'el"] = "Guardiano Thor'el"
+VL["Gurbog da Basher"] = "Gurbog il Picchiatore"
+VL["Haakun, The All-Consuming"] = "Haakun il Divoramondi"
+VL["Hannval the Butcher"] = "Hannval il Macellaio"
+VL["Har'kess the Insatiable"] = "Har'kess l'Insaziabile"
+VL["Hartli the Snatcher"] = "Hartli la Ladruncola"
+VL["Haunted Manor"] = "Maniero Infestato"
 --[[Translation missing --]]
 --[[ VL["Helmouth Raiders"] = "Helmouth Raiders"--]] 
---[[Translation missing --]]
---[[ VL["Hertha Grimdottir"] = "Hertha Grimdottir"--]] 
---[[Translation missing --]]
---[[ VL["Hook & Sinker"] = "Hook & Sinker"--]] 
---[[Translation missing --]]
---[[ VL["Horn of the Siren"] = "Horn of the Siren"--]] 
---[[Translation missing --]]
---[[ VL["Houndmaster Ely"] = "Houndmaster Ely"--]] 
---[[Translation missing --]]
---[[ VL["Houndmaster Jax'zor"] = "Houndmaster Jax'zor"--]] 
---[[Translation missing --]]
---[[ VL["Houndmaster Stroxis"] = "Houndmaster Stroxis"--]] 
---[[Translation missing --]]
---[[ VL["Huk'roth the Houndmaster"] = "Huk'roth the Houndmaster"--]] 
+VL["Hertha Grimdottir"] = "Hertha Grimdottir"
+VL["Hook & Sinker"] = "Gancio & Budella"
+VL["Horn of the Siren"] = "Corno della Sirena"
+VL["Houndmaster Ely"] = "Maestro dei Segugi Ely"
+VL["Houndmaster Jax'zor"] = "Maestro dei Segugi Jax'zor"
+VL["Houndmaster Stroxis"] = "Maestro dei Segugi Stroxis"
+VL["Huk'roth the Houndmaster"] = "Huk'roth il Maestro della Caccia"
 --[[Translation missing --]]
 --[[ VL["IH Elite Sniper"] = "IH Elite Sniper"--]] 
---[[Translation missing --]]
---[[ VL["Inquisitor Ernstenbok"] = "Inquisitor Ernstenbok"--]] 
---[[Translation missing --]]
---[[ VL["Inquisitor Tivos"] = "Inquisitor Tivos"--]] 
---[[Translation missing --]]
---[[ VL["Inquisitor Volitix"] = "Inquisitor Volitix"--]] 
+VL["Inquisitor Ernstenbok"] = "Inquisitore Ernstenbok"
+VL["Inquisitor Tivos"] = "Inquisitore Tivos"
+VL["Inquisitor Volitix"] = "Inquisitore Volitix"
 --[[Translation missing --]]
 --[[ VL["Invasion Point: Devastation"] = "Invasion Point: Devastation"--]] 
 --[[Translation missing --]]
@@ -287,202 +177,132 @@ if not VL then return end
 --[[ VL["Iron Front Captain 2"] = "Iron Front Captain 2"--]] 
 --[[Translation missing --]]
 --[[ VL["Iron Front Captain 3"] = "Iron Front Captain 3"--]] 
---[[Translation missing --]]
---[[ VL["Iron Houndmaster"] = "Iron Houndmaster"--]] 
+VL["Iron Houndmaster"] = "Maestro dei Segugi"
 --[[Translation missing --]]
 --[[ VL["Iron Tunnel Foreman"] = "Iron Tunnel Foreman"--]] 
 --[[Translation missing --]]
 --[[ VL["Ironbranch"] = "Ironbranch"--]] 
---[[Translation missing --]]
---[[ VL["Isel the Hammer"] = "Isel the Hammer"--]] 
---[[Translation missing --]]
---[[ VL["Ivory Sentinel"] = "Ivory Sentinel"--]] 
---[[Translation missing --]]
---[[ VL["Jade Darkhaven"] = "Jade Darkhaven"--]] 
---[[Translation missing --]]
---[[ VL["Jaluk the Pacifist"] = "Jaluk the Pacifist"--]] 
---[[Translation missing --]]
---[[ VL["Jetsam"] = "Jetsam"--]] 
---[[Translation missing --]]
---[[ VL["Kenos the Unraveller"] = "Kenos the Unraveller"--]] 
---[[Translation missing --]]
---[[ VL["Kethrazor"] = "Kethrazor"--]] 
---[[Translation missing --]]
---[[ VL["Kharazos the Triumphant"] = "Kharazos the Triumphant"--]] 
---[[Translation missing --]]
---[[ VL["Klikixx"] = "Klikixx"--]] 
---[[Translation missing --]]
---[[ VL["Kottr Vondyr"] = "Kottr Vondyr"--]] 
---[[Translation missing --]]
---[[ VL["Krahl Deathwind"] = "Krahl Deathwind"--]] 
---[[Translation missing --]]
---[[ VL["Lady Rivantas"] = "Lady Rivantas"--]] 
---[[Translation missing --]]
---[[ VL["Lava-Gorged Goren"] = "Lava-Gorged Goren"--]] 
+VL["Isel the Hammer"] = "Isel il Martello"
+VL["Ivory Sentinel"] = "Sentinella d'Avorio"
+VL["Jade Darkhaven"] = "Jade Lidoscuro"
+VL["Jaluk the Pacifist"] = "Jaluk il Pacifista"
+VL["Jetsam"] = "Rodichiglie"
+VL["Kenos the Unraveller"] = "Kenos il Dipanatore"
+VL["Kethrazor"] = "Kethrazor"
+VL["Kharazos the Triumphant"] = "Kharazos il Trionfante"
+VL["Klikixx"] = "Klikixx"
+VL["Kottr Vondyr"] = "Kottr Vondyr"
+VL["Krahl Deathwind"] = "Krahl Occhiotetro"
+VL["Lady Rivantas"] = "Dama Rivantas"
+VL["Lava-Gorged Goren"] = "Goren Magmatico"
 --[[Translation missing --]]
 --[[ VL["Leaf-Reader Kurri"] = "Leaf-Reader Kurri"--]] 
---[[Translation missing --]]
---[[ VL["Lieutenant Strathmar"] = "Lieutenant Strathmar"--]] 
+VL["Lieutenant Strathmar"] = "Tenente Strathmar"
 --[[Translation missing --]]
 --[[ VL["Light the Braziers"] = "Light the Braziers"--]] 
 --[[Translation missing --]]
 --[[ VL["Llorian"] = "Llorian"--]] 
---[[Translation missing --]]
---[[ VL["Lost Ettin"] = "Lost Ettin"--]] 
---[[Translation missing --]]
---[[ VL["Luggut the Eggeater"] = "Luggut the Eggeater"--]] 
---[[Translation missing --]]
---[[ VL["Lyrath Moonfeather"] = "Lyrath Moonfeather"--]] 
---[[Translation missing --]]
---[[ VL["Mad \"King\" Sporeon"] = "Mad \"King\" Sporeon"--]] 
---[[Translation missing --]]
---[[ VL["Magister Phaedris"] = "Magister Phaedris"--]] 
---[[Translation missing --]]
---[[ VL["Maia the White"] = "Maia the White"--]] 
+VL["Lost Ettin"] = "Ettin Perduto"
+VL["Luggut the Eggeater"] = "Luggut il Mangiauova"
+VL["Lyrath Moonfeather"] = "Lyrath Lunapiuma"
+VL["Mad \"King\" Sporeon"] = "Sporeon il \"Re\" Folle"
+VL["Magister Phaedris"] = "Magistro Phaedris"
+VL["Maia the White"] = "Maia la Bianca"
 --[[Translation missing --]]
 --[[ VL["Majestic Elderhorn"] = "Majestic Elderhorn"--]] 
---[[Translation missing --]]
---[[ VL["Mal'Dreth the Corrupter"] = "Mal'Dreth the Corrupter"--]] 
---[[Translation missing --]]
---[[ VL["Mandrakor the Night Hunter"] = "Mandrakor the Night Hunter"--]] 
---[[Translation missing --]]
---[[ VL["Marius & Tehd"] = "Marius & Tehd"--]] 
---[[Translation missing --]]
---[[ VL["Mar'tura"] = "Mar'tura"--]] 
---[[Translation missing --]]
---[[ VL["Matron Hagatha"] = "Matron Hagatha"--]] 
---[[Translation missing --]]
---[[ VL["Mellok, Son of Torok"] = "Mellok, Son of Torok"--]] 
---[[Translation missing --]]
---[[ VL["Miasu"] = "Miasu"--]] 
---[[Translation missing --]]
---[[ VL["Mordvigbjorn"] = "Mordvigbjorn"--]] 
---[[Translation missing --]]
---[[ VL["Mother Om'ra"] = "Mother Om'ra"--]] 
---[[Translation missing --]]
---[[ VL["Mrrgrl the Tide Reaver"] = "Mrrgrl the Tide Reaver"--]] 
+VL["Mal'Dreth the Corrupter"] = "Mal'dreth il Corruttore"
+VL["Mandrakor the Night Hunter"] = "Mandrakor il Cacciatore della Notte"
+VL["Marius & Tehd"] = "Marius e Tehd"
+VL["Mar'tura"] = "Mar'tura"
+VL["Matron Hagatha"] = "Matrona Hagatha"
+VL["Mellok, Son of Torok"] = "Mellok, Figlio di Torok"
+VL["Miasu"] = "Miasu"
+VL["Mordvigbjorn"] = "Mordvigbjorn"
+VL["Mother Om'ra"] = "Madre Om'ra"
+VL["Mrrgrl the Tide Reaver"] = "Mrrgrl il Razziatore delle Maree"
 --[[Translation missing --]]
 --[[ VL["Murktide Alpha"] = "Murktide Alpha"--]] 
---[[Translation missing --]]
---[[ VL["Myonix"] = "Myonix"--]] 
---[[Translation missing --]]
---[[ VL["Naroua, King of the Forest"] = "Naroua, King of the Forest"--]] 
---[[Translation missing --]]
---[[ VL["Nas Dunberlin"] = "Nas Dunberlin"--]] 
---[[Translation missing --]]
---[[ VL["Night Haunter"] = "Night Haunter"--]] 
+VL["Myonix"] = "Myonix"
+VL["Naroua, King of the Forest"] = "Naroua, Re della Foresta"
+VL["Nas Dunberlin"] = "Nas Dunberlin"
+VL["Night Haunter"] = "Infestatore della Notte"
 --[[Translation missing --]]
 --[[ VL["Noble Blademaster"] = "Noble Blademaster"--]] 
---[[Translation missing --]]
---[[ VL["No'losh"] = "No'losh"--]] 
---[[Translation missing --]]
---[[ VL["Normantis the Deposed"] = "Normantis the Deposed"--]] 
---[[Translation missing --]]
---[[ VL["Oasis Icemother"] = "Oasis Icemother"--]] 
---[[Translation missing --]]
---[[ VL["Ogre Primalist"] = "Ogre Primalist"--]] 
---[[Translation missing --]]
---[[ VL["Old Bear Trap"] = "Old Bear Trap"--]] 
---[[Translation missing --]]
---[[ VL["Oreth the Vile"] = "Oreth the Vile"--]] 
+VL["No'losh"] = "No'losh"
+VL["Normantis the Deposed"] = "Normantis il Deposto"
+VL["Oasis Icemother"] = "Madre del Gelo dell'Oasi"
+VL["Ogre Primalist"] = "Primalista Ogre"
+VL["Old Bear Trap"] = "Vecchia Trappola per Orsi"
+VL["Oreth the Vile"] = "Oreth il Vile"
 --[[Translation missing --]]
 --[[ VL["Oubdob da Smasher"] = "Oubdob da Smasher"--]] 
 --[[Translation missing --]]
 --[[ VL["Pale Assassin"] = "Pale Assassin"--]] 
---[[Translation missing --]]
---[[ VL["Pale Gone Fishin'"] = "Pale Gone Fishin'"--]] 
+VL["Pale Gone Fishin'"] = "Pescatore Pallido"
 --[[Translation missing --]]
 --[[ VL["Pale Spider Broodmother"] = "Pale Spider Broodmother"--]] 
 --[[Translation missing --]]
 --[[ VL["Panther Saberon Boss"] = "Panther Saberon Boss"--]] 
---[[Translation missing --]]
---[[ VL["Perrexx the Corruptor"] = "Perrexx the Corruptor"--]] 
---[[Translation missing --]]
---[[ VL["Pinchshank"] = "Pinchshank"--]] 
+VL["Perrexx the Corruptor"] = "Perrexx il Corruttore"
+VL["Pinchshank"] = "Serrapinze"
 --[[Translation missing --]]
 --[[ VL["Pit-Slayer"] = "Pit-Slayer"--]] 
---[[Translation missing --]]
---[[ VL["Pridelord Meowl"] = "Pridelord Meowl"--]] 
+VL["Pridelord Meowl"] = "Signore del Branco Meowl"
 --[[Translation missing --]]
 --[[ VL["Protectors of the Grove"] = "Protectors of the Grove"--]] 
---[[Translation missing --]]
---[[ VL["Purging the River"] = "Purging the River"--]] 
---[[Translation missing --]]
---[[ VL["Quin'el, Master of Chillwind"] = "Quin'el, Master of Chillwind"--]] 
---[[Translation missing --]]
---[[ VL["Ragemaw"] = "Ragemaw"--]] 
---[[Translation missing --]]
---[[ VL["Randril"] = "Randril"--]] 
---[[Translation missing --]]
---[[ VL["Rauren"] = "Rauren"--]] 
+VL["Purging the River"] = "Purificare il Fiume"
+VL["Quin'el, Master of Chillwind"] = "Quin'el, Maestra dei Ghiacci"
+VL["Ragemaw"] = "Faucirabbiose"
+VL["Randril"] = "Randril"
+VL["Rauren"] = "Rauren"
 --[[Translation missing --]]
 --[[ VL["Ravager Broodlord"] = "Ravager Broodlord"--]] 
---[[Translation missing --]]
---[[ VL["Ravyn-Drath"] = "Ravyn-Drath"--]] 
+VL["Ravyn-Drath"] = "Ravyn-Drath"
 --[[Translation missing --]]
 --[[ VL["Really Skunky Beer"] = "Really Skunky Beer"--]] 
---[[Translation missing --]]
---[[ VL["Reef Lord Raj'his"] = "Reef Lord Raj'his"--]] 
---[[Translation missing --]]
---[[ VL["Remnant of the Blood Moon"] = "Remnant of the Blood Moon"--]] 
---[[Translation missing --]]
---[[ VL["Rogond"] = "Rogond"--]] 
---[[Translation missing --]]
---[[ VL["Rok'nash"] = "Rok'nash"--]] 
---[[Translation missing --]]
---[[ VL["Roteye"] = "Roteye"--]] 
+VL["Reef Lord Raj'his"] = "Signore dei Coralli Raj'his"
+VL["Remnant of the Blood Moon"] = "Resti della Luna di Sangue"
+VL["Rogond"] = "Rogond il Braccatore"
+VL["Rok'nash"] = "Rok'nash"
+VL["Roteye"] = "Occhiomarcio"
 --[[Translation missing --]]
 --[[ VL["Saberon Blademaster"] = "Saberon Blademaster"--]] 
 --[[Translation missing --]]
 --[[ VL["Saberon Shaman"] = "Saberon Shaman"--]] 
 --[[Translation missing --]]
 --[[ VL["Sapper Vorick"] = "Sapper Vorick"--]] 
---[[Translation missing --]]
---[[ VL["Scout Harefoot"] = "Scout Harefoot"--]] 
+VL["Scout Harefoot"] = "Esploratore Piede Lesto"
 --[[Translation missing --]]
 --[[ VL["Sea Giant King"] = "Sea Giant King"--]] 
 --[[Translation missing --]]
 --[[ VL["Sea Hydra"] = "Sea Hydra"--]] 
---[[Translation missing --]]
---[[ VL["Sea King Tidross"] = "Sea King Tidross"--]] 
---[[Translation missing --]]
---[[ VL["Sea Lord Torglork"] = "Sea Lord Torglork"--]] 
---[[Translation missing --]]
---[[ VL["Seek & Destroy Squad"] = "Seek & Destroy Squad"--]] 
+VL["Sea King Tidross"] = "Re del Mare Tidross"
+VL["Sea Lord Torglork"] = "Signore dei Mari Torglork"
+VL["Seek & Destroy Squad"] = "Squadra Trova e Distruggi"
 --[[Translation missing --]]
 --[[ VL["Seemingly Unguarded Treasure"] = "Seemingly Unguarded Treasure"--]] 
---[[Translation missing --]]
---[[ VL["Seersei"] = "Seersei"--]] 
---[[Translation missing --]]
---[[ VL["Sekhan"] = "Sekhan"--]] 
---[[Translation missing --]]
---[[ VL["Selia, Master of Balefire"] = "Selia, Master of Balefire"--]] 
+VL["Seersei"] = "Seersei"
+VL["Sekhan"] = "Sekhan"
+VL["Selia, Master of Balefire"] = "Selia, Maestra della Pira"
 --[[Translation missing --]]
 --[[ VL["Shadowflame Terror"] = "Shadowflame Terror"--]] 
 --[[Translation missing --]]
 --[[ VL["Shadowmoon Cultist Ritual"] = "Shadowmoon Cultist Ritual"--]] 
---[[Translation missing --]]
---[[ VL["Shadowquill"] = "Shadowquill"--]] 
---[[Translation missing --]]
---[[ VL["Shal'an"] = "Shal'an"--]] 
+VL["Shadowquill"] = "Piumanotte"
+VL["Shal'an"] = "Shal'an"
 --[[Translation missing --]]
 --[[ VL["Shaman Fire Stone"] = "Shaman Fire Stone"--]] 
---[[Translation missing --]]
---[[ VL["Shara Felbreath"] = "Shara Felbreath"--]] 
---[[Translation missing --]]
---[[ VL["Shinri"] = "Shinri"--]] 
+VL["Shara Felbreath"] = "Shara Fiato Vile"
+VL["Shinri"] = "Shinri"
 --[[Translation missing --]]
 --[[ VL["Shivering Ashmaw Cub"] = "Shivering Ashmaw Cub"--]] 
---[[Translation missing --]]
---[[ VL["Siegemaster Aedrin"] = "Siegemaster Aedrin"--]] 
---[[Translation missing --]]
---[[ VL["Sikthiss, Maiden of Slaughter"] = "Sikthiss, Maiden of Slaughter"--]] 
+VL["Siegemaster Aedrin"] = "Maestro d'Assedio Aedrin"
+VL["Sikthiss, Maiden of Slaughter"] = "Sikthiss la Dama del Massacro"
 --[[Translation missing --]]
 --[[ VL["Skagg"] = "Skagg"--]] 
 --[[Translation missing --]]
 --[[ VL["Skog"] = "Skog"--]] 
---[[Translation missing --]]
---[[ VL["Skywhisker Taskmaster"] = "Skywhisker Taskmaster"--]] 
+VL["Skywhisker Taskmaster"] = "Coordinatore dei Baffoceleste"
 --[[Translation missing --]]
 --[[ VL["Slogtusk"] = "Slogtusk"--]] 
 --[[Translation missing --]]
@@ -491,8 +311,7 @@ if not VL then return end
 --[[ VL["Soulfang"] = "Soulfang"--]] 
 --[[Translation missing --]]
 --[[ VL["Soulgrinder Portal"] = "Soulgrinder Portal"--]] 
---[[Translation missing --]]
---[[ VL["Soulthirster"] = "Soulthirster"--]] 
+VL["Soulthirster"] = "Logoranime"
 --[[Translation missing --]]
 --[[ VL["Starbuck"] = "Starbuck"--]] 
 --[[Translation missing --]]
@@ -501,18 +320,13 @@ if not VL then return end
 --[[ VL["Stomper Kreego"] = "Stomper Kreego"--]] 
 --[[Translation missing --]]
 --[[ VL["Stoneshard Broodmother"] = "Stoneshard Broodmother"--]] 
---[[Translation missing --]]
---[[ VL["Stormwing Matriarch"] = "Stormwing Matriarch"--]] 
+VL["Stormwing Matriarch"] = "Matriarca Alatempestosa"
 --[[Translation missing --]]
 --[[ VL["Syphonus & Leodrath"] = "Syphonus & Leodrath"--]] 
---[[Translation missing --]]
---[[ VL["Szirek"] = "Szirek"--]] 
---[[Translation missing --]]
---[[ VL["Tarben"] = "Tarben"--]] 
---[[Translation missing --]]
---[[ VL["Thane's Mead Hall"] = "Thane's Mead Hall"--]] 
---[[Translation missing --]]
---[[ VL["The Beastly Boxer"] = "The Beastly Boxer"--]] 
+VL["Szirek"] = "Szirek il Contorto"
+VL["Tarben"] = "Tarben"
+VL["Thane's Mead Hall"] = "Sala dell'Idromele di Thane"
+VL["The Beastly Boxer"] = "Pugile Bestiale"
 --[[Translation missing --]]
 --[[ VL["The Blightcaller"] = "The Blightcaller"--]] 
 --[[Translation missing --]]
@@ -523,66 +337,42 @@ if not VL then return end
 --[[ VL["The Brood Queen's Court: King Voras"] = "The Brood Queen's Court: King Voras"--]] 
 --[[Translation missing --]]
 --[[ VL["The Brood Queen's Court: Overseer Brutarg"] = "The Brood Queen's Court: Overseer Brutarg"--]] 
---[[Translation missing --]]
---[[ VL["The Exiled Shaman"] = "The Exiled Shaman"--]] 
+VL["The Exiled Shaman"] = "Sciamano Esiliato"
 --[[Translation missing --]]
 --[[ VL["The Muscle"] = "The Muscle"--]] 
---[[Translation missing --]]
---[[ VL["The Nameless King"] = "The Nameless King"--]] 
---[[Translation missing --]]
---[[ VL["The Oracle"] = "The Oracle"--]] 
+VL["The Nameless King"] = "Il Re Innominato"
+VL["The Oracle"] = "Oracolo"
 --[[Translation missing --]]
 --[[ VL["The Voidseer"] = "The Voidseer"--]] 
---[[Translation missing --]]
---[[ VL["Theryssia"] = "Theryssia"--]] 
---[[Translation missing --]]
---[[ VL["Thondrax"] = "Thondrax"--]] 
---[[Translation missing --]]
---[[ VL["Tide Behemoth"] = "Tide Behemoth"--]] 
---[[Translation missing --]]
---[[ VL["Tideclaw"] = "Tideclaw"--]] 
---[[Translation missing --]]
---[[ VL["Torrentius"] = "Torrentius"--]] 
---[[Translation missing --]]
---[[ VL["Totally Safe Treasure Chest"] = "Totally Safe Treasure Chest"--]] 
---[[Translation missing --]]
---[[ VL["Trecherous Stallions"] = "Trecherous Stallions"--]] 
---[[Translation missing --]]
---[[ VL["Unbound Rift"] = "Unbound Rift"--]] 
+VL["Theryssia"] = "Theryssia"
+VL["Thondrax"] = "Thondrax"
+VL["Tide Behemoth"] = "Behemoth delle Maree"
+VL["Tideclaw"] = "Sfregiamaree"
+VL["Torrentius"] = "Torrentius"
+VL["Totally Safe Treasure Chest"] = "Cassa del Tesoro Totalmente Sicura"
+VL["Trecherous Stallions"] = "Stalloni Pericolosi"
+VL["Unbound Rift"] = "Faglia Svincolata"
 --[[Translation missing --]]
 --[[ VL["Undgrell Attack"] = "Undgrell Attack"--]] 
 --[[Translation missing --]]
 --[[ VL["Unguarded Thistleleaf Treasure"] = "Unguarded Thistleleaf Treasure"--]] 
---[[Translation missing --]]
---[[ VL["Urgev the Flayer"] = "Urgev the Flayer"--]] 
---[[Translation missing --]]
---[[ VL["Valiyaka the Stormbringer"] = "Valiyaka the Stormbringer"--]] 
+VL["Urgev the Flayer"] = "Urgev lo Scuoiatore"
+VL["Valiyaka the Stormbringer"] = "Valiyaka l'Araldo della Tempesta"
 --[[Translation missing --]]
 --[[ VL["Venomshade (Plant Hydra)"] = "Venomshade (Plant Hydra)"--]] 
 --[[Translation missing --]]
 --[[ VL["Vicious Whale Shark"] = "Vicious Whale Shark"--]] 
---[[Translation missing --]]
---[[ VL["Vorthax"] = "Vorthax"--]] 
---[[Translation missing --]]
---[[ VL["Wakkawam"] = "Wakkawam"--]] 
+VL["Vorthax"] = "Vorthax"
+VL["Wakkawam"] = "Signore delle Spore Wakkawam"
 --[[Translation missing --]]
 --[[ VL["Wandering Vindicator - Looted Treasure"] = "Wandering Vindicator - Looted Treasure"--]] 
---[[Translation missing --]]
---[[ VL["Whitewater Typhoon"] = "Whitewater Typhoon"--]] 
---[[Translation missing --]]
---[[ VL["Worg Pack"] = "Worg Pack"--]] 
---[[Translation missing --]]
---[[ VL["Worgen Stalkers"] = "Worgen Stalkers"--]] 
---[[Translation missing --]]
---[[ VL["Wraithtalon"] = "Wraithtalon"--]] 
---[[Translation missing --]]
---[[ VL["Wrath-Lord Lekos"] = "Wrath-Lord Lekos"--]] 
---[[Translation missing --]]
---[[ VL["Xothear, The Destroyer"] = "Xothear, The Destroyer"--]] 
---[[Translation missing --]]
---[[ VL["Yggdrel"] = "Yggdrel"--]] 
---[[Translation missing --]]
---[[ VL["Zoug"] = "Zoug"--]] 
---[[Translation missing --]]
---[[ VL["Zulk"] = "Zulk"--]] 
+VL["Whitewater Typhoon"] = "Tifone Acquebianche"
+VL["Worg Pack"] = "Branco di Worg"
+VL["Worgen Stalkers"] = "Inseguitori Worgen"
+VL["Wraithtalon"] = "Spettrartiglio"
+VL["Wrath-Lord Lekos"] = "Signore dell'Ira Lekos"
+VL["Xothear, The Destroyer"] = "Xothear il Distruttore"
+VL["Yggdrel"] = "Yggdrel"
+VL["Zoug"] = "Zoug il Pesante"
+VL["Zulk"] = "Cacciatore del Sangue Zulk"
 

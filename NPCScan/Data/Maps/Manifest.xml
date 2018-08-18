@@ -8,8 +8,10 @@
     <Script file="Draenor.lua"/>
     <Script file="EasternKingdoms.lua"/>
     <Script file="Kalimdor.lua"/>
+    <Script file="KulTiras.lua"/>
     <Script file="Northrend.lua"/>
     <Script file="Outland.lua"/>
     <Script file="Pandaria.lua"/>
     <Script file="TheMaelstrom.lua"/>
+    <Script file="Zandalar.lua"/>
 </Ui>

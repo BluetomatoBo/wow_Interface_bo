@@ -18,18 +18,15 @@ L["Detection"] = "Détection"
 L["Drag to set the spawn point for targeting buttons."] = "Faire glisser pour définir le lieu d'apparition des boutons de ciblage."
 L["Duration"] = "Durée"
 L["Hide Anchor"] = "Cacher l'ancre"
---[[Translation missing --]]
---[[ L["Hide During Combat"] = "Hide During Combat"--]] 
+L["Hide During Combat"] = "Cacher en combat"
 L["Horizontal offset from the anchor point."] = "Décalage horizontal du point d'ancrage."
 L["Ignore Mute"] = "Ignorer la sourdine"
 L["Interval"] = "Intervalle"
 L["LEFT"] = "Gauche"
 L["NPCs"] = "PNJs"
 L["Play alert sounds when sound is muted."] = "Jouer les sons d'alerte quand le son du jeu est coupé."
---[[Translation missing --]]
---[[ L["Predefined NPCs cannot be added to or removed from the user-defined NPC list."] = "Predefined NPCs cannot be added to or removed from the user-defined NPC list."--]] 
---[[Translation missing --]]
---[[ L["Removed %1$s (%2$d) from the user-defined NPC list."] = "Removed %1$s (%2$d) from the user-defined NPC list."--]] 
+L["Predefined NPCs cannot be added to or removed from the user-defined NPC list."] = "Les PNJs prédéfinis ne peuvent être ajouté ou retiré de la liste des PNJ définis par l'utilisateur."
+L["Removed %1$s (%2$d) from the user-defined NPC list."] = "%1$s (%2$d) retiré de la liste des PNJ définis par l'utilisateur."
 L["Reset Position"] = "Réinitialiser postition"
 L["RIGHT"] = "Droite"
 L["Screen Flash"] = "Clignotement de l'écran"
@@ -54,15 +51,13 @@ local VL = _G.LibStub("AceLocale-3.0"):NewLocale(AddOnFolderName .. "Vignette", 
 if not VL then return end
 
 -- Vignette
---[[Translation missing --]]
---[[ VL["Aarkos - Looted Treasure"] = "Aarkos - Looted Treasure"--]] 
+VL["Aarkos - Looted Treasure"] = "Trésor de la famille d’Aarko"
 VL["Abandoned Fishing Pole"] = "Canne à pêche abandonnée"
 VL["Alpha Bat"] = "Chauve-souris Alpha"
 VL["Amateur Hunters"] = "Chasseurs amateurs"
 VL["Ambassador D'vwinn"] = "Ambassadeur D'vwinn"
 VL["Anax"] = "Anax"
---[[Translation missing --]]
---[[ VL["Anchorite's Sojourn"] = "Anchorite's Sojourn"--]] 
+VL["Anchorite's Sojourn"] = "Séjour de l'Anachorète"
 --[[Translation missing --]]
 --[[ VL["Antydas Nightcaller's Hideaway"] = "Antydas Nightcaller's Hideaway"--]] 
 --[[Translation missing --]]

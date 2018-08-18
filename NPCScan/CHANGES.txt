@@ -1,46 +1,16 @@
-tag d3953ad5723658a9f19f7360061680eac1c5766f 8.0.1.2
+tag 59f9b374c1a8349b7915d84bc50bb4a3c46a8c15 8.0.1.6
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Wed Jul 18 22:35:55 2018 -0500
+Date:	Fri Aug 17 10:49:36 2018 -0500
 
-commit 33dffb25f9f761148197b87a414e213a9c66c59b
+commit edbb718086b0846ba169135f5a19d455d3053280
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Jul 18 22:35:38 2018 -0500
+Date:   Fri Aug 17 10:49:12 2018 -0500
 
-    Rework PLAYER_ENTERING_WORLD handler, since that event now has a payload.
+    Add vignetteID for Urn of Agussu.
 
-commit 8bd50d0110348ef3b16f31b6475f9f41e7f90d2c
+commit 35ce17a64d0c1c43204b3160b5dc1063aaf8a5cb
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Jul 18 19:17:06 2018 -0500
+Date:   Fri Aug 17 10:48:34 2018 -0500
 
-    Greatly simplify vignette-scanning code.
-
-commit c2e589bcde522ccabc87f270baaed5f227575a95
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Jul 18 14:10:03 2018 -0500
-
-    Give DataObject.scannerData default values.
-
-commit 16afafcb38b46308f284eea83b068fac8fbed282
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Jul 18 13:53:49 2018 -0500
-
-    Add the Tiny Shale Spider pet to Jadefang.
-
-commit 55109036a2691bb4ce9d31d7ed37680996355a0c
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Jul 18 13:53:26 2018 -0500
-
-    Use AchievementID instead of hardcoded numbers for all manually-assigned NPCs, and ensure their manual addition to the achievement's criteriaNPCs table.
-
-commit 0658f39f168c802b35f3e961bd9ee0c8f88598bf
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Jul 18 13:46:45 2018 -0500
-
-    Move the AchievementID table into Achievements.lua
-
-commit 777276d2948b414df90da2a9d09273f77f9c8467
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Jul 18 13:45:21 2018 -0500
-
-    Update the scanner list during PLAYER_ENTERING_WORLD since the WoW 8.0.1 changes to the map system made doing so during PLAYER_LOGIN useless.
+    Fix library load ordering.
 
