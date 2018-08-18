@@ -184,6 +184,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Duplicate All"] = "Duplicate All"
 	L["Duration (s)"] = "Dauer (s)"
 	L["Duration Info"] = "Dauerinformationen"
+	--[[Translation missing --]]
+	L["Dynamic Duration"] = "Dynamic Duration"
 	L["Dynamic Group"] = "Dynamische Gruppe"
 	L["Dynamic Information"] = "Dynamische Information"
 	L["Dynamic information from first active trigger"] = "Dynamische Information vom ersten aktiven Auslöser"
@@ -213,6 +215,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Fade In"] = "Einblenden"
 	L["Fade Out"] = "Ausblenden"
 	L["False"] = "Falsch"
+	--[[Translation missing --]]
+	L["Filter by Group Role"] = "Filter by Group Role"
 	L["Finish"] = "Endanimation"
 	L["Fire Orb"] = "Feuerkugel"
 	L["Font"] = "Schriftart"
@@ -227,8 +231,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Full Scan"] = "Kompletter Scan"
 	--[[Translation missing --]]
 	L["General Text Settings"] = "General Text Settings"
-	--[[Translation missing --]]
-	L["Global Conditions"] = "Global Conditions"
+	L["Global Conditions"] = "Globale Bedingungen"
 	L["Glow"] = "Leuchten"
 	L["Glow Action"] = "Leuchtaktion"
 	L["Green Rune"] = "Grüne Rune"
@@ -246,6 +249,8 @@ Falls die Zahl als Dezimalzahl (z.B. 0.5), Bruch (z.B. 1/2) oder Prozentsatz (z.
 |cFF00CC00> 1/2|r Löst aus, wenn mehr als die Hälfte der %s betroffen sind.
 |cFF00CC00>= 0|r Löst immer aus.]=]
 	L["Group Member Count"] = "Anzahl der Gruppenmitglieder"
+	--[[Translation missing --]]
+	L["Group Role"] = "Group Role"
 	--[[Translation missing --]]
 	L["Group Scale"] = "Group Scale"
 	--[[Translation missing --]]
@@ -274,6 +279,8 @@ Falls die Zahl als Dezimalzahl (z.B. 0.5), Bruch (z.B. 1/2) oder Prozentsatz (z.
 	L["If"] = "Falls"
 	L["If this option is enabled, you are no longer able to import auras."] = "Der Import von Auren ist gesperrt solange diese Option aktiv ist."
 	L["If Trigger %s"] = "Falls Auslöser %s"
+	--[[Translation missing --]]
+	L["Ignore self"] = "Ignore self"
 	L["Ignored"] = "Ignoriert"
 	L["Import"] = "Importieren"
 	L["Import a display from an encoded string"] = "Anzeige von Klartext importieren"
@@ -384,7 +391,6 @@ Nur ein Wert kann ausgewählt werden.]=]
 	L["Remaining Time"] = "Verbleibende Zeit"
 	L["Remaining Time Precision"] = "Genauigkeit der Restzeit"
 	L["Remove"] = "Entfernen"
-	L["Remove this condition"] = "Bedingung entfernen"
 	L["Remove this display from its group"] = "Diese Anzeige aus seiner Gruppe entfernen"
 	L["Remove this property"] = "Eigenschaft entfernen"
 	L["Rename"] = "Umbenennen"

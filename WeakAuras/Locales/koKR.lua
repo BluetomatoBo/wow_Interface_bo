@@ -5,6 +5,12 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras
+--[[Translation missing --]]
+L["   • %d auras added"] = "   • %d auras added"
+--[[Translation missing --]]
+L["   • %d auras deleted"] = "   • %d auras deleted"
+--[[Translation missing --]]
+L["   • %d auras modified"] = "   • %d auras modified"
 L["!="] = "!="
 L["%s - %i. Trigger"] = "%s - %i. 활성 조건"
 L["%s - 1. Trigger"] = "%s - 1. 활성 조건"
@@ -53,7 +59,10 @@ L["Absorb"] = "흡수"
 L["Absorb Display"] = "Absorb Display"
 L["Absorbed"] = "흡수함"
 L["Action Usable"] = "사용 가능"
+L["Actions"] = "동작"
 L["Active"] = "활성화"
+--[[Translation missing --]]
+L["Add Missing Auras"] = "Add Missing Auras"
 L["Additional Trigger Replacements"] = "추가적인 활성 조건 교체"
 --[[Translation missing --]]
 L["Adjust Timer"] = "Adjust Timer"
@@ -73,6 +82,8 @@ L["Always active trigger"] = "항상 활성 조건 활성화"
 L["Ambience"] = "환경 소리"
 L["Amount"] = "수량"
 L["And Talent selected"] = "같이 선택된 특성"
+--[[Translation missing --]]
+L["Animations"] = "Animations"
 L["Anticlockwise"] = "반시계 방향"
 L["Any"] = "아무거나"
 L["Any Triggers"] = "아무 활성 조건 만족"
@@ -91,6 +102,7 @@ L["Aura Applied Dose"] = "효과 겹쳐짐"
 L["Aura Broken"] = "효과 파괴"
 L["Aura Broken Spell"] = "주문으로 효과 파괴"
 L["Aura Name"] = "효과 이름"
+L["Aura Names"] = "효과 이름"
 L["Aura Refresh"] = "효과 지속시간 초기화"
 L["Aura Removed"] = "효과 제거"
 L["Aura Removed Dose"] = "효과 중첩 감소"
@@ -152,6 +164,8 @@ L["Chat Frame"] = "대화창"
 L["Chat Message"] = "대화 메시지"
 L["Chest"] = "가슴"
 L["Children:"] = "자식:"
+--[[Translation missing --]]
+L["Choose a category"] = "Choose a category"
 L["Circle"] = "동그라미"
 --[[Translation missing --]]
 L["Clamp"] = "Clamp"
@@ -173,6 +187,8 @@ L["Cooldown Ready (Item)"] = "재사용 준비됨 (아이템)"
 L["Cooldown Ready (Spell)"] = "재사용 준비됨 (주문)"
 L["Counter Clockwise"] = "반 시계 방향"
 L["Create"] = "생성"
+--[[Translation missing --]]
+L["Create a Copy"] = "Create a Copy"
 L["Critical"] = "치명타"
 L["Cross"] = "가위표"
 L["Crowd Controlled"] = "군중 제어됨"
@@ -181,8 +197,7 @@ L["Crushing"] = "강타"
 L["Cunning"] = "Cunning"
 --[[Translation missing --]]
 L["Current Zone Group ID: "] = "Current Zone Group ID: "
---[[Translation missing --]]
-L["Current Zone ID: "] = "Current Zone ID: "
+L["Current Zone ID: "] = "현재 지역 ID:"
 L["Curse"] = "저주"
 L["Custom"] = "사용자 설정"
 L["Custom Function"] = "사용자 설정 함수"
@@ -210,6 +225,8 @@ L["Diamond"] = "다이아몬드"
 L["Disease"] = "질병"
 L["Dispel"] = "무효화"
 L["Dispel Failed"] = "무효화 실패"
+--[[Translation missing --]]
+L["Display"] = "Display"
 --[[Translation missing --]]
 L["Distance"] = "Distance"
 L["Dodge"] = "피함"
@@ -288,12 +305,13 @@ L["Gradient"] = "색상 전환"
 L["Gradient Pulse"] = "색상 전환(깜빡임)"
 L["Group"] = "그룹"
 L["Group %s"] = "%s 그룹"
+--[[Translation missing --]]
+L["Group Arrangement"] = "Group Arrangement"
 L["Grow"] = "성장"
 L["GTFO Alert"] = "GTFO 경보"
 L["Guild"] = "길드"
 L["Hands"] = "손"
---[[Translation missing --]]
-L["Has Target"] = "Has Target"
+L["Has Target"] = "대상 있음"
 L["Has Vehicle UI"] = "차량 UI가 있을 때"
 L["HasPet"] = "소환수 있음 (살아있음)"
 L["Head"] = "머리"
@@ -321,7 +339,17 @@ L["Immune"] = "면역"
 --[[Translation missing --]]
 L["Import"] = "Import"
 --[[Translation missing --]]
+L["Import as Copy"] = "Import as Copy"
+--[[Translation missing --]]
+L["Import as Update"] = "Import as Update"
+--[[Translation missing --]]
 L["Import disabled"] = "Import disabled"
+--[[Translation missing --]]
+L["Import Group"] = "Import Group"
+--[[Translation missing --]]
+L["Import in progress"] = "Import in progress"
+--[[Translation missing --]]
+L["Importing is disabled while in combat"] = "Importing is disabled while in combat"
 L["In Combat"] = "전투 중"
 --[[Translation missing --]]
 L["In Encounter"] = "In Encounter"
@@ -340,6 +368,8 @@ L["Instakill"] = "죽임"
 L["Instance"] = "인스턴스"
 L["Instance Difficulty"] = "인스턴스 난이도"
 L["Instance Type"] = "인스턴스 유형"
+--[[Translation missing --]]
+L["Insufficient Resources"] = "Insufficient Resources"
 L["Interrupt"] = "방해"
 L["Interruptible"] = "방해 가능"
 L["Inverse"] = "반대로"
@@ -354,6 +384,8 @@ L["It might not work correctly with your version!"] = "It might not work correct
 L["Item"] = "아이템"
 L["Item Count"] = "아이템 갯수"
 L["Item Equipped"] = "아이템 착용"
+--[[Translation missing --]]
+L["Item in Range"] = "Item in Range"
 L["Item Set Equipped"] = "아이템 세트 착용"
 --[[Translation missing --]]
 L["Item Set Id"] = "Item Set Id"
@@ -370,6 +402,8 @@ L["Legacy RGB Gradient"] = "Legacy RGB Gradient"
 L["Legacy RGB Gradient Pulse"] = "Legacy RGB Gradient Pulse"
 L["Legs"] = "다리"
 L["Level"] = "레벨"
+--[[Translation missing --]]
+L["Load Conditions"] = "Load Conditions"
 L["Looking for Raid"] = "공격대 찾기"
 L["Loop"] = "반복"
 L["Lost"] = "손실"
@@ -377,8 +411,7 @@ L["Low Damage"] = "낮은 피해"
 L["Lower Than Tank"] = "탱커보다 낮을 때"
 L["Magic"] = "마법"
 L["Main Hand"] = "주무기"
---[[Translation missing --]]
-L["Make sure you can trust the person who sent it!"] = "Make sure you can trust the person who sent it!"
+L["Make sure you can trust the person who sent it!"] = "보낸 사람을 믿을 수 있는지 확인하세요!"
 --[[Translation missing --]]
 L["Malformed WeakAuras link"] = "Malformed WeakAuras link"
 L["Manual Rotation"] = "수동 회전"
@@ -388,15 +421,15 @@ L["Master"] = "주 음량"
 L["Matches (Pattern)"] = "일치 (패턴)"
 --[[Translation missing --]]
 L["Max Charges"] = "Max Charges"
---[[Translation missing --]]
-L["Maximum"] = "Maximum"
+L["Maximum"] = "최대"
 --[[Translation missing --]]
 L["Maximum Estimate"] = "Maximum Estimate"
 L["Message"] = "메시지"
 L["Message Type"] = "메시지 유형"
 L["Message type:"] = "메시지 유형:"
 --[[Translation missing --]]
-L["Minimum"] = "Minimum"
+L["Meta Data"] = "Meta Data"
+L["Minimum"] = "최소"
 --[[Translation missing --]]
 L["Minimum Estimate"] = "Minimum Estimate"
 --[[Translation missing --]]
@@ -419,14 +452,14 @@ L["Mouse Cursor"] = "마우스 커서"
 L["Multi-target"] = "다중 대상"
 L["Music"] = "음악"
 L["Mythic"] = "신화"
---[[Translation missing --]]
-L["Mythic+ Affix"] = "Mythic+ Affix"
+L["Mythic+ Affix"] = "쐐기돌 수정치"
 L["Name"] = "이름"
 L["Neck"] = "목"
 L["Neutral"] = "중립"
 L["Never"] = "절대 안함"
 L["Next"] = "다음"
-L["No Children:"] = "자식 없음:"
+--[[Translation missing --]]
+L["No Children"] = "No Children"
 L["No Instance"] = "인스턴스가 아닐 때"
 --[[Translation missing --]]
 L["No Profiling information saved."] = "No Profiling information saved."
@@ -472,8 +505,7 @@ L["Periodic Spell"] = "주기적인 주문"
 L["Personal Resource Display"] = "개인 자원 표시"
 L["Pet"] = "소환수"
 L["Pet Behavior"] = "소환수 행동"
---[[Translation missing --]]
-L["Pet Specialization"] = "Pet Specialization"
+L["Pet Specialization"] = "소환수 전문화"
 L["Pet Spell"] = "소환수 주문"
 L["Play"] = "재생"
 L["Player"] = "플레이어"
@@ -526,7 +558,11 @@ L["Relative"] = "상대적"
 L["Remaining Duration"] = "남은 지속시간"
 L["Remaining Time"] = "남은 시간"
 --[[Translation missing --]]
+L["Remove Obsolete Auras"] = "Remove Obsolete Auras"
+--[[Translation missing --]]
 L["Repeat"] = "Repeat"
+--[[Translation missing --]]
+L["Replace Aura"] = "Replace Aura"
 L["Requested display does not exist"] = "요청한 디스플레이가 존재하지 않습니다"
 L["Requested display not authorized"] = "요청한 디스플레이가 올바르지 않습니다"
 --[[Translation missing --]]
@@ -582,13 +618,11 @@ L["Second Text Color"] = "두번째 문자 색상"
 L["Second Text Size"] = "두번째 문자 크기"
 L["Seconds"] = "초"
 L["Select Frame"] = "프레임 선택"
---[[Translation missing --]]
-L["Set Maximum Progress"] = "Set Maximum Progress"
---[[Translation missing --]]
-L["Set Minimum Progress"] = "Set Minimum Progress"
+L["Set Maximum Progress"] = "최대 진행 값 설정"
+L["Set Minimum Progress"] = "최소 진행 값 설정"
 L["Shake"] = "흔들기"
-L["Shift-Click to pause"] = "Shift-클릭 - 일시정지"
-L["Shift-Click to resume"] = "Shift-클릭 - 재시작"
+L["Shift-Click to pause"] = "Shift+클릭 - 일시 정지"
+L["Shift-Click to resume"] = "Shift+클릭 - 재시작"
 L["Shoulder"] = "어깨"
 L["Show"] = "표시"
 --[[Translation missing --]]
@@ -602,6 +636,7 @@ L["Show if Charges"] = "Show if Charges"
 --[[Translation missing --]]
 L["Show Incoming Heal"] = "Show Incoming Heal"
 L["Shrink"] = "축소"
+L["Size & Position"] = "크기 & 위치"
 L["Skull"] = "해골"
 L["Slide from Bottom"] = "아래부터 슬라이드"
 L["Slide from Left"] = "왼쪽부터 슬라이드"
@@ -619,12 +654,13 @@ L["Source In Group"] = "행위자가 속한 파티"
 L["Source Name"] = "행위자 이름"
 L["Source Raid Mark"] = "행위자 공격대 징표"
 L["Source Unit"] = "행위자 유닛"
+--[[Translation missing --]]
+L["Source: "] = "Source: "
 L["Spacing"] = "간격"
 L["Spark Color"] = "섬광 색상"
 L["Spark Height"] = "섬광 높이"
 L["Spark Width"] = "섬광 너비"
---[[Translation missing --]]
-L["Spec Role"] = "Spec Role"
+L["Spec Role"] = "전문화 역할"
 L["Specific Unit"] = "특정 유닛"
 L["Spell"] = "주문"
 L["Spell (Building)"] = "주문 (공성)"
@@ -633,6 +669,8 @@ L["Spell Activation Overlay Glow"] = "주문 활성화 강조 표시"
 L["Spell Cost"] = "Spell Cost"
 L["Spell ID"] = "주문 ID"
 L["Spell Id"] = "주문 Id"
+--[[Translation missing --]]
+L["Spell in Range"] = "Spell in Range"
 L["Spell Known"] = "습득한 주문"
 L["Spell Name"] = "주문 이름"
 --[[Translation missing --]]
@@ -676,10 +714,13 @@ L["Tenacity"] = "Tenacity"
 L["Thick Outline"] = "굵은 외곽선"
 --[[Translation missing --]]
 L["Third"] = "Third"
---[[Translation missing --]]
-L["This aura contains custom Lua code."] = "This aura contains custom Lua code."
+L["This aura contains custom Lua code."] = "이 효과는 사용자 정의 Lua 코드를 포함합니다."
 --[[Translation missing --]]
 L["This aura was created with a newer version of WeakAuras."] = "This aura was created with a newer version of WeakAuras."
+--[[Translation missing --]]
+L["This is a modified version of your aura, |cff9900FF%s.|r"] = "This is a modified version of your aura, |cff9900FF%s.|r"
+--[[Translation missing --]]
+L["This is a modified version of your group, |cff9900FF%s.|r"] = "This is a modified version of your group, |cff9900FF%s.|r"
 L["Threat Situation"] = "위협 수준 상황"
 L["Tier "] = "단계"
 L["Timed"] = "일정 시간"
@@ -698,8 +739,8 @@ L["Totem Name"] = "토템 이름"
 L["Totem Number"] = "토템 번호"
 L["Transmission error"] = "전송 오류"
 L["Triangle"] = "세모"
---[[Translation missing --]]
-L["Trigger 1"] = "Trigger 1"
+L["Trigger"] = "활성 조건"
+L["Trigger 1"] = "활성 조건 1"
 L["Trigger State Updater"] = "활성 조건 상태 업데이터"
 L["Trigger Update"] = "활성 조건 업데이트"
 L["Trigger:"] = "활성 조건:"
@@ -716,14 +757,18 @@ L["Unit Died"] = "유닛 죽음"
 L["Unit is Unit"] = "Unit is Unit"
 L["Up"] = "위로"
 --[[Translation missing --]]
-L["Values/Remaining Time above this value are displayed as full progress."] = "Values/Remaining Time above this value are displayed as full progress."
---[[Translation missing --]]
-L["Values/Remaining Time below this value are displayed as no progress."] = "Values/Remaining Time below this value are displayed as no progress."
+L["Update Auras"] = "Update Auras"
+L["Values/Remaining Time above this value are displayed as full progress."] = "이 값보다 큰 값/남은 시간은 전체 진행으로 표시됩니다."
+L["Values/Remaining Time below this value are displayed as no progress."] = "이 값 미만인 값/남은 시간은 진행되지 않음으로 표시됩니다."
 --[[Translation missing --]]
 L["Version: "] = "Version: "
 L["Waist"] = "허리"
+--[[Translation missing --]]
+L["War Mode Active"] = "War Mode Active"
 L["Weapon"] = "무기"
 L["Weapon Enchant"] = "무기 마법부여"
+--[[Translation missing --]]
+L["What do you want to do?"] = "What do you want to do?"
 L["Whisper"] = "귓속말"
 L["Width"] = "너비"
 L["Wobble"] = "흔들기"
@@ -734,9 +779,8 @@ L["X-Offset"] = "X-좌표"
 L["Yell"] = "외침"
 L["Y-Offset"] = "Y-좌표"
 --[[Translation missing --]]
-L["Zone Group ID(s)"] = "Zone Group ID(s)"
---[[Translation missing --]]
-L["Zone ID(s)"] = "Zone ID(s)"
---[[Translation missing --]]
-L["Zone Name"] = "Zone Name"
+L["You already have this group/aura. Importing will create a duplicate."] = "You already have this group/aura. Importing will create a duplicate."
+L["Zone Group ID(s)"] = "지역 그룹 ID"
+L["Zone ID(s)"] = "지역 ID"
+L["Zone Name"] = "지역 이름"
 

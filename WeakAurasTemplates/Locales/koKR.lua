@@ -35,8 +35,7 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["PvP Azerite Traits"] = "PvP Azerite Traits"
 	L["PvP Talents"] = "명예 특성"
-	--[[Translation missing --]]
-	L["PVP Trinkets (Buff)"] = "PVP Trinkets (Buff)"
+	L["PVP Trinkets (Buff)"] = "PvP 장신구 (강화 효과)"
 	--[[Translation missing --]]
 	L["PVP Trinkets (CD)"] = "PVP Trinkets (CD)"
 	L["Replace all existing triggers"] = "모든 활성 조건 교체"

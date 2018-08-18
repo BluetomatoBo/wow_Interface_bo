@@ -187,6 +187,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Duplicate All"] = "Duplicate All"
 	L["Duration (s)"] = "Duración"
 	L["Duration Info"] = "Información sobre la duración"
+	--[[Translation missing --]]
+	L["Dynamic Duration"] = "Dynamic Duration"
 	L["Dynamic Group"] = "Grupo dinámico"
 	L["Dynamic Information"] = "Información dinámica"
 	L["Dynamic information from first active trigger"] = "Información dinámica del primer desencadenador activo"
@@ -211,6 +213,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Fade Out"] = "Difuminar"
 	--[[Translation missing --]]
 	L["False"] = "False"
+	--[[Translation missing --]]
+	L["Filter by Group Role"] = "Filter by Group Role"
 	L["Finish"] = "Completar"
 	L["Fire Orb"] = "Orbe de fuego"
 	L["Font"] = "Font"
@@ -246,6 +250,8 @@ Con |cFF00CC00> 1/2|r se activará cuando más de la mitad de miembros del grupo
 Con |cFF00CC00>= 0|r se activará siempre.]=]
 	L["Group Member Count"] = "Contador de miembros del grupo"
 	--[[Translation missing --]]
+	L["Group Role"] = "Group Role"
+	--[[Translation missing --]]
 	L["Group Scale"] = "Group Scale"
 	L["Grow"] = "Crecer"
 	L["Hawk"] = "Halcón"
@@ -272,6 +278,8 @@ Con |cFF00CC00>= 0|r se activará siempre.]=]
 	L["If this option is enabled, you are no longer able to import auras."] = "If this option is enabled, you are no longer able to import auras."
 	--[[Translation missing --]]
 	L["If Trigger %s"] = "If Trigger %s"
+	--[[Translation missing --]]
+	L["Ignore self"] = "Ignore self"
 	L["Ignored"] = "Ignorar"
 	L["Import"] = "Importar"
 	L["Import a display from an encoded string"] = "Importar un aura desde un texto cifrado"
@@ -380,8 +388,6 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Remaining Time Precision"] = "Precisión de tiempo restante"
 	--[[Translation missing --]]
 	L["Remove"] = "Remove"
-	--[[Translation missing --]]
-	L["Remove this condition"] = "Remove this condition"
 	L["Remove this display from its group"] = "Remover esta aura del grupo"
 	--[[Translation missing --]]
 	L["Remove this property"] = "Remove this property"

@@ -226,6 +226,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Duplicate All"] = "Duplicate All"
 	L["Duration (s)"] = "Duración (s)"
 	L["Duration Info"] = "Información de Duración"
+	--[[Translation missing --]]
+	L["Dynamic Duration"] = "Dynamic Duration"
 	L["Dynamic Group"] = "Grupo Dinámico"
 	--[[Translation missing --]]
 	L["Dynamic Information"] = "Dynamic Information"
@@ -262,6 +264,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Fade Out"] = "Fade Out"
 	--[[Translation missing --]]
 	L["False"] = "False"
+	--[[Translation missing --]]
+	L["Filter by Group Role"] = "Filter by Group Role"
 	L["Finish"] = "Finalizar"
 	--[[Translation missing --]]
 	L["Fire Orb"] = "Fire Orb"
@@ -302,6 +306,8 @@ Con |cFF00CC00> 1/2|r se activará cuando más de la mitad de miembros del grupo
 Con |cFF00CC00>= 0|r se activará siempre.]=]
 	L["Group Member Count"] = "Contador del Miembro de Grupo"
 	--[[Translation missing --]]
+	L["Group Role"] = "Group Role"
+	--[[Translation missing --]]
 	L["Group Scale"] = "Group Scale"
 	--[[Translation missing --]]
 	L["Grow"] = "Grow"
@@ -340,6 +346,8 @@ Con |cFF00CC00>= 0|r se activará siempre.]=]
 	L["If this option is enabled, you are no longer able to import auras."] = "If this option is enabled, you are no longer able to import auras."
 	--[[Translation missing --]]
 	L["If Trigger %s"] = "If Trigger %s"
+	--[[Translation missing --]]
+	L["Ignore self"] = "Ignore self"
 	L["Ignored"] = "Ignorar"
 	L["Import"] = "Importar"
 	L["Import a display from an encoded string"] = "Importar un aura desde un texto cifrado"
@@ -476,8 +484,6 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Remaining Time Precision"] = "Precisión del Tiempo Restante"
 	--[[Translation missing --]]
 	L["Remove"] = "Remove"
-	--[[Translation missing --]]
-	L["Remove this condition"] = "Remove this condition"
 	--[[Translation missing --]]
 	L["Remove this display from its group"] = "Remove this display from its group"
 	--[[Translation missing --]]

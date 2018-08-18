@@ -238,6 +238,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Duplicate All"] = "Duplicate All"
 	L["Duration (s)"] = "Duração"
 	L["Duration Info"] = "Informação da duração"
+	--[[Translation missing --]]
+	L["Dynamic Duration"] = "Dynamic Duration"
 	L["Dynamic Group"] = "Grupo dinâmico"
 	--[[Translation missing --]]
 	L["Dynamic Information"] = "Dynamic Information"
@@ -275,6 +277,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Fade Out"] = "Fade Out"
 	--[[Translation missing --]]
 	L["False"] = "False"
+	--[[Translation missing --]]
+	L["Filter by Group Role"] = "Filter by Group Role"
 	L["Finish"] = "Finalizar"
 	--[[Translation missing --]]
 	L["Fire Orb"] = "Fire Orb"
@@ -309,6 +313,8 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["Group aura count description"] = "Group aura count description"
 	L["Group Member Count"] = "Contagem dos membros do grupo"
+	--[[Translation missing --]]
+	L["Group Role"] = "Group Role"
 	--[[Translation missing --]]
 	L["Group Scale"] = "Group Scale"
 	--[[Translation missing --]]
@@ -349,6 +355,8 @@ WeakAuras → Opções → Opções ]=]
 	L["If this option is enabled, you are no longer able to import auras."] = "If this option is enabled, you are no longer able to import auras."
 	--[[Translation missing --]]
 	L["If Trigger %s"] = "If Trigger %s"
+	--[[Translation missing --]]
+	L["Ignore self"] = "Ignore self"
 	L["Ignored"] = "Ignorado"
 	L["Import"] = "Importar"
 	L["Import a display from an encoded string"] = "Importar um display de um string codificado"
@@ -490,8 +498,6 @@ WeakAuras → Opções → Opções ]=]
 	L["Remaining Time Precision"] = "Precisão do tempo restante"
 	--[[Translation missing --]]
 	L["Remove"] = "Remove"
-	--[[Translation missing --]]
-	L["Remove this condition"] = "Remove this condition"
 	--[[Translation missing --]]
 	L["Remove this display from its group"] = "Remove this display from its group"
 	--[[Translation missing --]]
