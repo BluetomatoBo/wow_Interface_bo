@@ -489,6 +489,12 @@ and Pawn.</p>
 	(And then, someday in the future, maybe add grey arrows to items that are an 
 	upgrade to a scale for a spec that you're not currently in.)
 	</li>
+	<li>A way to set class, spec, and icon manually for custom scales.&nbsp; 
+	(Right now, they can be set for imported scales, but there's no way to 
+	change them through the UI.)&nbsp; And then, a way to use those for 
+	automatic switching based on spec: allow spec switching in manual mode, and 
+	if there's one or more custom scales for the spec, use all of those instead 
+	of the AMR one.</li>
 	<li>Test out the quest upgrade advisor when artifact relics are available, 
 	and integrate that advisor with the new relic features.</li>
 	<li>Integrate with Angry World Quests to add green arrows to item rewards in 
@@ -512,12 +518,10 @@ and Pawn.</p>
 	<li>A way to detect if you're using FreeUI, and show a message warning you 
 	that Pawn is incompatible if you are.</li>
 	<li>Integration with Storyline.</li>
-	<li>I should come up with a way to suggest to higher-end players who don't 
-	have any custom scales—say, anyone with an ilvl 860+—that they should 
+	<li>I should come up with a way to suggest to high-end raiders (based on 
+	average ilvl) who don't 
+	have any custom scales that they should 
 	consider simulating their character for better results.</li>
-	<li>A way to set class, spec, and icon manually for custom scales.&nbsp; 
-	(Right now, they can be set for imported scales, but there's no way to 
-	change them through the UI.)</li>
 	<li>A small default value for armor so that the first few items you get when 
 	leveling a new character (with no stats) get upgrade arrows.</li>
 	<li>A summary (just in chat) that shows you what changed when you import a 
@@ -525,6 +529,33 @@ and Pawn.</p>
 </ul>
 
 <h2>Updates</h2>
+<h3>Version 2.2.27</h3>
+<ul>
+	<li>Pawn's relic upgrade features are now disabled by default, and I plan to 
+	remove them entirely in a future version.</li>
+</ul>
+<h3>Version 2.2.26</h3>
+<ul>
+	<li>Items with sockets will now be valued somewhat higher than before, to 
+	account for the new gems in Battle for Azeroth jewelcrafting.</li>
+	<li>Fixed a problem where sometimes you'd get an error when looking at items 
+	that your PC hadn't downloaded the stats for yet.</li>
+</ul>
+<h3>Version 2.2.25</h3>
+<ul>
+	<li>Fixed some more issues with artifact weapon level comparisons (notably, 
+	comparing versus the surprisingly crappy weapons you get during the Battle 
+	for Lordaeron questline).</li>
+	<li>Fixed the average item level display on the Inspect window when hovering 
+	over the Pawn button.</li>
+</ul>
+<h3>Version 2.2.24</h3>
+<ul>
+	<li>When comparing an artifact weapon with a non-artifact weapon, Pawn now 
+	just shows upgrade arrows based on the item's level.&nbsp; Artifact weapons are 
+	complicated, and this seemed like the most helpful and least confusing way 
+	to provide guidance.</li>
+</ul>
 <h3>Version 2.2.23</h3>
 <ul>
 	<li>Fixed a bug where Pawn could skip one of your equipment sets when 
