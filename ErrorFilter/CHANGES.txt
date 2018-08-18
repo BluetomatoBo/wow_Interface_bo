@@ -1,8 +1,8 @@
-tag db89b3627271666c1846b98de7f914d38a4cdb87 v3.5
+tag 426d105002c48ffc44fb756c045972dbd5ec68a1 v3.6
 Author:	iceeagle <ciprianmihai.coman@gmail.com>
-Date:	Thu Aug 2 19:40:47 2018 +0300
+Date:	Sat Aug 11 12:46:12 2018 +0300
 
-tag v3.5
+repackage with latest libs
 
 commit f72653014c0e9acc19052aa6b86c2dbdb85e58b6
 Author: iceeagle <ciprianmihai.coman@gmail.com>
