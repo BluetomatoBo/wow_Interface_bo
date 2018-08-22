@@ -89,19 +89,13 @@ function CoolLine:ADDON_LOADED(a1)
 		local runecd = {  -- fix by NeoSyrex
 			[GetSpellInfo(50977) or "Death Gate"] = 11,
 			[GetSpellInfo(43265) or "Death and Decay"] = 11,
-			[GetSpellInfo(48263) or "Frost Presence"] = 1,
-			[GetSpellInfo(48266) or "Blood Presence"] = 1,
-			[GetSpellInfo(48265) or "Unholy Presence"] = 1,
 			[GetSpellInfo(42650) or "Army of the Dead"] = 11,
-			[GetSpellInfo(49222) or "Bone Shield"] = 11,
-			[GetSpellInfo(47476) or "Strangulate"] = 11,
-			[GetSpellInfo(51052) or "Anti-Magic Zone"] = 11,
-			[GetSpellInfo(63560) or "Ghoul Frenzy"] = 10,
+--			[GetSpellInfo(47476) or "Strangulate"] = 11,
+--			[GetSpellInfo(51052) or "Anti-Magic Zone"] = 11,
+--			[GetSpellInfo(63560) or "Dark Transformation"] = 10,
 			[GetSpellInfo(49184) or "Howling Blast"] = 8,
-			[GetSpellInfo(51271) or "Unbreakable Armor"] = 11,
-			[GetSpellInfo(55233) or "Vampiric Blood"] = 11,
-			[GetSpellInfo(49005) or "Mark of Blood"] = 11,
-			[GetSpellInfo(48982) or "Rune Tap"] = 11,
+--			[GetSpellInfo(51271) or "Pillar of Frost"] = 11,
+--			[GetSpellInfo(55233) or "Vampiric Blood"] = 11,
 		}
 		RuneCheck = function(name, duration)
 			local rc = runecd[name]
