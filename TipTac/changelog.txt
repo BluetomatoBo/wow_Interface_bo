@@ -1,11 +1,17 @@
+TipTac Changes | 2018 Aug 20
+----------------------------
+- Fixed a "FadeOut flag not cleared" issue that could occur under certain circumstances.
+- Fixed mouse anchoring for other frames than the GameTooltip using the "GameTooltip_SetDefaultAnchor" method. Thanks foxlit.
+
 TipTac Changes | 2018 Aug 12
 ----------------------------
-- Fixed the call to the "Mary Sue Protocol", which was being done incorrectly before. 
+- Fixed the call to the "Mary Sue Protocol", which was being done incorrectly before.
 - Split a few of the core TipTac features into their own lua file for better code segmentation.
 - The "Show Who Targets the Unit" feature no longer requires the "TipTac Unit Tip Appearance" feature to be enabled to work.
 - The Font option "Font Size Delta" has been split into two settings, "Font Size Header Delta" and "Font Size Small Delta". They both control the font size relative to the main "Font Size" setting. Header is the first line of the tooltip, small is used for comparison tooltips.
 - The "Color Tip Border by Class Color" option will now take precedence over the "Color border based on the unit's reaction" option.
 - TipTacItemRef: Seperated the "Show Item Level & ID" option. So if the default item level text is prefered, that's now possible.
+- Disabled tiling of the backdrop.
 - Options: Updated the Options and AzDropDown libraries.
 
 TipTac Changes | 2018 Jul 24

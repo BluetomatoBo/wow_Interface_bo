@@ -1,14 +1,8 @@
---[[
-	18.07.24 BfA fix notes
-	- Disabled all references to "gtt_newHeight", as its being replaced with gtt:SetPadding()
-	- Remove the gttShow hook as it no longer contains any code.
-	- Remove the TipHook_OnHide hook as it no longer contains any code.
---]]
-
 local _G = getfenv(0);
 local unpack = unpack;
 local UnitName = UnitName;
 local UnitExists = UnitExists;
+local GetMouseFocus = GetMouseFocus;
 local gtt = GameTooltip;
 local wipe = wipe;
 local tconcat = table.concat;
@@ -202,7 +196,7 @@ end
 tt.ClassColorMarkup = TT_ClassColorMarkup;
 
 -- Mirror Anchors
-local TT_MirrorAnchors = {
+local TT_MirrorAnchors = {			-- MirrorAnchorsVertical
 	TOP = "BOTTOM",
 	TOPLEFT = "TOPRIGHT",
 	TOPRIGHT = "TOPLEFT",
@@ -215,7 +209,7 @@ local TT_MirrorAnchors = {
 };
 tt.MirrorAnchors = TT_MirrorAnchors;
 
-local TT_MirrorAnchorsSmart = {
+local TT_MirrorAnchorsSmart = {		-- MirrorAnchorsCentered
 	TOPLEFT = "BOTTOMRIGHT",
 	TOPRIGHT = "BOTTOMLEFT",
 	BOTTOMLEFT = "TOPRIGHT",
@@ -226,7 +220,6 @@ tt.MirrorAnchorsSmart = TT_MirrorAnchorsSmart;
 -- GTT Control Variables
 local gtt_lastUpdate = 0;		-- time since last update
 local gtt_numLines = 0;			-- number of lines at last check, if this differs from gtt:NumLines() an update should be performed
---local gtt_newHeight;			-- the new height of the tooltip, this value accommodates the inclusion of health/power bars inside the tooltip
 local gtt_anchorType;			-- valid types: normal/mouse/parent
 local gtt_anchorPoint;          -- standard UI anchor point
 tt.xPadding = 0;				-- x/y variables used to set the padding (+width, +height) for the GTT, reset to zero in OnTooltipCleared
@@ -385,7 +378,7 @@ function tt:VARIABLES_LOADED(event)
 	end
 
 	-- Notify elements that we've loaded
-	self:SendElementEvent("OnLoad",cfg)
+	self:SendElementEvent("OnLoad",cfg);
 
 	-- Hook Tips & Apply Settings
 	self:HookTips();
@@ -532,28 +525,6 @@ end
 --------------------------------------------------------------------------------------------------------
 --                                          TipTac Functions                                          --
 --------------------------------------------------------------------------------------------------------
-
--- Allows other mods to "register" tooltips or frames to be modified by TipTac
-function tt:AddModifiedTip(tip,noHooks)
-	if (type(tip) == "string") then
-		tip = _G[tip];
-	end
-	if (type(tip) == "table") and (type(tip.GetObjectType) == "function") then
-		-- if this tooltip is already modified, abort
-		if (tIndexOf(TT_TipsToModify,tip)) then
-			return;
-		end
-		TT_TipsToModify[#TT_TipsToModify + 1] = tip;
---		if (not noHooks) then
---			tip:HookScript("OnHide",TipHook_OnHide);	-- Az: Disabled
---		end
-		-- Only apply settings if "cfg" has been initialised, meaning after VARIABLES_LOADED.
-		-- If AddModifiedTip() is called earlier, settings will be applied for all tips once VARIABLES_LOADED is fired anyway.
-		if (cfg) then
-			self:ApplySettings();
-		end
-	end
-end
 
 -- Anchor any given frame to mouse position
 function tt:AnchorFrameToMouse(frame)
@@ -713,7 +684,7 @@ function tt:ApplyUnitAppearance(tip,u,first)
 end
 
 --------------------------------------------------------------------------------------------------------
---                                          GameTooltip Hooks                                         --
+--                                      GameTooltip Script Hooks                                      --
 --------------------------------------------------------------------------------------------------------
 
 --[[
@@ -727,14 +698,15 @@ end
 	- GTT.OnTooltipCleared()			-- Tooltip has been cleared and is ready to show new information, doesn't mean it's hidden
 --]]
 
--- table with GameTooltip events to hook into (k = eventName, v = hookFunction)
-local gttEventHooks = {};
+-- table with GameTooltip scripts to hook into (k = scriptName, v = hookFunction)
+local gttScriptHooks = {};
 
 -- FadeOut constants
 local FADE_ENABLE = 1;
 local FADE_BLOCK = 2;
 
--- Get The Anchor Position Depending on the Tip Content and Parent Frame -- Do not depend on "u.token" here, as it might not have been cleared yet!
+-- Get The Anchor Position Depending on the Tip Content and Parent Frame
+-- Do not depend on "u.token" here, as it might not have been cleared yet!
 -- Checking "mouseover" here isn't ideal due to actionbars, it will sometimes return true because of selfcast.
 local function GetAnchorPosition()
 	local mouseFocus = GetMouseFocus();
@@ -743,53 +715,26 @@ local function GetAnchorPosition()
 	return cfg[var.."Type"], cfg[var.."Point"];
 end
 
--- HOOK: GTT:FadeOut -- This allows us to check when the tip is fading out.
-local gttFadeOut = gtt.FadeOut;
-gtt.FadeOut = function(self,...)
-	if (not u.token) or (not cfg.overrideFade) then
-		self.fadeOut = FADE_BLOCK; -- Don't allow the OnUpdate handler to run the fadeout/update code
-		gttFadeOut(self,...);
-	elseif (cfg.preFadeTime == 0 and cfg.fadeTime == 0) then
-		self:Hide();
-	else
-		self.fadeOut = FADE_ENABLE;
-		gtt_lastUpdate = 0;
-	end
-end
-
--- HOOK: GTT:Show -- If there are any bar offsets, resize the tip
---local gttShow = gtt.Show;
---gtt.Show = function(self,...)
---	gttShow(self,...);
---		tt:ApplyBackdrop(self)
---	if (bars.offset) and (self:GetUnit()) then
---		self:SetPadding(0,bars.offset);
---		gtt_numLines = self:NumLines();
---		gtt_newHeight = (self:GetHeight() + bars.offset);
---		self:SetHeight(gtt_newHeight);	-- Az: Setting height here seems to cause a conflict with the XToLevel addon, which causes an empty line. But I was certain this got added to fix the very same issue, just with another addon
---	end
---end
-
 -- EventHook: OnShow
-function gttEventHooks.OnShow(self,...)
-	gtt_anchorType, gtt_anchorPoint = GetAnchorPosition();
-
-	-- Anchor GTT to Mouse
-	if (gtt_anchorType == "mouse") and (self.default) then
-		local gttAnchor = self:GetAnchorType();
-		if (gttAnchor ~= "ANCHOR_CURSOR") and (gttAnchor ~= "ANCHOR_CURSOR_RIGHT") then
-			tt:AnchorFrameToMouse(self);
-		end
-	end
+function gttScriptHooks:OnShow()
+	-- Anchor GTT to Mouse -- Az: Initial mouse anchoring is now being done in GTT_SetDefaultAnchor (remove if there are no issues)
+--	gtt_anchorType, gtt_anchorPoint = GetAnchorPosition();
+--	if (gtt_anchorType == "mouse") and (self.default) then
+--		local gttAnchor = self:GetAnchorType();
+--		if (gttAnchor ~= "ANCHOR_CURSOR") and (gttAnchor ~= "ANCHOR_CURSOR_RIGHT") then
+--			tt:AnchorFrameToMouse(self);
+--		end
+--	end
 
 	-- Ensures that default anchored world frame tips have the proper color, their internal function seems to set them to a dark blue color
+	-- Tooltips from world objects that change cursor seems to also require this. (Tested in 8.0/BfA)
 	if (self:IsOwned(UIParent)) and (not self:GetUnit()) then
 		self:SetBackdropColor(unpack(cfg.tipColor));
 	end
 end
 
 -- EventHook: OnUpdate
-function gttEventHooks.OnUpdate(self,elapsed)
+function gttScriptHooks:OnUpdate(elapsed)
 	-- This ensures that mouse anchored world frame tips have the proper color, their internal function seems to set them to a dark blue color
 	local gttAnchor = self:GetAnchorType();
 	if (gttAnchor == "ANCHOR_CURSOR") or (gttAnchor == "ANCHOR_CURSOR_RIGHT") then
@@ -807,7 +752,7 @@ function gttEventHooks.OnUpdate(self,elapsed)
 	end
 
 	-- Fadeout / Update Tip if Showing a Unit
-	-- Do not allow (fadeOut == FADE_BLOCK), as that is only for non overridden fadeouts, but we still need to keep resizing the tip
+	-- Do not allow (fadeOut == FADE_BLOCK), as that is only for non overridden fadeouts
 	if (u.token) and (self.fadeOut ~= FADE_BLOCK) then
 		gtt_lastUpdate = (gtt_lastUpdate + elapsed);
 		if (self.fadeOut) then
@@ -831,17 +776,10 @@ function gttEventHooks.OnUpdate(self,elapsed)
 			end
 		end
 	end
-
-	-- Resize the Tooltip if it's size has changed more than 0.1 units
---	local gttHeight = self:GetHeight();
---	if (gtt_newHeight) and (abs(gttHeight - gtt_newHeight) > 0.1) then
-		--gtt_newHeight = (gttHeight + bars.offset);	-- Az: Recalculating the height here would possibly fix every issue (I think), but it also adds extra cpu cycles I'd rather be without. For now just stay with the Show() recalc.
---		self:SetHeight(gtt_newHeight);
---	end
 end
 
 -- EventHook: OnTooltipSetUnit
-function gttEventHooks.OnTooltipSetUnit(self,...)
+function gttScriptHooks:OnTooltipSetUnit()
 	-- Hides the tip in combat if one of those options are set. Also checks if the Shift key is pressed, and cancels hiding of the tip (if that option is set, that is)
 	if (cfg.hideAllTipsInCombat or cfg.hideUFTipsInCombat and self:GetOwner() ~= UIParent) and (not cfg.showHiddenTipsOnShift or not IsShiftKeyDown()) and (UnitAffectingCombat("player")) then
 		self:Hide();
@@ -875,15 +813,16 @@ function gttEventHooks.OnTooltipSetUnit(self,...)
 		unit = "mouseover";
 	end
 
+	-- Workaround for OnTooltipCleared not having fired
+	self.fadeOut = nil; -- Az: Sometimes this wasn't getting reset, the fact a cleanup isn't performed at this point, now that it was moved to "OnTooltipCleared" is bad, so this is a fix [8.0/BfA/18.08.12 - Still not cleared 100% of the time]
+
 	-- We're done, apply appearance
 	u.token = unit;
-	assert(self.fadeOut == nil,"TipTac: FadeOut flag not cleared");	-- Az: verify, remove if it never triggers
---	self.fadeOut = nil; -- Az: Sometimes this wasn't getting reset, the fact a cleanup isn't performed at this point, now that it was moved to "OnTooltipCleared" is very bad, so this is a fix
 	tt:ApplyUnitAppearance(self,u,true);	-- called with "first" arg to true
 end
 
 -- EventHook: OnTooltipCleared -- This will clean up auras, bars, raid icon and vars for the gtt when we aren't showing a unit
-function gttEventHooks.OnTooltipCleared(self,...)
+function gttScriptHooks:OnTooltipCleared()
 	-- WoD: resetting the back/border color seems to be a necessary action, otherwise colors may stick when showing the next tooltip thing (world object tips)
 	-- BfA: The tooltip now also clears the backdrop in adition to color and bordercolor, so set it again here
 	tt:ApplyBackdrop(self);
@@ -897,7 +836,6 @@ function gttEventHooks.OnTooltipCleared(self,...)
 	wipe(u);
 	gtt_lastUpdate = 0;
 	gtt_numLines = 0;
---	gtt_newHeight = nil;
 	self.fadeOut = nil;
 
 	-- post cleared event to elements
@@ -905,9 +843,27 @@ function gttEventHooks.OnTooltipCleared(self,...)
 end
 
 -- OnHide Script -- Used to default the background and border color
---local function TipHook_OnHide(self,...)
+--function gttScriptHooks:OnHide()
 --	tt:ApplyBackdrop(self);
 --end
+
+--------------------------------------------------------------------------------------------------------
+--                                      GameTooltip Other Hooks                                       --
+--------------------------------------------------------------------------------------------------------
+
+-- HOOK: GTT:FadeOut -- This allows us to check when the tip is fading out.
+local gttFadeOut = gtt.FadeOut;
+gtt.FadeOut = function(self,...)
+	if (not u.token) or (not cfg.overrideFade) then
+		self.fadeOut = FADE_BLOCK; -- Don't allow the OnUpdate handler to run the fadeout/update code
+		gttFadeOut(self,...);
+	elseif (cfg.preFadeTime == 0 and cfg.fadeTime == 0) then
+		self:Hide();
+	else
+		self.fadeOut = FADE_ENABLE;
+		gtt_lastUpdate = 0;
+	end
+end
 
 -- Resolves the given table array of string names into their global objects
 local function ResolveGlobalNamedObjects(tipTable)
@@ -935,16 +891,28 @@ local function GTT_SetDefaultAnchor(tooltip,parent)
 		return;
 	end
 
-	-- Set tooltip frame placement based on the anchoring type
-	-- Mouse anchor is not applied here, but once in OnShow and continuously in OnUpdate
+	-- Get the current anchoring type and point based on the frame under the mouse and anchor settings
 	gtt_anchorType, gtt_anchorPoint = GetAnchorPosition();
-	tooltip:SetOwner(parent,"ANCHOR_NONE");
-	tooltip:ClearAllPoints();
 
-	if (gtt_anchorType == "parent") and (parent ~= UIParent) then
-		tooltip:SetPoint(TT_MirrorAnchorsSmart[gtt_anchorPoint] or TT_MirrorAnchors[gtt_anchorPoint],parent,gtt_anchorPoint);
-	elseif (gtt_anchorType ~= "mouse") then
-		tooltip:SetPoint(gtt_anchorPoint,tt);
+	-- We only hook the GameTooltip, so if any other tips use the default anchor with mouse anchoring,
+	-- we have to just set it here statically, as we wont have the OnUpdate hooked for that tooltip
+	if (tooltip ~= gtt) and (gtt_anchorType == "mouse") then
+		tooltip:SetOwner(parent,"ANCHOR_CURSOR_RIGHT",cfg.mouseOffsetX,cfg.mouseOffsetY);
+	else
+		-- Since TipTac handles all the anchoring, we want to use "ANCHOR_NONE" here
+		tooltip:SetOwner(parent,"ANCHOR_NONE");
+		tooltip:ClearAllPoints();
+
+		if (gtt_anchorType == "mouse") then
+			-- Although we anchor the frame continuously in OnUpdate, we must anchor it initially here to avoid flicker on the first frame its being shown
+			tt:AnchorFrameToMouse(tooltip);
+		elseif (gtt_anchorType == "parent") and (parent ~= UIParent) then
+			-- anchor to the opposite edge of the parent frame
+			tooltip:SetPoint(TT_MirrorAnchorsSmart[gtt_anchorPoint] or TT_MirrorAnchors[gtt_anchorPoint],parent,gtt_anchorPoint);
+		else
+			-- "normal" anchor or fallback for "parent" in case its UIParent
+			tooltip:SetPoint(gtt_anchorPoint,tt);
+		end
 	end
 
 	-- "default" will flag the tooltip as having been anchored using the default anchor
@@ -955,15 +923,17 @@ end
 function tt:HookTips()
 	-- Hooks needs to be applied as late as possible during load, as we want to try and be the
 	-- last addon to hook "OnTooltipSetUnit" so we always have a "completed" tip to work on
-	for eventName, hookFunc in next, gttEventHooks do
-		gtt:HookScript(eventName,hookFunc);
+	for scriptName, hookFunc in next, gttScriptHooks do
+		gtt:HookScript(scriptName,hookFunc);
 	end
 
-	-- Resolve the TipsToModify and hook their OnHide script -- Az: OnHide hook disabled for now
+	-- Resolve the TipsToModify strings into actual objects
 	ResolveGlobalNamedObjects(TT_TipsToModify);
+
+	-- hook their OnHide script -- Az: OnHide hook disabled for now
 --	for index, tipName in ipairs(TT_TipsToModify) do
 --		if (type(tip) == "table") and (type(tip.GetObjectType) == "function") then
---			tip:HookScript("OnHide",TipHook_OnHide);
+--			tip:HookScript("OnHide",gttScriptHooks.OnHide);
 --		end
 --	end
 
@@ -972,4 +942,29 @@ function tt:HookTips()
 
 	-- Clear this function as it's not needed anymore
 	self.HookTips = nil;
+end
+
+-- Allows other mods to "register" tooltips or frames to be modified by TipTac
+function tt:AddModifiedTip(tip,noHooks)
+	if (type(tip) == "string") then
+		tip = _G[tip];
+	end
+	if (type(tip) == "table") and (type(tip.GetObjectType) == "function") then
+		-- if this tooltip is already modified, abort
+		if (tIndexOf(TT_TipsToModify,tip)) then
+			return;
+		end
+		TT_TipsToModify[#TT_TipsToModify + 1] = tip;
+
+		-- Az: Disabled the OnHide hook, unsure if it needs to be re-enabled,
+--		if (not noHooks) then
+--			tip:HookScript("OnHide",gttScriptHooks.OnHide);
+--		end
+
+		-- Only apply settings if "cfg" has been initialised, meaning after VARIABLES_LOADED.
+		-- If AddModifiedTip() is called earlier, settings will be applied for all tips once VARIABLES_LOADED is fired anyway.
+		if (cfg) then
+			self:ApplySettings();
+		end
+	end
 end

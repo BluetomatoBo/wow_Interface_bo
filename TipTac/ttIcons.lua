@@ -64,11 +64,7 @@ end
 
 function ttIcons:OnPostStyleTip(tip,u,first)
 	if (self.wantIcon) then
-		if (self:SetIcon(self.icon,u)) then
-			self.icon:Show();
-		else
-			self.icon:Hide();
-		end
+		self.icon:SetShown(self:SetIcon(self.icon,u));
 	end
 end
 

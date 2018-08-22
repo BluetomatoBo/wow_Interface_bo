@@ -27,6 +27,8 @@
 	- Rewrote some parts of the code
 	- Added some documentation
 	- The dropdown menu will now copy the backdrop from the parent frame
+	### Rev 13 - 8.0 ###
+	- QueryItems() now returns the table of the queried items
 
 	Keys set in the parent frame table
 	----------------------------------
@@ -46,7 +48,7 @@
 	tip			Tooltip will be shown when mouse is over item
 --]]
 
-local REVISION = 12;
+local REVISION = 13;
 if (type(AzDropDown) == "table") and (AzDropDown.vers >= REVISION) then
 	return;
 end
@@ -114,21 +116,25 @@ local DropDownMenuMixin = { ApplyBackdrop = ApplyBackdrop };
 
 -- Calls the parent's "initFunc" to query the items
 function DropDownMenuMixin:QueryItems(parent)
+	local list = self.list;
+
 	-- Clear old list
-	for _, tbl in ipairs(self.list) do
+	for _, tbl in ipairs(list) do
 		wipe(tbl);
 		storage[#storage + 1] = tbl;
 	end
-	wipe(self.list);
+	wipe(list);
 
 	-- Init new list
-	parent:initFunc(self.list);
+	parent:initFunc(list);
 
 	-- Show "No items" for empty lists & Update List
-	if (#self.list == 0) then
-		self.list[1].text = "No items";
-		self.list[1].header = true;
+	if (#list == 0) then
+		list[1].text = "No items";
+		list[1].header = true;
 	end
+
+	return list;
 end
 
 -- Update the items used in the dropdown menu
@@ -137,20 +143,20 @@ function DropDownMenuMixin:UpdateItems()
 	local maxItems = self:GetMaxShownItems();
 
 	-- Query updated items from the parent's "initFunc"
-	self:QueryItems(parent);
+	local list = self:QueryItems(parent);
 
 	-- Update Scroll Items
 	self.scroll:UpdateScroll();
 
 	-- Measure Width
 	local maxItemWidth = parent.minDropdownWidth or 0;
-	for _, tbl in ipairs(self.list) do
+	for _, tbl in ipairs(list) do
 		self.measure:SetText(tbl.text);
 		maxItemWidth = max(maxItemWidth,self.measure:GetWidth() + 10 + 38);
 	end
 
 	-- Adjust anchor point based on scrollbar being visible or not
-	if (#self.list > maxItems) then
+	if (#list > maxItems) then
 		maxItemWidth = (maxItemWidth + 12);
 		self.items[1]:SetPoint("TOPRIGHT",-28,-8);
 	else
@@ -159,7 +165,7 @@ function DropDownMenuMixin:UpdateItems()
 
 	-- Set width/height
 	self:SetWidth(maxItemWidth);
-	self:SetHeight(min(#self.list,maxItems) * MENU_ITEM_HEIGHT + 16);
+	self:SetHeight(min(#list,maxItems) * MENU_ITEM_HEIGHT + 16);
 
 	-- Anchor scrollbar bottom to the last item
 	local lastItem = self.items[min(#self.items,maxItems)];
@@ -367,10 +373,12 @@ function DropDownFrameMixin:InitSelectedItem(selectedValue)
 	if (not menu) then
 		CreateDropDownMenu();
 	end
+
 	self:SetText("|cff00ff00Select Value...");	-- set before calling QueryItems() as that may override it
 	self.selectedValue = selectedValue;
-	menu:QueryItems(self);
-	for _, entry in ipairs(menu.list) do
+
+	local list = menu:QueryItems(self);
+	for _, entry in ipairs(list) do
 		if (entry.value == selectedValue) then
 			self:SetText(entry.text);
 			return;

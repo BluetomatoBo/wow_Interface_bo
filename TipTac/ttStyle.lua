@@ -39,6 +39,7 @@ local COL_LIGHTGRAY = "|cffc0c0c0";
 --------------------------------------------------------------------------------------------------------
 
 -- Returns the correct difficulty color compared to the player
+-- Az: Check out GetCreatureDifficultyColor, GetQuestDifficultyColor, GetScalingQuestDifficultyColor, GetRelativeDifficultyColor
 local function GetDifficultyLevelColor(level)
 	level = (level - tt.playerLevel);
 	if (level > 4) then
@@ -199,7 +200,7 @@ function ttStyle:GenerateNpcLines(u,first,unit)
 	lineInfo.next = class;
 end
 
--- Modify Tooltip Lines
+-- Modify Tooltip Lines (name + info)
 function ttStyle:ModifyUnitTooltip(u,first)
 	-- obtain unit properties
 	local unit = u.token;
@@ -237,7 +238,7 @@ function ttStyle:ModifyUnitTooltip(u,first)
 		lineInfo.next = TT_Reaction[u.reactionIndex];
 	end
 
-	-- Line One
+	-- Name Line
 	GameTooltipTextLeft1:SetText(lineName:Concat());
 	lineName:Clear();
 

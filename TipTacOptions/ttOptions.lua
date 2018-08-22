@@ -113,7 +113,7 @@ local options = {
 	{
 		[0] = "Font",
 		{ type = "Check", var = "modifyFonts", label = "Modify the GameTooltip Font Templates", tip = "For TipTac to change the GameTooltip font templates, and thus all tooltips in the User Interface, you have to enable this option.\nNOTE: If you have an addon such as ClearFont, it might conflict with this option." },
-		{ type = "DropDown", var = "fontFace", label = "Font Face", media = "font", y = 12 },
+		{ type = "DropDown", var = "fontFace", label = "Font Face", media = "font", y = 32 },
 		{ type = "DropDown", var = "fontFlags", label = "Font Flags", list = DROPDOWN_FONTFLAGS },
 		{ type = "Slider", var = "fontSize", label = "Font Size", min = 6, max = 29, step = 1, y = 4 },
 		{ type = "Slider", var = "fontSizeDeltaHeader", label = "Font Size Header Delta", min = -10, max = 10, step = 1, y = 20 },
