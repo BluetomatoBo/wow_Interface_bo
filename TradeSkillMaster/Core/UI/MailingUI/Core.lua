@@ -113,6 +113,8 @@ function private.FSMCreate()
 		private.fsm:ProcessEvent("EV_FRAME_HIDE")
 	end
 
+	MailFrame:SetScript("OnHide", DefaultFrameOnHide)
+
 	private.fsm = TSMAPI_FOUR.FSM.New("MAILING_UI")
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_CLOSED")
 			:AddTransition("ST_DEFAULT_OPEN")
@@ -151,8 +153,6 @@ function private.FSMCreate()
 					private.defaultUISwitchBtn:Show()
 					private.defaultUISwitchBtn:Draw()
 				end
-
-				MailFrame:HookScript("OnHide", DefaultFrameOnHide)
 			end)
 			:AddTransition("ST_CLOSED")
 			:AddTransition("ST_FRAME_OPEN")

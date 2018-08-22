@@ -442,6 +442,7 @@ function AuctionScan.__init(self)
 	self._numPages = 0
 	self._onProgressUpdateHandler = nil
 	self._onFilterDoneHandler = nil
+	self._onFilterPartialDoneHandler = nil
 	self._customFilterFunc = nil
 	self._findFilter = nil
 	self._findResult = {}
@@ -471,6 +472,7 @@ function AuctionScan._Release(self)
 	self._numPages = 0
 	self._onProgressUpdateHandler = nil
 	self._onFilterDoneHandler = nil
+	self._onFilterPartialDoneHandler = nil
 	self._customFilterFunc = nil
 	wipe(self._findResult)
 end
@@ -478,6 +480,10 @@ end
 function AuctionScan.Release(self)
 	self:_Release()
 	tinsert(private.recycledScans, self)
+end
+
+function AuctionScan.CreateDBQuery(self)
+	return self._db:NewQuery()
 end
 
 function AuctionScan.SetCustomFilterFunc(self, func)
@@ -495,6 +501,8 @@ function AuctionScan.SetScript(self, script, handler)
 		self._onProgressUpdateHandler = handler
 	elseif script == "OnFilterDone" then
 		self._onFilterDoneHandler = handler
+	elseif script == "OnFilterPartialDone" then
+		self._onFilterPartialDoneHandler = handler
 	else
 		error("Unknown AuctionScan script: "..tostring(script))
 	end
@@ -660,6 +668,13 @@ function AuctionScan._CreateAuctionRow(self, index)
 		:SetField("baseItemString", TSMAPI_FOUR.Item.ToBaseItemString(itemLink))
 		:SetField("hash", self:_GetAuctionRowHash(index, false))
 		:SetField("hashNoSeller", self:_GetAuctionRowHash(index, true))
+end
+
+function AuctionScan._NotifyFilterPartialDone(self, filter)
+	if not self._onFilterPartialDoneHandler then
+		return false
+	end
+	return self:_onFilterPartialDoneHandler(filter)
 end
 
 function AuctionScan._NotifyFilterDone(self, filter, numNewResults)
@@ -913,6 +928,10 @@ function private.ScanQueryThreaded(auctionScan)
 				hasMorePages = filter:_NextPage()
 			end
 			auctionScan:_SetPageProgress(filter:_GetPageProgress())
+			if hasMorePages and auctionScan:_NotifyFilterPartialDone(filter) then
+				-- stop early
+				hasMorePages = false
+			end
 		end
 		if filterSuccess then
 			auctionScan:_NotifyFilterDone(filter, numNewResults)

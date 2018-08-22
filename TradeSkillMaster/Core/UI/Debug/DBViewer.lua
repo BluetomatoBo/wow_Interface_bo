@@ -19,6 +19,7 @@ local DEFAULT_FRAME_CONTEXT = {
 	height = 600,
 	centerX = 500,
 	centerY = 0,
+	scale = 1,
 }
 local MIN_FRAME_SIZE = {
 	width = 900,

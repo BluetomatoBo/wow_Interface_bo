@@ -224,6 +224,7 @@ function Importer._ApplyModuleOperationToGroup(self, moduleName, applyOperationN
 		TSM.Groups.RemoveOperation(groupPath, moduleName, numOperations)
 		TSM:Printf(L["%s previously had the max number of operations, so removed %s."], TSM.Groups.Path.Format(groupPath, true), "|cff99ffff"..lastOperationName.."|r")
 	end
+	TSM.Groups.AppendOperation(groupPath, moduleName, applyOperationName)
 	TSM:Printf(L["Added %s to %s."], "|cff99ffff"..applyOperationName.."|r", TSM.Groups.Path.Format(groupPath, true))
 end
 

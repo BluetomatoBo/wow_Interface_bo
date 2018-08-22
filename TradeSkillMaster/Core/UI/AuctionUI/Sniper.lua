@@ -518,6 +518,11 @@ function private.FSMCreate()
 					return "ST_RESULTS"
 				end
 			end)
+			:AddEvent("EV_SCAN_FRAME_HIDDEN", function(context)
+				context.scanFrame = nil
+				context.findAuction = nil
+				return "ST_RESULTS"
+			end)
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_AUCTION_FOUND")
 			:SetOnEnter(function(context, result)
@@ -641,6 +646,7 @@ function private.FSMCreate()
 		end)
 		:AddDefaultEvent("EV_SCAN_FRAME_HIDDEN", function(context)
 			context.scanFrame = nil
+			context.findAuction = nil
 		end)
 		:AddDefaultEvent("EV_AUCTION_HOUSE_CLOSED", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_INIT"))
 		:AddDefaultEvent("EV_STOP_CLICKED", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_INIT"))

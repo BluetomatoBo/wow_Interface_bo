@@ -964,6 +964,7 @@ function DatabaseQuery._Execute(self, force)
 
 	-- sort the results if necessary
 	if sortNeeded then
+		assert(not private.sortContext)
 		private.sortContext = self
 		if #self._orderBy == 1 then
 			for _, uuid in ipairs(self._result) do

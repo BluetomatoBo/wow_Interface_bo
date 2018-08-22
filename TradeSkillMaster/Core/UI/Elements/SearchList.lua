@@ -104,7 +104,7 @@ end
 
 function SearchList._UpdateDataFromQuery(self, redraw)
 	wipe(self._data)
-	for _, row in self._query:Iterator(true) do
+	for _, row in self._query:Iterator() do
 		tinsert(self._data, row)
 	end
 
@@ -127,7 +127,7 @@ function SearchList._CreateRow(self)
 			:SetStyle("relativeLevel", 1)
 			:SetStyle("anchors", { { "TOPLEFT", "modeIcon" }, { "BOTTOMRIGHT", "modeIcon" } })
 			:SetStyle("justifyH", "CENTER")
-			:SetStyle("font", TSM.UI.Fonts.bold)
+			:SetStyle("font", TSM.UI.Fonts.MontserratRegular)
 			:SetStyle("fontHeight", 11)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "text")

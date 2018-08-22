@@ -24,6 +24,7 @@ TSM.UI.Spacer = Spacer
 function Spacer.__init(self)
 	self.__super:__init(self)
 	self._fakeParent = nil
+	self._scale = 1
 	self._width = 0
 	self._height = 0
 	self._visible = false
@@ -51,6 +52,14 @@ end
 
 function Spacer.GetParent(self)
 	return self._fakeParent
+end
+
+function Spacer.SetScale(self, scale)
+	self._scale = scale
+end
+
+function Spacer.GetScale(self)
+	return self._scale
 end
 
 function Spacer.SetWidth(self, width)

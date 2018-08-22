@@ -1,9 +1,11 @@
 [Welcome to TradeSkillMaster 4!](https://blog.tradeskillmaster.com/tradeskillmaster-4-released/)
 
 
-## v4.0.18 Changes
+## v4.1.1 Changes
 
-* Fixed issue with not being able to buy certain items via Shopping
-* With this update, TSM will rebuild its item cache, which may cause FPS drops the first time you log in
+* Fixed error during Auctioning post scan
+* Fixed a few bugs with frame scaling and added a lower limit to avoid the frame getting permanently stuck at a small size
+* Fixed error some users were seeing when setting the max stack size in the Shopping post dialog
+* Fixed occasional error during Shopping group search
 
 [Known Issues](http://support.tradeskillmaster.com/display/KB/TSM4+Currently+Known+Issues)

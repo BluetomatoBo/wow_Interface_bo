@@ -417,6 +417,7 @@ function private.ApplyNewOnSelectionChanged(dropdown, groupPath)
 		TSM.Groups.RemoveOperation(groupPath, private.currentModule, numOperations)
 		TSM:Printf(L["%s previously had the max number of operations, so removed %s."], TSM.Groups.Path.Format(groupPath, true), "|cff99ffff"..lastOperationName.."|r")
 	end
+	TSM.Groups.AppendOperation(groupPath, private.currentModule, private.currentOperationName)
 	TSM:Printf(L["Added %s to %s."], "|cff99ffff"..private.currentOperationName.."|r", TSM.Groups.Path.Format(groupPath, true))
 
 	-- add a new line

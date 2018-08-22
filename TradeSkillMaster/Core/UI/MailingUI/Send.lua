@@ -1023,7 +1023,7 @@ function private.FSMCreate()
 
 		private.db:Truncate()
 
-		if redraw then
+		if redraw and context.frame then
 			context.frame:GetElement("container.name.input"):SetText(private.recipient)
 				:Draw()
 			context.frame:GetElement("container.checkbox.moneyInput"):SetText(TSMAPI_FOUR.Money.ToString(private.money, "OPT_PAD", "OPT_SEP"))

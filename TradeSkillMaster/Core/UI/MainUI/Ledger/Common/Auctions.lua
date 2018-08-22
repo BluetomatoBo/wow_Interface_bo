@@ -71,7 +71,7 @@ function private.DrawAuctionsPage()
 		:Select("player")
 	wipe(private.characters)
 	tinsert(private.characters, ALL)
-	for _, character in private.query:Iterator(true) do
+	for _, character in private.query:Iterator() do
 		tinsert(private.characters, character)
 	end
 

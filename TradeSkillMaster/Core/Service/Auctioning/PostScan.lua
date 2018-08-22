@@ -246,6 +246,7 @@ end
 
 function private.ScanThread(auctionScan, auctionScanDB, scanContext)
 	private.auctionScanDB = auctionScanDB
+	auctionScan:SetScript("OnFilterPartialDone", private.AuctionScanOnFilterPartialDone)
 	auctionScan:SetScript("OnFilterDone", private.AuctionScanOnFilterDone)
 	private.UpdateBagDB()
 
@@ -401,6 +402,55 @@ function private.IsOperationValid(itemString, num, operationName, operationSetti
 	end
 end
 
+function private.AuctionScanOnFilterPartialDone(auctionScan, filter)
+	for _, itemString in ipairs(filter:GetItems()) do
+		if not private.IsFilterDoneForItem(auctionScan, itemString) then
+			return false
+		end
+	end
+	return true
+end
+
+function private.IsFilterDoneForItem(auctionScan, itemString)
+	local groupPath = TSM.Groups.GetPathByItem(itemString)
+	if not groupPath then
+		return true
+	end
+	local isFilterDone = true
+	local isBaseItemString = itemString == TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+	for _, _, operationSettings in TSM.Operations.GroupOperationIterator("Auctioning", groupPath) do
+		if isFilterDone then
+			local query = auctionScan:CreateDBQuery()
+				:Select("itemBuyout")
+				:Distinct("itemBuyout")
+				:Equal(isBaseItemString and "baseItemString" or "itemString", itemString)
+				:GreaterThan("itemBuyout", 0)
+				:GreaterThan("timeLeft", operationSettings.ignoreLowDuration)
+				:OrderBy("itemBuyout", true)
+			if operationSettings.matchStackSize then
+				query:Equal("stackSize", operationSettings.stackSize)
+			end
+			local numBuyouts = query:Count()
+			local lowestItemBuyout = query:GetFirstResult()
+			local highestItemBuyout = query:ResetOrderBy():OrderBy("itemBuyout", false):GetFirstResult()
+			query:Release()
+			if numBuyouts <= 1 then
+				-- there is only one distinct item buyout, so can't stop yet
+				isFilterDone = false
+			else
+				local minPrice = TSM.Auctioning.Util.GetPrice("minPrice", operationSettings, itemString)
+				if lowestItemBuyout <= minPrice then
+					local resetPrice = TSM.Auctioning.Util.GetPrice("priceReset", operationSettings, itemString)
+					if operationSettings.priceReset == "ignore" or (resetPrice and highestItemBuyout <= resetPrice) then
+						-- we need to keep scanning to handle the reset price (always keep scanning for "ignore")
+						isFilterDone = false
+					end
+				end
+			end
+		end
+	end
+	return isFilterDone
+end
 
 function private.AuctionScanOnFilterDone(_, filter)
 	for _, itemString in ipairs(filter:GetItems()) do

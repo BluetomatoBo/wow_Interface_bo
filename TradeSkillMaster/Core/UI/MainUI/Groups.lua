@@ -256,6 +256,7 @@ function private.GetGroupsPage(self, button)
 						:SetText(L["Select Items to Remove"])
 						:SetDisabled(true)
 						:SetScript("OnClick", private.RemoveItemsOnClick)
+						:SetTooltip(L["Hold shift to move the items to the parent group instead of removing them."])
 					)
 				)
 			)
@@ -630,16 +631,16 @@ function private.GroupedItemsOnSelectionChanged(self, numSelected)
 	local button = self:GetElement("__parent.__parent.btn")
 	local noneSelected = numSelected == 0
 	button:SetDisabled(noneSelected)
-	button:SetText(noneSelected and L["Select Items to Remove"] or format(L["REMOVE %d ITEMS"], numSelected))
+	button:SetText(noneSelected and L["Select Items to Remove"] or format(L["REMOVE %d |4ITEM:ITEMS;"], numSelected))
 	button:Draw()
 end
 
 function private.RemoveItemsOnClick(self)
-	assert(private.currentGroupPath ~= TSM.CONST.ROOT_GROUP_PATH) -- FIXME: shouldn't even be possible
 	local itemList = self:GetElement("__parent.content.itemList")
+	local targetGroup = IsShiftKeyDown() and TSM.Groups.Path.GetParent(private.currentGroupPath) or nil
 	for _, itemLink in ipairs(private.GetGroupedItemList()) do
 		if itemList:IsItemSelected(itemLink) then
-			TSM.Groups.SetItemGroup(TSMAPI_FOUR.Item.ToItemString(itemLink), nil)
+			TSM.Groups.SetItemGroup(TSMAPI_FOUR.Item.ToItemString(itemLink), targetGroup)
 		end
 	end
 

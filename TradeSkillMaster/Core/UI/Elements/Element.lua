@@ -65,6 +65,7 @@ function Element.Release(self)
 	local frame = self:_GetBaseFrame()
 	frame:ClearAllPoints()
 	frame:SetParent(nil)
+	frame:SetScale(1)
 	-- clear scripts
 	for script in pairs(self._scripts) do
 		frame:SetScript(script, nil)
@@ -232,6 +233,10 @@ end
 function Element.Draw(self)
 	assert(self._acquired)
 	local frame = self:_GetBaseFrame()
+	local scale = self:_GetStyle("scale")
+	if scale then
+		self:_GetBaseFrame():SetScale(scale)
+	end
 	local anchors = self:_GetStyle("anchors")
 	if anchors then
 		frame:ClearAllPoints()

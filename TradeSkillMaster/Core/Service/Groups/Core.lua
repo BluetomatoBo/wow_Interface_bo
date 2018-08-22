@@ -338,10 +338,14 @@ function Groups.SetOperationOverride(groupPath, moduleName, override)
 	if override == (TSM.db.profile.userData.groups[groupPath][moduleName].override and true or false) then
 		return
 	end
-	TSM.db.profile.userData.groups[groupPath][moduleName].override = override or nil
 
 	if not override then
+		TSM.db.profile.userData.groups[groupPath][moduleName].override = nil
 		private.InheritParentOperations(groupPath, moduleName)
+		private.UpdateChildGroupOperations(groupPath, moduleName)
+	else
+		wipe(TSM.db.profile.userData.groups[groupPath][moduleName])
+		TSM.db.profile.userData.groups[groupPath][moduleName].override = true
 		private.UpdateChildGroupOperations(groupPath, moduleName)
 	end
 end

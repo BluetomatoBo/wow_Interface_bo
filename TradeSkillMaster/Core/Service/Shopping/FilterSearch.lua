@@ -7,6 +7,7 @@
 -- ------------------------------------------------------------------------------ --
 
 local _, TSM = ...
+local L = TSM.L
 local FilterSearch = TSM.Shopping:NewPackage("FilterSearch")
 local private = { scanThreadId = nil, isSpecial = false }
 
@@ -44,6 +45,7 @@ function private.ScanThread(auctionScan, filterStr)
 		end
 	end
 	if not hasFilter then
+		TSM:Print(L["Invalid search filter"]..": "..filterStr)
 		return false
 	end
 	if not private.isSpecial then

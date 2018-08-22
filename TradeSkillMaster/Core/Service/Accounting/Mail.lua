@@ -21,8 +21,8 @@ local OUTBID_MATCH_TEXT = AUCTION_OUTBID_MAIL_SUBJECT:gsub("%%s", "(.+)")
 -- ============================================================================
 
 function Mail.OnInitialize()
-	TSMAPI_FOUR.Event.Register("MAIL_SHOW", function() TSMAPI_FOUR.Delay.AfterTime("accountingGetSellers", 0.1, private.RequestSellerInfo, 0.1) end)
-	TSMAPI_FOUR.Event.Register("MAIL_CLOSED", function() TSMAPI_FOUR.Delay.Cancel("accountingGetSellers") end)
+	TSMAPI_FOUR.Event.Register("MAIL_SHOW", function() TSMAPI_FOUR.Delay.AfterTime("ACCOUNTING_GET_SELLERS", 0.1, private.RequestSellerInfo, 0.1) end)
+	TSMAPI_FOUR.Event.Register("MAIL_CLOSED", function() TSMAPI_FOUR.Delay.Cancel("ACCOUNTING_GET_SELLERS") end)
 	Mail:RawHook("TakeInboxItem", function(...) Mail:ScanCollectedMail("TakeInboxItem", 1, ...) end, true)
 	Mail:RawHook("TakeInboxMoney", function(...) Mail:ScanCollectedMail("TakeInboxMoney", 1, ...) end, true)
 	Mail:RawHook("AutoLootMailItem", function(...) Mail:ScanCollectedMail("AutoLootMailItem", 1, ...) end, true)
@@ -44,7 +44,7 @@ function private.RequestSellerInfo()
 		end
 	end
 	if isDone and GetInboxNumItems() > 0 then
-		TSMAPI_FOUR.Delay.Cancel("accountingGetSellers")
+		TSMAPI_FOUR.Delay.Cancel("ACCOUNTING_GET_SELLERS")
 	end
 end
 
@@ -148,11 +148,15 @@ function Mail:ScanCollectedMail(oFunc, attempt, index, subIndex)
 	if invoiceType == "seller" and buyer and buyer ~= "" then -- AH Sales
 		local daysLeft = select(7, GetInboxHeaderInfo(index))
 		local saleTime = (time() + (daysLeft - 30) * SECONDS_PER_DAY)
-		local link = TSMAPI_FOUR.Item.GetLink(itemName)
-		local itemString = TSM.ItemInfo.ItemNameToItemString(itemName) or TSMAPI_FOUR.Item.ToItemString(link)
-		if itemString and private:CanLootMailIndex(index, (bid - ahcut)) then
-			local copper = floor((bid - ahcut) / quantity + 0.5)
-			TSM.Accounting.Transactions.InsertAuctionSale(itemString, quantity, copper, buyer, saleTime)
+		local itemString = TSM.ItemInfo.ItemNameToItemString(itemName)
+		if not itemString or itemString == TSM.CONST.UNKNOWN_ITEM_ITEMSTRING then
+			itemString = TSM.Inventory.AuctionTracking.GetSaleHintItemString(itemName, quantity, bid)
+		end
+		if private:CanLootMailIndex(index, (bid - ahcut)) then
+			if itemString then
+				local copper = floor((bid - ahcut) / quantity + 0.5)
+				TSM.Accounting.Transactions.InsertAuctionSale(itemString, quantity, copper, buyer, saleTime)
+			end
 			success = true
 		end
 	elseif invoiceType == "buyer" and buyer and buyer ~= "" then -- AH Buys

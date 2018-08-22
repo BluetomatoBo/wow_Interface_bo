@@ -20,6 +20,7 @@ local INNER_BORDER_RELATIVE_LEVEL = 20
 local TITLE_BG_OFFSET_TOP = -11
 local TITLE_BG_LEFT_OFFSET = 19
 local TITLE_BG_CLOSE_PADDING = 6
+local MIN_SCALE = 0.3
 local OUTER_TEXTURE_INFO = {
 	SMALL = {
 		titleBGRightOffset = -10,
@@ -86,6 +87,9 @@ function ApplicationFrame.__init(self)
 	self._defaultContextTable = nil
 	self._innerTextureInfo = nil
 	self._outerTextureInfo = nil
+	self._isScaling = nil
+	self._minWidth = 0
+	self._minHeight = 0
 
 	local frame = self:_GetBaseFrame()
 	local globalFrameName = tostring(frame)
@@ -258,8 +262,12 @@ function ApplicationFrame.Release(self)
 	self._contextTable = nil
 	self._defaultContextTable = nil
 	self:_GetBaseFrame():SetMinResize(0, 0)
+	self:_GetBaseFrame():SetMaxResize(0, 0)
 	self._innerTextureInfo = nil
 	self._outerTextureInfo = nil
+	self._isScaling = nil
+	self._minWidth = 0
+	self._minHeight = 0
 	self.__super:Release()
 end
 
@@ -372,7 +380,8 @@ end
 -- @tparam number minHeight The minimum height
 -- @treturn ApplicationFrame The application frame object
 function ApplicationFrame.SetMinResize(self, minWidth, minHeight)
-	self:_GetBaseFrame():SetMinResize(minWidth, minHeight)
+	self._minWidth = minWidth
+	self._minHeight = minHeight
 	return self
 end
 
@@ -508,18 +517,19 @@ function ApplicationFrame.Draw(self)
 		:SetStyle("height", TSM.UI.TexturePacks.GetHeight(self._outerTextureInfo.closeBackground))
 
 	-- update the size if it's less than the set min size
-	local minWidth, minHeight = frame:GetMinResize()
-	assert(minWidth > 0 and minHeight > 0)
-	self._contextTable.width = max(self._contextTable.width, minWidth)
-	self._contextTable.height = max(self._contextTable.height, minHeight)
+	assert(self._minWidth > 0 and self._minHeight > 0)
+	self._contextTable.width = max(self._contextTable.width, self._minWidth)
+	self._contextTable.height = max(self._contextTable.height, self._minHeight)
+	self._contextTable.scale = max(self._contextTable.scale, MIN_SCALE)
 
 	-- set the frame size from the contextTable
+	self:SetStyle("scale", self._contextTable.scale)
 	self:SetStyle("width", self._contextTable.width)
 	self:SetStyle("height", self._contextTable.height)
 
 	-- make sure the center of the frame is on the screen
-	local maxAbsCenterX = UIParent:GetWidth() / 2
-	local maxAbsCenterY = UIParent:GetHeight() / 2
+	local maxAbsCenterX = (UIParent:GetWidth() / self._contextTable.scale) / 2
+	local maxAbsCenterY = (UIParent:GetHeight() / self._contextTable.scale) / 2
 	self._contextTable.centerX = min(max(self._contextTable.centerX, -maxAbsCenterX), maxAbsCenterX)
 	self._contextTable.centerY = min(max(self._contextTable.centerY, -maxAbsCenterY), maxAbsCenterY)
 
@@ -568,17 +578,28 @@ end
 -- Private Class Methods
 -- ============================================================================
 
-function ApplicationFrame._SavePositionAndSize(self)
+function ApplicationFrame._SavePositionAndSize(self, wasScaling)
 	local frame = self:_GetBaseFrame()
 	local parentFrame = frame:GetParent()
 	local width = frame:GetWidth()
 	local height = frame:GetHeight()
-	self._contextTable.width = width
-	self._contextTable.height = height
-	local frameLeftOffset = frame:GetLeft() - parentFrame:GetLeft()
-	self._contextTable.centerX = frameLeftOffset - (parentFrame:GetWidth() - width) / 2
-	local frameBottomOffset = frame:GetBottom() - parentFrame:GetBottom()
-	self._contextTable.centerY = frameBottomOffset - (parentFrame:GetHeight() - height) / 2
+	if wasScaling then
+		-- the anchor is in our old frame's scale, so convert the parent measurements to our old scale and then the resuslt to our new scale
+		local scaleAdjustment = width / self._contextTable.width
+		local frameLeftOffset = frame:GetLeft()  - parentFrame:GetLeft() / self._contextTable.scale
+		self._contextTable.centerX = (frameLeftOffset - (parentFrame:GetWidth() / self._contextTable.scale - width) / 2) / scaleAdjustment
+		local frameBottomOffset = frame:GetBottom() - parentFrame:GetBottom() / self._contextTable.scale
+		self._contextTable.centerY = (frameBottomOffset - (parentFrame:GetHeight() / self._contextTable.scale - height) / 2) / scaleAdjustment
+		self._contextTable.scale = self._contextTable.scale * scaleAdjustment
+	else
+		self._contextTable.width = width
+		self._contextTable.height = height
+		-- the anchor is in our frame's scale, so convert the parent measurements to our scale
+		local frameLeftOffset = frame:GetLeft() - parentFrame:GetLeft() / self._contextTable.scale
+		self._contextTable.centerX = (frameLeftOffset - (parentFrame:GetWidth() / self._contextTable.scale - width) / 2)
+		local frameBottomOffset = frame:GetBottom() - parentFrame:GetBottom() / self._contextTable.scale
+		self._contextTable.centerY = (frameBottomOffset - (parentFrame:GetHeight() / self._contextTable.scale - height) / 2)
+	end
 end
 
 function ApplicationFrame._SetResizing(self, resizing)
@@ -590,10 +611,9 @@ function ApplicationFrame._SetResizing(self, resizing)
 	end
 	if resizing then
 		self:GetElement("titleFrame"):Hide()
-		local minWidth, minHeight = frame:GetMinResize()
 		self._contentFrame:SetStyle("anchors", { { "CENTER" } })
-		self._contentFrame:SetStyle("width", minWidth - 20)
-		self._contentFrame:SetStyle("height", minHeight - 150)
+		self._contentFrame:SetStyle("width", self._minWidth - 20)
+		self._contentFrame:SetStyle("height", self._minHeight - 150)
 		self._contentFrame:Draw()
 	else
 		self:GetElement("titleFrame"):Show()
@@ -618,6 +638,19 @@ function private.ResizeButtonOnMouseDown(button, mouseButton)
 		return
 	end
 	local self = button:GetParentElement()
+	self._isScaling = IsShiftKeyDown()
+	local frame = self:_GetBaseFrame()
+	local width = frame:GetWidth()
+	local height = frame:GetHeight()
+	if self._isScaling then
+		local minWidth = width * MIN_SCALE / self._contextTable.scale
+		local minHeight = height * MIN_SCALE / self._contextTable.scale
+		self:_GetBaseFrame():SetMinResize(minWidth, minHeight)
+		self:_GetBaseFrame():SetMaxResize(width * 10, height * 10)
+	else
+		self:_GetBaseFrame():SetMinResize(self._minWidth, self._minHeight)
+		self:_GetBaseFrame():SetMaxResize(width * 10, height * 10)
+	end
 	self:_SetResizing(true)
 	self:_GetBaseFrame():StartSizing("BOTTOMRIGHT")
 end
@@ -629,7 +662,8 @@ function private.ResizeButtonOnMouseUp(button, mouseButton)
 	local self = button:GetParentElement()
 	self:_SetResizing(false)
 	self:_GetBaseFrame():StopMovingOrSizing()
-	self:_SavePositionAndSize()
+	self:_SavePositionAndSize(self._isScaling)
+	self._isScaling = nil
 	self:Draw()
 end
 
@@ -638,6 +672,7 @@ function private.ResizeButtonOnClick(button, mouseButton)
 		return
 	end
 	local self = button:GetParentElement()
+	self._contextTable.scale = self._defaultContextTable.scale
 	self._contextTable.width = self._defaultContextTable.width
 	self._contextTable.height = self._defaultContextTable.height
 	self._contextTable.centerX = self._defaultContextTable.centerX
@@ -653,6 +688,7 @@ function private.FrameOnDragStop(self)
 	local frame = self:_GetBaseFrame()
 	frame:StopMovingOrSizing()
 	self:_SavePositionAndSize()
+	self:Draw()
 end
 
 function private.DialogOnMouseUp(dialog)

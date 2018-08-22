@@ -187,7 +187,7 @@ function private.FixItemString(itemString)
 			itemString = gsub(itemString, ":[0-9]*$", "")
 		end
 		-- we might have already applied the upgrade value shift
-		if numExtraParts == 1 and (lastExtraPart >= 98 and lastExtraPart <= 110) or (lastExtraPart - ITEM_UPGRADE_VALUE_SHIFT >= 90 and lastExtraPart - ITEM_UPGRADE_VALUE_SHIFT <= 110) then
+		if numExtraParts == 1 and (lastExtraPart >= 98 and lastExtraPart <= MAX_PLAYER_LEVEL) or (lastExtraPart - ITEM_UPGRADE_VALUE_SHIFT >= 90 and lastExtraPart - ITEM_UPGRADE_VALUE_SHIFT <= MAX_PLAYER_LEVEL) then
 			-- this extra part is likely the upgradeValue which we want to keep so increase it by UPGRADE_VALUE_SHIFT
 			if lastExtraPart < ITEM_UPGRADE_VALUE_SHIFT then
 				lastExtraPart = lastExtraPart + ITEM_UPGRADE_VALUE_SHIFT

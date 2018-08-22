@@ -20,6 +20,8 @@ local private = {
 	lastScanNum = nil,
 	ignoreUpdateEvent = nil,
 }
+local SALE_HINT_SEP = "\001"
+local SALE_HINT_EXPIRE_TIME = 33 * 24 * 60 * 60
 local DB_SCHEMA = {
 	fields = {
 		index = "number",
@@ -73,6 +75,11 @@ function AuctionTracking.OnInitialize()
 	private.db = TSMAPI_FOUR.Database.New(DB_SCHEMA, "AUCTION_TRACKING")
 	private.updateQuery = private.db:NewQuery()
 		:SetUpdateCallback(private.OnCallbackQueryUpdated)
+	for info, timestamp in ipairs(TSM.db.char.internalData.auctionSaleHints) do
+		if time() > timestamp + SALE_HINT_EXPIRE_TIME then
+			TSM.db.char.internalData.auctionSaleHints[info] = nil
+		end
+	end
 end
 
 function AuctionTracking.RegisterCallback(callback)
@@ -85,6 +92,15 @@ end
 
 function AuctionTracking.CreateQuery()
 	return private.db:NewQuery()
+end
+
+function AuctionTracking.GetSaleHintItemString(name, stackSize, buyout)
+	for info in pairs(TSM.db.char.internalData.auctionSaleHints) do
+		local infoName, itemString, infoStackSize, infoBuyout = strsplit(SALE_HINT_SEP, info)
+		if infoName == name and tonumber(infoStackSize) == stackSize and tonumber(infoBuyout) == buyout then
+			return itemString
+		end
+	end
 end
 
 
@@ -178,6 +194,8 @@ function private.AuctionOwnedListUpdateDelayed()
 			local currentBid = highBidder ~= "" and bid or minBid
 			if saleStatus == 0 then
 				TSM.Inventory.ChangeAuctionQuantity(baseItemString, stackSize)
+				local hintInfo = strjoin(SALE_HINT_SEP, TSMAPI_FOUR.Item.GetName(link), itemString, stackSize, buyout)
+				TSM.db.char.internalData.auctionSaleHints[hintInfo] = time()
 			end
 			private.indexUpdates.pending[index] = nil
 			tremove(private.indexUpdates.list, i)

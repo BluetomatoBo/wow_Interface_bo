@@ -63,7 +63,7 @@ function Util.GetLowestAuction(query, itemString, operationSettings, resultTbl)
 	local ignoreWhitelist = nil
 	local lowestItemBuyout = nil
 	local lowestAuction = nil
-	for _, record in query:Iterator(true) do
+	for _, record in query:Iterator() do
 		if not private.ShouldIgnoreAuctionRecord(record, itemString, operationSettings) then
 			local itemBuyout = record:GetField("itemBuyout")
 			assert(itemBuyout and itemBuyout > 0)
@@ -117,7 +117,7 @@ end
 
 function Util.GetPlayerAuctionCount(query, itemString, operationSettings, findBid, findBuyout, findStackSize)
 	local quantity = 0
-	for _, record in query:Iterator(true) do
+	for _, record in query:Iterator() do
 		if not private.ShouldIgnoreAuctionRecord(record, itemString, operationSettings) then
 			if record:GetField("itemDisplayedBid") == findBid and record:GetField("itemBuyout") == findBuyout and record:GetField("stackSize") == findStackSize and TSMAPI_FOUR.PlayerInfo.IsPlayer(record:GetField("seller"), true, true, true) then
 				quantity = quantity + 1
@@ -129,7 +129,7 @@ end
 
 function Util.GetPlayerLowestBuyout(query, itemString, operationSettings)
 	local lowestItemBuyout = nil
-	for _, record in query:Iterator(true) do
+	for _, record in query:Iterator() do
 		if not private.ShouldIgnoreAuctionRecord(record, itemString, operationSettings) and TSMAPI_FOUR.PlayerInfo.IsPlayer(record:GetField("seller"), true, true, true) then
 			lowestItemBuyout = lowestItemBuyout or record:GetField("itemBuyout")
 		end
@@ -139,7 +139,7 @@ end
 
 function Util.IsPlayerOnlySeller(query, itemString, operationSettings)
 	local isOnly = true
-	for _, record in query:Iterator(true) do
+	for _, record in query:Iterator() do
 		if not private.ShouldIgnoreAuctionRecord(record, itemString, operationSettings) and not TSMAPI_FOUR.PlayerInfo.IsPlayer(record:GetField("seller"), true, true, true) then
 			isOnly = false
 		end
@@ -149,7 +149,7 @@ end
 
 function Util.GetNextLowestItemBuyout(query, itemString, lowestItemBuyout, operationSettings)
 	local nextLowestItemBuyout = nil
-	for _, record in query:Iterator(true) do
+	for _, record in query:Iterator() do
 		local itemBuyout = record:GetField("itemBuyout")
 		if not private.ShouldIgnoreAuctionRecord(record, itemString, operationSettings) and itemBuyout > lowestItemBuyout then
 			nextLowestItemBuyout = nextLowestItemBuyout or itemBuyout
