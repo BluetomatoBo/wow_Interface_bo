@@ -645,14 +645,17 @@ function private.ResizeButtonOnMouseDown(button, mouseButton)
 	if self._isScaling then
 		local minWidth = width * MIN_SCALE / self._contextTable.scale
 		local minHeight = height * MIN_SCALE / self._contextTable.scale
-		self:_GetBaseFrame():SetMinResize(minWidth, minHeight)
-		self:_GetBaseFrame():SetMaxResize(width * 10, height * 10)
+		frame:SetMinResize(minWidth, minHeight)
+		frame:SetMaxResize(width * 10, height * 10)
 	else
-		self:_GetBaseFrame():SetMinResize(self._minWidth, self._minHeight)
-		self:_GetBaseFrame():SetMaxResize(width * 10, height * 10)
+		frame:SetMinResize(self._minWidth, self._minHeight)
+		frame:SetMaxResize(width * 10, height * 10)
 	end
 	self:_SetResizing(true)
-	self:_GetBaseFrame():StartSizing("BOTTOMRIGHT")
+	frame:StartSizing("BOTTOMRIGHT")
+	-- force updating the size here, to prevent using cached values from previously opened application frames
+	frame:SetWidth(width)
+	frame:SetHeight(height)
 end
 
 function private.ResizeButtonOnMouseUp(button, mouseButton)
@@ -660,8 +663,8 @@ function private.ResizeButtonOnMouseUp(button, mouseButton)
 		return
 	end
 	local self = button:GetParentElement()
-	self:_SetResizing(false)
 	self:_GetBaseFrame():StopMovingOrSizing()
+	self:_SetResizing(false)
 	self:_SavePositionAndSize(self._isScaling)
 	self._isScaling = nil
 	self:Draw()
@@ -685,8 +688,7 @@ function private.FrameOnDragStart(self)
 end
 
 function private.FrameOnDragStop(self)
-	local frame = self:_GetBaseFrame()
-	frame:StopMovingOrSizing()
+	self:_GetBaseFrame():StopMovingOrSizing()
 	self:_SavePositionAndSize()
 	self:Draw()
 end

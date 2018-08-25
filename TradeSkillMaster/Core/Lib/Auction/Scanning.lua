@@ -302,6 +302,18 @@ function AuctionFilter._DoAuctionQueryThreaded(self)
 				info2.subClassID = self._subClass
 				info2.inventoryType = LE_INVENTORY_TYPE_ROBE_TYPE
 				tinsert(classFilterInfo, info2)
+			elseif self._invType == LE_ITEM_FILTER_TYPE_NECK or self._invType == LE_ITEM_FILTER_TYPE_FINGER or self._invType == LE_ITEM_FILTER_TYPE_TRINKET or self._invType == LE_INVENTORY_TYPE_HOLDABLE_TYPE then
+				local info = TSMAPI_FOUR.Util.AcquireTempTable()
+				info.classID = self._class
+				info.subClassID = 0
+				info.inventoryType = self._invType
+				tinsert(classFilterInfo, info)
+			elseif self._invType == LE_ITEM_FILTER_TYPE_CLOAK then
+				local info = TSMAPI_FOUR.Util.AcquireTempTable()
+				info.classID = self._class
+				info.subClassID = 1
+				info.inventoryType = LE_ITEM_FILTER_TYPE_CLOAK
+				tinsert(classFilterInfo, info)
 			else
 				local info = TSMAPI_FOUR.Util.AcquireTempTable()
 				info.classID = self._class

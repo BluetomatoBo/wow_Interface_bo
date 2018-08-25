@@ -439,7 +439,10 @@ function private.IsFilterDoneForItem(auctionScan, itemString)
 				isFilterDone = false
 			else
 				local minPrice = TSM.Auctioning.Util.GetPrice("minPrice", operationSettings, itemString)
-				if lowestItemBuyout <= minPrice then
+				if not minPrice then
+					-- the min price is not valid, so just keep scanning
+					isFilterDone = false
+				elseif lowestItemBuyout <= minPrice then
 					local resetPrice = TSM.Auctioning.Util.GetPrice("priceReset", operationSettings, itemString)
 					if operationSettings.priceReset == "ignore" or (resetPrice and highestItemBuyout <= resetPrice) then
 						-- we need to keep scanning to handle the reset price (always keep scanning for "ignore")
