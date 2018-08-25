@@ -1,6 +1,6 @@
 ---------------------------------------------------------
 -- Addon declaration
-HandyNotes_Directions = LibStub("AceAddon-3.0"):NewAddon("HandyNotes_Directions","AceEvent-3.0","AceHook-3.0")
+HandyNotes_Directions = LibStub("AceAddon-3.0"):NewAddon("HandyNotes_Directions","AceEvent-3.0")
 local HD = HandyNotes_Directions
 local HandyNotes = LibStub("AceAddon-3.0"):GetAddon("HandyNotes")
 local L = LibStub("AceLocale-3.0"):GetLocale("HandyNotes_Directions", true)
@@ -33,6 +33,7 @@ local HandyNotes = HandyNotes
 ---------------------------------------------------------
 -- Constants
 
+local icon
 local function setupLandmarkIcon(texture, left, right, top, bottom)
 	return {
 		icon = texture,
@@ -43,8 +44,6 @@ local function setupLandmarkIcon(texture, left, right, top, bottom)
 	}
 end
 
-local icon = setupLandmarkIcon([[Interface\Minimap\POIIcons]], GetPOITextureCoords(7)) -- the cute lil' flag
-
 ---------------------------------------------------------
 -- Plugin Handlers to HandyNotes
 local HDHandler = {}
@@ -54,7 +53,7 @@ local clickedLandmarkZone = nil
 local lastGossip = nil
 
 function HDHandler:OnEnter(mapID, coord)
-	local tooltip = self:GetParent() == WorldMapButton and WorldMapTooltip or GameTooltip
+	local tooltip = self:GetParent() == WorldMapFrame:GetCanvas() and WorldMapTooltip or GameTooltip
 	if ( self:GetCenter() > UIParent:GetCenter() ) then -- compare X coordinate
 		tooltip:SetOwner(self, "ANCHOR_LEFT")
 	else
@@ -139,7 +138,7 @@ function HDHandler:OnClick(button, down, mapID, coord)
 end
 
 function HDHandler:OnLeave(mapFile, coord)
-	if self:GetParent() == WorldMapButton then
+	if self:GetParent() == WorldMapFrame:GetCanvas() then
 		WorldMapTooltip:Hide()
 	else
 		GameTooltip:Hide()
@@ -268,6 +267,7 @@ local options = {
 ---------------------------------------------------------
 -- Addon initialization, enabling and disabling
 
+
 function HD:OnInitialize()
 	-- Set up our database
 	self.db = LibStub("AceDB-3.0"):New("HandyNotes_DirectionsDB", defaults)
@@ -277,13 +277,25 @@ function HD:OnInitialize()
 			self.db.global.landmarks[k] = {}
 		end
 	end
+
+	icon = setupLandmarkIcon([[Interface\Minimap\POIIcons]], GetPOITextureCoords(7)) -- the cute lil' flag
+
 	-- Initialize our database with HandyNotes
 	HandyNotes:RegisterPluginDB("Directions", HDHandler, options)
 end
 
+local orig_SelectGossipOption
 function HD:OnEnable()
 	self:RegisterEvent("DYNAMIC_GOSSIP_POI_UPDATED", "CheckForLandmarks")
 	self:RegisterEvent("GOSSIP_CLOSED")
-	self:Hook("SelectGossipOption", true)
+
+	orig_SelectGossipOption = SelectGossipOption
+	SelectGossipOption = function(...)
+		HD:SelectGossipOption(...)
+		orig_SelectGossipOption(...)
+	end
 end
 
+function HD:OnDisable()
+	SelectGossipOption = orig_SelectGossipOption
+end

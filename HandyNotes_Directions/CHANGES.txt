@@ -1,12 +1,24 @@
-tag ffe5af897c61a246fcd091f420347a980903d80b v3
+tag 6196191692a107ee6c659708da87d1aa1ae7f130 v4
 Author:	David Lynch <kemayo@gmail.com>
-Date:	Thu Jul 19 17:23:30 2018 -0500
+Date:	Fri Aug 24 18:49:50 2018 -0500
 
-Tagging v3
+Tagging v4
 
-commit 6d098e1df337ed82d1c98e8126ac448dc8f5817e
+commit e41b434fbad42e5c1483e2a0ddde735858a3cd41
 Author: David Lynch <kemayo@gmail.com>
-Date:   Thu Jul 19 17:22:41 2018 -0500
+Date:   Fri Aug 24 18:49:06 2018 -0500
 
-    Update for BfA
+    Defer icon creation until initialization
+
+commit 8c8a53909b1e531ad748db6607a2a3be0988d194
+Author: David Lynch <kemayo@gmail.com>
+Date:   Fri Aug 24 18:46:38 2018 -0500
+
+    Fix hooking
+
+commit 144d2214a52f92260a529d8813c0feee7840fe93
+Author: David Lynch <kemayo@gmail.com>
+Date:   Sat Jul 21 21:34:45 2018 -0500
+
+    Wrong tooltip on world map
 
