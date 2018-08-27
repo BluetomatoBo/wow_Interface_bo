@@ -50,7 +50,11 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Addon"] = "Addon"
 	L["Addons"] = "Addons"
+	--[[Translation missing --]]
+	L["Advanced"] = "Advanced"
 	L["Align"] = "Alinhar"
+	--[[Translation missing --]]
+	L["All of"] = "All of"
 	L["Allow Full Rotation"] = "Habilitar rotação completa"
 	L["Alpha"] = "Transparência"
 	L["Anchor"] = "Âncora"
@@ -59,6 +63,8 @@ local L = WeakAuras.L
 	L["Anchored To"] = "Anchored To"
 	--[[Translation missing --]]
 	L["And "] = "And "
+	--[[Translation missing --]]
+	L["and Trigger %s"] = "and Trigger %s"
 	L["Angle"] = "Ângulo"
 	L["Animate"] = "Animar"
 	L["Animated Expand and Collapse"] = "Animação expande e esvai"
@@ -73,6 +79,8 @@ Se a duração da animação estiver setada para |cFF00C0010%|r, e o gatilho do 
 WeakAuras → Opções → Opções ]=]
 	L["Animation Sequence"] = "Sequência da animação"
 	L["Animations"] = "Animações"
+	--[[Translation missing --]]
+	L["Any of"] = "Any of"
 	--[[Translation missing --]]
 	L["Apply Template"] = "Apply Template"
 	--[[Translation missing --]]
@@ -163,6 +171,8 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["color"] = "color"
 	--[[Translation missing --]]
+	L["Combinations"] = "Combinations"
+	--[[Translation missing --]]
 	L["Common Options"] = "Common Options"
 	L["Compress"] = "Comprimir"
 	--[[Translation missing --]]
@@ -185,8 +195,6 @@ WeakAuras → Opções → Opções ]=]
 	L["Count"] = "Contar"
 	L["Creating buttons: "] = "Criando botões:"
 	L["Creating options: "] = "Criando opções:"
-	--[[Translation missing --]]
-	L["Crop"] = "Crop"
 	L["Crop X"] = "Cortar X"
 	L["Crop Y"] = "Cortar Y"
 	--[[Translation missing --]]
@@ -201,6 +209,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Custom trigger status tooltip"] = "Custom trigger status tooltip"
 	--[[Translation missing --]]
 	L["Custom Untrigger"] = "Custom Untrigger"
+	--[[Translation missing --]]
+	L["Custom Variables"] = "Custom Variables"
 	L["Debuff Type"] = "Tipo de penalidade"
 	--[[Translation missing --]]
 	L["Default"] = "Default"
@@ -261,6 +271,8 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["Everything"] = "Everything"
 	--[[Translation missing --]]
+	L["Exact Spell Match"] = "Exact Spell Match"
+	--[[Translation missing --]]
 	L["Expand"] = "Expand"
 	L["Expand all loaded displays"] = "Expandir todos os mostruários carregados"
 	L["Expand all non-loaded displays"] = "Expandir todos os mostruários não carregados"
@@ -270,6 +282,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Export to Lua table..."] = "Export to Lua table..."
 	--[[Translation missing --]]
 	L["Export to string..."] = "Export to string..."
+	--[[Translation missing --]]
+	L["External"] = "External"
 	L["Fade"] = "Sumir"
 	--[[Translation missing --]]
 	L["Fade In"] = "Fade In"
@@ -333,8 +347,6 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["Horizontal Bar"] = "Horizontal Bar"
 	--[[Translation missing --]]
-	L["Horizontal Blizzard Raid Bar"] = "Horizontal Blizzard Raid Bar"
-	--[[Translation missing --]]
 	L["Huge Icon"] = "Huge Icon"
 	--[[Translation missing --]]
 	L["Hybrid Position"] = "Hybrid Position"
@@ -360,6 +372,12 @@ WeakAuras → Opções → Opções ]=]
 	L["Ignored"] = "Ignorado"
 	L["Import"] = "Importar"
 	L["Import a display from an encoded string"] = "Importar um display de um string codificado"
+	--[[Translation missing --]]
+	L["Invalid Item Name/ID/Link"] = "Invalid Item Name/ID/Link"
+	--[[Translation missing --]]
+	L["Invalid Spell ID"] = "Invalid Spell ID"
+	--[[Translation missing --]]
+	L["Invalid Spell Name/ID/Link"] = "Invalid Spell Name/ID/Link"
 	--[[Translation missing --]]
 	L["Inverse"] = "Inverse"
 	--[[Translation missing --]]
@@ -442,6 +460,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Options will open after combat ends."] = "Options will open after combat ends."
 	--[[Translation missing --]]
 	L["or"] = "or"
+	--[[Translation missing --]]
+	L["or Trigger %s"] = "or Trigger %s"
 	--[[Translation missing --]]
 	L["Orange Rune"] = "Orange Rune"
 	L["Orientation"] = "Orientação"
@@ -535,6 +555,8 @@ WeakAuras → Opções → Opções ]=]
 	--[[Translation missing --]]
 	L["Set tooltip description"] = "Set tooltip description"
 	--[[Translation missing --]]
+	L["Sets the anchored frame as the aura's parent, causing the aura to inherit attributes such as visiblility and scale."] = "Sets the anchored frame as the aura's parent, causing the aura to inherit attributes such as visiblility and scale."
+	--[[Translation missing --]]
 	L["Settings"] = "Settings"
 	--[[Translation missing --]]
 	L["Shift-click to create chat link"] = "Shift-click to create chat link"
@@ -555,6 +577,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Shows a spell icon with an optional cooldown overlay"] = "Mostrar um ícone de feitiço com o opcional do tempo de recarga sobreposto"
 	L["Shows a texture that changes based on duration"] = "Mostrar uma textura que muda com base na duração"
 	L["Shows one or more lines of text, which can include dynamic information such as progress or stacks"] = "Mostra uma ou mais linhas de texto, que podem incluir informações dinâmicas tal como progresso ou quantidades"
+	--[[Translation missing --]]
+	L["Simple"] = "Simple"
 	L["Size"] = "Tamanho"
 	--[[Translation missing --]]
 	L["Slant Amount"] = "Slant Amount"
@@ -665,6 +689,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Trigger"] = "Trigger"
 	--[[Translation missing --]]
 	L["Trigger %d"] = "Trigger %d"
+	--[[Translation missing --]]
+	L["Trigger %s"] = "Trigger %s"
 	--[[Translation missing --]]
 	L["Trigger:"] = "Trigger:"
 	--[[Translation missing --]]

@@ -336,8 +336,7 @@ L["Import as Update"] = "Als Update importieren"
 L["Import disabled"] = "Import disabled"
 --[[Translation missing --]]
 L["Import Group"] = "Import Group"
---[[Translation missing --]]
-L["Import in progress"] = "Import in progress"
+L["Import in progress"] = "Import im Gange"
 --[[Translation missing --]]
 L["Importing is disabled while in combat"] = "Importing is disabled while in combat"
 L["In Combat"] = "im Kampf"

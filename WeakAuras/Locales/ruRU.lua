@@ -361,7 +361,7 @@ L["Lost"] = "Израсходован"
 L["Low Damage"] = "Низкий урон"
 L["Lower Than Tank"] = "Ниже чем танк"
 L["Magic"] = "Магия"
-L["Main Hand"] = "Основная рука"
+L["Main Hand"] = "Правая рука"
 L["Make sure you can trust the person who sent it!"] = [=[Убедитесь, что вы можете доверять человеку,
 отправившему ее!]=]
 L["Malformed WeakAuras link"] = "Неверная ссылка WeakAuras"

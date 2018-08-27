@@ -44,13 +44,19 @@ local L = WeakAuras.L
 	L["Add Trigger"] = "Añadir Disparador"
 	L["Addon"] = "Addon"
 	L["Addons"] = "Addons"
+	--[[Translation missing --]]
+	L["Advanced"] = "Advanced"
 	L["Align"] = "Alinear"
+	--[[Translation missing --]]
+	L["All of"] = "All of"
 	L["Allow Full Rotation"] = "Permitir Rotación Total"
 	L["Alpha"] = "Transparencia"
 	L["Anchor"] = "Anclaje"
 	L["Anchor Point"] = "Punto de Anclaje"
 	L["Anchored To"] = "anclado a"
 	L["And "] = "y"
+	--[[Translation missing --]]
+	L["and Trigger %s"] = "and Trigger %s"
 	L["Angle"] = "Ángulo"
 	L["Animate"] = "Animar"
 	L["Animated Expand and Collapse"] = "Animar Pliegue y Despliegue"
@@ -65,6 +71,8 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 ]=]
 	L["Animation Sequence"] = "Secuencia de Animación"
 	L["Animations"] = "Animaciones"
+	--[[Translation missing --]]
+	L["Any of"] = "Any of"
 	L["Apply Template"] = "Aplicar plantilla"
 	L["Arcane Orb"] = "Orbe arcano"
 	--[[Translation missing --]]
@@ -141,6 +149,8 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 	--[[Translation missing --]]
 	L["color"] = "color"
 	--[[Translation missing --]]
+	L["Combinations"] = "Combinations"
+	--[[Translation missing --]]
 	L["Common Options"] = "Common Options"
 	L["Compress"] = "Comprimir"
 	--[[Translation missing --]]
@@ -163,8 +173,6 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 	L["Count"] = "Contar"
 	L["Creating buttons: "] = "Crear pulsadores: "
 	L["Creating options: "] = "Crear opciones: "
-	--[[Translation missing --]]
-	L["Crop"] = "Crop"
 	L["Crop X"] = "Cortar X"
 	L["Crop Y"] = "Cortar Y"
 	--[[Translation missing --]]
@@ -189,6 +197,8 @@ Múltiples eventos pueden ser especificados, sepáralos con comas o espacios.
 UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 ]=]
 	L["Custom Untrigger"] = "Disparador No-Personalizado"
+	--[[Translation missing --]]
+	L["Custom Variables"] = "Custom Variables"
 	L["Debuff Type"] = "Tipo de Perjuicio"
 	--[[Translation missing --]]
 	L["Default"] = "Default"
@@ -248,6 +258,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	--[[Translation missing --]]
 	L["Everything"] = "Everything"
 	--[[Translation missing --]]
+	L["Exact Spell Match"] = "Exact Spell Match"
+	--[[Translation missing --]]
 	L["Expand"] = "Expand"
 	L["Expand all loaded displays"] = "Desplegar todas las auras"
 	L["Expand all non-loaded displays"] = "Desplegar todas las auras no cargadas"
@@ -257,6 +269,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED
 	L["Export to Lua table..."] = "Export to Lua table..."
 	--[[Translation missing --]]
 	L["Export to string..."] = "Export to string..."
+	--[[Translation missing --]]
+	L["External"] = "External"
 	L["Fade"] = "Apagar"
 	--[[Translation missing --]]
 	L["Fade In"] = "Fade In"
@@ -325,8 +339,6 @@ Con |cFF00CC00>= 0|r se activará siempre.]=]
 	--[[Translation missing --]]
 	L["Horizontal Bar"] = "Horizontal Bar"
 	--[[Translation missing --]]
-	L["Horizontal Blizzard Raid Bar"] = "Horizontal Blizzard Raid Bar"
-	--[[Translation missing --]]
 	L["Huge Icon"] = "Huge Icon"
 	--[[Translation missing --]]
 	L["Hybrid Position"] = "Hybrid Position"
@@ -351,6 +363,12 @@ Con |cFF00CC00>= 0|r se activará siempre.]=]
 	L["Ignored"] = "Ignorar"
 	L["Import"] = "Importar"
 	L["Import a display from an encoded string"] = "Importar un aura desde un texto cifrado"
+	--[[Translation missing --]]
+	L["Invalid Item Name/ID/Link"] = "Invalid Item Name/ID/Link"
+	--[[Translation missing --]]
+	L["Invalid Spell ID"] = "Invalid Spell ID"
+	--[[Translation missing --]]
+	L["Invalid Spell Name/ID/Link"] = "Invalid Spell Name/ID/Link"
 	--[[Translation missing --]]
 	L["Inverse"] = "Inverse"
 	--[[Translation missing --]]
@@ -429,6 +447,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	--[[Translation missing --]]
 	L["Options will open after combat ends."] = "Options will open after combat ends."
 	L["or"] = "o"
+	--[[Translation missing --]]
+	L["or Trigger %s"] = "or Trigger %s"
 	--[[Translation missing --]]
 	L["Orange Rune"] = "Orange Rune"
 	L["Orientation"] = "Orientación"
@@ -520,6 +540,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	--[[Translation missing --]]
 	L["Set tooltip description"] = "Set tooltip description"
 	--[[Translation missing --]]
+	L["Sets the anchored frame as the aura's parent, causing the aura to inherit attributes such as visiblility and scale."] = "Sets the anchored frame as the aura's parent, causing the aura to inherit attributes such as visiblility and scale."
+	--[[Translation missing --]]
 	L["Settings"] = "Settings"
 	--[[Translation missing --]]
 	L["Shift-click to create chat link"] = "Shift-click to create chat link"
@@ -540,6 +562,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Shows a spell icon with an optional cooldown overlay"] = "Muestra un icono como aura con máscaras opcionales"
 	L["Shows a texture that changes based on duration"] = "Muestra una textura que cambia con el tiempo"
 	L["Shows one or more lines of text, which can include dynamic information such as progress or stacks"] = "Muestra una o varias lineas de texto, capaz de contener información cambiante como acumulaciones y/o progresos"
+	--[[Translation missing --]]
+	L["Simple"] = "Simple"
 	L["Size"] = "Tamaño"
 	--[[Translation missing --]]
 	L["Slant Amount"] = "Slant Amount"
@@ -627,6 +651,8 @@ Sólo un valor coincidente puede ser escogido.]=]
 	L["Total Time Precision"] = "Precisión del cronómetro"
 	L["Trigger"] = "Disparador"
 	L["Trigger %d"] = "Disparador %d"
+	--[[Translation missing --]]
+	L["Trigger %s"] = "Trigger %s"
 	L["Trigger:"] = "Desencadenador:"
 	--[[Translation missing --]]
 	L["True"] = "True"

@@ -60,7 +60,11 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Addons"] = "Addons"
 	--[[Translation missing --]]
+	L["Advanced"] = "Advanced"
+	--[[Translation missing --]]
 	L["Align"] = "Align"
+	--[[Translation missing --]]
+	L["All of"] = "All of"
 	--[[Translation missing --]]
 	L["Allow Full Rotation"] = "Allow Full Rotation"
 	--[[Translation missing --]]
@@ -73,6 +77,8 @@ local L = WeakAuras.L
 	L["Anchored To"] = "Anchored To"
 	--[[Translation missing --]]
 	L["And "] = "And "
+	--[[Translation missing --]]
+	L["and Trigger %s"] = "and Trigger %s"
 	--[[Translation missing --]]
 	L["Angle"] = "Angle"
 	--[[Translation missing --]]
@@ -87,6 +93,8 @@ local L = WeakAuras.L
 	L["Animation Sequence"] = "Animation Sequence"
 	--[[Translation missing --]]
 	L["Animations"] = "Animations"
+	--[[Translation missing --]]
+	L["Any of"] = "Any of"
 	--[[Translation missing --]]
 	L["Apply Template"] = "Apply Template"
 	--[[Translation missing --]]
@@ -200,6 +208,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["color"] = "color"
 	--[[Translation missing --]]
+	L["Combinations"] = "Combinations"
+	--[[Translation missing --]]
 	L["Common Options"] = "Common Options"
 	--[[Translation missing --]]
 	L["Compress"] = "Compress"
@@ -230,8 +240,6 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Creating options: "] = "Creating options: "
 	--[[Translation missing --]]
-	L["Crop"] = "Crop"
-	--[[Translation missing --]]
 	L["Crop X"] = "Crop X"
 	--[[Translation missing --]]
 	L["Crop Y"] = "Crop Y"
@@ -249,6 +257,8 @@ local L = WeakAuras.L
 	L["Custom trigger status tooltip"] = "Custom trigger status tooltip"
 	--[[Translation missing --]]
 	L["Custom Untrigger"] = "Custom Untrigger"
+	--[[Translation missing --]]
+	L["Custom Variables"] = "Custom Variables"
 	--[[Translation missing --]]
 	L["Debuff Type"] = "Debuff Type"
 	--[[Translation missing --]]
@@ -326,6 +336,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Everything"] = "Everything"
 	--[[Translation missing --]]
+	L["Exact Spell Match"] = "Exact Spell Match"
+	--[[Translation missing --]]
 	L["Expand"] = "Expand"
 	--[[Translation missing --]]
 	L["Expand all loaded displays"] = "Expand all loaded displays"
@@ -337,6 +349,8 @@ local L = WeakAuras.L
 	L["Export to Lua table..."] = "Export to Lua table..."
 	--[[Translation missing --]]
 	L["Export to string..."] = "Export to string..."
+	--[[Translation missing --]]
+	L["External"] = "External"
 	--[[Translation missing --]]
 	L["Fade"] = "Fade"
 	--[[Translation missing --]]
@@ -412,8 +426,6 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Horizontal Bar"] = "Horizontal Bar"
 	--[[Translation missing --]]
-	L["Horizontal Blizzard Raid Bar"] = "Horizontal Blizzard Raid Bar"
-	--[[Translation missing --]]
 	L["Huge Icon"] = "Huge Icon"
 	--[[Translation missing --]]
 	L["Hybrid Position"] = "Hybrid Position"
@@ -443,6 +455,12 @@ local L = WeakAuras.L
 	L["Import"] = "Import"
 	--[[Translation missing --]]
 	L["Import a display from an encoded string"] = "Import a display from an encoded string"
+	--[[Translation missing --]]
+	L["Invalid Item Name/ID/Link"] = "Invalid Item Name/ID/Link"
+	--[[Translation missing --]]
+	L["Invalid Spell ID"] = "Invalid Spell ID"
+	--[[Translation missing --]]
+	L["Invalid Spell Name/ID/Link"] = "Invalid Spell Name/ID/Link"
 	--[[Translation missing --]]
 	L["Inverse"] = "Inverse"
 	--[[Translation missing --]]
@@ -545,6 +563,8 @@ local L = WeakAuras.L
 	L["Options will open after combat ends."] = "Options will open after combat ends."
 	--[[Translation missing --]]
 	L["or"] = "or"
+	--[[Translation missing --]]
+	L["or Trigger %s"] = "or Trigger %s"
 	--[[Translation missing --]]
 	L["Orange Rune"] = "Orange Rune"
 	--[[Translation missing --]]
@@ -658,6 +678,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Set tooltip description"] = "Set tooltip description"
 	--[[Translation missing --]]
+	L["Sets the anchored frame as the aura's parent, causing the aura to inherit attributes such as visiblility and scale."] = "Sets the anchored frame as the aura's parent, causing the aura to inherit attributes such as visiblility and scale."
+	--[[Translation missing --]]
 	L["Settings"] = "Settings"
 	--[[Translation missing --]]
 	L["Shift-click to create chat link"] = "Shift-click to create chat link"
@@ -685,6 +707,8 @@ local L = WeakAuras.L
 	L["Shows a texture that changes based on duration"] = "Shows a texture that changes based on duration"
 	--[[Translation missing --]]
 	L["Shows one or more lines of text, which can include dynamic information such as progress or stacks"] = "Shows one or more lines of text, which can include dynamic information such as progress or stacks"
+	--[[Translation missing --]]
+	L["Simple"] = "Simple"
 	--[[Translation missing --]]
 	L["Size"] = "Size"
 	--[[Translation missing --]]
@@ -815,6 +839,8 @@ local L = WeakAuras.L
 	L["Trigger"] = "Trigger"
 	--[[Translation missing --]]
 	L["Trigger %d"] = "Trigger %d"
+	--[[Translation missing --]]
+	L["Trigger %s"] = "Trigger %s"
 	--[[Translation missing --]]
 	L["Trigger:"] = "Trigger:"
 	--[[Translation missing --]]

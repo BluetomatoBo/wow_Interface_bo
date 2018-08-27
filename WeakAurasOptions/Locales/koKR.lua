@@ -35,7 +35,11 @@ local L = WeakAuras.L
 	L["Add Trigger"] = "활성 조건 추가"
 	L["Addon"] = "애드온"
 	L["Addons"] = "애드온"
+	--[[Translation missing --]]
+	L["Advanced"] = "Advanced"
 	L["Align"] = "정렬"
+	--[[Translation missing --]]
+	L["All of"] = "All of"
 	L["Allow Full Rotation"] = "전체 회전 허용"
 	L["Alpha"] = "투명도"
 	L["Anchor"] = "고정시키기"
@@ -43,11 +47,12 @@ local L = WeakAuras.L
 	L["Anchored To"] = "다음에 고정:"
 	--[[Translation missing --]]
 	L["And "] = "And "
+	--[[Translation missing --]]
+	L["and Trigger %s"] = "and Trigger %s"
 	L["Angle"] = "각도"
 	L["Animate"] = "애니메이션"
 	L["Animated Expand and Collapse"] = "확장 / 접기 애니메이션"
-	--[[Translation missing --]]
-	L["Animates progress changes"] = "Animates progress changes"
+	L["Animates progress changes"] = "진행 변화 애니메이션"
 	L["Animation relative duration description"] = [=[
 디스플레이 지속시간의 비율로 애니메이션 지속시간을 설정합니다, 분수 (1/2), 백분율 (50%), 또는 소수 (0.5)로 표현합니다.
 |cFFFF0000참고:|r 디스플레이가 진행 시간이 없으면 (비-지속적 이벤트 활성 조건, 지속시간이 없는 오라, 등등), 애니메이션은 재생되지 않습니다.
@@ -58,6 +63,8 @@ local L = WeakAuras.L
 ]=]
 	L["Animation Sequence"] = "애니메이션 순서"
 	L["Animations"] = "애니메이션"
+	--[[Translation missing --]]
+	L["Any of"] = "Any of"
 	L["Apply Template"] = "견본 적용"
 	L["Arcane Orb"] = "비전 구슬"
 	L["At a position a bit left of Left HUD position."] = "좌측 HUD 위치보다 약간 왼쪽에 위치시킵니다."
@@ -124,6 +131,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["color"] = "color"
 	--[[Translation missing --]]
+	L["Combinations"] = "Combinations"
+	--[[Translation missing --]]
 	L["Common Options"] = "Common Options"
 	L["Compress"] = "누르기"
 	L["Condition %i"] = "조건 %i"
@@ -140,7 +149,6 @@ local L = WeakAuras.L
 	L["Count"] = "횟수"
 	L["Creating buttons: "] = "버튼 생성:"
 	L["Creating options: "] = "옵션 생성:"
-	L["Crop"] = "자르기"
 	L["Crop X"] = "X 자르기"
 	L["Crop Y"] = "Y 자르기"
 	L["Custom"] = "사용자 설정"
@@ -161,6 +169,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 |cFF4444FF예제:|r
 UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Custom Untrigger"] = "사용자 설정 비활성 조건"
+	--[[Translation missing --]]
+	L["Custom Variables"] = "Custom Variables"
 	L["Debuff Type"] = "약화 효과 유형"
 	L["Default"] = "기본"
 	L["Delete"] = "삭제"
@@ -210,12 +220,16 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Event Type"] = "이벤트 유형"
 	L["Event(s)"] = "이벤트"
 	L["Everything"] = "모두"
+	--[[Translation missing --]]
+	L["Exact Spell Match"] = "Exact Spell Match"
 	L["Expand"] = "확장"
 	L["Expand all loaded displays"] = "불러온 모든 디스플레이 확장"
 	L["Expand all non-loaded displays"] = "불러오지 않은 모드 디스플레이 확장"
 	L["Expansion is disabled because this group has no children"] = "이 그룹에 자식이 없어 확장이 비활성되었습니다"
 	L["Export to Lua table..."] = "Lua table로 내보내기..."
 	L["Export to string..."] = "문자열로 내보내기..."
+	--[[Translation missing --]]
+	L["External"] = "External"
 	L["Fade"] = "사라짐"
 	L["Fade In"] = "서서히 나타남"
 	L["Fade Out"] = "서서히 사라짐"
@@ -257,8 +271,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Group Member Count"] = "그룹원 수"
 	--[[Translation missing --]]
 	L["Group Role"] = "Group Role"
-	--[[Translation missing --]]
-	L["Group Scale"] = "Group Scale"
+	L["Group Scale"] = "그룹 크기 비율"
 	L["Grow"] = "성장"
 	L["Hawk"] = "매"
 	L["Height"] = "높이"
@@ -268,7 +281,6 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Hide When Not In Group"] = "파티중이 아닐 때 숨기기"
 	L["Horizontal Align"] = "가로 정렬"
 	L["Horizontal Bar"] = "가로 바"
-	L["Horizontal Blizzard Raid Bar"] = "수평 블리자드 공격대 바"
 	L["Huge Icon"] = "거대한 아이콘"
 	L["Hybrid Position"] = "복합 위치"
 	L["Hybrid Sort Mode"] = "복합 정렬 모드"
@@ -287,6 +299,12 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Ignored"] = "무시됨"
 	L["Import"] = "가져오기"
 	L["Import a display from an encoded string"] = "암호화된 문자열에서 디스플레이 가져오기"
+	--[[Translation missing --]]
+	L["Invalid Item Name/ID/Link"] = "Invalid Item Name/ID/Link"
+	--[[Translation missing --]]
+	L["Invalid Spell ID"] = "Invalid Spell ID"
+	--[[Translation missing --]]
+	L["Invalid Spell Name/ID/Link"] = "Invalid Spell Name/ID/Link"
 	L["Inverse"] = "반대로"
 	L["Inverse Slant"] = "역 경사"
 	L["Justify"] = "정렬"
@@ -345,6 +363,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	--[[Translation missing --]]
 	L["Options will open after combat ends."] = "Options will open after combat ends."
 	L["or"] = "혹은"
+	--[[Translation missing --]]
+	L["or Trigger %s"] = "or Trigger %s"
 	L["Orange Rune"] = "오렌지색 룬"
 	L["Orientation"] = "방향"
 	L["Outline"] = "외곽선"
@@ -415,6 +435,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Send To"] = "보내기..."
 	L["Set Parent to Anchor"] = "부모를 고정기로 설정"
 	L["Set tooltip description"] = "툴팁 설명 설정"
+	--[[Translation missing --]]
+	L["Sets the anchored frame as the aura's parent, causing the aura to inherit attributes such as visiblility and scale."] = "Sets the anchored frame as the aura's parent, causing the aura to inherit attributes such as visiblility and scale."
 	L["Settings"] = "설정"
 	L["Shift-click to create chat link"] = "Shift+클릭 - 대화 링크 만들기"
 	L["Show all matches (Auto-clone)"] = "모든 일치 표시 (자동 복제)"
@@ -431,6 +453,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Shows a spell icon with an optional cooldown overlay"] = "재사용 대기시간 오버레이와 함께 주문 아이콘을 표시합니다"
 	L["Shows a texture that changes based on duration"] = "지속시간에 따라 변화하는 텍스쳐를 표시합니다"
 	L["Shows one or more lines of text, which can include dynamic information such as progress or stacks"] = "여러 줄의 문자를 표시합니다, 진행 시간 또는 중첩과 같은 여러 정보를 포함할 수 있습니다"
+	--[[Translation missing --]]
+	L["Simple"] = "Simple"
 	L["Size"] = "크기"
 	L["Slant Amount"] = "기울기 양"
 	L["Slant Mode"] = "기울기 모드"
@@ -440,8 +464,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Slide In"] = "안으로 슬라이드"
 	L["Slide Out"] = "바깥으로 슬라이드"
 	L["Small Icon"] = "작은 아이콘"
-	--[[Translation missing --]]
-	L["Smooth Progress"] = "Smooth Progress"
+	L["Smooth Progress"] = "부드러운 진행"
 	L["Sort"] = "정렬"
 	L["Sound"] = "소리"
 	L["Sound Channel"] = "소리 채널"
@@ -500,6 +523,8 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Total Time Precision"] = "전체 시간 정확도"
 	L["Trigger"] = "활성 조건"
 	L["Trigger %d"] = "%d 활성 조건"
+	--[[Translation missing --]]
+	L["Trigger %s"] = "Trigger %s"
 	L["Trigger:"] = "활성 조건:"
 	--[[Translation missing --]]
 	L["True"] = "True"
