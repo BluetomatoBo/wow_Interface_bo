@@ -387,7 +387,7 @@ function private.GetProfitCellText(self, data, currentTitleIndex)
 	end
 
 	if value then
-		return TSMAPI_FOUR.Money.ToString(value, color , "OPT_PAD")
+		return TSM.Money.ToString(value, color)
 	else
 		return ""
 	end

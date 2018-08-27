@@ -153,13 +153,13 @@ function private.GetCostText(row)
 	local costItemString, price = row:GetFields("costItemString", "price")
 	if costItemString == "" then
 		-- just a price
-		return TSMAPI_FOUR.Money.ToString(price, "OPT_PAD", "OPT_SEP")
+		return TSM.Money.ToString(price)
 	elseif price == 0 then
 		-- just an extended cost string
 		return costItemString
 	else
 		-- both
-		return TSMAPI_FOUR.Money.ToString(price, "OPT_PAD", "OPT_SEP").." "..costItemString
+		return TSM.Money.ToString(price).." "..costItemString
 	end
 end
 

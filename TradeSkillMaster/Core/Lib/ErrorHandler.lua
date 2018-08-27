@@ -119,7 +119,7 @@ function private.ErrorHandler(msg, thread, errorTime)
 	local errMsgParts = {}
 
 	-- build stack trace with locals and get addon name
-	local addonName = "?"
+	local addonName = nil
 	local errLocation = strmatch(msg, "[A-Za-z]+%.lua:[0-9]+")
 	local stackInfo = { color.."Stack Trace:|r" }
 	local stackStarted = false
@@ -136,9 +136,9 @@ function private.ErrorHandler(msg, thread, errorTime)
 			else
 				stackStarted = (i > (thread and 1 or 4) and not strmatch(stackLine, "^%[C%]:"))
 			end
-			if stackStarted then
-				addonName = private.IsTSMAddon(stackLine) or (isSilent and "TradeSkillMaster")
-			end
+		end
+		if not addonName and stackStarted and strmatch(stackLine, "[A-Za-z]+%.lua:[0-9]+") then
+			addonName = private.IsTSMAddon(stackLine) or (isSilent and "TradeSkillMaster")
 		end
 		if stackStarted then
 			stackLine = gsub(stackLine, "%.%.%.T?r?a?d?e?S?k?i?l?lM?a?ster([_A-Za-z]*)\\", "TradeSkillMaster%1\\")

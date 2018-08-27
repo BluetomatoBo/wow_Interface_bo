@@ -163,7 +163,7 @@ function private.DrawOtherPage(recordType)
 					:SetFont(TSM.UI.Fonts.RobotoMedium)
 					:SetFontHeight(12)
 					:SetJustifyH("RIGHT")
-					:SetTextInfo("amount", private.TableGetAmountText)
+					:SetTextInfo("amount", TSM.Money.ToString)
 					:SetSortInfo("amount")
 					:Commit()
 				:NewColumn("time")
@@ -189,10 +189,6 @@ end
 
 function private.TableGetTypeText(typeValue)
 	return TYPE_STR_LOOKUP[typeValue]
-end
-
-function private.TableGetAmountText(amount)
-	return TSMAPI_FOUR.Money.ToString(amount, "OPT_PAD", "OPT_SEP")
 end
 
 function private.TableGetTimeText(timevalue)

@@ -13,7 +13,6 @@
 local _, TSM = ...
 local ShoppingScrollingTable = TSMAPI_FOUR.Class.DefineClass("ShoppingScrollingTable", TSM.UI.AuctionScrollingTable)
 TSM.UI.ShoppingScrollingTable = ShoppingScrollingTable
-local private = { rowFrameLookup = {} }
 
 
 
@@ -25,44 +24,23 @@ function ShoppingScrollingTable.__init(self)
 	self.__super:__init()
 
 	self._highestFilterId = 0
-	self._onPostButtonClickHandler = nil
 end
 
 function ShoppingScrollingTable.Acquire(self)
 	self._highestFilterId = 0
 	self.__super:Acquire()
 	self:GetScrollingTableInfo()
-		:NewColumn("post")
-			:SetTitleIcon("iconPack.12x12/Post")
-			:SetWidth(12)
-			:SetFont(TSM.UI.Fonts.MontserratRegular)
-			:SetFontHeight(12)
-			:SetJustifyH("CENTER")
-			:SetSortValueFunction(private.PostSortFunction)
-			:Commit()
 		:Commit()
-end
-
-function ShoppingScrollingTable.Release(self)
-	self._onPostButtonClickHandler = nil
-	for _, row in ipairs(self._rows) do
-		private.rowFrameLookup[row._frame] = nil
-	end
-	self.__super:Release()
 end
 
 --- Registers a script handler.
 -- @tparam ShoppingScrollingTable self The shopping scrolling table object
--- @tparam string script The script to register for (supported scripts: `OnPostButtonClick`)
+-- @tparam string script The script to register for
 -- @tparam function handler The script handler which will be called with the shopping scrolling table object followed by
 -- any arguments to the script
 -- @treturn ShoppingScrollingTable The shopping scrolling table object
 function ShoppingScrollingTable.SetScript(self, script, handler)
-	if script == "OnPostButtonClick" then
-		self._onPostButtonClickHandler = handler
-	else
-		self.__super:SetScript(script, handler)
-	end
+	self.__super:SetScript(script, handler)
 	return self
 end
 
@@ -78,7 +56,7 @@ function ShoppingScrollingTable.SelectNextRecord(self)
 		local prevHash = self._data[i-1]
 		if prevHash == self._selection then
 			nextItemHash = hash
-			while self._baseRecordByHash[hash].seller == UnitName("player") and self._data[i + 1] do
+			while TSMAPI_FOUR.PlayerInfo.IsPlayer(self._baseRecordByHash[hash].seller, true, true, true) and self._data[i + 1] do
 				hash = self._data[i + 1]
 			end
 			if self._baseRecordByHash[hash].baseItemString == self._baseRecordByHash[prevHash].baseItemString then
@@ -113,54 +91,49 @@ end
 function ShoppingScrollingTable._GetTableRow(self, isHeader)
 	local row = self.__super:_GetTableRow(isHeader)
 	if not isHeader then
-		private.rowFrameLookup[row._frame] = row
+		local badge = row:_GetTexture()
+		TSM.UI.TexturePacks.SetTextureAndSize(badge, "uiFrames.AuctionCounterTexture")
+		badge:SetPoint("LEFT", row._texts.item, "RIGHT", 0, 0)
+		row._icons.badge = badge
 
-		-- add the post button
-		local post = row:_GetTexture()
-		TSM.UI.TexturePacks.SetTextureAndSize(post, "iconPack.12x12/Post")
-		post:SetPoint("CENTER", row._texts.post, -4, 0)
-		row._icons.post = post
-
-		local postBtn = row:_GetButton()
-		postBtn:SetAllPoints(post)
-		postBtn:SetScript("OnClick", private.PostBtnOnClick)
-		row._buttons.post = postBtn
+		local num = row:_GetFontString()
+		num:SetSize(23, 11)
+		num:SetPoint("CENTER", row._icons.badge, "CENTER", 1, 0)
+		num:SetFont(TSM.UI.Fonts.MontserratBold, 9)
+		num:SetTextColor(0.18, 0.18, 0.18, 1.0)
+		num:SetJustifyH("CENTER")
+		num:SetJustifyV("MIDDLE")
+		row._texts.num = num
 	end
 	return row
 end
 
 function ShoppingScrollingTable._SetRowData(self, row, data)
 	local record = self._baseRecordByHash[data]
-	local numBags = TSMAPI_FOUR.Inventory.GetBagQuantity(record:GetField("itemString"))
-	if numBags > 0 then
-		row._icons.post:Show()
-		row._buttons.post:Show()
+	local baseItemString = record:GetField("baseItemString")
+	local numAuctions = self._numAuctionsByItem[baseItemString]
+	local isIndented = self._expanded[baseItemString] and record ~= numAuctions
+	if not isIndented and self._numAuctionsByItem[baseItemString] > 1 then
+		if self._expanded[baseItemString] then
+			row._icons.badge:Hide()
+			row._texts.num:Hide()
+		else
+			row._icons.badge:Show()
+			if numAuctions > 999 then
+				row._texts.num:SetText("999+")
+			else
+				row._texts.num:SetText(numAuctions)
+			end
+			row._texts.num:Show()
+		end
 	else
-		row._icons.post:Hide()
-		row._buttons.post:Hide()
+		row._icons.badge:Hide()
+		row._texts.num:Hide()
+	end
+	if TSMAPI_FOUR.PlayerInfo.IsPlayer(record.seller, true, true, true) then
+		row._texts.seller:SetTextColor(0.3, 0.6, 1, 1.0)
+	else
+		row._texts.seller:SetTextColor(1, 1, 1, 1.0)
 	end
 	self.__super:_SetRowData(row, data)
-end
-
-
-
--- ============================================================================
--- Private Helper Functions
--- ============================================================================
-
-function private.PostSortFunction(_, record)
-	return TSMAPI_FOUR.Inventory.GetBagQuantity(record:GetField("itemString"))
-end
-
-
-
--- ============================================================================
--- Local Script Handlers
--- ============================================================================
-
-function private.PostBtnOnClick(button)
-	local self = private.rowFrameLookup[button:GetParent()]
-	local scrollingTable = self._scrollingTable
-	local record = scrollingTable._baseRecordByHash[self:GetData()]
-	scrollingTable:_onPostButtonClickHandler(record)
 end

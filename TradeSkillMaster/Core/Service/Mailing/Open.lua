@@ -148,9 +148,9 @@ function private.PrintOpenMailMessage(index)
 		playerName = playerName or "?"
 		if invoiceType == "buyer" then
 			local itemLink =  TSM.Inventory.MailTracking.GetInboxItemLink(index) or itemName
-			TSM:Printf(L["Bought %sx%d for %s from %s"], itemLink, quantity, TSMAPI_FOUR.Money.ToString(bid, "|cffff0000"), playerName)
+			TSM:Printf(L["Bought %sx%d for %s from %s"], itemLink, quantity, TSM.Money.ToString(bid, "|cffff0000"), playerName)
 		elseif invoiceType == "seller" then
-			TSM:Printf(L["Sold [%s]x%d for %s to %s"], itemName, quantity, TSMAPI_FOUR.Money.ToString(bid - ahcut, "|cff00ff00"), playerName)
+			TSM:Printf(L["Sold [%s]x%d for %s to %s"], itemName, quantity, TSM.Money.ToString(bid - ahcut, "|cff00ff00"), playerName)
 		end
 	elseif hasItem then
 		local itemLink
@@ -175,14 +175,14 @@ function private.PrintOpenMailMessage(index)
 		elseif hasItem == 1 and quantity > 0 and (subject == format(AUCTION_REMOVED_MAIL_SUBJECT.."x%d", itemName, quantity) or subject == format(AUCTION_REMOVED_MAIL_SUBJECT, itemName)) then
 			TSM:Printf(L["Cancelled auction of %sx%d"], itemLink, quantity)
 		elseif cod > 0 then
-			TSM:Printf(L["%s sent you a COD of %s for %s"], sender, TSMAPI_FOUR.Money.ToString(cod, "|cffff0000"), itemDesc)
+			TSM:Printf(L["%s sent you a COD of %s for %s"], sender, TSM.Money.ToString(cod, "|cffff0000"), itemDesc)
 		elseif money > 0 then
-			TSM:Printf(L["%s sent you %s and %s"], sender, itemDesc, TSMAPI_FOUR.Money.ToString(money, "|cff00ff00"))
+			TSM:Printf(L["%s sent you %s and %s"], sender, itemDesc, TSM.Money.ToString(money, "|cff00ff00"))
 		else
 			TSM:Printf(L["%s sent you %s"], sender, itemDesc)
 		end
 	elseif money > 0 then
-		TSM:Printf(L["%s sent you %s"], sender, TSMAPI_FOUR.Money.ToString(money, "|cff00ff00"))
+		TSM:Printf(L["%s sent you %s"], sender, TSM.Money.ToString(money, "|cff00ff00"))
 	elseif subject then
 		TSM:Printf(L["%s sent you a message: %s"], sender, subject)
 	end

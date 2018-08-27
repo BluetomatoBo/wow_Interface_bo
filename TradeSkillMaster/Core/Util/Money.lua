@@ -9,6 +9,9 @@
 --- Money TSMAPI_FOUR Functions
 -- @module Money
 
+local _, TSM = ...
+TSM.Money = {}
+local Money = TSM.Money
 TSMAPI_FOUR.Money = {}
 local private =  { textMoneyParts = {} }
 local GOLD_ICON = "|TInterface\\MoneyFrame\\UI-GoldIcon:0|t"
@@ -20,6 +23,39 @@ local COPPER_TEXT = "|cffeda55fc|r"
 local GOLD_TEXT_DISABLED = "|cff5d5222g|r"
 local SILVER_TEXT_DISABLED = "|cff464646s|r"
 local COPPER_TEXT_DISABLED = "|cff402d22c|r"
+
+
+
+-- ============================================================================
+-- Module Functions
+-- ============================================================================
+
+--- Converts a numeric money value (in copper) to a string for display in the UI.
+-- Supported options:
+--
+-- * OPT\_ICON Use texture icons instead of g/s/c letters
+-- * OPT\_TRIM Remove any non-significant 0 valued denominations (i.e. "1g" instead of "1g 0s 0c")
+-- * OPT\_DISABLE Uses a muted color from the denomination text (not allowed with "OPT\_ICON" or "OPT\_NO\_COLOR")
+-- @tparam number value The money value to be converted in copper (100 copper per silver, 100 silver per gold)
+-- @tparam[opt] string color A color prefix to use for the numbers in the result (i.e. "|cff00ff00" for red)
+-- @param[opt] ... One or more options to modify the format of the result
+-- @return The string representation of the specified money value
+function Money.ToString(value, color, ...)
+	if color then
+		assert(strmatch(color, "^\124cff[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]$"))
+		return TSMAPI_FOUR.Money.ToString(value, color, "OPT_SEP", "OPT_PAD", ...)
+	else
+		return TSMAPI_FOUR.Money.ToString(value, "OPT_SEP", "OPT_PAD", ...)
+	end
+end
+
+--- Converts a string money value to a number value (in copper).
+-- The value passed to this function can contain colored text, but must use g/s/c for the denominations and not icons.
+-- @tparam string value The money value to be converted as a string
+-- @treturn string The numeric representation of the specified money value
+function Money.FromString(value)
+	return TSMAPI_FOUR.Money.FromString(value)
+end
 
 
 
@@ -44,26 +80,26 @@ function TSMAPI_FOUR.Money.ToString(money, ...)
 	money = tonumber(money)
 	if not money then return end
 	local color, isIcon, pad, trim, disabled, noColor, sep = nil, nil, nil, nil, nil, nil, nil
-	for i=1, select('#', ...) do
+	for i = 1, select('#', ...) do
 		local opt = select(i, ...)
-		if type(opt) == "string" then
-			if opt == "OPT_ICON" then
-				isIcon = true
-			elseif opt == "OPT_PAD" then
-				pad = true
-			elseif opt == "OPT_TRIM" then
-				trim = true
-			elseif opt == "OPT_DISABLE" then
-				disabled = true
-			elseif opt == "OPT_NO_COLOR" then
-				noColor = true
-			elseif opt == "OPT_SEP" then
-				sep = true
-			elseif strmatch(strlower(opt), "^|c[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]$") then
-				color = opt
-			else
-				assert(false, "Invalid option: "..opt)
-			end
+		if opt == nil then
+			-- pass
+		elseif opt == "OPT_ICON" then
+			isIcon = true
+		elseif opt == "OPT_PAD" then
+			pad = true
+		elseif opt == "OPT_TRIM" then
+			trim = true
+		elseif opt == "OPT_DISABLE" then
+			disabled = true
+		elseif opt == "OPT_NO_COLOR" then
+			noColor = true
+		elseif opt == "OPT_SEP" then
+			sep = true
+		elseif strmatch(strlower(opt), "^|c[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]$") then
+			color = opt
+		else
+			error("Invalid option: "..tostring(opt))
 		end
 	end
 	assert(not (isIcon and disabled), "Setting both OPT_ICON and OPT_DISABLE is not allowed")
@@ -137,6 +173,8 @@ end
 function TSMAPI_FOUR.Money.FromString(value)
 	-- remove any colors
 	value = gsub(gsub(strtrim(value), "\124c([0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F])", ""), "\124r", "")
+	-- remove any separators
+	value = gsub(value, TSMAPI_FOUR.Util.StrEscape(LARGE_NUMBER_SEPERATOR), "")
 
 	-- extract gold/silver/copper values
 	local gold = tonumber(strmatch(value, "([0-9]+)g"))

@@ -11,15 +11,13 @@ local Inventory = TSM.MainUI.Ledger:NewPackage("Inventory")
 local L = TSM.L
 local private = {
 	query = nil,
-	characterList = {},
-	characterFilter = ALL,
-	guildList = {},
-	guildFilter = "",
+	searchFilter = "",
 	groupList = {},
-	groupFilter = "",
+	groupFilter = ALL,
 	valuePriceSource = "dbmarket",
-	totalValueString = TSMAPI_FOUR.Money.ToString("0", "OPT_PAD", "OPT_SEP")
 }
+local NAN = math.huge * 0
+local NAN_STR = tostring(NAN)
 
 
 
@@ -38,36 +36,29 @@ end
 -- ============================================================================
 
 function private.DrawInventoryPage()
-	if true then
-		return TSMAPI_FOUR.UI.NewElement("Frame", "content")
-			:SetLayout("VERTICAL")
-			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "text")
-				:SetStyle("justifyH", "CENTER")
-				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
-				:SetStyle("fontHeight", 20)
-				:SetText("Inventory Viewer is coming soon!")
-			)
+	if not private.query then
+		private.query = TSM.Inventory.CreateQuery()
+			:VirtualField("totalValue", "number", private.TotalValueVirtualField)
+			:InnerJoin(TSM.ItemInfo.GetDBForJoin(), "itemString")
+			:LeftJoin(TSM.Groups.GetItemDBForJoin(), "itemString")
+			:OrderBy("name", true)
 	end
-	-- luacheck: ignore 511
-
-	for guild in pairs(TSMAPI_FOUR.PlayerInfo.GetGuilds()) do
-		tinsert(private.guildList, guild)
-	end
+	private.UpdateQuery()
 
 	wipe(private.groupList)
+	tinsert(private.groupList, ALL)
 	for _, groupPath in TSM.Groups.GroupIterator() do
 		tinsert(private.groupList, groupPath)
 	end
 
-	-- private.UpdateQuery()
-
 	return TSMAPI_FOUR.UI.NewElement("Frame", "content")
 		:SetLayout("VERTICAL")
-		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "firstRow")
+		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "row1Labels")
 			:SetLayout("HORIZONTAL")
 			:SetStyle("height", 14)
-			:SetStyle("padding.left", 8)
-			:SetStyle("padding.right", 8)
+			:SetStyle("margin.left", 8)
+			:SetStyle("margin.right", 8)
+			:SetStyle("margin.bottom", 4)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "search")
 				:SetStyle("margin.right", 16)
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
@@ -75,93 +66,73 @@ function private.DrawInventoryPage()
 				:SetText(L["ITEM SEARCH"])
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "group")
-				:SetStyle("margin.right", 16)
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
 				:SetStyle("fontHeight", 10)
 				:SetText(strupper(GROUP))
 			)
-			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "characters")
-				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
-				:SetStyle("fontHeight", 10)
-				:SetText(L["CHARACTERS"])
-			)
 		)
-		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "firstRowFields")
+		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "row1")
 			:SetLayout("HORIZONTAL")
 			:SetStyle("height", 26)
-			:SetStyle("margin.top", 4)
-			:SetStyle("margin.bottom", 24)
-			:SetStyle("padding.left", 8)
-			:SetStyle("padding.right", 8)
+			:SetStyle("margin.left", 8)
+			:SetStyle("margin.right", 8)
+			:SetStyle("margin.bottom", 8)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "searchInput")
 				:SetStyle("margin.right", 16)
-				:SetHintText(L["Search for Item"])
 				:SetStyle("hintTextColor", "#e2e2e2")
 				:SetStyle("hintJustifyH", "LEFT")
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
+				:SetHintText(L["Filter by Keyword"])
+				:SetText(private.searchFilter)
 				:SetScript("OnEnterPressed", private.SearchFilterChanged)
 			)
-			:AddChild(TSMAPI_FOUR.UI.NewElement("SelectionDropdown", "groupInput")
-				:SetStyle("margin.right", 16)
-				:SetHintText(L["None"])
+			:AddChild(TSMAPI_FOUR.UI.NewElement("SelectionDropdown", "groupDropdown")
+				:SetHintText(ALL)
 				:SetItems(private.groupList)
 				:SetScript("OnSelectionChanged", private.GroupDropdownOnSelectionChanged)
 			)
-			:AddChild(TSMAPI_FOUR.UI.NewElement("SelectionDropdown", "characterSelect")
-				:SetHintText(L["None"])
-				:SetItems(private.characterList)
-				:SetSelectedItem(private.characterFilter)
-				:SetScript("OnSelectionChanged", private.CharacterDropdownOnSelectionChanged)
-			)
 		)
-		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "secondRow")
+		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "row2")
 			:SetLayout("HORIZONTAL")
 			:SetStyle("height", 14)
-			:SetStyle("padding.left", 8)
-			:SetStyle("padding.right", 8)
-			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "guilds")
-				:SetStyle("margin.right", 16)
-				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
-				:SetStyle("fontHeight", 10)
-				:SetText(L["GUILDS"])
-			)
-			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "valuePriceSource")
+			:SetStyle("margin.left", 8)
+			:SetStyle("margin.right", 8)
+			:SetStyle("margin.bottom", 4)
+			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "search")
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
 				:SetStyle("fontHeight", 10)
 				:SetText(L["VALUE PRICE SOURCE"])
 			)
 		)
-		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "secondRowFields")
+		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "row2")
 			:SetLayout("HORIZONTAL")
 			:SetStyle("height", 26)
-			:SetStyle("margin.top", 4)
-			:SetStyle("margin.bottom", 24)
-			:SetStyle("padding.left", 8)
-			:SetStyle("padding.right", 8)
-			:AddChild(TSMAPI_FOUR.UI.NewElement("SelectionDropdown", "guildsInput")
-				:SetStyle("margin.right", 16)
-				-- :SetScript("OnSelectionChanged", private.RarityDropdownOnSelectionChanged)
-				:SetItems(private.guildList)
-				:SetHintText(L["None"])
-			)
-			:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "valuePriceSourceInput")
-				:SetText(private.valuePriceSource)
-				-- :SetHintText(L["Search for Item"])
-				:SetStyle("hintTextColor", "#e2e2e2")
-				:SetStyle("hintJustifyH", "LEFT")
+			:SetStyle("margin.left", 8)
+			:SetStyle("margin.right", 8)
+			:SetStyle("margin.bottom", 8)
+			:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "input")
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
-				-- :SetScript("OnEnterPressed", private.SearchFilterChanged)
+				:SetSettingInfo(private, "valuePriceSource", private.CheckCustomPrice)
+				:SetScript("OnEnterPressed", private.ValuePriceSourceInputOnEnterPressed)
 			)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "totalValueRow")
 			:SetLayout("HORIZONTAL")
-			:SetStyle("padding.left", 8)
-			:SetStyle("height", 14)
-			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "totalValue")
-				:SetStyle("margin.bottom", 24)
+			:SetStyle("height", 22)
+			:SetStyle("margin.left", 8)
+			:SetStyle("margin.right", 8)
+			:SetStyle("margin.bottom", 8)
+			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "label")
+				:SetStyle("autoWidth", true)
+				:SetStyle("margin.right", 16)
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
 				:SetStyle("fontHeight", 16)
-				:SetText(L["Total Value of All Items: "] .. private.totalValueString)
+				:SetText(L["Total Value of All Items"]..":")
+			)
+			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "value")
+				:SetStyle("font", TSM.UI.Fonts.RobotoMedium)
+				:SetStyle("fontHeight", 14)
+				:SetText(TSM.Money.ToString(private.GetTotalValue()))
 			)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "accountingScrollingTableFrame")
@@ -180,8 +151,9 @@ function private.DrawInventoryPage()
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
 						:SetJustifyH("LEFT")
-						-- :SetTextFunction(private.TableGetItemText)
-						-- :SetSortValueFunction(private.TableGetItemSortValue)
+						:SetTextInfo("itemString", TSMAPI_FOUR.Item.GetLink)
+						:SetTooltipInfo("itemString")
+						:SetSortInfo("name")
 						:Commit()
 					:NewColumn("totalItems")
 						:SetTitles(L["Total"])
@@ -189,53 +161,53 @@ function private.DrawInventoryPage()
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
 						:SetJustifyH("RIGHT")
-						-- :SetTextFunction(private.TableGetPlayerText)
-						-- :SetSortValueFunction(private.TableGetPlayerSortValue)
+						:SetTextInfo("totalQuantity")
+						:SetSortInfo("totalQuantity")
 						:Commit()
 					:NewColumn("bags")
 						:SetTitles(L["Bags"])
 						:SetWidth(60)
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
-						:SetJustifyH("LEFT")
-						-- :SetTextFunction(private.TableGetTypeText)
-						-- :SetSortValueFunction(private.TableGetTypeSortValue)
+						:SetJustifyH("RIGHT")
+						:SetTextInfo("bagQuantity")
+						:SetSortInfo("bagQuantity")
 						:Commit()
 					:NewColumn("banks")
 						:SetTitles(L["Banks"])
 						:SetWidth(60)
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
-						:SetJustifyH("LEFT")
-						-- :SetTextFunction(private.TableGetStackText)
-						-- :SetSortValueFunction(private.TableGetStackSortValue)
+						:SetJustifyH("RIGHT")
+						:SetTextInfo("bankQuantity")
+						:SetSortInfo("bankQuantity")
 						:Commit()
 					:NewColumn("mail")
 						:SetTitles(L["Mail"])
 						:SetWidth(60)
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
-						:SetJustifyH("LEFT")
-						-- :SetTextFunction(private.TableGetAuctionsText)
-						-- :SetSortValueFunction(private.TableGetAuctionsSortValue)
+						:SetJustifyH("RIGHT")
+						:SetTextInfo("mailQuantity")
+						:SetSortInfo("mailQuantity")
 						:Commit()
 					:NewColumn("guildVault")
 						:SetTitles(L["GVault"])
 						:SetWidth(60)
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
-						:SetJustifyH("LEFT")
-						-- :SetTextFunction(private.TableGetPerItemText)
-						-- :SetSortValueFunction(private.TableGetPerItemSortValue)
+						:SetJustifyH("RIGHT")
+						:SetTextInfo("guildQuantity")
+						:SetSortInfo("guildQuantity")
 						:Commit()
 					:NewColumn("auctionHouse")
 						:SetTitles(L["AH"])
 						:SetWidth(60)
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
-						:SetJustifyH("LEFT")
-						-- :SetTextFunction(private.TableGetTimeframeText)
-						-- :SetSortValueFunction(private.TableGetTimeframeSortValue)
+						:SetJustifyH("RIGHT")
+						:SetTextInfo("auctionQuantity")
+						:SetSortInfo("auctionQuantity")
 						:Commit()
 					:NewColumn("totalValue")
 						:SetTitles(L["Total Value"])
@@ -243,12 +215,11 @@ function private.DrawInventoryPage()
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
 						:SetJustifyH("RIGHT")
-						-- :SetTextFunction(private.TableGetTimeframeText)
-						-- :SetSortValueFunction(private.TableGetTimeframeSortValue)
+						:SetTextInfo("totalValue", private.TableGetTotalValueText)
+						:SetSortInfo("totalValue")
 						:Commit()
 					:Commit()
-				-- :SetQuery(private.query)
-
+				:SetQuery(private.query)
 			)
 		)
 end
@@ -259,23 +230,89 @@ end
 -- Local Script Handlers
 -- ============================================================================
 
-function private.DropdownChangedCommon(dropdown)
-	-- private.UpdateQuery()
-	-- dropdown:GetElement("__parent.__parent.accountingScrollingTableFrame.scrollingTable")
-	-- 	:SetQuery(private.query, true)
+function private.FilterChangedCommon(element)
+	private.UpdateQuery()
+	element:GetElement("__parent.__parent.accountingScrollingTableFrame.scrollingTable")
+		:SetQuery(private.query, true)
+	element:GetElement("__parent.__parent.totalValueRow.value")
+		:SetText(TSM.Money.ToString(private.GetTotalValue()))
+		:Draw()
 end
 
-function private.CharacterDropdownOnSelectionChanged(dropdown)
-	private.characterFilter = dropdown:GetSelectedItem()
-	private.DropdownChangedCommon(dropdown)
+function private.SearchFilterChanged(input)
+	private.searchFilter = strtrim(input:GetText())
+	private.FilterChangedCommon(input)
 end
 
 function private.GroupDropdownOnSelectionChanged(dropdown)
 	private.groupFilter = dropdown:GetSelectedItem()
-	private.DropdownChangedCommon(dropdown)
+	private.FilterChangedCommon(dropdown)
 end
 
-function private.SearchFilterChanged(dropdown)
-	private.searchInput = dropdown:GetSelectedItem()
-	private.DropdownChangedCommon(dropdown)
+function private.ValuePriceSourceInputOnEnterPressed(input)
+	private.FilterChangedCommon(input)
+end
+
+
+
+-- ============================================================================
+-- Scrolling Table Helper Functions
+-- ============================================================================
+
+function private.TableGetTotalValueText(totalValue)
+	return tostring(totalValue) == NAN_STR and "" or TSM.Money.ToString(totalValue)
+end
+
+
+
+-- ============================================================================
+-- Private Helper Functions
+-- ============================================================================
+
+function private.CheckCustomPrice(value)
+	local isValid, err = TSMAPI_FOUR.CustomPrice.Validate(value)
+	if isValid then
+		return true
+	else
+		TSM:Print(L["Invalid custom price."].." "..err)
+		return false
+	end
+end
+
+function private.TotalValueVirtualField(row)
+	local itemString, totalQuantity = row:GetFields("itemString", "totalQuantity")
+	local price = TSMAPI_FOUR.CustomPrice.GetValue(private.valuePriceSource, itemString)
+	if not price then
+		return NAN
+	end
+	return price * totalQuantity
+end
+
+function private.GetTotalValue()
+	-- can't lookup the value of items while the query is iteratoring, so grab the list of items first
+	local itemQuantities = TSMAPI_FOUR.Util.AcquireTempTable()
+	for _, row in private.query:Iterator() do
+		local itemString, total = row:GetFields("itemString", "totalQuantity")
+		itemQuantities[itemString] = total
+	end
+	local totalValue = 0
+	for itemString, total in pairs(itemQuantities) do
+		local price = TSMAPI_FOUR.CustomPrice.GetValue(private.valuePriceSource, itemString)
+		if price then
+			totalValue = totalValue + price * total
+		end
+	end
+	TSMAPI_FOUR.Util.ReleaseTempTable(itemQuantities)
+	return totalValue
+end
+
+function private.UpdateQuery()
+	private.query:ResetFilters()
+	if private.searchFilter ~= "" then
+		private.query:Matches("name", TSMAPI_FOUR.Util.StrEscape(private.searchFilter))
+	end
+	if private.groupFilter ~= ALL then
+		private.query:IsNotNil("groupPath")
+		private.query:Matches("groupPath", private.groupFilter)
+	end
 end

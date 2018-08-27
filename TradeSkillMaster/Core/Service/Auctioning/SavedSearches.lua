@@ -110,35 +110,31 @@ end
 function SavedSearches.RecordSearch(searchList, searchType)
 	assert(searchType == "postItems" or searchType == "postGroups" or searchType == "cancelGroups")
 	local filter = table.concat(searchList, FILTER_SEP)
-	local found = false
 	for i, data in ipairs(TSM.db.global.userData.savedAuctioningSearches) do
-		if data.filter == filter then
+		if data.filter == filter and data.searchType == searchType then
 			data.lastSearch = time()
 			local row = private.db:GetUniqueRow("index", i)
 			row:SetField("lastSearch", data.lastSearch)
 				:Update()
 			row:Release()
-			found = true
-			break
+			return
 		end
 	end
-	if not found then
-		local data = {
-			filter = filter,
-			lastSearch = time(),
-			searchType = searchType,
-			isFavorite = nil,
-		}
-		tinsert(TSM.db.global.userData.savedAuctioningSearches, data)
-		private.db:NewRow()
-			:SetField("index", #TSM.db.global.userData.savedAuctioningSearches)
-			:SetField("lastSearch", data.lastSearch)
-			:SetField("isFavorite", data.isFavorite and true or false)
-			:SetField("searchType", data.searchType)
-			:SetField("filter", data.filter)
-			:SetField("name", private.GetSearchName(data.filter, data.searchType))
-			:Create()
-	end
+	local data = {
+		filter = filter,
+		lastSearch = time(),
+		searchType = searchType,
+		isFavorite = nil,
+	}
+	tinsert(TSM.db.global.userData.savedAuctioningSearches, data)
+	private.db:NewRow()
+		:SetField("index", #TSM.db.global.userData.savedAuctioningSearches)
+		:SetField("lastSearch", data.lastSearch)
+		:SetField("isFavorite", data.isFavorite and true or false)
+		:SetField("searchType", data.searchType)
+		:SetField("filter", data.filter)
+		:SetField("name", private.GetSearchName(data.filter, data.searchType))
+		:Create()
 end
 
 function SavedSearches.FiltersToTable(dbRow, tbl)

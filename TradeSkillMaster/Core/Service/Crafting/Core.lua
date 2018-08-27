@@ -589,7 +589,7 @@ function Crafting.RestockHelp(link)
 		end
 
 		if profit < minProfit then
-			return print(format(L["The profit of this item (%s) is below the min profit (%s)."], TSMAPI_FOUR.Money.ToString(profit), TSMAPI_FOUR.Money.ToString(minProfit)))
+			return print(format(L["The profit of this item (%s) is below the min profit (%s)."], TSM.Money.ToString(profit), TSM.Money.ToString(minProfit)))
 		end
 	end
 

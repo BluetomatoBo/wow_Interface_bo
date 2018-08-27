@@ -128,3 +128,33 @@ function TSM_API.SetActiveProfile(profile)
 	end
 	return TSM.db:SetProfile(profile)
 end
+
+
+
+-- ============================================================================
+-- Util
+-- ============================================================================
+
+--- Converts a money value to a formatted, human-readable string.
+-- @tparam number value The money value in copper to be converted
+-- @treturn string The formatted money string
+function TSM_API.FormatMoneyString(value)
+	if type(value) ~= "number" then
+		error("Invalid 'value' argument type (must be a number): "..tostring(value), 2)
+	end
+	local result = TSM.Money.ToString(value)
+	assert(result)
+	return result
+end
+
+--- Converts a formatted, human-readable money string to a value.
+-- @tparam string str The formatted money string
+-- @treturn number The money value in copper
+function TSM_API.ParseMoneyString(str)
+	if type(str) ~= "string" then
+		error("Invalid 'str' argument type (must be a string): "..tostring(str), 2)
+	end
+	local result = TSM.Money.FromString(str)
+	assert(result)
+	return result
+end

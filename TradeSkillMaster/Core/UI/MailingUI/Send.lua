@@ -136,7 +136,7 @@ function private.GetSendFrame()
 					:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
 					:SetStyle("fontHeight", 10)
 					:SetStyle("justifyH", "RIGHT")
-					:SetText(L["POSTAGE"]..": "..TSMAPI_FOUR.Money.ToString(30, "OPT_PAD", "OPT_SEP"))
+					:SetText(L["POSTAGE"]..": "..TSM.Money.ToString(30))
 				)
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("BorderedFrame", "dragBox")
@@ -250,7 +250,7 @@ function private.GetSendFrame()
 					:SetStyle("width", 169)
 					:SetStyle("height", 20)
 					:SetStyle("justifyH", "RIGHT")
-					:SetText(TSMAPI_FOUR.Money.ToString(private.money, "OPT_PAD", "OPT_SEP"))
+					:SetText(TSM.Money.ToString(private.money))
 					:SetScript("OnTextChanged", private.MoneyOnTextChanged)
 					:SetScript("OnEnterPressed", private.MoneyValueConvert)
 					:SetScript("OnEscapePressed", private.MoneyValueConvert)
@@ -780,7 +780,7 @@ end
 
 function private.MoneyValueConvert(input)
 	input:SetFocused(false)
-	input:SetText(TSMAPI_FOUR.Money.ToString(private.money, "OPT_PAD", "OPT_SEP"))
+	input:SetText(TSM.Money.ToString(private.money))
 		:Draw()
 end
 
@@ -961,7 +961,7 @@ function private.FSMCreate()
 		local size = private.query:Count()
 
 		if size > 0 then
-			postage:SetText(L["POSTAGE"]..": "..TSMAPI_FOUR.Money.ToString(30 * size, "OPT_PAD", "OPT_SEP"))
+			postage:SetText(L["POSTAGE"]..": "..TSM.Money.ToString(30 * size))
 				:Draw()
 
 			bigText:Hide()
@@ -971,7 +971,7 @@ function private.FSMCreate()
 			cod:SetDisabled(false)
 				:Draw()
 		else
-			postage:SetText(L["POSTAGE"]..": "..TSMAPI_FOUR.Money.ToString(30, "OPT_PAD", "OPT_SEP"))
+			postage:SetText(L["POSTAGE"]..": "..TSM.Money.ToString(30))
 				:Draw()
 
 			bigText:Show()
@@ -1026,7 +1026,7 @@ function private.FSMCreate()
 		if redraw and context.frame then
 			context.frame:GetElement("container.name.input"):SetText(private.recipient)
 				:Draw()
-			context.frame:GetElement("container.checkbox.moneyInput"):SetText(TSMAPI_FOUR.Money.ToString(private.money, "OPT_PAD", "OPT_SEP"))
+			context.frame:GetElement("container.checkbox.moneyInput"):SetText(TSM.Money.ToString(private.money))
 				:Draw()
 		end
 	end

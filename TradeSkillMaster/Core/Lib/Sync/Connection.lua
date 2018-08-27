@@ -113,6 +113,10 @@ function Connection.Remove(account)
 	TSM.db:RemoveSyncAccount(account)
 end
 
+function Connection.GetConnectedPlayerByAccount(account)
+	return private.connectedPlayer[account]
+end
+
 
 
 -- ============================================================================

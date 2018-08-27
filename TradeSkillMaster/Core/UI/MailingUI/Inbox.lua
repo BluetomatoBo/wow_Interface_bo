@@ -175,7 +175,7 @@ function private.GetInboxMailsFrame()
 				:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
 				:SetStyle("fontHeight", 13)
 				:SetStyle("justifyH", "RIGHT")
-				:SetText(L["Total Gold"]..": "..TSMAPI_FOUR.Money.ToString(0, "OPT_PAD", "OPT_SEP"))
+				:SetText(L["Total Gold"]..": "..TSM.Money.ToString(0))
 			)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "openAllMail")
@@ -457,7 +457,7 @@ function private.ItemQueryOnRowClick(scrollingTable, row)
 	local index = row:GetField("index")
 	local _, _, _, _, _, cod = GetInboxHeaderInfo(index)
 	if cod > 0 then
-		scrollingTable:GetBaseElement():ShowConfirmationDialog(L["Accepting this item will cost"]..":", TSMAPI_FOUR.Money.ToString(cod, "OPT_PAD", "OPT_SEP"), strupper(ACCEPT), function() private.TakeInboxItem(scrollingTable, row) end)
+		scrollingTable:GetBaseElement():ShowConfirmationDialog(L["Accepting this item will cost"]..":", TSM.Money.ToString(cod), strupper(ACCEPT), function() private.TakeInboxItem(scrollingTable, row) end)
 		return
 	end
 
@@ -494,7 +494,7 @@ end
 function private.TakeAllOnClick(button)
 	local _, _, _, _, _, cod = GetInboxHeaderInfo(private.selectedMail)
 	if cod > 0 then
-		button:GetBaseElement():ShowConfirmationDialog(L["Accepting these item(s) will cost"]..":", TSMAPI_FOUR.Money.ToString(cod, "OPT_PAD", "OPT_SEP"), strupper(ACCEPT), private.AutoLootMailItem)
+		button:GetBaseElement():ShowConfirmationDialog(L["Accepting these item(s) will cost"]..":", TSM.Money.ToString(cod), strupper(ACCEPT), private.AutoLootMailItem)
 	else
 		private.AutoLootMailItem()
 	end
@@ -548,7 +548,7 @@ function private.UpdateInboxItemsFrame()
 
 	if cod and cod > 0 then
 		private.frameItems:GetElement("attachments.header.cod"):Show()
-		private.frameItems:GetElement("attachments.header.codAmount"):SetText(TSMAPI_FOUR.Money.ToString(cod, "|cffff0000", "OPT_PAD", "OPT_SEP"))
+		private.frameItems:GetElement("attachments.header.codAmount"):SetText(TSM.Money.ToString(cod, "|cffff0000"))
 		private.frameItems:GetElement("attachments.header.codAmount"):Show()
 	else
 		private.frameItems:GetElement("attachments.header.cod"):Hide()
@@ -603,7 +603,7 @@ end
 function private.FormatInboxItem(row)
 	local itemIndex = row:GetField("itemIndex")
 	if itemIndex == 0 then
-		return L["Gold"]..": "..TSMAPI_FOUR.Money.ToString(row:GetField("itemLink"), "|cff00ff00", "OPT_PAD", "OPT_SEP")
+		return L["Gold"]..": "..TSM.Money.ToString(row:GetField("itemLink"), "|cff00ff00")
 	end
 
 	local coloredItem = TSM.UI.GetColoredItemName(row:GetField("itemLink")) or ""
@@ -787,9 +787,9 @@ function private.FormatMoney(row)
 
 	local gold
 	if cod > 0 then
-		gold = TSMAPI_FOUR.Money.ToString(cod, "|cffff0000", "OPT_PAD", "OPT_SEP")
+		gold = TSM.Money.ToString(cod, "|cffff0000")
 	elseif money > 0 then
-		gold = TSMAPI_FOUR.Money.ToString(money, "|cff00ff00", "OPT_PAD", "OPT_SEP")
+		gold = TSM.Money.ToString(money, "|cff00ff00")
 	end
 
 	return gold or "--"
@@ -859,7 +859,7 @@ function private.FSMCreate()
 			totalGold = totalGold + row:GetField("money")
 		end
 
-		context.frame:GetElement("footer.gold"):SetText(L["Total Gold"]..": "..TSMAPI_FOUR.Money.ToString(totalGold, "OPT_PAD", "OPT_SEP"))
+		context.frame:GetElement("footer.gold"):SetText(L["Total Gold"]..": "..TSM.Money.ToString(totalGold))
 			:Draw()
 	end
 

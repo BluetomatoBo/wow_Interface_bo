@@ -158,7 +158,7 @@ function private.PrintMailMessage(items, target, individually)
 	itemList = strtrim(itemList, ", ")
 
 	if private.isCOD then
-		TSM:Printf(L["Sending %s to %s with a COD of %s"], itemList, target, TSMAPI_FOUR.Money.ToString(private.money, "|cffff0000", "OPT_PAD", "OPT_SEP"))
+		TSM:Printf(L["Sending %s to %s with a COD of %s"], itemList, target, TSM.Money.ToString(private.money, "|cffff0000"))
 	elseif individually then
 		TSM:Printf(L["Sending %s individually to %s"], itemList, target)
 	elseif items then

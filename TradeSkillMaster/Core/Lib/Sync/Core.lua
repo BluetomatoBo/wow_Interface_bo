@@ -19,7 +19,7 @@ local private = {
 -- Module Constants
 -- ============================================================================
 
-Sync.SYNC_VERSION = 4
+Sync.SYNC_VERSION = 5
 Sync.DATA_TYPES = {
 	-- new connection types (40-49)
 	WHOAMI_ACCOUNT = strchar(40),

@@ -144,7 +144,7 @@ function private.SellThread(groups)
 	end
 
 	if TSM.db.global.vendoringOptions.displayMoneyCollected then
-		TSM:Printf(L["Sold %s worth of items."], TSMAPI_FOUR.Money.ToString(totalValue, "OPT_PAD", "OPT_SEP"))
+		TSM:Printf(L["Sold %s worth of items."], TSM.Money.ToString(totalValue))
 	end
 end
 

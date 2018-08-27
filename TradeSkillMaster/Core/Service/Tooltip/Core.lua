@@ -92,9 +92,9 @@ end
 function CachedTooltip.FormatMoney(self, value, color)
 	color = color or "|cffffffff"
 	if TSM.db.global.tooltipOptions.tooltipPriceFormat == "icon" then
-		return TSMAPI_FOUR.Money.ToString(value, color, "OPT_PAD", "OPT_SEP", "OPT_ICON")
+		return TSM.Money.ToString(value, color, "OPT_ICON")
 	else
-		return TSMAPI_FOUR.Money.ToString(value, color, "OPT_PAD", "OPT_SEP")
+		return TSM.Money.ToString(value, color)
 	end
 end
 

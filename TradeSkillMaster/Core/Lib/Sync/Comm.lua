@@ -43,31 +43,35 @@ end
 
 function Comm.SendData(dataType, targetPlayer, data)
 	assert(type(dataType) == "string" and #dataType == 1)
-	local packet = nil
+	local serialized = nil
 	if data then
-		packet = TSMAPI_FOUR.Util.AcquireTempTable()
+		local packet = TSMAPI_FOUR.Util.AcquireTempTable()
 		packet.dt = dataType
 		packet.sa = TSM.db:GetSyncAccountKey()
 		packet.v = TSM.Sync.SYNC_VERSION
 		packet.d = data
+		serialized = LibAceSerializer:Serialize(packet)
+		TSMAPI_FOUR.Util.ReleaseTempTable(packet)
 	else
 		-- send a more compact version if there's no data
-		packet = strjoin(";", dataType, TSM.db:GetSyncAccountKey(), UnitName("player"), TSM.Sync.SYNC_VERSION)
+		serialized = "\240"..strjoin(";", dataType, TSM.db:GetSyncAccountKey(), UnitName("player"), TSM.Sync.SYNC_VERSION)
 	end
 
 	-- We will compress using Huffman, LZW, and no compression separately, validate each one, and pick the shortest valid one.
 	-- This is to deal with a bug in the compression code.
-	local serialized = nil
-	if type(packet) == "table" then
-		serialized = LibAceSerializer:Serialize(packet)
-		TSMAPI_FOUR.Util.ReleaseTempTable(packet)
-	elseif type(packet) == "string" then
-		serialized = "\240"..packet
-	end
 	local encodedData = TSMAPI_FOUR.Util.AcquireTempTable()
-	encodedData[1] = LibCompressAddonEncodeTable:Encode(LibCompress:CompressHuffman(serialized))
-	encodedData[2] = LibCompressAddonEncodeTable:Encode(LibCompress:CompressLZW(serialized))
-	encodedData[3] = LibCompressAddonEncodeTable:Encode("\001"..serialized)
+	local huffmanCompressed = LibCompress:CompressHuffman(serialized)
+	if huffmanCompressed then
+		huffmanCompressed = LibCompressAddonEncodeTable:Encode(huffmanCompressed)
+		tinsert(encodedData, huffmanCompressed)
+	end
+	local lzwCompressed = LibCompress:CompressLZW(serialized)
+	if lzwCompressed then
+		lzwCompressed = LibCompressAddonEncodeTable:Encode(lzwCompressed)
+		tinsert(encodedData, lzwCompressed)
+	end
+	local uncompressed = LibCompressAddonEncodeTable:Encode("\001"..serialized)
+	tinsert(encodedData, uncompressed)
 	-- verify each compresion and pick the shortest valid one
 	local minIndex = -1
 	local minLen = math.huge

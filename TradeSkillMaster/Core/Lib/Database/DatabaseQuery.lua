@@ -14,7 +14,7 @@
 local _, TSM = ...
 local DatabaseQuery = TSMAPI_FOUR.Class.DefineClass("DatabaseQuery")
 TSM.Database.classes.DatabaseQuery = DatabaseQuery
-local private = { sortContext = nil, sortValueCache = {} }
+local private = {}
 local NAN = math.huge * 0
 local NAN_STR = tostring(NAN)
 
@@ -49,6 +49,13 @@ function DatabaseQuery.__init(self)
 	self._virtualFieldFunc = {}
 	self._virtualFieldArgField = {}
 	self._virtualFieldType = {}
+	self._genericSortWrapper = function(a, b)
+		return private.DatabaseQuerySortGeneric(self, a, b)
+	end
+	self._singleSortWrapper = function(a, b)
+		return private.DatabaseQuerySortSingle(self, a, b)
+	end
+	self._sortValueCache = {}
 end
 
 function DatabaseQuery._Acquire(self, db)
@@ -964,9 +971,8 @@ function DatabaseQuery._Execute(self, force)
 
 	-- sort the results if necessary
 	if sortNeeded then
-		assert(not private.sortContext)
-		private.sortContext = self
 		if #self._orderBy == 1 then
+			assert(not next(self._sortValueCache))
 			for _, uuid in ipairs(self._result) do
 				local value = self:_GetResultRowData(uuid, self._orderBy[1])
 				local fieldType = self:_GetFieldType(self._orderBy[1])
@@ -979,14 +985,13 @@ function DatabaseQuery._Execute(self, force)
 						value = nil
 					end
 				end
-				private.sortValueCache[uuid] = value
+				self._sortValueCache[uuid] = value
 			end
-			sort(self._result, private.DatabaseQuerySortSingle)
-			wipe(private.sortValueCache)
+			sort(self._result, self._singleSortWrapper)
+			wipe(self._sortValueCache)
 		else
-			sort(self._result, private.DatabaseQuerySort)
+			sort(self._result, self._genericSortWrapper)
 		end
-		private.sortContext = nil
 	end
 
 	self._resultIsStale = false
@@ -1110,10 +1115,9 @@ end
 -- Private Helper Functions
 -- ============================================================================
 
-function private.DatabaseQuerySortSingle(aUUID, bUUID)
-	local self = private.sortContext
-	local aValue = private.sortValueCache[aUUID]
-	local bValue = private.sortValueCache[bUUID]
+function private.DatabaseQuerySortSingle(self, aUUID, bUUID)
+	local aValue = self._sortValueCache[aUUID]
+	local bValue = self._sortValueCache[bUUID]
 	if aValue == bValue then
 		-- make the sort stable
 		return aUUID < bUUID
@@ -1130,8 +1134,7 @@ function private.DatabaseQuerySortSingle(aUUID, bUUID)
 	end
 end
 
-function private.DatabaseQuerySort(aUUID, bUUID)
-	local self = private.sortContext
+function private.DatabaseQuerySortGeneric(self, aUUID, bUUID)
 	for i = 1, #self._orderBy do
 		local orderByField = self._orderBy[i]
 		local aValue = self:_GetResultRowData(aUUID, orderByField)

@@ -8,10 +8,11 @@
 
 local _, TSM = ...
 local Sync = TSM.Crafting:NewPackage("Sync")
+local L = TSM.L
 local private = {
-	connectedPlayers = {},
 	hashesTemp = {},
 	spellsTemp = {},
+	spellsProfessionLookupTemp = {},
 	spellInfoTemp = {
 		spellIds = {},
 		mats = {},
@@ -20,7 +21,10 @@ local private = {
 		numResults = {},
 		hasCDs = {},
 	},
+	accountLookup = {},
+	accountStatus = {},
 }
+local RETRY_DELAY = 5
 
 
 
@@ -33,6 +37,19 @@ function Sync.OnInitialize()
 	TSM.Sync.RPC.Register("CRAFTING_GET_HASHES", private.RPCGetHashes)
 	TSM.Sync.RPC.Register("CRAFTING_GET_SPELLS", private.RPCGetSpells)
 	TSM.Sync.RPC.Register("CRAFTING_GET_SPELL_INFO", private.RPCGetSpellInfo)
+end
+
+function Sync.GetStatus(account)
+	local status = private.accountStatus[account]
+	if not status then
+		return "|cffff0000"..L["Not Connected"].."|r"
+	elseif status == "UPDATING" then
+		return "|cfffcf141"..L["Updating"].."|r"
+	elseif status == "SYNCED" then
+		return "|cff00ff00"..L["Up to date"].."|r"
+	else
+		error("Invalid status: "..tostring(status))
+	end
 end
 
 
@@ -50,38 +67,54 @@ end
 
 function private.RPCGetHashesResultHandler(player, data)
 	if not player then
+		-- request timed out, so try again
+		TSM:LOG_WARN("Getting hashes timed out")
+		TSMAPI_FOUR.Delay.AfterTime(RETRY_DELAY, private.RPCGetHashes)
 		return
 	end
 	local currentInfo = TSMAPI_FOUR.Util.AcquireTempTable()
 	private.GetPlayerProfessionHashes(player, currentInfo)
+	local requestProfessions = TSMAPI_FOUR.Util.AcquireTempTable()
 	for profession, hash in pairs(data) do
 		if hash == currentInfo[profession] then
 			TSM:LOG_INFO("%s data for %s already up to date", profession, player)
 		else
-			TSM:LOG_INFO("Requesting updated %s data from %s (%s, %s)", profession, player, hash, tostring(currentInfo[hash]))
-			TSM.Sync.RPC.Call("CRAFTING_GET_SPELLS", player, private.RPCGetSpellsResultHandler, profession)
+			TSM:LOG_INFO("Need updated %s data from %s (%s, %s)", profession, player, hash, tostring(currentInfo[hash]))
+			requestProfessions[profession] = true
 		end
 	end
 	TSMAPI_FOUR.Util.ReleaseTempTable(currentInfo)
+	if next(requestProfessions) then
+		private.accountStatus[private.accountLookup[player]] = "UPDATING"
+		TSM.Sync.RPC.Call("CRAFTING_GET_SPELLS", player, private.RPCGetSpellsResultHandler, requestProfessions)
+	else
+		private.accountStatus[private.accountLookup[player]] = "SYNCED"
+	end
+	TSMAPI_FOUR.Util.ReleaseTempTable(requestProfessions)
 end
 
-function private.RPCGetSpells(profession)
+function private.RPCGetSpells(professions)
+	wipe(private.spellsProfessionLookupTemp)
 	wipe(private.spellsTemp)
 	local player = UnitName("player")
 	local query = TSM.Crafting.CreateRawCraftsQuery()
-		:Select("spellId")
-		:Equal("profession", profession)
+		:Select("spellId", "profession")
+		:Custom(private.QueryProfessionFilter, professions)
 		:Custom(private.QueryPlayerFilter, player)
 		:OrderBy("spellId", true)
-	for _, spellId in query:Iterator() do
+	for _, spellId, profession in query:Iterator() do
+		private.spellsProfessionLookupTemp[spellId] = profession
 		tinsert(private.spellsTemp, spellId)
 	end
 	query:Release()
-	return player, profession, private.spellsTemp
+	return player, private.spellsProfessionLookupTemp, private.spellsTemp
 end
 
-function private.RPCGetSpellsResultHandler(player, profession, spells)
+function private.RPCGetSpellsResultHandler(player, professionLookup, spells)
 	if not player then
+		-- request timed out, so try again from the start
+		TSM:LOG_WARN("Getting spells timed out")
+		TSMAPI_FOUR.Delay.AfterTime(RETRY_DELAY, private.RPCGetHashes)
 		return
 	end
 
@@ -94,14 +127,15 @@ function private.RPCGetSpellsResultHandler(player, profession, spells)
 		end
 	end
 	if #spells == 0 then
-		TSM:LOG_INFO("Spells up to date for %s -> %s", player, profession)
+		TSM:LOG_INFO("Spells up to date for %s", player)
+		private.accountStatus[private.accountLookup[player]] = "SYNCED"
 	else
-		TSM:LOG_INFO("Requesting %d %s spells from %s", #spells, profession, player)
-		TSM.Sync.RPC.Call("CRAFTING_GET_SPELL_INFO", player, private.RPCGetSpellInfoResultHandler, profession, spells)
+		TSM:LOG_INFO("Requesting %d spells from %s", #spells, player)
+		TSM.Sync.RPC.Call("CRAFTING_GET_SPELL_INFO", player, private.RPCGetSpellInfoResultHandler, professionLookup, spells)
 	end
 end
 
-function private.RPCGetSpellInfo(profession, spells)
+function private.RPCGetSpellInfo(professionLookup, spells)
 	for _, tbl in pairs(private.spellInfoTemp) do
 		wipe(tbl)
 	end
@@ -113,23 +147,27 @@ function private.RPCGetSpellInfo(profession, spells)
 		private.spellInfoTemp.numResults[i] = TSM.db.factionrealm.internalData.crafts[spellId].numResult
 		private.spellInfoTemp.hasCDs[i] = TSM.db.factionrealm.internalData.crafts[spellId].hasCD
 	end
-	TSM:LOG_INFO("Sent %d %s spells", #private.spellInfoTemp.spellIds, profession)
-	return UnitName("player"), profession, private.spellInfoTemp
+	TSM:LOG_INFO("Sent %d spells", #private.spellInfoTemp.spellIds)
+	return UnitName("player"), professionLookup, private.spellInfoTemp
 end
 
-function private.RPCGetSpellInfoResultHandler(player, profession, spellInfo)
-	if not player or not profession or not spellInfo then
+function private.RPCGetSpellInfoResultHandler(player, professionLookup, spellInfo)
+	if not player or not professionLookup or not spellInfo then
+		-- request timed out, so try again from the start
+		TSM:LOG_WARN("Getting spell info timed out")
+		TSMAPI_FOUR.Delay.AfterTime(RETRY_DELAY, private.RPCGetHashes)
 		return
 	end
 
 	for i, spellId in ipairs(spellInfo.spellIds) do
-		TSM.Crafting.CreateOrUpdate(spellId, spellInfo.itemStrings[i], profession, spellInfo.names[i], spellInfo.numResults[i], player, spellInfo.hasCDs[i] and true or false)
+		TSM.Crafting.CreateOrUpdate(spellId, spellInfo.itemStrings[i], professionLookup[spellId], spellInfo.names[i], spellInfo.numResults[i], player, spellInfo.hasCDs[i] and true or false)
 		for itemString in pairs(spellInfo.mats[i]) do
 			TSM.db.factionrealm.internalData.mats[itemString] = TSM.db.factionrealm.internalData.mats[itemString] or {}
 		end
 		TSM.Crafting.SetMats(spellId, spellInfo.mats[i])
 	end
-	TSM:LOG_INFO("Added %d spells for %s from %s", #spellInfo.spellIds, profession, player)
+	TSM:LOG_INFO("Added %d spells from %s", #spellInfo.spellIds, player)
+	private.accountStatus[private.accountLookup[player]] = "SYNCED"
 end
 
 
@@ -138,12 +176,20 @@ end
 -- Private Helper Functions
 -- ============================================================================
 
-function private.ConnectionChangedHandler(_, player, connected)
-	private.connectedPlayers[player] = connected or nil
+function private.ConnectionChangedHandler(account, player, connected)
 	if connected then
+		private.accountLookup[player] = account
+		private.accountStatus[account] = "UPDATING"
 		-- issue a request for profession info
 		TSM.Sync.RPC.Call("CRAFTING_GET_HASHES", player, private.RPCGetHashesResultHandler)
+	else
+		private.accountLookup[player] = nil
+		private.accountStatus[account] = nil
 	end
+end
+
+function private.QueryProfessionFilter(row, professions)
+	return professions[row:GetField("profession")]
 end
 
 function private.QueryPlayerFilter(row, player)

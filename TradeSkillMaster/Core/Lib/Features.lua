@@ -161,9 +161,9 @@ function private.CreateTwitterHooks()
 			local url = format(TSM_ITEM_URL_FORMAT, tsmItemId)
 			local text = nil
 			if tsmType == "BUY" then
-				text = format(L["I just bought [%s]x%d for %s! %s #TSM4 #warcraft"], name, tsmStackSize, TSMAPI_FOUR.Money.ToString(tsmBuyout, "OPT_TRIM"), url)
+				text = format(L["I just bought [%s]x%d for %s! %s #TSM4 #warcraft"], name, tsmStackSize, TSM.Money.ToString(tsmBuyout), url)
 			elseif tsmType == "SELL" then
-				text = format(L["I just sold [%s] for %s! %s #TSM4 #warcraft"], name, TSMAPI_FOUR.Money.ToString(tsmBuyout, "OPT_TRIM"), url)
+				text = format(L["I just sold [%s] for %s! %s #TSM4 #warcraft"], name, TSM.Money.ToString(tsmBuyout), url)
 			else
 				error("Unknown type") -- should never happen
 			end
@@ -224,7 +224,7 @@ function private.FilterSystemMsg(_, _, msg, ...)
 		local link = TSM.db.char.internalData.auctionMessages and TSM.db.char.internalData.auctionMessages[msg]
 		if private.lastPurchase.name and msg == format(ERR_AUCTION_WON_S, private.lastPurchase.name) then
 			-- we just bought an auction
-			private.prevLineResult = format(L["You won an auction for %sx%d for %s"], private.lastPurchase.link, private.lastPurchase.stackSize, TSMAPI_FOUR.Money.ToString(private.lastPurchase.buyout, "|cffffffff"))
+			private.prevLineResult = format(L["You won an auction for %sx%d for %s"], private.lastPurchase.link, private.lastPurchase.stackSize, TSM.Money.ToString(private.lastPurchase.buyout, "|cffffffff"))
 			local itemId = TSMAPI_FOUR.Item.ToItemID(private.lastPurchase.link)
 			if C_Social.IsSocialEnabled() and itemId then
 				-- add tweet icon
@@ -244,7 +244,7 @@ function private.FilterSystemMsg(_, _, msg, ...)
 			if numAuctions == 0 then -- this was the last auction
 				TSM.db.char.internalData.auctionMessages[msg] = nil
 			end
-			private.prevLineResult = format(L["Your auction of %s has sold for %s!"], link, TSMAPI_FOUR.Money.ToString(price, "|cffffffff"))
+			private.prevLineResult = format(L["Your auction of %s has sold for %s!"], link, TSM.Money.ToString(price, "|cffffffff"))
 			TSMAPI_FOUR.Sound.PlaySound(TSM.db.global.coreOptions.auctionSaleSound)
 			local itemId = TSMAPI_FOUR.Item.ToItemID(link)
 			if C_Social.IsSocialEnabled() and itemId then

@@ -374,9 +374,9 @@ function private.FSMCreate()
 		bottomFrame:GetElement("labels.posted")
 			:SetFormattedText(L["Posted Auctions %s:"], "|cff6ebae6"..numPosted.."|r")
 		bottomFrame:GetElement("values.sold")
-			:SetText(TSMAPI_FOUR.Money.ToString(soldGold, "OPT_PAD", "OPT_SEP"))
+			:SetText(TSM.Money.ToString(soldGold))
 		bottomFrame:GetElement("values.posted")
-			:SetText(TSMAPI_FOUR.Money.ToString(postedGold, "OPT_PAD", "OPT_SEP"))
+			:SetText(TSM.Money.ToString(postedGold))
 		bottomFrame:Draw()
 	end
 	private.fsm = TSMAPI_FOUR.FSM.New("MY_AUCTIONS")
@@ -519,13 +519,13 @@ function private.AuctionsGetCurrentBidText(row)
 	if saleStatus == 1 then
 		return L["Sold"]
 	elseif row:GetField("highBidder") == "" then
-		return TSMAPI_FOUR.Money.ToString(row:GetField("currentBid"), "OPT_PAD", "OPT_DISABLE", "|cff808080")
+		return TSM.Money.ToString(row:GetField("currentBid"), nil, "OPT_DISABLE")
 	else
-		return TSMAPI_FOUR.Money.ToString(row:GetField("currentBid"), "OPT_PAD")
+		return TSM.Money.ToString(row:GetField("currentBid"))
 	end
 end
 
 function private.AuctionsGetCurrentBuyoutText(row)
 	local saleStatus = row:GetField("saleStatus")
-	return TSMAPI_FOUR.Money.ToString(row:GetField(saleStatus == 1 and "currentBid" or "buyout"), "OPT_PAD")
+	return TSM.Money.ToString(row:GetField(saleStatus == 1 and "currentBid" or "buyout"))
 end

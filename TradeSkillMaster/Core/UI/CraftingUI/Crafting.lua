@@ -855,9 +855,9 @@ function private.FSMCreate()
 	function fsmPrivate.UpdateQueueFrame(context)
 		local queueFrame = context.frame:GetElement("right.queue")
 		local totalCost, totalProfit = TSM.Crafting.Queue.GetTotalCostAndProfit()
-		local totalCostText = totalCost and TSMAPI_FOUR.Money.ToString(totalCost, "OPT_SEP") or ""
+		local totalCostText = totalCost and TSM.Money.ToString(totalCost) or ""
 		queueFrame:GetElement("queueCost.text"):SetText(totalCostText)
-		local totalProfitText = totalProfit and TSMAPI_FOUR.Money.ToString(totalProfit, totalProfit >= 0 and "|cff2cec0d" or "|cffd50000", "OPT_SEP") or ""
+		local totalProfitText = totalProfit and TSM.Money.ToString(totalProfit, totalProfit >= 0 and "|cff2cec0d" or "|cffd50000") or ""
 		queueFrame:GetElement("queueProfit.text"):SetText(totalProfitText)
 		queueFrame:GetElement("queueList"):Draw()
 

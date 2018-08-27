@@ -341,21 +341,21 @@ function private.CraftsGetAHText(bagQuantity)
 end
 
 function private.CraftsGetCraftingCostText(spellId)
-	return TSMAPI_FOUR.Money.ToString(TSM.Crafting.Cost.GetCraftingCostBySpellId(spellId), "OPT_PAD")
+	return TSM.Money.ToString(TSM.Crafting.Cost.GetCraftingCostBySpellId(spellId))
 end
 
 function private.CraftsGetCostItemValueText(costItemValue)
 	if tostring(costItemValue) == tostring(math.huge * 0) then
 		return ""
 	end
-	return TSMAPI_FOUR.Money.ToString(costItemValue, "OPT_PAD", "OPT_SEP")
+	return TSM.Money.ToString(costItemValue)
 end
 
 function private.CraftsGetProfitText(profit)
 	if tostring(profit) == tostring(math.huge * 0) then
 		return ""
 	end
-	return TSMAPI_FOUR.Money.ToString(profit, "OPT_PAD", "OPT_SEP", profit >= 0 and "|cff2cec0d" or "|cffd50000")
+	return TSM.Money.ToString(profit, profit >= 0 and "|cff2cec0d" or "|cffd50000")
 end
 
 function private.CraftsGetSaleRateText(saleRate)
@@ -369,7 +369,7 @@ function private.MatsGetPriceText(matCost)
 	if tostring(matCost) == tostring(math.huge * 0) then
 		return ""
 	end
-	return TSMAPI_FOUR.Money.ToString(matCost, "OPT_PAD", "OPT_SEP")
+	return TSM.Money.ToString(matCost)
 end
 
 function private.MatsGetNumText(totalQuantity)
@@ -446,7 +446,7 @@ function private.MatsOnRowClick(scrollingTable, row)
 			:SetStyle("fontHeight", 12)
 			:SetStyle("justifyH", "LEFT")
 			:SetStyle("textColor", "#ffffff")
-			:SetText(TSMAPI_FOUR.Money.ToString(priceStr, "OPT_NO_COLOR") or priceStr)
+			:SetText(TSM.Money.ToString(priceStr) or priceStr)
 			:SetScript("OnEnterPressed", private.MatPriceInputOnEnterPressed)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "buttons")

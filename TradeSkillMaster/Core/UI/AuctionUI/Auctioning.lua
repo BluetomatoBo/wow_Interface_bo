@@ -810,8 +810,8 @@ function private.FSMCreate()
 			itemContent:GetElement("text")
 				:SetText(TSM.UI.GetColoredItemName(itemString))
 				:SetTooltip(itemString)
-			detailsHeader1:GetElement("bid.text"):SetText(TSMAPI_FOUR.Money.ToString(currentRow:GetField("bid")))
-			detailsHeader1:GetElement("buyout.text"):SetText(TSMAPI_FOUR.Money.ToString(currentRow:GetField("buyout")))
+			detailsHeader1:GetElement("bid.text"):SetText(TSM.Money.ToString(currentRow:GetField("bid")))
+			detailsHeader1:GetElement("buyout.text"):SetText(TSM.Money.ToString(currentRow:GetField("buyout")))
 			detailsHeader2:GetElement("quantity.text"):SetText(format(L["%d of %d"], rowStacksRemaining, currentRow:GetField("stackSize")))
 			if context.scanType == "POST" then
 				detailsHeader1:GetElement("bid.editBtn"):Show()
@@ -1128,7 +1128,7 @@ function private.BagGetOperationText(firstOperation)
 end
 
 function private.LogGetBuyoutText(buyout)
-	return buyout == 0 and "-" or TSMAPI_FOUR.Money.ToString(buyout, "OPT_PAD", "OPT_SEP")
+	return buyout == 0 and "-" or TSM.Money.ToString(buyout)
 end
 
 function private.LogGetIndexText(index)

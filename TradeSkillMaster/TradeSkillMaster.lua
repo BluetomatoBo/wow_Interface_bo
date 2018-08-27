@@ -18,7 +18,7 @@ local APP_INFO_REQUIRED_KEYS = { "version", "lastSync", "addonVersions", "messag
 local LOGOUT_TIME_WARNING_THRESHOLD_MS = 20
 do
 	-- show a message if we were updated
-	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.1.2" then
+	if GetAddOnMetadata("TradeSkillMaster", "Version") ~= "v4.2" then
 		message("TSM was just updated and may not work properly until you restart WoW.")
 	end
 end
@@ -64,9 +64,10 @@ end
 -- [43] removed global.coreOptions.{moveDelay,bankUITab}, removed global.auctioningOptions.{openAllBags,ahRowDisplay}, removed global.craftingOptions.{profitPercent,questSmartCrafting,queueSort}, removed global.destroyingOptions.{logDays,timeFormat}, removed global.vendoringOptions.{autoSellTrash,qsHideGrouped,qsHideSoulbound,qsBatchSize,defaultPage,qsMaxMarketValue,qsDestroyValue}, removed profile.coreOptions.{cleanBags,cleanBank,cleanReagentBank,cleanGuildBank}
 -- [44] changed global.internalData.{mainUIFrameContext,auctionUIFrameContext,craftingUIFrameContext,destroyingUIFrameContext,mailingUIFrameContext,vendoringUIFrameContext,bankingUIFrameContext} default (added "scale = 1")
 -- [45] added char.internalData.auctionSaleHints
+-- [46] added global.shoppingOptions.{buyoutConfirm,buyoutAlertSource}
 
-local settingsInfo = {
-	version = 45,
+local SETTINGS_INFO = {
+	version = 46,
 	global = {
 		debug = {
 			chatLoggingEnabled = { type = "boolean", default = false, lastModifiedVersion = 19 },
@@ -137,6 +138,8 @@ local settingsInfo = {
 			maxDeSearchLvl = { type = "number", default = 735, lastModifiedVersion = 10 },
 			maxDeSearchPercent = { type = "number", default = 100, lastModifiedVersion = 23 },
 			pctSource  = { type = "string", default = "dbmarket", lastModifiedVersion = 12 },
+			buyoutConfirm  = { type = "boolean", default = false, lastModifiedVersion = 46 },
+			buyoutAlertSource  = { type = "string", default = "min(100000g, 200% dbmarket)", lastModifiedVersion = 46 },
 		},
 		sniperOptions = {
 			sniperSound = { type = "string", default = TSM.CONST.NO_SOUND_KEY, lastModifiedVersion = 10 },
@@ -275,7 +278,7 @@ function TSM.OnInitialize()
 	end
 
 	-- load settings
-	local db, upgradeObj = TSMAPI_FOUR.Settings.New("TradeSkillMasterDB", settingsInfo)
+	local db, upgradeObj = TSMAPI_FOUR.Settings.New("TradeSkillMasterDB", SETTINGS_INFO)
 	TSM.db = db
 	if upgradeObj then
 		local prevVersion = upgradeObj:GetPrevVersion()
@@ -283,7 +286,7 @@ function TSM.OnInitialize()
 			-- migrate all the old settings to their new namespaces
 			for key, value in upgradeObj:RemovedSettingIterator() do
 				local scopeType, scopeKey, _, settingKey = upgradeObj:GetKeyInfo(key)
-				for namespace, namespaceInfo in pairs(settingsInfo[scopeType]) do
+				for namespace, namespaceInfo in pairs(SETTINGS_INFO[scopeType]) do
 					if namespaceInfo[settingKey] then
 						TSM.db:Set(scopeType, scopeKey, namespace, settingKey, value)
 					end
@@ -794,7 +797,7 @@ function private.TestPriceSource(price)
 		return
 	end
 
-	TSM:Printf(L["A custom price of %s for %s evaluates to %s."], "|cff99ffff"..price.."|r", link, TSMAPI_FOUR.Money.ToString(value))
+	TSM:Printf(L["A custom price of %s for %s evaluates to %s."], "|cff99ffff"..price.."|r", link, TSM.Money.ToString(value))
 end
 
 function private.ChangeProfile(targetProfile)

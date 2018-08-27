@@ -91,17 +91,25 @@ function AuctionScrollingTable.Acquire(self)
 			:SetJustifyH("RIGHT")
 			:SetTextFunction(private.GetItemLevelCellText)
 			:Commit()
-		:NewColumn("auctions")
-			:SetTitles(L["Auctions"])
-			:SetWidth(64)
+		:NewColumn("posts")
+			:SetTitles(L["Posts"])
+			:SetWidth(40)
 			:SetFont(TSM.UI.Fonts.RobotoMedium)
 			:SetFontHeight(12)
 			:SetJustifyH("RIGHT")
-			:SetTextFunction(private.GetAuctionsCellText)
+			:SetTextFunction(private.GetAuctionsPostsText)
+			:Commit()
+		:NewColumn("stack")
+			:SetTitles(L["Stack"])
+			:SetWidth(40)
+			:SetFont(TSM.UI.Fonts.RobotoMedium)
+			:SetFontHeight(12)
+			:SetJustifyH("RIGHT")
+			:SetTextFunction(private.GetAuctionsStackText)
 			:Commit()
 		:NewColumn("timeLeft")
 			:SetTitleIcon("iconPack.14x14/Clock")
-			:SetWidth(40)
+			:SetWidth(26)
 			:SetFont(TSM.UI.Fonts.RobotoRegular)
 			:SetFontHeight(12)
 			:SetJustifyH("RIGHT")
@@ -300,7 +308,9 @@ function AuctionScrollingTable._UpdateData(self)
 				sortValue = TSMAPI_FOUR.Item.GetName(baseItemString)
 			elseif sortKey == "ilvl" then
 				sortValue = TSMAPI_FOUR.Item.GetItemLevel(record:GetField("itemString"))
-			elseif sortKey == "auctions" then
+			elseif sortKey == "posts" then
+				sortValue = record.stackSize
+			elseif sortKey == "stack" then
 				sortValue = record.stackSize
 			elseif sortKey == "timeLeft" then
 				sortValue = record.timeLeft
@@ -603,10 +613,14 @@ function private.GetItemLevelCellText(self, context)
 	return TSMAPI_FOUR.Item.GetItemLevel(record:GetField("itemLink"))
 end
 
-function private.GetAuctionsCellText(self, context)
+function private.GetAuctionsPostsText(self, context)
 	local record = self._baseRecordByHash[context]
-	local numAuctions = self._numAuctionsByHash[record:GetField("hash")]
-	return format("%d |cffaaaaaaof|r %d", numAuctions, record:GetField("stackSize"))
+	return self._numAuctionsByHash[record:GetField("hash")]
+end
+
+function private.GetAuctionsStackText(self, context)
+	local record = self._baseRecordByHash[context]
+	return record:GetField("stackSize")
 end
 
 function private.GetTimeLeftCellText(self, context)
@@ -629,7 +643,7 @@ function private.GetBidCellText(self, context, titleIndex)
 	else
 		error("Unexpected titleIndex: "..tostring(titleIndex))
 	end
-	return TSMAPI_FOUR.Money.ToString(value, "OPT_PAD")
+	return record:GetField("isHighBidder") and TSM.Money.ToString(value, "|cff00ff00") or TSM.Money.ToString(value)
 end
 
 function private.GetBuyoutCellText(self, context, titleIndex)
@@ -642,7 +656,7 @@ function private.GetBuyoutCellText(self, context, titleIndex)
 	else
 		error("Unexpected titleIndex: "..tostring(titleIndex))
 	end
-	return TSMAPI_FOUR.Money.ToString(value, "OPT_PAD")
+	return TSM.Money.ToString(value)
 end
 
 function private.GetPercentCellText(self, context)

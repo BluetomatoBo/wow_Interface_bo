@@ -17,6 +17,7 @@ local private = {
 	sortComparator = nil,
 	sortContext = nil,
 	sortValueLookup = nil,
+	keysTemp = {},
 }
 private.iterContext = { arg = {}, index = {}, helperFunc = {}, cleanupFunc = {} }
 setmetatable(private.iterContext.arg, { __mode = "k" })
@@ -179,8 +180,24 @@ function TSMAPI_FOUR.Util.CalculateHash(data, hash)
 	hash = hash or 5381
 	local maxValue = 2 ^ 24
 	if type(data) == "string" then
-		for i = 1, #data do
-			hash = (hash * 33 + strbyte(data, i)) % maxValue
+		-- iterate through 8 bytes at a time
+		for i = 1, ceil(#data / 8) do
+			local b1, b2, b3, b4, b5, b6, b7, b8 = strbyte(data, (i - 1) * 8 + 1, i * 8)
+			hash = (hash * 33 + b1) % maxValue
+			if not b2 then break end
+			hash = (hash * 33 + b2) % maxValue
+			if not b3 then break end
+			hash = (hash * 33 + b3) % maxValue
+			if not b4 then break end
+			hash = (hash * 33 + b4) % maxValue
+			if not b5 then break end
+			hash = (hash * 33 + b5) % maxValue
+			if not b6 then break end
+			hash = (hash * 33 + b6) % maxValue
+			if not b7 then break end
+			hash = (hash * 33 + b7) % maxValue
+			if not b8 then break end
+			hash = (hash * 33 + b8) % maxValue
 		end
 	elseif type(data) == "number" then
 		assert(data == floor(data), "Invalid number")
@@ -189,14 +206,25 @@ function TSMAPI_FOUR.Util.CalculateHash(data, hash)
 			data = floor(data / 256)
 		end
 	elseif type(data) == "table" then
-		local keys = TSMAPI_FOUR.Util.AcquireTempTable()
+		local keys = nil
+		if private.keysTemp.inUse then
+			keys = TSMAPI_FOUR.Util.AcquireTempTable()
+		else
+			keys = private.keysTemp
+			private.keysTemp.inUse = true
+		end
 		for k in pairs(data) do
 			tinsert(keys, k)
 		end
 		sort(keys)
-		for _, key in TSMAPI_FOUR.Util.TempTableIterator(keys) do
+		for _, key in ipairs(keys) do
 			hash = TSMAPI_FOUR.Util.CalculateHash(key, hash)
 			hash = TSMAPI_FOUR.Util.CalculateHash(data[key], hash)
+		end
+		if keys == private.keysTemp then
+			wipe(private.keysTemp)
+		else
+			TSMAPI_FOUR.Util.ReleaseTempTable(keys)
 		end
 	elseif type(data) == "boolean" then
 		hash = (hash * 33 + (data and 1 or 0)) % maxValue

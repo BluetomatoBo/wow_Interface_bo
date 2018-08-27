@@ -105,10 +105,10 @@ function private.OnChatMsg(_, msg)
 		local gotText, gaveText = nil, nil
 		if tradeType == "buy" then
 			gotText = format("%sx%d", TSMAPI_FOUR.Item.GetLink(itemString), count)
-			gaveText = TSMAPI_FOUR.Money.ToString(money)
+			gaveText = TSM.Money.ToString(money)
 		elseif tradeType == "sale" then
 			gaveText = format("%sx%d", TSMAPI_FOUR.Item.GetLink(itemString), count)
-			gotText = TSMAPI_FOUR.Money.ToString(money)
+			gotText = TSM.Money.ToString(money)
 		else
 			error("Invalid tradeType: "..tostring(tradeType))
 		end

@@ -120,7 +120,7 @@ function private.GetFrame()
 					:SetFont(TSM.UI.Fonts.RobotoMedium)
 					:SetFontHeight(12)
 					:SetJustifyH("RIGHT")
-					:SetTextInfo("potentialValue", private.GetPotentialText)
+					:SetTextInfo("potentialValue", TSM.Money.ToString)
 					:SetSortInfo("potentialValue")
 					:Commit()
 				:SetCursor("BUY_CURSOR")
@@ -159,11 +159,7 @@ function private.GetItemText(itemString)
 end
 
 function private.GetVendorSellText(vendorSell)
-	return vendorSell > 0 and TSMAPI_FOUR.Money.ToString(vendorSell, "OPT_PAD", "OPT_SEP") or ""
-end
-
-function private.GetPotentialText(potentialValue)
-	return TSMAPI_FOUR.Money.ToString(potentialValue, "OPT_PAD", "OPT_SEP") or ""
+	return vendorSell > 0 and TSM.Money.ToString(vendorSell) or ""
 end
 
 

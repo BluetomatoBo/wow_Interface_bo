@@ -151,7 +151,7 @@ function private.GetOtherFrame()
 					:SetStyle("margin.right", 16)
 					:SetStyle("height", 20)
 					:SetStyle("justifyH", "RIGHT")
-					:SetText(TSMAPI_FOUR.Money.ToString(private.goldKeep, "OPT_PAD", "OPT_SEP"))
+					:SetText(TSM.Money.ToString(private.goldKeep))
 					:SetScript("OnTextChanged", private.MoneyOnTextChanged)
 					:SetScript("OnEnterPressed", private.MoneyValueConvert)
 					:SetScript("OnEscapePressed", private.MoneyValueConvert)
@@ -307,7 +307,7 @@ end
 
 function private.MoneyValueConvert(input)
 	input:SetFocused(false)
-	input:SetText(TSMAPI_FOUR.Money.ToString(private.goldKeep, "OPT_PAD", "OPT_SEP"))
+	input:SetText(TSM.Money.ToString(private.goldKeep))
 		:Draw()
 
 	private.UpdateGoldButton()

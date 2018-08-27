@@ -35,7 +35,7 @@ end
 function PlayerGoldText.Acquire(self)
 	private.elements[self] = true
 	self.__super:Acquire()
-	self:SetText(TSMAPI_FOUR.Money.ToString(GetMoney(), "OPT_PAD", "OPT_SEP"))
+	self:SetText(TSM.Money.ToString(GetMoney()))
 	self:SetTooltip(private.MoneyTooltipFunc)
 end
 
@@ -52,18 +52,18 @@ end
 
 function private.MoneyOnUpdate()
 	for element in pairs(private.elements) do
-		element:SetText(TSMAPI_FOUR.Money.ToString(GetMoney(), "OPT_PAD", "OPT_SEP"))
+		element:SetText(TSM.Money.ToString(GetMoney()))
 		element:Draw()
 	end
 end
 
 function private.MoneyTooltipFunc()
 	local tooltipLines = TSMAPI_FOUR.Util.AcquireTempTable()
-	tinsert(tooltipLines, strjoin(TSM.CONST.TOOLTIP_SEP, L["Player Gold"]..":", TSMAPI_FOUR.Money.ToString(GetMoney(), "OPT_PAD", "OPT_SEP")))
+	tinsert(tooltipLines, strjoin(TSM.CONST.TOOLTIP_SEP, L["Player Gold"]..":", TSM.Money.ToString(GetMoney())))
 	local numPosted, numSold, postedGold, soldGold = TSM.MyAuctions.GetAuctionInfo()
 	if numPosted then
-		tinsert(tooltipLines, strjoin(TSM.CONST.TOOLTIP_SEP, format(L["%d Sold Auctions"], numSold)..":", TSMAPI_FOUR.Money.ToString(soldGold, "OPT_PAD", "OPT_SEP")))
-		tinsert(tooltipLines, strjoin(TSM.CONST.TOOLTIP_SEP, format(L["%d Posted Auctions"], numPosted)..":", TSMAPI_FOUR.Money.ToString(postedGold, "OPT_PAD", "OPT_SEP")))
+		tinsert(tooltipLines, strjoin(TSM.CONST.TOOLTIP_SEP, format(L["%d Sold Auctions"], numSold)..":", TSM.Money.ToString(soldGold)))
+		tinsert(tooltipLines, strjoin(TSM.CONST.TOOLTIP_SEP, format(L["%d Posted Auctions"], numPosted)..":", TSM.Money.ToString(postedGold)))
 	end
 	return strjoin("\n", TSMAPI_FOUR.Util.UnpackAndReleaseTempTable(tooltipLines))
 end

@@ -10,7 +10,12 @@ local _, TSM = ...
 local General = TSM.MainUI.Settings:NewPackage("General")
 local L = TSM.L
 local LibDBIcon = LibStub("LibDBIcon-1.0")
-local private = { frame = nil, characterList = {}, guildList = {}, chatFrameList = {} }
+local private = {
+	frame = nil,
+	characterList = {},
+	guildList = {},
+	chatFrameList = {},
+}
 
 
 
@@ -200,11 +205,12 @@ function private.GetGeneralSettingsFrame()
 		)
 		:AddChild(TSM.MainUI.Settings.CreateHeading("accountSyncHeader", L["Account Syncing"]))
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "accountSyncDesc")
-			:SetStyle("height", 18)
+			:SetStyle("height", 36)
 			:SetStyle("margin.bottom", 4)
 			:SetStyle("fontHeight", 14)
 			:SetStyle("textColor", "#ffffff")
-			:SetText(L["TSM can sync data automatically between multiple accounts."])
+			:SetStyle("fontSpacing", 2)
+			:SetText(L["TSM can sync data automatically between multiple accounts. Also, you can also send your currently active profile to connected accounts to quickly send your groups and operations to other accounts."])
 		)
 		:AddChildrenWithFunction(private.AddAccountSyncRows)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "accountSyncLine")
@@ -235,6 +241,7 @@ function private.GetGeneralSettingsFrame()
 			:SetStyle("margin.bottom", 8)
 			:SetStyle("fontHeight", 14)
 			:SetStyle("textColor", "#ffffff")
+			:SetStyle("fontSpacing", 2)
 			:SetText(L["If you have WoW's Twitter integration setup, TSM will add a share link to its enhanced auction sale / purchase messages, as well as replace URLs with a TSM link."])
 		)
 		:AddChildrenWithFunction(private.AddTwitterSetting)
@@ -264,13 +271,13 @@ function private.AddProfileRows(frame)
 				:SetScript("OnLeave", TSM.UI.GetPropagateScriptFunc("OnLeave"))
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Spacer", "spacer"))
-			:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "duplicateBtn")
+			:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "duplicateRenameBtn")
 				:SetStyle("width", 110)
 				:SetStyle("height", 20)
 				:SetStyle("margin.right", 8)
 				:SetContext(profileName)
-				:SetText(L["Duplicate"])
-				:SetScript("OnClick", private.DuplicateProfileOnClick)
+				:SetText(isCurrentProfile and L["Rename"] or L["Duplicate"])
+				:SetScript("OnClick", isCurrentProfile and private.RenameProfileOnClick or private.DuplicateProfileOnClick)
 				:SetScript("OnEnter", TSM.UI.GetPropagateScriptFunc("OnEnter"))
 				:SetScript("OnLeave", TSM.UI.GetPropagateScriptFunc("OnLeave"))
 			)
@@ -284,7 +291,7 @@ function private.AddProfileRows(frame)
 				:SetScript("OnLeave", TSM.UI.GetPropagateScriptFunc("OnLeave"))
 			)
 		)
-		frame:GetElement("profileRow_"..index..".duplicateBtn"):Hide()
+		frame:GetElement("profileRow_"..index..".duplicateRenameBtn"):Hide()
 		frame:GetElement("profileRow_"..index..".deleteResetBtn"):Hide()
 	end
 end
@@ -317,6 +324,7 @@ function private.AddAccountSyncRows(frame)
 			:SetStyle("margin.right", -12)
 			:SetStyle("padding.left", 16)
 			:SetStyle("padding.right", 12)
+			:SetContext(account)
 			:SetScript("OnEnter", private.AccountSyncRowOnEnter)
 			:SetScript("OnLeave", private.AccountSyncRowOnLeave)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "status")
@@ -324,16 +332,25 @@ function private.AddAccountSyncRows(frame)
 				:SetStyle("fontHeight", 12)
 				:SetText(statusText)
 			)
+			:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "sendProfileBtn")
+				:SetStyle("width", 110)
+				:SetStyle("height", 20)
+				:SetStyle("margin.right", 4)
+				:SetText(L["Send Profile"])
+				:SetScript("OnClick", private.SendProfileOnClick)
+				:SetScript("OnEnter", TSM.UI.GetPropagateScriptFunc("OnEnter"))
+				:SetScript("OnLeave", TSM.UI.GetPropagateScriptFunc("OnLeave"))
+			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "removeBtn")
 				:SetStyle("width", 110)
 				:SetStyle("height", 20)
-				:SetContext(account)
 				:SetText(REMOVE)
 				:SetScript("OnClick", private.RemoveAccountSyncOnClick)
 				:SetScript("OnEnter", TSM.UI.GetPropagateScriptFunc("OnEnter"))
 				:SetScript("OnLeave", TSM.UI.GetPropagateScriptFunc("OnLeave"))
 			)
 		)
+		frame:GetElement("accountSyncRow_"..account..".sendProfileBtn"):Hide()
 		frame:GetElement("accountSyncRow_"..account..".removeBtn"):Hide()
 	end
 end
@@ -420,16 +437,14 @@ end
 
 function private.ProfileRowOnEnter(frame)
 	frame:SetStyle("background", "#30ffd839")
-	if not frame:GetElement("checkbox"):IsChecked() then
-		frame:GetElement("duplicateBtn"):Show()
-	end
+	frame:GetElement("duplicateRenameBtn"):Show()
 	frame:GetElement("deleteResetBtn"):Show()
 	frame:Draw()
 end
 
 function private.ProfileRowOnLeave(frame)
 	frame:SetStyle("background", nil)
-	frame:GetElement("duplicateBtn"):Hide()
+	frame:GetElement("duplicateRenameBtn"):Hide()
 	frame:GetElement("deleteResetBtn"):Hide()
 	frame:Draw()
 end
@@ -463,6 +478,77 @@ function private.ProfileCheckboxOnValueChanged(checkbox, value)
 		:SetText(RESET)
 		:SetScript("OnClick", private.ResetProfileOnClick)
 		:Draw()
+end
+
+function private.RenameProfileOnClick(button)
+	local profileName = button:GetContext()
+	button:GetBaseElement():ShowDialogFrame(TSMAPI_FOUR.UI.NewElement("Frame", "frame")
+		:SetLayout("VERTICAL")
+		:SetStyle("width", 600)
+		:SetStyle("height", 187)
+		:SetStyle("anchors", { { "CENTER" } })
+		:SetStyle("background", "#2e2e2e")
+		:SetStyle("border", "#e2e2e2")
+		:SetStyle("borderSize", 2)
+		:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "title")
+			:SetStyle("height", 44)
+			:SetStyle("margin", { top = 24, left = 16, right = 16, bottom = 16 })
+			:SetStyle("font", TSM.UI.Fonts.MontserratBold)
+			:SetStyle("fontHeight", 18)
+			:SetStyle("justifyH", "CENTER")
+			:SetText(L["Rename Profile"])
+		)
+		:AddChild(TSMAPI_FOUR.UI.NewElement("Input", "nameInput")
+			:SetStyle("height", 26)
+			:SetStyle("margin", { left = 16, right = 16, bottom = 25 })
+			:SetStyle("background", "#5c5c5c")
+			:SetStyle("font", TSM.UI.Fonts.MontserratMedium)
+			:SetStyle("fontHeight", 12)
+			:SetStyle("justifyH", "LEFT")
+			:SetStyle("textColor", "#ffffff")
+			:SetText(profileName)
+			:SetScript("OnEnterPressed", private.RenameProfileInputOnEnterPressed)
+		)
+		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "buttons")
+			:SetLayout("HORIZONTAL")
+			:SetStyle("margin", { left = 16, right = 16, bottom = 16 })
+			:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "spacer")
+				-- spacer
+			)
+			:AddChild(TSMAPI_FOUR.UI.NewElement("ActionButton", "closeBtn")
+				:SetStyle("width", 126)
+				:SetStyle("height", 26)
+				:SetText(CLOSE)
+				:SetScript("OnClick", private.DialogCloseBtnOnClick)
+			)
+		)
+	)
+end
+
+function private.DialogCloseBtnOnClick(button)
+	button:GetBaseElement():HideDialog()
+end
+
+function private.RenameProfileInputOnEnterPressed(input)
+	local profileName = input:GetText()
+	if not TSM.db:IsValidProfileName(profileName) then
+		TSM:Print(L["This is not a valid profile name. Profile names must be at least one character long and may not contain '@' characters."])
+		return
+	elseif TSM.db:ProfileExists(profileName) then
+		TSM:Print(L["A profile with this name already exists."])
+		return
+	end
+
+	-- create a new profile, copy over the settings, then delete the old one
+	local prevProfileName = TSM.db:GetCurrentProfile()
+	TSM.db:SetProfile(profileName)
+	TSM.db:CopyProfile(prevProfileName)
+	TSM.db:DeleteProfile(prevProfileName)
+
+	-- hide the dialog and refresh the settings content
+	local baseElement = input:GetBaseElement()
+	baseElement:HideDialog()
+	baseElement:GetElement("content.settings.contentFrame.content"):ReloadContent()
 end
 
 function private.DuplicateProfileOnClick(button)
@@ -502,26 +588,45 @@ end
 function private.NewProfileBtnOnClick(button)
 	local profileName = strtrim(button:GetElement("__parent.newProfileInput"):GetText())
 	if not TSM.db:IsValidProfileName(profileName) then
-		return TSM:Print(L["This is not a valid profile name. Profile names must be at least one character long and may not contain '@' characters."])
+		TSM:Print(L["This is not a valid profile name. Profile names must be at least one character long and may not contain '@' characters."])
+		return
+	elseif TSM.db:ProfileExists(profileName) then
+		TSM:Print(L["A profile with this name already exists."])
+		return
 	end
 	TSM.db:SetProfile(profileName)
 	button:GetParentElement():GetParentElement():GetParentElement():ReloadContent()
 end
 
 function private.AccountSyncRowOnEnter(frame)
-	frame:SetStyle("background", "#30ffd839")
+	frame:GetElement("sendProfileBtn"):Show()
 	frame:GetElement("removeBtn"):Show()
+	frame:SetStyle("background", "#30ffd839")
 	frame:Draw()
+
+	local account = frame:GetContext()
+	local tooltipLines = TSMAPI_FOUR.Util.AcquireTempTable()
+	tinsert(tooltipLines, "|cffffff00"..L["Sync Status"].."|r")
+	tinsert(tooltipLines, L["Inventory / Gold Graph"]..TSM.CONST.TOOLTIP_SEP..TSM.Sync.Mirror.GetStatus(account))
+	tinsert(tooltipLines, L["Profession Info"]..TSM.CONST.TOOLTIP_SEP..TSM.Crafting.Sync.GetStatus(account))
+	TSM.UI.ShowTooltip(frame:_GetBaseFrame(), table.concat(tooltipLines, "\n"))
+	TSMAPI_FOUR.Util.ReleaseTempTable(tooltipLines)
 end
 
 function private.AccountSyncRowOnLeave(frame)
+	TSM.UI.HideTooltip()
 	frame:SetStyle("background", nil)
+	frame:GetElement("sendProfileBtn"):Hide()
 	frame:GetElement("removeBtn"):Hide()
 	frame:Draw()
 end
 
+function private.SendProfileOnClick(button)
+	TSM.Groups.Sync.SendCurrentProfile(TSM.Sync.Connection.GetConnectedPlayerByAccount(button:GetParentElement():GetContext()))
+end
+
 function private.RemoveAccountSyncOnClick(button)
-	TSM.Sync.Connection.Remove(button:GetContext())
+	TSM.Sync.Connection.Remove(button:GetParentElement():GetContext())
 	button:GetParentElement():GetParentElement():GetParentElement():ReloadContent()
 	TSM:Print(L["Account sync removed. Please delete the account sync from the other account as well."])
 end

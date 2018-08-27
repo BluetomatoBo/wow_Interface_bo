@@ -74,7 +74,7 @@ function private.GetFrame()
 					:SetFont(TSM.UI.Fonts.RobotoMedium)
 					:SetFontHeight(12)
 					:SetJustifyH("RIGHT")
-					:SetTextInfo("price", private.GetCostText)
+					:SetTextInfo("price", TSM.Money.ToString)
 					:SetSortInfo("price")
 					:Commit()
 				:SetCursor("BUY_CURSOR")
@@ -115,10 +115,6 @@ end
 
 function private.GetItemText(itemString)
 	return TSM.UI.GetColoredItemName(itemString) or "?"
-end
-
-function private.GetCostText(price)
-	return TSMAPI_FOUR.Money.ToString(price, "OPT_PAD", "OPT_SEP")
 end
 
 

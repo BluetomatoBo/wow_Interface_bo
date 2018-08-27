@@ -8,12 +8,10 @@
 
 local _, TSM = ...
 local Mirror = TSM.Sync:NewPackage("Mirror")
+local L = TSM.L
 local private = {
-	tagUpdateTimes = {},
-	lastUpdateDone = {},
-	maxUpdateTimeSent = {},
-
 	numConnected = 0,
+	accountStatus = {},
 }
 local BROADCAST_INTERVAL = 3
 
@@ -30,6 +28,19 @@ function Mirror.OnInitialize()
 	TSM.Sync.Comm.RegisterHandler(TSM.Sync.DATA_TYPES.CHARACTER_SETTING_HASHES_RESPONSE, private.CharacterSettingHashesResponseHandler)
 	TSM.Sync.Comm.RegisterHandler(TSM.Sync.DATA_TYPES.CHARACTER_SETTING_DATA_REQUEST, private.CharacterSettingDataRequestHandler)
 	TSM.Sync.Comm.RegisterHandler(TSM.Sync.DATA_TYPES.CHARACTER_SETTING_DATA_RESPONSE, private.CharacterSettingDataResponseHandler)
+end
+
+function Mirror.GetStatus(account)
+	local status = private.accountStatus[account]
+	if not status then
+		return "|cffff0000"..L["Not Connected"].."|r"
+	elseif status == "UPDATING" then
+		return "|cfffcf141"..L["Updating"].."|r"
+	elseif status == "SYNCED" then
+		return "|cff00ff00"..L["Up to date"].."|r"
+	else
+		error("Invalid status: "..tostring(status))
+	end
 end
 
 
@@ -51,12 +62,10 @@ function private.ConnectionChangedHandler(account, player, connected)
 	private.numConnected = private.numConnected + (connected and 1 or -1)
 	assert(private.numConnected >= 0)
 	if connected then
-		private.lastUpdateDone[account] = 0
-		private.maxUpdateTimeSent[account] = 0
+		private.accountStatus[account] = "UPDATING"
 		TSMAPI_FOUR.Delay.AfterTime("mirrorCharacterHashes", 0, private.SendCharacterHashes, BROADCAST_INTERVAL)
 	else
-		private.lastUpdateDone[account] = nil
-		private.maxUpdateTimeSent[account] = nil
+		private.accountStatus[account] = nil
 		if private.numConnected == 0 then
 			TSMAPI_FOUR.Delay.Cancel("mirrorCharacterHashes")
 		end
@@ -98,11 +107,13 @@ function private.CharacterHashesBroadcastHandler(dataType, sourceAccount, source
 		TSM:LOG_WARN("Got CHARACTER_HASHES_BROADCAST for player which isn't connected")
 		return
 	end
+	local didChange = false
 	for _, character in TSM.db:FactionrealmCharacterByAccountIterator(sourceAccount) do
 		if not data[character] then
 			-- this character doesn't exist anymore, so remove it
 			TSM:LOG_INFO("Removed character: '%s'", character)
 			TSM.db:RemoveSyncCharacter(character)
+			didChange = true
 		end
 	end
 	for character, hash in pairs(data) do
@@ -110,12 +121,19 @@ function private.CharacterHashesBroadcastHandler(dataType, sourceAccount, source
 			-- this is a new character, so add it to our DB
 			TSM:LOG_INFO("New character: '%s' '%s'", character, sourceAccount)
 			TSM.db:NewSyncCharacter(character, sourceAccount)
+			didChange = true
 		end
 		if hash ~= private.CalculateCharacterHash(character) then
 			-- this character's data has changed so request a hash of each of the keys
 			TSM:LOG_INFO("Character data has changed: '%s'", character)
 			TSM.Sync.Comm.SendData(TSM.Sync.DATA_TYPES.CHARACTER_SETTING_HASHES_REQUEST, sourcePlayer, character)
+			didChange = true
 		end
+	end
+	if didChange then
+		private.accountStatus[sourceAccount] = "UPDATING"
+	else
+		private.accountStatus[sourceAccount] = "SYNCED"
 	end
 end
 
@@ -133,7 +151,7 @@ function private.CharacterSettingHashesRequestHandler(dataType, sourceAccount, s
 	TSM:LOG_INFO("CHARACTER_SETTING_HASHES_REQUEST (%s)", data)
 	local responseData = TSMAPI_FOUR.Util.AcquireTempTable()
 	responseData._character = data
-	for namespace, settingKey in TSM.db:SyncSettingSortedIterator() do
+	for _, namespace, settingKey in TSM.db:SyncSettingSortedIterator() do
 		responseData[namespace.."."..settingKey] = private.CalculateCharacterSettingHash(data, namespace, settingKey)
 	end
 	TSM.Sync.Comm.SendData(TSM.Sync.DATA_TYPES.CHARACTER_SETTING_HASHES_RESPONSE, sourcePlayer, responseData)
@@ -209,7 +227,7 @@ end
 
 function private.CalculateCharacterHash(character)
 	local hash = nil
-	for namespace, settingKey in TSM.db:SyncSettingSortedIterator() do
+	for _, namespace, settingKey in TSM.db:SyncSettingSortedIterator() do
 		local settingValue = TSM.db:Get("sync", TSM.db:GetSyncScopeKeyByCharacter(character), namespace, settingKey)
 		hash = TSMAPI_FOUR.Util.CalculateHash(namespace.."."..settingKey, hash)
 		hash = TSMAPI_FOUR.Util.CalculateHash(settingValue, hash)

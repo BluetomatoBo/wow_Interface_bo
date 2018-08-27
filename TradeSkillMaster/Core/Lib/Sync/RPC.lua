@@ -13,7 +13,7 @@ local private = {
 	pendingRPC = {},
 	rpcSeqNum = 0,
 }
-local RPC_EXTRA_TIMEOUT = 5
+local RPC_EXTRA_TIMEOUT = 15
 
 
 
@@ -53,10 +53,10 @@ function RPC.Call(name, targetPlayer, handler, ...)
 	local context = TSMAPI_FOUR.Util.AcquireTempTable()
 	context.name = name
 	context.handler = handler
-	context.timeoutTime = time() + RPC_EXTRA_TIMEOUT + ceil(numBytes / ChatThrottleLib.MAX_CPS)
+	context.timeoutTime = time() + RPC_EXTRA_TIMEOUT + private.EstimateTransferTime(numBytes)
 	private.pendingRPC[private.rpcSeqNum] = context
 
-	return true
+	return true, (context.timeoutTime - time()) * 2 / 3
 end
 
 function RPC.Cancel(name, handler)
@@ -90,10 +90,11 @@ function private.HandleCall(dataType, _, sourcePlayer, data)
 	TSMAPI_FOUR.Util.ReleaseTempTable(responseData.result)
 	TSMAPI_FOUR.Util.ReleaseTempTable(responseData)
 
-	if numBytes >= ChatThrottleLib.MAX_CPS then
+	local transferTime = private.EstimateTransferTime(numBytes)
+	if transferTime > 1 then
 		-- We sent more than 1 second worth of data back, so send a preamble to allow the source to adjust its timeout accordingly.
 		local preambleData = TSMAPI_FOUR.Util.AcquireTempTable()
-		preambleData.transferTime = ceil(numBytes / ChatThrottleLib.MAX_CPS)
+		preambleData.transferTime = transferTime
 		preambleData.seq = data.seq
 		TSM.Sync.Comm.SendData(TSM.Sync.DATA_TYPES.RPC_PREAMBLE, sourcePlayer, preambleData)
 		TSMAPI_FOUR.Util.ReleaseTempTable(preambleData)
@@ -128,6 +129,10 @@ end
 -- ============================================================================
 -- Private Helper Functions
 -- ============================================================================
+
+function private.EstimateTransferTime(numBytes)
+	return ceil(numBytes / (ChatThrottleLib.MAX_CPS / 2))
+end
 
 function private.CheckPending()
 	if not next(private.pendingRPC) then

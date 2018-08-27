@@ -8,7 +8,14 @@
 
 TSMAPI_FOUR.Settings = {}
 local _, TSM = ...
-local private = { context = {}, proxies = {}, profileWarning = nil, protectedAccessAllowed = {}, cachedConnectedRealms = nil, upgradeContext = {} }
+local private = {
+	context = {},
+	proxies = {},
+	profileWarning = nil,
+	protectedAccessAllowed = {},
+	cachedConnectedRealms = nil,
+	upgradeContext = {},
+}
 local LibRealmInfo = LibStub("LibRealmInfo")
 local KEY_SEP = "@"
 local SCOPE_KEY_SEP = " - "
@@ -559,7 +566,7 @@ private.SettingsDBMethods = {
 			end
 		end
 		sort(result)
-		return TSMAPI_FOUR.Util.TableIterator(result, private.SyncSettingIteratorHelper, nil, TSMAPI_FOUR.Util.ReleaseTempTable)
+		return private.SyncSettingIteratorHelper, result, 0
 	end,
 
 	GetSyncScopeKeyByCharacter = function(self, character, factionrealm)
@@ -758,8 +765,13 @@ function private.ConnectedRealmIterator(self, prevScopeKey)
 	end
 end
 
-function private.SyncSettingIteratorHelper(_, value)
-	return strsplit(KEY_SEP, value)
+function private.SyncSettingIteratorHelper(tbl, index)
+	index = index + 1
+	if index > #tbl then
+		TSMAPI_FOUR.Util.ReleaseTempTable(tbl)
+		return
+	end
+	return index, strsplit(KEY_SEP, tbl[index])
 end
 
 function private.FactionrealmByRealmIteratorHelper(realm, prevValue)

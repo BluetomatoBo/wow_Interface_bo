@@ -145,9 +145,7 @@ function private.PlayerProfessionsThread()
 	TSMAPI_FOUR.Util.ReleaseTempTable(toRemove)
 
 	-- update our DB
-	private.db:SetQueryUpdatesPaused(true)
-	private.db:Truncate()
-	private.db:BulkInsertStart()
+	private.db:TruncateAndBulkInsertStart()
 	for _, character in TSM.db:FactionrealmCharacterIterator() do
 		local playerProfessions = TSM.db:Get("sync", TSM.db:GetSyncScopeKeyByCharacter(character), "internalData", "playerProfessions")
 		if playerProfessions then
@@ -157,7 +155,6 @@ function private.PlayerProfessionsThread()
 		end
 	end
 	private.db:BulkInsertEnd()
-	private.db:SetQueryUpdatesPaused(false)
 
 	private.playerProfessionsThreadRunning = false
 end

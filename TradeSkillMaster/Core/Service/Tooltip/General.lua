@@ -34,8 +34,8 @@ function General.LoadTooltip(tooltip, itemString)
 					for _, operationName in TSM.Groups.OperationIterator(groupPath, moduleName) do
 						tinsert(operations, operationName)
 					end
-					if #operations > 1 then
-						tooltip:AddLine(format(L["%s operation(s)"], moduleName), "|cffffffff"..table.concat(operations, ", ").."|r")
+					if #operations > 0 then
+						tooltip:AddLine(format(L["%s |4operation:operations;"], moduleName), "|cffffffff"..table.concat(operations, ", ").."|r")
 					end
 					TSMAPI_FOUR.Util.ReleaseTempTable(operations)
 				end
