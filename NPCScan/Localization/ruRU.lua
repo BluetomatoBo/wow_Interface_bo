@@ -12,8 +12,7 @@ L["BOTTOMRIGHT"] = "Внизу справа"
 L["CENTER"] = "В центре"
 L["Completed Achievement Criteria"] = "Критерии завершённых достижений"
 L["Completed Quest Objectives"] = "Цели выполненных заданий"
---[[Translation missing --]]
---[[ L["Dead NPCs"] = "Dead NPCs"--]] 
+L["Dead NPCs"] = "Мертвые существа"
 L["Detection"] = "Обнаружение"
 L["Drag to set the spawn point for targeting buttons."] = "Переместите, чтобы указать место появления сообщения об обнаружении."
 L["Duration"] = "Продолжительность"

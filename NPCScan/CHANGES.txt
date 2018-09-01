@@ -1,76 +1,52 @@
-tag a8efe3240619d2fd69ff32bf7f134b91489adbcc 8.0.1.8
+tag 83aff71e1530c1efdcfc5da270c8b6bfe2f1e752 8.0.1.9
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Sun Aug 19 13:12:55 2018 -0500
+Date:	Mon Aug 27 23:57:51 2018 -0500
 
-commit 2849a294da2a766c346271e2b52d16eb6cb4f9fb
+commit 51c04b4d59f26adf8b92f52cbf74173f5ee2bc55
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 12:02:25 2018 -0500
+Date:   Mon Aug 27 19:02:08 2018 -0500
 
-    Add data for NPCs in Tiragarde Sound.
+    Ignore vignettes which are obviously treasure.
 
-commit 7d960b249a64246c10fab60600452ae26ad1ed32
+commit 63b98d03b4be1a244c6e416cacd33cb69a6d7771
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 09:30:14 2018 -0500
+Date:   Mon Aug 27 18:48:53 2018 -0500
 
-    Change missing questID check to not ignore the npc if it has an achievementID assigned. Instead, report missing questIDs if the npc lacks both a questID and  an achievementQuestID.
+    Propagate the vignette's name to the targeting button if the vignette doesn't yield an NPC ID to make the source more obvious; for example, Zhu-Gon the Sour must be summoned via an object with a vignetteName of Really Skunky Beer.
 
-commit 3d260874326009ac852befc34c31dea6bf1899ac
+commit 52555da006273d3c2b8d9e12569bd293b3230354
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 09:24:50 2018 -0500
+Date:   Sat Aug 25 16:26:25 2018 -0500
 
-    Remove support for the Shanty Raid achievement. While it was a somewhat fun idea, only two of the six shanties were carried by NPCs, and both of them already belonged to other achievements; that isn't reason enough to add support for multiple achievements to NPCs.
+    Add questIDs for Squadron Commander Vishax and Rezira the Seer.
 
-commit 0bcc9ee5fb4c04903a6cbd882a0399c134f15579
+commit 33003e80e3c860d875d7a9b8a861bfe52271fd7b
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 07:18:21 2018 -0500
+Date:   Sat Aug 25 16:21:03 2018 -0500
 
-    Fold body of second iteration into the first - we already have the NPC object when iterating over Maps, so ignoring it only to then iterate over NPCs to do stuff to it is insane.
+    Change variable name for clarity.
 
-commit c3dbc98e97b4737c3baea2c0f42bdb582acda719
+commit d2b7de8b4f93001d42cc593e5dbaae46f2c08be1
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 06:57:15 2018 -0500
+Date:   Sat Aug 25 16:19:37 2018 -0500
 
-    Check mapID before looping to check for quest assignments instead of the other way around in order to avoid the appearance of brain damage.
+    Protect against HBD not having a zone name.
 
-commit c0fca137f2fbd77a5c93b7ce3d1e69a376942f90
+commit cb126899ed34a5bf6a3c1b5685aef092c5335ae8
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 04:48:39 2018 -0500
+Date:   Sat Aug 25 16:07:58 2018 -0500
 
-    Remove the last vestiges of the vignetteName localization code.
+    Add Akakakoo to Uncharted Island.
 
-commit e89df8c5acf43bc0407a8007212ebd641918ccca
+commit bf599d3fd4115e9f78eac7d5b64501af5b4a6351
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 04:47:58 2018 -0500
+Date:   Sat Aug 25 16:00:45 2018 -0500
 
-    Add npcIDs for Vengeful Dead, Manifested Hate, and Strange Mushroom Ring to the Drustvar map data.
+    Use the correct vignetteID for Captain Mu'kala.
 
-commit 061c1e8071cf957e73928e870dde93069ec950a3
+commit 34e46f4461056d3957263cfd7a75ae56862ce6ff
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 04:46:54 2018 -0500
+Date:   Sun Aug 19 13:16:15 2018 -0500
 
-    Add data for several NPCs in Zandalar.
-
-commit f0d3a9298def7bd3bd8080372ac9286dbec33f99
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 04:45:56 2018 -0500
-
-    mapData => map
-
-commit cff83c52a7ef41e788d1cfe9bed600ef18c736ae
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 04:45:30 2018 -0500
-
-    Fix several incorrect questIDs and erroneous factionGroup settings, add vignetteIDs where appropriate, and remove all World Quests save for a very few where that is the only time the NPC spawns - it was an ill-conceived idea that only served to have NPCs alert continually until said quest was back up and subsequently completed.
-
-commit f4fd5f15eb8e0e7123c8e5fd18863f150331a3bc
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 04:32:01 2018 -0500
-
-    Add Strange Mushroom Ring, Doc Marrtens, and Jakala the Cruel to Stormsong Valley.
-
-commit 13c9f69ef56fe7f70db82c84f95aa9f358225019
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Aug 19 04:21:53 2018 -0500
-
-    Add Vengeful Dead (Ancient Sarcophagus) and Manifested Hate (Seething Cache) for the Adventurer of Drustvar achievement.
+    Set a default size of 1000x1000 for the preferences window since the original defaults were too small.
 
