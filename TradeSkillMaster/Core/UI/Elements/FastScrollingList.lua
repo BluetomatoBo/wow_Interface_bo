@@ -301,6 +301,7 @@ function ListRow.Acquire(self, scrollingList)
 
 	self._frame:SetParent(self._scrollingList._content)
 	self._frame:Show()
+	self._frame:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	self._frame:SetScript("OnEnter", private.RowOnEnter)
 	self._frame:SetScript("OnLeave", private.RowOnLeave)
 	self._frame:SetScript("OnClick", private.RowOnClick)

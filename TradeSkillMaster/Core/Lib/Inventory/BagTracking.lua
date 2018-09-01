@@ -83,6 +83,7 @@ function BagTracking.OnEnable()
 
 	-- WoW does not fire an update event for the backpack when you log in, so trigger one
 	private.BagUpdateHandler(nil, 0)
+	private.BagUpdateDelayedHandler()
 	-- trigger an update event for all bank (initial container) and reagent bank slots since we won't get one otherwise on login
 	assert(GetContainerNumSlots(BANK_CONTAINER) == NUM_BANKGENERIC_SLOTS)
 	for slot = 1, GetContainerNumSlots(BANK_CONTAINER) do

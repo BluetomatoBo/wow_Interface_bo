@@ -221,7 +221,6 @@ function ItemList._SetRowData(self, row, data)
 	local icon = row._icons.icon
 	local expander = row._icons.expander
 	local check = row._icons.check
-	-- row:GetElement("button"):SetTooltip(not isHeader and TSMAPI_FOUR.Item.ToItemString(data) or nil)
 
 	if isHeader then
 		-- count the sub-elements below this header

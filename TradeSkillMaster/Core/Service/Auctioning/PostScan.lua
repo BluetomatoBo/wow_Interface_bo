@@ -157,7 +157,11 @@ function PostScan.DoProcess()
 		ClearCursor()
 		PickupContainerItem(bag, slot)
 		ClickAuctionSellItemButton(AuctionsItemButton, "LeftButton")
-		StartAuction(bid, buyout, postTime, stackSize, 1)
+		if tonumber((select(2, GetBuildInfo()))) >= 27481 then
+			PostAuction(bid, buyout, postTime, stackSize, 1)
+		else
+			StartAuction(bid, buyout, postTime, stackSize, 1)
+		end
 		ClearCursor()
 		local _, bagQuantity = GetContainerItemInfo(bag, slot)
 		TSM:LOG_INFO("Posting %s x %d from %d,%d (%d)", itemString, stackSize, bag, slot, bagQuantity or -1)

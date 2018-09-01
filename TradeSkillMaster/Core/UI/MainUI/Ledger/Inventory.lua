@@ -39,6 +39,7 @@ function private.DrawInventoryPage()
 	if not private.query then
 		private.query = TSM.Inventory.CreateQuery()
 			:VirtualField("totalValue", "number", private.TotalValueVirtualField)
+			:VirtualField("totalBankQuantity", "number", private.GetTotalBankQuantity)
 			:InnerJoin(TSM.ItemInfo.GetDBForJoin(), "itemString")
 			:LeftJoin(TSM.Groups.GetItemDBForJoin(), "itemString")
 			:OrderBy("name", true)
@@ -179,8 +180,8 @@ function private.DrawInventoryPage()
 						:SetFont(TSM.UI.Fonts.FRIZQT)
 						:SetFontHeight(12)
 						:SetJustifyH("RIGHT")
-						:SetTextInfo("bankQuantity")
-						:SetSortInfo("bankQuantity")
+						:SetTextInfo("totalBankQuantity")
+						:SetSortInfo("totalBankQuantity")
 						:Commit()
 					:NewColumn("mail")
 						:SetTitles(L["Mail"])
@@ -286,6 +287,11 @@ function private.TotalValueVirtualField(row)
 		return NAN
 	end
 	return price * totalQuantity
+end
+
+function private.GetTotalBankQuantity(row)
+	local bankQuantity, reagentBankQuantity = row:GetFields("bankQuantity", "reagentBankQuantity")
+	return bankQuantity + reagentBankQuantity
 end
 
 function private.GetTotalValue()

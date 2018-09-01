@@ -166,6 +166,11 @@ local DEFAULT_STYLESHEET = {
 		scrollbarThumbWidth = 4,
 		scrollbarThumbHeight = 95,
 	},
+	-- Element -> FastScrollingList -> CraftingQueueList
+	[TSM.UI.CraftingQueueList] = {
+		rowHeight = 20,
+		altBackground = "#000000",
+	},
 	-- Element -> FastScrollingList -> GroupTree
 	[TSM.UI.GroupTree] = {
 		rowHeight = 24,
@@ -348,11 +353,6 @@ local DEFAULT_STYLESHEET = {
 	},
 	-- Element -> Container -> ScrollList -> CraftingMatList
 	[TSM.UI.CraftingMatList] = {
-		background = "#1c1c1c",
-		altBackground = "#1c1c1c",
-	},
-	-- Element -> Container -> ScrollList -> CraftingQueueList
-	[TSM.UI.CraftingQueueList] = {
 		background = "#1c1c1c",
 		altBackground = "#1c1c1c",
 	},
