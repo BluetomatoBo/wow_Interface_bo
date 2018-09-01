@@ -1,49 +1,20 @@
-# [2.7.3](https://github.com/WeakAuras/WeakAuras2/tree/2.7.3) (2018-08-26)
+# [2.7.5](https://github.com/WeakAuras/WeakAuras2/tree/2.7.5) (2018-08-29)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.7.2...2.7.3)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.7.4...2.7.5)
 
-Allen Faure (2):
+Allen Faure (1):
 
-- add (external) version to metadata category
-- Ensure that Options Frame exists before commiting to an import job
+- block xpcall as well as pcall
 
-Benjamin Staneck (10):
+Causese (1):
 
-- point out new features
-- make the new category labels full width
-- replace FRIZQT everywhere
-- use the STANDARD_TEXT_FONT instead of FRIZQT for the new aura frame
-- add a little more spacing to the new category labels
-- change new labels from yellow to WoW gold
-- more wording changes to template descriptions
-- a few wording changes for templates
-- add a few nil checks to icon picker
-- add talent checking to inputs
+- adds worlddrop trinkets to templates
 
-Buds (4):
+Infus (5):
 
-- templates: use a more generic term for glow => highlight (#669)
-- Templates Fixes (#664)
-- Fix templates for all regionTypes (#661)
-- add conditions to templates (#587)
-
-Infus (13):
-
-- Fix crop for Circular Progress Textures
-- Fix regression in Copy Conditions to All
-- Fix PvP Talent Load condition
-- Add conditions to normal custom and tsu triggers
-- Add a tooltip to the "Set Parent to Anchor" option
-- Apply Smooth Progress also to time based progress
-- Fix Copy Settings not closing the context menu
-- Add a "exact match" for spell ids option to a few triggers
-- Fix whitespace
-- Simplify code
-- Hide Copy Url Box on hiding, so that it is hidden when clicking on items
-- Fix typo in icon
-- Fix focus for "Copy Url"
-
-InfusOnWoW (1):
-
-- Conditions: Add AND/OR combinations to conditions (#663)
+- Add default values to Condition properties and fix a few nil errors
+- Overlays: Only use up to 7 drawlayers for overlays
+- Fix Cooldown Ready trigger
+- Unit Characteristics: Fix UnitIsUnit condition
+- Tweak Spell widget a bit more
 

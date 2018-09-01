@@ -35,11 +35,9 @@ local L = WeakAuras.L
 	L["Add Trigger"] = "활성 조건 추가"
 	L["Addon"] = "애드온"
 	L["Addons"] = "애드온"
-	--[[Translation missing --]]
-	L["Advanced"] = "Advanced"
+	L["Advanced"] = "고급"
 	L["Align"] = "정렬"
-	--[[Translation missing --]]
-	L["All of"] = "All of"
+	L["All of"] = "다음 모두"
 	L["Allow Full Rotation"] = "전체 회전 허용"
 	L["Alpha"] = "투명도"
 	L["Anchor"] = "고정시키기"
@@ -63,8 +61,7 @@ local L = WeakAuras.L
 ]=]
 	L["Animation Sequence"] = "애니메이션 순서"
 	L["Animations"] = "애니메이션"
-	--[[Translation missing --]]
-	L["Any of"] = "Any of"
+	L["Any of"] = "다음 중 하나"
 	L["Apply Template"] = "견본 적용"
 	L["Arcane Orb"] = "비전 구슬"
 	L["At a position a bit left of Left HUD position."] = "좌측 HUD 위치보다 약간 왼쪽에 위치시킵니다."
@@ -128,10 +125,8 @@ local L = WeakAuras.L
 	L["Collapse all loaded displays"] = "불러온 모든 디스플레이 접기"
 	L["Collapse all non-loaded displays"] = "불러오지 않은 모든 디스플레이 접기"
 	L["Color"] = "색상"
-	--[[Translation missing --]]
-	L["color"] = "color"
-	--[[Translation missing --]]
-	L["Combinations"] = "Combinations"
+	L["color"] = "색상"
+	L["Combinations"] = "조합"
 	--[[Translation missing --]]
 	L["Common Options"] = "Common Options"
 	L["Compress"] = "누르기"
@@ -228,8 +223,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Expansion is disabled because this group has no children"] = "이 그룹에 자식이 없어 확장이 비활성되었습니다"
 	L["Export to Lua table..."] = "Lua table로 내보내기..."
 	L["Export to string..."] = "문자열로 내보내기..."
-	--[[Translation missing --]]
-	L["External"] = "External"
+	L["External"] = "외부"
 	L["Fade"] = "사라짐"
 	L["Fade In"] = "서서히 나타남"
 	L["Fade Out"] = "서서히 사라짐"
@@ -250,8 +244,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["From Template"] = "견본으로부터"
 	L["Full Scan"] = "전체 검사"
 	L["General Text Settings"] = "일반 문자 설정"
-	--[[Translation missing --]]
-	L["Global Conditions"] = "Global Conditions"
+	L["Global Conditions"] = "전역 조건"
 	L["Glow"] = "반짝이기"
 	L["Glow Action"] = "반짝임 동작"
 	L["Green Rune"] = "녹색 룬"
@@ -299,12 +292,9 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Ignored"] = "무시됨"
 	L["Import"] = "가져오기"
 	L["Import a display from an encoded string"] = "암호화된 문자열에서 디스플레이 가져오기"
-	--[[Translation missing --]]
-	L["Invalid Item Name/ID/Link"] = "Invalid Item Name/ID/Link"
-	--[[Translation missing --]]
-	L["Invalid Spell ID"] = "Invalid Spell ID"
-	--[[Translation missing --]]
-	L["Invalid Spell Name/ID/Link"] = "Invalid Spell Name/ID/Link"
+	L["Invalid Item Name/ID/Link"] = "잘못된 아이템 이름/ID/링크"
+	L["Invalid Spell ID"] = "잘못된 주문 ID"
+	L["Invalid Spell Name/ID/Link"] = "잘못된 주문 이름/ID/링크"
 	L["Inverse"] = "반대로"
 	L["Inverse Slant"] = "역 경사"
 	L["Justify"] = "정렬"
@@ -389,7 +379,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Paste Load Settings"] = "Paste Load Settings"
 	--[[Translation missing --]]
 	L["Paste Settings"] = "Paste Settings"
-	L["Paste text below"] = "아래 문자를 붙여 넣으세요"
+	L["Paste text below"] = "아래에 문자를 붙여 넣으세요."
 	--[[Translation missing --]]
 	L["Paste Trigger Settings"] = "Paste Trigger Settings"
 	L["Play Sound"] = "소리 재생"
@@ -409,10 +399,9 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Regions of type \"%s\" are not supported."] = "Regions of type \"%s\" are not supported."
 	L["Remaining Time"] = "남은 시간"
 	L["Remaining Time Precision"] = "남은 시간 정확도"
-	--[[Translation missing --]]
-	L["Remove"] = "Remove"
+	L["Remove"] = "제거"
 	L["Remove this display from its group"] = "이 디스플레이를 그룹에서 제거하기"
-	L["Remove this property"] = "이 속성 삭제"
+	L["Remove this property"] = "이 속성 제거"
 	L["Rename"] = "이름 변경"
 	L["Repeat After"] = "반복 횟수"
 	--[[Translation missing --]]
@@ -441,8 +430,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Shift-click to create chat link"] = "Shift+클릭 - 대화 링크 만들기"
 	L["Show all matches (Auto-clone)"] = "모든 일치 표시 (자동 복제)"
 	L["Show Cooldown Text"] = "재사용 대기시간 문자 표시"
-	--[[Translation missing --]]
-	L["Show If Unit Is Invalid"] = "Show If Unit Is Invalid"
+	L["Show If Unit Is Invalid"] = "유닛이 유효하지 않은 경우 표시"
 	L["Show model of unit "] = "유닛의 모델 표시"
 	--[[Translation missing --]]
 	L["Show On"] = "Show On"
@@ -453,8 +441,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Shows a spell icon with an optional cooldown overlay"] = "재사용 대기시간 오버레이와 함께 주문 아이콘을 표시합니다"
 	L["Shows a texture that changes based on duration"] = "지속시간에 따라 변화하는 텍스쳐를 표시합니다"
 	L["Shows one or more lines of text, which can include dynamic information such as progress or stacks"] = "여러 줄의 문자를 표시합니다, 진행 시간 또는 중첩과 같은 여러 정보를 포함할 수 있습니다"
-	--[[Translation missing --]]
-	L["Simple"] = "Simple"
+	L["Simple"] = "단순한"
 	L["Size"] = "크기"
 	L["Slant Amount"] = "기울기 양"
 	L["Slant Mode"] = "기울기 모드"

@@ -8,16 +8,14 @@ local L = WeakAuras.L
 	L["Ability Charges"] = "능력 충전량"
 	L["Add Triggers"] = "활성 조건 추가"
 	L["Always Active"] = "항상 활성화"
-	--[[Translation missing --]]
-	L["Always Show"] = "Always Show"
+	L["Always Show"] = "항상 표시"
 	--[[Translation missing --]]
 	L["Always show the aura, highlight it if debuffed."] = "Always show the aura, highlight it if debuffed."
 	--[[Translation missing --]]
 	L["Always show the aura, turns grey if on cooldown."] = "Always show the aura, turns grey if on cooldown."
 	--[[Translation missing --]]
 	L["Always show the aura, turns grey if the debuff not active."] = "Always show the aura, turns grey if the debuff not active."
-	--[[Translation missing --]]
-	L["Always shows the aura, grey if buff not active."] = "Always shows the aura, grey if buff not active."
+	L["Always shows the aura, grey if buff not active."] = "효과를 항상 표시하고, 강화 효과가 활성화되어 있지 않으면 회색으로 바뀝니다."
 	--[[Translation missing --]]
 	L["Always shows the aura, highlight it if buffed."] = "Always shows the aura, highlight it if buffed."
 	--[[Translation missing --]]
@@ -62,8 +60,7 @@ local L = WeakAuras.L
 	L["Debuffs"] = "약화 효과"
 	L["Enchants"] = "마법부여"
 	L["General"] = "일반"
-	--[[Translation missing --]]
-	L["General Azerite Traits"] = "General Azerite Traits"
+	L["General Azerite Traits"] = "일반 아제라이트 특성"
 	L["Health"] = "생명력"
 	--[[Translation missing --]]
 	L["Highlight while buffed, red when out of range."] = "Highlight while buffed, red when out of range."
@@ -84,14 +81,11 @@ local L = WeakAuras.L
 	L["Only show the aura if the target has the debuff."] = "Only show the aura if the target has the debuff."
 	--[[Translation missing --]]
 	L["Only show the aura when the item is on cooldown."] = "Only show the aura when the item is on cooldown."
-	--[[Translation missing --]]
-	L["Only shows the aura if the target has the buff."] = "Only shows the aura if the target has the buff."
-	--[[Translation missing --]]
-	L["Only shows the aura when the ability is on cooldown."] = "Only shows the aura when the ability is on cooldown."
+	L["Only shows the aura if the target has the buff."] = "대상에 강화 효과가 있는 경우 그 효과만 표시합니다."
+	L["Only shows the aura when the ability is on cooldown."] = "능력이 재사용 대기 중인 경우 그 효과만 표시합니다."
 	L["Pet alive"] = "소환수 생존"
 	L["Pet Behavior"] = "소환수 행동"
-	--[[Translation missing --]]
-	L["PvP Azerite Traits"] = "PvP Azerite Traits"
+	L["PvP Azerite Traits"] = "PvP 아제라이트 특성"
 	L["PvP Talents"] = "명예 특성"
 	L["PVP Trinkets (Buff)"] = "PvP 장신구 (강화 효과)"
 	--[[Translation missing --]]
@@ -126,16 +120,13 @@ local L = WeakAuras.L
 	L["Show Cooldown and Debuff and Check for Target"] = "Show Cooldown and Debuff and Check for Target"
 	--[[Translation missing --]]
 	L["Show Cooldown and Totem Information"] = "Show Cooldown and Totem Information"
-	--[[Translation missing --]]
-	L["Show Only if Buffed"] = "Show Only if Buffed"
-	--[[Translation missing --]]
-	L["Show Only if Debuffed"] = "Show Only if Debuffed"
+	L["Show Only if Buffed"] = "있는 강화 효과만 표시"
+	L["Show Only if Debuffed"] = "있는 약화 효과만 표시"
 	--[[Translation missing --]]
 	L["Show Only if on Cooldown"] = "Show Only if on Cooldown"
 	--[[Translation missing --]]
 	L["Show Totem and Charge Information"] = "Show Totem and Charge Information"
-	--[[Translation missing --]]
-	L["Specific Azerite Traits"] = "Specific Azerite Traits"
+	L["Specific Azerite Traits"] = "특정 아제라이트 특성"
 	L["Stagger"] = "시간차"
 	L["Totems"] = "토템"
 	--[[Translation missing --]]

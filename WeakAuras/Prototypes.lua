@@ -493,6 +493,9 @@ local pvpTalentId = { 3589, 3588, 3587 };
 function WeakAuras.CheckPvpTalentByIndex(index)
   if (index <= 3) then
     local talentSlotInfo = C_SpecializationInfo.GetPvpTalentSlotInfo(1);
+    if (not talentSlotInfo or not talentSlotInfo.selectedTalentID) then
+      return false;
+    end
     return select(3, GetPvpTalentInfoByID(pvpTalentId[index])) == select(3, GetPvpTalentInfoByID(talentSlotInfo.selectedTalentID));
   else
     local checkTalentSlotInfo = C_SpecializationInfo.GetPvpTalentSlotInfo(2)
@@ -1033,6 +1036,7 @@ WeakAuras.event_prototypes = {
         init = "UnitIsUnit(concernedUnit, extraUnit)",
         values = "actual_unit_types_with_specific",
         test = "unitisunit",
+        store = true,
         conditionType = "bool",
         desc = function() return L["Can be used for e.g. checking if \"boss1target\" is the same as \"player\"."] end
       },
@@ -2208,6 +2212,22 @@ WeakAuras.event_prototypes = {
       WeakAuras.WatchSpellCooldown(spellName);
     end,
     init = function(trigger)
+      trigger.spellName = trigger.spellName or 0;
+      local spellName;
+      if (trigger.use_exact_spellName) then
+        spellName = trigger.spellName;
+      else
+        spellName = type(trigger.spellName) == "number" and GetSpellInfo(trigger.spellName) or trigger.spellName;
+      end
+
+      if (type(spellName) == "string") then
+        spellName = "[[" .. spellName .. "]]";
+      end
+
+      local ret = [=[
+        local spellname = %s
+      ]=]
+      return ret:format(spellName);
     end,
     args = {
       {
@@ -2217,6 +2237,7 @@ WeakAuras.event_prototypes = {
         type = "spell",
         init = "arg",
         showExactOption = true,
+        test = "spellname == spellName"
       }
     },
     nameFunc = function(trigger)
