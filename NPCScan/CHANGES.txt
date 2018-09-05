@@ -1,28 +1,70 @@
-tag e92d59440af3ffd71b2268f463761e36fa716259 8.0.1.10
+tag 4dfbfecdb0b862a547e7b6ec69297e5d3490796f 8.0.1.11
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Sat Sep 1 02:02:33 2018 -0500
+Date:	Wed Sep 5 01:37:06 2018 -0500
 
-commit d3c8ceea99837d4013829f214d6014d2d0d68560
+commit 133af6f9a751908ccecb53f731660a99f60b8d94
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sat Sep 1 02:01:11 2018 -0500
+Date:   Wed Sep 5 01:24:29 2018 -0500
 
-    Add vignetteIDs for Executioner Blackwell, Captain Leadfist, Haywire Golem, and Gorged Boar.
+    Treat a questID below 0 as not existing when checking for completion.
 
-commit 340f0e02e572a58e63ae27488e41cdb54fe08290
+commit c178d8e484dffbcbdf7991432e73604418b66bdd
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sat Sep 1 01:17:31 2018 -0500
+Date:   Wed Sep 5 01:12:01 2018 -0500
 
-    Change update logic to only update the target button's source text if it doesn't exist or is an empty string to avoid, for example, updating from Minimap to Unit Nameplates since the former would be the actual source.
+    Add some missing NPC questIDs and fix a few that were wrong, using -1 to denote an NPC which has no quest.
 
-commit 2711b3cd09414b84f7601836b439d9d237cda8d8
+commit 0f023ad49860835a6203835feef342c0b2f22d9b
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sat Sep 1 01:05:24 2018 -0500
+Date:   Wed Sep 5 01:10:47 2018 -0500
 
-    Add the ability to map multiple NPCs to a vignetteID, check the vignette mapping before checking the vignette's NPC ID, and always pass the vignette name to the processing handler no matter the method of detection.
+    Future-proof against other questID types.
 
-commit 6ea0d297ebc24a91dbb8bf03f1e683037b140c6c
+commit 4adc99849216242e58a798007fa6705be507e123
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Fri Aug 31 13:36:23 2018 -0500
+Date:   Wed Sep 5 01:10:13 2018 -0500
 
-    Add vignetteID and fix questID for Scaleclaw Broodmother in Vol'dun.
+    Add vignetteIDs to most of the NPCs which were missing them, since vignette names do not always match the NPC/quest name (at least in English - may be better or worse in other languages), using -1 for NPCs which are known to have no vignette.
+
+commit 72e6bc97d53361e3ab3df530bf6f840683db4f07
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Tue Sep 4 23:31:33 2018 -0500
+
+    Add initial data for new Arathi Highlands NPCs.
+
+commit f78bb20cf89448b0ee5da3fb7cbad27ef4199939
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Tue Sep 4 23:30:20 2018 -0500
+
+    Simplify logic for detection, and make NPCs with unfinished quests be detectable regardless of achievement status.
+
+commit 264e1dfe2fd12df2a41b8b543186c1158e8c0b8a
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Tue Sep 4 13:41:21 2018 -0500
+
+    Add Aiji the Accursed, in Nazmir.
+
+commit b391fcd88824962fc323887124d89ad57e57c882
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Mon Sep 3 22:42:47 2018 -0500
+
+    Add Mor'fani the Exile, in Vol'dun.
+
+commit 4cd27390f30043f93d9b11d796390c019380a555
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Mon Sep 3 02:29:02 2018 -0500
+
+    Suppress warnings for NPCs which have already been checked, since there are some which are associated with multiple mapIDs.
+
+commit d771ff2202d4a44e0c117bc51ff8820ad394b2cd
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Mon Sep 3 01:31:42 2018 -0500
+
+    Rewrite questID-checking to use continent mapIDs, and also add vignetteID-checking using the same logic.
+
+commit af46d2d0daffb81bf743913d885b96ccb745b252
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Sun Sep 2 14:23:34 2018 -0500
+
+    Remove Putridius from Scholomance - he's in Western Plaguelands.
 
