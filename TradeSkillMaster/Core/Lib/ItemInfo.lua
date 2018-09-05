@@ -17,10 +17,11 @@ local private = {
 	pendingItems = {},
 	numRequests = {},
 	availableItems = {},
+	isRebuilding = false,
 }
 local SEP_CHAR = "\002"
-local ITEM_INFO_INTERVAL = 0.1
-local MAX_REQUESTED_ITEM_INFO = 100
+local ITEM_INFO_INTERVAL = 0.05
+local MAX_REQUESTED_ITEM_INFO = 50
 local MAX_REQUESTS_PER_ITEM = 50
 local UNKNOWN_ITEM_NAME = L["Unknown Item"]
 local DB_VERSION = 3
@@ -38,6 +39,8 @@ local FIELD_LENGTH_BITS = {
 	isBOP = 2,
 	isCraftingReagent = 2,
 }
+local PENDING_STATE_NEW = 1
+local PENDING_STATE_CREATED = 2
 do
 	local totalLength = 0
 	for _, length in pairs(FIELD_LENGTH_BITS) do
@@ -92,11 +95,6 @@ end
 -- ============================================================================
 
 function ItemInfo.OnInitialize()
-	-- load hard-coded vendor costs
-	for itemString, cost in pairs(TSM.CONST.VENDOR_SELL_PRICES) do
-		TSM.db.global.internalData.vendorItems[itemString] = TSM.db.global.internalData.vendorItems[itemString] or cost
-	end
-
 	TSMAPI_FOUR.Event.Register("GET_ITEM_INFO_RECEIVED", function(_, itemId)
 		if itemId <= 0 or itemId > TSM.CONST.ITEM_MAX_ID or private.numRequests[itemId] == math.huge then
 			return
@@ -108,12 +106,18 @@ function ItemInfo.OnInitialize()
 	-- load the item info database
 	local build, revision = GetBuildInfo()
 	if not TSMItemInfoDB or TSMItemInfoDB.version ~= DB_VERSION or TSMItemInfoDB.locale ~= GetLocale() or TSMItemInfoDB.build ~= build or TSMItemInfoDB.revision ~= revision then
-		TSM:Print(L["TSM is currently rebuilding its item cache which may cause FPS drops and result in TSM not being fully functional until this process is complete. This is normal and typically takes less than a minute."])
+		private.isRebuilding = true
 		TSMItemInfoDB = {
 			names = nil,
 			itemStrings = nil,
 			data = "",
 		}
+		wipe(TSM.db.global.internalData.vendorItems)
+	end
+
+	-- load hard-coded vendor costs
+	for itemString, cost in pairs(TSM.CONST.VENDOR_SELL_PRICES) do
+		TSM.db.global.internalData.vendorItems[itemString] = TSM.db.global.internalData.vendorItems[itemString] or cost
 	end
 
 	local names = TSMItemInfoDB.names and TSMAPI_FOUR.Util.SafeStrSplit(TSMItemInfoDB.names, SEP_CHAR) or {}
@@ -152,11 +156,18 @@ function ItemInfo.OnInitialize()
 	end
 	private.db:BulkInsertEnd()
 
-	-- process pending item info every 0.1 seconds
+	-- process pending item info every 0.05 seconds
 	TSMAPI_FOUR.Delay.AfterTime("processItemInfo", 0, private.ProcessItemInfo, ITEM_INFO_INTERVAL)
 	-- scan the merchant when the goods are shown
 	TSMAPI_FOUR.Event.Register("MERCHANT_SHOW", private.ScanMerchant)
 	TSMAPI_FOUR.Event.Register("MERCHANT_UPDATE", private.UpdateMerchant)
+end
+
+function ItemInfo.OnEnable()
+	-- delay this message until OnEnable to make it more likely to be seen
+	if private.isRebuilding then
+		TSM:Print(L["TSM is currently rebuilding its item cache which may cause FPS drops and result in TSM not being fully functional until this process is complete. This is normal and typically takes less than a minute."])
+	end
 end
 
 function ItemInfo.OnDisable()
@@ -592,7 +603,7 @@ function TSMAPI_FOUR.Item.FetchInfo(item)
 		end
 		return
 	end
-	private.pendingItems[itemString] = true
+	private.pendingItems[itemString] = PENDING_STATE_NEW
 
 	TSMAPI_FOUR.Delay.AfterTime("processItemInfo", 0, private.ProcessItemInfo, ITEM_INFO_INTERVAL)
 end
@@ -655,6 +666,24 @@ function private.GetFieldValueHelper(itemString, field, baseIsSame, storeBaseVal
 end
 
 function private.ProcessItemInfo()
+	private.db:SetQueryUpdatesPaused(true)
+
+	-- create rows for items which don't exist at all in the DB in bulk
+	private.db:BulkInsertStart()
+	for itemString, state in pairs(private.pendingItems) do
+		if state == PENDING_STATE_NEW then
+			local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
+			if not private.db:HasUniqueRow("itemString", itemString) then
+				private.db:BulkInsertNewRow(itemString, "", -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+			end
+			if baseItemString ~= itemString and not private.db:HasUniqueRow("itemString", baseItemString) then
+				private.db:BulkInsertNewRow(baseItemString, "", -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+			end
+			private.pendingItems[itemString] = PENDING_STATE_CREATED
+		end
+	end
+	private.db:BulkInsertEnd()
+
 	local toRemove = TSMAPI_FOUR.Util.AcquireTempTable()
 	local numRequested = 0
 	for itemString in pairs(private.pendingItems) do
@@ -675,11 +704,14 @@ function private.ProcessItemInfo()
 			-- we have info for this item
 			tinsert(toRemove, itemString)
 			private.numRequests[itemString] = nil
-		elseif numRequested < MAX_REQUESTED_ITEM_INFO then
+		else
 			-- request info for this item
 			if not private.StoreGetItemInfo(itemString) then
 				private.numRequests[itemString] = (private.numRequests[itemString] or 0) + 1
 				numRequested = numRequested + 1
+				if numRequested >= MAX_REQUESTED_ITEM_INFO then
+					break
+				end
 			end
 		end
 	end
@@ -689,8 +721,14 @@ function private.ProcessItemInfo()
 	TSMAPI_FOUR.Util.ReleaseTempTable(toRemove)
 
 	if not next(private.pendingItems) then
+		if private.isRebuilding then
+			TSM:Print(L["Done rebuilding item cache."])
+			private.isRebuilding = nil
+		end
 		TSMAPI_FOUR.Delay.Cancel("processItemInfo")
 	end
+
+	private.db:SetQueryUpdatesPaused(false)
 end
 
 function private.ScanMerchant()
@@ -727,25 +765,25 @@ function private.GetField(itemString, key)
 	return value
 end
 
-function private.GetOrCreateDBRow(itemString)
-	local row = private.db:GetUniqueRow("itemString", itemString)
-	if not row then
-		row = private.db:NewRow()
-			:SetField("itemString", itemString)
-			:SetField("name", "")
-			:SetField("minLevel", -1)
-			:SetField("itemLevel", -1)
-			:SetField("maxStack", -1)
-			:SetField("vendorSell", -1)
-			:SetField("quality", -1)
-			:SetField("isBOP", -1)
-			:SetField("isCraftingReagent", -1)
-			:SetField("texture", -1)
-			:SetField("classId", -1)
-			:SetField("subClassId", -1)
-			:SetField("invSlotId", -1)
+function private.CreateDBRowIfNotExists(itemString)
+	if private.db:HasUniqueRow("itemString", itemString) then
+		return
 	end
-	return row
+	private.db:NewRow()
+		:SetField("itemString", itemString)
+		:SetField("name", "")
+		:SetField("minLevel", -1)
+		:SetField("itemLevel", -1)
+		:SetField("maxStack", -1)
+		:SetField("vendorSell", -1)
+		:SetField("quality", -1)
+		:SetField("isBOP", -1)
+		:SetField("isCraftingReagent", -1)
+		:SetField("texture", -1)
+		:SetField("classId", -1)
+		:SetField("subClassId", -1)
+		:SetField("invSlotId", -1)
+		:Create()
 end
 
 function private.SetSingleField(itemString, key, value)
@@ -759,9 +797,8 @@ function private.SetSingleField(itemString, key, value)
 		-- no change
 		return
 	end
-	private.GetOrCreateDBRow(itemString)
-		:SetField(key, value)
-		:CreateOrUpdateAndRelease()
+	private.CreateDBRowIfNotExists(itemString)
+	private.db:SetUniqueRowField("itemString", itemString, key, value)
 end
 
 function private.SetItemInfoInstantFields(itemString, texture, classId, subClassId, invSlotId)
@@ -769,17 +806,20 @@ function private.SetItemInfoInstantFields(itemString, texture, classId, subClass
 	private.CheckFieldValue("classId", classId)
 	private.CheckFieldValue("subClassId", subClassId)
 	private.CheckFieldValue("invSlotId", invSlotId)
-	private.GetOrCreateDBRow(itemString)
-		:SetField("texture", texture)
-		:SetField("classId", classId)
-		:SetField("subClassId", subClassId)
-		:SetField("invSlotId", invSlotId)
-		:CreateOrUpdateAndRelease()
+	private.CreateDBRowIfNotExists(itemString)
+	private.db:SetUniqueRowField("itemString", itemString, "texture", texture)
+	private.db:SetUniqueRowField("itemString", itemString, "classId", classId)
+	private.db:SetUniqueRowField("itemString", itemString, "subClassId", subClassId)
+	private.db:SetUniqueRowField("itemString", itemString, "invSlotId", invSlotId)
 end
 
 function private.StoreGetItemInfoInstant(itemString)
 	local itemStringType, id, extra1, extra2 = strmatch(itemString, "^([pi]):([0-9]+):?([0-9]*):?([0-9]*)")
 	id = tonumber(id)
+	if private.GetField(itemString, "texture") then
+		-- we already have info cached for this item
+		return
+	end
 	extra1 = tonumber(extra1)
 	extra2 = tonumber(extra2)
 
@@ -838,19 +878,19 @@ function private.SetGetItemInfoFields(itemString, name, minLevel, itemLevel, max
 	private.CheckFieldValue("quality", quality)
 	private.CheckFieldValue("isBOP", isBOP)
 	private.CheckFieldValue("isCraftingReagent", isCraftingReagent)
-	private.GetOrCreateDBRow(itemString)
-		:SetField("name", name)
-		:SetField("minLevel", minLevel)
-		:SetField("itemLevel", itemLevel)
-		:SetField("maxStack", maxStack)
-		:SetField("vendorSell", vendorSell)
-		:SetField("quality", quality)
-		:SetField("isBOP", isBOP)
-		:SetField("isCraftingReagent", isCraftingReagent)
-		:CreateOrUpdateAndRelease()
+	private.CreateDBRowIfNotExists(itemString)
+	private.db:SetUniqueRowField("itemString", itemString, "name", name)
+	private.db:SetUniqueRowField("itemString", itemString, "minLevel", minLevel)
+	private.db:SetUniqueRowField("itemString", itemString, "itemLevel", itemLevel)
+	private.db:SetUniqueRowField("itemString", itemString, "maxStack", maxStack)
+	private.db:SetUniqueRowField("itemString", itemString, "vendorSell", vendorSell)
+	private.db:SetUniqueRowField("itemString", itemString, "quality", quality)
+	private.db:SetUniqueRowField("itemString", itemString, "isBOP", isBOP)
+	private.db:SetUniqueRowField("itemString", itemString, "isCraftingReagent", isCraftingReagent)
 end
 
 function private.StoreGetItemInfo(itemString)
+	private.StoreGetItemInfoInstant(itemString)
 	assert(private.IsItem(itemString))
 	local wowItemString = TSMAPI_FOUR.Item.ToWowItemString(itemString)
 	local baseItemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString)
@@ -917,6 +957,18 @@ function private.StoreGetItemInfo(itemString)
 end
 
 function private.ProcessAvailableItems()
+	private.db:SetQueryUpdatesPaused(true)
+
+	-- bulk insert items we didn't previously know about
+	private.db:BulkInsertStart()
+	for itemId in pairs(private.availableItems) do
+		local itemString = "i:"..itemId
+		if not private.db:HasUniqueRow("itemString", itemString) then
+			private.db:BulkInsertNewRow(itemString, "", -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+		end
+	end
+	private.db:BulkInsertEnd()
+
 	-- remove the items we process after processing them all because GET_ITEM_INFO_RECEIVED events may fire as we do this
 	local processedItems = TSMAPI_FOUR.Util.AcquireTempTable()
 	for itemId in pairs(private.availableItems) do
@@ -930,4 +982,6 @@ function private.ProcessAvailableItems()
 		private.availableItems[itemId] = nil
 	end
 	TSMAPI_FOUR.Util.ReleaseTempTable(processedItems)
+
+	private.db:SetQueryUpdatesPaused(false)
 end

@@ -34,7 +34,7 @@ local OPERATION_INFO = {
 	cancelUndercut = { type = "boolean", default = true },
 	keepPosted = { type = "number", default = 0 },
 	cancelRepost = { type = "boolean", default = true },
-	cancelRepostThreshold = { type = "number", default = 10000 },
+	cancelRepostThreshold = { type = "string", default = "1g" },
 }
 
 

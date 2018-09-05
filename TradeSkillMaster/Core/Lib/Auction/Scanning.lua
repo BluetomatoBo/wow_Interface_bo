@@ -19,6 +19,7 @@ local private = {
 local SCAN_RESULT_DELAY = 0.1
 local MAX_SOFT_RETRIES = 50
 local MAX_HARD_RETRIES = 2
+local MAX_SETTLE_TIME = 0.5
 
 
 
@@ -29,6 +30,7 @@ local MAX_HARD_RETRIES = 2
 local AuctionFilter = TSMAPI_FOUR.Class.DefineClass("AuctionFilter")
 
 function AuctionFilter.__init(self)
+	self._scan = nil
 	self._name = nil
 	self._minLevel = nil
 	self._maxLevel = nil
@@ -54,11 +56,13 @@ function AuctionFilter.__init(self)
 	self._resultIncludesRow = {}
 end
 
-function AuctionFilter._Acquire(self)
+function AuctionFilter._Acquire(self, scan)
+	self._scan = scan
 	self._page = 0
 end
 
 function AuctionFilter._Release(self)
+	self._scan = nil
 	self._name = nil
 	self._minLevel = nil
 	self._maxLevel = nil
@@ -264,7 +268,13 @@ function AuctionFilter._DoAuctionQueryThreaded(self)
 			local lastPage = max(private.GetNumPages() - 1, 0)
 			while true do
 				-- wait for the AH to be ready
-				TSMAPI_FOUR.Thread.WaitForFunction(CanSendAuctionQuery)
+				while not CanSendAuctionQuery() do
+					if self._scan:_IsCancelled() then
+						TSM:LOG_INFO("Stopping canelled scan")
+						return false
+					end
+					TSMAPI_FOUR.Thread.Yield(true)
+				end
 				-- query the AH
 				QueryAuctionItems(nil, nil, nil, lastPage)
 				-- wait for the update event
@@ -459,6 +469,7 @@ function AuctionScan.__init(self)
 	self._findFilter = nil
 	self._findResult = {}
 	self._itemFilter = TSMAPI_FOUR.ItemFilter.New()
+	self._cancelled = nil
 end
 
 function AuctionScan._Acquire(self, db)
@@ -486,6 +497,7 @@ function AuctionScan._Release(self)
 	self._onFilterDoneHandler = nil
 	self._onFilterPartialDoneHandler = nil
 	self._customFilterFunc = nil
+	self._cancelled = nil
 	wipe(self._findResult)
 end
 
@@ -530,7 +542,7 @@ function AuctionScan.NewAuctionFilter(self)
 	if not filter then
 		filter = AuctionFilter()
 	end
-	filter:_Acquire()
+	filter:_Acquire(self)
 	tinsert(self._filters, filter)
 	return filter
 end
@@ -621,6 +633,14 @@ function AuctionScan.DeleteRowFromDB(self, row, bought)
 	self._db:SetQueryUpdatesPaused(true)
 	rowFilter:_RemoveResultRows(self._db, row, bought)
 	self._db:SetQueryUpdatesPaused(false)
+end
+
+function AuctionScan.Cancel(self)
+	self._cancelled = true
+end
+
+function AuctionScan._IsCancelled(self)
+	return self._cancelled
 end
 
 function AuctionScan._IsFiltered(self, row)
@@ -717,7 +737,7 @@ function AuctionScan._GetFindFilter(self, row)
 			self._findFilter = AuctionFilter()
 		end
 	end
-	self._findFilter:_Acquire()
+	self._findFilter:_Acquire(self)
 	local itemString = row:GetField("itemString")
 	local level = TSMAPI_FOUR.Item.GetMinLevel(itemString)
 	self._findFilter
@@ -809,33 +829,52 @@ function private.IsAuctionPageValid(resolveSellers)
 	return true
 end
 
-function private.ValidateThreaded(resolveSellers)
-	-- wait till we can send the next query to give time for things to settle a bit
-	TSMAPI_FOUR.Thread.WaitForFunction(CanSendAuctionQuery)
+function private.ValidateThreaded(auctionScan)
+	-- wait a bit for things to settle
+	local timeout = GetTime() + MAX_SETTLE_TIME
+	while not CanSendAuctionQuery() and GetTime() < timeout do
+		if auctionScan:_IsCancelled() then
+			return false
+		end
+		TSMAPI_FOUR.Thread.Yield(true)
+	end
 	-- check the result
-	for _ = 0, MAX_SOFT_RETRIES do
+	local remainingRetries = MAX_SOFT_RETRIES
+	while remainingRetries > 0 do
+		if auctionScan:_IsCancelled() then
+			TSM:LOG_INFO("Stopping canelled scan")
+			return false
+		end
 		-- wait a small delay and then try and get the result
 		TSMAPI_FOUR.Thread.Sleep(SCAN_RESULT_DELAY)
 		-- get result
-		if private.IsAuctionPageValid(resolveSellers) then
+		if private.IsAuctionPageValid(auctionScan._resolveSellers) then
 			-- result is valid, so we're done
 			return true
+		end
+		-- only count retries if we're ready to send the next query
+		if CanSendAuctionQuery() then
+			remainingRetries = remainingRetries - 1
 		end
 	end
 	return false
 end
 
-function private.DoQueryAndValidateThreaded(filter, resolveSellers)
+function private.DoQueryAndValidateThreaded(filter, auctionScan)
 	for _ = 0, MAX_HARD_RETRIES do
 		-- query the AH
 		filter:_DoAuctionQueryThreaded()
 		-- check the result
-		if private.ValidateThreaded(resolveSellers) then
+		if private.ValidateThreaded(auctionScan) then
 			return true
+		end
+		if auctionScan:_IsCancelled() then
+			TSM:LOG_INFO("Stopping canelled scan")
+			return false
 		end
 		if filter:_IsSniper() then
 			-- don't retry sniper filters
-			break
+			return false
 		end
 	end
 	return false
@@ -870,6 +909,7 @@ end
 function private.ScanQueryThreaded(auctionScan)
 	-- loop through each filter to perform
 	auctionScan:_SetFiltersScanned(0)
+	auctionScan._cancelled = nil
 	local allSuccess = true
 	for i, filter in ipairs(auctionScan._filters) do
 		-- update the sort for this filter
@@ -885,13 +925,16 @@ function private.ScanQueryThreaded(auctionScan)
 		local hasMorePages = true
 		local filterSuccess = true
 		-- loop through each page of this filter and scan it
-		while hasMorePages do
+		while hasMorePages and not auctionScan:_IsCancelled() do
 			-- query until we get good data or run out of retries
-			local success = private.DoQueryAndValidateThreaded(filter, auctionScan._resolveSellers)
-			-- don't store results for a failed filter
-			if not success then
+			if not private.DoQueryAndValidateThreaded(filter, auctionScan) then
+				-- don't store results for a failed filter
 				TSM:LOG_ERR("Failed to scan filter")
 				filterSuccess = false
+				break
+			end
+			if auctionScan:_IsCancelled() then
+				TSM:LOG_INFO("Stopping canelled scan")
 				break
 			end
 			-- we've made the query, now store the results
@@ -1006,7 +1049,7 @@ function private.FindAuctionThreaded(auctionScan, row, noSeller)
 	filter:_SetPage(predictionPage)
 	local minPage, maxPage, direction, retriesLeft = 0, nil, "UP", 1
 	while true do
-		private.DoQueryAndValidateThreaded(filter, auctionScan._resolveSellers)
+		private.DoQueryAndValidateThreaded(filter, auctionScan)
 		-- search this page for the row
 		if private.FindAuctionOnCurrentPage(auctionScan, row, noSeller) then
 			TSM:LOG_INFO("Found auction (%d)", filter:_GetPage())

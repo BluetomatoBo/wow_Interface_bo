@@ -18,6 +18,7 @@ local private = {
 	sortContext = nil,
 	sortValueLookup = nil,
 	keysTemp = {},
+	itemLinkedCallbacks = {},
 }
 private.iterContext = { arg = {}, index = {}, helperFunc = {}, cleanupFunc = {} }
 setmetatable(private.iterContext.arg, { __mode = "k" })
@@ -43,6 +44,28 @@ do
 	for _ = 1, NUM_TEMP_TABLES do
 		local tempTbl = setmetatable({}, RELEASED_TEMP_TABLE_MT)
 		tinsert(private.freeTempTables, tempTbl)
+	end
+end
+-- setup hooks to handle shift-clicking on items
+do
+	local function HandleShiftClickItem(origFunc, itemLink)
+		local putIntoChat = origFunc(itemLink)
+		if putIntoChat then
+			return putIntoChat
+		end
+		local name = TSMAPI_FOUR.Item.GetName(itemLink)
+		if not name or not private.HandleItemLinked(name, itemLink) then
+			return putIntoChat
+		end
+		return true
+	end
+	local origHandleModifiedItemClick = HandleModifiedItemClick
+	HandleModifiedItemClick = function(link)
+		return HandleShiftClickItem(origHandleModifiedItemClick, link)
+	end
+	local origChatEdit_InsertLink = ChatEdit_InsertLink
+	ChatEdit_InsertLink = function(link)
+		return HandleShiftClickItem(origChatEdit_InsertLink, link)
 	end
 end
 
@@ -557,6 +580,10 @@ function TSMAPI_FOUR.Util.IsAddonEnabled(name)
 	return GetAddOnEnableState(UnitName("player"), name) == 2 and select(4, GetAddOnInfo(name)) and true or false
 end
 
+function TSMAPI_FOUR.Util.RegisterItemLinkedCallback(callback)
+	tinsert(private.itemLinkedCallbacks, callback)
+end
+
 
 
 -- ============================================================================
@@ -677,4 +704,12 @@ end
 
 function private.TableSortWithValueLookupHelper(a, b)
 	return private.sortValueLookup[a] < private.sortValueLookup[b]
+end
+
+function private.HandleItemLinked(name, itemLink)
+	for _, callback in ipairs(private.itemLinkedCallbacks) do
+		if callback(name, itemLink) then
+			return true
+		end
+	end
 end

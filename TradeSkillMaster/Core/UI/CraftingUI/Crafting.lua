@@ -18,7 +18,8 @@ local private = {
 	showDelayFrame = 0,
 	filterText = "",
 	haveSkillUp = false,
-	haveMaterials = false
+	haveMaterials = false,
+	professionFrame = nil,
 }
 local SHOW_DELAY_FRAMES = 2
 local KEY_SEP = "\001"
@@ -36,6 +37,7 @@ private.dividedContainerContext = {}
 -- ============================================================================
 
 function Crafting.OnInitialize()
+	TSMAPI_FOUR.Util.RegisterItemLinkedCallback(private.ItemLinkedCallback)
 	TSM.UI.CraftingUI.RegisterTopLevelPage("Crafting", "iconPack.24x24/Crafting", private.GetCraftingFrame)
 	private.FSMCreate()
 end
@@ -43,6 +45,8 @@ end
 function Crafting.GatherCraftNext(spellId, quantity)
 	private.fsm:ProcessEvent("EV_CRAFT_NEXT_BUTTON_CLICKED", spellId, quantity)
 end
+
+
 
 -- ============================================================================
 -- Crafting UI
@@ -428,10 +432,12 @@ function private.GetCraftingElements(self, button)
 				:SetStyle("justifyH", "CENTER")
 				:SetText(L["Profession loading..."])
 			)
+			:SetScript("OnUpdate", private.ProfessionFrameOnUpdate)
+			:SetScript("OnHide", private.ProfessionFrameOnHide)
 		frame:GetElement("recipeContent"):Hide()
 		return frame
 	elseif button == "group" then
-		return TSMAPI_FOUR.UI.NewElement("Frame", "group")
+		local frame = TSMAPI_FOUR.UI.NewElement("Frame", "group")
 			:SetLayout("VERTICAL")
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "search")
 				:SetLayout("HORIZONTAL")
@@ -470,9 +476,10 @@ function private.GetCraftingElements(self, button)
 				:SetStyle("height", 26)
 				:SetStyle("margin", 8)
 				:SetText(L["RESTOCK SELECTED GROUPS"])
-				:SetDisabled(true)
 				:SetScript("OnClick", private.QueueAddBtnOnClick)
 			)
+		frame:GetElement("addBtn"):SetDisabled(frame:GetElement("groupTree"):IsSelectionCleared())
+		return frame
 	else
 		error("Unexpected button: "..tostring(button))
 	end
@@ -497,6 +504,16 @@ end
 function private.FrameOnHide()
 	private.showDelayFrame = 0
 	private.fsm:ProcessEvent("EV_FRAME_HIDE")
+end
+
+function private.ProfessionFrameOnUpdate(frame)
+	frame:SetScript("OnUpdate", nil)
+	private.professionFrame = frame
+end
+
+function private.ProfessionFrameOnHide(frame)
+	assert(private.professionFrame == frame)
+	private.professionFrame = nil
 end
 
 function private.GroupSearchOnTextChanged(input)
@@ -975,6 +992,7 @@ function private.FSMCreate()
 				context.recipeQuery = TSM.Crafting.ProfessionScanner.CreateQuery()
 					:Select("spellId", "categoryId")
 					:OrderBy("index", true)
+					:VirtualField("matNames", "string", TSM.Crafting.GetMatNames, "spellId")
 				if context.page == "profession" then
 					private.filterText = ""
 				end
@@ -1001,8 +1019,14 @@ function private.FSMCreate()
 				context.recipeQuery:Reset()
 					:Select("spellId", "categoryId")
 					:OrderBy("index", true)
+					:VirtualField("matNames", "string", TSM.Crafting.GetMatNames, "spellId")
 				if filter ~= "" then
-					context.recipeQuery:Matches("name", TSMAPI_FOUR.Util.StrEscape(filter))
+					filter = TSMAPI_FOUR.Util.StrEscape(filter)
+					context.recipeQuery
+						:Or()
+							:Matches("name", filter)
+							:Matches("matNames", filter)
+						:End()
 				end
 				if private.haveSkillUp then
 					context.recipeQuery:NotEqual("difficulty", "trivial")
@@ -1102,4 +1126,14 @@ end
 
 function private.HaveMaterialsFilterHelper(row)
 	return TSM.Crafting.ProfessionUtil.GetNumCraftable(row:GetField("spellId")) > 0
+end
+
+function private.ItemLinkedCallback(name, itemLink)
+	if not private.professionFrame then
+		return
+	end
+	private.professionFrame:GetElement("filterInput")
+		:SetText(name)
+		:Draw()
+	return true
 end

@@ -335,6 +335,41 @@ function Database.GetUniqueRowField(self, uniqueField, uniqueValue, field)
 	return self:_GetRowData(uuid, field)
 end
 
+--- Set a single field within a unique row.
+-- @tparam Database self The database object
+-- @tparam string uniqueField The unique field
+-- @param uniqueValue The value of the unique field
+-- @tparam string field The field to set
+-- @param value The value to set the field to
+function Database.SetUniqueRowField(self, uniqueField, uniqueValue, field, value)
+	local uniqueFieldType = self:_GetFieldType(uniqueField)
+	local fieldType = self:_GetFieldType(field)
+	if not uniqueFieldType then
+		error(format("Field %s doesn't exist", tostring(uniqueField)), 3)
+	elseif uniqueFieldType ~= type(uniqueValue) then
+		error(format("Field %s should be a %s, got %s", tostring(uniqueField), tostring(uniqueFieldType), type(uniqueValue)), 3)
+	elseif not self:_IsUnique(uniqueField) then
+		error(format("Field %s is not unique", tostring(uniqueField)), 3)
+	elseif not fieldType then
+		error(format("Field %s doesn't exist", tostring(field)), 3)
+	elseif fieldType ~= type(value) then
+		error(format("Field %s should be a %s, got %s", tostring(field), tostring(fieldType), type(value)), 3)
+	elseif self:_IsUnique(field) or self:_IsIndex(field) then
+		error(format("Field %s is unique or an index and cannot be updated using this method", field))
+	end
+	local uuid = self:_GetUniqueRow(uniqueField, uniqueValue)
+	assert(uuid)
+	local dataOffset = self._uuidToDataOffsetLookup[uuid]
+	local fieldOffset = self._fields[field]
+	if not dataOffset then
+		error("Invalid UUID: "..tostring(uuid))
+	elseif not fieldOffset then
+		error("Invalid field: "..tostring(field))
+	end
+	self._data[dataOffset + fieldOffset - 1] = value
+	self:_UpdateQueries()
+end
+
 --- Check whether or not a row with a unique value exists.
 -- @tparam Database self The database object
 -- @tparam string uniqueField The unique field

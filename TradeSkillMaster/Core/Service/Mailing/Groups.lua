@@ -13,9 +13,6 @@ local private = {
 	sendDone = false,
 }
 
-local PLAYER_NAME = UnitName("player")
-local PLAYER_NAME_REALM = string.gsub(PLAYER_NAME.."-"..GetRealmName(), "%s+", "")
-
 
 
 -- ============================================================================
@@ -46,21 +43,24 @@ end
 function private.GroupsMailThread(groupList, sendRepeat)
 	while true do
 		for _, groupPath in ipairs(groupList) do
+			local reserved = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
 			for _, _, operationSettings in TSM.Operations.GroupOperationIterator("Mailing", groupPath) do
 				if groupPath == TSM.CONST.ROOT_GROUP_PATH then
 					-- TODO
 				else
-					if operationSettings.target ~= "" and operationSettings.target ~= PLAYER_NAME and operationSettings.target ~= PLAYER_NAME_REALM then
+					if operationSettings.target ~= "" then
 						local items = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
 						for _, itemString in TSM.Groups.ItemIterator(groupPath) do
 							itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
-							local quantity = private.GetItemQuantity(itemString, operationSettings)
-							if quantity > 0 then
+							local quantity = private.GetItemQuantity(itemString, reserved, operationSettings)
+							if TSMAPI_FOUR.PlayerInfo.IsPlayer(operationSettings.target) then
+								reserved[itemString] = quantity
+							elseif quantity > 0 then
 								items[itemString] = quantity
 							end
 						end
 
-						if next(items) then
+						if not TSMAPI_FOUR.PlayerInfo.IsPlayer(operationSettings.target) and next(items) then
 							private.SendItems(operationSettings.target, items)
 							TSMAPI_FOUR.Thread.Sleep(0.5)
 						end
@@ -69,6 +69,8 @@ function private.GroupsMailThread(groupList, sendRepeat)
 					end
 				end
 			end
+
+			TSMAPI_FOUR.Thread.ReleaseSafeTempTable(reserved)
 		end
 
 		if sendRepeat then
@@ -91,10 +93,11 @@ function private.SendCallback()
 	private.sendDone = true
 end
 
-function private.GetItemQuantity(itemString, operationSettings)
+function private.GetItemQuantity(itemString, reserved, operationSettings)
 	local numToSend = 0
 	local playerQty = TSMAPI_FOUR.Inventory.GetBagQuantity(itemString)
-	local numAvailable = playerQty - operationSettings.keepQty
+	local reservedQty = reserved[itemString] or 0
+	local numAvailable = playerQty - operationSettings.keepQty - reservedQty
 	if numAvailable > 0 then
 		if operationSettings.maxQtyEnabled then
 			if operationSettings.restock then
@@ -103,6 +106,9 @@ function private.GetItemQuantity(itemString, operationSettings)
 					numToSend = numAvailable
 				else
 					numToSend = min(numAvailable, operationSettings.maxQty - targetQty)
+				end
+				if TSMAPI_FOUR.PlayerInfo.IsPlayer(operationSettings.target) then
+					numToSend = numAvailable - (targetQty - operationSettings.maxQty)
 				end
 			else
 				numToSend = min(numAvailable, operationSettings.maxQty)

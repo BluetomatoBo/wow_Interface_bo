@@ -96,7 +96,7 @@ local IGNORED_COOLDOWN_DB_SCHEMA = {
 -- Module Functions
 -- ============================================================================
 
-function Crafting.OnEnable()
+function Crafting.OnInitialize()
 	local used = TSMAPI_FOUR.Util.AcquireTempTable()
 	for _, craftInfo in pairs(TSM.db.factionrealm.internalData.crafts) do
 		for itemString in pairs(craftInfo.mats) do
@@ -625,6 +625,15 @@ function Crafting.RemoveIgnoredCooldown(characterKey, spellId)
 	row:Release()
 end
 
+function Crafting.GetMatNames(spellId)
+	local query = private.matDB:NewQuery()
+		:Select("name")
+		:InnerJoin(TSM.ItemInfo.GetDBForJoin(), "itemString")
+		:Equal("spellId", spellId)
+	local result = query:JoinedString("name", "")
+	query:Release()
+	return result
+end
 
 
 

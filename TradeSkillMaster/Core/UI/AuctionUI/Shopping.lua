@@ -656,7 +656,7 @@ end
 
 function private.BuyoutConfirmationShow(context, isBuy)
 	local record = context.scanFrame:GetElement("auctions"):GetSelectedRecord()
-	local buyout = isBuy and record:GetField("buyout") or record:GetField("minBid")
+	local buyout = isBuy and record:GetField("buyout") or record:GetField("requiredBid")
 	local stackSize = record:GetField("stackSize")
 	local itemString = record:GetField("itemString")
 
@@ -1983,7 +1983,7 @@ function private.FSMCreate()
 			:SetOnEnter(function(context)
 				local selection = context.scanFrame:GetElement("auctions"):GetSelectedRecord()
 				local price = TSMAPI_FOUR.CustomPrice.GetValue(TSM.db.global.shoppingOptions.buyoutAlertSource, selection:GetField("itemString"))
-				if not TSM.db.global.shoppingOptions.buyoutConfirm or (price and ceil(selection:GetField("buyout") / selection:GetField("stackSize")) < price) then
+				if not TSM.db.global.shoppingOptions.buyoutConfirm or (price and ceil(selection:GetField("requiredBid") / selection:GetField("stackSize")) < price) then
 					return "ST_PLACING_BID"
 				else
 					private.BuyoutConfirmationShow(context, false)
@@ -2026,7 +2026,7 @@ function private.FSMCreate()
 				assert(index)
 				if context.auctionScan:ValidateIndex(index, context.findAuction) then
 					-- bid on the auction
-					PlaceAuctionBid("list", index, context.findAuction:GetField("minBid"))
+					PlaceAuctionBid("list", index, context.findAuction:GetField("requiredBid"))
 					context.numBid = context.numBid + 1
 				else
 					TSM:Printf(L["Failed to bid on auction of %s."], context.findAuction:GetField("rawLink"))

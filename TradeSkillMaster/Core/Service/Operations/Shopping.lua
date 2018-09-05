@@ -12,9 +12,9 @@ local private = {}
 local L = TSM.L
 local OPERATION_INFO = {
 	restockQuantity = { type = "number", default = 0 },
-	maxPrice = { type = "string", default = "1c" },
+	maxPrice = { type = "string", default = "dbmarket" },
 	evenStacks = { type = "boolean", default = false },
-	showAboveMaxPrice = { type = "boolean", default = false },
+	showAboveMaxPrice = { type = "boolean", default = true },
 	restockSources = { type = "table", default = { alts = false, auctions = false, bank = false, guild = false } },
 }
 

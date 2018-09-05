@@ -49,7 +49,7 @@ function private.GetCraftingOperationSettings(operationName)
 					-- move the right by the width of the toggle so this frame gets half the total width
 					:SetStyle("margin", { right = -TSM.UI.TexturePacks.GetWidth("uiFrames.ToggleOn") })
 					:AddChild(TSMAPI_FOUR.UI.NewElement("ToggleOnOff", "toggle")
-						:SetValue(operation.minProfit ~= "")
+						:SetValue(operation.minProfit)
 						:SetDisabled(operation.relationships.minProfit and true or false)
 						:SetScript("OnValueChanged", private.MinProfitToggleOnValueChanged)
 					)
@@ -140,7 +140,7 @@ end
 
 function private.MinProfitToggleOnValueChanged(toggle, value)
 	local operation = TSM.Operations.GetSettings("Crafting", private.currentOperationName)
-	operation.minProfit = value and TSM.Operations.GetSettingDefault("Crafting", "minProfit")
+	operation.minProfit = value and TSM.Operations.GetSettingDefault("Crafting", "minProfit") or nil
 	local settingsFrame = toggle:GetParentElement():GetParentElement():GetParentElement()
 	settingsFrame:GetElement("minProfitInputFrame.minProfit.left.linkBtn")
 		:SetStyle("backgroundVertexColor", value and "#ffffff" or "#424242")

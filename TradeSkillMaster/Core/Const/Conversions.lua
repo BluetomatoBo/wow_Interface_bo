@@ -186,6 +186,34 @@ TSM.CONST.CONVERSIONS = {
 		{"i:128304", 0.0018, "mill"},
 		{"i:151565", 0.048, "mill"},
 	},
+	-- ======================================= BFA Pigments ========================================
+	["i:153669"] = { -- Viridescent Pigment
+		{"i:152505", 0.1325, "mill"},
+		{"i:152506", 0.1325, "mill"},
+		{"i:152507", 0.1325, "mill"},
+		{"i:152508", 0.1325, "mill"},
+		{"i:152509", 0.1325, "mill"},
+		{"i:152511", 0.1325, "mill"},
+		{"i:152510", 0.325, "mill"},
+	},
+	["i:153636"] = { -- Crimson Pigment
+		{"i:152505", 0.315, "mill"},
+		{"i:152506", 0.315, "mill"},
+		{"i:152507", 0.315, "mill"},
+		{"i:152508", 0.315, "mill"},
+		{"i:152509", 0.315, "mill"},
+		{"i:152511", 0.315, "mill"},
+		{"i:152510", 0.315, "mill"},
+	},
+	["i:153635"] = { -- Ultramarine Pigment
+		{"i:152505", 0.825, "mill"},
+		{"i:152506", 0.825, "mill"},
+		{"i:152507", 0.825, "mill"},
+		{"i:152508", 0.825, "mill"},
+		{"i:152509", 0.825, "mill"},
+		{"i:152511", 0.825, "mill"},
+		{"i:152510", 0.825, "mill"},
+	},
 	-- ======================================== Vanilla Gems =======================================
 	["i:774"] = { -- Malachite
 		{"i:2770", 0.1, "prospect"},
@@ -388,6 +416,36 @@ TSM.CONST.CONVERSIONS = {
 		{"i:123918", 0.2, "prospect"},
 		{"i:123919", 0.2, "prospect"},
 	},
+	["i:153700"] = { -- Golden Beryl - BFA
+		{"i:152579", 0.06, "prospect"},
+		{"i:152512", 0.055, "prospect"},
+		{"i:152513", 0.065, "prospect"},
+	},
+	["i:153701"] = { -- Rubellite- - BFA
+		{"i:152579", 0.06, "prospect"},
+		{"i:152512", 0.055, "prospect"},
+		{"i:152513", 0.065, "prospect"},
+	},
+	["i:153702"] = { -- Kubiline - BFA
+		{"i:152579", 0.06, "prospect"},
+		{"i:152512", 0.055, "prospect"},
+		{"i:152513", 0.065, "prospect"},
+	},
+	["i:153703"] = { -- Solstone - BFA
+		{"i:152579", 0.06, "prospect"},
+		{"i:152512", 0.055, "prospect"},
+		{"i:152513", 0.065, "prospect"},
+	},
+	["i:153704"] = { -- Viridium - BFA
+		{"i:152579", 0.06, "prospect"},
+		{"i:152512", 0.055, "prospect"},
+		{"i:152513", 0.065, "prospect"},
+	},
+	["i:153705"] = { -- Kyanite - BFA
+		{"i:152579", 0.06, "prospect"},
+		{"i:152512", 0.055, "prospect"},
+		{"i:152513", 0.065, "prospect"},
+	},
 	-- ========================================== Rare Gems ========================================
 	["i:23440"] = { -- Dawnstone
 		{"i:23424", 0.002, "prospect"},
@@ -533,6 +591,36 @@ TSM.CONST.CONVERSIONS = {
 		{"i:123918", 0.002, "prospect"},
 		{"i:123919", 0.006, "prospect"},
 	},
+	["i:154120"] = { -- Owlseye - BFA
+		{"i:152579", 0.015, "prospect"},
+		{"i:152512", 0.0085, "prospect"},
+		{"i:152513", 0.0235, "prospect"},
+	},
+	["i:154121"] = { -- Scarlet Diamond - BFA
+		{"i:152579", 0.015, "prospect"},
+		{"i:152512", 0.0085, "prospect"},
+		{"i:152513", 0.0235, "prospect"},
+	},
+	["i:154122"] = { -- Tidal Amethyst - BFA
+		{"i:152579", 0.015, "prospect"},
+		{"i:152512", 0.0085, "prospect"},
+		{"i:152513", 0.0235, "prospect"},
+	},
+	["i:154123"] = { -- Amberblaze - BFA
+		{"i:152579", 0.015, "prospect"},
+		{"i:152512", 0.0085, "prospect"},
+		{"i:152513", 0.0235, "prospect"},
+	},
+	["i:154124"] = { -- Laribole - BFA
+		{"i:152579", 0.015, "prospect"},
+		{"i:152512", 0.0085, "prospect"},
+		{"i:152513", 0.0235, "prospect"},
+	},
+	["i:154125"] = { -- Royal Quartz - BFA
+		{"i:152579", 0.015, "prospect"},
+		{"i:152512", 0.0085, "prospect"},
+		{"i:152513", 0.0235, "prospect"},
+	},
 	-- ========================================== Epic Gems ========================================
 	["i:151579"] = { -- Labradorite
 		{"i:151564", 0.0056, "prospect"},
@@ -552,6 +640,12 @@ TSM.CONST.CONVERSIONS = {
 	["i:151721"] = { -- Hesselian
 		{"i:151564", 0.0040, "prospect"},
 	},
+	["i:153706"] = { -- Kraken's Eye -  BFA
+		{"i:152579", 0.0065, "prospect"},
+		{"i:152512", 0.006, "prospect"},
+		{"i:152513", 0.0081, "prospect"},
+	},
+
 	-- =========================================== Essences ========================================
 	["i:52719"] = {{"i:52718", 1/3, "transform"}}, -- Celestial Essence
 	["i:52718"] = {{"i:52719", 3, "transform"}}, -- Celestial Essence
@@ -631,6 +725,17 @@ TSM.CONST.CONVERSIONS = {
 		{"i:111670", 4, "transform"}, -- Enormous Blackwater Whiptail
 		{"i:111663", 2, "transform"}, -- Blackwater Whiptail
 		{"i:111662", 1, "transform"}, -- Small Blackwater Whiptail
+	},
+
+	-- ========================================== Aromatic Fish Oil (BFA) ===========================
+	["i:160711"] = {
+		{"i:152545", 1, "transform"}, -- Frenzied Fangtooth
+		{"i:152547", 1, "transform"}, -- Great Sea Catfish
+		{"i:152546", 1, "transform"}, -- Lane Snapper
+		{"i:152549", 1, "transform"}, -- Redtail Loach
+		{"i:152543", 1, "transform"}, -- Sand Shifter
+		{"i:152544", 1, "transform"}, -- Slimy Mackerel
+		{"i:152548", 1, "transform"}, -- Tiragarde Perch
 	},
 	-- ========================================== Ore Nuggets =======================================
 	["i:2771"] = {{"i:108295", 0.1, "transform"}},   -- Tin Ore

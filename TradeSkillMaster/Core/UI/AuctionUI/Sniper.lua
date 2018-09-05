@@ -454,6 +454,13 @@ function private.FSMCreate()
 				TSM:Print(L["You've been phased which has caused the AH to stop working due to a bug on Blizzard's end. Please close and reopen the AH and restart Sniper."])
 				return "ST_INIT"
 			end)
+			:AddEvent("EV_AUCTION_SELECTION_CHANGED", function(context)
+				assert(context.scanFrame)
+				if context.scanFrame:GetElement("auctions"):GetSelectedRecord() then
+					-- the user selected something, so cancel the current scan
+					context.auctionScan:Cancel()
+				end
+			end)
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_RESULTS")
 			:SetOnEnter(function(context)

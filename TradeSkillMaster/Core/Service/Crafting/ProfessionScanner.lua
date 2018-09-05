@@ -334,7 +334,15 @@ function private.ScanRecipe(professionName, spellId)
 		end
 		-- workaround for incorrect values returned for new mass milling recipes
 		if TSM.CONST.MASS_MILLING_RECIPES[spellId] then
-			lNum, hNum = 8, 8.8
+			if spellId == 210116 then -- Yseralline
+				lNum, hNum = 4, 4 -- always four
+			elseif spellId == 209664 then -- Felwort
+				lNum, hNum = 42, 42 -- amount is variable but the values are conservative
+			elseif spellId == 247861 then -- Astral Glory
+				lNum, hNum = 4, 4 -- amount is variable but the values are conservative
+			else
+				lNum, hNum = 8, 8.8
+			end
 		end
 		numResult = floor(((lNum or 1) + (hNum or 1)) / 2)
 	end

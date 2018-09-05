@@ -32,37 +32,7 @@ function AuctionUI.OnInitialize()
 	TSMAPI_FOUR.Event.Register("AUCTION_HOUSE_SHOW", private.AuctionFrameInit)
 	TSMAPI_FOUR.Event.Register("AUCTION_HOUSE_CLOSED", private.HideAuctionFrame)
 	TSMAPI_FOUR.Delay.AfterTime(1, function() LoadAddOn("Blizzard_AuctionUI") end)
-
-	-- setup hooks to handle shift-clicking on items while the AH is open
-	local function HandleShiftClickItem(origFunc, itemLink)
-		local putIntoChat = origFunc(itemLink)
-		if putIntoChat or not private.frame then
-			return putIntoChat
-		end
-		local name = TSMAPI_FOUR.Item.GetName(itemLink)
-		if not name then
-			return putIntoChat
-		end
-		local path = private.frame:GetSelectedNavButton()
-		for _, info in ipairs(private.topLevelPages) do
-			if info.name == path then
-				if info.itemLinkedHandler(name, itemLink) then
-					return true
-				else
-					return putIntoChat
-				end
-			end
-		end
-		error("Invalid frame path")
-	end
-	local origHandleModifiedItemClick = HandleModifiedItemClick
-	HandleModifiedItemClick = function(link)
-		return HandleShiftClickItem(origHandleModifiedItemClick, link)
-	end
-	local origChatEdit_InsertLink = ChatEdit_InsertLink
-	ChatEdit_InsertLink = function(link)
-		return HandleShiftClickItem(origChatEdit_InsertLink, link)
-	end
+	TSMAPI_FOUR.Util.RegisterItemLinkedCallback(private.ItemLinkedCallback)
 end
 
 function AuctionUI.RegisterTopLevelPage(name, texturePack, callback, itemLinkedHandler)
@@ -246,8 +216,28 @@ function private.TSMTabOnClick()
 	-- Replace CloseAuctionHouse() with a no-op while hiding the AH frame so we don't stop interacting with the AH NPC
 	local origCloseAuctionHouse = CloseAuctionHouse
 	TSM.db.global.internalData.auctionUIFrameContext.showDefault = false
+	ClearCursor()
+	ClickAuctionSellItemButton(AuctionsItemButton, "LeftButton")
+	ClearCursor()
 	CloseAuctionHouse = NoOp
 	AuctionFrame_Hide()
 	CloseAuctionHouse = origCloseAuctionHouse
 	private.ShowAuctionFrame()
+end
+
+function private.ItemLinkedCallback(name, itemLink)
+	if not private.frame then
+		return
+	end
+	local path = private.frame:GetSelectedNavButton()
+	for _, info in ipairs(private.topLevelPages) do
+		if info.name == path then
+			if info.itemLinkedHandler(name, itemLink) then
+				return true
+			else
+				return
+			end
+		end
+	end
+	error("Invalid frame path")
 end

@@ -688,6 +688,22 @@ function DatabaseQuery.SumOfProduct(self, field1, field2)
 	return result
 end
 
+--- Joins the string values of a field with a given separator.
+-- @tparam DatabaseQuery self The database query object
+-- @tparam string field The field within the results
+-- @tparam string sep The separator (can be any number of characters, including an empty string)
+-- @treturn string The joined string
+function DatabaseQuery.JoinedString(self, field, sep)
+	self:_Execute()
+	local parts = TSMAPI_FOUR.Util.AcquireTempTable()
+	for _, uuid in ipairs(self._result) do
+		tinsert(parts, self:_GetResultRowData(uuid, field))
+	end
+	local result = table.concat(parts, sep)
+	TSMAPI_FOUR.Util.ReleaseTempTable(parts)
+	return result
+end
+
 --- Calculates the hash of the query results.
 -- Note that the query must have a select colum with at most 2 fields.
 -- @tparam DatabaseQuery self The database query object
