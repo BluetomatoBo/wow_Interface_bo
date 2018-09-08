@@ -382,6 +382,7 @@ end
 
 function Groups.RemoveOperationFromAllGroups(moduleName, operationName)
 	-- just blindly remove from all groups - no need to check for override
+	TSMAPI_FOUR.Util.TableRemoveByValue(TSM.db.profile.userData.groups[TSM.CONST.ROOT_GROUP_PATH][moduleName], operationName)
 	for _, groupPath in Groups.GroupIterator() do
 		TSMAPI_FOUR.Util.TableRemoveByValue(TSM.db.profile.userData.groups[groupPath][moduleName], operationName)
 	end
