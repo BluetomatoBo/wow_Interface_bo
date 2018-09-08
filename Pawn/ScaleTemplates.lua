@@ -191,7 +191,7 @@ PawnScaleTemplates =
 	["ClassID"] = 10, -- Monk
 	["SpecID"] = 2, -- Mistweaver
 	["PrimaryStat"] = "Intellect",
-	["UnusableStats"] = { "IsDagger", "Is2HAxe", "Is2HMace", "Is2HSword", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsMail", "IsPlate", "IsShield" }
+	["UnusableStats"] = { "IsDagger", "Is2HAxe", "Is2HMace", "Is2HSword", "IsWand", "IsBow", "IsCrossbow", "IsGun", "IsWarglaive", "IsMail", "IsPlate", "IsShield", "IsOffHand" }
 },
 
 {

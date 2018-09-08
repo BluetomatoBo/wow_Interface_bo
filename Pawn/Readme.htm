@@ -451,11 +451,11 @@ and Pawn.</p>
 	</li>
 </ul>
 
-<h2>Top known issues</h2>
+<h2>Known issues</h2>
 <ul>
 	<li>Quest rewards while leveling often show the coins icon on the wrong 
-	item, because the game tells Pawn the wrong sell price for the item.&nbsp; I
-	<i>think</i> this is fixed in 8.0, but if not, I'll look into other options.</li>
+	item, because the game tells Pawn the wrong sell price for the item.&nbsp; (I
+	<i>think</i> this is fixed in 8.0, but if not, I'll look into other options.)</li>
 	<li>Having more legendary items than you can equip at once can cause 
 	interesting problems if the "track upgrades for each scale" option is used.&nbsp; 
 	I'm not sure what a good solution for this would be—probably, just make it 
@@ -481,31 +481,26 @@ and Pawn.</p>
 
 <h3>Features I might add soon</h3>
 <ul>
+	<li><b>I plan on removing Pawn's relic-related features.</b></li>
+	<li><b>I'll try to make it so that comparisons involving Azerite armor use 
+	the stats of the +5 ilvl version, if possible.</b></li>
 	<li><b>Add a way to detect when someone's using incompatible addons (like 
-	Combat Numbers Separator) and show a warning that Pawn won't work properly.</b></li>
+	Combat Numbers Separator, FreeUI, etc.) and show a warning that Pawn won't work properly.</b></li>
 	<li><b>Add an option to only show bag upgrade arrows on items for your 
 	current spec, even when you're in Manual mode and have multiple scales 
 	active.</b>
 	(And then, someday in the future, maybe add grey arrows to items that are an 
 	upgrade to a scale for a spec that you're not currently in.)
 	</li>
-	<li>A way to set class, spec, and icon manually for custom scales.&nbsp; 
+	<li><b>A way to set class, spec, and icon manually for custom scales.</b>&nbsp; 
 	(Right now, they can be set for imported scales, but there's no way to 
 	change them through the UI.)&nbsp; And then, a way to use those for 
 	automatic switching based on spec: allow spec switching in manual mode, and 
 	if there's one or more custom scales for the spec, use all of those instead 
 	of the AMR one.</li>
-	<li>Test out the quest upgrade advisor when artifact relics are available, 
-	and integrate that advisor with the new relic features.</li>
 	<li>Integrate with Angry World Quests to add green arrows to item rewards in 
 	that addon's UI.</li>
-	<li>I've gotten a bunch of feedback on the way that Pawn makes assumptions 
-	about gems today.&nbsp; I may replace the existing low-level gems option with two 
-	new ones: "assume I won't use gems on anything below this level" (currently 
-	PawnMinimumItemLevelToConsiderGems) and "assume 
-	I'll use the very best gems on anything at least this level" (currently the 
-	gem table's final threshold), and then make it 
-	fully customizable.</li>
+	<li>Integration with Storyline and Immersive.</li>
 	<li>In addition to upgrades, show "minor upgrade" (&lt;1%), "identical" (0%), 
 	"X% downgrade" (&lt;0%).&nbsp; Probably don't ever show anything on grey or 
 	white items, unless your current item is grey or white (or, just don't show 
@@ -515,9 +510,13 @@ and Pawn.</p>
 		stat cap features.</li>
 	</ul>
 	</li>
-	<li>A way to detect if you're using FreeUI, and show a message warning you 
-	that Pawn is incompatible if you are.</li>
-	<li>Integration with Storyline.</li>
+	<li>I've gotten a bunch of feedback on the way that Pawn makes assumptions 
+	about gems today.&nbsp; I may replace the existing low-level gems option with two 
+	new ones: "assume I won't use gems on anything below this level" (currently 
+	PawnMinimumItemLevelToConsiderGems) and "assume 
+	I'll use the very best gems on anything at least this level" (currently the 
+	gem table's final threshold), and then make it 
+	fully customizable.</li>
 	<li>I should come up with a way to suggest to high-end raiders (based on 
 	average ilvl) who don't 
 	have any custom scales that they should 
@@ -529,6 +528,12 @@ and Pawn.</p>
 </ul>
 
 <h2>Updates</h2>
+<h3>Version 2.2.28</h3>
+<ul>
+	<li>Pawn will no longer suggest weapon upgrades for mistweaver monks as if 
+	they could dual-wield.</li>
+	<li>Adjusted gem recommendations.</li>
+</ul>
 <h3>Version 2.2.27</h3>
 <ul>
 	<li>Pawn's relic upgrade features are now disabled by default, and I plan to 
