@@ -15,8 +15,6 @@ L["!="] = "!="
 --[[Translation missing --]]
 L["%s - %i. Trigger"] = "%s - %i. Trigger"
 --[[Translation missing --]]
-L["%s - 1. Trigger"] = "%s - 1. Trigger"
---[[Translation missing --]]
 L["%s - Alpha Animation"] = "%s - Alpha Animation"
 --[[Translation missing --]]
 L["%s - Color Animation"] = "%s - Color Animation"
@@ -86,6 +84,8 @@ L["25 Man Raid"] = "Incursione da 25 giocatori"
 --[[Translation missing --]]
 L["40 Man Raid"] = "40 Man Raid"
 L["5 Man Dungeon"] = "Spedizione da 5 giocatori"
+--[[Translation missing --]]
+L["A WeakAura just tried to use a forbidden function but has been blocked from doing so. Please check your auras!"] = "A WeakAura just tried to use a forbidden function but has been blocked from doing so. Please check your auras!"
 L["Absorb"] = "Assorbimento"
 --[[Translation missing --]]
 L["Absorb Display"] = "Absorb Display"

@@ -6,13 +6,11 @@ local L = WeakAuras.L
 
 -- WeakAuras/Templates
 	--[[Translation missing --]]
-	L["Ability Charges"] = "Ability Charges"
-	--[[Translation missing --]]
-	L["Add Triggers"] = "Add Triggers"
-	--[[Translation missing --]]
-	L["Always Active"] = "Always Active"
-	--[[Translation missing --]]
-	L["Always Show"] = "Always Show"
+	L["Abilities"] = "Abilities"
+	L["Ability Charges"] = "Cargas da habilidade"
+	L["Add Triggers"] = "Adicionar gatilhos"
+	L["Always Active"] = "Sempre ativo"
+	L["Always Show"] = "Mostrar sempre"
 	--[[Translation missing --]]
 	L["Always show the aura, highlight it if debuffed."] = "Always show the aura, highlight it if debuffed."
 	--[[Translation missing --]]
@@ -24,6 +22,12 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Always shows the aura, highlight it if buffed."] = "Always shows the aura, highlight it if buffed."
 	--[[Translation missing --]]
+	L["Always shows the aura, highlight while proc is active, blue on insufficient resources."] = "Always shows the aura, highlight while proc is active, blue on insufficient resources."
+	--[[Translation missing --]]
+	L["Always shows the aura, highlight while proc is active, blue when not usable."] = "Always shows the aura, highlight while proc is active, blue when not usable."
+	--[[Translation missing --]]
+	L["Always shows the aura, highlight while proc is active, turns red when out of range, blue on insufficient resources."] = "Always shows the aura, highlight while proc is active, turns red when out of range, blue on insufficient resources."
+	--[[Translation missing --]]
 	L["Always shows the aura, turns grey if on cooldown."] = "Always shows the aura, turns grey if on cooldown."
 	--[[Translation missing --]]
 	L["Always shows the aura, turns grey if the ability is not usable and red when out of range."] = "Always shows the aura, turns grey if the ability is not usable and red when out of range."
@@ -32,7 +36,7 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Always shows the aura, turns grey when on cooldown, blue when unusable."] = "Always shows the aura, turns grey when on cooldown, blue when unusable."
 	--[[Translation missing --]]
-	L["Always shows the aura, turns grey when on zero charges, blue when usable."] = "Always shows the aura, turns grey when on zero charges, blue when usable."
+	L["Always shows the aura, turns grey when on zero charges, blue when not usable."] = "Always shows the aura, turns grey when on zero charges, blue when not usable."
 	--[[Translation missing --]]
 	L["Always shows the aura, turns grey when on zero charges, highlight when active, blue on insufficient resources."] = "Always shows the aura, turns grey when on zero charges, highlight when active, blue on insufficient resources."
 	--[[Translation missing --]]
@@ -69,8 +73,6 @@ local L = WeakAuras.L
 	L["cooldown"] = "cooldown"
 	--[[Translation missing --]]
 	L["Cooldown Tracking"] = "Cooldown Tracking"
-	--[[Translation missing --]]
-	L["Cooldowns"] = "Cooldowns"
 	--[[Translation missing --]]
 	L["Debuffs"] = "Debuffs"
 	--[[Translation missing --]]
@@ -132,6 +134,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Show Charges and Check Usable"] = "Show Charges and Check Usable"
 	--[[Translation missing --]]
+	L["Show Charges with Proc Tracking"] = "Show Charges with Proc Tracking"
+	--[[Translation missing --]]
 	L["Show Charges with Range Tracking"] = "Show Charges with Range Tracking"
 	--[[Translation missing --]]
 	L["Show Charges with Usable Check"] = "Show Charges with Usable Check"
@@ -144,13 +148,21 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Show Cooldown and Check for Target"] = "Show Cooldown and Check for Target"
 	--[[Translation missing --]]
+	L["Show Cooldown and Check for Target & Proc Tracking"] = "Show Cooldown and Check for Target & Proc Tracking"
+	--[[Translation missing --]]
 	L["Show Cooldown and Check Usable"] = "Show Cooldown and Check Usable"
 	--[[Translation missing --]]
 	L["Show Cooldown and Check Usable & Target"] = "Show Cooldown and Check Usable & Target"
 	--[[Translation missing --]]
+	L["Show Cooldown and Check Usable, Proc Tracking"] = "Show Cooldown and Check Usable, Proc Tracking"
+	--[[Translation missing --]]
+	L["Show Cooldown and Check Usable, Target & Proc Tracking"] = "Show Cooldown and Check Usable, Target & Proc Tracking"
+	--[[Translation missing --]]
 	L["Show Cooldown and Debuff"] = "Show Cooldown and Debuff"
 	--[[Translation missing --]]
 	L["Show Cooldown and Debuff and Check for Target"] = "Show Cooldown and Debuff and Check for Target"
+	--[[Translation missing --]]
+	L["Show Cooldown and Proc Tracking"] = "Show Cooldown and Proc Tracking"
 	--[[Translation missing --]]
 	L["Show Cooldown and Totem Information"] = "Show Cooldown and Totem Information"
 	--[[Translation missing --]]
@@ -167,6 +179,8 @@ local L = WeakAuras.L
 	L["Stagger"] = "Stagger"
 	--[[Translation missing --]]
 	L["Totems"] = "Totems"
+	--[[Translation missing --]]
+	L["Track the charge and proc, highlight while proc is active, turns red when out of range, blue on insufficient resources."] = "Track the charge and proc, highlight while proc is active, turns red when out of range, blue on insufficient resources."
 	--[[Translation missing --]]
 	L["Tracks the charge and the buff, highlight while the buff is active, blue on insufficient resources."] = "Tracks the charge and the buff, highlight while the buff is active, blue on insufficient resources."
 	--[[Translation missing --]]

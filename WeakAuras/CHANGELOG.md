@@ -1,20 +1,12 @@
-# [2.7.5](https://github.com/WeakAuras/WeakAuras2/tree/2.7.5) (2018-08-29)
+# [2.7.7](https://github.com/WeakAuras/WeakAuras2/tree/2.7.7) (2018-09-06)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.7.4...2.7.5)
-
-Allen Faure (1):
-
-- block xpcall as well as pcall
-
-Causese (1):
-
-- adds worlddrop trinkets to templates
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.7.6...2.7.7)
 
 Infus (5):
 
-- Add default values to Condition properties and fix a few nil errors
-- Overlays: Only use up to 7 drawlayers for overlays
-- Fix Cooldown Ready trigger
-- Unit Characteristics: Fix UnitIsUnit condition
-- Tweak Spell widget a bit more
+- Use both columns for multiselect's multiselect widget
+- Fix SetMaxProgress of 0
+- Fix incorrect conditions deactivation for fallback states
+- Remove outdated TODO
+- Fix regression in Range Check condition
 

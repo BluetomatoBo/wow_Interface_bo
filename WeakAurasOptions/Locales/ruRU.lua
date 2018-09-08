@@ -186,7 +186,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 |cFFFF0000%n|r - Название - Название эффекта, заклинания, предмета и т. д. или ID индикации
 |cFFFF0000%i|r - Иконка - Иконка, связанная с индикацией
 |cFFFF0000%s|r - Стаки - Количество стаков эффекта, предмета, зарядов заклинания и т. д.
-|cFFFF0000%c|r - В ручную - Позволяет написать функцию на Lua, возвращаемое значение которой и будет отображено]=]
+|cFFFF0000%c|r - Свой код - Позволяет написать функцию на Lua, которая возвращает одно значение или их список. Для отображения единственного значения используйте |cFFFF0000%c|r, для n-го значения из списка - |cFFFF0000%cn|r]=]
 	L["Enabled"] = "Включено"
 	L["End Angle"] = "Конечный угол"
 	L["Enter an aura name, partial aura name, or spell id"] = "Введите полное название эффекта, часть его названия или ID заклинания."
@@ -343,7 +343,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Paste Trigger Settings"] = "Вставить настройки триггера"
 	L["Play Sound"] = "Проиграть звук"
 	L["Portrait Zoom"] = "Увеличить портрет"
-	L["Position Settings"] = "Настройки расположения"
+	L["Position Settings"] = "Настройки размера и расположения"
 	L["Preset"] = "Предустановка"
 	L["Prevents duration information from decreasing when an aura refreshes. May cause problems if used with multiple auras with different durations."] = "Не позволяет снижать информацию о длительности эффекта при его обновлении. Может вызвать проблемы при использовании с несколькими эффектами разной длительности."
 	L["Processed %i chars"] = "Обработано %i |4символ:символа:символов;"

@@ -5,71 +5,48 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras/Options
-	--[[Translation missing --]]
-	L["-- Do not remove this comment, it is part of this trigger: "] = "-- Do not remove this comment, it is part of this trigger: "
+	L["-- Do not remove this comment, it is part of this trigger: "] = "-- Não remova este comentário, ele é parte deste gatilho:"
 	L["% of Progress"] = "% do progresso"
 	L["%i Matches"] = "%i resultados"
-	--[[Translation missing --]]
-	L["%s Color"] = "%s Color"
-	--[[Translation missing --]]
-	L["%s total auras"] = "%s total auras"
+	L["%s Color"] = "%s Cor"
+	L["%s total auras"] = "%s auras totais"
 	L["1 Match"] = "1 resultado"
-	--[[Translation missing --]]
-	L["1. Text"] = "1. Text"
-	--[[Translation missing --]]
-	L["1. Text Settings"] = "1. Text Settings"
-	--[[Translation missing --]]
-	L["2. Text"] = "2. Text"
-	--[[Translation missing --]]
-	L["2. Text Settings"] = "2. Text Settings"
-	--[[Translation missing --]]
-	L["A 20x20 pixels icon"] = "A 20x20 pixels icon"
-	--[[Translation missing --]]
-	L["A 32x32 pixels icon"] = "A 32x32 pixels icon"
-	--[[Translation missing --]]
-	L["A 40x40 pixels icon"] = "A 40x40 pixels icon"
-	--[[Translation missing --]]
-	L["A 48x48 pixels icon"] = "A 48x48 pixels icon"
-	--[[Translation missing --]]
-	L["A 64x64 pixels icon"] = "A 64x64 pixels icon"
+	L["1. Text"] = "1. Texto"
+	L["1. Text Settings"] = "1. Configurações do texto"
+	L["2. Text"] = "2. Texto"
+	L["2. Text Settings"] = "2. Configurações do texto"
+	L["A 20x20 pixels icon"] = "Um ícone de 20x20 pixels"
+	L["A 32x32 pixels icon"] = "Um ícone de 32x32 pixels"
+	L["A 40x40 pixels icon"] = "Um ícone de 40x40 pixels"
+	L["A 48x48 pixels icon"] = "Um ícone de 48x48 pixels"
+	L["A 64x64 pixels icon"] = "Um ícone de 64x64 pixels"
 	L["A group that dynamically controls the positioning of its children"] = "Um grupo que controla dinamicamente o posicionamentos dos seus elementos"
 	L["Actions"] = "Ações"
-	--[[Translation missing --]]
-	L["Add a new display"] = "Add a new display"
-	--[[Translation missing --]]
-	L["Add Condition"] = "Add Condition"
+	L["Add a new display"] = "Adicionar um novo display"
+	L["Add Condition"] = "Adicionar condição"
 	--[[Translation missing --]]
 	L["Add Overlay"] = "Add Overlay"
-	--[[Translation missing --]]
-	L["Add Property Change"] = "Add Property Change"
-	--[[Translation missing --]]
-	L["Add to group %s"] = "Add to group %s"
+	L["Add Property Change"] = "Adicionar mudança de propriedade"
+	L["Add to group %s"] = "Adicionar ao grupo %s"
 	L["Add to new Dynamic Group"] = "Adicionar a um novo Grupo Dinâmico"
 	L["Add to new Group"] = "Adicionar a um novo Grupo"
 	L["Add Trigger"] = "Adicionar Gatilho"
-	--[[Translation missing --]]
 	L["Addon"] = "Addon"
 	L["Addons"] = "Addons"
-	--[[Translation missing --]]
-	L["Advanced"] = "Advanced"
+	L["Advanced"] = "Avançado"
 	L["Align"] = "Alinhar"
-	--[[Translation missing --]]
-	L["All of"] = "All of"
+	L["All of"] = "Todos"
 	L["Allow Full Rotation"] = "Habilitar rotação completa"
 	L["Alpha"] = "Transparência"
 	L["Anchor"] = "Âncora"
 	L["Anchor Point"] = "Ponto da âncora"
-	--[[Translation missing --]]
-	L["Anchored To"] = "Anchored To"
-	--[[Translation missing --]]
-	L["And "] = "And "
-	--[[Translation missing --]]
-	L["and Trigger %s"] = "and Trigger %s"
+	L["Anchored To"] = "Ancorado a"
+	L["And "] = "E"
+	L["and Trigger %s"] = "e gatilho %s"
 	L["Angle"] = "Ângulo"
 	L["Animate"] = "Animar"
 	L["Animated Expand and Collapse"] = "Animação expande e esvai"
-	--[[Translation missing --]]
-	L["Animates progress changes"] = "Animates progress changes"
+	L["Animates progress changes"] = "Anima mudanças no progresso"
 	L["Animation relative duration description"] = [=[A duração da animação relativa ao tempo de duração do display, expresso como fração (1/2), porcentagem (50%), ou decimal. (0.5)
 |cFFFF0000Nota:|r se um display não tiver progresso (o gatilho é não-temporal, é aura sem duração, etc), a animação não irá tocar.
 
@@ -79,8 +56,7 @@ Se a duração da animação estiver setada para |cFF00C0010%|r, e o gatilho do 
 WeakAuras → Opções → Opções ]=]
 	L["Animation Sequence"] = "Sequência da animação"
 	L["Animations"] = "Animações"
-	--[[Translation missing --]]
-	L["Any of"] = "Any of"
+	L["Any of"] = "Qualquer"
 	--[[Translation missing --]]
 	L["Apply Template"] = "Apply Template"
 	--[[Translation missing --]]

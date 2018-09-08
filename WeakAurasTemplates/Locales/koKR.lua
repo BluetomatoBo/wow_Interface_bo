@@ -5,6 +5,8 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras/Templates
+	--[[Translation missing --]]
+	L["Abilities"] = "Abilities"
 	L["Ability Charges"] = "능력 충전량"
 	L["Add Triggers"] = "활성 조건 추가"
 	L["Always Active"] = "항상 활성화"
@@ -13,11 +15,16 @@ local L = WeakAuras.L
 	L["Always show the aura, highlight it if debuffed."] = "Always show the aura, highlight it if debuffed."
 	--[[Translation missing --]]
 	L["Always show the aura, turns grey if on cooldown."] = "Always show the aura, turns grey if on cooldown."
-	--[[Translation missing --]]
-	L["Always show the aura, turns grey if the debuff not active."] = "Always show the aura, turns grey if the debuff not active."
+	L["Always show the aura, turns grey if the debuff not active."] = "효과를 항상 표시하고, 약화 효과가 활성화되어 있지 않으면 회색으로 바뀝니다."
 	L["Always shows the aura, grey if buff not active."] = "효과를 항상 표시하고, 강화 효과가 활성화되어 있지 않으면 회색으로 바뀝니다."
 	--[[Translation missing --]]
 	L["Always shows the aura, highlight it if buffed."] = "Always shows the aura, highlight it if buffed."
+	--[[Translation missing --]]
+	L["Always shows the aura, highlight while proc is active, blue on insufficient resources."] = "Always shows the aura, highlight while proc is active, blue on insufficient resources."
+	--[[Translation missing --]]
+	L["Always shows the aura, highlight while proc is active, blue when not usable."] = "Always shows the aura, highlight while proc is active, blue when not usable."
+	--[[Translation missing --]]
+	L["Always shows the aura, highlight while proc is active, turns red when out of range, blue on insufficient resources."] = "Always shows the aura, highlight while proc is active, turns red when out of range, blue on insufficient resources."
 	--[[Translation missing --]]
 	L["Always shows the aura, turns grey if on cooldown."] = "Always shows the aura, turns grey if on cooldown."
 	--[[Translation missing --]]
@@ -27,7 +34,7 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Always shows the aura, turns grey when on cooldown, blue when unusable."] = "Always shows the aura, turns grey when on cooldown, blue when unusable."
 	--[[Translation missing --]]
-	L["Always shows the aura, turns grey when on zero charges, blue when usable."] = "Always shows the aura, turns grey when on zero charges, blue when usable."
+	L["Always shows the aura, turns grey when on zero charges, blue when not usable."] = "Always shows the aura, turns grey when on zero charges, blue when not usable."
 	--[[Translation missing --]]
 	L["Always shows the aura, turns grey when on zero charges, highlight when active, blue on insufficient resources."] = "Always shows the aura, turns grey when on zero charges, highlight when active, blue on insufficient resources."
 	--[[Translation missing --]]
@@ -56,7 +63,6 @@ local L = WeakAuras.L
 	L["cooldown"] = "재사용 대기시간"
 	--[[Translation missing --]]
 	L["Cooldown Tracking"] = "Cooldown Tracking"
-	L["Cooldowns"] = "재사용 대기시간"
 	L["Debuffs"] = "약화 효과"
 	L["Enchants"] = "마법부여"
 	L["General"] = "일반"
@@ -77,8 +83,7 @@ local L = WeakAuras.L
 	L["On Use Trinkets (Buff)"] = "On Use Trinkets (Buff)"
 	--[[Translation missing --]]
 	L["On Use Trinkets (CD)"] = "On Use Trinkets (CD)"
-	--[[Translation missing --]]
-	L["Only show the aura if the target has the debuff."] = "Only show the aura if the target has the debuff."
+	L["Only show the aura if the target has the debuff."] = "대상에 약화 효과가 있는 경우 그 효과만 표시합니다."
 	--[[Translation missing --]]
 	L["Only show the aura when the item is on cooldown."] = "Only show the aura when the item is on cooldown."
 	L["Only shows the aura if the target has the buff."] = "대상에 강화 효과가 있는 경우 그 효과만 표시합니다."
@@ -99,6 +104,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Show Charges and Check Usable"] = "Show Charges and Check Usable"
 	--[[Translation missing --]]
+	L["Show Charges with Proc Tracking"] = "Show Charges with Proc Tracking"
+	--[[Translation missing --]]
 	L["Show Charges with Range Tracking"] = "Show Charges with Range Tracking"
 	--[[Translation missing --]]
 	L["Show Charges with Usable Check"] = "Show Charges with Usable Check"
@@ -111,13 +118,21 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Show Cooldown and Check for Target"] = "Show Cooldown and Check for Target"
 	--[[Translation missing --]]
+	L["Show Cooldown and Check for Target & Proc Tracking"] = "Show Cooldown and Check for Target & Proc Tracking"
+	--[[Translation missing --]]
 	L["Show Cooldown and Check Usable"] = "Show Cooldown and Check Usable"
 	--[[Translation missing --]]
 	L["Show Cooldown and Check Usable & Target"] = "Show Cooldown and Check Usable & Target"
 	--[[Translation missing --]]
+	L["Show Cooldown and Check Usable, Proc Tracking"] = "Show Cooldown and Check Usable, Proc Tracking"
+	--[[Translation missing --]]
+	L["Show Cooldown and Check Usable, Target & Proc Tracking"] = "Show Cooldown and Check Usable, Target & Proc Tracking"
+	--[[Translation missing --]]
 	L["Show Cooldown and Debuff"] = "Show Cooldown and Debuff"
 	--[[Translation missing --]]
 	L["Show Cooldown and Debuff and Check for Target"] = "Show Cooldown and Debuff and Check for Target"
+	--[[Translation missing --]]
+	L["Show Cooldown and Proc Tracking"] = "Show Cooldown and Proc Tracking"
 	--[[Translation missing --]]
 	L["Show Cooldown and Totem Information"] = "Show Cooldown and Totem Information"
 	L["Show Only if Buffed"] = "있는 강화 효과만 표시"
@@ -129,6 +144,8 @@ local L = WeakAuras.L
 	L["Specific Azerite Traits"] = "특정 아제라이트 특성"
 	L["Stagger"] = "시간차"
 	L["Totems"] = "토템"
+	--[[Translation missing --]]
+	L["Track the charge and proc, highlight while proc is active, turns red when out of range, blue on insufficient resources."] = "Track the charge and proc, highlight while proc is active, turns red when out of range, blue on insufficient resources."
 	--[[Translation missing --]]
 	L["Tracks the charge and the buff, highlight while the buff is active, blue on insufficient resources."] = "Tracks the charge and the buff, highlight while the buff is active, blue on insufficient resources."
 	--[[Translation missing --]]
