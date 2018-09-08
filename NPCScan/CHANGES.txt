@@ -1,70 +1,82 @@
-tag 4dfbfecdb0b862a547e7b6ec69297e5d3490796f 8.0.1.11
+tag 52eea60e77de65ba68467f7dec99de8c16706cf5 8.0.1.12
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Wed Sep 5 01:37:06 2018 -0500
+Date:	Thu Sep 6 02:06:15 2018 -0500
 
-commit 133af6f9a751908ccecb53f731660a99f60b8d94
+commit 41492f4afc6479f5d8060730031db4471ba1cc7b
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Sep 5 01:24:29 2018 -0500
+Date:   Thu Sep 6 02:02:03 2018 -0500
 
-    Treat a questID below 0 as not existing when checking for completion.
+    Add Vuguth and Maw of Shul-Nagruth to Nazmir.
 
-commit c178d8e484dffbcbdf7991432e73604418b66bdd
+commit b7fe7b5c8050696b3986d9593dc7c470f99c5f87
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Sep 5 01:12:01 2018 -0500
+Date:   Thu Sep 6 02:01:24 2018 -0500
 
-    Add some missing NPC questIDs and fix a few that were wrong, using -1 to denote an NPC which has no quest.
+    Add support/NPCs for the Life Finds a Way... To Die! achievement.
 
-commit 0f023ad49860835a6203835feef342c0b2f22d9b
+commit 3daba64fc27e4aa5718002b06c66d8218503f9c9
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Sep 5 01:10:47 2018 -0500
+Date:   Thu Sep 6 01:59:19 2018 -0500
 
-    Future-proof against other questID types.
+    Add Sky Queen to Dazar'alor.
 
-commit 4adc99849216242e58a798007fa6705be507e123
+commit 4f1b4db3297fbfb4b24d902290fe6e624a5a7174
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Wed Sep 5 01:10:13 2018 -0500
+Date:   Thu Sep 6 01:58:02 2018 -0500
 
-    Add vignetteIDs to most of the NPCs which were missing them, since vignette names do not always match the NPC/quest name (at least in English - may be better or worse in other languages), using -1 for NPCs which are known to have no vignette.
+    Move Old R'gal from Zuldazar to Dazar'alor.
 
-commit 72e6bc97d53361e3ab3df530bf6f840683db4f07
+commit 862575f120d45189730f3d280f4e33e6937a5adc
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Sep 4 23:31:33 2018 -0500
+Date:   Thu Sep 6 01:55:40 2018 -0500
 
-    Add initial data for new Arathi Highlands NPCs.
+    ProcessVignetteGUID: Use the NPC's classification, if present, as unitClassification in the table passed to ProcessDetection so that there is a better chance of spawning a correctly-styled target button.
 
-commit f78bb20cf89448b0ee5da3fb7cbad27ef4199939
+commit 64d1ff7f9fa9193191c3bebb0aee151a142435d3
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Sep 4 23:30:20 2018 -0500
+Date:   Thu Sep 6 01:52:48 2018 -0500
 
-    Simplify logic for detection, and make NPCs with unfinished quests be detectable regardless of achievement status.
+    ProcessVignetteGUID: Move npcID assignment to before the first place it can be referenced.
 
-commit 264e1dfe2fd12df2a41b8b543186c1158e8c0b8a
+commit 47baf835d15526a89ff4acf7c9258cfdf2973762
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Tue Sep 4 13:41:21 2018 -0500
+Date:   Thu Sep 6 01:51:24 2018 -0500
 
-    Add Aiji the Accursed, in Nazmir.
+    Change QuestNPCs table to hold an NPC object instead of true.
 
-commit b391fcd88824962fc323887124d89ad57e57c882
+commit 269387affee8ccfb682148d29d0786a95f4e75c1
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Mon Sep 3 22:42:47 2018 -0500
+Date:   Thu Sep 6 01:49:20 2018 -0500
 
-    Add Mor'fani the Exile, in Vol'dun.
+    Remove Kul'krazahn from Zuldazar - he's only in Dazar'alor.
 
-commit 4cd27390f30043f93d9b11d796390c019380a555
+commit 1b32e7c0eb59ad25a86ea4eb611b901921b76aa8
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Mon Sep 3 02:29:02 2018 -0500
+Date:   Thu Sep 6 01:47:10 2018 -0500
 
-    Suppress warnings for NPCs which have already been checked, since there are some which are associated with multiple mapIDs.
+    Add Grand Marshal Tremblade and Marshal Gabriel to Boralus.
 
-commit d771ff2202d4a44e0c117bc51ff8820ad394b2cd
+commit 0f3eac11764d5c41991c2c7f46f5df04b511500e
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Mon Sep 3 01:31:42 2018 -0500
+Date:   Thu Sep 6 01:46:30 2018 -0500
 
-    Rewrite questID-checking to use continent mapIDs, and also add vignetteID-checking using the same logic.
+    Add questID for Bloodmaw.
 
-commit af46d2d0daffb81bf743913d885b96ccb745b252
+commit 5dc51d3811181a67cbc69f43a195764f87ad8e6d
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Sun Sep 2 14:23:34 2018 -0500
+Date:   Thu Sep 6 01:46:01 2018 -0500
 
-    Remove Putridius from Scholomance - he's in Western Plaguelands.
+    Move Rear Admiral Hainsworth, Dark Ranger Clea, and Sawtooth from Tiragarde Sound to Boralus.
+
+commit 357f0ad5c03fb4b865f54459f3f46465d517982a
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Thu Sep 6 01:43:55 2018 -0500
+
+    Change achievementQuestID for Crushtacean to match the new value.
+
+commit 3bfec86563584697c3f1726ba21c82d058ab7550
+Author: James D. Callahan III <jcallahan@curse.com>
+Date:   Thu Sep 6 01:43:09 2018 -0500
+
+    Add questID and vignetteID for Tempestria.
 
