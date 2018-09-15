@@ -1,174 +1,26 @@
-tag b7f810c01edd7ad5389459b79dbcc9fde0f83ca4 8.0.6
+tag 0b1c652623f9bd0f8ec626674c51d6627f2dae8e 8.0.8
 Author:	subversion <svn@deadlybossmods.com>
-Date:	Mon Sep 3 11:37:50 2018 +0200
+Date:	Tue Sep 11 20:49:25 2018 +0200
 
-Tagging as 8.0.6
+Tagging as 8.0.8
 
-commit a807cda5d65360cd677ac49a8bb931c6f9ff79b3
+commit 0edf1bf8436b5cd8224307e13f41f228b8cd3c0c
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Sep 3 11:37:50 2018 +0200
+Date:   Tue Sep 11 20:49:25 2018 +0200
 
-    increment version number to 8.0.6
+    increment version number to 8.0.8
 
-commit 784268ecc8f5b4c8683793807411ca2492e3e2d1
+commit 7cdc1cc7a0677b74807f0933d264acfb49bfcaf3
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Sep 3 11:06:29 2018 +0200
+Date:   Tue Sep 11 20:44:26 2018 +0200
 
-    Omega via svn r17762:
-    Use helpdispel instead of trannow
-    Reason. Tranq shot is still gone, hunters use pet to dispel and druids ?\226?\128?\156sooth?\226?\128?\157 no one uses ?\226?\128?\156tranq shot?\226?\128?\157
+    Omega via svn r17821:
+    Change Vectis icon method to match BW to resolve conflicts with raids running promoted members running both mods. As a minor result, icon usage code is no longer debuff count agnostic so it might need fixing in LFR if it?\226?\128?\153s less than 3 targets.
 
-commit 5af566d8d4bb126a4f9de7ac2f94fe85177cdfb0
+commit 354e164cab48c551799ac79d60de95ad392a6431
 Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Sep 3 02:46:38 2018 +0200
+Date:   Tue Sep 11 20:13:32 2018 +0200
 
-    Omega via svn r17761:
-    Fix stormsong RP timer, wrong event
-
-commit 6906a3d4fbdd5178fca1b9a982e0cb612b04b0a3
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Sep 3 02:44:05 2018 +0200
-
-    Omega via svn r17760:
-    *Improve detection of debuffs/buffs that players spellsteal, or reflect, to reduce false trash warnings.
-    *Added 11 new trash warnings to Tol Dagor
-
-commit 9f220d7582dbb921496c51d6082541a1c7411cf1
-Author: subversion <svn@deadlybossmods.com>
-Date:   Mon Sep 3 00:08:23 2018 +0200
-
-    Omega via svn r17759:
-    *ES update
-    *Added yells to Fetid Devourer and optimized UnitDebuff check some.
-
-commit c3186e572586279c3f388dca724566483dde1e49
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sun Sep 2 10:27:53 2018 +0200
-
-    ebmor via svn r17758:
-    deDE update
-
-commit e462e62bb3f73bdcc6f9ac81ef04b3f71d83d3fd
-Author: subversion <svn@deadlybossmods.com>
-Date:   Sat Sep 1 06:30:28 2018 +0200
-
-    Omega via svn r17757:
-    *minor trash fixes
-    *Added Snake Charm to Avatar of Sethraliss encounter.
-    *Removed borrow timer from Merektha encounter (it?\226?\128?\153s health based)
-    *Added 16 trash warnings to Sethraliss Trash mod
-
-commit f34afda3e18e4fed2e52d62a0e66a61dca451edb
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 31 22:30:03 2018 +0200
-
-    Omega via svn r17756:
-    Fix beachhead check
-
-commit e05f8a4f76e116bfc74d1375da3ec5299312aa5b
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 31 06:58:30 2018 +0200
-
-    Omega via svn r17755:
-    Scrapped an invalid warning in boralus.
-    Additional antispam tweaks across all mods to combine similar type warnings under same thresholds to ensure large pulls don?\226?\128?\153t result in higher spam.
-
-commit 1979415f9caefad6eccbf04fdaf4cf50f0d2ac5e
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 31 06:38:33 2018 +0200
-
-    Omega via svn r17754:
-    Combined uproot and splinterspike dodge warnings into same antispam threshold, so when fighting both mobs together, the warnings will actually antispam eachother and avoid feeling extra spamy
-
-commit 3e6f0e47940c0c873cba5ace498ed585fa98bc33
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 31 06:36:00 2018 +0200
-
-    Omega via svn r17753:
-    Antispam Bulwark
-
-commit c0b3a385be220af43ee1e2ba05a7d26b72a1fc1e
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 31 06:34:42 2018 +0200
-
-    Omega via svn r17752:
-    Fix kite warning so it?\226?\128?\153s just tank and not everyone
-
-commit bb47838a28ac137d9c6a11fc5e43598b15b3e895
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 31 02:35:40 2018 +0200
-
-    Omega via svn r17751:
-    Fix kite warning so it?\226?\128?\153s just tank and not everyone
-
-commit 304ec5f818b264563e3c97d4175c68b2a26f5c5f
-Author: subversion <svn@deadlybossmods.com>
-Date:   Fri Aug 31 01:08:51 2018 +0200
-
-    Omega via svn r17750:
-    Coding looks good for turtle feature. but can?\226?\128?\153t test til next quest pops. but pushing now cause maybe someone else can test :D
-
-commit 911fd90b71b6e4bf2b2b5cd705a32b5161f73c95
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 30 20:51:44 2018 +0200
-
-    Omega via svn r17749:
-    Fix marksman hunters getting RemoveEnrage warnings when they can?\226?\128?\153t
-
-commit bae5ef74bdb947d27e24a3be76478ce9e2bed07c
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 30 11:13:34 2018 +0200
-
-    Omega via svn r17748:
-    Some minor timer tweaks
-
-commit a9778073c79a7ffcaa84eef26098106a8ad73097
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 30 05:24:17 2018 +0200
-
-    Omega via svn r17747:
-    Disable adds warning until i can verify how to fix it on horde side
-
-commit 36cb6bb98b56a74893a526520e613176779f6195
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 30 04:55:09 2018 +0200
-
-    Omega via svn r17746:
-    Disable that timer, it?\226?\128?\153s health based
-
-commit 1d0b9aab882f5c8648ede9f80ccc7bd911c3108a
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 30 04:52:48 2018 +0200
-
-    Omega via svn r17745:
-    Fix two bugs
-
-commit ff023b56bf05e1effbd30b4c8ec609389d792dd7
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 30 04:13:09 2018 +0200
-
-    Omega via svn r17744:
-    tweak stack count
-
-commit fa03d4cc28c8702e5b861b35383f93024cfbabec
-Author: subversion <svn@deadlybossmods.com>
-Date:   Thu Aug 30 01:28:55 2018 +0200
-
-    Omega via svn r17743:
-    *Re-enabled interrupt warning by default on tidesage council, but made it smarter by having it check if Blessing of Tempest is up and if it is, ignoring interrupt warning until buff is gone.
-    Added about 18 new trash warnings to Shrine of Storms
-
-commit 30484f31b05c137dc2fea09a92c6b1b1fde970a2
-Author: subversion <svn@deadlybossmods.com>
-Date:   Wed Aug 29 21:06:57 2018 +0200
-
-    Omega via svn r17742:
-    forgot other unit in api, fix some lua errors
-
-commit 1fbbd481af50cb7751199fd6719df27c1569a6b3
-Author: subversion <svn@deadlybossmods.com>
-Date:   Tue Aug 28 20:22:31 2018 +0200
-
-    tandanu via svn r17741:
+    tandanu via svn r17820:
     increment alpha version
 
