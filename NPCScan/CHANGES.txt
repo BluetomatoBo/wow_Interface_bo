@@ -1,82 +1,64 @@
-tag 52eea60e77de65ba68467f7dec99de8c16706cf5 8.0.1.12
+tag fe90f5734f39c89d032c4a64a2701537a638e53a 8.0.1.13
 Author:	James D. Callahan III <jcallahan@curse.com>
-Date:	Thu Sep 6 02:06:15 2018 -0500
+Date:	Thu Sep 13 04:00:13 2018 -0500
 
-commit 41492f4afc6479f5d8060730031db4471ba1cc7b
+commit ee35dfd706398e668594a33e4bfe308aa6ff9487
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 02:02:03 2018 -0500
+Date:   Thu Sep 13 03:55:38 2018 -0500
 
-    Add Vuguth and Maw of Shul-Nagruth to Nazmir.
+    Add classifications for Maw of Shul-Nagruth, Underlord Xerxiz, Dunegorger Kraulok, and Unbra'rix.
 
-commit b7fe7b5c8050696b3986d9593dc7c470f99c5f87
+commit 140f51a7686b731c533782214523c3f243fc0c80
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 02:01:24 2018 -0500
+Date:   Thu Sep 13 03:54:38 2018 -0500
 
-    Add support/NPCs for the Life Finds a Way... To Die! achievement.
+    Remove tameable filtering from Rares display - a rare is a rare - and add filtering for classifications: No classification or classifications of "rare" or "rareelite" will be displayed, whereas "normal" or anything not the previous two will not.
 
-commit 3daba64fc27e4aa5718002b06c66d8218503f9c9
+commit d2f00b4d206d0cf9814c0845b5fcc10e15456a67
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:59:19 2018 -0500
+Date:   Thu Sep 13 03:51:27 2018 -0500
 
-    Add Sky Queen to Dazar'alor.
+    Use absolute checks for questID instead of npc:HasQuest() to warn when an NPC has no quest assigned, so the latter doesn't return false positives for -1.
 
-commit 4f1b4db3297fbfb4b24d902290fe6e624a5a7174
+commit 839bfb558fb96fcf0ed4093cd71e7ef719b9ad8a
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:58:02 2018 -0500
+Date:   Thu Sep 13 03:45:47 2018 -0500
 
-    Move Old R'gal from Zuldazar to Dazar'alor.
+    Add VignetteLootElite to ignored types.
 
-commit 862575f120d45189730f3d280f4e33e6937a5adc
+commit 180a28430312a69ad6c5c28955da89cbf223b1e5
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:55:40 2018 -0500
+Date:   Sat Sep 8 04:38:03 2018 -0500
 
-    ProcessVignetteGUID: Use the NPC's classification, if present, as unitClassification in the table passed to ProcessDetection so that there is a better chance of spawning a correctly-styled target button.
+    Set classification for Strange Mushroom Ring to "normal".
 
-commit 64d1ff7f9fa9193191c3bebb0aee151a142435d3
+commit f2c006dd589623cfe75a858332f0bb4d2f61a4f4
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:52:48 2018 -0500
+Date:   Sat Sep 8 04:26:43 2018 -0500
 
-    ProcessVignetteGUID: Move npcID assignment to before the first place it can be referenced.
+    Set factionGroup for Doc Marrtens to Alliance and for Jakala the Cruel to Horde.
 
-commit 47baf835d15526a89ff4acf7c9258cfdf2973762
+commit 7b7b1a0ee3483c775b34584bc5da1826db74867b
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:51:24 2018 -0500
+Date:   Sat Sep 8 04:10:13 2018 -0500
 
-    Change QuestNPCs table to hold an NPC object instead of true.
+    Set the NPCMetatable for custom NPCs so the methods will work.
 
-commit 269387affee8ccfb682148d29d0786a95f4e75c1
+commit 341282f16dd6586b1340fbc66776c274f31338c8
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:49:20 2018 -0500
+Date:   Sat Sep 8 03:41:16 2018 -0500
 
-    Remove Kul'krazahn from Zuldazar - he's only in Dazar'alor.
+    Add questID to Henry Breakwater, and mark General Krathax as having neither a questID nor vignetteID.
 
-commit 1b32e7c0eb59ad25a86ea4eb611b901921b76aa8
+commit 8ad73ca6868f9ca24589aa5e572e967be9d909c5
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:47:10 2018 -0500
+Date:   Sat Sep 8 03:40:19 2018 -0500
 
-    Add Grand Marshal Tremblade and Marshal Gabriel to Boralus.
+    Add classifications to Zujothgul, Aiji the Accursed, General Krathax, and Vengeful Dead.
 
-commit 0f3eac11764d5c41991c2c7f46f5df04b511500e
+commit 343782088c0a776659884a99d556e1b5c22acfef
 Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:46:30 2018 -0500
+Date:   Sat Sep 8 03:31:31 2018 -0500
 
-    Add questID for Bloodmaw.
-
-commit 5dc51d3811181a67cbc69f43a195764f87ad8e6d
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:46:01 2018 -0500
-
-    Move Rear Admiral Hainsworth, Dark Ranger Clea, and Sawtooth from Tiragarde Sound to Boralus.
-
-commit 357f0ad5c03fb4b865f54459f3f46465d517982a
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:43:55 2018 -0500
-
-    Change achievementQuestID for Crushtacean to match the new value.
-
-commit 3bfec86563584697c3f1726ba21c82d058ab7550
-Author: James D. Callahan III <jcallahan@curse.com>
-Date:   Thu Sep 6 01:43:09 2018 -0500
-
-    Add questID and vignetteID for Tempestria.
+    Move NPC initialization code from Core to Data/NPCs/_Main and convert the IsNPCAchievementCriteriaComplete, NPCHasQuest, and IsNPCQuestComplete functions into prototype methods (without NPC in the name).
 
