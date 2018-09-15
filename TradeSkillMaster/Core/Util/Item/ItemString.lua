@@ -10,7 +10,7 @@
 -- @submodule Item
 
 local _, TSM = ...
-local private = { bonusIdCache = {}, bonusIdTemp = {}, itemStringCache = {} }
+local private = { bonusIdCache = {}, bonusIdTemp = {}, itemStringCache = {}, filteredItemStringCache = {} }
 local ITEM_UPGRADE_VALUE_SHIFT = 1000000
 
 
@@ -30,6 +30,13 @@ function TSMAPI_FOUR.Item.ToItemString(item)
 		private.itemStringCache[item] = private.ToItemString(item)
 	end
 	return private.itemStringCache[item]
+end
+
+function TSMAPI_FOUR.Item.FilterItemString(itemString)
+	if not private.filteredItemStringCache[itemString] then
+		private.filteredItemStringCache[itemString] = private.FilterImportantBonsuIds(itemString)
+	end
+	return private.filteredItemStringCache[itemString]
 end
 
 --- Converts the parameter into an itemId.
@@ -71,8 +78,8 @@ function TSMAPI_FOUR.Item.ToWowItemString(itemString)
 	local spec = GetSpecialization()
 	spec = spec and GetSpecializationInfo(spec) or ""
 	local upgradeValue = private.GetUpgradeValue(itemString)
-	if upgradeValue and numBonus then
-		local bonusIds = strmatch(itemString, "i:[0-9]+:[0-9%-]*:[0-9]+:(.+):"..upgradeValue.."$")
+	local bonusIds = upgradeValue and numBonus and strmatch(itemString, "i:[0-9]+:[0-9%-]*:[0-9]+:(.+):"..upgradeValue.."$")
+	if bonusIds then
 		upgradeValue = upgradeValue - ITEM_UPGRADE_VALUE_SHIFT
 		return "item:"..itemId.."::::::"..(rand or "").."::"..level..":"..spec..":512::"..numBonus..":"..bonusIds..":"..upgradeValue..":::"
 	end
@@ -195,8 +202,6 @@ function private.FixItemString(itemString)
 			itemString = itemString..":"..lastExtraPart
 		end
 		itemString = private.RemoveExtra(itemString)
-		-- filter out bonusIds we don't care about
-		return private.FilterImportantBonsuIds(itemString)
 	end
 	return itemString
 end

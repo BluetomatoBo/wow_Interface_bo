@@ -312,7 +312,7 @@ function private.ScanRecipe(professionName, spellId)
 		craftName = GetSpellInfo(spellId)
 	elseif strfind(itemLink, "item:") then
 		-- result of craft is item
-		itemString = TSMAPI_FOUR.Item.ToItemString(itemLink)
+		itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemLink)
 		craftName = TSMAPI_FOUR.Item.GetName(itemLink)
 	else
 		error("Invalid craft: "..tostring(spellId))
@@ -355,7 +355,7 @@ function private.ScanRecipe(professionName, spellId)
 	local matQuantities = TSMAPI_FOUR.Util.AcquireTempTable()
 	local haveInvalidMats = false
 	for i = 1, C_TradeSkillUI.GetRecipeNumReagents(spellId) do
-		local matItemString = TSMAPI_FOUR.Item.ToItemString(C_TradeSkillUI.GetRecipeReagentItemLink(spellId, i))
+		local matItemString = TSMAPI_FOUR.Item.ToBaseItemString(C_TradeSkillUI.GetRecipeReagentItemLink(spellId, i))
 		if not matItemString then
 			haveInvalidMats = true
 			break

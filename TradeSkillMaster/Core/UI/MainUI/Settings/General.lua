@@ -622,7 +622,11 @@ function private.AccountSyncRowOnLeave(frame)
 end
 
 function private.SendProfileOnClick(button)
-	TSM.Groups.Sync.SendCurrentProfile(TSM.Sync.Connection.GetConnectedPlayerByAccount(button:GetParentElement():GetContext()))
+	local player = TSM.Sync.Connection.GetConnectedPlayerByAccount(button:GetParentElement():GetContext())
+	if not player then
+		return
+	end
+	TSM.Groups.Sync.SendCurrentProfile(player)
 end
 
 function private.RemoveAccountSyncOnClick(button)

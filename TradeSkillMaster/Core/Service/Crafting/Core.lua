@@ -562,7 +562,7 @@ function Crafting.RestockHelp(link)
 	end
 
 	-- check the prices on the item and the min profit
-	if opSettings.minProfit then
+	if opSettings.minProfit ~= "" then
 		local cost = TSM.Crafting.Cost.GetLowestCostByItem(itemString)
 		local craftedValue = TSM.Crafting.Cost.GetCraftedItemValue(itemString)
 		local profit = cost and craftedValue and (craftedValue - cost) or nil

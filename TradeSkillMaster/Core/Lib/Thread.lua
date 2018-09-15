@@ -24,6 +24,7 @@ local MAX_QUANTUM_MS = 10
 local SEND_MSG_SYNC_TIMEOUT_MS = 3000
 local YIELD_VALUE_START = {}
 local YIELD_VALUE = {}
+local SCHEDULER_TIME_WARNING_THRESHOLD_MS = 100
 local Thread = TSMAPI_FOUR.Class.DefineClass("Thread")
 
 
@@ -600,6 +601,7 @@ function private.RunScheduler(_, elapsed)
 	if InCombatLockdown() then
 		return
 	end
+	local startTime = debugprofilestop()
 	local numReadyThreads = 0
 	wipe(private.queue)
 
@@ -649,11 +651,21 @@ function private.RunScheduler(_, elapsed)
 		TSM:LOG_INFO("Stopping the scheduler")
 		private.schedulerFrame:Hide()
 	end
+
+	local timeTaken = debugprofilestop() - startTime
+	if timeTaken > SCHEDULER_TIME_WARNING_THRESHOLD_MS then
+		TSM:LOG_WARN("Scheduler took %.2fms", timeTaken)
+	end
 end
 
-function private.ProcessEvent(self, ...)
+function private.ProcessEvent(self, event, ...)
+	local startTime = debugprofilestop()
 	for _, thread in pairs(private.threads) do
-		thread:_ProcessEvent(...)
+		thread:_ProcessEvent(event, ...)
+	end
+	local timeTaken = debugprofilestop() - startTime
+	if timeTaken > SCHEDULER_TIME_WARNING_THRESHOLD_MS then
+		TSM:LOG_WARN("Scheduler took %.2fms to process %s", timeTaken, tostring(event))
 	end
 end
 

@@ -165,8 +165,8 @@ function private.RestockItem(itemString, operationSettings)
 	end
 	local itemValue = TSM.Crafting.Cost.GetCraftedItemValue(itemString)
 	local profit = itemValue and cheapestCost and (itemValue - cheapestCost) or nil
-	local minProfit = operationSettings.minProfit and TSMAPI_FOUR.CustomPrice.GetValue(operationSettings.minProfit, itemString) or nil
-	if operationSettings.minProfit and (not minProfit or not profit or profit < minProfit) then
+	local minProfit = operationSettings.minProfit ~= "" and TSMAPI_FOUR.CustomPrice.GetValue(operationSettings.minProfit, itemString) or nil
+	if operationSettings.minProfit ~= "" and (not minProfit or not profit or profit < minProfit) then
 		-- profit is too low
 		return
 	end

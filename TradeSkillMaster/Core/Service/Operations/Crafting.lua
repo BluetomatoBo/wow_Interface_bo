@@ -34,7 +34,7 @@ end
 -- ============================================================================
 
 function private.GetOperationInfo(operationSettings)
-	if operationSettings.minProfit then
+	if operationSettings.minProfit ~= "" then
 		return format(L["Restocking to a max of %d (min of %d) with a min profit."], operationSettings.maxRestock, operationSettings.minRestock)
 	else
 		return format(L["Restocking to a max of %d (min of %d) with no min profit."], operationSettings.maxRestock, operationSettings.minRestock)

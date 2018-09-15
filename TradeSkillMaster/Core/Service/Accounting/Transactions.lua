@@ -437,6 +437,11 @@ function Transactions.GetCharacters(characters)
 	return characters
 end
 
+function Transactions.RemoveRowByUUID(uuid)
+	private.db:DeleteRowByUUID(uuid)
+	private.dataChanged = true
+end
+
 
 
 -- ============================================================================

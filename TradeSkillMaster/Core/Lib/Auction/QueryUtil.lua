@@ -40,9 +40,6 @@ end
 function AuctionCountDatabase.__init(self)
 	self._itemStrings = {}
 	self._numAuctions = {}
-	self._orderValueItem = {}
-	self._orderValueCount = {}
-	self._orderValueList = {}
 	self._isComplete = false
 end
 
@@ -61,8 +58,8 @@ function AuctionCountDatabase.PopulateDataThreaded(self)
 	self._isComplete = false
 	wipe(self._itemStrings)
 	wipe(self._numAuctions)
-	wipe(self._orderValueItem)
-	wipe(self._orderValueCount)
+	local orderValueItem = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
+	local orderValueCount = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
 	local numMissing = 0
 	for _, itemString, numAuctions in TSM.AuctionDB.LastScanIteratorThreaded() do
 		local quality = TSMAPI_FOUR.Item.GetQuality(itemString)
@@ -71,12 +68,12 @@ function AuctionCountDatabase.PopulateDataThreaded(self)
 		if quality and level and classId then
 			assert(quality < 10 and level < 200)
 			local orderValue = (classId * 10 + quality) * 200 + level
-			self._orderValueCount[orderValue] = (self._orderValueCount[orderValue] or 0) + 1
-			local count = self._orderValueCount[orderValue]
+			orderValueCount[orderValue] = (orderValueCount[orderValue] or 0) + 1
+			local count = orderValueCount[orderValue]
 			assert(count < 10000)
 			orderValue = orderValue * 10000 + count
-			assert(not self._orderValueItem[orderValue])
-			self._orderValueItem[orderValue] = itemString
+			assert(not orderValueItem[orderValue])
+			orderValueItem[orderValue] = itemString
 			self._numAuctions[itemString] = numAuctions
 		else
 			numMissing = numMissing + 1
@@ -90,19 +87,21 @@ function AuctionCountDatabase.PopulateDataThreaded(self)
 	self._isComplete = numMissing < MAX_MISSING_ITEM_DATA
 	if self._isComplete then
 		-- pretty roundabout way of sorting to avoid "script ran too long" errors from a long sort() call
-		wipe(self._orderValueList)
-		for orderValue in pairs(self._orderValueItem) do
-			tinsert(self._orderValueList, orderValue)
+		local orderValueList = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
+		wipe(orderValueList)
+		for orderValue in pairs(orderValueItem) do
+			tinsert(orderValueList, orderValue)
 		end
 		TSMAPI_FOUR.Thread.Yield(true)
-		sort(self._orderValueList)
+		sort(orderValueList)
 		TSMAPI_FOUR.Thread.Yield(true)
 		assert(#self._itemStrings == 0)
-		for _, orderValue in ipairs(self._orderValueList) do
-			tinsert(self._itemStrings, self._orderValueItem[orderValue])
+		for _, orderValue in ipairs(orderValueList) do
+			tinsert(self._itemStrings, orderValueItem[orderValue])
 		end
-		wipe(self._orderValueList)
+		TSMAPI_FOUR.Thread.ReleaseSafeTempTable(orderValueList)
 	end
+	TSMAPI_FOUR.Thread.ReleaseSafeTempTable(orderValueItem)
 	return self._isComplete
 end
 
@@ -112,6 +111,7 @@ function AuctionCountDatabase._CompareFunc(self, itemString, queryClass)
 end
 
 function AuctionCountDatabase.GetItemNumAuctions(self, itemString)
+	itemString = TSMAPI_FOUR.Item.FilterItemString(itemString)
 	return self._numAuctions[itemString] or 0
 end
 

@@ -262,6 +262,7 @@ end
 
 function private.GetItemDataHelper(tbl, key, itemString)
 	if not itemString or not tbl then return end
+	itemString = TSMAPI_FOUR.Item.FilterItemString(itemString)
 	local value = nil
 	if tbl[itemString] then
 		value = tbl[itemString][key]
@@ -284,6 +285,7 @@ function private.GetRegionItemDataHelper(tbl, key, itemString)
 	if not itemString or not tbl then
 		return
 	end
+	itemString = TSMAPI_FOUR.Item.FilterItemString(itemString)
 	local fieldIndex = tbl.fieldLookup[key] - 1
 	assert(fieldIndex and fieldIndex > 0)
 	local data = tbl.itemLookup[itemString]
