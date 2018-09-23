@@ -27,44 +27,59 @@ local LoadModuleSpam = {}
 -- A list of officiel AtlasLoot modules
 local ATLASLOOT_MODULE_LIST = {
 	{
+		addonName = "AtlasLoot_BattleforAzeroth",
+		icon = "Interface\\ICONS\\Inv_ChampionsOfAzeroth",
+		name = EXPANSION_NAME7,
+		tt_title = nil,		-- ToolTip title
+		tt_text = nil,		-- ToolTip text
+	},
+	{
 		addonName = "AtlasLoot_Legion",
-		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievements_Zone_BrokenShore", EXPANSION_NAME6),
+		icon = "Interface\\ICONS\\Achievements_Zone_BrokenShore",
+		name = EXPANSION_NAME6,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_WarlordsofDraenor",
-		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievement_Zone_Draenor_01", EXPANSION_NAME5),
+		icon = "Interface\\ICONS\\Achievement_Zone_Draenor_01",
+		name = EXPANSION_NAME5,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_MistsofPandaria",
-		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\INV_Pet_Achievement_Pandaria", EXPANSION_NAME4),
+		icon = "Interface\\ICONS\\INV_Pet_Achievement_Pandaria",
+		name = EXPANSION_NAME4,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_Cataclysm",
-		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievement_Zone_Cataclysm", EXPANSION_NAME3),
+		icon = "Interface\\ICONS\\Achievement_Zone_Cataclysm",
+		name = EXPANSION_NAME3,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_WrathoftheLichKing",
-		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievement_Zone_Northrend_01", EXPANSION_NAME2),
+		icon = "Interface\\ICONS\\Achievement_Zone_Northrend_01",
+		name = EXPANSION_NAME2,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_BurningCrusade",
-		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievement_Zone_Outland_01", EXPANSION_NAME1),
+		icon = "Interface\\ICONS\\Achievement_Zone_Outland_01",
+		name = EXPANSION_NAME1,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
 	{
 		addonName = "AtlasLoot_Classic",
-		name = format("|T%s:0:0|t %s", "Interface\\ICONS\\Achievement_Zone_EasternKingdoms_01", EXPANSION_NAME0),
+		--icon = 1120721,
+		icon = "Interface\\ICONS\\Achievement_Zone_EasternKingdoms_01",
+		name = EXPANSION_NAME0,
 		tt_title = nil,		-- ToolTip title
 		tt_text = nil,		-- ToolTip text
 	},
@@ -241,11 +256,17 @@ function Loader:GetLootModuleList()
 	for i = 1, #ATLASLOOT_MODULE_LIST do
 		moduleTable = ATLASLOOT_MODULE_LIST[i]
 		if moduleTable.addonName and ModuleList[moduleTable.addonName] and ModuleList[moduleTable.addonName].lootModule == "1" and ModuleList[moduleTable.addonName].enabled then
+			local displayName
+			if (AtlasLoot.db.GUI.ExpansionIcon and moduleTable.icon and moduleTable.name) then
+				displayName = str_format("|T%s:0:0|t %s", moduleTable.icon, moduleTable.name)
+			else
+				displayName = moduleTable.name
+			end
 			data.module[#data.module+1] = {
 				addonName = moduleTable.addonName,
-				name = moduleTable.name,
-				tt_title = moduleTable.tt_title,
-				tt_text = moduleTable.tt_text,
+				name = displayName,
+				tt_title = moduleTable.tt_title or moduleTable.name,
+				tt_text = moduleTable.tt_text or select(3, GetAddOnInfo(moduleTable.addonName)),
 			}
 		end
 	end

@@ -15,16 +15,23 @@ local addonname = ...
 local AtlasLoot = _G.AtlasLoot
 local data = AtlasLoot.ItemDB:Add(addonname, 1)
 
+local ADD_SCALING = {
+	Item = {
+		item1bonus = "Scaling",
+		addDifficultyBonus = true,
+	}
+}
+
 local EJ_GetEncounterInfo = EJ_GetEncounterInfo
 
 local AL = AtlasLoot.Locales
 local ALIL = AtlasLoot.IngameLocales
 local BB = AtlasLoot.LibBabble:Get("LibBabble-Boss-3.0")
 
-local RF_DIFF = data:AddDifficulty(AL["Raid Finder"], "rf", nil, 17)
-local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", nil, 1)
-local HEROIC_DIFF = data:AddDifficulty(AL["Heroic"], "h", nil, 2)
-local P25_DIFF = data:AddDifficulty(AL["25 Player"], "p25", nil, 4)
+local RF_DIFF = data:AddDifficulty(AL["Raid Finder"], "rf", ADD_SCALING, 17)
+local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", ADD_SCALING, 1)
+local HEROIC_DIFF = data:AddDifficulty(AL["Heroic"], "h", ADD_SCALING, 2)
+local P25_DIFF = data:AddDifficulty(AL["25 Player"], "p25", ADD_SCALING, 4)
 --local REMOVED_DIFF = data:AddDifficulty(AL["Removed"], "removed")
 
 local NORMAL_ITTYPE = data:AddItemTableType("Item", "Item")
@@ -135,7 +142,7 @@ local BLACKFATHOM_DEEPS_LOOT9 = {
 }
 data["BlackfathomDeeps"] = {
 	EncounterJournalID = 227,
-	MapID = 688,
+	MapID = 221,
 	AtlasMapID = "BlackfathomDeeps",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -182,7 +189,7 @@ data["BlackfathomDeeps"] = {
 
 data["BlackrockDepths"] = {
 	EncounterJournalID = 228,
-	MapID = 704,
+	MapID = 242,
 	AtlasMapID = "BlackrockDepths",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -490,7 +497,7 @@ data["BlackrockDepths"] = {
 
 data["Deadmines"] = {
 	EncounterJournalID = 63,
-	MapID = 756,
+	MapID = 291,
 	AtlasMapID = "TheDeadmines",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
@@ -748,7 +755,7 @@ local DIREMAUL_LOOT1 = {
 
 data["DireMaul"] = {
 	EncounterJournalID = 230,
-	MapID = 699,
+	MapID = 234,
 	AtlasMapID = "DireMaulEnt",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -943,7 +950,7 @@ data["Gnomeregan"] = {
 
 data["LowerBlackrockSpire"] = {
 	EncounterJournalID = 229,
-	MapID = 721,
+	MapID = 250,
 	AtlasMapID = "LowerBlackrockSpire",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1175,7 +1182,7 @@ local MARAUDON_LOOT9 = {
 }
 data["Maraudon"] = {
 	EncounterJournalID = 232,
-	MapID = 750,
+	MapID = 280,
 	AtlasMapID = "Maraudon",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1244,7 +1251,7 @@ local RAGEFIRE_CHASM_LOOT = {
 }
 data["RagefireChasm"] = {
 	EncounterJournalID = 226,
-	MapID = 680,
+	MapID = 213,
 	AtlasMapID = "RagefireChasm",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1314,7 +1321,7 @@ local RAZORFEN_DOWNS_LOOT6 = {
 }
 data["RazorfenDowns"] = {
 	EncounterJournalID = 233,
-	MapID = 760,
+	MapID = 300,
 	AtlasMapID = "RazorfenDowns",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1420,7 +1427,7 @@ local RAZORFEN_KRAUL_LOOT8 = {
 }
 data["RazorfenKraul"] = {
 	EncounterJournalID = 234,
-	MapID = 761,
+	MapID = 301,
 	AtlasMapID = "RazorfenKraul",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1463,7 +1470,7 @@ data["RazorfenKraul"] = {
 
 data["ScarletHalls"] = {
 	EncounterJournalID = 311,
-	MapID = 871,
+	MapID = 431,
 	AtlasMapID = "ScarletHalls",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
@@ -1515,7 +1522,7 @@ data["ScarletHalls"] = {
 
 data["ScarletMonastery"] = {
 	EncounterJournalID = 316,
-	MapID = 874,
+	MapID = 435,
 	AtlasMapID = "ScarletMonastery",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
@@ -1571,7 +1578,7 @@ data["ScarletMonastery"] = {
 
 data["Scholomance"] = {
 	EncounterJournalID = 246,
-	MapID = 898,
+	MapID = 476,
 	AtlasMapID = "Scholomance",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
@@ -1642,7 +1649,7 @@ data["Scholomance"] = {
 
 data["ShadowfangKeep"] = {
 	EncounterJournalID = 64,
-	MapID = 764,
+	MapID = 310,
 	AtlasMapID = "ShadowfangKeep",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = NORMAL_DIFF,
@@ -1746,7 +1753,7 @@ data["ShadowfangKeep"] = {
 
 data["Stratholme"] = {
 	EncounterJournalID = 236,
-	MapID = 765,
+	MapID = 317,
 	AtlasMapID = "StratholmeCrusader",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1999,7 +2006,7 @@ local STOCKADE_LOOT = {
 }
 data["TheStockade"] = {
 	EncounterJournalID = 238,
-	MapID = 690,
+	MapID = 225,
 	AtlasMapID = "TheStockade",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -2021,7 +2028,7 @@ data["TheStockade"] = {
 
 data["TheSunkenTemple"] = {
 	EncounterJournalID = 237,
-	MapID = 687,
+	MapID = 220,
 	AtlasMapID = "TheSunkenTemple",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -2183,7 +2190,7 @@ local ULDAMAN_LOOT9 = {
 }
 data["Uldaman"] = {
 	EncounterJournalID = 239,
-	MapID = 692,
+	MapID = 230,
 	AtlasMapID = "Uldaman",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -2297,7 +2304,7 @@ local WAILING_CAVERNS_LOOT12 = {
 }
 data["WailingCaverns"] = {
 	EncounterJournalID = 240,
-	MapID = 749,
+	MapID = 279,
 	AtlasMapID = "WailingCaverns",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -2361,7 +2368,7 @@ data["WailingCaverns"] = {
 
 data["ZulFarrak"] = {
 	EncounterJournalID = 241,
-	MapID = 686,
+	MapID = 219,
 	AtlasMapID = "ZulFarrak",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -2476,7 +2483,7 @@ local AQ_ENCHANTS = {
 data["AhnQiraj"] = {
 	name = ALIL["Ahn'Qiraj"],
 	EncounterJournalID = 744,
-	MapID = 766,
+	MapID = 319,
 	AtlasMapID = "TheTempleofAhnQiraj",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -2782,7 +2789,7 @@ data["AhnQiraj"] = {
 data["BlackwingLair"] = {
 	name = ALIL["Blackwing Lair"],
 	EncounterJournalID = 742,
-	MapID = 755,
+	MapID = 287,
 	AtlasMapID = "BlackwingLair",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -3034,7 +3041,7 @@ data["BlackwingLair"] = {
 data["MoltenCore"] = {
 	name = ALIL["Molten Core"],
 	EncounterJournalID = 741,
-	MapID = 696,
+	MapID = 232,
 	AtlasMapID = "MoltenCore",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -3400,7 +3407,7 @@ data["MoltenCore"] = {
 data["TheRuinsofAhnQiraj"] = {
 	name = ALIL["Ruins of Ahn'Qiraj"],
 	EncounterJournalID = 743,
-	MapID = 717,
+	MapID = 247,
 	AtlasMapID = "TheRuinsofAhnQiraj",
 	ContentType = RAID_CONTENT,
 	items = {

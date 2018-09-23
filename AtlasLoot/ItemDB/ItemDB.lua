@@ -125,6 +125,7 @@ local function getItemsFromDiff(curBossTab, iniTab)
 	end
 	-- now copy all items from the other difficulty
 	local bossTab = iniTab[ curBossTab.GetItemsFromDiff ]
+	assert(bossTab, "Diff '"..curBossTab.GetItemsFromDiff.."' not found for EncounterJournalID:"..(iniTab.EncounterJournalID or "UNKNOWN"))
 	if bossTab.GetItemsFromDiff then
 		getItemsFromDiff(bossTab, iniTab)
 	end

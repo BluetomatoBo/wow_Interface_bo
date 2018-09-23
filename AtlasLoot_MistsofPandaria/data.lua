@@ -14,6 +14,13 @@ local addonname = ...
 local AtlasLoot = _G.AtlasLoot
 local data = AtlasLoot.ItemDB:Add(addonname, 5)
 
+local ADD_SCALING = {
+	Item = {
+		item1bonus = "Scaling",
+		addDifficultyBonus = true,
+	}
+}
+
 local AL = AtlasLoot.Locales
 local ALIL = AtlasLoot.IngameLocales
 local BB = AtlasLoot.LibBabble:Get("LibBabble-Boss-3.0")
@@ -25,10 +32,10 @@ local RF_SOO_DIFF = data:AddDifficulty(AL["Raid Finder"], "lfrWithPreset", {
 		item2bonus = "LFR",
 	},
 }, 17)
-local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", nil, 1)
+local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", ADD_SCALING, 1)
 local NORMAL_RAID_DIFF = data:AddDifficulty(AL["Normal"], "rn", nil, 4)
 local NORMAL_SOO_DIFF = data:AddDifficulty(AL["Normal"], "nsoo", nil, 14)
-local HEROIC_DIFF = data:AddDifficulty(AL["Heroic"], "h", nil, 2)
+local HEROIC_DIFF = data:AddDifficulty(AL["Heroic"], "h", ADD_SCALING, 2)
 local HEROIC_RAID_DIFF = data:AddDifficulty(AL["Heroic"], "rh", nil, 6)
 local HEROIC_SOO_DIFF = data:AddDifficulty(AL["Heroic"], "heroicSoOWithPreset", {
 	Item = {
@@ -219,7 +226,7 @@ data["TEST"] = {
 
 data["GateoftheSettingSun"] = {
 	EncounterJournalID = 303,
-	MapID = 875,
+	MapID = 437,
 	AtlasMapID = "GateoftheSettingSun",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -302,7 +309,7 @@ data["GateoftheSettingSun"] = {
 
 data["MoguShanPalace"] = {
 	EncounterJournalID = 321,
-	MapID = 885,
+	MapID = 453,
 	AtlasMapID = "MoguShanPalace",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -379,7 +386,7 @@ data["MoguShanPalace"] = {
 
 data["ScarletHalls"] = {
 	EncounterJournalID = 311,
-	MapID = 871,
+	MapID = 431,
 	AtlasMapID = "ScarletHalls",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = HEROIC_DIFF,
@@ -435,7 +442,7 @@ data["ScarletHalls"] = {
 
 data["ScarletMonastery"] = {
 	EncounterJournalID = 316,
-	MapID = 874,
+	MapID = 435,
 	AtlasMapID = "ScarletMonastery",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = HEROIC_DIFF,
@@ -495,7 +502,7 @@ data["ScarletMonastery"] = {
 
 data["Scholomance"] = {
 	EncounterJournalID = 246,
-	MapID = 898,
+	MapID = 476,
 	AtlasMapID = "Scholomance",
 	ContentType = DUNGEON_CONTENT,
 	LoadDifficulty = HEROIC_DIFF,
@@ -570,7 +577,7 @@ data["Scholomance"] = {
 
 data["ShadoPanMonastery"] = {
 	EncounterJournalID = 312,
-	MapID = 877,
+	MapID = 443,
 	AtlasMapID = "ShadoPanMonasteryA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -656,7 +663,7 @@ data["ShadoPanMonastery"] = {
 
 data["SiegeofNiuzaoTemple"] = {
 	EncounterJournalID = 324,
-	MapID = 887,
+	MapID = 457,
 	AtlasMapID = "SiegeofNiuzaoTempleA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -750,7 +757,7 @@ data["SiegeofNiuzaoTemple"] = {
 
 data["StormstoutBrewery"] = {
 	EncounterJournalID = 302,
-	MapID = 876,
+	MapID = 439,
 	AtlasMapID = "StormstoutBrewery",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -818,7 +825,7 @@ data["StormstoutBrewery"] = {
 
 data["TempleOfTheJadeSerpent"] = {
 	EncounterJournalID = 313,
-	MapID = 867,
+	MapID = 429,
 	AtlasMapID = "TempleOfTheJadeSerpent",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -904,7 +911,7 @@ data["TempleOfTheJadeSerpent"] = {
 
 data["HeartofFear"] = {
 	EncounterJournalID = 330,
-	MapID = 897,
+	MapID = 474,
 	AtlasMapID = "HeartofFear",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -1239,7 +1246,7 @@ data["HeartofFear"] = {
 
 data["MoguShanVaults"] = {
 	EncounterJournalID = 317,
-	MapID = 896,
+	MapID = 471,
 	AtlasMapID = "MoguShanVaults",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -1595,7 +1602,7 @@ data["MoguShanVaults"] = {
 
 data["Pandaria"] = {
 	EncounterJournalID = 322,
-	MapID = 809,
+	MapID = 379,
 	AtlasMapID = "OR_Pandaria",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -2368,7 +2375,7 @@ data["Pandaria"] = {
 
 data["SiegeofOrgrimmar"] = {
 	EncounterJournalID = 369,
-	MapID = 953,
+	MapID = 556,
 	AtlasMapID = "SiegeofOrgrimmarA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
@@ -3112,7 +3119,7 @@ data["SiegeofOrgrimmar"] = {
 
 data["TerraceofEndlessSpring"] = {
 	EncounterJournalID = 320,
-	MapID = 886,
+	MapID = 456,
 	AtlasMapID = "TerraceofEndlessSpring",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
@@ -3392,7 +3399,7 @@ data["TerraceofEndlessSpring"] = {
 
 data["ThroneofThunder"] = {
 	EncounterJournalID = 362,
-	MapID = 930,
+	MapID = 508,
 	AtlasMapID = "ThroneofThunderA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,

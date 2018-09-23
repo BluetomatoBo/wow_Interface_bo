@@ -1116,7 +1116,7 @@ local SetTable = {
 	},
 
 	["Scholomance"] = {	-- Scholomance Sets
-		name = GetMapNameByID(898).." "..AL["Sets"],
+		name = C_Map.GetMapInfo(476).name.." "..AL["Sets"],
 		sourceTemplate = {
 			AL["No longer available"],
 			AL["No longer available"],

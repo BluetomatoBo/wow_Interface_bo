@@ -16,6 +16,7 @@ local format, split = string.format, string.split
 
 -- WoW
 local GetItemInfo, IsEquippableItem = GetItemInfo, IsEquippableItem
+local IsAzeriteItem = C_AzeriteEmpoweredItem.IsAzeriteEmpoweredItemByID
 
 -- AL
 local GetAlTooltip = AtlasLoot.Tooltip.GetTooltip
@@ -35,15 +36,18 @@ function Item.OnSet(button, second)
 		{
 			ChatLink = { "LeftButton", "Shift" },
 			DressUp = { "LeftButton", "Ctrl" },
+			Azerite = { "RightButton", "Shift" },
 			types = {
 				ChatLink = true,
 				DressUp = true,
+				Azerite = true,
 			},
 		},
 		db.ClickHandler, 
 		{
 			{ "ChatLink", 	AL["Chat Link"], 	AL["Add item into chat"] },
 			{ "DressUp", 	AL["Dress up"], 	AL["Shows the item in the Dressing room"] },
+			{ "Azerite", 	"Azerite", 	"Azerite" },
 		})
 		-- create item colors
 		for i=0,7 do 
@@ -53,18 +57,23 @@ function Item.OnSet(button, second)
 	end
 	if not button then return end
 	if second and button.__atlaslootinfo.secType then
-		if type(button.__atlaslootinfo.secType[2]) == "table" then
-			button.secButton.ItemID = button.__atlaslootinfo.secType[2].itemID or tonumber(tab_remove(button.__atlaslootinfo.secType[2], 1))
-			button.secButton.ItemString = button.__atlaslootinfo.secType[2].itemString or GetItemStringWithBonus(button.secButton.ItemID, button.__atlaslootinfo.secType[2], button.__atlaslootinfo.ItemDifficulty, AtlasLoot.GUI.ItemFrame.ItemBaseLvl )
+		if IsAzeriteItem(button.ItemID) then 
+			button.__atlaslootinfo.secType = nil
+			button.secButton:Hide()
 		else
-			button.secButton.ItemID = button.__atlaslootinfo.secType[2]
-			if button.__atlaslootinfo.preSet and button.__atlaslootinfo.preSet.Item and ( button.__atlaslootinfo.preSet.Item.item2bonus or button.__atlaslootinfo.ItemDifficulty ) then
-				button.secButton.ItemString = GetItemStringWithBonus(button.ItemID, button.__atlaslootinfo.preSet.Item.item2bonus, button.__atlaslootinfo.ItemDifficulty, AtlasLoot.GUI.ItemFrame.ItemBaseLvl)
+			if type(button.__atlaslootinfo.secType[2]) == "table" then
+				button.secButton.ItemID = button.__atlaslootinfo.secType[2].itemID or tonumber(tab_remove(button.__atlaslootinfo.secType[2], 1))
+				button.secButton.ItemString = button.__atlaslootinfo.secType[2].itemString or GetItemStringWithBonus(button.secButton.ItemID, button.__atlaslootinfo.secType[2], button.__atlaslootinfo.ItemDifficulty, AtlasLoot.GUI.ItemFrame.ItemBaseLvl )
+			else
+				button.secButton.ItemID = button.__atlaslootinfo.secType[2]
+				if button.__atlaslootinfo.preSet and button.__atlaslootinfo.preSet.Item and ( button.__atlaslootinfo.preSet.Item.item2bonus or button.__atlaslootinfo.ItemDifficulty ) then
+					button.secButton.ItemString = GetItemStringWithBonus(button.ItemID, button.__atlaslootinfo.preSet.Item.item2bonus, button.__atlaslootinfo.ItemDifficulty, AtlasLoot.GUI.ItemFrame.ItemBaseLvl)
+				end
 			end
+			button.secButton.Droprate = button.__atlaslootinfo.Droprate
+			
+			Item.Refresh(button.secButton)
 		end
-		button.secButton.Droprate = button.__atlaslootinfo.Droprate
-		
-		Item.Refresh(button.secButton)
 	else
 		if type(button.__atlaslootinfo.type[2]) == "table" then
 			button.ItemID = button.__atlaslootinfo.type[2].itemID or tonumber(tab_remove(button.__atlaslootinfo.type[2], 1))
@@ -82,6 +91,7 @@ end
 
 function Item.OnMouseAction(button, mouseButton)
 	if not mouseButton then return end
+	
 	mouseButton = ItemClickHandler:Get(mouseButton) or mouseButton
 	if mouseButton == "ChatLink" then
 		local itemInfo, itemLink = GetItemInfo(button.ItemString or button.ItemID)
@@ -111,7 +121,12 @@ function Item.OnMouseAction(button, mouseButton)
 			frame.curRotation = frame.curRotation - 0.1
 			frame:SetRotation(frame.curRotation)
 		end
+	elseif mouseButton == "Azerite" then
+		local itemInfo, itemLink = GetItemInfo(button.ItemString or button.ItemID)
+		itemLink = itemLink or button.ItemString
+		HandleModifiedItemClick(GetFixedLink(itemLink or "item:"..button.ItemID))
 	end
+	
 end
 
 function Item.OnEnter(button, owner)

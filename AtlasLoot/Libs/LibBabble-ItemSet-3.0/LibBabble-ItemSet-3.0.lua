@@ -1,7 +1,7 @@
 --[[
-$Id: LibBabble-ItemSet-3.0.lua 103 2017-08-30 15:03:02Z arith $
+$Id: LibBabble-ItemSet-3.0.lua 106 2018-08-12 10:05:50Z arith $
 Name: LibBabble-ItemSet-3.0
-Revision: $Rev: 103 $
+Revision: $Rev: 106 $
 Maintainers: arith
 Last updated by: $Author: arith $
 Website: http://www.wowace.com/addons/libbabble-itemset-3-0/
@@ -10,7 +10,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-ItemSet-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 103 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 106 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -121,6 +121,7 @@ lib:SetBaseTranslations
 	["Bonescythe Armor"] = "Bonescythe Armor",
 	["Bonescythe Battlegear"] = "Bonescythe Battlegear",
 	["Borean Embrace"] = "Borean Embrace",
+	["Brain Trust"] = "Brain Trust",
 	["Brewfest Garb"] = "Brewfest Garb",
 	["Burden of Power"] = "Burden of Power",
 	["Burning Rage"] = "Burning Rage",
@@ -264,6 +265,7 @@ lib:SetBaseTranslations
 	["Flamewaker's Battlegear"] = "Flamewaker's Battlegear",
 	["Fortitude of the Nightborne"] = "Fortitude of the Nightborne",
 	["Freethinker's Armor"] = "Freethinker's Armor",
+	["Frenzied Battleplate"] = "Frenzied Battleplate",
 	["Frost Witch's Battlegear"] = "Frost Witch's Battlegear",
 	["Frost Witch's Garb"] = "Frost Witch's Garb",
 	["Frost Witch's Regalia"] = "Frost Witch's Regalia",
@@ -551,6 +553,7 @@ lib:SetBaseTranslations
 	["Rylakstalker's Battlegear"] = "Rylakstalker's Battlegear",
 	["Sanctification Garb"] = "Sanctification Garb",
 	["Sanctification Regalia"] = "Sanctification Regalia",
+	["Sandstorm Plate"] = "Sandstorm Plate",
 	["Satin Battlegear"] = "Satin Battlegear",
 	["Savage Plate Battlegear"] = "Savage Plate Battlegear",
 	["Savage Saronite Battlegear"] = "Savage Saronite Battlegear",
@@ -560,6 +563,7 @@ lib:SetBaseTranslations
 	["Scourgelord's Battlegear"] = "Scourgelord's Battlegear",
 	["Scourgelord's Plate"] = "Scourgelord's Plate",
 	["Scourgestalker Battlegear"] = "Scourgestalker Battlegear",
+	["Sea Sisters' Cunning"] = "Sea Sisters' Cunning",
 	["Seer's Linked Battlegear"] = "Seer's Linked Battlegear",
 	["Seer's Mail Battlegear"] = "Seer's Mail Battlegear",
 	["Seer's Ringmail Battlegear"] = "Seer's Ringmail Battlegear",
@@ -605,6 +609,7 @@ lib:SetBaseTranslations
 	["Sunstrider's Regalia"] = "Sunstrider's Regalia",
 	["Swiftarrow Battlegear"] = "Swiftarrow Battlegear",
 	["Symbols of Unending Life"] = "Symbols of Unending Life",
+	["Tailwind Regalia"] = "Tailwind Regalia",
 	["Tempest Regalia"] = "Tempest Regalia",
 	["Terrorblade Battlegear"] = "Terrorblade Battlegear",
 	["Thassarian's Battlegear"] = "Thassarian's Battlegear",
@@ -643,6 +648,7 @@ lib:SetBaseTranslations
 	["Thrall's Battlegear"] = "Thrall's Battlegear",
 	["Thrall's Garb"] = "Thrall's Garb",
 	["Thrall's Regalia"] = "Thrall's Regalia",
+	["Thundercrash Armor"] = "Thundercrash Armor",
 	["Thunderheart Harness"] = "Thunderheart Harness",
 	["Thunderheart Raiment"] = "Thunderheart Raiment",
 	["Thunderheart Regalia"] = "Thunderheart Regalia",
@@ -682,6 +688,7 @@ lib:SetBaseTranslations
 	["Vengeful Gladiator's Vindication"] = "Vengeful Gladiator's Vindication",
 	["Vengeful Gladiator's Wartide"] = "Vengeful Gladiator's Wartide",
 	["Vengeful Gladiator's Wildhide"] = "Vengeful Gladiator's Wildhide",
+	["Venombite Garb"] = "Venombite Garb",
 	["Vestment of Second Sight"] = "Vestment of Second Sight",
 	["Vestments of Absolution"] = "Vestments of Absolution",
 	["Vestments of Blind Absolution"] = "Vestments of Blind Absolution",
@@ -731,6 +738,7 @@ lib:SetBaseTranslations
 	["Warplate of the Obsidian Aspect"] = "Warplate of the Obsidian Aspect",
 	["Wastewalker Armor"] = "Wastewalker Armor",
 	["Watch of the Ceaseless Vigil"] = "Watch of the Ceaseless Vigil",
+	["Waycrest Legacy"] = "Waycrest Legacy",
 	["White Tiger Battlegear"] = "White Tiger Battlegear",
 	["White Tiger Plate"] = "White Tiger Plate",
 	["White Tiger Vestments"] = "White Tiger Vestments",
@@ -758,11 +766,7 @@ lib:SetBaseTranslations
 	["Ymirjar Lord's Plate"] = "Ymirjar Lord's Plate",
 	["Zabra's Raiment"] = "Zabra's Raiment",
 	["Zabra's Regalia"] = "Zabra's Regalia",
-	["Zanzil's Concentration"] = "Zanzil's Concentration",
-	["ToC"] = {
-		["Description"] = "A library to help with localization of in-game item sets.",
-		["Title"] = "Lib: Babble-ItemSet-3.0",
-	}
+	["Zanzil's Concentration"] = "Zanzil's Concentration"
 }
 
 if GAME_LOCALE == "enUS" then
@@ -868,6 +872,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Bonescythe Armor"] = "Rüstung der Knochensense",
 	["Bonescythe Battlegear"] = "Schlachtrüstung der Knochensense",
 	["Borean Embrace"] = "Boreanische Umarmung",
+	["Brain Trust"] = "Macht der Gedanken",
 	["Brewfest Garb"] = "Braufesttracht",
 	["Burden of Power"] = "Bürde der Macht",
 	["Burning Rage"] = "Brennender Zorn",
@@ -1011,6 +1016,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Flamewaker's Battlegear"] = "Schlachtrüstung des Flammenschürers",
 	["Fortitude of the Nightborne"] = "Kraft der Nachtgeborenen",
 	["Freethinker's Armor"] = "Rüstung des Freidenkers",
+	["Frenzied Battleplate"] = "Rasende Kampfplatte",
 	["Frost Witch's Battlegear"] = "Schlachtrüstung der Frosthexe",
 	["Frost Witch's Garb"] = "Gewand der Frosthexe",
 	["Frost Witch's Regalia"] = "Ornat der Frosthexe",
@@ -1298,6 +1304,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Rylakstalker's Battlegear"] = "Schlachtrüstung des Rylakjägers",
 	["Sanctification Garb"] = "Gewandung der Weihe",
 	["Sanctification Regalia"] = "Ornat der Weihe",
+	["Sandstorm Plate"] = "Sandsturmplatte",
 	["Satin Battlegear"] = "Schlachtrüstung aus Satin",
 	["Savage Plate Battlegear"] = "Wilde Plattenschlachtrüstung",
 	["Savage Saronite Battlegear"] = "Wilde Saronitschlachtrüstung",
@@ -1307,6 +1314,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Scourgelord's Battlegear"] = "Schlachtrüstung des Geißelfürsten",
 	["Scourgelord's Plate"] = "Plattenrüstung des Geißelfürsten",
 	["Scourgestalker Battlegear"] = "Schlachtrüstung des Geißeljägers",
+	["Sea Sisters' Cunning"] = "Tücke der Seeschwestern",
 	["Seer's Linked Battlegear"] = "Gekettelte Schlachtrüstung des Sehers",
 	["Seer's Mail Battlegear"] = "Schwere Schlachtrüstung des Sehers",
 	["Seer's Ringmail Battlegear"] = "Ringpanzerschlachtrüstung des Sehers",
@@ -1352,6 +1360,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Sunstrider's Regalia"] = "Sonnenwanderers Ornat",
 	["Swiftarrow Battlegear"] = "Flinkpfeilschlachtrüstung",
 	["Symbols of Unending Life"] = "Symbole des endlosen Lebens",
+	["Tailwind Regalia"] = "Ornat des Rückenwinds",
 	["Tempest Regalia"] = "Ornat des Gewittersturms",
 	["Terrorblade Battlegear"] = "Schlachtrüstung der Schreckensklinge",
 	["Thassarian's Battlegear"] = "Thassarians Schlachtrüstung",
@@ -1390,6 +1399,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Thrall's Battlegear"] = "Thralls Schlachtrüstung",
 	["Thrall's Garb"] = "Thralls Gewand",
 	["Thrall's Regalia"] = "Thralls Ornat",
+	["Thundercrash Armor"] = "Rüstung des Donnergrollens",
 	["Thunderheart Harness"] = "Harnisch des Donnerherzens",
 	["Thunderheart Raiment"] = "Gewandung des Donnerherzens",
 	["Thunderheart Regalia"] = "Ornat des Donnerherzens",
@@ -1429,6 +1439,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Vengeful Gladiator's Vindication"] = "Rechtschaffenheit des rachsüchtigen Gladiators",
 	["Vengeful Gladiator's Wartide"] = "Kriegsrausch des rachsüchtigen Gladiators",
 	["Vengeful Gladiator's Wildhide"] = "Wildfell des rachsüchtigen Gladiators",
+	["Venombite Garb"] = "Gewand des Giftbisses",
 	["Vestment of Second Sight"] = "Gewänder des zweiten Gesichts",
 	["Vestments of Absolution"] = "Gewänder der Absolution",
 	["Vestments of Blind Absolution"] = "Gewänder der blinden Absolution",
@@ -1478,6 +1489,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Warplate of the Obsidian Aspect"] = "Kriegsplatte des Obsidianaspekts",
 	["Wastewalker Armor"] = "Ödniswandlerrüstung",
 	["Watch of the Ceaseless Vigil"] = "Hüterplatte der endlosen Wacht",
+	["Waycrest Legacy"] = "Kronsteigs Vermächtnis",
 	["White Tiger Battlegear"] = "Schlachtrüstung des Weißen Tigers",
 	["White Tiger Plate"] = "Kampfplatte des Weißen Tigers",
 	["White Tiger Vestments"] = "Tracht des Weißen Tigers",
@@ -1505,12 +1517,7 @@ elseif GAME_LOCALE == "deDE" then
 	["Ymirjar Lord's Plate"] = "Plattenrüstung des Ymirjarfürsten",
 	["Zabra's Raiment"] = "Zabras Gewandung",
 	["Zabra's Regalia"] = "Zabras Ornat",
-	["Zanzil's Concentration"] = "Zanzils Konzentration",
-	["ToC"] = {
-		["Description"] = "Eine Bibliothek, die dabei hilft, die Ausrüstungssets des Spiels zu übersetzen.",
-		--Translation missing 
-		-- ["Title"] = "",
-	}
+	["Zanzil's Concentration"] = "Zanzils Konzentration"
 }
 elseif GAME_LOCALE == "esES" then
 	lib:SetCurrentTranslations 
@@ -1613,6 +1620,7 @@ elseif GAME_LOCALE == "esES" then
 	["Bonescythe Armor"] = "Armadura Segahuesos",
 	["Bonescythe Battlegear"] = "Equipo de batalla Segahuesos",
 	["Borean Embrace"] = "Abrazo boreal",
+	["Brain Trust"] = "Cerebro de confianza",
 	["Brewfest Garb"] = "Atuendo de la Fiesta de la Cerveza",
 	["Burden of Power"] = "Carga de poder",
 	["Burning Rage"] = "Ira ardiente",
@@ -1756,6 +1764,7 @@ elseif GAME_LOCALE == "esES" then
 	["Flamewaker's Battlegear"] = "Equipo de batalla de despiertallamas",
 	["Fortitude of the Nightborne"] = "Entereza de los Nocheterna",
 	["Freethinker's Armor"] = "Armadura del librepensador",
+	["Frenzied Battleplate"] = "Placa de batalla salvaje",
 	["Frost Witch's Battlegear"] = "Equipo de batalla de bruja de Escarcha",
 	["Frost Witch's Garb"] = "Atuendo de bruja de Escarcha",
 	["Frost Witch's Regalia"] = "Atavío de bruja de Escarcha",
@@ -2043,6 +2052,7 @@ elseif GAME_LOCALE == "esES" then
 	["Rylakstalker's Battlegear"] = "Equipo de batalla de acecharrylaks",
 	["Sanctification Garb"] = "Atuendo de santificación",
 	["Sanctification Regalia"] = "Atavío de santificación",
+	["Sandstorm Plate"] = "Placas de Tormenta de arena",
 	["Satin Battlegear"] = "Equipo de batalla de satén",
 	["Savage Plate Battlegear"] = "Equipo de batalla de placas salvajes",
 	["Savage Saronite Battlegear"] = "Equipo de batalla de saronita salvaje",
@@ -2052,6 +2062,7 @@ elseif GAME_LOCALE == "esES" then
 	["Scourgelord's Battlegear"] = "Equipo de batalla de Señor de la Plaga",
 	["Scourgelord's Plate"] = "Placas de Señor de la Plaga",
 	["Scourgestalker Battlegear"] = "Equipo de batalla de acechador de la Plaga",
+	["Sea Sisters' Cunning"] = "Astucia de las hermanas del mar",
 	["Seer's Linked Battlegear"] = "Equipo de batalla de eslabones de vidente",
 	["Seer's Mail Battlegear"] = "Equipo de batalla de malla de vidente",
 	["Seer's Ringmail Battlegear"] = "Equipo de batalla de cota guarnecida de vidente",
@@ -2097,6 +2108,7 @@ elseif GAME_LOCALE == "esES" then
 	["Sunstrider's Regalia"] = "Atavío de Caminante del Sol",
 	["Swiftarrow Battlegear"] = "Equipo de batalla Flechapresta",
 	["Symbols of Unending Life"] = "Símbolos de vida inagotable",
+	["Tailwind Regalia"] = "Atavío Viento de cola",
 	["Tempest Regalia"] = "Atavío de tempestad",
 	["Terrorblade Battlegear"] = "Equipo de batalla hoja de terror",
 	["Thassarian's Battlegear"] = "Equipo de batalla de Thassarian",
@@ -2135,6 +2147,7 @@ elseif GAME_LOCALE == "esES" then
 	["Thrall's Battlegear"] = "Equipo de batalla de Thrall",
 	["Thrall's Garb"] = "Atuendo de Thrall",
 	["Thrall's Regalia"] = "Atavío de Thrall",
+	["Thundercrash Armor"] = "Armadura Chocatrueno",
 	["Thunderheart Harness"] = "Arnés de Corazón Atronador",
 	["Thunderheart Raiment"] = "Vestiduras de Corazón Atronador",
 	["Thunderheart Regalia"] = "Atavío de Corazón Atronador",
@@ -2174,6 +2187,7 @@ elseif GAME_LOCALE == "esES" then
 	["Vengeful Gladiator's Vindication"] = "Vindicación de Gladiador vengativo",
 	["Vengeful Gladiator's Wartide"] = "Marea de guerra de Gladiador vengativo",
 	["Vengeful Gladiator's Wildhide"] = "Envoltura salvaje de Gladiador vengativo",
+	["Venombite Garb"] = "Conjunto de Mordisco venenoso",
 	["Vestment of Second Sight"] = "Vestimentas de la segunda visión",
 	["Vestments of Absolution"] = "Vestimentas de absolución",
 	["Vestments of Blind Absolution"] = "Vestimentas de absolución ciega",
@@ -2204,7 +2218,7 @@ elseif GAME_LOCALE == "esES" then
 	["Vestments of Winged Triumph"] = "Vestimentas de gloria alada",
 	["Vesture of Tirisgarde"] = "Vestiduras de la Guardia de Tirisfal",
 	["Vindicator's Battlegear"] = "Equipo de batalla del vindicador",
-	["Voidheart Raiment"] = "Vestiduras de corazón vacío",
+	["Voidheart Raiment"] = "Vestiduras de corazón del Vacío",
 	["Volcanic Armor"] = "Armadura volcánica",
 	["Volcanic Battlegear"] = "Equipo de batalla volcánico",
 	["Volcanic Regalia"] = "Atavío volcánico",
@@ -2223,6 +2237,7 @@ elseif GAME_LOCALE == "esES" then
 	["Warplate of the Obsidian Aspect"] = "Placa de guerra del aspecto obsidiana",
 	["Wastewalker Armor"] = "Armadura de transitayermos",
 	["Watch of the Ceaseless Vigil"] = "Custodia de vigilia incesante",
+	["Waycrest Legacy"] = "Legado Crestavía",
 	["White Tiger Battlegear"] = "Equipo de batalla del Tigre Blanco",
 	["White Tiger Plate"] = "Placas del Tigre Blanco",
 	["White Tiger Vestments"] = "Vestimentas del Tigre Blanco",
@@ -2250,13 +2265,7 @@ elseif GAME_LOCALE == "esES" then
 	["Ymirjar Lord's Plate"] = "Placas de señor Ymirjar",
 	["Zabra's Raiment"] = "Vestiduras de Zabra",
 	["Zabra's Regalia"] = "Atavío de Zabra",
-	["Zanzil's Concentration"] = "Concentración de Zanzil",
-	["ToC"] = {
-		--Translation missing 
-		-- ["Description"] = "",
-		--Translation missing 
-		-- ["Title"] = "",
-	}
+	["Zanzil's Concentration"] = "Concentración de Zanzil"
 }
 elseif GAME_LOCALE == "esMX" then
 	lib:SetCurrentTranslations 
@@ -2359,6 +2368,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Bonescythe Armor"] = "Armadura Segahuesos",
 	["Bonescythe Battlegear"] = "Equipo de batalla Segahuesos",
 	["Borean Embrace"] = "Abrazo boreal",
+	["Brain Trust"] = "Confianza cerebral",
 	["Brewfest Garb"] = "Atuendo de la Fiesta de la Cerveza",
 	["Burden of Power"] = "Peso del poder",
 	["Burning Rage"] = "Ira ardiente",
@@ -2502,6 +2512,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Flamewaker's Battlegear"] = "Equipo de batalla de despiertallamas",
 	["Fortitude of the Nightborne"] = "Fortaleza del Natonocturno",
 	["Freethinker's Armor"] = "Armadura del librepensador",
+	["Frenzied Battleplate"] = "Placa de batalla frenética",
 	["Frost Witch's Battlegear"] = "Equipo de batalla de bruja de Escarcha",
 	["Frost Witch's Garb"] = "Atuendo de bruja de Escarcha",
 	["Frost Witch's Regalia"] = "Atavío de bruja de Escarcha",
@@ -2789,6 +2800,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Rylakstalker's Battlegear"] = "Armadura de acechador de rylak",
 	["Sanctification Garb"] = "Atuendo de santificación",
 	["Sanctification Regalia"] = "Atavío de santificación",
+	["Sandstorm Plate"] = "Placa de Tormenta de arena",
 	["Satin Battlegear"] = "Equipo de batalla de satén",
 	["Savage Plate Battlegear"] = "Equipo de batalla de placas salvajes",
 	["Savage Saronite Battlegear"] = "Equipo de batalla de saronita salvaje",
@@ -2798,6 +2810,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Scourgelord's Battlegear"] = "Equipo de batalla de Señor de la Plaga",
 	["Scourgelord's Plate"] = "Placas de Señor de la Plaga",
 	["Scourgestalker Battlegear"] = "Equipo de batalla de acechador de la Plaga",
+	["Sea Sisters' Cunning"] = "Astucia de las hermanas marinas",
 	["Seer's Linked Battlegear"] = "Equipo de batalla de eslabones de vidente",
 	["Seer's Mail Battlegear"] = "Equipo de batalla de malla de vidente",
 	["Seer's Ringmail Battlegear"] = "Equipo de batalla de cota guarnecida de vidente",
@@ -2843,6 +2856,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Sunstrider's Regalia"] = "Atavío de Caminante del Sol",
 	["Swiftarrow Battlegear"] = "Equipo de batalla Flechapresta",
 	["Symbols of Unending Life"] = "Símbolos de vida inagotable",
+	["Tailwind Regalia"] = "Atavío viento de cola",
 	["Tempest Regalia"] = "Atavío de tempestad",
 	["Terrorblade Battlegear"] = "Equipo de batalla hoja de terror",
 	["Thassarian's Battlegear"] = "Equipo de batalla de Thassarian",
@@ -2881,6 +2895,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Thrall's Battlegear"] = "Equipo de batalla de Thrall",
 	["Thrall's Garb"] = "Atuendo de Thrall",
 	["Thrall's Regalia"] = "Atavío de Thrall",
+	["Thundercrash Armor"] = "Armadura chocatrueno",
 	["Thunderheart Harness"] = "Arnés de Corazón Atronador",
 	["Thunderheart Raiment"] = "Vestiduras de Corazón Atronador",
 	["Thunderheart Regalia"] = "Atavío de Corazón Atronador",
@@ -2920,6 +2935,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Vengeful Gladiator's Vindication"] = "Vindicación de Gladiador vengativo",
 	["Vengeful Gladiator's Wartide"] = "Marea de guerra de Gladiador vengativo",
 	["Vengeful Gladiator's Wildhide"] = "Envoltura salvaje de Gladiador vengativo",
+	["Venombite Garb"] = "Atuendo venenonte",
 	["Vestment of Second Sight"] = "Uniforme de clarividencia",
 	["Vestments of Absolution"] = "Vestimentas de absolución",
 	["Vestments of Blind Absolution"] = "Vestimentas de absolución ciega",
@@ -2969,6 +2985,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Warplate of the Obsidian Aspect"] = "Placa de guerra del aspecto de obsidiana",
 	["Wastewalker Armor"] = "Armadura de transitayermos",
 	["Watch of the Ceaseless Vigil"] = "Guardia del vigilia incesante",
+	["Waycrest Legacy"] = "Legado Tarjasenda",
 	["White Tiger Battlegear"] = "Equipo de batalla del Tigre Blanco",
 	["White Tiger Plate"] = "Placas del Tigre Blanco",
 	["White Tiger Vestments"] = "Vestimentas del Tigre Blanco",
@@ -2996,13 +3013,7 @@ elseif GAME_LOCALE == "esMX" then
 	["Ymirjar Lord's Plate"] = "Placas de señor Ymirjar",
 	["Zabra's Raiment"] = "Vestiduras de Zabra",
 	["Zabra's Regalia"] = "Atavío de Zabra",
-	["Zanzil's Concentration"] = "Concentración de Zanzil",
-	["ToC"] = {
-		--Translation missing 
-		-- ["Description"] = "",
-		--Translation missing 
-		-- ["Title"] = "",
-	}
+	["Zanzil's Concentration"] = "Concentración de Zanzil"
 }
 elseif GAME_LOCALE == "frFR" then
 	lib:SetCurrentTranslations 
@@ -3071,7 +3082,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Battleplate of Resounding Rings"] = "Harnois de bataille des anneaux résonnants",
 	["Battleplate of the All-Consuming Maw"] = "Harnois de bataille de la gueule insatiable",
 	["Battleplate of the Highlord"] = "Harnois de bataille du généralissime",
-	["Battleplate of the Last Mogu"] = "Harnois de bataille du dernier mogu",
+	["Battleplate of the Last Mogu"] = "Harnois de bataille du dernier Mogu",
 	["Battleplate of the Prehistoric Marauder"] = "Harnois de bataille du maraudeur préhistorique",
 	["Battleplate of the Silver Hand"] = "Harnois de bataille de la Main d’argent",
 	["Battlewrap of the Hurricane's Eye"] = "Ensemble de combat de l’œil du cyclone",
@@ -3090,7 +3101,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Bloodfang Armor"] = "Armure Croc-de-sang",
 	["Bloodmage's Regalia"] = "Tenue de parade de mage de sang",
 	["Bloodmail Regalia"] = "Tenue de parade en mailles sanglantes",
-	["Bloodsoul Embrace"] = "Etreinte d'âmesang",
+	["Bloodsoul Embrace"] = "Étreinte d'âmesang",
 	["Bloodthirsty Charscale"] = "Calcinécailles assoiffées de sang",
 	["Bloodthirsty Dragonscale"] = "Ecailles de dragon assoiffées de sang",
 	["Bloodthirsty Embersilk"] = "Braise-soie assoiffée de sang",
@@ -3104,7 +3115,8 @@ elseif GAME_LOCALE == "frFR" then
 	["Bold Armor"] = "Armure audacieuse",
 	["Bonescythe Armor"] = "Armure de la faucheuse d'os",
 	["Bonescythe Battlegear"] = "Tenue de combat de la faucheuse d'os",
-	["Borean Embrace"] = "Etreinte boréenne",
+	["Borean Embrace"] = "Étreinte boréenne",
+	["Brain Trust"] = "Cartel des cerveaux",
 	["Brewfest Garb"] = "Atours de la fête des Brasseurs",
 	["Burden of Power"] = "Fardeau du pouvoir",
 	["Burning Rage"] = "Rage ardente",
@@ -3161,7 +3173,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Darkruned Plate"] = "Armure sombrerunique en plaques",
 	["Deathbone Guardian"] = "Gardien des ossements",
 	["Deathbringer Garb"] = "Atours porte-mort",
-	["Deathdealer's Embrace"] = "Etreinte de dispensateur de mort",
+	["Deathdealer's Embrace"] = "Étreinte de dispensateur de mort",
 	["Deathlord's Battleplate"] = "Harnois de bataille du seigneur de la mort",
 	["Deathmantle"] = "Mantemort",
 	["Deathmist Raiment"] = "Grande tenue Mortebrume",
@@ -3209,8 +3221,8 @@ elseif GAME_LOCALE == "frFR" then
 	["Elementium Deathplate Battlearmor"] = "Armure de bataille de plates mortelles en élémentium",
 	["Elementium Deathplate Battlegear"] = "Tenue de combat de plates mortelles en élémentium",
 	["Emblems of Veiled Shadows"] = "Emblèmes des ombres voilées",
-	["Embrace of the Living Mountain"] = "Etreinte de la montagne vivante",
-	["Embrace of the Viper"] = "Etreinte de la vipère",
+	["Embrace of the Living Mountain"] = "Étreinte de la montagne vivante",
+	["Embrace of the Viper"] = "Étreinte de la vipère",
 	["Enchanted Adamantite Armor"] = "Armure d'adamantite enchantée",
 	["Enigma Vestments"] = "Habits de l'énigme",
 	["Eviscerator's Battlegear"] = "Tenue de combat d'éviscérateur",
@@ -3248,6 +3260,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Flamewaker's Battlegear"] = "Tenue de combat d’attise-flammes",
 	["Fortitude of the Nightborne"] = "Robustesse des Sacrenuit",
 	["Freethinker's Armor"] = "Armure de libre-penseur",
+	["Frenzied Battleplate"] = "Harnois de bataille frénétique",
 	["Frost Witch's Battlegear"] = "Tenue de combat de sorcière du givre",
 	["Frost Witch's Garb"] = "Atours de sorcière du givre",
 	["Frost Witch's Regalia"] = "Tenue de parade de sorcière du givre",
@@ -3333,7 +3346,7 @@ elseif GAME_LOCALE == "frFR" then
 	["High Warlord's Vindication"] = "Justification de grand seigneur de guerre",
 	["High Warlord's Wartide"] = "Vague guerrière de grand seigneur de guerre",
 	["High Warlord's Wildhide"] = "Peau de fauve de grand seigneur de guerre",
-	["Iceborne Embrace"] = "Etreinte cryostène",
+	["Iceborne Embrace"] = "Étreinte cryostène",
 	["Illidari Slayer"] = "Pourfendeur illidari",
 	["Illusionist's Attire"] = "Costume d'illusionniste",
 	["Imbued Netherweave"] = "Tisse-néant imprégné",
@@ -3463,7 +3476,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Obsidian Arborweave Battlegarb"] = "Atours de bataille tisse-feuillage en obsidienne",
 	["Obsidian Arborweave Regalia"] = "Tenue de parade tisse-feuillage en obsidienne",
 	["Obsidian Arborweave Vestments"] = "Habits tisse-feuillage en obsidienne",
-	["Ogreskull Boneplate Battlegear"] = "Tenue de combat en plaques d’os crânien d’ogre",
+	["Ogreskull Boneplate Battlegear"] = "Tenue de combat en plaques d’os crânien d’Ogre",
 	["Onslaught Armor"] = "Armure d'assaut",
 	["Onslaught Battlegear"] = "Tenue de combat d'assaut",
 	["Opportunist's Battlegear"] = "Tenue de combat d'opportuniste",
@@ -3475,7 +3488,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Plate of Cyclopean Dread"] = "Cuirasse de l’effroi cyclopéen",
 	["Plate of Resounding Rings"] = "Cuirasse des anneaux résonnants",
 	["Plate of the All-Consuming Maw"] = "Cuirasse de la gueule insatiable",
-	["Plate of the Last Mogu"] = "Cuirasse du dernier mogu",
+	["Plate of the Last Mogu"] = "Cuirasse du dernier Mogu",
 	["Plate of the Lightning Emperor"] = "Cuirasse de l’empereur de la foudre",
 	["Plate of the Lost Catacomb"] = "Cuirasse de la catacombe perdue",
 	["Plate of the Prehistoric Marauder"] = "Cuirasse du maraudeur préhistorique",
@@ -3487,7 +3500,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Primal Blessing"] = "Bénédiction primordiale",
 	["Primal Intent"] = "Intention primordiale",
 	["Primal Mooncloth"] = "Etoffe lunaire primordiale",
-	["Purified Shard of the Gods"] = "Eclat des dieux purifié",
+	["Purified Shard of the Gods"] = "Éclat des dieux purifié",
 	["Radiant Lightbringer Armor"] = "Armure radieuse du porteur de Lumière",
 	["Raiment of the Arcanic Conclave"] = "Grande tenue du conclave arcanique",
 	["Raiment of the Farseer"] = "Grande tenue du long-voyant",
@@ -3535,6 +3548,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Rylakstalker's Battlegear"] = "Tenue de combat de traqueur de rylak",
 	["Sanctification Garb"] = "Atours de sanctification",
 	["Sanctification Regalia"] = "Tenue de parade de sanctification",
+	["Sandstorm Plate"] = "Plaque de tempête de sable",
 	["Satin Battlegear"] = "Tenue de combat en satin",
 	["Savage Plate Battlegear"] = "Tenue de combat sauvage en plaques",
 	["Savage Saronite Battlegear"] = "Tenue de combat sauvage en saronite",
@@ -3544,6 +3558,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Scourgelord's Battlegear"] = "Tenue de combat de seigneur du Fléau",
 	["Scourgelord's Plate"] = "Armure de seigneur du Fléau en plaques",
 	["Scourgestalker Battlegear"] = "Tenue de combat de traqueur du Fléau",
+	["Sea Sisters' Cunning"] = "Ruse des sœurs de la mer",
 	["Seer's Linked Battlegear"] = "Tenue de combat de voyant rivetée",
 	["Seer's Mail Battlegear"] = "Tenue de combat de voyant en mailles",
 	["Seer's Ringmail Battlegear"] = "Tenue de combat de voyant en mailles annelées",
@@ -3552,10 +3567,10 @@ elseif GAME_LOCALE == "frFR" then
 	["Shadowblade's Battlegear"] = "Tenue de combat de lame de l'ombre",
 	["Shadowcraft Armor"] = "Armure Sombreruse",
 	["Shadowflame Regalia"] = "Tenue de parade ombreflamme",
-	["Shadow's Embrace"] = "Etreinte de l'ombre",
-	["Shard of the Gods"] = "Eclat des dieux",
+	["Shadow's Embrace"] = "Étreinte de l'ombre",
+	["Shard of the Gods"] = "Éclat des dieux",
 	["Sha-Skin Regalia"] = "Tenue de parade en peau de sha",
-	["Shiny Shard of the Gods"] = "Eclat des dieux rutilant",
+	["Shiny Shard of the Gods"] = "Éclat des dieux rutilant",
 	["Siegebreaker Battlegear"] = "Tenue de combat brise-siège",
 	["Siegebreaker Plate"] = "Armure brise-siège en plaques",
 	["Skyshatter Harness"] = "Harnais Brise-ciel",
@@ -3565,7 +3580,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Sootfur Garb"] = "Atours fourre-suie",
 	["Sorcerer's Regalia"] = "Tenue de parade de sorcier",
 	["Soul Priest's Raiment"] = "Grande tenue de prêtre de l’âme",
-	["Soulcloth Embrace"] = "Etreinte d'âmétoffe",
+	["Soulcloth Embrace"] = "Étreinte d'âmétoffe",
 	["Soulforge Armor"] = "Armure d'Âmeforge",
 	["Spellstrike Infusion"] = "Infusion frappe-sort",
 	["Spider's Kiss"] = "Baiser de l'araignée",
@@ -3589,6 +3604,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Sunstrider's Regalia"] = "Tenue de parade de Haut-Soleil",
 	["Swiftarrow Battlegear"] = "Tenue de combat viveflèche",
 	["Symbols of Unending Life"] = "Symboles de vie interminable",
+	["Tailwind Regalia"] = "Tenue de parade du vent arrière",
 	["Tempest Regalia"] = "Tenue de parade de la tempête",
 	["Terrorblade Battlegear"] = "Tenue de combat terrolame",
 	["Thassarian's Battlegear"] = "Tenue de combat de Thassarian",
@@ -3627,6 +3643,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Thrall's Battlegear"] = "Tenue de combat de Thrall",
 	["Thrall's Garb"] = "Atours de Thrall",
 	["Thrall's Regalia"] = "Tenue de parade de Thrall",
+	["Thundercrash Armor"] = "Armure de grondement du tonnerre",
 	["Thunderheart Harness"] = "Harnais Cœur-de-tonnerre",
 	["Thunderheart Raiment"] = "Grande tenue Cœur-de-tonnerre",
 	["Thunderheart Regalia"] = "Tenue de parade Cœur-de-tonnerre",
@@ -3666,6 +3683,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Vengeful Gladiator's Vindication"] = "Justification du gladiateur vengeur",
 	["Vengeful Gladiator's Wartide"] = "Vague guerrière du gladiateur vengeur",
 	["Vengeful Gladiator's Wildhide"] = "Peau de fauve du gladiateur vengeur",
+	["Venombite Garb"] = "Atours de Venimord",
 	["Vestment of Second Sight"] = "Habits de seconde vue",
 	["Vestments of Absolution"] = "Habits d'absolution",
 	["Vestments of Blind Absolution"] = "Habits d’absolution totale",
@@ -3715,6 +3733,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Warplate of the Obsidian Aspect"] = "Harnois de guerre de l’aspect d’obsidienne",
 	["Wastewalker Armor"] = "Armure de marchefriche",
 	["Watch of the Ceaseless Vigil"] = "Guet de la veille incessante",
+	["Waycrest Legacy"] = "Héritage Malvoie",
 	["White Tiger Battlegear"] = "Tenue de combat du Tigre blanc",
 	["White Tiger Plate"] = "Cuirasse du Tigre blanc",
 	["White Tiger Vestments"] = "Habits du Tigre blanc",
@@ -3742,11 +3761,7 @@ elseif GAME_LOCALE == "frFR" then
 	["Ymirjar Lord's Plate"] = "Armure de seigneur ymirjar en plaques",
 	["Zabra's Raiment"] = "Grande tenue de Zabra",
 	["Zabra's Regalia"] = "Tenue de parade de Zabra",
-	["Zanzil's Concentration"] = "Concentration de Zanzil",
-	["ToC"] = {
-		["Description"] = "Une librairie aidant à la localisation des sets d'objets dans le jeu.",
-		["Title"] = "Lib: Babble-ItemSet-3.0",
-	}
+	["Zanzil's Concentration"] = "Concentration de Zanzil"
 }
 elseif GAME_LOCALE == "itIT" then
 	lib:SetCurrentTranslations 
@@ -3849,6 +3864,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Bonescythe Armor"] = "Armatura della Falce Ossuta",
 	["Bonescythe Battlegear"] = "Tenuta Feroce della Falce Ossuta",
 	["Borean Embrace"] = "Abbraccio Boreale",
+	["Brain Trust"] = "Completo Ben Progettato",
 	["Brewfest Garb"] = "Abiti della Festa della Birra",
 	["Burden of Power"] = "Fardello del Potere",
 	["Burning Rage"] = "Rabbiacciaio",
@@ -3992,6 +4008,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Flamewaker's Battlegear"] = "Tenuta Feroce del Destafiamme",
 	["Fortitude of the Nightborne"] = "Fermezza dei Nobili Oscuri",
 	["Freethinker's Armor"] = "Armatura del Libero Pensatore",
+	["Frenzied Battleplate"] = "Tenuta da Battaglia della Frenesia",
 	["Frost Witch's Battlegear"] = "Tenuta Feroce della Megera del Gelo",
 	["Frost Witch's Garb"] = "Abiti della Megera del Gelo",
 	["Frost Witch's Regalia"] = "Vessillo della Megera del Gelo",
@@ -4279,6 +4296,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Rylakstalker's Battlegear"] = "Tenuta Feroce del Predatore di Rylak",
 	["Sanctification Garb"] = "Abiti della Santificazione",
 	["Sanctification Regalia"] = "Vessillo della Santificazione",
+	["Sandstorm Plate"] = "Piastre della Tempesta di Sabbia",
 	["Satin Battlegear"] = "Tenuta Feroce di Raso",
 	["Savage Plate Battlegear"] = "Tenuta Feroce a Piastre Selvagge",
 	["Savage Saronite Battlegear"] = "Tenuta Feroce Selvaggia di Saronite",
@@ -4288,6 +4306,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Scourgelord's Battlegear"] = "Tenuta Feroce del Signore del Flagello",
 	["Scourgelord's Plate"] = "Piastre del Signore del Flagello",
 	["Scourgestalker Battlegear"] = "Tenuta Feroce del Predatore del Flagello",
+	["Sea Sisters' Cunning"] = "Scaltrezza delle Sorelle del Mare",
 	["Seer's Linked Battlegear"] = "Tenuta Feroce Allacciata del Veggente",
 	["Seer's Mail Battlegear"] = "Tenuta Feroce di Maglia del Veggente",
 	["Seer's Ringmail Battlegear"] = "Tenuta Feroce di Maglia Rinforzata del Veggente",
@@ -4333,6 +4352,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Sunstrider's Regalia"] = "Vessillo di Solealto",
 	["Swiftarrow Battlegear"] = "Tenuta Feroce della Freccia Veloce",
 	["Symbols of Unending Life"] = "Simboli della Vita Eterna",
+	["Tailwind Regalia"] = "Vessillo del Vento a Favore",
 	["Tempest Regalia"] = "Vessillo della Tempesta",
 	["Terrorblade Battlegear"] = "Tenuta Feroce dell'Angoscia",
 	["Thassarian's Battlegear"] = "Tenuta Feroce di Thassarian",
@@ -4371,6 +4391,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Thrall's Battlegear"] = "Tenuta Feroce di Thrall",
 	["Thrall's Garb"] = "Abiti di Thrall",
 	["Thrall's Regalia"] = "Vessillo di Thrall",
+	["Thundercrash Armor"] = "Armatura dell'Impatto del Tuono",
 	["Thunderheart Harness"] = "Bardatura di Cuore Tonante",
 	["Thunderheart Raiment"] = "Divisa di Cuore Tonante",
 	["Thunderheart Regalia"] = "Vessillo di Cuore Tonante",
@@ -4410,6 +4431,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Vengeful Gladiator's Vindication"] = "Castigo del Gladiatore Vendicativo",
 	["Vengeful Gladiator's Wartide"] = "Onda Guerriera del Gladiatore Vendicativo",
 	["Vengeful Gladiator's Wildhide"] = "Pellebrada del Gladiatore Vendicativo",
+	["Venombite Garb"] = "Abiti del Morso Velenoso",
 	["Vestment of Second Sight"] = "Paramenti della Seconda Vista",
 	["Vestments of Absolution"] = "Paramenti dell'Assoluzione",
 	["Vestments of Blind Absolution"] = "Paramenti dell'Assoluzione Cieca",
@@ -4459,6 +4481,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Warplate of the Obsidian Aspect"] = "Tenuta da Guerra dell'Aspetto di Ossidiana",
 	["Wastewalker Armor"] = "Armatura dell'Orma del Deserto",
 	["Watch of the Ceaseless Vigil"] = "Armatura della Veglia Incessante",
+	["Waycrest Legacy"] = "Retaggio dei Crestabianca",
 	["White Tiger Battlegear"] = "Tenuta Feroce della Tigre Bianca",
 	["White Tiger Plate"] = "Piastre della Tigre Bianca",
 	["White Tiger Vestments"] = "Paramenti della Tigre Bianca",
@@ -4486,11 +4509,7 @@ elseif GAME_LOCALE == "itIT" then
 	["Ymirjar Lord's Plate"] = "Piastre del Signore degli Ymirjar",
 	["Zabra's Raiment"] = "Divisa di Zabra",
 	["Zabra's Regalia"] = "Vessillo di Zabra",
-	["Zanzil's Concentration"] = "Concentrazione degli Zanzil",
-	["ToC"] = {
-		["Description"] = "Una libreria per aiutare la localizzazione dei set in gioco.",
-		["Title"] = "Lib: Babble-ItemSet-3.0",
-	}
+	["Zanzil's Concentration"] = "Concentrazione degli Zanzil"
 }
 elseif GAME_LOCALE == "koKR" then
 	lib:SetCurrentTranslations 
@@ -4593,6 +4612,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Bonescythe Armor"] = "해골사신의 갑옷",
 	["Bonescythe Battlegear"] = "해골사신 전투장비",
 	["Borean Embrace"] = "북풍의 은총",
+	["Brain Trust"] = "수뇌부",
 	["Brewfest Garb"] = "가을 축제 예복",
 	["Burden of Power"] = "힘의 무게",
 	["Burning Rage"] = "불타는 분노",
@@ -4736,6 +4756,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Flamewaker's Battlegear"] = "불꽃꼬리의 전투장비",
 	["Fortitude of the Nightborne"] = "나이트본의 인내",
 	["Freethinker's Armor"] = "자유사상가의 갑옷",
+	["Frenzied Battleplate"] = "광포한 전투판금",
 	["Frost Witch's Battlegear"] = "서리술사 전투장비",
 	["Frost Witch's Garb"] = "서리술사 제복",
 	["Frost Witch's Regalia"] = "서리술사 의복",
@@ -5023,6 +5044,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Rylakstalker's Battlegear"] = "라일라크 추적자의 전투장비",
 	["Sanctification Garb"] = "축성 제복",
 	["Sanctification Regalia"] = "축성 의복",
+	["Sandstorm Plate"] = "모래폭풍 판금",
 	["Satin Battlegear"] = "명주 전투장비",
 	["Savage Plate Battlegear"] = "야만의 판금 전투장비",
 	["Savage Saronite Battlegear"] = "야만의 사로나이트 전투장비",
@@ -5032,6 +5054,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Scourgelord's Battlegear"] = "스컬지군주 전투장비",
 	["Scourgelord's Plate"] = "스컬지군주 판금장비",
 	["Scourgestalker Battlegear"] = "스컬지추적자 전투장비",
+	["Sea Sisters' Cunning"] = "바다 자매의 교활함",
 	["Seer's Linked Battlegear"] = "예언자의 사슬매듭 전투장비",
 	["Seer's Mail Battlegear"] = "예언자의 쇠사슬 전투장비",
 	["Seer's Ringmail Battlegear"] = "예언자의 고리사슬 전투장비",
@@ -5077,6 +5100,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Sunstrider's Regalia"] = "선스트라이더의 의복",
 	["Swiftarrow Battlegear"] = "바람화살 전투장비",
 	["Symbols of Unending Life"] = "영원한 삶의 의복",
+	["Tailwind Regalia"] = "순풍 의복",
 	["Tempest Regalia"] = "폭풍우 의복",
 	["Terrorblade Battlegear"] = "공포칼날 전투장비",
 	["Thassarian's Battlegear"] = "타사리안의 전투장비",
@@ -5115,6 +5139,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Thrall's Battlegear"] = "스랄의 전투장비",
 	["Thrall's Garb"] = "스랄의 제복",
 	["Thrall's Regalia"] = "스랄의 의복",
+	["Thundercrash Armor"] = "천둥충돌 방어구",
 	["Thunderheart Harness"] = "천둥심장 갑옷",
 	["Thunderheart Raiment"] = "천둥심장 예복",
 	["Thunderheart Regalia"] = "천둥심장 의복",
@@ -5154,6 +5179,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Vengeful Gladiator's Vindication"] = "복수심에 불타는 검투사 비호장비",
 	["Vengeful Gladiator's Wartide"] = "복수심에 불타는 검투사 주술방어구",
 	["Vengeful Gladiator's Wildhide"] = "복수심에 불타는 검투사 방어구",
+	["Venombite Garb"] = "맹독니 의복",
 	["Vestment of Second Sight"] = "꿰뚫어 보는 눈의 예복",
 	["Vestments of Absolution"] = "면죄의 의복",
 	["Vestments of Blind Absolution"] = "맹목적인 면죄의 예복",
@@ -5203,6 +5229,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Warplate of the Obsidian Aspect"] = "흑요석 위상의 전쟁판금",
 	["Wastewalker Armor"] = "거친 황야 의복",
 	["Watch of the Ceaseless Vigil"] = "부단한 경계의 시선",
+	["Waycrest Legacy"] = "웨이크레스트 유산",
 	["White Tiger Battlegear"] = "백호 전투장비",
 	["White Tiger Plate"] = "백호 판금장비",
 	["White Tiger Vestments"] = "백호 예복",
@@ -5230,13 +5257,7 @@ elseif GAME_LOCALE == "koKR" then
 	["Ymirjar Lord's Plate"] = "이미야르 군주 판금장비",
 	["Zabra's Raiment"] = "자브라의 예복",
 	["Zabra's Regalia"] = "자브라의 의복",
-	["Zanzil's Concentration"] = "잔질의 집중력",
-	["ToC"] = {
-		--Translation missing 
-		-- ["Description"] = "",
-		--Translation missing 
-		-- ["Title"] = "",
-	}
+	["Zanzil's Concentration"] = "잔질의 집중력"
 }
 elseif GAME_LOCALE == "ptBR" then
 	lib:SetCurrentTranslations 
@@ -5339,6 +5360,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Bonescythe Armor"] = "Armadura Ceifa-ossos",
 	["Bonescythe Battlegear"] = "Equipamento de Batalha Ceifa-ossos",
 	["Borean Embrace"] = "Abraço Boreano",
+	["Brain Trust"] = "Convicção Cerebral",
 	["Brewfest Garb"] = "Trajes da CervaFest",
 	["Burden of Power"] = "Fardo do Poder",
 	["Burning Rage"] = "Raiva Ardente",
@@ -5482,6 +5504,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Flamewaker's Battlegear"] = "Equipamento de Batalha do Ardilante",
 	["Fortitude of the Nightborne"] = "Fortitude dos Filhos da Noite",
 	["Freethinker's Armor"] = "Armadura do Livre-pensador",
+	["Frenzied Battleplate"] = "Loriga Frenética",
 	["Frost Witch's Battlegear"] = "Equipamento de Batalha da Bruxa Glacial",
 	["Frost Witch's Garb"] = "Trajes da Bruxa Glacial",
 	["Frost Witch's Regalia"] = "Paramentos da Bruxa Glacial",
@@ -5769,6 +5792,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Rylakstalker's Battlegear"] = "Equipamento de Batalha do Caçador de Rylaks",
 	["Sanctification Garb"] = "Trajes da Santificação",
 	["Sanctification Regalia"] = "Paramentos da Santificação",
+	["Sandstorm Plate"] = "Placa de Tempestade de Areia",
 	["Satin Battlegear"] = "Equipamento de Batalha de Cetim",
 	["Savage Plate Battlegear"] = "Equipamento de Batalha de Placa Selvagem",
 	["Savage Saronite Battlegear"] = "Equipamento de Batalha de Saronita Selvagem",
@@ -5778,6 +5802,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Scourgelord's Battlegear"] = "Equipamento de Batalha do Senhor do Flagelo",
 	["Scourgelord's Plate"] = "Placas do Senhor do Flagelo",
 	["Scourgestalker Battlegear"] = "Equipamento de Batalha Espreitaflagelo",
+	["Sea Sisters' Cunning"] = "Astúcia das Irmãs do Mar",
 	["Seer's Linked Battlegear"] = "Equipamento de Batalha Articulado do Vidente",
 	["Seer's Mail Battlegear"] = "Equipamento de Batalha de Malha do Vidente",
 	["Seer's Ringmail Battlegear"] = "Equipamento de Batalha de Cota Anilhada do Vidente",
@@ -5823,6 +5848,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Sunstrider's Regalia"] = "Paramentos do Andassol",
 	["Swiftarrow Battlegear"] = "Equipamento de Batalha Velosseta",
 	["Symbols of Unending Life"] = "Símbolos da Vida Interminável",
+	["Tailwind Regalia"] = "Paramentos do Vento Favorável",
 	["Tempest Regalia"] = "Paramentos da Tormenta",
 	["Terrorblade Battlegear"] = "Equipamento de Batalha Deimogume",
 	["Thassarian's Battlegear"] = "Equipamento de Batalha de Thassarian",
@@ -5861,6 +5887,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Thrall's Battlegear"] = "Equipamento de Batalha de Thrall",
 	["Thrall's Garb"] = "Trajes de Thrall",
 	["Thrall's Regalia"] = "Paramentos de Thrall",
+	["Thundercrash Armor"] = "Armadura da Colisão Trovejante",
 	["Thunderheart Harness"] = "Arnês do Coração Trovejante",
 	["Thunderheart Raiment"] = "Traje do Coração Trovejante",
 	["Thunderheart Regalia"] = "Paramentos do Coração Trovejante",
@@ -5900,6 +5927,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Vengeful Gladiator's Vindication"] = "Vindicação do Gladiador Vingativo",
 	["Vengeful Gladiator's Wartide"] = "Maré de Guerra do Gladiador Vingativo",
 	["Vengeful Gladiator's Wildhide"] = "Couraça Selvagem do Gladiador Vingativo",
+	["Venombite Garb"] = "Induto da Mordida Peçonhenta",
 	["Vestment of Second Sight"] = "Vestimenta da Vidência",
 	["Vestments of Absolution"] = "Vestimenta da Absolvição",
 	["Vestments of Blind Absolution"] = "Vestimentas da Absolvição Cega",
@@ -5949,6 +5977,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Warplate of the Obsidian Aspect"] = "Plastrão do Aspecto de Obsidiana",
 	["Wastewalker Armor"] = "Armadura do Ermâmbulo",
 	["Watch of the Ceaseless Vigil"] = "Vigia da Vigília Incessante",
+	["Waycrest Legacy"] = "Legado dos Capelo",
 	["White Tiger Battlegear"] = "Equipamento de Batalha do Tigre Branco",
 	["White Tiger Plate"] = "Placas do Tigre Branco",
 	["White Tiger Vestments"] = "Vestimenta do Tigre Branco",
@@ -5976,13 +6005,7 @@ elseif GAME_LOCALE == "ptBR" then
 	["Ymirjar Lord's Plate"] = "Placas do Senhor de Ymarjar",
 	["Zabra's Raiment"] = "Traje de Zabra",
 	["Zabra's Regalia"] = "Paramentos de Zabra",
-	["Zanzil's Concentration"] = "Concentração de Zanzil",
-	["ToC"] = {
-		--Translation missing 
-		-- ["Description"] = "",
-		--Translation missing 
-		-- ["Title"] = "",
-	}
+	["Zanzil's Concentration"] = "Concentração de Zanzil"
 }
 elseif GAME_LOCALE == "ruRU" then
 	lib:SetCurrentTranslations 
@@ -6085,6 +6108,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Bonescythe Armor"] = "Доспехи костяной косы",
 	["Bonescythe Battlegear"] = "Броня костяной косы",
 	["Borean Embrace"] = "Борейское облачение",
+	["Brain Trust"] = "Мозговой центр",
 	["Brewfest Garb"] = "Наряд участника Хмельного фестиваля",
 	["Burden of Power"] = "Бремя силы",
 	["Burning Rage"] = "Пламенная ярость",
@@ -6150,7 +6174,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Deep Earth Battlegarb"] = "Военное облачение подземных глубин",
 	["Deep Earth Regalia"] = "Регалии подземных глубин",
 	["Deep Earth Vestments"] = "Одежды подземных глубин",
-	["Defias Leather"] = "Кожаные доспехи Братства Справедливости",
+	["Defias Leather"] = "Кожаные доспехи братства Справедливости",
 	["Demon Stalker Armor"] = "Доспехи Ловчего демонов",
 	["Demonbane Armor"] = "Доспехи погибели демонов",
 	["Demonbreaker Wargear"] = "Снаряжение Бесолома",
@@ -6170,7 +6194,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Dreadnaught Battlegear"] = "Броня неустрашимости",
 	["Dreadnaught Plate"] = "Латы неустрашимости",
 	["Dreadnaught's Battlegear"] = "Броня неустрашимости",
-	["Dreadwake Armor"] = "Доспехи Дредвейка",
+	["Dreadwake Armor"] = "Доспехи зловещих деяний",
 	["Dreadweave Battlegear"] = "Броня из ткани Ужаса",
 	["Dreadwyrm Battleplate"] = "Боевой доспех ужасного змея",
 	["Dreamgrove Raiment"] = "Облачение Рощи Снов",
@@ -6228,6 +6252,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Flamewaker's Battlegear"] = "Броня поджигателя",
 	["Fortitude of the Nightborne"] = "Стойкость ночнорожденных",
 	["Freethinker's Armor"] = "Доспехи Вольнодумца",
+	["Frenzied Battleplate"] = "Боевой доспех буйства",
 	["Frost Witch's Battlegear"] = "Броня ледяной ведьмы",
 	["Frost Witch's Garb"] = "Одеяния ледяной ведьмы",
 	["Frost Witch's Regalia"] = "Регалии ледяной ведьмы",
@@ -6515,6 +6540,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Rylakstalker's Battlegear"] = "Броня охотника на рилаков",
 	["Sanctification Garb"] = "Наряд посвящения",
 	["Sanctification Regalia"] = "Регалии посвящения",
+	["Sandstorm Plate"] = "Латы песчаной бури",
 	["Satin Battlegear"] = "Атласная броня",
 	["Savage Plate Battlegear"] = "Латная броня свирепости",
 	["Savage Saronite Battlegear"] = "Саронитовая броня",
@@ -6524,6 +6550,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Scourgelord's Battlegear"] = "Броня повелителя Плети",
 	["Scourgelord's Plate"] = "Латы повелителя Плети",
 	["Scourgestalker Battlegear"] = "Броня преследующего Плеть",
+	["Sea Sisters' Cunning"] = "Хитрость сестер моря",
 	["Seer's Linked Battlegear"] = "Клепаная броня провидца",
 	["Seer's Mail Battlegear"] = "Кольчужная броня провидца",
 	["Seer's Ringmail Battlegear"] = "Кольчатая броня провидца",
@@ -6569,6 +6596,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Sunstrider's Regalia"] = "Регалии Солнечного Скитальца",
 	["Swiftarrow Battlegear"] = "Броня быстрой стрелы",
 	["Symbols of Unending Life"] = "Символы Бесконечной жизни",
+	["Tailwind Regalia"] = "Регалии попутного ветра",
 	["Tempest Regalia"] = "Регалии Урагана",
 	["Terrorblade Battlegear"] = "Клинковая броня",
 	["Thassarian's Battlegear"] = "Броня Тассариана",
@@ -6607,6 +6635,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Thrall's Battlegear"] = "Броня Тралла",
 	["Thrall's Garb"] = "Наряд Тралла",
 	["Thrall's Regalia"] = "Регалии Тралла",
+	["Thundercrash Armor"] = "Доспехи громовых раскатов",
 	["Thunderheart Harness"] = "Облачение Громового сердца",
 	["Thunderheart Raiment"] = "Одеяния Громового сердца",
 	["Thunderheart Regalia"] = "Регалии Громового сердца",
@@ -6646,6 +6675,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Vengeful Gladiator's Vindication"] = "Опора мстительного гладиатора",
 	["Vengeful Gladiator's Wartide"] = "Цунами мстительного гладиатора",
 	["Vengeful Gladiator's Wildhide"] = "Шкуры мстительного гладиатора",
+	["Venombite Garb"] = "Одеяние ядовитого укуса",
 	["Vestment of Second Sight"] = "Одежды ясновидения",
 	["Vestments of Absolution"] = "Облачение Освобождения",
 	["Vestments of Blind Absolution"] = "Облачение слепого отпущения грехов",
@@ -6695,6 +6725,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Warplate of the Obsidian Aspect"] = "Боевые латы обсидианового аспекта",
 	["Wastewalker Armor"] = "Доспехи Странника пустошей",
 	["Watch of the Ceaseless Vigil"] = "Дозор непрестанного бдения",
+	["Waycrest Legacy"] = "Наследие Уэйкрестов",
 	["White Tiger Battlegear"] = "Боевые латы Белого Тигра",
 	["White Tiger Plate"] = "Броня Белого Тигра",
 	["White Tiger Vestments"] = "Латы Белого Тигра",
@@ -6722,13 +6753,7 @@ elseif GAME_LOCALE == "ruRU" then
 	["Ymirjar Lord's Plate"] = "Латы имирьярского повелителя",
 	["Zabra's Raiment"] = "Облачение Забры",
 	["Zabra's Regalia"] = "Регалии Забры",
-	["Zanzil's Concentration"] = "Сосредоточение Занзила",
-	["ToC"] = {
-		--Translation missing 
-		-- ["Description"] = "",
-		--Translation missing 
-		-- ["Title"] = "",
-	}
+	["Zanzil's Concentration"] = "Сосредоточение Занзила"
 }
 elseif GAME_LOCALE == "zhCN" then
 	lib:SetCurrentTranslations 
@@ -6831,6 +6856,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Bonescythe Armor"] = "骨镰",
 	["Bonescythe Battlegear"] = "骨镰战甲",
 	["Borean Embrace"] = "北风的拥抱",
+	["Brain Trust"] = "智囊",
 	["Brewfest Garb"] = "美酒节套装",
 	["Burden of Power"] = "沉重的力量",
 	["Burning Rage"] = "钢铁之怒",
@@ -6974,6 +7000,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Flamewaker's Battlegear"] = "火妖战甲",
 	["Fortitude of the Nightborne"] = "夜之子的勇气",
 	["Freethinker's Armor"] = "思考者护甲",
+	["Frenzied Battleplate"] = "狂化战甲",
 	["Frost Witch's Battlegear"] = "霜巫战甲",
 	["Frost Witch's Garb"] = "霜巫套装",
 	["Frost Witch's Regalia"] = "霜巫战衣",
@@ -7261,6 +7288,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Rylakstalker's Battlegear"] = "飞龙追猎者战甲",
 	["Sanctification Garb"] = "圣灵魔装",
 	["Sanctification Regalia"] = "圣灵法衣",
+	["Sandstorm Plate"] = "沙漠风暴铠甲",
 	["Satin Battlegear"] = "绸缎战衣",
 	["Savage Plate Battlegear"] = "野蛮板甲",
 	["Savage Saronite Battlegear"] = "野蛮萨隆邪铁战甲",
@@ -7270,6 +7298,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Scourgelord's Battlegear"] = "天灾领主战甲",
 	["Scourgelord's Plate"] = "天灾领主战铠",
 	["Scourgestalker Battlegear"] = "天灾追猎者",
+	["Sea Sisters' Cunning"] = "海洋之女的智慧",
 	["Seer's Linked Battlegear"] = "先知的鳞甲",
 	["Seer's Mail Battlegear"] = "先知的锁甲",
 	["Seer's Ringmail Battlegear"] = "先知的环甲",
@@ -7315,6 +7344,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Sunstrider's Regalia"] = "逐日者的法衣",
 	["Swiftarrow Battlegear"] = "迅箭战甲",
 	["Symbols of Unending Life"] = "不灭的生命",
+	["Tailwind Regalia"] = "顺风法袍",
 	["Tempest Regalia"] = "风暴",
 	["Terrorblade Battlegear"] = "恐怖利刃战甲",
 	["Thassarian's Battlegear"] = "萨萨里安的战甲",
@@ -7353,6 +7383,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Thrall's Battlegear"] = "萨尔的战甲",
 	["Thrall's Garb"] = "萨尔的圣装",
 	["Thrall's Regalia"] = "萨尔的法衣",
+	["Thundercrash Armor"] = "碎电盔甲",
 	["Thunderheart Harness"] = "雷霆之心甲胄",
 	["Thunderheart Raiment"] = "雷霆之心圣服",
 	["Thunderheart Regalia"] = "雷霆之心法衣",
@@ -7392,6 +7423,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Vengeful Gladiator's Vindication"] = "复仇角斗士的辩护",
 	["Vengeful Gladiator's Wartide"] = "复仇角斗士的战争之潮",
 	["Vengeful Gladiator's Wildhide"] = "复仇角斗士的野性之皮",
+	["Venombite Garb"] = "剧毒外衣",
 	["Vestment of Second Sight"] = "灵异之眼战甲",
 	["Vestments of Absolution"] = "赦免圣装",
 	["Vestments of Blind Absolution"] = "赦罪祭服",
@@ -7441,6 +7473,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Warplate of the Obsidian Aspect"] = "黑曜守护者战铠",
 	["Wastewalker Armor"] = "废土行者",
 	["Watch of the Ceaseless Vigil"] = "不眠警戒护甲",
+	["Waycrest Legacy"] = "维克雷斯的遗产",
 	["White Tiger Battlegear"] = "白虎战甲",
 	["White Tiger Plate"] = "白虎护甲",
 	["White Tiger Vestments"] = "白虎法衣",
@@ -7468,11 +7501,7 @@ elseif GAME_LOCALE == "zhCN" then
 	["Ymirjar Lord's Plate"] = "伊米亚之王战铠",
 	["Zabra's Raiment"] = "萨布拉的圣装",
 	["Zabra's Regalia"] = "萨布拉的法衣",
-	["Zanzil's Concentration"] = "赞吉尔的专注",
-	["ToC"] = {
-		["Description"] = "一个帮助游戏内物品套装本地化的库。",
-		["Title"] = "Lib: Babble-ItemSet-3.0",
-	}
+	["Zanzil's Concentration"] = "赞吉尔的专注"
 }
 elseif GAME_LOCALE == "zhTW" then
 	lib:SetCurrentTranslations 
@@ -7575,6 +7604,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Bonescythe Armor"] = "骨鐮護甲套裝",
 	["Bonescythe Battlegear"] = "骨鐮戰裝",
 	["Borean Embrace"] = "北風之擁",
+	["Brain Trust"] = "智囊",
 	["Brewfest Garb"] = "啤酒節裝束",
 	["Burden of Power"] = "力量的重擔",
 	["Burning Rage"] = "燃燒狂怒",
@@ -7718,6 +7748,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Flamewaker's Battlegear"] = "喚焰者戰裝",
 	["Fortitude of the Nightborne"] = "夜裔之韌",
 	["Freethinker's Armor"] = "思考者護甲",
+	["Frenzied Battleplate"] = "狂亂戰甲",
 	["Frost Witch's Battlegear"] = "冰霜女巫戰裝",
 	["Frost Witch's Garb"] = "冰霜女巫裝束",
 	["Frost Witch's Regalia"] = "冰霜女巫戰衣",
@@ -8005,6 +8036,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Rylakstalker's Battlegear"] = "萊拉克巡者戰裝",
 	["Sanctification Garb"] = "崇聖裝束",
 	["Sanctification Regalia"] = "崇聖戰衣",
+	["Sandstorm Plate"] = "沙暴鎧甲",
 	["Satin Battlegear"] = "緞質戰裝",
 	["Savage Plate Battlegear"] = "野蠻鎧甲戰裝",
 	["Savage Saronite Battlegear"] = "蠻荒薩鋼戰裝",
@@ -8014,6 +8046,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Scourgelord's Battlegear"] = "天譴領主戰裝",
 	["Scourgelord's Plate"] = "天譴領主鎧甲",
 	["Scourgestalker Battlegear"] = "天譴巡者戰裝",
+	["Sea Sisters' Cunning"] = "海女之詐",
 	["Seer's Linked Battlegear"] = "先知鎖鍊戰裝",
 	["Seer's Mail Battlegear"] = "先知鎖甲戰裝",
 	["Seer's Ringmail Battlegear"] = "先知環甲戰裝",
@@ -8059,6 +8092,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Sunstrider's Regalia"] = "逐日者的戰衣",
 	["Swiftarrow Battlegear"] = "迅箭戰裝",
 	["Symbols of Unending Life"] = "不滅生命徽記",
+	["Tailwind Regalia"] = "順風戰衣",
 	["Tempest Regalia"] = "暴風雨戰衣",
 	["Terrorblade Battlegear"] = "懼刃戰裝",
 	["Thassarian's Battlegear"] = "薩沙理安的戰裝",
@@ -8097,6 +8131,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Thrall's Battlegear"] = "索爾的戰裝",
 	["Thrall's Garb"] = "索爾的裝束",
 	["Thrall's Regalia"] = "索爾的戰衣",
+	["Thundercrash Armor"] = "雷霆暴轟護甲",
 	["Thunderheart Harness"] = "雷霆之心戰馭套裝",
 	["Thunderheart Raiment"] = "雷霆之心儀祭套裝",
 	["Thunderheart Regalia"] = "雷霆之心戰衣",
@@ -8136,6 +8171,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Vengeful Gladiator's Vindication"] = "仇恨鬥士的辯護套裝",
 	["Vengeful Gladiator's Wartide"] = "仇恨鬥士的戰爭之潮套裝",
 	["Vengeful Gladiator's Wildhide"] = "仇恨鬥士的狂野革甲套裝",
+	["Venombite Garb"] = "毒噬裝束",
 	["Vestment of Second Sight"] = "第二視象法衣",
 	["Vestments of Absolution"] = "赦免儀祭法衣",
 	["Vestments of Blind Absolution"] = "盲目赦免法衣",
@@ -8185,6 +8221,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Warplate of the Obsidian Aspect"] = "黑曜龍王戰鎧",
 	["Wastewalker Armor"] = "荒行套裝",
 	["Watch of the Ceaseless Vigil"] = "無止警戒之視",
+	["Waycrest Legacy"] = "威奎斯特的傳承",
 	["White Tiger Battlegear"] = "白虎戰裝",
 	["White Tiger Plate"] = "白虎鎧甲",
 	["White Tiger Vestments"] = "白虎法衣",
@@ -8212,12 +8249,7 @@ elseif GAME_LOCALE == "zhTW" then
 	["Ymirjar Lord's Plate"] = "依米亞領主鎧甲",
 	["Zabra's Raiment"] = "薩布拉的衣飾",
 	["Zabra's Regalia"] = "薩布拉的戰衣",
-	["Zanzil's Concentration"] = "贊吉爾的專注",
-	["ToC"] = {
-		["Description"] = "為本地化服務的函式庫 [套裝名稱]",
-		--Translation missing 
-		-- ["Title"] = "",
-	}
+	["Zanzil's Concentration"] = "贊吉爾的專注"
 }
 else
 	error(("%s: Locale %q not supported"):format(MAJOR_VERSION, GAME_LOCALE))

@@ -1,9 +1,24 @@
 local AtlasLoot = _G.AtlasLoot
 
 -- lua
+local GetMapInfo = C_Map.GetMapInfo
 local rawget = rawget
 local _, tmp1
-local months = {CalendarGetMonthNames()}
+local months = {
+	MONTH_JANUARY,
+	MONTH_FEBRUARY,
+	MONTH_MARCH,
+	MONTH_APRIL,
+	MONTH_MAY,
+	MONTH_JUNE,
+	MONTH_JULY,
+	MONTH_AUGUST,
+	MONTH_SEPTEMBER,
+	MONTH_OCTOBER,
+	MONTH_NOVEMBER,
+	MONTH_DECEMBER,
+}
+
 
 local GetAchievementInfo, GetAchievementCriteriaInfo = GetAchievementInfo, GetAchievementCriteriaInfo
 local GetMapNameByID = GetMapNameByID
@@ -93,50 +108,50 @@ local IngameLocales = {
 	-- Zones
 	-- ######################################################################
 	-- Classic
-	["Ahn'Qiraj"] = GetMapNameByID(766),
-	["Blackrock Depths"] = GetMapNameByID(704),
-	["Blackwing Lair"] = GetMapNameByID(755),
+	["Ahn'Qiraj"] = GetMapInfo(319).name,
+	["Blackrock Depths"] = GetMapInfo(242).name,
+	["Blackwing Lair"] = GetMapInfo(287).name,
 	["Lower Blackrock Spire"] = GetAchievementName(643),
-	["Molten Core"] = GetMapNameByID(696),
-	["Orgrimmar"] = GetMapNameByID(321),
-	["Ruins of Ahn'Qiraj"] = GetMapNameByID(717),
-	["Shadowfang Keep"] = GetMapNameByID(764),
-	["Stormwind City"] = GetMapNameByID(301),
+	["Molten Core"] = GetMapInfo(232).name,
+	["Orgrimmar"] = GetMapInfo(85).name,
+	["Ruins of Ahn'Qiraj"] = GetMapInfo(247).name,
+	["Shadowfang Keep"] = GetMapInfo(310).name,
+	["Stormwind City"] = GetMapInfo(84).name,
 	["Upper Blackrock Spire"] = GetAchievementName(1307),
 
 	-- Burning Crusade
-	["Black Temple"] = GetMapNameByID(796),
-	["Gruul's Lair"] = GetMapNameByID(776),
-	["Hyjal Summit"] = GetMapNameByID(775),
-	["Karazhan"] = GetMapNameByID(799),
-	["Magtheridon's Lair"] = GetMapNameByID(779),
+	["Black Temple"] = GetMapInfo(339).name,
+	["Gruul's Lair"] = GetMapInfo(330).name,
+	["Hyjal Summit"] = GetMapInfo(329).name,
+	["Karazhan"] = GetMapInfo(350).name,
+	["Magtheridon's Lair"] = GetMapInfo(331).name,
 	["Outland"] = GetAchievementCriteriaInfo(46,3),
-	["Serpentshrine Cavern"] = GetMapNameByID(780),
-	["Shattrath City"] = GetMapNameByID(481),
-	["Sunwell Plateau"] = GetMapNameByID(789),
-	["Tempest Keep"] = GetMapNameByID(782),
-	["The Slave Pens"] = GetMapNameByID(728),
+	["Serpentshrine Cavern"] = GetMapInfo(332).name,
+	["Shattrath City"] = GetMapInfo(111).name,
+	["Sunwell Plateau"] = GetMapInfo(335).name,
+	["Tempest Keep"] = GetMapInfo(334).name,
+	["The Slave Pens"] = GetMapInfo(265).name,
 
 	-- Wrath of the Lich King
-	["Dalaran"] = GetMapNameByID(504),
-	["Icecrown"] = GetMapNameByID(492),
-	["Icecrown Citadel"] = GetMapNameByID(604),
-	["Naxxramas"] = GetMapNameByID(535),
+	["Dalaran"] = GetMapInfo(125).name,
+	["Icecrown"] = GetMapInfo(118).name,
+	["Icecrown Citadel"] = GetMapInfo(186).name,
+	["Naxxramas"] = GetMapInfo(162).name,
 	["Northrend"] = GetAchievementCriteriaInfo(46,4),
-	["Onyxia's Lair"] = GetMapNameByID(718),
-	["The Eye of Eternity"] = GetMapNameByID(527),
-	["The Obsidian Sanctum"] = GetMapNameByID(531),
-	["The Ruby Sanctum"] = GetMapNameByID(609),
-	["Trial of the Crusader"] = GetMapNameByID(543),
-	["Ulduar"] = GetMapNameByID(529),
-	["Vault of Archavon"] = GetMapNameByID(532),
+	["Onyxia's Lair"] = GetMapInfo(248).name,
+	["The Eye of Eternity"] = GetMapInfo(141).name,
+	["The Obsidian Sanctum"] = GetMapInfo(155).name,
+	["The Ruby Sanctum"] = GetMapInfo(200).name,
+	["Trial of the Crusader"] = GetMapInfo(172).name,
+	["Ulduar"] = GetMapInfo(147).name,
+	["Vault of Archavon"] = GetMapInfo(156).name,
 
 	-- Cataclysm
-	["Molten Front"] = GetMapNameByID(795),
+	["Molten Front"] = GetMapInfo(338).name,
 
 	-- Mists of Pandaria
-	["Scarlet Monastery"] = GetMapNameByID(874),
-	["Timeless Isle"] = GetMapNameByID(951),
+	["Scarlet Monastery"] = GetMapInfo(435).name,
+	["Timeless Isle"] = GetMapInfo(554).name,
 
 	-- ######################################################################
 	-- Garrison Buildings

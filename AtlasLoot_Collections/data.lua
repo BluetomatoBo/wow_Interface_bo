@@ -1746,7 +1746,7 @@ data["CLASSICSETS"] = {
 			},
 		},
 		{	-- Scholomance Sets
-			name = GetMapNameByID(898).." "..AL["Sets"],
+			name = C_Map.GetMapInfo(476).name.." "..AL["Sets"],
 			[NORMAL_DIFF] = {
 				{ 1, "Scholomance:scholocloth:n" },
 				{ 3, "Scholomance:schololeather:n" },

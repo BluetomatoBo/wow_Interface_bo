@@ -275,6 +275,21 @@ local FACTION_KEY = {
 	[2045] = "Armies of Legionfall",
 	[2165] = "Army of the Light",
 	[2170] = "Argussian Reach",
+	-- Bfa
+	--- Alliance
+	[2159] = "7th Legion",
+	[2160] = "Proudmoore Admiralty",
+	[2161] = "Order of Embers",
+	[2162] = "Storm's Wake",
+	--- Horde
+	[2157] = "The Honorbound",
+	[2103] = "Zandalari Empire",
+	[2156] = "Talanji's Expedition",
+	[2158] = "Voldunai",
+	--- All
+	[2163] = "Tortollan Seekers",
+	[2164] = "Champions of Azeroth",
+	
 }
 
 local function GetLocRepStanding(id)

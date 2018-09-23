@@ -16,6 +16,352 @@ local QUEST_EXTRA_ITTYPE = data:AddExtraItemTableType("Quest")
 
 local FACTION_CONTENT = data:AddContentType(AL["Factions"], ATLASLOOT_FACTION_COLOR)
 
+data["BFAFACTIONS"] = {
+	name = EXPANSION_NAME7,
+	ContentType = FACTION_CONTENT,
+	items = { 
+		{ -- AH Champions of Azeroth
+			FactionID = 2164,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				{ 1, "f2164rep6" },
+				{ 2, 160537, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Drape of the Azerothian Champion
+				{ 4, "f2164rep8" },
+				{ 5, 161555, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, --Azerothian Champion's Crown
+				{ 6, 161557, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, --Vest of the Azerothian Champion
+				{ 7, 161560, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, --Azerothian Champion's Spaulders
+				{ 8, 161563, [PRICE_EXTRA_ITTYPE] = "money:18000000" }, --Helm of the Azerothian Champion
+				{ 9, 160544, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Champions of Azeroth Tabard
+			},
+		},
+		{ -- AH Tortollan Seekers
+			FactionID = 2163,
+			CoinTexture = "Reputation",
+			[NORMAL_DIFF] = {
+				{ 1, "f2163rep6" },
+				{ 2, 160538, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Cape of the Scroll Keepers
+				{ 3, 162288, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Recipe: Bountiful Captain's Feast
+				{ 4, 162371, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Recipe: Contract: Tortollan Seekers
+				{ 5, 162373, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Recipe: Contract: Champions of Azeroth
+				{ 7, "f2163rep7" },
+				{ 8, 161494, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Sea-Treated Footwraps
+				{ 9, 161514, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Antiquity Handler's Gloves
+				{ 10, 161529, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Girdle of the Scroll-Sages
+				{ 11, 161544, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Vambraces of a Thousand Year Toil
+				{ 12, 162136, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Endless Tincture of Renewed Combat
+				{ 13, 162137, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Siren's Alchemist Stone
+				{ 14, 162287, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Galley Banquet
+				{ 15, 162289, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Bountiful Captain's Feast
+				{ 16, 162292, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Grilled Catfish
+				{ 17, 162293, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Seasoned Loins
+				{ 18, 162298, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Ring - Seal of Critical Strike
+				{ 19, 162301, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Ring - Seal of Versatility
+				{ 20, 162023, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Technique: Glyph of the Dolphin
+				{ 21, 162352, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Inscribed Vessel of Mysticism
+				{ 22, 162355, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Inked Vessel of Robust Regeneration
+				{ 23, 162358, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Codex of the Quiet Mind
+				{ 24, 162376, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Tome of the Quiet Mind
+				{ 25, 162377, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Darkmoon Card of War
+				{ 26, 163026, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Pattern: Embroidered Deep Sea Bag
+				{ 101, "f2163rep8" },
+				{ 102, 161503, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Wristwraps of Scrollbinding
+				{ 103, 161519, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Supple Moccasins of Pilgrimage
+				{ 104, 161534, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Legguards of Ai'twen's Resurgence
+				{ 105, 161549, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Shellbuckle Girdle
+				{ 106, 160543, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Tabard of the Tortollan Seekers
+			},    
+		},
+		{ -- A 7th Legion
+			FactionID = 2159,
+			CoinTexture = "Reputation",
+			[ALLIANCE_DIFF] = {
+				{ 1, "f2159rep6" },
+				{ 2, 160536, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, -- 7th Legionnaire's Cloak
+				{ 3, 162323, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, -- Schematic: AZ3-R1-T3 Synthetic Specs
+				{ 5, "f2159rep7" },
+				{ 6, 161586, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Belt of the Grove Auxiliary
+				{ 7, 161587, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Legguards of the Storm Battalion
+				{ 8, 161589, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Royal Knight's Sabatons
+				{ 9, 161583, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Warmage's Flame-Brimming Wristcords
+				{ 10, 163778, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Lil' Siege Tower
+				{ 11, 162139, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Surging Alchemist Stone
+				{ 12, 163320, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Battle Potion of Strength
+				{ 13, 162138, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Endless Tincture of Fractional Power
+				{ 14, 162132, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Flask of the Currents
+				{ 15, 162128, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Steelskin Potion
+				{ 16, 162276, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Stormsteel Spear
+				{ 17, 162670, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Stormsteel Saber
+				{ 18, 162275, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Stormsteel Dagger
+				{ 19, 162261, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Stormsteel Shield
+				{ 20, 162306, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Enchanter's Sorcerous Scepter
+				{ 21, 162302, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Ring - Pact of Critical Strike
+				{ 22, 162346, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Finely-Tuned Stormsteel Destroyer
+				{ 23, 162345, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Precision Attitude Adjuster
+				{ 24, 162344, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Monelite Scope of Alacrity
+				{ 25, 162324, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: AZ3-R1-T3 Synthetic Specs
+				{ 26, 162378, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Amberblaze Loop
+				{ 27, 163044, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Scouting Report: Mistvine Ledge
+				{ 28, 163047, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Scouting Report: Mugamba Overlook
+				{ 29, 163046, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Scouting Report: Verdant Hollow
+				{ 30, 163041, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Scouting Report: Vulture's Nest
+				{ 101, "f2159rep8" },
+				{ 102, 161588, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Bracers of the Allied Earthbinders
+				{ 103, 161590, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Elite Footman's Legplates
+				{ 104, 161585, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Gloves of the Forward Skirmisher
+				{ 105, 161584, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Medical Corps Slippers
+				{ 106, 160539, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Tabard of the 7th Legion
+			},
+		},
+		{ -- A Order of Embers
+			FactionID = 2161,
+			CoinTexture = "Reputation",
+			[ALLIANCE_DIFF] = {
+				{ 1, "f2161rep6" },
+				{ 2, 160535, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Witch Hunter's Cape
+				{ 3, 162329, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Schematic: AZ3-R1-T3 Orthogonal Optics
+				{ 4, 162361, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Recipe: Contract: Order of Embers
+				{ 6, "f2161rep7" },
+				{ 7, 161592, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Leggings of Devout Opposition
+				{ 8, 161593, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Footpads of the Deft Exorcist
+				{ 9, 161595, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Grips of the Oathsworn
+				{ 10, 161597, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Gauntlets of Renewed Resolution
+				{ 11, 163314, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Battle Potion of Agility
+				{ 12, 162131, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Potion of Rising Death
+				{ 13, 162135, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Flask of the Undertow
+				{ 14, 162256, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Coastal Rejuvenation Potion
+				{ 15, 162305, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Ring - Pact of Versatility
+				{ 22, 162318, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Gale-Force Striking
+				{ 23, 162320, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Versatile Navigation
+				{ 24, 162322, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Frost-Laced Ammunition
+				{ 25, 162330, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: AZ3-R1-T3 Orthogonal Optics
+				{ 26, 162381, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Royal Quartz Loop
+				{ 27, 162412, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Recurve Bow of the Strands
+				{ 28, 162421, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Pattern: Deep Sea Bag
+				{ 29, 162427, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Pattern: Embroidered Deep Sea Cloak
+				{ 101, "f2161rep8" },
+				{ 102, 161591, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Eternal Flamekeeper's Handwraps
+				{ 103, 161594, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Woven Thornspeaker's Leggings
+				{ 104, 161596, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Coven Buster's Waistguard
+				{ 105, 161598, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Hexxed-Land Treads
+				{ 106, 161910, "mount", [PRICE_EXTRA_ITTYPE] = "money:100000000" }, --Reins of the Smoky Charger
+				{ 107, 160541, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Order of Embers Tabard
+			},
+		},
+		{ -- A Proudmoore Admiralty
+			FactionID = 2160,
+			CoinTexture = "Reputation",
+			[ALLIANCE_DIFF] = {
+				{ 1, "f2160rep6" },
+				{ 2, 160534, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Navy Blue Boat Cloak
+				{ 3, 162327, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Schematic: AZ3-R1-T3 Bionic Bifocals
+				{ 4, 162359, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Recipe: Contract: Proudmoore Admiralty
+				{ 6, "f2160rep7" },
+				{ 7, 161976, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, --Admiralty Marine's Duffel
+				{ 8, 161567, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Sailing Master's Sash
+				{ 9, 161569, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Master-At-Arms Wristguards
+				{ 10, 161572, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Yardarm Sharpshooter's Boots
+				{ 11, 161573, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Proudmoore Marine's Legplates
+				{ 12, 163316, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Battle Potion of Intellect
+				{ 13, 162134, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Flask of the Vast Horizon
+				{ 14, 162254, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Coastal Mana Potion
+				{ 15, 162130, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Potion of Bursting Blood
+				{ 16, 162304, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Ring - Pact of Mastery
+				{ 17, 162316, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Siphoning
+				{ 18, 162317, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Masterful Navigation
+				{ 19, 162328, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: AZ3-R1-T3 Bionic Bifocals
+				{ 20, 162380, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Tidal Amethyst Loop
+				{ 21, 162413, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Mistscale Knuckles
+				{ 22, 162414, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Hardened Tempest Knuckles
+				{ 24, "f2160rep8" },
+				{ 25, 161568, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Maritime Spellweaver's Leggings
+				{ 26, 161570, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --First Lieutenant's Ceremonial Belt
+				{ 27, 161571, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Cordage Sliding Grips
+				{ 28, 161574, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Boarding Action Vambraces
+				{ 29, 161911, "mount", [PRICE_EXTRA_ITTYPE] = "money:100000000" }, --Reins of the Admiralty Stallion
+				{ 30, 160540, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Proudmoore Admiralty Tabard
+			},
+		},
+		{ -- A Storm's Wake
+			FactionID = 2162,
+			CoinTexture = "Reputation",
+			[ALLIANCE_DIFF] = {
+				{ 1, "f2162rep6" },
+				{ 2, 160533, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Cape of the Divine Depths
+				{ 3, 162325, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Schematic: AZ3-R1-T3 Gearspun Goggles
+				{ 4, 162363, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Recipe: Contract: Storm's Wake
+				{ 6, "f2162rep7" },
+				{ 7, 161575, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Handwraps of Deep Faith
+				{ 8, 161577, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Seabinder's Leggings
+				{ 9, 161579, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Bindings of the Seacallers
+				{ 10, 161582, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Keelbreak Girdle
+				{ 11, 163318, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Battle Potion of Stamina
+				{ 12, 162129, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Potion of Replenishment
+				{ 13, 162133, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Flask of Endless Fathoms
+				{ 14, 162255, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Coastal Healing Potion
+				{ 15, 162303, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Ring - Pact of Haste
+				{ 22, 162312, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Stalwart Navigation
+				{ 23, 162313, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Deadly Navigation
+				{ 24, 162326, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: AZ3-R1-T3 Gearspun Goggles
+				{ 25, 162337, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Organic Discombobulation Grenade
+				{ 26, 162341, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Interdimensional Companion Repository
+				{ 27, 162342, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Deployable Attire Rearranger
+				{ 28, 162379, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Owlseye Loop
+				{ 29, 162382, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Laribole Staff of Alacrity
+				{ 30, 162385, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Scarlet Diamond Staff of Intuition
+				{ 101, "f2162rep8" },
+				{ 102, 161576, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Sea Priest's Waistcord
+				{ 103, 161578, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Kelp-Encrusted Bindings
+				{ 104, 161580, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Stormbreaker Galoshes
+				{ 105, 161581, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Tidecrest Gauntlets
+				{ 106, 161912, "mount", [PRICE_EXTRA_ITTYPE] = "money:100000000" }, --Reins of the Dapple Gray
+				{ 107, 160542, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Storm's Wake Tabard
+			},
+		},
+		{ -- H Talanji's Expedition
+			FactionID = 2156,
+			CoinTexture = "Reputation",
+			[HORDE_DIFF] = {
+				{ 1, "f2156rep6" },
+				{ 2, 160531, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Drape of the Blood Purge
+				{ 3, 162732, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Schematic: AZ3-R1-T3 Bionic Bifocals
+				{ 4, 162754, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Recipe: Contract: Talanji's Expedition
+				{ 6, "f2156rep7" },
+				{ 7, 161493, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Swamp Medic's Leggings
+				{ 8, 161506, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Swampstalker Footpads
+				{ 9, 161528, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Grips of the Swamp Hunter
+				{ 10, 161538, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Gloomplate Gauntlets
+				{ 11, 162693, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Potion of Bursting Blood
+				{ 12, 163315, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Battle Potion of Intellect
+				{ 13, 162697, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Flask of the Vast Horizon
+				{ 14, 162703, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Coastal Mana Potion
+				{ 15, 162718, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Ring - Pact of Mastery
+				{ 16, 162723, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Siphoning
+				{ 17, 162724, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Masterful Navigation
+				{ 18, 162733, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: AZ3-R1-T3 Bionic Bifocals
+				{ 19, 162762, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Tidal Amethyst Loop
+				{ 20, 162767, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Mistscale Knuckles
+				{ 21, 162768, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Hardened Tempest Knuckles
+				{ 23, "f2156rep8" },
+				{ 24, 161492, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Zo'bal Spirit Gloves
+				{ 25, 161520, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Hir'eek Hide Leggings
+				{ 26, 161536, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Torga Scale Girdle
+				{ 27, 161551, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Zul'jan Camp Stalkers
+				{ 28, 161774, "mount", [PRICE_EXTRA_ITTYPE] = "money:100000000" }, --Reins of the Expedition Bloodswarmer
+				{ 29, 160547, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Talanji's Expedition Tabard
+			},    
+		},
+		{ -- H The Honorbound
+			FactionID = 2157,
+			CoinTexture = "Reputation",
+			[HORDE_DIFF] = {
+				{ 1, "f2157rep6" },
+				{ 2, 160532, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Drape of the Horde's Fury
+				{ 3, 162728, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Schematic: AZ3-R1-T3 Synthetic Specs
+				{ 5, "f2157rep7" },
+				{ 6, 161498, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Wristwraps of the Dutiful Apothecary
+				{ 7, 161512, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Silent Stalker Belt
+				{ 8, 161521, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Goblin Sapper's Legguards
+				{ 9, 161537, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Sabatons of the Renewed Warpath
+				{ 10, 163319, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Battle Potion of Strength
+				{ 11, 162691, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Steelskin Potion
+				{ 12, 162695, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Flask of the Currents
+				{ 13, 162701, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Endless Tincture of Fractional Power
+				{ 14, 162702, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Surging Alchemist Stone
+				{ 15, 162706, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Stormsteel Shield
+				{ 21, 162707, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Stormsteel Dagger
+				{ 22, 162708, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Stormsteel Spear
+				{ 23, 162774, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Stormsteel Saber
+				{ 24, 162716, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Ring - Pact of Critical Strike
+				{ 25, 162720, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Enchanter's Sorcerous Scepter
+				{ 26, 162729, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: AZ3-R1-T3 Synthetic Specs
+				{ 27, 162744, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Monelite Scope of Alacrity
+				{ 28, 162745, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Precision Attitude Adjuster
+				{ 29, 162746, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Finely-Tuned Stormsteel Destroyer
+				{ 30, 162760, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Amberblaze Loop
+				{ 101, "f2157rep8" },
+				{ 102, 161501, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Witch Doctor's Slippers
+				{ 103, 161509, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Tranquil Health Weavers
+				{ 104, 161532, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Bindings of the Elemental Allies
+				{ 105, 161550, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Lustful Warbringer's Legplates
+				{ 106, 160545, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Tabard of the Honorbound
+			},    
+		},
+		{ -- H Voldunai
+			FactionID = 2158,
+			CoinTexture = "Reputation",
+			[HORDE_DIFF] = {
+				{ 1, "f2158rep6" },
+				{ 2, 160529, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Dune Shroud
+				{ 3, 162734, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Schematic: AZ3-R1-T3 Orthogonal Optics
+				{ 4, 162755, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Recipe: Contract: Voldunai
+				{ 6, "f2158rep7" },
+				{ 7, 161999, [PRICE_EXTRA_ITTYPE] = "money:20000000" }, --Pack of Many Pockets
+				{ 8, 161489, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Alpaca Wool Gloves
+				{ 9, 161507, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Silent Scavenger Leggings
+				{ 10, 161527, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Bracers of Zem'lan
+				{ 11, 161545, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Girdle of Scavenged Plates
+				{ 12, 163313, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Battle Potion of Agility
+				{ 13, 162694, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Potion of Rising Death
+				{ 14, 162705, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Coastal Rejuvenation Potion
+				{ 15, 162698, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Flask of the Undertow
+				{ 22, 162719, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Ring - Pact of Versatility
+				{ 23, 162725, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Gale-Force Striking
+				{ 24, 162726, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Versatile Navigation
+				{ 25, 162727, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Frost-Laced Ammunition
+				{ 26, 162735, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: AZ3-R1-T3 Orthogonal Optics
+				{ 27, 162763, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Royal Quartz Loop
+				{ 28, 162766, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Recurve Bow of the Strands
+				{ 29, 162769, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Pattern: Deep Sea Bag
+				{ 30, 162772, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Pattern: Embroidered Deep Sea Cloak
+				{ 101, "f2158rep8" },
+				{ 102, 161502, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Sash of the Scaled Devoted
+				{ 103, 161511, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Kimbul's Cuffs of Redemption
+				{ 104, 161531, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Akunda's Grounding Boots
+				{ 105, 161542, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Gauntlets of the Scorched Sands
+				{ 106, 161773, "mount", [PRICE_EXTRA_ITTYPE] = "money:100000000" }, --Reins of the Alabaster Hyena
+				{ 107, 160548, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Tabard of the Voldunai
+			},			
+		},
+		{ -- H Zandalari Empire
+			FactionID = 2103,
+			CoinTexture = "Reputation",
+			[HORDE_DIFF] = {
+				{ 1, "f2103rep6" },
+				{ 2, 160530, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Dinomancer's Cloak
+				{ 3, 162730, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Schematic: AZ3-R1-T3 Gearspun Goggles
+				{ 4, 162753, [PRICE_EXTRA_ITTYPE] = "money:10000000" }, --Recipe: Contract: Zandalari Empire
+				{ 6, "f2103rep7" },
+				{ 7, 161497, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Cord of the Loa Worshippers
+				{ 8, 161516, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Bindings of the Disparate Tribes
+				{ 9, 161526, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Gral Worshipper's Waders
+				{ 10, 161546, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Grand Fleet Legplates
+				{ 11, 163317, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Battle Potion of Stamina
+				{ 12, 162692, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Potion of Replenishment
+				{ 13, 162696, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Flask of Endless Fathoms
+				{ 14, 162704, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Recipe: Coastal Healing Potion
+				{ 15, 162717, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Ring - Pact of Haste
+				{ 22, 162721, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Stalwart Navigation
+				{ 23, 162722, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Formula: Enchant Weapon - Deadly Navigation
+				{ 24, 162731, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: AZ3-R1-T3 Gearspun Goggles
+				{ 25, 162741, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Organic Discombobulation Grenade
+				{ 26, 162742, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Interdimensional Companion Repository
+				{ 27, 162743, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Schematic: Deployable Attire Rearranger
+				{ 28, 162761, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Owlseye Loop
+				{ 29, 162764, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Laribole Staff of Alacrity
+				{ 30, 162765, [PRICE_EXTRA_ITTYPE] = "money:12000000" }, --Design: Scarlet Diamond Staff of Intuition
+				{ 101, "f2103rep8" },
+				{ 102, 161500, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Shadraspun Legwraps
+				{ 103, 161517, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Waistcord of Pa'ku's Flight
+				{ 104, 161524, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Torcali's Grips of the Bounty
+				{ 105, 161548, [PRICE_EXTRA_ITTYPE] = "money:15000000" }, --Gonk Adherents Vambraces
+				{ 106, 161665, "mount", [PRICE_EXTRA_ITTYPE] = "money:100000000" }, --Reins of the Cobalt Pterrordax
+				{ 107, 160546, [PRICE_EXTRA_ITTYPE] = "money:5000000" }, --Tabard of the Zandalari Empire
+
+			},			
+		},
+	}
+}
+
 data["LEGIONFACTIONS"] = {
 	name = EXPANSION_NAME6,
 	ContentType = FACTION_CONTENT,

@@ -4,7 +4,7 @@ if not AL then return end
 
 -- These localization strings are translated on WoWAce: https://www.wowace.com/projects/atlasloot-enhanced/localization
 -- Options
-AL["A window with possible loot is shown if a Bonus Roll is started."] = "当额外掷骰开始时显示一个可能被拾取的窗口。"
+AL["A window with possible loot is shown if a Bonus Roll is started."] = "当额外奖励掷骰开始时，显示一个掉落列表窗口。"
 AL["Always show item comparison."] = "总是显示物品对比。"
 AL["Always show quick preview."] = "总是显示快速预览。"
 AL["AtlasLoot Options"] = "AtlasLoot 选项"

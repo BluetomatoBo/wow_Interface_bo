@@ -1,6 +1,6 @@
-## Interface: 70300
+## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.07.13
+## Version: v8.08.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -8,6 +8,7 @@
 ## Title: AtlasLoot |cFF0099FF[Mists of Pandaria]|r
 ## Title-deDE: AtlasLoot |cFF0099FF[Mists of Pandaria]|r
 ## Title-esES: AtlasLoot |cFF0099FF[Mists of Pandaria]|r
+## Title-frFR: AtlasLoot |cFF0099FF[Mists of Pandaria]|r
 ## Title-koKR: AtlasLoot |cFF0099FF[판다리아의 안개]|r
 ## Title-ruRU: AtlasLoot |cFF0099FF[Mists of Pandaria]|r
 ## Title-zhCN: AtlasLoot |cFF0099FF[熊猫人之谜]|r
@@ -15,6 +16,7 @@
 ## Notes: AtlasLoot loot tables from Mists of Pandaria
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Mists of Pandaria
 ## Notes-esES: Notas-MistofPandaria
+## Notes-frFR: Tables de butin AtlasLoot de Mists of Pandaria
 ## Notes-koKR: AtlasLoot 판다리아의 안개 전리품 목록
 ## Notes-ruRU: AtlasLoot таблица добычи из Mists of Pandaria
 ## Notes-zhCN: AtlasLoot 《熊猫人之谜》物品信息

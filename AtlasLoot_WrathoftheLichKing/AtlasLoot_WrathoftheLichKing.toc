@@ -1,6 +1,6 @@
-## Interface: 70300
+## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.07.13
+## Version: v8.08.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -8,6 +8,7 @@
 ## Title: AtlasLoot |cFF0099FF[Wrath of the Lich King]|r
 ## Title-deDE: AtlasLoot |cFF0099FF[Wrath of the Lich King]|r
 ## Title-esES: AtlasLoot |cFF0099FF[Wrath of the Lich King]|r
+## Title-frFR: AtlasLoot |cFF0099FF[Wrath of the Lich King]|r
 ## Title-koKR: AtlasLoot |cFF0099FF[리치 왕의 분노]|r
 ## Title-ruRU: AtlasLoot |cFF0099FF[Wrath of the Lich King]|r
 ## Title-zhCN: AtlasLoot |cFF0099FF[巫妖王之怒]|r
@@ -15,6 +16,7 @@
 ## Notes: AtlasLoot loot tables from Wrath of the Lich King
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Wrath of the Lich King
 ## Notes-esES: Notas-WrathoftheLichKing
+## Notes-frFR: Tables de butin AtlasLoot de Wrath of the Lich King
 ## Notes-koKR: AtlasLoot 리치 왕의 분노 전리품 목록
 ## Notes-ruRU: AtlasLoot таблица добычи из Wrath of the Lich King
 ## Notes-zhCN: AtlasLoot 《巫妖王之怒》物品信息

@@ -3,7 +3,9 @@
 -- ----------------------------------------------------------------------------
 -- Functions
 local _G = getfenv(0)
-local pairs, select = pairs, select
+local pairs, select = _G.pairs, _G.select
+-- WoW
+local GetAddOnInfo, GetAddOnEnableState, UnitName = _G.GetAddOnInfo, _G.GetAddOnEnableState, _G.UnitName
 
 -- ----------------------------------------------------------------------------
 -- AddOn namespace.

@@ -650,6 +650,12 @@ local MOUNT_INFO = {
 		[253008] = 152796, -- Reins of the Umber Ruinstrider
 		[239013] = 152788, -- Lightforged Warframe
 		[247448] = 153485, 	-- Darkmoon Dirigible
+		[260173] = 161910, -- Smoky Charger
+		[259213] = 161911, -- Admiralty Stallion
+		[260172] = 161912, -- Dapple Gray
+		[275841] = 161774, -- Expedition Bloodswarmer
+		[237287] = 161773, -- Alabaster Hyena
+		[275837] = 161665, -- Cobalt Pterrordax
 	},
 	["items"] = {
 		--[itemID] = spellID

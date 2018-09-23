@@ -1,6 +1,6 @@
-## Interface: 70300
+## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.07.13
+## Version: v8.08.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -8,6 +8,7 @@
 ## Title: AtlasLoot |cFF0099FF[Crafting]|r
 ## Title-deDE: AtlasLoot |cFF0099FF[Berufe]|r
 ## Title-esES: AtlasLoot |cFF0099FF[Profesiones]|r
+## Title-frFR: AtlasLoot |cFF0099FF[Crafting]|r
 ## Title-koKR: AtlasLoot |cFF0099FF[전문 기술]|r
 ## Title-ruRU: AtlasLoot |cFF0099FF[Создание]|r
 ## Title-zhCN: AtlasLoot |cFF0099FF[专业制造]|r
@@ -15,6 +16,7 @@
 ## Notes: AtlasLoot loot tables of Crafting Items
 ## Notes-deDE: AtlasLoot Verzeichnisse der Berufsgegenstände
 ## Notes-esES: Tablas de botín de AtlasLoot para objetos fabricados
+## Notes-frFR: Tables de butin AtlasLoot des Objets Fabriqués
 ## Notes-koKR: AtlasLoot 전문 기술의 전리품 목록
 ## Notes-ruRU: AtlasLoot таблица добычи на создание предметов
 ## Notes-zhCN: AtlasLoot 《专业制造》物品信息

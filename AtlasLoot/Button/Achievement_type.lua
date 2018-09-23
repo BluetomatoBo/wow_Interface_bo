@@ -3,7 +3,7 @@
 -----------------------------------------------------------------------
 local _G = getfenv(0)
 -- WoW
-local GetAchievementInfo = GetAchievementInfo
+local GetAchievementInfo = _G.GetAchievementInfo
 -- ----------------------------------------------------------------------------
 -- AddOn namespace.
 -- ----------------------------------------------------------------------------

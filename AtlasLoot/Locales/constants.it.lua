@@ -27,7 +27,8 @@ AL["AtlasLoot"] = "AtlasLoot"
 AL["AtlasLoot Modules"] = "Moduli AtlasLoot"
 AL["AtlasLoot Search"] = "Ricerca AtlasLoot"
 AL["AtlasLoot Set View"] = "Visione Set AtlasLoot"
-AL["AtlasLoot_Loader_is_no_longer_in_use"] = "AtlasLoot_Loader non è più utilizzato. \\nCancellalo dalla tua cartella degli AddOns."
+AL["AtlasLoot_Loader_is_no_longer_in_use"] = [=[AtlasLoot_Loader non è più in uso.
+Cancellalo dalla tua cartella degli AddOns]=]
 AL["AtlasLoot_Minimap_Clicks"] = [=[|cffFF0000Click: |cffFFFFFFApri AtlasLoot
 |cffFF0000Shift+Click: |cffFFFFFFApri Opzioni-AtlasLoot]=]
 AL["Attack/Spell Power"] = "Attacco / Spell Potenza"
@@ -110,6 +111,7 @@ AL["Incompatible Atlas Detected"] = "Rilevato Atlas Incompatibile"
 AL["Item Enhancements"] = "Potenziamenti Oggetto"
 AL["Items"] = "Oggetti"
 AL["Knot Thimblejack"] = "Knot Pallapiede"
+AL["Leather"] = "Pelle"
 AL["Legendary Items"] = "Oggetti Leggendari"
 AL["Loading Data ..."] = "Caricamento ..."
 AL["Love is in the Air"] = "Amore nell'Aria"
@@ -124,6 +126,7 @@ AL["Mythic"] = "Mitica"
 AL["Neck"] = "Collo"
 AL["Necklaces"] = "Collane"
 AL["Night Elf"] = "Elfo della Notte"
+AL["No longer available"] = "Non più disponibile"
 AL["No module found."] = "Nessun modulo trovato."
 AL["Noblegarden"] = "Nobiluova"
 AL["Non-Playable Race Masks"] = "Maschere di razze non giocabili"
@@ -163,6 +166,7 @@ AL["Recipes"] = "Ricette"
 AL["Red Gems"] = "Gemme Rosse"
 AL["Removed"] = "Rimosso"
 AL["Rewards"] = "Ricompense"
+AL["Right-click to close Atlas window."] = "Tasto destro per chiudere la finestra Atlas."
 AL["Ring"] = "Anello"
 AL["Rings"] = "Anelli"
 AL["Scopes"] = "Mirini"
@@ -233,9 +237,4 @@ AL["World Bosses"] = "Boss Mondiali"
 AL["World Events"] = "Eventi Mondiali"
 AL["Yellow Gems"] = "Gemme Gialle"
 AL["Zen'Vorka"] = "Zen'Vorka"
-
--- Options
-AL["AtlasLoot Options"] = "Opzioni AtlasLoot"
-
--- ToC
 

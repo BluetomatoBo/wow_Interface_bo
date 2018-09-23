@@ -16,6 +16,23 @@ local tonumber = tonumber
 -- Use /dump GetJournalInfoForSpellConfirmation(spellID) to get instanceID and encounterID
 -- Also look into here for more information: http://www.wowhead.com/spells/name:Bonus+Roll+Prompt
 local BONUS_ROLL_IDS = {
+	-- ## Battle for Azeroth
+	-- Atal'Dazar
+	[268472] = "8:968:2082",		-- Priestess Alun'za
+	[268477] = "8:968:2036",		-- Vol'kaal
+	[268479] = "8:968:2083",		-- Rezan
+	[268481] = "8:968:2030",		-- Yazma
+	-- Uldir
+	-- Azeroth
+	[275407] = "8:1028:2139",		-- T'zane
+	[275408] = "8:1028:2198",		-- Warbringer Yenajz
+	[275409] = "8:1028:2141",		-- Ji'arak
+	[275411] = "8:1028:2199",		-- Azurethos, The Winged Typhoon
+	[275413] = "8:1028:2210",		-- Dunegorger Kraulok
+	[275414] = "8:1028:2197",		-- Hailstone Construct
+	[275415] = "8:1028:2213",		-- Doom's Howl
+	[275416] = "8:1028:2212",		-- The Lion's Roar
+
 	-- ### Legion
 	-- BrokenIsles
 	[227128] = "7:822:1790",		-- Ana-Mouz

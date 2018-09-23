@@ -176,7 +176,7 @@ name = select(2, GetAchievementInfo(10149)),
 
 data["Auchindoun"] = {
 	EncounterJournalID = 547,
-	MapID = 984,
+	MapID = 593,
 	AtlasMapID = "Auchindoun",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -437,7 +437,7 @@ data["Auchindoun"] = {
 
 data["BloodmaulSlagMines"] = {
 	EncounterJournalID = 385,
-	MapID = 964,
+	MapID = 573,
 	AtlasMapID = "BloodmaulSlagMines",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -696,7 +696,7 @@ data["BloodmaulSlagMines"] = {
 
 data["GrimrailDepot"] = {
 	EncounterJournalID = 536,
-	MapID = 993,
+	MapID = 606,
 	AtlasMapID = "GrimrailDepot",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -902,7 +902,7 @@ data["GrimrailDepot"] = {
 
 data["IronDocks"] = {
 	EncounterJournalID = 558,
-	MapID = 987,
+	MapID = 595,
 	AtlasMapID = "IronDocks",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1162,7 +1162,7 @@ data["IronDocks"] = {
 
 data["ShadowmoonBurialGrounds"] = {
 	EncounterJournalID = 537,
-	MapID = 969,
+	MapID = 574,
 	AtlasMapID = "ShadowmoonBurialGrounds",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1420,7 +1420,7 @@ data["ShadowmoonBurialGrounds"] = {
 
 data["Skyreach"] = {
 	EncounterJournalID = 476,
-	MapID = 989,
+	MapID = 601,
 	AtlasMapID = "Skyreach",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1680,7 +1680,7 @@ data["Skyreach"] = {
 
 data["TheEverbloom"] = {
 	EncounterJournalID = 556,
-	MapID = 1008,
+	MapID = 620,
 	AtlasMapID = "TheEverbloomA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1994,7 +1994,7 @@ data["TheEverbloom"] = {
 
 data["UpperBlackrockSpire"] = {
 	EncounterJournalID = 559,
-	MapID = 995,
+	MapID = 616,
 	AtlasMapID = "UpperBlackrockSpire",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -2310,7 +2310,7 @@ data["UpperBlackrockSpire"] = {
 
 data["BlackrockFoundry"] = {
 	EncounterJournalID = 457,
-	MapID = 988,
+	MapID = 596,
 	AtlasMapID = "BlackrockFoundryA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
@@ -2764,7 +2764,7 @@ data["BlackrockFoundry"] = {
 
 data["Draenor"] = {
 	EncounterJournalID = 557,
-	MapID = 949,
+	MapID = 543,
 	AtlasMapID = "OR_Draenor",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -2852,7 +2852,7 @@ data["Draenor"] = {
 
 data["HellfireCitadel"] = {
 	EncounterJournalID = 669,
-	MapID = 1026,
+	MapID = 661,
 	AtlasMapID = "HellfireA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
@@ -3464,7 +3464,7 @@ data["HellfireCitadel"] = {
 
 data["Highmaul"] = {
 	EncounterJournalID = 477,
-	MapID = 994,
+	MapID = 610,
 	AtlasMapID = "HighmaulA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,

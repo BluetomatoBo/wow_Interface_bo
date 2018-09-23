@@ -5,6 +5,20 @@ This mod is distributed under Version 2 of the GPL.  A copy of the GPL is includ
 
 Patch Notes
 
+v8.08.00 (Sep. 22, 2018)
+========================
+- ToC update to support WoW 8.0.1
+- Codes updated to support WoW 8.0.1's API and function calls
+- Added AtlasLoot_BattleforAzeroth for dungeon and raid loots
+- MapID migrated to uiMapID
+- Fixed item scaling issue
+- Added BfA professions
+- Added option to toggle expansion icon to be displayed in dropdown or not
+- Added module's tooltip in dropdown
+- Added achievements from Atal'Dazar (thanks to martinvanstigtthans)
+- Added LibDataBroker to no-lib version of release
+- Updated MapID of Trial of Valor, Invasion Points, Halls of Valor
+
 v8.07.13 (Apr. 13, 2018)
 ========================
 - Update world event - Brawler's Guild's items (thanks for reaper66673563371)

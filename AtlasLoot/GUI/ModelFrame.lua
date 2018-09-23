@@ -58,7 +58,7 @@ function ModelFrame:AddButton(name, desc, displayInfo)
 	button.displayInfo = displayInfo
 	button.name = name
 	button.description = desc
-	SetPortraitTexture(button.creature, displayInfo)
+	SetPortraitTextureFromCreatureDisplayID(button.creature, displayInfo)
 	
 	if #buttons == 1 then
 		button:SetPoint("TOPLEFT", ModelFrame.frame, "TOPLEFT", 0, -10)
@@ -140,9 +140,9 @@ function ModelFrame:SetEncounterID(encounterID)
 		ModelFrame.frame:Hide()
 		return
 	end
-	local id, name, desc, displayInfo
+	local id, name, desc, displayInfo, iconImage, uiModelSceneID
 	for i=1,MAX_CREATURES_PER_ENCOUNTER do 
-		id, name, desc, displayInfo = EJ_GetCreatureInfo(i, encounterID);
+		id, name, desc, displayInfo, iconImage, uiModelSceneID = EJ_GetCreatureInfo(i, encounterID)
 		
 		if id then
 			 ModelFrame:AddButton(name, desc, displayInfo)

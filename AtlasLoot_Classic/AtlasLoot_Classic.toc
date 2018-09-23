@@ -1,6 +1,6 @@
-## Interface: 70300
+## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.07.13
+## Version: v8.08.00
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -8,6 +8,7 @@
 ## Title: AtlasLoot |cFF0099FF[Classic]|r
 ## Title-deDE: AtlasLoot |cFF0099FF[Classic]|r
 ## Title-esES: AtlasLoot |cFF0099FF[Classic]|r
+## Title-frFR: AtlasLoot |cFF0099FF[Classique]|r
 ## Title-koKR: AtlasLoot |cFF0099FF[오리지널]|r
 ## Title-ruRU: AtlasLoot |cFF0099FF[Classic]|r
 ## Title-zhCN: AtlasLoot |cFF0099FF[经典旧世]|r
@@ -15,6 +16,7 @@
 ## Notes: AtlasLoot loot tables from Classic
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Classic
 ## Notes-esES: Tablas de botín de AtlasLoot para WoW clásico
+## Notes-frFR: Tables de butin AtlasLoot de WoW Classique
 ## Notes-koKR: AtlasLoot 오리지널 전리품 목록
 ## Notes-ruRU: AtlasLoot таблица добычи из Classic
 ## Notes-zhCN: AtlasLoot 《经典旧世》物品信息

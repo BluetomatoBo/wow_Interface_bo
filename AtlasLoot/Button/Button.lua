@@ -134,6 +134,7 @@ function Button:Create()
 	--button:SetNormalTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight")
 	--button:RegisterForClicks("LeftButtonDown", "RightButtonDown")
 	button:EnableMouseWheel(true)
+	button:RegisterForClicks("AnyDown") --"AnyUp", 
 	button:SetScript("OnEnter", Button_OnEnter)
 	button:SetScript("OnLeave", Button_OnLeave)
 	button:SetScript("OnClick", Button_OnClick)
@@ -527,8 +528,10 @@ function Proto:SetSecType(typ, val)
 	if button_types[typ].OnSet then
 		button_types[typ].OnSet(self, true)
 	end
-	if self.IsShown and not self:IsShown() and self.Show then self:Show() end
-	self.secButton:Show()
+	if self.__atlaslootinfo.secType then
+		if self.IsShown and not self:IsShown() and self.Show then self:Show() end
+		self.secButton:Show()
+	end
 end
 
 function Proto:SetExtraType(typ, val)

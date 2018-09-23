@@ -108,7 +108,7 @@ function Mount.OnMouseAction(button, mouseButton)
 		
 		ShowUIPanel(CollectionsJournal)
 		CollectionsJournal_SetTab(CollectionsJournal, 1)
-		MountJournal_Select(MountData.GetIndexFromSpellID(button.MountID))
+		MountJournal_SelectByMountID(C_MountJournal.GetMountFromSpell(button.MountID))
 	end
 end
 

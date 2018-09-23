@@ -25,7 +25,12 @@ local RF_DIFF = data:AddDifficulty(AL["Raid Finder"], "LFRWithPreset", {
 		addDifficultyBonus = true,
 	},
 }, 17)
-local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", nil, 1)
+local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", {
+	Item = {
+		item1bonus = "Scaling",
+		addDifficultyBonus = true,
+	},
+}, 1)
 local NORMAL_RAID_DIFF = data:AddDifficulty(AL["Normal"], "NormalRaidWithPreset", {
 	Item = {
 		--item1bonus = nil,
@@ -36,7 +41,7 @@ local NORMAL_RAID_DIFF = data:AddDifficulty(AL["Normal"], "NormalRaidWithPreset"
 }, 14)
 local NORMAL_DUNGEON_DIFF = data:AddDifficulty(AL["Normal"], "DungeonWithPreset", {
 	Item = {
-		--item1bonus = "LegionDungeon",
+		item1bonus = "Scaling",
 		item2bonus = "LegionDungeonTitanforged",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
@@ -206,7 +211,7 @@ name = select(2, GetAchievementInfo(11786)),
 -- /////////////////////////////////
 data["TheArcway"] = {
 	EncounterJournalID = 726,
-	MapID = 1079,
+	MapID = 749,
 	AtlasMapID = "TheArcway",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -297,7 +302,7 @@ data["TheArcway"] = {
 
 data["AssaultOnVioletHold"] = {
 	EncounterJournalID = 777,
-	MapID = 1066,
+	MapID = 732,
 	AtlasMapID = "AssaultonVioletHold",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -503,7 +508,7 @@ data["AssaultOnVioletHold"] = {
 
 data["BlackRookHold"] = {
 	EncounterJournalID = 740,
-	MapID = 1081,
+	MapID = 751,
 	AtlasMapID = "BlackRookHoldA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -622,8 +627,8 @@ data["BlackRookHold"] = {
 -- Cathedral of Eternal Night 
 data["CathedralofEternalNight"] = {
 	EncounterJournalID = 900,
-	MapID = 1146,
-	ItemBaseLvl = 845,
+	MapID = 845,
+	ItemBaseLvl = 174,
 	AtlasMapID = "CathedralofEternalNightA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -702,7 +707,7 @@ data["CathedralofEternalNight"] = {
 
 data["CourtOfStars"] = {
 	EncounterJournalID = 800,
-	MapID = 1087,
+	MapID = 761,
 	AtlasMapID = "CourtofStarsA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -775,7 +780,7 @@ data["CourtOfStars"] = {
 
 data["DarkheartThicket"] = {
 	EncounterJournalID = 762,
-	MapID = 1067,
+	MapID = 733,
 	AtlasMapID = "DarkheartThicket",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -894,7 +899,7 @@ data["DarkheartThicket"] = {
 
 data["EyeOfAzshara"] = {
 	EncounterJournalID = 716,
-	MapID = 1046,
+	MapID = 713,
 	AtlasMapID = "EyeofAzshara",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1032,7 +1037,7 @@ data["EyeOfAzshara"] = {
 
 data["HallsOfValor"] = {
 	EncounterJournalID = 721,
-	MapID = 1041,
+	MapID = 704,
 	AtlasMapID = "HallsofValorA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1177,7 +1182,7 @@ data["HallsOfValor"] = {
 
 data["MawOfSouls"] = {
 	EncounterJournalID = 727,
-	MapID = 1042,
+	MapID = 706,
 	AtlasMapID = "MawofSoulsA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1271,7 +1276,7 @@ data["MawOfSouls"] = {
 
 data["Neltharion'sLair"] = {
 	EncounterJournalID = 767,
-	MapID = 1065,
+	MapID = 731,
 	AtlasMapID = "NeltharionsLair",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1385,7 +1390,7 @@ data["Neltharion'sLair"] = {
 
 data["ReturnToKarazhan"] = {
 	EncounterJournalID = 860,
-	MapID = 1115,
+	MapID = 809,
 	AtlasMapID = "ReturntoKarazhanA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1537,7 +1542,7 @@ data["ReturnToKarazhan"] = {
 -- Seat of the Triumvirate
 data["SeatoftheTriumvirate"] = {
 	EncounterJournalID = 945,
-	MapID = 1178,
+	MapID = 903,
 	AtlasMapID = "TheSeatoftheTriumvirate",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1627,7 +1632,7 @@ data["SeatoftheTriumvirate"] = {
 
 data["VaultOfTheWardens"] = {
 	EncounterJournalID = 707,
-	MapID = 1045,
+	MapID = 710,
 	AtlasMapID = "VaultoftheWardensA",
 	ContentType = DUNGEON_CONTENT,
 	items = {
@@ -1757,7 +1762,7 @@ data["VaultOfTheWardens"] = {
 -- Antorus, the Burning Throne
 data["AntorustheBurningThrone"] = {
 	EncounterJournalID = 946,
-	MapID = 1188,
+	MapID = 909,
 	AtlasMapID = "AntorustheBurningThroneA",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -2143,8 +2148,8 @@ data["AntorustheBurningThrone"] = {
 
 data["BrokenIsles"] = {
 	EncounterJournalID = 822,
-	MapID = 1007,
-	ItemBaseLvl = 860,
+	MapID = 619,
+	ItemBaseLvl = 172,
 	AtlasMapID = "OR_BrokenIsles",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -2354,8 +2359,8 @@ data["BrokenIsles"] = {
 
 data["TheEmeraldNightmare"] = {
 	EncounterJournalID = 768,
-	MapID = 1094,
-	ItemBaseLvl = 850,
+	MapID = 777,
+	ItemBaseLvl = 168,
 	AtlasMapID = "TheEmeraldNightmareA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
@@ -2579,7 +2584,8 @@ data["TheEmeraldNightmare"] = {
 -- Invasion Points
 data["InvasionPoints"] = {
 	EncounterJournalID = 959,
-	MapID = 1135,
+	--MapID = 830,
+	MapID = 929,
 	--AtlasMapID = "InvasionPoints",
 	ContentType = RAID_CONTENT,
 	items = {
@@ -2699,8 +2705,8 @@ data["InvasionPoints"] = {
 
 data["TheNighthold"] = {
 	EncounterJournalID = 786,
-	MapID = 1088,
-	ItemBaseLvl = 875,
+	MapID = 764,
+	ItemBaseLvl = 176,
 	AtlasMapID = "TheNightholdA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
@@ -3065,8 +3071,8 @@ data["TheNighthold"] = {
 -- Tomb of Sargeras
 data["TombofSargeras"] = {
 	EncounterJournalID = 875,
-	MapID = 1147,
-	ItemBaseLvl = 890,
+	MapID = 850,
+	ItemBaseLvl = 188,
 	AtlasMapID = "TombofSargerasA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,
@@ -3353,8 +3359,8 @@ data["TombofSargeras"] = {
 
 data["TrialOfValor"] = {
 	EncounterJournalID = 861,
-	MapID = 1114,
-	ItemBaseLvl = 865,
+	MapID = 807,
+	ItemBaseLvl = 172,
 	AtlasMapID = "TrialofValorA",
 	ContentType = RAID_CONTENT,
 	TableType = RAID_ITTYPE,

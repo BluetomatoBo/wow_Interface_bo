@@ -1569,7 +1569,7 @@ function startEJScan()
 		[1] = {}
 	}
 	for i = 1, num do
-		local name, icon, slot, armorType, itemID, link = EJ_GetLootInfoByIndex(i)
+		local itemID, encounterID, name, icon, slot, armorType, link = EJ_GetLootInfoByIndex(i)
 		
 		local _,_,quality = GetItemInfo(itemID)
 		quality = qualityTab[quality]
@@ -1749,6 +1749,204 @@ local function BonusRollScanFrame(container)
 end
 -- ######################################################
 
+-- ######################################################
+-- ######################################################
+local CategoryInfos = {}
+
+local function ProfGetString(tab, strg)
+	strg = strg or ""
+	
+	for k, v in pairs(tab) do
+		if type(v) == "table" and not v.name then
+			local categoryInfo = C_TradeSkillUI.GetCategoryInfo(k)
+			if categoryInfo then
+				strg = strg.."-- "..(categoryInfo.type or k).." ("..k..") / "..(categoryInfo.name or "nil").."\n"
+			else
+				strg = strg.."-- "..k.."\n"
+			end
+			strg = ProfGetString(v, strg)
+		elseif type(v) == "table" and v.name then
+			strg = strg.."{ 0, "..(v.item or "nil")..", "..(k or "nil").." }, -- "..(v.name or "nil").."\n"
+		end
+	end
+	
+	return strg
+end
+
+local function ProfessionScan()
+	local ret = ""
+	local recipeIDs = C_TradeSkillUI.GetAllRecipeIDs()
+	if not recipeIDs or not next(recipeIDs) then return "" end
+	local retTable = {}
+	local recipeID
+	for i = 1, #recipeIDs do
+		local workingTab = retTable
+		recipeID = recipeIDs[i]
+		local recipeInfo = C_TradeSkillUI.GetRecipeInfo(recipeID)
+		--[[
+		[recipeInfo]={ 
+		  productQuality=1, 
+		  sourceType=1, 
+		  hiddenUnlessLearned=false, 
+		  disabled=false, 
+		  craftable=true, 
+		  type="recipe", 
+		  recipeID=161001, 
+		  icon=1045948, 
+		  numAvailable=0, 
+		  numSkillUps=1, 
+		  categoryID=344, 
+		  numIndents=1, 
+		  learned=true, 
+		  difficulty="medium", 
+		  favorite=false, 
+		  name="Saberfish Broth" 
+		}
+		]]--
+		local categoryInfo = C_TradeSkillUI.GetCategoryInfo(recipeInfo.categoryID)
+		--[[
+		[categoryInfo]={ 
+			numIndents=1, 
+			type="subheader", 
+			name="Fish Dishes", 
+			hasProgressBar=false, 
+			enabled=true, 
+			parentCategoryID=342, 
+			categoryID=344 
+		}
+		]]--
+		local orderSort = {recipeInfo.categoryID}
+		
+		--[[
+		local breaker = 1
+		repeat
+			breaker = breaker + 1
+			if breaker > 500 then print"KILL" return end
+			if not categoryInfo.parentCategoryID or categoryInfo.type == "header" then break end
+			if not CategoryInfos[categoryInfo.parentCategoryID] then
+				CategoryInfos[categoryInfo.parentCategoryID] = {}
+				CategoryInfos[categoryInfo.parentCategoryID] = C_TradeSkillUI.GetCategoryInfo(categoryInfo.parentCategoryID, CategoryInfos[categoryInfo.parentCategoryID])
+				if not CategoryInfos[categoryInfo.parentCategoryID].name then CategoryInfos[categoryInfo.parentCategoryID] = nil break end
+			end
+			categoryInfo = CategoryInfos[categoryInfo.parentCategoryID]
+			if not categoryInfo then print(categoryInfo, orderSort[#orderSort]) break end
+			orderSort[#orderSort+1] = categoryInfo.categoryID
+		until(categoryInfo.type == "header")
+		]]--
+		local breaker = 1
+		repeat
+			breaker = breaker + 1
+			if breaker > 500 then print"KILL" return end
+			if not categoryInfo.parentCategoryID then break end 
+			local categoryInfoLoc = C_TradeSkillUI.GetCategoryInfo(categoryInfo.parentCategoryID)
+			if not categoryInfoLoc then break end
+			--print(categoryInfoLoc.categoryID, categoryInfoLoc.name)
+			
+			categoryInfo = categoryInfoLoc
+			orderSort[#orderSort+1] = categoryInfo.categoryID
+			
+		until(categoryInfo.type == "header")
+		
+		
+		
+		for i = #orderSort, 1, -1 do
+			workingTab[orderSort[i]] = workingTab[orderSort[i]] or {}
+			workingTab = workingTab[orderSort[i]]
+		end
+		local itemLink = C_TradeSkillUI.GetRecipeItemLink(recipeID)
+		itemLink = string.match(itemLink, "item:(%d+)")
+		workingTab[recipeID] = {
+			item = itemLink,
+			name = recipeInfo.name
+		}
+	end
+	
+	-- retString
+	ret = ProfGetString(retTable, ret)
+	
+	return ret
+end
+
+local function ProfessionScanFrame(container)
+  
+	local multiEditbox = AceGUI:Create("MultiLineEditBox")
+
+	local desc = AceGUI:Create("Label")
+	desc:SetText("")
+	--desc:SetFullWidth(true)
+	
+	local button = AceGUI:Create("Button")
+	button:SetText("Start Scan")
+	button:SetCallback("OnClick", function() 
+		lootTableString = ProfessionScan()
+		multiEditbox:SetText(lootTableString)
+		multiEditbox.editBox:HighlightText(0)
+		multiEditbox.editBox:SetFocus() 
+	end)
+	button:SetWidth(200)
+	container:AddChild(button)
+
+	container:AddChild(desc)
+	
+	multiEditbox:SetLabel("LootTable:")
+	multiEditbox:SetFullWidth(true)
+	multiEditbox:SetFullHeight(true)
+	--multiEditbox:SetCallback("OnEnterPressed", function(widget, event, text) lootTable = text end)
+	container:AddChild(multiEditbox)
+end
+
+-- ######################################################
+-- https://www.tradeskillmaster.com/group-maker/create
+-- ######################################################
+local function WowHeadTSMStringCreate(text)
+	local ret = ""
+	
+	for itemID in string.gmatch(text, "i:(%d+)") do
+		itemID = tonumber(itemID)
+		local itemName = GetItemInfo(itemID) or "nil"
+		ret = ret.."{ 0, "..itemID.." }, --"..itemName.."\n"
+	end
+	
+	return ret or ""
+end
+
+local function WowHeadTSMStringFrame(container)
+	local multiEditbox = AceGUI:Create("MultiLineEditBox")
+    
+	local editbox = AceGUI:Create("EditBox")
+	editbox:SetLabel("TSMGroupString:")
+	editbox:SetWidth(200)
+	editbox:SetCallback("OnEnterPressed", function(widget, event, text) 
+		multiEditbox:SetText(WowHeadTSMStringCreate(text))
+		multiEditbox.editBox:SetFocus() 
+	end)
+	container:AddChild(editbox)
+
+	local desc = AceGUI:Create("Label")
+	desc:SetText("")
+	--desc:SetFullWidth(true)
+	
+	local button = AceGUI:Create("Button")
+	button:SetText("Start Scan")
+	button:SetCallback("OnClick", function() 
+		multiEditbox:SetText(WowHeadTSMStringCreate(editbox:GetText() or ""))
+		multiEditbox.editBox:SetFocus() 
+	end)
+	button:SetWidth(200)
+	container:AddChild(button)
+
+	container:AddChild(desc)
+	
+	multiEditbox:SetLabel("LootTable:")
+	multiEditbox:SetFullWidth(true)
+	multiEditbox:SetFullHeight(true)
+	--multiEditbox:SetCallback("OnEnterPressed", function(widget, event, text) lootTable = text end)
+	container:AddChild(multiEditbox)	
+end
+
+string.gmatch("i:162323,i:163043,i:163048", "i:(%d+)")
+--i:162323,i:163043,i:163048,i:160536,i:161586,i:161587,i:161589,i:161583,i:163778,i:162378,i:162302,i:163320,i:162306,i:162138,i:162132,i:162128,i:162275,i:162670,i:162261,i:162276,i:162139,i:162324,i:162346,i:162344,i:162345,i:163044,i:163047,i:163046,i:163041,i:161588,i:161590,i:161585,i:161584,i:160539
+--
 
 -- Callback function for OnGroupSelected
 local function SelectGroup(container, event, group)
@@ -1765,6 +1963,10 @@ local function SelectGroup(container, event, group)
 		AchievementScanFrame(container)
 	elseif group == "tab6" then
 		BonusRollScanFrame(container)
+	elseif group == "tab7" then
+		ProfessionScanFrame(container)
+	elseif group == "tab8" then
+		WowHeadTSMStringFrame(container)
 	end
 end
 
@@ -1781,7 +1983,7 @@ function Dev:DevTool_CreateFrame()
 	local tab =  AceGUI:Create("TabGroup")
 	tab:SetLayout("Flow")
 	-- Setup which tabs to show
-	tab:SetTabs({{text="Vendor Scan", value="tab1"}, {text="TextParsing Scan", value="tab2"}, {text="InstanceInfo Scan", value="tab3"}, {text="EJ Scan", value="tab4"}, {text="Achievement Scan", value="tab5"}, {text="BonusRoll Scan", value="tab6"}})
+	tab:SetTabs({{text="Vendor Scan", value="tab1"}, {text="TextParsing Scan", value="tab2"}, {text="InstanceInfo Scan", value="tab3"}, {text="EJ Scan", value="tab4"}, {text="Achievement Scan", value="tab5"}, {text="BonusRoll Scan", value="tab6"}, {text="TradeSkill Scan", value="tab7"}, {text="TSM Format", value="tab8"}})
 	-- Register callback
 	tab:SetCallback("OnGroupSelected", SelectGroup)
 	-- Set initial Tab (this will fire the OnGroupSelected callback)
