@@ -42,6 +42,8 @@ L["%s Texture Function"] = "%s Función de la textura"
 L["%s total auras"] = "%s Auras totales"
 L["%s Trigger Function"] = "%s Activar función "
 L["%s Untrigger Function"] = "%s Desactivar función"
+--[[Translation missing --]]
+L["|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"] = "|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"
 L["<"] = "<"
 L["<="] = "<="
 L["="] = "="
@@ -272,8 +274,6 @@ L["Evade"] = "Evadir"
 L["Event"] = "Event"
 L["Event(s)"] = "Evento(s)"
 L["Every Frame"] = "Todos los macros"
---[[Translation missing --]]
-L["EXPERIMENTAL Profiling Data:"] = "EXPERIMENTAL Profiling Data:"
 --[[Translation missing --]]
 L["Extend Outside"] = "Extend Outside"
 L["Extra Amount"] = "Cantidad adicional"

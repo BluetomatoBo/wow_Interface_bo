@@ -39,6 +39,8 @@ L["%s Texture Function"] = "%s Texturfunktion"
 L["%s total auras"] = "%s Gesamt Auren"
 L["%s Trigger Function"] = "%s Auslöserfunktion"
 L["%s Untrigger Function"] = "%s Umkehrauslöser-Funktion"
+--[[Translation missing --]]
+L["|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"] = "|cff9900ffWeakAuras EXPERIMENTAL Profiling Data:|r"
 L["<"] = "< (Kleiner)"
 L["<="] = "<= (Kleinergleich)"
 L["="] = "= (Gleich)"
@@ -252,7 +254,6 @@ L["Evade"] = "Entkommen (EVADE)"
 L["Event"] = "Ereignis"
 L["Event(s)"] = "Ereignis(se)"
 L["Every Frame"] = "Bei jedem OnUpdate"
-L["EXPERIMENTAL Profiling Data:"] = "EXPERIMENTELLE Profiling Daten:"
 --[[Translation missing --]]
 L["Extend Outside"] = "Extend Outside"
 L["Extra Amount"] = "Extrabetrag"
@@ -452,7 +453,8 @@ L["Next"] = "Weiter"
 --[[Translation missing --]]
 L["No Children"] = "No Children"
 L["No Instance"] = "Keine Instanz"
-L["No Profiling information saved."] = "Keine Profilinginformationen vorhanden."
+--[[Translation missing --]]
+L["No Profiling information saved."] = "No Profiling information saved."
 --[[Translation missing --]]
 L["none"] = "none"
 L["None"] = "Keine(r)"
@@ -516,11 +518,16 @@ L["Preset"] = "Standard"
 L["Press Ctrl+C to copy"] = "Drücke Strg-C zum Kopieren"
 --[[Translation missing --]]
 L["Print Profiling Results"] = "Print Profiling Results"
-L["Profiling already started."] = "Profiling bereits gestartet."
-L["Profiling not running."] = "Profiling war nicht aktiv, vorher starten!"
-L["Profiling started."] = "Profiling gestartet."
-L["Profiling still running, stop before trying to print."] = "Profiling läuft noch, vorher stoppen damit Ausgabe erfolgen kann."
-L["Profiling stopped."] = "Profiling gestoppt."
+--[[Translation missing --]]
+L["Profiling already started."] = "Profiling already started."
+--[[Translation missing --]]
+L["Profiling not running."] = "Profiling not running."
+--[[Translation missing --]]
+L["Profiling started."] = "Profiling started."
+--[[Translation missing --]]
+L["Profiling still running, stop before trying to print."] = "Profiling still running, stop before trying to print."
+--[[Translation missing --]]
+L["Profiling stopped."] = "Profiling stopped."
 L["Progress"] = "Fortschritt"
 L["Progress Total"] = "Totaler Fortschritt"
 L["Progress Value"] = "Fortschrittswert"

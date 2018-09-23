@@ -1,12 +1,17 @@
-# [2.7.7](https://github.com/WeakAuras/WeakAuras2/tree/2.7.7) (2018-09-06)
+# [2.7.10](https://github.com/WeakAuras/WeakAuras2/tree/2.7.10) (2018-09-16)
 
-[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.7.6...2.7.7)
+[Full Changelog](https://github.com/WeakAuras/WeakAuras2/compare/2.7.9...2.7.10)
 
-Infus (5):
+## Highlights
 
-- Use both columns for multiselect's multiselect widget
-- Fix SetMaxProgress of 0
-- Fix incorrect conditions deactivation for fallback states
-- Remove outdated TODO
-- Fix regression in Range Check condition
+ * Bugfix update for last release
+
+* NOTE: Update requires a game restart! 
+
+## Commits
+
+Buds (2):
+
+- templates: fix 2 wrong spellids
+- may fix migration error
 

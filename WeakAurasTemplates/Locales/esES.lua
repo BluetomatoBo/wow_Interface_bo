@@ -77,6 +77,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Cooldown Tracking"] = "Cooldown Tracking"
 	--[[Translation missing --]]
+	L["Create Auras"] = "Create Auras"
+	--[[Translation missing --]]
 	L["Debuffs"] = "Debuffs"
 	--[[Translation missing --]]
 	L["Enchants"] = "Enchants"
@@ -95,7 +97,11 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Highlight while debuffed."] = "Highlight while debuffed."
 	--[[Translation missing --]]
+	L["Hold CTRL to create multiple auras at once"] = "Hold CTRL to create multiple auras at once"
+	--[[Translation missing --]]
 	L["Keeps existing triggers intact"] = "Keeps existing triggers intact"
+	--[[Translation missing --]]
+	L["Next"] = "Next"
 	--[[Translation missing --]]
 	L["On Procc Trinkets (Buff)"] = "On Procc Trinkets (Buff)"
 	--[[Translation missing --]]

@@ -7,6 +7,8 @@ local L = WeakAuras.L
 -- WeakAuras/Options
 	L["-- Do not remove this comment, it is part of this trigger: "] = "-- Entferne diesen Kommentar nicht, er ist Teil dieses Auslösers: "
 	L["% of Progress"] = "Fortschritt in %"
+	--[[Translation missing --]]
+	L["%i auras selected"] = "%i auras selected"
 	L["%i Matches"] = "%i Treffer"
 	--[[Translation missing --]]
 	L["%s Color"] = "%s Color"
@@ -117,6 +119,8 @@ Falls die Dauer der Animation auf |cFF00CC0010%|r gesetzt wurde und für die Anz
 	L["Choose"] = "Auswählen"
 	L["Choose Trigger"] = "Auslöser Auswählen"
 	L["Choose whether the displayed icon is automatic or defined manually"] = "Symbol automatisch oder manuell auswählen"
+	--[[Translation missing --]]
+	L["Clip Overlays"] = "Clip Overlays"
 	L["Clone option enabled dialog"] = [=[
 Eine Option, die |cFFFF0000Auto-Klonen|r verwendet, wurde aktiviert.
 

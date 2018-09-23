@@ -7,6 +7,7 @@ local L = WeakAuras.L
 -- WeakAuras/Options
 	L["-- Do not remove this comment, it is part of this trigger: "] = "-- Не удаляйте этот комментарий, он является частью этого триггера: "
 	L["% of Progress"] = "% прогресса"
+	L["%i auras selected"] = "%i |4индикация выбрана:индикации выбраны:индикаций выбрано;"
 	L["%i Matches"] = "%i |4совпадение:совпадения:совпадений;"
 	L["%s Color"] = "%s "
 	L["%s total auras"] = "Всего %s |4индикация:индикации:индикаций;"
@@ -98,13 +99,15 @@ local L = WeakAuras.L
 	L["Button Glow"] = "Подсветка кнопки"
 	L["Can be a name or a UID (e.g., party1). A name only works on friendly players in your group."] = "Может быть именем или UID (например, party1). Название работает только на дружественных игроках в вашей группе."
 	L["Cancel"] = "Отмена"
-	L["Channel Number"] = "Номер кaнала"
+	L["Channel Number"] = "Номер канала"
 	L["Chat Message"] = "Сообщение в чат"
 	L["Check On..."] = "Проверять..."
 	L["Children:"] = "Индикации:"
 	L["Choose"] = "Выбрать"
 	L["Choose Trigger"] = "Выберите триггер"
 	L["Choose whether the displayed icon is automatic or defined manually"] = "Выберите, будет ли иконка задана автоматически или вручную"
+	--[[Translation missing --]]
+	L["Clip Overlays"] = "Clip Overlays"
 	L["Clone option enabled dialog"] = [=[Вы активировали параметр, использующий |cFFFF0000Автоклонирование|r.
 
 |cFFFF0000Автоклонирование|r заставляет индикацию автоматически дублироваться для отображения нескольких источников информации. Если вы не разместите ее в |cFF22AA22Динамической группе|r, то все клоны будут отображаться друг над другом в большой куче.
@@ -280,7 +283,7 @@ UNIT_POWER  UNIT_AURA, PLAYER_TARGET_CHANGED]=]
 	L["Loop"] = "Зациклить"
 	L["Low Mana"] = "Мало маны"
 	L["Main"] = "Основная"
-	L["Manage displays defined by Addons"] = "Управление индикациями, определенными Аддонами"
+	L["Manage displays defined by Addons"] = "Управление индикациями, определенными аддонами"
 	L["Medium Icon"] = "Средняя иконка"
 	L["Message"] = "Сообщение"
 	L["Message Prefix"] = "Префикс сообщения"

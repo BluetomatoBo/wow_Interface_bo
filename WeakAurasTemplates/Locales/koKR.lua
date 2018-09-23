@@ -5,8 +5,7 @@ end
 local L = WeakAuras.L
 
 -- WeakAuras/Templates
-	--[[Translation missing --]]
-	L["Abilities"] = "Abilities"
+	L["Abilities"] = "능력"
 	L["Ability Charges"] = "능력 충전량"
 	L["Add Triggers"] = "활성 조건 추가"
 	L["Always Active"] = "항상 활성화"
@@ -63,6 +62,8 @@ local L = WeakAuras.L
 	L["cooldown"] = "재사용 대기시간"
 	--[[Translation missing --]]
 	L["Cooldown Tracking"] = "Cooldown Tracking"
+	--[[Translation missing --]]
+	L["Create Auras"] = "Create Auras"
 	L["Debuffs"] = "약화 효과"
 	L["Enchants"] = "마법부여"
 	L["General"] = "일반"
@@ -76,7 +77,11 @@ local L = WeakAuras.L
 	L["Highlight while debuffed, red when out of range."] = "Highlight while debuffed, red when out of range."
 	--[[Translation missing --]]
 	L["Highlight while debuffed."] = "Highlight while debuffed."
+	--[[Translation missing --]]
+	L["Hold CTRL to create multiple auras at once"] = "Hold CTRL to create multiple auras at once"
 	L["Keeps existing triggers intact"] = "활성 조건 그대로 유지"
+	--[[Translation missing --]]
+	L["Next"] = "Next"
 	--[[Translation missing --]]
 	L["On Procc Trinkets (Buff)"] = "On Procc Trinkets (Buff)"
 	--[[Translation missing --]]

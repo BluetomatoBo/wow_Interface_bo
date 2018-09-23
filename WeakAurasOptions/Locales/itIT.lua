@@ -10,6 +10,8 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["% of Progress"] = "% of Progress"
 	--[[Translation missing --]]
+	L["%i auras selected"] = "%i auras selected"
+	--[[Translation missing --]]
 	L["%i Matches"] = "%i Matches"
 	--[[Translation missing --]]
 	L["%s Color"] = "%s Color"
@@ -193,6 +195,8 @@ local L = WeakAuras.L
 	L["Choose Trigger"] = "Choose Trigger"
 	--[[Translation missing --]]
 	L["Choose whether the displayed icon is automatic or defined manually"] = "Choose whether the displayed icon is automatic or defined manually"
+	--[[Translation missing --]]
+	L["Clip Overlays"] = "Clip Overlays"
 	--[[Translation missing --]]
 	L["Clone option enabled dialog"] = "Clone option enabled dialog"
 	--[[Translation missing --]]

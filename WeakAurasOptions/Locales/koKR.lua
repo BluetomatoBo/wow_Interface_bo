@@ -7,11 +7,11 @@ local L = WeakAuras.L
 -- WeakAuras/Options
 	L["-- Do not remove this comment, it is part of this trigger: "] = "-- 이 주석을 삭제하지 마세요, 이 활성 조건의 일부입니다: "
 	L["% of Progress"] = "진행 상태의 %"
+	--[[Translation missing --]]
+	L["%i auras selected"] = "%i auras selected"
 	L["%i Matches"] = "%i개 일치"
-	--[[Translation missing --]]
-	L["%s Color"] = "%s Color"
-	--[[Translation missing --]]
-	L["%s total auras"] = "%s total auras"
+	L["%s Color"] = "%s 색상"
+	L["%s total auras"] = "총 %s개 효과"
 	L["1 Match"] = "1개 일치"
 	L["1. Text"] = "1. 문자"
 	L["1. Text Settings"] = "1. 문자 설정"
@@ -113,6 +113,8 @@ local L = WeakAuras.L
 	L["Choose"] = "선택"
 	L["Choose Trigger"] = "활성 조건 선택"
 	L["Choose whether the displayed icon is automatic or defined manually"] = "아이콘을 자동으로 표시할 지 또는 수동 지정할 지 선택하세요"
+	--[[Translation missing --]]
+	L["Clip Overlays"] = "Clip Overlays"
 	L["Clone option enabled dialog"] = [=[
 |cFFFF0000자동복제|r 옵션을 활성화 했습니다.
 
@@ -138,8 +140,7 @@ local L = WeakAuras.L
 	L["Convert to..."] = "변환하기..."
 	L["Cooldown"] = "재사용 대기시간"
 	L["Copy settings..."] = "설정 복사..."
-	--[[Translation missing --]]
-	L["Copy to all auras"] = "Copy to all auras"
+	L["Copy to all auras"] = "모든 효과에 복사"
 	L["Copy URL"] = "URL 복사"
 	L["Count"] = "횟수"
 	L["Creating buttons: "] = "버튼 생성:"
@@ -190,8 +191,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Down"] = "Down"
 	L["Drag to move"] = "끌기 - 이동"
 	L["Duplicate"] = "복제"
-	--[[Translation missing --]]
-	L["Duplicate All"] = "Duplicate All"
+	L["Duplicate All"] = "모두 복제"
 	L["Duration (s)"] = "지속시간 (초)"
 	L["Duration Info"] = "지속시간 정보"
 	--[[Translation missing --]]
@@ -227,8 +227,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Fade"] = "사라짐"
 	L["Fade In"] = "서서히 나타남"
 	L["Fade Out"] = "서서히 사라짐"
-	--[[Translation missing --]]
-	L["False"] = "False"
+	L["False"] = "거짓"
 	--[[Translation missing --]]
 	L["Filter by Group Role"] = "Filter by Group Role"
 	L["Finish"] = "종료"
@@ -262,8 +261,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 |cFF00CC00> 1/2|r %s의 절반 이상이 영향 받을 때 발생
 |cFF00CC00>= 0|r 상관없이, 항상 발생]=]
 	L["Group Member Count"] = "그룹원 수"
-	--[[Translation missing --]]
-	L["Group Role"] = "Group Role"
+	L["Group Role"] = "그룹 역할"
 	L["Group Scale"] = "그룹 크기 비율"
 	L["Grow"] = "성장"
 	L["Hawk"] = "매"
@@ -377,8 +375,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Paste Group Settings"] = "Paste Group Settings"
 	--[[Translation missing --]]
 	L["Paste Load Settings"] = "Paste Load Settings"
-	--[[Translation missing --]]
-	L["Paste Settings"] = "Paste Settings"
+	L["Paste Settings"] = "붙여넣기 설정"
 	L["Paste text below"] = "아래에 문자를 붙여 넣으세요."
 	--[[Translation missing --]]
 	L["Paste Trigger Settings"] = "Paste Trigger Settings"
@@ -445,8 +442,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	L["Size"] = "크기"
 	L["Slant Amount"] = "기울기 양"
 	L["Slant Mode"] = "기울기 모드"
-	--[[Translation missing --]]
-	L["Slanted"] = "Slanted"
+	L["Slanted"] = "기울임"
 	L["Slide"] = "슬라이드"
 	L["Slide In"] = "안으로 슬라이드"
 	L["Slide Out"] = "바깥으로 슬라이드"
@@ -513,8 +509,7 @@ UNIT_POWER, UNIT_AURA PLAYER_TARGET_CHANGED]=]
 	--[[Translation missing --]]
 	L["Trigger %s"] = "Trigger %s"
 	L["Trigger:"] = "활성 조건:"
-	--[[Translation missing --]]
-	L["True"] = "True"
+	L["True"] = "참"
 	L["Type"] = "유형"
 	L["Undefined"] = "정의되지 않음"
 	L["Ungroup"] = "그룹 해제"

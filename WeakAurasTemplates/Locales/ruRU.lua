@@ -55,6 +55,8 @@ local L = WeakAuras.L
 	L["Charge Tracking"] = "Charge Tracking"
 	L["cooldown"] = "(восстановление)"
 	L["Cooldown Tracking"] = "Отслеживание восстановления"
+	--[[Translation missing --]]
+	L["Create Auras"] = "Create Auras"
 	L["Debuffs"] = "Дебаффы"
 	L["Enchants"] = "Чары"
 	L["General"] = "Общие"
@@ -64,7 +66,10 @@ local L = WeakAuras.L
 	L["Highlight while buffed."] = "Выделяет индикацию, когда на цели есть бафф."
 	L["Highlight while debuffed, red when out of range."] = "Выделяет индикацию, если дебафф активен; становится красной, если цель вне зоны действия."
 	L["Highlight while debuffed."] = "Выделяет индикацию, когда на цели есть дебафф."
+	--[[Translation missing --]]
+	L["Hold CTRL to create multiple auras at once"] = "Hold CTRL to create multiple auras at once"
 	L["Keeps existing triggers intact"] = "Сохраняет существующие триггеры нетронутыми"
+	L["Next"] = "Далее"
 	L["On Procc Trinkets (Buff)"] = "Аксессуары с проком"
 	L["On Use Trinkets (Buff)"] = "Активир-е аксессуары (бафф)"
 	L["On Use Trinkets (CD)"] = "Активир-е аксессуары (CD)"

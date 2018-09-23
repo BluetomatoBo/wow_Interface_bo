@@ -7,6 +7,8 @@ local L = WeakAuras.L
 -- WeakAuras/Options
 	L["-- Do not remove this comment, it is part of this trigger: "] = "-- No remover este comentario. Es parte de este desencadenador:"
 	L["% of Progress"] = "% de progreso"
+	--[[Translation missing --]]
+	L["%i auras selected"] = "%i auras selected"
 	L["%i Matches"] = "%i coincidencias"
 	--[[Translation missing --]]
 	L["%s Color"] = "%s Color"
@@ -119,6 +121,8 @@ Si la duración de la animación es |cFF00CC0010%|r, y el disparador del aura es
 	L["Choose"] = "Elegir"
 	L["Choose Trigger"] = "Elegir desencadenador"
 	L["Choose whether the displayed icon is automatic or defined manually"] = "Elije si el icono es automático o si se define manualmente"
+	--[[Translation missing --]]
+	L["Clip Overlays"] = "Clip Overlays"
 	L["Clone option enabled dialog"] = "Activar diálogo de clonación"
 	L["Close"] = "Cerrar"
 	L["Collapse"] = "Contraer"

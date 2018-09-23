@@ -7,6 +7,8 @@ local L = WeakAuras.L
 -- WeakAuras/Options
 	L["-- Do not remove this comment, it is part of this trigger: "] = "-- Não remova este comentário, ele é parte deste gatilho:"
 	L["% of Progress"] = "% do progresso"
+	--[[Translation missing --]]
+	L["%i auras selected"] = "%i auras selected"
 	L["%i Matches"] = "%i resultados"
 	L["%s Color"] = "%s Cor"
 	L["%s total auras"] = "%s auras totais"
@@ -134,6 +136,8 @@ WeakAuras → Opções → Opções ]=]
 	L["Choose"] = "Escolher"
 	L["Choose Trigger"] = "Escolher o gatilho"
 	L["Choose whether the displayed icon is automatic or defined manually"] = "Escolher se o ícone mostrado é automático ou definido manualmente"
+	--[[Translation missing --]]
+	L["Clip Overlays"] = "Clip Overlays"
 	--[[Translation missing --]]
 	L["Clone option enabled dialog"] = "Clone option enabled dialog"
 	L["Close"] = "Fechar"

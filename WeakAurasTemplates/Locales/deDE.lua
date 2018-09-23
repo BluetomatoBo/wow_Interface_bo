@@ -66,6 +66,8 @@ local L = WeakAuras.L
 	L["cooldown"] = "Abklingzeit"
 	--[[Translation missing --]]
 	L["Cooldown Tracking"] = "Cooldown Tracking"
+	--[[Translation missing --]]
+	L["Create Auras"] = "Create Auras"
 	L["Debuffs"] = "Debuffs"
 	L["Enchants"] = "Verzauberungen"
 	L["General"] = "Allgemein"
@@ -80,7 +82,11 @@ local L = WeakAuras.L
 	L["Highlight while debuffed, red when out of range."] = "Highlight while debuffed, red when out of range."
 	--[[Translation missing --]]
 	L["Highlight while debuffed."] = "Highlight while debuffed."
+	--[[Translation missing --]]
+	L["Hold CTRL to create multiple auras at once"] = "Hold CTRL to create multiple auras at once"
 	L["Keeps existing triggers intact"] = "Verändert existierende Auslöser nicht"
+	--[[Translation missing --]]
+	L["Next"] = "Next"
 	--[[Translation missing --]]
 	L["On Procc Trinkets (Buff)"] = "On Procc Trinkets (Buff)"
 	--[[Translation missing --]]

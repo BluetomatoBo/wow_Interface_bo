@@ -56,6 +56,8 @@ local L = WeakAuras.L
 	L["Charge Tracking"] = "Suivis des Charges"
 	L["cooldown"] = "recharge"
 	L["Cooldown Tracking"] = "Suivis du Temps de Recharge"
+	--[[Translation missing --]]
+	L["Create Auras"] = "Create Auras"
 	L["Debuffs"] = "Affaiblissements"
 	L["Enchants"] = "Enchantements"
 	L["General"] = "Général"
@@ -69,7 +71,11 @@ local L = WeakAuras.L
 	L["Highlight while debuffed, red when out of range."] = "Highlight while debuffed, red when out of range."
 	--[[Translation missing --]]
 	L["Highlight while debuffed."] = "Highlight while debuffed."
+	--[[Translation missing --]]
+	L["Hold CTRL to create multiple auras at once"] = "Hold CTRL to create multiple auras at once"
 	L["Keeps existing triggers intact"] = "Garder intact les déclencheurs existants"
+	--[[Translation missing --]]
+	L["Next"] = "Next"
 	--[[Translation missing --]]
 	L["On Procc Trinkets (Buff)"] = "On Procc Trinkets (Buff)"
 	L["On Use Trinkets (Buff)"] = "Bijoux Avec Utilisation (Amélioration)"
