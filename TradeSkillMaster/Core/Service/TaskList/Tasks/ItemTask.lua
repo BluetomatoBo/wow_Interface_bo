@@ -76,8 +76,8 @@ function ItemTask._RemoveItem(self, itemString, quantity)
 	if not self._itemNum[itemString] then
 		return false
 	end
-	self._itemNum[itemString] = self._itemNum[itemString] - quantity
-	if self._itemNum[itemString] <= 0 then
+	self._itemNum[itemString] = TSMAPI_FOUR.Util.Round(self._itemNum[itemString] - quantity, 0.01)
+	if self._itemNum[itemString] <= 0.01 then
 		self._itemNum[itemString] = 0
 		assert(TSMAPI_FOUR.Util.TableRemoveByValue(self._itemList, itemString) == 1)
 	end

@@ -26,7 +26,6 @@ function ShoppingTask.__init(self, searchType)
 	self.__super:__init()
 	self._isScanning = false
 	self._isShowingResults = false
-	-- TODO: support the different search types
 	assert(searchType == "NORMAL" or searchType == "DISENCHANT" or searchType == "CRAFTING")
 	self._searchType = searchType
 
@@ -57,7 +56,7 @@ end
 
 function ShoppingTask.OnButtonClick(self)
 	private.currentlyScanning = self
-	TSM.UI.AuctionUI.Shopping.StartGatheringSearch(self:GetItems(), private.StateCallback, private.BuyCallback)
+	TSM.UI.AuctionUI.Shopping.StartGatheringSearch(self:GetItems(), private.StateCallback, private.BuyCallback, self._searchType)
 end
 
 

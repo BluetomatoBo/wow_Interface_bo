@@ -99,16 +99,17 @@ TSM.CONST.DISENCHANT_INFO = {
 			maxLevel = 100,
 			sourceInfo = {
 				{itemType = ARMOR, rarity = 2, minItemLevel = 116, maxItemLevel = 136, amountOfMats = 2.600},
-				{itemType = ARMOR, rarity = 3, minItemLevel = 116, maxItemLevel = 142, amountOfMats = 5.810},
+				{itemType = ARMOR, rarity = 3, minItemLevel = 116, maxItemLevel = 138, amountOfMats = 5.810},
 				{itemType = WEAPON, rarity = 2, minItemLevel = 116, maxItemLevel = 136, amountOfMats = 2.600},
-				{itemType = WEAPON, rarity = 3, minItemLevel = 116, maxItemLevel = 142, amountOfMats = 6.220},
+				{itemType = WEAPON, rarity = 3, minItemLevel = 116, maxItemLevel = 138, amountOfMats = 6.220},
 			},
 		},
 		["i:124440"] = { -- Arkhana
 			minLevel = 101,
 			maxLevel = 110,
 			sourceInfo = {
-				{itemType = ARMOR, rarity = 2, minItemLevel = 138, maxItemLevel = 158, amountOfMats = 4.750},
+				{itemType = ARMOR, rarity = 2, minItemLevel = 138, maxItemLevel = 170, amountOfMats = 4.750},
+				{itemType = WEAPON, rarity = 2, minItemLevel = 138, maxItemLevel = 170, amountOfMats = 4.750},
 			},
 		},
 		["i:152875"] = { -- Gloom Dust
@@ -163,7 +164,7 @@ TSM.CONST.DISENCHANT_INFO = {
 				{itemType = ARMOR, rarity = 2, minItemLevel = 46, maxItemLevel = 58, amountOfMats = 0.346},
 				{itemType = ARMOR, rarity = 3, minItemLevel = 46, maxItemLevel = 58, amountOfMats = 0.550},
 				{itemType = ARMOR, rarity = 4, minItemLevel = 58, maxItemLevel = 65, amountOfMats = 2.800},
-				{itemType = WEAPON, rarity = 2, minItemLevel = 46, maxItemLevel = 58, amountOfMats = 1.1825},
+				{itemType = WEAPON, rarity = 2, minItemLevel = 46, maxItemLevel = 58, amountOfMats = 1.182},
 				{itemType = WEAPON, rarity = 3, minItemLevel = 46, maxItemLevel = 58, amountOfMats = 0.550},
 				{itemType = WEAPON, rarity = 4, minItemLevel = 58, maxItemLevel = 65, amountOfMats = 2.800},
 			},
@@ -329,8 +330,8 @@ TSM.CONST.DISENCHANT_INFO = {
 			minLevel = 90,
 			maxLevel = 100,
 			sourceInfo = {
-				{itemType = ARMOR, rarity = 3, minItemLevel = 130, maxItemLevel = 142, amountOfMats = 0.100},
-				{itemType = WEAPON, rarity = 3, minItemLevel = 130, maxItemLevel = 142, amountOfMats = 0.100},
+				{itemType = ARMOR, rarity = 3, minItemLevel = 130, maxItemLevel = 138, amountOfMats = 0.100},
+				{itemType = WEAPON, rarity = 3, minItemLevel = 130, maxItemLevel = 138, amountOfMats = 0.100},
 			},
 		},
 		["i:124441"] = { -- Leylight Shard
@@ -338,6 +339,7 @@ TSM.CONST.DISENCHANT_INFO = {
 			maxLevel = 110,
 			sourceInfo = {
 				{itemType = ARMOR, rarity = 3, minItemLevel = 138, maxItemLevel = 180, amountOfMats = 1.000},
+				{itemType = WEAPON, rarity = 3, minItemLevel = 138, maxItemLevel = 180, amountOfMats = 1.000},
 			},
 		},
 		["i:152876"] = { -- Umbra Shard
@@ -389,9 +391,9 @@ TSM.CONST.DISENCHANT_INFO = {
 			minLevel = 90,
 			maxLevel = 100,
 			sourceInfo = {
-				{itemType = ARMOR, rarity = 3, minItemLevel = 116, maxItemLevel = 142, amountOfMats = 0.300},
+				{itemType = ARMOR, rarity = 3, minItemLevel = 116, maxItemLevel = 138, amountOfMats = 0.300},
 				{itemType = ARMOR, rarity = 4, minItemLevel = 132, maxItemLevel = 149, amountOfMats = 0.750},
-				{itemType = WEAPON, rarity = 3, minItemLevel = 116, maxItemLevel = 142, amountOfMats = 0.150},
+				{itemType = WEAPON, rarity = 3, minItemLevel = 116, maxItemLevel = 138, amountOfMats = 0.150},
 				{itemType = WEAPON, rarity = 4, minItemLevel = 132, maxItemLevel = 149, amountOfMats = 0.750},
 			},
 		},
@@ -399,9 +401,9 @@ TSM.CONST.DISENCHANT_INFO = {
 			minLevel = 90,
 			maxLevel = 100,
 			sourceInfo = {
-				{itemType = ARMOR, rarity = 3, minItemLevel = 116, maxItemLevel = 142, amountOfMats = 0.050},
+				{itemType = ARMOR, rarity = 3, minItemLevel = 116, maxItemLevel = 138, amountOfMats = 0.050},
 				{itemType = ARMOR, rarity = 4, minItemLevel = 132, maxItemLevel = 149, amountOfMats = 0.750},
-				{itemType = WEAPON, rarity = 3, minItemLevel = 116, maxItemLevel = 142, amountOfMats = 0.050},
+				{itemType = WEAPON, rarity = 3, minItemLevel = 116, maxItemLevel = 138, amountOfMats = 0.050},
 				{itemType = WEAPON, rarity = 4, minItemLevel = 132, maxItemLevel = 149, amountOfMats = 0.750},
 			},
 		},
@@ -409,7 +411,8 @@ TSM.CONST.DISENCHANT_INFO = {
 			minLevel = 101,
 			maxLevel = 110,
 			sourceInfo = {
-				{itemType = ARMOR, rarity = 3, minItemLevel = 162, maxItemLevel = 265, amountOfMats = 1.000},
+				{itemType = ARMOR, rarity = 4, minItemLevel = 160, maxItemLevel = 265, amountOfMats = 1.000},
+				{itemType = WEAPON, rarity = 4, minItemLevel = 160, maxItemLevel = 265, amountOfMats = 1.000},
 			},
 		},
 		["i:152877"] = { -- Veiled Crystal

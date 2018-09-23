@@ -164,7 +164,7 @@ function private.ErrorHandler(msg, thread, errorTime)
 					end
 				end
 			end
-			if strfind(stackLine, "Class%.lua:190") then
+			if strfind(stackLine, "Class%.lua:193") then
 				-- ignore stack frames from the class code's wrapper function
 				stackLine = ""
 				if functionName and not strmatch(functionName, "^.+:[0-9]+$") and #stackInfo > 0 then
@@ -192,7 +192,7 @@ function private.ErrorHandler(msg, thread, errorTime)
 						local shouldIgnoreLine = false
 						if strmatch(localLine, "^ *%(") then
 							shouldIgnoreLine = true
-						elseif strmatch(localLine, "Class%.lua:179") then
+						elseif strmatch(localLine, "Class%.lua:182") then
 							-- ignore class methods
 							shouldIgnoreLine = true
 						elseif strmatch(localLine, "<unnamed> {}$") then

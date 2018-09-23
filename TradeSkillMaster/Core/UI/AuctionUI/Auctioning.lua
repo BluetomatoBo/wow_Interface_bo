@@ -258,16 +258,10 @@ function private.GetAuctioningScanFrame()
 			:SetStyle("borderInset", 1)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "item")
 				:SetLayout("VERTICAL")
-				:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "header")
-					:SetStyle("font", TSM.UI.Fonts.MontserratBold2)
-					:SetStyle("fontHeight", 10)
-					:SetStyle("textColor", "#ffffff")
-					:SetText(L["SELECTED ITEM"])
-				)
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "content")
 					:SetLayout("HORIZONTAL")
 					:SetStyle("height", 32)
-					:SetStyle("margin", { bottom = 8 })
+					:SetStyle("margin", { bottom = 6 })
 					:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "icon")
 						:SetStyle("width", 30)
 						:SetStyle("height", 30)
@@ -279,6 +273,24 @@ function private.GetAuctioningScanFrame()
 						:SetStyle("margin", { left = 8 })
 					)
 				)
+				:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "cost")
+					:SetLayout("HORIZONTAL")
+					:SetStyle("height", 16)
+					:SetStyle("margin", { left = 1 })
+					:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "desc")
+						:SetStyle("font", TSM.UI.Fonts.MontserratBold)
+						:SetStyle("fontHeight", 12)
+						:SetStyle("textColor", "#e2e2e2")
+						:SetStyle("autoWidth", true)
+						:SetText(L["Deposit Cost"] .. ":")
+					)
+					:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "text")
+						:SetStyle("margin", { left = 4 })
+						:SetStyle("font", TSM.UI.Fonts.RobotoMedium)
+						:SetStyle("fontHeight", 12)
+						:SetStyle("justifyH", "LEFT")
+					)
+				)
 			)
 			:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "details1")
 				:SetLayout("VERTICAL")
@@ -286,7 +298,7 @@ function private.GetAuctioningScanFrame()
 				:SetStyle("margin", { left = 10, right = 34, top = 0 })
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "header")
 					:SetStyle("height", 15)
-					:SetStyle("font", TSM.UI.Fonts.MontserratBold2)
+					:SetStyle("font", TSM.UI.Fonts.MontserratBold)
 					:SetStyle("fontHeight", 10)
 					:SetStyle("textColor", "#ffffff")
 					:SetText(L["AUCTION DETAILS"])
@@ -348,7 +360,7 @@ function private.GetAuctioningScanFrame()
 				:SetStyle("width", 230)
 				:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "header")
 					:SetStyle("height", 15)
-					:SetStyle("font", TSM.UI.Fonts.MontserratBold2)
+					:SetStyle("font", TSM.UI.Fonts.MontserratBold)
 					:SetStyle("fontHeight", 10)
 					:SetStyle("textColor", "#ffffff")
 				)
@@ -704,6 +716,10 @@ function private.RunPostBagsButtonOnclick(button)
 end
 
 function private.ScanBackButtonOnClick()
+	ClearCursor()
+	ClickAuctionSellItemButton(AuctionsItemButton, "LeftButton")
+	ClearCursor()
+
 	private.fsm:ProcessEvent("EV_BACK_BUTTON_CLICKED")
 end
 
@@ -713,6 +729,9 @@ end
 
 function private.BidBuyoutTextOnValueChanged(text, value)
 	value = TSMAPI_FOUR.Money.FromString(value)
+	if value > MAXIMUM_BID_PRICE then
+		value = MAXIMUM_BID_PRICE
+	end
 	if value then
 		private.fsm:ProcessEvent("EV_POST_DETAIL_CHANGED", text:GetContext(), value)
 	else
@@ -734,6 +753,7 @@ end
 function private.FSMCreate()
 	local fsmContext = {
 		db = TSMAPI_FOUR.Auction.NewDatabase("AUCTIONING_AUCTIONS"),
+		itemString = nil,
 		scanFrame = nil,
 		scanThreadId = nil,
 		scanType = nil,
@@ -771,22 +791,76 @@ function private.FSMCreate()
 			private.fsm:ProcessEvent("EV_AUCTION_CANCEL_CONFIRM", false, true)
 		end
 	end)
+	local function UpdateDepositCost(context)
+		if context.scanType ~= "POST" then
+			return
+		end
+
+		local header = context.scanFrame:GetElement("header")
+		local detailsHeader1 = header:GetElement("details1")
+		local detailsHeader2 = header:GetElement("details2")
+
+		local currentRow = TSM.Auctioning.PostScan.GetCurrentRow()
+		if not currentRow then
+			return
+		end
+
+		local itemString = currentRow:GetField("itemString")
+
+		local postBag, postSlot = nil, nil
+		for _, bag, slot, bagItemString in TSMAPI_FOUR.Inventory.BagIterator() do
+			if not postBag and not postSlot and bagItemString == itemString then
+				postBag = bag
+				postSlot = slot
+			end
+		end
+		if postBag and postSlot then
+			ClearCursor()
+			PickupContainerItem(postBag, postSlot)
+			ClickAuctionSellItemButton(AuctionsItemButton, "LeftButton")
+			ClearCursor()
+		end
+
+		local postTime = detailsHeader2:GetElement("duration.dropdown"):GetSelection()
+		if postTime == AUCTION_DURATION_ONE then
+			postTime = 1
+		elseif postTime == AUCTION_DURATION_TWO then
+			postTime = 2
+		elseif postTime == AUCTION_DURATION_THREE then
+			postTime = 3
+		else
+			error("Invalid post time")
+		end
+
+		local bid = TSMAPI_FOUR.Money.FromString(detailsHeader1:GetElement("bid.text"):GetText())
+		local buyout = TSMAPI_FOUR.Money.FromString(detailsHeader1:GetElement("buyout.text"):GetText())
+		local stackSize = tonumber(currentRow:GetField("stackSize"))
+
+		header:GetElement("item.cost.text"):SetText(TSMAPI_FOUR.Money.ToString(GetAuctionDeposit(postTime, bid, buyout, stackSize, 1)))
+			:Draw()
+
+		ClearCursor()
+		ClickAuctionSellItemButton(AuctionsItemButton, "LeftButton")
+		ClearCursor()
+	end
 	local function UpdateScanFrame(context)
 		if not context.scanFrame then
 			return
 		end
 
+		local header = context.scanFrame:GetElement("header")
 		local currentRow, numProcessed, numConfirmed, _, totalNum = nil, nil, nil, nil, nil
 		if context.scanType == "POST" then
 			currentRow = TSM.Auctioning.PostScan.GetCurrentRow()
 			numProcessed, numConfirmed, _, totalNum = TSM.Auctioning.PostScan.GetStatus()
+			header:GetElement("item.cost"):Show()
 		elseif context.scanType == "CANCEL" then
 			currentRow = TSM.Auctioning.CancelScan.GetCurrentRow()
 			numProcessed, numConfirmed, _, totalNum = TSM.Auctioning.CancelScan.GetStatus()
+			header:GetElement("item.cost"):Hide()
 		else
 			error("Invalid scan type: "..tostring(context.scanType))
 		end
-		local header = context.scanFrame:GetElement("header")
 		local itemFrame = header:GetElement("item")
 		local itemContent = itemFrame:GetElement("content")
 		local detailsHeader1 = header:GetElement("details1")
@@ -823,6 +897,10 @@ function private.FSMCreate()
 				detailsHeader1:GetElement("buyout.editBtn"):Hide()
 				detailsHeader2:GetElement("duration.dropdown"):SetDisabled(true)
 			end
+			if context.itemString ~= itemString then
+				UpdateDepositCost(context)
+			end
+			context.itemString = itemString
 			currentRow:Release()
 		else
 			itemContent:GetElement("icon")
@@ -831,6 +909,7 @@ function private.FSMCreate()
 			itemContent:GetElement("text")
 				:SetText("-")
 				:SetTooltip(nil)
+			header:GetElement("item.cost.text"):SetText("-")
 			detailsHeader1:GetElement("bid.text"):SetText("-")
 			detailsHeader1:GetElement("bid.editBtn"):Hide()
 			detailsHeader1:GetElement("buyout.text"):SetText("-")
@@ -841,6 +920,10 @@ function private.FSMCreate()
 			if context.scanFrame:GetElement("tabs"):GetPath() == L["Auctioning Log"] then
 				context.scanFrame:GetElement("tabs.logFrame.log"):SetSelection(nil)
 			end
+
+			ClearCursor()
+			ClickAuctionSellItemButton(AuctionsItemButton, "LeftButton")
+			ClearCursor()
 		end
 
 		local processText, processIcon = nil, nil
@@ -912,6 +995,7 @@ function private.FSMCreate()
 					TSMAPI_FOUR.Thread.Kill(context.scanThreadId)
 					context.scanThreadId = nil
 				end
+				context.itemString = nil
 				context.scanProgress = 0
 				context.scanProgressText = L["Starting Scan..."]
 				if context.auctionScan then
@@ -1080,6 +1164,7 @@ function private.FSMCreate()
 				assert(context.scanType == "POST")
 				TSM.Auctioning.PostScan.ChangePostDetail(field, value)
 				UpdateScanFrame(context)
+				UpdateDepositCost(context)
 			end)
 		)
 		:AddState(TSMAPI_FOUR.FSM.NewState("ST_DONE")
@@ -1099,6 +1184,7 @@ function private.FSMCreate()
 		end)
 		:AddDefaultEvent("EV_SCAN_FRAME_HIDDEN", function(context)
 			context.scanFrame = nil
+			context.itemString = nil
 		end)
 		:AddDefaultEvent("EV_BACK_BUTTON_CLICKED", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_INIT"))
 		:AddDefaultEvent("EV_AUCTION_HOUSE_CLOSED", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_INIT"))

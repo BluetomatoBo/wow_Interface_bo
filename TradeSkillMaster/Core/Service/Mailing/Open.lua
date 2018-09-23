@@ -55,10 +55,13 @@ end
 
 function private.OpenMailThread(autoRefresh, filterText, filterType)
 	while true do
-		local query = TSM.Inventory.MailTracking.CreateMailInboxQuery()
+		local query = TSM.Mailing.Inbox.CreateQuery()
 		query:ResetOrderBy()
 			:OrderBy("index", false)
-			:Matches("items", filterText)
+			:Or()
+				:Matches("itemList", filterText)
+				:Matches("subject", filterText)
+			:End()
 			:Select("index")
 
 		if filterType then

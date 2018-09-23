@@ -37,6 +37,8 @@ function ItemFilter.__init(self)
 	self._canlearn = nil
 	self._exactOnly = nil
 	self._evenOnly = nil
+	self._crafting = nil
+	self._disenchant = nil
 	self._item = nil
 
 	self:_Reset()
@@ -57,11 +59,13 @@ function ItemFilter._Reset(self)
 	self._minPrice = 0
 	self._maxPrice = math.huge
 	self._maxQuantity = math.huge
-	self._usableOnly = false
+	self._usableOnly = nil
 	self._unlearned = nil
 	self._canlearn = nil
-	self._exactOnly = false
-	self._evenOnly = false
+	self._exactOnly = nil
+	self._evenOnly = nil
+	self._crafting = nil
+	self._disenchant = nil
 	self._item = nil
 end
 
@@ -78,6 +82,7 @@ function ItemFilter.ParseStr(self, str)
 	self:_Reset()
 	local numLevelParts, numItemLevelParts, numPriceParts = 0, 0, 0
 	self._isValid = nil
+	local hasNonCraftingPart = false
 	for i, part in TSMAPI_FOUR.Util.VarargIterator(strsplit("/", strtrim(str))) do
 		part = strtrim(part)
 		if self._isValid ~= nil then
@@ -117,6 +122,7 @@ function ItemFilter.ParseStr(self, str)
 				self._isValid = false
 			end
 			numLevelParts = numLevelParts + 1
+			hasNonCraftingPart = true
 		elseif tonumber(strmatch(part, "^i(%d+)$")) then
 			if numItemLevelParts == 0 then
 				self._minItemLevel = tonumber(strmatch(part, "^i(%d+)$"))
@@ -127,14 +133,19 @@ function ItemFilter.ParseStr(self, str)
 				self._isValid = false
 			end
 			numItemLevelParts = numItemLevelParts + 1
+			hasNonCraftingPart = true
 		elseif TSMAPI_FOUR.Item.GetClassIdFromClassString(part) then
 			self._class = TSMAPI_FOUR.Item.GetClassIdFromClassString(part)
+			hasNonCraftingPart = true
 		elseif self._class and TSMAPI_FOUR.Item.GetSubClassIdFromSubClassString(part, self._class) then
 			self._subClass = TSMAPI_FOUR.Item.GetSubClassIdFromSubClassString(part, self._class)
+			hasNonCraftingPart = true
 		elseif TSMAPI_FOUR.Item.GetInventorySlotIdFromInventorySlotString(part) then
 			self._invSlotId = TSMAPI_FOUR.Item.GetInventorySlotIdFromInventorySlotString(part)
+			hasNonCraftingPart = true
 		elseif self:_ItemQualityToIndex(part) then
 			self._quality = self:_ItemQualityToIndex(part)
+			hasNonCraftingPart = true
 		elseif TSMAPI_FOUR.Money.FromString(part) then
 			if numPriceParts == 0 then
 				self._maxPrice = TSMAPI_FOUR.Money.FromString(part)
@@ -146,11 +157,13 @@ function ItemFilter.ParseStr(self, str)
 				self._isValid = false
 			end
 			numPriceParts = numPriceParts + 1
+			hasNonCraftingPart = true
 		elseif strlower(part) == "usable" then
 			if self._usableOnly then
 				self._isValid = false
 			end
 			self._usableOnly = true
+			hasNonCraftingPart = true
 		elseif strlower(part) == "unlearned" then
 			if self._unlearned then
 				self._isValid = false
@@ -160,6 +173,7 @@ function ItemFilter.ParseStr(self, str)
 			else
 				TSM:Print(L["The unlearned filter was ignored because the CanIMogIt addon was not found."])
 			end
+			hasNonCraftingPart = true
 		elseif strlower(part) == "canlearn" then
 			if self._canlearn then
 				self._isValid = false
@@ -169,22 +183,40 @@ function ItemFilter.ParseStr(self, str)
 			else
 				TSM:Print(L["The canlearn filter was ignored because the CanIMogIt addon was not found."])
 			end
+			hasNonCraftingPart = true
 		elseif strlower(part) == "exact" then
 			if self._exactOnly then
 				self._isValid = false
 			end
 			self._exactOnly = true
+			hasNonCraftingPart = true
 		elseif strlower(part) == "even" then
 			if self._evenOnly then
 				self._isValid = false
 			end
 			self._evenOnly = true
+			hasNonCraftingPart = true
 		elseif tonumber(strmatch(part, "^x(%d+)$")) then
 			self._maxQuantity = tonumber(strmatch(part, "^x(%d+)$"))
+		elseif strlower(part) == "crafting" then
+			if self._crafting or self._disenchant then
+				self._isValid = false
+			end
+			self._crafting = true
+		elseif strlower(part) == "disenchant" then
+			if self._disenchant or self._crafting then
+				self._isValid = false
+			end
+			self._disenchant = true
 		else
 			-- invalid part
 			self._isValid = false
 		end
+	end
+
+	if (self._crafting or self._disenchant) and hasNonCraftingPart then
+		-- we have a filter which can't be used with /crafting or /disenchant
+		self._isValid = false
 	end
 
 	if self._isValid == nil then
@@ -263,6 +295,14 @@ end
 
 function ItemFilter.GetMaxPrice(self)
 	return self._maxPrice ~= math.huge and self._maxPrice or nil
+end
+
+function ItemFilter.GetCrafting(self)
+	return self._crafting
+end
+
+function ItemFilter.GetDisenchant(self)
+	return self._disenchant
 end
 
 function ItemFilter.Matches(self, item, price)

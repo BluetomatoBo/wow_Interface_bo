@@ -22,7 +22,7 @@ local private = {
 local SEP_CHAR = "\002"
 local ITEM_INFO_INTERVAL = 0.05
 local MAX_REQUESTED_ITEM_INFO = 50
-local MAX_REQUESTS_PER_ITEM = 50
+local MAX_REQUESTS_PER_ITEM = 5
 local UNKNOWN_ITEM_NAME = L["Unknown Item"]
 local DB_VERSION = 4
 local RECORD_DATA_LENGTH = 17
@@ -95,8 +95,8 @@ end
 -- ============================================================================
 
 function ItemInfo.OnInitialize()
-	TSMAPI_FOUR.Event.Register("GET_ITEM_INFO_RECEIVED", function(_, itemId)
-		if itemId <= 0 or itemId > TSM.CONST.ITEM_MAX_ID or private.numRequests[itemId] == math.huge then
+	TSMAPI_FOUR.Event.Register("GET_ITEM_INFO_RECEIVED", function(_, itemId, success)
+		if not success or itemId <= 0 or itemId > TSM.CONST.ITEM_MAX_ID or private.numRequests[itemId] == math.huge then
 			return
 		end
 		private.availableItems[itemId] = true
@@ -684,11 +684,25 @@ function private.ProcessItemInfo()
 	end
 	private.db:BulkInsertEnd()
 
+	-- throttle the max number of item info requests based on the frame rate
+	local framerate = GetFramerate()
+	local maxRequests = nil
+	if framerate < 30 then
+		maxRequests = MAX_REQUESTED_ITEM_INFO / 5
+	elseif framerate < 60 then
+		maxRequests = MAX_REQUESTED_ITEM_INFO / 3
+	elseif framerate < 100 then
+		maxRequests = MAX_REQUESTED_ITEM_INFO / 2
+	else
+		maxRequests = MAX_REQUESTED_ITEM_INFO
+	end
+
 	local toRemove = TSMAPI_FOUR.Util.AcquireTempTable()
 	local numRequested = 0
 	for itemString in pairs(private.pendingItems) do
 		local name = private.GetField(itemString, "name")
 		local quality = private.GetField(itemString, "quality")
+		local itemLevel = private.GetField(itemString, "itemLevel")
 		if (private.numRequests[itemString] or 0) > MAX_REQUESTS_PER_ITEM then
 			-- give up on this item
 			if private.numRequests[itemString] ~= math.huge then
@@ -700,7 +714,7 @@ function private.ProcessItemInfo()
 				end
 			end
 			tinsert(toRemove, itemString)
-		elseif name and name ~= "" and quality and quality >= 0 then
+		elseif name and name ~= "" and quality and quality >= 0 and itemLevel and itemLevel >= 0 then
 			-- we have info for this item
 			tinsert(toRemove, itemString)
 			private.numRequests[itemString] = nil
@@ -709,7 +723,7 @@ function private.ProcessItemInfo()
 			if not private.StoreGetItemInfo(itemString) then
 				private.numRequests[itemString] = (private.numRequests[itemString] or 0) + 1
 				numRequested = numRequested + 1
-				if numRequested >= MAX_REQUESTED_ITEM_INFO then
+				if numRequested >= maxRequests then
 					break
 				end
 			end

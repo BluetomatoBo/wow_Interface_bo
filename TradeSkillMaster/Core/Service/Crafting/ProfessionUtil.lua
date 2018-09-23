@@ -173,6 +173,7 @@ function ProfessionUtil.PrepareToCraft(spellId, quantity)
 end
 
 function ProfessionUtil.Craft(spellId, quantity, useVellum, callback)
+	assert(TSM.Crafting.ProfessionScanner.HasSpellId(spellId))
 	if private.craftSpellId then
 		callback(false, true)
 		return 0

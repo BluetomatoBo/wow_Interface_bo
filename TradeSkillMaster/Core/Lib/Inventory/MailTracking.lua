@@ -22,7 +22,6 @@ local INBOX_INFO_DB_SCHEMA = {
 		icon = "string",
 		subject = "string",
 		itemString = "string",
-		items = "string",
 		itemCount = "number",
 		money = "number",
 		cod = "number",
@@ -36,7 +35,6 @@ local INBOX_INFO_DB_SCHEMA = {
 		"icon",
 		"subject",
 		"itemString",
-		"items",
 		"itemCount",
 		"money",
 		"cod",
@@ -231,7 +229,7 @@ function private.MailInboxUpdateDelayed()
 			end
 		end
 
-		private.mailDB:BulkInsertNewRow(i, mailType, subject or "--", firstItemString or "", private.GetInboxItemLink(i) or "", itemCount or 0, money or 0, cod or 0, daysLeft)
+		private.mailDB:BulkInsertNewRow(i, mailType, subject or "--", firstItemString or "", itemCount or 0, money or 0, cod or 0, daysLeft)
 	end
 
 	private.itemDB:BulkInsertEnd()

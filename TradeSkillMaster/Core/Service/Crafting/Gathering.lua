@@ -465,8 +465,32 @@ function private.ProcessSource(itemString, numNeed, source, sourceList)
 		-- assume we can buy all we need from the AH
 		tinsert(sourceList, "auction/"..numNeed.."/")
 		return 0
-	elseif source == "auctionDE" or source == "auctionCrafting" then
-		-- TODO
+	elseif source == "auctionCrafting" then
+		if TSMAPI_FOUR.Item.IsSoulbound(itemString) then
+			-- can't buy soulbound items
+			return numNeed
+		end
+		local conversionInfo = TSMAPI_FOUR.Conversions.GetSourceItems(itemString)
+		if not conversionInfo or not conversionInfo.convert or not next(conversionInfo.convert) then
+			-- can't convert to get this item
+			return numNeed
+		end
+		-- assume we can buy all we need from the AH
+		tinsert(sourceList, "auctionCrafting/"..numNeed.."/")
+		return 0
+	elseif source == "auctionDE" then
+		if TSMAPI_FOUR.Item.IsSoulbound(itemString) then
+			-- can't buy soulbound items
+			return numNeed
+		end
+		local conversionInfo = TSMAPI_FOUR.Conversions.GetSourceItems(itemString)
+		if not conversionInfo or not conversionInfo.disenchant then
+			-- can't disenchant to get this item
+			return numNeed
+		end
+		-- assume we can buy all we need from the AH
+		tinsert(sourceList, "auctionDE/"..numNeed.."/")
+		return 0
 	else
 		error("Unkown source: "..tostring(source))
 	end

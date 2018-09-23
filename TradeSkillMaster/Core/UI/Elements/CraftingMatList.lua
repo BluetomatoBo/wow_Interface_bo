@@ -12,6 +12,7 @@
 
 local _, TSM = ...
 local CraftingMatList = TSMAPI_FOUR.Class.DefineClass("CraftingMatList", TSM.UI.ScrollList)
+local private = { }
 TSM.UI.CraftingMatList = CraftingMatList
 
 
@@ -45,6 +46,17 @@ function CraftingMatList.SetRecipe(self, spellId)
 	return self
 end
 
+--- Updates the crafting material display.
+-- @tparam CraftingMatList self The crafting mat list object
+-- @treturn CraftingMatList The crafting mat list object
+function CraftingMatList.UpdateData(self, redraw)
+	self:_UpdateData()
+	if redraw then
+		self:Draw()
+	end
+	return self
+end
+
 
 
 -- ============================================================================
@@ -69,7 +81,7 @@ function CraftingMatList._CreateRow(self)
 		:SetStyle("margin.top", 2)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "qty")
 			:SetStyle("margin.right", 8)
-			:SetStyle("width", 50)
+			:SetStyle("width", 60)
 			:SetStyle("font", TSM.UI.Fonts.RobotoMedium)
 			:SetStyle("fontHeight", 12)
 			:SetStyle("justifyH", "RIGHT")
@@ -79,10 +91,12 @@ function CraftingMatList._CreateRow(self)
 			:SetStyle("height", 12)
 			:SetStyle("margin.right", 4)
 		)
-		:AddChild(TSMAPI_FOUR.UI.NewElement("Text", "item")
+		:AddChild(TSMAPI_FOUR.UI.NewElement("Button", "item")
 			:SetStyle("textColor", "#ffffff")
 			:SetStyle("font", TSM.UI.Fonts.FRIZQT)
 			:SetStyle("fontHeight", 12)
+			:SetStyle("justifyH", "LEFT")
+			:SetScript("OnClick", private.ItemOnClick)
 		)
 end
 
@@ -93,11 +107,21 @@ function CraftingMatList._DrawRow(self, row, dataIndex)
 	local _, texture, quantity = C_TradeSkillUI.GetRecipeReagentInfo(self._spellId, index)
 	local bagQuantity = TSMAPI_FOUR.Inventory.GetBagQuantity(itemString) + TSMAPI_FOUR.Inventory.GetReagentBankQuantity(itemString) + TSMAPI_FOUR.Inventory.GetBankQuantity(itemString)
 	local color = bagQuantity >= quantity and "|cff2cec0d" or "|cfff21319"
-	row:GetElement("qty"):SetText(format("%s%d / %d|r", color, bagQuantity, quantity))
+	row:GetElement("qty"):SetText(format("%s%s / %d|r", color, bagQuantity > 999 and "*" or bagQuantity, quantity))
 	row:GetElement("icon"):SetStyle("texture", texture)
 	row:GetElement("item")
 		:SetText(TSM.UI.GetColoredItemName(itemString) or "|cffd50000?|r")
 		:SetTooltip(itemString)
 
 	self.__super:_DrawRow(row, dataIndex)
+end
+
+
+
+-- ============================================================================
+-- Local Script Handlers
+-- ============================================================================
+
+function private.ItemOnClick(button)
+	TSMAPI_FOUR.Util.SafeItemRef(C_TradeSkillUI.GetRecipeReagentItemLink(button:GetElement("__parent.__parent"):GetContext(), button:GetParentElement():GetContext()))
 end

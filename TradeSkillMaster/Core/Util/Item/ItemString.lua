@@ -34,7 +34,7 @@ end
 
 function TSMAPI_FOUR.Item.FilterItemString(itemString)
 	if not private.filteredItemStringCache[itemString] then
-		private.filteredItemStringCache[itemString] = private.FilterImportantBonsuIds(itemString)
+		private.filteredItemStringCache[itemString] = private.FilterBonusIds(itemString, TSM.CONST.IMPORTANT_BONUS_ID_MAP)
 	end
 	return private.filteredItemStringCache[itemString]
 end
@@ -202,14 +202,16 @@ function private.FixItemString(itemString)
 			itemString = itemString..":"..lastExtraPart
 		end
 		itemString = private.RemoveExtra(itemString)
+		itemString = private.FilterBonusIds(itemString, TSM.CONST.ALL_BONUS_ID_MAP)
 	end
 	return itemString
 end
 
-function private.FilterImportantBonsuIds(itemString)
+function private.FilterBonusIds(itemString, map)
 	local itemId, rand, bonusIds = strmatch(itemString, "i:([0-9]+):([0-9%-]*):[0-9]*:(.+)$")
 	if not bonusIds then return itemString end
-	if not private.bonusIdCache[bonusIds] then
+	local cacheKey = bonusIds..tostring(map)
+	if not private.bonusIdCache[cacheKey] then
 		wipe(private.bonusIdTemp)
 		local adjust = 0
 		for id in gmatch(bonusIds, "[0-9]+") do
@@ -220,23 +222,23 @@ function private.FilterImportantBonsuIds(itemString)
 					adjust = adjust + 1
 				end
 			else
-				id = TSM.CONST.IMPORTANT_BONUS_ID_MAP[id]
+				id = map[id]
 				if id and not tContains(private.bonusIdTemp, id) then
 					tinsert(private.bonusIdTemp, id)
 				end
 			end
 		end
 		sort(private.bonusIdTemp)
-		private.bonusIdCache[bonusIds] = { num = #private.bonusIdTemp - adjust, value = strjoin(":", unpack(private.bonusIdTemp)) }
+		private.bonusIdCache[cacheKey] = { num = #private.bonusIdTemp - adjust, value = strjoin(":", unpack(private.bonusIdTemp)) }
 	end
-	if private.bonusIdCache[bonusIds].num == 0 then
+	if private.bonusIdCache[cacheKey].num == 0 then
 		if rand == "" or tonumber(rand) == 0 then
 			return strjoin(":", "i", itemId)
 		else
 			return strjoin(":", "i", itemId, rand)
 		end
 	else
-		return strjoin(":", "i", itemId, rand, private.bonusIdCache[bonusIds].num, private.bonusIdCache[bonusIds].value)
+		return strjoin(":", "i", itemId, rand, private.bonusIdCache[cacheKey].num, private.bonusIdCache[cacheKey].value)
 	end
 end
 

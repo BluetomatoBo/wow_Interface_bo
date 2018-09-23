@@ -28,6 +28,9 @@ local DEFAULT_INST_FIELDS = {
 	__tostring = function(self)
 		return private.instInfo[self].str
 	end,
+	__dump = function(self)
+		return private.InstDump(self)
+	end,
 }
 
 
@@ -273,4 +276,29 @@ function private.ClassIsA(class, targetClass)
 		if class == targetClass then return true end
 		class = class.__super
 	end
+end
+
+function private.InstDump(inst)
+	local instInfo = private.instInfo[inst]
+	local tbl = instInfo.hasSuperclass and instInfo.fields or inst
+	print(instInfo.str.." {")
+	for key, value in pairs(tbl) do
+		local valueStr = nil
+		if type(value) == "table" then
+			if private.classInfo[value] or private.instInfo[value] then
+				-- this is a class or instance of a class
+				valueStr = tostring(value)
+			elseif next(value) then
+				valueStr = "{ ... }"
+			else
+				valueStr = "{}"
+			end
+		elseif type(value) == "string" or type(value) == "number" or type(value) == "boolean" then
+			valueStr = tostring(value)
+		end
+		if valueStr then
+			print(format("  |cff88ccff%s|r=%s", tostring(key), valueStr))
+		end
+	end
+	print("}")
 end

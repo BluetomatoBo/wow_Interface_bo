@@ -624,7 +624,7 @@ function TSMAPI_FOUR.Util.GetDebugStackInfo(targetLevel, thread)
 		end
 		stackLine = strmatch(stackLine, "^%.*([^:]+:%d+):")
 		-- ignore the class code's wrapper function
-		if stackLine and not strmatch(stackLine, "Class%.lua:190") then
+		if stackLine and not strmatch(stackLine, "Class%.lua:193") then
 			targetLevel = targetLevel - 1
 			if targetLevel == 0 then
 				stackLine = gsub(stackLine, "/", "\\")

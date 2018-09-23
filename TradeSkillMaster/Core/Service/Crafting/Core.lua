@@ -540,7 +540,7 @@ function Crafting.RestockHelp(link)
 	-- check that there's a crafting operation applied
 	local _, opSettings = TSM.Operations.GetFirstOperationByItem("Crafting", itemString)
 	if not opSettings then
-		return print(format(L["There is no TSM_Crafting operation applied to this item's TSM group (%s)."], TSM.Groups.Path.Format(groupPath)))
+		return print(format(L["There is no Crafting operation applied to this item's TSM group (%s)."], TSM.Groups.Path.Format(groupPath)))
 	end
 
 	-- check if it's an invalid operation
@@ -580,7 +580,7 @@ function Crafting.RestockHelp(link)
 
 		-- check that there's a profit
 		if not profit then
-			return print(L["There is a crafting cost and crafted item value, but TSM_Crafting wasn't able to calculate a profit. This shouldn't happen!"])
+			return print(L["There is a crafting cost and crafted item value, but TSM wasn't able to calculate a profit. This shouldn't happen!"])
 		end
 
 		local minProfit = TSMAPI_FOUR.CustomPrice.GetValue(opSettings.minProfit, itemString)
@@ -593,7 +593,7 @@ function Crafting.RestockHelp(link)
 		end
 	end
 
-	print(L["This item will be added to the queue when you restock its group. If this isn't happening, make a post on the TSM forums with a screenshot of the item's tooltip, operation settings, and your general TSM_Crafting options."])
+	print(L["This item will be added to the queue when you restock its group. If this isn't happening, make a post on the TSM forums with a screenshot of the item's tooltip, operation settings, and your general Crafting options."])
 end
 
 function Crafting.IgnoreCooldown(spellId)

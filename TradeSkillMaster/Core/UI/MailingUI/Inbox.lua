@@ -75,7 +75,7 @@ function private.GetViewContentFrame(viewContainer, path)
 end
 
 function private.GetInboxMailsFrame()
-	private.inboxQuery = private.inboxQuery or TSM.Inventory.MailTracking.CreateMailInboxQuery()
+	private.inboxQuery = private.inboxQuery or TSM.Mailing.Inbox.CreateQuery()
 	private.inboxQuery:ResetFilters()
 	private.inboxQuery:ResetOrderBy()
 	private.inboxQuery:OrderBy("index", true)
@@ -691,7 +691,10 @@ function private.SearchOnTextChanged(input)
 	input:SetText(private.filterText)
 
 	private.inboxQuery:ResetFilters()
-		:Matches("items", private.filterText)
+		:Or()
+			:Matches("itemList", private.filterText)
+			:Matches("subject", private.filterText)
+		:End()
 
 	input:GetElement("__parent.__parent.mails"):UpdateData(true)
 end

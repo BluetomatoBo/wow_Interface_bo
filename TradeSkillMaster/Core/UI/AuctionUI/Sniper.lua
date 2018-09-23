@@ -610,7 +610,7 @@ function private.FSMCreate()
 			:SetOnEnter(function(context)
 				local index = tremove(context.findResult, #context.findResult)
 				assert(index)
-				if context.auctionScan:ValidateIndex(index, context.findAuction) then
+				if context.auctionScan:ValidateIndex(index, context.findAuction, true) then
 					if context.scanType == "buyout" then
 						-- buy the auction
 						PlaceAuctionBid("list", index, context.findAuction:GetField("buyout"))
