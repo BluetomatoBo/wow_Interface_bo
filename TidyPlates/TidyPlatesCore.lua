@@ -789,10 +789,12 @@ do
 		local name, subText, text, texture, startTime, endTime, isTradeSkill, castID, notInterruptible
 
 		if channeled then
-			name, subText, text, texture, startTime, endTime, isTradeSkill, notInterruptible = UnitChannelInfo(unitid)
+			name, text, texture, startTime, endTime, isTradeSkill, notInterruptible = UnitChannelInfo(unitid)
+			--name, text, texture, startTimeMS, endTimeMS, isTradeSkill, notInterruptible = UnitChannelInfo("unit")
+
 			castBar:SetScript("OnUpdate", OnUpdateCastBarReverse)
 		else
-			name, subText, text, texture, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitCastingInfo(unitid)
+			name, text, texture, startTime, endTime, isTradeSkill, castID, notInterruptible = UnitCastingInfo(unitid)
 			castBar:SetScript("OnUpdate", OnUpdateCastBarForward)
 		end
 
@@ -804,7 +806,8 @@ do
 
 		visual.spelltext:SetText(text)
 		visual.spellicon:SetTexture(texture)
-		castBar:SetMinMaxValues( startTime, endTime )
+
+		castBar:SetMinMaxValues( startTime, endTime ) 
 
 		local r, g, b, a = 1, 1, 0, 1
 

@@ -2,6 +2,25 @@ Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   *.zip
 
 
+
+LIMP MODE!!
+
+---------------------------
+6.19.Alpha2
+---------------------------
+
+* Aura Widget: Migrated to 8.0 UnitAura function 
+
+---------------------------
+6.19.Alpha1
+---------------------------
+
+* HealerTrack - Error Fix - Needs testing
+* Tank Track - Error Fix - Needs Testing
+* Combo Point Widget - Fixed errors, events, combat event update - Needs more testing
+* Changed castbar catcher to use new return value structure (Fixes Statusbar error)
+* Updated sounds to SOUNDKIT ( IG_MAINMENU_OPTION_CHECKBOX_ON = 856)  (Fixes TidyPlatesUtility error)
+
 ---------------------------
 6.18.11
 ---------------------------
