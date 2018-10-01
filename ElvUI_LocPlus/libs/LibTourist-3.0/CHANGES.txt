@@ -1,0 +1,10 @@
+------------------------------------------------------------------------
+r211 | Odica | 2018-09-09 15:36:15 +0000 (Sun, 09 Sep 2018) | 3 lines
+Changed paths:
+   M /trunk/LibTourist-3.0.lua
+
+- added entrance portal coordinates for Waycrest Manor, Freehold, Tol Dagor and Shrine of the Storm
+- added 'dynamic' entrance portal coordinates (because Horde and Alliance have separate entrances) for Siege of Boralus and The MOTHERLODE!!
+- corrected entrance portal coordinates for The Underrot and Temple of Sethraliss
+------------------------------------------------------------------------
+
