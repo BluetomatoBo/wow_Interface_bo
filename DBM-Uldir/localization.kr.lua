@@ -20,6 +20,14 @@ L= DBM:GetModLocalization(2167)
 ---------------------------
 L= DBM:GetModLocalization(2146)
 
+L:SetWarningLocalization({
+	addsSoon		= "쓰레기 처리 장치 열림 - 곧 쫄 등장"
+})
+
+L:SetOptionLocalization({
+	addsSoon		= "쓰레기 처리 장치가 열리고 쫄 생성이 시작되면 사전 경고 보기"
+})
+
 ---------------------------
 -- Zek'vhozj --
 ---------------------------
@@ -30,7 +38,8 @@ L:SetTimerLocalization({
 })
 
 L:SetOptionLocalization({
-	timerOrbLands	 =	"타락의 보주가 나오면 타이머 바 보기"
+	timerOrbLands	 =	"타락의 보주가 나오면 타이머 바 보기",
+	EarlyTankSwap	 =	"산산조각을 맞으면 2번째 공허의 채찍을 기다리지 않고 바로 탱커 교대 경고 보기"
 })
 
 L:SetMiscLocalization({
@@ -45,8 +54,8 @@ L:SetMiscLocalization({
 L= DBM:GetModLocalization(2166)
 
 L:SetOptionLocalization({
-	ShowHighestFirst2	 =	"중첩이 높은 순서대로 정보 프레임에 끈질긴 감염 대상자 정렬 (중첩 낮은순 대신)",
-	ShowOnlyParty		 =	"내 파티원의 끈질긴 감염 중첩만 보기"
+	ShowHighestFirst2	 =	"중첩이 높은 순서대로 정보 프레임에 잔존하는 감염 대상자 정렬 (중첩 낮은순 대신)",
+	ShowOnlyParty		 =	"내 파티원의 잔존하는 감염 중첩만 보기"
 })
 
 L:SetMiscLocalization({
