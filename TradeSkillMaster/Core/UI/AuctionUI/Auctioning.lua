@@ -728,7 +728,7 @@ function private.EditBtnOnClick(button)
 end
 
 function private.BidBuyoutTextOnValueChanged(text, value)
-	value = TSMAPI_FOUR.Money.FromString(value)
+	value = TSM.Money.FromString(value)
 	if value > MAXIMUM_BID_PRICE then
 		value = MAXIMUM_BID_PRICE
 	end
@@ -832,11 +832,11 @@ function private.FSMCreate()
 			error("Invalid post time")
 		end
 
-		local bid = TSMAPI_FOUR.Money.FromString(detailsHeader1:GetElement("bid.text"):GetText())
-		local buyout = TSMAPI_FOUR.Money.FromString(detailsHeader1:GetElement("buyout.text"):GetText())
+		local bid = TSM.Money.FromString(detailsHeader1:GetElement("bid.text"):GetText())
+		local buyout = TSM.Money.FromString(detailsHeader1:GetElement("buyout.text"):GetText())
 		local stackSize = tonumber(currentRow:GetField("stackSize"))
 
-		header:GetElement("item.cost.text"):SetText(TSMAPI_FOUR.Money.ToString(GetAuctionDeposit(postTime, bid, buyout, stackSize, 1)))
+		header:GetElement("item.cost.text"):SetText(TSM.Money.ToString(GetAuctionDeposit(postTime, bid, buyout, stackSize, 1)))
 			:Draw()
 
 		ClearCursor()

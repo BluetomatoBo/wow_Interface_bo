@@ -772,7 +772,7 @@ function private.MoneyOnTextChanged(input)
 	if tonumber(text) then
 		private.money = tonumber(text)
 	else
-		private.money = TSMAPI_FOUR.Money.FromString(text) or 0
+		private.money = TSM.Money.FromString(text) or 0
 	end
 
 	private.UpdateSendFrame()

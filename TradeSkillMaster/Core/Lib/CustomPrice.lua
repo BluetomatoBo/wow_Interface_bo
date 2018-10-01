@@ -497,7 +497,7 @@ function private.ParsePriceString(str, badPriceSource)
 			if strmatch(strsub(str, minFindStart-1, minFindStart-1), "[0-9a-zA-Z]") or strmatch(strsub(str, minFindEnd+1, minFindEnd+1), "[0-9a-zA-Z]") then
 				return nil, L["Invalid gold value."]
 			end
-			local value = TSMAPI_FOUR.Money.FromString(minFindSub)
+			local value = TSM.Money.FromString(minFindSub)
 			if not value then
 				-- sanity check
 				return nil, L["Invalid function."]

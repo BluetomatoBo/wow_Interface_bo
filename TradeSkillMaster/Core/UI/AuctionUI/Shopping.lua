@@ -715,7 +715,7 @@ function private.BuyoutConfirmationShow(context, isBuy)
 				:SetStyle("fontHeight", 12)
 				:SetStyle("justifyH", "RIGHT")
 				:SetStyle("textColor", "#e2e2e2")
-				:SetText(TSMAPI_FOUR.Money.ToString(ceil(buyout / stackSize)))
+				:SetText(TSM.Money.ToString(ceil(buyout / stackSize)))
 			)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "buyout")
@@ -735,7 +735,7 @@ function private.BuyoutConfirmationShow(context, isBuy)
 				:SetStyle("fontHeight", 12)
 				:SetStyle("justifyH", "RIGHT")
 				:SetStyle("textColor", "#e2e2e2")
-				:SetText(TSMAPI_FOUR.Money.ToString(buyout))
+				:SetText(TSM.Money.ToString(buyout))
 			)
 		)
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "stacks")
@@ -1369,9 +1369,9 @@ function private.StackBtnOnClick(button)
 	-- always update buyout first
 	if private.perItem then
 		private.perItem = nil
-		local bid = TSMAPI_FOUR.Money.FromString(bidText:GetText())
+		local bid = TSM.Money.FromString(bidText:GetText())
 		bid = bid and (bid * stackSize + undercut) or record.displayedBid
-		local buyout = TSMAPI_FOUR.Money.FromString(buyoutText:GetText())
+		local buyout = TSM.Money.FromString(buyoutText:GetText())
 		buyout = buyout and (buyout * stackSize + undercut) or record.buyout
 		local stackSizeEdit = frame:GetElement("quantity.stackSize"):GetText()
 		stackSizeEdit = tonumber(stackSizeEdit)
@@ -1379,23 +1379,23 @@ function private.StackBtnOnClick(button)
 			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.ToString(buyout - undercut))
 			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(bid - undercut))
 		else
-			private.BuyoutTextOnValueChanged(buyoutText, TSMAPI_FOUR.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(record.buyout / stackSize) * stackSizeEdit) or 0)
+			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(record.buyout / stackSize) * stackSizeEdit) or 0)
 			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(floor(record.displayedBid / stackSize) * stackSizeEdit))
 		end
 		button:SetText(L["Per Stack"])
 	else
 		private.perItem = true
-		local bid = TSMAPI_FOUR.Money.FromString(bidText:GetText())
+		local bid = TSM.Money.FromString(bidText:GetText())
 		bid = bid and (bid + undercut * stackSize) or record.displayedBid
-		local buyout = TSMAPI_FOUR.Money.FromString(buyoutText:GetText())
+		local buyout = TSM.Money.FromString(buyoutText:GetText())
 		buyout = buyout and (buyout + undercut * stackSize) or record.buyout
 		local stackSizeEdit = frame:GetElement("quantity.stackSize"):GetText()
 		stackSizeEdit = tonumber(stackSizeEdit)
 		if stackSize == stackSizeEdit then
-			private.BuyoutTextOnValueChanged(buyoutText, TSMAPI_FOUR.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(buyout / stackSizeEdit) - undercut) or 0)
+			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(buyout / stackSizeEdit) - undercut) or 0)
 			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(floor(bid / stackSizeEdit) - undercut))
 		else
-			private.BuyoutTextOnValueChanged(buyoutText, TSMAPI_FOUR.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(record.buyout / stackSize)) or 0)
+			private.BuyoutTextOnValueChanged(buyoutText, TSM.Money.FromString(buyoutText:GetText()) > 0 and TSM.Money.ToString(floor(record.buyout / stackSize)) or 0)
 			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(floor(record.displayedBid / stackSize)))
 		end
 		button:SetText(L["Per Unit"])
@@ -1404,13 +1404,13 @@ function private.StackBtnOnClick(button)
 end
 
 function private.BidTextOnValueChanged(text, value)
-	value = TSMAPI_FOUR.Money.FromString(value)
+	value = TSM.Money.FromString(value)
 	if value > MAXIMUM_BID_PRICE then
 		value = MAXIMUM_BID_PRICE
 	end
 	if value then
 		local frame = text:GetParentElement():GetParentElement()
-		local buyout = TSMAPI_FOUR.Money.FromString(frame:GetElement("buyout.text"):GetText())
+		local buyout = TSM.Money.FromString(frame:GetElement("buyout.text"):GetText())
 		if private.perItem and buyout > 0 and value > buyout then
 			text:SetText(TSM.Money.ToString(buyout))
 		elseif not private.perItem and buyout > 0 and value > buyout then
@@ -1425,14 +1425,14 @@ function private.BidTextOnValueChanged(text, value)
 end
 
 function private.BuyoutTextOnValueChanged(text, value)
-	value = TSMAPI_FOUR.Money.FromString(value)
+	value = TSM.Money.FromString(value)
 	if value > MAXIMUM_BID_PRICE then
 		value = MAXIMUM_BID_PRICE
 	end
 	if value then
 		local frame = text:GetParentElement():GetParentElement()
 		local bidText = frame:GetElement("bid.text")
-		local bid = TSMAPI_FOUR.Money.FromString(bidText:GetText())
+		local bid = TSM.Money.FromString(bidText:GetText())
 		if value > 0 and bid > value then
 			private.BidTextOnValueChanged(bidText, TSM.Money.ToString(value))
 		end
@@ -1536,8 +1536,8 @@ function private.UpdateDepositCost(frame)
 		error("Invalid post time")
 	end
 
-	local bid = TSMAPI_FOUR.Money.FromString(frame:GetElement("bid.text"):GetText())
-	local buyout = TSMAPI_FOUR.Money.FromString(frame:GetElement("buyout.text"):GetText())
+	local bid = TSM.Money.FromString(frame:GetElement("bid.text"):GetText())
+	local buyout = TSM.Money.FromString(frame:GetElement("buyout.text"):GetText())
 	local num = tonumber(frame:GetElement("quantity.num"):GetText())
 	local stackSize = tonumber(frame:GetElement("quantity.stackSize"):GetText())
 	if not private.perItem then
@@ -1545,7 +1545,7 @@ function private.UpdateDepositCost(frame)
 		buyout = buyout / stackSize
 	end
 
-	frame:GetElement("deposit.text"):SetText(TSMAPI_FOUR.Money.ToString(GetAuctionDeposit(postTime, bid, buyout, stackSize, num)))
+	frame:GetElement("deposit.text"):SetText(TSM.Money.ToString(GetAuctionDeposit(postTime, bid, buyout, stackSize, num)))
 		:Draw()
 
 	ClearCursor()
@@ -1559,8 +1559,8 @@ function private.PostButtonOnClick(button)
 	local stackSize = frame:GetElement("quantity.stackSize"):GetText()
 	num = tonumber(num)
 	stackSize = tonumber(stackSize)
-	local bid = TSMAPI_FOUR.Money.FromString(frame:GetElement("bid.text"):GetText())
-	local buyout = TSMAPI_FOUR.Money.FromString(frame:GetElement("buyout.text"):GetText())
+	local bid = TSM.Money.FromString(frame:GetElement("bid.text"):GetText())
+	local buyout = TSM.Money.FromString(frame:GetElement("buyout.text"):GetText())
 	if private.perItem then
 		bid = bid * stackSize
 		buyout = buyout * stackSize

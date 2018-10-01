@@ -146,12 +146,12 @@ function ItemFilter.ParseStr(self, str)
 		elseif self:_ItemQualityToIndex(part) then
 			self._quality = self:_ItemQualityToIndex(part)
 			hasNonCraftingPart = true
-		elseif TSMAPI_FOUR.Money.FromString(part) then
+		elseif TSM.Money.FromString(part) then
 			if numPriceParts == 0 then
-				self._maxPrice = TSMAPI_FOUR.Money.FromString(part)
+				self._maxPrice = TSM.Money.FromString(part)
 			elseif numPriceParts == 1 then
 				self._minPrice = self._maxPrice
-				self._maxPrice = TSMAPI_FOUR.Money.FromString(part)
+				self._maxPrice = TSM.Money.FromString(part)
 			else
 				-- already have min / max price
 				self._isValid = false

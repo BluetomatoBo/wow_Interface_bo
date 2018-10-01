@@ -299,7 +299,7 @@ function private.MoneyOnTextChanged(input)
 	if tonumber(text) then
 		private.goldKeep = tonumber(text)
 	else
-		private.goldKeep = TSMAPI_FOUR.Money.FromString(text) or 0
+		private.goldKeep = TSM.Money.FromString(text) or 0
 	end
 
 	private.UpdateGoldButton()
