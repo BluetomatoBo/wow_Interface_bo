@@ -7,8 +7,7 @@ local L = WeakAuras.L
 -- WeakAuras/Options
 	L["-- Do not remove this comment, it is part of this trigger: "] = "-- Ne retirez pas ce commentaire, il fait partie de ce déclencheur : "
 	L["% of Progress"] = "% de progression"
-	--[[Translation missing --]]
-	L["%i auras selected"] = "%i auras selected"
+	L["%i auras selected"] = "%i auras sélectionnées"
 	L["%i Matches"] = "%i Correspondances"
 	L["%s Color"] = "%s Couleur"
 	L["%s total auras"] = "%s auras au total"

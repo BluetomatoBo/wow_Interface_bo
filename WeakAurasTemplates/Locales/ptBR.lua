@@ -184,8 +184,6 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Stagger"] = "Stagger"
 	--[[Translation missing --]]
-	L["Totems"] = "Totems"
-	--[[Translation missing --]]
 	L["Track the charge and proc, highlight while proc is active, turns red when out of range, blue on insufficient resources."] = "Track the charge and proc, highlight while proc is active, turns red when out of range, blue on insufficient resources."
 	--[[Translation missing --]]
 	L["Tracks the charge and the buff, highlight while the buff is active, blue on insufficient resources."] = "Tracks the charge and the buff, highlight while the buff is active, blue on insufficient resources."

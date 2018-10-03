@@ -142,6 +142,8 @@ L["Attach to End"] = "Attach to End"
 --[[Translation missing --]]
 L["Attach to Start"] = "Attach to Start"
 L["Attackable"] = "Attaccabile"
+--[[Translation missing --]]
+L["Attackable Target"] = "Attackable Target"
 L["Aura"] = "Aura"
 L["Aura Applied"] = "Aura applicata"
 L["Aura Applied Dose"] = "Parte di aura applicata"
@@ -1101,6 +1103,8 @@ L["Swing Timer"] = "Swing Timer"
 L["System"] = "System"
 --[[Translation missing --]]
 L["Tabard"] = "Tabard"
+--[[Translation missing --]]
+L["Talent Selected"] = "Talent Selected"
 --[[Translation missing --]]
 L["Talent selected"] = "Talent selected"
 --[[Translation missing --]]

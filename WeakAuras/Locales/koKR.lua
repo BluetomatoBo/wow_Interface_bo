@@ -95,6 +95,8 @@ L["Attach to End"] = "Attach to End"
 --[[Translation missing --]]
 L["Attach to Start"] = "Attach to Start"
 L["Attackable"] = "공격 가능"
+--[[Translation missing --]]
+L["Attackable Target"] = "Attackable Target"
 L["Aura"] = "효과"
 L["Aura Applied"] = "효과 적용"
 L["Aura Applied Dose"] = "효과 겹쳐짐"
@@ -682,6 +684,8 @@ L["Swing"] = "자동 공격"
 L["Swing Timer"] = "자동 공격 타이머"
 L["System"] = "시스템"
 L["Tabard"] = "겉옷"
+--[[Translation missing --]]
+L["Talent Selected"] = "Talent Selected"
 L["Talent selected"] = "선택된 특성"
 L["Talent Specialization"] = "특성 전문화"
 L["Tank"] = "방어 담당"

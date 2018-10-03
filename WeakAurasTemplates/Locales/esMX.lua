@@ -161,7 +161,6 @@ local L = WeakAuras.L
 	--[[Translation missing --]]
 	L["Specific Azerite Traits"] = "Specific Azerite Traits"
 	L["Stagger"] = "Tambaleo"
-	L["Totems"] = "Tótems"
 	--[[Translation missing --]]
 	L["Track the charge and proc, highlight while proc is active, turns red when out of range, blue on insufficient resources."] = "Track the charge and proc, highlight while proc is active, turns red when out of range, blue on insufficient resources."
 	--[[Translation missing --]]
