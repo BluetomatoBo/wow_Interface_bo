@@ -205,6 +205,11 @@ local function UpdateIconGrid(frame, unitid)
 			do
 				-- local name, _, icon, stacks, auraType, duration, expiration, caster, _, _, spellid = UnitAura(unitid, auraIndex, auraFilter)		-- UnitaAura pre-8.0
 
+--[[ 8.0
+name, icon, count, debuffType, duration, expirationTime, unitCaster, canStealOrPurge, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, isCastByPlayer, nameplateShowAll, timeMod, ...
+    = UnitAura("unit", index[, "filter"])
+
+--]]
 				local name, icon, stacks, auraType, duration, expiration, caster, purgable, personal, spellid = UnitAura(unitid, auraIndex, auraFilter)
 
 

@@ -3,7 +3,27 @@ Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.j
 
 
 
-LIMP MODE!!
+
+* Diagnostic Switch -  /tp info
+	- version, themes, hub output, in seperate window
+
+* Combo Points for all
+
+---------------------------
+6.19.1
+---------------------------
+
+* Fixed Hub PlaySound Error
+
+
+6.19.2 Forecast:
+
+* Diagnostic Switch -  /tp info
+	- version, themes, hub output, in seperate window
+
+* Combo Points for all
+
+
 
 ---------------------------
 6.19.Alpha2
