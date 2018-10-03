@@ -333,9 +333,8 @@ function private.ErrorHandler(msg, thread, errorTime)
 	-- show the error message if applicable
 	msg = gsub(msg, "%%", "%%%%")
 	if not private.errorFrame:IsVisible() then
-		if TSM.LOG_ERR and TSM.AnalyticsEvent and not IS_DEV_VERSION and not isManual then
+		if TSM.LOG_ERR and not IS_DEV_VERSION and not isManual then
 			TSM:LOG_ERR(msg)
-			TSM.AnalyticsEvent("ERROR", msg)
 		end
 		print("|cffff0000TradeSkillMaster:|r "..L["Looks like TradeSkillMaster has encountered an error. Please help the author fix this error by following the instructions shown."])
 		private.errorFrame.error = table.concat(errMsgParts, "\n")

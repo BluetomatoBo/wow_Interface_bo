@@ -34,13 +34,13 @@ function Open.KillThread()
 	private.isOpening = false
 end
 
-function Open.StartOpening(callback, autoRefresh, filterText, filterType)
+function Open.StartOpening(callback, autoRefresh, keepMoney, filterText, filterType)
 	TSMAPI_FOUR.Thread.Kill(private.thread)
 
 	private.isOpening = true
 
 	TSMAPI_FOUR.Thread.SetCallback(private.thread, callback)
-	TSMAPI_FOUR.Thread.Start(private.thread, autoRefresh, filterText, filterType)
+	TSMAPI_FOUR.Thread.Start(private.thread, autoRefresh, keepMoney, filterText, filterType)
 end
 
 function Open.GetLastCheckTime()
@@ -53,7 +53,7 @@ end
 -- Mail Opening Thread
 -- ============================================================================
 
-function private.OpenMailThread(autoRefresh, filterText, filterType)
+function private.OpenMailThread(autoRefresh, keepMoney, filterText, filterType)
 	while true do
 		local query = TSM.Mailing.Inbox.CreateQuery()
 		query:ResetOrderBy()
@@ -76,7 +76,7 @@ function private.OpenMailThread(autoRefresh, filterText, filterType)
 
 		query:Release()
 
-		private.OpenMails(mails, filterType)
+		private.OpenMails(mails, keepMoney, filterType)
 
 		TSMAPI_FOUR.Thread.ReleaseSafeTempTable(mails)
 
@@ -100,7 +100,7 @@ function private.CanOpenMail()
 	return not C_Mail.IsCommandPending()
 end
 
-function private.OpenMails(mails, filterType)
+function private.OpenMails(mails, keepMoney, filterType)
 	for i = 1, #mails do
 		local index = mails[i]
 		TSMAPI_FOUR.Thread.WaitForFunction(private.CanOpenMail)
@@ -111,11 +111,14 @@ function private.OpenMails(mails, filterType)
 			if CalculateTotalNumberOfFreeBagSlots() <= TSM.db.global.mailingOptions.keepMailSpace then
 				return
 			end
-			AutoLootMailItem(index)
+			local _, _, _, _, money = GetInboxHeaderInfo(index)
+			if not keepMoney or (keepMoney and money <= 0) then
+				AutoLootMailItem(index)
 
-			if TSMAPI_FOUR.Thread.WaitForEvent("CLOSE_INBOX_ITEM", "MAIL_FAILED") ~= "MAIL_FAILED" then
-				if TSM.db.global.mailingOptions.inboxMessages then
-					private.PrintOpenMailMessage(index)
+				if TSMAPI_FOUR.Thread.WaitForEvent("CLOSE_INBOX_ITEM", "MAIL_FAILED") ~= "MAIL_FAILED" then
+					if TSM.db.global.mailingOptions.inboxMessages then
+						private.PrintOpenMailMessage(index)
+					end
 				end
 			end
 		end

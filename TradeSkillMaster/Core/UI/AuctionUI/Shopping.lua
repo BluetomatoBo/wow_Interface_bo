@@ -82,6 +82,7 @@ end
 -- ============================================================================
 
 function private.GetShoppingFrame()
+	TSM.Analytics.PageView("auction/shopping")
 	if not private.hasLastScan then
 		private.contentPath = "selection"
 	end

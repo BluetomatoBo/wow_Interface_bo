@@ -153,6 +153,7 @@ end
 -- ============================================================================
 
 function private.GetOperationsFrame()
+	TSM.Analytics.PageView("main/operations")
 	local frame = TSMAPI_FOUR.UI.NewElement("DividedContainer", "operations")
 		:SetStyle("background", "#272727")
 		:SetContextTable(private.dividedContainerContext, DEFAULT_DIVIDED_CONTAINER_CONTEXT)

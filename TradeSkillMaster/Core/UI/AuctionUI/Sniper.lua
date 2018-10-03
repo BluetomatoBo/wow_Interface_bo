@@ -30,6 +30,7 @@ end
 -- ============================================================================
 
 function private.GetSniperFrame()
+	TSM.Analytics.PageView("auction/sniper")
 	if not private.hasLastScan then
 		private.contentPath = "selection"
 	end

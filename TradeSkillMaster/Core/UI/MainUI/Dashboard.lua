@@ -46,6 +46,7 @@ end
 -- ============================================================================
 
 function private.GetDashboardFrame()
+	TSM.Analytics.PageView("main/dashboard")
 	private.SetGraphSettings()
 	private.PopulateData()
 

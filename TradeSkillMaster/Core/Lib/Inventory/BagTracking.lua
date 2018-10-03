@@ -118,7 +118,7 @@ function BagTracking.ForceBankQuantityDeduction(itemString, quantity)
 		:End()
 	for _, row in query:Iterator() do
 		if quantity > 0 then
-			local rowQuantity, rowBag = row:GetField("quantity", "bag")
+			local rowQuantity, rowBag = row:GetFields("quantity", "bag")
 			if rowQuantity <= quantity then
 				TSM.Inventory.ChangeBagItemTotal(rowBag, itemString, -rowQuantity)
 				private.db:DeleteRow(row)

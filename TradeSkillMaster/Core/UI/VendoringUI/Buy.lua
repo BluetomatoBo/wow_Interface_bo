@@ -33,6 +33,7 @@ end
 -- ============================================================================
 
 function private.GetFrame()
+	TSM.Analytics.PageView("vendoring/buy")
 	private.filterText = ""
 	if not private.query then
 		private.query = TSM.Vendoring.Buy.CreateMerchantQuery()

@@ -51,6 +51,7 @@ end
 -- ============================================================================
 
 function private.GetAuctioningFrame()
+	TSM.Analytics.PageView("auction/auctioning")
 	if not private.hasLastScan then
 		private.contentPath = "selection"
 	end
@@ -1126,9 +1127,14 @@ function private.FSMCreate()
 			:AddTransition("ST_HANDLING_CONFIRM")
 			:AddEvent("EV_PROCESS_CLICKED", function(context)
 				if context.scanType == "POST" then
-					if not TSM.Auctioning.PostScan.DoProcess() then
-						-- we failed to post but can retry
-						return "ST_HANDLING_CONFIRM", false, true
+					if GetMoney() >= TSM.Money.FromString(context.scanFrame:GetElement("header.item.cost.text"):GetText()) then
+						if not TSM.Auctioning.PostScan.DoProcess() then
+							-- we failed to post but can retry
+							return "ST_HANDLING_CONFIRM", false, true
+						end
+					else
+						UIErrorsFrame:AddMessage(ERR_NOT_ENOUGH_MONEY, 1.0, 0.1, 0.1, 1.0)
+						TSM.Auctioning.PostScan.DoSkip()
 					end
 				elseif context.scanType == "CANCEL" then
 					if not TSM.Auctioning.CancelScan.DoProcess() then

@@ -69,6 +69,7 @@ end
 -- ============================================================================
 
 function private.CreateMainFrame()
+	TSM.Analytics.PageView("banking")
 	local frame = TSMAPI_FOUR.UI.NewElement("ApplicationFrame", "base")
 		:SetTextureSet("LARGE", "SMALL")
 		:SetParent(UIParent)

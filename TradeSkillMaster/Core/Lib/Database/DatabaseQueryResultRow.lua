@@ -65,7 +65,10 @@ local ROW_PROTOTYPE = {
 		return uuid
 	end,
 
-	GetField = function(self, field)
+	GetField = function(self, field, ...)
+		if ... then
+			error("GetField() only supports 1 field")
+		end
 		return self[field]
 	end,
 

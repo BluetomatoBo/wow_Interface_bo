@@ -53,6 +53,7 @@ end
 -- ============================================================================
 
 function private.GetCraftingFrame()
+	TSM.Analytics.PageView("crafting/crafting")
 	return TSMAPI_FOUR.UI.NewElement("DividedContainer", "crafting")
 		:SetContextTable(private.dividedContainerContext, DEFAULT_DIVIDED_CONTAINER_CONTEXT)
 		:SetMinWidth(450, 250)
@@ -765,12 +766,17 @@ function private.FSMCreate()
 		private.fsm:ProcessEvent("EV_SKILL_UPDATE")
 	end
 	function fsmPrivate.UpdateMaterials(context)
-		context.frame:GetElement("left.viewContainer.main.content.profession.recipeContent.recipeList"):UpdateData(true)
-		context.frame:GetElement("left.viewContainer.main.content.profession.recipeContent.details.right.matList"):UpdateData(true)
-
+		if context.page == "profession" then
+			context.frame:GetElement("left.viewContainer.main.content.profession.recipeContent.recipeList"):UpdateData(true)
+			context.frame:GetElement("left.viewContainer.main.content.profession.recipeContent.details.right.matList"):UpdateData(true)
+		end
 		fsmPrivate.UpdateCraftButtons(context)
 	end
 	function fsmPrivate.UpdateSkills(context)
+		if context.page ~= "profession" then
+			return
+		end
+
 		-- update the professions dropdown info
 		local dropdownSelection = nil
 		local currentProfession = TSM.Crafting.ProfessionState.GetCurrentProfession()

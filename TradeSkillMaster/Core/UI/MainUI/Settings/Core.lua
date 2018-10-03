@@ -146,6 +146,7 @@ end
 -- ============================================================================
 
 function private.GetSettingsFrame()
+	TSM.Analytics.PageView("main/settings")
 	local defaultPage = private.settingPages.top[1]
 	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "settings")
 		:SetLayout("HORIZONTAL")

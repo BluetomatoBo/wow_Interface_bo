@@ -37,6 +37,7 @@ end
 -- ============================================================================
 
 function private.CreateMainFrame()
+	TSM.Analytics.PageView("vendoring")
 	local frame = TSMAPI_FOUR.UI.NewElement("LargeApplicationFrame", "base")
 		:SetParent(UIParent)
 		:SetMinResize(MIN_FRAME_SIZE.width, MIN_FRAME_SIZE.height)

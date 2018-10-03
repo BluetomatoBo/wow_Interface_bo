@@ -49,6 +49,7 @@ end
 -- ============================================================================
 
 function private.GetGroupsFrame()
+	TSM.Analytics.PageView("main/groups")
 	private.currentGroupPath = TSM.CONST.ROOT_GROUP_PATH
 	local frame = TSMAPI_FOUR.UI.NewElement("DividedContainer", "groups")
 		:SetStyle("background", "#272727")

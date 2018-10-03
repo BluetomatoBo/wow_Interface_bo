@@ -66,6 +66,7 @@ end
 -- ============================================================================
 
 function private.GetSendFrame()
+	TSM.Analytics.PageView("mailing/send")
 	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "send")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "container")

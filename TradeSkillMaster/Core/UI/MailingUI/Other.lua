@@ -37,6 +37,7 @@ end
 -- ============================================================================
 
 function private.GetOtherFrame()
+	TSM.Analytics.PageView("mailing/other")
 	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "other")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "container")

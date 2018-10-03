@@ -30,6 +30,7 @@ end
 -- ============================================================================
 
 function private.GetFrame()
+	TSM.Analytics.PageView("vendoring/buyback")
 	private.query = private.query or TSM.Vendoring.Buyback.CreateQuery()
 	private.query:ResetOrderBy()
 	private.query:OrderBy("name", true)

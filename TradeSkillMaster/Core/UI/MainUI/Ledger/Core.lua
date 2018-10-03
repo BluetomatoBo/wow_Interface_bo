@@ -68,6 +68,7 @@ end
 -- ============================================================================
 
 function private.GetLedgerFrame()
+	TSM.Analytics.PageView("main/ledger")
 	local defaultPage = private.pages[1]
 	local frame = TSMAPI_FOUR.UI.NewElement("Frame", "ledger")
 		:SetLayout("HORIZONTAL")

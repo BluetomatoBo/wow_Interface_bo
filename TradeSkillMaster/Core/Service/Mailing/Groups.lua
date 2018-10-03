@@ -42,6 +42,7 @@ end
 
 function private.GroupsMailThread(groupList, sendRepeat)
 	while true do
+		local targets = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
 		for _, groupPath in ipairs(groupList) do
 			local reserved = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
 			for _, _, operationSettings in TSM.Operations.GroupOperationIterator("Mailing", groupPath) do
@@ -49,29 +50,34 @@ function private.GroupsMailThread(groupList, sendRepeat)
 					-- TODO
 				else
 					if operationSettings.target ~= "" then
-						local items = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
+						if not targets[operationSettings.target] then
+							targets[operationSettings.target] = TSMAPI_FOUR.Thread.AcquireSafeTempTable()
+						end
 						for _, itemString in TSM.Groups.ItemIterator(groupPath) do
 							itemString = TSMAPI_FOUR.Item.ToBaseItemString(itemString, true)
 							local quantity = private.GetItemQuantity(itemString, reserved, operationSettings)
 							if TSMAPI_FOUR.PlayerInfo.IsPlayer(operationSettings.target) then
 								reserved[itemString] = quantity
 							elseif quantity > 0 then
-								items[itemString] = quantity
+								targets[operationSettings.target][itemString] = quantity
 							end
 						end
-
-						if not TSMAPI_FOUR.PlayerInfo.IsPlayer(operationSettings.target) and next(items) then
-							private.SendItems(operationSettings.target, items)
-							TSMAPI_FOUR.Thread.Sleep(0.5)
-						end
-
-						TSMAPI_FOUR.Thread.ReleaseSafeTempTable(items)
 					end
 				end
 			end
 
 			TSMAPI_FOUR.Thread.ReleaseSafeTempTable(reserved)
 		end
+
+		for name, items in pairs(targets) do
+			if not TSMAPI_FOUR.PlayerInfo.IsPlayer(name) and next(items) then
+				private.SendItems(name, items)
+				TSMAPI_FOUR.Thread.Sleep(0.5)
+			end
+			TSMAPI_FOUR.Thread.ReleaseSafeTempTable(items)
+		end
+
+		TSMAPI_FOUR.Thread.ReleaseSafeTempTable(targets)
 
 		if sendRepeat then
 			TSMAPI_FOUR.Thread.Sleep(TSM.db.global.mailingOptions.resendDelay * 60)

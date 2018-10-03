@@ -179,6 +179,7 @@ end
 -- ============================================================================
 
 function private.GetOuterFrame()
+	TSM.Analytics.PageView("main/import_export")
 	return TSMAPI_FOUR.UI.NewElement("ViewContainer", "ImportExportOuterViewContainer")
 		:SetNavCallback(private.GetImportExportOuterViewContainerCallback)
 		:AddPath("import", true)

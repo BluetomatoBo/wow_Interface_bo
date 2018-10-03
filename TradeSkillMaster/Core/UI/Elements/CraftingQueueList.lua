@@ -226,7 +226,7 @@ function CraftingQueueList._SetRowData(self, row, data)
 		local spellId = data:GetField("spellId")
 		local numCraftable = TSM.Crafting.ProfessionUtil.GetNumCraftableFromDB(spellId)
 		local numQueued = data:GetField("num")
-		local numTextColor = numCraftable >= numQueued and "|cff2cec0d" or "|cfff21319"
+		local numTextColor = numCraftable >= numQueued and "|cff2cec0d" or numCraftable > 0 and "|cffff6600" or "|cfff21319"
 		row._texts.num:SetText(numTextColor..numQueued.."|r")
 		row._texts.num:Show()
 		local itemString = TSM.Crafting.GetItemString(spellId)

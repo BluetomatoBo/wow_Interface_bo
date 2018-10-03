@@ -120,6 +120,7 @@ end
 -- ============================================================================
 
 function private.CreateMainFrame()
+	TSM.Analytics.PageView("task_list")
 	local frame = TSMAPI_FOUR.UI.NewElement("OverlayApplicationFrame", "base")
 		:SetParent(UIParent)
 		:SetStylesheet(BASE_STYLESHEET)

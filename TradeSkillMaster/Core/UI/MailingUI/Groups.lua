@@ -32,6 +32,7 @@ end
 -- ============================================================================
 
 function private.GetGroupsFrame()
+	TSM.Analytics.PageView("mailing/groups")
 	return TSMAPI_FOUR.UI.NewElement("Frame", "groups")
 		:SetLayout("VERTICAL")
 		:AddChild(TSMAPI_FOUR.UI.NewElement("Frame", "container")

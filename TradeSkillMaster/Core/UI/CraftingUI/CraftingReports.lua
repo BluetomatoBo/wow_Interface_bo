@@ -28,6 +28,7 @@ end
 -- ============================================================================
 
 function private.GetCraftingReportsFrame()
+	TSM.Analytics.PageView("crafting/crafting_reports")
 	private.craftsQuery = private.craftsQuery or TSM.Crafting.CreateCraftsQuery()
 	private.craftsQuery:ResetFilters()
 	private.craftsQuery:ResetOrderBy()

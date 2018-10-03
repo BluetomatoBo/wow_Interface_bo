@@ -7,8 +7,12 @@
 -- ------------------------------------------------------------------------------ --
 
 local _, TSM = ...
-local private = { events = {}, lastEventTime = nil }
+local Analytics = TSM:NewPackage("Analytics")
+local private = { events = {}, lastEventTime = nil, argsTemp = {} }
 local MAX_ANALYTICS_AGE = 14 * 24 * 60 * 60 -- 2 weeks
+local HIT_TYPE_IS_VALID = {
+	PV = true,
+}
 
 
 
@@ -16,22 +20,12 @@ local MAX_ANALYTICS_AGE = 14 * 24 * 60 * 60 -- 2 weeks
 -- Module Functions
 -- ============================================================================
 
-function TSM.AnalyticsEvent(event, arg)
-	if arg == nil then
-		arg = ""
-	end
-	assert(type(event) == "string" and strmatch(event, "^[A-Z_]+$"))
-	assert(type(arg) == "string" or type(arg) == "number" or type(arg) == "boolean")
-	arg = "\""..gsub(tostring(arg), "\"", "'").."\""
-	event = "\""..event.."\""
-	local name = "\"TradeSkillMaster\""
-	local version = TSM:GetVersion()
-	version = "\""..(version or "").."\""
-	tinsert(private.events, "["..strjoin(",", name, event, version, arg, time()).."]")
-	private.lastEventTime = time()
+function Analytics.PageView(path)
+	assert(type(path) == "string" and strmatch(path, "^[a-zA-Z_%-0-9/]+$"))
+	private.InsertHit("PV", path)
 end
 
-function TSM.SaveAnalytics(appDB)
+function Analytics.Save(appDB)
 	appDB.analytics = appDB.analytics or {updateTime=0, data={}}
 	if private.lastEventTime then
 		appDB.analytics.updateTime = private.lastEventTime
@@ -46,4 +40,33 @@ function TSM.SaveAnalytics(appDB)
 	for _, event in ipairs(private.events) do
 		tinsert(appDB.analytics.data, event)
 	end
+end
+
+
+
+-- ============================================================================
+-- Private Helper Functions
+-- ============================================================================
+
+function private.InsertHit(hitType, ...)
+	assert(HIT_TYPE_IS_VALID[hitType])
+	wipe(private.argsTemp)
+	for i = 1, select("#", ...) do
+		local arg = select(i, ...)
+		local argType = type(arg)
+		if argType == "string" then
+			arg = private.AddQuotes(arg)
+		elseif argType == "number" then
+			-- pass
+		else
+			error("Invalid arg type: "..argType)
+		end
+		tinsert(private.argsTemp, arg)
+	end
+	tinsert(private.events, "["..strjoin(",", private.AddQuotes(hitType), private.AddQuotes(TSM:GetVersion() or "???"), time(), unpack(private.argsTemp)).."]")
+	private.lastEventTime = time()
+end
+
+function private.AddQuotes(str)
+	return "\""..str.."\""
 end

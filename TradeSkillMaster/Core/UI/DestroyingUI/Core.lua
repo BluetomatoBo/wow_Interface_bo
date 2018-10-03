@@ -46,6 +46,7 @@ end
 -- ============================================================================
 
 function private.CreateMainFrame()
+	TSM.Analytics.PageView("destroying")
 	private.query = private.query or TSM.Destroying.CreateBagQuery()
 	private.query:ResetOrderBy()
 	private.query:OrderBy("name", true)
