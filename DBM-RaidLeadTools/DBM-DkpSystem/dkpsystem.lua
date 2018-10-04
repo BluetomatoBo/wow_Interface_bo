@@ -110,7 +110,7 @@ do
 
 			local DKPto = "RAID"
 			local pltable = {{text=L.AllPlayers, value="RAID"}}
-			local dkpfor 	= area:CreateDropdown(L.ChatChannel, pltable, "RAID", function(value) DKPto = value end)
+			local dkpfor 	= area:CreateDropdown(L.ChatChannel, pltable, nil, "RAID", function(value) DKPto = value end)
 			dkpfor:SetPoint("TOPLEFT", neweventpoints, "BOTTOMLEFT", -25, -5)
 			dkpfor:SetScript("OnShow", function(self)
 				if GetNumGroupMembers() > 0 and IsInRaid() then

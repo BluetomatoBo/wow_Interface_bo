@@ -142,7 +142,7 @@ do
 			for i=1, GuildControlGetNumRanks(), 1 do
 				table.insert(Ranks, { text=i..". "..GuildControlGetRankName(i),value=i })
 			end
-			local AOEbyGuildRank = area:CreateDropdown(L.AOEbyGuildRank, Ranks, settings.lastaoerank, function(value) settings.lastaoerank = tonumber(value) end, 200)
+			local AOEbyGuildRank = area:CreateDropdown(L.AOEbyGuildRank, Ranks, nil, settings.lastaoerank, function(value) settings.lastaoerank = tonumber(value) end, 200)
 			AOEbyGuildRank:SetScript("OnShow", function(self) 
 				table.wipe(Ranks)
 				for i=1, GuildControlGetNumRanks(), 1 do

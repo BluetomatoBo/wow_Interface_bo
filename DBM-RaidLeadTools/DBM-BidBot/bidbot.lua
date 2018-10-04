@@ -46,7 +46,7 @@ local settings = default_settings
 
 local L = DBM_BidBot_Translations
 
-local revision = ("$Revision: 118 $"):sub(12, -3)
+local revision = ("$Revision: 121 $"):sub(12, -3)
 
 local BidBot_Queue = {}			-- items pending
 local BidBot_Biddings = {}		-- current bids
@@ -135,16 +135,16 @@ do
 					{text=L.Raid,	value="RAID"},
 					{text=L.Party,	value="PARTY"}
 				}
-				for i=1, select("#", GetChannelList()), 2 do		
+				for i=1, select("#", GetChannelList()), 3 do		
 					local chanid, channame = select(i, GetChannelList())
-					if chanid > 4 then
+					if chanid > 3 then
 						table.insert(channels, {
 							text = channame,
 							value = channame
 						})
 					end
 				end
-				chatchannel 	= area:CreateDropdown(L.ChatChannel, channels, settings.chatchannel, function(value) settings.chatchannel = value end)
+				chatchannel 	= area:CreateDropdown(L.ChatChannel, channels, nil, settings.chatchannel, function(value) settings.chatchannel = value end)
 			end
 
 			local minGebot	 	= area:CreateEditBox(L.MinBid, settings.keyword, 100)
