@@ -12,6 +12,7 @@ local format = string.format
 
 -- WoW
 local GetTime = GetTime
+local Transmog = AtlasLoot.Transmog:New()
 
 local LastRefresh = GetTime()
 local PAGE_NAME_DIFF = "%s (%s)"
@@ -33,6 +34,7 @@ function ItemFrame:Create()
 	frame.Refresh = ItemFrame.Refresh
 	frame.Clear = ItemFrame.Clear
 	frame.OnClassFilterUpdate = ItemFrame.OnClassFilterUpdate
+	frame.OnTransMogUpdate = ItemFrame.OnTransMogUpdate
 	
 	frame.ItemButtons = {}
 	for i=1,30 do
@@ -91,6 +93,38 @@ function ItemFrame.OnClassFilterUpdate(filterTab)
 	else
 		for i=1,30 do
 			ItemFrame.frame.ItemButtons[i]:SetAlpha(1)
+		end
+	end
+end
+
+local function TransmogCallback(button, collected)
+	--print(button.ItemString, collected)
+	if collected == nil then
+		button.highlightBg:Hide()
+	elseif collected == false then
+		button.highlightBg:SetColorTexture(1,0,0)
+		button.highlightBg:Show()
+	elseif collected == true then
+		button.highlightBg:SetColorTexture(0,1,0)
+		button.highlightBg:Show()
+	end
+end
+
+function ItemFrame.OnTransMogUpdate()
+	if AtlasLoot.db.GUI.transMogHighlighter then
+		Transmog:Clear()
+		local button
+		for i = 1,30 do
+			button = ItemFrame.frame.ItemButtons[i]
+			if button.ItemString or button.ItemID then
+				Transmog:IsItemUnlocked(button.ItemString or button.ItemID, nil, TransmogCallback, button)
+			else
+				button.highlightBg:Hide()
+			end
+		end
+	else
+		for i = 1,30 do
+			ItemFrame.frame.ItemButtons[i].highlightBg:Hide()
 		end
 	end
 end
@@ -161,6 +195,7 @@ function ItemFrame:Refresh(skipProtect)
 		]]--
 	end
 	ItemFrame.OnClassFilterUpdate()
+	ItemFrame.OnTransMogUpdate()
 end
 
 function ItemFrame.Clear()

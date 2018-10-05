@@ -19,7 +19,7 @@ local AL = AtlasLoot.Locales
 
 local RF_DIFF = data:AddDifficulty(AL["Raid Finder"], "LFRWithPreset", {
 	Item = {
-		item2bonus = "LegionMaxTitanforgedByBaseLvl",
+		item2bonus = "BfAMaxItemLvl",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
 	},
@@ -32,7 +32,7 @@ local NORMAL_DIFF = data:AddDifficulty(AL["Normal"], "n", {
 }, 1)
 local NORMAL_RAID_DIFF = data:AddDifficulty(AL["Normal"], "NormalRaidWithPreset", {
 	Item = {
-		item2bonus = "LegionMaxTitanforgedByBaseLvl",
+		item2bonus = "BfAMaxItemLvl",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
 	},
@@ -40,7 +40,7 @@ local NORMAL_RAID_DIFF = data:AddDifficulty(AL["Normal"], "NormalRaidWithPreset"
 local NORMAL_DUNGEON_DIFF = data:AddDifficulty(AL["Normal"], "DungeonWithPreset", {
 	Item = {
 		item1bonus = "Scaling",
-		item2bonus = "BfADungeonTitanforged",
+		item2bonus = "BfAMaxItemLvl",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
 	},
@@ -48,7 +48,7 @@ local NORMAL_DUNGEON_DIFF = data:AddDifficulty(AL["Normal"], "DungeonWithPreset"
 local HEROIC_DIFF = data:AddDifficulty(AL["Heroic"], "h", nil, 2)
 local HEROIC_DUNGEON_DIFF = data:AddDifficulty(AL["Heroic"], "HeroicDungeonWithPreset", {
 	Item = {
-		item2bonus = "BfAHCDungeonTitanforged",
+		item2bonus = "BfAMaxItemLvl", --"BfAHCDungeonTitanforged",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
 	},
@@ -56,7 +56,7 @@ local HEROIC_DUNGEON_DIFF = data:AddDifficulty(AL["Heroic"], "HeroicDungeonWithP
 local MYTHICD_DIFF = data:AddDifficulty(AL["Mythic"], "h", nil, 23)
 local MYTHICD_DUNGEON_DIFF = data:AddDifficulty(AL["Mythic"], "MythicDungeonWithPreset", {
 	Item = {
-		item2bonus = "BfAMDungeonTitanforged",
+		item2bonus = "BfAMaxItemLvl",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
 	},
@@ -65,14 +65,14 @@ local MYTHICD2_DIFF = data:AddDifficulty(AL["Mythic"], "h", nil, 23)
 local MYTHICD2_DUNGEON_DIFF = data:AddDifficulty(AL["Mythic"], "MythicDungeon2WithPreset", {
 	Item = {
 		item1bonus = "LegionMDungeon2",
-		item2bonus = "LegionMDungeon2Titanforged",
+		item2bonus = "BfAMaxItemLvl",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
 	},
 }, 23)
 local HEROIC_PRE_DIFF = data:AddDifficulty(AL["Heroic"], "HeroicWithPreset", {
 	Item = {
-		item2bonus = "LegionMaxTitanforgedByBaseLvl",
+		item2bonus = "BfAMaxItemLvl",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
 	},
@@ -80,7 +80,7 @@ local HEROIC_PRE_DIFF = data:AddDifficulty(AL["Heroic"], "HeroicWithPreset", {
 local MYTHIC_DIFF = data:AddDifficulty(AL["Mythic"], "m", nil, 16)
 local MYTHIC_PRE_DIFF = data:AddDifficulty(AL["Mythic"], "MyhticWithPreset", {
 	Item = {
-		item2bonus = "LegionMaxTitanforgedByBaseLvl",
+		item2bonus = "BfAMaxItemLvl",
 		autoCompleteItem2 = true,
 		addDifficultyBonus = true,
 	},
@@ -105,6 +105,30 @@ local BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE = {	--[BattleforAzeroth Dungeon Her
 		{ 3, 12484 },			{ 18, 12832 },
 		{ 4, 12837 },			{ 19, 12825 },
 		{ 5, 12841 },			{ 20, 12845 },
+	},
+}
+
+local BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE = {	--[Glory of the Wartorn Hero]
+	name = select(2, GetAchievementInfo(12812)),
+	TableType = AC_ITTYPE,
+	ExtraList = true,
+	CoinTexture = "Achievement",
+	[MYTHIC_DIFF] = {
+		{ 1, 12812, --[["mount250735"]] },
+		{ 2, 12550 },			{ 17, 12548 },
+		{ 3, 12998 },			{ 18, 12489 },
+		{ 4, 12495 },			{ 19, 12490 },
+		{ 5, 12600 },			{ 20, 12601 },
+		{ 6, 12602 },			{ 21, 12270 },
+		{ 7, 12272 },			{ 22, 12273 },
+		{ 8, 12549 },			{ 23, 12498 },
+		{ 9, 12499 },			{ 24, 12503 },
+		{ 10, 12507 },			{ 25, 12508 },
+		{ 11, 12457 },			{ 26, 12462 },
+		{ 12, 12855 },			{ 27, 12854 },
+		{ 13, 12727 },			{ 28, 12726 },
+		{ 14, 12722 },			{ 29, 12723 },
+		{ 15, 12721 },
 	},
 }
 -- /////////////////////////////////
@@ -220,6 +244,7 @@ data["Atal'Dazar"] = {
 			},
 		},
 		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
+		BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE,
 	}
 }
 
@@ -244,6 +269,8 @@ data["Freehold"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12548" }, -- AC: Mythic: Freehold "I'm in Charge Now!"
+				{ 17, "ac12550" }, -- AC: Mythic: Freehold "Pecking Order"
 			},
 		},
 		{ -- Council o' Captains
@@ -263,6 +290,7 @@ data["Freehold"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12550" }, -- AC: Mythic: Freehold "Pecking Order"
 			},
 		},
 		{ -- Ring of Booty
@@ -283,6 +311,7 @@ data["Freehold"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12550" }, -- AC: Mythic: Freehold "Pecking Order"
 			},
 		},
 		{ -- Harlan Sweete
@@ -298,14 +327,22 @@ data["Freehold"] = {
 				{ 8, 159635 }, -- Bloody Tideturner
 				{ 9, 155885 }, -- Sea-Brawler's Greathelm
 				{ 10, 158301 }, -- Ruffled Poet Blouse
+				{ 16, "ac12831" }, -- AC: Freehold
 			},
 			[HEROIC_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12832" }, -- AC: Heroic: Freehold
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12833" }, -- AC: Mythic: Freehold
+				{ 17, "ac12998" }, -- AC: Mythic: Freehold "That Sweete Booty"
+				{ 18, "ac12550" }, -- AC: Mythic: Freehold "Pecking Order"
+				{ 19, "ac12999" }, -- AC: Mythic: Freehold Guild Run
 			},
 		},
+		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
+		BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE,
 	}
 }
 
@@ -326,6 +363,7 @@ data["Kings' Rest"] = {
 				{ 6, 159369 }, -- Belt of the Consecrated Tomb
 				{ 7, 159412 }, -- Auric Puddle Stompers
 				{ 8, 159304 }, -- Goldfeather Boots
+				{ 16, "ac12722" }, -- AC: Mythic: Kings' Rest "It Belongs in a Mausoleum!"
 			},
 		},
 		{ -- Mchimba the Embalmer
@@ -338,6 +376,8 @@ data["Kings' Rest"] = {
 				{ 5, 159642 }, -- Royal Purifier's Spade
 				{ 6, 159459 }, -- Ritual Binder's Ring
 				{ 7, 159667 }, -- Vessel of Last Rites
+				{ 16, "ac12721" }, -- AC: Mythic: Kings' Rest "Wrap God"
+				{ 17, "ac12722" }, -- AC: Mythic: Kings' Rest "It Belongs in a Mausoleum!"
 			},
 		},
 		{ -- The Council of Tribes
@@ -351,6 +391,7 @@ data["Kings' Rest"] = {
 				{ 6, 159243 }, -- Sandals of Wise Voodoo
 				{ 7, 159643 }, -- Crossbow of Forgotten Majesty
 				{ 8, 159418 }, -- Girdle of Pestilent Purification
+				{ 16, "ac12722" }, -- AC: Mythic: Kings' Rest "It Belongs in a Mausoleum!"
 			},
 		},
 		{ -- Dazar, The First King
@@ -367,8 +408,13 @@ data["Kings' Rest"] = {
 				{ 9, 159423 }, -- Pauldrons of the Great Unifier
 				{ 10, 158355 }, -- Loa-Blessed Chestguard
 				{ 11, 159303 }, -- Vest of Reverent Adoration
+				{ 16, "ac12848" }, -- AC: Mythic: Kings' Rest
+				{ 16, "ac12723" }, -- AC: Mythic: Kings' Rest "How to Keep a Mummy"
+				{ 16, "ac13008" }, -- AC: Mythic: Kings' Rest Guild Run 
 			},
 		},
+		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
+		BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE,
 	}
 }
 
@@ -393,6 +439,7 @@ data["Shrine of the Storm"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12600" }, -- AC: Mythic: Shrine of the Storm "Breath of the Shrine"
 			},
 		},
 		{ -- Tidesage Council
@@ -411,6 +458,7 @@ data["Shrine of the Storm"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12600" }, -- AC: Mythic: Shrine of the Storm "Breath of the Shrine"
 			},
 		},
 		{ -- Lord Stormsong
@@ -428,6 +476,8 @@ data["Shrine of the Storm"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12601" }, -- AC: Mythic: Shrine of the Storm "The Void Lies Sleeping"
+				{ 17, "ac12600" }, -- AC: Mythic: Shrine of the Storm "Breath of the Shrine"
 			},
 		},
 		{ -- Vol'zith the Whisperer
@@ -443,14 +493,22 @@ data["Shrine of the Storm"] = {
 				{ 8, 159408 }, -- Chestguard of the Deep Denizen
 				{ 9, 159620 }, -- Conch of Dark Whispers
 				{ 10, 159377 }, -- Chain of Consummate Power
+				{ 16, "ac12835" }, -- AC: Shrine of the Storm
 			},
 			[HEROIC_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12837" }, -- AC: Heroic: Shrine of the Storm
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12838" }, -- AC: Mythic: Shrine of the Storm
+				{ 17, "ac12602" }, -- AC: Mythic: Shrine of the Storm "Trust No One"
+				{ 18, "ac12600" }, -- AC: Mythic: Shrine of the Storm "Breath of the Shrine"
+				{ 19, "ac13001" }, -- AC: Mythic: Shrine of the Storm Guild Run
 			},
 		},
+		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
+		BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE,
 	}
 }
 
@@ -471,6 +529,7 @@ data["Siege of Boralus"] = {
 				{ 6, 159427 }, -- Legplates of the Irontide Raider
 				{ 7, 162541 }, -- Band of the Roving Scalawag
 				{ 8, 159251 }, -- Top-Sail Footwraps
+				{ 16, "ac12489" }, -- AC: Mythic: Waycrest Manor shared "Losing My Profession"
 			},
 		},
 		{ -- Dread Captain Lockwood
@@ -486,6 +545,8 @@ data["Siege of Boralus"] = {
 				{ 8, 159372 }, -- Dread Captain's Irons
 				{ 9, 159320 }, -- Besieger's Deckstalkers
 				{ 10, 159379 }, -- Sure-Foot Sabatons
+				{ 16, "ac12727" }, -- AC: Mythic: Siege of Boralus "Stand by Me"
+				{ 17, "ac12489" }, -- AC: Mythic: Waycrest Manor shared "Losing My Profession"
 			},
 		},
 		{ -- Hadal Darkfathom
@@ -497,6 +558,7 @@ data["Siege of Boralus"] = {
 				{ 4, 159650 }, -- Dismembered Submersible Claw
 				{ 5, 159622 }, -- Hadal's Nautilus
 				{ 6, 159461 }, -- Band of the Ancient Dredger
+				{ 16, "ac12489" }, -- AC: Mythic: Waycrest Manor shared "Losing My Profession"
 			},
 		},
 		{ -- Viq'Goth
@@ -511,8 +573,14 @@ data["Siege of Boralus"] = {
 				{ 7, 159376 }, -- Hook-Barbed Spaulders
 				{ 8, 159416 }, -- Harpooner's Plate Cuirass
 				{ 9, 159256 }, -- Iron-Kelp Wristwraps
+				{ 16, "ac12847" }, -- AC: Mythic: Siege of Boralus
+				{ 17, "ac12726" }, -- AC: Mythic: Siege of Boralus "A Fish Out of Water"
+				{ 18, "ac12489" }, -- AC: Mythic: Waycrest Manor shared "Losing My Profession"
+				{ 19, "ac13007" }, -- AC: Mythic: Siege of Boralus Guild Run
 			},
 		},
+		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
+		BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE,
 	}
 }
 
@@ -593,14 +661,19 @@ data["Temple of Sethraliss"] = {
 				{ 8, 159318 }, -- Hood of the Slithering Loa
 				{ 9, 159254 }, -- Brood Cleanser's Amice
 				{ 10, 158373 }, -- Resonating Crystal Scimitar
+				{ 16, "ac12504" }, -- AC: The Temple of Sethraliss
 			},
 			[HEROIC_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12505" }, -- AC: Heroic: The Temple of Sethraliss
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12506" }, -- AC: Mythic: The Temple of Sethraliss
+				{ 17, "ac13004" }, -- AC: Mythic: The Temple of Sethraliss Guild Run
 			},
 		},
+		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
 	}
 }
 
@@ -678,14 +751,21 @@ data["The MOTHERLODE!!"] = {
 				{ 7, 158307 }, -- Shrapnel-Dampening Chestguard
 				{ 8, 158349 }, -- Petticoat of the Self-Stylized Azerite Baron
 				{ 9, 159611 }, -- Razdunk's Big Red Button
+				{ 16, "ac12844" }, -- AC: The MOTHERLODE!!
 			},
 			[HEROIC_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12845" }, -- AC: Heroic: The MOTHERLODE!!
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12846" }, -- AC: Mythic: The MOTHERLODE!!
+				{ 17, "ac12854" }, -- AC: Mythic: The MOTHERLODE!! "Ready for Raiding VI"
+				{ 18, "ac13006" }, -- AC: Mythic: The MOTHERLODE!! Guild Run
 			},
 		},
+		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
+		BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE,
 	}
 }
 
@@ -710,6 +790,7 @@ data["The Underrot"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12498" }, -- AC: Mythic: Underrot "Taint Nobody Got Time For That"
 			},
 		},
 		{ -- Cragmaw the Infested
@@ -750,6 +831,7 @@ data["The Underrot"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12549" }, -- AC: Mythic: Underrot "Not a Fun Guy"
 			},
 		},
 		{ -- Unbound Abomination
@@ -766,14 +848,21 @@ data["The Underrot"] = {
 				{ 9, 159267 }, -- Pauldrons of Vile Corruption
 				{ 10, 159385 }, -- Amalgamated Abomination Spaulders
 				{ 11, 159625 }, -- Vial of Animated Blood
+				{ 16, "ac12500" }, -- AC: Underrot
 			},
 			[HEROIC_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12501" }, -- AC: Heroic: Underrot
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12502" }, -- AC: Mythic: Underrot
+				{ 17, "ac12499" }, -- AC: Mythic: Underrot "Sporely Alive"
+				{ 18, "ac13003" }, -- AC: Mythic: Underrot Guild Run
 			},
 		},
+		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
+		BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE,
 	}
 }
 
@@ -837,6 +926,7 @@ data["Tol Dagor"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12457" }, -- AC: Mythic: Tol Dagor "Remix to Ignition"
 			},
 		},
 		{ -- Overseer Korgus
@@ -853,14 +943,21 @@ data["Tol Dagor"] = {
 				{ 9, 159393 }, -- Cannoneer's Mantle
 				{ 10, 159440 }, -- Ashvane Warden's Cuirass
 				{ 11, 159268 }, -- Inmate's Straight Robe
+				{ 16, "ac12840" }, -- AC: Tol Dagor
 			},
 			[HEROIC_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12841" }, -- AC: Heroic: Tol Dagor
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12842" }, -- AC: Mythic: Tol Dagor
+				{ 17, "ac12462" }, -- AC: Mythic: Tol Dagor "Shot Through the Heart"
+				{ 18, "ac13005" }, -- AC: Mythic: Tol Dagor Guild Run
 			},
 		},
+		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
+		BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE,
 	}
 }
 
@@ -888,6 +985,7 @@ data["Waycrest Manor"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12489" }, -- AC: Mythic: Waycrest Manor "Losing My Profession"
 			},
 		},
 		{ -- Soulbound Goliath
@@ -906,6 +1004,8 @@ data["Waycrest Manor"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12495" }, -- AC: Mythic: Waycrest Manor "Run Wild Like a Man On Fire"
+				{ 17, "ac12489" }, -- AC: Mythic: Waycrest Manor "Losing My Profession"
 			},
 		},
 		{ -- Raal the Gluttonous
@@ -924,6 +1024,7 @@ data["Waycrest Manor"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12489" }, -- AC: Mythic: Waycrest Manor "Losing My Profession"
 			},
 		},
 		{ -- Lord and Lady Waycrest
@@ -942,6 +1043,7 @@ data["Waycrest Manor"] = {
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12489" }, -- AC: Mythic: Waycrest Manor "Losing My Profession"
 			},
 		},
 		{ -- Gorak Tul
@@ -956,14 +1058,21 @@ data["Waycrest Manor"] = {
 				{ 7, 159273 }, -- Amice of the Returned
 				{ 8, 159335 }, -- Raiment of the Blighted Tribe
 				{ 9, 159395 }, -- Deathslaver's Hauberk
+				{ 16, "ac12483" }, -- AC: Waycrest Manor
 			},
 			[HEROIC_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12484" }, -- AC: Heroic: Waycrest Manor
 			},
 			[MYTHICD_DUNGEON_DIFF] = {
 				GetItemsFromDiff = NORMAL_DUNGEON_DIFF,
+				{ 16, "ac12488" }, -- AC: Mythic: Waycrest Manor
+				{ 17, "ac12490" }, -- AC: Mythic: Waycrest Manor "Alchemical Romance"
+				{ 18, "ac12489" }, -- AC: Mythic: Waycrest Manor "Losing My Profession"
 			},
 		},
+		BATTLEFORAZEROTH_DUNGEON_HERO_AC_TABLE,
+		BATTLEFORAZEROTH_GLORY_OF_THE_WARTORN_HERO_AC_TABLE,
 	}
 }
 -- /////////////////////////////////

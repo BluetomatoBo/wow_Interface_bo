@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.08.00
+## Version: v8.08.01
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -15,7 +15,6 @@
 ## Title-zhTW: AtlasLoot |cFF0099FF[世界事件]|r
 ## Notes: AtlasLoot loot tables from world events
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Weltereignisse
-## Notes-esES: Notas-EventosdeMundo
 ## Notes-frFR: Tables de butin AtlasLoot des Évènements Mondiaux
 ## Notes-koKR: AtlasLoot 전역 이벤트 전리품 목록
 ## Notes-ruRU: AtlasLoot таблица добычи для мировых событий

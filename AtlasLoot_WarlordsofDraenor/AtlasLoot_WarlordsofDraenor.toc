@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.08.00
+## Version: v8.08.01
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -15,7 +15,6 @@
 ## Title-zhTW: AtlasLoot |cFF0099FF[德拉諾之霸]|r
 ## Notes: AtlasLoot loot tables from Warlords of Draenor
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Warlords of Draenor
-## Notes-esES: Notas-WarlordsofDraenor
 ## Notes-frFR: Tables de butin AtlasLoot de Warlords of Draenor
 ## Notes-koKR: AtlasLoot 드레노어의 전쟁군주 전리품 목록
 ## Notes-ruRU: AtlasLoot таблица добычи из Warlords of Draenor

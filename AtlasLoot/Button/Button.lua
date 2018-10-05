@@ -140,12 +140,31 @@ function Button:Create()
 	button:SetScript("OnClick", Button_OnClick)
 	button:SetScript("OnMouseWheel", Button_OnMouseWheel)
 	
+	-- highlight Background
+	button.highlightBg = button:CreateTexture(buttonName.."_highlightBg")
+	button.highlightBg:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
+	button.highlightBg:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -(button:GetWidth()/2), 0)
+	button.highlightBg:SetColorTexture(1,0,0)
+	button.highlightBg:SetGradientAlpha("HORIZONTAL", 1, 1, 1, 0.45, 1, 1, 1, 0)
+	button.highlightBg:Hide()
+	
 	-- Icon <texture>
 	button.icon = button:CreateTexture(buttonName.."_icon")
 	button.icon:SetPoint("TOPLEFT", button, "TOPLEFT", 1, -1)
 	button.icon:SetHeight(26)
 	button.icon:SetWidth(26)
 	button.icon:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+	
+	--[[
+	button.icon.glow = CreateFrame("FRAME")
+	button.icon.glow:ClearAllPoints()
+	button.icon.glow:SetParent(button)
+	button.icon.glow:SetHeight(26)
+	button.icon.glow:SetWidth(26)
+	button.icon.glow:SetAllPoints(button.icon)
+	ActionButton_ShowOverlayGlow(button.icon.glow)
+	--ActionButton_HideOverlayGlow(self)
+	]]--
 	
 	button.qualityBorder = button:CreateTexture(buttonName.."_qualityBorder")
 	button.qualityBorder:SetPoint("TOPLEFT", button.icon, "TOPLEFT")
@@ -369,6 +388,10 @@ function Proto:Clear()
 		if self.secButton.count then self.secButton.count:Hide() end
 		if self.secButton.completed and self.secButton.completed:IsShown() then self.secButton.completed:Hide() end
 		self.secButton:Hide()
+	end
+	
+	if self.highlightBg then
+		self.highlightBg:Hide()
 	end
 	
 	wipe(self.__atlaslootinfo)

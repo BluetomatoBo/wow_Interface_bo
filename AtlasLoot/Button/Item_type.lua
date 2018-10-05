@@ -57,7 +57,7 @@ function Item.OnSet(button, second)
 	end
 	if not button then return end
 	if second and button.__atlaslootinfo.secType then
-		if IsAzeriteItem(button.ItemID) then 
+		if button.ItemID and IsAzeriteItem(button.ItemID) then 
 			button.__atlaslootinfo.secType = nil
 			button.secButton:Hide()
 		else
@@ -188,7 +188,7 @@ function Item.Refresh(button)
 		Query:Add(button)
 		return false
 	end
-	
+
 	button.overlay:Show()
 	button.overlay:SetTexture("Interface\\Common\\WhiteIconFrame")
 	button.overlay:SetAtlas(LOOT_BORDER_BY_QUALITY[itemQuality] or LOOT_BORDER_BY_QUALITY[LE_ITEM_QUALITY_UNCOMMON])

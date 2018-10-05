@@ -82,7 +82,6 @@ function AtlasLoot:OnInitialize()
 		LibDialog:Spawn("ATLASLOOT_LOADER_ADDON_ERROR")
 
 	end
-
 end
 
 function AtlasLoot:AddInitFunc(func, module)

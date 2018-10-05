@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.08.00
+## Version: v8.08.01
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -15,7 +15,6 @@
 ## Title-zhTW: AtlasLoot |cFF0099FF[軍臨天下]|r
 ## Notes: AtlasLoot loot tables from Legion
 ## Notes-deDE: AtlasLoot Beuteverzeichnisse für Legion
-## Notes-esES: Notas-Legion
 ## Notes-frFR: Tables de butin AtlasLoot de Légion
 ## Notes-koKR: AtlasLoot 군단 전리품 목록
 ## Notes-ruRU: AtlasLoot таблица добычи из Legion

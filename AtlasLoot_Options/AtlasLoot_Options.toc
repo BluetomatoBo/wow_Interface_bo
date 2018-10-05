@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Author: Lag, Proteyer, Arith	
-## Version: v8.08.00
+## Version: v8.08.01
 ## Dependencies: AtlasLoot
 ## LoadOnDemand: 1
 
@@ -15,7 +15,6 @@
 ## Title-zhTW: AtlasLoot |cFF0099FF[選項]|r
 ## Notes: AtlasLoot options module
 ## Notes-deDE: AtlasLoot Modul für Einstellungen
-## Notes-esES: Notas-Opciones
 ## Notes-frFR: Module d'options AtlasLoot
 ## Notes-koKR: AtlasLoot 옵션 모듈
 ## Notes-ruRU: AtlasLoot модуль опций

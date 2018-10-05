@@ -260,6 +260,7 @@ local function AtlasMapButton_OnEnter(self, owner)
 	tooltip:Show()
 end
 
+-- Class Filer
 local function ClassFilterButton_Refresh(self)
 	-- insert class selection?
 	self.texture:SetDesaturated(not db.classFilter)
@@ -448,6 +449,37 @@ local function ClassFilterButton_OnClick(self, button)
 		end
 	end
 end
+
+-- Transmog
+local function TransmogButton_Refresh(self)
+	self.texture:SetDesaturated(not AtlasLoot.db.GUI.transMogHighlighter)
+	
+	if GUI.frame.contentFrame.shownFrame and GUI.frame.contentFrame.shownFrame.OnTransMogUpdate then
+		GUI.frame.contentFrame.shownFrame.OnTransMogUpdate()
+	end
+end
+
+local function TransmogButton_OnClick(self, button)
+	AtlasLoot.db.GUI.transMogHighlighter = not AtlasLoot.db.GUI.transMogHighlighter
+	TransmogButton_Refresh(self)
+end
+
+local function TransmogButton_OnEnter(self, owner)
+	local tooltip = GetAlTooltip() 
+	tooltip:ClearLines()
+	if owner and type(owner) == "table" then
+		tooltip:SetOwner(owner[1], owner[2], owner[3], owner[4])
+	else
+		tooltip:SetOwner(self, "ANCHOR_RIGHT", -(self:GetWidth() * 0.5), 5)
+	end
+	tooltip:AddLine(TRANSMOGRIFY )
+	tooltip:Show()
+end
+
+local function TransmogButton_OnLeave(self)
+	GetAlTooltip():Hide()
+end
+
 
 local function NextPrevButtonOnClick(self)
 	if self.info then
@@ -977,6 +1009,7 @@ function GUI:Create()
 	frame.contentFrame.itemsButton:SetText(AL["Items"])
 	frame.contentFrame.itemsButton:SetScript("OnClick", ItemButtonOnClick)
 	
+	-- Class Filter
 	frame.contentFrame.clasFilterButton = CreateFrame("Button", frameName.."-clasFilterButton")
 	frame.contentFrame.clasFilterButton:SetParent(frame.contentFrame)
 	frame.contentFrame.clasFilterButton:RegisterForClicks("LeftButtonUp", "RightButtonUp");
@@ -995,6 +1028,29 @@ function GUI:Create()
 	frame.contentFrame.clasFilterButton.texture = frame.contentFrame.clasFilterButton:CreateTexture(frameName.."-clasFilterButton-texture","ARTWORK")
 	frame.contentFrame.clasFilterButton.texture:SetAllPoints(frame.contentFrame.clasFilterButton)
 	frame.contentFrame.clasFilterButton.texture:SetTexture("Interface\\Icons\\INV_Misc_QuestionMark")
+	
+	-- Transmog
+	frame.contentFrame.transmogButton = CreateFrame("Button", frameName.."-transmofButton")
+	frame.contentFrame.transmogButton:SetParent(frame.contentFrame)
+	frame.contentFrame.transmogButton:RegisterForClicks("LeftButtonUp", "RightButtonUp");
+	frame.contentFrame.transmogButton:SetWidth(25)
+	frame.contentFrame.transmogButton:SetHeight(25)
+	frame.contentFrame.transmogButton:SetPoint("LEFT", frame.contentFrame.clasFilterButton, "RIGHT", 5, 0)
+	frame.contentFrame.transmogButton:SetScript("OnClick", TransmogButton_OnClick)
+	--frame.contentFrame.transmogButton:SetScript("OnShow", TransmogButton_OnShow)
+	--frame.contentFrame.transmogButton:SetScript("OnHide", TransmogButton_OnHide)
+	--frame.contentFrame.transmogButton:SetScript("OnEvent", TransmogButton_OnEvent)
+	frame.contentFrame.transmogButton:SetScript("OnEnter", TransmogButton_OnEnter)
+	frame.contentFrame.transmogButton:SetScript("OnLeave", TransmogButton_OnLeave)
+	--frame.contentFrame.transmogButton:Hide()
+	
+	frame.contentFrame.transmogButton.texture = frame.contentFrame.transmogButton:CreateTexture(frameName.."-transmogButton-texture","ARTWORK")
+	frame.contentFrame.transmogButton.texture:SetAllPoints(frame.contentFrame.transmogButton)
+	frame.contentFrame.transmogButton.texture:SetTexture("Interface\\Icons\\INV_Arcane_Orb")
+	
+	
+	
+	
 	
 	
 	self.frame = frame
