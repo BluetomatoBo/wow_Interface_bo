@@ -31,7 +31,7 @@ function TSMAPI_FOUR.Conversions.Add(targetItem, sourceItem, rate, method)
 		private.data[targetItem][sourceItem] = nil
 	end
 	if private.skippedConversions[targetItem..sourceItem] then return end
-	private.data[targetItem][sourceItem] = {rate=rate, method=method, hasItemInfo=nil}
+	private.data[targetItem][sourceItem] = { rate = rate, method = method, hasItemInfo = nil }
 	TSMAPI_FOUR.Item.FetchInfo(targetItem)
 	TSMAPI_FOUR.Item.FetchInfo(sourceItem)
 	private.targetItemNameLookup = nil
@@ -88,9 +88,9 @@ function TSMAPI_FOUR.Conversions.GetTargetItemNames()
 	end
 	sort(result)
 	if completeResult then
-		-- remote duplicates
+		-- remove duplicates
 		for i = #result, 2, -1 do
-			if result[i] == result[i-1] then
+			if result[i] == result[i - 1] then
 				tremove(result, i)
 			end
 		end

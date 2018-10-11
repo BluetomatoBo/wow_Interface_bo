@@ -32,8 +32,9 @@ function Analytics.Save(appDB)
 	end
 	-- remove any events which are too old
 	for i = #appDB.analytics.data, 1, -1 do
-		local eventTime = strmatch(appDB.analytics.data[i], "([0-9]+)%]$") or ""
-		if (tonumber(eventTime) or 0) < time() - MAX_ANALYTICS_AGE then
+		local _, _, timeStr = strsplit(",", appDB.analytics.data[i])
+		local eventTime = timeStr and tonumber(timeStr) or 0
+		if eventTime < time() - MAX_ANALYTICS_AGE then
 			tremove(appDB.analytics.data, i)
 		end
 	end
@@ -55,6 +56,7 @@ function private.InsertHit(hitType, ...)
 		local arg = select(i, ...)
 		local argType = type(arg)
 		if argType == "string" then
+			assert(not strmatch(arg, ","))
 			arg = private.AddQuotes(arg)
 		elseif argType == "number" then
 			-- pass

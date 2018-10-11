@@ -58,7 +58,7 @@ function General.LoadTooltip(tooltip, itemString)
 						if targetItem ~= "desc" then
 							for _, deData in ipairs(itemData.sourceInfo) do
 								if deData.itemType == iType and deData.rarity == rarity and ilvl >= deData.minItemLevel and ilvl <= deData.maxItemLevel then
-									local matValue = (TSMAPI_FOUR.CustomPrice.GetValue(TSM.db.global.coreOptions.destroyValueSource, targetItem) or 0) * deData.amountOfMats
+									local matValue = TSMAPI_FOUR.CustomPrice.GetValue(TSM.db.global.coreOptions.destroyValueSource, targetItem) or 0
 									if matValue > 0 then
 										tooltip:AddSubItemValueLine(targetItem, matValue, deData.amountOfMats)
 									end
@@ -82,7 +82,7 @@ function General.LoadTooltip(tooltip, itemString)
 				for _, targetItem in ipairs(TSMAPI_FOUR.Conversions.GetTargetItemsByMethod("mill")) do
 					local herbs = TSMAPI_FOUR.Conversions.GetData(targetItem)
 					if herbs[itemString] then
-						local millValue = (TSMAPI_FOUR.CustomPrice.GetValue(TSM.db.global.coreOptions.destroyValueSource, targetItem) or 0) * herbs[itemString].rate
+						local millValue = TSMAPI_FOUR.CustomPrice.GetValue(TSM.db.global.coreOptions.destroyValueSource, targetItem) or 0
 						if millValue > 0 then
 							tooltip:AddSubItemValueLine(targetItem, millValue, herbs[itemString].rate)
 						end
@@ -103,7 +103,7 @@ function General.LoadTooltip(tooltip, itemString)
 				for _, targetItem in ipairs(TSMAPI_FOUR.Conversions.GetTargetItemsByMethod("prospect")) do
 					local gems = TSMAPI_FOUR.Conversions.GetData(targetItem)
 					if gems[itemString] then
-						local prospectValue = (TSMAPI_FOUR.CustomPrice.GetValue(TSM.db.global.coreOptions.destroyValueSource, targetItem) or 0) * gems[itemString].rate
+						local prospectValue = TSMAPI_FOUR.CustomPrice.GetValue(TSM.db.global.coreOptions.destroyValueSource, targetItem) or 0
 						if prospectValue > 0 then
 							tooltip:AddSubItemValueLine(targetItem, prospectValue, gems[itemString].rate)
 						end
@@ -124,7 +124,7 @@ function General.LoadTooltip(tooltip, itemString)
 				for _, targetItem in ipairs(TSMAPI_FOUR.Conversions.GetTargetItemsByMethod("transform")) do
 					local srcItems = TSMAPI_FOUR.Conversions.GetData(targetItem)
 					if srcItems[itemString] then
-						local transformValue = (TSMAPI_FOUR.CustomPrice.GetValue(TSM.db.global.coreOptions.destroyValueSource, targetItem) or 0) * srcItems[itemString].rate
+						local transformValue = TSMAPI_FOUR.CustomPrice.GetValue(TSM.db.global.coreOptions.destroyValueSource, targetItem) or 0
 						if transformValue > 0 then
 							tooltip:AddSubItemValueLine(targetItem, transformValue, srcItems[itemString].rate)
 						end

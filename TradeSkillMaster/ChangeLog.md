@@ -1,11 +1,9 @@
-## v4.4.4 Changes
+## v4.4.5 Changes
 
-* Fixed bug with post scan getting stuck if the player doesn't have enough gold for the deposit
-* Fixed error when crafting using mats from the bank
-* Fixed error when sending mail through the Mailing UI
-* Holding control while opening all mail will keep mail with gold attached unopened
-* Mailing will now group mails by recipient when sending based on groups
-* The crafting queue will now show crafts which can be partially crafted in orange
-* Fixed error when crafting while on the groups page of the Crafting UI
+* Fixed issue with WoW freezing while using various TSM UIs
+* Fixed bug with destroy values (including milling / disenchanting / prospecting) in item tooltips being wrong
+* Fixed rarity filter in Resale page of Ledger
+* Fixed error some users were seeing when canceling auctions
+* Fixed various errors from Shopping post dialog
 
 [Known Issues](http://support.tradeskillmaster.com/display/KB/TSM4+Currently+Known+Issues)

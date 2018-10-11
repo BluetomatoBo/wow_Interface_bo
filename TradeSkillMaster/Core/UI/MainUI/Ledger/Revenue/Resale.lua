@@ -316,7 +316,7 @@ function private.UpdateQuery()
 end
 
 function private.CompareRarityFilter(row, rarityFilter)
-	return rarityFilter[row:GetField("quality")] and true or false
+	return TSMAPI_FOUR.Util.TableKeyByValue(rarityFilter, row:GetField("quality")) and true or false
 end
 
 function private.TableSelectionChanged(scrollingTable, row)

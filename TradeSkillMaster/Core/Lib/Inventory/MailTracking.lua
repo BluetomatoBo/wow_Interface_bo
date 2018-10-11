@@ -113,7 +113,8 @@ function MailTracking.OnInitialize()
 	MailTracking:SecureHook("CancelAuction", function(index)
 		local itemString = TSMAPI_FOUR.Item.ToBaseItemString(GetAuctionItemLink("owner", index))
 		local _, _, stackSize = GetAuctionItemInfo("owner", index)
-		if not itemString or not stackSize then
+		-- for some reason, these APIs don't always work properly, so check the return values
+		if not itemString or not stackSize or stackSize == 0 then
 			return
 		end
 		TSM.Inventory.ChangePendingMailQuantity(itemString, stackSize)

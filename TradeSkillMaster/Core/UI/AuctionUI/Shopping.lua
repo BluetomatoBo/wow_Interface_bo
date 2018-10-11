@@ -1406,10 +1406,8 @@ end
 
 function private.BidTextOnValueChanged(text, value)
 	value = TSM.Money.FromString(value)
-	if value > MAXIMUM_BID_PRICE then
-		value = MAXIMUM_BID_PRICE
-	end
 	if value then
+		value = min(value, MAXIMUM_BID_PRICE)
 		local frame = text:GetParentElement():GetParentElement()
 		local buyout = TSM.Money.FromString(frame:GetElement("buyout.text"):GetText())
 		if private.perItem and buyout > 0 and value > buyout then
@@ -1427,10 +1425,8 @@ end
 
 function private.BuyoutTextOnValueChanged(text, value)
 	value = TSM.Money.FromString(value)
-	if value > MAXIMUM_BID_PRICE then
-		value = MAXIMUM_BID_PRICE
-	end
 	if value then
+		value = min(value, MAXIMUM_BID_PRICE)
 		local frame = text:GetParentElement():GetParentElement()
 		local bidText = frame:GetElement("bid.text")
 		local bid = TSM.Money.FromString(bidText:GetText())

@@ -399,6 +399,9 @@ end
 
 --- Hides the current tooltip.
 function TSM.UI.HideTooltip()
+	GameTooltip:SetOwner(UIParent, "ANCHOR_NONE")
+	GameTooltip:SetPoint("CENTER")
 	GameTooltip:Hide()
+	BattlePetTooltip:SetPoint("CENTER")
 	BattlePetTooltip:Hide()
 end

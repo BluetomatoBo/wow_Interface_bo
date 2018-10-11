@@ -7960,28 +7960,19 @@ TSM.L["You've been undercut."] = "You've been undercut."
 TSM.L["YY/MM/DD HH:MM"] = "YY/MM/DD HH:MM"
 	elseif locale == "itIT" then
 TSM.L = TSM.L or {}
---[[Translation missing --]]
-TSM.L["%d |4Group:Groups; Selected (%d |4Item:Items;)"] = "%d |4Group:Groups; Selected (%d |4Item:Items;)"
---[[Translation missing --]]
-TSM.L["%d auctions"] = "%d auctions"
---[[Translation missing --]]
-TSM.L["%d Groups"] = "%d Groups"
---[[Translation missing --]]
-TSM.L["%d Items"] = "%d Items"
---[[Translation missing --]]
-TSM.L["%d of %d"] = "%d of %d"
---[[Translation missing --]]
-TSM.L["%d Operations"] = "%d Operations"
---[[Translation missing --]]
-TSM.L["%d Posted Auctions"] = "%d Posted Auctions"
---[[Translation missing --]]
-TSM.L["%d Sold Auctions"] = "%d Sold Auctions"
+TSM.L["%d |4Group:Groups; Selected (%d |4Item:Items;)"] = "%d |4Gruppo:Gruppi; Selezionati (%d |4Oggetto:Oggetti;)"
+TSM.L["%d auctions"] = "%d aste"
+TSM.L["%d Groups"] = [=[%d Gruppi
+]=]
+TSM.L["%d Items"] = "%d Oggetti"
+TSM.L["%d of %d"] = "%d di %d"
+TSM.L["%d Operations"] = "%d Operazioni"
+TSM.L["%d Posted Auctions"] = "%d Aste Pubblicate"
+TSM.L["%d Sold Auctions"] = "%d Aste Vendute"
 TSM.L["%s (%s bags, %s bank, %s AH, %s mail)"] = "%s (%s borse, %s banca, %s CdA, %s posta)"
 TSM.L["%s (%s player, %s alts, %s guild, %s AH)"] = "%s (%s giocatore, %s alts, %s gilda, %s CdA)"
---[[Translation missing --]]
-TSM.L["%s (%s profit)"] = "%s (%s profit)"
---[[Translation missing --]]
-TSM.L["%s ago"] = "%s ago"
+TSM.L["%s (%s profit)"] = "%s (%s profitto)"
+TSM.L["%s ago"] = "%s fa"
 --[[Translation missing --]]
 TSM.L["%s Crafts"] = "%s Crafts"
 TSM.L["%s in guild vault"] = "%s nella banca di gilda"
@@ -7990,56 +7981,41 @@ TSM.L["%s is a valid custom price but did not give a value for %s."] = "%s è un
 --[[Translation missing --]]
 TSM.L["'%s' is an invalid operation! Min restock of %d is higher than max restock of %d."] = "'%s' is an invalid operation! Min restock of %d is higher than max restock of %d."
 TSM.L["%s is not a valid custom price and gave the following error: %s"] = "%s non è un valido prezzo personalizzato ed ha restituito il seguente errore: %s"
---[[Translation missing --]]
-TSM.L["%s operation(s)"] = "%s operation(s)"
+TSM.L["%s operation(s)"] = "%s operazione(i)"
 TSM.L["%s removed."] = "%s rimosso."
---[[Translation missing --]]
-TSM.L["%s sent you %s"] = "%s sent you %s"
---[[Translation missing --]]
-TSM.L["%s sent you %s and %s"] = "%s sent you %s and %s"
---[[Translation missing --]]
-TSM.L["%s sent you a COD of %s for %s"] = "%s sent you a COD of %s for %s"
---[[Translation missing --]]
-TSM.L["%s sent you a message: %s"] = "%s sent you a message: %s"
+TSM.L["%s sent you %s"] = "%s ti ha mandato %s"
+TSM.L["%s sent you %s and %s"] = "%s ti ha mandato %s e %s"
+TSM.L["%s sent you a COD of %s for %s"] = "%s ti ha mandato un PAC di %s per %s"
+TSM.L["%s sent you a message: %s"] = "%s ti ha inviato un messaggio: %s"
 TSM.L["%s total"] = "%s totale"
 TSM.L["%sDrag%s to move this button"] = "%sTrascina%s per spostare questo pulsante"
 TSM.L["%sLeft-Click%s to open the main window"] = "%sClic-Sinistro%s per aprire la finestra principale"
---[[Translation missing --]]
-TSM.L["(%d/500 Characters)"] = "(%d/500 Characters)"
---[[Translation missing --]]
+TSM.L["(%d/500 Characters)"] = "(%d/500 Caratteri)"
 TSM.L["(max %d)"] = "(max %d)"
---[[Translation missing --]]
 TSM.L["(max 200)"] = "(max 200)"
---[[Translation missing --]]
 TSM.L["(max 5000)"] = "(max 5000)"
---[[Translation missing --]]
 TSM.L["(min %d - max %d)"] = "(min %d - max %d)"
---[[Translation missing --]]
 TSM.L["(min 0 - max 10000)"] = "(min 0 - max 10000)"
---[[Translation missing --]]
-TSM.L["(minimum 0 - maximum 2)"] = "(minimum 0 - maximum 2)"
---[[Translation missing --]]
-TSM.L["(minimum 0 - maximum 20)"] = "(minimum 0 - maximum 20)"
---[[Translation missing --]]
-TSM.L["(minimum 0 - maximum 2000)"] = "(minimum 0 - maximum 2000)"
---[[Translation missing --]]
-TSM.L["(minimum 0 - maximum 30)"] = "(minimum 0 - maximum 30)"
+TSM.L["(minimum 0 - maximum 2)"] = "(mimimo 0 - massimo 2)"
+TSM.L["(minimum 0 - maximum 20)"] = "(minimo 0 - massimo 20)"
+TSM.L["(minimum 0 - maximum 2000)"] = [=[(minimo 0 - massimo 2000)
+]=]
+TSM.L["(minimum 0 - maximum 30)"] = [=[(minimo 0 - massimo 30)
+]=]
 --[[Translation missing --]]
 TSM.L["(minimum 0 - maximum 905)"] = "(minimum 0 - maximum 905)"
---[[Translation missing --]]
-TSM.L["(minimum 0% - maximum 50%)"] = "(minimum 0% - maximum 50%)"
---[[Translation missing --]]
-TSM.L["(minimum 0.5 - maximum 10)"] = "(minimum 0.5 - maximum 10)"
---[[Translation missing --]]
-TSM.L["(minimum 1 - maximum 100)"] = "(minimum 1 - maximum 100)"
---[[Translation missing --]]
-TSM.L["(minimum 8 - maximum 25)"] = "(minimum 8 - maximum 25)"
---[[Translation missing --]]
-TSM.L["(New group(s) will be created)"] = "(New group(s) will be created)"
+TSM.L["(minimum 0% - maximum 50%)"] = [=[(minimo 0% - massimo 50%)
+]=]
+TSM.L["(minimum 0.5 - maximum 10)"] = [=[(minimo 0.5 - massimo 10)
+]=]
+TSM.L["(minimum 1 - maximum 100)"] = [=[(minimo 1 - massimo 100)
+]=]
+TSM.L["(minimum 8 - maximum 25)"] = [=[(minimo 8 - massimo 25)
+]=]
+TSM.L["(New group(s) will be created)"] = "(Verranno creati nuovi gruppi)"
 TSM.L["/tsm help|r - Shows this help listing"] = "/tsm help|r - Mostra questa lista d'aiuto"
 TSM.L["/tsm|r - opens the main TSM window."] = "/tsm|r - apre la finestra principale di TSM"
---[[Translation missing --]]
-TSM.L["_ Hr _ Min ago"] = "_ Hr _ Min ago"
+TSM.L["_ Hr _ Min ago"] = "_ h _ min fa"
 --[[Translation missing --]]
 TSM.L["|cffff0000IMPORTANT:|r When TSM_Accounting last saved data for this realm, it was too big for WoW to handle, so old data was automatically trimmed in order to avoid corruption of the saved variables. The last %s of purchase data has been preserved."] = "|cffff0000IMPORTANT:|r When TSM_Accounting last saved data for this realm, it was too big for WoW to handle, so old data was automatically trimmed in order to avoid corruption of the saved variables. The last %s of purchase data has been preserved."
 --[[Translation missing --]]
@@ -8052,16 +8028,11 @@ TSM.L["|cffffd839Left-Click|r to ignore an item for this session. Hold |cffffd83
 TSM.L["|cffffd839Left-Click|r to ignore an item this session."] = "|cffffd839Left-Click|r to ignore an item this session."
 --[[Translation missing --]]
 TSM.L["|cffffd839Shift-Left-Click|r to ignore it permanently."] = "|cffffd839Shift-Left-Click|r to ignore it permanently."
---[[Translation missing --]]
-TSM.L["1 Group"] = "1 Group"
---[[Translation missing --]]
-TSM.L["1 Item"] = "1 Item"
---[[Translation missing --]]
-TSM.L["12 hr"] = "12 hr"
---[[Translation missing --]]
-TSM.L["24 hr"] = "24 hr"
---[[Translation missing --]]
-TSM.L["48 hr"] = "48 hr"
+TSM.L["1 Group"] = "1 Gruppo"
+TSM.L["1 Item"] = "1 Oggetto"
+TSM.L["12 hr"] = "12 h"
+TSM.L["24 hr"] = "24 h"
+TSM.L["48 hr"] = "48 h"
 TSM.L["A custom price of %s for %s evaluates to %s."] = "Un prezzo personalizzato di %s per %s valutati in %s."
 TSM.L["A maximum of 1 convert() function is allowed."] = "Un massimo di una funzione convert() è consentita."
 --[[Translation missing --]]
@@ -15995,8 +15966,7 @@ TSM.L["%s (%s bags, %s bank, %s AH, %s mail)"] = "%s (%s 包包, %s 銀行, %s �
 TSM.L["%s (%s player, %s alts, %s guild, %s AH)"] = "%s (%s player, %s alts, %s guild, %s AH)"
 --[[Translation missing --]]
 TSM.L["%s (%s profit)"] = "%s (%s profit)"
---[[Translation missing --]]
-TSM.L["%s ago"] = "%s ago"
+TSM.L["%s ago"] = "%s前"
 --[[Translation missing --]]
 TSM.L["%s Crafts"] = "%s Crafts"
 --[[Translation missing --]]
@@ -16072,12 +16042,9 @@ TSM.L["|cffffd839Shift-Left-Click|r to ignore it permanently."] = "|cffffd839Shi
 TSM.L["1 Group"] = "1 Group"
 --[[Translation missing --]]
 TSM.L["1 Item"] = "1 Item"
---[[Translation missing --]]
-TSM.L["12 hr"] = "12 hr"
---[[Translation missing --]]
-TSM.L["24 hr"] = "24 hr"
---[[Translation missing --]]
-TSM.L["48 hr"] = "48 hr"
+TSM.L["12 hr"] = "12小時"
+TSM.L["24 hr"] = "24小時"
+TSM.L["48 hr"] = "48小時"
 TSM.L["A custom price of %s for %s evaluates to %s."] = "%s的自定義價格為%s到%s。"
 TSM.L["A maximum of 1 convert() function is allowed."] = "最多只允許1個convert()函數。"
 --[[Translation missing --]]
@@ -16736,10 +16703,8 @@ TSM.L["Failed to find auction for %s, so removing it from the results."] = "Fail
 TSM.L["Favorite Scans"] = "Favorite Scans"
 --[[Translation missing --]]
 TSM.L["Favorite Searches"] = "Favorite Searches"
---[[Translation missing --]]
-TSM.L["Filter Auctions by Duration"] = "Filter Auctions by Duration"
---[[Translation missing --]]
-TSM.L["Filter Auctions by Keyword"] = "Filter Auctions by Keyword"
+TSM.L["Filter Auctions by Duration"] = "以時間篩選拍賣"
+TSM.L["Filter Auctions by Keyword"] = "以關鍵字篩選拍賣"
 --[[Translation missing --]]
 TSM.L["FILTER BY KEYWORD"] = "FILTER BY KEYWORD"
 --[[Translation missing --]]
@@ -17132,8 +17097,7 @@ TSM.L["MOVING"] = "MOVING"
 TSM.L["Moving"] = "Moving"
 --[[Translation missing --]]
 TSM.L["Multiple Items"] = "Multiple Items"
---[[Translation missing --]]
-TSM.L["My Auctions"] = "My Auctions"
+TSM.L["My Auctions"] = "我的拍賣"
 --[[Translation missing --]]
 TSM.L["My Auctions 'CANCEL' Button"] = "My Auctions 'CANCEL' Button"
 --[[Translation missing --]]
@@ -17537,8 +17501,7 @@ TSM.L["Select Auction to Cancel"] = "Select Auction to Cancel"
 TSM.L["Select crafter"] = "Select crafter"
 --[[Translation missing --]]
 TSM.L["Select custom price sources to include in item tooltips"] = "Select custom price sources to include in item tooltips"
---[[Translation missing --]]
-TSM.L["Select Duration"] = "Select Duration"
+TSM.L["Select Duration"] = "選擇時間"
 --[[Translation missing --]]
 TSM.L["Select Items to Add"] = "Select Items to Add"
 --[[Translation missing --]]
@@ -17731,8 +17694,7 @@ TSM.L["Subject"] = "Subject"
 TSM.L["SUBJECT"] = "SUBJECT"
 --[[Translation missing --]]
 TSM.L["Switch to %s"] = "Switch to %s"
---[[Translation missing --]]
-TSM.L["Switch to WoW UI"] = "Switch to WoW UI"
+TSM.L["Switch to WoW UI"] = "轉到魔獸界面"
 --[[Translation missing --]]
 TSM.L["Sync Setup Error: The specified player on the other account is not currently online."] = "Sync Setup Error: The specified player on the other account is not currently online."
 --[[Translation missing --]]
