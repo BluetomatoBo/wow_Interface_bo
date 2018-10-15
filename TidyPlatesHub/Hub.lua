@@ -168,7 +168,9 @@ local function BuildHubPanel(panel)
 
 	panel.WidgetsDebuffStyle =  CreateQuickDropdown(objectName.."WidgetsDebuffStyle", "Icon Style:", DebuffStyles, 1, AlignmentColumn, panel.WidgetsDebuffTrackList, 16)
 
-	panel.WidgetAuraTrackDispelFriendly = CreateQuickCheckbutton(objectName.."WidgetAuraTrackDispelFriendly", "Include Dispellable Debuffs on Friendly Units", AlignmentColumn, panel.WidgetsDebuffStyle, 16, 4)
+	panel.WidgetAuraTrackStealable = CreateQuickCheckbutton(objectName.."WidgetAuraTrackStealable", "Include Stealable & Purgable Enemy Buffs", AlignmentColumn, panel.WidgetsDebuffStyle, 16, 4)
+	
+	panel.WidgetAuraTrackDispelFriendly = CreateQuickCheckbutton(objectName.."WidgetAuraTrackDispelFriendly", "Include Dispellable Debuffs on Friendly Units", AlignmentColumn, panel.WidgetAuraTrackStealable, 16, 4)
 	panel.WidgetAuraTrackCurse = CreateQuickCheckbutton(objectName.."WidgetAuraTrackCurse", "Curse", AlignmentColumn, panel.WidgetAuraTrackDispelFriendly, 16+16, -2)
 	panel.WidgetAuraTrackDisease = CreateQuickCheckbutton(objectName.."WidgetAuraTrackDisease", "Disease", AlignmentColumn, panel.WidgetAuraTrackCurse, 16+16, -2)
 	panel.WidgetAuraTrackMagic = CreateQuickCheckbutton(objectName.."WidgetAuraTrackMagic", "Magic", AlignmentColumn, panel.WidgetAuraTrackDisease, 16+16, -2)
@@ -515,7 +517,8 @@ function ShowTidyPlatesHubGladiatorPanel() TidyPlatesUtility.OpenInterfacePanel(
 ---------------------------------------------
 
 function ShowTidyPlatesHubPanel()
-	local profile = TidyPlatesOptions.ActiveProfile
+	local profile = TidyPlates.GetProfile()
+
 	if profile == "Tank" then
 		ShowTidyPlatesHubTankPanel()
 	elseif profile == "Healer" then

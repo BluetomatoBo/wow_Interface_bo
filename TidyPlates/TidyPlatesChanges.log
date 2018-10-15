@@ -1,29 +1,88 @@
 Pack Command:  		zip -vr TP_Release.zip TidyPlates* -x@exclude.lst
+Copy command:		cp -R TidyPlates* ~/tidyplates
 Exclusion List: 	*.svn*   *.DS_Store*   exclude.lst   *.db   *.png   *.gif   *.jpg   *.tif   *.txt   *.psd   *.bmp   *.zip
 
 
+See TidyPlatesChanges.log for cumulative changes:
 
 
+---------------------------
+6.19.2-Beta4
+---------------------------
+* Core: bugs
+* Hub Widgets: Fixed duplicate code
+
+---------------------------
+6.19.2-Beta3
+---------------------------
+* AuraWidget: Fixed "Absolute Corruption"
+
+---------------------------
+6.19.2-Beta2
+---------------------------
+* Fix debug spam
+
+---------------------------
+6.19.2-Beta
+---------------------------
+
+* Aura Widget: Purgeable Effects: Needs testing!
+* /hub should now bring you to the current profile panel, rather than always going to "Damage"
+* Debuff coloring should look correct now; Fixed the tga file color
+* Combo Point Widget now uses a single graphical frame, and re-parents to the target nameplate.  
+	- This is to prepare for a large combo widget update
+	- The new widget will be called "Combat Widget", since it'll display more than just combo points
+	- This update, no new features are added; I just want to see if the anchoring system has issues
+* Unit Filter: Removed QuestInfo override on Inactive Units
+
+
+~~~~~~~~~~~~~~~~~~
+6.19.3+ Forecast:
+~~~~~~~~~~~~~~~~~~
 * Diagnostic Switch -  /tp info
 	- version, themes, hub output, in seperate window
+* Name Text Options; Hide, Change, etc.
+* Combat Widget for Druid, Monk & Rogue
+* Need to work on Threat Widget (Threat is important these days!)
+* (PvP tools are lower priority - Sorry!)
+* Opacity & Scale - Add "Spotlight Quest Mobs" ?
 
-* Combo Points for all
+* Start Naming your frames
+* CreateNameplateWidget
+	- Specify FrameName
+	- Specify events to recieve
+	-
+
+
+ - Absorbs integrated into the main bars
+ 	- Effective Max Health = Max Health + Max Absorb
+ 	-Threat- totalAbsorbs = UnitGetTotalAbsorbs("unit"), UNIT_ABSORB_AMOUNT_CHANGED
+ 		- [ #### Health ########## | ** Absorb *** | ............] (Total Bar Size = MaxHealth + MaxAbsorb).... Health Bar Color can define the Absorb Color
+ 		- Status Bar Needs a secondary Bar, Labeled 'Tail'
+
+ 	- Effective Max Health = Max Health + Max Heal Absorb?  Not quite sure on healing absorbs
+ 		- totalHealAbsorbs = UnitGetTotalHealAbsorbs("unit"), UNIT_HEAL_ABSORB_AMOUNT_CHANGED
+
+ - Combat/Combo Widget
+ 	- For all classes that use combo-like resources
+ 	- Seperate Widget into 6 Independent Icons
+
+ - Auras
+ 	- Color/Pip/Symbol Tagging
+ 	- Prefix: Tag1, Tag2, Tag3 = Defines priority and color and symbol
+
+
+ 	
+
+
+
+
 
 ---------------------------
 6.19.1
 ---------------------------
 
 * Fixed Hub PlaySound Error
-
-
-6.19.2 Forecast:
-
-* Diagnostic Switch -  /tp info
-	- version, themes, hub output, in seperate window
-
-* Combo Points for all
-
-
 
 ---------------------------
 6.19.Alpha2
