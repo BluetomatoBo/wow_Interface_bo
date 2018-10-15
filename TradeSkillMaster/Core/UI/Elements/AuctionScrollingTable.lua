@@ -288,6 +288,9 @@ function AuctionScrollingTable._UpdateSortFromQuery(self)
 end
 
 function AuctionScrollingTable._UpdateData(self)
+	if not self._query then
+		return
+	end
 	local sortKey = self._sortCol
 	local sortCol = self._tableInfo:_GetSortColById(sortKey)
 	wipe(self._data)

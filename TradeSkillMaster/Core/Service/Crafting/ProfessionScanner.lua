@@ -64,7 +64,7 @@ function ProfessionScanner.HasScanned()
 end
 
 function ProfessionScanner.HasSkills()
-	return private.db:GetNumRows() > 0
+	return private.hasScanned and private.db:GetNumRows() > 0
 end
 
 function ProfessionScanner.RegisterHasScannedCallback(callback)
@@ -80,22 +80,29 @@ function ProfessionScanner.CreateQuery()
 end
 
 function ProfessionScanner.GetNameBySpellId(spellId)
+	assert(private.hasScanned)
 	return private.db:GetUniqueRowField("spellId", spellId, "name")
 end
 
 function ProfessionScanner.GetRankBySpellId(spellId)
+	assert(private.hasScanned)
 	return private.db:GetUniqueRowField("spellId", spellId, "rank")
 end
 
 function ProfessionScanner.GetNumSkillupsBySpellId(spellId)
+	assert(private.hasScanned)
 	return private.db:GetUniqueRowField("spellId", spellId, "numSkillUps")
 end
 
 function ProfessionScanner.GetDifficultyBySpellId(spellId)
+	assert(private.hasScanned)
 	return private.db:GetUniqueRowField("spellId", spellId, "difficulty")
 end
 
 function ProfessionScanner.GetFirstSpellId()
+	if not private.hasScanned then
+		return
+	end
 	return private.db:NewQuery()
 		:Select("spellId")
 		:OrderBy("index", true)
@@ -103,7 +110,7 @@ function ProfessionScanner.GetFirstSpellId()
 end
 
 function ProfessionScanner.HasSpellId(spellId)
-	return private.db:GetUniqueRowField("spellId", spellId, "index") and true or false
+	return private.hasScanned and private.db:GetUniqueRowField("spellId", spellId, "index") and true or false
 end
 
 

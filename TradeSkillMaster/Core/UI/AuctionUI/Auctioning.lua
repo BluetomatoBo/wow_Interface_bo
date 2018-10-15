@@ -730,10 +730,8 @@ end
 
 function private.BidBuyoutTextOnValueChanged(text, value)
 	value = TSM.Money.FromString(value)
-	if value > MAXIMUM_BID_PRICE then
-		value = MAXIMUM_BID_PRICE
-	end
 	if value then
+		value = min(value, MAXIMUM_BID_PRICE)
 		private.fsm:ProcessEvent("EV_POST_DETAIL_CHANGED", text:GetContext(), value)
 	else
 		text:Draw()
@@ -783,6 +781,7 @@ function private.FSMCreate()
 		[ERR_AUCTION_USED_CHARGES] = false,
 		[ERR_AUCTION_WRAPPED_ITEM] = false,
 		[ERR_AUCTION_BAG] = false,
+		[ERR_NOT_ENOUGH_MONEY] = false,
 	}
 	TSMAPI_FOUR.Event.Register("UI_ERROR_MESSAGE", function(_, _, msg)
 		if POST_ERR_MSGS[msg] ~= nil then
@@ -1127,14 +1126,9 @@ function private.FSMCreate()
 			:AddTransition("ST_HANDLING_CONFIRM")
 			:AddEvent("EV_PROCESS_CLICKED", function(context)
 				if context.scanType == "POST" then
-					if GetMoney() >= TSM.Money.FromString(context.scanFrame:GetElement("header.item.cost.text"):GetText()) then
-						if not TSM.Auctioning.PostScan.DoProcess() then
-							-- we failed to post but can retry
-							return "ST_HANDLING_CONFIRM", false, true
-						end
-					else
-						UIErrorsFrame:AddMessage(ERR_NOT_ENOUGH_MONEY, 1.0, 0.1, 0.1, 1.0)
-						TSM.Auctioning.PostScan.DoSkip()
+					if not TSM.Auctioning.PostScan.DoProcess() then
+						-- we failed to post but can retry
+						return "ST_HANDLING_CONFIRM", false, true
 					end
 				elseif context.scanType == "CANCEL" then
 					if not TSM.Auctioning.CancelScan.DoProcess() then

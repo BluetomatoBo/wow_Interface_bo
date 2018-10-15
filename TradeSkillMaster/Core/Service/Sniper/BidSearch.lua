@@ -66,5 +66,8 @@ end
 function private.MarketValueFunction(row)
 	local itemString = row:GetField("itemString")
 	local _, operationSettings = TSM.Operations.GetFirstOperationByItem("Sniper", itemString)
+	if not operationSettings then
+		return nil
+	end
 	return TSMAPI_FOUR.CustomPrice.GetValue(operationSettings.belowPrice, itemString)
 end

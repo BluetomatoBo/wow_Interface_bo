@@ -17,6 +17,7 @@ local private = {
 	auctionScanDB = nil,
 	itemList = {},
 	operationDB = nil,
+	debugLog = {},
 }
 local QUEUE_DB_SCHEMA = {
 	fields = {
@@ -165,6 +166,7 @@ function PostScan.DoProcess()
 		ClearCursor()
 		local _, bagQuantity = GetContainerItemInfo(bag, slot)
 		TSM:LOG_INFO("Posting %s x %d from %d,%d (%d)", itemString, stackSize, bag, slot, bagQuantity or -1)
+		private.DebugLogInsert(itemString, "Posting %d from %d, %d", stackSize, bag, slot)
 		success = true
 	else
 		-- we couldn't find this item, so mark this post as failed and we'll try again later
@@ -199,6 +201,7 @@ function PostScan.HandleConfirm(success, canRetry)
 		return
 	end
 
+	private.DebugLogInsert(confirmRow:GetField("itemString"), "HandleConfirm(success=%s) x %d", tostring(success), confirmRow:GetField("stackSize"))
 	if canRetry then
 		confirmRow:SetField("numFailed", confirmRow:GetField("numFailed") + 1)
 	end
@@ -215,6 +218,7 @@ function PostScan.PrepareFailedPosts()
 	for _, row in query:Iterator() do
 		local numFailed, numProcessed, numConfirmed = row:GetFields("numFailed", "numProcessed", "numConfirmed")
 		assert(numProcessed >= numFailed and numConfirmed >= numFailed)
+		private.DebugLogInsert(row:GetField("itemString"), "Preparing failed (%d, %d, %d)", numFailed, numProcessed, numConfirmed)
 		row:SetField("numFailed", 0)
 			:SetField("numProcessed", numProcessed - numFailed)
 			:SetField("numConfirmed", numConfirmed - numFailed)
@@ -249,6 +253,7 @@ end
 -- ============================================================================
 
 function private.ScanThread(auctionScan, auctionScanDB, scanContext)
+	wipe(private.debugLog)
 	private.auctionScanDB = auctionScanDB
 	auctionScan:SetScript("OnFilterPartialDone", private.AuctionScanOnFilterPartialDone)
 	auctionScan:SetScript("OnFilterDone", private.AuctionScanOnFilterDone)
@@ -266,6 +271,7 @@ function private.ScanThread(auctionScan, auctionScanDB, scanContext)
 	-- generate the list of items we want to scan for
 	wipe(private.itemList)
 	for itemString, numHave in pairs(bagCounts) do
+		private.DebugLogInsert(itemString, "Scan thread has %d", numHave)
 		local groupPath = TSM.Groups.GetPathByItem(itemString)
 		local contextFilter = scanContext.isItems and itemString or groupPath
 		if groupPath and tContains(scanContext, contextFilter) and private.CanPostItem(itemString, groupPath, numHave) then
@@ -295,6 +301,7 @@ function private.UpdateBagDB()
 	private.bagDB:Truncate()
 	private.bagDB:BulkInsertStart()
 	for _, bag, slot, itemString, quantity in TSMAPI_FOUR.Inventory.BagIterator(true, false, false, true) do
+		private.DebugLogInsert(itemString, "Updating bag DB with %d in %d, %d", quantity, bag, slot)
 		private.bagDB:BulkInsertNewRow(itemString, bag, slot, quantity, TSMAPI_FOUR.Util.JoinSlotId(bag, slot))
 	end
 	private.bagDB:BulkInsertEnd()
@@ -470,10 +477,11 @@ function private.AuctionScanOnFilterDone(_, filter)
 		if groupPath then
 			local numHave = 0
 			local bagQuery = private.bagDB:NewQuery()
-				:Select("quantity")
+				:Select("quantity", "bag", "slot")
 				:Equal("itemString", itemString)
-			for _, quantity in bagQuery:Iterator() do
+			for _, quantity, bag, slot in bagQuery:Iterator() do
 				numHave = numHave + quantity
+				private.DebugLogInsert(itemString, "Filter done and have %d in %d, %d", numHave, bag, slot)
 			end
 			bagQuery:Release()
 
@@ -638,6 +646,7 @@ function private.GeneratePosts(itemString, operationName, operationSettings, num
 end
 
 function private.AddToQueue(itemString, operationName, itemBid, itemBuyout, stackSize, numStacks, postTime)
+	private.DebugLogInsert(itemString, "Queued %d stacks of %d", stackSize, numStacks)
 	private.queueDB:NewRow()
 		:SetField("index", private.nextQueueIndex)
 		:SetField("itemString", itemString)
@@ -677,13 +686,16 @@ function private.GetPostBagSlot(itemString, quantity)
 			:OrderBy("quantity", false)
 			:GetFirstResultAndRelease()
 	end
-	assert(bag and slot)
+	if not bag or not slot then
+		private.ErrorForItem(itemString, "Failed to initial find bag / slot")
+	end
 	local removeContext = TSMAPI_FOUR.Util.AcquireTempTable()
 	bag, slot = private.ItemBagSlotHelper(itemString, bag, slot, quantity, removeContext)
 
 	if TSMAPI_FOUR.Item.ToBaseItemString(GetContainerItemLink(bag, slot), true) ~= itemString then
 		-- something changed with the player's bags so we can't post the item right now
 		TSMAPI_FOUR.Util.ReleaseTempTable(removeContext)
+		private.DebugLogInsert(itemString, "Bags changed")
 		return
 	end
 	local _, _, _, quality = GetContainerItemInfo(bag, slot)
@@ -691,12 +703,14 @@ function private.GetPostBagSlot(itemString, quantity)
 	if quality == -1 then
 		-- the game client doesn't have item info cached for this item, so we can't post it yet
 		TSMAPI_FOUR.Util.ReleaseTempTable(removeContext)
+		private.DebugLogInsert(itemString, "No item info")
 		return
 	end
 	for slotId, removeQuantity in pairs(removeContext) do
 		private.RemoveBagQuantity(slotId, removeQuantity)
 	end
 	TSMAPI_FOUR.Util.ReleaseTempTable(removeContext)
+	private.DebugLogInsert(itemString, "GetPostBagSlot(%d) -> %d, %d", quantity, bag, slot)
 	return bag, slot
 end
 
@@ -767,12 +781,16 @@ function private.ItemBagSlotHelper(itemString, bag, slot, quantity, removeContex
 		:GreaterThan("slotId", slotId)
 		:OrderBy("slotId", true)
 		:GetFirstResultAndRelease()
+	if not rowBag or not rowSlot then
+		private.ErrorForItem(itemString, "Failed to initial find bag / slot")
+	end
 	return private.ItemBagSlotHelper(itemString, rowBag, rowSlot, quantity, removeContext)
 end
 
 function private.RemoveBagQuantity(slotId, quantity)
 	local row = private.bagDB:GetUniqueRow("slotId", slotId)
 	local remainingQuantity = row:GetField("quantity") - quantity
+	private.DebugLogInsert(row:GetField("itemString"), "Removing %d (%d remain) from %d", quantity, remainingQuantity, slotId)
 	if remainingQuantity > 0 then
 		row:SetField("quantity", remainingQuantity)
 			:Update()
@@ -789,4 +807,27 @@ end
 
 function private.NextProcessRowQueryHelper(row)
 	return row:GetField("numProcessed") < row:GetField("numStacks")
+end
+
+function private.DebugLogInsert(itemString, ...)
+	tinsert(private.debugLog, itemString)
+	tinsert(private.debugLog, format(...))
+end
+
+function private.ErrorForItem(itemString, errorStr)
+	for i = 1, #private.debugLog, 2 do
+		if private.debugLog[i] == itemString then
+			TSM:LOG_INFO(private.debugLog[i + 1])
+		end
+	end
+	TSM:LOG_INFO("Bag state:")
+	for b = 0, NUM_BAG_SLOTS do
+		for s = 1, GetContainerNumSlots(b) do
+			if TSMAPI_FOUR.Item.ToBaseItemString(GetContainerItemLink(b, s)) == itemString then
+				local _, q = GetContainerItemInfo(b, s)
+				TSM:LOG_INFO("%d in %d, %d", q, b, s)
+			end
+		end
+	end
+	error(errorStr, 2)
 end

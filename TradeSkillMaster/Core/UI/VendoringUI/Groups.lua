@@ -227,6 +227,7 @@ function private.FSMCreate()
 				assert(not context.currentOperation)
 			end)
 			:AddTransition("ST_FRAME_OPEN")
+			:AddTransition("ST_FRAME_CLOSED")
 			:AddEvent("EV_FRAME_SHOW", function(context, frame)
 				context.frame = frame
 				return "ST_FRAME_OPEN"

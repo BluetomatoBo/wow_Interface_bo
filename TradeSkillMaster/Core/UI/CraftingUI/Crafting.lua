@@ -956,12 +956,13 @@ function private.FSMCreate()
 		queueFrame:GetElement("queueProfit.text"):SetText(totalProfitText)
 		queueFrame:GetElement("queueList"):Draw()
 
+		local professionLoaded = private.IsProfessionLoaded()
 		local nextCraftRecord = queueFrame:GetElement("queueList"):GetFirstData()
 		local nextCraftSpellId = nextCraftRecord and nextCraftRecord:GetField("spellId")
-		if nextCraftRecord and (not TSM.Crafting.ProfessionScanner.HasSpellId(nextCraftSpellId) or TSM.Crafting.ProfessionUtil.GetNumCraftable(nextCraftSpellId) == 0) then
+		if nextCraftRecord and (not professionLoaded or not TSM.Crafting.ProfessionScanner.HasSpellId(nextCraftSpellId) or TSM.Crafting.ProfessionUtil.GetNumCraftable(nextCraftSpellId) == 0) then
 			nextCraftRecord = nil
 		end
-		local canCraftFromQueue = private.IsProfessionLoaded() and private.IsPlayerProfession()
+		local canCraftFromQueue = professionLoaded and private.IsPlayerProfession()
 		queueFrame:GetElement("craft.craftNextBtn")
 			:SetDisabled(not canCraftFromQueue or not nextCraftRecord or context.craftingSpellId)
 			:SetPressed(context.craftingSpellId and context.craftingType == "queue")

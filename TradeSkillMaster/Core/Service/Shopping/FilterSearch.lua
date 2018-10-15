@@ -42,20 +42,21 @@ function FilterSearch.PrepareFilter(filterStr, mode, marketValueSource)
 	for filter in TSMAPI_FOUR.Util.StrSplitIterator(filterStr, ";") do
 		filter = strtrim(filter)
 		if isValid and filter ~= "" and private.itemFilter:ParseStr(filter) then
-			if mode == "CRAFTING" and not strfind(strlower(filter), "/crafting") then
+			local str = private.itemFilter:GetStr()
+			if mode == "CRAFTING" and not strfind(strlower(filter), "/crafting") and str then
 				filter = filter.."/crafting"
-			elseif mode == "DISENCHANT" and not strfind(strlower(filter), "/disenchant") then
+			elseif mode == "DISENCHANT" and not strfind(strlower(filter), "/disenchant") and str then
 				filter = filter.."/disenchant"
 			end
 			if strfind(strlower(filter), "/crafting") then
-				local craftingTargetItem = TSMAPI_FOUR.Conversions.GetTargetItemByName(private.itemFilter:GetStr())
+				local craftingTargetItem = TSMAPI_FOUR.Conversions.GetTargetItemByName(str)
 				local conversionInfo = craftingTargetItem and TSMAPI_FOUR.Conversions.GetSourceItems(craftingTargetItem)
 				if not conversionInfo or not conversionInfo.convert then
 					isValid = false
 				end
 			end
 			if strfind(strlower(filter), "/disenchant") then
-				local craftingTargetItem = TSMAPI_FOUR.Conversions.GetTargetItemByName(private.itemFilter:GetStr())
+				local craftingTargetItem = TSMAPI_FOUR.Conversions.GetTargetItemByName(str)
 				local conversionInfo = craftingTargetItem and TSMAPI_FOUR.Conversions.GetSourceItems(craftingTargetItem)
 				if not conversionInfo or not conversionInfo.disenchant then
 					isValid = false

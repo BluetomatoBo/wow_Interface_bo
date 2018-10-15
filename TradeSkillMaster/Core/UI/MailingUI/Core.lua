@@ -164,6 +164,7 @@ function private.FSMCreate()
 			end)
 			:AddEvent("EV_MAIL_CLOSED", TSMAPI_FOUR.FSM.SimpleTransitionEventHandler("ST_CLOSED"))
 			:AddEvent("EV_SWITCH_BTN_CLICKED", function()
+				OpenMailFrame:Hide()
 				return "ST_FRAME_OPEN"
 			end)
 		)
