@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod(2147, "DBM-Uldir", nil, 1031)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 17959 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 17993 $"):sub(12, -3))
 mod:SetCreatureID(132998)
 mod:SetEncounterID(2122)
 mod:SetZone()
@@ -74,7 +74,7 @@ local specWarnGrowingCorruptionOther	= mod:NewSpecialWarningTaunt(270447, nil, n
 local specWarnExplosiveCorruptionOther	= mod:NewSpecialWarningTaunt(272506, nil, nil, nil, 1, 2)
 local specWarnBloodFeast				= mod:NewSpecialWarningYou(263235, nil, nil, nil, 1, 2)
 local yellBloodFeast					= mod:NewYell(263235, nil, nil, nil, "YELL")
-local yellBloodFeastFades				= mod:NewFadesYell(263235, nil, nil, nil, "YELL")
+local yellBloodFeastFades				= mod:NewIconFadesYell(263235, nil, nil, nil, "YELL")
 local specWarnBloodFeastTarget			= mod:NewSpecialWarningTargetCount(263235, nil, nil, nil, 1, 8)
 local specWarnMindNumbingChatter		= mod:NewSpecialWarningCast(263307, "SpellCaster", nil, nil, 1, 2)
 local specWarnBurstingBoilCast			= mod:NewSpecialWarningDodge(277007, nil, nil, nil, 2, 2)
@@ -104,7 +104,7 @@ local timerBurstingBoilCD				= mod:NewCDCountTimer(20.5, 277007, nil, nil, nil, 
 local timerMindNumbingChatterCD			= mod:NewCDTimer(13.4, 263307, nil, "SpellCaster", nil, 2)
 mod:AddTimerLine(SCENARIO_STAGE:format(3))
 local timerMalignantGrowthCD			= mod:NewCDTimer(25.6, 274582, nil, nil, nil, 3)--
-local timerGazeofGhuunCD				= mod:NewCDTimer(26.8, 275160, nil, nil, nil, 2)--26.8-29.1
+local timerGazeofGhuunCD				= mod:NewCDTimer(26.8, 275160, 195503, nil, nil, 2)--26.8-29.1 (shortname "Gaze")
 mod:AddTimerLine("Upper Platforms")--Dungeon journal later
 local timerMatrixCD						= mod:NewNextCountTimer(12.1, 263420, nil, nil, nil, 5)
 local timerReOrgBlast					= mod:NewBuffActiveTimer(25, 263482, nil, nil, nil, 6)
@@ -137,6 +137,7 @@ mod.vb.matrixActive = false
 local playerBursting = false
 local matrixTargets, bloodFeastTarget = {}, {}
 local thousandMawsTimers = {25.4, 26.3, 25.5, 24.2, 23.9, 23.1, 21.5, 21.9, 19.4}
+local thousandMawsTimersLFR = {27.78, 29.2, 27.9, 26.46, 26.13, 25.26, 23.51, 23.95, 21.21}--Timers 4+ extrapolated using 1.093x greater formula
 local seenAdds = {}
 
 local function checkThrowFail(self)
@@ -228,6 +229,29 @@ do
 	end
 end
 
+--Handles the ICD that Gaze of G'huun triggers on other abilities
+local function updateAllTimers(self, ICD)
+	DBM:Debug("updateAllTimers running", 3)
+	if self.vb.phase == 3 then
+		if timerWaveofCorruptionCD:GetRemaining(self.vb.waveCast+1) < ICD then
+			local elapsed, total = timerWaveofCorruptionCD:GetTime(self.vb.waveCast+1)
+			local extend = ICD - (total-elapsed)
+			DBM:Debug("timerWaveofCorruptionCD extended by: "..extend, 2)
+			timerWaveofCorruptionCD:Stop()
+			timerWaveofCorruptionCD:Update(elapsed, total+extend, self.vb.waveCast+1)
+		end
+		if timerMalignantGrowthCD:GetRemaining() < ICD then
+			local elapsed, total = timerMalignantGrowthCD:GetTime()
+			local extend = ICD - (total-elapsed)
+			DBM:Debug("timerMalignantGrowthCD extended by: "..extend, 2)
+			timerMalignantGrowthCD:Stop()
+			timerMalignantGrowthCD:Update(elapsed, total+extend)
+			countdownMalignantGrowth:Cancel()
+			countdownMalignantGrowth:Start(ICD)
+		end
+	end
+end
+
 function mod:OnCombatStart(delay)
 	table.wipe(matrixTargets)
 	table.wipe(bloodFeastTarget)
@@ -243,7 +267,11 @@ function mod:OnCombatStart(delay)
 	self.vb.matrixActive = false
 	playerBursting = false
 	timerMatrixCD:Start(5.3, 1)
-	timerThousandMawsCD:Start(24.3-delay, 1)
+	if self:IsLFR() then
+		timerThousandMawsCD:Start(27.7-delay, 1)
+	else
+		timerThousandMawsCD:Start(24.3-delay, 1)
+	end
 	if not self:IsMythic() then
 		self.vb.matrixSide = DBM_CORE_RIGHT
 		timerExplosiveCorruptionCD:Start(8-delay, 1)--SUCCESS
@@ -279,7 +307,7 @@ function mod:SPELL_CAST_START(args)
 		self.vb.mawCastCount = self.vb.mawCastCount + 1
 		specWarnThousandMaws:Show()
 		specWarnThousandMaws:Play("killmob")
-		local timer = thousandMawsTimers[self.vb.mawCastCount+1]
+		local timer = self:IsLFR() and thousandMawsTimersLFR[self.vb.mawCastCount+1] or thousandMawsTimers[self.vb.mawCastCount+1]
 		if timer then
 			timerThousandMawsCD:Start(timer, self.vb.mawCastCount+1)
 		end
@@ -316,13 +344,18 @@ function mod:SPELL_CAST_START(args)
 	elseif spellId == 263307 then
 		specWarnMindNumbingChatter:Show()
 		specWarnMindNumbingChatter:Play("stopcast")
-		timerMindNumbingChatterCD:Start(nil, args.sourceGUID)
+		if self:IsMythic() then
+			timerMindNumbingChatterCD:Start(9.8, args.sourceGUID)
+		else
+			timerMindNumbingChatterCD:Start(13.4, args.sourceGUID)
+		end
 	elseif spellId == 275160 then
 		specWarnGazeofGhuun:Show(args.sourceName)
 		specWarnGazeofGhuun:Play("turnaway")
-		local timer = self:IsHard() and 26.7 or self:IsEasy() and 31.6--TODO, LFR, easy is assumed
+		local timer = self:IsMythic() and 21.97 or self:IsHard() and 26.7 or self:IsEasy() and 31.6--TODO, LFR, easy is assumed
 		timerGazeofGhuunCD:Start(timer)
 		countdownGazeofGhuun:Start(timer)
+		updateAllTimers(self, 3.6)
 	end
 end
 
@@ -330,7 +363,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 	local spellId = args.spellId
 	if spellId == 263235 then--Blood Feast
 		self.vb.waveCast = 0
-		timerWaveofCorruptionCD:Start(15.6, 1)--Wave of corruption is next, not blood Feast
+		timerWaveofCorruptionCD:Start(15.6, 1)--16.6--Wave of corruption is next, not blood Feast
 	elseif (spellId == 263482 or spellId == 263503) then
 		timerReOrgBlast:Start()
 		if self.vb.phase < 2 then--Phase 1 to Phase 2 Transition
@@ -342,7 +375,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			timerMassiveSmashCD:Stop()--Technically should AddTime(25) each add, but honestly, if the adds don't die in this 25 second window you done fucked up
 			timerDarkBargainCD:Stop()--Technically should AddTime(25) each add, but honestly, if the adds don't die in this 25 second window you done fucked up
 			if self:IsMythic() then
-				timerWaveofCorruptionCD:Start(33, 1)
+				timerWaveofCorruptionCD:Start(34, 1)
 			end
 		else--Drive cast in Phase 2
 			if self.vb.waveCast == 2 then--Current timer is blood feast
@@ -379,7 +412,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 			end
 		else--P3, No more blood feast, only waves
 			--Faster on easy because no growth
-			local timer = self:IsHard() and 25.5 or self:IsEasy() and 20.5--TODO, LFR
+			local timer = self:IsMythic() and 15.84 or self:IsHard() and 25.5 or self:IsEasy() and 20.4
 			timerWaveofCorruptionCD:Start(timer, self.vb.waveCast+1)
 		end
 	elseif spellId == 276839 then
@@ -394,18 +427,20 @@ function mod:SPELL_CAST_SUCCESS(args)
 		timerBurstingBoilCD:Stop()
 		timerExplosiveCorruptionCD:Stop()
 		countdownExplosiveCorruption:Cancel()
-		timerMalignantGrowthCD:Start(33.7)--33.7-34.1
-		countdownMalignantGrowth:Start(33.7)
+		if not self:IsLFR() then
+			timerMalignantGrowthCD:Start(33.7)--33.7-34.1
+			countdownMalignantGrowth:Start(33.7)
+		end
 		if self:IsMythic() then
 			timerBurstingBoilCD:Start(28, self.vb.burstingCount+1)
 			timerExplosiveCorruptionCD:Start(44.5, 1)--SUCCESS
 			countdownExplosiveCorruption:Start(44.5)
 		else
-			timerExplosiveCorruptionCD:Start(30, 1)--SUCCESS
-			countdownExplosiveCorruption:Start(30)
+			timerExplosiveCorruptionCD:Start(29.8, 1)--SUCCESS
+			countdownExplosiveCorruption:Start(29.8)
 		end
-		local timer1 = self:IsMythic() and 44.9 or self:IsHeroic() and 47.4 or self:IsEasy() and 52.3--Gaze of G'huun
-		local timer2 = self:IsHeroic() and 49.9 or 37.6--Wave of Corruption (Mythic and normal are both 37.6, heroic is 49.9 cause it's delayed by other casts)
+		local timer1 = self:IsMythic() and 44.9 or self:IsHeroic() and 47.4 or self:IsEasy() and 52.2--Gaze of G'huun
+		local timer2 = self:IsHeroic() and 49.9 or 37.6--Wave of Corruption (Mythic, normal, and LFR are all 37.6, heroic is 49.9 cause it's delayed by other casts)
 		timerGazeofGhuunCD:Start(timer1)
 		countdownGazeofGhuun:Start(timer1)
 		timerWaveofCorruptionCD:Start(timer2, 1)
@@ -524,7 +559,7 @@ function mod:SPELL_AURA_APPLIED(args)
 			local _, _, _, _, _, expireTime = DBM:UnitDebuff("player", spellId)--Remove debuff scan once mythic time confirmed, then can hard code for efficiency sake
 			if expireTime then--Done this way so hotfix automatically goes through
 				local remaining = expireTime-GetTime()
-				yellBloodFeastFades:Countdown(remaining)
+				yellBloodFeastFades:Countdown(remaining, nil, 7)
 			end
 		else
 			specWarnBloodFeastTarget:Show(self.vb.bloodFeastCount, args.destName)
@@ -556,7 +591,11 @@ function mod:SPELL_AURA_APPLIED(args)
 			specWarnDarkBargainOther:Play("changemt")
 		end
 	elseif spellId == 263284 then--Horror Spawn
-		timerMindNumbingChatterCD:Start(10, args.destGUID)
+		if self:IsMythic() then
+			timerMindNumbingChatterCD:Start(7, args.destGUID)
+		else
+			timerMindNumbingChatterCD:Start(10, args.destGUID)
+		end
 	elseif spellId == 277007 then
 		self.vb.burstingIcon = self.vb.burstingIcon + 1
 		if args:IsPlayer() then
@@ -649,6 +688,7 @@ end
 function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
 	if msg:find("spell:263420") and self:AntiSpam(10, 7) then
 		self.vb.matrixActive = true
+		self.vb.matrixCount = self.vb.matrixCount + 1
 		if not self:IsMythic() then
 			if self.vb.matrixSide == DBM_CORE_LEFT then
 				self.vb.matrixSide = DBM_CORE_RIGHT
@@ -659,7 +699,6 @@ function mod:CHAT_MSG_RAID_BOSS_EMOTE(msg, npc, _, _, target)
 		else
 			warnMatrixSpawn:Show(self.vb.matrixCount)
 		end
-		self.vb.matrixCount = self.vb.matrixCount + 1
 	end
 end
 
