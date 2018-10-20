@@ -16,6 +16,18 @@ HallowsEnd.points = {}
 local db
 local defaults = { profile = { completed = false, icon_scale = 1.4, icon_alpha = 0.8 } }
 
+local continents = {
+	[12]  = true, -- Kalimdor
+	[13]  = true, -- Eastern Kingdoms
+	[101] = true, -- Outland
+	[113] = true, -- Northrend
+	[424] = true, -- Pandaria
+	[572] = true, -- Draenor
+	[619] = true, -- Broken Isles
+	[875] = true, -- Zandalar
+	[876] = true, -- Kul Tiras
+}
+
 
 -- upvalues
 local _G = getfenv(0)
@@ -78,24 +90,19 @@ function HallowsEnd:OnLeave()
 end
 
 
-local function createWaypoint(mapFile, coord)
+local function createWaypoint(mapID, coord)
 	local x, y = HandyNotes:getXY(coord)
-	local m = HandyNotes:GetMapFiletoMapID(mapFile)
-
-	if m then
-		TomTom:AddMFWaypoint(m, nil, x, y, { title = "Candy Bucket" })
-		TomTom:SetClosestWaypoint()
---	else
---		print(mapFile, m, x, y)
-	end
+	TomTom:AddWaypoint(mapID, x, y, { title = "Candy Bucket", persistent = nil, minimap = true, world = true })
 end
 
 local function createAllWaypoints()
-	for mapFile, coords in next, points do
+	for mapID, coords in next, points do
+		if type(mapID) == "string" then HandyNotes:Print(mapID, "needs to be changed to the new format.") else
 		for coord, questID in next, coords do
 			if coord and questID ~= "Zidormi" and (db.completed or not completedQuests[questID]) then
-				createWaypoint(mapFile, coord)
+				createWaypoint(mapID, coord)
 			end
+		end
 		end
 	end
 end
@@ -113,74 +120,26 @@ end
 
 do
 	-- custom iterator we use to iterate over every node in a given zone
-	local function iter(t, prestate)
-		if not HallowsEnd.isEnabled then return nil end
-		if not t then return nil end
+	local function iterator(t, prev)
+		if not HallowsEnd.isEnabled then return end
+		if not t then return end
 
-		local state, value = next(t, prestate)
-
-		while state do -- have we reached the end of this zone?
-			if value and (db.completed or not completedQuests[value]) then
-				if value == "Zidormi" then
-					return state, nil, "interface\\icons\\spell_holy_borrowedtime", db.icon_scale, db.icon_alpha
+		local coord, v = next(t, prev)
+		while coord do
+			if v and (db.completed or not completedQuests[v]) then
+				if v == "Zidormi" then
+					return coord, nil, "interface\\icons\\spell_holy_borrowedtime", db.icon_scale, db.icon_alpha
 				else
-					return state, nil, "interface\\icons\\achievement_halloween_candy_01", db.icon_scale, db.icon_alpha
+					return coord, nil, "interface\\icons\\achievement_halloween_candy_01", db.icon_scale, db.icon_alpha
 				end
 			end
 
-			state, value = next(t, state) -- get next data
-		end
-
-		return nil, nil, nil, nil
-	end
-
-	local function iterCont(t, prestate)
-		if not HallowsEnd.isEnabled then return nil end
-		if not t then return nil end
-
-		local zone = t.Z
-		local mapFile = HandyNotes:GetMapIDtoMapFile(t.C[zone])
-		local cleanMapFile = gsub(mapFile, "_terrain%d+$", "")
-		local data = points[cleanMapFile]
-		local state, value
-
-		while mapFile do
-			if data then -- only if there is data for this zone
-				state, value = next(data, prestate)
-
-				while state do -- have we reached the end of this zone?
-					if value and (db.completed or not completedQuests[value]) then -- show on continent?
-						if value == "Zidormi" then
-							return state, mapFile, "interface\\icons\\spell_holy_borrowedtime", db.icon_scale, db.icon_alpha
-						else
-							return state, mapFile, "interface\\icons\\achievement_halloween_candy_01", db.icon_scale, db.icon_alpha
-						end
-					end
-
-					state, value = next(data, state) -- get next data
-				end
-			end
-
-			-- get next zone
-			zone = next(t.C, zone)
-			t.Z = zone
-			mapFile = HandyNotes:GetMapIDtoMapFile(t.C[zone])
-			cleanMapFile = gsub(mapFile or "", "_terrain%d+$", "")
-			data = points[cleanMapFile]
-			prestate = nil
+			coord, v = next(t, coord)
 		end
 	end
 
-	function HallowsEnd:GetNodes(mapFile)
-		local C = HandyNotes:GetContinentZoneList(mapFile) -- Is this a continent?
-
-		if C then
-			local tbl = { C = C, Z = next(C) }
-			return iterCont, tbl, nil
-		else
-			mapFile = gsub(mapFile, "_terrain%d+$", "")
-			return iter, points[mapFile], nil
-		end
+	function HallowsEnd:GetNodes2(mapID, minimap)
+		return iterator, points[mapID]
 	end
 end
 
@@ -274,18 +233,6 @@ local function CheckEventActive()
 
 		HandyNotes:Print("The Hallow's End celebrations have ended.  See you next year!")
 	end
-
-	if UnitFactionGroup("player") == "Alliance" then
-		points["Westfall"] = nil
-
-		if completedQuests[26322] then
-			-- Sentinel Hill is on fire, the bucket is in the tower
-			points["Westfall"] = { [56824732] = 12340 }
-		else
-			-- Sentinel Hill is not on fire, the bucket is in the inn
-			points["Westfall"] = { [52915374] = 12340 }
-		end
-	end
 end
 
 
@@ -293,10 +240,36 @@ end
 function HallowsEnd:OnEnable()
 	self.isEnabled = false
 
+	-- special treatment for Westfall
+	if UnitFactionGroup("player") == "Alliance" then
+		if completedQuests[26322] then
+			points[52] = { [56824732] = 12340 } -- Sentinel Hill is on fire, the bucket is in the tower
+		else
+			points[52] = { [52915374] = 12340 } -- Sentinel Hill is not on fire, the bucket is in the inn
+		end
+	end
+
 	local HereBeDragons = LibStub("HereBeDragons-2.0", true)
 	if not HereBeDragons then
 		HandyNotes:Print("Your installed copy of HandyNotes is out of date and the Hallow's End plug-in will not work correctly.  Please update HandyNotes to version 1.5.0 or newer.")
 		return
+	end
+
+	for continentMapID in next, continents do
+		local children = C_Map.GetMapChildrenInfo(continentMapID)
+		for _, map in next, children do
+			local coords = points[map.mapID]
+			if coords then
+				for coord, criteria in next, coords do
+					local mx, my = HandyNotes:getXY(coord)
+					local cx, cy = HereBeDragons:TranslateZoneCoordinates(mx, my, map.mapID, continentMapID)
+					if cx and cy then
+						points[continentMapID] = points[continentMapID] or {}
+						points[continentMapID][HandyNotes:getCoord(cx, cy)] = criteria
+					end
+				end
+			end
+		end
 	end
 
 	local date = C_Calendar.GetDate()
